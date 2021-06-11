@@ -2,102 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8F023A3F3C
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 11:40:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 372853A3FAA
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jun 2021 11:57:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D1D01932;
-	Fri, 11 Jun 2021 11:40:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D1D01932
+	by alsa0.perex.cz (Postfix) with ESMTPS id AF1271927;
+	Fri, 11 Jun 2021 11:56:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF1271927
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623404456;
-	bh=t/u9exB41Dj9Wj/HEe2AeMCe5J9vf6rR116iV9gJ+gM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1623405422;
+	bh=3wG/TCQZ3O54F6NXItDwStkCj4fcCJIrjjz0TqVpLpY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VbhCxmRWNEQw6BOdmi9dHMyV85N4WdcBptZS7IaRgjIqgAhxa5ab6DyNvP2N6v49v
-	 XEYmDQv1O0Cf9FLuArQHWUNG6FvS1QfhJJvACJJWHRJ5FgS7+Z4LdLsk7BRfjOg76l
-	 xWXB1FtW+kA/E5Q3BUrxtG+Zq7rIL8gl/g+pvcPY=
+	b=lzUMnmScXwZ7LzJac1wmmEAC+aseIrjRh+fYYUmVa8vJqh4Wyfhlx/2LqcIp0/sJ2
+	 RDP2P7LWFjez7Vrr6XOalKfd7oefV8/H4MsYhJLrfGVbkenmT8ZPiVG+kX2Q0s8IBg
+	 iihUzqrqNTanRmJe6Spz5iHCA/vMvntLSs/GeFO0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CCD0DF804E0;
-	Fri, 11 Jun 2021 11:38:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0CC25F80276;
+	Fri, 11 Jun 2021 11:55:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E0355F804CA; Fri, 11 Jun 2021 11:37:53 +0200 (CEST)
+ id 1E5A1F80149; Fri, 11 Jun 2021 11:55:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
- [64.147.123.19])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1BCA2F804C2
- for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 11:37:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BCA2F804C2
+ by alsa1.perex.cz (Postfix) with ESMTPS id DEB52F80149
+ for <alsa-devel@alsa-project.org>; Fri, 11 Jun 2021 11:55:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEB52F80149
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="4elbml2S"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="wmHVJV+6"
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 7B7711AFF;
- Fri, 11 Jun 2021 05:37:48 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Fri, 11 Jun 2021 05:37:48 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=efE89pEmRxnS3
- XYyJlRs4LPxJ1xwWk2TzmO3uBn0TRU=; b=4elbml2S4QMBoFW+WBkgkaQ+xgcAl
- yLaaUOT5HTakgrtlpxAZ/SZxzeSOckXWv5RTJdCgegADKTmJ4EZvfsH2XDtcwSL/
- Kkv5bwTMPBjrM+wgK7drKtzIsivhU+a1K334jCvL+pB0LM3xaJQatsmr9+x2+Myy
- dJXp82ZA/bZ73H6YAlkm1IgnoHDwgnA4U0BsdMlAzoP7HH/bY6iVkWiSIH5hthAL
- elWUHlGv8PhHhd6HirWbb4z8VWRDlVDY/Krzeu6IBjfAL0GOprAabl40ZK+cqDxl
- M+Yc5r5u6Dddv1hgsTwqapu5f50QFw0wL9Khe6GYFf3ZMlYdNmWgnzIfg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=efE89pEmRxnS3XYyJlRs4LPxJ1xwWk2TzmO3uBn0TRU=; b=wmHVJV+6
- f7+FjJG2p5D5EJtE+SapBFu7MuMzYYbdUigYbNSuqK9+ZrCeH6SE4jFt5Dp5h3pz
- CE3tBgZGmbsZxW619gdcVFLWwQFtTgUEED/y5qgYeq+W+vz4saU4Aia9u9aIYXnX
- a5srDUqnfi5ikO1z3BGHnkWgqSNSOV/6pk+4K6FpwY/T3V0LV3u4s2sXJc8A4R3A
- ISEidAcNJlWZHPr/uT3ZeLCxaVCnbnVdioVZ6FHrumY2w3CP52jmaH0DNfcSzxPQ
- grOFPde752a8iYxwJbpBM7+7/nXqU470cCnSXAb5ra/fwliv6nULzslb/feZpFZw
- hwOkjLGpKGoTug==
-X-ME-Sender: <xms:6y7DYOfM3TGCqNfvnBdelxaAufo_sjbtg7joVg2NdxXRL-Nmh7dqKQ>
- <xme:6y7DYIPkcQA4_oeH5wFrZwO-zt70MbjD6A3bMFvjLWWIhoCfe6aFOamplqmbGsts8
- DKSxRiaTS9G9bamvx0>
-X-ME-Received: <xmr:6y7DYPhV8L19DjXZvL4534qMzM_1IOLCiG1x8jYKF-RrD4XTOzgzEXEKT0gbyDicU9wY8aPe_r5e5R7Kc5c4rWAJWLJB4dexBOqNDJjy3knGBh0s1Oq1>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfedujedgudejucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
- dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
- shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepveefffefke
- etgfevgeefleehfffhueejtdejveethfekveektdejjedvtdejhfejnecuvehluhhsthgv
- rhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihessh
- grkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:6y7DYL_WFGIQmFQOMfN9saM_qPwSdaINVJoRn6H_toHWv5npJ-MtzA>
- <xmx:6y7DYKvNJlJRSbGuIfKOXta9n2oRtEwOU0VqSXnwmGZ_d7insN_SfQ>
- <xmx:6y7DYCHQ1zty9-ZcG84DMuvICNUPync5Orm0CozZl_ew2dEDvBOKJg>
- <xmx:7C7DYPVaAlyEe-l4SPCKK1WIyfNwjfKZpgb4-BvWsQuQmCOajSmUew>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 11 Jun 2021 05:37:46 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH 6/6] ALSA: bebob: correct device entries for Phonic Helix
- Board and FireFly series
-Date: Fri, 11 Jun 2021 18:37:30 +0900
-Message-Id: <20210611093730.78254-7-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210611093730.78254-1-o-takashi@sakamocchi.jp>
-References: <20210611093730.78254-1-o-takashi@sakamocchi.jp>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="ehhH3ksO"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="spGexavE"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 3EBB321987;
+ Fri, 11 Jun 2021 09:55:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1623405323; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=VWlAXvt7ukm5oVPggCsdY4FUG1gcQcyeBBwOyXCsnkU=;
+ b=ehhH3ksOHJ6jBK3pFCfkD8fqdfkSwaz6DHQcdpZTifgXfkINF+PBENIisI98nPvAQAxgqd
+ UkGPQZlcZtDDTuw2B7No3nKk9jjvRTUKj3Q/XTnjVbOkw+TFSkPEcHCt9UhXEdCtMzZzxU
+ ztNh93plDA80SfHzhetDxLrjKe0ZgtU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1623405323;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=VWlAXvt7ukm5oVPggCsdY4FUG1gcQcyeBBwOyXCsnkU=;
+ b=spGexavE9X9LDmSSjUcIaA02qGLPU2QkWXUEmwQOD0eVeY6X8andvIdYwNGaZF+KJppU2J
+ jTzTPLX9PjiIoXCw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 2F8EFA3B9F;
+ Fri, 11 Jun 2021 09:55:23 +0000 (UTC)
+Date: Fri, 11 Jun 2021 11:55:23 +0200
+Message-ID: <s5hr1h87mk4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Muni Sekhar <munisekharrms@gmail.com>
+Subject: Re: SNDRV_PCM_IOCTL_READI_FRAMES returns EIO
+In-Reply-To: <CAHhAz+isS-TSMNhyCH_L3Vvc3ah+5NusFu1pBk0Z=Bepcst0aA@mail.gmail.com>
+References: <CAHhAz+iW30L0xsVaKD5V4P412L-hQ_5zZ-byd7qSW-MpSZB8AA@mail.gmail.com>
+ <s5heed896xl.wl-tiwai@suse.de>
+ <CAHhAz+isS-TSMNhyCH_L3Vvc3ah+5NusFu1pBk0Z=Bepcst0aA@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,66 +94,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Phonic shipped Helix board and FireFly series with IEEE 1394
-functionality. Regarding to the parameters in unit directory, these
-series have two cases below:
+On Fri, 11 Jun 2021 10:43:01 +0200,
+Muni Sekhar wrote:
+> 
+> On Fri, Jun 11, 2021 at 1:19 PM Takashi Iwai <tiwai@suse.de> wrote:
+> >
+> > On Fri, 11 Jun 2021 09:02:44 +0200,
+> > Muni Sekhar wrote:
+> > >
+> > > Hi all,
+> > >
+> > > I am using a USB sound card(snd-usb-audio), and it fails while doing
+> > > the audio recording "arecord: pcm_read:2032: read error: Input/output
+> > > error".
+> > >
+> > >  I noticed recording(arecord) audio data on a USB sound card fails at
+> > > SNDRV_PCM_IOCTL_READI_FRAMES is giving EIO.
+> > >
+> > > Can someone please clarify when the kernel returns EIO for Ioctl
+> > > SNDRV_PCM_IOCTL_READI_FRAMES? and is there a workaround for this?
+> >
+> > It's a problem of either your device (e.g. USB device firmware) or the
+> > kernel.  Do you get any relevant kernel error messages?
+> dmesg log does not indicate any such error messages when arecord fails.
 
-1. the same parameters in unit directory
- * Firefly 202
- * Firefly 302
- * Firefly 808 Universal
- * HelixBoard 12 FireWire, 12 Universal
- * HelixBoard 18 FireWire, 18 Universal
- * HelixBoard 24 FireWire, 24 Universal
+Then it's likely a debug print in PCM core, which is suppressed as
+default.  You can enable it via dyndbg stuff.  It won't help much for
+diagnose at this stage, though.
 
-2. Unique parameters in unit directory
- * FireFly 808
- * HelixBoard 12 FireWire MkII
- * HelixBoard 18 FireWire MkII
- * HelixBoard 24 FireWire MkII
+> Is there a way to prove it as a USB device firmware issue or kernel issue?
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/firewire/bebob/bebob.c | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
+You can check strace output, for example.  The PCM core is supposed to
+be bug-free regarding this, so it's about USB-audio driver, and the
+problem is specific to your device (other USB-audio devices work),
+hence it's very likely a firmware problem.
 
-diff --git a/sound/firewire/bebob/bebob.c b/sound/firewire/bebob/bebob.c
-index 9f8df57c1e8b..e8d5ba105480 100644
---- a/sound/firewire/bebob/bebob.c
-+++ b/sound/firewire/bebob/bebob.c
-@@ -406,13 +406,16 @@ static const struct ieee1394_device_id bebob_id_table[] = {
- 	SND_BEBOB_DEV_ENTRY(VEN_TERRATEC, 0x00000002, &spec_normal),
- 	/* CME, MatrixKFW */
- 	SND_BEBOB_DEV_ENTRY(VEN_CME, 0x00030000, &spec_normal),
--	/* Phonic, Helix Board 12 MkII */
-+	// Phonic Helix Board 12 FireWire MkII.
- 	SND_BEBOB_DEV_ENTRY(VEN_PHONIC, 0x00050000, &spec_normal),
--	/* Phonic, Helix Board 18 MkII */
-+	// Phonic Helix Board 18 FireWire MkII.
- 	SND_BEBOB_DEV_ENTRY(VEN_PHONIC, 0x00060000, &spec_normal),
--	/* Phonic, Helix Board 24 MkII */
-+	// Phonic Helix Board 24 FireWire MkII.
- 	SND_BEBOB_DEV_ENTRY(VEN_PHONIC, 0x00070000, &spec_normal),
--	/* Phonic, Helix Board 12 Universal/18 Universal/24 Universal */
-+	// Phonic FireFly 808 FireWire.
-+	SND_BEBOB_DEV_ENTRY(VEN_PHONIC, 0x00080000, &spec_normal),
-+	// Phonic FireFly 202, 302, 808 Universal.
-+	// Phinic Helix Board 12/18/24 FireWire, 12/18/24 Universal
- 	SND_BEBOB_DEV_ENTRY(VEN_PHONIC, 0x00000000, &spec_normal),
- 	/* Lynx, Aurora 8/16 (LT-FW) */
- 	SND_BEBOB_DEV_ENTRY(VEN_LYNX, 0x00000001, &spec_normal),
-@@ -476,11 +479,6 @@ static const struct ieee1394_device_id bebob_id_table[] = {
- 	/*  Infrasonic, Windy6 */
- 	/*  Mackie, Digital X Bus x.200 */
- 	/*  Mackie, Digital X Bus x.400 */
--	/*  Phonic, HB 12 */
--	/*  Phonic, HB 24 */
--	/*  Phonic, HB 18 */
--	/*  Phonic, FireFly 202 */
--	/*  Phonic, FireFly 302 */
- 	/*  Rolf Spuler, Firewire Guitar */
- 	{}
- };
--- 
-2.30.2
+> Please find the alsamixer output in the attached file alsamixer_output.png file.
 
+The mixer output has nothing to do with the PCM problem.
+
+
+Takashi

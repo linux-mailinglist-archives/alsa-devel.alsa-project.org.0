@@ -2,65 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 074E83A4C7B
-	for <lists+alsa-devel@lfdr.de>; Sat, 12 Jun 2021 05:36:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C30D63A4D61
+	for <lists+alsa-devel@lfdr.de>; Sat, 12 Jun 2021 09:31:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 87ECF1ABC;
-	Sat, 12 Jun 2021 05:36:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87ECF1ABC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 395CC1ABA;
+	Sat, 12 Jun 2021 09:30:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 395CC1ABA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623469011;
-	bh=JoUoA6g8FGPsqf2WoxAUUMJYkOrzdwQyt5o4XCvXaWY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=N2LI6GfgYYV9obeO5RZmZKzHosxGg1T1DIIMjH8fO1nbKU0ZmQ13qHQ6417d71N7B
-	 cREiKRKv6cahHFMeBbxsqdKOG/I6kslwPip5FONByqAIT0NP+iXZxnerkvAYnauuaj
-	 +3jQbsK8Xl3yW6ALcSvLG3pbpt3x0v8nJIdHM/pw=
+	s=default; t=1623483109;
+	bh=tHXl7SWOPtgmO7BL7LQMODbhIquviGYISr0mRTRB/7E=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=UARk2U/a0Ge/PTh/NfuCrJ5XwX9Ez3uyr9eBGn0L3XEolhaHuV7DYJd1LuWT6qcRs
+	 mNaJfORh7dftoLwPN8cKGd8dYkig/VB0+RW9fDzHzjD8UBZ/N7hKA328BeUoh9orOW
+	 +Er30ofwfgcfDZamzPt64i7FaveVSdZlueTxcMK8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2488EF80149;
-	Sat, 12 Jun 2021 05:35:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE64FF80227;
+	Sat, 12 Jun 2021 09:30:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0BBBFF80218; Sat, 12 Jun 2021 05:35:21 +0200 (CEST)
+ id 27ECCF80218; Sat, 12 Jun 2021 09:30:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A820F80149
- for <alsa-devel@alsa-project.org>; Sat, 12 Jun 2021 05:35:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A820F80149
-Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.54])
- by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4G23BC4HCjz1BLdg;
- Sat, 12 Jun 2021 11:30:11 +0800 (CST)
-Received: from dggema769-chm.china.huawei.com (10.1.198.211) by
- dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.1.2176.2; Sat, 12 Jun 2021 11:35:02 +0800
-Received: from localhost (10.174.179.215) by dggema769-chm.china.huawei.com
- (10.1.198.211) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Sat, 12
- Jun 2021 11:35:02 +0800
-From: YueHaibing <yuehaibing@huawei.com>
-To: <perex@perex.cz>, <tiwai@suse.com>
-Subject: [PATCH -next] ALSA: trident: Fix build error
-Date: Sat, 12 Jun 2021 11:34:58 +0800
-Message-ID: <20210612033458.42928-1-yuehaibing@huawei.com>
-X-Mailer: git-send-email 2.10.2.windows.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+ by alsa1.perex.cz (Postfix) with ESMTPS id E2305F800FB
+ for <alsa-devel@alsa-project.org>; Sat, 12 Jun 2021 09:30:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2305F800FB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="W1NTx2DK"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="go48V8Ie"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id A89AC2199D;
+ Sat, 12 Jun 2021 07:30:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1623483002; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=d4KBxpSu2FYjcjpQOtcw/aAHU40Zo/SsRhf98joc1V4=;
+ b=W1NTx2DKztNRmGGfAgmF5k/nKRqHu5z3N89vBZUoqp331zrG6xMNW3HpUNhADT00QHo6NT
+ 5vlVGhRMef3jpD0nVQPGThn47OwmwuN90wF2G2IzNfpd+peNqwFVpgco1BoqHK7GSH31LS
+ 4Zw/eADbk8MtoGEUoY5IvizL5iw3xMk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1623483002;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=d4KBxpSu2FYjcjpQOtcw/aAHU40Zo/SsRhf98joc1V4=;
+ b=go48V8Ief54zQ/YUuvWwLg4+SL5LCeZuhFPbsqzFwswJVF/62tvgDy1Xh3oMMEYwYS33wA
+ 2MhV3CiV4xrV8kBA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 8A0F4A3B83;
+ Sat, 12 Jun 2021 07:30:02 +0000 (UTC)
+Date: Sat, 12 Jun 2021 09:30:02 +0200
+Message-ID: <s5hk0mz5ymd.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: YueHaibing <yuehaibing@huawei.com>
+Subject: Re: [PATCH -next] ALSA: trident: Fix build error
+In-Reply-To: <20210612033458.42928-1-yuehaibing@huawei.com>
+References: <20210612033458.42928-1-yuehaibing@huawei.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.174.179.215]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
- dggema769-chm.china.huawei.com (10.1.198.211)
-X-CFilter-Loop: Reflected
-Cc: alsa-devel@alsa-project.org, YueHaibing <yuehaibing@huawei.com>,
- linux-kernel@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,31 +95,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-sound/pci/trident/trident_memory.c: In function ‘set_tlb_bus’:
-sound/pci/trident/trident_memory.c:85:35: error: ‘pagetr’ undeclared (first use in this function); did you mean ‘page’?
-  for (i = 0; i < UNIT_PAGES; i++, pagetr++) {
-                                   ^~~~~~
-                                   page
+On Sat, 12 Jun 2021 05:34:58 +0200,
+YueHaibing wrote:
+> 
+> sound/pci/trident/trident_memory.c: In function ‘set_tlb_bus’:
+> sound/pci/trident/trident_memory.c:85:35: error: ‘pagetr’ undeclared (first use in this function); did you mean ‘page’?
+>   for (i = 0; i < UNIT_PAGES; i++, pagetr++) {
+>                                    ^~~~~~
+>                                    page
+> 
+> Fixes: 74fb98311c4e ("ALSA: trident: Drop shadow TLB pointer table")
+> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 
-Fixes: 74fb98311c4e ("ALSA: trident: Drop shadow TLB pointer table")
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
----
- sound/pci/trident/trident_memory.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks, applied.
 
-diff --git a/sound/pci/trident/trident_memory.c b/sound/pci/trident/trident_memory.c
-index f831ec02702f..4ad3855101c9 100644
---- a/sound/pci/trident/trident_memory.c
-+++ b/sound/pci/trident/trident_memory.c
-@@ -82,7 +82,7 @@ static inline void set_tlb_bus(struct snd_trident *trident, int page,
- {
- 	int i;
- 	page *= UNIT_PAGES;
--	for (i = 0; i < UNIT_PAGES; i++, pagetr++) {
-+	for (i = 0; i < UNIT_PAGES; i++, page++) {
- 		__set_tlb_bus(trident, page, addr);
- 		addr += SNDRV_TRIDENT_PAGE_SIZE;
- 	}
--- 
-2.17.1
 
+Takashi

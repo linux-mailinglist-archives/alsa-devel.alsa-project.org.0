@@ -2,83 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA6E53A4D67
-	for <lists+alsa-devel@lfdr.de>; Sat, 12 Jun 2021 09:33:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 637913A4D6C
+	for <lists+alsa-devel@lfdr.de>; Sat, 12 Jun 2021 09:35:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 15A021ADA;
-	Sat, 12 Jun 2021 09:32:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15A021ADA
+	by alsa0.perex.cz (Postfix) with ESMTPS id EEF0C1AC0;
+	Sat, 12 Jun 2021 09:34:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEF0C1AC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623483215;
-	bh=5fqhLOzCPHvN07/XBEILqXBxRxgLbcICvfO2GWTSGQQ=;
+	s=default; t=1623483332;
+	bh=qUmuKvxpvxAE9zPNzm7mBpe3syB4n9B4Z68nbVRoi2g=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GBbqcchC2HZT6ryynW8P+gb7Zpn/SMRQxdWYOY4qPTNJDqP90rBeIC+3Oxo7wSr5t
-	 B98VO437jA5HwkC7yrMONVVcPtrcyJbmVCGS7iPt9qok0Gs2HW1s8IDFOrM1lc7e6T
-	 agk8L2hQSAOxgHYp82qc3uboYVSkgohFAb2ZsHtc=
+	b=CCAsjyOery+zFRtFytrqH08r1+psR7k+Lum4Ds9veVyG7iSzK6Lp8sVBEE4O+Co6U
+	 E2GSM6ZWocflaOU9ZVyZuTD/6hEMtLMIbBqJYZ5Qb391l3kwclP882TH/emF/N3GOf
+	 E0OrKGQiRBmwaGkmpxizppXzTfOQbHC2hqzGrUfs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76167F8020D;
-	Sat, 12 Jun 2021 09:32:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59E86F800FB;
+	Sat, 12 Jun 2021 09:34:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8F393F80149; Sat, 12 Jun 2021 09:32:42 +0200 (CEST)
+ id 42458F80218; Sat, 12 Jun 2021 09:34:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C569F80149
- for <alsa-devel@alsa-project.org>; Sat, 12 Jun 2021 09:32:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C569F80149
+ by alsa1.perex.cz (Postfix) with ESMTPS id D9834F800FB
+ for <alsa-devel@alsa-project.org>; Sat, 12 Jun 2021 09:33:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9834F800FB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="AF8dHSAF"; 
+ header.b="X6VlvHIP"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="tOPcINzJ"
+ header.b="p2xyQSLy"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 6AFE721997;
- Sat, 12 Jun 2021 07:32:36 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 35D2F2197F;
+ Sat, 12 Jun 2021 07:33:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1623483156; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1623483239; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=BN/x1Lb4XHuqUfl+VT2+NHV4QJZ8D328rkqjy4dKwwA=;
- b=AF8dHSAFLHbVNJBulUONbx9x7US7IYhqXdNw2Mh8YrbjcRySICwf34Dv/AvmbU5NWKuMHH
- /6bhU7j4wUjXncc+SUYNZWUQtseiNRxlmYktvwnRoVv1J/G76M6WodRu+yQiv5hoAByDJP
- Q8Y67Yo/miPFfJ1jVbpGK+4fzN0vEL8=
+ bh=zwKiUHtKOxXkW5Nn/4MaqsXahdIyufdsm+mgNqgp+KI=;
+ b=X6VlvHIP/K9nEy9SrOAuvJgtqpCC3eA73zUZ4FJmVpRyINpJkaAZrFwQmSssjH0krr6lQO
+ kjN6hCIcKm9dp6T37sZY6xtMIw9Esc7rsF8LOSU5sg4mPn9PzqY2JH/jZPnjebuo/NV44K
+ fdtdn+2C5hwziQwZzN8u+vIoKQmIZcY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1623483156;
+ s=susede2_ed25519; t=1623483239;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=BN/x1Lb4XHuqUfl+VT2+NHV4QJZ8D328rkqjy4dKwwA=;
- b=tOPcINzJFC3mCUWrCUjAKcy12bMlbT3aQ0CCj3HYn+iD+WsicaCNJQTvv9pKcn0T7cYJ8J
- 9jbiFTIi5xIYkJCQ==
+ bh=zwKiUHtKOxXkW5Nn/4MaqsXahdIyufdsm+mgNqgp+KI=;
+ b=p2xyQSLyM/BA2SgtlCIZf1oMcGz7MXJrSUv+mxQjCwXtAfexJ/xxfts1RD1N+XZT+7TIqM
+ 31NpovXW0HS7jgBQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 5862BA3B87;
- Sat, 12 Jun 2021 07:32:36 +0000 (UTC)
-Date: Sat, 12 Jun 2021 09:32:36 +0200
-Message-ID: <s5heed75yi3.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 30793A3B83;
+ Sat, 12 Jun 2021 07:33:59 +0000 (UTC)
+Date: Sat, 12 Jun 2021 09:33:59 +0200
+Message-ID: <s5hczsr5yfs.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Colin King <colin.king@canonical.com>
-Subject: Re: [PATCH][next] ALSA: i2c: tea6330t: Remove redundant
- initialization of variable err
-In-Reply-To: <20210611165223.38983-1-colin.king@canonical.com>
-References: <20210611165223.38983-1-colin.king@canonical.com>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH 0/6] ALSA: bebob/fireworks: device entry corrections
+In-Reply-To: <20210611093730.78254-1-o-takashi@sakamocchi.jp>
+References: <20210611093730.78254-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,19 +91,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 11 Jun 2021 18:52:23 +0200,
-Colin King wrote:
+On Fri, 11 Jun 2021 11:37:24 +0200,
+Takashi Sakamoto wrote:
 > 
-> From: Colin Ian King <colin.king@canonical.com>
+> Hi,
 > 
-> The variable err is being initialized with a value that is never read,
-> it is being updated later on. The assignment is redundant and can be
-> removed.
+> After working for hardware database of systemd[1], I realize that
+> current device entries of ALSA bebob/fireworks drivers includes some
+> issues. This patchset corrects them.
 > 
-> Addresses-Coverity: ("Unused value")
-> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+> [1] https://github.com/systemd/systemd/pull/19124
+> 
+> Takashi Sakamoto (6):
+>   ALSA: bebob: fulfil device entries
+>   ALSA: fireworks: fulfil device entries
+>   ALSA: bebob: correct device entry for Mackie D.2 FireWire option card
+>   ALSA: bebob: correct device entry for Acoustic Reality eAR Master One,
+>     Eroica, Figaro, and Ciaccona
+>   ALSA: bebob: code refactoring for M-Audio models
+>   ALSA: bebob: correct device entries for Phonic Helix Board and FireFly
+>     series
 
-Thanks, applied.
+Thanks, applied all fix patches.
 
 
 Takashi

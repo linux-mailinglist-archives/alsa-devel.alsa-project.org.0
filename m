@@ -2,83 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 757A13A4D62
-	for <lists+alsa-devel@lfdr.de>; Sat, 12 Jun 2021 09:32:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB09E3A4D65
+	for <lists+alsa-devel@lfdr.de>; Sat, 12 Jun 2021 09:32:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D57D71ACA;
-	Sat, 12 Jun 2021 09:31:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D57D71ACA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4146D1ACE;
+	Sat, 12 Jun 2021 09:31:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4146D1ACE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623483125;
-	bh=2uaDO5nA53XeN40T5e3rmOIbIq1PZ8E/j4nobxm1cHI=;
+	s=default; t=1623483160;
+	bh=gBdv74QV8HUlswtx2ZO9HDWdpIBb2i1RL+4av03AIB0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AmlwEkqWnviBIqLtfa0FwX1NQd0FELrVWqUv6JgaW9kidiVBcPOqW7pp/VuVQ+oNv
-	 H/YXfE67/Azfuk+xAAQbN8v1elzWM2YrblNSZYrWErLR9pMbO8XUbjo3DQxmIFODI3
-	 4T0fGt/X2IgQxJYNnfntuqEm0v9AytG6/S+3mxZI=
+	b=uGVd77mCo7qY3GopB6OQD+FUu7jORblY6gTXDeRo6rRwp2vwKBJOdRE5b735q+kUV
+	 MSKmoAbhScEt6m5tHLNelXPmlC321YNDwiFKesh639VriW9bo8uaiVS+wOldwZFxsX
+	 2nrjr5nZ0ly3vhm6O5S0zhPpYo8V+78/KhcVMMUU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D869AF804AC;
-	Sat, 12 Jun 2021 09:30:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C5DFBF800FB;
+	Sat, 12 Jun 2021 09:31:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41CFEF804AB; Sat, 12 Jun 2021 09:30:45 +0200 (CEST)
+ id EF132F804AD; Sat, 12 Jun 2021 09:31:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F577F8020D
- for <alsa-devel@alsa-project.org>; Sat, 12 Jun 2021 09:30:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F577F8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 90E5EF800FB
+ for <alsa-devel@alsa-project.org>; Sat, 12 Jun 2021 09:31:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90E5EF800FB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="h/XSTcNP"; 
+ header.b="Th8MmK48"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="YWPcWxMX"
+ header.b="tkMVi0+Q"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 518E621994;
- Sat, 12 Jun 2021 07:30:38 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 717F51FD7B;
+ Sat, 12 Jun 2021 07:31:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1623483038; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1623483085; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=r2s1gQ67F+Qqs185IyCMy7UU3m8IkMgGFSBejMEBN2s=;
- b=h/XSTcNP6FQSQ5sSo/oM1tdClqCRmGWni1uK7PwKdXaFgm+Wrucn0QDmPon79jN5zrpyna
- tAE7H+p20nfg7KjHNIoPnxfsuDy7pf7rhBhmveBgdY6AscmPZx9PDsaMqnmR+ZJZozAwye
- WY1bCFtOaJusxYLeLv/OnsU84j0o5Ug=
+ bh=0AzuUkzLo4ruyuK5SkVmh+ZfHnjfIQeuO610XtpJtoc=;
+ b=Th8MmK48g6ot7pnJc9RJa5NxgHqdKafjyupDDILXFgTJFqWxZV5jDYLcYpc6rEpqOS+qxB
+ DO8XZxUxVZmt7qWLL7Bb4H+AdxzJia/2isAqc0AfOmILjW0D3yB3EV+NE5twUtIB7eJOU8
+ MDucw0jD/isO2O0ntmm/xqlGPZc+1NA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1623483038;
+ s=susede2_ed25519; t=1623483085;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=r2s1gQ67F+Qqs185IyCMy7UU3m8IkMgGFSBejMEBN2s=;
- b=YWPcWxMXp2sD40QH+v8C4nsxgXO9D5Bk0qj/FuhJl5vpiga79ftHwvrDSrx2Q4sq6013nK
- igFjVldwoWfjDlDA==
+ bh=0AzuUkzLo4ruyuK5SkVmh+ZfHnjfIQeuO610XtpJtoc=;
+ b=tkMVi0+QeY0xP0fnmRmMKT5kFSL5KTNWmBTcOO0NwLZ7HZl5Q3WlfQ5qxBpAfZrbE5SnP6
+ 98sxcfdLVwRiJABQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 402BFA3B83;
- Sat, 12 Jun 2021 07:30:38 +0000 (UTC)
-Date: Sat, 12 Jun 2021 09:30:38 +0200
-Message-ID: <s5him2j5yld.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 618D0A3B85;
+ Sat, 12 Jun 2021 07:31:25 +0000 (UTC)
+Date: Sat, 12 Jun 2021 09:31:25 +0200
+Message-ID: <s5hh7i35yk2.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Yang Yingliang <yangyingliang@huawei.com>
-Subject: Re: [PATCH -next] ALSA: hda/tegra: Use
- devm_platform_get_and_ioremap_resource()
-In-Reply-To: <20210610131922.134788-1-yangyingliang@huawei.com>
-References: <20210610131922.134788-1-yangyingliang@huawei.com>
+Subject: Re: [PATCH -next] ALSA: n64: check return value after calling
+ platform_get_resource()
+In-Reply-To: <20210610124958.116142-1-yangyingliang@huawei.com>
+References: <20210610124958.116142-1-yangyingliang@huawei.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, tiwai@suse.com
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,11 +93,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Jun 2021 15:19:22 +0200,
+On Thu, 10 Jun 2021 14:49:58 +0200,
 Yang Yingliang wrote:
 > 
-> Use devm_platform_get_and_ioremap_resource() to simplify
-> code.
+> It will cause null-ptr-deref if platform_get_resource() returns NULL,
+> we need check the return value.
 > 
 > Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
 

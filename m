@@ -2,85 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 829A13A56DB
-	for <lists+alsa-devel@lfdr.de>; Sun, 13 Jun 2021 09:31:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB4683A571C
+	for <lists+alsa-devel@lfdr.de>; Sun, 13 Jun 2021 10:28:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B2EB179F;
-	Sun, 13 Jun 2021 09:30:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B2EB179F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 42B4817A2;
+	Sun, 13 Jun 2021 10:27:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42B4817A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623569505;
-	bh=ZFcX/bxORa+FvnBC4ajDClKn0Jbmvk5NVGpUYYBsJhw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JLmRYDx9vzDzHOvrg6+lGRiRSXTjsVQJYtLIOhv+uhSpmqFaLfGzb1zyMgw+snBRD
-	 /dhvqZivrIm5Kxqua6GxRLYE+CkbXglOPMeGipYtGLWVlJmNRrP/NPFLWJ4h2WnCJE
-	 feoYA+vBuWvx8KSgJPHRcf1gLdg4by4UgmBYArbQ=
+	s=default; t=1623572887;
+	bh=8Nf+MoB67YLM339eveBbAIFeOyjoBjOj4Vu11TXvulI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=t/mV+Y+qJq2HO2bx7lIiNvqfOa1maeBKgGUwmTzDEJRr2ipBQ55ZE3tur7hWLfc4j
+	 c28icsPbDufXfiLclCcLj6V+IBqXFrE4G6t2pAdBNOeOFBE2r6r5j2mf+lLG7HwTVa
+	 U3MBfKNFBpFHzAXg6S1YT3X/fXG/qXilU5QnZHko=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 34880F800FB;
-	Sun, 13 Jun 2021 09:30:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4362F800F7;
+	Sun, 13 Jun 2021 10:26:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 410F2F80165; Sun, 13 Jun 2021 09:29:54 +0200 (CEST)
+ id E5F43F80165; Sun, 13 Jun 2021 10:26:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3BEEAF800FB
- for <alsa-devel@alsa-project.org>; Sun, 13 Jun 2021 09:29:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BEEAF800FB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 259DFF800F8
+ for <alsa-devel@alsa-project.org>; Sun, 13 Jun 2021 10:26:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 259DFF800F8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="lb6oBreh"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="StDuDjsv"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 781641FD2D;
- Sun, 13 Jun 2021 07:29:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1623569390; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=WhduT0sYydM4ELZXqbR/OJ0jePGmvtRZMzB6L+JAb8o=;
- b=lb6oBreh/mqFLkmHp2kEJ13eBzgSzjZxrtc/w0RKiifA5ywXrrOrynsKCMQxU8sa/NmSMH
- HrKZNkkaGESuWDYrTq5hxZOlsjJVigBQ3nWh1vRWjjEXLpV0KHWqH2X1HnOZNYLNhMdemS
- rII8jjgUqnN6JgAibielbIhOj2o5uJE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1623569390;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=WhduT0sYydM4ELZXqbR/OJ0jePGmvtRZMzB6L+JAb8o=;
- b=StDuDjsvl7VblfeZg2wWSetieXJ5+yWuPBdry0qXyhRg+5We2+l5ECrbDWURmFfgUdptOv
- NK6vST23DTIKY3Bw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 7102DA3B83;
- Sun, 13 Jun 2021 07:29:50 +0000 (UTC)
-Date: Sun, 13 Jun 2021 09:29:50 +0200
-Message-ID: <s5h35tm5ij5.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 8/8] ASoC: SOF: Intel: add .ack support for HDaudio
- platforms
-In-Reply-To: <20210610205326.1176400-9-pierre-louis.bossart@linux.intel.com>
-References: <20210610205326.1176400-1-pierre-louis.bossart@linux.intel.com>
- <20210610205326.1176400-9-pierre-louis.bossart@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="s1g3K7g6"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="eFyVReI8"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 1EB205C00C6;
+ Sun, 13 Jun 2021 04:26:27 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Sun, 13 Jun 2021 04:26:27 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm1; bh=tWgOY1fGTLtpGjqGqxjoiKe2f7
+ InC3YOTDsV88IIhz0=; b=s1g3K7g6Gme37Aw/UqJZPeS1t3cSOJaCsz03eNKyCo
+ n+Q4mp0WR/PJwJK7apHrJWEnhe4uhVbEPGRuX7+MFLvFdaJ0RtvpeRsIN1pQlpzK
+ TTGAMoNzOXxVQsgk8DOxg4vcFzfrk2z1DxegSqlNvzzMF41KsGIY16b38EDD2SvZ
+ nNBZ9NSvMdOMLumpEI9jEztui/jXPs26Th784ts6rK9Bzcexb1/n5oDzpFG7L+Gb
+ 9/pQNporEJdLQwOpmB7XYFrRJVuFmVvQ6jSPLPINkVWnVgAv8CLWSmygaBm9f6sl
+ aYJev/zfVt62eGcXbU+hUmA18vilC7tkhSurvUad8YXg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=tWgOY1fGTLtpGjqGq
+ xjoiKe2f7InC3YOTDsV88IIhz0=; b=eFyVReI8C3V8wmD47sRgDOVFwdPXtrS+G
+ 6vEcq6PQOuKEut1DkTnNuzpOQ3fDzh9QUDFlUI8yt0VvQU8T9EtuvofKUY7XHWPS
+ 9rWXnVb2BML75Vpix+1ryf8D5/j/lGLO1MrClfsw9RvXKOI9WACdA3FeqsgOH3cT
+ PdZYrW+bNdLGK+TqV64zdKTGzEYdQwar3qkw0WmS3TZGAop/RgmcWdW2PvZygEPR
+ puZIjbhIDsq7IepSlfMrCV5iiVMhj6vSHKX2wwpNHb8JUGZb6hqphdnGj+rbiNuf
+ YVr5KM117QtkaPvnNgzpHLvn+cfI3gKMXE0lUsfwlUADtX/33e9sg==
+X-ME-Sender: <xms:MsHFYNxNyIY--HUQGv18F26v3vAp2fzHrx3CyCd_qhQC1LiIEV74_w>
+ <xme:MsHFYNTqAjALijonAJMeKdLo0M1wzHqEYEWrvRuxg2wW16fVqho9LqYStVweQr4mI
+ nxzOA_-1uQ9rXrzTsg>
+X-ME-Received: <xmr:MsHFYHXMCFuTJPvVznWblpN_OD4Wq-3PU7o0lxDixkEb6cSfW7eS-91GcYIjNWIxuwtlyHDB-Cp4oFnKvTC0FfiBAM9t8t_YDLF5DW92SrDjIzmEfDG->
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfedvfedgtdehucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
+ dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
+ ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepudejteelhfdttd
+ ekgfdtueeilefhgfetjeejheekgeevuddvveegieehueeukeejnecuvehluhhsthgvrhfu
+ ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkh
+ grmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:MsHFYPiXL-GKSLgMuquLY7kUZFjhpFVeTkQDQs2skAA0vI0H17LqkA>
+ <xmx:MsHFYPBIsAhzpAkevsCDV23LDncuehs3m11__0yeWKT7PokS37EsEw>
+ <xmx:MsHFYIJKvfKHKVf41rHvUMTNoQLHQFR6emuULJhEthBWELVoLIfGZw>
+ <xmx:M8HFYE6qtLBYPg-Rzg3qBE6j_MotB5Uto3ywDIZE2SOt5LVOcyONVQ>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 13 Jun 2021 04:26:24 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: tiwai@suse.de
+Subject: [PATCH] ALSA: firewire: fill Kconfig with entries for devices based
+ on DICE ASICs
+Date: Sun, 13 Jun 2021 17:26:21 +0900
+Message-Id: <20210613082621.10900-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,34 +109,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Jun 2021 22:53:26 +0200,
-Pierre-Louis Bossart wrote:
-> 
-> +/* update SPIB register with appl position */
-> +int hda_dsp_pcm_ack(struct snd_sof_dev *sdev, struct snd_pcm_substream *substream)
-> +{
-> +	struct hdac_stream *hstream = substream->runtime->private_data;
-> +	struct hdac_ext_stream *stream = stream_to_hdac_ext_stream(hstream);
-> +	struct snd_pcm_runtime *runtime = substream->runtime;
-> +	ssize_t appl_pos, buf_size;
-> +	u32 spib;
-> +
-> +	if (!hda_disable_rewinds)
-> +		return 0;
-> +
-> +	/*
-> +	 * paranoia check: if a rewind request took place after the RUN bits were programmed,
-> +	 * deny it since hardware only supports monotonic (modulo) increments for SPIB.
-> +	 */
-> +	if (hstream->running) {
-> +		if (runtime->control->appl_ptr < stream->old_appl_ptr)
-> +			return -EINVAL;
+Nowadays a lot of devices are supported by ALSA dice driver. This commit
+fills Kconfig with entries for them.
 
-This condition won't be enough when the appl_ptr overlap the buffer
-boundary.  It's still possible on 32bit architecture.
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ sound/firewire/Kconfig | 21 +++++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
 
+diff --git a/sound/firewire/Kconfig b/sound/firewire/Kconfig
+index fc6858131b59..a08a0dbfc951 100644
+--- a/sound/firewire/Kconfig
++++ b/sound/firewire/Kconfig
+@@ -18,8 +18,25 @@ config SND_DICE
+ 	select SND_HWDEP
+ 	select SND_FIREWIRE_LIB
+ 	help
+-	  Say Y here to include support for many DACs based on the DICE
+-	  chip family (DICE-II/Jr/Mini) which TC Applied Technologies produces.
++	  Say Y here to include support for devices based on the DICE chip family
++	  (DICE-II/TCD2210(Mini)/TCD2220(Jr.)) which TC Applied Technologies (TCAT) produced.
++	   * Allen and Heath Zed R16
++	   * Alesis iO 14/26 FireWire, MasterControl, MultiMix 8/12/16 FireWire
++	   * Avid Mbox 3 Pro
++	   * FlexRadio Systems FLEX-3000, FLEX-5000
++	   * Focusrite Liquid Saffire 56
++	   * Focusrite Saffire Pro 14, Pro 24, Pro 24 DSP, Pro 26, Pro 40(TCD2220)
++	   * Harman Music Group Lexicon I-ONIX FW810S
++	   * Loud Technologies Mackie Onyx Blackbird, Onyx 820i/1220i/1620i/1640i (latter models)
++	   * M-Audio ProFire 610/2626
++	   * Mytek Stereo192-DSD DAC
++	   * Midas Klark Teknik VeniceF series
++	   * PreSonus FireStudio, FireStudio Mobile, FireStudio Project, FireStudio Tube
++	   * PreSonus StudioLive 16.4.2, 16.0.2, 24.4.2, 32.4.2
++	   * Solid State Logic Duende Classic, Duende Mini
++	   * TC Electronic Studio Konnekt 48, Konnekt 24D, Konnekt Live, Impact Twin
++	   * TC Electronic Digital Konnekt x32, Desktop Konnekt 6
++	   * Weiss Engineering ADC2, Vesta, Minerva, AFI1, DAC1, INT202, DAC202
+ 
+ 	  To compile this driver as a module, choose M here: the module
+ 	  will be called snd-dice.
+-- 
+2.30.2
 
-
-thanks,
-
-Takashi

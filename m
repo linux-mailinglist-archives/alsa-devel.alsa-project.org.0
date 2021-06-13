@@ -2,85 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A8963A56D8
-	for <lists+alsa-devel@lfdr.de>; Sun, 13 Jun 2021 09:27:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE4C83A56DA
+	for <lists+alsa-devel@lfdr.de>; Sun, 13 Jun 2021 09:30:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1C61179A;
-	Sun, 13 Jun 2021 09:26:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1C61179A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C6A4179B;
+	Sun, 13 Jun 2021 09:29:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C6A4179B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623569239;
-	bh=2M9tFT5iXQ8N3Xy7VxmV3aP9Q5UvpMHF9rXrmeSrr2M=;
+	s=default; t=1623569401;
+	bh=0PicZYSauKDurewGm0CjDBzpWBDQVZVO7XyQRcKTlIA=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hY4XGGuqQm3WgZA74RTnr7XqZg7PmGj9/0oCfEvbV8Mvwbcc2s04/7w+1rmdKizfe
-	 XKBDoyCf5OVohyP9JRTG5wWnsLuNClkrlnTuIryYoeSiK8Uqw1n6FGMjVT790lZr0X
-	 tb8at7UYwY8YIvvQs5inaiWICrGsmOwgbWpLECIk=
+	b=OSJGWd5oDlR2BwKp23n/fHXcCZOhKl5pxWpHxPX646OYhT0rwVt1emokEoZlvoABv
+	 GyeQzRgLpUHzqs8fUTA+y/XGZzA3XqEzcd4C6NyxLwQOaD+xRvo6Bky3A6ESxfk1j9
+	 ekV7jbAbIBu6p3mHwYNH6d8RetaZLozb6V4jwTDo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29E63F800FA;
-	Sun, 13 Jun 2021 09:25:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E4D5F800F8;
+	Sun, 13 Jun 2021 09:28:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 10CDCF80165; Sun, 13 Jun 2021 09:25:49 +0200 (CEST)
+ id 23B06F80165; Sun, 13 Jun 2021 09:28:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3FE7EF800FA
- for <alsa-devel@alsa-project.org>; Sun, 13 Jun 2021 09:25:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FE7EF800FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A6F8F800F8
+ for <alsa-devel@alsa-project.org>; Sun, 13 Jun 2021 09:28:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A6F8F800F8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="alCQ1BCQ"; 
+ header.b="AksiFy2f"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="bj9qLA4R"
+ header.b="3CLNriiW"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 1CC5E21973;
- Sun, 13 Jun 2021 07:25:44 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id B130821973;
+ Sun, 13 Jun 2021 07:28:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1623569144; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1623569302; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=QL8lJxnyNxv+tWk9n8Z0jhoFlWg5bg43DAOyxNRkubQ=;
- b=alCQ1BCQoTAH5lqnhsmg5hzrzhEgvmJVceVf8hO0/Bjpdectmh00E/oNZZTwJL3CiePyoP
- G5JaWuIOa//8XbPikdU9ll+iuU+CEsSXZVcTjJqYdgU88dLl4AsM9CaL9Je+yNt2kSQc++
- TzxF5Spwqb35CFAUzNJKaBXzaLsIhHI=
+ bh=NGMnOs6G0rE4IypkpoNtUX6r8Fe3PKJItzxICBHGmXc=;
+ b=AksiFy2fwzHUQPXgl72HPpWj6G+nZq0PJ8VscLWq4WZwLKD+SNqq/oTD5UZBzRyflQvE9z
+ 1DGc3YhF1kNmSN/5v8b/H2gTG06EEIAks7TpuXl6SJhS5TiVTbM98KnyOnkyTuz4Qy2y5z
+ fXgoIl7F0wXiUxsmK5GjpS+jcOskGvg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1623569144;
+ s=susede2_ed25519; t=1623569302;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=QL8lJxnyNxv+tWk9n8Z0jhoFlWg5bg43DAOyxNRkubQ=;
- b=bj9qLA4RA8Ep+f0LQvXFKDWZDkXkqxBi/0fasBtPfzdeSyB8rdJfsIIpj6pmKktCCKwY6q
- 2sVt1PuhPQb7ieAg==
+ bh=NGMnOs6G0rE4IypkpoNtUX6r8Fe3PKJItzxICBHGmXc=;
+ b=3CLNriiW7qURbvfj74LW7JFvyHE5q9TDih7TMQyq3x47AXvIlpLGCR2NhivHcxZC3/ayuF
+ H7dnqVkb1VeXN3CA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 04351A3B83;
- Sun, 13 Jun 2021 07:25:43 +0000 (UTC)
-Date: Sun, 13 Jun 2021 09:25:43 +0200
-Message-ID: <s5h5yyi5iq0.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id A9A5FA3B89;
+ Sun, 13 Jun 2021 07:28:22 +0000 (UTC)
+Date: Sun, 13 Jun 2021 09:28:22 +0200
+Message-ID: <s5h4ke25ill.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/8] ASoC: SOF: power optimizations for HDaudio platforms
-In-Reply-To: <6f8c8799-2602-a5a2-cf38-cc6a11eac593@linux.intel.com>
+Subject: Re: [PATCH 6/8] ALSA: pcm: conditionally avoid mmap of control data
+In-Reply-To: <20210610205326.1176400-7-pierre-louis.bossart@linux.intel.com>
 References: <20210610205326.1176400-1-pierre-louis.bossart@linux.intel.com>
- <s5hczss96jp.wl-tiwai@suse.de>
- <482fc9a8-3a27-2e5d-f280-c891832eb467@perex.cz>
- <eda25058-5a19-31e9-d012-627c2afe88f1@linux.intel.com>
- <1f71ec67-041e-d2fc-3527-5542d8982e00@perex.cz>
- <6f8c8799-2602-a5a2-cf38-cc6a11eac593@linux.intel.com>
+ <20210610205326.1176400-7-pierre-louis.bossart@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,50 +95,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 11 Jun 2021 18:30:53 +0200,
+On Thu, 10 Jun 2021 22:53:24 +0200,
 Pierre-Louis Bossart wrote:
 > 
+> In case of mmap, by default alsa-lib mmaps both control and status data.
 > 
-> > Perhaps, it may be acceptable to add a global control enum (to the control
-> > API) for the ALSA card which may modify the driver behaviour / settings at
-> > runtime (normal operation, battery saving operation etc.). This control can be
-> > set in the UCM config. In this way, we don't need to touch the PCM API for the
-> > user space at all.
+> If driver subscribes for application pointer update, driver needs to get
+> notification whenever appl ptr changes. With the above case driver won't
+> get appl ptr notifications.
 > 
-> If there was a mechanism based on ALSA controls for an application to
-> query capabilities and set what it want to disable that would be
-> fine. hwdep would be fine as well.
+> This patch check on a hw info flag and returns error when user land asks
+> for mmaping control & status data, thus forcing user to issue
+> IOCTL_SYNC_PTR.
 > 
-> I don't get though how this could be 'set in the UCM config',
-> different apps might have different needs. UCM files don't currently
-> make assumptions on which application uses them, do they?
+> This patch was originally submitted in 2017, c.f.
+> https://lore.kernel.org/alsa-devel/1494896518-23399-4-git-send-email-subhransu.s.prusty@intel.com/
+> 
+> Suggested-by: Takashi Iwai <tiwai@suse.de>
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-I also came to the idea of kcontrol instead of module parameter, and
-hit to the differentiating via UCM, too.  Maybe we may provide two
-different profiles and let apps choose.  But, this reaches to the
-question: how to tell applications what is for.  It's also the
-question if we extend the API.
+This kind of flag itself was what I also introduced for another
+purpose, too.  There is a WIP patch that allows the use of
+non-coherent non-contiguous buffer pages, and this flag would fit for
+that.  FWIW, the patch is found at
+  https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git/log/?h=topic/memalloc
 
-Namely, the driver may inform user-space or the user-space may inform
-the driver whether to allow (or to use) the rewind.  But, it doesn't
-explain what cost it would need.  And that's a difficult task to
-generalize it.  I can think of some API providing a preset per
-scenario, e.g. power-saving, large buffer, etc.  But in this case, if
-rewind is allowed, what would it mean practically?
-
-Then, this also led me a question: what happens if you disable tsched
-on PA?  It'll be essentially equivalent behavior like pipewire, and
-this would be better?  Note that the latest kernel already dropped the
-buffer pre-allocation for HD-audio, hence PA will take a large buffer
-(for one second) per default.  I suppose that the influence of no
-rewind becomes noticeable, or would it still be OK with tsched?
-
-If tsched=0 mode works reasonably well in case of no rewind, it can be
-done simply by setting SNDRV_PCM_INFO_BATCH together.  Even with this
-change, we can keep the module parameter as a kill switch in case
-significant regression is found.
-
-
-thanks,
 
 Takashi

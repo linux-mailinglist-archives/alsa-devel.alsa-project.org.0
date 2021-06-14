@@ -2,78 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 116E83A5C3F
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 06:44:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50D113A5C7C
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 07:34:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8721E179E;
-	Mon, 14 Jun 2021 06:43:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8721E179E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 987151788;
+	Mon, 14 Jun 2021 07:33:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 987151788
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623645886;
-	bh=IvmZ1b1TDZMBnSXVm8/fTN69Cd3Wq1w0/TEjzhTNHeE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ZCYwFUVhKALDOhzKKZLDpLgQM9kya20rT1l0kCTsw3RLzW0LpW67OMyM4kVPxHIMs
-	 GPycLU0yWdf7xV+boffzrbtxXGnzZgG0f5kckZhwLe3pEJOH4FvMoFrWwq68GOxp3c
-	 pS/qpMOQHE/R1byfg8SYbjP3jtFFlyFtHxh0BEZ0=
+	s=default; t=1623648869;
+	bh=hJOH7i08RJZq++lx78fKeQ7f2tG5dA9BqhiaAdIWqkU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=twUeEsNaFHe24xDtfDkyAsFp0NcvrdliV4+pA5Pctxc2BSWihjLJ/AELFcoeeAlfm
+	 TXHE3OhGgztGeVTHsPyFhRiVwODMRaSAvJ+xBrFNkfWDtQhfvZv2Yb0v/QEseFsZVi
+	 fzzRgcXQH/HcnnNjC+Spi26ZjdJpmDkn3AmkvmSI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF254F8028B;
-	Mon, 14 Jun 2021 06:43:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 11791F8021C;
+	Mon, 14 Jun 2021 07:33:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 819A6F80273; Mon, 14 Jun 2021 06:43:46 +0200 (CEST)
+ id E6723F8023C; Mon, 14 Jun 2021 07:32:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,MIME_HTML_ONLY,PRX_BODY_29,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0CA77F8025A
- for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 06:43:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CA77F8025A
+ by alsa1.perex.cz (Postfix) with ESMTPS id AFCB9F800DD
+ for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 07:32:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFCB9F800DD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="SGHiC0c9"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 91C04613AD;
- Mon, 14 Jun 2021 04:43:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623645821;
- bh=IvmZ1b1TDZMBnSXVm8/fTN69Cd3Wq1w0/TEjzhTNHeE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SGHiC0c9pe1NmkciV35SzWPJ3Mah7tgis/rKoEwBFY8+d2CV8kChZGfa4K6vHe6N9
- lekO9YUMujZPLcNBS1Ijov4tnjHenblB992BITzbbmjj+vfC3YfOm/42WFu+w98eX0
- 0UpgnrhGuRL3WICWPb9QhitNZJ/xxBKJ+OwlQMG3QQDYT0w7Sh96kHRBuegj0sHlej
- lRvahn+q7GC/TWOKOXt92qYfDeNjAYcXZXE0Sf3+M/P2sIq8vcDXGUymLXW8C2xyqB
- ocGckpjJOauk+4Hv6PAL+PRGIjZLK9x5KE9x6L6Z8cTvZ4y3fZAijXdub7/XguA1Nq
- KQZY8jweyVVpA==
-Date: Mon, 14 Jun 2021 10:13:37 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v4] soundwire: intel: move to auxiliary bus
-Message-ID: <YMbeefn6EHIqImQK@vkoul-mobl>
-References: <20210511052132.28150-1-yung-chuan.liao@linux.intel.com>
- <21002781-0b78-3b36-952f-683482a925d7@linux.intel.com>
- <YLS4N2KgzfsMBD1c@vkoul-mobl.Dlink>
- <b316763b-d219-6ea3-401e-3eb9718aabf3@linux.intel.com>
- <YMBHj6PBzeHexXJb@vkoul-mobl>
- <07dbe0a2-0abb-810b-ef39-b83511d3f3e0@linux.intel.com>
- <YMNQBpFX9DXcoGAc@vkoul-mobl>
- <be440569-e18b-b079-2795-0af1e6812935@linux.intel.com>
+ dkim=pass (1024-bit key) header.d=gmx.net header.i=@gmx.net
+ header.b="honPp0Wt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1623648773;
+ bh=ss5WYFVhFb/f0ONlUtQHlnWXOT5gknO+6qMUu8Mxazg=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
+ b=honPp0WtCooZ2szfUF5KOXmDfBJfD7rkEmOE4Jalr+0Kw2pAOT6qzpFH1Htm5kysm
+ evti0eiCcsCa1GIRLNxVEJB8JHvB+9De3LcgF8809Cb8hU5/sYI3ttHy1HqQmoqXJt
+ iZKvG3h9OzLcdhNKm9OCzl6UcpB9K+jj2kNXawbE=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [93.194.223.136] ([93.194.223.136]) by web-mail.gmx.net
+ (3c-app-gmx-bs57.server.lan [172.19.170.141]) (via HTTP); Mon, 14 Jun 2021
+ 07:32:53 +0200
+Message-ID: <trinity-60583881-3802-43ab-8ebb-6172dc0508fe-1623648773558@3c-app-gmx-bs57>
+From: Roman Muller <klangrausch@wolke7.net>
+To: alsa-devel@alsa-project.org
+Subject: Xone43C: USB communication
+Date: Mon, 14 Jun 2021 07:32:53 +0200
+Importance: normal
+Sensitivity: Normal
+X-Priority: 3
+X-Provags-ID: V03:K1:DoJCtj7HQA8w7G0YQ72PGBXTGiocTb66AV7T4ZaN78v6OsOAtQYr0DrPXHFY/sy2J+Ywp
+ SQvQ8bLsd1JOHSrq0USxSO4Ben3WJvs99rBFKnLA94cHe7J2wRU2IfrKIGWiUFLkiiwZo8liLbFo
+ cuJcSk0APlpKexTp1Hz8GLH0+MzcgkOlyX+Rm8Y06pioNzcMPVgSiTmUuuSi1hL6reAJHjk/mP9H
+ khtXtDeck13xyDbSsrwEkrCzs82G/P8oZ1lZRs27m++1jBQuHrgovsiZ9c+aSzAc7MHl1frI1dK5
+ 8k=
+X-UI-Out-Filterresults: notjunk:1;V03:K0:A4jgPYFlC2s=:X5329nBii874x2Z7ggh+2S
+ JsdXaqpJ9g3+L3aFogS5vUBoQgrwV+EaGjcJXxLMR1xkR7cOptJ1N2kAE72uoeJHB3Fc5ie+Y
+ 2PgFhcFbcx+Sa7ia/iXpOFL5Q5v7kqLOAz0uUrlEwZBP1in1XF7PZXHPr4+EPJRhYHL1zVXfQ
+ fGITnBEyxsaw4Wm4v0xhYL8R/kxWipBYfY34geOgHx1ow5BNSTq0W0+/Y4tc+bMwpX73b4DK7
+ 1+RxMDXwmEdEgGNquJGPf1ve+JGaXExm9EttoCG1uL8JAW0utI9lFIVDif6vB4E7KoVhXoG3Z
+ ur8Kj6F4ZDKl4MjQXkzTr33U/i/YGYcRqdPE43tkdzLxHS/+f7ZDT15Tej7wNvDZIf7ExdsDI
+ GSbfwT77AeBiFQu+YEA71DTwu6zeC52nUWwH2rUyl090cG482Tv8BYP/gr57HWB5xpbdE7ZfZ
+ xT/8rF+JbM5m+IAZHwV1n8DKSJUKzzLdsomVrEq4oX71aqMtLlgkqKRD6tlsvj8gvl0gcCLwJ
+ Pln6aJhTP881MXA0t5fAIIvwA7gImAPTKQLVHhnRM35yHjU00k2L+pw/Xk/MJJz00caIR3B+U
+ c/eDl/g8nBFnRTSJJUYl1x+IIH4ZtFqy9YGwRihSa4JYK0TCrLAgIEXkpGUc80N/CyjLz+Pqz
+ TQP/aIocF/0/Sb2R/TMY/hsuhcKxtuyGo4VCPaLzfpwe7W4TFqh3h+uVW6A/gb2IeC1ZRPEfH
+ c/KZsd46WxrECi6/V07OdzkO3T3jQ0Haolehyw2/2Ku1hDO4ZSXkfT0Qn6habH0to9Br9XenY
+ nx9mZopc8OrDbese7L8s3FsiRp2il46wYlREKicIwjrQGVE2Os=
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <be440569-e18b-b079-2795-0af1e6812935@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, Leon Romanovsky <leon@kernel.org>,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, hui.wang@canonical.com,
- Jason Gunthorpe <jgg@nvidia.com>, Dave Ertman <david.m.ertman@intel.com>,
- sanyog.r.kale@intel.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
- rander.wang@linux.intel.com, bard.liao@intel.com
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Geraldo Nascimento <geraldogabriel@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,43 +95,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 11-06-21, 09:51, Pierre-Louis Bossart wrote:
-> Thanks Vinod for your feedback,
-> 
-> > > If you look at the *existing* code, we don't handle any "resources" with the
-> > > platform devices, we use the platform_device_info.data to pass the link
-> > > information. It's a void pointer. We do not touch the resource field in the
-> > > platform_device_into at all.
-> > 
-> > Yes that is true I dont disagree on that part. My ask here is to make it
-> > better, it can be followed up after this but I would at least like to
-> > agree on the direction.
-> 
-> [...]
-> 
-> > > That's it. We did not change anything else, all the other fields are
-> > > identical. We are only changing the TYPE of device and the interfaces for
-> > > probe/remove but using the same information and the same device hierarchy.
-> > 
-> > The move in itself is okay but I dont think that should be the end goal.
-> 
-> What we suggested in this patch is only an iso-functionality change. I
-> believe from Greg's and your feedback that there is no objection on that
-> small step.
-> 
-> This is not the end-goal indeed. The second step would be to remove the
-> intel_init.c file. I fully agree with you Vinod that this can be moved into
-> the SOF driver, and we could do this in a follow-up step. We can also
-> improve the partition between 'context' used by the child driver and
-> information passed by the parent on SHIM registers and bases.
-> 
-> I think we'd need to agree on the details of the second step, Bard and I can
-> work on a proposal, but I don't see a disconnect on the direction to
-> simplify the interface. That's the right thing to do.
+   Hello Gerardo, hello all of you,
 
-That is agreeable to me. Looking forward to updates to clean these bits
-up
+   > Is your capture complete from a software standpoint? i.e. are you
+   > starting Serato or Traktor on the VM while doing the usbmon capture?
 
-Thanks
--- 
-~Vinod
+   Not tested yet, I need to get a few items for that and investigate the
+   matter! It is complete up to loading the Win10 driver (which has been
+   supplied by the manufacturer). Maybe I am lucky and
+   this is already sufficient.
+
+   Have a nice day,
+   Roman

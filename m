@@ -2,72 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28CB63A6F96
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 21:56:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99EA53A6F97
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 21:56:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D32D168D;
-	Mon, 14 Jun 2021 21:55:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D32D168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13EC51694;
+	Mon, 14 Jun 2021 21:55:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13EC51694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623700578;
-	bh=OFqLWt9YcU2q5M/HjfpqEhWhcGqRS3yWcy7sAyaGMeE=;
+	s=default; t=1623700594;
+	bh=rHsL5zO3qV53Kq7tZnvcepUF9YN1NPGgwiK41SgDBH0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nOMSbQk/LBxQxZuYQEqrzMumIxnPqzZG0OuOQ0JSyvvkmLadnS+AXob+qM2qvDaNn
-	 aDhyWbkN5emCOxpZAH4a6+CgiWRS+sUaWN/UEbnX4lKeajpXBl/sNGPX7wFp1rqaNz
-	 1cWGG2pA4N5H2M+QyP8Vfuyo2Ujq44TQs+Kvucik=
+	b=BKO411dCaMkwemDxBVVp5Geu9x8X2Nr3t9t59rljT3CL86y7uMjqHP7m84VFHTDsL
+	 mGR18GBwo9/NJHwB/MxxjNxp0eI6Ie0nFP7b8JsVkuwVI8tipeIZxDZtqAVPukQJ/i
+	 1ciZxvFk6y81gIUQ6cBCN0UhmSg1q6FlryTQ23Qs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EACA2F804C2;
-	Mon, 14 Jun 2021 21:54:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 689EAF804CA;
+	Mon, 14 Jun 2021 21:54:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 421A5F804B0; Mon, 14 Jun 2021 21:54:48 +0200 (CEST)
+ id 08531F804B0; Mon, 14 Jun 2021 21:54:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9A92F8025E
- for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 21:54:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9A92F8025E
+ by alsa1.perex.cz (Postfix) with ESMTPS id DBC77F800F7
+ for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 21:54:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBC77F800F7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XXHHa4xq"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1B0DB611CA;
- Mon, 14 Jun 2021 19:54:39 +0000 (UTC)
+ header.b="XpPn7BKk"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A3AC861246;
+ Mon, 14 Jun 2021 19:54:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623700480;
- bh=OFqLWt9YcU2q5M/HjfpqEhWhcGqRS3yWcy7sAyaGMeE=;
+ s=k20201202; t=1623700483;
+ bh=rHsL5zO3qV53Kq7tZnvcepUF9YN1NPGgwiK41SgDBH0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XXHHa4xq/Isu9+95fpnbyi2ZUuVcWVETqOU2y5lYYjop2Z0KMVbhP99crM0rdDsD0
- MmwcnZuz6xNJx8gLnUL3pkCyU4tHYbxoF2AP57ivb7ZUTvaKnJJXfkOtWKM8+gbnVc
- z9vnoM8eg9dpGInpzCPv0moeAhHkdqNPEfK7zZER93LoN5HgFN67rx9M9WKqq8Umfa
- D9QyOkL1yrYAk8h0i2owJypIHiSZ7qPegPaURJ3hYaLaMDtKbiTgoLV35d6zln1GRP
- Sfyk/nM9dKthDNMD0AmoOLGy4NsMvkl6C+RgK/L/ORbju9cSDjO2rGYFu+4hzAMsEr
- 89swlSD9TdVSg==
+ b=XpPn7BKkmczHCNV9PTcTZP5wyFted1Gbw6E+R3Ai6nW+EJ8Oyd2i+PjZE33tXJ8BV
+ 6uj+e/LvozNWq+7RRKAD+AxUitN4SLXCjfhpvjOObsjVjiOfqSEapxgamJY3CdfAiI
+ vIXv7U99SBanQRMf3sPoD8JPPA9JEXTixZWaNHhRksX2NOvicQSs2RxSLt3TLzLjZa
+ fKbKK6vklApx+bahGb/QR9ELSXW9eA/PnI5SUhmcHPI1DdP/FC1Mpn09JGJwJJhkxy
+ wZVzn4VXRi9Pg1jyj4c5HBgUgFnzNGlukiIqFWLDma7Wr5MZtOeupZplYaDD51zUnk
+ U5tXHYpWdjFcA==
 From: Mark Brown <broonie@kernel.org>
-To: timur@kernel.org, tiwai@suse.com, Zhongjun Tan <hbut_tan@163.com>,
- nicoleotsuka@gmail.com, shengjiu.wang@gmail.com, lgirdwood@gmail.com,
- festevam@gmail.com, perex@perex.cz, Xiubo.Lee@gmail.com
-Subject: Re: [PATCH] ASoC:fsl_spdif:Remove superfluous error message around
- platform_get_irq()
-Date: Mon, 14 Jun 2021 20:53:39 +0100
-Message-Id: <162369994008.34524.18042209109927514476.b4-ty@kernel.org>
+To: linux-kernel@vger.kernel.org, Yang Yingliang <yangyingliang@huawei.com>,
+ alsa-devel@alsa-project.org
+Subject: Re: [PATCH -next] ASoC: atmel-classd: Use
+ devm_platform_get_and_ioremap_resource()
+Date: Mon, 14 Jun 2021 20:53:40 +0100
+Message-Id: <162369994009.34524.9266310956959429482.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210610040037.1064-1-hbut_tan@163.com>
-References: <20210610040037.1064-1-hbut_tan@163.com>
+In-Reply-To: <20210611022115.3583765-1-yangyingliang@huawei.com>
+References: <20210611022115.3583765-1-yangyingliang@huawei.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- Tan Zhongjun <tanzhongjun@yulong.com>
+Cc: codrin.ciubotariu@microchip.com, Mark Brown <broonie@kernel.org>,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,9 +82,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Jun 2021 12:00:37 +0800, Zhongjun Tan wrote:
-> The platform_get_irq() prints error message telling that interrupt is
-> missing, hence there is no need to duplicated that message.
+On Fri, 11 Jun 2021 10:21:15 +0800, Yang Yingliang wrote:
+> Use devm_platform_get_and_ioremap_resource() to simplify
+> code.
 
 Applied to
 
@@ -93,8 +92,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC:fsl_spdif:Remove superfluous error message around platform_get_irq()
-      commit: 2e8a8adb96a335a04f1697dd4314f5569521328f
+[1/1] ASoC: atmel-classd: Use devm_platform_get_and_ioremap_resource()
+      commit: 9494d059971c5120c60bbe4aae5cba00b20ed774
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

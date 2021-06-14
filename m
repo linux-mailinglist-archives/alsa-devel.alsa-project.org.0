@@ -2,102 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82B8D3A5DAD
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 09:27:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85DAF3A5DF1
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 09:53:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1579E17A7;
-	Mon, 14 Jun 2021 09:26:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1579E17A7
+	by alsa0.perex.cz (Postfix) with ESMTPS id F0B8B1736;
+	Mon, 14 Jun 2021 09:52:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0B8B1736
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623655632;
-	bh=fyjCWVqqtrl65x0xSVEfBM7dYp+vdp+YgoPpB86o7k0=;
-	h=In-Reply-To:References:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1623657220;
+	bh=/e5lEaUVa9uwl1xmv+sLbGsXy71gfBy3ptxBWS7z+M4=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E/+dQFH+1ndbSPeOkShy4RTgGqsv5tQ0hBaBqCvEfBzgnzVmeNYSkye8K2T0+V859
-	 vEd/cat4pHyHhvJkE0K7h9OrSIQ2H4UORqX2FweEiQdPuy/4v5tMlITm5qpLi6ApIP
-	 DW+GvJV2gxHKuWP/0dfV9tX+IL4nZTnDByroQAn8=
+	b=i3EZh53Qj0+v+QXO+1skR3JHNyq0yn4z3pnS+NqIR1TriL9eQXBKte5/6JnAINI+F
+	 rrfR1tfbYwTkVhrmr/HrP4+mNRffRfZcvVnGvNSJFse5Ay2qJ67A9s/Zx5LVSOmHx6
+	 1ZlU72qA4m8MWpBukYm5b/8tg+7jmAO/ht/gGiMw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7CE6AF8023C;
-	Mon, 14 Jun 2021 09:25:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 596C3F8023C;
+	Mon, 14 Jun 2021 09:52:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 681E2F80234; Mon, 14 Jun 2021 09:25:42 +0200 (CEST)
+ id 4CA5CF80234; Mon, 14 Jun 2021 09:52:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
- [IPv6:2607:f8b0:4864:20::42d])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 51401F800DD
- for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 09:25:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51401F800DD
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0283F800F7
+ for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 09:52:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0283F800F7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="qj5JAnB5"
-Received: by mail-pf1-x42d.google.com with SMTP id k15so9886954pfp.6
- for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 00:25:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=AMykhyDqQBbaHMiywFSB9ML+JDGa+EpZX1LNPgYY4Zc=;
- b=qj5JAnB588HOc2jwLQqrovr1XGhoYQv5RFkElZzigkYtxrUduAbxlPgoi9gVfdY02A
- ZR7+R1dCkIihxS4IuKuYveYt0vvMUCpCMrjXI+DOd2ywzwnBVwqGi3IroErjZuBmAzX+
- z0uQU/IRWcoPclJ6zpOsYyfSqYpD2SrlsUOQFm/ollqrUfsFjbDKfBVy1Hmitw+ns8Q/
- K/KxjPe90heu7U1QVO95XZVKtZTfBF7eMeWPypyYaNmlgNJU9emVDy+brsT6xFEuvnjx
- 3jAy60Cey85rPhkokk2qTb5MZdIZfTQKJfcSySnWo3SNL2jpKWffiQfRJ4jqDZSQCNvn
- f14g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=AMykhyDqQBbaHMiywFSB9ML+JDGa+EpZX1LNPgYY4Zc=;
- b=hX061mb4ZqTe5EHKxNXBUZPlOMoBfPESW7oWfKswiZV+HvAIW6Xh2XmAsVMSl4bf3a
- /oTrczcT8Szd7ANJh6XRpr97o6kGI2h4Ws1Z90tIOZsbXgEpvVXTPYxU+XkuEeNxR/5C
- vshXqhaWmaRZPBswKggtWLS1hhuIjMy9Uf+TGMkY47eqzvEBBb/Cw4pc+nXQPbZrbYj1
- 3yvzRJjt2Zv96glpUs0PrAqIg1+FO/LkfpuxGaTqz2YhD6N5HQ4aQyRwzMbqF4EiIwww
- rjlVHwh4lEqpPKV67x3pppBpPOuEoYz2CLAx5adWM5wfArYweAU53fIkXc8QOJIGPUT5
- 1dcg==
-X-Gm-Message-State: AOAM530vLacVtHjhA5wZlLtcxYi/Bp8ViegBlm7Umjr3NZF+z9EG4lEb
- Lpc686epsnIj/BZfUoyJB2pHG9Rktq1jbceoSr8=
-X-Google-Smtp-Source: ABdhPJyp7zIxr65YJCOiZ6K/FwBFmlTWCutupU196eRa7Pb7taMb3Xn0YWA2wmKNWo+aR9YpwQk25tYu27sHw3v+2KU=
-X-Received: by 2002:a63:79c3:: with SMTP id
- u186mr15720923pgc.203.1623655530978; 
- Mon, 14 Jun 2021 00:25:30 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 2002:a17:90a:c002:0:0:0:0 with HTTP; Mon, 14 Jun 2021 00:25:30
- -0700 (PDT)
-In-Reply-To: <20210613233041.128961-1-alexander.sverdlin@gmail.com>
-References: <20210613233041.128961-1-alexander.sverdlin@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 14 Jun 2021 10:25:30 +0300
-Message-ID: <CAHp75VdMxns2GJf6WGVY=tsv=dwf_f++q2-Chw0CJLp_R8n09A@mail.gmail.com>
-Subject: Re: [PATCH 0/7] Prepare EP93xx drivers for Common Clock Framework
-To: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "linux-fbdev@vger.kernel.org" <linux-fbdev@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Thierry Reding <thierry.reding@gmail.com>,
- Lee Jones <lee.jones@linaro.org>, Lars-Peter Clausen <lars@metafoo.de>,
- Nikita Shubin <nikita.shubin@maquefel.me>, Takashi Iwai <tiwai@suse.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- "linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
- "linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Mark Brown <broonie@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
- Vinod Koul <vkoul@kernel.org>,
- "dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>,
- Jonathan Cameron <jic23@kernel.org>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="vR2iY4vB"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="2/y1x99I"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 4361921976;
+ Mon, 14 Jun 2021 07:52:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1623657121; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=yQcGDJ6wHAQtS/4JceyGUQKXJwHP+zOr1D4L0y5Tt+A=;
+ b=vR2iY4vBHGKMk84vzvZBeo734Ds11EKBMb0asMAsfCmYQNIapEQGjVlPMesRRcXGkrjldW
+ auTeK0fsx2K5SmPOX26gkIMeI+J4oqnxuRIubu3uggN7Fshr/0DyJi6UM5X+4nknFOfyak
+ D4Hqf45n08XbjRJt+cGFk8ZzSCKxmLg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1623657121;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=yQcGDJ6wHAQtS/4JceyGUQKXJwHP+zOr1D4L0y5Tt+A=;
+ b=2/y1x99ICHY5Q8hRMWQGMC0kWutdQn/Fw/Blf97JwKmpkrK6w7NiRlqPWIF2DSWgmHElT7
+ RWDcp3MDm5tYAVCw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 2EBD0A3B8D;
+ Mon, 14 Jun 2021 07:52:01 +0000 (UTC)
+Date: Mon, 14 Jun 2021 09:52:01 +0200
+Message-ID: <s5hlf7c51em.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] alsa: control_led - fix initialization in the mode show
+ callback
+In-Reply-To: <20210614071710.1786866-1-perex@perex.cz>
+References: <20210614071710.1786866-1-perex@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: ALSA development <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,47 +93,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Monday, June 14, 2021, Alexander Sverdlin <alexander.sverdlin@gmail.com>
-wrote:
+On Mon, 14 Jun 2021 09:17:10 +0200,
+Jaroslav Kysela wrote:
+> 
+> The str variable should be always initialized before use even if
+> the switch covers all cases. This is a minimalistic fix: Assign NULL,
+> the sprintf() may print '(null)' if something is corrupted.
+> 
+> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 
-> Nikita posted a patch converting EP93xx to use Common Clock Framework. It
-> turns out some cleanup is necessary in the EP93xx drivers to avoid
-> "Enabling unprepared" clock warnings.
->
-> Patches with stack traces in the commit messages are tested on EP9302.
->
-> Link: https://lore.kernel.org/patchwork/patch/1435884/
->
->
-For all commit messages: please, reduce the noise in them as much as
-possible, i.e. leave only up to ~3-4 most significant lines out of
-trackbacks.
+Thanks, applied.
 
 
-
-> Alexander Sverdlin (7):
->   iio: ep93xx: Prepare clock before using it
->   spi: spi-ep93xx: Prepare clock before using it
->   Input: ep93xx_keypad: Prepare clock before using it
->   video: ep93xx: Prepare clock before using it
->   dmaengine: ep93xx: Prepare clock before using it
->   ASoC: cirrus: i2s: Prepare clock before using it
->   pwm: ep93xx: Prepare clock before using it
->
->  drivers/dma/ep93xx_dma.c               |  6 +++---
->  drivers/iio/adc/ep93xx_adc.c           |  6 +++---
->  drivers/input/keyboard/ep93xx_keypad.c |  4 ++--
->  drivers/pwm/pwm-ep93xx.c               | 12 ++++++------
->  drivers/spi/spi-ep93xx.c               |  4 ++--
->  drivers/video/fbdev/ep93xx-fb.c        |  4 ++--
->  sound/soc/cirrus/ep93xx-i2s.c          | 12 ++++++------
->  7 files changed, 24 insertions(+), 24 deletions(-)
->
-> --
-> 2.32.0
->
->
-
--- 
-With Best Regards,
-Andy Shevchenko
+Takashi

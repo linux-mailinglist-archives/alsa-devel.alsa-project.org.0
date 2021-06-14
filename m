@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 422AD3A6FAC
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 21:58:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 293D73A6FAD
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 21:58:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B5763167B;
-	Mon, 14 Jun 2021 21:57:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5763167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9169E16A1;
+	Mon, 14 Jun 2021 21:57:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9169E16A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623700679;
-	bh=YkjBzaYQqVslcwFlFmdUZmUuJIrU93d/ciBUzYyyyz8=;
+	s=default; t=1623700686;
+	bh=9BrKXrQD+oi74tGWcEiEkzvbIWYd6bnHC+gYS3fPliA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rRRBpdkxBxQY+1SE15GdlFzMPINsNkWPtJNxYe9wCk9ZB06jR+dJG3i2xyPjWEeK3
-	 9UvMRAq4HNMjgLfeTgkGMaNbaQ0DgFhNrAvWcb3FrLnem7d116I28OjI++9YIUovTQ
-	 SnlKH2HrgqoIjeDXJoNVVVJjF6I87RlI9iuhsTYg=
+	b=RiHTGnYiCQzuD9oX+b/aG4haJFGMXDfwV3zVlqxZ5U7k1bbq7WGzniuv9QIp6LdI3
+	 wkvtblODTNbPxJ3+HmgFI6ehiHDQrDnq+DMYkW8eXIGW2N0lWl5RHVyOeT9ViEKKqd
+	 IfhW0px9sF9GGOPukzKniCgLuDxMfeX5oK1jG8JY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F811F804E7;
-	Mon, 14 Jun 2021 21:55:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10F67F804F1;
+	Mon, 14 Jun 2021 21:55:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A76AF80424; Mon, 14 Jun 2021 21:54:56 +0200 (CEST)
+ id A882FF804D8; Mon, 14 Jun 2021 21:54:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 344FCF80424
- for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 21:54:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 344FCF80424
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25BC2F804CC
+ for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 21:54:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25BC2F804CC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="T8RPq4We"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AC0E4611CA;
- Mon, 14 Jun 2021 19:54:50 +0000 (UTC)
+ header.b="ODI9FQJY"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3F76061166;
+ Mon, 14 Jun 2021 19:54:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623700491;
- bh=YkjBzaYQqVslcwFlFmdUZmUuJIrU93d/ciBUzYyyyz8=;
+ s=k20201202; t=1623700493;
+ bh=9BrKXrQD+oi74tGWcEiEkzvbIWYd6bnHC+gYS3fPliA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=T8RPq4WeGUCKsqhc15G349HkYbxWxvMReLKrkk4aV84zFI9hQpQJMIW7w/Pcd3iTL
- vogvUEoVQEXVz77lCaDzV83BUGltnZSpdUAYSWjVV+kg+N4+Z16WmMcCh2uUG48/nx
- DfrqpuM9zNBf1Df+T4UZD2ux4kIiN6Rc2oZt2hU7VM3V2VioquySVlXTKM5w2x/6yP
- Btn04SdjZj6IwPoADpfwfZ6PBnYZfz6fMg32Rm4r2GP2VucUZnTiGZ2aJ/uTPUh7N4
- i3+ilXgqbtvjmU0zDjt2rWvo3GAwNXfE/Fh29hPcBvjhYg9Lmo2qI4f9SxCBiuo8W3
- oXzSF6Do2HpWQ==
+ b=ODI9FQJYo22izIiQbHH8d6ufa0jnMTDljnAEcK2Gg/EfeOm2dKocNuE4FPZzNqT1T
+ zUNVWg/lm/3+dYg+EKEI1+gu2873WF7ksIHhIP2gEoR5mxwhgJELN33pgEvUtcyyyT
+ C/k1zOIVX2vg4uOjc3MfDWaztg80AQe0KTFm1I4YJBeDMYKk7eJ4gTMCoVlkJfIhlM
+ BP7z6GjNQI4JLzuA5tt+QCOHfSPSgPoQCLyttWfNG1EDwv0eHCUwiWV8eZm0LAylPS
+ fCnT+mVnAYx1WPWPVmIme5CVTCPG8nF5Qbo3/kG3f7AYMKBx23RjYeYNXJvV6JgqJs
+ OLgERF4IEGRmw==
 From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, Yang Yingliang <yangyingliang@huawei.com>,
- alsa-devel@alsa-project.org
-Subject: Re: [PATCH -next] ASoC: atmel-pdmic: Use
- devm_platform_get_and_ioremap_resource()
-Date: Mon, 14 Jun 2021 20:53:43 +0100
-Message-Id: <162369994010.34524.16386719671018487251.b4-ty@kernel.org>
+To: timur@kernel.org, tiwai@suse.com, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ alsa-devel@alsa-project.org, nicoleotsuka@gmail.com, festevam@gmail.com,
+ perex@perex.cz, Xiubo.Lee@gmail.com
+Subject: Re: [PATCH] ASoC: fsl_spdif: Fix error handler with pm_runtime_enable
+Date: Mon, 14 Jun 2021 20:53:44 +0100
+Message-Id: <162369994009.34524.13362380080934583613.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210611035351.3878091-1-yangyingliang@huawei.com>
-References: <20210611035351.3878091-1-yangyingliang@huawei.com>
+In-Reply-To: <1623392318-26304-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1623392318-26304-1-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: codrin.ciubotariu@microchip.com, Mark Brown <broonie@kernel.org>,
- lgirdwood@gmail.com
+Cc: Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,9 +81,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 11 Jun 2021 11:53:51 +0800, Yang Yingliang wrote:
-> Use devm_platform_get_and_ioremap_resource() to simplify
-> code.
+On Fri, 11 Jun 2021 14:18:38 +0800, Shengjiu Wang wrote:
+> There is error message when defer probe happens:
+> 
+> fsl-spdif-dai 2dab0000.spdif: Unbalanced pm_runtime_enable!
+> 
+> Fix the error handler with pm_runtime_enable and add
+> fsl_spdif_remove() for pm_runtime_disable.
 
 Applied to
 
@@ -91,8 +95,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: atmel-pdmic: Use devm_platform_get_and_ioremap_resource()
-      commit: 92570939c8b952272f630f807f8ddfac58411869
+[1/1] ASoC: fsl_spdif: Fix error handler with pm_runtime_enable
+      commit: 28108d71ee11a7232e1102effab3361049dcd3b8
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

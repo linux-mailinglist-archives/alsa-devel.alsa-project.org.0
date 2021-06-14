@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 203B93A5B3D
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 02:59:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B2F33A5B3F
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 03:00:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BF1371770;
-	Mon, 14 Jun 2021 02:59:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF1371770
+	by alsa0.perex.cz (Postfix) with ESMTPS id B67A517A7;
+	Mon, 14 Jun 2021 02:59:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B67A517A7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623632390;
-	bh=Bgb9LJEQvoDEFlQmLXvmCU1WWkOkyXpxWYFjLgweV8o=;
+	s=default; t=1623632410;
+	bh=je3NGz7rnrCKhALfqcNd+jB4ExADqKO4nSfknT65kSY=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Oelr1N4YRBDa6fjotT0JukjT0W+F4j9m07IxQCJkoYwYPMz3/EaGV7MBx07Yg85Qk
-	 MXn+a9nvI1A8QkoGUk2ldWQkgOJilwKoGACoOsxLTPwqUzUVqGng3js0VXgJElsN/4
-	 AvylwPtdnLThAZfLDZof3P6PlDxRdcCDiRnZF2hI=
+	b=kEqOULhUPUGnuXykm2Y9e+vrUljLPMNTbQpfXMD17f5w/fKUEF8NFR0sJDEE7kbPn
+	 dMJF680FVIJoJWwtxt+YYzJtpIKwLj7rq47woRpeK3cwT6pnr1NnPlc+vKJIT9jWJ8
+	 HfQo7g7Eoh1c9O3mqBdSjQj/zI8lftJcODuribKY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 645C2F800FA;
-	Mon, 14 Jun 2021 02:58:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10300F804CC;
+	Mon, 14 Jun 2021 02:58:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BE611F8016D; Mon, 14 Jun 2021 02:58:05 +0200 (CEST)
+ id 901CCF804CA; Mon, 14 Jun 2021 02:58:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 84281F80165
- for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 02:57:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84281F80165
-Date: 14 Jun 2021 09:57:51 +0900
-X-IronPort-AV: E=Sophos;i="5.83,272,1616425200"; d="scan'208";a="84248236"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 14 Jun 2021 09:57:51 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 8494EF802E8
+ for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 02:58:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8494EF802E8
+Date: 14 Jun 2021 09:58:05 +0900
+X-IronPort-AV: E=Sophos;i="5.83,272,1616425200"; d="scan'208";a="84107843"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 14 Jun 2021 09:58:05 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 78FDB4142FF2;
- Mon, 14 Jun 2021 09:57:51 +0900 (JST)
-Message-ID: <874ke1w9dc.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 22B154005E24;
+ Mon, 14 Jun 2021 09:58:05 +0900 (JST)
+Message-ID: <8735tlw9cy.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v3 5/8] ASoC: fsl: switch to use
+Subject: [PATCH v3 6/8] ASoC: meson: switch to use
  snd_soc_daifmt_parse_format/clock_provider()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Liam Girdwood <lgirdwood@gmail.com>,
@@ -87,35 +87,26 @@ snd_soc_of_parse_daifmt().
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/fsl/fsl-asoc-card.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ sound/soc/meson/meson-card-utils.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
-index c62bfd1c3ac7..14d2956d0da3 100644
---- a/sound/soc/fsl/fsl-asoc-card.c
-+++ b/sound/soc/fsl/fsl-asoc-card.c
-@@ -540,7 +540,6 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
- 	struct device *codec_dev = NULL;
- 	const char *codec_dai_name;
- 	const char *codec_dev_name;
--	unsigned int daifmt;
- 	u32 width;
- 	int ret;
+diff --git a/sound/soc/meson/meson-card-utils.c b/sound/soc/meson/meson-card-utils.c
+index 300ac8be46ef..415cc0046e4b 100644
+--- a/sound/soc/meson/meson-card-utils.c
++++ b/sound/soc/meson/meson-card-utils.c
+@@ -119,9 +119,9 @@ unsigned int meson_card_parse_daifmt(struct device_node *node,
+ 	struct device_node *framemaster = NULL;
+ 	unsigned int daifmt;
  
-@@ -684,10 +683,10 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
- 	}
- 
- 	/* Format info from DT is optional. */
--	daifmt = snd_soc_of_parse_daifmt(np, NULL,
+-	daifmt = snd_soc_of_parse_daifmt(node, "",
 -					 &bitclkmaster, &framemaster);
 -	daifmt &= ~SND_SOC_DAIFMT_MASTER_MASK;
-+	snd_soc_daifmt_parse_clock_provider_as_phandle(np, NULL, &bitclkmaster, &framemaster);
- 	if (bitclkmaster || framemaster) {
-+		unsigned int daifmt = snd_soc_daifmt_parse_format(np, NULL);
++	daifmt = snd_soc_daifmt_parse_format(node, NULL);
 +
- 		if (codec_np == bitclkmaster)
- 			daifmt |= (codec_np == framemaster) ?
- 				SND_SOC_DAIFMT_CBM_CFM : SND_SOC_DAIFMT_CBM_CFS;
++	snd_soc_daifmt_parse_clock_provider_as_phandle(node, NULL, &bitclkmaster, &framemaster);
+ 
+ 	/* If no master is provided, default to cpu master */
+ 	if (!bitclkmaster || bitclkmaster == cpu_node) {
 -- 
 2.25.1
 

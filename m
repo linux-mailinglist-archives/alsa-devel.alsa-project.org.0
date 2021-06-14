@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E0CF3A6FC0
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 22:01:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2C893A6FC1
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 22:01:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB89916AC;
-	Mon, 14 Jun 2021 22:00:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB89916AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BB70168C;
+	Mon, 14 Jun 2021 22:00:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BB70168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623700871;
-	bh=VFwmZhq0lZfRxin6Ubjaz1ZtsF0TofX7e3Stt+Ib3wE=;
+	s=default; t=1623700893;
+	bh=fNFJUqAq01ipcR1uUZlhTo8RHMzwgmOdackeJZ6s1I8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AuPE2DiquNcSfx9H4lhropFknyw4BhragYlCA1QrLbD7EPH77BugpHNMZwhSr4wmJ
-	 49EI2A97ypFsrlvxc/ewZaWVbADh5bv2esBgmWbXINLSANvC6fkBJVaqVdKtxULOjl
-	 HlDGiEDsW+ZEXSx/JqyHxVOYFT1QaoCLZwi0QEu8=
+	b=lW4NWU1jF82mhC9Xi56tQ5MARRGh0TVVnSv7bHAiGOwOyreiSFw29ZOgLWIrllg2Z
+	 UUIm6PjIaQjMAdLyRhJifhTDwW4atyf2C/DabjgoRGYqEzOR+lM5KPXjxq+lan+ahy
+	 6QBY2bI13tPaTf4yx40PO1MbAaxjekr7aUZj2rWY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 824B2F80534;
-	Mon, 14 Jun 2021 21:55:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8F3EDF8053A;
+	Mon, 14 Jun 2021 21:55:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 15498F80529; Mon, 14 Jun 2021 21:55:23 +0200 (CEST)
+ id E1E71F80529; Mon, 14 Jun 2021 21:55:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9E908F80527
- for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 21:55:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E908F80527
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C0F8F80525
+ for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 21:55:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C0F8F80525
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qPYLWT5E"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B9EDE6128B;
- Mon, 14 Jun 2021 19:55:18 +0000 (UTC)
+ header.b="FqilMXT6"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4D58661246;
+ Mon, 14 Jun 2021 19:55:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623700519;
- bh=VFwmZhq0lZfRxin6Ubjaz1ZtsF0TofX7e3Stt+Ib3wE=;
+ s=k20201202; t=1623700521;
+ bh=fNFJUqAq01ipcR1uUZlhTo8RHMzwgmOdackeJZ6s1I8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=qPYLWT5ELsVLTgso2Ru/fbR6hb5F/o+gG1pd1fv6hBdq9cLJp3OAsMHKH2Jjxmqj7
- EukoRcTUu7yHy4bIGQCxW8lDIml5bItQVHbHWGqW/SxyO5gbPrTfuOngSxqwqR0YOF
- l1ATGyJwT5WrI/4u7BOnuH3ImcOTTCnElZeBpjI6J+FevbelqxN6zqA6s5ZkDsBahY
- nhQ/9o5G2ZmeQjYyJRgguWhy9bFsnzF0v7Chy+dV/jIP2U98GKHJb1tYxXAHOmqcrz
- 1Mq1ExqM/iKjtJ2qorltH1MJbKzYUJ184njPHHL+GhnUq16e+6H/KtzWHHu9+UVpPn
- FWJRI2S3ecQ2Q==
+ b=FqilMXT6Q32JdZ4v/tXITvsmSo+byh4QBPywPrcFjRS9Rlx7uf09ettP/fGz3QdVB
+ Dr3GpEjM9qsKgrYOfx51r16YUubepdHTIlJioafGCFkHkWmmDaKs+5KhauDo+IsniA
+ y0QFvi/s82CMAjctuW0pO/LVQk2XRKo7x9TSCcZZ3/bGIBkWvVufBgUqtyfzMlfl+6
+ ApXEZQ+86xKGuWrmrPeFUAMUmMcJzXunCtCLdez8QyHiVsc8AKJS9SZ1FHDTrPC2DY
+ 99zCiHOycL4s97U9XYtvv+LLk//QwmyVropfNsgY8l6OFT8E4NLj2MiUWeqPexdYk2
+ F1fePt/0N2eYQ==
 From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>,
- ALSA development <alsa-devel@alsa-project.org>
-Subject: Re: [PATCH] ASoC: soc-pcm: fix the return value in
- dpcm_apply_symmetry()
-Date: Mon, 14 Jun 2021 20:53:52 +0100
-Message-Id: <162369994008.34524.2678232708120312519.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Subject: Re: [RESEND PATCH] ASoC: rt5640: Make codec selectable
+Date: Mon, 14 Jun 2021 20:53:53 +0100
+Message-Id: <162369994009.34524.11288841519238246714.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210614071746.1787072-1-perex@perex.cz>
-References: <20210614071746.1787072-1-perex@perex.cz>
+In-Reply-To: <20210612200650.1301661-1-martin.blumenstingl@googlemail.com>
+References: <20210612200650.1301661-1-martin.blumenstingl@googlemail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: tiwai@suse.com, Mark Brown <broonie@kernel.org>,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,10 +80,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 14 Jun 2021 09:17:46 +0200, Jaroslav Kysela wrote:
-> In case, where the loops are not executed for a reason, the uninitialized
-> variable 'err' is returned to the caller. Make code fully predictible
-> and assign zero in the declaration.
+On Sat, 12 Jun 2021 22:06:50 +0200, Martin Blumenstingl wrote:
+> The Realtek rt5640 codec driver can be used with the generic sound card
+> drivers, so it should be selectable. For example, with the addition
+> of #sound-dai-cells = <0> property in DT, it can be used with simple and
+> graph card drivers.
 
 Applied to
 
@@ -92,8 +92,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: soc-pcm: fix the return value in dpcm_apply_symmetry()
-      commit: 12ffd726824a2f52486f72338b6fd3244b512959
+[1/1] ASoC: rt5640: Make codec selectable
+      commit: 08c56cab302a059c1f3a95c164def7b21c67ad2e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

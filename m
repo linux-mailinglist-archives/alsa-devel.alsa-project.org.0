@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B2F33A5B3F
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 03:00:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE0A23A5B40
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 03:00:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B67A517A7;
-	Mon, 14 Jun 2021 02:59:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B67A517A7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 619B91766;
+	Mon, 14 Jun 2021 02:59:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 619B91766
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623632410;
-	bh=je3NGz7rnrCKhALfqcNd+jB4ExADqKO4nSfknT65kSY=;
+	s=default; t=1623632435;
+	bh=V7jTv9R46IkD5UWxSmmUup2nLdAe3xrJHfRFTP6J1ks=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kEqOULhUPUGnuXykm2Y9e+vrUljLPMNTbQpfXMD17f5w/fKUEF8NFR0sJDEE7kbPn
-	 dMJF680FVIJoJWwtxt+YYzJtpIKwLj7rq47woRpeK3cwT6pnr1NnPlc+vKJIT9jWJ8
-	 HfQo7g7Eoh1c9O3mqBdSjQj/zI8lftJcODuribKY=
+	b=b/W0IhRJT7VtlAzbPBHpdlPqq4ekhlcvURt2vNkItwrdpKljm1x56fbRda/JsqZvt
+	 wFt7nIsZDRCDQBJNJPahqgMErT15by0w+Z1gI/JofGhJnQ2uMiWH6W4gvwsslqZDbJ
+	 VxqRnAyW0nlPtn266cy985Q7dc1IwOcAwAbp5Knk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10300F804CC;
-	Mon, 14 Jun 2021 02:58:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3639F804C3;
+	Mon, 14 Jun 2021 02:58:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 901CCF804CA; Mon, 14 Jun 2021 02:58:09 +0200 (CEST)
+ id D33F0F802A9; Mon, 14 Jun 2021 02:58:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 8494EF802E8
- for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 02:58:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8494EF802E8
-Date: 14 Jun 2021 09:58:05 +0900
-X-IronPort-AV: E=Sophos;i="5.83,272,1616425200"; d="scan'208";a="84107843"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 14 Jun 2021 09:58:05 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 05A7FF800FB
+ for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 02:58:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05A7FF800FB
+Date: 14 Jun 2021 09:58:22 +0900
+X-IronPort-AV: E=Sophos;i="5.83,272,1616425200"; d="scan'208";a="84107873"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 14 Jun 2021 09:58:22 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 22B154005E24;
- Mon, 14 Jun 2021 09:58:05 +0900 (JST)
-Message-ID: <8735tlw9cy.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id AB7D14142FFF;
+ Mon, 14 Jun 2021 09:58:22 +0900 (JST)
+Message-ID: <871r95w9ch.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v3 6/8] ASoC: meson: switch to use
+Subject: [PATCH v3 7/8] ASoC: simple-card-utils: switch to use
  snd_soc_daifmt_parse_format/clock_provider()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Liam Girdwood <lgirdwood@gmail.com>,
@@ -87,26 +87,45 @@ snd_soc_of_parse_daifmt().
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/meson/meson-card-utils.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sound/soc/generic/simple-card-utils.c | 16 +++++-----------
+ 1 file changed, 5 insertions(+), 11 deletions(-)
 
-diff --git a/sound/soc/meson/meson-card-utils.c b/sound/soc/meson/meson-card-utils.c
-index 300ac8be46ef..415cc0046e4b 100644
---- a/sound/soc/meson/meson-card-utils.c
-+++ b/sound/soc/meson/meson-card-utils.c
-@@ -119,9 +119,9 @@ unsigned int meson_card_parse_daifmt(struct device_node *node,
+diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
+index fa1247f0dda1..677f7da93b4b 100644
+--- a/sound/soc/generic/simple-card-utils.c
++++ b/sound/soc/generic/simple-card-utils.c
+@@ -61,10 +61,9 @@ int asoc_simple_parse_daifmt(struct device *dev,
  	struct device_node *framemaster = NULL;
  	unsigned int daifmt;
  
--	daifmt = snd_soc_of_parse_daifmt(node, "",
+-	daifmt = snd_soc_of_parse_daifmt(node, prefix,
 -					 &bitclkmaster, &framemaster);
 -	daifmt &= ~SND_SOC_DAIFMT_MASTER_MASK;
-+	daifmt = snd_soc_daifmt_parse_format(node, NULL);
-+
-+	snd_soc_daifmt_parse_clock_provider_as_phandle(node, NULL, &bitclkmaster, &framemaster);
++	daifmt = snd_soc_daifmt_parse_format(node, prefix);
  
- 	/* If no master is provided, default to cpu master */
- 	if (!bitclkmaster || bitclkmaster == cpu_node) {
++	snd_soc_daifmt_parse_clock_provider_as_phandle(node, prefix, &bitclkmaster, &framemaster);
+ 	if (!bitclkmaster && !framemaster) {
+ 		/*
+ 		 * No dai-link level and master setting was not found from
+@@ -73,15 +72,10 @@ int asoc_simple_parse_daifmt(struct device *dev,
+ 		 */
+ 		dev_dbg(dev, "Revert to legacy daifmt parsing\n");
+ 
+-		daifmt = snd_soc_of_parse_daifmt(codec, NULL, NULL, NULL) |
+-			(daifmt & ~SND_SOC_DAIFMT_CLOCK_MASK);
++		daifmt |= snd_soc_daifmt_parse_clock_provider_as_flag(codec, NULL);
+ 	} else {
+-		if (codec == bitclkmaster)
+-			daifmt |= (codec == framemaster) ?
+-				SND_SOC_DAIFMT_CBM_CFM : SND_SOC_DAIFMT_CBM_CFS;
+-		else
+-			daifmt |= (codec == framemaster) ?
+-				SND_SOC_DAIFMT_CBS_CFM : SND_SOC_DAIFMT_CBS_CFS;
++		daifmt |= snd_soc_daifmt_clock_provider_from_bitmap(
++				((codec == bitclkmaster) << 4) | (codec == framemaster));
+ 	}
+ 
+ 	of_node_put(bitclkmaster);
 -- 
 2.25.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2C893A6FC1
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 22:01:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CC963A6FC2
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 22:01:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1BB70168C;
-	Mon, 14 Jun 2021 22:00:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BB70168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9ACD216B8;
+	Mon, 14 Jun 2021 22:01:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9ACD216B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623700893;
-	bh=fNFJUqAq01ipcR1uUZlhTo8RHMzwgmOdackeJZ6s1I8=;
+	s=default; t=1623700912;
+	bh=Ntq4kqfa7yTnx8mVPDsS8IPwujI3mWFLjDWMxG8jalE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lW4NWU1jF82mhC9Xi56tQ5MARRGh0TVVnSv7bHAiGOwOyreiSFw29ZOgLWIrllg2Z
-	 UUIm6PjIaQjMAdLyRhJifhTDwW4atyf2C/DabjgoRGYqEzOR+lM5KPXjxq+lan+ahy
-	 6QBY2bI13tPaTf4yx40PO1MbAaxjekr7aUZj2rWY=
+	b=rkzmBaAAq/RuzKvKRFSQqiXjIWzfoU4+aoSBCuQx7E7hmkiEh/+8PCrPLX1vfy6Dc
+	 zkFDoJmUufU/wsFXA6Yw1XTCsES5GIqxxvrsO+isVsktUPbHTe4DBczg6moeJsBQmL
+	 EQNTRd1YJ4Qla1nMKvzB2G94Kwrr0tEvBEn2POcE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F3EDF8053A;
-	Mon, 14 Jun 2021 21:55:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2FA4FF8053E;
+	Mon, 14 Jun 2021 21:55:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E1E71F80529; Mon, 14 Jun 2021 21:55:25 +0200 (CEST)
+ id 955CBF80538; Mon, 14 Jun 2021 21:55:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2C0F8F80525
- for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 21:55:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C0F8F80525
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0F8A9F80525
+ for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 21:55:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F8A9F80525
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="FqilMXT6"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4D58661246;
- Mon, 14 Jun 2021 19:55:21 +0000 (UTC)
+ header.b="RABkBT+n"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D2D62611EE;
+ Mon, 14 Jun 2021 19:55:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623700521;
- bh=fNFJUqAq01ipcR1uUZlhTo8RHMzwgmOdackeJZ6s1I8=;
+ s=k20201202; t=1623700524;
+ bh=Ntq4kqfa7yTnx8mVPDsS8IPwujI3mWFLjDWMxG8jalE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FqilMXT6Q32JdZ4v/tXITvsmSo+byh4QBPywPrcFjRS9Rlx7uf09ettP/fGz3QdVB
- Dr3GpEjM9qsKgrYOfx51r16YUubepdHTIlJioafGCFkHkWmmDaKs+5KhauDo+IsniA
- y0QFvi/s82CMAjctuW0pO/LVQk2XRKo7x9TSCcZZ3/bGIBkWvVufBgUqtyfzMlfl+6
- ApXEZQ+86xKGuWrmrPeFUAMUmMcJzXunCtCLdez8QyHiVsc8AKJS9SZ1FHDTrPC2DY
- 99zCiHOycL4s97U9XYtvv+LLk//QwmyVropfNsgY8l6OFT8E4NLj2MiUWeqPexdYk2
- F1fePt/0N2eYQ==
+ b=RABkBT+nggojxbBjepS2TJ3VTzPGjdLTL36uau2ylN8z5+ED/J8ChW7N8muSgqKaj
+ j906CKpN9WJQ8IGjkdqSxRhmI7qtWt+bfCFaYri4HloD5EJhgJzzTXhJoi0RXYQ6gP
+ 0urj8N1SPZig0dp7YU2G2Z7QTJhYj9oIAD47RWlcQebpA7j8HTlsj0oPR8vXNm1Oiv
+ xzqyhwq6wU4KCgdtyWKAVnBI7i38hfNPJ2C7cK59NWR/Qlj9hT8wD1rgL9Jf+veNPA
+ Bzb0pWJxKkicVy4SPNgvJTCzytXqjHdrbOOVaWrsQ42vieY5LDwzb/Er/tvcZkEYZ3
+ FKnszJfCHZpPw==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Subject: Re: [RESEND PATCH] ASoC: rt5640: Make codec selectable
-Date: Mon, 14 Jun 2021 20:53:53 +0100
-Message-Id: <162369994009.34524.11288841519238246714.b4-ty@kernel.org>
+To: linux-kernel@vger.kernel.org, Yang Yingliang <yangyingliang@huawei.com>,
+ alsa-devel@alsa-project.org
+Subject: Re: [PATCH -next] ASoC: mchp-i2s-mcc: Use
+ devm_platform_get_and_ioremap_resource()
+Date: Mon, 14 Jun 2021 20:53:54 +0100
+Message-Id: <162369994010.34524.5545642364893372960.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210612200650.1301661-1-martin.blumenstingl@googlemail.com>
-References: <20210612200650.1301661-1-martin.blumenstingl@googlemail.com>
+In-Reply-To: <20210611044256.3899583-1-yangyingliang@huawei.com>
+References: <20210611044256.3899583-1-yangyingliang@huawei.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.com, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com
+Cc: codrin.ciubotariu@microchip.com, Mark Brown <broonie@kernel.org>,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,11 +81,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 12 Jun 2021 22:06:50 +0200, Martin Blumenstingl wrote:
-> The Realtek rt5640 codec driver can be used with the generic sound card
-> drivers, so it should be selectable. For example, with the addition
-> of #sound-dai-cells = <0> property in DT, it can be used with simple and
-> graph card drivers.
+On Fri, 11 Jun 2021 12:42:56 +0800, Yang Yingliang wrote:
+> Use devm_platform_get_and_ioremap_resource() to simplify
+> code.
 
 Applied to
 
@@ -92,8 +91,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: rt5640: Make codec selectable
-      commit: 08c56cab302a059c1f3a95c164def7b21c67ad2e
+[1/1] ASoC: mchp-i2s-mcc: Use devm_platform_get_and_ioremap_resource()
+      commit: be374dc0b5062eb8ec3feb5cb1795a24c399f6cc
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

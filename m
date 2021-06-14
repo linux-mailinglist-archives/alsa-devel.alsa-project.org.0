@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 164DB3A6FB2
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 21:59:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33F913A6FB5
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 22:00:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 986A116A8;
-	Mon, 14 Jun 2021 21:58:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 986A116A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id BFEC6827;
+	Mon, 14 Jun 2021 21:59:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFEC6827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623700774;
-	bh=lmulZGLVIGgfLTHPuc1g/ChqUK2CxHQVWiDek7Fcvx4=;
+	s=default; t=1623700803;
+	bh=lT5yzjjUYBYta8C+DB0QxaUERnjC8I3q07nMpoQubhA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Khmrdj3SV8AX5FstQ2LJKX+Xsiuh8M+/WT9OFxO8nyCk1pxtXEAxN1aJXs0UMXxrX
-	 xIod1B5J+9avHvPIMeKQ5RolqO+URx9PflwWYwYmisKOfowJj+4Lg1NVpBcVBgffbm
-	 rObbIx4rzQzwvi289+kCkI0AzhcIte1V5YzDI+Rg=
+	b=M5U7VlYweXT4ZHon+oRLPU6LoYe4GqG0kXdRJGkIPxzZBjt3ZkhFkPiENc4uPanhb
+	 lcymfqhWVDK12AxIKA//mF6WF3PeHqUOTTh/OQijCThDxZcUZWXFjOMeiWAX0ZR1nU
+	 XAKVwXlloQAVv3DlVyWGRY5s6iKPzup3KW2r88xQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5BC97F80516;
-	Mon, 14 Jun 2021 21:55:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83739F80519;
+	Mon, 14 Jun 2021 21:55:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72F59F80511; Mon, 14 Jun 2021 21:55:13 +0200 (CEST)
+ id CC49EF80518; Mon, 14 Jun 2021 21:55:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0D140F80506
- for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 21:55:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D140F80506
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4379EF80515
+ for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 21:55:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4379EF80515
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="m24IE0P8"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8522861246;
- Mon, 14 Jun 2021 19:55:08 +0000 (UTC)
+ header.b="gNrhW6oZ"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1A142611CA;
+ Mon, 14 Jun 2021 19:55:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623700509;
- bh=lmulZGLVIGgfLTHPuc1g/ChqUK2CxHQVWiDek7Fcvx4=;
+ s=k20201202; t=1623700511;
+ bh=lT5yzjjUYBYta8C+DB0QxaUERnjC8I3q07nMpoQubhA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=m24IE0P8yQ6et73WXk2Ee9oJZHR7XXd11fxTb3ApdeMumDT30IQ0/F8b5cdEDNMvE
- LoE6VRiTJqnu+SBRrqF+HGjzBEOPQO54S7Z9PCCKOE4OUOJMJSJkOCeaoMnXNqcT45
- S7k/DDm40bcWxjfRIMzu5kWQUC04tHAMtFsHa4tDZ1MlkyW+NQwHwrdaqBqiIo/3AI
- TxEHOo6cJwsI7I3U1iOaK2gWf4/617RyadFg50IyDLj2vsI1SW05ITB2PmP7dztaOw
- bEz2NEz+g2n6WmXBe9bkMGf8GbmX8tT0BE45IqbExMHWH+E6DREV6YInmpav4Q5BLt
- dLOI8euWndE+g==
+ b=gNrhW6oZA7SoWcZ4rY9yWpvgI8AASw1k31ct6FZgNluC2uZPP/5XCsLk0JPjwIOd6
+ LzUESr3XIo3cwNO0W3B1vzpez/RmcnlRyojmCYQDpUaisMRnXQNqzdIU/e3SUZQzmo
+ 3lQk1L9Sz9zIZ5Z6+bCgXU44+YOmdpUAaVVs9z28Co/klSW7eDn0ftWD8svj+/oTHS
+ tfLJoMmXCJ1jjNR3/K7MabA1Mau2/ulz6FjRw+LdMj6/6Vjb9JztM4gmApmePCX2qY
+ J68muXB+sztOVrTaCgrv9HI2CRKtxscqPLizscJeVPr61pRxnpl/6qCqHUL/QlA+wx
+ zvuLNVs3sePKg==
 From: Mark Brown <broonie@kernel.org>
-To: Marek Vasut <marex@denx.de>,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: ASoC: sgtl5000: Add audio-graph-card port
-Date: Mon, 14 Jun 2021 20:53:48 +0100
-Message-Id: <162369994009.34524.17249754614402570910.b4-ty@kernel.org>
+To: linux-kernel@vger.kernel.org, Yang Yingliang <yangyingliang@huawei.com>,
+ alsa-devel@alsa-project.org
+Subject: Re: [PATCH -next] ASoC: atmel-i2s: Use
+ devm_platform_get_and_ioremap_resource()
+Date: Mon, 14 Jun 2021 20:53:49 +0100
+Message-Id: <162369994009.34524.4469647809595882038.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210610150135.29905-1-marex@denx.de>
-References: <20210610150135.29905-1-marex@denx.de>
+In-Reply-To: <20210611034122.3871022-1-yangyingliang@huawei.com>
+References: <20210611034122.3871022-1-yangyingliang@huawei.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Rob Herring <robh+dt@kernel.org>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Fabio Estevam <festevam@gmail.com>,
- kernel@dh-electronics.com
+Cc: codrin.ciubotariu@microchip.com, Mark Brown <broonie@kernel.org>,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,9 +81,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Jun 2021 17:01:35 +0200, Marek Vasut wrote:
-> The SGTL5000 codec can be connected via audio-graph-card,
-> add the missing port: entry into the bindings.
+On Fri, 11 Jun 2021 11:41:22 +0800, Yang Yingliang wrote:
+> Use devm_platform_get_and_ioremap_resource() to simplify
+> code.
 
 Applied to
 
@@ -91,8 +91,8 @@ Applied to
 
 Thanks!
 
-[1/1] dt-bindings: ASoC: sgtl5000: Add audio-graph-card port
-      commit: f1905ab2a8a2103b7fa74a5f96fb50cce0dee6f5
+[1/1] ASoC: atmel-i2s: Use devm_platform_get_and_ioremap_resource()
+      commit: 39175acd699ae73abd855748e05fb117dcc05a1f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

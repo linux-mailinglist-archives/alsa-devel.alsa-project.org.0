@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E7AA3A6FAE
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 21:58:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C64B3A6FAF
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 21:58:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 272D0169A;
-	Mon, 14 Jun 2021 21:57:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 272D0169A
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC7641699;
+	Mon, 14 Jun 2021 21:58:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC7641699
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623700719;
-	bh=PnHK/VR5cOpnsRVccuzXTfVuyVHxXtdD1FlUCiH5SLA=;
+	s=default; t=1623700733;
+	bh=UaMAdaGCIFZTe9Lid8hlx9FlqRqLHjiFO76ePbDjrE0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DYwtjObIvMLNQBr1oR1sJkaU+KheRt4MJDqplRggSLYZFI3wSOPvzL6uawlew+0Q6
-	 Za1OjtAUJ2oiqS6m2VoEHKYNsrr44AfQ2D1JXjXqyhGjS9fjsrtoVJqpg5eB9vntPQ
-	 EEwEJnePktNCfh0BAPunJGZIawvrHZjdKdzRx7is=
+	b=oJPlp0kuYcxh8AB7NZvXYdn3Mp1D2EVW6ywMCIxqTCMkca6+1KvXk0/Knc/4ryrCd
+	 Ls5fduZLxCRgjTHgbfb+ukcvg1D7lGgK8SCutbctENcnca8wdy/sa7gC4oEUKVXCUv
+	 4W2AC26jN20Jqt8hOiu4jMP0d++phXLbzn3bpsN8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C888CF804F2;
-	Mon, 14 Jun 2021 21:55:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D24EF804FF;
+	Mon, 14 Jun 2021 21:55:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7061F804F3; Mon, 14 Jun 2021 21:55:04 +0200 (CEST)
+ id 6CCA2F804FD; Mon, 14 Jun 2021 21:55:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B4BACF804D8
- for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 21:54:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4BACF804D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9C25BF804FA
+ for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 21:55:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C25BF804FA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JCv6KE1e"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C83DF6124B;
- Mon, 14 Jun 2021 19:54:55 +0000 (UTC)
+ header.b="XKfnJWBW"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6AA3A6128A;
+ Mon, 14 Jun 2021 19:55:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623700496;
- bh=PnHK/VR5cOpnsRVccuzXTfVuyVHxXtdD1FlUCiH5SLA=;
+ s=k20201202; t=1623700503;
+ bh=UaMAdaGCIFZTe9Lid8hlx9FlqRqLHjiFO76ePbDjrE0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JCv6KE1exAGVCpty7wHJatW7A0B7P1MM4+B0iiwLOjf5FMS3jhQ0Eqt/8UY/Xj6Rm
- zOu9wjOEZv2Re/Xmgidnlw+qxmvYGig/BhqxkbOCQXqsLHmkGQqMO5BPkP/Uj8kHfF
- BXDWeHiDVdpSyREMRwJ5YZthQ+zcBPc/mzI6rF5nonCzGwBoL5dhDcTA3gyYOTnFqz
- rYyknQIC1pLozUVfVy97BFeLlgS4PmN66pVeQZjj7ZNrOH7yz+OGONAzn222pJTduy
- OapCgU/8NBNr5uo0/XicG4WXUuP003OajhSF/6zX+3NWz7QCi7fa+9zZ8CN4L+qSgN
- iSU1XzrbQvLMQ==
+ b=XKfnJWBW4djyyeyu+bnBwYV3kA0AMw1zcNBMq6AoparWdnwL6o6Ze65nCZUigY81f
+ S970hJT5ru0jnee4ijuWhFUX5tcMP0nxgmo9nF4IHvqXMVGgKpxmtHMadoZzETvPHs
+ Rcjj/by5SMn7+AHhyz7J0KlkmUr2vFwn1T0ySzJa5oqvP1oUzu5nw8CqdZfqHe/ZYm
+ Mj5JXw0BAh8bKgTfa+EXPyx9afERF6ds5sdsShqr/CPJW3Yj+gZbuy8OHf0bA2PAFX
+ NvDt32juFXFEkAIrIBnMloIn+8dB6qb+5verJlJax0bnLTAm0EV9TOIj3xmi+RM9MF
+ fNNk2vur8lIhw==
 From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, Yang Yingliang <yangyingliang@huawei.com>,
- alsa-devel@alsa-project.org
-Subject: Re: [PATCH -next] ASoC: bcm: cygnus_ssp: Use
- devm_platform_ioremap_resource_byname()
-Date: Mon, 14 Jun 2021 20:53:45 +0100
-Message-Id: <162369994010.34524.11074726668440482305.b4-ty@kernel.org>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Subject: Re: [PATCH] ASoC: rt5645: Avoid upgrading static warnings to errors
+Date: Mon, 14 Jun 2021 20:53:46 +0100
+Message-Id: <162369994008.34524.1712121519306200413.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210611050235.4182746-1-yangyingliang@huawei.com>
-References: <20210611050235.4182746-1-yangyingliang@huawei.com>
+In-Reply-To: <20210608160713.21040-1-broonie@kernel.org>
+References: <20210608160713.21040-1-broonie@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>, lgirdwood@gmail.com
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ alsa-devel@alsa-project.org, Phillip Potter <phil@philpotter.co.uk>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,10 +80,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 11 Jun 2021 13:02:35 +0800, Yang Yingliang wrote:
-> Use the devm_platform_ioremap_resource_byname() helper instead of
-> calling platform_get_resource_byname() and devm_ioremap_resource()
-> separately.
+On Tue, 8 Jun 2021 17:07:13 +0100, Mark Brown wrote:
+> One of the fixes reverted as part of the UMN fallout was actually fine,
+> however rather than undoing the revert the process that handled all this
+> stuff resulted in a patch which attempted to add extra error checks
+> instead.  Unfortunately this new change wasn't really based on a good
+> understanding of the subsystem APIs and bypassed the usual patch flow
+> without ensuring it was reviewed by people with subsystem knowledge and
+> was merged as a fix rather than during the merge window.
+> 
+> [...]
 
 Applied to
 
@@ -91,8 +97,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: bcm: cygnus_ssp: Use devm_platform_ioremap_resource_byname()
-      commit: 3814c41778f3489ac103c9a045ae26c082d19be3
+[1/1] ASoC: rt5645: Avoid upgrading static warnings to errors
+      commit: 916cccb5078eee57fce131c5fe18e417545083e2
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

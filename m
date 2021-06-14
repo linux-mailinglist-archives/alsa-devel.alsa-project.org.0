@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68B993A6E05
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 20:11:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C8A53A6E06
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 20:11:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF7411680;
-	Mon, 14 Jun 2021 20:10:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF7411680
+	by alsa0.perex.cz (Postfix) with ESMTPS id B359A1688;
+	Mon, 14 Jun 2021 20:11:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B359A1688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623694290;
-	bh=RfIy6QgMfuFTeJWqKXklAL6IUdgA0Uqncz81RAnUveQ=;
+	s=default; t=1623694315;
+	bh=iYGxxyJB55rn+lQoJh0OYRVBT6C8JemB9bKK+SSuP/Y=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hXInJzmhrIvVAEz5KVGUzTLIzwhte6fqG5x1ofKY+T9F4WGPn60iMxKEuIhR7Wq9Z
-	 7WSZHAHN2khVmyMXSdjk0pffkNUx1aubgbk4Dm59l/3K9KPyp8O5e4VoiRQ9C8mtcz
-	 piqeQ8oHoSD2RwTrWJv1h4AnoQ2VhE0GuVL4H6as=
+	b=C9YRk3IQQe8zQXi7Wo0uXnTur+qF5apfF8uMfM+xZFvOpT4BT270xtjavmmEfCYoj
+	 aNnppc1l0w1ssoRTJTEQllR+Uq012FM8PmE8B82on7+FM2rPeHaY7uw/fFm0rG3+VT
+	 +Prt1xdBcnVoQ3WdaUnukoRa9Kvoq1YS9uTxmUg0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1AF30F804D2;
-	Mon, 14 Jun 2021 20:09:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1822F804E0;
+	Mon, 14 Jun 2021 20:09:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76A4DF804CA; Mon, 14 Jun 2021 20:08:58 +0200 (CEST)
+ id 2767AF800F7; Mon, 14 Jun 2021 20:09:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,29 +33,29 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D11CBF8028B
- for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 20:08:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D11CBF8028B
-IronPort-SDR: moKwY6mGwqKGAZPP4CMLKPhT8gRuR82iCHosVVCc6J8HualZnZGfoJ9qAK/9juEQCvLRX7M5s5
- F1ZxkUwTfjEQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,10015"; a="192969581"
-X-IronPort-AV: E=Sophos;i="5.83,273,1616482800"; d="scan'208";a="192969581"
+ by alsa1.perex.cz (Postfix) with ESMTPS id B35E0F802E8
+ for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 20:08:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B35E0F802E8
+IronPort-SDR: paBzcVBJg7en1eDsEEkZ0KSo1THwq05nB/zu0CkOmxCxTfT5D1C0SlfJ/USXJsJ5Ik6qn3T/Z2
+ 5wBBsIeioBhQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,10015"; a="192969583"
+X-IronPort-AV: E=Sophos;i="5.83,273,1616482800"; d="scan'208";a="192969583"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jun 2021 11:08:51 -0700
-IronPort-SDR: QMz9h5D4R+M5rWNcbW4LAYtZHDOgB1PVLVWdGUQw1RLWI5jzomHB4u9seA9GkvgLsLDvLqTfmQ
- DB095xgsO89A==
-X-IronPort-AV: E=Sophos;i="5.83,273,1616482800"; d="scan'208";a="484166440"
+ 14 Jun 2021 11:08:52 -0700
+IronPort-SDR: RJRfPtptmK6kRzPKR/K8i/PT2mO9BtG8B0QE/TjD1OcAsiNysNYNTgSpppUZyVmQO0WWcnCpkF
+ Cnd43xGSP3Gg==
+X-IronPort-AV: E=Sophos;i="5.83,273,1616482800"; d="scan'208";a="484166446"
 Received: from jepowell-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.114.106])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jun 2021 11:08:48 -0700
+ 14 Jun 2021 11:08:50 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	srinivas.kandagatla@linaro.org
-Subject: [PATCH 4/5] ASoC: rt5682-sdw: fix race condition on system suspend
-Date: Mon, 14 Jun 2021 13:08:14 -0500
-Message-Id: <20210614180815.153711-5-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 5/5] ASoC: rt711-sdca-sdw: fix race condition on system suspend
+Date: Mon, 14 Jun 2021 13:08:15 -0500
+Message-Id: <20210614180815.153711-6-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210614180815.153711-1-pierre-louis.bossart@linux.intel.com>
 References: <20210614180815.153711-1-pierre-louis.bossart@linux.intel.com>
@@ -63,10 +63,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- open list <linux-kernel@vger.kernel.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, tiwai@suse.de, gregkh@linuxfoundation.org,
- Takashi Iwai <tiwai@suse.com>,
+ open list <linux-kernel@vger.kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ tiwai@suse.de, gregkh@linuxfoundation.org, Takashi Iwai <tiwai@suse.com>,
  =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Hui Wang <hui.wang@canonical.com>, vkoul@kernel.org, broonie@kernel.org,
@@ -91,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 In the initial driver we cancelled deferred work, but there is still a
 window of time where a new interrupt could result in new deferred work
 executed after the link is disabled, leading to an IO error. While we
-did not see this IO error on RT5682-based platforms, the code pattern
+did not see this IO error on RT711-sdca-based platforms, the code pattern
 is similar to the RT700 case where the IO error was noted, so the fix
 is added for consistency.
 
@@ -109,66 +107,75 @@ handling status changes is scheduled after the completion of the
 system suspend. On resume the interrupts are re-enabled already by the
 io_init routine so we only clear the flag.
 
-The Fixes tag points to a 5.10 commit, there's no need to propagate
-this change to earlier upstream versions.
+The code is slightly different from the other codecs since the
+interrupt callback deals with the SDCA interrupts, leading to a much
+larger section that's protected by the mutex. The SoundWire interrupt
+scheme requires a read after clearing a status, it's not clear from
+the specifications what would happen if SDCA interrupts are disabled
+in the middle of the sequence, so the entire interrupt status
+read/write is kept as is, even if in the end we discard the
+information.
 
 BugLink: https://github.com/thesofproject/linux/issues/2943
-Fixes: 4a55000722d7 ('ASoC: codecs: rt*.c: remove useless pointer cast')
+Fixes: 7ad4d237e7c4 ('ASoC: rt711-sdca: Add RT711 SDCA vendor-specific driver')
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <bard.liao@intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/codecs/rt5682-sdw.c | 38 +++++++++++++++++++++++++++++++++--
- sound/soc/codecs/rt5682.h     |  2 ++
- 2 files changed, 38 insertions(+), 2 deletions(-)
+ sound/soc/codecs/rt711-sdca-sdw.c | 46 +++++++++++++++++++++++++++++--
+ sound/soc/codecs/rt711-sdca.c     |  4 +++
+ sound/soc/codecs/rt711-sdca.h     |  2 ++
+ 3 files changed, 50 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/rt5682-sdw.c b/sound/soc/codecs/rt5682-sdw.c
-index 54873730bec5..31a4f286043e 100644
---- a/sound/soc/codecs/rt5682-sdw.c
-+++ b/sound/soc/codecs/rt5682-sdw.c
-@@ -344,6 +344,8 @@ static int rt5682_sdw_init(struct device *dev, struct regmap *regmap,
- 	rt5682->sdw_regmap = regmap;
- 	rt5682->is_sdw = true;
- 
-+	mutex_init(&rt5682->disable_irq_lock);
-+
- 	rt5682->regmap = devm_regmap_init(dev, NULL, dev,
- 					  &rt5682_sdw_indirect_regmap);
- 	if (IS_ERR(rt5682->regmap)) {
-@@ -378,6 +380,8 @@ static int rt5682_io_init(struct device *dev, struct sdw_slave *slave)
- 	int ret = 0, loop = 10;
- 	unsigned int val;
- 
-+	rt5682->disable_irq = false;
-+
- 	if (rt5682->hw_init)
- 		return 0;
- 
-@@ -679,10 +683,12 @@ static int rt5682_interrupt_callback(struct sdw_slave *slave,
- 	dev_dbg(&slave->dev,
- 		"%s control_port_stat=%x", __func__, status->control_port);
- 
--	if (status->control_port & 0x4) {
-+	mutex_lock(&rt5682->disable_irq_lock);
-+	if (status->control_port & 0x4 && !rt5682->disable_irq) {
- 		mod_delayed_work(system_power_efficient_wq,
- 			&rt5682->jack_detect_work, msecs_to_jiffies(rt5682->irq_work_delay_time));
+diff --git a/sound/soc/codecs/rt711-sdca-sdw.c b/sound/soc/codecs/rt711-sdca-sdw.c
+index 03cd3e0142f9..aaf5af153d3f 100644
+--- a/sound/soc/codecs/rt711-sdca-sdw.c
++++ b/sound/soc/codecs/rt711-sdca-sdw.c
+@@ -256,6 +256,15 @@ static int rt711_sdca_interrupt_callback(struct sdw_slave *slave,
+ 			scp_sdca_stat2 = rt711->scp_sdca_stat2;
  	}
-+	mutex_unlock(&rt5682->disable_irq_lock);
  
- 	return 0;
- }
-@@ -740,6 +746,34 @@ static int __maybe_unused rt5682_dev_suspend(struct device *dev)
- 	return 0;
- }
- 
-+static int __maybe_unused rt5682_dev_system_suspend(struct device *dev)
-+{
-+	struct rt5682_priv *rt5682 = dev_get_drvdata(dev);
-+	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-+	int ret;
++	/*
++	 * The critical section below intentionally protects a rather large piece of code.
++	 * We don't want to allow the system suspend to disable an interrupt while we are
++	 * processing it, which could be problematic given the quirky SoundWire interrupt
++	 * scheme. We do want however to prevent new workqueues from being scheduled if
++	 * the disable_irq flag was set during system suspend.
++	 */
++	mutex_lock(&rt711->disable_irq_lock);
 +
-+	if (!rt5682->hw_init)
+ 	ret = sdw_read_no_pm(rt711->slave, SDW_SCP_SDCA_INT1);
+ 	if (ret < 0)
+ 		goto io_error;
+@@ -314,13 +323,16 @@ static int rt711_sdca_interrupt_callback(struct sdw_slave *slave,
+ 			"%s scp_sdca_stat1=0x%x, scp_sdca_stat2=0x%x\n", __func__,
+ 			rt711->scp_sdca_stat1, rt711->scp_sdca_stat2);
+ 
+-	if (status->sdca_cascade)
++	if (status->sdca_cascade && !rt711->disable_irq)
+ 		mod_delayed_work(system_power_efficient_wq,
+ 			&rt711->jack_detect_work, msecs_to_jiffies(30));
+ 
++	mutex_unlock(&rt711->disable_irq_lock);
++
+ 	return 0;
+ 
+ io_error:
++	mutex_unlock(&rt711->disable_irq_lock);
+ 	pr_err_ratelimited("IO error in %s, ret %d\n", __func__, ret);
+ 	return ret;
+ }
+@@ -382,6 +394,36 @@ static int __maybe_unused rt711_sdca_dev_suspend(struct device *dev)
+ 	return 0;
+ }
+ 
++static int __maybe_unused rt711_sdca_dev_system_suspend(struct device *dev)
++{
++	struct rt711_sdca_priv *rt711_sdca = dev_get_drvdata(dev);
++	struct sdw_slave *slave = dev_to_sdw_dev(dev);
++	int ret1, ret2;
++
++	if (!rt711_sdca->hw_init)
 +		return 0;
 +
 +	/*
@@ -176,45 +183,69 @@ index 54873730bec5..31a4f286043e 100644
 +	 * deferred work completes and before the parent disables
 +	 * interrupts on the link
 +	 */
-+	mutex_lock(&rt5682->disable_irq_lock);
-+	rt5682->disable_irq = true;
-+	ret = sdw_update_no_pm(slave, SDW_SCP_INTMASK1,
-+			       SDW_SCP_INT1_IMPL_DEF, 0);
-+	mutex_unlock(&rt5682->disable_irq_lock);
++	mutex_lock(&rt711_sdca->disable_irq_lock);
++	rt711_sdca->disable_irq = true;
++	ret1 = sdw_update_no_pm(slave, SDW_SCP_SDCA_INTMASK1,
++				SDW_SCP_SDCA_INTMASK_SDCA_0, 0);
++	ret2 = sdw_update_no_pm(slave, SDW_SCP_SDCA_INTMASK2,
++				SDW_SCP_SDCA_INTMASK_SDCA_8, 0);
++	mutex_unlock(&rt711_sdca->disable_irq_lock);
 +
-+	if (ret < 0) {
++	if (ret1 < 0 || ret2 < 0) {
 +		/* log but don't prevent suspend from happening */
-+		dev_dbg(&slave->dev, "%s: could not disable imp-def interrupts\n:", __func__);
++		dev_dbg(&slave->dev, "%s: could not disable SDCA interrupts\n:", __func__);
 +	}
 +
-+	return rt5682_dev_suspend(dev);
++	return rt711_sdca_dev_suspend(dev);
 +}
 +
- static int __maybe_unused rt5682_dev_resume(struct device *dev)
- {
- 	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-@@ -768,7 +802,7 @@ static int __maybe_unused rt5682_dev_resume(struct device *dev)
+ #define RT711_PROBE_TIMEOUT 5000
+ 
+ static int __maybe_unused rt711_sdca_dev_resume(struct device *dev)
+@@ -413,7 +455,7 @@ static int __maybe_unused rt711_sdca_dev_resume(struct device *dev)
  }
  
- static const struct dev_pm_ops rt5682_pm = {
--	SET_SYSTEM_SLEEP_PM_OPS(rt5682_dev_suspend, rt5682_dev_resume)
-+	SET_SYSTEM_SLEEP_PM_OPS(rt5682_dev_system_suspend, rt5682_dev_resume)
- 	SET_RUNTIME_PM_OPS(rt5682_dev_suspend, rt5682_dev_resume, NULL)
+ static const struct dev_pm_ops rt711_sdca_pm = {
+-	SET_SYSTEM_SLEEP_PM_OPS(rt711_sdca_dev_suspend, rt711_sdca_dev_resume)
++	SET_SYSTEM_SLEEP_PM_OPS(rt711_sdca_dev_system_suspend, rt711_sdca_dev_resume)
+ 	SET_RUNTIME_PM_OPS(rt711_sdca_dev_suspend, rt711_sdca_dev_resume, NULL)
  };
  
-diff --git a/sound/soc/codecs/rt5682.h b/sound/soc/codecs/rt5682.h
-index 74ff66767016..b59221048ebf 100644
---- a/sound/soc/codecs/rt5682.h
-+++ b/sound/soc/codecs/rt5682.h
-@@ -1415,6 +1415,8 @@ struct rt5682_priv {
- 	struct regulator_bulk_data supplies[RT5682_NUM_SUPPLIES];
+diff --git a/sound/soc/codecs/rt711-sdca.c b/sound/soc/codecs/rt711-sdca.c
+index 0b0c230dcf71..2e992589f1e4 100644
+--- a/sound/soc/codecs/rt711-sdca.c
++++ b/sound/soc/codecs/rt711-sdca.c
+@@ -1411,6 +1411,8 @@ int rt711_sdca_init(struct device *dev, struct regmap *regmap,
+ 	rt711->regmap = regmap;
+ 	rt711->mbq_regmap = mbq_regmap;
+ 
++	mutex_init(&rt711->disable_irq_lock);
++
+ 	/*
+ 	 * Mark hw_init to false
+ 	 * HW init will be performed when device reports present
+@@ -1494,6 +1496,8 @@ int rt711_sdca_io_init(struct device *dev, struct sdw_slave *slave)
+ 	int ret = 0;
+ 	unsigned int val;
+ 
++	rt711->disable_irq = false;
++
+ 	if (rt711->hw_init)
+ 		return 0;
+ 
+diff --git a/sound/soc/codecs/rt711-sdca.h b/sound/soc/codecs/rt711-sdca.h
+index 43ae82b7fdb3..498ca687c47b 100644
+--- a/sound/soc/codecs/rt711-sdca.h
++++ b/sound/soc/codecs/rt711-sdca.h
+@@ -27,6 +27,8 @@ struct  rt711_sdca_priv {
  	struct delayed_work jack_detect_work;
- 	struct delayed_work jd_check_work;
-+	struct mutex disable_irq_lock; /* imp-def irq lock protection */
+ 	struct delayed_work jack_btn_check_work;
+ 	struct mutex calibrate_mutex; /* for headset calibration */
++	struct mutex disable_irq_lock; /* SDCA irq lock protection */
 +	bool disable_irq;
- 	struct mutex calibrate_mutex;
- 	struct sdw_slave *slave;
- 	enum sdw_slave_status status;
+ 	int jack_type, jd_src;
+ 	unsigned int scp_sdca_stat1, scp_sdca_stat2;
+ 	int hw_ver;
 -- 
 2.25.1
 

@@ -2,92 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4426A3A5B0C
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 01:33:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F8E13A5B38
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 02:58:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D4347175F;
-	Mon, 14 Jun 2021 01:32:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4347175F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 18AD61769;
+	Mon, 14 Jun 2021 02:57:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18AD61769
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623627189;
-	bh=aFk4u+CZLlOFpjZ/s7mOyCwk+G3XoHQL+OzHYdHE+ko=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=lQnODF22jqCa43pVQEpmy4+HB2fH1cfPmnlWGDLKXamZ2shAfGySHJGUCZQXVVPzz
-	 /AZ+bMHji/7buig/+pdVoYhY+E9w8NWCk1JpL0e2urFzdvH3dcSZ+YTmsTTEEVIbqw
-	 /nJQtaPaNzcNmM95r+HuBjhryNo1ADIUb3xmrVMY=
+	s=default; t=1623632281;
+	bh=w4tFtGxEIoYHfvTpWIOe7NmsKAaEMyrTwCA5T8rtc0s=;
+	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=nJE4+524ja952neVEl/nbo8e4jtQVLHilyYfc+5xafyxQfLTWPLvModpjWy7YcJDk
+	 Db7nyT0kVq2kXLR39GqQ9LePyycDKJnMF+6wXHuXqU8/kPCZVaaiRIszUcQN5JOjW3
+	 3hhBQAlh1bT0Ez9Giu5aV84B2t77sOY/QG82DgY4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6AC47F802A9;
-	Mon, 14 Jun 2021 01:31:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 783B9F8016C;
+	Mon, 14 Jun 2021 02:56:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3698EF80171; Mon, 14 Jun 2021 01:31:33 +0200 (CEST)
+ id D8756F80165; Mon, 14 Jun 2021 02:56:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 845DDF800F8
- for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 01:31:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 845DDF800F8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="kTDezyeo"
-Received: by mail-wm1-x336.google.com with SMTP id g204so11022938wmf.5
- for <alsa-devel@alsa-project.org>; Sun, 13 Jun 2021 16:31:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=m0oGNH7E8tl8OaA4YPX5bbFuMWMnM1qZnDsgemwDFfg=;
- b=kTDezyeoKqDaGaMaOtpkBNskumEzfWsqZdJ1/VfH+DRRVJsv0jnKjMWP9LB7J6CkP+
- SdAlKxI1flmNEbdCXCwtEG2sLu6uro4rdO2Hh3cceJU84Z6MnDwB+pmtY+5bCYDZAZXy
- e1IfHaoqVtfY7tNyOKD+wqVfdT/WrbAXyuKAvlvJo14CByVF7V95DsmneV2pmXpW2YQS
- /78ct7Lnw6onpxSfu/4ypcDHlO31eCoWkQpIW+xp3Qjzp9w9V+goF9jkjRhcjvgNom+D
- s8m+qobuoaF0klVh6OClzVTUlHQygRbI4mj8F0JD8Beu9XJHPRnPqXarnl1JTmvrskmX
- iPPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=m0oGNH7E8tl8OaA4YPX5bbFuMWMnM1qZnDsgemwDFfg=;
- b=bd+zY1uOp4vqRWZU/I1dhz1sF95ri4F504622gVYHfy+Pm3Fm+A5PGeyfHFoQ62gxK
- mJlRVYzrY5mzk+lZQZRCH+sTsbyxPCUNG0SnfFyMRfwjQhS/jkANr7NpROClq0dLRKHz
- tVEcq2iiJkIlHqku4VFO7vjULsiqWxsN4kvt+WMms7q97buGiDhbIJF3k+vVpnHOqAjS
- zmx3hUzxnhuRstYl67WL/LgXeLeeFuQRDmYwu1htUfjllVZu0xCQJ0FsgJAKSdpEbrYl
- nKJo74yuNuRjy3Req6f6UbK2Zu81BidoVf400g7juHbjkesIA75rwgUAuBUHIt+IA12P
- JBRA==
-X-Gm-Message-State: AOAM533SWiHAfxrHQm4xotgFyHBFcJLXPzzm6BKKoaqmn4PJHI+zkYEb
- oLvFLxQ8gdoHHL8EndkDnMg=
-X-Google-Smtp-Source: ABdhPJzfQrtWDN9pWI29RJGrqSnPcg8YpkTKEZldXMea3qFjL+9dRI9AEEnzbRYIGAs3MW7p+9RmTA==
-X-Received: by 2002:a05:600c:228d:: with SMTP id
- 13mr13473663wmf.96.1623627084710; 
- Sun, 13 Jun 2021 16:31:24 -0700 (PDT)
-Received: from localhost.localdomain ([195.245.23.224])
- by smtp.gmail.com with ESMTPSA id i9sm17882511wrn.54.2021.06.13.16.31.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 13 Jun 2021 16:31:24 -0700 (PDT)
-From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>,
- Nikita Shubin <nikita.shubin@maquefel.me>, alsa-devel@alsa-project.org
-Subject: [PATCH 6/7] ASoC: cirrus: i2s: Prepare clock before using it
-Date: Mon, 14 Jun 2021 01:30:40 +0200
-Message-Id: <20210613233041.128961-7-alexander.sverdlin@gmail.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210613233041.128961-1-alexander.sverdlin@gmail.com>
-References: <20210613233041.128961-1-alexander.sverdlin@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Alexander Sverdlin <alexander.sverdlin@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>
+X-Spam-Level: **
+X-Spam-Status: No, score=3.0 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 41C29F800FA
+ for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 02:56:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41C29F800FA
+Date: 14 Jun 2021 09:56:19 +0900
+X-IronPort-AV: E=Sophos;i="5.83,272,1616425200"; d="scan'208";a="84107615"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 14 Jun 2021 09:56:19 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 5EB5B41423A9;
+ Mon, 14 Jun 2021 09:56:19 +0900 (JST)
+Message-ID: <87bl89w9fw.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH v3 0/8] ASoC: tidyup snd_soc_of_parse_daifmt()
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>, Sameer Pujar <spujar@nvidia.com>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+ alsa-devel@alsa-project.org, Fabio Estevam <festevam@gmail.com>,
+ Jerome Brunet <jbrunet@baylibre.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,62 +75,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use clk_prepare_enable()/clk_disable_unprepare() in preparation for switch
-to Common Clock Framework, otherwise the following is visible:
 
-WARNING: CPU: 0 PID: 97 at drivers/clk/clk.c:1011 clk_core_enable+0x9c/0xbc
-Enabling unprepared mclk
-CPU: 0 PID: 97 Comm: OPAL-Event:97 Not tainted 5.13.0-rc5-tekon #1
-Hardware name: Cirrus Logic EDB9302 Evaluation Board
-[<c000d5b0>] (unwind_backtrace) from [<c000c590>] (show_stack+0x10/0x18)
-[<c000c590>] (show_stack) from [<c03a5fd8>] (dump_stack+0x20/0x2c)
-[<c03a5fd8>] (dump_stack) from [<c03a2138>] (__warn+0x98/0xc0)
-[<c03a2138>] (__warn) from [<c03a21f0>] (warn_slowpath_fmt+0x90/0xc0)
-[<c03a21f0>] (warn_slowpath_fmt) from [<c01d8358>] (clk_core_enable+0x9c/0xbc)
-[<c01d8358>] (clk_core_enable) from [<c01d8698>] (clk_core_enable_lock+0x18/0x30)
-[<c01d8698>] (clk_core_enable_lock) from [<c0291568>] (ep93xx_i2s_hw_params+0x1a0/0x1c0)
-[<c0291568>] (ep93xx_i2s_hw_params) from [<c0287488>] (snd_soc_dai_hw_params+0x54/0xb4)
-[<c0287488>] (snd_soc_dai_hw_params) from [<c028b0a4>] (soc_pcm_hw_params+0x418/0x5bc)
-[<c028b0a4>] (soc_pcm_hw_params) from [<c0275608>] (snd_pcm_hw_params+0x14c/0x448)
-[<c0275608>] (snd_pcm_hw_params) from [<c02761ac>] (snd_pcm_ioctl+0x258/0x1114)
-[<c02761ac>] (snd_pcm_ioctl) from [<c00e6d40>] (sys_ioctl+0x290/0xbc4)
-[<c00e6d40>] (sys_ioctl) from [<c0008200>] (ret_fast_syscall+0x0/0x4c)
+Hi Mark
 
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
----
- sound/soc/cirrus/ep93xx-i2s.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+These are v3 of parsing for daifmt.
 
-diff --git a/sound/soc/cirrus/ep93xx-i2s.c b/sound/soc/cirrus/ep93xx-i2s.c
-index 0d26550d0df8..4d3179f03202 100644
---- a/sound/soc/cirrus/ep93xx-i2s.c
-+++ b/sound/soc/cirrus/ep93xx-i2s.c
-@@ -111,9 +111,9 @@ static void ep93xx_i2s_enable(struct ep93xx_i2s_info *info, int stream)
- 	if ((ep93xx_i2s_read_reg(info, EP93XX_I2S_TX0EN) & 0x1) == 0 &&
- 	    (ep93xx_i2s_read_reg(info, EP93XX_I2S_RX0EN) & 0x1) == 0) {
- 		/* Enable clocks */
--		clk_enable(info->mclk);
--		clk_enable(info->sclk);
--		clk_enable(info->lrclk);
-+		clk_prepare_enable(info->mclk);
-+		clk_prepare_enable(info->sclk);
-+		clk_prepare_enable(info->lrclk);
- 
- 		/* Enable i2s */
- 		ep93xx_i2s_write_reg(info, EP93XX_I2S_GLCTRL, 1);
-@@ -156,9 +156,9 @@ static void ep93xx_i2s_disable(struct ep93xx_i2s_info *info, int stream)
- 		ep93xx_i2s_write_reg(info, EP93XX_I2S_GLCTRL, 0);
- 
- 		/* Disable clocks */
--		clk_disable(info->lrclk);
--		clk_disable(info->sclk);
--		clk_disable(info->mclk);
-+		clk_disable_unprepare(info->lrclk);
-+		clk_disable_unprepare(info->sclk);
-+		clk_disable_unprepare(info->mclk);
- 	}
- }
- 
+I want to add new audio-graph-card2 sound card driver,
+and this is last part of necessary soc-core cleanup for it.
+
+Current some drivers are using DT, and then,
+snd_soc_of_parse_daifmt() parses daifmt, but bitclock/frame provider
+parsing part is one of headache, because we are assuming below both cases.
+
+A)	node {
+		bitclock-master;
+		frame-master;
+		...
+	};
+    
+B)	link {
+		bitclock-master = <&xxx>;
+		frame-master = <&xxx>;
+		...
+	};
+
+The original was style A), and style B) was added later.
+
+snd_soc_of_parse_daifmt() parses A) style as original style,
+and user need to update to B) style for clock_provider part if needed.
+
+To handle it more flexibile, this patch-set adds new functions
+which separates snd_soc_of_parse_daifmt() helper function.
+
+	snd_soc_daifmt_parse_format()			: format part
+	snd_soc_daifmt_parse_clock_provider_as_flag()	: clock part for style A)
+	snd_soc_daifmt_parse_clock_provider_as_phandl()	: clock part for style B)
+	snd_soc_daifmt_parse_clock_provider_as_bitmap()	: clock part use with _from_bitmap
+
+v1 -> v2
+	- tidyup parse_clock_provider functions to _as_flag/phandle/bitmap()
+	- don't exchange code style on each drivers.
+
+v2 -> v3
+	- use daifmt as much as possible (don't use daiclk) on each driver.
+
+Link: https://lore.kernel.org/r/875yypdxlm.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87czsvdc4o.wl-kuninori.morimoto.gx@renesas.com
+
+Kuninori Morimoto (8):
+  ASoC: soc-core: add snd_soc_daifmt_clock_provider_from_bitmap()
+  ASoC: soc-core: add snd_soc_daifmt_clock_provider_fliped()
+  ASoC: soc-core: add snd_soc_daifmt_parse_format/clock_provider()
+  ASoC: atmel: switch to use snd_soc_daifmt_parse_format/clock_provider()
+  ASoC: fsl: switch to use snd_soc_daifmt_parse_format/clock_provider()
+  ASoC: meson: switch to use snd_soc_daifmt_parse_format/clock_provider()
+  ASoC: simple-card-utils: switch to use snd_soc_daifmt_parse_format/clock_provider()
+  ASoC: soc-core: remove snd_soc_of_parse_daifmt()
+
+ include/sound/soc.h                   |  21 ++++-
+ sound/soc/atmel/mikroe-proto.c        |   9 ++-
+ sound/soc/fsl/fsl-asoc-card.c         |   7 +-
+ sound/soc/generic/simple-card-utils.c |  16 ++--
+ sound/soc/meson/meson-card-utils.c    |   6 +-
+ sound/soc/soc-core.c                  | 109 +++++++++++++++++---------
+ 6 files changed, 106 insertions(+), 62 deletions(-)
+
 -- 
-2.32.0
+2.25.1
 

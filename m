@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D84F73A6F98
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 21:57:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F394F3A6FA0
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jun 2021 21:57:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C91C1688;
-	Mon, 14 Jun 2021 21:56:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C91C1688
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79BBF169A;
+	Mon, 14 Jun 2021 21:56:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79BBF169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623700629;
-	bh=HlsVAzqQjfkYgEn5Uwml8vyPXW7gRkMvnO5wAcmT3sA=;
+	s=default; t=1623700642;
+	bh=YzulUFMFki/iYiWjf8Var0pCv66AUmtnxzcZgz7kSHc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VPunmycI2T6mNtRWVm4DKslqyn6hDNbBOj+y5VRMmSvASCAPNvucA0K/5IKNrnWqY
-	 LiUpFdz8TgHv68yPms+a8Sa5mfVelolXEQL4f6+BZFjK6o7LGxHI7IUVT5ZK50E6DB
-	 NLtLTZnVU1BbPgkV9vYiLOZ5eg4R+yjhnWoEeboY=
+	b=DCLn0X7GPJkeNb9FgI+JCL51FkJQDGAK7Duzg8WaP3yUWM/9vhzEYqmTBS9r60swy
+	 TwUMMtDnUeEUhJyDU/YKqcmL+ZZXM4OzOImoLW9awy91C3tUT4zgATHw6J9YmGI+Gq
+	 ixBMIgqgeFQWwwLLdq2wOHlDXF2s8kyr24lfJF4s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9AA3F804CB;
-	Mon, 14 Jun 2021 21:54:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B72F3F804CC;
+	Mon, 14 Jun 2021 21:54:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 33E05F8025E; Mon, 14 Jun 2021 21:54:50 +0200 (CEST)
+ id 001AEF804CA; Mon, 14 Jun 2021 21:54:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90557F802E8
- for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 21:54:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90557F802E8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5306BF802E8
+ for <alsa-devel@alsa-project.org>; Mon, 14 Jun 2021 21:54:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5306BF802E8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="cLz9DXFF"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4EBF36124B;
- Mon, 14 Jun 2021 19:54:45 +0000 (UTC)
+ header.b="A19LLbD3"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2B6D3611EE;
+ Mon, 14 Jun 2021 19:54:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623700485;
- bh=HlsVAzqQjfkYgEn5Uwml8vyPXW7gRkMvnO5wAcmT3sA=;
+ s=k20201202; t=1623700488;
+ bh=YzulUFMFki/iYiWjf8Var0pCv66AUmtnxzcZgz7kSHc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cLz9DXFFqQk4W21hI+v0aFHln9fjlY4TKBmAxrUtvqOQbeoU1/3nLm7eaNTqHdfu9
- l6/iWlIz2hci7NRsjO6kv9qjHnjvShdImpsFkeDU2GveEKv/tg1LHKrbaLdZrV1Vwt
- qkZXLtKFOmw2GKQTdIpZ+2tyezH0QW6HteKFgJ9GC5F2C3a0g4kYPIfkBLMzkb2x2y
- PJKpHlSbYyhUP9ZcGPWBcdylcVB6RhHauGC0kCblNXpgmNLDfv3tcBy3HiYhOliV77
- CLuzqQl4PXuWXQbM5MYauCptZu2avb5UyRadhzxU38Kh6mpPuq4yQUQ8aR/16zNEoT
- Fl/S2zkHUiVkQ==
+ b=A19LLbD3NvVDOSHJTkzTIi1NZHF26MsG7BJ6+awHPVUtnnWmTYE8FEhNB/lrxMV4U
+ EMKMWqWP5y+6AvTPKbN7fZpGm3t0FVaQbVTv4cfSoV2pFBqTae/6ekMy+o9V4NdNsc
+ UzGat7jDYk4+L6kkGNaxU9t+bgGmgHfni2IJZV422GDdo/8p5xQjbpYizvAM4XGT0D
+ uwVFUR7JXAynpwxVy4lW0uF4m/F4uupRY/Eqgb+z83qDFR6uIWpnE81SwDG+Yv8kfV
+ y4AX9LlZbQQTc0NPMAGiQ+ivRxAAh/VDREch9Uw63KyNNpXkBc7QAB1tETmKKdbSB0
+ O9ntoBlQpODpg==
 From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, Yang Yingliang <yangyingliang@huawei.com>,
- alsa-devel@alsa-project.org
-Subject: Re: [PATCH -next] ASoC: axi-i2s: Use
- devm_platform_get_and_ioremap_resource()
-Date: Mon, 14 Jun 2021 20:53:41 +0100
-Message-Id: <162369994009.34524.14636427113168434063.b4-ty@kernel.org>
+To: agross@kernel.org, srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
+ perex@perex.cz, Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
+ plai@codeaurora.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ robh+dt@kernel.org, swboyd@chromium.org, linux-arm-msm@vger.kernel.org,
+ lgirdwood@gmail.com, devicetree@vger.kernel.org,
+ bjorn.andersson@linaro.org, judyhsiao@chromium.org,
+ alsa-devel@alsa-project.org, bgoswami@codeaurora.org
+Subject: Re: [PATCH v3] ASoC: qcom: Add four speaker support on MI2S secondary
+Date: Mon, 14 Jun 2021 20:53:42 +0100
+Message-Id: <162369994008.34524.16929754677790147790.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210610132705.138706-1-yangyingliang@huawei.com>
-References: <20210610132705.138706-1-yangyingliang@huawei.com>
+In-Reply-To: <20210609133039.4648-1-srivasam@codeaurora.org>
+References: <20210609133039.4648-1-srivasam@codeaurora.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>, tiwai@suse.com, lgirdwood@gmail.com
+Cc: Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,9 +84,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Jun 2021 21:27:05 +0800, Yang Yingliang wrote:
-> Use devm_platform_get_and_ioremap_resource() to simplify
-> code.
+On Wed, 9 Jun 2021 19:00:39 +0530, Srinivasa Rao Mandadapu wrote:
+> Add four speaker support on MI2S secondary block
+> by using I2S SD1 line on gpio52 pin, and add channel map
+> control support in the lpass-cpu audio driver.
 
 Applied to
 
@@ -90,8 +95,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: axi-i2s: Use devm_platform_get_and_ioremap_resource()
-      commit: 1b7f94dd20fc9eb63c8470f9f20544b0f6742440
+[1/1] ASoC: qcom: Add four speaker support on MI2S secondary
+      commit: c223f41c1a52bfe10f1d3311679b1d1f9813e500
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

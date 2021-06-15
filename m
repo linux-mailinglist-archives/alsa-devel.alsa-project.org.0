@@ -2,96 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4EF63A86F9
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Jun 2021 18:57:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A53CD3A8741
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Jun 2021 19:13:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C67B1691;
-	Tue, 15 Jun 2021 18:56:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C67B1691
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F779169B;
+	Tue, 15 Jun 2021 19:12:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F779169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623776228;
-	bh=hbUnLLedbmJMowypiB+3AebnrDrIKPfEUCExtp2B3QA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ro/kCYPjH048WfLacONXYcbXw+FzlLprGUD65LgEh9nwyv193p/cUcXgh+5c8optH
-	 RBLVX7yC+WXn99JlAOxwPH+M60VcMwcCoRIF5IMUS0JWfZXIuQtXbkBezOuRSln54c
-	 aOto2/RRVVz3P2+kMTYCCMVBAkfiNmZGPlj7EonQ=
+	s=default; t=1623777197;
+	bh=Nvzn+SkBjT2rqQVjm5k3vkU7XwgZGzXeomxEvAocnTk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=p0jfhINk6xcN9ANafADFu2RXxX5LU6hU4oDFQPMOFrc3QyxrTQpDvcGN9vhmRmOUp
+	 bAX134ObgWsp0oF6XRc2D01C4mlkA9soRbjPhuhw81nSZs7c3cP9nC4S9qTB0QFkuy
+	 dz0CUKMbwh1McjZ+gkOObfko25F6mfWJDwzXPDLo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C815F8025A;
-	Tue, 15 Jun 2021 18:55:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8477F8025A;
+	Tue, 15 Jun 2021 19:11:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41B6BF80171; Tue, 15 Jun 2021 18:55:38 +0200 (CEST)
+ id 5D650F80171; Tue, 15 Jun 2021 19:11:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-oo1-xc31.google.com (mail-oo1-xc31.google.com
- [IPv6:2607:f8b0:4864:20::c31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5B338F8016C
- for <alsa-devel@alsa-project.org>; Tue, 15 Jun 2021 18:55:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B338F8016C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="VrBoYlpG"
-Received: by mail-oo1-xc31.google.com with SMTP id
- v17-20020a4aa5110000b0290249d63900faso3691948ook.0
- for <alsa-devel@alsa-project.org>; Tue, 15 Jun 2021 09:55:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linuxfoundation.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=+RaZJtsUnxE0LQhLgGIH6UV1neEgEYWyhmaxMuF1UDE=;
- b=VrBoYlpG3wNUBP3sbRO2ADGwvl9BBKp0P2yGMmzY7ZCUOuwgg6oK5YUVcBo+fj3gnR
- avZWr4kNiTMUNJu6BWEbsO/e5Wno19s/0EUzN2BPM3GHCrrBTmwJlI3Hzwp178w9TGnt
- K8tAjo7+V2O8iquaV5Xmf5PZfKJvh76wfBpNE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=+RaZJtsUnxE0LQhLgGIH6UV1neEgEYWyhmaxMuF1UDE=;
- b=dqTfi2BiWSoMfnGmfgsTRwnh+BdarBiVI0jOuieZ8HY7Brf011aqd967cRYrmK4n+m
- 67esbdT1rtMbfCIwe2drFu+ZNwchqbifeiq/9nZK7flrVVVBFeR7Vw49IJcUiHhNsKaN
- ocm6bt21ddnEMq6NdRmbY8El7DPh5+vwNmAvUXyXpQhG98J7SYfDp8jclGtdBdwJX8Jz
- 1dEHDG9WZ9zH2XPtMPlWb7JTJUlN/v6rsFoIcVWBLm7FIaVFe9QIQJbdHwWxkgZMDFb2
- IzlAJVu29qObI6etfETvrHNu8pZoVnGtF1iZEAMboBnqlqBJb4b5SGkow1bfb/WzVmh6
- 5Fqg==
-X-Gm-Message-State: AOAM532eUqHyG4yJX8Zj1qP3rMrwqalIzukXEJmOWvuil/4HkqoRiIvC
- vYgWJAxdXovESyARHAABmuNy2g==
-X-Google-Smtp-Source: ABdhPJzYUKrrelOAEP5pQNrS0CNPNMjjx7cG2nUYfg+jzD3ZgZoSWPchkoTPjLj3kiiadimBxRdE6A==
-X-Received: by 2002:a4a:df47:: with SMTP id j7mr109033oou.79.1623776127691;
- Tue, 15 Jun 2021 09:55:27 -0700 (PDT)
-Received: from [192.168.1.112] (c-24-9-64-241.hsd1.co.comcast.net.
- [24.9.64.241])
- by smtp.gmail.com with ESMTPSA id l10sm4135693otj.17.2021.06.15.09.55.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Jun 2021 09:55:27 -0700 (PDT)
-Subject: Re: [PATCH] media: Fix Media Controller API config checks
-To: Hans Verkuil <hverkuil@xs4all.nl>, sakari.ailus@linux.intel.com,
- laurent.pinchart@ideasonboard.com, dan.carpenter@oracle.com,
- mchehab@kernel.org
-References: <20210611015849.42589-1-skhan@linuxfoundation.org>
- <3745852a-a14d-3e66-dd9f-409ec7e43f48@xs4all.nl>
-From: Shuah Khan <skhan@linuxfoundation.org>
-Message-ID: <ee53183f-6c44-4ddb-a8b1-40d650772c73@linuxfoundation.org>
-Date: Tue, 15 Jun 2021 10:55:26 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 14E53F80165
+ for <alsa-devel@alsa-project.org>; Tue, 15 Jun 2021 19:11:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14E53F80165
+Received: from dggeml759-chm.china.huawei.com (unknown [172.30.72.57])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4G4FBy1bdcz705q;
+ Wed, 16 Jun 2021 01:08:26 +0800 (CST)
+Received: from localhost.localdomain (10.175.102.38) by
+ dggeml759-chm.china.huawei.com (10.1.199.138) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2176.2; Wed, 16 Jun 2021 01:11:34 +0800
+From: Wei Yongjun <weiyongjun1@huawei.com>
+To: <weiyongjun1@huawei.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+ <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+ <tiwai@suse.com>, Maxime Ripard <maxime@cerno.tech>, Kuninori Morimoto
+ <kuninori.morimoto.gx@renesas.com>, Pierre-Louis Bossart
+ <pierre-louis.bossart@linux.intel.com>, Cheng-Yi Chiang
+ <cychiang@chromium.org>, Stephan Gerhold <stephan@gerhold.net>, Shengjiu Wang
+ <shengjiu.wang@nxp.com>
+Subject: [PATCH -next] ASoC: hdmi-codec: Make symbol 'hdmi_codec_controls'
+ static
+Date: Tue, 15 Jun 2021 17:21:56 +0000
+Message-ID: <20210615172156.2840576-1-weiyongjun1@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <3745852a-a14d-3e66-dd9f-409ec7e43f48@xs4all.nl>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Shuah Khan <skhan@linuxfoundation.org>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.175.102.38]
+X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
+ dggeml759-chm.china.huawei.com (10.1.199.138)
+X-CFilter-Loop: Reflected
+Cc: Hulk Robot <hulkci@huawei.com>, alsa-devel@alsa-project.org,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,75 +79,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 6/15/21 7:36 AM, Hans Verkuil wrote:
-> Hi Shuah,
-> 
-> On 11/06/2021 03:58, Shuah Khan wrote:
->> Smatch static checker warns that "mdev" can be null:
->>
->> sound/usb/media.c:287 snd_media_device_create()
->>      warn: 'mdev' can also be NULL
->>
->> If CONFIG_MEDIA_CONTROLLER is disabled, this file should not be included
->> in the build.
->>
->> The below conditions in the sound/usb/Makefile are in place to ensure that
->> media.c isn't included in the build.
->>
->> sound/usb/Makefile:
->> snd-usb-audio-$(CONFIG_SND_USB_AUDIO_USE_MEDIA_CONTROLLER) += media.o
->>
->> select SND_USB_AUDIO_USE_MEDIA_CONTROLLER if MEDIA_CONTROLLER &&
->>         (MEDIA_SUPPORT=y || MEDIA_SUPPORT=SND_USB_AUDIO)
->>
->> The following config check in include/media/media-dev-allocator.h is
->> in place to enable the API only when CONFIG_MEDIA_CONTROLLER and
->> CONFIG_USB are enabled.
->>
->>   #if defined(CONFIG_MEDIA_CONTROLLER) && defined(CONFIG_USB)
->>
->> This check doesn't work as intended when CONFIG_USB=m. When CONFIG_USB=m,
->> CONFIG_USB_MODULE is defined and CONFIG_USB is not. The above config check
->> doesn't catch that CONFIG_USB is defined as a module and disables the API.
->> This results in sound/usb enabling Media Controller specific ALSA driver
->> code, while Media disables the Media Controller API.
->>
->> Fix the problem requires two changes:
->>
->> 1. Change the check to use IS_ENABLED to detect when CONFIG_USB is enabled
->>     as a module or static. Since CONFIG_MEDIA_CONTROLLER is a bool, leave
->>     the check unchanged to be consistent with drivers/media/Makefile.
->>
->> 2. Change the drivers/media/mc/Makefile to include mc-dev-allocator.o
->>     in mc-objs when CONFIG_USB is y or m.
-> 
-> If I test this patch, then I get:
-> 
-> drivers/media/mc/mc-dev-allocator.c:97:22: error: redefinition of 'media_device_usb_allocate'
->     97 | struct media_device *media_device_usb_allocate(struct usb_device *udev,
->        |                      ^~~~~~~~~~~~~~~~~~~~~~~~~
-> In file included from drivers/media/mc/mc-dev-allocator.c:24:
-> include/media/media-dev-allocator.h:55:36: note: previous definition of 'media_device_usb_allocate' was here
->     55 | static inline struct media_device *media_device_usb_allocate(
->        |                                    ^~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/media/mc/mc-dev-allocator.c:119:6: error: redefinition of 'media_device_delete'
->    119 | void media_device_delete(struct media_device *mdev, const char *module_name,
->        |      ^~~~~~~~~~~~~~~~~~~
-> In file included from drivers/media/mc/mc-dev-allocator.c:24:
-> include/media/media-dev-allocator.h:59:20: note: previous definition of 'media_device_delete' was here
->     59 | static inline void media_device_delete(
->        |                    ^~~~~~~~~~~~~~~~~~~
-> 
-> The .config has:
-> 
-> # CONFIG_USB_SUPPORT is not set
-> CONFIG_MEDIA_CONTROLLER=y
-> 
+The sparse tool complains as follows:
 
-Hans,
+sound/soc/codecs/hdmi-codec.c:750:25: warning:
+ symbol 'hdmi_codec_controls' was not declared. Should it be static?
 
-Can you share your full config with me?
+This symbol is not used outside of hdmi-codec.c, so marks it static.
 
-thanks,
--- Shuah
+Fixes: 366b45b97448 ("ASoC: hdmi-codec: Rework to support more controls")
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
+---
+ sound/soc/codecs/hdmi-codec.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
+index e0460a9bd17a..b61f980cabdc 100644
+--- a/sound/soc/codecs/hdmi-codec.c
++++ b/sound/soc/codecs/hdmi-codec.c
+@@ -747,7 +747,7 @@ static const struct snd_soc_dai_ops hdmi_codec_spdif_dai_ops = {
+ 			 SNDRV_PCM_FMTBIT_S32_LE | SNDRV_PCM_FMTBIT_S32_BE |\
+ 			 SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE)
+ 
+-struct snd_kcontrol_new hdmi_codec_controls[] = {
++static struct snd_kcontrol_new hdmi_codec_controls[] = {
+ 	{
+ 		.access = SNDRV_CTL_ELEM_ACCESS_READ,
+ 		.iface = SNDRV_CTL_ELEM_IFACE_PCM,
 

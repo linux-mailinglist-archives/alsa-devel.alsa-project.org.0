@@ -2,68 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A53CD3A8741
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Jun 2021 19:13:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 888283A8794
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Jun 2021 19:32:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F779169B;
-	Tue, 15 Jun 2021 19:12:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F779169B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E90C16B0;
+	Tue, 15 Jun 2021 19:31:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E90C16B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623777197;
-	bh=Nvzn+SkBjT2rqQVjm5k3vkU7XwgZGzXeomxEvAocnTk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=p0jfhINk6xcN9ANafADFu2RXxX5LU6hU4oDFQPMOFrc3QyxrTQpDvcGN9vhmRmOUp
-	 bAX134ObgWsp0oF6XRc2D01C4mlkA9soRbjPhuhw81nSZs7c3cP9nC4S9qTB0QFkuy
-	 dz0CUKMbwh1McjZ+gkOObfko25F6mfWJDwzXPDLo=
+	s=default; t=1623778329;
+	bh=GEAwyVbCu9FzP4tJk0ycazZjAaockIItbW1zOcgtnD4=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=mtvhoOfvGpQQRJw3GoWNaVR5Nh6o11q+IUpy6U8u+BtnLbVvZsbN35MXo75sVDDJh
+	 jtH7hIgpzcj7TUTvvhqqSnBerSgAcz4MPWyQBKN8vNjFLHBbTQNqm8o+TQpEZrQSFH
+	 CKDQIwdLa+GH8gykTbmue9698Wok6KKLvdJB4XLU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8477F8025A;
-	Tue, 15 Jun 2021 19:11:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1963F804CF;
+	Tue, 15 Jun 2021 19:30:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5D650F80171; Tue, 15 Jun 2021 19:11:47 +0200 (CEST)
+ id D14C0F8016D; Tue, 15 Jun 2021 19:30:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 14E53F80165
- for <alsa-devel@alsa-project.org>; Tue, 15 Jun 2021 19:11:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14E53F80165
-Received: from dggeml759-chm.china.huawei.com (unknown [172.30.72.57])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4G4FBy1bdcz705q;
- Wed, 16 Jun 2021 01:08:26 +0800 (CST)
-Received: from localhost.localdomain (10.175.102.38) by
- dggeml759-chm.china.huawei.com (10.1.199.138) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2176.2; Wed, 16 Jun 2021 01:11:34 +0800
-From: Wei Yongjun <weiyongjun1@huawei.com>
-To: <weiyongjun1@huawei.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
- <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
- <tiwai@suse.com>, Maxime Ripard <maxime@cerno.tech>, Kuninori Morimoto
- <kuninori.morimoto.gx@renesas.com>, Pierre-Louis Bossart
- <pierre-louis.bossart@linux.intel.com>, Cheng-Yi Chiang
- <cychiang@chromium.org>, Stephan Gerhold <stephan@gerhold.net>, Shengjiu Wang
- <shengjiu.wang@nxp.com>
-Subject: [PATCH -next] ASoC: hdmi-codec: Make symbol 'hdmi_codec_controls'
- static
-Date: Tue, 15 Jun 2021 17:21:56 +0000
-Message-ID: <20210615172156.2840576-1-weiyongjun1@huawei.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9A6E0F8016C
+ for <alsa-devel@alsa-project.org>; Tue, 15 Jun 2021 19:29:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A6E0F8016C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="eX1MFs5S"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3BB7D613FA;
+ Tue, 15 Jun 2021 17:29:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1623778188;
+ bh=GEAwyVbCu9FzP4tJk0ycazZjAaockIItbW1zOcgtnD4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=eX1MFs5SdRZYdboOArHyCe3KH+hld9wSZdB6J9XsMl//rcSw/eheZf04JLhr+JzBo
+ smRhD2+nsvraIGjpvAlWC24r381xwFlFL/00BduN8OOcPRVCoB93VVEy4lh+pquCTk
+ ZWziAgcGx57J0mf+acJuobuCaRlq3ecc9qcDKGXirKp9KngvF34rju4CRPnZ0oEu5A
+ QMjMBCqdqzHif1R5jLXGHQg+0edA0LeWBCfVgci2sQOsRHoulsZgaIHSCTA6szTDun
+ tyABhZE4caX7WdvDpDv71jqYaWSvaNDHU8COul+I5JMlxeiHs1uI+1iUdI+dbChB/G
+ eyu/DIPvmXnSA==
+From: Mark Brown <broonie@kernel.org>
+To: Yang Yingliang <yangyingliang@huawei.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH -next] ASoC: hisilicon: Use
+ devm_platform_get_and_ioremap_resource()
+Date: Tue, 15 Jun 2021 18:29:18 +0100
+Message-Id: <162377763944.21612.17506249147724784597.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210615133515.1376290-1-yangyingliang@huawei.com>
+References: <20210615133515.1376290-1-yangyingliang@huawei.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="ISO-8859-1"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.175.102.38]
-X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
- dggeml759-chm.china.huawei.com (10.1.199.138)
-X-CFilter-Loop: Reflected
-Cc: Hulk Robot <hulkci@huawei.com>, alsa-devel@alsa-project.org,
- kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Mark Brown <broonie@kernel.org>, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,31 +80,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The sparse tool complains as follows:
+On Tue, 15 Jun 2021 21:35:15 +0800, Yang Yingliang wrote:
+> Use devm_platform_get_and_ioremap_resource() to simplify
+> code.
 
-sound/soc/codecs/hdmi-codec.c:750:25: warning:
- symbol 'hdmi_codec_controls' was not declared. Should it be static?
+Applied to
 
-This symbol is not used outside of hdmi-codec.c, so marks it static.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Fixes: 366b45b97448 ("ASoC: hdmi-codec: Rework to support more controls")
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
----
- sound/soc/codecs/hdmi-codec.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks!
 
-diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
-index e0460a9bd17a..b61f980cabdc 100644
---- a/sound/soc/codecs/hdmi-codec.c
-+++ b/sound/soc/codecs/hdmi-codec.c
-@@ -747,7 +747,7 @@ static const struct snd_soc_dai_ops hdmi_codec_spdif_dai_ops = {
- 			 SNDRV_PCM_FMTBIT_S32_LE | SNDRV_PCM_FMTBIT_S32_BE |\
- 			 SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE)
- 
--struct snd_kcontrol_new hdmi_codec_controls[] = {
-+static struct snd_kcontrol_new hdmi_codec_controls[] = {
- 	{
- 		.access = SNDRV_CTL_ELEM_ACCESS_READ,
- 		.iface = SNDRV_CTL_ELEM_IFACE_PCM,
+[1/1] ASoC: hisilicon: Use devm_platform_get_and_ioremap_resource()
+      commit: afc3a0b4c408b00787d60225e6d667e1e6f93b6a
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

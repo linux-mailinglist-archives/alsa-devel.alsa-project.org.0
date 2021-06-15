@@ -2,84 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B14373A85F1
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Jun 2021 18:01:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4EF63A86F9
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Jun 2021 18:57:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 29B42169B;
-	Tue, 15 Jun 2021 18:01:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29B42169B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C67B1691;
+	Tue, 15 Jun 2021 18:56:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C67B1691
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623772917;
-	bh=y3LdWgYrhG0RCCsbHUtzZIkdvtA6lC/jkbvfWaPhT3g=;
+	s=default; t=1623776228;
+	bh=hbUnLLedbmJMowypiB+3AebnrDrIKPfEUCExtp2B3QA=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mZILVYJRJaFtpWlAKZJXCVETnrcr7wLUwS92PDSNOWNX6q/X0wQS/bLNiuaUSDhKX
-	 /IHjVngMxsgauOjTEXqqSuKJApSXViL98sdxm7xtse9nwLKJwC7eVhZGBTCdk0sNEz
-	 AaMNBx4ZNny1/2sWg4M3yurACD4+l4+ZrQIluDWM=
+	b=ro/kCYPjH048WfLacONXYcbXw+FzlLprGUD65LgEh9nwyv193p/cUcXgh+5c8optH
+	 RBLVX7yC+WXn99JlAOxwPH+M60VcMwcCoRIF5IMUS0JWfZXIuQtXbkBezOuRSln54c
+	 aOto2/RRVVz3P2+kMTYCCMVBAkfiNmZGPlj7EonQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C55C2F8025A;
-	Tue, 15 Jun 2021 18:00:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C815F8025A;
+	Tue, 15 Jun 2021 18:55:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 971C4F80113; Tue, 15 Jun 2021 18:00:27 +0200 (CEST)
+ id 41B6BF80171; Tue, 15 Jun 2021 18:55:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-oo1-xc31.google.com (mail-oo1-xc31.google.com
+ [IPv6:2607:f8b0:4864:20::c31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62C89F80113
- for <alsa-devel@alsa-project.org>; Tue, 15 Jun 2021 18:00:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62C89F80113
-IronPort-SDR: aUZk6ExugD1rpWh0/dWpOlhFchnl77eRicCJh+BupwxqSonYP3NTzo4u9C5Tv9uOmi6C0NqMbX
- 0uuI7PUH8bTw==
-X-IronPort-AV: E=McAfee;i="6200,9189,10016"; a="269868541"
-X-IronPort-AV: E=Sophos;i="5.83,275,1616482800"; d="scan'208";a="269868541"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2021 09:00:14 -0700
-IronPort-SDR: VuzC0kwC5Gd7fL4dcEBxLlwVKjbOSfVaWfYUJJcNryXABhVaEK7CES8NVtdky/X2ZqPP4QFqfA
- bw9EeubIQywg==
-X-IronPort-AV: E=Sophos;i="5.83,275,1616482800"; d="scan'208";a="487823401"
-Received: from bgeagarc-mobl1.amr.corp.intel.com (HELO [10.209.128.67])
- ([10.209.128.67])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2021 09:00:11 -0700
-Subject: Re: [PATCH] ASoC: max98357a: set channels_max to 4
-To: Cheng-yi Chiang <cychiang@chromium.org>, Tzung-Bi Shih <tzungbi@google.com>
-References: <20210526154704.114957-1-judyhsiao@chromium.org>
- <CA+Px+wXGjZCOhhAVh9eRw6L-g8g7Qi7Rf_3YHpHSCB2o=XQ+4g@mail.gmail.com>
- <CAFv8NwKkfGnpw_5PBwJSjVXsuw3L8=1RyEJ4PWdRX5-J75bk6A@mail.gmail.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <3501e398-dfba-43b1-4638-325a158e860d@linux.intel.com>
-Date: Tue, 15 Jun 2021 11:00:10 -0500
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5B338F8016C
+ for <alsa-devel@alsa-project.org>; Tue, 15 Jun 2021 18:55:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B338F8016C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="VrBoYlpG"
+Received: by mail-oo1-xc31.google.com with SMTP id
+ v17-20020a4aa5110000b0290249d63900faso3691948ook.0
+ for <alsa-devel@alsa-project.org>; Tue, 15 Jun 2021 09:55:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linuxfoundation.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=+RaZJtsUnxE0LQhLgGIH6UV1neEgEYWyhmaxMuF1UDE=;
+ b=VrBoYlpG3wNUBP3sbRO2ADGwvl9BBKp0P2yGMmzY7ZCUOuwgg6oK5YUVcBo+fj3gnR
+ avZWr4kNiTMUNJu6BWEbsO/e5Wno19s/0EUzN2BPM3GHCrrBTmwJlI3Hzwp178w9TGnt
+ K8tAjo7+V2O8iquaV5Xmf5PZfKJvh76wfBpNE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=+RaZJtsUnxE0LQhLgGIH6UV1neEgEYWyhmaxMuF1UDE=;
+ b=dqTfi2BiWSoMfnGmfgsTRwnh+BdarBiVI0jOuieZ8HY7Brf011aqd967cRYrmK4n+m
+ 67esbdT1rtMbfCIwe2drFu+ZNwchqbifeiq/9nZK7flrVVVBFeR7Vw49IJcUiHhNsKaN
+ ocm6bt21ddnEMq6NdRmbY8El7DPh5+vwNmAvUXyXpQhG98J7SYfDp8jclGtdBdwJX8Jz
+ 1dEHDG9WZ9zH2XPtMPlWb7JTJUlN/v6rsFoIcVWBLm7FIaVFe9QIQJbdHwWxkgZMDFb2
+ IzlAJVu29qObI6etfETvrHNu8pZoVnGtF1iZEAMboBnqlqBJb4b5SGkow1bfb/WzVmh6
+ 5Fqg==
+X-Gm-Message-State: AOAM532eUqHyG4yJX8Zj1qP3rMrwqalIzukXEJmOWvuil/4HkqoRiIvC
+ vYgWJAxdXovESyARHAABmuNy2g==
+X-Google-Smtp-Source: ABdhPJzYUKrrelOAEP5pQNrS0CNPNMjjx7cG2nUYfg+jzD3ZgZoSWPchkoTPjLj3kiiadimBxRdE6A==
+X-Received: by 2002:a4a:df47:: with SMTP id j7mr109033oou.79.1623776127691;
+ Tue, 15 Jun 2021 09:55:27 -0700 (PDT)
+Received: from [192.168.1.112] (c-24-9-64-241.hsd1.co.comcast.net.
+ [24.9.64.241])
+ by smtp.gmail.com with ESMTPSA id l10sm4135693otj.17.2021.06.15.09.55.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 15 Jun 2021 09:55:27 -0700 (PDT)
+Subject: Re: [PATCH] media: Fix Media Controller API config checks
+To: Hans Verkuil <hverkuil@xs4all.nl>, sakari.ailus@linux.intel.com,
+ laurent.pinchart@ideasonboard.com, dan.carpenter@oracle.com,
+ mchehab@kernel.org
+References: <20210611015849.42589-1-skhan@linuxfoundation.org>
+ <3745852a-a14d-3e66-dd9f-409ec7e43f48@xs4all.nl>
+From: Shuah Khan <skhan@linuxfoundation.org>
+Message-ID: <ee53183f-6c44-4ddb-a8b1-40d650772c73@linuxfoundation.org>
+Date: Tue, 15 Jun 2021 10:55:26 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <CAFv8NwKkfGnpw_5PBwJSjVXsuw3L8=1RyEJ4PWdRX5-J75bk6A@mail.gmail.com>
+In-Reply-To: <3745852a-a14d-3e66-dd9f-409ec7e43f48@xs4all.nl>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: Taniya Das <tdas@codeaurora.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, ALSA development <alsa-devel@alsa-project.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Stephan Gerhold <stephan@gerhold.net>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Patrick Lai <plai@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
- Tzung-Bi Shih <tzungbi@chromium.org>, Stephen Boyd <swboyd@chromium.org>,
- Rob Herring <robh+dt@kernel.org>, Andy Gross <agross@kernel.org>,
- Rohit kumar <rohitkr@codeaurora.org>, Mark Brown <broonie@kernel.org>,
- Douglas Anderson <dianders@chromium.org>, Dylan Reid <dgreid@chromium.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Judy Hsiao <judyhsiao@chromium.org>,
- "moderated list:ARM/Mediatek SoC support"
- <linux-arm-kernel@lists.infradead.org>
+Cc: alsa-devel@alsa-project.org, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,41 +107,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 6/15/21 10:47 AM, Cheng-yi Chiang wrote:
-> Hi Tzung-Bi,
+On 6/15/21 7:36 AM, Hans Verkuil wrote:
+> Hi Shuah,
 > 
-> On a platform, the four max98357a amps will be controlled by only one
-> codec device, as GPIO for SD_MODE is shared by all amps and is the
-> only thing to be controlled.
-> In this sense, I think we can treat max98357a DAI as if it supports
-> four channels.
-> I understand that this solution is not scalable, because one can
-> control as many amps as they want.
-> Theoretically, the number of supported channels by this codec device
-> is unlimited.
-> I found that rt1015.c has similar usage.
-> Do you have a better suggestion to support this kind of use case ?
-> Thanks!
-
-please don't top-post...
-
-I don't think it's correct to declare 4-channel support at the 
-individual codec DAI level when in practice each device will be provided 
-with a TDM mask that selects two slots.
-
-This is confusing device capabilities and TDM link configuration.
-
-> On Tue, Jun 1, 2021 at 2:20 PM Tzung-Bi Shih <tzungbi@google.com> wrote:
+> On 11/06/2021 03:58, Shuah Khan wrote:
+>> Smatch static checker warns that "mdev" can be null:
 >>
->> On Wed, May 26, 2021 at 11:47 PM Judy Hsiao <judyhsiao@chromium.org> wrote:
->>> Sets channels_max to 4 to support QUAD channel.
+>> sound/usb/media.c:287 snd_media_device_create()
+>>      warn: 'mdev' can also be NULL
 >>
->> Could you point out probably the up-to-date MAX98357A datasheet for
->> 4-channel support?
+>> If CONFIG_MEDIA_CONTROLLER is disabled, this file should not be included
+>> in the build.
 >>
->> On a related note, from the public datasheet I could find[1], "Table
->> 5" only shows 2 channel's configuration.
+>> The below conditions in the sound/usb/Makefile are in place to ensure that
+>> media.c isn't included in the build.
 >>
->> [1]: https://pdf1.alldatasheet.com/datasheet-pdf/view/623796/MAXIM/MAX98357A.html
+>> sound/usb/Makefile:
+>> snd-usb-audio-$(CONFIG_SND_USB_AUDIO_USE_MEDIA_CONTROLLER) += media.o
+>>
+>> select SND_USB_AUDIO_USE_MEDIA_CONTROLLER if MEDIA_CONTROLLER &&
+>>         (MEDIA_SUPPORT=y || MEDIA_SUPPORT=SND_USB_AUDIO)
+>>
+>> The following config check in include/media/media-dev-allocator.h is
+>> in place to enable the API only when CONFIG_MEDIA_CONTROLLER and
+>> CONFIG_USB are enabled.
+>>
+>>   #if defined(CONFIG_MEDIA_CONTROLLER) && defined(CONFIG_USB)
+>>
+>> This check doesn't work as intended when CONFIG_USB=m. When CONFIG_USB=m,
+>> CONFIG_USB_MODULE is defined and CONFIG_USB is not. The above config check
+>> doesn't catch that CONFIG_USB is defined as a module and disables the API.
+>> This results in sound/usb enabling Media Controller specific ALSA driver
+>> code, while Media disables the Media Controller API.
+>>
+>> Fix the problem requires two changes:
+>>
+>> 1. Change the check to use IS_ENABLED to detect when CONFIG_USB is enabled
+>>     as a module or static. Since CONFIG_MEDIA_CONTROLLER is a bool, leave
+>>     the check unchanged to be consistent with drivers/media/Makefile.
+>>
+>> 2. Change the drivers/media/mc/Makefile to include mc-dev-allocator.o
+>>     in mc-objs when CONFIG_USB is y or m.
+> 
+> If I test this patch, then I get:
+> 
+> drivers/media/mc/mc-dev-allocator.c:97:22: error: redefinition of 'media_device_usb_allocate'
+>     97 | struct media_device *media_device_usb_allocate(struct usb_device *udev,
+>        |                      ^~~~~~~~~~~~~~~~~~~~~~~~~
+> In file included from drivers/media/mc/mc-dev-allocator.c:24:
+> include/media/media-dev-allocator.h:55:36: note: previous definition of 'media_device_usb_allocate' was here
+>     55 | static inline struct media_device *media_device_usb_allocate(
+>        |                                    ^~~~~~~~~~~~~~~~~~~~~~~~~
+> drivers/media/mc/mc-dev-allocator.c:119:6: error: redefinition of 'media_device_delete'
+>    119 | void media_device_delete(struct media_device *mdev, const char *module_name,
+>        |      ^~~~~~~~~~~~~~~~~~~
+> In file included from drivers/media/mc/mc-dev-allocator.c:24:
+> include/media/media-dev-allocator.h:59:20: note: previous definition of 'media_device_delete' was here
+>     59 | static inline void media_device_delete(
+>        |                    ^~~~~~~~~~~~~~~~~~~
+> 
+> The .config has:
+> 
+> # CONFIG_USB_SUPPORT is not set
+> CONFIG_MEDIA_CONTROLLER=y
+> 
+
+Hans,
+
+Can you share your full config with me?
+
+thanks,
+-- Shuah
+

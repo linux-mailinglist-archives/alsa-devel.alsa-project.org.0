@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A96033A8AC4
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Jun 2021 23:11:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 892A83A8AC5
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Jun 2021 23:13:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2155641;
-	Tue, 15 Jun 2021 23:10:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2155641
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B63E1684;
+	Tue, 15 Jun 2021 23:12:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B63E1684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623791483;
-	bh=17iKdOwlrmwGKNLVpFfyYVO97sviq/JhBBJvumSvKF8=;
+	s=default; t=1623791583;
+	bh=Yrdw1Re9L5tLshJ9tBEXAyzzZOu2q/ZkB2nqbGdxH2U=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=T3v7HUKa1jkLREPZINp0FLwLCzSoxGrINlu2RDbNn5HiZiXH1QAhMfLd5OCU7i0ul
-	 cBtGC657oI1XY3RZAEnX+i0tZEoznMGkFUAUaxItv0tWPpanYQnVLDGB1RkI8b3VcD
-	 k5J7+6SZcOfWN876/kePIiNhABg0i0X4wyW12Zjg=
+	b=vkfSSH8CodxqgmT+sZvimLCLyJbRsZXVj3ImGIM6Zh4DbzgV0o9rqhFAEaCd06vko
+	 eB12/3cXrCmspr90jgbGCYcXkA+fy0opip9rb8jZfk3mGGI7nL90Hdu6STxfx9qIYS
+	 2+5ubp2d+qejg4SfnfCjH9LtB0glvDPP6h1c5ixw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 876C6F8025A;
-	Tue, 15 Jun 2021 23:09:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 846ABF8025A;
+	Tue, 15 Jun 2021 23:11:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C3B39F80171; Tue, 15 Jun 2021 23:09:53 +0200 (CEST)
+ id 6ED69F80171; Tue, 15 Jun 2021 23:11:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id B5282F80165
- for <alsa-devel@alsa-project.org>; Tue, 15 Jun 2021 23:09:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5282F80165
+ by alsa1.perex.cz (Postfix) with ESMTP id DAB42F80113
+ for <alsa-devel@alsa-project.org>; Tue, 15 Jun 2021 23:11:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAB42F80113
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1623791385115118027-webhooks-bot@alsa-project.org>
-References: <1623791385115118027-webhooks-bot@alsa-project.org>
-Subject: Build failes with "undefined macro AM_GNU_GETTEXT"
-Message-Id: <20210615210953.C3B39F80171@alsa1.perex.cz>
-Date: Tue, 15 Jun 2021 23:09:53 +0200 (CEST)
+In-Reply-To: <1623791490391488075-webhooks-bot@alsa-project.org>
+References: <1623791490391488075-webhooks-bot@alsa-project.org>
+Subject: Build fails with "undefined macro AM_GNU_GETTEXT"
+Message-Id: <20210615211133.6ED69F80171@alsa1.perex.cz>
+Date: Tue, 15 Jun 2021 23:11:33 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,7 +59,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-utils issue #99 was opened from edward-a:
+alsa-project/alsa-utils issue #99 was edited from edward-a:
 
 **./gitcompile** fails with the following output:
 

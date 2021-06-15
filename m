@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0FE63A84DF
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Jun 2021 17:51:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0FF93A84DA
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Jun 2021 17:50:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 556071677;
-	Tue, 15 Jun 2021 17:50:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 556071677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5EE01168D;
+	Tue, 15 Jun 2021 17:49:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EE01168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623772260;
-	bh=0AKQtTRFvAwNMONmcazVEqnc07a98wVeWAFq771hv1c=;
+	s=default; t=1623772241;
+	bh=r6aVGaHXr6OT7yCuvc3B2Gy4u2zDuO7MZmKBYuzwQg4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h5vSGFGa/s6Hqjd8VWh/GsSv/aAN0nn6G3d+Drx9Pi9W5vVEQyMZL9qJqSo/j5u8g
-	 ZqVMp4SH0XtculU0d/ioavy7YxZN/cwSsWURm+QvVS3PBrJaKYUYbdIuqrnXDrIKa7
-	 nDHW1Z89vUA39YhCkrFiYLEQ48ZIitFN7W/0RPhk=
+	b=cymgFr/BiYhPmSDwm65jG33YQ6vAkoZmn8SmYndRUSW4uUdhGXEn0wUBO1Du4rsYz
+	 ft/b/rM4j3u/nqKhgHuW1Yb9rMKLIZ1o/F1akK3ZYe4KBw/cCngEVEoQBxoSQ0pYZ4
+	 A1yMqCbiFcFl8fYX30XtZzcnHq+TX92jw7khrFwk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44F9BF804ED;
-	Tue, 15 Jun 2021 17:48:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C6FBF804E7;
+	Tue, 15 Jun 2021 17:48:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 05A9BF804EC; Tue, 15 Jun 2021 17:48:52 +0200 (CEST)
+ id C5336F804E6; Tue, 15 Jun 2021 17:48:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82966F804DF
- for <alsa-devel@alsa-project.org>; Tue, 15 Jun 2021 17:48:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82966F804DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6B325F804DA
+ for <alsa-devel@alsa-project.org>; Tue, 15 Jun 2021 17:48:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B325F804DA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="j27JiNCj"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 94B1961627;
- Tue, 15 Jun 2021 15:48:37 +0000 (UTC)
+ header.b="I6GKW8Zf"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3CCD86142E;
+ Tue, 15 Jun 2021 15:48:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623772118;
- bh=0AKQtTRFvAwNMONmcazVEqnc07a98wVeWAFq771hv1c=;
+ s=k20201202; t=1623772122;
+ bh=r6aVGaHXr6OT7yCuvc3B2Gy4u2zDuO7MZmKBYuzwQg4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=j27JiNCjEoJD2Wh32SyHmKwCjhTjjzsCpAzcEhCzvJs/SyYzxg2ljykoiiWdSL/x3
- i4k7gz8Q1j2nMtdloLPP0z/UNuuo6G7N/TQ+/R+FJQcwWnWzUacUdtdp9+oNAcM8aN
- jBVm9TftHrk4U2Ri0sL/DHfDsFMHwSbvb1bkpCy7AKE1T5viWhFkD2v+CaRQHNvp61
- DCHD8h43obyxWUQ6u8yaciVUlg0GtSm1bpjQqzs8FLdxWvaKFI5RIF2A2sEKMoNPmY
- QDnTB0ifccNRJAlU2LroFdt4xEm400TGn/9phE1/LiEkSfssjYF5NcpPW7i8tmlTsC
- 9GwqBfFbEaG3w==
+ b=I6GKW8ZfBOQHkE8QMtQLsW+4mSZ3rFoJfjNUexXN2AZ3V5RyXU3mWscA+ZbOKuMvE
+ 0p5WxWZ/nwHWOyCca+oSupr5K3H9GUqEFFZZhdczj1qE6UNMhfy++hXSOWPxwGng9y
+ mN735w7yGQ0JHebNm1kvZVAO+VOsLvRZQkAeTpDn7vkusvras5bGEbGhc47ZgQgQ8E
+ d5H9td7A/d9yZgC8nf8/TxHqq03APzzrjvlhQyobqbaM8jmN1SjqznqY+sQE+A9V8k
+ 4EvpT4o+sge0BZe/n+ZuO2RCNxQos9n7rgCoG+w7kAhq2PVQ+3DZMIh0xTSpxcSRaa
+ yrdpQLDTsI7MQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.12 11/33] ASoC: AMD Renoir - add DMI entry for
- Lenovo 2020 AMD platforms
-Date: Tue, 15 Jun 2021 11:48:02 -0400
-Message-Id: <20210615154824.62044-11-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.12 14/33] ASoC: AMD Renoir: Remove fix for DMI entry
+ on Lenovo 2020 platforms
+Date: Tue, 15 Jun 2021 11:48:05 -0400
+Message-Id: <20210615154824.62044-14-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210615154824.62044-1-sashal@kernel.org>
 References: <20210615154824.62044-1-sashal@kernel.org>
@@ -68,7 +68,7 @@ X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, Mark Pearson <markpearson@lenovo.com>,
  alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Gabriel Craciunescu <nix.or.die@gmail.com>
+ Gabriel Craciunescu <unix.or.die@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,65 +86,67 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Mark Pearson <markpearson@lenovo.com>
 
-[ Upstream commit 19a0aa9b04c5ab9a063b6ceaf7211ee7d9a9d24d ]
+[ Upstream commit 320232caf1d8febea17312dab4b2dfe02e033520 ]
 
-More laptops identified where the AMD ACP bridge needs to be blocked
-or the microphone will not work when connected to HDMI.
+Unfortunately the previous patch to fix issues using the AMD ACP bridge
+has the side effect of breaking the dmic in other cases and needs to be
+reverted.
 
-Use DMI to block the microphone PCM device for these platforms.
+Removing the changes while we revisit the fix and find something better.
+Apologies for the churn.
 
-Suggested-by: Gabriel Craciunescu <nix.or.die@gmail.com>
+Suggested-by: Gabriel Craciunescu <unix.or.die@gmail.com>
 Signed-off-by: Mark Pearson <markpearson@lenovo.com>
-Link: https://lore.kernel.org/r/20210531145502.6079-1-markpearson@lenovo.com
+Link: https://lore.kernel.org/r/20210602171251.3243-1-markpearson@lenovo.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/amd/renoir/rn-pci-acp3x.c | 35 +++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+ sound/soc/amd/renoir/rn-pci-acp3x.c | 35 -----------------------------
+ 1 file changed, 35 deletions(-)
 
 diff --git a/sound/soc/amd/renoir/rn-pci-acp3x.c b/sound/soc/amd/renoir/rn-pci-acp3x.c
-index 050a61fe9693..47a4dfd81a46 100644
+index 47a4dfd81a46..050a61fe9693 100644
 --- a/sound/soc/amd/renoir/rn-pci-acp3x.c
 +++ b/sound/soc/amd/renoir/rn-pci-acp3x.c
-@@ -199,6 +199,41 @@ static const struct dmi_system_id rn_acp_quirk_table[] = {
+@@ -199,41 +199,6 @@ static const struct dmi_system_id rn_acp_quirk_table[] = {
  			DMI_EXACT_MATCH(DMI_BOARD_NAME, "20NLCTO1WW"),
  		}
  	},
-+	{
-+		/* Lenovo ThinkPad P14s Gen 1 (20Y1) */
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_BOARD_NAME, "20Y1"),
-+		}
-+	},
-+	{
-+		/* Lenovo ThinkPad T14s Gen1 */
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_BOARD_NAME, "20UH"),
-+		}
-+	},
-+	{
-+		/* Lenovo ThinkPad T14s Gen1 Campus */
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_BOARD_NAME, "20UJ"),
-+		}
-+	},
-+	{
-+		/* Lenovo ThinkPad T14 Gen 1*/
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_BOARD_NAME, "20UD"),
-+		}
-+	},
-+	{
-+		/* Lenovo ThinkPad X13 Gen 1*/
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_BOARD_NAME, "20UF"),
-+		}
-+	},
+-	{
+-		/* Lenovo ThinkPad P14s Gen 1 (20Y1) */
+-		.matches = {
+-			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+-			DMI_MATCH(DMI_BOARD_NAME, "20Y1"),
+-		}
+-	},
+-	{
+-		/* Lenovo ThinkPad T14s Gen1 */
+-		.matches = {
+-			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+-			DMI_MATCH(DMI_BOARD_NAME, "20UH"),
+-		}
+-	},
+-	{
+-		/* Lenovo ThinkPad T14s Gen1 Campus */
+-		.matches = {
+-			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+-			DMI_MATCH(DMI_BOARD_NAME, "20UJ"),
+-		}
+-	},
+-	{
+-		/* Lenovo ThinkPad T14 Gen 1*/
+-		.matches = {
+-			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+-			DMI_MATCH(DMI_BOARD_NAME, "20UD"),
+-		}
+-	},
+-	{
+-		/* Lenovo ThinkPad X13 Gen 1*/
+-		.matches = {
+-			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+-			DMI_MATCH(DMI_BOARD_NAME, "20UF"),
+-		}
+-	},
  	{}
  };
  

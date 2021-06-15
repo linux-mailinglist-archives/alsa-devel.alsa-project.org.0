@@ -2,94 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9E243A8488
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Jun 2021 17:49:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72BC13A84A1
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Jun 2021 17:49:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 404B11689;
-	Tue, 15 Jun 2021 17:48:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 404B11689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 016561691;
+	Tue, 15 Jun 2021 17:49:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 016561691
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623772174;
-	bh=GBinx4Fgo45gvNb6Q+VwiPy/5uxor4+wH/XjaU7vEwU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1623772194;
+	bh=qna0s9b3nXSCyr1sPmpyt8aI5vVVDvjz9OIvUIi7AhQ=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rNAWISngRm/wU9eT/BssU1wIOMyCPgXQyg1khW8xyAEjldfXDZV8pNrDjCUrzboCJ
-	 nGrb6TiOO6sJvqAwooT83qIJsNqu5dpUa9k/HklKY1YWRkr2zto8ilaSQNzp29R5Z4
-	 seF9CFtcmGOx9udPCrCPhaobPOXrMERCUt/X1aX8=
+	b=doweIotljJ1EwsCyTL6RFSd7loXt/55f7Pj/xG6wHitAwgpj2kS9wxPzM6Uj6559t
+	 cTmD6a6LO00vSJkGeQ86jor4hY3esqoQh4gxoAIFEheWhhviN6K63vrITOTKkVd27r
+	 aPWL1B8Thj1ofm9hMRwcJ2Phkx1WjxKN4yZUxGC8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9C64F80113;
-	Tue, 15 Jun 2021 17:48:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89EAEF804D8;
+	Tue, 15 Jun 2021 17:48:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DC0A4F80113; Tue, 15 Jun 2021 17:48:05 +0200 (CEST)
+ id 08449F804D9; Tue, 15 Jun 2021 17:48:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 911E4F80113
- for <alsa-devel@alsa-project.org>; Tue, 15 Jun 2021 17:47:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 911E4F80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 06B62F804D1
+ for <alsa-devel@alsa-project.org>; Tue, 15 Jun 2021 17:48:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06B62F804D1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="fKBLKEpG"
-Received: by mail-wm1-x32b.google.com with SMTP id l9so14424801wms.1
- for <alsa-devel@alsa-project.org>; Tue, 15 Jun 2021 08:47:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=GBinx4Fgo45gvNb6Q+VwiPy/5uxor4+wH/XjaU7vEwU=;
- b=fKBLKEpGGji1pJ8Chsxfvqljab6qo00YqyYLcs9KAIRVzcPyZyRS/9kYae9BQhnPkS
- ZnpNaP5a2XEdbNdJeZViHbkyiIYIIILUexJwCWeSWF8fDuQSgpoe7MuUHFy0z4UazS32
- sDdFgLVdGm9mG/b/9FD+ArxbRhqK74pHM2kr8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=GBinx4Fgo45gvNb6Q+VwiPy/5uxor4+wH/XjaU7vEwU=;
- b=dP8JDwVAruf8XU0G+o3lxno6VhnaShPxrwXJkg75K5IzMhEuQqtCd9zPe1LqTALi2N
- Bq1TD6SCJbWWmkpV3z9L4xAk0AACcHg1Utas70p1m1OhsjsSDQ+PALEWCFE5Dj3aVLo0
- Zrxnbkn6qClEhsagi/hJ0ETR0KVjDsjGL2mFPxMxEBu19c0z4lNbjpn7a4deLepKZQWY
- bqSBjp6N5Y0C8ZbPTPsCwwYLLTye/TngaXTVGAXkvKeFzh+lOPnkyBfLWjzwUL01egK/
- piHvU4AWtsuok2hjGSi8FuSdQeRIBKb1DRvQBxTVVErnB3AWmicPsxXHCjyIkldLd8pb
- mL9w==
-X-Gm-Message-State: AOAM530wpIoYkg8Ha4OAAm7f+3YWXLKdnlv2cZyVRtx1zRpUiuTCrDOl
- R/EMPqrO9NB546TsOBVrpWUQiRjVAhvCweTz5Btisw==
-X-Google-Smtp-Source: ABdhPJwUoEVW6kMYZC606PnYCEczrljMALiN96zNLd0kS0EL2UX5TDso3su7xUx2lhZdDpzedPnxBwH3c8Nmho87MO0=
-X-Received: by 2002:a7b:c5d2:: with SMTP id n18mr6083880wmk.97.1623772078396; 
- Tue, 15 Jun 2021 08:47:58 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Dl6CjtBF"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 29BA861628;
+ Tue, 15 Jun 2021 15:48:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1623772110;
+ bh=qna0s9b3nXSCyr1sPmpyt8aI5vVVDvjz9OIvUIi7AhQ=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Dl6CjtBFJ2MVxHk4eOxPsh3ECy09KG7VkOo2Mk1r++GN58VlHyhQVpnP6w3O58j0s
+ RjxLZRlw2kPmfNLdrV69daHTM/I2Tv0vWC/XU+on1C1rkaC1PBDVR8yqX0BKboQhfB
+ NtrK5DnoT6xB3QwGeq/gtJDQKg0swJaHtDapJbhClrrF2gZ96Azm36MDxRj9CGFJ9n
+ k1hV+OUW9iDrLFakGTKmG2+RdHZI12DRIXDuIj+hdvrY83JbrE9LzL59DN9ZgPbZjs
+ WlJ7zeL/9YrTEczH68NfIzJLUChrLceAh/7zjunQmMGrLlKkekrLakLwUR1riTlNn3
+ BiX/dUQM0dBpA==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.12 05/33] ASoC: rt5659: Fix the lost powers for the
+ HDA header
+Date: Tue, 15 Jun 2021 11:47:56 -0400
+Message-Id: <20210615154824.62044-5-sashal@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210615154824.62044-1-sashal@kernel.org>
+References: <20210615154824.62044-1-sashal@kernel.org>
 MIME-Version: 1.0
-References: <20210526154704.114957-1-judyhsiao@chromium.org>
- <CA+Px+wXGjZCOhhAVh9eRw6L-g8g7Qi7Rf_3YHpHSCB2o=XQ+4g@mail.gmail.com>
-In-Reply-To: <CA+Px+wXGjZCOhhAVh9eRw6L-g8g7Qi7Rf_3YHpHSCB2o=XQ+4g@mail.gmail.com>
-From: Cheng-yi Chiang <cychiang@chromium.org>
-Date: Tue, 15 Jun 2021 23:47:30 +0800
-Message-ID: <CAFv8NwKkfGnpw_5PBwJSjVXsuw3L8=1RyEJ4PWdRX5-J75bk6A@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: max98357a: set channels_max to 4
-To: Tzung-Bi Shih <tzungbi@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Taniya Das <tdas@codeaurora.org>,
- ALSA development <alsa-devel@alsa-project.org>,
- Banajit Goswami <bgoswami@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
- Rohit kumar <rohitkr@codeaurora.org>, Patrick Lai <plai@codeaurora.org>,
- Andy Gross <agross@kernel.org>, Dylan Reid <dgreid@chromium.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Tzung-Bi Shih <tzungbi@chromium.org>,
- Stephan Gerhold <stephan@gerhold.net>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Herring <robh+dt@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- "moderated list:ARM/Mediatek SoC support"
- <linux-arm-kernel@lists.infradead.org>,
- Douglas Anderson <dianders@chromium.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Judy Hsiao <judyhsiao@chromium.org>
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
+Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Sasha Levin <sashal@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,33 +84,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Tzung-Bi,
+From: Jack Yu <jack.yu@realtek.com>
 
-On a platform, the four max98357a amps will be controlled by only one
-codec device, as GPIO for SD_MODE is shared by all amps and is the
-only thing to be controlled.
-In this sense, I think we can treat max98357a DAI as if it supports
-four channels.
-I understand that this solution is not scalable, because one can
-control as many amps as they want.
-Theoretically, the number of supported channels by this codec device
-is unlimited.
-I found that rt1015.c has similar usage.
-Do you have a better suggestion to support this kind of use case ?
-Thanks!
+[ Upstream commit 6308c44ed6eeadf65c0a7ba68d609773ed860fbb ]
 
+The power of "LDO2", "MICBIAS1" and "Mic Det Power" were powered off after
+the DAPM widgets were added, and these powers were set by the JD settings
+"RT5659_JD_HDA_HEADER" in the probe function. In the codec probe function,
+these powers were ignored to prevent them controlled by DAPM.
 
+Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
+Signed-off-by: Jack Yu <jack.yu@realtek.com>
+Message-Id: <15fced51977b458798ca4eebf03dafb9@realtek.com>
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/codecs/rt5659.c | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
 
+diff --git a/sound/soc/codecs/rt5659.c b/sound/soc/codecs/rt5659.c
+index 91a4ef7f620c..a9b079d56fd6 100644
+--- a/sound/soc/codecs/rt5659.c
++++ b/sound/soc/codecs/rt5659.c
+@@ -2433,13 +2433,18 @@ static int set_dmic_power(struct snd_soc_dapm_widget *w,
+ 	return 0;
+ }
+ 
+-static const struct snd_soc_dapm_widget rt5659_dapm_widgets[] = {
++static const struct snd_soc_dapm_widget rt5659_particular_dapm_widgets[] = {
+ 	SND_SOC_DAPM_SUPPLY("LDO2", RT5659_PWR_ANLG_3, RT5659_PWR_LDO2_BIT, 0,
+ 		NULL, 0),
+-	SND_SOC_DAPM_SUPPLY("PLL", RT5659_PWR_ANLG_3, RT5659_PWR_PLL_BIT, 0,
+-		NULL, 0),
++	SND_SOC_DAPM_SUPPLY("MICBIAS1", RT5659_PWR_ANLG_2, RT5659_PWR_MB1_BIT,
++		0, NULL, 0),
+ 	SND_SOC_DAPM_SUPPLY("Mic Det Power", RT5659_PWR_VOL,
+ 		RT5659_PWR_MIC_DET_BIT, 0, NULL, 0),
++};
++
++static const struct snd_soc_dapm_widget rt5659_dapm_widgets[] = {
++	SND_SOC_DAPM_SUPPLY("PLL", RT5659_PWR_ANLG_3, RT5659_PWR_PLL_BIT, 0,
++		NULL, 0),
+ 	SND_SOC_DAPM_SUPPLY("Mono Vref", RT5659_PWR_ANLG_1,
+ 		RT5659_PWR_VREF3_BIT, 0, NULL, 0),
+ 
+@@ -2464,8 +2469,6 @@ static const struct snd_soc_dapm_widget rt5659_dapm_widgets[] = {
+ 		RT5659_ADC_MONO_R_ASRC_SFT, 0, NULL, 0),
+ 
+ 	/* Input Side */
+-	SND_SOC_DAPM_SUPPLY("MICBIAS1", RT5659_PWR_ANLG_2, RT5659_PWR_MB1_BIT,
+-		0, NULL, 0),
+ 	SND_SOC_DAPM_SUPPLY("MICBIAS2", RT5659_PWR_ANLG_2, RT5659_PWR_MB2_BIT,
+ 		0, NULL, 0),
+ 	SND_SOC_DAPM_SUPPLY("MICBIAS3", RT5659_PWR_ANLG_2, RT5659_PWR_MB3_BIT,
+@@ -3660,10 +3663,23 @@ static int rt5659_set_bias_level(struct snd_soc_component *component,
+ 
+ static int rt5659_probe(struct snd_soc_component *component)
+ {
++	struct snd_soc_dapm_context *dapm =
++		snd_soc_component_get_dapm(component);
+ 	struct rt5659_priv *rt5659 = snd_soc_component_get_drvdata(component);
+ 
+ 	rt5659->component = component;
+ 
++	switch (rt5659->pdata.jd_src) {
++	case RT5659_JD_HDA_HEADER:
++		break;
++
++	default:
++		snd_soc_dapm_new_controls(dapm,
++			rt5659_particular_dapm_widgets,
++			ARRAY_SIZE(rt5659_particular_dapm_widgets));
++		break;
++	}
++
+ 	return 0;
+ }
+ 
+-- 
+2.30.2
 
-On Tue, Jun 1, 2021 at 2:20 PM Tzung-Bi Shih <tzungbi@google.com> wrote:
->
-> On Wed, May 26, 2021 at 11:47 PM Judy Hsiao <judyhsiao@chromium.org> wrote:
-> > Sets channels_max to 4 to support QUAD channel.
->
-> Could you point out probably the up-to-date MAX98357A datasheet for
-> 4-channel support?
->
-> On a related note, from the public datasheet I could find[1], "Table
-> 5" only shows 2 channel's configuration.
->
-> [1]: https://pdf1.alldatasheet.com/datasheet-pdf/view/623796/MAXIM/MAX98357A.html

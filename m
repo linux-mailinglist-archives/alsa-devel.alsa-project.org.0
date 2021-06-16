@@ -2,68 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C0293A95B7
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Jun 2021 11:14:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 756DA3A9634
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Jun 2021 11:31:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11E3A1693;
-	Wed, 16 Jun 2021 11:14:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11E3A1693
+	by alsa0.perex.cz (Postfix) with ESMTPS id EA1571677;
+	Wed, 16 Jun 2021 11:31:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA1571677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623834899;
-	bh=6L2hv+zNKgPawJ0Lp8WwQDcXMOVI3VLa2Rdrrbitxgg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1623835916;
+	bh=nrfbYjfulZoAPaUf06R8qWjrWQRQRK0shPKxqFHChZ8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G53I6b1CslbZ4vc/ToxBoGwE4Mz9LnYEMIKO2AAms9F+TYB3Upm1w+3Q6EVw71Mow
-	 8lrKJwLOCY1AaOK0nlLPA41L7/N6mDFGqQt9gAYnNLGF40/cx4QJf8g2theJNWRJAs
-	 AJV2PID2EgtJlDbw42mFIA08AcOzX6G2cUBFleJo=
+	b=gHMWXKeySQc7/7ZgcZvI6A+ewEiDK2nbK7Jgoc8o/6JgxwOniP81L+DV4QMX9UhPl
+	 rhr70y5rlJ1W4hhNjoM7rp4+ocMWe1r+oo8LW5h1WUp3DyFv93sDLt8koVzpmhNoyD
+	 IIUN1PNU4PNpKhLjDDEyes/gMqwyWc4WDVR6zaeY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB879F804CA;
-	Wed, 16 Jun 2021 11:13:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E7E7F80424;
+	Wed, 16 Jun 2021 11:30:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A479F804B0; Wed, 16 Jun 2021 11:13:15 +0200 (CEST)
+ id 11C56F80423; Wed, 16 Jun 2021 11:30:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 07C69F802E8
- for <alsa-devel@alsa-project.org>; Wed, 16 Jun 2021 11:13:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07C69F802E8
-Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.55])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4G4fXZ6WGfzZdvr;
- Wed, 16 Jun 2021 17:10:06 +0800 (CST)
-Received: from dggpeml500017.china.huawei.com (7.185.36.243) by
- dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Wed, 16 Jun 2021 17:13:02 +0800
-Received: from huawei.com (10.175.103.91) by dggpeml500017.china.huawei.com
- (7.185.36.243) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Wed, 16 Jun
- 2021 17:13:01 +0800
-From: Yang Yingliang <yangyingliang@huawei.com>
-To: <linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH -next 4/4] ASoC: samsung: s3c24xx-i2s: Use
- devm_platform_get_and_ioremap_resource()
-Date: Wed, 16 Jun 2021 17:16:52 +0800
-Message-ID: <20210616091652.2552927-5-yangyingliang@huawei.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210616091652.2552927-1-yangyingliang@huawei.com>
-References: <20210616091652.2552927-1-yangyingliang@huawei.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF541F8028B
+ for <alsa-devel@alsa-project.org>; Wed, 16 Jun 2021 11:30:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF541F8028B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="xudoE7cL"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 59F67611CA;
+ Wed, 16 Jun 2021 09:30:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1623835814;
+ bh=nrfbYjfulZoAPaUf06R8qWjrWQRQRK0shPKxqFHChZ8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=xudoE7cLEMoRRo8mEPJY4STJdULAnwguMtuX0NnvGBLS1tcFa+wPRebbUhss7HUbw
+ d0XrmG+sDITKRKitnXl2DpdsxQUjL5LzAQQMT0iukeVWr9xsQNmnGZGPPWItIJzMbs
+ x5zyIwgdrISLtZXL8+poI0pkDG3M1ZNtmiRRfJpY=
+Date: Wed, 16 Jun 2021 11:30:11 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Daehwan Jung <dh10.jung@samsung.com>
+Subject: Re: ALSA: usb-audio: Fix rate on Ozone Z90 USB headset
+Message-ID: <YMnEo73bQt+mvEXn@kroah.com>
+References: <CGME20210616091516epcas2p2111c9b941d0e60fb0a6ae9646fb80d26@epcas2p2.samsung.com>
+ <1623834063-108482-1-git-send-email-dh10.jung@samsung.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.103.91]
-X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
- dggpeml500017.china.huawei.com (7.185.36.243)
-X-CFilter-Loop: Reflected
-Cc: broonie@kernel.org, krzysztof.kozlowski@canonical.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1623834063-108482-1-git-send-email-dh10.jung@samsung.com>
+Cc: Lukasz Halman <lukasz.halman@gmail.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, Johan Hovold <johan@kernel.org>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,28 +78,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use devm_platform_get_and_ioremap_resource() to simplify
-code.
+On Wed, Jun 16, 2021 at 06:01:01PM +0900, Daehwan Jung wrote:
+> It mislabels its 96 kHz altsetting and that's why it causes some noise
+> 
+> Signed-off-by: Daehwan Jung <dh10.jung@samsung.com>
+> ---
+>  sound/usb/format.c | 2 ++
+>  1 file changed, 2 insertions(+)
 
-Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
----
- sound/soc/samsung/s3c24xx-i2s.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+I am not the sound/usb/ maintainer, so I do not know why you sent this
+"To:" me.
 
-diff --git a/sound/soc/samsung/s3c24xx-i2s.c b/sound/soc/samsung/s3c24xx-i2s.c
-index 50c08008aacb..0f46304eaa4f 100644
---- a/sound/soc/samsung/s3c24xx-i2s.c
-+++ b/sound/soc/samsung/s3c24xx-i2s.c
-@@ -425,8 +425,7 @@ static int s3c24xx_iis_dev_probe(struct platform_device *pdev)
- 	struct resource *res;
- 	int ret;
- 
--	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	s3c24xx_i2s.regs = devm_ioremap_resource(&pdev->dev, res);
-+	s3c24xx_i2s.regs = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
- 	if (IS_ERR(s3c24xx_i2s.regs))
- 		return PTR_ERR(s3c24xx_i2s.regs);
- 
--- 
-2.25.1
+Also, can you resend and add a cc: stable to the signed-off-by: area to
+let this get backported properly?
 
+thanks,
+
+greg k-h

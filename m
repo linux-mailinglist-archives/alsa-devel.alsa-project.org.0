@@ -2,107 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8A953A93B8
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Jun 2021 09:25:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 041773A94E4
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Jun 2021 10:23:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 488411688;
-	Wed, 16 Jun 2021 09:24:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 488411688
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94AF81686;
+	Wed, 16 Jun 2021 10:22:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94AF81686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623828314;
-	bh=hCRHtYAQi7c86r0AZXLMvQKohpmJ8G7412Hu6hR74rM=;
+	s=default; t=1623831809;
+	bh=3JBH+9yP1dxFgSqGCMIREb492/jkmrjh1q82PBnnvwM=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ElsirxFD3wA7hAZlTkTDtgljthOtQRt6Twhg+TZQufc5FI904ph1lkbGqwoi/KjL/
-	 1ZH2W38T6dHnOIfxoHpRBYRIz/MXb3NzYxThBUCA+ugoatlfLv8GYX6MTFCd87XEtH
-	 cg8qFRAWYuDZ81Diz7LQNMZ2f+SlMI7SUsUUFOLw=
+	b=ZPYg2I9RJTEa5MZuRCx1tAlimVHeaLmzhd65SZv28S/ZJ/CqHh3avKdlVRegYo7o4
+	 QjZYQWhC+zPhybO02f55rWIkDPt4W5Bp/O5nuyMpBEsG/BpECHWnV033SeJJ/YuOeF
+	 0ZeBNW4u+4T1gUOKSXySbJ5Xcb78Ru661Q0BlDMA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B35E0F80424;
-	Wed, 16 Jun 2021 09:23:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2CB4F802E8;
+	Wed, 16 Jun 2021 10:22:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 23B0FF80423; Wed, 16 Jun 2021 09:23:45 +0200 (CEST)
+ id B1F1BF80423; Wed, 16 Jun 2021 10:21:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
  [66.111.4.224])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5C187F8028B
- for <alsa-devel@alsa-project.org>; Wed, 16 Jun 2021 09:23:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C187F8028B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5FEDEF80165
+ for <alsa-devel@alsa-project.org>; Wed, 16 Jun 2021 10:21:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FEDEF80165
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="PLbjy+pI"; 
+ header.b="lN5SUX1u"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="E5M8/x41"
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailnew.nyi.internal (Postfix) with ESMTP id 30A7C58045F;
- Wed, 16 Jun 2021 03:23:36 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Wed, 16 Jun 2021 03:23:36 -0400
+ header.i=@messagingengine.com header.b="bmm63I7V"
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 5E96158044E;
+ Wed, 16 Jun 2021 04:21:55 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute6.internal (MEProxy); Wed, 16 Jun 2021 04:21:55 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
  date:from:to:cc:subject:message-id:references:mime-version
- :content-type:content-transfer-encoding:in-reply-to; s=fm3; bh=0
- Bpx4KO8jDptlgGldj5m9Ic3pEd6Z1ap4w1RDEKuOU4=; b=PLbjy+pIkr6Bdmdrt
- CFsSt3vAEL3C6Tg0vdQP1ATgChB7/CKYpdnBO/Fb+EfPzFTEk9DNst9rK9ydr/nO
- eHp2+mfn8qkQ7H1uZUjF+yAwiz2MHH12uqU7EQsqIOFVR4iep9J63kM8rTr5yTTK
- 8DdjobZuqWQ9S6Dxw/pPbyOFYhKmoqsfwrkgEKI21UQ6WS+4j7ZEiyAfeRuxgGVm
- vrQjW+DUK0MqtIizZoutS+psxU2HzYXEy7N8wVMyCMNlNdtJT0/bgnsbAhYVmHFa
- IzVFivQs0bY8BWjLfJybMJoTsy5/YPARkXYNBn68GmnOagGB84AXTZepGh93WSzm
- UK4yA==
+ :content-type:content-transfer-encoding:in-reply-to; s=fm3; bh=o
+ z1afSZtH4HEgY3zg42iH1DY//zDW8wKRe4vHaTi0y0=; b=lN5SUX1uagJ28V30k
+ RC1tmY6DI9XAlPzOqVSgDgaMxG/WoeiuBWcBHIdcB1CXm3e4bqlqrWI/tgyNvqQY
+ yDt1jRi5zrXeechHiBDfSvLWt5RFInLKRWIVKMadud5QfJdauxI4/nL7swM22SIf
+ twheS0P6OfgJsj5/inWXrlarPgGVHEDeZG8kyeel1AXPSPpYaDW8zqRMDXFY8ziX
+ WHcF1E6/pISk7f1Z3cPoMl5dqVwmltX/ND8byzqGhrBMJMzjva9KD2tCSBvA8nfq
+ HJBX+raIEVE+do2fz8IMPl9i4JdqzdtlNe79s7m90CLs19qunnb5tI9S1n2jo/O+
+ Qf2JA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:content-type
  :date:from:in-reply-to:message-id:mime-version:references
  :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm3; bh=0Bpx4KO8jDptlgGldj5m9Ic3pEd6Z1ap4w1RDEKuO
- U4=; b=E5M8/x41Rw/OyVn/JZ+BAR45JbhmclF3yQfZgmqHZXJEQiPu86yfo4YD+
- IlzGI49EzABWf/0zpueWQY3U/qxm1CQOj9tO008cDgN6dNhtgAtVQ2s535qk9jlS
- g7IhwfRHIfSWjbmEQCew1JVvrLur8HcDzubJBL7wU8NPZBtwhp8pjVS6WjSt7nNz
- pM8qPjpEOHL/Xcy8kelR8PG2/z4hC4jadg1Mm/AjkFFW1GUZQyAdGDkMA4Q1Ec7d
- 0N9peJAs2M/VgpG/PPVypc/GOhbWSJMcZT59F/rb6iASE/VyfTf0niFzwO+YGq1t
- vJXiyOu2/BYrtInmUGZBm9RIhwtjA==
-X-ME-Sender: <xms:9qbJYMp_RlBXasf8s3VrI837sJik8goo6HbLrM18jzk7G6mwGPMMbA>
- <xme:9qbJYCoBAsfOrOtXKnzzlfL0xEeUaAPhrnj_U_qaI3KfPmhDdB2JW6FtmE4Vixcy-
- DBUrPWMHKys5Z16Qh8>
-X-ME-Received: <xmr:9qbJYBOT_v4rL0PN8R2LmaTUymwDT2erI-hfguQzKvYzQsyXpnK0oRkBOouTJCuEFw6We0CCSCDtkxPI08hOP62_FEIQ0jg5qk39>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfedvkedguddujecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpeffhffvuffkfhggtggugfgjsehtqhertddttddvnecuhfhrohhmpeforgig
- ihhmvgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrf
- grthhtvghrnhepkeeileetveejffegueetjeeigffgfefgkeeuueetfffhheegveefhfek
- heevkedunecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlhhushhtvghrufhiii
- gvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgv
- tghh
-X-ME-Proxy: <xmx:9qbJYD4d755efuScEGvo5aEHGclrJkxPP3l5twqayvhb05GHa57TkQ>
- <xmx:9qbJYL7rgHUG5opgvclOVf5pSVw71ZlgwL2DpTx-j8CA9C_dYtMuYQ>
- <xmx:9qbJYDiwv3ObAf5VYlmQ3H1UBsPO-Ga4FfBtFk_L4NKd281rWPPRBw>
- <xmx:-KbJYIEJHtaXsWfZZ-ZTJNKaiByAfZOQF3wBAMtIBilPDN3XubK_4g>
+ :x-sasl-enc; s=fm3; bh=oz1afSZtH4HEgY3zg42iH1DY//zDW8wKRe4vHaTi0
+ y0=; b=bmm63I7VxeIVqq+/FRSF68A0XI3F7eCYsCEWYOYvN1IcHMho3Bdb6+tvM
+ e7SKSNiRkCRWKx6dobT/WP/YAa/xq65u/NtfnnVMYZ+mnRTbV2Gx14tWEhF7j8yF
+ EEygGeX03XWAv7RVxGALJS1arH8DAcyzqkdTpwDhhlHOaD7kLh6d+i9BPyav4Mzf
+ jWBujeIa9fdV2xmFhMXQb/ZK+wYvHHVQTRugeJkLmt00uNtcsF3JWKZBmWIDSaYY
+ ha+Lj/10tSQ6bJeHQ+NlGmDHfqzXw5nSIYljfpr0K6AnLAF5dnbdBjQlL0Qwcsbv
+ 5TDTJJyIPJmabmRS9GZYJJWQ1fl2w==
+X-ME-Sender: <xms:obTJYJOBnmrghJOugX0l7MBAFgaXxK24GMDyHJDS5x7AqgI2oYQsrQ>
+ <xme:obTJYL9ZYQPVBcCEYKzC09vp6b72sKxTvr1EJpQG27SYuu22iiqXyr32n20BZGSV1
+ 0cyGdsTzK1Vye7DNEQ>
+X-ME-Received: <xmr:obTJYIQoiTyb_IzglrDMyDVN10hTgNvkwd0EdPYKBhREetI-NuAbsVZEE8LInqvQLOwGRZhl4-D7T5Piw4oqTIbi60qx6ZmCOzGm>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfedvledgtdefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtugfgjgesthhqredttddtvdenucfhrhhomhepofgrgihi
+ mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
+ htthgvrhhnpefgjeettdejgffgffdvteeutdehtdehgeehueetkeefgefhtdetjeekledu
+ gedvudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
+ hmrgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:obTJYFtEYBd5JB3YPDZATxYUAH4HBhQzopmQFc2JT6yom3hYs_AKhg>
+ <xmx:obTJYBehjpvFtceQCmkSwIDKUK91vq3Ur-_q277EsSdqEljlrGN9fw>
+ <xmx:obTJYB3dj1QPCy50MWLCnS4Dt_uVahxFGaGwFY93tEPsoEMJFzD3FA>
+ <xmx:o7TJYP26NQO9-XFDXfXaF0wuXvyOuehZel8F6E58MuvraDMDZVh_PQ>
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 16 Jun 2021 03:23:34 -0400 (EDT)
-Date: Wed, 16 Jun 2021 09:23:31 +0200
+ 16 Jun 2021 04:21:53 -0400 (EDT)
+Date: Wed, 16 Jun 2021 10:21:51 +0200
 From: Maxime Ripard <maxime@cerno.tech>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [GIT PULL] HDMI codec improvements, v2
-Message-ID: <20210616072331.l6z6sywlfyrg3x2z@gilmour>
-References: <20210610122550.jnriewchqspdcrwk@gilmour>
+To: Wei Yongjun <weiyongjun1@huawei.com>
+Subject: Re: [PATCH -next] ASoC: hdmi-codec: Make symbol
+ 'hdmi_codec_controls' static
+Message-ID: <20210616082151.mrcbswfpponkleve@gilmour>
+References: <20210615172156.2840576-1-weiyongjun1@huawei.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20210610122550.jnriewchqspdcrwk@gilmour>
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, dri-devel@lists.freedesktop.org,
- Mark Brown <broonie@kernel.org>, Daniel Vetter <daniel.vetter@intel.com>
+In-Reply-To: <20210615172156.2840576-1-weiyongjun1@huawei.com>
+Cc: alsa-devel@alsa-project.org, Stephan Gerhold <stephan@gerhold.net>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, kernel-janitors@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Hulk Robot <hulkci@huawei.com>,
+ Mark Brown <broonie@kernel.org>, Cheng-Yi Chiang <cychiang@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,43 +121,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Thomas,
+On Tue, Jun 15, 2021 at 05:21:56PM +0000, Wei Yongjun wrote:
+> The sparse tool complains as follows:
+>=20
+> sound/soc/codecs/hdmi-codec.c:750:25: warning:
+>  symbol 'hdmi_codec_controls' was not declared. Should it be static?
+>=20
+> This symbol is not used outside of hdmi-codec.c, so marks it static.
+>=20
+> Fixes: 366b45b97448 ("ASoC: hdmi-codec: Rework to support more controls")
+> Reported-by: Hulk Robot <hulkci@huawei.com>
+> Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
 
-On Thu, Jun 10, 2021 at 02:25:50PM +0200, Maxime Ripard wrote:
-> Hi,
->=20
-> Here's a PR for the changes to hdmi-codec that need to be shared between
-> drm-misc-next and ASoC.
->=20
-> This is the second iteration, fixing a bisection issue with compilation
->=20
-> Thanks!
-> Maxime
->=20
->=20
-> The following changes since commit 6efb943b8616ec53a5e444193dccf1af9ad627=
-b5:
->=20
->   Linux 5.13-rc1 (2021-05-09 14:17:44 -0700)
->=20
-> are available in the Git repository at:
->=20
->   git://git.kernel.org/pub/scm/linux/kernel/git/mripard/linux.git tags/as=
-oc-hdmi-codec-improvements-v2
->=20
-> for you to fetch changes up to 2fef64eec23a0840c97977b16dd8919afaffa876:
->=20
->   ASoC: hdmi-codec: Add a prepare hook (2021-06-10 11:48:56 +0200)
->=20
-> ----------------------------------------------------------------
-> Improvements to the hdmi-codec driver and ALSA infrastructure around it
-> to support the HDMI Channel Mapping and IEC958 controls
-
-This has been merged into the ASoC tree [1], can you merge it in drm-misc-n=
-ext?
+Acked-by: Maxime Ripard <maxime@cerno.tech>
 
 Thanks!
 Maxime
-
-1: https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git/commit=
-/?id=3D116b1e12b72f308b28af5b17081fdb9e1942a8ea

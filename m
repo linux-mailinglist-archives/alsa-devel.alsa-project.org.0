@@ -2,55 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A91643A8EFB
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Jun 2021 04:47:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D95433A8F0C
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Jun 2021 04:52:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 29453168B;
-	Wed, 16 Jun 2021 04:46:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29453168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5932B168D;
+	Wed, 16 Jun 2021 04:52:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5932B168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623811644;
-	bh=YS4UyQhh2MOYY7Ne9WcEaMHi+MACjrGXjCNCUOM52qA=;
+	s=default; t=1623811977;
+	bh=XSsJ5fw6nl7hGUihgwPAmGhHyhUdv5YYIoSmKuCWb6U=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=EiReIHihnIt16z1GT8mBVfaD3IGXL612Ch40vMXthS3KR/FHjCsG9fRAE95WTCSPx
-	 ZrJI7LCnLvnig2E/+w/tw/0uBc+62dzKBcEOXDEOu5ZDQSYK5DFORM+sRENs79jp7z
-	 LJhIvSWswn+QDeR51eKmXW/6qPTUf3u1+C4HBHV0=
+	b=UZAUcpEaMphzGi1ejRDp2/JaMnpzsJWHUWfNf60h8A1WLU/3YJZeETBI3LcXeKNC3
+	 +7zwxgvx0hcYxd4AsTm56LT5+/aTzqX4U6PixZgUvABE71N3IiJxCsL5otzKMj8nQW
+	 hJFF+3ChhzClsLcucWFyGERTxiX9Kp5mBwI9ll8E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69931F80165;
-	Wed, 16 Jun 2021 04:45:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B30EFF802E8;
+	Wed, 16 Jun 2021 04:51:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20CDBF80423; Wed, 16 Jun 2021 04:45:53 +0200 (CEST)
+ id 88647F80423; Wed, 16 Jun 2021 04:51:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from out30-45.freemail.mail.aliyun.com
- (out30-45.freemail.mail.aliyun.com [115.124.30.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EC833F8028B
- for <alsa-devel@alsa-project.org>; Wed, 16 Jun 2021 04:45:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC833F8028B
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R891e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426; MF=yang.lee@linux.alibaba.com;
- NM=1; PH=DS; RN=7; SR=0; TI=SMTPD_---0UcZEGKZ_1623811542; 
-Received: from
- j63c13417.sqa.eu95.tbsite.net(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0UcZEGKZ_1623811542) by smtp.aliyun-inc.com(127.0.0.1);
- Wed, 16 Jun 2021 10:45:44 +0800
-From: Yang Li <yang.lee@linux.alibaba.com>
-To: lgirdwood@gmail.com
-Subject: [PATCH -next] SoC: codecs: wcd938x: fix boolreturn.cocci warning
-Date: Wed, 16 Jun 2021 10:45:35 +0800
-Message-Id: <1623811535-15841-1-git-send-email-yang.lee@linux.alibaba.com>
-X-Mailer: git-send-email 1.8.3.1
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- broonie@kernel.org, Yang Li <yang.lee@linux.alibaba.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E6F4FF80165
+ for <alsa-devel@alsa-project.org>; Wed, 16 Jun 2021 04:51:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6F4FF80165
+Received: from dggemv704-chm.china.huawei.com (unknown [172.30.72.56])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4G4V424bJDzZfBy;
+ Wed, 16 Jun 2021 10:48:18 +0800 (CST)
+Received: from dggpeml500017.china.huawei.com (7.185.36.243) by
+ dggemv704-chm.china.huawei.com (10.3.19.47) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.2; Wed, 16 Jun 2021 10:51:13 +0800
+Received: from huawei.com (10.175.103.91) by dggpeml500017.china.huawei.com
+ (7.185.36.243) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Wed, 16 Jun
+ 2021 10:51:13 +0800
+From: Yang Yingliang <yangyingliang@huawei.com>
+To: <linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>
+Subject: [PATCH -next] ALSA: fm801: Fix missing pci_release_regions() on error
+ in snd_fm801_create()
+Date: Wed, 16 Jun 2021 10:55:07 +0800
+Message-ID: <20210616025507.2120103-1-yangyingliang@huawei.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.175.103.91]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ dggpeml500017.china.huawei.com (7.185.36.243)
+X-CFilter-Loop: Reflected
+Cc: broonie@kernel.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,32 +76,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Return statements in functions returning bool should use true/false
-instead of 1/0.
+Fix the missing pci_release_regions() before return
+from snd_fm801_create() in the error handling case.
 
-Fix the following coccicheck warning:
-./sound/soc/codecs/wcd938x.c:1190:9-10: WARNING: return of 0/1 in
-function 'wcd938x_volatile_register' with return type bool.
-
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
 ---
- sound/soc/codecs/wcd938x.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/pci/fm801.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/sound/soc/codecs/wcd938x.c b/sound/soc/codecs/wcd938x.c
-index 2cf6145..cfe00536 100644
---- a/sound/soc/codecs/wcd938x.c
-+++ b/sound/soc/codecs/wcd938x.c
-@@ -1187,7 +1187,7 @@ static bool wcd938x_writeable_register(struct device *dev, unsigned int reg)
- static bool wcd938x_volatile_register(struct device *dev, unsigned int reg)
- {
- 	if (reg <= WCD938X_BASE_ADDRESS)
--		return 0;
-+		return false;
+diff --git a/sound/pci/fm801.c b/sound/pci/fm801.c
+index ed9dae87145b..adac9c6a67f0 100644
+--- a/sound/pci/fm801.c
++++ b/sound/pci/fm801.c
+@@ -1254,6 +1254,7 @@ static int snd_fm801_create(struct snd_card *card,
+ 				IRQF_SHARED, KBUILD_MODNAME, chip)) {
+ 			dev_err(card->dev, "unable to grab IRQ %d\n", pci->irq);
+ 			snd_fm801_free(chip);
++			pci_release_regions(pci);
+ 			return -EBUSY;
+ 		}
+ 		chip->irq = pci->irq;
+@@ -1266,6 +1267,7 @@ static int snd_fm801_create(struct snd_card *card,
+ 	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, chip, &ops);
+ 	if (err < 0) {
+ 		snd_fm801_free(chip);
++		pci_release_regions(pci);
+ 		return err;
+ 	}
  
- 	if (reg == WCD938X_DIGITAL_SWR_TX_CLK_RATE)
- 		return true;
+@@ -1273,6 +1275,7 @@ static int snd_fm801_create(struct snd_card *card,
+ 	err = v4l2_device_register(&pci->dev, &chip->v4l2_dev);
+ 	if (err < 0) {
+ 		snd_fm801_free(chip);
++		pci_release_regions(pci);
+ 		return err;
+ 	}
+ 	chip->tea.v4l2_dev = &chip->v4l2_dev;
+@@ -1285,6 +1288,7 @@ static int snd_fm801_create(struct snd_card *card,
+ 		if (snd_tea575x_init(&chip->tea, THIS_MODULE)) {
+ 			dev_err(card->dev, "TEA575x radio not found\n");
+ 			snd_fm801_free(chip);
++			pci_release_regions(pci);
+ 			return -ENODEV;
+ 		}
+ 	} else if ((chip->tea575x_tuner & TUNER_TYPE_MASK) == 0) {
 -- 
-1.8.3.1
+2.25.1
 

@@ -2,97 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BE223A8F47
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Jun 2021 05:16:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE1583A9169
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Jun 2021 07:52:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F20B168D;
-	Wed, 16 Jun 2021 05:15:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F20B168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B0341689;
+	Wed, 16 Jun 2021 07:52:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B0341689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623813401;
-	bh=fC6BKFbyfr6DF0BofDap8bK0DOe0u8htrr3vz3DH8ig=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=WXSQYjT2o8marIRanjbYjTY8EMLfT1cPlJrgKViusiOZ7t9wibGJ/hr+hwemnLFsF
-	 LO5944jAzxOfVBvmLvfELXU+OUdpdtN58VHeEluQpdiVljxn27QCVgjxGYG8o5heMq
-	 9CWLagIboBLOim8FpwtNtxYgf9EkjwdaQm2ZZeAs=
+	s=default; t=1623822779;
+	bh=xv3hujBSWj7SNu7XZSKqNaQCdCnOfuEKfKCZ92uY/dc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=gUNttJxg0H+/XdjYz+7g65gSm+/78uqBEY1I9ey/v34HfOP9GM4JyV01RrhHBud4N
+	 YSE+1tKuDCLUfv79wvCGDY21XIgEUd4yFb/ADEcM4FMdjVadi0jFoQOxvhVgzkuZTp
+	 +uQO7OpivcW17OTrYDr98Qxf4H+PS1VP4PrcU94w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24291F80165;
-	Wed, 16 Jun 2021 05:15:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA882F80148;
+	Wed, 16 Jun 2021 07:51:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E45AF802E8; Wed, 16 Jun 2021 05:15:10 +0200 (CEST)
+ id 0CE5EF80423; Wed, 16 Jun 2021 07:51:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [IPv6:2607:f8b0:4864:20::331])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from out30-131.freemail.mail.aliyun.com
+ (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00C4FF80165
- for <alsa-devel@alsa-project.org>; Wed, 16 Jun 2021 05:15:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00C4FF80165
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="iPDEXNVH"
-Received: by mail-ot1-x331.google.com with SMTP id
- q5-20020a9d66450000b02903f18d65089fso1058201otm.11
- for <alsa-devel@alsa-project.org>; Tue, 15 Jun 2021 20:15:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linuxfoundation.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=XX8UtdPe5UHi4QT2fZ9fVYOjixFm5+p0JuSE18O5Og4=;
- b=iPDEXNVH5GeTa8tOCBCzkuIjNLBj0+HdOS3hepZ8X0Rf7QT/hmMXiCADRekwUdNfW1
- plZ+yv58BNuTK956KHbfUsMzlyzNSq29dpdoPMPO/7U0RS0lvOR+VIW8acsM55SFOxQg
- FQksOdfraDRnwDaYFbe94LYVx1Fle12443mSg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=XX8UtdPe5UHi4QT2fZ9fVYOjixFm5+p0JuSE18O5Og4=;
- b=eNEe4K6tpnjJQE8MxO4D1EkY7SJaIfMSF94VznrQEpa66Y7+i0UG/yYvGzWJZJc+bo
- CjToho81QpjyN6A9uYDVXHcDrdclnuXWJmGwLk+vLof8+AJ/HqBG4FONplb4bhCAoMEF
- pNwH+0WJSqZ7FjGkkMLZjm1hHUj5ivK98gjyK3MQiqYsDWq8hkl3W3CdDmICgZAkSwb8
- mfoxLho0kJ6AMpe86Ci+4sh/iZmn254kVLUlDvJjEU743P5Tv/UKI0aBvdalWzrzI2Ym
- EvE5iRQosyCeD9iqItQPxxmSjadyeuiiJ2LP/oGhcEEJ2j63Hh776zEDycUMasKLMIjf
- nINw==
-X-Gm-Message-State: AOAM533g4KL00F2h7dh8yRD2KvW6+D14Jq15gAlKgk1rC55HKKVGUygJ
- RFbuvzSMxxdARtY9xGzpdRMuuA==
-X-Google-Smtp-Source: ABdhPJwMTm3G+sFKstZYZM1dWqWL7LBvK2+Fx/PfxBEHT05p8XLhS4hfRLr8UG6YV1l8tWQS+mnF5Q==
-X-Received: by 2002:a9d:6c6:: with SMTP id 64mr2090919otx.199.1623813302785;
- Tue, 15 Jun 2021 20:15:02 -0700 (PDT)
-Received: from [192.168.1.112] (c-24-9-64-241.hsd1.co.comcast.net.
- [24.9.64.241])
- by smtp.gmail.com with ESMTPSA id i26sm198103oig.13.2021.06.15.20.15.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Jun 2021 20:15:02 -0700 (PDT)
-Subject: Re: [PATCH] media: Fix Media Controller API config checks
-To: Hans Verkuil <hverkuil@xs4all.nl>, sakari.ailus@linux.intel.com,
- laurent.pinchart@ideasonboard.com, dan.carpenter@oracle.com,
- mchehab@kernel.org
-References: <20210611015849.42589-1-skhan@linuxfoundation.org>
- <3745852a-a14d-3e66-dd9f-409ec7e43f48@xs4all.nl>
- <ee53183f-6c44-4ddb-a8b1-40d650772c73@linuxfoundation.org>
-From: Shuah Khan <skhan@linuxfoundation.org>
-Message-ID: <6b1bbc25-83fb-2c40-1dff-c2eb755a99cc@linuxfoundation.org>
-Date: Tue, 15 Jun 2021 21:15:01 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
-MIME-Version: 1.0
-In-Reply-To: <ee53183f-6c44-4ddb-a8b1-40d650772c73@linuxfoundation.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Shuah Khan <skhan@linuxfoundation.org>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5F89AF80148
+ for <alsa-devel@alsa-project.org>; Wed, 16 Jun 2021 07:51:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F89AF80148
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R141e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e01424;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=7; SR=0;
+ TI=SMTPD_---0UcaDBpQ_1623822676; 
+Received: from
+ j63c13417.sqa.eu95.tbsite.net(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0UcaDBpQ_1623822676) by smtp.aliyun-inc.com(127.0.0.1);
+ Wed, 16 Jun 2021 13:51:19 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: lgirdwood@gmail.com
+Subject: [PATCH] ASoC: codecs: Fix duplicate included sound/soc.h
+Date: Wed, 16 Jun 2021 13:51:07 +0800
+Message-Id: <1623822667-130511-1-git-send-email-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 1.8.3.1
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,90 +68,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 6/15/21 10:55 AM, Shuah Khan wrote:
-> On 6/15/21 7:36 AM, Hans Verkuil wrote:
->> Hi Shuah,
->>
->> On 11/06/2021 03:58, Shuah Khan wrote:
->>> Smatch static checker warns that "mdev" can be null:
->>>
->>> sound/usb/media.c:287 snd_media_device_create()
->>>      warn: 'mdev' can also be NULL
->>>
->>> If CONFIG_MEDIA_CONTROLLER is disabled, this file should not be included
->>> in the build.
->>>
->>> The below conditions in the sound/usb/Makefile are in place to ensure 
->>> that
->>> media.c isn't included in the build.
->>>
->>> sound/usb/Makefile:
->>> snd-usb-audio-$(CONFIG_SND_USB_AUDIO_USE_MEDIA_CONTROLLER) += media.o
->>>
->>> select SND_USB_AUDIO_USE_MEDIA_CONTROLLER if MEDIA_CONTROLLER &&
->>>         (MEDIA_SUPPORT=y || MEDIA_SUPPORT=SND_USB_AUDIO)
->>>
->>> The following config check in include/media/media-dev-allocator.h is
->>> in place to enable the API only when CONFIG_MEDIA_CONTROLLER and
->>> CONFIG_USB are enabled.
->>>
->>>   #if defined(CONFIG_MEDIA_CONTROLLER) && defined(CONFIG_USB)
->>>
->>> This check doesn't work as intended when CONFIG_USB=m. When 
->>> CONFIG_USB=m,
->>> CONFIG_USB_MODULE is defined and CONFIG_USB is not. The above config 
->>> check
->>> doesn't catch that CONFIG_USB is defined as a module and disables the 
->>> API.
->>> This results in sound/usb enabling Media Controller specific ALSA driver
->>> code, while Media disables the Media Controller API.
->>>
->>> Fix the problem requires two changes:
->>>
->>> 1. Change the check to use IS_ENABLED to detect when CONFIG_USB is 
->>> enabled
->>>     as a module or static. Since CONFIG_MEDIA_CONTROLLER is a bool, 
->>> leave
->>>     the check unchanged to be consistent with drivers/media/Makefile.
->>>
->>> 2. Change the drivers/media/mc/Makefile to include mc-dev-allocator.o
->>>     in mc-objs when CONFIG_USB is y or m.
->>
->> If I test this patch, then I get:
->>
->> drivers/media/mc/mc-dev-allocator.c:97:22: error: redefinition of 
->> 'media_device_usb_allocate'
->>     97 | struct media_device *media_device_usb_allocate(struct 
->> usb_device *udev,
->>        |                      ^~~~~~~~~~~~~~~~~~~~~~~~~
->> In file included from drivers/media/mc/mc-dev-allocator.c:24:
->> include/media/media-dev-allocator.h:55:36: note: previous definition 
->> of 'media_device_usb_allocate' was here
->>     55 | static inline struct media_device *media_device_usb_allocate(
->>        |                                    ^~~~~~~~~~~~~~~~~~~~~~~~~
->> drivers/media/mc/mc-dev-allocator.c:119:6: error: redefinition of 
->> 'media_device_delete'
->>    119 | void media_device_delete(struct media_device *mdev, const 
->> char *module_name,
->>        |      ^~~~~~~~~~~~~~~~~~~
->> In file included from drivers/media/mc/mc-dev-allocator.c:24:
->> include/media/media-dev-allocator.h:59:20: note: previous definition 
->> of 'media_device_delete' was here
->>     59 | static inline void media_device_delete(
->>        |                    ^~~~~~~~~~~~~~~~~~~
->>
->> The .config has:
->>
->> # CONFIG_USB_SUPPORT is not set
->> CONFIG_MEDIA_CONTROLLER=y
->>
-> 
+Clean up the following includecheck warnings:
 
-Hi Hans,
+./sound/soc/codecs/wcd938x.c: sound/soc.h is included more than once.
+./sound/soc/codecs/wcd938x-sdw.c: sound/soc.h is included more than
+once.
 
-I don't know why I made the logic fancy and complex. Fixed now and
-sending v2 shortly. I made sure all the combinations are tested now.
+No functional change.
 
-thanks,
--- Shuah
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+---
+ sound/soc/codecs/wcd938x-sdw.c | 1 -
+ sound/soc/codecs/wcd938x.c     | 1 -
+ 2 files changed, 2 deletions(-)
+
+diff --git a/sound/soc/codecs/wcd938x-sdw.c b/sound/soc/codecs/wcd938x-sdw.c
+index d82c40e..88334d3 100644
+--- a/sound/soc/codecs/wcd938x-sdw.c
++++ b/sound/soc/codecs/wcd938x-sdw.c
+@@ -7,7 +7,6 @@
+ #include <linux/device.h>
+ #include <linux/kernel.h>
+ #include <linux/component.h>
+-#include <sound/soc.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/irqdomain.h>
+ #include <linux/of.h>
+diff --git a/sound/soc/codecs/wcd938x.c b/sound/soc/codecs/wcd938x.c
+index 2cf6145..c0d7452 100644
+--- a/sound/soc/codecs/wcd938x.c
++++ b/sound/soc/codecs/wcd938x.c
+@@ -9,7 +9,6 @@
+ #include <linux/kernel.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/component.h>
+-#include <sound/soc.h>
+ #include <sound/tlv.h>
+ #include <linux/of_gpio.h>
+ #include <linux/of.h>
+-- 
+1.8.3.1
 

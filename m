@@ -2,69 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E91B3AA1BB
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Jun 2021 18:45:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D94BA3AA413
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Jun 2021 21:12:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB58116E3;
-	Wed, 16 Jun 2021 18:44:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB58116E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D37816EB;
+	Wed, 16 Jun 2021 21:12:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D37816EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623861903;
-	bh=0Mnrn59mHPvGQI0AIZ/aQUlxSoDlnuliHsET8yMkHxI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1623870776;
+	bh=Djd1xykuIfQ4AlzslrkGdUb2vW2c43W7oNkeoBmUFjs=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YBs5EnHAkqVm6+MfgVftP76Gh6hJ4RlXHknQxYWdHfdfNuDv9I7fjK+TPC110hgJg
-	 ahSXCV8FWmjCJi54Lf8jAPGXRiafawNGgYukexwH/6M05hzTTGXFmZW53uVG9o5t4/
-	 2dXxqeKU6QohNqvlqlpxPIYF9HR4CrG3A47ZIA28=
+	b=JzR1g+Dc1Kmc+0pEf/+ApnNcBFLT5YuiIxDvgXXS/ZMNeHoeeXBcOKKilcnLpC2zE
+	 5JKFe5zDCZB0ckVA+5YhVRzmWO4v66zjQZMjLBomMzGIAFd1h9p7OkFFmQ36FC4an6
+	 0nxWprwvY8wexYU+qFCMJua5AQ/ouM2VBn0QDHfc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79F75F804E5;
-	Wed, 16 Jun 2021 18:42:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B67E0F80165;
+	Wed, 16 Jun 2021 21:11:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 43EB0F804D1; Wed, 16 Jun 2021 18:42:00 +0200 (CEST)
+ id 01432F80423; Wed, 16 Jun 2021 21:11:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 95094F804C3
- for <alsa-devel@alsa-project.org>; Wed, 16 Jun 2021 18:41:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95094F804C3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="O/2S8uCz"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 61D6A61019;
- Wed, 16 Jun 2021 16:41:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623861715;
- bh=0Mnrn59mHPvGQI0AIZ/aQUlxSoDlnuliHsET8yMkHxI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=O/2S8uCzHS2QWAd7s3Wly9w7Wujm9rMqp8X78fRCXgFC9j7Ej0ZfAZLKP6YNa6MdN
- Vyc98UEUO4ZaojB83B1rVOhjrDvG2rbVtMivFJtFm5sXZZ9Vl/dtSvakPjVuO2RkL0
- FmhG6aAtbOnw/Iooxr35sPZ0Ecg2wTK+gDHpJCuxxKI2I/rDmn3cWu7I+Kpjjqmtq1
- 0AGKH+NWuY7uUYDnlZtwQJ+Kh+nd8OP3DKrIANF+mNaPbb7n7EzS6BN5bF589zOUue
- CNFEwEBj4FtkPw24xjF5rHzeq5bYtK6CR23G3ZYGNEMc0Vwex+/oQVcD3Bc3XuR2D1
- w9rvN74sUQewQ==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Yang Yingliang <yangyingliang@huawei.com>
-Subject: Re: [PATCH -next 1/3] ASoC: rockchip: i2s: Use
- devm_platform_get_and_ioremap_resource()
-Date: Wed, 16 Jun 2021 17:41:17 +0100
-Message-Id: <162386001971.25644.14560050609437971056.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210615141502.1683686-1-yangyingliang@huawei.com>
-References: <20210615141502.1683686-1-yangyingliang@huawei.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2D3E5F8028B
+ for <alsa-devel@alsa-project.org>; Wed, 16 Jun 2021 21:11:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D3E5F8028B
+IronPort-SDR: G3lATC8EiNG3XOCq4V1Rbd0A5Ejf0pfk6MRaltHtaog9+rmTWV3WxfCweytN2AazaQ5F0MawTo
+ g7dLdbNN8/kQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,10016"; a="206199498"
+X-IronPort-AV: E=Sophos;i="5.83,278,1616482800"; d="scan'208";a="206199498"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2021 12:11:17 -0700
+IronPort-SDR: n6zRFDrwjIzQ47702ClxTmPuOe3ZO+JXUoWxQtosamnGyR9/uvZ608qFuQhnMUaTWvtcZYsAfp
+ Ft5a6WSHOxlg==
+X-IronPort-AV: E=Sophos;i="5.83,278,1616482800"; d="scan'208";a="640104279"
+Received: from mindylam-mobl1.amr.corp.intel.com (HELO [10.213.182.47])
+ ([10.213.182.47])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2021 12:11:14 -0700
+Subject: Re: [PATCH] ASoC: max98357a: set channels_max to 4
+To: Cheng-yi Chiang <cychiang@chromium.org>
+References: <20210526154704.114957-1-judyhsiao@chromium.org>
+ <CA+Px+wXGjZCOhhAVh9eRw6L-g8g7Qi7Rf_3YHpHSCB2o=XQ+4g@mail.gmail.com>
+ <CAFv8NwKkfGnpw_5PBwJSjVXsuw3L8=1RyEJ4PWdRX5-J75bk6A@mail.gmail.com>
+ <3501e398-dfba-43b1-4638-325a158e860d@linux.intel.com>
+ <CAFv8Nw+FNfmgwadeFMWjRiGbKFuO4JJ=9ggRHxG+Pq_OuHdmeA@mail.gmail.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <7748e621-ba54-db90-6b56-23e006eb1dbe@linux.intel.com>
+Date: Wed, 16 Jun 2021 11:23:36 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>, lgirdwood@gmail.com
+In-Reply-To: <CAFv8Nw+FNfmgwadeFMWjRiGbKFuO4JJ=9ggRHxG+Pq_OuHdmeA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Taniya Das <tdas@codeaurora.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, ALSA development <alsa-devel@alsa-project.org>,
+ Banajit Goswami <bgoswami@codeaurora.org>,
+ Stephan Gerhold <stephan@gerhold.net>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Patrick Lai <plai@codeaurora.org>, Mark Brown <broonie@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Tzung-Bi Shih <tzungbi@chromium.org>,
+ Takashi Iwai <tiwai@suse.com>, Tzung-Bi Shih <tzungbi@google.com>,
+ Rob Herring <robh+dt@kernel.org>, Rohit kumar <rohitkr@codeaurora.org>,
+ Andy Gross <agross@kernel.org>, Douglas Anderson <dianders@chromium.org>,
+ Dylan Reid <dgreid@chromium.org>, Stephen Boyd <swboyd@chromium.org>,
+ Judy Hsiao <judyhsiao@chromium.org>,
+ "moderated list:ARM/Mediatek SoC support"
+ <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,38 +98,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 15 Jun 2021 22:15:00 +0800, Yang Yingliang wrote:
-> Use devm_platform_get_and_ioremap_resource() to simplify
-> code.
 
-Applied to
+>> I don't think it's correct to declare 4-channel support at the
+>> individual codec DAI level when in practice each device will be provided
+>> with a TDM mask that selects two slots.
+> 
+> On this platform there is no TDM support, so there were two I2S data lines.
+> 
+>>
+>> This is confusing device capabilities and TDM link configuration.
+> 
+> I see that in most of the use cases of multiple amps, we should use
+> codecs and num_codecs of the link.
+> But in this case we only want one codec to control the only GPIO
+> shared by 4 max98357a amps
+> I think we should be able to use 1 max98357 codec and 3 dummy codec to
+> fulfill this use case.
+> Not sure if the number of dummy codec would really matter.
+> With num_codec > 1 we should be able to bypass the channel checking
+> and just use the channel from CPU DAI.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Interesting, I haven't seen such 'multi-lane' solutions so far for I2S.
 
-Thanks!
-
-[1/3] ASoC: rockchip: i2s: Use devm_platform_get_and_ioremap_resource()
-      commit: 4ffbcd4ab0b6f77d29acde69dc25bd95318fae5e
-[2/3] ASoC: rockchip: pdm: Use devm_platform_get_and_ioremap_resource()
-      commit: db4d6d2e6472a5a49801bb5f2c1bd96ed6ffa3d1
-[3/3] ASoC: rockchip: spdif: Use devm_platform_get_and_ioremap_resource()
-      commit: 3325b1515a92fc07ec16b4d33c8bccc0a83f12ca
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

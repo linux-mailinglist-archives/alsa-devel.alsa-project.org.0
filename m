@@ -2,82 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5EDC3A933F
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Jun 2021 08:54:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E1F73A9377
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Jun 2021 09:04:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 677541696;
-	Wed, 16 Jun 2021 08:53:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 677541696
+	by alsa0.perex.cz (Postfix) with ESMTPS id 05F111689;
+	Wed, 16 Jun 2021 09:03:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05F111689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623826487;
-	bh=vukqxSfeJFQCiSDgQ04ysf6wf5NkDltmcoZCdYxo2BQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1623827052;
+	bh=QdYW/SlVnXBDJ0H4L+LE5HQKqOZ9ujdjs7140DqXkoY=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LsHw5Eduvt3PbpzzHvGSd07VwPD+wZLYm4SHDyvqJXZhZ+KxmmH+gQcxRQ4bB/Df1
-	 jgiVDnNOieyhdtKkQg6A3MxodPq8DkYuSPqkaYFA7DZTi4coUKBNA+y8Hjzbbn5eh4
-	 qflUKkrX5rrm7RxVXchfGZGXI3pu9qRIcBjLryW8=
+	b=T3qbkETymitNi2gwEDbZa9dB4tjYmSqzWcBz0rmIibiPjcI42ZvjKYCfOs5y4Bsge
+	 fOS4fHD/viaYppJrQgrjl4cwCjDv9b46w0okhhr0f9TGyNaMONNQJVSN5EaVGfJlD6
+	 3o8xYGRJM9nSnHc8v4y1QmMXhBGZZuPY0XgdEgg0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 00719F804C2;
-	Wed, 16 Jun 2021 08:53:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7BE85F80424;
+	Wed, 16 Jun 2021 09:02:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A51CFF804B0; Wed, 16 Jun 2021 08:53:53 +0200 (CEST)
+ id 51131F8028B; Wed, 16 Jun 2021 09:02:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 960B5F802E8
- for <alsa-devel@alsa-project.org>; Wed, 16 Jun 2021 08:53:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 960B5F802E8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="gQcNSllA"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="G4fVMevD"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 679E41FD60;
- Wed, 16 Jun 2021 06:53:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1623826427; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=rw34yZqXHDppUBaot5Jq8vMZnluEjhZukXnTfLjMgc4=;
- b=gQcNSllAIpd7mnAIOWHMrPjP/CkmhCYmMHOj0OhMX6eu10mQv+RenRhq/7BCUotaOGwjfJ
- sSK7yzq5MvU+sZZn6Y96YCZEOSnhX3eM1B7WUzFH6X/6JDwB13mgWZFtkpCUr4LEiUjmlk
- r2SgGZi5j/QVxFCvyiMoSO1xxMzhvZk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1623826427;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=rw34yZqXHDppUBaot5Jq8vMZnluEjhZukXnTfLjMgc4=;
- b=G4fVMevDww0GZrlpq6Vjlgv6hA8KNDRjm2sehMPIj1cBa87U7G9aJGu2yhh5EQUHxvvt/p
- YEaBhex7NcVP3DAQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id E0969A3B8A;
- Wed, 16 Jun 2021 06:53:46 +0000 (UTC)
-Date: Wed, 16 Jun 2021 08:53:46 +0200
-Message-ID: <s5hczsm1erp.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Colin King <colin.king@canonical.com>
-Subject: Re: [PATCH][next] ALSA: bebob: Fix bit flag quirk constants
-In-Reply-To: <20210615142048.59900-1-colin.king@canonical.com>
-References: <20210615142048.59900-1-colin.king@canonical.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Clemens Ladisch <clemens@ladisch.de>,
- kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0CF1F8028B
+ for <alsa-devel@alsa-project.org>; Wed, 16 Jun 2021 09:02:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0CF1F8028B
+Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.53])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4G4bdk0Fcgz6wG7;
+ Wed, 16 Jun 2021 14:59:22 +0800 (CST)
+Received: from dggpeml500017.china.huawei.com (7.185.36.243) by
+ dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.2; Wed, 16 Jun 2021 15:02:31 +0800
+Received: from [10.174.178.174] (10.174.178.174) by
+ dggpeml500017.china.huawei.com (7.185.36.243) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.2; Wed, 16 Jun 2021 15:02:31 +0800
+Subject: Re: [PATCH -next] ALSA: fm801: Fix missing pci_release_regions() on
+ error in snd_fm801_create()
+To: Takashi Iwai <tiwai@suse.de>
+References: <20210616025507.2120103-1-yangyingliang@huawei.com>
+ <s5hfsxi1ewc.wl-tiwai@suse.de>
+From: Yang Yingliang <yangyingliang@huawei.com>
+Message-ID: <80aeb5eb-f06e-4069-171c-ed8a84a15a69@huawei.com>
+Date: Wed, 16 Jun 2021 15:02:30 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
+MIME-Version: 1.0
+In-Reply-To: <s5hfsxi1ewc.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Originating-IP: [10.174.178.174]
+X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
+ dggpeml500017.china.huawei.com (7.185.36.243)
+X-CFilter-Loop: Reflected
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, broonie@kernel.org,
  linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -94,21 +83,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 15 Jun 2021 16:20:48 +0200,
-Colin King wrote:
-> 
-> From: Colin Ian King <colin.king@canonical.com>
-> 
-> The quirking bit-flags are currently set as contiguous integer enum values
-> and so currently SND_BEBOB_QUIRK_INITIAL_DISCONTINUOUS_DBC is zero and so
-> he quirking never getting set or tested correctly for this quirk. Fix this
-> by setting the quirking constants as shifted bit values.
-> 
-> Addresses-Coverity: ("Bitwise-and with zero")
-> Fixes: 93cd12d6e88a ("ALSA: bebob: code refactoring for model-dependent quirks")
-> Signed-off-by: Colin Ian King <colin.king@canonical.com>
 
-Thanks, applied.
+On 2021/6/16 14:50, Takashi Iwai wrote:
+> On Wed, 16 Jun 2021 04:55:07 +0200,
+> Yang Yingliang wrote:
+>> Fix the missing pci_release_regions() before return
+>> from snd_fm801_create() in the error handling case.
+>>
+>> Reported-by: Hulk Robot <hulkci@huawei.com>
+>> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+> pci_regions() is manated in pcim_release(), hence you don't need to
+> call it explicitly.
+OK.
 
-
-Takashi
+Thanks,
+Yang
+>
+>
+> thanks,
+>
+> Takashi
+> .

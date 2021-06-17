@@ -2,74 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 159B03AB528
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 15:49:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7ADCA3AB5E4
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 16:25:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B11F1706;
-	Thu, 17 Jun 2021 15:48:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B11F1706
+	by alsa0.perex.cz (Postfix) with ESMTPS id ECFD21696;
+	Thu, 17 Jun 2021 16:24:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECFD21696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623937766;
-	bh=KJvuDO4iv96euylTD7TmKkdU3RjytlqMW2wrEddA/co=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=XObhYf0I/MCniz+o6XaYtWxjqkzmMamrplEQwYtqVUCCH/+Ld1hh+WiB5zvWON2pv
-	 AzT3rXVDg2y92PwWWO1gjDjXgtB4K+JW5OOi8v38pCnOrVeA4WOm8ALrjPf5MPdlPI
-	 XHVp8nGHHJjd9H/N2fh30sUtKaMUQh/jm3+yDqXk=
+	s=default; t=1623939925;
+	bh=G2UFbbrtx2A0NRIpUN+M+blVtgnKYVgKAo93NAqdrVk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=vHhQTYI54aecoE10SiREiPstu0774dI6Vz8l4RT2NQ+vYJ8yP/DP8mHm4GvQOnbiP
+	 L2Qs1MBkgiZpOXT6lfhFd+SQImBwJWI6grRLsPXtvAbsLyNyXX8xmRB5ksnaFJL9Hp
+	 mlTQesYYkvEVPQhQttRRXi6C/I9KnRg7mIG3P5ew=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C3178F8016D;
-	Thu, 17 Jun 2021 15:47:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7500DF8025E;
+	Thu, 17 Jun 2021 16:23:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5ACD6F8025A; Thu, 17 Jun 2021 15:47:56 +0200 (CEST)
+ id 0DAE8F8025A; Thu, 17 Jun 2021 16:23:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3D8FDF80088
- for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 15:47:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D8FDF80088
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="K+FOQgET"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="myoBqh9B"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 3CB2D1FD7D;
- Thu, 17 Jun 2021 13:47:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1623937664; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=k+3z6VHXaClhSLURpgtaBIfpJdIdS4Fmcv3ZxtlZxc4=;
- b=K+FOQgETJcHxyMJKMySI9XyDjjrALKzmBJXRaeHlrA38zH58FJOjlwFzlqUEPvQ7uEptvz
- /pYHhVp6+TNtcMNqVT4AQ+0TKYlkX3tZG1hHbzO7ANV57EsMPitFxgOJ791jg/5VYe2nNo
- hAXRMLqbgiv5/Hx7KDWkteQl9MpSGhM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1623937664;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=k+3z6VHXaClhSLURpgtaBIfpJdIdS4Fmcv3ZxtlZxc4=;
- b=myoBqh9BRkRXyeSmO1QaDzRhefbR2mNTVRbRtLhIq87wt6CC+jJdRYYwB3dB/l1tmH4UJY
- mkwRUCaFvu5HMfDQ==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 2C2DBA3B99;
- Thu, 17 Jun 2021 13:47:44 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: seq: oss: Fix error check at system port creation
-Date: Thu, 17 Jun 2021 15:47:42 +0200
-Message-Id: <20210617134742.6321-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57242F80148
+ for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 16:23:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57242F80148
+IronPort-SDR: wBtX8eALG64g+kL3tTsojnTjiU+RQIDiplBxNmx2ODekXfSKMYyDYchcmN9AqUaBdQ6RCQ+qwe
+ CQF6dvUh5c3A==
+X-IronPort-AV: E=McAfee;i="6200,9189,10017"; a="186070560"
+X-IronPort-AV: E=Sophos;i="5.83,280,1616482800"; d="scan'208";a="186070560"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2021 07:23:42 -0700
+IronPort-SDR: JcoSIh2heyhrkpOxvw6NjAw5/F4wXqaDFoQ/639ucTvXKoeogF3EsPQJrfHc+vAELLjVqcE19t
+ dkfvKmSve0fQ==
+X-IronPort-AV: E=Sophos;i="5.83,280,1616482800"; d="scan'208";a="485309513"
+Received: from changwh-mobl1.amr.corp.intel.com (HELO [10.212.5.22])
+ ([10.212.5.22])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2021 07:23:40 -0700
+Subject: Re: [PATCH 1/2] ASoC: rt711: remap buttons
+To: Mark Brown <broonie@kernel.org>, =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?=
+ <shumingf@realtek.com>
+References: <20210617090809.16901-1-shumingf@realtek.com>
+ <20210617123914.GD5067@sirena.org.uk>
+ <d6374c5158c844d69b4f546fd741f07f@realtek.com>
+ <20210617132716.GE5067@sirena.org.uk>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <638be5ea-a310-3711-df08-798f7bee5804@linux.intel.com>
+Date: Thu, 17 Jun 2021 09:23:37 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
+In-Reply-To: <20210617132716.GE5067@sirena.org.uk>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Cc: Dan Carpenter <dan.carpenter@oracle.com>
+Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>,
+ Jimmy Cheng-Yi Chiang <cychiang@google.com>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "jairaj.arava@intel.com" <jairaj.arava@intel.com>,
+ =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
+ "Flove\(HsinFu\)" <flove@realtek.com>,
+ "sathya.prakash.m.r@intel.com" <sathya.prakash.m.r@intel.com>,
+ Curtis Malainey <cujomalainey@chromium.org>, "Lu, Brent" <brent.lu@intel.com>,
+ "bard.liao@intel.com" <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,36 +93,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The system port creation in ALSA OSS sequencer was wrongly checked
-against to the port number that can be never negative.  The error code
-should be checked rather against the ioctl call.
 
-This patch corrects the error check.
 
-Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/seq/oss/seq_oss_init.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+On 6/17/21 8:27 AM, Mark Brown wrote:
+> On Thu, Jun 17, 2021 at 01:19:05PM +0000, Shuming [范書銘] wrote:
+> 
+>>>> This patch uses the same mapping as the machine driver:
+>>>> BTN_0 : KEY_PLAYPAUSE
+>>>> BTN_1 : KEY_VOICECOMMAND
+>>>> BTN_2 : KEY_VOLUMEUP
+>>>> BTN_3 : KEY_VOLUMEDOWN
+> 
+>>> Which machine driver?  Can't there be multiple machine drivers, and if
+>>> they're already overriding things why do this?
+> 
+>> The rt711 codec is designed in the Intel platform only for now.
+> 
+> I'm sure your sales team would be happy to change that!
+> 
+>> The machine driver is 'sof_sdw.c' that resides under sound/soc/intel/boards.
+>> It seems Intel uses the same mapping in all other Intel machine drivers.
+>> Please check the commit as below.
+>> https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git/commit/?id=1f64a08bd5a9a218deb37c03c1e98e9567379698
+> 
+> Sure, but if the machine drivers for these platforms already do the
+> right thing why change the CODEC driver?
+> 
+>> Hi Sathya,
+>> Do you know why the m/c driver uses this mapping?
+> 
+> I'd guess it's just because that's the standard set of headphone buttons
+> that Intel uses for their platforms.
 
-diff --git a/sound/core/seq/oss/seq_oss_init.c b/sound/core/seq/oss/seq_oss_init.c
-index a53d81a86af2..0ee4a5081fd6 100644
---- a/sound/core/seq/oss/seq_oss_init.c
-+++ b/sound/core/seq/oss/seq_oss_init.c
-@@ -94,11 +94,10 @@ snd_seq_oss_create_client(void)
- 	port_callback.event_input = receive_announce;
- 	port->kernel = &port_callback;
- 	
--	call_ctl(SNDRV_SEQ_IOCTL_CREATE_PORT, port);
--	system_port = port->addr.port;
--	if (system_port >= 0) {
-+	if (call_ctl(SNDRV_SEQ_IOCTL_CREATE_PORT, port) >= 0) {
- 		struct snd_seq_port_subscribe subs;
+Intel has no specific requirement, we just follow what the Google 4-button description says [1]
+
+That said, I can't recall why half of the machine drivers follow one pattern and the other half a different one.
+
+Same as spec:
+sof_da7219_max98373.c:  snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
+sof_da7219_max98373.c-  snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOLUMEUP);
+sof_da7219_max98373.c-  snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEDOWN);
+sof_da7219_max98373.c-  snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOICECOMMAND);
+
+sof_cs42l42.c:  snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
+sof_cs42l42.c-  snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOLUMEUP);
+sof_cs42l42.c-  snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEDOWN);
+sof_cs42l42.c-  snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOICECOMMAND);
+
+swap wrt. spec:
+sof_sdw_rt711.c:        snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
+sof_sdw_rt711.c-        snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
+sof_sdw_rt711.c-        snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
+sof_sdw_rt711.c-        snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
+
+kbl_rt5663_max98927.c:  snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
+kbl_rt5663_max98927.c-  snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
+kbl_rt5663_max98927.c-  snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
+kbl_rt5663_max98927.c-  snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
+
+Brent, Curtis, Jimmy, can you comment on the order?
+
+
+[1] https://source.android.com/devices/accessories/headset/plug-headset-spec#control-function_mapping
+
+
+
+
  
-+		system_port = port->addr.port;
- 		memset(&subs, 0, sizeof(subs));
- 		subs.sender.client = SNDRV_SEQ_CLIENT_SYSTEM;
- 		subs.sender.port = SNDRV_SEQ_PORT_SYSTEM_ANNOUNCE;
--- 
-2.26.2
-

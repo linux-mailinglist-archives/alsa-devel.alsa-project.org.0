@@ -2,77 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 505A53AB34D
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 14:09:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4422B3AB3B7
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 14:37:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C6CAC16EC;
-	Thu, 17 Jun 2021 14:08:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6CAC16EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9E6916E9;
+	Thu, 17 Jun 2021 14:37:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9E6916E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623931789;
-	bh=i6kJUpBxHxG+QzGCDo+Do5icLvOgpxju9jJwwtE9c60=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1623933472;
+	bh=8DQ/+oN8t2FbtFTCq3mgL60RlGt60iq37GdmHehix5U=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AsZRd+6UQRtNw/pM5Dohh3e9/rtWGUx0fILxmUWBkIlytb/uK7JpNU/csfK2ksCdG
-	 xS/8aXF3o+GwwdxWhh256h1+cFrt+O+lz/ECBX0lAP+zGxN4XiZEopWXY6qhf/uT/s
-	 3QCRp8pQ4Zwqr0nCxexgBaYc3MpPMzz6Oxs2KTeg=
+	b=qQrEwCzrR38UgbGcAYyJX5AZDm/XNVsDaYTP4yWhylQsJr8ooUCqxTVHxZZwc6D+B
+	 gFzz2QtuZj5bUrbSRsUgrKbnOxVSxzT2FbbBiZqRdKMWSws0nx5JFyRWKt9knIEq08
+	 537GCJbQNNIqFin49AN0ZyTh1EXTKNj4c6+X+a28=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E9B1F80171;
-	Thu, 17 Jun 2021 14:08:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CDD30F8025E;
+	Thu, 17 Jun 2021 14:36:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9AF1F8025A; Thu, 17 Jun 2021 14:08:18 +0200 (CEST)
+ id 91B52F8025A; Thu, 17 Jun 2021 14:36:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU, FREEMAIL_FROM, NICE_REPLY_A, SPF_HELO_NONE, SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [IPv6:2a00:1450:4864:20::229])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6E3C0F80148
- for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 14:08:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E3C0F80148
+ by alsa1.perex.cz (Postfix) with ESMTPS id CA68BF8016D
+ for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 14:36:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA68BF8016D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="B/MF8VS5"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7B2FC610EA;
- Thu, 17 Jun 2021 12:08:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623931688;
- bh=i6kJUpBxHxG+QzGCDo+Do5icLvOgpxju9jJwwtE9c60=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=B/MF8VS5eLhlJg7fqU/4oVwicWtdYZrsBUlhtr0IshhwqQr/yWHEbmL8gV6+k/4Ma
- HCNySERsghT73XoINOrMFjd85j9xERAS/2UL6pyZAM+eV3z8t5aWkhNCepKtKcxrBg
- yKPstJrlTl6T6Xedpb5AR9zwZl+MMpxKlRA9Gj1soZttmwEvwDlT3q56Im7yAFcm7Y
- 2E8aRmsggzinAf9XrDXPhZoZXC+v+LfJvYVfQ3TII6YdQPUtf+1ZV6Nj1Kfw93tFat
- lwUfksBlcWAEdmcYLRyDLyg2/YZ19zyBkBbEdrj+ujMc5tTf6NhN57b9QvM//bTiWF
- YGy8ozgXe9l0g==
-Date: Thu, 17 Jun 2021 13:07:47 +0100
-From: Mark Brown <broonie@kernel.org>
-To: =?utf-8?B?54+t5rab?= <fengzheng923@gmail.com>
-Subject: Re: [PATCH 1/2] ASoC: sunxi: Add Allwinner H6 Digital MIC driver
-Message-ID: <20210617120747.GB5067@sirena.org.uk>
-References: <20210615130326.2044-1-fengzheng923@gmail.com>
- <20210615132207.GG5149@sirena.org.uk>
- <CAE=m61-kHPeKNvEEc08w8DeUwssGPWNf5UaYojRPNZRJ0v=arw@mail.gmail.com>
- <20210617104828.GA5067@sirena.org.uk>
- <CAE=m618Gtx_RQ4+h=8+TFvbcuSTpNWVcx1bry+8OggL6uDCzfw@mail.gmail.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="OFGIo3Ua"
+Received: by mail-lj1-x229.google.com with SMTP id 131so8793757ljj.3
+ for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 05:36:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=Dr4crDlnrBMTf+FSUe5umXcnVKoUvla4lRMeoioKKOU=;
+ b=OFGIo3Ua/gjCqj/ghDAl4jmcBP/nE8v8cvQCfgcRkWK6GHbU4syvujBNNEKcU+9Oai
+ MVXbv1fdJkLWvmpEqeg4rTuouaL7o/YmHTotr8ahEev4ccQz8XE1EDulq+G/Xy2iohUp
+ rdbEoEVhFtmCA1kSYW9Ox+o5RJINRwuId1FRRCmO9IdWwJBFstZdBnHcmR3FMMDEtzdz
+ wQPl+HO9s1aeA0bjDfUvpQIC/LZd/5DFdqJxHmp0eWlF2aTNVUmGPrpePnj9zUhzvr9Z
+ mtUUcId1q1/CuK+BJdPP74z/g6JeTL/+JWnsnTyt4cKkaGPD5CcGJYQ0owcjJBu/WOL2
+ UBVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=Dr4crDlnrBMTf+FSUe5umXcnVKoUvla4lRMeoioKKOU=;
+ b=T4GeaZgVQ2Y61hFG/J4g1qZSoSYHIgFC+oaxXiSnBSxoRXETr0VGIBEGDg4VSD6RnE
+ dwb1XZA7x3tpWUccywDVmWXFGtFN1O5XGWmsdKrjVcJiwzfYaMPkxfFzLVylyjvFp7y/
+ cwFM1Ff4dCmb8L5Wf6OPhFBmDYi6h0PSpcKGJQbziaVNBdBKtGhtQLuxircfZ9jRReOH
+ ECkfvZdfQ6B8gCQexYLOaRRMn7+1ir5gJWLbkM/jo2+0NBGkeF1JL+FiSsOMFBIkz2zA
+ GR5lD9cswwfWhITuFyU/IAev28JJ0Y/SLJUA49zmdW3DVfMKqvxqhXVEWy0Ir7UCb+qb
+ EMSA==
+X-Gm-Message-State: AOAM530nZ2Xj8ILIWYVDGvhdRXfU4sDEAf28kUNKisyuUCbrUYmQadTR
+ 75sq4Geeb0lHKNMoKSY8IGQ=
+X-Google-Smtp-Source: ABdhPJygGzpNzVkUby3o7T5q1Od8zv9KgKqVOCbAGLsqc63ocZSC9wWlHIqEovEf6kwvhrOOSN+ryQ==
+X-Received: by 2002:a2e:86c3:: with SMTP id n3mr4323873ljj.449.1623933376631; 
+ Thu, 17 Jun 2021 05:36:16 -0700 (PDT)
+Received: from [192.168.2.145] (94-29-29-31.dynamic.spd-mgts.ru. [94.29.29.31])
+ by smtp.googlemail.com with ESMTPSA id g2sm564896lfu.173.2021.06.17.05.36.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 17 Jun 2021 05:36:16 -0700 (PDT)
+Subject: Re: [PATCH -next] ASoC: tegra: Add missing of_node_put() in
+ tegra_machine_parse_phandle()
+To: Zou Wei <zou_wei@huawei.com>, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, thierry.reding@gmail.com,
+ jonathanh@nvidia.com
+References: <1623929447-4335-1-git-send-email-zou_wei@huawei.com>
+From: Dmitry Osipenko <digetx@gmail.com>
+Message-ID: <d1183fa4-2f13-d44e-20df-f8c6c847e3bd@gmail.com>
+Date: Thu, 17 Jun 2021 15:36:15 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="s2ZSL+KKDSLx8OML"
-Content-Disposition: inline
-In-Reply-To: <CAE=m618Gtx_RQ4+h=8+TFvbcuSTpNWVcx1bry+8OggL6uDCzfw@mail.gmail.com>
-X-Cookie: But it does move!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, krzk@kernel.org,
- Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
- tiwai@suse.com, jernej.skrabec@gmail.com, lgirdwood@gmail.com, wens@csie.org,
- mripard@kernel.org, p.zabel@pengutronix.de, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
+In-Reply-To: <1623929447-4335-1-git-send-email-zou_wei@huawei.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,44 +107,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+17.06.2021 14:30, Zou Wei пишет:
+> The function is missing a of_node_put on node, fix this by adding the call
+> before returning.
+> 
+> Reported-by: Hulk Robot <hulkci@huawei.com>
+> Signed-off-by: Zou Wei <zou_wei@huawei.com>
+> ---
+>  sound/soc/tegra/tegra_asoc_machine.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/tegra/tegra_asoc_machine.c b/sound/soc/tegra/tegra_asoc_machine.c
+> index 397f326..cba55ca 100644
+> --- a/sound/soc/tegra/tegra_asoc_machine.c
+> +++ b/sound/soc/tegra/tegra_asoc_machine.c
+> @@ -336,9 +336,12 @@ tegra_machine_parse_phandle(struct device *dev, const char *name)
+>  	}
+>  
+>  	err = devm_add_action_or_reset(dev, tegra_machine_node_release, np);
+> -	if (err)
+> +	if (err) {
+> +		of_node_put(np);
+>  		return ERR_PTR(err);
+> +	}
+>  
+> +	of_node_put(np);
+>  	return np;
+>  }
+>  
+> 
 
---s2ZSL+KKDSLx8OML
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Jun 17, 2021 at 07:50:42PM +0800, =E7=8F=AD=E6=B6=9B wrote:
-> Mark Brown <broonie@kernel.org> =E4=BA=8E2021=E5=B9=B46=E6=9C=8817=E6=97=
-=A5=E5=91=A8=E5=9B=9B =E4=B8=8B=E5=8D=886:48=E5=86=99=E9=81=93=EF=BC=9A
-> > On Thu, Jun 17, 2021 at 03:42:43PM +0800, =E7=8F=AD=E6=B6=9B wrote:
-> > > Mark Brown <broonie@kernel.org> =E4=BA=8E2021=E5=B9=B46=E6=9C=8815=E6=
-=97=A5=E5=91=A8=E4=BA=8C =E4=B8=8B=E5=8D=889:22=E5=86=99=E9=81=93=EF=BC=9A
-
-> > No, that's what you have already make the entire thing a C++ comment
-> > with //s.
-
-> I don=E2=80=99t understand. For example, sun4i-codec.c sun4i-i2s.c
-> sun8i-codec.c and sun4i-spdif.c files are the same as mine.
-
-Other people doing a bad job is no excuse for doing a bad job yourself.
-
-> Which file can I refer to? what should I do......
-
-Make every line of the comment start with //.  See soc-core.c
-
---s2ZSL+KKDSLx8OML
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmDLOxIACgkQJNaLcl1U
-h9B0Zwf9F77pXhY9/b+1fLkmyUPL4p+njHaVTXcpjPLK+YIOfmiX/pNhREBXmMnc
-LdIdlGNvIBKzJ0VDd8SBzL8ARlpaQe7tKqzaxBOHMU5dwnN8q0QueQcYWsO3CeJt
-5r6781yl1ugFsKrzC3BIhebjleMk6a+qng15JFRX+cHj04xhbEtBDfcsLwJ1nZMz
-+THnsoZRSTCF85GXriv8+fJsXHrTGUEFnveSSXhuAuWAMZJzqIrHdyBo0xhzWpRh
-69xN583U++MDxvV5evOlyGJ9OC7KSqRqSIZOsADHlgEhWaHhZt9sz1nbNRmquXY3
-9U/3IhGf/VSvyYqELpfU4Ka8wL672Q==
-=JYR3
------END PGP SIGNATURE-----
-
---s2ZSL+KKDSLx8OML--
+You haven't tried to check what this auto-generated patch does, haven't
+you? I assume it's auto-generated because it's a nonsense.

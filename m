@@ -2,206 +2,141 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0EF13ABABF
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 19:42:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CE893ABCF2
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 21:37:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A81D1782;
-	Thu, 17 Jun 2021 19:42:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A81D1782
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA3081791;
+	Thu, 17 Jun 2021 21:36:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA3081791
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623951772;
-	bh=42KcfvNdqFzclYpNeDCEAZEXK0kaw2Ub36asefM3CQA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1623958638;
+	bh=+2GpIeWAnP608repJZ1nuRpkLwEUqsjsVehX302inJs=;
+	h=Subject:To:From:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=drB0mtscDyJr3jwiVIEniUnfvaQ6IWO0pQPg5oCBt6Eq+1wLQkv7fZMaxabOgqBKO
-	 v+ZFKxPDEf0K1F2v86qEbj00FMPm47lFAAFFbw58hGGOZdQNlFkFhVd6tSR7QBJxiM
-	 gSxqLsYOWTxCaWnGpi81pdhEkczDLy23yexls8Z0=
+	b=qBuJeZ7TvMk/VKJ4TsWOGG3iVpMvlj81dWK5tNM6wJC/UfkYDEq8msQX5GQnn7NkO
+	 xl0SOkbQiOyf7ra1V5euupnjdv9iFmkR+5Lug5kMGpSmaRDI6zM8yvUiMFI7opR7V9
+	 c18gr3KKF6YLJDNxDKAYD8H1DaZzfKYRhy6IOrVQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7FCC6F8025E;
-	Thu, 17 Jun 2021 19:41:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47A56F80171;
+	Thu, 17 Jun 2021 21:35:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9A272F8025A; Thu, 17 Jun 2021 19:41:22 +0200 (CEST)
+ id 4C45AF8025A; Thu, 17 Jun 2021 21:35:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED9F1F8016D
- for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 19:41:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED9F1F8016D
-Received: from [192.168.1.107] ([37.4.249.157]) by mrelayeu.kundenserver.de
- (mreue012 [212.227.15.167]) with ESMTPSA (Nemesis) id
- 1MNfgZ-1ldn0H0zpD-00P5gs; Thu, 17 Jun 2021 19:41:10 +0200
-Subject: Re: vc4: hdmi: audio: ASoC: error at snd_soc_dai_startup on
- fef00700.hdmi
-To: Maxime Ripard <maxime@cerno.tech>
-References: <612b134c-d356-f027-46d7-322bdaff37a4@i2se.com>
- <20210604090215.cpvoryvwrfzj5ikx@gilmour>
- <c5290159-89a3-3128-c54f-e1174212a893@i2se.com>
- <20210617152545.slgm5r7y2pur7mv3@gilmour>
-From: Stefan Wahren <stefan.wahren@i2se.com>
-Autocrypt: addr=stefan.wahren@i2se.com; keydata=
- LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tClZlcnNpb246IEdudVBHIHYy
- CgptUUlOQkZ0NmdCTUJFQUN1Yi9wQmV2SHhidkplZnlaRzMySklObW4yYnNFUFgyNVY2ZmVq
- bXlZd21DR0tqRnRMCi9Eb1VNRVZIRHhDSjQ3Qk1YbzM0NGZIVjFDM0FudWRnTjFCZWhMb0J0
- TEh4bW5lQ3pnSDNLY1B0V1c3cHRqNEcKdEp2OUNRRFp5MjdTS29FUHh5YUk4Q0YweWdSeEpj
- NzJNOUk5d21zUFo1YlVIc0x1WVdNcVE3SmNSbVBzNkQ4ZwpCa2srOC95bmdFeU5FeHd4SnBS
- MXlsajVianhXREh5WVF2dUo1THpaS3VPOUxCM2xYVnNjNGJxWEVqYzZWRnVaCkZDQ2svc3lp
- by9ZaHNlOE4rUXN4N01RYWd6NHdLVWtRUWJmWGcxVnFrVG5BaXZYczQyVm5Ja211NWd6SXcv
- MHQKUkp2NTBGUmhIaHhweUtBSThCOG5oTjhRdng3TVZrUGM1dkRmZDN1R1lXNDdKUGhWUUJj
- VXdKd05rLzQ5RjllQQp2ZzJtdE1QRm5GT1JrV1VSdlArRzZGSmZtNitDdk92N1lmUDF1ZXdB
- aTRsbitKTzFnK2dqVklXbC9XSnB5MG5UCmlwZGZlSDlkSGtnU2lmUXVuWWN1Y2lzTXlvUmJG
- OTU1dENna0VZOUVNRWRZMXQ4aUdEaUNnWDZzNTBMSGJpM2sKNDUzdWFjcHhmUVhTYUF3UGtz
- bDhNa0NPc3YyZUVyNElOQ0hZUUR5WmljbEJ1dUNnOEVOYlI2QUdWdFpTUGNRYgplbnpTektS
- Wm9POUNhcUlEK2ZhdkxpQi9kaHptSEErOWJnSWhtWGZ2WFJMRFp6ZThwbzFkeXQzRTFzaFhp
- ZGRaClBBOE51SlZ6RUl0MmxtSTZWOHBaRHBuMjIxcmZLaml2UlFpYW9zNTRUZ1pqak1ZSTdu
- bko3ZTZ4endBUkFRQUIKdENCVGRHVm1ZVzRnVjJGb2NtVnVJRHgzWVdoeVpXNXpkRUJuYlhn
- dWJtVjBQb2tDTndRVEFRZ0FJUVVDWElkYwo0Z0liQXdVTENRZ0hBZ1lWQ0FrS0N3SUVGZ0lE
- QVFJZUFRSVhnQUFLQ1JDVWdld1BFWkR5MjFPVEQvOUdpWkxkCnRSWWNteVJKZ2x0aVFRekFp
- UWRjSUQ3OGxHb1dwL3grci92Y1U2YjZqdVl1ZVR3Z1Iwclc3djdsMklSQnlEN24KSEp4YSt0
- SVNvUVpCZ2hvbE1JZmI5TXRoR09KTENZNzdrL1FoQWhuMzJOR1prZWp3OXR6a3MvNDBtclpT
- VVQ4NApaeWJzUVhyTE0vSFI2VElJL0RlUEIwbktEM0ppcHBzMlVIUUQ5cUQySWpFd1NRUGxI
- akNPckVaaDQ1UFo3bTkrClo5M0x6aVRlc1dabFlRdUxpSndzNHJLcHRIVzFkL3dSZWxzaG1t
- NlFxY0wybDRDL2U0MGVEQjlncTRkU1poOVgKUEVZbGxpeU5RaDdhMkxTZHVtRTFyK2NTd0lq
- RS91ZHRSdmRPOWFLb0psT2JVSzVkTmpTUEg3d0tUYndkWGRZRApHUHdEaFhkNThOQXdyK1BY
- QmxQajB0STFMQ3ErTEJ4ZUt6aFdYK0dWcTlEb2pWanlVREV4Rk5Ga1h1b0M3ZzhtClY5VDB0
- ZUJpdVpSbm91WEt3VjJGcHRaT0hIN0JVRVd0a0t0aGgxZXRmT1dwaWdCemtVN2JQc2ZJWVQr
- cnk5dGIKMW9KK3Y0MVBOYXFaRW1QVXBKeHZmek5UN3Ayd01lRDdaajlmMHJ1YlJQdExBSjJR
- R2pyRkhzdVh3QU9xcHl6ZQoxOEVidHNZazBOMHp1SEVoY2orUEJJQmZoMFlJWWQ1MW9mNkdJ
- aU95UjlxMFhYdHBsVUo3VDIvSDF1UXFrWGxwCitnVzRWa2lmc2NJckl1eWZueFpXMTJlSXZq
- NnlicVdMN2FZS0dZbVQ2aUxDUGJIWXlZY2F5bDRFa0ZjckNGN0UKZTBXVC9zY1ZNaE8vNVgv
- SGFOQTVIQngvcjUycGdMY3Y0aTlNeExRbVUzUmxabUZ1SUZkaGFISmxiaUE4YzNSbApabUZ1
- TG5kaGFISmxia0JwTW5ObExtTnZiVDZKQWpnRUV3RUNBQ0lGQWx0NmdCTUNHd01HQ3drSUJ3
- TUNCaFVJCkFna0tDd1FXQWdNQkFoNEJBaGVBQUFvSkVKU0I3QThSa1BMYmpic1AvamdqYVNz
- NUh0bGtBSXZXUytGcm15N2MKaG5jT0F4TFRWL0Q2UkV3SU95R0poRkt3d29pck55UTJnOXZV
- YTNZQ1lDZjFmSjh3RWhhS09COWQwTHBNUm5MNApkRVQ4ZDgyMzhFL3BLK0hxTktpSXNKaHM2
- SnNLOFpnalZRR3JtbWZua0dyWisxdjBIQnV4ZGljZ0duUC9XdHVBClVsOGw2Mi9BTGJheXlq
- KzYxQ2xyc0V0UklhcU82N0xJWXdQaVBEUkkrWGlNek5pR3pIRi8xUTZHUjAyUkg2YTMKRjg5
- ejhhUHhjSGkxWnZDdDJ5a3o2VUVjaHpQMHI1Z3FGSisvTC9VcHU4ME1YaVk0djVlSWFCNTJn
- VlBnaXlNQQpsTDJkRHMxbUladm5yUkxSWTJ0YjNtQVlOa1Y1QjVJRFQzcGtXeTZrS281T0Nn
- SytZZFlPUjhGTloyb04ydDhPCnJLK1ZudGFLN01NU0tIbG1ZL3NPd3RSbEVoMU9CbXJjQ3dH
- d21wLzA1R2tSNDZmL0lzaFJWZUZPUmF3K0dBcXQKUDIrQ0ZhMkNOQS9JSG5aTm95aWtsRHpQ
- UUhVVUdzck5wcERyaFg5Sm1oQm1nMXYyeXdIMU5YdTFpRGZQMUJBdwpLZ29rdDVmNVVhUkY5
- c0FBNTN2V0V2YlVVTjllZXNGR0x6UFdkSkdRNWhwZC9WSDVJUXk5U0JyaC93SWNla3E1Cm4w
- a042cGJUSHhHRTUyU2kvTVZJa05UdURaM2FwbjJqbERaNHBPdHBCWEkydlAzYlBPK05pcUJa
- anNVM3R4TGkKV2R2MkZqeXp6NlhMUndlV1JZVkw1SGE2TER0eG9yMnZ1NlVQMDdwOXh6MXhS
- WmFPRFczb1lsSEZ6WXBhNFc1ZwpMSGIybEVrSXVVZlNjaWNHYmpqQXRDbFRkR1ZtWVc0Z1Yy
- Rm9jbVZ1SUR4emRHVm1ZVzR1ZDJGb2NtVnVRR2x1CkxYUmxZMmd1WTI5dFBva0NOd1FUQVFn
- QUlRVUNYSWRlaHdJYkF3VUxDUWdIQWdZVkNBa0tDd0lFRmdJREFRSWUKQVFJWGdBQUtDUkNV
- Z2V3UEVaRHkyeUhURC85VUY3UWxEa0d4elE3QWFDSTZOOTVpUWY4LzFvU1VhRE51Mlk2SQpL
- K0R6UXBiMVRiVE9yM1ZKd3dZOGEzT1d6NU5MU09MTVdlVnh0K29zTW1sUUlHdWJEM09EWko4
- aXpQbEcvSnJOCnQ1elNkbU41SUE1ZjNlc1dXUVZLdmdoWkFnVERxZHB2K1pIVzJFbXhuQUox
- dUxGWFhlUWQzVVpjQzVyMy9nL3YKU2FNbzl4ZWszSjVtTnVEbTcxbEVXc0FzL0JBY0ZjK3lu
- TGh4d0JXQld3c3Z3UjhiSHRKNURPTVd2YUt1RHNrcApJR0ZVZS9LYjJCK2pyYXZRM1RuNnMv
- SHFKTTBjZXhTSHo1cGUrMHNHdlArdDlKNzIzNEJGUXdlRkV4cmlleThVCkl4T3I0WEFiYWFi
- U3J5WW5VL3pWSDlVMWkyQUlRWk1XSkFldkN2VmdRL1UrTmVSaFh1ZGU5WVVtRE1EbzJzQjIK
- VkFGRUFxaUYyUVVIUEEybThhN0VPM3lmTDRyTWswaUh6TElLdmg2L3JIOFFDWThpM1h4VE5M
- OWlDTHpCV3UvTgpPbkNBYlMremx2TFphaVNNaDVFZnV4VHR2NFBsVmRFamY2MlArWkhJRDE2
- Z1VEd0VtYXpMQU1yeDY2NmpINWt1ClVDVFZ5bWJMMFR2Qis2TDZBUmw4QU55TTRBRG1rV2tw
- eU0yMmtDdUlTWUFFZlFSM3VXWFo5WWd4YVBNcWJWK3cKQnJoSmc0SGFONkM2eFRxR3YzcjRC
- MmFxYjc3L0NWb1JKMVo5Y3BIQ3dpT3pJYUFtdnl6UFU2TXhDRFhaOEZnWQpsVDR2MjNHNWlt
- SlAyemdYNXMrRjZBQ1VKOVVRUEQwdVRmK0o5RGEycitza2gvc1dPbloreWNvSE5CUXZvY1pF
- Ck5BSFFmN2tDRFFSYmVvQVRBUkFBMkhkMGZzRFZLNzJSTFNESGJ5ME9oZ0RjRGxWQk0yTSto
- WVlwTzNmWDFyKysKc2hpcVBLQ0hWQXNRNWJ4ZTdIbUppbUhhNEtLWXMya3YvbWx0L0NhdUNK
- Ly9wbWN5Y0JNN0d2d25Lem11WHp1QQpHbVZUWkM2V1I1TGtha0ZydEhPelZtc0VHcE52NVJj
- OWw2SFlGcExrYlNrVmk1U1BRWkp5K0VNZ01DRmdqclpmClZGNnlvdHdFMWFmN0hOdE1oTlBh
- TEROMW9VS0Y1aitSeVJnNWl3SnVDRGtuSGp3QlFWNHBndzIvNXZTOEE3WlEKdjJNYlcvVExF
- eXBLWGlmNzhJaGdBelh0RTJYck0xbi9vNlpINzFvUkZGS096NDJsRmR6ZHJTWDBZc3FYZ0hD
- WAo1Z0l0TGZxemoxcHNNYTlvMWVpTlRFbTFkVlFyVHFueXMwbDE4b2FsUk5zd1lsUW1uWUJ3
- cHdDa2FUSExNSHdLCmZHQmJvNWRMUEVzaHRWb3dJNm5zZ3FMVHlRSG1xSFlxVVpZSXBpZ21t
- QzNTd0JXWTFWNmZmVUVta3FwQUFDRW4KTDQvZ1Vnbjd5US81ZDBzZXFuQXEycFNCSE1VVW9D
- Y1R6RVFVV1ZraUR2M1JrN2hURm1oVHNNcTc4eHYyWFJzWApNUjZ5UWhTVFBGWkNZRFVFeEVs
- RXNTbzlGV0hXcjZ6SHlZY2M4cURMRnZHOUZQaG1RdVQyczlCbHg2Z0kzMjNHCm5FcTFsd1dQ
- SlZ6UDRqUWtKS0lBWHdGcHYrVzhDV0xxekRXT3ZkbHJEYVRhVk1zY0ZUZUg1VzZVcHJsNjVq
- cUYKUUdNcGNSR0NzOEdDVVcxM0gwSXlPdFF0d1dYQTRueStTTDgxcHZpQW1hU1hVOGxhS2FS
- dTkxVk9WYUY5ZjRzQQpFUUVBQVlrQ0h3UVlBUUlBQ1FVQ1czcUFFd0liREFBS0NSQ1VnZXdQ
- RVpEeTIrb1hELzljSEhSa0JaT2ZrbVNxCjE0U3Z4MDYyUHRVMEtWNDcwVFNucC9qV29ZSm5L
- SXczRzBtWElSZ3J0SDJkUHdwSWdWanNZeVJTVk1LbVNwdDUKWnJEZjlOdFRiTldnazhWb0xl
- WnpZRW8rSjNvUHFGclRNczNhWVl2N2U0K0pLNjk1WW5tUSttT0Q5bmlhOTE1dApyNUFaajk1
- VWZTVGx5VW15aWMxZDhvdnNmMWZQN1hDVVZSRmNSamZOZkRGMW9ML3BEZ01QNUdaMk93YVRl
- am15CkN1SGpNOElSMUNpYXZCcFlEbUJuVFlrN1B0aHk2YXRXdllsMGZ5L0NxYWpUS3N4Nytw
- OXh6aXU4WmZWWCtpS0IKQ2MrSGUrRURFZEdJRGh2TlovSVFIZk9CMlBVWFdHUytzOUZOVHhy
- L0E2bkxHWG5BOVk2dzkzaVBkWUl3eFM3SwpYTG9LSmVlMTBEamx6c1lzUmZsRk9XMFpPaVNp
- aElDWGlRVjF1cU02dHpGRzlndFJjaXVzNVVBdGhXYU8xT3dVClNDUW1mQ09tNGZ2TUlKSUE5
- cnh0b1M2T3FSUWNpRjNjcm1vMHJKQ3ROMmF3WmZnaThYRWlmN2Q2aGp2MEVLTTkKWFpvaUFa
- WVpEKy9pTG01VGFLV042b0dJdGkwVmpKdjhaWk9aT2ZDYjZ2cUZJa0pXK2FPdTRvclRMRk16
- MjhhbwpVM1F5V3BOQzhGRm1kWXNWdWE4czZnTjFOSWE2eTNxYS9aQjhiQS9pa3k1OUFFejRp
- RElScmdVek1FZzhBazdUCmZtMUtpWWVpVHRCRENvMjVCdlhqYnFzeXhrUUQxbmtSbTZGQVZ6
- RXVPUEllOEp1cVcyeEQ5aXhHWXZqVTVoa1IKZ0pwM2dQNWIrY25HM0xQcXF1UTJFNmdvS1VN
- TEFia0NEUVJiZmw5REFSQUFzRExjYStMbFAydm5mdEVHaHBjQQpCR1ZOUUVGbkdQckNhdVU2
- SGhOODA1V3RQVHRtc1JPdUp6cWdVVDBtcHFXSWZacTZzTXd5dkhLOVRzL0tIM0paClVWYlJD
- M3oyaDNLZmhIL0RhZjk1cGQ2bVBjL2g5dkYvT3kzK2VUV2hnR25QNmNBNWtsUitmTzFXaEc4
- VnJpWHYKck5lUkcyMHN6emplSG9jblNJY1Q1WHVaUjB1REhPaUd4T2l6MXNNUkZUR3h6R095
- MTlSOXJ2dTYzdGlJM2Q3dgpnYzc1T0NBZGtlQi9TZUNFbGFSdzBUZjdMWmJQampzRjI2M0JZ
- bk1mNGtrTkVLdnFXY1UyaWNNcCtxZXpqeW5CCnB2ZXVlMHJDVFFCWUFRbG9GQ1ZUR0hyV1dB
- NkQ0VzVPMkFmSWRJYzF1MUpDWnAyZjVMV1ZvVUZUVklyUW5RUVUKU0hDaWZyOU1aeExUdFBK
- ZFU1Mm9TUHczZGs0aExQOGlKSUx1dnYvYXZhakNzUVlIRXR3WXNiZUZaeGl1TGdscApBN1lj
- Sk5ObXBnQ3BNRDR3VWh2bEN0QUtOQlFXeXIyOTc2OThFUVRuNDZlQmVVNkttMkNpaFhrZ3dD
- eWY4ZXlLCkxFM3NYZXdhcTVrZ1pXdk5xNml1NXFZSVJCOXl3K2NYYzYwZE9aRE9scTkzWDVT
- QVJZemFvZXBrSHo0cmtMa1AKUG8rdENIeUhRUHNHblBYYzlXVDgwREM5Tm5KR2R2VWx5NXJk
- TUk0eHBaeWdlb2tqd293VlFsUFV1Y1M2TXluNwpmOHc4Y2dmQjdDMklBSWNEeDJwUC9IendY
- dmtDT1FOQTdtVjFsTTA4bitnVmtUcnpweGlwNURicTRDSW9ZeDJNCkpaVDhiR1JINlhqY1VE
- S2EwOVFoeVpzQUVRRUFBWWtFUkFRWUFRZ0FEd1VDVzM1ZlF3SWJBZ1VKQThKbkFBSXAKQ1JD
- VWdld1BFWkR5MjhGZElBUVpBUWdBQmdVQ1czNWZRd0FLQ1JCVnhETFBjVk1NamNkc0QvMFJo
- QXN1UVlPeQpyMTNCbDNOaFhrWUFaR3AyWkZER3VrZTdPU2tWOG9qT09UZFR5ei9jT1JHQ2J5
- ZEQrRGd2cUZ5VmRuT1hLZ08wCmxKbUd3ckdlTGRnZ0F2aDBpaHJwNU8wWVVKOWJCU1htR01t
- UVRZSC9BbUxUR2FkYnVqQ1dqNWZGVWtDeXd4aW0KSHV5MFBiMjRwelR2UzUwR1k1WStxSDBG
- SE5haWdka2tpV04zcnVnN0haRXUvQ3lsUFpqT1h6K0QxUVBNckV4dwo3ZC9NS2FiVis5YU5i
- UVlabGRJajk4UXd2VUYxS1N6YThqbFVJdnBoUnEyN0FUOGZER1lHUGZERU1nMmNCT2FlCkty
- N29uUXM0YjdhV082aWZEbHhRVHB6c3pvK0FuODA3Tk1TdFZFRmYrczNBaFZEM2U3bmY4SkJh
- dmJWckFlMGsKb20yNm96elBubnh6K2xxVlZ0dzZVazRYTUl6dGl4L0h3SFl3dUNuY1VYWndL
- MEkzeUFKd2pZd29vck9DaEozUwpFVWJKUVB0R3NneFJERXhWQkZlNk5MUC82MnhQOU82dGFj
- d09kYjBNbVAxYjM5cFJBVEM3YmdkMWxkVUxpNzVaCmxKckowL1NpVkVyb3FOWXk3OXRmbWdB
- WjJVeFptczlTckV5Nm85UVNmc24xYVh2K01QTDlKYUNHbWtQNnpiTFEKTm5kajBKY2FRbmtD
- MHZneWRPMUJtNk11OTZQOXVmbEtaY0FTNndtTE01SWRIT3lqTDg4d0h3anVjakFPQnRjdwpw
- MG9HVG5WT25Sc05ZU084VzhZWi9LZGJ1Nzg1ZGF6TXFKMmlOakFEdUJiZG02TjRqNUVkTW5r
- TG4wQklmUEpwCmRnbTR2bDJVcExqd1JHci9NM3dtbTVwdnMrNnVCN2hrL0ZKaUQvNGxsRU5Q
- NGVNMWg3U200aitWcTZOMSt6VEIKSVhKQWViSXFhc0RwNXlaUzdYcnk0STM2bjg1WEVZZkcw
- MWx0QXlob05WMkRPOFNJUlFwdWkydHErOVJQM1JLMQpKREJ4eEVKWTJFTzVKWjhNeGFQSFEw
- RFQwNWxSRmpLMkFsaGRFSXRqTGpwSjNmVW05c3FMeE1XeHpQNlV6M2lpCjJ1YTR1bnJ0Nk9D
- VHFRd2lqRi8zYlRXaXd2VkFBSG5NRlVpb1hzaEhhb2hWRGNWZm5lSU1mVjBiUUNYWWkzTnAK
- WTB2MFp3Y2lGSCtnU0M3cUQ2WE51aHBWR1NMNElpbGlGeS9TemNhSkV6QUhlTERTaFpQMkNX
- ZG5DNHZnbDM3dApocHg4aDU1WWhKbjZIU3VVelBnaGFLdFZCMmsrajdaZXlaK1NGeHA3SXVi
- SEN3TEhsUWhUNzVSd1EzaUF4S242CjBxajUxY1lUbnF4ZFpYVzZmSDNQa3VNellVNUdwcVIv
- MU9sNWMvd2ZJNmc2QW04eUtXLzBFVUx0K0tuNExGc1MKbTdZM201SDV2MTJVNkpCWXZWK3Ix
- M2paaW9zNEVFREU5M0Q1c05IMk1JeVJ6Q0RxMXpkZHQ0WHV5S0ZqUEtXMQo5aWJaRGZGVjdL
- dUNzdnVMMjNzQmMxc0NNb3ArRTFtVC9ReE9JQTZvRFQxTVFzdHdPVnVReURDdi9PdktTZ2Z6
- CjhGWEdMNkFQY2xqQ3FqOEFKaHhReXN4ZG9pUVA4bS92dStialdHR3Z4dzVzMWxncGlSRFRS
- VVBnY0pKTmFHWTIKVklEclpRaTROU2lOUTBOSWkrZGp1NGZOTW1DcFFxZzh0YkMzY0FhNnl3
- bTZvUUIxU0JobURYMmUxMWdSbGx1SQpPblRHUEUwSFRvM2w3MmxoYmc9PQo9cVpNVgotLS0t
- LUVORCBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCg==
-Message-ID: <45e55e16-6bb7-5d82-1031-db5deaee68ab@i2se.com>
-Date: Thu, 17 Jun 2021 19:41:09 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3DCA5F8016D
+ for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 21:35:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DCA5F8016D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="vOBgpWQJ"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20210617193538euoutp01bdbd6e711239e0f9bd555968e301102e~Jda_--otG2992029920euoutp01Q
+ for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 19:35:38 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20210617193538euoutp01bdbd6e711239e0f9bd555968e301102e~Jda_--otG2992029920euoutp01Q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1623958538;
+ bh=1uBGtvIj4Fl53/heI+tivIwbHFbFUjdAyoDsN8HU7AU=;
+ h=Subject:To:From:Date:In-Reply-To:References:From;
+ b=vOBgpWQJO5Uvc7wHBO2E49eLkmiCH8oG+m6WtbgmTKiO93v7+01SQ1bCwW5EjqNOy
+ BiiAAWTiW4gIo2npetX7TA9ZbzueJAwaFbxXyC8LFLgasIlsV1hzDNTwpuc0V/7WXg
+ bQdMBEDmDun2iJpo2/ceAAXy5hP5e9WrIeNyfd2c=
+Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTP id
+ 20210617193538eucas1p25880900add5677a5b24e765f96cf59f2~Jda_sXNFO1768817688eucas1p2d;
+ Thu, 17 Jun 2021 19:35:38 +0000 (GMT)
+Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
+ eusmges1new.samsung.com (EUCPMTA) with SMTP id DF.1B.09452.904ABC06; Thu, 17
+ Jun 2021 20:35:37 +0100 (BST)
+Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20210617193537eucas1p217b93d091ae8795581b30931ad8c7467~Jda_HNMXR1770317703eucas1p2l;
+ Thu, 17 Jun 2021 19:35:37 +0000 (GMT)
+Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
+ eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20210617193537eusmtrp27e275fd525e9e366420607d6017f9e3e~Jda_GW5AA0769107691eusmtrp2L;
+ Thu, 17 Jun 2021 19:35:37 +0000 (GMT)
+X-AuditID: cbfec7f2-a9fff700000024ec-58-60cba4092751
+Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
+ eusmgms2.samsung.com (EUCPMTA) with SMTP id 87.2B.08696.904ABC06; Thu, 17
+ Jun 2021 20:35:37 +0100 (BST)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20210617193536eusmtip139d9d96d6e14d089ee2c12c407754f4f~Jda9Gd0Am2888128881eusmtip1J;
+ Thu, 17 Jun 2021 19:35:36 +0000 (GMT)
+Subject: Re: [PATCH v3] ASoC: qcom: Fix for DMA interrupt clear reg overwriting
+To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, agross@kernel.org,
+ bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
+ robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
+ perex@perex.cz, tiwai@suse.com, srinivas.kandagatla@linaro.org,
+ rohitkr@codeaurora.org, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, swboyd@chromium.org, judyhsiao@chromium.org
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+Message-ID: <5ae06ccb-ffd4-ca9f-5a88-1f8bf8b48d37@samsung.com>
+Date: Thu, 17 Jun 2021 21:35:36 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0)
+ Gecko/20100101 Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210617152545.slgm5r7y2pur7mv3@gilmour>
-Content-Type: text/plain; charset=windows-1252
+In-Reply-To: <20210609072310.26099-1-srivasam@codeaurora.org>
 Content-Transfer-Encoding: 7bit
 Content-Language: en-US
-X-Provags-ID: V03:K1:UbAAPBG9NFPiIeyY2T9b4Mm/GIlV+lJWHxqUS6BbYhqIGZy/XTu
- RynNFiZ1upBqHhbQ02AHkENwyUeOJF8NozI175wBEPNxmR6ZEcdVKWVOKA6A9ynbQJHvUck
- HTDQ5EnbhJW6OTvi3luadR7NjsZF2BytOO3H9t7KZLb/C+QL8uAiL6BOSyBgytBS3apRnwR
- TODY7/FA2McB++fjwDsaw==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:I7hqdUxcs0A=:zHnoFuoJXdNWgfeDZnpz0a
- m+wYzlJwmN4CL5bqvYscLVEM+FhbFtBpnfUlrR5P46E2usbqx2XLOk5A9M+kAuEfdnWttVOte
- qJhxPXYOs5XaC7W99urp8FKjSM1fzlfHF9rAj538qlP2/QE4oYgBUqjM/W4sc4Sd73sFfOxxj
- lUM8O19C48bY/zcnSvtWViB0MvZ+zGUSxWcFiHJ/XA2FoQ8F/v45ZsRmJyfHRMhHXA6vHuSUi
- FXw0PoopLJcF3qj6M8VYcY80Zy+15isc9GZ7qVeZXBRRuyXTwqAG0xdnfXvA+kVDzl6oV5Mfg
- +rJXq04MzWY2ecSNr6omLZqmxhbmIi4zQoUz3yNh80S0LlApr3QFccWsg2eQnH12y2CGheITa
- czLI0m4p335YlAFUVk1DrtKcs/vc8nee42js+2oeu3b+7XbOPPiRn0zqinHoekD1Bv5iwX/gi
- mXOK9TQ+sDwBHGgZZBkdBedXhV3jqVjB7Gt9Ym/7soh4hsT9gl7EI4DI8wrPJ7dM5v7Eo+BlR
- OgQmuRnoF1gTdABLEARD2o=
-Cc: alsa-devel@alsa-project.org,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Emma Anholt <emma@anholt.net>
+X-Brightmail-Tracker: H4sIAAAAAAAAA02Se0xbVRzHc+6rj6x4uRv2DAkKxsVNxiMad0AkLJnzGv8QHIlRcOMG7ui2
+ wpZeOtFoUkcGrIKDBmLbwdjDPYKyIlQYbF1HQeokNEVoZQLisHUD1yJDrMPho72Z8t/n+z3f
+ X87ve3KkODNHxkr3lZXzmjJOnUjJie6h+66tsk+HC1NnZp5Hrp/+JND4qANDH06eIdGwPUig
+ pls+CrUOukjkbajG0O/jNRhqsI9I0FhfM4WO9R0nUU1LPUBHbYMSdMNaCVDV0BCJQvMjOHJO
+ +THUEWoH2QzbsXSEYk/oRgl27OM6jO01T0vYzrZjFDvlvUqx1wLnKdZi9RDsUmd8juwteWYx
+ r953mNekZBXKVfZzXxGHvoutaLxiADpwKkYPZFJIPwfPX/8M1wO5lKEvAui1+4AofgNwwDYr
+ EcUSgKbK04QeSCMj/SZG9C8A6O/VYaJYBLCrLoSHQ+vpXGjyHQ77G2gvDuc816jwfRSdBvUB
+ fYQVdBZsql8gwkzQT0HT7CIW5hi6CC6cNJJiJhreMPkiGRn9Ipw0GiKM04/DnkAzLrISfu9r
+ jSwBabsM3jneTYrldkBdTwMm8no477RKRI6Df/c+HKgE8JarXSKKWgDHjhiBmHoBTrlWqHAd
+ nN4MLX0por0dWlZrSPEpouBEIFpcIgoauj/BRVsBa6oYMb0Jmp2X/ru23/0tLjIL7TYPWQ8S
+ zGtqmtdUM6+pZv5/h1OAaANKXiuUlvBCWhn/TrLAlQraspLkooOlneDf3zj8l/PeZdAyv5js
+ AJgUOACU4okbFFuFrwsZRTH37nu85uAejVbNCw7wmJRIVCraTny+h6FLuHL+AM8f4jUPTzGp
+ LFaHCbzO1qU3hGYyiJy5M+tKjCOjcbXDXpdrf+343qS3+7urRrhvli7/bGvc/8Sb6Ugiv638
+ KOMAleqf6AnF773kKc5Pn7QmpGefla/435iczsob3J28MYMd/CLYuivp9hZydYHpOJlfsbKr
+ enr7s+qXmwqqPvgy9H5L/Wvcbm3Mr/nbBpKOJtzMjXN7lAN43Usw714Ul+4veKXF4m7cefcP
+ cD33bqmKw39IbX46RXgwk7dZe+7quoJHl8+qgDJozQxuurIzYeFOUXQF8+NGy5PVv8zi7E2H
+ aq78/vID98TK6eLlKsM2yUXmwut+oitv9dWc6vbMbGMguOORWI37GedEvDqREFRc2hZcI3D/
+ AFU5vcr8AwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrHIsWRmVeSWpSXmKPExsVy+t/xu7qcS04nGPybyGtx7vFvFosrFw8x
+ WTTeXsRqcXr/OxaLqQ+fsFnMP3KO1eLaxHYmi29XOpgsJu4/y25xedccNovOXf2sFh1zJzBa
+ tO49wm5xckszo0XbsWOsFt9fnWW2OH7nKZPFhu9rGR2EPDZ8bmLzmN1wkcXjcl8vk8fOWXfZ
+ PTat6mTzuHNtD5vHvrfL2DzWb7nK4vF5k1wAZ5SeTVF+aUmqQkZ+cYmtUrShhZGeoaWFnpGJ
+ pZ6hsXmslZGpkr6dTUpqTmZZapG+XYJexv6lR1kKrktVTNk9ibGBcYFoFyMHh4SAicTBmUJd
+ jFwcQgJLGSU6pvxi7GLkBIrLSJyc1sAKYQtL/LnWxQZR9J5R4vXMkywgzcICgRIzn5SBxEUE
+ rjFLLD78mAmkQUjARuLv+2VsIDabgKFE19suMJtXwE5i6oT3LCA2i4CqxMxHH8HqRQWSJX6u
+ b4eqEZQ4OfMJWA2ngK3E7RmTwGxmATOJeZsfMkPY8hLb386BssUlbj2ZzzSBUXAWkvZZSFpm
+ IWmZhaRlASPLKkaR1NLi3PTcYiO94sTc4tK8dL3k/NxNjMCI33bs55YdjCtffdQ7xMjEwXiI
+ UYKDWUmEV7f4RIIQb0piZVVqUX58UWlOavEhRlOgfyYyS4km5wNTTl5JvKGZgamhiZmlgaml
+ mbGSOK/JkTXxQgLpiSWp2ampBalFMH1MHJxSDUyiut98wv02JDt5Pg2Qj1/Ie9pEVF6vQn7v
+ 461b1nyYo7AvbW7Hc9UJ88JWBQm+mvFm1pXOtFvb5/RWbrWofzdBinl1Xuhb8+KWqO7//1p4
+ WwJOJ4bMc1E3LmBarFb85tq16H87PYrX+R/a7/E2csWcLJZ7/zkWf7/K/ex7dINESqYqY9i7
+ H3p20oXVmm9Envunl2y0OLrM6abAavVDwbv2Xtqqk2rnwucY8O+3waWVP7R9pzqnT1SaWZtX
+ bqzwZ+YSPp30ScsX32Pl7VleVK/xTW6Hr2nh1nbDvLcn/93iVZu9pIq1YqHJ3/mTBLeybL9w
+ 7p5UuX9X280XTBWazi0BvjJTVr+oe87+49EN8R1KLMUZiYZazEXFiQDqfHfvgQMAAA==
+X-CMS-MailID: 20210617193537eucas1p217b93d091ae8795581b30931ad8c7467
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20210617193537eucas1p217b93d091ae8795581b30931ad8c7467
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20210617193537eucas1p217b93d091ae8795581b30931ad8c7467
+References: <20210609072310.26099-1-srivasam@codeaurora.org>
+ <CGME20210617193537eucas1p217b93d091ae8795581b30931ad8c7467@eucas1p2.samsung.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -217,36 +152,92 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Maxime,
+Hi,
 
-Am 17.06.21 um 17:25 schrieb Maxime Ripard:
-> Hi Stefan,
+On 09.06.2021 09:23, Srinivasa Rao Mandadapu wrote:
+> The DMA interrupt clear register overwritten during
+> simultaneous playback and capture in lpass platform
+> interrupt handler. It's causing playback or capture stuck
+> in similtaneous plaback on speaker and capture on dmic test.
+> Update appropriate reg fields of corresponding channel instead
+> of entire register write.
 >
-> On Sat, Jun 12, 2021 at 12:04:08PM +0200, Stefan Wahren wrote:
->> Hi Maxime,
->>
->> Am 04.06.21 um 11:02 schrieb Maxime Ripard:
->>> Hi Stefan,
->>>
->>> I would assume it's due to this:
->>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpu/drm/vc4/vc4_hdmi.c#n1083
->>>
->>> It pre-dates my time working on the vc4 driver so I'm not really sure
->>> what this is supposed to prevent, but my guess is that it's there to
->>> avoid someone using the audio card before we have a display detected and
->>> connected, and its capabilities known (the first and more obvious one
->>> being does it support audio in the first place).
->>>
->>> It's nothing new though, maybe it's the error printing itself that is?
->> i'm sorry, i forgot about this discussion here:
->>
->> https://lists.freedesktop.org/archives/dri-devel/2020-December/292701.html
-> It looks like there's no discussion on that link, is it the link you wanted to paste?
-
-it was the right patch, but the discussion get lost because of turn of
-the year. Next try:
-
-https://www.spinics.net/lists/dri-devel/msg284535.html
-
+> Fixes: commit c5c8635a04711 ("ASoC: qcom: Add LPASS platform driver")
 >
-> Maxime
+> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+
+This patch landed recently in linux-next as commit da0363f7bfd3 ("ASoC: 
+qcom: Fix for DMA interrupt clear reg overwriting"). It breaks ALSA 
+playback on DragonBoard 410c (arch/arm64/boot/dts/qcom/apq8016-sbc.dts). 
+After applying this patch, running 'speaker-test -l1' never finishes. 
+There is no error nor kernel warning message. Before that commit, the 
+playback worked fine on that board.
+
+> ---
+> Changes since v2:
+> 	-- Removed redundant variables.
+> Changes since v1:
+> 	-- Subject lines changed.
+>   sound/soc/qcom/lpass-platform.c | 12 ++++++------
+>   1 file changed, 6 insertions(+), 6 deletions(-)
+>
+> diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
+> index 0df9481ea4c6..f9df76d37858 100644
+> --- a/sound/soc/qcom/lpass-platform.c
+> +++ b/sound/soc/qcom/lpass-platform.c
+> @@ -526,7 +526,7 @@ static int lpass_platform_pcmops_trigger(struct snd_soc_component *component,
+>   			return -EINVAL;
+>   		}
+>   
+> -		ret = regmap_write(map, reg_irqclr, val_irqclr);
+> +		ret = regmap_update_bits(map, reg_irqclr, val_irqclr, val_irqclr);
+>   		if (ret) {
+>   			dev_err(soc_runtime->dev, "error writing to irqclear reg: %d\n", ret);
+>   			return ret;
+> @@ -650,10 +650,11 @@ static irqreturn_t lpass_dma_interrupt_handler(
+>   	struct lpass_variant *v = drvdata->variant;
+>   	irqreturn_t ret = IRQ_NONE;
+>   	int rv;
+> -	unsigned int reg = 0, val = 0;
+> +	unsigned int reg, val, mask;
+>   	struct regmap *map;
+>   	unsigned int dai_id = cpu_dai->driver->id;
+>   
+> +	mask = LPAIF_IRQ_ALL(chan);
+>   	switch (dai_id) {
+>   	case LPASS_DP_RX:
+>   		map = drvdata->hdmiif_map;
+> @@ -676,8 +677,7 @@ static irqreturn_t lpass_dma_interrupt_handler(
+>   	return -EINVAL;
+>   	}
+>   	if (interrupts & LPAIF_IRQ_PER(chan)) {
+> -
+> -		rv = regmap_write(map, reg, LPAIF_IRQ_PER(chan) | val);
+> +		rv = regmap_update_bits(map, reg, mask, (LPAIF_IRQ_PER(chan) | val));
+>   		if (rv) {
+>   			dev_err(soc_runtime->dev,
+>   				"error writing to irqclear reg: %d\n", rv);
+> @@ -688,7 +688,7 @@ static irqreturn_t lpass_dma_interrupt_handler(
+>   	}
+>   
+>   	if (interrupts & LPAIF_IRQ_XRUN(chan)) {
+> -		rv = regmap_write(map, reg, LPAIF_IRQ_XRUN(chan) | val);
+> +		rv = regmap_update_bits(map, reg, mask, (LPAIF_IRQ_XRUN(chan) | val));
+>   		if (rv) {
+>   			dev_err(soc_runtime->dev,
+>   				"error writing to irqclear reg: %d\n", rv);
+> @@ -700,7 +700,7 @@ static irqreturn_t lpass_dma_interrupt_handler(
+>   	}
+>   
+>   	if (interrupts & LPAIF_IRQ_ERR(chan)) {
+> -		rv = regmap_write(map, reg, LPAIF_IRQ_ERR(chan) | val);
+> +		rv = regmap_update_bits(map, reg, mask, (LPAIF_IRQ_ERR(chan) | val));
+>   		if (rv) {
+>   			dev_err(soc_runtime->dev,
+>   				"error writing to irqclear reg: %d\n", rv);
+
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+

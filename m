@@ -2,90 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 021CB3AB656
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 16:45:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE28D3AB627
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 16:39:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 64DDA179D;
-	Thu, 17 Jun 2021 16:44:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64DDA179D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 49FD71724;
+	Thu, 17 Jun 2021 16:38:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49FD71724
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623941138;
-	bh=+KBOOJCYkxsfJaXdlHh6bjt88qM404LSq3eTyZgU48A=;
+	s=default; t=1623940746;
+	bh=NiiU6fiVLbE4syulfvGQUEnbQNZvmtFPXY1KRGZ4VKs=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NHshLndCpGpuk3bx98j3UuCob8dAfJL2tnLha+9sXVg4ZTazVgfKVALJpJV2BoIjk
-	 2Itef8OGB5OOJJjdIWUaI3rxFHwLLSUviovXEQpq6gIfbd81B3FkdEbmzXWCnL1kwI
-	 sVyQf5wSmVwdfRrEDLPPDkHqRmWQPREhhBAKzSl0=
+	b=nZOLBNKSb4EBdTxMOsS8BCa2KnhJH3Q43YmZHyu6s117Ndv8Gf8OwI6ec/yuhJ3hY
+	 k4B/LznFz0MaR/gzs3uaAVEW/8WVC5HxOXQPZjVBeyhDZoxBYPYblUY6ysdSmsKwJp
+	 +HFN6vVmLjhfUx7i2XlF3kKoPHbgW0/8X/OjKdhs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0DE27F805BB;
-	Thu, 17 Jun 2021 16:35:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C654F804FE;
+	Thu, 17 Jun 2021 16:34:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21377F8025A; Thu, 17 Jun 2021 09:43:02 +0200 (CEST)
+ id 3ACF3F8025A; Thu, 17 Jun 2021 11:15:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,PRX_BODY_26,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
- [IPv6:2607:f8b0:4864:20::52a])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-vs1-xe31.google.com (mail-vs1-xe31.google.com
+ [IPv6:2607:f8b0:4864:20::e31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A6E48F8016D
- for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 09:42:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6E48F8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id F11D0F80088
+ for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 11:15:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F11D0F80088
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="DJulBmuY"
-Received: by mail-pg1-x52a.google.com with SMTP id w31so4264108pga.6
- for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 00:42:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="tspUddDm"
+Received: by mail-vs1-xe31.google.com with SMTP id b1so2610707vsh.7
+ for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 02:15:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=dlhQI9LBeuWWY/YA418crEQCoirxo4ehIW0nOzSjBfg=;
- b=DJulBmuYSBO4muKdi/8Vu2KF3vGVxZhvjkz55/4WjZHKA29UUH/SnFs1qfTuoS6Uwz
- vH2+PxKJCLFFFIdmU1z2SV/hlmCdNyhSbogDeVK9badYGnI9ZaMJB1HawmbSEp2n/8Ry
- G5NaXyhPWe1Ngso956j8A7KeVG0zSoeAdLQwAGG4m/0egx5f2SBjzLjrpX8G7WxLdaqC
- 3J+TZxXbO+41tuQDFFuEfikFYL2HJl3hOpQa4QqBCbyDyQWsuAcZbyPvs3ExaH4fEfMM
- 8N1FWDkTjISZ7ZZXP4v+XzvIUCpY/5Ie/9y99xfD7x5rBb8cAIX1+b4NKIUGCg0DW1kw
- h+ug==
+ bh=NiiU6fiVLbE4syulfvGQUEnbQNZvmtFPXY1KRGZ4VKs=;
+ b=tspUddDmWP1nXGb8dYzDapkXukDhtaQZ8yVoZQOykE4MszNmnQ2Jc7pAu3v7qBcemT
+ UyLs98rU9nEy8e3wRIJkxsl8g3L8Eb/AvQODxlfCIA8Y+SqSVtbG2msAYvDIZFEizfbY
+ 20UD8As6h7+oRqO/LBfp1JKzos5qS4bIZn22juJCAEEZOMhbhqM1f/S6KCbcFkkK35Tr
+ P7laFgsJQmqhNYip+ALRHKPPvbOtIHBYtRpZR/hgm9hpO06Ne5Y1MzvmGVRytTLSpocX
+ +CLKqhQk6OUYMP0R+b/JJQ4/QkH+6e5JGgp8Hm8OfSHuZ6CIo4hVwTpj+jWWd51a3cq+
+ 7N8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=dlhQI9LBeuWWY/YA418crEQCoirxo4ehIW0nOzSjBfg=;
- b=cTBJoeO4kR8Z5YqxKU+/jPejv6ceWkApyEPTZlGE160gtnBofPVAwc/z7gEyrsdC6d
- dbS2LxqhEzjxfe7bgEGyVbBSMWjgVd1BunWKAnlr2p8M6Pka6leBYhVW/9EyWM5wMqgg
- rsRRqi8CYTFJKvpgEPFZw0k0pV0GYGKtwMi+jjZ+WfkEWJd/7fxSnEW1nLZnJUj9e8Dw
- J+4qG+/u6a+cIl3YAgLklEhP6LCrK48K+P3+ee+ELmimy4fJkdJ8NGPpxN+85ZcUtkMz
- P9P8Jj+j2EjYZZvzEL+apMc8pzBL4WtpyJTiEn6V0YmhoVuVgVvdikqHJKw4ihBtJ7Ae
- Q9/w==
-X-Gm-Message-State: AOAM531iPC6B8ygI/OFPLUP2jbFPORasO/EeDM5glMHlOdpXsMWQv2C5
- ZlXb0S05OUDbD7tIVvJRD3fIFvjZMkCoQE+kiw==
-X-Google-Smtp-Source: ABdhPJzFltPZJW+CLlqPO3ZDNVm8FYuMgndfCGkTH+NIbNsyzO3D2zxHKHJ6V972BF7TsmpoZxJ49mG+/NuxsZWcpdU=
-X-Received: by 2002:a63:dc4e:: with SMTP id f14mr3735400pgj.378.1623915775013; 
- Thu, 17 Jun 2021 00:42:55 -0700 (PDT)
+ bh=NiiU6fiVLbE4syulfvGQUEnbQNZvmtFPXY1KRGZ4VKs=;
+ b=NH+yL/tBq0keieRiIWThpepVwYn9fVHODnuFF36J8i5pIHAyBhYGqDOWr0q+HO/C3v
+ 0EhR6QlUb182y2FqACdcpmwIkW6RQujC4cr2SYpfpWmohDmJKCKi++O2RW4agRmpDFes
+ wS9PoxJktfZjLtyLMb2yqLZ3VuwPYvVgGzoFH7G0Nt9eYaUp2fGJSEVl4NOLum1QWyk2
+ C2WIRgDp/LsuxfSwW60M5MoX/4dSzobApakx/NHFwZbRKPb//rKlJpladbO5vXDUaLe8
+ Ei2gwO52eWFCasLx6byk05jXccSESsgpQdMtFKja43s/UAdYykAmFn9EinvEhxtZawbR
+ gIAg==
+X-Gm-Message-State: AOAM533NXivnK7T76vNskHNLJP0Zthn2xSaR6iyA7NWG7CvVcEfOM0OB
+ u1kMF71YIaCTjF8apaY71j6h3XWtlyaYBQkuJz7uWw==
+X-Google-Smtp-Source: ABdhPJyDDRUn2syWiuy8XigFtL3iDYKz59Ub/6ekAvgFfmAY9tRuxX/nulbHrrDC8J99+RHvCUQeMQ9XnjKDaURJSR4=
+X-Received: by 2002:a05:6102:2159:: with SMTP id
+ h25mr3349328vsg.19.1623921301368; 
+ Thu, 17 Jun 2021 02:15:01 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210615130326.2044-1-fengzheng923@gmail.com>
- <20210615132207.GG5149@sirena.org.uk>
-In-Reply-To: <20210615132207.GG5149@sirena.org.uk>
-From: =?UTF-8?B?54+t5rab?= <fengzheng923@gmail.com>
-Date: Thu, 17 Jun 2021 15:42:43 +0800
-Message-ID: <CAE=m61-kHPeKNvEEc08w8DeUwssGPWNf5UaYojRPNZRJ0v=arw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] ASoC: sunxi: Add Allwinner H6 Digital MIC driver
-To: Mark Brown <broonie@kernel.org>
+References: <20210615191543.1043414-1-robh@kernel.org>
+In-Reply-To: <20210615191543.1043414-1-robh@kernel.org>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Thu, 17 Jun 2021 11:14:25 +0200
+Message-ID: <CAPDyKFrY4UOO5CbZ8Bj7AH2+3Wo1PRpUv+Zs96tub=MzGuGrrQ@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: Drop redundant minItems/maxItems
+To: Rob Herring <robh@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 17 Jun 2021 16:34:45 +0200
-Cc: alsa-devel@alsa-project.org, krzk@kernel.org,
- Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
- tiwai@suse.com, jernej.skrabec@gmail.com, lgirdwood@gmail.com, wens@csie.org,
- mripard@kernel.org, p.zabel@pengutronix.de, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
+Cc: Andrew Lunn <andrew@lunn.ch>, alsa-devel@alsa-project.org,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, linux-pwm@vger.kernel.org,
+ linux-iio@vger.kernel.org, Linux PCI <linux-pci@vger.kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, linux-remoteproc@vger.kernel.org,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>, linux-ide@vger.kernel.org,
+ linux-i2c@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-riscv <linux-riscv@lists.infradead.org>,
+ Lee Jones <lee.jones@linaro.org>, linux-clk <linux-clk@vger.kernel.org>,
+ linux-rtc@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, Marc Zyngier <maz@kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, Jassi Brar <jassisinghbrar@gmail.com>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@ti.com>,
+ David Airlie <airlied@linux.ie>, linux-serial@vger.kernel.org,
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Jakub Kicinski <kuba@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Vivien Didelot <vivien.didelot@gmail.com>,
+ Wolfgang Grandegger <wg@grandegger.com>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Ohad Ben-Cohen <ohad@wizery.com>, DTML <devicetree@vger.kernel.org>,
+ Albert Ou <aou@eecs.berkeley.edu>, linux-watchdog@vger.kernel.org,
+ Linux PM <linux-pm@vger.kernel.org>, linux-can@vger.kernel.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, Marc Kleine-Budde <mkl@pengutronix.de>,
+ Kamal Dasu <kdasu.kdev@gmail.com>, Paul Walmsley <paul.walmsley@sifive.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, Jens Axboe <axboe@kernel.dk>,
+ Alessandro Zummo <a.zummo@towertech.it>, Guenter Roeck <linux@roeck-us.net>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
+ netdev <netdev@vger.kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Linux USB List <linux-usb@vger.kernel.org>,
+ linux-mmc <linux-mmc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-spi@vger.kernel.org,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, linux-crypto@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, dmaengine@vger.kernel.org,
+ Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Jonathan Cameron <jic23@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,86 +142,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+On Tue, 15 Jun 2021 at 21:15, Rob Herring <robh@kernel.org> wrote:
+>
+> If a property has an 'items' list, then a 'minItems' or 'maxItems' with t=
+he
+> same size as the list is redundant and can be dropped. Note that is DT
+> schema specific behavior and not standard json-schema behavior. The tooli=
+ng
+> will fixup the final schema adding any unspecified minItems/maxItems.
+>
+> This condition is partially checked with the meta-schema already, but
+> only if both 'minItems' and 'maxItems' are equal to the 'items' length.
+> An improved meta-schema is pending.
+>
+> Cc: Jens Axboe <axboe@kernel.dk>
+> Cc: Stephen Boyd <sboyd@kernel.org>
+> Cc: Herbert Xu <herbert@gondor.apana.org.au>
+> Cc: "David S. Miller" <davem@davemloft.net>
+> Cc: David Airlie <airlied@linux.ie>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: Vinod Koul <vkoul@kernel.org>
+> Cc: Bartosz Golaszewski <bgolaszewski@baylibre.com>
+> Cc: Kamal Dasu <kdasu.kdev@gmail.com>
+> Cc: Jonathan Cameron <jic23@kernel.org>
+> Cc: Lars-Peter Clausen <lars@metafoo.de>
+> Cc: Thomas Gleixner <tglx@linutronix.de>
+> Cc: Marc Zyngier <maz@kernel.org>
+> Cc: Joerg Roedel <joro@8bytes.org>
+> Cc: Jassi Brar <jassisinghbrar@gmail.com>
+> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+> Cc: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+> Cc: Ulf Hansson <ulf.hansson@linaro.org>
+> Cc: Jakub Kicinski <kuba@kernel.org>
+> Cc: Wolfgang Grandegger <wg@grandegger.com>
+> Cc: Marc Kleine-Budde <mkl@pengutronix.de>
+> Cc: Andrew Lunn <andrew@lunn.ch>
+> Cc: Vivien Didelot <vivien.didelot@gmail.com>
+> Cc: Vladimir Oltean <olteanv@gmail.com>
+> Cc: Bjorn Helgaas <bhelgaas@google.com>
+> Cc: Kishon Vijay Abraham I <kishon@ti.com>
+> Cc: Linus Walleij <linus.walleij@linaro.org>
+> Cc: "Uwe Kleine-K=C3=B6nig" <u.kleine-koenig@pengutronix.de>
+> Cc: Lee Jones <lee.jones@linaro.org>
+> Cc: Ohad Ben-Cohen <ohad@wizery.com>
+> Cc: Mathieu Poirier <mathieu.poirier@linaro.org>
+> Cc: Philipp Zabel <p.zabel@pengutronix.de>
+> Cc: Paul Walmsley <paul.walmsley@sifive.com>
+> Cc: Palmer Dabbelt <palmer@dabbelt.com>
+> Cc: Albert Ou <aou@eecs.berkeley.edu>
+> Cc: Alessandro Zummo <a.zummo@towertech.it>
+> Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: Zhang Rui <rui.zhang@intel.com>
+> Cc: Daniel Lezcano <daniel.lezcano@linaro.org>
+> Cc: Wim Van Sebroeck <wim@linux-watchdog.org>
+> Cc: Guenter Roeck <linux@roeck-us.net>
+> Signed-off-by: Rob Herring <robh@kernel.org>
 
-Mark Brown <broonie@kernel.org> =E4=BA=8E2021=E5=B9=B46=E6=9C=8815=E6=97=A5=
-=E5=91=A8=E4=BA=8C =E4=B8=8B=E5=8D=889:22=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Tue, Jun 15, 2021 at 09:03:26PM +0800, Ban Tao wrote:
->
-> Other than a few small things this looks good:
->
-> > +M:   Ban Tao <fengzheng923@gmail.com>
-> > +L:   alsa-devel@alsa-project.org (moderated for non-subscribers)
-> > +S:   Maintained
-> > +F:   Documentation/devicetree/bindings/sound/allwinner,sun50i-h6-dmic.=
-yaml
-> > +F:   sound/soc/sunxi/sun50i-dmic.c
->
-> Not the binding document?
->
-> > @@ -0,0 +1,408 @@
-> > +// SPDX-License-Identifier: GPL-2.0-or-later
-> > +/*
-> > + * ALSA SoC DMIC Audio Layer
-> > + *
-> > + * Copyright 2021 Ban Tao <fengzheng923@gmail.com>
-> > + *
->
-> Please make the entire comment a C++ one so things look more
-> intentional.
->
-For example;
-// SPDX-License-Identifier: GPL-2.0-or-later
-/*
- * This driver supports the DMIC in Allwinner's H6 SoCs.
- *
- * Copyright 2021 Ban Tao <fengzheng923@gmail.com>
- *
- */
-is this OK?
+Acked-by: Ulf Hansson <ulf.hansson@linaro.org> # for MMC
 
+[...]
 
-> > +static void sun50i_snd_rxctrl_enable(struct snd_pcm_substream *substre=
-am,
-> > +                                 struct sun50i_dmic_dev *host, bool en=
-able)
-> > +{
-> > +     if (enable) {
->
-> > +     } else {
->
-> > +static int sun50i_dmic_trigger(struct snd_pcm_substream *substream, in=
-t cmd,
-> > +                            struct snd_soc_dai *dai)
-> > +{
-> > +     int ret =3D 0;
-> > +     struct sun50i_dmic_dev *host =3D snd_soc_dai_get_drvdata(dai);
-> > +
-> > +     if (substream->stream !=3D SNDRV_PCM_STREAM_CAPTURE)
-> > +             return -EINVAL;
-> > +
-> > +     switch (cmd) {
-> > +     case SNDRV_PCM_TRIGGER_START:
-> > +     case SNDRV_PCM_TRIGGER_RESUME:
-> > +     case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-> > +             sun50i_snd_rxctrl_enable(substream, host, true);
-> > +             break;
-> > +
-> > +     case SNDRV_PCM_TRIGGER_STOP:
-> > +     case SNDRV_PCM_TRIGGER_SUSPEND:
-> > +     case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-> > +             sun50i_snd_rxctrl_enable(substream, host, false);
-> > +             break;
->
-> This is the only caller of _rxctrl_enable() and _rxctrl_enable() shares
-> no code between the two cases - just inline _rxctrl_enable() here, it's
-> clearer what's going on.
->
-> > +     res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> > +     base =3D devm_ioremap_resource(&pdev->dev, res);
->
-> devm_platform_ioremap_resource()
-
-But I need to get the register base address of DMIC. E.g res->start.
-host->dma_params_rx.addr =3D res->start + SUN50I_DMIC_DATA;
+Kind regards
+Uffe

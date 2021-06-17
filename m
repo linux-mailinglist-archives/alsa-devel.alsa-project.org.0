@@ -2,90 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3B563AA57C
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Jun 2021 22:42:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B70D23AA995
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 05:25:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C98616E7;
-	Wed, 16 Jun 2021 22:41:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C98616E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4497816CC;
+	Thu, 17 Jun 2021 05:25:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4497816CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623876129;
-	bh=mhLIWZiGeiG2xrFjpuiGWElCi/uYrQ99Uv8/gqQ5NXk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=KeisV6AReaWFNEx3DdnyHkcAXhZdX9V9cYqONd4VvA4F5mh17+mJR9o2jgY4zwlqD
-	 lqR+qJhoofvxD50SHzBP9+IP5wd7VkBZWFaxVhKv4hHPmcFu8zIZBvUnl6zmKoWvRn
-	 OqqBvfj0dkFGGih5iLTDOm9Ocg/Vjodi+rHcj4eE=
+	s=default; t=1623900357;
+	bh=kntQeXdO1pejx3YBaWQUpuw8fmm/zfyfS5CuZeDNxAU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ihKBbBd5In1D1JsMgnwdKGce9Frusuv+5zoei+mZHdGW80+6od+OZDHlBtItPzj3b
+	 iWe7QOGjd9aPB4PDRVEqxlidwaCCz9JfKZi2Qjbh1J3K8h5TtbcmjLPxp3eo+B3ndC
+	 suDIicmYL5uRA3H2G2pXViJRdm5HQsEk35iOUH0w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA63DF80165;
-	Wed, 16 Jun 2021 22:40:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AACD9F80088;
+	Thu, 17 Jun 2021 05:24:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B8965F80423; Wed, 16 Jun 2021 22:40:39 +0200 (CEST)
+ id 740B5F80171; Thu, 17 Jun 2021 05:24:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DA3B1F80165
- for <alsa-devel@alsa-project.org>; Wed, 16 Jun 2021 22:40:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA3B1F80165
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qUajzdGG"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E09D061076;
- Wed, 16 Jun 2021 20:40:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623876033;
- bh=mhLIWZiGeiG2xrFjpuiGWElCi/uYrQ99Uv8/gqQ5NXk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qUajzdGGeCVQE2tR6QDK7HHm3PJpC7IP3CsF2AeFMLxGwLx9Lu4koeza4lUN+j2Re
- RtBQOUSxrAsTw71Op/fXcJFRzkK0e/6eqElJLtanjxwY0ZYvPdKGDMt93FYLNc4w0j
- OZ6XVJ0KodJeHZFSDEU9k6GOs/90t1d7yUPmENmgjnWrEPaYPzmjOrwrofRvVRi01k
- CrxSvL5q9HEfYl236pUogfptpAhUiY+Ayeg+NanQ+jnf8OBgy6Z5OugT1U1Ya2HLI6
- M0EcsUhfOPBIb98K+WfA6yZYB5Ullzn7kgtHwYH7u6vHw8H6L9d2Rl7c9tPJp/A1qO
- X7bZgewuVXBEw==
-Date: Wed, 16 Jun 2021 21:40:12 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: max98357a: set channels_max to 4
-Message-ID: <20210616204012.GD6418@sirena.org.uk>
-References: <20210526154704.114957-1-judyhsiao@chromium.org>
- <CA+Px+wXGjZCOhhAVh9eRw6L-g8g7Qi7Rf_3YHpHSCB2o=XQ+4g@mail.gmail.com>
- <CAFv8NwKkfGnpw_5PBwJSjVXsuw3L8=1RyEJ4PWdRX5-J75bk6A@mail.gmail.com>
- <3501e398-dfba-43b1-4638-325a158e860d@linux.intel.com>
- <CAFv8Nw+FNfmgwadeFMWjRiGbKFuO4JJ=9ggRHxG+Pq_OuHdmeA@mail.gmail.com>
- <7748e621-ba54-db90-6b56-23e006eb1dbe@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83D70F80148
+ for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 05:24:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83D70F80148
+Received: from dggemv704-chm.china.huawei.com (unknown [172.30.72.55])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4G56jB1DKZzWnV7;
+ Thu, 17 Jun 2021 11:19:10 +0800 (CST)
+Received: from dggpeml500017.china.huawei.com (7.185.36.243) by
+ dggemv704-chm.china.huawei.com (10.3.19.47) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.2; Thu, 17 Jun 2021 11:24:12 +0800
+Received: from huawei.com (10.175.103.91) by dggpeml500017.china.huawei.com
+ (7.185.36.243) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Thu, 17 Jun
+ 2021 11:24:11 +0800
+From: Yang Yingliang <yangyingliang@huawei.com>
+To: <linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>
+Subject: [PATCH -next] ASoC: SOF: imx: Add missing of_node_put() in
+ imx8_probe()
+Date: Thu, 17 Jun 2021 11:27:56 +0800
+Message-ID: <20210617032756.599359-1-yangyingliang@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="F8dlzb82+Fcn6AgP"
-Content-Disposition: inline
-In-Reply-To: <7748e621-ba54-db90-6b56-23e006eb1dbe@linux.intel.com>
-X-Cookie: Revenge is a form of nostalgia.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Taniya Das <tdas@codeaurora.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, ALSA development <alsa-devel@alsa-project.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Stephan Gerhold <stephan@gerhold.net>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Patrick Lai <plai@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Tzung-Bi Shih <tzungbi@chromium.org>,
- Takashi Iwai <tiwai@suse.com>, Tzung-Bi Shih <tzungbi@google.com>,
- Rob Herring <robh+dt@kernel.org>, Rohit kumar <rohitkr@codeaurora.org>,
- Andy Gross <agross@kernel.org>, Douglas Anderson <dianders@chromium.org>,
- Dylan Reid <dgreid@chromium.org>, Stephen Boyd <swboyd@chromium.org>,
- Judy Hsiao <judyhsiao@chromium.org>,
- "moderated list:ARM/Mediatek SoC support"
- <linux-arm-kernel@lists.infradead.org>,
- Cheng-yi Chiang <cychiang@chromium.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.175.103.91]
+X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
+ dggpeml500017.china.huawei.com (7.185.36.243)
+X-CFilter-Loop: Reflected
+Cc: broonie@kernel.org, pierre-louis.bossart@linux.intel.com,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,38 +77,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This node pointer is returned by of_parse_phandle() with refcount
+incremented in this function. of_node_put() on it before exiting
+this function.
 
---F8dlzb82+Fcn6AgP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+---
+ sound/soc/sof/imx/imx8.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-On Wed, Jun 16, 2021 at 11:23:36AM -0500, Pierre-Louis Bossart wrote:
+diff --git a/sound/soc/sof/imx/imx8.c b/sound/soc/sof/imx/imx8.c
+index 4e7dccadd7d0..12fedf0984bd 100644
+--- a/sound/soc/sof/imx/imx8.c
++++ b/sound/soc/sof/imx/imx8.c
+@@ -315,6 +315,7 @@ static int imx8_probe(struct snd_sof_dev *sdev)
+ 	}
+ 
+ 	ret = of_address_to_resource(res_node, 0, &res);
++	of_node_put(res_node);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "failed to get reserved region address\n");
+ 		goto exit_pdev_unregister;
+-- 
+2.25.1
 
-> > On this platform there is no TDM support, so there were two I2S data lines.
-
-> Interesting, I haven't seen such 'multi-lane' solutions so far for I2S.
-
-They're moderately common for high end systems (eg, you'll see surround
-sound systems do this) - it makes it easier to find higher performance
-DACs if you can use regular stereo DACs and it helps a bit with layout
-if you can run slower digital signals.  There's controllers upstream
-that do this without needing to tie together multiple stereo controllers
-on the SoC side, one of the variants of the Samsung I2S controllers does
-it for example.
-
---F8dlzb82+Fcn6AgP
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmDKYasACgkQJNaLcl1U
-h9DJTgf9GVaBIAfl61pF8E56hCwdxoKRTFOYvXMS9Ro1gyi92ejk9latUAcVfHWS
-qyfSyeafsZNSMo4/ZHQ6hesfIikj3o7+WDlBf7f74rjQ/2sF2FKVtzqN0CG0/WQ/
-3lFWBL+U/OzQUyBp4GzjndcxgiArjFZ4FqQ0gLM/X/H+cSTThEULsPK1YVZKrbZo
-2BUv284pzIGcc2+M7eJK/ssifFkGUBkRoBQGb61GKJSFP9JbWCGLN1iDpj+ruCv1
-x6noeMrPikdrtg9bqg2B1xos7vBbi8fgRs/J1T6fynimQ/3G7VwBHJrX50aLoBnH
-1lN8LTDUGFKCoBTiT5AUCd0K1Q1gUg==
-=qHwR
------END PGP SIGNATURE-----
-
---F8dlzb82+Fcn6AgP--

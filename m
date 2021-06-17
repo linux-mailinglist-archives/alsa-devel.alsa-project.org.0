@@ -2,71 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61E8F3AB6E1
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 17:04:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0326E3AB76D
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 17:27:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC43A17B8;
-	Thu, 17 Jun 2021 17:04:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC43A17B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 469F9176D;
+	Thu, 17 Jun 2021 17:26:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 469F9176D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623942293;
-	bh=vK+BaafHwVGcr0zpgbzXQ6SqFlk87cv4GxHWHmPPsFY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1623943652;
+	bh=Sj38CVBwD/q4Tn6QawviFV8yZQrOlwmiLUOLqpXxNx8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KFBPxF2QdxbeNaQl8l1u7jtHyQ0dXrH6mXmF8vsb0oTrRB4v5k4D028FDknoWkZIl
-	 F7sYsV8d4gBDJtzexuKgSlwVei360UQJ95UZefeeeIT1E80h5U+s95rZc+rqBgsWg3
-	 1jtAlxfvOkw5WI0j/SczJNP2P0saSgIe7xeXpGhE=
-Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 58947F804E2;
-	Thu, 17 Jun 2021 17:02:02 +0200 (CEST)
+	b=sw8u4AsTJlOvDpPLboznBWnVx+2V4puIPa2bE1EOvXJpsw6WtVDeTjYwUnEDWbpDE
+	 4EgB/7HDkmgp5S+8GXV2qlrEU0p/7A3531Duv3J3nPgMCTzBSpKzDf8QeOWPjj04Q6
+	 YPULH8OzVFDla3C1fg53P3Y8vLBiojQB+Qq/OqH0=
+Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id F0519F80171;
+	Thu, 17 Jun 2021 17:26:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1DDB8F804DF; Thu, 17 Jun 2021 17:02:00 +0200 (CEST)
+ id 52E40F8025A; Thu, 17 Jun 2021 17:25:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B5F56F804D6
- for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 17:01:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5F56F804D6
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8249F8016D
+ for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 17:25:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8249F8016D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="hxTKqMRc"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D5EE2610A3;
- Thu, 17 Jun 2021 15:01:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623942116;
- bh=vK+BaafHwVGcr0zpgbzXQ6SqFlk87cv4GxHWHmPPsFY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hxTKqMRcgqExvCOa10cMO1C7QrrP9gJbDakRKQ4Va1VU9rhKtpiHowIz78UvZKzFb
- fNaAX9zIQYynX5eH4CsY1GV/n3D7U4Nay2lQq2M1MiZMMBRGqZGYq2OhaAV0KRL/G3
- 7finvwxubWrStFnLuV98OAbbw/IvGbiIbsZMptwVQr4S2lTM+ORC9v+Ve9tSU9cskH
- wTxHq1aTXZjzbmY//aYVn5Ytoc7a+AllML6PaTknHlC5BgDJRrqc2V39uLCM/I+dn0
- 5kXRUyBOVGNjBAYjQhxc4k/GSIKaXQtJIyjkTblTqo2NMyvzIVqDqOF0c9uPI0BMsw
- YYmqXLqZ5ImXA==
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- alsa-devel <alsa-devel@alsa-project.org>, Jaroslav Kysela <perex@perex.cz>,
- Zhen Lei <thunder.leizhen@huawei.com>
-Subject: Re: [PATCH 1/1] ASoC: soc-core: Fix the error return code in
- snd_soc_of_parse_audio_routing()
-Date: Thu, 17 Jun 2021 16:01:18 +0100
-Message-Id: <162394075660.19104.12816220042853507762.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210617103729.1918-1-thunder.leizhen@huawei.com>
-References: <20210617103729.1918-1-thunder.leizhen@huawei.com>
+ dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
+ header.b="4GAqFDoM"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="cQUtMz6+"
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 0AB605C015C;
+ Thu, 17 Jun 2021 11:25:50 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Thu, 17 Jun 2021 11:25:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm3; bh=Sj38CVBwD/q4Tn6QawviFV8yZQr
+ OlwmiLUOLqpXxNx8=; b=4GAqFDoMKYI+3xdwI9qgL3LhOOnO/ZNUTHETJSyyfjy
+ CWhlZ1YWKogjvp/NWS8fZ1Vl2Oqynicahj7bElyS9dn7EHf3IUGmVUpSVrbP7ieg
+ J1iq36SnNhrfTauW5DhYybpY6pP4CYLVfk8ssBAzCTen+M+agbHaX2GeuaVfeIM9
+ MnPK1mjpXt8YeDqaM3QR01ss+Rmn/7v8Lr/cijIWWi06a96f/6u4qeA9fRQbOjrJ
+ 89KDRHa/DOeGRXpenAz12PI33B8iDYd4g1ZJq6b8jCCQrsRu796S9Y2ZgF9SuQnG
+ nHXNZqg93NttaAGpgsFpeOrzL79HeQ61WC6FBmMu51w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=Sj38CV
+ BwD/q4Tn6QawviFV8yZQrOlwmiLUOLqpXxNx8=; b=cQUtMz6+ZX0c9I3OjL/d06
+ 9Lh8+i9IkyAqQXFg73POinDg283dPWm+20Yt5zP7LQEBPraF/++D1sAO98RzhYsd
+ MoeTR/KjOi+6O8uzkQkmkwzsYHRVvdnadYDMcYpX9Nai2/DBg1TiiO1NilAx2ArL
+ SVtbr27Eoqek9cDhGWAeloNQFYTF3HfZo/Gjuhf6vb7BzobwnMAkWlN/vy5Un9xF
+ fcO6fP48+UBrwol+gt8mJyAYTmb2Tj9ilYl/+cCGW9RzHx1SYHearNhGfnnlVddV
+ N7rlB9Oi+tEo3vhAoz7QT7AaDab0dkVMrcgWjdx2LulEkwfHHDx4QrTnLPJJpsDA
+ ==
+X-ME-Sender: <xms:fWnLYLaIS9600yDgK-9QdpIs5WJmXT_F9YlCkqATDbYG7qkL75v4UQ>
+ <xme:fWnLYKbVuqZ2boRHpUb9i_NiAD84cL2T44K0KUNAUDagP9I5reurRTbgFSIBCb2Xs
+ 3EclAZZ2_pnORwEJwQ>
+X-ME-Received: <xmr:fWnLYN9z6LnOBiRi1DfFvuJNgqlh-DbDWHo7URKMbMBgTTTOpMDFSl9-pxXSrsPxW8DTvhawY7_90DjYKEY7eXqN5aqzg38szUjo>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeefuddgkeeiucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepfeehuddulefgteekfeetfefhueeuteeigedvudekleeikeelhedtteetleek
+ ueeunecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpfhhrvggvuggvshhkthhophdroh
+ hrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehm
+ rgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:fWnLYBoci3jDebyoWWxtF-AzjkrHRXhOw2zTvPyE52IO66kjvLmylA>
+ <xmx:fWnLYGoXtv7WIafqYxwJInYfRcL-nFlQobEkV1p6ecD2VbvPEjwmbg>
+ <xmx:fWnLYHTQLw8JIfMxKr1sxluc4Dgj0o-u1sMLMsHrK6ozz7qB71y3GA>
+ <xmx:fmnLYN3nIOMM0x86zlv1FLAmacf9tCz4FAJ7b9D5EfNGiF4LTgjN4g>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 17 Jun 2021 11:25:48 -0400 (EDT)
+Date: Thu, 17 Jun 2021 17:25:45 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: Stefan Wahren <stefan.wahren@i2se.com>
+Subject: Re: vc4: hdmi: audio: ASoC: error at snd_soc_dai_startup on
+ fef00700.hdmi
+Message-ID: <20210617152545.slgm5r7y2pur7mv3@gilmour>
+References: <612b134c-d356-f027-46d7-322bdaff37a4@i2se.com>
+ <20210604090215.cpvoryvwrfzj5ikx@gilmour>
+ <c5290159-89a3-3128-c54f-e1174212a893@i2se.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="q3o6ybqjwppil4m4"
+Content-Disposition: inline
+In-Reply-To: <c5290159-89a3-3128-c54f-e1174212a893@i2se.com>
+Cc: alsa-devel@alsa-project.org,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Emma Anholt <emma@anholt.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,34 +119,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 17 Jun 2021 18:37:29 +0800, Zhen Lei wrote:
-> When devm_kcalloc() fails, the error code -ENOMEM should be returned
-> instead of -EINVAL.
 
-Applied to
+--q3o6ybqjwppil4m4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Hi Stefan,
 
-Thanks!
+On Sat, Jun 12, 2021 at 12:04:08PM +0200, Stefan Wahren wrote:
+> Hi Maxime,
+>=20
+> Am 04.06.21 um 11:02 schrieb Maxime Ripard:
+> > Hi Stefan,
+> >
+> > I would assume it's due to this:
+> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/drivers/gpu/drm/vc4/vc4_hdmi.c#n1083
+> >
+> > It pre-dates my time working on the vc4 driver so I'm not really sure
+> > what this is supposed to prevent, but my guess is that it's there to
+> > avoid someone using the audio card before we have a display detected and
+> > connected, and its capabilities known (the first and more obvious one
+> > being does it support audio in the first place).
+> >
+> > It's nothing new though, maybe it's the error printing itself that is?
+>=20
+> i'm sorry, i forgot about this discussion here:
+>=20
+> https://lists.freedesktop.org/archives/dri-devel/2020-December/292701.html
 
-[1/1] ASoC: soc-core: Fix the error return code in snd_soc_of_parse_audio_routing()
-      commit: 7d3865a10b9ff2669c531d5ddd60bf46b3d48f1e
+It looks like there's no discussion on that link, is it the link you wanted=
+ to paste?
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Maxime
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+--q3o6ybqjwppil4m4
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+-----BEGIN PGP SIGNATURE-----
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYMtpeQAKCRDj7w1vZxhR
+xXb8APkBObTYDL60D0JYHFhpQEOmcZQK72m+0bKLB15fsvHiPQEAroCeReJ1LM5D
+O15ZFpwR7XKy/zq0BXMQnohkX2TJQwI=
+=b4vV
+-----END PGP SIGNATURE-----
 
-Thanks,
-Mark
+--q3o6ybqjwppil4m4--

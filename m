@@ -2,70 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D2983AB64D
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 16:44:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 021CB3AB656
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 16:45:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 113381680;
-	Thu, 17 Jun 2021 16:43:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 113381680
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64DDA179D;
+	Thu, 17 Jun 2021 16:44:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64DDA179D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623941075;
-	bh=VimJuuwci6an9OJtdcPt/6Gz+LKQsquAUVvA4147wQs=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1623941138;
+	bh=+KBOOJCYkxsfJaXdlHh6bjt88qM404LSq3eTyZgU48A=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NLg2OphRurTxN7IMC/01COSVOECtbTWsSHAxftNzo3XuH9U5EfRR4HUCHyyMo0f8o
-	 IRWrW6O6X9f6+chwfZh2GzDuumBAYZi0+ZshOxpQQjXoHXHIJ33ORlZmJgj5nuWk2m
-	 tlCAZMrqvARrhPXeU6f4UBPOEspMXxMbkfGgjoAs=
+	b=NHshLndCpGpuk3bx98j3UuCob8dAfJL2tnLha+9sXVg4ZTazVgfKVALJpJV2BoIjk
+	 2Itef8OGB5OOJJjdIWUaI3rxFHwLLSUviovXEQpq6gIfbd81B3FkdEbmzXWCnL1kwI
+	 sVyQf5wSmVwdfRrEDLPPDkHqRmWQPREhhBAKzSl0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C347EF805AC;
-	Thu, 17 Jun 2021 16:35:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0DE27F805BB;
+	Thu, 17 Jun 2021 16:35:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 358B2F804D1; Thu, 17 Jun 2021 07:48:52 +0200 (CEST)
+ id 21377F8025A; Thu, 17 Jun 2021 09:43:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,PRX_BODY_26,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
+ [IPv6:2607:f8b0:4864:20::52a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A4332F8025A
- for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 07:48:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4332F8025A
-X-UUID: c43d7aac53ee49dd9d686c953eeb5722-20210617
-X-UUID: c43d7aac53ee49dd9d686c953eeb5722-20210617
-Received: from mtkcas07.mediatek.inc [(172.21.101.84)] by mailgw01.mediatek.com
- (envelope-from <trevor.wu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1271350912; Thu, 17 Jun 2021 13:48:36 +0800
-Received: from mtkcas07.mediatek.inc (172.21.101.84) by
- mtkmbs06n1.mediatek.inc (172.21.101.129) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Thu, 17 Jun 2021 13:48:36 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas07.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
- Frontend Transport; Thu, 17 Jun 2021 13:48:36 +0800
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: <broonie@kernel.org>, <tiwai@suse.com>, <robh+dt@kernel.org>,
- <matthias.bgg@gmail.com>
-Subject: [PATCH 8/8] dt-bindings: mediatek: mt8195: add
- mt8195-mt6359-rt1019-rt5682 document
-Date: Thu, 17 Jun 2021 13:47:39 +0800
-Message-ID: <20210617054740.8081-9-trevor.wu@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20210617054740.8081-1-trevor.wu@mediatek.com>
-References: <20210617054740.8081-1-trevor.wu@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A6E48F8016D
+ for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 09:42:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6E48F8016D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="DJulBmuY"
+Received: by mail-pg1-x52a.google.com with SMTP id w31so4264108pga.6
+ for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 00:42:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=dlhQI9LBeuWWY/YA418crEQCoirxo4ehIW0nOzSjBfg=;
+ b=DJulBmuYSBO4muKdi/8Vu2KF3vGVxZhvjkz55/4WjZHKA29UUH/SnFs1qfTuoS6Uwz
+ vH2+PxKJCLFFFIdmU1z2SV/hlmCdNyhSbogDeVK9badYGnI9ZaMJB1HawmbSEp2n/8Ry
+ G5NaXyhPWe1Ngso956j8A7KeVG0zSoeAdLQwAGG4m/0egx5f2SBjzLjrpX8G7WxLdaqC
+ 3J+TZxXbO+41tuQDFFuEfikFYL2HJl3hOpQa4QqBCbyDyQWsuAcZbyPvs3ExaH4fEfMM
+ 8N1FWDkTjISZ7ZZXP4v+XzvIUCpY/5Ie/9y99xfD7x5rBb8cAIX1+b4NKIUGCg0DW1kw
+ h+ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=dlhQI9LBeuWWY/YA418crEQCoirxo4ehIW0nOzSjBfg=;
+ b=cTBJoeO4kR8Z5YqxKU+/jPejv6ceWkApyEPTZlGE160gtnBofPVAwc/z7gEyrsdC6d
+ dbS2LxqhEzjxfe7bgEGyVbBSMWjgVd1BunWKAnlr2p8M6Pka6leBYhVW/9EyWM5wMqgg
+ rsRRqi8CYTFJKvpgEPFZw0k0pV0GYGKtwMi+jjZ+WfkEWJd/7fxSnEW1nLZnJUj9e8Dw
+ J+4qG+/u6a+cIl3YAgLklEhP6LCrK48K+P3+ee+ELmimy4fJkdJ8NGPpxN+85ZcUtkMz
+ P9P8Jj+j2EjYZZvzEL+apMc8pzBL4WtpyJTiEn6V0YmhoVuVgVvdikqHJKw4ihBtJ7Ae
+ Q9/w==
+X-Gm-Message-State: AOAM531iPC6B8ygI/OFPLUP2jbFPORasO/EeDM5glMHlOdpXsMWQv2C5
+ ZlXb0S05OUDbD7tIVvJRD3fIFvjZMkCoQE+kiw==
+X-Google-Smtp-Source: ABdhPJzFltPZJW+CLlqPO3ZDNVm8FYuMgndfCGkTH+NIbNsyzO3D2zxHKHJ6V972BF7TsmpoZxJ49mG+/NuxsZWcpdU=
+X-Received: by 2002:a63:dc4e:: with SMTP id f14mr3735400pgj.378.1623915775013; 
+ Thu, 17 Jun 2021 00:42:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-X-Mailman-Approved-At: Thu, 17 Jun 2021 16:34:46 +0200
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- cychiang@google.com, bicycle.tsai@mediatek.com, linux-kernel@vger.kernel.org,
- jiaxin.yu@mediatek.com, linux-mediatek@lists.infradead.org,
- trevor.wu@mediatek.com, linux-arm-kernel@lists.infradead.org
+References: <20210615130326.2044-1-fengzheng923@gmail.com>
+ <20210615132207.GG5149@sirena.org.uk>
+In-Reply-To: <20210615132207.GG5149@sirena.org.uk>
+From: =?UTF-8?B?54+t5rab?= <fengzheng923@gmail.com>
+Date: Thu, 17 Jun 2021 15:42:43 +0800
+Message-ID: <CAE=m61-kHPeKNvEEc08w8DeUwssGPWNf5UaYojRPNZRJ0v=arw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] ASoC: sunxi: Add Allwinner H6 Digital MIC driver
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Thu, 17 Jun 2021 16:34:45 +0200
+Cc: alsa-devel@alsa-project.org, krzk@kernel.org,
+ Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
+ tiwai@suse.com, jernej.skrabec@gmail.com, lgirdwood@gmail.com, wens@csie.org,
+ mripard@kernel.org, p.zabel@pengutronix.de, linux-sunxi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,59 +101,86 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch adds document for mt8195 board with mt6359, rt1019 and rt5682
+Hi,
 
-Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
----
- .../sound/mt8195-mt6359-rt1019-rt5682.yaml    | 39 +++++++++++++++++++
- 1 file changed, 39 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/mt8195-mt6359-rt1019-rt5682.yaml
+Mark Brown <broonie@kernel.org> =E4=BA=8E2021=E5=B9=B46=E6=9C=8815=E6=97=A5=
+=E5=91=A8=E4=BA=8C =E4=B8=8B=E5=8D=889:22=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Tue, Jun 15, 2021 at 09:03:26PM +0800, Ban Tao wrote:
+>
+> Other than a few small things this looks good:
+>
+> > +M:   Ban Tao <fengzheng923@gmail.com>
+> > +L:   alsa-devel@alsa-project.org (moderated for non-subscribers)
+> > +S:   Maintained
+> > +F:   Documentation/devicetree/bindings/sound/allwinner,sun50i-h6-dmic.=
+yaml
+> > +F:   sound/soc/sunxi/sun50i-dmic.c
+>
+> Not the binding document?
+>
+> > @@ -0,0 +1,408 @@
+> > +// SPDX-License-Identifier: GPL-2.0-or-later
+> > +/*
+> > + * ALSA SoC DMIC Audio Layer
+> > + *
+> > + * Copyright 2021 Ban Tao <fengzheng923@gmail.com>
+> > + *
+>
+> Please make the entire comment a C++ one so things look more
+> intentional.
+>
+For example;
+// SPDX-License-Identifier: GPL-2.0-or-later
+/*
+ * This driver supports the DMIC in Allwinner's H6 SoCs.
+ *
+ * Copyright 2021 Ban Tao <fengzheng923@gmail.com>
+ *
+ */
+is this OK?
 
-diff --git a/Documentation/devicetree/bindings/sound/mt8195-mt6359-rt1019-rt5682.yaml b/Documentation/devicetree/bindings/sound/mt8195-mt6359-rt1019-rt5682.yaml
-new file mode 100644
-index 000000000000..fc93809300ae
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/mt8195-mt6359-rt1019-rt5682.yaml
-@@ -0,0 +1,39 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/mt8195-mt6359-rt1019-rt5682.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Mediatek MT8195 with MT6359, RT1019 and RT5682 ASoC sound card driver
-+
-+maintainers:
-+   - Trevor Wu <trevor.wu@mediatek.com>
-+
-+description:
-+  This binding describes the MT8195 sound card.
-+
-+properties:
-+  compatible:
-+      const: mediatek,mt8195_mt6359_rt1019_rt5682
-+
-+  mediatek,platform:
-+    $ref: "/schemas/types.yaml#/definitions/phandle"
-+    description: The phandle of MT8195 ASoC platform.
-+
-+additionalProperties: false
-+
-+required:
-+  - compatible
-+  - mediatek,platform
-+
-+examples:
-+  - |
-+
-+    sound: mt8195-sound {
-+        compatible = "mediatek,mt8195-sound";
-+        mediatek,platform = <&afe>;
-+        pinctrl-names = "default";
-+        pinctrl-0 = <&aud_pins_default>;
-+    };
-+
-+...
--- 
-2.18.0
 
+> > +static void sun50i_snd_rxctrl_enable(struct snd_pcm_substream *substre=
+am,
+> > +                                 struct sun50i_dmic_dev *host, bool en=
+able)
+> > +{
+> > +     if (enable) {
+>
+> > +     } else {
+>
+> > +static int sun50i_dmic_trigger(struct snd_pcm_substream *substream, in=
+t cmd,
+> > +                            struct snd_soc_dai *dai)
+> > +{
+> > +     int ret =3D 0;
+> > +     struct sun50i_dmic_dev *host =3D snd_soc_dai_get_drvdata(dai);
+> > +
+> > +     if (substream->stream !=3D SNDRV_PCM_STREAM_CAPTURE)
+> > +             return -EINVAL;
+> > +
+> > +     switch (cmd) {
+> > +     case SNDRV_PCM_TRIGGER_START:
+> > +     case SNDRV_PCM_TRIGGER_RESUME:
+> > +     case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+> > +             sun50i_snd_rxctrl_enable(substream, host, true);
+> > +             break;
+> > +
+> > +     case SNDRV_PCM_TRIGGER_STOP:
+> > +     case SNDRV_PCM_TRIGGER_SUSPEND:
+> > +     case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+> > +             sun50i_snd_rxctrl_enable(substream, host, false);
+> > +             break;
+>
+> This is the only caller of _rxctrl_enable() and _rxctrl_enable() shares
+> no code between the two cases - just inline _rxctrl_enable() here, it's
+> clearer what's going on.
+>
+> > +     res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> > +     base =3D devm_ioremap_resource(&pdev->dev, res);
+>
+> devm_platform_ioremap_resource()
+
+But I need to get the register base address of DMIC. E.g res->start.
+host->dma_params_rx.addr =3D res->start + SUN50I_DMIC_DATA;

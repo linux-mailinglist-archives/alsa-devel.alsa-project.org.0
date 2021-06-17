@@ -2,162 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34AF23AB63C
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 16:41:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D18253AB63E
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 16:41:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B80211736;
-	Thu, 17 Jun 2021 16:40:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B80211736
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67E961759;
+	Thu, 17 Jun 2021 16:41:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67E961759
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623940895;
-	bh=A/u+qgoYDIfPJH2nR7TN1MVSs3c34aZySloJGmF3DxI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=dYQVGNKW2nJ5ByOkuNvQrInXeaRw51bn9epKEMhhUIIbDm2JbiLWffBPrevjCouU4
-	 bzcOHoELeJlQO2wu6eHIEZNFx5YRB+VC5BNe/x6KNozb8IXlne0k5BzVXNgYym7MJs
-	 JG2mfZ1tr88tJdkJnFa6Dd7u+bdjfNkhJs5qnB1I=
+	s=default; t=1623940915;
+	bh=dpgXzX6KBWOASS630dMFOOuwA+GpWTe6uk+83IT3DUY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=OSgYM5FhiRC+C8aZNeCDWQuOYWeg4MAN7VAsXexvhOQWk50UFTA1DlgOa0GOus1Yj
+	 MB+9T97AAsFevooR2tYiyr8wO8WqS9G8MEZLAjtVMGFMb4YpC/xiNqzPJezGBeB2i/
+	 yIE8xKBBznssdvGMfqirbfjfijP+9V+a+uvCuduE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71616F80533;
-	Thu, 17 Jun 2021 16:34:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9174F80534;
+	Thu, 17 Jun 2021 16:35:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D96DAF80423; Wed, 16 Jun 2021 20:42:07 +0200 (CEST)
+ id C4E32F8025A; Thu, 17 Jun 2021 07:48:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DA189F8028B
- for <alsa-devel@alsa-project.org>; Wed, 16 Jun 2021 20:41:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA189F8028B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XW7Y4X4B"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3914E610A3;
- Wed, 16 Jun 2021 18:41:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623868917;
- bh=A/u+qgoYDIfPJH2nR7TN1MVSs3c34aZySloJGmF3DxI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=XW7Y4X4BrA5t9ijeAkMM5QcCdVYTcPYigARzxXFbf+hvb/uvp+9Mh4a34b6q7DC/i
- sftLrmCBohcI5jLH7tRhCQG0oRbDHxXeJk4RnxcA6Ul46XtSEkqfRY8t/XGFaIFk86
- qALO4rJMHfSIQDqcWwSZq03gCR35QANxOrYdPBiBe/2o4ooVhYHO++ff/Wjl3yD1k0
- 5+AqyA7gDeMM/vaNpWgsQ3+LVyhh+c7BqwX1vaXN+fU88HSnc2YCtVPrtUbPSvo8Oo
- 6qWAuSvjwilO69NivBQSK/Tx5fcLWTIvpS50NkVkCoknp6Umst4ITXs8YCSnSw0png
- hRSa7JSohypWw==
-Date: Wed, 16 Jun 2021 20:41:50 +0200
-From: Wolfram Sang <wsa@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH] dt-bindings: Drop redundant minItems/maxItems
-Message-ID: <YMpF7gkpbNQYX5EB@kunai>
-Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
- Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-ide@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-crypto@vger.kernel.org, dri-devel@lists.freedesktop.org,
- dmaengine@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-iio@vger.kernel.org, alsa-devel@alsa-project.org,
- iommu@lists.linux-foundation.org, linux-media@vger.kernel.org,
- linux-mmc@vger.kernel.org, netdev@vger.kernel.org,
- linux-can@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-gpio@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-rtc@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-watchdog@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
- Stephen Boyd <sboyd@kernel.org>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Vinod Koul <vkoul@kernel.org>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- Kamal Dasu <kdasu.kdev@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Thomas Gleixner <tglx@linutronix.de>, Marc Zyngier <maz@kernel.org>,
- Joerg Roedel <joro@8bytes.org>,
- Jassi Brar <jassisinghbrar@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Jakub Kicinski <kuba@kernel.org>,
- Wolfgang Grandegger <wg@grandegger.com>,
- Marc Kleine-Budde <mkl@pengutronix.de>,
- Andrew Lunn <andrew@lunn.ch>,
- Vivien Didelot <vivien.didelot@gmail.com>,
- Vladimir Oltean <olteanv@gmail.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Kishon Vijay Abraham I <kishon@ti.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Lee Jones <lee.jones@linaro.org>, Ohad Ben-Cohen <ohad@wizery.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>,
- Alessandro Zummo <a.zummo@towertech.it>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Mark Brown <broonie@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- Guenter Roeck <linux@roeck-us.net>
-References: <20210615191543.1043414-1-robh@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D1699F80088
+ for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 07:48:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1699F80088
+X-UUID: 0e29273f71e6465eaf1a7fb97a1ea95d-20210617
+X-UUID: 0e29273f71e6465eaf1a7fb97a1ea95d-20210617
+Received: from mtkcas06.mediatek.inc [(172.21.101.30)] by mailgw02.mediatek.com
+ (envelope-from <trevor.wu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1345642492; Thu, 17 Jun 2021 13:48:27 +0800
+Received: from mtkcas07.mediatek.inc (172.21.101.84) by
+ mtkmbs08n1.mediatek.inc (172.21.101.55) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Thu, 17 Jun 2021 13:48:19 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas07.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
+ Frontend Transport; Thu, 17 Jun 2021 13:48:20 +0800
+From: Trevor Wu <trevor.wu@mediatek.com>
+To: <broonie@kernel.org>, <tiwai@suse.com>, <robh+dt@kernel.org>,
+ <matthias.bgg@gmail.com>
+Subject: [PATCH 0/8] ASoC: mediatek: Add support for MT8195 SoC
+Date: Thu, 17 Jun 2021 13:47:31 +0800
+Message-ID: <20210617054740.8081-1-trevor.wu@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Ul4MnuDBL/PvPlAZ"
-Content-Disposition: inline
-In-Reply-To: <20210615191543.1043414-1-robh@kernel.org>
+Content-Type: text/plain
+X-MTK: N
 X-Mailman-Approved-At: Thu, 17 Jun 2021 16:34:46 +0200
-Cc: Andrew Lunn <andrew@lunn.ch>, alsa-devel@alsa-project.org,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, linux-pwm@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-pci@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, linux-remoteproc@vger.kernel.org,
- Ulf Hansson <ulf.hansson@linaro.org>, dri-devel@lists.freedesktop.org,
- linux-ide@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-riscv@lists.infradead.org,
- Lee Jones <lee.jones@linaro.org>, linux-clk@vger.kernel.org,
- linux-rtc@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, Marc Zyngier <maz@kernel.org>,
- Joerg Roedel <joro@8bytes.org>, Jassi Brar <jassisinghbrar@gmail.com>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@ti.com>,
- David Airlie <airlied@linux.ie>, linux-serial@vger.kernel.org,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Jakub Kicinski <kuba@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Vivien Didelot <vivien.didelot@gmail.com>,
- Wolfgang Grandegger <wg@grandegger.com>, linux-media@vger.kernel.org,
- Ohad Ben-Cohen <ohad@wizery.com>, devicetree@vger.kernel.org,
- Albert Ou <aou@eecs.berkeley.edu>, linux-watchdog@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-can@vger.kernel.org,
- linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Marc Kleine-Budde <mkl@pengutronix.de>, Kamal Dasu <kdasu.kdev@gmail.com>,
- Paul Walmsley <paul.walmsley@sifive.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-arm-kernel@lists.infradead.org, Jens Axboe <axboe@kernel.dk>,
- Alessandro Zummo <a.zummo@towertech.it>, Guenter Roeck <linux@roeck-us.net>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
- netdev@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
- linux-usb@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- iommu@lists.linux-foundation.org, Palmer Dabbelt <palmer@dabbelt.com>,
- linux-crypto@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, dmaengine@vger.kernel.org,
- Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>,
- Jonathan Cameron <jic23@kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ cychiang@google.com, bicycle.tsai@mediatek.com, linux-kernel@vger.kernel.org,
+ jiaxin.yu@mediatek.com, linux-mediatek@lists.infradead.org,
+ trevor.wu@mediatek.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -173,90 +77,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This series of patches adds support for Mediatek AFE of MT8195 SoC.
+Patches are based on broonie tree "for-next" branch.
 
---Ul4MnuDBL/PvPlAZ
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Trevor Wu (8):
+  ASoC: mediatek: mt8195: update mediatek common driver
+  ASoC: mediatek: mt8195: support etdm in platform driver
+  ASoC: mediatek: mt8195: support adda in platform driver
+  ASoC: mediatek: mt8195: support pcm in platform driver
+  ASoC: mediatek: mt8195: add platform driver
+  dt-bindings: mediatek: mt8195: add audio afe document
+  ASoC: mediatek: mt8195: add machine driver with mt6359, rt1019 and
+    rt5682
+  dt-bindings: mediatek: mt8195: add mt8195-mt6359-rt1019-rt5682
+    document
 
-On Tue, Jun 15, 2021 at 01:15:43PM -0600, Rob Herring wrote:
-> If a property has an 'items' list, then a 'minItems' or 'maxItems' with t=
-he
-> same size as the list is redundant and can be dropped. Note that is DT
-> schema specific behavior and not standard json-schema behavior. The tooli=
-ng
-> will fixup the final schema adding any unspecified minItems/maxItems.
->=20
-> This condition is partially checked with the meta-schema already, but
-> only if both 'minItems' and 'maxItems' are equal to the 'items' length.
-> An improved meta-schema is pending.
->=20
-> Cc: Jens Axboe <axboe@kernel.dk>
-> Cc: Stephen Boyd <sboyd@kernel.org>
-> Cc: Herbert Xu <herbert@gondor.apana.org.au>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: David Airlie <airlied@linux.ie>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Vinod Koul <vkoul@kernel.org>
-> Cc: Bartosz Golaszewski <bgolaszewski@baylibre.com>
-> Cc: Kamal Dasu <kdasu.kdev@gmail.com>
-> Cc: Jonathan Cameron <jic23@kernel.org>
-> Cc: Lars-Peter Clausen <lars@metafoo.de>
-> Cc: Thomas Gleixner <tglx@linutronix.de>
-> Cc: Marc Zyngier <maz@kernel.org>
-> Cc: Joerg Roedel <joro@8bytes.org>
-> Cc: Jassi Brar <jassisinghbrar@gmail.com>
-> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-> Cc: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-> Cc: Ulf Hansson <ulf.hansson@linaro.org>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Cc: Wolfgang Grandegger <wg@grandegger.com>
-> Cc: Marc Kleine-Budde <mkl@pengutronix.de>
-> Cc: Andrew Lunn <andrew@lunn.ch>
-> Cc: Vivien Didelot <vivien.didelot@gmail.com>
-> Cc: Vladimir Oltean <olteanv@gmail.com>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Kishon Vijay Abraham I <kishon@ti.com>
-> Cc: Linus Walleij <linus.walleij@linaro.org>
-> Cc: "Uwe Kleine-K=C3=B6nig" <u.kleine-koenig@pengutronix.de>
-> Cc: Lee Jones <lee.jones@linaro.org>
-> Cc: Ohad Ben-Cohen <ohad@wizery.com>
-> Cc: Mathieu Poirier <mathieu.poirier@linaro.org>
-> Cc: Philipp Zabel <p.zabel@pengutronix.de>
-> Cc: Paul Walmsley <paul.walmsley@sifive.com>
-> Cc: Palmer Dabbelt <palmer@dabbelt.com>
-> Cc: Albert Ou <aou@eecs.berkeley.edu>
-> Cc: Alessandro Zummo <a.zummo@towertech.it>
-> Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Zhang Rui <rui.zhang@intel.com>
-> Cc: Daniel Lezcano <daniel.lezcano@linaro.org>
-> Cc: Wim Van Sebroeck <wim@linux-watchdog.org>
-> Cc: Guenter Roeck <linux@roeck-us.net>
-> Signed-off-by: Rob Herring <robh@kernel.org>
+ .../bindings/sound/mt8195-afe-pcm.yaml        |   72 +
+ .../sound/mt8195-mt6359-rt1019-rt5682.yaml    |   39 +
+ sound/soc/mediatek/Kconfig                    |   23 +
+ sound/soc/mediatek/Makefile                   |    1 +
+ sound/soc/mediatek/common/mtk-afe-fe-dai.c    |   20 +-
+ sound/soc/mediatek/common/mtk-base-afe.h      |   10 +-
+ sound/soc/mediatek/mt8195/Makefile            |   14 +
+ sound/soc/mediatek/mt8195/mt8195-afe-clk.c    |  899 +++++
+ sound/soc/mediatek/mt8195/mt8195-afe-clk.h    |  201 +
+ sound/soc/mediatek/mt8195/mt8195-afe-common.h |  200 +
+ sound/soc/mediatek/mt8195/mt8195-afe-pcm.c    | 3264 +++++++++++++++++
+ sound/soc/mediatek/mt8195/mt8195-dai-adda.c   |  929 +++++
+ sound/soc/mediatek/mt8195/mt8195-dai-etdm.c   | 2666 ++++++++++++++
+ sound/soc/mediatek/mt8195/mt8195-dai-pcm.c    |  393 ++
+ .../mt8195/mt8195-mt6359-rt1019-rt5682.c      |  974 +++++
+ sound/soc/mediatek/mt8195/mt8195-reg.h        | 2793 ++++++++++++++
+ 16 files changed, 12494 insertions(+), 4 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/mt8195-afe-pcm.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/mt8195-mt6359-rt1019-rt5682.yaml
+ create mode 100644 sound/soc/mediatek/mt8195/Makefile
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-afe-clk.c
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-afe-clk.h
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-afe-common.h
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-dai-adda.c
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-dai-etdm.c
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-dai-pcm.c
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-reg.h
 
-Acked-by: Wolfram Sang <wsa@kernel.org> # for I2C
+-- 
+2.18.0
 
-
---Ul4MnuDBL/PvPlAZ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmDKRekACgkQFA3kzBSg
-KbbFdA/+J6slaN90bvqrl9Kylr+F1vWPHBVKSRdA0mnhK09uqqdE0YEx3nLRBJYG
-zGjhfQY+0UCubghvsI8mYBKj+jv5fkzM8D2Mr13GL5b+zVFOML1f24o8y9Fwsi6A
-qbgTfoI0FaRdGTd1ocYLkYtywYrM9XmSeG9QuXBLIufeQsnOspjtQQ+WYRNM4qzw
-Qa+FkuAJZPED0sG7wbpPkzaA4eNfoKn0YQNwk8tIDdl5qvrw6W0cZ6lhog5v5kPB
-c3gC2OJzR4fXzt+uA2rIWWF9rujLHaiWT0nWXSz93ViX9pZPZ77kDSK4xEz8h3Rr
-mRX25SXmSnOf3xLGGkw6fx86sT5dZ6HlhWbhHbXdGzeYBeCfrgXwgj3wHXlyHA5S
-jIgGUlAeT9uMSmv3lmSQ4Lx3tUvKupZ8zX9N6/ay+2kiIei931x+sP73627hNjwz
-Tnbj1JBDeNgP0Oukiq6xMGyT5VxQk1rgh0garZvFZoPVEr/ae1Z5A8/mNKSwhOVj
-4PRKHuz72zpDbx7LuMaG6EnY5fzhDSGVRCSIeNs4yRX1cnVbtEGbsI7yOmrUx+wl
-3kAkYFZYbin5oRO36gDyYg5ZUyFDy4s+Jh5a8kPFANPY2ToOS8Ssa1hFNu0SSgve
-uONICGgcQoHO4Jbvea809td91bvqtiCieKCCX19GqJa37ktj2Ww=
-=EWxK
------END PGP SIGNATURE-----
-
---Ul4MnuDBL/PvPlAZ--

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 239133AB6DD
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 17:04:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CB523AB6DF
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 17:04:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F14517A5;
-	Thu, 17 Jun 2021 17:03:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F14517A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id C3A3A177E;
+	Thu, 17 Jun 2021 17:03:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3A3A177E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623942253;
-	bh=syZJZA6AiFXTfA5Kku0tqi/215ifUvvmL7TjrjU9VjU=;
+	s=default; t=1623942266;
+	bh=CTtyfFQGWWovOtDS+qRZsuHugOAENWrHm4AEZc6unu8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=btvcWoQZ7kL6rusxJQdlZIOkqKWTcYhkIHXXsdgX4gg8mmS2Pkl/nSR0NI2zTyX1J
-	 2jSCJ0mw8YZLsCVXQFlhB6PIj3HKLzaFXgScF10P2a6ChYCKAv94Fy9/sGtG/WbI7a
-	 2v96+BP34rdmoBIV4JXvb9LgnMXc3BksRHX3gYig=
+	b=oH+DtyX5Xqqxfqzn8PSp5VYTLgCEHFOBAeqOZIKFgxF74ArZMDAyUfixp1Z7pf/BU
+	 fQRwd4mf0II/F7JBj2cN+QyaSMHom3FpV+kt4IFWJ9O+XNVv4Y6jccjrCci4MD8bbu
+	 ss0ltB8l4FAxAGzTuGTEG1oW2Xttb+/mpm6Yn1no=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A3DB9F802A9;
-	Thu, 17 Jun 2021 17:01:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96CD4F804DA;
+	Thu, 17 Jun 2021 17:02:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7EB50F8028B; Thu, 17 Jun 2021 17:01:54 +0200 (CEST)
+ id 869CDF804D8; Thu, 17 Jun 2021 17:01:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 92E7AF8025A
- for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 17:01:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92E7AF8025A
+ by alsa1.perex.cz (Postfix) with ESMTPS id D38D0F802A9
+ for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 17:01:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D38D0F802A9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Cx3WU0Kd"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9029F6113E;
- Thu, 17 Jun 2021 15:01:49 +0000 (UTC)
+ header.b="Qxe1zkqK"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D674060C3E;
+ Thu, 17 Jun 2021 15:01:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623942110;
- bh=syZJZA6AiFXTfA5Kku0tqi/215ifUvvmL7TjrjU9VjU=;
+ s=k20201202; t=1623942113;
+ bh=CTtyfFQGWWovOtDS+qRZsuHugOAENWrHm4AEZc6unu8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Cx3WU0KdGMt/U2Y8hhk/VDOEd3hdXveR1n9wgR3io3a0Zn0OebqZZgkdUsY3JinlD
- m4A89dIpspVDIrjlCNgcFZgFt4BM2IWhUOihH80inMR+tbdX/LgLRFiVS4fLzfjExH
- bxuqszWSMzTLXXT2Gf7neO53EK5eMcbgErNPyqs28DARd9i4Q/MjtAsTU+tj8ARCnS
- ODBZPLMqWJG1sGnK925teM75T4eDYiPWGRtBLbprXUbZc2fKAIvIRRL887rHvMJHlU
- 1yIH8WwW7q39PXJi+rUu9/lCtjLr1+fACWtyEG3J3Aakx0Ond8QYPoONx+pW6JNsm/
- crfcQlPPOUnBw==
+ b=Qxe1zkqKtDabjy+ZL2MWvHHi0JxpH/YBPg6BO59pdSrx7QfNxKwAvIrjYcCJ0tLFJ
+ G0KLsmTFrDkPYSyficsVgAb84jqh50l50rEMUnDXjCKzDCQpm4KYhAkCIsHIEQIv+o
+ 6hJ+6jfcy3l/KBGXPdb6ld0Iinm9emyjhDPuY3MwLMQvCxP+Raqxrx3OQnKF2mTh3j
+ VbUMrmojWEojC0LZzHaOCA1wQ0Z2JVCg9lilmo+BWp947YEen9B2Ektp/YkbaQlsWv
+ wnhxTwxYeaeLXMuZuV3zXgjtCFtVxFcH7SWn30WTkQ4fZ5rEwh32buyBn1XnBRDbCL
+ PR//6WMnqYX0A==
 From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Yang Yingliang <yangyingliang@huawei.com>, alsa-devel@alsa-project.org
-Subject: Re: [PATCH -next 0/3] ASoC: stm32: Use
+To: linux-kernel@vger.kernel.org, Yang Yingliang <yangyingliang@huawei.com>,
+ alsa-devel@alsa-project.org
+Subject: Re: [PATCH -next] ASoC: spear: spdif_out: Use
  devm_platform_get_and_ioremap_resource()
-Date: Thu, 17 Jun 2021 16:01:16 +0100
-Message-Id: <162394075660.19104.17632705011154431628.b4-ty@kernel.org>
+Date: Thu, 17 Jun 2021 16:01:17 +0100
+Message-Id: <162394075659.19104.4524131228561652515.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210617043847.1113092-1-yangyingliang@huawei.com>
-References: <20210617043847.1113092-1-yangyingliang@huawei.com>
+In-Reply-To: <20210617032900.600124-1-yangyingliang@huawei.com>
+References: <20210617032900.600124-1-yangyingliang@huawei.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>, olivier.moysan@foss.st.com
+Cc: Mark Brown <broonie@kernel.org>, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,16 +80,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 17 Jun 2021 12:38:44 +0800, Yang Yingliang wrote:
+On Thu, 17 Jun 2021 11:29:00 +0800, Yang Yingliang wrote:
 > Use devm_platform_get_and_ioremap_resource() to simplify
 > code.
-> 
-> Yang Yingliang (3):
->   ASoC: stm32: i2s: Use devm_platform_get_and_ioremap_resource()
->   ASoC: stm32: sai: Use devm_platform_get_and_ioremap_resource()
->   ASoC: stm32: spdifrx: Use devm_platform_get_and_ioremap_resource()
-> 
-> [...]
 
 Applied to
 
@@ -97,12 +90,8 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: stm32: i2s: Use devm_platform_get_and_ioremap_resource()
-      commit: 2f1776691978dfab30717548ffec0f3fa4ad0981
-[2/3] ASoC: stm32: sai: Use devm_platform_get_and_ioremap_resource()
-      commit: 003ee640abaeeaa7d11f931e5bb86bdc4becb594
-[3/3] ASoC: stm32: spdifrx: Use devm_platform_get_and_ioremap_resource()
-      commit: f3babad47e0db3daec301975b46de5bfadc15dd4
+[1/1] ASoC: spear: spdif_out: Use devm_platform_get_and_ioremap_resource()
+      commit: 114bacc75c2189a6ed7ee208545e8d6777c94aec
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

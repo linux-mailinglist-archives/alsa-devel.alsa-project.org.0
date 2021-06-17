@@ -2,144 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 542083AEA53
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jun 2021 15:49:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FAEB3AEAD8
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jun 2021 16:11:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5E531684;
-	Mon, 21 Jun 2021 15:48:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5E531684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13BEE82A;
+	Mon, 21 Jun 2021 16:10:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13BEE82A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624283342;
-	bh=Px3U0vIJOR9+4P9tFLiv33AajDA+Qy49z/9CU42x4+c=;
-	h=Subject:To:From:Date:In-Reply-To:References:List-Id:
+	s=default; t=1624284702;
+	bh=abP/vWdBeSUIaMkp5jmw/LYVHRH7yoaTcGbf6LogtF4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NY7mjKXom+Aoinme26FP3bJs0T4kFYc+ioHCMVB9BnBV0IYm+uDuZa5C7sQztfd5i
-	 v37/QMf+VPEvt+YbKwra1SJaTsNc3KyFLULAEWPb+LnjLPn2z5fRA0dsjB+ZHW/yDZ
-	 KEs/mLV86fNUAoZci/6GiaYAgBzXBWyaaTuOeSYI=
+	b=Nl5yBi+9qiMdqJJ+7YsZUUeVnjwtHcjh4c/Up8l/VA0ntinbx0Wql4VQAU8JZIQo3
+	 CWI/GBbdBGDoBWVYJVluyIz892eC/qdTjS40agCchxI0qK82jRt0FQI8TA4tQC2zIi
+	 aazSq0U+SxAZPOci81Pe5a586QsHd7FxJHztx85s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59BEFF80111;
-	Mon, 21 Jun 2021 15:47:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 733BFF8016D;
+	Mon, 21 Jun 2021 16:10:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67528F8016D; Mon, 21 Jun 2021 15:47:33 +0200 (CEST)
+ id 5255CF8025A; Thu, 17 Jun 2021 18:06:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_26,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B0AD5F80111
- for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 15:47:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0AD5F80111
+ by alsa1.perex.cz (Postfix) with ESMTPS id DAF24F80088
+ for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 18:06:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAF24F80088
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="qhFRnE+r"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20210621134724euoutp02aeb836e02c419895a47b731bcf0ba3bf~KnQFLPloC0908509085euoutp02c
- for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 13:47:24 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20210621134724euoutp02aeb836e02c419895a47b731bcf0ba3bf~KnQFLPloC0908509085euoutp02c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1624283244;
- bh=WBGmiRk36mDUrOliQVAlmO4y07enstu/5D4iQkLvX/M=;
- h=Subject:To:From:Date:In-Reply-To:References:From;
- b=qhFRnE+rGPLp/bGBNqiPpmV4MnV4In63WvH5jbp5wAwMWdvQj1q5ivU2uAwrri+6j
- VaAMm3vPOVjZBfcM7d1L2FC8eL06mVUdolXIRdFAFons7qFtUQnKWqUnjw7QfajQs9
- DI+xG9FFjyUD40l8t2WHcSpbtb+BfinwCMXj0qpw=
-Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTP id
- 20210621134724eucas1p2899419d20b04f726caab86c236f75932~KnQE9dAbw1083610836eucas1p2Y;
- Mon, 21 Jun 2021 13:47:24 +0000 (GMT)
-Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges2new.samsung.com (EUCPMTA) with SMTP id EB.4F.42068.C6890D06; Mon, 21
- Jun 2021 14:47:24 +0100 (BST)
-Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20210621134723eucas1p15155c018d83a6cc8f58e8b235a5fe964~KnQEVbWJW1095010950eucas1p1O;
- Mon, 21 Jun 2021 13:47:23 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20210621134723eusmtrp1b907cbe0396d95965509cc3bed52df3a~KnQEUi1Sr1681616816eusmtrp11;
- Mon, 21 Jun 2021 13:47:23 +0000 (GMT)
-X-AuditID: cbfec7f4-c71ff7000002a454-8d-60d0986cc113
-Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id 56.FB.31287.B6890D06; Mon, 21
- Jun 2021 14:47:23 +0100 (BST)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20210621134722eusmtip2edd869dc85c0c59c448fc878e343f2d2~KnQDR6AMc2887228872eusmtip20;
- Mon, 21 Jun 2021 13:47:22 +0000 (GMT)
-Subject: Re: [PATCH v3] ASoC: qcom: Fix for DMA interrupt clear reg overwriting
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, Srinivasa Rao
- Mandadapu <srivasam@codeaurora.org>, agross@kernel.org,
- bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
- robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
- perex@perex.cz, tiwai@suse.com, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- swboyd@chromium.org, judyhsiao@chromium.org
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-Message-ID: <f12445cc-53ad-4ebe-c0f7-c0d86b369164@samsung.com>
-Date: Mon, 21 Jun 2021 15:47:21 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0)
- Gecko/20100101 Thunderbird/78.11.0
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="jeALzHLk"
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+ by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 15HG62FL083373;
+ Thu, 17 Jun 2021 11:06:02 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1623945962;
+ bh=LVkWEpy5e6cRZkuXdEoUXgk9+WHo500mtyYaCdD+Lf0=;
+ h=Subject:To:CC:References:From:Date:In-Reply-To;
+ b=jeALzHLk3n7+qQeuxED/H4L5B0pUGfd+IKm4cHUnNDcbGNi/N/vECD6HccgWs8Rdc
+ A79ZIeBKglC2uQcNptT6Rqq9rI3jaHqWmNvG1vKe80Rl9RF+rCyfhlpGUEyO1JBVae
+ q2yQKhqF9u2BVEw+7gi7jwzlSE7Jbm56DgmZH8PQ=
+Received: from DFLE113.ent.ti.com (dfle113.ent.ti.com [10.64.6.34])
+ by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 15HG60jb058606
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 17 Jun 2021 11:06:01 -0500
+Received: from DFLE115.ent.ti.com (10.64.6.36) by DFLE113.ent.ti.com
+ (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Thu, 17
+ Jun 2021 11:06:00 -0500
+Received: from fllv0039.itg.ti.com (10.64.41.19) by DFLE115.ent.ti.com
+ (10.64.6.36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2 via
+ Frontend Transport; Thu, 17 Jun 2021 11:06:00 -0500
+Received: from [10.250.36.147] (ileax41-snat.itg.ti.com [10.172.224.153])
+ by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 15HG5xDj116986;
+ Thu, 17 Jun 2021 11:05:59 -0500
+Subject: Re: [PATCH] dt-bindings: Drop redundant minItems/maxItems
+To: Rob Herring <robh@kernel.org>, <devicetree@vger.kernel.org>
+References: <20210615191543.1043414-1-robh@kernel.org>
+From: Suman Anna <s-anna@ti.com>
+Message-ID: <bb8c18f6-139d-76be-87e7-0c93e03cc92c@ti.com>
+Date: Thu, 17 Jun 2021 11:05:59 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <ec4f3faf-2169-3cd2-7471-976f20f77110@linaro.org>
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrBKsWRmVeSWpSXmKPExsWy7djP87o5My4kGLT8ZLU49/g3i8WVi4eY
- LBpvL2K1OL3/HYvF1IdP2CzmHznHanFtYjuTxbcrHUwWE/efZbe4vGsOm0Xnrn5Wi465Exgt
- WvceYbc4uaWZ0aLt2DFWi++vzjJbHL/zlMliw/e1jA5CHhs+N7F5zG64yOJxua+XyWPnrLvs
- HptWdbJ53Lm2h81j39tlbB7rt1xl8fi8SS6AM4rLJiU1J7MstUjfLoEr49yzBawFh0wqmv5c
- YGpgbNTtYuTkkBAwkfjc38fcxcjFISSwglHiz5kXUM4XRokt856wQjifGSVWtXxhgmk5vHoF
- VNVyRomeD12MIAkhgY+MEkf/sXcxcnAICwRKzHxSBhIWEXjHLPFjkjmIzSZgKNH1tosNxOYV
- sJM42HsezGYRUJVou/EGbIyoQLLE+3kzWCFqBCVOznzCAmJzAtXf37cYzGYWkJdo3jqbGcIW
- l7j1ZD4TyD0SArs5JQ7vaGOHONRFYtHM6WwQtrDEq+NboOIyEqcn97BANDQzSjw8t5Ydwulh
- lLjcNIMRospa4s65X2wg3zALaEqs36UPEXaUWP+3gxUkLCHAJ3HjrSDEEXwSk7ZNZ4YI80p0
- tAlBVKtJzDq+Dm7twQuXmCFsD4n9e6+yTmBUnIXkzVlIXpuF5LVZCDcsYGRZxSieWlqcm55a
- bJSXWq5XnJhbXJqXrpecn7uJEZgYT/87/mUH4/JXH/UOMTJxMB5ilOBgVhLhvZlyIUGINyWx
- siq1KD++qDQntfgQozQHi5I4b9KWNfFCAumJJanZqakFqUUwWSYOTqkGJhXPST58S2q2Pd+v
- O7X3jfaNHz/FvfZ67P52dK3LHfGkXL/K7Xv/fvkj84aJ1ejs4sKvXE0uvTXvpvcWKag+qea4
- dU7l8Ow+3zMFSapuEhsWT/90gT8nRPDDBr30G6n32HbWLb7dGZZ9l4NPYjrXU+ZHQg2Tjxa+
- 8v67v1jX3F5oGU9G1fe1k4R1lJIsmhi+TmE+te1G1GLuD2YXCrjnvPLY9PvY/rUPVFkrOq/L
- sRRNvGncpyNiuHzic//obdoF76dmLP2//dJJoZ2zZh5iCRZgSQxe9rNBKt7ywenHq/L6Iv0P
- V262mmBj+aRKbfVzTd9Hj95G7BaO1/Li4mmUVuz+mbj3S3/R2sfHbik4VSixFGckGmoxFxUn
- AgCjBkZM+wMAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrHIsWRmVeSWpSXmKPExsVy+t/xe7rZMy4kGEy4Im1x7vFvFosrFw8x
- WTTeXsRqcXr/OxaLqQ+fsFnMP3KO1eLaxHYmi29XOpgsJu4/y25xedccNovOXf2sFh1zJzBa
- tO49wm5xckszo0XbsWOsFt9fnWW2OH7nKZPFhu9rGR2EPDZ8bmLzmN1wkcXjcl8vk8fOWXfZ
- PTat6mTzuHNtD5vHvrfL2DzWb7nK4vF5k1wAZ5SeTVF+aUmqQkZ+cYmtUrShhZGeoaWFnpGJ
- pZ6hsXmslZGpkr6dTUpqTmZZapG+XYJexrlnC1gLDplUNP25wNTA2KjbxcjJISFgInF49Qrm
- LkYuDiGBpYwSFw6dYIdIyEicnNbACmELS/y51sUGUfSeUeLfhLNAHRwcwgKBEjOflIHUiAi8
- Y5b42JwPYgsJ/GSU+HYzB8RmEzCU6HoL0svJwStgJ3Gw9zyYzSKgKtF24w0jiC0qkCzxc307
- VI2gxMmZT1hAbE6g+vv7FoPZzAJmEvM2P2SGsOUlmrfOhrLFJW49mc80gVFwFpL2WUhaZiFp
- mYWkZQEjyypGkdTS4tz03GJDveLE3OLSvHS95PzcTYzAiN927OfmHYzzXn3UO8TIxMF4iFGC
- g1lJhPdmyoUEId6UxMqq1KL8+KLSnNTiQ4ymQP9MZJYSTc4Hppy8knhDMwNTQxMzSwNTSzNj
- JXHerXPXxAsJpCeWpGanphakFsH0MXFwSjUwCZf9vHCkSb1r09fFU16Inxae674lVfiZxb8P
- dgHOtgeKnpWLiK6X6FnveJhdIq751hLfm5PN3WXC59rf/1Vl+HUR98xp9iUmZ4VP8P7LOs2z
- WvTMdV9v608bjoaWnHvLkeZwmn96Zltj2kOJTQaL2pLzO2LK88IbE2b4Laz23Ncsq8MsaMd9
- SenEK4++n+ccJ7TPmm/z8NPm836Tzz+Z/nT3m1urN+/2PdSiZLDA8dRphe6KvUtb28XSP1at
- /BF6qaeH8cwbw2vsl14Fx81Yp/ukcMrRdeF7D1gJrJPXu96aJxE21V/akr2sJVMh1EU9+Pw6
- vgPyxfsmps/9fMCO3f1yovGfUO9FR9eINPnXK7EUZyQaajEXFScCAD2Jg6OBAwAA
-X-CMS-MailID: 20210621134723eucas1p15155c018d83a6cc8f58e8b235a5fe964
-X-Msg-Generator: CA
+In-Reply-To: <20210615191543.1043414-1-robh@kernel.org>
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20210617193537eucas1p217b93d091ae8795581b30931ad8c7467
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20210617193537eucas1p217b93d091ae8795581b30931ad8c7467
-References: <20210609072310.26099-1-srivasam@codeaurora.org>
- <CGME20210617193537eucas1p217b93d091ae8795581b30931ad8c7467@eucas1p2.samsung.com>
- <5ae06ccb-ffd4-ca9f-5a88-1f8bf8b48d37@samsung.com>
- <ec4f3faf-2169-3cd2-7471-976f20f77110@linaro.org>
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+X-Mailman-Approved-At: Mon, 21 Jun 2021 16:10:07 +0200
+Cc: Andrew Lunn <andrew@lunn.ch>, alsa-devel@alsa-project.org,
+ Jassi Brar <jassisinghbrar@gmail.com>, linux-iio@vger.kernel.org,
+ linux-pci@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
+ linux-remoteproc@vger.kernel.org,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-ide@vger.kernel.org,
+ linux-i2c@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-riscv@lists.infradead.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Lee Jones <lee.jones@linaro.org>, linux-clk@vger.kernel.org,
+ linux-rtc@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Kamal Dasu <kdasu.kdev@gmail.com>,
+ Marc Zyngier <maz@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>,
+ iommu@lists.linux-foundation.org, Kishon Vijay Abraham I <kishon@ti.com>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, linux-serial@vger.kernel.org,
+ =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
+ Jakub Kicinski <kuba@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Vivien Didelot <vivien.didelot@gmail.com>, Guenter Roeck <linux@roeck-us.net>,
+ linux-media@vger.kernel.org, Ohad Ben-Cohen <ohad@wizery.com>,
+ linux-pwm@vger.kernel.org, Albert Ou <aou@eecs.berkeley.edu>,
+ linux-watchdog@vger.kernel.org, linux-pm@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, linux-can@vger.kernel.org,
+ linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Marc Kleine-Budde <mkl@pengutronix.de>,
+ Paul Walmsley <paul.walmsley@sifive.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Thomas Gleixner <tglx@linutronix.de>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Zhang Rui <rui.zhang@intel.com>,
+ linux-arm-kernel@lists.infradead.org, Jens Axboe <axboe@kernel.dk>,
+ Alessandro Zummo <a.zummo@towertech.it>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
+ netdev@vger.kernel.org, dmaengine@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ linux-usb@vger.kernel.org, Palmer Dabbelt <palmer@dabbelt.com>,
+ Wolfgang Grandegger <wg@grandegger.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-crypto@vger.kernel.org,
+ Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Jonathan Cameron <jic23@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -155,153 +133,230 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Hi Rob,
 
-On 21.06.2021 14:52, Srinivas Kandagatla wrote:
->
-> On 17/06/2021 20:35, Marek Szyprowski wrote:
->>
->> On 09.06.2021 09:23, Srinivasa Rao Mandadapu wrote:
->>> The DMA interrupt clear register overwritten during
->>> simultaneous playback and capture in lpass platform
->>> interrupt handler. It's causing playback or capture stuck
->>> in similtaneous plaback on speaker and capture on dmic test.
->>> Update appropriate reg fields of corresponding channel instead
->>> of entire register write.
->>>
->>> Fixes: commit c5c8635a04711 ("ASoC: qcom: Add LPASS platform driver")
->>>
->>> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
->>
-> Can you please try this patch and let us know if this fixes the issue
->
-> ------------------------->cut<-------------------------------
-> Author: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> Date:   Mon Jun 21 12:38:43 2021 +0100
->
->     ASoC: qcom: lpass-cpu: mark IRQ_CLEAR register as volatile and 
-> readable
->
->     Currently IRQ_CLEAR register is marked as write-only, however using
->     regmap_update_bits on this register will have some side effects.
->     so mark IRQ_CLEAR register appropriately as readable and volatile.
->
->     Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+On 6/15/21 2:15 PM, Rob Herring wrote:
+> If a property has an 'items' list, then a 'minItems' or 'maxItems' with the
+> same size as the list is redundant and can be dropped. Note that is DT
+> schema specific behavior and not standard json-schema behavior. The tooling
+> will fixup the final schema adding any unspecified minItems/maxItems.
+> 
+> This condition is partially checked with the meta-schema already, but
+> only if both 'minItems' and 'maxItems' are equal to the 'items' length.
+> An improved meta-schema is pending.
+> 
+> Cc: Jens Axboe <axboe@kernel.dk>
+> Cc: Stephen Boyd <sboyd@kernel.org>
+> Cc: Herbert Xu <herbert@gondor.apana.org.au>
+> Cc: "David S. Miller" <davem@davemloft.net>
+> Cc: David Airlie <airlied@linux.ie>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: Vinod Koul <vkoul@kernel.org>
+> Cc: Bartosz Golaszewski <bgolaszewski@baylibre.com>
+> Cc: Kamal Dasu <kdasu.kdev@gmail.com>
+> Cc: Jonathan Cameron <jic23@kernel.org>
+> Cc: Lars-Peter Clausen <lars@metafoo.de>
+> Cc: Thomas Gleixner <tglx@linutronix.de>
+> Cc: Marc Zyngier <maz@kernel.org>
+> Cc: Joerg Roedel <joro@8bytes.org>
+> Cc: Jassi Brar <jassisinghbrar@gmail.com>
+> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+> Cc: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+> Cc: Ulf Hansson <ulf.hansson@linaro.org>
+> Cc: Jakub Kicinski <kuba@kernel.org>
+> Cc: Wolfgang Grandegger <wg@grandegger.com>
+> Cc: Marc Kleine-Budde <mkl@pengutronix.de>
+> Cc: Andrew Lunn <andrew@lunn.ch>
+> Cc: Vivien Didelot <vivien.didelot@gmail.com>
+> Cc: Vladimir Oltean <olteanv@gmail.com>
+> Cc: Bjorn Helgaas <bhelgaas@google.com>
+> Cc: Kishon Vijay Abraham I <kishon@ti.com>
+> Cc: Linus Walleij <linus.walleij@linaro.org>
+> Cc: "Uwe Kleine-König" <u.kleine-koenig@pengutronix.de>
+> Cc: Lee Jones <lee.jones@linaro.org>
+> Cc: Ohad Ben-Cohen <ohad@wizery.com>
+> Cc: Mathieu Poirier <mathieu.poirier@linaro.org>
+> Cc: Philipp Zabel <p.zabel@pengutronix.de>
+> Cc: Paul Walmsley <paul.walmsley@sifive.com>
+> Cc: Palmer Dabbelt <palmer@dabbelt.com>
+> Cc: Albert Ou <aou@eecs.berkeley.edu>
+> Cc: Alessandro Zummo <a.zummo@towertech.it>
+> Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: Zhang Rui <rui.zhang@intel.com>
+> Cc: Daniel Lezcano <daniel.lezcano@linaro.org>
+> Cc: Wim Van Sebroeck <wim@linux-watchdog.org>
+> Cc: Guenter Roeck <linux@roeck-us.net>
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> ---
+>  .../devicetree/bindings/ata/nvidia,tegra-ahci.yaml          | 1 -
+>  .../devicetree/bindings/clock/allwinner,sun4i-a10-ccu.yaml  | 2 --
+>  .../devicetree/bindings/clock/qcom,gcc-apq8064.yaml         | 1 -
+>  Documentation/devicetree/bindings/clock/qcom,gcc-sdx55.yaml | 2 --
+>  .../devicetree/bindings/clock/qcom,gcc-sm8350.yaml          | 2 --
+>  .../devicetree/bindings/clock/sprd,sc9863a-clk.yaml         | 1 -
+>  .../devicetree/bindings/crypto/allwinner,sun8i-ce.yaml      | 2 --
+>  Documentation/devicetree/bindings/crypto/fsl-dcp.yaml       | 1 -
+>  .../display/allwinner,sun4i-a10-display-backend.yaml        | 6 ------
+>  .../bindings/display/allwinner,sun6i-a31-mipi-dsi.yaml      | 1 -
+>  .../bindings/display/allwinner,sun8i-a83t-dw-hdmi.yaml      | 4 ----
+>  .../bindings/display/allwinner,sun8i-a83t-hdmi-phy.yaml     | 2 --
+>  .../bindings/display/allwinner,sun8i-r40-tcon-top.yaml      | 2 --
+>  .../devicetree/bindings/display/bridge/cdns,mhdp8546.yaml   | 2 --
+>  .../bindings/display/rockchip/rockchip,dw-hdmi.yaml         | 2 --
+>  Documentation/devicetree/bindings/display/st,stm32-dsi.yaml | 2 --
+>  .../devicetree/bindings/display/st,stm32-ltdc.yaml          | 1 -
+>  .../devicetree/bindings/display/xlnx/xlnx,zynqmp-dpsub.yaml | 4 ----
+>  .../devicetree/bindings/dma/renesas,rcar-dmac.yaml          | 1 -
+>  .../devicetree/bindings/edac/amazon,al-mc-edac.yaml         | 2 --
+>  Documentation/devicetree/bindings/eeprom/at24.yaml          | 1 -
+>  Documentation/devicetree/bindings/example-schema.yaml       | 2 --
+>  Documentation/devicetree/bindings/gpu/brcm,bcm-v3d.yaml     | 1 -
+>  Documentation/devicetree/bindings/gpu/vivante,gc.yaml       | 1 -
+>  Documentation/devicetree/bindings/i2c/brcm,brcmstb-i2c.yaml | 1 -
+>  .../devicetree/bindings/i2c/marvell,mv64xxx-i2c.yaml        | 2 --
+>  .../devicetree/bindings/i2c/mellanox,i2c-mlxbf.yaml         | 1 -
+>  .../devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml   | 1 -
+>  .../devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml     | 2 --
+>  .../bindings/interrupt-controller/fsl,irqsteer.yaml         | 1 -
+>  .../bindings/interrupt-controller/loongson,liointc.yaml     | 1 -
+>  Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml    | 1 -
+>  .../devicetree/bindings/iommu/renesas,ipmmu-vmsa.yaml       | 1 -
+>  .../devicetree/bindings/mailbox/st,stm32-ipcc.yaml          | 2 --
+>  .../devicetree/bindings/media/amlogic,gx-vdec.yaml          | 1 -
+>  Documentation/devicetree/bindings/media/i2c/adv7604.yaml    | 1 -
+>  .../devicetree/bindings/media/marvell,mmp2-ccic.yaml        | 1 -
+>  .../devicetree/bindings/media/qcom,sc7180-venus.yaml        | 1 -
+>  .../devicetree/bindings/media/qcom,sdm845-venus-v2.yaml     | 1 -
+>  .../devicetree/bindings/media/qcom,sm8250-venus.yaml        | 1 -
+>  Documentation/devicetree/bindings/media/renesas,drif.yaml   | 1 -
+>  .../bindings/memory-controllers/mediatek,smi-common.yaml    | 6 ++----
+>  .../bindings/memory-controllers/mediatek,smi-larb.yaml      | 1 -
+>  .../devicetree/bindings/mmc/allwinner,sun4i-a10-mmc.yaml    | 2 --
+>  Documentation/devicetree/bindings/mmc/fsl-imx-esdhc.yaml    | 1 -
+>  Documentation/devicetree/bindings/mmc/mtk-sd.yaml           | 2 --
+>  Documentation/devicetree/bindings/mmc/renesas,sdhi.yaml     | 2 --
+>  Documentation/devicetree/bindings/mmc/sdhci-am654.yaml      | 1 -
+>  Documentation/devicetree/bindings/mmc/sdhci-pxa.yaml        | 1 -
+>  .../devicetree/bindings/net/amlogic,meson-dwmac.yaml        | 2 --
+>  .../devicetree/bindings/net/brcm,bcm4908-enet.yaml          | 2 --
+>  Documentation/devicetree/bindings/net/can/bosch,m_can.yaml  | 2 --
+>  Documentation/devicetree/bindings/net/dsa/brcm,sf2.yaml     | 2 --
+>  Documentation/devicetree/bindings/net/snps,dwmac.yaml       | 2 --
+>  Documentation/devicetree/bindings/net/stm32-dwmac.yaml      | 1 -
+>  Documentation/devicetree/bindings/pci/brcm,stb-pcie.yaml    | 2 --
+>  Documentation/devicetree/bindings/pci/loongson.yaml         | 1 -
+>  .../devicetree/bindings/pci/mediatek-pcie-gen3.yaml         | 1 -
+>  .../devicetree/bindings/pci/microchip,pcie-host.yaml        | 2 --
+>  Documentation/devicetree/bindings/perf/arm,cmn.yaml         | 1 -
+>  .../devicetree/bindings/phy/brcm,bcm63xx-usbh-phy.yaml      | 1 -
+>  .../devicetree/bindings/phy/brcm,brcmstb-usb-phy.yaml       | 3 ---
+>  Documentation/devicetree/bindings/phy/brcm,sata-phy.yaml    | 1 -
+>  Documentation/devicetree/bindings/phy/mediatek,tphy.yaml    | 2 --
+>  .../devicetree/bindings/phy/phy-cadence-sierra.yaml         | 2 --
+>  .../devicetree/bindings/phy/phy-cadence-torrent.yaml        | 4 ----
+>  .../devicetree/bindings/phy/qcom,ipq806x-usb-phy-hs.yaml    | 1 -
+>  .../devicetree/bindings/phy/qcom,ipq806x-usb-phy-ss.yaml    | 1 -
+>  Documentation/devicetree/bindings/phy/qcom,qmp-phy.yaml     | 1 -
+>  Documentation/devicetree/bindings/phy/qcom,qusb2-phy.yaml   | 2 --
+>  Documentation/devicetree/bindings/phy/renesas,usb2-phy.yaml | 2 --
+>  Documentation/devicetree/bindings/phy/renesas,usb3-phy.yaml | 1 -
+>  .../devicetree/bindings/pinctrl/actions,s500-pinctrl.yaml   | 1 -
+>  .../devicetree/bindings/power/amlogic,meson-ee-pwrc.yaml    | 1 -
+>  .../devicetree/bindings/pwm/allwinner,sun4i-a10-pwm.yaml    | 1 -
+>  .../devicetree/bindings/remoteproc/st,stm32-rproc.yaml      | 2 --
+>  .../devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml     | 1 -
+>  .../devicetree/bindings/remoteproc/ti,omap-remoteproc.yaml  | 1 -
+>  Documentation/devicetree/bindings/reset/fsl,imx-src.yaml    | 1 -
+>  .../devicetree/bindings/riscv/sifive-l2-cache.yaml          | 1 -
+>  .../devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml    | 1 -
+>  Documentation/devicetree/bindings/rtc/imxdi-rtc.yaml        | 1 -
+>  Documentation/devicetree/bindings/serial/fsl-lpuart.yaml    | 2 --
+>  Documentation/devicetree/bindings/serial/samsung_uart.yaml  | 1 -
+>  .../devicetree/bindings/soc/qcom/qcom,geni-se.yaml          | 1 -
+>  Documentation/devicetree/bindings/soc/ti/ti,pruss.yaml      | 2 --
+>  .../bindings/sound/nvidia,tegra-audio-graph-card.yaml       | 1 -
+>  .../devicetree/bindings/sound/nvidia,tegra210-i2s.yaml      | 2 --
+>  Documentation/devicetree/bindings/sound/st,stm32-sai.yaml   | 3 ---
+>  .../devicetree/bindings/spi/amlogic,meson-gx-spicc.yaml     | 1 -
+>  .../devicetree/bindings/spi/brcm,spi-bcm-qspi.yaml          | 2 --
+>  .../bindings/thermal/allwinner,sun8i-a83t-ths.yaml          | 2 --
+>  Documentation/devicetree/bindings/thermal/qcom-tsens.yaml   | 1 -
+>  .../bindings/timer/allwinner,sun5i-a13-hstimer.yaml         | 1 -
+>  Documentation/devicetree/bindings/timer/arm,arch_timer.yaml | 1 -
+>  .../devicetree/bindings/timer/arm,arch_timer_mmio.yaml      | 2 --
+>  .../devicetree/bindings/timer/intel,ixp4xx-timer.yaml       | 1 -
+>  .../devicetree/bindings/usb/maxim,max3420-udc.yaml          | 2 --
+>  .../devicetree/bindings/usb/nvidia,tegra-xudc.yaml          | 4 ----
+>  Documentation/devicetree/bindings/usb/renesas,usbhs.yaml    | 3 ---
+>  .../devicetree/bindings/watchdog/st,stm32-iwdg.yaml         | 1 -
+>  101 files changed, 2 insertions(+), 163 deletions(-)
+> 
 
-This fixes the issue observed on DragonBoard410c. Feel free to add:
+[snip]
 
-Reported-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-> index 0b9cbf2ce505..8998697cd1e1 100644
-> --- a/sound/soc/qcom/lpass-cpu.c
-> +++ b/sound/soc/qcom/lpass-cpu.c
-> @@ -525,6 +525,8 @@ static bool lpass_cpu_regmap_readable(struct 
-> device *dev, unsigned int reg)
->                         return true;
->
->         for (i = 0; i < v->irq_ports; ++i) {
-> +               if (reg == LPAIF_IRQCLEAR_REG(v, i))
-> +                       return true;
->                 if (reg == LPAIF_IRQEN_REG(v, i))
->                         return true;
->                 if (reg == LPAIF_IRQSTAT_REG(v, i))
-> @@ -566,9 +568,12 @@ static bool lpass_cpu_regmap_volatile(struct 
-> device *dev, unsigned int reg)
->         struct lpass_variant *v = drvdata->variant;
->         int i;
->
-> -       for (i = 0; i < v->irq_ports; ++i)
-> +       for (i = 0; i < v->irq_ports; ++i) {
-> +               if (reg == LPAIF_IRQCLEAR_REG(v, i))
-> +                       return true;
->                 if (reg == LPAIF_IRQSTAT_REG(v, i))
->                         return true;
-> +       }
->
->         for (i = 0; i < v->rdma_channels; ++i)
->                 if (reg == LPAIF_RDMACURR_REG(v, i))
->
-> ------------------------->cut<-------------------------------
->
-> --srini
->
->> This patch landed recently in linux-next as commit da0363f7bfd3 ("ASoC:
->> qcom: Fix for DMA interrupt clear reg overwriting"). It breaks ALSA
->> playback on DragonBoard 410c (arch/arm64/boot/dts/qcom/apq8016-sbc.dts).
->> After applying this patch, running 'speaker-test -l1' never finishes.
->> There is no error nor kernel warning message. Before that commit, the
->> playback worked fine on that board.
->>
->>> ---
->>> Changes since v2:
->>>     -- Removed redundant variables.
->>> Changes since v1:
->>>     -- Subject lines changed.
->>>    sound/soc/qcom/lpass-platform.c | 12 ++++++------
->>>    1 file changed, 6 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/sound/soc/qcom/lpass-platform.c 
->>> b/sound/soc/qcom/lpass-platform.c
->>> index 0df9481ea4c6..f9df76d37858 100644
->>> --- a/sound/soc/qcom/lpass-platform.c
->>> +++ b/sound/soc/qcom/lpass-platform.c
->>> @@ -526,7 +526,7 @@ static int lpass_platform_pcmops_trigger(struct 
->>> snd_soc_component *component,
->>>                return -EINVAL;
->>>            }
->>>    -        ret = regmap_write(map, reg_irqclr, val_irqclr);
->>> +        ret = regmap_update_bits(map, reg_irqclr, val_irqclr, 
->>> val_irqclr);
->>>            if (ret) {
->>>                dev_err(soc_runtime->dev, "error writing to irqclear 
->>> reg: %d\n", ret);
->>>                return ret;
->>> @@ -650,10 +650,11 @@ static irqreturn_t lpass_dma_interrupt_handler(
->>>        struct lpass_variant *v = drvdata->variant;
->>>        irqreturn_t ret = IRQ_NONE;
->>>        int rv;
->>> -    unsigned int reg = 0, val = 0;
->>> +    unsigned int reg, val, mask;
->>>        struct regmap *map;
->>>        unsigned int dai_id = cpu_dai->driver->id;
->>>    +    mask = LPAIF_IRQ_ALL(chan);
->>>        switch (dai_id) {
->>>        case LPASS_DP_RX:
->>>            map = drvdata->hdmiif_map;
->>> @@ -676,8 +677,7 @@ static irqreturn_t lpass_dma_interrupt_handler(
->>>        return -EINVAL;
->>>        }
->>>        if (interrupts & LPAIF_IRQ_PER(chan)) {
->>> -
->>> -        rv = regmap_write(map, reg, LPAIF_IRQ_PER(chan) | val);
->>> +        rv = regmap_update_bits(map, reg, mask, 
->>> (LPAIF_IRQ_PER(chan) | val));
->>>            if (rv) {
->>>                dev_err(soc_runtime->dev,
->>>                    "error writing to irqclear reg: %d\n", rv);
->>> @@ -688,7 +688,7 @@ static irqreturn_t lpass_dma_interrupt_handler(
->>>        }
->>>           if (interrupts & LPAIF_IRQ_XRUN(chan)) {
->>> -        rv = regmap_write(map, reg, LPAIF_IRQ_XRUN(chan) | val);
->>> +        rv = regmap_update_bits(map, reg, mask, 
->>> (LPAIF_IRQ_XRUN(chan) | val));
->>>            if (rv) {
->>>                dev_err(soc_runtime->dev,
->>>                    "error writing to irqclear reg: %d\n", rv);
->>> @@ -700,7 +700,7 @@ static irqreturn_t lpass_dma_interrupt_handler(
->>>        }
->>>           if (interrupts & LPAIF_IRQ_ERR(chan)) {
->>> -        rv = regmap_write(map, reg, LPAIF_IRQ_ERR(chan) | val);
->>> +        rv = regmap_update_bits(map, reg, mask, 
->>> (LPAIF_IRQ_ERR(chan) | val));
->>>            if (rv) {
->>>                dev_err(soc_runtime->dev,
->>>                    "error writing to irqclear reg: %d\n", rv);
->>
->
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+> diff --git a/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
+> index 6070456a7b67..f399743b631b 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
+> @@ -57,7 +57,6 @@ properties:
+>  
+>    memory-region:
+>      minItems: 2
+> -    maxItems: 8
+>      description: |
+>        phandle to the reserved memory nodes to be associated with the remoteproc
+>        device. There should be at least two reserved memory nodes defined. The
 
+Does this enforce the maxItems to be 2 only now? Or should this be dropping the
+minItems here which matches the length of items instead of maxItems?
+
+I have originally listed the individual item list only for the mandatory items
+and rest are scalable. I provided this through "additionalItems: true" under
+this property.
+
+Also, have the exact same usage in
+Documentation/devicetree/bindings/remoteproc/ti,k3-r5f-rproc.yaml as well which
+is not included in this patch.
+
+> diff --git a/Documentation/devicetree/bindings/remoteproc/ti,omap-remoteproc.yaml b/Documentation/devicetree/bindings/remoteproc/ti,omap-remoteproc.yaml
+> index 73400bc6e91d..75161f191ac3 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/ti,omap-remoteproc.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/ti,omap-remoteproc.yaml
+> @@ -116,7 +116,6 @@ properties:
+>        list, in the specified order, each representing the corresponding
+>        internal RAM memory region.
+>      minItems: 1
+> -    maxItems: 3
+>      items:
+>        - const: l2ram
+>        - const: l1pram
+
+
+[snip]
+
+> diff --git a/Documentation/devicetree/bindings/soc/ti/ti,pruss.yaml b/Documentation/devicetree/bindings/soc/ti/ti,pruss.yaml
+> index dbc62821c60b..9790617af1bc 100644
+> --- a/Documentation/devicetree/bindings/soc/ti/ti,pruss.yaml
+> +++ b/Documentation/devicetree/bindings/soc/ti/ti,pruss.yaml
+> @@ -100,7 +100,6 @@ patternProperties:
+>      properties:
+>        reg:
+>          minItems: 2 # On AM437x one of two PRUSS units don't contain Shared RAM.
+> -        maxItems: 3
+>          items:
+>            - description: Address and size of the Data RAM0.
+>            - description: Address and size of the Data RAM1.
+> @@ -111,7 +110,6 @@ patternProperties:
+>  
+>        reg-names:
+>          minItems: 2
+> -        maxItems: 3
+>          items:
+>            - const: dram0
+>            - const: dram1
+
+
+regards
+Suman

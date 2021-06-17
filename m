@@ -2,82 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36E4F3AB0F1
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 12:07:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 345AB3AB157
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 12:29:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4ECFC1715;
-	Thu, 17 Jun 2021 12:06:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4ECFC1715
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8BC61703;
+	Thu, 17 Jun 2021 12:28:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8BC61703
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623924442;
-	bh=BDZ/9iY7ySnw9vqLr2BAszS44fqtoHb1RWIctspTXEM=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=oD6Ksj1/eaXyr7+x+AwlTrzx/yvs0CmdeWAzi60TdtQ1w6qb3suSDg3bY81Owt53H
-	 dfc61zgHQZidmnRfyjj2Hbp1x4zuCTLGx4UXQAhIydOqDRQ0p3S7V3PjJgefocUYff
-	 XZSn/tmilOHLR8wSn+FBNur0eePhbDnAjIuzOpvI=
+	s=default; t=1623925779;
+	bh=ftZcjTj65sz9K/uiAkth28vbJ0HgWuTbEZIBdHSDm9k=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=fRNUebS6n1ld0gxr+AhvYD037bqm3KwwBbA9ZBAdlwJ20Qcms6nF+8ZtCOdyqR1hx
+	 oODdBf2QcBN5g0C5e+JW1apvl/96D879J4dIrPf9Xi9btYqG/DsehvTZarSjoZzAiB
+	 p+oxTcjNebnZ4bM3PRwq0WfteKR4jHGzpnMRC3H0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E4162F8028B;
-	Thu, 17 Jun 2021 12:06:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02386F80148;
+	Thu, 17 Jun 2021 12:28:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CC9F8F8025E; Thu, 17 Jun 2021 12:06:30 +0200 (CEST)
+ id 0A678F8025A; Thu, 17 Jun 2021 12:28:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C637CF8016D
- for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 12:06:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C637CF8016D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="fgfohPFz"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="cmyBgCgb"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 993AA1FD78;
- Thu, 17 Jun 2021 10:06:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1623924384; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=QE1KylyuN2hqH+VJRrJuDzwsPz1B4aRvf6J05Z76vow=;
- b=fgfohPFz/bApSH08QxWPCaQcF+BixssG7Ry6YvouyqOiLaFdgJI6ACTTTs1avx/H6Bdm28
- HNpD6c7AkMXXQ6Jllv2LFyeE51axBd8wjzvPFtJBoh5Ow4sckk13HYph2AVRPsgSoF0qCA
- tM2/KRiJzYLBqIuSIK90ue6qZmFQdis=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1623924384;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=QE1KylyuN2hqH+VJRrJuDzwsPz1B4aRvf6J05Z76vow=;
- b=cmyBgCgb/BH+8kDcop0mvXNIRUkliuD81WwlEb6x6Ikc0kbDDqvmwf8UXVKjzPr4c7Xqof
- rbmSyzA5SnpIp3DQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 83F70A3BB8;
- Thu, 17 Jun 2021 10:06:24 +0000 (UTC)
-Date: Thu, 17 Jun 2021 12:06:24 +0200
-Message-ID: <s5hbl84zty7.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH] ALSA: firewire-motu: fix stream format for MOTU 8pre
- FireWire
-In-Reply-To: <20210614083133.39753-1-o-takashi@sakamocchi.jp>
-References: <20210614083133.39753-1-o-takashi@sakamocchi.jp>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de, stable@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id E8341F8016D
+ for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 12:27:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8341F8016D
+Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.53])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4G5J7C3mRmz6yLC;
+ Thu, 17 Jun 2021 18:23:51 +0800 (CST)
+Received: from dggpemm500006.china.huawei.com (7.185.36.236) by
+ dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.2; Thu, 17 Jun 2021 18:27:51 +0800
+Received: from thunder-town.china.huawei.com (10.174.179.0) by
+ dggpemm500006.china.huawei.com (7.185.36.236) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.2; Thu, 17 Jun 2021 18:27:51 +0800
+From: Zhen Lei <thunder.leizhen@huawei.com>
+To: Johannes Berg <johannes@sipsolutions.net>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linuxppc-dev
+ <linuxppc-dev@lists.ozlabs.org>, alsa-devel <alsa-devel@alsa-project.org>
+Subject: [PATCH 1/1] ALSA: aoa: remove unnecessary oom message
+Date: Thu, 17 Jun 2021 18:27:45 +0800
+Message-ID: <20210617102746.1709-1-thunder.leizhen@huawei.com>
+X-Mailer: git-send-email 2.26.0.windows.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.174.179.0]
+X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
+ dggpemm500006.china.huawei.com (7.185.36.236)
+X-CFilter-Loop: Reflected
+Cc: Zhen Lei <thunder.leizhen@huawei.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,17 +77,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 14 Jun 2021 10:31:33 +0200,
-Takashi Sakamoto wrote:
-> 
-> My previous refactoring for ALSA firewire-motu driver brought regression
-> to handle MOTU 8pre FireWire. The packet format is not operated correctly.
-> 
-> Cc: <stable@vger.kernel.org>
-> Fixes: dfbaa4dc11eb ("ALSA: firewire-motu: add model-specific table of chunk count")
-> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Fixes scripts/checkpatch.pl warning:
+WARNING: Possible unnecessary 'out of memory' message
 
-Thanks, applied.
+Remove it can help us save a bit of memory.
+
+Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
+---
+ sound/aoa/soundbus/i2sbus/pcm.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/sound/aoa/soundbus/i2sbus/pcm.c b/sound/aoa/soundbus/i2sbus/pcm.c
+index 1c8e8131a716..a9e502a6cdeb 100644
+--- a/sound/aoa/soundbus/i2sbus/pcm.c
++++ b/sound/aoa/soundbus/i2sbus/pcm.c
+@@ -918,10 +918,8 @@ i2sbus_attach_codec(struct soundbus_dev *dev, struct snd_card *card,
+ 	}
+ 
+ 	cii = kzalloc(sizeof(struct codec_info_item), GFP_KERNEL);
+-	if (!cii) {
+-		printk(KERN_DEBUG "i2sbus: failed to allocate cii\n");
++	if (!cii)
+ 		return -ENOMEM;
+-	}
+ 
+ 	/* use the private data to point to the codec info */
+ 	cii->sdev = soundbus_dev_get(dev);
+-- 
+2.25.1
 
 
-Takashi

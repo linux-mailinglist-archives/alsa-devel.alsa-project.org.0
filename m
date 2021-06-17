@@ -2,80 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F04B63AAFEE
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 11:39:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37BFA3AAFF0
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 11:40:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 393D616E7;
-	Thu, 17 Jun 2021 11:38:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 393D616E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC02816EC;
+	Thu, 17 Jun 2021 11:39:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC02816EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623922771;
-	bh=U3EXYHCK7tuI9yD923KQBPJdWLy1PKwvWFET38YZWbs=;
+	s=default; t=1623922814;
+	bh=P+J3BO2CTBgzJjAb8HLe0eqXbd+VHyoom7cbGJTkfQA=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VZYisDAFxpYjh+FG9nbIza2VHOcTtTGGwueYfYc+aG6V+hrvzEkc2SuKa6dK/dWp4
-	 rosTISroNC8Jym4VMU2F0X/JvO5i/zYgFb2kPQu3eJOmChTxa9gN2FnVvRH2Yk+Xlf
-	 IEpX93CDrgX8yomCvB+50FmuvBBrMp3yIqZAhOXA=
+	b=e//BpZrsk/QwvxlHuFFcqXwLYn1Top/xpGTHj+/iVmP/NiZmhtdh2JxqMxDPxcaBb
+	 QRtfmbrRxX055WJGy/9N2MrkVXc6xAnhSDV8l57mot/NGDljFDe0wpPfTyNxV64IQl
+	 4FY2ASlpbYVpobRA4cJ40w+r42ooCcokq+gP6dM0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B399F8016D;
-	Thu, 17 Jun 2021 11:38:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E5FFF8028B;
+	Thu, 17 Jun 2021 11:39:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 36707F8025A; Thu, 17 Jun 2021 11:38:02 +0200 (CEST)
+ id 82367F8025E; Thu, 17 Jun 2021 11:39:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CD7F7F8016D
- for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 11:37:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD7F7F8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id DB14AF80088
+ for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 11:39:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB14AF80088
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="SjdMI1JJ"; 
+ header.b="EY2DE0Zo"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="1r+rV2HQ"
+ header.b="fb8MtRUU"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id DB8A91FD78;
- Thu, 17 Jun 2021 09:37:57 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id D73051FD78;
+ Thu, 17 Jun 2021 09:39:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1623922677; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1623922754; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=nRXrazKmSAAcMKbZIk13EONuVQtI4ZTSuOI5ttBGYf0=;
- b=SjdMI1JJmkmF1cvDrabvpNHp1iwV89AFUyAugARjrtYIo9gA6yH4ggMbDkyEgc1Aju3xmH
- rHmMvK/SbwiQFiVUDs+aEDiQ73NniQ59Dm6zLg3jfwqQSNK7Tke3+/Y77TinK/wsUbH6+V
- 9r7/crc3Ui3vdWJNkrzNqo9gs7ag3Ho=
+ bh=5VAi8CEOyvuVMm+JOnGFoJmx+l/z0rHSLCmB8K2+fj0=;
+ b=EY2DE0ZoK5aqH04UFnEC4xBvskMcncqupXD1HKF8HEcN9TATSjgEjSIbZ9PLZ9XMIpGBx/
+ dZOUcUY0zFTAuyiBpSoUyBofiTMj4kIhxiloGbUMeZ69oKJ2uNWz5WaVXKM72le8UCuW2I
+ rg4p2q1aTem7t1ycLVqsWedeo2upSO8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1623922677;
+ s=susede2_ed25519; t=1623922754;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=nRXrazKmSAAcMKbZIk13EONuVQtI4ZTSuOI5ttBGYf0=;
- b=1r+rV2HQ0f8dSAM9hCKXn4o5SVHXKIn7ToPdgRv41xtwjvLQoWx8kx5Pfj+j5ApIxTq7Gy
- dFBedTiCLHeiFzCQ==
+ bh=5VAi8CEOyvuVMm+JOnGFoJmx+l/z0rHSLCmB8K2+fj0=;
+ b=fb8MtRUUbhGOh+2Is311g8Aa4pH7LOz7xYVT8wJudwlhiv3MK770jBNSn8vgiabyP9qCuo
+ 2vise5fEscqcleDQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id C782FA3BC1;
- Thu, 17 Jun 2021 09:37:57 +0000 (UTC)
-Date: Thu, 17 Jun 2021 11:37:57 +0200
-Message-ID: <s5hfsxgzv9m.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id B9D05A3BBB;
+ Thu, 17 Jun 2021 09:39:14 +0000 (UTC)
+Date: Thu, 17 Jun 2021 11:39:14 +0200
+Message-ID: <s5heed0zv7h.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH 0/2] ALSA: firewire-motu: add support for MOTU 828 and 896
-In-Reply-To: <20210616082847.124688-1-o-takashi@sakamocchi.jp>
-References: <20210616082847.124688-1-o-takashi@sakamocchi.jp>
+To: Daehwan Jung <dh10.jung@samsung.com>
+Subject: Re: ALSA: usb-audio: fix rate on Ozone Z90 USB headset
+In-Reply-To: <1623836097-61918-1-git-send-email-dh10.jung@samsung.com>
+References: <CGME20210616094912epcas2p38028df32b89b7cc79ba16c0215f8f664@epcas2p3.samsung.com>
+ <1623836097-61918-1-git-send-email-dh10.jung@samsung.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+Cc: Lukasz Halman <lukasz.halman@gmail.com>, alsa-devel@alsa-project.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Johan Hovold <johan@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,34 +96,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 16 Jun 2021 10:28:45 +0200,
-Takashi Sakamoto wrote:
+On Wed, 16 Jun 2021 11:34:55 +0200,
+Daehwan Jung wrote:
 > 
-> Hi,
+> It mislabels its 96 kHz altsetting and that's why it causes some noise
 > 
-> This patchset is to add support for Mark of the unicorn (MOTU) 828 and
-> 896, which were shipped two decades ago (2001) and already discontinued.
-> (yes, it's 2021).
-> 
-> It's reasonable to count them as first generation of MOTU FireWire
-> series since they are based on QuickLogic QuickRAM FPGA apart from
-> Altera or Xilinx FPGA in the latter generation. Unlike the latter
-> generation, they doesn't allow software to configure internal
-> multiplexer.
-> 
-> I note that the sequence replay for media clock recovery[1] allows to
-> support them. The device doesn't generate better sound with nominal (ideal)
-> sequence of packets, thus the patches should be applied to development
-> tree for v5.14 kernel.
-> 
-> [1] [PATCH 0/3] ALSA: firewire-motu: media clock recovery for sph-aware devices
-> https://lore.kernel.org/alsa-devel/20210602013406.26442-1-o-takashi@sakamocchi.jp/
-> 
-> Takashi Sakamoto (2):
->   ALSA: firewire-motu: add support for MOTU 828
->   ALSA: firewire-motu: add support for MOTU 896
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Signed-off-by: Daehwan Jung <dh10.jung@samsung.com>
 
-Applied both patches now.  Thanks.
+Applied now.  Thanks.
 
 
 Takashi

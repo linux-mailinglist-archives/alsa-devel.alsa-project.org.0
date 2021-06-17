@@ -2,85 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 223D43AB669
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 16:47:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7477E3AB66B
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 16:48:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94B9817C5;
-	Thu, 17 Jun 2021 16:46:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94B9817C5
+	by alsa0.perex.cz (Postfix) with ESMTPS id EEE6D17C8;
+	Thu, 17 Jun 2021 16:47:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEE6D17C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623941262;
-	bh=cboTqcBgGadfiTxj1nTqmyPv7dH8eleMAGpTR62mp1Y=;
+	s=default; t=1623941284;
+	bh=6MA67v0DQTtMFmub5QCa7s+kUA/mLXNpl0x5Ca3c2Cw=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=fE2yljcNCI3vl4pX5BCpKCm/qHznclrncqsuGqkAse8ZsLUKEx9zC66X1AiY3BKPH
-	 u6V4UKDRiBtbjTtecuT5pr4zJdyOJ5Jx+HcTJ9sxOYXcZoUWiRxCrJwy8xFsX9cDi4
-	 tUUcxlLSS8U2bLJh9wg39ZHJ7uP9PFB+AKgaK8QU=
+	b=FwBJc0T2y+7GvsjsWzTHjnbGWj/5kwJElWkh0/PHO2rVBJsm43h8uFzmWwQqMpVnU
+	 29HoF5/Yf98lSSHPjY50MHCUBThVFWiIXlgC5pO/GemQ3GGE+mDvXoQpbhdR2gFTqS
+	 c4enzQgFTxqJTzRnceZlgvmzPWd8jFkvbofX0B3U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39755F805E1;
+	by alsa1.perex.cz (Postfix) with ESMTP id EAFB9F805E8;
 	Thu, 17 Jun 2021 16:35:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F06B8F8025A; Thu, 17 Jun 2021 15:18:17 +0200 (CEST)
+ id A8674F8025A; Thu, 17 Jun 2021 15:26:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,PRX_BODY_26,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
- [IPv6:2607:f8b0:4864:20::633])
+Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
+ [IPv6:2607:f8b0:4864:20::52d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96121F8016D
- for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 15:18:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96121F8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF5D1F80088
+ for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 15:26:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF5D1F80088
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="QxwppNYE"
-Received: by mail-pl1-x633.google.com with SMTP id v13so2910886ple.9
- for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 06:18:09 -0700 (PDT)
+ header.b="HjFW9P09"
+Received: by mail-pg1-x52d.google.com with SMTP id w31so4981980pga.6
+ for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 06:26:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=NeqtpopybKuyVEBWXS5a5h/2RXc0QkBamlHDuvgOjJM=;
- b=QxwppNYENqgBysIDeg17rqgp++BYueTK6EY/TUMVb2ydvi6dQUUyQ4ql/a1PHKJuJM
- yHhPHXR/F2ePWEhah5bzjWScjChrUME94AlaHzKCVXGwJA6W10w28iR9BoLw0G5vLmLF
- yj9/KRnSfjFfGR2/savkWgRXlT7VfSAkOfi/BzfGBjtqXRf9toBjlbT7W2ZVwRQciCXB
- YRgL9tnztbISpldkHNOXdHRTzaZuDCy4Tf20i03v/uiWYj8n2VGY6kUWObxbE5ts9Dfm
- Naast4g8b25pdQ9bxm9tmtVXRgP/+oXFqRtLmr9/WDmzXWofGh4WqTS16my9tQHk28qz
- swmw==
+ bh=qx4jays+L+KH8X2JCPyPqSjH+k3+j2HUU6/XgwBhYyQ=;
+ b=HjFW9P093SA38oP+UnwHyAsPmXRrH2+slKn/iwKEqxRK5Irfti0ZW56nrrfrGKc5ow
+ IuVawY1npmoS0tHvXXz/UQ3EEKHvgXfR1b8uPkbSAB2FTY4asTrrkrXwCtxwRRsXnzDR
+ oV82tws8AWk3OKw6PTBMZBYXSWr49nTRMVR/im+qFBDXzKAs4u9lmAULKKyFhPaB8pe1
+ hmyRjfc+UYb9YlN5pqKctMWvwiSKfsjRWI/Ex7PXmG7IVe39disaT1Fwl17bpkQhu6+O
+ WEgmYDMkSl9IQ4vvanjCJFypIJOJtTbBQiacASysnMIzHpzPH06s8jYqlwChr+r9mQbl
+ uGKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=NeqtpopybKuyVEBWXS5a5h/2RXc0QkBamlHDuvgOjJM=;
- b=cUkjX+udgUMxkpkVoM+3qnTX3MwcCl5OS56fB1tZ6Jg89dkTTgW5WltM3Dtm3XpRx+
- 8qbLDdCloInr7stwRy6bldlL9d5vTDQNj3hmlKzdS16HZ2w9AI3mqotJlOelBdF/XGtB
- D8rbstUkFsLqFgqGeDiTiEHie/hOK8AVT10DPZGPSn5HlstKR+a5QoAMRYp3xXjTZ4ZI
- Y9M9heXms6dh0HxroSzmRUZyphz/8NtP0PLr8bdCGyfMuzdo9xWYTro9JvKOoCHpUAxN
- kXr3R3Ec9yPhgKqcDIPoS71AQ0+yEP+YQXkrB0yxJMmfCKFjFCJqwHf7wWD1Eacx/Kzz
- ervw==
-X-Gm-Message-State: AOAM531b2tPUKgb08WnrCBpLBaiw3RbkzVMz/NClCjosWfs/BzGvQCuT
- /ZsALgVRGe00W9tK63qVtQ==
-X-Google-Smtp-Source: ABdhPJygYMjO6cxxy0A5q+vEdORkBEbyzD7K3rL+lYILXl3FIFdjKwPcLZ2xdyjISUQtlz31Xwq4iw==
-X-Received: by 2002:a17:902:d211:b029:110:a94c:74b3 with SMTP id
- t17-20020a170902d211b0290110a94c74b3mr4461173ply.54.1623935887984; 
- Thu, 17 Jun 2021 06:18:07 -0700 (PDT)
+ bh=qx4jays+L+KH8X2JCPyPqSjH+k3+j2HUU6/XgwBhYyQ=;
+ b=QGw57jlnNixKQNTC1EOGZaWrvh58UXLbzOLEShYReppieNDlR92mWR0NS0TWzSU6yd
+ t+S53+iIb+872pZ1pbb1E4BvvtXhq54ifKdFWEEZpZrlZ+CXyu+jP8DeS8wZvwUYdU1P
+ gF3syxZFMDcDSgFoQLbSBpRhb/ehz+ZpuRngXbI98sbAVjqJSrVE8OZvORLcdlH4OTgx
+ H2cNa7Yod8NHpwZVxGUJkB7DWy5Ks5RGziFZWxdcCHj+DcAZGpI1G/NC4DpquuzVWE6E
+ neo0kWeea4K8LQOjqlhRADLi8LNh8IXUqnQJc9xe6UdAVCToL6t188hnA+8XyEg6ZaTX
+ 0Cew==
+X-Gm-Message-State: AOAM530Ro4KFz3QAbs+ZHpkCqf2x0P4k8IqBGcK8zwKeYpGeXHX/irz5
+ iuHWDPYoO82Kw3kJGHXQNBkIad3ZTKG9
+X-Google-Smtp-Source: ABdhPJw6T0YbNlO7zr0O+iSQ5A+XwDPh/CzNVUhTCcZm6+zV4iw7EtxAbfvi9eJECcDYOaeqeyGpiA==
+X-Received: by 2002:a63:5445:: with SMTP id e5mr5068836pgm.62.1623936383298;
+ Thu, 17 Jun 2021 06:26:23 -0700 (PDT)
 Received: from INTERNET-129.allwinnertech.com ([223.197.233.48])
- by smtp.gmail.com with ESMTPSA id q4sm5800681pgg.0.2021.06.17.06.18.05
+ by smtp.gmail.com with ESMTPSA id ip7sm5221142pjb.39.2021.06.17.06.26.20
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 17 Jun 2021 06:18:07 -0700 (PDT)
+ Thu, 17 Jun 2021 06:26:22 -0700 (PDT)
 From: Ban Tao <fengzheng923@gmail.com>
 To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
  mripard@kernel.org, wens@csie.org, jernej.skrabec@gmail.com,
  fengzheng923@gmail.com, p.zabel@pengutronix.de, samuel@sholland.org,
  krzk@kernel.org
 Subject: [PATCH v2 1/2] ASoC: sunxi: Add Allwinner H6 Digital MIC driver
-Date: Thu, 17 Jun 2021 21:18:01 +0800
-Message-Id: <20210617131801.2530-1-fengzheng923@gmail.com>
+Date: Thu, 17 Jun 2021 21:26:16 +0800
+Message-Id: <20210617132616.2697-1-fengzheng923@gmail.com>
 X-Mailer: git-send-email 2.22.0.windows.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -106,6 +105,7 @@ The Allwinner H6 and later SoCs have an DMIC block
 which is capable of capture.
 
 Signed-off-by: Ban Tao <fengzheng923@gmail.com>
+
 ---
 v1->v2:
 1.fix some compilation errors.

@@ -2,80 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2C6F3AB515
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 15:42:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 159B03AB528
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jun 2021 15:49:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 32ECE16F5;
-	Thu, 17 Jun 2021 15:41:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32ECE16F5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B11F1706;
+	Thu, 17 Jun 2021 15:48:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B11F1706
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623937356;
-	bh=1x7lBiTROX3Paa7t0+fRpBg0OD8OWjqcBWlUCBqeEL8=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=IB5lcWFC7ERjP16kYWF6uztPkrESzBfbsyj+MKxWlbywWFes6h76weOZcFUIXdJf8
-	 TXH08mkV0ojVLO5J5NiGiMw77hjFq7JL35M0oLPTAnPyxjzWKxZFjK8RyFQN9KJxR/
-	 NwsizbyeSS0gWUn8Yd5PRecWXLzPX4Bpp7xMPnA8=
+	s=default; t=1623937766;
+	bh=KJvuDO4iv96euylTD7TmKkdU3RjytlqMW2wrEddA/co=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=XObhYf0I/MCniz+o6XaYtWxjqkzmMamrplEQwYtqVUCCH/+Ld1hh+WiB5zvWON2pv
+	 AzT3rXVDg2y92PwWWO1gjDjXgtB4K+JW5OOi8v38pCnOrVeA4WOm8ALrjPf5MPdlPI
+	 XHVp8nGHHJjd9H/N2fh30sUtKaMUQh/jm3+yDqXk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9CB01F8025E;
-	Thu, 17 Jun 2021 15:41:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3178F8016D;
+	Thu, 17 Jun 2021 15:47:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B9EAF8025A; Thu, 17 Jun 2021 15:41:07 +0200 (CEST)
+ id 5ACD6F8025A; Thu, 17 Jun 2021 15:47:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7442AF80088
- for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 15:41:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7442AF80088
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3D8FDF80088
+ for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 15:47:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D8FDF80088
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ENqes35Q"; 
+ header.b="K+FOQgET"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="KW2VuicL"
+ header.b="myoBqh9B"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id AEE671FD7B;
- Thu, 17 Jun 2021 13:41:00 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 3CB2D1FD7D;
+ Thu, 17 Jun 2021 13:47:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1623937260; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ZP3JykNcsz4aMH26tpHmmUDp4+25Ry560NXEWIdkttg=;
- b=ENqes35QGeG3R3J2g83DTpm79/+9xhw0MoMYzpaBdtD6/ri+eziqYtiKScZR3PFffWqdrt
- MBV5/QgW6Ht4vp1gqquitVp0+AtliZ3ZZNQX2LUcle5okDiIZsuGIwiJNVFlj/cYhpdF5S
- Wz2lBR0rQ7WDowy+5ZjaIhfOkwwCVzo=
+ t=1623937664; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=k+3z6VHXaClhSLURpgtaBIfpJdIdS4Fmcv3ZxtlZxc4=;
+ b=K+FOQgETJcHxyMJKMySI9XyDjjrALKzmBJXRaeHlrA38zH58FJOjlwFzlqUEPvQ7uEptvz
+ /pYHhVp6+TNtcMNqVT4AQ+0TKYlkX3tZG1hHbzO7ANV57EsMPitFxgOJ791jg/5VYe2nNo
+ hAXRMLqbgiv5/Hx7KDWkteQl9MpSGhM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1623937260;
+ s=susede2_ed25519; t=1623937664;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ZP3JykNcsz4aMH26tpHmmUDp4+25Ry560NXEWIdkttg=;
- b=KW2VuicLEwxAfbqoPEUxlH6wEkKMvdqPr33YpD+5JsHIS9snNZ6kF8WbDNUXQtofI4fepP
- fsx5VQsQAOc8J9CA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id A98BAA3BA9;
- Thu, 17 Jun 2021 13:41:00 +0000 (UTC)
-Date: Thu, 17 Jun 2021 15:41:00 +0200
-Message-ID: <s5hv96cy5g3.wl-tiwai@suse.de>
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=k+3z6VHXaClhSLURpgtaBIfpJdIdS4Fmcv3ZxtlZxc4=;
+ b=myoBqh9BRkRXyeSmO1QaDzRhefbR2mNTVRbRtLhIq87wt6CC+jJdRYYwB3dB/l1tmH4UJY
+ mkwRUCaFvu5HMfDQ==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 2C2DBA3B99;
+ Thu, 17 Jun 2021 13:47:44 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [bug report] ALSA: seq: Fix assignment in if condition
-In-Reply-To: <YMtLi0qCOc00eEcF@mwanda>
-References: <YMtLi0qCOc00eEcF@mwanda>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: seq: oss: Fix error check at system port creation
+Date: Thu, 17 Jun 2021 15:47:42 +0200
+Message-Id: <20210617134742.6321-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Dan Carpenter <dan.carpenter@oracle.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,49 +85,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 17 Jun 2021 15:18:03 +0200,
-Dan Carpenter wrote:
-> 
-> Hello Takashi Iwai,
-> 
-> The patch f9a6bb841f73: "ALSA: seq: Fix assignment in if condition"
-> from Jun 8, 2021, leads to the following static checker warning:
-> 
-> 	sound/core/seq/oss/seq_oss_init.c:99 snd_seq_oss_create_client()
-> 	warn: 'port->addr.port' is unsigned
-> 
-> sound/core/seq/oss/seq_oss_init.c
->     82  
->     83          /* create annoucement receiver port */
->     84          memset(port, 0, sizeof(*port));
->     85          strcpy(port->name, "Receiver");
->     86          port->addr.client = system_client;
->     87          port->capability = SNDRV_SEQ_PORT_CAP_WRITE; /* receive only */
->     88          port->type = 0;
->     89  
->     90          memset(&port_callback, 0, sizeof(port_callback));
->     91          /* don't set port_callback.owner here. otherwise the module counter
->     92           * is incremented and we can no longer release the module..
->     93           */
->     94          port_callback.event_input = receive_announce;
->     95          port->kernel = &port_callback;
->     96          
->     97          call_ctl(SNDRV_SEQ_IOCTL_CREATE_PORT, port);
->     98          system_port = port->addr.port;
->     99          if (system_port >= 0) {
->                     ^^^^^^^^^^^^^^^^
-> This was from the old code.  It's not clear what is going on.  I think
-> the condition can be deleted.
+The system port creation in ALSA OSS sequencer was wrongly checked
+against to the port number that can be never negative.  The error code
+should be checked rather against the ioctl call.
 
-Yeah, that's a quite old code.  The check should have been like
+This patch corrects the error check.
 
-	if (call_ctl(SNDRV_SEQ_IOCTL_CREATE_PORT, port) >= 0) {
-		....
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/seq/oss/seq_oss_init.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-and system_port is assigned in that block.
-I'll cook up the patch.
+diff --git a/sound/core/seq/oss/seq_oss_init.c b/sound/core/seq/oss/seq_oss_init.c
+index a53d81a86af2..0ee4a5081fd6 100644
+--- a/sound/core/seq/oss/seq_oss_init.c
++++ b/sound/core/seq/oss/seq_oss_init.c
+@@ -94,11 +94,10 @@ snd_seq_oss_create_client(void)
+ 	port_callback.event_input = receive_announce;
+ 	port->kernel = &port_callback;
+ 	
+-	call_ctl(SNDRV_SEQ_IOCTL_CREATE_PORT, port);
+-	system_port = port->addr.port;
+-	if (system_port >= 0) {
++	if (call_ctl(SNDRV_SEQ_IOCTL_CREATE_PORT, port) >= 0) {
+ 		struct snd_seq_port_subscribe subs;
+ 
++		system_port = port->addr.port;
+ 		memset(&subs, 0, sizeof(subs));
+ 		subs.sender.client = SNDRV_SEQ_CLIENT_SYSTEM;
+ 		subs.sender.port = SNDRV_SEQ_PORT_SYSTEM_ANNOUNCE;
+-- 
+2.26.2
 
-
-thanks,
-
-Takashi

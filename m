@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 867753AC522
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Jun 2021 09:43:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF0743AC523
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Jun 2021 09:43:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D960516FA;
-	Fri, 18 Jun 2021 09:42:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D960516FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 54F8F1706;
+	Fri, 18 Jun 2021 09:42:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54F8F1706
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624002207;
-	bh=pPfzRK3D8esb0A9aN3lV/SRlVOjqPNFvHjmWxarEo6c=;
+	s=default; t=1624002223;
+	bh=Bozg7Xz5T+zEffr+a/LEHnjq7Uz4tb+Y66lN1sVzNKw=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Tj5i1E8+pMKQmmVY3/0KyiIMEHWxjPZBX3cAfg+Wg/hEU+TxU5d0P5CIvkHIKjQ/z
-	 Tqr7QOBMvEfiH9E+2BNFVBxqeuaTboGzZrYwUWc7VTqnCTMYKjz1jdee7wbkRoOfqB
-	 kOOxwHA21OVMlUCUxsIWgwFjQtIeFOcdSQUcFotA=
+	b=HBv26V3dp8luLoJOAp5g3MYo6S0JTbq0Rn5etnN4XtVGJixeLDcVrbio34PTbCTrb
+	 dh9KcHI5iv3W1G8SigLCBcQus8auHv+BQ1hcx9YNh0M2MuoRBpdYUCF7iDaoAlQ7Ld
+	 /r5Vywrosf4ZHVbEJ6eolz5UffJvBybnwB96DXM4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3DBBDF800E1;
-	Fri, 18 Jun 2021 09:42:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9C80F80424;
+	Fri, 18 Jun 2021 09:42:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 32957F8032D; Fri, 18 Jun 2021 09:41:58 +0200 (CEST)
+ id 7AFFCF804B0; Fri, 18 Jun 2021 09:42:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,53 +34,50 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3BA39F80148
- for <alsa-devel@alsa-project.org>; Fri, 18 Jun 2021 09:41:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BA39F80148
+ by alsa1.perex.cz (Postfix) with ESMTPS id D9914F80148
+ for <alsa-devel@alsa-project.org>; Fri, 18 Jun 2021 09:42:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9914F80148
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="fb6U8Dru"; 
+ header.b="KIUuyiOH"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="a+jT4CCR"
+ header.b="GG7dzInM"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id C1E811FDF6;
- Fri, 18 Jun 2021 07:41:46 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id AD0F51FD8F;
+ Fri, 18 Jun 2021 07:42:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624002106; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1624002139; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=COMkj+WRssNrxP5U3oD7ajszF1Q3LdRFwH6JWrI6/cU=;
- b=fb6U8DruJTbCF+xvJRN8d4P7Wl92WMfIuYPcJLJbrkPDwcSH0ixVm/0UBNGXofvikXOfxs
- k4TrYKRvmY/yQiKVNTGkb5pZuKA/2CpNtfaFwwJHVxc7UaiaUZMn7i8dDx85ruU3nO0WCm
- oVk88yth/cUKqhhIRL9Ur8LACkniLnQ=
+ bh=wW4uK14G+DnI0eEqS1Fdsebsiu8vbcML/7CVAAUKI8s=;
+ b=KIUuyiOHrMKwjCpvS9jpPxf45RZV93gxTBduAqdgkmtUC70WmcHWywMJ9FCAEFIMcnjJzl
+ YBF5XIvrFcR71tNkd2EFugS61vAlRKBnHyuqmTbAMglL9BVdyaCeM8VjqAJmns+ge83vgU
+ mmmqMSgPagFtqwoBxzwOpbHPNGs/bOM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624002106;
+ s=susede2_ed25519; t=1624002139;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=COMkj+WRssNrxP5U3oD7ajszF1Q3LdRFwH6JWrI6/cU=;
- b=a+jT4CCRT7cnFhyr3v7Bm+eP9Roloa5SDvAZPDWtIwHpHV8O1HnEh34VeQcBx8a2TKYns0
- ujG5weDJgTvRU9AA==
+ bh=wW4uK14G+DnI0eEqS1Fdsebsiu8vbcML/7CVAAUKI8s=;
+ b=GG7dzInMp3AicSsjobQq8MyZcxNjb2T62pligAaWVzB4S1s+1/5ex3pm06wCoA2gBPHwXu
+ yxzGoWH17CFPZ3AQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 9AE0CA3B9E;
- Fri, 18 Jun 2021 07:41:46 +0000 (UTC)
-Date: Fri, 18 Jun 2021 09:41:46 +0200
-Message-ID: <s5htulvwret.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 99055A3B9E;
+ Fri, 18 Jun 2021 07:42:18 +0000 (UTC)
+Date: Fri, 18 Jun 2021 09:42:18 +0200
+Message-ID: <s5hsg1fwrdx.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jeremy Szu <jeremy.szu@canonical.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: fix mute/micmute LEDs for HP EliteBook
- x360 830 G8
-In-Reply-To: <20210617171422.16652-1-jeremy.szu@canonical.com>
-References: <20210617171422.16652-1-jeremy.szu@canonical.com>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH] ALSA: bebob: fix rx packet format for Yamaha GO44/GO46,
+ Terratec Phase 24/x24
+In-Reply-To: <20210618040447.113306-1-o-takashi@sakamocchi.jp>
+References: <20210618040447.113306-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, open list <linux-kernel@vger.kernel.org>,
- Huacai Chen <chenhuacai@kernel.org>, Jian-Hong Pan <jhp@endlessos.org>,
- tiwai@suse.com, Hui Wang <hui.wang@canonical.com>
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,14 +93,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 17 Jun 2021 19:14:20 +0200,
-Jeremy Szu wrote:
+On Fri, 18 Jun 2021 06:04:47 +0200,
+Takashi Sakamoto wrote:
 > 
-> The HP EliteBook x360 830 G8 using ALC285 codec which using 0x04 to
-> control mute LED and 0x01 to control micmute LED.
-> Therefore, add a quirk to make it works.
+> Below devices reports zero as the number of channels for external output
+> plug with MIDI type:
 > 
-> Signed-off-by: Jeremy Szu <jeremy.szu@canonical.com>
+>  * Yamaha GO44/GO46
+>  * Terratec Phase 24/X24
+> 
+> As a result, rx packet format is invalid and they generate silent sound.
+> This is a regression added in v5.13.
+> 
+> This commit fixes the bug, addressed at a commit 1bd1b3be8655 ("ALSA:
+> bebob: perform sequence replay for media clock recovery").
+> 
+> Cc: <stable@vger.kernel.org>
+> Fixes: 5c6ea94f2b7c ("ALSA: bebob: detect the number of available MIDI ports")
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
 Thanks, applied.
 

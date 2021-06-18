@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 039963ACAA0
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Jun 2021 14:09:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 643303ACAA1
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Jun 2021 14:10:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B9F2172D;
-	Fri, 18 Jun 2021 14:09:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B9F2172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id C21881739;
+	Fri, 18 Jun 2021 14:09:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C21881739
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624018193;
-	bh=W1o+CtHQ3nflhXuylff+5ooBPcB3nszbMcr8gK1ECAY=;
+	s=default; t=1624018208;
+	bh=7qgOWH+nPcb2n6CEaH8HR2FF25lTlE4tAE8bf61gk/E=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rJ6qVrt7+L2NmaXzW7oCZVgk2EA7QxqI3ESgkFnXQ7pYPLcfG7Qc9+uEiO+SxXUrj
-	 8QuHS8YIInKSvuhWANU8SYqAoR5cGuMeh3FujiigkKcoBb33svNStNAuNmNdWkPM+t
-	 /VgxG97iZgswkix5qBXTiCa5OfUaokRHoRhcfUNs=
+	b=I+qPyqQRNMwUrpB4hColASpt6tBvuoG491I4RpHrrcoAElZzxMI5QYieo0ok1nYlk
+	 KTlfl2bRxHFg9raXgf6sBgISy11oscIBc/kxRRMO1ckKKOztDzOd8X0J4n/qyIrrD0
+	 xU4BolYJndjFpfPMzDyx7hzJu632UdSHHHrUe1pE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B5C0F80424;
+	by alsa1.perex.cz (Postfix) with ESMTP id D5967F804CA;
 	Fri, 18 Jun 2021 14:08:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CB94EF80423; Fri, 18 Jun 2021 14:08:23 +0200 (CEST)
+ id D558BF80084; Fri, 18 Jun 2021 14:08:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3F107F80148
- for <alsa-devel@alsa-project.org>; Fri, 18 Jun 2021 14:08:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F107F80148
+ by alsa1.perex.cz (Postfix) with ESMTPS id 43291F80084
+ for <alsa-devel@alsa-project.org>; Fri, 18 Jun 2021 14:08:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43291F80084
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="U9iObKIw"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6F075613D5;
- Fri, 18 Jun 2021 12:08:16 +0000 (UTC)
+ header.b="bgWnRLDs"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 002FD613EB;
+ Fri, 18 Jun 2021 12:08:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624018097;
- bh=W1o+CtHQ3nflhXuylff+5ooBPcB3nszbMcr8gK1ECAY=;
+ s=k20201202; t=1624018099;
+ bh=7qgOWH+nPcb2n6CEaH8HR2FF25lTlE4tAE8bf61gk/E=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=U9iObKIw/Y3iPA306gh7V3nqI+vPDwJ/Ehrti6IOl+5YqSETUEe0V1uzCG2FJC8ZO
- iGLQanQpsvwCxcYdZFjJsF9LxwCmuSOLQLmVCQwXJz8eG0jk1Og0jqA4s2+1wX1Q8l
- w3GlU+3fZmx9cxLccxxHTyliM4KTEZ9FV2YTTFanX6cMGAlJJuCnPgaWLhhZ3JwS9B
- Rh7hMkK6wEhA5ZSuC6IGL1GZDx7P7RtO4aQ2vrg+Ku+r6fm0QcDfiEb0tAsI9h3XiI
- 6xuf34xU7Qn2RTYAeL4YRxVZvBIm9YUuyUmHb2fAedIECFk+ZY/NBA8jB+k6WHN602
- d0ufjkLi0ynTA==
+ b=bgWnRLDssZJpxPfygsD+SOhyfBaYcSuwZvA7pBGgiCVv2zqvo5aMG+lv4ahDHiGNQ
+ VXydgXhDNzxmYKp+ATYVdKRQ+wuHUby2A237gLXe2LXbHjcfE0OtksCRhmKjJHCsHY
+ ibhuTCN/YTSdHtRrhxeoh0btoHnh28h8+AskaLOZXd+61jwE/yCeKq8aTd53mnP7i+
+ eHnQV3ociVgEBrbvBMR7Bnd0QksQuUTU3HDAP0s5d39YZNXBi+mUzKvuk3dKxNM/Y0
+ HOkuPIehep6Cu7xzMTmSbeUS6mWPewaykw3CIfrY3fh71ziSj4woKJCl9OfV2bsPw4
+ hJBECVMvJaupw==
 From: Mark Brown <broonie@kernel.org>
-To: Lee Jones <lee.jones@linaro.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Wei Yongjun <weiyongjun1@huawei.com>, Jaroslav Kysela <perex@perex.cz>,
- Chris Morgan <macromorgan@hotmail.com>, Takashi Iwai <tiwai@suse.com>
-Subject: Re: [PATCH -next] ASoC: rk817: Constify static struct snd_soc_dai_ops
-Date: Fri, 18 Jun 2021 13:07:53 +0100
-Message-Id: <162401758813.52682.3182841658896977708.b4-ty@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Flavio Suligoi <f.suligoi@asem.it>
+Subject: Re: [PATCH] ASoC: fsi: fix spelling mistake
+Date: Fri, 18 Jun 2021 13:07:54 +0100
+Message-Id: <162401758813.52682.15832699521448200223.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210602113643.3037374-1-weiyongjun1@huawei.com>
-References: <20210602113643.3037374-1-weiyongjun1@huawei.com>
+In-Reply-To: <20210618085324.1038524-1-f.suligoi@asem.it>
+References: <20210618085324.1038524-1-f.suligoi@asem.it>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Hulk Robot <hulkci@huawei.com>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, kernel-janitors@vger.kernel.org,
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -82,10 +80,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 2 Jun 2021 11:36:43 +0000, Wei Yongjun wrote:
-> The snd_soc_dai_ops structures is only stored in the ops field of a
-> snd_soc_dai_driver structure, so make the snd_soc_dai_ops structure
-> const to allow the compiler to put it in read-only memory.
+On Fri, 18 Jun 2021 10:53:24 +0200, Flavio Suligoi wrote:
+> Fix "thse" --> "these" in struct fsi_stream declaration.
 
 Applied to
 
@@ -93,8 +89,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: rk817: Constify static struct snd_soc_dai_ops
-      commit: 45ce213392df07b9e2443666c0910e1617882cf3
+[1/1] ASoC: fsi: fix spelling mistake
+      commit: eb1e9b8f581a48943073c60adc3cd3cf63972580
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

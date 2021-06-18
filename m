@@ -2,98 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CBCF3AC1CA
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Jun 2021 06:08:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAAFB3AC317
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Jun 2021 08:07:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 13E3316FB;
-	Fri, 18 Jun 2021 06:08:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13E3316FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5779816F5;
+	Fri, 18 Jun 2021 08:06:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5779816F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1623989337;
-	bh=uf96bAssqJdvS6H5tmEQ1dNiI2rlLtdWU2rjovaOqNI=;
+	s=default; t=1623996433;
+	bh=RJmcKtTp/Zn9Zsy1JjAiK8X1EIsz89UIqKdcZmgI45E=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=YY2fD+5C9UodXfS7ykeya2mVsHIpAgXaIZEcwEvBhkQQDjnDIuofQiI9gRgKfhjY/
-	 T44DTS0Drdzdopnco2t3lEZZtpCMsHWZJkk4t2/h84FXwKGy7V+UcbHS3aGnjBhjdw
-	 M0KRFwNK45wsJMvPX/avblajkT4Rk+ZDWESfAJyA=
+	b=maCUBWBGxrareUZesuQ5L97txqdJSTW3IsH+itpHCH/MGRg7KUh0ZGrMkmmX4fKra
+	 o1J3CV/AAEhiDp7fuunDM+cy74jug27/KOCEMdnZrMnDVSKNtvzsbC9yZ0i9UEPgjW
+	 U2ytVWO734gDERC5xTL7rybUxX0f8n+FP5gG8sPo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C8BBF80084;
-	Fri, 18 Jun 2021 06:07:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB397F8032D;
+	Fri, 18 Jun 2021 08:05:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F26C2F8032D; Fri, 18 Jun 2021 06:07:27 +0200 (CEST)
+ id D7CECF8032D; Fri, 18 Jun 2021 08:05:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,PRX_BODY_26,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
+ [IPv6:2607:f8b0:4864:20::430])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BCFD2F80084
- for <alsa-devel@alsa-project.org>; Fri, 18 Jun 2021 06:07:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCFD2F80084
+ by alsa1.perex.cz (Postfix) with ESMTPS id 91CC3F800E1
+ for <alsa-devel@alsa-project.org>; Fri, 18 Jun 2021 08:05:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91CC3F800E1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="B7/lsD0L"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="wOJ/J07U"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 88DD05C0163;
- Fri, 18 Jun 2021 00:07:18 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Fri, 18 Jun 2021 00:07:18 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="LD1n8eeQ"
+Received: by mail-pf1-x430.google.com with SMTP id k6so6849374pfk.12
+ for <alsa-devel@alsa-project.org>; Thu, 17 Jun 2021 23:05:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm1; bh=OfWwau72bppjR+Cw5ebqurK00Q
- UtKShyCe6I45ah0rc=; b=B7/lsD0LbJyDMno9N1U3DeI2IBdvugvGSLb4lUh/Z+
- BiMHXAzKQCcN1Hy4DjOFWCXO/ZuFvSKuOEoNUA7yGYpkHV+RWKfGIQ2XDbxWuP5Z
- L2/FkkgqvYGtTruWLA4B/z3iWSJmUBKmnCRUxspHqARD8QeuH+5FU10WP/7WVgak
- w78/ZIDo9P+sKjcZ/s7+yUQ45JNE6rSknbHk/s2qCvOIH3OaRAX2x4qsLHGtJYpl
- 5PyiRWsw6Lzp/NQCrJmq/oOFiKYEojIeeg8B/aSSWr6/Qo485qqqS5qXFVba8uoB
- IXp037sFw1YpRbi5iWMnmx0KJGRoJPENL4mToH3VCQCw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=OfWwau72bppjR+Cw5
- ebqurK00QUtKShyCe6I45ah0rc=; b=wOJ/J07UAv08+rIn53dIm9VJoo3KTExY7
- MfqS5wX/XO4VZrKs8PFK0+vPGnfit+Grt+78LFGX2F9PfoZWS2ciicimIRfLl5vF
- KjyaDbddR8BXsjE0wiTMQ/boGoA4iBiz3f7AYGX06CpyS/tCDOTJJSdqvrgromdt
- d0UWPQilQDJmrLNcr2kIx5eGSfL7lncE5mpcz6UjZUELyrJ56e2RhVzoVfVunBJR
- 4BncZeuts7uPcU6iCDZ0iCjBL4IAG9OFapDuc25TLkuNGt43+8SB9pfz9bMy0yDL
- +KhL8CHCJUpVIfd+H/T9GffhqGf2m04EbqmFmL7i2hxSSt+TiZvjA==
-X-ME-Sender: <xms:9RvMYDQOw7NQsFKRu_gNamA0uGraf9Pzp85KMr_ZpByzAP8vPrsqWw>
- <xme:9RvMYEzgtUBe3ZEIPP8Xwr26tYWmeDVWzHg4H2hhc5id0iW2LVZyDnts8x8Im5G8T
- 3qIiBID1rfUvnWPFKs>
-X-ME-Received: <xmr:9RvMYI0gZZruSfAEGDRLejm72Bae4fBDGgwdVioVhlNMHXJkvkp_gIGQH0xajbnu_8t2Tf-52AajWx-e34VdEiZMWTa1A2zF30MN0mYxGFXgSSNllciE>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeefvddgjeeiucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
- dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
- ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepudejteelhfdttd
- ekgfdtueeilefhgfetjeejheekgeevuddvveegieehueeukeejnecuvehluhhsthgvrhfu
- ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkh
- grmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:9RvMYDD2LCXkdmJhrY-foHZs0qvgsfu0OExiCdU6ZLsCj8aRKB_-vg>
- <xmx:9RvMYMi21wlzy-j7JngIx178tqLZIKZBnqOPScwTnMcq_q1DqfhwkQ>
- <xmx:9RvMYHofV3AKvUeOMr_StXHtO85KsFl2q5aEPQplE5LymYAK61tF9g>
- <xmx:9hvMYIaX-jcJxNIRauC83PkLywfqd293THkFFZ8X80uso0GP5zay5w>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 18 Jun 2021 00:07:16 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH] ALSA: firewire-motu: fix rx packet format at higher rate for
- MOTU 828 mk3 Hybrid
-Date: Fri, 18 Jun 2021 13:07:13 +0900
-Message-Id: <20210618040713.114611-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.30.2
+ :content-transfer-encoding;
+ bh=855aARPuGXyvW3OteHlTY9JfuR5sJqhxx5CXtV4GkyE=;
+ b=LD1n8eeQvY5v5b2WorNs+qP0wWE8ZKA4YFJhDa7O2R6TueC203l0AOTBwjDZO16CQe
+ hK2IWGI5yyC1Y3YJ/e7uwGFV7QCN0XY1F1OGRe/B3gnXoYP5Zi0ROsLlAW8SHRk87khZ
+ sPIvTCJN3bUh2tuYe6ungRTjvl851vOBspsur8RculnpS7PooVPRixAYSEOr3SMjpL5T
+ Rw1n8Zin4zfynEzjy/ms8Y68i6CQfesL6xP/9NumIe1y5JN9PCi3h2fd4C7kJL3tJbl2
+ tTQ53l+wSMBFJ9zyvLRWeADMGu66y8TKeDVxpcg+j+t8k6Hkn5HK76U/lqVIipGH1b6W
+ S1sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=855aARPuGXyvW3OteHlTY9JfuR5sJqhxx5CXtV4GkyE=;
+ b=tBOsEvjtqSCb59ro/XsIcikvKSRkA22xNv/bEsLhwgpogd6BLjoVPTkwsFcv2Dr0Wh
+ tiI9KvztO34odUQASuCX4KOGjXOT+ipzAJk9cbnCjKfZWPP8KVj2WOAYSB0ifM6HliN7
+ 4J56T9FVZI13LSFo3qncjLjB+k3ae/zfTuXcgoeuXvmDBUxtHF2xcnn8nVD6QgoCsl3B
+ Z3DX0RUWYPdvByY2wFz+RCMHdoAb22afFRss/GxuvUlEawgdgBPyWavDs29bZFpJh6Jn
+ 7Eysk6hjd2clZBdiwSzzLS2PO2BU0rB6sQl+OXhg3EQjyfTkDLe2B5QTajKnvve8bJrd
+ PaiA==
+X-Gm-Message-State: AOAM533V8dJtWXTZT2KBk9z1AWkSeyYY/cLHbEyrORuuqfHqk7HTd7dN
+ YE2+qahISDuq7ngH4gwDVw==
+X-Google-Smtp-Source: ABdhPJx/hgGxStivHc0lYFuE7t12vqrW4OUmC7gfDSnZFztnOMvmB/tk7zjIdump14mxgMybEKyWdA==
+X-Received: by 2002:a62:b40c:0:b029:2de:4a1e:a753 with SMTP id
+ h12-20020a62b40c0000b02902de4a1ea753mr3488580pfn.64.1623996329445; 
+ Thu, 17 Jun 2021 23:05:29 -0700 (PDT)
+Received: from INTERNET-129.allwinnertech.com ([223.197.233.48])
+ by smtp.gmail.com with ESMTPSA id v15sm7880102pgf.26.2021.06.17.23.05.26
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 17 Jun 2021 23:05:29 -0700 (PDT)
+From: Ban Tao <fengzheng923@gmail.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ mripard@kernel.org, wens@csie.org, jernej.skrabec@gmail.com,
+ fengzheng923@gmail.com, p.zabel@pengutronix.de, samuel@sholland.org,
+ krzk@kernel.org
+Subject: [PATCH v3 1/2] ASoC: sunxi: Add Allwinner H6 Digital MIC driver
+Date: Fri, 18 Jun 2021 14:05:19 +0800
+Message-Id: <20210618060520.2778-1-fengzheng923@gmail.com>
+X-Mailer: git-send-email 2.22.0.windows.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,98 +101,482 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-I assumed that the combination of packet formats for MOTU 828 mk3 Hybrid
-is the same as MOTU 828 mk3 FireWire. However at higher sampling rate, it
-is different. MOTU 828 mk3 Hybrid has additional 4 dummy data chunks for
-rx packet.
+The Allwinner H6 and later SoCs have an DMIC block
+which is capable of capture.
 
-This commit fixes the issue to which I address at a commit f2ac3b839540
-("ALSA: firewire-motu: sequence replay for source packet header").
+Signed-off-by: Ban Tao <fengzheng923@gmail.com>
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/motu/motu-protocol-v3.c | 15 ++++++++++++---
- sound/firewire/motu/motu.c             |  4 ++--
- sound/firewire/motu/motu.h             |  3 ++-
- 3 files changed, 16 insertions(+), 6 deletions(-)
+v1->v2:
+1.Fix some compilation errors.
+2.Modify some code styles.
+---
+v2->v3:
+None.
+---
+ MAINTAINERS                   |   7 +
+ sound/soc/sunxi/Kconfig       |   8 +
+ sound/soc/sunxi/Makefile      |   1 +
+ sound/soc/sunxi/sun50i-dmic.c | 404 ++++++++++++++++++++++++++++++++++
+ 4 files changed, 420 insertions(+)
+ create mode 100644 sound/soc/sunxi/sun50i-dmic.c
 
-diff --git a/sound/firewire/motu/motu-protocol-v3.c b/sound/firewire/motu/motu-protocol-v3.c
-index 4e6b0e449ee4..77e61e89770b 100644
---- a/sound/firewire/motu/motu-protocol-v3.c
-+++ b/sound/firewire/motu/motu-protocol-v3.c
-@@ -185,7 +185,7 @@ int snd_motu_protocol_v3_get_clock_source(struct snd_motu *motu,
- 		return err;
- 	data = be32_to_cpu(reg) & V3_CLOCK_SOURCE_MASK;
+diff --git a/MAINTAINERS b/MAINTAINERS
+index b4094f07214e..1b87225c39b0 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -760,6 +760,13 @@ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ F:	drivers/staging/media/sunxi/cedrus/
  
--	if (motu->spec == &snd_motu_spec_828mk3)
-+	if (motu->spec == &snd_motu_spec_828mk3_fw || motu->spec == &snd_motu_spec_828mk3_hybrid)
- 		return detect_clock_source_828mk3(motu, data, src);
- 	else
- 		return v3_detect_clock_source(motu, data, src);
-@@ -284,14 +284,14 @@ int snd_motu_protocol_v3_cache_packet_formats(struct snd_motu *motu)
- 	       motu->spec->rx_fixed_pcm_chunks,
- 	       sizeof(motu->rx_packet_formats.pcm_chunks));
++ALLWINNER DMIC DRIVERS
++M:	Ban Tao <fengzheng923@gmail.com>
++L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
++S:	Maintained
++F:	Documentation/devicetree/bindings/sound/allwinner,sun50i-h6-dmic.yaml
++F:	sound/soc/sunxi/sun50i-dmic.c
++
+ ALPHA PORT
+ M:	Richard Henderson <rth@twiddle.net>
+ M:	Ivan Kokshaysky <ink@jurassic.park.msu.ru>
+diff --git a/sound/soc/sunxi/Kconfig b/sound/soc/sunxi/Kconfig
+index ddcaaa98d3cb..2a3bf7722e11 100644
+--- a/sound/soc/sunxi/Kconfig
++++ b/sound/soc/sunxi/Kconfig
+@@ -56,6 +56,14 @@ config SND_SUN4I_SPDIF
+ 	  Say Y or M to add support for the S/PDIF audio block in the Allwinner
+ 	  A10 and affiliated SoCs.
  
--	if (motu->spec == &snd_motu_spec_828mk3)
-+	if (motu->spec == &snd_motu_spec_828mk3_fw || motu->spec == &snd_motu_spec_828mk3_hybrid)
- 		return detect_packet_formats_828mk3(motu, data);
- 	else
- 		return 0;
- }
- 
- 
--const struct snd_motu_spec snd_motu_spec_828mk3 = {
-+const struct snd_motu_spec snd_motu_spec_828mk3_fw = {
- 	.name = "828mk3",
- 	.protocol_version = SND_MOTU_PROTOCOL_V3,
- 	.flags = SND_MOTU_SPEC_RX_MIDI_3RD_Q |
-@@ -300,6 +300,15 @@ const struct snd_motu_spec snd_motu_spec_828mk3 = {
- 	.rx_fixed_pcm_chunks = {14, 14, 10},
- };
- 
-+const struct snd_motu_spec snd_motu_spec_828mk3_hybrid = {
-+	.name = "828mk3",
-+	.protocol_version = SND_MOTU_PROTOCOL_V3,
-+	.flags = SND_MOTU_SPEC_RX_MIDI_3RD_Q |
-+		 SND_MOTU_SPEC_TX_MIDI_3RD_Q,
-+	.tx_fixed_pcm_chunks = {18, 18, 14},
-+	.rx_fixed_pcm_chunks = {14, 14, 14},	// Additional 4 dummy chunks at higher rate.
++config SND_SUN50I_DMIC
++	tristate "Allwinner H6 DMIC Support"
++	depends on (OF && ARCH_SUNXI) || COMPILE_TEST
++	select SND_SOC_GENERIC_DMAENGINE_PCM
++	help
++	  Say Y or M to add support for the DMIC audio block in the Allwinner
++	  H6 and affiliated SoCs.
++
+ config SND_SUN8I_ADDA_PR_REGMAP
+ 	tristate
+ 	select REGMAP
+diff --git a/sound/soc/sunxi/Makefile b/sound/soc/sunxi/Makefile
+index a86be340a076..4483fe9c94ef 100644
+--- a/sound/soc/sunxi/Makefile
++++ b/sound/soc/sunxi/Makefile
+@@ -6,3 +6,4 @@ obj-$(CONFIG_SND_SUN8I_CODEC_ANALOG) += sun8i-codec-analog.o
+ obj-$(CONFIG_SND_SUN50I_CODEC_ANALOG) += sun50i-codec-analog.o
+ obj-$(CONFIG_SND_SUN8I_CODEC) += sun8i-codec.o
+ obj-$(CONFIG_SND_SUN8I_ADDA_PR_REGMAP) += sun8i-adda-pr-regmap.o
++obj-$(CONFIG_SND_SUN50I_DMIC) += sun50i-dmic.o
+diff --git a/sound/soc/sunxi/sun50i-dmic.c b/sound/soc/sunxi/sun50i-dmic.c
+new file mode 100644
+index 000000000000..d0b576528552
+--- /dev/null
++++ b/sound/soc/sunxi/sun50i-dmic.c
+@@ -0,0 +1,404 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++//
++// This driver supports the DMIC in Allwinner's H6 SoCs.
++//
++// Copyright 2021 Ban Tao <fengzheng923@gmail.com>
++
++#include <linux/clk.h>
++#include <linux/device.h>
++#include <linux/of_device.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
++#include <linux/reset.h>
++#include <sound/dmaengine_pcm.h>
++#include <sound/pcm_params.h>
++#include <sound/soc.h>
++
++#define SUN50I_DMIC_EN_CTL		(0x00)
++	#define SUN50I_DMIC_EN_CTL_GLOBE			BIT(8)
++	#define SUN50I_DMIC_EN_CTL_CHAN(v)		((v) << 0)
++	#define SUN50I_DMIC_EN_CTL_CHAN_MASK		GENMASK(7, 0)
++#define SUN50I_DMIC_SR			(0x04)
++	#define SUN50I_DMIC_SR_SAMOLE_RATE(v)		((v) << 0)
++	#define SUN50I_DMIC_SR_SAMOLE_RATE_MASK		GENMASK(2, 0)
++#define SUN50I_DMIC_CTL			(0x08)
++	#define SUN50I_DMIC_CTL_OVERSAMPLE_RATE		BIT(0)
++#define SUN50I_DMIC_DATA			(0x10)
++#define SUN50I_DMIC_INTC			(0x14)
++	#define SUN50I_DMIC_FIFO_DRQ_EN			BIT(2)
++#define SUN50I_DMIC_INT_STA		(0x18)
++	#define SUN50I_DMIC_INT_STA_OVERRUN_IRQ_PENDING	BIT(1)
++	#define SUN50I_DMIC_INT_STA_DATA_IRQ_PENDING	BIT(0)
++#define SUN50I_DMIC_RXFIFO_CTL		(0x1c)
++	#define SUN50I_DMIC_RXFIFO_CTL_FLUSH		BIT(31)
++	#define SUN50I_DMIC_RXFIFO_CTL_MODE		BIT(9)
++	#define SUN50I_DMIC_RXFIFO_CTL_RESOLUTION	BIT(8)
++#define SUN50I_DMIC_CH_NUM		(0x24)
++	#define SUN50I_DMIC_CH_NUM_N(v)			((v) << 0)
++	#define SUN50I_DMIC_CH_NUM_N_MASK		GENMASK(2, 0)
++#define SUN50I_DMIC_CNT			(0x2c)
++	#define SUN50I_DMIC_CNT_N			BIT(0)
++#define SUN50I_DMIC_HPF_CTRL		(0x38)
++#define SUN50I_DMIC_VERSION		(0x50)
++
++
++struct sun50i_dmic_dev {
++	struct clk *dmic_clk;
++	struct clk *bus_clk;
++	struct reset_control *rst;
++	struct regmap *regmap;
++	struct snd_dmaengine_dai_dma_data dma_params_rx;
++	unsigned int chan_en;
 +};
 +
- const struct snd_motu_spec snd_motu_spec_ultralite_mk3 = {
- 	.name = "UltraLiteMk3",
- 	.protocol_version = SND_MOTU_PROTOCOL_V3,
-diff --git a/sound/firewire/motu/motu.c b/sound/firewire/motu/motu.c
-index 0cae670d711c..543136578c70 100644
---- a/sound/firewire/motu/motu.c
-+++ b/sound/firewire/motu/motu.c
-@@ -156,10 +156,10 @@ static const struct ieee1394_device_id motu_id_table[] = {
- 	SND_MOTU_DEV_ENTRY(0x000009, &snd_motu_spec_traveler),
- 	SND_MOTU_DEV_ENTRY(0x00000d, &snd_motu_spec_ultralite),
- 	SND_MOTU_DEV_ENTRY(0x00000f, &snd_motu_spec_8pre),
--	SND_MOTU_DEV_ENTRY(0x000015, &snd_motu_spec_828mk3), // FireWire only.
-+	SND_MOTU_DEV_ENTRY(0x000015, &snd_motu_spec_828mk3_fw), // FireWire only.
- 	SND_MOTU_DEV_ENTRY(0x000019, &snd_motu_spec_ultralite_mk3), // FireWire only.
- 	SND_MOTU_DEV_ENTRY(0x000030, &snd_motu_spec_ultralite_mk3), // Hybrid.
--	SND_MOTU_DEV_ENTRY(0x000035, &snd_motu_spec_828mk3), // Hybrid.
-+	SND_MOTU_DEV_ENTRY(0x000035, &snd_motu_spec_828mk3_hybrid), // Hybrid.
- 	SND_MOTU_DEV_ENTRY(0x000033, &snd_motu_spec_audio_express),
- 	SND_MOTU_DEV_ENTRY(0x000045, &snd_motu_spec_4pre),
- 	{ }
-diff --git a/sound/firewire/motu/motu.h b/sound/firewire/motu/motu.h
-index a3deabdf9e34..73f36d1be515 100644
---- a/sound/firewire/motu/motu.h
-+++ b/sound/firewire/motu/motu.h
-@@ -130,7 +130,8 @@ extern const struct snd_motu_spec snd_motu_spec_traveler;
- extern const struct snd_motu_spec snd_motu_spec_ultralite;
- extern const struct snd_motu_spec snd_motu_spec_8pre;
- 
--extern const struct snd_motu_spec snd_motu_spec_828mk3;
-+extern const struct snd_motu_spec snd_motu_spec_828mk3_fw;
-+extern const struct snd_motu_spec snd_motu_spec_828mk3_hybrid;
- extern const struct snd_motu_spec snd_motu_spec_ultralite_mk3;
- extern const struct snd_motu_spec snd_motu_spec_audio_express;
- extern const struct snd_motu_spec snd_motu_spec_4pre;
++struct dmic_rate {
++	unsigned int samplerate;
++	unsigned int rate_bit;
++};
++
++static int sun50i_dmic_startup(struct snd_pcm_substream *substream,
++			       struct snd_soc_dai *cpu_dai)
++{
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct sun50i_dmic_dev *host = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
++
++	/* only support capture */
++	if (substream->stream != SNDRV_PCM_STREAM_CAPTURE)
++		return -EINVAL;
++
++	regmap_update_bits(host->regmap, SUN50I_DMIC_RXFIFO_CTL,
++			   SUN50I_DMIC_RXFIFO_CTL_FLUSH,
++			   SUN50I_DMIC_RXFIFO_CTL_FLUSH);
++	regmap_write(host->regmap, SUN50I_DMIC_CNT, SUN50I_DMIC_CNT_N);
++
++	return 0;
++}
++
++static int sun50i_dmic_hw_params(struct snd_pcm_substream *substream,
++				 struct snd_pcm_hw_params *params,
++				 struct snd_soc_dai *cpu_dai)
++{
++	int i = 0;
++	unsigned long rate = params_rate(params);
++	unsigned int mclk = 0;
++	unsigned int channels = params_channels(params);
++	struct sun50i_dmic_dev *host = snd_soc_dai_get_drvdata(cpu_dai);
++	struct dmic_rate dmic_rate_s[] = {
++		{44100, 0x0},
++		{48000, 0x0},
++		{22050, 0x2},
++		{24000, 0x2},
++		{11025, 0x4},
++		{12000, 0x4},
++		{32000, 0x1},
++		{16000, 0x3},
++		{8000,  0x5},
++	};
++
++	/* DMIC num is N+1 */
++	regmap_update_bits(host->regmap, SUN50I_DMIC_CH_NUM,
++			   SUN50I_DMIC_CH_NUM_N_MASK,
++			   SUN50I_DMIC_CH_NUM_N(channels - 1));
++	host->chan_en = (1 << channels) - 1;
++	regmap_write(host->regmap, SUN50I_DMIC_HPF_CTRL, host->chan_en);
++
++	switch (params_format(params)) {
++	case SNDRV_PCM_FORMAT_S16_LE:
++		regmap_update_bits(host->regmap, SUN50I_DMIC_RXFIFO_CTL,
++				   SUN50I_DMIC_RXFIFO_CTL_MODE,
++				   SUN50I_DMIC_RXFIFO_CTL_MODE);
++		regmap_update_bits(host->regmap, SUN50I_DMIC_RXFIFO_CTL,
++				   SUN50I_DMIC_RXFIFO_CTL_RESOLUTION, 0);
++		break;
++	case SNDRV_PCM_FORMAT_S24_LE:
++		regmap_update_bits(host->regmap, SUN50I_DMIC_RXFIFO_CTL,
++				   SUN50I_DMIC_RXFIFO_CTL_MODE, 0);
++		regmap_update_bits(host->regmap, SUN50I_DMIC_RXFIFO_CTL,
++				   SUN50I_DMIC_RXFIFO_CTL_RESOLUTION,
++				   SUN50I_DMIC_RXFIFO_CTL_RESOLUTION);
++		break;
++	default:
++		dev_err(cpu_dai->dev, "Invalid format!\n");
++		return -EINVAL;
++	}
++
++	switch (rate) {
++	case 11025:
++	case 22050:
++	case 44100:
++		mclk = 22579200;
++		break;
++	case 8000:
++	case 12000:
++	case 16000:
++	case 24000:
++	case 32000:
++	case 48000:
++		mclk = 24576000;
++		break;
++	default:
++		dev_err(cpu_dai->dev, "Invalid rate!\n");
++		return -EINVAL;
++	}
++
++	if (clk_set_rate(host->dmic_clk, mclk)) {
++		dev_err(cpu_dai->dev, "mclk : %u not support\n", mclk);
++		return -EINVAL;
++	}
++
++	for (i = 0; i < ARRAY_SIZE(dmic_rate_s); i++) {
++		if (dmic_rate_s[i].samplerate == rate) {
++			regmap_update_bits(host->regmap, SUN50I_DMIC_SR,
++					   SUN50I_DMIC_SR_SAMOLE_RATE_MASK,
++					   SUN50I_DMIC_SR_SAMOLE_RATE(dmic_rate_s[i].rate_bit));
++			break;
++		}
++	}
++
++	switch (params_physical_width(params)) {
++	case 16:
++		host->dma_params_rx.addr_width = DMA_SLAVE_BUSWIDTH_2_BYTES;
++		break;
++	case 32:
++		host->dma_params_rx.addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
++		break;
++	default:
++		dev_err(cpu_dai->dev, "Unsupported physical sample width: %d\n",
++			params_physical_width(params));
++		return -EINVAL;
++	}
++
++	/* oversamplerate adjust */
++	if (params_rate(params) >= 24000)
++		regmap_update_bits(host->regmap, SUN50I_DMIC_CTL,
++				   SUN50I_DMIC_CTL_OVERSAMPLE_RATE,
++				   SUN50I_DMIC_CTL_OVERSAMPLE_RATE);
++	else
++		regmap_update_bits(host->regmap, SUN50I_DMIC_CTL,
++				   SUN50I_DMIC_CTL_OVERSAMPLE_RATE, 0);
++
++	return 0;
++}
++
++static int sun50i_dmic_trigger(struct snd_pcm_substream *substream, int cmd,
++			       struct snd_soc_dai *dai)
++{
++	int ret = 0;
++	struct sun50i_dmic_dev *host = snd_soc_dai_get_drvdata(dai);
++
++	if (substream->stream != SNDRV_PCM_STREAM_CAPTURE)
++		return -EINVAL;
++
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_START:
++	case SNDRV_PCM_TRIGGER_RESUME:
++	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++		/* DRQ ENABLE */
++		regmap_update_bits(host->regmap, SUN50I_DMIC_INTC,
++				   SUN50I_DMIC_FIFO_DRQ_EN,
++				   SUN50I_DMIC_FIFO_DRQ_EN);
++		regmap_update_bits(host->regmap, SUN50I_DMIC_EN_CTL,
++				   SUN50I_DMIC_EN_CTL_CHAN_MASK,
++				   SUN50I_DMIC_EN_CTL_CHAN(host->chan_en));
++		/* Global enable */
++		regmap_update_bits(host->regmap, SUN50I_DMIC_EN_CTL,
++				   SUN50I_DMIC_EN_CTL_GLOBE,
++				   SUN50I_DMIC_EN_CTL_GLOBE);
++		break;
++
++	case SNDRV_PCM_TRIGGER_STOP:
++	case SNDRV_PCM_TRIGGER_SUSPEND:
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++		/* DRQ DISABLE */
++		regmap_update_bits(host->regmap, SUN50I_DMIC_INTC,
++				   SUN50I_DMIC_FIFO_DRQ_EN, 0);
++		regmap_update_bits(host->regmap, SUN50I_DMIC_EN_CTL,
++				   SUN50I_DMIC_EN_CTL_CHAN_MASK,
++				   SUN50I_DMIC_EN_CTL_CHAN(0));
++		/* Global disable */
++		regmap_update_bits(host->regmap, SUN50I_DMIC_EN_CTL,
++				   SUN50I_DMIC_EN_CTL_GLOBE, 0);
++		break;
++
++	default:
++		ret = -EINVAL;
++		break;
++	}
++	return ret;
++}
++
++static int sun50i_dmic_soc_dai_probe(struct snd_soc_dai *dai)
++{
++	struct sun50i_dmic_dev *host = snd_soc_dai_get_drvdata(dai);
++
++	snd_soc_dai_init_dma_data(dai, NULL, &host->dma_params_rx);
++
++	return 0;
++}
++
++static const struct snd_soc_dai_ops sun50i_dmic_dai_ops = {
++	.startup	= sun50i_dmic_startup,
++	.trigger	= sun50i_dmic_trigger,
++	.hw_params	= sun50i_dmic_hw_params,
++};
++
++static const struct regmap_config sun50i_dmic_regmap_config = {
++	.reg_bits = 32,
++	.reg_stride = 4,
++	.val_bits = 32,
++	.max_register = SUN50I_DMIC_VERSION,
++	.cache_type = REGCACHE_NONE,
++};
++
++#define	SUN50I_DMIC_RATES (SNDRV_PCM_RATE_8000_48000)
++#define SUN50I_FORMATS	(SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE)
++
++static struct snd_soc_dai_driver sun50i_dmic_dai = {
++	.capture = {
++		.channels_min = 1,
++		.channels_max = 8,
++		.rates = SUN50I_DMIC_RATES,
++		.formats = SUN50I_FORMATS,
++	},
++	.probe = sun50i_dmic_soc_dai_probe,
++	.ops = &sun50i_dmic_dai_ops,
++	.name = "dmic",
++};
++
++static const struct of_device_id sun50i_dmic_of_match[] = {
++	{
++		.compatible = "allwinner,sun50i-h6-dmic",
++	},
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, sun50i_dmic_of_match);
++
++static const struct snd_soc_component_driver sun50i_dmic_component = {
++	.name		= "sun50i-dmic",
++};
++
++static int sun50i_dmic_runtime_suspend(struct device *dev)
++{
++	struct sun50i_dmic_dev *host  = dev_get_drvdata(dev);
++
++	clk_disable_unprepare(host->dmic_clk);
++	clk_disable_unprepare(host->bus_clk);
++
++	return 0;
++}
++
++static int sun50i_dmic_runtime_resume(struct device *dev)
++{
++	struct sun50i_dmic_dev *host  = dev_get_drvdata(dev);
++	int ret;
++
++	ret = clk_prepare_enable(host->dmic_clk);
++	if (ret)
++		return ret;
++	ret = clk_prepare_enable(host->bus_clk);
++	if (ret)
++		clk_disable_unprepare(host->dmic_clk);
++
++	return ret;
++}
++
++static int sun50i_dmic_probe(struct platform_device *pdev)
++{
++	struct sun50i_dmic_dev *host;
++	struct resource *res;
++	int ret;
++	void __iomem *base;
++
++	host = devm_kzalloc(&pdev->dev, sizeof(*host), GFP_KERNEL);
++	if (!host)
++		return -ENOMEM;
++
++	/* Get the addresses */
++	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	base = devm_ioremap_resource(&pdev->dev, res);
++	if (IS_ERR(base))
++		return dev_err_probe(&pdev->dev, PTR_ERR(base),
++				     "get resource failed.\n");
++
++	host->regmap = devm_regmap_init_mmio(&pdev->dev, base,
++						&sun50i_dmic_regmap_config);
++
++	/* Clocks */
++	host->bus_clk = devm_clk_get(&pdev->dev, "bus");
++	if (IS_ERR(host->bus_clk))
++		return dev_err_probe(&pdev->dev, PTR_ERR(host->bus_clk),
++				     "failed to get bus clock.\n");
++
++	host->dmic_clk = devm_clk_get(&pdev->dev, "mod");
++	if (IS_ERR(host->dmic_clk))
++		return dev_err_probe(&pdev->dev, PTR_ERR(host->dmic_clk),
++				     "failed to get dmic clock.\n");
++
++	host->dma_params_rx.addr = res->start + SUN50I_DMIC_DATA;
++	host->dma_params_rx.maxburst = 8;
++
++	platform_set_drvdata(pdev, host);
++
++	host->rst = devm_reset_control_get_optional_exclusive(&pdev->dev, NULL);
++	if (IS_ERR(host->rst))
++		return dev_err_probe(&pdev->dev, PTR_ERR(host->rst),
++				     "Failed to get reset.\n");
++	reset_control_deassert(host->rst);
++
++	ret = devm_snd_soc_register_component(&pdev->dev,
++				&sun50i_dmic_component, &sun50i_dmic_dai, 1);
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret,
++				     "failed to register component.\n");
++
++	pm_runtime_enable(&pdev->dev);
++	if (!pm_runtime_enabled(&pdev->dev)) {
++		ret = sun50i_dmic_runtime_resume(&pdev->dev);
++		if (ret)
++			goto err_unregister;
++	}
++
++	ret = devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
++	if (ret)
++		goto err_suspend;
++
++	return 0;
++err_suspend:
++	if (!pm_runtime_status_suspended(&pdev->dev))
++		sun50i_dmic_runtime_suspend(&pdev->dev);
++err_unregister:
++	pm_runtime_disable(&pdev->dev);
++	return ret;
++}
++
++static int sun50i_dmic_remove(struct platform_device *pdev)
++{
++	pm_runtime_disable(&pdev->dev);
++	if (!pm_runtime_status_suspended(&pdev->dev))
++		sun50i_dmic_runtime_suspend(&pdev->dev);
++
++	return 0;
++}
++
++static const struct dev_pm_ops sun50i_dmic_pm = {
++	SET_RUNTIME_PM_OPS(sun50i_dmic_runtime_suspend,
++			   sun50i_dmic_runtime_resume, NULL)
++};
++
++static struct platform_driver sun50i_dmic_driver = {
++	.driver		= {
++		.name	= "sun50i-dmic",
++		.of_match_table = of_match_ptr(sun50i_dmic_of_match),
++		.pm	= &sun50i_dmic_pm,
++	},
++	.probe		= sun50i_dmic_probe,
++	.remove		= sun50i_dmic_remove,
++};
++
++module_platform_driver(sun50i_dmic_driver);
++
++MODULE_DESCRIPTION("Allwinner sun50i DMIC SoC Interface");
++MODULE_AUTHOR("Ban Tao <fengzheng923@gmail.com>");
++MODULE_LICENSE("GPL");
++MODULE_ALIAS("platform:sun50i-dmic");
 -- 
-2.30.2
+2.29.0
 

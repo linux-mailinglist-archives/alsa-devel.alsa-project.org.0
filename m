@@ -2,86 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71B5F3ACCA7
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Jun 2021 15:46:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E6BB3ACCEF
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Jun 2021 15:58:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 80B111711;
-	Fri, 18 Jun 2021 15:46:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80B111711
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1713A1711;
+	Fri, 18 Jun 2021 15:57:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1713A1711
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624024013;
-	bh=XfNYJ+Xn+C5TMgqTnynW/kGMKelbYeX7G34ZtzwiY5Q=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=GNAc4JtvVBfVxf2buCGdo32To7lmqv9Ldfno1MKj+rJ9MIbgiUZnmmzCJzQ3pWuBG
-	 r15nOUu5+MIBY9cfxWS+fAgwdHejCqo/Z4fZGKrkRSKEwPqQjTxRcEb8BYijwrTeNj
-	 eAsbPEJKj8DO/NW8kSWxnK/xBGeClZ/BvbcBnSfQ=
+	s=default; t=1624024727;
+	bh=4a3LIlfuZVIahdgAVLFMOAKLxo3VwvjFmVdLQzOCXgk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=eOnK+43F1P+4dSK9YcCPr9RW1L7cKfse3c1tqfs/ZUu1BuiV0+Sbq1lVIUqybhtwl
+	 E8DQPfh+/VJUkI266XagRl9gKpPIcnawyEdHyiusuXJsHyXYrRGVF2afDpbpHlXK1M
+	 L8SwF8DwbjKsy9fPwL+BPlR3kuFS6Pb9KpcsECkc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 034E4F80148;
-	Fri, 18 Jun 2021 15:46:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97B17F80424;
+	Fri, 18 Jun 2021 15:57:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E160F80424; Fri, 18 Jun 2021 15:46:01 +0200 (CEST)
+ id 54BB5F8032D; Fri, 18 Jun 2021 15:57:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5519AF800E1
- for <alsa-devel@alsa-project.org>; Fri, 18 Jun 2021 15:45:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5519AF800E1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="aBPIlY3B"
-Received: by mail-lf1-x134.google.com with SMTP id d16so9343401lfn.3
- for <alsa-devel@alsa-project.org>; Fri, 18 Jun 2021 06:45:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=XfNYJ+Xn+C5TMgqTnynW/kGMKelbYeX7G34ZtzwiY5Q=;
- b=aBPIlY3B3I9t/Bb6QizL4BO5Uq5daVIAP8ONYx5ejAWYGtn30nVkpE0OuIVcL86v01
- OEBuLWueTYTM9LFN9UIgL9wNhfbb8ogyeyCqo8cecTttf4aS2yJ3+52ZIidumG6M8Ro4
- 93D97EcFwSVRDWL3NPu2KsxpdOerwF9y082vpSCcTehIxCOMzDP3stZ5VMKT4LP4eT4w
- 73VGEC+UfPT8whVbC4r4se+RdL+lhSgRu2z7uf5GtLcRfZkRlsIq10lauq8+jOQOUYYT
- dROJmsjNGNRPd0+BwK4JywdLER7UxRZscAl3t90tB7VJoMqLKO3B2Sn60BTbbXA8d6fh
- FDjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=XfNYJ+Xn+C5TMgqTnynW/kGMKelbYeX7G34ZtzwiY5Q=;
- b=Tckt0tj+yrnQYLyBqdLTSEKhyI1CmQ66n8xGlGgMzFN41FaN7jL6vvhQ6Yu4SrLuR2
- lQ2vRS0IIrf/DhMAqlqPx+cVG9ANm1kuDjemfplN3IlqaG8mB9k3BsRjMG+HuuuR1nHW
- qgKBHFPtGMB4LFR1G7zJFrOQUuc/SPOffPBqM2X6Zytm7a0WVS5MWT1KJ/WGhYLwL7LP
- QUakGlot142W6cQjzxu2D5HW48PLiiF2jGomqFd2dj6xgRyqfmRZ6sDLELRhUcruPvhT
- kR8wnMtTvP2FTD2yxEsmrJI6EB34J7zHzU4OQsl8JIrCo66aiygKd/bSG93bko6NqhRh
- zLkw==
-X-Gm-Message-State: AOAM530PfKJATb0lXaWduttCmEoHmWBplPx89uPMZ0AGa6vRb/EW8C7H
- x+SpEffl4vcTMlgRXQ0vJO1J3E359ldWpQjSdR0=
-X-Google-Smtp-Source: ABdhPJzKUBlUCXaM4pDSgkd4knQq1miSg0a6/u1XLmU7lhiJg2ED3RTISV+7tMeKeWIckVS/fKdebCodLrTRUdeZKXg=
-X-Received: by 2002:ac2:4d25:: with SMTP id h5mr3212910lfk.583.1624023952748; 
- Fri, 18 Jun 2021 06:45:52 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A5BB6F8032D
+ for <alsa-devel@alsa-project.org>; Fri, 18 Jun 2021 15:57:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5BB6F8032D
+Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.57])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4G60hz6R0SzXfb6;
+ Fri, 18 Jun 2021 21:52:03 +0800 (CST)
+Received: from dggema755-chm.china.huawei.com (10.1.198.197) by
+ dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.1.2176.2; Fri, 18 Jun 2021 21:57:08 +0800
+Received: from huawei.com (10.90.53.225) by dggema755-chm.china.huawei.com
+ (10.1.198.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Fri, 18
+ Jun 2021 21:57:07 +0800
+From: Zhang Qilong <zhangqilong3@huawei.com>
+To: <perex@perex.cz>, <tiwai@suse.com>, <matthias.bgg@gmail.com>
+Subject: [PATCH -next 0/2] Fix unbalanced pm_runtime_enable in error handle
+Date: Fri, 18 Jun 2021 22:11:02 +0800
+Message-ID: <20210618141104.105047-1-zhangqilong3@huawei.com>
+X-Mailer: git-send-email 2.26.0.106.g9fadedd
 MIME-Version: 1.0
-References: <1624019913-3380-1-git-send-email-shengjiu.wang@nxp.com>
-In-Reply-To: <1624019913-3380-1-git-send-email-shengjiu.wang@nxp.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Fri, 18 Jun 2021 10:45:41 -0300
-Message-ID: <CAOMZO5Ao9FipZQQ4oVK=1SFJ=24EPoUfybHMFE7dSpUAR3pLAA@mail.gmail.com>
-Subject: Re: [PATCH v2] ASoC: fsl_xcvr: disable all interrupts when suspend
- happens
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, linux-kernel <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.90.53.225]
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+ dggema755-chm.china.huawei.com (10.1.198.197)
+X-CFilter-Loop: Reflected
+Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
+ lgirdwood@gmail.com, broonie@kernel.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,19 +77,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jun 18, 2021 at 9:57 AM Shengjiu Wang <shengjiu.wang@nxp.com> wrote:
->
-> There is an unhandled interrupt after suspend, which cause endless
-> interrupt when system resume, so system may hang.
->
-> Disable all interrupts in runtime suspend callback to avoid above
-> issue.
->
-> Fixes: 28564486866f ("ASoC: fsl_xcvr: Add XCVR ASoC CPU DAI driver")
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> ---
-> changes in v2:
-> - Add Fixes tag
-> - Add comments for the change
+This two patches fixed the unbalanced PM disable depth. It could
+avoid pm_runtime implementation complains when removing and probing
+again the driver.
 
-Reviewed-by: Fabio Estevam <festevam@gmail.com>
+Zhang Qilong (2):
+  ASoC: mediatek: mt8192:Fix Unbalanced pm_runtime_enable in
+    mt8192_afe_pcm_dev_probe
+  ASoC: mediatek: mt8183: Fix Unbalanced pm_runtime_enable in
+    mt8183_afe_pcm_dev_probe
+
+ sound/soc/mediatek/mt8183/mt8183-afe-pcm.c | 43 ++++++++++++++--------
+ sound/soc/mediatek/mt8192/mt8192-afe-pcm.c | 27 +++++++++-----
+ 2 files changed, 44 insertions(+), 26 deletions(-)
+
+-- 
+2.31.1
+

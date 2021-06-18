@@ -2,97 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D7BA3ACD24
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Jun 2021 16:08:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C4B53ACD75
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Jun 2021 16:27:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 91212172A;
-	Fri, 18 Jun 2021 16:08:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91212172A
+	by alsa0.perex.cz (Postfix) with ESMTPS id E0DA11710;
+	Fri, 18 Jun 2021 16:27:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0DA11710
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624025330;
-	bh=9n+YRcE68xVHgA0LBoi2Wur5SXN2S4LhtfVQbQFCCJs=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1624026471;
+	bh=wsFqW9+yDGKBhBfhDrHZBW/uCoo4JvyTw1+c1oOozs8=;
+	h=References:From:To:Subject:In-reply-to:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WNelImA65Vybf/t+zWGNuEm/oyTJs2WG9NC4rbCWXEXoWuQIJmQGqfeiE+zxbYN5K
-	 ZeCKZkgFP4r0nM1Sjz9LPsY4GUrNt53H6rJvJfwWtKARh2Z0ez3wO6hEZqBR985qVa
-	 jd4AS4IUBdEFVyB6QUF204DLHuTzgcAdhF1Vedo8=
+	b=Y+kSGtixNYKLlT6K+kMw5HnW2Lu3TkrHRaUNmyFifxeluivjo2lO8LEIhJR1Fi07p
+	 LvsjdUzkBC+vMBtoocUwbZYXnCOdzQS8pIEdDXaQJ1ZUqpTNd4Uwynk5CXMgnROyFW
+	 NGYWD2Qw6TOJf5+2lb5WtHOPWa5vPtBa7XvFoGKY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49185F80423;
-	Fri, 18 Jun 2021 16:07:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7606F80423;
+	Fri, 18 Jun 2021 16:26:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 526F6F804B0; Fri, 18 Jun 2021 16:07:13 +0200 (CEST)
+ id 4AD8CF8032D; Fri, 18 Jun 2021 16:26:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00C0CF80423
- for <alsa-devel@alsa-project.org>; Fri, 18 Jun 2021 16:07:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00C0CF80423
+ by alsa1.perex.cz (Postfix) with ESMTPS id 50B4CF80148
+ for <alsa-devel@alsa-project.org>; Fri, 18 Jun 2021 16:26:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50B4CF80148
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ikMGpc/P"
-Received: by mail-lf1-x134.google.com with SMTP id i13so16876590lfc.7
- for <alsa-devel@alsa-project.org>; Fri, 18 Jun 2021 07:07:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=/quGoc38c0p0H8/J6lRb7JsKFmpNqxFSoJWjBr7SmOk=;
- b=ikMGpc/P3dIvtrCXQjqZgQvp/vsiCq4YWydduybjNDcgyQ/v9awwdDXyvTsSq6FXGk
- QOQstqHaG6R1cz5XDEE1NJtaUfLfPtMe4I6pqWYB7/Jga7FnaRnNbqmfKIAZ5UmfTljp
- Gh+D5+4jn/iwyAZxvnIWU5IHQX+XswPPL/+9pvGZ554Yc5ovfGys+xdnyREj2uKU2v/6
- urken14llhUP7AcBSQpTa/lGPCZIJqEjgZ1VYkIN2cZHsizWJR5BkPOTkSNJtj8ZvlH1
- HcxdDLDytJA1TJNE/zpkPjHN+OYAEct5UYtcX2w622wdfsGm3ldQf39hrLtXt9XKOALM
- /4sg==
+ dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="Lpd8EfWy"
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 3-20020a05600c0243b029019f2f9b2b8aso5903554wmj.2
+ for <alsa-devel@alsa-project.org>; Fri, 18 Jun 2021 07:26:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20150623.gappssmtp.com; s=20150623;
+ h=references:user-agent:from:to:cc:subject:in-reply-to:message-id
+ :date:mime-version;
+ bh=X9a8sVzPq/DZtRtlv9ma28hJW4mL7WbxaIUzw19VfmY=;
+ b=Lpd8EfWy89Nh5vPSWmkJXUp+zN59cC5JyzDZN/2QJtfZmAnmX5UgSlL/IvW7112cwv
+ pUlGJr2axqA2psRzNA2qeajuHIlhDjF73oP3BGpPXo1VbgD7nnKdjDHEsJFNSj0FMzS4
+ EsDUYWQoaC19kSmtaY0QULnm06xPdbwLYWOIFpNNH3sHTc/h8viYQJSfLdc2SUiBNqkY
+ V5bVDy2X3+D6GM+ylwEzkBxS0YWeK+u4Shcv6F0JfBzWGDdqQVUbZO4IIamaAAtxnw7z
+ YmI8XFUkp4xEiW16CYiaMoQTHKg7DC4LLKR7tImMZY/yo/ZjAHHaOAkUiKcWj6erYkRt
+ rGEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=/quGoc38c0p0H8/J6lRb7JsKFmpNqxFSoJWjBr7SmOk=;
- b=hBvaDEqn41MNY2YaAmhhoa1qvvZ9aONuyF7uMuCR2hqb0TzG9e2HXFSGrdd/GJe/aF
- cQLVDZoXmkoExcrCuBG0GOBw0d6Y5GwivNc2y9uNuogHrEsPPkKPe/IMJExdm77C8QKM
- +G8Bxbh+7vEIq5g/kQXA/1C9b62nmHr1oJRCx693Fvu4s4IGsQMSyD36Nix2g2M0bWYi
- xFACX1VTo4iCMV5TMytRRf8SMkL64FPl0UzoPDPyQOAD6Or4fzaYP13ihLlnZJMov+QK
- RHkWDuWx0ZWNqbO9ffifKW5cKqNQ2TuVU/uWGRarD19dwrlI3Z8dM5WXaRQUjSQOHiYw
- 86Ag==
-X-Gm-Message-State: AOAM532jzSWBSLAqR4VZkIuA0vTpU2lOSQBesvbB7CCds5pWUR6gVEx7
- ue1L7LilC9Wf0n02ovwqARM=
-X-Google-Smtp-Source: ABdhPJxVGE2BlZznSkbT7y1/6eEthlVx5uFIqu3gEggxDqgStqSnHNrPmHtE1voW/bVOntR35eiWxw==
-X-Received: by 2002:ac2:4219:: with SMTP id y25mr3320437lfh.400.1624025227243; 
- Fri, 18 Jun 2021 07:07:07 -0700 (PDT)
-Received: from [192.168.2.145] (94-29-29-31.dynamic.spd-mgts.ru. [94.29.29.31])
- by smtp.googlemail.com with ESMTPSA id d15sm922354lfl.199.2021.06.18.07.07.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Jun 2021 07:07:06 -0700 (PDT)
-Subject: Re: [PATCH] ASoC: tegra: Fix a NULL vs IS_ERR() check
-To: Dan Carpenter <dan.carpenter@oracle.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-References: <YMyjOKFsPe9SietU@mwanda>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <be3feac7-e829-ab96-a866-1d9c58aa8dcd@gmail.com>
-Date: Fri, 18 Jun 2021 17:07:05 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ h=x-gm-message-state:references:user-agent:from:to:cc:subject
+ :in-reply-to:message-id:date:mime-version;
+ bh=X9a8sVzPq/DZtRtlv9ma28hJW4mL7WbxaIUzw19VfmY=;
+ b=poVY6CkDXbt92xP9HXJ+fjXynqRPKLkgoORa//ODzpYlHfj8FHLqhZrtSV7AK2zSx5
+ Z2VWtL5J8mrzyQMXh0xjpsB/xACvd5jWU2dyKVwtlukogdwKLM+x0ziUE1lWDRzRkHsu
+ XUVWT28XYg8qeFFTwiqbcSwSb55Re2xhGtNjyDpRLEOG2HLMXoPem0ZMgS1Z00O67INV
+ 0YD+dA87Lz/+Ppchu+uGwRGA4zADuOjo+xG8uPs/mC4QTgHXozQ36xBqPxXx1HTKItWn
+ hOCPNOLrwLWest4wYlt7zjF2qP7E/GuGnb7ap+5t62ivIu6gUw9FhVFGhIeQI2aZZp8L
+ xu0w==
+X-Gm-Message-State: AOAM530Uu1Tgag8OEd4ChE1Y/3pVJzI0Xlv/qawo2jjDei7l9Fd9G6O0
+ 8Os2S6yBSdJPL5hcEfToAHZ+LA==
+X-Google-Smtp-Source: ABdhPJxuFZkBzALQZCDbIzThVWw3Gc0JCpcJ0VqqyA58jpNDwqoHdQYZA86kZ76742HFCH2D1kHtgQ==
+X-Received: by 2002:a1c:e456:: with SMTP id b83mr11913734wmh.178.1624026371519; 
+ Fri, 18 Jun 2021 07:26:11 -0700 (PDT)
+Received: from localhost (82-65-169-74.subs.proxad.net. [82.65.169.74])
+ by smtp.gmail.com with ESMTPSA id z6sm4574647wrh.65.2021.06.18.07.26.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 18 Jun 2021 07:26:11 -0700 (PDT)
+References: <87bl89w9fw.wl-kuninori.morimoto.gx@renesas.com>
+ <8735tlw9cy.wl-kuninori.morimoto.gx@renesas.com>
+User-agent: mu4e 1.4.15; emacs 27.1
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v3 6/8] ASoC: meson: switch to use
+ snd_soc_daifmt_parse_format/clock_provider()
+In-reply-to: <8735tlw9cy.wl-kuninori.morimoto.gx@renesas.com>
+Message-ID: <1j35tfgsfx.fsf@starbuckisacylon.baylibre.com>
+Date: Fri, 18 Jun 2021 16:26:10 +0200
 MIME-Version: 1.0
-In-Reply-To: <YMyjOKFsPe9SietU@mwanda>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Svyatoslav Ryhel <clamor95@gmail.com>,
- kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>, Ion Agorria <ion@agorria.com>,
- linux-tegra@vger.kernel.org
+Content-Type: text/plain
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>, Sameer Pujar <spujar@nvidia.com>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+ alsa-devel@alsa-project.org, Fabio Estevam <festevam@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,29 +113,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-18.06.2021 16:44, Dan Carpenter пишет:
-> The tegra_machine_parse_phandle() function doesn't return NULL, it returns
-> error pointers.
-> 
-> Fixes: cc8f70f56039 ("ASoC: tegra: Unify ASoC machine drivers")
-> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
-> ---
->  sound/soc/tegra/tegra_asoc_machine.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/tegra/tegra_asoc_machine.c b/sound/soc/tegra/tegra_asoc_machine.c
-> index a53aec361a77..735909310a26 100644
-> --- a/sound/soc/tegra/tegra_asoc_machine.c
-> +++ b/sound/soc/tegra/tegra_asoc_machine.c
-> @@ -409,7 +409,7 @@ int tegra_asoc_machine_probe(struct platform_device *pdev)
->  		return PTR_ERR(np_codec);
->  
->  	np_i2s = tegra_machine_parse_phandle(dev, "nvidia,i2s-controller");
-> -	if (!np_i2s)
-> +	if (IS_ERR(np_i2s))
->  		return PTR_ERR(np_i2s);
->  
->  	card->dai_link->cpus->of_node = np_i2s;
-> 
 
-Reviewed-by: Dmitry Osipenko <digetx@gmail.com>
+On Mon 14 Jun 2021 at 02:58, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com> wrote:
+
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+>
+> This patch switch to use snd_soc_daifmt_parse_format/clock_provider() from
+> snd_soc_of_parse_daifmt().
+>
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+
+Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+
+> ---
+>  sound/soc/meson/meson-card-utils.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/sound/soc/meson/meson-card-utils.c b/sound/soc/meson/meson-card-utils.c
+> index 300ac8be46ef..415cc0046e4b 100644
+> --- a/sound/soc/meson/meson-card-utils.c
+> +++ b/sound/soc/meson/meson-card-utils.c
+> @@ -119,9 +119,9 @@ unsigned int meson_card_parse_daifmt(struct device_node *node,
+>  	struct device_node *framemaster = NULL;
+>  	unsigned int daifmt;
+>  
+> -	daifmt = snd_soc_of_parse_daifmt(node, "",
+> -					 &bitclkmaster, &framemaster);
+> -	daifmt &= ~SND_SOC_DAIFMT_MASTER_MASK;
+> +	daifmt = snd_soc_daifmt_parse_format(node, NULL);
+> +
+> +	snd_soc_daifmt_parse_clock_provider_as_phandle(node, NULL, &bitclkmaster, &framemaster);
+>  
+>  	/* If no master is provided, default to cpu master */
+>  	if (!bitclkmaster || bitclkmaster == cpu_node) {
+

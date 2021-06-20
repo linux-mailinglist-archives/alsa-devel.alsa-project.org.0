@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A13A53ADE0E
-	for <lists+alsa-devel@lfdr.de>; Sun, 20 Jun 2021 13:09:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3A803ADE21
+	for <lists+alsa-devel@lfdr.de>; Sun, 20 Jun 2021 13:19:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 369A816D7;
-	Sun, 20 Jun 2021 13:08:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 369A816D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 54AFF16D9;
+	Sun, 20 Jun 2021 13:18:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54AFF16D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624187389;
-	bh=ysuTIytzhYGpN6sB7X0cshVo6zQPn51Xxk1B7js3ERc=;
+	s=default; t=1624187944;
+	bh=OfUiVNmBFTHlrsfW6CzlrHT/dZVKq3gESxQTYa6X/WY=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=A7gmySp67mp5SwQowqsNbQtSNJE501F2p03JvWLldUSBqKNZtMOSeHQBcw/x7SnWD
-	 Durji4ytY/MmO7PSps26gKTZuU3vxgxM2JLz3wT/irPwg9sjc+kJKBaVH5Em55p5jV
-	 KVp4SUCvFkyzs+0/pUfDD7+vRfdraByFWRg8RpvM=
+	b=Q4gcl8dpquSbz8Y4TlEqucpPXUGhT1mxja0azLO5coyrCqdqtZ3hrZo9PYZuuTaQg
+	 vx+RhRXLcWabQFEJ231fDqY6DvNgrTDSaUt+RdwG38zW/otq1t5VOL/KRU1J9oeh17
+	 JpnKsw/ykrMW54AlO7c+GAW/dh/vyaAaARzy8fSE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 931BEF8026A;
-	Sun, 20 Jun 2021 13:08:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF6B7F8016D;
+	Sun, 20 Jun 2021 13:17:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 60B18F80268; Sun, 20 Jun 2021 13:08:19 +0200 (CEST)
+ id 1A555F80268; Sun, 20 Jun 2021 13:17:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,43 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED78FF8016D
- for <alsa-devel@alsa-project.org>; Sun, 20 Jun 2021 13:08:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED78FF8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE936F80137
+ for <alsa-devel@alsa-project.org>; Sun, 20 Jun 2021 13:17:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE936F80137
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JVMwlwZl"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B98C760FEE;
- Sun, 20 Jun 2021 11:08:12 +0000 (UTC)
+ header.b="i2ZZhgWR"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1FB9F6108E;
+ Sun, 20 Jun 2021 11:17:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624187293;
- bh=ysuTIytzhYGpN6sB7X0cshVo6zQPn51Xxk1B7js3ERc=;
+ s=k20201202; t=1624187847;
+ bh=OfUiVNmBFTHlrsfW6CzlrHT/dZVKq3gESxQTYa6X/WY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=JVMwlwZlhWubUqLRm0qzfJJ32BFf2Vo/WxH2kb91Ix7FQj9KaKF2jVg6quwZ8ptPA
- xoNnwinhKE2s/62Z72hZB9hhQdQF+Xe6VzmBNlX9Y0KO5Xq+aTCCUaMbNZugi0v+If
- JbgKls+yhpyhgnvVtIaso+7robyjAHKW+4J2ReqeujiPt7no1V2A2oUWnGE/pTAavE
- Pz397FgM+56jqqO9C+RojoKXTEpoFn0W+zGPbBfpuDrLAsT0h9CIm8dZP6Z3D8xGXo
- ExFVc+S+ZrPV+ftNQIcY39wzxolz6ruvlYeVhXRlKYCBZMh4HiTBi0dmwZZL1TinYz
- WOgP8YnQt0aaA==
-Date: Sun, 20 Jun 2021 16:38:09 +0530
+ b=i2ZZhgWRRC+5tj5S8vgp2GEx3lnCTHSrIFOckDydhZ/zi115ukcX6jOyTWF+WkTx/
+ 95tna5wknOSf3FkZXvkbpuHG9xsHocZYpFtajSTFeoXS5at8ziNxiDGerw9t5o5Nyb
+ NY8ou0pqspqxQvQT5Xz9R3R37NFKhUyZHYhMbDBAiXBLx1NND+9ZQXdqwiZhA35r0y
+ An2kCwRin5WZ1fSQe3idUA7TMoDcP2oTm1lh03mDD6PrlfH5g3RM8SGjeLyq8uIVDz
+ UCAzVnHkvGTXwHNxNDzqiFdBgpc+AtfPIa2mXHrakRyuYY4Eqa17D1V1XKER16apyX
+ Lz2C+vQ7c3/uA==
+Date: Sun, 20 Jun 2021 16:47:22 +0530
 From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 1/5] soundwire: export sdw_update() and sdw_update_no_pm()
-Message-ID: <YM8hmXvz9XxkbQyt@vkoul-mobl>
-References: <20210614180815.153711-1-pierre-louis.bossart@linux.intel.com>
- <20210614180815.153711-2-pierre-louis.bossart@linux.intel.com>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Subject: Re: [PATCH v2] soundwire: bus: Make sdw_nwrite() data pointer
+ argument const
+Message-ID: <YM8jwosKEbNlVXkp@vkoul-mobl>
+References: <20210616145901.29402-1-rf@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210614180815.153711-2-pierre-louis.bossart@linux.intel.com>
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- =?iso-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>, Hui Wang <hui.wang@canonical.com>,
- broonie@kernel.org, Shuming Fan <shumingf@realtek.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>, Bard Liao <bard.liao@intel.com>
+In-Reply-To: <20210616145901.29402-1-rf@opensource.cirrus.com>
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
+ sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,15 +80,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 14-06-21, 13:08, Pierre-Louis Bossart wrote:
-> We currently export sdw_read() and sdw_write() but the sdw_update()
-> and sdw_update_no_pm() are currently available only to the bus
-> code. This was missed in an earlier contribution.
+On 16-06-21, 15:59, Richard Fitzgerald wrote:
+> Idiomatically, write functions should take const pointers to the
+> data buffer, as they don't change the data. They are also likely
+> to be called from functions that receive a const data pointer.
 > 
-> Export both functions so that codec drivers can perform
-> read-modify-write operations without duplicating the code.
+> Internally the pointer is passed to function/structs shared with
+> the read functions, requiring a cast, but this is an implementation
+> detail that should be hidden by the public API.
 
-Acked-By: Vinod Koul <vkoul@kernel.org>
+Applied, thanks
 
 -- 
 ~Vinod

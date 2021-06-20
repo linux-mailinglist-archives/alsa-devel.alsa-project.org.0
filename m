@@ -2,82 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04B473ADD5B
-	for <lists+alsa-devel@lfdr.de>; Sun, 20 Jun 2021 08:44:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BB8B3ADD5C
+	for <lists+alsa-devel@lfdr.de>; Sun, 20 Jun 2021 08:54:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C83B316E7;
-	Sun, 20 Jun 2021 08:43:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C83B316E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2E4016F7;
+	Sun, 20 Jun 2021 08:53:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2E4016F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624171468;
-	bh=r2dnPP8azpA+pYpa9KY4odnypPYoa5hj55K8u+r1BVM=;
+	s=default; t=1624172082;
+	bh=iVMhDaWFdVw/TKl9zmGyqMXmaZ4suBr5KuOHlhVOHWA=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Zblg1Aig+r0xc/XHP8dkeOjMjy7DM92UJEddBDvnmrz7kCNUE6izlT/5BAq5Ue/Fe
-	 0vrieSDyawcpFYtumKYe7YwLFs+NtCqL1kZne+pSUz3qYIEmEMrEq7124/VV68jloD
-	 1+XYKslGPtz4OmKmO6kvH0MrgveMyKLG5uc1GoXA=
+	b=fUxYG43Gbw1R/qfjMJZ+Lz+c7J7TKd711NKCcFJPGZe6E7D37HDxYWEWaE7tm2nul
+	 ce38xiN5knwCBlMhl0zAz+k+tgdWdABpNdWNKG9L+y0zTyeWRNI9kO1sbutrFMybSq
+	 2jDeyc04+CQScaXlPs4yyMML6N18UXn/zah/kPtc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E877F8025F;
-	Sun, 20 Jun 2021 08:43:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02D22F8026A;
+	Sun, 20 Jun 2021 08:53:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BF16BF80268; Sun, 20 Jun 2021 08:42:57 +0200 (CEST)
+ id 7DBF6F80268; Sun, 20 Jun 2021 08:53:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5B85AF8016D
- for <alsa-devel@alsa-project.org>; Sun, 20 Jun 2021 08:42:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B85AF8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3822AF80137
+ for <alsa-devel@alsa-project.org>; Sun, 20 Jun 2021 08:52:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3822AF80137
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="komF/+rN"; 
+ header.b="VuSDRJB+"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="3GhBFe2j"
+ header.b="gm3AMJ89"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 6C95D1FD34;
- Sun, 20 Jun 2021 06:42:48 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id C5EC421AD2;
+ Sun, 20 Jun 2021 06:52:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624171368; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1624171942; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=dQELemilCs/Miyw2y5VKe5KemyiQ1fD/LkZLoyMslgw=;
- b=komF/+rNAHiqVJs4sg2K9P2y9YBUNJ1yEkVA42DrjAfZCZwbP2ehs4B3xkyliT9FZeeiFt
- bPfO3uDtoncHosHGPDpqGD2JUOrMbC+AbsOrX8nnugyHT6nppuawzmk2N4+YgJyxAqTjdx
- RsHeH8RK6ViFpHnGVCMm6q7Xk7YnlpU=
+ bh=GVd/eu3+mlAoMFZ7WdRdOKoYQfcAe3ALecq+sJg7xaI=;
+ b=VuSDRJB+11fUtiABRX5fS11vowNvu1BP3RKhf0vPbz9wGYapzXb3PKL/6ac4tmmrjDl9zt
+ G6Vc/BFjde1kg6xLkLdTQzNxL8sG04qp643bnMdzQnXVj/SiqRZU49BiQMNc82tYMzB6En
+ k0X+wQJsqQWlwIGQaXEIkO23mmKMNY8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624171368;
+ s=susede2_ed25519; t=1624171942;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=dQELemilCs/Miyw2y5VKe5KemyiQ1fD/LkZLoyMslgw=;
- b=3GhBFe2jcYiwkdR8WPn/p/4PegyQ5mDOrb/l4TGf5vDdqkyhUPzX9UmtOFdZNSa6WnoL1M
- 3vcGnLfJSZ2bKrBg==
+ bh=GVd/eu3+mlAoMFZ7WdRdOKoYQfcAe3ALecq+sJg7xaI=;
+ b=gm3AMJ894Mjdzi2E3+D7bQVQO6N1CasxD+c9+qo3dnZbk7lsAjVdjqvxYoRTzSA62dbwxn
+ 0SNjH5/2tZZ8OmCw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 574C4A3B81;
- Sun, 20 Jun 2021 06:42:47 +0000 (UTC)
-Date: Sun, 20 Jun 2021 08:42:47 +0200
-Message-ID: <s5htultujdk.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 3DD0FA3B81;
+ Sun, 20 Jun 2021 06:52:22 +0000 (UTC)
+Date: Sun, 20 Jun 2021 08:52:22 +0200
+Message-ID: <s5hsg1duixl.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH] ALSA: bebob: add support for ToneWeal FW66
-In-Reply-To: <20210619083922.16060-1-o-takashi@sakamocchi.jp>
-References: <20210619083922.16060-1-o-takashi@sakamocchi.jp>
+To: Elia Devito <eliadevito@gmail.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: Improve fixup for HP Spectre x360
+ 15-df0xxx
+In-Reply-To: <20210619204105.5682-1-eliadevito@gmail.com>
+References: <20210619204105.5682-1-eliadevito@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: Daniel Jozsef <daniel.jozsef@gmail.com>, alsa-devel@alsa-project.org,
- clemens@ladisch.de
+Cc: Chris Chiu <chris.chiu@canonical.com>, alsa-devel@alsa-project.org,
+ Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
+ linux-kernel@vger.kernel.org, Huacai Chen <chenhuacai@kernel.org>,
+ Jian-Hong Pan <jhp@endlessos.org>, Werner Sembach <wse@tuxedocomputers.com>,
+ Takashi Iwai <tiwai@suse.com>, Hui Wang <hui.wang@canonical.com>,
+ Sami Loone <sami@loone.fi>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,63 +97,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 19 Jun 2021 10:39:22 +0200,
-Takashi Sakamoto wrote:
+On Sat, 19 Jun 2021 22:41:04 +0200,
+Elia Devito wrote:
 > 
-> A user of FFADO project reported the issue of ToneWeal FW66. As a result,
-> the device is identified as one of applications of BeBoB solution.
+> On HP Spectre x360 15-df0xxx, after system boot with plugged headset, the
+> headset mic are not detected.
+> Moving pincfg and DAC's config to single fixup function fix this.
 > 
-> I note that in the report the device returns contradictory result in plug
-> discovery process for audio subunit. Fortunately ALSA BeBoB driver doesn't
-> perform it thus it's likely to handle the device without issues.
-> 
-> I receive no reaction to test request for this patch yet, however it would
-> be worth to add support for it.
-> 
-> daniel@gibbonmoon:/sys/bus/firewire/devices/fw1$ grep -r . *
-> Binary file config_rom matches
-> dev:244:1
-> guid:0x0023270002000000
-> hardware_version:0x000002
-> is_local:0
-> model:0x020002
-> model_name:FW66
-> power/runtime_active_time:0
-> power/runtime_active_kids:0
-> power/runtime_usage:0
-> power/runtime_status:unsupported
-> power/async:disabled
-> power/runtime_suspended_time:0
-> power/runtime_enabled:disabled
-> power/control:auto
-> subsystem/drivers_autoprobe:1
-> uevent:MAJOR=244
-> uevent:MINOR=1
-> uevent:DEVNAME=fw1
-> units:0x00a02d:0x010001
-> vendor:0x002327
-> vendor_name:ToneWeal
-> fw1.0/uevent:MODALIAS=ieee1394:ven00002327mo00020002sp0000A02Dver00010001
-> fw1.0/power/runtime_active_time:0
-> fw1.0/power/runtime_active_kids:0
-> fw1.0/power/runtime_usage:0
-> fw1.0/power/runtime_status:unsupported
-> fw1.0/power/async:disabled
-> fw1.0/power/runtime_suspended_time:0
-> fw1.0/power/runtime_enabled:disabled
-> fw1.0/power/control:auto
-> fw1.0/model:0x020002
-> fw1.0/rom_index:15
-> fw1.0/specifier_id:0x00a02d
-> fw1.0/model_name:FW66
-> fw1.0/version:0x010001
-> fw1.0/modalias:ieee1394:ven00002327mo00020002sp0000A02Dver00010001
-> 
-> Cc: Daniel Jozsef <daniel.jozsef@gmail.com>
-> Reference: https://lore.kernel.org/alsa-devel/20200119164335.GA11974@workstation/
-> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> Signed-off-by: Elia Devito <eliadevito@gmail.com>
 
-Thanks, applied.
+Oh, this was an unintended bug.  The actual fix isn't about moving two
+things into one fixup, but rather dropping the superfluous chain to
+ALC269_FIXUP_THINKPAD_ACPI.
+
+Now applied with some more comments (and Cc to stable).  Thanks.
 
 
 Takashi

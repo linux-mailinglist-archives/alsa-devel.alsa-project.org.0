@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B9463ADF70
-	for <lists+alsa-devel@lfdr.de>; Sun, 20 Jun 2021 18:48:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D66383ADF7B
+	for <lists+alsa-devel@lfdr.de>; Sun, 20 Jun 2021 18:50:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7AB7916D0;
-	Sun, 20 Jun 2021 18:47:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AB7916D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7319D16D9;
+	Sun, 20 Jun 2021 18:49:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7319D16D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624207694;
-	bh=m3Y5Http2zkTNDzXxbS46nNkf+hdngs0wdeEWu/JWIw=;
+	s=default; t=1624207808;
+	bh=fMP3xnFVgn2SoaE51+KUF03QddBK63GskN2KBeHn4v4=;
 	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=fVaLffBnoYEETaP3Bu9conWZVuAHtFBoKlQGmpm58pRDqBOviSaT+TOIj0sp5IdXq
-	 LBxi3oTC+Kc8tNNfqJAjxlaxsT14lyweDJWvp35C/wJFyPaEeGW4gpavx+fhpP8sWH
-	 QEaRhE3Ls71UUGTYPROwA77q5MUYrLwFvwjYU5lI=
+	b=MMnOuj1ujwNCVxg7pURCf0jw5frKxE0SLTVM80DufZSGLYA7InUN11T3CWDJdpfVM
+	 WQV3huXXaKn5KWA4/0UQt30/nbyOgWx6th0rKkDe+eNlUy+83/fnKEkxYbaGZdys4L
+	 eiGprlwc9v2OqpG70CrBpwKHlu4zRX1FH8j1aYFg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 124F4F804D6;
-	Sun, 20 Jun 2021 18:46:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2018F804FA;
+	Sun, 20 Jun 2021 18:46:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A1D9CF804D1; Sun, 20 Jun 2021 18:46:32 +0200 (CEST)
+ id 6C5B2F804C3; Sun, 20 Jun 2021 18:46:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -32,17 +32,17 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from m.b4.vu (m.b4.vu [203.16.231.148])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DCBA1F8016D
- for <alsa-devel@alsa-project.org>; Sun, 20 Jun 2021 18:46:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCBA1F8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0596FF8025F
+ for <alsa-devel@alsa-project.org>; Sun, 20 Jun 2021 18:46:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0596FF8025F
 Received: by m.b4.vu (Postfix, from userid 1000)
- id 76C7661E2877; Mon, 21 Jun 2021 02:16:22 +0930 (ACST)
-Date: Mon, 21 Jun 2021 02:16:22 +0930
+ id 7804861E2879; Mon, 21 Jun 2021 02:16:25 +0930 (ACST)
+Date: Mon, 21 Jun 2021 02:16:25 +0930
 From: "Geoffrey D. Bennett" <g@b4.vu>
 To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 01/14] ALSA: usb-audio: scarlett2: Remove incorrect S/PDIF
- comment
-Message-ID: <20210620164622.GA9155@m.b4.vu>
+Subject: [PATCH 02/14] ALSA: usb-audio: scarlett2: Fix 18i8 Gen 2 PCM Input
+ count
+Message-ID: <20210620164625.GA9165@m.b4.vu>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
@@ -64,29 +64,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The 18i8 Gen 2 S/PDIF outputs are available at 192kHz, unlike
-the 18i20 Gen 2. Remove the comment that says otherwise.
+The 18i8 Gen 2 has 8 PCM Inputs, not 20. Fix the ports entry in
+s18i8_gen2_info.
 
 Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
 ---
- sound/usb/mixer_scarlett_gen2.c | 4 ----
- 1 file changed, 4 deletions(-)
+ sound/usb/mixer_scarlett_gen2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/sound/usb/mixer_scarlett_gen2.c b/sound/usb/mixer_scarlett_gen2.c
-index a461317dc8c6..962050436a9f 100644
+index 962050436a9f..e327f15b89ce 100644
 --- a/sound/usb/mixer_scarlett_gen2.c
 +++ b/sound/usb/mixer_scarlett_gen2.c
-@@ -338,10 +338,6 @@ static const struct scarlett2_device_info s18i8_gen2_info = {
+@@ -358,7 +358,7 @@ static const struct scarlett2_device_info s18i8_gen2_info = {
  		},
- 		[SCARLETT2_PORT_TYPE_SPDIF] = {
- 			.id = 0x180,
--			/* S/PDIF outputs aren't available at 192kHz
--			 * but are included in the USB mux I/O
--			 * assignment message anyway
--			 */
- 			.num = { 2, 2, 2, 2, 2 },
- 			.src_descr = "S/PDIF %d",
+ 		[SCARLETT2_PORT_TYPE_PCM] = {
+ 			.id = 0x600,
+-			.num = { 20, 18, 18, 14, 10 },
++			.num = { 8, 18, 18, 14, 10 },
+ 			.src_descr = "PCM %d",
  			.src_num_offset = 1,
+ 			.dst_descr = "PCM %02d Capture"
 -- 
 2.31.1
 

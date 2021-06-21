@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F32A3AF5AC
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jun 2021 20:51:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB4AD3AF5AD
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jun 2021 20:51:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DAEDF16EA;
-	Mon, 21 Jun 2021 20:50:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAEDF16EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2EDF91658;
+	Mon, 21 Jun 2021 20:50:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EDF91658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624301461;
-	bh=Hvqbvb8PEP9vWPndDQlnnurh023iAvKbgDVNy5Fy/VE=;
+	s=default; t=1624301487;
+	bh=GNyIa4fa2uI8VR7bS9Ty1jjFSGpmNLNuoPJXPMaZs7E=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CnZf0DQRxtqLik6vtq6XxAJSOyI6ZKIkNDN+Mp/irUSfNdXtwBUJlcsGdXRNYn3Qa
-	 KV9tmlmC/tg+VlPpD3YDz26SQp/CkTR06rR4k19w88FwLKjx7evwgbFZHdcLBN0xo/
-	 axT+DmP1UPloFH7N90gOf+dTixMdVihGJ77C8Wu8=
+	b=uJb/4tp2mwQ+iPSXabQ9FIUTG8hajsiPIy15hYmmZpje9AFQ3CQcoHA2B13gj+OFU
+	 U5cvhXaXH1vPz87v4bN7z1/gtoxovFoRhR1U2XjqIdODMcmdlhyEr9/z90PTSDYCQp
+	 WpmFOgFrgT7W/Pjkv+IuTKZssL0LgpO+qYGyVZuo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4D2FF804FE;
-	Mon, 21 Jun 2021 20:47:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D18F7F80511;
+	Mon, 21 Jun 2021 20:47:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72457F804E5; Mon, 21 Jun 2021 20:47:13 +0200 (CEST)
+ id C598CF804E5; Mon, 21 Jun 2021 20:47:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,48 +33,45 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE506F804DA
- for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 20:47:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE506F804DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6398EF804DF
+ for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 20:47:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6398EF804DF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qpz7GK5d"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C260F6128A;
- Mon, 21 Jun 2021 18:47:08 +0000 (UTC)
+ header.b="jX8fa7ly"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7E5D261107;
+ Mon, 21 Jun 2021 18:47:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624301229;
- bh=Hvqbvb8PEP9vWPndDQlnnurh023iAvKbgDVNy5Fy/VE=;
+ s=k20201202; t=1624301232;
+ bh=GNyIa4fa2uI8VR7bS9Ty1jjFSGpmNLNuoPJXPMaZs7E=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=qpz7GK5doKWuCvFcAPBastocIb80UdJmfCuF8sXGOyIznO4YQ2NJmnH8ivpKT/lS+
- aFhnzUSTd4sRjSQxs3kr0ah17nPIJ9tSj5c7yFvQnWfY8Q1E7mh6gxCVoNXAQyZdc4
- e4hFcziXubn77RvcnhZYmp3EC49+EZl1u5Od0liYs+1s4YeytWumcDgPdXvcSxhZO8
- b+iXyWM1izHzt3ZZFJxuM2ZwW2QW9IQLKw2q0YdM5wWKph89Q97rq3Cl9u90H/Ldnb
- +SCsI9571ubZJQu2KTRoWYf4qz9x3rINElkDfF3Lfq8qhj6SUjDkebvM58ZxC9Qr0h
- D5UI2yUa43dnw==
+ b=jX8fa7lyBY/ap9StCFLsika0Ms80+tOYIQGxMCkmW4+FWNR3OxCUj0OnWor7kdi32
+ 2clQrlEnSnilQPJIGJZwvq8Aex0HJjdulXnCrNaSNOUja0aS8BVM3K9rfmkXKFkT+L
+ 5tAxWGeR7q93wzIEd+pasyNAzSWoGeF3FcNKRTCWtZvv2VUW7x+/inBNFY4uLCsdZz
+ Uu+qHcwFXNRVuvm6l5/CSJJhq/yGt84u1J6FGSrM1LWoHfTH7x5zcvgY5vG4KC5ubd
+ Tjzq9vLowZBRgow6ULj/eIbhVkZIESBM2xygcIZcoNGuc85mHwk3Ie098I4JY5hf+x
+ 23jI0rqb63jVQ==
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>
-Subject: Re: [PATCH v3 0/8] ASoC: tidyup snd_soc_of_parse_daifmt()
-Date: Mon, 21 Jun 2021 19:46:03 +0100
-Message-Id: <162430055264.9224.15415217994628967307.b4-ty@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ srinivas.kandagatla@linaro.org, alsa-devel@alsa-project.org
+Subject: Re: [PATCH 1/5] soundwire: export sdw_update() and sdw_update_no_pm()
+Date: Mon, 21 Jun 2021 19:46:04 +0100
+Message-Id: <162430055264.9224.8953420856630209073.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <87bl89w9fw.wl-kuninori.morimoto.gx@renesas.com>
-References: <87bl89w9fw.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <20210614180815.153711-2-pierre-louis.bossart@linux.intel.com>
+References: <20210614180815.153711-1-pierre-louis.bossart@linux.intel.com>
+ <20210614180815.153711-2-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Timur Tabi <timur@kernel.org>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, Sameer Pujar <spujar@nvidia.com>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Mark Brown <broonie@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Kevin Hilman <khilman@baylibre.com>,
- Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
- Fabio Estevam <festevam@gmail.com>, Jerome Brunet <jbrunet@baylibre.com>
+Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ tiwai@suse.de, gregkh@linuxfoundation.org,
+ =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Hui Wang <hui.wang@canonical.com>,
+ vkoul@kernel.org, Mark Brown <broonie@kernel.org>,
+ Shuming Fan <shumingf@realtek.com>, Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>, Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,17 +87,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 14 Jun 2021 09:56:19 +0900, Kuninori Morimoto wrote:
-> These are v3 of parsing for daifmt.
+On Mon, 14 Jun 2021 13:08:11 -0500, Pierre-Louis Bossart wrote:
+> We currently export sdw_read() and sdw_write() but the sdw_update()
+> and sdw_update_no_pm() are currently available only to the bus
+> code. This was missed in an earlier contribution.
 > 
-> I want to add new audio-graph-card2 sound card driver,
-> and this is last part of necessary soc-core cleanup for it.
-> 
-> Current some drivers are using DT, and then,
-> snd_soc_of_parse_daifmt() parses daifmt, but bitclock/frame provider
-> parsing part is one of headache, because we are assuming below both cases.
-> 
-> [...]
+> Export both functions so that codec drivers can perform
+> read-modify-write operations without duplicating the code.
 
 Applied to
 
@@ -108,22 +101,16 @@ Applied to
 
 Thanks!
 
-[1/8] ASoC: soc-core: add snd_soc_daifmt_clock_provider_from_bitmap()
-      commit: 91ae447762517c814672e2e5ff2383348101a032
-[2/8] ASoC: soc-core: add snd_soc_daifmt_clock_provider_fliped()
-      commit: b44a67f89366597364693e07e814660d5df8c66f
-[3/8] ASoC: soc-core: add snd_soc_daifmt_parse_format/clock_provider()
-      commit: 7766861d1f8d3afc35361ab599eee6851fcd4416
-[4/8] ASoC: atmel: switch to use snd_soc_daifmt_parse_format/clock_provider()
-      commit: 22108b9c2248f187d2b50af14e48807a0fb3db79
-[5/8] ASoC: fsl: switch to use snd_soc_daifmt_parse_format/clock_provider()
-      commit: 3bba9414512fc16c96c4cd25ee6447c8da4b4a76
-[6/8] ASoC: meson: switch to use snd_soc_daifmt_parse_format/clock_provider()
-      commit: 0c4c7a9667daf52c88cfc7fe44201ff653eab8f9
-[7/8] ASoC: simple-card-utils: switch to use snd_soc_daifmt_parse_format/clock_provider()
-      commit: 2c7fd9de8956ea1d8ea18b11d33fcf2fde9da81e
-[8/8] ASoC: soc-core: remove snd_soc_of_parse_daifmt()
-      commit: 8439c5861cf0c88037f6e9cdd3ba5f1c472f847a
+[1/5] soundwire: export sdw_update() and sdw_update_no_pm()
+      commit: d38ebaf2c88442a830d402fa7805ddbb60c4cd0c
+[2/5] ASoC: rt700-sdw: fix race condition on system suspend
+      commit: 60888ef827e354d7a3611288d86629e5f1824613
+[3/5] ASoC: rt711-sdw: fix race condition on system suspend
+      commit: 18236370a098428d7639686daa36584d0d363c9e
+[4/5] ASoC: rt5682-sdw: fix race condition on system suspend
+      commit: 14f4946d55d335692462f6fa4eb4ace0bf6ad1d9
+[5/5] ASoC: rt711-sdca-sdw: fix race condition on system suspend
+      commit: d2bf75f4f6b277c35eb887859139df7c2d390b87
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

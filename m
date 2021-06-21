@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7C983AF5AF
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jun 2021 20:52:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 621CF3AF5B0
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jun 2021 20:52:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C75C16AD;
-	Mon, 21 Jun 2021 20:51:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C75C16AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDD031696;
+	Mon, 21 Jun 2021 20:51:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDD031696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624301527;
-	bh=Iubxdx/A0LOWkRzH0XmE/PG82jZyYbybm0iqM02k/K8=;
+	s=default; t=1624301547;
+	bh=/OILYFrNI8JuScLMPbDFllbR2pKC/ijN5T2alXtxSbo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=f0uUvtEeRvUX7PW6ZIrDDfRZ2KUd1l7vm5DuJPiNyJB0QRa3dhzC6WDhOPaZhAKw4
-	 v38JJbr7913QDPi7DFa+dK0i0hrFh1D0nYwgD694W373fvLRy2PKy6t0B1CGzIwoTG
-	 th4iu6YBKKMMVydJD+MCBLMy5gXhaYz3kHquI+q0=
+	b=Ggye5i8BJwuA0o7PlxNdRRpyE9+6EuCUHEc9JGPzi3aE6b1zdITolndzIsjAxz9gJ
+	 k/9HWIzwIKbZJEs71ikgbe5uqLSOxAIylHF9GUo4fQfi0d80cd4Czl2Ox3EXKHqL86
+	 m9ERGhgXWncCkvxkp5JinMWkxAvToBkDWYMIy6Mc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E35FEF8051C;
-	Mon, 21 Jun 2021 20:47:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C068F8051D;
+	Mon, 21 Jun 2021 20:47:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B647F804E5; Mon, 21 Jun 2021 20:47:21 +0200 (CEST)
+ id 28C80F804E5; Mon, 21 Jun 2021 20:47:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CE405F804DF
- for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 20:47:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE405F804DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id C66A1F804DA
+ for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 20:47:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C66A1F804DA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="iqNceW4J"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A7ED361356;
- Mon, 21 Jun 2021 18:47:16 +0000 (UTC)
+ header.b="sy3m5mpO"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 37B7C61353;
+ Mon, 21 Jun 2021 18:47:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624301237;
- bh=Iubxdx/A0LOWkRzH0XmE/PG82jZyYbybm0iqM02k/K8=;
+ s=k20201202; t=1624301239;
+ bh=/OILYFrNI8JuScLMPbDFllbR2pKC/ijN5T2alXtxSbo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=iqNceW4JN57jLG5Cs8HM5C2aCBREYT0iAMSkFQ3FxmKkF8VfhFGk7B/IQqRzuxyTm
- bQorA7OJGw9Oss8sHHun5CHwxxMEoL1ZPNYFwhVrJgXuSwIAjyYTxyrBii37TJRKSG
- y2S2Rd+AnA7W9dK1TkGJCHX0qr210qDIaprrGaU7PO4RFJZ+UbwHARmz9EWhE2d3nT
- LbxBjnYiRsHFINZBN9I/s3t3c1YNRzO2H2j2C+LtF3KUsfT1E5/o/AGybp+d2NoL0F
- kWBuO0XOemln3vP0s71JCwyEkMiw6uCKsDM4ubZhtiGESGZht8Vx7ZGPsJsgcg4836
- wSVPkXW9UdXug==
+ b=sy3m5mpOG+Bq50cPcVUbpAuPlIwb+Q+vY9yBP80r26VUHZKOcTikj4t+Y/LeAElNH
+ YOzGUi+LMQohxt8f1A/mimRX3aXX6Wypf99esEvQ1UGHM0hk07S72+TurhbTvNJkXo
+ YRn8VHztouweUnditVvAQDRte2ZIgKVl5SrKOyS9yZnSl+xWO7zGArS2UvXhkIJgiB
+ x/l/jIcKZTqDxEr4xRgx21xmmGlDpwbws1lkIovQcRk0M/ZFADOINalUNXlHszjBFE
+ UQpyCM7n4lZrlz4YweBaAYCW180zjkvVFQuglSfXMfoYWCKpxUWMrInqbGrkP9FOzd
+ ou9awOl8rpYLg==
 From: Mark Brown <broonie@kernel.org>
-To: Xiubo.Lee@gmail.com, tiwai@suse.com, nicoleotsuka@gmail.com,
- perex@perex.cz, timur@kernel.org, alsa-devel@alsa-project.org,
- festevam@gmail.com, Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [PATCH v2] ASoC: fsl_xcvr: disable all interrupts when suspend
- happens
-Date: Mon, 21 Jun 2021 19:46:06 +0100
-Message-Id: <162430055263.9224.18141192734216884293.b4-ty@kernel.org>
+To: Yang Yingliang <yangyingliang@huawei.com>, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org
+Subject: Re: [PATCH -next 0/4] ASoC: samsung: Use
+ devm_platform_get_and_ioremap_resource()
+Date: Mon, 21 Jun 2021 19:46:07 +0100
+Message-Id: <162430055264.9224.5838866943547505866.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1624019913-3380-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1624019913-3380-1-git-send-email-shengjiu.wang@nxp.com>
+In-Reply-To: <20210616091652.2552927-1-yangyingliang@huawei.com>
+References: <20210616091652.2552927-1-yangyingliang@huawei.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
+Cc: Mark Brown <broonie@kernel.org>, krzysztof.kozlowski@canonical.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,12 +80,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 18 Jun 2021 20:38:33 +0800, Shengjiu Wang wrote:
-> There is an unhandled interrupt after suspend, which cause endless
-> interrupt when system resume, so system may hang.
+On Wed, 16 Jun 2021 17:16:48 +0800, Yang Yingliang wrote:
+> Use devm_platform_get_and_ioremap_resource() to simplify
+> code.
 > 
-> Disable all interrupts in runtime suspend callback to avoid above
-> issue.
+> Yang Yingliang (4):
+>   ASoC: samsung: i2s: Use devm_platform_get_and_ioremap_resource()
+>   ASoC: samsung: pcm: Use devm_platform_get_and_ioremap_resource()
+>   ASoC: samsung: s3c2412-i2s: Use
+>     devm_platform_get_and_ioremap_resource()
+>   ASoC: samsung: s3c24xx-i2s: Use
+>     devm_platform_get_and_ioremap_resource()
+> 
+> [...]
 
 Applied to
 
@@ -95,8 +100,14 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl_xcvr: disable all interrupts when suspend happens
-      commit: ea837090b388245744988083313f6e9c7c9b9699
+[1/4] ASoC: samsung: i2s: Use devm_platform_get_and_ioremap_resource()
+      commit: 5eb8262c686509ffb60a5b04ca6ee562f02cbaf5
+[2/4] ASoC: samsung: pcm: Use devm_platform_get_and_ioremap_resource()
+      commit: c3255553d6b6cd5c8de42d2faa80e1d33401cb3b
+[3/4] ASoC: samsung: s3c2412-i2s: Use devm_platform_get_and_ioremap_resource()
+      commit: 87a32d00249e6e3c6b1ac020d36136b2cd75fcc8
+[4/4] ASoC: samsung: s3c24xx-i2s: Use devm_platform_get_and_ioremap_resource()
+      commit: b73cbd7b1c2d477d143c544bdc2b3415bae58a14
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

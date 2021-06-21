@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 941F73AF59F
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jun 2021 20:50:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C6593AF5AB
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jun 2021 20:50:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1EED916B3;
-	Mon, 21 Jun 2021 20:49:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EED916B3
+	by alsa0.perex.cz (Postfix) with ESMTPS id B466716EF;
+	Mon, 21 Jun 2021 20:49:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B466716EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624301406;
-	bh=7yUZDZlOIzDIa47OFbFJ/39Qwhe/+XOMMOCaPdtaBwc=;
+	s=default; t=1624301445;
+	bh=4ynnjLFGqT7jeVoGFXKGU1jJH+2RzYGaTP4Lm67YYMU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pYIFRAiJZLxXJuTy4EXzarh/XiIVXznMju+zyGliE5jk8O4Nksyl5gWhGKCyVrF3U
-	 gPGHOU/lju50ymy0fQErzGY611Ozd79K6nZRsCujb/mQQ+DAh/rRT0ud6+TxNWxHIr
-	 cUkPwvCkfdPduk+Bg2rMP7g3aDRw3I7QiYb7mDO0=
+	b=BSEVH7Ege2Q0Pr44QaNnt4xZWHd0SX7S5ubd3mK0eHcydBueYgaZI6PbeazxerFe6
+	 /LP7XP1kzy7RB14oN09IHS8KEcyqb5nc3k+PQW8yjUYqj8JdqQOJWRHhClWj5nNBml
+	 VvK7flGYpLUTN6gBQH3AWK59iTAk2b5lFhpOaB2s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B85EF804EC;
-	Mon, 21 Jun 2021 20:47:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2F0DF804FD;
+	Mon, 21 Jun 2021 20:47:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE595F804E6; Mon, 21 Jun 2021 20:47:08 +0200 (CEST)
+ id 82C96F804E5; Mon, 21 Jun 2021 20:47:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85EB3F804DF
- for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 20:47:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85EB3F804DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F409F804E2
+ for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 20:47:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F409F804E2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lD6c1pBH"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6FA4D61351;
- Mon, 21 Jun 2021 18:47:03 +0000 (UTC)
+ header.b="ny0E3T5R"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4D78B6128C;
+ Mon, 21 Jun 2021 18:47:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624301224;
- bh=7yUZDZlOIzDIa47OFbFJ/39Qwhe/+XOMMOCaPdtaBwc=;
+ s=k20201202; t=1624301226;
+ bh=4ynnjLFGqT7jeVoGFXKGU1jJH+2RzYGaTP4Lm67YYMU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lD6c1pBHZwqs5eiQs8buzuuA9BfkqJolhjZ6EDv4VF4us1aV1CC0LUyTsb6VhIGp2
- E/becPsixhGwp4yQaCduiuDSkM/u6NQKgTxxGB+Gb+5l1ACSAQo9z+SUbO6AHK5wU8
- X35Wg2dinDz5gYfjdhPQPAcn+0z5czmkVkny/B828TD9H3VvA47bg9OSPoqp9nQuQI
- coxMZ68+/EyAh4aDiT0zJ68a6InuiFLM4sRM5KzBoYyeVu8s0vqXaciwdbVsUcTxNH
- gEgCasF2SK3G82tGxTq/RjJ854+IlLq7yVQYrjOCUJ9SPpaiBG7JDOM6U0YW5Nx5Wo
- 2C7AKlzucp/Cg==
+ b=ny0E3T5RoNSybmXudw3iIbk8cMmu/KS9qAH9i8fLgRzSJaZmj2gYncYDR1q4PxVWF
+ b53Dac9NfbCRhF4c/Pu5hqX2OOncLEZdiud6h9ABGt4UKzGoaqoeXkNAkTIikKcjED
+ ZpUyFrsKKDml4i5FpwOV/Jf8nt47FRt25QdyDC5x16cjpaCr2mlwMYA7GTBo+++NBc
+ fjzRr5kPx0J3mIRqqqSHtG23xpNgsE4279mr18+yvS2zd4Y355uLorxYYaBb33HCP7
+ ZfuXWv8qN/8uYwdhiJ+7gcHryjUsEKraB5b9igFkVt7KpP2GxEXbmqRmfv05P5jNdt
+ IpdJ4mewPLiqQ==
 From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.com, Xiubo.Lee@gmail.com, nicoleotsuka@gmail.com,
- perex@perex.cz, timur@kernel.org, alsa-devel@alsa-project.org,
- festevam@gmail.com, Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [PATCH] ASoC: fsl_xcvr: disable all interrupts when suspend
- happens
-Date: Mon, 21 Jun 2021 19:46:01 +0100
-Message-Id: <162430055262.9224.10660705196927221469.b4-ty@kernel.org>
+To: Dan Carpenter <dan.carpenter@oracle.com>,
+ Dmitry Osipenko <digetx@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>
+Subject: Re: [PATCH] ASoC: tegra: Fix a NULL vs IS_ERR() check
+Date: Mon, 21 Jun 2021 19:46:02 +0100
+Message-Id: <162430055263.9224.14507478089189972560.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1624009876-3076-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1624009876-3076-1-git-send-email-shengjiu.wang@nxp.com>
+In-Reply-To: <YMyjOKFsPe9SietU@mwanda>
+References: <YMyjOKFsPe9SietU@mwanda>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Svyatoslav Ryhel <clamor95@gmail.com>, kernel-janitors@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Ion Agorria <ion@agorria.com>,
+ linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,12 +83,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 18 Jun 2021 17:51:16 +0800, Shengjiu Wang wrote:
-> There is an unhandled interrupt after suspend, which cause endless
-> interrupt when system resume, so system may hang.
-> 
-> Disable all interrupts in runtime suspend callback to avoid above
-> issue.
+On Fri, 18 Jun 2021 16:44:24 +0300, Dan Carpenter wrote:
+> The tegra_machine_parse_phandle() function doesn't return NULL, it returns
+> error pointers.
 
 Applied to
 
@@ -95,8 +93,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl_xcvr: disable all interrupts when suspend happens
-      commit: ea837090b388245744988083313f6e9c7c9b9699
+[1/1] ASoC: tegra: Fix a NULL vs IS_ERR() check
+      commit: 3aed3ddf9639a4f915984177ff8a2253f3f8acfe
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

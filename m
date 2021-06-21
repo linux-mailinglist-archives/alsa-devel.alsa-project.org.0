@@ -2,48 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F0083AE0FF
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jun 2021 00:45:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2DD43AE375
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jun 2021 08:45:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F126716C0;
-	Mon, 21 Jun 2021 00:44:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F126716C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4760716B4;
+	Mon, 21 Jun 2021 08:44:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4760716B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624229129;
-	bh=xLW+pbgbKuAw70xRNn0Ea2kfIPRioBCNJ9sVpxhhhkU=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1624257929;
+	bh=vpBSzUNmQ0DwauRrTPy5glAvsdumuvu9oV6avPzRUXs=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aWQ7l7n+eqT0sRqAeBhR69P/s0+4sVl+zkq2K59LHj9JdlYTvc+MEJd9rLUqK5V7v
-	 h8+zC/TeSiPrnY1uOQLS3I37aI5v2T9vZS4LT3mg2xX4BDNEo0gmn0U2nn1jXhhvwn
-	 5DGCZUOfnPqXekKEZK+YtmnMzyN23qRQOMadFEIY=
+	b=RkR97h+M91oomtVuZH2PD/5ixI8M1PCJF0+2VPzff3WQHCze7d2JtCkYtc/hF52gm
+	 CCa3l2aeWl9KwwBfmn7VK7XIKQpJ2/GzH7yjDuMQJaRkXRBaz2TW3X2srr3optTVi4
+	 ZTlafwR1aNANRe0Z8OX34BXBMaX0cn+PM+8lvCO0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6936DF8026A;
-	Mon, 21 Jun 2021 00:44:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A342DF8016D;
+	Mon, 21 Jun 2021 08:44:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5F630F80268; Mon, 21 Jun 2021 00:43:57 +0200 (CEST)
+ id 0B10AF8016B; Mon, 21 Jun 2021 08:43:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 08B6BF80166
- for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 00:43:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08B6BF80166
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1624229033089593887-webhooks-bot@alsa-project.org>
-References: <1624229033089593887-webhooks-bot@alsa-project.org>
-Subject: Lenovo Legion ALC287/ALC3306 issue
-Message-Id: <20210620224357.5F630F80268@alsa1.perex.cz>
-Date: Mon, 21 Jun 2021 00:43:57 +0200 (CEST)
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8F80AF80111
+ for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 08:43:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F80AF80111
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="WkPz3KZ7"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="XYixP3ja"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 4F6E31FD2A;
+ Mon, 21 Jun 2021 06:43:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1624257832; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=l4Oo5fBF1HJNJuiW+SezPi9XOdxZijiHzFJHAiV07rc=;
+ b=WkPz3KZ7HRg8e/rIJajxYevrBdsqjtGWlFUqbZf3u9PRiw74RSn7v3a764SXpt/cUoBzzY
+ fNo+9v/swo2AyvLE8B6fkG6RzdPd/PXfMv7gUvjQM2MOfqfOFi7V5ddzJ2WUwfOZxfSodl
+ QtdlIId5ZaJyDhXEfVv5KhkL4L27q0c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1624257832;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=l4Oo5fBF1HJNJuiW+SezPi9XOdxZijiHzFJHAiV07rc=;
+ b=XYixP3ja/jemM0UF85b8vI63QGzYBva9pS9DynHoGjNuBNKZ66nR4nQDp+Dyfp6QNXa9Bm
+ hnY8lBgSiQ2bM9DA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 44183A3B96;
+ Mon, 21 Jun 2021 06:43:51 +0000 (UTC)
+Date: Mon, 21 Jun 2021 08:43:51 +0200
+Message-ID: <s5hmtrjvhso.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Geoffrey D. Bennett" <g@b4.vu>
+Subject: Re: [PATCH V2 00/14] Cleanup before adding Scarlett Gen 3 support
+In-Reply-To: <20210620164615.GA9148@m.b4.vu>
+References: <20210620164615.GA9148@m.b4.vu>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Hin-Tak Leung <htl10@users.sourceforge.net>, alsa-devel@alsa-project.org,
+ Vladimir Sadovnikov <sadko4u@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,18 +92,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #160 was opened from camberkenpas:
+On Sun, 20 Jun 2021 18:46:15 +0200,
+Geoffrey D. Bennett wrote:
+> 
+> Hi Takashi,
+> 
+> Here is version 2 of a set of patches which is some cleanup of the
+> Scarlett Gen 2 mixer driver in preparation for adding Scarlett Gen 3
+> support.
+> 
+> One review comment I got (from Hin-Tak) was:
+> 
+> > 40+ patches is a lot, for modifying just one file. I would collapse
+> > it all into one and break it up again to under 10, maybe, broadly
+> > into "functionally-equivalent re-org", "small isolated bug fixes",
+> > "additional functions, not yet used", "hooking up those new
+> > functions", etc?
+> 
+> I'm not sure that I agree with that comment -- I tried to follow the
+> Documentation/process/submitting-patches.rst advice of "Separate each
+> logical change into a separate patch" for easy review of the
+> individual pieces, but perhaps I went too far in that direction?
+> 
+> Please let me know if I should combine some of these patches together.
 
-Hello,
+The split is fine as long as it's done logically, so I took as is.
 
-I was able to do a little digging into this issue by running a Windows 10 virtual machine and passing the sound card device to the virtual machine I was able to get audio to play through the laptop's virtual machine using the virtual machine. More importantly, I was able to capture traces that might help us determine what this sound card needs.
+But, one thing that can be improved at the next time is to sort out
+fix patches.  e.g. you had patches for fixing the mixer field type
+(int vs enum) and a patch to correct the locking; those are rather
+independent from the cleanup series and should be applied for the
+stable backports, too.  I didn't add stable at this time because I
+wasn't sure whether applicable and that's no severe issue, but the
+process can be better.
 
-I've attached traces at the ticket for this bug:
-https://bugzilla.kernel.org/show_bug.cgi?id=208555
+Note that the merge window may be closed in this week, so if you want
+the stuff to be merged, please submit now.
 
-Perhaps this is enough to deduce at least some of what verbs the codec wants in order to work.
 
-Is this the right place to share this? Or is the kernel bug tracker the only appropriate place for this?
+thanks,
 
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/160
-Repository URL: https://github.com/alsa-project/alsa-lib
+Takashi

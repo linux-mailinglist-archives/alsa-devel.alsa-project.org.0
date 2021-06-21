@@ -2,76 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D34C3AEC1F
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jun 2021 17:15:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6C983AEC21
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jun 2021 17:15:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4B1A1690;
-	Mon, 21 Jun 2021 17:14:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4B1A1690
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3829B1699;
+	Mon, 21 Jun 2021 17:15:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3829B1699
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624288536;
-	bh=09MsLJ4xdAsBUfw6eHyaDAjPcjxisJB1yFOZVQqJFHo=;
+	s=default; t=1624288551;
+	bh=MrSWi70Xbte4J4mo9h7wVBFxj5XeyDZG9M4VYzbCtTM=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FjvX/n8DjKARw9t8vGqDPbek8haRM2Lh7NFzHUQAySGnXLjMFiXEpcQcr6YvYCg1U
-	 8Fgc6pmEgbFbCT28YbCe8xh1z670D8k52ASRqaFUUxEZ+pfaISOl8aG47Fz5KatKP9
-	 Dcsvid7778Ep0qko2qEN69M320pJvT/Kns1wyOSc=
+	b=eyfAknhqbg25R82VzKKNa1K7QmwEvavf0MwsiTYs2EMwAmHmvu81dvAKUAwd85Bt5
+	 sBY+9bEEQXjVbp+c/3ibBgl0WqSa/c73qCbZAIhs3qxOa4BcyuBUuCldd8NlPp8KR1
+	 PO+z3VEHOQLJkTRyySVLPYB45LP1lmV4CsBzfTzo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25A8AF8016D;
-	Mon, 21 Jun 2021 17:14:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 099BAF80279;
+	Mon, 21 Jun 2021 17:14:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4110FF8016B; Mon, 21 Jun 2021 17:14:06 +0200 (CEST)
+ id BA30DF80245; Mon, 21 Jun 2021 17:14:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 29CD8F80137
- for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 17:13:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29CD8F80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id A866AF8016A
+ for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 17:14:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A866AF8016A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="k4GqsVwZ"; 
+ header.b="Euz2gbyW"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="kxVPMs8Q"
+ header.b="+DJmL6Nu"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 693441FD42;
- Mon, 21 Jun 2021 15:13:56 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id C4480219DB;
+ Mon, 21 Jun 2021 15:14:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624288436; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1624288446; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Q0f0+TCvm7aNBeIkCNfuFBFkRci/O4Mec28eQpyQom8=;
- b=k4GqsVwZhazKRhsc0s5o9+xBw0x7dmPCkaQ94RdgTOzxY33c67SWMYdFmaAAqzdzAvNjvt
- R8mVGe8ytSDiPzCq3rls+lkQ4pW9Fl5QmZb3XCUA+PbPIvkKw/pFwiZB9WX8eKf/0Hz5tF
- nu6PqfaWCArbfhdtYyfgHdIw2PK6E/A=
+ bh=HU84UjhkgimGlSUgNsfPdhjI24bA4WfSFNcmnBGb7OE=;
+ b=Euz2gbyWOYSs644D9VZ9V+S79Ayv758QxB8sfu3EVZfCUoFdXo6trv+cYvRR5LIPs33xst
+ ESg9zhSqKGt5n+ziCWNlWmOt6ZQCaQ+wZBLb+8r0vaN/PJNriwkc6xcBe5pNzh8SWEmJmi
+ UqiCg+FZa3Spp6ydhUGFpRKlPkp9WQ0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624288436;
+ s=susede2_ed25519; t=1624288446;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Q0f0+TCvm7aNBeIkCNfuFBFkRci/O4Mec28eQpyQom8=;
- b=kxVPMs8QxvuLdiXKRD1zggS7t6wooUbJhtwlMNTO9+zy4TZbNS7u2VJ65FyIAjLsSsY9pL
- WJhYTm6xyPCDjICQ==
+ bh=HU84UjhkgimGlSUgNsfPdhjI24bA4WfSFNcmnBGb7OE=;
+ b=+DJmL6NuMErAhimtxieDHhc7qYeKYIJtG9TelG+Wr66JFWoNUBEsTBDSptykPeVYv1YmnW
+ hQ620MkqduHoozCQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 541F6A3BAB;
- Mon, 21 Jun 2021 15:13:56 +0000 (UTC)
-Date: Mon, 21 Jun 2021 17:13:56 +0200
-Message-ID: <s5h1r8vtfm3.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id B2BFBA3BAE;
+ Mon, 21 Jun 2021 15:14:06 +0000 (UTC)
+Date: Mon, 21 Jun 2021 17:14:06 +0200
+Message-ID: <s5hzgvjs11d.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: "Tanjeff-N. Moos" <tanjeff@cccmz.de>
-Subject: Re: [PATCH 1/2] control: Add documentation for snd_ctl_card_* and
- friends.
-In-Reply-To: <20210617083639.155781-1-tanjeff@cccmz.de>
+Subject: Re: [PATCH 2/2] control: Minor documentation fixes.
+In-Reply-To: <20210617083639.155781-2-tanjeff@cccmz.de>
 References: <20210617083639.155781-1-tanjeff@cccmz.de>
+ <20210617083639.155781-2-tanjeff@cccmz.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -93,25 +93,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 17 Jun 2021 10:36:38 +0200,
+On Thu, 17 Jun 2021 10:36:39 +0200,
 Tanjeff-N. Moos wrote:
-> 
-> I sent this patch before, but it didn't make it into the Git
-> repo. If I could improve something, please tell me.
-> 
-> In this patch series, I added a description about control interface
-> handling and how control interfaces are identified.
-> 
-> In addition, I added/improved Doxygen documentation for the
-> snd_ctl_card_info_t type and related corresponding functions,
-> e.g. snd_ctl_card_info(). I also documented other card-related like
-> snd_card_next().
-> 
-> Along the way I did minor documentation improvements.
 > 
 > Signed-off-by: Tanjeff-N. Moos <tanjeff@cccmz.de>
 
-Thanks, applied now.
+Thanks, applied.
 
 
 Takashi

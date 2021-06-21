@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9124E3AF4CF
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jun 2021 20:18:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34DA33AF4D0
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jun 2021 20:19:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A9481733;
-	Mon, 21 Jun 2021 20:18:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A9481733
+	by alsa0.perex.cz (Postfix) with ESMTPS id C04F11712;
+	Mon, 21 Jun 2021 20:18:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C04F11712
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624299538;
-	bh=5l7+hpDk/BP7R3BZ1TcZtAM2Wv6AsnuFtmX3zPYTQQc=;
+	s=default; t=1624299561;
+	bh=dPzHDTMWfHbSOcKukk2TtwkMAnGRjod75zKE5qvkBUY=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ke5BKRfrEVClr9acwGky67cAtTZeEz/y55aTwXj/zw2VXgRDSgwqMJ/7rqR0SGjec
-	 CfP/8jeFXr5HuV6G2T4rpdhrIZoMqWQDnmzozwt721H/u1QPJP8Is06SA8C7HRmvLH
-	 ZpBWhGnf+yVRGTzaUv38nKYhh8DsSlNbfAryxKuw=
+	b=onbhPTuB8BR87rdYy9dmzKbZKv/l+zSwDOu6z0Mu60I/vZnauI9IN8vSkCBoQjWap
+	 b5vEYlH0HaadxTmgst3GF+lHeBgZSRALKW2AjnFPNPWUC0cNOZT8EFDR/rowqZAIb+
+	 52znF7XC+ze1Qd6vAJcP1e9weUqK22Plp0C5gETE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 849D8F805B0;
-	Mon, 21 Jun 2021 20:10:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B07DF805B2;
+	Mon, 21 Jun 2021 20:10:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C8662F805A1; Mon, 21 Jun 2021 20:10:08 +0200 (CEST)
+ id 69650F805A8; Mon, 21 Jun 2021 20:10:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,17 +33,16 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from m.b4.vu (m.b4.vu [203.16.231.148])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DC70FF8057D
- for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 20:10:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC70FF8057D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D09AF8016B
+ for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 20:10:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D09AF8016B
 Received: by m.b4.vu (Postfix, from userid 1000)
- id 6344161E286F; Tue, 22 Jun 2021 03:40:02 +0930 (ACST)
-Date: Tue, 22 Jun 2021 03:40:02 +0930
+ id EBDA761E287F; Tue, 22 Jun 2021 03:40:03 +0930 (ACST)
+Date: Tue, 22 Jun 2021 03:40:03 +0930
 From: "Geoffrey D. Bennett" <g@b4.vu>
 To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 23/31] ALSA: usb-audio: scarlett2: Add phantom power switch
- support
-Message-ID: <7338519d2572359f5c415b8909ed72c91c22af06.1624294591.git.g@b4.vu>
+Subject: [PATCH 24/31] ALSA: usb-audio: scarlett2: Add direct monitor support
+Message-ID: <af237b7bb54b5d243a099e8833e292a50a61d179.1624294591.git.g@b4.vu>
 References: <cover.1624294591.git.g@b4.vu>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -67,262 +66,166 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some inputs on Gen 3 models support software-selectable phantom power.
-Add support for getting and setting the state of those switches and
-the "Phantom Power Persistence" switch.
+The Solo and 2i2 devices don't have a mixer but they do have a "direct
+monitor" switch. Add support for getting and setting the state of this
+switch.
 
 Co-developed-by: Vladimir Sadovnikov <sadko4u@gmail.com>
 Signed-off-by: Vladimir Sadovnikov <sadko4u@gmail.com>
 Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
 ---
- sound/usb/mixer_scarlett_gen2.c | 197 +++++++++++++++++++++++++++++++-
- 1 file changed, 196 insertions(+), 1 deletion(-)
+ sound/usb/mixer_scarlett_gen2.c | 161 ++++++++++++++++++++++++++++++--
+ 1 file changed, 154 insertions(+), 7 deletions(-)
 
 diff --git a/sound/usb/mixer_scarlett_gen2.c b/sound/usb/mixer_scarlett_gen2.c
-index a8c5a28f21c9..87672e6b4505 100644
+index 87672e6b4505..94de63847169 100644
 --- a/sound/usb/mixer_scarlett_gen2.c
 +++ b/sound/usb/mixer_scarlett_gen2.c
-@@ -48,12 +48,15 @@
+@@ -48,7 +48,8 @@
   * Support for Solo/2i2 Gen 3 added in May 2021 (thanks to Alexander
   * Vorona for 2i2 protocol traces).
   *
-+ * Support for phantom power added in May 2021.
-+ *
+- * Support for phantom power added in May 2021.
++ * Support for phantom power and direct monitoring added in May-June
++ * 2021.
+  *
   * This ALSA mixer gives access to (model-dependent):
   *  - input, output, mixer-matrix muxes
-  *  - mixer-matrix gain stages
+@@ -56,7 +57,7 @@
   *  - gain/volume/mute controls
   *  - level meters
   *  - line/inst level, pad, and air controls
-+ *  - phantom power controls
+- *  - phantom power controls
++ *  - phantom power and direct monitor controls
   *  - disable/enable MSD mode
   *
   * <ditaa>
-@@ -174,6 +177,7 @@ static const u16 scarlett2_mixer_values[SCARLETT2_MIXER_VALUE_COUNT] = {
- #define SCARLETT2_LEVEL_SWITCH_MAX 2
- #define SCARLETT2_PAD_SWITCH_MAX 8
- #define SCARLETT2_AIR_SWITCH_MAX 8
-+#define SCARLETT2_PHANTOM_SWITCH_MAX 2
+@@ -338,6 +339,11 @@ struct scarlett2_device_info {
+ 	/* the number of inputs each phantom switch controls */
+ 	u8 inputs_per_phantom;
  
- /* Maximum number of inputs to the mixer */
- #define SCARLETT2_INPUT_MIX_MAX 25
-@@ -328,6 +332,12 @@ struct scarlett2_device_info {
- 	 */
- 	u8 air_input_count;
- 
-+	/* the number of phantom (48V) software switchable controls */
-+	u8 phantom_count;
-+
-+	/* the number of inputs each phantom switch controls */
-+	u8 inputs_per_phantom;
++	/* the number of direct monitor options
++	 * (0 = none, 1 = mono only, 2 = mono/stereo)
++	 */
++	u8 direct_monitor;
 +
  	/* additional description for the line out volume controls */
  	const char * const line_out_descrs[SCARLETT2_ANALOGUE_MAX];
  
-@@ -364,6 +374,8 @@ struct scarlett2_data {
- 	u8 pad_switch[SCARLETT2_PAD_SWITCH_MAX];
- 	u8 dim_mute[SCARLETT2_DIM_MUTE_COUNT];
+@@ -365,6 +371,7 @@ struct scarlett2_data {
+ 	u8 sync_updated;
+ 	u8 vol_updated;
+ 	u8 input_other_updated;
++	u8 monitor_other_updated;
+ 	u8 sync;
+ 	u8 master_vol;
+ 	u8 vol[SCARLETT2_ANALOGUE_MAX];
+@@ -376,6 +383,7 @@ struct scarlett2_data {
  	u8 air_switch[SCARLETT2_AIR_SWITCH_MAX];
-+	u8 phantom_switch[SCARLETT2_PHANTOM_SWITCH_MAX];
-+	u8 phantom_persistence;
+ 	u8 phantom_switch[SCARLETT2_PHANTOM_SWITCH_MAX];
+ 	u8 phantom_persistence;
++	u8 direct_monitor_switch;
  	u8 msd_switch;
  	struct snd_kcontrol *sync_ctl;
  	struct snd_kcontrol *master_vol_ctl;
-@@ -373,6 +385,7 @@ struct scarlett2_data {
- 	struct snd_kcontrol *level_ctls[SCARLETT2_LEVEL_SWITCH_MAX];
+@@ -386,6 +394,7 @@ struct scarlett2_data {
  	struct snd_kcontrol *pad_ctls[SCARLETT2_PAD_SWITCH_MAX];
  	struct snd_kcontrol *air_ctls[SCARLETT2_AIR_SWITCH_MAX];
-+	struct snd_kcontrol *phantom_ctls[SCARLETT2_PHANTOM_SWITCH_MAX];
+ 	struct snd_kcontrol *phantom_ctls[SCARLETT2_PHANTOM_SWITCH_MAX];
++	struct snd_kcontrol *direct_monitor_ctl;
  	u8 mux[SCARLETT2_MUX_MAX];
  	u8 mix[SCARLETT2_INPUT_MIX_MAX * SCARLETT2_OUTPUT_MIX_MAX];
  };
-@@ -535,6 +548,8 @@ static const struct scarlett2_device_info solo_gen3_info = {
- 	.level_input_count = 1,
- 	.level_input_first = 1,
+@@ -550,6 +559,7 @@ static const struct scarlett2_device_info solo_gen3_info = {
  	.air_input_count = 1,
-+	.phantom_count = 1,
-+	.inputs_per_phantom = 1,
+ 	.phantom_count = 1,
+ 	.inputs_per_phantom = 1,
++	.direct_monitor = 1,
  };
  
  static const struct scarlett2_device_info s2i2_gen3_info = {
-@@ -543,6 +558,8 @@ static const struct scarlett2_device_info s2i2_gen3_info = {
- 	.has_msd_mode = 1,
- 	.level_input_count = 2,
+@@ -560,6 +570,7 @@ static const struct scarlett2_device_info s2i2_gen3_info = {
  	.air_input_count = 2,
-+	.phantom_count = 1,
-+	.inputs_per_phantom = 2,
+ 	.phantom_count = 1,
+ 	.inputs_per_phantom = 2,
++	.direct_monitor = 2,
  };
  
  static const struct scarlett2_device_info s4i4_gen3_info = {
-@@ -553,6 +570,8 @@ static const struct scarlett2_device_info s4i4_gen3_info = {
- 	.level_input_count = 2,
- 	.pad_input_count = 2,
- 	.air_input_count = 2,
-+	.phantom_count = 1,
-+	.inputs_per_phantom = 2,
+@@ -824,10 +835,11 @@ static int scarlett2_get_port_start_num(
+ /*** USB Interactions ***/
  
- 	.line_out_descrs = {
- 		"Monitor L",
-@@ -597,6 +616,8 @@ static const struct scarlett2_device_info s8i6_gen3_info = {
- 	.level_input_count = 2,
- 	.pad_input_count = 2,
- 	.air_input_count = 2,
-+	.phantom_count = 1,
-+	.inputs_per_phantom = 2,
+ /* Notifications from the interface */
+-#define SCARLETT2_USB_NOTIFY_SYNC        0x00000008
+-#define SCARLETT2_USB_NOTIFY_DIM_MUTE    0x00200000
+-#define SCARLETT2_USB_NOTIFY_MONITOR     0x00400000
+-#define SCARLETT2_USB_NOTIFY_INPUT_OTHER 0x00800000
++#define SCARLETT2_USB_NOTIFY_SYNC          0x00000008
++#define SCARLETT2_USB_NOTIFY_DIM_MUTE      0x00200000
++#define SCARLETT2_USB_NOTIFY_MONITOR       0x00400000
++#define SCARLETT2_USB_NOTIFY_INPUT_OTHER   0x00800000
++#define SCARLETT2_USB_NOTIFY_MONITOR_OTHER 0x01000000
  
- 	.line_out_descrs = {
- 		"Headphones 1 L",
-@@ -649,6 +670,8 @@ static const struct scarlett2_device_info s18i8_gen3_info = {
- 	.level_input_count = 2,
- 	.pad_input_count = 2,
- 	.air_input_count = 4,
-+	.phantom_count = 2,
-+	.inputs_per_phantom = 2,
- 
- 	.line_out_descrs = {
- 		"Monitor L",
-@@ -713,6 +736,8 @@ static const struct scarlett2_device_info s18i20_gen3_info = {
- 	.level_input_count = 2,
- 	.pad_input_count = 8,
- 	.air_input_count = 8,
-+	.phantom_count = 2,
-+	.inputs_per_phantom = 4,
- 
- 	.line_out_descrs = {
- 		"Monitor 1 L",
-@@ -861,7 +886,9 @@ enum {
- 	SCARLETT2_CONFIG_PAD_SWITCH = 5,
- 	SCARLETT2_CONFIG_MSD_SWITCH = 6,
+ /* Commands for sending/receiving requests/responses */
+ #define SCARLETT2_USB_CMD_INIT 0
+@@ -888,7 +900,8 @@ enum {
  	SCARLETT2_CONFIG_AIR_SWITCH = 7,
--	SCARLETT2_CONFIG_COUNT = 8
-+	SCARLETT2_CONFIG_PHANTOM_SWITCH = 8,
-+	SCARLETT2_CONFIG_PHANTOM_PERSISTENCE = 9,
-+	SCARLETT2_CONFIG_COUNT = 10
+ 	SCARLETT2_CONFIG_PHANTOM_SWITCH = 8,
+ 	SCARLETT2_CONFIG_PHANTOM_PERSISTENCE = 9,
+-	SCARLETT2_CONFIG_COUNT = 10
++	SCARLETT2_CONFIG_DIRECT_MONITOR = 10,
++	SCARLETT2_CONFIG_COUNT = 11
  };
  
  /* Location, size, and activation command number for the configuration
-@@ -884,6 +911,12 @@ static const struct scarlett2_config
- 	[SCARLETT2_CONFIG_MSD_SWITCH] = {
- 		.offset = 0x04, .size = 8, .activate = 6 },
+@@ -917,6 +930,9 @@ static const struct scarlett2_config
+ 	[SCARLETT2_CONFIG_PHANTOM_SWITCH] = {
+ 		.offset = 0x06, .size = 8, .activate = 3 },
  
-+	[SCARLETT2_CONFIG_PHANTOM_PERSISTENCE] = {
-+		.offset = 0x05, .size = 8, .activate = 6 },
-+
-+	[SCARLETT2_CONFIG_PHANTOM_SWITCH] = {
-+		.offset = 0x06, .size = 8, .activate = 3 },
++	[SCARLETT2_CONFIG_DIRECT_MONITOR] = {
++		.offset = 0x07, .size = 8, .activate = 4 },
 +
  	[SCARLETT2_CONFIG_LEVEL_SWITCH] = {
  		.offset = 0x08, .size = 1, .activate = 7 },
  
-@@ -913,8 +946,14 @@ static const struct scarlett2_config
- 	[SCARLETT2_CONFIG_AIR_SWITCH] = {
- 		.offset = 0x8c, .size = 8, .activate = 8 },
- 
-+	[SCARLETT2_CONFIG_PHANTOM_SWITCH] = {
-+		.offset = 0x9c, .size = 1, .activate = 8 },
-+
- 	[SCARLETT2_CONFIG_MSD_SWITCH] = {
- 		.offset = 0x9d, .size = 8, .activate = 6 },
-+
-+	[SCARLETT2_CONFIG_PHANTOM_PERSISTENCE] = {
-+		.offset = 0x9e, .size = 8, .activate = 6 },
- } };
- 
- /* proprietary request/response format */
-@@ -1922,6 +1961,20 @@ static int scarlett2_update_input_other(struct usb_mixer_interface *mixer)
- 			return err;
- 	}
- 
-+	if (info->phantom_count) {
-+		int err = scarlett2_usb_get_config(
-+			mixer, SCARLETT2_CONFIG_PHANTOM_SWITCH,
-+			info->phantom_count, private->phantom_switch);
-+		if (err < 0)
-+			return err;
-+
-+		err = scarlett2_usb_get_config(
-+			mixer, SCARLETT2_CONFIG_PHANTOM_PERSISTENCE,
-+			1, &private->phantom_persistence);
-+		if (err < 0)
-+			return err;
-+	}
-+
- 	return 0;
- }
- 
-@@ -2107,6 +2160,111 @@ static const struct snd_kcontrol_new scarlett2_air_ctl = {
- 	.put  = scarlett2_air_ctl_put,
+@@ -2265,6 +2281,112 @@ static const struct snd_kcontrol_new scarlett2_phantom_persistence_ctl = {
+ 	.put  = scarlett2_phantom_persistence_ctl_put,
  };
  
-+/*** Phantom Switch Controls ***/
++/*** Direct Monitor Control ***/
 +
-+static int scarlett2_phantom_ctl_get(struct snd_kcontrol *kctl,
-+				     struct snd_ctl_elem_value *ucontrol)
++static int scarlett2_update_monitor_other(struct usb_mixer_interface *mixer)
 +{
-+	struct usb_mixer_elem_info *elem = kctl->private_data;
-+	struct usb_mixer_interface *mixer = elem->head.mixer;
 +	struct scarlett2_data *private = mixer->private_data;
++	const struct scarlett2_device_info *info = private->info;
 +
-+	mutex_lock(&private->data_mutex);
-+	if (private->input_other_updated)
-+		scarlett2_update_input_other(mixer);
-+	ucontrol->value.integer.value[0] =
-+		private->phantom_switch[elem->control];
-+	mutex_unlock(&private->data_mutex);
++	private->monitor_other_updated = 0;
++
++	if (info->direct_monitor)
++		return scarlett2_usb_get_config(
++			mixer, SCARLETT2_CONFIG_DIRECT_MONITOR,
++			1, &private->direct_monitor_switch);
 +
 +	return 0;
 +}
 +
-+static int scarlett2_phantom_ctl_put(struct snd_kcontrol *kctl,
-+				     struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct usb_mixer_elem_info *elem = kctl->private_data;
-+	struct usb_mixer_interface *mixer = elem->head.mixer;
-+	struct scarlett2_data *private = mixer->private_data;
-+
-+	int index = elem->control;
-+	int oval, val, err = 0;
-+
-+	mutex_lock(&private->data_mutex);
-+
-+	oval = private->phantom_switch[index];
-+	val = !!ucontrol->value.integer.value[0];
-+
-+	if (oval == val)
-+		goto unlock;
-+
-+	private->phantom_switch[index] = val;
-+
-+	/* Send switch change to the device */
-+	err = scarlett2_usb_set_config(mixer, SCARLETT2_CONFIG_PHANTOM_SWITCH,
-+				       index, val);
-+
-+unlock:
-+	mutex_unlock(&private->data_mutex);
-+	return err;
-+}
-+
-+static const struct snd_kcontrol_new scarlett2_phantom_ctl = {
-+	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
-+	.name = "",
-+	.info = snd_ctl_boolean_mono_info,
-+	.get  = scarlett2_phantom_ctl_get,
-+	.put  = scarlett2_phantom_ctl_put,
-+};
-+
-+/*** Phantom Persistence Control ***/
-+
-+static int scarlett2_phantom_persistence_ctl_get(
++static int scarlett2_direct_monitor_ctl_get(
 +	struct snd_kcontrol *kctl, struct snd_ctl_elem_value *ucontrol)
 +{
 +	struct usb_mixer_elem_info *elem = kctl->private_data;
++	struct usb_mixer_interface *mixer = elem->head.mixer;
 +	struct scarlett2_data *private = elem->head.mixer->private_data;
 +
-+	ucontrol->value.integer.value[0] = private->phantom_persistence;
++	mutex_lock(&private->data_mutex);
++	if (private->monitor_other_updated)
++		scarlett2_update_monitor_other(mixer);
++	ucontrol->value.enumerated.item[0] = private->direct_monitor_switch;
++	mutex_unlock(&private->data_mutex);
++
 +	return 0;
 +}
 +
-+static int scarlett2_phantom_persistence_ctl_put(
++static int scarlett2_direct_monitor_ctl_put(
 +	struct snd_kcontrol *kctl, struct snd_ctl_elem_value *ucontrol)
 +{
 +	struct usb_mixer_elem_info *elem = kctl->private_data;
@@ -334,92 +237,123 @@ index a8c5a28f21c9..87672e6b4505 100644
 +
 +	mutex_lock(&private->data_mutex);
 +
-+	oval = private->phantom_persistence;
-+	val = !!ucontrol->value.integer.value[0];
++	oval = private->direct_monitor_switch;
++	val = min(ucontrol->value.enumerated.item[0], 2U);
 +
 +	if (oval == val)
 +		goto unlock;
 +
-+	private->phantom_persistence = val;
++	private->direct_monitor_switch = val;
 +
 +	/* Send switch change to the device */
 +	err = scarlett2_usb_set_config(
-+		mixer, SCARLETT2_CONFIG_PHANTOM_PERSISTENCE, index, val);
++		mixer, SCARLETT2_CONFIG_DIRECT_MONITOR, index, val);
 +
 +unlock:
 +	mutex_unlock(&private->data_mutex);
 +	return err;
 +}
 +
-+static const struct snd_kcontrol_new scarlett2_phantom_persistence_ctl = {
-+	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
-+	.name = "",
-+	.info = snd_ctl_boolean_mono_info,
-+	.get  = scarlett2_phantom_persistence_ctl_get,
-+	.put  = scarlett2_phantom_persistence_ctl_put,
++static int scarlett2_direct_monitor_stereo_enum_ctl_info(
++	struct snd_kcontrol *kctl, struct snd_ctl_elem_info *uinfo)
++{
++	static const char *const values[3] = {
++		"Off", "Mono", "Stereo"
++	};
++
++	return snd_ctl_enum_info(uinfo, 1, 3, values);
++}
++
++/* Direct Monitor for Solo is mono-only and only needs a boolean control
++ * Direct Monitor for 2i2 is selectable between Off/Mono/Stereo
++ */
++static const struct snd_kcontrol_new scarlett2_direct_monitor_ctl[2] = {
++	{
++		.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++		.name = "",
++		.info = snd_ctl_boolean_mono_info,
++		.get  = scarlett2_direct_monitor_ctl_get,
++		.put  = scarlett2_direct_monitor_ctl_put,
++	},
++	{
++		.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++		.name = "",
++		.info = scarlett2_direct_monitor_stereo_enum_ctl_info,
++		.get  = scarlett2_direct_monitor_ctl_get,
++		.put  = scarlett2_direct_monitor_ctl_put,
++	}
 +};
++
++static int scarlett2_add_direct_monitor_ctl(struct usb_mixer_interface *mixer)
++{
++	struct scarlett2_data *private = mixer->private_data;
++	const struct scarlett2_device_info *info = private->info;
++
++	if (!info->direct_monitor)
++		return 0;
++
++	return scarlett2_add_new_ctl(
++		mixer, &scarlett2_direct_monitor_ctl[info->direct_monitor - 1],
++		0, 1, "Direct Monitor Playback Switch",
++		&private->direct_monitor_ctl);
++}
 +
  /*** Dim/Mute Controls ***/
  
  static int scarlett2_dim_mute_ctl_get(struct snd_kcontrol *kctl,
-@@ -2270,6 +2428,7 @@ static int scarlett2_add_line_in_ctls(struct usb_mixer_interface *mixer)
- 	int err, i;
- 	char s[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
- 	const char *fmt = "Line In %d %s Capture %s";
-+	const char *fmt2 = "Line In %d-%d %s Capture %s";
+@@ -2983,6 +3105,10 @@ static int scarlett2_read_configs(struct usb_mixer_interface *mixer)
+ 	if (err < 0)
+ 		return err;
  
- 	/* Add input level (line/inst) controls */
- 	for (i = 0; i < info->level_input_count; i++) {
-@@ -2299,6 +2458,39 @@ static int scarlett2_add_line_in_ctls(struct usb_mixer_interface *mixer)
- 			return err;
- 	}
- 
-+	/* Add input phantom controls */
-+	if (info->inputs_per_phantom == 1) {
-+		for (i = 0; i < info->phantom_count; i++) {
-+			snprintf(s, sizeof(s), fmt, i + 1,
-+				 "Phantom Power", "Switch");
-+			err = scarlett2_add_new_ctl(
-+				mixer, &scarlett2_phantom_ctl,
-+				i, 1, s, &private->phantom_ctls[i]);
-+			if (err < 0)
-+				return err;
-+		}
-+	} else if (info->inputs_per_phantom > 1) {
-+		for (i = 0; i < info->phantom_count; i++) {
-+			int from = i * info->inputs_per_phantom + 1;
-+			int to = (i + 1) * info->inputs_per_phantom;
++	err = scarlett2_update_monitor_other(mixer);
++	if (err < 0)
++		return err;
 +
-+			snprintf(s, sizeof(s), fmt2, from, to,
-+				 "Phantom Power", "Switch");
-+			err = scarlett2_add_new_ctl(
-+				mixer, &scarlett2_phantom_ctl,
-+				i, 1, s, &private->phantom_ctls[i]);
-+			if (err < 0)
-+				return err;
-+		}
-+	}
-+	if (info->phantom_count) {
-+		err = scarlett2_add_new_ctl(
-+			mixer, &scarlett2_phantom_persistence_ctl, 0, 1,
-+			"Phantom Power Persistence Capture Switch", NULL);
-+		if (err < 0)
-+			return err;
-+	}
-+
- 	return 0;
+ 	/* the rest of the configuration is for devices with a mixer */
+ 	if (!info->has_mixer)
+ 		return 0;
+@@ -3124,6 +3250,20 @@ static void scarlett2_notify_input_other(
+ 			       &private->phantom_ctls[i]->id);
  }
  
-@@ -2927,6 +3119,9 @@ static void scarlett2_notify_input_other(
- 	for (i = 0; i < info->air_input_count; i++)
- 		snd_ctl_notify(card, SNDRV_CTL_EVENT_MASK_VALUE,
- 			       &private->air_ctls[i]->id);
-+	for (i = 0; i < info->phantom_count; i++)
++/* Notify on "monitor other" change (direct monitor) */
++static void scarlett2_notify_monitor_other(
++	struct usb_mixer_interface *mixer)
++{
++	struct scarlett2_data *private = mixer->private_data;
++	struct snd_card *card = mixer->chip->card;
++
++	private->monitor_other_updated = 1;
++
++	if (private->info->direct_monitor)
 +		snd_ctl_notify(card, SNDRV_CTL_EVENT_MASK_VALUE,
-+			       &private->phantom_ctls[i]->id);
- }
- 
++			       &private->direct_monitor_ctl->id);
++}
++
  /* Interrupt callback */
+ static void scarlett2_notify(struct urb *urb)
+ {
+@@ -3144,6 +3284,8 @@ static void scarlett2_notify(struct urb *urb)
+ 		scarlett2_notify_dim_mute(mixer);
+ 	if (data & SCARLETT2_USB_NOTIFY_INPUT_OTHER)
+ 		scarlett2_notify_input_other(mixer);
++	if (data & SCARLETT2_USB_NOTIFY_MONITOR_OTHER)
++		scarlett2_notify_monitor_other(mixer);
+ 
+ requeue:
+ 	if (ustatus != -ENOENT &&
+@@ -3250,6 +3392,11 @@ static int snd_scarlett_gen2_controls_create(struct usb_mixer_interface *mixer)
+ 	if (err < 0)
+ 		return err;
+ 
++	/* Create the direct monitor control */
++	err = scarlett2_add_direct_monitor_ctl(mixer);
++	if (err < 0)
++		return err;
++
+ 	/* Set up the interrupt polling */
+ 	err = scarlett2_init_notify(mixer);
+ 	if (err < 0)
 -- 
 2.31.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D4AB3AF585
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jun 2021 20:49:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B346D3AF586
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jun 2021 20:49:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 261FF16AB;
-	Mon, 21 Jun 2021 20:48:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 261FF16AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A28A16C0;
+	Mon, 21 Jun 2021 20:48:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A28A16C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624301358;
-	bh=sLgWN4s8GNDPO25dfpT1/TNRtfd/uI79Qq9d1BCDPn0=;
+	s=default; t=1624301370;
+	bh=VT8jjUiO3DASVpwIemns7UpacAV+opD53af/FKpn/Xw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Q2KaHgwwnq2ntSNFZPevXlduZmKxbZ/OhFl7t0ND8yA2paEBs8atGd68n9tn6EKNs
-	 OOUY452nYRH0Gd0dbg+FbV3hleUwH8jCfojpW97JyRoUQD4YXf6WiQZl6UH9rzci8X
-	 ec8m1bbUMzQfFwedHAurNy4zMMStEgky5nh/r3L0=
+	b=aftEwaRhTqY1efxZUuPuzZ690b9vrNpCm+roExHYwzvfsw5NfxszhMVRVS15DBSxa
+	 HpyCBcLobZpbrcByr9kTEuXRHL/zOi7OJj23nfxw/ZBcWYWug6/6tARgCCRo8PAV1r
+	 QuUVqybRyMMJiwzVihiSyTTn+ZQlhSH9bt4GTrFg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5CAD5F804D6;
-	Mon, 21 Jun 2021 20:47:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF23BF804E0;
+	Mon, 21 Jun 2021 20:47:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F04BAF80245; Mon, 21 Jun 2021 20:46:58 +0200 (CEST)
+ id 92830F804B0; Mon, 21 Jun 2021 20:47:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 52A26F8016D
- for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 20:46:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52A26F8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id F1FA1F8016D
+ for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 20:46:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1FA1F8016D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="okFEYST2"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 548896124B;
- Mon, 21 Jun 2021 18:46:54 +0000 (UTC)
+ header.b="H3z4XWyB"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 340C261107;
+ Mon, 21 Jun 2021 18:46:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624301214;
- bh=sLgWN4s8GNDPO25dfpT1/TNRtfd/uI79Qq9d1BCDPn0=;
+ s=k20201202; t=1624301217;
+ bh=VT8jjUiO3DASVpwIemns7UpacAV+opD53af/FKpn/Xw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=okFEYST20zwXUCNHRYwS5D1ZL6h6+goigd12M/UhFB8z0WGZvIYE2YfCUKswCfqAG
- G+fx5IkxaPouvVCVuUGYLTTr3x1y70Wkha5xwjuoT5abJebF41ydOjjJfPJfxCHJI8
- +dI8DnXosBpO7kDuF0rrFo//Xbx6ACEr3cMgT0plEDmpNo0IjQUATivQAPdxqTCEOV
- hxf9aX8MbNUknFshx9/+tJ+7Q6uKPJX56F7N4ol+13+LiUSxQlKhaTXLsx5JaxngBo
- 896sqShMb4LaYG9GyYgySi89N2LuRxt1rO9LWTJQhR+Wi9iY/bH8t6N/IHXwALZ4ly
- Byu/hFZPltQ7w==
+ b=H3z4XWyBxOm/dlbGHRS3F+pNprVp1oFTb2un2UstPuDejQdlAL0PxO5uspdKS6Fsf
+ T2M3UUut19kemJI9IMiak79ELrnm7c15IYEg7vZKt4at/HTAe/kjkmjRG52jAdXMT7
+ dmR9KB35tkU4pJDaZ+nNG3hdNKq0Y86xNOdraNh7JtJxYCGp4THAXayUsnluG+FuCG
+ pnsNbAREKpfmJKYZyiEnb3Rd6YBxq+3/enAgn9VfXy5lO6O3GkYf6qNZy7K4vtr19/
+ QYMnAMQX/wei61w0KzcYMhDb6HY9SbbIaHl/R7l/SiJL48fYJNDkGEfU0Yi1ottBuz
+ FU4nNlNjUhN1A==
 From: Mark Brown <broonie@kernel.org>
-To: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org
-Subject: Re: [PATCH 1/2] ASoC: atmel-i2s: Set symmetric sample bits
-Date: Mon, 21 Jun 2021 19:45:58 +0100
-Message-Id: <162430055264.9224.7571690631298505549.b4-ty@kernel.org>
+To: linux-sunxi@lists.linux.dev, Yang Yingliang <yangyingliang@huawei.com>,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+Subject: Re: [PATCH -next 0/3] ASoC: sunxi: Use
+ devm_platform_get_and_ioremap_resource()
+Date: Mon, 21 Jun 2021 19:45:59 +0100
+Message-Id: <162430055263.9224.277778628672275964.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210618150741.401739-1-codrin.ciubotariu@microchip.com>
-References: <20210618150741.401739-1-codrin.ciubotariu@microchip.com>
+In-Reply-To: <20210617045012.1119650-1-yangyingliang@huawei.com>
+References: <20210617045012.1119650-1-yangyingliang@huawei.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alexandre.belloni@bootlin.com, tiwai@suse.com, nicolas.ferre@microchip.com,
- ludovic.desroches@microchip.com, Mark Brown <broonie@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,9 +80,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 18 Jun 2021 18:07:40 +0300, Codrin Ciubotariu wrote:
-> The I2S needs to have the same sample bits for both capture and playback
-> streams.
+On Thu, 17 Jun 2021 12:50:09 +0800, Yang Yingliang wrote:
+> Use devm_platform_get_and_ioremap_resource() to simplify
+> code.
+> 
+> Yang Yingliang (3):
+>   ASoC: sunxi: sun4i-codec: Use devm_platform_get_and_ioremap_resource()
+>   ASoC: sun4i-i2s: Use devm_platform_get_and_ioremap_resource()
+>   ASoC: sunxi: sun4i-spdif: Use devm_platform_get_and_ioremap_resource()
+> 
+> [...]
 
 Applied to
 
@@ -91,10 +97,12 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: atmel-i2s: Set symmetric sample bits
-      commit: 489a830a25e1730aebf7ff53430c170db9a1771b
-[2/2] ASoC: atmel-i2s: Fix usage of capture and playback at the same time
-      commit: 3b7961a326f8a7e03f54a19f02fedae8d488b80f
+[1/3] ASoC: sunxi: sun4i-codec: Use devm_platform_get_and_ioremap_resource()
+      commit: 37c617f1cf062b56141a06e2ae355e3ecc8b8451
+[2/3] ASoC: sun4i-i2s: Use devm_platform_get_and_ioremap_resource()
+      commit: cc384f05c05618dfcf1990054c1f40bedbb01cca
+[3/3] ASoC: sunxi: sun4i-spdif: Use devm_platform_get_and_ioremap_resource()
+      commit: bb17379cf278c15574b0c1c94a76531f637970c7
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

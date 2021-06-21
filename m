@@ -2,69 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 621CF3AF5B0
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jun 2021 20:52:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B7D53AF652
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jun 2021 21:42:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DDD031696;
-	Mon, 21 Jun 2021 20:51:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDD031696
+	by alsa0.perex.cz (Postfix) with ESMTPS id D28D7167A;
+	Mon, 21 Jun 2021 21:42:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D28D7167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624301547;
-	bh=/OILYFrNI8JuScLMPbDFllbR2pKC/ijN5T2alXtxSbo=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Ggye5i8BJwuA0o7PlxNdRRpyE9+6EuCUHEc9JGPzi3aE6b1zdITolndzIsjAxz9gJ
-	 k/9HWIzwIKbZJEs71ikgbe5uqLSOxAIylHF9GUo4fQfi0d80cd4Czl2Ox3EXKHqL86
-	 m9ERGhgXWncCkvxkp5JinMWkxAvToBkDWYMIy6Mc=
+	s=default; t=1624304578;
+	bh=8Yci0FcLHAaRI1dUWJTn0hcSZca/N0IcurtgHcZfEEU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=EMP47drOnlt/LfV0pJl/+IT6cd+JjwIWv1cmNeTl9dvRthJH1kNYrY3YRcb6/SWNd
+	 CAco2Mf2iDxcDCOP0b8CCnGquNTCICUuEzw6tlUMsuUJeDvj1OKKaJig4OO5ok5fC6
+	 Gg2VXf+YHLoFsgARJrWUkH932SYRr2YmV59ykFVA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C068F8051D;
-	Mon, 21 Jun 2021 20:47:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E836F804D6;
+	Mon, 21 Jun 2021 21:41:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28C80F804E5; Mon, 21 Jun 2021 20:47:24 +0200 (CEST)
+ id 2CA40F80279; Mon, 21 Jun 2021 21:41:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C66A1F804DA
- for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 20:47:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C66A1F804DA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="sy3m5mpO"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 37B7C61353;
- Mon, 21 Jun 2021 18:47:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624301239;
- bh=/OILYFrNI8JuScLMPbDFllbR2pKC/ijN5T2alXtxSbo=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=sy3m5mpOG+Bq50cPcVUbpAuPlIwb+Q+vY9yBP80r26VUHZKOcTikj4t+Y/LeAElNH
- YOzGUi+LMQohxt8f1A/mimRX3aXX6Wypf99esEvQ1UGHM0hk07S72+TurhbTvNJkXo
- YRn8VHztouweUnditVvAQDRte2ZIgKVl5SrKOyS9yZnSl+xWO7zGArS2UvXhkIJgiB
- x/l/jIcKZTqDxEr4xRgx21xmmGlDpwbws1lkIovQcRk0M/ZFADOINalUNXlHszjBFE
- UQpyCM7n4lZrlz4YweBaAYCW180zjkvVFQuglSfXMfoYWCKpxUWMrInqbGrkP9FOzd
- ou9awOl8rpYLg==
-From: Mark Brown <broonie@kernel.org>
-To: Yang Yingliang <yangyingliang@huawei.com>, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org
-Subject: Re: [PATCH -next 0/4] ASoC: samsung: Use
- devm_platform_get_and_ioremap_resource()
-Date: Mon, 21 Jun 2021 19:46:07 +0100
-Message-Id: <162430055264.9224.5838866943547505866.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210616091652.2552927-1-yangyingliang@huawei.com>
-References: <20210616091652.2552927-1-yangyingliang@huawei.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4E4E6F80137
+ for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 21:41:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E4E6F80137
+IronPort-SDR: hVXCf9SF7AScRIaV8jwaRLXxQNncsXx1Wj4s4xhafH8New56r866PHDmVuoc+6r9Svc6+WSGCq
+ xcdU+jb1I7NQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,10022"; a="203903321"
+X-IronPort-AV: E=Sophos;i="5.83,289,1616482800"; d="scan'208";a="203903321"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jun 2021 12:41:17 -0700
+IronPort-SDR: S76TTYFh45cCRD0qEaxtRLuK9LftJ4Vy4yf23xVQTSwhESnVZQw5nc6QRhFbodTsuCWkv88dMf
+ H7PEyp/mQK7Q==
+X-IronPort-AV: E=Sophos;i="5.83,289,1616482800"; d="scan'208";a="486619015"
+Received: from gwhaugh-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
+ ([10.209.175.53])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jun 2021 12:41:16 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2 00/10] ASoC: Intel: machine driver corrections
+Date: Mon, 21 Jun 2021 14:40:47 -0500
+Message-Id: <20210621194057.21711-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>, krzysztof.kozlowski@canonical.com
+Cc: tiwai@suse.de, broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,50 +75,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 16 Jun 2021 17:16:48 +0800, Yang Yingliang wrote:
-> Use devm_platform_get_and_ioremap_resource() to simplify
-> code.
-> 
-> Yang Yingliang (4):
->   ASoC: samsung: i2s: Use devm_platform_get_and_ioremap_resource()
->   ASoC: samsung: pcm: Use devm_platform_get_and_ioremap_resource()
->   ASoC: samsung: s3c2412-i2s: Use
->     devm_platform_get_and_ioremap_resource()
->   ASoC: samsung: s3c24xx-i2s: Use
->     devm_platform_get_and_ioremap_resource()
-> 
-> [...]
+Some of these patches dealing with Sparse warnings were submitted
+earlier but not merged. I grouped them with a couple of fixes from
+Kai.
 
-Applied to
+v2:
+added Mark Brown in CC, was missed in v1
+added Richard Fitzgerald Tested-by  
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Kai Vehmanen (3):
+  ASoC: Intel: sof_sdw: use mach data for ADL RVP DMIC count
+  ASoC: Intel: sof_sdw: remove hdac-hdmi support
+  ASoC: Intel: skl_hda_dsp_generic: Update Kconfig documentation
 
-Thanks!
+Pierre-Louis Bossart (7):
+  ASoC: Intel: sof_rt5682: shrink platform_id names below 20 characters
+  ASoC: Intel: glk_rt5682_max98357a: shrink platform_id below 20
+    characters
+  ASoC: Intel: kbl_da7219_max98357a: shrink platform_id below 20
+    characters
+  ASoC: Intel: sof_da7219_max98373: shrink platform_id below 20
+    characters
+  ASoC: Intel: sof_sdw: fix signed/unsigned warning
+  ASoC: Intel: soc-acpi: add ull suffix for SoundWire _ADR values
+  ASoC: Intel: use MODULE_DEVICE_TABLE with platform_device_id tables
 
-[1/4] ASoC: samsung: i2s: Use devm_platform_get_and_ioremap_resource()
-      commit: 5eb8262c686509ffb60a5b04ca6ee562f02cbaf5
-[2/4] ASoC: samsung: pcm: Use devm_platform_get_and_ioremap_resource()
-      commit: c3255553d6b6cd5c8de42d2faa80e1d33401cb3b
-[3/4] ASoC: samsung: s3c2412-i2s: Use devm_platform_get_and_ioremap_resource()
-      commit: 87a32d00249e6e3c6b1ac020d36136b2cd75fcc8
-[4/4] ASoC: samsung: s3c24xx-i2s: Use devm_platform_get_and_ioremap_resource()
-      commit: b73cbd7b1c2d477d143c544bdc2b3415bae58a14
+ sound/soc/intel/boards/Kconfig                |  7 ++--
+ sound/soc/intel/boards/bxt_da7219_max98357a.c |  4 +-
+ sound/soc/intel/boards/bxt_rt298.c            |  3 +-
+ sound/soc/intel/boards/ehl_rt5660.c           |  2 +-
+ sound/soc/intel/boards/glk_rt5682_max98357a.c |  4 +-
+ sound/soc/intel/boards/kbl_da7219_max98357a.c |  4 +-
+ sound/soc/intel/boards/kbl_da7219_max98927.c  |  5 +--
+ sound/soc/intel/boards/kbl_rt5660.c           |  2 +-
+ sound/soc/intel/boards/kbl_rt5663_max98927.c  |  3 +-
+ .../intel/boards/kbl_rt5663_rt5514_max98927.c |  2 +-
+ .../soc/intel/boards/skl_nau88l25_max98357a.c |  3 +-
+ sound/soc/intel/boards/skl_nau88l25_ssm4567.c |  3 +-
+ sound/soc/intel/boards/skl_rt286.c            |  3 +-
+ sound/soc/intel/boards/sof_cs42l42.c          |  3 +-
+ sound/soc/intel/boards/sof_da7219_max98373.c  |  6 +--
+ sound/soc/intel/boards/sof_rt5682.c           | 20 +++-------
+ sound/soc/intel/boards/sof_sdw.c              |  5 +--
+ sound/soc/intel/boards/sof_sdw_common.h       |  1 -
+ sound/soc/intel/boards/sof_sdw_hdmi.c         | 37 +-----------------
+ .../intel/common/soc-acpi-intel-adl-match.c   | 28 +++++++-------
+ .../intel/common/soc-acpi-intel-cml-match.c   | 20 +++++-----
+ .../intel/common/soc-acpi-intel-cnl-match.c   |  2 +-
+ .../intel/common/soc-acpi-intel-glk-match.c   |  2 +-
+ .../intel/common/soc-acpi-intel-icl-match.c   | 12 +++---
+ .../intel/common/soc-acpi-intel-jsl-match.c   |  6 +--
+ .../intel/common/soc-acpi-intel-kbl-match.c   |  2 +-
+ .../intel/common/soc-acpi-intel-tgl-match.c   | 38 +++++++++----------
+ 27 files changed, 83 insertions(+), 144 deletions(-)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-- 
+2.25.1
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

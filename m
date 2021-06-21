@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 401E13AF48C
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jun 2021 20:12:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 451373AF48A
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jun 2021 20:11:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C25E5168C;
-	Mon, 21 Jun 2021 20:11:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C25E5168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id C862B1694;
+	Mon, 21 Jun 2021 20:11:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C862B1694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624299129;
-	bh=bJRpZyFmQkLO5CmqXWckuLYfPZKyktg3VI/MnaB1LYo=;
+	s=default; t=1624299110;
+	bh=Ko1VjfiouISTeJFMoiQMZVjp8g5mp/eGveuhLu/N5e4=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fCXbH7IYLoAeqfRE34gtGktzUY3TQa9hPHYipuNGH0kdB4uyP8aOHNP2/BbiOQMFE
-	 wZS5fSrpsfWmtlc/S/VoZSov3ZITQ4mbgYx3yxRdZlPmvu/IRuMufWQIuNOxUb0DGZ
-	 kr6eq3FnxRMqRuYTSge+LV+WrJDlIw/6XmBLGcBk=
+	b=pgaR3CcgJ/bA3GCmcSF01Up4D8i9DWmL4pHnax2fECzUGUbDOAFCHCWzON/qKbXMa
+	 kyj4FfNKyB4KvJTc/aumB0AewL7OCGh83rLYQ4rw9fryzdKrvNmsXlwYGPRtg27d8/
+	 V6cVph0o/oMQ1EPq9v00VG4dK+chDN5NvF+5vRHg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E6E3F804ED;
-	Mon, 21 Jun 2021 20:09:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ACCCBF804E6;
+	Mon, 21 Jun 2021 20:09:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E00CAF804E4; Mon, 21 Jun 2021 20:09:26 +0200 (CEST)
+ id 06B1BF804E5; Mon, 21 Jun 2021 20:09:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,17 +33,17 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from m.b4.vu (m.b4.vu [203.16.231.148])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8794EF80111
- for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 20:09:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8794EF80111
+ by alsa1.perex.cz (Postfix) with ESMTPS id 518F5F804DA
+ for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 20:09:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 518F5F804DA
 Received: by m.b4.vu (Postfix, from userid 1000)
- id 111A361E2871; Tue, 22 Jun 2021 03:39:18 +0930 (ACST)
-Date: Tue, 22 Jun 2021 03:39:18 +0930
+ id D617961E286F; Tue, 22 Jun 2021 03:39:20 +0930 (ACST)
+Date: Tue, 22 Jun 2021 03:39:20 +0930
 From: "Geoffrey D. Bennett" <g@b4.vu>
 To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 03/31] ALSA: usb-audio: scarlett2: Fix 6i6 Gen 2 line out
- descriptions
-Message-ID: <205e5e5348f08ded0cc4da5446f604d4b91db5bf.1624294591.git.g@b4.vu>
+Subject: [PATCH 04/31] ALSA: usb-audio: scarlett2: Always enable interrupt
+ polling
+Message-ID: <8f49a6b9a9805ee0db221706193b7bb43b7fff75.1624294591.git.g@b4.vu>
 References: <cover.1624294591.git.g@b4.vu>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -67,33 +67,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There are two headphone outputs, and they map to the four analogue
-outputs.
+Always enable interrupt polling as every model has some sort of
+status to report.
 
 Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
 ---
- sound/usb/mixer_scarlett_gen2.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/usb/mixer_scarlett_gen2.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
 
 diff --git a/sound/usb/mixer_scarlett_gen2.c b/sound/usb/mixer_scarlett_gen2.c
-index ed89e28548c8..0b1967d93486 100644
+index 0b1967d93486..620f1e814f0d 100644
 --- a/sound/usb/mixer_scarlett_gen2.c
 +++ b/sound/usb/mixer_scarlett_gen2.c
-@@ -263,10 +263,10 @@ static const struct scarlett2_device_info s6i6_gen2_info = {
- 	.pad_input_count = 2,
+@@ -2059,11 +2059,16 @@ static void scarlett2_notify_monitor(
+ 	struct usb_mixer_interface *mixer)
+ {
+ 	struct scarlett2_data *private = mixer->private_data;
+-	const struct scarlett2_ports *ports = private->info->ports;
++	const struct scarlett2_device_info *info = private->info;
++	const struct scarlett2_ports *ports = info->ports;
+ 	int num_line_out =
+ 		ports[SCARLETT2_PORT_TYPE_ANALOGUE].num[SCARLETT2_PORT_OUT];
+ 	int i;
  
- 	.line_out_descrs = {
--		"Monitor L",
--		"Monitor R",
--		"Headphones L",
--		"Headphones R",
-+		"Headphones 1 L",
-+		"Headphones 1 R",
-+		"Headphones 2 L",
-+		"Headphones 2 R",
- 	},
++	/* if line_out_hw_vol is 0, there are no controls to update */
++	if (!info->line_out_hw_vol)
++		return;
++
+ 	private->vol_updated = 1;
  
- 	.ports = {
+ 	snd_ctl_notify(mixer->chip->card, SNDRV_CTL_EVENT_MASK_VALUE,
+@@ -2197,12 +2202,10 @@ static int snd_scarlett_gen2_controls_create(struct usb_mixer_interface *mixer,
+ 	if (err < 0)
+ 		return err;
+ 
+-	/* Set up the interrupt polling if there are hardware buttons */
+-	if (info->line_out_hw_vol) {
+-		err = scarlett2_init_notify(mixer);
+-		if (err < 0)
+-			return err;
+-	}
++	/* Set up the interrupt polling */
++	err = scarlett2_init_notify(mixer);
++	if (err < 0)
++		return err;
+ 
+ 	return 0;
+ }
 -- 
 2.31.1
 

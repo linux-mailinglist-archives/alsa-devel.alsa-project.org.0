@@ -2,90 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC94E3AFB00
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 04:17:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 314BB3AFD82
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 09:01:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2DFDB1698;
-	Tue, 22 Jun 2021 04:16:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DFDB1698
+	by alsa0.perex.cz (Postfix) with ESMTPS id B4B0A1677;
+	Tue, 22 Jun 2021 09:01:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4B0A1677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624328262;
-	bh=nb03Cre1SX8lGrapFgoB5qUMfwXXOtzwk2mSdLJAip4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1624345315;
+	bh=1HESweuCMzsjThUHmIHeHhWBvq6gfNc3dWsvc7uLgiI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gJSXVIEgSSWNl7jVOtVqobvX9VgZyJLLPk271SDMbLDC4C6NCSKVO0pAFT67q6JuI
-	 HJHLy09AU27sR+df7wbj+Wo6v3c9q0x3u6t780GV1JLP8EFNCaCO9CEZNG0OIG7DK/
-	 SX+hHETcXsK1MEYcUUGuxq95qY+Z/i5Nc1h4LBqk=
+	b=tQtnjakbkyVwpfcidJQTZFWXXwTORpVmIWRVr2uSpYAcyfTzy31aC+QwskBmfuzLb
+	 mM5ajk+mtl0NecoMi7tH5sQJyo/s2UMwSuzytmIQAH9Y7bC+K5r2PVB9gqLJAmF+tV
+	 9wKhWw5qCn6unWmp7uzVX10RSUMus7SHr98zTeyA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C112BF804B4;
-	Tue, 22 Jun 2021 04:16:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA71EF80137;
+	Tue, 22 Jun 2021 09:00:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A22F1F80424; Tue, 22 Jun 2021 04:16:40 +0200 (CEST)
+ id 8BF5BF80268; Tue, 22 Jun 2021 09:00:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2D7A2F80161
- for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 04:16:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D7A2F80161
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F639F800E1
+ for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 09:00:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F639F800E1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="JTALaRfb"
-Received: by mail-lj1-x235.google.com with SMTP id d2so27936885ljj.11
- for <alsa-devel@alsa-project.org>; Mon, 21 Jun 2021 19:16:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=uH43oKWAZxpslYVAdfEnkXLzWtnCAv3z3ny62+2EWkM=;
- b=JTALaRfb9HY9P+En5sSGe5RUQambcJhT8v2O/nCquiTozLmbSfB0cF/4OFZzr7DWLQ
- xjrb9mmE4+4tDlOAYjkR35nMFmL1ES4FtH3VhfSluC2VJZOniLhfzRpiRK3dDhJ2XhKn
- 4YfYmBnL+/DIHxb0R1E2F4ReoABbaqZ9ay6PjaBVFw4EBvt1zQUFJt5LG/wELvbjIJpF
- SFYrPwIs3/1uMT9UpIQPex9Cz0VhiwtMXOSsMWCFVRCha8odC6JKgEwTOFAx4Yf2lhLb
- 5QSYbjfK3DUTOUS+cHZQLwKtieKSOX94YqFCp2dTDgAd73G7gFc0fN4lT4+RfmvJS2Xj
- GMAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=uH43oKWAZxpslYVAdfEnkXLzWtnCAv3z3ny62+2EWkM=;
- b=qiE1nmPSSYezLxFtdvOc9FWLVQDZSlB4SfW8zbxNIebBCGde/5V5wMRu0FyAvagPT0
- bLYenQttEgXKDWoy62SstuYSGzbAjn5XucDT44qYtLwV1Gd1Tllx/ctP4rkBpke/cVjS
- zP7wD6GeZERR1+X0kL99pspnaldJ0xhVW7DGS3B7gD6v2L6jQQw32jS0/malWkanFABa
- WH+V7+Tr1qJsL3BTEsMsZLkQSKOvADUdaS6u2HxCwGhWKU8cYYEtfckwPKPaoWJ2ler5
- 3vb9xBX1l6t1RZgZ5rnuB5cDCc6bgsGdeR9qDmszATNRPRjUQS2gGDRpJPHKZ2/yxv3y
- mg1Q==
-X-Gm-Message-State: AOAM5311Aytip16XnU8jI3O76tUqAUAChEVWiF7/8CvkJuLadTqTV0bZ
- ZqMV9yBMjaomRpjEbc7S+85VWBNkxLv5ICHKkOk=
-X-Google-Smtp-Source: ABdhPJxeG9iccGHA6DRH7csV1eHv/FBVdq7lad+GoU0gi82ueW4xDhFF6+9W1CvvNYTqkL/1UuZEnSBlxuaZh/IJhDc=
-X-Received: by 2002:a05:651c:54f:: with SMTP id
- q15mr996055ljp.347.1624328194500; 
- Mon, 21 Jun 2021 19:16:34 -0700 (PDT)
-MIME-Version: 1.0
-References: <1624324395-7260-1-git-send-email-shengjiu.wang@nxp.com>
- <CAOMZO5Bh6J8=E=P1btDdgkYm9bvBN1ituRHLLOtW1cFsheQBdg@mail.gmail.com>
- <CAA+D8AN4Nch5FMjCDN8vs2+Nqs88k8jvMEBZwQuUdG+9pt1yZA@mail.gmail.com>
-In-Reply-To: <CAA+D8AN4Nch5FMjCDN8vs2+Nqs88k8jvMEBZwQuUdG+9pt1yZA@mail.gmail.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Mon, 21 Jun 2021 23:16:23 -0300
-Message-ID: <CAOMZO5A=OrHNz0Bye+p3H6UbF2_wq2m9KquWurXez1E0-WBYuA@mail.gmail.com>
-Subject: Re: [RESEND PATCH v2] ASoC: fsl-asoc-card: change dev_err to
- dev_err_probe for defer probe
-To: Shengjiu Wang <shengjiu.wang@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
- linux-kernel <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="wLt019y8"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="E7zht7o9"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id A595D1FD55;
+ Tue, 22 Jun 2021 07:00:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1624345220; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+fkwFTY9nxg+azlt8VuCiRTf8yIRf7myqY27iiSBed8=;
+ b=wLt019y8ZjGe7LycmsSWfEezhIMOpLku38VU3dmKO8DGRCXViclbZWKc53c0BzCeRL+jG2
+ 7tOQiraNCe9Y0FQObgV+YuvxHveY2IRBt45UFtKlG2NnETRNqX2BndUozotduYvFI56DV0
+ y2tUOMAe3Yb40rg6oCQUK9+R7lyhnqk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1624345220;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+fkwFTY9nxg+azlt8VuCiRTf8yIRf7myqY27iiSBed8=;
+ b=E7zht7o9LPBJ0Elez5k853SxUxHJUD/KLuSbj3M2l1k2mW/NndWUKiXJdTwmSE3rRxk0yn
+ AWdyFa4cjBPEn8CQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 98B00A3B84;
+ Tue, 22 Jun 2021 07:00:19 +0000 (UTC)
+Date: Tue, 22 Jun 2021 09:00:19 +0200
+Message-ID: <s5hh7hqs7ss.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Geoffrey D. Bennett" <g@b4.vu>
+Subject: Re: [PATCH 16/31] ALSA: usb-audio: scarlett2: Add Gen 3 mixer support
+In-Reply-To: <fc4bb1e8cfb3019b1033afeed59badb904990115.1624294591.git.g@b4.vu>
+References: <cover.1624294591.git.g@b4.vu>
+ <fc4bb1e8cfb3019b1033afeed59badb904990115.1624294591.git.g@b4.vu>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Hin-Tak Leung <htl10@users.sourceforge.net>, alsa-devel@alsa-project.org,
+ Vladimir Sadovnikov <sadko4u@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,10 +94,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Jun 21, 2021 at 10:53 PM Shengjiu Wang <shengjiu.wang@gmail.com> wrote:
+On Mon, 21 Jun 2021 20:09:48 +0200,
+Geoffrey D. Bennett wrote:
+> 
+> Add mixer support for the Focusrite Scarlett 4i4, 8i6, 18i8, and 18i20
+> Gen 3 devices.
+> 
+> Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
+> ---
+>  sound/usb/mixer.c               |   2 +-
+>  sound/usb/mixer_quirks.c        |   4 +
+>  sound/usb/mixer_scarlett_gen2.c | 260 +++++++++++++++++++++++++++++---
+>  3 files changed, 246 insertions(+), 20 deletions(-)
+> 
+> diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+> index 428d581f988f..ba4aa1eacb04 100644
+> --- a/sound/usb/mixer.c
+> +++ b/sound/usb/mixer.c
+> @@ -50,7 +50,7 @@
+>  #include "mixer_quirks.h"
+>  #include "power.h"
+>  
+> -#define MAX_ID_ELEMS	256
+> +#define MAX_ID_ELEMS	512
 
-> so I think we can use the v1 one,  use dev_dbg instead.
+This change requires the explanation.
+Usually the unit id is a byte per definition, so it can't be over
+256.
 
-Agreed. I have just reviewed v1.
 
-Thanks
+thanks,
+
+Takashi

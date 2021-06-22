@@ -2,80 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A33693AFF5D
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 10:36:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC6DA3AFFCD
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 11:03:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 27DAB1677;
-	Tue, 22 Jun 2021 10:35:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27DAB1677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4006C1684;
+	Tue, 22 Jun 2021 11:02:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4006C1684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624350995;
-	bh=ooIsrm7ILwEKzW25u7xt/YkMY5YUOJMK4zIZ6XuJ/co=;
+	s=default; t=1624352604;
+	bh=jOkg1XrrVydpr8F5cE5nj4Nz6TPLL/28piFyYA9r1jI=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Dep4GxZe+aS+QrYEAGMWH5B05nitZKU7HS1ye5j4OzsLEcfWS7hRQyw1tHg0I7PdK
-	 m1YXvsr4LXyFMpUaSU/iXRl0MMJu2JIbJ/VwKuuUTmoc8H0r8EgRu+bXlhcVWJykR2
-	 ToxPzccGN/KXkIcvdFvJQS3rGAduVhqM0Zupxi2Y=
+	b=Z3pKh5yMr0iqfCDQFYQBSlNjmr+hkpg//PKMD5qLzdHwIAeFiE/WKDQP8BpbbAFxo
+	 P/OCAO2I0hHJ4leTsoo7RhOapMePjbeboEDG7/PIbFKWF/VKu+6qPEB2N9ZCoYnCpA
+	 0V9G3E1BdPQA2XZg+hEJmaP/hoO6GmUR9KDTAHyw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9805CF8026A;
-	Tue, 22 Jun 2021 10:35:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 985D2F80137;
+	Tue, 22 Jun 2021 11:01:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA725F80268; Tue, 22 Jun 2021 10:35:03 +0200 (CEST)
+ id A3F3DF80268; Tue, 22 Jun 2021 11:01:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CD4E8F800E1
- for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 10:34:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD4E8F800E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 33F7FF80161
+ for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 11:01:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33F7FF80161
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="R7RM2KmJ"; 
+ header.b="MaLevsz2"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="xJTRz5bY"
+ header.b="HVLt743C"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 04CD82197E;
- Tue, 22 Jun 2021 08:34:55 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id A8D6E1FD5D;
+ Tue, 22 Jun 2021 09:01:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624350895; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1624352510; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Z1SamqcWJZjt120uKoJKVfdO/6zqAkNnQfkYHayqcAo=;
- b=R7RM2KmJ26eN9AnMuqaRoun+G3fcyK32Ei9U4CIv9snCGLsPch0QsPq0iHL7Zsl/6SsXRA
- 3we5HSyTSqDXFmUmG0ukxnVoYA+1wo96fTSaxipiJYrYXjofgbOyLniH4Q5SSPTGOYKBW1
- SLsdIMtsHUsxFpqLk1bWYtzoWF2GIto=
+ bh=5fYcpaOJ9VD/NjzWFRUWGSwDUZnJ+wBjN1dOjE0HI3M=;
+ b=MaLevsz2l8WHJREP+0IMO+euOn9zN3LQwJZjiSjrCR2/oQ6NmMs4xFrGU268p7jseZyp0J
+ QEzU6yoiLtJpPRR+M5rKfpeuT/PmsG1czKwOp2ahciZPm4OOEYZ9XEZT+b7RJAJpyN+y/R
+ WqFAt7gY7/+ASw2w42UjkRCwumOg7WQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624350895;
+ s=susede2_ed25519; t=1624352510;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Z1SamqcWJZjt120uKoJKVfdO/6zqAkNnQfkYHayqcAo=;
- b=xJTRz5bY9fQ1l8/xlMbVl5ONwr+y9KZ5ZoqZ0CwVxOuYQxAbRtPnAwsGMEYqbccO8eNMaZ
- TXDxcHXjUytbGJBw==
+ bh=5fYcpaOJ9VD/NjzWFRUWGSwDUZnJ+wBjN1dOjE0HI3M=;
+ b=HVLt743CZ+9ZbZCDqaMFn4H7MpkFxvQuBNICbAyg1SQHxOyT8TrynFSyXjlXPfBm3i/1A4
+ /KX490rCUXHG9nBA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id F2682A3B95;
- Tue, 22 Jun 2021 08:34:54 +0000 (UTC)
-Date: Tue, 22 Jun 2021 10:34:54 +0200
-Message-ID: <s5hv966qoup.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id A14D5A3B84;
+ Tue, 22 Jun 2021 09:01:50 +0000 (UTC)
+Date: Tue, 22 Jun 2021 11:01:50 +0200
+Message-ID: <s5hr1guqnlt.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: "Geoffrey D. Bennett" <g@b4.vu>
 Subject: Re: [PATCH 16/31] ALSA: usb-audio: scarlett2: Add Gen 3 mixer support
-In-Reply-To: <20210622081839.GA13849@m.b4.vu>
+In-Reply-To: <s5hv966qoup.wl-tiwai@suse.de>
 References: <cover.1624294591.git.g@b4.vu>
  <fc4bb1e8cfb3019b1033afeed59badb904990115.1624294591.git.g@b4.vu>
  <s5hh7hqs7ss.wl-tiwai@suse.de>
  <0b00f3a5-fe31-0ad5-c723-d354dc724e58@gmail.com>
  <s5hczses67y.wl-tiwai@suse.de> <20210622074454.GB13614@m.b4.vu>
  <s5h4kdqs53w.wl-tiwai@suse.de> <20210622081839.GA13849@m.b4.vu>
+ <s5hv966qoup.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -98,76 +99,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 22 Jun 2021 10:18:39 +0200,
-Geoffrey D. Bennett wrote:
+On Tue, 22 Jun 2021 10:34:54 +0200,
+Takashi Iwai wrote:
 > 
-> On Tue, Jun 22, 2021 at 09:58:27AM +0200, Takashi Iwai wrote:
-> > On Tue, 22 Jun 2021 09:44:54 +0200,
-> > Geoffrey D. Bennett wrote:
-> > > 
-> > > On Tue, Jun 22, 2021 at 09:34:25AM +0200, Takashi Iwai wrote:
-> > > > On Tue, 22 Jun 2021 09:07:20 +0200,
-> > > > Vladimir Sadovnikov wrote:
-> > > > > 
-> > > > > Hello Takashi!
-> > > > > 
-> > > > > Since Focusrite devices are too advanced in settings, the overall
-> > > > > amount of 256 controls is not enough for these devices (like 18i20).
-> > > > > I would like also to extend this constant up to 1024 or even more
-> > > > > since adding support of software configuration of the device also
-> > > > > can exceed the amount of 512 control elements.
+> On Tue, 22 Jun 2021 10:18:39 +0200,
+> Geoffrey D. Bennett wrote:
+> > 
+> > On Tue, Jun 22, 2021 at 09:58:27AM +0200, Takashi Iwai wrote:
+> > > On Tue, 22 Jun 2021 09:44:54 +0200,
+> > > Geoffrey D. Bennett wrote:
 > > > > 
-> > > > This define isn't for the total number of mixer elements.  Instead,
-> > > > it's just a size of the bitmap table that contains the head of the
-> > > > linked list for each unit id (in the sense of USB mixer spec).
-> > > > So the number of mixer elements is unlimited.
+> > > > On Tue, Jun 22, 2021 at 09:34:25AM +0200, Takashi Iwai wrote:
+> > > > > On Tue, 22 Jun 2021 09:07:20 +0200,
+> > > > > Vladimir Sadovnikov wrote:
+> > > > > > 
+> > > > > > Hello Takashi!
+> > > > > > 
+> > > > > > Since Focusrite devices are too advanced in settings, the overall
+> > > > > > amount of 256 controls is not enough for these devices (like 18i20).
+> > > > > > I would like also to extend this constant up to 1024 or even more
+> > > > > > since adding support of software configuration of the device also
+> > > > > > can exceed the amount of 512 control elements.
+> > > > > 
+> > > > > This define isn't for the total number of mixer elements.  Instead,
+> > > > > it's just a size of the bitmap table that contains the head of the
+> > > > > linked list for each unit id (in the sense of USB mixer spec).
+> > > > > So the number of mixer elements is unlimited.
+> > > > 
+> > > > Sorry I don't understand what's going on then. Am I calling
+> > > > snd_usb_mixer_add_control() wrong? Because when I called it more than
+> > > > MAX_ID_ELEMS times I got a buffer overflow in mixer->id_elems[] (from
+> > > > memory, I can confirm tonight).
+> > > > 
+> > > > snd_usb_create_mixer() has:
+> > > > 
+> > > >         mixer->id_elems = kcalloc(MAX_ID_ELEMS, sizeof(*mixer->id_elems),
+> > > >                                   GFP_KERNEL);
+> > > > 
+> > > > snd_usb_mixer_add_control() called from mixer_scarlett_gen2.c ends up
+> > > > at snd_usb_mixer_add_list() which does:
+> > > > 
+> > > >         list->next_id_elem = mixer->id_elems[list->id];
+> > > >         mixer->id_elems[list->id] = list;
+> > > > 
+> > > > And list->id was going over MAX_ID_ELEMS.
 > > > 
-> > > Sorry I don't understand what's going on then. Am I calling
-> > > snd_usb_mixer_add_control() wrong? Because when I called it more than
-> > > MAX_ID_ELEMS times I got a buffer overflow in mixer->id_elems[] (from
-> > > memory, I can confirm tonight).
+> > > Here, list->id is the *USB* mixer unit id, not the ALSA control id or
+> > > whatever the internal index.  The former should be a byte, hence it
+> > > can't be over 256.
 > > > 
-> > > snd_usb_create_mixer() has:
+> > > That said, the scarlett2 code calls the function in a wrong way.  It
+> > > has worked casually, so far, just because the core code doesn't use
+> > > the unit id number for significant roles.
 > > > 
-> > >         mixer->id_elems = kcalloc(MAX_ID_ELEMS, sizeof(*mixer->id_elems),
-> > >                                   GFP_KERNEL);
-> > > 
-> > > snd_usb_mixer_add_control() called from mixer_scarlett_gen2.c ends up
-> > > at snd_usb_mixer_add_list() which does:
-> > > 
-> > >         list->next_id_elem = mixer->id_elems[list->id];
-> > >         mixer->id_elems[list->id] = list;
-> > > 
-> > > And list->id was going over MAX_ID_ELEMS.
+> > > So, as a quick workaround, simply pass 0 or any fixed number under 256
+> > > to list->id (i.e. elem->head.id in scarlett2_add_new_ctl()).  That's
+> > > all, and the elements are chained in the linked list.
 > > 
-> > Here, list->id is the *USB* mixer unit id, not the ALSA control id or
-> > whatever the internal index.  The former should be a byte, hence it
-> > can't be over 256.
+> > Okay, I will fix that tonight.
 > > 
-> > That said, the scarlett2 code calls the function in a wrong way.  It
-> > has worked casually, so far, just because the core code doesn't use
-> > the unit id number for significant roles.
-> > 
-> > So, as a quick workaround, simply pass 0 or any fixed number under 256
-> > to list->id (i.e. elem->head.id in scarlett2_add_new_ctl()).  That's
-> > all, and the elements are chained in the linked list.
+> > Were patches 1-15 of this set of 31 acceptable? If so, I will send a
+> > new set with this fix and the remainder of the patches.
 > 
-> Okay, I will fix that tonight.
+> I don't see other issues through a quick glance.
 > 
-> Were patches 1-15 of this set of 31 acceptable? If so, I will send a
-> new set with this fix and the remainder of the patches.
+> And, the additional fix is below.
+> If this works, please include this at first.
 
-I don't see other issues through a quick glance.
-
-And, the additional fix is below.
-If this works, please include this at first.
+It was missing one piece.  The revised patch is below.
 
 
 Takashi
 
 -- 8< --
 From: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH] ALSA: usb-audio: scarlett2: Fix wrong resume call
+Subject: [PATCH v2] ALSA: usb-audio: scarlett2: Fix wrong resume call
 
 The current way of the scarlett2 mixer code managing the
 usb_mixer_elem_info object is wrong in two ways: it passes its
@@ -185,10 +191,25 @@ initializing the fixed unit id 0 for avoiding the overflow.
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
+ sound/usb/mixer.c               | 3 +++
  sound/usb/mixer.h               | 1 +
  sound/usb/mixer_scarlett_gen2.c | 7 ++++++-
- 2 files changed, 7 insertions(+), 1 deletion(-)
+ 3 files changed, 10 insertions(+), 1 deletion(-)
 
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index 428d581f988f..0f578dabd094 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -3605,6 +3605,9 @@ static int restore_mixer_value(struct usb_mixer_elem_list *list)
+ 	struct usb_mixer_elem_info *cval = mixer_elem_list_to_info(list);
+ 	int c, err, idx;
+ 
++	if (cval->val_type == USB_MIXER_BESPOKEN)
++		return 0;
++
+ 	if (cval->cmask) {
+ 		idx = 0;
+ 		for (c = 0; c < MAX_CHANNELS; c++) {
 diff --git a/sound/usb/mixer.h b/sound/usb/mixer.h
 index e5a01f17bf3c..ea41e7a1f7bf 100644
 --- a/sound/usb/mixer.h

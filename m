@@ -2,73 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD3DD3AFFEA
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 11:08:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 426DA3B0535
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 14:51:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 417BE1684;
-	Tue, 22 Jun 2021 11:07:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 417BE1684
+	by alsa0.perex.cz (Postfix) with ESMTPS id C1DED1674;
+	Tue, 22 Jun 2021 14:50:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1DED1674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624352910;
-	bh=x1GbKpEK+kcbO3oUZd6QqATxyM9Hz4vQG18p6c+X79E=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1624366304;
+	bh=ECXAJtbalSay+Qd0eaUuhl/WG7f9fngW4KybbUdEXHA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=BVOawr/hGFRAlapf3S1akwTeuGhWvAFnwD5+ios82bzhHrCWjiQeLY3nlrNNNTaiw
-	 72FIlPDsbsjbPPYwUf5g74K4tOceJs+naPDRjvq2xsTuU/VTIIMRMHbRmW/MUwuz74
-	 EpTAlAIfYCI65Rp9biMQdfOwjvQDQD2IJIWcClSU=
+	b=a+unnWqLna4Je8srHMstU5aKjvkoQsF+Mw8/j+Uw8pXI51N//9xBWgQwgU7RTAvFb
+	 HI1IQEv9X/T0LJMYfbTIoavABUi6nAGibrnYNtqpPDpttiioRDt1oyNochazEf4aBW
+	 O5QbL3f+Ta9rg06k91fqnXTiWQ0dafWDVv9HFbaU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A1D3BF80137;
-	Tue, 22 Jun 2021 11:07:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06CE0F8026A;
+	Tue, 22 Jun 2021 14:50:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4496FF80268; Tue, 22 Jun 2021 11:06:59 +0200 (CEST)
+ id 95497F80268; Tue, 22 Jun 2021 14:50:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2AF7EF80137
- for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 11:06:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2AF7EF80137
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="oi3WEfIi"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="F4gE0njU"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id D4F0D219A0
- for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 09:06:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624352808; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=UwUb/HvabkKxuiPbhhGUhoqJmY0F4pNvEyp8vaEJkAE=;
- b=oi3WEfIiJ5ETBjSrfO3hA0Qq/yddMGhjV2PPqKTEcyFtmson9MRBkqrKkDyVvOwl9eh4ul
- pmF0XJvWqzHKDR/Xi0wyrbK/gTJc21ReC511wCtVJSojDvp9/qEty3y42RCYVXErE38E6o
- Kbx7TgFP/BAMIKdrITueyTbtV8eAwrU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624352808;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=UwUb/HvabkKxuiPbhhGUhoqJmY0F4pNvEyp8vaEJkAE=;
- b=F4gE0njUz6Mdcv7NiiTaTVq3xYvv8JzvvoHvmswUO1eP5ICfMBfS18I+p3NrXeW+WTA9as
- iLbExzOs/4W+9pAg==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id C5AEDA3B84;
- Tue, 22 Jun 2021 09:06:48 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: Fix OOB access at proc output
-Date: Tue, 22 Jun 2021 11:06:47 +0200
-Message-Id: <20210622090647.14021-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by alsa1.perex.cz (Postfix) with ESMTPS id A024BF80161
+ for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 14:50:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A024BF80161
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 6C6C21A0E58;
+ Tue, 22 Jun 2021 14:50:07 +0200 (CEST)
+Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
+ [165.114.16.14])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 65EF81A0E88;
+ Tue, 22 Jun 2021 14:50:03 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 199354024D;
+ Tue, 22 Jun 2021 20:49:58 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: fsl_spdif: Fix unexpected interrupt after suspend
+Date: Tue, 22 Jun 2021 20:31:24 +0800
+Message-Id: <1624365084-7934-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,33 +71,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-At extending the available mixer values for 32bit types, we forgot to
-add the corresponding entries for the format dump in the proc output.
-This may result in OOB access.  Here adds the missing entries.
+When system enter suspend, the machine driver suspend callback
+function will be called, then the cpu driver trigger callback
+(SNDRV_PCM_TRIGGER_SUSPEND) be called, it would disable the
+interrupt.
 
-Fixes: bc18e31c3042 ("ALSA: usb-audio: Fix parameter block size for UAC2 control requests")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+But the machine driver suspend and cpu dai driver suspend order
+maybe changed, the cpu dai driver's suspend callback is called before
+machine driver's suppend callback, then the interrupt is not cleared
+successfully in trigger callback.
+
+So need to clear interrupts in cpu dai driver's suspend callback
+to avoid such issue.
+
+Fixes: 9cb2b3796e08 ("ASoC: fsl_spdif: Add pm runtime function")
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 ---
- sound/usb/mixer.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ sound/soc/fsl/fsl_spdif.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index 428d581f988f..4ea4875abdf8 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -3294,8 +3294,9 @@ static void snd_usb_mixer_dump_cval(struct snd_info_buffer *buffer,
- 				    struct usb_mixer_elem_list *list)
- {
- 	struct usb_mixer_elem_info *cval = mixer_elem_list_to_info(list);
--	static const char * const val_types[] = {"BOOLEAN", "INV_BOOLEAN",
--				    "S8", "U8", "S16", "U16"};
-+	static const char * const val_types[] = {
-+		"BOOLEAN", "INV_BOOLEAN", "S8", "U8", "S16", "U16", "S32", "U32",
-+	};
- 	snd_iprintf(buffer, "    Info: id=%i, control=%i, cmask=0x%x, "
- 			    "channels=%i, type=\"%s\"\n", cval->head.id,
- 			    cval->control, cval->cmask, cval->channels,
+diff --git a/sound/soc/fsl/fsl_spdif.c b/sound/soc/fsl/fsl_spdif.c
+index a9c6b930b04a..8ffb1a6048d6 100644
+--- a/sound/soc/fsl/fsl_spdif.c
++++ b/sound/soc/fsl/fsl_spdif.c
+@@ -1467,6 +1467,9 @@ static int fsl_spdif_runtime_suspend(struct device *dev)
+ 	struct fsl_spdif_priv *spdif_priv = dev_get_drvdata(dev);
+ 	int i;
+ 
++	/* Disable all the interrupts */
++	regmap_update_bits(spdif_priv->regmap, REG_SPDIF_SIE, 0xffffff, 0);
++
+ 	regmap_read(spdif_priv->regmap, REG_SPDIF_SRPC,
+ 			&spdif_priv->regcache_srpc);
+ 	regcache_cache_only(spdif_priv->regmap, true);
 -- 
-2.26.2
+2.27.0
 

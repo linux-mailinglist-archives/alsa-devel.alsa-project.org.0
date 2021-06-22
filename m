@@ -2,49 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71C943AFA8A
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 03:19:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BA493AFA8D
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 03:19:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 078E816AC;
-	Tue, 22 Jun 2021 03:18:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 078E816AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14B111691;
+	Tue, 22 Jun 2021 03:18:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14B111691
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624324754;
-	bh=hvO1M56M6EtTG7vVgCl714E11oI/JaW85rzS/nOe0wQ=;
+	s=default; t=1624324775;
+	bh=pdah/ldGsBecmTkWhtML23PC1NjKwElQ7Trnhsa7/pc=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vrI0HQVzQRnon7tI3YVI1Ox3e7huszuJhFg+yFi7WWiaEOFyP1nE5Z4qpQmCMARl0
-	 C9IPz7Zm3CtW/U5v1ulstSy9pIGnH+6YBTod0t9lqqjW68L5C8kamQc4E3SktBvTAx
-	 NJ7xVzz7zP4KFHG0jqumkhRyVMSfNO5yLLIJyOsY=
+	b=j36EM4mvWo9RzDCnSSJwSplyYonhN2TWS42Wc9C2L3/YinEhu1R/ekQCI2IaHhQU/
+	 nqf5Hqfig+X/AHkutGVOC5iLgaZ6KhXFzywLligb68UiWWSS6eJMo9TaMHhsyYgmUy
+	 eJ1dg0ohgHPmV/9y2gJqbUt7rjllLaJ5MX8UieKA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76F3FF804E1;
+	by alsa1.perex.cz (Postfix) with ESMTP id EC7EFF80524;
 	Tue, 22 Jun 2021 03:15:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 48D2FF8051E; Tue, 22 Jun 2021 03:15:29 +0200 (CEST)
+ id 6FC55F8051D; Tue, 22 Jun 2021 03:15:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id E6F80F80518
- for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 03:15:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6F80F80518
-Date: 22 Jun 2021 10:15:21 +0900
-X-IronPort-AV: E=Sophos;i="5.83,290,1616425200"; d="scan'208";a="84989975"
+ by alsa1.perex.cz (Postfix) with ESMTP id F2B2CF8016A
+ for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 03:15:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2B2CF8016A
+Date: 22 Jun 2021 10:15:25 +0900
+X-IronPort-AV: E=Sophos;i="5.83,290,1616425200"; d="scan'208";a="84989987"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 22 Jun 2021 10:15:21 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 22 Jun 2021 10:15:25 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 68A98400D0C5;
- Tue, 22 Jun 2021 10:15:21 +0900 (JST)
-Message-ID: <87mtri3djq.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 91B04400D0CE;
+ Tue, 22 Jun 2021 10:15:25 +0900 (JST)
+Message-ID: <87lf723djm.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH RFC 10/15] ASoC: audio-graph-card2: add Yaml Document
+Subject: [PATCH RFC 11/15] ASoC: sample-custom-card: add Audio Graph Card2
+ custome sample
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>
 In-Reply-To: <871r8u4s6q.wl-kuninori.morimoto.gx@renesas.com>
@@ -67,204 +68,229 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-This patch adds Audio Graph Card2 Yaml bindings.
-It is similar to Audio Graph Card, but different.
+One of audio-graph-card issue was that it can't handle *user own* card
+settings. We can expand audio-graph-card if it was *generic* feature.
+Latest audio-graph-card has customizing support.
 
-	- audio-graph-card  used "dais"  to indicate DAI-links,
-	  audio-graph-card2 uses "links" to it.
+Audio Graph Card2 also have customize support.
+This means user can use its own special settings
+by using audio-graph-card2 driver parsing.
 
-	- audio-graph-card  used "phandle" to indicate bitclock/frame-master,
-	  audio-graph-card2 uses flag to it.
-
-	- audio-graph-card  used "format" to indicate DAI format,
-	  audio-graph-card2 assumes CPU/Codec drivers have .get_fmt support.
+This patch adds Audio Graph Cars2 customize sample driver.
+It can get basic audio-graph-card2 setups by
+calling asoc_graph_parse_of2(...), and user can update/expand each own
+setting on it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- .../sound/audio-graph-card2-items.yaml        | 36 +++++++++
- .../bindings/sound/audio-graph-card2.yaml     | 45 +++++++++++
- .../bindings/sound/audio-graph-port2.yaml     | 74 +++++++++++++++++++
- 3 files changed, 155 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/audio-graph-card2-items.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/audio-graph-card2.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/audio-graph-port2.yaml
+ sound/soc/generic/Kconfig              |   6 +
+ sound/soc/generic/Makefile             |   2 +
+ sound/soc/generic/sample-custom-card.c | 160 +++++++++++++++++++++++++
+ 3 files changed, 168 insertions(+)
+ create mode 100644 sound/soc/generic/sample-custom-card.c
 
-diff --git a/Documentation/devicetree/bindings/sound/audio-graph-card2-items.yaml b/Documentation/devicetree/bindings/sound/audio-graph-card2-items.yaml
+diff --git a/sound/soc/generic/Kconfig b/sound/soc/generic/Kconfig
+index 3385c488cd85..c7cd0488e4fc 100644
+--- a/sound/soc/generic/Kconfig
++++ b/sound/soc/generic/Kconfig
+@@ -26,6 +26,12 @@ config SND_AUDIO_GRAPH_CARD2
+ 	  This option enables generic simple sound card support
+ 	  with OF-graph DT bindings.
+ 
++config SND_SAMPLE_CUSTOM_CARD
++	tristate "ASoC Audio Graph Sound Card2 base custom card sample support"
++	depends on OF && SND_AUDIO_GRAPH_CARD2
++	help
++	  This option enables Audio Graph Sound Card2 base custom card support
++
+ config SND_TEST_COMPONENT
+ 	tristate "ASoC Test component sound support"
+ 	depends on OF
+diff --git a/sound/soc/generic/Makefile b/sound/soc/generic/Makefile
+index b480f47a330d..1b438202609c 100644
+--- a/sound/soc/generic/Makefile
++++ b/sound/soc/generic/Makefile
+@@ -3,10 +3,12 @@ snd-soc-simple-card-utils-objs	:= simple-card-utils.o
+ snd-soc-simple-card-objs	:= simple-card.o
+ snd-soc-audio-graph-card-objs	:= audio-graph-card.o
+ snd-soc-audio-graph-card2-objs	:= audio-graph-card2.o
++snd-soc-sample-custom-card-objs	:= sample-custom-card.o
+ snd-soc-test-component-objs	:= test-component.o
+ 
+ obj-$(CONFIG_SND_SIMPLE_CARD_UTILS)	+= snd-soc-simple-card-utils.o
+ obj-$(CONFIG_SND_SIMPLE_CARD)		+= snd-soc-simple-card.o
+ obj-$(CONFIG_SND_AUDIO_GRAPH_CARD)	+= snd-soc-audio-graph-card.o
+ obj-$(CONFIG_SND_AUDIO_GRAPH_CARD2)	+= snd-soc-audio-graph-card2.o
++obj-$(CONFIG_SND_SAMPLE_CUSTOM_CARD)	+= snd-soc-sample-custom-card.o
+ obj-$(CONFIG_SND_TEST_COMPONENT)	+= snd-soc-test-component.o
+diff --git a/sound/soc/generic/sample-custom-card.c b/sound/soc/generic/sample-custom-card.c
 new file mode 100644
-index 000000000000..40439f78df60
+index 000000000000..e7b321fb5db9
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/audio-graph-card2-items.yaml
-@@ -0,0 +1,36 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/audio-graph-card2-items.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/sound/soc/generic/sample-custom-card.c
+@@ -0,0 +1,160 @@
++// SPDX-License-Identifier: GPL-2.0
++//
++// sample-custom-card.c
++//
++// Copyright (c) 2020 Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
++//
++#include <linux/module.h>
++#include <linux/of_gpio.h>
++#include <linux/platform_device.h>
++#include <sound/graph_card.h>
 +
-+title: Audio Graph Card2 Items Bindings
++/*
++ * Custom driver can have own priv
++ * which includes asoc_simple_priv.
++ */
++struct custom_priv {
++	struct asoc_simple_priv simple_priv;
 +
-+maintainers:
-+  - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
++	/* custom driver's own params */
++	int custom_params;
++};
 +
-+properties:
-+  compatible:
-+    enum:
-+      - audio-graph-card2-dsp
-+      - audio-graph-card2-multi
-+      - audio-graph-card2-codec2codec
++/* You can get custom_priv from simple_priv */
++#define simple_to_custom(simple) container_of((simple), struct custom_priv, simple_priv)
 +
-+required:
-+  - compatible
++static int custom_card_probe(struct snd_soc_card *card)
++{
++	struct asoc_simple_priv *simple_priv = snd_soc_card_get_drvdata(card);
++	struct custom_priv *custom_priv = simple_to_custom(simple_priv);
++	struct device *dev = simple_priv_to_dev(simple_priv);
 +
-+additionalProperties: true
++	dev_info(dev, "custom probe\n");
 +
-+examples:
-+  - |
-+    mix {
-+        compatible = "audio-graph-card2-dsp";
-+    };
++	custom_priv->custom_params = 1;
 +
-+    multi {
-+        compatible = "audio-graph-card2-multi";
-+    };
++	/* you can use generic probe function */
++	return asoc_graph_card_probe(card);
++}
 +
-+    codec2codec {
-+        compatible = "audio-graph-card2-codec2codec";
-+    };
-diff --git a/Documentation/devicetree/bindings/sound/audio-graph-card2.yaml b/Documentation/devicetree/bindings/sound/audio-graph-card2.yaml
-new file mode 100644
-index 000000000000..b5908ef144c1
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/audio-graph-card2.yaml
-@@ -0,0 +1,45 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/audio-graph-card2.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++static int custom_hook_pre(struct asoc_simple_priv *priv)
++{
++	struct device *dev = simple_priv_to_dev(priv);
 +
-+title: Audio Graph Card2 Device Tree Bindings
++	/* You can custom before parsing */
++	dev_info(dev, "hook : %s\n", __func__);
 +
-+maintainers:
-+  - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
++	return 0;
++}
 +
-+properties:
-+  compatible:
-+    enum:
-+      - audio-graph-card2
-+  links:
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+  routing:
-+    description: |
-+      A list of the connections between audio components.
-+      Each entry is a pair of strings, the first being the
-+      connection's sink, the second being the connection's source.
-+    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
++static int custom_hook_post(struct asoc_simple_priv *priv)
++{
++	struct device *dev = simple_priv_to_dev(priv);
++	struct snd_soc_card *card;
 +
-+required:
-+  - compatible
-+  - links
++	/* You can custom after parsing */
++	dev_info(dev, "hook : %s\n", __func__);
 +
-+unevaluatedProperties: false
++	card = simple_priv_to_card(priv);
++	card->probe = custom_card_probe; /* overwrite .probe */
 +
-+examples:
-+  - |
-+    sound {
-+        compatible = "audio-graph-card2";
++	return 0;
++}
 +
-+        links = <&cpu_port>;
-+    };
++static int custom_dpcm(struct asoc_simple_priv *priv,
++		       struct device_node *lnk,
++		       struct link_info *li)
++{
++	struct device *dev = simple_priv_to_dev(priv);
 +
-+    cpu {
-+        cpu_port: port { cpu_ep: endpoint { remote-endpoint = <&codec_ep>; }; };
-+    };
++	/* You can custom for DPCM parsing */
++	dev_info(dev, "hook : %s\n", __func__);
 +
-+    codec {
-+        port { codec_ep: endpoint { remote-endpoint = <&cpu_ep>; }; };
-+    };
-diff --git a/Documentation/devicetree/bindings/sound/audio-graph-port2.yaml b/Documentation/devicetree/bindings/sound/audio-graph-port2.yaml
-new file mode 100644
-index 000000000000..0a7753a140bf
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/audio-graph-port2.yaml
-@@ -0,0 +1,74 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/audio-graph-port.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++	return audio_graph2_link_dpcm(priv, lnk, li);
++}
 +
-+title: Audio Graph Card2 'port' Node Bindings
++static int custom_c2c(struct asoc_simple_priv *priv,
++		      struct device_node *lnk,
++		      struct link_info *li)
++{
++	struct device *dev = simple_priv_to_dev(priv);
 +
-+maintainers:
-+  - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
++	/* You can custom for Codec2Codec parsing */
++	dev_info(dev, "hook : %s\n", __func__);
 +
-+select: false
++	return audio_graph2_link_c2c(priv, lnk, li);
++}
 +
-+properties:
-+  port:
-+    description: single OF-Graph subnode
-+    type: object
-+    properties:
-+      reg:
-+        maxItems: 1
-+      prefix:
-+        description: "device name prefix"
-+        $ref: /schemas/types.yaml#/definitions/string
-+      convert-rate:
-+        description: CPU to Codec rate convert.
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+      convert-channels:
-+        description: CPU to Codec rate channels.
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+      mclk-fs:
-+        description: |
-+         Multiplication factor between stream rate and codec mclk.
-+         When defined, mclk-fs property defined in dai-link sub nodes are
-+         ignored.
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+    patternProperties:
-+      "^endpoint(@[0-9a-f]+)?":
-+        type: object
-+        properties:
-+          remote-endpoint:
-+            maxItems: 1
-+          mclk-fs:
-+            description: |
-+              Multiplication factor between stream rate and codec mclk.
-+              When defined, mclk-fs property defined in dai-link sub nodes are
-+              ignored.
-+            $ref: /schemas/types.yaml#/definitions/uint32
-+          frame-inversion:
-+            description: dai-link uses frame clock inversion
-+            $ref: /schemas/types.yaml#/definitions/flag
-+          bitclock-inversion:
-+            description: dai-link uses bit clock inversion
-+            $ref: /schemas/types.yaml#/definitions/flag
-+          frame-master:
-+            description: Indicates dai-link frame master.
-+            $ref: /schemas/types.yaml#/definitions/flag
-+          bitclock-master:
-+            description: Indicates dai-link bit clock master
-+            $ref: /schemas/types.yaml#/definitions/flag
-+          convert-rate:
-+            description: CPU to Codec rate convert.
-+            $ref: /schemas/types.yaml#/definitions/uint32
-+          convert-channels:
-+            description: CPU to Codec rate channels.
-+            $ref: /schemas/types.yaml#/definitions/uint32
++/*
++ * audio-graph-card2 has many hooks for your customizing.
++ */
++static struct graph_custom_hooks custom_hooks = {
++	.hook_pre	= custom_hook_pre,
++	.hook_post	= custom_hook_post,
++	.custom_dpcm	= custom_dpcm,
++	.custom_c2c	= custom_c2c,
++	/* and more ... */
++};
 +
-+  ports:
-+    description: multi OF-Graph subnode
-+    type: object
-+    patternProperties:
-+      "^port(@[0-9a-f]+)?":
-+        $ref: "#/properties/port"
++static int custom_startup(struct snd_pcm_substream *substream)
++{
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
++	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(rtd->card);
++	struct device *dev = simple_priv_to_dev(priv);
 +
-+additionalProperties: true
++	dev_info(dev, "custom startup\n");
++
++	return asoc_simple_startup(substream);
++}
++
++/* You can use custom ops */
++static const struct snd_soc_ops custom_ops = {
++	.startup	= custom_startup,
++	.shutdown	= asoc_simple_shutdown,
++	.hw_params	= asoc_simple_hw_params,
++};
++
++static int custom_probe(struct platform_device *pdev)
++{
++	struct custom_priv *custom_priv;
++	struct asoc_simple_priv *simple_priv;
++	struct device *dev = &pdev->dev;
++	int ret;
++
++	custom_priv = devm_kzalloc(dev, sizeof(*custom_priv), GFP_KERNEL);
++	if (!custom_priv)
++		return -ENOMEM;
++
++	simple_priv		= &custom_priv->simple_priv;
++	simple_priv->ops	= &custom_ops; /* customize dai_link ops */
++
++	/* use audio-graph-card2 parsing with own custom hooks */
++	ret = audio_graph2_parse_of(simple_priv, dev, &custom_hooks);
++	if (ret < 0)
++		return ret;
++
++	/* customize more if needed */
++
++	return 0;
++}
++
++static const struct of_device_id custom_of_match[] = {
++	{ .compatible = "sample-custom-card", },
++	{},
++};
++MODULE_DEVICE_TABLE(of, custom_of_match);
++
++static struct platform_driver custom_card = {
++	.driver = {
++		.name = "sample-custom-card",
++		.of_match_table = custom_of_match,
++	},
++	.probe	= custom_probe,
++	.remove	= asoc_simple_remove,
++};
++module_platform_driver(custom_card);
++
++MODULE_ALIAS("platform:asoc-sample-custom-card");
++MODULE_LICENSE("GPL v2");
++MODULE_DESCRIPTION("ASoC Audio Graph Sound Card2 Custom");
++MODULE_AUTHOR("Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>");
 -- 
 2.25.1
 

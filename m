@@ -2,96 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D03593B16B2
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Jun 2021 11:19:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CE2F3B16B3
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Jun 2021 11:19:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 536A2850;
-	Wed, 23 Jun 2021 11:18:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 536A2850
+	by alsa0.perex.cz (Postfix) with ESMTPS id A3DB484C;
+	Wed, 23 Jun 2021 11:18:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3DB484C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624439963;
-	bh=5BrXIDMPgnfI3NyEf2fJcoSJ2qyI4oTr/ww6Q0JZSwk=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1624439977;
+	bh=i9DoHH3x32/k5xhsfB7BIN2ZgpoFfLC4fgPISuyR9Mo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mHxz3NOtmEZXnqNo6nydON7ht8ceImXLqqeb8gzvQaahYOd1inLIIzt02jrEUP5ie
-	 PwE3ovBint3Bl1ECCx60sHu92XajTJPce7wKdXH/xmkR/KryxRr/x1t4qi5ocG+OxH
-	 RuK11H1EWfN4iGPdEsGkgQahjf2JYKw3w7v1Q1Kk=
+	b=ff0mNk02wJakmtIQUT2eGWOWHH1aIWgLLZPq0dcwYD2glT+ATvmAWGfd6PL3FGhzL
+	 DVBoHs4l9qMwbAyScDCKBVXbFaNSULF+sLXpyxlw7QkE0Vt+3FaBZ6OMDpIBxDfRnt
+	 dxrNvro9eaKl3z6YNSgSVDWiVMbCl/D/sxI5eqcU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB289F801D5;
-	Wed, 23 Jun 2021 11:17:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AFE35F80290;
+	Wed, 23 Jun 2021 11:17:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 44ECFF80268; Tue, 22 Jun 2021 09:07:30 +0200 (CEST)
+ id D7522F80268; Tue, 22 Jun 2021 10:17:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com
+ [209.85.217.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2D1AFF800E1
- for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 09:07:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D1AFF800E1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="m3qWEbwE"
-Received: by mail-lf1-x12e.google.com with SMTP id i1so7266179lfe.6
- for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 00:07:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=vApCbbfexLL48plA5IDGd/vCKl9w5fkXkC+HXj5vIm8=;
- b=m3qWEbwE5qpjQMloL6da+bEmOW197CsGm7Jx2RKRZxJVMydXmjeNeo+9yUNrFvV2bZ
- NRfZv4GaINtnn/OZPvEw3O9f0JHb9SSTtA6zx5odicA5xJXYShGDXOgg8+fOcVCcwWm5
- Ynp2qMg6MOfdSgGsp0OMX7l32Jdt6OY3/oBvbSvt2aaxrZpENWXAL0+VRwAtfSEy/oKl
- zJORFhr5+sCWoTDf23nu5XJqo0WrUwIx+fw2cS4E0txNatqZIgzPgwFWYilfe0bPQLu9
- spMVwNsCPg9fpJY95Ug5J2XhPCoNA0QdMmRvUFXmw6sJEswr1XOLmKbSmbKgl0ocBz0B
- qhYQ==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5B5C8F800E1
+ for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 10:17:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B5C8F800E1
+Received: by mail-vs1-f49.google.com with SMTP id j8so10788977vsd.0
+ for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 01:17:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=vApCbbfexLL48plA5IDGd/vCKl9w5fkXkC+HXj5vIm8=;
- b=nU69I5wJaitbHsJFIuti7Yvt0DBzBdHws/x0jzFPCOjqifGpCd8zko0Bix3RMw0KDp
- z0/kgOcFzEDuEOZ1tTbFfDRPmNwi011HALBoZ5Y1VbxYuwxWykzm8Xfq3EW9bW+erV1x
- TTf1jT1/cpBH+LC1DQV+UeBfUDGkfll5D8bgGTkSQd5QvjrUJdfEgtKkad8JnfbBIHga
- NNV358N9cHqnPxRhH9nV2yPILL7c0Vl+aYcpD7GM1K9L9EUK/BFFF1uMlG4mixbdvDv1
- uz4W44fAAcEu2ZAIluqIbFEizv8lGL+02NC3lSTEwBrhGlMdiaFhNEu0n3c4CQfJGTsj
- +g7w==
-X-Gm-Message-State: AOAM531NWatSoDATOBSyDQuRUB/L69sM0F2ZwDtqQvBn933ALeThMGZO
- rwerDlo+TS7j5R/jIR4E32w=
-X-Google-Smtp-Source: ABdhPJwKHPiKd41iFbsWpaG+KQvuP4Ie44IOvNSSN0fp6PwKKB/bbtfC8gULkvsIafmDsYoo1ROMBA==
-X-Received: by 2002:a05:6512:368a:: with SMTP id
- d10mr113565lfs.502.1624345641181; 
- Tue, 22 Jun 2021 00:07:21 -0700 (PDT)
-Received: from [192.168.0.101] (xskernel.org. [109.195.85.176])
- by smtp.googlemail.com with ESMTPSA id r82sm988876lff.99.2021.06.22.00.07.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Jun 2021 00:07:20 -0700 (PDT)
-Subject: Re: [PATCH 16/31] ALSA: usb-audio: scarlett2: Add Gen 3 mixer support
-To: Takashi Iwai <tiwai@suse.de>, "Geoffrey D. Bennett" <g@b4.vu>
-References: <cover.1624294591.git.g@b4.vu>
- <fc4bb1e8cfb3019b1033afeed59badb904990115.1624294591.git.g@b4.vu>
- <s5hh7hqs7ss.wl-tiwai@suse.de>
-From: Vladimir Sadovnikov <sadko4u@gmail.com>
-Message-ID: <0b00f3a5-fe31-0ad5-c723-d354dc724e58@gmail.com>
-Date: Tue, 22 Jun 2021 10:07:20 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=s0hVMlLFV5eIwzuXXBEJWEV7FxMfuDBGtQwv1PuAfDc=;
+ b=RlUve1WNpyp4KxptPDqTK7vJ9068bE9DSCtuTXCZAfrwG38GdVtMz7rgHmhebRqR16
+ BX2tcNoOrvzMoYfOwAMCXKbZLGoM7REPKtrwLDmjuD+OwFFMM/jAoXDihJvSfpnz4NGD
+ RaY+KnAiJXwmKDRR2rL2xjPgY3qTZ1J9uMOhZUbCAsopzJ7NUXYDJrBM+IunNHu985KE
+ wHoRVNAaJDk7AfgPfrbRFrqkFBXnL35baEW86Sqb6SSKTgSnWDeUOjIFVLzsDERX5lXh
+ Yk+BpkZxr82oMSzhi0kIwswEKKRk92UauzPWff08aycKwDrTC2yDayfUVkJvWBw0pY5+
+ gXZQ==
+X-Gm-Message-State: AOAM532BfoZ3xljXcgUBoYAnBxIQM+gUxkFVIvEtlM+q5tikVPLwFrwK
+ XJWP9J8QsJCJkpmmxBDtSIzDd+jaoOJiU1jA/mg=
+X-Google-Smtp-Source: ABdhPJz3clw2O8tsVFk5F4OGcaBfo9Z8eHqvoF8LwYXAPGollSTCOREHx1S0f08A9nsiznMjaM5G5srL4UVXlJSotsU=
+X-Received: by 2002:a05:6102:2011:: with SMTP id
+ p17mr21421376vsr.40.1624349860512; 
+ Tue, 22 Jun 2021 01:17:40 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <s5hh7hqs7ss.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+References: <20210615191543.1043414-1-robh@kernel.org>
+In-Reply-To: <20210615191543.1043414-1-robh@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 22 Jun 2021 10:17:28 +0200
+Message-ID: <CAMuHMdUGXu8yj3JWKwM8mt7axkrzGMiowC1t0PHrbpxRCBME3w@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: Drop redundant minItems/maxItems
+To: Rob Herring <robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Wed, 23 Jun 2021 11:17:52 +0200
-Cc: Hin-Tak Leung <htl10@users.sourceforge.net>, alsa-devel@alsa-project.org
+Cc: Andrew Lunn <andrew@lunn.ch>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Linux PWM List <linux-pwm@vger.kernel.org>, linux-iio@vger.kernel.org,
+ linux-pci <linux-pci@vger.kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ "open list:REMOTE PROCESSOR \(REMOTEPROC\) SUBSYSTEM"
+ <linux-remoteproc@vger.kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>, linux-ide@vger.kernel.org,
+ Linux I2C <linux-i2c@vger.kernel.org>, linux-phy@lists.infradead.org,
+ linux-riscv <linux-riscv@lists.infradead.org>,
+ Lee Jones <lee.jones@linaro.org>, linux-clk <linux-clk@vger.kernel.org>,
+ linux-rtc@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, Marc Zyngier <maz@kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, Jassi Brar <jassisinghbrar@gmail.com>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@ti.com>,
+ David Airlie <airlied@linux.ie>,
+ "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Jakub Kicinski <kuba@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Vivien Didelot <vivien.didelot@gmail.com>,
+ Wolfgang Grandegger <wg@grandegger.com>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Ohad Ben-Cohen <ohad@wizery.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+ Linux Watchdog Mailing List <linux-watchdog@vger.kernel.org>,
+ Linux PM list <linux-pm@vger.kernel.org>, linux-can@vger.kernel.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, Marc Kleine-Budde <mkl@pengutronix.de>,
+ Kamal Dasu <kdasu.kdev@gmail.com>, Paul Walmsley <paul.walmsley@sifive.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, Jens Axboe <axboe@kernel.dk>,
+ Alessandro Zummo <a.zummo@towertech.it>, Guenter Roeck <linux@roeck-us.net>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
+ netdev <netdev@vger.kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ USB list <linux-usb@vger.kernel.org>,
+ Linux MMC List <linux-mmc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-spi <linux-spi@vger.kernel.org>,
+ Linux IOMMU <iommu@lists.linux-foundation.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ dmaengine <dmaengine@vger.kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Jonathan Cameron <jic23@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,53 +135,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello Takashi!
+Hi Rob,
 
-Since Focusrite devices are too advanced in settings, the overall amount of 256 
-controls is not enough for these devices (like 18i20).
-I would like also to extend this constant up to 1024 or even more since adding 
-support of software configuration of the device also
-can exceed the amount of 512 control elements.
-
-Let's assume we have a mute switch for each mixer gain setting. For the 18i20 
-device this will give:
-12 inputs * 25 outputs = 300 mute switches.
-
-So I think this constant should be increased rapidly up to 1024 or even to 2048.
-
-Best,
-Vladimir
-
-22.06.2021 10:00, Takashi Iwai пишет:
-> On Mon, 21 Jun 2021 20:09:48 +0200,
-> Geoffrey D. Bennett wrote:
->> Add mixer support for the Focusrite Scarlett 4i4, 8i6, 18i8, and 18i20
->> Gen 3 devices.
->>
->> Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
->> ---
->>   sound/usb/mixer.c               |   2 +-
->>   sound/usb/mixer_quirks.c        |   4 +
->>   sound/usb/mixer_scarlett_gen2.c | 260 +++++++++++++++++++++++++++++---
->>   3 files changed, 246 insertions(+), 20 deletions(-)
->>
->> diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
->> index 428d581f988f..ba4aa1eacb04 100644
->> --- a/sound/usb/mixer.c
->> +++ b/sound/usb/mixer.c
->> @@ -50,7 +50,7 @@
->>   #include "mixer_quirks.h"
->>   #include "power.h"
->>   
->> -#define MAX_ID_ELEMS	256
->> +#define MAX_ID_ELEMS	512
-> This change requires the explanation.
-> Usually the unit id is a byte per definition, so it can't be over
-> 256.
+On Tue, Jun 15, 2021 at 9:16 PM Rob Herring <robh@kernel.org> wrote:
+> If a property has an 'items' list, then a 'minItems' or 'maxItems' with the
+> same size as the list is redundant and can be dropped. Note that is DT
+> schema specific behavior and not standard json-schema behavior. The tooling
+> will fixup the final schema adding any unspecified minItems/maxItems.
 >
+> This condition is partially checked with the meta-schema already, but
+> only if both 'minItems' and 'maxItems' are equal to the 'items' length.
+> An improved meta-schema is pending.
+
+> Signed-off-by: Rob Herring <robh@kernel.org>
+
+> --- a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+> @@ -46,7 +46,6 @@ properties:
 >
-> thanks,
->
-> Takashi
+>    clocks:
+>      minItems: 3
+> -    maxItems: 5
+>      items:
+>        - description: GMAC main clock
+>        - description: MAC TX clock
+
+While resolving the conflict with commit fea99822914039c6
+("dt-bindings: net: document ptp_ref clk in dwmac") in soc/for-next,
+I noticed the following construct for clock-names:
+
+  clock-names:
+    minItems: 3
+    maxItems: 6
+    contains:
+      enum:
+        - stmmaceth
+        - mac-clk-tx
+        - mac-clk-rx
+        - ethstp
+        - eth-ck
+        - ptp_ref
+
+Should this use items instead of enum, and drop maxItems, or is this
+a valid construct to support specifying the clocks in random order?
+If the latter, it does mean that the order of clock-names may not
+match the order of the clock descriptions.
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

@@ -2,85 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC4FA3AFEDE
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 10:13:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 205C43AFF09
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 10:20:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2EFC69F6;
-	Tue, 22 Jun 2021 10:12:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EFC69F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 948441686;
+	Tue, 22 Jun 2021 10:19:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 948441686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624349624;
-	bh=LLbiACnhFwi6KJ3H/3go9EYtr1LaccbAU0V0NMR4UuQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1624350022;
+	bh=CXW9cZpXgdyfoLvqHv8lArw/LuKGjxTAslkUwfBSbxY=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=i8xMHoLEpurlDpv2V02S0yXbrjeEGeRPhSOMi8IYebwSkegA8+Vm4nX4KEr9JdIVv
-	 r+zrza/93I98VNsUPD1tdSyiSyIuMB3DBY467qLEtxigvOFU3+NqQ0LZr86Qqxqqz9
-	 gyM5gdtzK3cqnxRft9MXfbOYjUxnZSr7lcnlJkKY=
+	b=ExkXjjv1QIKaQu6rFGOsYW7+9V/V1Aour/YDVN0ObOtISPEtRHt/vn4mMhhxuA3TM
+	 h/QgIn1T4NA+IFBffKhY2fkbNFYfLpqmONAtj5us+icXa5WmKb80PADACsjITPupKj
+	 C3LXgaHD8T70bpaaBE8snCke9LDscyFAK1mg1fkM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2F07F80161;
-	Tue, 22 Jun 2021 10:12:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08A4FF800E1;
+	Tue, 22 Jun 2021 10:18:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 46C26F8026A; Tue, 22 Jun 2021 10:12:13 +0200 (CEST)
+ id 2B6D2F80268; Tue, 22 Jun 2021 10:18:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from m.b4.vu (m.b4.vu [203.16.231.148])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0C8FEF80161
- for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 10:12:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C8FEF80161
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="IHrYrfrJ"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="xDySg9dH"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 925C81FD5E;
- Tue, 22 Jun 2021 08:12:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624349526; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=EWGuQOQDkY1hR5nqjk67zxZ5Qz9LoE8p37sHftGG314=;
- b=IHrYrfrJgyraeV7tiaCsFqP9j+nMVFX+bHDTWt6a2RQLfhA4lYdVm2f3V5uB5iNhCJj6zM
- JDRfP5Zr4dtFidqIf36ukgG05705bZCxNAkUHxhzj8Vpv5P5kzaJqjatdmAobRMf6Ibvm+
- QnHjBsuUafzxq1sbgnzzZI7spYihD5s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624349526;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=EWGuQOQDkY1hR5nqjk67zxZ5Qz9LoE8p37sHftGG314=;
- b=xDySg9dH0qI3mj/ONoSfCuRUXh/kC14FN+6JD5+La+S0nW+O6Nm0+Tr3yD7lvpp8GNAM4b
- OViXLyESK1UbHPCw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 83DA4A3B90;
- Tue, 22 Jun 2021 08:12:06 +0000 (UTC)
-Date: Tue, 22 Jun 2021 10:12:06 +0200
-Message-ID: <s5hzgviqpwp.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "Geoffrey D. Bennett" <g@b4.vu>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8A9EF80161
+ for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 10:18:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8A9EF80161
+Received: by m.b4.vu (Postfix, from userid 1000)
+ id AABE561E2869; Tue, 22 Jun 2021 17:48:39 +0930 (ACST)
+Date: Tue, 22 Jun 2021 17:48:39 +0930
+From: "Geoffrey D. Bennett" <g@b4.vu>
+To: Takashi Iwai <tiwai@suse.de>
 Subject: Re: [PATCH 16/31] ALSA: usb-audio: scarlett2: Add Gen 3 mixer support
-In-Reply-To: <s5h4kdqs53w.wl-tiwai@suse.de>
+Message-ID: <20210622081839.GA13849@m.b4.vu>
 References: <cover.1624294591.git.g@b4.vu>
  <fc4bb1e8cfb3019b1033afeed59badb904990115.1624294591.git.g@b4.vu>
  <s5hh7hqs7ss.wl-tiwai@suse.de>
  <0b00f3a5-fe31-0ad5-c723-d354dc724e58@gmail.com>
  <s5hczses67y.wl-tiwai@suse.de> <20210622074454.GB13614@m.b4.vu>
  <s5h4kdqs53w.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s5h4kdqs53w.wl-tiwai@suse.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: Hin-Tak Leung <htl10@users.sourceforge.net>, alsa-devel@alsa-project.org,
  Vladimir Sadovnikov <sadko4u@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -98,9 +71,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 22 Jun 2021 09:58:27 +0200,
-Takashi Iwai wrote:
-> 
+On Tue, Jun 22, 2021 at 09:58:27AM +0200, Takashi Iwai wrote:
 > On Tue, 22 Jun 2021 09:44:54 +0200,
 > Geoffrey D. Bennett wrote:
 > > 
@@ -146,21 +117,12 @@ Takashi Iwai wrote:
 > That said, the scarlett2 code calls the function in a wrong way.  It
 > has worked casually, so far, just because the core code doesn't use
 > the unit id number for significant roles.
-
-... and looking again at the code, actually it does matter.
-The USB audio mixer code calls the resume for each mixer element, and
-the default resume code (default_mixer_resume()) is applied for a
-control with usb_mixer_elem_info.val_type == USB_MIXER_BOOLEAN and
-channels == 1.  It seems that scarlett2 has some of them, and the
-resume procedure is applied wrongly with an invalid unit id.
-
-We need to define a special mixer value type (e.g. USB_MIXER_VENDOR),
-and use this for the all scarlett2 mixer elements, in addition to the
-below:
-
+> 
 > So, as a quick workaround, simply pass 0 or any fixed number under 256
 > to list->id (i.e. elem->head.id in scarlett2_add_new_ctl()).  That's
 > all, and the elements are chained in the linked list.
 
+Okay, I will fix that tonight.
 
-Takashi
+Were patches 1-15 of this set of 31 acceptable? If so, I will send a
+new set with this fix and the remainder of the patches.

@@ -2,82 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E86233B16B6
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Jun 2021 11:20:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1BFC3B16B7
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Jun 2021 11:20:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 606D4850;
-	Wed, 23 Jun 2021 11:19:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 606D4850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6980E166D;
+	Wed, 23 Jun 2021 11:20:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6980E166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624440026;
-	bh=e5KALOLfxJpMMpZV99lu/nNfBbP1tBftg3K3FklrdD0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=GQgeu/7gsDsGM58VEsG9unn9iAYMfQudvU7RfraYJFAVu+KmS0KfCmZ1V4HIR8sVs
-	 Be89VO4+vFIaKb+uzkTx1Ksj7j4PnOJSKnNrQUs4W3sgDkRdXhpU362vE460/xmFo/
-	 0VaKnbajcNJfwFdAGWL3o9LTaMpletzAT0PdA+tI=
+	s=default; t=1624440054;
+	bh=NqFXh1RzaIB7T3yUivBhV+3jLDLAyj/zzCtWY0JA0SQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=aWg1QB5xlgPMVgpb+zKw2hm5aKBIIDheqmSQ89syyeage/VKVh0y4G3PxrtAhc9HT
+	 vFiaGOuZMXhsPy614bGNs384qYBpsGskvZxzV/DF/sLGHuTjHgi/6wH2WGgtGihRZd
+	 w7DvVLM5jZ2uIOFk0+Ye4BETpJAPHa52pVQVThs4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53D28F800E1;
-	Wed, 23 Jun 2021 11:17:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02BC1F804E3;
+	Wed, 23 Jun 2021 11:17:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DAA58F80268; Tue, 22 Jun 2021 15:21:45 +0200 (CEST)
+ id 2BD9DF8026A; Tue, 22 Jun 2021 15:44:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from zg8tmtu5ljg5lje1ms4xmtka.icoremail.net
- (zg8tmtu5ljg5lje1ms4xmtka.icoremail.net [159.89.151.119])
- by alsa1.perex.cz (Postfix) with SMTP id 6832AF80137
- for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 15:21:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6832AF80137
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 67122F800E1
+ for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 15:44:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67122F800E1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=fudan.edu.cn header.i=@fudan.edu.cn
- header.b="o0C6D4EL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fudan.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
- Message-Id; bh=ZOVCmjtN4hOBQh1DKf9a6KHhvEzyeUUkbIct1IDWLiU=; b=o
- 0C6D4ELRgG6ezFpazEo5UyYUEKf/zRbpI3dP8ESlP+cwwx4wuwIbzF16px3SF8IY
- gSE5SDJAmnfbzLW9xAqVh6kFb40R+prtH2s9jP1c4CZv9Lux/omCi5tGG6PD3RZt
- PygbDfFHk+fDQUFn1pDqzSkS04QfwL1h2h2WSbMNsA=
-Received: from ubuntu (unknown [10.177.89.109])
- by app1 (Coremail) with SMTP id XAUFCgAnLy+h49FgJZUUAA--.20132S3;
- Tue, 22 Jun 2021 21:20:33 +0800 (CST)
-From: Jiajun Cao <jjcao20@fudan.edu.cn>
-To: 
-Subject: [PATCH] pci: hda: Add IRQ check for platform_get_irq()
-Date: Tue, 22 Jun 2021 21:19:42 +0800
-Message-Id: <20210622131947.94346-1-jjcao20@fudan.edu.cn>
-X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: XAUFCgAnLy+h49FgJZUUAA--.20132S3
-X-Coremail-Antispam: 1UD129KBjvdXoWrtr4rXryUuF1DJr1DtF1fWFg_yoWDXwb_Kw
- 4xZwn7u395Gwn7tFn3Kwn3Xr17Jw40kr12g34xtF4Iga9Igr40qry5ArnxCFWxWrs3tF47
- Crn2yrsavry3KjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbSAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
- 6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
- rcIFxwACI402YVCY1x02628vn2kIc2xKxwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I
- 8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
- xVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MI8E62xC7I0kMIIYrxkI7VAKI48JMIIF0x
- vE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE
- 42xK8VAvwI8IcIk0rVWrZr1j6s0DMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2js
- IEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0pRcAw7UUUUU=
-X-CM-SenderInfo: isqsiiasuqikmw6i3vldqovvfxof0/
-X-Mailman-Approved-At: Wed, 23 Jun 2021 11:17:52 +0200
-Cc: Xin Tan <tanxin.ctf@gmail.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, yuanxzhang@fudan.edu.cn,
- Takashi Iwai <tiwai@suse.com>, Jiajun Cao <jjcao20@fudan.edu.cn>,
- Thierry Reding <thierry.reding@gmail.com>, Peter Geis <pgwipeout@gmail.com>,
- linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Mohan Kumar <mkumard@nvidia.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="pwpg3U6V"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0C1B6613C7
+ for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 13:43:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1624369433;
+ bh=NqFXh1RzaIB7T3yUivBhV+3jLDLAyj/zzCtWY0JA0SQ=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=pwpg3U6V31p8pQ5cihd9K184k/F/Mi0oHppu5MkBdzdwhDdakPHeoFqOSid4OVyCU
+ U0q3NEAdd0gpakUJ0m2eS0ldbEliviNkFG/s1PPjW5P+JPCrWOjx33BE1WkAudGmcP
+ 5jf8z05XLPJwSxmm8kPcrYfBtKIJ8LS4Gk1kjxWNWpeeFYxFaotFMBX8xCD0ddr4iB
+ DMksKQpxCWn8CbFiEBCwAOsxXNAhHRVSAZorb1iw4jIV3qVtrJXV6zA8tMvT/9lHwE
+ 4CfHw1r2iRL66cKomekh6aeUD2VZCuKbyGMJH6lZJQ/AM9WMqhUYqhHqZClpZgGYsj
+ AYj31ywBBv4yA==
+Received: by mail-ed1-f41.google.com with SMTP id df12so21265506edb.2
+ for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 06:43:52 -0700 (PDT)
+X-Gm-Message-State: AOAM5317kDOr0ovq2DGIP9Mcr0JWtytl94+BjO4RIlPsy77KVmqnv2dT
+ 4Q8e76+G6dZIdKN3JTWdvP5Rwn3XdQj1nxBM9Q==
+X-Google-Smtp-Source: ABdhPJzR0Ub3ZgSNkr3MEhjSHq6x9DynzmvMX7quMzOS1boijoDJs7nsAsYPAJuJ3rupM/aSXMVZuLXS4ayPZR+vCGA=
+X-Received: by 2002:a05:6402:ca2:: with SMTP id
+ cn2mr2897976edb.62.1624369431373; 
+ Tue, 22 Jun 2021 06:43:51 -0700 (PDT)
+MIME-Version: 1.0
+References: <20210615191543.1043414-1-robh@kernel.org>
+ <CAMuHMdUGXu8yj3JWKwM8mt7axkrzGMiowC1t0PHrbpxRCBME3w@mail.gmail.com>
+In-Reply-To: <CAMuHMdUGXu8yj3JWKwM8mt7axkrzGMiowC1t0PHrbpxRCBME3w@mail.gmail.com>
+From: Rob Herring <robh@kernel.org>
+Date: Tue, 22 Jun 2021 07:43:37 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqJ8jjkufTAmoFHuqpWB0bMUfCCkUR-pFFa2MoyeGzgBvA@mail.gmail.com>
+Message-ID: <CAL_JsqJ8jjkufTAmoFHuqpWB0bMUfCCkUR-pFFa2MoyeGzgBvA@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: Drop redundant minItems/maxItems
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Wed, 23 Jun 2021 11:17:51 +0200
+Cc: Andrew Lunn <andrew@lunn.ch>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Linux PWM List <linux-pwm@vger.kernel.org>,
+ "open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>,
+ linux-pci <linux-pci@vger.kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ "open list:REMOTE PROCESSOR \(REMOTEPROC\) SUBSYSTEM"
+ <linux-remoteproc@vger.kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ "open list:LIBATA SUBSYSTEM \(Serial and Parallel ATA drivers\)"
+ <linux-ide@vger.kernel.org>, Linux I2C <linux-i2c@vger.kernel.org>,
+ linux-phy@lists.infradead.org, linux-riscv <linux-riscv@lists.infradead.org>,
+ Lee Jones <lee.jones@linaro.org>, linux-clk <linux-clk@vger.kernel.org>,
+ "open list:REAL TIME CLOCK \(RTC\) SUBSYSTEM" <linux-rtc@vger.kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, Herbert Xu <herbert@gondor.apana.org.au>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, Marc Zyngier <maz@kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, Jassi Brar <jassisinghbrar@gmail.com>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@ti.com>,
+ David Airlie <airlied@linux.ie>,
+ "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Jakub Kicinski <kuba@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Vivien Didelot <vivien.didelot@gmail.com>,
+ Wolfgang Grandegger <wg@grandegger.com>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Ohad Ben-Cohen <ohad@wizery.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+ Linux Watchdog Mailing List <linux-watchdog@vger.kernel.org>,
+ Linux PM list <linux-pm@vger.kernel.org>, linux-can@vger.kernel.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, Marc Kleine-Budde <mkl@pengutronix.de>,
+ Kamal Dasu <kdasu.kdev@gmail.com>, Paul Walmsley <paul.walmsley@sifive.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, Jens Axboe <axboe@kernel.dk>,
+ Alessandro Zummo <a.zummo@towertech.it>, Guenter Roeck <linux@roeck-us.net>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
+ netdev <netdev@vger.kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ USB list <linux-usb@vger.kernel.org>,
+ Linux MMC List <linux-mmc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-spi <linux-spi@vger.kernel.org>,
+ Linux IOMMU <iommu@lists.linux-foundation.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ dmaengine <dmaengine@vger.kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Jonathan Cameron <jic23@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,35 +142,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The function hda_tegra_first_init() neglects to check the return
-value after executing platform_get_irq().
+On Tue, Jun 22, 2021 at 2:17 AM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+>
+> Hi Rob,
+>
+> On Tue, Jun 15, 2021 at 9:16 PM Rob Herring <robh@kernel.org> wrote:
+> > If a property has an 'items' list, then a 'minItems' or 'maxItems' with the
+> > same size as the list is redundant and can be dropped. Note that is DT
+> > schema specific behavior and not standard json-schema behavior. The tooling
+> > will fixup the final schema adding any unspecified minItems/maxItems.
+> >
+> > This condition is partially checked with the meta-schema already, but
+> > only if both 'minItems' and 'maxItems' are equal to the 'items' length.
+> > An improved meta-schema is pending.
+>
+> > Signed-off-by: Rob Herring <robh@kernel.org>
+>
+> > --- a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+> > +++ b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+> > @@ -46,7 +46,6 @@ properties:
+> >
+> >    clocks:
+> >      minItems: 3
+> > -    maxItems: 5
+> >      items:
+> >        - description: GMAC main clock
+> >        - description: MAC TX clock
+>
+> While resolving the conflict with commit fea99822914039c6
+> ("dt-bindings: net: document ptp_ref clk in dwmac") in soc/for-next,
+> I noticed the following construct for clock-names:
+>
+>   clock-names:
+>     minItems: 3
+>     maxItems: 6
+>     contains:
+>       enum:
+>         - stmmaceth
+>         - mac-clk-tx
+>         - mac-clk-rx
+>         - ethstp
+>         - eth-ck
+>         - ptp_ref
+>
+> Should this use items instead of enum, and drop maxItems, or is this
+> a valid construct to support specifying the clocks in random order?
+> If the latter, it does mean that the order of clock-names may not
+> match the order of the clock descriptions.
 
-hda_tegra_first_init() should check the return value (if negative
-error number) for errors so as to not pass a negative value to
-the devm_request_irq().
+'contains' is true if one or more entries match the strings. So it is
+really saying one of these is required. That's not really much of a
+constraint. There's 'minContains' and 'maxContains' in newer
+json-schema versions (not yet supported) that could add some
+constraints if there has to be at least N entries from contains. An
+'items' schema (as opposed to a list) would say all items have to
+match one of the strings. I'm sure that's too strict.
 
-Fix it by adding a check for the return value irq_id.
+TLDR: clocks for this binding are a mess and the above is probably all
+we can do here.
 
-Signed-off-by: Jiajun Cao <jjcao20@fudan.edu.cn>
-Signed-off-by: Xin Tan <tanxin.ctf@gmail.com>
----
- sound/pci/hda/hda_tegra.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/sound/pci/hda/hda_tegra.c b/sound/pci/hda/hda_tegra.c
-index 6f2b743b9d75..6c6dc3fcde60 100644
---- a/sound/pci/hda/hda_tegra.c
-+++ b/sound/pci/hda/hda_tegra.c
-@@ -262,6 +262,9 @@ static int hda_tegra_first_init(struct azx *chip, struct platform_device *pdev)
- 	const char *sname, *drv_name = "tegra-hda";
- 	struct device_node *np = pdev->dev.of_node;
- 
-+	if (irq_id < 0)
-+		return irq_id;
-+
- 	err = hda_tegra_init_chip(chip, pdev);
- 	if (err)
- 		return err;
--- 
-2.17.1
-
+Rob

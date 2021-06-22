@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AC733AFA89
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 03:18:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71C943AFA8A
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 03:19:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BBA2A16A2;
-	Tue, 22 Jun 2021 03:18:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBA2A16A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 078E816AC;
+	Tue, 22 Jun 2021 03:18:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 078E816AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624324731;
-	bh=uwkhH26eWwYsjTwgHeJxq4XCBTaCrHyjDJJV3Q07sCY=;
+	s=default; t=1624324754;
+	bh=hvO1M56M6EtTG7vVgCl714E11oI/JaW85rzS/nOe0wQ=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dKt+7cI+kCqMmQcD0Eb1UOQTjkAUDenHY3UADKn7UAoE2+xNACFdVigkWiyTB0aWd
-	 8XEIupjjFPsOWYlplTR5OUKLqnH/JXAZjtauYbWttFESxp55azfeoynndumlkvMao5
-	 HG3EXrn/HZNjSNDq8LFaPJL9M8jI2Onh4OwnMyQ0=
+	b=vrI0HQVzQRnon7tI3YVI1Ox3e7huszuJhFg+yFi7WWiaEOFyP1nE5Z4qpQmCMARl0
+	 C9IPz7Zm3CtW/U5v1ulstSy9pIGnH+6YBTod0t9lqqjW68L5C8kamQc4E3SktBvTAx
+	 NJ7xVzz7zP4KFHG0jqumkhRyVMSfNO5yLLIJyOsY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F38F9F8051C;
-	Tue, 22 Jun 2021 03:15:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 76F3FF804E1;
+	Tue, 22 Jun 2021 03:15:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B195BF80517; Tue, 22 Jun 2021 03:15:20 +0200 (CEST)
+ id 48D2FF8051E; Tue, 22 Jun 2021 03:15:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 2AA23F8050F
- for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 03:15:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2AA23F8050F
-Date: 22 Jun 2021 10:15:16 +0900
-X-IronPort-AV: E=Sophos;i="5.83,290,1616425200"; d="scan'208";a="85109301"
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id E6F80F80518
+ for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 03:15:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6F80F80518
+Date: 22 Jun 2021 10:15:21 +0900
+X-IronPort-AV: E=Sophos;i="5.83,290,1616425200"; d="scan'208";a="84989975"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 22 Jun 2021 10:15:16 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 22 Jun 2021 10:15:21 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id BCF4E400D0CE;
- Tue, 22 Jun 2021 10:15:16 +0900 (JST)
-Message-ID: <87o8by3djv.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 68A98400D0C5;
+ Tue, 22 Jun 2021 10:15:21 +0900 (JST)
+Message-ID: <87mtri3djq.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH RFC 09/15] ASoC: audio-graph-card2: add Codec2Codec support
+Subject: [PATCH RFC 10/15] ASoC: audio-graph-card2: add Yaml Document
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>
 In-Reply-To: <871r8u4s6q.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,307 +70,201 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-This patch adds Codec2Codec support to audio-graph-card2.
-It can use Codec2Codec but very limited/simple case only for now.
-It doesn't have "SWITCH" control yet, thus it start automatically
-when probed, but can't stop, so far.
-Thus it needs to be updated around widgets/routing handling,
-and you need to understand that it is under experimental.
+This patch adds Audio Graph Card2 Yaml bindings.
+It is similar to Audio Graph Card, but different.
 
-It is assuming 2channel, S32_LE format for now.
-It needs to be updated, too.
+	- audio-graph-card  used "dais"  to indicate DAI-links,
+	  audio-graph-card2 uses "links" to it.
 
-Codec2Codec support needs to have extra node (= X) to indicate it.
-Codec2Codec needs "routing" (= A) and "rate" (= C).
-"links" (= B) needs to indicate Codec2Codec's CPU part node (= D).
+	- audio-graph-card  used "phandle" to indicate bitclock/frame-master,
+	  audio-graph-card2 uses flag to it.
 
-	+--+
-	|  |<-- Codec0
-	|  |--> Codec1
-	+--+
-
-	sound {
-		compatible = "audio-graph-card2";
-
-(A)		routing = "OUT" ,"DAI1 Playback",
-			  "DAI0 Capture", "IN";
-
-(B)		links = <&codec2codec>;
-	};
-
-(X)	CODEC2CODEC {
-		compatible = "audio-graph-card2-codec2codec";
-
-(C)		rate = <48000>;
-		ports {
-(D)			codec2codec: port@0 { fe_ep: endpoint { remote-endpoint = <&codec0_ep>; }; };
-				     port@1 { be_ep: endpoint { remote-endpoint = <&codec1_ep>; }; };
-		};
-	};
-
-	Codec {
-		ports {
-			port@0 {
-				 bitclock-master;
-				 frame-master;
-				 codec0_ep: endpoint { remote-endpoint = <&fe_ep>; }; };
-			port@1 { codec1_ep: endpoint { remote-endpoint = <&be_ep>; }; };
-		};
-	};
+	- audio-graph-card  used "format" to indicate DAI format,
+	  audio-graph-card2 assumes CPU/Codec drivers have .get_fmt support.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/graph_card.h            |   3 +
- sound/soc/generic/audio-graph-card2.c | 164 ++++++++++++++++++++++++++
- 2 files changed, 167 insertions(+)
+ .../sound/audio-graph-card2-items.yaml        | 36 +++++++++
+ .../bindings/sound/audio-graph-card2.yaml     | 45 +++++++++++
+ .../bindings/sound/audio-graph-port2.yaml     | 74 +++++++++++++++++++
+ 3 files changed, 155 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/audio-graph-card2-items.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/audio-graph-card2.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/audio-graph-port2.yaml
 
-diff --git a/include/sound/graph_card.h b/include/sound/graph_card.h
-index d0ccb7afda78..e870ae133a15 100644
---- a/include/sound/graph_card.h
-+++ b/include/sound/graph_card.h
-@@ -19,6 +19,7 @@ struct graph_custom_hooks {
- 	GRAPH_CUSTOM custom_normal;
- 	GRAPH_CUSTOM custom_dpcm;
- 	GRAPH_CUSTOM custom_multi;
-+	GRAPH_CUSTOM custom_c2c;
- };
- 
- int audio_graph_parse_of(struct asoc_simple_priv *priv, struct device *dev);
-@@ -31,5 +32,7 @@ int audio_graph2_link_dpcm(struct asoc_simple_priv *priv,
- 			   struct device_node *lnk, struct link_info *li);
- int audio_graph2_link_multi(struct asoc_simple_priv *priv,
- 			    struct device_node *lnk, struct link_info *li);
-+int audio_graph2_link_c2c(struct asoc_simple_priv *priv,
-+			  struct device_node *lnk, struct link_info *li);
- 
- #endif /* __GRAPH_CARD_H */
-diff --git a/sound/soc/generic/audio-graph-card2.c b/sound/soc/generic/audio-graph-card2.c
-index ece0f7d28437..2688b8d65e32 100644
---- a/sound/soc/generic/audio-graph-card2.c
-+++ b/sound/soc/generic/audio-graph-card2.c
-@@ -184,16 +184,58 @@ CPU2 <--> *    * <--> Codec2
- 		port@1 { codec2_ep: endpoint { remote-endpoint = <&mcodec2_ep>; }; };
- 	};
-  };
+diff --git a/Documentation/devicetree/bindings/sound/audio-graph-card2-items.yaml b/Documentation/devicetree/bindings/sound/audio-graph-card2-items.yaml
+new file mode 100644
+index 000000000000..40439f78df60
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/audio-graph-card2-items.yaml
+@@ -0,0 +1,36 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/audio-graph-card2-items.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
++title: Audio Graph Card2 Items Bindings
 +
-+ ************************************
-+	Codec to Codec
-+ ************************************
++maintainers:
++  - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 +
-+ +--+
-+ |  |<-- Codec0
-+ |  |--> Codec1
-+ +--+
++properties:
++  compatible:
++    enum:
++      - audio-graph-card2-dsp
++      - audio-graph-card2-multi
++      - audio-graph-card2-codec2codec
 +
-+ sound {
-+	compatible = "audio-graph-card2";
++required:
++  - compatible
 +
-+	routing = "OUT" ,"DAI1 Playback",
-+		  "DAI0 Capture", "IN";
++additionalProperties: true
 +
-+	links = <&codec2codec>;
-+ };
++examples:
++  - |
++    mix {
++        compatible = "audio-graph-card2-dsp";
++    };
 +
-+ CODEC2CODEC {
-+	compatible = "audio-graph-card2-codec2codec";
++    multi {
++        compatible = "audio-graph-card2-multi";
++    };
 +
-+	rate = <48000>;
-+	ports {
-+		codec2codec: port@0 { fe_ep: endpoint { remote-endpoint = <&codec0_ep>; }; };
-+			     port@1 { be_ep: endpoint { remote-endpoint = <&codec1_ep>; }; };
-+	};
-+ };
++    codec2codec {
++        compatible = "audio-graph-card2-codec2codec";
++    };
+diff --git a/Documentation/devicetree/bindings/sound/audio-graph-card2.yaml b/Documentation/devicetree/bindings/sound/audio-graph-card2.yaml
+new file mode 100644
+index 000000000000..b5908ef144c1
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/audio-graph-card2.yaml
+@@ -0,0 +1,45 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/audio-graph-card2.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+ Codec {
-+	ports {
-+		port@0 {
-+			bitclock-master;
-+			frame-master;
-+			 codec0_ep: endpoint { remote-endpoint = <&fe_ep>; }; };
-+		port@1 { codec1_ep: endpoint { remote-endpoint = <&be_ep>; }; };
-+	};
-+ };
++title: Audio Graph Card2 Device Tree Bindings
 +
- */
- 
- enum graph_type {
- 	GRAPH_NORMAL,
- 	GRAPH_DPCM,
- 	GRAPH_MULTI,
-+	GRAPH_C2C,
- };
- 
- #define GRAPH_COMPATIBLE_DPCM	"audio-graph-card2-dsp"
- #define GRAPH_COMPATIBLE_MULTI	"audio-graph-card2-multi"
-+#define GRAPH_COMPATIBLE_C2C	"audio-graph-card2-codec2codec"
- 
- #define port_to_endpoint(port) of_get_child_by_name(port, "endpoint")
- 
-@@ -220,6 +262,8 @@ static enum graph_type graph_get_type(struct asoc_simple_priv *priv,
- 		type = GRAPH_DPCM;
- 	else if (strcmp(string, GRAPH_COMPATIBLE_MULTI) == 0)
- 		type = GRAPH_MULTI;
-+	else if (strcmp(string, GRAPH_COMPATIBLE_C2C) == 0)
-+		type = GRAPH_C2C;
- end:
- #ifdef DEBUG
- 	{
-@@ -236,6 +280,9 @@ static enum graph_type graph_get_type(struct asoc_simple_priv *priv,
- 		case GRAPH_MULTI:
- 			str = "MULTI";
- 			break;
-+		case GRAPH_C2C:
-+			str = "Codec2Codec";
-+			break;
- 		default:
- 			break;
- 		}
-@@ -778,6 +825,93 @@ int audio_graph2_link_multi(struct asoc_simple_priv *priv,
- }
- EXPORT_SYMBOL_GPL(audio_graph2_link_multi);
- 
-+int audio_graph2_link_c2c(struct asoc_simple_priv *priv,
-+			  struct device_node *lnk,
-+			  struct link_info *li)
-+{
-+	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
-+	struct simple_dai_props *dai_props = simple_priv_to_props(priv, li->link);
-+	struct snd_soc_pcm_stream *c2c_conf = dai_props->c2c_conf;
-+	struct device_node *port  = lnk;
-+	struct device_node *ports = of_get_parent(port);
-+	struct device_node *top = of_get_parent(ports);
-+	struct device_node *ep;
-+	struct device_node *rep;
-+	struct device_node *first_rep = NULL;
-+	char dai_name[64];
-+	u32 val;
-+	int is_cpu;
-+	int ret = -EINVAL;
++maintainers:
++  - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 +
-+	/*
-+	 *	top: CODEC2CODEC {
-+	 *		compatible = "audio-graph-card2-codec2codec";
-+	 *
-+	 *		rate = <48000>;
-+	 *		ports {
-+	 * =>			lnk: port@0 { ep: endpoint { remote-endpoint = <&rep>; }; };
-+	 *			     port@1 { ... };
-+	 *		};
-+	 *	};
-+	 */
-+	if (!of_get_property(top, "rate", &val)) {
-+		struct device *dev = simple_priv_to_dev(priv);
++properties:
++  compatible:
++    enum:
++      - audio-graph-card2
++  links:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++  routing:
++    description: |
++      A list of the connections between audio components.
++      Each entry is a pair of strings, the first being the
++      connection's sink, the second being the connection's source.
++    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
 +
-+		dev_err(dev, "unknown codec2codec rate\n");
-+		goto err;
-+	}
++required:
++  - compatible
++  - links
 +
-+	c2c_conf->formats	= SNDRV_PCM_FMTBIT_S32_LE; /* update ME */
-+	c2c_conf->rate_min	=
-+	c2c_conf->rate_max	= val;
-+	c2c_conf->channels_min	=
-+	c2c_conf->channels_max	= 2; /* update ME */
-+	dai_link->params	= c2c_conf;
++unevaluatedProperties: false
 +
-+	of_node_get(lnk);
-+	for (is_cpu = 1; is_cpu >= 0; is_cpu--) {
-+		int is_single_links = 0;
++examples:
++  - |
++    sound {
++        compatible = "audio-graph-card2";
 +
-+		ep  = port_to_endpoint(port);
-+		rep = of_graph_get_remote_endpoint(ep);
++        links = <&cpu_port>;
++    };
 +
-+		if (!first_rep)
-+			first_rep = rep;
++    cpu {
++        cpu_port: port { cpu_ep: endpoint { remote-endpoint = <&codec_ep>; }; };
++    };
 +
-+		ret = graph_parse_node(priv, rep, li, 0,
-+				       is_cpu ? &is_single_links : NULL);
-+		if (ret < 0)
-+			goto err;
++    codec {
++        port { codec_ep: endpoint { remote-endpoint = <&cpu_ep>; }; };
++    };
+diff --git a/Documentation/devicetree/bindings/sound/audio-graph-port2.yaml b/Documentation/devicetree/bindings/sound/audio-graph-port2.yaml
+new file mode 100644
+index 000000000000..0a7753a140bf
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/audio-graph-port2.yaml
+@@ -0,0 +1,74 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/audio-graph-port.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+		of_node_put(ep);
-+		of_node_put(rep);
++title: Audio Graph Card2 'port' Node Bindings
 +
-+		/*
-+		 * 1st turn was for CPU   part of Codec (is_cpu = 1)
-+		 * 2nd turn  is for Codec part of Codec (is_cpu = 0)
-+		 */
-+		if (is_cpu) {
-+			struct snd_soc_dai_link_component *cpus = asoc_link_to_cpu(dai_link, 0);
++maintainers:
++  - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 +
-+			asoc_simple_canonicalize_cpu(cpus, is_single_links);
++select: false
 +
-+			/* next port = Codec part port */
-+			port = of_get_next_child(ports, port);
-+		}
-+	}
++properties:
++  port:
++    description: single OF-Graph subnode
++    type: object
++    properties:
++      reg:
++        maxItems: 1
++      prefix:
++        description: "device name prefix"
++        $ref: /schemas/types.yaml#/definitions/string
++      convert-rate:
++        description: CPU to Codec rate convert.
++        $ref: /schemas/types.yaml#/definitions/uint32
++      convert-channels:
++        description: CPU to Codec rate channels.
++        $ref: /schemas/types.yaml#/definitions/uint32
++      mclk-fs:
++        description: |
++         Multiplication factor between stream rate and codec mclk.
++         When defined, mclk-fs property defined in dai-link sub nodes are
++         ignored.
++        $ref: /schemas/types.yaml#/definitions/uint32
++    patternProperties:
++      "^endpoint(@[0-9a-f]+)?":
++        type: object
++        properties:
++          remote-endpoint:
++            maxItems: 1
++          mclk-fs:
++            description: |
++              Multiplication factor between stream rate and codec mclk.
++              When defined, mclk-fs property defined in dai-link sub nodes are
++              ignored.
++            $ref: /schemas/types.yaml#/definitions/uint32
++          frame-inversion:
++            description: dai-link uses frame clock inversion
++            $ref: /schemas/types.yaml#/definitions/flag
++          bitclock-inversion:
++            description: dai-link uses bit clock inversion
++            $ref: /schemas/types.yaml#/definitions/flag
++          frame-master:
++            description: Indicates dai-link frame master.
++            $ref: /schemas/types.yaml#/definitions/flag
++          bitclock-master:
++            description: Indicates dai-link bit clock master
++            $ref: /schemas/types.yaml#/definitions/flag
++          convert-rate:
++            description: CPU to Codec rate convert.
++            $ref: /schemas/types.yaml#/definitions/uint32
++          convert-channels:
++            description: CPU to Codec rate channels.
++            $ref: /schemas/types.yaml#/definitions/uint32
 +
-+	snprintf(dai_name, sizeof(dai_name), "codec2codec-%pOFP", top);
++  ports:
++    description: multi OF-Graph subnode
++    type: object
++    patternProperties:
++      "^port(@[0-9a-f]+)?":
++        $ref: "#/properties/port"
 +
-+	ret = graph_link_init(priv, first_rep, li, 0, dai_name);  /* Codec base */
-+err:
-+	of_node_put(ports);
-+	of_node_put(port);
-+	of_node_put(top);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(audio_graph2_link_c2c);
-+
- static int graph_link(struct asoc_simple_priv *priv,
- 		      struct graph_custom_hooks *hooks,
- 		      enum graph_type gtype,
-@@ -807,6 +941,12 @@ static int graph_link(struct asoc_simple_priv *priv,
- 		else
- 			func = audio_graph2_link_multi;
- 		break;
-+	case GRAPH_C2C:
-+		if (hooks && hooks->custom_c2c)
-+			func = hooks->custom_c2c;
-+		else
-+			func = audio_graph2_link_c2c;
-+		break;
- 	}
- 
- 	if (!func) {
-@@ -904,6 +1044,27 @@ static int graph_count_multi(struct asoc_simple_priv *priv,
- 	return 0;
- }
- 
-+static int graph_count_c2c(struct asoc_simple_priv *priv,
-+			   struct device_node *lnk,
-+			   struct link_info *li)
-+{
-+	/*
-+	 *	CODEC2CODEC {
-+	 *		compatible = "audio-graph-card2-codec2codec";
-+	 *
-+	 *		ports {
-+	 * =>			lnk: port@0 { endpoint { ... }; };
-+	 *			     port@1 { endpoint { ... }; };
-+	 *		};
-+	 *	};
-+	 */
-+	li->num[li->link].cpus		= 1;
-+	li->num[li->link].codecs	= 1;
-+	li->num[li->link].c2c		= 1;
-+
-+	return 0;
-+}
-+
- static int graph_count(struct asoc_simple_priv *priv,
- 		       struct graph_custom_hooks *hooks,
- 		       enum graph_type gtype,
-@@ -929,6 +1090,9 @@ static int graph_count(struct asoc_simple_priv *priv,
- 	case GRAPH_MULTI:
- 		func = graph_count_multi;
- 		break;
-+	case GRAPH_C2C:
-+		func = graph_count_c2c;
-+		break;
- 	}
- 
- 	if (!func) {
++additionalProperties: true
 -- 
 2.25.1
 

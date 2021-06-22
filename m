@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50C5F3B0B19
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 19:06:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D36B03B0B1A
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 19:07:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BFA5815E2;
-	Tue, 22 Jun 2021 19:06:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFA5815E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 63BCA168F;
+	Tue, 22 Jun 2021 19:06:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63BCA168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624381618;
-	bh=Cc9KT2WY2cGEPBwuA7xKDFlK6aTN+Dm+jv1v454vW+4=;
+	s=default; t=1624381637;
+	bh=bMDdhjT4S3Hs5YCmOGFzVrJSJCDaM2pn166I0ErcFSU=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YacF+M2+PHLrWLdFsLTY5/bOaOhfWqnHJDQrqeqBHHwf8Z/rOw4IXs9VxsgchKHgp
-	 XJfkvoyT8YpLpxcN36U9ISnOnJVKYW1L9NOVsP7jmU7ZTqFVgewtb0Sjvogd/7fuwS
-	 kB0WNNDOmokrgN+VIaWbLm9i7AtonlOL8xR53iWg=
+	b=n+OYAsCfMXwQ2s7OQNoRnOgNFCu2Nfokv/tMNigp+X+WBI97mhZ6izB5SBjmCcwt+
+	 UYonknudHQ7/d5KG9IqjirP81X1OhN0jNV7YDXnahCThekShVgSmqOacEXUHNkyZNX
+	 +tJMqZMA8Ru3AVSjq2EuDYGbYGXbubH+NTSRqD88=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B447CF80517;
-	Tue, 22 Jun 2021 19:03:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 502E3F804DF;
+	Tue, 22 Jun 2021 19:03:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 82D07F804E2; Tue, 22 Jun 2021 19:03:45 +0200 (CEST)
+ id 35CD9F8051A; Tue, 22 Jun 2021 19:03:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,17 +33,16 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from m.b4.vu (m.b4.vu [203.16.231.148])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EC41CF804D9
- for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 19:03:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC41CF804D9
+ by alsa1.perex.cz (Postfix) with ESMTPS id A1AE0F804DF
+ for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 19:03:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1AE0F804DF
 Received: by m.b4.vu (Postfix, from userid 1000)
- id 766DC61E286E; Wed, 23 Jun 2021 02:33:36 +0930 (ACST)
-Date: Wed, 23 Jun 2021 02:33:36 +0930
+ id 30BC961E286D; Wed, 23 Jun 2021 02:33:45 +0930 (ACST)
+Date: Wed, 23 Jun 2021 02:33:45 +0930
 From: "Geoffrey D. Bennett" <g@b4.vu>
 To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 12/17] ALSA: usb-audio: scarlett2: Split up
- sw_hw_enum_ctl_put()
-Message-ID: <f2cf91841ba067b490e7709bc4b14f4532b4ddd5.1624379707.git.g@b4.vu>
+Subject: [PATCH 13/17] ALSA: usb-audio: scarlett2: Add sw_hw_ctls and mux_ctls
+Message-ID: <269d89181bf29dbea80ba6f8cfff84fb23b77f86.1624379707.git.g@b4.vu>
 References: <cover.1624379707.git.g@b4.vu>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -67,92 +66,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Split part of scarlett2_sw_hw_enum_ctl_put() out into
-scarlett2_sw_hw_change() so that the code which actually makes the
-change is available in its own function. This will be used by the
-speaker switching support which needs to set the SW/HW switch to HW
-when speaker switching is enabled.
+Save the struct snd_kcontrol pointers for the sw_hw and mux controls.
+This is in preparation for speaker switching support which needs to be
+able to update those controls.
 
 Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
 ---
- sound/usb/mixer_scarlett_gen2.c | 46 ++++++++++++++++++++-------------
- 1 file changed, 28 insertions(+), 18 deletions(-)
+ sound/usb/mixer_scarlett_gen2.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/sound/usb/mixer_scarlett_gen2.c b/sound/usb/mixer_scarlett_gen2.c
-index 59c9147c5cb5..37e35016db12 100644
+index 37e35016db12..b3e1cb943c3c 100644
 --- a/sound/usb/mixer_scarlett_gen2.c
 +++ b/sound/usb/mixer_scarlett_gen2.c
-@@ -1904,23 +1904,12 @@ static void scarlett2_vol_ctl_set_writable(struct usb_mixer_interface *mixer,
- 		       &private->mute_ctls[index]->id);
- }
+@@ -394,12 +394,14 @@ struct scarlett2_data {
+ 	struct snd_kcontrol *sync_ctl;
+ 	struct snd_kcontrol *master_vol_ctl;
+ 	struct snd_kcontrol *vol_ctls[SCARLETT2_ANALOGUE_MAX];
++	struct snd_kcontrol *sw_hw_ctls[SCARLETT2_ANALOGUE_MAX];
+ 	struct snd_kcontrol *mute_ctls[SCARLETT2_ANALOGUE_MAX];
+ 	struct snd_kcontrol *dim_mute_ctls[SCARLETT2_DIM_MUTE_COUNT];
+ 	struct snd_kcontrol *level_ctls[SCARLETT2_LEVEL_SWITCH_MAX];
+ 	struct snd_kcontrol *pad_ctls[SCARLETT2_PAD_SWITCH_MAX];
+ 	struct snd_kcontrol *air_ctls[SCARLETT2_AIR_SWITCH_MAX];
+ 	struct snd_kcontrol *phantom_ctls[SCARLETT2_PHANTOM_SWITCH_MAX];
++	struct snd_kcontrol *mux_ctls[SCARLETT2_MUX_MAX];
+ 	struct snd_kcontrol *direct_monitor_ctl;
+ 	u8 mux[SCARLETT2_MUX_MAX];
+ 	u8 mix[SCARLETT2_INPUT_MIX_MAX * SCARLETT2_OUTPUT_MIX_MAX];
+@@ -2558,7 +2560,8 @@ static int scarlett2_add_line_out_ctls(struct usb_mixer_interface *mixer)
+ 				 i + 1);
+ 			err = scarlett2_add_new_ctl(mixer,
+ 						    &scarlett2_sw_hw_enum_ctl,
+-						    i, 1, s, NULL);
++						    i, 1, s,
++						    &private->sw_hw_ctls[i]);
+ 			if (err < 0)
+ 				return err;
+ 		}
+@@ -2876,7 +2879,8 @@ static int scarlett2_add_mux_enums(struct usb_mixer_interface *mixer)
  
--static int scarlett2_sw_hw_enum_ctl_put(struct snd_kcontrol *kctl,
--					struct snd_ctl_elem_value *ucontrol)
-+static int scarlett2_sw_hw_change(struct usb_mixer_interface *mixer,
-+				  int ctl_index, int val)
- {
--	struct usb_mixer_elem_info *elem = kctl->private_data;
--	struct usb_mixer_interface *mixer = elem->head.mixer;
- 	struct scarlett2_data *private = mixer->private_data;
--	int ctl_index = elem->control;
- 	int index = line_out_remap(private, ctl_index);
--	int oval, val, err = 0;
--
--	mutex_lock(&private->data_mutex);
--
--	oval = private->vol_sw_hw_switch[index];
--	val = !!ucontrol->value.enumerated.item[0];
--
--	if (oval == val)
--		goto unlock;
-+	int err;
- 
- 	private->vol_sw_hw_switch[index] = val;
- 
-@@ -1938,18 +1927,39 @@ static int scarlett2_sw_hw_enum_ctl_put(struct snd_kcontrol *kctl,
- 		mixer, SCARLETT2_CONFIG_LINE_OUT_VOLUME,
- 		index, private->master_vol - SCARLETT2_VOLUME_BIAS);
- 	if (err < 0)
--		goto unlock;
-+		return err;
- 
- 	/* Set SW mute to current HW mute */
- 	err = scarlett2_usb_set_config(
- 		mixer, SCARLETT2_CONFIG_MUTE_SWITCH,
- 		index, private->dim_mute[SCARLETT2_BUTTON_MUTE]);
- 	if (err < 0)
--		goto unlock;
-+		return err;
- 
- 	/* Send SW/HW switch change to the device */
--	err = scarlett2_usb_set_config(mixer, SCARLETT2_CONFIG_SW_HW_SWITCH,
--				       index, val);
-+	return scarlett2_usb_set_config(mixer, SCARLETT2_CONFIG_SW_HW_SWITCH,
-+					index, val);
-+}
-+
-+static int scarlett2_sw_hw_enum_ctl_put(struct snd_kcontrol *kctl,
-+					struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct usb_mixer_elem_info *elem = kctl->private_data;
-+	struct usb_mixer_interface *mixer = elem->head.mixer;
-+	struct scarlett2_data *private = mixer->private_data;
-+	int ctl_index = elem->control;
-+	int index = line_out_remap(private, ctl_index);
-+	int oval, val, err = 0;
-+
-+	mutex_lock(&private->data_mutex);
-+
-+	oval = private->vol_sw_hw_switch[index];
-+	val = !!ucontrol->value.enumerated.item[0];
-+
-+	if (oval == val)
-+		goto unlock;
-+
-+	err = scarlett2_sw_hw_change(mixer, ctl_index, val);
- 	if (err == 0)
- 		err = 1;
- 
+ 			err = scarlett2_add_new_ctl(mixer,
+ 						    &scarlett2_mux_src_enum_ctl,
+-						    i, 1, s, NULL);
++						    i, 1, s,
++						    &private->mux_ctls[i]);
+ 			if (err < 0)
+ 				return err;
+ 		}
 -- 
 2.31.1
 

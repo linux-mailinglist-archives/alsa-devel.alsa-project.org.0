@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9CD63B087F
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 17:16:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F78C3B087A
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 17:16:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5DB131674;
-	Tue, 22 Jun 2021 17:15:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DB131674
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5EB3851;
+	Tue, 22 Jun 2021 17:15:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5EB3851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624374992;
-	bh=tq5W3HglBF9jy+mJvlAU7lrMCvmo4pvk0yjiPuf4/xk=;
+	s=default; t=1624374977;
+	bh=3we7Q+7oup/k3bH7oBPacMDKI+UoeT+oMJOH2NAnA1U=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E4KLtHJzXK4lBh1UFM9hK6GRUx4RbDBEgXLB5FlY3xy7MweyNX9I54RVB6XTxgaw2
-	 veNPHWaClfNOOPkQRbJexLrbUsrNKOTNEGIIntgIUGV5hWv6AD01ycOiJoMw3EfTQg
-	 wwD4jhjUR1g3YbYt/HVi+CQgjTamQyPiE3WiVXg4=
+	b=ZeZ0NDYFls4s9JpIo0SjLhicUDIvjoacPMHTZsQevyTmHSbD7iZM5oxpdw7QKwytu
+	 dXyqN/Tv+dwc8Kolx4gdErzYgcsIKm/4QvhSiYRm7mtnBfUgAy5+INgHlyeRo1TgMX
+	 omT6MoaODiSRgONO+NISoHA1wyaiYMj/mEauYFyY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0CF2DF804C2;
-	Tue, 22 Jun 2021 17:14:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5AA0CF8026A;
+	Tue, 22 Jun 2021 17:14:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 87BA0F80268; Tue, 22 Jun 2021 17:14:46 +0200 (CEST)
+ id 2B434F8026A; Tue, 22 Jun 2021 17:14:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 039B9F800E1
- for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 17:14:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 039B9F800E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id BD684F80161
+ for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 17:14:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD684F80161
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XL3S/7xb"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 864BE600D3;
- Tue, 22 Jun 2021 15:14:38 +0000 (UTC)
+ header.b="a/rZhZb6"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5970B61289;
+ Tue, 22 Jun 2021 15:14:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624374879;
- bh=tq5W3HglBF9jy+mJvlAU7lrMCvmo4pvk0yjiPuf4/xk=;
+ s=k20201202; t=1624374881;
+ bh=3we7Q+7oup/k3bH7oBPacMDKI+UoeT+oMJOH2NAnA1U=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XL3S/7xbkKgf1TrgRLc11BaBRHJ1nsarxcrvBseoyoZN6FtUM90Eh4mD2gCbdS+th
- SfLvRws8xd8LydAe0yOkyrcNYseRW460yO5xSpUfFu2Jz01guOeNeO1UD61L8aayBi
- n1OQY97sXsY/1Zc7hHDcTAS6m/IS7QjaElauE/L/JuCo/a+H3pWMa45yc2XYAu2P+v
- ztDpx+p4aktwtT/LARiSyQTIlVs40j/+lORZzl9ZAHXtJ1QO2Yml4nxAuD1xRwIZPB
- SoZN5nouq5Su4diURilLDobNThZCwARFE7hz11rgqBssLqmLi3QFrBdjno1Iu6HJ3o
- 16CBVm8czFFog==
+ b=a/rZhZb6KlhJka/XnPA9DRrd8wfTm16TgdD2lazvGqxdhP/5iuEPGivLCU7hnVJQj
+ jz3a1tH6Co83YUcbYsXlsi9I2s8z1611ere2zxOjjCAws0sm7qSgavZq0o9v8ljybR
+ jU17FAJrIdUx7ukqhTx6TI81XLmNoJV6MG32UvdG2znTs+XNhhGZ/KTgCZEKtLDlfV
+ YO0l3ifu1/QQ6FfF32jfptbEh71CTgnvqgZoJQnp5gESk0UgOonEpbDKs6pZmULSng
+ ILX+HInKPpZrqQje5U/OaSWBrbrqwZaqLwgLpzotPbwXvT7o8nb2mDRhcFiCre091x
+ k0oF4ub6SPTgA==
 From: Mark Brown <broonie@kernel.org>
-To: Stephan Gerhold <stephan@gerhold.net>, Jaroslav Kysela <perex@perex.cz>,
- Thierry Reding <treding@nvidia.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- =?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Jon Hunter <jonathanh@nvidia.com>, Liam Girdwood <lgirdwood@gmail.com>
-Subject: Re: [PATCH] ASoC: simple-card: Fill in driver name
-Date: Tue, 22 Jun 2021 16:14:04 +0100
-Message-Id: <162437355278.1773.13469789646711861169.b4-ty@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH 1/2] ASoC: codecs: wcd938x: fix unused variable warning
+Date: Tue, 22 Jun 2021 16:14:05 +0100
+Message-Id: <162437355277.1773.9681249031887965233.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <YNGe3akAntQi8qJD@qwark.sigxcpu.org>
-References: <YNGe3akAntQi8qJD@qwark.sigxcpu.org>
+In-Reply-To: <20210621134502.19537-1-srinivas.kandagatla@linaro.org>
+References: <20210621134502.19537-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>
+Cc: lgirdwood@gmail.com, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, kernel test robot <lkp@intel.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,15 +80,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 22 Jun 2021 10:27:09 +0200, Guido Günther wrote:
-> alsa-ucm groups by driver name so fill that in as well. Otherwise the
-> presented information is redundant and doesn't reflect the used
-> driver. We can't just use 'asoc-simple-card' since the driver name is
-> restricted to 15 characters.
+On Mon, 21 Jun 2021 14:45:01 +0100, Srinivas Kandagatla wrote:
+> This patch fixes below
 > 
-> Before:
+> 	warning: unused variable wcd938x_dt_match
 > 
-> [...]
+> by placing device match table under CONFIG_OF
 
 Applied to
 
@@ -99,8 +93,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: simple-card: Fill in driver name
-      commit: 907f0a3051869a61499905377212500155bd28ec
+[1/2] ASoC: codecs: wcd938x: fix unused variable warning
+      commit: 8c4863c261c812a1088b0f8c6b66386d885390e1
+[2/2] ASoC: codecs: wcd938x: fix uninitialized symbol warnings
+      commit: d245fff1013cb7456ea9ca3f7b858e438c6bbf79
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,49 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99E263B0B03
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 19:02:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BF753B0B04
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 19:02:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EBC5B1658;
-	Tue, 22 Jun 2021 19:01:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBC5B1658
+	by alsa0.perex.cz (Postfix) with ESMTPS id 66F22166E;
+	Tue, 22 Jun 2021 19:01:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66F22166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624381341;
-	bh=vkM+Hrttef4o+HJ9JKsaNV8KRKRJYqWj8KncEakkFmo=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=UfQXk2TMZ8/mG6TtJt0hb/l9F0f2DmR9w22dKkhO2J2ir0mUUPp696RfGt8Foqejk
-	 HAJT8oO8lRPqz4Y2GEYOYU4XfsaaihCyTG6TCzzKeLYKL5uHsDhchEURS9zTHwXbgk
-	 coZUeg6qboDsINZ83XPyd6whTKlUVjnMxbh/AHWw=
+	s=default; t=1624381355;
+	bh=pz/ux5V8UC0Xrqj0XkIZjjbz8X2oljWdFEzP+cyQd6k=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=XVj+pFRrlm6o0z3bbyUun29tnGBqidQJLNeLC0U31BN53its9l+skZL20HrAYXNMr
+	 2gzj9949tqa1p3n/oDx8dT/HAxFDZrpmQ0ZfEc0E5Gpabcy1Y6ZrIwNM0qTvitNXKb
+	 QDwbFgbQ1hO+/RRW2tVDDtzNTHbkPMeVUXbCa1us=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6190DF8026A;
-	Tue, 22 Jun 2021 19:00:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C5081F804B4;
+	Tue, 22 Jun 2021 19:01:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F077CF80268; Tue, 22 Jun 2021 19:00:50 +0200 (CEST)
+ id 4014AF80161; Tue, 22 Jun 2021 19:01:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from m.b4.vu (m.b4.vu [203.16.231.148])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02986F80161
- for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 19:00:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02986F80161
+ by alsa1.perex.cz (Postfix) with ESMTPS id 20FC3F800E1
+ for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 19:00:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20FC3F800E1
 Received: by m.b4.vu (Postfix, from userid 1000)
- id 09D5561E286E; Wed, 23 Jun 2021 02:30:34 +0930 (ACST)
-Date: Wed, 23 Jun 2021 02:30:33 +0930
+ id B7A1061E286D; Wed, 23 Jun 2021 02:30:49 +0930 (ACST)
+Date: Wed, 23 Jun 2021 02:30:49 +0930
 From: "Geoffrey D. Bennett" <g@b4.vu>
 To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH V3 00/17] Add Scarlett Gen 3 support
-Message-ID: <cover.1624379707.git.g@b4.vu>
+Subject: [PATCH 01/17] ALSA: usb-audio: scarlett2: Fix wrong resume call
+Message-ID: <49721219f45b7e175e729b0d9d9c142fd8f4342a.1624379707.git.g@b4.vu>
+References: <cover.1624379707.git.g@b4.vu>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <cover.1624379707.git.g@b4.vu>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: Hin-Tak Leung <htl10@users.sourceforge.net>,
  Vladimir Sadovnikov <sadko4u@gmail.com>
@@ -63,45 +66,77 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch series adds a fixed version of Scarlett Gen 3 support on
-top of the previous "Refactor Scarlett Gen 2 support" patches 1-15/31.
+From: Takashi Iwai <tiwai@suse.de>
 
-Two differences from the previous patches 16-31/31:
+The current way of the scarlett2 mixer code managing the
+usb_mixer_elem_info object is wrong in two ways: it passes its
+internal index to the head.id field, and the val_type field is
+uninitialized.  This ended up with the wrong execution at the resume
+because a bogus unit id is passed wrongly.  Also, in the later code
+extensions, we'll have more mixer elements, and passing the index will
+overflow the unit id size (of 256).
 
-- Add patch from Takashi fixing scarlett2_add_new_ctl()
+This patch corrects those issues.  It introduces a new value type,
+USB_MIXER_BESPOKEN, which indicates a non-standard mixer element, and
+use this type for all scarlett2 mixer elements, as well as
+initializing the fixed unit id 0 for avoiding the overflow.
 
-- Don't increase MAX_ID_ELEMS
+Tested-by: Geoffrey D. Bennett <g@b4.vu>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/mixer.c               | 3 +++
+ sound/usb/mixer.h               | 1 +
+ sound/usb/mixer_scarlett_gen2.c | 7 ++++++-
+ 3 files changed, 10 insertions(+), 1 deletion(-)
 
-I tested the above changes on the 18i20 Gen 3 and confirmed no crash
-with 439 controls and MAX_ID_ELEMS 256.
-
-Geoffrey D. Bennett (16):
-  ALSA: usb-audio: scarlett2: Add Gen 3 mixer support
-  ALSA: usb-audio: scarlett2: Add support for "input-other" notify
-  ALSA: usb-audio: scarlett2: Add Gen 3 MSD mode switch
-  ALSA: usb-audio: scarlett2: Move get config above set config
-  ALSA: usb-audio: scarlett2: Allow bit-level access to config
-  ALSA: usb-audio: scarlett2: Add support for Solo and 2i2 Gen 3
-  ALSA: usb-audio: scarlett2: Add "air" switch support
-  ALSA: usb-audio: scarlett2: Add phantom power switch support
-  ALSA: usb-audio: scarlett2: Add direct monitor support
-  ALSA: usb-audio: scarlett2: Label 18i8 Gen 3 line outputs correctly
-  ALSA: usb-audio: scarlett2: Split up sw_hw_enum_ctl_put()
-  ALSA: usb-audio: scarlett2: Add sw_hw_ctls and mux_ctls
-  ALSA: usb-audio: scarlett2: Update mux controls to allow updates
-  ALSA: usb-audio: scarlett2: Add speaker switching support
-  ALSA: usb-audio: scarlett2: Update get_config to do endian conversion
-  ALSA: usb-audio: scarlett2: Add support for the talkback feature
-
-Takashi Iwai (1):
-  ALSA: usb-audio: scarlett2: Fix wrong resume call
-
- sound/usb/mixer.c               |    3 +
- sound/usb/mixer.h               |    1 +
- sound/usb/mixer_quirks.c        |    6 +
- sound/usb/mixer_scarlett_gen2.c | 1804 ++++++++++++++++++++++++++++---
- 4 files changed, 1637 insertions(+), 177 deletions(-)
-
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index 428d581f988f..0f578dabd094 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -3605,6 +3605,9 @@ static int restore_mixer_value(struct usb_mixer_elem_list *list)
+ 	struct usb_mixer_elem_info *cval = mixer_elem_list_to_info(list);
+ 	int c, err, idx;
+ 
++	if (cval->val_type == USB_MIXER_BESPOKEN)
++		return 0;
++
+ 	if (cval->cmask) {
+ 		idx = 0;
+ 		for (c = 0; c < MAX_CHANNELS; c++) {
+diff --git a/sound/usb/mixer.h b/sound/usb/mixer.h
+index e5a01f17bf3c..ea41e7a1f7bf 100644
+--- a/sound/usb/mixer.h
++++ b/sound/usb/mixer.h
+@@ -55,6 +55,7 @@ enum {
+ 	USB_MIXER_U16,
+ 	USB_MIXER_S32,
+ 	USB_MIXER_U32,
++	USB_MIXER_BESPOKEN,	/* non-standard type */
+ };
+ 
+ typedef void (*usb_mixer_elem_dump_func_t)(struct snd_info_buffer *buffer,
+diff --git a/sound/usb/mixer_scarlett_gen2.c b/sound/usb/mixer_scarlett_gen2.c
+index dde008ea21d7..c4689c401d6e 100644
+--- a/sound/usb/mixer_scarlett_gen2.c
++++ b/sound/usb/mixer_scarlett_gen2.c
+@@ -1136,10 +1136,15 @@ static int scarlett2_add_new_ctl(struct usb_mixer_interface *mixer,
+ 	if (!elem)
+ 		return -ENOMEM;
+ 
++	/* We set USB_MIXER_BESPOKEN type, so that the core USB mixer code
++	 * ignores them for resume and other operations.
++	 * Also, the head.id field is set to 0, as we don't use this field.
++	 */
+ 	elem->head.mixer = mixer;
+ 	elem->control = index;
+-	elem->head.id = index;
++	elem->head.id = 0;
+ 	elem->channels = channels;
++	elem->val_type = USB_MIXER_BESPOKEN;
+ 
+ 	kctl = snd_ctl_new1(ncontrol, elem);
+ 	if (!kctl) {
 -- 
 2.31.1
 

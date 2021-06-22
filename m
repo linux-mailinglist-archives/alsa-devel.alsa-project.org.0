@@ -2,50 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9A793AFA8E
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 03:20:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEE353AFA8F
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 03:20:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B05E168E;
-	Tue, 22 Jun 2021 03:19:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B05E168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E8FF16C1;
+	Tue, 22 Jun 2021 03:19:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E8FF16C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624324802;
-	bh=KR/8ZrfmrPFXYl7mjVmSK7VrUotsVWa2YfW2a1q65u0=;
+	s=default; t=1624324824;
+	bh=AAo2/dBTmNbrV1NNJVogYmrrC/4kVmuTOR+q7p4zWiY=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U5BOpqZsZv9jsp+CJ2lvCxqa2DQ2Dz1EVCcq/RWUrhqiHbXHweNSEwlA/oh/FN9an
-	 qTb+0pV8S6tcgOsXvCCxSmaSVd96YBeFbqv6plAUvaUm06A1KXdry/Wq1aBhzVj2sX
-	 Y3ywFxRyuFdIsCQIrBnQSBQ3CAhDInZNwuNW4u7c=
+	b=XtyDy72hbi9+wJLmWMo1jMmbyRTd07OkKnqyQKh7wU19BXz1AMMo7+o9vzgI7FXcP
+	 IN2lbZEbZa+SD8Z2xtVGJi0+uXwjRx+gWl61VfDr2SvY7J2UawlWdRsG89Ji0uhy5N
+	 Zfk0h7xJyXFhBqDg4DN14ADAC1JJCY1OL+ZkEVJI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16AC0F8052E;
-	Tue, 22 Jun 2021 03:15:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7AE7F80538;
+	Tue, 22 Jun 2021 03:15:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F4195F80534; Tue, 22 Jun 2021 03:15:33 +0200 (CEST)
+ id 3B2F2F80538; Tue, 22 Jun 2021 03:15:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 1C518F8052D
- for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 03:15:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C518F8052D
-Date: 22 Jun 2021 10:15:29 +0900
-X-IronPort-AV: E=Sophos;i="5.83,290,1616425200"; d="scan'208";a="85109328"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 22 Jun 2021 10:15:29 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 7AB4DF8052D
+ for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 03:15:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AB4DF8052D
+Date: 22 Jun 2021 10:15:34 +0900
+X-IronPort-AV: E=Sophos;i="5.83,290,1616425200"; d="scan'208";a="85109342"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 22 Jun 2021 10:15:34 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id E79434149C63;
- Tue, 22 Jun 2021 10:15:29 +0900 (JST)
-Message-ID: <87k0mm3dji.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 16574400D0D1;
+ Tue, 22 Jun 2021 10:15:34 +0900 (JST)
+Message-ID: <87im263djd.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH RFC 12/15] ASoC: audio-graph-card2-sample.dtsi: add Sample DT
- for Audio Graph Card2
+Subject: [PATCH RFC 13/15] ASoC: audio-graph-card2-sample.dtsi: add DPCM sample
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>
 In-Reply-To: <871r8u4s6q.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,124 +69,84 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Audio Graph Card2 settings is a little bit difficult for beginner,
-and Customizing it also difficult/confusable too.
-So, this patch adds sample for it.
+This patch adds DPCM sample to audio-graph-card2-sample.dtsi.
+This sample is assuming MIXer connection.
 
-You can easily use it by adding below line on your DT file,
-and select CONFIGs to your .config.
-
-	#include "../../../../../sound/soc/generic/audio-graph-card2-sample.dtsi"
-
-	CONFIG_SND_AUDIO_GRAPH_CARD2
-	CONFIG_SND_SAMPLE_CUSTOM_CARD
-	CONFIG_SND_TEST_COMPONENT
-
-This patch uses audio-graph-card2 base sample custom driver.
-You can directly use audio-graph-card2 instead of custom driver
-by modifing compatible.
-
-	- compatible = "sample-custom-card";
-	+ compatible = "audio-graph-card2";
-
-Sample custom driver will indicate customized print.
-
-Previous "audio-graph-card" and new "audio-graph-card2" doesn't
-have full compatibility.
-The differenct from audio-graph-card are
-
-	- audio-graph-card2 uses "links" instead of "dais".
-	- audio-graph-card2 uses flags for bitclock/frame-master
-	  instead of phandle.
-	- audio-graph-card2 uses .get_fmt instead of having "format"
-
-It is using Test-Component driver for CPU/Codec.
-It can indicate more detail print of each behavior if user want to.
-In such case, you need to update compatible to "xxx-nv" or "xxx-vv".
-
-	- compatible = "test-cpu";
-	+ compatible = "test-cpu-nv";
+	CPU2 --\
+	        +-- Codec2
+	CPU3 --/
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- .../soc/generic/audio-graph-card2-sample.dtsi | 68 +++++++++++++++++++
- 1 file changed, 68 insertions(+)
- create mode 100644 sound/soc/generic/audio-graph-card2-sample.dtsi
+ .../soc/generic/audio-graph-card2-sample.dtsi | 28 +++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
 diff --git a/sound/soc/generic/audio-graph-card2-sample.dtsi b/sound/soc/generic/audio-graph-card2-sample.dtsi
-new file mode 100644
-index 000000000000..5e83bfed1781
---- /dev/null
+index 5e83bfed1781..9aab6be176e5 100644
+--- a/sound/soc/generic/audio-graph-card2-sample.dtsi
 +++ b/sound/soc/generic/audio-graph-card2-sample.dtsi
-@@ -0,0 +1,68 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * audio-graph-card2-sample dtsi
-+ *
-+ *
-+ * This sample indicates how to use audio-graph-card2 and its
-+ * custom driver. "sample-custom-card" is the custome driver
-+ * which is using audio-graph-card2.
-+ *
-+ * You can easily use this sample by adding below line on your DT file,
-+ * and add new CONFIG to your .config.
-+ *
-+ *	#include "../../../../../sound/soc/generic/audio-graph-card2-sample.dtsi"
-+ *
-+ *	CONFIG_SND_AUDIO_GRAPH_CARD2
-+ *	CONFIG_SND_SAMPLE_CUSTOM_CARD
-+ *	CONFIG_SND_TEST_COMPONENT
-+ */
-+/ {
-+	/*
-+	 * cpu0 <--> codec0	// Normal
-+	 * cpu1 <--> codec1	// Normal
-+	 */
-+	card2 {
-+		/*
-+		 * You can use audio-graph-card2 directly
-+		 * by using
-+		 *
-+		 * compatible = "audio-graph-card2";
-+		 */
-+		compatible = "sample-custom-card";
+@@ -20,6 +20,8 @@ / {
+ 	/*
+ 	 * cpu0 <--> codec0	// Normal
+ 	 * cpu1 <--> codec1	// Normal
++	 * cpu2 <--> codec2	// DPCM
++	 * cpu3 <-/		// DPCM
+ 	 */
+ 	card2 {
+ 		/*
+@@ -30,10 +32,27 @@ card2 {
+ 		 */
+ 		compatible = "sample-custom-card";
+ 
++		routing = "TC DAI2 Playback", "DAI2 Playback",
++			  "TC DAI2 Playback", "DAI3 Playback",
++			  "DAI2 Capture", "TC DAI2 Capture",
++			  "DAI3 Capture", "TC DAI2 Capture";
 +
-+		links = <&cpu0 &cpu1			/* normal: cpu side only  */
-+		>;
-+	};
-+
-+	test_cpu {
-+		/*
-+		 * update compatible to indicate more detail behaviour
-+		 * if you want. see test-compatible for more detail.
-+		 *
-+		 *	- compatible = "test-cpu";
-+		 *	+ compatible = "test-cpu-nv";
-+		 */
-+		compatible = "test-cpu";
-+		ports {
-+			bitclock-master;
-+			frame-master;
-+			cpu0: port@0 { cpu0_ep: endpoint { remote-endpoint = <&codec0_ep>; }; };
-+			cpu1: port@1 { cpu1_ep: endpoint { remote-endpoint = <&codec1_ep>; }; };
+ 		links = <&cpu0 &cpu1			/* normal: cpu side only  */
++			 &mix_fe0 &mix_fe1 &mix_be0	/* dsp   : both fe/be     */
+ 		>;
+ 	};
+ 
++	mix {
++		compatible = "audio-graph-card2-dsp";
++		DSP_FE: ports@0 {
++			mix_fe0: port@0 { mix_fe0_ep: endpoint { remote-endpoint = <&cpu2_ep>; }; };
++			mix_fe1: port@1 { mix_fe1_ep: endpoint { remote-endpoint = <&cpu3_ep>; }; };
++		};
++		DSP_BE: ports@1 {
++			mix_be0: port   { mix_be0_ep: endpoint { remote-endpoint = <&codec2_ep>; }; };
 +		};
 +	};
 +
-+	test_codec {
-+		/*
-+		 * update compatible to indicate more detail behaviour
-+		 * if you want. see test-compatible for more detail.
-+		 *
-+		 *	- compatible = "test-codec";
-+		 *	+ compatible = "test-codec-nv";
-+		 */
-+		compatible = "test-codec";
-+		ports {
-+			port@0 { codec0_ep: endpoint { remote-endpoint = <&cpu0_ep>; }; };
-+			port@1 { codec1_ep: endpoint { remote-endpoint = <&cpu1_ep>; }; };
-+		};
-+	};
-+};
+ 	test_cpu {
+ 		/*
+ 		 * update compatible to indicate more detail behaviour
+@@ -48,6 +67,8 @@ ports {
+ 			frame-master;
+ 			cpu0: port@0 { cpu0_ep: endpoint { remote-endpoint = <&codec0_ep>; }; };
+ 			cpu1: port@1 { cpu1_ep: endpoint { remote-endpoint = <&codec1_ep>; }; };
++			      port@2 { cpu2_ep: endpoint { remote-endpoint = <&mix_fe0_ep>; }; };
++			      port@3 { cpu3_ep: endpoint { remote-endpoint = <&mix_fe1_ep>; }; };
+ 		};
+ 	};
+ 
+@@ -61,8 +82,15 @@ test_codec {
+ 		 */
+ 		compatible = "test-codec";
+ 		ports {
++			/*
++			 * prefix can be added to *component*,
++			 * see card2::routing
++			 */
++			prefix = "TC";
++
+ 			port@0 { codec0_ep: endpoint { remote-endpoint = <&cpu0_ep>; }; };
+ 			port@1 { codec1_ep: endpoint { remote-endpoint = <&cpu1_ep>; }; };
++			port@2 { codec2_ep: endpoint { remote-endpoint = <&mix_be0_ep>; }; };
+ 		};
+ 	};
+ };
 -- 
 2.25.1
 

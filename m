@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC4A13B0B0B
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 19:04:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E91173B0B0C
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Jun 2021 19:04:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 30DDA1673;
-	Tue, 22 Jun 2021 19:03:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30DDA1673
+	by alsa0.perex.cz (Postfix) with ESMTPS id 711AD1680;
+	Tue, 22 Jun 2021 19:04:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 711AD1680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624381480;
-	bh=IDwnmqQoeDlhe6gRYHC758tw7Ig1qOJWldr3RNoUhCg=;
+	s=default; t=1624381495;
+	bh=JeIJF9cr34zk6UA82PlAV6irjOyoINjRl4auQMxO1gI=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MoQHZXDw0wF80mDnazU5kyJ7esW30U3CEWV8H+8CVxz31zijihcGIKi/hSnzyuMhV
-	 nXg3PF4D3BSBID7jom3LeQACSMEnk8LMLzy3sdw2AT4fs8jYJQkCN4YuCX+do0VAyM
-	 FUF4b8//uW7d3BDdLHEHiBVMRet62BcCByiAtkAg=
+	b=nzH2rh3NRKf8wMIFCZ/czbq8gIzfiVDiVRIBLu5hOHAACg1ILrf/5t/obxlGdKtY8
+	 JXvD9FyirkuVk9mcg6FKRPvmQ+scYDWsnAX2idQ1ktopUk7lwCmwH7pLdlEJW0gixj
+	 FnOOxMGYOot2I8R895NFc8KBUl1iW6cTONmUQV8k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C233DF800E1;
-	Tue, 22 Jun 2021 19:02:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0F51F804F1;
+	Tue, 22 Jun 2021 19:02:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 600DAF804C3; Tue, 22 Jun 2021 19:02:34 +0200 (CEST)
+ id C121EF804E0; Tue, 22 Jun 2021 19:02:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,17 +33,17 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from m.b4.vu (m.b4.vu [203.16.231.148])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81ECBF804C3
- for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 19:02:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81ECBF804C3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D2B6F804C3
+ for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 19:02:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D2B6F804C3
 Received: by m.b4.vu (Postfix, from userid 1000)
- id 112CB61E286D; Wed, 23 Jun 2021 02:32:25 +0930 (ACST)
-Date: Wed, 23 Jun 2021 02:32:25 +0930
+ id E700061E286E; Wed, 23 Jun 2021 02:32:31 +0930 (ACST)
+Date: Wed, 23 Jun 2021 02:32:31 +0930
 From: "Geoffrey D. Bennett" <g@b4.vu>
 To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 06/17] ALSA: usb-audio: scarlett2: Allow bit-level access to
- config
-Message-ID: <4e54e9e106ec7029c1a668c51b4fc769a7eb4ed0.1624379707.git.g@b4.vu>
+Subject: [PATCH 07/17] ALSA: usb-audio: scarlett2: Add support for Solo and
+ 2i2 Gen 3
+Message-ID: <190b90f6f1f8f8d4dfb5f0a7761ff8ae5c40fdde.1624379707.git.g@b4.vu>
 References: <cover.1624379707.git.g@b4.vu>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -67,135 +67,318 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support for accessing configuration values when multiple values
-are stored in one byte. Needed by the upcoming Solo and 2i2 Gen 3
-support.
+Add initial support for the Focusrite Scarlett Solo and 2i2 devices:
+- They have no mixer
+- They don't support reporting sync status or levels
+- The configuration space is laid out differently to the other models
+- There is no level (line/inst) switch on input 1 of the Solo
 
+Co-developed-by: Vladimir Sadovnikov <sadko4u@gmail.com>
+Signed-off-by: Vladimir Sadovnikov <sadko4u@gmail.com>
 Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
 ---
- sound/usb/mixer_scarlett_gen2.c | 68 ++++++++++++++++++++++++++-------
- 1 file changed, 55 insertions(+), 13 deletions(-)
+ sound/usb/mixer_quirks.c        |  2 +
+ sound/usb/mixer_scarlett_gen2.c | 94 ++++++++++++++++++++++++++++-----
+ 2 files changed, 84 insertions(+), 12 deletions(-)
 
+diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
+index df7492594e91..0a3cb8fd7d00 100644
+--- a/sound/usb/mixer_quirks.c
++++ b/sound/usb/mixer_quirks.c
+@@ -3060,6 +3060,8 @@ int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
+ 	case USB_ID(0x1235, 0x8203): /* Focusrite Scarlett 6i6 2nd Gen */
+ 	case USB_ID(0x1235, 0x8204): /* Focusrite Scarlett 18i8 2nd Gen */
+ 	case USB_ID(0x1235, 0x8201): /* Focusrite Scarlett 18i20 2nd Gen */
++	case USB_ID(0x1235, 0x8211): /* Focusrite Scarlett Solo 3rd Gen */
++	case USB_ID(0x1235, 0x8210): /* Focusrite Scarlett 2i2 3rd Gen */
+ 	case USB_ID(0x1235, 0x8212): /* Focusrite Scarlett 4i4 3rd Gen */
+ 	case USB_ID(0x1235, 0x8213): /* Focusrite Scarlett 8i6 3rd Gen */
+ 	case USB_ID(0x1235, 0x8214): /* Focusrite Scarlett 18i8 3rd Gen */
 diff --git a/sound/usb/mixer_scarlett_gen2.c b/sound/usb/mixer_scarlett_gen2.c
-index 7a5346c68603..08e7b687484e 100644
+index 08e7b687484e..0a56211a65ab 100644
 --- a/sound/usb/mixer_scarlett_gen2.c
 +++ b/sound/usb/mixer_scarlett_gen2.c
-@@ -814,7 +814,7 @@ enum {
+@@ -4,9 +4,10 @@
+  *
+  *   Supported models:
+  *   - 6i6/18i8/18i20 Gen 2
+- *   - 4i4/8i6/18i8/18i20 Gen 3
++ *   - Solo/2i2/4i4/8i6/18i8/18i20 Gen 3
+  *
+  *   Copyright (c) 2018-2021 by Geoffrey D. Bennett <g at b4.vu>
++ *   Copyright (c) 2020-2021 by Vladimir Sadovnikov <sadko4u@gmail.com>
+  *
+  *   Based on the Scarlett (Gen 1) Driver for ALSA:
+  *
+@@ -44,6 +45,9 @@
+  * interface during driver initialisation added in May 2021 (thanks to
+  * Vladimir Sadovnikov for figuring out how).
+  *
++ * Support for Solo/2i2 Gen 3 added in May 2021 (thanks to Alexander
++ * Vorona for 2i2 protocol traces).
++ *
+  * This ALSA mixer gives access to (model-dependent):
+  *  - input, output, mixer-matrix muxes
+  *  - mixer-matrix gain stages
+@@ -297,6 +301,11 @@ struct scarlett2_device_info {
+ 	 */
+ 	u8 has_msd_mode;
+ 
++	/* Gen 3 devices without a mixer have a different
++	 * configuration set
++	 */
++	u8 has_mixer;
++
+ 	/* line out hw volume is sw controlled */
+ 	u8 line_out_hw_vol;
+ 
+@@ -305,6 +314,9 @@ struct scarlett2_device_info {
+ 	 */
+ 	u8 level_input_count;
+ 
++	/* the first input with a level control (0-based) */
++	u8 level_input_first;
++
+ 	/* the number of analogue inputs with a software switchable
+ 	 * 10dB pad control
+ 	 */
+@@ -362,6 +374,7 @@ struct scarlett2_data {
+ static const struct scarlett2_device_info s6i6_gen2_info = {
+ 	.usb_id = USB_ID(0x1235, 0x8203),
+ 
++	.has_mixer = 1,
+ 	.level_input_count = 2,
+ 	.pad_input_count = 2,
+ 
+@@ -407,6 +420,7 @@ static const struct scarlett2_device_info s6i6_gen2_info = {
+ static const struct scarlett2_device_info s18i8_gen2_info = {
+ 	.usb_id = USB_ID(0x1235, 0x8204),
+ 
++	.has_mixer = 1,
+ 	.level_input_count = 2,
+ 	.pad_input_count = 4,
+ 
+@@ -455,6 +469,7 @@ static const struct scarlett2_device_info s18i8_gen2_info = {
+ static const struct scarlett2_device_info s18i20_gen2_info = {
+ 	.usb_id = USB_ID(0x1235, 0x8201),
+ 
++	.has_mixer = 1,
+ 	.line_out_hw_vol = 1,
+ 
+ 	.line_out_descrs = {
+@@ -505,10 +520,26 @@ static const struct scarlett2_device_info s18i20_gen2_info = {
+ 	} },
  };
  
- /* Location, size, and activation command number for the configuration
-- * parameters
-+ * parameters. Size is in bits and may be 1, 8, or 16.
-  */
- struct scarlett2_config {
- 	u8 offset;
-@@ -825,25 +825,25 @@ struct scarlett2_config {
++static const struct scarlett2_device_info solo_gen3_info = {
++	.usb_id = USB_ID(0x1235, 0x8211),
++
++	.has_msd_mode = 1,
++	.level_input_count = 1,
++	.level_input_first = 1,
++};
++
++static const struct scarlett2_device_info s2i2_gen3_info = {
++	.usb_id = USB_ID(0x1235, 0x8210),
++
++	.has_msd_mode = 1,
++	.level_input_count = 2,
++};
++
+ static const struct scarlett2_device_info s4i4_gen3_info = {
+ 	.usb_id = USB_ID(0x1235, 0x8212),
+ 
+ 	.has_msd_mode = 1,
++	.has_mixer = 1,
+ 	.level_input_count = 2,
+ 	.pad_input_count = 2,
+ 
+@@ -551,6 +582,7 @@ static const struct scarlett2_device_info s8i6_gen3_info = {
+ 	.usb_id = USB_ID(0x1235, 0x8213),
+ 
+ 	.has_msd_mode = 1,
++	.has_mixer = 1,
+ 	.level_input_count = 2,
+ 	.pad_input_count = 2,
+ 
+@@ -600,6 +632,7 @@ static const struct scarlett2_device_info s18i8_gen3_info = {
+ 	.usb_id = USB_ID(0x1235, 0x8214),
+ 
+ 	.has_msd_mode = 1,
++	.has_mixer = 1,
+ 	.line_out_hw_vol = 1,
+ 	.level_input_count = 2,
+ 	.pad_input_count = 2,
+@@ -662,6 +695,7 @@ static const struct scarlett2_device_info s18i20_gen3_info = {
+ 	.usb_id = USB_ID(0x1235, 0x8215),
+ 
+ 	.has_msd_mode = 1,
++	.has_mixer = 1,
+ 	.line_out_hw_vol = 1,
+ 	.level_input_count = 2,
+ 	.pad_input_count = 8,
+@@ -724,6 +758,8 @@ static const struct scarlett2_device_info *scarlett2_devices[] = {
+ 	&s18i20_gen2_info,
+ 
+ 	/* Supported Gen 3 devices */
++	&solo_gen3_info,
++	&s2i2_gen3_info,
+ 	&s4i4_gen3_info,
+ 	&s8i6_gen3_info,
+ 	&s18i8_gen3_info,
+@@ -776,7 +812,7 @@ static int scarlett2_get_port_start_num(
+ #define SCARLETT2_USB_VOLUME_STATUS_OFFSET 0x31
+ #define SCARLETT2_USB_METER_LEVELS_GET_MAGIC 1
+ 
+-/* volume status is read together (matches scarlett2_config_items[]) */
++/* volume status is read together (matches scarlett2_config_items[1]) */
+ struct scarlett2_usb_volume_status {
+ 	/* dim/mute buttons */
+ 	u8 dim_mute[SCARLETT2_DIM_MUTE_COUNT];
+@@ -822,8 +858,22 @@ struct scarlett2_config {
+ 	u8 activate;
+ };
+ 
++/* scarlett2_config_items[0] is for devices without a mixer
++ * scarlett2_config_items[1] is for devices with a mixer
++ */
  static const struct scarlett2_config
- 		scarlett2_config_items[SCARLETT2_CONFIG_COUNT] = {
+-		scarlett2_config_items[SCARLETT2_CONFIG_COUNT] = {
++	scarlett2_config_items[2][SCARLETT2_CONFIG_COUNT] =
++
++/* Devices without a mixer (Solo and 2i2 Gen 3) */
++{ {
++	[SCARLETT2_CONFIG_MSD_SWITCH] = {
++		.offset = 0x04, .size = 8, .activate = 6 },
++
++	[SCARLETT2_CONFIG_LEVEL_SWITCH] = {
++		.offset = 0x08, .size = 1, .activate = 7 },
++
++/* Devices with a mixer (Gen 2 and all other Gen 3) */
++}, {
  	[SCARLETT2_CONFIG_DIM_MUTE] = {
--		.offset = 0x31, .size = 1, .activate = 2 },
-+		.offset = 0x31, .size = 8, .activate = 2 },
+ 		.offset = 0x31, .size = 8, .activate = 2 },
  
- 	[SCARLETT2_CONFIG_LINE_OUT_VOLUME] = {
--		.offset = 0x34, .size = 2, .activate = 1 },
-+		.offset = 0x34, .size = 16, .activate = 1 },
- 
- 	[SCARLETT2_CONFIG_MUTE_SWITCH] = {
--		.offset = 0x5c, .size = 1, .activate = 1 },
-+		.offset = 0x5c, .size = 8, .activate = 1 },
- 
- 	[SCARLETT2_CONFIG_SW_HW_SWITCH] = {
--		.offset = 0x66, .size = 1, .activate = 3 },
-+		.offset = 0x66, .size = 8, .activate = 3 },
- 
- 	[SCARLETT2_CONFIG_LEVEL_SWITCH] = {
--		.offset = 0x7c, .size = 1, .activate = 7 },
-+		.offset = 0x7c, .size = 8, .activate = 7 },
- 
- 	[SCARLETT2_CONFIG_PAD_SWITCH] = {
--		.offset = 0x84, .size = 1, .activate = 8 },
-+		.offset = 0x84, .size = 8, .activate = 8 },
+@@ -844,7 +894,7 @@ static const struct scarlett2_config
  
  	[SCARLETT2_CONFIG_MSD_SWITCH] = {
--		.offset = 0x9d, .size = 1, .activate = 6 },
-+		.offset = 0x9d, .size = 8, .activate = 6 },
- };
+ 		.offset = 0x9d, .size = 8, .activate = 6 },
+-};
++} };
  
  /* proprietary request/response format */
-@@ -1008,9 +1008,25 @@ static int scarlett2_usb_get_config(
+ struct scarlett2_usb_packet {
+@@ -1006,8 +1056,10 @@ static int scarlett2_usb_get_config(
+ 	struct usb_mixer_interface *mixer,
+ 	int config_item_num, int count, void *buf)
  {
++	struct scarlett2_data *private = mixer->private_data;
++	const struct scarlett2_device_info *info = private->info;
  	const struct scarlett2_config *config_item =
- 		&scarlett2_config_items[config_item_num];
--	int size = config_item->size * count;
-+	int size, err, i;
-+	u8 value;
+-		&scarlett2_config_items[config_item_num];
++		&scarlett2_config_items[info->has_mixer][config_item_num];
+ 	int size, err, i;
+ 	u8 value;
  
--	return scarlett2_usb_get(mixer, config_item->offset, buf, size);
-+	/* For byte-sized parameters, retrieve directly into buf */
-+	if (config_item->size >= 8) {
-+		size = config_item->size / 8 * count;
-+		return scarlett2_usb_get(mixer, config_item->offset, buf, size);
-+	}
-+
-+	/* For bit-sized parameters, retrieve into value */
-+	err = scarlett2_usb_get(mixer, config_item->offset, &value, 1);
-+	if (err < 0)
-+		return err;
-+
-+	/* then unpack from value into buf[] */
-+	for (i = 0; i < 8 && i < count; i++, value >>= 1)
-+		*(u8 *)buf++ = value & 1;
-+
-+	return 0;
- }
- 
- /* Send SCARLETT2_USB_DATA_CMD SCARLETT2_USB_CONFIG_SAVE */
-@@ -1047,18 +1063,44 @@ static int scarlett2_usb_set_config(
- 		__le32 value;
- 	} __packed req;
+@@ -1055,8 +1107,10 @@ static int scarlett2_usb_set_config(
+ 	struct usb_mixer_interface *mixer,
+ 	int config_item_num, int index, int value)
+ {
++	struct scarlett2_data *private = mixer->private_data;
++	const struct scarlett2_device_info *info = private->info;
+ 	const struct scarlett2_config *config_item =
+-	       &scarlett2_config_items[config_item_num];
++	       &scarlett2_config_items[info->has_mixer][config_item_num];
+ 	struct {
+ 		__le32 offset;
+ 		__le32 bytes;
+@@ -1065,7 +1119,6 @@ static int scarlett2_usb_set_config(
  	__le32 req2;
-+	int offset, size;
+ 	int offset, size;
  	int err;
- 	struct scarlett2_data *private = mixer->private_data;
+-	struct scarlett2_data *private = mixer->private_data;
  
  	/* Cancel any pending NVRAM save */
  	cancel_delayed_work_sync(&private->work);
+@@ -1511,6 +1564,10 @@ static int scarlett2_add_sync_ctl(struct usb_mixer_interface *mixer)
+ {
+ 	struct scarlett2_data *private = mixer->private_data;
  
-+	/* Convert config_item->size in bits to size in bytes and
-+	 * calculate offset
-+	 */
-+	if (config_item->size >= 8) {
-+		size = config_item->size / 8;
-+		offset = config_item->offset + index * size;
++	/* devices without a mixer also don't support reporting sync status */
++	if (!private->info->has_mixer)
++		return 0;
 +
-+	/* If updating a bit, retrieve the old value, set/clear the
-+	 * bit as needed, and update value
-+	 */
-+	} else {
-+		u8 tmp;
+ 	return scarlett2_add_new_ctl(mixer, &scarlett2_sync_ctl,
+ 				     0, 1, "Sync Status", &private->sync_ctl);
+ }
+@@ -1829,7 +1886,8 @@ static int scarlett2_update_input_other(struct usb_mixer_interface *mixer)
+ 	if (info->level_input_count) {
+ 		int err = scarlett2_usb_get_config(
+ 			mixer, SCARLETT2_CONFIG_LEVEL_SWITCH,
+-			info->level_input_count, private->level_switch);
++			info->level_input_count + info->level_input_first,
++			private->level_switch);
+ 		if (err < 0)
+ 			return err;
+ 	}
+@@ -1861,12 +1919,14 @@ static int scarlett2_level_enum_ctl_get(struct snd_kcontrol *kctl,
+ 	struct usb_mixer_elem_info *elem = kctl->private_data;
+ 	struct usb_mixer_interface *mixer = elem->head.mixer;
+ 	struct scarlett2_data *private = mixer->private_data;
++	const struct scarlett2_device_info *info = private->info;
 +
-+		size = 1;
-+		offset = config_item->offset;
++	int index = elem->control + info->level_input_first;
+ 
+ 	mutex_lock(&private->data_mutex);
+ 	if (private->input_other_updated)
+ 		scarlett2_update_input_other(mixer);
+-	ucontrol->value.enumerated.item[0] =
+-		private->level_switch[elem->control];
++	ucontrol->value.enumerated.item[0] = private->level_switch[index];
+ 	mutex_unlock(&private->data_mutex);
+ 
+ 	return 0;
+@@ -1878,8 +1938,9 @@ static int scarlett2_level_enum_ctl_put(struct snd_kcontrol *kctl,
+ 	struct usb_mixer_elem_info *elem = kctl->private_data;
+ 	struct usb_mixer_interface *mixer = elem->head.mixer;
+ 	struct scarlett2_data *private = mixer->private_data;
++	const struct scarlett2_device_info *info = private->info;
+ 
+-	int index = elem->control;
++	int index = elem->control + info->level_input_first;
+ 	int oval, val, err = 0;
+ 
+ 	mutex_lock(&private->data_mutex);
+@@ -2135,7 +2196,8 @@ static int scarlett2_add_line_in_ctls(struct usb_mixer_interface *mixer)
+ 
+ 	/* Add input level (line/inst) controls */
+ 	for (i = 0; i < info->level_input_count; i++) {
+-		snprintf(s, sizeof(s), fmt, i + 1, "Level", "Enum");
++		snprintf(s, sizeof(s), fmt, i + 1 + info->level_input_first,
++			 "Level", "Enum");
+ 		err = scarlett2_add_new_ctl(mixer, &scarlett2_level_enum_ctl,
+ 					    i, 1, s, &private->level_ctls[i]);
+ 		if (err < 0)
+@@ -2416,6 +2478,10 @@ static int scarlett2_add_meter_ctl(struct usb_mixer_interface *mixer)
+ {
+ 	struct scarlett2_data *private = mixer->private_data;
+ 
++	/* devices without a mixer also don't support reporting levels */
++	if (!private->info->has_mixer)
++		return 0;
 +
-+		scarlett2_usb_get(mixer, offset, &tmp, 1);
-+		if (value)
-+			tmp |= (1 << index);
-+		else
-+			tmp &= ~(1 << index);
+ 	return scarlett2_add_new_ctl(mixer, &scarlett2_meter_ctl,
+ 				     0, private->num_mux_dsts,
+ 				     "Level Meter", NULL);
+@@ -2639,6 +2705,10 @@ static int scarlett2_read_configs(struct usb_mixer_interface *mixer)
+ 	if (err < 0)
+ 		return err;
+ 
++	/* the rest of the configuration is for devices with a mixer */
++	if (!info->has_mixer)
++		return 0;
 +
-+		value = tmp;
-+	}
-+
- 	/* Send the configuration parameter data */
--	req.offset = cpu_to_le32(config_item->offset + index * config_item->size);
--	req.bytes = cpu_to_le32(config_item->size);
-+	req.offset = cpu_to_le32(offset);
-+	req.bytes = cpu_to_le32(size);
- 	req.value = cpu_to_le32(value);
- 	err = scarlett2_usb(mixer, SCARLETT2_USB_SET_DATA,
--			    &req, sizeof(u32) * 2 + config_item->size,
-+			    &req, sizeof(u32) * 2 + size,
- 			    NULL, 0);
+ 	err = scarlett2_update_sync(mixer);
  	if (err < 0)
  		return err;
 -- 

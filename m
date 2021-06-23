@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C59573B1547
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Jun 2021 10:01:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29EFD3B154D
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Jun 2021 10:01:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4EB10851;
-	Wed, 23 Jun 2021 10:00:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4EB10851
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94D05166C;
+	Wed, 23 Jun 2021 10:00:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94D05166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624435295;
-	bh=69Oe3yqW7dlpNqnDVIHtI0rhu73SIaWT3vII6hdni/c=;
+	s=default; t=1624435309;
+	bh=1icCz1B8NfdXKnEWXzMnEaCf8gjb1sc0KLk11t41ppg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X5UfLNgT0ugX9dGfCwOMhkoggjSx00+kRJxIR3FuRauXXMmyPCPaoIYh4uPEeNINK
-	 h7loB11f02sdtgm5Cq2UJAs/Iw2d+NmIsb+iBta+RI2YhmRxt2r7Jo/zuiAPyjSCjH
-	 aQqqlQJjLYK8EvcDtVPcMvxb5Qyu67CSCO61qrA4=
+	b=ALVUWDJ61R+092l/Uq5e3kx78+9sSPQ+7YanQX7qf0hFMCMj/0RLHrQHbAWRpKJAi
+	 50DpWUYdGeZrM5DOVwCjA6x8YRyhK3NZRyOg/V3EGfVemm4xsowkiZY4s3fZQz6Rew
+	 Kh7EOWF3OZsOYk57zbfdfsoHHuDMfoazdg5cFORQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2567BF800B5;
-	Wed, 23 Jun 2021 10:00:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78F0DF804E0;
+	Wed, 23 Jun 2021 10:00:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2A505F804D6; Wed, 23 Jun 2021 10:00:04 +0200 (CEST)
+ id 463B3F8016B; Wed, 23 Jun 2021 10:00:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,44 +35,44 @@ Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  [64.147.123.20])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 466B4F8016B
- for <alsa-devel@alsa-project.org>; Wed, 23 Jun 2021 09:59:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 466B4F8016B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 48D41F800E1
+ for <alsa-devel@alsa-project.org>; Wed, 23 Jun 2021 09:59:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48D41F800E1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="vC5a/0eg"; 
+ header.b="kb+UZcym"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="HcZkZlO3"
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id BF34310C3;
- Wed, 23 Jun 2021 03:59:49 -0400 (EDT)
+ header.i=@messagingengine.com header.b="sTI6Sw+j"
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id 1246410B6;
+ Wed, 23 Jun 2021 03:59:51 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Wed, 23 Jun 2021 03:59:50 -0400
+ by compute5.internal (MEProxy); Wed, 23 Jun 2021 03:59:52 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=3TsDp33sfVx6E
- MKeXkP20fK0hEeW7lxWsjYmgocDB0A=; b=vC5a/0egQat8hQbvaJXnUQzjqr8h0
- 54yBCK29hQAuOTGGBwfJh7hfWDYhGX4idMVv2EQME95uPb4vTYIg0qKXWmXbpbnm
- Y2q62qyfXoMJtD87ChRJ/N8EiTXeDeAK+M+B4Y+bIisuPHZI7i7L1xSPx2ntNSE4
- lhiiSTIH8Hi/9hLWSDKffBVPuAqrUU1PR36noXIBMZBZ3nW1WU9b3wdctYR3N7mo
- vwwkdHXTSKetxRNnC+ghvAkHbKkWhDJXOGE6NYnJowi/9/mOvw5noQjWlf5lTB+A
- lRhsSaBcru8NM8VN5T1hCNui6kZG0ZFGOi9KRcPrM+Eztka77YxWw+W5Q==
+ :mime-version:content-transfer-encoding; s=fm1; bh=m0PtSTI8J237a
+ bH0tBrNIVD2Ab3bfTcN1b+rGhFmslo=; b=kb+UZcymkdTSUGfqNxYucSoDHGJ7N
+ i+ZBGVybjs9Ca5v1duoOGltrrGmf+RrW9iFoJXDJddiEQehcN/wVBh577VkfRtv+
+ bO49fCrl9ANuiM+AxJc9PgoQdwM7bBGMj2P1A4FV3oAB/jjOPbyVH9HD3jFXgxyL
+ 55PXmyYi+zOguZ4NIJKAZ4fdRklXuS2Dp9qWneEX8HHsuBTIHfiDjpaGumjv1XUR
+ vqoYpyitZeHzyjCoevOOf+4FTsKISaaPMQA/TptJg5wlPSInlXFop6cI0CEQTiKq
+ nfpn+vo6zO5VUwqxUh04UP1ybEY6c2yRZLJ5D/Pq00lMCsdSLtdx/x5Mw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=3TsDp33sfVx6EMKeXkP20fK0hEeW7lxWsjYmgocDB0A=; b=HcZkZlO3
- yN8F/NFQZcGTFVf3uLRjwLfDA/EdNhmrTskOTrcyuYTUXZmR0lN85SF1ADA3qKbQ
- RPJZ7Y84aztHufQSG4V8Vj3XkJUtfw+EBDAS7p2BqgoBBbNw2AuJx+IYws5ROEx+
- NvmeQsMw7PnRckmcmndfICaRy733H5je14e41CLCbI5+BaW+OOdo+azK95M7f4i1
- uoVR2oegLM4IkeXazOxVmH6XPyjQqMGlOF1s9gm6mfNn5v1m90oqOIba5Yr0by9h
- 5PLXBF+IDIoQiiAqQKqZt2BnYl7Ve2KDCvMshewCh04zTL9h4QUbKnrCkL3Zz3T/
- XNp5JPYMrLVUDA==
-X-ME-Sender: <xms:9enSYPUJ2Ni1kweEJ0nOIXTyP0uIzPsTiSG12oD_0h150QKv65l4Og>
- <xme:9enSYHl3wFghxI2VhWwpyFJrJuYmbQrjEVuGTdO6JtWYUmocqcUVN-uDWBlBW6Pca
- 44i_hJHYMpCN5TxJiU>
-X-ME-Received: <xmr:9enSYLbsNb7jcAazGkXT5F6eH_42Ki2KggSqMHREtGXHBb0A0Ac5APT8a13IO9b6pi8EtIoxdW4RELJqNqzrkXPeRuRrxOax0FnshWiabT6KemSP4zf5>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeegvddguddukecutefuodetggdotefrod
+ fm3; bh=m0PtSTI8J237abH0tBrNIVD2Ab3bfTcN1b+rGhFmslo=; b=sTI6Sw+j
+ m/8Bl5cZx1BgA7hfNCYKwzutT4fMzde6QDqKcKcXLHKGnpAUbEN2HnPFLglqmV8s
+ 0aWb922c3MUklnCtHxTPZOS3OF9wk0XbNvoksbylDgwKQfTSfCQuL6h8LN6gEQLJ
+ 9juzS88Km0edQLVfA+uJ08w3n2hdPiazbQEFtSXXiCo349s9EETWulb3FNE56iOs
+ tDh5iNIuFf1d3xqGfjvGmdnmnlUbUgIdkvp/HJBQ7Mr0FIruBJTS/qmBkCf/6Y2u
+ 8XwfAcyKfeUW3iyDj6HAwwBReZ58TNfx8MmGzSkgzJ2TMxEAOLHm88b1avVkPx1h
+ xohlk8/qYhXMHw==
+X-ME-Sender: <xms:9-nSYE3_i2Kx8TVx0Yv7z-M-WtmU-ewrNnRqXGy5lpMVPIoBf_ntbA>
+ <xme:9-nSYPH97CXPJCv3J2S3ilh9aWCnJwjtpwdXrOD_5sQYDCD65PlLpGq3E4ZyQsTy9
+ Kuc-pJamqak8Lr-x00>
+X-ME-Received: <xmr:9-nSYM79miE0mEeY2ibjR1wwOs_TAvL_GYdgMGpQZmRs2d4WGZ79G7PmzoREyhGLLMoUVRKYh9lPAnQRW8Yk5xGqKZ6JW8O2KJ4_on07kBEwFeQOw5vF>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeegvddguddujecutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
  necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
  ertdertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghk
@@ -80,18 +80,18 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeegvddguddukecutefuodetgg
  ektefgveegfeelheffhfeujedtjeevtefhkeevkedtjeejvddtjefhjeenucevlhhushht
  vghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhise
  hsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:9enSYKW5TMCVb25pl9zhxAUwnjXdqLjG0GcOYQI9CKpGMPKbllc-3A>
- <xmx:9enSYJkN1UULpI_l4TljHW8O4JlIlze1WpZ39N_hW16jKylGijmUkw>
- <xmx:9enSYHfc4N0ViImy_GKEOugPI91bglT0NfCipJHEHmw53bFJEoaEag>
- <xmx:9enSYJt0YdwmNNrl1lxPqEm9JBwzzHGKKBRD5tkLPOwR-lwoN2lD6w>
+X-ME-Proxy: <xmx:9-nSYN2Q0HHznakTaLyQjHGfpWV0YuWs_IRN5yECYhf1hVtp3cnQqA>
+ <xmx:9-nSYHEA9EXRQfNmMUtZYRVGbyN-FRBYoUJtOpP2ea9c1ZtTl3n6KQ>
+ <xmx:9-nSYG9SXOigvORWOIirMmdSG0Z1NJ2uH7Ff3KJe54_ftbS7UpKNcw>
+ <xmx:9-nSYNP6I4TYAlMmd6vZ-i7DsMKPpOl6lg1ki5Yr4jiHR_vQMxsAiA>
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 23 Jun 2021 03:59:48 -0400 (EDT)
+ 23 Jun 2021 03:59:50 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH 1/9] ALSA: firewire-motu: fix detection for S/PDIF source on
- optical interface in v2 protocol
-Date: Wed, 23 Jun 2021 16:59:33 +0900
-Message-Id: <20210623075941.72562-2-o-takashi@sakamocchi.jp>
+Subject: [PATCH 2/9] ALSA: firewire-motu: code refactoring for detection of
+ clock source in v2 protocol
+Date: Wed, 23 Jun 2021 16:59:34 +0900
+Message-Id: <20210623075941.72562-3-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210623075941.72562-1-o-takashi@sakamocchi.jp>
 References: <20210623075941.72562-1-o-takashi@sakamocchi.jp>
@@ -113,55 +113,111 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The devices in protocol version 2 has a register with flag for IEC 60958
-signal detection as source of sampling clock without discrimination
-between coaxial and optical interfaces. On the other hand, current
-implementation of driver manage to interpret type of signal on optical
-interface instead.
-
-This commit fixes the detection of optical/coaxial interface for S/PDIF
-signal.
+Current implementation of driver has two similar helper functions for
+source detection of sampling clock. This commit merges them as a code
+refactoring.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/motu/motu-protocol-v2.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
+ sound/firewire/motu/motu-protocol-v2.c | 68 ++++++++------------------
+ 1 file changed, 21 insertions(+), 47 deletions(-)
 
 diff --git a/sound/firewire/motu/motu-protocol-v2.c b/sound/firewire/motu/motu-protocol-v2.c
-index 784073aa1026..f0a0ecad4d74 100644
+index f0a0ecad4d74..7b69a8ef6b3d 100644
 --- a/sound/firewire/motu/motu-protocol-v2.c
 +++ b/sound/firewire/motu/motu-protocol-v2.c
-@@ -86,24 +86,23 @@ static int detect_clock_source_optical_model(struct snd_motu *motu, u32 data,
+@@ -78,10 +78,10 @@ int snd_motu_protocol_v2_set_clock_rate(struct snd_motu *motu,
+ 					  sizeof(reg));
+ }
+ 
+-static int detect_clock_source_optical_model(struct snd_motu *motu, u32 data,
+-					     enum snd_motu_clock_source *src)
++static int get_clock_source(struct snd_motu *motu, u32 data,
++			    enum snd_motu_clock_source *src)
+ {
+-	switch (data) {
++	switch (data & V2_CLOCK_SRC_MASK) {
+ 	case 0:
  		*src = SND_MOTU_CLOCK_SOURCE_INTERNAL;
  		break;
- 	case 1:
-+		*src = SND_MOTU_CLOCK_SOURCE_ADAT_ON_OPT;
-+		break;
-+	case 2:
+@@ -90,17 +90,26 @@ static int detect_clock_source_optical_model(struct snd_motu *motu, u32 data,
+ 		break;
+ 	case 2:
  	{
- 		__be32 reg;
+-		__be32 reg;
++		bool support_iec60958_on_opt = (motu->spec == &snd_motu_spec_828mk2 ||
++						motu->spec == &snd_motu_spec_traveler);
  
- 		// To check the configuration of optical interface.
--		int err = snd_motu_transaction_read(motu, V2_IN_OUT_CONF_OFFSET,
--						    &reg, sizeof(reg));
-+		int err = snd_motu_transaction_read(motu, V2_IN_OUT_CONF_OFFSET, &reg, sizeof(reg));
- 		if (err < 0)
- 			return err;
- 
--		if (be32_to_cpu(reg) & 0x00000200)
-+		if (((data & V2_OPT_IN_IFACE_MASK) >> V2_OPT_IN_IFACE_SHIFT) == V2_OPT_IFACE_MODE_SPDIF)
- 			*src = SND_MOTU_CLOCK_SOURCE_SPDIF_ON_OPT;
- 		else
--			*src = SND_MOTU_CLOCK_SOURCE_ADAT_ON_OPT;
-+			*src = SND_MOTU_CLOCK_SOURCE_SPDIF_ON_COAX;
+-		// To check the configuration of optical interface.
+-		int err = snd_motu_transaction_read(motu, V2_IN_OUT_CONF_OFFSET, &reg, sizeof(reg));
+-		if (err < 0)
+-			return err;
+-
+-		if (((data & V2_OPT_IN_IFACE_MASK) >> V2_OPT_IN_IFACE_SHIFT) == V2_OPT_IFACE_MODE_SPDIF)
+-			*src = SND_MOTU_CLOCK_SOURCE_SPDIF_ON_OPT;
+-		else
++		if (!support_iec60958_on_opt) {
+ 			*src = SND_MOTU_CLOCK_SOURCE_SPDIF_ON_COAX;
++		} else {
++			__be32 reg;
++
++			// To check the configuration of optical interface.
++			int err = snd_motu_transaction_read(motu, V2_IN_OUT_CONF_OFFSET, &reg,
++							    sizeof(reg));
++			if (err < 0)
++				return err;
++
++			if (((data & V2_OPT_IN_IFACE_MASK) >> V2_OPT_IN_IFACE_SHIFT) ==
++			    V2_OPT_IFACE_MODE_SPDIF)
++				*src = SND_MOTU_CLOCK_SOURCE_SPDIF_ON_OPT;
++			else
++				*src = SND_MOTU_CLOCK_SOURCE_SPDIF_ON_COAX;
++		}
  		break;
  	}
+ 	case 3:
+@@ -120,41 +129,6 @@ static int detect_clock_source_optical_model(struct snd_motu *motu, u32 data,
+ 	return 0;
+ }
+ 
+-static int v2_detect_clock_source(struct snd_motu *motu, u32 data,
+-				  enum snd_motu_clock_source *src)
+-{
+-	switch (data) {
+-	case 0:
+-		*src = SND_MOTU_CLOCK_SOURCE_INTERNAL;
+-		break;
 -	case 2:
 -		*src = SND_MOTU_CLOCK_SOURCE_SPDIF_ON_COAX;
 -		break;
- 	case 3:
- 		*src = SND_MOTU_CLOCK_SOURCE_SPH;
- 		break;
+-	case 3:
+-		*src = SND_MOTU_CLOCK_SOURCE_SPH;
+-		break;
+-	case 4:
+-		*src = SND_MOTU_CLOCK_SOURCE_WORD_ON_BNC;
+-		break;
+-	default:
+-		*src = SND_MOTU_CLOCK_SOURCE_UNKNOWN;
+-		break;
+-	}
+-
+-	return 0;
+-}
+-
+-static int get_clock_source(struct snd_motu *motu, u32 data,
+-			    enum snd_motu_clock_source *src)
+-{
+-	data &= V2_CLOCK_SRC_MASK;
+-	if (motu->spec == &snd_motu_spec_828mk2 ||
+-	    motu->spec == &snd_motu_spec_traveler)
+-		return detect_clock_source_optical_model(motu, data, src);
+-	else
+-		return v2_detect_clock_source(motu, data, src);
+-}
+-
+ int snd_motu_protocol_v2_get_clock_source(struct snd_motu *motu,
+ 					  enum snd_motu_clock_source *src)
+ {
 -- 
 2.30.2
 

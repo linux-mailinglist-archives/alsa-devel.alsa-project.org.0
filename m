@@ -2,131 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1BFC3B16B7
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Jun 2021 11:20:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D6ED3B173A
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Jun 2021 11:48:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6980E166D;
-	Wed, 23 Jun 2021 11:20:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6980E166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E2E31166E;
+	Wed, 23 Jun 2021 11:47:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2E31166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624440054;
-	bh=NqFXh1RzaIB7T3yUivBhV+3jLDLAyj/zzCtWY0JA0SQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1624441729;
+	bh=9O0HQqBIlesFwSB3Uujt8nYT7TwFNanA4pWvuA7bD3A=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aWg1QB5xlgPMVgpb+zKw2hm5aKBIIDheqmSQ89syyeage/VKVh0y4G3PxrtAhc9HT
-	 vFiaGOuZMXhsPy614bGNs384qYBpsGskvZxzV/DF/sLGHuTjHgi/6wH2WGgtGihRZd
-	 w7DvVLM5jZ2uIOFk0+Ye4BETpJAPHa52pVQVThs4=
+	b=iiH1wuMrhIsWP2L6uoQyh46iA2GdJUJKbZz/1xVhjbxguRpjEwHoIFHT+9xPXdueF
+	 TZGKBG7CtbLumsKmmRdC9j3uLA+w6s5rLOba4RiHHLaLsStYjHvlFbt7IMycUJbBSR
+	 o2F39hbvwR7BkuLBYcDm3xVoMvxk5RvE/yJaZZmU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02BC1F804E3;
-	Wed, 23 Jun 2021 11:17:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C46EF800B5;
+	Wed, 23 Jun 2021 11:47:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2BD9DF8026A; Tue, 22 Jun 2021 15:44:05 +0200 (CEST)
+ id 521AFF8016D; Wed, 23 Jun 2021 11:47:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 67122F800E1
- for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 15:44:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67122F800E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9A9F8F800B5
+ for <alsa-devel@alsa-project.org>; Wed, 23 Jun 2021 11:47:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A9F8F800B5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="pwpg3U6V"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0C1B6613C7
- for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 13:43:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624369433;
- bh=NqFXh1RzaIB7T3yUivBhV+3jLDLAyj/zzCtWY0JA0SQ=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=pwpg3U6V31p8pQ5cihd9K184k/F/Mi0oHppu5MkBdzdwhDdakPHeoFqOSid4OVyCU
- U0q3NEAdd0gpakUJ0m2eS0ldbEliviNkFG/s1PPjW5P+JPCrWOjx33BE1WkAudGmcP
- 5jf8z05XLPJwSxmm8kPcrYfBtKIJ8LS4Gk1kjxWNWpeeFYxFaotFMBX8xCD0ddr4iB
- DMksKQpxCWn8CbFiEBCwAOsxXNAhHRVSAZorb1iw4jIV3qVtrJXV6zA8tMvT/9lHwE
- 4CfHw1r2iRL66cKomekh6aeUD2VZCuKbyGMJH6lZJQ/AM9WMqhUYqhHqZClpZgGYsj
- AYj31ywBBv4yA==
-Received: by mail-ed1-f41.google.com with SMTP id df12so21265506edb.2
- for <alsa-devel@alsa-project.org>; Tue, 22 Jun 2021 06:43:52 -0700 (PDT)
-X-Gm-Message-State: AOAM5317kDOr0ovq2DGIP9Mcr0JWtytl94+BjO4RIlPsy77KVmqnv2dT
- 4Q8e76+G6dZIdKN3JTWdvP5Rwn3XdQj1nxBM9Q==
-X-Google-Smtp-Source: ABdhPJzR0Ub3ZgSNkr3MEhjSHq6x9DynzmvMX7quMzOS1boijoDJs7nsAsYPAJuJ3rupM/aSXMVZuLXS4ayPZR+vCGA=
-X-Received: by 2002:a05:6402:ca2:: with SMTP id
- cn2mr2897976edb.62.1624369431373; 
- Tue, 22 Jun 2021 06:43:51 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="ogBxUl36"
+Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 15N9ZWor021240; Wed, 23 Jun 2021 09:47:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=corp-2020-01-29;
+ bh=FA+wKCvEqhPL++IUAHUQdMEuak2t5x5+jh4eWW+pcyg=;
+ b=ogBxUl36I7sVZ27nLgITcq3jsMiGbHXYZunKDllpR1LKEQ53uLOd0XtXjg9EAE4KOXBE
+ NNoteLvlfB27v4/29NARzeGBrmfHA91xh8UnueK/pPlYpm6MrAMUXKRSGk4sYV6vl9OL
+ t9B9PddMhiA0ooVRancKGN4Wy/RpBJY1gs9NrYrRjDoZ26ABWX77ayKYCoHeWKXlOt+i
+ mnO4IaUjcVO29E2t5Z0ztGTf7JYt8uwRB8omO2K4XjkN0yVXPNlv201S4oTQjQhqazIq
+ JR2Z/f4nwtyIUSgTuGGyV3SxV7K3bFEubHoLvAm0+ehlWR2Dh+ntmzpaaQ2mkkbMHjpM 4A== 
+Received: from oracle.com (userp3030.oracle.com [156.151.31.80])
+ by mx0b-00069f02.pphosted.com with ESMTP id 39aqqvwe8d-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 23 Jun 2021 09:47:11 +0000
+Received: from userp3030.oracle.com (userp3030.oracle.com [127.0.0.1])
+ by pps.podrdrct (8.16.0.36/8.16.0.36) with SMTP id 15N9kv8W182759;
+ Wed, 23 Jun 2021 09:47:10 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by userp3030.oracle.com with ESMTP id 3995pxyyju-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 23 Jun 2021 09:47:10 +0000
+Received: from userp3030.oracle.com (userp3030.oracle.com [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 15N9l9fU183647;
+ Wed, 23 Jun 2021 09:47:09 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by userp3030.oracle.com with ESMTP id 3995pxyyhn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 23 Jun 2021 09:47:09 +0000
+Received: from abhmp0017.oracle.com (abhmp0017.oracle.com [141.146.116.23])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 15N9l4r9018569;
+ Wed, 23 Jun 2021 09:47:05 GMT
+Received: from kadam (/102.222.70.252) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Wed, 23 Jun 2021 02:47:04 -0700
+Date: Wed, 23 Jun 2021 12:46:55 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH] ASoC: da7219: Fix an out-of-bound read in an error
+ handling path
+Message-ID: <20210623094655.GB2116@kadam>
+References: <4fdde55198294a07f04933f7cef937fcb654c901.1624425670.git.christophe.jaillet@wanadoo.fr>
 MIME-Version: 1.0
-References: <20210615191543.1043414-1-robh@kernel.org>
- <CAMuHMdUGXu8yj3JWKwM8mt7axkrzGMiowC1t0PHrbpxRCBME3w@mail.gmail.com>
-In-Reply-To: <CAMuHMdUGXu8yj3JWKwM8mt7axkrzGMiowC1t0PHrbpxRCBME3w@mail.gmail.com>
-From: Rob Herring <robh@kernel.org>
-Date: Tue, 22 Jun 2021 07:43:37 -0600
-X-Gmail-Original-Message-ID: <CAL_JsqJ8jjkufTAmoFHuqpWB0bMUfCCkUR-pFFa2MoyeGzgBvA@mail.gmail.com>
-Message-ID: <CAL_JsqJ8jjkufTAmoFHuqpWB0bMUfCCkUR-pFFa2MoyeGzgBvA@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: Drop redundant minItems/maxItems
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Wed, 23 Jun 2021 11:17:51 +0200
-Cc: Andrew Lunn <andrew@lunn.ch>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Linux PWM List <linux-pwm@vger.kernel.org>,
- "open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>,
- linux-pci <linux-pci@vger.kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- "open list:REMOTE PROCESSOR \(REMOTEPROC\) SUBSYSTEM"
- <linux-remoteproc@vger.kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- "open list:LIBATA SUBSYSTEM \(Serial and Parallel ATA drivers\)"
- <linux-ide@vger.kernel.org>, Linux I2C <linux-i2c@vger.kernel.org>,
- linux-phy@lists.infradead.org, linux-riscv <linux-riscv@lists.infradead.org>,
- Lee Jones <lee.jones@linaro.org>, linux-clk <linux-clk@vger.kernel.org>,
- "open list:REAL TIME CLOCK \(RTC\) SUBSYSTEM" <linux-rtc@vger.kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, Herbert Xu <herbert@gondor.apana.org.au>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, Marc Zyngier <maz@kernel.org>,
- Joerg Roedel <joro@8bytes.org>, Jassi Brar <jassisinghbrar@gmail.com>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@ti.com>,
- David Airlie <airlied@linux.ie>,
- "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Jakub Kicinski <kuba@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Vivien Didelot <vivien.didelot@gmail.com>,
- Wolfgang Grandegger <wg@grandegger.com>,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- Ohad Ben-Cohen <ohad@wizery.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
- Linux Watchdog Mailing List <linux-watchdog@vger.kernel.org>,
- Linux PM list <linux-pm@vger.kernel.org>, linux-can@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>, Marc Kleine-Budde <mkl@pengutronix.de>,
- Kamal Dasu <kdasu.kdev@gmail.com>, Paul Walmsley <paul.walmsley@sifive.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, Jens Axboe <axboe@kernel.dk>,
- Alessandro Zummo <a.zummo@towertech.it>, Guenter Roeck <linux@roeck-us.net>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
- netdev <netdev@vger.kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- USB list <linux-usb@vger.kernel.org>,
- Linux MMC List <linux-mmc@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-spi <linux-spi@vger.kernel.org>,
- Linux IOMMU <iommu@lists.linux-foundation.org>,
- Palmer Dabbelt <palmer@dabbelt.com>,
- Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- dmaengine <dmaengine@vger.kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Jonathan Cameron <jic23@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4fdde55198294a07f04933f7cef937fcb654c901.1624425670.git.christophe.jaillet@wanadoo.fr>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-ORIG-GUID: KXRfO7fq66-Z4md6qkgM-t4DEuQv-mgZ
+X-Proofpoint-GUID: KXRfO7fq66-Z4md6qkgM-t4DEuQv-mgZ
+Cc: alsa-devel@alsa-project.org, support.opensource@diasemi.com,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
+ kernel-janitors@vger.kernel.org, tiwai@suse.com, broonie@kernel.org,
+ Adam.Thomson.Opensource@diasemi.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -142,63 +110,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jun 22, 2021 at 2:17 AM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
->
-> Hi Rob,
->
-> On Tue, Jun 15, 2021 at 9:16 PM Rob Herring <robh@kernel.org> wrote:
-> > If a property has an 'items' list, then a 'minItems' or 'maxItems' with the
-> > same size as the list is redundant and can be dropped. Note that is DT
-> > schema specific behavior and not standard json-schema behavior. The tooling
-> > will fixup the final schema adding any unspecified minItems/maxItems.
-> >
-> > This condition is partially checked with the meta-schema already, but
-> > only if both 'minItems' and 'maxItems' are equal to the 'items' length.
-> > An improved meta-schema is pending.
->
-> > Signed-off-by: Rob Herring <robh@kernel.org>
->
-> > --- a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
-> > +++ b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
-> > @@ -46,7 +46,6 @@ properties:
-> >
-> >    clocks:
-> >      minItems: 3
-> > -    maxItems: 5
-> >      items:
-> >        - description: GMAC main clock
-> >        - description: MAC TX clock
->
-> While resolving the conflict with commit fea99822914039c6
-> ("dt-bindings: net: document ptp_ref clk in dwmac") in soc/for-next,
-> I noticed the following construct for clock-names:
->
->   clock-names:
->     minItems: 3
->     maxItems: 6
->     contains:
->       enum:
->         - stmmaceth
->         - mac-clk-tx
->         - mac-clk-rx
->         - ethstp
->         - eth-ck
->         - ptp_ref
->
-> Should this use items instead of enum, and drop maxItems, or is this
-> a valid construct to support specifying the clocks in random order?
-> If the latter, it does mean that the order of clock-names may not
-> match the order of the clock descriptions.
+On Wed, Jun 23, 2021 at 07:22:45AM +0200, Christophe JAILLET wrote:
+> If 'of_clk_add_hw_provider()' fails, the previous 'for' loop will have
+> run completely and 'i' is know to be 'DA7219_DAI_NUM_CLKS'.
+> 
+> In such a case, there will be an out-of-bounds access when using
+> 'da7219->dai_clks_lookup[i]' and '&da7219->dai_clks_hw[i]'.
+> 
+> To avoid that, add a new label, 'err_free_all', which set the expected
+> value of 'i' in such a case.
+> 
+> Fixes: 78013a1cf297 ("ASoC: da7219: Fix clock handling around codec level probe")
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+> ---
+>  sound/soc/codecs/da7219.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/codecs/da7219.c b/sound/soc/codecs/da7219.c
+> index 13009d08b09a..1e8b491d1fd3 100644
+> --- a/sound/soc/codecs/da7219.c
+> +++ b/sound/soc/codecs/da7219.c
+> @@ -2204,12 +2204,14 @@ static int da7219_register_dai_clks(struct snd_soc_component *component)
+>  					     da7219->clk_hw_data);
+>  		if (ret) {
+>  			dev_err(dev, "Failed to register clock provider\n");
+> -			goto err;
+> +			goto err_free_all;
+>  		}
+>  	}
+>  
+>  	return 0;
+>  
+> +err_free_all:
+> +	i = DA7219_DAI_NUM_CLKS - 1;
+>  err:
+>  	do {
+>  		if (da7219->dai_clks_lookup[i])
 
-'contains' is true if one or more entries match the strings. So it is
-really saying one of these is required. That's not really much of a
-constraint. There's 'minContains' and 'maxContains' in newer
-json-schema versions (not yet supported) that could add some
-constraints if there has to be at least N entries from contains. An
-'items' schema (as opposed to a list) would say all items have to
-match one of the strings. I'm sure that's too strict.
+This do while statement is wrong and it leads to potentially calling
+clk_hw_unregister() on clks that haven't been registered.
 
-TLDR: clocks for this binding are a mess and the above is probably all
-we can do here.
+I think that calling clk_hw_unregister() on unregistered clocks is
+supposed to okay but I found a case where it leads to a WARN_ON()
+(Nothing else harmful).  It's in __clk_register() if the alloc_clk()
+fails:
 
-Rob
+	hw->clk = alloc_clk(core, NULL, NULL);
+        if (IS_ERR(hw->clk)) {
+                ret = PTR_ERR(hw->clk);
+                goto fail_create_clk;  // <- forgot to set hw->clk = NULL
+        }
+
+The better way to handle errors from loops is to clean up partial
+iterations before doing the goto.  So add a clk_hw_unregister() if the
+dai_clk_lookup = clkdev_hw_create() assignment fails.  Then use a
+while (--i >= 0) loop in the unwind section:
+
+err_free_all:
+	i = DA7219_DAI_NUM_CLKS;
+err:
+	while (--i >= 0) {
+
+regards,
+dan carpenter
+

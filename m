@@ -2,48 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D89123B1CC8
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Jun 2021 16:42:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCAA83B1CE7
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Jun 2021 16:53:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6871D83A;
-	Wed, 23 Jun 2021 16:41:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6871D83A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3725C165E;
+	Wed, 23 Jun 2021 16:52:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3725C165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624459352;
-	bh=0G4eTzYU/sxML8MFRQRFHh1FXOTvMtBa+B5mOTVLJHI=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1624460016;
+	bh=PdLaKpaf05SBcRmkYLITm+lAZnEl9J4bJrzdGYLgQdM=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Dk4haKrtycLmHnQK2+GK45skmmthwYsfdVG1YPBonF6VKqbaAH1lAdak0dF/ueZqX
-	 VvwPKLNTAY0weVqzqz3NFYF1PZge4skHYCZqvCOeVfy/8mUA2cdEaSRmSm4eJACLLF
-	 fps8bEIIPuB9lXhc8d+c5h/o+3ZRZnpAT+537IQw=
+	b=K4I+2lm3ROYWb7Fz/r6SAUDKOOYqEwXyJbBhNtoKlG+rQ/6VkUBCJUWwP/Abaq1IK
+	 jMljXX6JrVpJWFz1lKuItQUsOnyBl09xpIku5WkeOaiHxSjWcSbLDk/bpqg5jNcvAz
+	 xd1Y8b76Bi/yYX+joeBgn/FtHNTZpxppvURVFp04=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF46EF8016D;
-	Wed, 23 Jun 2021 16:41:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8FD77F800E1;
+	Wed, 23 Jun 2021 16:52:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 519B3F8016D; Wed, 23 Jun 2021 16:41:02 +0200 (CEST)
+ id D6C96F8016D; Wed, 23 Jun 2021 16:52:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id E785AF80137
- for <alsa-devel@alsa-project.org>; Wed, 23 Jun 2021 16:40:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E785AF80137
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1624459252042319059-webhooks-bot@alsa-project.org>
-References: <1624459252042319059-webhooks-bot@alsa-project.org>
-Subject: UCM2 documentation
-Message-Id: <20210623144102.519B3F8016D@alsa1.perex.cz>
-Date: Wed, 23 Jun 2021 16:41:02 +0200 (CEST)
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4561AF80137
+ for <alsa-devel@alsa-project.org>; Wed, 23 Jun 2021 16:51:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4561AF80137
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="yKDkCEB1"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="5r18NSuo"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 817AC1FD36;
+ Wed, 23 Jun 2021 14:51:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1624459915; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FadA493UMb/E1PakDr4gbcfyLWXAiyV6y581dnW71V8=;
+ b=yKDkCEB1VFREhDb8H784Fr93eefpgxcfqkxtyWInDmR7YQEXgyFxWb9ODvPttDaleIaYtN
+ Ut9ONQ4Ij2RnbRvl7x3e7KZRAp5HGvnaYpSuwiq7IrCCkrk9tXUI1aK97ot7LQ4lvbDndv
+ K96B7Kko5XSzbI8aV3aG84PzEkSfYuE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1624459915;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FadA493UMb/E1PakDr4gbcfyLWXAiyV6y581dnW71V8=;
+ b=5r18NSuoe3fflPvpxhHzwhd/tj0ZXmGsLkweCwrEot4Sbmhm+NPbM+f/uJO95JRZaawtd+
+ DLnKeguFp34DiuAA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 6E226A3B91;
+ Wed, 23 Jun 2021 14:51:55 +0000 (UTC)
+Date: Wed, 23 Jun 2021 16:51:55 +0200
+Message-ID: <s5h1r8socqc.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Imre Deak <imre.deak@intel.com>
+Subject: Re: [PATCH 1/2] ALSA: hda: Release controller display power during
+ shutdown/reboot
+In-Reply-To: <20210623134601.2128663-1-imre.deak@intel.com>
+References: <20210623134601.2128663-1-imre.deak@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Thomas Voegtle <tv@lio96.de>, intel-gfx@lists.freedesktop.org,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,14 +94,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #103 was opened from perexg:
+On Wed, 23 Jun 2021 15:46:00 +0200,
+Imre Deak wrote:
+> 
+> Make sure the HDA driver's display power reference is released during
+> shutdown/reboot.
+> 
+> During the shutdown/reboot sequence the pci device core calls the
+> pm_runtime_resume handler for all devices before calling the driver's
+> shutdown callback and so the HDA driver's runtime resume callback will
+> acquire a display power reference (on HSW/BDW). This triggers a power
+> reference held WARN on HSW/BDW in the i915 driver's subsequent shutdown
+> handler, which expects all display power references to be released by
+> that time.
+> 
+> Since the HDA controller is stopped in the shutdown handler in any case,
+> let's follow here the same sequence as the one during runtime suspend.
+> This will also reset the HDA link and drop the display power reference,
+> getting rid of the above WARN.
+> 
+> Tested on HSW.
+> 
+> v2:
+> - Fix the build for CONFIG_PM=n (Takashi)
+> - s/__azx_runtime_suspend/azx_shutdown_chip/
+> 
+> Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/3618
+> References: https://lore.kernel.org/lkml/cea1f9a-52e0-b83-593d-52997fe1aaf6@er-systems.de
+> Reported-and-tested-by: Thomas Voegtle <tv@lio96.de>
+> Cc: Takashi Iwai <tiwai@suse.de>
+> Signed-off-by: Imre Deak <imre.deak@intel.com>
 
-Add/improve the documentation for
+Thanks, applied both patches now.
 
-- directory tree layout
-- build-in string substitutions
-- runtime conditional configuration selection
-- mixer settings (boot -> use -> verb -> device)
 
-Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/103
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+Takashi

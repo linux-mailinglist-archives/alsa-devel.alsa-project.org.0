@@ -2,83 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCAA83B1CE7
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Jun 2021 16:53:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34F243B1E65
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Jun 2021 18:11:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3725C165E;
-	Wed, 23 Jun 2021 16:52:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3725C165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id A10F1166E;
+	Wed, 23 Jun 2021 18:10:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A10F1166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624460016;
-	bh=PdLaKpaf05SBcRmkYLITm+lAZnEl9J4bJrzdGYLgQdM=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1624464695;
+	bh=XycGzb/Or5rXgqXxq5Pfdilk0APC+bbYpOpd9WsN+44=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=K4I+2lm3ROYWb7Fz/r6SAUDKOOYqEwXyJbBhNtoKlG+rQ/6VkUBCJUWwP/Abaq1IK
-	 jMljXX6JrVpJWFz1lKuItQUsOnyBl09xpIku5WkeOaiHxSjWcSbLDk/bpqg5jNcvAz
-	 xd1Y8b76Bi/yYX+joeBgn/FtHNTZpxppvURVFp04=
+	b=sUkTSR5qFOtuys1ndicSQ0Q5MeM6kWak62yYTL/oWb6QqwnTwNFfvKd+/V3xrf/H+
+	 +p1/FS6wq6bnd1y4FAkmAAkK/1H6FHqmeTRF7ZWtYq9cIezszc8lJcSSqC3bGbn9hC
+	 ZW+A3RQA3gDts0cx0nFGgZD77yyH/N7RFiUfT8m4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FD77F800E1;
-	Wed, 23 Jun 2021 16:52:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09B1CF80290;
+	Wed, 23 Jun 2021 18:09:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D6C96F8016D; Wed, 23 Jun 2021 16:52:03 +0200 (CEST)
+ id 5024DF801D5; Wed, 23 Jun 2021 18:09:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4561AF80137
- for <alsa-devel@alsa-project.org>; Wed, 23 Jun 2021 16:51:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4561AF80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8B1E6F8016B
+ for <alsa-devel@alsa-project.org>; Wed, 23 Jun 2021 18:09:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B1E6F8016B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="yKDkCEB1"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="5r18NSuo"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 817AC1FD36;
- Wed, 23 Jun 2021 14:51:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624459915; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=FadA493UMb/E1PakDr4gbcfyLWXAiyV6y581dnW71V8=;
- b=yKDkCEB1VFREhDb8H784Fr93eefpgxcfqkxtyWInDmR7YQEXgyFxWb9ODvPttDaleIaYtN
- Ut9ONQ4Ij2RnbRvl7x3e7KZRAp5HGvnaYpSuwiq7IrCCkrk9tXUI1aK97ot7LQ4lvbDndv
- K96B7Kko5XSzbI8aV3aG84PzEkSfYuE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624459915;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=FadA493UMb/E1PakDr4gbcfyLWXAiyV6y581dnW71V8=;
- b=5r18NSuoe3fflPvpxhHzwhd/tj0ZXmGsLkweCwrEot4Sbmhm+NPbM+f/uJO95JRZaawtd+
- DLnKeguFp34DiuAA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 6E226A3B91;
- Wed, 23 Jun 2021 14:51:55 +0000 (UTC)
-Date: Wed, 23 Jun 2021 16:51:55 +0200
-Message-ID: <s5h1r8socqc.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Imre Deak <imre.deak@intel.com>
-Subject: Re: [PATCH 1/2] ALSA: hda: Release controller display power during
- shutdown/reboot
-In-Reply-To: <20210623134601.2128663-1-imre.deak@intel.com>
-References: <20210623134601.2128663-1-imre.deak@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: Thomas Voegtle <tv@lio96.de>, intel-gfx@lists.freedesktop.org,
- alsa-devel@alsa-project.org
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Y6+OULoo"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B8DEA611CB;
+ Wed, 23 Jun 2021 16:09:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1624464582;
+ bh=XycGzb/Or5rXgqXxq5Pfdilk0APC+bbYpOpd9WsN+44=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Y6+OULooCZkRCYLOck+FarGNR1whZWAjnNUqxQP+vHnmdm9fIh8d320I+xsj5N7R9
+ B94VqkbW6XVZRajonlkGv2gaOJT8p/mFoMKw0UM1+nD8531vDy5t/AfsKWaAQievpK
+ bbrrlwuL5/nzDJpjMeOBJyGoEng62Brx74mqbVxtsWbmXshGc8KpN69HQJMK3usTbo
+ Zm0+HCgd9a7RzYPhWA/6/prSSUxjFi8xWVuiTLgZpGwoFIltvsMIzqPDoPclGZAza2
+ MwQPtefUA28lMu9KE4QlL6FuY10IqCifknf6HM6fFcFzSC04WfjTNwoMQ+MSB72/qy
+ 5X7yZnzfXkHcA==
+From: Mark Brown <broonie@kernel.org>
+To: alsa-devel@alsa-project.org, nicoleotsuka@gmail.com, festevam@gmail.com,
+ tiwai@suse.com, Shengjiu Wang <shengjiu.wang@nxp.com>, timur@kernel.org,
+ Xiubo.Lee@gmail.com, perex@perex.cz
+Subject: Re: [PATCH] ASoC: fsl_spdif: Fix unexpected interrupt after suspend
+Date: Wed, 23 Jun 2021 17:08:56 +0100
+Message-Id: <162446397756.55213.7915054235058479880.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <1624365084-7934-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1624365084-7934-1-git-send-email-shengjiu.wang@nxp.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,38 +81,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 23 Jun 2021 15:46:00 +0200,
-Imre Deak wrote:
+On Tue, 22 Jun 2021 20:31:24 +0800, Shengjiu Wang wrote:
+> When system enter suspend, the machine driver suspend callback
+> function will be called, then the cpu driver trigger callback
+> (SNDRV_PCM_TRIGGER_SUSPEND) be called, it would disable the
+> interrupt.
 > 
-> Make sure the HDA driver's display power reference is released during
-> shutdown/reboot.
+> But the machine driver suspend and cpu dai driver suspend order
+> maybe changed, the cpu dai driver's suspend callback is called before
+> machine driver's suppend callback, then the interrupt is not cleared
+> successfully in trigger callback.
 > 
-> During the shutdown/reboot sequence the pci device core calls the
-> pm_runtime_resume handler for all devices before calling the driver's
-> shutdown callback and so the HDA driver's runtime resume callback will
-> acquire a display power reference (on HSW/BDW). This triggers a power
-> reference held WARN on HSW/BDW in the i915 driver's subsequent shutdown
-> handler, which expects all display power references to be released by
-> that time.
-> 
-> Since the HDA controller is stopped in the shutdown handler in any case,
-> let's follow here the same sequence as the one during runtime suspend.
-> This will also reset the HDA link and drop the display power reference,
-> getting rid of the above WARN.
-> 
-> Tested on HSW.
-> 
-> v2:
-> - Fix the build for CONFIG_PM=n (Takashi)
-> - s/__azx_runtime_suspend/azx_shutdown_chip/
-> 
-> Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/3618
-> References: https://lore.kernel.org/lkml/cea1f9a-52e0-b83-593d-52997fe1aaf6@er-systems.de
-> Reported-and-tested-by: Thomas Voegtle <tv@lio96.de>
-> Cc: Takashi Iwai <tiwai@suse.de>
-> Signed-off-by: Imre Deak <imre.deak@intel.com>
+> [...]
 
-Thanks, applied both patches now.
+Applied to
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Takashi
+Thanks!
+
+[1/1] ASoC: fsl_spdif: Fix unexpected interrupt after suspend
+      commit: a7a0a2feb957e446b2bcf732f245ba04fc8b6314
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

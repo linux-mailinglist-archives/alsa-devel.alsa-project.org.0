@@ -2,117 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39BEE3B1A21
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Jun 2021 14:31:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FFD43B1B83
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Jun 2021 15:48:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 977861663;
-	Wed, 23 Jun 2021 14:30:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 977861663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84B4E167B;
+	Wed, 23 Jun 2021 15:47:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84B4E167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624451460;
-	bh=LYmysgAYQbYf4D5WIV3nX+JHKv4gcr5JH0CPAhQp3EQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=YS2z1XFf4M7EJsh8B1OD4cOZSLtjWFfvG2KkgzJHt7UG5S7D7oSbV91XnX9Jhzutz
-	 kSOQyoL3bn6WdBZu5Y14QEPpnvtJeECTFIkn3yNEHu1Ny0uXJw+DVBP/QG6CJobtJX
-	 VO1JouuMdkec/qCBUBeLRIZ+t35nudC4jaVqrnSs=
+	s=default; t=1624456085;
+	bh=fFpYU0x9+0yKkPRD602KT1wQRy50geJFXahCdFBUQiw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=hmatJZWt9SHaonkSu9avPIeCUPnW+LeYDnXWZXu55vhEBCzfeaFEj7+s1dRTAioMj
+	 H//PJvtMN8XyF7lgFWc1YxgRsEx+aPaqAVlMhaXqvQ8gTuzxnCrRCo5c87ZQRYFHJt
+	 ayo9PeZJzjgrB4POJ58RkoY7LVeEq42WOKva+Rvs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15E2DF8016B;
-	Wed, 23 Jun 2021 14:29:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 33F33F80245;
+	Wed, 23 Jun 2021 15:46:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 23EF5F8016D; Wed, 23 Jun 2021 14:29:19 +0200 (CEST)
+ id 0F805F8016D; Wed, 23 Jun 2021 15:46:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
- [66.111.4.230])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AA780F80137
- for <alsa-devel@alsa-project.org>; Wed, 23 Jun 2021 14:29:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA780F80137
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="2eJlQpIH"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="lcr+uzMg"
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailnew.nyi.internal (Postfix) with ESMTP id 44CF35805E0;
- Wed, 23 Jun 2021 08:29:07 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Wed, 23 Jun 2021 08:29:07 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=LYmysgAYQbYf4D5WIV3nX+JHKv4
- gcr5JH0CPAhQp3EQ=; b=2eJlQpIHzliDahyhagWavmKnGgwp95ZisZfiYEn9MQr
- kFnx2PwYMwEwfxbsdSuu5H0iwUSDqsdvFTmGqElDbDAKRvHLLvLCIS1C2D4DLieT
- tdt+ULQRftMO8WV54GoiYsTiwbC3K1wUdoLrhvxobU6PNICaLAhzZZh5qwYIYHgW
- Qot3r07h03x4S/7gR4qA7Boi0D2f9UFjmRPBw0qSmGz4XnDhs7jQPkAAdv7QCFLi
- nJ9LVhD5NkgH7pPP4p/GixwP9y3ZHmJ2RmYL33AYyyR72L0/7xJhBtB7rBKnw5uJ
- aGzyS9WSLYNaGC0bdDafCdCCbAUf/zU12Sh0GMJYOCg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=LYmysg
- AYQbYf4D5WIV3nX+JHKv4gcr5JH0CPAhQp3EQ=; b=lcr+uzMgCh79q2GtuWp50h
- xEyL0RWnfNYX34/c26G/ynQQcmDVGgDu76mPvLqRRyrlHWQm54BVa78BABb3nkjD
- RiE2e7XdKfj1iVGoZVQ27NgzEBxvM/5y4zx4W6Nd0dTIpqxtQgmQdEcaiXvm0Yp5
- MIGwT6Y0dztc9joSc9wgrs7/e2oOtOMeCndXFrRRrlCoirJE24OTBUeJF+EMLOdE
- APyK+Rzg9kPtZD+blzODFda0w24L/NONnXqZOovMh6kY6zlKzZLQlAwKiaN0GlyK
- eVGAOHLp5rFyuNX7+j7zSLsA1ePkLNUQVn59JahN0ZKhhonk+V1xtXGWaY3MxZaw
- ==
-X-ME-Sender: <xms:ESnTYK_C-21U2l2QozyILoNSlPVqKfpTp1q6YqEseQtERYTgD7wEjA>
- <xme:ESnTYKs6ZYg2RUE3T4E6_4WYfh7byUamSHlJxrXSRIO9zEAnf3vP53J6ISh3gHTex
- vjveIKAZEot9ElXG9Q>
-X-ME-Received: <xmr:ESnTYAD101y1Z0cSzKC5muGw7O86ArnMv0EERbPkuBkRESwg4ufvcqvrEDGFH43cICse_euQkCXeR5wF_iBFxf7l5AzuiVuIDg2F>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeegfedgheefucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepleekgeehhfdutdeljefgleejffehfffgieejhffgueefhfdtveetgeehieeh
- gedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
- grgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:ESnTYCe9QBXtVFJhfKsnRwaDl-xkxqvQydUEScUwiqPYbRcEi1TlPQ>
- <xmx:ESnTYPNXuaRR8kEvEfb-7qU59Zify5c9K1HKVr_vC8Om2KWmtIZAxg>
- <xmx:ESnTYMlg2fbk5mkdtWnpb4rpr71L0d4YVRQ-KoHTE6BfyypN_1u9OQ>
- <xmx:EynTYCdX2W4keJN3BziO7ALHGBYvumNaAZ_6JzvRr3sRzPLV1XkbCg>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 23 Jun 2021 08:29:04 -0400 (EDT)
-Date: Wed, 23 Jun 2021 14:29:03 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: nicolas saenz julienne <nsaenz@kernel.org>
-Subject: Re: [PATCH v2 10/12] drm/vc4: hdmi: Register HDMI codec
-Message-ID: <20210623122903.nvkm7hagt324n4pd@gilmour>
-References: <20210525132354.297468-1-maxime@cerno.tech>
- <20210525132354.297468-11-maxime@cerno.tech>
- <c1ee306fbc81da2df7d0041c719fc8cd3302cf0f.camel@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D9462F800E1
+ for <alsa-devel@alsa-project.org>; Wed, 23 Jun 2021 15:46:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9462F800E1
+IronPort-SDR: Jl7Xqxmiu+CcTDF5gadOX4ugl6qmoU2zZjQ12rzvL00Ehhb6iSzfUBQ8MJQIpY03+j/VpFjNWQ
+ IHhqq0EVm6tw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10024"; a="207200308"
+X-IronPort-AV: E=Sophos;i="5.83,293,1616482800"; d="scan'208";a="207200308"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2021 06:46:07 -0700
+IronPort-SDR: lc/6KHCN2Sbrc8eQqTIdKMvL2kU5TG4vhfg37NL00WwxvcCTImDx9ygKR34uR+qcgMlDUNPaDr
+ 6IeZmYJy+n/A==
+X-IronPort-AV: E=Sophos;i="5.83,293,1616482800"; d="scan'208";a="453039185"
+Received: from ideak-desk.fi.intel.com ([10.237.68.141])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2021 06:46:03 -0700
+From: Imre Deak <imre.deak@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Subject: [PATCH 1/2] ALSA: hda: Release controller display power during
+ shutdown/reboot
+Date: Wed, 23 Jun 2021 16:46:00 +0300
+Message-Id: <20210623134601.2128663-1-imre.deak@intel.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="ed3s3jfq3fuhw3ac"
-Content-Disposition: inline
-In-Reply-To: <c1ee306fbc81da2df7d0041c719fc8cd3302cf0f.camel@kernel.org>
-Cc: alsa-devel@alsa-project.org, Tim Gover <tim.gover@raspberrypi.com>,
- Liam Girdwood <lgirdwood@gmail.com>, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org, Takashi Iwai <tiwai@suse.com>,
- Eric Anholt <eric@anholt.net>, Daniel Vetter <daniel.vetter@intel.com>,
- Phil Elwell <phil@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, linux-doc@vger.kernel.org,
- bcm-kernel-feedback-list@broadcom.com, devicetree@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Dom Cobley <dom@raspberrypi.com>,
- Jonathan Corbet <corbet@lwn.net>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Nicolas Saenz Julienne <nsaenzjulienne@suse.de>
+Content-Transfer-Encoding: 8bit
+Cc: Takashi Iwai <tiwai@suse.de>, Thomas Voegtle <tv@lio96.de>,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,36 +74,98 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Make sure the HDA driver's display power reference is released during
+shutdown/reboot.
 
---ed3s3jfq3fuhw3ac
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+During the shutdown/reboot sequence the pci device core calls the
+pm_runtime_resume handler for all devices before calling the driver's
+shutdown callback and so the HDA driver's runtime resume callback will
+acquire a display power reference (on HSW/BDW). This triggers a power
+reference held WARN on HSW/BDW in the i915 driver's subsequent shutdown
+handler, which expects all display power references to be released by
+that time.
 
-On Tue, Jun 01, 2021 at 11:26:24AM +0200, nicolas saenz julienne wrote:
-> On Tue, 2021-05-25 at 15:23 +0200, Maxime Ripard wrote:
-> > The hdmi-codec brings a lot of advanced features, including the HDMI
-> > channel mapping. Let's use it in our driver instead of our own codec.
-> >=20
-> > Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-> > ---
->=20
-> Reviewed-by: Nicolas Saenz Julienne <nsaenz@kernel.org>
+Since the HDA controller is stopped in the shutdown handler in any case,
+let's follow here the same sequence as the one during runtime suspend.
+This will also reset the HDA link and drop the display power reference,
+getting rid of the above WARN.
 
-Applied 6 to 10, I'll resend 11
+Tested on HSW.
 
-Thanks!
-Maxime
+v2:
+- Fix the build for CONFIG_PM=n (Takashi)
+- s/__azx_runtime_suspend/azx_shutdown_chip/
 
---ed3s3jfq3fuhw3ac
-Content-Type: application/pgp-signature; name="signature.asc"
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/3618
+References: https://lore.kernel.org/lkml/cea1f9a-52e0-b83-593d-52997fe1aaf6@er-systems.de
+Reported-and-tested-by: Thomas Voegtle <tv@lio96.de>
+Cc: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+---
+ sound/pci/hda/hda_intel.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index 7f8f11536a3dc..f5ab0b682adcc 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -883,6 +883,14 @@ static unsigned int azx_get_pos_skl(struct azx *chip, struct azx_dev *azx_dev)
+ 	return azx_get_pos_posbuf(chip, azx_dev);
+ }
+ 
++static void azx_shutdown_chip(struct azx *chip)
++{
++	azx_stop_chip(chip);
++	azx_enter_link_reset(chip);
++	azx_clear_irq_pending(chip);
++	display_power(chip, false);
++}
++
+ #ifdef CONFIG_PM
+ static DEFINE_MUTEX(card_list_lock);
+ static LIST_HEAD(card_list);
+@@ -942,14 +950,6 @@ static bool azx_is_pm_ready(struct snd_card *card)
+ 	return true;
+ }
+ 
+-static void __azx_runtime_suspend(struct azx *chip)
+-{
+-	azx_stop_chip(chip);
+-	azx_enter_link_reset(chip);
+-	azx_clear_irq_pending(chip);
+-	display_power(chip, false);
+-}
+-
+ static void __azx_runtime_resume(struct azx *chip)
+ {
+ 	struct hda_intel *hda = container_of(chip, struct hda_intel, chip);
+@@ -1028,7 +1028,7 @@ static int azx_suspend(struct device *dev)
+ 
+ 	chip = card->private_data;
+ 	bus = azx_bus(chip);
+-	__azx_runtime_suspend(chip);
++	azx_shutdown_chip(chip);
+ 	if (bus->irq >= 0) {
+ 		free_irq(bus->irq, chip);
+ 		bus->irq = -1;
+@@ -1107,7 +1107,7 @@ static int azx_runtime_suspend(struct device *dev)
+ 	/* enable controller wake up event */
+ 	azx_writew(chip, WAKEEN, azx_readw(chip, WAKEEN) | STATESTS_INT_MASK);
+ 
+-	__azx_runtime_suspend(chip);
++	azx_shutdown_chip(chip);
+ 	trace_azx_runtime_suspend(chip);
+ 	return 0;
+ }
+@@ -2383,7 +2383,7 @@ static void azx_shutdown(struct pci_dev *pci)
+ 		return;
+ 	chip = card->private_data;
+ 	if (chip && chip->running)
+-		azx_stop_chip(chip);
++		azx_shutdown_chip(chip);
+ }
+ 
+ /* PCI IDs */
+-- 
+2.27.0
 
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYNMpDwAKCRDj7w1vZxhR
-xTtEAQCsRUnfy20Se4iYG9OnMpYBOcMIXkIlk4MHoGG22GbIhgD+KEWBCy8hUjqQ
-hXB++Vu4wHH9EPXj1HdCg3lwFXxWrQI=
-=QYZn
------END PGP SIGNATURE-----
-
---ed3s3jfq3fuhw3ac--

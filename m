@@ -2,82 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 386873B1527
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Jun 2021 09:54:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EDCF3B1556
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Jun 2021 10:02:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A555584D;
-	Wed, 23 Jun 2021 09:53:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A555584D
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC7C51670;
+	Wed, 23 Jun 2021 10:01:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC7C51670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624434839;
-	bh=tDC005aILTTjECiMIqJECyRaHhzFzzGbRa7x02wr7l0=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=d905VhZXwui5uLIwxJ0y0EJ3j2V27hHvcT2DBP0JrFKHTQwkFZDfNQRdllmc/rIQe
-	 44LdgagiLAF9xJ7/cA/2hX7etGFNNHYO0UaohgDgisXZ9qFdAzd4+hV8rdsJtOfCvD
-	 GgvHSk5BT5fqfuHUKrfIYQxblOkItkvdteGD+s7c=
+	s=default; t=1624435346;
+	bh=DMCDI1FdvNasocrQJktJqB2zcCM4p/48bnCig+pN+7M=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RIyRqiNGgb64PESz52B+/5yKQ2lgDKfq6xMJNXJByTyJIbypnMMhUCyoy7oHACED/
+	 n92++cSlEa/5lcH4QoF6Tv2yt00+qGVgF8x3SvLUtDciWX/y/gte4EmJKoAmVpx63m
+	 WPtqrJq4JDvAatcGFqSi1DpE1pRKznDIJcAKhQE8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1053F801D5;
-	Wed, 23 Jun 2021 09:52:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F102F804E3;
+	Wed, 23 Jun 2021 10:00:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 39F29F8016D; Wed, 23 Jun 2021 09:52:29 +0200 (CEST)
+ id 8120CF800E1; Wed, 23 Jun 2021 10:00:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4CD8FF800E1
- for <alsa-devel@alsa-project.org>; Wed, 23 Jun 2021 09:52:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CD8FF800E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4373EF800B5
+ for <alsa-devel@alsa-project.org>; Wed, 23 Jun 2021 09:59:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4373EF800B5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Dw/u2DxL"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="1jhj+zZ1"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id EAAF71FD65;
- Wed, 23 Jun 2021 07:52:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624434739; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Pcv/RxJqvs+ARh32kXIcvqKvvuFd/O/2pKppZ76oYFA=;
- b=Dw/u2DxL41ugf+b06A4ItxEkj6c4v4X95A7l8SlzANxV8ZOesjVL13XhN+nOrpBxoSMwtI
- PhV0iw6ProHr4XZE6vtl93+khcGouvxQV22AKJiVJHBiu6rUrnxPxEEkm0G/Jtf5TpGwH8
- Wr9HqAr3StZB1d8xhquiAcU6IfH8q34=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624434739;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Pcv/RxJqvs+ARh32kXIcvqKvvuFd/O/2pKppZ76oYFA=;
- b=1jhj+zZ1IHIAQtHOhRiKRx88CqacVqSYsjiQVz27jFLZ+q0Y74vni2+q2ukbwtmuA3SCNZ
- Gsz9ncyL7/+Q9qBg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id D3183A3B91;
- Wed, 23 Jun 2021 07:52:19 +0000 (UTC)
-Date: Wed, 23 Jun 2021 09:52:19 +0200
-Message-ID: <s5h1r8tow5o.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "Geoffrey D. Bennett" <g@b4.vu>
-Subject: Re: [PATCH] MAINTAINERS: Add Focusrite Scarlett Gen 2/3 Mixer Driver
- entry
-In-Reply-To: <20210622171724.GA15534@m.b4.vu>
-References: <20210622171724.GA15534@m.b4.vu>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="T07mB0Mn"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="dR01G1Ga"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.west.internal (Postfix) with ESMTP id 9951910C2;
+ Wed, 23 Jun 2021 03:59:47 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Wed, 23 Jun 2021 03:59:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm1; bh=AJoHG+kNq+Bts6rhDXUUelwOON
+ 7hFs2SO1t8c/q0w9A=; b=T07mB0MnMVDZF5Gj8qZLOTGE2Ks2bK6qXuwIPw0qEP
+ 1IUolNXjhu27blph3a3aqOOzVlaIi30IevjYajy4H8lWHx7hFj5T8IH04Z/NxWlA
+ mUyfzsYIPoFzW3QFd6nPo0SlucIPp4RZN0IJRubo0oDbKXoMAda4X8Sh/Pruk7OG
+ iUbeLPGH6vBaa7qKqTELgQVCw/KYXZVzJDrGhFbaEc3427vb0Ibr4FGKXjEQ3nCB
+ V+/43YRx/F7/5gl5b6ORiBLNB5nIOwRvlgnew9LCFfL0ZYitUQVkuVChoj+DeQFT
+ leYHNXgAKDTWDqWnx9DmykNWwGEfnIs83qN7QCbSlJgg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=AJoHG+kNq+Bts6rhD
+ XUUelwOON7hFs2SO1t8c/q0w9A=; b=dR01G1Ga9P2uOKodhBOp8uPc+VBRijwOj
+ MQ8sbuB24p0sPW3FLcheq/oYaaHiD920UXcr2VY1YDOyTheOh/hAdTBg9SowEEij
+ ZzE4p9n+dGrIchYLGEiabPtk2XhE5hiIzFWYpPEic0iVx4f3VYumXxX03pyk2cbV
+ dq7PWLxDoGwgVhBqkEmq+mReTzSUBaHWAkSGyMYqqw0iZwoXEvO0tdI0vGu1xRj3
+ fPpI6Jp9kOymMHr6IkluxwjOwOt64DYSIfHlcgMK+k2ew/cB2L1OxzwFIj9Ml6Wo
+ Cn1t7do5N6kZqNfV4RJYU+EkWrn9mtwmWOCfv5z/LBsdpMB9wbTOA==
+X-ME-Sender: <xms:8unSYBS5MZChT1sjgUVdaL7J8c9UaZjEtg3T8lP04ayXHX9R3GVmPA>
+ <xme:8unSYKzh2U_uSME2a4dFAE28IlUQB-MB60VO2JvrVPMDbpUdJdJhKsxy_YCcSofhT
+ KX9NU693Uv1aK4CxRc>
+X-ME-Received: <xmr:8unSYG32derAXoT0kv2ywB03RaM4vbTP5uCYiJ46A1P-3UORvNCVUwkBQlVEeHwc_GrhfeFyJI4yg9Fn9xb5smDYReNMdxNmFQrP4At29b05rD4jWgKE>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeegvddguddukecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertd
+ ertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
+ hhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpedujeetlefhtd
+ dtkefgtdeuieelhffgteejjeehkeegveduvdevgeeiheeuueekjeenucevlhhushhtvghr
+ ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrg
+ hkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:8unSYJBG_8bgENRseJJC2YRpppdy2xOUb8dxVwH70rvlm6-UbXob_Q>
+ <xmx:8unSYKgvGj1r9BQd5bvteQTX6OIC3_U5FN0jOYC1A18OPOEsE3Ok4Q>
+ <xmx:8unSYNrWvarqrzqoBmRMkw2ce0joo4g--Lh96tKmmwUja-cxu6Qg0g>
+ <xmx:8-nSYOaT4vGe2RuEi8RUOcM5sW4ylSHJVWh_cHKW4bxYQNYbJfyGIw>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 23 Jun 2021 03:59:45 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: tiwai@suse.de
+Subject: [PATCH 0/9] ALSA: firewire-motu: misc fixes and code refactoring
+Date: Wed, 23 Jun 2021 16:59:32 +0900
+Message-Id: <20210623075941.72562-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,14 +107,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 22 Jun 2021 19:17:24 +0200,
-Geoffrey D. Bennett wrote:
-> 
-> Add Focusrite Scarlett Gen 2/3 Mixer Driver entry.
-> 
-> Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
+Hi,
 
-Applied, thanks.
+This patchset includes misc fixes and code refactoring, mainly for
+detection of sampling clock source and 828/896 support recently added.
 
 
-Takashi
+Takashi Sakamoto (9):
+  ALSA: firewire-motu: fix detection for S/PDIF source on optical
+    interface in v2 protocol
+  ALSA: firewire-motu: code refactoring for detection of clock source in
+    v2 protocol
+  ALSA: firewire-motu: add support for AES/EBU clock source in v2
+    protocol
+  ALSA: firewire-motu: use macro instead of magic number for clock
+    source in v2 protocol
+  ALSA: firewire-motu: code refactoring for packet format detection in
+    v2 protocol
+  ALSA: firewire-motu: code refactoring for source detection of sampling
+    clock in v3 protocol
+  ALSA: firewire-motu: use macro instead of magic number for clock
+    source in v3 protocol
+  ALSA: firewire-motu: fix register handling for 828
+  ALSA: firewire-motu: fix register handling for 896
+
+ sound/firewire/motu/motu-protocol-v1.c |  86 ++++++++----
+ sound/firewire/motu/motu-protocol-v2.c | 176 +++++++++----------------
+ sound/firewire/motu/motu-protocol-v3.c |  79 ++++-------
+ 3 files changed, 143 insertions(+), 198 deletions(-)
+
+-- 
+2.30.2
+

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34F243B1E65
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Jun 2021 18:11:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 828E93B1E64
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Jun 2021 18:11:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A10F1166E;
-	Wed, 23 Jun 2021 18:10:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A10F1166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id F044C165E;
+	Wed, 23 Jun 2021 18:10:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F044C165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624464695;
-	bh=XycGzb/Or5rXgqXxq5Pfdilk0APC+bbYpOpd9WsN+44=;
+	s=default; t=1624464681;
+	bh=a9fb1OmIXyYRR5DVn5i5LpyVNuUaMJ+ArHKgLjEbbVI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sUkTSR5qFOtuys1ndicSQ0Q5MeM6kWak62yYTL/oWb6QqwnTwNFfvKd+/V3xrf/H+
-	 +p1/FS6wq6bnd1y4FAkmAAkK/1H6FHqmeTRF7ZWtYq9cIezszc8lJcSSqC3bGbn9hC
-	 ZW+A3RQA3gDts0cx0nFGgZD77yyH/N7RFiUfT8m4=
+	b=AA7pv2jcV+KmvDS87ek42zlEEQyB2wTmYBKmuOGhgjNLYNSvuum9n7u2PTHqp1HUT
+	 l+eFdgDkb5JibkIcmKXBKgB+I4Rkftf4M3M4A6T+DVXbfnkxkCNsGSa2e+12oDrqaG
+	 07eVWNb1bPygak9D7iXxi+cHhG/FZWj5z8039ttA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09B1CF80290;
-	Wed, 23 Jun 2021 18:09:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52146F801D5;
+	Wed, 23 Jun 2021 18:09:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5024DF801D5; Wed, 23 Jun 2021 18:09:50 +0200 (CEST)
+ id E96AFF801DB; Wed, 23 Jun 2021 18:09:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8B1E6F8016B
- for <alsa-devel@alsa-project.org>; Wed, 23 Jun 2021 18:09:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B1E6F8016B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 873CBF800E1
+ for <alsa-devel@alsa-project.org>; Wed, 23 Jun 2021 18:09:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 873CBF800E1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Y6+OULoo"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B8DEA611CB;
- Wed, 23 Jun 2021 16:09:41 +0000 (UTC)
+ header.b="Z+wuDago"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4DFE8611C1;
+ Wed, 23 Jun 2021 16:09:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624464582;
- bh=XycGzb/Or5rXgqXxq5Pfdilk0APC+bbYpOpd9WsN+44=;
+ s=k20201202; t=1624464584;
+ bh=a9fb1OmIXyYRR5DVn5i5LpyVNuUaMJ+ArHKgLjEbbVI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Y6+OULooCZkRCYLOck+FarGNR1whZWAjnNUqxQP+vHnmdm9fIh8d320I+xsj5N7R9
- B94VqkbW6XVZRajonlkGv2gaOJT8p/mFoMKw0UM1+nD8531vDy5t/AfsKWaAQievpK
- bbrrlwuL5/nzDJpjMeOBJyGoEng62Brx74mqbVxtsWbmXshGc8KpN69HQJMK3usTbo
- Zm0+HCgd9a7RzYPhWA/6/prSSUxjFi8xWVuiTLgZpGwoFIltvsMIzqPDoPclGZAza2
- MwQPtefUA28lMu9KE4QlL6FuY10IqCifknf6HM6fFcFzSC04WfjTNwoMQ+MSB72/qy
- 5X7yZnzfXkHcA==
+ b=Z+wuDagoFRZ3WUE6QB5L8Le5X0PH+ELlnERMWCNQaThVvJw0klcde8MUTITQKnHWZ
+ /Y+tii8ugW/X49vAIHr3TJjkkEbRuDwjTGGF8KBTDmHVVsIRWaEVpDLY3E3Vc17Thb
+ hugjO5XEZ1xXApJ6f/iWNz+x6grKOxCP4P4PpqW1hwDK3DxZPfpfxXwnDIRnSj2cM8
+ wk3Kb0rvC9fGNdYCttXkfyLlbJMGtsXDs8DLEOC4yxgOS35fP0UdtvpDfakoH4thcB
+ AE9l6YTFGE8WZP1Ah5xhzZdIeKSoGOzJMwnXeH4+l9CLpdTyO/2oGgTgtGpBH0sxKk
+ m+Yh5tyFj1qgw==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, nicoleotsuka@gmail.com, festevam@gmail.com,
- tiwai@suse.com, Shengjiu Wang <shengjiu.wang@nxp.com>, timur@kernel.org,
- Xiubo.Lee@gmail.com, perex@perex.cz
-Subject: Re: [PATCH] ASoC: fsl_spdif: Fix unexpected interrupt after suspend
-Date: Wed, 23 Jun 2021 17:08:56 +0100
-Message-Id: <162446397756.55213.7915054235058479880.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org, Claudius Heine <ch@denx.de>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Jaroslav Kysela <perex@perex.cz>, Marek Vasut <marex@denx.de>
+Subject: Re: [PATCH v2 0/3] ASoC: tlv320aic32x4: Add support for TAS2505
+Date: Wed, 23 Jun 2021 17:08:57 +0100
+Message-Id: <162446397756.55213.16376816348258130032.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1624365084-7934-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1624365084-7934-1-git-send-email-shengjiu.wang@nxp.com>
+In-Reply-To: <20210617085230.1851503-1-ch@denx.de>
+References: <20210617085230.1851503-1-ch@denx.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
+Cc: Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,16 +80,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 22 Jun 2021 20:31:24 +0800, Shengjiu Wang wrote:
-> When system enter suspend, the machine driver suspend callback
-> function will be called, then the cpu driver trigger callback
-> (SNDRV_PCM_TRIGGER_SUSPEND) be called, it would disable the
-> interrupt.
+On Thu, 17 Jun 2021 10:52:27 +0200, Claudius Heine wrote:
+> this is v2 from my patchset that add support for the TAS2505 to the tlv320aic32x4 driver.
 > 
-> But the machine driver suspend and cpu dai driver suspend order
-> maybe changed, the cpu dai driver's suspend callback is called before
-> machine driver's suppend callback, then the interrupt is not cleared
-> successfully in trigger callback.
+> kind regards,
+> Claudius
+> 
+> Changes from v1:
+> - clarified commit message of first patch, which add the type value to the struct
+> - removed unnecessary code to put and get speaker volume
+> - removed 'Gain' from 'HP Driver Playback Volume' control
+> - fixed rebase issues
 > 
 > [...]
 
@@ -100,8 +100,12 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl_spdif: Fix unexpected interrupt after suspend
-      commit: a7a0a2feb957e446b2bcf732f245ba04fc8b6314
+[1/3] ASoC: tlv320aic32x4: add type to device private data struct
+      commit: 688d47cdd9344b1485eb28c2a7aa99743ed529a3
+[2/3] ASoC: tlv320aic32x4: add support for TAS2505
+      commit: b4525b6196cd7f83eba16d8679a55f8bb9571052
+[3/3] ASoC: tlv320aic32x4: dt-bindings: add TAS2505 to compatible
+      commit: 8e0eb2fb5c0732a6fa53f2df7079754152857c24
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,70 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43F833B2C27
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Jun 2021 12:09:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CA503B2CC3
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Jun 2021 12:47:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE1DD165E;
-	Thu, 24 Jun 2021 12:08:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE1DD165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 09DA0165D;
+	Thu, 24 Jun 2021 12:46:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09DA0165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624529375;
-	bh=a2QOqcnBAxBRYQEUUzGYao+z3AXWsARQG+nbmSkCoe8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=abCvDP+uN7TKP5xUmOsK8jn8bOTAzU6r1CQnhb9nmvCpv6PGnhTJtpGIXEe/3+OFr
-	 APGdinSGJCBZL73HZlXqdL5ohdn+tTQKrRtZfARnyVHArAJTlvl6FK0KjUGPaRbmv9
-	 vH+zqkFbdrH3EN6FslRDYISnSvO7WaLiAE8pyxRU=
+	s=default; t=1624531621;
+	bh=lxh5FqcyIj6Dlr801ghvVjcYKbTlNqDPbo3C9MEz7ck=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Z7fr5b2IidSFYCd4bJU5iJopZREkiX7axJ8EmNpIXk0pQkKVL4Uyq/d9zT8FvdZzB
+	 Z7StrqMFEyeri8uE77WGL5/952wTFuPRH+X4xsDVAjw/emF8qLilIPuHgCDXi7zz4N
+	 1pmkN7RCUTZG8rey2eUQN8userTzFQJ3KCRKcd1s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2731DF80268;
-	Thu, 24 Jun 2021 12:08:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99CA0F801F7;
+	Thu, 24 Jun 2021 12:45:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B45CF8025F; Thu, 24 Jun 2021 12:08:05 +0200 (CEST)
+ id D5394F8025F; Thu, 24 Jun 2021 12:45:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D06AF80137
- for <alsa-devel@alsa-project.org>; Thu, 24 Jun 2021 12:08:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D06AF80137
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="DrzCEGz5"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A5F3D613FB;
- Thu, 24 Jun 2021 10:07:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624529279;
- bh=a2QOqcnBAxBRYQEUUzGYao+z3AXWsARQG+nbmSkCoe8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DrzCEGz5qxIgFvKsvMFN6YzTWqGOnZ/4xV1t875Vo0evVHwN4ELB8Ec8aciAYY5e3
- UumRlXkHgOK/Dc2iFB6yxGgQbonGj0rJNdIzeJ9nTAxqsOBFZeiqfFpSKifkWDZGnJ
- Akrxm7FVPg9eHBlOVVVj4B/KOtmg4akT5Y12V4POmSqcAAQMpJrvJaAD4sPlAIttCH
- lrhlxVg/dKXLlBewQb4+p9C+1wgtWqpoJAb1Sk7VbAaE1W7sirwz2r0IsxvpyN6lO/
- ZH/UrtOZBv1BCSeYDBkvKFvmBLqJkdvcXFYuKkXGx1EbOs9VvzNrGB2y+0djGymsGt
- vCW5ONGM58uBQ==
-Date: Thu, 24 Jun 2021 11:07:34 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [GIT PULL] ASoC fixes for v5.13-rc7
-Message-ID: <20210624100734.GA3912@sirena.org.uk>
-References: <20210623170530.DFA99611C1@mail.kernel.org>
- <s5hpmwbn0o2.wl-tiwai@suse.de>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com
+ [221.176.66.80])
+ by alsa1.perex.cz (Postfix) with ESMTP id 03682F800E1
+ for <alsa-devel@alsa-project.org>; Thu, 24 Jun 2021 12:45:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03682F800E1
+Received: from spf.mail.chinamobile.com (unknown[172.16.121.19]) by
+ rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee660d4622861f-eee8a;
+ Thu, 24 Jun 2021 18:44:57 +0800 (CST)
+X-RM-TRANSID: 2ee660d4622861f-eee8a
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG: 00000000
+Received: from localhost.localdomain (unknown[223.112.105.130])
+ by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea60d46224488-ee1e5;
+ Thu, 24 Jun 2021 18:44:56 +0800 (CST)
+X-RM-TRANSID: 2eea60d46224488-ee1e5
+From: Tang Bin <tangbin@cmss.chinamobile.com>
+To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
+ lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com
+Subject: [PATCH] ASoC: fsl_xcvr: Omit superfluous error message in
+ fsl_xcvr_probe()
+Date: Thu, 24 Jun 2021 18:45:05 +0800
+Message-Id: <20210624104505.13680-1-tangbin@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.20.1.windows.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="9amGYk9869ThD9tj"
-Content-Disposition: inline
-In-Reply-To: <s5hpmwbn0o2.wl-tiwai@suse.de>
-X-Cookie: World War III?  No thanks!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, Tang Bin <tangbin@cmss.chinamobile.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,34 +71,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+In the function fsl_xcvr__probe(), when get irq failed,
+the function platform_get_irq() logs an error message, so remove
+redundant message here.
 
---9amGYk9869ThD9tj
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
+---
+ sound/soc/fsl/fsl_xcvr.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-On Thu, Jun 24, 2021 at 10:10:05AM +0200, Takashi Iwai wrote:
+diff --git a/sound/soc/fsl/fsl_xcvr.c b/sound/soc/fsl/fsl_xcvr.c
+index 5e8284db857b..711d738f8de1 100644
+--- a/sound/soc/fsl/fsl_xcvr.c
++++ b/sound/soc/fsl/fsl_xcvr.c
+@@ -1190,10 +1190,8 @@ static int fsl_xcvr_probe(struct platform_device *pdev)
+ 
+ 	/* get IRQs */
+ 	irq = platform_get_irq(pdev, 0);
+-	if (irq < 0) {
+-		dev_err(dev, "no irq[0]: %d\n", irq);
++	if (irq < 0)
+ 		return irq;
+-	}
+ 
+ 	ret = devm_request_irq(dev, irq, irq0_isr, 0, pdev->name, xcvr);
+ 	if (ret) {
+-- 
+2.18.2
 
-> If you have some commits that must be inevitably in 5.13, let me know,
-> then I can cherry-pick and submit to Linus.
 
-I think these ones:
 
-> >       ASoC: rt5645: Avoid upgrading static warnings to errors
-> >       MAINTAINERS: remove Timur Tabi from Freescale SOC sound drivers
-
---9amGYk9869ThD9tj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmDUWWUACgkQJNaLcl1U
-h9C25Qf+NRDAOvSXrKNxHgnDPlZAyntzuxStxh/ZrzWRzldoeuJyZJ1KvRg5r3Ue
-FxfHQZiJnx20IqhndqYVhrUPy8ILZIjZl78ZXipYGoxSScIk5qgNLt4ZoSmhGdnj
-49JWXGkny/hjzJx5ip5+SOKkpwli8aJyavwrt8/M8G2ZWLr6XUF0MOiz1bwiu+zD
-wd7NYmszhc/ezJ/5bmFAr2+aTfVERVlD8bjW+dS9+o9tHX4gP+Zymnvx8OiIZgwy
-qe64z9jCOOpD12OxG9SUo0EgFhLaOrND0J1G56IKxPLluk2PO9s5W0KPmJIKJTbs
-aGPpLbThiQH48YJCcnjawaZlV7l4mw==
-=m3Zp
------END PGP SIGNATURE-----
-
---9amGYk9869ThD9tj--

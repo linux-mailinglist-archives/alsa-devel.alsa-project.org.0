@@ -2,67 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C3D03B348D
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Jun 2021 19:18:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23FBA3B34F2
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Jun 2021 19:42:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B330D166B;
-	Thu, 24 Jun 2021 19:17:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B330D166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 971A283D;
+	Thu, 24 Jun 2021 19:41:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 971A283D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624555085;
-	bh=ULZiFuZ1SRLTDVAsRV/Zy+ZTseEtff31uZqMLatIDnY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1624556554;
+	bh=NwytAZV+TL4nqleuFOa0KW7GWJQtZL5/s5C9w9M3Q5c=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=M4e27PrlN1uWuhKd3drn4gfApSg/dskv7kojHNzRb7bH36L22HC4c7g9Ah2sjZz4r
-	 01piKtiEG7U+2UXIH74q2CZB9LwCqLdKPbg7cy5CbHMiU7se0MsHABE5X3K0JKK4uU
-	 zCPQ3bSIXgZ2E0XglioC85p7fgSZvMNbsgn1sf20=
+	b=UJgp1MByADvVI+An1v+w9y8X3aQft6hFuh6tiezPfdDpZbSzt/nsJe3rCMYKiSu46
+	 ox27gxvqUqd7+5+3fAOVD7h8YZW0vDdSLtWONDRf0I/oFNuF2kZBvxhuv0wQQ29DAL
+	 8V2BLT9Y3Q/07/Zrrd7p0ivIvq4ND9UL0WsXAtLM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC7B4F802C4;
-	Thu, 24 Jun 2021 19:16:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA6CCF80268;
+	Thu, 24 Jun 2021 19:41:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4ADE4F802C4; Thu, 24 Jun 2021 19:16:23 +0200 (CEST)
+ id 837B7F8025F; Thu, 24 Jun 2021 19:41:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.nihaljere.xyz (nihaljere.xyz [142.11.196.26])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0379FF801F7
- for <alsa-devel@alsa-project.org>; Thu, 24 Jun 2021 19:16:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0379FF801F7
+ by alsa1.perex.cz (Postfix) with ESMTPS id D6969F80147
+ for <alsa-devel@alsa-project.org>; Thu, 24 Jun 2021 19:40:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6969F80147
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=nihaljere.xyz header.i=@nihaljere.xyz
- header.b="M0NNXSw7"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; s=20200619; bh=ULZiFuZ1SRL
- TDVAsRV/Zy+ZTseEtff31uZqMLatIDnY=;
- h=references:in-reply-to:date:
- subject:cc:to:from; d=nihaljere.xyz; b=M0NNXSw7zM/FPXtZwZmjNTqK3b5drms
- UIPY3OGyrxWDPoKGh4/Qe6jxYoELn/u0w2/7pw4W8slXLagZTtk0Pz2Q53ypydKZkzhe2p
- xymmufAXV5O7V1M3vNFT3YlXxQktv4MhOateqKFDOLaQBA7uPFZoIJ8hAmbVEVnfl/d3FM
- =
-Received: from localhost (136-49-115-232.googlefiber.net [136.49.115.232])
- by vps.nihaljere.xyz (OpenSMTPD) with ESMTPSA id 52ce93a8
- (TLSv1.3:AEAD-AES256-GCM-SHA384:256:NO); 
- Thu, 24 Jun 2021 12:16:16 -0500 (CDT)
-From: Nihal Jere <nihal@nihaljere.xyz>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH alsa-lib 2/2] control: improve documentation for
- snd_ctl_elem_info_t
-Date: Thu, 24 Jun 2021 12:16:01 -0500
-Message-Id: <20210624171559.14003-2-nihal@nihaljere.xyz>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210624171559.14003-1-nihal@nihaljere.xyz>
-References: <20210624171559.14003-1-nihal@nihaljere.xyz>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Nihal Jere <nihal@nihaljere.xyz>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="z37woFFw"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="/QKvc/nj"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 095CC1FDA3;
+ Thu, 24 Jun 2021 17:40:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1624556454; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=OG4vidWYbh5gyrI4PCdO9wWt+nR8exTnE+lBjliUdUE=;
+ b=z37woFFwN+Lb0/LIKSdz/SRZ5v47f8v2KM8ACjlFgYhQZoEfD2gMh3UTHhCdhYcuVPQJIT
+ xFuf7eMlRpql4AT0r3fcPhE8zSSKFUumIhPhdI3Mvcju3uTVV4xyVYfnvrvw6EPn/vmjMi
+ +LGl6ITlue5+SIutEqgMrNL8mZcLDhU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1624556454;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=OG4vidWYbh5gyrI4PCdO9wWt+nR8exTnE+lBjliUdUE=;
+ b=/QKvc/njrZJc+A0LIVrqdCLwCy4wt7K+pZ4al6FAPCQ4Kiea9Kq5lSaN4oeVsXkCVjwDjX
+ JRSdKCCFg8M3yLDA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id EC846A3BCF;
+ Thu, 24 Jun 2021 17:40:53 +0000 (UTC)
+Date: Thu, 24 Jun 2021 19:40:53 +0200
+Message-ID: <s5hk0mjkvoa.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Geoffrey D. Bennett" <g@b4.vu>
+Subject: Re: ALSA: scarlett2: Default on?
+In-Reply-To: <20210624154739.GA20351@m.b4.vu>
+References: <20210624154739.GA20351@m.b4.vu>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,77 +91,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Signed-off-by: Nihal Jere <nihal@nihaljere.xyz>
----
- include/control.h     | 38 +++++++++++++++++++++++++++++++++++++-
- src/control/control.c |  5 +++++
- 2 files changed, 42 insertions(+), 1 deletion(-)
+On Thu, 24 Jun 2021 17:47:39 +0200,
+Geoffrey D. Bennett wrote:
+> 
+> On Wed, Jun 23, 2021 at 08:39:24AM +0200, Takashi Iwai wrote:
+> [...]
+> > OK, now all patches have been merged.
+> 
+> Thanks!
+> 
+> I would next like to consider how we can enable this mixer driver by
+> default. I originally added the device_setup=1 gate because there were
+> reports of the driver making the interface hang. These were all traced
+> back to the problem which was resolved with the commit "Fix device
+> hang with ehci-pci". That commit fixed the issue for those who had
+> reported it and since then there have been no more reports that the
+> mixer driver causes any issues.
+> 
+> Simply removing the device_setup=1 check would leave users with no way
+> to disable the driver in case that turns out to be necessary for some
+> reason though, so I don't think that's a good idea.
 
-diff --git a/include/control.h b/include/control.h
-index e386ecec..47e462fd 100644
---- a/include/control.h
-+++ b/include/control.h
-@@ -152,7 +152,43 @@ typedef struct _snd_ctl_elem_id snd_ctl_elem_id_t;
-  */
- typedef struct _snd_ctl_elem_list snd_ctl_elem_list_t;
- 
--/** CTL element info container */
-+/** CTL element info container
-+ *
-+ * snd_ctl_elem_info_t can be allocated, cleared, and copied in the same
-+ * way as #snd_ctl_elem_value_t, using the analogous functions.
-+ *
-+ * The ID can be filled in in the same way as for snd_ctl_elem_value_t,
-+ * substituting snd_ctl_elem_value_* functions for snd_ctl_elem_info_*
-+ * functions. See #snd_ctl_elem_value_t for details.
-+ *
-+ * The ID or numid must be set before calling snd_ctl_elem_info.
-+ *
-+ * \code
-+ *   snd_ctl_t* ctl;
-+ *   snd_ctl_elem_info_t* info;
-+ *   snd_ctl_elem_id_t* id;
-+ *
-+ *   // Allocate info
-+ *   snd_ctl_elem_info_malloc(&info);
-+ *
-+ *   // Obtain id, setup ctl...
-+ *
-+ *   // set id
-+ *   snd_ctl_elem_info_set_id(info, id);
-+ *   // OR just set numid (more applicable if you don't have an id)
-+ *   snd_ctl_elem_info_set_id(info, snd_ctl_elem_id_get_numid(id));
-+ *
-+ *   // Get info from driver
-+ *   snd_ctl_elem_info(ctl, info);
-+ *
-+ *   // Do things with info...
-+ *
-+ *   // Cleanup
-+ *   snd_ctl_elem_info_free(info);
-+ * \endcode
-+ *
-+ * The above example excludes error checking for the sake of readability.
-+ */
- typedef struct _snd_ctl_elem_info snd_ctl_elem_info_t;
- 
- /** CTL element value container.
-diff --git a/src/control/control.c b/src/control/control.c
-index 3930c7b1..e346fa6b 100644
---- a/src/control/control.c
-+++ b/src/control/control.c
-@@ -417,6 +417,11 @@ int snd_ctl_elem_list(snd_ctl_t *ctl, snd_ctl_elem_list_t *list)
- 
- /**
-  * \brief Get CTL element information
-+ * 
-+ * The object "info" must be allocated and the ID or numid must be filled
-+ * prior to calling this function.
-+ * See #snd_ctl_elem_info_t to learn more.
-+ *
-  * \param ctl CTL handle
-  * \param info CTL element id/information pointer
-  * \return 0 on success otherwise a negative error code
--- 
-2.32.0
+They can blacklist snd-usb-audio, either the module itself (if it's
+the only device), or with enable option of snd-usb-audio module, if
+there are multiple devices bound with the driver.
 
+> What I think would be the best option would be to have the driver as
+> its own loadable module. Does this sound like a good idea to you?
+
+I'm not against splitting, but that is no solution at all, per se.
+
+
+Takashi

@@ -2,68 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 283443B3897
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Jun 2021 23:23:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 055F43B38D7
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Jun 2021 23:36:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95B42165E;
-	Thu, 24 Jun 2021 23:22:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95B42165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 810B01655;
+	Thu, 24 Jun 2021 23:36:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 810B01655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624569812;
-	bh=MwO9BW7F8u85dyg2TGOKlZ7UI2TnjRUjqM503pSN/24=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=jIsTfpC/TwBitom/+mxEH9CpYhKzZBVj+vB+bHosKBfHQIzxAWh+T663bppVAySRl
-	 bdfubUk025stZrTVaoscRCbKtdqScbEdFFSaiXwXlpCU4oSYwgWLalgG2EGqfNffg1
-	 aKGzF6BXyc0dFLMjo/HPs8PDUfd+JZaloEmnn4o8=
+	s=default; t=1624570617;
+	bh=MVluekNFmxJlLtcq6Y6nWhho2xqqpT7MQzKctw1HBYk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=EBspyO63HvTmdNuDe2zscWB/lSijGNbYaq95tLqB2rEqIFSKYFNp1YDWYlpexVxia
+	 KKTHKLTK549DIpIYCqly7yQH/AVLmje+ViZELA8qpQSQt259eu6MOy5DbQTjra87me
+	 ns+RWoAvUp+bxSa+vFHE8qKqgiBKzYga9+U3fUUM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30F47F80137;
-	Thu, 24 Jun 2021 23:22:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F34B3F80268;
+	Thu, 24 Jun 2021 23:35:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6196DF8025F; Thu, 24 Jun 2021 23:22:01 +0200 (CEST)
+ id B1C23F8025F; Thu, 24 Jun 2021 23:35:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ PRX_BODY_26,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-io1-f43.google.com (mail-io1-f43.google.com
+ [209.85.166.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03256F80137
- for <alsa-devel@alsa-project.org>; Thu, 24 Jun 2021 23:21:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03256F80137
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="iLKW7DKE"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B9BE26124C;
- Thu, 24 Jun 2021 21:21:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624569715;
- bh=MwO9BW7F8u85dyg2TGOKlZ7UI2TnjRUjqM503pSN/24=;
- h=From:To:Cc:Subject:Date:From;
- b=iLKW7DKEl64x9Qf5HTpK0uOhrMreIq66X1U0KB1JW5RidFei/4dBZDlUgPODgLyCv
- yuAu85JVo+Lj8EvJFKYegTScQaTVnNwDGYjP4V4k8Wj1lgRmQYyliDlU34iucl9TEw
- 4LhLZi0/lDh4JpKSX6k71QTt+s58rsNj623KCUfhuyvmDGc2auEMfk8DaiDAalEVav
- Hj3EjnhsmGiFkhhOmnVjgDH2NHtAJxLzaegeZNHuuxXEn1GF4itnXQAksVgnfePILf
- UiP4LmGXYALrcd6akuhhQWxbd9Fey9WX9f2w5TDC2c88z/1bJo4eDJ0rtGO1+Uas9M
- ac7xjlOKQ2oxg==
-From: Nathan Chancellor <nathan@kernel.org>
-To: "Geoffrey D. Bennett" <g@b4.vu>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH] ALSA: usb-audio: scarlett2: Fix for loop increment in
- scarlett2_usb_get_config
-Date: Thu, 24 Jun 2021 14:20:48 -0700
-Message-Id: <20210624212048.1356136-1-nathan@kernel.org>
-X-Mailer: git-send-email 2.32.0.93.g670b81a890
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE9C1F80137
+ for <alsa-devel@alsa-project.org>; Thu, 24 Jun 2021 23:35:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE9C1F80137
+Received: by mail-io1-f43.google.com with SMTP id k16so10042074ios.10
+ for <alsa-devel@alsa-project.org>; Thu, 24 Jun 2021 14:35:10 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=ssSkZmcRFIuWVzrZF3p+ms6WDNX9rtUCDy4iiIHPjac=;
+ b=Y55kL4to3xOxKj9RyiKBZhE8E3DmMXNwX3g4Plo1//eusGHjqPQsILpIK7DYZKuLDr
+ Gtj0d+tssNT6r8KlQMj4ZF0CoRXVaX+/FMF1HHxibIoa0bR6CDBvN/Xu0u+N2Ty6Pvxx
+ MEBYHhHQ571SAoL5a6e9+YrJ+/KMuvN6penrS6LrEywJs/WMP1uA0xzagSAiNduIqxW3
+ wdfAJcCkW+T/grDL50yWzVzZsEruAJpCaY3YsHSaNvJAcfA83qZs88YKRaLE8nD3hi8e
+ grzd8Sk8zI5NcPjQhJMaizLu53JLWn7ACO+cGceunc7dgJiTwWXHWLpEU90XWJdbsQAU
+ KAFg==
+X-Gm-Message-State: AOAM530gd7jiNvq7fY5QH97Ay31uX7mmfqm4Z9LR4R1eRtZp9cpNY/RR
+ BJyR+Lc9NJcI4+AJHRq5qw==
+X-Google-Smtp-Source: ABdhPJxLG5mS/R5Kp70cqPpAfemerqR8JG+XdsktURkXgw56B3TqFTUh2d7/TUWZeX6qNuzTikAyeA==
+X-Received: by 2002:a05:6638:3048:: with SMTP id
+ u8mr6388166jak.91.1624570508746; 
+ Thu, 24 Jun 2021 14:35:08 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.248])
+ by smtp.gmail.com with ESMTPSA id m13sm1985143iob.35.2021.06.24.14.35.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Jun 2021 14:35:06 -0700 (PDT)
+Received: (nullmailer pid 2025804 invoked by uid 1000);
+ Thu, 24 Jun 2021 21:35:03 -0000
+Date: Thu, 24 Jun 2021 15:35:03 -0600
+From: Rob Herring <robh@kernel.org>
+To: Ban Tao <fengzheng923@gmail.com>
+Subject: Re: [PATCH v3 2/2] ASoC: sun50i-dmic: dt-bindings: add DT bindings
+ for DMIC controller
+Message-ID: <20210624213503.GA2025774@robh.at.kernel.org>
+References: <20210618060644.2830-1-fengzheng923@gmail.com>
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
-Content-Transfer-Encoding: 8bit
-Cc: Nathan Chancellor <nathan@kernel.org>, clang-built-linux@googlegroups.com,
- alsa-devel@alsa-project.org, Nick Desaulniers <ndesaulniers@google.com>,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210618060644.2830-1-fengzheng923@gmail.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, jernej.skrabec@gmail.com, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, wens@csie.org, broonie@kernel.org, mripard@kernel.org,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,45 +93,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Clang warns:
+On Fri, 18 Jun 2021 14:06:44 +0800, Ban Tao wrote:
+> DT binding documentation for this new ASoC driver.
+> 
+> Signed-off-by: Ban Tao <fengzheng923@gmail.com>
+> 
+> ---
+> v1->v2:
+> 1.Fix some build errors.
+> ---
+> v2->v3:
+> 1.Fix some build errors.
+> ---
+>  .../sound/allwinner,sun50i-h6-dmic.yaml       | 68 +++++++++++++++++++
+>  1 file changed, 68 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/allwinner,sun50i-h6-dmic.yaml
+> 
 
-sound/usb/mixer_scarlett_gen2.c:1189:32: warning: expression result
-unused [-Wunused-value]
-                        for (i = 0; i < count; i++, (u16 *)buf++)
-                                                    ^      ~~~~~
-1 warning generated.
-
-It appears the intention was to cast the void pointer to a u16 pointer
-so that the data could be iterated through like an array of u16 values.
-However, the cast happens after the increment because a cast is an
-rvalue, whereas the post-increment operator only works on lvalues, so
-the loop does not iterate as expected.
-
-Replace the post-increment shorthand with the full expression so the
-cast can be added in the right place and the look works as expected.
-
-Fixes: ac34df733d2d ("ALSA: usb-audio: scarlett2: Update get_config to do endian conversion")
-Link: https://github.com/ClangBuiltLinux/linux/issues/1408
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
----
- sound/usb/mixer_scarlett_gen2.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/usb/mixer_scarlett_gen2.c b/sound/usb/mixer_scarlett_gen2.c
-index fcba682cd422..c20c7f1ddc50 100644
---- a/sound/usb/mixer_scarlett_gen2.c
-+++ b/sound/usb/mixer_scarlett_gen2.c
-@@ -1186,7 +1186,7 @@ static int scarlett2_usb_get_config(
- 		if (err < 0)
- 			return err;
- 		if (size == 2)
--			for (i = 0; i < count; i++, (u16 *)buf++)
-+			for (i = 0; i < count; i++, buf = (u16 *)buf + 1)
- 				*(u16 *)buf = le16_to_cpu(*(__le16 *)buf);
- 		return 0;
- 	}
-
-base-commit: 5c89c2c7fbfa9124dd521c375b9c82b9ed75bc28
--- 
-2.32.0.93.g670b81a890
-
+Reviewed-by: Rob Herring <robh@kernel.org>

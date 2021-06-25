@@ -2,82 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99C843B3DAE
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Jun 2021 09:39:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 906E63B3E01
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Jun 2021 09:47:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F4E0167D;
-	Fri, 25 Jun 2021 09:38:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F4E0167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20BAA166D;
+	Fri, 25 Jun 2021 09:46:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20BAA166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624606766;
-	bh=eyQuHDASmK0iOYL+o3CzShjHhlTQV9EoZuKTM40mgVQ=;
+	s=default; t=1624607245;
+	bh=SJ/ttXWnScFDc1gltvFsRoRiUzNfFe65z/tqc5DEqWg=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WMUS8Wdd3IGbNZNmZCMuLwAQUAtKbj43cgjfCe3S6vU0sWHBKrtENb/52eOTE4BVG
-	 UXMn5Z0aJcPyGVenWmh2mH3aV59B7LR9Gawc8BARr6zMa0+oyGZ0SFjUbzNcJTiMVJ
-	 ry5iZrS7vk0yng6z9P6370JeJob2g3r7wSmKrl/I=
+	b=Y2P1iJx+Ov58We33Zid47uj4Y3aIi0RGydgVJJVCSsJlsLkSJSWFirG5u9ou9e/gn
+	 KKxojk+DkW/NAUNDE7PT987VvVbvkBsGrfzN1Xtp9G6MeRWUp27A0sG5ehSvnnoduC
+	 ZOEC10us7c7h3aZmZz2bJUlP/0ZfUxaE1XXJHi0E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E90CF80245;
-	Fri, 25 Jun 2021 09:38:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC35DF80137;
+	Fri, 25 Jun 2021 09:45:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BACB5F80290; Fri, 25 Jun 2021 09:38:31 +0200 (CEST)
+ id 6C532F801D5; Fri, 25 Jun 2021 09:45:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 84173F801DB
- for <alsa-devel@alsa-project.org>; Fri, 25 Jun 2021 09:38:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84173F801DB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 13769F80137
+ for <alsa-devel@alsa-project.org>; Fri, 25 Jun 2021 09:45:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13769F80137
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="vEuo9Nsy"; 
+ header.b="M7+xz/a9"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="WTKkbJVi"
+ header.b="EtUjCLjs"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 3B2F721C01;
- Fri, 25 Jun 2021 07:38:28 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id D16311FE44;
+ Fri, 25 Jun 2021 07:45:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624606708; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1624607148; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=nnuofijrl6RYEFo+SFPGi5DMa5lFhRBvWdO4DS6T/+U=;
- b=vEuo9NsyGr+cpk9/T9Oi+8amIT5p6qH1c8/d+FX686CYu0U//vzniKvYnHilyV8Id69HOj
- hg5Q8ux54N44TOI55Z5LGIpYvMovuz7RlKMKqR5KgvT4Tn5zLWMfvZv7/CGQak42rrqLFP
- X6OOzpIQrThIzWsL9FGN5HwvTYVdxHk=
+ bh=36BBIWb4P8ecW+8XwIEeqQKz0t/gusqeVesShI9xHg0=;
+ b=M7+xz/a9TmUqCSkYQHb4RVL9tzw03KTkHSoR3+JKfQOnbCM8PPx+cn1HHkjaSnW6tFqadc
+ tSDBvRQ2vs9KGlkBzARbA7CPJ2v6CSo/0BCRsdvQKi3BG9Mk3mn+EGnKq8+NNxd7hv97ID
+ vawBPfjSr47XnvLcBlD2cati2yEi2us=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624606708;
+ s=susede2_ed25519; t=1624607148;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=nnuofijrl6RYEFo+SFPGi5DMa5lFhRBvWdO4DS6T/+U=;
- b=WTKkbJVi6TeYOQSW2lEK8FsvSkE2tasxsltYBEAL13LnawAU2wmKPEGGb26GdUsVKe9UvI
- /LDYfu8+WMBiLbDw==
+ bh=36BBIWb4P8ecW+8XwIEeqQKz0t/gusqeVesShI9xHg0=;
+ b=EtUjCLjsxXowRPDAuCz+/1wLBZE7ZynZhCPIPK0jLc3vl4i+EMwMmj/2wVREteU32LjdYg
+ XWdevm9xEb6kV5CA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 02865A3BB4;
- Fri, 25 Jun 2021 07:38:27 +0000 (UTC)
-Date: Fri, 25 Jun 2021 09:38:27 +0200
-Message-ID: <s5hfsx6l7gs.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id BBF10A3BB4;
+ Fri, 25 Jun 2021 07:45:48 +0000 (UTC)
+Date: Fri, 25 Jun 2021 09:45:48 +0200
+Message-ID: <s5heecql74j.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Subject: Re: [PATCH] ALSA: firewire-lib: Fix 'amdtp_domain_start()' when no
- AMDTP_OUT_STREAM stream is found
-In-Reply-To: <9c9a53a4905984a570ba5672cbab84f2027dedc1.1624560484.git.christophe.jaillet@wanadoo.fr>
-References: <9c9a53a4905984a570ba5672cbab84f2027dedc1.1624560484.git.christophe.jaillet@wanadoo.fr>
+To: Nathan Chancellor <nathan@kernel.org>
+Subject: Re: [PATCH] ALSA: usb-audio: scarlett2: Fix for loop increment in
+ scarlett2_usb_get_config
+In-Reply-To: <20210624212048.1356136-1-nathan@kernel.org>
+References: <20210624212048.1356136-1-nathan@kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- tiwai@suse.com, clemens@ladisch.de, linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ clang-built-linux@googlegroups.com, "Geoffrey D. Bennett" <g@b4.vu>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,58 +94,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 24 Jun 2021 20:49:36 +0200,
-Christophe JAILLET wrote:
+On Thu, 24 Jun 2021 23:20:48 +0200,
+Nathan Chancellor wrote:
 > 
-> The intent here is to return an error code if we don't find what we are
-> looking for in the 'list_for_each_entry()' loop.
+> Clang warns:
 > 
-> 's' is not NULL if the list is empty or if we scan the complete list.
-> Introduce a new 'found' variable to handle such cases.
+> sound/usb/mixer_scarlett_gen2.c:1189:32: warning: expression result
+> unused [-Wunused-value]
+>                         for (i = 0; i < count; i++, (u16 *)buf++)
+>                                                     ^      ~~~~~
+> 1 warning generated.
 > 
-> Fixes: 60dd49298ec5 ("ALSA: firewire-lib: handle several AMDTP streams in callback handler of IRQ target")
-> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+> It appears the intention was to cast the void pointer to a u16 pointer
+> so that the data could be iterated through like an array of u16 values.
+> However, the cast happens after the increment because a cast is an
+> rvalue, whereas the post-increment operator only works on lvalues, so
+> the loop does not iterate as expected.
+> 
+> Replace the post-increment shorthand with the full expression so the
+> cast can be added in the right place and the look works as expected.
+> 
+> Fixes: ac34df733d2d ("ALSA: usb-audio: scarlett2: Update get_config to do endian conversion")
+> Link: https://github.com/ClangBuiltLinux/linux/issues/1408
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> ---
+>  sound/usb/mixer_scarlett_gen2.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/usb/mixer_scarlett_gen2.c b/sound/usb/mixer_scarlett_gen2.c
+> index fcba682cd422..c20c7f1ddc50 100644
+> --- a/sound/usb/mixer_scarlett_gen2.c
+> +++ b/sound/usb/mixer_scarlett_gen2.c
+> @@ -1186,7 +1186,7 @@ static int scarlett2_usb_get_config(
+>  		if (err < 0)
+>  			return err;
+>  		if (size == 2)
+> -			for (i = 0; i < count; i++, (u16 *)buf++)
+> +			for (i = 0; i < count; i++, buf = (u16 *)buf + 1)
+>  				*(u16 *)buf = le16_to_cpu(*(__le16 *)buf);
 
-Applied now.  Thanks.
+That's still too error-prone.
 
+Could you rather introduce another variable of u16 * type, and use it
+instead?  Ditto for u8 access for the code after that, too.
+
+
+thanks,
 
 Takashi
-
-
-> ---
-> We could test with" if (list_entry_is_head(s, &d->streams, list))"
-> instead, but I find it much less readable.
-> ---
->  sound/firewire/amdtp-stream.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-> index aad9778d1c4d..9be2260e4ca2 100644
-> --- a/sound/firewire/amdtp-stream.c
-> +++ b/sound/firewire/amdtp-stream.c
-> @@ -1943,6 +1943,7 @@ int amdtp_domain_start(struct amdtp_domain *d, unsigned int tx_init_skip_cycles,
->  	unsigned int events_per_period = d->events_per_period;
->  	unsigned int queue_size;
->  	struct amdtp_stream *s;
-> +	bool found = false;
->  	int err;
->  
->  	if (replay_seq) {
-> @@ -1955,10 +1956,12 @@ int amdtp_domain_start(struct amdtp_domain *d, unsigned int tx_init_skip_cycles,
->  
->  	// Select an IT context as IRQ target.
->  	list_for_each_entry(s, &d->streams, list) {
-> -		if (s->direction == AMDTP_OUT_STREAM)
-> +		if (s->direction == AMDTP_OUT_STREAM) {
-> +			found = true;
->  			break;
-> +		}
->  	}
-> -	if (!s)
-> +	if (!found)
->  		return -ENXIO;
->  	d->irq_target = s;
->  
-> -- 
-> 2.30.2
-> 

@@ -2,56 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BA633B4394
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Jun 2021 14:47:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FC3B3B440F
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Jun 2021 15:06:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 96845167D;
-	Fri, 25 Jun 2021 14:46:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96845167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6EDF1685;
+	Fri, 25 Jun 2021 15:05:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6EDF1685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624625247;
-	bh=2hfzUK+kxWrH/YZFbAhs7rYQwTZmQDywu9kbsBt//Oo=;
-	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1624626407;
+	bh=DHUSyGNhjK8tOy3w/HjIzKd6B8Qf5Llj66xsHm07YOU=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Sg+YFYurIFAS6d4nCgGbaZv+T813iLAvmfyJdGoQd1rKWTZRT5zDwlXMh3zr76Zzm
-	 +eosq3H8ETx5A2PS4xT8VYw/h/W31slT8hZVhp05QwGvCRKVhXpiOVw8gNcZMnxTZm
-	 DFY7t8IX4fevOLez9pzJBkC2whrfyEdKHne2dDmk=
+	b=CPB6obaCGVUo5dMZZ7bjyPkuPKVrhR7h8qou7Hl50BljHw7gh/j0/Lc0493WWoBkK
+	 pKnr+2FVyHKZeGP1HA0TcvA6nFdWYhmUWYUeTwG7boKSugKuXFKa8vK9NCl+ijhJvV
+	 86snWbY1zT7Wl0LwLYV4M1hc2/yPgJDS1m5F+pk4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 005D8F801DB;
-	Fri, 25 Jun 2021 14:45:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 356C2F800E1;
+	Fri, 25 Jun 2021 15:05:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2A138F801D5; Fri, 25 Jun 2021 14:45:57 +0200 (CEST)
+ id D6BF1F801D5; Fri, 25 Jun 2021 15:05:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_13,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from aposti.net (aposti.net [89.234.176.197])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 28B93F80137
- for <alsa-devel@alsa-project.org>; Fri, 25 Jun 2021 14:45:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28B93F80137
-Date: Fri, 25 Jun 2021 13:45:35 +0100
-From: Paul Cercueil <paul@crapouillou.net>
-Subject: Re: [PATCH v2] ALSA: hda: Continue to probe when codec probe fails
-To: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Message-Id: <ZRC9VQ.M548GASAC18G2@crapouillou.net>
-In-Reply-To: <20201216124726.2842197-1-kai.heng.feng@canonical.com>
-References: <20201214060621.1102931-1-kai.heng.feng@canonical.com>
- <20201216124726.2842197-1-kai.heng.feng@canonical.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9E1E8F80137
+ for <alsa-devel@alsa-project.org>; Fri, 25 Jun 2021 15:05:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E1E8F80137
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="XSf+pcDo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1624626309;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=0YNr90GiVaf7rB1wxzZTIutrbJPYnXsp+tTDEzfuGZ8=;
+ b=XSf+pcDon6NTR2Go5VPjBtad4T2tJ1+tLurjaDelCHfWhBZf+FeQfbNAy5ZoPUywJ9zdjc
+ 67N/Q2Cl6vHPBjbpojJUg0uc2ykdysDrmFJ20oH10fawBP6hVSyaHEYoIsNwaL4vBCjk6z
+ qSTqNVViIppVIbfnU8VSZnNmcc9rBHo=
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-318-oEbuLY6NNNeSeyZDcptiEA-1; Fri, 25 Jun 2021 09:05:07 -0400
+X-MC-Unique: oEbuLY6NNNeSeyZDcptiEA-1
+Received: by mail-ej1-f69.google.com with SMTP id
+ mh17-20020a170906eb91b0290477da799023so3094447ejb.1
+ for <alsa-devel@alsa-project.org>; Fri, 25 Jun 2021 06:05:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=0YNr90GiVaf7rB1wxzZTIutrbJPYnXsp+tTDEzfuGZ8=;
+ b=JI5K7KYwfGO7gRsw2inSh3IQ38BfSiaNWXWm/PpohNk1zkFo3282s7r4o5h+LdKIvq
+ 1nO8/oDaC4cFMFInKrdUqDlgqe2osKoGlcthYJQFJvlU7NrkvBSQW/EqphtajRFKvLHn
+ pudyguPuHOU3h9hYTs2PaKqk4tmJoAocN59HUuPQ6yAg3zndpNxHMdkl4OmKz6TSC+Gk
+ 0C565e+0G+bNac2CkiB+S7Z6OGoExHf75iaNmWeFJ/vbFwOmOWodmrwxDF03CnPz+MJO
+ W00V30wyVkzRoeCWKLIDmTQJCsiK/J/1RWtu4RuhDVBuFnpeBWVk4L8QRdzuhYkUskRy
+ 2GZw==
+X-Gm-Message-State: AOAM533+0vkbNDZKG567MDUbPmmgnqkbYvaDRfWdQjZLiCumt14w+NIo
+ TgS1QVF8fn9tDYbyYS2so58h1xLMagtGvzYoX1ocqR43FbB/7YqExQR3uRylHL5bs+UDjS9ZYOt
+ lSo5OaObMfrPnGypBRvIMn+V5ikoR+JuiMmWeg6Sp8+2rzU7+yVjdTzjZzGnS7oSVS45QFz798I
+ w=
+X-Received: by 2002:a17:906:dbf8:: with SMTP id
+ yd24mr10667350ejb.160.1624626305655; 
+ Fri, 25 Jun 2021 06:05:05 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwz9qfwcD2EOtVhw1TTXP2m4flNeiT1NSZvpapnoXv37mP1JBiLU+aXknYe/HYYg5HQ380+8A==
+X-Received: by 2002:a17:906:dbf8:: with SMTP id
+ yd24mr10667260ejb.160.1624626304743; 
+ Fri, 25 Jun 2021 06:05:04 -0700 (PDT)
+Received: from x1.localdomain
+ (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
+ by smtp.gmail.com with ESMTPSA id cn10sm4070944edb.38.2021.06.25.06.05.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 25 Jun 2021 06:05:03 -0700 (PDT)
+Subject: Re: [PATCH alsa-lib 0/5] Add generic exception mechanism for
+ non-standard control-names
+To: Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org
+References: <20210503205231.167346-1-hdegoede@redhat.com>
+ <0f7f1063-4a14-5d99-71b2-e700c74828c2@perex.cz>
+ <67840562-7f54-bb9b-7876-6079b4ff7f47@redhat.com>
+ <95924d6e-e2b7-0b9b-b62c-27e57fe88a80@perex.cz>
+ <cc686b48-b27d-74bf-4fb4-21fdd23a9c89@redhat.com>
+ <d92ad13d-4ee0-a125-053f-56ee99092053@perex.cz>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <c1ef3c53-59ec-77b6-97d3-f687100dde4f@redhat.com>
+Date: Fri, 25 Jun 2021 15:05:02 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Transfer-Encoding: quoted-printable
-Cc: SOUND <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com,
- Alex Deucher <alexander.deucher@amd.com>, Mike Rapoport <rppt@kernel.org>
+In-Reply-To: <d92ad13d-4ee0-a125-053f-56ee99092053@perex.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,132 +125,119 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Kai-Heng,
+Hi,
 
-I am facing the same bug. Unfortunately your patch does not seem to fix=20
-the bug for me, the nvidia GPU stays constantly active. Only if I=20
-unbind the snd-hda-intel module for this PCI device that the nvidia GPU=20
-will eventually go to sleep.
+On 6/23/21 9:27 PM, Jaroslav Kysela wrote:
+> On 23. 06. 21 20:59, Hans de Goede wrote:
+>> Hi Jaroslav,
+>>
+>> On 5/18/21 6:16 PM, Jaroslav Kysela wrote:
+>>> Dne 04. 05. 21 v 17:47 Hans de Goede napsal(a):
+>>>> Hi Jaroslav,
+>>>>
+>>>> On 5/4/21 10:53 AM, Jaroslav Kysela wrote:
+>>>>> Dne 03. 05. 21 v 22:52 Hans de Goede napsal(a):
+>>>>>> Hi All,
+>>>>>>
+>>>>>> This series seems to have fallen through the cracks,
+>>>>>> so here is a resend of it.
+>>>>>>
+>>>>>> Regards,
+>>>>>
+>>>>> Thank you, Hans. The problem with this implementation is that it's really card
+>>>>> specific. Also, ASoC codec drivers have usually ID names based on registers so
+>>>>> the mapping for the user is problematic anyway (the functionality is different
+>>>>> from the name or not related to the name). I'm actually evaluating another
+>>>>> solution which is more flexible:
+>>>>>
+>>>>> 1) add control remap plugin to allow the control ID remapping in the
+>>>>> alsa-lib's control API, so we can mangle those identifiers there (already
+>>>>> implemented)
+>>>>>
+>>>>> 2) add local and global alsa-lib configurations per UCM card specified in the
+>>>>> UCM configuration files; the configurations may be for both control and PCM
+>>>>> devices (restrict or set specific parameters)
+>>>>
+>>>> Ok, thank you for working on this.
+>>>>
+>>>>> I will notify you when I finish my tests.
+>>>>
+>>>> Yes, please let me know when you've something ready to test, then I'll take
+>>>> a look at adding the necessary bits for the bycr-rt5640 and cht-bsw-rt567
+>>>> UCM profiles, as some control renaming is necessary to make sure that
+>>>> the hw-volume control on these devices also correctly controls the
+>>>> hw mute controls (which in turn are necessary for both full muting and
+>>>> for mute LED control).
+>>>
+>>> It seems that things started to work. I pushed everything to the repos
+>>> (alsa-lib/alsa-utils/alsa-ucm-conf) and picked bits from your configs. If you
+>>> can give a look and a test, it would be nice. The changes for the specific
+>>> codecs are quite straight like:
+>>>
+>>> https://github.com/alsa-project/alsa-ucm-conf/commit/2072ab794b69cdf4f070db5467387d08a65c4309
+>>>
+>>> The global alsa-lib's configuration does the redirects to the hw specific
+>>> configs (if found) per card. UCM can store this "per card" configuration to
+>>> /var/lib/alsa/card<NUMBER>.conf.d tree, which allows us to define the hw
+>>> specific configuration. Both control and PCM devices can be (re)configured.
+>>>
+>>> UCM was extended to allow inline the alsa-lib's configuration which can be
+>>> private to UCM or saved to a global config file (/var/lib/alsa tree for example).
+>>>
+>>> By default, I made the private alsa-lib's configuration for all UCM
+>>> applications, so the users cannot break UCM with their configuration changes.
+>>
+>> Thank you for your work on this.
+>>
+>> I've been testing this on a HP x2 Bay Trail + rt5640 laptop, and I've
+>> found 2 issues:
+>>
+>> 1. After renaming there are now 2 "Speaker" and "Headphones" switches:
+>>
+>> "Speaker Playback Volume" stays    "Speaker Playback Volume"
+>> "Speaker Channel Switch"  becomes  "Speaker Playback Switch"
+>> "Speaker Switch"          stays    "Speaker Switch"
+>>
+>> And then alsamixer only shows one of the 2 "Speaker [Playback] Switches"
+>>
+>> This can be worked around by changing the renames to e.g. :
+>>
+>>                 "name='HP Playback Volume'" "name='Headphones Playback Volume'"
+>>                 "name='HP Channel Switch'" "name='Headphones Playback Switch'"
+>>                 "name='Speaker Playback Volume'" "name='Speakers Playback Volume'"
+>>                 "name='Speaker Channel Switch'" "name='Speakers Playback Switch'"
+>>
+>> Or to:
+>>
+>>                 # Rename the 'Headphone Switch' DAPM PIN switch to avoid it getting
+>>                 # grouped with 'Headphone Playback Volume'
+>>                 "name='Headphone Switch'" "name='Headphone Output Switch'"
+>>                 "name='HP Playback Volume'" "name='Headphone Playback Volume'"
+>>                 "name='HP Channel Switch'" "name='Headphone Playback Switch'"
+>>                 # Idem for the 'Speaker Switch'
+>>                 "name='Speaker Switch'" "name='Speaker Output Switch'"
+>>                 "name='Speaker Channel Switch'" "name='Speaker Playback Switch'"
+> 
+> This variant looks better in my eyes.
+> 
+>> So this is not really an issue.
+>>
+>> 2. PlaybackMixerElem statements don't take the renames into account, this means
+>> that muting the speakers or the headphones output the UCM (pipewire/pulse) level
+>> does not mute the 'Speaker Channel Switch' / 'HP Channel Switch' control, meaning
+>> that we are not muting things at the hw level, which in turn is causing the speaker
+>> mute LED on the HP X2 to not be turned on when muting.
+>>
+>> I guess the fix here would be to make the renames apply to PlaybackMixerElem ?
+> 
+> Yes, this change is required. I forgot to update this part.
 
-My dmesg (with your patch applied):
+Ok, so I've taken a (quick) look at this but I'm afraid that I don't fully
+grasp how the control remapping is working. Can you give me some hint how
+I can make the renames apply to PlaybackMixerElem or a rough patch for me
+to test (and fixup if necessary, I mostly need an idea where to start).
 
-[ 1.821358] MXM: GUID detected in BIOS
-[ 1.821396] ACPI BIOS Error (bug): AE_AML_PACKAGE_LIMIT, Index=20
-(0x000000003) is beyond end of object (length 0x0)=20
-(20200925/exoparg2-393)
-[ 1.821406] ACPI Error: Aborting method \_SB.PCI0.GFX0._DSM due to=20
-previous error (AE_AML_PACKAGE_LIMIT) (20200925/psparse-529)
-[ 1.821415] ACPI: \_SB_.PCI0.GFX0: failed to evaluate _DSM (0x300b)
-[ 1.821419] ACPI Warning: \_SB.PCI0.GFX0._DSM: Argument #4 type=20
-mismatch - Found [Buffer], ACPI requires [Package]=20
-(20200925/nsarguments-61)
-[ 1.821528] i915 0000:00:02.0: optimus capabilities: enabled, status=20
-dynamic power,
-[ 1.821554] ACPI BIOS Error (bug): AE_AML_PACKAGE_LIMIT, Index=20
-(0x000000003) is beyond end of object (length 0x0)=20
-(20200925/exoparg2-393)
-[ 1.821560] ACPI Error: Aborting method \_SB.PCI0.GFX0._DSM due to=20
-previous error (AE_AML_PACKAGE_LIMIT) (20200925/psparse-529)
-[ 1.821565] ACPI Error: Aborting method \_SB.PCI0.PEG0.PEGP._DSM due to=20
-previous error (AE_AML_PACKAGE_LIMIT) (20200925/psparse-529)
-[ 1.821572] ACPI: \_SB_.PCI0.PEG0.PEGP: failed to evaluate _DSM (0x300b)
-[ 1.821574] ACPI Warning: \_SB.PCI0.PEG0.PEGP._DSM: Argument #4 type=20
-mismatch - Found [Buffer], ACPI requires [Package]=20
-(20200925/nsarguments-61)
-[ 1.821683] pci 0000:01:00.0: optimus capabilities: enabled, status=20
-dynamic power,
-[ 1.821685] VGA switcheroo: detected Optimus DSM method=20
-\_SB_.PCI0.PEG0.PEGP handle
-[ 1.821920] nouveau 0000:01:00.0: NVIDIA GK107 (0e71f0a2)
-[ 1.830781] nouveau 0000:01:00.0: bios: version 80.07.95.00.07
-[ 1.894392] nouveau 0000:01:00.0: fb: 2048 MiB DDR3
-[ 1.896669] [drm] Initialized i915 1.6.0 20200917 for 0000:00:02.0 on=20
-minor 0
-[ 1.896862] ACPI: Video Device [PEGP] (multi-head: yes rom: yes post:=20
-no)
-[ 1.897361] input: Video Bus as=20
-/devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A08:00/device:02/LNXVIDEO:00/input/inp=
-ut12
-[ 1.897974] ACPI: Video Device [GFX0] (multi-head: yes rom: no post: no)
-[ 1.898219] nouveau 0000:01:00.0: bus: MMIO write of 0000001f FAULT at=20
-6013d4 [ IBUS ]
-[ 1.900114] input: Video Bus as=20
-/devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A08:00/LNXVIDEO:01/input/input13
-[ 1.969353] vga_switcheroo: enabled
-[ 1.969407] [TTM] Zone kernel: Available graphics memory: 3791596 KiB
-[ 1.969408] [TTM] Zone dma32: Available graphics memory: 2097152 KiB
-[ 1.969409] [TTM] Initializing pool allocator
-[ 1.969416] [TTM] Initializing DMA pool allocator
-[ 1.969431] nouveau 0000:01:00.0: DRM: VRAM: 2048 MiB
-[ 1.969432] nouveau 0000:01:00.0: DRM: GART: 1048576 MiB
-[ 1.969436] nouveau 0000:01:00.0: DRM: Pointer to TMDS table not found
-[ 1.969438] nouveau 0000:01:00.0: DRM: DCB version 4.0
-[ 1.971139] nouveau 0000:01:00.0: DRM: MM: using COPY for buffer copies
-[ 1.971485] [drm] Initialized nouveau 1.3.1 20120801 for 0000:01:00.0=20
-on minor 1
+Regards,
 
-[ ... ]
-
-[ 4.594245] snd_hda_intel 0000:00:1b.0: bound 0000:00:02.0 (ops=20
-i915_audio_component_bind_ops [i915])
-[ 4.594380] snd_hda_intel 0000:01:00.1: can't change power state from=20
-D3cold to D0 (config space inaccessible)
-[ 4.594410] snd_hda_intel 0000:01:00.1: can't change power state from=20
-D3cold to D0 (config space inaccessible)
-[ 4.594486] snd_hda_intel 0000:01:00.1: Disabling MSI
-[ 4.594494] snd_hda_intel 0000:01:00.1: Handle vga_switcheroo audio=20
-client
-[ 4.594526] snd_hda_intel 0000:01:00.1: number of I/O streams is 30,=20
-forcing separate stream tags
-
-[ ... ]
-
-[ 4.696732] hdaudio hdaudioC1D0: no AFG or MFG node found
-[ 4.696745] hdaudio hdaudioC1D1: no AFG or MFG node found
-[ 4.696752] hdaudio hdaudioC1D2: no AFG or MFG node found
-[ 4.696759] hdaudio hdaudioC1D3: no AFG or MFG node found
-[ 4.696765] hdaudio hdaudioC1D4: no AFG or MFG node found
-[ 4.696771] hdaudio hdaudioC1D5: no AFG or MFG node found
-[ 4.696778] hdaudio hdaudioC1D6: no AFG or MFG node found
-[ 4.696785] hdaudio hdaudioC1D7: no AFG or MFG node found
-[ 4.696787] snd_hda_intel 0000:01:00.1: no codecs initialized
-
-Cheers,
--Paul
-
-
-Le mer., d=E9c. 16 2020 at 20:47:24 +0800, Kai-Heng Feng=20
-<kai.heng.feng@canonical.com> a =E9crit :
-> Similar to commit 9479e75fca37 ("ALSA: hda: Keep the controller
-> initialization even if no codecs found"), when codec probe fails, it
-> doesn't enable runtime suspend, and can prevent graphics card from
-> getting powered down:
-> [    4.280991] snd_hda_intel 0000:01:00.1: no codecs initialized
->=20
-> $ cat /sys/bus/pci/devices/0000:01:00.1/power/runtime_status
-> active
->=20
-> So mark there's no codec and continue probing to let runtime PM to=20
-> work.
->=20
-> BugLink: https://bugs.launchpad.net/bugs/1907212
-> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
-> ---
->  sound/pci/hda/hda_intel.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-> index 6852668f1bcb..872a703dee43 100644
-> --- a/sound/pci/hda/hda_intel.c
-> +++ b/sound/pci/hda/hda_intel.c
-> @@ -2328,7 +2328,7 @@ static int azx_probe_continue(struct azx *chip)
->  	if (bus->codec_mask) {
->  		err =3D azx_probe_codecs(chip, azx_max_codecs[chip->driver_type]);
->  		if (err < 0)
-> -			goto out_free;
-> +			bus->codec_mask =3D 0;
->  	}
->=20
->  #ifdef CONFIG_SND_HDA_PATCH_LOADER
-
+Hans
 

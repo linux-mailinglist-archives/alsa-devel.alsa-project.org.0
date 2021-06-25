@@ -2,81 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DDFE3B3DAC
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Jun 2021 09:39:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99C843B3DAE
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Jun 2021 09:39:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E22B1616;
-	Fri, 25 Jun 2021 09:38:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E22B1616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F4E0167D;
+	Fri, 25 Jun 2021 09:38:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F4E0167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624606751;
-	bh=IU53CZBsEhxeCw+ZxJBL5XwZ596WZN7q/sfCMAShOJg=;
+	s=default; t=1624606766;
+	bh=eyQuHDASmK0iOYL+o3CzShjHhlTQV9EoZuKTM40mgVQ=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vfQW8GHiXCYgOmQKZ/pKmRT7IDYhDmpTVK2lLS386y1CmjNmwpP2RBg3oLxoM6djB
-	 ojSRWYL5ZaLOyXUlC5r09qdEAk5WQu3V9AKkqbiR0xFh+J+cYTwfawOWumi/8hj+eJ
-	 tk06Qmp1C7TyGyLP857Gt7qPkL8A95wgG4pb95Bc=
+	b=WMUS8Wdd3IGbNZNmZCMuLwAQUAtKbj43cgjfCe3S6vU0sWHBKrtENb/52eOTE4BVG
+	 UXMn5Z0aJcPyGVenWmh2mH3aV59B7LR9Gawc8BARr6zMa0+oyGZ0SFjUbzNcJTiMVJ
+	 ry5iZrS7vk0yng6z9P6370JeJob2g3r7wSmKrl/I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E93E3F8016D;
-	Fri, 25 Jun 2021 09:37:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E90CF80245;
+	Fri, 25 Jun 2021 09:38:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 677CFF801D5; Fri, 25 Jun 2021 09:37:40 +0200 (CEST)
+ id BACB5F80290; Fri, 25 Jun 2021 09:38:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 56398F80137
- for <alsa-devel@alsa-project.org>; Fri, 25 Jun 2021 09:37:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56398F80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 84173F801DB
+ for <alsa-devel@alsa-project.org>; Fri, 25 Jun 2021 09:38:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84173F801DB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="fngWmBnh"; 
+ header.b="vEuo9Nsy"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="gv/rAGxG"
+ header.b="WTKkbJVi"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 0CFE21FE4A;
- Fri, 25 Jun 2021 07:37:35 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 3B2F721C01;
+ Fri, 25 Jun 2021 07:38:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624606655; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1624606708; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8wpN+wTjLOIxYOmlGxaoeKB7SQwbOlVJz5lODT+KHM0=;
- b=fngWmBnhzuJA/mDzFYpfWw88w5r0DTgzlpQIr1XBvbq1FkktQHnymgQxXMJP7I2LISkDiy
- jgXEP7zVSBQ37CtufL5Rx+cVPD7ffRt4h2EByocdPV9XizmIchCeGWJkSOXeGdOgKyamHJ
- 5TCWtwAbJumBYRkMzKL+f4zrNve/eG4=
+ bh=nnuofijrl6RYEFo+SFPGi5DMa5lFhRBvWdO4DS6T/+U=;
+ b=vEuo9NsyGr+cpk9/T9Oi+8amIT5p6qH1c8/d+FX686CYu0U//vzniKvYnHilyV8Id69HOj
+ hg5Q8ux54N44TOI55Z5LGIpYvMovuz7RlKMKqR5KgvT4Tn5zLWMfvZv7/CGQak42rrqLFP
+ X6OOzpIQrThIzWsL9FGN5HwvTYVdxHk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624606655;
+ s=susede2_ed25519; t=1624606708;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8wpN+wTjLOIxYOmlGxaoeKB7SQwbOlVJz5lODT+KHM0=;
- b=gv/rAGxGBqbZDpat/RRpeWDS4IJR+o6UuiyJYImvQyubYh19J5yJEPPaAjQMivYzcOcweZ
- iLBgJNaTcBxKfNCQ==
+ bh=nnuofijrl6RYEFo+SFPGi5DMa5lFhRBvWdO4DS6T/+U=;
+ b=WTKkbJVi6TeYOQSW2lEK8FsvSkE2tasxsltYBEAL13LnawAU2wmKPEGGb26GdUsVKe9UvI
+ /LDYfu8+WMBiLbDw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 02B22A3BF7;
- Fri, 25 Jun 2021 07:37:34 +0000 (UTC)
-Date: Fri, 25 Jun 2021 09:37:34 +0200
-Message-ID: <s5hh7hml7i9.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 02865A3BB4;
+ Fri, 25 Jun 2021 07:38:27 +0000 (UTC)
+Date: Fri, 25 Jun 2021 09:38:27 +0200
+Message-ID: <s5hfsx6l7gs.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: "Geoffrey D. Bennett" <g@b4.vu>
-Subject: Re: ALSA: scarlett2: Default on?
-In-Reply-To: <20210625021142.GB21766@m.b4.vu>
-References: <20210624154739.GA20351@m.b4.vu> <s5hk0mjkvoa.wl-tiwai@suse.de>
- <20210625021142.GB21766@m.b4.vu>
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH] ALSA: firewire-lib: Fix 'amdtp_domain_start()' when no
+ AMDTP_OUT_STREAM stream is found
+In-Reply-To: <9c9a53a4905984a570ba5672cbab84f2027dedc1.1624560484.git.christophe.jaillet@wanadoo.fr>
+References: <9c9a53a4905984a570ba5672cbab84f2027dedc1.1624560484.git.christophe.jaillet@wanadoo.fr>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ tiwai@suse.com, clemens@ladisch.de, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,49 +93,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 25 Jun 2021 04:11:42 +0200,
-Geoffrey D. Bennett wrote:
+On Thu, 24 Jun 2021 20:49:36 +0200,
+Christophe JAILLET wrote:
 > 
-> On Thu, Jun 24, 2021 at 07:40:53PM +0200, Takashi Iwai wrote:
-> > On Thu, 24 Jun 2021 17:47:39 +0200,
-> > Geoffrey D. Bennett wrote:
-> > > 
-> > > On Wed, Jun 23, 2021 at 08:39:24AM +0200, Takashi Iwai wrote:
-> > > [...]
-> > > > OK, now all patches have been merged.
-> > > 
-> > > Thanks!
-> > > 
-> > > I would next like to consider how we can enable this mixer driver by
-> > > default. I originally added the device_setup=1 gate because there were
-> > > reports of the driver making the interface hang. These were all traced
-> > > back to the problem which was resolved with the commit "Fix device
-> > > hang with ehci-pci". That commit fixed the issue for those who had
-> > > reported it and since then there have been no more reports that the
-> > > mixer driver causes any issues.
-> > > 
-> > > Simply removing the device_setup=1 check would leave users with no way
-> > > to disable the driver in case that turns out to be necessary for some
-> > > reason though, so I don't think that's a good idea.
-> > 
-> > They can blacklist snd-usb-audio, either the module itself (if it's
-> > the only device), or with enable option of snd-usb-audio module, if
-> > there are multiple devices bound with the driver.
+> The intent here is to return an error code if we don't find what we are
+> looking for in the 'list_for_each_entry()' loop.
 > 
-> But wouldn't that disable audio for the device entirely? I am talking
-> about only disabling the mixer part of the driver (the code in
-> mixer_scarlett_gen2.c) which uses the proprietary USB messages. So
-> that if there is some unseen so-far bug the user can revert to
-> previous behaviour of audio working but no proprietary controls.
+> 's' is not NULL if the list is empty or if we scan the complete list.
+> Introduce a new 'found' variable to handle such cases.
+> 
+> Fixes: 60dd49298ec5 ("ALSA: firewire-lib: handle several AMDTP streams in callback handler of IRQ target")
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 
-Even if you split the mixer part to a module, it'll be always bound
-with the main snd-usb-audio due to dependency, so you cannot blacklist
-it.  At most, you may add a module option for that, but it's almost
-equivalent to introduce a new option to snd-usb-audio such as
-  snd_usb_audio.scarlett2_mixer=off
-
-A conditional build would make sense for the compilation size, but
-it's not about the feature to turn on/off functionality on the fly.
+Applied now.  Thanks.
 
 
 Takashi
+
+
+> ---
+> We could test with" if (list_entry_is_head(s, &d->streams, list))"
+> instead, but I find it much less readable.
+> ---
+>  sound/firewire/amdtp-stream.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
+> index aad9778d1c4d..9be2260e4ca2 100644
+> --- a/sound/firewire/amdtp-stream.c
+> +++ b/sound/firewire/amdtp-stream.c
+> @@ -1943,6 +1943,7 @@ int amdtp_domain_start(struct amdtp_domain *d, unsigned int tx_init_skip_cycles,
+>  	unsigned int events_per_period = d->events_per_period;
+>  	unsigned int queue_size;
+>  	struct amdtp_stream *s;
+> +	bool found = false;
+>  	int err;
+>  
+>  	if (replay_seq) {
+> @@ -1955,10 +1956,12 @@ int amdtp_domain_start(struct amdtp_domain *d, unsigned int tx_init_skip_cycles,
+>  
+>  	// Select an IT context as IRQ target.
+>  	list_for_each_entry(s, &d->streams, list) {
+> -		if (s->direction == AMDTP_OUT_STREAM)
+> +		if (s->direction == AMDTP_OUT_STREAM) {
+> +			found = true;
+>  			break;
+> +		}
+>  	}
+> -	if (!s)
+> +	if (!found)
+>  		return -ENXIO;
+>  	d->irq_target = s;
+>  
+> -- 
+> 2.30.2
+> 

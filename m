@@ -2,57 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56C843B517C
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Jun 2021 06:23:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3988C3B5224
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Jun 2021 07:15:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4CAC169A;
-	Sun, 27 Jun 2021 06:22:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4CAC169A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2C93169C;
+	Sun, 27 Jun 2021 07:14:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2C93169C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624767807;
-	bh=x9OKbHPB+a5crMZ16YWh01e6J48WBoddPypucA/HiB8=;
-	h=References:From:To:Subject:In-reply-to:Date:Cc:List-Id:
+	s=default; t=1624770940;
+	bh=8SJ0rdNiF1eGxKYghOID17R/TEXH/bxSrVL61q47o6g=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pX43TSilrVURou0zZVBHjrjM5pLt9Yh9GcTQQhu35dG6NSzjQ0I+tySfnDF9OuTDX
-	 rkrUvmSAiZf+n7fAUuMbXKFjTgHGDSkauuP9Ii19uv8lMxMyUnhPgDpn0Guxc0I6bl
-	 1H4XqAELXXCPgmzAaU60rxNJjs+Z1ZcBC05CMc/s=
+	b=Zv2HaV1JUTAU3YyWaBfb2/ZeQYtY9EB90L0Me3PieGFZkhli4pJbW8zUQ9Jsrteqj
+	 O6gOz7+rv/bGXfOpNpqWWsZ+L8nkv8YQwnjEsq80ufeTYOYP+RMWiOmXDq7Ap+G8lP
+	 /tfeoisWB09KdocVY+D/gU9hgUQkq2s0V76Eacs0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 364A6F80240;
-	Sun, 27 Jun 2021 06:21:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 054D0F80117;
+	Sun, 27 Jun 2021 07:14:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F1590F80259; Sun, 27 Jun 2021 06:21:56 +0200 (CEST)
+ id 205CFF80259; Sun, 27 Jun 2021 07:14:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.6 required=5.0 tests=PRX_BODYSUB_1, PRX_BODYSUB_18, 
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from hellmouth.base.nu (hellmouth.base.nu [192.248.168.186])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 710E7F80137
- for <alsa-devel@alsa-project.org>; Sun, 27 Jun 2021 06:21:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 710E7F80137
-Received: from hellmouth.base.nu (localhost [127.0.0.1])
- by hellmouth.base.nu (OpenSMTPD) with ESMTP id 2e2c0c9a;
- Sun, 27 Jun 2021 04:21:50 +0000 (UTC)
-Received: from pandaemonium.base.nu ([2a02:8010:6391:0:7285:c2ff:fed8:8963])
- by hellmouth.base.nu with ESMTPSA id kegQAt7812C27wAADaPQrA
- (envelope-from <livvy@base.nu>); Sun, 27 Jun 2021 04:21:50 +0000
-References: <trinity-94e0c40f-401d-4d9e-84aa-f533d548ee7f-1623134599278@3c-app-gmx-bs25>
-User-agent: mu4e 1.4.15; emacs 28.0.50
-From: Olivia Mackintosh <livvy@base.nu>
-To: Roman Muller <klangrausch@wolke7.net>
-Subject: Re: Xone43C: USB communication
-In-reply-to: <trinity-94e0c40f-401d-4d9e-84aa-f533d548ee7f-1623134599278@3c-app-gmx-bs25>
-Date: Sun, 27 Jun 2021 05:21:49 +0100
-Message-ID: <87v960aqea.fsf@base.nu>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D1438F80117
+ for <alsa-devel@alsa-project.org>; Sun, 27 Jun 2021 07:14:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1438F80117
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="tsvX004s"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BFF0561C18;
+ Sun, 27 Jun 2021 05:13:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1624770840;
+ bh=8SJ0rdNiF1eGxKYghOID17R/TEXH/bxSrVL61q47o6g=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=tsvX004sWQ1Vml6hsSQVSayCX2z9ZKSHM9fz3et7JdxKmZ1cJiKkh1mflXfbEnQwK
+ muYfgh+F0tu0MSrKS2CGUF0eEU5C5axXUHbxuxCTxxO/pGnNECZosGR9xRLLFJZ3di
+ vSZ/jtVj1fpSB6bFV+QEQpSgNzPxavCaDIML/q3r/DsAcwuZ8+TJ7Fgx6ZiI3BNo+q
+ crO3gJBWo4DIHWmOIXn9Q7Jn5ls5tRkuPDl0057Yj+e/BGjHwqOol+xKrMR4KMVr6T
+ jlxFAT2ZtHN4qgYOOsmQATGDN7HAm6s/TeBfAPvvfidcf6Nd6PA3VFG0UtMC7a4Ndd
+ wwAA23J8lpUYw==
+From: Nathan Chancellor <nathan@kernel.org>
+To: "Geoffrey D. Bennett" <g@b4.vu>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v5] ALSA: usb-audio: scarlett2: Fix for loop increment in
+ scarlett2_usb_get_config
+Date: Sat, 26 Jun 2021 22:12:03 -0700
+Message-Id: <20210627051202.1888250-1-nathan@kernel.org>
+X-Mailer: git-send-email 2.32.0.93.g670b81a890
+In-Reply-To: <20210625202604.GB23780@m.b4.vu>
+References: <20210625202604.GB23780@m.b4.vu>
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: alsa-devel@alsa-project.org
+X-Patchwork-Bot: notify
+Content-Transfer-Encoding: 8bit
+Cc: Nathan Chancellor <nathan@kernel.org>, clang-built-linux@googlegroups.com,
+ alsa-devel@alsa-project.org, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,44 +83,102 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dear Roman,
+Clang warns:
 
-Thanks for reaching out to the list and starting to analyze your
-device. 
+sound/usb/mixer_scarlett_gen2.c:1189:32: warning: expression result
+unused [-Wunused-value]
+                        for (i = 0; i < count; i++, (u16 *)buf++)
+                                                    ^      ~~~~~
+1 warning generated.
 
-> sorry for spamming the list with such minuscule details.
-> Thank you for your message! I did not hear from other people yet,
+It appears the intention was to cast the void pointer to a u16 pointer
+so that the data could be iterated through like an array of u16 values.
+However, the cast happens after the increment because a cast is an
+rvalue, whereas the post-increment operator only works on lvalues, so
+the loop does not iterate as expected. This is not a bug in practice
+because count is not greater than one at the moment but this could
+change in the future so this should be fixed.
 
-No need to apologize.
+Replace the cast with a temporary variable of the proper type, which is
+less error prone and fixes the iteration. Do the same thing for the
+'u8 *' below this if block.
 
-> From this I see several URB control messages going back and forth, for example
-> the host sending 80bbf0, and the device responding accordingly. A bit later,
-> and after sending 44ac00 six times (hola!?!?)
+Fixes: ac34df733d2d ("ALSA: usb-audio: scarlett2: Update get_config to do endian conversion")
+Link: https://github.com/ClangBuiltLinux/linux/issues/1408
+Acked-by: Geoffrey D. Bennett <g@b4.vu>
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
 
-At least one of those is to set the sample-rate:
-      44100(Hz) is 0x00ac44 (44ac00 is the little endian)
+v1 -> v2:
 
-Most likely you will need to set the sample rate of the device similar
-to the Pioneer devices. Take a look at pioneer_djm_set_format_quirk() in
-sound/usb/quirks.c to see how the URB is being constructed for DJM
-mixers.
+* Use temporary variables of proper type rather than casting, as
+  requested by Takashi.
 
-> Only the manufacturer knows it, I need experiment and guessing
-> with a lot of time and luck.
+* Mention that there is not a bug at the moment per Geoffrey's comment.
 
-You will figure out that soon enough with perseverance! Do reach out on
-the list as there are folks willing to help out but a lot of us do it in
-our spare time so might be somewhat slow to respond.
+v2 -> v3:
 
-> Is there a common agreement where in the source code such control
-> messages should be put? Probably an extra file?
+* Restrict scope of buf_16 more, as requested by Geoffrey.
 
-It does vary depending on the specifics of the device but the
-maintainers seem to prefer keeping as generic as possible and putting
-quirks related things in quirks-table.h and quirks.c for anything device
-specific. I probably wouldn't start a different file just for your
-device if you can avoid it.
+* Add Geoffrey's ack.
 
+v3 -> v4:
+
+* Fix stray newline added below
+
+  if (config_item->size >= 8) {
+
+  leftover from buf_16's declaration.
+
+v4 -> v5 (or how many times does it take Nathan to get a patch right):
+
+* Re-add note about no bug that was dropped in v3 by accident, as
+  noticed by Geoffrey. My apologies for the multiple revisions.
+
+ sound/usb/mixer_scarlett_gen2.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/sound/usb/mixer_scarlett_gen2.c b/sound/usb/mixer_scarlett_gen2.c
+index fcba682cd422..161d832cafef 100644
+--- a/sound/usb/mixer_scarlett_gen2.c
++++ b/sound/usb/mixer_scarlett_gen2.c
+@@ -1177,6 +1177,7 @@ static int scarlett2_usb_get_config(
+ 	const struct scarlett2_config *config_item =
+ 		&scarlett2_config_items[info->has_mixer][config_item_num];
+ 	int size, err, i;
++	u8 *buf_8;
+ 	u8 value;
+ 
+ 	/* For byte-sized parameters, retrieve directly into buf */
+@@ -1185,9 +1186,12 @@ static int scarlett2_usb_get_config(
+ 		err = scarlett2_usb_get(mixer, config_item->offset, buf, size);
+ 		if (err < 0)
+ 			return err;
+-		if (size == 2)
+-			for (i = 0; i < count; i++, (u16 *)buf++)
+-				*(u16 *)buf = le16_to_cpu(*(__le16 *)buf);
++		if (size == 2) {
++			u16 *buf_16 = buf;
++
++			for (i = 0; i < count; i++, buf_16++)
++				*buf_16 = le16_to_cpu(*(__le16 *)buf_16);
++		}
+ 		return 0;
+ 	}
+ 
+@@ -1197,8 +1201,9 @@ static int scarlett2_usb_get_config(
+ 		return err;
+ 
+ 	/* then unpack from value into buf[] */
++	buf_8 = buf;
+ 	for (i = 0; i < 8 && i < count; i++, value >>= 1)
+-		*(u8 *)buf++ = value & 1;
++		*buf_8++ = value & 1;
+ 
+ 	return 0;
+ }
+
+base-commit: 0cbbeaf370221fc469c95945dd3c1198865c5fe4
 -- 
-Kind regards,
-Olivia Mackintosh
+2.32.0.93.g670b81a890
+

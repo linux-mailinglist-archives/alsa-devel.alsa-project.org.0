@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 470443B66E2
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Jun 2021 18:38:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4D503B672A
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Jun 2021 19:00:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C7016167D;
-	Mon, 28 Jun 2021 18:37:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7016167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 57F9783A;
+	Mon, 28 Jun 2021 18:59:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57F9783A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624898279;
-	bh=fM2UYPrxJnpjJzQAfwhDN/Dv4U8bjUg8ETAvFWC4mxw=;
+	s=default; t=1624899641;
+	bh=izByTaFSY/D05L9njblRovpj2pxDUZcGEA2EcpI6IqI=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Xw1CNJjrcMD/COJqI7hd/L1T/qMwOryuZ6ApypTDK9caYfI2chpxUeaRBt6ZLquFA
-	 Cp4ey8esKTjw2VL2qiF2JDGaeFH1vZulvHiPazbEihBug+GSZDiZ9ngAkhw9nLemkW
-	 omP/qkyDp41mMnUt7ScGjGzaJkvvpkV4dHuCCpAs=
+	b=sRHrfdXdgX5+Hry0HF7IVofW52Bp0SeZ6o+S+XSmKvbDfq0XhaJAhCXsL47qBbOmT
+	 58/Y6yN2zjKE4+ZB5EVscA4p5bY0+woT2iMDXrekACtlr09hIr6CRGnIyudwNH6Pg2
+	 E24fnNkUDa+crZFX4vPuxJ/TaezM44w74ylAbCIc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 271A8F80257;
-	Mon, 28 Jun 2021 18:36:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2795F80257;
+	Mon, 28 Jun 2021 18:59:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ACB12F80217; Mon, 28 Jun 2021 18:36:29 +0200 (CEST)
+ id 07F1BF80229; Mon, 28 Jun 2021 18:59:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,46 +33,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9856BF8012A
- for <alsa-devel@alsa-project.org>; Mon, 28 Jun 2021 18:36:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9856BF8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9F4E7F8020C
+ for <alsa-devel@alsa-project.org>; Mon, 28 Jun 2021 18:59:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F4E7F8020C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="UuaXR6cX"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 28BCE6144F;
- Mon, 28 Jun 2021 16:36:20 +0000 (UTC)
+ header.b="WHYuacD1"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 64E2261920;
+ Mon, 28 Jun 2021 16:59:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624898181;
- bh=fM2UYPrxJnpjJzQAfwhDN/Dv4U8bjUg8ETAvFWC4mxw=;
+ s=k20201202; t=1624899544;
+ bh=izByTaFSY/D05L9njblRovpj2pxDUZcGEA2EcpI6IqI=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=UuaXR6cXmyMxOTx7grxZ24uIGOf6jgvD8ysUu96av3wk89rlbRPaKiJDI0cmE0QAb
- pM4YS+ZLr/+CDUl5W0J5EF8o6tRDijdh+prAwYToHd5bu5EH0ixh9Tbo0wmXl/OgF3
- oHg4IJ/gq+2ikxlLPqb3xh+q643IGLcP+CmgFMiz5lrnOgSKRIwYmN/3l2e4jBcRT8
- llt+fsOjc3rDiM10+ds3IWilKARbJlkBrYW804L9Q46nzfcSYxdl4hYDoMln95i4DD
- ZUsSkZUsKS1Ex1jFK6nNPGGWbOFBcT3rNxb1qQNzaLTo4uGamDys6hG2cweh4FifRu
- d57SPXviKUlDA==
-Date: Mon, 28 Jun 2021 17:35:53 +0100
+ b=WHYuacD1onMjpG0vzyLSDeHIqDQbjXbenx7+/ll908orS0qNqeaxStTKdUsgDaOo0
+ xEmtt5c3uk6bRFbzyCmZj4V8C62adBF8LKGNQqBGeqCshkPWJVbXTz4NLKynnd0qEk
+ 9m8rXmAfMe8ssWaCqGT62H1uqXsFZaf2DZ5TbiCs/CIJJrVo6wXkw6UVDFYByqnbAf
+ kMsT0PdZBgAP5Q62EuTEs/5MbyrkA8Koj3281bcNFaYzx5ApmpARITmTNJSN7OTiOT
+ P1y0HRLevzmerYyqbTzxHR+epGD8o6xobBZDlIV2sCy1JtywN0NLu8EzFKrDMmj9HW
+ CpKsyUuUuiuQQ==
+Date: Mon, 28 Jun 2021 17:58:37 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH] ASoC: atmel: ATMEL drivers depend on HAS_DMA
-Message-ID: <20210628163553.GD4492@sirena.org.uk>
-References: <20210530204851.3372-1-rdunlap@infradead.org>
- <9ba0da3b-dbdb-c91d-2def-f3dcd30cbde3@infradead.org>
- <20210628130214.GB4492@sirena.org.uk>
- <6734cd67-ae14-74f4-a78e-b6a810c1cdec@infradead.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH 3/3] ASoC: wm_adsp: Remove pointless string comparison
+Message-ID: <20210628165837.GE4492@sirena.org.uk>
+References: <20210626155941.12251-1-ckeepax@opensource.cirrus.com>
+ <20210626155941.12251-3-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="kvUQC+jR9YzypDnK"
+ protocol="application/pgp-signature"; boundary="zaRBsRFn0XYhEU69"
 Content-Disposition: inline
-In-Reply-To: <6734cd67-ae14-74f4-a78e-b6a810c1cdec@infradead.org>
+In-Reply-To: <20210626155941.12251-3-ckeepax@opensource.cirrus.com>
 X-Cookie: Someone is speaking well of you.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- LKML <linux-kernel@vger.kernel.org>,
- =?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
- Alexandre Belloni <alexandre.belloni@free-electrons.com>,
- Bo Shen <voice.shen@atmel.com>,
- Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,45 +83,31 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---kvUQC+jR9YzypDnK
+--zaRBsRFn0XYhEU69
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jun 28, 2021 at 09:03:25AM -0700, Randy Dunlap wrote:
-> On 6/28/21 6:02 AM, Mark Brown wrote:
+On Sat, Jun 26, 2021 at 04:59:41PM +0100, Charles Keepax wrote:
 
-> > Please don't send content free pings and please allow a reasonable time
-> > for review.  People get busy, go on holiday, attend conferences and so=
-=20
+> The control fw_name is always directly assigned from the wm_adsp_fw_text
+> array, so it isn't necessary to compare the actual strings just the
+> pointer values.
 
-> a. The entire email/patch was there. Should I put the ping _after_ the pa=
-tch?
-> Would that help?
+This feels like it's asking for trouble in the future...
 
-Never send content free pings of any kind.  There's an "and" there.
-Quoted patches can't be applied.
-
-> b. What do you consider a reasonable time?  The patch was sent 28 days
-> prior to this gentle ping.
-
-As the mail you are replying to suggests this depends on the patch, some
-things are more urgent than others, and in any case like I say content
-free pings no matter how content free are just nose.
-
---kvUQC+jR9YzypDnK
+--zaRBsRFn0XYhEU69
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmDZ+mkACgkQJNaLcl1U
-h9DblggAhwS5IQqddFnWasPd9h6yF5OEbnQV1e2IYp81mj/NjDG7RNdMlWkXl7B7
-2Cap8Kax2DtjMNHdykf0pbs4jJzgYxMcuuobtGXFWpTs6+gPm9LcP8R7DYg7c+ok
-b54DvQ085VHJc2yYMGn6HFq5vBKTJMav4SxMRUjfBzvb9wIqXnn9JQQVRAa8XluV
-qFJ7+R4VbHILOaRWZqkeVtMGrxlbjQhegTDBmKZhESVSWffUL+I0J1TCrEgQXllq
-qVrtMGoDVMb7606DbkkKJ8IK8RtWmlwJjXDVnDkZIqphiZ4KVa32CsMK2dXMDz5e
-AF7qY99WHxYObQaNO9pfnoBaKNVItg==
-=X13a
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmDZ/7wACgkQJNaLcl1U
+h9DTIwf/RiKVO86xh/BJlWIFcibTiJrEZG93HC/R7zE+3CAsVh/ndwjM9qrmT7ZX
+fEOcTDlFgE8K+Nb6uN3VsbI+pHprxeCaNw+Q88UrLbf+UC54deCBwBnVt/Pw4laF
+iVIsIvEodaDju8xbnDVEakrD6HZvjykZys5DwUgN3KL66msmL/OefXM0t/sFHf1e
+zrVhtYDlhd3D0K1bNgmjEeHXHkjP9zagSt9XlvlCZf4SVnDhMFTO3H6r3uatp/O5
+jdIW94nK9MdsnDw0IG3oA60jqOTywGvFU523O+5HoualmxWYV7pLP2kBHA07jILY
+T0EQUfj+qlSbjG266XUxTF8gKYm9tg==
+=uKiZ
 -----END PGP SIGNATURE-----
 
---kvUQC+jR9YzypDnK--
+--zaRBsRFn0XYhEU69--

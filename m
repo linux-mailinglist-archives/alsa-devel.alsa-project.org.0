@@ -2,106 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05D553B5E5D
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Jun 2021 14:48:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B31633B5EA7
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Jun 2021 15:04:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 902191678;
-	Mon, 28 Jun 2021 14:47:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 902191678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 381F6167A;
+	Mon, 28 Jun 2021 15:03:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 381F6167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624884497;
-	bh=OkFQR8+tjy+05Z4MH67IOZwB+3xRzj16FoRW1YyJU8Y=;
+	s=default; t=1624885460;
+	bh=Y26NYPMh7hRNMuctINof5yJOo5k8WTet6vA/hQSpDXI=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UCBSUT5RFSxH5F7fAPaBUxTZRdmJX6Gcwyf0LzIdYv+14qa72Z92CZIXcOZjvJs+U
-	 RyfqmYO8KgmTLA28VD/G+vQlxvMsMaR5Pxg6u6HU/QLoViSYq+wARxsW6VkuKZkV5X
-	 cbUEglIaIP8iQliMkUkS/Armc+ZFqczqHnFB8dyQ=
+	b=I8tmf7Nz6r4Usu/YmrAybEpaJz/YfszVtg3kMsCXwagR8BF8ftlCcyL6aStbiLEq6
+	 A3bYJdAIrKB0jtIkr+G6OAnZgYBdb4oAQ8CfqBFXt5WJF314C+y8k3ZM/WDZbyRXpK
+	 31HpTwXRxU7MKppHj2kiGnKW2PCxB+Bb7Ynd9EGA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EED3DF80257;
-	Mon, 28 Jun 2021 14:46:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B82CAF80257;
+	Mon, 28 Jun 2021 15:02:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 54977F80229; Mon, 28 Jun 2021 14:46:46 +0200 (CEST)
+ id C3E7EF80229; Mon, 28 Jun 2021 15:02:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
- [66.111.4.229])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 471F3F8012A
- for <alsa-devel@alsa-project.org>; Mon, 28 Jun 2021 14:46:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 471F3F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7255AF8020C
+ for <alsa-devel@alsa-project.org>; Mon, 28 Jun 2021 15:02:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7255AF8020C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="XjUIgoto"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="TH3R+UNm"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.nyi.internal (Postfix) with ESMTP id 9569E58073B;
- Mon, 28 Jun 2021 08:46:37 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Mon, 28 Jun 2021 08:46:37 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=FGZcwoZwyPYceIqBEn/JL4z0fxH
- 5zp8oJcvt5w3ABb4=; b=XjUIgotobppm/S2dYlC7NoZCJ/kNNH0oSeeon95yHoB
- H9MShuY7w68ElblP8T8S1w7sEfRA1EYmMBGLD9ukAEbNEHH6ba24/RfkjfqvUK7t
- XOvKskUlGp3k1hsJWVZv75Tt/rhYAm/vj2itcFPiLNuxQxTn5EZAzuxW25krnkQU
- oLmlnh4qwobducCXpO/lpEtO2QE62N0wLGWGeJdo0nAasd5UJJ4gOIgI2nTR3xoh
- zkC1xOcEiT7rq6mcEgWaIIy0yPpnRQQSDb5SVhnWWKJE+UmS60lBV3xv4p1XNfuk
- +QqFIMhz4Osbcgi8du6Mt8NQq7k8PcSjQoKMnI8MqqQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=FGZcwo
- ZwyPYceIqBEn/JL4z0fxH5zp8oJcvt5w3ABb4=; b=TH3R+UNmoK5PEOZO0SEp/9
- NiyHWqi6Z9WkqJHlk3iZ9Cyatb64kvA42MRX1STlR8cAvlQKHFiBD4grIKs8nGUM
- KCHQK9IgD0RfvIo85eYwgwJ9EfW2C1rT3Khb+iVOUp+sSILxN2cQYSxxcyHleXzd
- 6YpI04UCgALJtfoBE4Pk/nkld56HRobKfYY0xrEOWPffHrkzuWbu808Cl6IGo23l
- OgTtd8+lwfgAEgWnLLv+zY/8UkAJKEPwBhiUdUQFUugLsomXRB7fEL7OI+LRbSoC
- JaVhxa04zZkRyQE+aTlfEnySfIJGwVD+YJImqofDcG5OeYtpINcbOKCiKGowlpzQ
- ==
-X-ME-Sender: <xms:rMTZYNrL03vBsHOo3OnkaqUrKRFqdzTYB4grOdmd7_FsquwcESGZrQ>
- <xme:rMTZYPrDQUOQVbOzEHOCU4-g2seksclyIhrHZONtneskB8E64z4chmq8HR_M3TgDx
- dmt-OvTYtwCWs90tbw>
-X-ME-Received: <xmr:rMTZYKNl6yZmXyuEOp8Ge0mErhQByV9xGdDoHezsfL_K9SHAVKI6UPBXcmBVvkQNf_ZZtuwrVoftuexjFxXPBdtzK0EVvIAFJEqN>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeehgedgheehucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkfhggtggujgesghdtre
- ertddtvdenucfhrhhomhepofgrgihimhgvucftihhprghrugcuoehmrgigihhmvgestggv
- rhhnohdrthgvtghhqeenucggtffrrghtthgvrhhnpeffteetveeijeetuefhffegkeetgf
- fhieelheehtdduudethffhjedtvddtudelvdenucffohhmrghinhepuggvvhhitggvthhr
- vggvrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrh
- homhepmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:rMTZYI4ksmDYF0Rqye_Zjemx9NMc4sjt7Iy8dfpcV8lyxsrHNhmvHA>
- <xmx:rMTZYM7o3EswVER0tS5OmjiQjoxAOty1lqHhNhB-SA8mE7iCoWwb7w>
- <xmx:rMTZYAjQBolGbcWO8EhD2KMFPdodZd2yvUyB-_GoPb9i5EledZ6Hcw>
- <xmx:rcTZYNGE8d4nF2MgHBficmLTRao3CglHH2dy2cEygBcZwSngR1G96g>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 28 Jun 2021 08:46:36 -0400 (EDT)
-Date: Mon, 28 Jun 2021 14:46:34 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: fengzheng923@gmail.com
-Subject: Re: [PATCH v4 2/2] ASoC: sun50i-dmic: dt-bindings: add DT bindings
- for DMIC controller
-Message-ID: <20210628124634.radw3ywstfdl2fqw@gilmour>
-References: <20210625090721.6183-1-fengzheng923@gmail.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="EmtcopAT"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5C04361C69;
+ Mon, 28 Jun 2021 13:02:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1624885361;
+ bh=Y26NYPMh7hRNMuctINof5yJOo5k8WTet6vA/hQSpDXI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=EmtcopATJkGEAjK8kZah+u23pZWB4XZLBNl3OhSp237m9Zc7/5pSCgTZIaq03mTSM
+ l9fhEGbEKnG2Un5+V6Rz9Y8I6WHWhWWOxT5hgDLqJ6LtfWf3f9VMTin8VJZogGZQpg
+ NAYqWMmoWkvPdo1AINeWqXoRv/v/DYgBevWxFX7itmXHlH4D/1i/8zGSwFnULg74T3
+ I1qYEXcllSf7LE8gdRHE5Wz9v8SqvcfivPYp6feN4IFq/iyaRmS/2VPKDgNF/2oXmP
+ 9bADijpDp57Y77Rf/S5NhFM5o9u78OiBpOYCF6YNKU3lICrPgNKjSVAE8U6JvNC9hE
+ TfQPkNSkS4oNA==
+Date: Mon, 28 Jun 2021 14:02:14 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Randy Dunlap <rdunlap@infradead.org>
+Subject: Re: [PATCH] ASoC: atmel: ATMEL drivers depend on HAS_DMA
+Message-ID: <20210628130214.GB4492@sirena.org.uk>
+References: <20210530204851.3372-1-rdunlap@infradead.org>
+ <9ba0da3b-dbdb-c91d-2def-f3dcd30cbde3@infradead.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="ersryph7t25vlhha"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="NMuMz9nt05w80d4+"
 Content-Disposition: inline
-In-Reply-To: <20210625090721.6183-1-fengzheng923@gmail.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, jernej.skrabec@gmail.com, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, wens@csie.org, broonie@kernel.org,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+In-Reply-To: <9ba0da3b-dbdb-c91d-2def-f3dcd30cbde3@infradead.org>
+X-Cookie: Someone is speaking well of you.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ =?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+ Alexandre Belloni <alexandre.belloni@free-electrons.com>,
+ Bo Shen <voice.shen@atmel.com>,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,130 +87,42 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---ersryph7t25vlhha
+--NMuMz9nt05w80d4+
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jun 25, 2021 at 05:07:21AM -0400, fengzheng923@gmail.com wrote:
-> From: Ban Tao <fengzheng923@gmail.com>
+On Sun, Jun 27, 2021 at 03:28:59PM -0700, Randy Dunlap wrote:
+> [adding LKML]
 >=20
-> DT binding documentation for this new ASoC driver.
->=20
-> Signed-off-by: Ban Tao <fengzheng923@gmail.com>
-> Reviewed-by: Rob Herring <robh@kernel.org>
->=20
-> ---
-> v1->v2:
-> 1.Fix some build errors.
-> ---
-> v2->v3:
-> 1.Fix some build errors.
-> ---
-> v3->v4:
-> 1.None.
-> ---
->  .../sound/allwinner,sun50i-h6-dmic.yaml       | 68 +++++++++++++++++++
->  1 file changed, 68 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/allwinner,sun=
-50i-h6-dmic.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/sound/allwinner,sun50i-h6-=
-dmic.yaml b/Documentation/devicetree/bindings/sound/allwinner,sun50i-h6-dmi=
-c.yaml
-> new file mode 100644
-> index 000000000000..d9107685b78d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/allwinner,sun50i-h6-dmic.ya=
-ml
-> @@ -0,0 +1,68 @@
-> +# SPDX-License-Identifier: (GPL-2.0+ OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/allwinner,sun50i-h6-dmic.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Allwinner H6 DMIC Device Tree Bindings
-> +
-> +maintainers:
-> +  - Ban Tao <fengzheng923@gmail.com>
-> +
-> +properties:
-> +  "#sound-dai-cells":
-> +    const: 0
-> +
-> +  compatible:
-> +    const: allwinner,sun50i-h6-dmic
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: Bus Clock
-> +      - description: Module Clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: bus
-> +      - const: mod
-> +
-> +  dmas:
-> +    items:
-> +      - description: RX DMA Channel
-> +
-> +  dma-names:
-> +    items:
-> +      - const: rx
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +required:
-> +  - "#sound-dai-cells"
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - dmas
-> +  - dma-names
-> +  - resets
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    dmic: dmic@5095000 {
-> +      #sound-dai-cells =3D <0>;
-> +      compatible =3D "allwinner,sun50i-h6-dmic";
-> +      reg =3D <0x05095000 0x400>;
-> +      clocks =3D <&ccu 101>, <&ccu 100>;
-> +      clock-names =3D "bus", "mod";
-> +      dmas =3D <&dma 7>;
-> +      dma-names =3D "rx";
-> +      resets =3D <&ccu 42>;
-> +    };
+> ping?
 
-You can keep the clock and reset indices, it's more readable that way,
-you just have to add the headers dt-bindings/clock/sun50i-h6-ccu.h and
-dt-bindings/reset/sun50i-h6-ccu.h like what
-Documentation/devicetree/bindings/iommu/allwinner,sun50i-h6-iommu.yaml
-is doing.
+Please don't send content free pings and please allow a reasonable time
+for review.  People get busy, go on holiday, attend conferences and so=20
+on so unless there is some reason for urgency (like critical bug fixes)
+please allow at least a couple of weeks for review.  If there have been
+review comments then people may be waiting for those to be addressed.
 
-Also, this controller has an interrupt. Even if the driver doesn't use
-it it should be in the binding.
+Sending content free pings adds to the mail volume (if they are seen at
+all) which is often the problem and since they can't be reviewed
+directly if something has gone wrong you'll have to resend the patches
+anyway, so sending again is generally a better approach though there are
+some other maintainers who like them - if in doubt look at how patches
+for the subsystem are normally handled.
 
-Maxime
-
---ersryph7t25vlhha
+--NMuMz9nt05w80d4+
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYNnEqgAKCRDj7w1vZxhR
-xae2AP4qPv9ltkegaT6Rdk9GGRXJUgBLvDbFtsYo+bDb8jTrGwD/S+Pb9PvRC7ey
-moBzsqtqHcl2FG/ce2wg5N3rQ9f7EwU=
-=c0fk
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmDZyFUACgkQJNaLcl1U
+h9Bt/wf8DWM389gRTL6jZi/DGboXJNS2QfPYTyMXCpfmcfQr2p+mJyijz59Aw4oU
+tW1UDMrGmYvXI0euMGv3a8JsiRObGAK0rIQxmkU47hJODgKasgthC9BRumk8fktF
+EfokNzzO2aOzORL1K2RaJ3vO50opo8uKzemVg/E5JqKUnmAlvPlbamETA9hdwEox
++GrNIKFTUiC8Oxc1tm18GnM44UysB1gqJDEx0heHAj/oGxFBwrpd1pCRwFd+zXu2
+IjxFQkhmZQz1TFbZAu73NfVthd0++lgRv6HHmWpqQkZTT8nufLa+RsbR5JVKrBwr
+IRJdbTzonmq8HqiailSlQlvtyoRxvA==
+=wQXC
 -----END PGP SIGNATURE-----
 
---ersryph7t25vlhha--
+--NMuMz9nt05w80d4+--

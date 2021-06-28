@@ -2,76 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7ED83B6663
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Jun 2021 18:05:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 470443B66E2
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Jun 2021 18:38:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F2A11681;
-	Mon, 28 Jun 2021 18:04:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F2A11681
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7016167D;
+	Mon, 28 Jun 2021 18:37:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7016167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624896321;
-	bh=cp/xqyobOHmx/QqlPaQYSkntN79SYauu4dSvbdyFZwk=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1624898279;
+	bh=fM2UYPrxJnpjJzQAfwhDN/Dv4U8bjUg8ETAvFWC4mxw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=l4NxTQYjiMBAT2EDnCs8kqbJrk16IZA8DIkhAG8WbmqYCsYmdtLCduHc8sNetiaxq
-	 AV5sMJNKK345SJ8EeXsF/sJ4/TWdsfI/VM1wBp5X5ZDqcehSjTjW/07R7sxnvPf5vX
-	 xp9lJ9BTM0P0zXa6cuu03fvAslvVK9n41HNxheug=
+	b=Xw1CNJjrcMD/COJqI7hd/L1T/qMwOryuZ6ApypTDK9caYfI2chpxUeaRBt6ZLquFA
+	 Cp4ey8esKTjw2VL2qiF2JDGaeFH1vZulvHiPazbEihBug+GSZDiZ9ngAkhw9nLemkW
+	 omP/qkyDp41mMnUt7ScGjGzaJkvvpkV4dHuCCpAs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9355F8012A;
-	Mon, 28 Jun 2021 18:03:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 271A8F80257;
+	Mon, 28 Jun 2021 18:36:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC35BF80229; Mon, 28 Jun 2021 18:03:45 +0200 (CEST)
+ id ACB12F80217; Mon, 28 Jun 2021 18:36:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 826C2F8020C
- for <alsa-devel@alsa-project.org>; Mon, 28 Jun 2021 18:03:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 826C2F8020C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9856BF8012A
+ for <alsa-devel@alsa-project.org>; Mon, 28 Jun 2021 18:36:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9856BF8012A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="qaNuiySb"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:
- Subject:Sender:Reply-To:Content-ID:Content-Description;
- bh=d0oLH0yMmNocoX6aVWixqwCRit5ll2P90SYDRMW8gZA=; b=qaNuiySb9526gAc1xGBm1CJzzk
- R3Mwk+kGTZ34YiZSeHkbavkdbDaWIR0eAZIa1A0Aa2NkW2HIj9/2+5bwJxrp6x2tLvS41YkmhbYc+
- kEK9RblyHBBxWInzAU/qUKJ5zKw/68uFPw4HHi3OqsBvo1v24eWo8+dDw4DRn66WGNUWgc2DTaWmq
- Bx3wTWtL4CSVJswbbKjTEw+pBfg9E5I9lSE+9uKPXFIb2twaIFdhw0KTgzr8zuPJ+Ng/p4Sli8CEy
- z6vtoa1kbPjgEcrZCQ9Ws17wP/0/z2MZplf7TiTMEDjYbM6qC7hRVTR6SkemC4GaD69IFmgt5vX5u
- lhef6ddw==;
-Received: from [2601:1c0:6280:3f0::aefb]
- by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1lxtjK-008XUh-Eq; Mon, 28 Jun 2021 16:03:26 +0000
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="UuaXR6cX"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 28BCE6144F;
+ Mon, 28 Jun 2021 16:36:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1624898181;
+ bh=fM2UYPrxJnpjJzQAfwhDN/Dv4U8bjUg8ETAvFWC4mxw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=UuaXR6cXmyMxOTx7grxZ24uIGOf6jgvD8ysUu96av3wk89rlbRPaKiJDI0cmE0QAb
+ pM4YS+ZLr/+CDUl5W0J5EF8o6tRDijdh+prAwYToHd5bu5EH0ixh9Tbo0wmXl/OgF3
+ oHg4IJ/gq+2ikxlLPqb3xh+q643IGLcP+CmgFMiz5lrnOgSKRIwYmN/3l2e4jBcRT8
+ llt+fsOjc3rDiM10+ds3IWilKARbJlkBrYW804L9Q46nzfcSYxdl4hYDoMln95i4DD
+ ZUsSkZUsKS1Ex1jFK6nNPGGWbOFBcT3rNxb1qQNzaLTo4uGamDys6hG2cweh4FifRu
+ d57SPXviKUlDA==
+Date: Mon, 28 Jun 2021 17:35:53 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Randy Dunlap <rdunlap@infradead.org>
 Subject: Re: [PATCH] ASoC: atmel: ATMEL drivers depend on HAS_DMA
-To: Mark Brown <broonie@kernel.org>
+Message-ID: <20210628163553.GD4492@sirena.org.uk>
 References: <20210530204851.3372-1-rdunlap@infradead.org>
  <9ba0da3b-dbdb-c91d-2def-f3dcd30cbde3@infradead.org>
  <20210628130214.GB4492@sirena.org.uk>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <6734cd67-ae14-74f4-a78e-b6a810c1cdec@infradead.org>
-Date: Mon, 28 Jun 2021 09:03:25 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ <6734cd67-ae14-74f4-a78e-b6a810c1cdec@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <20210628130214.GB4492@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="kvUQC+jR9YzypDnK"
+Content-Disposition: inline
+In-Reply-To: <6734cd67-ae14-74f4-a78e-b6a810c1cdec@infradead.org>
+X-Cookie: Someone is speaking well of you.
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
  LKML <linux-kernel@vger.kernel.org>,
- =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+ =?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
  Alexandre Belloni <alexandre.belloni@free-electrons.com>,
  Bo Shen <voice.shen@atmel.com>,
  Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
@@ -90,34 +88,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 6/28/21 6:02 AM, Mark Brown wrote:
-> On Sun, Jun 27, 2021 at 03:28:59PM -0700, Randy Dunlap wrote:
->> [adding LKML]
->>
->> ping?
-> 
-> Please don't send content free pings and please allow a reasonable time
-> for review.  People get busy, go on holiday, attend conferences and so 
-> on so unless there is some reason for urgency (like critical bug fixes)
-> please allow at least a couple of weeks for review.  If there have been
-> review comments then people may be waiting for those to be addressed.
 
-a. The entire email/patch was there. Should I put the ping _after_ the patch?
-Would that help?
+--kvUQC+jR9YzypDnK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-b. What do you consider a reasonable time?  The patch was sent 28 days
-prior to this gentle ping.
+On Mon, Jun 28, 2021 at 09:03:25AM -0700, Randy Dunlap wrote:
+> On 6/28/21 6:02 AM, Mark Brown wrote:
 
-> Sending content free pings adds to the mail volume (if they are seen at
-> all) which is often the problem and since they can't be reviewed
-> directly if something has gone wrong you'll have to resend the patches
-> anyway, so sending again is generally a better approach though there are
-> some other maintainers who like them - if in doubt look at how patches
-> for the subsystem are normally handled.
-> 
+> > Please don't send content free pings and please allow a reasonable time
+> > for review.  People get busy, go on holiday, attend conferences and so=
+=20
 
-Yes, I shall resend the patch. Thanks.
+> a. The entire email/patch was there. Should I put the ping _after_ the pa=
+tch?
+> Would that help?
 
--- 
-~Randy
+Never send content free pings of any kind.  There's an "and" there.
+Quoted patches can't be applied.
 
+> b. What do you consider a reasonable time?  The patch was sent 28 days
+> prior to this gentle ping.
+
+As the mail you are replying to suggests this depends on the patch, some
+things are more urgent than others, and in any case like I say content
+free pings no matter how content free are just nose.
+
+--kvUQC+jR9YzypDnK
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmDZ+mkACgkQJNaLcl1U
+h9DblggAhwS5IQqddFnWasPd9h6yF5OEbnQV1e2IYp81mj/NjDG7RNdMlWkXl7B7
+2Cap8Kax2DtjMNHdykf0pbs4jJzgYxMcuuobtGXFWpTs6+gPm9LcP8R7DYg7c+ok
+b54DvQ085VHJc2yYMGn6HFq5vBKTJMav4SxMRUjfBzvb9wIqXnn9JQQVRAa8XluV
+qFJ7+R4VbHILOaRWZqkeVtMGrxlbjQhegTDBmKZhESVSWffUL+I0J1TCrEgQXllq
+qVrtMGoDVMb7606DbkkKJ8IK8RtWmlwJjXDVnDkZIqphiZ4KVa32CsMK2dXMDz5e
+AF7qY99WHxYObQaNO9pfnoBaKNVItg==
+=X13a
+-----END PGP SIGNATURE-----
+
+--kvUQC+jR9YzypDnK--

@@ -2,92 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27A053B6F68
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Jun 2021 10:31:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2E6D3B7338
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Jun 2021 15:31:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8B871681;
-	Tue, 29 Jun 2021 10:30:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8B871681
+	by alsa0.perex.cz (Postfix) with ESMTPS id B74FA1682;
+	Tue, 29 Jun 2021 15:30:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B74FA1682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1624955481;
-	bh=YHzWIa69ElM68S511DfZwwMO3O+q84es27oKk79zhyY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1624973501;
+	bh=WrMX5t+kqomjEAEXK9ZnV1sCkp7P4bnh7S9b48AcKW0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bnLFp85YznGOv84RGumFM5OTCKll9U8rE8YfDXwF/Hyjep4uvkJxaSABQDbaRsEYi
-	 mJ4qKgOXNd0LjUcd17aKqJIUGWlrBN6FPseMZrhCgA/o4KMt+Z7Ty3JdMhevdIoWcJ
-	 5YC2jdwn7LVA6gpuymO9dl0Ck4v4U79jxbyMTsoM=
+	b=IPFtROb8JKohkhfnKntdvIfAgxei1EncNPaw0th/y6XjiPMaL9+knFcnZ0mxuiR8F
+	 33fluP41ruLdru9Qut6DRG3uKtGgvNZnZYpJlv9hkSy8k/tITVw20t4KtxPZzSO4AS
+	 ARBRxqMzR1w6XKekm1bcSh+n5cRa7oemrYZ30HBk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D1B2DF802D2;
-	Tue, 29 Jun 2021 10:29:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 125BBF8025D;
+	Tue, 29 Jun 2021 15:30:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 56BEDF8025D; Tue, 29 Jun 2021 10:29:39 +0200 (CEST)
+ id A398DF80259; Tue, 29 Jun 2021 15:30:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE51BF80240
- for <alsa-devel@alsa-project.org>; Tue, 29 Jun 2021 10:29:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE51BF80240
-Received: from mail-pg1-f199.google.com ([209.85.215.199])
- by youngberry.canonical.com with esmtps (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <andy.chi@canonical.com>) id 1ly97W-0000L4-TY
- for alsa-devel@alsa-project.org; Tue, 29 Jun 2021 08:29:27 +0000
-Received: by mail-pg1-f199.google.com with SMTP id
- p14-20020a63fe0e0000b0290223af1026abso13689392pgh.20
- for <alsa-devel@alsa-project.org>; Tue, 29 Jun 2021 01:29:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=toSlKwLIoJaylZ3jHBQTTvJkInZwz79Yfvkqkzo/W98=;
- b=sLasDBVWOaU2AwTN753wKpRuhTj4hYpVyvUvlLNNHtCXCl7gV5hLwD4J0fyLza3SOt
- 4VL5AoXGf/Bu0YcZstygUM0Jyfh7pau1z938xUHjcRrHov3a68MwFNuQwWFSk2rB9Yfe
- dYf8cSWx8lmn9a3xqVoQokXBXJWXfIXOgGw3fLe6VF9O1qoFW/LDLMWdmTP1QRwSRheo
- 4zwyXfVWj+N1X4TE4waOd3BgiZ0XPEPGDAUIdY8knHrJ5XPnBq6FbLgv06kM4X0Jy6AX
- 2K0ckG05fiXLhtwxQhQ4mopsAOr1DgZRIckB3LC4bBcnna+HASLCRGepD7JQMQwcdea8
- x3dg==
-X-Gm-Message-State: AOAM531OlsAdkue1AKC+Id3GTtkU8n0ZKcZTwWfbK8A19XzGRjBOMU/d
- eZ11azx9KM7E2bOoxiJZUdKgJKqxhptFQW+k6Z1ICIBUWsbl8639Bm+kuH13u89sXahOM4gBI+G
- OSJnmIZBkBKfsgIrMN50MyxdHdzqPKiK47dH0PdRS
-X-Received: by 2002:a17:902:7446:b029:128:ec77:b41e with SMTP id
- e6-20020a1709027446b0290128ec77b41emr5395336plt.80.1624955365642; 
- Tue, 29 Jun 2021 01:29:25 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJx3rJTpLAVpOugSkqbdGzg37BM1HfA5uvI4BBZMTPky38pJlKqaSYVeohwYjsgN0PugSolhoQ==
-X-Received: by 2002:a17:902:7446:b029:128:ec77:b41e with SMTP id
- e6-20020a1709027446b0290128ec77b41emr5395324plt.80.1624955365446; 
- Tue, 29 Jun 2021 01:29:25 -0700 (PDT)
-Received: from localhost.localdomain (36-224-198-238.dynamic-ip.hinet.net.
- [36.224.198.238])
- by smtp.gmail.com with ESMTPSA id 28sm17526830pgq.39.2021.06.29.01.29.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Jun 2021 01:29:25 -0700 (PDT)
-From: Andy Chi <andy.chi@canonical.com>
-To: 
-Subject: [PATCH 3/3] ALSA: hda/realtek: fix mute/micmute LEDs for HP ProBook
- 630 G8
-Date: Tue, 29 Jun 2021 16:28:59 +0800
-Message-Id: <20210629082902.408881-3-andy.chi@canonical.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210629082902.408881-1-andy.chi@canonical.com>
-References: <20210629082902.408881-1-andy.chi@canonical.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D946CF80156
+ for <alsa-devel@alsa-project.org>; Tue, 29 Jun 2021 15:29:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D946CF80156
+X-IronPort-AV: E=McAfee;i="6200,9189,10029"; a="207964634"
+X-IronPort-AV: E=Sophos;i="5.83,308,1616482800"; d="scan'208";a="207964634"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jun 2021 06:29:38 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.83,308,1616482800"; d="scan'208";a="557939978"
+Received: from lkp-server01.sh.intel.com (HELO 4aae0cb4f5b5) ([10.239.97.150])
+ by orsmga004.jf.intel.com with ESMTP; 29 Jun 2021 06:29:35 -0700
+Received: from kbuild by 4aae0cb4f5b5 with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1lyDnz-00099q-5b; Tue, 29 Jun 2021 13:29:35 +0000
+Date: Tue, 29 Jun 2021 21:29:09 +0800
+From: kernel test robot <lkp@intel.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: [PATCH] ASoC: codecs: wcd938x: fix returnvar.cocci warnings
+Message-ID: <20210629132909.GA7935@233d919f385f>
+References: <202106292156.mWNAaVQA-lkp@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Chris Chiu <chris.chiu@canonical.com>, Jian-Hong Pan <jhp@endlessos.org>,
- Kailang Yang <kailang@realtek.com>, alsa-devel@alsa-project.org,
- Jeremy Szu <jeremy.szu@canonical.com>, linux-kernel@vger.kernel.org,
- Huacai Chen <chenhuacai@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Hui Wang <hui.wang@canonical.com>, andy.chi@canonical.com,
- Sami Loone <sami@loone.fi>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <202106292156.mWNAaVQA-lkp@intel.com>
+X-Patchwork-Hint: ignore
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, kbuild-all@lists.01.org,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,27 +80,64 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The HP ProBook 630 G8 using ALC236 codec which using 0x02 to
-control mute LED and 0x01 to control micmute LED.
-Therefore, add a quirk to make it works.
+From: kernel test robot <lkp@intel.com>
 
-Signed-off-by: Andy Chi <andy.chi@canonical.com>
+sound/soc/codecs/wcd938x.c:1628:5-8: Unneeded variable: "ret". Return "0" on line 1656
+sound/soc/codecs/wcd938x.c:1871:5-8: Unneeded variable: "ret". Return "0" on line 1907
+
+
+ Remove unneeded variable used to store return value.
+
+Generated by: scripts/coccinelle/misc/returnvar.cocci
+
+Fixes: 045442228868 ("ASoC: codecs: wcd938x: add audio routing and Kconfig")
+CC: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: kernel test robot <lkp@intel.com>
 ---
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 25a32b718fbc..58e185c6e77f 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -8337,6 +8337,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x87c8, "HP", ALC287_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x87e5, "HP ProBook 440 G8 Notebook PC", ALC236_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x87e7, "HP ProBook 450 G8 Notebook PC", ALC236_FIXUP_HP_GPIO_LED),
-+	SND_PCI_QUIRK(0x103c, 0x87f1, "HP ProBook 630 G8 Notebook PC", ALC236_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x87f2, "HP ProBook 640 G8 Notebook PC", ALC236_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x87f4, "HP", ALC287_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x87f5, "HP", ALC287_FIXUP_HP_GPIO_LED),
--- 
-2.25.1
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+head:   73748627df83aab934c81332ca83a44ab8c7b3e3
+commit: 04544222886881cb0865040dcdf747fe7e025947 [8525/14055] ASoC: codecs: wcd938x: add audio routing and Kconfig
+:::::: branch date: 4 hours ago
+:::::: commit date: 2 weeks ago
 
+ wcd938x.c |    6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+--- a/sound/soc/codecs/wcd938x.c
++++ b/sound/soc/codecs/wcd938x.c
+@@ -1625,7 +1625,6 @@ static int wcd938x_codec_aux_dac_event(s
+ {
+ 	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
+ 	struct wcd938x_priv *wcd938x = snd_soc_component_get_drvdata(component);
+-	int ret = 0;
+ 
+ 	switch (event) {
+ 	case SND_SOC_DAPM_PRE_PMU:
+@@ -1653,7 +1652,7 @@ static int wcd938x_codec_aux_dac_event(s
+ 				WCD938X_ANA_RX_DIV4_CLK_EN_MASK, 0);
+ 		break;
+ 	}
+-	return ret;
++	return 0;
+ 
+ }
+ 
+@@ -1868,7 +1867,6 @@ static int wcd938x_codec_enable_aux_pa(s
+ 	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
+ 	struct wcd938x_priv *wcd938x = snd_soc_component_get_drvdata(component);
+ 	int hph_mode = wcd938x->hph_mode;
+-	int ret = 0;
+ 
+ 	switch (event) {
+ 	case SND_SOC_DAPM_PRE_PMU:
+@@ -1904,7 +1902,7 @@ static int wcd938x_codec_enable_aux_pa(s
+ 						      WCD938X_EN_CUR_DET_MASK, 1);
+ 		break;
+ 	}
+-	return ret;
++	return 0;
+ }
+ 
+ static int wcd938x_codec_enable_ear_pa(struct snd_soc_dapm_widget *w,

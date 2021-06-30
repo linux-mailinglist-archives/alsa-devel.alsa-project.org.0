@@ -2,87 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 750973B7DEE
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Jun 2021 09:17:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D0BC3B8133
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Jun 2021 13:20:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E39391686;
-	Wed, 30 Jun 2021 09:17:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E39391686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7FEC0168A;
+	Wed, 30 Jun 2021 13:19:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FEC0168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625037479;
-	bh=PY6GgYdaq2MYoka8HZ9TGL2E7Izo24hZCEOCFmYYsBM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=aZBpwsdY2YcxFABacWDslnB2R3NzgPGa1NSpPXGEltWc3A4EPhfuWqbC7HFsfazvU
-	 RAy2Stf3w0qXogkc5QyrXtEOmjgi8vXEs5dDh361ycSSyi+TztMXRMf6ger+Fztk2t
-	 FK1F37T299hUx+GczvVhJkMIXgovHAplEzt3qqZI=
+	s=default; t=1625052048;
+	bh=jEKbIwoVxJouMvHSddRzbQZky0iX792oDL2zDwdMWZQ=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Max9IxQPZ1m58GzdZ+94/dzdF6Ata2KE8dInySub+JY1u12OUbSK/iC/cpmJ9mCg7
+	 55WbLLmaNTq8pK5wSnjlkNVv7ZR/rGLFzKkeBblkOAgU0ejBlj1liFjIvGx/pz+ZmS
+	 9gdO6JIFbbkCFE9HZtWNkab1+I8Nilv10sQ/2x9Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 458E3F80240;
-	Wed, 30 Jun 2021 09:16:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3AC2F80240;
+	Wed, 30 Jun 2021 13:19:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9AAD8F80229; Wed, 30 Jun 2021 09:16:29 +0200 (CEST)
+ id 37F81F80229; Wed, 30 Jun 2021 13:19:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-vs1-xe30.google.com (mail-vs1-xe30.google.com
- [IPv6:2607:f8b0:4864:20::e30])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled
+ version=3.4.0
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F8EDF80156
- for <alsa-devel@alsa-project.org>; Wed, 30 Jun 2021 09:16:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F8EDF80156
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF81EF8020C
+ for <alsa-devel@alsa-project.org>; Wed, 30 Jun 2021 13:19:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF81EF8020C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="IGdEYV6i"
-Received: by mail-vs1-xe30.google.com with SMTP id u10so1091517vsu.12
- for <alsa-devel@alsa-project.org>; Wed, 30 Jun 2021 00:16:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=TuH+apv+oCsNlAaVg/wm9SSIEaZ31aCvx1H+A/KchsU=;
- b=IGdEYV6iubpDLMJ5m37PeamgcGglH/0msMCWnvoKR2cBD1N3/JtHZL1wE9KAdHSi3H
- xTvWfW3VmOzaVAhl7Ii0oVmP0EXSE8BIH6ZM0M+ciyJnXN4JsjWPfSHYIuxLKRzev0nx
- fV1gE7pl10g/f8CqwzUpUmUoEvnO25cj1vEnbRKmoifogBgMly3lkbQAU/AhBFtI610G
- GkFjOJhJwnT7+ieWuJK+83HH5LU3Z6NspbkLupjpvsxE5AP/oxfv+wEhtg1A3vLO5Y2z
- Pg3fKMwDqP6oZ/wVIQ9Kun1+Qy/UL/5dReInoEsbi/58arJ9eK0h1oc36jewINxUW/+D
- loLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=TuH+apv+oCsNlAaVg/wm9SSIEaZ31aCvx1H+A/KchsU=;
- b=Fzqv/HgaLJqAX9PNX59IuoJmnV4jhXLeyEAiQ1BrcpgF/DC3cgNItBhjFmweeEVaIN
- Qu8I7jCVcRHJ4SYadSYYtVGNbnPlLiuzNnwg6axPSVQosDgE/xzq+kUaVttr8B+b54nh
- DRWWd/uUlZ/rmyi229vWHAG5Psr9idfOcEeXsuvkMGJDQccYFge3SQXeTS34M++lKUdK
- hSkqEBFye7RcOBpWshXEmZoeJDRPZUrgB2MjuELKeTQvpGmJvVvmlacXC5Q2qXhst/Xf
- /HFy1SLP4cxX2NP+VbGbO9kDeqTcHD5izEAouvxOSsMDFIQ1a6tF8g4U/XUVIORe65AR
- 7voA==
-X-Gm-Message-State: AOAM530mNcEBA3DySu3jmIK8BKLFTqnuk0U7lHvrFBkGZiGfyZu0pUqq
- 5hITsriWGe+QNbLftbkE0DGYSNt8QiXkdwgR8xw=
-X-Google-Smtp-Source: ABdhPJw7g8ho6fKOpvf4aTR7903FLbCsjlynaCr0P8Dos7cRRhdQHQRQLYhXXpH90eWmhbXWXbhuUGYOqhbmNPO9n+U=
-X-Received: by 2002:a67:ed5a:: with SMTP id m26mr28872305vsp.59.1625037379726; 
- Wed, 30 Jun 2021 00:16:19 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="KHx6Xbv/"
+Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 15UBHBuD018175; Wed, 30 Jun 2021 11:19:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
+ bh=zlyQbwZLIr9uvf89iJ+TADU3Pi0TIGoM5aYb8D/E6GM=;
+ b=KHx6Xbv/1Irwgbf045LB2ZmexbQtEE7hkGspSnhCRIshbCw3LJr8rfdDYgFmEmqO2HHk
+ ebs98HAT9QSc+iVUysjVr7MWvbKSsANeIf2sMWPZWJDxOk84vfosvoaIKor4B07Cq4PP
+ lP8Whs/xLxLNWw/jPlEAWMlVeQzJ2+0k0X/u6OdlcKnwYl1ZYgUqXYKgrRE8KpbxyH/8
+ eRgJ+NZSqx+NhGccMrrFEjPyLJb4IAsc0OoP/YCYQYemCyhOna8f36IPS/vFXoDos3xU
+ rmGwsGNR1CHS0XyDpsKDzyEPxdSpmGxMOGqjJOqF+df5+v22w8FBCGJJfpCBMcUiXoiS TQ== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by mx0b-00069f02.pphosted.com with ESMTP id 39f6y3nrf2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 30 Jun 2021 11:19:13 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 15UBG6Bj010757;
+ Wed, 30 Jun 2021 11:19:12 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by aserp3030.oracle.com with ESMTP id 39dt9gvxk8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 30 Jun 2021 11:19:12 +0000
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 15UBJBwd019290;
+ Wed, 30 Jun 2021 11:19:11 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by aserp3030.oracle.com with ESMTP id 39dt9gvxju-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 30 Jun 2021 11:19:11 +0000
+Received: from abhmp0010.oracle.com (abhmp0010.oracle.com [141.146.116.16])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 15UBJ16a008661;
+ Wed, 30 Jun 2021 11:19:01 GMT
+Received: from mwanda (/102.222.70.252)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Wed, 30 Jun 2021 04:19:00 -0700
+Date: Wed, 30 Jun 2021 14:18:53 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Peter Ujfalusi <peter.ujfalusi@gmail.com>
+Subject: [PATCH] ASoC: ti: delete some dead code in omap_abe_probe()
+Message-ID: <YNxTHXz58dhgbFtG@mwanda>
 MIME-Version: 1.0
-References: <202106292156.mWNAaVQA-lkp@intel.com>
- <20210629132909.GA7935@233d919f385f>
-In-Reply-To: <20210629132909.GA7935@233d919f385f>
-From: Souptick Joarder <jrdr.linux@gmail.com>
-Date: Wed, 30 Jun 2021 12:46:07 +0530
-Message-ID: <CAFqt6zZ6V27JK6MtC__T6o2bpT_BJJHcGX0xOURoqTaTQEBc2A@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: codecs: wcd938x: fix returnvar.cocci warnings
-To: kernel test robot <lkp@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: alsa-devel@alsa-project.org, kbuild-all@lists.01.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Linux Memory Management List <linux-mm@kvack.org>,
- Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+X-Proofpoint-GUID: Ud8UWiYh3E8v6PMbzSm1NRxn1X_BDaP7
+X-Proofpoint-ORIG-GUID: Ud8UWiYh3E8v6PMbzSm1NRxn1X_BDaP7
+Cc: alsa-devel@alsa-project.org, linux-omap@vger.kernel.org,
+ kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,70 +106,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jun 29, 2021 at 6:59 PM kernel test robot <lkp@intel.com> wrote:
->
-> From: kernel test robot <lkp@intel.com>
->
-> sound/soc/codecs/wcd938x.c:1628:5-8: Unneeded variable: "ret". Return "0" on line 1656
-> sound/soc/codecs/wcd938x.c:1871:5-8: Unneeded variable: "ret". Return "0" on line 1907
->
->
->  Remove unneeded variable used to store return value.
->
-> Generated by: scripts/coccinelle/misc/returnvar.cocci
->
-> Fixes: 045442228868 ("ASoC: codecs: wcd938x: add audio routing and Kconfig")
-> CC: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: kernel test robot <lkp@intel.com>
+This code checks "priv->mclk_freq" twice and the second check is not
+required.  The code is left over from when removed support for legacy
+boot.
 
-Acked-by: Souptick Joarder <jrdr.linux@gmail.com>
+Fixes: 8fe120b5a665 ("ASoC: omap-abe-twl6040: Remove support for pdata (legacy boot)")
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+---
+ sound/soc/ti/omap-abe-twl6040.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-> ---
->
-> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-> head:   73748627df83aab934c81332ca83a44ab8c7b3e3
-> commit: 04544222886881cb0865040dcdf747fe7e025947 [8525/14055] ASoC: codecs: wcd938x: add audio routing and Kconfig
-> :::::: branch date: 4 hours ago
-> :::::: commit date: 2 weeks ago
->
->  wcd938x.c |    6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
->
-> --- a/sound/soc/codecs/wcd938x.c
-> +++ b/sound/soc/codecs/wcd938x.c
-> @@ -1625,7 +1625,6 @@ static int wcd938x_codec_aux_dac_event(s
->  {
->         struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
->         struct wcd938x_priv *wcd938x = snd_soc_component_get_drvdata(component);
-> -       int ret = 0;
->
->         switch (event) {
->         case SND_SOC_DAPM_PRE_PMU:
-> @@ -1653,7 +1652,7 @@ static int wcd938x_codec_aux_dac_event(s
->                                 WCD938X_ANA_RX_DIV4_CLK_EN_MASK, 0);
->                 break;
->         }
-> -       return ret;
-> +       return 0;
->
->  }
->
-> @@ -1868,7 +1867,6 @@ static int wcd938x_codec_enable_aux_pa(s
->         struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
->         struct wcd938x_priv *wcd938x = snd_soc_component_get_drvdata(component);
->         int hph_mode = wcd938x->hph_mode;
-> -       int ret = 0;
->
->         switch (event) {
->         case SND_SOC_DAPM_PRE_PMU:
-> @@ -1904,7 +1902,7 @@ static int wcd938x_codec_enable_aux_pa(s
->                                                       WCD938X_EN_CUR_DET_MASK, 1);
->                 break;
->         }
-> -       return ret;
-> +       return 0;
->  }
->
->  static int wcd938x_codec_enable_ear_pa(struct snd_soc_dapm_widget *w,
->
+diff --git a/sound/soc/ti/omap-abe-twl6040.c b/sound/soc/ti/omap-abe-twl6040.c
+index 91cc9a4f44d7..2e3d1eea77c1 100644
+--- a/sound/soc/ti/omap-abe-twl6040.c
++++ b/sound/soc/ti/omap-abe-twl6040.c
+@@ -292,11 +292,6 @@ static int omap_abe_probe(struct platform_device *pdev)
+ 
+ 	card->fully_routed = 1;
+ 
+-	if (!priv->mclk_freq) {
+-		dev_err(&pdev->dev, "MCLK frequency missing\n");
+-		return -ENODEV;
+-	}
+-
+ 	card->dai_link = priv->dai_links;
+ 	card->num_links = num_links;
+ 
+-- 
+2.30.2
+

@@ -2,126 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31DF93B7D25
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Jun 2021 08:03:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 750973B7DEE
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Jun 2021 09:17:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B97F1167C;
-	Wed, 30 Jun 2021 08:02:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B97F1167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id E39391686;
+	Wed, 30 Jun 2021 09:17:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E39391686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625033022;
-	bh=rDJ1KJQ2NQa6urro9bkOyAYXJ/NtsMwlpd4YoJ657Rc=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1625037479;
+	bh=PY6GgYdaq2MYoka8HZ9TGL2E7Izo24hZCEOCFmYYsBM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FZLH6scDlwmtuiBTizmX7NPBydrsvS3/kKBITJCVkjVBPGdXg3PrKgsZ6PrCDf24V
-	 QSafJBwPhQlrwBb9ZkLbJwcsL0Kj9m5mricjBPw7m5CsZH8NG84E3ZHFBfbp/+AuxG
-	 d2zWQbX7bKxFph1P59cxuYZbxJpt2VbB5TvNo2qQ=
+	b=aZBpwsdY2YcxFABacWDslnB2R3NzgPGa1NSpPXGEltWc3A4EPhfuWqbC7HFsfazvU
+	 RAy2Stf3w0qXogkc5QyrXtEOmjgi8vXEs5dDh361ycSSyi+TztMXRMf6ger+Fztk2t
+	 FK1F37T299hUx+GczvVhJkMIXgovHAplEzt3qqZI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2CAC7F800BA;
-	Wed, 30 Jun 2021 08:02:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 458E3F80240;
+	Wed, 30 Jun 2021 09:16:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5A818F80229; Wed, 30 Jun 2021 08:02:11 +0200 (CEST)
+ id 9AAD8F80229; Wed, 30 Jun 2021 09:16:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-xe30.google.com (mail-vs1-xe30.google.com
+ [IPv6:2607:f8b0:4864:20::e30])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B9D39F800BA
- for <alsa-devel@alsa-project.org>; Wed, 30 Jun 2021 08:02:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9D39F800BA
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 15U61rPaA028040,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36502.realtek.com.tw[172.21.6.25])
- by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 15U61rPaA028040
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 30 Jun 2021 14:01:53 +0800
-Received: from RTEXDAG01.realtek.com.tw (172.21.6.100) by
- RTEXH36502.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Wed, 30 Jun 2021 14:01:52 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXDAG01.realtek.com.tw (172.21.6.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Wed, 30 Jun 2021 14:01:52 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::3132:fefa:293c:f022]) by
- RTEXMBS01.realtek.com.tw ([fe80::3132:fefa:293c:f022%13]) with mapi id
- 15.01.2106.013; Wed, 30 Jun 2021 14:01:52 +0800
-From: =?utf-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>
-To: Mark Brown <broonie@kernel.org>, Curtis Malainey <cujomalainey@google.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: RE: [PATCH 1/2] ASoC: rt711: remap buttons
-Thread-Topic: [PATCH 1/2] ASoC: rt711: remap buttons
-Thread-Index: AQHXY1hOYyHPL0wsE0GD/Wmj2CWCOasXnsIAgACJC2D//4RgAIAAD7+AgAs+jgCAAZlNgIAHi+/g
-Date: Wed, 30 Jun 2021 06:01:52 +0000
-Message-ID: <5c038789fe1f4903af3283bf47cfc9b5@realtek.com>
-References: <20210617090809.16901-1-shumingf@realtek.com>
- <20210617123914.GD5067@sirena.org.uk>
- <d6374c5158c844d69b4f546fd741f07f@realtek.com>
- <20210617132716.GE5067@sirena.org.uk>
- <638be5ea-a310-3711-df08-798f7bee5804@linux.intel.com>
- <CAOReqxhDT8Z6jC89=m_Hka4diaxJqwhyKZmrVAw626wAAL72Fw@mail.gmail.com>
- <CAOReqxhY2zZJ4zsHvhHhDFuFawUnVtrcuuHiJ1g_n_0+7cMPcw@mail.gmail.com>
-In-Reply-To: <CAOReqxhY2zZJ4zsHvhHhDFuFawUnVtrcuuHiJ1g_n_0+7cMPcw@mail.gmail.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.22.102.209]
-x-kse-serverinfo: RTEXDAG01.realtek.com.tw, 9
-x-kse-attachmentfiltering-interceptor-info: no applicable attachment filtering
- rules found
-x-kse-antivirus-interceptor-info: scan successful
-x-kse-antivirus-info: =?utf-8?B?Q2xlYW4sIGJhc2VzOiAyMDIxLzYvMjkg5LiL5Y2IIDEwOjI0OjAw?=
-x-kse-bulkmessagesfiltering-scan-result: protection disabled
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4F8EDF80156
+ for <alsa-devel@alsa-project.org>; Wed, 30 Jun 2021 09:16:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F8EDF80156
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="IGdEYV6i"
+Received: by mail-vs1-xe30.google.com with SMTP id u10so1091517vsu.12
+ for <alsa-devel@alsa-project.org>; Wed, 30 Jun 2021 00:16:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=TuH+apv+oCsNlAaVg/wm9SSIEaZ31aCvx1H+A/KchsU=;
+ b=IGdEYV6iubpDLMJ5m37PeamgcGglH/0msMCWnvoKR2cBD1N3/JtHZL1wE9KAdHSi3H
+ xTvWfW3VmOzaVAhl7Ii0oVmP0EXSE8BIH6ZM0M+ciyJnXN4JsjWPfSHYIuxLKRzev0nx
+ fV1gE7pl10g/f8CqwzUpUmUoEvnO25cj1vEnbRKmoifogBgMly3lkbQAU/AhBFtI610G
+ GkFjOJhJwnT7+ieWuJK+83HH5LU3Z6NspbkLupjpvsxE5AP/oxfv+wEhtg1A3vLO5Y2z
+ Pg3fKMwDqP6oZ/wVIQ9Kun1+Qy/UL/5dReInoEsbi/58arJ9eK0h1oc36jewINxUW/+D
+ loLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=TuH+apv+oCsNlAaVg/wm9SSIEaZ31aCvx1H+A/KchsU=;
+ b=Fzqv/HgaLJqAX9PNX59IuoJmnV4jhXLeyEAiQ1BrcpgF/DC3cgNItBhjFmweeEVaIN
+ Qu8I7jCVcRHJ4SYadSYYtVGNbnPlLiuzNnwg6axPSVQosDgE/xzq+kUaVttr8B+b54nh
+ DRWWd/uUlZ/rmyi229vWHAG5Psr9idfOcEeXsuvkMGJDQccYFge3SQXeTS34M++lKUdK
+ hSkqEBFye7RcOBpWshXEmZoeJDRPZUrgB2MjuELKeTQvpGmJvVvmlacXC5Q2qXhst/Xf
+ /HFy1SLP4cxX2NP+VbGbO9kDeqTcHD5izEAouvxOSsMDFIQ1a6tF8g4U/XUVIORe65AR
+ 7voA==
+X-Gm-Message-State: AOAM530mNcEBA3DySu3jmIK8BKLFTqnuk0U7lHvrFBkGZiGfyZu0pUqq
+ 5hITsriWGe+QNbLftbkE0DGYSNt8QiXkdwgR8xw=
+X-Google-Smtp-Source: ABdhPJw7g8ho6fKOpvf4aTR7903FLbCsjlynaCr0P8Dos7cRRhdQHQRQLYhXXpH90eWmhbXWXbhuUGYOqhbmNPO9n+U=
+X-Received: by 2002:a67:ed5a:: with SMTP id m26mr28872305vsp.59.1625037379726; 
+ Wed, 30 Jun 2021 00:16:19 -0700 (PDT)
 MIME-Version: 1.0
-X-KSE-ServerInfo: RTEXH36502.realtek.com.tw, 9
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: =?utf-8?B?Q2xlYW4sIGJhc2VzOiAyMDIxLzYvMzAg5LiK5Y2IIDAyOjQzOjAw?=
-X-KSE-Attachment-Filter-Triggered-Rules: Clean
-X-KSE-Attachment-Filter-Triggered-Filters: Clean
-X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
-X-KSE-AntiSpam-Outbound-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 06/30/2021 05:47:57
-X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
-X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 0
-X-KSE-AntiSpam-Info: Lua profiles 164730 [Jun 30 2021]
-X-KSE-AntiSpam-Info: Version: 5.9.20.0
-X-KSE-AntiSpam-Info: Envelope from: shumingf@realtek.com
-X-KSE-AntiSpam-Info: LuaCore: 448 448 71fb1b37213ce9a885768d4012c46ac449c77b17
-X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info: realtek.com:7.1.1;
- d41d8cd98f00b204e9800998ecf8427e.com:7.1.1; 127.0.0.199:7.1.2
-X-KSE-AntiSpam-Info: {Track_Chinese_Simplified, from}
-X-KSE-AntiSpam-Info: Rate: 0
-X-KSE-AntiSpam-Info: Status: not_detected
-X-KSE-AntiSpam-Info: Method: none
-X-KSE-AntiSpam-Info: Auth:dkim=none
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Heuristic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 06/30/2021 05:50:00
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- Jimmy Cheng-Yi Chiang <cychiang@google.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "jairaj.arava@intel.com" <jairaj.arava@intel.com>,
- =?utf-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>,
- "sathya.prakash.m.r@intel.com" <sathya.prakash.m.r@intel.com>,
- Curtis Malainey <cujomalainey@chromium.org>, "Lu, 
- Brent" <brent.lu@intel.com>, "bard.liao@intel.com" <bard.liao@intel.com>
+References: <202106292156.mWNAaVQA-lkp@intel.com>
+ <20210629132909.GA7935@233d919f385f>
+In-Reply-To: <20210629132909.GA7935@233d919f385f>
+From: Souptick Joarder <jrdr.linux@gmail.com>
+Date: Wed, 30 Jun 2021 12:46:07 +0530
+Message-ID: <CAFqt6zZ6V27JK6MtC__T6o2bpT_BJJHcGX0xOURoqTaTQEBc2A@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: codecs: wcd938x: fix returnvar.cocci warnings
+To: kernel test robot <lkp@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, kbuild-all@lists.01.org,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -137,35 +98,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-PiA+ID4NCj4gPiA+IHN3YXAgd3J0LiBzcGVjOg0KPiA+ID4gc29mX3Nkd19ydDcxMS5jOiAgICAg
-ICAgc25kX2phY2tfc2V0X2tleShqYWNrLT5qYWNrLCBTTkRfSkFDS19CVE5fMCwNCj4gS0VZX1BM
-QVlQQVVTRSk7DQo+ID4gPiBzb2Zfc2R3X3J0NzExLmMtICAgICAgICBzbmRfamFja19zZXRfa2V5
-KGphY2stPmphY2ssIFNORF9KQUNLX0JUTl8xLA0KPiBLRVlfVk9JQ0VDT01NQU5EKTsNCj4gPiA+
-IHNvZl9zZHdfcnQ3MTEuYy0gICAgICAgIHNuZF9qYWNrX3NldF9rZXkoamFjay0+amFjaywgU05E
-X0pBQ0tfQlROXzIsDQo+IEtFWV9WT0xVTUVVUCk7DQo+ID4gPiBzb2Zfc2R3X3J0NzExLmMtICAg
-ICAgICBzbmRfamFja19zZXRfa2V5KGphY2stPmphY2ssIFNORF9KQUNLX0JUTl8zLA0KPiBLRVlf
-Vk9MVU1FRE9XTik7DQo+ID4gPg0KPiA+ID4ga2JsX3J0NTY2M19tYXg5ODkyNy5jOiAgc25kX2ph
-Y2tfc2V0X2tleShqYWNrLT5qYWNrLCBTTkRfSkFDS19CVE5fMCwNCj4gPiA+IEtFWV9QTEFZUEFV
-U0UpOw0KPiA+ID4ga2JsX3J0NTY2M19tYXg5ODkyNy5jLSAgc25kX2phY2tfc2V0X2tleShqYWNr
-LT5qYWNrLCBTTkRfSkFDS19CVE5fMSwNCj4gPiA+IEtFWV9WT0lDRUNPTU1BTkQpOw0KPiA+ID4g
-a2JsX3J0NTY2M19tYXg5ODkyNy5jLSAgc25kX2phY2tfc2V0X2tleShqYWNrLT5qYWNrLCBTTkRf
-SkFDS19CVE5fMiwNCj4gPiA+IEtFWV9WT0xVTUVVUCk7DQo+ID4gPiBrYmxfcnQ1NjYzX21heDk4
-OTI3LmMtICBzbmRfamFja19zZXRfa2V5KGphY2stPmphY2ssIFNORF9KQUNLX0JUTl8zLA0KPiA+
-ID4gS0VZX1ZPTFVNRURPV04pOw0KPiA+ID4NCj4gPiA+IEJyZW50LCBDdXJ0aXMsIEppbW15LCBj
-YW4geW91IGNvbW1lbnQgb24gdGhlIG9yZGVyPw0KPiA+DQo+ID4gU29ycnkgZm9yIHRoZSBsYXRl
-IHJlcGx5LCBJIGNvdWxkbid0IGZpZ3VyZSBvdXQgd2h5IHRoaXMgc2xpcHBlZCBieSBteQ0KPiA+
-IGVtYWlsIGZpbHRlciwgSSBndWVzcyBJIHNob3VsZCBsb29rIGNsb3NlciBuZXh0IHRpbWUuIFNv
-cmFrYSBoYXMgYmVlbg0KPiA+IGNoZWNrZWQgKGtibF9ydDU2NjNfbWF4OTg5MjcpIGFuZCB5ZXMg
-dGhlIG1hcHBpbmcgZG9lcyBhcHBlYXIgdG8gYmUNCj4gPiBpbmNvcnJlY3QsIHZvbHVtZSB1cCBr
-ZXkgcmV0dXJucyB2b2ljZSBjb21tYW5kIGluIGV2dGVzdC4gU2F0aHlhIHdpbGwNCj4gPiBoYXZl
-IHRvIGNoZWNrIHRoZSBoZWFkc2V0IGJ1dHRvbiBtYXBwaW5nLCBvbiBydDcxMSBidXQgbXkgZ3Vl
-c3MgaXMgaXQNCj4gPiBpcyBhbHNvIGluY29ycmVjdC4NCj4gDQo+IEkgc3RhbmQgY29ycmVjdGVk
-LCBtaXNyZWFkIHRoZSBkYXRhc2hlZXQuIFNvIHJ0NzExIGFuZCBydDU2NjMgYXJlIGNvcnJlY3QN
-Cj4gYmFzZWQgb24gZGF0YXNoZWV0IHNwZWNzIGJ1dCB3aGVuIGdyYWJiaW5nIGFuIG9mZiB0aGUg
-c2hlbGYgaGVhZHBob25lIHRoZXkNCj4gZGlkIG5vdCB3b3JrIHdpdGggdGhlIHZvbHVtZSB1cC4g
-SG1tLCBJIHdvbmRlciBpZiB0aGlzIHNwbGl0IGlzICJ3aGF0IHVzdWFsbHkNCj4gd29ya3MiIGFu
-ZCAid2hhdCBpcyBjb3JyZWN0LiINCg0KVGhhbmtzIGZvciB5b3VyIHJlcGx5LCBDdXJ0aXMuDQpU
-aGlzIHBhdGNoIGp1c3QgY2hhbmdlcyB0aGUgbWFwcGluZyB0byBsZXQgdGhlIGJ1dHRvbiBmdW5j
-dGlvbiB3b3JrIHByb3Blcmx5Lg0KDQpIaSBNYXJrLA0KRG8gSSBuZWVkIHRvIHJlc2VuZCB0aGUg
-cGF0Y2g/IE9yIGFueSBjb21tZW50cz8NCg0KPiAtLS0tLS1QbGVhc2UgY29uc2lkZXIgdGhlIGVu
-dmlyb25tZW50IGJlZm9yZSBwcmludGluZyB0aGlzIGUtbWFpbC4NCg==
+On Tue, Jun 29, 2021 at 6:59 PM kernel test robot <lkp@intel.com> wrote:
+>
+> From: kernel test robot <lkp@intel.com>
+>
+> sound/soc/codecs/wcd938x.c:1628:5-8: Unneeded variable: "ret". Return "0" on line 1656
+> sound/soc/codecs/wcd938x.c:1871:5-8: Unneeded variable: "ret". Return "0" on line 1907
+>
+>
+>  Remove unneeded variable used to store return value.
+>
+> Generated by: scripts/coccinelle/misc/returnvar.cocci
+>
+> Fixes: 045442228868 ("ASoC: codecs: wcd938x: add audio routing and Kconfig")
+> CC: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: kernel test robot <lkp@intel.com>
+
+Acked-by: Souptick Joarder <jrdr.linux@gmail.com>
+
+> ---
+>
+> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+> head:   73748627df83aab934c81332ca83a44ab8c7b3e3
+> commit: 04544222886881cb0865040dcdf747fe7e025947 [8525/14055] ASoC: codecs: wcd938x: add audio routing and Kconfig
+> :::::: branch date: 4 hours ago
+> :::::: commit date: 2 weeks ago
+>
+>  wcd938x.c |    6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+>
+> --- a/sound/soc/codecs/wcd938x.c
+> +++ b/sound/soc/codecs/wcd938x.c
+> @@ -1625,7 +1625,6 @@ static int wcd938x_codec_aux_dac_event(s
+>  {
+>         struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
+>         struct wcd938x_priv *wcd938x = snd_soc_component_get_drvdata(component);
+> -       int ret = 0;
+>
+>         switch (event) {
+>         case SND_SOC_DAPM_PRE_PMU:
+> @@ -1653,7 +1652,7 @@ static int wcd938x_codec_aux_dac_event(s
+>                                 WCD938X_ANA_RX_DIV4_CLK_EN_MASK, 0);
+>                 break;
+>         }
+> -       return ret;
+> +       return 0;
+>
+>  }
+>
+> @@ -1868,7 +1867,6 @@ static int wcd938x_codec_enable_aux_pa(s
+>         struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
+>         struct wcd938x_priv *wcd938x = snd_soc_component_get_drvdata(component);
+>         int hph_mode = wcd938x->hph_mode;
+> -       int ret = 0;
+>
+>         switch (event) {
+>         case SND_SOC_DAPM_PRE_PMU:
+> @@ -1904,7 +1902,7 @@ static int wcd938x_codec_enable_aux_pa(s
+>                                                       WCD938X_EN_CUR_DET_MASK, 1);
+>                 break;
+>         }
+> -       return ret;
+> +       return 0;
+>  }
+>
+>  static int wcd938x_codec_enable_ear_pa(struct snd_soc_dapm_widget *w,
+>

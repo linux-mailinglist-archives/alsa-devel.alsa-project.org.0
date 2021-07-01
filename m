@@ -2,79 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE4723B8B00
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Jul 2021 01:43:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 742103B8DB9
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Jul 2021 08:25:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 392C31654;
-	Thu,  1 Jul 2021 01:42:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 392C31654
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC301169A;
+	Thu,  1 Jul 2021 08:24:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC301169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625096597;
-	bh=1a1xjYyAxAJukVlOWgAQ3qeB6p+FGxo20u3NzOJY/MQ=;
-	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=k52FzAZQjjCFNUl7pfDS1cOsRuMWo2DDXHaRjbwt5uJF7tVa1VCTT/J3er6zN7isQ
-	 JBvWCMClvXln+RNLYAWIiHYmLfQzGcnkariOaMlOSjeSAYKbKUtSaqGB9GFbzdl/id
-	 Tn3+WOLRi95NGyPbDoDLp9tQp2p+3Z3eUbo2fWXE=
+	s=default; t=1625120738;
+	bh=UyCphYFdUEjeVYsQe8f1P41sEGMeMhoRcBWCMrffrkA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=RjWCDOLeplGdDSl1oqozeefGV5EC0VinJSrhW7LgQaH60nVPO6JHcd4wrFFW7NB5R
+	 WReIvucMABjoNWC4fHtvZ9tQQ/LBgaJq2X1yqb8q5h0bQJ9rHFxWbHENsPHc4vtNF7
+	 ZNzT9REQNorYs2vkFYasEkMlLPHnqM+3AOd114n0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9CBA9F80240;
-	Thu,  1 Jul 2021 01:41:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49271F804AE;
+	Thu,  1 Jul 2021 08:24:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 416A9F80229; Thu,  1 Jul 2021 01:41:47 +0200 (CEST)
+ id 13ED7F802D2; Thu,  1 Jul 2021 08:24:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PDS_TONAME_EQ_TOLOCAL_SHORT,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E88C9F800BA
- for <alsa-devel@alsa-project.org>; Thu,  1 Jul 2021 01:41:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E88C9F800BA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="VGPacmbi"
-Received: by mail-lf1-x130.google.com with SMTP id a18so8256021lfs.10
- for <alsa-devel@alsa-project.org>; Wed, 30 Jun 2021 16:41:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=iT6ND97dfk1N1ou/NLd8RsXm1QHsVroYIyzxZ1twf0M=;
- b=VGPacmbiMrlFdJugR+OtBhElHikylG9x6knAXSDLg3j4jZ2nWC+loYL9k/xhGRlzv9
- e63kmeFwqiH8TYfhpIjSs1f00JEI7mu5xMisxgR/JdPteq09HeBOZ9WfWH39qsUugJQ4
- Gosbuijezz0kJp5Ogg6PeqDorrF+v3M1WCxnqzT3rXH49NLZreoansGSiRmQSkwr6BUq
- zK7AOncK9GoS4Joe+73+avHsHkQW/6mBt9UrJ3Vwijyt0gs/DdB2fHkzhTyhA+EOv3wa
- LCIfxpR0hXKTYjmdfoWgD8663DMJH6f/UXKrt7lq0HKsazVWez1TdLpo20EVeK9iWG3G
- CZHQ==
+ by alsa1.perex.cz (Postfix) with ESMTPS id B2C08F800E3
+ for <alsa-devel@alsa-project.org>; Thu,  1 Jul 2021 08:23:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2C08F800E3
+Received: from mail-wm1-f69.google.com ([209.85.128.69])
+ by youngberry.canonical.com with esmtps (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <jeremy.szu@canonical.com>) id 1lyq77-0005kr-UT
+ for alsa-devel@alsa-project.org; Thu, 01 Jul 2021 06:23:54 +0000
+Received: by mail-wm1-f69.google.com with SMTP id
+ v25-20020a1cf7190000b0290197a4be97b7so1732859wmh.9
+ for <alsa-devel@alsa-project.org>; Wed, 30 Jun 2021 23:23:53 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=iT6ND97dfk1N1ou/NLd8RsXm1QHsVroYIyzxZ1twf0M=;
- b=mJ0eeAjVWaysxKMPf5irktKnrrnX0iPyH3ux4rOle8jUfJVYNkZ2KcEX7H7LGD+6pX
- mDrTEuzG5rc8wQjvGk+bwv6d3eNU5M46D54A6pZ75qbKtugbQjOwHwJWPfv+Y2olOnXM
- 86PhaQ/2dFgLcIr5s3UH8CCVrqgBI1i40W9XUyWDMf/K2NSq5gPETyTuCpN+mTy/pmnu
- F8za+IlQhR+J7ncD0syP0eDJ9UkVQgs6uWiWz7BIoNnUAOluTCjjso3E8R1v6kCbOb3h
- gPb3MfoASgxfSr+noXoBFhAy3WelNzDB/8KcR+xt2+ybd10SwOCWSxZja1iJRq53SlYO
- r79g==
-X-Gm-Message-State: AOAM532RlWCnTeBrL2EYBpZmqiQeEM3ioZL4YjniD5FhskgiOS4pqmNG
- 5JoOk2tjktpJAkZkUScesHwPKSbJqGPduyBLaoRxwLIU6Cc=
-X-Google-Smtp-Source: ABdhPJwYoHX2P9Y5kEUgsq3B5Bx9h6c2pBtvvlrFXz3FzGYniWz92oC9dA7jq87L2r5wJOtVSaLe5ovWgI29WZNf/Bg=
-X-Received: by 2002:a05:6512:219:: with SMTP id
- a25mr30871315lfo.295.1625096500364; 
- Wed, 30 Jun 2021 16:41:40 -0700 (PDT)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=TXdKYyIu+S7k+FvmITaCyj+OTI3RbufpPTCFCWcfng8=;
+ b=Cc/4CzkRsLukc8dd1XwNUf5ddY/fedHE/W2KZI/kg/qne5igSj3HHSA+/XCAYpcJlT
+ Aaux4eGS6Co1EEQmQ9r7PENk6DnxLJo6C6psMiw7i6YpxtqHjXoiiQcrhxQnoZcfzu7U
+ 94rgl4zmb3cBuvbqLNXPjX6av3IcKqL6ZmxlEH7zR7MVChHr0k4oU+JL3EaaPAqNMaVQ
+ u0OM0vv8bSkAkxZW/TRA6Ok4NiefLEbYTJFeuE2t597o9El2G8RmpGmaPkN6veAdCYvq
+ ssN8ryn0yTl9YzFi2OQGKaxSGzrdAlQepnx+TSInHZjbUI7TRUR95epIWa7wNhq6Hdqa
+ J5gw==
+X-Gm-Message-State: AOAM533GMWpfSroM9kP2iZQSbjF/F2HgwxjoGJOCiS+gAGdKpLEnan4m
+ an+8lmB/RVSoncagZWkSxa9xg+WnjA3sfbx3JBA1ctQQwzuJXfYUn1BIPrxuFlpaCu0Bmhkv5IR
+ FAgbjx7aZtU7y9xKnRHRaQ8LyN1lh6ydMMe46tKkuu4bx+ySyug6OcbDT
+X-Received: by 2002:a1c:4b0c:: with SMTP id y12mr2084833wma.174.1625120633292; 
+ Wed, 30 Jun 2021 23:23:53 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJydxPVG9884cPbugTvj5HsOfiiAP8uk2JUcCkaGU2OHeP1ojJI4hRolPvQMYtQl82uPsoROQs7X3ekGttLLimc=
+X-Received: by 2002:a1c:4b0c:: with SMTP id y12mr2084800wma.174.1625120633043; 
+ Wed, 30 Jun 2021 23:23:53 -0700 (PDT)
 MIME-Version: 1.0
-From: Muni Sekhar <munisekharrms@gmail.com>
-Date: Thu, 1 Jul 2021 05:11:29 +0530
-Message-ID: <CAHhAz+h9=fMu7jLfmzZF2XMWAT=JBLik2WSSbfYtLg3kmzqWtg@mail.gmail.com>
-Subject: trigger timestamp
-To: alsa-devel <alsa-devel@alsa-project.org>, 
- kernelnewbies <kernelnewbies@kernelnewbies.org>
+References: <20210625133414.26760-1-jeremy.szu@canonical.com>
+ <s5h8s2xkiw8.wl-tiwai@suse.de>
+In-Reply-To: <s5h8s2xkiw8.wl-tiwai@suse.de>
+From: Jeremy Szu <jeremy.szu@canonical.com>
+Date: Thu, 1 Jul 2021 14:23:42 +0800
+Message-ID: <CAKzWQkzX-EdmY359W2D-vC-i+a-OH3-EQyEET6skAvbj6hwMfg@mail.gmail.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: fix mute/micmute LEDs for HP EliteBook
+ 830 G8 Notebook PC
+To: Takashi Iwai <tiwai@suse.de>
 Content-Type: text/plain; charset="UTF-8"
+Cc: Chris Chiu <chris.chiu@canonical.com>,
+ "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Kailang Yang <kailang@realtek.com>, open list <linux-kernel@vger.kernel.org>,
+ Huacai Chen <chenhuacai@kernel.org>, Jian-Hong Pan <jhp@endlessos.org>,
+ Werner Sembach <wse@tuxedocomputers.com>, tiwai@suse.com,
+ Hui Wang <hui.wang@canonical.com>, Sami Loone <sami@loone.fi>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,12 +96,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi all,
+Hi Takashi,
 
-From the user space test application , Is it possible to get the
-trigger timestamp corresponding to SNDRV_PCM_TRIGGER_START &
-SNDRV_PCM_TRIGGER_STOP events for audio playback capture?
+May I know where the tree containing this patch is?
+I didn't see this patch in
+git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git.
+
+
+On Sat, Jun 26, 2021 at 12:29 AM Takashi Iwai <tiwai@suse.de> wrote:
+>
+> On Fri, 25 Jun 2021 15:34:13 +0200,
+> Jeremy Szu wrote:
+> >
+> > The HP EliteBook 830 G8 Notebook PC using ALC285 codec which using 0x04 to
+> > control mute LED and 0x01 to control micmute LED.
+> > Therefore, add a quirk to make it works.
+> >
+> > Signed-off-by: Jeremy Szu <jeremy.szu@canonical.com>
+>
+> Thanks, applied.
+>
+>
+> Takashi
+
+
 
 -- 
-Thanks,
-Sekhar
+Sincerely,
+Jeremy Su

@@ -2,85 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B782E3B954C
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Jul 2021 19:13:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEB6E3B9726
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Jul 2021 22:20:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 556E7165E;
-	Thu,  1 Jul 2021 19:12:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 556E7165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4973F1670;
+	Thu,  1 Jul 2021 22:19:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4973F1670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625159619;
-	bh=WoGwiJVy/Wt3TNcjc+nD7QpHRMgmz7gv5NLutDDFwLg=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1625170831;
+	bh=QO/bsSnyl/y4Um65lA6wPo621NyCX90OA6KZ7FFpqxQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MjGa9P9n+rHF6yN6/RKpB1s/RDtYI1tm7aS2hkkwAPIIbK23iPkme5NX++UJsQhHw
-	 LGbfG70EumKvEQsqzrwdu1uBLNG2rbqld9lGeTMFUJQf+1xdO1AH/p1rsWWE9u3WoJ
-	 FiH683aeVLT00bsfLNOVHOtmawfz7U0uei2Asbf0=
+	b=j+xS45ask8NLo42ZJ2feVMP4V8y+S2A2L5eZfV6Zi09xfAKBBaAzL/+4Y03V9+Mft
+	 Gsw+PECAQddI9/c6/0XVKs91mqSqk595qwZBG2NGg9ytSLIcA/3kTtl709jtp3ZjCo
+	 WWS2DCQNVxKrq6cmv/voVnTCjJFbZoW/6ET9vjmo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC2BDF800E3;
-	Thu,  1 Jul 2021 19:12:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5F20F804AE;
+	Thu,  1 Jul 2021 22:19:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6979CF802D2; Thu,  1 Jul 2021 19:12:09 +0200 (CEST)
+ id 9E6CFF802D2; Thu,  1 Jul 2021 22:19:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-il1-f181.google.com (mail-il1-f181.google.com
+ [209.85.166.181])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 60D40F800E3
- for <alsa-devel@alsa-project.org>; Thu,  1 Jul 2021 19:12:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60D40F800E3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Jzy8lKG3"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="ZmCfntOb"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 8A0AF204FE;
- Thu,  1 Jul 2021 17:12:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625159522; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3XpfyVHUOlWrv6SQQLovtw4OceYZ9xPFRnfZZ4hsEpA=;
- b=Jzy8lKG3gZ98l3QPMWkkB1rWnlh6PReoxVOXXmgEbw5V5hqzX7ZcW03HGZQciYL0g0YQXb
- M4e1br44lPzSV6qI7UZUx029xIMgIA3pPz+rIiIsz+JsakcBHpr2hRudc2GYljiKwOxPfy
- HYfJslBcxpy/3MgrG0ZXqKS2z3TRYEk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625159522;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3XpfyVHUOlWrv6SQQLovtw4OceYZ9xPFRnfZZ4hsEpA=;
- b=ZmCfntObPC5RSENYZUFFfd/Qt6en1yOjAhGPcqvQAUvP45BTnWKYPiXONE0R00XHqh8dfH
- KtLlYRSGl6UZIzCg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id EBEF9A3B8F;
- Thu,  1 Jul 2021 17:12:01 +0000 (UTC)
-Date: Thu, 01 Jul 2021 19:12:01 +0200
-Message-ID: <s5hfswyhsbi.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Nathan Chancellor <nathan@kernel.org>
-Subject: Re: [PATCH v5] ALSA: usb-audio: scarlett2: Fix for loop increment in
- scarlett2_usb_get_config
-In-Reply-To: <20210627051202.1888250-1-nathan@kernel.org>
-References: <20210625202604.GB23780@m.b4.vu>
- <20210627051202.1888250-1-nathan@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Nick Desaulniers <ndesaulniers@google.com>, Takashi Iwai <tiwai@suse.com>,
- clang-built-linux@googlegroups.com, "Geoffrey D. Bennett" <g@b4.vu>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 655A3F800E3
+ for <alsa-devel@alsa-project.org>; Thu,  1 Jul 2021 22:18:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 655A3F800E3
+Received: by mail-il1-f181.google.com with SMTP id v5so7652226ilo.5
+ for <alsa-devel@alsa-project.org>; Thu, 01 Jul 2021 13:18:53 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=jkKNz83v8bTKAmVdHO7nGUak++aeSsOWlXuVgcISOl0=;
+ b=dUJj0Xh45tc6SnCG+hXl7xdv3ThBbv5MMRn91+nSD2cZ81Wu2KhV+BsIWNdbU5aHGT
+ YGaOhTjQKx6IJ8N0XQhUrL2oZ163wuVGP3Qgl7voEcCYb0Feo9U9EC6ASBZH4qKxR7C7
+ ht+BNP0Flx2yaLUfQElVe47suQM4gmJpWwCMnrWhoImx6LMBubBmuJ4wfyFjEYP6YVbN
+ IGkLzIbpWnqKR2WaHmp9GTDVIb16qLaIdyqMz0IzVT6vtXSUtJ3BrvaQO/jWTc6yk1Cc
+ chyWxgC85kqQoAVzBj3mw4gmHIyUiIXoE2wusJmjB4S8ujWhKTHKGxG+cROwOsL/LEtV
+ W08w==
+X-Gm-Message-State: AOAM53339uixjJM4QX5kzOulO0zuwzh0WzZpO41gKRJmTqbtuQZz1u1f
+ AygTG3rhr3x6cZujNz0iVw==
+X-Google-Smtp-Source: ABdhPJxtxgEA4kNkOytbyFpCO9NEcYOLLKLdFA7tA79AD7cIrlqW3i8z2e3RRRGjRSL7hT+sxY+b4g==
+X-Received: by 2002:a05:6e02:1292:: with SMTP id
+ y18mr896855ilq.30.1625170732037; 
+ Thu, 01 Jul 2021 13:18:52 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.248])
+ by smtp.gmail.com with ESMTPSA id u16sm419388iob.41.2021.07.01.13.18.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Jul 2021 13:18:51 -0700 (PDT)
+Received: (nullmailer pid 2858275 invoked by uid 1000);
+ Thu, 01 Jul 2021 20:18:46 -0000
+Date: Thu, 1 Jul 2021 14:18:46 -0600
+From: Rob Herring <robh@kernel.org>
+To: Trevor Wu <trevor.wu@mediatek.com>
+Subject: Re: [PATCH v2 6/8] dt-bindings: mediatek: mt8195: add audio afe
+ document
+Message-ID: <20210701201846.GA2783836@robh.at.kernel.org>
+References: <20210629014736.31153-1-trevor.wu@mediatek.com>
+ <20210629014736.31153-7-trevor.wu@mediatek.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210629014736.31153-7-trevor.wu@mediatek.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ cychiang@google.com, bicycle.tsai@mediatek.com, tiwai@suse.com,
+ jiaxin.yu@mediatek.com, linux-kernel@vger.kernel.org, broonie@kernel.org,
+ linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com, aaronyu@google.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,62 +95,195 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 27 Jun 2021 07:12:03 +0200,
-Nathan Chancellor wrote:
+On Tue, Jun 29, 2021 at 09:47:34AM +0800, Trevor Wu wrote:
+> This patch adds mt8195 audio afe document.
 > 
-> Clang warns:
-> 
-> sound/usb/mixer_scarlett_gen2.c:1189:32: warning: expression result
-> unused [-Wunused-value]
->                         for (i = 0; i < count; i++, (u16 *)buf++)
->                                                     ^      ~~~~~
-> 1 warning generated.
-> 
-> It appears the intention was to cast the void pointer to a u16 pointer
-> so that the data could be iterated through like an array of u16 values.
-> However, the cast happens after the increment because a cast is an
-> rvalue, whereas the post-increment operator only works on lvalues, so
-> the loop does not iterate as expected. This is not a bug in practice
-> because count is not greater than one at the moment but this could
-> change in the future so this should be fixed.
-> 
-> Replace the cast with a temporary variable of the proper type, which is
-> less error prone and fixes the iteration. Do the same thing for the
-> 'u8 *' below this if block.
-> 
-> Fixes: ac34df733d2d ("ALSA: usb-audio: scarlett2: Update get_config to do endian conversion")
-> Link: https://github.com/ClangBuiltLinux/linux/issues/1408
-> Acked-by: Geoffrey D. Bennett <g@b4.vu>
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
 > ---
+> This patch depends on the following series that have not been accepted.
 > 
-> v1 -> v2:
+> [1] Mediatek MT8195 clock support
+> https://patchwork.kernel.org/project/linux-mediatek/list/?series=501923
+> (dt-bindings/clock/mt8195-clk.h is included)
 > 
-> * Use temporary variables of proper type rather than casting, as
->   requested by Takashi.
+> [2] Mediatek MT8195 power domain support
+> https://patchwork.kernel.org/project/linux-mediatek/list/?series=500709
+> (dt-bindings/power/mt8195-power.h is included)
+> ---
+>  .../bindings/sound/mt8195-afe-pcm.yaml        | 136 ++++++++++++++++++
+>  1 file changed, 136 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/mt8195-afe-pcm.yaml
 > 
-> * Mention that there is not a bug at the moment per Geoffrey's comment.
-> 
-> v2 -> v3:
-> 
-> * Restrict scope of buf_16 more, as requested by Geoffrey.
-> 
-> * Add Geoffrey's ack.
-> 
-> v3 -> v4:
-> 
-> * Fix stray newline added below
-> 
->   if (config_item->size >= 8) {
-> 
->   leftover from buf_16's declaration.
-> 
-> v4 -> v5 (or how many times does it take Nathan to get a patch right):
-> 
-> * Re-add note about no bug that was dropped in v3 by accident, as
->   noticed by Geoffrey. My apologies for the multiple revisions.
+> diff --git a/Documentation/devicetree/bindings/sound/mt8195-afe-pcm.yaml b/Documentation/devicetree/bindings/sound/mt8195-afe-pcm.yaml
+> new file mode 100644
+> index 000000000000..a4fb5c7dd022
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/mt8195-afe-pcm.yaml
+> @@ -0,0 +1,136 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/mt8195-afe-pcm.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Mediatek AFE PCM controller for mt8195
+> +
+> +maintainers:
+> +  - Trevor Wu <trevor.wu@mediatek.com>
+> +
+> +properties:
+> +  compatible:
+> +    const: mediatek,mt8195-audio
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  mediatek,topckgen:
+> +    $ref: "/schemas/types.yaml#/definitions/phandle"
+> +    description: The phandle of the mediatek topckgen controller
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: audio 26M clock
+> +      - description: AFE clock
+> +      - description: audio infra sys clock
+> +      - description: audio infra 26M clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: clk26m
+> +      - const: aud_afe
+> +      - const: infra_ao_audio
+> +      - const: infra_ao_audio_26m_b
+> +
+> +  etdm-in1-chn-disabled:
 
-Thanks, applied now.
+Needs a vendor prefix.
 
+> +    $ref: /schemas/types.yaml#/definitions/uint8-array
+> +    maxItems: 24
+> +    description: Specify which input channel should be disabled.
+> +
+> +  etdm-in2-chn-disabled:
 
-Takashi
+Needs a vendor prefix.
+
+> +    $ref: /schemas/types.yaml#/definitions/uint8-array
+> +    maxItems: 16
+> +    description: Specify which input channel should be disabled.
+> +
+> +patternProperties:
+> +  "^etdm-in[1-2]-mclk-source$":
+
+And all these need a vendor prefix.
+
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Specify etdm in mclk source clock.
+> +    enum:
+> +      - 0 # xtal_26m_ck
+> +      - 1 # apll1_ck
+> +      - 2 # apll2_ck
+> +      - 3 # apll3_ck
+> +      - 4 # apll4_ck
+> +      - 5 # apll5_ck
+> +      - 6 # hdmirx_apll_ck
+> +
+> +  "^etdm-out[1-3]-mclk-source$":
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Specify etdm out mclk source clock.
+> +
+> +  "^etdm-in[1-2]-mclk-alwasys-on-rate$":
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Specify etdm in mclk output rate for always on case.
+
+Hz? If so, '-hz' unit suffix and drop the type ref.
+
+> +
+> +  "^etdm-out[1-3]-mclk-alwasys-on-rate$":
+
+typo: alwasys
+
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Specify etdm out mclk output rate for always on case.
+
+Hz?
+
+> +
+> +  "^etdm-in[1-2]-data-mode$":
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Specify etdm in data mode.
+> +    enum:
+> +      - 0 # one pin (TDM)
+> +      - 1 # multi pin (I2S)
+
+Can be boolean?
+
+> +
+> +  "^etdm-out[1-3]-data-mode$":
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Specify etdm out data mode.
+
+Constraints on values?
+
+> +
+> +  "^etdm-in[1-2]-cowork-source$":
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: |
+> +      etdm modules can share the same external clock pin. Specify
+> +      which etdm clock source is required by this etdm in moudule.
+> +    enum:
+> +      - 0 # etdm1_in
+> +      - 1 # etdm2_in
+> +      - 2 # etdm1_out
+> +      - 3 # etdm2_out
+> +      - 4 # etdm3_out
+> +
+> +  "^etdm-out[1-3]-cowork-source$":
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: |
+> +      etdm modules can share the same external clock pin. Specify
+> +      which etdm clock source is required by this etdm out moudule.
+
+Constraints?
+
+> +
+> +required:
+> +  - compatible
+> +  - interrupts
+> +  - mediatek,topckgen
+> +  - power-domains
+> +  - clocks
+> +  - clock-names
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/mt8195-clk.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/power/mt8195-power.h>
+> +
+> +    afe: mt8195-afe-pcm {
+> +        compatible = "mediatek,mt8195-audio";
+> +        interrupts = <GIC_SPI 822 IRQ_TYPE_LEVEL_HIGH 0>;
+> +        mediatek,topckgen = <&topckgen>;
+> +        power-domains = <&spm MT8195_POWER_DOMAIN_AUDIO>;
+> +        clocks = <&clk26m>,
+> +                 <&audsys CLK_AUD_AFE>,
+> +                 <&infracfg_ao CLK_INFRA_AO_AUDIO>,
+> +                 <&infracfg_ao CLK_INFRA_AO_AUDIO_26M_B>;
+> +        clock-names = "clk26m",
+> +                      "aud_afe",
+> +                      "infra_ao_audio",
+> +                      "infra_ao_audio_26m_b";
+> +    };
+> +
+> +...
+> -- 
+> 2.18.0
+> 
+> 

@@ -2,80 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B53683B9549
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Jul 2021 19:11:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B782E3B954C
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Jul 2021 19:13:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66F401682;
-	Thu,  1 Jul 2021 19:10:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66F401682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 556E7165E;
+	Thu,  1 Jul 2021 19:12:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 556E7165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625159493;
-	bh=AyUkkH0kuAn5CcFPOdOpJKaBsGAgsFK8VnsoRbPMvnU=;
+	s=default; t=1625159619;
+	bh=WoGwiJVy/Wt3TNcjc+nD7QpHRMgmz7gv5NLutDDFwLg=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NreJ7y7aGFHkITzsSdj2t7VxNKuYj8Yl8z6bOGXMvbTdkRqs7gg4a5uvWxuDmEuiq
-	 GuHUBP9JOb/Cg1QkoWJn9jluvXags3hrQsa8H6I1+7WWW9+XJ7jCbQ7vcmTkINCWUQ
-	 /yL0cLI9ee/YGE9ZXmhEKRduS5ZFwe5Ih9P5hciI=
+	b=MjGa9P9n+rHF6yN6/RKpB1s/RDtYI1tm7aS2hkkwAPIIbK23iPkme5NX++UJsQhHw
+	 LGbfG70EumKvEQsqzrwdu1uBLNG2rbqld9lGeTMFUJQf+1xdO1AH/p1rsWWE9u3WoJ
+	 FiH683aeVLT00bsfLNOVHOtmawfz7U0uei2Asbf0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 190AAF804D1;
-	Thu,  1 Jul 2021 19:10:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC2BDF800E3;
+	Thu,  1 Jul 2021 19:12:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9BD8DF804CA; Thu,  1 Jul 2021 19:09:59 +0200 (CEST)
+ id 6979CF802D2; Thu,  1 Jul 2021 19:12:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C373F802D2
- for <alsa-devel@alsa-project.org>; Thu,  1 Jul 2021 19:09:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C373F802D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60D40F800E3
+ for <alsa-devel@alsa-project.org>; Thu,  1 Jul 2021 19:12:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60D40F800E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="GqAEW40D"; 
+ header.b="Jzy8lKG3"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="GJw22hhE"
+ header.b="ZmCfntOb"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id EC9CE22921;
- Thu,  1 Jul 2021 17:09:54 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 8A0AF204FE;
+ Thu,  1 Jul 2021 17:12:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625159394; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1625159522; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=DnLUpEqeRmaJ0HlmCYWy28IgOo6Su0onHUvwBKV9eo0=;
- b=GqAEW40DC1qqdZxGgCjAdzJjF/DQdJHRwr3uRfMerFfRH+dmh7VAvpz/RO8ee26Lps+Rt+
- Ml3iVMUjCodZdKuWE1XAB6v6WedqFOhqQxFX4FXK3NvOggKyAIocmfzON3z3+Y/YS6qNX4
- dHTUqt9EgL2Gv3OcLqDse3a9Ulcm7wk=
+ bh=3XpfyVHUOlWrv6SQQLovtw4OceYZ9xPFRnfZZ4hsEpA=;
+ b=Jzy8lKG3gZ98l3QPMWkkB1rWnlh6PReoxVOXXmgEbw5V5hqzX7ZcW03HGZQciYL0g0YQXb
+ M4e1br44lPzSV6qI7UZUx029xIMgIA3pPz+rIiIsz+JsakcBHpr2hRudc2GYljiKwOxPfy
+ HYfJslBcxpy/3MgrG0ZXqKS2z3TRYEk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625159394;
+ s=susede2_ed25519; t=1625159522;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=DnLUpEqeRmaJ0HlmCYWy28IgOo6Su0onHUvwBKV9eo0=;
- b=GJw22hhEgu1sP/e5iXHVTS8DPicFphO7UU7PPGfcp3GLoY94ieW+cA0ayunROQsGnsmec7
- 9iD+Zbnzyg/bWZBg==
+ bh=3XpfyVHUOlWrv6SQQLovtw4OceYZ9xPFRnfZZ4hsEpA=;
+ b=ZmCfntObPC5RSENYZUFFfd/Qt6en1yOjAhGPcqvQAUvP45BTnWKYPiXONE0R00XHqh8dfH
+ KtLlYRSGl6UZIzCg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id DC992A3B87;
- Thu,  1 Jul 2021 17:09:54 +0000 (UTC)
-Date: Thu, 01 Jul 2021 19:09:54 +0200
-Message-ID: <s5him1uhsf1.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id EBEF9A3B8F;
+ Thu,  1 Jul 2021 17:12:01 +0000 (UTC)
+Date: Thu, 01 Jul 2021 19:12:01 +0200
+Message-ID: <s5hfswyhsbi.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Kailang <kailang@realtek.com>
-Subject: Re: Add ALC285 Headphone initial procedure
-In-Reply-To: <2b7539c3e96f41a4ab458d53ea5f5784@realtek.com>
-References: <2b7539c3e96f41a4ab458d53ea5f5784@realtek.com>
+To: Nathan Chancellor <nathan@kernel.org>
+Subject: Re: [PATCH v5] ALSA: usb-audio: scarlett2: Fix for loop increment in
+ scarlett2_usb_get_config
+In-Reply-To: <20210627051202.1888250-1-nathan@kernel.org>
+References: <20210625202604.GB23780@m.b4.vu>
+ <20210627051202.1888250-1-nathan@kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: " \(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Nick Desaulniers <ndesaulniers@google.com>, Takashi Iwai <tiwai@suse.com>,
+ clang-built-linux@googlegroups.com, "Geoffrey D. Bennett" <g@b4.vu>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,15 +96,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 01 Jul 2021 10:03:43 +0200,
-Kailang wrote:
+On Sun, 27 Jun 2021 07:12:03 +0200,
+Nathan Chancellor wrote:
 > 
+> Clang warns:
 > 
-> Hi Takashi,
+> sound/usb/mixer_scarlett_gen2.c:1189:32: warning: expression result
+> unused [-Wunused-value]
+>                         for (i = 0; i < count; i++, (u16 *)buf++)
+>                                                     ^      ~~~~~
+> 1 warning generated.
 > 
-> Attach patch was for ALC285 HP init.
+> It appears the intention was to cast the void pointer to a u16 pointer
+> so that the data could be iterated through like an array of u16 values.
+> However, the cast happens after the increment because a cast is an
+> rvalue, whereas the post-increment operator only works on lvalues, so
+> the loop does not iterate as expected. This is not a bug in practice
+> because count is not greater than one at the moment but this could
+> change in the future so this should be fixed.
+> 
+> Replace the cast with a temporary variable of the proper type, which is
+> less error prone and fixes the iteration. Do the same thing for the
+> 'u8 *' below this if block.
+> 
+> Fixes: ac34df733d2d ("ALSA: usb-audio: scarlett2: Update get_config to do endian conversion")
+> Link: https://github.com/ClangBuiltLinux/linux/issues/1408
+> Acked-by: Geoffrey D. Bennett <g@b4.vu>
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> ---
+> 
+> v1 -> v2:
+> 
+> * Use temporary variables of proper type rather than casting, as
+>   requested by Takashi.
+> 
+> * Mention that there is not a bug at the moment per Geoffrey's comment.
+> 
+> v2 -> v3:
+> 
+> * Restrict scope of buf_16 more, as requested by Geoffrey.
+> 
+> * Add Geoffrey's ack.
+> 
+> v3 -> v4:
+> 
+> * Fix stray newline added below
+> 
+>   if (config_item->size >= 8) {
+> 
+>   leftover from buf_16's declaration.
+> 
+> v4 -> v5 (or how many times does it take Nathan to get a patch right):
+> 
+> * Re-add note about no bug that was dropped in v3 by accident, as
+>   noticed by Geoffrey. My apologies for the multiple revisions.
 
-Thanks, applied both patches.
+Thanks, applied now.
 
 
 Takashi

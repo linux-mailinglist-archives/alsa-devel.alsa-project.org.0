@@ -2,75 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C3543B91D1
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Jul 2021 14:53:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A0DB3B93CF
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Jul 2021 17:17:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE7481695;
-	Thu,  1 Jul 2021 14:52:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE7481695
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2E40A169A;
+	Thu,  1 Jul 2021 17:16:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E40A169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625144019;
-	bh=7/B1O5SRCZQDIH9JnUtLeO06PzUiR1aaEtM7Xh38A3U=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1625152665;
+	bh=YSy1Atfa9Acc1pRwUBvUglmbJ7Q7Plhq4GrBGTfqAjo=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZCizOmJLjzXWxILLnFmX1yFPJAW/wX0w8a/IFLlx1Eosdw8ibCQ8f7WVtd7o+B/d+
-	 B5N5IA1kQ8sXORM4RDQRvy9r0D6UgmgOqwyR5tZanJgeZI+OQrhD44pWlwRlqYIH0v
-	 ObVqCAwzzhOSvBPEMehb/PbhKifhLR76+ExVcjII=
+	b=edOReLZd2f1OiiQ8Pb63qw93ffba2MvqbIx5Cz9u3shQO421sjM7JQNsREgG54sqc
+	 w5xuaZCnPfgLRv3zZxlGN4/MlgJHACLyfgDilMFf4omlvg7Zlc2tp9agrq1n52RHAv
+	 X8QZmKjh/8bnE3wc6o5vQYPn4h4OCgoBVdyGFCUE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2AFBF804AE;
-	Thu,  1 Jul 2021 14:52:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 82339F804AE;
+	Thu,  1 Jul 2021 17:16:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3E983F802D2; Thu,  1 Jul 2021 14:52:09 +0200 (CEST)
+ id 2E72BF802D2; Thu,  1 Jul 2021 17:16:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_03_06,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B40DBF800BA
- for <alsa-devel@alsa-project.org>; Thu,  1 Jul 2021 14:52:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B40DBF800BA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="rymjU5e0"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D2475613FE;
- Thu,  1 Jul 2021 12:52:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625143923;
- bh=7/B1O5SRCZQDIH9JnUtLeO06PzUiR1aaEtM7Xh38A3U=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=rymjU5e08NAPC41iGQ7oNJ01iDBURqmIomvMkTKIzMdhACduI1TLDPR90eQvkwt40
- mPD6U7gQh5JkbL5LEY0tq09tMilj1KaWmiRUPBfldfc/FKjcj1Cv+5MlglvHI+kCB1
- ywE6Xr8LQkI689pD649R1Wn2bvBYojvyostqE46cf6V20RgPxSk+E4hGxMm0e+uEqj
- Yba2npgPX9/JYOaPAirQqBo+wbIuCclxbhHCFvW1zIIME1colzKmkkKm/lCAsfCeWC
- yurn0fCtTH8kDP7iA/X3YtcVq8pGvUMmwu5L0Y5PtuwV1OTajWPhn6oZl9taO4jiOj
- jxkWUGPGJjgNA==
-Date: Thu, 1 Jul 2021 13:51:34 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Thierry Reding <thierry.reding@gmail.com>
-Subject: Re: (subset) [PATCH 0/2] arm64: tegra: Enable audio IOMMU support on
- Tegra194
-Message-ID: <20210701125134.GB4641@sirena.org.uk>
-References: <20210628181118.2295007-1-thierry.reding@gmail.com>
- <162506854659.43525.4480397285287043164.b4-ty@kernel.org>
- <YNylGG9RaM72CY2i@orome.fritz.box>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3D600F800BA
+ for <alsa-devel@alsa-project.org>; Thu,  1 Jul 2021 17:16:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D600F800BA
+X-IronPort-AV: E=McAfee;i="6200,9189,10032"; a="272406168"
+X-IronPort-AV: E=Sophos;i="5.83,314,1616482800"; d="scan'208";a="272406168"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2021 08:16:01 -0700
+X-IronPort-AV: E=Sophos;i="5.83,314,1616482800"; d="scan'208";a="447927843"
+Received: from upadmana-mobl.amr.corp.intel.com (HELO [10.212.78.216])
+ ([10.212.78.216])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2021 08:16:00 -0700
+Subject: Re: [PATCH v2 1/2] ASoC: cs35l41: CS35L41 Boosted Smart Amplifier
+To: David Rhodes <drhodes@opensource.cirrus.com>, broonie@kernel.org,
+ robh@kernel.org, ckeepax@opensource.cirrus.com, brian.austin@cirrus.com,
+ patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ david.rhodes@cirrus.com
+References: <20210629222719.1391653-1-drhodes@opensource.cirrus.com>
+ <20210629222719.1391653-2-drhodes@opensource.cirrus.com>
+ <b14da5ca-2b5a-43fc-11bb-7f87c873d3c4@linux.intel.com>
+ <9e432f81-9229-57d3-5231-50d6f935d084@opensource.cirrus.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <5b39ac3e-2992-e107-a65b-f005b8c842f8@linux.intel.com>
+Date: Thu, 1 Jul 2021 06:54:29 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="aM3YZ0Iwxop3KEKx"
-Content-Disposition: inline
-In-Reply-To: <YNylGG9RaM72CY2i@orome.fritz.box>
-X-Cookie: Turn off engine while fueling.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Sameer Pujar <spujar@nvidia.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Jon Hunter <jonathanh@nvidia.com>, Rob Herring <robh+dt@kernel.org>,
- linux-tegra@vger.kernel.org
+In-Reply-To: <9e432f81-9229-57d3-5231-50d6f935d084@opensource.cirrus.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,32 +81,18 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---aM3YZ0Iwxop3KEKx
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Wed, Jun 30, 2021 at 07:08:40PM +0200, Thierry Reding wrote:
+On 6/30/21 4:35 PM, David Rhodes wrote:
+> On 6/29/21 6:51 PM, Pierre-Louis Bossart wrote:
+>>
+>>> +#ifdef CONFIG_ACPI
+>>> +static const struct acpi_device_id cs35l41_acpi_match[] = {
+>>> +    { "CSC3541", 0 }, /* Cirrus Logic PCI ID + part ID */
+>>
+>> Wrong comment or wrong ID, "CSC" is clearly not a PCI ID?
+>>
+> 
+> CSC is a PnP ID, not a PCI ID. I will change the comment to reflect this.
 
-> Could you drop this patch from your queue at this time? I can send out
-> the updated patch once I'm convinced it isn't going to regress further.
+Funny to see how Crystal Semiconductor still shows in PNP IDs, 30 years after being acquired by Cirrus Logic...
 
-OK since it's the top commit, in general it's better to send reverts for
-things like this though - like some other people I rarely rebase or
-otherwise modify existing commits.
-
---aM3YZ0Iwxop3KEKx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmDdulUACgkQJNaLcl1U
-h9BeeQf/T+umKNdbt87xaPCht7wCPEszcEG0SV5z2Y9UFkIs6HfeU/f4HRiuMtIv
-DzTs/T0UmrqyzxLH49YkXfgCRTrkPr5qmdm0iZL6ng4YzWlJmOqT/vLKKyunFyKH
-feshTEJ9AtH0pLzyjYkOyAr4HeLEt1+wsgyTTXS+MAGMSZrL/Y3titN0kvjYnWVq
-2ju+YlZDQyOxIxvpltiXzgyKG94CUsG5NPBUh7xtHfkhcoHuW9vPBUvA0tyrC8EQ
-p+PD96ZfICydEWEsSeA/WBtTVqfSbJRlPomAsaXcai9iZc7RAv7wBJkhEcL+qZde
-iNBRANBx4F87MBzZill+pkwUsMHECw==
-=mdqc
------END PGP SIGNATURE-----
-
---aM3YZ0Iwxop3KEKx--

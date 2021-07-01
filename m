@@ -2,82 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0E403B8DCA
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Jul 2021 08:36:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CCF43B8DCD
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Jul 2021 08:38:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB8F316AC;
-	Thu,  1 Jul 2021 08:35:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB8F316AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id DFDBE820;
+	Thu,  1 Jul 2021 08:37:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFDBE820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625121405;
-	bh=08TZqnr6tvHwQ0CTu3cLNHqOoDjQqho+n8WbrnrAFic=;
+	s=default; t=1625121512;
+	bh=fn+dxXhHM62iAj/vUkwxc37k0cRUJJnl/Cz1xJLun/w=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sFtnaCALpNyRQ3zzN4jsgrmxuoyuBEd2agzfOAwp9JWYiWA3psBXJxiBL6kEkviet
-	 q5mPo8DCVcOeFfXPofVFReiWinJuMCW2/IRTTfZIKpGxwcy8+jMbjR5U8U4OyfVdhv
-	 U4pYJvZXl3JtqBp1uIu8ZRux7rxiYooGM0dvWR3M=
+	b=tyvOAuBJzCz1IAC/Zjf+2OAdqBiA832/FZUSvyiHKBbrNT+s3gnQjFQ65LgyNv3v7
+	 lKbu/hdCI4BKdBE5D5zNR38z5iyISSJg61g3U8I00fQIUX1Tscp9HATmWCmoJNKimv
+	 QjGgorgwjhTBEz47/q0mJAnTyTC0HMA4k+JoRd00=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 977E0F804CA;
-	Thu,  1 Jul 2021 08:35:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56B28F804AE;
+	Thu,  1 Jul 2021 08:37:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CCC10F804B4; Thu,  1 Jul 2021 08:35:06 +0200 (CEST)
+ id 352F5F802D2; Thu,  1 Jul 2021 08:37:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 49FEDF80259
- for <alsa-devel@alsa-project.org>; Thu,  1 Jul 2021 08:35:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49FEDF80259
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31C22F80259
+ for <alsa-devel@alsa-project.org>; Thu,  1 Jul 2021 08:36:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31C22F80259
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="fxJ9l2LV"; 
+ header.b="QEbBdXiN"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="TMXLDgqY"
+ header.b="gQzDFH/6"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 4D32B227F1;
- Thu,  1 Jul 2021 06:35:03 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 9A7F31FF70;
+ Thu,  1 Jul 2021 06:36:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625121303; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1625121416; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=DX0Tp7sjWCBVLcUCvHv96OM+vHqJxq9pbnLoMq394zk=;
- b=fxJ9l2LVcs1i63rzSyHTK0NFqKfcSjmjLplJeFkor+uMDhcs08Vosi3l7NPdqaARdMV6Rp
- VFnGecGXm5yYbbKUtFbK4Slf+zgx3lXIcZPBiMSWxNh3gNZy68eVNNu3VnwG4ntiBsE3Ld
- 8vXhOs84cl1QI67TjqJfczLr+6KaJtc=
+ bh=X6efxvN55ScstjZuvt7HObJuuCo3kW8APtIAyHc52IY=;
+ b=QEbBdXiNW5Zvz8Z94UgI191nFUkOD22Z2m+1tO5CvFidWM1KBxn9kW9YZvuKQHZL+//2wn
+ que5uAs263G6rRrPDO20foLim0lGnVTvuKPHgAfX/Of4hz7b4WcOaKgjq/q3tHeHF9Ybgp
+ l8RU8w/lAeDQxUE70QaZE+BnOqU+dhs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625121303;
+ s=susede2_ed25519; t=1625121416;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=DX0Tp7sjWCBVLcUCvHv96OM+vHqJxq9pbnLoMq394zk=;
- b=TMXLDgqYQ3b923QtRiQykt22BBUdobyHifN3Ghc07f21QJdKROClSDo+HEqmdQEdAAf6hi
- 6xTYBA1/VvZL1qAw==
+ bh=X6efxvN55ScstjZuvt7HObJuuCo3kW8APtIAyHc52IY=;
+ b=gQzDFH/6Z2JQZdwp92jWRc4xpZf5KqF0Pr2N5eqOiaqhRj020kAOsty4xGI3GHvV0tOrLH
+ 6De8naCooqlAdKDQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 36BCFA3B8C;
- Thu,  1 Jul 2021 06:35:02 +0000 (UTC)
-Date: Thu, 01 Jul 2021 08:35:02 +0200
-Message-ID: <s5hr1giilt5.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 9384AA3B83;
+ Thu,  1 Jul 2021 06:36:56 +0000 (UTC)
+Date: Thu, 01 Jul 2021 08:36:56 +0200
+Message-ID: <s5hpmw2ilpz.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: "Geoffrey D. Bennett" <g@b4.vu>
-Subject: Re: [PATCH 0/2] ALSA: scarlett2: fix two small issues
-In-Reply-To: <cover.1624798436.git.g@b4.vu>
-References: <cover.1624798436.git.g@b4.vu>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [GIT PULL] ASoC updates for v5.14
+In-Reply-To: <20210628145420.C66B661C7F@mail.kernel.org>
+References: <20210628145420.C66B661C7F@mail.kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: Aaron Wolf <aaron@wolftune.com>,
- Hin-Tak Leung <htl10@users.sourceforge.net>, alsa-devel@alsa-project.org,
- Vladimir Sadovnikov <sadko4u@gmail.com>
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,18 +91,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 27 Jun 2021 15:22:14 +0200,
-Geoffrey D. Bennett wrote:
+On Mon, 28 Jun 2021 16:53:42 +0200,
+Mark Brown wrote:
 > 
-> Fix two small issues with the scarlett2 mixer driver.
+> The following changes since commit 13311e74253fe64329390df80bed3f07314ddd61:
 > 
-> Not applicable to stable.
+>   Linux 5.13-rc7 (2021-06-20 15:03:15 -0700)
 > 
-> Geoffrey D. Bennett (2):
->   ALSA: scarlett2: Fix pad count for 18i8 Gen 3
->   ALSA: scarlett2: Fix scarlett2_*_ctl_put() return values again
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-v5.14
+> 
+> for you to fetch changes up to 192664528154a84fab4e6d820f9cb2e2e0835544:
+> 
+>   Merge remote-tracking branch 'asoc/for-5.14' into asoc-next (2021-06-25 14:08:03 +0100)
+> 
+> ----------------------------------------------------------------
+> ASoC: Updates for v5.14
+> 
+> This release sees a nice new feature in the core from Morimoto-san,
+> support for automatic negotiation of DAI formats between the components
+> on the link.  Otherwise the big highlight was the merging of the Tegra
+> machine drivers into a single driver avoiding a bunch of duplication.
+> 
+>  - Support for automatic negotiation of DAI formats.
+>  - Accessory detection support for several Qualcomm parts.
+>  - Support for IEC958 control with hdmi-codec.
+>  - Merging of Tegra machine drivers into a single driver.
+>  - Support for AmLogic SM1 TOACODEC, Intel AlderLake-M, several NXP
+>    i.MX8 variants, NXP TFA1 and TDF9897, Rockchip RK817, Qualcomm
+>    Quinary MI2S, Texas Instruments TAS2505
 
-Applied both patches now.  Thanks.
+Thanks, pulled now.
 
 
 Takashi

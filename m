@@ -2,59 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC2A33B9F27
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Jul 2021 12:35:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D26F03BA037
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Jul 2021 14:10:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3ABF01676;
-	Fri,  2 Jul 2021 12:35:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3ABF01676
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50C29167A;
+	Fri,  2 Jul 2021 14:09:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50C29167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625222154;
-	bh=4svOkiQuNkARoTR/qNTWvaD7AEFcdYMGOdMHAoP2z6U=;
-	h=To:From:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Qq7TTxPOE+jL/QitFEdzLKxqqEPUfSGUHn/fwIpC+buMfM9UXMBWDnIhwDUbQ/riL
-	 Mi3KrYD/KOMoPY50Cf8vBI3mJpUN1JuN15Jh9MS2AVKboKpJlPGu4vB6LFJfbRVZER
-	 3a42fxvGT4vpPK5djCvRMv8gtmeAeo1zkeH55kR4=
+	s=default; t=1625227821;
+	bh=tn35gL3nzkU8srsc5/dwE9DL/VYFJJK7rHv1yi9kEYY=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=in5Bc/UjUQ9P07btV+4Fo1GtXgbSJlBEAVtBaWTHE8lBX+Ch0M57noUEd3r1NvLlN
+	 TSTVQoEO7vTIuI757EMp9O0eVT8VtCqs3gtF38QLD9AN7IgES/Fc+HTp7Do1AsdBV/
+	 4lXP87vgSOfQDFGUNBF06i7zPw167ldwsBaLoFOA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B5DEAF80240;
-	Fri,  2 Jul 2021 12:34:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF340F80240;
+	Fri,  2 Jul 2021 14:08:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 52898F80229; Fri,  2 Jul 2021 12:34:23 +0200 (CEST)
+ id DE409F80229; Fri,  2 Jul 2021 14:08:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail.marcansoft.com (marcansoft.com [212.63.210.85])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CF3ADF800BA
- for <alsa-devel@alsa-project.org>; Fri,  2 Jul 2021 12:34:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF3ADF800BA
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: marcan@marcan.st)
- by mail.marcansoft.com (Postfix) with ESMTPSA id AF1C8419BC;
- Fri,  2 Jul 2021 10:34:08 +0000 (UTC)
-To: Takashi Iwai <tiwai@suse.de>
-From: Hector Martin <marcan@marcan.st>
-Subject: [tiwai/for-next] hard lockups with pipewire and snd-usb-audio
-Message-ID: <4e71531f-4535-fd46-040e-506a3c256bbd@marcan.st>
-Date: Fri, 2 Jul 2021 19:34:06 +0900
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0F483F80165
+ for <alsa-devel@alsa-project.org>; Fri,  2 Jul 2021 14:08:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F483F80165
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="uW/bzytT"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C651361425;
+ Fri,  2 Jul 2021 12:08:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1625227720;
+ bh=tn35gL3nzkU8srsc5/dwE9DL/VYFJJK7rHv1yi9kEYY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=uW/bzytTgtVhAc0zBr0SpxD9EdNu7mW0ZSPMy+JU9dWSwMz207jM58VIaz7VOfg7X
+ x3cBsqADz1X33nRW4Y7DfPH/GMXf1QUqn4CInMsttLGTYA3NY3CxCAeGUsH61IJFmd
+ lz9N8R6BUze9zRe4yNIl+XFcSEbgOdpXtMmAnwMMn29Uiz2GJ9lW7vGdU/oR0pXx4D
+ iOW7Yl0Y+8odfJz8oLHkT3+UK6+zGyEoPyOMv32h6DNlGBlEiyYaPxz/NEtDvVQ4V9
+ 6NiWhONdi1ApOmQjkw6UAKxoNFZ5zeK6V8LLNBUIJa6eAPfTse6fxppRcv+uLzhqIG
+ J3bda77diKxng==
+Date: Fri, 2 Jul 2021 13:08:10 +0100
+From: Mark Brown <broonie@kernel.org>
+To: David Rhodes <drhodes@opensource.cirrus.com>
+Subject: Re: [PATCH v2 1/2] ASoC: cs35l41: CS35L41 Boosted Smart Amplifier
+Message-ID: <20210702120810.GA4416@sirena.org.uk>
+References: <20210629222719.1391653-1-drhodes@opensource.cirrus.com>
+ <20210629222719.1391653-2-drhodes@opensource.cirrus.com>
+ <b14da5ca-2b5a-43fc-11bb-7f87c873d3c4@linux.intel.com>
+ <4d1a88a1-a61b-a14a-a9f1-66101277e8c2@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: es-ES
-Content-Transfer-Encoding: 8bit
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- LKML <linux-kernel@vger.kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="PNTmBPCT7hxwcZjr"
+Content-Disposition: inline
+In-Reply-To: <4d1a88a1-a61b-a14a-a9f1-66101277e8c2@opensource.cirrus.com>
+X-Cookie: What!?  Me worry?
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: robh@kernel.org, brian.austin@cirrus.com, ckeepax@opensource.cirrus.com,
+ alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ david.rhodes@cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,37 +86,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Takashi,
 
-I've been testing builds from your for-next branch to get the recent 
-firewire fixes. All that works fine, but instead I've been getting hard 
-lockups with pipewire and snd-usb-audio. I'm currently on 9a7b7ec3c6.
+--PNTmBPCT7hxwcZjr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Backtrace:
+On Thu, Jul 01, 2021 at 03:22:53PM -0500, David Rhodes wrote:
+> On 6/29/21 6:51 PM, Pierre-Louis Bossart wrote:
+> > > +static irqreturn_t cs35l41_irq(int irq, void *data)
+> > > +{
+> > > +	struct cs35l41_private *cs35l41 = data;
+> > > +	unsigned int status[4] = {0, 0, 0, 0};
+> > > +	unsigned int masks[4] = {0, 0, 0, 0};
 
-  do_raw_spin_lock+0x8e/0x90
-  _raw_spin_lock_irqsave+0x3e/0x50
-  ? snd_pcm_period_elapsed+0x10/0x30 [snd_pcm]
-  snd_pcm_period_elapsed+0x10/0x30 [snd_pcm]
-  snd_usb_endpoint_start+0xd8/0x270 [snd_usb_audio]
-  start_endpoints+0x50/0x70 [snd_usb_audio]
-  snd_usb_substream_playback_trigger+0x58/0x100 [snd_usb_audio]
-  snd_pcm_action+0x74/0xb0 [snd_pcm]
-  snd_pcm_action_lock_irq+0x36/0x80 [snd_pcm]
-  snd_pcm_ioctl+0x1e/0x30 [snd_pcm]
-  __x64_sys_ioctl+0x7d/0xb0
-  do_syscall_64+0x45/0x80
-  entry_SYSCALL_64_after_hwframe+0x44/0xae
+> > are those inits necessary, you override them below with the regmap reads?
 
-To me it looks like it's recursively trying to lock the stream spinlock.
+> This one gets flagged by static analyzers so I'd like to keep the inits
 
-I'm not sure what version this is a regression from; I've only triggered 
-it with pipewire so far, which I wasn't previously using. It's easy to 
-reproduce. Usually, pulling up pavucontrol on pipewire with the USB 
-audio device on an active profile will do it.
+That sounds like you have an actual issue and you're just shutting up
+the static analysers, not fixing whatever they were telling you.
 
-Just thought you might want to know. Let me know if you need any more info.
+--PNTmBPCT7hxwcZjr
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-Hector Martin (marcan@marcan.st)
-Public Key: https://mrcn.st/pub
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmDfAakACgkQJNaLcl1U
+h9Cbtwf9HrqVE23nT70GYcN0ws4CwMZ9A7DyKiOF7h2YsZkUV0EDzkTFKcTLkYFW
+H4dZJGNAXAt0+CKiXTMJfFxcVPjUZK8eN9mYs9NKRhgQVLD9DBFSPrnyAUKQ+8b9
+CSFMPXa09qQIMJPBta5Iv44jd5Rc0r0UhkamV/h8NuzBXVeENzv4W+rfL2gLKlEw
+8DsSyC+tC6p7WTyxxHB9Iox4QASXEt6QKjcGuA+gYyanKoLCBL7SnYGKG0Ccg3JZ
+JY4LxTA641pskfl8MQCgKtcXRxxhgp++FU8M7UY+A/kbYhbwuYAkr6gKfjSJHEAQ
+BnkvYRRE4VdJ1H7qm/DnbG3gNZ524g==
+=w4KA
+-----END PGP SIGNATURE-----
+
+--PNTmBPCT7hxwcZjr--

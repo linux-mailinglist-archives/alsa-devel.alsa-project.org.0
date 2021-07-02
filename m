@@ -2,102 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C83333BA2F4
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Jul 2021 17:53:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22FF83BA3C2
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Jul 2021 19:52:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 55F47169E;
-	Fri,  2 Jul 2021 17:53:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55F47169E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 92FBB16B8;
+	Fri,  2 Jul 2021 19:51:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92FBB16B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625241238;
-	bh=pjB0+EPOFIZNSJIgH3P42MUEnNqJsQeSvnqZtfJBooY=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=q0K0t387S4uW1aEzPamjv6J0UoIkiTPpGI8yleKr4VNubSX2dLJOaKOnrY7sy0bhZ
-	 rcx5HPJ83AinM5tcL7iuYFE8k4mD5B5xL0Jj1lwobC5XsZmmF6AhUjSLOnQ1AFA0jA
-	 EctAs/iUtvnMP3sA/lknHK0Qizr5M5pT/pcZiPNs=
+	s=default; t=1625248355;
+	bh=xKbnGb2xSI9K6n9nujM1F0DLC+XJBUVekEIDxVAOhyw=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vVGChG8Dt/p2Brf0QMu+HUcf90M/Vz1fViGBcaJkUe7wHYjLC7GdgWcu3xczAGCEW
+	 xLb+q+3sgZBqcF3vcLR9LgkKtfXReRtV+E4IbDMMhZ4qQIrMeQ8dNcp1FbUY/lJJx2
+	 JDBBfEgesoEZ2hVlBtAUHcVuAwKmjm/lE6lFYf0A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8696F800F3;
-	Fri,  2 Jul 2021 17:52:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F020BF80165;
+	Fri,  2 Jul 2021 19:51:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 272B5F80229; Fri,  2 Jul 2021 17:52:29 +0200 (CEST)
+ id 41075F80229; Fri,  2 Jul 2021 19:51:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from lb2-smtp-cloud8.xs4all.net (lb2-smtp-cloud8.xs4all.net
+ [194.109.24.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9069BF800BA
- for <alsa-devel@alsa-project.org>; Fri,  2 Jul 2021 17:52:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9069BF800BA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="Wz/0HxOa"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 162FeKa1000814; Fri, 2 Jul 2021 10:52:23 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=FXVr4Ax2ugwp+gUAJz2R0G60SxQJGFp9pCEAmi9XvkA=;
- b=Wz/0HxOaFJ4OvzdX48YHbU2T8iRLx1AU/CE0GxF+2z2b1Eb1H31AOZQ10kfVICG40Lf5
- AY2HCQkbEq+YYi7M6v8QhWi1Ve0hd07MU9ZPKhzaYZBHHgj4Fe9DFOi50/uXjWTnMME8
- +OD8D/wM8a7kzCT68H/Cy10MAQUS+8DU5ldaPzquI7xqQ8Yc28JFCvtG+xw1zbXj8IMu
- KVpgu4i5x3g93RPpKSmIxxhDIGYMwoIqH9Sgd8r1V2oIDKO5FuLWS6jDwtEq0RnWUdEF
- NQB2ETz3SYVUGsAu1dDV3IkR8pqRwhPV1iWboL4vvuK3nCJeugCgk0TT21DgCOUYILJP wQ== 
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 39j40rr5k6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 02 Jul 2021 10:52:23 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 2 Jul 2021
- 16:52:21 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
- Transport; Fri, 2 Jul 2021 16:52:21 +0100
-Received: from [192.168.99.238] (macC02XQ1DJJG5K.ad.cirrus.com [141.131.64.84])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 0CF2646A;
- Fri,  2 Jul 2021 15:52:13 +0000 (UTC)
-Subject: Re: [PATCH v2 1/2] ASoC: cs35l41: CS35L41 Boosted Smart Amplifier
-To: Mark Brown <broonie@kernel.org>
-References: <20210629222719.1391653-1-drhodes@opensource.cirrus.com>
- <20210629222719.1391653-2-drhodes@opensource.cirrus.com>
- <b14da5ca-2b5a-43fc-11bb-7f87c873d3c4@linux.intel.com>
- <4d1a88a1-a61b-a14a-a9f1-66101277e8c2@opensource.cirrus.com>
- <20210702120810.GA4416@sirena.org.uk>
- <2a795a56-0b3d-069b-b31d-b8cee0b89f4f@opensource.cirrus.com>
- <20210702154820.GC4416@sirena.org.uk>
-From: David Rhodes <drhodes@opensource.cirrus.com>
-Message-ID: <08374391-c233-a6a5-38e3-d423ae17ec5f@opensource.cirrus.com>
-Date: Fri, 2 Jul 2021 10:52:13 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9B39DF80165
+ for <alsa-devel@alsa-project.org>; Fri,  2 Jul 2021 19:50:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B39DF80165
+Received: from cust-b66e5d83 ([IPv6:fc0c:c157:b88d:62c6:5e3c:5f07:82d0:1b4])
+ by smtp-cloud8.xs4all.net with ESMTPA
+ id zNJXlBWog48ZvzNJYlMoiI; Fri, 02 Jul 2021 19:50:56 +0200
+Received: from localhost (localhost [127.0.0.1])
+ by keetweej.vanheusden.com (Postfix) with ESMTP id 54EE6160CD1
+ for <alsa-devel@alsa-project.org>; Fri,  2 Jul 2021 19:50:55 +0200 (CEST)
+Received: from keetweej.vanheusden.com ([127.0.0.1])
+ by localhost (mauer.intranet.vanheusden.com [127.0.0.1]) (amavisd-new,
+ port 10024)
+ with ESMTP id ZwbCVHuLW5sS for <alsa-devel@alsa-project.org>;
+ Fri,  2 Jul 2021 19:50:52 +0200 (CEST)
+Received: from belle.intranet.vanheusden.com (belle.intranet.vanheusden.com
+ [192.168.64.100])
+ by keetweej.vanheusden.com (Postfix) with ESMTP id E22F81626C7
+ for <alsa-devel@alsa-project.org>; Fri,  2 Jul 2021 19:50:52 +0200 (CEST)
+Received: by belle.intranet.vanheusden.com (Postfix, from userid 1000)
+ id DAC661623D6; Fri,  2 Jul 2021 19:50:52 +0200 (CEST)
+Date: Fri, 2 Jul 2021 19:50:52 +0200
+From: folkert <folkert@vanheusden.com>
+To: alsa-devel@alsa-project.org
+Subject: timestamp
+Message-ID: <20210702175052.GI80002@belle.intranet.vanheusden.com>
 MIME-Version: 1.0
-In-Reply-To: <20210702154820.GC4416@sirena.org.uk>
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 0ZR3hA64xFP-4CMpR8MP3g2UO_1_aJch
-X-Proofpoint-GUID: 0ZR3hA64xFP-4CMpR8MP3g2UO_1_aJch
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 bulkscore=0
- impostorscore=0 adultscore=0 suspectscore=0 phishscore=0 mlxlogscore=993
- malwarescore=0 spamscore=0 priorityscore=1501 clxscore=1015 mlxscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104190000
- definitions=main-2107020086
-Cc: robh@kernel.org, brian.austin@cirrus.com, ckeepax@opensource.cirrus.com,
- alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- david.rhodes@cirrus.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Organization: www.vanheusden.com
+X-Chameleon-Return-To: folkert@vanheusden.com
+X-Xfmail-Return-To: folkert@vanheusden.com
+X-Phonenumber: +31-6-41278122
+X-URL: http://www.vanheusden.com/
+X-PGP-KeyID: 1F077C42
+X-GPG-fingerprint: AC89 09CE 41F2 00B4 FCF2  B174 3019 0E8C 1F28 D8AE
+X-Key: http://pgp.surfnet.nl:11371/pks/lookup?op=get&search=0x1F077C42
+Read-Receipt-To: <folkert@vanheusden.com>
+Reply-By: Thu 01 Jul 2021 09:01:16 PM CEST
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-CMAE-Envelope: MS4xfOgzIvr3hD0DCp9HLM8hEHL4dSqMdF/WVORvPHsBXULEou/oIYB/bQZNUKFJnOScrQhKLYsxiUAKKpfSiA+/q6nQfTqIWH6L8nkkSXZdjH5oht3OQU1h
+ 8qvkrB1hkoEYV1/lCqce0f2JLuRi7wluGzxkChRLDYoL63tj+ikTjmdK+ChlBjMqRTu6cRtIu6Qgppojardh0f/WyrsmyI1iw08FhSIUnBEdn906Xa16Qawu
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,15 +89,208 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 7/2/21 10:48 AM, Mark Brown wrote:
-> On Fri, Jul 02, 2021 at 10:23:52AM -0500, David Rhodes wrote:
-> 
->> So I don't think I have an actual issue, but I am just shutting up the
->> static analyzers, although I do think I fixed what they were telling me.
-> 
-> In that case you should get the static analyzers fixed, they clearly
-> have a false positives problem here in what is a relatively common
-> pattern.
-> 
+Hi,
 
-OK Thanks Mark. Will make Pierre's recommended change in the next revision.
+Please consider including the following patch. This patch adds a '-T'
+flag which prepends MIDI messages outputted by '--dump' with a
+timestamp.
+E.g.:
+
+1625245188.993861810) C964
+1625245188.994318675) F8
+1625245188.995468101) 99647F
+1625245189.494490183) F8
+1625245189.495448424) 99647F
+1625245189.995470260) F8
+1625245189.996461381) 99647F
+1625245190.494519924) F8
+[...]
+
+
+diff -uNr t3/alsa-utils-1.2.3/amidi/amidi.1 alsa-utils-1.2.3/amidi/amidi.1
+--- t3/alsa-utils-1.2.3/amidi/amidi.1	2020-06-07 19:19:42.000000000 +0200
++++ alsa-utils-1.2.3/amidi/amidi.1	2021-07-02 14:35:25.416330576 +0200
+@@ -6,6 +6,7 @@
+ .SH SYNOPSIS
+ \fBamidi\fP [\fI\-p port\fP] [\fI\-s file\fP | \fI\-S data\fP]
+ [\fI\-r file\fP] [\fI\-d\fP] [\fI\-t seconds\fP] [\fI\-a\fP]
++[\fI\-T\fP]
+ 
+ .SH DESCRIPTION
+ .B amidi
+@@ -41,6 +42,10 @@
+ options to specify what data to send or receive.
+ 
+ .TP
++.I \-T
++Adds a timestamp in front of each MIDI message.
++
++.TP
+ .I \-h, \-\-help
+ Help: prints a list of options.
+ 
+diff -uNr t3/alsa-utils-1.2.3/amidi/amidi.c alsa-utils-1.2.3/amidi/amidi.c
+--- t3/alsa-utils-1.2.3/amidi/amidi.c	2020-06-07 19:19:42.000000000 +0200
++++ alsa-utils-1.2.3/amidi/amidi.c	2021-07-02 19:41:34.476470438 +0200
+@@ -36,6 +36,7 @@
+ #include <unistd.h>
+ #include <fcntl.h>
+ #include <alsa/asoundlib.h>
++#include <time.h>
+ #include "aconfig.h"
+ #include "version.h"
+ 
+@@ -80,6 +81,7 @@
+ 		"-r, --receive=file              write received data into a file\n"
+ 		"-S, --send-hex=\"...\"            send hexadecimal bytes\n"
+ 		"-d, --dump                      print received data as hexadecimal bytes\n"
++		"-T, --timestamp                 adds a timestamp in front of each dumped message\n"
+ 		"-t, --timeout=seconds           exits when no data has been received\n"
+ 		"                                for the specified duration\n"
+ 		"-a, --active-sensing            include active sensing bytes\n"
+@@ -356,7 +358,7 @@
+ /*
+  * prints MIDI commands, formatting them nicely
+  */
+-static void print_byte(unsigned char byte)
++static void print_byte(unsigned char byte, struct timespec *ts)
+ {
+ 	static enum {
+ 		STATE_UNKNOWN,
+@@ -426,7 +428,18 @@
+ 		if (running_status)
+ 			fputs("\n  ", stdout);
+ 	}
+-	printf("%c%02X", newline ? '\n' : ' ', byte);
++
++	if (newline) {
++		printf("\n");
++
++		/* Nanoseconds does not make a lot of sense for serial MIDI (the
++		 * 31250 bps one) but I'm not sure about MIDI over USB.
++		 */
++		if (ts)
++			printf("%lld.%.9ld) ", (long long)ts->tv_sec, ts->tv_nsec);
++	}
++
++	printf("%02X", byte);
+ }
+ 
+ static void sig_handler(int dummy)
+@@ -454,7 +467,7 @@
+ 
+ int main(int argc, char *argv[])
+ {
+-	static const char short_options[] = "hVlLp:s:r:S::dt:aci:";
++	static const char short_options[] = "hVlLp:s:r:S::dt:aci:T";
+ 	static const struct option long_options[] = {
+ 		{"help", 0, NULL, 'h'},
+ 		{"version", 0, NULL, 'V'},
+@@ -465,6 +478,7 @@
+ 		{"receive", 1, NULL, 'r'},
+ 		{"send-hex", 2, NULL, 'S'},
+ 		{"dump", 0, NULL, 'd'},
++		{"timestamp", 0, NULL, 'T'},
+ 		{"timeout", 1, NULL, 't'},
+ 		{"active-sensing", 0, NULL, 'a'},
+ 		{"clock", 0, NULL, 'c'},
+@@ -475,6 +489,7 @@
+ 	int ignore_active_sensing = 1;
+ 	int ignore_clock = 1;
+ 	int do_send_hex = 0;
++	int do_print_timestamp = 0;
+ 	struct itimerspec itimerspec = { .it_interval = { 0, 0 } };
+ 
+ 	while ((c = getopt_long(argc, argv, short_options,
+@@ -509,6 +524,9 @@
+ 		case 'd':
+ 			dump = 1;
+ 			break;
++		case 'T':
++			do_print_timestamp = 1;
++			break;
+ 		case 't':
+ 			if (optarg)
+ 				timeout = atof(optarg);
+@@ -611,6 +629,7 @@
+ 	}
+ 
+ 	if (inputp) {
++		int need_timestamp = 0;
+ 		int read = 0;
+ 		int npfds;
+ 		struct pollfd *pfds;
+@@ -648,6 +667,7 @@
+ 			unsigned char buf[256];
+ 			int i, length;
+ 			unsigned short revents;
++			struct timespec ts;
+ 
+ 			err = poll(pfds, npfds, -1);
+ 			if (stop || (err < 0 && errno == EINTR))
+@@ -657,6 +677,11 @@
+ 				break;
+ 			}
+ 
++			if (clock_gettime(CLOCK_REALTIME, &ts) < 0) {
++				error("clock_getres failed: %s", strerror(errno));
++				break;
++			}
++
+ 			err = snd_rawmidi_poll_descriptors_revents(input, &pfds[1], npfds - 1, &revents);
+ 			if (err < 0) {
+ 				error("cannot get poll events: %s", snd_strerror(errno));
+@@ -692,7 +717,8 @@
+ 				write(receive_file, buf, length);
+ 			if (dump) {
+ 				for (i = 0; i < length; ++i)
+-					print_byte(buf[i]);
++					print_byte(buf[i], do_print_timestamp ? &ts : NULL);
++
+ 				fflush(stdout);
+ 			}
+ 
+diff -uNr t3/alsa-utils-1.2.3/configure.ac alsa-utils-1.2.3/configure.ac
+--- t3/alsa-utils-1.2.3/configure.ac	2021-07-02 19:41:46.000000000 +0200
++++ alsa-utils-1.2.3/configure.ac	2021-07-02 15:55:13.245585248 +0200
+@@ -97,7 +97,7 @@
+ if test x$bat = xtrue; then
+ 
+   saved_CFLAGS="$CFLAGS"
+-  saved_LDFLAGS="$LDFLAGS"
++  saved_LDFLAGS="$LDFLAGS -lrt"
+   saved_LIBS="$LIBS"
+   FFTW_INC=""
+   FFTW_LIB=""
+@@ -116,7 +116,7 @@
+   FFTW_CFLAGS="$CFLAGS"
+   FFTW_LIB="$LIBS"
+   CFLAGS="$saved_CFLAGS"
+-  LDFLAGS="$saved_LDFLAGS"
++  LDFLAGS="$saved_LDFLAGS -lrt"
+   LIBS="$saved_LIBS"
+   AC_SUBST(FFTW_INC)
+   AC_SUBST(FFTW_LIB)
+@@ -292,11 +292,11 @@
+   fi
+ 
+   saved_CFLAGS="$CFLAGS"
+-  saved_LDFLAGS="$LDFLAGS"
++  saved_LDFLAGS="$LDFLAGS -lrt"
+   saved_LIBS="$LIBS"
+   CFLAGS="$CFLAGS $CURSES_CFLAGS"
+   if test -n "$CURSESLIBDIR"; then
+-    LDFLAGS="$LDFLAGS -L$CURSESLIBDIR"
++    LDFLAGS="$LDFLAGS -L$CURSESLIBDIR -lrt"
+   fi
+   LIBS="$CURSESLIB $LIBS"
+ 
+@@ -342,7 +342,7 @@
+                [AC_MSG_ERROR([form$NCURSESLIBSUFFIX library not found])])
+ 
+   CFLAGS="$saved_CFLAGS"
+-  LDFLAGS="$saved_LDFLAGS"
++  LDFLAGS="$saved_LDFLAGS -lrt"
+   LIBS="$saved_LIBS"
+ 
+   if test -n "$CURSESLIBDIR"; then

@@ -2,78 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22FF83BA3C2
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Jul 2021 19:52:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 155AC3BA3D1
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Jul 2021 20:01:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 92FBB16B8;
-	Fri,  2 Jul 2021 19:51:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92FBB16B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C23716B8;
+	Fri,  2 Jul 2021 20:00:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C23716B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625248355;
-	bh=xKbnGb2xSI9K6n9nujM1F0DLC+XJBUVekEIDxVAOhyw=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=vVGChG8Dt/p2Brf0QMu+HUcf90M/Vz1fViGBcaJkUe7wHYjLC7GdgWcu3xczAGCEW
-	 xLb+q+3sgZBqcF3vcLR9LgkKtfXReRtV+E4IbDMMhZ4qQIrMeQ8dNcp1FbUY/lJJx2
-	 JDBBfEgesoEZ2hVlBtAUHcVuAwKmjm/lE6lFYf0A=
+	s=default; t=1625248879;
+	bh=XyRbQJqx8E0mpqgzR2LpyRntxmo4hMDvtyz/ZGQmUqI=;
+	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=aCNSfFGFsN11acjqyvJIw1iAbLbv6p9Z3ig81lJVM6/tiNs4HjtaIOAp2jn3NV2RE
+	 M8vfyRWrLIFoELz9YZcoXptbrRRNA/DAsuL15KRLUaaitxSyij+I6CyaNWsFZNSV+j
+	 qgYu3vJvdzS8LuAExfDZsgbiv4+jynBQG+XLJCYs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F020BF80165;
-	Fri,  2 Jul 2021 19:51:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 85561F800BA;
+	Fri,  2 Jul 2021 19:59:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41075F80229; Fri,  2 Jul 2021 19:51:06 +0200 (CEST)
+ id 34193F80229; Fri,  2 Jul 2021 19:59:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from lb2-smtp-cloud8.xs4all.net (lb2-smtp-cloud8.xs4all.net
- [194.109.24.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_13,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from aposti.net (aposti.net [89.234.176.197])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9B39DF80165
- for <alsa-devel@alsa-project.org>; Fri,  2 Jul 2021 19:50:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B39DF80165
-Received: from cust-b66e5d83 ([IPv6:fc0c:c157:b88d:62c6:5e3c:5f07:82d0:1b4])
- by smtp-cloud8.xs4all.net with ESMTPA
- id zNJXlBWog48ZvzNJYlMoiI; Fri, 02 Jul 2021 19:50:56 +0200
-Received: from localhost (localhost [127.0.0.1])
- by keetweej.vanheusden.com (Postfix) with ESMTP id 54EE6160CD1
- for <alsa-devel@alsa-project.org>; Fri,  2 Jul 2021 19:50:55 +0200 (CEST)
-Received: from keetweej.vanheusden.com ([127.0.0.1])
- by localhost (mauer.intranet.vanheusden.com [127.0.0.1]) (amavisd-new,
- port 10024)
- with ESMTP id ZwbCVHuLW5sS for <alsa-devel@alsa-project.org>;
- Fri,  2 Jul 2021 19:50:52 +0200 (CEST)
-Received: from belle.intranet.vanheusden.com (belle.intranet.vanheusden.com
- [192.168.64.100])
- by keetweej.vanheusden.com (Postfix) with ESMTP id E22F81626C7
- for <alsa-devel@alsa-project.org>; Fri,  2 Jul 2021 19:50:52 +0200 (CEST)
-Received: by belle.intranet.vanheusden.com (Postfix, from userid 1000)
- id DAC661623D6; Fri,  2 Jul 2021 19:50:52 +0200 (CEST)
-Date: Fri, 2 Jul 2021 19:50:52 +0200
-From: folkert <folkert@vanheusden.com>
-To: alsa-devel@alsa-project.org
-Subject: timestamp
-Message-ID: <20210702175052.GI80002@belle.intranet.vanheusden.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 702A1F80165
+ for <alsa-devel@alsa-project.org>; Fri,  2 Jul 2021 19:59:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 702A1F80165
+Date: Fri, 02 Jul 2021 18:59:33 +0100
+From: Paul Cercueil <paul@crapouillou.net>
+Subject: Re: [PATCH v2] ALSA: hda: Continue to probe when codec probe fails
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Message-Id: <9ZPMVQ.7NLNMVBCK1243@crapouillou.net>
+In-Reply-To: <ZRC9VQ.M548GASAC18G2@crapouillou.net>
+References: <20201214060621.1102931-1-kai.heng.feng@canonical.com>
+ <20201216124726.2842197-1-kai.heng.feng@canonical.com>
+ <ZRC9VQ.M548GASAC18G2@crapouillou.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Organization: www.vanheusden.com
-X-Chameleon-Return-To: folkert@vanheusden.com
-X-Xfmail-Return-To: folkert@vanheusden.com
-X-Phonenumber: +31-6-41278122
-X-URL: http://www.vanheusden.com/
-X-PGP-KeyID: 1F077C42
-X-GPG-fingerprint: AC89 09CE 41F2 00B4 FCF2  B174 3019 0E8C 1F28 D8AE
-X-Key: http://pgp.surfnet.nl:11371/pks/lookup?op=get&search=0x1F077C42
-Read-Receipt-To: <folkert@vanheusden.com>
-Reply-By: Thu 01 Jul 2021 09:01:16 PM CEST
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-CMAE-Envelope: MS4xfOgzIvr3hD0DCp9HLM8hEHL4dSqMdF/WVORvPHsBXULEou/oIYB/bQZNUKFJnOScrQhKLYsxiUAKKpfSiA+/q6nQfTqIWH6L8nkkSXZdjH5oht3OQU1h
- 8qvkrB1hkoEYV1/lCqce0f2JLuRi7wluGzxkChRLDYoL63tj+ikTjmdK+ChlBjMqRTu6cRtIu6Qgppojardh0f/WyrsmyI1iw08FhSIUnBEdn906Xa16Qawu
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Transfer-Encoding: quoted-printable
+Cc: SOUND <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com,
+ Alex Deucher <alexander.deucher@amd.com>, Mike Rapoport <rppt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,206 +70,146 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Hi,
 
-Please consider including the following patch. This patch adds a '-T'
-flag which prepends MIDI messages outputted by '--dump' with a
-timestamp.
-E.g.:
+Le ven., juin 25 2021 at 13:45:35 +0100, Paul Cercueil=20
+<paul@crapouillou.net> a =E9crit :
+> Hi Kai-Heng,
+>=20
+> I am facing the same bug. Unfortunately your patch does not seem to=20
+> fix the bug for me, the nvidia GPU stays constantly active. Only if I=20
+> unbind the snd-hda-intel module for this PCI device that the nvidia=20
+> GPU will eventually go to sleep.
 
-1625245188.993861810) C964
-1625245188.994318675) F8
-1625245188.995468101) 99647F
-1625245189.494490183) F8
-1625245189.495448424) 99647F
-1625245189.995470260) F8
-1625245189.996461381) 99647F
-1625245190.494519924) F8
-[...]
+Nevermind, I'm stupid. I think I just didn't have the PM mode set to=20
+"auto", because I tried again and it works now. Ignore my email.
+
+If you (or anybody) does a v3, please Cc me.
+
+Cheers,
+-Paul
+
+> My dmesg (with your patch applied):
+>=20
+> [ 1.821358] MXM: GUID detected in BIOS
+> [ 1.821396] ACPI BIOS Error (bug): AE_AML_PACKAGE_LIMIT, Index=20
+> (0x000000003) is beyond end of object (length 0x0)=20
+> (20200925/exoparg2-393)
+> [ 1.821406] ACPI Error: Aborting method \_SB.PCI0.GFX0._DSM due to=20
+> previous error (AE_AML_PACKAGE_LIMIT) (20200925/psparse-529)
+> [ 1.821415] ACPI: \_SB_.PCI0.GFX0: failed to evaluate _DSM (0x300b)
+> [ 1.821419] ACPI Warning: \_SB.PCI0.GFX0._DSM: Argument #4 type=20
+> mismatch - Found [Buffer], ACPI requires [Package]=20
+> (20200925/nsarguments-61)
+> [ 1.821528] i915 0000:00:02.0: optimus capabilities: enabled, status=20
+> dynamic power,
+> [ 1.821554] ACPI BIOS Error (bug): AE_AML_PACKAGE_LIMIT, Index=20
+> (0x000000003) is beyond end of object (length 0x0)=20
+> (20200925/exoparg2-393)
+> [ 1.821560] ACPI Error: Aborting method \_SB.PCI0.GFX0._DSM due to=20
+> previous error (AE_AML_PACKAGE_LIMIT) (20200925/psparse-529)
+> [ 1.821565] ACPI Error: Aborting method \_SB.PCI0.PEG0.PEGP._DSM due=20
+> to previous error (AE_AML_PACKAGE_LIMIT) (20200925/psparse-529)
+> [ 1.821572] ACPI: \_SB_.PCI0.PEG0.PEGP: failed to evaluate _DSM=20
+> (0x300b)
+> [ 1.821574] ACPI Warning: \_SB.PCI0.PEG0.PEGP._DSM: Argument #4 type=20
+> mismatch - Found [Buffer], ACPI requires [Package]=20
+> (20200925/nsarguments-61)
+> [ 1.821683] pci 0000:01:00.0: optimus capabilities: enabled, status=20
+> dynamic power,
+> [ 1.821685] VGA switcheroo: detected Optimus DSM method=20
+> \_SB_.PCI0.PEG0.PEGP handle
+> [ 1.821920] nouveau 0000:01:00.0: NVIDIA GK107 (0e71f0a2)
+> [ 1.830781] nouveau 0000:01:00.0: bios: version 80.07.95.00.07
+> [ 1.894392] nouveau 0000:01:00.0: fb: 2048 MiB DDR3
+> [ 1.896669] [drm] Initialized i915 1.6.0 20200917 for 0000:00:02.0 on=20
+> minor 0
+> [ 1.896862] ACPI: Video Device [PEGP] (multi-head: yes rom: yes post:=20
+> no)
+> [ 1.897361] input: Video Bus as=20
+> /devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A08:00/device:02/LNXVIDEO:00/input/i=
+nput12
+> [ 1.897974] ACPI: Video Device [GFX0] (multi-head: yes rom: no post:=20
+> no)
+> [ 1.898219] nouveau 0000:01:00.0: bus: MMIO write of 0000001f FAULT=20
+> at 6013d4 [ IBUS ]
+> [ 1.900114] input: Video Bus as=20
+> /devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A08:00/LNXVIDEO:01/input/input13
+> [ 1.969353] vga_switcheroo: enabled
+> [ 1.969407] [TTM] Zone kernel: Available graphics memory: 3791596 KiB
+> [ 1.969408] [TTM] Zone dma32: Available graphics memory: 2097152 KiB
+> [ 1.969409] [TTM] Initializing pool allocator
+> [ 1.969416] [TTM] Initializing DMA pool allocator
+> [ 1.969431] nouveau 0000:01:00.0: DRM: VRAM: 2048 MiB
+> [ 1.969432] nouveau 0000:01:00.0: DRM: GART: 1048576 MiB
+> [ 1.969436] nouveau 0000:01:00.0: DRM: Pointer to TMDS table not found
+> [ 1.969438] nouveau 0000:01:00.0: DRM: DCB version 4.0
+> [ 1.971139] nouveau 0000:01:00.0: DRM: MM: using COPY for buffer=20
+> copies
+> [ 1.971485] [drm] Initialized nouveau 1.3.1 20120801 for 0000:01:00.0=20
+> on minor 1
+>=20
+> [ ... ]
+>=20
+> [ 4.594245] snd_hda_intel 0000:00:1b.0: bound 0000:00:02.0 (ops=20
+> i915_audio_component_bind_ops [i915])
+> [ 4.594380] snd_hda_intel 0000:01:00.1: can't change power state from=20
+> D3cold to D0 (config space inaccessible)
+> [ 4.594410] snd_hda_intel 0000:01:00.1: can't change power state from=20
+> D3cold to D0 (config space inaccessible)
+> [ 4.594486] snd_hda_intel 0000:01:00.1: Disabling MSI
+> [ 4.594494] snd_hda_intel 0000:01:00.1: Handle vga_switcheroo audio=20
+> client
+> [ 4.594526] snd_hda_intel 0000:01:00.1: number of I/O streams is 30,=20
+> forcing separate stream tags
+>=20
+> [ ... ]
+>=20
+> [ 4.696732] hdaudio hdaudioC1D0: no AFG or MFG node found
+> [ 4.696745] hdaudio hdaudioC1D1: no AFG or MFG node found
+> [ 4.696752] hdaudio hdaudioC1D2: no AFG or MFG node found
+> [ 4.696759] hdaudio hdaudioC1D3: no AFG or MFG node found
+> [ 4.696765] hdaudio hdaudioC1D4: no AFG or MFG node found
+> [ 4.696771] hdaudio hdaudioC1D5: no AFG or MFG node found
+> [ 4.696778] hdaudio hdaudioC1D6: no AFG or MFG node found
+> [ 4.696785] hdaudio hdaudioC1D7: no AFG or MFG node found
+> [ 4.696787] snd_hda_intel 0000:01:00.1: no codecs initialized
+>=20
+> Cheers,
+> -Paul
+>=20
+>=20
+> Le mer., d=E9c. 16 2020 at 20:47:24 +0800, Kai-Heng Feng=20
+> <kai.heng.feng@canonical.com> a =E9crit :
+>> Similar to commit 9479e75fca37 ("ALSA: hda: Keep the controller
+>> initialization even if no codecs found"), when codec probe fails, it
+>> doesn't enable runtime suspend, and can prevent graphics card from
+>> getting powered down:
+>> [    4.280991] snd_hda_intel 0000:01:00.1: no codecs initialized
+>>=20
+>> $ cat /sys/bus/pci/devices/0000:01:00.1/power/runtime_status
+>> active
+>>=20
+>> So mark there's no codec and continue probing to let runtime PM to=20
+>> =7Fwork.
+>>=20
+>> BugLink: https://bugs.launchpad.net/bugs/1907212
+>> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+>> ---
+>>  sound/pci/hda/hda_intel.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>=20
+>> diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+>> index 6852668f1bcb..872a703dee43 100644
+>> --- a/sound/pci/hda/hda_intel.c
+>> +++ b/sound/pci/hda/hda_intel.c
+>> @@ -2328,7 +2328,7 @@ static int azx_probe_continue(struct azx *chip)
+>>  	if (bus->codec_mask) {
+>>  		err =3D azx_probe_codecs(chip, azx_max_codecs[chip->driver_type]);
+>>  		if (err < 0)
+>> -			goto out_free;
+>> +			bus->codec_mask =3D 0;
+>>  	}
+>>=20
+>>  #ifdef CONFIG_SND_HDA_PATCH_LOADER
+>=20
 
 
-diff -uNr t3/alsa-utils-1.2.3/amidi/amidi.1 alsa-utils-1.2.3/amidi/amidi.1
---- t3/alsa-utils-1.2.3/amidi/amidi.1	2020-06-07 19:19:42.000000000 +0200
-+++ alsa-utils-1.2.3/amidi/amidi.1	2021-07-02 14:35:25.416330576 +0200
-@@ -6,6 +6,7 @@
- .SH SYNOPSIS
- \fBamidi\fP [\fI\-p port\fP] [\fI\-s file\fP | \fI\-S data\fP]
- [\fI\-r file\fP] [\fI\-d\fP] [\fI\-t seconds\fP] [\fI\-a\fP]
-+[\fI\-T\fP]
- 
- .SH DESCRIPTION
- .B amidi
-@@ -41,6 +42,10 @@
- options to specify what data to send or receive.
- 
- .TP
-+.I \-T
-+Adds a timestamp in front of each MIDI message.
-+
-+.TP
- .I \-h, \-\-help
- Help: prints a list of options.
- 
-diff -uNr t3/alsa-utils-1.2.3/amidi/amidi.c alsa-utils-1.2.3/amidi/amidi.c
---- t3/alsa-utils-1.2.3/amidi/amidi.c	2020-06-07 19:19:42.000000000 +0200
-+++ alsa-utils-1.2.3/amidi/amidi.c	2021-07-02 19:41:34.476470438 +0200
-@@ -36,6 +36,7 @@
- #include <unistd.h>
- #include <fcntl.h>
- #include <alsa/asoundlib.h>
-+#include <time.h>
- #include "aconfig.h"
- #include "version.h"
- 
-@@ -80,6 +81,7 @@
- 		"-r, --receive=file              write received data into a file\n"
- 		"-S, --send-hex=\"...\"            send hexadecimal bytes\n"
- 		"-d, --dump                      print received data as hexadecimal bytes\n"
-+		"-T, --timestamp                 adds a timestamp in front of each dumped message\n"
- 		"-t, --timeout=seconds           exits when no data has been received\n"
- 		"                                for the specified duration\n"
- 		"-a, --active-sensing            include active sensing bytes\n"
-@@ -356,7 +358,7 @@
- /*
-  * prints MIDI commands, formatting them nicely
-  */
--static void print_byte(unsigned char byte)
-+static void print_byte(unsigned char byte, struct timespec *ts)
- {
- 	static enum {
- 		STATE_UNKNOWN,
-@@ -426,7 +428,18 @@
- 		if (running_status)
- 			fputs("\n  ", stdout);
- 	}
--	printf("%c%02X", newline ? '\n' : ' ', byte);
-+
-+	if (newline) {
-+		printf("\n");
-+
-+		/* Nanoseconds does not make a lot of sense for serial MIDI (the
-+		 * 31250 bps one) but I'm not sure about MIDI over USB.
-+		 */
-+		if (ts)
-+			printf("%lld.%.9ld) ", (long long)ts->tv_sec, ts->tv_nsec);
-+	}
-+
-+	printf("%02X", byte);
- }
- 
- static void sig_handler(int dummy)
-@@ -454,7 +467,7 @@
- 
- int main(int argc, char *argv[])
- {
--	static const char short_options[] = "hVlLp:s:r:S::dt:aci:";
-+	static const char short_options[] = "hVlLp:s:r:S::dt:aci:T";
- 	static const struct option long_options[] = {
- 		{"help", 0, NULL, 'h'},
- 		{"version", 0, NULL, 'V'},
-@@ -465,6 +478,7 @@
- 		{"receive", 1, NULL, 'r'},
- 		{"send-hex", 2, NULL, 'S'},
- 		{"dump", 0, NULL, 'd'},
-+		{"timestamp", 0, NULL, 'T'},
- 		{"timeout", 1, NULL, 't'},
- 		{"active-sensing", 0, NULL, 'a'},
- 		{"clock", 0, NULL, 'c'},
-@@ -475,6 +489,7 @@
- 	int ignore_active_sensing = 1;
- 	int ignore_clock = 1;
- 	int do_send_hex = 0;
-+	int do_print_timestamp = 0;
- 	struct itimerspec itimerspec = { .it_interval = { 0, 0 } };
- 
- 	while ((c = getopt_long(argc, argv, short_options,
-@@ -509,6 +524,9 @@
- 		case 'd':
- 			dump = 1;
- 			break;
-+		case 'T':
-+			do_print_timestamp = 1;
-+			break;
- 		case 't':
- 			if (optarg)
- 				timeout = atof(optarg);
-@@ -611,6 +629,7 @@
- 	}
- 
- 	if (inputp) {
-+		int need_timestamp = 0;
- 		int read = 0;
- 		int npfds;
- 		struct pollfd *pfds;
-@@ -648,6 +667,7 @@
- 			unsigned char buf[256];
- 			int i, length;
- 			unsigned short revents;
-+			struct timespec ts;
- 
- 			err = poll(pfds, npfds, -1);
- 			if (stop || (err < 0 && errno == EINTR))
-@@ -657,6 +677,11 @@
- 				break;
- 			}
- 
-+			if (clock_gettime(CLOCK_REALTIME, &ts) < 0) {
-+				error("clock_getres failed: %s", strerror(errno));
-+				break;
-+			}
-+
- 			err = snd_rawmidi_poll_descriptors_revents(input, &pfds[1], npfds - 1, &revents);
- 			if (err < 0) {
- 				error("cannot get poll events: %s", snd_strerror(errno));
-@@ -692,7 +717,8 @@
- 				write(receive_file, buf, length);
- 			if (dump) {
- 				for (i = 0; i < length; ++i)
--					print_byte(buf[i]);
-+					print_byte(buf[i], do_print_timestamp ? &ts : NULL);
-+
- 				fflush(stdout);
- 			}
- 
-diff -uNr t3/alsa-utils-1.2.3/configure.ac alsa-utils-1.2.3/configure.ac
---- t3/alsa-utils-1.2.3/configure.ac	2021-07-02 19:41:46.000000000 +0200
-+++ alsa-utils-1.2.3/configure.ac	2021-07-02 15:55:13.245585248 +0200
-@@ -97,7 +97,7 @@
- if test x$bat = xtrue; then
- 
-   saved_CFLAGS="$CFLAGS"
--  saved_LDFLAGS="$LDFLAGS"
-+  saved_LDFLAGS="$LDFLAGS -lrt"
-   saved_LIBS="$LIBS"
-   FFTW_INC=""
-   FFTW_LIB=""
-@@ -116,7 +116,7 @@
-   FFTW_CFLAGS="$CFLAGS"
-   FFTW_LIB="$LIBS"
-   CFLAGS="$saved_CFLAGS"
--  LDFLAGS="$saved_LDFLAGS"
-+  LDFLAGS="$saved_LDFLAGS -lrt"
-   LIBS="$saved_LIBS"
-   AC_SUBST(FFTW_INC)
-   AC_SUBST(FFTW_LIB)
-@@ -292,11 +292,11 @@
-   fi
- 
-   saved_CFLAGS="$CFLAGS"
--  saved_LDFLAGS="$LDFLAGS"
-+  saved_LDFLAGS="$LDFLAGS -lrt"
-   saved_LIBS="$LIBS"
-   CFLAGS="$CFLAGS $CURSES_CFLAGS"
-   if test -n "$CURSESLIBDIR"; then
--    LDFLAGS="$LDFLAGS -L$CURSESLIBDIR"
-+    LDFLAGS="$LDFLAGS -L$CURSESLIBDIR -lrt"
-   fi
-   LIBS="$CURSESLIB $LIBS"
- 
-@@ -342,7 +342,7 @@
-                [AC_MSG_ERROR([form$NCURSESLIBSUFFIX library not found])])
- 
-   CFLAGS="$saved_CFLAGS"
--  LDFLAGS="$saved_LDFLAGS"
-+  LDFLAGS="$saved_LDFLAGS -lrt"
-   LIBS="$saved_LIBS"
- 
-   if test -n "$CURSESLIBDIR"; then

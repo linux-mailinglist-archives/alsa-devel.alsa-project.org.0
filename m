@@ -2,149 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C17983BE62A
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jul 2021 12:09:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 824BA3BE728
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jul 2021 13:29:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4EFB9165D;
-	Wed,  7 Jul 2021 12:08:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4EFB9165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 26EB4165D;
+	Wed,  7 Jul 2021 13:29:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26EB4165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625652578;
-	bh=Vsn0/Q92Mi2Klzt+chgF2lUsjiv0r60693ioNTJmGzM=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1625657399;
+	bh=xKbnGb2xSI9K6n9nujM1F0DLC+XJBUVekEIDxVAOhyw=;
+	h=Resent-From:Resent-Date:Resent-To:Date:From:To:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BY5WtiMgsag4lcBLEuWUvYjbxRaxAyzELmJBWvG/lVP7wtecRrt446FcV6hTPLj3I
-	 glD5qJTqFo3ucvZFK8nJdA5KhG6enc/93CJqT2V14ZeVkYgDjSYn2ggRs1tU2rxb8R
-	 JgW0sFMC3XMtn2JXk8b9RWnMU+BCcWFni21uyaFI=
+	b=YgWkZ/UXh01JTRlHnGiRs2PCWYCm5MZ2LEhOAgzsDoF/OrwXcZbbAWBMXoM0P47Cn
+	 UMDH4SPeFMcg78ThbxcB89Iyt3vrumsjzc/q5GBGC9y7NpY3nLCXCMzackS/qST84G
+	 aWaQ65EK30AJkv3kWDVbLhR+1uzGShIIs9BU0ggo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B45CDF8012F;
-	Wed,  7 Jul 2021 12:08:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B08AF8016C;
+	Wed,  7 Jul 2021 13:28:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50F5EF80224; Wed,  7 Jul 2021 12:08:09 +0200 (CEST)
+ id DE37EF80224; Wed,  7 Jul 2021 13:28:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2048.outbound.protection.outlook.com [40.107.93.48])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from lb2-smtp-cloud9.xs4all.net (lb2-smtp-cloud9.xs4all.net
+ [194.109.24.26])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D537AF8014E
- for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 12:08:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D537AF8014E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="cKwdqF6X"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kTflFzmxFQKVoJtWhl6YZFLJdRgxPsTkVIvfMWx0QKihGDNV5YcqNboERqRDWz3P2ktOovHhEHHSjxSnwIRX/S6S4m+KXKLlOX9Vb5HGNtewfsyM3drElWuY+PiTKbf6QHWfomOScjTJ9W6I6vHcy0e+UfYp9pO/4bdy4CmosnWA6Wj0nYPI+AfN7zdhtdW4z13C8AL510iCQL56gNjV4Y/daboUprEfSQI1BaR51jfSJBKuFBLTyqi3KEB9UBa5bsBG3JGbGErLtBaDKud1gR9BqYwKg1vYQIulgfV2gNWxZvvF3LcrsqOYv+eM+WhKDq9sze4GGhaKYkIvvAvYpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FDb+bG9eOhCv7P3JJoAjmhw70PW5zDkR5sZxGuDDT30=;
- b=Z0xsLIP0oXARm+m5wXx4EdhS7UvucXtLNWPsElmbv9wG7yFbVDzTbwVIilsigN3J/Yk88pZu8NJUhBNddikqkGqmQaNwc2tpKS3j6XY0/qgyMybqQekx2qfiglHPueyu7KzonHHLfjZPJt9TctsR+4APCp+M4oYQ+KnaUpKYhmAxrtFTpHaEiUpmNSUVopuQY8LqSkeFVlH3Ztdee2jrfEMikURvfWE9t+20LV444MjNzv0sSN66D28uNyENWaejcYFkrmWs5Ha4rZlID/snfBAkWEMnrsd1rBpexcACyxXeg/Hv2Pw2vqMorv9cg2WKd6xD3u9Kileyj8NvV6jikA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FDb+bG9eOhCv7P3JJoAjmhw70PW5zDkR5sZxGuDDT30=;
- b=cKwdqF6XNcUbQdZDqQbajVpcR79Fl8+hSsF9vQRl4fTFrjTAHXYjTbntrvaszQv8USRu3p62vYCCn4dlrtaB5DrH+0ckpo+dsjsLbLo6w5Ro6Jwif6A4pFDYkwH/SpQUJ4kbWWNy5TqQeLvDIkPy72EERfM8lP5nEvj28vzmcMM=
-Authentication-Results: vger.kernel.org; dkim=none (message not signed)
- header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
-Received: from MWHPR1201MB2557.namprd12.prod.outlook.com
- (2603:10b6:300:e4::23) by MW2PR12MB2570.namprd12.prod.outlook.com
- (2603:10b6:907:a::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.33; Wed, 7 Jul
- 2021 10:08:01 +0000
-Received: from MWHPR1201MB2557.namprd12.prod.outlook.com
- ([fe80::d0a9:a5f1:ca5a:b439]) by MWHPR1201MB2557.namprd12.prod.outlook.com
- ([fe80::d0a9:a5f1:ca5a:b439%11]) with mapi id 15.20.4308.021; Wed, 7 Jul 2021
- 10:08:01 +0000
-Subject: Re: [PATCH v2] ASoC: add stop_dma_first flag to reverse the stop
- sequence
-To: Mark Brown <broonie@kernel.org>
-References: <20210705193620.1144-1-vijendar.mukunda@amd.com>
- <20210706122844.GD4529@sirena.org.uk>
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-Message-ID: <07047388-6570-6501-abfd-f940777ad5cc@amd.com>
-Date: Wed, 7 Jul 2021 15:55:31 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <20210706122844.GD4529@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BM1PR0101CA0003.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:b00:18::13) To MWHPR1201MB2557.namprd12.prod.outlook.com
- (2603:10b6:300:e4::23)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B0A10F8012F
+ for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 13:28:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0A10F8012F
+Received: from cust-b66e5d83 ([IPv6:fc0c:c157:b88d:62c6:5e3c:5f07:82d0:1b4])
+ by smtp-cloud9.xs4all.net with ESMTPA
+ id 15izmmzW3hqx915j0mMmN5; Wed, 07 Jul 2021 13:28:20 +0200
+Received: from localhost (localhost [127.0.0.1])
+ by keetweej.vanheusden.com (Postfix) with ESMTP id C2F9E162617
+ for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 13:28:17 +0200 (CEST)
+Received: from keetweej.vanheusden.com ([127.0.0.1])
+ by localhost (mauer.intranet.vanheusden.com [127.0.0.1]) (amavisd-new,
+ port 10024)
+ with ESMTP id ZFSGR1Qx4OLV for <alsa-devel@alsa-project.org>;
+ Wed,  7 Jul 2021 13:28:15 +0200 (CEST)
+Received: from belle.intranet.vanheusden.com (belle.intranet.vanheusden.com
+ [192.168.64.100])
+ by keetweej.vanheusden.com (Postfix) with ESMTP id E415F162688
+ for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 13:28:15 +0200 (CEST)
+Received: by belle.intranet.vanheusden.com (Postfix, from userid 1000)
+ id DA4961607F5; Wed,  7 Jul 2021 13:28:15 +0200 (CEST)
+Resent-From: folkert <folkert@vanheusden.com>
+Resent-Date: Wed, 7 Jul 2021 13:28:15 +0200
+Resent-Message-ID: <20210707112815.GV80002@belle.intranet.vanheusden.com>
+Resent-To: alsa-devel@alsa-project.org
+Date: Fri, 2 Jul 2021 19:50:52 +0200
+From: folkert <folkert@vanheusden.com>
+To: alsa-devel@alsa-project.org
+Subject: timestamp
+Message-ID: <20210702175052.GI80002@belle.intranet.vanheusden.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [10.252.93.39] (165.204.159.242) by
- BM1PR0101CA0003.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:18::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.20 via Frontend
- Transport; Wed, 7 Jul 2021 10:07:54 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0b5da8b3-bd49-4d7f-9510-08d9412f1a69
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2570:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB2570A340E53ACCF2FDB467BC971A9@MW2PR12MB2570.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3173;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GoToXm3RDo6i7ExqnYdlZwFKOmuBbdcZM89ZKjDtjnW3sq3cX1ZWVaBKSjYNPv0XHjBLpcCjBoEFqogD2mo80qBBzeJVEGJ/tzWwA10iw9icRFif/OVdUGS+SxkOK+G8cz9d/zR1U0twUz3f9YvNLBK9SKHzcaDl5UaGNIW5hhVznXulbbbRp0oTwGgMnCFuklZHnNKxTkW+PMyVDfcpFretNnKhmZPkgL8xYU3HDlm6wk+8D+pcJv1fNR+gs0OxkDfvuNfHOLN/4naA++UggFbl0dtAecE4tfJmCC4lA3r1C1glZ7zTJGeCgu6MiiauAf0D2okbQOnKUiFf4iNhn5Ik4bgCV7p6OzYpjS74Ai/dq5rXZabX4sZb9MWMHfjn3Nwqsab5r849hCvTxkclngHShefyyoU9FFu1a6u0SnPe0obV1hFqSFwQEImKTFfDRkeuDpaOWXz6AQIPSCxV/48AumI3KfBQ9RwNDzA8guu64NYAYFM64c6PnCP8AqNERycpRKp51YMCESET5/8boWz2uZSp0v+qBPTiU5CCRJhDLkWYfVkWVMZkpc7UTSqS1ri8q0BJB/OngvLJ+IfdHlqFrEnLsG8tTpWLPvHy4MCBnzxT47HfVCX0jTLWh0xFkcxp9MotzSjxNuvMg8idMPjWel1BF+lKO/puXiwPCuwYPl+GKfsLiy4bBf7BwCME3UCr+WZoAWxLPQ3Dwx5kHpkaaoA+T5sTbeAvWKBSqjk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1201MB2557.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(39860400002)(376002)(366004)(136003)(396003)(8676002)(31686004)(38100700002)(6916009)(956004)(2616005)(4744005)(6666004)(66476007)(478600001)(36756003)(66556008)(316002)(8936002)(16576012)(31696002)(4326008)(2906002)(186003)(53546011)(5660300002)(26005)(54906003)(6486002)(86362001)(66946007)(7416002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?Windows-1252?Q?5q5Nnc7nHflas1e4DICMLCcWCn+xmnwkoTI+vWAPrZNugxh5XuGJkclk?=
- =?Windows-1252?Q?aDpwoyNRuOdTmkrGc4sXwxzwF6gabKoZYO9rNfF9ge6NEa7zRvcQtube?=
- =?Windows-1252?Q?NSqNVUvx83j9UyopIufk8ZDrfco7Ky2eU7Vo95Mtlud7+ldyGmShMavv?=
- =?Windows-1252?Q?p1nTkhHfVKFuEhd/iiJba1M2bTYEykF/EIDY9aZZFAu6m2UAwQkKXaSg?=
- =?Windows-1252?Q?wtHjEFN/82qVoK/nkHVS7okHqWS44HOdRZw6oaYlIwVJrQCU3LZCkRbQ?=
- =?Windows-1252?Q?MW3H9IL1yjgHkmAdJka+CnAhtcWQnc6H/ds21GSNHzY0z6Zt/UokgXwH?=
- =?Windows-1252?Q?pB7y76vpqoBh4nHRWoVKMN0cBVKKQYPLT5zXDM/Cn20rYT17Spz3tGbF?=
- =?Windows-1252?Q?qGY/yKs1z0gmXf6RQhXVFEc4Y5I1Vygir9OJiHkwi2EhoiAROXkDZmEy?=
- =?Windows-1252?Q?Guheess1NkGqWXXpYrGu1AZQggcqEPNMJ5MCQ27BlNoSPvhbuPKlv9WD?=
- =?Windows-1252?Q?9r/dTtNbsDUi5h5WgIgFxhcdwTlUeMH+JeVlTaiB7tubNUg2RRx2ypeV?=
- =?Windows-1252?Q?cZ6XtgccyGPH6D/qmpjJFZzceEOxBOoHK5f1iqDyIid9MxiHSG6CDh7c?=
- =?Windows-1252?Q?Y64BRf3n9MqcJplZbCDP/RlN+Vr9e5599vKkTAP1hWEbvHv+pr36k8Zf?=
- =?Windows-1252?Q?RB0toPa3xoh15yWV79Ja2iTpuK+KvpGiOS+QpedWfWXEFCTrv7v2g87x?=
- =?Windows-1252?Q?XrAvVanFqPWZtn7WFi14PV5wEFhG9BrMJeugKk2Gu+boicVdiLyDp2Z6?=
- =?Windows-1252?Q?IkobY7Pvj5/FY9gMCZ3CSA+AP8jCS1siwbWZsKcBJoH10Zwh41mKbyXm?=
- =?Windows-1252?Q?vPS2xJNV53zBX8Lzfer5CFChHp0n8ypwjhN4sIaPTRX9OdLLchTUKvxV?=
- =?Windows-1252?Q?Che72nabR63vFSk9CixyYvqel+fJjdep9f4GxOEsbi6lCd2//PTYa6m6?=
- =?Windows-1252?Q?fD2KBV9VeXO7nkznxadOS7bBL8eR4qefmFIAi0vMKXKY3eEcT4qstH0k?=
- =?Windows-1252?Q?TgDKHFtHUJDzBfQEPmi2relG0LWviq/7xs429JPy22nNewxuEOU35p9q?=
- =?Windows-1252?Q?Z86D4gCQuKWC6D87m4deixZ2njClDdOfZgo6vHSbQGsvoapbWLbGMZm1?=
- =?Windows-1252?Q?IhfG3uyhn09mgopgfRIjlpmfQOh7l5yCB81/R4aCPxLdcgzjvs9Bz+nG?=
- =?Windows-1252?Q?jB/RZhStqwV77e2PniiqDf9Jih19K4/LfHNFC6Ad7m5zPCgv5U99bI8i?=
- =?Windows-1252?Q?z7QMzyPJW6pNyQhVXE3tDBHY7D57lHiVKZg1Tp7oHZ0+dCCv2jxv9BZo?=
- =?Windows-1252?Q?erGPHImWNAQx7RrRfJPjiJZJRN6iu/jclFGTEHQ25dTTjTkfO6iGuF6Y?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b5da8b3-bd49-4d7f-9510-08d9412f1a69
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB2557.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2021 10:08:01.7278 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Hz5hFAxWGVN6eUWax2G4BE9+uaimvlL/eMMcoSSTRyjQgy7vH9x89jPDwJNnS3ReRS3BsXDa/LZ8BXzZWsQ3pg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2570
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com, amistry@google.com,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Chuhong Yuan <hslester96@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, peter.ujfalusi@ti.com,
- Alexander.Deucher@amd.com, nartemiev@google.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Chameleon-Return-To: folkert@vanheusden.com
+X-Xfmail-Return-To: folkert@vanheusden.com
+Read-Receipt-To: <folkert@vanheusden.com>
+Reply-By: Thu 01 Jul 2021 09:01:16 PM CEST
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-CMAE-Envelope: MS4xfMT9aspApYXzMiDl1/Y3Zp3yM6CfKPhtcO9s/e68blReOlAXUY9FkbJSFj/eONLpL2yaQL+VyZv9LKUQfHx4IZdI0nritVuWIfYESvrP1dtuNPupvZsj
+ h1fTTmNGbDiJ3p0e/vaAA6hz6QIIJwN5tSV2EMfU0/juW/d1HMpxgnFbz7/xF674xlfEpnn4nEnPipOLLQsd6Sf5tsh8hkuz9RgN7QFCPpQrexg6CxyW5eCk
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -160,19 +88,208 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 7/6/21 5:58 PM, Mark Brown wrote:
-> On Tue, Jul 06, 2021 at 01:06:17AM +0530, Vijendar Mukunda wrote:
-> 
->> @@ -982,6 +982,7 @@ struct snd_soc_card {
->>  	unsigned int disable_route_checks:1;
->>  	unsigned int probed:1;
->>  	unsigned int component_chaining:1;
->> +	unsigned int stop_dma_first:1;
->>  
->>  	void *drvdata;
->>  };
-> 
-> This still doesn't seem like something which should be controlled at the
-> card level, I'd expect it to be configured at the dai_link level.
-> 
-will make changes by adding flag in dai_link and will post the new version
+Hi,
+
+Please consider including the following patch. This patch adds a '-T'
+flag which prepends MIDI messages outputted by '--dump' with a
+timestamp.
+E.g.:
+
+1625245188.993861810) C964
+1625245188.994318675) F8
+1625245188.995468101) 99647F
+1625245189.494490183) F8
+1625245189.495448424) 99647F
+1625245189.995470260) F8
+1625245189.996461381) 99647F
+1625245190.494519924) F8
+[...]
+
+
+diff -uNr t3/alsa-utils-1.2.3/amidi/amidi.1 alsa-utils-1.2.3/amidi/amidi.1
+--- t3/alsa-utils-1.2.3/amidi/amidi.1	2020-06-07 19:19:42.000000000 +0200
++++ alsa-utils-1.2.3/amidi/amidi.1	2021-07-02 14:35:25.416330576 +0200
+@@ -6,6 +6,7 @@
+ .SH SYNOPSIS
+ \fBamidi\fP [\fI\-p port\fP] [\fI\-s file\fP | \fI\-S data\fP]
+ [\fI\-r file\fP] [\fI\-d\fP] [\fI\-t seconds\fP] [\fI\-a\fP]
++[\fI\-T\fP]
+ 
+ .SH DESCRIPTION
+ .B amidi
+@@ -41,6 +42,10 @@
+ options to specify what data to send or receive.
+ 
+ .TP
++.I \-T
++Adds a timestamp in front of each MIDI message.
++
++.TP
+ .I \-h, \-\-help
+ Help: prints a list of options.
+ 
+diff -uNr t3/alsa-utils-1.2.3/amidi/amidi.c alsa-utils-1.2.3/amidi/amidi.c
+--- t3/alsa-utils-1.2.3/amidi/amidi.c	2020-06-07 19:19:42.000000000 +0200
++++ alsa-utils-1.2.3/amidi/amidi.c	2021-07-02 19:41:34.476470438 +0200
+@@ -36,6 +36,7 @@
+ #include <unistd.h>
+ #include <fcntl.h>
+ #include <alsa/asoundlib.h>
++#include <time.h>
+ #include "aconfig.h"
+ #include "version.h"
+ 
+@@ -80,6 +81,7 @@
+ 		"-r, --receive=file              write received data into a file\n"
+ 		"-S, --send-hex=\"...\"            send hexadecimal bytes\n"
+ 		"-d, --dump                      print received data as hexadecimal bytes\n"
++		"-T, --timestamp                 adds a timestamp in front of each dumped message\n"
+ 		"-t, --timeout=seconds           exits when no data has been received\n"
+ 		"                                for the specified duration\n"
+ 		"-a, --active-sensing            include active sensing bytes\n"
+@@ -356,7 +358,7 @@
+ /*
+  * prints MIDI commands, formatting them nicely
+  */
+-static void print_byte(unsigned char byte)
++static void print_byte(unsigned char byte, struct timespec *ts)
+ {
+ 	static enum {
+ 		STATE_UNKNOWN,
+@@ -426,7 +428,18 @@
+ 		if (running_status)
+ 			fputs("\n  ", stdout);
+ 	}
+-	printf("%c%02X", newline ? '\n' : ' ', byte);
++
++	if (newline) {
++		printf("\n");
++
++		/* Nanoseconds does not make a lot of sense for serial MIDI (the
++		 * 31250 bps one) but I'm not sure about MIDI over USB.
++		 */
++		if (ts)
++			printf("%lld.%.9ld) ", (long long)ts->tv_sec, ts->tv_nsec);
++	}
++
++	printf("%02X", byte);
+ }
+ 
+ static void sig_handler(int dummy)
+@@ -454,7 +467,7 @@
+ 
+ int main(int argc, char *argv[])
+ {
+-	static const char short_options[] = "hVlLp:s:r:S::dt:aci:";
++	static const char short_options[] = "hVlLp:s:r:S::dt:aci:T";
+ 	static const struct option long_options[] = {
+ 		{"help", 0, NULL, 'h'},
+ 		{"version", 0, NULL, 'V'},
+@@ -465,6 +478,7 @@
+ 		{"receive", 1, NULL, 'r'},
+ 		{"send-hex", 2, NULL, 'S'},
+ 		{"dump", 0, NULL, 'd'},
++		{"timestamp", 0, NULL, 'T'},
+ 		{"timeout", 1, NULL, 't'},
+ 		{"active-sensing", 0, NULL, 'a'},
+ 		{"clock", 0, NULL, 'c'},
+@@ -475,6 +489,7 @@
+ 	int ignore_active_sensing = 1;
+ 	int ignore_clock = 1;
+ 	int do_send_hex = 0;
++	int do_print_timestamp = 0;
+ 	struct itimerspec itimerspec = { .it_interval = { 0, 0 } };
+ 
+ 	while ((c = getopt_long(argc, argv, short_options,
+@@ -509,6 +524,9 @@
+ 		case 'd':
+ 			dump = 1;
+ 			break;
++		case 'T':
++			do_print_timestamp = 1;
++			break;
+ 		case 't':
+ 			if (optarg)
+ 				timeout = atof(optarg);
+@@ -611,6 +629,7 @@
+ 	}
+ 
+ 	if (inputp) {
++		int need_timestamp = 0;
+ 		int read = 0;
+ 		int npfds;
+ 		struct pollfd *pfds;
+@@ -648,6 +667,7 @@
+ 			unsigned char buf[256];
+ 			int i, length;
+ 			unsigned short revents;
++			struct timespec ts;
+ 
+ 			err = poll(pfds, npfds, -1);
+ 			if (stop || (err < 0 && errno == EINTR))
+@@ -657,6 +677,11 @@
+ 				break;
+ 			}
+ 
++			if (clock_gettime(CLOCK_REALTIME, &ts) < 0) {
++				error("clock_getres failed: %s", strerror(errno));
++				break;
++			}
++
+ 			err = snd_rawmidi_poll_descriptors_revents(input, &pfds[1], npfds - 1, &revents);
+ 			if (err < 0) {
+ 				error("cannot get poll events: %s", snd_strerror(errno));
+@@ -692,7 +717,8 @@
+ 				write(receive_file, buf, length);
+ 			if (dump) {
+ 				for (i = 0; i < length; ++i)
+-					print_byte(buf[i]);
++					print_byte(buf[i], do_print_timestamp ? &ts : NULL);
++
+ 				fflush(stdout);
+ 			}
+ 
+diff -uNr t3/alsa-utils-1.2.3/configure.ac alsa-utils-1.2.3/configure.ac
+--- t3/alsa-utils-1.2.3/configure.ac	2021-07-02 19:41:46.000000000 +0200
++++ alsa-utils-1.2.3/configure.ac	2021-07-02 15:55:13.245585248 +0200
+@@ -97,7 +97,7 @@
+ if test x$bat = xtrue; then
+ 
+   saved_CFLAGS="$CFLAGS"
+-  saved_LDFLAGS="$LDFLAGS"
++  saved_LDFLAGS="$LDFLAGS -lrt"
+   saved_LIBS="$LIBS"
+   FFTW_INC=""
+   FFTW_LIB=""
+@@ -116,7 +116,7 @@
+   FFTW_CFLAGS="$CFLAGS"
+   FFTW_LIB="$LIBS"
+   CFLAGS="$saved_CFLAGS"
+-  LDFLAGS="$saved_LDFLAGS"
++  LDFLAGS="$saved_LDFLAGS -lrt"
+   LIBS="$saved_LIBS"
+   AC_SUBST(FFTW_INC)
+   AC_SUBST(FFTW_LIB)
+@@ -292,11 +292,11 @@
+   fi
+ 
+   saved_CFLAGS="$CFLAGS"
+-  saved_LDFLAGS="$LDFLAGS"
++  saved_LDFLAGS="$LDFLAGS -lrt"
+   saved_LIBS="$LIBS"
+   CFLAGS="$CFLAGS $CURSES_CFLAGS"
+   if test -n "$CURSESLIBDIR"; then
+-    LDFLAGS="$LDFLAGS -L$CURSESLIBDIR"
++    LDFLAGS="$LDFLAGS -L$CURSESLIBDIR -lrt"
+   fi
+   LIBS="$CURSESLIB $LIBS"
+ 
+@@ -342,7 +342,7 @@
+                [AC_MSG_ERROR([form$NCURSESLIBSUFFIX library not found])])
+ 
+   CFLAGS="$saved_CFLAGS"
+-  LDFLAGS="$saved_LDFLAGS"
++  LDFLAGS="$saved_LDFLAGS -lrt"
+   LIBS="$saved_LIBS"
+ 
+   if test -n "$CURSESLIBDIR"; then

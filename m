@@ -2,80 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 527243BAA05
-	for <lists+alsa-devel@lfdr.de>; Sat,  3 Jul 2021 20:36:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26BB33BAA0D
+	for <lists+alsa-devel@lfdr.de>; Sat,  3 Jul 2021 20:49:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7C6616BD;
-	Sat,  3 Jul 2021 20:35:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7C6616BD
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4C1C16C0;
+	Sat,  3 Jul 2021 20:48:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4C1C16C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625337386;
-	bh=KQnZ8Pwr3zaHB51ayUFz2Bm1xeohufGADnpb66AWqd4=;
+	s=default; t=1625338171;
+	bh=KdchAsO380spjGkXAssu4i12UxxYjtLHfDGqxgKcSXM=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MJdWJtWfLoXjo0l/eTXul7EdvyTE2ymaMPXF+dSKuGFhbILUpqVSzcDjuWMkT6KE0
-	 H0msCF68bUAWBvPrtGSsPrxdHuQCdQttME+0qBUYG01YTZolIsedw3QVfFtspn9nJs
-	 EMF798o+rqW4EJkB7OXxGYlWtx3nKZ7rOCfSPWW0=
+	b=kpAeUltpLbGNCUWaD3oShfycJK6l94DhsAmxUU7MR0I39bHF5I3E9D3uvBLOcJuj+
+	 ybDA3uDsWLDgiA4pfwK9EKDhQMYCclHimq6/aomhxDuG7941Fi6Krgwjhd1Q0pRWmH
+	 J2O3p2R/OWnZL1Tmfpn9HMs9MlY8Hl+o1xd2HT2c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F12BFF804AE;
-	Sat,  3 Jul 2021 20:34:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2A38F800E3;
+	Sat,  3 Jul 2021 20:48:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EAE8FF802D2; Sat,  3 Jul 2021 20:34:56 +0200 (CEST)
+ id 8DA0DF802D2; Sat,  3 Jul 2021 20:48:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4D0CBF800E3
- for <alsa-devel@alsa-project.org>; Sat,  3 Jul 2021 20:34:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D0CBF800E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9B9C2F800E3
+ for <alsa-devel@alsa-project.org>; Sat,  3 Jul 2021 20:47:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B9C2F800E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="CoJEyzV6"; 
+ header.b="iBcCwGLb"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="MwVZTyUV"
+ header.b="7x5pskTJ"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 5F3E3202D3;
- Sat,  3 Jul 2021 18:34:44 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id C47D42250F;
+ Sat,  3 Jul 2021 18:47:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625337284; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1625338070; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=n8j1ZtqW763tNOQ9eOTsIMlYKlLxACzIMh1Uz4vcY/4=;
- b=CoJEyzV6RFYWkxFkRyNosJBKm3g0okUjrNmyLh1hmf2zYKoICYcEXJoLdr3XBF1WhUzxKd
- kWlij7O0YH0N66iSijXFw5/LhtirM3E6uOYjx0ZRLHpjuWP17sWPHUc04EQOTndpqsh486
- 0u+gRMNJfBfayQwNr8CkIJFmZroiG4Q=
+ bh=o8ljRfrPPgfrXXPJ/4lM3d455YeUnWlNgsKkrjS+nnM=;
+ b=iBcCwGLblNtFe48OEOBAxcD38sD4ZAMM/aL0+0naU+fmfYYX5c27jm7SaPGGoFA9hZPdAY
+ OZ0bCE/38kPWiRYRwEIqs+stGXSHB07lU+lImck1HM/h52wiI0GwMhocgsSzsybSuN0ujG
+ eTPnLN5P73EYdqR57KLbGOB5o/LNhaw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625337284;
+ s=susede2_ed25519; t=1625338070;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=n8j1ZtqW763tNOQ9eOTsIMlYKlLxACzIMh1Uz4vcY/4=;
- b=MwVZTyUVEbHpCP+U9Au4VcO1s+e/3AJYjjKagH0Pp7sFJJ6mtoDv0bNIFeC3WtJ5Ys4exp
- P299h8dpt0i+/RAw==
+ bh=o8ljRfrPPgfrXXPJ/4lM3d455YeUnWlNgsKkrjS+nnM=;
+ b=7x5pskTJOpoOmeYPz6utavKkXaRHPuvyelNDxm5os5538co9pjpiFg0GqxLt18h3BCh5d4
+ jIBwGp1j2dMi7rCg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 2B5DAA465F;
- Sat,  3 Jul 2021 18:34:44 +0000 (UTC)
-Date: Sat, 03 Jul 2021 20:34:44 +0200
-Message-ID: <s5heecf9rgb.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id B78CEA46DA;
+ Sat,  3 Jul 2021 18:47:50 +0000 (UTC)
+Date: Sat, 03 Jul 2021 20:47:50 +0200
+Message-ID: <s5hbl7j9quh.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Hector Martin <marcan@marcan.st>
 Subject: Re: [GIT PULL] sound updates for 5.14-rc1
-In-Reply-To: <6adcc9cd-d916-5a50-5a14-8f3b82f60ef6@marcan.st>
+In-Reply-To: <s5heecf9rgb.wl-tiwai@suse.de>
 References: <s5hbl7li0fe.wl-tiwai@suse.de>
  <CAHk-=wiTwX5mzzEcw3jk3QdW600Hntt=Ehgoyz8K-VU8zbEmBg@mail.gmail.com>
  <CAHk-=whhDWDsVz12mhKtnS6DG-GzVWxBk2XjoOp=gwNJ7T0bTw@mail.gmail.com>
  <CAHk-=wisOVeVpH42f6i5qW1gxtYxbRJQXvpt=mdVx+8p=w-yMg@mail.gmail.com>
  <YOAF+EnvdBvSeZnR@workstation> <s5hh7hbakzk.wl-tiwai@suse.de>
  <6adcc9cd-d916-5a50-5a14-8f3b82f60ef6@marcan.st>
+ <s5heecf9rgb.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -100,21 +101,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 03 Jul 2021 14:06:36 +0200,
-Hector Martin wrote:
+On Sat, 03 Jul 2021 20:34:44 +0200,
+Takashi Iwai wrote:
 > 
-> On 03/07/2021 16.56, Takashi Iwai wrote:
-> > Unfortunately I can't test much right now in my side as I'm traveling
-> > (until the next Tuesday).  So, Linus, Hector, please let me know if
-> > this works.  Once when it's confirmed to work, I'll prepare the new PR
-> > including the fix later in today.
+> On Sat, 03 Jul 2021 14:06:36 +0200,
+> Hector Martin wrote:
+> > 
+> > On 03/07/2021 16.56, Takashi Iwai wrote:
+> > > Unfortunately I can't test much right now in my side as I'm traveling
+> > > (until the next Tuesday).  So, Linus, Hector, please let me know if
+> > > this works.  Once when it's confirmed to work, I'll prepare the new PR
+> > > including the fix later in today.
+> > 
+> > Works for me on top of the for-next branch that was previously
+> > deadlocking. I can't get it to crash any more.
+> > 
+> > Tested-by: Hector Martin <marcan@marcan.st>
 > 
-> Works for me on top of the for-next branch that was previously
-> deadlocking. I can't get it to crash any more.
-> 
-> Tested-by: Hector Martin <marcan@marcan.st>
+> Great, thanks for quick testing!
 
-Great, thanks for quick testing!
+And now I saw that Linus reverted the commit already in his tree, so
+no hurry for pushing the fix up for now.
 
+I'll try to check the fix more closely in my side in the next week.
+Hopefully everything will be sorted out and the new feature is enabled
+again in the next PR.
+
+
+thanks,
 
 Takashi

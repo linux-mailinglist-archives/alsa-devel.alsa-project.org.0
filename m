@@ -2,89 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FF113BA7B2
-	for <lists+alsa-devel@lfdr.de>; Sat,  3 Jul 2021 09:58:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D06A03BA8A7
+	for <lists+alsa-devel@lfdr.de>; Sat,  3 Jul 2021 14:08:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D0E9116AE;
-	Sat,  3 Jul 2021 09:57:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0E9116AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5862516B1;
+	Sat,  3 Jul 2021 14:07:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5862516B1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625299104;
-	bh=FH1/uWwxJBiUqFR4OOKCY3LnbC1zZ7VsWTNDkhV0yYs=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1625314103;
+	bh=drMSmAx2jGYSy6pKW4kJh7azC/G3EVjxtSdNZPgViKY=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mhJa1bi0/zu7EseoqLyTMUnx193EzC6MkGPccXyxc1Bs9RGG5DQV48xq12UJyxvOU
-	 89lqYBvwftigK50rDncEZ7KGYKJgnMBkGVJ8rLt4eccFr9a/fU5DQhv0fGRF/SqfIF
-	 3sNUQtD9sA5/uHLqSyRBezkNsRskmuvRSc2t4GsA=
+	b=DXfDy8LkD6WCnWECaCquzHIsADf/jOntKeh38MG0BrKQVxCeDKf097CT1hLfFoT4k
+	 K2KyT8SNrF8chOfjOz24nqcGyqF08UZB7RWfH9NktyN4NzJM/7B1BJnQ4nFirGnzxb
+	 kGWCGCNvo43MCypTgrF/A8g3bMQXAndl6IKq06Oc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 465CBF804AE;
-	Sat,  3 Jul 2021 09:56:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1EBFF804AE;
+	Sat,  3 Jul 2021 14:06:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 97690F802D2; Sat,  3 Jul 2021 09:56:54 +0200 (CEST)
+ id 57D4FF802D2; Sat,  3 Jul 2021 14:06:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail.marcansoft.com (marcansoft.com [IPv6:2a01:298:fe:f::2])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CDCD5F800E3
- for <alsa-devel@alsa-project.org>; Sat,  3 Jul 2021 09:56:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDCD5F800E3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="sjHpXjXH"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="xEpz0jMk"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id E5F39201F3;
- Sat,  3 Jul 2021 07:56:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625299007; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=S9lUuaKKlL1yqpBR0tOcM/5tXs+wCxPEG/augijVS3A=;
- b=sjHpXjXHyh79bndkh7aTwlVqpfvn2rr6TfDwtBj0TAUXGRIaALL82h2LlfHvwYfSVp4bhX
- YYkd66OHfnnhEyfHAhKGZrORUEFXkWl0sBdlcA2hlBowbx7XuNCBo2OXo8wHD+TqWpNcMb
- P1n1yabze52SgIGuU1XC8c984IE6hEY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625299007;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=S9lUuaKKlL1yqpBR0tOcM/5tXs+wCxPEG/augijVS3A=;
- b=xEpz0jMkzspMTuOwqBAHiofNod6PSV/OrfnV6mpvelQtLo7O5pX7hQrUWhdVKtporb4iVR
- lFnPIIaeQszH/kDw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 84D55A3B81;
- Sat,  3 Jul 2021 07:56:47 +0000 (UTC)
-Date: Sat, 03 Jul 2021 09:56:47 +0200
-Message-ID: <s5hh7hbakzk.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C88FF8003A
+ for <alsa-devel@alsa-project.org>; Sat,  3 Jul 2021 14:06:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C88FF8003A
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: marcan@marcan.st)
+ by mail.marcansoft.com (Postfix) with ESMTPSA id 127C1425EA;
+ Sat,  3 Jul 2021 12:06:38 +0000 (UTC)
 Subject: Re: [GIT PULL] sound updates for 5.14-rc1
-In-Reply-To: <YOAF+EnvdBvSeZnR@workstation>
+To: Takashi Iwai <tiwai@suse.de>, Takashi Sakamoto <o-takashi@sakamocchi.jp>
 References: <s5hbl7li0fe.wl-tiwai@suse.de>
  <CAHk-=wiTwX5mzzEcw3jk3QdW600Hntt=Ehgoyz8K-VU8zbEmBg@mail.gmail.com>
  <CAHk-=whhDWDsVz12mhKtnS6DG-GzVWxBk2XjoOp=gwNJ7T0bTw@mail.gmail.com>
  <CAHk-=wisOVeVpH42f6i5qW1gxtYxbRJQXvpt=mdVx+8p=w-yMg@mail.gmail.com>
- <YOAF+EnvdBvSeZnR@workstation>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, marcan@marcan.st,
+ <YOAF+EnvdBvSeZnR@workstation> <s5hh7hbakzk.wl-tiwai@suse.de>
+From: Hector Martin <marcan@marcan.st>
+Message-ID: <6adcc9cd-d916-5a50-5a14-8f3b82f60ef6@marcan.st>
+Date: Sat, 3 Jul 2021 21:06:36 +0900
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+MIME-Version: 1.0
+In-Reply-To: <s5hh7hbakzk.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: es-ES
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
  Liam Girdwood <lgirdwood@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>,
- Linus Torvalds <torvalds@linux-foundation.org>
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,132 +79,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 03 Jul 2021 08:38:48 +0200,
-Takashi Sakamoto wrote:
-> 
-> Hi,
-> 
-> On Fri, Jul 02, 2021 at 10:19:46PM -0700, Linus Torvalds wrote:
-> > On Fri, Jul 2, 2021 at 9:37 PM Linus Torvalds
-> > <torvalds@linux-foundation.org> wrote:
-> > >
-> > > But I thought I'd report this as a likely candidate.
-> > 
-> > Confirmed. The watchdog hang bisects right down to commit 9ce650a75a3b
-> > ("ALSA: usb-audio: Reduce latency at playback start").
-> > 
-> > And reverting it on top of my tree also fixes the hang, so it's not
-> > some bisection fluke.
-> > 
-> > I have no idea what is actually wrong with that commit, but it most
-> > definitely is the problem, and I have reverted it in my tree so that I
-> > can continue merging stuff tomorrow.
-> 
-> The cause seems to be the attempt to lock PCM substream recursively
-> introduced by the issued commit.
-> 
-> Would I ask you to test with below patch? I apologize that the patch is
-> still untested in my side since at present I have no preparation to debug
-> USB stuffs instantly (I'm just a maintainer for ALSA firewire stack...),
-> so I'm glad if getting your cooperation for the issue.
+On 03/07/2021 16.56, Takashi Iwai wrote:
+> Unfortunately I can't test much right now in my side as I'm traveling
+> (until the next Tuesday).  So, Linus, Hector, please let me know if
+> this works.  Once when it's confirmed to work, I'll prepare the new PR
+> including the fix later in today.
 
-That's no ideal workaround because it'll call snd_pcm_period_elapsed()
-before the stream actually gets started.  That said, it's not only
-about the lock but also about the state change, too.
+Works for me on top of the for-next branch that was previously 
+deadlocking. I can't get it to crash any more.
 
-Below is another possible fix.  This moves conditionally the
-snd_pcm_period_elapsed() call to the complete callback, so that it'll
-be processed in a different context.
+Tested-by: Hector Martin <marcan@marcan.st>
 
-Unfortunately I can't test much right now in my side as I'm traveling
-(until the next Tuesday).  So, Linus, Hector, please let me know if
-this works.  Once when it's confirmed to work, I'll prepare the new PR
-including the fix later in today.
-
-
-thanks,
-
-Takashi
-
--- 8< --
-From: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH] ALSA: usb-audio: Fix possible deadlock at playback start
-
-The recent change for the PCM playback trigger caused an unexpected
-deadlock due to the period-elapsed handling at
-prepare_playback_urb().  This hasn't been a problem until now because
-the stream got started before the trigger call, but now this callback
-is called at the trigger, too, hence the problem surfaced.
-
-As a workaround, this patch introduces a flag for delaying the
-snd_pcm_period_elapsed() call to the retire_playback_urb(), which is
-set when the hwptr reaches to the period boundary already at the PCM
-playback start time.
-
-Fixes: 9ce650a75a3b ("ALSA: usb-audio: Reduce latency at playback start")
-Reported-by: Hector Martin <marcan@marcan.st>
-Reported-by: Linus Torvalds <torvalds@linux-foundation.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/card.h |  1 +
- sound/usb/pcm.c  | 10 ++++++++++
- 2 files changed, 11 insertions(+)
-
-diff --git a/sound/usb/card.h b/sound/usb/card.h
-index 5577a776561b..f309a5fafc1d 100644
---- a/sound/usb/card.h
-+++ b/sound/usb/card.h
-@@ -158,6 +158,7 @@ struct snd_usb_substream {
- 	unsigned int stream_offset_adj;	/* Bytes to drop from beginning of stream (for non-compliant devices) */
- 
- 	unsigned int running: 1;	/* running status */
-+	unsigned int period_elapsed_pending;	/* issue at retire callback */
- 
- 	unsigned int buffer_bytes;	/* buffer size in bytes */
- 	unsigned int inflight_bytes;	/* in-flight data bytes on buffer (for playback) */
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index c66831ee15f9..903f5d7e33e3 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -611,6 +611,7 @@ static int snd_usb_pcm_prepare(struct snd_pcm_substream *substream)
- 	subs->hwptr_done = 0;
- 	subs->transfer_done = 0;
- 	subs->last_frame_number = 0;
-+	subs->period_elapsed_pending = 0;
- 	runtime->delay = 0;
- 
-  unlock:
-@@ -1393,6 +1394,10 @@ static void prepare_playback_urb(struct snd_usb_substream *subs,
- 		subs->trigger_tstamp_pending_update = false;
- 	}
- 
-+	if (period_elapsed && !subs->running) {
-+		subs->period_elapsed_pending = 1;
-+		period_elapsed = 0;
-+	}
- 	spin_unlock_irqrestore(&subs->lock, flags);
- 	urb->transfer_buffer_length = bytes;
- 	if (period_elapsed)
-@@ -1408,6 +1413,7 @@ static void retire_playback_urb(struct snd_usb_substream *subs,
- {
- 	unsigned long flags;
- 	struct snd_urb_ctx *ctx = urb->context;
-+	bool period_elapsed;
- 
- 	spin_lock_irqsave(&subs->lock, flags);
- 	if (ctx->queued) {
-@@ -1418,7 +1424,11 @@ static void retire_playback_urb(struct snd_usb_substream *subs,
- 	}
- 
- 	subs->last_frame_number = usb_get_current_frame_number(subs->dev);
-+	period_elapsed = subs->period_elapsed_pending;
-+	subs->period_elapsed_pending = 0;
- 	spin_unlock_irqrestore(&subs->lock, flags);
-+	if (period_elapsed)
-+		snd_pcm_period_elapsed(subs->pcm_substream);
- }
- 
- static int snd_usb_substream_playback_trigger(struct snd_pcm_substream *substream,
 -- 
-2.26.2
-
+Hector Martin (marcan@marcan.st)
+Public Key: https://mrcn.st/pub

@@ -2,97 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EDA33BBC0C
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jul 2021 13:16:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AE9F3BBD86
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jul 2021 15:34:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9DD8B82E;
-	Mon,  5 Jul 2021 13:15:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DD8B82E
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA20216A5;
+	Mon,  5 Jul 2021 15:33:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA20216A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625483801;
-	bh=+eBKkwCvfXAiqA6Mwszd1JqitQfcXOYJqCDZuK87G8o=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=l8wrX2K+nO+PZZrrb8uA+hepLOrh5tFxawV+uVAHORvVZAzYwxyL0lmSyQhPtResW
-	 BOgjnq2vrfYw4bnEzzglkS5aqGlhZ1z0vlUYynpJywPb+BpJQ4HQVfUcfn4dUIadQ8
-	 iJb3yB0Qwkuk3//g9s5uLHq1bvdFhJOd18noU8zo=
+	s=default; t=1625492083;
+	bh=fbiWTr53bTjAhbArSvuhq4WzPsxDtwrUJS1t/V+uo3Y=;
+	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=hJn17ZbVX1fq6yT/1OvwYoKlb29NW4PqHBhWrm9swhSMIkpbN9Wrr68Bnqawq3S6A
+	 ODWJQvl2BkWOHqVo7iQEX+xr0UwVPChKHHYWv/o/eQiY7/JycnaJFCxZ7cCVNtLuDn
+	 xJBggRZ3NQXkFepzTmnZP0d7Xw8twgP8ea5gZrW0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0AF4DF8025C;
-	Mon,  5 Jul 2021 13:15:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 256A3F8025C;
+	Mon,  5 Jul 2021 15:33:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95E2BF80224; Mon,  5 Jul 2021 13:15:11 +0200 (CEST)
+ id 6D87FF80224; Mon,  5 Jul 2021 15:33:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
+ [81.169.146.163])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DAA5BF80124
- for <alsa-devel@alsa-project.org>; Mon,  5 Jul 2021 13:15:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAA5BF80124
+ by alsa1.perex.cz (Postfix) with ESMTPS id B9FF2F80134
+ for <alsa-devel@alsa-project.org>; Mon,  5 Jul 2021 15:33:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9FF2F80134
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="tqqZyg04"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="vuqsWsGK"
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 397665C011C;
- Mon,  5 Jul 2021 07:15:01 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Mon, 05 Jul 2021 07:15:01 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm2; bh=etcupvTCwknVwkG/akvEy5P4A6
- MjyXXxVTmD20uM/8g=; b=tqqZyg046h0fHCsWeZGXCCyq6KuVFaHUBDSIIb89hL
- airBWdkfCT7DdhR8dLTzdruPodFGoo2aA+DJfRB81F8gzh4xf15grOxMDbS9roqw
- 6G5ck0erXKDIMZyQ8iO4x/aYUrwnTvv+Eu2b9z19o5NTtOX9k/MnSAcFUHd+NTLw
- nr2G2//9m+LgWdyoJsF6/uKWpSkBepf3MqXyRw/zTtjx2Vsp8u4GdPXbetqUJgHg
- 5Adx/tND6y09Bahi5lUTTI2e9+IcB96Mq5c6QPI2RjFE+vAmcnndEdac5wvqc5Bm
- psujJ8Tf9yxdmqIcBJj26CyKWER3WEO1FZF8ki61Rhwg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=etcupvTCwknVwkG/a
- kvEy5P4A6MjyXXxVTmD20uM/8g=; b=vuqsWsGK0QNqop5g8YFZu0jN2LFQ5d0VR
- Mfz17ZKA56c+Lh4mj8HnWxr4JyYav2Dh633DC5LFvOcvwzhsoqiXjaRArgPDHQSi
- 1sJ4KHxi1JvoJ+xZcP8GdoMK+hPaG0OzoOtWRrZg3rPVTGFRw666VtG43zkRG3Wq
- XawEsCUttNO+ifdFfpftqqLbycKdnz9EdeBhQVMIr5elnvqLIKKGdHOXEP/7VmrJ
- 40xuUw0HoovKhV57kaGvElLjvvYG5TphOBP6cAcEXiWA9cBudi8mSE1VrinckbE9
- JgC7xrOhw3rnkP6umG/MPcPo3cHMD132BMXJDxLSDDyyjbtzJlucA==
-X-ME-Sender: <xms:tOniYIDnglLnNkxSoaZ853kJQhJ43soRW0dSv60AcMWCuwSaXcTx4w>
- <xme:tOniYKitr29hpUIOB1qSgNEaU8nD2_EqJM59D6wEWO_zdYjwHAGEi87vTSFWRYTdI
- Tfo-7uHRcFl--nflrU>
-X-ME-Received: <xmr:tOniYLk4EiKmtdoRUjx6mH_lWUagh6BaV-ZiFAxRVOeYsaI-oOfXxUPKq65MmNQZesgwF2RbNcC4d13s8l9FjjDAOqWXSJICIAJjD5uq_t_DZexG8TK6>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeejgedgfeejucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
- dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
- ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepffduleeuheejvd
- ejheelfeduueeftddthefghfekveekhefhkefgfedtteefteetnecuffhomhgrihhnpehs
- ohhurhgtvghfohhrghgvrdhnvghtnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrg
- hmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:tOniYOzIJ97zqEOxTUha3wTihEqibgsY7A-8vgwTZFjrsMA_BaNraQ>
- <xmx:tOniYNRYSHOeZQ7qJHv6mdJAp9uthCDzFv4Z1NCKbFfpxK2SbHffsQ>
- <xmx:tOniYJbm8lFtVcyI5pKsrxvNNAIlZR-yxi1lcDpi8-MaidOIxz9NsQ>
- <xmx:teniYMKFXhIFLNNS564vv4sJGxCl3w0-gg7CvbOg18FAti_1WXLWSQ>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 5 Jul 2021 07:14:59 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH] ALSA: bebob: correct duplicated entries with TerraTec OUI
-Date: Mon,  5 Jul 2021 20:14:55 +0900
-Message-Id: <20210705111455.63788-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.30.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+ dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com
+ header.b="tzOTAYLx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1625491974;
+ s=strato-dkim-0002; d=goldelico.com;
+ h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+ From:Subject:Sender;
+ bh=fRak6ASlaZRgXZ5yHDMa2KL0jh26L0XGJ2WV3FPhyfo=;
+ b=tzOTAYLx/SMn4ocdNEcqqSRTkGO78vSh+bdS/60yhHTYmH1BbSVbe5IniHEOOHHvSP
+ /Wh8RH9wdzJ5JuEQkUCR+s2J9fP9eSJmMX3h7Eu+nWzkXS8kzoOF4+V19Excfa/4EUGP
+ h6IZnHev0kGqBjy2ztDZLaLp17xms1A/pEcj/H6nmrpFavc93NmpZobtt6v8RioaYQ6/
+ 7ae3mPGOuj+UJuaNDoGeEH9MJ1caswnc85Wj/3fXfzCS9L6iNtLeRGEpTLU85dt/PIgm
+ de/BimLfCjG5CX8DmJJAmum4vDo4IIrY93DVUjgjC9JvR9KH/X60GiCHKsSgJXNe4fhW
+ tUeg==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMgPgp8VKxflSZ1P34KBj4Qpw9iZeHmAgw4/qsw=="
+X-RZG-CLASS-ID: mo00
+Received: from imac.fritz.box by smtp.strato.de (RZmta 47.28.1 DYNA|AUTH)
+ with ESMTPSA id h06665x65DWsJos
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1
+ with 256 ECDH bits, eq. 3072 bits RSA))
+ (Client did not present a certificate);
+ Mon, 5 Jul 2021 15:32:54 +0200 (CEST)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.21\))
+Subject: Re: [PATCH 0/5] ASoC: ti: davinci-mcasp: Fix the DIT mode and OMAP4
+ support
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <20210704150450.20106-1-peter.ujfalusi@gmail.com>
+Date: Mon, 5 Jul 2021 15:32:53 +0200
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <E1C17C0D-1363-4109-89B3-A652A2B47703@goldelico.com>
+References: <20210704150450.20106-1-peter.ujfalusi@gmail.com>
+To: Peter Ujfalusi <peter.ujfalusi@gmail.com>
+X-Mailer: Apple Mail (2.3445.104.21)
+Cc: tony@atomide.com, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, lgirdwood@gmail.com,
+ linux-omap@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,54 +93,91 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-ALSA bebob driver has duplicated entries for modalias of
-'ieee1394:ven00000AACmo00000002sp0000A02Dver00010001' since entries for
-two devices below have the same parameters:
+Hi P=C3=A9ter,
 
- * Acoustic Reality eAR Master One, Eroica, Figaro, and Ciaccona
- * TerraTec Aureon 7.1 FireWire
+> Am 04.07.2021 um 17:04 schrieb Peter Ujfalusi =
+<peter.ujfalusi@gmail.com>:
+>=20
+> Hi,
+>=20
+> it has been on my todo list for several years to support McASP on =
+OMAP4 devices.
+> For Galaxy Nexus we had an omap-mcasp driver (which was mostly a =
+stripped down
+> davinci-mcasp driver) to support what was needed on that specific =
+phone + it's
+> dock for S/PDIF (48KHz, 16bit, stereo).
+>=20
+> Not many (if any) device available to test the DIT mode of McASP.
+> I have used BeagleBone White (McASP1 AXR3 can be routed to a pin) to =
+get the
+> S/PDIF mode working then PandaES for OMAP4 support (on PandaES the =
+gpio_121 is
+> not used and the signal is routed to expansion J6 pin14)
+>=20
+> In theory the McASP in OMAP5 should be working after this series, but =
+the OMAP5
+> TRM is not public and I do not have one to check the addresses and see =
+if there
+> is a way to test it on omap5-uevm.
+>=20
+> Mark, Tony:
+> The ASoC and dts patches can go via separate tree I felt that it is =
+better if
+> they are together, at least initially.
+>=20
+> Nikolaus: fyi, this might be useful for Pyra?
 
-I relied on FFADO revision 737 to add the former entry, on the other hand,
-the latter is based on message posted by actual user with information of
-sysfs node:
+Yes, definitively.
 
- * https://sourceforge.net/p/ffado/mailman/ffado-user/thread/5743F969.2080204%40marcobaldo.ch/
+I just wonder how compatible it is with the "old" omap-mcasp driver we =
+carry
+along for the Pyra:
 
-It appears that they have OUI of Terratec Electronic GmbH (0x000aac) and
-the same model ID, thus suffice to say that they have something common
-in their internals.
+=
+https://git.goldelico.com/?p=3Dletux-kernel.git;a=3Dblob;f=3Dsound/soc/ti/=
+omap-mcasp.c;h=3D24d839a24f34ec02456176744d3690016592b5a3;hb=3D7789ab635e5=
+6a2fd9fe04ca2e9ccfeaccb8e0f52
 
-Although it's not going to make a big difference, this commit arranges
-the entries.
+Does it now have additional functionality or robustness?
+And does it need changes of the OMAP5 device tree?
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/firewire/bebob/bebob.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+And also important seems to be the ABE/AESS integration where we so far =
+failed
+to make it work again on more recent kernels. Our most recent patch set =
+is here:
 
-diff --git a/sound/firewire/bebob/bebob.c b/sound/firewire/bebob/bebob.c
-index 42980da45fbf..06a7ced218e2 100644
---- a/sound/firewire/bebob/bebob.c
-+++ b/sound/firewire/bebob/bebob.c
-@@ -403,8 +403,6 @@ static const struct ieee1394_device_id bebob_id_table[] = {
- 	SND_BEBOB_DEV_ENTRY(VEN_APOGEE, 0x01eeee, &spec_normal),
- 	/* ESI, Quatafire610 */
- 	SND_BEBOB_DEV_ENTRY(VEN_ESI, 0x00010064, &spec_normal),
--	// AcousticReality, eARMasterOne. Terratec OEM.
--	SND_BEBOB_DEV_ENTRY(VEN_TERRATEC, 0x00000002, &spec_normal),
- 	/* CME, MatrixKFW */
- 	SND_BEBOB_DEV_ENTRY(VEN_CME, 0x00030000, &spec_normal),
- 	// Phonic Helix Board 12 FireWire MkII.
-@@ -434,7 +432,8 @@ static const struct ieee1394_device_id bebob_id_table[] = {
- 	SND_BEBOB_DEV_ENTRY(VEN_TERRATEC, 0x00000007, &yamaha_terratec_spec),
- 	/* TerraTec Electronic GmbH, EWS MIC2/MIC8 */
- 	SND_BEBOB_DEV_ENTRY(VEN_TERRATEC, 0x00000005, &spec_normal),
--	/* Terratec Electronic GmbH, Aureon 7.1 Firewire */
-+	// Terratec Electronic GmbH, Aureon 7.1 Firewire.
-+	// AcousticReality, eAR Master One, Eroica, Figaro, and Ciaccona. Perhaps Terratec OEM.
- 	SND_BEBOB_DEV_ENTRY(VEN_TERRATEC, 0x00000002, &spec_normal),
- 	/* Yamaha, GO44 */
- 	SND_BEBOB_DEV_ENTRY(VEN_YAMAHA, 0x0010000b, &yamaha_terratec_spec),
--- 
-2.30.2
+=
+https://git.goldelico.com/?p=3Dletux-kernel.git;a=3Dshortlog;h=3Drefs/head=
+s/letux/aess-v5
+
+Anyways I am happy to see a little progress on the omap4/5 audio =
+subsystem.
+
+BR and thanks,
+Nikolaus
+
+
+
+>=20
+> Regards,
+> P=C3=A9ter
+> ---
+> Peter Ujfalusi (5):
+>  ASoC: ti: davinci-mcasp: Fix DIT mode support
+>  ASoC: dt-bindings: davinci-mcasp: Add compatible string for OMAP4
+>  ASoC: ti: davinci-mcasp: Add support for the OMAP4 version of McASP
+>  ARM: dts: omap4-l4-abe: Correct sidle modes for McASP
+>  ARM: dts: omap4-l4-abe: Add McASP configuration
+>=20
+> .../bindings/sound/davinci-mcasp-audio.txt    |   1 +
+> arch/arm/boot/dts/omap4-l4-abe.dtsi           |  39 ++--
+> include/linux/platform_data/davinci_asp.h     |   1 +
+> sound/soc/ti/Kconfig                          |   1 +
+> sound/soc/ti/davinci-mcasp.c                  | 168 +++++++++++++++---
+> 5 files changed, 168 insertions(+), 42 deletions(-)
+>=20
+> --=20
+> 2.32.0
+>=20
 

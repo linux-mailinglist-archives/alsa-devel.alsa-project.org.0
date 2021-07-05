@@ -2,72 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4D9C3BC1D2
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jul 2021 18:52:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BD743BC24F
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jul 2021 19:31:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 24EC616A4;
-	Mon,  5 Jul 2021 18:51:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24EC616A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBC5E16AC;
+	Mon,  5 Jul 2021 19:30:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBC5E16AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625503969;
-	bh=E2qKGlOmNIoto35uDuCrhW5NXTON5UvLxqC9khTS49E=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1625506284;
+	bh=pPwb3IzH9Ip0weRQQqrNvwLwq5G6Bcjpk+NPhawOAms=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UyK8eBtAk6baTZaAXpd1rvSIJayNDYfsQVPVjbVC9lD+zvq7bjmOklwdCHz7EPi4+
-	 RTnxKSKjmGcKPjagdYo2x7l2fhTvFM2NBZtyfF6lS3XQ6k3CCgF9GkHctD7X9bdo+P
-	 rjH+17LYRwioalICB0mKkSQP9Awpg6yvQ8Sj8Zz8=
+	b=HIZUzlF/3JIabpkdDIqKItKYNFyDUvZ78STVjuqmGpgxfMQH1Wtg71vDHb4rV9TvC
+	 mfWu1FsX4L6gJfZNtBW/yUnS5eF19T3hQG3iul+AAdNTNevKR7zTbq3GUvuiy5tHOJ
+	 EfhUu9+/cITA0SjQ5YJ5CMLLD4ekewySRtyXj6p8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A78FAF8025C;
-	Mon,  5 Jul 2021 18:51:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D5B0F80124;
+	Mon,  5 Jul 2021 19:29:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0E3F6F80224; Mon,  5 Jul 2021 18:51:20 +0200 (CEST)
+ id 8B5EEF8025C; Mon,  5 Jul 2021 19:29:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0B739F8014E
- for <alsa-devel@alsa-project.org>; Mon,  5 Jul 2021 18:51:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B739F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id DF9AAF8014E
+ for <alsa-devel@alsa-project.org>; Mon,  5 Jul 2021 19:29:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF9AAF8014E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="cIr27ePd"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7EB8D61278;
- Mon,  5 Jul 2021 16:51:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625503872;
- bh=E2qKGlOmNIoto35uDuCrhW5NXTON5UvLxqC9khTS49E=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cIr27ePdACHbDgmGGKZRXNMTZR0fs8kzbIbnKjSrBctZlnzNQu/B/y/jt8juXVE3+
- qbstEEJjRtBNUNOisLCh+1iIeh+66mL1hZYZRJATzH+AvTaHWGeiIUHqAs7amuWI3s
- k31sxNPe0M8JNzu61SiHPQoYJ0aBmReEAVAIes9vEbT0i2nZSr7J8PTj9qEhFZrGib
- CVhwSlRCJr9u49QMY5ynCfgvKJXPow86xhoJ4/uvA1+3j4EzONLqoQ+5Ado1b/DmmM
- xK/IV2BxSJJ5hhUXKErlVibAdkY9Q4BtAyGKd4/yPddT36ysJoXJPgTN+Kzy+bsJkt
- qrFR2hd0D2o/A==
-Date: Mon, 5 Jul 2021 17:50:41 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: dapm: Revert "use component prefix when checking
- widget names"
-Message-ID: <20210705165041.GC4574@sirena.org.uk>
-References: <20210703125034.24655-1-rf@opensource.cirrus.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="96YOpH+ONegL0A3E"
-Content-Disposition: inline
-In-Reply-To: <20210703125034.24655-1-rf@opensource.cirrus.com>
-X-Cookie: Star Trek Lives!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
- shumingf@realtek.com, rander.wang@linux.intel.com
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="VXjFt+Ex"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="kDq45oWJ"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 7B199225F7;
+ Mon,  5 Jul 2021 17:29:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1625506151; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=W3JNq4SrOtSU84VshsshxZWLXjvM/x3uoEnEOE1n5ys=;
+ b=VXjFt+ExtVLo+8o10UvNkfkYaEDXYMwn5KjTpgYZJzCZkwlJmWEUjVOjoUiRSEAvT/l12e
+ 0XcLs1UHVoOU6B4tWX7K57AjPCbfs5MSYohUoZTlywB4kaeRaXOsc6DtI/a5ly5l0sOzBB
+ vwVobeXCfiLUcp50HIgcTLEFugD9HHk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1625506151;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=W3JNq4SrOtSU84VshsshxZWLXjvM/x3uoEnEOE1n5ys=;
+ b=kDq45oWJ++E1Pdg+dCP7bJTOsxaUxkFNZGlYmwMtAboB/oP2T+NgggNyuNhjOllIDDtqzi
+ EwBBYNybv2sFzFBw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 61887A3B8E;
+ Mon,  5 Jul 2021 17:29:11 +0000 (UTC)
+Date: Mon, 05 Jul 2021 19:29:11 +0200
+Message-ID: <s5h35ssacuw.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Frank =?UTF-8?B?U2Now6RmZXI=?= <fschaefer.oss@googlemail.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: fix mute led of the HP Pavilion
+ 15-eh1xxx series
+In-Reply-To: <20210703135416.13151-1-fschaefer.oss@googlemail.com>
+References: <20210703135416.13151-1-fschaefer.oss@googlemail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, alsa-devel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,57 +96,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Sat, 03 Jul 2021 15:54:16 +0200,
+Frank Schäfer wrote:
+> 
+> The HP Pavilion 15-eh1xxx series uses the HP mainboard 88D0 with ALC287 and needs
+> the ALC287_FIXUP_HP_GPIO_LED quirk to make the mute led working.
+> Tested with a HP Pavilion 15-eh1557ng.
+> 
+> Signed-off-by: Frank Schäfer <fschaefer.oss@googlemail.com>
+> Cc: <stable@vger.kernel.org>
 
---96YOpH+ONegL0A3E
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thanks, applied.
 
-On Sat, Jul 03, 2021 at 01:50:34PM +0100, Richard Fitzgerald wrote:
 
-> That commit breaks all users of the snd_soc_component_*_pin() functions
-> because it results in the prefix being added twice. It also breaks code
-> that correctly uses the snd_soc_dapm_*_pin() functions.
-
-> Use the snd_soc_component_*_pin() functions if you want the component
-> prefix to be prepended automatically.
-
-> Use the raw snd_soc_dapm_*_pin() functions if the caller has the full
-> name that should be matched exactly.
-
-I'm not sure the analysis of which function to use when is correct or
-what we want here (though it will work ATM), though looking again more
-closely at the patch it doesn't look entirely right either.  The way
-this used to be done, and the way that older code will most likely
-assume things work, was that the DAPM functions would first try to match
-on the local DAPM context before falling back to doing a global match.
-This is what the fallback loop is intended to do, and the dapm functions
-are passing the "search other contexts" flag into dapm_find_widget().
-
-I'd not expect the distinction you seem to expect between component and
-DAPM and we probably have a bunch of older drivers that aren't working
-correctly like the Realtek driver mentioned in the original fix.  I
-think what needs to happen is that dapm_find_widget() needs to be
-checking both the prefixed and non-prefixed names, and that the
-component stuff shouldn't need to bother and just be a convenience
-wrapper for users that happene to have a component to hand.
-Alternatively we need to do an audit of all the non-machine drivers to
-switch them to use the component functions exclusively (and possibly
-some of the machine drivers as well), most of the CODEC users look to be
-a small number of Wolfson/Cirrus ones.
-
---96YOpH+ONegL0A3E
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmDjOGAACgkQJNaLcl1U
-h9B8VAf/fT+qkZLFc+06JxvhI5ChgxVl1SJI25mXkIlwItayArYD9CMLMTN4Lz4F
-Y0l+VvAZmO98kht/uXvfnDbkawHzriFTxw86eBZdr6Aina6p5QWzlPS5xQmBTpx0
-g0tvysXnfGbLqCXLZlee859ie7HRTAFzgZRixwXlwtTC/WEbKF4G7rZCtHeUqTMq
-4syKhV3yEwz+L0RHEDxLfJ2pL3Y3af1xpi0I/0aLPMDEwRa0dm0p6DSIbyHMS9ig
-C0JJfFZumjq74rNS1+8darm8IS9bxI8eAq11vNm866DhNPsIMY/abeukUj1ap1t9
-7VdteccabI50+pM4wz1lKLkKwk3Rgg==
-=t9wF
------END PGP SIGNATURE-----
-
---96YOpH+ONegL0A3E--
+Takashi

@@ -2,72 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B3EC3BC325
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jul 2021 21:31:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA8463BC326
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jul 2021 21:31:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8226916CF;
-	Mon,  5 Jul 2021 21:30:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8226916CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 18A9016DA;
+	Mon,  5 Jul 2021 21:30:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18A9016DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625513484;
-	bh=q3ZTByD/UPcR9TQOFBpdTkGaFvLeAfYpSg0koE0aWN0=;
+	s=default; t=1625513500;
+	bh=DB18MTojD66qAvZOaE3kuj3EZ+WCMq11kM2ci8j+Co4=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pIas2L6AU+ZZMp7nJZ6xY0uAJyzQg8qLy4m/qzIzf4IEbHnASs0ov43+uf2Sa/UbG
-	 p3mcfFqOfQmdqFxlI6TZ6caREL57rc5/Ee9bRd9eHZIkuz7rt3GWZgs8GLarySYjk7
-	 0jvKoW3qbbR/CXb+VHo40waKxlu7rlBt8lnHpvOM=
+	b=BA/tREI6PY1jH39FJjE0OdmCx065di8ZQgWwS3OsRf4TGkwXy0Hc+dBw4Wl05RhNh
+	 ZCydXpO+0nZ5zUZgAYUiULNLjWoHnp5hd7W5pwwmDHmXMeydbUsGWATn2sy1/1kZgh
+	 WZtxWvovxVEW+P/iW6X6WoLOivrcerD5Av4jAWfY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D823DF80124;
-	Mon,  5 Jul 2021 21:29:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2922F80301;
+	Mon,  5 Jul 2021 21:30:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6980DF80224; Mon,  5 Jul 2021 21:29:29 +0200 (CEST)
+ id 8D33FF80300; Mon,  5 Jul 2021 21:30:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9BF65F80134
- for <alsa-devel@alsa-project.org>; Mon,  5 Jul 2021 21:29:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BF65F80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 287DBF80134
+ for <alsa-devel@alsa-project.org>; Mon,  5 Jul 2021 21:30:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 287DBF80134
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="hOutMW62"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B43B4613C9;
- Mon,  5 Jul 2021 19:29:07 +0000 (UTC)
+ header.b="om6OQVkn"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8854061369;
+ Mon,  5 Jul 2021 19:30:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625513348;
- bh=q3ZTByD/UPcR9TQOFBpdTkGaFvLeAfYpSg0koE0aWN0=;
+ s=k20201202; t=1625513423;
+ bh=DB18MTojD66qAvZOaE3kuj3EZ+WCMq11kM2ci8j+Co4=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=hOutMW62HwviynA8QRiX7JsUDmzA4MGC6TXLa0ljCz5flVdv8k3rY4v+UhkWHEPAm
- InZTgcjru6U0qSR36iO9RVdd7ZPevMTnlTbyVPHNg2YROeLQzQXZDeXSTlcMBesDub
- NyH5L6nPhp82rxh94v6IjsW761ly/c7TXikzQD2CMBRYI1ZEWlZtxgtEhlOmTfasza
- bGeFDENm/8wbbwpINpH3XgeRFSBDd5r2n/AxKbhMin4/pErWRoIaxUfKG3Ab0K1h9M
- FL06PjvJDoCouul8O9JPcsGXg5t92kRW53lLJZGEh7YOeK/QZBH8kh9+d/bVKU9AqB
- atuOuaw8JLpqQ==
-Date: Mon, 5 Jul 2021 20:28:37 +0100
+ b=om6OQVknqj6I2FaQpOU2sbXe9jJSzOnntKpaZWZhpjBXS2iOAZkeNZgylpOpFqz71
+ qGqINkPyFtsG7KgHMVtsMdtdGW72/5qQQOPIRWK1F1Fz8/ZIrU5p5Q4BTvAiQ/RY8O
+ 0oWD9HFqOLF0KTZOa5SMZaLeG0OnvXQsj0Got1XeIyfpN3I94Zt90bKjYQXO+LzmWr
+ N/xbBOsUMCEhcgP9yQhgvo91IdY+G8JSKMwEWShjD/u5nEfiLWNqeag/OjRXj2Euv/
+ SzNkROqfU2QO76qBOAh6tHyNctsvocqG+zvg+nW7T98SrApmD2aWsHwkAFPaBm+dU/
+ y3UYJi3TjPpKg==
+Date: Mon, 5 Jul 2021 20:29:52 +0100
 From: Mark Brown <broonie@kernel.org>
-To: David Rhodes <drhodes@opensource.cirrus.com>
-Subject: Re: [PATCH v3 2/2] ASoC: cs35l41: Add bindings for CS35L41
-Message-ID: <20210705192837.GH4574@sirena.org.uk>
-References: <20210702205127.1400539-1-drhodes@opensource.cirrus.com>
- <20210702205127.1400539-3-drhodes@opensource.cirrus.com>
+To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+Subject: Re: [PATCH] ASoC: add dai_reoder flag to reverse the stop sequence
+Message-ID: <20210705192952.GI4574@sirena.org.uk>
+References: <20210705155830.24693-1-vijendar.mukunda@amd.com>
+ <20210705174241.GF4574@sirena.org.uk>
+ <7f1ad1b3-b509-24cf-00d8-f82766aae0d6@amd.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Rn7IEEq3VEzCw+ji"
+ protocol="application/pgp-signature"; boundary="8/UBlNHSEJa6utmr"
 Content-Disposition: inline
-In-Reply-To: <20210702205127.1400539-3-drhodes@opensource.cirrus.com>
+In-Reply-To: <7f1ad1b3-b509-24cf-00d8-f82766aae0d6@amd.com>
 X-Cookie: Star Trek Lives!
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: robh@kernel.org, brian.austin@cirrus.com, ckeepax@opensource.cirrus.com,
- patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- david.rhodes@cirrus.com
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com, amistry@google.com,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
+ Takashi Iwai <tiwai@suse.com>, Chuhong Yuan <hslester96@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, peter.ujfalusi@ti.com,
+ Alexander.Deucher@amd.com, nartemiev@google.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,51 +90,34 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---Rn7IEEq3VEzCw+ji
+--8/UBlNHSEJa6utmr
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Fri, Jul 02, 2021 at 03:51:27PM -0500, David Rhodes wrote:
+On Tue, Jul 06, 2021 at 12:30:10AM +0530, Mukunda,Vijendar wrote:
 
-> +  cirrus,hw-noise-gate-select:
-> +    description: Hardware Noise Gate feature. Each bit selects
-> +      a different block for detection.
-> +      000000 - All noise gating functionality disabled
-> +      xxxxx1 - Amplifier noise gating detection enabled
-> +      xxxx1x - Boost converter DCM detection enabled
-> +      xxx1xx - VMON low power mode detection enabled
-> +      xx1xxx - IMON low power mode detection enabled
-> +      x1xxxx - VP brownout prevention detection enabled
-> +      1xxxxx - VBST brownout prevention detection enabled
-> +    type: boolean
+> As per our understanding by going with card wide option is easier rather
+> than checking dai link name for re-ordering the stop sequence for
+> specific platforms.
+> We will rename the flag as "stop_dma_fist" and will post the new version.
 
-That description doesn't appear to be for a boolean field, either this
-should be a number of properties or it's not a boolean.  It's also not
-clear to me that we shouldn't be able to control these features at
-runtime.
+Why would we need to check the name for the link?  Presumably all
+affected AMD cards would just unconditionally set the flag, and other
+systems could do what they like?
 
-> +  cirrus,invert-pcm:
-> +    description:
-> +      Inverts the polarity of the audio signal output from
-> +      the Class-D amplifier.
-> +    type: boolean
-
-Given the potential confusion with the audio interface it might be
-better to call this invert-class-d or something.
-
---Rn7IEEq3VEzCw+ji
+--8/UBlNHSEJa6utmr
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmDjXWQACgkQJNaLcl1U
-h9D/sAf/ccV0v6/q4CQGzoHbbWh4RFtbyl9Mpegbx9nap3S/8ygpR6uWeLndLFVu
-TJ/pn9B/SZrWmGipxK1oRT2lrPjCt3RzvIhhxgELgp56nu1Tq1iVvDLyV7aB0Y18
-MJwWAo/wJy68vrIYGAOgp/TxxjYhu/j4ZZmC5SLRoJ/sMkQpbha4Zo+mn7/y1xc7
-VTw4SuNF2fkLWBltkuPg4MeCizjPZhlml6DUCDz6Lil19olX7CHUs8Msqz/NBKkf
-3TuYcYvaeEHawvoFk3AnPOlDVIq5GpsuaLrxkEYSREM/N60yvjJw7+Eo7yX71sW8
-5MrIIFvZGq6f07B5JgGBOAGXhzE2Aw==
-=7b7u
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmDjXa8ACgkQJNaLcl1U
+h9BlPgf/ZQVPYklcHm8QzPLEpDWpJUZC9CvQKtgmhHbuo7hVxQdv90n0D69R8ZKe
+y+HyvIkOKIpvbfQgZbZL6rQpSQR5vye5zwurlKf7sa0NTJiKgSgxd9vbKMD0KVNx
+ydPeeuWIUp8uaSlwXnOrCBeVr3uOUDwERlCpasLP4AInu4GLGZedRPtAxFNBOLQk
+ydgfWoOcNmnMA4wtFuggF/F+trNXyfQFwsEunRnAepmGL9dcsNfb1DPXmwdslsQw
+y4KA4KvyGJ7lPLs3hPHRZFBVVNQlyDQrVe8E7eQQHPXdWkahyeAA7jCn/g397reB
+gee7H/24vthbZVCTESTZy7kVzyrzKQ==
+=9bmK
 -----END PGP SIGNATURE-----
 
---Rn7IEEq3VEzCw+ji--
+--8/UBlNHSEJa6utmr--

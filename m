@@ -2,82 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F15BC3BC250
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jul 2021 19:31:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 428B23BC251
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jul 2021 19:33:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5660816C0;
-	Mon,  5 Jul 2021 19:30:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5660816C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1C7A16B1;
+	Mon,  5 Jul 2021 19:32:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1C7A16B1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625506300;
-	bh=htRmKOeqSTizjZzLrSy/QsGYHX3TppdW7E6wTkdd4ZI=;
+	s=default; t=1625506398;
+	bh=nD/mxuuoFErQorljmp4yr2QBtEHtNz5oU0rXF8ZIsLw=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Toe+5E7XWeA5IMrQi15DNI/ahzOlcQJswnyTJkwtFc0KTjPgDraueRKBgDwONuUPG
-	 iI2WI8AN6hox/2cfzTHaMCZD2AF/OgTC+4Oaf0R2zfrXiZF8zOH9TEmgQtW4g5lITL
-	 N9+qdPklhtkj9pfo6hRAYmRdd3fe02iqOU7A2k0k=
+	b=mBzN8cMrLlL3rOztWtkxEta94dC9zgyyxmDSkuf1mqMvlYu/o+Bzz41lpks3FE781
+	 s2+8F8R32vblwxMDTQzKve6lPZ02Z7xYfjw7eUyG1J42wB/Bb7NiuF70saPlaT6zrH
+	 NxAGXhEflKQrdhPAsHkfDWGbR5S3zwqB4l6Ab1eI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4CEA8F802E3;
-	Mon,  5 Jul 2021 19:30:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1FADFF8025C;
+	Mon,  5 Jul 2021 19:31:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B834EF8025C; Mon,  5 Jul 2021 19:30:27 +0200 (CEST)
+ id 83A94F80224; Mon,  5 Jul 2021 19:31:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A8B28F8025C
- for <alsa-devel@alsa-project.org>; Mon,  5 Jul 2021 19:30:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8B28F8025C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 965BAF8016B
+ for <alsa-devel@alsa-project.org>; Mon,  5 Jul 2021 19:31:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 965BAF8016B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="WyOzr/W2"; 
+ header.b="NjAjZDTL"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="bPXTrn7f"
+ header.b="3B0/10bw"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 7562A2268B;
- Mon,  5 Jul 2021 17:30:21 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id E082B1FECA;
+ Mon,  5 Jul 2021 17:31:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625506221; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1625506302; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=16gShvgDTVY/pfDOaccRaKPlNMV99e8RU/hl5EyeqP0=;
- b=WyOzr/W2ZH7KZjnzXo/II8E72mkM/SmS1cHMUEdfVxPQZkboqZlLvhN7uztGpXLcBWLQxi
- iNZ6ZCUU9yv9VAkdE/lQ76klt4TpY47ICDXzpSb570oQx0RM9gfpL7oODgUay+KtaGdc9K
- MZ8n0UJPPxpH8fp+VjmON8vMR5r83HI=
+ bh=Pt6zqqS2Ch9OplXHwyP77+LCi7hGpOVK0ybyCOz5qow=;
+ b=NjAjZDTLQThBxrv75MXobMoBsiu0QGmmBsDUsMMI4lN9jrcdYa3HmuqUSEYVdmwcLLjd0f
+ 3S3gFKRtKOcu9N0UZ3XanlIRdMGIzzBVxGCHmHJ0gu/LBd/IKAzPCO/GUTORmoc9Kne4ku
+ oJZe4UTPZY0D820/hOksGCz9bYHi7Ug=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625506221;
+ s=susede2_ed25519; t=1625506302;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=16gShvgDTVY/pfDOaccRaKPlNMV99e8RU/hl5EyeqP0=;
- b=bPXTrn7fJZpjuzUYWVZmQSEZ5WK0t1A/gtM+gV/fAcCZL6KdX6KcKGJpWcASGGALs4HPHY
- qwvFheweGwKXDMBA==
+ bh=Pt6zqqS2Ch9OplXHwyP77+LCi7hGpOVK0ybyCOz5qow=;
+ b=3B0/10bwk5e1U1M8LDdA5kIHlNLDLp0GL/Hwy8NzLfPfZv05KTSmHqArrMa+sZp8fUvGxp
+ LZzs/JRoFAOIDsAA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 07C93A3B8C;
- Mon,  5 Jul 2021 17:30:21 +0000 (UTC)
-Date: Mon, 05 Jul 2021 19:30:21 +0200
-Message-ID: <s5h1r8cacsy.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id B9B26A3B91;
+ Mon,  5 Jul 2021 17:31:41 +0000 (UTC)
+Date: Mon, 05 Jul 2021 19:31:41 +0200
+Message-ID: <s5hy2ak8y6a.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: gushengxian <gushengxian507419@gmail.com>
-Subject: Re: [PATCH] sound: x86: fix spelling mistakes
-In-Reply-To: <20210705073736.662875-1-gushengxian507419@gmail.com>
-References: <20210705073736.662875-1-gushengxian507419@gmail.com>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH] ALSA: bebob: correct duplicated entries with TerraTec OUI
+In-Reply-To: <20210705111455.63788-1-o-takashi@sakamocchi.jp>
+References: <20210705111455.63788-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
- gushengxian <gushengxian@yulong.com>
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,18 +92,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 05 Jul 2021 09:37:36 +0200,
-gushengxian wrote:
+On Mon, 05 Jul 2021 13:14:55 +0200,
+Takashi Sakamoto wrote:
 > 
-> From: gushengxian <gushengxian@yulong.com>
+> ALSA bebob driver has duplicated entries for modalias of
+> 'ieee1394:ven00000AACmo00000002sp0000A02Dver00010001' since entries for
+> two devices below have the same parameters:
 > 
-> Fix some spelling mistakes as follows:
-> regiter ==> register
-> confgiuration ==> configuration
-> playabck ==> playback
-> platoform ==> platform
+>  * Acoustic Reality eAR Master One, Eroica, Figaro, and Ciaccona
+>  * TerraTec Aureon 7.1 FireWire
 > 
-> Signed-off-by: gushengxian <gushengxian@yulong.com>
+> I relied on FFADO revision 737 to add the former entry, on the other hand,
+> the latter is based on message posted by actual user with information of
+> sysfs node:
+> 
+>  * https://sourceforge.net/p/ffado/mailman/ffado-user/thread/5743F969.2080204%40marcobaldo.ch/
+> 
+> It appears that they have OUI of Terratec Electronic GmbH (0x000aac) and
+> the same model ID, thus suffice to say that they have something common
+> in their internals.
+> 
+> Although it's not going to make a big difference, this commit arranges
+> the entries.
+> 
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
 Applied, thanks.
 

@@ -2,91 +2,150 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F32C63BC337
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jul 2021 21:43:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3F973BC343
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jul 2021 21:55:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9FC9816EE;
-	Mon,  5 Jul 2021 21:42:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FC9816EE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51BF516F1;
+	Mon,  5 Jul 2021 21:54:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51BF516F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625514191;
-	bh=+OWXB0SVuxqCZ/DNf5CJA5uZ9uvw25rUj4kUEH6F4xE=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1625514902;
+	bh=mKCpG6+/E16uSFMIk0GGgk9oYtnqzGEJUgSHj6Hzvc4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EySBXLkPb924Q46J/VcfyxlKrMPYE9b+kKTqglwwIhntTHcQYWSe103VWloQLWVgk
-	 DPsAY8xPIJEe9hAse8L054pYOrkMe/wUgd2C79S24dd7AUL3ufWylIO614o2kmV2Ua
-	 Qu14LgXxLiJJlChfgwGzCgv6pAOMNfOztB1OZFPI=
+	b=KuAGJgl94crbD86iOIwF+eTuCBj5kZDUi10q9v6sPfNvIk8exTrRY6whLEMKpVOcc
+	 soplQghjif4wykMWVobFwJgCfuhIkBsqSdqIqqVOPyDPPAQrHt94omLiABaYXRhcoE
+	 pBRA+a+aRKQtZnixKGuGpVv29iplJGk8Q6G4AMGw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9289BF804EB;
-	Mon,  5 Jul 2021 21:40:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2217F8025C;
+	Mon,  5 Jul 2021 21:53:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7CD24F804DA; Mon,  5 Jul 2021 21:40:42 +0200 (CEST)
+ id 27891F80224; Mon,  5 Jul 2021 21:53:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,PRX_BODY_76,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2077.outbound.protection.outlook.com [40.107.237.77])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 29CCAF804E1
- for <alsa-devel@alsa-project.org>; Mon,  5 Jul 2021 21:40:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29CCAF804E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id A628CF8014E
+ for <alsa-devel@alsa-project.org>; Mon,  5 Jul 2021 21:53:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A628CF8014E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="b3hjoTkc"
-Received: by mail-lj1-x229.google.com with SMTP id w11so26045888ljh.0
- for <alsa-devel@alsa-project.org>; Mon, 05 Jul 2021 12:40:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=rG8Wa9DCPn+LJLpCJ8agJSEaH0afH0syVdCVNBofvlc=;
- b=b3hjoTkcSMEWISYxZGb1O1Aa/UB2B3LQsRa5PM6gPWhWBj8LPCr7I8VEMUhknm/+m8
- 7CaIP7JToj0Gt7eyTdaDdlQTf3Jbir439L8qEppdtEsgDhE8kdxNEm5e/pYisTO7bNqr
- Hxa9+o6n4/U3jRfwVMIyEzRqpYC3ss2voat+BSD9ocMwIvsbX+ThoCDRDzVnjCe6aZCG
- hOtCUDwE9E9xzyLLfgTa+u+go3x8J14IQS/gFCkthJlPHqg1Izo7R7TOV/dXr90l2+lJ
- aPR1qZ+1mku21ma+Jp6bklkIernbNiFucl/Tef/Z912/r7hEpxsXg0KSRggc7rXMzfFQ
- pR5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=rG8Wa9DCPn+LJLpCJ8agJSEaH0afH0syVdCVNBofvlc=;
- b=dyq9OMABDbPUlu0jtJ7rQa0v4BqnVi3KseSTeoYC2yPRjq2GrIfWp52isjSMLTuNeD
- Py3JKBcHkYduftwwmEMD/q4QBym1CIQsAMqhJW59ph9NHzu/9joBc4QWo5QbMLl+sHGj
- oIVR5wfy284R9Z1CW1Bxp08POzMo/yCdhh8E20M3GB7dT9q00weEKTAtZBj37/5yYwHX
- fuVtCp2So3JKdGRmubB9R1oBMa1Zxi6hQQQ4uHposK4UCg3db24fKzEbv8VYmG4IhjSW
- lYvw2IneY/WdGzG3K/BV7BEZcLjbFcmWUra3+x6UA3O++jW5qxIG+4fKD6mhWpfZJyeX
- zmjw==
-X-Gm-Message-State: AOAM530HxsN5LW/QS2W9o5nCldIQysB0bmwg6wbHsu2G8U1ZiRrRyA7K
- LT3rtbrXdp1L7mMl1Ai8e5Y=
-X-Google-Smtp-Source: ABdhPJw1yNKGrgp5kQaDmChWSn7ijYDvHPiaDSrCzw0RKEZOUT93M1hzbfnqq7E+apwg+KyhsehmBg==
-X-Received: by 2002:a2e:2c0d:: with SMTP id s13mr6746476ljs.439.1625514037174; 
- Mon, 05 Jul 2021 12:40:37 -0700 (PDT)
-Received: from localhost.localdomain (91-155-111-71.elisa-laajakaista.fi.
- [91.155.111.71])
- by smtp.gmail.com with ESMTPSA id b5sm1167248lfv.3.2021.07.05.12.40.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Jul 2021 12:40:36 -0700 (PDT)
-From: Peter Ujfalusi <peter.ujfalusi@gmail.com>
-To: broonie@kernel.org,
-	tony@atomide.com
-Subject: [PATCH v2 5/5] ARM: dts: omap4-l4-abe: Add McASP configuration
-Date: Mon,  5 Jul 2021 22:42:49 +0300
-Message-Id: <20210705194249.2385-6-peter.ujfalusi@gmail.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210705194249.2385-1-peter.ujfalusi@gmail.com>
-References: <20210705194249.2385-1-peter.ujfalusi@gmail.com>
+ dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
+ header.b="XfAEvdBs"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GtZS5AEMfKgAIYzgWlRWpRa5lEQFh3hl+NPMuUefF/hQ0ga4tZUVHE7lNdrt5IckaCJZSGeAsdWHA9UW8MbX/meYxbWZgDE9QyX3fa4QOBxNRSBF8NFO8jruLMOLK1oFNB7uWlxLNk4J67eJYlA6uqxVuBtYNBPUttqhPi5d5gnkiAqCtZaDRk52Nfarp+t3ebKC+t3aoOwA0YJirPvwN6phasSkq8yQLgd6FFk10Xuh343W4z70XK79wjJLQMGmnJBTf/KYXwck/NLbDuJltelnSF/gJ0Lkl/OmqLX0vlXh9DAbhpdX5xUzy9TJusngzVHSZS1o8agfkjqQLZNsgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MKduQjJcdUdFpE7I9fTBsmmZbT+xvuRyEbxbulpGycI=;
+ b=LYMdi4KfxHYHbX3i6iRPxPYZWM3YqkOrL0QD/zb7JqgiVLYBwmua66um0N1bSg//CEi9Udc7dGCJWBL42wAlTj2R1vUzwnTlLPqUE6f3PC4PeXhPe54/9RWWpj1b3M7LhbiLu0Nyk1BcTowB1j3rkYYXIskrwBF9lDYAlrZdptCfHiOhw2uZkAQBHNn4hCMDFN01Kn7U/+ATF60iQoyVFqv2CjeJ0lfeTr0GIf1IOH+SQPU3UE21T9mmnCu2/dVfP7p3KbLc08nxYASw2Yzi+19gR4P23mzgFkcG1Sqn6QzmpmYtOluHpBldP5U932GotNFA3PfpFnkbpe+OdWL2JA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MKduQjJcdUdFpE7I9fTBsmmZbT+xvuRyEbxbulpGycI=;
+ b=XfAEvdBsCjZ+AoQ0+qKeS0hVnF7B4m6dMljzfKZtpdrbQ/WzpmguBw62m/RI9ipwDv/j03AOEt6PUKtBgsuqAYddhmxoHzwNLvc82v6i4BUveyPZYLwQR++/Ly2b0VEY86su8OzebrEiXzetSnzDDCj31iav5Qc3pqBGoVYos2Y=
+Authentication-Results: vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
+Received: from MWHPR1201MB2557.namprd12.prod.outlook.com
+ (2603:10b6:300:e4::23) by MWHPR12MB1471.namprd12.prod.outlook.com
+ (2603:10b6:301:e::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.32; Mon, 5 Jul
+ 2021 19:53:23 +0000
+Received: from MWHPR1201MB2557.namprd12.prod.outlook.com
+ ([fe80::d0a9:a5f1:ca5a:b439]) by MWHPR1201MB2557.namprd12.prod.outlook.com
+ ([fe80::d0a9:a5f1:ca5a:b439%11]) with mapi id 15.20.4287.033; Mon, 5 Jul 2021
+ 19:53:23 +0000
+Subject: Re: [PATCH] ASoC: add dai_reoder flag to reverse the stop sequence
+To: Mark Brown <broonie@kernel.org>
+References: <20210705155830.24693-1-vijendar.mukunda@amd.com>
+ <20210705174241.GF4574@sirena.org.uk>
+ <7f1ad1b3-b509-24cf-00d8-f82766aae0d6@amd.com>
+ <20210705192952.GI4574@sirena.org.uk>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+Message-ID: <48b0a8e6-ca29-3f77-2689-ad7515f8743b@amd.com>
+Date: Tue, 6 Jul 2021 01:40:59 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+In-Reply-To: <20210705192952.GI4574@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [165.204.159.242]
+X-ClientProxiedBy: SGXP274CA0009.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b8::21)
+ To MWHPR1201MB2557.namprd12.prod.outlook.com
+ (2603:10b6:300:e4::23)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: hns@goldelico.com, alsa-devel@alsa-project.org, linux-omap@vger.kernel.org,
- lgirdwood@gmail.com
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [10.252.93.39] (165.204.159.242) by
+ SGXP274CA0009.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b8::21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4287.22 via Frontend Transport; Mon, 5 Jul 2021 19:53:18 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 79144543-2b14-4914-e43c-08d93fee8bd7
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1471:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MWHPR12MB14719C61D5C61AF7F14EE14C971C9@MWHPR12MB1471.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Z+6N6NffwmYj/DMdl6WCDehi8UQN0ESySDrd7Ob/oqcUjGI7YVLvwCTmLBRNfNkcXCufIpAxQbO4L1lQlIJQbgrSP1xOb8F7ZkGyOFfeZ/ih6XU1IhEU0wBe7xjXTOumqn45depHbm5CtbIiO26x04WpmZpFqNEzzc/oOIAntxO/07A0Fof34pWsmZTLZIaQQo1SY6JNBmDEbB/nRLSs7LPPLLl4Yn+NlTFanyPyrEsLKIl215SGQ/yr4Zs2S4Dv0NXMKd6tkNhsgNB5J6H/laEXOiW6N/XWVwy2b2A6O++WqVNqFKEPQJckznRXXP4034C1ONvDJKCVHx4MinDNXAu1xYo2jF1oLx4/szfoeioNsdcX811RoyIuMpbmmluAzZI00L/XR3Guhkfzm+NhRPtN0Gx+3jneOMYkmQu0HO6F3Ut/CN8kLaGo0wZVyFx1kjFEvTtk4vlDVDMJn8kRvZdbtfNOoYYJSK+KFUqzHuDPZ3PehkKbbdVqpDeMz8BEEav/78fm0SGLTCo64H6zRqRYfc0j3ucGpwaaA3pJ7k+1BfZSHbnNdriplaRDbMnHCHFHtxn8wd1vYEe6GFy1iyrGgalzg3i4xx1bPPWldI1CeuUJZ4isG/JUr0NHC2NpgTuPRWhmylbRe+3GsspM3KzFnXHDAtwvhJ6OdEJT7dAXu+Q6dF3TzPufICJLPiZHptlVGCEgXtYasKt5tzfNgHbwBUj9a4CbktEyi4vNiY8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1201MB2557.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(396003)(346002)(136003)(376002)(366004)(16576012)(66556008)(31696002)(54906003)(316002)(2906002)(66476007)(66946007)(478600001)(6486002)(53546011)(83380400001)(7416002)(4326008)(16526019)(956004)(6666004)(8676002)(186003)(26005)(6916009)(38100700002)(5660300002)(86362001)(36756003)(2616005)(31686004)(8936002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?Windows-1252?Q?f5TPbkmTBJ9AQL+CAxDMJSyHpaBjxVr12GlgoGo7+7P/cYGuoNfsHagq?=
+ =?Windows-1252?Q?vXNxC8iKC00MOkILLM5DL5PaPtLj8bKh18CybJHsol1FFuR3BKZ4slVw?=
+ =?Windows-1252?Q?VGTJgcDnPHFILoiD7K7fJpYXIf99y/81q/V5ZR668yf6eqE831wPnaKO?=
+ =?Windows-1252?Q?wsGTTQPNp1n2gK/UB9ekxU8eojpZgUAGDfi3WwrtQ9A0hv2xiI3TV3xd?=
+ =?Windows-1252?Q?elYsuPZZECT7FpBlTwJKU695L8PhkWdVrsAsHhWzUO2mQ/Xz7Y2DBPhn?=
+ =?Windows-1252?Q?skmIWbyQS0PpIZ6RYIQYhMlssrHW3yv+2dsDIRIaFLdbc8h2WOs+/hqo?=
+ =?Windows-1252?Q?eJ0DA7ydRFMupEFxEqch6vpFKYaR3GPHcs5Ni49QGtj8OZLXZouUQk9Z?=
+ =?Windows-1252?Q?psBqdLrLvdJKhyomB+FQs7wAaajRJ4kGJXYvMq6Xdwl0jELnizJhQmhE?=
+ =?Windows-1252?Q?XMA2vvKQsGZ+lRTAK11s/X3hCMCJyXoGkU2mjta5C9817izQPPqCINiS?=
+ =?Windows-1252?Q?Bq31pkY/jYBGjxHM56CTm//cWN4XK6DYA3FmA3qQCVm4ymlZK60D6clH?=
+ =?Windows-1252?Q?mdUgTLRnGHtq93+SJKIverwLZjNEywEO8siyNwl/og+RzNAveSCWeUCY?=
+ =?Windows-1252?Q?UCgJgqMtIpQd7a9ePK+kaKf+ePTDLhTCXb9JG9sdDwdrPoVD4OhcpVYh?=
+ =?Windows-1252?Q?2NwSurUO56oDtBnP5cFWVVKy6w/cwLvM+3V+UtVIXcvBYPU3E09Adb4y?=
+ =?Windows-1252?Q?MZHMbqznDD8yACq1X0urivTNAf4Ss7jbv1XLvoXJuNGY+61+oL/CWlET?=
+ =?Windows-1252?Q?2nTpd1KucTPbRb0Mk1eQMmiCx1N8y5Gpt9ANTGsDFYdFSCyG+Z4DULik?=
+ =?Windows-1252?Q?knLTpFaS3diUdPWCYugFzaLr8j9YDD3ysq3mQ5zGV0ebrQOpSbqrwrcG?=
+ =?Windows-1252?Q?++cDl4EX3dXWCZmg0e+DBxxVfWZFsfn9ayTPMtniOg5I5+4Hv/LtonML?=
+ =?Windows-1252?Q?dX08dDHj9648fPJlLzeq4k9WFrCklm9gHVDZ/vglitjg7m9/zCIh812V?=
+ =?Windows-1252?Q?zyNExGQSmDR9DCYK52WpFaXK3mKlPVyg56W/+zBLedbQFUINve8lRwxI?=
+ =?Windows-1252?Q?7zrqJ+d3rhtECx0KjeNthOTPVcZTk/j1+D/pu8YcbTzUx3wxCMm/TpjK?=
+ =?Windows-1252?Q?H04dBvfCjSAi4Ua93rzQs4rm4YwEEUtbwjSyr9TpVEk5nEOmpHNChS81?=
+ =?Windows-1252?Q?cLVeesyFGXQYXTT8VnCIX1numzokICgNqJNvz1KVeFTTymmjX3Y3m+YT?=
+ =?Windows-1252?Q?ANo3IACNCiDd3+c/Aub1PjZgt503Dz8vXdK0sYeNoyH9u24uMUeesgpY?=
+ =?Windows-1252?Q?kDyGVPa0V8K8jZOU1/zwhwZiiX8LiohQZ2tiHGHOqKRdWSw2V26nPQSX?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79144543-2b14-4914-e43c-08d93fee8bd7
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB2557.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2021 19:53:23.3897 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EozLjmMmDXXWiMe/zcGLLDiMS3m3WM0HnoR+bhoVwXmDybGQ6XTytcCGOjE9YNOke/qFtkI2CosJXvOCXDZ1JQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1471
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com, amistry@google.com,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
+ Takashi Iwai <tiwai@suse.com>, Chuhong Yuan <hslester96@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, peter.ujfalusi@ti.com,
+ Alexander.Deucher@amd.com, nartemiev@google.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,83 +161,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-OMAP4 has a single McASP instance with single serializer and locked for DIT
-mode.
-To be able to enable the support the following fixes needed:
-- Add the DAT port ranges to the target module's ranges
-- SIDLE mode must be disabled as it is not working with McASP
- most likely module integration issue with McASP
+On 7/6/21 12:59 AM, Mark Brown wrote:
+> On Tue, Jul 06, 2021 at 12:30:10AM +0530, Mukunda,Vijendar wrote:
+> 
+>> As per our understanding by going with card wide option is easier rather
+>> than checking dai link name for re-ordering the stop sequence for
+>> specific platforms.
+>> We will rename the flag as "stop_dma_fist" and will post the new version.
+> 
+> Why would we need to check the name for the link?  Presumably all
+> affected AMD cards would just unconditionally set the flag, and other
+> systems could do what they like?
+> 
 
-We can already fill in the op-mode and serial-dir  for McASP as it only
-supports this configuration, but keep the module disabled as there is no
-known device available where it is used.
+This issue is only observed with older ACP2.x AMD platforms.
+To make AMD specific platform change(which uses ACP 2.x IP), As per our
+understanding we should only update the flag in ACP DMA driver by adding
+flag in snd_pcm_substream structure rather than adding flag in card
+structure.
+Please suggest us, if there is any better place holder to add
+"stop_dma_first" flag.
 
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
----
- arch/arm/boot/dts/omap4-l4-abe.dtsi | 38 +++++++++++++++--------------
- 1 file changed, 20 insertions(+), 18 deletions(-)
+Due to some problem with mail client, i have received mail response
+late. I have posted v2 version already.
 
-diff --git a/arch/arm/boot/dts/omap4-l4-abe.dtsi b/arch/arm/boot/dts/omap4-l4-abe.dtsi
-index 8287fdaa526e..a8d66240d17d 100644
---- a/arch/arm/boot/dts/omap4-l4-abe.dtsi
-+++ b/arch/arm/boot/dts/omap4-l4-abe.dtsi
-@@ -186,36 +186,38 @@ mcbsp3: mcbsp@0 {
- 		};
- 
- 		target-module@28000 {			/* 0x40128000, ap 8 08.0 */
-+							/* 0x4012a000, ap 10 0a.0 */
- 			compatible = "ti,sysc-mcasp", "ti,sysc";
- 			reg = <0x28000 0x4>,
- 			      <0x28004 0x4>;
- 			reg-names = "rev", "sysc";
- 			ti,sysc-sidle = <SYSC_IDLE_FORCE>,
--					<SYSC_IDLE_NO>,
--					<SYSC_IDLE_SMART>;
-+					<SYSC_IDLE_NO>;
- 			/* Domains (V, P, C): iva, abe_pwrdm, abe_clkdm */
- 			clocks = <&abe_clkctrl OMAP4_MCASP_CLKCTRL 0>;
- 			clock-names = "fck";
- 			#address-cells = <1>;
- 			#size-cells = <1>;
- 			ranges = <0x0 0x28000 0x1000>,
--				 <0x49028000 0x49028000 0x1000>;
--
--			/*
--			 * Child device unsupported by davinci-mcasp. At least
--			 * RX path is disabled for omap4, and only DIT mode
--			 * works with no I2S. See also old Android kernel
--			 * omap-mcasp driver for more information.
--			 */
--		};
--
--		target-module@2a000 {			/* 0x4012a000, ap 10 0a.0 */
--			compatible = "ti,sysc";
--			status = "disabled";
--			#address-cells = <1>;
--			#size-cells = <1>;
--			ranges = <0x0 0x2a000 0x1000>,
-+				 <0x49028000 0x49028000 0x1000>,
-+				 <0x2000 0x2a000 0x1000>,
- 				 <0x4902a000 0x4902a000 0x1000>;
-+
-+			mcasp0: mcasp@0 {
-+				compatible = "ti,omap4-mcasp-audio";
-+				reg = <0x0 0x2000>,
-+				      <0x4902a000 0x1000>;	/* L3 data port */
-+				reg-names = "mpu","dat";
-+				interrupts = <GIC_SPI 109 IRQ_TYPE_LEVEL_HIGH>;
-+				interrupt-names = "tx";
-+				dmas = <&sdma 8>;
-+				dma-names = "tx";
-+				clocks = <&abe_clkctrl OMAP4_MCASP_CLKCTRL 0>;
-+				clock-names = "fck";
-+				op-mode = <1>;	/* MCASP_DIT_MODE */
-+				serial-dir = < 1 >; /* 1 TX serializers */
-+				status = "disabled";
-+			};
- 		};
- 
- 		target-module@2e000 {			/* 0x4012e000, ap 12 0c.0 */
--- 
-2.32.0
+Based on your suggestion, We will make the changes and post the new version.
 

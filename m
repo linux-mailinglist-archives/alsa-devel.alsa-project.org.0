@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BD743BC24F
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jul 2021 19:31:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F15BC3BC250
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jul 2021 19:31:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CBC5E16AC;
-	Mon,  5 Jul 2021 19:30:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBC5E16AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5660816C0;
+	Mon,  5 Jul 2021 19:30:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5660816C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625506284;
-	bh=pPwb3IzH9Ip0weRQQqrNvwLwq5G6Bcjpk+NPhawOAms=;
+	s=default; t=1625506300;
+	bh=htRmKOeqSTizjZzLrSy/QsGYHX3TppdW7E6wTkdd4ZI=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HIZUzlF/3JIabpkdDIqKItKYNFyDUvZ78STVjuqmGpgxfMQH1Wtg71vDHb4rV9TvC
-	 mfWu1FsX4L6gJfZNtBW/yUnS5eF19T3hQG3iul+AAdNTNevKR7zTbq3GUvuiy5tHOJ
-	 EfhUu9+/cITA0SjQ5YJ5CMLLD4ekewySRtyXj6p8=
+	b=Toe+5E7XWeA5IMrQi15DNI/ahzOlcQJswnyTJkwtFc0KTjPgDraueRKBgDwONuUPG
+	 iI2WI8AN6hox/2cfzTHaMCZD2AF/OgTC+4Oaf0R2zfrXiZF8zOH9TEmgQtW4g5lITL
+	 N9+qdPklhtkj9pfo6hRAYmRdd3fe02iqOU7A2k0k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D5B0F80124;
-	Mon,  5 Jul 2021 19:29:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4CEA8F802E3;
+	Mon,  5 Jul 2021 19:30:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B5EEF8025C; Mon,  5 Jul 2021 19:29:36 +0200 (CEST)
+ id B834EF8025C; Mon,  5 Jul 2021 19:30:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,53 +34,50 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DF9AAF8014E
- for <alsa-devel@alsa-project.org>; Mon,  5 Jul 2021 19:29:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF9AAF8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8B28F8025C
+ for <alsa-devel@alsa-project.org>; Mon,  5 Jul 2021 19:30:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8B28F8025C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="VXjFt+Ex"; 
+ header.b="WyOzr/W2"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="kDq45oWJ"
+ header.b="bPXTrn7f"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 7B199225F7;
- Mon,  5 Jul 2021 17:29:11 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 7562A2268B;
+ Mon,  5 Jul 2021 17:30:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625506151; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1625506221; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=W3JNq4SrOtSU84VshsshxZWLXjvM/x3uoEnEOE1n5ys=;
- b=VXjFt+ExtVLo+8o10UvNkfkYaEDXYMwn5KjTpgYZJzCZkwlJmWEUjVOjoUiRSEAvT/l12e
- 0XcLs1UHVoOU6B4tWX7K57AjPCbfs5MSYohUoZTlywB4kaeRaXOsc6DtI/a5ly5l0sOzBB
- vwVobeXCfiLUcp50HIgcTLEFugD9HHk=
+ bh=16gShvgDTVY/pfDOaccRaKPlNMV99e8RU/hl5EyeqP0=;
+ b=WyOzr/W2ZH7KZjnzXo/II8E72mkM/SmS1cHMUEdfVxPQZkboqZlLvhN7uztGpXLcBWLQxi
+ iNZ6ZCUU9yv9VAkdE/lQ76klt4TpY47ICDXzpSb570oQx0RM9gfpL7oODgUay+KtaGdc9K
+ MZ8n0UJPPxpH8fp+VjmON8vMR5r83HI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625506151;
+ s=susede2_ed25519; t=1625506221;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=W3JNq4SrOtSU84VshsshxZWLXjvM/x3uoEnEOE1n5ys=;
- b=kDq45oWJ++E1Pdg+dCP7bJTOsxaUxkFNZGlYmwMtAboB/oP2T+NgggNyuNhjOllIDDtqzi
- EwBBYNybv2sFzFBw==
+ bh=16gShvgDTVY/pfDOaccRaKPlNMV99e8RU/hl5EyeqP0=;
+ b=bPXTrn7fJZpjuzUYWVZmQSEZ5WK0t1A/gtM+gV/fAcCZL6KdX6KcKGJpWcASGGALs4HPHY
+ qwvFheweGwKXDMBA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 61887A3B8E;
- Mon,  5 Jul 2021 17:29:11 +0000 (UTC)
-Date: Mon, 05 Jul 2021 19:29:11 +0200
-Message-ID: <s5h35ssacuw.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 07C93A3B8C;
+ Mon,  5 Jul 2021 17:30:21 +0000 (UTC)
+Date: Mon, 05 Jul 2021 19:30:21 +0200
+Message-ID: <s5h1r8cacsy.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Frank =?UTF-8?B?U2Now6RmZXI=?= <fschaefer.oss@googlemail.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: fix mute led of the HP Pavilion
- 15-eh1xxx series
-In-Reply-To: <20210703135416.13151-1-fschaefer.oss@googlemail.com>
-References: <20210703135416.13151-1-fschaefer.oss@googlemail.com>
+To: gushengxian <gushengxian507419@gmail.com>
+Subject: Re: [PATCH] sound: x86: fix spelling mistakes
+In-Reply-To: <20210705073736.662875-1-gushengxian507419@gmail.com>
+References: <20210705073736.662875-1-gushengxian507419@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, alsa-devel@vger.kernel.org
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
+ gushengxian <gushengxian@yulong.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,17 +93,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 03 Jul 2021 15:54:16 +0200,
-Frank Schäfer wrote:
+On Mon, 05 Jul 2021 09:37:36 +0200,
+gushengxian wrote:
 > 
-> The HP Pavilion 15-eh1xxx series uses the HP mainboard 88D0 with ALC287 and needs
-> the ALC287_FIXUP_HP_GPIO_LED quirk to make the mute led working.
-> Tested with a HP Pavilion 15-eh1557ng.
+> From: gushengxian <gushengxian@yulong.com>
 > 
-> Signed-off-by: Frank Schäfer <fschaefer.oss@googlemail.com>
-> Cc: <stable@vger.kernel.org>
+> Fix some spelling mistakes as follows:
+> regiter ==> register
+> confgiuration ==> configuration
+> playabck ==> playback
+> platoform ==> platform
+> 
+> Signed-off-by: gushengxian <gushengxian@yulong.com>
 
-Thanks, applied.
+Applied, thanks.
 
 
 Takashi

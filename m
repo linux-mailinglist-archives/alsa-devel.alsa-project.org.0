@@ -2,108 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB4713BAEB9
-	for <lists+alsa-devel@lfdr.de>; Sun,  4 Jul 2021 22:12:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E10B73BB76F
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jul 2021 09:03:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 30FCA16AC;
-	Sun,  4 Jul 2021 22:11:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30FCA16AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 579F016A6;
+	Mon,  5 Jul 2021 09:02:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 579F016A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625429556;
-	bh=LSUTx+5QlCKzMxkDDvJh2a6aLg7N3xt17dQKAevHu7I=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1625468607;
+	bh=Ffu2+2e8K8rLiLzSe6GK67Bnstv0QBadhkV+Dm8eln4=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Yj3aLTIPdynKEJBvXSfHZdtBLOlhQW+1x9jmfIwCi+wmu+QWTkS0MhqNl0MdBHiv3
-	 hr8syo/Y1TYsOkGMXGN4PUqfbLj+arkx2wAgkYIpDbRqwF5G1NjOVjUUqxGrpwjr7e
-	 7B1i+46eqRtV+nR2OMRLHc5EctlSPRW6JylCj9HA=
+	b=jMJVXDLZgRni5l1jPf9mH7ZMnpvPXbiGIGpx7oAW021VaCXhAJVxqBnzDTXqMP74r
+	 6euRUmIrx9WXXxnsN5UGHGTH5Egya0zCGff7pETiA8oAUTWR53l/oMCrp+b1Oih6gy
+	 ZNwEvoCxt8SccP+qSlFq+wW+oe2YtVgEgT6GuEDw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9013DF80259;
-	Sun,  4 Jul 2021 22:11:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B770FF80124;
+	Mon,  5 Jul 2021 09:01:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 78E68F80249; Sun,  4 Jul 2021 22:11:06 +0200 (CEST)
+ id 0194EF80224; Mon,  5 Jul 2021 09:01:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_26,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
- [66.111.4.221])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5C188F8014E
- for <alsa-devel@alsa-project.org>; Sun,  4 Jul 2021 22:10:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C188F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 594D4F80124
+ for <alsa-devel@alsa-project.org>; Mon,  5 Jul 2021 09:01:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 594D4F80124
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sholland.org header.i=@sholland.org
- header.b="Mv/HHXFa"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="b76Iwrde"
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailnew.nyi.internal (Postfix) with ESMTP id A6CB8580BC5;
- Sun,  4 Jul 2021 16:10:55 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Sun, 04 Jul 2021 16:10:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
- subject:to:cc:references:from:message-id:date:mime-version
- :in-reply-to:content-type:content-transfer-encoding; s=fm3; bh=M
- mUIwtfv5gjF9zH73t098ED1nPj8ICDYKhMVA2h1iKQ=; b=Mv/HHXFaKyCKHtetQ
- YZiQvC8Bv6DmA5TjFx+dDCHda6m/wLwDf6Boobsa6VNV+ylKHtrl88V3XHv037br
- VyXHiV2x8OoTPMTczGGmXjaGrobjH+QXO5Okou5NL4x1v9Aj0iugMJYTs9IWiUh6
- 7xltQnTHfkAuEBwZN+zTQ5jlna2PtSulXD6vIJ5tgEBqqf+wyJmqcStiIuR2Hb1i
- tXt//KmvV0ycwBiGGXllZCH/jSbVI44OwfC3gtMNNm4IEvHUjmmyzeLmplyhUBt/
- f1bfKkw4FTqS4zR8u1dV+AejOR4K3T08xoggBS2//j3OFgtzWA127cPZRH4Ns7Uy
- ANzhQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm3; bh=MmUIwtfv5gjF9zH73t098ED1nPj8ICDYKhMVA2h1i
- KQ=; b=b76IwrdeNan05z8qPog5/tIntCkTeLVQ7qnWl9uXQlbxJ+a+bB6c+EKLQ
- m9TiuRbgvPbozwv+C4el0zE9htKRPlcjdGfkJfsEriTaqKaYtM6Ms2YwueVfrDS9
- IM9Rhx2I+WNDvi0AueTPztxmN2aLDGyE34mJRdH7B+0i99fg98l4FLeRbIHVDSbQ
- 70z2SMvNkKngizvRoBjozIicbj+CaqCV6GlA78xJzytsJ2Vtsdasc8SaDEBax55m
- +TWrUOOHvPRaEwhZcK9b9D/Usp1CgMbTLl7s3AXYu3IlKKHjTixkavOUSYkvKkAw
- xP67a1cJS5CQwhvz2GQ081JYcGWFQ==
-X-ME-Sender: <xms:zhXiYPUep2wC5bJ61NELe6cHHjS36m59XzLe8Z4RYDrK8R6OdjCWxw>
- <xme:zhXiYHloyrAWZhPIQN6J4DnaLtIFNksQirk70QZa8In3wRlY7ACmBQxHfIQFcrX5I
- chCDPPst5TcgsWWxQ>
-X-ME-Received: <xmr:zhXiYLaJ91QOnxrw_zt_IQ0FMgTTTdWxKx5f4MOUUlQy_1VaFojsRbmz1z5rz7nLXQOV>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeejvddgudegfecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecunecujfgurhepuffvfhfhkffffgggjggtgfesth
- ejredttdefjeenucfhrhhomhepufgrmhhuvghlucfjohhllhgrnhguuceoshgrmhhuvghl
- sehshhholhhlrghnugdrohhrgheqnecuggftrfgrthhtvghrnhepgfevffetleehffejue
- ekvdekvdeitdehveegfeekheeuieeiueetuefgtedtgeegnecuvehluhhsthgvrhfuihii
- vgeptdenucfrrghrrghmpehmrghilhhfrhhomhepshgrmhhuvghlsehshhholhhlrghnug
- drohhrgh
-X-ME-Proxy: <xmx:zhXiYKWSyp_FYB9RmbQBDGFrjEEi2lE-UZw4wGUeX5LWN3r_e37meQ>
- <xmx:zhXiYJlyYIvZWPLSNViNNVbQKuG7bOmllj1faAr1VLZpNZ7LEbnEDg>
- <xmx:zhXiYHfd-NLRmz2mERgVNBDLcNS-79ce64iw___PufiT75qTkBwquQ>
- <xmx:zxXiYM_14FNaIhm5l__Dvt_q2DBhHovJNvgXx9Wvpd-S0CZXR5lIAw>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 4 Jul 2021 16:10:53 -0400 (EDT)
-Subject: Re: [PATCH v5 1/2] ASoC: sunxi: Add Allwinner H6 Digital MIC driver
-To: fengzheng923@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
- perex@perex.cz, tiwai@suse.com, mripard@kernel.org, wens@csie.org,
- jernej.skrabec@gmail.com, p.zabel@pengutronix.de, krzk@kernel.org
-References: <20210704092109.40670-1-fengzheng923@gmail.com>
-From: Samuel Holland <samuel@sholland.org>
-Message-ID: <d50b2b79-3882-5324-073d-873f3521ce38@sholland.org>
-Date: Sun, 4 Jul 2021 15:10:53 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="YyERo1YV"
+X-UUID: aeed8e53218e4b0884b3bc37d1b00645-20210705
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=Ffu2+2e8K8rLiLzSe6GK67Bnstv0QBadhkV+Dm8eln4=; 
+ b=YyERo1YVOiRVqCDHiMNDpz+yfeIz4H7CYEuDkMY9UTZh/12ukRjkA4IPnSNPWtCZXTKrFK9GgaPeot6SLHX+8r9OyVMjUSvhUmTuK2ZZC2ZxhlL84lpHPh6tCvWXMTYBCe9075EYG7jP/+4TOvSm6l0tape4dKFVhF2ndqe0poc=;
+X-UUID: aeed8e53218e4b0884b3bc37d1b00645-20210705
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
+ mailgw01.mediatek.com (envelope-from <trevor.wu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 1151939293; Mon, 05 Jul 2021 15:01:40 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs01n2.mediatek.inc (172.21.101.79) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Mon, 5 Jul 2021 15:01:27 +0800
+Received: from mtksdccf07 (172.21.84.99) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Mon, 5 Jul 2021 15:01:26 +0800
+Message-ID: <52d6aada4b48cc3b72bc5beb1bb5ca6acf5e91aa.camel@mediatek.com>
+Subject: Re: [PATCH v2 6/8] dt-bindings: mediatek: mt8195: add audio afe
+ document
+From: Trevor Wu <trevor.wu@mediatek.com>
+To: Rob Herring <robh@kernel.org>
+Date: Mon, 5 Jul 2021 15:01:26 +0800
+In-Reply-To: <20210701201846.GA2783836@robh.at.kernel.org>
+References: <20210629014736.31153-1-trevor.wu@mediatek.com>
+ <20210629014736.31153-7-trevor.wu@mediatek.com>
+ <20210701201846.GA2783836@robh.at.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-In-Reply-To: <20210704092109.40670-1-fengzheng923@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+X-MTK: N
+Content-Transfer-Encoding: base64
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ cychiang@google.com, bicycle.tsai@mediatek.com, tiwai@suse.com,
+ jiaxin.yu@mediatek.com, linux-kernel@vger.kernel.org, broonie@kernel.org,
+ linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com, aaronyu@google.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,516 +92,119 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
-
-On 7/4/21 4:21 AM, fengzheng923@gmail.com wrote:
-> From: Ban Tao <fengzheng923@gmail.com>
-> 
-> The Allwinner H6 and later SoCs have an DMIC block
-> which is capable of capture.
-> 
-> Signed-off-by: Ban Tao <fengzheng923@gmail.com>
-> 
-> ---
-> v1->v2:
-> 1.Fix some compilation errors.
-> 2.Modify some code styles.
-> ---
-> v2->v3:
-> None.
-> ---
-> v3->v4:
-> 1.add sig_bits.
-> ---
-> v4->v5:
-> None.
-> ---
-
-Thanks for the updates! The driver is looking good. I found a couple more small
-things (below) when reading through it again.
-
->  MAINTAINERS                   |   7 +
->  sound/soc/sunxi/Kconfig       |   8 +
->  sound/soc/sunxi/Makefile      |   1 +
->  sound/soc/sunxi/sun50i-dmic.c | 405 ++++++++++++++++++++++++++++++++++
->  4 files changed, 421 insertions(+)
->  create mode 100644 sound/soc/sunxi/sun50i-dmic.c
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index e924f9e5df97..8d700baaa3ca 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -760,6 +760,13 @@ L:	linux-media@vger.kernel.org
->  S:	Maintained
->  F:	drivers/staging/media/sunxi/cedrus/
->  
-> +ALLWINNER DMIC DRIVERS
-> +M:	Ban Tao <fengzheng923@gmail.com>
-> +L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/sound/allwinner,sun50i-h6-dmic.yaml
-> +F:	sound/soc/sunxi/sun50i-dmic.c
-> +
->  ALPHA PORT
->  M:	Richard Henderson <rth@twiddle.net>
->  M:	Ivan Kokshaysky <ink@jurassic.park.msu.ru>
-> diff --git a/sound/soc/sunxi/Kconfig b/sound/soc/sunxi/Kconfig
-> index ddcaaa98d3cb..2a3bf7722e11 100644
-> --- a/sound/soc/sunxi/Kconfig
-> +++ b/sound/soc/sunxi/Kconfig
-> @@ -56,6 +56,14 @@ config SND_SUN4I_SPDIF
->  	  Say Y or M to add support for the S/PDIF audio block in the Allwinner
->  	  A10 and affiliated SoCs.
->  
-> +config SND_SUN50I_DMIC
-> +	tristate "Allwinner H6 DMIC Support"
-> +	depends on (OF && ARCH_SUNXI) || COMPILE_TEST
-> +	select SND_SOC_GENERIC_DMAENGINE_PCM
-> +	help
-> +	  Say Y or M to add support for the DMIC audio block in the Allwinner
-> +	  H6 and affiliated SoCs.
-> +
->  config SND_SUN8I_ADDA_PR_REGMAP
->  	tristate
->  	select REGMAP
-> diff --git a/sound/soc/sunxi/Makefile b/sound/soc/sunxi/Makefile
-> index a86be340a076..4483fe9c94ef 100644
-> --- a/sound/soc/sunxi/Makefile
-> +++ b/sound/soc/sunxi/Makefile
-> @@ -6,3 +6,4 @@ obj-$(CONFIG_SND_SUN8I_CODEC_ANALOG) += sun8i-codec-analog.o
->  obj-$(CONFIG_SND_SUN50I_CODEC_ANALOG) += sun50i-codec-analog.o
->  obj-$(CONFIG_SND_SUN8I_CODEC) += sun8i-codec.o
->  obj-$(CONFIG_SND_SUN8I_ADDA_PR_REGMAP) += sun8i-adda-pr-regmap.o
-> +obj-$(CONFIG_SND_SUN50I_DMIC) += sun50i-dmic.o
-> diff --git a/sound/soc/sunxi/sun50i-dmic.c b/sound/soc/sunxi/sun50i-dmic.c
-> new file mode 100644
-> index 000000000000..720d15e4b8ba
-> --- /dev/null
-> +++ b/sound/soc/sunxi/sun50i-dmic.c
-> @@ -0,0 +1,405 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +//
-> +// This driver supports the DMIC in Allwinner's H6 SoCs.
-> +//
-> +// Copyright 2021 Ban Tao <fengzheng923@gmail.com>
-> +
-> +#include <linux/clk.h>
-> +#include <linux/device.h>
-> +#include <linux/of_device.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/reset.h>
-> +#include <sound/dmaengine_pcm.h>
-> +#include <sound/pcm_params.h>
-> +#include <sound/soc.h>
-> +
-> +#define SUN50I_DMIC_EN_CTL		(0x00)
-> +	#define SUN50I_DMIC_EN_CTL_GLOBE			BIT(8)
-> +	#define SUN50I_DMIC_EN_CTL_CHAN(v)		((v) << 0)
-> +	#define SUN50I_DMIC_EN_CTL_CHAN_MASK		GENMASK(7, 0)
-> +#define SUN50I_DMIC_SR			(0x04)
-> +	#define SUN50I_DMIC_SR_SAMOLE_RATE(v)		((v) << 0)
-> +	#define SUN50I_DMIC_SR_SAMOLE_RATE_MASK		GENMASK(2, 0)
-
-Typo: SAMPLE
-
-> +#define SUN50I_DMIC_CTL			(0x08)
-> +	#define SUN50I_DMIC_CTL_OVERSAMPLE_RATE		BIT(0)
-> +#define SUN50I_DMIC_DATA			(0x10)
-> +#define SUN50I_DMIC_INTC			(0x14)
-> +	#define SUN50I_DMIC_FIFO_DRQ_EN			BIT(2)
-> +#define SUN50I_DMIC_INT_STA		(0x18)
-> +	#define SUN50I_DMIC_INT_STA_OVERRUN_IRQ_PENDING	BIT(1)
-> +	#define SUN50I_DMIC_INT_STA_DATA_IRQ_PENDING	BIT(0)
-> +#define SUN50I_DMIC_RXFIFO_CTL		(0x1c)
-> +	#define SUN50I_DMIC_RXFIFO_CTL_FLUSH		BIT(31)
-> +	#define SUN50I_DMIC_RXFIFO_CTL_MODE		BIT(9)
-> +	#define SUN50I_DMIC_RXFIFO_CTL_RESOLUTION	BIT(8)
-> +#define SUN50I_DMIC_CH_NUM		(0x24)
-> +	#define SUN50I_DMIC_CH_NUM_N(v)			((v) << 0)
-> +	#define SUN50I_DMIC_CH_NUM_N_MASK		GENMASK(2, 0)
-> +#define SUN50I_DMIC_CNT			(0x2c)
-> +	#define SUN50I_DMIC_CNT_N			BIT(0)
-> +#define SUN50I_DMIC_HPF_CTRL		(0x38)
-> +#define SUN50I_DMIC_VERSION		(0x50)
-> +
-> +
-> +struct sun50i_dmic_dev {
-> +	struct clk *dmic_clk;
-> +	struct clk *bus_clk;
-> +	struct reset_control *rst;
-> +	struct regmap *regmap;
-> +	struct snd_dmaengine_dai_dma_data dma_params_rx;
-> +	unsigned int chan_en;
-> +};
-> +
-> +struct dmic_rate {
-> +	unsigned int samplerate;
-> +	unsigned int rate_bit;
-> +};
-> +
-> +static int sun50i_dmic_startup(struct snd_pcm_substream *substream,
-> +			       struct snd_soc_dai *cpu_dai)
-> +{
-> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-> +	struct sun50i_dmic_dev *host = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
-> +
-> +	/* only support capture */
-> +	if (substream->stream != SNDRV_PCM_STREAM_CAPTURE)
-> +		return -EINVAL;
-> +
-> +	regmap_update_bits(host->regmap, SUN50I_DMIC_RXFIFO_CTL,
-> +			   SUN50I_DMIC_RXFIFO_CTL_FLUSH,
-> +			   SUN50I_DMIC_RXFIFO_CTL_FLUSH);
-> +	regmap_write(host->regmap, SUN50I_DMIC_CNT, SUN50I_DMIC_CNT_N);
-> +
-> +	return 0;
-> +}
-> +
-> +static int sun50i_dmic_hw_params(struct snd_pcm_substream *substream,
-> +				 struct snd_pcm_hw_params *params,
-> +				 struct snd_soc_dai *cpu_dai)
-> +{
-> +	int i = 0;
-> +	unsigned long rate = params_rate(params);
-> +	unsigned int mclk = 0;
-> +	unsigned int channels = params_channels(params);
-> +	struct sun50i_dmic_dev *host = snd_soc_dai_get_drvdata(cpu_dai);
-> +	struct dmic_rate dmic_rate_s[] = {
-
-This needs to be static, or it will get initialized every time the function is
-called.
-
-> +		{44100, 0x0},
-> +		{48000, 0x0},
-> +		{22050, 0x2},
-> +		{24000, 0x2},
-> +		{11025, 0x4},
-> +		{12000, 0x4},
-> +		{32000, 0x1},
-> +		{16000, 0x3},
-> +		{8000,  0x5},
-> +	};
-> +
-> +	/* DMIC num is N+1 */
-> +	regmap_update_bits(host->regmap, SUN50I_DMIC_CH_NUM,
-> +			   SUN50I_DMIC_CH_NUM_N_MASK,
-> +			   SUN50I_DMIC_CH_NUM_N(channels - 1));
-> +	host->chan_en = (1 << channels) - 1;
-> +	regmap_write(host->regmap, SUN50I_DMIC_HPF_CTRL, host->chan_en);
-> +
-> +	switch (params_format(params)) {
-> +	case SNDRV_PCM_FORMAT_S16_LE:
-> +		regmap_update_bits(host->regmap, SUN50I_DMIC_RXFIFO_CTL,
-> +				   SUN50I_DMIC_RXFIFO_CTL_MODE,
-> +				   SUN50I_DMIC_RXFIFO_CTL_MODE);
-> +		regmap_update_bits(host->regmap, SUN50I_DMIC_RXFIFO_CTL,
-> +				   SUN50I_DMIC_RXFIFO_CTL_RESOLUTION, 0);
-> +		break;
-> +	case SNDRV_PCM_FORMAT_S24_LE:
-> +		regmap_update_bits(host->regmap, SUN50I_DMIC_RXFIFO_CTL,
-> +				   SUN50I_DMIC_RXFIFO_CTL_MODE, 0);
-
-I still believe this should be mode 1, but I don't have any hardware to test
-with and know for sure.
-
-Have you tested this driver with S24_LE? Even if it doesn't quite make sense to
-me, I am fine with the current code as long as it works.
-
-With these resolved, I am happy to give my Reviewed-by.
-
-Cheers,
-Samuel
-
-> +		regmap_update_bits(host->regmap, SUN50I_DMIC_RXFIFO_CTL,
-> +				   SUN50I_DMIC_RXFIFO_CTL_RESOLUTION,
-> +				   SUN50I_DMIC_RXFIFO_CTL_RESOLUTION);
-> +		break;
-> +	default:
-> +		dev_err(cpu_dai->dev, "Invalid format!\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	switch (rate) {
-> +	case 11025:
-> +	case 22050:
-> +	case 44100:
-> +		mclk = 22579200;
-> +		break;
-> +	case 8000:
-> +	case 12000:
-> +	case 16000:
-> +	case 24000:
-> +	case 32000:
-> +	case 48000:
-> +		mclk = 24576000;
-> +		break;
-> +	default:
-> +		dev_err(cpu_dai->dev, "Invalid rate!\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (clk_set_rate(host->dmic_clk, mclk)) {
-> +		dev_err(cpu_dai->dev, "mclk : %u not support\n", mclk);
-> +		return -EINVAL;
-> +	}
-> +
-> +	for (i = 0; i < ARRAY_SIZE(dmic_rate_s); i++) {
-> +		if (dmic_rate_s[i].samplerate == rate) {
-> +			regmap_update_bits(host->regmap, SUN50I_DMIC_SR,
-> +					   SUN50I_DMIC_SR_SAMOLE_RATE_MASK,
-> +					   SUN50I_DMIC_SR_SAMOLE_RATE(dmic_rate_s[i].rate_bit));
-> +			break;
-> +		}
-> +	}
-> +
-> +	switch (params_physical_width(params)) {
-> +	case 16:
-> +		host->dma_params_rx.addr_width = DMA_SLAVE_BUSWIDTH_2_BYTES;
-> +		break;
-> +	case 32:
-> +		host->dma_params_rx.addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
-> +		break;
-> +	default:
-> +		dev_err(cpu_dai->dev, "Unsupported physical sample width: %d\n",
-> +			params_physical_width(params));
-> +		return -EINVAL;
-> +	}
-> +
-> +	/* oversamplerate adjust */
-> +	if (params_rate(params) >= 24000)
-> +		regmap_update_bits(host->regmap, SUN50I_DMIC_CTL,
-> +				   SUN50I_DMIC_CTL_OVERSAMPLE_RATE,
-> +				   SUN50I_DMIC_CTL_OVERSAMPLE_RATE);
-> +	else
-> +		regmap_update_bits(host->regmap, SUN50I_DMIC_CTL,
-> +				   SUN50I_DMIC_CTL_OVERSAMPLE_RATE, 0);
-> +
-> +	return 0;
-> +}
-> +
-> +static int sun50i_dmic_trigger(struct snd_pcm_substream *substream, int cmd,
-> +			       struct snd_soc_dai *dai)
-> +{
-> +	int ret = 0;
-> +	struct sun50i_dmic_dev *host = snd_soc_dai_get_drvdata(dai);
-> +
-> +	if (substream->stream != SNDRV_PCM_STREAM_CAPTURE)
-> +		return -EINVAL;
-> +
-> +	switch (cmd) {
-> +	case SNDRV_PCM_TRIGGER_START:
-> +	case SNDRV_PCM_TRIGGER_RESUME:
-> +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-> +		/* DRQ ENABLE */
-> +		regmap_update_bits(host->regmap, SUN50I_DMIC_INTC,
-> +				   SUN50I_DMIC_FIFO_DRQ_EN,
-> +				   SUN50I_DMIC_FIFO_DRQ_EN);
-> +		regmap_update_bits(host->regmap, SUN50I_DMIC_EN_CTL,
-> +				   SUN50I_DMIC_EN_CTL_CHAN_MASK,
-> +				   SUN50I_DMIC_EN_CTL_CHAN(host->chan_en));
-> +		/* Global enable */
-> +		regmap_update_bits(host->regmap, SUN50I_DMIC_EN_CTL,
-> +				   SUN50I_DMIC_EN_CTL_GLOBE,
-> +				   SUN50I_DMIC_EN_CTL_GLOBE);
-> +		break;
-> +
-> +	case SNDRV_PCM_TRIGGER_STOP:
-> +	case SNDRV_PCM_TRIGGER_SUSPEND:
-> +	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-> +		/* DRQ DISABLE */
-> +		regmap_update_bits(host->regmap, SUN50I_DMIC_INTC,
-> +				   SUN50I_DMIC_FIFO_DRQ_EN, 0);
-> +		regmap_update_bits(host->regmap, SUN50I_DMIC_EN_CTL,
-> +				   SUN50I_DMIC_EN_CTL_CHAN_MASK,
-> +				   SUN50I_DMIC_EN_CTL_CHAN(0));
-> +		/* Global disable */
-> +		regmap_update_bits(host->regmap, SUN50I_DMIC_EN_CTL,
-> +				   SUN50I_DMIC_EN_CTL_GLOBE, 0);
-> +		break;
-> +
-> +	default:
-> +		ret = -EINVAL;
-> +		break;
-> +	}
-> +	return ret;
-> +}
-> +
-> +static int sun50i_dmic_soc_dai_probe(struct snd_soc_dai *dai)
-> +{
-> +	struct sun50i_dmic_dev *host = snd_soc_dai_get_drvdata(dai);
-> +
-> +	snd_soc_dai_init_dma_data(dai, NULL, &host->dma_params_rx);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct snd_soc_dai_ops sun50i_dmic_dai_ops = {
-> +	.startup	= sun50i_dmic_startup,
-> +	.trigger	= sun50i_dmic_trigger,
-> +	.hw_params	= sun50i_dmic_hw_params,
-> +};
-> +
-> +static const struct regmap_config sun50i_dmic_regmap_config = {
-> +	.reg_bits = 32,
-> +	.reg_stride = 4,
-> +	.val_bits = 32,
-> +	.max_register = SUN50I_DMIC_VERSION,
-> +	.cache_type = REGCACHE_NONE,
-> +};
-> +
-> +#define	SUN50I_DMIC_RATES (SNDRV_PCM_RATE_8000_48000)
-> +#define SUN50I_FORMATS	(SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE)
-> +
-> +static struct snd_soc_dai_driver sun50i_dmic_dai = {
-> +	.capture = {
-> +		.channels_min = 1,
-> +		.channels_max = 8,
-> +		.rates = SUN50I_DMIC_RATES,
-> +		.formats = SUN50I_FORMATS,
-> +		.sig_bits = 21,
-> +	},
-> +	.probe = sun50i_dmic_soc_dai_probe,
-> +	.ops = &sun50i_dmic_dai_ops,
-> +	.name = "dmic",
-> +};
-> +
-> +static const struct of_device_id sun50i_dmic_of_match[] = {
-> +	{
-> +		.compatible = "allwinner,sun50i-h6-dmic",
-> +	},
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(of, sun50i_dmic_of_match);
-> +
-> +static const struct snd_soc_component_driver sun50i_dmic_component = {
-> +	.name		= "sun50i-dmic",
-> +};
-> +
-> +static int sun50i_dmic_runtime_suspend(struct device *dev)
-> +{
-> +	struct sun50i_dmic_dev *host  = dev_get_drvdata(dev);
-> +
-> +	clk_disable_unprepare(host->dmic_clk);
-> +	clk_disable_unprepare(host->bus_clk);
-> +
-> +	return 0;
-> +}
-> +
-> +static int sun50i_dmic_runtime_resume(struct device *dev)
-> +{
-> +	struct sun50i_dmic_dev *host  = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	ret = clk_prepare_enable(host->dmic_clk);
-> +	if (ret)
-> +		return ret;
-> +	ret = clk_prepare_enable(host->bus_clk);
-> +	if (ret)
-> +		clk_disable_unprepare(host->dmic_clk);
-> +
-> +	return ret;
-> +}
-> +
-> +static int sun50i_dmic_probe(struct platform_device *pdev)
-> +{
-> +	struct sun50i_dmic_dev *host;
-> +	struct resource *res;
-> +	int ret;
-> +	void __iomem *base;
-> +
-> +	host = devm_kzalloc(&pdev->dev, sizeof(*host), GFP_KERNEL);
-> +	if (!host)
-> +		return -ENOMEM;
-> +
-> +	/* Get the addresses */
-> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	base = devm_ioremap_resource(&pdev->dev, res);
-> +	if (IS_ERR(base))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(base),
-> +				     "get resource failed.\n");
-> +
-> +	host->regmap = devm_regmap_init_mmio(&pdev->dev, base,
-> +						&sun50i_dmic_regmap_config);
-> +
-> +	/* Clocks */
-> +	host->bus_clk = devm_clk_get(&pdev->dev, "bus");
-> +	if (IS_ERR(host->bus_clk))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(host->bus_clk),
-> +				     "failed to get bus clock.\n");
-> +
-> +	host->dmic_clk = devm_clk_get(&pdev->dev, "mod");
-> +	if (IS_ERR(host->dmic_clk))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(host->dmic_clk),
-> +				     "failed to get dmic clock.\n");
-> +
-> +	host->dma_params_rx.addr = res->start + SUN50I_DMIC_DATA;
-> +	host->dma_params_rx.maxburst = 8;
-> +
-> +	platform_set_drvdata(pdev, host);
-> +
-> +	host->rst = devm_reset_control_get_optional_exclusive(&pdev->dev, NULL);
-> +	if (IS_ERR(host->rst))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(host->rst),
-> +				     "Failed to get reset.\n");
-> +	reset_control_deassert(host->rst);
-> +
-> +	ret = devm_snd_soc_register_component(&pdev->dev,
-> +				&sun50i_dmic_component, &sun50i_dmic_dai, 1);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret,
-> +				     "failed to register component.\n");
-> +
-> +	pm_runtime_enable(&pdev->dev);
-> +	if (!pm_runtime_enabled(&pdev->dev)) {
-> +		ret = sun50i_dmic_runtime_resume(&pdev->dev);
-> +		if (ret)
-> +			goto err_unregister;
-> +	}
-> +
-> +	ret = devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
-> +	if (ret)
-> +		goto err_suspend;
-> +
-> +	return 0;
-> +err_suspend:
-> +	if (!pm_runtime_status_suspended(&pdev->dev))
-> +		sun50i_dmic_runtime_suspend(&pdev->dev);
-> +err_unregister:
-> +	pm_runtime_disable(&pdev->dev);
-> +	return ret;
-> +}
-> +
-> +static int sun50i_dmic_remove(struct platform_device *pdev)
-> +{
-> +	pm_runtime_disable(&pdev->dev);
-> +	if (!pm_runtime_status_suspended(&pdev->dev))
-> +		sun50i_dmic_runtime_suspend(&pdev->dev);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct dev_pm_ops sun50i_dmic_pm = {
-> +	SET_RUNTIME_PM_OPS(sun50i_dmic_runtime_suspend,
-> +			   sun50i_dmic_runtime_resume, NULL)
-> +};
-> +
-> +static struct platform_driver sun50i_dmic_driver = {
-> +	.driver		= {
-> +		.name	= "sun50i-dmic",
-> +		.of_match_table = of_match_ptr(sun50i_dmic_of_match),
-> +		.pm	= &sun50i_dmic_pm,
-> +	},
-> +	.probe		= sun50i_dmic_probe,
-> +	.remove		= sun50i_dmic_remove,
-> +};
-> +
-> +module_platform_driver(sun50i_dmic_driver);
-> +
-> +MODULE_DESCRIPTION("Allwinner sun50i DMIC SoC Interface");
-> +MODULE_AUTHOR("Ban Tao <fengzheng923@gmail.com>");
-> +MODULE_LICENSE("GPL");
-> +MODULE_ALIAS("platform:sun50i-dmic");
-> 
+T24gVGh1LCAyMDIxLTA3LTAxIGF0IDE0OjE4IC0wNjAwLCBSb2IgSGVycmluZyB3cm90ZToNCj4g
+T24gVHVlLCBKdW4gMjksIDIwMjEgYXQgMDk6NDc6MzRBTSArMDgwMCwgVHJldm9yIFd1IHdyb3Rl
+Og0KPiA+IFRoaXMgcGF0Y2ggYWRkcyBtdDgxOTUgYXVkaW8gYWZlIGRvY3VtZW50Lg0KPiA+IA0K
+PiA+IFNpZ25lZC1vZmYtYnk6IFRyZXZvciBXdSA8dHJldm9yLnd1QG1lZGlhdGVrLmNvbT4NCj4g
+PiAtLS0NCj4gPiBUaGlzIHBhdGNoIGRlcGVuZHMgb24gdGhlIGZvbGxvd2luZyBzZXJpZXMgdGhh
+dCBoYXZlIG5vdCBiZWVuDQo+ID4gYWNjZXB0ZWQuDQo+ID4gDQo+ID4gWzFdIE1lZGlhdGVrIE1U
+ODE5NSBjbG9jayBzdXBwb3J0DQo+ID4gDQpodHRwczovL3BhdGNod29yay5rZXJuZWwub3JnL3By
+b2plY3QvbGludXgtbWVkaWF0ZWsvbGlzdC8/c2VyaWVzPTUwMTkyMw0KPiA+IChkdC1iaW5kaW5n
+cy9jbG9jay9tdDgxOTUtY2xrLmggaXMgaW5jbHVkZWQpDQo+ID4gDQo+ID4gWzJdIE1lZGlhdGVr
+IE1UODE5NSBwb3dlciBkb21haW4gc3VwcG9ydA0KPiA+IA0KaHR0cHM6Ly9wYXRjaHdvcmsua2Vy
+bmVsLm9yZy9wcm9qZWN0L2xpbnV4LW1lZGlhdGVrL2xpc3QvP3Nlcmllcz01MDA3MDkNCj4gPiAo
+ZHQtYmluZGluZ3MvcG93ZXIvbXQ4MTk1LXBvd2VyLmggaXMgaW5jbHVkZWQpDQo+ID4gLS0tDQo+
+ID4gIC4uLi9iaW5kaW5ncy9zb3VuZC9tdDgxOTUtYWZlLXBjbS55YW1sICAgICAgICB8IDEzNg0K
+PiA+ICsrKysrKysrKysrKysrKysrKw0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgMTM2IGluc2VydGlv
+bnMoKykNCj4gPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9i
+aW5kaW5ncy9zb3VuZC9tdDgxOTUtDQo+ID4gYWZlLXBjbS55YW1sDQo+ID4gDQo+ID4gZGlmZiAt
+LWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9tdDgxOTUtYWZl
+LQ0KPiA+IHBjbS55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5k
+L210ODE5NS1hZmUtDQo+ID4gcGNtLnlhbWwNCj4gPiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0KPiA+
+IGluZGV4IDAwMDAwMDAwMDAwMC4uYTRmYjVjN2RkMDIyDQo+ID4gLS0tIC9kZXYvbnVsbA0KPiA+
+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9tdDgxOTUtYWZl
+LXBjbS55YW1sDQo+ID4gQEAgLTAsMCArMSwxMzYgQEANCj4gPiArIyBTUERYLUxpY2Vuc2UtSWRl
+bnRpZmllcjogKEdQTC0yLjAtb25seSBPUiBCU0QtMi1DbGF1c2UpDQo+ID4gKyVZQU1MIDEuMg0K
+PiA+ICstLS0NCj4gPiArJGlkOiBodHRwOi8vZGV2aWNldHJlZS5vcmcvc2NoZW1hcy9zb3VuZC9t
+dDgxOTUtYWZlLXBjbS55YW1sIw0KPiA+ICskc2NoZW1hOiBodHRwOi8vZGV2aWNldHJlZS5vcmcv
+bWV0YS1zY2hlbWFzL2NvcmUueWFtbCMNCj4gPiArDQo+ID4gK3RpdGxlOiBNZWRpYXRlayBBRkUg
+UENNIGNvbnRyb2xsZXIgZm9yIG10ODE5NQ0KPiA+ICsNCj4gPiArbWFpbnRhaW5lcnM6DQo+ID4g
+KyAgLSBUcmV2b3IgV3UgPHRyZXZvci53dUBtZWRpYXRlay5jb20+DQo+ID4gKw0KPiA+ICtwcm9w
+ZXJ0aWVzOg0KPiA+ICsgIGNvbXBhdGlibGU6DQo+ID4gKyAgICBjb25zdDogbWVkaWF0ZWssbXQ4
+MTk1LWF1ZGlvDQo+ID4gKw0KPiA+ICsgIGludGVycnVwdHM6DQo+ID4gKyAgICBtYXhJdGVtczog
+MQ0KPiA+ICsNCj4gPiArICBtZWRpYXRlayx0b3Bja2dlbjoNCj4gPiArICAgICRyZWY6ICIvc2No
+ZW1hcy90eXBlcy55YW1sIy9kZWZpbml0aW9ucy9waGFuZGxlIg0KPiA+ICsgICAgZGVzY3JpcHRp
+b246IFRoZSBwaGFuZGxlIG9mIHRoZSBtZWRpYXRlayB0b3Bja2dlbiBjb250cm9sbGVyDQo+ID4g
+Kw0KPiA+ICsgIHBvd2VyLWRvbWFpbnM6DQo+ID4gKyAgICBtYXhJdGVtczogMQ0KPiA+ICsNCj4g
+PiArICBjbG9ja3M6DQo+ID4gKyAgICBpdGVtczoNCj4gPiArICAgICAgLSBkZXNjcmlwdGlvbjog
+YXVkaW8gMjZNIGNsb2NrDQo+ID4gKyAgICAgIC0gZGVzY3JpcHRpb246IEFGRSBjbG9jaw0KPiA+
+ICsgICAgICAtIGRlc2NyaXB0aW9uOiBhdWRpbyBpbmZyYSBzeXMgY2xvY2sNCj4gPiArICAgICAg
+LSBkZXNjcmlwdGlvbjogYXVkaW8gaW5mcmEgMjZNIGNsb2NrDQo+ID4gKw0KPiA+ICsgIGNsb2Nr
+LW5hbWVzOg0KPiA+ICsgICAgaXRlbXM6DQo+ID4gKyAgICAgIC0gY29uc3Q6IGNsazI2bQ0KPiA+
+ICsgICAgICAtIGNvbnN0OiBhdWRfYWZlDQo+ID4gKyAgICAgIC0gY29uc3Q6IGluZnJhX2FvX2F1
+ZGlvDQo+ID4gKyAgICAgIC0gY29uc3Q6IGluZnJhX2FvX2F1ZGlvXzI2bV9iDQo+ID4gKw0KPiA+
+ICsgIGV0ZG0taW4xLWNobi1kaXNhYmxlZDoNCj4gDQo+IE5lZWRzIGEgdmVuZG9yIHByZWZpeC4N
+Cj4gDQo+ID4gKyAgICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1sIy9kZWZpbml0aW9ucy91aW50
+OC1hcnJheQ0KPiA+ICsgICAgbWF4SXRlbXM6IDI0DQo+ID4gKyAgICBkZXNjcmlwdGlvbjogU3Bl
+Y2lmeSB3aGljaCBpbnB1dCBjaGFubmVsIHNob3VsZCBiZSBkaXNhYmxlZC4NCj4gPiArDQo+ID4g
+KyAgZXRkbS1pbjItY2huLWRpc2FibGVkOg0KPiANCj4gTmVlZHMgYSB2ZW5kb3IgcHJlZml4Lg0K
+PiANCj4gPiArICAgICRyZWY6IC9zY2hlbWFzL3R5cGVzLnlhbWwjL2RlZmluaXRpb25zL3VpbnQ4
+LWFycmF5DQo+ID4gKyAgICBtYXhJdGVtczogMTYNCj4gPiArICAgIGRlc2NyaXB0aW9uOiBTcGVj
+aWZ5IHdoaWNoIGlucHV0IGNoYW5uZWwgc2hvdWxkIGJlIGRpc2FibGVkLg0KPiA+ICsNCj4gPiAr
+cGF0dGVyblByb3BlcnRpZXM6DQo+ID4gKyAgIl5ldGRtLWluWzEtMl0tbWNsay1zb3VyY2UkIjoN
+Cj4gDQo+IEFuZCBhbGwgdGhlc2UgbmVlZCBhIHZlbmRvciBwcmVmaXguDQo+IA0KPiA+ICsgICAg
+JHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvdWludDMyDQo+ID4gKyAgICBk
+ZXNjcmlwdGlvbjogU3BlY2lmeSBldGRtIGluIG1jbGsgc291cmNlIGNsb2NrLg0KPiA+ICsgICAg
+ZW51bToNCj4gPiArICAgICAgLSAwICMgeHRhbF8yNm1fY2sNCj4gPiArICAgICAgLSAxICMgYXBs
+bDFfY2sNCj4gPiArICAgICAgLSAyICMgYXBsbDJfY2sNCj4gPiArICAgICAgLSAzICMgYXBsbDNf
+Y2sNCj4gPiArICAgICAgLSA0ICMgYXBsbDRfY2sNCj4gPiArICAgICAgLSA1ICMgYXBsbDVfY2sN
+Cj4gPiArICAgICAgLSA2ICMgaGRtaXJ4X2FwbGxfY2sNCj4gPiArDQo+ID4gKyAgIl5ldGRtLW91
+dFsxLTNdLW1jbGstc291cmNlJCI6DQo+ID4gKyAgICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1s
+Iy9kZWZpbml0aW9ucy91aW50MzINCj4gPiArICAgIGRlc2NyaXB0aW9uOiBTcGVjaWZ5IGV0ZG0g
+b3V0IG1jbGsgc291cmNlIGNsb2NrLg0KPiA+ICsNCj4gPiArICAiXmV0ZG0taW5bMS0yXS1tY2xr
+LWFsd2FzeXMtb24tcmF0ZSQiOg0KPiA+ICsgICAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMv
+ZGVmaW5pdGlvbnMvdWludDMyDQo+ID4gKyAgICBkZXNjcmlwdGlvbjogU3BlY2lmeSBldGRtIGlu
+IG1jbGsgb3V0cHV0IHJhdGUgZm9yIGFsd2F5cyBvbg0KPiA+IGNhc2UuDQo+IA0KPiBIej8gSWYg
+c28sICctaHonIHVuaXQgc3VmZml4IGFuZCBkcm9wIHRoZSB0eXBlIHJlZi4NCj4gDQoNClllcywg
+aXQncyBIei4NCkkgd2lsbCBhZGQgdW5pdCBzdWZmaXggYW5kIGRyb3AgdGhlIHR5cGUuDQoNCj4g
+PiArDQo+ID4gKyAgIl5ldGRtLW91dFsxLTNdLW1jbGstYWx3YXN5cy1vbi1yYXRlJCI6DQo+IA0K
+PiB0eXBvOiBhbHdhc3lzDQo+IA0KPiA+ICsgICAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMv
+ZGVmaW5pdGlvbnMvdWludDMyDQo+ID4gKyAgICBkZXNjcmlwdGlvbjogU3BlY2lmeSBldGRtIG91
+dCBtY2xrIG91dHB1dCByYXRlIGZvciBhbHdheXMgb24NCj4gPiBjYXNlLg0KPiANCj4gSHo/DQo+
+IA0KPiA+ICsNCj4gPiArICAiXmV0ZG0taW5bMS0yXS1kYXRhLW1vZGUkIjoNCj4gPiArICAgICRy
+ZWY6IC9zY2hlbWFzL3R5cGVzLnlhbWwjL2RlZmluaXRpb25zL3VpbnQzMg0KPiA+ICsgICAgZGVz
+Y3JpcHRpb246IFNwZWNpZnkgZXRkbSBpbiBkYXRhIG1vZGUuDQo+ID4gKyAgICBlbnVtOg0KPiA+
+ICsgICAgICAtIDAgIyBvbmUgcGluIChURE0pDQo+ID4gKyAgICAgIC0gMSAjIG11bHRpIHBpbiAo
+STJTKQ0KPiANCj4gQ2FuIGJlIGJvb2xlYW4/DQo+IA0KWWVzLCBiZWNhc3VlIG9ubHkgdHdvIG9w
+dGlvbnMgY2FuIGJlIGNvbmZpZ3VyZWQgZm9yIGRhdGEgbW9kZS4NCkkgd2lsbCByZXBsYWNlIGl0
+IHdpdGggYSBib29sIHByb3BlcnR5IGxpa2UgIm1lZGlhdGVrLGV0ZG0taW5bMS0yXS0NCm11bHRp
+LXBpbi1tb2RlIi4NCg0KPiA+ICsNCj4gPiArICAiXmV0ZG0tb3V0WzEtM10tZGF0YS1tb2RlJCI6
+DQo+ID4gKyAgICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1sIy9kZWZpbml0aW9ucy91aW50MzIN
+Cj4gPiArICAgIGRlc2NyaXB0aW9uOiBTcGVjaWZ5IGV0ZG0gb3V0IGRhdGEgbW9kZS4NCj4gDQo+
+IENvbnN0cmFpbnRzIG9uIHZhbHVlcz8NCj4gDQo+ID4gKw0KPiA+ICsgICJeZXRkbS1pblsxLTJd
+LWNvd29yay1zb3VyY2UkIjoNCj4gPiArICAgICRyZWY6IC9zY2hlbWFzL3R5cGVzLnlhbWwjL2Rl
+ZmluaXRpb25zL3VpbnQzMg0KPiA+ICsgICAgZGVzY3JpcHRpb246IHwNCj4gPiArICAgICAgZXRk
+bSBtb2R1bGVzIGNhbiBzaGFyZSB0aGUgc2FtZSBleHRlcm5hbCBjbG9jayBwaW4uIFNwZWNpZnkN
+Cj4gPiArICAgICAgd2hpY2ggZXRkbSBjbG9jayBzb3VyY2UgaXMgcmVxdWlyZWQgYnkgdGhpcyBl
+dGRtIGluIG1vdWR1bGUuDQo+ID4gKyAgICBlbnVtOg0KPiA+ICsgICAgICAtIDAgIyBldGRtMV9p
+bg0KPiA+ICsgICAgICAtIDEgIyBldGRtMl9pbg0KPiA+ICsgICAgICAtIDIgIyBldGRtMV9vdXQN
+Cj4gPiArICAgICAgLSAzICMgZXRkbTJfb3V0DQo+ID4gKyAgICAgIC0gNCAjIGV0ZG0zX291dA0K
+PiA+ICsNCj4gPiArICAiXmV0ZG0tb3V0WzEtM10tY293b3JrLXNvdXJjZSQiOg0KPiA+ICsgICAg
+JHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvdWludDMyDQo+ID4gKyAgICBk
+ZXNjcmlwdGlvbjogfA0KPiA+ICsgICAgICBldGRtIG1vZHVsZXMgY2FuIHNoYXJlIHRoZSBzYW1l
+IGV4dGVybmFsIGNsb2NrIHBpbi4gU3BlY2lmeQ0KPiA+ICsgICAgICB3aGljaCBldGRtIGNsb2Nr
+IHNvdXJjZSBpcyByZXF1aXJlZCBieSB0aGlzIGV0ZG0gb3V0DQo+ID4gbW91ZHVsZS4NCj4gDQo+
+IENvbnN0cmFpbnRzPw0KPiANCj4gPiArDQo+ID4gK3JlcXVpcmVkOg0KPiA+ICsgIC0gY29tcGF0
+aWJsZQ0KPiA+ICsgIC0gaW50ZXJydXB0cw0KPiA+ICsgIC0gbWVkaWF0ZWssdG9wY2tnZW4NCj4g
+PiArICAtIHBvd2VyLWRvbWFpbnMNCj4gPiArICAtIGNsb2Nrcw0KPiA+ICsgIC0gY2xvY2stbmFt
+ZXMNCj4gPiArDQo+ID4gK2FkZGl0aW9uYWxQcm9wZXJ0aWVzOiBmYWxzZQ0KPiA+ICsNCj4gPiAr
+ZXhhbXBsZXM6DQo+ID4gKyAgLSB8DQo+ID4gKyAgICAjaW5jbHVkZSA8ZHQtYmluZGluZ3MvY2xv
+Y2svbXQ4MTk1LWNsay5oPg0KPiA+ICsgICAgI2luY2x1ZGUgPGR0LWJpbmRpbmdzL2ludGVycnVw
+dC1jb250cm9sbGVyL2FybS1naWMuaD4NCj4gPiArICAgICNpbmNsdWRlIDxkdC1iaW5kaW5ncy9p
+bnRlcnJ1cHQtY29udHJvbGxlci9pcnEuaD4NCj4gPiArICAgICNpbmNsdWRlIDxkdC1iaW5kaW5n
+cy9wb3dlci9tdDgxOTUtcG93ZXIuaD4NCj4gPiArDQo+ID4gKyAgICBhZmU6IG10ODE5NS1hZmUt
+cGNtIHsNCj4gPiArICAgICAgICBjb21wYXRpYmxlID0gIm1lZGlhdGVrLG10ODE5NS1hdWRpbyI7
+DQo+ID4gKyAgICAgICAgaW50ZXJydXB0cyA9IDxHSUNfU1BJIDgyMiBJUlFfVFlQRV9MRVZFTF9I
+SUdIIDA+Ow0KPiA+ICsgICAgICAgIG1lZGlhdGVrLHRvcGNrZ2VuID0gPCZ0b3Bja2dlbj47DQo+
+ID4gKyAgICAgICAgcG93ZXItZG9tYWlucyA9IDwmc3BtIE1UODE5NV9QT1dFUl9ET01BSU5fQVVE
+SU8+Ow0KPiA+ICsgICAgICAgIGNsb2NrcyA9IDwmY2xrMjZtPiwNCj4gPiArICAgICAgICAgICAg
+ICAgICA8JmF1ZHN5cyBDTEtfQVVEX0FGRT4sDQo+ID4gKyAgICAgICAgICAgICAgICAgPCZpbmZy
+YWNmZ19hbyBDTEtfSU5GUkFfQU9fQVVESU8+LA0KPiA+ICsgICAgICAgICAgICAgICAgIDwmaW5m
+cmFjZmdfYW8gQ0xLX0lORlJBX0FPX0FVRElPXzI2TV9CPjsNCj4gPiArICAgICAgICBjbG9jay1u
+YW1lcyA9ICJjbGsyNm0iLA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgImF1ZF9hZmUiLA0K
+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgImluZnJhX2FvX2F1ZGlvIiwNCj4gPiArICAgICAg
+ICAgICAgICAgICAgICAgICJpbmZyYV9hb19hdWRpb18yNm1fYiI7DQo+ID4gKyAgICB9Ow0KPiA+
+ICsNCj4gPiArLi4uDQo+ID4gLS0gDQo+ID4gMi4xOC4wDQo+ID4gDQoNClRoYW5rcyBmb3IgeW91
+ciByZXZpZXdpbmcuDQpJIHdpbGwgY29ycmVjdCBhbGwgcHJvYmxlbXMgb24gdjMuDQoNClRoYW5r
+cywNClRyZXZvcg0KPiA+IA0K
 

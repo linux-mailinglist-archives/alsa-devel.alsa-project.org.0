@@ -2,78 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA8463BC326
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jul 2021 21:31:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C146D3BC335
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jul 2021 21:42:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 18A9016DA;
-	Mon,  5 Jul 2021 21:30:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18A9016DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6DE0816E7;
+	Mon,  5 Jul 2021 21:41:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DE0816E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625513500;
-	bh=DB18MTojD66qAvZOaE3kuj3EZ+WCMq11kM2ci8j+Co4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=BA/tREI6PY1jH39FJjE0OdmCx065di8ZQgWwS3OsRf4TGkwXy0Hc+dBw4Wl05RhNh
-	 ZCydXpO+0nZ5zUZgAYUiULNLjWoHnp5hd7W5pwwmDHmXMeydbUsGWATn2sy1/1kZgh
-	 WZtxWvovxVEW+P/iW6X6WoLOivrcerD5Av4jAWfY=
+	s=default; t=1625514144;
+	bh=5qZeiYbxuz10gFdRgNypXGX6EMZhzV8dzOo+Rf1bNfE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Iz0ivD7LYJ7vj1QAfTIc/uuLuF6a6mTk2OGZ3sionCAbqem+Efb/kpxIlUR17PVh6
+	 RPfmMrUc0eOD44EsupZtBU58EaAZyfjpET2LBQZXR1kdA4GsizyWSVBCVfygV7mSgQ
+	 /pzVFy/ZTt5cJcNsjdJjo6PImHYl2xLlBoWmAvn0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C2922F80301;
-	Mon,  5 Jul 2021 21:30:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E92AF804E2;
+	Mon,  5 Jul 2021 21:40:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8D33FF80300; Mon,  5 Jul 2021 21:30:28 +0200 (CEST)
+ id 040BEF804E0; Mon,  5 Jul 2021 21:40:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 287DBF80134
- for <alsa-devel@alsa-project.org>; Mon,  5 Jul 2021 21:30:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 287DBF80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02922F8016B
+ for <alsa-devel@alsa-project.org>; Mon,  5 Jul 2021 21:40:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02922F8016B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="om6OQVkn"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8854061369;
- Mon,  5 Jul 2021 19:30:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625513423;
- bh=DB18MTojD66qAvZOaE3kuj3EZ+WCMq11kM2ci8j+Co4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=om6OQVknqj6I2FaQpOU2sbXe9jJSzOnntKpaZWZhpjBXS2iOAZkeNZgylpOpFqz71
- qGqINkPyFtsG7KgHMVtsMdtdGW72/5qQQOPIRWK1F1Fz8/ZIrU5p5Q4BTvAiQ/RY8O
- 0oWD9HFqOLF0KTZOa5SMZaLeG0OnvXQsj0Got1XeIyfpN3I94Zt90bKjYQXO+LzmWr
- N/xbBOsUMCEhcgP9yQhgvo91IdY+G8JSKMwEWShjD/u5nEfiLWNqeag/OjRXj2Euv/
- SzNkROqfU2QO76qBOAh6tHyNctsvocqG+zvg+nW7T98SrApmD2aWsHwkAFPaBm+dU/
- y3UYJi3TjPpKg==
-Date: Mon, 5 Jul 2021 20:29:52 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-Subject: Re: [PATCH] ASoC: add dai_reoder flag to reverse the stop sequence
-Message-ID: <20210705192952.GI4574@sirena.org.uk>
-References: <20210705155830.24693-1-vijendar.mukunda@amd.com>
- <20210705174241.GF4574@sirena.org.uk>
- <7f1ad1b3-b509-24cf-00d8-f82766aae0d6@amd.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="LP7li9Wx"
+Received: by mail-lj1-x236.google.com with SMTP id w11so26045625ljh.0
+ for <alsa-devel@alsa-project.org>; Mon, 05 Jul 2021 12:40:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=2U0wvxPRKxvDIv/UsBUgP1f1+9ZNjFw1lh7hg331W6o=;
+ b=LP7li9WxtyVh6I4wyeda/ydzYLij+dGAuC4DGZksPaI1cVn+R8/rq9EgLPUTZ8jCt8
+ kGzm96nodNX0cAg3wL0PTyAOJSgfTBOMvR9FlSw4HJLIsm28hkdUWdegoq9x97NPZo5d
+ fHC/hKVCtjW+Roc/+V3gJEZDuQHcxiSmH0zJgiSEdryZOMb4tKA/ti4XftJkxioaDnff
+ 2myBI5regMViCbspFLMBC5G5IgIQScqM1ewA1KFijvG82nPg1oIZ+JomQfGp5G0VT74Y
+ ize6fXJehGpHoElHYbdjyyQqBZ7BcV8O+tMZj+sdrq/XkIHtQ+qh2H0HTCHqVHb99ld6
+ Z7TQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=2U0wvxPRKxvDIv/UsBUgP1f1+9ZNjFw1lh7hg331W6o=;
+ b=JazU/N2pLdwgLKcxTsknKVxtYfRNurf7hVOMqjwM2O41jmMLyonV9pykj2TFmKvwNo
+ mr/HBFvEquN0vr4KI6vEm7Efbm2UQsKV6HKP9JjwlYS0DyVyajvzqbbr4RK7mpnzzTIS
+ I2rir8IDg/MyEDZ1uDlaAjJPnF5HigbG32YzHzh+Zp2y7cX4drUjvv7aZiH9Y2EpK32n
+ Vm82P1FMLNspjkxn1J+ifODkEDkz9yKEG2Hm0PyyxZHNU0XUrUkk6jxHypW0czJyvATB
+ QFoUQc5iBkyWk0vucXG/7O/VkItcuWMluzjhkfPSl9DMOOroAbKGcLmc2I+/PKVLklNl
+ YyRg==
+X-Gm-Message-State: AOAM531y/6naOfazQpXjlW6HxpddXJKmnEcSAMRERr2fy8iFKCpdZ32B
+ Qp1PmOIrjRS7NupjJxxl2Vg=
+X-Google-Smtp-Source: ABdhPJzs3XKPF7dxtOZ7jnHpnB9/6EpP5VmrK9kqc4/pd1Kc/4KaZF2AI/infMrzAk0zyqsFzK0jKw==
+X-Received: by 2002:a2e:4c19:: with SMTP id z25mr12351302lja.47.1625514031141; 
+ Mon, 05 Jul 2021 12:40:31 -0700 (PDT)
+Received: from localhost.localdomain (91-155-111-71.elisa-laajakaista.fi.
+ [91.155.111.71])
+ by smtp.gmail.com with ESMTPSA id b5sm1167248lfv.3.2021.07.05.12.40.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Jul 2021 12:40:30 -0700 (PDT)
+From: Peter Ujfalusi <peter.ujfalusi@gmail.com>
+To: broonie@kernel.org,
+	tony@atomide.com
+Subject: [PATCH v2 0/5] ASoC: ti: davinci-mcasp: Fix the DIT mode and OMAP4
+ support
+Date: Mon,  5 Jul 2021 22:42:44 +0300
+Message-Id: <20210705194249.2385-1-peter.ujfalusi@gmail.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="8/UBlNHSEJa6utmr"
-Content-Disposition: inline
-In-Reply-To: <7f1ad1b3-b509-24cf-00d8-f82766aae0d6@amd.com>
-X-Cookie: Star Trek Lives!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com, amistry@google.com,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Chuhong Yuan <hslester96@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, peter.ujfalusi@ti.com,
- Alexander.Deucher@amd.com, nartemiev@google.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: hns@goldelico.com, alsa-devel@alsa-project.org, linux-omap@vger.kernel.org,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,35 +101,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
---8/UBlNHSEJa6utmr
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Changes since v1:
+- Do not calculat that we allow one serializer in DIT mode, just set the
+  max_active_serializers to 1.
+  Reported-by: kernel test robot <lkp@intel.com>
 
-On Tue, Jul 06, 2021 at 12:30:10AM +0530, Mukunda,Vijendar wrote:
+it has been on my todo list for several years to support McASP on OMAP4 devices.
+For Galaxy Nexus we had an omap-mcasp driver (which was mostly a stripped down
+davinci-mcasp driver) to support what was needed on that specific phone + it's
+dock for S/PDIF (48KHz, 16bit, stereo).
 
-> As per our understanding by going with card wide option is easier rather
-> than checking dai link name for re-ordering the stop sequence for
-> specific platforms.
-> We will rename the flag as "stop_dma_fist" and will post the new version.
+Not many (if any) device available to test the DIT mode of McASP.
+I have used BeagleBone White (McASP1 AXR3 can be routed to a pin) to get the
+S/PDIF mode working then PandaES for OMAP4 support (on PandaES the gpio_121 is
+not used and the signal is routed to expansion J6 pin14).
 
-Why would we need to check the name for the link?  Presumably all
-affected AMD cards would just unconditionally set the flag, and other
-systems could do what they like?
+In theory the McASP in OMAP5 should be working after this series, but the OMAP5
+TRM is not public and I do not have one to check the addresses and see if there
+is a way to test it on omap5-uevm.
 
---8/UBlNHSEJa6utmr
-Content-Type: application/pgp-signature; name="signature.asc"
+Mark, Tony:
+The ASoC and dts patches can go via separate tree I felt that it is better if
+they are together, at least initially.
 
------BEGIN PGP SIGNATURE-----
+Nikolaus: fyi, this might be useful for Pyra?
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmDjXa8ACgkQJNaLcl1U
-h9BlPgf/ZQVPYklcHm8QzPLEpDWpJUZC9CvQKtgmhHbuo7hVxQdv90n0D69R8ZKe
-y+HyvIkOKIpvbfQgZbZL6rQpSQR5vye5zwurlKf7sa0NTJiKgSgxd9vbKMD0KVNx
-ydPeeuWIUp8uaSlwXnOrCBeVr3uOUDwERlCpasLP4AInu4GLGZedRPtAxFNBOLQk
-ydgfWoOcNmnMA4wtFuggF/F+trNXyfQFwsEunRnAepmGL9dcsNfb1DPXmwdslsQw
-y4KA4KvyGJ7lPLs3hPHRZFBVVNQlyDQrVe8E7eQQHPXdWkahyeAA7jCn/g397reB
-gee7H/24vthbZVCTESTZy7kVzyrzKQ==
-=9bmK
------END PGP SIGNATURE-----
+Regards,
+Péter
+---
+Peter Ujfalusi (5):
+  ASoC: ti: davinci-mcasp: Fix DIT mode support
+  ASoC: dt-bindings: davinci-mcasp: Add compatible string for OMAP4
+  ASoC: ti: davinci-mcasp: Add support for the OMAP4 version of McASP
+  ARM: dts: omap4-l4-abe: Correct sidle modes for McASP
+  ARM: dts: omap4-l4-abe: Add McASP configuration
 
---8/UBlNHSEJa6utmr--
+ .../bindings/sound/davinci-mcasp-audio.txt    |   1 +
+ arch/arm/boot/dts/omap4-l4-abe.dtsi           |  39 ++--
+ include/linux/platform_data/davinci_asp.h     |   1 +
+ sound/soc/ti/Kconfig                          |   1 +
+ sound/soc/ti/davinci-mcasp.c                  | 176 +++++++++++++++---
+ 5 files changed, 175 insertions(+), 43 deletions(-)
+
+-- 
+2.32.0
+

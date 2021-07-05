@@ -2,81 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E10B73BB76F
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jul 2021 09:03:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EDA33BBC0C
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jul 2021 13:16:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 579F016A6;
-	Mon,  5 Jul 2021 09:02:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 579F016A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9DD8B82E;
+	Mon,  5 Jul 2021 13:15:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DD8B82E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625468607;
-	bh=Ffu2+2e8K8rLiLzSe6GK67Bnstv0QBadhkV+Dm8eln4=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=jMJVXDLZgRni5l1jPf9mH7ZMnpvPXbiGIGpx7oAW021VaCXhAJVxqBnzDTXqMP74r
-	 6euRUmIrx9WXXxnsN5UGHGTH5Egya0zCGff7pETiA8oAUTWR53l/oMCrp+b1Oih6gy
-	 ZNwEvoCxt8SccP+qSlFq+wW+oe2YtVgEgT6GuEDw=
+	s=default; t=1625483801;
+	bh=+eBKkwCvfXAiqA6Mwszd1JqitQfcXOYJqCDZuK87G8o=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=l8wrX2K+nO+PZZrrb8uA+hepLOrh5tFxawV+uVAHORvVZAzYwxyL0lmSyQhPtResW
+	 BOgjnq2vrfYw4bnEzzglkS5aqGlhZ1z0vlUYynpJywPb+BpJQ4HQVfUcfn4dUIadQ8
+	 iJb3yB0Qwkuk3//g9s5uLHq1bvdFhJOd18noU8zo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B770FF80124;
-	Mon,  5 Jul 2021 09:01:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AF4DF8025C;
+	Mon,  5 Jul 2021 13:15:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0194EF80224; Mon,  5 Jul 2021 09:01:58 +0200 (CEST)
+ id 95E2BF80224; Mon,  5 Jul 2021 13:15:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 594D4F80124
- for <alsa-devel@alsa-project.org>; Mon,  5 Jul 2021 09:01:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 594D4F80124
+ by alsa1.perex.cz (Postfix) with ESMTPS id DAA5BF80124
+ for <alsa-devel@alsa-project.org>; Mon,  5 Jul 2021 13:15:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAA5BF80124
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="YyERo1YV"
-X-UUID: aeed8e53218e4b0884b3bc37d1b00645-20210705
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
- bh=Ffu2+2e8K8rLiLzSe6GK67Bnstv0QBadhkV+Dm8eln4=; 
- b=YyERo1YVOiRVqCDHiMNDpz+yfeIz4H7CYEuDkMY9UTZh/12ukRjkA4IPnSNPWtCZXTKrFK9GgaPeot6SLHX+8r9OyVMjUSvhUmTuK2ZZC2ZxhlL84lpHPh6tCvWXMTYBCe9075EYG7jP/+4TOvSm6l0tape4dKFVhF2ndqe0poc=;
-X-UUID: aeed8e53218e4b0884b3bc37d1b00645-20210705
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
- mailgw01.mediatek.com (envelope-from <trevor.wu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1151939293; Mon, 05 Jul 2021 15:01:40 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs01n2.mediatek.inc (172.21.101.79) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Mon, 5 Jul 2021 15:01:27 +0800
-Received: from mtksdccf07 (172.21.84.99) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Mon, 5 Jul 2021 15:01:26 +0800
-Message-ID: <52d6aada4b48cc3b72bc5beb1bb5ca6acf5e91aa.camel@mediatek.com>
-Subject: Re: [PATCH v2 6/8] dt-bindings: mediatek: mt8195: add audio afe
- document
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: Rob Herring <robh@kernel.org>
-Date: Mon, 5 Jul 2021 15:01:26 +0800
-In-Reply-To: <20210701201846.GA2783836@robh.at.kernel.org>
-References: <20210629014736.31153-1-trevor.wu@mediatek.com>
- <20210629014736.31153-7-trevor.wu@mediatek.com>
- <20210701201846.GA2783836@robh.at.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="tqqZyg04"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="vuqsWsGK"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.nyi.internal (Postfix) with ESMTP id 397665C011C;
+ Mon,  5 Jul 2021 07:15:01 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Mon, 05 Jul 2021 07:15:01 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm2; bh=etcupvTCwknVwkG/akvEy5P4A6
+ MjyXXxVTmD20uM/8g=; b=tqqZyg046h0fHCsWeZGXCCyq6KuVFaHUBDSIIb89hL
+ airBWdkfCT7DdhR8dLTzdruPodFGoo2aA+DJfRB81F8gzh4xf15grOxMDbS9roqw
+ 6G5ck0erXKDIMZyQ8iO4x/aYUrwnTvv+Eu2b9z19o5NTtOX9k/MnSAcFUHd+NTLw
+ nr2G2//9m+LgWdyoJsF6/uKWpSkBepf3MqXyRw/zTtjx2Vsp8u4GdPXbetqUJgHg
+ 5Adx/tND6y09Bahi5lUTTI2e9+IcB96Mq5c6QPI2RjFE+vAmcnndEdac5wvqc5Bm
+ psujJ8Tf9yxdmqIcBJj26CyKWER3WEO1FZF8ki61Rhwg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=etcupvTCwknVwkG/a
+ kvEy5P4A6MjyXXxVTmD20uM/8g=; b=vuqsWsGK0QNqop5g8YFZu0jN2LFQ5d0VR
+ Mfz17ZKA56c+Lh4mj8HnWxr4JyYav2Dh633DC5LFvOcvwzhsoqiXjaRArgPDHQSi
+ 1sJ4KHxi1JvoJ+xZcP8GdoMK+hPaG0OzoOtWRrZg3rPVTGFRw666VtG43zkRG3Wq
+ XawEsCUttNO+ifdFfpftqqLbycKdnz9EdeBhQVMIr5elnvqLIKKGdHOXEP/7VmrJ
+ 40xuUw0HoovKhV57kaGvElLjvvYG5TphOBP6cAcEXiWA9cBudi8mSE1VrinckbE9
+ JgC7xrOhw3rnkP6umG/MPcPo3cHMD132BMXJDxLSDDyyjbtzJlucA==
+X-ME-Sender: <xms:tOniYIDnglLnNkxSoaZ853kJQhJ43soRW0dSv60AcMWCuwSaXcTx4w>
+ <xme:tOniYKitr29hpUIOB1qSgNEaU8nD2_EqJM59D6wEWO_zdYjwHAGEi87vTSFWRYTdI
+ Tfo-7uHRcFl--nflrU>
+X-ME-Received: <xmr:tOniYLk4EiKmtdoRUjx6mH_lWUagh6BaV-ZiFAxRVOeYsaI-oOfXxUPKq65MmNQZesgwF2RbNcC4d13s8l9FjjDAOqWXSJICIAJjD5uq_t_DZexG8TK6>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeejgedgfeejucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
+ dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
+ ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepffduleeuheejvd
+ ejheelfeduueeftddthefghfekveekhefhkefgfedtteefteetnecuffhomhgrihhnpehs
+ ohhurhgtvghfohhrghgvrdhnvghtnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrg
+ hmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:tOniYOzIJ97zqEOxTUha3wTihEqibgsY7A-8vgwTZFjrsMA_BaNraQ>
+ <xmx:tOniYNRYSHOeZQ7qJHv6mdJAp9uthCDzFv4Z1NCKbFfpxK2SbHffsQ>
+ <xmx:tOniYJbm8lFtVcyI5pKsrxvNNAIlZR-yxi1lcDpi8-MaidOIxz9NsQ>
+ <xmx:teniYMKFXhIFLNNS564vv4sJGxCl3w0-gg7CvbOg18FAti_1WXLWSQ>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 5 Jul 2021 07:14:59 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: tiwai@suse.de
+Subject: [PATCH] ALSA: bebob: correct duplicated entries with TerraTec OUI
+Date: Mon,  5 Jul 2021 20:14:55 +0900
+Message-Id: <20210705111455.63788-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-X-MTK: N
-Content-Transfer-Encoding: base64
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- cychiang@google.com, bicycle.tsai@mediatek.com, tiwai@suse.com,
- jiaxin.yu@mediatek.com, linux-kernel@vger.kernel.org, broonie@kernel.org,
- linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com, aaronyu@google.com,
- linux-arm-kernel@lists.infradead.org
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,119 +108,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gVGh1LCAyMDIxLTA3LTAxIGF0IDE0OjE4IC0wNjAwLCBSb2IgSGVycmluZyB3cm90ZToNCj4g
-T24gVHVlLCBKdW4gMjksIDIwMjEgYXQgMDk6NDc6MzRBTSArMDgwMCwgVHJldm9yIFd1IHdyb3Rl
-Og0KPiA+IFRoaXMgcGF0Y2ggYWRkcyBtdDgxOTUgYXVkaW8gYWZlIGRvY3VtZW50Lg0KPiA+IA0K
-PiA+IFNpZ25lZC1vZmYtYnk6IFRyZXZvciBXdSA8dHJldm9yLnd1QG1lZGlhdGVrLmNvbT4NCj4g
-PiAtLS0NCj4gPiBUaGlzIHBhdGNoIGRlcGVuZHMgb24gdGhlIGZvbGxvd2luZyBzZXJpZXMgdGhh
-dCBoYXZlIG5vdCBiZWVuDQo+ID4gYWNjZXB0ZWQuDQo+ID4gDQo+ID4gWzFdIE1lZGlhdGVrIE1U
-ODE5NSBjbG9jayBzdXBwb3J0DQo+ID4gDQpodHRwczovL3BhdGNod29yay5rZXJuZWwub3JnL3By
-b2plY3QvbGludXgtbWVkaWF0ZWsvbGlzdC8/c2VyaWVzPTUwMTkyMw0KPiA+IChkdC1iaW5kaW5n
-cy9jbG9jay9tdDgxOTUtY2xrLmggaXMgaW5jbHVkZWQpDQo+ID4gDQo+ID4gWzJdIE1lZGlhdGVr
-IE1UODE5NSBwb3dlciBkb21haW4gc3VwcG9ydA0KPiA+IA0KaHR0cHM6Ly9wYXRjaHdvcmsua2Vy
-bmVsLm9yZy9wcm9qZWN0L2xpbnV4LW1lZGlhdGVrL2xpc3QvP3Nlcmllcz01MDA3MDkNCj4gPiAo
-ZHQtYmluZGluZ3MvcG93ZXIvbXQ4MTk1LXBvd2VyLmggaXMgaW5jbHVkZWQpDQo+ID4gLS0tDQo+
-ID4gIC4uLi9iaW5kaW5ncy9zb3VuZC9tdDgxOTUtYWZlLXBjbS55YW1sICAgICAgICB8IDEzNg0K
-PiA+ICsrKysrKysrKysrKysrKysrKw0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgMTM2IGluc2VydGlv
-bnMoKykNCj4gPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9i
-aW5kaW5ncy9zb3VuZC9tdDgxOTUtDQo+ID4gYWZlLXBjbS55YW1sDQo+ID4gDQo+ID4gZGlmZiAt
-LWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9tdDgxOTUtYWZl
-LQ0KPiA+IHBjbS55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5k
-L210ODE5NS1hZmUtDQo+ID4gcGNtLnlhbWwNCj4gPiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0KPiA+
-IGluZGV4IDAwMDAwMDAwMDAwMC4uYTRmYjVjN2RkMDIyDQo+ID4gLS0tIC9kZXYvbnVsbA0KPiA+
-ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9tdDgxOTUtYWZl
-LXBjbS55YW1sDQo+ID4gQEAgLTAsMCArMSwxMzYgQEANCj4gPiArIyBTUERYLUxpY2Vuc2UtSWRl
-bnRpZmllcjogKEdQTC0yLjAtb25seSBPUiBCU0QtMi1DbGF1c2UpDQo+ID4gKyVZQU1MIDEuMg0K
-PiA+ICstLS0NCj4gPiArJGlkOiBodHRwOi8vZGV2aWNldHJlZS5vcmcvc2NoZW1hcy9zb3VuZC9t
-dDgxOTUtYWZlLXBjbS55YW1sIw0KPiA+ICskc2NoZW1hOiBodHRwOi8vZGV2aWNldHJlZS5vcmcv
-bWV0YS1zY2hlbWFzL2NvcmUueWFtbCMNCj4gPiArDQo+ID4gK3RpdGxlOiBNZWRpYXRlayBBRkUg
-UENNIGNvbnRyb2xsZXIgZm9yIG10ODE5NQ0KPiA+ICsNCj4gPiArbWFpbnRhaW5lcnM6DQo+ID4g
-KyAgLSBUcmV2b3IgV3UgPHRyZXZvci53dUBtZWRpYXRlay5jb20+DQo+ID4gKw0KPiA+ICtwcm9w
-ZXJ0aWVzOg0KPiA+ICsgIGNvbXBhdGlibGU6DQo+ID4gKyAgICBjb25zdDogbWVkaWF0ZWssbXQ4
-MTk1LWF1ZGlvDQo+ID4gKw0KPiA+ICsgIGludGVycnVwdHM6DQo+ID4gKyAgICBtYXhJdGVtczog
-MQ0KPiA+ICsNCj4gPiArICBtZWRpYXRlayx0b3Bja2dlbjoNCj4gPiArICAgICRyZWY6ICIvc2No
-ZW1hcy90eXBlcy55YW1sIy9kZWZpbml0aW9ucy9waGFuZGxlIg0KPiA+ICsgICAgZGVzY3JpcHRp
-b246IFRoZSBwaGFuZGxlIG9mIHRoZSBtZWRpYXRlayB0b3Bja2dlbiBjb250cm9sbGVyDQo+ID4g
-Kw0KPiA+ICsgIHBvd2VyLWRvbWFpbnM6DQo+ID4gKyAgICBtYXhJdGVtczogMQ0KPiA+ICsNCj4g
-PiArICBjbG9ja3M6DQo+ID4gKyAgICBpdGVtczoNCj4gPiArICAgICAgLSBkZXNjcmlwdGlvbjog
-YXVkaW8gMjZNIGNsb2NrDQo+ID4gKyAgICAgIC0gZGVzY3JpcHRpb246IEFGRSBjbG9jaw0KPiA+
-ICsgICAgICAtIGRlc2NyaXB0aW9uOiBhdWRpbyBpbmZyYSBzeXMgY2xvY2sNCj4gPiArICAgICAg
-LSBkZXNjcmlwdGlvbjogYXVkaW8gaW5mcmEgMjZNIGNsb2NrDQo+ID4gKw0KPiA+ICsgIGNsb2Nr
-LW5hbWVzOg0KPiA+ICsgICAgaXRlbXM6DQo+ID4gKyAgICAgIC0gY29uc3Q6IGNsazI2bQ0KPiA+
-ICsgICAgICAtIGNvbnN0OiBhdWRfYWZlDQo+ID4gKyAgICAgIC0gY29uc3Q6IGluZnJhX2FvX2F1
-ZGlvDQo+ID4gKyAgICAgIC0gY29uc3Q6IGluZnJhX2FvX2F1ZGlvXzI2bV9iDQo+ID4gKw0KPiA+
-ICsgIGV0ZG0taW4xLWNobi1kaXNhYmxlZDoNCj4gDQo+IE5lZWRzIGEgdmVuZG9yIHByZWZpeC4N
-Cj4gDQo+ID4gKyAgICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1sIy9kZWZpbml0aW9ucy91aW50
-OC1hcnJheQ0KPiA+ICsgICAgbWF4SXRlbXM6IDI0DQo+ID4gKyAgICBkZXNjcmlwdGlvbjogU3Bl
-Y2lmeSB3aGljaCBpbnB1dCBjaGFubmVsIHNob3VsZCBiZSBkaXNhYmxlZC4NCj4gPiArDQo+ID4g
-KyAgZXRkbS1pbjItY2huLWRpc2FibGVkOg0KPiANCj4gTmVlZHMgYSB2ZW5kb3IgcHJlZml4Lg0K
-PiANCj4gPiArICAgICRyZWY6IC9zY2hlbWFzL3R5cGVzLnlhbWwjL2RlZmluaXRpb25zL3VpbnQ4
-LWFycmF5DQo+ID4gKyAgICBtYXhJdGVtczogMTYNCj4gPiArICAgIGRlc2NyaXB0aW9uOiBTcGVj
-aWZ5IHdoaWNoIGlucHV0IGNoYW5uZWwgc2hvdWxkIGJlIGRpc2FibGVkLg0KPiA+ICsNCj4gPiAr
-cGF0dGVyblByb3BlcnRpZXM6DQo+ID4gKyAgIl5ldGRtLWluWzEtMl0tbWNsay1zb3VyY2UkIjoN
-Cj4gDQo+IEFuZCBhbGwgdGhlc2UgbmVlZCBhIHZlbmRvciBwcmVmaXguDQo+IA0KPiA+ICsgICAg
-JHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvdWludDMyDQo+ID4gKyAgICBk
-ZXNjcmlwdGlvbjogU3BlY2lmeSBldGRtIGluIG1jbGsgc291cmNlIGNsb2NrLg0KPiA+ICsgICAg
-ZW51bToNCj4gPiArICAgICAgLSAwICMgeHRhbF8yNm1fY2sNCj4gPiArICAgICAgLSAxICMgYXBs
-bDFfY2sNCj4gPiArICAgICAgLSAyICMgYXBsbDJfY2sNCj4gPiArICAgICAgLSAzICMgYXBsbDNf
-Y2sNCj4gPiArICAgICAgLSA0ICMgYXBsbDRfY2sNCj4gPiArICAgICAgLSA1ICMgYXBsbDVfY2sN
-Cj4gPiArICAgICAgLSA2ICMgaGRtaXJ4X2FwbGxfY2sNCj4gPiArDQo+ID4gKyAgIl5ldGRtLW91
-dFsxLTNdLW1jbGstc291cmNlJCI6DQo+ID4gKyAgICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1s
-Iy9kZWZpbml0aW9ucy91aW50MzINCj4gPiArICAgIGRlc2NyaXB0aW9uOiBTcGVjaWZ5IGV0ZG0g
-b3V0IG1jbGsgc291cmNlIGNsb2NrLg0KPiA+ICsNCj4gPiArICAiXmV0ZG0taW5bMS0yXS1tY2xr
-LWFsd2FzeXMtb24tcmF0ZSQiOg0KPiA+ICsgICAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMv
-ZGVmaW5pdGlvbnMvdWludDMyDQo+ID4gKyAgICBkZXNjcmlwdGlvbjogU3BlY2lmeSBldGRtIGlu
-IG1jbGsgb3V0cHV0IHJhdGUgZm9yIGFsd2F5cyBvbg0KPiA+IGNhc2UuDQo+IA0KPiBIej8gSWYg
-c28sICctaHonIHVuaXQgc3VmZml4IGFuZCBkcm9wIHRoZSB0eXBlIHJlZi4NCj4gDQoNClllcywg
-aXQncyBIei4NCkkgd2lsbCBhZGQgdW5pdCBzdWZmaXggYW5kIGRyb3AgdGhlIHR5cGUuDQoNCj4g
-PiArDQo+ID4gKyAgIl5ldGRtLW91dFsxLTNdLW1jbGstYWx3YXN5cy1vbi1yYXRlJCI6DQo+IA0K
-PiB0eXBvOiBhbHdhc3lzDQo+IA0KPiA+ICsgICAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMv
-ZGVmaW5pdGlvbnMvdWludDMyDQo+ID4gKyAgICBkZXNjcmlwdGlvbjogU3BlY2lmeSBldGRtIG91
-dCBtY2xrIG91dHB1dCByYXRlIGZvciBhbHdheXMgb24NCj4gPiBjYXNlLg0KPiANCj4gSHo/DQo+
-IA0KPiA+ICsNCj4gPiArICAiXmV0ZG0taW5bMS0yXS1kYXRhLW1vZGUkIjoNCj4gPiArICAgICRy
-ZWY6IC9zY2hlbWFzL3R5cGVzLnlhbWwjL2RlZmluaXRpb25zL3VpbnQzMg0KPiA+ICsgICAgZGVz
-Y3JpcHRpb246IFNwZWNpZnkgZXRkbSBpbiBkYXRhIG1vZGUuDQo+ID4gKyAgICBlbnVtOg0KPiA+
-ICsgICAgICAtIDAgIyBvbmUgcGluIChURE0pDQo+ID4gKyAgICAgIC0gMSAjIG11bHRpIHBpbiAo
-STJTKQ0KPiANCj4gQ2FuIGJlIGJvb2xlYW4/DQo+IA0KWWVzLCBiZWNhc3VlIG9ubHkgdHdvIG9w
-dGlvbnMgY2FuIGJlIGNvbmZpZ3VyZWQgZm9yIGRhdGEgbW9kZS4NCkkgd2lsbCByZXBsYWNlIGl0
-IHdpdGggYSBib29sIHByb3BlcnR5IGxpa2UgIm1lZGlhdGVrLGV0ZG0taW5bMS0yXS0NCm11bHRp
-LXBpbi1tb2RlIi4NCg0KPiA+ICsNCj4gPiArICAiXmV0ZG0tb3V0WzEtM10tZGF0YS1tb2RlJCI6
-DQo+ID4gKyAgICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1sIy9kZWZpbml0aW9ucy91aW50MzIN
-Cj4gPiArICAgIGRlc2NyaXB0aW9uOiBTcGVjaWZ5IGV0ZG0gb3V0IGRhdGEgbW9kZS4NCj4gDQo+
-IENvbnN0cmFpbnRzIG9uIHZhbHVlcz8NCj4gDQo+ID4gKw0KPiA+ICsgICJeZXRkbS1pblsxLTJd
-LWNvd29yay1zb3VyY2UkIjoNCj4gPiArICAgICRyZWY6IC9zY2hlbWFzL3R5cGVzLnlhbWwjL2Rl
-ZmluaXRpb25zL3VpbnQzMg0KPiA+ICsgICAgZGVzY3JpcHRpb246IHwNCj4gPiArICAgICAgZXRk
-bSBtb2R1bGVzIGNhbiBzaGFyZSB0aGUgc2FtZSBleHRlcm5hbCBjbG9jayBwaW4uIFNwZWNpZnkN
-Cj4gPiArICAgICAgd2hpY2ggZXRkbSBjbG9jayBzb3VyY2UgaXMgcmVxdWlyZWQgYnkgdGhpcyBl
-dGRtIGluIG1vdWR1bGUuDQo+ID4gKyAgICBlbnVtOg0KPiA+ICsgICAgICAtIDAgIyBldGRtMV9p
-bg0KPiA+ICsgICAgICAtIDEgIyBldGRtMl9pbg0KPiA+ICsgICAgICAtIDIgIyBldGRtMV9vdXQN
-Cj4gPiArICAgICAgLSAzICMgZXRkbTJfb3V0DQo+ID4gKyAgICAgIC0gNCAjIGV0ZG0zX291dA0K
-PiA+ICsNCj4gPiArICAiXmV0ZG0tb3V0WzEtM10tY293b3JrLXNvdXJjZSQiOg0KPiA+ICsgICAg
-JHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvdWludDMyDQo+ID4gKyAgICBk
-ZXNjcmlwdGlvbjogfA0KPiA+ICsgICAgICBldGRtIG1vZHVsZXMgY2FuIHNoYXJlIHRoZSBzYW1l
-IGV4dGVybmFsIGNsb2NrIHBpbi4gU3BlY2lmeQ0KPiA+ICsgICAgICB3aGljaCBldGRtIGNsb2Nr
-IHNvdXJjZSBpcyByZXF1aXJlZCBieSB0aGlzIGV0ZG0gb3V0DQo+ID4gbW91ZHVsZS4NCj4gDQo+
-IENvbnN0cmFpbnRzPw0KPiANCj4gPiArDQo+ID4gK3JlcXVpcmVkOg0KPiA+ICsgIC0gY29tcGF0
-aWJsZQ0KPiA+ICsgIC0gaW50ZXJydXB0cw0KPiA+ICsgIC0gbWVkaWF0ZWssdG9wY2tnZW4NCj4g
-PiArICAtIHBvd2VyLWRvbWFpbnMNCj4gPiArICAtIGNsb2Nrcw0KPiA+ICsgIC0gY2xvY2stbmFt
-ZXMNCj4gPiArDQo+ID4gK2FkZGl0aW9uYWxQcm9wZXJ0aWVzOiBmYWxzZQ0KPiA+ICsNCj4gPiAr
-ZXhhbXBsZXM6DQo+ID4gKyAgLSB8DQo+ID4gKyAgICAjaW5jbHVkZSA8ZHQtYmluZGluZ3MvY2xv
-Y2svbXQ4MTk1LWNsay5oPg0KPiA+ICsgICAgI2luY2x1ZGUgPGR0LWJpbmRpbmdzL2ludGVycnVw
-dC1jb250cm9sbGVyL2FybS1naWMuaD4NCj4gPiArICAgICNpbmNsdWRlIDxkdC1iaW5kaW5ncy9p
-bnRlcnJ1cHQtY29udHJvbGxlci9pcnEuaD4NCj4gPiArICAgICNpbmNsdWRlIDxkdC1iaW5kaW5n
-cy9wb3dlci9tdDgxOTUtcG93ZXIuaD4NCj4gPiArDQo+ID4gKyAgICBhZmU6IG10ODE5NS1hZmUt
-cGNtIHsNCj4gPiArICAgICAgICBjb21wYXRpYmxlID0gIm1lZGlhdGVrLG10ODE5NS1hdWRpbyI7
-DQo+ID4gKyAgICAgICAgaW50ZXJydXB0cyA9IDxHSUNfU1BJIDgyMiBJUlFfVFlQRV9MRVZFTF9I
-SUdIIDA+Ow0KPiA+ICsgICAgICAgIG1lZGlhdGVrLHRvcGNrZ2VuID0gPCZ0b3Bja2dlbj47DQo+
-ID4gKyAgICAgICAgcG93ZXItZG9tYWlucyA9IDwmc3BtIE1UODE5NV9QT1dFUl9ET01BSU5fQVVE
-SU8+Ow0KPiA+ICsgICAgICAgIGNsb2NrcyA9IDwmY2xrMjZtPiwNCj4gPiArICAgICAgICAgICAg
-ICAgICA8JmF1ZHN5cyBDTEtfQVVEX0FGRT4sDQo+ID4gKyAgICAgICAgICAgICAgICAgPCZpbmZy
-YWNmZ19hbyBDTEtfSU5GUkFfQU9fQVVESU8+LA0KPiA+ICsgICAgICAgICAgICAgICAgIDwmaW5m
-cmFjZmdfYW8gQ0xLX0lORlJBX0FPX0FVRElPXzI2TV9CPjsNCj4gPiArICAgICAgICBjbG9jay1u
-YW1lcyA9ICJjbGsyNm0iLA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgImF1ZF9hZmUiLA0K
-PiA+ICsgICAgICAgICAgICAgICAgICAgICAgImluZnJhX2FvX2F1ZGlvIiwNCj4gPiArICAgICAg
-ICAgICAgICAgICAgICAgICJpbmZyYV9hb19hdWRpb18yNm1fYiI7DQo+ID4gKyAgICB9Ow0KPiA+
-ICsNCj4gPiArLi4uDQo+ID4gLS0gDQo+ID4gMi4xOC4wDQo+ID4gDQoNClRoYW5rcyBmb3IgeW91
-ciByZXZpZXdpbmcuDQpJIHdpbGwgY29ycmVjdCBhbGwgcHJvYmxlbXMgb24gdjMuDQoNClRoYW5r
-cywNClRyZXZvcg0KPiA+IA0K
+ALSA bebob driver has duplicated entries for modalias of
+'ieee1394:ven00000AACmo00000002sp0000A02Dver00010001' since entries for
+two devices below have the same parameters:
+
+ * Acoustic Reality eAR Master One, Eroica, Figaro, and Ciaccona
+ * TerraTec Aureon 7.1 FireWire
+
+I relied on FFADO revision 737 to add the former entry, on the other hand,
+the latter is based on message posted by actual user with information of
+sysfs node:
+
+ * https://sourceforge.net/p/ffado/mailman/ffado-user/thread/5743F969.2080204%40marcobaldo.ch/
+
+It appears that they have OUI of Terratec Electronic GmbH (0x000aac) and
+the same model ID, thus suffice to say that they have something common
+in their internals.
+
+Although it's not going to make a big difference, this commit arranges
+the entries.
+
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ sound/firewire/bebob/bebob.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/sound/firewire/bebob/bebob.c b/sound/firewire/bebob/bebob.c
+index 42980da45fbf..06a7ced218e2 100644
+--- a/sound/firewire/bebob/bebob.c
++++ b/sound/firewire/bebob/bebob.c
+@@ -403,8 +403,6 @@ static const struct ieee1394_device_id bebob_id_table[] = {
+ 	SND_BEBOB_DEV_ENTRY(VEN_APOGEE, 0x01eeee, &spec_normal),
+ 	/* ESI, Quatafire610 */
+ 	SND_BEBOB_DEV_ENTRY(VEN_ESI, 0x00010064, &spec_normal),
+-	// AcousticReality, eARMasterOne. Terratec OEM.
+-	SND_BEBOB_DEV_ENTRY(VEN_TERRATEC, 0x00000002, &spec_normal),
+ 	/* CME, MatrixKFW */
+ 	SND_BEBOB_DEV_ENTRY(VEN_CME, 0x00030000, &spec_normal),
+ 	// Phonic Helix Board 12 FireWire MkII.
+@@ -434,7 +432,8 @@ static const struct ieee1394_device_id bebob_id_table[] = {
+ 	SND_BEBOB_DEV_ENTRY(VEN_TERRATEC, 0x00000007, &yamaha_terratec_spec),
+ 	/* TerraTec Electronic GmbH, EWS MIC2/MIC8 */
+ 	SND_BEBOB_DEV_ENTRY(VEN_TERRATEC, 0x00000005, &spec_normal),
+-	/* Terratec Electronic GmbH, Aureon 7.1 Firewire */
++	// Terratec Electronic GmbH, Aureon 7.1 Firewire.
++	// AcousticReality, eAR Master One, Eroica, Figaro, and Ciaccona. Perhaps Terratec OEM.
+ 	SND_BEBOB_DEV_ENTRY(VEN_TERRATEC, 0x00000002, &spec_normal),
+ 	/* Yamaha, GO44 */
+ 	SND_BEBOB_DEV_ENTRY(VEN_YAMAHA, 0x0010000b, &yamaha_terratec_spec),
+-- 
+2.30.2
 

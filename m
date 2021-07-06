@@ -2,86 +2,166 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8825C3BF82B
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jul 2021 12:13:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 802603BF82E
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jul 2021 12:13:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 155CB16D3;
-	Thu,  8 Jul 2021 12:12:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 155CB16D3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 01EC416D7;
+	Thu,  8 Jul 2021 12:12:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01EC416D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625739197;
-	bh=afIIeLKjltFvWKnnd4smfGgp/6rNgG7je5kJATXBujM=;
-	h=Date:Subject:From:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Xp1Q65w11jL+Pg3QLM9MNXYrIjg/vnW1o8+7wRyxz4/Fx2acLL6EPc7aDosIMpGVH
-	 1+EWeys7rie17gCsBo5/NRsGW4PGZJmtktMl5TlMj8lB1Z+DroRPaj74zSJTh3R9t1
-	 1B/gL8h2PQDIcjL+bqJE7XEYgpdE0Ktpbqtnj9fw=
+	s=default; t=1625739218;
+	bh=UU18mXWVWBOAKsPR2tdcrUtKm1XZJhHfX5ucNrdqlz4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=jzD0ZM0IMeWzePPuiWW/loyjkU/7vWpXPshUq318JlWjOIwsbq5zRSjeTcnC2XHba
+	 SwKrWGQrutrM9hFWp3/uYPRuECMhjuC3ti9iJivk9+moul51O58QTKCNT8ds87Unaz
+	 tAoVZDkj/URH3D31UKz7Yzqpif8SCK1mNyuOr+UU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ECD51F80564;
-	Thu,  8 Jul 2021 12:04:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89738F8056F;
+	Thu,  8 Jul 2021 12:04:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0C8E7F80249; Tue,  6 Jul 2021 14:44:58 +0200 (CEST)
+ id ABB08F80249; Tue,  6 Jul 2021 16:52:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL autolearn=disabled
- version=3.4.0
-Received: from mail-qk1-x74a.google.com (mail-qk1-x74a.google.com
- [IPv6:2607:f8b0:4864:20::74a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from desiato.infradead.org (desiato.infradead.org
+ [IPv6:2001:8b0:10b:1:d65d:64ff:fe57:4e05])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71E04F8014E
- for <alsa-devel@alsa-project.org>; Tue,  6 Jul 2021 14:44:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71E04F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id CDE96F8014E
+ for <alsa-devel@alsa-project.org>; Tue,  6 Jul 2021 16:52:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDE96F8014E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="EQU42Skl"
-Received: by mail-qk1-x74a.google.com with SMTP id
- d24-20020a05620a1378b02903b477b3922bso12148018qkl.11
- for <alsa-devel@alsa-project.org>; Tue, 06 Jul 2021 05:44:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=W5WGGuw9mY9cDhR3LIq+HgKfjZfrhsSy4zPxklG3/y4=;
- b=EQU42SklHQrQl7lnVUDrNZLaovJjv8Z7V7jBtK+lwezdrBXs7OsWVleySoh+SHope4
- FfzlmD1BqKIvBfLRcjKmIRE/OnQO2P4TWjjA/IcgTEcx2etAEcmpcz+ELTcRer3gTUjG
- 4ji0EMks2knMHOiPyk0GRjNZ5IVaDcEPlHC4Czu3Qot9takA3DmcgHhfouDhSdOkz7yZ
- DOeNH1GVRq7WFfHiYlFfFIDezihAePz4FIkgrxmxqp5JFzoRQtY2xASa/5tU74+/LN2g
- rJPoCwZ//EndvQb/EfYd74lxCo4lX6GDN01CoD0Tq1efTtK+0lU02i1MDTAbBDAU4z/s
- ZHng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=W5WGGuw9mY9cDhR3LIq+HgKfjZfrhsSy4zPxklG3/y4=;
- b=SJk3HLxQrLR1mwGcDxtpGDSVcaoZvTPKe4XtZqEa9ZADhR7LckbA/LprBUQXdzXWik
- GNEQL+THabbSIoLVCUbSVzoiap2EgkbtSTMOUQsWuUMtRgvXISK3yt4uWTC5xIbtWz7M
- C/87FZVircM6sgvloQXpoxHLCO5kRe3thM+xpST4CgpVVl3eXvER+HGiYps14aunnOGn
- VyVsP2H7o9upgpOU9yFCHnPdvH+gd7Q7vFisKOE+Ei4R16Xuz5qzFpkXm1LD3lWJxwII
- VXV7eQpR1BHyCKwSQ+pW8RAvPh19y2LQCLdnwYCR9Pg4JenhFf8hQ3ENNBF+D9ALF04v
- 0aGQ==
-X-Gm-Message-State: AOAM531hwaNfyy0l3mU+bDRTEa5+litlfNY5NNQyjOWUhkMLa/Hvn0I0
- SKyYOSYo/S8PbdovliDP2A057FPrpL9i
-X-Google-Smtp-Source: ABdhPJxyBXA+rOueMg9oLrtfXHHTafUJJ35UOWa3x4KFwlyFK6zIz9RkGjzLMyfyKfBxnyw6oU6IV0QIWw8cpA==
-X-Received: from lerobert.c.googlers.com
- ([fda3:e722:ac3:cc00:12:b22d:c0a8:2e6])
- (user=lerobert job=sendgmr) by 2002:ad4:59cf:: with SMTP id
- el15mr13422561qvb.55.1625575489452; Tue, 06 Jul 2021 05:44:49 -0700 (PDT)
-Date: Tue,  6 Jul 2021 12:44:40 +0000
-Message-Id: <20210706124440.3247283-1-lerobert@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.32.0.93.g670b81a890-goog
-Subject: [PATCH] ALSA: compress: allow to leave draining state when pausing in
- draining
-From: Robert Lee <lerobert@google.com>
-To: vkoul@kernel.org, perex@perex.cz, tiwai@suse.com
-Content-Type: text/plain; charset="UTF-8"
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="JbK3meFo"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=desiato.20200630; h=Content-Transfer-Encoding:Content-Type
+ :In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:
+ Sender:Reply-To:Content-ID:Content-Description;
+ bh=1ayrkKf5NvJjQdfUl2A/VO9K+bU0q5/9ZgivWetFS3o=; b=JbK3meFocLJ6fB6QYONBPtOQk9
+ DJh8XYIRvVsq19DtaRbOde3Pqt+U3mVhAJRiVq9/pLYYfHRPetQ2VwkvtOK63TFIov9LQtN9N9PJt
+ W7/r5BUcb6i86u+BjFat8OYQU9y2P1DA/EDcTwU14mU2aPtj4aDiy4zBQ/DSm0rkTEqy36baSOqyA
+ V4yYgj7JmTV6DLtcs5VRxDGb3q6cP0CLL/po4JfkE8jt0lxs+Hs+g3d6AcmGzyEozq//QEL4RnMt8
+ byUYd3U5VUmkthiwr4pU7QnYiaWZQxohw6U15DrlSostKCZf7pcDzFMvg9GIfhVhYyVE4cG/tyrih
+ 3mmB/xNA==;
+Received: from [2602:306:c5a2:a380:b447:81b0:ffaa:defc]
+ by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1m0mQg-00F4IY-8x; Tue, 06 Jul 2021 14:52:06 +0000
+Subject: Re: [PATCH] bus: Make remove callback return void
+To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <20210706095037.1425211-1-u.kleine-koenig@pengutronix.de>
+From: Geoff Levand <geoff@infradead.org>
+Message-ID: <7a68b536-302c-0374-848f-4b9535ff1306@infradead.org>
+Date: Tue, 6 Jul 2021 07:51:36 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+MIME-Version: 1.0
+In-Reply-To: <20210706095037.1425211-1-u.kleine-koenig@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 08 Jul 2021 12:04:26 +0200
-Cc: alsa-devel@alsa-project.org, zxinhui@google.com, carterhsu@google.com,
- linux-kernel@vger.kernel.org, bubblefang@google.com,
- Robert Lee <lerobert@google.com>
+Cc: nvdimm@lists.linux.dev, Alexey Kardashevskiy <aik@ozlabs.ru>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Samuel Iglesias Gonsalvez <siglesias@igalia.com>,
+ Jens Taprogge <jens.taprogge@taprogge.org>,
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+ Paul Mackerras <paulus@samba.org>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ Mike Christie <michael.christie@oracle.com>, Wei Liu <wei.liu@kernel.org>,
+ Maxim Levitsky <maximlevitsky@gmail.com>, Samuel Holland <samuel@sholland.org>,
+ Michael Ellerman <mpe@ellerman.id.au>, linux-acpi@vger.kernel.org,
+ linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
+ Tomas Winkler <tomas.winkler@intel.com>, Julien Grall <jgrall@amazon.com>,
+ Ohad Ben-Cohen <ohad@wizery.com>, Alex Williamson <alex.williamson@redhat.com>,
+ Alex Elder <elder@kernel.org>, linux-parisc@vger.kernel.org,
+ linux-fpga@vger.kernel.org, linux-usb@vger.kernel.org,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, Thorsten Scherer <t.scherer@eckelmann.de>,
+ kernel@pengutronix.de, Jon Mason <jdmason@kudzu.us>,
+ linux-ntb@googlegroups.com, Wu Hao <hao.wu@intel.com>,
+ David Woodhouse <dwmw@amazon.co.uk>,
+ =?UTF-8?Q?Krzysztof_Wilczy=c5=84ski?= <kw@linux.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Manohar Vanga <manohar.vanga@gmail.com>, linux-wireless@vger.kernel.org,
+ Dominik Brodowski <linux@dominikbrodowski.net>,
+ virtualization@lists.linux-foundation.org,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ target-devel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Ira Weiny <ira.weiny@intel.com>,
+ Helge Deller <deller@gmx.de>,
+ =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
+ industrypack-devel@lists.sourceforge.net, linux-mips@vger.kernel.org,
+ Len Brown <lenb@kernel.org>, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, Johan Hovold <johan@kernel.org>,
+ greybus-dev@lists.linaro.org, Bjorn Helgaas <bhelgaas@google.com>,
+ Dave Jiang <dave.jiang@intel.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, Johannes Thumshirn <morbidrsa@gmail.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
+ Cornelia Huck <cohuck@redhat.com>, Wolfram Sang <wsa@kernel.org>,
+ Joey Pabalan <jpabalanb@gmail.com>, Yehezkel Bernat <YehezkelShB@gmail.com>,
+ =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>,
+ Bodo Stroesser <bostroesser@gmail.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Tyrel Datwyler <tyreld@linux.ibm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Tom Rix <trix@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ SeongJae Park <sjpark@amazon.de>, linux-hyperv@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, Frank Li <lznuaa@gmail.com>,
+ netdev@vger.kernel.org, Qinglang Miao <miaoqinglang@huawei.com>,
+ Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Mark Gross <mgross@linux.intel.com>, linux-staging@lists.linux.dev,
+ Dexuan Cui <decui@microsoft.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Kishon Vijay Abraham I <kishon@ti.com>, Chen-Yu Tsai <wens@csie.org>,
+ linux-input@vger.kernel.org, Matt Porter <mporter@kernel.crashing.org>,
+ Allen Hubbe <allenbh@gmail.com>, Alex Dubov <oakad@yahoo.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Jiri Kosina <jikos@kernel.org>,
+ Vladimir Zapolskiy <vz@mleia.com>, Ben Widawsky <ben.widawsky@intel.com>,
+ Moritz Fischer <mdf@kernel.org>, linux-cxl@vger.kernel.org,
+ Michael Buesch <m@bues.ch>, Dan Williams <dan.j.williams@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Cristian Marussi <cristian.marussi@arm.com>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Martyn Welch <martyn@welchs.me.uk>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, Stefan Richter <stefanr@s5r6.in-berlin.de>,
+ Sudeep Holla <sudeep.holla@arm.com>, "David S. Miller" <davem@davemloft.net>,
+ Sven Van Asbroeck <TheSven73@gmail.com>, kvm@vger.kernel.org,
+ "Michael S. Tsirkin" <mst@redhat.com>, linux-remoteproc@vger.kernel.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Kirti Wankhede <kwankhede@nvidia.com>,
+ Andreas Noever <andreas.noever@gmail.com>, linux-i3c@lists.infradead.org,
+ linux1394-devel@lists.sourceforge.net, Lee Jones <lee.jones@linaro.org>,
+ Arnd Bergmann <arnd@arndb.de>, linux-scsi@vger.kernel.org,
+ Vishal Verma <vishal.l.verma@intel.com>, Russell King <linux@armlinux.org.uk>,
+ Andy Gross <agross@kernel.org>, linux-serial@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Michael Jamet <michael.jamet@intel.com>,
+ William Breathitt Gray <vilhelm.gray@gmail.com>,
+ Hans de Goede <hdegoede@redhat.com>, Hannes Reinecke <hare@suse.de>,
+ Adrian Hunter <adrian.hunter@intel.com>, Juergen Gross <jgross@suse.com>,
+ linuxppc-dev@lists.ozlabs.org, Takashi Iwai <tiwai@suse.com>,
+ Alexandre Bounine <alex.bou9@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Marc Zyngier <maz@kernel.org>,
+ dmaengine@vger.kernel.org, Johannes Berg <johannes@sipsolutions.net>,
+ Maximilian Luz <luzmaximilian@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,79 +177,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When compress offload pauses in draining state, not all platforms
-need to keep in draining state. Some platforms may call drain or
-partial drain again when resume from pause in draining, so it needs
-to wake up from snd_compress_wait_for_drain() in this case.
+On 7/6/21 2:50 AM, Uwe Kleine-König wrote:
 
-Call API snd_compr_leave_draining_in_pause(), if the platform
-doesn't need to keep in draining state when pause in draining
-state.
+> --- a/arch/powerpc/platforms/ps3/system-bus.c
+> +++ b/arch/powerpc/platforms/ps3/system-bus.c
+> @@ -381,7 +381,7 @@ static int ps3_system_bus_probe(struct device *_dev)
+>  	return result;
+>  }
+>  
+> -static int ps3_system_bus_remove(struct device *_dev)
+> +static void ps3_system_bus_remove(struct device *_dev)
+>  {
+>  	struct ps3_system_bus_device *dev = ps3_dev_to_system_bus_dev(_dev);
+>  	struct ps3_system_bus_driver *drv;
+> @@ -399,7 +399,6 @@ static int ps3_system_bus_remove(struct device *_dev)
+>  			__func__, __LINE__, drv->core.name);
+>  
+>  	pr_debug(" <- %s:%d: %s\n", __func__, __LINE__, dev_name(&dev->core));
+> -	return 0;
+>  }
 
-Signed-off-by: Robert Lee <lerobert@google.com>
----
- include/sound/compress_driver.h | 14 ++++++++++++++
- sound/core/compress_offload.c   |  7 ++++++-
- 2 files changed, 20 insertions(+), 1 deletion(-)
+PS3 part looks fine.
 
-diff --git a/include/sound/compress_driver.h b/include/sound/compress_driver.h
-index 277087f635f3..e16524a93a14 100644
---- a/include/sound/compress_driver.h
-+++ b/include/sound/compress_driver.h
-@@ -145,6 +145,7 @@ struct snd_compr_ops {
-  * @lock: device lock
-  * @device: device id
-  * @use_pause_in_draining: allow pause in draining, true when set
-+ * @leave_draining_in_pause: leave draining state when pausing in draining
-  */
- struct snd_compr {
- 	const char *name;
-@@ -156,6 +157,7 @@ struct snd_compr {
- 	struct mutex lock;
- 	int device;
- 	bool use_pause_in_draining;
-+	bool leave_draining_in_pause;
- #ifdef CONFIG_SND_VERBOSE_PROCFS
- 	/* private: */
- 	char id[64];
-@@ -182,6 +184,18 @@ static inline void snd_compr_use_pause_in_draining(struct snd_compr_stream *subs
- 	substream->device->use_pause_in_draining = true;
- }
- 
-+/**
-+ * snd_compr_leave_draining_in_pause - Leave draining state when pause in draining
-+ * @substream: compress substream to set
-+ *
-+ * In some platform, we need to leave draining state when we use pause in draining.
-+ * Add API to allow leave draining state.
-+ */
-+static inline void snd_compr_leave_draining_in_pause(struct snd_compr_stream *substream)
-+{
-+	substream->device->leave_draining_in_pause = true;
-+}
-+
- /* dsp driver callback apis
-  * For playback: driver should call snd_compress_fragment_elapsed() to let the
-  * framework know that a fragment has been consumed from the ring buffer
-diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
-index 21ce4c056a92..9c7bd4db6ecd 100644
---- a/sound/core/compress_offload.c
-+++ b/sound/core/compress_offload.c
-@@ -719,8 +719,13 @@ static int snd_compr_pause(struct snd_compr_stream *stream)
- 		if (!stream->device->use_pause_in_draining)
- 			return -EPERM;
- 		retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_PUSH);
--		if (!retval)
-+		if (!retval) {
- 			stream->pause_in_draining = true;
-+			if (stream->device->leave_draining_in_pause) {
-+				stream->runtime->state = SNDRV_PCM_STATE_PAUSED;
-+				wake_up(&stream->runtime->sleep);
-+			}
-+		}
- 		break;
- 	default:
- 		return -EPERM;
--- 
-2.32.0.93.g670b81a890-goog
-
+Acked-by: Geoff Levand <geoff@infradead.org>

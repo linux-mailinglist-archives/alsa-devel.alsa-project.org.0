@@ -2,98 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BF8B3BF7FB
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jul 2021 12:07:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B41773BF829
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jul 2021 12:12:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 240CF1662;
-	Thu,  8 Jul 2021 12:06:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 240CF1662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D436165E;
+	Thu,  8 Jul 2021 12:11:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D436165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625738845;
-	bh=tnfX0qQGPCPMxBGdPonzbGA1T2X52E/rJTKcj3RX4A4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1625739155;
+	bh=5IBPTBNzD3J6oOXzM3OGSlev4Jt2NYJo58mN1KI9s9w=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DIRPflEhyziO2GVgEfpKOUqvnsk1yMV0f0+JDteG/P7f8NfU4aEsKhowP4er3F8GS
-	 iRkDcTJLvl7q10sg6afeKNxWTXvmwZd87PrN+e7XOPIV48q8jIpHxcvtopFJAuzNTQ
-	 0a1NBpBLyjF6X9mvsf028EqMFtqZsRwAWg4UOwmY=
+	b=pnA+pOPu5zPz+VxuOQEdppl4WXHi7gL7IQPeGlgYZx5IkEL33V2ApCQmLj2zr0tM5
+	 CKh2BtyUHGxFSYPaHAWEfOBtNziJNEAj2EIFcDCKwQJiCYmWW7w6whH71tOhdVvN3m
+	 hMZspLdX4usQVmgeBfZjCWo7I6Pxu/1vT4UxQPwk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5646F804E6;
-	Thu,  8 Jul 2021 12:04:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6AD9DF80553;
+	Thu,  8 Jul 2021 12:04:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CCC79F80249; Tue,  6 Jul 2021 13:42:27 +0200 (CEST)
+ id DAFCEF8014E; Tue,  6 Jul 2021 13:42:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5DADCF8014E
- for <alsa-devel@alsa-project.org>; Tue,  6 Jul 2021 13:42:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DADCF8014E
-X-IronPort-AV: E=McAfee;i="6200,9189,10036"; a="272945353"
-X-IronPort-AV: E=Sophos;i="5.83,328,1616482800"; d="scan'208";a="272945353"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2021 04:42:14 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,328,1616482800"; d="scan'208";a="562991774"
-Received: from kuha.fi.intel.com ([10.237.72.162])
- by fmsmga001.fm.intel.com with SMTP; 06 Jul 2021 04:41:40 -0700
-Received: by kuha.fi.intel.com (sSMTP sendmail emulation);
- Tue, 06 Jul 2021 14:41:39 +0300
-Date: Tue, 6 Jul 2021 14:41:39 +0300
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8A2EF8014E
+ for <alsa-devel@alsa-project.org>; Tue,  6 Jul 2021 13:42:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8A2EF8014E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="TwRJy6+J"
+Received: by mail-ed1-x531.google.com with SMTP id x12so27575821eds.5
+ for <alsa-devel@alsa-project.org>; Tue, 06 Jul 2021 04:42:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=CDGtQ2yb8IShQ7cIRYFiJmp1Uu5BANeA/6Jg/xILJy0=;
+ b=TwRJy6+J3urIn/EOHkX70XQHrPpIXFIOoiquz6eJSwyU/SQIQ4dADKORnRQAYcVLDd
+ bGmCH+O3vZ/zwAN03+xnrlCOWn/T/Pz6KfPYlHzOgGXWb72eEAEAjVLMxY3sV52LOQiu
+ 4sMepvP8f2M/NuGTEEUpcS9djTSXyNUocbOOHuCxDZ/swc4Yj2krBjOK18+xBOWwYw7y
+ O/LcWjnu0kdZ4pmyv7jFfFo0qSdeTOdmtP2CciCXwcdnQ5FYkYueWY1vZLSQqxLbXVdx
+ xHWyXJmiVDLrlTvE9QGQSNArUJUGdY04ySHX3mfxNurDFI1sFLhNw1IKyh/ZzycJEC6f
+ piBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=CDGtQ2yb8IShQ7cIRYFiJmp1Uu5BANeA/6Jg/xILJy0=;
+ b=tD3kOj+bbeTOaaqQIzSKqzu4X5BKbsvUDlb6Ofl2fTJZava/nUnbF27RkKYTd2+2uV
+ G8xIY+3feBTUuJaV8vdoj9PA/P9656E+4Cr9ndB4bAT5jQicRIDfBeNSC8sPbtV655kG
+ tH7wE1fEL6P1QJrqA5Wp7ecHXpZDvwttTAJe/fsDP/4KOCEkDM28nhbN6XlI6R88xyqd
+ t6p5DQdaqt708zcTR3NdeeA5R8HliDhl42G2pjxh3lMZbkQB403ZaUaS76GAFwPHvD9B
+ yDuZNCQdw2GNgw2nuRxEY26V5XS4oTwAJDVhwsImq4KHEKg0nYHR6aJWUK9q4vZSCd2A
+ f9jQ==
+X-Gm-Message-State: AOAM531toyyrUnDYDfrb3EYnpPsw6lsP7ODdLRR7o6WOKzI/tuwiGJVP
+ 9n6N2UUXCFY7buXFfUZ3dmk=
+X-Google-Smtp-Source: ABdhPJwOR9RYbuFI1V8zYqZEcawlLdGKboqfR9DJ6TrIpurxtzPOHwaABH2lGpOOBvACTZh8ZOEU1A==
+X-Received: by 2002:a05:6402:1c06:: with SMTP id
+ ck6mr22330893edb.287.1625571755735; 
+ Tue, 06 Jul 2021 04:42:35 -0700 (PDT)
+Received: from [192.168.2.202] (pd9e5a48a.dip0.t-ipconnect.de.
+ [217.229.164.138])
+ by smtp.gmail.com with ESMTPSA id eb9sm5646083ejc.32.2021.07.06.04.42.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 06 Jul 2021 04:42:35 -0700 (PDT)
 Subject: Re: [PATCH] bus: Make remove callback return void
-Message-ID: <YORBc384OjIBC/Yj@kuha.fi.intel.com>
+To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 References: <20210706095037.1425211-1-u.kleine-koenig@pengutronix.de>
+From: Maximilian Luz <luzmaximilian@gmail.com>
+Message-ID: <07c08230-6c71-2a73-c89f-05b9b5de78ab@gmail.com>
+Date: Tue, 6 Jul 2021 13:42:31 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 In-Reply-To: <20210706095037.1425211-1-u.kleine-koenig@pengutronix.de>
-X-Mailman-Approved-At: Thu, 08 Jul 2021 12:04:25 +0200
-Cc: Alison Schofield <alison.schofield@intel.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Samuel Iglesias Gonsalvez <siglesias@igalia.com>,
- "Dubov <oakad"@ya.alsa-project.org, Jens Taprogge <jens.taprogge@taprogge.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Benjamin Tissoires <benjamin.tissoires@redhat.com>,
- Paul Mackerras <paulus@samba.org>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>, Ira Weiny <ira.weiny@intel.com>,
- Wei Liu <wei.liu@kernel.org>, Dave Jiang <dave.jiang@intel.com>,
- Maxim Levitsky <maximlevitsky@gmail.com>,
- Johannes Thumshirn <morbidrsa@gmail.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Helge Deller <deller@gmx.de>,
- =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
- Dexuan Cui <decui@microsoft.com>, Russell King <linux@armlinux.org.uk>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Alex@alsa-project.org, Tom Rix <trix@redhat.com>, Len Brown <lenb@kernel.org>,
- Jiri Kosina <jikos@kernel.org>, Haiyang Zhang <haiyangz@microsoft.com>,
- Sudeep Holla <sudeep.holla@arm.com>,
- William Breathitt Gray <vilhelm.gray@gmail.com>,
- Maxime Ripard <mripard@kernel.org>, Ben Widawsky <ben.widawsky@intel.com>,
- Moritz Fischer <mdf@kernel.org>, Stephen Hemminger <sthemmin@microsoft.com>,
- Dan Williams <dan.j.williams@intel.com>,
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 08 Jul 2021 12:04:27 +0200
+Cc: =?UTF-8?Q?Krzysztof_Wilczy=c5=84ski?= <kw@linux.com>,
+ linux-hyperv@vger.kernel.org, Alex Elder <elder@kernel.org>,
+ kvm@vger.kernel.org, nvdimm@lists.linux.dev, linux-mmc@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-fpga@vger.kernel.org,
+ linux-pci@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-cxl@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ target-devel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-i3c@lists.infradead.org,
+ "K. Y. Srinivasan" <kys@microsoft.com>, Jiri Slaby <jirislaby@kernel.org>,
+ Rob Herring <robh@kernel.org>, Wei Liu <wei.liu@kernel.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Stephen Hemminger <sthemmin@microsoft.com>, linux-scsi@vger.kernel.org,
+ Adrian Hunter <adrian.hunter@intel.com>, linux-staging@lists.linux.dev,
+ Dexuan Cui <decui@microsoft.com>, linux-acpi@vger.kernel.org,
+ Andy Gross <agross@kernel.org>, industrypack-devel@lists.sourceforge.net,
+ linux-input@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ linux-mips@vger.kernel.org, virtualization@lists.linux-foundation.org,
+ linux-sunxi@lists.linux.dev, Len Brown <lenb@kernel.org>,
+ platform-driver-x86@vger.kernel.org, linux-serial@vger.kernel.org,
+ Arnd Bergmann <arnd@arndb.de>, linux-remoteproc@vger.kernel.org,
+ Haiyang Zhang <haiyangz@microsoft.com>, Jiri Kosina <jikos@kernel.org>,
+ Johan Hovold <johan@kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
+ xen-devel@lists.xenproject.org, Bjorn Helgaas <bhelgaas@google.com>,
+ Mark Gross <mgross@linux.intel.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
- Cristian Marussi <cristian.marussi@arm.com>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Geoff Levand <geoff@infradead.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, linux1394-devel@lists.sourceforge.net,
+ Johannes Thumshirn <morbidrsa@gmail.com>, linux-parisc@vger.kernel.org,
+ greybus-dev@lists.linaro.org, Stephen Boyd <sboyd@kernel.org>,
+ linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org,
  "Rafael J. Wysocki" <rjw@rjwysocki.net>, linux-kernel@vger.kernel.org,
- Wolfram Sang <wsa@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Stefan Richter <stefanr@s5r6.in-berlin.de>, kernel@pengutronix.de,
- Michael Ellerman <mpe@ellerman.id.au>, Wu Hao <hao.wu@intel.com>
+ linux-spi@vger.kernel.org, netdev@vger.kernel.org, dmaengine@vger.kernel.org,
+ linux-ntb@googlegroups.com, linux-media@vger.kernel.org,
+ =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,7 +142,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jul 06, 2021 at 11:50:37AM +0200, Uwe Kleine-König wrote:
+On 7/6/21 11:50 AM, Uwe Kleine-KÃ¶nig wrote:
 > The driver core ignores the return value of this callback because there
 > is only little it can do when a device disappears.
 > 
@@ -123,13 +156,8 @@ On Tue, Jul 06, 2021 at 11:50:37AM +0200, Uwe Kleine-König wrote:
 > implemented buses return an ignored error code and so don't anticipate
 > wrong expectations for driver authors.
 > 
-> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+> Signed-off-by: Uwe Kleine-KÃ¶nig <u.kleine-koenig@pengutronix.de>
 
-For ulpi and typec:
+>   drivers/platform/surface/aggregator/bus.c | 4 +---
 
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-
-thanks,
-
--- 
-heikki
+Acked-by: Maximilian Luz <luzmaximilian@gmail.com>

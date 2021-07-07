@@ -2,81 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72F673BE7D7
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jul 2021 14:27:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C20E3BEBC6
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jul 2021 18:08:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E045B82B;
-	Wed,  7 Jul 2021 14:27:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E045B82B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D8C9886;
+	Wed,  7 Jul 2021 18:07:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D8C9886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625660875;
-	bh=rAfs36psQLRHu/YN00KN2Ikb6bEAoIBnVauWpJ+tkys=;
-	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Ir0eYWPjtXHzQaX/tbVqDiDu/F6QU5ocjqBbk4Zqs0hPC9Edfxuu1dimy2bqBuf1E
-	 NiGY3Mn2P26Bsqt+72/CQdEq5HMZk3JYg/HXWulEQ+IRyre4t0XYBjNk/0eZseZe+5
-	 mitx+P6dPRkgUDfLVCpH2JjIW2q7eV/vR017mFnY=
+	s=default; t=1625674086;
+	bh=mrBEhnwH8bYlcMhLBDU8YITzcTTVslIlm2Y8r7tMcEw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=sZyAsn5S1sj+GACkFxT5ZnP87Ay7OcddzomJgesy6URi2y3OjzbZqx7853h8zUCG7
+	 yuiLspVOr2OTf+h+ogbwGFbyT/qqPSnat5zQv6duBNvFbu8Skj6Ks8P4nT0QpZInDP
+	 PnZwGPgO5wZwsFDk3FfoI3puj2gMGC9gkS8fSAu4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 573C9F8025C;
-	Wed,  7 Jul 2021 14:26:27 +0200 (CEST)
-X-Original-To: alsa-devel@alsa-project.org
-Delivered-To: alsa-devel@alsa-project.org
+	by alsa1.perex.cz (Postfix) with ESMTP id B4D29F8025C;
+	Wed,  7 Jul 2021 18:06:38 +0200 (CEST)
+X-Original-To: alsa-devel@Alsa-project.org
+Delivered-To: alsa-devel@Alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 00F1FF80224; Wed,  7 Jul 2021 14:26:25 +0200 (CEST)
+ id 91A4CF80224; Wed,  7 Jul 2021 18:06:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9CF7CF8012A
- for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 14:26:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CF7CF8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2857DF8012A
+ for <alsa-devel@Alsa-project.org>; Wed,  7 Jul 2021 18:06:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2857DF8012A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="YN87qPS0"
-Received: by mail-lj1-x236.google.com with SMTP id p24so2481864ljj.1
- for <alsa-devel@alsa-project.org>; Wed, 07 Jul 2021 05:26:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=xBbhKVMcRKP7IhEubejquc8vBu7KzNJEOw/BevSGbY8=;
- b=YN87qPS0pzLUyvk7DSoVbYduhgb99x/HC2fqZASSbKmj4qRmQGgsHtGtYcVNNgsGfN
- XFHCj6eR/kHfTQRSitOXokdmWtJN9112BHJw+GlAzhNUWJ7JN3UWUPazmDkk6A18cvwf
- X0xVG6vCJE3jt36o7a9NrpgK1I7lyswuLYXsLzX358CHJSYB6B1n6wukVmD836ubWTN5
- UsRH1+uGuQ9E9kVkINYWoKi8xNeAq3+GnQIbAPo59bUrORnU7RhuBsKdgDPRaAs228em
- uPjxy/neXmEv/nzMJ3OwzNLzdD9Vi91Cfc0l1qTat7pYdQhV0I1xlkA5c+fYoqutJFxI
- N/aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=xBbhKVMcRKP7IhEubejquc8vBu7KzNJEOw/BevSGbY8=;
- b=c89+6hNBUkMG+rdpdFXdk3fY9Ytn6ZB40bKKQg9VRDdSNV11bHazcR69sFUT4wvBrn
- jXtaoPOjc0BuS3HGjl4gOG21m4TK7ITw7IlC16w7s2+mJUsPcNnBX2JU2Y5R4+zXFl7E
- +uXELFeeYeEJCQwCnfPw5sOlJw+cw9nRjqQX8TEimVMzMp19KhJl8/STEdI1fgLk9xB8
- cgqoZvBU96Yb8iDdSSku1SNhli4QK+h9pnUU2pLbCv7GX99j8wX+jeZJq4EnO2WxZKVK
- cQBGySznypSK+LskHumsafSCmtrHD9/lWeXkcTzkgGiroym82aBwbXivbiPjs84T28na
- Snrw==
-X-Gm-Message-State: AOAM5338wmz0sKZA6wzt+BvS29pp0tbyEOYJi/X51AkBSjoQCFCeTQNd
- evYd1G6N2P9F8GrZ/vQ1WpLX8W8S4Ti9/eNrHZr0SEeq2JGy2A==
-X-Google-Smtp-Source: ABdhPJwwUpcWfLr381OG4ZbZJVdLwpzoZb4sZ/SyISlyAUBF39xnukeGROeB5GpfjJ6tnpa8KkX5Xd4ZjdLPRBXiZyw=
-X-Received: by 2002:a2e:a22d:: with SMTP id i13mr10987888ljm.140.1625660781659; 
- Wed, 07 Jul 2021 05:26:21 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="CxdMJHSA"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E1FC9619AC;
+ Wed,  7 Jul 2021 16:06:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1625673988;
+ bh=mrBEhnwH8bYlcMhLBDU8YITzcTTVslIlm2Y8r7tMcEw=;
+ h=From:To:Cc:Subject:Date:From;
+ b=CxdMJHSANXma4me120jzn1+3N5fQInQxxJl9coVWw8gg+HoHu4EL19cJz2kL1Fi6C
+ dOURlUkTiLsa+5pT0w1TVnGmEcVx3YpfLza+iR3Z8TMiM2HqUEBJxATDHarYU3M09L
+ JDNCy7ERylapLPoUg4+rEO0chsTNelqiAuvzJKszoTO9yRA8c8K/b8bmsqYl3yf4Xg
+ Bh7UW2lhaZ8l/2Ak6XrOyknRe7yVFm5KI7rNE+PqWix/ZE15G6gsFG/M8VM67fZtg/
+ 6p4xef2aoy9r4YEdHOo7hJ+L3dUFXcEOgmhcrCjLLqJBfNfi6ohzckNhmJ7RAo+/hg
+ jGBIx//vdPHmA==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: tlv320aic31xx: Make regmap cache only on probe()
+Date: Wed,  7 Jul 2021 17:02:34 +0100
+Message-Id: <20210707160234.16253-1-broonie@kernel.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-References: <CAEk1YH4Jd0a8vfZxORVu7qg+Zsc-K+pR187ezNq8QhJBPW4gpw@mail.gmail.com>
-In-Reply-To: <CAEk1YH4Jd0a8vfZxORVu7qg+Zsc-K+pR187ezNq8QhJBPW4gpw@mail.gmail.com>
-From: Damjan Georgievski <gdamjan@gmail.com>
-Date: Wed, 7 Jul 2021 14:26:10 +0200
-Message-ID: <CAEk1YH7vzOKyCOYr_=GdHYaWi_2--6JP5SPV21G6Z+R3uppEmg@mail.gmail.com>
-Subject: Re: Audio out on DisplayPort but not HDMI, on AMD Ryzen APU/Vega
-To: alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=990; h=from:subject;
+ bh=mrBEhnwH8bYlcMhLBDU8YITzcTTVslIlm2Y8r7tMcEw=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBg5c8jHaAfbKOJvpRLMYB8rfd/6bltUxI29bdwSW0k
+ SpTaKFSJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYOXPIwAKCRAk1otyXVSH0I3nB/
+ 0VzLU/RPvzMJ+MOr+dRYH5/CCZrgg27ReP5nWXUDGU3SuQOaUqaWqvXfrcLxTAhJc7khhhlxpeSrtv
+ /qm7dvOUdla76A1VMpLd25IHzKf0DUaSF7YJK0h5QWAScQuPDs3G0DWpAgbuCvCPIa9jqFdx4IIJYq
+ tSSMS9LVazSc9ynopAsGBC/joksrQrUVYLbE+aMC0feTmV2iwNzdl6566fgqVCKyT/YDhLUmhmLcyJ
+ dzI4VTljDUiM5toqthJl7K+bYU8GksUoNDz7Nqwmjhg/LPJ9pdyWyoLx7zal7siH3QKmYbHlNcN0za
+ x6XTu1QVS4gf4hJr4wAgnypQRBnu0T
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+Cc: Nikita Yushchenko <nikita.yoush@cogentembedded.com>,
+ alsa-devel@Alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Lucas Stach <l.stach@pengutronix.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,33 +87,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> I have a desktop computer with an AMD Ryzen 5 4650G PRO APU (CPU + on-die GPU).
-> The motherboard (MSI Mortar B550m wifi / bios 1.6). has one
-> displayport and one HDMI outputs.
-> The displayport is connected to my Lenovo P27 monitor, and the HDMI to
-> my Samsung TV.
+Currently the tlv320aic31xx driver has regulator support but does not
+enable the regulators during probe, deferring this until something causes
+ASoC to make the card active. It does put the device into cache only mode
+but only when the component level probe is called, however if interrupts
+are in use the driver will access the regmap before then which if the
+regulators are not powered on would cause I/O problems.
 
-not sure if the driver in sound/soc/amd/renoir/ should be enabled for
-the 4650G PRO too, but on my computer it has
-a different PCI vendor and ID than in that code. Mine has 1002:1637
-(vendor ATI) while the driver is for 1022:15E2
-(which does not exist on this computer).
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/codecs/tlv320aic31xx.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-sudo lspci -d 1002:1637 -v
-30:00.1 Audio device: Advanced Micro Devices, Inc. [AMD/ATI] Device 1637
-       Subsystem: Micro-Star International Co., Ltd. [MSI] Device ec94
-       Flags: fast devsel, IRQ 94, IOMMU group 4
-       Memory at fcb88000 (32-bit, non-prefetchable) [size=16K]
-       Capabilities: [48] Vendor Specific Information: Len=08 <?>
-       Capabilities: [50] Power Management version 3
-       Capabilities: [64] Express Legacy Endpoint, MSI 00
-       Capabilities: [a0] MSI: Enable- Count=1/1 Maskable- 64bit+
-       Capabilities: [100] Vendor Specific Information: ID=0001 Rev=1
-Len=010 <?>
-       Kernel modules: snd_hda_intel
-
-
-
-
+diff --git a/sound/soc/codecs/tlv320aic31xx.c b/sound/soc/codecs/tlv320aic31xx.c
+index 51870d50f419..b504d63385b3 100644
+--- a/sound/soc/codecs/tlv320aic31xx.c
++++ b/sound/soc/codecs/tlv320aic31xx.c
+@@ -1604,6 +1604,8 @@ static int aic31xx_i2c_probe(struct i2c_client *i2c,
+ 			ret);
+ 		return ret;
+ 	}
++	regcache_cache_only(aic31xx->regmap, true);
++
+ 	aic31xx->dev = &i2c->dev;
+ 	aic31xx->irq = i2c->irq;
+ 
 -- 
-damjan
+2.20.1
+

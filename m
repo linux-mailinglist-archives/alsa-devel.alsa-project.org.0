@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 764A03BE71D
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jul 2021 13:28:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C563B3BE740
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jul 2021 13:40:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 02A3A1660;
-	Wed,  7 Jul 2021 13:27:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02A3A1660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60ACD1661;
+	Wed,  7 Jul 2021 13:39:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60ACD1661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625657291;
-	bh=v9ppU//T3sOeD2xP5gzMc5mPspPHjZFoZ62mh5b6G9U=;
+	s=default; t=1625658032;
+	bh=ZmJlLU8SB6D+otToWSAMXRxxBVj/YHPBJdT18XT7uEk=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eLCecyZhNxI07q5h1dJxL6S71YjkGdjxq/TV0erwzZkfg+T1uBxk5pNZcidNW/X8E
-	 wwnw33oHcPyc9S9COP0ktQ7uOj0WALXgqGUDATE0vsU06rzAItwx8h53VxJTaGc6eW
-	 S1j3jCsEqLIV9f1MHqOYYwHlZ6rOiGC2THaf1DnI=
+	b=DhsEomrKAz+UpJ6W+lfR95cZfexJ/iBgpEMxnwbHbMIrTS53GWZ5HtKiXqkq1ay3E
+	 lkl6kj3ILKxUjs5I4JncQp2fEwgzoU9GoWoJveKfi74FBiKuEMYknj8k+g8W7ZRDGL
+	 oPo11Fv7BMnTrivSqtDuMHNKWTuBJp+sJzELXTic=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 694FFF8012A;
-	Wed,  7 Jul 2021 13:26:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 26924F8012F;
+	Wed,  7 Jul 2021 13:39:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9CA45F80224; Wed,  7 Jul 2021 13:26:41 +0200 (CEST)
+ id 22658F80224; Wed,  7 Jul 2021 13:39:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7D522F8012A
- for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 13:26:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D522F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1A247F8012A
+ for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 13:38:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A247F8012A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="SsMk2tYu"; 
+ header.b="SZBk6UtM"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="BtrElN9d"
+ header.b="qw6vy09z"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 4705220072;
- Wed,  7 Jul 2021 11:26:39 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 0685222058;
+ Wed,  7 Jul 2021 11:38:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625657199; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1625657939; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=QQRXUK1aEBmgQ+aYoruFRQe9bnybrkyuCJq1exn177c=;
- b=SsMk2tYuHtdG7YTovzn2kfpzYpprXT12zjbs7m/lNAOe/SOJNcW2RVQkNey2dwE022lkw/
- JYqvOrBcp5f5/jTAOke+OPzCx2mkE/3sCrI71rcWSd2C6FbizaCHAEUfq5pkfUtMVGndIq
- MzwIMOdiWVsTlCBJ2ADdBFpT4WNUc8Q=
+ bh=izSVaruZZK1uuDh40h+Wau6dNLjAVEv1QpDRBpfpZsc=;
+ b=SZBk6UtMcM26ce3cTDoruC+UIpTuNcjFwYV0bqn0jw5j44VeEod9iDt+EFJ1kCsogdV/Fr
+ kD/MreAz974RrgC2TVT6ngdbh3GE7xUtJpI2Oth9MIIVbEVysg5uDgwMEcJWQ1sesJCupN
+ 3QyRfB4RIL1FdyB1KUH3NWKiUE0vTg0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625657199;
+ s=susede2_ed25519; t=1625657939;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=QQRXUK1aEBmgQ+aYoruFRQe9bnybrkyuCJq1exn177c=;
- b=BtrElN9df9W4iwk7c/OuRI3VQBq3vMLBzOGfxeXLl0JxlUMDPJ5osLiv2TU8z9pfEH/6/X
- JcNa+7iFWtbAInBg==
+ bh=izSVaruZZK1uuDh40h+Wau6dNLjAVEv1QpDRBpfpZsc=;
+ b=qw6vy09zlRBA+OKwTwQYSQIJTcNhAF2Z/k0tzUEuOV57YCE9N7TwORASZ1x7+N2S9iDKnH
+ zKsoFwiuHCets9Aw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 3222FA3B8A;
- Wed,  7 Jul 2021 11:26:39 +0000 (UTC)
-Date: Wed, 07 Jul 2021 13:26:39 +0200
-Message-ID: <s5hczru8ivk.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id E4EC0A3BA4;
+ Wed,  7 Jul 2021 11:38:58 +0000 (UTC)
+Date: Wed, 07 Jul 2021 13:38:58 +0200
+Message-ID: <s5hbl7e8ib1.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Zhen Lei <thunder.leizhen@huawei.com>
-Subject: Re: [PATCH 1/1] ALSA: isa: Fix error return code in
- snd_cmi8330_probe()
-In-Reply-To: <20210707074051.2663-1-thunder.leizhen@huawei.com>
-References: <20210707074051.2663-1-thunder.leizhen@huawei.com>
+To: Robert Lee <lerobert@google.com>
+Subject: Re: [PATCH] ALSA: compress: allow to leave draining state when
+ pausing in draining
+In-Reply-To: <20210706124440.3247283-1-lerobert@google.com>
+References: <20210706124440.3247283-1-lerobert@google.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel <linux-kernel@vger.kernel.org>,
- alsa-devel <alsa-devel@alsa-project.org>, Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, zxinhui@google.com, carterhsu@google.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, vkoul@kernel.org,
+ bubblefang@google.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,18 +94,94 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 07 Jul 2021 09:40:51 +0200,
-Zhen Lei wrote:
+On Tue, 06 Jul 2021 14:44:40 +0200,
+Robert Lee wrote:
 > 
-> When 'SB_HW_16' check fails, the error code -ENODEV instead of 0 should be
-> returned, which is the same as that returned when 'WSS_HW_CMI8330' check
-> fails.
+> When compress offload pauses in draining state, not all platforms
+> need to keep in draining state. Some platforms may call drain or
+> partial drain again when resume from pause in draining, so it needs
+> to wake up from snd_compress_wait_for_drain() in this case.
 > 
-> Fixes: 43bcd973d6d0 ("[ALSA] Add snd_card_set_generic_dev() call to ISA drivers")
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
+> Call API snd_compr_leave_draining_in_pause(), if the platform
+> doesn't need to keep in draining state when pause in draining
+> state.
+> 
+> Signed-off-by: Robert Lee <lerobert@google.com>
 
-Thanks, applied.
+Well, the logic is a bit confusing (hard to understand what really
+"leave-draining-in-pause" actually means) but also error-prone;
+e.g. you left pause_in_draining flag set while changing the state to
+SNDRV_PCM_STATE_PAUSED.  This will keep the pause_in_draining flag
+even after snd_compr_resume() call.
 
+
+thanks,
 
 Takashi
+
+> ---
+>  include/sound/compress_driver.h | 14 ++++++++++++++
+>  sound/core/compress_offload.c   |  7 ++++++-
+>  2 files changed, 20 insertions(+), 1 deletion(-)
+> 
+> diff --git a/include/sound/compress_driver.h b/include/sound/compress_driver.h
+> index 277087f635f3..e16524a93a14 100644
+> --- a/include/sound/compress_driver.h
+> +++ b/include/sound/compress_driver.h
+> @@ -145,6 +145,7 @@ struct snd_compr_ops {
+>   * @lock: device lock
+>   * @device: device id
+>   * @use_pause_in_draining: allow pause in draining, true when set
+> + * @leave_draining_in_pause: leave draining state when pausing in draining
+>   */
+>  struct snd_compr {
+>  	const char *name;
+> @@ -156,6 +157,7 @@ struct snd_compr {
+>  	struct mutex lock;
+>  	int device;
+>  	bool use_pause_in_draining;
+> +	bool leave_draining_in_pause;
+>  #ifdef CONFIG_SND_VERBOSE_PROCFS
+>  	/* private: */
+>  	char id[64];
+> @@ -182,6 +184,18 @@ static inline void snd_compr_use_pause_in_draining(struct snd_compr_stream *subs
+>  	substream->device->use_pause_in_draining = true;
+>  }
+>  
+> +/**
+> + * snd_compr_leave_draining_in_pause - Leave draining state when pause in draining
+> + * @substream: compress substream to set
+> + *
+> + * In some platform, we need to leave draining state when we use pause in draining.
+> + * Add API to allow leave draining state.
+> + */
+> +static inline void snd_compr_leave_draining_in_pause(struct snd_compr_stream *substream)
+> +{
+> +	substream->device->leave_draining_in_pause = true;
+> +}
+> +
+>  /* dsp driver callback apis
+>   * For playback: driver should call snd_compress_fragment_elapsed() to let the
+>   * framework know that a fragment has been consumed from the ring buffer
+> diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
+> index 21ce4c056a92..9c7bd4db6ecd 100644
+> --- a/sound/core/compress_offload.c
+> +++ b/sound/core/compress_offload.c
+> @@ -719,8 +719,13 @@ static int snd_compr_pause(struct snd_compr_stream *stream)
+>  		if (!stream->device->use_pause_in_draining)
+>  			return -EPERM;
+>  		retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_PUSH);
+> -		if (!retval)
+> +		if (!retval) {
+>  			stream->pause_in_draining = true;
+> +			if (stream->device->leave_draining_in_pause) {
+> +				stream->runtime->state = SNDRV_PCM_STATE_PAUSED;
+> +				wake_up(&stream->runtime->sleep);
+> +			}
+> +		}
+>  		break;
+>  	default:
+>  		return -EPERM;
+> -- 
+> 2.32.0.93.g670b81a890-goog
+> 

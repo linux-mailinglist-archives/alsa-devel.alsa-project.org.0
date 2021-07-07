@@ -2,77 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 824BA3BE728
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jul 2021 13:29:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DACB83BE713
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jul 2021 13:26:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26EB4165D;
-	Wed,  7 Jul 2021 13:29:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26EB4165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5FB3F86F;
+	Wed,  7 Jul 2021 13:25:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FB3F86F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625657399;
-	bh=xKbnGb2xSI9K6n9nujM1F0DLC+XJBUVekEIDxVAOhyw=;
-	h=Resent-From:Resent-Date:Resent-To:Date:From:To:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=YgWkZ/UXh01JTRlHnGiRs2PCWYCm5MZ2LEhOAgzsDoF/OrwXcZbbAWBMXoM0P47Cn
-	 UMDH4SPeFMcg78ThbxcB89Iyt3vrumsjzc/q5GBGC9y7NpY3nLCXCMzackS/qST84G
-	 aWaQ65EK30AJkv3kWDVbLhR+1uzGShIIs9BU0ggo=
+	s=default; t=1625657187;
+	bh=Cxf00uc9CYC+U94/gMkB4+xS8joxj+OBSVcDGx/8NII=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=N6X2kgddzx14YT35T8eXMpWKcxCcgscwIgqavKqzDqgixO9Bs8CfQbDlTflqBE7x9
+	 3+Q47cGoqJcCWGSPqpKbDVCW8GUyfDPsT4Z2berut1SUoKoHID02GzuaQPcdSVp11p
+	 JFxcT/q/N4aWX4/qTWep0RMG2g8DQNQ6uEs093lU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B08AF8016C;
-	Wed,  7 Jul 2021 13:28:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3EA0F8025C;
+	Wed,  7 Jul 2021 13:24:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DE37EF80224; Wed,  7 Jul 2021 13:28:27 +0200 (CEST)
+ id EA091F80224; Wed,  7 Jul 2021 13:24:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from lb2-smtp-cloud9.xs4all.net (lb2-smtp-cloud9.xs4all.net
- [194.109.24.26])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B0A10F8012F
- for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 13:28:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0A10F8012F
-Received: from cust-b66e5d83 ([IPv6:fc0c:c157:b88d:62c6:5e3c:5f07:82d0:1b4])
- by smtp-cloud9.xs4all.net with ESMTPA
- id 15izmmzW3hqx915j0mMmN5; Wed, 07 Jul 2021 13:28:20 +0200
-Received: from localhost (localhost [127.0.0.1])
- by keetweej.vanheusden.com (Postfix) with ESMTP id C2F9E162617
- for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 13:28:17 +0200 (CEST)
-Received: from keetweej.vanheusden.com ([127.0.0.1])
- by localhost (mauer.intranet.vanheusden.com [127.0.0.1]) (amavisd-new,
- port 10024)
- with ESMTP id ZFSGR1Qx4OLV for <alsa-devel@alsa-project.org>;
- Wed,  7 Jul 2021 13:28:15 +0200 (CEST)
-Received: from belle.intranet.vanheusden.com (belle.intranet.vanheusden.com
- [192.168.64.100])
- by keetweej.vanheusden.com (Postfix) with ESMTP id E415F162688
- for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 13:28:15 +0200 (CEST)
-Received: by belle.intranet.vanheusden.com (Postfix, from userid 1000)
- id DA4961607F5; Wed,  7 Jul 2021 13:28:15 +0200 (CEST)
-Resent-From: folkert <folkert@vanheusden.com>
-Resent-Date: Wed, 7 Jul 2021 13:28:15 +0200
-Resent-Message-ID: <20210707112815.GV80002@belle.intranet.vanheusden.com>
-Resent-To: alsa-devel@alsa-project.org
-Date: Fri, 2 Jul 2021 19:50:52 +0200
-From: folkert <folkert@vanheusden.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0ED6F8012F
+ for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 13:24:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0ED6F8012F
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="CU2tCccK"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="UkZyRCoL"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 6E76320072;
+ Wed,  7 Jul 2021 11:24:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1625657090; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=pgxl15du2YQEkh8BlT3T5it72MXPsOm/8OcE2SYe0M4=;
+ b=CU2tCccKLOkEdgLgvGVtZn4FOS2VXhxAV933QROzzRPVBO6sVyocpG6q5i+JsdbgYXpETR
+ i/tLup2XiHVm0XXi+P0lUx3QMNq8wnROuuVluk10+1johgRTVZKiJhYxJY6EOFEbCcaL4y
+ Q0f4DdkPkWHJJypTFaDP4CHVVxo3fZs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1625657090;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=pgxl15du2YQEkh8BlT3T5it72MXPsOm/8OcE2SYe0M4=;
+ b=UkZyRCoLhb/59Z4PhYs0ufrpsDVbpGZTix2EGGTyve/h8mbtOX1McqNqZdflA+6VOHLpA2
+ slMAXD6BvoOo7XBQ==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 12CB4A3BA0;
+ Wed,  7 Jul 2021 11:24:50 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: timestamp
-Message-ID: <20210702175052.GI80002@belle.intranet.vanheusden.com>
+Subject: [PATCH] ALSA: usb-audio: Reduce latency at playback start, take#2
+Date: Wed,  7 Jul 2021 13:24:47 +0200
+Message-Id: <20210707112447.27485-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Chameleon-Return-To: folkert@vanheusden.com
-X-Xfmail-Return-To: folkert@vanheusden.com
-Read-Receipt-To: <folkert@vanheusden.com>
-Reply-By: Thu 01 Jul 2021 09:01:16 PM CEST
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-CMAE-Envelope: MS4xfMT9aspApYXzMiDl1/Y3Zp3yM6CfKPhtcO9s/e68blReOlAXUY9FkbJSFj/eONLpL2yaQL+VyZv9LKUQfHx4IZdI0nritVuWIfYESvrP1dtuNPupvZsj
- h1fTTmNGbDiJ3p0e/vaAA6hz6QIIJwN5tSV2EMfU0/juW/d1HMpxgnFbz7/xF674xlfEpnn4nEnPipOLLQsd6Sf5tsh8hkuz9RgN7QFCPpQrexg6CxyW5eCk
+Content-Transfer-Encoding: 8bit
+Cc: Hector Martin <marcan@marcan.st>,
+ Linus Torvalds <torvalds@linux-foundation.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,208 +86,159 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+This is another attempt for the reduction of the latency at the start
+of a USB audio playback stream.  The first attempt in the commit
+9ce650a75a3b caused an unexpected regression (a deadlock with pipewire
+usage) and was later reverted by the commit 4b820e167bf6.  The devils
+are always living in details, of course; the cause of the deadlock was
+the call of snd_pcm_period_elapsed() inside prepare_playback_urb()
+callback.  In the original code, this callback is never called from
+the stream lock context as it's driven solely from the URB complete
+callback.  Along with the movement of the URB submission into the
+trigger START, this prepare call may be also executed in the stream
+lock context, hence it deadlocked with the another lock in
+snd_pcm_period_elapsed().  (Note that this happens only conditionally
+with a small period size that matches with the URB buffer length,
+which was a reason I overlooked during my tests.  Also, the problem
+wasn't seen in the capture stream because the capture stream handles
+the period-elapsed only at retire callback that isn't executed at the
+trigger.)
 
-Please consider including the following patch. This patch adds a '-T'
-flag which prepends MIDI messages outputted by '--dump' with a
-timestamp.
-E.g.:
+If it were only about avoiding the deadlock, it'd be possible to use
+snd_pcm_period_elapsed_under_stream_lock() as a solution.  However, in
+general, the period elapsed notification must be sent after the actual
+stream start, and replacing the call wouldn't satisfy the pattern.
+A better option is to delay the notification after the stream start
+procedure finished, instead.  In the case of USB framework, one of the
+fitting place would be the complete callback of the first URB.
 
-1625245188.993861810) C964
-1625245188.994318675) F8
-1625245188.995468101) 99647F
-1625245189.494490183) F8
-1625245189.495448424) 99647F
-1625245189.995470260) F8
-1625245189.996461381) 99647F
-1625245190.494519924) F8
-[...]
+So, as a workaround of the deadlock and the order fixes above, in
+addition to the re-applying the changes in the commit 9ce650a75a3,
+this patch introduces a new flag indicating the delayed period-elapsed
+handling and sets it under the possible deadlock condition
+(i.e. prepare callback being called before subs->running is set).
+Once when the flag is set, the period-elapsed call is handled at a
+later URB complete call instead.
 
+As a reference for the original motivation for the low-latency change,
+I cite here again:
 
-diff -uNr t3/alsa-utils-1.2.3/amidi/amidi.1 alsa-utils-1.2.3/amidi/amidi.1
---- t3/alsa-utils-1.2.3/amidi/amidi.1	2020-06-07 19:19:42.000000000 +0200
-+++ alsa-utils-1.2.3/amidi/amidi.1	2021-07-02 14:35:25.416330576 +0200
-@@ -6,6 +6,7 @@
- .SH SYNOPSIS
- \fBamidi\fP [\fI\-p port\fP] [\fI\-s file\fP | \fI\-S data\fP]
- [\fI\-r file\fP] [\fI\-d\fP] [\fI\-t seconds\fP] [\fI\-a\fP]
-+[\fI\-T\fP]
+| USB-audio driver behaves a bit strangely for the playback stream --
+| namely, it starts sending silent packets at PCM prepare state while
+| the actual data is submitted at first when the trigger START is
+| kicked off.  This is a workaround for the behavior where URBs are
+| processed too quickly at the beginning.  That is, if we start
+| submitting URBs at trigger START, the first few URBs will be
+| immediately completed, and this would result in the immediate
+| period-elapsed calls right after the start, which may confuse
+| applications.
+|
+| OTOH, submitting the data after silent URBs would, of course, result
+| in a certain delay of the actual data processing, and this is rather
+| more serious problem on modern systems, in practice.
+|
+| This patch tries to revert the workaround and lets the URB
+| submission starting at PCM trigger for the playback again.  As far
+| as I've tested with various backends (native ALSA, PA, JACK, PW), I
+| haven't seen any problems (famous last words :)
+|
+| Note that the capture stream handling needs no such workaround,
+| since the capture is driven per received URB.
+
+Link: https://lore.kernel.org/r/4e71531f-4535-fd46-040e-506a3c256bbd@marcan.st
+Link: https://lore.kernel.org/r/s5hbl7li0fe.wl-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/card.h |  1 +
+ sound/usb/pcm.c  | 26 +++++++++++++++++++++-----
+ 2 files changed, 22 insertions(+), 5 deletions(-)
+
+diff --git a/sound/usb/card.h b/sound/usb/card.h
+index f41dbdc31336..6c0a052a28f9 100644
+--- a/sound/usb/card.h
++++ b/sound/usb/card.h
+@@ -158,6 +158,7 @@ struct snd_usb_substream {
+ 	unsigned int stream_offset_adj;	/* Bytes to drop from beginning of stream (for non-compliant devices) */
  
- .SH DESCRIPTION
- .B amidi
-@@ -41,6 +42,10 @@
- options to specify what data to send or receive.
+ 	unsigned int running: 1;	/* running status */
++	unsigned int period_elapsed_pending;	/* delay period handling */
  
- .TP
-+.I \-T
-+Adds a timestamp in front of each MIDI message.
-+
-+.TP
- .I \-h, \-\-help
- Help: prints a list of options.
+ 	unsigned int buffer_bytes;	/* buffer size in bytes */
+ 	unsigned int inflight_bytes;	/* in-flight data bytes on buffer (for playback) */
+diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+index e26d37365f02..4e5031a68064 100644
+--- a/sound/usb/pcm.c
++++ b/sound/usb/pcm.c
+@@ -611,13 +611,9 @@ static int snd_usb_pcm_prepare(struct snd_pcm_substream *substream)
+ 	subs->hwptr_done = 0;
+ 	subs->transfer_done = 0;
+ 	subs->last_frame_number = 0;
++	subs->period_elapsed_pending = 0;
+ 	runtime->delay = 0;
  
-diff -uNr t3/alsa-utils-1.2.3/amidi/amidi.c alsa-utils-1.2.3/amidi/amidi.c
---- t3/alsa-utils-1.2.3/amidi/amidi.c	2020-06-07 19:19:42.000000000 +0200
-+++ alsa-utils-1.2.3/amidi/amidi.c	2021-07-02 19:41:34.476470438 +0200
-@@ -36,6 +36,7 @@
- #include <unistd.h>
- #include <fcntl.h>
- #include <alsa/asoundlib.h>
-+#include <time.h>
- #include "aconfig.h"
- #include "version.h"
- 
-@@ -80,6 +81,7 @@
- 		"-r, --receive=file              write received data into a file\n"
- 		"-S, --send-hex=\"...\"            send hexadecimal bytes\n"
- 		"-d, --dump                      print received data as hexadecimal bytes\n"
-+		"-T, --timestamp                 adds a timestamp in front of each dumped message\n"
- 		"-t, --timeout=seconds           exits when no data has been received\n"
- 		"                                for the specified duration\n"
- 		"-a, --active-sensing            include active sensing bytes\n"
-@@ -356,7 +358,7 @@
- /*
-  * prints MIDI commands, formatting them nicely
-  */
--static void print_byte(unsigned char byte)
-+static void print_byte(unsigned char byte, struct timespec *ts)
- {
- 	static enum {
- 		STATE_UNKNOWN,
-@@ -426,7 +428,18 @@
- 		if (running_status)
- 			fputs("\n  ", stdout);
+-	/* for playback, submit the URBs now; otherwise, the first hwptr_done
+-	 * updates for all URBs would happen at the same time when starting */
+-	if (subs->direction == SNDRV_PCM_STREAM_PLAYBACK)
+-		ret = start_endpoints(subs);
+-
+  unlock:
+ 	snd_usb_unlock_shutdown(chip);
+ 	return ret;
+@@ -1398,6 +1394,10 @@ static void prepare_playback_urb(struct snd_usb_substream *subs,
+ 		subs->trigger_tstamp_pending_update = false;
  	}
--	printf("%c%02X", newline ? '\n' : ' ', byte);
-+
-+	if (newline) {
-+		printf("\n");
-+
-+		/* Nanoseconds does not make a lot of sense for serial MIDI (the
-+		 * 31250 bps one) but I'm not sure about MIDI over USB.
-+		 */
-+		if (ts)
-+			printf("%lld.%.9ld) ", (long long)ts->tv_sec, ts->tv_nsec);
+ 
++	if (period_elapsed && !subs->running) {
++		subs->period_elapsed_pending = 1;
++		period_elapsed = 0;
 +	}
-+
-+	printf("%02X", byte);
+ 	spin_unlock_irqrestore(&subs->lock, flags);
+ 	urb->transfer_buffer_length = bytes;
+ 	if (period_elapsed)
+@@ -1413,6 +1413,7 @@ static void retire_playback_urb(struct snd_usb_substream *subs,
+ {
+ 	unsigned long flags;
+ 	struct snd_urb_ctx *ctx = urb->context;
++	bool period_elapsed = false;
+ 
+ 	spin_lock_irqsave(&subs->lock, flags);
+ 	if (ctx->queued) {
+@@ -1423,13 +1424,20 @@ static void retire_playback_urb(struct snd_usb_substream *subs,
+ 	}
+ 
+ 	subs->last_frame_number = usb_get_current_frame_number(subs->dev);
++	if (subs->running) {
++		period_elapsed = subs->period_elapsed_pending;
++		subs->period_elapsed_pending = 0;
++	}
+ 	spin_unlock_irqrestore(&subs->lock, flags);
++	if (period_elapsed)
++		snd_pcm_period_elapsed(subs->pcm_substream);
  }
  
- static void sig_handler(int dummy)
-@@ -454,7 +467,7 @@
- 
- int main(int argc, char *argv[])
+ static int snd_usb_substream_playback_trigger(struct snd_pcm_substream *substream,
+ 					      int cmd)
  {
--	static const char short_options[] = "hVlLp:s:r:S::dt:aci:";
-+	static const char short_options[] = "hVlLp:s:r:S::dt:aci:T";
- 	static const struct option long_options[] = {
- 		{"help", 0, NULL, 'h'},
- 		{"version", 0, NULL, 'V'},
-@@ -465,6 +478,7 @@
- 		{"receive", 1, NULL, 'r'},
- 		{"send-hex", 2, NULL, 'S'},
- 		{"dump", 0, NULL, 'd'},
-+		{"timestamp", 0, NULL, 'T'},
- 		{"timeout", 1, NULL, 't'},
- 		{"active-sensing", 0, NULL, 'a'},
- 		{"clock", 0, NULL, 'c'},
-@@ -475,6 +489,7 @@
- 	int ignore_active_sensing = 1;
- 	int ignore_clock = 1;
- 	int do_send_hex = 0;
-+	int do_print_timestamp = 0;
- 	struct itimerspec itimerspec = { .it_interval = { 0, 0 } };
+ 	struct snd_usb_substream *subs = substream->runtime->private_data;
++	int err;
  
- 	while ((c = getopt_long(argc, argv, short_options,
-@@ -509,6 +524,9 @@
- 		case 'd':
- 			dump = 1;
- 			break;
-+		case 'T':
-+			do_print_timestamp = 1;
-+			break;
- 		case 't':
- 			if (optarg)
- 				timeout = atof(optarg);
-@@ -611,6 +629,7 @@
- 	}
- 
- 	if (inputp) {
-+		int need_timestamp = 0;
- 		int read = 0;
- 		int npfds;
- 		struct pollfd *pfds;
-@@ -648,6 +667,7 @@
- 			unsigned char buf[256];
- 			int i, length;
- 			unsigned short revents;
-+			struct timespec ts;
- 
- 			err = poll(pfds, npfds, -1);
- 			if (stop || (err < 0 && errno == EINTR))
-@@ -657,6 +677,11 @@
- 				break;
- 			}
- 
-+			if (clock_gettime(CLOCK_REALTIME, &ts) < 0) {
-+				error("clock_getres failed: %s", strerror(errno));
-+				break;
+ 	switch (cmd) {
+ 	case SNDRV_PCM_TRIGGER_START:
+@@ -1440,6 +1448,14 @@ static int snd_usb_substream_playback_trigger(struct snd_pcm_substream *substrea
+ 					      prepare_playback_urb,
+ 					      retire_playback_urb,
+ 					      subs);
++		if (cmd == SNDRV_PCM_TRIGGER_START) {
++			err = start_endpoints(subs);
++			if (err < 0) {
++				snd_usb_endpoint_set_callback(subs->data_endpoint,
++							      NULL, NULL, NULL);
++				return err;
 +			}
-+
- 			err = snd_rawmidi_poll_descriptors_revents(input, &pfds[1], npfds - 1, &revents);
- 			if (err < 0) {
- 				error("cannot get poll events: %s", snd_strerror(errno));
-@@ -692,7 +717,8 @@
- 				write(receive_file, buf, length);
- 			if (dump) {
- 				for (i = 0; i < length; ++i)
--					print_byte(buf[i]);
-+					print_byte(buf[i], do_print_timestamp ? &ts : NULL);
-+
- 				fflush(stdout);
- 			}
- 
-diff -uNr t3/alsa-utils-1.2.3/configure.ac alsa-utils-1.2.3/configure.ac
---- t3/alsa-utils-1.2.3/configure.ac	2021-07-02 19:41:46.000000000 +0200
-+++ alsa-utils-1.2.3/configure.ac	2021-07-02 15:55:13.245585248 +0200
-@@ -97,7 +97,7 @@
- if test x$bat = xtrue; then
- 
-   saved_CFLAGS="$CFLAGS"
--  saved_LDFLAGS="$LDFLAGS"
-+  saved_LDFLAGS="$LDFLAGS -lrt"
-   saved_LIBS="$LIBS"
-   FFTW_INC=""
-   FFTW_LIB=""
-@@ -116,7 +116,7 @@
-   FFTW_CFLAGS="$CFLAGS"
-   FFTW_LIB="$LIBS"
-   CFLAGS="$saved_CFLAGS"
--  LDFLAGS="$saved_LDFLAGS"
-+  LDFLAGS="$saved_LDFLAGS -lrt"
-   LIBS="$saved_LIBS"
-   AC_SUBST(FFTW_INC)
-   AC_SUBST(FFTW_LIB)
-@@ -292,11 +292,11 @@
-   fi
- 
-   saved_CFLAGS="$CFLAGS"
--  saved_LDFLAGS="$LDFLAGS"
-+  saved_LDFLAGS="$LDFLAGS -lrt"
-   saved_LIBS="$LIBS"
-   CFLAGS="$CFLAGS $CURSES_CFLAGS"
-   if test -n "$CURSESLIBDIR"; then
--    LDFLAGS="$LDFLAGS -L$CURSESLIBDIR"
-+    LDFLAGS="$LDFLAGS -L$CURSESLIBDIR -lrt"
-   fi
-   LIBS="$CURSESLIB $LIBS"
- 
-@@ -342,7 +342,7 @@
-                [AC_MSG_ERROR([form$NCURSESLIBSUFFIX library not found])])
- 
-   CFLAGS="$saved_CFLAGS"
--  LDFLAGS="$saved_LDFLAGS"
-+  LDFLAGS="$saved_LDFLAGS -lrt"
-   LIBS="$saved_LIBS"
- 
-   if test -n "$CURSESLIBDIR"; then
++		}
+ 		subs->running = 1;
+ 		dev_dbg(&subs->dev->dev, "%d:%d Start Playback PCM\n",
+ 			subs->cur_audiofmt->iface,
+-- 
+2.26.2
+

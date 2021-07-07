@@ -2,77 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D45563BF184
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jul 2021 23:45:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D219E3BF19A
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jul 2021 23:49:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59C0F850;
-	Wed,  7 Jul 2021 23:44:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59C0F850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 57041843;
+	Wed,  7 Jul 2021 23:48:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57041843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625694324;
-	bh=lc5WWHslCHAzEAUkeJQLyHm2Lk4UIBvwSliqFmLqUhE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=EFwYzT1dqZub27xft+jsVbrObvyH+KfBDGOuTtU1uvllo0W0dRWduBA8hUrjtzJUY
-	 ovaWoYrFhafWj01E5H9WGpZmbeuyGlzcdLCWBuRJw5CPZYNpo87Zjx3H9O+EUIP8gf
-	 v/2VC+1zGuwo+35Fxz0m/1IpR9x0eSlBFAFe2pNI=
+	s=default; t=1625694574;
+	bh=TCSeVrWfUug9ZvsfpcvLtj4aVwBAcLfr2ORvU3IrGxc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=XrJaN1QIJgy5Cj/ecnbMTmWnvPKJ8Exq58hRdhOoU86zSGoWwpQv/mpI7XovtetSm
+	 PuEhrDQLnLSzOEHnNQrYK+YfYg00OPxqXmG1MnpKx3qwpCFmHv7vg41t6cLFO0+003
+	 1gkbdoJo0u/oUD8Y5NUc3LyiTf5JgU2AL/VI2VFo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A24D9F8025C;
-	Wed,  7 Jul 2021 23:43:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C298DF8025C;
+	Wed,  7 Jul 2021 23:48:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A973BF80224; Wed,  7 Jul 2021 23:43:54 +0200 (CEST)
+ id E73DDF80224; Wed,  7 Jul 2021 23:48:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [IPv6:2607:7c80:54:e::133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D7238F8012A
- for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 23:43:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7238F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id EFEE9F8012A
+ for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 23:47:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFEE9F8012A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="XUMof7ci"
+ header.b="AWc9Asqf"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:
- Subject:Sender:Reply-To:Content-ID:Content-Description;
- bh=YNgeYfPK9ovjzJBwdzS6vQtuS1rTuTNOeG0uEP7N+Hs=; b=XUMof7cikcltAkqq+p07WegWcy
- V1qVaWoe+R1LEbgOqNC0dhBbawBP+h4WUf7SdbOtF9Eeeg5rPS9EyFoTbwElisx8l8tmmEbHkpStd
- 4vZ5+Kyj/VGfHZ9GJG9/bRHgQpTgWiXTyhyMzMf/ylGbwAdVeeTL7glQJUy0HbvTOZhAetJZMuXdg
- xB9YVmZnn+qGgOgBVLJXwD1omedUOHAh9N30BcAVjZo7nLYNgnBq8+j+iIQ6sjx7WLKzPvIXXprBU
- twhJg6qSx13Gp6RyO9aqP2Oq/GlxQBt26LUuVAgQak75dl+WbwwH0i9iO5+BiWNjaab6Nnt0sj0C5
- vu4W4cWg==;
-Received: from c-73-157-219-8.hsd1.or.comcast.net ([73.157.219.8]
- helo=[10.0.0.82])
+ Content-Type:MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=Qgkwypb70T+eS59xZSvofGDWn5evTaTDueGhuXuDsuI=; b=AWc9AsqfxwD9/Bn5gK+oeWQ2no
+ DZiicQAHnjHLJniTbTIYE5N+UXH9gDQy968QD3VxpplISVFG2R0UryHa21gEfKbWh+qDGMQpk0aba
+ +aFMqB2kgCH6xs0BlVZzS0Le/n1EW9uQe2diKVvFOmeixrI7StfYcBxE7YeBFzP/Te49R/1JWnZD8
+ x0LGC0o3A4DfFOYsGYKQCZsqTHVdfjhzYS9RmI6uURU7ZOT5MKvESjOQQV8UyxJKJGq6TdwvC6I+X
+ yWzgLo8cAscbDB3glYIp7DoNIvCTJyZTm5KiCk9CYpZGURlCrfCZvYCO0IQnR1xB7vKYLri3M0Mtq
+ zulAz5JQ==;
+Received: from [2601:1c0:6280:3f0::aefb] (helo=bombadil.infradead.org)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1m1FKP-00FmXL-GY; Wed, 07 Jul 2021 21:43:33 +0000
-Subject: Re: [PATCH v2] ASoC: atmel: ATMEL drivers depend on HAS_DMA
-To: Alexandre Belloni <alexandre.belloni@free-electrons.com>,
- Codrin.Ciubotariu@microchip.com
-References: <20210628211158.30273-1-rdunlap@infradead.org>
- <5613542b-a530-ebd8-11c6-ea515cb3f8a9@microchip.com>
- <YOYDjtStnw9CO5dR@piout.net>
+ id 1m1FOb-00Fmic-QB; Wed, 07 Jul 2021 21:47:53 +0000
 From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <fb33b720-14c1-9346-82ac-0da2e8fd0584@infradead.org>
-Date: Wed, 7 Jul 2021 14:43:32 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH v3] ASoC: atmel: ATMEL drivers don't need HAS_DMA
+Date: Wed,  7 Jul 2021 14:47:52 -0700
+Message-Id: <20210707214752.3831-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <YOYDjtStnw9CO5dR@piout.net>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: mirq-linux@rere.qmqm.pl, alsa-devel@alsa-project.org, broonie@kernel.org,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Randy Dunlap <rdunlap@infradead.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>,
+ Mark Brown <broonie@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@free-electrons.com>,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,52 +83,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 7/7/21 12:42 PM, Alexandre Belloni wrote:
-> On 07/07/2021 16:40:34+0000, Codrin.Ciubotariu@microchip.com wrote:
->> On 29.06.2021 00:11, Randy Dunlap wrote:
->>> EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
->>>
->>> On a config (such as arch/sh/) which does not set HAS_DMA when MMU
->>> is not set, several ATMEL ASoC drivers select symbols that cause
->>> kconfig warnings. There is one "depends on HAS_DMA" here but several
->>> more are needed to prevent kconfig warnings since 'select' does not
->>> recognize any dependencies.
->>>
->>> Fix the following kconfig warnings:
->>>
->>> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_PDC
->>>    Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && HAS_DMA [=n]
->>>    Selected by [m]:
->>>    - SND_ATMEL_SOC_SSC [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m]
->>>    - SND_ATMEL_SOC_SSC_PDC [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m]
->>>
->>> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC_PDC
->>>    Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m] && HAS_DMA [=n]
->>>    Selected by [m]:
->>>    - SND_AT91_SOC_SAM9G20_WM8731 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && SND_SOC_I2C_AND_SPI [=m]
->>>
->>> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC
->>>    Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && HAS_DMA [=n]
->>>    Selected by [m]:
->>>    - SND_ATMEL_SOC_SSC_DMA [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m]
->>>
->>> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC_DMA
->>>    Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m] && HAS_DMA [=n]
->>>    Selected by [m]:
->>>    - SND_ATMEL_SOC_WM8904 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && I2C [=m]
->>>    - SND_AT91_SOC_SAM9X5_WM8731 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && SND_SOC_I2C_AND_SPI [=m]
->>
->> Hi Randy,
->>
->> Sorry about my delayed response. I think it would be better to just 
->> remove HAS_DMA from SND_ATMEL_SOC_PDC, since it seems to compile fine 
->> without it. This should fix all the problems...
->>
-> 
-> I bet this is correct since m32r is gone.
+On a config (such as arch/sh/) which does not set HAS_DMA when MMU
+is not set, several ATMEL ASoC drivers select symbols that cause
+kconfig warnings. There is one "depends on HAS_DMA" which is no longer
+needed. Dropping it eliminates the kconfig warnings and still builds
+with no problems reported.
 
-Yes, that builds for me with no problems.
-I'll submit that patch soon.
+Fix the following kconfig warnings:
 
-Thanks.
+WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_PDC
+  Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && HAS_DMA [=n]
+  Selected by [m]:
+  - SND_ATMEL_SOC_SSC [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m]
+  - SND_ATMEL_SOC_SSC_PDC [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m]
 
+WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC_PDC
+  Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m] && HAS_DMA [=n]
+  Selected by [m]:
+  - SND_AT91_SOC_SAM9G20_WM8731 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && SND_SOC_I2C_AND_SPI [=m]
+
+WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC
+  Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && HAS_DMA [=n]
+  Selected by [m]:
+  - SND_ATMEL_SOC_SSC_DMA [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m]
+
+WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC_DMA
+  Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m] && HAS_DMA [=n]
+  Selected by [m]:
+  - SND_ATMEL_SOC_WM8904 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && I2C [=m]
+  - SND_AT91_SOC_SAM9X5_WM8731 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && SND_SOC_I2C_AND_SPI [=m]
+
+Fixes: 3951e4aae2ce ("ASoC: atmel-pcm: dma support based on pcm dmaengine")
+Fixes: 18291410557f ("ASoC: atmel: enable SOC_SSC_PDC and SOC_SSC_DMA in Kconfig")
+Fixes: 061981ff8cc8 ("ASoC: atmel: properly select dma driver state")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Cc: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+Cc: alsa-devel@alsa-project.org
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+Cc: Alexandre Belloni <alexandre.belloni@free-electrons.com>
+---
+v2: rebase & resend;
+    drop Cc: to Bo Shen <voice.shen@atmel.com> # bounced
+v3: drop "depends on HAS_DMA" (as suggested by Codrin; Thanks)
+
+---
+ sound/soc/atmel/Kconfig |    1 -
+ 1 file changed, 1 deletion(-)
+
+--- linux-next-20210707.orig/sound/soc/atmel/Kconfig
++++ linux-next-20210707/sound/soc/atmel/Kconfig
+@@ -11,7 +11,6 @@ if SND_ATMEL_SOC
+ 
+ config SND_ATMEL_SOC_PDC
+ 	bool
+-	depends on HAS_DMA
+ 
+ config SND_ATMEL_SOC_DMA
+ 	bool

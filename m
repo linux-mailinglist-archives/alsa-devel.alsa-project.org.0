@@ -2,83 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C563B3BE740
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jul 2021 13:40:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72F673BE7D7
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jul 2021 14:27:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 60ACD1661;
-	Wed,  7 Jul 2021 13:39:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60ACD1661
+	by alsa0.perex.cz (Postfix) with ESMTPS id E045B82B;
+	Wed,  7 Jul 2021 14:27:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E045B82B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625658032;
-	bh=ZmJlLU8SB6D+otToWSAMXRxxBVj/YHPBJdT18XT7uEk=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1625660875;
+	bh=rAfs36psQLRHu/YN00KN2Ikb6bEAoIBnVauWpJ+tkys=;
+	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DhsEomrKAz+UpJ6W+lfR95cZfexJ/iBgpEMxnwbHbMIrTS53GWZ5HtKiXqkq1ay3E
-	 lkl6kj3ILKxUjs5I4JncQp2fEwgzoU9GoWoJveKfi74FBiKuEMYknj8k+g8W7ZRDGL
-	 oPo11Fv7BMnTrivSqtDuMHNKWTuBJp+sJzELXTic=
+	b=Ir0eYWPjtXHzQaX/tbVqDiDu/F6QU5ocjqBbk4Zqs0hPC9Edfxuu1dimy2bqBuf1E
+	 NiGY3Mn2P26Bsqt+72/CQdEq5HMZk3JYg/HXWulEQ+IRyre4t0XYBjNk/0eZseZe+5
+	 mitx+P6dPRkgUDfLVCpH2JjIW2q7eV/vR017mFnY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26924F8012F;
-	Wed,  7 Jul 2021 13:39:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 573C9F8025C;
+	Wed,  7 Jul 2021 14:26:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22658F80224; Wed,  7 Jul 2021 13:39:03 +0200 (CEST)
+ id 00F1FF80224; Wed,  7 Jul 2021 14:26:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1A247F8012A
- for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 13:38:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A247F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9CF7CF8012A
+ for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 14:26:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CF7CF8012A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="SZBk6UtM"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="qw6vy09z"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 0685222058;
- Wed,  7 Jul 2021 11:38:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625657939; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=izSVaruZZK1uuDh40h+Wau6dNLjAVEv1QpDRBpfpZsc=;
- b=SZBk6UtMcM26ce3cTDoruC+UIpTuNcjFwYV0bqn0jw5j44VeEod9iDt+EFJ1kCsogdV/Fr
- kD/MreAz974RrgC2TVT6ngdbh3GE7xUtJpI2Oth9MIIVbEVysg5uDgwMEcJWQ1sesJCupN
- 3QyRfB4RIL1FdyB1KUH3NWKiUE0vTg0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625657939;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=izSVaruZZK1uuDh40h+Wau6dNLjAVEv1QpDRBpfpZsc=;
- b=qw6vy09zlRBA+OKwTwQYSQIJTcNhAF2Z/k0tzUEuOV57YCE9N7TwORASZ1x7+N2S9iDKnH
- zKsoFwiuHCets9Aw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id E4EC0A3BA4;
- Wed,  7 Jul 2021 11:38:58 +0000 (UTC)
-Date: Wed, 07 Jul 2021 13:38:58 +0200
-Message-ID: <s5hbl7e8ib1.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Robert Lee <lerobert@google.com>
-Subject: Re: [PATCH] ALSA: compress: allow to leave draining state when
- pausing in draining
-In-Reply-To: <20210706124440.3247283-1-lerobert@google.com>
-References: <20210706124440.3247283-1-lerobert@google.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, zxinhui@google.com, carterhsu@google.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, vkoul@kernel.org,
- bubblefang@google.com
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="YN87qPS0"
+Received: by mail-lj1-x236.google.com with SMTP id p24so2481864ljj.1
+ for <alsa-devel@alsa-project.org>; Wed, 07 Jul 2021 05:26:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+ bh=xBbhKVMcRKP7IhEubejquc8vBu7KzNJEOw/BevSGbY8=;
+ b=YN87qPS0pzLUyvk7DSoVbYduhgb99x/HC2fqZASSbKmj4qRmQGgsHtGtYcVNNgsGfN
+ XFHCj6eR/kHfTQRSitOXokdmWtJN9112BHJw+GlAzhNUWJ7JN3UWUPazmDkk6A18cvwf
+ X0xVG6vCJE3jt36o7a9NrpgK1I7lyswuLYXsLzX358CHJSYB6B1n6wukVmD836ubWTN5
+ UsRH1+uGuQ9E9kVkINYWoKi8xNeAq3+GnQIbAPo59bUrORnU7RhuBsKdgDPRaAs228em
+ uPjxy/neXmEv/nzMJ3OwzNLzdD9Vi91Cfc0l1qTat7pYdQhV0I1xlkA5c+fYoqutJFxI
+ N/aQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to;
+ bh=xBbhKVMcRKP7IhEubejquc8vBu7KzNJEOw/BevSGbY8=;
+ b=c89+6hNBUkMG+rdpdFXdk3fY9Ytn6ZB40bKKQg9VRDdSNV11bHazcR69sFUT4wvBrn
+ jXtaoPOjc0BuS3HGjl4gOG21m4TK7ITw7IlC16w7s2+mJUsPcNnBX2JU2Y5R4+zXFl7E
+ +uXELFeeYeEJCQwCnfPw5sOlJw+cw9nRjqQX8TEimVMzMp19KhJl8/STEdI1fgLk9xB8
+ cgqoZvBU96Yb8iDdSSku1SNhli4QK+h9pnUU2pLbCv7GX99j8wX+jeZJq4EnO2WxZKVK
+ cQBGySznypSK+LskHumsafSCmtrHD9/lWeXkcTzkgGiroym82aBwbXivbiPjs84T28na
+ Snrw==
+X-Gm-Message-State: AOAM5338wmz0sKZA6wzt+BvS29pp0tbyEOYJi/X51AkBSjoQCFCeTQNd
+ evYd1G6N2P9F8GrZ/vQ1WpLX8W8S4Ti9/eNrHZr0SEeq2JGy2A==
+X-Google-Smtp-Source: ABdhPJwwUpcWfLr381OG4ZbZJVdLwpzoZb4sZ/SyISlyAUBF39xnukeGROeB5GpfjJ6tnpa8KkX5Xd4ZjdLPRBXiZyw=
+X-Received: by 2002:a2e:a22d:: with SMTP id i13mr10987888ljm.140.1625660781659; 
+ Wed, 07 Jul 2021 05:26:21 -0700 (PDT)
+MIME-Version: 1.0
+References: <CAEk1YH4Jd0a8vfZxORVu7qg+Zsc-K+pR187ezNq8QhJBPW4gpw@mail.gmail.com>
+In-Reply-To: <CAEk1YH4Jd0a8vfZxORVu7qg+Zsc-K+pR187ezNq8QhJBPW4gpw@mail.gmail.com>
+From: Damjan Georgievski <gdamjan@gmail.com>
+Date: Wed, 7 Jul 2021 14:26:10 +0200
+Message-ID: <CAEk1YH7vzOKyCOYr_=GdHYaWi_2--6JP5SPV21G6Z+R3uppEmg@mail.gmail.com>
+Subject: Re: Audio out on DisplayPort but not HDMI, on AMD Ryzen APU/Vega
+To: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,94 +92,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 06 Jul 2021 14:44:40 +0200,
-Robert Lee wrote:
-> 
-> When compress offload pauses in draining state, not all platforms
-> need to keep in draining state. Some platforms may call drain or
-> partial drain again when resume from pause in draining, so it needs
-> to wake up from snd_compress_wait_for_drain() in this case.
-> 
-> Call API snd_compr_leave_draining_in_pause(), if the platform
-> doesn't need to keep in draining state when pause in draining
-> state.
-> 
-> Signed-off-by: Robert Lee <lerobert@google.com>
+> I have a desktop computer with an AMD Ryzen 5 4650G PRO APU (CPU + on-die GPU).
+> The motherboard (MSI Mortar B550m wifi / bios 1.6). has one
+> displayport and one HDMI outputs.
+> The displayport is connected to my Lenovo P27 monitor, and the HDMI to
+> my Samsung TV.
 
-Well, the logic is a bit confusing (hard to understand what really
-"leave-draining-in-pause" actually means) but also error-prone;
-e.g. you left pause_in_draining flag set while changing the state to
-SNDRV_PCM_STATE_PAUSED.  This will keep the pause_in_draining flag
-even after snd_compr_resume() call.
+not sure if the driver in sound/soc/amd/renoir/ should be enabled for
+the 4650G PRO too, but on my computer it has
+a different PCI vendor and ID than in that code. Mine has 1002:1637
+(vendor ATI) while the driver is for 1022:15E2
+(which does not exist on this computer).
+
+sudo lspci -d 1002:1637 -v
+30:00.1 Audio device: Advanced Micro Devices, Inc. [AMD/ATI] Device 1637
+       Subsystem: Micro-Star International Co., Ltd. [MSI] Device ec94
+       Flags: fast devsel, IRQ 94, IOMMU group 4
+       Memory at fcb88000 (32-bit, non-prefetchable) [size=16K]
+       Capabilities: [48] Vendor Specific Information: Len=08 <?>
+       Capabilities: [50] Power Management version 3
+       Capabilities: [64] Express Legacy Endpoint, MSI 00
+       Capabilities: [a0] MSI: Enable- Count=1/1 Maskable- 64bit+
+       Capabilities: [100] Vendor Specific Information: ID=0001 Rev=1
+Len=010 <?>
+       Kernel modules: snd_hda_intel
 
 
-thanks,
 
-Takashi
 
-> ---
->  include/sound/compress_driver.h | 14 ++++++++++++++
->  sound/core/compress_offload.c   |  7 ++++++-
->  2 files changed, 20 insertions(+), 1 deletion(-)
-> 
-> diff --git a/include/sound/compress_driver.h b/include/sound/compress_driver.h
-> index 277087f635f3..e16524a93a14 100644
-> --- a/include/sound/compress_driver.h
-> +++ b/include/sound/compress_driver.h
-> @@ -145,6 +145,7 @@ struct snd_compr_ops {
->   * @lock: device lock
->   * @device: device id
->   * @use_pause_in_draining: allow pause in draining, true when set
-> + * @leave_draining_in_pause: leave draining state when pausing in draining
->   */
->  struct snd_compr {
->  	const char *name;
-> @@ -156,6 +157,7 @@ struct snd_compr {
->  	struct mutex lock;
->  	int device;
->  	bool use_pause_in_draining;
-> +	bool leave_draining_in_pause;
->  #ifdef CONFIG_SND_VERBOSE_PROCFS
->  	/* private: */
->  	char id[64];
-> @@ -182,6 +184,18 @@ static inline void snd_compr_use_pause_in_draining(struct snd_compr_stream *subs
->  	substream->device->use_pause_in_draining = true;
->  }
->  
-> +/**
-> + * snd_compr_leave_draining_in_pause - Leave draining state when pause in draining
-> + * @substream: compress substream to set
-> + *
-> + * In some platform, we need to leave draining state when we use pause in draining.
-> + * Add API to allow leave draining state.
-> + */
-> +static inline void snd_compr_leave_draining_in_pause(struct snd_compr_stream *substream)
-> +{
-> +	substream->device->leave_draining_in_pause = true;
-> +}
-> +
->  /* dsp driver callback apis
->   * For playback: driver should call snd_compress_fragment_elapsed() to let the
->   * framework know that a fragment has been consumed from the ring buffer
-> diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
-> index 21ce4c056a92..9c7bd4db6ecd 100644
-> --- a/sound/core/compress_offload.c
-> +++ b/sound/core/compress_offload.c
-> @@ -719,8 +719,13 @@ static int snd_compr_pause(struct snd_compr_stream *stream)
->  		if (!stream->device->use_pause_in_draining)
->  			return -EPERM;
->  		retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_PUSH);
-> -		if (!retval)
-> +		if (!retval) {
->  			stream->pause_in_draining = true;
-> +			if (stream->device->leave_draining_in_pause) {
-> +				stream->runtime->state = SNDRV_PCM_STATE_PAUSED;
-> +				wake_up(&stream->runtime->sleep);
-> +			}
-> +		}
->  		break;
->  	default:
->  		return -EPERM;
-> -- 
-> 2.32.0.93.g670b81a890-goog
-> 
+-- 
+damjan

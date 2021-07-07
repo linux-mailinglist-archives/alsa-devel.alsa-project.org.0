@@ -2,87 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D99A03BE35F
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jul 2021 09:04:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DAEA3BE3CD
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jul 2021 09:43:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 48C8986F;
-	Wed,  7 Jul 2021 09:03:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48C8986F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1CB8D1662;
+	Wed,  7 Jul 2021 09:42:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CB8D1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625641451;
-	bh=Vjf+6OO8wGnyKEzOv2rAzhQVsP3Cx3YGtz4phc7EcM4=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=iugsvvkD7PemAhDcMCNuyhYOzdh7aJwlfN5fVpYY15LhSq7llefkqRtpxlzfb7hf9
-	 1PS0FXgo5Hg33kCv8PKszq5gA3avag//04H0/vEdYaB3igGXhzDGmOkVSZuQbbA9Jl
-	 kSidLpMjM/mWUZCVXyiWA4xUta5+j5h47afBWTK0=
+	s=default; t=1625643803;
+	bh=RHqTMeHHDyv6lhLV15yljZogGvR5TEyf/kwVYt7T7h8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=d+VQih0C4yMuvgoKtZkCIsfSg7QLaFXy89PKeUwAmF00RvkhOiqV/AcuxY8r9lAN+
+	 vQwdSgdvMNAlF6EfMUCmseoI/ZYgp4tdGS1S6wRaV5GimTY7KTB5jUKHC+zOC9zI9n
+	 W0tXPxFpbfM/M4O01sTyYHc93BvshlETQC1HQtM0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA7ACF8025C;
-	Wed,  7 Jul 2021 09:02:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 757F5F8025C;
+	Wed,  7 Jul 2021 09:41:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 48BF0F8014E; Wed,  7 Jul 2021 09:02:36 +0200 (CEST)
+ id BE477F80224; Wed,  7 Jul 2021 09:41:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62BE1F8014E
- for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 09:02:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62BE1F8014E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="qUT+LTJk"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="XNhXEDwC"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 8EC652256E;
- Wed,  7 Jul 2021 07:02:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625641344; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Op8kaXWmQZkP/t6/Ou7GdSs3p7QU40ls+HE/eSEJmzE=;
- b=qUT+LTJk6hK1jroj3RseadRL2UFbUWUm6vbxoHNviHXnJKWvnAr0jSOQ70ZM/M3XwuRKG1
- F6GNPSbtsubJQ7WcSTF7vb/N4V+EBrzAvHKiUOMVtA8vK5qbwGE571iLf1BARsPRa69FQ6
- pQ7OSntYWTDQLoPcqX9M4Rt7tnzyp6o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625641344;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Op8kaXWmQZkP/t6/Ou7GdSs3p7QU40ls+HE/eSEJmzE=;
- b=XNhXEDwCYFKryqq6ypDCSUMWq3feyFuI+Cx97Kgj8tzhZjl1/X6TNxfMDtWjGXPNngKezM
- AaRn6o8XbZfc3/BA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 81D95A3B8A;
- Wed,  7 Jul 2021 07:02:24 +0000 (UTC)
-Date: Wed, 07 Jul 2021 09:02:24 +0200
-Message-ID: <s5ho8be8v3z.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Max Filippov <jcmvbkbc@gmail.com>
-Subject: Re: ALSA: intel8x0: div by zero in snd_intel8x0_update()
-In-Reply-To: <CAMo8BfKKMQkcsbOQaeEjq_FsJhdK=fn598dvh7YOcZshUSOH=g@mail.gmail.com>
-References: <YJ4yBmIV6RJCo42U@google.com> <s5hk0o18tio.wl-tiwai@suse.de>
- <YJ5cHdv6MVmAKD3b@google.com> <YKDYQfDf7GiMfGCN@google.com>
- <YKDYbaprE3K2QpCe@google.com> <s5hbl9b6mah.wl-tiwai@suse.de>
- <CAMo8BfKKMQkcsbOQaeEjq_FsJhdK=fn598dvh7YOcZshUSOH=g@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Leon Romanovsky <leon@kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Sergey Senozhatsky <senozhatsky@chromium.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1645CF8012A
+ for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 09:41:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1645CF8012A
+Received: from dggemv704-chm.china.huawei.com (unknown [172.30.72.54])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4GKWVt4VL4z78hc;
+ Wed,  7 Jul 2021 15:38:14 +0800 (CST)
+Received: from dggpemm500006.china.huawei.com (7.185.36.236) by
+ dggemv704-chm.china.huawei.com (10.3.19.47) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.2; Wed, 7 Jul 2021 15:41:38 +0800
+Received: from thunder-town.china.huawei.com (10.174.179.0) by
+ dggpemm500006.china.huawei.com (7.185.36.236) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.2; Wed, 7 Jul 2021 15:41:38 +0800
+From: Zhen Lei <thunder.leizhen@huawei.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel <alsa-devel@alsa-project.org>, linux-kernel
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH 1/1] ALSA: isa: Fix error return code in snd_cmi8330_probe()
+Date: Wed, 7 Jul 2021 15:40:51 +0800
+Message-ID: <20210707074051.2663-1-thunder.leizhen@huawei.com>
+X-Mailer: git-send-email 2.26.0.windows.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.174.179.0]
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+ dggpemm500006.china.huawei.com (7.185.36.236)
+X-CFilter-Loop: Reflected
+Cc: Zhen Lei <thunder.leizhen@huawei.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,104 +77,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 06 Jul 2021 19:50:08 +0200,
-Max Filippov wrote:
-> 
-> Hello,
-> 
-> On Sun, May 16, 2021 at 2:50 AM Takashi Iwai <tiwai@suse.de> wrote:
-> >
-> > On Sun, 16 May 2021 10:31:41 +0200,
-> > Sergey Senozhatsky wrote:
-> > >
-> > > On (21/05/16 17:30), Sergey Senozhatsky wrote:
-> > > > On (21/05/14 20:16), Sergey Senozhatsky wrote:
-> > > > > > --- a/sound/pci/intel8x0.c
-> > > > > > +++ b/sound/pci/intel8x0.c
-> > > > > > @@ -691,6 +691,9 @@ static inline void snd_intel8x0_update(struct intel8x0 *chip, struct ichdev *ich
-> > > > > >         int status, civ, i, step;
-> > > > > >         int ack = 0;
-> > > > > >
-> > > > > > +       if (!ichdev->substream || ichdev->suspended)
-> > > > > > +               return;
-> > > > > > +
-> > > > > >         spin_lock_irqsave(&chip->reg_lock, flags);
-> > > > > >         status = igetbyte(chip, port + ichdev->roff_sr);
-> > > > > >         civ = igetbyte(chip, port + ICH_REG_OFF_CIV);
-> > > >
-> > > > This does the problem for me.
-> > >
-> > >        ^^^ does fix
-> >
-> > OK, thanks for confirmation.  So this looks like some spurious
-> > interrupt with the unexpected hardware bits.
-> >
-> > However, the suggested check doesn't seem covering enough, and it
-> > might still hit if the suspend/resume happens before the device is
-> > opened but not set up (and such a spurious irq is triggered).
-> >
-> > Below is more comprehensive fix.  Let me know if this works, too.
-> >
-> >
-> > thanks,
-> >
-> > Takashi
-> >
-> > -- 8< --
-> > Subject: [PATCH] ALSA: intel8x0: Don't update period unless prepared
-> >
-> > The interrupt handler of intel8x0 calls snd_intel8x0_update() whenever
-> > the hardware sets the corresponding status bit for each stream.  This
-> > works fine for most cases as long as the hardware behaves properly.
-> > But when the hardware gives a wrong bit set, this leads to a NULL
-> > dereference Oops, and reportedly, this seems what happened on a VM.
-> >
-> > For fixing the crash, this patch adds a internal flag indicating that
-> > the stream is ready to be updated, and check it (as well as the flag
-> > being in suspended) to ignore such spurious update.
-> >
-> > Cc: <stable@vger.kernel.org>
-> > Reported-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-> > Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> > ---
-> >  sound/pci/intel8x0.c | 7 +++++++
-> >  1 file changed, 7 insertions(+)
-> 
-> linux v5.13 booting on qemu-system-xtensa virt board gets stuck inside
-> snd_intel8x0_probe -> intel8x0_measure_ac97_clock with this patch.
-> Prior to it it boots successfully for me.
-> I'm curious if this issue has been reported yet.
-> 
-> What I see is an IRQ flood, at some point snd_intel8x0_interrupt
-> and timer ISR  are called in loop and execution never returns to
-> the interrupted function intel8x0_measure_ac97_clock.
-> 
-> Any idea what it could be?
+When 'SB_HW_16' check fails, the error code -ENODEV instead of 0 should be
+returned, which is the same as that returned when 'WSS_HW_CMI8330' check
+fails.
 
-That's something odd with the VM.  As the chip itself has never shown
-such a problem on real systems, maybe the best action would be to just
-skip the clock measurement on VM.  The measurement itself is
-unreliable on VM, so it makes more sense.
-
-That said, something like below would work?
-
-
-thanks,
-
-Takashi
-
+Fixes: 43bcd973d6d0 ("[ALSA] Add snd_card_set_generic_dev() call to ISA drivers")
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
 ---
-diff --git a/sound/pci/intel8x0.c b/sound/pci/intel8x0.c
-index 2d1bfbcba933..b75f832d7777 100644
---- a/sound/pci/intel8x0.c
-+++ b/sound/pci/intel8x0.c
-@@ -2199,6 +2199,9 @@ static int snd_intel8x0_mixer(struct intel8x0 *chip, int ac97_clock,
- 	pbus->private_free = snd_intel8x0_mixer_free_ac97_bus;
- 	if (ac97_clock >= 8000 && ac97_clock <= 48000)
- 		pbus->clock = ac97_clock;
-+	else if (chip->inside_vm)
-+		pbus->clock = 48000;
-+
- 	/* FIXME: my test board doesn't work well with VRA... */
- 	if (chip->device_type == DEVICE_ALI)
- 		pbus->no_vra = 1;
+ sound/isa/cmi8330.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/isa/cmi8330.c b/sound/isa/cmi8330.c
+index 6c59a3eec59b..ef6d0a20efd8 100644
+--- a/sound/isa/cmi8330.c
++++ b/sound/isa/cmi8330.c
+@@ -551,7 +551,7 @@ static int snd_cmi8330_probe(struct snd_card *card, int dev)
+ 	}
+ 	if (acard->sb->hardware != SB_HW_16) {
+ 		snd_printk(KERN_ERR PFX "SB16 not found during probe\n");
+-		return err;
++		return -ENODEV;
+ 	}
+ 
+ 	snd_wss_out(acard->wss, CS4231_MISC_INFO, 0x40); /* switch on MODE2 */
+-- 
+2.25.1
+
+

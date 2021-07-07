@@ -2,92 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6437D3BF0C8
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jul 2021 22:35:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D45563BF184
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jul 2021 23:45:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D4EB4850;
-	Wed,  7 Jul 2021 22:34:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4EB4850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 59C0F850;
+	Wed,  7 Jul 2021 23:44:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59C0F850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625690111;
-	bh=9qUXM4H2wtZyrMeQ+ei5PDaC7rgS+Ilb1nmD+VJT8mc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1625694324;
+	bh=lc5WWHslCHAzEAUkeJQLyHm2Lk4UIBvwSliqFmLqUhE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ri6weKjxXMDfqP3m82KWZgyCnsSA0SjEKjtjNlpPIxOalFp/HYOUXiJkhQRbW5Ams
-	 xNTleN0Qf9IpomiIwb9ss/ehKJZpW9PYDo2XGWiWS3MQBgv6VvUveTzIdOWLNbL2Xf
-	 DfuOqKuCDRzCP9VxpKKmJkJyk61c7LjTeT4Fmw3Y=
+	b=EFwYzT1dqZub27xft+jsVbrObvyH+KfBDGOuTtU1uvllo0W0dRWduBA8hUrjtzJUY
+	 ovaWoYrFhafWj01E5H9WGpZmbeuyGlzcdLCWBuRJw5CPZYNpo87Zjx3H9O+EUIP8gf
+	 v/2VC+1zGuwo+35Fxz0m/1IpR9x0eSlBFAFe2pNI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72763F8012A;
-	Wed,  7 Jul 2021 22:33:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A24D9F8025C;
+	Wed,  7 Jul 2021 23:43:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1CEB5F80224; Wed,  7 Jul 2021 22:33:42 +0200 (CEST)
+ id A973BF80224; Wed,  7 Jul 2021 23:43:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,FROM_LOCAL_NOVOWEL,HK_RANDOM_ENVFROM,
- HK_RANDOM_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ACD61F8012F
- for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 22:33:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACD61F8012F
+ by alsa1.perex.cz (Postfix) with ESMTPS id D7238F8012A
+ for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 23:43:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7238F8012A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Y7teMaxB"
-Received: by mail-ed1-x529.google.com with SMTP id h2so5176583edt.3
- for <alsa-devel@alsa-project.org>; Wed, 07 Jul 2021 13:33:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=RksO08zxXShmv/TbRX/JnQALfaTc9XSb/QqN0uX0Y4c=;
- b=Y7teMaxBpvvKQ2gnp5u8kzquNml4aUTJpZl5jIW1lKNpT8ve4ZLtzc/vUNwsNvhqtp
- e0O3MvxbR+K7v8lrbKbXDJQjN+cz35SF8NgNYZLfyFCmlAgWsI44MSKyzjegkMwU+vte
- 92HL+Ve+mX19cYQvEVbbBWmk4DELZB3xCkswltxfaTeOEyEu6ZespLqNGXkwgTDggNmr
- 7Xu4l4KUl3MPnitEsBrOQ8uLWDQwKQIKN1CspgpX2TY4zpyZAT34emBtjii2hLQ5Pz2R
- FB5Bp/m+eDQRrAyXNb/mIBM+UdkhiidNSP6fwcIs9h27GGGPGHQaY8q43ABqQlje4KDt
- cMCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=RksO08zxXShmv/TbRX/JnQALfaTc9XSb/QqN0uX0Y4c=;
- b=sF10R9Q2zEP+ZaX+5PB8xf35++y3tUBe9hXr3sAg+ZHzYBgm35+ASBQOd7ruA50Lyq
- HTXOQe9RieyeMigGUWpgWHIzJyVCoyUogPrbWdJFpj1rpBOK5ZK4uYrhZJUA/w1xEo+g
- MLVshpiCkX6v9NQC4KYRmzaE1t7dhUw+K3Jl8K4euo9FYPPf9JIDp4Ju8xlI2657q7m1
- OVtSABmc38x0Yk8tjIchy275fn9/wvleA1A5TfXK4our+bIG62ggoTTXo3iSeKXHQS6l
- siweoSEDgo+fO8JqntJJ7lEBRoC2tCwRlw+V/gsNSIl7/BTOkkB8UbBB40wdUcUH1tZi
- h68g==
-X-Gm-Message-State: AOAM533bAvHi0zOsZ33POieCeQNHOsFU0lDnylSj3F528qJkI5EWJ8lL
- DMv1cAVdd2t+GvBWv5ikapddUEZLvdLkhPzUnvo=
-X-Google-Smtp-Source: ABdhPJzL4aKhFnDbKJLykRHEyOt/2yk5mRO6vIgkimxjmW2858+h68zn4jLxxbwEIpTXiZisK01GMIBFtDZ8ByOBvSI=
-X-Received: by 2002:a50:8fc3:: with SMTP id y61mr31809870edy.107.1625690013534; 
- Wed, 07 Jul 2021 13:33:33 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="XUMof7ci"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:
+ Subject:Sender:Reply-To:Content-ID:Content-Description;
+ bh=YNgeYfPK9ovjzJBwdzS6vQtuS1rTuTNOeG0uEP7N+Hs=; b=XUMof7cikcltAkqq+p07WegWcy
+ V1qVaWoe+R1LEbgOqNC0dhBbawBP+h4WUf7SdbOtF9Eeeg5rPS9EyFoTbwElisx8l8tmmEbHkpStd
+ 4vZ5+Kyj/VGfHZ9GJG9/bRHgQpTgWiXTyhyMzMf/ylGbwAdVeeTL7glQJUy0HbvTOZhAetJZMuXdg
+ xB9YVmZnn+qGgOgBVLJXwD1omedUOHAh9N30BcAVjZo7nLYNgnBq8+j+iIQ6sjx7WLKzPvIXXprBU
+ twhJg6qSx13Gp6RyO9aqP2Oq/GlxQBt26LUuVAgQak75dl+WbwwH0i9iO5+BiWNjaab6Nnt0sj0C5
+ vu4W4cWg==;
+Received: from c-73-157-219-8.hsd1.or.comcast.net ([73.157.219.8]
+ helo=[10.0.0.82])
+ by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1m1FKP-00FmXL-GY; Wed, 07 Jul 2021 21:43:33 +0000
+Subject: Re: [PATCH v2] ASoC: atmel: ATMEL drivers depend on HAS_DMA
+To: Alexandre Belloni <alexandre.belloni@free-electrons.com>,
+ Codrin.Ciubotariu@microchip.com
+References: <20210628211158.30273-1-rdunlap@infradead.org>
+ <5613542b-a530-ebd8-11c6-ea515cb3f8a9@microchip.com>
+ <YOYDjtStnw9CO5dR@piout.net>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <fb33b720-14c1-9346-82ac-0da2e8fd0584@infradead.org>
+Date: Wed, 7 Jul 2021 14:43:32 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-References: <YJ4yBmIV6RJCo42U@google.com> <s5hk0o18tio.wl-tiwai@suse.de>
- <YJ5cHdv6MVmAKD3b@google.com> <YKDYQfDf7GiMfGCN@google.com>
- <YKDYbaprE3K2QpCe@google.com> <s5hbl9b6mah.wl-tiwai@suse.de>
- <CAMo8BfKKMQkcsbOQaeEjq_FsJhdK=fn598dvh7YOcZshUSOH=g@mail.gmail.com>
- <s5ho8be8v3z.wl-tiwai@suse.de>
- <CAMo8Bf+FF8Ofq=FwoZZXp9vKiMaUZNAm+W=OJmu2j2XN6kLb-Q@mail.gmail.com>
- <s5hk0m26lfu.wl-tiwai@suse.de>
-In-Reply-To: <s5hk0m26lfu.wl-tiwai@suse.de>
-From: Max Filippov <jcmvbkbc@gmail.com>
-Date: Wed, 7 Jul 2021 13:33:22 -0700
-Message-ID: <CAMo8BfLj+VLUbfUmHUSHOfc3PwbWd2w_xnaTZa9HyrcmvJCAkQ@mail.gmail.com>
-Subject: Re: ALSA: intel8x0: div by zero in snd_intel8x0_update()
-To: Takashi Iwai <tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Cc: alsa-devel@alsa-project.org, Leon Romanovsky <leon@kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Sergey Senozhatsky <senozhatsky@chromium.org>
+In-Reply-To: <YOYDjtStnw9CO5dR@piout.net>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: mirq-linux@rere.qmqm.pl, alsa-devel@alsa-project.org, broonie@kernel.org,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,52 +88,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jul 7, 2021 at 11:14 AM Takashi Iwai <tiwai@suse.de> wrote:
-> On Wed, 07 Jul 2021 19:50:07 +0200, Max Filippov wrote:
-> > It didn't change anything in my case. My further observation is that
-> > the snd_intel8x0_update is called before the ichdev->prepared
-> > is set to one and as a result IRQ is apparently never cleared.
->
-> So it's broken in anyway no matter whether
-> intel8x0_measure_ac97_clock() is called or not, right?
+On 7/7/21 12:42 PM, Alexandre Belloni wrote:
+> On 07/07/2021 16:40:34+0000, Codrin.Ciubotariu@microchip.com wrote:
+>> On 29.06.2021 00:11, Randy Dunlap wrote:
+>>> EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
+>>>
+>>> On a config (such as arch/sh/) which does not set HAS_DMA when MMU
+>>> is not set, several ATMEL ASoC drivers select symbols that cause
+>>> kconfig warnings. There is one "depends on HAS_DMA" here but several
+>>> more are needed to prevent kconfig warnings since 'select' does not
+>>> recognize any dependencies.
+>>>
+>>> Fix the following kconfig warnings:
+>>>
+>>> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_PDC
+>>>    Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && HAS_DMA [=n]
+>>>    Selected by [m]:
+>>>    - SND_ATMEL_SOC_SSC [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m]
+>>>    - SND_ATMEL_SOC_SSC_PDC [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m]
+>>>
+>>> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC_PDC
+>>>    Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m] && HAS_DMA [=n]
+>>>    Selected by [m]:
+>>>    - SND_AT91_SOC_SAM9G20_WM8731 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && SND_SOC_I2C_AND_SPI [=m]
+>>>
+>>> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC
+>>>    Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && HAS_DMA [=n]
+>>>    Selected by [m]:
+>>>    - SND_ATMEL_SOC_SSC_DMA [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m]
+>>>
+>>> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC_DMA
+>>>    Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m] && HAS_DMA [=n]
+>>>    Selected by [m]:
+>>>    - SND_ATMEL_SOC_WM8904 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && I2C [=m]
+>>>    - SND_AT91_SOC_SAM9X5_WM8731 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && SND_SOC_I2C_AND_SPI [=m]
+>>
+>> Hi Randy,
+>>
+>> Sorry about my delayed response. I think it would be better to just 
+>> remove HAS_DMA from SND_ATMEL_SOC_PDC, since it seems to compile fine 
+>> without it. This should fix all the problems...
+>>
+> 
+> I bet this is correct since m32r is gone.
 
-The change that you suggested didn't eliminate the call to
-intel8x0_measure_ac97_clock, it's still called and an interrupt
-flood happens at the same place.
+Yes, that builds for me with no problems.
+I'll submit that patch soon.
 
-I've also tried the following change instead and it fixes my issue:
-
-diff --git a/sound/pci/intel8x0.c b/sound/pci/intel8x0.c
-index 5b124c4ad572..13d1c9edea10 100644
---- a/sound/pci/intel8x0.c
-+++ b/sound/pci/intel8x0.c
-@@ -692,11 +692,14 @@ static inline void snd_intel8x0_update(struct
-intel8x0 *chip, struct ichdev *ich
-       int status, civ, i, step;
-       int ack = 0;
-
--       if (!ichdev->prepared || ichdev->suspended)
--               return;
--
-       spin_lock_irqsave(&chip->reg_lock, flags);
-       status = igetbyte(chip, port + ichdev->roff_sr);
-+       if (!ichdev->prepared || ichdev->suspended) {
-+               spin_unlock_irqrestore(&chip->reg_lock, flags);
-+               iputbyte(chip, port + ichdev->roff_sr,
-+                        status & (ICH_FIFOE | ICH_BCIS | ICH_LVBCI));
-+               return;
-+       }
-       civ = igetbyte(chip, port + ICH_REG_OFF_CIV);
-       if (!(status & ICH_BCIS)) {
-               step = 0;
-
-
-> I'm afraid that something is wrong in VM, then.  The driver has been
-> working over decades on thousands of real different boards.
->
-> Skipping the clock measurement on VM would be still useful,
-> independent from your problem, though.
-
--- 
 Thanks.
--- Max
+

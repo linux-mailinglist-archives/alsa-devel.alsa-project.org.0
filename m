@@ -2,72 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 756A53BEC13
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jul 2021 18:26:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16BA43BEC60
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jul 2021 18:37:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0CD2A83E;
-	Wed,  7 Jul 2021 18:25:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0CD2A83E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8CF21886;
+	Wed,  7 Jul 2021 18:36:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CF21886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625675191;
-	bh=FrZ7lnIR8kbHoEaqMeImBiQvI3K420lQpmnEhxnTXlk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1625675826;
+	bh=WAZ4qNFm3qYovCDmTdVLyN1nai0ARwticmeA8ohqDfg=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E0YJDb3f0jD8m691JljOg1dM15m9VfRwlgIVNx2TSamWDMW6WJfrWrttsX4vogjs+
-	 LdMbYd7qhtcCcEJFDDdcwRA1VfJOJCPpQ04682uxJyORVxlvOp4/dlgtiD8cg5XBXi
-	 IwTvCP2XznfO4/lQyGshqibO0ItZWgGT9ylbuRC0=
+	b=ZOQUwEZsIX5qfX6qxySHxP7nEnFF8/1VDoudKy83QL9EdrTuP5KFQC+RQQxuaZdXj
+	 bnE/NmOkr6v2hm43IC2hhI7502QWvhiHLMkFKEwIk0IYa4e+B88r2OAQ9klnkYHNUQ
+	 OvMOE63gvjn3kzBYfSZ+YQnoxy1RVDug57FurYK0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93219F8012A;
-	Wed,  7 Jul 2021 18:25:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22090F802E3;
+	Wed,  7 Jul 2021 18:35:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0E9A5F80224; Wed,  7 Jul 2021 18:25:01 +0200 (CEST)
+ id 0A639F802E3; Wed,  7 Jul 2021 18:35:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 22C19F8012A
- for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 18:24:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22C19F8012A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OMdkB7cT"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5BCBD61C94;
- Wed,  7 Jul 2021 16:24:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625675097;
- bh=FrZ7lnIR8kbHoEaqMeImBiQvI3K420lQpmnEhxnTXlk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=OMdkB7cT+9jVit2hcOQ8e7hPNknUM4xT60xfWR8SUBYDRo6K/1WD7F4QHNSF7ez3n
- QUbOcYOMsxJ9Y+gNoO/4UUw0kurIo9lCyu8Q35hSy7Zz6e+0MFkoKcsCrOydJQ+G8H
- 6QATKqmoC1O3RG0cYVXJvE2qBuAlwPlex1DyAQX5m2s3yEc/2/ejHvc5vgQe2epYcL
- inphohA/+IS/1q67Q+JGkiQCccvMqeNN0CpdMnarSr2qaSFFaLwki0R0t5dDVwrkpj
- JfE72CAzgz8mKrEMKG/XGT/hV4Xe0QclqVvxqxmiBXOU33/QaJYzozKodFW1+us1PB
- yv7C+e0nkRC9Q==
-Date: Wed, 7 Jul 2021 17:24:21 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Vijendar Mukunda <vijendar.mukunda@amd.com>
-Subject: Re: [PATCH 05/12] ASoC: amd: add ACP5x PCM platform driver
-Message-ID: <20210707162420.GG4394@sirena.org.uk>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 89709F8012A
+ for <alsa-devel@alsa-project.org>; Wed,  7 Jul 2021 18:35:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89709F8012A
+X-IronPort-AV: E=McAfee;i="6200,9189,10037"; a="209299007"
+X-IronPort-AV: E=Sophos;i="5.84,220,1620716400"; d="scan'208";a="209299007"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2021 09:35:28 -0700
+X-IronPort-AV: E=Sophos;i="5.84,220,1620716400"; d="scan'208";a="645442731"
+Received: from cmcarran-mobl.amr.corp.intel.com (HELO [10.213.189.140])
+ ([10.213.189.140])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2021 09:35:27 -0700
+Subject: Re: [PATCH 03/12] add acp5x init/de-init functions
+To: Vijendar Mukunda <vijendar.mukunda@amd.com>, broonie@kernel.org,
+ alsa-devel@alsa-project.org
 References: <20210707055623.27371-1-vijendar.mukunda@amd.com>
- <20210707055623.27371-6-vijendar.mukunda@amd.com>
+ <20210707055623.27371-4-vijendar.mukunda@amd.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <dca2f367-59a3-6ea6-7abc-c9817442eb86@linux.intel.com>
+Date: Wed, 7 Jul 2021 11:15:17 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="TKYYegg/GYAC5JIZ"
-Content-Disposition: inline
-In-Reply-To: <20210707055623.27371-6-vijendar.mukunda@amd.com>
-X-Cookie: I will never lie to you.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
- open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Alexander.Deucher@amd.com
+In-Reply-To: <20210707055623.27371-4-vijendar.mukunda@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Alexander.Deucher@amd.com, Takashi Iwai <tiwai@suse.com>,
+ Sunil-kumar.Dommati@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
+ open list <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,33 +79,132 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Missing 'ASoC: amd' prefix in commit subject?
 
---TKYYegg/GYAC5JIZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Wed, Jul 07, 2021 at 11:26:16AM +0530, Vijendar Mukunda wrote:
-
-> +static int acp5x_audio_remove(struct platform_device *pdev)
+> +static int acp5x_power_on(void __iomem *acp5x_base)
 > +{
+> +	u32 val;
+> +	int timeout;
+> +
+> +	val = acp_readl(acp5x_base + ACP_PGFSM_STATUS);
+> +
+> +	if (val == 0)
+> +		return val;
+> +
+> +	if ((val & ACP_PGFSM_STATUS_MASK) !=
+> +				ACP_POWER_ON_IN_PROGRESS)
+> +		acp_writel(ACP_PGFSM_CNTL_POWER_ON_MASK,
+> +			   acp5x_base + ACP_PGFSM_CONTROL);
+> +	timeout = 0;
+> +	while (++timeout < 500) {
+> +		val = acp_readl(acp5x_base + ACP_PGFSM_STATUS);
+> +		if (!val)
+
+Shouldn't you use something like 
+if ((val & ACP_PGFSM_STATUS_MASK) == ACP_POWERED_ON)
+for symmetry with the power-off case?
+
+> +			return 0;
+> +		udelay(1);
+> +	}
+> +	return -ETIMEDOUT;
+> +}
+> +
+> +static int acp5x_power_off(void __iomem *acp5x_base)
+> +{
+> +	u32 val;
+> +	int timeout;
+> +
+> +	acp_writel(ACP_PGFSM_CNTL_POWER_OFF_MASK,
+> +		   acp5x_base + ACP_PGFSM_CONTROL);
+> +	timeout = 0;
+> +	while (++timeout < 500) {
+> +		val = acp_readl(acp5x_base + ACP_PGFSM_STATUS);
+> +		if ((val & ACP_PGFSM_STATUS_MASK) == ACP_POWERED_OFF)
+> +			return 0;
+> +		udelay(1);
+> +	}
+> +	return -ETIMEDOUT;
+> +}
+> +
+> +static int acp5x_reset(void __iomem *acp5x_base)
+> +{
+> +	u32 val;
+> +	int timeout;
+> +
+> +	acp_writel(1, acp5x_base + ACP_SOFT_RESET);
+> +	timeout = 0;
+> +	while (++timeout < 500) {
+> +		val = acp_readl(acp5x_base + ACP_SOFT_RESET);
+> +		if (val & ACP_SOFT_RESET_SOFTRESET_AUDDONE_MASK)
+> +			break;
+> +		cpu_relax();
+> +	}
+> +	acp_writel(0, acp5x_base + ACP_SOFT_RESET);
+> +	timeout = 0;
+> +	while (++timeout < 500) {
+> +		val = acp_readl(acp5x_base + ACP_SOFT_RESET);
+> +		if (!val)
+> +			return 0;
+> +		cpu_relax();
+> +	}
+> +	return -ETIMEDOUT;
+> +}
+> +
+> +static void acp5x_enable_interrupts(void __iomem *acp5x_base)
+> +{
+> +	acp_writel(0x01, acp5x_base + ACP_EXTERNAL_INTR_ENB);
+> +}
+> +
+> +static void acp5x_disable_interrupts(void __iomem *acp5x_base)
+> +{
+> +	acp_writel(ACP_EXT_INTR_STAT_CLEAR_MASK, acp5x_base +
+> +		   ACP_EXTERNAL_INTR_STAT);
+> +	acp_writel(0x00, acp5x_base + ACP_EXTERNAL_INTR_CNTL);
+> +	acp_writel(0x00, acp5x_base + ACP_EXTERNAL_INTR_ENB);
+> +}
+> +
+> +static int acp5x_init(void __iomem *acp5x_base)
+> +{
+> +	int ret;
+> +
+> +	/* power on */
+> +	ret = acp5x_power_on(acp5x_base);
+> +	if (ret) {
+> +		pr_err("ACP5x power on failed\n");
+> +		return ret;
+> +	}
+> +	/* Reset */
+> +	ret = acp5x_reset(acp5x_base);
+> +	if (ret) {
+> +		pr_err("ACP5x reset failed\n");
+> +		return ret;
+> +	}
+> +	acp5x_enable_interrupts(acp5x_base);
 > +	return 0;
 > +}
+> +
+> +static int acp5x_deinit(void __iomem *acp5x_base)
+> +{
+> +	int ret;
+> +
+> +	acp5x_disable_interrupts(acp5x_base);
+> +	/* Reset */
+> +	ret = acp5x_reset(acp5x_base);
+> +	if (ret) {
+> +		pr_err("ACP5x reset failed\n");
+> +		return ret;
+> +	}
+> +	/* power off */
+> +	if (acp_power_gating) {
+> +		ret = acp5x_power_off(acp5x_base);
+> +		if (ret) {
+> +			pr_err("ACP5x power off failed\n");
+> +			return ret;
+> +		}
+> +	}
+> +	return 0;
 
-Just drop this since it's empty.
+shouldn't you have a sequence for shutdown that ignores the acp_power_gating parameter?
 
---TKYYegg/GYAC5JIZ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmDl1TQACgkQJNaLcl1U
-h9Bl/wf+NASniwPTqh5edicrCqrledhvgq7OHSfBhZgkENpTfRvQXzPtY8VtGLSd
-uZZVOvGkYvJ1YnkQesSJ1eqS4cyw4h89nMpkYpdSDcTUUAddx5XDzpOGaTmk5l9h
-xrqiz5/8Z+5whY46ghBVeUrXGwjpTWV79VOEr7P04W0fiXptZTSr4gt3CNWQ52Pq
-m16geLY7rw/pCX1CxkFUU/NbLluUXs1zOnkZ7otIpURYl3Kc+dRGL62UfR2GZGrx
-uIicA++1cqgc+8EhERsf7oyUAkovp2SH3x/AEJhms5Hc8/zrGmaoH3utM4wdbADO
-Pb4Nb/9NMEqLwvGBy/tjFNcALh5MlQ==
-=N3r+
------END PGP SIGNATURE-----
-
---TKYYegg/GYAC5JIZ--

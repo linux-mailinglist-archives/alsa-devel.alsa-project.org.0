@@ -2,150 +2,169 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 168AD3C196F
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jul 2021 20:53:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E3983C1A7A
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jul 2021 22:19:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9147B85D;
-	Thu,  8 Jul 2021 20:52:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9147B85D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FC1B85D;
+	Thu,  8 Jul 2021 22:18:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FC1B85D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625770394;
-	bh=BMqZJPwjQ5e4R4ea5w0S85zHSd6QHGJv0qvT049etYE=;
+	s=default; t=1625775584;
+	bh=+XrZD4t++2MQlE+YbqxtaSm+2Nl7dVExxtet9+Cc1p0=;
 	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NCA+MjYTrTOZ/kg/OKUMu38TXNm8cqoIc3fKE81Th2MJfMebCCxiP4hTLYhYkTnUR
-	 1RU5NwAWnEmeBcGyjVt1Tyyc58bA6RGVMszfa8rBrLNuN0WIz+DP1cxC3zFyUum2I9
-	 Ch61dq+eWyv1aCN+q981kaQRGQhrbgp5GkiVQLgw=
+	b=LX3Dm7QWxFdLWDUIE4vA9zufoseVkR6G1iu68NzwWEkbtWi5eHOdKWbFUiwljuve4
+	 6zbcrrAkYVv3zRgTWUVyC4I9BJIp6N8KqkyrGYK1PFae7ZfiKgZs/U58wSB/hJAIST
+	 xpuK0QGHJCi5zOtuT1RwDxCEkpC/IWM2q43lsznU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EBE28F80259;
-	Thu,  8 Jul 2021 20:51:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBF69F80246;
+	Thu,  8 Jul 2021 22:18:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AFFDAF80249; Thu,  8 Jul 2021 20:51:45 +0200 (CEST)
+ id D7BA5F80249; Thu,  8 Jul 2021 22:18:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2084.outbound.protection.outlook.com [40.107.96.84])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0c-0054df01.pphosted.com (mx0c-0054df01.pphosted.com
+ [67.231.159.91])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F12B7F8012A
- for <alsa-devel@alsa-project.org>; Thu,  8 Jul 2021 20:51:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F12B7F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 84B3EF80143
+ for <alsa-devel@alsa-project.org>; Thu,  8 Jul 2021 22:18:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84B3EF80143
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="CDkdx/pY"
+ dkim=pass (1024-bit key) header.d=calian.com header.i=@calian.com
+ header.b="ZKvx+y9c"
+Received: from pps.filterd (m0208999.ppops.net [127.0.0.1])
+ by mx0c-0054df01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 168JR1DF031136; 
+ Thu, 8 Jul 2021 16:18:04 -0400
+Received: from can01-qb1-obe.outbound.protection.outlook.com
+ (mail-qb1can01lp2055.outbound.protection.outlook.com [104.47.60.55])
+ by mx0c-0054df01.pphosted.com with ESMTP id 39nybg8eec-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 08 Jul 2021 16:18:03 -0400
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CJkWv3KIAlWHi4ljt6bjpS3cvLWcqqVefcdo3e14MnyuLWwcYG/qadT1k1w8zZl5DHzpsxxkMH18UOwjOv+inBWMrsCF5/3OZEB1rOBh9Zh68MkH/atBm2u4qaaQ6gt8DEi/HZmWG+4RXoaYh1hAqyaKXTwJ8GPs/FwtsQa8JV2yhuFF+pJBXnzDjUk0VToANcNjT53H+jZBW3vAggcLAgI77hdat8kuRog5zWoQxmhmsCDfXrM9ClT8evvBXEwboCsuIbw3e/o1YPVrdec9x/jSi6R6wwZIvEbIjljUvxHPPeYvwRlwSPikqJpiqPH2Gj+o03SeKwuieOIRhKkLxg==
+ b=C0Y2VZPWIgiVvUrGK0/+okGIvUBazagMmzGOPOlYZ0/QIJmoHv0Hv631Wsfg342mWAKB2JWIMBxivso+jQnO9gRvtNNpjDCRV1CAv5JaE832cQaWNIIaTac5BGesZgv2W8oPaVw8qm6hDrHm7FL2O9UI05HgrlZY+1ycw+5UgqJYt8UXurHp9C/1Mwu8PVgq7uLdqkEQB+splelyKmvrzv9Mg7TU0MpcijOKBzmcgJKvf++UMQOFJRxmVS/Eib6hSdodT1G8B5StjWwU4dUsYovjpt4rD1XbL3Kk8M2BWoGysihJOR2UYOj6tv6WniS181LiUVlZHTKAvs3JqT4RnQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5s07dK1jW8U0nnAGP3v46WAsnuceVJFhPefLyDb9IZE=;
- b=J0PNZ6URp3aH1PdfZh1ufAfqYxHfDo0Y9UvnSRa9WCgFDBBQI8aywJfot3SeHbMVwkSRM4YW+IGM4th1v1MWaw3Hhjc4lHA/qR+vtSg6TS1TTqpUFtfxorKT4YgRBnJTjRLpFTuZKgtcif02IgKdimOcLQMc3RuzFDhL20feUjEuAy8c0j+Eddlw42DNjis3TuPK4ZAYG5yK77BK7rNYcS+JuuJNUwUsH3AB535V69UzB5psM3deIAaILtpM2ecJCRQ5EnYwpykrLckU/HADM7mXUt2Lf8X+kmZ+SOgjJWJWRzdIS0x6PAQleTZBnSsrYzUI2BWRPKeeWsbdpx1QCQ==
+ bh=+XrZD4t++2MQlE+YbqxtaSm+2Nl7dVExxtet9+Cc1p0=;
+ b=TEY7verVp481T91faOjQfsJcUz7NTHFbJ9sMx8eDhlrXoEllOBTrXPi5Ju6u9bICN8QjVTU5LBtnX1kaEunnG/gKD3zZDLnW2xQdE13jX0zsIG/9QpepIEfD5fOR2XxOsB8+OYtX9g+ylVYBetFb3w7nH5V3Ty/IqQq2rUKWBN1gaFNfu09U+X0DyKMenundxlNjSBxFHC8lcOWIshPCxjkphgsZvCoK9or10TxwpR+yoZyoW7afvmduAZQknf00F+6VcrxaJHhjVMCk4tv/vtaSJ13cd58bJbHqNOyqHQSuaz32LX2XptccPdPTXftyB7usS4DpL3is2px8sDoHjA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=calian.com; dmarc=pass action=none header.from=calian.com;
+ dkim=pass header.d=calian.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=calian.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5s07dK1jW8U0nnAGP3v46WAsnuceVJFhPefLyDb9IZE=;
- b=CDkdx/pYw/PKxjRoeSmN6wsfsaOdeHCh0liGm0rj9qzZdJ89GQA2r0xEWvvvuoT9Ge4s9w/dtsNJxs/NkU9RCFAGfnBswSidqlOUS5Lp2lIMCBO3Xxqg540VaLJ8w4ZpLl15BOlaX2Kvp5fAWXCI3GOn9OSwrcAsOi1osGFOBnI=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BL1PR12MB5176.namprd12.prod.outlook.com (2603:10b6:208:311::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.22; Thu, 8 Jul
- 2021 18:51:34 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::8cb6:59d6:24d0:4dc3]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::8cb6:59d6:24d0:4dc3%9]) with mapi id 15.20.4308.023; Thu, 8 Jul 2021
- 18:51:34 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Mukunda, Vijendar" <Vijendar.Mukunda@amd.com>, "broonie@kernel.org"
- <broonie@kernel.org>, "alsa-devel@alsa-project.org"
- <alsa-devel@alsa-project.org>
-Subject: RE: [PATCH V3] ASoC: add a flag to reverse the stop sequence
-Thread-Topic: [PATCH V3] ASoC: add a flag to reverse the stop sequence
-Thread-Index: AQHXdB/6HEHmc54rmk+tVDXa3KeHvas5a2nA
-Date: Thu, 8 Jul 2021 18:51:33 +0000
-Message-ID: <BL1PR12MB51449540FAC514FC19EE115EF7199@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20210708175529.13313-1-vijendar.mukunda@amd.com>
-In-Reply-To: <20210708175529.13313-1-vijendar.mukunda@amd.com>
-Accept-Language: en-US
+ bh=+XrZD4t++2MQlE+YbqxtaSm+2Nl7dVExxtet9+Cc1p0=;
+ b=ZKvx+y9cxUmSYWuHj43Inxz2VhxhRVj03hTQPpzAZ1N8k92lAiVWOPRjzwMXvEjBtetek1Y2kplh9QmapIivVWIizq7a7lA7JmzguEzFSwAx24vqeVYwKyHYL/Srlru2x/iIso3NhLfR1hsVwdv8JJ2RjUevD8ldj0wphktbxs0=
+Received: from YQXPR01MB5049.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:27::23)
+ by YQXPR01MB4407.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:7::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.19; Thu, 8 Jul
+ 2021 20:18:01 +0000
+Received: from YQXPR01MB5049.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::88bb:860e:2f3a:e007]) by YQXPR01MB5049.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::88bb:860e:2f3a:e007%6]) with mapi id 15.20.4308.023; Thu, 8 Jul 2021
+ 20:18:01 +0000
+From: Robert Hancock <robert.hancock@calian.com>
+To: "kuninori.morimoto.gx@renesas.com" <kuninori.morimoto.gx@renesas.com>
+Subject: Re: Issues using simple-audio-card driver with Xilinx Audio Formatter
+Thread-Topic: Issues using simple-audio-card driver with Xilinx Audio Formatter
+Thread-Index: AQHXcsWHzh5VPmqBUEq1W5dwLNaiPKs2tqGAgAFyjACAAAU+gIABWLsA
+Date: Thu, 8 Jul 2021 20:18:01 +0000
+Message-ID: <2cccca32d53e1d832df67d070bac9ca998a931c6.camel@calian.com>
+References: <6c7635f59ea9b162999f060334eef48e0812534b.camel@calian.com>
+ <874kd63oqa.wl-kuninori.morimoto.gx@renesas.com>
+ <52eda9910822e7e854b049127e462bf468f912ed.camel@calian.com>
+ <87r1g91ygm.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87r1g91ygm.wl-kuninori.morimoto.gx@renesas.com>
+Accept-Language: en-CA, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2021-07-08T18:51:30Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=72815fa9-2c5f-4d3b-9ebc-b81447d54a8d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-mailer: Evolution 3.28.5 (3.28.5-18.el8) 
+authentication-results: renesas.com; dkim=none (message not signed)
+ header.d=none;renesas.com; dmarc=none action=none header.from=calian.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 488ac769-885c-45ff-1277-08d942416852
-x-ms-traffictypediagnostic: BL1PR12MB5176:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BL1PR12MB51764A6912140086C994D1A4F7199@BL1PR12MB5176.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4714;
+x-ms-office365-filtering-correlation-id: 1c2aa4cd-607a-4aeb-3c63-08d9424d7c3c
+x-ms-traffictypediagnostic: YQXPR01MB4407:
+x-microsoft-antispam-prvs: <YQXPR01MB4407CE8A317E73097BCD1D17EC199@YQXPR01MB4407.CANPRD01.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: mumReqmDUmpTFETaXm4Wf5Cbmr5/olVxsCGElx4gEjFq6eQoC60wkUsHDTxYc8KhotQoUA/rmsJc6YxwM5E/Jw8HqkDNHlBBhC3E5GTgLgdwHryjZTigcWpMlRjtn9+eTpA5XEUIDsmJws42vawfFeUkKsbnMvh4eI53FYc4Xkit/ZgOzKFXlealmRFxSCQ33WmFpQMMKMw/szUxT4cwkmfPwwxJVqX013D5mb2JHjXR+TpO2O52H46m+io6Qr1vHpTzUsCrsoiACUgs2RqkyBRIjkpgI0l/aT1xtxVZB5+cEMAhUqX3fpeNB8kycd8256EpbS8QSFx9K/kZ2i5o6lALqh7PsaWJWFax+95qfHLTqYEodJsn/qaqOh4tOQ8+Zr/jvrAca7OMHlvzgNg57dBQOEOEaygzUcMbwtsaRVWvEofBVCtRY2Mhy9q5SpML5Esc9i9WeBln7edql86Ploj00Pwklhsi8VbPnsHbb+e54WXyHv6laQWMw6XYkMxLWK2DdXbEfVOVpZ4TK/JbQw9/x3OD7FX3wL1obIh6HLvFg3Y87XwHAV1XJjP13rRx8JhoZp1BA6//vZ2M1bIPip6ZMY7zuVvG6Y19ZQ8bFvA0yVFeeSkFfAVPc278pjYZFnpyBdZDV3uDC46D3xIIjw==
+x-microsoft-antispam-message-info: PthDitHxYOpvuom3eocHNJJkOyEkP9gq57pep14JE+WCvKCmdYodnWdfcI/woxHhzOnNtQnroA7XtplyIPvDlmMRKDJoawombf+6Mj90et1JFBx65h9pF15Pi688iyJQnvcIm2Qec5wka4UHHwZ51qbKw3W5bdYghVXyWL6lUuPmEsbYjZbc2gftBkIRGIIUzrFQG4RMpO750REFu/NYeDnp/ScR8Xy+/dZ3m5ZjTzRDdtDkhPDkukBB2wIM50gyzjKRYG+Js/fM5qi7qTFJg853lnurgwsN8vfMHIJTY+pWSdP36UQQZm1xkt3aJpI2aW2lsCQe2j/LAgcy2pvRaSjxXkliXy3ge9OFU8MzfMdu1JSilb9P5lnjHLMOnZOaxupHRZpUVH2NsdU0Kc+J4dSZakUzC3P3D4CI6cd8/gar+FIIn2+DAt7pAPjWqYMBQuaJ5mYiYgK7DrCGvYeBBJ2gh8pr0OmIzNjCK4nFGQL40pFducJNrZk0jVWMeVi4EPguyvEtv/mlrXe2BH1+/ccJjdlb8X0UhZxQv1fccQBQomX6tYq3/oJny8Dpi2fLS1PMO8g/02CCGb0lubnOae/LQpnu3Ibs7I0Ld6IY6hlCLMrKdC6XP2iP/d7mzD2BDa9Qg6T1WKJ92c3cRdaAycTrgazqSbEr2uZrfTiBGQ5OCe2PFS/KGsAfRbyBaCIxCK4vpwqpou8UzE3s4ykMZoEE6IhCLYZTl4Li2EMJ2Dlu9omqiXcfpq5WoM+dHhpR6eNZUbDh1mcf7LUsBxpKfIGQpod0Utt9JhT45oeS0poAGWZywanA3yR5JDR0gON6
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(346002)(396003)(39860400002)(136003)(366004)(7696005)(2906002)(5660300002)(71200400001)(83380400001)(110136005)(54906003)(55016002)(53546011)(8936002)(8676002)(6506007)(316002)(64756008)(66476007)(66556008)(66446008)(478600001)(66946007)(7416002)(76116006)(9686003)(122000001)(26005)(33656002)(4326008)(186003)(52536014)(38100700002)(86362001);
+ IPV:NLI; SFV:NSPM; H:YQXPR01MB5049.CANPRD01.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(39850400004)(136003)(396003)(376002)(346002)(4326008)(83380400001)(26005)(36756003)(122000001)(8936002)(91956017)(38100700002)(66556008)(54906003)(8676002)(76116006)(15974865002)(2616005)(186003)(6486002)(6506007)(2906002)(6916009)(66476007)(6512007)(71200400001)(5660300002)(86362001)(64756008)(966005)(66446008)(66946007)(316002)(478600001)(44832011)(99106002)(18886075002);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Jbog7hr4tpXPFLg+6X9SDxiXa5Hiw/9J7RJC9mNF3ir5ze4CGyrnrg+Xyc0b?=
- =?us-ascii?Q?SfSfyG5nXbAGMOvXBVpwFDVyx6jcS7GEwtXOzh3oZy1QHEx25jgakyGTox9A?=
- =?us-ascii?Q?hFfDEcSQNTHglb4Mu3KdphOqVYVS9aKp/n96djoMPhFZqoWG1JPwtM7M67sf?=
- =?us-ascii?Q?N/UlqUZU3kMHMLsrNHM2LyMvnlMIQthmQ5ge7tghmpT9vFOBHI4v6HGZyy9W?=
- =?us-ascii?Q?xlFyH2drPk9o/EKvCebt454lVNkZ50ta8hzZRJc++cufagjooFtZTf+WvAFs?=
- =?us-ascii?Q?Zk+vS9peyCHhuDWSr1e8loTz/GreKf3S38CyxrZ7z95mK/j9tXMy8nNQIIcT?=
- =?us-ascii?Q?RDtuaOq5js3Th16QWwnfJeD+lEYd4ONQR68ky5Kt7TQYPJgGaLOsg2od0L/s?=
- =?us-ascii?Q?qL2oM00GL35Mc5y2bWgs9mZPq88kmPdfI6CgPDpjgWMaVkzDkaxEmx+hq2B6?=
- =?us-ascii?Q?uGzPAmH4/JSBR2qZ0wM0jmdBdrJuKThCws08keD4F/eZ95cSgCfIF5qmdQ91?=
- =?us-ascii?Q?+AFXhuCj7jk3v/ZZA0CWHDTbUVFbxjaIAwUzuTf2H51Y/QTksEUlUdwY04eZ?=
- =?us-ascii?Q?k6sXXPLPZvhWZvvvjbxFFLn5bt7flrbroKMh0xJJbmmNZ7T8tRPkrkuMubht?=
- =?us-ascii?Q?iZhTCe58QD2LRgJ6MHufBWyZB9ozWHuMN95mEgVdskdtg6UIuLABWn2f+Kzj?=
- =?us-ascii?Q?VQc0i0jV6BPjlbmgZbP5sdhsb7VV6lAWZ1/smk0CceUF/Jsbh6kq+BKtPT19?=
- =?us-ascii?Q?Tqw6QnlnS3LimYBCj2KaC0mMz2M+2D7FbMqvNbOpUFH9igV1f8NmgUCeNhYu?=
- =?us-ascii?Q?0xydR/3N3AIoySe/DAextSEaElrm0CBByluD8kyVvptXB2UrU9jJyr8CtVRN?=
- =?us-ascii?Q?9PArwemHl5P8+4PNvlyLHDyo6Whc+Zr9/VgYHP0Haf9udfEETY5z20Tpm+aP?=
- =?us-ascii?Q?Wr5RQT4d8bIJTv9eO9qb/n2unBpZ5hOsj6eO566MFGNFczt1T08yCikKhCp9?=
- =?us-ascii?Q?5sFIrNIykjF7bPtzPZWkFIApvHLVoK1JKIPQNflELTOncCfEtWw0JC/q17oc?=
- =?us-ascii?Q?3j9HuAIyJ2F47aleyIamn/9AXtxogxYMkin+LVS0VCBdwZZrMbiZV9rfwDXj?=
- =?us-ascii?Q?F+FfxcdVLs0nwAmUsfz5Al2OGVQViZwXcd858vwdfWXZspDrB4f7bu2tT1gk?=
- =?us-ascii?Q?/2Os39MXtgoKgL//p9vkqIs47BlXNs3rwuttdZ5STfSQicwgcLVFNsgo0lgA?=
- =?us-ascii?Q?UZ3a7Z2aKVXLpOWXwZByBSa2y4Wv0s18T3Mq4rOnWdVW2JPtGz+G356UfUCI?=
- =?us-ascii?Q?F78zmlsBYe8zIwrR72djgq/t?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?REFVd2M0M0s3eE44QlRTcFVzd3Q5cmpOeGl1enh2Y20vUkZJYjUzV1lITWx3?=
+ =?utf-8?B?WnVJU1lHMjJhaWNKSldiejcxVG9Hc3hLdkRSc0xyd3lFODE5dnJQcXpGeEd3?=
+ =?utf-8?B?ZldFY29sZVVBNzAxanB4ODlwdlV3QVdseFRmUHJadTZsREgwRXQvL3FwQlA5?=
+ =?utf-8?B?Qnh1RkpQbGlNaGJUM0dQTlkxUzhScVZHQUdHUzRyeGxvdVlGNys4ckJnNDVI?=
+ =?utf-8?B?UWE0ZGNnL2ZWMDZqRStuQ0VMV3Nuc1NLZ25qUU1BMGp6SjR2b1NteE9sWGxi?=
+ =?utf-8?B?Y1NVQTZpSFY1V1RQU0RxQ0FKL1JkMGxBVWtSYnpsZmZHVnZnWEE3MUFpNFR0?=
+ =?utf-8?B?SERLTDJJdC95WmYvY3IzQnNmYkhxOTdVSjVWSzh4WHh3WFROMFVuTDQ2dURi?=
+ =?utf-8?B?bWVPMWU1WUlsRitwbmdGbzE3NzcvQnVxN2RUVnM1YjFOcVlhSUFOZ2xZTGpi?=
+ =?utf-8?B?Y0hTOERLQWFjcUZYSDRjZWFGVWFXMkp6U0hZQ1NVb0lWSWFWVHRpUndXTmJH?=
+ =?utf-8?B?T0gvWUNMT0hIcEN1YmVwSTRkSmJIKy9DMXI2SERvWDluMTlJL0xlY3JIeWFW?=
+ =?utf-8?B?VmZtcGRmeTdxT0FvK2FhMWNZTWRGSGQ5SjVRUXZuSUJsVzFVdzFmbzAxVHBk?=
+ =?utf-8?B?aDFCLzBoSmIwbmhuNmxDMjFqaDFYSVZXNDVmL25SbWxRQnI5R3Y2akEzeWdO?=
+ =?utf-8?B?YzE2MDNwUFFMejk4SFd2ekY0T3BLL3Z1NlZQUE1MNFYvb01rUXVvVXBURVY2?=
+ =?utf-8?B?anNkbzBFNmFqM1NiSVdFZTNCWjhEVDB1SlNpb1h0UzR6enN6bWdzcC9iZnV4?=
+ =?utf-8?B?MG5NQVRmKzRZN0JGdTdnUVhYSTNHSFJzV3RQOEY4OEhtS2JZeWtkYWxraDlR?=
+ =?utf-8?B?OTdSMzcrVWMvWERtTndjRFcvRXpFZTVSNDZaYUczQjFQSDc0Y1U5ZE0veW5B?=
+ =?utf-8?B?WWtuaGNncE41blI1Rzh0akNnaGd1VDRYZU1TT2p2WjJFODBKRmpKVWx2K2FS?=
+ =?utf-8?B?RU5tQ09CNzdKWFdXVmFrK2ZNSGh4VzdZdm00ODR4NnV6empIbG9uUUNFQUdS?=
+ =?utf-8?B?ZFVGc3lEdWpFcXhpbkJRSEJIRzIyRjE4OGhZbnFMK3N2MkRUOHFzZ3dDREtD?=
+ =?utf-8?B?MGRERGMrWTVCSi9CditsNUI5UzBTNndiNi9LRk1PNGw5RGZ2Q2JYVCtva29x?=
+ =?utf-8?B?YzBSR2lFSWxCZkNJeGo2aGZXRDhjR2ZTTW1pZ1UwRVVMVThjaXJzSDBQSnV2?=
+ =?utf-8?B?NE5SakN2RmdFWUVVNHh5YXJQT0JhRDliSnlhV3NCbnM1N0FUZjIvYVNGemxM?=
+ =?utf-8?B?bzdjeTFmcnJiaTRZUjE2RVl3QmNISEN4dXpIb0tMcDZWbnJaTHJmZG9IdDFr?=
+ =?utf-8?B?UktGQXdmU3JqVVdmWnFkYkl6bVJqWWFJSEppNkRmSDl1QTNRMWpPTEJMQVox?=
+ =?utf-8?B?cE5FVWorbXV6RnJ5MHExU2MwUzJWTGlxS0kvL0kxK3JjbmxLVUlscVNUMUd3?=
+ =?utf-8?B?YXNZZ3lZLzdza2MvMXkrQUZBa1dxb2Q1dTdXSjdRWDNMcUI0VDFWQzdKdVcw?=
+ =?utf-8?B?am1CdkhkalNJVGZpVjNJWU40Q0ZqY0tSeDJucCt2R3VDd25Nc0tpVFByV3ha?=
+ =?utf-8?B?YUpTNG8wRCtwTFB6OVJyVDJIcjY0NW9xV0NXSnB5enBuOUJGWFJnWGZaWnds?=
+ =?utf-8?B?VEJDdHd1S0RtTWZ6YkhQektHczF1N0xFaDlpUHJPVWROcnNTNjg4V1dURStJ?=
+ =?utf-8?Q?T32MjXAPhpyPVJjSVnA022jrLTXvxIBbh5hgKwl?=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <2FD0BF6ED352224180824EF44A7C077A@CANPRD01.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
+X-OriginatorOrg: calian.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 488ac769-885c-45ff-1277-08d942416852
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jul 2021 18:51:33.8907 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: YQXPR01MB5049.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c2aa4cd-607a-4aeb-3c63-08d9424d7c3c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jul 2021 20:18:01.2937 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-id: 23b57807-562f-49ad-92c4-3bb0f07a1fdf
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +qh3Eaw+o2DjhyI7ENqoqFdRLW7A5w/iP3TksU1of4dOMvQ9zOSL1LT/A5sTrBIc74jOvXXeWGosm1QoYTFWlA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5176
-Cc: "Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
- "amistry@google.com" <amistry@google.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- open list <linux-kernel@vger.kernel.org>, "Hiregoudar,
- Basavaraj" <Basavaraj.Hiregoudar@amd.com>, Takashi Iwai <tiwai@suse.com>,
- Chuhong Yuan <hslester96@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- "Mukunda, Vijendar" <Vijendar.Mukunda@amd.com>,
- "nartemiev@google.com" <nartemiev@google.com>
+X-MS-Exchange-CrossTenant-userprincipalname: 80b1rDtcAVWvT8iNx4PkRNsVBu1q+RHCQ/UYRP1RiO7SVPt4LFHA686in/5kRc9r+VSUNLQML7HUMtDKp+5BX4nQ2IYKp3gYXlvA0pDu1xU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YQXPR01MB4407
+X-Proofpoint-GUID: Xy7sK2yxZuMNSdUqXVmymxteJfMVX5Wi
+X-Proofpoint-ORIG-GUID: Xy7sK2yxZuMNSdUqXVmymxteJfMVX5Wi
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-07-08_11,2021-07-08_01,2020-04-07_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 mlxlogscore=999
+ phishscore=0 priorityscore=1501 mlxscore=0 clxscore=1015 spamscore=0
+ impostorscore=0 suspectscore=0 lowpriorityscore=0 adultscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2104190000 definitions=main-2107080103
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "tiwai@suse.com" <tiwai@suse.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "michal.simek@xilinx.com" <michal.simek@xilinx.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -161,178 +180,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-[AMD Public Use]
-
-> -----Original Message-----
-> From: Vijendar Mukunda <vijendar.mukunda@amd.com>
-> Sent: Thursday, July 8, 2021 1:55 PM
-> To: broonie@kernel.org; alsa-devel@alsa-project.org
-> Cc: amistry@google.com; nartemiev@google.com; Deucher, Alexander
-> <Alexander.Deucher@amd.com>; Hiregoudar, Basavaraj
-> <Basavaraj.Hiregoudar@amd.com>; Dommati, Sunil-kumar <Sunil-
-> kumar.Dommati@amd.com>; Mukunda, Vijendar
-> <Vijendar.Mukunda@amd.com>; Liam Girdwood <lgirdwood@gmail.com>;
-> Jaroslav Kysela <perex@perex.cz>; Takashi Iwai <tiwai@suse.com>;
-> Chuhong Yuan <hslester96@gmail.com>; Kuninori Morimoto
-> <kuninori.morimoto.gx@renesas.com>; open list <linux-
-> kernel@vger.kernel.org>
-> Subject: [PATCH V3] ASoC: add a flag to reverse the stop sequence
->=20
-> From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
->=20
-> On stream stop, currently CPU DAI stop sequence invoked first followed by
-> DMA. For Few platforms, it is required to stop the DMA first before stopp=
-ing
-> CPU DAI.
->=20
-> For Stoneyridge platform, it is required to invoke DMA driver stop first =
-rather
-> than invoking DWC I2S controller stop.
-> Introduced new flag in dai_link structure for reordering stop sequence.
-> Based on flag check, ASoC core will re-order the stop sequence.
->=20
-
-You should add a fixes tag as well for stable:
-Fixes: 4378f1fbe92405 ("ASoC: soc-pcm: Use different sequence for start/sto=
-p trigger")
-
-Alex
-
-> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-> ---
-> v2 -> v3: moved "stop_dma_first" flag from card structure
-> 	  to dai_link structure and modified code to use
->           "stop_dma_first" flag.
-> v1 -> v2: renamed flag as "stop_dma_fist"
->           fixed build error by removing extra + symbol
->           sound/soc/soc-pcm.c:1019:3: error: expected expression before '=
-struct'
->           1019 | + struct snd_soc_card *card =3D rtd->card;
->=20
->  include/sound/soc.h                  |  6 ++++++
->  sound/soc/amd/acp-da7219-max98357a.c |  5 +++++
->  sound/soc/soc-pcm.c                  | 22 ++++++++++++++++------
->  3 files changed, 27 insertions(+), 6 deletions(-)
->=20
-> diff --git a/include/sound/soc.h b/include/sound/soc.h index
-> 675849d07284..8e6dd8a257c5 100644
-> --- a/include/sound/soc.h
-> +++ b/include/sound/soc.h
-> @@ -712,6 +712,12 @@ struct snd_soc_dai_link {
->  	/* Do not create a PCM for this DAI link (Backend link) */
->  	unsigned int ignore:1;
->=20
-> +	/* This flag will reorder stop sequence. By enabling this flag
-> +	 * DMA controller stop sequence will be invoked first followed by
-> +	 * CPU DAI driver stop sequence
-> +	 */
-> +	unsigned int stop_dma_first:1;
-> +
->  #ifdef CONFIG_SND_SOC_TOPOLOGY
->  	struct snd_soc_dobj dobj; /* For topology */  #endif diff --git
-> a/sound/soc/amd/acp-da7219-max98357a.c b/sound/soc/amd/acp-da7219-
-> max98357a.c
-> index 84e3906abd4f..9449fb40a956 100644
-> --- a/sound/soc/amd/acp-da7219-max98357a.c
-> +++ b/sound/soc/amd/acp-da7219-max98357a.c
-> @@ -576,6 +576,7 @@ static struct snd_soc_dai_link cz_dai_5682_98357[] =
-=3D {
->  				| SND_SOC_DAIFMT_CBM_CFM,
->  		.init =3D cz_rt5682_init,
->  		.dpcm_playback =3D 1,
-> +		.stop_dma_first =3D 1,
->  		.ops =3D &cz_rt5682_play_ops,
->  		SND_SOC_DAILINK_REG(designware1, rt5682, platform),
->  	},
-> @@ -585,6 +586,7 @@ static struct snd_soc_dai_link cz_dai_5682_98357[] =
-=3D {
->  		.dai_fmt =3D SND_SOC_DAIFMT_I2S |
-> SND_SOC_DAIFMT_NB_NF
->  				| SND_SOC_DAIFMT_CBM_CFM,
->  		.dpcm_capture =3D 1,
-> +		.stop_dma_first =3D 1,
->  		.ops =3D &cz_rt5682_cap_ops,
->  		SND_SOC_DAILINK_REG(designware2, rt5682, platform),
->  	},
-> @@ -594,6 +596,7 @@ static struct snd_soc_dai_link cz_dai_5682_98357[] =
-=3D {
->  		.dai_fmt =3D SND_SOC_DAIFMT_I2S |
-> SND_SOC_DAIFMT_NB_NF
->  				| SND_SOC_DAIFMT_CBM_CFM,
->  		.dpcm_playback =3D 1,
-> +		.stop_dma_first =3D 1,
->  		.ops =3D &cz_rt5682_max_play_ops,
->  		SND_SOC_DAILINK_REG(designware3, mx, platform),
->  	},
-> @@ -604,6 +607,7 @@ static struct snd_soc_dai_link cz_dai_5682_98357[] =
-=3D {
->  		.dai_fmt =3D SND_SOC_DAIFMT_I2S |
-> SND_SOC_DAIFMT_NB_NF
->  				| SND_SOC_DAIFMT_CBM_CFM,
->  		.dpcm_capture =3D 1,
-> +		.stop_dma_first =3D 1,
->  		.ops =3D &cz_rt5682_dmic0_cap_ops,
->  		SND_SOC_DAILINK_REG(designware3, adau, platform),
->  	},
-> @@ -614,6 +618,7 @@ static struct snd_soc_dai_link cz_dai_5682_98357[] =
-=3D {
->  		.dai_fmt =3D SND_SOC_DAIFMT_I2S |
-> SND_SOC_DAIFMT_NB_NF
->  				| SND_SOC_DAIFMT_CBM_CFM,
->  		.dpcm_capture =3D 1,
-> +		.stop_dma_first =3D 1,
->  		.ops =3D &cz_rt5682_dmic1_cap_ops,
->  		SND_SOC_DAILINK_REG(designware2, adau, platform),
->  	},
-> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c index
-> 46513bb97904..d1c570ca21ea 100644
-> --- a/sound/soc/soc-pcm.c
-> +++ b/sound/soc/soc-pcm.c
-> @@ -1015,6 +1015,7 @@ static int soc_pcm_hw_params(struct
-> snd_pcm_substream *substream,
->=20
->  static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
-> {
-> +	struct snd_soc_pcm_runtime *rtd =3D
-> asoc_substream_to_rtd(substream);
->  	int ret =3D -EINVAL, _ret =3D 0;
->  	int rollback =3D 0;
->=20
-> @@ -1055,14 +1056,23 @@ static int soc_pcm_trigger(struct
-> snd_pcm_substream *substream, int cmd)
->  	case SNDRV_PCM_TRIGGER_STOP:
->  	case SNDRV_PCM_TRIGGER_SUSPEND:
->  	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-> -		ret =3D snd_soc_pcm_dai_trigger(substream, cmd, rollback);
-> -		if (ret < 0)
-> -			break;
-> +		if (rtd->dai_link->stop_dma_first) {
-> +			ret =3D snd_soc_pcm_component_trigger(substream,
-> cmd, rollback);
-> +			if (ret < 0)
-> +				break;
->=20
-> -		ret =3D snd_soc_pcm_component_trigger(substream, cmd,
-> rollback);
-> -		if (ret < 0)
-> -			break;
-> +			ret =3D snd_soc_pcm_dai_trigger(substream, cmd,
-> rollback);
-> +			if (ret < 0)
-> +				break;
-> +		} else {
-> +			ret =3D snd_soc_pcm_dai_trigger(substream, cmd,
-> rollback);
-> +			if (ret < 0)
-> +				break;
->=20
-> +			ret =3D snd_soc_pcm_component_trigger(substream,
-> cmd, rollback);
-> +			if (ret < 0)
-> +				break;
-> +		}
->  		ret =3D snd_soc_link_trigger(substream, cmd, rollback);
->  		break;
->  	}
-> --
-> 2.17.1
+T24gVGh1LCAyMDIxLTA3LTA4IGF0IDA4OjQ0ICswOTAwLCBLdW5pbm9yaSBNb3JpbW90byB3cm90
+ZToNCj4gSGkgUm9iZXJ0DQo+IA0KPiA+IEkgdGhpbmsgeW91J3JlIHByb2JhYmx5IHJpZ2h0IC0g
+SSBtYWRlIGEgY2hhbmdlIHRvIGJhc2ljYWxseSBpZ25vcmUgYQ0KPiA+IGZhaWx1cmUgb2YNCj4g
+PiBzbmRfc29jX29mX2dldF9kYWlfbmFtZSBpbiB0aGUgcGxhdGZvcm0gY2FzZSBhbmQgdGhlIGRy
+aXZlciBzZWVtcyB0byBwcm9iZQ0KPiA+IE9LLg0KPiA+IFBvc3NpYmx5IGl0IHNob3VsZCBqdXN0
+IHNraXAgdGhlIGNhbGwgZW50aXJlbHkgYW5kIG5vdCBldmVuIHRyeSB0byBwb3B1bGF0ZQ0KPiA+
+IHRoZQ0KPiA+IG5hbWUgZm9yIHBsYXRmb3JtIGlmIGl0J3MgbmV2ZXIgbmVlZGVkPw0KPiA+IA0K
+PiA+IEkgaGF2ZSBzb21lIG90aGVyIGlzc3VlcyB0byB3b3JrIHRocm91Z2ggdG8gdHJ5IGFuZCBn
+ZXQgYSB3b3JraW5nIHNldHVwLA0KPiA+IGJ1dA0KPiA+IG9uY2UgSSBnZXQgdGhpbmdzIHdvcmtp
+bmcgaW4gbXkgdGVzdCBzZXR1cCBJIGNhbiBwdXQgYSBwYXRjaCB0b2dldGhlci4NCj4gDQo+IEdy
+ZWF0ICEgTmljZSB0byBrbm93Lg0KPiANCj4gVGhhbmsgeW91IGZvciB5b3VyIGhlbHAgISENCg0K
+U28gdGhlIG5leHQgaXNzdWUgSSdtIG5vdyBmYWNpbmcgaXMgdGhhdCB0aGUgTUNMSyB0byBTQ0xL
+IGRpdmlkZXIgaXMgbm90IGJlaW5nDQpzZXQgcHJvcGVybHkgaW4gZWl0aGVyIHRoZSBBdWRpbyBG
+b3JtYXR0ZXIgKE1NMlMgRnMgTXVsdGlwbGllciByZWdpc3Rlcikgb3IgaW4NCnRoZSBJMlMgVHJh
+bnNtaXR0ZXIgKEkyUyBUaW1pbmcgQ29udHJvbCByZWdpc3RlcikuIFRoZSB4bG54X2kycyBkcml2
+ZXIgaGFzIGENCnNldF9jbGtkaXYgZnVuY3Rpb24gZGVmaW5lZCBpbiBpdHMgc25kX3NvY19kYWlf
+b3BzIHN0cnVjdHVyZSwgaG93ZXZlciB0aGF0DQpkb2Vzbid0IGFwcGVhciB0byBiZSBnZXR0aW5n
+IGNhbGxlZC4gQW5kIHRoZSB4bG54X2Zvcm1hdHRlcl9wY20gZHJpdmVyIGRvZXNuJ3QNCnNlZW0g
+dG8gaGF2ZSBhbnkgY29kZSB0byBzZXQgWExOWF9BVURfRlNfTVVMVElQTElFUiBhdCBhbGwuDQoN
+CkluIHRoaXMgY2FzZSBJIGhhdmUgYSBzYW1wbGUgcmF0ZSB0byBNQ0xLIGRpdmlkZXIgb2YgMjU2
+LCBzbyBpdCBsb29rcyBsaWtlIEkNCnNob3VsZCBhZGQgbWNsay1mcyA9IDwyNTY+IGludG8gdGhl
+IGRhaS1saW5rIG5vZGVzIGluIHRoZSBkZXZpY2UgdHJlZSwgYnV0DQp0aGVyZSB3aWxsIG5lZWQg
+dG8gYmUgc29tZSBjb2RlIGFkZGVkIHRvIHRoZSB4bG54X2Zvcm1hdHRlcl9wY20gdG8gZG8gc29t
+ZXRoaW5nDQp3aXRoIHRoYXQgaW5mb3JtYXRpb24/IEFuZCB0aGVuIHNob3VsZCB0aGF0IGRyaXZl
+ciBoYXZlIGNvZGUgdG8gdHJpZ2dlciB0aGUNCmNhbGwgdG8gc2V0X2Nsa2RpdiBvbiB0aGUgQ1BV
+IERBSSBhcyB3ZWxsPw0KDQpUaGVzZSBkcml2ZXJzIG9yaWdpbmF0ZWQgaW4gdGhlIFhpbGlueCBr
+ZXJuZWwgdHJlZSAoDQpodHRwczovL2dpdGh1Yi5jb20vWGlsaW54L2xpbnV4LXhsbngvdHJlZS9t
+YXN0ZXIvc291bmQvc29jL3hpbGlueCkgYW5kIGluIHRoYXQNCnRyZWUgdGhleSd2ZSBnb3QgYSB0
+b3AtbGV2ZWwgeGxueF9wbF9zbmRfY2FyZC5jIGRyaXZlciB3aGljaCBpcyBkZWZpbmluZyB0aGUN
+Ck1DTEsgZGl2aWRlciBhbmQgaW5zdGFudGlhdGluZyB0aGUgb3RoZXIgY29tcG9uZW50cywgaG93
+ZXZlciB0aGF0IGRyaXZlciBpcyBub3QNCmluIG1haW5saW5lIGFuZCBzZWVtcyBsaWtlIGl0IGlz
+IGtpbmQgb2YgYSBoYWNrLiBJdCBzZWVtcyBsaWtlIHRoaXMgU0NMSw0KZGl2aWRlciBzZXR0aW5n
+IGlzIHRoZSBtYWluIHRoaW5nIHRoYXQgaXMgc3RpbGwgbmVlZGVkIHRvIGdldHRpbmcgdGhlIFhp
+bGlueA0KYXVkaW8gY29yZXMgd29ya2luZyBpbiBtYWlubGluZSB1c2luZyBzaW1wbGUtc291bmQt
+Y2FyZC4uDQoNCi0tIA0KUm9iZXJ0IEhhbmNvY2sNClNlbmlvciBIYXJkd2FyZSBEZXNpZ25lciwg
+Q2FsaWFuIEFkdmFuY2VkIFRlY2hub2xvZ2llcw0Kd3d3LmNhbGlhbi5jb20NCg==

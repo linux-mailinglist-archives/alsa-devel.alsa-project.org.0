@@ -2,67 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 609FF3C1708
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jul 2021 18:25:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 356C13C172F
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jul 2021 18:40:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB42B1657;
-	Thu,  8 Jul 2021 18:24:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB42B1657
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE244828;
+	Thu,  8 Jul 2021 18:39:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE244828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625761542;
-	bh=M5Uki8noRPrnc8Snxopd1VjV+UJcFE6D4lYsYG/aoYA=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=DNDBp9d/YfTrNa/8ARDxjM6Turjh/N3NLDJkdLWKiRfyGhk4oZp2YyAiTyY/j2de4
-	 9brflYKK/VIqdVPHoaxh5pg54tAYkU3tPl8wM+7zRNc18X+KqMHmPSJg2LmVAD3Rgd
-	 FvVZ95Pgp0QEEuLWx3ZPGGkiTAUTCEHEcWgq69JE=
+	s=default; t=1625762431;
+	bh=5/+ZEj9pRkH/s1rcjwsVp9t3i31Y2rlXtooNdVw7RQ4=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=NEJgoNAYU5Vx7qz5qWnnr4A542u79S5XvtklMwn+z4M6Vx+bo2lH6OqVo/usDI5av
+	 LvSyqQUe/vmdmCbD0ou9pSZ2R730Vr/4X2aIFsW/6O7l/7+Bqgky9YJZHkDJUGGbNo
+	 aFAqgACWM6opJO8Rp6h2T6bCay8uiTfB+eLbNs/4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73A30F8028D;
-	Thu,  8 Jul 2021 18:24:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31E9EF8012A;
+	Thu,  8 Jul 2021 18:15:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DF07BF80249; Thu,  8 Jul 2021 18:24:47 +0200 (CEST)
+ id 446A9F80249; Thu,  8 Jul 2021 18:15:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from jazz.pogo.org.uk (jazz.pogo.org.uk [213.138.114.167])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8887EF80143
- for <alsa-devel@alsa-project.org>; Thu,  8 Jul 2021 18:24:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8887EF80143
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E974F8012F
+ for <alsa-devel@alsa-project.org>; Thu,  8 Jul 2021 18:15:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E974F8012F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=pogo.org.uk header.i=@pogo.org.uk
- header.b="vLjBZXIE"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=pogo.org.uk
- ; s=swing;
- h=Content-Type:MIME-Version:Message-ID:Subject:cc:To:From:Date:
- Sender:Reply-To:Content-Transfer-Encoding:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=7F92V4wyriBUcU+RnlKnxzq+31u8YDI5IuKgj+NNSfM=; b=vLjBZXIEAN1KYh9Le3rI9SyDrR
- J15DlwBNWlB5caAvO328OEqS7XxYqydIcYjALr2CAS3Eiy3kOeujO9ISBM+G8oG6rPv+Jtt5bXtWH
- FoAAujrMZZIsseM8xS0KKXvwRMPLeVPXkWGRt96n5eAUnd9PPtDZ4wg893n5/uN8CKi4=;
-Received: from [2001:470:1d21:0:428d:5cff:fe1b:f3e5] (helo=stax)
- by jazz.pogo.org.uk with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.94.2 (FreeBSD)) (envelope-from <mark@xwax.org>)
- id 1m1WpM-000PxY-Jr; Thu, 08 Jul 2021 17:24:40 +0100
-Received: from localhost (stax.localdomain [local])
- by stax.localdomain (OpenSMTPD) with ESMTPA id f19a782e;
- Thu, 8 Jul 2021 16:24:39 +0000 (UTC)
-Date: Thu, 8 Jul 2021 17:24:39 +0100 (BST)
-From: Mark Hills <mark@xwax.org>
-To: alsa-devel@alsa-project.org
-Subject: Can't get snd-aloop in sync with another device
-Message-ID: <2107081637250.26064@stax.localdomain>
-MIME-Version: 1.0
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="MaszoWxm"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="T7XvFHyz"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id A02FE1FD6A;
+ Thu,  8 Jul 2021 16:15:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1625760901; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=XR/L0+CaPtFdS7++i50EDeO2Jek5OnInkrK8zzhkHKQ=;
+ b=MaszoWxmJZiJlYWdHKQ3dqe/VWEIfs6fxVW9SDlAtTr5r7RlGFigfb78zzFlZw15XhrGbO
+ 2fHv+ifIUUwaA1P+iHaFT4hXydG4/yPRuLulYiUuoSRsFA1xhrN16HCYXafURGVzjnF7Qx
+ flqxynu+Gbu00QXo5BEbS2okbWstcDI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1625760901;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=XR/L0+CaPtFdS7++i50EDeO2Jek5OnInkrK8zzhkHKQ=;
+ b=T7XvFHyz5b5cy7BnaPQ/zFQ5ivPmvO5NEtftUN23rk6CcdrFa5FkMly2QX8ps+RtCN9/6J
+ iQ9odLC+rrSvjWDA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 98D85A3B9D;
+ Thu,  8 Jul 2021 16:15:01 +0000 (UTC)
+Date: Thu, 08 Jul 2021 18:15:01 +0200
+Message-ID: <s5hwnq04wai.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Muni Sekhar <munisekharrms@gmail.com>
+Subject: Re: trigger timestamp
+In-Reply-To: <CAHhAz+gAAdrZJzr3fYXACnTW0r_5v35-wH+ohsrZ7nOcomoW5w@mail.gmail.com>
+References: <CAHhAz+h9=fMu7jLfmzZF2XMWAT=JBLik2WSSbfYtLg3kmzqWtg@mail.gmail.com>
+ <s5hmtqx59hm.wl-tiwai@suse.de>
+ <CAHhAz+guERMjmT_bRrgWzMoKkH2S0Zv0JatjpbNJZnLj+RyxXw@mail.gmail.com>
+ <s5heec956kn.wl-tiwai@suse.de>
+ <CAHhAz+gAAdrZJzr3fYXACnTW0r_5v35-wH+ohsrZ7nOcomoW5w@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: Andrew Gabbasov <andrew_gabbasov@mentor.com>
+Cc: alsa-devel <alsa-devel@alsa-project.org>,
+ kernelnewbies <kernelnewbies@kernelnewbies.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,69 +97,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-I use dmix+snd-aloop for all local applications; then forwarded to the 
-dmix+Layla3G using a custom C program.
+On Thu, 08 Jul 2021 18:11:13 +0200,
+Muni Sekhar wrote:
+> 
+> On Thu, Jul 8, 2021 at 6:02 PM Takashi Iwai <tiwai@suse.de> wrote:
+> >
+> > On Thu, 08 Jul 2021 14:19:12 +0200,
+> > Muni Sekhar wrote:
+> > >
+> > > On Thu, Jul 8, 2021 at 4:59 PM Takashi Iwai <tiwai@suse.de> wrote:
+> > > >
+> > > > On Thu, 01 Jul 2021 01:41:29 +0200,
+> > > > Muni Sekhar wrote:
+> > > > >
+> > > > > Hi all,
+> > > > >
+> > > > > >From the user space test application , Is it possible to get the
+> > > > > trigger timestamp corresponding to SNDRV_PCM_TRIGGER_START &
+> > > > > SNDRV_PCM_TRIGGER_STOP events for audio playback capture?
+> > > >
+> > > > That's exactly what trigger_tstamp of snd_pcm_status corresponds for.
+> > > Does aplay and arecord have any command line options to get the
+> > > trigger_tstamp? If not how to get it?
+> >
+> > Implement some code :)
+> >
+> > Alternatively you can check the proc output contents in
+> > /proc/asound/card*/pcm*/sub*/status.  It'd be difficult to see the
+> > stop timestamp, though (as the application closes the stream
+> > immediately after that).
+> How to specify if i want the REALTIME/MONOTONIC_RAW trigger_time
+> timestamp type output in  /proc/asound/card*/pcm*/sub*/status?
 
-Despite asking for clock sync, they slowly drift. Am I doing something 
-wrong?
-
-  $ echo hw:Layla3G,0,0 > /proc/asound/Loopback/timer_source
-
-The forwarder drains its buffer and eventually underruns. Loopback is not 
-providing enough audio to feed Layla3G -- drifts by about 9 samples/second 
-at 48kHz.
-
-This _feels_ like a regression; I'm pretty sure this was perfectly in time 
-before. I'd need to bisect kernel and alsa-lib changes.
-
-Below shows the status during playback/capture.
-
-The timer is definitely connected in some way. It's listed below, and 
-aloop ticking corresponds to whether Layla3G is open by any application 
-(not just the forwarder)
-
--- 
-Mark
+It's not provided in a standard tool and you have to write some
+program by yourself, I suppose.
 
 
-
-$ cat /proc/asound/Loopback/cable#0
-Cable 0 substream 0:
-  inactive
-Cable 0 substream 1:
-  inactive
-Cable 0 substream 2:
-  inactive
-Cable 0 substream 3:
-  valid: 3
-  running: 3
-  pause: 0
-  Playback
-    buffer_size:        65536
-    buffer_pos:         12800
-    silent_size:        0
-    period_size:        512
-    bytes_per_sec:      384000
-    sample_align:       8
-    rate_shift:         0
-    sound timer:        hw:0,0,0
-    timer open:         playback
-  Capture
-    buffer_size:        65536
-    buffer_pos:         53760
-    silent_size:        0
-    period_size:        512
-    bytes_per_sec:      384000
-    sample_align:       8
-    rate_shift:         0
-    sound timer:        hw:0,0,0
-    timer open:         playback
-Cable 0 substream 4:
-  inactive
-Cable 0 substream 5:
-  inactive
-Cable 0 substream 6:
-  inactive
-Cable 0 substream 7:
-  inactive
-
+Takashi

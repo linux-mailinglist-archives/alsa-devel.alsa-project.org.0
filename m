@@ -2,91 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE66F3BF87C
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jul 2021 12:34:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3792E3BF8E5
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jul 2021 13:25:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 21B5416C5;
-	Thu,  8 Jul 2021 12:33:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21B5416C5
+	by alsa0.perex.cz (Postfix) with ESMTPS id B585B1675;
+	Thu,  8 Jul 2021 13:25:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B585B1675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625740471;
-	bh=khI4EA61kkXi2NivuvRlcOwog9D4NlUGIynkn0DWZr4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1625743551;
+	bh=FH+B6TatxtGoLXY0imkE18TLiqTKMOx1ehFOXjlNQq8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h3lvL0f3JSrTuZOqYAbEzMMu4+cPYj0X2rtT091XThAle14plfEBA0Gi3/SjwBOmb
-	 ljeC1t6fJ8bsPPIH8fVv0SLs4UcLyqwo0xyw1Z7nPzQe0mQ7+ZbqYSwhr26XXdNmGy
-	 xpiaJUT7umS9SNCfsFaDJ1fEMwf5xkrdQyfoxeR4=
+	b=pWFsmXUB0YQnpBfp3gShfJzOSUUJb4bmCig8MlUNckjNX4Dg+a+nOJSO6Djrr2yL5
+	 A7kgoEYMcjwYMK+pHR7UkzDbJQqgco/sgcrGG+O/h1nBdguLWrBUWe5UfFpGnKoacs
+	 EBapOw3dKFsWYADAHUEEY+gt7aXckmsvP118Kzac=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 085E6F804DA;
-	Thu,  8 Jul 2021 12:32:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5BA41F8012A;
+	Thu,  8 Jul 2021 13:24:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 43413F80425; Thu,  8 Jul 2021 12:32:16 +0200 (CEST)
+ id AC834F8028D; Thu,  8 Jul 2021 13:24:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54448F8012F
- for <alsa-devel@alsa-project.org>; Thu,  8 Jul 2021 12:32:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54448F8012F
+ by alsa1.perex.cz (Postfix) with ESMTPS id EE4CEF8012A
+ for <alsa-devel@alsa-project.org>; Thu,  8 Jul 2021 13:24:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE4CEF8012A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="p1FAx0sX"
-Received: by mail-wr1-x430.google.com with SMTP id d12so6277807wre.13
- for <alsa-devel@alsa-project.org>; Thu, 08 Jul 2021 03:32:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=DMo1FwPXUmdGeHuTylB1bhXZtdOnnUeT5f6CbSUaCzs=;
- b=p1FAx0sXOfW6uoejHheFl6xvVQZqCqeoJDup1pcl51HWurhVMhnRCKEsJ1RAQFooXl
- QJ60l7CT0z5JrFWInnEHnVZwDIkYjw2aTrwu1XB2ZDbggC51KvsGl0/sf/d6AIoUbqrw
- cTjDR63q6xN5qLSHPbnliQAk3djKNdR6PYveqztvQ7zA1n3zovLDGKzbJ7ZieeE7q7+Q
- RaaQb3N7RO94pciVu14NO/AFmQ3dk4RS6clfXnNiaU+uHL7FSdt0b+uHcKaiT29aSCwH
- NGHrQZTN7Kv1AXaDHq10myQ1w6EVxd+QwJsvFXjLPAIVzFqbaCQ00OT53LiKqJxL5WZZ
- oNpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=DMo1FwPXUmdGeHuTylB1bhXZtdOnnUeT5f6CbSUaCzs=;
- b=c0M0ufSpQuCfPjdDUxWY2AToG2Dg8faBV+L4FDvTBKzzOgBIOyJe9m9wJjbK7mgavI
- R429sCi8tYxnDKYsJeNL/bGbeygL7XkBdPPtKfx2dDtgpT7Cjvt1GmDIVwTAC51Q/8Yr
- vln3jOE0oOCcl69UHQUSKBQX59s7b+S0CppfXfUVE4gnBGTjlPkskQmbPH+eR4CMRc3Z
- RRHoQMXxuqlJ4XAhoLd2lU4L5LNb0QBZWiKjtIV8aWhZPZVTwO25+mxobi+cw425RJxo
- D+SfBXvrSnMfkMj/3DpqpAA64nULBT6bIJVidgYA/kpyz1mZRaVTvWh2tl55rVGG1GUF
- PhDg==
-X-Gm-Message-State: AOAM533SdrAHD2VDOLtMpt8C20n8rHQtFB7v5nmUEBN1LSXO4DdSurz4
- G5PF8Ij6PGxBTFyLMhiA+L0=
-X-Google-Smtp-Source: ABdhPJzlvFcZx5xlorsp2MwJBbqPjX+k+YaeqaloucD+hMVipmfutFPdh/YzQIe6ATjQbbORHM8SLA==
-X-Received: by 2002:a5d:6702:: with SMTP id o2mr27199118wru.405.1625740327975; 
- Thu, 08 Jul 2021 03:32:07 -0700 (PDT)
-Received: from localhost ([62.96.65.119])
- by smtp.gmail.com with ESMTPSA id g10sm1383954wrq.63.2021.07.08.03.32.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Jul 2021 03:32:07 -0700 (PDT)
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Thierry Reding <thierry.reding@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Subject: [PATCH v2 2/2] arm64: tegra: Enable audio IOMMU support on Tegra194
-Date: Thu,  8 Jul 2021 12:34:32 +0200
-Message-Id: <20210708103432.1690385-3-thierry.reding@gmail.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210708103432.1690385-1-thierry.reding@gmail.com>
-References: <20210708103432.1690385-1-thierry.reding@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Sameer Pujar <spujar@nvidia.com>, Jon Hunter <jonathanh@nvidia.com>,
- Rob Herring <robh+dt@kernel.org>, linux-tegra@vger.kernel.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="emetuS7f"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="CD7PHco2"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id CE82322571;
+ Thu,  8 Jul 2021 11:24:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1625743491; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vbFteWXMOBnPsUwHaMyrsa77dclOGELCZJqzWQEQYyA=;
+ b=emetuS7fl5Da+dnWK1R6WkgukiMVEvQmeFvmlEgOp3eYlbFRn5K4nRXxfLr9VrEhPnvHtY
+ rtnzNt798BQ0C5UyNZDDozz2o85h6xnS2hwFkw0pXQpnENU+H+nuYSFGhaQS5mTXONx4n9
+ QEBP9U6fjlNYtU/td4svW0yGJ9BFN/o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1625743491;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vbFteWXMOBnPsUwHaMyrsa77dclOGELCZJqzWQEQYyA=;
+ b=CD7PHco2p1aal59yU06xPKpsUd8v3Nt85JxeHSh13BQmLB/C2Q76AjQ4EWFUFPgxq0VJqV
+ TZGWW4Y0HTihWzBA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id B8C07A3B85;
+ Thu,  8 Jul 2021 11:24:51 +0000 (UTC)
+Date: Thu, 08 Jul 2021 13:24:51 +0200
+Message-ID: <s5ho8bd59q4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Robert Lee <lerobert@google.com>
+Subject: Re: [Patch v2] ALSA: compress: allow to leave draining state when
+ pausing in draining
+In-Reply-To: <20210708020815.3489365-1-lerobert@google.com>
+References: <20210708020815.3489365-1-lerobert@google.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, zxinhui@google.com, carterhsu@google.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, vkoul@kernel.org,
+ bubblefang@google.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,34 +94,95 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Thierry Reding <treding@nvidia.com>
+On Thu, 08 Jul 2021 04:08:15 +0200,
+Robert Lee wrote:
+> 
+> When compress offload pauses in draining state, not all platforms
+> need to keep in draining state. Some platforms may call drain or
+> partial drain again when resume from pause in draining, so it needs
+> to wake up from snd_compress_wait_for_drain() in this case.
+> 
+> Call API snd_compr_leave_draining_in_pause(), if the platform
+> doesn't need to keep in draining state when pause in draining
+> state.
+> 
+> Signed-off-by: Robert Lee <lerobert@google.com>
+> ---
+>  include/sound/compress_driver.h | 14 ++++++++++++++
+>  sound/core/compress_offload.c   |  8 +++++++-
+>  2 files changed, 21 insertions(+), 1 deletion(-)
+> 
+> diff --git a/include/sound/compress_driver.h b/include/sound/compress_driver.h
+> index 277087f635f3..e16524a93a14 100644
+> --- a/include/sound/compress_driver.h
+> +++ b/include/sound/compress_driver.h
+> @@ -145,6 +145,7 @@ struct snd_compr_ops {
+>   * @lock: device lock
+>   * @device: device id
+>   * @use_pause_in_draining: allow pause in draining, true when set
+> + * @leave_draining_in_pause: leave draining state when pausing in draining
+>   */
+>  struct snd_compr {
+>  	const char *name;
+> @@ -156,6 +157,7 @@ struct snd_compr {
+>  	struct mutex lock;
+>  	int device;
+>  	bool use_pause_in_draining;
+> +	bool leave_draining_in_pause;
+>  #ifdef CONFIG_SND_VERBOSE_PROCFS
+>  	/* private: */
+>  	char id[64];
+> @@ -182,6 +184,18 @@ static inline void snd_compr_use_pause_in_draining(struct snd_compr_stream *subs
+>  	substream->device->use_pause_in_draining = true;
+>  }
+>  
+> +/**
+> + * snd_compr_leave_draining_in_pause - Leave draining state when pause in draining
+> + * @substream: compress substream to set
+> + *
+> + * In some platform, we need to leave draining state when we use pause in draining.
+> + * Add API to allow leave draining state.
+> + */
+> +static inline void snd_compr_leave_draining_in_pause(struct snd_compr_stream *substream)
+> +{
+> +	substream->device->leave_draining_in_pause = true;
+> +}
+> +
+>  /* dsp driver callback apis
+>   * For playback: driver should call snd_compress_fragment_elapsed() to let the
+>   * framework know that a fragment has been consumed from the ring buffer
+> diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
+> index 21ce4c056a92..c6e5c8f072d7 100644
+> --- a/sound/core/compress_offload.c
+> +++ b/sound/core/compress_offload.c
+> @@ -719,8 +719,14 @@ static int snd_compr_pause(struct snd_compr_stream *stream)
+>  		if (!stream->device->use_pause_in_draining)
+>  			return -EPERM;
+>  		retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_PUSH);
+> -		if (!retval)
+> +		if (!retval) {
+> +			if (stream->device->leave_draining_in_pause) {
+> +				stream->runtime->state = SNDRV_PCM_STATE_PAUSED;
+> +				wake_up(&stream->runtime->sleep);
+> +				break;
+> +			}
+>  			stream->pause_in_draining = true;
+> +		}
 
-Add iommus and interconnects properties to the ADMAIF device tree node
-on Tegra194. This ensures that the correct SID is used for translation
-of physical to I/O virtual addresses and that the path to system memory
-is properly described, which in turn can impact the range of memory that
-the device can address.
+Hrm, what actually happens with this new flag?  It changes the state
+to PAUSED even if it's done during the draining.  Then user resumes
+the pause via snd_compr_resume(), and now the state changes to
+RUNNING.  OTOH, if the draining runs normally, it'll end up with
+SETUP.
 
-Signed-off-by: Thierry Reding <treding@nvidia.com>
----
- arch/arm64/boot/dts/nvidia/tegra194.dtsi | 4 ++++
- 1 file changed, 4 insertions(+)
+Even if the above is even designed behavior, it must be described
+properly somewhere.  The state change is described in snd_compr_open()
+comment, and the new behavior should be mentioned there as well.
+(Admittedly, the previous hack for the pause-during-drain is also
+missing and should have been mentioned there; but an excuse is that
+the pause-during-drain doesn't change the state itself :)
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra194.dtsi b/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-index b7d532841390..07e61f084123 100644
---- a/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-@@ -200,6 +200,10 @@ tegra_admaif: admaif@290f000 {
- 						    "rx19", "tx19",
- 						    "rx20", "tx20";
- 					status = "disabled";
-+					interconnects = <&mc TEGRA194_MEMORY_CLIENT_APEDMAR &emc>,
-+							<&mc TEGRA194_MEMORY_CLIENT_APEDMAW &emc>;
-+					interconnect-names = "dma-mem", "write";
-+					iommus = <&smmu TEGRA194_SID_APE>;
- 				};
- 
- 				tegra_i2s1: i2s@2901000 {
--- 
-2.32.0
 
+thanks,
+
+Takashi

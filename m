@@ -2,152 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AF613C1412
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jul 2021 15:16:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25C4F3C14A7
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jul 2021 15:49:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D4C3315E2;
-	Thu,  8 Jul 2021 15:15:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4C3315E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id AABF71607;
+	Thu,  8 Jul 2021 15:48:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AABF71607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625750190;
-	bh=gSlHiFavrNttyqVvc4j1jEdcJFhZmVOVRVicr2Zpo7A=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1625752157;
+	bh=nl4YU9AVpz8tjPyDGRUqEgnFlnpfw0Fvlt7kyai5sNA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=T50mD1NBcaIqfHinrD4gx2TgccS1r8vK0zU5CHUmHkrGrN87auooYdpBTyqIimXRq
-	 Ge9rilJbH52WJeXxxLWu8tXo2vJGnbEkoufbn8ujmj22ddYIgo8/zDdEhzfUT3Ax8q
-	 7+MHrTnbRFpSKBTfxC9mSS3IcACCwTAMjJWQ6zl0=
+	b=jVahKf4M/Fal+EOVhP9SnZ8oYcbLx1LPx+T8hx5RsnSOUY8C7PC18ycSopMlNuxLb
+	 0SebsdrbKitLdz3wmY6LNBrLSDq2tXEwWwEFw4tZbrBFGwMWWDG1CCTvcf1NzsOfBJ
+	 jxk+/yNqpdADIRjbKNUQn2a/ZqMgmlRB8/6nLiHg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D16EF8012A;
-	Thu,  8 Jul 2021 15:15:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BB1FF8012A;
+	Thu,  8 Jul 2021 15:47:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EAD5AF80249; Thu,  8 Jul 2021 15:15:00 +0200 (CEST)
+ id 4BEB6F80249; Thu,  8 Jul 2021 15:47:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL
  autolearn=disabled version=3.4.0
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2060.outbound.protection.outlook.com [40.107.236.60])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
+ [IPv6:2607:f8b0:4864:20::735])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D8EFFF80249
- for <alsa-devel@alsa-project.org>; Thu,  8 Jul 2021 15:14:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8EFFF80249
+ by alsa1.perex.cz (Postfix) with ESMTPS id AE241F8012A
+ for <alsa-devel@alsa-project.org>; Thu,  8 Jul 2021 15:47:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE241F8012A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="cjLB9k7j"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FNGHzLB/lQCUZ+hfLodjTVb0JJB3+r4HoD/UX186VMhLrSGtmt1k/GFp/R5t5ACKXpvMHwKBvamqg0roZ6SdSB3CcBjb6M32Vwq8i9KVSa1ns6zmIpYIKLL1jRNiGQCmzTHqBbWUDFdZNIVWrbzuk9RKrcp6FBMBSiZ4pjw1N/mCNUNgZX736hMTMFxHK+0o2uF0O/eOqGwr2IA8Q3WpeHaFmoFfGzsBW11NVvsCVnOZ6+qctmdepZB4k9xeb1lyRREINTBX2UyQuRi94jZFCHIGinQmeai9tYEkXVz6JgbUh/NGNFvSQ4vjwPrPidBkVqZ5j6bnEN7B0MZGkjCjQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E5OiufOCgzCwJ4Aa+6oVgev0V2t7QCtwDIvhv+uWfS8=;
- b=fV5nwAzaLS4g64L3JWmNIDTQ/nWYu2Yu0yMpdtbATUnuCkIjnZ95VZb6dHnSGmhndCKG0XzKI2Vsmq4nV3OfCdSPFNYTLmQ/ltKOjh/w5Lg73MNy5tXtSrJ0jeqauCmN+DofF8lUwG9kdOoxZXj53sGNsJeCvR01itSgXepm0AGFp3Aw21fTrN6Jkq4gs/1VTog4X9AshkAR6aYu5n6kVMx/kkExzjCvN7Kio2xDH7/b81qGcAUiPK2laV+eLP8csbgw1IRWlGl5FK6k1tcavkd5XHR8GOXaO/I2GZXWibNsaRBK0hHOwX/TrrjV0WXLZSNHqukOlQANfhSD/eb0Cw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E5OiufOCgzCwJ4Aa+6oVgev0V2t7QCtwDIvhv+uWfS8=;
- b=cjLB9k7jaqVSPTw8sYmHDEN2VOFHLHL4KLWH+GPEKWct8WSa1lZsPW3RmC3YvZv1I9tla0QgH2QK0N0n1OCtQwVv7OIh30XzjHHYkhLYFX4agk7INq37WQhNrNQmE9d7u7TcUg4EOTdLpaoFWbVN+LVKClL9fHCnZuCupJo9Nlg=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from CY4PR1201MB2550.namprd12.prod.outlook.com
- (2603:10b6:903:ce::13) by CY4PR1201MB0039.namprd12.prod.outlook.com
- (2603:10b6:910:1e::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4287.33; Thu, 8 Jul
- 2021 13:14:46 +0000
-Received: from CY4PR1201MB2550.namprd12.prod.outlook.com
- ([fe80::d53a:8bc9:23fa:46bb]) by CY4PR1201MB2550.namprd12.prod.outlook.com
- ([fe80::d53a:8bc9:23fa:46bb%7]) with mapi id 15.20.4287.033; Thu, 8 Jul 2021
- 13:14:46 +0000
-Subject: Re: [PATCH 06/12] ASoC: amd: irq handler changes for ACP5x PCM dma
- driver
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org, alsa-devel@alsa-project.org
-References: <20210707055623.27371-1-vijendar.mukunda@amd.com>
- <20210707055623.27371-7-vijendar.mukunda@amd.com>
- <6ae6e658-692e-70f2-6bda-ce139168aae3@linux.intel.com>
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-Message-ID: <b8f12c04-34d2-0bcb-e12e-04977bb552e9@amd.com>
-Date: Thu, 8 Jul 2021 19:02:25 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <6ae6e658-692e-70f2-6bda-ce139168aae3@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SGXP274CA0010.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b8::22)
- To CY4PR1201MB2550.namprd12.prod.outlook.com
- (2603:10b6:903:ce::13)
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="FEUtm6k7"
+Received: by mail-qk1-x735.google.com with SMTP id t19so5649438qkg.7
+ for <alsa-devel@alsa-project.org>; Thu, 08 Jul 2021 06:47:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=dcoeEcEIjqF8z6oBeMSQO0+nsBtqHQ+RSAADgarXULk=;
+ b=FEUtm6k7pOULwc1g2GuWwg9ec+OFT9nFXNHy0FQUg5yslsXl/zWIK27+1NTJbM/7DI
+ MTvLfSYX+y9XUO/NN87bJfhcDj+YbAo0FTEV5jcfj9T6S39PcvCcIocusy3/AENHY20a
+ +Va2YDR++bDDHnSJvNiAmDjwQI0064Eo+5uZfLyfqX9l6L3PcldrewWMOTwauECAgAfK
+ BzVxphbpYg2bpsDp7mwiGgzX+geREXzeIsA/Xkfnul+Ycy/fniIXCEj2xchrYDxLIEX/
+ Vxnzj4dMSw+elFVSfF8P/mBFzWEq37Gy3DsDtBRNy7dOUbteahYkHCK6oiaq/pACSUDq
+ /1yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=dcoeEcEIjqF8z6oBeMSQO0+nsBtqHQ+RSAADgarXULk=;
+ b=eMS6Lc2CZzsEE7iRc4sRdYZzFCpjajk85y/hOBBdXrGaP//OSoqwCPCsUmey3Ai/pF
+ UeUUzOoltg36qaPmE2dlOG8OKrRxgISk528SCSFuqjTb4EpAUIBvESNSKUr34N5o+MvH
+ JWCQaZp6oHD5jbRX1c1/jQshcnE/ANtDTRR82Q+KDNH0YirnvrwAhTATVERc6U4ajXnR
+ x48ZkI93FAkP2T+V6i+R5mDbR5QGS3Ikxr9DGPMCLjVGN+dZ92DO2gLz84XfMeO0ZUdP
+ 4W4MCQNywtcsrPDU1e55fLOYw4qWi7k//tb2TIKmn7ERDmMe5fRLVAKOgExKPMqJh+oa
+ mX7Q==
+X-Gm-Message-State: AOAM532H29MAkYOk+iDJN3ZrWsF7E31fSs3RGTKBuqWsuWGVhsWKNQt5
+ J+gRNCigWPcH602pjp1nsmuxxgXV3qBsO7l2CdHa
+X-Google-Smtp-Source: ABdhPJyUsMtjO8wnhwRZut4p82VJ4jqmBsd5Llz44/hnsTOYseyp3t05psKtKvRnSTVa4QEwvKkRMweTnM1Cp/js6dY=
+X-Received: by 2002:a37:8345:: with SMTP id f66mr31099925qkd.396.1625752055653; 
+ Thu, 08 Jul 2021 06:47:35 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [10.252.93.39] (165.204.159.242) by
- SGXP274CA0010.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b8::22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4308.20 via Frontend Transport; Thu, 8 Jul 2021 13:14:43 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c97aaf82-016f-4fa0-5634-08d942125baf
-X-MS-TrafficTypeDiagnostic: CY4PR1201MB0039:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY4PR1201MB0039EFE8D5D3C2F7F1B2A0AE97199@CY4PR1201MB0039.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OSt6NH4W5VjKJOS0P5mDpzvLrzKm0AGySiKmd2BZNPI7fxZaBtHHrCKy1jfk/1i8yboUX16HLpzC4z3FWFtNaNaKk0hnHF2Rt6v+gVUbHpP1PKB78lf+Sz5LoNMLZyxLnufRBHmPTeMNLkeEzcOsUGxRBgkp+B9zRY2SA+yVH5ROr+BCwvox8QHCNB0nBbkAo5/4M7hatlfeLnJUe46CoeVAhtuCGTsZxUaMtVLdQzPD8ZNcp5YweWXoQZ9r9lq1SL2XDHloFXAze3S6VIdDKjM7L0U7ze+rHOZrwjDeWnxSNHefcmuFhGzWvpoqEznnoXcLL0+KdF0HUxWjVSm5DBE4XwUZXCphD6y4HjTS6FnveZ/uLRtYXPxNetnKohge4EF0sUfIGiy/eYL4LLUL4fRXncbKtUkyHl/0O4glzdrAsRMN+9VkL4SKi0WdOUazeKZ+bjyhemWUaeW021Nyy77wjbRmB9B5eMbl1VV8Frc/K1/dS/a2edslQ0/xku+4XlzGSvegXZGBHGHfxrSD+BrcTz/CciVBq7zW8NvAampgORGnhOzFWAseI79I24wBUK70gVFwAbSvcF4eOI+RLY0Ibi3mwhtjMs52CNxJGitjbSAZ3SoXVNeemejWyNi1dmUOR6C53O0K5vU89j5JOqkTpw5yVNuw1qEBZkvz8MLW3jDyLMaYnpc3faTHUzwIaiwPcXKxHKB2QLmlZVqM4GjM5/0n9CTvs57c5XdTcdnGGAuqXC7sBcv4pyVLESU070uAww8zt5T/+vokjEt6/A==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR1201MB2550.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(39850400004)(136003)(366004)(346002)(376002)(2906002)(38100700002)(186003)(66476007)(66946007)(66556008)(478600001)(6666004)(31686004)(8676002)(956004)(6486002)(26005)(5660300002)(31696002)(86362001)(2616005)(36756003)(54906003)(316002)(16576012)(53546011)(4326008)(8936002)(32563001)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bm1aU3F5TUxLMlBNc0dRNEtoUEhTbkM4eUZNTkZGK3d6RE8rNGFGenNQNXp0?=
- =?utf-8?B?M3dlUUlQVkJiRzZTalY2TXZzOEU0blE0bUpQOU9wbkpFeWFCNEpHSXVOdjVW?=
- =?utf-8?B?V3NYanBuWEdLcGQ5TWlQY3J0SlZ3a2x3WS9VbGpzOEczcWoyZlN5bXZ2dkRr?=
- =?utf-8?B?RHZndjdxVnZ2bnFtK29MUGRVN1dQaytKcUNSekloV0hPOUpOSnNsZlQ5b2s3?=
- =?utf-8?B?UE1FZlVzWHprakVtU1VERVhjVnVQSGpqVVlGYmU5Vks0bzMwQmxFeWVjRm5i?=
- =?utf-8?B?aG1VU05HK29kNi9nTnVIZG80Z3pESE53bG5icnl4NXNGR3NhVDBiQlo2VnlU?=
- =?utf-8?B?K0o1SnRrMDJaVDJNK3RPeWpRVlc4QURLOEMrd0xNTW1ZS2o3OVlLTkQ2bm5r?=
- =?utf-8?B?OTRGS1IwVFFaQi9jQU0yQWEzWnIvT3c1SWVNT3MyaTc3emMwdmxhQWxQYjIv?=
- =?utf-8?B?eWdrS2ZUNEZMZHJ1TUtIVWpieFVoOUYrVE4wMEpMd09oenRIU2lGZTBkK1pQ?=
- =?utf-8?B?MXQybWFPRTl2QitNTVhMOFplZzdWejR0THhCV0xaOURmTVpKSGdOaGE3Qnhv?=
- =?utf-8?B?WjZ2eUVublVkdTUxSkxWaWdPaFlKUzhhdFI0a01GVC9DMHFHd2YyZDByN2tD?=
- =?utf-8?B?QTh1KzQ2REZjWVhqSVdOMUJjQ1gxUmRNZklYMlQ0TnpTRUNLSDY2UklNdmhN?=
- =?utf-8?B?N2U5VmlPeklmSTQ3dS9uS3h3ejUxUnZNdVRWVjBtVTRROG9ITDd4M3R0VlB6?=
- =?utf-8?B?NEZZaVFkY1FMd2FiUWpJNWlJeXVUQ1lEeVdDY043dkgyM0MvSFhJRmtybWow?=
- =?utf-8?B?emNFOW9ZcTJYLy9XQlQ0WW1GSEIzSnNaNlRvTXNtZVVmakx1QXY3TFVkMjJp?=
- =?utf-8?B?VlZ0U0s4L20yWlVyck14Q3pKeUlFbU1wWSt4SkZwZjZjam1iY3A4Q0ZYZmFK?=
- =?utf-8?B?Sm1xODVpelJrRC92cHl6d0xiNVAvajkvVHFLNHgrRG9RY2tWMGJRR3UwTmgw?=
- =?utf-8?B?U2t4cHZTWHpoRTNTNDNESFZHeUpGbEluejNCUGt4RWd2N3RXSUhxMWx2YmNZ?=
- =?utf-8?B?SWdlTjQ5OFRQZnlNR2l0L3ZZNGN5d3JqL3h0S0xYeGl4MjhaUEI5b0phUmZZ?=
- =?utf-8?B?U1NadkxkZmFPTy80L2VWSzJoU2kwSUlEUzYyL0FCbU9KbUJ0MHdJcm9TRUxy?=
- =?utf-8?B?dWVlR3Bta253Z1lMUEpvNGV1cXBlUndiNmhRQzJNV2IvRjJmSTlMSGl3enNn?=
- =?utf-8?B?QnZiZS9MTUhwUTNSRlh1SFZFQjF4RFhRR0VQQzJ0dGNpSlhybklWYWJncGsy?=
- =?utf-8?B?NEZ1aW90bHF5bWc5S0o0bnljbDBkbjhwdGJvWmdIZVN4cDFUSUNGZk1HN1hC?=
- =?utf-8?B?N2JHeFc4S3k2ajJOclBWaFVvV2hMQ0Nxd1lOeUtIMGZKR0kzbUl3WjlMWitr?=
- =?utf-8?B?TzNMQmgxMTI0VW1ra2pkQXA5RVZPR0pOWTlQVitndHR6N3pBSHdQSjZmcFBS?=
- =?utf-8?B?UGdCc25kTmNWMS9xS0d6ais0VzBtUWs4TFdzUmZ5eFBhaWNSbjBGdDNqR3hz?=
- =?utf-8?B?T1FITlZGSVcwa2JqK0lMaStCNEtqUUlRREdOdnhKc2paU1ZBUEwrc0c4dVFS?=
- =?utf-8?B?cTd3Uk1PREJNRkVKQyt1K0dLakd4VCtWa2hTRUh6ekhmOTdkcmM4SWQxWkdQ?=
- =?utf-8?B?L05wRktIb2lGcmNMMmZwYmJoSmF6ZTN2aGJ2ZnhqTFVBVGNLby9DYXkrS2s1?=
- =?utf-8?Q?X+5n8Pn+WBKoIsphfN6iuvv7MpFAQKAbTFe1b0y?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c97aaf82-016f-4fa0-5634-08d942125baf
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR1201MB2550.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2021 13:14:46.7486 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +bDHzOimYRM4DHt8pcIQLirv9J/rMC9AlI0eclyilmlCU/E79Lp9I9B0suSADtWc7XivCxiCfK582nPKuO4jww==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0039
-Cc: Alexander.Deucher@amd.com, Takashi Iwai <tiwai@suse.com>,
- Sunil-kumar.Dommati@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
- open list <linux-kernel@vger.kernel.org>
+References: <20210708020815.3489365-1-lerobert@google.com>
+ <s5ho8bd59q4.wl-tiwai@suse.de>
+In-Reply-To: <s5ho8bd59q4.wl-tiwai@suse.de>
+From: Robert Lee <lerobert@google.com>
+Date: Thu, 8 Jul 2021 21:47:24 +0800
+Message-ID: <CAOM6g_Cv6rsLOAb0+Lr_YkjHpKfw+zvWXH0X5LKR=Z4dtXGRng@mail.gmail.com>
+Subject: Re: [Patch v2] ALSA: compress: allow to leave draining state when
+ pausing in draining
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: alsa-devel@alsa-project.org, zxinhui@google.com, carterhsu@google.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, vkoul@kernel.org,
+ bubblefang@google.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -163,59 +99,152 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 7/7/21 9:50 PM, Pierre-Louis Bossart wrote:
-> 
->> +static irqreturn_t i2s_irq_handler(int irq, void *dev_id)
->> +{
->> +	struct i2s_dev_data *vg_i2s_data;
->> +	u16 play_flag, cap_flag;
->> +	u32 val;
->> +
->> +	vg_i2s_data = dev_id;
->> +	if (!vg_i2s_data)
->> +		return IRQ_NONE;
->> +
->> +	play_flag = 0;
->> +	cap_flag = 0;
->> +	val = acp_readl(vg_i2s_data->acp5x_base + ACP_EXTERNAL_INTR_STAT);
->> +	if ((val & BIT(HS_TX_THRESHOLD)) && vg_i2s_data->play_stream) {
->> +		acp_writel(BIT(HS_TX_THRESHOLD), vg_i2s_data->acp5x_base +
->> +			   ACP_EXTERNAL_INTR_STAT);
->> +		snd_pcm_period_elapsed(vg_i2s_data->play_stream);
->> +		play_flag = 1;
->> +	}
->> +	if ((val & BIT(I2S_TX_THRESHOLD)) &&
->> +	    vg_i2s_data->i2ssp_play_stream) {
->> +		acp_writel(BIT(I2S_TX_THRESHOLD),
->> +			   vg_i2s_data->acp5x_base + ACP_EXTERNAL_INTR_STAT);
->> +		snd_pcm_period_elapsed(vg_i2s_data->i2ssp_play_stream);
->> +		play_flag = 1;
->> +	}
->> +
->> +	if ((val & BIT(HS_RX_THRESHOLD)) && vg_i2s_data->capture_stream) {
->> +		acp_writel(BIT(HS_RX_THRESHOLD), vg_i2s_data->acp5x_base +
->> +			   ACP_EXTERNAL_INTR_STAT);
->> +		snd_pcm_period_elapsed(vg_i2s_data->capture_stream);
->> +		cap_flag = 1;
->> +	}
->> +	if ((val & BIT(I2S_RX_THRESHOLD)) &&
->> +	    vg_i2s_data->i2ssp_capture_stream) {
->> +		acp_writel(BIT(I2S_RX_THRESHOLD),
->> +			   vg_i2s_data->acp5x_base + ACP_EXTERNAL_INTR_STAT);
->> +		snd_pcm_period_elapsed(vg_i2s_data->i2ssp_capture_stream);
->> +		cap_flag = 1;
->> +	}
->> +
->> +	if (play_flag | cap_flag)
-> 
-> it doesn't seem terribly useful to use two variables if you can use one?
+Hi Takashi,
 
-Agreed. Will fix it and post the new version.
-> 
->> +		return IRQ_HANDLED;
->> +	else
->> +		return IRQ_NONE;
->> +}
->> +
-> 
+It is a little complex to describe the design in detail, but try to
+explain simply
+what issue we meet.
 
+If w/o the change,  after user resumes from the pause, our system would cal=
+l
+snd_compr_drain() or snd_compr_partial_drain() again after it returns from
+previous drain (when EOF reaches). Then it will block in this drain and no =
+one
+wake it up because EOF has already reached. I add this change to return fro=
+m
+the previous drain.
+
+And yes, after user resumes it, it will change state to RUNNING. Then it wi=
+ll
+call snd_compr_drain() or snd_compr_partial_drain() very soon and change
+state to DRAINING again.
+
+Actually, I am wondering how the pause-during-drain can keep the state in
+DRAINING. It should have a different design. :)
+
+I also checked the snd_compr_open() comment, and it doesn't mention that
+we cannot pause in DRAINING state. Looks like it needs to be updated accord=
+ing
+to these changes. Maybe it can be updated in another commit?
+
+* SNDRV_PCM_STATE_DRAINING: When stream is draining current data. This is d=
+one
+ *      by calling SNDRV_COMPRESS_DRAIN.
+ * SNDRV_PCM_STATE_PAUSED: When stream is paused. This is done by calling
+ *      SNDRV_COMPRESS_PAUSE. It can be stopped or resumed by calling
+ *      SNDRV_COMPRESS_STOP or SNDRV_COMPRESS_RESUME respectively.
+
+thanks,
+Robert.
+
+Takashi Iwai <tiwai@suse.de> =E6=96=BC 2021=E5=B9=B47=E6=9C=888=E6=97=A5 =
+=E9=80=B1=E5=9B=9B =E4=B8=8B=E5=8D=887:24=E5=AF=AB=E9=81=93=EF=BC=9A
+
+
+Takashi Iwai <tiwai@suse.de> =E6=96=BC 2021=E5=B9=B47=E6=9C=888=E6=97=A5 =
+=E9=80=B1=E5=9B=9B =E4=B8=8B=E5=8D=887:24=E5=AF=AB=E9=81=93=EF=BC=9A
+>
+> On Thu, 08 Jul 2021 04:08:15 +0200,
+> Robert Lee wrote:
+> >
+> > When compress offload pauses in draining state, not all platforms
+> > need to keep in draining state. Some platforms may call drain or
+> > partial drain again when resume from pause in draining, so it needs
+> > to wake up from snd_compress_wait_for_drain() in this case.
+> >
+> > Call API snd_compr_leave_draining_in_pause(), if the platform
+> > doesn't need to keep in draining state when pause in draining
+> > state.
+> >
+> > Signed-off-by: Robert Lee <lerobert@google.com>
+> > ---
+> >  include/sound/compress_driver.h | 14 ++++++++++++++
+> >  sound/core/compress_offload.c   |  8 +++++++-
+> >  2 files changed, 21 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/include/sound/compress_driver.h b/include/sound/compress_d=
+river.h
+> > index 277087f635f3..e16524a93a14 100644
+> > --- a/include/sound/compress_driver.h
+> > +++ b/include/sound/compress_driver.h
+> > @@ -145,6 +145,7 @@ struct snd_compr_ops {
+> >   * @lock: device lock
+> >   * @device: device id
+> >   * @use_pause_in_draining: allow pause in draining, true when set
+> > + * @leave_draining_in_pause: leave draining state when pausing in drai=
+ning
+> >   */
+> >  struct snd_compr {
+> >       const char *name;
+> > @@ -156,6 +157,7 @@ struct snd_compr {
+> >       struct mutex lock;
+> >       int device;
+> >       bool use_pause_in_draining;
+> > +     bool leave_draining_in_pause;
+> >  #ifdef CONFIG_SND_VERBOSE_PROCFS
+> >       /* private: */
+> >       char id[64];
+> > @@ -182,6 +184,18 @@ static inline void snd_compr_use_pause_in_draining=
+(struct snd_compr_stream *subs
+> >       substream->device->use_pause_in_draining =3D true;
+> >  }
+> >
+> > +/**
+> > + * snd_compr_leave_draining_in_pause - Leave draining state when pause=
+ in draining
+> > + * @substream: compress substream to set
+> > + *
+> > + * In some platform, we need to leave draining state when we use pause=
+ in draining.
+> > + * Add API to allow leave draining state.
+> > + */
+> > +static inline void snd_compr_leave_draining_in_pause(struct snd_compr_=
+stream *substream)
+> > +{
+> > +     substream->device->leave_draining_in_pause =3D true;
+> > +}
+> > +
+> >  /* dsp driver callback apis
+> >   * For playback: driver should call snd_compress_fragment_elapsed() to=
+ let the
+> >   * framework know that a fragment has been consumed from the ring buff=
+er
+> > diff --git a/sound/core/compress_offload.c b/sound/core/compress_offloa=
+d.c
+> > index 21ce4c056a92..c6e5c8f072d7 100644
+> > --- a/sound/core/compress_offload.c
+> > +++ b/sound/core/compress_offload.c
+> > @@ -719,8 +719,14 @@ static int snd_compr_pause(struct snd_compr_stream=
+ *stream)
+> >               if (!stream->device->use_pause_in_draining)
+> >                       return -EPERM;
+> >               retval =3D stream->ops->trigger(stream, SNDRV_PCM_TRIGGER=
+_PAUSE_PUSH);
+> > -             if (!retval)
+> > +             if (!retval) {
+> > +                     if (stream->device->leave_draining_in_pause) {
+> > +                             stream->runtime->state =3D SNDRV_PCM_STAT=
+E_PAUSED;
+> > +                             wake_up(&stream->runtime->sleep);
+> > +                             break;
+> > +                     }
+> >                       stream->pause_in_draining =3D true;
+> > +             }
+>
+> Hrm, what actually happens with this new flag?  It changes the state
+> to PAUSED even if it's done during the draining.  Then user resumes
+> the pause via snd_compr_resume(), and now the state changes to
+> RUNNING.  OTOH, if the draining runs normally, it'll end up with
+> SETUP.
+>
+> Even if the above is even designed behavior, it must be described
+> properly somewhere.  The state change is described in snd_compr_open()
+> comment, and the new behavior should be mentioned there as well.
+> (Admittedly, the previous hack for the pause-during-drain is also
+> missing and should have been mentioned there; but an excuse is that
+> the pause-during-drain doesn't change the state itself :)
+>
+>
+> thanks,
+>
+> Takashi

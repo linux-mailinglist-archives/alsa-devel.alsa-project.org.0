@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D9203BF731
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jul 2021 11:01:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2597D3BF74D
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jul 2021 11:09:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 340E31612;
-	Thu,  8 Jul 2021 11:01:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 340E31612
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A04B1654;
+	Thu,  8 Jul 2021 11:08:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A04B1654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625734913;
-	bh=htknzwNtS6hJ6LZsDMbKU8NzxzHLbVXPxVLpCNkgycs=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ri4Iz+UdsKnglTPaabEE1dAKYo7N7H5u9ZGBs3zurmztjGmx5u6x5N3c3fFM8z3RL
-	 CCNwBmCqxrgYuKjqSbpAXVDGbErbglryEalkALvIjaZY9u69ahyLaWwnjhBTic9oVD
-	 P0bp9mI9A3g5ekSV1S1b4bs69WFhU1suqvpZU4BA=
+	s=default; t=1625735361;
+	bh=40eFma67ezC+pT3nZnXB00fmSvZGk8nQeAHdFICta34=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=G9aGCkqkjdlT3NOD1+CdtewPNPfDO+Gnkf4saup4ItVEtWNjCMN32nJrWXwqUymBP
+	 MrKmKhIZQISj7dQDzJTSacg2RLm+cFCQk+Zwlsy/bhzSrExfpW6FpBl73y65l7oNVD
+	 cWodzIdDvPVk9Ce7+wO6K6nZ7AI3bhMv76fyjXXI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B735F80259;
-	Thu,  8 Jul 2021 11:00:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3768F80259;
+	Thu,  8 Jul 2021 11:07:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 11ABAF80249; Thu,  8 Jul 2021 11:00:24 +0200 (CEST)
+ id 49135F80249; Thu,  8 Jul 2021 11:07:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,61 +33,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E99C0F8012A
- for <alsa-devel@alsa-project.org>; Thu,  8 Jul 2021 11:00:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E99C0F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 52408F8012A
+ for <alsa-devel@alsa-project.org>; Thu,  8 Jul 2021 11:07:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52408F8012A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="rH76wpsF"; 
+ header.b="cpD1FaIc"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="jJ5khGte"
+ header.b="x4+n58xL"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 2A0832017C;
- Thu,  8 Jul 2021 09:00:11 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 8C33420181;
+ Thu,  8 Jul 2021 09:07:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625734811; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zXBWX1J/SEQW1rLMlM4E1KFMEHbyBytq18w6+wHvhHE=;
- b=rH76wpsFPwPSCwy+j+WN+5Ylls3pePbrNr8gVu0eLbDdZ7BNfpcz0gTTl9jeO7a+7r4LHZ
- Mx74uy+IZmGQZUk/rvTE3KxyPmKiGRDhjo0fCgTbLPJriGWSsNHSIgsGLPpp+94b4D5rch
- /RMhO/TfvKJW5EzLaMoy8hArDXdf78Y=
+ t=1625735260; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Eqr2EXoufiR6OT5kq/16DCyHWd3CfZla5aTNGEHEiPg=;
+ b=cpD1FaIcEgxke3nZGEoNNEx7TTyuKp9QemieGCPechmUKfmqm4c89Wy7bRpwSz7O8WUtnG
+ bNVs5UeWWZrRlQ/5lEC4kt2AnG7ibZVuPbhpdFmFMfEyEjQu2a4Z/6cmfiEd0pUlXg1cPh
+ /JOn4/iG8Ec6z9KGAG8w6ln4NhY4b0M=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625734811;
+ s=susede2_ed25519; t=1625735260;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zXBWX1J/SEQW1rLMlM4E1KFMEHbyBytq18w6+wHvhHE=;
- b=jJ5khGtePHBx7PzxYRTZudOtCuVWq1fxcw+aW5ks5f23aPGMemVafe0SeIEcydk3qkCMdw
- RNrQuoekofssXNCg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 163AA2C1FE;
- Thu,  8 Jul 2021 09:00:11 +0000 (UTC)
-Date: Thu, 08 Jul 2021 11:00:11 +0200
-Message-ID: <s5h5yxl6uzo.wl-tiwai@suse.de>
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Eqr2EXoufiR6OT5kq/16DCyHWd3CfZla5aTNGEHEiPg=;
+ b=x4+n58xLA7kIgVLGIn764X+yvfOSyw8HwooyLyxnmH9fm+2wjbcOuYxz9CrVv2P128s12j
+ 8jWNETm9F5nIPYBw==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 790FAA3BA1;
+ Thu,  8 Jul 2021 09:07:40 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
-To: Max Filippov <jcmvbkbc@gmail.com>
-Subject: Re: ALSA: intel8x0: div by zero in snd_intel8x0_update()
-In-Reply-To: <CAMo8Bf+bGujLN7H5yBqy-AkPCN7LgfmGSiWEGdjW6ZWeFoXs9A@mail.gmail.com>
-References: <YJ4yBmIV6RJCo42U@google.com> <s5hk0o18tio.wl-tiwai@suse.de>
- <YJ5cHdv6MVmAKD3b@google.com> <YKDYQfDf7GiMfGCN@google.com>
- <YKDYbaprE3K2QpCe@google.com> <s5hbl9b6mah.wl-tiwai@suse.de>
- <CAMo8BfKKMQkcsbOQaeEjq_FsJhdK=fn598dvh7YOcZshUSOH=g@mail.gmail.com>
- <s5ho8be8v3z.wl-tiwai@suse.de>
- <CAMo8Bf+FF8Ofq=FwoZZXp9vKiMaUZNAm+W=OJmu2j2XN6kLb-Q@mail.gmail.com>
- <s5hk0m26lfu.wl-tiwai@suse.de>
- <CAMo8BfLj+VLUbfUmHUSHOfc3PwbWd2w_xnaTZa9HyrcmvJCAkQ@mail.gmail.com>
- <s5hfswp6zx8.wl-tiwai@suse.de>
- <CAMo8Bf+bGujLN7H5yBqy-AkPCN7LgfmGSiWEGdjW6ZWeFoXs9A@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Leon Romanovsky <leon@kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Sergey Senozhatsky <senozhatsky@chromium.org>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: intel8x0: Fix breakage at ac97 clock measurement
+Date: Thu,  8 Jul 2021 11:07:38 +0200
+Message-Id: <20210708090738.1569-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Max Filippov <jcmvbkbc@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,49 +85,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 08 Jul 2021 10:41:50 +0200,
-Max Filippov wrote:
-> 
-> On Thu, Jul 8, 2021 at 12:13 AM Takashi Iwai <tiwai@suse.de> wrote:
-> > On Wed, 07 Jul 2021 22:33:22 +0200,
-> > Max Filippov wrote:
-> > >
-> > > On Wed, Jul 7, 2021 at 11:14 AM Takashi Iwai <tiwai@suse.de> wrote:
-> > > > On Wed, 07 Jul 2021 19:50:07 +0200, Max Filippov wrote:
-> > > > > It didn't change anything in my case. My further observation is that
-> > > > > the snd_intel8x0_update is called before the ichdev->prepared
-> > > > > is set to one and as a result IRQ is apparently never cleared.
-> > > >
-> > > > So it's broken in anyway no matter whether
-> > > > intel8x0_measure_ac97_clock() is called or not, right?
-> > >
-> > > The change that you suggested didn't eliminate the call to
-> > > intel8x0_measure_ac97_clock, it's still called and an interrupt
-> > > flood happens at the same place.
-> >
-> > Ah I see the point.  Then the fix would be a oneliner like below.
-> >
-> >
-> > Takashi
-> >
-> > --- a/sound/pci/intel8x0.c
-> > +++ b/sound/pci/intel8x0.c
-> > @@ -694,7 +694,7 @@ static inline void snd_intel8x0_update(struct intel8x0 *chip, struct ichdev *ich
-> >         int status, civ, i, step;
-> >         int ack = 0;
-> >
-> > -       if (!ichdev->prepared || ichdev->suspended)
-> > +       if (!(ichdev->prepared || ichdev->in_measurement) || ichdev->suspended)
-> 
-> There's no ichdev::in_measurement, but if replaced with
-> chip->in_measurement it indeed fixes my issue.
+The recent workaround for the wild interrupts in commit c1f0616124c4
+("ALSA: intel8x0: Don't update period unless prepared") leaded to a
+regression, causing the interrupt storm during ac97 clock measurement
+at the driver probe.  We need to handle the interrupt while the clock
+measurement as well as the proper PCM streams.
 
-One must compile the code before sending out :-<
+Fixes: c1f0616124c4 ("ALSA: intel8x0: Don't update period unless prepared")
+Reported-and-tested-by: Max Filippov <jcmvbkbc@gmail.com>
+Cc: <stable@vger.kernel.org>
+Link: https://lore.kernel.org/r/CAMo8BfKKMQkcsbOQaeEjq_FsJhdK=fn598dvh7YOcZshUSOH=g@mail.gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/pci/intel8x0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> So with this change:
-> Tested-by: Max Filippov <jcmvbkbc@gmail.com>
+diff --git a/sound/pci/intel8x0.c b/sound/pci/intel8x0.c
+index 2d1bfbcba933..df3ba5c70de9 100644
+--- a/sound/pci/intel8x0.c
++++ b/sound/pci/intel8x0.c
+@@ -694,7 +694,7 @@ static inline void snd_intel8x0_update(struct intel8x0 *chip, struct ichdev *ich
+ 	int status, civ, i, step;
+ 	int ack = 0;
+ 
+-	if (!ichdev->prepared || ichdev->suspended)
++	if (!(ichdev->prepared || chip->in_measurement) || ichdev->suspended)
+ 		return;
+ 
+ 	spin_lock_irqsave(&chip->reg_lock, flags);
+-- 
+2.26.2
 
-Great, thanks for quick testing, I'll prepare the fix patch now.
-
-
-Takashi

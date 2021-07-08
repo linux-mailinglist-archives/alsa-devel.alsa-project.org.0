@@ -2,81 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72AF03BF90F
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jul 2021 13:31:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC5203BF92D
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jul 2021 13:39:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF760166C;
-	Thu,  8 Jul 2021 13:30:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF760166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 557921660;
+	Thu,  8 Jul 2021 13:38:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 557921660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625743904;
-	bh=lFs8VEn+kiJQ+SEVb6QeSe21cF92hFi9Zb2OuzbnOhQ=;
+	s=default; t=1625744361;
+	bh=pylCMU6F3aCtugstzC6YaQRfyN8gfJiWo0ogWEL+N5E=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=km2HOCMdqK0mwaQfYjgmZFQa8In4XMc/OisTM/DkDomWaagtA/Rvz7/xBdE72fmvR
-	 fyWuyiVvq+vU/z0e4ilUCkWE9pQCOZwSGt07Otjr189vhOSXoUjr3LspM1lglqkC1b
-	 yQPoq+tym45FWKI+99t99LHGY/UxKDCV8/KrhVbs=
+	b=MXFbAGnttq9KO/8AzHY7PZZej+VYUZjDuykaWG73kZKqYrGuu4pdH3aHN2HN2opUU
+	 uFDI9ehJ1Hwycvoq7CD+XbuQiAgJNlLra0WIVmggRmBrIlDl22V3mCmKcxVjRPnmM4
+	 Qjcf8YW4CCvF+X47xuJThFYxW/AelU9LucDeJqSM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3A8ACF80259;
-	Thu,  8 Jul 2021 13:30:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D63DFF80246;
+	Thu,  8 Jul 2021 13:37:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4E7A0F80249; Thu,  8 Jul 2021 13:30:03 +0200 (CEST)
+ id B7E01F80249; Thu,  8 Jul 2021 13:37:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4870EF8012A
- for <alsa-devel@alsa-project.org>; Thu,  8 Jul 2021 13:29:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4870EF8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id D2D48F80143
+ for <alsa-devel@alsa-project.org>; Thu,  8 Jul 2021 13:37:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2D48F80143
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="njH5Ra1G"; 
+ header.b="SPjYPjlD"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Ravj50GT"
+ header.b="CRIii454"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 7C714201E3;
- Thu,  8 Jul 2021 11:29:57 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 7BB7121F4A;
+ Thu,  8 Jul 2021 11:37:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625743797; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1625744263; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=5zGT0glD4gjRU00iAdMW44jqW8Zq8Y20Z1IEBYR3EpI=;
- b=njH5Ra1GLy4qQtNt7MWDEQOVh29ksubaoOD5nfijQbcdXhwVFo48Jrc+TDuAfXF35of2lv
- 9N+Iv71FaBFZz8oQzzPagNb+ZUERWisxEJL4AE4TO9I0mW/s24hFQtt4wCKfOjHbzbdinp
- v4uHipPRMVRlCctDLEXvI/NdtgiPeI8=
+ bh=6h0UEIKhgzjZ9fBgg18k9Yde8VhpSvCk7zouEdTVuFc=;
+ b=SPjYPjlDSNE65HElzetWj1zEch5LSkQLBTcvr8Q+17hOHb0qCQN8Q9b5IKtx6dS98qbaQ9
+ m7Spqt+QNK03XR+TYZJXd9l3H/pPd+XJT06j1xe+Y1sDE7P5mtbYJFHzk7J26lxbne92sv
+ 4q2/3mWOWrZZLcHhpnRtoKOXtbdBIh0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625743797;
+ s=susede2_ed25519; t=1625744263;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=5zGT0glD4gjRU00iAdMW44jqW8Zq8Y20Z1IEBYR3EpI=;
- b=Ravj50GTZyYqkQNs4X7uroHXXAoZE7LsQcoIC8XVtmQg7vFNFEfk7LIK+kObsKDF4dXJYu
- K9IYH4AtDs0BFzBw==
+ bh=6h0UEIKhgzjZ9fBgg18k9Yde8VhpSvCk7zouEdTVuFc=;
+ b=CRIii454CyhhgUMPCARAXxdI+tEZzyrW9hmJB02g5L2vR6+bz0Z01/aaGqnqIq9sDuOZF8
+ xFJHa1sPzkfL5MDw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 39A81A3B89;
- Thu,  8 Jul 2021 11:29:57 +0000 (UTC)
-Date: Thu, 08 Jul 2021 13:29:57 +0200
-Message-ID: <s5hmtqx59hm.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 7576FA3B84;
+ Thu,  8 Jul 2021 11:37:43 +0000 (UTC)
+Date: Thu, 08 Jul 2021 13:37:43 +0200
+Message-ID: <s5hlf6h594o.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Muni Sekhar <munisekharrms@gmail.com>
-Subject: Re: trigger timestamp
-In-Reply-To: <CAHhAz+h9=fMu7jLfmzZF2XMWAT=JBLik2WSSbfYtLg3kmzqWtg@mail.gmail.com>
-References: <CAHhAz+h9=fMu7jLfmzZF2XMWAT=JBLik2WSSbfYtLg3kmzqWtg@mail.gmail.com>
+To: Damjan Georgievski <gdamjan@gmail.com>
+Subject: Re: Audio out on DisplayPort but not HDMI, on AMD Ryzen APU/Vega
+In-Reply-To: <CAEk1YH4Jd0a8vfZxORVu7qg+Zsc-K+pR187ezNq8QhJBPW4gpw@mail.gmail.com>
+References: <CAEk1YH4Jd0a8vfZxORVu7qg+Zsc-K+pR187ezNq8QhJBPW4gpw@mail.gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel <alsa-devel@alsa-project.org>,
- kernelnewbies <kernelnewbies@kernelnewbies.org>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,18 +92,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 01 Jul 2021 01:41:29 +0200,
-Muni Sekhar wrote:
+On Fri, 02 Jul 2021 15:27:30 +0200,
+Damjan Georgievski wrote:
 > 
-> Hi all,
+> I have a desktop computer with an AMD Ryzen 5 4650G PRO APU (CPU + on-die GPU).
+> The motherboard (MSI Mortar B550m wifi / bios 1.6). has one
+> displayport and one HDMI outputs.
+> The displayport is connected to my Lenovo P27 monitor, and the HDMI to
+> my Samsung TV.
 > 
-> >From the user space test application , Is it possible to get the
-> trigger timestamp corresponding to SNDRV_PCM_TRIGGER_START &
-> SNDRV_PCM_TRIGGER_STOP events for audio playback capture?
+> When I choose the GPU as an audio out, I only get audio on the 3.5"
+> headphones jack of the Lenovo monitor, while I would like to get the
+> audio on the Samsung TV over HDMI.
+> I can't find a way to switch the different outputs (neither over
+> pipewire or just using native alsa).
+> 
+> pavucontrol configuration https://i.imgur.com/9nbVtNz.png
+> alsamixer -c0 only has only one option to mute s/pdif, which mutes the
+> output on the displayport -> Lenovo -> 3.5" jack.
+> 
+> 
+> $ aplay -l
+> **** List of PLAYBACK Hardware Devices ****
+> card 1: Generic [HD-Audio Generic], device 3: HDMI 0 [HDMI 0]
+>  Subdevices: 1/1
+>  Subdevice #0: subdevice #0
+> card 2: Generic_1 [HD-Audio Generic], device 0: ALCS1200A Analog
+> [ALCS1200A Analog]
+>  Subdevices: 1/1
+>  Subdevice #0: subdevice #0
+> card 2: Generic_1 [HD-Audio Generic], device 1: ALCS1200A Digital
+> [ALCS1200A Digital]
+>  Subdevices: 1/1
+>  Subdevice #0: subdevice #0
+> 
+> Am I correct that card 1 here ^ should have at least two devices?
 
-That's exactly what trigger_tstamp of snd_pcm_status corresponds for.
+It could have more entries, depending on the configuration.
+I suppose you enabled CONFIG_SND_HDA_CODEC_HDMI properly?
+Please give alsa-info.sh output for more detailed analysis.
 
-
-HTH,
 
 Takashi

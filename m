@@ -2,86 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 356C13C172F
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jul 2021 18:40:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62AB53C1772
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jul 2021 18:52:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE244828;
-	Thu,  8 Jul 2021 18:39:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE244828
+	by alsa0.perex.cz (Postfix) with ESMTPS id CD6C2827;
+	Thu,  8 Jul 2021 18:51:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD6C2827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625762431;
-	bh=5/+ZEj9pRkH/s1rcjwsVp9t3i31Y2rlXtooNdVw7RQ4=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1625763158;
+	bh=2KRBL/3VXqzRrf8KkgYaIErb1oGT5+0L6qWOiAGkQqo=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NEJgoNAYU5Vx7qz5qWnnr4A542u79S5XvtklMwn+z4M6Vx+bo2lH6OqVo/usDI5av
-	 LvSyqQUe/vmdmCbD0ou9pSZ2R730Vr/4X2aIFsW/6O7l/7+Bqgky9YJZHkDJUGGbNo
-	 aFAqgACWM6opJO8Rp6h2T6bCay8uiTfB+eLbNs/4=
+	b=b/kWoSxDRuSSAlErSUH3V7WO2ISIIMLDKjm791goZvniiesap5hDspwOXG386LGL5
+	 f0ZmOG86QhbFkPoMOz9u8H+E7BCN6RlzoTUHeZucWgHIMTWusCp8wdMqmUkoQKODU5
+	 PDwh5DVJk0jB+YssWO09clb6sei3spmHTRZj8//A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31E9EF8012A;
-	Thu,  8 Jul 2021 18:15:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 380A9F80249;
+	Thu,  8 Jul 2021 18:51:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 446A9F80249; Thu,  8 Jul 2021 18:15:14 +0200 (CEST)
+ id D5283F80246; Thu,  8 Jul 2021 18:51:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2E974F8012F
- for <alsa-devel@alsa-project.org>; Thu,  8 Jul 2021 18:15:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E974F8012F
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3F4EF8012A
+ for <alsa-devel@alsa-project.org>; Thu,  8 Jul 2021 18:51:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3F4EF8012A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="MaszoWxm"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="T7XvFHyz"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id A02FE1FD6A;
- Thu,  8 Jul 2021 16:15:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625760901; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=XR/L0+CaPtFdS7++i50EDeO2Jek5OnInkrK8zzhkHKQ=;
- b=MaszoWxmJZiJlYWdHKQ3dqe/VWEIfs6fxVW9SDlAtTr5r7RlGFigfb78zzFlZw15XhrGbO
- 2fHv+ifIUUwaA1P+iHaFT4hXydG4/yPRuLulYiUuoSRsFA1xhrN16HCYXafURGVzjnF7Qx
- flqxynu+Gbu00QXo5BEbS2okbWstcDI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625760901;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=XR/L0+CaPtFdS7++i50EDeO2Jek5OnInkrK8zzhkHKQ=;
- b=T7XvFHyz5b5cy7BnaPQ/zFQ5ivPmvO5NEtftUN23rk6CcdrFa5FkMly2QX8ps+RtCN9/6J
- iQ9odLC+rrSvjWDA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 98D85A3B9D;
- Thu,  8 Jul 2021 16:15:01 +0000 (UTC)
-Date: Thu, 08 Jul 2021 18:15:01 +0200
-Message-ID: <s5hwnq04wai.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Muni Sekhar <munisekharrms@gmail.com>
-Subject: Re: trigger timestamp
-In-Reply-To: <CAHhAz+gAAdrZJzr3fYXACnTW0r_5v35-wH+ohsrZ7nOcomoW5w@mail.gmail.com>
-References: <CAHhAz+h9=fMu7jLfmzZF2XMWAT=JBLik2WSSbfYtLg3kmzqWtg@mail.gmail.com>
- <s5hmtqx59hm.wl-tiwai@suse.de>
- <CAHhAz+guERMjmT_bRrgWzMoKkH2S0Zv0JatjpbNJZnLj+RyxXw@mail.gmail.com>
- <s5heec956kn.wl-tiwai@suse.de>
- <CAHhAz+gAAdrZJzr3fYXACnTW0r_5v35-wH+ohsrZ7nOcomoW5w@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel <alsa-devel@alsa-project.org>,
- kernelnewbies <kernelnewbies@kernelnewbies.org>
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="dEEI2DJ2"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:
+ Subject:Sender:Reply-To:Content-ID:Content-Description;
+ bh=rRjw0MD5mNTCw5c7zVuaZpo/EngGyn3l6moiSAMWrZo=; b=dEEI2DJ2/5DjEr22QVGqIT5SK6
+ cjFeYoY3XcdnNfSHkj2TkppKM5DwnQLrFLNoN1FohaDoUyekGg8vbQgM+a27yQsz6wi/G6gkKOuQ4
+ eIFXNUwtRCZ9B24WAMX7oqppvjF5gd9Et55yKh6LjMghEtDPU5Q0+ukPJjyPJ4llJf2xJrxK90zu3
+ NuPf21AmwPMZHxCkqRP/0KKpdRYcyiDYruJJf7Iz7IybeZt2wBdFCuPxY0PkqyY0dlLzL02wlBQDl
+ hAZZ2ViJqfx6R2FrqAFNLC3tT0vUGiy0oUEPqfCFUsl9J7JTjYyIeSekGwgjI/zw12vZmz6z6l3eS
+ rO8SL2tg==;
+Received: from [2601:1c0:6280:3f0::aefb]
+ by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1m1XEi-00HX04-FP; Thu, 08 Jul 2021 16:50:52 +0000
+Subject: Re: [PATCH v3] ASoC: atmel: ATMEL drivers don't need HAS_DMA
+To: Codrin.Ciubotariu@microchip.com, linux-kernel@vger.kernel.org
+References: <20210707214752.3831-1-rdunlap@infradead.org>
+ <fca8f952-2be0-5c57-d60d-5c4f025abc4d@microchip.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <49495ab9-5039-f332-2895-1a79c034f58d@infradead.org>
+Date: Thu, 8 Jul 2021 09:50:50 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+MIME-Version: 1.0
+In-Reply-To: <fca8f952-2be0-5c57-d60d-5c4f025abc4d@microchip.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ alexandre.belloni@free-electrons.com, lgirdwood@gmail.com,
+ mirq-linux@rere.qmqm.pl
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,40 +86,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 08 Jul 2021 18:11:13 +0200,
-Muni Sekhar wrote:
+On 7/8/21 1:19 AM, Codrin.Ciubotariu@microchip.com wrote:
+> On 08.07.2021 00:47, Randy Dunlap wrote:
+>> EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
+>>
+>> On a config (such as arch/sh/) which does not set HAS_DMA when MMU
+>> is not set, several ATMEL ASoC drivers select symbols that cause
+>> kconfig warnings. There is one "depends on HAS_DMA" which is no longer
+>> needed. Dropping it eliminates the kconfig warnings and still builds
+>> with no problems reported.
+>>
+>> Fix the following kconfig warnings:
+>>
+>> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_PDC
+>>    Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && HAS_DMA [=n]
+>>    Selected by [m]:
+>>    - SND_ATMEL_SOC_SSC [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m]
+>>    - SND_ATMEL_SOC_SSC_PDC [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m]
+>>
+>> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC_PDC
+>>    Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m] && HAS_DMA [=n]
+>>    Selected by [m]:
+>>    - SND_AT91_SOC_SAM9G20_WM8731 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && SND_SOC_I2C_AND_SPI [=m]
+>>
+>> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC
+>>    Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && HAS_DMA [=n]
+>>    Selected by [m]:
+>>    - SND_ATMEL_SOC_SSC_DMA [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m]
+>>
+>> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC_DMA
+>>    Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m] && HAS_DMA [=n]
+>>    Selected by [m]:
+>>    - SND_ATMEL_SOC_WM8904 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && I2C [=m]
+>>    - SND_AT91_SOC_SAM9X5_WM8731 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && SND_SOC_I2C_AND_SPI [=m]
+>>
+>> Fixes: 3951e4aae2ce ("ASoC: atmel-pcm: dma support based on pcm dmaengine")
+>> Fixes: 18291410557f ("ASoC: atmel: enable SOC_SSC_PDC and SOC_SSC_DMA in Kconfig")
+>> Fixes: 061981ff8cc8 ("ASoC: atmel: properly select dma driver state")
 > 
-> On Thu, Jul 8, 2021 at 6:02 PM Takashi Iwai <tiwai@suse.de> wrote:
-> >
-> > On Thu, 08 Jul 2021 14:19:12 +0200,
-> > Muni Sekhar wrote:
-> > >
-> > > On Thu, Jul 8, 2021 at 4:59 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > > >
-> > > > On Thu, 01 Jul 2021 01:41:29 +0200,
-> > > > Muni Sekhar wrote:
-> > > > >
-> > > > > Hi all,
-> > > > >
-> > > > > >From the user space test application , Is it possible to get the
-> > > > > trigger timestamp corresponding to SNDRV_PCM_TRIGGER_START &
-> > > > > SNDRV_PCM_TRIGGER_STOP events for audio playback capture?
-> > > >
-> > > > That's exactly what trigger_tstamp of snd_pcm_status corresponds for.
-> > > Does aplay and arecord have any command line options to get the
-> > > trigger_tstamp? If not how to get it?
-> >
-> > Implement some code :)
-> >
-> > Alternatively you can check the proc output contents in
-> > /proc/asound/card*/pcm*/sub*/status.  It'd be difficult to see the
-> > stop timestamp, though (as the application closes the stream
-> > immediately after that).
-> How to specify if i want the REALTIME/MONOTONIC_RAW trigger_time
-> timestamp type output in  /proc/asound/card*/pcm*/sub*/status?
+> I am not sure about these fixes tags. As Alexandre mentioned, it looks 
+> like the reason for HAS_DMA in the first place was the COMPILE_TEST with 
+> m32r arch. I dig a bit, and, if any, I think we should use:
+> Fixes: eb17726b00b3 ("m32r: add simple dma")
+> since this commit adds dummy DMA support for m32r and seems to fix the 
+> HAS_DMA dependency.
 
-It's not provided in a standard tool and you have to write some
-program by yourself, I suppose.
+Ah, I forgot to update the Fixes: tag(s).
 
+I won't disagree with your Fixes: suggestion (good digging) but
+I would probably have used 8d7d11005e930:
+  ASoC: atmel: fix build failure
+which is the commit that added "depends on HAS_DMA".
 
-Takashi
+>> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+>> Cc: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+>> Cc: alsa-devel@alsa-project.org
+>> Cc: Liam Girdwood <lgirdwood@gmail.com>
+>> Cc: Mark Brown <broonie@kernel.org>
+>> Cc: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+> 
+> Other than that:
+> Reviewed-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+
+Thanks.  I'll send a v4 with your Fixes: suggestion.
+

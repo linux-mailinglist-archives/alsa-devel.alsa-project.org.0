@@ -2,72 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 598193C26D8
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jul 2021 17:31:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FC6B3C279C
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jul 2021 18:33:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9EEB1655;
-	Fri,  9 Jul 2021 17:30:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9EEB1655
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B84A1614;
+	Fri,  9 Jul 2021 18:33:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B84A1614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625844683;
-	bh=jKuv6F+dqS5LXCQxH+vA7lyavItzhoXoMp9fkGgyKB0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=EUgXpDyeoBRN0chalC3wKj0hDkKDTeSsEYe0Jq4wu1DGWqlC4zS/mXPLR+41qUl+r
-	 QDCpGlqgse5RBqlWjvwv077oJGALhrfQTG0c39P7rR6ECxhkNLb13qzp+eQESMhXk8
-	 mEZ/VJZJ0gbgI1c6vHb5Zn7izws+CUuIQEvbNJZk=
+	s=default; t=1625848436;
+	bh=cBcOtE6/rVh3KjXw4XVMilRc8bJSSZ2q3EecN1HiJJ8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=KHE/IcHOim9ODyGU6QUISWOmONOK1GY2QUzi0pLH7yY0igjMbboJvzaj9UU2/PUvb
+	 Sht2ow3E7cYg3pK+T5l+lUmFmBAtrfXc5M0i8EIXNgTmjT8IXUbu+57TRQBSdKhoZO
+	 DdBT5/a+wrz5Jg+/G5C+RruY+mBlgei6UZqvp8Ew=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53F03F8025C;
-	Fri,  9 Jul 2021 17:29:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A7C71F8025C;
+	Fri,  9 Jul 2021 18:32:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3712CF80224; Fri,  9 Jul 2021 17:29:51 +0200 (CEST)
+ id A0FF9F80224; Fri,  9 Jul 2021 18:32:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-relay-canonical-0.canonical.com
- (smtp-relay-canonical-0.canonical.com [185.125.188.120])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E266DF8012A
- for <alsa-devel@alsa-project.org>; Fri,  9 Jul 2021 17:29:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E266DF8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 416A6F80107
+ for <alsa-devel@alsa-project.org>; Fri,  9 Jul 2021 18:32:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 416A6F80107
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="gvlHziTO"
-Received: from localhost (1.general.cking.uk.vpn [10.172.193.212])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 1DEBB404A1; 
- Fri,  9 Jul 2021 15:29:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1625844579;
- bh=xe5I//6AkaPs41liKKGn0Rijuw2VMft/GmwfbTDfTB4=;
- h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
- b=gvlHziTOkfNokIk4C7ZzIf+ycYDnRmq+TVn0amcF7qMr42pkhAvLx9yG/Y95QVYoJ
- BzNxeWDIXG9vO7GtjUEnN5bF7lYIRlwCRWm/aJ45tS/NDhRnFNkobJFLRhT740h8K9
- aY0FASt7wBhIz7C60NS1hDkrX3cFQqbucicYWy69MYfImR9Wp9H63REh2lJ6/TpuVI
- 1RgvpvrzOVTybmig9KzI82PyDaM7yh1Bm1m5WgDbG2MbHWDokAPfkaJ5Mb9RzgN+t4
- nIlKS8QActTeAg/wO/R5rZhNaM7IGDTp4qB7REgfAeeOQzQnxxSP6wV8LZUpF3/YK0
- 3gklXvJCl7upA==
-From: Colin King <colin.king@canonical.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Connor McAdams <conmanx360@gmail.com>, alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: hda/ca0132: remove redundant initialization of variable
- status
-Date: Fri,  9 Jul 2021 16:29:38 +0100
-Message-Id: <20210709152938.460763-1-colin.king@canonical.com>
-X-Mailer: git-send-email 2.31.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="G3D48XbR"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="bt5OnSBI"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 61B661FD80;
+ Fri,  9 Jul 2021 16:32:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1625848338; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=i2nHiLEClHPR2Z21egn7T3Gf73/t2vFDuslHvfCxhNU=;
+ b=G3D48XbROWOqeReYBFRwRz85Gz2wwvx/JSDe3afhvYhywmWHg4LwtIG3500DBkQgG+UZ57
+ B0EMXcOm/3q7tBGHrTCY/Mt1KuD/TUQUmZMNfuVYfSvX0mhuRHV9cOSWWev56U3o2K5dxG
+ j4QX0KdrQCzP5oEC/XtV1G6aJM/DrnY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1625848338;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=i2nHiLEClHPR2Z21egn7T3Gf73/t2vFDuslHvfCxhNU=;
+ b=bt5OnSBINIa63ObEbnmjEP+SqOzkHppovywMEqJrtkeMfmB5yOMkD/VPwfqKr7cLf7MS1D
+ 7WgZJeMh25TMzHCg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 81C8BA3B9B;
+ Fri,  9 Jul 2021 16:32:17 +0000 (UTC)
+Date: Fri, 09 Jul 2021 18:32:17 +0200
+Message-ID: <s5h8s2f4fe6.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Damjan Georgievski <gdamjan@gmail.com>
+Subject: Re: Audio out on DisplayPort but not HDMI, on AMD Ryzen APU/Vega
+In-Reply-To: <CAEk1YH4vXSjf1kYM=uJ5DKbO3zPaY1K6W4MveEBtkzao5V=NHA@mail.gmail.com>
+References: <CAEk1YH4Jd0a8vfZxORVu7qg+Zsc-K+pR187ezNq8QhJBPW4gpw@mail.gmail.com>
+ <s5hlf6h594o.wl-tiwai@suse.de>
+ <CAEk1YH6ca3jDq4AD7tD8xk3Cht5aA9rhkmFsMjjjzrKvRgL3Lw@mail.gmail.com>
+ <s5hczrt55mp.wl-tiwai@suse.de>
+ <CAEk1YH4vXSjf1kYM=uJ5DKbO3zPaY1K6W4MveEBtkzao5V=NHA@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,30 +99,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Colin Ian King <colin.king@canonical.com>
+On Fri, 09 Jul 2021 16:40:18 +0200,
+Damjan Georgievski wrote:
+> 
+> > > Should this hardware be supported with the
+> > > sound/soc/amd/renoir/rn-pci-acp3x.c driver (instead of snd_hda_intel)?
+> > > … since it is a Renoir desktop APU.
+> > >
+> > > > Please give alsa-info.sh output for more detailed analysis.
+> > >
+> > > http://alsa-project.org/db/?f=00b31f3f0e6c58b56c73f98aec7c6b5ccaff700e
+> >
+> > The codec proc output there shows that only one pin is enabled for
+> > HDMI/DP output, and that's the reason why the driver created only one
+> > stream.  It's basically a BIOS setup.
+> >
+> > The patch below should enable all pins forcibly and this should give
+> > more streams.  Give it a try.
+> >
+> >
+> > Takashi
+> >
+> > --- a/sound/pci/hda/patch_hdmi.c
+> > +++ b/sound/pci/hda/patch_hdmi.c
+> > @@ -1940,6 +1940,7 @@ static int hdmi_add_cvt(struct hda_codec *codec, hda_nid_t cvt_nid)
+> >  static const struct snd_pci_quirk force_connect_list[] = {
+> >         SND_PCI_QUIRK(0x103c, 0x870f, "HP", 1),
+> >         SND_PCI_QUIRK(0x103c, 0x871a, "HP", 1),
+> > +       SND_PCI_QUIRK(0x1462, 0xec94, "MS-7C94", 1),
+> >         {}
+> >  };
+> >
+> 
+> This somewhat improved the situation. I get multiple HDMI devices on
+> the card now, and the
+> default seems to be the actual HDMI port (as opposed to the DisplayPort).
+> 
+> But I can't manually control where the audio goes, and at one point (I
+> think when the TV was off),
+> it automatically switched to the DisplayPort.
 
-The variable status is being initialized with a value that is never
-read, the assignment is redundant and can be removed.
+The connection is indeed managed dynamically, hence you cannot expect
+which port is for what exactly.  The actual connection should be
+checked by EDID (or ELD).
 
-Addresses-Coverity: ("Unused value")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- sound/pci/hda/patch_ca0132.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+So, does the sound output from DP also work as expected, as well as
+HDMI?
 
-diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
-index b66e7bdbf483..50ca72ee586e 100644
---- a/sound/pci/hda/patch_ca0132.c
-+++ b/sound/pci/hda/patch_ca0132.c
-@@ -2270,7 +2270,7 @@ static int dspio_send_scp_message(struct hda_codec *codec,
- 				  unsigned int *bytes_returned)
- {
- 	struct ca0132_spec *spec = codec->spec;
--	int status = -1;
-+	int status;
- 	unsigned int scp_send_size = 0;
- 	unsigned int total_size;
- 	bool waiting_for_resp = false;
--- 
-2.31.1
 
+Takashi

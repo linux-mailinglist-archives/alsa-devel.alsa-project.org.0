@@ -2,91 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55A8E3C2032
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jul 2021 09:49:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80A493C2041
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jul 2021 09:53:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CC1AD1607;
-	Fri,  9 Jul 2021 09:48:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC1AD1607
+	by alsa0.perex.cz (Postfix) with ESMTPS id F368715E2;
+	Fri,  9 Jul 2021 09:52:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F368715E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625816952;
-	bh=QJT2FSe6uLLbV8V6+g9WeMP0E7NI5yef6FintqRpITI=;
+	s=default; t=1625817226;
+	bh=9vHkJPPJFQuIJ2VDzn1ofOwVVtGg0y8lGsFzXPo1MlE=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Um+kUitCHjFjtvEhtfmzKMBHLH7ErrFYI64FqXMpoXtW3BUY0bv6+wGksOjlc2Ehd
-	 uMS7Q5RCqieRCb/NJE0K9Y5hTnIuxfYXKI0iTdDLkyBfCWabfC3kkmnmqVq72YK2Wx
-	 BqzUhTjMfQI2dBgEEZEIbJjbewibN8iVlnrkxmHQ=
+	b=LPMtUGThRRt0LFEffB7jguXxs51vatIQSbN5uvtiUuI25f/3yd1quGmtqvsIf7ulU
+	 t4vXMxtLfXGTplpQAiSsEQ96QWf5aht0AovJGjv4U2SAE/sc4Ns+3alyppWXwVAO0q
+	 nz1J8c6d1dkBpKuYGzcNIRvMjIXDzG2HSa3xavwg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A8F5F80059;
-	Fri,  9 Jul 2021 09:47:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6141AF8025C;
+	Fri,  9 Jul 2021 09:52:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45550F80224; Fri,  9 Jul 2021 09:47:43 +0200 (CEST)
+ id 3D0C2F80224; Fri,  9 Jul 2021 09:52:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A95AEF80107
- for <alsa-devel@alsa-project.org>; Fri,  9 Jul 2021 09:47:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A95AEF80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5A550F8012A
+ for <alsa-devel@alsa-project.org>; Fri,  9 Jul 2021 09:52:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A550F8012A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="iMOw38P7"; 
+ header.b="ZKzOI0Vv"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="LHkJFSTz"
+ header.b="WlntapEN"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 70E7D20267;
- Fri,  9 Jul 2021 07:47:36 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 64AA122122;
+ Fri,  9 Jul 2021 07:52:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1625816856; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1625817128; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=+qYYZCbYZFeVvNX8WUSoJkZi53ZkOf+6w3wV4SkwAN0=;
- b=iMOw38P7hWmAhJ2ERn2KmKkx1lDkXP3j7DTKMp+0r48SVxt/ITOuE61SmBZUNHQm9Nbw/S
- YKJV3qC8AahobYDvbM9ggFb4NBnwOv1XCBsG99poiIeSmBeQxlPLvT8ZxoG/U3nEtriwUA
- NzVD9tZ7F8R5n1xerjR7j7nWPckHos4=
+ bh=fLPYioJLWB+DHkFWlPEfAKaerKCnQYEhDjJWhpjf15c=;
+ b=ZKzOI0Vv3/VhNsu5RWcWlvg2zhiMPAkJhy2Skv/UF6Wf24vduu9RzTc7T4q7kQE2QKCf9k
+ a/Pi/vl5pb6uYfYvnXGmMUqIZRKVc6WR0TFfNObv4/et+GDkanRsb7Msv/tmIpahN9kDd4
+ r+dCn1uk4Cc/irrpu4CuK/3t3BmBDgg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1625816856;
+ s=susede2_ed25519; t=1625817128;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=+qYYZCbYZFeVvNX8WUSoJkZi53ZkOf+6w3wV4SkwAN0=;
- b=LHkJFSTzhvp/jAwrhD249RovXTAGMQ2/mfoEafVHKd1hixRbgODozY2fukelUoqbLlvk9G
- IAcVdnKZaGaK6kBA==
+ bh=fLPYioJLWB+DHkFWlPEfAKaerKCnQYEhDjJWhpjf15c=;
+ b=WlntapENMGxlb/czHP2M1flMnzBglzYQNjSOlV8Revt8gkkYheumAhvekhDSa+gn5Wv66d
+ X/cirrZLbqYmChCg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 5D2A2A3B9B;
- Fri,  9 Jul 2021 07:47:36 +0000 (UTC)
-Date: Fri, 09 Jul 2021 09:47:36 +0200
-Message-ID: <s5hsg0o3p47.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 5DC78A3B9B;
+ Fri,  9 Jul 2021 07:52:08 +0000 (UTC)
+Date: Fri, 09 Jul 2021 09:52:08 +0200
+Message-ID: <s5hr1g753h3.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Robert Lee <lerobert@google.com>
-Subject: Re: [Patch v2] ALSA: compress: allow to leave draining state when
- pausing in draining
-In-Reply-To: <CAOM6g_D4dkwDcQza9fVXn9=uXSYTBThNVHqWb0YjLWkc_eBwog@mail.gmail.com>
-References: <20210708020815.3489365-1-lerobert@google.com>
- <s5ho8bd59q4.wl-tiwai@suse.de>
- <CAOM6g_Cv6rsLOAb0+Lr_YkjHpKfw+zvWXH0X5LKR=Z4dtXGRng@mail.gmail.com>
- <e2705267-4400-bb7f-e96a-9b103872c0a1@perex.cz>
- <CAOM6g_D4dkwDcQza9fVXn9=uXSYTBThNVHqWb0YjLWkc_eBwog@mail.gmail.com>
+To: Hui Wang <hui.wang@canonical.com>
+Subject: Re: [PATCH] ALSA: hda/proc - dump the coeff with the capital letters
+In-Reply-To: <20210709023345.6359-1-hui.wang@canonical.com>
+References: <20210709023345.6359-1-hui.wang@canonical.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, zxinhui@google.com, carterhsu@google.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, vkoul@kernel.org,
- bubblefang@google.com
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,57 +92,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 09 Jul 2021 04:08:29 +0200,
-Robert Lee wrote:
+On Fri, 09 Jul 2021 04:33:45 +0200,
+Hui Wang wrote:
 > 
-> Jaroslav Kysela <perex@perex.cz> 於 2021年7月8日 週四 下午10:53寫道：
-> >
-> > On 08. 07. 21 15:47, Robert Lee wrote:
-> > > Hi Takashi,
-> > >
-> > > It is a little complex to describe the design in detail, but try to
-> > > explain simply
-> > > what issue we meet.
-> > >
-> > > If w/o the change,  after user resumes from the pause, our system would call
-> > > snd_compr_drain() or snd_compr_partial_drain() again after it returns from
-> > > previous drain (when EOF reaches). Then it will block in this drain and no one
-> > > wake it up because EOF has already reached. I add this change to return from
-> > > the previous drain.
-> >
-> > It looks like that the driver does not call snd_compr_drain_notify() so the
-> > state is not updated to SETUP on EOF.
-> >
-> We indeed call snd_compr_drain_notify() on EOF, but after return from
-> wait_for _drain there is another drain again immediately.
-> Looks like the system queue some states change on user space and need
-> to drain again after resume from pause.
-> I suppose there is different design on user space so I add the hook to
-> handle diffent usage.
+> Sometimes we need to dump the coeff to debug the audio issues, and
+> need to compare it with the log of RTHDDump.exe under Windows, this is
+> the coeff under Windows and Linux:
+> Vendor widget coefficient value under Windows
+> Index 0x00  0x0002
+> Index 0x01  0xAAAA
+> Index 0x02  0x8AAA
+> 
+> Processing caps: benign=0, ncoeff=91 under Linux
+> Coeff 0x00: 0x0002
+> Coeff 0x01: 0xaaaa
+> Coeff 0x02: 0x8aaa
+> 
+> Windows prints the hex number with capital letter while Linux prints
+> the hex number with lower case letter, it adds the trouble when
+> comparing them. Let us change it to use capital letter.
 
-Right, the previous drain-in-pause implementation was purely in the
-kernel side, and user-space didn't change much; after resuming from
-the pause, the driver resumes exactly to the same state before the
-pause (i.e. start draining again).
+I'm not convinced by that argument, sorry.  You have to convert the
+strings in anyway (e.g. "Index" vs "Coeff" and strip colon).  If we
+were to provide a compatible string intentionally, we'd have to fix
+it, but that's not the case.
 
-The difference sounds similar like the suspend/resume scheme; some
-does resume by itself to the previous state while some requires the
-explicit action.
+Also, there can be already some tools to use the proc file and parse
+the values as of now, and such a change would break them.
 
-> > > Actually, I am wondering how the pause-during-drain can keep the state in
-> > > DRAINING. It should have a different design. :)
-> >
-> > I already proposed to add a new state (because it's a new state), but the
-> > conservative way was elected to avoid user space changes.
 
-Yes, the primary concern is that the compress API uses the very same
-state like PCM, and if we extend PCM state, it'll be a much larger
-problem.  And, even if we change the state to compress-only, it's
-still an ABI incompatibility, and it has to be carefully handled not
-to break the existing application (e.g. expose the new state only when
-the application is really ready to handle -- introducing a new ioctl
-for state or introduce a new ioctl like SNDRV_PCM_IOCTL_USER_PVERSION
-that informs the ABI version the user-space understands).
-
+thanks,
 
 Takashi
+
+> 
+> Signed-off-by: Hui Wang <hui.wang@canonical.com>
+> ---
+>  sound/pci/hda/hda_proc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/pci/hda/hda_proc.c b/sound/pci/hda/hda_proc.c
+> index 00c2eeb2c472..9037c87665b6 100644
+> --- a/sound/pci/hda/hda_proc.c
+> +++ b/sound/pci/hda/hda_proc.c
+> @@ -590,7 +590,7 @@ static void print_proc_caps(struct snd_info_buffer *buffer,
+>  		snd_hda_codec_write(codec, nid, 0, AC_VERB_SET_COEF_INDEX, i);
+>  		val = snd_hda_codec_read(codec, nid, 0, AC_VERB_GET_PROC_COEF,
+>  					 0);
+> -		snd_iprintf(buffer, "    Coeff 0x%02x: 0x%04x\n", i, val);
+> +		snd_iprintf(buffer, "    Coeff 0x%02X: 0x%04X\n", i, val);
+>  	}
+>  	snd_hda_codec_write(codec, nid, 0, AC_VERB_SET_COEF_INDEX, oldindex);
+>  }
+> -- 
+> 2.25.1
+> 

@@ -2,76 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4548E3C2058
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jul 2021 09:56:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10EA43C2111
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jul 2021 10:55:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE58E15F2;
-	Fri,  9 Jul 2021 09:55:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE58E15F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8483F15E2;
+	Fri,  9 Jul 2021 10:54:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8483F15E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625817403;
-	bh=VHE0vFEd2oK7TYcUaw6/RffuRnmDmDupq1M82eetWh8=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=H5k8+dJ5FBZRSRkOo5cxobW+WCHebV+yIfmvYY2ZMyPpCYp+3RhESe8CzQRsDForQ
-	 I4TaNSkuoEo9+e7H6lZ54Xlq8FmduPmcrLBrGzgqYmUhnA2zE79+b0uNd+r92YvvV/
-	 QED1d0Hal4lfse1Ga8WyQSOR1X6260zXkuHkNxcA=
+	s=default; t=1625820917;
+	bh=dvjkq90cvYjC5DLC/6PNEgzJm777gm55fPGR6m/vxtM=;
+	h=From:Subject:To:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=d+iz8XAaO4hm3PivercrEbx1X+p/6OoxYMLv9555MTZ+zBhQcvPgI61RV1VRWHlMy
+	 R120bVgIrFxnnqFm7QZbVgM8cYAj8CX/cpeXrcPheUCg3b/fi62H+r5azFlx+j/rpg
+	 unYqjyCyHecBtjPfOzUZ7hMtY3QkJ9bVlP88OnX0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31683F80171;
-	Fri,  9 Jul 2021 09:55:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E704EF80171;
+	Fri,  9 Jul 2021 10:53:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94FBDF80224; Fri,  9 Jul 2021 09:55:15 +0200 (CEST)
+ id 3795BF80224; Fri,  9 Jul 2021 10:53:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-relay-canonical-1.canonical.com
- (smtp-relay-canonical-1.canonical.com [185.125.188.121])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 80F17F8012A
- for <alsa-devel@alsa-project.org>; Fri,  9 Jul 2021 09:55:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80F17F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id D40D3F8012A
+ for <alsa-devel@alsa-project.org>; Fri,  9 Jul 2021 10:53:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D40D3F8012A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="HKvNx0LV"
-Received: from [192.168.0.107] (unknown [123.112.64.126])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id D2B0540327; 
- Fri,  9 Jul 2021 07:55:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1625817304;
- bh=tmN0WBJgf6IfOdSnEspz8bRbAjRIL5smYwzeBHuLg0c=;
- h=Subject:To:From:Message-ID:Date:MIME-Version:Content-Type;
- b=HKvNx0LVD8RxvsB7qyKzL8eiWgOCXXJitokapjjletZ5IfCV755VnTeDyESRBxOzz
- mcCwPysMYiFTq/KWSGQIl8sQDK2aE6b7cWvWSOVH3mLDz0YAaV/h/DMWv8TWVaYOH3
- 5DqS0h+t8Syss0UdKculmdqb8IX0fO88PjF6z6dTNER1DHlL51oZqgNyr0Kf1B+8wQ
- B9bJYOjfp8s+5lWO7C6sjKyk4kBlH44VBUUQYVF6lZnz/7Gx1jcHnyEE6DpS3uLuii
- uC1k6gwLPDLG/ICz/S0kI8k1sH4EeUFD+e0HbwqCWPrRIFYsARDALdKJsWNpHKYJ18
- dkfhYc08MDitQ==
-Subject: Re: [PATCH] ALSA: hda/proc - dump the coeff with the capital letters
-To: Takashi Iwai <tiwai@suse.de>
-References: <20210709023345.6359-1-hui.wang@canonical.com>
- <s5hr1g753h3.wl-tiwai@suse.de>
-From: Hui Wang <hui.wang@canonical.com>
-Message-ID: <f6b53edf-9443-5160-56ed-926690d7c376@canonical.com>
-Date: Fri, 9 Jul 2021 15:54:58 +0800
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="i1W92Bd6"
+Received: by mail-wm1-x32a.google.com with SMTP id
+ t14-20020a05600c198eb029020c8aac53d4so24109259wmq.1
+ for <alsa-devel@alsa-project.org>; Fri, 09 Jul 2021 01:53:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:subject:to:message-id:date:user-agent:mime-version
+ :content-transfer-encoding:content-language;
+ bh=gq1gmd+zjXY9bMevbeK9OJpZMcDyOphwUReo6AtT860=;
+ b=i1W92Bd6US3AMxiOchNhl9aPwqiT3eFIOsrn44fhuU8s/bANXS1CNFx0CjAd0ooCov
+ kO3o8b5arHebeqc/sw0lTjXKuqrXlmtv0TqbBzg64NyAloDitpQ6EW81PFx99jtYag64
+ NVTbazh/lZ+FnKKqz9ICuLk7ANqGGMSb4do+QeQKocO/vVNlIafFtP89jy3SYBzpiyUR
+ UBoYo0CMkhJkrAJUjSQO2Foelv73VrlUkVPMHJ+zI2ND8xTSZV72vX8/FZrpxdjLNL6o
+ MxZyowSbBAz4MIdIm424tH8W5gCzOnt3cepm6au5TPRuABGuDlKUdS5mGkSTOozFhvQF
+ ncaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:subject:to:message-id:date:user-agent
+ :mime-version:content-transfer-encoding:content-language;
+ bh=gq1gmd+zjXY9bMevbeK9OJpZMcDyOphwUReo6AtT860=;
+ b=ArMeyev1sQoybkbpJorOlJz3jEfqfzkKSm0Dzz4JgsMNax/UXBNJRzL+j6btl8m22S
+ jusj4g8oDlzDN7JY9Ss7akHjTjx7q3nEvDVCoIJFU4rsuuCqgiSvjl7ozCJylxAMAp/v
+ 6wBZCU1m29JfhqnxHkxWHLqDUbh/SwGnkk83RAr8CZ+U6LY1FBL2xB5hKvlDBVfOTaYN
+ 1r1qfvuZBjoU5LEzw0u7qKunWkLUSUmetNneCgdOspQyMy62qKGlJ4HiSlifrjZfE6eP
+ Cza3YvaapMGiGWHdiHXeED75uqzJYqQx1c2opGhbHP6AZGVeO+t93y3C9Gbi5UEpChqj
+ Mg6A==
+X-Gm-Message-State: AOAM533XsbZ/GGIU4fpan9e+F4bKw9bCKBtr92NumjSimic07+6qJGzq
+ LO+Vjcs2SPkx/5PxkOMMCl4=
+X-Google-Smtp-Source: ABdhPJx/wixioE+vAcWNJHeh45/kqpYsFVFMoFyVKkSHZ63blTafY+4P7vwLWr6i8k8RHnmFf0A0IA==
+X-Received: by 2002:a05:600c:22cc:: with SMTP id
+ 12mr37101530wmg.182.1625820823495; 
+ Fri, 09 Jul 2021 01:53:43 -0700 (PDT)
+Received: from [192.168.11.11] (78.160.159.143.dyn.plus.net. [143.159.160.78])
+ by smtp.googlemail.com with ESMTPSA id
+ k5sm4538012wmk.11.2021.07.09.01.53.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 09 Jul 2021 01:53:43 -0700 (PDT)
+From: Alan Young <consult.awy@gmail.com>
+Subject: [PATCH] ALSA: core: Call substream ack() method upon compat mmap,
+ commit
+To: alsa-devel@alsa-project.org, tiwai@suse.de
+Message-ID: <d786c278-c5df-7ab3-2d1c-e0bbc6e5300c@gmail.com>
+Date: Fri, 9 Jul 2021 09:53:42 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-In-Reply-To: <s5hr1g753h3.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,61 +102,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+If a 32-bit application is being used with a 64-bit kernel and is using
+the mmap mechanism to write data, then the SNDRV_PCM_IOCTL_SYNC_PTR
+ioctl results in calling snd_pcm_ioctl_sync_ptr_compat(). Make this use
+pcm_lib_apply_appl_ptr() so that the substream's ack() method, if
+defined, is called.
 
-On 7/9/21 3:52 PM, Takashi Iwai wrote:
-> On Fri, 09 Jul 2021 04:33:45 +0200,
-> Hui Wang wrote:
->> Sometimes we need to dump the coeff to debug the audio issues, and
->> need to compare it with the log of RTHDDump.exe under Windows, this is
->> the coeff under Windows and Linux:
->> Vendor widget coefficient value under Windows
->> Index 0x00  0x0002
->> Index 0x01  0xAAAA
->> Index 0x02  0x8AAA
->>
->> Processing caps: benign=0, ncoeff=91 under Linux
->> Coeff 0x00: 0x0002
->> Coeff 0x01: 0xaaaa
->> Coeff 0x02: 0x8aaa
->>
->> Windows prints the hex number with capital letter while Linux prints
->> the hex number with lower case letter, it adds the trouble when
->> comparing them. Let us change it to use capital letter.
-> I'm not convinced by that argument, sorry.  You have to convert the
-> strings in anyway (e.g. "Index" vs "Coeff" and strip colon).  If we
-> were to provide a compatible string intentionally, we'd have to fix
-> it, but that's not the case.
->
-> Also, there can be already some tools to use the proc file and parse
-> the values as of now, and such a change would break them.
+The snd_pcm_sync_ptr() function, used in the 64-bit ioctl case, already
+uses snd_pcm_ioctl_sync_ptr_compat().
 
-OK, got it.
+Signed-off-by: Alan Young <consult.awy@gmail.com>
+---
+  sound/core/pcm_native.c | 11 ++++++++---
+  1 file changed, 8 insertions(+), 3 deletions(-)
 
-Thanks.
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 17a85f4815d5..91a749835ca1 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -3057,9 +3057,14 @@ static int snd_pcm_ioctl_sync_ptr_compat(struct 
+snd_pcm_substream *substream,
+          boundary = 0x7fffffff;
+      snd_pcm_stream_lock_irq(substream);
+      /* FIXME: we should consider the boundary for the sync from app */
+-    if (!(sflags & SNDRV_PCM_SYNC_PTR_APPL))
+-        control->appl_ptr = scontrol.appl_ptr;
+-    else
++    if (!(sflags & SNDRV_PCM_SYNC_PTR_APPL)) {
++        err = pcm_lib_apply_appl_ptr(substream,
++                scontrol.appl_ptr);
++        if (err < 0) {
++            snd_pcm_stream_unlock_irq(substream);
++            return err;
++        }
++    } else
+          scontrol.appl_ptr = control->appl_ptr % boundary;
+      if (!(sflags & SNDRV_PCM_SYNC_PTR_AVAIL_MIN))
+          control->avail_min = scontrol.avail_min;
+-- 
+2.31.1
 
->
-> thanks,
->
-> Takashi
->
->> Signed-off-by: Hui Wang <hui.wang@canonical.com>
->> ---
->>   sound/pci/hda/hda_proc.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/sound/pci/hda/hda_proc.c b/sound/pci/hda/hda_proc.c
->> index 00c2eeb2c472..9037c87665b6 100644
->> --- a/sound/pci/hda/hda_proc.c
->> +++ b/sound/pci/hda/hda_proc.c
->> @@ -590,7 +590,7 @@ static void print_proc_caps(struct snd_info_buffer *buffer,
->>   		snd_hda_codec_write(codec, nid, 0, AC_VERB_SET_COEF_INDEX, i);
->>   		val = snd_hda_codec_read(codec, nid, 0, AC_VERB_GET_PROC_COEF,
->>   					 0);
->> -		snd_iprintf(buffer, "    Coeff 0x%02x: 0x%04x\n", i, val);
->> +		snd_iprintf(buffer, "    Coeff 0x%02X: 0x%04X\n", i, val);
->>   	}
->>   	snd_hda_codec_write(codec, nid, 0, AC_VERB_SET_COEF_INDEX, oldindex);
->>   }
->> -- 
->> 2.25.1
->>
+

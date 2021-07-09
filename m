@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A9273C2399
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jul 2021 14:41:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07B3B3C239B
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jul 2021 14:41:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C39861607;
-	Fri,  9 Jul 2021 14:40:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C39861607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D782165E;
+	Fri,  9 Jul 2021 14:40:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D782165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625834462;
-	bh=zx3as4aTIYkQYTOD08iIftZG3t7pVkPX+jvUbfWH6Kw=;
+	s=default; t=1625834495;
+	bh=9GYxC6vUPYJkAA1MTlDePNCYv1ISJaSOZsZokped54E=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UsZL6VWBWdYKEIKWJd2Ue4Z5pfq6Chw6t2g4B73WUKXTEEB7wkmX9S82C5VEteCjd
-	 7j36LH5dRnPYAWHkVogR9yx0Ho0Nf1DSmc1AfyhPDKFm7uOsULRY2ogCz5+w/RiI2E
-	 a6dY96RpkTQOUX+1+yoLUQ4t54OGGkwWJWQFiXms=
+	b=XVH1Mj4gqKXbxnO8KvGXdA9F3tRMtv4ibjozGwvdcsdy/C2V1P11vcbLEUK8NvA1a
+	 3AwNwsnLWG29U10WXzFvIJZuDcyxl+HMZfioT9kz6s3Y7eUgU1oyYbk7RS/wdr132G
+	 s62joj1zrhLwfUk4rZQzc2eQp79Fsa0Vch0dA5Ps=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5899DF8012A;
-	Fri,  9 Jul 2021 14:39:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 236DFF80107;
+	Fri,  9 Jul 2021 14:40:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F33D5F80224; Fri,  9 Jul 2021 14:39:33 +0200 (CEST)
+ id C728BF80300; Fri,  9 Jul 2021 14:40:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,46 +33,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5BAB2F8012A
- for <alsa-devel@alsa-project.org>; Fri,  9 Jul 2021 14:39:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BAB2F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6AC84F80171
+ for <alsa-devel@alsa-project.org>; Fri,  9 Jul 2021 14:40:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AC84F80171
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="O+whJ8vQ"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4873A6139A;
- Fri,  9 Jul 2021 12:39:27 +0000 (UTC)
+ header.b="fkQiV9+C"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 11A3E6135B;
+ Fri,  9 Jul 2021 12:40:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625834367;
- bh=zx3as4aTIYkQYTOD08iIftZG3t7pVkPX+jvUbfWH6Kw=;
+ s=k20201202; t=1625834437;
+ bh=9GYxC6vUPYJkAA1MTlDePNCYv1ISJaSOZsZokped54E=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=O+whJ8vQT6h5zF5horMd8PaIPMpqCRERHAu1zYxvsP5zjGel/A32OG2zQ44NGQzbj
- YSCClQhetihVco9Yi34rfxEwh7dM9YvLEtntAaTr0XeXY1NatgAM3IkKshodn50zL9
- 3I/ML5phYdtXMPuxZUub/LG5VzO4JOAhuhJ/BaE5HC4Lhx1JREjNZ2cp19WvfINm7A
- tGTOtYLgw7XmfaKkT6mvMoM0S+aRDPBbCVT3WNK7ZdLOfF67lDH6t3BxlMw0HM3g9G
- +7M54mJ18oLabj6BGX0cnOoZe1vYnijb/Bjp3BM52HVIhSdSiQy7YgPAVegJooOMG5
- nWAFafqdCTzXg==
-Date: Fri, 9 Jul 2021 13:38:54 +0100
+ b=fkQiV9+CZvyGfZpdYhEJMSzjB8K/SMBtZYYVrIozLDAyKXPZf0mUg2ioZ+mlo6S+u
+ WGw3il8gXBSh0gjpkXq65ob/H1vW9QF1e22djwKinVQnYlG0N3yMQcvohh7xcyRiP0
+ kpHiBFE6DcXjww45NcaSAHX/NR2ZUiSaUk5MHtOLX7kPm9zl1KOYVWS+exVGRidVnu
+ 3XguHlgcB0moftdZJQCvT2QMhs3gaiK7FtFC/0j92wOYSs0DrZfrB+qsIw5hrA4XJ7
+ wlY7nKU5CVfk/aCSXf8B/G5wsDEd750TNfQQMawAWyxeD29lbIXo7e0GuboL2sJkvf
+ nprStr583wV4w==
+Date: Fri, 9 Jul 2021 13:40:04 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: Issues using simple-audio-card driver with Xilinx Audio Formatter
-Message-ID: <20210709123854.GA4112@sirena.org.uk>
-References: <6c7635f59ea9b162999f060334eef48e0812534b.camel@calian.com>
- <874kd63oqa.wl-kuninori.morimoto.gx@renesas.com>
- <52eda9910822e7e854b049127e462bf468f912ed.camel@calian.com>
- <87r1g91ygm.wl-kuninori.morimoto.gx@renesas.com>
- <2cccca32d53e1d832df67d070bac9ca998a931c6.camel@calian.com>
- <87bl7cl20y.wl-kuninori.morimoto.gx@renesas.com>
+To: Tony Lindgren <tony@atomide.com>
+Subject: Re: [PATCH v2 0/5] ASoC: ti: davinci-mcasp: Fix the DIT mode and
+ OMAP4 support
+Message-ID: <20210709124004.GB4112@sirena.org.uk>
+References: <20210705194249.2385-1-peter.ujfalusi@gmail.com>
+ <20210707173245.GK4394@sirena.org.uk>
+ <b800e9ff-c8dc-ca09-8b2d-a750f05edb12@gmail.com>
+ <YOftKVAsRaxtEY8n@atomide.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="2fHTh5uZTiUOsy+g"
+ protocol="application/pgp-signature"; boundary="s/l3CgOIzMHHjg/5"
 Content-Disposition: inline
-In-Reply-To: <87bl7cl20y.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <YOftKVAsRaxtEY8n@atomide.com>
 X-Cookie: This fortune intentionally left blank.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "tiwai@suse.com" <tiwai@suse.com>,
- Robert Hancock <robert.hancock@calian.com>,
- "michal.simek@xilinx.com" <michal.simek@xilinx.com>
+Cc: hns@goldelico.com, alsa-devel@alsa-project.org, linux-omap@vger.kernel.org,
+ =?iso-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@gmail.com>,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,54 +87,36 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---2fHTh5uZTiUOsy+g
+--s/l3CgOIzMHHjg/5
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Fri, Jul 09, 2021 at 10:16:45AM +0900, Kuninori Morimoto wrote:
+On Fri, Jul 09, 2021 at 09:31:05AM +0300, Tony Lindgren wrote:
 
-> > So the next issue I'm now facing is that the MCLK to SCLK divider is not being
-> > set properly in either the Audio Formatter (MM2S Fs Multiplier register) or in
-> > the I2S Transmitter (I2S Timing Control register). The xlnx_i2s driver has a
-> > set_clkdiv function defined in its snd_soc_dai_ops structure, however that
-> > doesn't appear to be getting called. And the xlnx_formatter_pcm driver doesn't
-> > seem to have any code to set XLNX_AUD_FS_MULTIPLIER at all.
+> > The ASoC patches are not affected by this, it is just that we need to
+> > block SIDLE mode in a different way than how I did it in the last patch.
 
-> > In this case I have a sample rate to MCLK divider of 256, so it looks like I
-> > should add mclk-fs = <256> into the dai-link nodes in the device tree, but
-> > there will need to be some code added to the xlnx_formatter_pcm to do something
-> > with that information? And then should that driver have code to trigger the
-> > call to set_clkdiv on the CPU DAI as well?
+> > I'll take a look on how to implement the needed quirk for the McASP
+> > module, then I can send the dts+ti-sysc patch to linux-omap.
 
-> Hmm... clock is one of difficult point to be generic, I guess.
-> audio-graph / audio-graph2 has customize feature in such case,
-> but simple-card doesn't.
+> OK sounds good to me.
 
-> 	- create generic clock handling way on simple-card ?
-> 	- add customize feature to simple-card ?
-> 	- switch to audio-graph / audio-graph2, and use customize feature ?
+So should I queue the ASoC patches and then let the DT patches go via
+Tony's tree?
 
-> Thank you for your help !!
-
-For something like this I think the driver should be able to figure out
-the ratio based on the configured MCLK and sample rate.  For the most
-part set_clkdiv() should be a legacy thing, it's very manual and hard to
-see why a system would do something different to the obvious ratio
-usually.
-
---2fHTh5uZTiUOsy+g
+--s/l3CgOIzMHHjg/5
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmDoQ10ACgkQJNaLcl1U
-h9AYcQf/dTsd3K264yv8Ah+5nvdHVaV3hvl9bwL4lT4uhvLXErYs586oJwoPGdYZ
-aoV4wPUPJ5lL9o9lH29X1b0tJr3Jw1zU9lXUn5uotx0NFoXgvAuP2nXANTUMoYL4
-JaXbSp4ZXFTRt6nJ5zmiR70tRFp0mCx0AuKY6Nm5hR1xcIBgQSCnUurADWbhskCS
-kp2kYqXvJPJG4qy9pI8Vj9VqJ5ZQd3rUckTRCPlA4z7GAXQH5DCg+9xpgk6Y62k4
-SvGCK7NUJlduzx6VALQg0xe5cF4M+HvNJrkDfsGlWiLEHaswib2wbvkvfDXmKEgS
-IzZ1mhq3h64HI9rnGxEwEKKyTVyp5A==
-=QIG/
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmDoQ6MACgkQJNaLcl1U
+h9BpEwf/RDjneK8FOo/V4xfEzRLQw0/z4J1+SNvQEN37DefWi3rKL5Mo+BB/UvIX
+Qx3J5MiMqoyryicmB7f9c/FDsxLyVqwlUAOmrQy5RZPW2MqDp/QxAl3VXgMQehVr
+PqmX59jRubMzfg2PozhSNgAOL6k/+aVM20ZS3EWf7l1YwiJenmqnJnSieDdQ9NHx
+3skDk3XRWXHH/wH/PFzuoKtw6SfXHO0IDYmqYGY3pcCA6C+a4HGcKgQKNLrJHw2c
+BLnGoR2JAPlf7yVxSQqzqZlcaUrU2KDb0rkEFOq0Yrqu0bozl2Rb287V6rzJEHaK
+25CzSrT4fpR/KwlYWGc8fsXgu4YDwQ==
+=rVrk
 -----END PGP SIGNATURE-----
 
---2fHTh5uZTiUOsy+g--
+--s/l3CgOIzMHHjg/5--

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 308523C3016
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:46:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 378233C3053
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:47:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB7661751;
-	Sat, 10 Jul 2021 04:46:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB7661751
+	by alsa0.perex.cz (Postfix) with ESMTPS id CEF23176D;
+	Sat, 10 Jul 2021 04:46:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEF23176D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625885214;
-	bh=wfJv1sH/6jFQAaCv8Vm33MLu5aGxmBgSRuBRpExJmbQ=;
+	s=default; t=1625885236;
+	bh=BFDZWyFDejNApuddo9CBi3V3azu9osoEkmjq24ItQOo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JKTc9w1wCYqG1n6bxUHOjzCOXpeEoQpqJhLm25bTh9BvVMSnptd7vZ8oAiLHt2cUV
-	 ninsc/ztgb2K/iHJhUzUYcuAW0ueZcWj0gfEpPj8W7EZjxhFFMhg0R88POmb4T3xES
-	 +SB3iF4QLfzz0sDrREUoHyvQFN27l2Mw26H7qJ7U=
+	b=oFiU4ywWar9+KobXFXoNK1KKrvJ2nAm9FeTNRC2rKF3MIqWp/zbOQj/xo+IZmWj7q
+	 FwmIrZWKLOq9V166Up056UiA8oJxQ30fINTTQ2KhhZSphDOd50TCUbNFSmvuJ/KcOY
+	 Rg9SzfN/AiNwdZegJhkQ3TSF2vA/St31nrzrYIQ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12342F80535;
-	Sat, 10 Jul 2021 04:32:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 30299F80543;
+	Sat, 10 Jul 2021 04:32:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47EA9F8052E; Sat, 10 Jul 2021 04:31:57 +0200 (CEST)
+ id 93602F8053B; Sat, 10 Jul 2021 04:32:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 56252F80516
- for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:31:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56252F80516
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51494F8051E
+ for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:31:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51494F8051E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="H1fuGJD2"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 50BCF613EC;
- Sat, 10 Jul 2021 02:31:46 +0000 (UTC)
+ header.b="PMwSqhAa"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6EED5613E8;
+ Sat, 10 Jul 2021 02:31:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625884307;
- bh=wfJv1sH/6jFQAaCv8Vm33MLu5aGxmBgSRuBRpExJmbQ=;
+ s=k20201202; t=1625884312;
+ bh=BFDZWyFDejNApuddo9CBi3V3azu9osoEkmjq24ItQOo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=H1fuGJD2vtSAnTN5bcZazPYRSHkCIOTqYIEe2p4PGEqgHS9XSIbqgaNJPIzogBeV/
- 4dlGDv692JgB5Uz3IIvetltlj2by81mI6s0mqUup+S+AL2OpesZayBR4U/PB7ZolWy
- hWVZ+IZmIJpH3HOCpe2ywLhSkB9wx1jkV+soXnBddmC/7cFNGGSbaf0ZTG5sMZ3kWA
- 5c4S39uaLi4yzMAIyjlwJiGw2DDqIHzckgisxjTaFLFt8ZpSnpvUl49OtIpFGGbAB1
- tfc22bAfHJeEmGXf+oVp3uFcyBowWLJCwn9ANUi/rnEEboCohez+OMfjgO5jNM0Q9i
- +cvj9Zukkk4VQ==
+ b=PMwSqhAaZIU05uaLNw59CrXDVB281Z/S1Usd0HatvjRSHaRtKNZFLArdtdP0ftaOF
+ 5PujPOjyxjYL7I3AZnD+WYmHnEl0Z7/ykj0s+7A/7owNqsvooUXnggDb9FK49MG1au
+ Zy1EiMVOR7mBTZgq0CjITt6+PBBIj8YLqHYtjN68PU2T0XgAB0smKJOvZ6LCmrUf5U
+ sLm3FgsuCWsKmtdZmYlJJpN0zK/6us0TR8nSGZsn6mvcRJsAiHRwevin0Zrf0Cc3hz
+ wPjpPAoqQYV/tBhVEqbPFkcy6iQGw7v61ePDOQDEviz9A10rhAcGPYbYoHOezDgiBA
+ PV0J2lBj/+0gg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 51/63] ALSA: usb-audio: scarlett2: Fix
- scarlett2_*_ctl_put() return values
-Date: Fri,  9 Jul 2021 22:26:57 -0400
-Message-Id: <20210710022709.3170675-51-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 55/63] ASoC: Intel: kbl_da7219_max98357a: shrink
+ platform_id below 20 characters
+Date: Fri,  9 Jul 2021 22:27:01 -0400
+Message-Id: <20210710022709.3170675-55-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210710022709.3170675-1-sashal@kernel.org>
 References: <20210710022709.3170675-1-sashal@kernel.org>
@@ -66,8 +66,12 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org, "Geoffrey D. Bennett" <g@b4.vu>
+Cc: Sasha Levin <sashal@kernel.org>,
+ Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Rander Wang <rander.wang@intel.com>, Mark Brown <broonie@kernel.org>,
+ Paul Olaru <paul.olaru@oss.nxp.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,61 +87,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: "Geoffrey D. Bennett" <g@b4.vu>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit c5d8e008032f3cd5f266d552732973a960b0bd4b ]
+[ Upstream commit 94efd726b947f265bd313605c9f73edec5469d65 ]
 
-Mixer control put callbacks should return 1 if the value is changed.
-Fix the sw_hw, level, pad, and button controls accordingly.
+Sparse throws the following warnings:
 
-Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
-Link: https://lore.kernel.org/r/20210620164645.GA9221@m.b4.vu
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+sound/soc/intel/boards/kbl_da7219_max98357a.c:647:25: error: too long
+initializer-string for array of char(no space for nul char)
+
+Fix by using the 'mx' acronym for Maxim.
+
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Paul Olaru <paul.olaru@oss.nxp.com>
+Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+Link: https://lore.kernel.org/r/20210621194057.21711-6-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/mixer_scarlett_gen2.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ sound/soc/intel/boards/kbl_da7219_max98357a.c     | 4 ++--
+ sound/soc/intel/common/soc-acpi-intel-kbl-match.c | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/usb/mixer_scarlett_gen2.c b/sound/usb/mixer_scarlett_gen2.c
-index 60545eeef28f..8fd1f948a892 100644
---- a/sound/usb/mixer_scarlett_gen2.c
-+++ b/sound/usb/mixer_scarlett_gen2.c
-@@ -1179,6 +1179,8 @@ static int scarlett2_sw_hw_enum_ctl_put(struct snd_kcontrol *kctl,
- 	/* Send SW/HW switch change to the device */
- 	err = scarlett2_usb_set_config(mixer, SCARLETT2_CONFIG_SW_HW_SWITCH,
- 				       index, val);
-+	if (err == 0)
-+		err = 1;
+diff --git a/sound/soc/intel/boards/kbl_da7219_max98357a.c b/sound/soc/intel/boards/kbl_da7219_max98357a.c
+index 537a88932bb6..69362eae65be 100644
+--- a/sound/soc/intel/boards/kbl_da7219_max98357a.c
++++ b/sound/soc/intel/boards/kbl_da7219_max98357a.c
+@@ -607,7 +607,7 @@ static int kabylake_audio_probe(struct platform_device *pdev)
  
- unlock:
- 	mutex_unlock(&private->data_mutex);
-@@ -1239,6 +1241,8 @@ static int scarlett2_level_enum_ctl_put(struct snd_kcontrol *kctl,
- 	/* Send switch change to the device */
- 	err = scarlett2_usb_set_config(mixer, SCARLETT2_CONFIG_LEVEL_SWITCH,
- 				       index, val);
-+	if (err == 0)
-+		err = 1;
- 
- unlock:
- 	mutex_unlock(&private->data_mutex);
-@@ -1289,6 +1293,8 @@ static int scarlett2_pad_ctl_put(struct snd_kcontrol *kctl,
- 	/* Send switch change to the device */
- 	err = scarlett2_usb_set_config(mixer, SCARLETT2_CONFIG_PAD_SWITCH,
- 				       index, val);
-+	if (err == 0)
-+		err = 1;
- 
- unlock:
- 	mutex_unlock(&private->data_mutex);
-@@ -1344,6 +1350,8 @@ static int scarlett2_button_ctl_put(struct snd_kcontrol *kctl,
- 	/* Send switch change to the device */
- 	err = scarlett2_usb_set_config(mixer, SCARLETT2_CONFIG_BUTTONS,
- 				       index, val);
-+	if (err == 0)
-+		err = 1;
- 
- unlock:
- 	mutex_unlock(&private->data_mutex);
+ static const struct platform_device_id kbl_board_ids[] = {
+ 	{
+-		.name = "kbl_da7219_max98357a",
++		.name = "kbl_da7219_mx98357a",
+ 		.driver_data =
+ 			(kernel_ulong_t)&kabylake_audio_card_da7219_m98357a,
+ 	},
+@@ -629,4 +629,4 @@ module_platform_driver(kabylake_audio)
+ MODULE_DESCRIPTION("Audio Machine driver-DA7219 & MAX98357A in I2S mode");
+ MODULE_AUTHOR("Naveen Manohar <naveen.m@intel.com>");
+ MODULE_LICENSE("GPL v2");
+-MODULE_ALIAS("platform:kbl_da7219_max98357a");
++MODULE_ALIAS("platform:kbl_da7219_mx98357a");
+diff --git a/sound/soc/intel/common/soc-acpi-intel-kbl-match.c b/sound/soc/intel/common/soc-acpi-intel-kbl-match.c
+index e200baa11011..df7f82e55a5a 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-kbl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-kbl-match.c
+@@ -113,7 +113,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_kbl_machines[] = {
+ 	},
+ 	{
+ 		.id = "DLGS7219",
+-		.drv_name = "kbl_da7219_max98373",
++		.drv_name = "kbl_da7219_mx98373",
+ 		.fw_filename = "intel/dsp_fw_kbl.bin",
+ 		.machine_quirk = snd_soc_acpi_codec_list,
+ 		.quirk_data = &kbl_7219_98373_codecs,
 -- 
 2.30.2
 

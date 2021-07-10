@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A1BF3C3207
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:53:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66F923C3208
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:53:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E3AA61701;
-	Sat, 10 Jul 2021 04:52:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3AA61701
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13A2E16C0;
+	Sat, 10 Jul 2021 04:52:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13A2E16C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625885592;
-	bh=QeLUFQxy6JlMBjtj8OBi4oV5VQjWo0ufIQd5sr2UTYw=;
+	s=default; t=1625885613;
+	bh=0maWroivBJOvh18abpe9bTk7gxcjye2N3W9KBM9/MHA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qOMiZMMbJRij0ncg/dNH0Hi7QIhQ7GxM8cf6g6O4td85fYlhSYl2dXzqc8k5cCVKG
-	 5MnqZV6vWMmjujjeCOKM+lSLXo/DMsfodusDVQyOmTddHZWSCXpyi5jBmSwbgrIsGx
-	 4tb/aVEN78Ny1nRny5WJbkXIZkfaEeGS5lkd69A4=
+	b=tRchCy//4EftVBjksH4sl0qDKuKd5lanZspcHfh6ACuKVcnZJ5IRMSOy3ZqGvygtD
+	 AcrnfznTlyTR7vtA75gLv2g6IPgqwhsfF1UDqa6cgsLmsVvyt8oQw1dVNT3nGHsgNz
+	 TNIAkQYPSDScHLAThVa9yVG7AKH3S+K/0Kue6ZKs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CFBDFF805D5;
-	Sat, 10 Jul 2021 04:36:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08F30F80637;
+	Sat, 10 Jul 2021 04:36:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9187F805E9; Sat, 10 Jul 2021 04:36:16 +0200 (CEST)
+ id D1C33F805EF; Sat, 10 Jul 2021 04:36:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9B105F805C9
- for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:36:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B105F805C9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5DAA7F8055C
+ for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:36:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DAA7F8055C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="br5GaZcG"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 000B061437;
- Sat, 10 Jul 2021 02:36:07 +0000 (UTC)
+ header.b="LQQTYIuV"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B80FA6144A;
+ Sat, 10 Jul 2021 02:36:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625884568;
- bh=QeLUFQxy6JlMBjtj8OBi4oV5VQjWo0ufIQd5sr2UTYw=;
+ s=k20201202; t=1625884580;
+ bh=0maWroivBJOvh18abpe9bTk7gxcjye2N3W9KBM9/MHA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=br5GaZcGNQ8ts+I3CE6PgJka1pj7uhIPor8RuPw6b/liiMMUXjwyaDQLQYcqPAvIL
- pjPCHqLETYS0p8nyMJYIHk9Zo8ubzCvDIAVsX1InZu4FtQEC6TxkkJWY5m+A6yhj2O
- e2jU+OojieZbbOPWNTJJH61pVC0yLJ3aCff8STU5OjFMBzx5S9/GWAZUiB05lVFgwN
- FhvLYmL9lNRT6KbygMHG+WQpozZnRnMHS8Frbo5lFPnktLBFH/mxRDGN3n9aMiOU2f
- DA4E4c0GfxNOJosicuog4IIZ5TNMe3sAQAMWtRs+NrMVwZWzYQwYlY/kFplHegiJ93
- htFV8AYuXE0ig==
+ b=LQQTYIuVCXmBUQ9Z/SIOH4/2woxeBgt3xOIc3gu7U99sWeU83DLWuZsDS3lEwgzsS
+ Dta4tmnNSxv1lWBpFmYBbcBmm6+sCD1Gkauy+JQ4F8Y4y1ptMdKaJzTBSP6dCUAng2
+ 2rlTlFkmS9eKCHTuZYnVReSp3uE1RdosRO4+G3GDyZNVrdgGR3LZS7pPbFpnpwh4hz
+ 5yR9+v+OxwCBoGuQvUB9/KCBem6UOZF/jMrixXFy+bu0KNg4gaWSJeaD6TbEHOKjHP
+ c2n/SWnUkfmsN04QFkHUmatI1i0yi9pxEoYswQJLBDr8c6gumJa/++g10iOIIQ+bA6
+ mHwckIQs2guMQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.9 03/26] Revert "ALSA: bebob/oxfw: fix Kconfig entry
- for Mackie d.2 Pro"
-Date: Fri,  9 Jul 2021 22:35:41 -0400
-Message-Id: <20210710023604.3172486-3-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.9 12/26] ALSA: sb: Fix potential double-free of CSP
+ mixer elements
+Date: Fri,  9 Jul 2021 22:35:50 -0400
+Message-Id: <20210710023604.3172486-12-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210710023604.3172486-1-sashal@kernel.org>
 References: <20210710023604.3172486-1-sashal@kernel.org>
@@ -83,78 +83,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 5d6fb80a142b5994355ce675c517baba6089d199 ]
+[ Upstream commit c305366a37441c2ac90b08711cb6f032b43672f2 ]
 
-This reverts commit 0edabdfe89581669609eaac5f6a8d0ae6fe95e7f.
+snd_sb_qsound_destroy() contains the calls of removing the previously
+created mixer controls, but it doesn't clear the pointers.  As
+snd_sb_qsound_destroy() itself may be repeatedly called via ioctl,
+this could lead to double-free potentially.
 
-I've explained that optional FireWire card for d.2 is also built-in to
-d.2 Pro, however it's wrong. The optional card uses DM1000 ASIC and has
-'Mackie DJ Mixer' in its model name of configuration ROM. On the other
-hand, built-in FireWire card for d.2 Pro and d.4 Pro uses OXFW971 ASIC
-and has 'd.Pro' in its model name according to manuals and user
-experiences. The former card is not the card for d.2 Pro. They are similar
-in appearance but different internally.
+Fix it by clearing the struct fields properly afterwards.
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Link: https://lore.kernel.org/r/20210518084557.102681-2-o-takashi@sakamocchi.jp
+Link: https://lore.kernel.org/r/20210608140540.17885-4-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/firewire/Kconfig       | 4 ++--
- sound/firewire/bebob/bebob.c | 2 +-
- sound/firewire/oxfw/oxfw.c   | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
+ sound/isa/sb/sb16_csp.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/sound/firewire/Kconfig b/sound/firewire/Kconfig
-index f7b8dcb57815..da9874d54676 100644
---- a/sound/firewire/Kconfig
-+++ b/sound/firewire/Kconfig
-@@ -36,7 +36,7 @@ config SND_OXFW
- 	   * Mackie(Loud) Onyx-i series (former models)
- 	   * Mackie(Loud) Onyx Satellite
- 	   * Mackie(Loud) Tapco Link.Firewire
--	   * Mackie(Loud) d.4 pro
-+	   * Mackie(Loud) d.2 pro/d.4 pro (built-in FireWire card with OXFW971 ASIC)
- 	   * Mackie(Loud) U.420/U.420d
- 	   * TASCAM FireOne
- 	   * Stanton Controllers & Systems 1 Deck/Mixer
-@@ -82,7 +82,7 @@ config SND_BEBOB
- 	  * PreSonus FIREBOX/FIREPOD/FP10/Inspire1394
- 	  * BridgeCo RDAudio1/Audio5
- 	  * Mackie Onyx 1220/1620/1640 (FireWire I/O Card)
--	  * Mackie d.2 (FireWire Option) and d.2 Pro
-+	  * Mackie d.2 (optional FireWire card with DM1000 ASIC)
- 	  * Stanton FinalScratch 2 (ScratchAmp)
- 	  * Tascam IF-FW/DM
- 	  * Behringer XENIX UFX 1204/1604
-diff --git a/sound/firewire/bebob/bebob.c b/sound/firewire/bebob/bebob.c
-index 9d620a7c283f..c51564213365 100644
---- a/sound/firewire/bebob/bebob.c
-+++ b/sound/firewire/bebob/bebob.c
-@@ -414,7 +414,7 @@ static const struct ieee1394_device_id bebob_id_table[] = {
- 	SND_BEBOB_DEV_ENTRY(VEN_BRIDGECO, 0x00010049, &spec_normal),
- 	/* Mackie, Onyx 1220/1620/1640 (Firewire I/O Card) */
- 	SND_BEBOB_DEV_ENTRY(VEN_MACKIE2, 0x00010065, &spec_normal),
--	// Mackie, d.2 (Firewire option card) and d.2 Pro (the card is built-in).
-+	// Mackie, d.2 (optional Firewire card with DM1000).
- 	SND_BEBOB_DEV_ENTRY(VEN_MACKIE1, 0x00010067, &spec_normal),
- 	/* Stanton, ScratchAmp */
- 	SND_BEBOB_DEV_ENTRY(VEN_STANTON, 0x00000001, &spec_normal),
-diff --git a/sound/firewire/oxfw/oxfw.c b/sound/firewire/oxfw/oxfw.c
-index 44ecf2f5f65f..e2932ac9d487 100644
---- a/sound/firewire/oxfw/oxfw.c
-+++ b/sound/firewire/oxfw/oxfw.c
-@@ -405,7 +405,7 @@ static const struct ieee1394_device_id oxfw_id_table[] = {
- 	 *  Onyx-i series (former models):	0x081216
- 	 *  Mackie Onyx Satellite:		0x00200f
- 	 *  Tapco LINK.firewire 4x6:		0x000460
--	 *  d.4 pro:				Unknown
-+	 *  d.2 pro/d.4 pro (built-in card):	Unknown
- 	 *  U.420:				Unknown
- 	 *  U.420d:				Unknown
- 	 */
+diff --git a/sound/isa/sb/sb16_csp.c b/sound/isa/sb/sb16_csp.c
+index 2cc068be7d3b..90fa57ad14c0 100644
+--- a/sound/isa/sb/sb16_csp.c
++++ b/sound/isa/sb/sb16_csp.c
+@@ -1086,10 +1086,14 @@ static void snd_sb_qsound_destroy(struct snd_sb_csp * p)
+ 	card = p->chip->card;	
+ 	
+ 	down_write(&card->controls_rwsem);
+-	if (p->qsound_switch)
++	if (p->qsound_switch) {
+ 		snd_ctl_remove(card, p->qsound_switch);
+-	if (p->qsound_space)
++		p->qsound_switch = NULL;
++	}
++	if (p->qsound_space) {
+ 		snd_ctl_remove(card, p->qsound_space);
++		p->qsound_space = NULL;
++	}
+ 	up_write(&card->controls_rwsem);
+ 
+ 	/* cancel pending transfer of QSound parameters */
 -- 
 2.30.2
 

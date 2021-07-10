@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFDB43C2D4C
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:20:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB7A13C2D87
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:21:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C167167E;
-	Sat, 10 Jul 2021 04:19:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C167167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C6E61669;
+	Sat, 10 Jul 2021 04:20:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C6E61669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625883642;
-	bh=p7VlPFXuhYUrlLGzWVBlKVGGGZ/ormNZxuIr4IHfc5I=;
+	s=default; t=1625883678;
+	bh=F3Rgq7wpO6PlPYF5bPYKKBwJI5/HgM/vLo9ss8e2UzU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Kvo/b5KaLJu/Pe9TR5qJzxB2D8yV5WCFFZ8LIPBvy5Q4DT4QEaJ3Imc+xbTTjqmG9
-	 G2q+vB42O6qHEzRHpQJ17imVlr1SCC6cghbPb6PcDTmNUwKZZZSchhabQLuuh1YfO8
-	 fKBTsTyfkNoEQzEsRWs05evB6n2PDwkYezwOqd5I=
+	b=cbGVbhMXXr86fXUzZwa2llACMaOctL81c+2TZnpaORAH6M3Wmk5XwuGBlPKwx8E1G
+	 Dk3AGT9c4oniAYAWYGak/+f437633Y2Ae/WXV/5E7SZD+LiembRh2/EYLD4u2ubIgS
+	 RLgRdG4qP/Zqhm9a1ELaUNzMgTqksjO21P2Vqx9Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D552F804E2;
-	Sat, 10 Jul 2021 04:18:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E42C1F804F2;
+	Sat, 10 Jul 2021 04:18:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A54BF80246; Sat, 10 Jul 2021 04:18:09 +0200 (CEST)
+ id 71740F804F1; Sat, 10 Jul 2021 04:18:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CE72DF80259
- for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:18:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE72DF80259
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2824FF804E3
+ for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:18:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2824FF804E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="IFolTdgG"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2E08D613C7;
- Sat, 10 Jul 2021 02:18:02 +0000 (UTC)
+ header.b="UvDMKXAN"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2281B61412;
+ Sat, 10 Jul 2021 02:18:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625883483;
- bh=p7VlPFXuhYUrlLGzWVBlKVGGGZ/ormNZxuIr4IHfc5I=;
+ s=k20201202; t=1625883491;
+ bh=F3Rgq7wpO6PlPYF5bPYKKBwJI5/HgM/vLo9ss8e2UzU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=IFolTdgGl4YETgXLeHfZX79BpQrjcouJh9q9tZayjRnLNf29egOJ2litSKERgUtnn
- Z/N/BIktIrTaM7NwPBZhhQHheOWr2V2dvsXqJlIP29IXVAi3ZATIWNgvJD9hFeDBuT
- IsEK7+yLYyy4epiwEpo66qZ8A2hrthjVilc6CoUPs9BOUbcpJsNXmjjh8tA1Hbk7m/
- CZh98bR+yxNm7c7Jz3wqD0DNE58+20qAvP3QJ9H9dUowrjzkPlLma5wwZT7ajCauI/
- g8gTfp5bZlvz4NazdW/jgf2A2PO+iGNrJq1tDT8dmZbg4rwZegrtVIMzS5WWaSxawD
- OQxXBtnTMTvCQ==
+ b=UvDMKXANl48vjhBF1Uu+03IQd/peKwxDGUZboNBw9iIXTdaC338QjefLXJFHw7OCC
+ WOrSe549I0eA9sJ0aqV7iYzWH9GAqxF9069EuRKDejcstuigFmRMzojWBKEVhdEoYV
+ r/HfqPoWDvoSKxQi/kVPMY/Jp4n8XqeeCAXEwqJQja8fAu3Wb46B7EeT54DKxEziKk
+ NwqPUuE38TJXJtxhlwqflo/a+eSrgduqBMb4mvd3Fz0BWvkQ4iM+KLb+Fw39oGDqLU
+ C/CGRdGlga01vjtBIyaOvzIZR2mYE5RuShcBQAt9ZTEx+NOX3BDYxVjpy9txNPA9DR
+ zVQ8P61/KNevw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.13 009/114] soundwire: bus: handle -ENODATA errors
- in clock stop/start sequences
-Date: Fri,  9 Jul 2021 22:16:03 -0400
-Message-Id: <20210710021748.3167666-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.13 016/114] ASoC: intel/boards: add missing
+ MODULE_DEVICE_TABLE
+Date: Fri,  9 Jul 2021 22:16:10 -0400
+Message-Id: <20210710021748.3167666-16-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210710021748.3167666-1-sashal@kernel.org>
 References: <20210710021748.3167666-1-sashal@kernel.org>
@@ -66,12 +66,9 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>,
- Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Rander Wang <rander.wang@intel.com>, Vinod Koul <vkoul@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: Sasha Levin <sashal@kernel.org>, Hulk Robot <hulkci@huawei.com>,
+ Zou Wei <zou_wei@huawei.com>, Mark Brown <broonie@kernel.org>,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,217 +84,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+From: Zou Wei <zou_wei@huawei.com>
 
-[ Upstream commit b50bb8ba369cdc8814e82558117711c12ef3af3d ]
+[ Upstream commit a75e5cdf4dd1307bb1541edbb0c008f40896644c ]
 
-If a device lost sync and can no longer ACK a command, it may not be
-able to enter a lower-power state but it will still be able to resync
-when the clock restarts. In those cases, we want to continue with the
-clock stop sequence.
+This patch adds missing MODULE_DEVICE_TABLE definition which generates
+correct modalias for automatic loading of this driver when it is built
+as an external module.
 
-This patch modifies the behavior during clock stop sequences to only
-log errors unrelated to -ENODATA/Command_Ignored. The flow is also
-modified so that loops continue to prepare/deprepare other devices
-even when one seems to have lost sync.
-
-When resuming the clocks, all issues are logged with a dev_warn(),
-previously only some of them were checked. This is the only part that
-now differs between the clock stop entry and clock stop exit
-sequences: while we don't want to stop the suspend flow, we do want
-information on potential issues while resuming, as they may have
-ripple effects.
-
-For consistency the log messages are also modified to be unique and
-self-explanatory. Errors in sdw_slave_clk_stop_callback() were
-removed, they are now handled in the caller.
-
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Link: https://lore.kernel.org/r/20210511030048.25622-4-yung-chuan.liao@linux.intel.com
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Zou Wei <zou_wei@huawei.com>
+Link: https://lore.kernel.org/r/1620791647-16024-1-git-send-email-zou_wei@huawei.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/soundwire/bus.c | 69 +++++++++++++++++++++--------------------
- 1 file changed, 36 insertions(+), 33 deletions(-)
+ sound/soc/intel/boards/sof_da7219_max98373.c | 1 +
+ sound/soc/intel/boards/sof_rt5682.c          | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index dc4033b6f2e9..100d904bf700 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -829,11 +829,8 @@ static int sdw_slave_clk_stop_callback(struct sdw_slave *slave,
+diff --git a/sound/soc/intel/boards/sof_da7219_max98373.c b/sound/soc/intel/boards/sof_da7219_max98373.c
+index f3cb0773e70e..8d1ad892e86b 100644
+--- a/sound/soc/intel/boards/sof_da7219_max98373.c
++++ b/sound/soc/intel/boards/sof_da7219_max98373.c
+@@ -440,6 +440,7 @@ static const struct platform_device_id board_ids[] = {
+ 	},
+ 	{ }
+ };
++MODULE_DEVICE_TABLE(platform, board_ids);
  
- 	if (slave->ops && slave->ops->clk_stop) {
- 		ret = slave->ops->clk_stop(slave, mode, type);
--		if (ret < 0) {
--			dev_err(&slave->dev,
--				"Clk Stop type =%d failed: %d\n", type, ret);
-+		if (ret < 0)
- 			return ret;
--		}
- 	}
+ static struct platform_driver audio = {
+ 	.probe = audio_probe,
+diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+index 58548ea0d915..cf1d053733e2 100644
+--- a/sound/soc/intel/boards/sof_rt5682.c
++++ b/sound/soc/intel/boards/sof_rt5682.c
+@@ -968,6 +968,7 @@ static const struct platform_device_id board_ids[] = {
+ 	},
+ 	{ }
+ };
++MODULE_DEVICE_TABLE(platform, board_ids);
  
- 	return 0;
-@@ -860,7 +857,8 @@ static int sdw_slave_clk_stop_prepare(struct sdw_slave *slave,
- 	} else {
- 		ret = sdw_read_no_pm(slave, SDW_SCP_SYSTEMCTRL);
- 		if (ret < 0) {
--			dev_err(&slave->dev, "SDW_SCP_SYSTEMCTRL read failed:%d\n", ret);
-+			if (ret != -ENODATA)
-+				dev_err(&slave->dev, "SDW_SCP_SYSTEMCTRL read failed:%d\n", ret);
- 			return ret;
- 		}
- 		val = ret;
-@@ -869,9 +867,8 @@ static int sdw_slave_clk_stop_prepare(struct sdw_slave *slave,
- 
- 	ret = sdw_write_no_pm(slave, SDW_SCP_SYSTEMCTRL, val);
- 
--	if (ret < 0)
--		dev_err(&slave->dev,
--			"Clock Stop prepare failed for slave: %d", ret);
-+	if (ret < 0 && ret != -ENODATA)
-+		dev_err(&slave->dev, "SDW_SCP_SYSTEMCTRL write failed:%d\n", ret);
- 
- 	return ret;
- }
-@@ -922,6 +919,9 @@ int sdw_bus_prep_clk_stop(struct sdw_bus *bus)
- 	 * In order to save on transition time, prepare
- 	 * each Slave and then wait for all Slave(s) to be
- 	 * prepared for clock stop.
-+	 * If one of the Slave devices has lost sync and
-+	 * replies with Command Ignored/-ENODATA, we continue
-+	 * the loop
- 	 */
- 	list_for_each_entry(slave, &bus->slaves, node) {
- 		if (!slave->dev_num)
-@@ -937,9 +937,8 @@ int sdw_bus_prep_clk_stop(struct sdw_bus *bus)
- 		ret = sdw_slave_clk_stop_callback(slave,
- 						  SDW_CLK_STOP_MODE0,
- 						  SDW_CLK_PRE_PREPARE);
--		if (ret < 0) {
--			dev_err(&slave->dev,
--				"pre-prepare failed:%d", ret);
-+		if (ret < 0 && ret != -ENODATA) {
-+			dev_err(&slave->dev, "clock stop pre-prepare cb failed:%d\n", ret);
- 			return ret;
- 		}
- 
-@@ -950,9 +949,8 @@ int sdw_bus_prep_clk_stop(struct sdw_bus *bus)
- 			ret = sdw_slave_clk_stop_prepare(slave,
- 							 SDW_CLK_STOP_MODE0,
- 							 true);
--			if (ret < 0) {
--				dev_err(&slave->dev,
--					"pre-prepare failed:%d", ret);
-+			if (ret < 0 && ret != -ENODATA) {
-+				dev_err(&slave->dev, "clock stop prepare failed:%d\n", ret);
- 				return ret;
- 			}
- 		}
-@@ -960,7 +958,7 @@ int sdw_bus_prep_clk_stop(struct sdw_bus *bus)
- 
- 	/* Skip remaining clock stop preparation if no Slave is attached */
- 	if (!is_slave)
--		return ret;
-+		return 0;
- 
- 	/*
- 	 * Don't wait for all Slaves to be ready if they follow the simple
-@@ -969,6 +967,12 @@ int sdw_bus_prep_clk_stop(struct sdw_bus *bus)
- 	if (!simple_clk_stop) {
- 		ret = sdw_bus_wait_for_clk_prep_deprep(bus,
- 						       SDW_BROADCAST_DEV_NUM);
-+		/*
-+		 * if there are no Slave devices present and the reply is
-+		 * Command_Ignored/-ENODATA, we don't need to continue with the
-+		 * flow and can just return here. The error code is not modified
-+		 * and its handling left as an exercise for the caller.
-+		 */
- 		if (ret < 0)
- 			return ret;
- 	}
-@@ -986,13 +990,13 @@ int sdw_bus_prep_clk_stop(struct sdw_bus *bus)
- 						  SDW_CLK_STOP_MODE0,
- 						  SDW_CLK_POST_PREPARE);
- 
--		if (ret < 0) {
--			dev_err(&slave->dev,
--				"post-prepare failed:%d", ret);
-+		if (ret < 0 && ret != -ENODATA) {
-+			dev_err(&slave->dev, "clock stop post-prepare cb failed:%d\n", ret);
-+			return ret;
- 		}
- 	}
- 
--	return ret;
-+	return 0;
- }
- EXPORT_SYMBOL(sdw_bus_prep_clk_stop);
- 
-@@ -1015,12 +1019,8 @@ int sdw_bus_clk_stop(struct sdw_bus *bus)
- 	ret = sdw_bwrite_no_pm(bus, SDW_BROADCAST_DEV_NUM,
- 			       SDW_SCP_CTRL, SDW_SCP_CTRL_CLK_STP_NOW);
- 	if (ret < 0) {
--		if (ret == -ENODATA)
--			dev_dbg(bus->dev,
--				"ClockStopNow Broadcast msg ignored %d", ret);
--		else
--			dev_err(bus->dev,
--				"ClockStopNow Broadcast msg failed %d", ret);
-+		if (ret != -ENODATA)
-+			dev_err(bus->dev, "ClockStopNow Broadcast msg failed %d\n", ret);
- 		return ret;
- 	}
- 
-@@ -1063,8 +1063,7 @@ int sdw_bus_exit_clk_stop(struct sdw_bus *bus)
- 		ret = sdw_slave_clk_stop_callback(slave, SDW_CLK_STOP_MODE0,
- 						  SDW_CLK_PRE_DEPREPARE);
- 		if (ret < 0)
--			dev_warn(&slave->dev,
--				 "clk stop deprep failed:%d", ret);
-+			dev_warn(&slave->dev, "clock stop pre-deprepare cb failed:%d\n", ret);
- 
- 		/* Only de-prepare a Slave device if needed */
- 		if (!slave->prop.simple_clk_stop_capable) {
-@@ -1074,8 +1073,7 @@ int sdw_bus_exit_clk_stop(struct sdw_bus *bus)
- 							 false);
- 
- 			if (ret < 0)
--				dev_warn(&slave->dev,
--					 "clk stop deprep failed:%d", ret);
-+				dev_warn(&slave->dev, "clock stop deprepare failed:%d\n", ret);
- 		}
- 	}
- 
-@@ -1087,8 +1085,11 @@ int sdw_bus_exit_clk_stop(struct sdw_bus *bus)
- 	 * Don't wait for all Slaves to be ready if they follow the simple
- 	 * state machine
- 	 */
--	if (!simple_clk_stop)
--		sdw_bus_wait_for_clk_prep_deprep(bus, SDW_BROADCAST_DEV_NUM);
-+	if (!simple_clk_stop) {
-+		ret = sdw_bus_wait_for_clk_prep_deprep(bus, SDW_BROADCAST_DEV_NUM);
-+		if (ret < 0)
-+			dev_warn(&slave->dev, "clock stop deprepare wait failed:%d\n", ret);
-+	}
- 
- 	list_for_each_entry(slave, &bus->slaves, node) {
- 		if (!slave->dev_num)
-@@ -1098,8 +1099,10 @@ int sdw_bus_exit_clk_stop(struct sdw_bus *bus)
- 		    slave->status != SDW_SLAVE_ALERT)
- 			continue;
- 
--		sdw_slave_clk_stop_callback(slave, SDW_CLK_STOP_MODE0,
--					    SDW_CLK_POST_DEPREPARE);
-+		ret = sdw_slave_clk_stop_callback(slave, SDW_CLK_STOP_MODE0,
-+						  SDW_CLK_POST_DEPREPARE);
-+		if (ret < 0)
-+			dev_warn(&slave->dev, "clock stop post-deprepare cb failed:%d\n", ret);
- 	}
- 
- 	return 0;
+ static struct platform_driver sof_audio = {
+ 	.probe = sof_audio_probe,
 -- 
 2.30.2
 

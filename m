@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82F683C31FA
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:49:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95A0D3C31FE
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:50:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 20BB5177E;
-	Sat, 10 Jul 2021 04:49:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20BB5177E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2EFB51788;
+	Sat, 10 Jul 2021 04:49:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EFB51788
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625885390;
-	bh=+n1/4XMlfmFsUipY3kLBMgYRfPdExABVRKkyyRrAUhg=;
+	s=default; t=1625885434;
+	bh=L97dLeP6erxCCovARaRHBZiyyAeRSD+wLyweSRUnot8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=byOWvvpv3dE+47odUsmm9PleC7COSg2pv9W2GZOKm4JZA8gsjNbt2iULmr9gdNrxS
-	 dn2v4i7ZyHuKKpM7ALEFUdhQnm3398pfWdXgcLs/mLv5qEEKBajm8aeFMsA8sK0mcA
-	 5n3vPhjCQrQUYU2hmVLlAzIsq7f8z9tb+AV0qGv4=
+	b=nv0UYw/Z4UpPa4ncrndxyjd6wWLaj/BTSzTAZdw6Mnw9fzmMAk6KdnzG14yCsIQw7
+	 h0Eq+mfBk9Lj7WyWYb06/Qrizl7YkZK2L77rNJhcmOca4GyxuyCEOMosopRq0gz4eY
+	 GrIUEOfLAMSi60Scdje1kW0b+ocnUXXzWxaOf8PU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AC1C3F8053A;
-	Sat, 10 Jul 2021 04:35:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57A24F805AD;
+	Sat, 10 Jul 2021 04:35:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AE079F8057C; Sat, 10 Jul 2021 04:35:11 +0200 (CEST)
+ id 9FED8F80549; Sat, 10 Jul 2021 04:35:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,30 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 75482F80553
- for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:35:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75482F80553
+ by alsa1.perex.cz (Postfix) with ESMTPS id E779DF8053A
+ for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:35:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E779DF8053A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="R9TN/oK9"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 51F21613D4;
- Sat, 10 Jul 2021 02:35:00 +0000 (UTC)
+ header.b="UeeNOMWT"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 18FDA613EE;
+ Sat, 10 Jul 2021 02:35:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625884501;
- bh=+n1/4XMlfmFsUipY3kLBMgYRfPdExABVRKkyyRrAUhg=;
+ s=k20201202; t=1625884508;
+ bh=L97dLeP6erxCCovARaRHBZiyyAeRSD+wLyweSRUnot8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=R9TN/oK9CmnIDu0SXonOIbhlSIspZoeoO8CtvlTw1wY9L3srDwrboue+4knYGbrAA
- V2r4ljTobJV4iZ+EyvGcTKpMcFEZUnFMbPn8YxX5WfSmFfSinLrmzAOpyurU+Pn36R
- M0tGSmhDs7ErNvDxAkbh7qWvwJXfwXCk0yaL+Pjd81SzdWf0FV0DCyF6ltfXEtWY3b
- nq4kKV4EXXDCccK/5QuOi3/2Q4ogmKm6Wu3cH4euTYvUJVAomGAm69ABeU0MSlhRdX
- yeSpUau4iLtztO4fB1wV6rtNIVcGQnUbOPMbs12uT/d1hluANtQ9ifVkJWiv9eQPXM
- LhvKmCxuR6P4Q==
+ b=UeeNOMWTQMTvWk0JgSxlj6yJyHKsjny+e4Wf+XNMyLIqaT2YCSwiD6iWTQEGK8XtC
+ 408GyObvKqc7BQ2OA3nabFWzJdlmTz/5VAk/UFHbY0NQ0WSA7pv8KeZjjwdtmYEyBy
+ 8qtrcAXQvQ7OYEHUxYFMO0zyJRhEW30Y5d6HMG3Vf0cBSgPXZzCEkZfR9AR2JAmpHT
+ uVIPa2s7l+5Schlxon6AQFOTe8YOVbHAy4hPbvXCnjAIK1TZUoPq7KvBqUy06ydP3c
+ 8vheqkshtgkgApr8Pn6kV94Cv2j6D95gNrIGhMom/zBnWc0sd4UiqGpo0P3aLh39iK
+ 21MoiGpA+E+Bw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 29/39] ALSA: bebob: add support for ToneWeal FW66
-Date: Fri,  9 Jul 2021 22:31:54 -0400
-Message-Id: <20210710023204.3171428-29-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 34/39] ALSA: hda: Add IRQ check for
+ platform_get_irq()
+Date: Fri,  9 Jul 2021 22:31:59 -0400
+Message-Id: <20210710023204.3171428-34-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210710023204.3171428-1-sashal@kernel.org>
 References: <20210710023204.3171428-1-sashal@kernel.org>
@@ -65,8 +66,10 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org, Daniel Jozsef <daniel.jozsef@gmail.com>
+Cc: Sasha Levin <sashal@kernel.org>, Xin Tan <tanxin.ctf@gmail.com>,
+ Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+ Jiajun Cao <jjcao20@fudan.edu.cn>, linux-tegra@vger.kernel.org,
+ Thierry Reding <treding@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,103 +85,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+From: Jiajun Cao <jjcao20@fudan.edu.cn>
 
-[ Upstream commit 50ebe56222bfa0911a932930f9229ee5995508d9 ]
+[ Upstream commit 8c13212443230d03ff25014514ec0d53498c0912 ]
 
-A user of FFADO project reported the issue of ToneWeal FW66. As a result,
-the device is identified as one of applications of BeBoB solution.
+The function hda_tegra_first_init() neglects to check the return
+value after executing platform_get_irq().
 
-I note that in the report the device returns contradictory result in plug
-discovery process for audio subunit. Fortunately ALSA BeBoB driver doesn't
-perform it thus it's likely to handle the device without issues.
+hda_tegra_first_init() should check the return value (if negative
+error number) for errors so as to not pass a negative value to
+the devm_request_irq().
 
-I receive no reaction to test request for this patch yet, however it would
-be worth to add support for it.
+Fix it by adding a check for the return value irq_id.
 
-daniel@gibbonmoon:/sys/bus/firewire/devices/fw1$ grep -r . *
-Binary file config_rom matches
-dev:244:1
-guid:0x0023270002000000
-hardware_version:0x000002
-is_local:0
-model:0x020002
-model_name:FW66
-power/runtime_active_time:0
-power/runtime_active_kids:0
-power/runtime_usage:0
-power/runtime_status:unsupported
-power/async:disabled
-power/runtime_suspended_time:0
-power/runtime_enabled:disabled
-power/control:auto
-subsystem/drivers_autoprobe:1
-uevent:MAJOR=244
-uevent:MINOR=1
-uevent:DEVNAME=fw1
-units:0x00a02d:0x010001
-vendor:0x002327
-vendor_name:ToneWeal
-fw1.0/uevent:MODALIAS=ieee1394:ven00002327mo00020002sp0000A02Dver00010001
-fw1.0/power/runtime_active_time:0
-fw1.0/power/runtime_active_kids:0
-fw1.0/power/runtime_usage:0
-fw1.0/power/runtime_status:unsupported
-fw1.0/power/async:disabled
-fw1.0/power/runtime_suspended_time:0
-fw1.0/power/runtime_enabled:disabled
-fw1.0/power/control:auto
-fw1.0/model:0x020002
-fw1.0/rom_index:15
-fw1.0/specifier_id:0x00a02d
-fw1.0/model_name:FW66
-fw1.0/version:0x010001
-fw1.0/modalias:ieee1394:ven00002327mo00020002sp0000A02Dver00010001
-
-Cc: Daniel Jozsef <daniel.jozsef@gmail.com>
-Reference: https://lore.kernel.org/alsa-devel/20200119164335.GA11974@workstation/
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Link: https://lore.kernel.org/r/20210619083922.16060-1-o-takashi@sakamocchi.jp
+Signed-off-by: Jiajun Cao <jjcao20@fudan.edu.cn>
+Signed-off-by: Xin Tan <tanxin.ctf@gmail.com>
+Reviewed-by: Thierry Reding <treding@nvidia.com>
+Link: https://lore.kernel.org/r/20210622131947.94346-1-jjcao20@fudan.edu.cn
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/firewire/Kconfig       | 1 +
- sound/firewire/bebob/bebob.c | 3 +++
- 2 files changed, 4 insertions(+)
+ sound/pci/hda/hda_tegra.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/sound/firewire/Kconfig b/sound/firewire/Kconfig
-index 4e0e320b77d8..f7b26b1d7084 100644
---- a/sound/firewire/Kconfig
-+++ b/sound/firewire/Kconfig
-@@ -109,6 +109,7 @@ config SND_BEBOB
- 	  * M-Audio Ozonic/NRV10/ProfireLightBridge
- 	  * M-Audio FireWire 1814/ProjectMix IO
- 	  * Digidesign Mbox 2 Pro
-+	  * ToneWeal FW66
+diff --git a/sound/pci/hda/hda_tegra.c b/sound/pci/hda/hda_tegra.c
+index e85fb04ec7be..b567c4bdae00 100644
+--- a/sound/pci/hda/hda_tegra.c
++++ b/sound/pci/hda/hda_tegra.c
+@@ -363,6 +363,9 @@ static int hda_tegra_first_init(struct azx *chip, struct platform_device *pdev)
+ 	unsigned short gcap;
+ 	int irq_id = platform_get_irq(pdev, 0);
  
-           To compile this driver as a module, choose M here: the module
-           will be called snd-bebob.
-diff --git a/sound/firewire/bebob/bebob.c b/sound/firewire/bebob/bebob.c
-index 8073360581f4..eac3ff24e55d 100644
---- a/sound/firewire/bebob/bebob.c
-+++ b/sound/firewire/bebob/bebob.c
-@@ -60,6 +60,7 @@ static DECLARE_BITMAP(devices_used, SNDRV_CARDS);
- #define VEN_MAUDIO1	0x00000d6c
- #define VEN_MAUDIO2	0x000007f5
- #define VEN_DIGIDESIGN	0x00a07e
-+#define OUI_SHOUYO	0x002327
- 
- #define MODEL_FOCUSRITE_SAFFIRE_BOTH	0x00000000
- #define MODEL_MAUDIO_AUDIOPHILE_BOTH	0x00010060
-@@ -513,6 +514,8 @@ static const struct ieee1394_device_id bebob_id_table[] = {
- 			    &maudio_special_spec),
- 	/* Digidesign Mbox 2 Pro */
- 	SND_BEBOB_DEV_ENTRY(VEN_DIGIDESIGN, 0x0000a9, &spec_normal),
-+	// Toneweal FW66.
-+	SND_BEBOB_DEV_ENTRY(OUI_SHOUYO, 0x020002, &spec_normal),
- 	/* IDs are unknown but able to be supported */
- 	/*  Apogee, Mini-ME Firewire */
- 	/*  Apogee, Mini-DAC Firewire */
++	if (irq_id < 0)
++		return irq_id;
++
+ 	err = hda_tegra_init_chip(chip, pdev);
+ 	if (err)
+ 		return err;
 -- 
 2.30.2
 

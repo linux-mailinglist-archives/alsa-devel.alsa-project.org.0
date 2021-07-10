@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 268CA3C3154
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:48:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA89E3C3187
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:49:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C19B6177E;
-	Sat, 10 Jul 2021 04:48:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C19B6177E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 797B41762;
+	Sat, 10 Jul 2021 04:48:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 797B41762
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625885330;
-	bh=AoD/7CWDXvR+9ak/sKEZmG77jR/GQC1p+n/HlENlaC4=;
+	s=default; t=1625885349;
+	bh=e56wCNtzipbCruyvGQJOp9CBwWPfNJuoSaIZ7Nckhbc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FxXFPgZQLv8irDsrYm3k2yCnZl2f18rcdky16NByu1QpWXcF0qVJn7wnxwQ7rrxN/
-	 9XLlWi9UiCJonTfFQS7b/+7U+myABI8gfwzYncJgDP98hPEChaqsAwZpHHDYr03P7/
-	 DPEMXkIJLKy+MCyaz+wL/eU1DBjW1VqarHMisCOM=
+	b=TpY+ZIkiiSDzXMPbeNPsWzULxzv5N8bPa5whTTUKevUAsPtOqTmce2MisHtAekXya
+	 A7sT/6Z62Ywu/ytUxbGyueyGT4deMw7ZbSZVAbwPfodEH7WHxxAxruFsO6sg34MWFt
+	 xByDYMPYKJ8OL87b5kx/vpqbdbaSVONCrt/sjtcE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD083F8057A;
-	Sat, 10 Jul 2021 04:32:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2533F805AA;
+	Sat, 10 Jul 2021 04:32:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D7CB1F80589; Sat, 10 Jul 2021 04:32:20 +0200 (CEST)
+ id 34AD1F805A9; Sat, 10 Jul 2021 04:32:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00140F8057A
- for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:32:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00140F8057A
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3469F8059F
+ for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:32:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3469F8059F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="O/SFGDVe"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 39FFF613D3;
- Sat, 10 Jul 2021 02:32:15 +0000 (UTC)
+ header.b="AZs4rpum"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 66D6561421;
+ Sat, 10 Jul 2021 02:32:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625884335;
- bh=AoD/7CWDXvR+9ak/sKEZmG77jR/GQC1p+n/HlENlaC4=;
+ s=k20201202; t=1625884350;
+ bh=e56wCNtzipbCruyvGQJOp9CBwWPfNJuoSaIZ7Nckhbc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=O/SFGDVeo/SsBOA3ZyAK2JfixOFQSDo5mW1uZCreJA9u9MhlnTgoQotO31F/YD6si
- gR4esTJS4zc2pTG89P7MwAvwCq7c6LErGLDKm9GsTj+jZW34ErosGfpCw1t3szb5bZ
- wgoKUqZSc2LSwjVJTSfaZ3DI+hluPPeaoFTddem7jZjmn/+zdjpcVkLL6L8L9RjYGQ
- e3tblEAeDDxG01L5vkcl/x5Pg0fx3zB2cmZRAk/gYKKy/izhu2HvgbQc0IvEmVOq8t
- OsCsE+WbR9dwgx9RIi02amp0SmEH55LXDLKJzbfu7LP1v+EYYLLNifXWppSn74nyrV
- T1zn1ifARlQEA==
+ b=AZs4rpumhbBvM/b+vJamc5MAVt9nmGKq605h+9zVakS03U0PgfOlTXkxpFXirjBn5
+ LLBdjsqJ3zB+QeW03GEmBahOO/7nQ/4PBvFu52h9HtMERnQfJfun1/9sIOEvitgGq/
+ H8bSYvjyG/QvPuptfeYyzZTXPxLQ+t8jxY6JKRSTYJXsoVywSt2EXnvh+bM3ybwpLs
+ dMrDrlqEQfaX1p8c2NZ0oem+FDrqau1SMk963f+wbviDL26ocPOK/plMGNtosQWxq2
+ wPJSl8m9OPHDkdTLtoHDM4GPYQk0HQyBSm9UPvzISSUHVYj/FUM3XnqjumefcNmu8x
+ +jtxMdKuCfy5w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 09/39] ALSA: ac97: fix PM reference leak in
- ac97_bus_remove()
-Date: Fri,  9 Jul 2021 22:31:34 -0400
-Message-Id: <20210710023204.3171428-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 21/39] ALSA: sb: Fix potential double-free of CSP
+ mixer elements
+Date: Fri,  9 Jul 2021 22:31:46 -0400
+Message-Id: <20210710023204.3171428-21-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210710023204.3171428-1-sashal@kernel.org>
 References: <20210710023204.3171428-1-sashal@kernel.org>
@@ -66,9 +66,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Hulk Robot <hulkci@huawei.com>,
- alsa-devel@alsa-project.org, Yufen Yu <yuyufen@huawei.com>,
- Sasha Levin <sashal@kernel.org>
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,37 +83,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Yufen Yu <yuyufen@huawei.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit a38e93302ee25b2ca6f4ee76c6c974cf3637985e ]
+[ Upstream commit c305366a37441c2ac90b08711cb6f032b43672f2 ]
 
-pm_runtime_get_sync will increment pm usage counter even it failed.
-Forgetting to putting operation will result in reference leak here.
-Fix it by replacing it with pm_runtime_resume_and_get to keep usage
-counter balanced.
+snd_sb_qsound_destroy() contains the calls of removing the previously
+created mixer controls, but it doesn't clear the pointers.  As
+snd_sb_qsound_destroy() itself may be repeatedly called via ioctl,
+this could lead to double-free potentially.
 
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Yufen Yu <yuyufen@huawei.com>
-Link: https://lore.kernel.org/r/20210524093811.612302-1-yuyufen@huawei.com
+Fix it by clearing the struct fields properly afterwards.
+
+Link: https://lore.kernel.org/r/20210608140540.17885-4-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/ac97/bus.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/isa/sb/sb16_csp.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/sound/ac97/bus.c b/sound/ac97/bus.c
-index ca50ff444796..d8b227e6d4cf 100644
---- a/sound/ac97/bus.c
-+++ b/sound/ac97/bus.c
-@@ -523,7 +523,7 @@ static int ac97_bus_remove(struct device *dev)
- 	struct ac97_codec_driver *adrv = to_ac97_driver(dev->driver);
- 	int ret;
+diff --git a/sound/isa/sb/sb16_csp.c b/sound/isa/sb/sb16_csp.c
+index 2e00b64ef13b..b3eecde0b612 100644
+--- a/sound/isa/sb/sb16_csp.c
++++ b/sound/isa/sb/sb16_csp.c
+@@ -1086,10 +1086,14 @@ static void snd_sb_qsound_destroy(struct snd_sb_csp * p)
+ 	card = p->chip->card;	
+ 	
+ 	down_write(&card->controls_rwsem);
+-	if (p->qsound_switch)
++	if (p->qsound_switch) {
+ 		snd_ctl_remove(card, p->qsound_switch);
+-	if (p->qsound_space)
++		p->qsound_switch = NULL;
++	}
++	if (p->qsound_space) {
+ 		snd_ctl_remove(card, p->qsound_space);
++		p->qsound_space = NULL;
++	}
+ 	up_write(&card->controls_rwsem);
  
--	ret = pm_runtime_get_sync(dev);
-+	ret = pm_runtime_resume_and_get(dev);
- 	if (ret < 0)
- 		return ret;
- 
+ 	/* cancel pending transfer of QSound parameters */
 -- 
 2.30.2
 

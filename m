@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 008963C3003
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:42:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8409B3C3004
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:42:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 92626175C;
-	Sat, 10 Jul 2021 04:41:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92626175C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 24C791765;
+	Sat, 10 Jul 2021 04:41:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24C791765
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625884932;
-	bh=CW1WmbuVl1Tuj60stuh6NuzXVGlP0X1tiTCK37+XWn8=;
+	s=default; t=1625884937;
+	bh=Wc+8IUEWEbx56kg+jURITthTR5thKLxkWh0FSVlJrVk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kBkTS1IYuDbDlTA+gfbzG38b2JOZ6k663iDPhnl9UFNNT9cjTwqISrDaR2opt1tCx
-	 IWpS99DZYBba/rNkS3b0BqE99ho/9RL9DoPAA1YeI12TImRNc9/SrUCPjfVxSD8pJj
-	 RxSCAO45o+9TUpV9vS4q36M9fKjap2uRQcR9VgKA=
+	b=rDnz3JFIfGr9ByIAsG+DemSyA/vzEN+yLxokbHos0lD++uWFtNthIhldDqAOqd4oS
+	 UNYInj8gUevLMJx20RhNyxF1a9NDohmwjfEqShkTTZ7cfOAnJrScvbI9uPwfuefLj/
+	 vt9Tf6v5/0f43qQZzj4ri7d2myQNFFKaxXW0b3A8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77402F80614;
-	Sat, 10 Jul 2021 04:27:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65770F804E2;
+	Sat, 10 Jul 2021 04:27:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86374F804EC; Sat, 10 Jul 2021 04:26:57 +0200 (CEST)
+ id C0060F80613; Sat, 10 Jul 2021 04:26:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1667AF80609
- for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:26:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1667AF80609
+ by alsa1.perex.cz (Postfix) with ESMTPS id C238DF80610
+ for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:26:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C238DF80610
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RJIz0NEm"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0DD81613D1;
- Sat, 10 Jul 2021 02:26:51 +0000 (UTC)
+ header.b="npI42d2t"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4CEF6613F0;
+ Sat, 10 Jul 2021 02:26:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625884012;
- bh=CW1WmbuVl1Tuj60stuh6NuzXVGlP0X1tiTCK37+XWn8=;
+ s=k20201202; t=1625884014;
+ bh=Wc+8IUEWEbx56kg+jURITthTR5thKLxkWh0FSVlJrVk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=RJIz0NEmeuHE4si3NSRmtnVbRNFN4+nhFv1kwuks5tQD79MjAg508uCfb4HrFXVBn
- XR1TIc83AqfnMOogRV/lSVplqVX1PFOaCAwbd/aHVHQiFBMsjZid6iUC0Ag3Rrf42V
- LAHYwNQbVEQt56B9Z9YPT3aKGpUDNz/nqwxh9zLrCxqZSOHTmYnBs/oy167GbDmCOV
- gmvGKn8toD04J5KwbAzfdXaKSaJcpCxeKI3stc1iTVhrmvn6rLU2gRhSIP/o57hjqy
- lD55wVnH7UYUyzrwqhBzi290V4VzPJELm+ddj2rr9vJHC435+kZkO3LJp4eGCbq+fN
- apSkuziOYV/cA==
+ b=npI42d2tWdQ8PuIEKVQrxgnwUMeeePP9RpI5scXVPBIAtaUWjPzVHvDxQDFPt6jR0
+ FB6tTZ+fzS9OyymL6Ifbw+BAXfQS+fS14Lc9n8+GPvuULZio7OORYdwxCtrDlzD6sK
+ 5oYYs+mP8aWN0CiVpWDvSRqf/rrptm/aVWShFuTeAIeoduwB2Q6BJrwl7ykyasjioR
+ VDZjpmKiEcgUa8hbc8S/2LomMOQQrtM5Yz+aYhZ6CtwiL8w3M8hrzxZopU6OtIgFMx
+ fOvypUnuSab1ZCHEuz2D9SG0e2Px4Ykyf0fhkuKAuyFutvZGoFe1FzhPutWxd8eN9c
+ 7PXlwt6/DMxtw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 84/93] ALSA: usb-audio: scarlett2: Fix 6i6 Gen 2
- line out descriptions
-Date: Fri,  9 Jul 2021 22:24:18 -0400
-Message-Id: <20210710022428.3169839-84-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 85/93] ALSA: firewire-motu: fix detection for
+ S/PDIF source on optical interface in v2 protocol
+Date: Fri,  9 Jul 2021 22:24:19 -0400
+Message-Id: <20210710022428.3169839-85-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210710022428.3169839-1-sashal@kernel.org>
 References: <20210710022428.3169839-1-sashal@kernel.org>
@@ -67,7 +67,7 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org, "Geoffrey D. Bennett" <g@b4.vu>
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,40 +83,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: "Geoffrey D. Bennett" <g@b4.vu>
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-[ Upstream commit c712c6c0ff2d60478582e337185bcdd520a7dc2e ]
+[ Upstream commit fa4db23233eb912234bdfb0b26a38be079c6b5ea ]
 
-There are two headphone outputs, and they map to the four analogue
-outputs.
+The devices in protocol version 2 has a register with flag for IEC 60958
+signal detection as source of sampling clock without discrimination
+between coaxial and optical interfaces. On the other hand, current
+implementation of driver manage to interpret type of signal on optical
+interface instead.
 
-Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
-Link: https://lore.kernel.org/r/205e5e5348f08ded0cc4da5446f604d4b91db5bf.1624294591.git.g@b4.vu
+This commit fixes the detection of optical/coaxial interface for S/PDIF
+signal.
+
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Link: https://lore.kernel.org/r/20210623075941.72562-2-o-takashi@sakamocchi.jp
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/mixer_scarlett_gen2.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/firewire/motu/motu-protocol-v2.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
 
-diff --git a/sound/usb/mixer_scarlett_gen2.c b/sound/usb/mixer_scarlett_gen2.c
-index 6d7805d3c39a..d93ae8c244ba 100644
---- a/sound/usb/mixer_scarlett_gen2.c
-+++ b/sound/usb/mixer_scarlett_gen2.c
-@@ -254,10 +254,10 @@ static const struct scarlett2_device_info s6i6_gen2_info = {
- 	.pad_input_count = 2,
+diff --git a/sound/firewire/motu/motu-protocol-v2.c b/sound/firewire/motu/motu-protocol-v2.c
+index e59e69ab1538..f0d478c5edc8 100644
+--- a/sound/firewire/motu/motu-protocol-v2.c
++++ b/sound/firewire/motu/motu-protocol-v2.c
+@@ -86,24 +86,23 @@ static int detect_clock_source_optical_model(struct snd_motu *motu, u32 data,
+ 		*src = SND_MOTU_CLOCK_SOURCE_INTERNAL;
+ 		break;
+ 	case 1:
++		*src = SND_MOTU_CLOCK_SOURCE_ADAT_ON_OPT;
++		break;
++	case 2:
+ 	{
+ 		__be32 reg;
  
- 	.line_out_descrs = {
--		"Monitor L",
--		"Monitor R",
--		"Headphones L",
--		"Headphones R",
-+		"Headphones 1 L",
-+		"Headphones 1 R",
-+		"Headphones 2 L",
-+		"Headphones 2 R",
- 	},
+ 		// To check the configuration of optical interface.
+-		int err = snd_motu_transaction_read(motu, V2_IN_OUT_CONF_OFFSET,
+-						    &reg, sizeof(reg));
++		int err = snd_motu_transaction_read(motu, V2_IN_OUT_CONF_OFFSET, &reg, sizeof(reg));
+ 		if (err < 0)
+ 			return err;
  
- 	.ports = {
+-		if (be32_to_cpu(reg) & 0x00000200)
++		if (((data & V2_OPT_IN_IFACE_MASK) >> V2_OPT_IN_IFACE_SHIFT) == V2_OPT_IFACE_MODE_SPDIF)
+ 			*src = SND_MOTU_CLOCK_SOURCE_SPDIF_ON_OPT;
+ 		else
+-			*src = SND_MOTU_CLOCK_SOURCE_ADAT_ON_OPT;
++			*src = SND_MOTU_CLOCK_SOURCE_SPDIF_ON_COAX;
+ 		break;
+ 	}
+-	case 2:
+-		*src = SND_MOTU_CLOCK_SOURCE_SPDIF_ON_COAX;
+-		break;
+ 	case 3:
+ 		*src = SND_MOTU_CLOCK_SOURCE_SPH;
+ 		break;
 -- 
 2.30.2
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C33CE3C300C
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:45:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D9133C300D
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:45:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 67D111711;
-	Sat, 10 Jul 2021 04:44:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67D111711
+	by alsa0.perex.cz (Postfix) with ESMTPS id F239E1752;
+	Sat, 10 Jul 2021 04:44:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F239E1752
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625885107;
-	bh=aNgvai2dHUFLmKna88+VloTUFYnAA2YEoAtKk5xaEIQ=;
+	s=default; t=1625885123;
+	bh=gQzsgDPXcbcYollQuPdz1JDbABIJHDdOb+hjNlPbhik=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Nblxl5rWYm68Yv1soRTB4bzot3y5INbDlA7fus1UGBWLHORc+QAquBsfWTZif44fn
-	 G4DvHEaywztmZMERCOisCh9bZHoDFRiXck8ZKIATx2w0KxbAsVUNrIJkvZwW/ZEsUv
-	 58jsot0e3LjsHbh8WrZXrLvYAb6PgownwDxIt8HE=
+	b=XZ9AFEiJh7skLmwphHjvMniUvAv+nwAWpctzQvTQIF/aRkFeuP4frrdslEMTnOGj+
+	 jXM722Tw9iB/1p3shloj5XkNdMGtbYgB5/dpudn3GvhnjYDtdDtG2rd0q+8aIqz3hr
+	 Oo+VmY6gX/UAJ7sW18KIGPtg6bpRAd+G2Yi+CsXg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E6A3F80633;
-	Sat, 10 Jul 2021 04:28:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34963F804FB;
+	Sat, 10 Jul 2021 04:31:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C709F804DA; Sat, 10 Jul 2021 04:28:09 +0200 (CEST)
+ id 154C5F804ED; Sat, 10 Jul 2021 04:31:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A38E8F80516
- for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:28:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A38E8F80516
+ by alsa1.perex.cz (Postfix) with ESMTPS id 70A6BF802BE
+ for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:31:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70A6BF802BE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="i0Dqnz/k"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id DD9276143E;
- Sat, 10 Jul 2021 02:27:58 +0000 (UTC)
+ header.b="jpNN2G/b"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D4A07613C8;
+ Sat, 10 Jul 2021 02:31:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625884079;
- bh=aNgvai2dHUFLmKna88+VloTUFYnAA2YEoAtKk5xaEIQ=;
+ s=k20201202; t=1625884296;
+ bh=gQzsgDPXcbcYollQuPdz1JDbABIJHDdOb+hjNlPbhik=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=i0Dqnz/kQ3fmjYrpX4SiVF0d4yYS4M/e5yYYyyI5pkGHLmXSkZekgG1czlZVvf3rV
- r4MCe78oWiJ+swihJ3EgXI9yb2+7plLypcg4wWZZWk9XFc6H1DlmASaRVn/HcLF2OJ
- KauzWNVG2GTmY0zW9ka3IglHCZbDcqgAJZ9CsPNQlhtYTjGFDPxxr5VWptweW+tC7h
- ikFaNowB8z4NzGFWc3pC5O0hZgANh2hxSbyUfR7aXsaQoBP4S4RmQX2XgSdyO0vs5d
- Ci4xpRi0zGeLAGgpvp/ppMTGt1R1sBye33/tHaWhApPbY+6BlrGLa58Fs9ircUPjMo
- zHQM0ZMo+usBw==
+ b=jpNN2G/bLEfrpAJVP2lT4hoJ26y4JUU7l8kbN/XOIZ51J2a4uZti4d4UmZak9nhVV
+ NjaGJh5thSlT7hebKcgTNzVLDxC790T4syU7Iio7iFwkHJffKMh2R5+JKnMZqUCamL
+ ar47f1D7+RR3xFBsHHPG3xvk8uk6SOQXswVI1kI2mon6W79j37yChQFhmqfGgQvoR8
+ 2XlxnTjsIHtV3RB0Hk/TSgUrDz6N19is5vgh9wemZ/cKRcy5DB2ANecz+LM2iwQznV
+ lhn4foncnl+LXu2A6LpgZmVYLHccqzTZohvsx3ZoYLhDK+D9lpxRfHIF8G0T9RdKNE
+ RQBuyIJ8h9TyA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 39/63] ALSA: ppc: fix error return code in
- snd_pmac_probe()
-Date: Fri,  9 Jul 2021 22:26:45 -0400
-Message-Id: <20210710022709.3170675-39-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 42/63] ASoC: soc-core: Fix the error return code
+ in snd_soc_of_parse_audio_routing()
+Date: Fri,  9 Jul 2021 22:26:48 -0400
+Message-Id: <20210710022709.3170675-42-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210710022709.3170675-1-sashal@kernel.org>
 References: <20210710022709.3170675-1-sashal@kernel.org>
@@ -67,8 +67,7 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.de>, Hulk Robot <hulkci@huawei.com>,
- Yang Yingliang <yangyingliang@huawei.com>, linuxppc-dev@lists.ozlabs.org
+ Mark Brown <broonie@kernel.org>, Zhen Lei <thunder.leizhen@huawei.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,39 +83,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Yang Yingliang <yangyingliang@huawei.com>
+From: Zhen Lei <thunder.leizhen@huawei.com>
 
-[ Upstream commit 80b9c1be567c3c6bbe0d4b290af578e630485b5d ]
+[ Upstream commit 7d3865a10b9ff2669c531d5ddd60bf46b3d48f1e ]
 
-If snd_pmac_tumbler_init() or snd_pmac_tumbler_post_init() fails,
-snd_pmac_probe() need return error code.
+When devm_kcalloc() fails, the error code -ENOMEM should be returned
+instead of -EINVAL.
 
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
-Link: https://lore.kernel.org/r/20210616021121.1991502-1-yangyingliang@huawei.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
+Link: https://lore.kernel.org/r/20210617103729.1918-1-thunder.leizhen@huawei.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/ppc/powermac.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ sound/soc/soc-core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/ppc/powermac.c b/sound/ppc/powermac.c
-index 96ef55082bf9..b135d114ce89 100644
---- a/sound/ppc/powermac.c
-+++ b/sound/ppc/powermac.c
-@@ -77,7 +77,11 @@ static int snd_pmac_probe(struct platform_device *devptr)
- 		sprintf(card->shortname, "PowerMac %s", name_ext);
- 		sprintf(card->longname, "%s (Dev %d) Sub-frame %d",
- 			card->shortname, chip->device_id, chip->subframe);
--		if ( snd_pmac_tumbler_init(chip) < 0 || snd_pmac_tumbler_post_init() < 0)
-+		err = snd_pmac_tumbler_init(chip);
-+		if (err < 0)
-+			goto __error;
-+		err = snd_pmac_tumbler_post_init();
-+		if (err < 0)
- 			goto __error;
- 		break;
- 	case PMAC_AWACS:
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 9df20768a8f2..c0e03cc8ea82 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -3178,7 +3178,7 @@ int snd_soc_of_parse_audio_routing(struct snd_soc_card *card,
+ 	if (!routes) {
+ 		dev_err(card->dev,
+ 			"ASoC: Could not allocate DAPM route table\n");
+-		return -EINVAL;
++		return -ENOMEM;
+ 	}
+ 
+ 	for (i = 0; i < num_routes; i++) {
 -- 
 2.30.2
 

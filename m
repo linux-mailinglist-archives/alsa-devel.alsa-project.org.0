@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 573A33C308A
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:47:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFB7F3C30D1
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:48:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DCFB61773;
-	Sat, 10 Jul 2021 04:46:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCFB61773
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F5EC1763;
+	Sat, 10 Jul 2021 04:47:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F5EC1763
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625885256;
-	bh=XR3dWfvD9cMKxo2cyYHMTS9Hz+WqHyups7DSJhlqi0c=;
+	s=default; t=1625885283;
+	bh=7iLZnB+H2+FdhJR40Zgrh0rpjt5NcQ0fU7XtOb7D+Bs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rRUWY3bPOugvt3G5VqllUSuCYqz5IhS7TH9cufHgy8VqM8o4OCXbefcqHfwMZosT+
-	 0AsAhVHqpjhfs4FU89acU6R19ZiPiR9fPuxY9fzfSdI6CnNQUPDcN7tze+tmq6nFYq
-	 MuLN9lrSWh3PDKZH56GGcc4tZJyqt+GIek99Xj2Y=
+	b=eOTCQrLN593TmH0MTcUpka5bMjsbWJyw237WH00Zwi+O1/cbYwr2batF2hKTErods
+	 iIuXHy7tgeXmTF8+4IXmq8ysIsWPR7htq4YuiS2sJmxPmul/mkcvFEBxcUZCKNIgSZ
+	 v1KscyafIpRYeRP50vyqme8xgfLsOE6ikwbKnlE8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C65A7F80516;
-	Sat, 10 Jul 2021 04:32:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B279F80579;
+	Sat, 10 Jul 2021 04:32:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 416B0F80527; Sat, 10 Jul 2021 04:32:03 +0200 (CEST)
+ id 78031F80548; Sat, 10 Jul 2021 04:32:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8524FF8052D
- for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:31:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8524FF8052D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 84FDFF8052E
+ for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:31:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84FDFF8052E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Ms1fBD+V"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 23777613F4;
- Sat, 10 Jul 2021 02:31:54 +0000 (UTC)
+ header.b="d41vSwrM"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 82469613BE;
+ Sat, 10 Jul 2021 02:31:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625884315;
- bh=XR3dWfvD9cMKxo2cyYHMTS9Hz+WqHyups7DSJhlqi0c=;
+ s=k20201202; t=1625884316;
+ bh=7iLZnB+H2+FdhJR40Zgrh0rpjt5NcQ0fU7XtOb7D+Bs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Ms1fBD+VqcKNM1xYpUTDBqaVvIhcXFr4GTFPQd8Z5r6rP/OL7kl984339rCnbRf4i
- EAzq0+cgLt+xAJbyiQoPSGOfFS6JHEK8AewRwPRlIrvorvVswA8Ki1naI9dytaZsKC
- S+boP/iKao2Sd/gCKQbECXcVArqircWcTmhhtr6Cu8wPTrpznVXGzQaPU3hKT1tSwr
- qC4JZuk5+8IAFgcvIeUffNQR6fToo0odelURE5FU+/TtZVpt8gsJxD7UlLNIIzMhfi
- /HtuKuJZ/IwSm36qGdp6oPvDFaVBIRyVhtHYEf76qkbMQ3G7InEAOZBnVC9GGN8hgy
- ZYsxtXBAJi4fQ==
+ b=d41vSwrMAe5JrG7+dnfghRQLDmFmJqcBQho4+q1MplO5cn0TvChai2ZQvFvIaDiLz
+ KQK5LJmr+5XW1+t88/CaikxNBBXcUxu/aEniNcIzyNb7W2ph8s9Wwcl9Ve65Z/Z/T0
+ XePnoyiUGCrCrFhPkeilBAgufEhqaijX/FPMG+HljZcGENNAK3lCZBO2tyCoITV0cJ
+ +78vbAVvlCjYAlPNlxBedxIhKOCmg5tcTDfK2lAfcx6V+2JFdDkQAcBUQulCQOTX3l
+ N4xUiHNeYw6GKjCHrIuL+ttXeyM32ZHoenD04+mmz+vyasxWTZ3CnDMPy6gofU8P5M
+ WbkPS5pbfLyTg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 57/63] ALSA: hda: Add IRQ check for
- platform_get_irq()
-Date: Fri,  9 Jul 2021 22:27:03 -0400
-Message-Id: <20210710022709.3170675-57-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 58/63] ALSA: usb-audio: scarlett2: Fix 6i6 Gen 2
+ line out descriptions
+Date: Fri,  9 Jul 2021 22:27:04 -0400
+Message-Id: <20210710022709.3170675-58-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210710022709.3170675-1-sashal@kernel.org>
 References: <20210710022709.3170675-1-sashal@kernel.org>
@@ -66,10 +66,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, Xin Tan <tanxin.ctf@gmail.com>,
- Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- Jiajun Cao <jjcao20@fudan.edu.cn>, linux-tegra@vger.kernel.org,
- Thierry Reding <treding@nvidia.com>
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org, "Geoffrey D. Bennett" <g@b4.vu>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,43 +83,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Jiajun Cao <jjcao20@fudan.edu.cn>
+From: "Geoffrey D. Bennett" <g@b4.vu>
 
-[ Upstream commit 8c13212443230d03ff25014514ec0d53498c0912 ]
+[ Upstream commit c712c6c0ff2d60478582e337185bcdd520a7dc2e ]
 
-The function hda_tegra_first_init() neglects to check the return
-value after executing platform_get_irq().
+There are two headphone outputs, and they map to the four analogue
+outputs.
 
-hda_tegra_first_init() should check the return value (if negative
-error number) for errors so as to not pass a negative value to
-the devm_request_irq().
-
-Fix it by adding a check for the return value irq_id.
-
-Signed-off-by: Jiajun Cao <jjcao20@fudan.edu.cn>
-Signed-off-by: Xin Tan <tanxin.ctf@gmail.com>
-Reviewed-by: Thierry Reding <treding@nvidia.com>
-Link: https://lore.kernel.org/r/20210622131947.94346-1-jjcao20@fudan.edu.cn
+Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
+Link: https://lore.kernel.org/r/205e5e5348f08ded0cc4da5446f604d4b91db5bf.1624294591.git.g@b4.vu
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/hda_tegra.c | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/usb/mixer_scarlett_gen2.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/pci/hda/hda_tegra.c b/sound/pci/hda/hda_tegra.c
-index e378cb33c69d..2971b34c87c1 100644
---- a/sound/pci/hda/hda_tegra.c
-+++ b/sound/pci/hda/hda_tegra.c
-@@ -292,6 +292,9 @@ static int hda_tegra_first_init(struct azx *chip, struct platform_device *pdev)
- 	const char *sname, *drv_name = "tegra-hda";
- 	struct device_node *np = pdev->dev.of_node;
+diff --git a/sound/usb/mixer_scarlett_gen2.c b/sound/usb/mixer_scarlett_gen2.c
+index 8fd1f948a892..ddab4c77a690 100644
+--- a/sound/usb/mixer_scarlett_gen2.c
++++ b/sound/usb/mixer_scarlett_gen2.c
+@@ -254,10 +254,10 @@ static const struct scarlett2_device_info s6i6_gen2_info = {
+ 	.pad_input_count = 2,
  
-+	if (irq_id < 0)
-+		return irq_id;
-+
- 	err = hda_tegra_init_chip(chip, pdev);
- 	if (err)
- 		return err;
+ 	.line_out_descrs = {
+-		"Monitor L",
+-		"Monitor R",
+-		"Headphones L",
+-		"Headphones R",
++		"Headphones 1 L",
++		"Headphones 1 R",
++		"Headphones 2 L",
++		"Headphones 2 R",
+ 	},
+ 
+ 	.ports = {
 -- 
 2.30.2
 

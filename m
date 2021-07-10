@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 378233C3053
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:47:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 573A33C308A
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:47:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CEF23176D;
-	Sat, 10 Jul 2021 04:46:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEF23176D
+	by alsa0.perex.cz (Postfix) with ESMTPS id DCFB61773;
+	Sat, 10 Jul 2021 04:46:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCFB61773
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625885236;
-	bh=BFDZWyFDejNApuddo9CBi3V3azu9osoEkmjq24ItQOo=;
+	s=default; t=1625885256;
+	bh=XR3dWfvD9cMKxo2cyYHMTS9Hz+WqHyups7DSJhlqi0c=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oFiU4ywWar9+KobXFXoNK1KKrvJ2nAm9FeTNRC2rKF3MIqWp/zbOQj/xo+IZmWj7q
-	 FwmIrZWKLOq9V166Up056UiA8oJxQ30fINTTQ2KhhZSphDOd50TCUbNFSmvuJ/KcOY
-	 Rg9SzfN/AiNwdZegJhkQ3TSF2vA/St31nrzrYIQ8=
+	b=rRUWY3bPOugvt3G5VqllUSuCYqz5IhS7TH9cufHgy8VqM8o4OCXbefcqHfwMZosT+
+	 0AsAhVHqpjhfs4FU89acU6R19ZiPiR9fPuxY9fzfSdI6CnNQUPDcN7tze+tmq6nFYq
+	 MuLN9lrSWh3PDKZH56GGcc4tZJyqt+GIek99Xj2Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30299F80543;
-	Sat, 10 Jul 2021 04:32:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C65A7F80516;
+	Sat, 10 Jul 2021 04:32:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 93602F8053B; Sat, 10 Jul 2021 04:32:00 +0200 (CEST)
+ id 416B0F80527; Sat, 10 Jul 2021 04:32:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 51494F8051E
- for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:31:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51494F8051E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8524FF8052D
+ for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:31:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8524FF8052D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="PMwSqhAa"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6EED5613E8;
- Sat, 10 Jul 2021 02:31:51 +0000 (UTC)
+ header.b="Ms1fBD+V"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 23777613F4;
+ Sat, 10 Jul 2021 02:31:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625884312;
- bh=BFDZWyFDejNApuddo9CBi3V3azu9osoEkmjq24ItQOo=;
+ s=k20201202; t=1625884315;
+ bh=XR3dWfvD9cMKxo2cyYHMTS9Hz+WqHyups7DSJhlqi0c=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PMwSqhAaZIU05uaLNw59CrXDVB281Z/S1Usd0HatvjRSHaRtKNZFLArdtdP0ftaOF
- 5PujPOjyxjYL7I3AZnD+WYmHnEl0Z7/ykj0s+7A/7owNqsvooUXnggDb9FK49MG1au
- Zy1EiMVOR7mBTZgq0CjITt6+PBBIj8YLqHYtjN68PU2T0XgAB0smKJOvZ6LCmrUf5U
- sLm3FgsuCWsKmtdZmYlJJpN0zK/6us0TR8nSGZsn6mvcRJsAiHRwevin0Zrf0Cc3hz
- wPjpPAoqQYV/tBhVEqbPFkcy6iQGw7v61ePDOQDEviz9A10rhAcGPYbYoHOezDgiBA
- PV0J2lBj/+0gg==
+ b=Ms1fBD+VqcKNM1xYpUTDBqaVvIhcXFr4GTFPQd8Z5r6rP/OL7kl984339rCnbRf4i
+ EAzq0+cgLt+xAJbyiQoPSGOfFS6JHEK8AewRwPRlIrvorvVswA8Ki1naI9dytaZsKC
+ S+boP/iKao2Sd/gCKQbECXcVArqircWcTmhhtr6Cu8wPTrpznVXGzQaPU3hKT1tSwr
+ qC4JZuk5+8IAFgcvIeUffNQR6fToo0odelURE5FU+/TtZVpt8gsJxD7UlLNIIzMhfi
+ /HtuKuJZ/IwSm36qGdp6oPvDFaVBIRyVhtHYEf76qkbMQ3G7InEAOZBnVC9GGN8hgy
+ ZYsxtXBAJi4fQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 55/63] ASoC: Intel: kbl_da7219_max98357a: shrink
- platform_id below 20 characters
-Date: Fri,  9 Jul 2021 22:27:01 -0400
-Message-Id: <20210710022709.3170675-55-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 57/63] ALSA: hda: Add IRQ check for
+ platform_get_irq()
+Date: Fri,  9 Jul 2021 22:27:03 -0400
+Message-Id: <20210710022709.3170675-57-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210710022709.3170675-1-sashal@kernel.org>
 References: <20210710022709.3170675-1-sashal@kernel.org>
@@ -66,12 +66,10 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>,
- Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Rander Wang <rander.wang@intel.com>, Mark Brown <broonie@kernel.org>,
- Paul Olaru <paul.olaru@oss.nxp.com>
+Cc: Sasha Levin <sashal@kernel.org>, Xin Tan <tanxin.ctf@gmail.com>,
+ Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+ Jiajun Cao <jjcao20@fudan.edu.cn>, linux-tegra@vger.kernel.org,
+ Thierry Reding <treding@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,61 +85,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+From: Jiajun Cao <jjcao20@fudan.edu.cn>
 
-[ Upstream commit 94efd726b947f265bd313605c9f73edec5469d65 ]
+[ Upstream commit 8c13212443230d03ff25014514ec0d53498c0912 ]
 
-Sparse throws the following warnings:
+The function hda_tegra_first_init() neglects to check the return
+value after executing platform_get_irq().
 
-sound/soc/intel/boards/kbl_da7219_max98357a.c:647:25: error: too long
-initializer-string for array of char(no space for nul char)
+hda_tegra_first_init() should check the return value (if negative
+error number) for errors so as to not pass a negative value to
+the devm_request_irq().
 
-Fix by using the 'mx' acronym for Maxim.
+Fix it by adding a check for the return value irq_id.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Paul Olaru <paul.olaru@oss.nxp.com>
-Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Link: https://lore.kernel.org/r/20210621194057.21711-6-pierre-louis.bossart@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Jiajun Cao <jjcao20@fudan.edu.cn>
+Signed-off-by: Xin Tan <tanxin.ctf@gmail.com>
+Reviewed-by: Thierry Reding <treding@nvidia.com>
+Link: https://lore.kernel.org/r/20210622131947.94346-1-jjcao20@fudan.edu.cn
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/kbl_da7219_max98357a.c     | 4 ++--
- sound/soc/intel/common/soc-acpi-intel-kbl-match.c | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ sound/pci/hda/hda_tegra.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/sound/soc/intel/boards/kbl_da7219_max98357a.c b/sound/soc/intel/boards/kbl_da7219_max98357a.c
-index 537a88932bb6..69362eae65be 100644
---- a/sound/soc/intel/boards/kbl_da7219_max98357a.c
-+++ b/sound/soc/intel/boards/kbl_da7219_max98357a.c
-@@ -607,7 +607,7 @@ static int kabylake_audio_probe(struct platform_device *pdev)
+diff --git a/sound/pci/hda/hda_tegra.c b/sound/pci/hda/hda_tegra.c
+index e378cb33c69d..2971b34c87c1 100644
+--- a/sound/pci/hda/hda_tegra.c
++++ b/sound/pci/hda/hda_tegra.c
+@@ -292,6 +292,9 @@ static int hda_tegra_first_init(struct azx *chip, struct platform_device *pdev)
+ 	const char *sname, *drv_name = "tegra-hda";
+ 	struct device_node *np = pdev->dev.of_node;
  
- static const struct platform_device_id kbl_board_ids[] = {
- 	{
--		.name = "kbl_da7219_max98357a",
-+		.name = "kbl_da7219_mx98357a",
- 		.driver_data =
- 			(kernel_ulong_t)&kabylake_audio_card_da7219_m98357a,
- 	},
-@@ -629,4 +629,4 @@ module_platform_driver(kabylake_audio)
- MODULE_DESCRIPTION("Audio Machine driver-DA7219 & MAX98357A in I2S mode");
- MODULE_AUTHOR("Naveen Manohar <naveen.m@intel.com>");
- MODULE_LICENSE("GPL v2");
--MODULE_ALIAS("platform:kbl_da7219_max98357a");
-+MODULE_ALIAS("platform:kbl_da7219_mx98357a");
-diff --git a/sound/soc/intel/common/soc-acpi-intel-kbl-match.c b/sound/soc/intel/common/soc-acpi-intel-kbl-match.c
-index e200baa11011..df7f82e55a5a 100644
---- a/sound/soc/intel/common/soc-acpi-intel-kbl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-kbl-match.c
-@@ -113,7 +113,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_kbl_machines[] = {
- 	},
- 	{
- 		.id = "DLGS7219",
--		.drv_name = "kbl_da7219_max98373",
-+		.drv_name = "kbl_da7219_mx98373",
- 		.fw_filename = "intel/dsp_fw_kbl.bin",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &kbl_7219_98373_codecs,
++	if (irq_id < 0)
++		return irq_id;
++
+ 	err = hda_tegra_init_chip(chip, pdev);
+ 	if (err)
+ 		return err;
 -- 
 2.30.2
 

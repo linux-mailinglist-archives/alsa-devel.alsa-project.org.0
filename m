@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55CA63C2FD3
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:34:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 080143C2FD4
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:35:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 027591719;
-	Sat, 10 Jul 2021 04:33:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 027591719
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A2661713;
+	Sat, 10 Jul 2021 04:34:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A2661713
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625884474;
-	bh=Wc+8IUEWEbx56kg+jURITthTR5thKLxkWh0FSVlJrVk=;
+	s=default; t=1625884500;
+	bh=kvkLs685eFT6dM8/Pp9RjI0u6Bc7fh639L1tMZLSdiA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eEL8aZcOKMRfY3Ot5ECqqua0inz1MK31zYc7QCKxML+hVfMoGJKZu4GHi+KFqYHzH
-	 JJr1hlTM/2IJ9t2F4a2E1XTtQ+ehCMRdnAHU9uS+MZ/zKxP92XVrz47uGaQ93elqLQ
-	 /TW+ScFRN/JyJ56xWHJyFBJE0S/GzpQRwCNmLtrE=
+	b=esW/Jij4DOp/GTY5KyzOWd20Yc6s8aXUQX3hZvmTnciNxPolmtkYm3P+3FTpYXhW/
+	 y34FSI0iOsbWcTBKCpQKYIkiozngF8kXnWqSWAkNPKALYQk0oegfMLd6bszLDkXDWj
+	 bk85PI2YcyMmCOwHWg9eARoNUj9Su8Y828cWq2PY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8259CF805C3;
-	Sat, 10 Jul 2021 04:24:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 81C08F805D6;
+	Sat, 10 Jul 2021 04:24:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B3B78F805AC; Sat, 10 Jul 2021 04:24:20 +0200 (CEST)
+ id 840F0F80559; Sat, 10 Jul 2021 04:24:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 60505F805AD
- for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:24:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60505F805AD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 94254F805BB
+ for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:24:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94254F805BB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="R7js9x72"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id BDA1E613E4;
- Sat, 10 Jul 2021 02:24:12 +0000 (UTC)
+ header.b="EuKrN5DD"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C512E613AF;
+ Sat, 10 Jul 2021 02:24:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625883853;
- bh=Wc+8IUEWEbx56kg+jURITthTR5thKLxkWh0FSVlJrVk=;
+ s=k20201202; t=1625883871;
+ bh=kvkLs685eFT6dM8/Pp9RjI0u6Bc7fh639L1tMZLSdiA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=R7js9x72hBbk8INvcrpn3dcCupFVsm7rBDYmuCLLXU/EOm4vsoUokqcPAocg1Fc4+
- gdy6Ritl7bD7RUXklKh4bBe3i7QHKbuVD2QrOBsXwsEmti8w/rTyHHBV1kftRZH2//
- yRYxlELctSUUGm9T/Z0PyJU6AxTKh4F14KWA9tKJ98aI6cJXLJujZcSwpSnjyUHzun
- 37AxMuF1Ui2bxI66SC24H+gaTnrB6PxQGUhPtml6J1nYOPuZtJEjNVpYXyCRx+HMbc
- AIZZrCWBt27andXw28u257iT4U9PRFkIM2PVtA183sKg2CU2szcZTu1i69BObGPWql
- jNPiQ17D/oXGQ==
+ b=EuKrN5DDJC5KTyrSrNjoWOsNldrWM4btC9O2Z92jp/HuF4klMPQoW/spLRx4zxbOk
+ 9WJzyzbPqGKD6VkZYdovoIoZRlQ2kyoiW5Uim86XxlFP9gcOEn38EsnhtLtlHIrQAL
+ QiaLP6p78I340NJYEuLFhVmSgbEBsZ8pFWSHWxmwHhfVqTL4CvK1iREZtdpwd4UKr9
+ LzDUmJBfuYYWm6jWlfY0qKtCjyt84C4hiekyjA8Y9ABLnPmSnVznyxYyeGBWdsJM4d
+ UVICiMcTsaqE00cPpgnX19sqyPv3nOgTcbr3iVjaym2r8YKrTohwJ6ptzLARlbyA5i
+ Gsdyf27V9Fmsw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.12 096/104] ALSA: firewire-motu: fix detection for
- S/PDIF source on optical interface in v2 protocol
-Date: Fri,  9 Jul 2021 22:21:48 -0400
-Message-Id: <20210710022156.3168825-96-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 02/93] ASoC: Intel: sof_sdw: add mutual exclusion
+ between PCH DMIC and RT715
+Date: Fri,  9 Jul 2021 22:22:56 -0400
+Message-Id: <20210710022428.3169839-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210710022156.3168825-1-sashal@kernel.org>
-References: <20210710022156.3168825-1-sashal@kernel.org>
+In-Reply-To: <20210710022428.3169839-1-sashal@kernel.org>
+References: <20210710022428.3169839-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org
+Cc: Libin Yang <libin.yang@intel.com>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,62 +85,132 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit fa4db23233eb912234bdfb0b26a38be079c6b5ea ]
+[ Upstream commit 35564e2bf94611c3eb51d35362addb3cb394ad54 ]
 
-The devices in protocol version 2 has a register with flag for IEC 60958
-signal detection as source of sampling clock without discrimination
-between coaxial and optical interfaces. On the other hand, current
-implementation of driver manage to interpret type of signal on optical
-interface instead.
+When external RT714/715 devices are used for capture, we don't want
+the PCH DMICs to be used.
 
-This commit fixes the detection of optical/coaxial interface for S/PDIF
-signal.
+Any information provided by the SOF platform driver or DMI quirks will
+be overridden.
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Link: https://lore.kernel.org/r/20210623075941.72562-2-o-takashi@sakamocchi.jp
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Libin Yang <libin.yang@intel.com>
+Link: https://lore.kernel.org/r/20210505163705.305616-5-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/firewire/motu/motu-protocol-v2.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
+ sound/soc/intel/boards/sof_sdw.c        | 19 +++++++++++++++++--
+ sound/soc/intel/boards/sof_sdw_common.h |  1 +
+ 2 files changed, 18 insertions(+), 2 deletions(-)
 
-diff --git a/sound/firewire/motu/motu-protocol-v2.c b/sound/firewire/motu/motu-protocol-v2.c
-index e59e69ab1538..f0d478c5edc8 100644
---- a/sound/firewire/motu/motu-protocol-v2.c
-+++ b/sound/firewire/motu/motu-protocol-v2.c
-@@ -86,24 +86,23 @@ static int detect_clock_source_optical_model(struct snd_motu *motu, u32 data,
- 		*src = SND_MOTU_CLOCK_SOURCE_INTERNAL;
- 		break;
- 	case 1:
-+		*src = SND_MOTU_CLOCK_SOURCE_ADAT_ON_OPT;
-+		break;
-+	case 2:
- 	{
- 		__be32 reg;
+diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
+index 9dc982c2c776..53c9b47d1ad4 100644
+--- a/sound/soc/intel/boards/sof_sdw.c
++++ b/sound/soc/intel/boards/sof_sdw.c
+@@ -353,6 +353,7 @@ static struct sof_sdw_codec_info codec_info_list[] = {
+ 		.part_id = 0x714,
+ 		.version_id = 3,
+ 		.direction = {false, true},
++		.ignore_pch_dmic = true,
+ 		.dai_name = "rt715-aif2",
+ 		.init = sof_sdw_rt715_sdca_init,
+ 	},
+@@ -360,6 +361,7 @@ static struct sof_sdw_codec_info codec_info_list[] = {
+ 		.part_id = 0x715,
+ 		.version_id = 3,
+ 		.direction = {false, true},
++		.ignore_pch_dmic = true,
+ 		.dai_name = "rt715-aif2",
+ 		.init = sof_sdw_rt715_sdca_init,
+ 	},
+@@ -367,6 +369,7 @@ static struct sof_sdw_codec_info codec_info_list[] = {
+ 		.part_id = 0x714,
+ 		.version_id = 2,
+ 		.direction = {false, true},
++		.ignore_pch_dmic = true,
+ 		.dai_name = "rt715-aif2",
+ 		.init = sof_sdw_rt715_init,
+ 	},
+@@ -374,6 +377,7 @@ static struct sof_sdw_codec_info codec_info_list[] = {
+ 		.part_id = 0x715,
+ 		.version_id = 2,
+ 		.direction = {false, true},
++		.ignore_pch_dmic = true,
+ 		.dai_name = "rt715-aif2",
+ 		.init = sof_sdw_rt715_init,
+ 	},
+@@ -730,7 +734,8 @@ static int create_sdw_dailink(struct device *dev, int *be_index,
+ 			      int *cpu_id, bool *group_generated,
+ 			      struct snd_soc_codec_conf *codec_conf,
+ 			      int codec_count,
+-			      int *codec_conf_index)
++			      int *codec_conf_index,
++			      bool *ignore_pch_dmic)
+ {
+ 	const struct snd_soc_acpi_link_adr *link_next;
+ 	struct snd_soc_dai_link_component *codecs;
+@@ -783,6 +788,9 @@ static int create_sdw_dailink(struct device *dev, int *be_index,
+ 	if (codec_index < 0)
+ 		return codec_index;
  
- 		// To check the configuration of optical interface.
--		int err = snd_motu_transaction_read(motu, V2_IN_OUT_CONF_OFFSET,
--						    &reg, sizeof(reg));
-+		int err = snd_motu_transaction_read(motu, V2_IN_OUT_CONF_OFFSET, &reg, sizeof(reg));
- 		if (err < 0)
- 			return err;
- 
--		if (be32_to_cpu(reg) & 0x00000200)
-+		if (((data & V2_OPT_IN_IFACE_MASK) >> V2_OPT_IN_IFACE_SHIFT) == V2_OPT_IFACE_MODE_SPDIF)
- 			*src = SND_MOTU_CLOCK_SOURCE_SPDIF_ON_OPT;
- 		else
--			*src = SND_MOTU_CLOCK_SOURCE_ADAT_ON_OPT;
-+			*src = SND_MOTU_CLOCK_SOURCE_SPDIF_ON_COAX;
- 		break;
++	if (codec_info_list[codec_index].ignore_pch_dmic)
++		*ignore_pch_dmic = true;
++
+ 	cpu_dai_index = *cpu_id;
+ 	for_each_pcm_streams(stream) {
+ 		char *name, *cpu_name;
+@@ -914,6 +922,7 @@ static int sof_card_dai_links_create(struct device *dev,
+ 	const struct snd_soc_acpi_link_adr *adr_link;
+ 	struct snd_soc_dai_link_component *cpus;
+ 	struct snd_soc_codec_conf *codec_conf;
++	bool ignore_pch_dmic = false;
+ 	int codec_conf_count;
+ 	int codec_conf_index = 0;
+ 	bool group_generated[SDW_MAX_GROUPS];
+@@ -1020,7 +1029,8 @@ static int sof_card_dai_links_create(struct device *dev,
+ 					 sdw_cpu_dai_num, cpus, adr_link,
+ 					 &cpu_id, group_generated,
+ 					 codec_conf, codec_conf_count,
+-					 &codec_conf_index);
++					 &codec_conf_index,
++					 &ignore_pch_dmic);
+ 		if (ret < 0) {
+ 			dev_err(dev, "failed to create dai link %d", be_id);
+ 			return -ENOMEM;
+@@ -1088,6 +1098,10 @@ static int sof_card_dai_links_create(struct device *dev,
+ DMIC:
+ 	/* dmic */
+ 	if (dmic_num > 0) {
++		if (ignore_pch_dmic) {
++			dev_warn(dev, "Ignoring PCH DMIC\n");
++			goto HDMI;
++		}
+ 		cpus[cpu_id].dai_name = "DMIC01 Pin";
+ 		init_dai_link(links + link_id, be_id, "dmic01",
+ 			      0, 1, // DMIC only supports capture
+@@ -1106,6 +1120,7 @@ static int sof_card_dai_links_create(struct device *dev,
+ 		INC_ID(be_id, cpu_id, link_id);
  	}
--	case 2:
--		*src = SND_MOTU_CLOCK_SOURCE_SPDIF_ON_COAX;
--		break;
- 	case 3:
- 		*src = SND_MOTU_CLOCK_SOURCE_SPH;
- 		break;
+ 
++HDMI:
+ 	/* HDMI */
+ 	if (hdmi_num > 0) {
+ 		idisp_components = devm_kcalloc(dev, hdmi_num,
+diff --git a/sound/soc/intel/boards/sof_sdw_common.h b/sound/soc/intel/boards/sof_sdw_common.h
+index f3cb6796363e..ea60e8ed215c 100644
+--- a/sound/soc/intel/boards/sof_sdw_common.h
++++ b/sound/soc/intel/boards/sof_sdw_common.h
+@@ -56,6 +56,7 @@ struct sof_sdw_codec_info {
+ 	int amp_num;
+ 	const u8 acpi_id[ACPI_ID_LEN];
+ 	const bool direction[2]; // playback & capture support
++	const bool ignore_pch_dmic;
+ 	const char *dai_name;
+ 	const struct snd_soc_ops *ops;
+ 
 -- 
 2.30.2
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D9133C300D
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:45:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E3DD3C300E
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jul 2021 04:45:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F239E1752;
-	Sat, 10 Jul 2021 04:44:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F239E1752
+	by alsa0.perex.cz (Postfix) with ESMTPS id D90821762;
+	Sat, 10 Jul 2021 04:44:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D90821762
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1625885123;
-	bh=gQzsgDPXcbcYollQuPdz1JDbABIJHDdOb+hjNlPbhik=;
+	s=default; t=1625885149;
+	bh=8lm9mx02g9ZihViL4eB7Tx2KiKssB6Q1/TRVIpDd9ro=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XZ9AFEiJh7skLmwphHjvMniUvAv+nwAWpctzQvTQIF/aRkFeuP4frrdslEMTnOGj+
-	 jXM722Tw9iB/1p3shloj5XkNdMGtbYgB5/dpudn3GvhnjYDtdDtG2rd0q+8aIqz3hr
-	 Oo+VmY6gX/UAJ7sW18KIGPtg6bpRAd+G2Yi+CsXg=
+	b=RPPv9AdoVMRReonJiFlsFNuSsdXO/lAxN2qW0Q3xcHojlhNFhEbSFPV0r362yi7wl
+	 mMDYmDjWdjvZsuML+mimn4gtKnhaFWTo+ZRHMZrkLZtv/cL0aES0bXAqby2LlTBXSO
+	 Hm0THqSKF2JC/eivXWrHYy9cz0stwWFJZQetX0Ss=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 34963F804FB;
-	Sat, 10 Jul 2021 04:31:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69AE8F8051F;
+	Sat, 10 Jul 2021 04:31:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 154C5F804ED; Sat, 10 Jul 2021 04:31:41 +0200 (CEST)
+ id 508E9F8051D; Sat, 10 Jul 2021 04:31:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,30 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 70A6BF802BE
- for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:31:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70A6BF802BE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 817A4F80516
+ for <alsa-devel@alsa-project.org>; Sat, 10 Jul 2021 04:31:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 817A4F80516
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jpNN2G/b"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D4A07613C8;
- Sat, 10 Jul 2021 02:31:35 +0000 (UTC)
+ header.b="hh3st/BB"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D34E3613D9;
+ Sat, 10 Jul 2021 02:31:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625884296;
- bh=gQzsgDPXcbcYollQuPdz1JDbABIJHDdOb+hjNlPbhik=;
+ s=k20201202; t=1625884303;
+ bh=8lm9mx02g9ZihViL4eB7Tx2KiKssB6Q1/TRVIpDd9ro=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jpNN2G/bLEfrpAJVP2lT4hoJ26y4JUU7l8kbN/XOIZ51J2a4uZti4d4UmZak9nhVV
- NjaGJh5thSlT7hebKcgTNzVLDxC790T4syU7Iio7iFwkHJffKMh2R5+JKnMZqUCamL
- ar47f1D7+RR3xFBsHHPG3xvk8uk6SOQXswVI1kI2mon6W79j37yChQFhmqfGgQvoR8
- 2XlxnTjsIHtV3RB0Hk/TSgUrDz6N19is5vgh9wemZ/cKRcy5DB2ANecz+LM2iwQznV
- lhn4foncnl+LXu2A6LpgZmVYLHccqzTZohvsx3ZoYLhDK+D9lpxRfHIF8G0T9RdKNE
- RQBuyIJ8h9TyA==
+ b=hh3st/BBbji/BC9eC/PbZmxD9MYx28QJ8OKtn5uqPdVR1JEiUd07IzaGMRjqDpvZf
+ IYneQPz5pIt4Rw561vBiG2Ykb/lins5rmbqQvTJDaC/861ltyM+Hv89YTg5iELFke0
+ q5UeiylEMjQh0MkWCPZBX8IQZiAMTgyyJbYl5lJrMKmxegODONoqjRfJYJqCZqJImP
+ MnL/sXM5T5q7AXTagRnuaQM2cte2dfX7sX7jJ/aSqc0Lr4NZ4hOfAj95NhlSCVdsQ8
+ OH3qXpBnKX/W7lTc4WtxQLag5SndN/kLjowF4q7H510Cmw5SG5vWaJhcp5MAGGjJlz
+ u+jg2BFd6lB0w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 42/63] ASoC: soc-core: Fix the error return code
- in snd_soc_of_parse_audio_routing()
-Date: Fri,  9 Jul 2021 22:26:48 -0400
-Message-Id: <20210710022709.3170675-42-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 48/63] ALSA: bebob: add support for ToneWeal FW66
+Date: Fri,  9 Jul 2021 22:26:54 -0400
+Message-Id: <20210710022709.3170675-48-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210710022709.3170675-1-sashal@kernel.org>
 References: <20210710022709.3170675-1-sashal@kernel.org>
@@ -66,8 +65,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Zhen Lei <thunder.leizhen@huawei.com>
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org, Daniel Jozsef <daniel.jozsef@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,34 +82,103 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Zhen Lei <thunder.leizhen@huawei.com>
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-[ Upstream commit 7d3865a10b9ff2669c531d5ddd60bf46b3d48f1e ]
+[ Upstream commit 50ebe56222bfa0911a932930f9229ee5995508d9 ]
 
-When devm_kcalloc() fails, the error code -ENOMEM should be returned
-instead of -EINVAL.
+A user of FFADO project reported the issue of ToneWeal FW66. As a result,
+the device is identified as one of applications of BeBoB solution.
 
-Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
-Link: https://lore.kernel.org/r/20210617103729.1918-1-thunder.leizhen@huawei.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+I note that in the report the device returns contradictory result in plug
+discovery process for audio subunit. Fortunately ALSA BeBoB driver doesn't
+perform it thus it's likely to handle the device without issues.
+
+I receive no reaction to test request for this patch yet, however it would
+be worth to add support for it.
+
+daniel@gibbonmoon:/sys/bus/firewire/devices/fw1$ grep -r . *
+Binary file config_rom matches
+dev:244:1
+guid:0x0023270002000000
+hardware_version:0x000002
+is_local:0
+model:0x020002
+model_name:FW66
+power/runtime_active_time:0
+power/runtime_active_kids:0
+power/runtime_usage:0
+power/runtime_status:unsupported
+power/async:disabled
+power/runtime_suspended_time:0
+power/runtime_enabled:disabled
+power/control:auto
+subsystem/drivers_autoprobe:1
+uevent:MAJOR=244
+uevent:MINOR=1
+uevent:DEVNAME=fw1
+units:0x00a02d:0x010001
+vendor:0x002327
+vendor_name:ToneWeal
+fw1.0/uevent:MODALIAS=ieee1394:ven00002327mo00020002sp0000A02Dver00010001
+fw1.0/power/runtime_active_time:0
+fw1.0/power/runtime_active_kids:0
+fw1.0/power/runtime_usage:0
+fw1.0/power/runtime_status:unsupported
+fw1.0/power/async:disabled
+fw1.0/power/runtime_suspended_time:0
+fw1.0/power/runtime_enabled:disabled
+fw1.0/power/control:auto
+fw1.0/model:0x020002
+fw1.0/rom_index:15
+fw1.0/specifier_id:0x00a02d
+fw1.0/model_name:FW66
+fw1.0/version:0x010001
+fw1.0/modalias:ieee1394:ven00002327mo00020002sp0000A02Dver00010001
+
+Cc: Daniel Jozsef <daniel.jozsef@gmail.com>
+Reference: https://lore.kernel.org/alsa-devel/20200119164335.GA11974@workstation/
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Link: https://lore.kernel.org/r/20210619083922.16060-1-o-takashi@sakamocchi.jp
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/soc-core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/firewire/Kconfig       | 1 +
+ sound/firewire/bebob/bebob.c | 3 +++
+ 2 files changed, 4 insertions(+)
 
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 9df20768a8f2..c0e03cc8ea82 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -3178,7 +3178,7 @@ int snd_soc_of_parse_audio_routing(struct snd_soc_card *card,
- 	if (!routes) {
- 		dev_err(card->dev,
- 			"ASoC: Could not allocate DAPM route table\n");
--		return -EINVAL;
-+		return -ENOMEM;
- 	}
+diff --git a/sound/firewire/Kconfig b/sound/firewire/Kconfig
+index c16d2dd9a66f..e469375e2f2a 100644
+--- a/sound/firewire/Kconfig
++++ b/sound/firewire/Kconfig
+@@ -110,6 +110,7 @@ config SND_BEBOB
+ 	  * M-Audio Ozonic/NRV10/ProfireLightBridge
+ 	  * M-Audio FireWire 1814/ProjectMix IO
+ 	  * Digidesign Mbox 2 Pro
++	  * ToneWeal FW66
  
- 	for (i = 0; i < num_routes; i++) {
+           To compile this driver as a module, choose M here: the module
+           will be called snd-bebob.
+diff --git a/sound/firewire/bebob/bebob.c b/sound/firewire/bebob/bebob.c
+index eeb0e4b2f77a..d58f4fe2be8c 100644
+--- a/sound/firewire/bebob/bebob.c
++++ b/sound/firewire/bebob/bebob.c
+@@ -59,6 +59,7 @@ static DECLARE_BITMAP(devices_used, SNDRV_CARDS);
+ #define VEN_MAUDIO1	0x00000d6c
+ #define VEN_MAUDIO2	0x000007f5
+ #define VEN_DIGIDESIGN	0x00a07e
++#define OUI_SHOUYO	0x002327
+ 
+ #define MODEL_FOCUSRITE_SAFFIRE_BOTH	0x00000000
+ #define MODEL_MAUDIO_AUDIOPHILE_BOTH	0x00010060
+@@ -486,6 +487,8 @@ static const struct ieee1394_device_id bebob_id_table[] = {
+ 			    &maudio_special_spec),
+ 	/* Digidesign Mbox 2 Pro */
+ 	SND_BEBOB_DEV_ENTRY(VEN_DIGIDESIGN, 0x0000a9, &spec_normal),
++	// Toneweal FW66.
++	SND_BEBOB_DEV_ENTRY(OUI_SHOUYO, 0x020002, &spec_normal),
+ 	/* IDs are unknown but able to be supported */
+ 	/*  Apogee, Mini-ME Firewire */
+ 	/*  Apogee, Mini-DAC Firewire */
 -- 
 2.30.2
 

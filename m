@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B82E3C3E69
-	for <lists+alsa-devel@lfdr.de>; Sun, 11 Jul 2021 19:38:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 840F63C3E6A
+	for <lists+alsa-devel@lfdr.de>; Sun, 11 Jul 2021 19:39:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 030811674;
-	Sun, 11 Jul 2021 19:37:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 030811674
+	by alsa0.perex.cz (Postfix) with ESMTPS id 217251676;
+	Sun, 11 Jul 2021 19:38:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 217251676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626025127;
-	bh=odpj4cV2js5WphAn8KtTes+6tJbkeplB3tHG+8qLrvY=;
+	s=default; t=1626025161;
+	bh=EmRvq22oZjCIKkFTldPMWjpKyDVQ7bI4dXHcbgoqcTk=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=goEozJhR0G1TfAbZlLHHN2RYlNaktf8SFqnTO2HREd+DTEWLuJ8howr8PGmwTaK9q
-	 FaDYpxKCdqiKegfkcXkAL/qWY0MROCVzYBhzYxo6Y94dISpgcueELTNTkhy94Xizl/
-	 Yc02iF2t63kKWr+u6JVDcvhNL6BpFXQ9cnyTBFEY=
+	b=F0fZEE+IJJz2a7SbbYhgbtpyvfArwvwCv9gITFzRWCKXALHC42uFxf3EWTHuQEFFW
+	 hnxGsEcMVzEYcjQIiAv1aUp9a7W6dDPBYcz4F2WiJbix7t7LA2pXCI1xbUc5G3eOdk
+	 lQSrvR0hlqXHoqsRXwTCPq5X2JoyFvZUmJMPvd8g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82A0DF802E0;
-	Sun, 11 Jul 2021 19:37:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A6C8F80217;
+	Sun, 11 Jul 2021 19:38:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A654F802E0; Sun, 11 Jul 2021 19:37:51 +0200 (CEST)
+ id 31912F80229; Sun, 11 Jul 2021 19:38:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 9685BF8013D
- for <alsa-devel@alsa-project.org>; Sun, 11 Jul 2021 19:37:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9685BF8013D
+ by alsa1.perex.cz (Postfix) with ESMTP id 94596F8013D
+ for <alsa-devel@alsa-project.org>; Sun, 11 Jul 2021 19:38:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94596F8013D
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1626025066156984091-webhooks-bot@alsa-project.org>
-References: <1626025066156984091-webhooks-bot@alsa-project.org>
+In-Reply-To: <1626025101007884979-webhooks-bot@alsa-project.org>
+References: <1626025101007884979-webhooks-bot@alsa-project.org>
 Subject: Realtek analog audio output limited to 48 kHz,
  chips support up to 192kHz
-Message-Id: <20210711173751.1A654F802E0@alsa1.perex.cz>
-Date: Sun, 11 Jul 2021 19:37:51 +0200 (CEST)
+Message-Id: <20210711173825.31912F80229@alsa1.perex.cz>
+Date: Sun, 11 Jul 2021 19:38:25 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,7 +98,7 @@ Node 0x03 [Audio Output] wcaps 0x41d: Stereo Amp-Out
   Power states:  D0 D1 D2 D3 EPSS
   Power: setting=D0, actual=D0
 
-Attached to this post is also the output of the alsa-info script.
+Following is also the output of the alsa-info script:
 [alsa-debug.txt](https://github.com/alsa-project/alsa-lib/files/6797358/alsa-debug.txt)
 
 I tried different kernel versions, both generic and custom, on distros ranging from Ubuntu 19.04, Ubuntu 21.04, Pop OS 20.04 and 21.04, Fedora 32...

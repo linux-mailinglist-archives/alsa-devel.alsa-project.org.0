@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABECB3C3E6B
-	for <lists+alsa-devel@lfdr.de>; Sun, 11 Jul 2021 19:39:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58E623C3EFB
+	for <lists+alsa-devel@lfdr.de>; Sun, 11 Jul 2021 22:21:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0946B166F;
-	Sun, 11 Jul 2021 19:38:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0946B166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7CB61662;
+	Sun, 11 Jul 2021 22:20:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7CB61662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626025186;
-	bh=Nx+L0Sk66cDRAM4qx2Iwcd2KgdGO/bQBCG1kqxU99vc=;
+	s=default; t=1626034890;
+	bh=rw0MHrta0a1lxcyqnz1+gUTI99q7CfCSR4xOU4wzvlg=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=n1aY6W1xfaQ4ggzq6muAFzvPTTJ7vg01ITYRGlvQJUs61TJ9CZgfxh4ESL/6EwoDM
-	 wm5ju9GP6k95Zi4InEhbn85llbntc0PPAHkSfDtwLykKds0qINtqLrp1df95Y8wQZH
-	 nA1MESukjpZuhaFC7aOxR19s7XeVPGjGSYMbD8RI=
+	b=sLTkgqkCu0b2N2YNY8YyL9Xjtmu32DnXdEDh0//0PwySsCT2pjGR0jk42QamAusX/
+	 iQLT05I9MgL5yFXxRX3gUjXo/3+FPv3t39xVeDy2k7u4ABv+vH193Dou7fR0BUWWyG
+	 /A3nxdVcxxYy9TBejPJktSnmkkqX5yrxvc36vPpo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C672F80430;
-	Sun, 11 Jul 2021 19:38:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 12929F800AE;
+	Sun, 11 Jul 2021 22:20:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2CE2AF8049C; Sun, 11 Jul 2021 19:38:43 +0200 (CEST)
+ id 15829F800AE; Sun, 11 Jul 2021 22:20:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id CB4C4F80083
- for <alsa-devel@alsa-project.org>; Sun, 11 Jul 2021 19:38:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB4C4F80083
+ by alsa1.perex.cz (Postfix) with ESMTP id CC483F800AE
+ for <alsa-devel@alsa-project.org>; Sun, 11 Jul 2021 22:19:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC483F800AE
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1626025120664640903-webhooks-bot@alsa-project.org>
-References: <1626025120664640903-webhooks-bot@alsa-project.org>
+In-Reply-To: <1626034790104780912-webhooks-bot@alsa-project.org>
+References: <1626034790104780912-webhooks-bot@alsa-project.org>
 Subject: Realtek analog audio output limited to 48 kHz,
  chips support up to 192kHz
-Message-Id: <20210711173843.2CE2AF8049C@alsa1.perex.cz>
-Date: Sun, 11 Jul 2021 19:38:43 +0200 (CEST)
+Message-Id: <20210711202001.15829F800AE@alsa1.perex.cz>
+Date: Sun, 11 Jul 2021 22:20:01 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,7 +101,7 @@ Node 0x03 [Audio Output] wcaps 0x41d: Stereo Amp-Out
 Following is also the output of the alsa-info script:
 [alsa-debug.txt](https://github.com/alsa-project/alsa-lib/files/6797358/alsa-debug.txt)
 
-I tried different kernel versions, both generic/mainline and custom, on distros ranging from Ubuntu 19.04, Ubuntu 21.04, Pop OS 20.04 and 21.04, Fedora 32...
+I tried different kernel versions, both generic/mainline and custom, including the latest one (5.13.1) on distros ranging from Ubuntu 19.04, Ubuntu 21.04, Pop OS 20.04 and 21.04, Fedora 32...
 
 Issue URL     : https://github.com/alsa-project/alsa-lib/issues/163
 Repository URL: https://github.com/alsa-project/alsa-lib

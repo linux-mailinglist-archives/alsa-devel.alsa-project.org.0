@@ -2,88 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23D7F3C3C94
-	for <lists+alsa-devel@lfdr.de>; Sun, 11 Jul 2021 14:51:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD0A13C3D7E
+	for <lists+alsa-devel@lfdr.de>; Sun, 11 Jul 2021 16:56:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98F4C1669;
-	Sun, 11 Jul 2021 14:50:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98F4C1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 387541669;
+	Sun, 11 Jul 2021 16:56:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 387541669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626007861;
-	bh=RjI0cz7Bjm8Tvc0qKxh3sFSfmTFsbwwi181LztzVF7M=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=BsuQEbAqUAHzA6UP5f82bfxEedT2TnuLyFhVbaXcKpSekSscfMARcABYktMzL+P7N
-	 2gZpRNwdhVWz+lNh3TvsGdf7uD2shTPNKo1wTZPvxq9BW3dzkrwAxkSJpcnGS+xaUD
-	 MRTdmbk6/9JPXgYZ4XBSKekGQxZV8zND2eNkqN1E=
+	s=default; t=1626015413;
+	bh=V4UXWswHWjlNuQUexbS5A3tQAL5mKwwjDvcIYpcWlvQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=gs6MroNxbGB3ujwz+bLRHL+sk1THtqmNk17Kzqqlu8Cc9CRKdQFQh4/aOfwFH8QY2
+	 7xRjRqdaW/82QIbnQTR99k4RPxs5W0nP/8AoMuEHeIzLoApW+C9AefZYxSg1TKrqzb
+	 uvzciYrqV6/tq0DoaHpS5f0+F7yix+b6UPo/37Zo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 060E7F80083;
-	Sun, 11 Jul 2021 14:49:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68127F80229;
+	Sun, 11 Jul 2021 16:55:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E052CF80217; Sun, 11 Jul 2021 14:49:32 +0200 (CEST)
+ id 36132F80217; Sun, 11 Jul 2021 16:55:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,PRX_BODY_26,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
- [IPv6:2607:f8b0:4864:20::102d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D6779F800AE
- for <alsa-devel@alsa-project.org>; Sun, 11 Jul 2021 14:49:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6779F800AE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="B1hyEQpk"
-Received: by mail-pj1-x102d.google.com with SMTP id
- b14-20020a17090a7aceb029017261c7d206so11013928pjl.5
- for <alsa-devel@alsa-project.org>; Sun, 11 Jul 2021 05:49:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=mIxSmufWuDTKwlxgFXvm/s5Rjq6omybGQ7A5dLknTx4=;
- b=B1hyEQpkq0+TBnqVNyJV0dgFXD20LT36fA/k3KQPRS3hUE/zFKjBiCGUuGL6mzypy3
- hVqvKg6k7Kxh4uLv7XllrVeMs6/ZW9mmVFINbSGM2lAwUCQT7279OIen1pVwVymJvow/
- nuV6+Hah+K5vel9DXkerdfpirZnewPI68CKv7OoMFIb6VOAA7L+t73HvRjbS5I4YHROZ
- /N88JZBxtJG6ZS5CLw9kirsAEj0MGHT8dwucIdCfZtrUqZIAGXzLcXOgJZn/EUZnStEH
- iYrOoOyV2tNrNvmJjb9Y/A8NTCdGZP7elTZr+1y9CYiK32J1NfZA8ZNyMIQz4MRHsTWX
- hLqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=mIxSmufWuDTKwlxgFXvm/s5Rjq6omybGQ7A5dLknTx4=;
- b=ql2S1/b0wV+LFzRHcP/Y35t0JFEKENuJFmTeTqMRu9yir+znN2JM89WTI7YCMFRdhq
- zE3JlYXVZfDuLlcv7hH7Hr74UDc0z+ZqI1LA/h54C+Ud5BWDqb6Vmy+aAMu8QrLoaz5W
- xQWB8TDa7YZgpnM/x6VHdYLc+nfjV8BkNaDFNTd5dltz1jQaCL6gu2+ZAoP5JQMlGE2O
- EzgaZCIfcRG94aTXmMsVMuw0YEYqX4Wsv6rQIq7dW9hQbJDR/PMc3Xg0DKfmyVi+WZrd
- U5n+8UwwXOqdDZP7/X3FrdUInOwrmsUmMdfzXOhRg1xO2y99keeK9iBNjPnnaYDlOToR
- WZdg==
-X-Gm-Message-State: AOAM530p4Y/XwQq+mZtQH8W2fdt6W/okNet+F4i3lm344UbKnPELf5IR
- NKl3Y+MU6oGBY7gCqVjDvw==
-X-Google-Smtp-Source: ABdhPJxvFbvViX+F8Vrs22jIs658qzk0Elx92cNANGF4OQD9QFj1l6fZgMamKh9cIhVwhNlshf2Jew==
-X-Received: by 2002:a17:902:a50f:b029:11a:cd45:9009 with SMTP id
- s15-20020a170902a50fb029011acd459009mr39227014plq.38.1626007760610; 
- Sun, 11 Jul 2021 05:49:20 -0700 (PDT)
-Received: from localhost.localdomain ([113.104.213.237])
- by smtp.gmail.com with ESMTPSA id pj4sm17717343pjb.18.2021.07.11.05.49.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 11 Jul 2021 05:49:20 -0700 (PDT)
-From: fengzheng923@gmail.com
-To: fengzheng923@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
- robh+dt@kernel.org, mripard@kernel.org, wens@csie.org,
- jernej.skrabec@gmail.com
-Subject: [PATCH v6 2/2] ASoC: sun50i-dmic: dt-bindings: add DT bindings for
- DMIC controller
-Date: Sun, 11 Jul 2021 08:48:26 -0400
-Message-Id: <20210711124826.5376-1-fengzheng923@gmail.com>
-X-Mailer: git-send-email 2.17.1
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
+X-Spam-Level: 
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from netrider.rowland.org (netrider.rowland.org [192.131.102.5])
+ by alsa1.perex.cz (Postfix) with SMTP id D901AF8013D
+ for <alsa-devel@alsa-project.org>; Sun, 11 Jul 2021 16:54:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D901AF8013D
+Received: (qmail 294122 invoked by uid 1000); 11 Jul 2021 10:54:29 -0400
+Date: Sun, 11 Jul 2021 10:54:29 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Tristan Miller <psychonaut@nothingisreal.com>
+Subject: Re: "Chipmunk audio" on Logitech USB webcams
+Message-ID: <20210711145429.GA293743@rowland.harvard.edu>
+References: <20210711102503.179b154b.psychonaut@nothingisreal.com>
+ <YOrKFIlEHopiVKJT@kroah.com>
+ <20210711141546.0ac1eec7.psychonaut@nothingisreal.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210711141546.0ac1eec7.psychonaut@nothingisreal.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,119 +64,109 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ban Tao <fengzheng923@gmail.com>
+On Sun, Jul 11, 2021 at 02:15:46PM +0200, Tristan Miller wrote:
+> Greetings.
+> 
+> On Sun, 11 Jul 2021 12:38:12 +0200, Greg KH
+> <gregkh@linuxfoundation.org> wrote:
+> > On Sun, Jul 11, 2021 at 10:25:03AM +0200, Tristan Miller wrote:
+> > > Many models of Logitech USB webcams malfunction under Linux by
+> > > producing audio that sounds distorted, garbled, or high-pitched.
+> > > For most users, the problem happens randomly, and can usually be
+> > > worked around by restarting the audio application or by unplugging
+> > > the webcam and then plugging it back in again.
+> > 
+> > Please report the information directly here, to this list, and to the
+> > sound developers at alsa-devel@alsa-project.org and we can all work to
+> > resolve this.
+> 
+> The problem as I'm currently experiencing it is as follows:
+> 
+> I have a Logitech C270 USB webcam running on openSUSE Tumbleweed for
+> x86_64 with the 5.13.0 kernel.  Sometimes audio recorded by the
+> camera's built-in microphone sounds artificially high-pitched and
+> garbled.  I've experienced this with lots of different applications,
+> including arecord, Skype, and various browser-based videoconferencing
+> software running in Firefox or Chromium.  The problem occurs rarely
+> (maybe once every 30 times I use the webcam microphone) and seemingly
+> at random; restarting the audio application or unplugging the webcam
+> and plugging it back in again usually works around the issue.  So
+> unfortunately I can't reliably reproduce the problem.  I haven't
+> noticed any errors in the system logs but then again am not sure exactly
+> what to look for and where. I've been experiencing this problem at
+> least as far back as kernel 4.13.12.
+> 
+> Some further details (more available on request):
+> 
+> # uname -a
+> Linux butterfield.nothingisreal.com 5.13.0-1-default #1 SMP Fri Jul 2 05:54:32 UTC 2021 (aa40472) x86_64 x86_64 x86_64 GNU/Linux
+> 
+> # lsusb -s 001:004 -v |head -17
+> Bus 001 Device 004: ID 046d:0825 Logitech, Inc. Webcam C270
+> Device Descriptor:
+>   bLength                18
+>   bDescriptorType         1
+>   bcdUSB               2.00
+>   bDeviceClass          239 Miscellaneous Device
+>   bDeviceSubClass         2 
+>   bDeviceProtocol         1 Interface Association
+>   bMaxPacketSize0        64
+>   idVendor           0x046d Logitech, Inc.
+>   idProduct          0x0825 Webcam C270
+>   bcdDevice            0.10
+>   iManufacturer           0 
+>   iProduct                0 
+>   iSerial                 2 6457F4D0
+>   bNumConfigurations
+> 
+> Previous reports which apparently cover the same problem:
 
-DT binding documentation for this new ASoC driver.
+Some additional details about these bug reports:
 
-Signed-off-by: Ban Tao <fengzheng923@gmail.com>
-Reviewed-by: Rob Herring <robh@kernel.org>
+> https://bugzilla.kernel.org/show_bug.cgi?id=35922
 
----
-v1->v2:
-1.Fix some build errors.
----
-v2->v3:
-1.Fix some build errors.
----
-v3->v4:
-1.None.
----
-v4->v5:
-1.Add interrupt.
-2.Keep clock and reset index.
----
-v5->v6:
-1.None.
----
- .../sound/allwinner,sun50i-h6-dmic.yaml       | 79 +++++++++++++++++++
- 1 file changed, 79 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/allwinner,sun50i-h6-dmic.yaml
+This is a completely different bug, which was fixed back in 2011.
 
-diff --git a/Documentation/devicetree/bindings/sound/allwinner,sun50i-h6-dmic.yaml b/Documentation/devicetree/bindings/sound/allwinner,sun50i-h6-dmic.yaml
-new file mode 100644
-index 000000000000..0cfc07f369bd
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/allwinner,sun50i-h6-dmic.yaml
-@@ -0,0 +1,79 @@
-+# SPDX-License-Identifier: (GPL-2.0+ OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/allwinner,sun50i-h6-dmic.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Allwinner H6 DMIC Device Tree Bindings
-+
-+maintainers:
-+  - Ban Tao <fengzheng923@gmail.com>
-+
-+properties:
-+  "#sound-dai-cells":
-+    const: 0
-+
-+  compatible:
-+    const: allwinner,sun50i-h6-dmic
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: Bus Clock
-+      - description: Module Clock
-+
-+  clock-names:
-+    items:
-+      - const: bus
-+      - const: mod
-+
-+  dmas:
-+    items:
-+      - description: RX DMA Channel
-+
-+  dma-names:
-+    items:
-+      - const: rx
-+
-+  resets:
-+    maxItems: 1
-+
-+required:
-+  - "#sound-dai-cells"
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - dmas
-+  - dma-names
-+  - resets
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    #include <dt-bindings/clock/sun50i-h6-ccu.h>
-+    #include <dt-bindings/reset/sun50i-h6-ccu.h>
-+
-+    dmic: dmic@5095000 {
-+      #sound-dai-cells = <0>;
-+      compatible = "allwinner,sun50i-h6-dmic";
-+      reg = <0x05095000 0x400>;
-+      interrupts = <GIC_SPI 22 IRQ_TYPE_LEVEL_HIGH>;
-+      clocks = <&ccu CLK_BUS_DMIC>, <&ccu CLK_DMIC>;
-+      clock-names = "bus", "mod";
-+      dmas = <&dma 7>;
-+      dma-names = "rx";
-+      resets = <&ccu RST_BUS_DMIC>;
-+    };
-+
-+...
--- 
-2.17.1
+> https://bugzilla.kernel.org/show_bug.cgi?id=44281
 
+This report mentions three separate bugs, the first of which was 
+fixed in 2012.  The bug discussed here is the third one in the 
+report.
+
+> https://bugzilla.kernel.org/show_bug.cgi?id=105081
+
+This is a repeat of the second bug in #44281.
+
+> https://bugzilla.kernel.org/show_bug.cgi?id=203763
+
+This is the same as the bug discussed here.
+
+> https://bugs.launchpad.net/ubuntu/+source/linux/+bug/459445
+
+This is the same as the second bug in #44281.
+
+> https://bugs.launchpad.net/ubuntu/+source/linux/+bug/843431
+
+At first glance this seems to be the same as the bug discussed here, 
+but this one was fixed in 2011.
+
+> https://bugs.launchpad.net/ubuntu/+source/linux/+bug/884210
+
+This is the same as the second bug in #44281.
+
+> https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1018020
+
+This seems to be a combination of the first and second bugs in 
+#44281.
+
+The rest of these appear to be mixtures of the bugs mentioned above.
+
+> https://bugzilla.suse.com/show_bug.cgi?id=736093
+> https://bugzilla.redhat.com/show_bug.cgi?id=729269
+> https://bugzilla.redhat.com/show_bug.cgi?id=742010
+> https://bugs.archlinux.org/task/26528
+> https://bbs.archlinux.org/viewtopic.php?id=121607
+> https://bbs.archlinux.org/viewtopic.php?id=236056
+> https://forums.linuxmint.com/viewtopic.php?t=237677
+
+Alan Stern

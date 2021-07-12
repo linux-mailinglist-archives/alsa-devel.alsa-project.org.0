@@ -2,64 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 910743C53BC
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jul 2021 12:52:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F15CC3C53DF
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jul 2021 12:52:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0DA7016AA;
-	Mon, 12 Jul 2021 12:51:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DA7016AA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A86016A9;
+	Mon, 12 Jul 2021 12:51:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A86016A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626087138;
-	bh=DgYeXycIN12L0WSlhLRY1UtMgIe8E09yl5eaBy57a2w=;
+	s=default; t=1626087160;
+	bh=NhDjwnBtFvIVOLKp7dYyMFmoiczDz2FmGO2+lgpU39w=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kfOD2hKvMsKYugQES6unhxkbFVyIy7RR0cPIKXle5XV38tdpnpnzNRmyfNCgb/0sM
-	 2KOTk/BVKRT0QiASoN0CeVM3pmBeoT4Awd84d7xe8sKc47pNQ/b4zlvbEc6v1EMcJN
-	 tgAKgcSpQj6IEPnmaLhG5KRJ3u3zrQSvAMdJS3Ys=
-Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4BB9AF80519;
-	Mon, 12 Jul 2021 12:48:12 +0200 (CEST)
+	b=q0lw9d5DIO2PDx9Y2AeTLZRGqzOdBQQ1skmnq9y6A3BYFhQCGB3/5yQXgdw3XdoPj
+	 GHWeH4Pxybn2eEj4vNc4mXqVvlVIsi81MktlQkoFj/kUzBceFyyDw9WzafFMQ8ADY2
+	 xDBoLbeuq6jfBuQLSyyn04BGZeUWo5bbLXTRfu0s=
+Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 496DAF8051A;
+	Mon, 12 Jul 2021 12:48:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2266F80518; Mon, 12 Jul 2021 12:48:09 +0200 (CEST)
+ id E5940F8051B; Mon, 12 Jul 2021 12:48:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C891F80515
- for <alsa-devel@alsa-project.org>; Mon, 12 Jul 2021 12:48:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C891F80515
+ by alsa1.perex.cz (Postfix) with ESMTPS id CFE7CF80516
+ for <alsa-devel@alsa-project.org>; Mon, 12 Jul 2021 12:48:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFE7CF80516
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="UBHhomH6"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 205D8610A7;
- Mon, 12 Jul 2021 10:47:59 +0000 (UTC)
+ header.b="AjnngLOk"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A503F61156;
+ Mon, 12 Jul 2021 10:48:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1626086880;
- bh=DgYeXycIN12L0WSlhLRY1UtMgIe8E09yl5eaBy57a2w=;
+ s=k20201202; t=1626086883;
+ bh=NhDjwnBtFvIVOLKp7dYyMFmoiczDz2FmGO2+lgpU39w=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=UBHhomH6Dvcjwhvl94hPUwnVd70jDjcUA6dpzCArd6lXCH4RoVtna30BG1XBo/ltE
- yC1uwuWud393Kac3igagQZuI53SCPc6Qlog6MPKzuQdHwnQF00nlkUiqlU9JmrazMY
- rPzXbscVd7uf7zFcp9eNuS0zTEYZNKG/HIkjAjY3bjz8XoBb4I04dp8jSqsEvNMWei
- re6xYdaZ0W0egJNr8pWs9TbxuzOAEtJterzyZgVBKcR6L4sLgJZQAh1u+UpD9ibKwq
- Q1lAzxMLKzk4FB0E625zeTUsFUapbRI9czFNpxgD2RhXswnVpT7XsyEEMKZl2DK8yg
- /kJjdVplPFD8Q==
+ b=AjnngLOkFsoBp/qQ856a0aDC1UCoUQUX9RBq27LnmLJtJDnUUN5yVtc6wp7Puseli
+ L7uEFUu6VsxPxkky7fQP1968jRXTDAvLtGF+QhovcDLfs3+66o62/heyRYWbNdYVSZ
+ x7MbaxBSYHLqJCgnzwRVa4PF9x/PsxEEO1A4WBjAhZMossY6N5h/rPcgN81sb1zly7
+ KOaLZUM5zR+Y9D+hOXVYlcGIOpocSfZ4bjQOkazgFCTCp9cFtJKRIlvg94VPxwxjKx
+ rvx0G2g8/s/9vZrwiXO59sUIA9uVfV19kmnnGBqmQrAgsP+EZSBtUHz4JLoZoqEum5
+ +PVruWaAwEX0w==
 From: Mark Brown <broonie@kernel.org>
 To: alsa-devel@alsa-project.org,
 	Marek Vasut <marex@denx.de>
-Subject: Re: [PATCH] ASoC: tlv320aic32x4: Fix TAS2505/TAS2521 channel count
-Date: Mon, 12 Jul 2021 11:46:05 +0100
-Message-Id: <162608623152.3192.5932495501881574538.b4-ty@kernel.org>
+Subject: Re: [PATCH] ASoC: tlv320aic32x4: Fix TAS2505 volume controls
+Date: Mon, 12 Jul 2021 11:46:06 +0100
+Message-Id: <162608623152.3192.16164490887444781260.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210708091229.56443-1-marex@denx.de>
-References: <20210708091229.56443-1-marex@denx.de>
+In-Reply-To: <20210708091255.56502-1-marex@denx.de>
+References: <20210708091255.56502-1-marex@denx.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -79,12 +79,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 8 Jul 2021 11:12:29 +0200, Marek Vasut wrote:
-> The TAS2505/TAS2521 does support up to two channels, LEFT and RIGHT,
-> which are being alternated on the audio data bus by Word Clock, WCLK.
-> This is documented in TI slau472 2.7.1 Digital Audio Interface. Note
-> that both the LEFT and RIGHT channels are only used for audio INPUT,
-> while only the LEFT channel is used for audio OUTPUT.
+On Thu, 8 Jul 2021 11:12:55 +0200, Marek Vasut wrote:
+> None of the TAS2505 outputs are stereo, do not pretend they are by
+> implementing them using SOC*DOUBLE* macros referencing the same
+> register twice, use SOC*SINGLE* instead. Fix volume ranges and mute
+> control for the codec according to datasheet.
 
 Applied to
 
@@ -92,8 +91,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: tlv320aic32x4: Fix TAS2505/TAS2521 channel count
-      commit: 3694f996be5cb8374bd224f4e5462c945d359843
+[1/1] ASoC: tlv320aic32x4: Fix TAS2505 volume controls
+      commit: 2169d6a0f0721935410533281fc7e87e4e2322d1
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

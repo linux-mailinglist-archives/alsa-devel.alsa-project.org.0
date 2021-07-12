@@ -2,86 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 700A03C45B8
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jul 2021 08:59:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D1523C4601
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jul 2021 10:19:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D61171660;
-	Mon, 12 Jul 2021 08:58:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D61171660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 21DFB1669;
+	Mon, 12 Jul 2021 10:19:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21DFB1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626073146;
-	bh=PZfp3/Q5DflE9p3YcAat6r+i/XD7lEvI5cuZkCraNlM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1626077998;
+	bh=hYWJeGgw4ABPJYwzdIFpgQw6kHET9Ww1gHzFlJEaM58=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=b62yfhsEePzx3AYZZe01T0fz5Ax8gRteQyW0aePrJmLqE/R9Tht5RjSsKA2KDyn9H
-	 RDOgmwU9xkjoFrryjemokP/IJm329HgL9aZj06dIdqeTinSSflOxQ8bhtav1VJNX8z
-	 ljkxy8PbsSHJrzJ/6yvuWzj9mT2gblEY9n087z6E=
+	b=k4fOS+U3OgozxBx4frRPwdFi0/ZFesR3t43U0BMGVOdsgSfFLf9mF34+NbBm9j8Fs
+	 xAhgo/yKighN/rkNGTToXrkwnr+DtwLK+M1jYI+IXkIeNnPO0uu5krcUMdBEnXu73Z
+	 pkDy0mqwBPo/tt2OqCkaZPiPoOwDIWNGl9w2soWQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2AE29F8025B;
-	Mon, 12 Jul 2021 08:57:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77B35F800EB;
+	Mon, 12 Jul 2021 10:18:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E2C35F80083; Mon, 12 Jul 2021 08:57:35 +0200 (CEST)
+ id 17D09F800EB; Mon, 12 Jul 2021 10:18:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
+X-Spam-Status: No, score=0.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,UPPERCASE_50_75,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 72E86F80083
- for <alsa-devel@alsa-project.org>; Mon, 12 Jul 2021 08:57:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72E86F80083
+ by alsa1.perex.cz (Postfix) with ESMTPS id DF8C9F8020C
+ for <alsa-devel@alsa-project.org>; Mon, 12 Jul 2021 10:18:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF8C9F8020C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="hxdhm31s"
-Received: by mail-lj1-x22f.google.com with SMTP id r20so22437060ljd.10
- for <alsa-devel@alsa-project.org>; Sun, 11 Jul 2021 23:57:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=c4SeDONJoAbR7SmDbEZVaj/9q86NqUT+93EyEB49Ezg=;
- b=hxdhm31s8NbXxRbRK21cNfg5Yyk+BL4iL1CydJJFztrq+S8btnk6yQQfrom9iE0uYU
- UYVTcVzIxfoyISOI4TuM3Gy+sMMyke7IG6MVqDoLApmTP8iEGKhhxkfv6ZKl6m5vsvmv
- Q2eu2JvocfkLJgjF/eZORrELX7PkHBXchY5ds=
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="KRkNysoe"
+Received: by mail-wr1-x42b.google.com with SMTP id m2so13337711wrq.2
+ for <alsa-devel@alsa-project.org>; Mon, 12 Jul 2021 01:18:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=kPH1IzeOGDJWRvF+hQvSOgoifVXeHmaKHK5lulTS72A=;
+ b=KRkNysoeVgE24fFmaqYZ1rHqLCyO0W0DYhux+1Rht5aHbchzjL+Dwo97xcbAW7Hmr8
+ DEOguzOiL3i6M/NAHpjvWdONY2mnqFwJ7E+BYlW4zFHWyYkeQe0YUkqIjpQ+CqE+s5vv
+ 2dwQQxv3K/ZOa0eiQlU2x03lf0ZKBwZczhznGKtpQ0b2+dM7rK1A9pYCaOThmtq2hyaH
+ jSRcx5S5MycS/Bv1oeWe125/thAOQsPYVJo96zy7GgMN4XUcZuAlNjUdId9pZUGvtM5U
+ GBB2FwTH0tox6Zo4hdJvNFlNh477mr5+OBNicFPaNFe1+g/i8RZ6rhY2KbQcdDg+d/0o
+ FCFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=c4SeDONJoAbR7SmDbEZVaj/9q86NqUT+93EyEB49Ezg=;
- b=slzVqXQkNGc6RBvqFGo4I3eUueVjmwi6m0NQv/RqR4eNhcSKqeg15qP8CflkmP7ytS
- 9UN/NihluuQQ/2AVQaPWtxsWibwxM7LV8XbFDY+uUouAK3SvArYqrIjdeqK9LzzP9QaZ
- r74Ao+qYgn+HYjwZDSG1Ga7pWC3UHyNnRPuKlOmOIRK//TpdSXGTdoNL25vItOO/dEXs
- bGD5S2Qp0u1rEOlkemIxWF5SyBF+I9Ki94QFIMVGU8L16E5EJesbiSd/VFq+LrhT7hv7
- 6hLDuV9uDgVd43OIPXIRr9lZhylAYfu8lqFnOEpkHQHpFOeDchjXY4DGAf38QtKDypqU
- 3Uiw==
-X-Gm-Message-State: AOAM530+ZQ1eRCJFx2FCnSL+IO06q1LgZeLR55ARbXqeZjM04k6NwztC
- lv2QyZhHeu/e6ZQFNlr5g2QQiO39iBYwKRnVF/dWiQ==
-X-Google-Smtp-Source: ABdhPJzcCnZYJ5XQhl7vebCWsp/6OgyUuNLP5zzuFG3UENJnaDRvsx9Z05O9E0/jNb7ulpBm9ZFHIO8hC5ehzrD1oWM=
-X-Received: by 2002:a05:651c:211a:: with SMTP id
- a26mr29019154ljq.91.1626073047904; 
- Sun, 11 Jul 2021 23:57:27 -0700 (PDT)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=kPH1IzeOGDJWRvF+hQvSOgoifVXeHmaKHK5lulTS72A=;
+ b=PCCTN2CrNu2LEtm4tv23ozfE5ThfLuTA9b3r05OGEKssxkom1r9NYxryeC4Vt8raXq
+ 3fQim+JV1SxLHhimloyC+cv5C8bA4qrA35r8SL+mRqSnvbx/MNRBFvp1xSx7HxWT3VfB
+ 5je7g+oa2dWox3g7nNjMW/DccggrN1z5D8a7Kji9ajVUg++DbXlDvS3BeABJDyPJ6F6v
+ IotRAs/N8KaynNji6oXfA9QKb0I7fY1fFZdySfDSxVrwtcmN+zJ0bIMxxuagFjhJpGM0
+ R8mNWKMVSjSL9I2hNPMYF2P4D9B8b+dOSYt0eSs7sjwQUGty0CoAkXc+LTYrbyWZsUdw
+ +gXA==
+X-Gm-Message-State: AOAM531jldUeLQCRmW/E1+yU3htyOaqYNqVl/eSmRjDXW7MvMTTVXu7l
+ TATJKbusVl1Iy1BCj7ae7fleOw==
+X-Google-Smtp-Source: ABdhPJw3eLakDx8YWXrA04CxC2ibj9EVmdwKTPTmTlExbDqvqJeykvBhTN4HqbH3oWcuFf9fHaCnlw==
+X-Received: by 2002:a05:6000:108:: with SMTP id
+ o8mr19045739wrx.154.1626077902152; 
+ Mon, 12 Jul 2021 01:18:22 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.googlemail.com with ESMTPSA id p5sm13969585wrd.25.2021.07.12.01.18.20
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 12 Jul 2021 01:18:21 -0700 (PDT)
+Subject: Re: [RFC PATCH 05/13] ASoC: qcom: audioreach: add q6apm support
+To: Rob Herring <robh@kernel.org>
+References: <20210607152836.17154-1-srinivas.kandagatla@linaro.org>
+ <20210607152836.17154-6-srinivas.kandagatla@linaro.org>
+ <20210618201718.GA2807622@robh.at.kernel.org>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <e7f2fcdd-31e2-2cb1-2f94-257c723c6436@linaro.org>
+Date: Mon, 12 Jul 2021 09:18:20 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-References: <20210629014736.31153-1-trevor.wu@mediatek.com>
- <20210629014736.31153-6-trevor.wu@mediatek.com>
-In-Reply-To: <20210629014736.31153-6-trevor.wu@mediatek.com>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Mon, 12 Jul 2021 14:57:16 +0800
-Message-ID: <CAGXv+5FzOs+=9PbYAEahVXvdJG1FnRkSUo_r3AVYZzNKGqg0oA@mail.gmail.com>
-Subject: Re: [PATCH v2 5/8] ASoC: mediatek: mt8195: add platform driver
-To: Trevor Wu <trevor.wu@mediatek.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20210618201718.GA2807622@robh.at.kernel.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- cychiang@google.com, bicycle.tsai@mediatek.com, tiwai@suse.com,
- Rob Herring <robh+dt@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- broonie@kernel.org, linux-mediatek@lists.infradead.org,
- Jiaxin Yu <jiaxin.yu@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- aaronyu@google.com, linux-arm-kernel@lists.infradead.org
+ bgoswami@codeaurora.org, lgirdwood@gmail.com, tiwai@suse.de,
+ plai@codeaurora.org, linux-kernel@vger.kernel.org, broonie@kernel.org,
+ bjorn.andersson@linaro.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,255 +110,255 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
- are all internal Hi,
-
-On Tue, Jun 29, 2021 at 9:49 AM Trevor Wu <trevor.wu@mediatek.com> wrote:
->
-> This patch adds mt8195 platform and affiliated driver.
->
-> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
-> ---
->  sound/soc/mediatek/Kconfig                     |    9 +
->  sound/soc/mediatek/Makefile                   |    1 +
->  sound/soc/mediatek/mt8195/Makefile            |   11 +
->  sound/soc/mediatek/mt8195/mt8195-afe-clk.c    |  899 +++++
->  sound/soc/mediatek/mt8195/mt8195-afe-clk.h    |  201 +
->  sound/soc/mediatek/mt8195/mt8195-afe-common.h |  200 +
->  sound/soc/mediatek/mt8195/mt8195-afe-pcm.c    | 3264 +++++++++++++++++
->  sound/soc/mediatek/mt8195/mt8195-reg.h        | 2793 ++++++++++++++
->  8 files changed, 7378 insertions(+)
->  create mode 100644 sound/soc/mediatek/mt8195/Makefile
->  create mode 100644 sound/soc/mediatek/mt8195/mt8195-afe-clk.c
->  create mode 100644 sound/soc/mediatek/mt8195/mt8195-afe-clk.h
->  create mode 100644 sound/soc/mediatek/mt8195/mt8195-afe-common.h
->  create mode 100644 sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
->  create mode 100644 sound/soc/mediatek/mt8195/mt8195-reg.h
->
-> diff --git a/sound/soc/mediatek/Kconfig b/sound/soc/mediatek/Kconfig
-> index 74dae4332d17..3389f382be06 100644
-> --- a/sound/soc/mediatek/Kconfig
-> +++ b/sound/soc/mediatek/Kconfig
-> @@ -184,3 +184,12 @@ config SND_SOC_MT8192_MT6359_RT1015_RT5682
->           with the MT6359 RT1015 RT5682 audio codec.
->           Select Y if you have such device.
->           If unsure select "N".
-> +
-> +config SND_SOC_MT8195
-> +       tristate "ASoC support for Mediatek MT8195 chip"
-> +       select SND_SOC_MEDIATEK
-> +       help
-> +         This adds ASoC platform driver support for Mediatek MT8195 chip
-> +         that can be used with other codecs.
-> +         Select Y if you have such device.
-> +         If unsure select "N".
-> diff --git a/sound/soc/mediatek/Makefile b/sound/soc/mediatek/Makefile
-> index f6cb6b8508e3..34778ca12106 100644
-> --- a/sound/soc/mediatek/Makefile
-> +++ b/sound/soc/mediatek/Makefile
-> @@ -5,3 +5,4 @@ obj-$(CONFIG_SND_SOC_MT6797) += mt6797/
->  obj-$(CONFIG_SND_SOC_MT8173) += mt8173/
->  obj-$(CONFIG_SND_SOC_MT8183) += mt8183/
->  obj-$(CONFIG_SND_SOC_MT8192) += mt8192/
-> +obj-$(CONFIG_SND_SOC_MT8195) += mt8195/
-> diff --git a/sound/soc/mediatek/mt8195/Makefile b/sound/soc/mediatek/mt8195/Makefile
-> new file mode 100644
-> index 000000000000..b2c9fd88f39e
-> --- /dev/null
-> +++ b/sound/soc/mediatek/mt8195/Makefile
-> @@ -0,0 +1,11 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +
-> +# platform driver
-> +snd-soc-mt8195-afe-objs := \
-> +       mt8195-afe-clk.o \
-> +       mt8195-afe-pcm.o \
-> +       mt8195-dai-adda.o \
-> +       mt8195-dai-etdm.o \
-> +       mt8195-dai-pcm.o
-> +
-> +obj-$(CONFIG_SND_SOC_MT8195) += snd-soc-mt8195-afe.o
-> diff --git a/sound/soc/mediatek/mt8195/mt8195-afe-clk.c b/sound/soc/mediatek/mt8195/mt8195-afe-clk.c
-> new file mode 100644
-> index 000000000000..57aa799b4f41
-> --- /dev/null
-> +++ b/sound/soc/mediatek/mt8195/mt8195-afe-clk.c
-> @@ -0,0 +1,899 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * mt8195-afe-clk.c  --  Mediatek 8195 afe clock ctrl
-> + *
-> + * Copyright (c) 2021 MediaTek Inc.
-> + * Author: Bicycle Tsai <bicycle.tsai@mediatek.com>
-> + *         Trevor Wu <trevor.wu@mediatek.com>
-> + */
-> +
-> +#include <linux/clk.h>
-> +
-> +#include "mt8195-afe-common.h"
-> +#include "mt8195-afe-clk.h"
-> +#include "mt8195-reg.h"
-> +
-> +static const char *aud_clks[MT8195_CLK_NUM] = {
-
-Most of these clocks are not described in the device tree binding. If
-the driver needs to reference them, they should be described. We should
-not be hard-coding clock names across different drivers.
-
-The more important question is, why does the driver need to reference
-all of them? Maybe we should take a step back and draw out a clock tree
-diagram for the hardware?
-
-> +       /* xtal */
-> +       [MT8195_CLK_XTAL_26M] = "clk26m",
-> +       /* pll */
-> +       [MT8195_CLK_APMIXED_APLL1] = "apll1",
-> +       [MT8195_CLK_APMIXED_APLL2] = "apll2",
-> +       [MT8195_CLK_APMIXED_APLL3] = "apll3",
-> +       [MT8195_CLK_APMIXED_APLL4] = "apll4",
-> +       [MT8195_CLK_APMIXED_APLL5] = "apll5",
-> +       [MT8195_CLK_APMIXED_HDMIRX_APLL] = "hdmirx_apll",
-> +       /* divider */
-> +       [MT8195_CLK_TOP_APLL1] = "apll1_ck",
-> +       [MT8195_CLK_TOP_APLL1_D4] = "apll1_d4",
-> +       [MT8195_CLK_TOP_APLL2] = "apll2_ck",
-> +       [MT8195_CLK_TOP_APLL2_D4] = "apll2_d4",
-> +       [MT8195_CLK_TOP_APLL3] = "apll3_ck",
-> +       [MT8195_CLK_TOP_APLL3_D4] = "apll3_d4",
-> +       [MT8195_CLK_TOP_APLL4] = "apll4_ck",
-> +       [MT8195_CLK_TOP_APLL4_D4] = "apll4_d4",
-> +       [MT8195_CLK_TOP_APLL5] = "apll5_ck",
-> +       [MT8195_CLK_TOP_APLL5_D4] = "apll5_d4",
-> +       [MT8195_CLK_TOP_APLL12_DIV0] = "apll12_div0",
-> +       [MT8195_CLK_TOP_APLL12_DIV1] = "apll12_div1",
-> +       [MT8195_CLK_TOP_APLL12_DIV2] = "apll12_div2",
-> +       [MT8195_CLK_TOP_APLL12_DIV3] = "apll12_div3",
-> +       [MT8195_CLK_TOP_APLL12_DIV4] = "apll12_div4",
-> +       [MT8195_CLK_TOP_APLL12_DIV9] = "apll12_div9",
-> +       [MT8195_CLK_TOP_HDMIRX_APLL] = "hdmirx_apll_ck",
-> +       [MT8195_CLK_TOP_MAINPLL_D4_D4] = "mainpll_d4_d4",
-> +       [MT8195_CLK_TOP_MAINPLL_D5_D2] = "mainpll_d5_d2",
-> +       [MT8195_CLK_TOP_MAINPLL_D7_D2] = "mainpll_d7_d2",
-> +       [MT8195_CLK_TOP_UNIVPLL_D4] = "univpll_d4",
-> +       /* mux */
-> +       [MT8195_CLK_TOP_APLL1_SEL] = "apll1_sel",
-> +       [MT8195_CLK_TOP_APLL2_SEL] = "apll2_sel",
-> +       [MT8195_CLK_TOP_APLL3_SEL] = "apll3_sel",
-> +       [MT8195_CLK_TOP_APLL4_SEL] = "apll4_sel",
-> +       [MT8195_CLK_TOP_APLL5_SEL] = "apll5_sel",
-> +       [MT8195_CLK_TOP_A1SYS_HP_SEL] = "a1sys_hp_sel",
-> +       [MT8195_CLK_TOP_A2SYS_SEL] = "a2sys_sel",
-> +       [MT8195_CLK_TOP_A3SYS_SEL] = "a3sys_sel",
-> +       [MT8195_CLK_TOP_A4SYS_SEL] = "a4sys_sel",
-> +       [MT8195_CLK_TOP_ASM_H_SEL] = "asm_h_sel",
-> +       [MT8195_CLK_TOP_ASM_M_SEL] = "asm_m_sel",
-> +       [MT8195_CLK_TOP_ASM_L_SEL] = "asm_l_sel",
-> +       [MT8195_CLK_TOP_AUD_IEC_SEL] = "aud_iec_sel",
-> +       [MT8195_CLK_TOP_AUD_INTBUS_SEL] = "aud_intbus_sel",
-> +       [MT8195_CLK_TOP_AUDIO_H_SEL] = "audio_h_sel",
-> +       [MT8195_CLK_TOP_AUDIO_LOCAL_BUS_SEL] = "audio_local_bus_sel",
-> +       [MT8195_CLK_TOP_DPTX_M_SEL] = "dptx_m_sel",
-> +       [MT8195_CLK_TOP_INTDIR_SEL] = "intdir_sel",
-> +       [MT8195_CLK_TOP_I2SO1_M_SEL] = "i2so1_m_sel",
-> +       [MT8195_CLK_TOP_I2SO2_M_SEL] = "i2so2_m_sel",
-> +       [MT8195_CLK_TOP_I2SI1_M_SEL] = "i2si1_m_sel",
-> +       [MT8195_CLK_TOP_I2SI2_M_SEL] = "i2si2_m_sel",
-> +       /* clock gate */
-> +       [MT8195_CLK_TOP_MPHONE_SLAVE_B] = "mphone_slave_b",
-> +       [MT8195_CLK_TOP_CFG_26M_AUD] = "cfg_26m_aud",
-> +       [MT8195_CLK_INFRA_AO_AUDIO] = "infra_ao_audio",
-> +       [MT8195_CLK_INFRA_AO_AUDIO_26M_B] = "infra_ao_audio_26m_b",
-> +       [MT8195_CLK_SCP_ADSP_AUDIODSP] = "scp_adsp_audiodsp",
 
 
-> +       [MT8195_CLK_AUD_AFE] = "aud_afe",
-> +       [MT8195_CLK_AUD_LRCK_CNT] = "aud_lrck_cnt",
-> +       [MT8195_CLK_AUD_SPDIFIN_TUNER_APLL] = "aud_spdifin_tuner_apll",
-> +       [MT8195_CLK_AUD_SPDIFIN_TUNER_DBG] = "aud_spdifin_tuner_dbg",
-> +       [MT8195_CLK_AUD_UL_TML] = "aud_ul_tml",
-> +       [MT8195_CLK_AUD_APLL1_TUNER] = "aud_apll1_tuner",
-> +       [MT8195_CLK_AUD_APLL2_TUNER] = "aud_apll2_tuner",
-> +       [MT8195_CLK_AUD_TOP0_SPDF] = "aud_top0_spdf",
-> +       [MT8195_CLK_AUD_APLL] = "aud_apll",
-> +       [MT8195_CLK_AUD_APLL2] = "aud_apll2",
-> +       [MT8195_CLK_AUD_DAC] = "aud_dac",
-> +       [MT8195_CLK_AUD_DAC_PREDIS] = "aud_dac_predis",
-> +       [MT8195_CLK_AUD_TML] = "aud_tml",
-> +       [MT8195_CLK_AUD_ADC] = "aud_adc",
-> +       [MT8195_CLK_AUD_DAC_HIRES] = "aud_dac_hires",
-> +       [MT8195_CLK_AUD_A1SYS_HP] = "aud_a1sys_hp",
-> +       [MT8195_CLK_AUD_AFE_DMIC1] = "aud_afe_dmic1",
-> +       [MT8195_CLK_AUD_AFE_DMIC2] = "aud_afe_dmic2",
-> +       [MT8195_CLK_AUD_AFE_DMIC3] = "aud_afe_dmic3",
-> +       [MT8195_CLK_AUD_AFE_DMIC4] = "aud_afe_dmic4",
-> +       [MT8195_CLK_AUD_AFE_26M_DMIC_TM] = "aud_afe_26m_dmic_tm",
-> +       [MT8195_CLK_AUD_UL_TML_HIRES] = "aud_ul_tml_hires",
-> +       [MT8195_CLK_AUD_ADC_HIRES] = "aud_adc_hires",
-> +       [MT8195_CLK_AUD_ADDA6_ADC] = "aud_adda6_adc",
-> +       [MT8195_CLK_AUD_ADDA6_ADC_HIRES] = "aud_adda6_adc_hires",
-> +       [MT8195_CLK_AUD_LINEIN_TUNER] = "aud_linein_tuner",
-> +       [MT8195_CLK_AUD_EARC_TUNER] = "aud_earc_tuner",
-> +       [MT8195_CLK_AUD_I2SIN] = "aud_i2sin",
-> +       [MT8195_CLK_AUD_TDM_IN] = "aud_tdm_in",
-> +       [MT8195_CLK_AUD_I2S_OUT] = "aud_i2s_out",
-> +       [MT8195_CLK_AUD_TDM_OUT] = "aud_tdm_out",
-> +       [MT8195_CLK_AUD_HDMI_OUT] = "aud_hdmi_out",
-> +       [MT8195_CLK_AUD_ASRC11] = "aud_asrc11",
-> +       [MT8195_CLK_AUD_ASRC12] = "aud_asrc12",
-> +       [MT8195_CLK_AUD_MULTI_IN] = "aud_multi_in",
-> +       [MT8195_CLK_AUD_INTDIR] = "aud_intdir",
-> +       [MT8195_CLK_AUD_A1SYS] = "aud_a1sys",
-> +       [MT8195_CLK_AUD_A2SYS] = "aud_a2sys",
-> +       [MT8195_CLK_AUD_PCMIF] = "aud_pcmif",
-> +       [MT8195_CLK_AUD_A3SYS] = "aud_a3sys",
-> +       [MT8195_CLK_AUD_A4SYS] = "aud_a4sys",
-> +       [MT8195_CLK_AUD_MEMIF_UL1] = "aud_memif_ul1",
-> +       [MT8195_CLK_AUD_MEMIF_UL2] = "aud_memif_ul2",
-> +       [MT8195_CLK_AUD_MEMIF_UL3] = "aud_memif_ul3",
-> +       [MT8195_CLK_AUD_MEMIF_UL4] = "aud_memif_ul4",
-> +       [MT8195_CLK_AUD_MEMIF_UL5] = "aud_memif_ul5",
-> +       [MT8195_CLK_AUD_MEMIF_UL6] = "aud_memif_ul6",
-> +       [MT8195_CLK_AUD_MEMIF_UL8] = "aud_memif_ul8",
-> +       [MT8195_CLK_AUD_MEMIF_UL9] = "aud_memif_ul9",
-> +       [MT8195_CLK_AUD_MEMIF_UL10] = "aud_memif_ul10",
-> +       [MT8195_CLK_AUD_MEMIF_DL2] = "aud_memif_dl2",
-> +       [MT8195_CLK_AUD_MEMIF_DL3] = "aud_memif_dl3",
-> +       [MT8195_CLK_AUD_MEMIF_DL6] = "aud_memif_dl6",
-> +       [MT8195_CLK_AUD_MEMIF_DL7] = "aud_memif_dl7",
-> +       [MT8195_CLK_AUD_MEMIF_DL8] = "aud_memif_dl8",
-> +       [MT8195_CLK_AUD_MEMIF_DL10] = "aud_memif_dl10",
-> +       [MT8195_CLK_AUD_MEMIF_DL11] = "aud_memif_dl11",
-> +       [MT8195_CLK_AUD_GASRC0] = "aud_gasrc0",
-> +       [MT8195_CLK_AUD_GASRC1] = "aud_gasrc1",
-> +       [MT8195_CLK_AUD_GASRC2] = "aud_gasrc2",
-> +       [MT8195_CLK_AUD_GASRC3] = "aud_gasrc3",
-> +       [MT8195_CLK_AUD_GASRC4] = "aud_gasrc4",
-> +       [MT8195_CLK_AUD_GASRC5] = "aud_gasrc5",
-> +       [MT8195_CLK_AUD_GASRC6] = "aud_gasrc6",
-> +       [MT8195_CLK_AUD_GASRC7] = "aud_gasrc7",
-> +       [MT8195_CLK_AUD_GASRC8] = "aud_gasrc8",
-> +       [MT8195_CLK_AUD_GASRC9] = "aud_gasrc9",
-> +       [MT8195_CLK_AUD_GASRC10] = "aud_gasrc10",
-> +       [MT8195_CLK_AUD_GASRC11] = "aud_gasrc11",
-> +       [MT8195_CLK_AUD_GASRC12] = "aud_gasrc12",
-> +       [MT8195_CLK_AUD_GASRC13] = "aud_gasrc13",
-> +       [MT8195_CLK_AUD_GASRC14] = "aud_gasrc14",
-> +       [MT8195_CLK_AUD_GASRC15] = "aud_gasrc15",
-> +       [MT8195_CLK_AUD_GASRC16] = "aud_gasrc16",
-> +       [MT8195_CLK_AUD_GASRC17] = "aud_gasrc17",
-> +       [MT8195_CLK_AUD_GASRC18] = "aud_gasrc18",
-> +       [MT8195_CLK_AUD_GASRC19] = "aud_gasrc19",
+On 18/06/2021 21:17, Rob Herring wrote:
+> On Mon, Jun 07, 2021 at 04:28:28PM +0100, Srinivas Kandagatla wrote:
+>> Add support to q6apm (Audio Process Manager) component which is
+>> core Audioreach service running in the DSP.
+>>
+>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+>> ---
+>>   include/dt-bindings/sound/qcom,q6apm.h | 215 ++++++++
+> 
+> This goes in the binding patch.
+> 
 
-The MT8195_CLK_AUD_* clocks are all internal to the audio subsystem:
-the bits that control these clock gates are in the same address space
-as the audio parts. Would it be possible to model them as internal
-ASoC SUPPLY widgets? The external ones could be modeled using ASoC
-CLK_SUPPLY widgets, and the dependencies could be modeled with ASoC
-routes. The ASoC core could then handle power sequencing, which the
-driver currently does manually.
+Thanks Rob for review,
+Yes, I agree I will move this to bindings.
 
-IMO this is better than having two drivers handling two aspects of
-the same piece of hardware, while the two aspects are intertwined.
-
-
-Regards
-ChenYu
+--srini
+>>   sound/soc/qcom/audioreach/Makefile     |   2 +-
+>>   sound/soc/qcom/audioreach/audioreach.c | 252 +++++++++
+>>   sound/soc/qcom/audioreach/audioreach.h |   6 +
+>>   sound/soc/qcom/audioreach/q6apm.c      | 695 +++++++++++++++++++++++++
+>>   sound/soc/qcom/audioreach/q6apm.h      | 171 ++++++
+>>   6 files changed, 1340 insertions(+), 1 deletion(-)
+>>   create mode 100644 include/dt-bindings/sound/qcom,q6apm.h
+>>   create mode 100644 sound/soc/qcom/audioreach/q6apm.c
+>>   create mode 100644 sound/soc/qcom/audioreach/q6apm.h
+>>
+>> diff --git a/include/dt-bindings/sound/qcom,q6apm.h b/include/dt-bindings/sound/qcom,q6apm.h
+>> new file mode 100644
+>> index 000000000000..38e3a426b15a
+>> --- /dev/null
+>> +++ b/include/dt-bindings/sound/qcom,q6apm.h
+>> @@ -0,0 +1,215 @@
+>> +/* SPDX-License-Identifier: GPL-2.0 */
+> 
+> Dual license.
+> 
+>> +#ifndef __DT_BINDINGS_Q6_APM_H__
+>> +#define __DT_BINDINGS_Q6_APM_H__
+>> +
+>> +#define	MSM_FRONTEND_DAI_MULTIMEDIA1	1
+>> +#define	MSM_FRONTEND_DAI_MULTIMEDIA2	2
+>> +#define	MSM_FRONTEND_DAI_MULTIMEDIA3	3
+>> +#define	MSM_FRONTEND_DAI_MULTIMEDIA4	4
+>> +#define	MSM_FRONTEND_DAI_MULTIMEDIA5	5
+>> +#define	MSM_FRONTEND_DAI_MULTIMEDIA6	6
+>> +#define	MSM_FRONTEND_DAI_MULTIMEDIA7	7
+>> +#define	MSM_FRONTEND_DAI_MULTIMEDIA8	8
+>> +
+>> +/* Audio Process Manager (APM) virtual ports IDs */
+>> +#define HDMI_RX		1
+>> +#define SLIMBUS_0_RX    2
+>> +#define SLIMBUS_0_TX    3
+>> +#define SLIMBUS_1_RX    4
+>> +#define SLIMBUS_1_TX    5
+>> +#define SLIMBUS_2_RX    6
+>> +#define SLIMBUS_2_TX    7
+>> +#define SLIMBUS_3_RX    8
+>> +#define SLIMBUS_3_TX    9
+>> +#define SLIMBUS_4_RX    10
+>> +#define SLIMBUS_4_TX    11
+>> +#define SLIMBUS_5_RX    12
+>> +#define SLIMBUS_5_TX    13
+>> +#define SLIMBUS_6_RX    14
+>> +#define SLIMBUS_6_TX    15
+>> +#define PRIMARY_MI2S_RX		16
+>> +#define PRIMARY_MI2S_TX		17
+>> +#define SECONDARY_MI2S_RX	18
+>> +#define SECONDARY_MI2S_TX	19
+>> +#define TERTIARY_MI2S_RX	20
+>> +#define TERTIARY_MI2S_TX	21
+>> +#define QUATERNARY_MI2S_RX	22
+>> +#define QUATERNARY_MI2S_TX	23
+>> +#define PRIMARY_TDM_RX_0	24
+>> +#define PRIMARY_TDM_TX_0	25
+>> +#define PRIMARY_TDM_RX_1	26
+>> +#define PRIMARY_TDM_TX_1	27
+>> +#define PRIMARY_TDM_RX_2	28
+>> +#define PRIMARY_TDM_TX_2	29
+>> +#define PRIMARY_TDM_RX_3	30
+>> +#define PRIMARY_TDM_TX_3	31
+>> +#define PRIMARY_TDM_RX_4	32
+>> +#define PRIMARY_TDM_TX_4	33
+>> +#define PRIMARY_TDM_RX_5	34
+>> +#define PRIMARY_TDM_TX_5	35
+>> +#define PRIMARY_TDM_RX_6	36
+>> +#define PRIMARY_TDM_TX_6	37
+>> +#define PRIMARY_TDM_RX_7	38
+>> +#define PRIMARY_TDM_TX_7	39
+>> +#define SECONDARY_TDM_RX_0	40
+>> +#define SECONDARY_TDM_TX_0	41
+>> +#define SECONDARY_TDM_RX_1	42
+>> +#define SECONDARY_TDM_TX_1	43
+>> +#define SECONDARY_TDM_RX_2	44
+>> +#define SECONDARY_TDM_TX_2	45
+>> +#define SECONDARY_TDM_RX_3	46
+>> +#define SECONDARY_TDM_TX_3	47
+>> +#define SECONDARY_TDM_RX_4	48
+>> +#define SECONDARY_TDM_TX_4	49
+>> +#define SECONDARY_TDM_RX_5	50
+>> +#define SECONDARY_TDM_TX_5	51
+>> +#define SECONDARY_TDM_RX_6	52
+>> +#define SECONDARY_TDM_TX_6	53
+>> +#define SECONDARY_TDM_RX_7	54
+>> +#define SECONDARY_TDM_TX_7	55
+>> +#define TERTIARY_TDM_RX_0	56
+>> +#define TERTIARY_TDM_TX_0	57
+>> +#define TERTIARY_TDM_RX_1	58
+>> +#define TERTIARY_TDM_TX_1	59
+>> +#define TERTIARY_TDM_RX_2	60
+>> +#define TERTIARY_TDM_TX_2	61
+>> +#define TERTIARY_TDM_RX_3	62
+>> +#define TERTIARY_TDM_TX_3	63
+>> +#define TERTIARY_TDM_RX_4	64
+>> +#define TERTIARY_TDM_TX_4	65
+>> +#define TERTIARY_TDM_RX_5	66
+>> +#define TERTIARY_TDM_TX_5	67
+>> +#define TERTIARY_TDM_RX_6	68
+>> +#define TERTIARY_TDM_TX_6	69
+>> +#define TERTIARY_TDM_RX_7	70
+>> +#define TERTIARY_TDM_TX_7	71
+>> +#define QUATERNARY_TDM_RX_0	72
+>> +#define QUATERNARY_TDM_TX_0	73
+>> +#define QUATERNARY_TDM_RX_1	74
+>> +#define QUATERNARY_TDM_TX_1	75
+>> +#define QUATERNARY_TDM_RX_2	76
+>> +#define QUATERNARY_TDM_TX_2	77
+>> +#define QUATERNARY_TDM_RX_3	78
+>> +#define QUATERNARY_TDM_TX_3	79
+>> +#define QUATERNARY_TDM_RX_4	80
+>> +#define QUATERNARY_TDM_TX_4	81
+>> +#define QUATERNARY_TDM_RX_5	82
+>> +#define QUATERNARY_TDM_TX_5	83
+>> +#define QUATERNARY_TDM_RX_6	84
+>> +#define QUATERNARY_TDM_TX_6	85
+>> +#define QUATERNARY_TDM_RX_7	86
+>> +#define QUATERNARY_TDM_TX_7	87
+>> +#define QUINARY_TDM_RX_0	88
+>> +#define QUINARY_TDM_TX_0	89
+>> +#define QUINARY_TDM_RX_1	90
+>> +#define QUINARY_TDM_TX_1	91
+>> +#define QUINARY_TDM_RX_2	92
+>> +#define QUINARY_TDM_TX_2	93
+>> +#define QUINARY_TDM_RX_3	94
+>> +#define QUINARY_TDM_TX_3	95
+>> +#define QUINARY_TDM_RX_4	96
+>> +#define QUINARY_TDM_TX_4	97
+>> +#define QUINARY_TDM_RX_5	98
+>> +#define QUINARY_TDM_TX_5	99
+>> +#define QUINARY_TDM_RX_6	100
+>> +#define QUINARY_TDM_TX_6	101
+>> +#define QUINARY_TDM_RX_7	102
+>> +#define QUINARY_TDM_TX_7	103
+>> +#define DISPLAY_PORT_RX		104
+>> +#define WSA_CODEC_DMA_RX_0	105
+>> +#define WSA_CODEC_DMA_TX_0	106
+>> +#define WSA_CODEC_DMA_RX_1	107
+>> +#define WSA_CODEC_DMA_TX_1	108
+>> +#define WSA_CODEC_DMA_TX_2	109
+>> +#define VA_CODEC_DMA_TX_0	110
+>> +#define VA_CODEC_DMA_TX_1	111
+>> +#define VA_CODEC_DMA_TX_2	112
+>> +#define RX_CODEC_DMA_RX_0	113
+>> +#define TX_CODEC_DMA_TX_0	114
+>> +#define RX_CODEC_DMA_RX_1	115
+>> +#define TX_CODEC_DMA_TX_1	116
+>> +#define RX_CODEC_DMA_RX_2	117
+>> +#define TX_CODEC_DMA_TX_2	118
+>> +#define RX_CODEC_DMA_RX_3	119
+>> +#define TX_CODEC_DMA_TX_3	120
+>> +#define RX_CODEC_DMA_RX_4	121
+>> +#define TX_CODEC_DMA_TX_4	122
+>> +#define RX_CODEC_DMA_RX_5	123
+>> +#define TX_CODEC_DMA_TX_5	124
+>> +#define RX_CODEC_DMA_RX_6	125
+>> +#define RX_CODEC_DMA_RX_7	126
+>> +
+>> +#define LPASS_CLK_ID_PRI_MI2S_IBIT	1
+>> +#define LPASS_CLK_ID_PRI_MI2S_EBIT	2
+>> +#define LPASS_CLK_ID_SEC_MI2S_IBIT	3
+>> +#define LPASS_CLK_ID_SEC_MI2S_EBIT	4
+>> +#define LPASS_CLK_ID_TER_MI2S_IBIT	5
+>> +#define LPASS_CLK_ID_TER_MI2S_EBIT	6
+>> +#define LPASS_CLK_ID_QUAD_MI2S_IBIT	7
+>> +#define LPASS_CLK_ID_QUAD_MI2S_EBIT	8
+>> +#define LPASS_CLK_ID_SPEAKER_I2S_IBIT	9
+>> +#define LPASS_CLK_ID_SPEAKER_I2S_EBIT	10
+>> +#define LPASS_CLK_ID_SPEAKER_I2S_OSR	11
+>> +#define LPASS_CLK_ID_QUI_MI2S_IBIT	12
+>> +#define LPASS_CLK_ID_QUI_MI2S_EBIT	13
+>> +#define LPASS_CLK_ID_SEN_MI2S_IBIT	14
+>> +#define LPASS_CLK_ID_SEN_MI2S_EBIT	15
+>> +#define LPASS_CLK_ID_INT0_MI2S_IBIT	16
+>> +#define LPASS_CLK_ID_INT1_MI2S_IBIT	17
+>> +#define LPASS_CLK_ID_INT2_MI2S_IBIT	18
+>> +#define LPASS_CLK_ID_INT3_MI2S_IBIT	19
+>> +#define LPASS_CLK_ID_INT4_MI2S_IBIT	20
+>> +#define LPASS_CLK_ID_INT5_MI2S_IBIT	21
+>> +#define LPASS_CLK_ID_INT6_MI2S_IBIT	22
+>> +#define LPASS_CLK_ID_QUI_MI2S_OSR	23
+>> +#define LPASS_CLK_ID_PRI_PCM_IBIT	24
+>> +#define LPASS_CLK_ID_PRI_PCM_EBIT	25
+>> +#define LPASS_CLK_ID_SEC_PCM_IBIT	26
+>> +#define LPASS_CLK_ID_SEC_PCM_EBIT	27
+>> +#define LPASS_CLK_ID_TER_PCM_IBIT	28
+>> +#define LPASS_CLK_ID_TER_PCM_EBIT	29
+>> +#define LPASS_CLK_ID_QUAD_PCM_IBIT	30
+>> +#define LPASS_CLK_ID_QUAD_PCM_EBIT	31
+>> +#define LPASS_CLK_ID_QUIN_PCM_IBIT	32
+>> +#define LPASS_CLK_ID_QUIN_PCM_EBIT	33
+>> +#define LPASS_CLK_ID_QUI_PCM_OSR	34
+>> +#define LPASS_CLK_ID_PRI_TDM_IBIT	35
+>> +#define LPASS_CLK_ID_PRI_TDM_EBIT	36
+>> +#define LPASS_CLK_ID_SEC_TDM_IBIT	37
+>> +#define LPASS_CLK_ID_SEC_TDM_EBIT	38
+>> +#define LPASS_CLK_ID_TER_TDM_IBIT	39
+>> +#define LPASS_CLK_ID_TER_TDM_EBIT	40
+>> +#define LPASS_CLK_ID_QUAD_TDM_IBIT	41
+>> +#define LPASS_CLK_ID_QUAD_TDM_EBIT	42
+>> +#define LPASS_CLK_ID_QUIN_TDM_IBIT	43
+>> +#define LPASS_CLK_ID_QUIN_TDM_EBIT	44
+>> +#define LPASS_CLK_ID_QUIN_TDM_OSR	45
+>> +#define LPASS_CLK_ID_MCLK_1		46
+>> +#define LPASS_CLK_ID_MCLK_2		47
+>> +#define LPASS_CLK_ID_MCLK_3		48
+>> +#define LPASS_CLK_ID_MCLK_4		49
+>> +#define LPASS_CLK_ID_INTERNAL_DIGITAL_CODEC_CORE	50
+>> +#define LPASS_CLK_ID_INT_MCLK_0		51
+>> +#define LPASS_CLK_ID_INT_MCLK_1		52
+>> +#define LPASS_CLK_ID_MCLK_5		53
+>> +#define LPASS_CLK_ID_WSA_CORE_MCLK	54
+>> +#define LPASS_CLK_ID_WSA_CORE_NPL_MCLK	55
+>> +#define LPASS_CLK_ID_VA_CORE_MCLK	56
+>> +#define LPASS_CLK_ID_TX_CORE_MCLK	57
+>> +#define LPASS_CLK_ID_TX_CORE_NPL_MCLK	58
+>> +#define LPASS_CLK_ID_RX_CORE_MCLK	59
+>> +#define LPASS_CLK_ID_RX_CORE_NPL_MCLK	60
+>> +#define LPASS_CLK_ID_VA_CORE_2X_MCLK	61
+>> +
+>> +#define LPASS_HW_AVTIMER_VOTE		101
+>> +#define LPASS_HW_MACRO_VOTE		102
+>> +#define LPASS_HW_DCODEC_VOTE		103
+>> +
+>> +#define Q6APM_MAX_CLK_ID			104
+>> +
+>> +#define LPASS_CLK_ATTRIBUTE_INVALID		0x0
+>> +#define LPASS_CLK_ATTRIBUTE_COUPLE_NO		0x1
+>> +#define LPASS_CLK_ATTRIBUTE_COUPLE_DIVIDEND	0x2
+>> +#define LPASS_CLK_ATTRIBUTE_COUPLE_DIVISOR	0x3
+>> +
+>> +#endif /* __DT_BINDINGS_Q6_APM_H__ */

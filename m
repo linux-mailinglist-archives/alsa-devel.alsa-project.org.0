@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 134EF3C540C
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jul 2021 12:53:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ED343C543A
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jul 2021 12:53:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95CB511C;
-	Mon, 12 Jul 2021 12:52:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95CB511C
+	by alsa0.perex.cz (Postfix) with ESMTPS id C390F16A6;
+	Mon, 12 Jul 2021 12:52:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C390F16A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626087180;
-	bh=cugKJZQS+D/bRbakUGj0OOo0zuDNW4DxeSFxRcBYXOc=;
+	s=default; t=1626087202;
+	bh=Q0LmCKQCfSGQOND5wXq1ayQltdByrVvEHp3u5Nb9hAo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HO0sp8wpqy+BFwfek12J4EkQuk6UHnq6ItEbI43kWMkYIWoY5eX5mzjVZEXBku0Gy
-	 YE1I8EfCEfODGiQy9llorM7uwEdiBuqI41FNHeMGqpb+EmCrf1sK68DukyuLsfnvrr
-	 j+DvPDZn5bzIKovRmgRXcNAZO1NFRUrVJyTxSfMU=
+	b=f4cEH8OHwkBdI8/Kr/+RtKNTertVkqdgZE5Qx8vxJ1Zzf3DRB8n81lLNG2i0VOEc0
+	 ROEylKeribKU+NLV9P0aAzW+f6a7g+DVVyUYcPeb6adVTuHE/hvlkgoaPwZTXkl9tc
+	 63cDnAyuf+M+UZlZhBnPmuGUHvreJggVDoVvacvo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6FC7F80524;
-	Mon, 12 Jul 2021 12:48:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51F32F80528;
+	Mon, 12 Jul 2021 12:48:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 443B5F8051E; Mon, 12 Jul 2021 12:48:17 +0200 (CEST)
+ id C7DD2F80515; Mon, 12 Jul 2021 12:48:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 32A3AF80515
- for <alsa-devel@alsa-project.org>; Mon, 12 Jul 2021 12:48:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32A3AF80515
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3D9E2F8051B
+ for <alsa-devel@alsa-project.org>; Mon, 12 Jul 2021 12:48:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D9E2F8051B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qij0p1Sb"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id BCCA161159;
- Mon, 12 Jul 2021 10:48:07 +0000 (UTC)
+ header.b="OjzSBlw+"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 532BC61156;
+ Mon, 12 Jul 2021 10:48:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1626086888;
- bh=cugKJZQS+D/bRbakUGj0OOo0zuDNW4DxeSFxRcBYXOc=;
+ s=k20201202; t=1626086890;
+ bh=Q0LmCKQCfSGQOND5wXq1ayQltdByrVvEHp3u5Nb9hAo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=qij0p1SbnjA+DSdKriZm9e6XxhEQ403d047rcfCp6kPZKQk8lmj9xiJNjLhayELK3
- ziRa22M9Dim+Y08nnYCMoXKd/k7/W7sOtMMFyzKiErNRtanWvbhyBVU5nbsdRUnNtW
- 161gA4Fs7xd86oYoJHovv5ZhjqkQGdyIQZZG1Ogalw9vZZ93Wk6Ja2cNDpsbo7PC7a
- 6jFB3qp17cLPOI12Qdcf6QJEs9mxWvzb4gFl/qB1Q915GaLcQuEPTqRf2UCcDzE9Wn
- nJ4caAw1ujhIDQAQuZxEyBn7bx8A4YSNys0t/DzEMG9j0Vg6QqOn+tAwz0d1Nrtw1w
- HoBuvtKsj8Ehw==
+ b=OjzSBlw+Jag83c6fTsDidspwoNOir2H7BVY60natVm45ehitMnbfA9ZABVDFbMXpY
+ XGsJfr/pUB31vykZ5C23N+q2TodcsoILwlrkDApoRPl7zFEt/S38c1ry1ClRzG8v6o
+ 8Oyr/1ZbW6z4c9K2x2jDbg3wEPAeRpfX9Mc5OoqY+/XNwV1mvPYHebYXnHFp1KCecR
+ PT0VltXhuY585NBM1J5m6pWWkZoCMs0i4HIVKBYUmOl10Jq88YzlQkHYcFJrKOOsgP
+ /zORv7l+m6RyZR+Qlt8+y2mdPohY5sHHO+hTyiPfE+6w7DksfsqM/4CeLOph6nXMRv
+ arjYtGoWdIxdA==
 From: Mark Brown <broonie@kernel.org>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Subject: Re: (subset) [PATCH 1/3] ASoC: wm_adsp: Correct wm_coeff_tlv_get
- handling
-Date: Mon, 12 Jul 2021 11:46:08 +0100
-Message-Id: <162608623149.3192.17412874747238610062.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>
+Subject: Re: [PATCH RFC] ASoC: sh: rcar: dma: : use proper DMAENGINE API for
+ termination
+Date: Mon, 12 Jul 2021 11:46:09 +0100
+Message-Id: <162608623151.3192.11307653106365626153.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210626155941.12251-1-ckeepax@opensource.cirrus.com>
-References: <20210626155941.12251-1-ckeepax@opensource.cirrus.com>
+In-Reply-To: <20210623100545.3926-1-wsa+renesas@sang-engineering.com>
+References: <20210623100545.3926-1-wsa+renesas@sang-engineering.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, lgirdwood@gmail.com
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-renesas-soc@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,11 +83,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 26 Jun 2021 16:59:39 +0100, Charles Keepax wrote:
-> When wm_coeff_tlv_get was updated it was accidentally switch to the _raw
-> version of the helper causing it to ignore the current DSP state it
-> should be checking. Switch the code back to the correct helper so that
-> users can't read the controls when they arn't available.
+On Wed, 23 Jun 2021 12:05:45 +0200, Wolfram Sang wrote:
+> dmaengine_terminate_all() is deprecated in favor of explicitly saying if
+> it should be sync or async. Here, we want dmaengine_terminate_sync()
+> because there is no other synchronization code in the driver to handle
+> an async case.
 
 Applied to
 
@@ -92,8 +95,8 @@ Applied to
 
 Thanks!
 
-[3/3] ASoC: wm_adsp: Remove pointless string comparison
-      commit: 2ba907894f9e69b68e5934b57afb744482a72984
+[1/1] ASoC: sh: rcar: dma: : use proper DMAENGINE API for termination
+      commit: d5bb69dc54ec1e09f3fd626fdb9c340c0511dbd5
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

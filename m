@@ -2,55 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ABBA3C650A
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jul 2021 22:36:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE2EC3C6506
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jul 2021 22:35:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF54016BE;
-	Mon, 12 Jul 2021 22:35:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF54016BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8435A16C1;
+	Mon, 12 Jul 2021 22:34:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8435A16C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626122204;
-	bh=/zqf1KmiRB3gB5KII4PWv3s3J6IO8rej8CY1HM9oGnE=;
+	s=default; t=1626122121;
+	bh=TI5+X93ZggacsuU6hwXb6WKts5KtPn2OwdyKF8WPuOI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uH0n4Pa25AmhyUYkDZ/Tk6rIiRSNX/Klzuwfh3FhXdxO7bmGmDcf/4GHKqBbU2W12
-	 sx6H+Zt8BhIKNXl1RXxbZIkAmUvHmSg+KdjXl2wdmOUBVOgHt8k68Yu9Of3Xd0pczD
-	 JtVU6Npd0B2wVHOofAbo2tdqjslaaP5mxO5YvmfA=
+	b=LxcR6TCc9zDdvq1ZqHSlqjIjZnlOhJlrStM7+CEEwq6X9/JELlhtGVdpK/WiUP3bU
+	 EkmFpCtcvZwjogCjIGSI+ys322p0GkVU8xjSxt1WUSXTwPwqukM+BI23a4816pfc3b
+	 UkpGgYBthaVe5lgwkKVaR5o13qUgq2SZuN5aIUhw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC0FEF804FB;
-	Mon, 12 Jul 2021 22:33:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15DA9F804E2;
+	Mon, 12 Jul 2021 22:33:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1857FF804E4; Mon, 12 Jul 2021 22:33:11 +0200 (CEST)
+ id 83630F804E3; Mon, 12 Jul 2021 22:33:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B7A70F80253
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3370F8025B
  for <alsa-devel@alsa-project.org>; Mon, 12 Jul 2021 22:32:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7A70F80253
-X-IronPort-AV: E=McAfee;i="6200,9189,10043"; a="190431640"
-X-IronPort-AV: E=Sophos;i="5.84,234,1620716400"; d="scan'208";a="190431640"
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3370F8025B
+X-IronPort-AV: E=McAfee;i="6200,9189,10043"; a="190431642"
+X-IronPort-AV: E=Sophos;i="5.84,234,1620716400"; d="scan'208";a="190431642"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2021 13:32:54 -0700
-X-IronPort-AV: E=Sophos;i="5.84,234,1620716400"; d="scan'208";a="561880765"
+ 12 Jul 2021 13:32:55 -0700
+X-IronPort-AV: E=Sophos;i="5.84,234,1620716400"; d="scan'208";a="561880768"
 Received: from yangbosh-mobl3.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.95.167])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2021 13:32:53 -0700
+ 12 Jul 2021 13:32:54 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/7] ASoC: Intel: maxim-common: support max98360a
-Date: Mon, 12 Jul 2021 15:32:35 -0500
-Message-Id: <20210712203240.46960-3-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 3/7] ASoC: Intel: sof_cs42l42: add support for
+ jsl_cs4242_mx98360a
+Date: Mon, 12 Jul 2021 15:32:36 -0500
+Message-Id: <20210712203240.46960-4-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210712203240.46960-1-pierre-louis.bossart@linux.intel.com>
 References: <20210712203240.46960-1-pierre-louis.bossart@linux.intel.com>
@@ -76,79 +77,73 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Brent Lu <brent.lu@intel.com>
 
-Move max98360a code to this common module so it could be shared
-between multiple SOF machine drivers. MAX98357A and MAX98360A are
-sharing same codec driver so here we also share some function and
-structures.
+This patch adds driver data for jsl_cs4242_mx98360a which supports two
+max98360a speaker amplifiers on SSP1 and cs42l42 headphone codec on
+SSP0 running on JSL platform.
 
 Reviewed-by: Bard Liao <bard.liao@intel.com>
 Signed-off-by: Brent Lu <brent.lu@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_maxim_common.c | 17 ++++++++++++++++-
- sound/soc/intel/boards/sof_maxim_common.h |  4 +++-
- 2 files changed, 19 insertions(+), 2 deletions(-)
+ sound/soc/intel/boards/sof_cs42l42.c              | 11 +++++++++++
+ sound/soc/intel/common/soc-acpi-intel-jsl-match.c |  8 ++++++++
+ 2 files changed, 19 insertions(+)
 
-diff --git a/sound/soc/intel/boards/sof_maxim_common.c b/sound/soc/intel/boards/sof_maxim_common.c
-index e9c52f8b6428..e66dfe666915 100644
---- a/sound/soc/intel/boards/sof_maxim_common.c
-+++ b/sound/soc/intel/boards/sof_maxim_common.c
-@@ -134,7 +134,7 @@ void max_98373_set_codec_conf(struct snd_soc_card *card)
- EXPORT_SYMBOL_NS(max_98373_set_codec_conf, SND_SOC_INTEL_SOF_MAXIM_COMMON);
+diff --git a/sound/soc/intel/boards/sof_cs42l42.c b/sound/soc/intel/boards/sof_cs42l42.c
+index 4cd8be177db1..ce78c1879887 100644
+--- a/sound/soc/intel/boards/sof_cs42l42.c
++++ b/sound/soc/intel/boards/sof_cs42l42.c
+@@ -42,6 +42,7 @@
+ #define SOF_CS42L42_DAILINK(link1, link2, link3, link4, link5) \
+ 	((((link1) | ((link2) << 3) | ((link3) << 6) | ((link4) << 9) | ((link5) << 12)) << SOF_CS42L42_DAILINK_SHIFT) & SOF_CS42L42_DAILINK_MASK)
+ #define SOF_MAX98357A_SPEAKER_AMP_PRESENT	BIT(25)
++#define SOF_MAX98360A_SPEAKER_AMP_PRESENT	BIT(26)
  
- /*
-- * Maxim MAX98357A
-+ * Maxim MAX98357A/MAX98360A
-  */
- static const struct snd_kcontrol_new max_98357a_kcontrols[] = {
- 	SOC_DAPM_PIN_SWITCH("Spk"),
-@@ -156,6 +156,13 @@ static struct snd_soc_dai_link_component max_98357a_components[] = {
- 	}
- };
+ enum {
+ 	LINK_NONE = 0,
+@@ -299,6 +300,8 @@ static int create_spk_amp_dai_links(struct device *dev,
  
-+static struct snd_soc_dai_link_component max_98360a_components[] = {
+ 	if (sof_cs42l42_quirk & SOF_MAX98357A_SPEAKER_AMP_PRESENT) {
+ 		max_98357a_dai_link(&links[*id]);
++	} else if (sof_cs42l42_quirk & SOF_MAX98360A_SPEAKER_AMP_PRESENT) {
++		max_98360a_dai_link(&links[*id]);
+ 	} else {
+ 		dev_err(dev, "no amp defined\n");
+ 		ret = -EINVAL;
+@@ -610,6 +613,14 @@ static const struct platform_device_id board_ids[] = {
+ 					SOF_CS42L42_SSP_AMP(1)) |
+ 					SOF_CS42L42_DAILINK(LINK_SPK, LINK_HP, LINK_DMIC, LINK_HDMI, LINK_NONE),
+ 	},
 +	{
-+		.name = MAX_98360A_DEV0_NAME,
-+		.dai_name = MAX_98357A_CODEC_DAI,
-+	}
-+};
-+
- static int max_98357a_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct snd_soc_card *card = rtd->card;
-@@ -193,5 +200,13 @@ void max_98357a_dai_link(struct snd_soc_dai_link *link)
- }
- EXPORT_SYMBOL_NS(max_98357a_dai_link, SND_SOC_INTEL_SOF_MAXIM_COMMON);
- 
-+void max_98360a_dai_link(struct snd_soc_dai_link *link)
-+{
-+	link->codecs = max_98360a_components;
-+	link->num_codecs = ARRAY_SIZE(max_98360a_components);
-+	link->init = max_98357a_init;
-+}
-+EXPORT_SYMBOL_NS(max_98360a_dai_link, SND_SOC_INTEL_SOF_MAXIM_COMMON);
-+
- MODULE_DESCRIPTION("ASoC Intel SOF Maxim helpers");
- MODULE_LICENSE("GPL");
-diff --git a/sound/soc/intel/boards/sof_maxim_common.h b/sound/soc/intel/boards/sof_maxim_common.h
-index 2674f1e373ef..3ff5e8fec4de 100644
---- a/sound/soc/intel/boards/sof_maxim_common.h
-+++ b/sound/soc/intel/boards/sof_maxim_common.h
-@@ -25,11 +25,13 @@ void max_98373_set_codec_conf(struct snd_soc_card *card);
- int max_98373_trigger(struct snd_pcm_substream *substream, int cmd);
- 
- /*
-- * Maxim MAX98357A
-+ * Maxim MAX98357A/MAX98360A
-  */
- #define MAX_98357A_CODEC_DAI	"HiFi"
- #define MAX_98357A_DEV0_NAME	"MX98357A:00"
-+#define MAX_98360A_DEV0_NAME	"MX98360A:00"
- 
- void max_98357a_dai_link(struct snd_soc_dai_link *link);
-+void max_98360a_dai_link(struct snd_soc_dai_link *link);
- 
- #endif /* __SOF_MAXIM_COMMON_H */
++		.name = "jsl_cs4242_mx98360a",
++		.driver_data = (kernel_ulong_t)(SOF_CS42L42_SSP_CODEC(0) |
++					SOF_SPEAKER_AMP_PRESENT |
++					SOF_MAX98360A_SPEAKER_AMP_PRESENT |
++					SOF_CS42L42_SSP_AMP(1)) |
++					SOF_CS42L42_DAILINK(LINK_HP, LINK_DMIC, LINK_HDMI, LINK_SPK, LINK_NONE),
++	},
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(platform, board_ids);
+diff --git a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
+index 3586ce72c42c..69ff7286d357 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
+@@ -73,6 +73,14 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
+ 		.quirk_data = &mx98360a_spk,
+ 		.sof_tplg_filename = "sof-jsl-rt5682-mx98360a.tplg",
+ 	},
++	{
++		.id = "10134242",
++		.drv_name = "jsl_cs4242_mx98360a",
++		.sof_fw_filename = "sof-jsl.ri",
++		.machine_quirk = snd_soc_acpi_codec_list,
++		.quirk_data = &mx98360a_spk,
++		.sof_tplg_filename = "sof-jsl-cs42l42-mx98360a.tplg",
++	},
+ 	{},
+ };
+ EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_jsl_machines);
 -- 
 2.25.1
 

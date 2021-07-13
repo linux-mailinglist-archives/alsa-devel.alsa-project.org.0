@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B40383C7281
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 16:43:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FE433C7286
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 16:44:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D393172C;
-	Tue, 13 Jul 2021 16:42:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D393172C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95BC4174F;
+	Tue, 13 Jul 2021 16:44:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95BC4174F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626187415;
-	bh=Gx8Ju0LI1Yf83GMoEeBoCRWdCveBfW1BghwUSSMIQlE=;
+	s=default; t=1626187491;
+	bh=yinoVpqHxEtfVFvUbQnGSWyjU6qLhovuCSgOHV/63ro=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AyNudAhP0FRtWDH36PD83Msploj2IvkUuJUoSwd2Bv7E3t91fOD13qTnuiB0HEEtA
-	 +TqEJgAT9omf8MKm3xJzjaOPGui9YhXApsti9lvzLK5EMRxHn2paPatcGx6e2dQwJU
-	 7ORuQof1TIQS/TN789Ts0lCiQuP+8RRy5vkZwMjk=
+	b=DQ2LBs8QxCDuv3ul/8rSG3bRmIYSlCPJ/5G16yBgmP5JYcHW2r5rt1kMlgtLxgEVg
+	 rgPqZ8nuBJH1QyUJQcCYntzugL6ixOdezOB2Gkz4ERAZNABOWfZvc6zN0BiX80aOfG
+	 vPObQHjDXrfnuSNMDSmMaNlK7iTgvSwatyh3Ehm8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4601BF805F8;
-	Tue, 13 Jul 2021 16:30:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF85FF80610;
+	Tue, 13 Jul 2021 16:30:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0AC0F8058C; Tue, 13 Jul 2021 16:29:57 +0200 (CEST)
+ id 48E3CF80515; Tue, 13 Jul 2021 16:30:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9B1F0F8052E
- for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 16:29:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B1F0F8052E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3F129F80515
+ for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 16:29:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F129F80515
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="KPehyHhb"; 
+ header.b="sE2eH0l7"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="YIeniuZH"
+ header.b="X98P4BNK"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 64996201DA
- for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 14:29:36 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 10547201E4
+ for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 14:29:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1626186576; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1626186577; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=NBcKzorYb9+0sCrQplrVQnJeq0EmRZlXhtZN/SLyW74=;
- b=KPehyHhbaOBlAKXZH6VkDi++7vk4Z8HsnyAk9SaOFslWP7BZvnN+PTWUe3wlPoj7/gEZ94
- 0c4DPMsF0tGR6GktMBbeLYqKHlwREPp9z6skpNMFK14ENGkXXXbfqn2KZrZkZE71A4eNYe
- gvYSP3KB/JyuM7SianYhEA/VmYIvkrM=
+ bh=yqc3z8b/mRbzn+Osqv1WrJQcGHc6KAh7H2dy+A+vKvY=;
+ b=sE2eH0l7yxQ/zXy8cWnSU4N8FQYi1VbKEVLeBninEnPp5VtqLqpidBTi5thtun/wwHIspD
+ p977RDjuj+rW1SpymrE475+EvJP86onHtjdbUVe1N2YVuPXPIzIag/m5Lfy1mz67YUvXQP
+ T/eI0eBGvZJgf969omSAXrIKxsaPgyY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1626186576;
+ s=susede2_ed25519; t=1626186577;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=NBcKzorYb9+0sCrQplrVQnJeq0EmRZlXhtZN/SLyW74=;
- b=YIeniuZHHsY2vvRP+k+xWiyi8tB+SsbwZPf8ls80P+AlDG8PnFzLbjNkjdSP9epWrdViX8
- gFewy9zVY8jP/ZDQ==
+ bh=yqc3z8b/mRbzn+Osqv1WrJQcGHc6KAh7H2dy+A+vKvY=;
+ b=X98P4BNK8I2Zxgj9uzqEFLqXxMWbjTa7GLxaFijcSALu9FvQUYtSHKCb443UyjctUxglwt
+ q6sHFs8qfD1DLCBw==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 539AAA3B92;
- Tue, 13 Jul 2021 14:29:36 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTP id 099A9A3B83;
+ Tue, 13 Jul 2021 14:29:37 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 34/51] ALSA: ice1712: Allocate resources with device-managed
+Subject: [PATCH 35/51] ALSA: ice1724: Allocate resources with device-managed
  APIs
-Date: Tue, 13 Jul 2021 16:28:40 +0200
-Message-Id: <20210713142857.19654-35-tiwai@suse.de>
+Date: Tue, 13 Jul 2021 16:28:41 +0200
+Message-Id: <20210713142857.19654-36-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210713142857.19654-1-tiwai@suse.de>
 References: <20210713142857.19654-1-tiwai@suse.de>
@@ -92,7 +92,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch converts the resource management in PCI ice1712 driver with
+This patch converts the resource management in PCI ice1724 driver with
 devres as a clean up.  Each manual resource management is converted
 with the corresponding devres helper, and the card object release is
 managed now via card->private_free instead of a lowlevel snd_device.
@@ -103,64 +103,56 @@ This should give no user-visible functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/ice1712/ice1712.c | 133 ++++++++----------------------------
- 1 file changed, 30 insertions(+), 103 deletions(-)
+ sound/pci/ice1712/ice1724.c | 127 ++++++++----------------------------
+ 1 file changed, 27 insertions(+), 100 deletions(-)
 
-diff --git a/sound/pci/ice1712/ice1712.c b/sound/pci/ice1712/ice1712.c
-index d54cd5143e9f..a5241a287851 100644
---- a/sound/pci/ice1712/ice1712.c
-+++ b/sound/pci/ice1712/ice1712.c
-@@ -2432,31 +2432,18 @@ static int snd_ice1712_build_controls(struct snd_ice1712 *ice)
- 			   snd_ctl_new1(&snd_ice1712_mixer_pro_peak, ice));
+diff --git a/sound/pci/ice1712/ice1724.c b/sound/pci/ice1712/ice1724.c
+index 8052d7cb8925..1cd84f9338f3 100644
+--- a/sound/pci/ice1712/ice1724.c
++++ b/sound/pci/ice1712/ice1724.c
+@@ -2447,54 +2447,29 @@ static int snd_vt1724_build_controls(struct snd_ice1712 *ice)
+ 			   snd_ctl_new1(&snd_vt1724_mixer_pro_peak, ice));
  }
  
--static int snd_ice1712_free(struct snd_ice1712 *ice)
-+static void snd_ice1712_free(struct snd_card *card)
+-static int snd_vt1724_free(struct snd_ice1712 *ice)
++static void snd_vt1724_free(struct snd_card *card)
  {
 -	if (!ice->port)
 -		goto __hw_end;
 +	struct snd_ice1712 *ice = card->private_data;
 +
-+	if (ice->card_info && ice->card_info->chip_exit)
-+		ice->card_info->chip_exit(ice);
-+
  	/* mask all interrupts */
- 	outb(ICE1712_MULTI_CAPTURE | ICE1712_MULTI_PLAYBACK, ICEMT(ice, IRQ));
- 	outb(0xff, ICEREG(ice, IRQMASK));
+ 	outb(0xff, ICEMT1724(ice, DMA_INT_MASK));
+ 	outb(0xff, ICEREG1724(ice, IRQMASK));
 -	/* --- */
 -__hw_end:
 -	if (ice->irq >= 0)
 -		free_irq(ice->irq, ice);
- 
--	if (ice->port)
--		pci_release_regions(ice->pci);
- 	snd_ice1712_akm4xxx_free(ice);
+-	pci_release_regions(ice->pci);
+-	snd_ice1712_akm4xxx_free(ice);
 -	pci_disable_device(ice->pci);
 -	kfree(ice->spec);
 -	kfree(ice);
 -	return 0;
 -}
--
--static int snd_ice1712_dev_free(struct snd_device *device)
+ 
+-static int snd_vt1724_dev_free(struct snd_device *device)
 -{
 -	struct snd_ice1712 *ice = device->device_data;
--	return snd_ice1712_free(ice);
+-	return snd_vt1724_free(ice);
++	snd_ice1712_akm4xxx_free(ice);
  }
  
- static int snd_ice1712_create(struct snd_card *card,
-@@ -2464,34 +2451,22 @@ static int snd_ice1712_create(struct snd_card *card,
- 			      const char *modelname,
- 			      int omni,
- 			      int cs8427_timeout,
--			      int dxr_enable,
--			      struct snd_ice1712 **r_ice1712)
-+			      int dxr_enable)
+ static int snd_vt1724_create(struct snd_card *card,
+ 			     struct pci_dev *pci,
+-			     const char *modelname,
+-			     struct snd_ice1712 **r_ice1712)
++			     const char *modelname)
  {
--	struct snd_ice1712 *ice;
-+	struct snd_ice1712 *ice = card->private_data;
+ 	struct snd_ice1712 *ice;
  	int err;
 -	static const struct snd_device_ops ops = {
--		.dev_free =	snd_ice1712_dev_free,
+-		.dev_free =	snd_vt1724_dev_free,
 -	};
 -
 -	*r_ice1712 = NULL;
@@ -170,29 +162,22 @@ index d54cd5143e9f..a5241a287851 100644
 +	err = pcim_enable_device(pci);
  	if (err < 0)
  		return err;
- 	/* check, if we can restrict PCI DMA transfers to 28 bits */
- 	if (dma_set_mask_and_coherent(&pci->dev, DMA_BIT_MASK(28))) {
- 		dev_err(card->dev,
- 			"architecture does not support 28bit PCI busmaster DMA\n");
--		pci_disable_device(pci);
- 		return -ENXIO;
- 	}
  
 -	ice = kzalloc(sizeof(*ice), GFP_KERNEL);
 -	if (ice == NULL) {
 -		pci_disable_device(pci);
 -		return -ENOMEM;
 -	}
- 	ice->omni = omni ? 1 : 0;
- 	if (cs8427_timeout < 1)
- 		cs8427_timeout = 1;
-@@ -2523,45 +2498,29 @@ static int snd_ice1712_create(struct snd_card *card,
- 	pci_write_config_word(ice->pci, 0x42, 0x0006);
- 	snd_ice1712_proc_init(ice);
+ 	ice->vt1724 = 1;
+ 	spin_lock_init(&ice->reg_lock);
+ 	mutex_init(&ice->gpio_mutex);
+@@ -2512,44 +2487,28 @@ static int snd_vt1724_create(struct snd_card *card,
+ 	pci_set_master(pci);
+ 	snd_vt1724_proc_init(ice);
  
 -	card->private_data = ice;
 -
- 	err = pci_request_regions(pci, "ICE1712");
+ 	err = pci_request_regions(pci, "ICE1724");
 -	if (err < 0) {
 -		kfree(ice);
 -		pci_disable_device(pci);
@@ -200,97 +185,120 @@ index d54cd5143e9f..a5241a287851 100644
  		return err;
 -	}
  	ice->port = pci_resource_start(pci, 0);
- 	ice->ddma_port = pci_resource_start(pci, 1);
- 	ice->dmapath_port = pci_resource_start(pci, 2);
- 	ice->profi_port = pci_resource_start(pci, 3);
+ 	ice->profi_port = pci_resource_start(pci, 1);
  
--	if (request_irq(pci->irq, snd_ice1712_interrupt, IRQF_SHARED,
--			KBUILD_MODNAME, ice)) {
-+	if (devm_request_irq(&pci->dev, pci->irq, snd_ice1712_interrupt,
+-	if (request_irq(pci->irq, snd_vt1724_interrupt,
+-			IRQF_SHARED, KBUILD_MODNAME, ice)) {
++	if (devm_request_irq(&pci->dev, pci->irq, snd_vt1724_interrupt,
 +			     IRQF_SHARED, KBUILD_MODNAME, ice)) {
  		dev_err(card->dev, "unable to grab IRQ %d\n", pci->irq);
--		snd_ice1712_free(ice);
+-		snd_vt1724_free(ice);
  		return -EIO;
  	}
  
  	ice->irq = pci->irq;
  	card->sync_irq = ice->irq;
-+	card->private_free = snd_ice1712_free;
++	card->private_free = snd_vt1724_free;
  
--	if (snd_ice1712_read_eeprom(ice, modelname) < 0) {
--		snd_ice1712_free(ice);
-+	if (snd_ice1712_read_eeprom(ice, modelname) < 0)
+ 	snd_vt1724_chip_reset(ice);
+-	if (snd_vt1724_read_eeprom(ice, modelname) < 0) {
+-		snd_vt1724_free(ice);
++	if (snd_vt1724_read_eeprom(ice, modelname) < 0)
  		return -EIO;
 -	}
--	if (snd_ice1712_chip_init(ice) < 0) {
--		snd_ice1712_free(ice);
-+	if (snd_ice1712_chip_init(ice) < 0)
+-	if (snd_vt1724_chip_init(ice) < 0) {
+-		snd_vt1724_free(ice);
++	if (snd_vt1724_chip_init(ice) < 0)
  		return -EIO;
 -	}
--
+ 
 -	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, ice, &ops);
 -	if (err < 0) {
--		snd_ice1712_free(ice);
+-		snd_vt1724_free(ice);
 -		return err;
 -	}
- 
+-
 -	*r_ice1712 = ice;
  	return 0;
  }
  
-@@ -2591,34 +2550,31 @@ static int snd_ice1712_probe(struct pci_dev *pci,
+@@ -2576,19 +2535,18 @@ static int snd_vt1724_probe(struct pci_dev *pci,
+ 		return -ENOENT;
  	}
  
- 	err = snd_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
+-	err = snd_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
 -			   0, &card);
-+			   sizeof(*ice), &card);
++	err = snd_devm_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
++				sizeof(*ice), &card);
  	if (err < 0)
  		return err;
 +	ice = card->private_data;
  
- 	strcpy(card->driver, "ICE1712");
- 	strcpy(card->shortname, "ICEnsemble ICE1712");
+ 	strcpy(card->driver, "ICE1724");
+ 	strcpy(card->shortname, "ICEnsemble ICE1724");
  
- 	err = snd_ice1712_create(card, pci, model[dev], omni[dev],
--		cs8427_timeout[dev], dxr_enable[dev], &ice);
+-	err = snd_vt1724_create(card, pci, model[dev], &ice);
 -	if (err < 0) {
 -		snd_card_free(card);
-+				 cs8427_timeout[dev], dxr_enable[dev]);
++	err = snd_vt1724_create(card, pci, model[dev]);
 +	if (err < 0)
  		return err;
 -	}
  
- 	for (tbl = card_tables; *tbl; tbl++) {
- 		for (c = *tbl; c->subvendor; c++) {
- 			if (c->subvendor == ice->eeprom.subvendor) {
--				ice->card_info = c;
- 				strcpy(card->shortname, c->name);
- 				if (c->driver) /* specific driver? */
- 					strcpy(card->driver, c->driver);
- 				if (c->chip_init) {
- 					err = c->chip_init(ice);
--					if (err < 0) {
--						snd_card_free(card);
-+					if (err < 0)
- 						return err;
--					}
- 				}
-+				ice->card_info = c;
- 				goto __found;
- 			}
+ 	/* field init before calling chip_init */
+ 	ice->ext_clock_count = 0;
+@@ -2600,10 +2558,8 @@ static int snd_vt1724_probe(struct pci_dev *pci,
+ 			strcpy(card->driver, c->driver);
+ 		if (c->chip_init) {
+ 			err = c->chip_init(ice);
+-			if (err < 0) {
+-				snd_card_free(card);
++			if (err < 0)
+ 				return err;
+-			}
  		}
-@@ -2627,45 +2583,33 @@ static int snd_ice1712_probe(struct pci_dev *pci,
-  __found:
+ 	}
  
- 	err = snd_ice1712_pcm_profi(ice, pcm_dev++);
+@@ -2637,49 +2593,35 @@ static int snd_vt1724_probe(struct pci_dev *pci,
+ 		set_std_hw_rates(ice);
+ 
+ 	err = snd_vt1724_pcm_profi(ice, pcm_dev++);
 -	if (err < 0) {
 -		snd_card_free(card);
 +	if (err < 0)
  		return err;
 -	}
  
- 	if (ice_has_con_ac97(ice)) {
- 		err = snd_ice1712_pcm(ice, pcm_dev++);
+ 	err = snd_vt1724_pcm_spdif(ice, pcm_dev++);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}
+ 
+ 	err = snd_vt1724_pcm_indep(ice, pcm_dev++);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}
+ 
+ 	err = snd_vt1724_ac97_mixer(ice);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}
+ 
+ 	err = snd_vt1724_build_controls(ice);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}
+ 
+ 	if (ice->pcm && ice->has_spdif) { /* has SPDIF I/O */
+ 		err = snd_vt1724_spdif_build_controls(ice);
 -		if (err < 0) {
 -			snd_card_free(card);
 +		if (err < 0)
@@ -298,21 +306,7 @@ index d54cd5143e9f..a5241a287851 100644
 -		}
  	}
  
- 	err = snd_ice1712_ac97_mixer(ice);
--	if (err < 0) {
--		snd_card_free(card);
-+	if (err < 0)
- 		return err;
--	}
- 
- 	err = snd_ice1712_build_controls(ice);
--	if (err < 0) {
--		snd_card_free(card);
-+	if (err < 0)
- 		return err;
--	}
- 
- 	if (c->build_controls) {
+ 	if (c && c->build_controls) {
  		err = c->build_controls(ice);
 -		if (err < 0) {
 -			snd_card_free(card);
@@ -321,41 +315,20 @@ index d54cd5143e9f..a5241a287851 100644
 -		}
  	}
  
- 	if (ice_has_con_ac97(ice)) {
- 		err = snd_ice1712_pcm_ds(ice, pcm_dev++);
--		if (err < 0) {
--			snd_card_free(card);
-+		if (err < 0)
- 			return err;
--		}
- 	}
+ 	if (!c || !c->no_mpu401) {
+@@ -2687,10 +2629,8 @@ static int snd_vt1724_probe(struct pci_dev *pci,
+ 			struct snd_rawmidi *rmidi;
  
- 	if (!c->no_mpu401) {
-@@ -2674,10 +2618,8 @@ static int snd_ice1712_probe(struct pci_dev *pci,
- 			c->mpu401_1_info_flags |
- 			MPU401_INFO_INTEGRATED | MPU401_INFO_IRQ_HOOK,
- 			-1, &ice->rmidi[0]);
--		if (err < 0) {
--			snd_card_free(card);
-+		if (err < 0)
- 			return err;
--		}
- 		if (c->mpu401_1_name)
- 			/*  Preferred name available in card_info */
- 			snprintf(ice->rmidi[0]->name,
-@@ -2692,10 +2634,8 @@ static int snd_ice1712_probe(struct pci_dev *pci,
- 				MPU401_INFO_INTEGRATED | MPU401_INFO_IRQ_HOOK,
- 				-1, &ice->rmidi[1]);
- 
+ 			err = snd_rawmidi_new(card, "MIDI", 0, 1, 1, &rmidi);
 -			if (err < 0) {
 -				snd_card_free(card);
 +			if (err < 0)
  				return err;
 -			}
- 			if (c->mpu401_2_name)
- 				/*  Preferred name available in card_info */
- 				snprintf(ice->rmidi[1]->name,
-@@ -2711,25 +2651,13 @@ static int snd_ice1712_probe(struct pci_dev *pci,
+ 			ice->rmidi[0] = rmidi;
+ 			rmidi->private_data = ice;
+ 			strcpy(rmidi->name, "ICE1724 MIDI");
+@@ -2715,25 +2655,13 @@ static int snd_vt1724_probe(struct pci_dev *pci,
  		card->shortname, ice->port, ice->irq);
  
  	err = snd_card_register(card);
@@ -369,7 +342,7 @@ index d54cd5143e9f..a5241a287851 100644
  	return 0;
  }
  
--static void snd_ice1712_remove(struct pci_dev *pci)
+-static void snd_vt1724_remove(struct pci_dev *pci)
 -{
 -	struct snd_card *card = pci_get_drvdata(pci);
 -	struct snd_ice1712 *ice = card->private_data;
@@ -380,15 +353,15 @@ index d54cd5143e9f..a5241a287851 100644
 -}
 -
  #ifdef CONFIG_PM_SLEEP
- static int snd_ice1712_suspend(struct device *dev)
+ static int snd_vt1724_suspend(struct device *dev)
  {
-@@ -2810,7 +2738,6 @@ static struct pci_driver ice1712_driver = {
+@@ -2811,7 +2739,6 @@ static struct pci_driver vt1724_driver = {
  	.name = KBUILD_MODNAME,
- 	.id_table = snd_ice1712_ids,
- 	.probe = snd_ice1712_probe,
--	.remove = snd_ice1712_remove,
+ 	.id_table = snd_vt1724_ids,
+ 	.probe = snd_vt1724_probe,
+-	.remove = snd_vt1724_remove,
  	.driver = {
- 		.pm = SND_VT1712_PM_OPS,
+ 		.pm = SND_VT1724_PM_OPS,
  	},
 -- 
 2.26.2

@@ -2,76 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 384E03C727C
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 16:41:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A438D3C727E
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 16:43:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A4BFA174D;
-	Tue, 13 Jul 2021 16:41:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4BFA174D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2FBD416EF;
+	Tue, 13 Jul 2021 16:42:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FBD416EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626187317;
-	bh=05AkCagDvbKFCCICvLxDy4stNAkudTaYaLQ2wBjO04M=;
+	s=default; t=1626187394;
+	bh=F5y1crdpP6cv74GNcBicqAssaP3F1QQ+7EsaEaML/K4=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cphTV/7Ug9Rwq3rqWPMKybhmcXpx1RSyenq2EEXmX5ROv1FSf8WAsFYAGFrgsuMM0
-	 X7NtPJrymfH3E2tkmAkU8LsaYdNaom9+yu6R3Mxw/BbRfuaU227VIJV89dOR+bFrek
-	 sc8+IEGzLkYnXvIKWGGVH3d05C5+EJ8NJiaPGwD0=
+	b=KEh4s4rSvv+KpXFSfdjPiMneZozeza10nPQdvChq3nSVpVRQY6H1sCVH8SKckpOqY
+	 dlH/TdcL7OhlDJ/z4XuM839INzgP7O0UkdQw+a479R5d8VKSjyhYEy6HS0ICQRiX3D
+	 KAAgwrxaXysu0B2ROsEWKo1OJeU0BBT1kJ0qweP8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0FA0F805D5;
-	Tue, 13 Jul 2021 16:30:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ADCCEF805F4;
+	Tue, 13 Jul 2021 16:30:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 37AC5F80589; Tue, 13 Jul 2021 16:29:55 +0200 (CEST)
+ id 20274F80525; Tue, 13 Jul 2021 16:29:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 60AACF8051B
- for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 16:29:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60AACF8051B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24F05F80508
+ for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 16:29:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24F05F80508
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="VnEwgyXp"; 
+ header.b="RAd1Oq4m"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="JBTnwGHt"
+ header.b="1AQ3tGyK"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 3C4D722855
+ by smtp-out2.suse.de (Postfix) with ESMTP id EE323201DA
  for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 14:29:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1626186574; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=G2DCX/QEsG5SGmvCcP2ajlbmbwI490Kx3Vx7ceUZBTA=;
- b=VnEwgyXpoU/B1mwkg1QqzBEgynyiOfTFgHQJ/tn7mF3DngeETtTtEHa9+1tNmTfalmLu6L
- oDz5LXyoF+OMDUG9VLX1DIr6d5t1JhOtYcF6zRlodB6B3k/s82i8+2Znx2uR8MIzHhOBE2
- Ss8iYzeVudCCWSbUQshIFb5IPuyRrms=
+ bh=Tzlv32loXGZtJmQcuqUnxjn9bVEdumHl6RLnpXoIf9I=;
+ b=RAd1Oq4mcYUcyrgQIVI9A6UAdbVLNHrADcaA5mTQLr+cWD5NquanuXcPD1RTluDBu9qO04
+ O7oCQuzaf+4CI/JuEDHQtZhl56hQjvkAeq73jbeKReYyUagXSgfgSPtkyRZEFN09mL8wBx
+ b1/8hcoA6rh8g/6BUwzq9MnpoOiRmfE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1626186574;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=G2DCX/QEsG5SGmvCcP2ajlbmbwI490Kx3Vx7ceUZBTA=;
- b=JBTnwGHtzvQ7bIe6V+5t2tJL6IJabaWNfQZKTuQJB5iji5mKy6bviMICKIilcbyI8w0vGM
- e8WyIXNcI/i01nDg==
+ bh=Tzlv32loXGZtJmQcuqUnxjn9bVEdumHl6RLnpXoIf9I=;
+ b=1AQ3tGyKtpjc+yD6Jw2r6jLfPSOs6KCijTZwhMefOHnhEDvK+YRygyZAmF5kYNz58Ge4fn
+ Mh1Ulah/NFgxzECw==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 2A441A3B8D;
+ by relay2.suse.de (Postfix) with ESMTP id DBF14A3B8E;
  Tue, 13 Jul 2021 14:29:34 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 31/51] ALSA: echoaudio: Allocate resources with device-managed
+Subject: [PATCH 32/51] ALSA: emu10k1: Allocate resources with device-managed
  APIs
-Date: Tue, 13 Jul 2021 16:28:37 +0200
-Message-Id: <20210713142857.19654-32-tiwai@suse.de>
+Date: Tue, 13 Jul 2021 16:28:38 +0200
+Message-Id: <20210713142857.19654-33-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210713142857.19654-1-tiwai@suse.de>
 References: <20210713142857.19654-1-tiwai@suse.de>
@@ -92,404 +92,466 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch converts the resource management in PCI echoaudio drivers
-with devres as a clean up.  Each manual resource management is
-converted with the corresponding devres helper, the page allocations
-are done with the devres helper, and the card object release is
-managed now via card->private_free instead of a lowlevel snd_device.
-The irq handler is still managed manually because it's re-acquired at
-PM suspend/resume.
+This patch converts the resource management in PCI emu10k1 driver with
+devres as a clean up.  Each manual resource management is converted
+with the corresponding devres helper, the page allocations are done
+with the devres helper, and the card object release is managed now via
+card->private_free instead of a lowlevel snd_device.
 
 This should give no user-visible functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/echoaudio/echoaudio.c | 168 +++++++++-----------------------
- sound/pci/echoaudio/echoaudio.h |   2 +-
- 2 files changed, 48 insertions(+), 122 deletions(-)
+ include/sound/emu10k1.h          |   6 +-
+ sound/pci/emu10k1/emu10k1.c      |  53 +++++++---------
+ sound/pci/emu10k1/emu10k1_main.c | 102 ++++++++-----------------------
+ sound/pci/emu10k1/p16v.c         |  22 ++-----
+ 4 files changed, 52 insertions(+), 131 deletions(-)
 
-diff --git a/sound/pci/echoaudio/echoaudio.c b/sound/pci/echoaudio/echoaudio.c
-index a62e5581ad14..25b012ef5c3e 100644
---- a/sound/pci/echoaudio/echoaudio.c
-+++ b/sound/pci/echoaudio/echoaudio.c
-@@ -1882,105 +1882,63 @@ static irqreturn_t snd_echo_interrupt(int irq, void *dev_id)
- 	Module construction / destruction
- ******************************************************************************/
+diff --git a/include/sound/emu10k1.h b/include/sound/emu10k1.h
+index 468e38c54dd3..39787fecc8d9 100644
+--- a/include/sound/emu10k1.h
++++ b/include/sound/emu10k1.h
+@@ -1701,7 +1701,7 @@ struct snd_emu10k1 {
+ 	struct snd_dma_buffer silent_page;	/* silent page */
+ 	struct snd_dma_buffer ptb_pages;	/* page table pages */
+ 	struct snd_dma_device p16v_dma_dev;
+-	struct snd_dma_buffer p16v_buffer;
++	struct snd_dma_buffer *p16v_buffer;
  
--static int snd_echo_free(struct echoaudio *chip)
-+static void snd_echo_free(struct snd_card *card)
- {
-+	struct echoaudio *chip = card->private_data;
-+
- 	if (chip->comm_page)
- 		rest_in_peace(chip);
+ 	struct snd_util_memhdr *memhdr;		/* page allocation list */
  
- 	if (chip->irq >= 0)
- 		free_irq(chip->irq, chip);
+@@ -1796,14 +1796,12 @@ int snd_emu10k1_create(struct snd_card *card,
+ 		       unsigned short extout_mask,
+ 		       long max_cache_bytes,
+ 		       int enable_ir,
+-		       uint subsystem,
+-		       struct snd_emu10k1 ** remu);
++		       uint subsystem);
  
--	if (chip->comm_page)
--		snd_dma_free_pages(&chip->commpage_dma_buf);
--
--	iounmap(chip->dsp_registers);
--	release_and_free_resource(chip->iores);
--	pci_disable_device(chip->pci);
--
- 	/* release chip data */
- 	free_firmware_cache(chip);
--	kfree(chip);
--	return 0;
--}
--
--
--
--static int snd_echo_dev_free(struct snd_device *device)
--{
--	struct echoaudio *chip = device->device_data;
--
--	return snd_echo_free(chip);
- }
- 
--
--
- /* <--snd_echo_probe() */
- static int snd_echo_create(struct snd_card *card,
--			   struct pci_dev *pci,
--			   struct echoaudio **rchip)
-+			   struct pci_dev *pci)
- {
--	struct echoaudio *chip;
-+	struct echoaudio *chip = card->private_data;
- 	int err;
- 	size_t sz;
--	static const struct snd_device_ops ops = {
--		.dev_free = snd_echo_dev_free,
--	};
--
--	*rchip = NULL;
- 
- 	pci_write_config_byte(pci, PCI_LATENCY_TIMER, 0xC0);
- 
--	err = pci_enable_device(pci);
-+	err = pcim_enable_device(pci);
- 	if (err < 0)
- 		return err;
- 	pci_set_master(pci);
- 
- 	/* Allocate chip if needed */
--	if (!*rchip) {
--		chip = kzalloc(sizeof(*chip), GFP_KERNEL);
--		if (!chip) {
--			pci_disable_device(pci);
--			return -ENOMEM;
--		}
--		dev_dbg(card->dev, "chip=%p\n", chip);
--		spin_lock_init(&chip->lock);
--		chip->card = card;
--		chip->pci = pci;
--		chip->irq = -1;
--		chip->opencount = 0;
--		mutex_init(&chip->mode_mutex);
--		chip->can_set_rate = 1;
--	} else {
--		/* If this was called from the resume function, chip is
--		 * already allocated and it contains current card settings.
--		 */
--		chip = *rchip;
--	}
-+	spin_lock_init(&chip->lock);
-+	chip->card = card;
-+	chip->pci = pci;
-+	chip->irq = -1;
-+	chip->opencount = 0;
-+	mutex_init(&chip->mode_mutex);
-+	chip->can_set_rate = 1;
- 
- 	/* PCI resource allocation */
-+	err = pci_request_regions(pci, ECHOCARD_NAME);
-+	if (err < 0)
-+		return err;
-+
- 	chip->dsp_registers_phys = pci_resource_start(pci, 0);
- 	sz = pci_resource_len(pci, 0);
- 	if (sz > PAGE_SIZE)
- 		sz = PAGE_SIZE;		/* We map only the required part */
- 
--	chip->iores = request_mem_region(chip->dsp_registers_phys, sz,
--					 ECHOCARD_NAME);
--	if (!chip->iores) {
--		dev_err(chip->card->dev, "cannot get memory region\n");
--		snd_echo_free(chip);
--		return -EBUSY;
--	}
--	chip->dsp_registers = ioremap(chip->dsp_registers_phys, sz);
-+	chip->dsp_registers = devm_ioremap(&pci->dev, chip->dsp_registers_phys, sz);
- 	if (!chip->dsp_registers) {
- 		dev_err(chip->card->dev, "ioremap failed\n");
--		snd_echo_free(chip);
- 		return -ENOMEM;
+ int snd_emu10k1_pcm(struct snd_emu10k1 *emu, int device);
+ int snd_emu10k1_pcm_mic(struct snd_emu10k1 *emu, int device);
+ int snd_emu10k1_pcm_efx(struct snd_emu10k1 *emu, int device);
+ int snd_p16v_pcm(struct snd_emu10k1 *emu, int device);
+-int snd_p16v_free(struct snd_emu10k1 * emu);
+ int snd_p16v_mixer(struct snd_emu10k1 * emu);
+ int snd_emu10k1_pcm_multi(struct snd_emu10k1 *emu, int device);
+ int snd_emu10k1_fx8010_pcm(struct snd_emu10k1 *emu, int device);
+diff --git a/sound/pci/emu10k1/emu10k1.c b/sound/pci/emu10k1/emu10k1.c
+index 887bfb3c1e17..672af4b9597b 100644
+--- a/sound/pci/emu10k1/emu10k1.c
++++ b/sound/pci/emu10k1/emu10k1.c
+@@ -99,67 +99,67 @@ static int snd_card_emu10k1_probe(struct pci_dev *pci,
+ 		return -ENOENT;
  	}
  
- 	if (request_irq(pci->irq, snd_echo_interrupt, IRQF_SHARED,
- 			KBUILD_MODNAME, chip)) {
- 		dev_err(chip->card->dev, "cannot grab irq\n");
--		snd_echo_free(chip);
- 		return -EBUSY;
- 	}
- 	chip->irq = pci->irq;
-@@ -1988,39 +1946,29 @@ static int snd_echo_create(struct snd_card *card,
- 	dev_dbg(card->dev, "pci=%p irq=%d subdev=%04x Init hardware...\n",
- 		chip->pci, chip->irq, chip->pci->subsystem_device);
- 
-+	card->private_free = snd_echo_free;
-+
- 	/* Create the DSP comm page - this is the area of memory used for most
- 	of the communication with the DSP, which accesses it via bus mastering */
--	if (snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, &chip->pci->dev,
--				sizeof(struct comm_page),
--				&chip->commpage_dma_buf) < 0) {
--		dev_err(chip->card->dev, "cannot allocate the comm page\n");
--		snd_echo_free(chip);
-+	chip->commpage_dma_buf =
-+		snd_devm_alloc_pages(&pci->dev, SNDRV_DMA_TYPE_DEV,
-+				     sizeof(struct comm_page));
-+	if (!chip->commpage_dma_buf)
- 		return -ENOMEM;
--	}
--	chip->comm_page_phys = chip->commpage_dma_buf.addr;
--	chip->comm_page = (struct comm_page *)chip->commpage_dma_buf.area;
-+	chip->comm_page_phys = chip->commpage_dma_buf->addr;
-+	chip->comm_page = (struct comm_page *)chip->commpage_dma_buf->area;
- 
- 	err = init_hw(chip, chip->pci->device, chip->pci->subsystem_device);
- 	if (err >= 0)
- 		err = set_mixer_defaults(chip);
- 	if (err < 0) {
- 		dev_err(card->dev, "init_hw err=%d\n", err);
--		snd_echo_free(chip);
- 		return err;
- 	}
- 
--	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, chip, &ops);
--	if (err < 0) {
--		snd_echo_free(chip);
--		return err;
--	}
--	*rchip = chip;
--	/* Init done ! */
- 	return 0;
- }
- 
--
--
- /* constructor */
- static int snd_echo_probe(struct pci_dev *pci,
- 			  const struct pci_device_id *pci_id)
-@@ -2040,17 +1988,15 @@ static int snd_echo_probe(struct pci_dev *pci,
- 	}
- 
- 	i = 0;
 -	err = snd_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
 -			   0, &card);
 +	err = snd_devm_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
-+				sizeof(*chip), &card);
++				sizeof(*emu), &card);
  	if (err < 0)
  		return err;
-+	chip = card->private_data;
- 
--	chip = NULL;	/* Tells snd_echo_create to allocate chip */
--	err = snd_echo_create(card, pci, &chip);
--	if (err < 0) {
--		snd_card_free(card);
-+	err = snd_echo_create(card, pci);
-+	if (err < 0)
- 		return err;
--	}
- 
- 	strcpy(card->driver, "Echo_" ECHOCARD_NAME);
- 	strcpy(card->shortname, chip->card_name);
-@@ -2066,7 +2012,6 @@ static int snd_echo_probe(struct pci_dev *pci,
- 	err = snd_echo_new_pcm(chip);
- 	if (err < 0) {
- 		dev_err(chip->card->dev, "new pcm error %d\n", err);
--		snd_card_free(card);
- 		return err;
++	emu = card->private_data;
++
+ 	if (max_buffer_size[dev] < 32)
+ 		max_buffer_size[dev] = 32;
+ 	else if (max_buffer_size[dev] > 1024)
+ 		max_buffer_size[dev] = 1024;
+ 	err = snd_emu10k1_create(card, pci, extin[dev], extout[dev],
+ 				 (long)max_buffer_size[dev] * 1024 * 1024,
+-				 enable_ir[dev], subsystem[dev],
+-				 &emu);
++				 enable_ir[dev], subsystem[dev]);
+ 	if (err < 0)
+-		goto error;
+-	card->private_data = emu;
++		return err;
+ 	emu->delay_pcm_irq = delay_pcm_irq[dev] & 0x1f;
+ 	err = snd_emu10k1_pcm(emu, 0);
+ 	if (err < 0)
+-		goto error;
++		return err;
+ 	err = snd_emu10k1_pcm_mic(emu, 1);
+ 	if (err < 0)
+-		goto error;
++		return err;
+ 	err = snd_emu10k1_pcm_efx(emu, 2);
+ 	if (err < 0)
+-		goto error;
++		return err;
+ 	/* This stores the periods table. */
+ 	if (emu->card_capabilities->ca0151_chip) { /* P16V */	
+-		err = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, &pci->dev,
+-					  1024, &emu->p16v_buffer);
+-		if (err < 0)
+-			goto error;
++		emu->p16v_buffer =
++			snd_devm_alloc_pages(&pci->dev, SNDRV_DMA_TYPE_DEV, 1024);
++		if (!emu->p16v_buffer)
++			return -ENOMEM;
  	}
  
-@@ -2075,7 +2020,6 @@ static int snd_echo_probe(struct pci_dev *pci,
- 		err = snd_echo_midi_create(card, chip);
- 		if (err < 0) {
- 			dev_err(chip->card->dev, "new midi error %d\n", err);
--			snd_card_free(card);
- 			return err;
- 		}
- 	}
-@@ -2085,64 +2029,64 @@ static int snd_echo_probe(struct pci_dev *pci,
- 	snd_echo_vmixer.count = num_pipes_out(chip) * num_busses_out(chip);
- 	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_vmixer, chip));
+ 	err = snd_emu10k1_mixer(emu, 0, 3);
  	if (err < 0)
--		goto ctl_error;
+-		goto error;
 +		return err;
- #ifdef ECHOCARD_HAS_LINE_OUT_GAIN
- 	err = snd_ctl_add(chip->card,
- 			  snd_ctl_new1(&snd_echo_line_output_gain, chip));
+ 	
+ 	err = snd_emu10k1_timer(emu, 0);
  	if (err < 0)
--		goto ctl_error;
+-		goto error;
 +		return err;
- #endif
- #else /* ECHOCARD_HAS_VMIXER */
- 	err = snd_ctl_add(chip->card,
- 			  snd_ctl_new1(&snd_echo_pcm_output_gain, chip));
- 	if (err < 0)
--		goto ctl_error;
-+		return err;
- #endif /* ECHOCARD_HAS_VMIXER */
  
- #ifdef ECHOCARD_HAS_INPUT_GAIN
- 	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_line_input_gain, chip));
+ 	err = snd_emu10k1_pcm_multi(emu, 3);
  	if (err < 0)
--		goto ctl_error;
+-		goto error;
 +		return err;
- #endif
- 
- #ifdef ECHOCARD_HAS_INPUT_NOMINAL_LEVEL
- 	if (!chip->hasnt_input_nominal_level) {
- 		err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_intput_nominal_level, chip));
+ 	if (emu->card_capabilities->ca0151_chip) { /* P16V */
+ 		err = snd_p16v_pcm(emu, 4);
  		if (err < 0)
--			goto ctl_error;
+-			goto error;
 +			return err;
  	}
- #endif
- 
- #ifdef ECHOCARD_HAS_OUTPUT_NOMINAL_LEVEL
- 	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_output_nominal_level, chip));
- 	if (err < 0)
--		goto ctl_error;
-+		return err;
- #endif
- 
- 	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_vumeters_switch, chip));
- 	if (err < 0)
--		goto ctl_error;
-+		return err;
- 
- 	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_vumeters, chip));
- 	if (err < 0)
--		goto ctl_error;
-+		return err;
- 
- #ifdef ECHOCARD_HAS_MONITOR
- 	snd_echo_monitor_mixer.count = num_busses_in(chip) * num_busses_out(chip);
- 	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_monitor_mixer, chip));
- 	if (err < 0)
--		goto ctl_error;
-+		return err;
- #endif
- 
- #ifdef ECHOCARD_HAS_DIGITAL_IN_AUTOMUTE
- 	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_automute_switch, chip));
- 	if (err < 0)
--		goto ctl_error;
-+		return err;
- #endif
- 
- 	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_channels_info, chip));
- 	if (err < 0)
--		goto ctl_error;
-+		return err;
- 
- #ifdef ECHOCARD_HAS_DIGITAL_MODE_SWITCH
- 	/* Creates a list of available digital modes */
-@@ -2153,7 +2097,7 @@ static int snd_echo_probe(struct pci_dev *pci,
- 
- 	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_digital_mode_switch, chip));
- 	if (err < 0)
--		goto ctl_error;
-+		return err;
- #endif /* ECHOCARD_HAS_DIGITAL_MODE_SWITCH */
- 
- #ifdef ECHOCARD_HAS_EXTERNAL_CLOCK
-@@ -2167,37 +2111,32 @@ static int snd_echo_probe(struct pci_dev *pci,
- 		chip->clock_src_ctl = snd_ctl_new1(&snd_echo_clock_source_switch, chip);
- 		err = snd_ctl_add(chip->card, chip->clock_src_ctl);
+ 	if (emu->audigy) {
+ 		err = snd_emu10k1_audigy_midi(emu);
  		if (err < 0)
--			goto ctl_error;
+-			goto error;
++			return err;
+ 	} else {
+ 		err = snd_emu10k1_midi(emu);
+ 		if (err < 0)
+-			goto error;
 +			return err;
  	}
- #endif /* ECHOCARD_HAS_EXTERNAL_CLOCK */
- 
- #ifdef ECHOCARD_HAS_DIGITAL_IO
- 	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_spdif_mode_switch, chip));
+ 	err = snd_emu10k1_fx8010_new(emu, 0);
  	if (err < 0)
--		goto ctl_error;
+-		goto error;
 +		return err;
- #endif
- 
- #ifdef ECHOCARD_HAS_PHANTOM_POWER
- 	if (chip->has_phantom_power) {
- 		err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_phantom_power_switch, chip));
- 		if (err < 0)
--			goto ctl_error;
-+			return err;
- 	}
- #endif
+ #ifdef ENABLE_SYNTH
+ 	if (snd_seq_device_new(card, 1, SNDRV_SEQ_DEV_ID_EMU10K1_SYNTH,
+ 			       sizeof(struct snd_emu10k1_synth_arg), &wave) < 0 ||
+@@ -187,7 +187,7 @@ static int snd_card_emu10k1_probe(struct pci_dev *pci,
  
  	err = snd_card_register(card);
  	if (err < 0)
--		goto ctl_error;
+-		goto error;
 +		return err;
- 	dev_info(card->dev, "Card registered: %s\n", card->longname);
  
- 	pci_set_drvdata(pci, chip);
+ 	if (emu->card_capabilities->emu_model)
+ 		schedule_delayed_work(&emu->emu1010.firmware_work, 0);
+@@ -195,18 +195,8 @@ static int snd_card_emu10k1_probe(struct pci_dev *pci,
+ 	pci_set_drvdata(pci, card);
  	dev++;
  	return 0;
 -
--ctl_error:
--	dev_err(card->dev, "new control error %d\n", err);
+- error:
 -	snd_card_free(card);
 -	return err;
  }
  
- 
-@@ -2299,18 +2238,6 @@ static SIMPLE_DEV_PM_OPS(snd_echo_pm, snd_echo_suspend, snd_echo_resume);
- #define SND_ECHO_PM_OPS	NULL
- #endif /* CONFIG_PM_SLEEP */
- 
--
--static void snd_echo_remove(struct pci_dev *pci)
+-static void snd_card_emu10k1_remove(struct pci_dev *pci)
 -{
--	struct echoaudio *chip;
--
--	chip = pci_get_drvdata(pci);
--	if (chip)
--		snd_card_free(chip->card);
+-	snd_card_free(pci_get_drvdata(pci));
 -}
 -
 -
--
- /******************************************************************************
- 	Everything starts and ends here
- ******************************************************************************/
-@@ -2320,7 +2247,6 @@ static struct pci_driver echo_driver = {
+ #ifdef CONFIG_PM_SLEEP
+ static int snd_emu10k1_suspend(struct device *dev)
+ {
+@@ -263,7 +253,6 @@ static struct pci_driver emu10k1_driver = {
  	.name = KBUILD_MODNAME,
- 	.id_table = snd_echo_ids,
- 	.probe = snd_echo_probe,
--	.remove = snd_echo_remove,
+ 	.id_table = snd_emu10k1_ids,
+ 	.probe = snd_card_emu10k1_probe,
+-	.remove = snd_card_emu10k1_remove,
  	.driver = {
- 		.pm = SND_ECHO_PM_OPS,
+ 		.pm = SND_EMU10K1_PM_OPS,
  	},
-diff --git a/sound/pci/echoaudio/echoaudio.h b/sound/pci/echoaudio/echoaudio.h
-index 0afe13f7b6e5..d51de3e4edfa 100644
---- a/sound/pci/echoaudio/echoaudio.h
-+++ b/sound/pci/echoaudio/echoaudio.h
-@@ -348,7 +348,7 @@ struct echoaudio {
- 	struct pci_dev *pci;
- 	unsigned long dsp_registers_phys;
- 	struct resource *iores;
--	struct snd_dma_buffer commpage_dma_buf;
-+	struct snd_dma_buffer *commpage_dma_buf;
- 	int irq;
- #ifdef ECHOCARD_HAS_MIDI
- 	struct snd_rawmidi *rmidi;
+diff --git a/sound/pci/emu10k1/emu10k1_main.c b/sound/pci/emu10k1/emu10k1_main.c
+index 24a2fd706d69..86cc1ca025e4 100644
+--- a/sound/pci/emu10k1/emu10k1_main.c
++++ b/sound/pci/emu10k1/emu10k1_main.c
+@@ -1242,8 +1242,10 @@ static int alloc_pm_buffer(struct snd_emu10k1 *emu);
+ static void free_pm_buffer(struct snd_emu10k1 *emu);
+ #endif
+ 
+-static int snd_emu10k1_free(struct snd_emu10k1 *emu)
++static void snd_emu10k1_free(struct snd_card *card)
+ {
++	struct snd_emu10k1 *emu = card->private_data;
++
+ 	if (emu->port) {	/* avoid access to already used hardware */
+ 		snd_emu10k1_fx8010_tram_setup(emu, 0);
+ 		snd_emu10k1_done(emu);
+@@ -1256,8 +1258,6 @@ static int snd_emu10k1_free(struct snd_emu10k1 *emu)
+ 	cancel_delayed_work_sync(&emu->emu1010.firmware_work);
+ 	release_firmware(emu->firmware);
+ 	release_firmware(emu->dock_fw);
+-	if (emu->irq >= 0)
+-		free_irq(emu->irq, emu);
+ 	snd_util_memhdr_free(emu->memhdr);
+ 	if (emu->silent_page.area)
+ 		snd_dma_free_pages(&emu->silent_page);
+@@ -1268,19 +1268,6 @@ static int snd_emu10k1_free(struct snd_emu10k1 *emu)
+ #ifdef CONFIG_PM_SLEEP
+ 	free_pm_buffer(emu);
+ #endif
+-	if (emu->port)
+-		pci_release_regions(emu->pci);
+-	if (emu->card_capabilities->ca0151_chip) /* P16V */
+-		snd_p16v_free(emu);
+-	pci_disable_device(emu->pci);
+-	kfree(emu);
+-	return 0;
+-}
+-
+-static int snd_emu10k1_dev_free(struct snd_device *device)
+-{
+-	struct snd_emu10k1 *emu = device->device_data;
+-	return snd_emu10k1_free(emu);
+ }
+ 
+ static const struct snd_emu_chip_details emu_chip_details[] = {
+@@ -1782,32 +1769,22 @@ int snd_emu10k1_create(struct snd_card *card,
+ 		       unsigned short extout_mask,
+ 		       long max_cache_bytes,
+ 		       int enable_ir,
+-		       uint subsystem,
+-		       struct snd_emu10k1 **remu)
++		       uint subsystem)
+ {
+-	struct snd_emu10k1 *emu;
++	struct snd_emu10k1 *emu = card->private_data;
+ 	int idx, err;
+ 	int is_audigy;
+ 	size_t page_table_size;
+ 	__le32 *pgtbl;
+ 	unsigned int silent_page;
+ 	const struct snd_emu_chip_details *c;
+-	static const struct snd_device_ops ops = {
+-		.dev_free =	snd_emu10k1_dev_free,
+-	};
+-
+-	*remu = NULL;
+ 
+ 	/* enable PCI device */
+-	err = pci_enable_device(pci);
++	err = pcim_enable_device(pci);
+ 	if (err < 0)
+ 		return err;
+ 
+-	emu = kzalloc(sizeof(*emu), GFP_KERNEL);
+-	if (emu == NULL) {
+-		pci_disable_device(pci);
+-		return -ENOMEM;
+-	}
++	card->private_free = snd_emu10k1_free;
+ 	emu->card = card;
+ 	spin_lock_init(&emu->reg_lock);
+ 	spin_lock_init(&emu->emu_lock);
+@@ -1850,8 +1827,6 @@ int snd_emu10k1_create(struct snd_card *card,
+ 	}
+ 	if (c->vendor == 0) {
+ 		dev_err(card->dev, "emu10k1: Card not recognised\n");
+-		kfree(emu);
+-		pci_disable_device(pci);
+ 		return -ENOENT;
+ 	}
+ 	emu->card_capabilities = c;
+@@ -1883,8 +1858,6 @@ int snd_emu10k1_create(struct snd_card *card,
+ 		dev_err(card->dev,
+ 			"architecture does not support PCI busmaster DMA with mask 0x%lx\n",
+ 			emu->dma_mask);
+-		kfree(emu);
+-		pci_disable_device(pci);
+ 		return -ENXIO;
+ 	}
+ 	if (is_audigy)
+@@ -1893,11 +1866,8 @@ int snd_emu10k1_create(struct snd_card *card,
+ 		emu->gpr_base = FXGPREGBASE;
+ 
+ 	err = pci_request_regions(pci, "EMU10K1");
+-	if (err < 0) {
+-		kfree(emu);
+-		pci_disable_device(pci);
++	if (err < 0)
+ 		return err;
+-	}
+ 	emu->port = pci_resource_start(pci, 0);
+ 
+ 	emu->max_cache_pages = max_cache_bytes >> PAGE_SHIFT;
+@@ -1905,10 +1875,8 @@ int snd_emu10k1_create(struct snd_card *card,
+ 	page_table_size = sizeof(u32) * (emu->address_mode ? MAXPAGES1 :
+ 					 MAXPAGES0);
+ 	if (snd_emu10k1_alloc_pages_maybe_wider(emu, page_table_size,
+-						&emu->ptb_pages) < 0) {
+-		err = -ENOMEM;
+-		goto error;
+-	}
++						&emu->ptb_pages) < 0)
++		return -ENOMEM;
+ 	dev_dbg(card->dev, "page table address range is %.8lx:%.8lx\n",
+ 		(unsigned long)emu->ptb_pages.addr,
+ 		(unsigned long)(emu->ptb_pages.addr + emu->ptb_pages.bytes));
+@@ -1917,26 +1885,20 @@ int snd_emu10k1_create(struct snd_card *card,
+ 						 emu->max_cache_pages));
+ 	emu->page_addr_table = vmalloc(array_size(sizeof(unsigned long),
+ 						  emu->max_cache_pages));
+-	if (emu->page_ptr_table == NULL || emu->page_addr_table == NULL) {
+-		err = -ENOMEM;
+-		goto error;
+-	}
++	if (!emu->page_ptr_table || !emu->page_addr_table)
++		return -ENOMEM;
+ 
+ 	if (snd_emu10k1_alloc_pages_maybe_wider(emu, EMUPAGESIZE,
+-						&emu->silent_page) < 0) {
+-		err = -ENOMEM;
+-		goto error;
+-	}
++						&emu->silent_page) < 0)
++		return -ENOMEM;
+ 	dev_dbg(card->dev, "silent page range is %.8lx:%.8lx\n",
+ 		(unsigned long)emu->silent_page.addr,
+ 		(unsigned long)(emu->silent_page.addr +
+ 				emu->silent_page.bytes));
+ 
+ 	emu->memhdr = snd_util_memhdr_new(emu->max_cache_pages * PAGE_SIZE);
+-	if (emu->memhdr == NULL) {
+-		err = -ENOMEM;
+-		goto error;
+-	}
++	if (!emu->memhdr)
++		return -ENOMEM;
+ 	emu->memhdr->block_extra_size = sizeof(struct snd_emu10k1_memblk) -
+ 		sizeof(struct snd_util_memblk);
+ 
+@@ -1954,18 +1916,16 @@ int snd_emu10k1_create(struct snd_card *card,
+ 	if (emu->card_capabilities->ca_cardbus_chip) {
+ 		err = snd_emu10k1_cardbus_init(emu);
+ 		if (err < 0)
+-			goto error;
++			return err;
+ 	}
+ 	if (emu->card_capabilities->ecard) {
+ 		err = snd_emu10k1_ecard_init(emu);
+ 		if (err < 0)
+-			goto error;
++			return err;
+ 	} else if (emu->card_capabilities->emu_model) {
+ 		err = snd_emu10k1_emu1010_init(emu);
+-		if (err < 0) {
+-			snd_emu10k1_free(emu);
++		if (err < 0)
+ 			return err;
+-		}
+ 	} else {
+ 		/* 5.1: Enable the additional AC97 Slots. If the emu10k1 version
+ 			does not support this, it shouldn't do any harm */
+@@ -1979,11 +1939,9 @@ int snd_emu10k1_create(struct snd_card *card,
+ 	emu->fx8010.etram_pages.bytes = 0;
+ 
+ 	/* irq handler must be registered after I/O ports are activated */
+-	if (request_irq(pci->irq, snd_emu10k1_interrupt, IRQF_SHARED,
+-			KBUILD_MODNAME, emu)) {
+-		err = -EBUSY;
+-		goto error;
+-	}
++	if (devm_request_irq(&pci->dev, pci->irq, snd_emu10k1_interrupt,
++			     IRQF_SHARED, KBUILD_MODNAME, emu))
++		return -EBUSY;
+ 	emu->irq = pci->irq;
+ 	card->sync_irq = emu->irq;
+ 
+@@ -2022,33 +1980,23 @@ int snd_emu10k1_create(struct snd_card *card,
+ 
+ 	err = snd_emu10k1_init(emu, enable_ir, 0);
+ 	if (err < 0)
+-		goto error;
++		return err;
+ #ifdef CONFIG_PM_SLEEP
+ 	err = alloc_pm_buffer(emu);
+ 	if (err < 0)
+-		goto error;
++		return err;
+ #endif
+ 
+ 	/*  Initialize the effect engine */
+ 	err = snd_emu10k1_init_efx(emu);
+ 	if (err < 0)
+-		goto error;
++		return err;
+ 	snd_emu10k1_audio_enable(emu);
+ 
+-	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, emu, &ops);
+-	if (err < 0)
+-		goto error;
+-
+ #ifdef CONFIG_SND_PROC_FS
+ 	snd_emu10k1_proc_init(emu);
+ #endif
+-
+-	*remu = emu;
+ 	return 0;
+-
+- error:
+-	snd_emu10k1_free(emu);
+-	return err;
+ }
+ 
+ #ifdef CONFIG_PM_SLEEP
+diff --git a/sound/pci/emu10k1/p16v.c b/sound/pci/emu10k1/p16v.c
+index ff2a3974c824..18a1b0740e6b 100644
+--- a/sound/pci/emu10k1/p16v.c
++++ b/sound/pci/emu10k1/p16v.c
+@@ -290,7 +290,7 @@ static int snd_p16v_pcm_prepare_playback(struct snd_pcm_substream *substream)
+ 	struct snd_emu10k1 *emu = snd_pcm_substream_chip(substream);
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	int channel = substream->pcm->device - emu->p16v_device_offset;
+-	u32 *table_base = (u32 *)(emu->p16v_buffer.area+(8*16*channel));
++	u32 *table_base = (u32 *)(emu->p16v_buffer->area+(8*16*channel));
+ 	u32 period_size_bytes = frames_to_bytes(runtime, runtime->period_size);
+ 	int i;
+ 	u32 tmp;
+@@ -308,8 +308,8 @@ static int snd_p16v_pcm_prepare_playback(struct snd_pcm_substream *substream)
+ 		   runtime->dma_addr, runtime->dma_area, table_base);
+ 	dev_dbg(emu->card->dev,
+ 		"dma_addr=%x, dma_area=%p, dma_bytes(size)=%x\n",
+-		   emu->p16v_buffer.addr, emu->p16v_buffer.area,
+-		   emu->p16v_buffer.bytes);
++		   emu->p16v_buffer->addr, emu->p16v_buffer->area,
++		   emu->p16v_buffer->bytes);
+ #endif /* debug */
+ 	tmp = snd_emu10k1_ptr_read(emu, A_SPDIF_SAMPLERATE, channel);
+         switch (runtime->rate) {
+@@ -333,7 +333,7 @@ static int snd_p16v_pcm_prepare_playback(struct snd_pcm_substream *substream)
+ 		table_base[(i*2)+1]=period_size_bytes<<16;
+ 	}
+  
+-	snd_emu10k1_ptr20_write(emu, PLAYBACK_LIST_ADDR, channel, emu->p16v_buffer.addr+(8*16*channel));
++	snd_emu10k1_ptr20_write(emu, PLAYBACK_LIST_ADDR, channel, emu->p16v_buffer->addr+(8*16*channel));
+ 	snd_emu10k1_ptr20_write(emu, PLAYBACK_LIST_SIZE, channel, (runtime->periods - 1) << 19);
+ 	snd_emu10k1_ptr20_write(emu, PLAYBACK_LIST_PTR, channel, 0);
+ 	snd_emu10k1_ptr20_write(emu, PLAYBACK_DMA_ADDR, channel, runtime->dma_addr);
+@@ -567,20 +567,6 @@ static const struct snd_pcm_ops snd_p16v_capture_ops = {
+ 	.pointer =     snd_p16v_pcm_pointer_capture,
+ };
+ 
+-
+-int snd_p16v_free(struct snd_emu10k1 *chip)
+-{
+-	// release the data
+-	if (chip->p16v_buffer.area) {
+-		snd_dma_free_pages(&chip->p16v_buffer);
+-		/*
+-		dev_dbg(chip->card->dev, "period lables free: %p\n",
+-			   &chip->p16v_buffer);
+-		*/
+-	}
+-	return 0;
+-}
+-
+ int snd_p16v_pcm(struct snd_emu10k1 *emu, int device)
+ {
+ 	struct snd_pcm *pcm;
 -- 
 2.26.2
 

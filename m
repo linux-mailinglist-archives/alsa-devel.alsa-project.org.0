@@ -2,82 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE36F3C73E0
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 18:09:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4978B3C7438
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 18:17:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F0FA168E;
-	Tue, 13 Jul 2021 18:09:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F0FA168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4821168C;
+	Tue, 13 Jul 2021 18:16:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4821168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626192591;
-	bh=eG7JtWgGY7ExUUM1sJdVsIuVowW1dpvoViHivCiH+MU=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1626193042;
+	bh=hl+lIRA/4dHYDAFZ5Z4IUT8/vuPCzr6jGBJDmHqyGaY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SLp2CHKhIbOgzaehQd357jWekzzMBav0kt6JsEkWPUUFerb6VM003ldz2p6JHqSjK
-	 Yhcz01HDaFAcnNnKbOsL46OalCFqdAmG4BQxtriT625Z7IP182POf6MZEoRJKp6MYj
-	 NxqSiWZHR27xHOCy2+aapOJdITy7O1ZIR9mZcYd0=
+	b=AA8hcx6RzrilRQbLLgocWldGKZdsCjaifh1YawM3kqxDh2c7Z8Bu499BpND6TYygC
+	 4M/d+z0I1IMxN1ehWiDZFuKuKTcEym12bLmlG50MiyMpK3A5+Q/SwgkMVQ8AWGeUEH
+	 QcvsAavJrBQa3PvRyU5+yMUe9LrkybIJDp8p1MWk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0771AF800ED;
-	Tue, 13 Jul 2021 18:08:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 346D0F80229;
+	Tue, 13 Jul 2021 18:15:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 383F1F802E0; Tue, 13 Jul 2021 18:08:57 +0200 (CEST)
+ id CDB95F80217; Tue, 13 Jul 2021 18:15:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C50A7F8020C
- for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 18:08:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C50A7F8020C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 398A3F800D3
+ for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 18:15:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 398A3F800D3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="lrSz7g9h"; 
+ header.b="GWqtFwcS"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="jyn1dcYO"
+ header.b="nCQhOW6o"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id A4DAF201FE
- for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 16:08:54 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id B772D1FD69;
+ Tue, 13 Jul 2021 16:15:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1626192534; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1626192951; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=4jS+Lez198+ga7LCCdE8fMFOK5ynAoAiWaVsMt7FTr8=;
- b=lrSz7g9hTSzU2S51FWoZ653zGtKLM27JGBBXLGgAiCAmVjqWVUuAWSzORjJUgIhmj6pUIl
- DnknNmdU39rHhpKVoMhU/TEZmpOt434IRup/QVM3MsekAo3kBMCGZVqIIy9i5YFvvb65jk
- dMCIYikTEoqwbyKOY8+dtaGGtCl4ij0=
+ bh=LU+dInQu9Jdqkd5CpV8rL7U5oz/FsqXDg3CRBGL5+sw=;
+ b=GWqtFwcSNNNC6raZp1IlALbsmbpTL2hgXcnX9ESP2gP8X3tIhGFn5764j/xXUj2Y38Le7m
+ W1gRnrbj9YDEYonu5ni+Ka/7iBlTbKHvuKxXkbEoIZ5yJGsQRwuhx4fe0kyT5H+9s5Cf4e
+ DfYGo/O/eKDz7btOyYn2+JdhAUJRt8o=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1626192534;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ s=susede2_ed25519; t=1626192951;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=4jS+Lez198+ga7LCCdE8fMFOK5ynAoAiWaVsMt7FTr8=;
- b=jyn1dcYOE/rkXI24sVB0IyTP8nwmWLwVMbE+yv9ps14MpLn9yYnGO2b3S9tMIudYAa4j4r
- pdZNvrVUE3p4WGAQ==
+ bh=LU+dInQu9Jdqkd5CpV8rL7U5oz/FsqXDg3CRBGL5+sw=;
+ b=nCQhOW6oqyije80MihcrBIgBViKqNicAniNYzIcnyAH2SIzLn+Ju6vVOBOv3Qiii84J96S
+ RBYpfFIMSihMvADQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 93916A3B83
- for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 16:08:54 +0000 (UTC)
-Date: Tue, 13 Jul 2021 18:08:54 +0200
-Message-ID: <s5hczrm19ih.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id B0BCDA3B95;
+ Tue, 13 Jul 2021 16:15:51 +0000 (UTC)
+Date: Tue, 13 Jul 2021 18:15:51 +0200
+Message-ID: <s5ha6mq196w.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: Re: [PATCH 50/51] ALSA: serial-u16550: Allocate resources with
- device-managed APIs
-In-Reply-To: <20210713142857.19654-51-tiwai@suse.de>
+To: Amadeusz SX2awiX4ski
+ <amadeuszx.slawinski@linux.intel.com>
+Subject: Re: [PATCH 02/51] ALSA: core: Add managed card creation
+In-Reply-To: <s5hfswi19o1.wl-tiwai@suse.de>
 References: <20210713142857.19654-1-tiwai@suse.de>
- <20210713142857.19654-51-tiwai@suse.de>
+ <20210713142857.19654-3-tiwai@suse.de>
+ <9d6ce40b-101e-5b16-cd6c-8734aea4c4fd@linux.intel.com>
+ <s5hfswi19o1.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,21 +95,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 13 Jul 2021 16:28:56 +0200,
+On Tue, 13 Jul 2021 18:05:34 +0200,
 Takashi Iwai wrote:
 > 
-> This patch converts the resource management in serial u16550 driver
-> with devres as a clean up.  Each manual resource management is
-> converted with the corresponding devres helper, and the card object
-> release is managed now via card->private_free instead of a lowlevel
-> snd_device.
+> On Tue, 13 Jul 2021 17:23:02 +0200,
+> Amadeusz SX2awiX4ski wrote:
+> > 
+> > On 7/13/2021 4:28 PM, Takashi Iwai wrote:
+> > 
+> > >     /**
+> > >    * snd_card_ref - Get the card object from the index
+> > > @@ -481,6 +547,7 @@ EXPORT_SYMBOL_GPL(snd_card_disconnect_sync);
+> > >     static int snd_card_do_free(struct snd_card *card)
+> > >   {
+> > > +	card->releasing = true;
+> > >   #if IS_ENABLED(CONFIG_SND_MIXER_OSS)
+> > >   	if (snd_mixer_oss_notify_callback)
+> > >   		snd_mixer_oss_notify_callback(card, SND_MIXER_OSS_NOTIFY_FREE);
+> > > @@ -498,7 +565,8 @@ static int snd_card_do_free(struct snd_card *card)
+> > >   #endif
+> > >   	if (card->release_completion)
+> > >   		complete(card->release_completion);
+> > > -	kfree(card);
+> > > +	if (!card->managed)
+> > > +		kfree(card);
+> > >   	return 0;
+> > >   }
+> > >   @@ -539,6 +607,9 @@ int snd_card_free(struct snd_card *card)
+> > >   	DECLARE_COMPLETION_ONSTACK(released);
+> > >   	int ret;
+> > >   +	if (card->releasing)
+> > > +		return 0;
+> > > +
+> > 
+> > "card->releasing" use feels bit racy to me... something like below
+> > would break it?
+> > 
+> > thread1                   thread2
+> > snd_card_free()
+> > if(card->releasing) == false
+> > thread1 goes sleep
+> >                           snd_card_do_free()
+> >                           card->releasing = true
+> >                           run until the end
+> > thread1 resume
+> > continues with trying to release
 > 
-> This should give no user-visible functional changes.
-> 
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> It's a destructor and can't be called in parallel.
 
-This and the next one seem to have typos, maybe the old versions have
-been smashed into the series wrongly.  Will be corrected in v2 series.
+That is, what the code above cares is the case where snd_card_free()
+is called explicitly even if the card is created with devres.  So the
+check of card->releasing could be __snd_card_release() instead in
+snd_card_free(), too.
 
 
 Takashi

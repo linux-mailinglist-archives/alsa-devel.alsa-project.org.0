@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E82F3C7237
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 16:31:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 067263C7239
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 16:31:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C7D2C16C9;
-	Tue, 13 Jul 2021 16:30:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7D2C16C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D0691681;
+	Tue, 13 Jul 2021 16:30:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D0691681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626186673;
-	bh=2BGYWrXBGZJ2umOkUHgE/h0NhuwHvsi2h/cJRb6EGOY=;
+	s=default; t=1626186694;
+	bh=su/XBxZrvbHeNkljbv11v5AuahV4ZU5dSx+qBW5X4DM=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XZRpGtUNHct/DAfijKBeyGQOLB2RUsED7BYoabEcacm3fjTur71QNuom20RVe6XFL
-	 1/ARtJYmInO4R2MKVBxgLepb2b9RNR2x9/dQGt8e5rB1nshCRBT5qy/wUt4sbITQ0E
-	 moq/ZVKYRgP7btaU8GqR/bg2MLxJYegMzOf62fwc=
+	b=MaBAFVojkoFr9xVx9pcq6JE703yfp8gAYnL8AQR23XNHp4pMwhsb5BOOnq51TTjNv
+	 U/2yN2Ti4ryNnzJJLfGqHaVrqy9djY3AE86zCpDmYXzYkMtT0w3bm+AHMqiTNBIVN7
+	 o0Tmdf5JZHMoJtdVA1+0D246sxLeq+FKa8kBpCzo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56A5AF804FE;
-	Tue, 13 Jul 2021 16:29:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09CCAF80507;
+	Tue, 13 Jul 2021 16:29:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BEBFAF804F2; Tue, 13 Jul 2021 16:29:15 +0200 (CEST)
+ id 01CD9F804FA; Tue, 13 Jul 2021 16:29:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,43 +34,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2E11AF8020C
- for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 16:29:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E11AF8020C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1D254F802E0
+ for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 16:29:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D254F802E0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="kR0zrkhv"; 
+ header.b="wsWF7j5j"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Oj4u7Svh"
+ header.b="eZTNgFOT"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id F3A8C22837
- for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 14:29:08 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id EE92C22855
+ for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 14:29:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1626186549; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5joqZEry4ixJz2fagLW3ZFdGm3Atk1p7KkBSww/qRU4=;
- b=kR0zrkhvpUeaHU5T9chwBcG2gNFxyUAbvXY9fd3PNo49TKvMnyDocnxjsm/7Txw1cPCGrE
- BJ1mbSGPV2RFvF7NaLG/Rek17Bam4xvpI4B87Tv5NnnyIwWzmgn3Sp+4pIY/tSvUKifLBC
- cuCSbvasKPxvRnsuYPcGOX26A13+iyM=
+ bh=uJLN+dYFy/ga5QCNrr0gxKDdDi7pu/z9zg2rB0J/WUE=;
+ b=wsWF7j5jJVC/ttR8a0z9s89JwJMhUdiSSaFgDo7LSaMtSK2K5ogFBcZp0RvBjf7AUJjYN+
+ 3h56hazJXWdxF7idzw/nx/bhhbqV07BNDYCC2SEq+jUhPUeYXaH1EjyAfH452WYIGEZsng
+ 3OVZoBbVhSwwkuIQoemlLExquuNW1P4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1626186549;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5joqZEry4ixJz2fagLW3ZFdGm3Atk1p7KkBSww/qRU4=;
- b=Oj4u7SvhrvYo6jNZF+VDw8yOmb9zwnFwGo2m7vBS4NFWaCw/++ZWZL+A6mCdU5MKbdHpBe
- vGOo5B3trGS876Bw==
+ bh=uJLN+dYFy/ga5QCNrr0gxKDdDi7pu/z9zg2rB0J/WUE=;
+ b=eZTNgFOTtMiR4Uh+aBposxASbKF9K02ndKRuo4y595g1OvUhxOWn07pbS+nb2xOiBhPiPC
+ qBoAsDsIXu76mECQ==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id E44CBA3B83;
- Tue, 13 Jul 2021 14:29:08 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTP id DE480A3B85;
+ Tue, 13 Jul 2021 14:29:09 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 01/51] ALSA: core: Add device-managed page allocator helper
-Date: Tue, 13 Jul 2021 16:28:07 +0200
-Message-Id: <20210713142857.19654-2-tiwai@suse.de>
+Subject: [PATCH 02/51] ALSA: core: Add managed card creation
+Date: Tue, 13 Jul 2021 16:28:08 +0200
+Message-Id: <20210713142857.19654-3-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210713142857.19654-1-tiwai@suse.de>
 References: <20210713142857.19654-1-tiwai@suse.de>
@@ -91,97 +91,244 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This is a preparation for allowing devres usages more widely in
-various sound drivers.  As a first step, this patch adds a new
-allocator function, snd_devm_alloc_pages(), to manage the allocated
-pages via devres, so that the pages will be automagically released as
-device unbinding.
+As a second step for preliminary to widen the devres usages among
+sound drivers, this patch adds a new ALSA core API function,
+snd_devm_card_new(), to create a snd_card object via devres.
+When a card object is created by this new function, snd_card_free() is
+called automatically and the card object resource gets released at the
+device unbinding time.
 
-Unlike the old snd_dma_alloc_pages(), the new function returns
-directly the snd_dma_buffer pointer.  The caller needs NULL-check for
-the allocation error appropriately.
+However, the story isn't that simple.  A caveat is that we have to
+call snd_card_free() at the very first of the whole resource release
+procedure, in order to assure that the all exposed devices on
+user-space are deleted and sync with processes accessing those devices
+before releasing resources.
 
-Also, since a real device pointer is mandatory for devres,
-SNDRV_DMA_TYPE_CONTINUOUS or SNDRV_DMA_TYPE_VMALLOC type can't be used
-for this function.
+For achieving it, snd_card_register() adds a new devres action to
+trigger snd_card_free() automatically when the given card object is a
+"managed" one.  Since usually snd_card_register() is the last step of
+the initialization, this should work in most cases.
+
+With all these tricks, some drivers can get rid of the whole driver
+remove callback code.
+
+About a bit of implementation details: the patch adds two new flags to
+snd_card object: managed and releasing.  The former indicates that the
+object was created via snd_devm_card_new(), and the latter is used for
+avoiding the double-free of snd_card_free() calls.  Both flags are
+fairly internal and likely uninteresting to normal users.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- include/sound/memalloc.h |  4 ++++
- sound/core/memalloc.c    | 46 ++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 50 insertions(+)
+ include/sound/core.h |   5 +++
+ sound/core/init.c    | 101 +++++++++++++++++++++++++++++++++++++++----
+ 2 files changed, 98 insertions(+), 8 deletions(-)
 
-diff --git a/include/sound/memalloc.h b/include/sound/memalloc.h
-index 44d87775b352..d22c9387b2ba 100644
---- a/include/sound/memalloc.h
-+++ b/include/sound/memalloc.h
-@@ -79,5 +79,9 @@ struct page *snd_sgbuf_get_page(struct snd_dma_buffer *dmab, size_t offset);
- unsigned int snd_sgbuf_get_chunk_size(struct snd_dma_buffer *dmab,
- 				      unsigned int ofs, unsigned int size);
+diff --git a/include/sound/core.h b/include/sound/core.h
+index c4ade121727d..331195b51237 100644
+--- a/include/sound/core.h
++++ b/include/sound/core.h
+@@ -117,6 +117,8 @@ struct snd_card {
+ 	struct device card_dev;		/* cardX object for sysfs */
+ 	const struct attribute_group *dev_groups[4]; /* assigned sysfs attr */
+ 	bool registered;		/* card_dev is registered? */
++	bool managed;			/* managed via devres */
++	bool releasing;			/* during card free process */
+ 	int sync_irq;			/* assigned irq, used for PCM sync */
+ 	wait_queue_head_t remove_sleep;
  
-+/* device-managed memory allocator */
-+struct snd_dma_buffer *snd_devm_alloc_pages(struct device *dev, int type,
-+					    size_t size);
-+
- #endif /* __SOUND_MEMALLOC_H */
+@@ -274,6 +276,9 @@ extern int (*snd_mixer_oss_notify_callback)(struct snd_card *card, int cmd);
+ int snd_card_new(struct device *parent, int idx, const char *xid,
+ 		 struct module *module, int extra_size,
+ 		 struct snd_card **card_ret);
++int snd_devm_card_new(struct device *parent, int idx, const char *xid,
++		      struct module *module, int extra_size,
++		      struct snd_card **card_ret);
  
-diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
-index 83b79edfa52d..3a78fdad1ab4 100644
---- a/sound/core/memalloc.c
-+++ b/sound/core/memalloc.c
-@@ -127,6 +127,52 @@ void snd_dma_free_pages(struct snd_dma_buffer *dmab)
+ int snd_card_disconnect(struct snd_card *card);
+ void snd_card_disconnect_sync(struct snd_card *card);
+diff --git a/sound/core/init.c b/sound/core/init.c
+index 1490568efdb0..7a507e8d24c1 100644
+--- a/sound/core/init.c
++++ b/sound/core/init.c
+@@ -134,6 +134,9 @@ void snd_device_initialize(struct device *dev, struct snd_card *card)
  }
- EXPORT_SYMBOL(snd_dma_free_pages);
+ EXPORT_SYMBOL_GPL(snd_device_initialize);
  
-+/* called by devres */
-+static void __snd_release_pages(struct device *dev, void *res)
++static int snd_card_init(struct snd_card *card, struct device *parent,
++			 int idx, const char *xid, struct module *module,
++			 int extra_size);
+ static int snd_card_do_free(struct snd_card *card);
+ static const struct attribute_group card_dev_attr_group;
+ 
+@@ -163,9 +166,6 @@ int snd_card_new(struct device *parent, int idx, const char *xid,
+ {
+ 	struct snd_card *card;
+ 	int err;
+-#ifdef CONFIG_SND_DEBUG
+-	char name[8];
+-#endif
+ 
+ 	if (snd_BUG_ON(!card_ret))
+ 		return -EINVAL;
+@@ -176,6 +176,76 @@ int snd_card_new(struct device *parent, int idx, const char *xid,
+ 	card = kzalloc(sizeof(*card) + extra_size, GFP_KERNEL);
+ 	if (!card)
+ 		return -ENOMEM;
++
++	err = snd_card_init(card, parent, idx, xid, module, extra_size);
++	if (err < 0) {
++		kfree(card);
++		return err;
++	}
++
++	*card_ret = card;
++	return 0;
++}
++EXPORT_SYMBOL(snd_card_new);
++
++static void __snd_card_release(struct device *dev, void *data)
 +{
-+	snd_dma_free_pages(res);
++	snd_card_free(data);
 +}
 +
 +/**
-+ * snd_devm_alloc_pages - allocate the buffer and manage with devres
-+ * @dev: the device pointer
-+ * @type: the DMA buffer type
-+ * @size: the buffer size to allocate
++ * snd_devm_card_new - managed snd_card object creation
++ * @parent: the parent device object
++ * @idx: card index (address) [0 ... (SNDRV_CARDS-1)]
++ * @xid: card identification (ASCII string)
++ * @module: top level module for locking
++ * @extra_size: allocate this extra size after the main soundcard structure
++ * @card_ret: the pointer to store the created card instance
 + *
-+ * Allocate buffer pages depending on the given type and manage using devres.
-+ * The pages will be released automatically at the device removal.
++ * This function works like snd_card_new() but manages the allocated resource
++ * via devres, i.e. you don't need to free explicitly.
 + *
-+ * Unlike snd_dma_alloc_pages(), this function requires the real device pointer,
-+ * hence it can't work with SNDRV_DMA_TYPE_CONTINUOUS or
-+ * SNDRV_DMA_TYPE_VMALLOC type.
-+ *
-+ * The function returns the snd_dma_buffer object at success, or NULL if failed.
++ * When a snd_card object is created with this function and registered via
++ * snd_card_register(), the very first devres action to call snd_card_free()
++ * is added automatically.  In that way, the resource disconnection is assured
++ * at first, then released in the expected order.
 + */
-+struct snd_dma_buffer *
-+snd_devm_alloc_pages(struct device *dev, int type, size_t size)
++int snd_devm_card_new(struct device *parent, int idx, const char *xid,
++		      struct module *module, int extra_size,
++		      struct snd_card **card_ret)
 +{
-+	struct snd_dma_buffer *dmab;
++	struct snd_card *card;
 +	int err;
 +
-+	if (WARN_ON(type == SNDRV_DMA_TYPE_CONTINUOUS ||
-+		    type == SNDRV_DMA_TYPE_VMALLOC))
-+		return NULL;
-+
-+	dmab = devres_alloc(__snd_release_pages, sizeof(*dmab), GFP_KERNEL);
-+	if (!dmab)
-+		return NULL;
-+
-+	err = snd_dma_alloc_pages(type, dev, size, dmab);
++	*card_ret = NULL;
++	if (extra_size < 0)
++		extra_size = 0;
++	card = devres_alloc(__snd_card_release, sizeof(*card) + extra_size,
++			    GFP_KERNEL);
++	if (!card)
++		return -ENOMEM;
++	card->managed = true;
++	err = snd_card_init(card, parent, idx, xid, module, extra_size);
 +	if (err < 0) {
-+		devres_free(dmab);
-+		return NULL;
++		devres_free(card);
++		return err;
 +	}
 +
-+	devres_add(dev, dmab);
-+	return dmab;
++	devres_add(parent, card);
++	*card_ret = card;
++	return 0;
 +}
-+EXPORT_SYMBOL_GPL(snd_devm_alloc_pages);
++EXPORT_SYMBOL_GPL(snd_devm_card_new);
++
++static int snd_card_init(struct snd_card *card, struct device *parent,
++			 int idx, const char *xid, struct module *module,
++			 int extra_size)
++{
++	int err;
++#ifdef CONFIG_SND_DEBUG
++	char name[8];
++#endif
++
+ 	if (extra_size > 0)
+ 		card->private_data = (char *)card + sizeof(struct snd_card);
+ 	if (xid)
+@@ -197,7 +267,6 @@ int snd_card_new(struct device *parent, int idx, const char *xid,
+ 		mutex_unlock(&snd_card_mutex);
+ 		dev_err(parent, "cannot find the slot for index %d (range 0-%i), error: %d\n",
+ 			 idx, snd_ecards_limit - 1, err);
+-		kfree(card);
+ 		return err;
+ 	}
+ 	set_bit(idx, snd_cards_lock);		/* lock it */
+@@ -256,8 +325,6 @@ int snd_card_new(struct device *parent, int idx, const char *xid,
+ 	sprintf(name, "card%d", idx);
+ 	card->debugfs_root = debugfs_create_dir(name, sound_debugfs_root);
+ #endif
+-
+-	*card_ret = card;
+ 	return 0;
+ 
+       __error_ctl:
+@@ -266,7 +333,6 @@ int snd_card_new(struct device *parent, int idx, const char *xid,
+ 	put_device(&card->card_dev);
+   	return err;
+ }
+-EXPORT_SYMBOL(snd_card_new);
+ 
+ /**
+  * snd_card_ref - Get the card object from the index
+@@ -481,6 +547,7 @@ EXPORT_SYMBOL_GPL(snd_card_disconnect_sync);
+ 
+ static int snd_card_do_free(struct snd_card *card)
+ {
++	card->releasing = true;
+ #if IS_ENABLED(CONFIG_SND_MIXER_OSS)
+ 	if (snd_mixer_oss_notify_callback)
+ 		snd_mixer_oss_notify_callback(card, SND_MIXER_OSS_NOTIFY_FREE);
+@@ -498,7 +565,8 @@ static int snd_card_do_free(struct snd_card *card)
+ #endif
+ 	if (card->release_completion)
+ 		complete(card->release_completion);
+-	kfree(card);
++	if (!card->managed)
++		kfree(card);
+ 	return 0;
+ }
+ 
+@@ -539,6 +607,9 @@ int snd_card_free(struct snd_card *card)
+ 	DECLARE_COMPLETION_ONSTACK(released);
+ 	int ret;
+ 
++	if (card->releasing)
++		return 0;
++
+ 	card->release_completion = &released;
+ 	ret = snd_card_free_when_closed(card);
+ 	if (ret)
+@@ -745,6 +816,11 @@ int snd_card_add_dev_attr(struct snd_card *card,
+ }
+ EXPORT_SYMBOL_GPL(snd_card_add_dev_attr);
+ 
++static void trigger_card_free(void *data)
++{
++	snd_card_free(data);
++}
 +
  /**
-  * snd_dma_buffer_mmap - perform mmap of the given DMA buffer
-  * @dmab: buffer allocation information
+  *  snd_card_register - register the soundcard
+  *  @card: soundcard structure
+@@ -768,6 +844,15 @@ int snd_card_register(struct snd_card *card)
+ 		if (err < 0)
+ 			return err;
+ 		card->registered = true;
++	} else {
++		if (card->managed)
++			devm_remove_action(card->dev, trigger_card_free, card);
++	}
++
++	if (card->managed) {
++		err = devm_add_action(card->dev, trigger_card_free, card);
++		if (err < 0)
++			return err;
+ 	}
+ 
+ 	err = snd_device_register_all(card);
 -- 
 2.26.2
 

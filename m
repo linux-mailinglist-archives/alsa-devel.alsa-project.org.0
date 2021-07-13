@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3CEA3C725F
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 16:38:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6F883C7260
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 16:39:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2AB4A1719;
-	Tue, 13 Jul 2021 16:37:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AB4A1719
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4E667172A;
+	Tue, 13 Jul 2021 16:38:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E667172A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626187129;
-	bh=uxuF127RxNh1vLpBnb0mPeIWS80fxyC5mYoJSDXE1Qg=;
+	s=default; t=1626187149;
+	bh=bNSQemfVC1DiX6Uq9y18hFJZpLstF4eX4rh3LBHuYdw=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FV/1sHfKNyFJcK+aQuCFpyC/+/XeNpEGtNW4gK13GJ05BFXyByFS6274/I///0tnP
-	 gdu3FgqMHpy+ONiPy26B0hwMXQ0t3uQuCNn3nxOKV6ddjqVc9avYcfd9Cnuq9jGiL0
-	 UeJlTL9fT+6IKf4ZX6Aj5yN65nv93y4VDdmhxqkc=
+	b=prNRjhYEeD1XNtwZlsQtdZm9dNIqq5Nyux1xzbsLhj23zWoj7Qg3T7i/pPu9Xghew
+	 3741eABP3YxERAs98NbgY6gYU/I7yRwte5RLpKINXWq1e4CeO8xVXLLnvNkVYrh1FW
+	 UCK4tpwBMZIZSjnKo5eISX05y84znIkFzVkJhTyw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ADBD8F804FC;
-	Tue, 13 Jul 2021 16:30:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD684F805A9;
+	Tue, 13 Jul 2021 16:30:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CF10AF8016A; Tue, 13 Jul 2021 16:29:44 +0200 (CEST)
+ id 94939F80563; Tue, 13 Jul 2021 16:29:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2507BF8051A
- for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 16:29:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2507BF8051A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 17190F8051F
+ for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 16:29:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17190F8051F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Lqt7jj2j"; 
+ header.b="WAqOZk2C"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="WaNK2TOC"
+ header.b="XJdETGTv"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id F0A49201DA
- for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 14:29:27 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id CC1BE201E4
+ for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 14:29:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1626186567; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1626186568; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=/uyZApUrkBxBgvslIS+XWOOksLZCPmv837Tq/su6y7k=;
- b=Lqt7jj2jxjD6ZnLTuWEJYDe9qJlB8FknetPpi0lGQfYFCvHfDTAD901u+zbNGqI4C9PC2A
- feRcr6ft22owARg+rSK42nhtA+d9ST2mLzFqZOz1Jf1/h/gy9/ybGyJDONiiJu55w9SjAR
- cizhSSD26k67VxJcBz+sW22dI2RzO+w=
+ bh=7FdamqqrTOHT6NYW+ddkP/Za1baGYW44k+vEw1Su2q4=;
+ b=WAqOZk2COrXkN54u1MNGOGNfyvzQOhYIR4fXwiSY3b386lmBRdFaYGy+AEzAJICy9jReGx
+ h5lrLqgop3v/t6ZtetYctGm1r+Iyhes1HlcpHPIVFuBb5Zkv9xfV2lSuWyfr/lDPt2rT0T
+ Vpe7/4Hg10UWklha/gM80CM/aZx8adQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1626186567;
+ s=susede2_ed25519; t=1626186568;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=/uyZApUrkBxBgvslIS+XWOOksLZCPmv837Tq/su6y7k=;
- b=WaNK2TOCBO0ulM0Sg3W61wXDKE91DHbtTeqaj1Tt8266a9IxfZuwvZslK0TtnOIQ8UNXXs
- HD/2dCCh7FNcI6DQ==
+ bh=7FdamqqrTOHT6NYW+ddkP/Za1baGYW44k+vEw1Su2q4=;
+ b=XJdETGTv8BbWaKa5WieI2nsB3J5GY1yrKn6AFJYA2cxrk/4uYDhoKhLm59UyBHl6CU4rxP
+ mmllMq+o9gA39XAg==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id EA2E4A3B88;
- Tue, 13 Jul 2021 14:29:27 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTP id C4FD6A3B83;
+ Tue, 13 Jul 2021 14:29:28 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 22/51] ALSA: sis7019: Allocate resources with device-managed
- APIs
-Date: Tue, 13 Jul 2021 16:28:28 +0200
-Message-Id: <20210713142857.19654-23-tiwai@suse.de>
+Subject: [PATCH 23/51] ALSA: sonicvibes: Allocate resources with
+ device-managed APIs
+Date: Tue, 13 Jul 2021 16:28:29 +0200
+Message-Id: <20210713142857.19654-24-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210713142857.19654-1-tiwai@suse.de>
 References: <20210713142857.19654-1-tiwai@suse.de>
@@ -92,226 +92,269 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch converts the resource management in PCI sis7019 driver with
-devres as a clean up.  Each manual resource management is converted
-with the corresponding devres helper, and the card object release is
-managed now via card->private_free instead of a lowlevel snd_device.
+This patch converts the resource management in PCI sonicvibes driver
+with devres as a clean up.  Each manual resource management is
+converted with the corresponding devres helper, and the card object
+release is managed now via card->private_free instead of a lowlevel
+snd_device.
 
 This should give no user-visible functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/sis7019.c | 87 +++++++++++----------------------------------
- 1 file changed, 20 insertions(+), 67 deletions(-)
+ sound/pci/sonicvibes.c | 117 ++++++++++-------------------------------
+ 1 file changed, 27 insertions(+), 90 deletions(-)
 
-diff --git a/sound/pci/sis7019.c b/sound/pci/sis7019.c
-index 00ab51c889da..0b722b0e0604 100644
---- a/sound/pci/sis7019.c
-+++ b/sound/pci/sis7019.c
-@@ -1007,16 +1007,10 @@ static int sis_mixer_create(struct sis7019 *sis)
- 	return rc;
- }
+diff --git a/sound/pci/sonicvibes.c b/sound/pci/sonicvibes.c
+index 03a48da897e3..c8c49881008f 100644
+--- a/sound/pci/sonicvibes.c
++++ b/sound/pci/sonicvibes.c
+@@ -1193,69 +1193,43 @@ static inline int snd_sonicvibes_create_gameport(struct sonicvibes *sonic) { ret
+ static inline void snd_sonicvibes_free_gameport(struct sonicvibes *sonic) { }
+ #endif
  
--static void sis_free_suspend(struct sis7019 *sis)
-+static void sis_chip_free(struct snd_card *card)
+-static int snd_sonicvibes_free(struct sonicvibes *sonic)
++static void snd_sonicvibes_free(struct snd_card *card)
  {
--	int i;
--
--	for (i = 0; i < SIS_SUSPEND_PAGES; i++)
--		kfree(sis->suspend_state[i]);
--}
-+	struct sis7019 *sis = card->private_data;
- 
--static int sis_chip_free(struct sis7019 *sis)
--{
- 	/* Reset the chip, and disable all interrputs.
- 	 */
- 	outl(SIS_GCR_SOFTWARE_RESET, sis->ioport + SIS_GCR);
-@@ -1028,18 +1022,6 @@ static int sis_chip_free(struct sis7019 *sis)
- 	 */
- 	if (sis->irq >= 0)
- 		free_irq(sis->irq, sis);
--
--	iounmap(sis->ioaddr);
--	pci_release_regions(sis->pci);
--	pci_disable_device(sis->pci);
--	sis_free_suspend(sis);
++	struct sonicvibes *sonic = card->private_data;
++
+ 	snd_sonicvibes_free_gameport(sonic);
+ 	pci_write_config_dword(sonic->pci, 0x40, sonic->dmaa_port);
+ 	pci_write_config_dword(sonic->pci, 0x48, sonic->dmac_port);
+-	if (sonic->irq >= 0)
+-		free_irq(sonic->irq, sonic);
+-	release_and_free_resource(sonic->res_dmaa);
+-	release_and_free_resource(sonic->res_dmac);
+-	pci_release_regions(sonic->pci);
+-	pci_disable_device(sonic->pci);
+-	kfree(sonic);
 -	return 0;
 -}
 -
--static int sis_dev_free(struct snd_device *dev)
+-static int snd_sonicvibes_dev_free(struct snd_device *device)
 -{
--	struct sis7019 *sis = dev->device_data;
--	return sis_chip_free(sis);
+-	struct sonicvibes *sonic = device->device_data;
+-	return snd_sonicvibes_free(sonic);
  }
  
- static int sis_chip_init(struct sis7019 *sis)
-@@ -1265,7 +1247,8 @@ static int sis_alloc_suspend(struct sis7019 *sis)
- 	 * buffer.
- 	 */
- 	for (i = 0; i < SIS_SUSPEND_PAGES; i++) {
--		sis->suspend_state[i] = kmalloc(4096, GFP_KERNEL);
-+		sis->suspend_state[i] = devm_kmalloc(&sis->pci->dev, 4096,
-+						     GFP_KERNEL);
- 		if (!sis->suspend_state[i])
- 			return -ENOMEM;
- 	}
-@@ -1279,23 +1262,19 @@ static int sis_chip_create(struct snd_card *card,
+ static int snd_sonicvibes_create(struct snd_card *card,
+ 				 struct pci_dev *pci,
+ 				 int reverb,
+-				 int mge,
+-				 struct sonicvibes **rsonic)
++				 int mge)
  {
- 	struct sis7019 *sis = card->private_data;
- 	struct voice *voice;
+-	struct sonicvibes *sonic;
++	struct sonicvibes *sonic = card->private_data;
+ 	unsigned int dmaa, dmac;
+ 	int err;
 -	static const struct snd_device_ops ops = {
--		.dev_free = sis_dev_free,
+-		.dev_free =	snd_sonicvibes_dev_free,
 -	};
- 	int rc;
- 	int i;
  
--	rc = pci_enable_device(pci);
-+	rc = pcim_enable_device(pci);
- 	if (rc)
--		goto error_out;
-+		return rc;
+-	*rsonic = NULL;
+ 	/* enable PCI device */
+-	err = pci_enable_device(pci);
++	err = pcim_enable_device(pci);
+ 	if (err < 0)
+ 		return err;
+ 	/* check, if we can restrict PCI DMA transfers to 24 bits */
+ 	if (dma_set_mask_and_coherent(&pci->dev, DMA_BIT_MASK(24))) {
+ 		dev_err(card->dev,
+ 			"architecture does not support 24bit PCI busmaster DMA\n");
+-		pci_disable_device(pci);
+                 return -ENXIO;
+         }
  
- 	rc = dma_set_mask(&pci->dev, DMA_BIT_MASK(30));
- 	if (rc < 0) {
- 		dev_err(&pci->dev, "architecture does not support 30-bit PCI busmaster DMA");
--		goto error_out_enabled;
-+		return -ENXIO;
+-	sonic = kzalloc(sizeof(*sonic), GFP_KERNEL);
+-	if (sonic == NULL) {
+-		pci_disable_device(pci);
+-		return -ENOMEM;
+-	}
+ 	spin_lock_init(&sonic->reg_lock);
+ 	sonic->card = card;
+ 	sonic->pci = pci;
+ 	sonic->irq = -1;
+ 
+ 	err = pci_request_regions(pci, "S3 SonicVibes");
+-	if (err < 0) {
+-		kfree(sonic);
+-		pci_disable_device(pci);
++	if (err < 0)
+ 		return err;
+-	}
+ 
+ 	sonic->sb_port = pci_resource_start(pci, 0);
+ 	sonic->enh_port = pci_resource_start(pci, 1);
+@@ -1263,14 +1237,14 @@ static int snd_sonicvibes_create(struct snd_card *card,
+ 	sonic->midi_port = pci_resource_start(pci, 3);
+ 	sonic->game_port = pci_resource_start(pci, 4);
+ 
+-	if (request_irq(pci->irq, snd_sonicvibes_interrupt, IRQF_SHARED,
+-			KBUILD_MODNAME, sonic)) {
++	if (devm_request_irq(&pci->dev, pci->irq, snd_sonicvibes_interrupt,
++			     IRQF_SHARED, KBUILD_MODNAME, sonic)) {
+ 		dev_err(card->dev, "unable to grab IRQ %d\n", pci->irq);
+-		snd_sonicvibes_free(sonic);
+ 		return -EBUSY;
  	}
+ 	sonic->irq = pci->irq;
+ 	card->sync_irq = sonic->irq;
++	card->private_free = snd_sonicvibes_free;
  
--	memset(sis, 0, sizeof(*sis));
- 	mutex_init(&sis->ac97_mutex);
- 	spin_lock_init(&sis->voice_lock);
- 	sis->card = card;
-@@ -1306,31 +1285,31 @@ static int sis_chip_create(struct snd_card *card,
- 	rc = pci_request_regions(pci, "SiS7019");
- 	if (rc) {
- 		dev_err(&pci->dev, "unable request regions\n");
--		goto error_out_enabled;
-+		return rc;
+ 	pci_read_config_dword(pci, 0x40, &dmaa);
+ 	pci_read_config_dword(pci, 0x48, &dmac);
+@@ -1294,17 +1268,17 @@ static int snd_sonicvibes_create(struct snd_card *card,
+ 	pci_write_config_dword(pci, 0x40, dmaa);
+ 	pci_write_config_dword(pci, 0x48, dmac);
+ 
+-	sonic->res_dmaa = request_region(dmaa, 0x10, "S3 SonicVibes DDMA-A");
++	sonic->res_dmaa = devm_request_region(&pci->dev, dmaa, 0x10,
++					      "S3 SonicVibes DDMA-A");
+ 	if (!sonic->res_dmaa) {
+-		snd_sonicvibes_free(sonic);
+ 		dev_err(card->dev,
+ 			"unable to grab DDMA-A port at 0x%x-0x%x\n",
+ 			dmaa, dmaa + 0x10 - 1);
+ 		return -EBUSY;
  	}
+-	sonic->res_dmac = request_region(dmac, 0x10, "S3 SonicVibes DDMA-C");
++	sonic->res_dmac = devm_request_region(&pci->dev, dmac, 0x10,
++					      "S3 SonicVibes DDMA-C");
+ 	if (!sonic->res_dmac) {
+-		snd_sonicvibes_free(sonic);
+ 		dev_err(card->dev,
+ 			"unable to grab DDMA-C port at 0x%x-0x%x\n",
+ 			dmac, dmac + 0x10 - 1);
+@@ -1365,15 +1339,7 @@ static int snd_sonicvibes_create(struct snd_card *card,
+ #endif
+ 	sonic->revision = snd_sonicvibes_in(sonic, SV_IREG_REVISION);
  
--	rc = -EIO;
--	sis->ioaddr = ioremap(pci_resource_start(pci, 1), 0x4000);
-+	sis->ioaddr = devm_ioremap(&pci->dev, pci_resource_start(pci, 1), 0x4000);
- 	if (!sis->ioaddr) {
- 		dev_err(&pci->dev, "unable to remap MMIO, aborting\n");
--		goto error_out_cleanup;
-+		return -EIO;
- 	}
- 
- 	rc = sis_alloc_suspend(sis);
- 	if (rc < 0) {
- 		dev_err(&pci->dev, "unable to allocate state storage\n");
--		goto error_out_cleanup;
-+		return rc;
- 	}
- 
- 	rc = sis_chip_init(sis);
- 	if (rc)
--		goto error_out_cleanup;
-+		return rc;
-+	card->private_free = sis_chip_free;
- 
- 	rc = request_irq(pci->irq, sis_interrupt, IRQF_SHARED, KBUILD_MODNAME,
- 			 sis);
- 	if (rc) {
- 		dev_err(&pci->dev, "unable to allocate irq %d\n", sis->irq);
--		goto error_out_cleanup;
-+		return rc;
- 	}
- 
- 	sis->irq = pci->irq;
-@@ -1349,20 +1328,7 @@ static int sis_chip_create(struct snd_card *card,
- 	voice->num = SIS_CAPTURE_CHAN_AC97_PCM_IN;
- 	voice->ctrl_base = SIS_CAPTURE_DMA_ADDR(sis->ioaddr, voice->num);
- 
--	rc = snd_device_new(card, SNDRV_DEV_LOWLEVEL, sis, &ops);
--	if (rc)
--		goto error_out_cleanup;
+-	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, sonic, &ops);
+-	if (err < 0) {
+-		snd_sonicvibes_free(sonic);
+-		return err;
+-	}
 -
+ 	snd_sonicvibes_proc_init(sonic);
+-
+-	*rsonic = sonic;
  	return 0;
--
--error_out_cleanup:
--	sis_chip_free(sis);
--
--error_out_enabled:
--	pci_disable_device(pci);
--
--error_out:
--	return rc;
  }
  
- static int snd_sis7019_probe(struct pci_dev *pci,
-@@ -1372,9 +1338,8 @@ static int snd_sis7019_probe(struct pci_dev *pci,
- 	struct sis7019 *sis;
- 	int rc;
+@@ -1429,7 +1395,7 @@ static int snd_sonic_probe(struct pci_dev *pci,
+ 	struct sonicvibes *sonic;
+ 	struct snd_rawmidi *midi_uart;
+ 	struct snd_opl3 *opl3;
+-	int idx, err;
++	int err;
  
--	rc = -ENOENT;
- 	if (!enable)
--		goto error_out;
-+		return -ENOENT;
+ 	if (dev >= SNDRV_CARDS)
+ 		return -ENODEV;
+@@ -1438,25 +1404,16 @@ static int snd_sonic_probe(struct pci_dev *pci,
+ 		return -ENOENT;
+ 	}
+  
+-	err = snd_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
+-			   0, &card);
++	err = snd_devm_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
++				sizeof(*sonic), &card);
+ 	if (err < 0)
+ 		return err;
+-	for (idx = 0; idx < 5; idx++) {
+-		if (pci_resource_start(pci, idx) == 0 ||
+-		    !(pci_resource_flags(pci, idx) & IORESOURCE_IO)) {
+-			snd_card_free(card);
+-			return -ENODEV;
+-		}
+-	}
++	sonic = card->private_data;
+ 	err = snd_sonicvibes_create(card, pci,
+ 				    reverb[dev] ? 1 : 0,
+-				    mge[dev] ? 1 : 0,
+-				    &sonic);
+-	if (err < 0) {
+-		snd_card_free(card);
++				    mge[dev] ? 1 : 0);
++	if (err < 0)
+ 		return err;
+-	}
  
- 	/* The user can specify which codecs should be present so that we
- 	 * can wait for them to show up if they are slow to recover from
-@@ -1390,23 +1355,23 @@ static int snd_sis7019_probe(struct pci_dev *pci,
- 	rc = snd_card_new(&pci->dev, index, id, THIS_MODULE,
- 			  sizeof(*sis), &card);
- 	if (rc < 0)
--		goto error_out;
-+		return rc;
+ 	strcpy(card->driver, "SonicVibes");
+ 	strcpy(card->shortname, "S3 SonicVibes");
+@@ -1467,65 +1424,45 @@ static int snd_sonic_probe(struct pci_dev *pci,
+ 		sonic->irq);
  
- 	strcpy(card->driver, "SiS7019");
- 	strcpy(card->shortname, "SiS7019");
- 	rc = sis_chip_create(card, pci);
- 	if (rc)
--		goto card_error_out;
-+		return rc;
+ 	err = snd_sonicvibes_pcm(sonic, 0);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}
+ 	err = snd_sonicvibes_mixer(sonic);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}
+ 	err = snd_mpu401_uart_new(card, 0, MPU401_HW_SONICVIBES,
+ 				  sonic->midi_port,
+ 				  MPU401_INFO_INTEGRATED |
+ 				  MPU401_INFO_IRQ_HOOK,
+ 				  -1, &midi_uart);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}
+ 	snd_sonicvibes_midi(sonic, midi_uart);
+ 	err = snd_opl3_create(card, sonic->synth_port,
+ 			      sonic->synth_port + 2,
+ 			      OPL3_HW_OPL3_SV, 1, &opl3);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}
+ 	err = snd_opl3_hwdep_new(opl3, 0, 1, NULL);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}
  
- 	sis = card->private_data;
+ 	err = snd_sonicvibes_create_gameport(sonic);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}
  
- 	rc = sis_mixer_create(sis);
- 	if (rc)
--		goto card_error_out;
-+		return rc;
- 
- 	rc = sis_pcm_create(sis);
- 	if (rc)
--		goto card_error_out;
-+		return rc;
- 
- 	snprintf(card->longname, sizeof(card->longname),
- 			"%s Audio Accelerator with %s at 0x%lx, irq %d",
-@@ -1415,28 +1380,16 @@ static int snd_sis7019_probe(struct pci_dev *pci,
- 
- 	rc = snd_card_register(card);
- 	if (rc)
--		goto card_error_out;
-+		return rc;
- 
+ 	err = snd_card_register(card);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}
+ 	
  	pci_set_drvdata(pci, card);
+ 	dev++;
  	return 0;
--
--card_error_out:
--	snd_card_free(card);
--
--error_out:
--	return rc;
--}
--
--static void snd_sis7019_remove(struct pci_dev *pci)
+ }
+ 
+-static void snd_sonic_remove(struct pci_dev *pci)
 -{
 -	snd_card_free(pci_get_drvdata(pci));
- }
- 
- static struct pci_driver sis7019_driver = {
+-}
+-
+ static struct pci_driver sonicvibes_driver = {
  	.name = KBUILD_MODNAME,
- 	.id_table = snd_sis7019_ids,
- 	.probe = snd_sis7019_probe,
--	.remove = snd_sis7019_remove,
- 	.driver = {
- 		.pm = SIS_PM_OPS,
- 	},
+ 	.id_table = snd_sonic_ids,
+ 	.probe = snd_sonic_probe,
+-	.remove = snd_sonic_remove,
+ };
+ 
+ module_pci_driver(sonicvibes_driver);
 -- 
 2.26.2
 

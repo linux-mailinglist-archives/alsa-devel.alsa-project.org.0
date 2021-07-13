@@ -2,79 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12A753C7230
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 16:29:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 774963C7223
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 16:27:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 90CFD16A9;
-	Tue, 13 Jul 2021 16:28:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90CFD16A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id E457C16AC;
+	Tue, 13 Jul 2021 16:26:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E457C16AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626186571;
-	bh=dygp7l9dRjraYxuO8M6a3srDZkTC+yzU5SZoKKwqOQM=;
+	s=default; t=1626186444;
+	bh=rXd3rGaZ0EkgeHDojGaFPpZiTaj1DBoxC6XqwIBWSCo=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=t0DcjTJgC0LuoTDa9f+vFb78eu7CEGIJHqEVjAZP2S+s/DMCrtrLToErQBCXd46ur
-	 /j2uCXCY67Wamel1keFzWD8mS3M5sY6pHHqJ8TNOce5Xkp8Iw/QKqxNRau905mvLjB
-	 XA8QpzqOnVLlMnUbAcuvyW0J8FAwpAJmFriduvpM=
+	b=jTs5InpMJZ3D0OaeoXSKHu+qz4UXkvwYP3TlYI+9J8NNCDLz6JMdxKeqXu8po7R3A
+	 B+mmj8t5kdVGIYHLide65s9tXNZHA4NylsMuLotjZzprObYnik5PNcdztBfr3UxulE
+	 qvrELaUCXG6hEFQ4FIg/Kdeg1hzQEcTOENi/0/6Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2ECF6F8051B;
-	Tue, 13 Jul 2021 16:25:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF2B0F8020C;
+	Tue, 13 Jul 2021 16:25:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 75A9AF804F2; Tue, 13 Jul 2021 16:25:13 +0200 (CEST)
+ id 2C1D1F804E5; Tue, 13 Jul 2021 16:25:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 277C4F80430
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01D57F80217
  for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 16:24:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 277C4F80430
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01D57F80217
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="RWRw74N/"; 
+ header.b="wHz18ElW"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Rne7O6+X"
+ header.b="jmPY17V7"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 0AC3B228F2
+ by smtp-out2.suse.de (Postfix) with ESMTP id 17884201E4
  for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 14:24:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1626186295; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=kujywtrM7C2dS+YRTuwBHd2FutC2YUFWonnKVXTOTg4=;
- b=RWRw74N/FmvVN+hjPZvA8l84inzm4kZMI67HMCFLL5eDihgcc78Pa7P5NArYKz03yRTiF3
- knXkS/rdB6tC1/YldxxeRJkony0sDO+82k0xEECqPD0+b+l28mq5avH/h2ByYWAAYH2BXu
- 6qK16fiJ7SA65DEo4YzCVbJmyTOoAMQ=
+ bh=p+80vNdV6jE9Ou8O5FXAHfr7DOF9xGqto4WGILLz14c=;
+ b=wHz18ElWzapSBVkeR3qsJBw1FdUPtWiLrtN2ty2Fvpnad5HbEW/XRTuFwppYd7LhYP7Zgh
+ lSrJsJ1p2OcbCvv6a2aDfC48BhGuTGPyrRL31vVUv9AB8RHL7bVM8pHtJ0Z/7CU78u4AaG
+ T5HQ8dzK9eHf3skUllH/JmDm8eHZDgM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1626186295;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=kujywtrM7C2dS+YRTuwBHd2FutC2YUFWonnKVXTOTg4=;
- b=Rne7O6+Xdy0+7KhWerdn/7WqGk15IdzRNoCbomd5H/gLhyaAXzMVisuJdtX+kkNEOgmdjx
- KHRV9iIIBAcPTCAA==
+ bh=p+80vNdV6jE9Ou8O5FXAHfr7DOF9xGqto4WGILLz14c=;
+ b=jmPY17V7x/B53r2r6iylrmdB66p99QOzz5BgXFhaglIz0zuIxdKC6Pd3GA2ei1OLr8jiDD
+ 4IXloKjjIRS8CZAA==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 0463AA3B8C;
+ by relay2.suse.de (Postfix) with ESMTP id 083BBA3B8D;
  Tue, 13 Jul 2021 14:24:55 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 05/51] ALSA: hda: Allocate resources with device-managed APIs
-Date: Tue, 13 Jul 2021 16:24:41 +0200
-Message-Id: <20210713142445.19252-6-tiwai@suse.de>
+Subject: [PATCH 06/51] ALSA: doc: Add device-managed resource section
+Date: Tue, 13 Jul 2021 16:24:42 +0200
+Message-Id: <20210713142445.19252-7-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210713142445.19252-1-tiwai@suse.de>
 References: <20210713142445.19252-1-tiwai@suse.de>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -91,107 +92,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch is an attempt to slightly simplify the resource management
-in HD-audio code, by using some device-managed APIs.  Only a few
-resources like PCI enablement and PCI resources managed via devres,
-but most of the rest code dealing with HD-audio core stuff couldn't be
-changed so much, hence the changes in this patch are pretty small in
-the end.  A special caveat is needed for the card object: we can't
-move the card object release into devres, because the driver is
-involved with the component stuff and its unregistiration doesn't work
-well from devres release at all.
+Give brief explanations about the device-managed resources and the
+newly introduced snd_devm_card_new() helper.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/hda/hda_controller.h |  1 -
- sound/pci/hda/hda_intel.c      | 26 +++++---------------------
- 2 files changed, 5 insertions(+), 22 deletions(-)
+ .../kernel-api/writing-an-alsa-driver.rst     | 33 +++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/sound/pci/hda/hda_controller.h b/sound/pci/hda/hda_controller.h
-index 68f9668788ea..e4b290de81de 100644
---- a/sound/pci/hda/hda_controller.h
-+++ b/sound/pci/hda/hda_controller.h
-@@ -141,7 +141,6 @@ struct azx {
- 	unsigned int snoop:1;
- 	unsigned int uc_buffer:1; /* non-cached pages for stream buffers */
- 	unsigned int align_buffer_size:1;
--	unsigned int region_requested:1;
- 	unsigned int disabled:1; /* disabled by vga_switcheroo */
- 	unsigned int pm_prepared:1;
+diff --git a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
+index 01d59b8aea92..255b7d3bebd6 100644
+--- a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
++++ b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
+@@ -4172,6 +4172,39 @@ module license as GPL, etc., otherwise the system is shown as “tainted”.
+   MODULE_LICENSE("GPL");
  
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index 0322b289505e..4d64f2ce30dc 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -1367,18 +1367,11 @@ static void azx_free(struct azx *chip)
  
- 	if (bus->irq >= 0)
- 		free_irq(bus->irq, (void*)chip);
--	if (chip->msi)
--		pci_disable_msi(chip->pci);
--	iounmap(bus->remap_addr);
++Device-Managed Resources
++========================
++
++In the examples above, all resources are allocated and released
++manually.  But human beings are lazy in nature, especially developers
++are lazier.  So there are some ways to automate the release part; it's
++the (device-)managed resources aka devres or devm family.  For
++example, an object allocated via :c:func:`devm_kmalloc()` will be
++freed automatically at unbinding the device.
++
++ALSA core provides also the device-managed helper, namely,
++:c:func:`snd_devm_card_new()` for creating a card object.
++Call this functions instead of the normal :c:func:`snd_card_new()`,
++and you can forget the explicit :c:func:`snd_card_free()` call, as
++it's called automagically at error and removal paths.
++
++One caveat is that the call of :c:func:`snd_card_free()` would be put
++at the beginning of the call chain only after you call
++:c:func:`snd_card_register()`.
++
++Also, the ``private_free`` callback is always called at the card free,
++so be careful to put the hardware clean-up procedure in
++``private_free`` callback.  It might be called even before you
++actually set up at an earlier error path.  For avoiding such an
++invalid initialization, you can set ``private_free`` callback after
++:c:func:`snd_card_register()` call succeeds.
++
++Another thing to be remarked is that you should use device-managed
++helpers for each component as much as possible once when you manage
++the card in that way.  Mixing up with the normal and the managed
++resources may screw up the release order.
++
++
+ How To Put Your Driver Into ALSA Tree
+ =====================================
  
- 	azx_free_stream_pages(chip);
- 	azx_free_streams(chip);
- 	snd_hdac_bus_exit(bus);
- 
--	if (chip->region_requested)
--		pci_release_regions(chip->pci);
--
--	pci_disable_device(chip->pci);
- #ifdef CONFIG_SND_HDA_PATCH_LOADER
- 	release_firmware(chip->fw);
- #endif
-@@ -1767,15 +1760,13 @@ static int azx_create(struct snd_card *card, struct pci_dev *pci,
- 
- 	*rchip = NULL;
- 
--	err = pci_enable_device(pci);
-+	err = pcim_enable_device(pci);
- 	if (err < 0)
- 		return err;
- 
- 	hda = devm_kzalloc(&pci->dev, sizeof(*hda), GFP_KERNEL);
--	if (!hda) {
--		pci_disable_device(pci);
-+	if (!hda)
- 		return -ENOMEM;
--	}
- 
- 	chip = &hda->chip;
- 	mutex_init(&chip->open_mutex);
-@@ -1811,10 +1802,8 @@ static int azx_create(struct snd_card *card, struct pci_dev *pci,
- 		chip->bdl_pos_adj = bdl_pos_adj[dev];
- 
- 	err = azx_bus_init(chip, model[dev]);
--	if (err < 0) {
--		pci_disable_device(pci);
-+	if (err < 0)
- 		return err;
--	}
- 
- 	/* use the non-cached pages in non-snoop mode */
- 	if (!azx_snoop(chip))
-@@ -1860,17 +1849,12 @@ static int azx_first_init(struct azx *chip)
- 	}
- #endif
- 
--	err = pci_request_regions(pci, "ICH HD audio");
-+	err = pcim_iomap_regions(pci, 1 << 0, "ICH HD audio");
- 	if (err < 0)
- 		return err;
--	chip->region_requested = 1;
- 
- 	bus->addr = pci_resource_start(pci, 0);
--	bus->remap_addr = pci_ioremap_bar(pci, 0);
--	if (bus->remap_addr == NULL) {
--		dev_err(card->dev, "ioremap error\n");
--		return -ENXIO;
--	}
-+	bus->remap_addr = pcim_iomap_table(pci)[0];
- 
- 	if (chip->driver_type == AZX_DRIVER_SKL)
- 		snd_hdac_bus_parse_capabilities(bus);
 -- 
 2.26.2
 

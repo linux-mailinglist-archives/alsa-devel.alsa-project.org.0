@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FC083C7254
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 16:36:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 375393C7256
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 16:36:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B0CF3171F;
-	Tue, 13 Jul 2021 16:35:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0CF3171F
+	by alsa0.perex.cz (Postfix) with ESMTPS id B215916D0;
+	Tue, 13 Jul 2021 16:35:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B215916D0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626186959;
-	bh=nO8aafrM+iykm3A93A9CbIs8145Y1VYuhPzaGfFW2ro=;
+	s=default; t=1626187004;
+	bh=aaffqherV7sHeEFWzX3gpB5DYIo95fZe2Htu2XGac8Q=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ALQ+icKw0w9RiVC+upiQLES5a5pMyu4zmOWw+3CYK+Ll0rCj5vVRLSPvVhnT/Wlk9
-	 q7I8UlSMK1a1BEf0TaydaL8dJvoOplXXAVHqNFGILpQfo1oUGInMb0O9yaedvO517X
-	 VgipEaF6Aod/2vLslWnI98L+tY23k14mgoxY8Zjc=
+	b=GqQkmxRM2tZ0qNENpLURPQddyR3bE23RQ+8EfPueJ1Xh62PSfTMcPPartpu4Nkoed
+	 L96bOzNRzWATnUTBzfiBFKLOtp5wzYpNJQZyHF3zoA96f5BjM878zVtRbOBtg7DWIO
+	 UxQSgAo2gTUJr0vnmSApd/aLS3nLwlTT52etK60Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 32502F804E4;
-	Tue, 13 Jul 2021 16:29:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBD23F8059F;
+	Tue, 13 Jul 2021 16:30:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 463E0F80527; Tue, 13 Jul 2021 16:29:35 +0200 (CEST)
+ id E6658F80527; Tue, 13 Jul 2021 16:29:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 543CFF80431
+ by alsa1.perex.cz (Postfix) with ESMTPS id F354BF804F3
  for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 16:29:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 543CFF80431
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F354BF804F3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="UVJCQ+kZ"; 
+ header.b="XIw0RVaV"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="WVZ2hw/Z"
+ header.b="WTrCcKGD"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 1569D201DA
+ by smtp-out2.suse.de (Postfix) with ESMTP id CE0A4201E4
  for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 14:29:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1626186562; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=N+zPGj0sNXqSW0ODusYjbeLSfUg6q2ixQyrrHHuNW5s=;
- b=UVJCQ+kZSFXhjGV/LZ4eWNoXY0XO6hTihYOUM+C8nwBiAmIofWf0+L7XUpoFJE4MnogxUZ
- FhsLFxKEUoSwtQs95Y+dk5SygtaggpEtFz2z6vKV8j+jNWXha6x/RjDifJxq52XNtHTHWn
- Tqrzx/1atH7m9oopAvtFSMn5VA77PAU=
+ bh=SfYa+T0T1CIGZh+UnessXxkDwVCKEl2xb+ela0F3Fq4=;
+ b=XIw0RVaVPtU13PBq+q/rl1aW71i5JVMKFVy3KJF+COE3b0p2NlfuSecOLanfiq0z6sVG+f
+ mJ7+piV0HN2eBJmzW57pfGVfRa72c4pdQ3sZeAJhZTAkUQrLZLtCewucil/6XeCii9Hlzq
+ /IsnitYOIHjCv4nOFN1ayhC38fk5CIQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1626186562;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=N+zPGj0sNXqSW0ODusYjbeLSfUg6q2ixQyrrHHuNW5s=;
- b=WVZ2hw/ZjaLR9lp1GQgWbsWPOMHVmkSmoQfhFOtdrnSBtugqs3zIWyhh993vsPMdynekAI
- trLCdFL3lMVkQBCQ==
+ bh=SfYa+T0T1CIGZh+UnessXxkDwVCKEl2xb+ela0F3Fq4=;
+ b=WTrCcKGDWkbwVOMmByEWjkyoIURjjDpzZeyZJ/sdQlGVMigOS3lQiDL7Nu5YB64MANeRsG
+ Qpn2BzZ9hurMmcAg==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 05575A3B8C;
+ by relay2.suse.de (Postfix) with ESMTP id BCE46A3B8D;
  Tue, 13 Jul 2021 14:29:22 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 15/51] ALSA: ens137x: Allocate resources with device-managed
+Subject: [PATCH 16/51] ALSA: es1938: Allocate resources with device-managed
  APIs
-Date: Tue, 13 Jul 2021 16:28:21 +0200
-Message-Id: <20210713142857.19654-16-tiwai@suse.de>
+Date: Tue, 13 Jul 2021 16:28:22 +0200
+Message-Id: <20210713142857.19654-17-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210713142857.19654-1-tiwai@suse.de>
 References: <20210713142857.19654-1-tiwai@suse.de>
@@ -92,223 +92,199 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch converts the resource management in PCI esn137x drivers
-with devres as a clean up.  Each manual resource management is
-converted with the corresponding devres helper, the devres helper is
-used for the DMA buffer page allocations, and the card object release
-is managed now via card->private_free instead of a lowlevel
-snd_device.
+This patch converts the resource management in PCI es1938 driver with
+devres as a clean up.  Each manual resource management is converted
+with the corresponding devres helper, and the card object release is
+managed now via card->private_free instead of a lowlevel snd_device.
 
 This should give no user-visible functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/ens1370.c | 115 +++++++++++---------------------------------
- 1 file changed, 27 insertions(+), 88 deletions(-)
+ sound/pci/es1938.c | 97 ++++++++++++----------------------------------
+ 1 file changed, 24 insertions(+), 73 deletions(-)
 
-diff --git a/sound/pci/ens1370.c b/sound/pci/ens1370.c
-index 728b69dad21b..2651f0c64c06 100644
---- a/sound/pci/ens1370.c
-+++ b/sound/pci/ens1370.c
-@@ -414,7 +414,7 @@ struct ensoniq {
- 	unsigned int spdif_stream;
+diff --git a/sound/pci/es1938.c b/sound/pci/es1938.c
+index 33b1eb347a27..00b976f42a3d 100644
+--- a/sound/pci/es1938.c
++++ b/sound/pci/es1938.c
+@@ -1521,8 +1521,10 @@ static inline int snd_es1938_create_gameport(struct es1938 *chip) { return -ENOS
+ static inline void snd_es1938_free_gameport(struct es1938 *chip) { }
+ #endif /* SUPPORT_JOYSTICK */
  
- #ifdef CHIP1370
--	struct snd_dma_buffer dma_bug;
-+	struct snd_dma_buffer *dma_bug;
- #endif
- 
- #ifdef SUPPORT_JOYSTICK
-@@ -1872,11 +1872,11 @@ static void snd_ensoniq_proc_init(struct ensoniq *ensoniq)
- 
-  */
- 
--static int snd_ensoniq_free(struct ensoniq *ensoniq)
-+static void snd_ensoniq_free(struct snd_card *card)
+-static int snd_es1938_free(struct es1938 *chip)
++static void snd_es1938_free(struct snd_card *card)
  {
-+	struct ensoniq *ensoniq = card->private_data;
++	struct es1938 *chip = card->private_data;
 +
- 	snd_ensoniq_free_gameport(ensoniq);
--	if (ensoniq->irq < 0)
--		goto __hw_end;
- #ifdef CHIP1370
- 	outl(ES_1370_SERR_DISABLE, ES_REG(ensoniq, CONTROL));	/* switch everything off */
- 	outl(0, ES_REG(ensoniq, SERIAL));	/* clear serial interface */
-@@ -1884,24 +1884,6 @@ static int snd_ensoniq_free(struct ensoniq *ensoniq)
- 	outl(0, ES_REG(ensoniq, CONTROL));	/* switch everything off */
- 	outl(0, ES_REG(ensoniq, SERIAL));	/* clear serial interface */
- #endif
--	pci_set_power_state(ensoniq->pci, PCI_D3hot);
--      __hw_end:
--#ifdef CHIP1370
--	if (ensoniq->dma_bug.area)
--		snd_dma_free_pages(&ensoniq->dma_bug);
--#endif
--	if (ensoniq->irq >= 0)
--		free_irq(ensoniq->irq, ensoniq);
--	pci_release_regions(ensoniq->pci);
--	pci_disable_device(ensoniq->pci);
--	kfree(ensoniq);
+ 	/* disable irqs */
+ 	outb(0x00, SLIO_REG(chip, IRQCONTROL));
+ 	if (chip->rmidi)
+@@ -1532,71 +1534,47 @@ static int snd_es1938_free(struct es1938 *chip)
+ 
+ 	if (chip->irq >= 0)
+ 		free_irq(chip->irq, chip);
+-	pci_release_regions(chip->pci);
+-	pci_disable_device(chip->pci);
+-	kfree(chip);
 -	return 0;
 -}
 -
--static int snd_ensoniq_dev_free(struct snd_device *device)
+-static int snd_es1938_dev_free(struct snd_device *device)
 -{
--	struct ensoniq *ensoniq = device->device_data;
--	return snd_ensoniq_free(ensoniq);
+-	struct es1938 *chip = device->device_data;
+-	return snd_es1938_free(chip);
  }
  
- #ifdef CHIP1371
-@@ -1935,7 +1917,7 @@ static void snd_ensoniq_chip_init(struct ensoniq *ensoniq)
- 	outl(ensoniq->ctrl, ES_REG(ensoniq, CONTROL));
- 	outl(ensoniq->sctrl, ES_REG(ensoniq, SERIAL));
- 	outl(ES_MEM_PAGEO(ES_PAGE_ADC), ES_REG(ensoniq, MEM_PAGE));
--	outl(ensoniq->dma_bug.addr, ES_REG(ensoniq, PHANTOM_FRAME));
-+	outl(ensoniq->dma_bug->addr, ES_REG(ensoniq, PHANTOM_FRAME));
- 	outl(0, ES_REG(ensoniq, PHANTOM_COUNT));
- #else
- 	outl(ensoniq->ctrl, ES_REG(ensoniq, CONTROL));
-@@ -2032,51 +2014,35 @@ static SIMPLE_DEV_PM_OPS(snd_ensoniq_pm, snd_ensoniq_suspend, snd_ensoniq_resume
- #endif /* CONFIG_PM_SLEEP */
- 
- static int snd_ensoniq_create(struct snd_card *card,
--			      struct pci_dev *pci,
--			      struct ensoniq **rensoniq)
-+			      struct pci_dev *pci)
+ static int snd_es1938_create(struct snd_card *card,
+-			     struct pci_dev *pci,
+-			     struct es1938 **rchip)
++			     struct pci_dev *pci)
  {
--	struct ensoniq *ensoniq;
-+	struct ensoniq *ensoniq = card->private_data;
+-	struct es1938 *chip;
++	struct es1938 *chip = card->private_data;
  	int err;
 -	static const struct snd_device_ops ops = {
--		.dev_free =	snd_ensoniq_dev_free,
+-		.dev_free =	snd_es1938_dev_free,
 -	};
+-
+-	*rchip = NULL;
  
--	*rensoniq = NULL;
+ 	/* enable PCI device */
 -	err = pci_enable_device(pci);
 +	err = pcim_enable_device(pci);
  	if (err < 0)
  		return err;
--	ensoniq = kzalloc(sizeof(*ensoniq), GFP_KERNEL);
--	if (ensoniq == NULL) {
+         /* check, if we can restrict PCI DMA transfers to 24 bits */
+ 	if (dma_set_mask_and_coherent(&pci->dev, DMA_BIT_MASK(24))) {
+ 		dev_err(card->dev,
+ 			"architecture does not support 24bit PCI busmaster DMA\n");
+-		pci_disable_device(pci);
+                 return -ENXIO;
+         }
+ 
+-	chip = kzalloc(sizeof(*chip), GFP_KERNEL);
+-	if (chip == NULL) {
 -		pci_disable_device(pci);
 -		return -ENOMEM;
 -	}
- 	spin_lock_init(&ensoniq->reg_lock);
- 	mutex_init(&ensoniq->src_mutex);
- 	ensoniq->card = card;
- 	ensoniq->pci = pci;
- 	ensoniq->irq = -1;
- 	err = pci_request_regions(pci, "Ensoniq AudioPCI");
+ 	spin_lock_init(&chip->reg_lock);
+ 	spin_lock_init(&chip->mixer_lock);
+ 	chip->card = card;
+ 	chip->pci = pci;
+ 	chip->irq = -1;
+ 	err = pci_request_regions(pci, "ESS Solo-1");
 -	if (err < 0) {
--		kfree(ensoniq);
+-		kfree(chip);
 -		pci_disable_device(pci);
 +	if (err < 0)
  		return err;
 -	}
- 	ensoniq->port = pci_resource_start(pci, 0);
--	if (request_irq(pci->irq, snd_audiopci_interrupt, IRQF_SHARED,
--			KBUILD_MODNAME, ensoniq)) {
-+	if (devm_request_irq(&pci->dev, pci->irq, snd_audiopci_interrupt,
-+			     IRQF_SHARED, KBUILD_MODNAME, ensoniq)) {
+ 	chip->io_port = pci_resource_start(pci, 0);
+ 	chip->sb_port = pci_resource_start(pci, 1);
+ 	chip->vc_port = pci_resource_start(pci, 2);
+ 	chip->mpu_port = pci_resource_start(pci, 3);
+ 	chip->game_port = pci_resource_start(pci, 4);
++	/* still use non-managed irq handler as it's re-acquired at PM resume */
+ 	if (request_irq(pci->irq, snd_es1938_interrupt, IRQF_SHARED,
+ 			KBUILD_MODNAME, chip)) {
  		dev_err(card->dev, "unable to grab IRQ %d\n", pci->irq);
--		snd_ensoniq_free(ensoniq);
+-		snd_es1938_free(chip);
  		return -EBUSY;
  	}
- 	ensoniq->irq = pci->irq;
- 	card->sync_irq = ensoniq->irq;
- #ifdef CHIP1370
--	if (snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, &pci->dev,
--				16, &ensoniq->dma_bug) < 0) {
--		dev_err(card->dev, "unable to allocate space for phantom area - dma_bug\n");
--		snd_ensoniq_free(ensoniq);
--		return -EBUSY;
--	}
-+	ensoniq->dma_bug =
-+		snd_devm_alloc_pages(&pci->dev, SNDRV_DMA_TYPE_DEV, 16);
-+	if (!ensoniq->dma_bug)
-+		return -ENOMEM;
- #endif
- 	pci_set_master(pci);
- 	ensoniq->rev = pci->revision;
-@@ -2099,17 +2065,10 @@ static int snd_ensoniq_create(struct snd_card *card,
- 		ensoniq->cssr |= ES_1371_ST_AC97_RST;
- #endif
+ 	chip->irq = pci->irq;
+ 	card->sync_irq = chip->irq;
++	card->private_free = snd_es1938_free;
+ 	dev_dbg(card->dev,
+ 		"create: io: 0x%lx, sb: 0x%lx, vc: 0x%lx, mpu: 0x%lx, game: 0x%lx\n",
+ 		   chip->io_port, chip->sb_port, chip->vc_port, chip->mpu_port, chip->game_port);
+@@ -1604,14 +1582,6 @@ static int snd_es1938_create(struct snd_card *card,
+ 	chip->ddma_port = chip->vc_port + 0x00;		/* fix from Thomas Sailer */
  
-+	card->private_free = snd_ensoniq_free;
- 	snd_ensoniq_chip_init(ensoniq);
- 
--	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, ensoniq, &ops);
+ 	snd_es1938_chip_init(chip);
+-
+-	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, chip, &ops);
 -	if (err < 0) {
--		snd_ensoniq_free(ensoniq);
+-		snd_es1938_free(chip);
 -		return err;
 -	}
 -
- 	snd_ensoniq_proc_init(ensoniq);
--
--	*rensoniq = ensoniq;
+-	*rchip = chip;
  	return 0;
  }
  
-@@ -2360,47 +2319,35 @@ static int snd_audiopci_probe(struct pci_dev *pci,
+@@ -1762,23 +1732,20 @@ static int snd_es1938_probe(struct pci_dev *pci,
  		return -ENOENT;
  	}
  
 -	err = snd_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
 -			   0, &card);
 +	err = snd_devm_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
-+				sizeof(*ensoniq), &card);
++				sizeof(*chip), &card);
  	if (err < 0)
  		return err;
-+	ensoniq = card->private_data;
+-	for (idx = 0; idx < 5; idx++) {
++	chip = card->private_data;
++
++	for (idx = 0; idx < 5; idx++)
+ 		if (pci_resource_start(pci, idx) == 0 ||
+-		    !(pci_resource_flags(pci, idx) & IORESOURCE_IO)) {
+-		    	snd_card_free(card);
+-		    	return -ENODEV;
+-		}
+-	}
+-	err = snd_es1938_create(card, pci, &chip);
+-	if (err < 0) {
+-		snd_card_free(card);
++		    !(pci_resource_flags(pci, idx) & IORESOURCE_IO))
++			return -ENODEV;
++
++	err = snd_es1938_create(card, pci);
++	if (err < 0)
+ 		return err;
+-	}
+-	card->private_data = chip;
  
--	err = snd_ensoniq_create(card, pci, &ensoniq);
--	if (err < 0) {
--		snd_card_free(card);
-+	err = snd_ensoniq_create(card, pci);
-+	if (err < 0)
- 		return err;
--	}
--	card->private_data = ensoniq;
+ 	strcpy(card->driver, "ES1938");
+ 	strcpy(card->shortname, "ESS ES1938 (Solo-1)");
+@@ -1788,15 +1755,11 @@ static int snd_es1938_probe(struct pci_dev *pci,
+ 		chip->irq);
  
- #ifdef CHIP1370
- 	err = snd_ensoniq_1370_mixer(ensoniq);
+ 	err = snd_es1938_new_pcm(chip, 0);
 -	if (err < 0) {
 -		snd_card_free(card);
 +	if (err < 0)
  		return err;
 -	}
- #endif
- #ifdef CHIP1371
- 	err = snd_ensoniq_1371_mixer(ensoniq, spdif[dev], lineio[dev]);
+ 	err = snd_es1938_mixer(chip);
 -	if (err < 0) {
 -		snd_card_free(card);
 +	if (err < 0)
  		return err;
 -	}
- #endif
- 	err = snd_ensoniq_pcm(ensoniq, 0);
--	if (err < 0) {
--		snd_card_free(card);
-+	if (err < 0)
- 		return err;
--	}
- 	err = snd_ensoniq_pcm2(ensoniq, 1);
--	if (err < 0) {
--		snd_card_free(card);
-+	if (err < 0)
- 		return err;
--	}
- 	err = snd_ensoniq_midi(ensoniq, 0);
--	if (err < 0) {
--		snd_card_free(card);
-+	if (err < 0)
- 		return err;
--	}
- 
- 	snd_ensoniq_create_gameport(ensoniq, dev);
- 
-@@ -2414,26 +2361,18 @@ static int snd_audiopci_probe(struct pci_dev *pci,
- 		ensoniq->irq);
+ 	if (snd_opl3_create(card,
+ 			    SLSB_REG(chip, FMLOWADDR),
+ 			    SLSB_REG(chip, FMHIGHADDR),
+@@ -1805,15 +1768,11 @@ static int snd_es1938_probe(struct pci_dev *pci,
+ 			   SLSB_REG(chip, FMLOWADDR));
+ 	} else {
+ 		err = snd_opl3_timer_new(opl3, 0, 1);
+-		if (err < 0) {
+-	                snd_card_free(card);
++		if (err < 0)
+ 	                return err;
+-		}
+ 		err = snd_opl3_hwdep_new(opl3, 0, 1, NULL);
+-		if (err < 0) {
+-	                snd_card_free(card);
++		if (err < 0)
+ 	                return err;
+-		}
+ 	}
+ 	if (snd_mpu401_uart_new(card, 0, MPU401_HW_MPU401,
+ 				chip->mpu_port,
+@@ -1829,26 +1788,18 @@ static int snd_es1938_probe(struct pci_dev *pci,
+ 	snd_es1938_create_gameport(chip);
  
  	err = snd_card_register(card);
 -	if (err < 0) {
@@ -322,18 +298,18 @@ index 728b69dad21b..2651f0c64c06 100644
  	return 0;
  }
  
--static void snd_audiopci_remove(struct pci_dev *pci)
+-static void snd_es1938_remove(struct pci_dev *pci)
 -{
 -	snd_card_free(pci_get_drvdata(pci));
 -}
 -
- static struct pci_driver ens137x_driver = {
+ static struct pci_driver es1938_driver = {
  	.name = KBUILD_MODNAME,
- 	.id_table = snd_audiopci_ids,
- 	.probe = snd_audiopci_probe,
--	.remove = snd_audiopci_remove,
+ 	.id_table = snd_es1938_ids,
+ 	.probe = snd_es1938_probe,
+-	.remove = snd_es1938_remove,
  	.driver = {
- 		.pm = SND_ENSONIQ_PM_OPS,
+ 		.pm = ES1938_PM_OPS,
  	},
 -- 
 2.26.2

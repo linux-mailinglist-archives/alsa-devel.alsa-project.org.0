@@ -2,76 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B8773C728D
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 16:46:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42A413C729C
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 16:48:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B5BB1761;
-	Tue, 13 Jul 2021 16:45:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B5BB1761
+	by alsa0.perex.cz (Postfix) with ESMTPS id B831A175B;
+	Tue, 13 Jul 2021 16:47:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B831A175B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626187577;
-	bh=iNq3QaOXfXe8grDWrHSjRyWtauNqVs0q+n2LgMVLFg8=;
+	s=default; t=1626187700;
+	bh=m6ILTGs7GK2tsm14WjfjsUSsqSUzELYYb8MomHLz2UY=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LJWYxToOmgaxdmwluR/E/CVRivEvNFIKBXnGFaMcal7pG1H6OIvFE4q2VTKAcWGkA
-	 Sb9qd0PaQH/musSyDcYMvdJFPh5ZH3D5g5Qs46SRs3RH8Jm381EXLvyQL1DBlz46h5
-	 vvOhOUaYTgD1vcrjRS7QdcSNPaWNGrj1xKko+T0A=
+	b=AYsb+cp/vr50VOGAsCj82nXPXQ8rcDb8rOXI/bwEgubU0StKtFznoXFCphmcK4lx9
+	 sQEJbPSHi3jlWs7ohbieojvg2iwYNOdtYXWqSUkvIbe7T+S6i2jDdfWRjSrqYcFgpd
+	 DGMke7L5zeTMOGus0OpQotH5oQItzOkIgCiZVyOM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4771FF8061D;
-	Tue, 13 Jul 2021 16:30:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DFEFF8063D;
+	Tue, 13 Jul 2021 16:31:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9336F8052E; Tue, 13 Jul 2021 16:30:07 +0200 (CEST)
+ id 1B008F804E5; Tue, 13 Jul 2021 16:30:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 93071F80542
- for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 16:29:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93071F80542
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2BDEEF80544
+ for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 16:29:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2BDEEF80544
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Kx560Zhg"; 
+ header.b="Ai1heuHn"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="G73ZVZKv"
+ header.b="Y4NHK4b0"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 701CE22890
- for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 14:29:41 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 04807201DA
+ for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 14:29:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1626186581; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1626186582; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5FynoyZ6DnBFWpRSnQMvg3Zq5acyq38aZwxwrcjUPWU=;
- b=Kx560ZhgT6TT38kzUyoWQRlHtgwJqe9TAN3zycuKzGXkCdtzvBoukmBkN9yuXlF4l6AApa
- n1OQbDK4XQWuM/4e5zPvw9W1bsn0PfMrjApXcMN9u93hd5tZwCXLi1Ry4FM0uJZNcMlPnH
- CqARWGL7lkml5LsAK7FPuk4SsNOKq7I=
+ bh=5eZyHW0wparX5iqE8KWGZU+8cEcEGbfEFwNVc/IO0SY=;
+ b=Ai1heuHnC08t0G9F7bTuOKuNyTDX/zMXweycK3/MxXeqSPy/jmg+nM8ww7BsRF1fkn1S5W
+ b8aqgDfOKUVH1z5oP1tZiRCrFjsJsrFxqmdxk1wvyxx1J5sxgfiUsBWvd0n2lwSxz7Ysw3
+ Od1m9KDzSMzSn0t5LKFQIO6aehain0g=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1626186581;
+ s=susede2_ed25519; t=1626186582;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5FynoyZ6DnBFWpRSnQMvg3Zq5acyq38aZwxwrcjUPWU=;
- b=G73ZVZKviqNgVqpHyy6t5todeU2+OKb5+Rg7GvMZnV8lPvB8YS9iHOkSvkcol78cEV7YNf
- HQIP7s4pc2twRQDg==
+ bh=5eZyHW0wparX5iqE8KWGZU+8cEcEGbfEFwNVc/IO0SY=;
+ b=Y4NHK4b01okooDmehtXUk5RyBhw+a6uMwMX1SuDHFpkdPl9Nl57buxTzALek0osinin20G
+ VrK3RJt/cAhE5TCQ==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 5F231A3B8E;
+ by relay2.suse.de (Postfix) with ESMTP id E5FD3A3B8E;
  Tue, 13 Jul 2021 14:29:41 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 42/51] ALSA: rme9652: Allocate resources with device-managed
+Subject: [PATCH 43/51] ALSA: trident: Allocate resources with device-managed
  APIs
-Date: Tue, 13 Jul 2021 16:28:48 +0200
-Message-Id: <20210713142857.19654-43-tiwai@suse.de>
+Date: Tue, 13 Jul 2021 16:28:49 +0200
+Message-Id: <20210713142857.19654-44-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210713142857.19654-1-tiwai@suse.de>
 References: <20210713142857.19654-1-tiwai@suse.de>
@@ -92,7 +92,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch converts the resource management in PCI rme9652 driver with
+This patch converts the resource management in PCI trident driver with
 devres as a clean up.  Each manual resource management is converted
 with the corresponding devres helper, the page allocations are done
 with the devres helper, and the card object release is managed now via
@@ -102,182 +102,90 @@ This should give no user-visible functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/rme9652/rme9652.c | 85 +++++++++++--------------------------
- 1 file changed, 24 insertions(+), 61 deletions(-)
+ sound/pci/trident/trident.c        | 39 ++++---------
+ sound/pci/trident/trident.h        |  7 +--
+ sound/pci/trident/trident_main.c   | 90 +++++++++---------------------
+ sound/pci/trident/trident_memory.c |  8 +--
+ 4 files changed, 44 insertions(+), 100 deletions(-)
 
-diff --git a/sound/pci/rme9652/rme9652.c b/sound/pci/rme9652/rme9652.c
-index f1aad38760d6..45448a97070c 100644
---- a/sound/pci/rme9652/rme9652.c
-+++ b/sound/pci/rme9652/rme9652.c
-@@ -208,8 +208,8 @@ struct snd_rme9652 {
- 	unsigned char ds_channels;
- 	unsigned char ss_channels;	/* different for hammerfall/hammerfall-light */
- 
--	struct snd_dma_buffer playback_dma_buf;
--	struct snd_dma_buffer capture_dma_buf;
-+	struct snd_dma_buffer *playback_dma_buf;
-+	struct snd_dma_buffer *capture_dma_buf;
- 
- 	unsigned char *capture_buffer;	/* suitably aligned address */
- 	unsigned char *playback_buffer;	/* suitably aligned address */
-@@ -275,18 +275,12 @@ static const char channel_map_9636_ds[26] = {
- 	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
- };
- 
--static int snd_hammerfall_get_buffer(struct pci_dev *pci, struct snd_dma_buffer *dmab, size_t size)
-+static struct snd_dma_buffer *
-+snd_hammerfall_get_buffer(struct pci_dev *pci, size_t size)
- {
--	return snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, &pci->dev, size, dmab);
-+	return snd_devm_alloc_pages(&pci->dev, SNDRV_DMA_TYPE_DEV, size);
- }
- 
--static void snd_hammerfall_free_buffer(struct snd_dma_buffer *dmab, struct pci_dev *pci)
--{
--	if (dmab->area)
--		snd_dma_free_pages(dmab);
--}
--
--
- static const struct pci_device_id snd_rme9652_ids[] = {
- 	{
- 		.vendor	   = 0x10ee,
-@@ -1715,37 +1709,23 @@ static void snd_rme9652_proc_init(struct snd_rme9652 *rme9652)
- 			     snd_rme9652_proc_read);
- }
- 
--static void snd_rme9652_free_buffers(struct snd_rme9652 *rme9652)
-+static void snd_rme9652_card_free(struct snd_card *card)
- {
--	snd_hammerfall_free_buffer(&rme9652->capture_dma_buf, rme9652->pci);
--	snd_hammerfall_free_buffer(&rme9652->playback_dma_buf, rme9652->pci);
--}
-+	struct snd_rme9652 *rme9652 = (struct snd_rme9652 *) card->private_data;
- 
--static int snd_rme9652_free(struct snd_rme9652 *rme9652)
--{
- 	if (rme9652->irq >= 0)
- 		rme9652_stop(rme9652);
--	snd_rme9652_free_buffers(rme9652);
--
--	if (rme9652->irq >= 0)
--		free_irq(rme9652->irq, (void *)rme9652);
--	iounmap(rme9652->iobase);
--	if (rme9652->port)
--		pci_release_regions(rme9652->pci);
--
--	if (pci_is_enabled(rme9652->pci))
--		pci_disable_device(rme9652->pci);
--	return 0;
- }
- 
- static int snd_rme9652_initialize_memory(struct snd_rme9652 *rme9652)
- {
- 	unsigned long pb_bus, cb_bus;
- 
--	if (snd_hammerfall_get_buffer(rme9652->pci, &rme9652->capture_dma_buf, RME9652_DMA_AREA_BYTES) < 0 ||
--	    snd_hammerfall_get_buffer(rme9652->pci, &rme9652->playback_dma_buf, RME9652_DMA_AREA_BYTES) < 0) {
--		if (rme9652->capture_dma_buf.area)
--			snd_dma_free_pages(&rme9652->capture_dma_buf);
-+	rme9652->capture_dma_buf =
-+		snd_hammerfall_get_buffer(rme9652->pci, RME9652_DMA_AREA_BYTES);
-+	rme9652->playback_dma_buf =
-+		snd_hammerfall_get_buffer(rme9652->pci, RME9652_DMA_AREA_BYTES);
-+	if (!rme9652->capture_dma_buf || !rme9652->playback_dma_buf) {
- 		dev_err(rme9652->card->dev,
- 			"%s: no buffers available\n", rme9652->card_name);
- 		return -ENOMEM;
-@@ -1753,16 +1733,16 @@ static int snd_rme9652_initialize_memory(struct snd_rme9652 *rme9652)
- 
- 	/* Align to bus-space 64K boundary */
- 
--	cb_bus = ALIGN(rme9652->capture_dma_buf.addr, 0x10000ul);
--	pb_bus = ALIGN(rme9652->playback_dma_buf.addr, 0x10000ul);
-+	cb_bus = ALIGN(rme9652->capture_dma_buf->addr, 0x10000ul);
-+	pb_bus = ALIGN(rme9652->playback_dma_buf->addr, 0x10000ul);
- 
- 	/* Tell the card where it is */
- 
- 	rme9652_write(rme9652, RME9652_rec_buffer, cb_bus);
- 	rme9652_write(rme9652, RME9652_play_buffer, pb_bus);
- 
--	rme9652->capture_buffer = rme9652->capture_dma_buf.area + (cb_bus - rme9652->capture_dma_buf.addr);
--	rme9652->playback_buffer = rme9652->playback_dma_buf.area + (pb_bus - rme9652->playback_dma_buf.addr);
-+	rme9652->capture_buffer = rme9652->capture_dma_buf->area + (cb_bus - rme9652->capture_dma_buf->addr);
-+	rme9652->playback_buffer = rme9652->playback_dma_buf->area + (pb_bus - rme9652->playback_dma_buf->addr);
- 
- 	return 0;
- }
-@@ -2452,7 +2432,7 @@ static int snd_rme9652_create(struct snd_card *card,
- 		return -ENODEV;
- 	}
- 
--	err = pci_enable_device(pci);
-+	err = pcim_enable_device(pci);
- 	if (err < 0)
- 		return err;
- 
-@@ -2462,15 +2442,15 @@ static int snd_rme9652_create(struct snd_card *card,
- 	if (err < 0)
- 		return err;
- 	rme9652->port = pci_resource_start(pci, 0);
--	rme9652->iobase = ioremap(rme9652->port, RME9652_IO_EXTENT);
-+	rme9652->iobase = devm_ioremap(&pci->dev, rme9652->port, RME9652_IO_EXTENT);
- 	if (rme9652->iobase == NULL) {
- 		dev_err(card->dev, "unable to remap region 0x%lx-0x%lx\n",
- 			rme9652->port, rme9652->port + RME9652_IO_EXTENT - 1);
- 		return -EBUSY;
- 	}
- 	
--	if (request_irq(pci->irq, snd_rme9652_interrupt, IRQF_SHARED,
--			KBUILD_MODNAME, rme9652)) {
-+	if (devm_request_irq(&pci->dev, pci->irq, snd_rme9652_interrupt,
-+			     IRQF_SHARED, KBUILD_MODNAME, rme9652)) {
- 		dev_err(card->dev, "unable to request IRQ %d\n", pci->irq);
- 		return -EBUSY;
- 	}
-@@ -2562,14 +2542,6 @@ static int snd_rme9652_create(struct snd_card *card,
- 	return 0;
- }
- 
--static void snd_rme9652_card_free(struct snd_card *card)
--{
--	struct snd_rme9652 *rme9652 = (struct snd_rme9652 *) card->private_data;
--
--	if (rme9652)
--		snd_rme9652_free(rme9652);
--}
--
- static int snd_rme9652_probe(struct pci_dev *pci,
- 			     const struct pci_device_id *pci_id)
- {
-@@ -2585,8 +2557,8 @@ static int snd_rme9652_probe(struct pci_dev *pci,
+diff --git a/sound/pci/trident/trident.c b/sound/pci/trident/trident.c
+index 60e4dca28c2b..9922ab40798c 100644
+--- a/sound/pci/trident/trident.c
++++ b/sound/pci/trident/trident.c
+@@ -62,21 +62,18 @@ static int snd_trident_probe(struct pci_dev *pci,
  		return -ENOENT;
  	}
  
 -	err = snd_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
--			   sizeof(struct snd_rme9652), &card);
+-			   0, &card);
 +	err = snd_devm_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
-+				sizeof(struct snd_rme9652), &card);
- 
++				sizeof(*trident), &card);
  	if (err < 0)
  		return err;
-@@ -2597,33 +2569,24 @@ static int snd_rme9652_probe(struct pci_dev *pci,
- 	rme9652->pci = pci;
- 	err = snd_rme9652_create(card, rme9652, precise_ptr[dev]);
- 	if (err)
--		goto free_card;
-+		return err;
++	trident = card->private_data;
  
- 	strcpy(card->shortname, rme9652->card_name);
- 
- 	sprintf(card->longname, "%s at 0x%lx, irq %d",
- 		card->shortname, rme9652->port, rme9652->irq);
- 	err = snd_card_register(card);
--	if (err) {
--free_card:
+ 	err = snd_trident_create(card, pci,
+ 				 pcm_channels[dev],
+ 				 ((pci->vendor << 16) | pci->device) == TRIDENT_DEVICE_ID_SI7018 ? 1 : 2,
+-				 wavetable_size[dev],
+-				 &trident);
+-	if (err < 0) {
 -		snd_card_free(card);
-+	if (err)
++				 wavetable_size[dev]);
++	if (err < 0)
+ 		return err;
+-	}
+-	card->private_data = trident;
+ 
+ 	switch (trident->device) {
+ 	case TRIDENT_DEVICE_ID_DX:
+@@ -102,26 +99,20 @@ static int snd_trident_probe(struct pci_dev *pci,
+ 		card->shortname, trident->port, trident->irq);
+ 
+ 	err = snd_trident_pcm(trident, pcm_dev++);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}
+ 	switch (trident->device) {
+ 	case TRIDENT_DEVICE_ID_DX:
+ 	case TRIDENT_DEVICE_ID_NX:
+ 		err = snd_trident_foldback_pcm(trident, pcm_dev++);
+-		if (err < 0) {
+-			snd_card_free(card);
++		if (err < 0)
+ 			return err;
+-		}
+ 		break;
+ 	}
+ 	if (trident->device == TRIDENT_DEVICE_ID_NX || trident->device == TRIDENT_DEVICE_ID_SI7018) {
+ 		err = snd_trident_spdif_pcm(trident, pcm_dev++);
+-		if (err < 0) {
+-			snd_card_free(card);
++		if (err < 0)
+ 			return err;
+-		}
+ 	}
+ 	if (trident->device != TRIDENT_DEVICE_ID_SI7018) {
+ 		err = snd_mpu401_uart_new(card, 0, MPU401_HW_TRID4DWAVE,
+@@ -129,34 +120,24 @@ static int snd_trident_probe(struct pci_dev *pci,
+ 					  MPU401_INFO_INTEGRATED |
+ 					  MPU401_INFO_IRQ_HOOK,
+ 					  -1, &trident->rmidi);
+-		if (err < 0) {
+-			snd_card_free(card);
++		if (err < 0)
+ 			return err;
+-		}
+ 	}
+ 
+ 	snd_trident_create_gameport(trident);
+ 
+ 	err = snd_card_register(card);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
  		return err;
 -	}
  	pci_set_drvdata(pci, card);
@@ -285,19 +193,288 @@ index f1aad38760d6..45448a97070c 100644
  	return 0;
  }
  
--static void snd_rme9652_remove(struct pci_dev *pci)
+-static void snd_trident_remove(struct pci_dev *pci)
 -{
 -	snd_card_free(pci_get_drvdata(pci));
 -}
 -
- static struct pci_driver rme9652_driver = {
- 	.name	  = KBUILD_MODNAME,
- 	.id_table = snd_rme9652_ids,
- 	.probe	  = snd_rme9652_probe,
--	.remove	  = snd_rme9652_remove,
+ static struct pci_driver trident_driver = {
+ 	.name = KBUILD_MODNAME,
+ 	.id_table = snd_trident_ids,
+ 	.probe = snd_trident_probe,
+-	.remove = snd_trident_remove,
+ #ifdef CONFIG_PM_SLEEP
+ 	.driver = {
+ 		.pm = &snd_trident_pm,
+diff --git a/sound/pci/trident/trident.h b/sound/pci/trident/trident.h
+index c579a44bb9ae..9768a7fc2349 100644
+--- a/sound/pci/trident/trident.h
++++ b/sound/pci/trident/trident.h
+@@ -251,9 +251,9 @@ struct snd_trident_memblk_arg {
+ struct snd_trident_tlb {
+ 	__le32 *entries;		/* 16k-aligned TLB table */
+ 	dma_addr_t entries_dmaaddr;	/* 16k-aligned PCI address to TLB table */
+-	struct snd_dma_buffer buffer;
++	struct snd_dma_buffer *buffer;
+ 	struct snd_util_memhdr * memhdr;	/* page allocation list */
+-	struct snd_dma_buffer silent_page;
++	struct snd_dma_buffer *silent_page;
  };
  
- module_pci_driver(rme9652_driver);
+ struct snd_trident_voice {
+@@ -400,8 +400,7 @@ int snd_trident_create(struct snd_card *card,
+ 		       struct pci_dev *pci,
+ 		       int pcm_streams,
+ 		       int pcm_spdif_device,
+-		       int max_wavetable_size,
+-		       struct snd_trident ** rtrident);
++		       int max_wavetable_size);
+ int snd_trident_create_gameport(struct snd_trident *trident);
+ 
+ int snd_trident_pcm(struct snd_trident *trident, int device);
+diff --git a/sound/pci/trident/trident_main.c b/sound/pci/trident/trident_main.c
+index cfbca3bd60ed..e98eea1e6d81 100644
+--- a/sound/pci/trident/trident_main.c
++++ b/sound/pci/trident/trident_main.c
+@@ -42,7 +42,7 @@ static int snd_trident_sis_reset(struct snd_trident *trident);
+ 
+ static void snd_trident_clear_voices(struct snd_trident * trident,
+ 				     unsigned short v_min, unsigned short v_max);
+-static int snd_trident_free(struct snd_trident *trident);
++static void snd_trident_free(struct snd_card *card);
+ 
+ /*
+  *  common I/O routines
+@@ -3299,12 +3299,6 @@ static void snd_trident_proc_init(struct snd_trident *trident)
+ 	snd_card_ro_proc_new(trident->card, s, trident, snd_trident_proc_read);
+ }
+ 
+-static int snd_trident_dev_free(struct snd_device *device)
+-{
+-	struct snd_trident *trident = device->device_data;
+-	return snd_trident_free(trident);
+-}
+-
+ /*---------------------------------------------------------------------------
+    snd_trident_tlb_alloc
+   
+@@ -3324,23 +3318,27 @@ static int snd_trident_tlb_alloc(struct snd_trident *trident)
+ 	/* TLB array must be aligned to 16kB !!! so we allocate
+ 	   32kB region and correct offset when necessary */
+ 
+-	if (snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, &trident->pci->dev,
+-				2 * SNDRV_TRIDENT_MAX_PAGES * 4, &trident->tlb.buffer) < 0) {
++	trident->tlb.buffer =
++		snd_devm_alloc_pages(&trident->pci->dev, SNDRV_DMA_TYPE_DEV,
++				     2 * SNDRV_TRIDENT_MAX_PAGES * 4);
++	if (!trident->tlb.buffer) {
+ 		dev_err(trident->card->dev, "unable to allocate TLB buffer\n");
+ 		return -ENOMEM;
+ 	}
+-	trident->tlb.entries = (__le32 *)ALIGN((unsigned long)trident->tlb.buffer.area, SNDRV_TRIDENT_MAX_PAGES * 4);
+-	trident->tlb.entries_dmaaddr = ALIGN(trident->tlb.buffer.addr, SNDRV_TRIDENT_MAX_PAGES * 4);
++	trident->tlb.entries = (__le32 *)ALIGN((unsigned long)trident->tlb.buffer->area, SNDRV_TRIDENT_MAX_PAGES * 4);
++	trident->tlb.entries_dmaaddr = ALIGN(trident->tlb.buffer->addr, SNDRV_TRIDENT_MAX_PAGES * 4);
+ 
+ 	/* allocate and setup silent page and initialise TLB entries */
+-	if (snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, &trident->pci->dev,
+-				SNDRV_TRIDENT_PAGE_SIZE, &trident->tlb.silent_page) < 0) {
++	trident->tlb.silent_page =
++		snd_devm_alloc_pages(&trident->pci->dev, SNDRV_DMA_TYPE_DEV,
++				     SNDRV_TRIDENT_PAGE_SIZE);
++	if (!trident->tlb.silent_page) {
+ 		dev_err(trident->card->dev, "unable to allocate silent page\n");
+ 		return -ENOMEM;
+ 	}
+-	memset(trident->tlb.silent_page.area, 0, SNDRV_TRIDENT_PAGE_SIZE);
++	memset(trident->tlb.silent_page->area, 0, SNDRV_TRIDENT_PAGE_SIZE);
+ 	for (i = 0; i < SNDRV_TRIDENT_MAX_PAGES; i++)
+-		trident->tlb.entries[i] = cpu_to_le32(trident->tlb.silent_page.addr & ~(SNDRV_TRIDENT_PAGE_SIZE-1));
++		trident->tlb.entries[i] = cpu_to_le32(trident->tlb.silent_page->addr & ~(SNDRV_TRIDENT_PAGE_SIZE-1));
+ 
+ 	/* use emu memory block manager code to manage tlb page allocation */
+ 	trident->tlb.memhdr = snd_util_memhdr_new(SNDRV_TRIDENT_PAGE_SIZE * SNDRV_TRIDENT_MAX_PAGES);
+@@ -3497,36 +3495,24 @@ int snd_trident_create(struct snd_card *card,
+ 		       struct pci_dev *pci,
+ 		       int pcm_streams,
+ 		       int pcm_spdif_device,
+-		       int max_wavetable_size,
+-		       struct snd_trident ** rtrident)
++		       int max_wavetable_size)
+ {
+-	struct snd_trident *trident;
++	struct snd_trident *trident = card->private_data;
+ 	int i, err;
+ 	struct snd_trident_voice *voice;
+ 	struct snd_trident_pcm_mixer *tmix;
+-	static const struct snd_device_ops ops = {
+-		.dev_free =	snd_trident_dev_free,
+-	};
+-
+-	*rtrident = NULL;
+ 
+ 	/* enable PCI device */
+-	err = pci_enable_device(pci);
++	err = pcim_enable_device(pci);
+ 	if (err < 0)
+ 		return err;
+ 	/* check, if we can restrict PCI DMA transfers to 30 bits */
+ 	if (dma_set_mask_and_coherent(&pci->dev, DMA_BIT_MASK(30))) {
+ 		dev_err(card->dev,
+ 			"architecture does not support 30bit PCI busmaster DMA\n");
+-		pci_disable_device(pci);
+ 		return -ENXIO;
+ 	}
+ 	
+-	trident = kzalloc(sizeof(*trident), GFP_KERNEL);
+-	if (trident == NULL) {
+-		pci_disable_device(pci);
+-		return -ENOMEM;
+-	}
+ 	trident->device = (pci->vendor << 16) | pci->device;
+ 	trident->card = card;
+ 	trident->pci = pci;
+@@ -3542,22 +3528,19 @@ int snd_trident_create(struct snd_card *card,
+ 		max_wavetable_size = 0;
+ 	trident->synth.max_size = max_wavetable_size * 1024;
+ 	trident->irq = -1;
++	card->private_free = snd_trident_free;
+ 
+ 	trident->midi_port = TRID_REG(trident, T4D_MPU401_BASE);
+ 	pci_set_master(pci);
+ 
+ 	err = pci_request_regions(pci, "Trident Audio");
+-	if (err < 0) {
+-		kfree(trident);
+-		pci_disable_device(pci);
++	if (err < 0)
+ 		return err;
+-	}
+ 	trident->port = pci_resource_start(pci, 0);
+ 
+-	if (request_irq(pci->irq, snd_trident_interrupt, IRQF_SHARED,
+-			KBUILD_MODNAME, trident)) {
++	if (devm_request_irq(&pci->dev, pci->irq, snd_trident_interrupt,
++			     IRQF_SHARED, KBUILD_MODNAME, trident)) {
+ 		dev_err(card->dev, "unable to grab IRQ %d\n", pci->irq);
+-		snd_trident_free(trident);
+ 		return -EBUSY;
+ 	}
+ 	trident->irq = pci->irq;
+@@ -3565,13 +3548,10 @@ int snd_trident_create(struct snd_card *card,
+ 
+ 	/* allocate 16k-aligned TLB for NX cards */
+ 	trident->tlb.entries = NULL;
+-	trident->tlb.buffer.area = NULL;
+ 	if (trident->device == TRIDENT_DEVICE_ID_NX) {
+ 		err = snd_trident_tlb_alloc(trident);
+-		if (err < 0) {
+-			snd_trident_free(trident);
++		if (err < 0)
+ 			return err;
+-		}
+ 	}
+ 
+ 	trident->spdif_bits = trident->spdif_pcm_bits = SNDRV_PCM_DEFAULT_CON_SPDIF;
+@@ -3591,16 +3571,8 @@ int snd_trident_create(struct snd_card *card,
+ 		snd_BUG();
+ 		break;
+ 	}
+-	if (err < 0) {
+-		snd_trident_free(trident);
+-		return err;
+-	}
+-
+-	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, trident, &ops);
+-	if (err < 0) {
+-		snd_trident_free(trident);
++	if (err < 0)
+ 		return err;
+-	}
+ 
+ 	err = snd_trident_mixer(trident, pcm_spdif_device);
+ 	if (err < 0)
+@@ -3624,7 +3596,6 @@ int snd_trident_create(struct snd_card *card,
+ 	snd_trident_enable_eso(trident);
+ 
+ 	snd_trident_proc_init(trident);
+-	*rtrident = trident;
+ 	return 0;
+ }
+ 
+@@ -3634,14 +3605,16 @@ int snd_trident_create(struct snd_card *card,
+    Description: This routine will free the device specific class for
+                 the 4DWave card. 
+                 
+-   Parameters:  trident  - device specific private data for 4DWave card
++   Parameters:  card - card to release
+ 
+    Returns:     None.
+   
+   ---------------------------------------------------------------------------*/
+ 
+-static int snd_trident_free(struct snd_trident *trident)
++static void snd_trident_free(struct snd_card *card)
+ {
++	struct snd_trident *trident = card->private_data;
++
+ 	snd_trident_free_gameport(trident);
+ 	snd_trident_disable_eso(trident);
+ 	// Disable S/PDIF out
+@@ -3650,19 +3623,10 @@ static int snd_trident_free(struct snd_trident *trident)
+ 	else if (trident->device == TRIDENT_DEVICE_ID_SI7018) {
+ 		outl(0, TRID_REG(trident, SI_SERIAL_INTF_CTRL));
+ 	}
+-	if (trident->irq >= 0)
+-		free_irq(trident->irq, trident);
+-	if (trident->tlb.buffer.area) {
++	if (trident->tlb.buffer) {
+ 		outl(0, TRID_REG(trident, NX_TLBC));
+ 		snd_util_memhdr_free(trident->tlb.memhdr);
+-		if (trident->tlb.silent_page.area)
+-			snd_dma_free_pages(&trident->tlb.silent_page);
+-		snd_dma_free_pages(&trident->tlb.buffer);
+ 	}
+-	pci_release_regions(trident->pci);
+-	pci_disable_device(trident->pci);
+-	kfree(trident);
+-	return 0;
+ }
+ 
+ /*---------------------------------------------------------------------------
+diff --git a/sound/pci/trident/trident_memory.c b/sound/pci/trident/trident_memory.c
+index 4ad3855101c9..05de2b9f4ed7 100644
+--- a/sound/pci/trident/trident_memory.c
++++ b/sound/pci/trident/trident_memory.c
+@@ -31,7 +31,7 @@
+ /* fill TLB entrie(s) corresponding to page with ptr */
+ #define set_tlb_bus(trident,page,addr) __set_tlb_bus(trident,page,addr)
+ /* fill TLB entrie(s) corresponding to page with silence pointer */
+-#define set_silent_tlb(trident,page)	__set_tlb_bus(trident, page, trident->tlb.silent_page.addr)
++#define set_silent_tlb(trident,page)	__set_tlb_bus(trident, page, trident->tlb.silent_page->addr)
+ /* get aligned page from offset address */
+ #define get_aligned_page(offset)	((offset) >> 12)
+ /* get offset address from aligned page */
+@@ -58,8 +58,8 @@ static inline void set_tlb_bus(struct snd_trident *trident, int page,
+ static inline void set_silent_tlb(struct snd_trident *trident, int page)
+ {
+ 	page <<= 1;
+-	__set_tlb_bus(trident, page, trident->tlb.silent_page.addr);
+-	__set_tlb_bus(trident, page+1, trident->tlb.silent_page.addr);
++	__set_tlb_bus(trident, page, trident->tlb.silent_page->addr);
++	__set_tlb_bus(trident, page+1, trident->tlb.silent_page->addr);
+ }
+ 
+ #else
+@@ -92,7 +92,7 @@ static inline void set_silent_tlb(struct snd_trident *trident, int page)
+ 	int i;
+ 	page *= UNIT_PAGES;
+ 	for (i = 0; i < UNIT_PAGES; i++, page++)
+-		__set_tlb_bus(trident, page, trident->tlb.silent_page.addr);
++		__set_tlb_bus(trident, page, trident->tlb.silent_page->addr);
+ }
+ 
+ #endif /* PAGE_SIZE */
 -- 
 2.26.2
 

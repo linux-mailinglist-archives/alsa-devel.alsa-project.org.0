@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72C8C3C727A
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 16:41:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 384E03C727C
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 16:41:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F34F01746;
-	Tue, 13 Jul 2021 16:40:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F34F01746
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4BFA174D;
+	Tue, 13 Jul 2021 16:41:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4BFA174D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626187276;
-	bh=M61xlYjISGekzwcgH9tpsxHic38nO0IrBeBX+A4jb64=;
+	s=default; t=1626187317;
+	bh=05AkCagDvbKFCCICvLxDy4stNAkudTaYaLQ2wBjO04M=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=si87eVt87ToH2nFLvr6YNyybnACXljxIun4eZR98RQKKr0SRq1qn3mjeBDv3ym3BC
-	 aYc9RIpZlT2ns6qJrgeuxzI5N44eMu7mZMGwNQWSeHzVK0rj8rzRnOULVIMIDZSRXK
-	 QBXCZOfdXNMFlMgWdM7LtrLdpwuk+F33zq6gjkzs=
+	b=cphTV/7Ug9Rwq3rqWPMKybhmcXpx1RSyenq2EEXmX5ROv1FSf8WAsFYAGFrgsuMM0
+	 X7NtPJrymfH3E2tkmAkU8LsaYdNaom9+yu6R3Mxw/BbRfuaU227VIJV89dOR+bFrek
+	 sc8+IEGzLkYnXvIKWGGVH3d05C5+EJ8NJiaPGwD0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52546F805C1;
-	Tue, 13 Jul 2021 16:30:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0FA0F805D5;
+	Tue, 13 Jul 2021 16:30:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1795FF8051E; Tue, 13 Jul 2021 16:29:52 +0200 (CEST)
+ id 37AC5F80589; Tue, 13 Jul 2021 16:29:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A8059F804FF
- for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 16:29:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8059F804FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60AACF8051B
+ for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 16:29:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60AACF8051B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="VtrSOIyE"; 
+ header.b="VnEwgyXp"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="p5o/pf3p"
+ header.b="JBTnwGHt"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 7D33C22837
- for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 14:29:33 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 3C4D722855
+ for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 14:29:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1626186573; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1626186574; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=x0M9C7JIFCdVwEfvT+i1ktVRpUU4Ny5l0DvVLus9qE8=;
- b=VtrSOIyEfII/zhg2LxJ/DGWRwRnjMv93QbFTMuqN8mzTbhcpOpTZlYbI6zvnc5wqP9eHwo
- NQZiwYAXH5Zqb8ZOv+C9OT8OKRNE+2w9NuUomb6iXcbMT0yfLG3i2bXa38KiCmjYbgrDTX
- Uv0HcRXEUacu1xWExJYoKpdfizBSNSQ=
+ bh=G2DCX/QEsG5SGmvCcP2ajlbmbwI490Kx3Vx7ceUZBTA=;
+ b=VnEwgyXpoU/B1mwkg1QqzBEgynyiOfTFgHQJ/tn7mF3DngeETtTtEHa9+1tNmTfalmLu6L
+ oDz5LXyoF+OMDUG9VLX1DIr6d5t1JhOtYcF6zRlodB6B3k/s82i8+2Znx2uR8MIzHhOBE2
+ Ss8iYzeVudCCWSbUQshIFb5IPuyRrms=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1626186573;
+ s=susede2_ed25519; t=1626186574;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=x0M9C7JIFCdVwEfvT+i1ktVRpUU4Ny5l0DvVLus9qE8=;
- b=p5o/pf3pg63O18TENg2YhKiYFkQortbsoS04pmYR5tWrArylj3+IlE83RVaOBAMiFFVEj4
- LD/e1+9hdBrrd/AA==
+ bh=G2DCX/QEsG5SGmvCcP2ajlbmbwI490Kx3Vx7ceUZBTA=;
+ b=JBTnwGHtzvQ7bIe6V+5t2tJL6IJabaWNfQZKTuQJB5iji5mKy6bviMICKIilcbyI8w0vGM
+ e8WyIXNcI/i01nDg==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 6CD36A3B8A;
- Tue, 13 Jul 2021 14:29:33 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTP id 2A441A3B8D;
+ Tue, 13 Jul 2021 14:29:34 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 30/51] ALSA: cs5535audio: Allocate resources with
- device-managed APIs
-Date: Tue, 13 Jul 2021 16:28:36 +0200
-Message-Id: <20210713142857.19654-31-tiwai@suse.de>
+Subject: [PATCH 31/51] ALSA: echoaudio: Allocate resources with device-managed
+ APIs
+Date: Tue, 13 Jul 2021 16:28:37 +0200
+Message-Id: <20210713142857.19654-32-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210713142857.19654-1-tiwai@suse.de>
 References: <20210713142857.19654-1-tiwai@suse.de>
@@ -92,216 +92,404 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch converts the resource management in PCI cs5535audio driver
+This patch converts the resource management in PCI echoaudio drivers
 with devres as a clean up.  Each manual resource management is
-converted with the corresponding devres helper, and the card object
-release is managed now via card->private_free instead of a lowlevel
-snd_device.  A slight uncertain change is the call of
-olpc_quirks_cleanup() at removal: formerly this was called
-unconditionally at remove, but this should be a conditionally call,
-hence the machine_is_olpc() check is added here as well.
+converted with the corresponding devres helper, the page allocations
+are done with the devres helper, and the card object release is
+managed now via card->private_free instead of a lowlevel snd_device.
+The irq handler is still managed manually because it's re-acquired at
+PM suspend/resume.
 
 This should give no user-visible functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/cs5535audio/cs5535audio.c      | 94 +++++-------------------
- sound/pci/cs5535audio/cs5535audio_olpc.c |  7 +-
- 2 files changed, 23 insertions(+), 78 deletions(-)
+ sound/pci/echoaudio/echoaudio.c | 168 +++++++++-----------------------
+ sound/pci/echoaudio/echoaudio.h |   2 +-
+ 2 files changed, 48 insertions(+), 122 deletions(-)
 
-diff --git a/sound/pci/cs5535audio/cs5535audio.c b/sound/pci/cs5535audio/cs5535audio.c
-index e048b45d9e7e..499fa0148f9a 100644
---- a/sound/pci/cs5535audio/cs5535audio.c
-+++ b/sound/pci/cs5535audio/cs5535audio.c
-@@ -237,51 +237,24 @@ static irqreturn_t snd_cs5535audio_interrupt(int irq, void *dev_id)
- 	return IRQ_HANDLED;
- }
+diff --git a/sound/pci/echoaudio/echoaudio.c b/sound/pci/echoaudio/echoaudio.c
+index a62e5581ad14..25b012ef5c3e 100644
+--- a/sound/pci/echoaudio/echoaudio.c
++++ b/sound/pci/echoaudio/echoaudio.c
+@@ -1882,105 +1882,63 @@ static irqreturn_t snd_echo_interrupt(int irq, void *dev_id)
+ 	Module construction / destruction
+ ******************************************************************************/
  
--static int snd_cs5535audio_free(struct cs5535audio *cs5535au)
-+static void snd_cs5535audio_free(struct snd_card *card)
+-static int snd_echo_free(struct echoaudio *chip)
++static void snd_echo_free(struct snd_card *card)
  {
--	pci_set_power_state(cs5535au->pci, PCI_D3hot);
++	struct echoaudio *chip = card->private_data;
++
+ 	if (chip->comm_page)
+ 		rest_in_peace(chip);
+ 
+ 	if (chip->irq >= 0)
+ 		free_irq(chip->irq, chip);
+ 
+-	if (chip->comm_page)
+-		snd_dma_free_pages(&chip->commpage_dma_buf);
 -
--	if (cs5535au->irq >= 0)
--		free_irq(cs5535au->irq, cs5535au);
+-	iounmap(chip->dsp_registers);
+-	release_and_free_resource(chip->iores);
+-	pci_disable_device(chip->pci);
 -
--	pci_release_regions(cs5535au->pci);
--	pci_disable_device(cs5535au->pci);
--	kfree(cs5535au);
+ 	/* release chip data */
+ 	free_firmware_cache(chip);
+-	kfree(chip);
 -	return 0;
 -}
 -
--static int snd_cs5535audio_dev_free(struct snd_device *device)
+-
+-
+-static int snd_echo_dev_free(struct snd_device *device)
 -{
--	struct cs5535audio *cs5535au = device->device_data;
--	return snd_cs5535audio_free(cs5535au);
-+	olpc_quirks_cleanup();
+-	struct echoaudio *chip = device->device_data;
+-
+-	return snd_echo_free(chip);
  }
  
- static int snd_cs5535audio_create(struct snd_card *card,
--				  struct pci_dev *pci,
--				  struct cs5535audio **rcs5535au)
-+				  struct pci_dev *pci)
- {
--	struct cs5535audio *cs5535au;
 -
-+	struct cs5535audio *cs5535au = card->private_data;
+-
+ /* <--snd_echo_probe() */
+ static int snd_echo_create(struct snd_card *card,
+-			   struct pci_dev *pci,
+-			   struct echoaudio **rchip)
++			   struct pci_dev *pci)
+ {
+-	struct echoaudio *chip;
++	struct echoaudio *chip = card->private_data;
  	int err;
+ 	size_t sz;
 -	static const struct snd_device_ops ops = {
--		.dev_free =	snd_cs5535audio_dev_free,
+-		.dev_free = snd_echo_dev_free,
 -	};
+-
+-	*rchip = NULL;
  
--	*rcs5535au = NULL;
+ 	pci_write_config_byte(pci, PCI_LATENCY_TIMER, 0xC0);
+ 
 -	err = pci_enable_device(pci);
 +	err = pcim_enable_device(pci);
  	if (err < 0)
  		return err;
- 
- 	if (dma_set_mask_and_coherent(&pci->dev, DMA_BIT_MASK(32))) {
- 		dev_warn(card->dev, "unable to get 32bit dma\n");
--		err = -ENXIO;
--		goto pcifail;
--	}
--
--	cs5535au = kzalloc(sizeof(*cs5535au), GFP_KERNEL);
--	if (cs5535au == NULL) {
--		err = -ENOMEM;
--		goto pcifail;
-+		return -ENXIO;
- 	}
- 
- 	spin_lock_init(&cs5535au->reg_lock);
-@@ -290,38 +263,22 @@ static int snd_cs5535audio_create(struct snd_card *card,
- 	cs5535au->irq = -1;
- 
- 	err = pci_request_regions(pci, "CS5535 Audio");
--	if (err < 0) {
--		kfree(cs5535au);
--		goto pcifail;
--	}
-+	if (err < 0)
-+		return err;
- 
- 	cs5535au->port = pci_resource_start(pci, 0);
- 
--	if (request_irq(pci->irq, snd_cs5535audio_interrupt,
--			IRQF_SHARED, KBUILD_MODNAME, cs5535au)) {
-+	if (devm_request_irq(&pci->dev, pci->irq, snd_cs5535audio_interrupt,
-+			     IRQF_SHARED, KBUILD_MODNAME, cs5535au)) {
- 		dev_err(card->dev, "unable to grab IRQ %d\n", pci->irq);
--		err = -EBUSY;
--		goto sndfail;
-+		return -EBUSY;
- 	}
- 
- 	cs5535au->irq = pci->irq;
- 	card->sync_irq = cs5535au->irq;
  	pci_set_master(pci);
  
--	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, cs5535au, &ops);
--	if (err < 0)
--		goto sndfail;
--
--	*rcs5535au = cs5535au;
- 	return 0;
--
--sndfail: /* leave the device alive, just kill the snd */
--	snd_cs5535audio_free(cs5535au);
--	return err;
--
--pcifail:
--	pci_disable_device(pci);
--	return err;
- }
+ 	/* Allocate chip if needed */
+-	if (!*rchip) {
+-		chip = kzalloc(sizeof(*chip), GFP_KERNEL);
+-		if (!chip) {
+-			pci_disable_device(pci);
+-			return -ENOMEM;
+-		}
+-		dev_dbg(card->dev, "chip=%p\n", chip);
+-		spin_lock_init(&chip->lock);
+-		chip->card = card;
+-		chip->pci = pci;
+-		chip->irq = -1;
+-		chip->opencount = 0;
+-		mutex_init(&chip->mode_mutex);
+-		chip->can_set_rate = 1;
+-	} else {
+-		/* If this was called from the resume function, chip is
+-		 * already allocated and it contains current card settings.
+-		 */
+-		chip = *rchip;
+-	}
++	spin_lock_init(&chip->lock);
++	chip->card = card;
++	chip->pci = pci;
++	chip->irq = -1;
++	chip->opencount = 0;
++	mutex_init(&chip->mode_mutex);
++	chip->can_set_rate = 1;
  
- static int snd_cs5535audio_probe(struct pci_dev *pci,
-@@ -339,24 +296,24 @@ static int snd_cs5535audio_probe(struct pci_dev *pci,
- 		return -ENOENT;
+ 	/* PCI resource allocation */
++	err = pci_request_regions(pci, ECHOCARD_NAME);
++	if (err < 0)
++		return err;
++
+ 	chip->dsp_registers_phys = pci_resource_start(pci, 0);
+ 	sz = pci_resource_len(pci, 0);
+ 	if (sz > PAGE_SIZE)
+ 		sz = PAGE_SIZE;		/* We map only the required part */
+ 
+-	chip->iores = request_mem_region(chip->dsp_registers_phys, sz,
+-					 ECHOCARD_NAME);
+-	if (!chip->iores) {
+-		dev_err(chip->card->dev, "cannot get memory region\n");
+-		snd_echo_free(chip);
+-		return -EBUSY;
+-	}
+-	chip->dsp_registers = ioremap(chip->dsp_registers_phys, sz);
++	chip->dsp_registers = devm_ioremap(&pci->dev, chip->dsp_registers_phys, sz);
+ 	if (!chip->dsp_registers) {
+ 		dev_err(chip->card->dev, "ioremap failed\n");
+-		snd_echo_free(chip);
+ 		return -ENOMEM;
  	}
  
+ 	if (request_irq(pci->irq, snd_echo_interrupt, IRQF_SHARED,
+ 			KBUILD_MODNAME, chip)) {
+ 		dev_err(chip->card->dev, "cannot grab irq\n");
+-		snd_echo_free(chip);
+ 		return -EBUSY;
+ 	}
+ 	chip->irq = pci->irq;
+@@ -1988,39 +1946,29 @@ static int snd_echo_create(struct snd_card *card,
+ 	dev_dbg(card->dev, "pci=%p irq=%d subdev=%04x Init hardware...\n",
+ 		chip->pci, chip->irq, chip->pci->subsystem_device);
+ 
++	card->private_free = snd_echo_free;
++
+ 	/* Create the DSP comm page - this is the area of memory used for most
+ 	of the communication with the DSP, which accesses it via bus mastering */
+-	if (snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, &chip->pci->dev,
+-				sizeof(struct comm_page),
+-				&chip->commpage_dma_buf) < 0) {
+-		dev_err(chip->card->dev, "cannot allocate the comm page\n");
+-		snd_echo_free(chip);
++	chip->commpage_dma_buf =
++		snd_devm_alloc_pages(&pci->dev, SNDRV_DMA_TYPE_DEV,
++				     sizeof(struct comm_page));
++	if (!chip->commpage_dma_buf)
+ 		return -ENOMEM;
+-	}
+-	chip->comm_page_phys = chip->commpage_dma_buf.addr;
+-	chip->comm_page = (struct comm_page *)chip->commpage_dma_buf.area;
++	chip->comm_page_phys = chip->commpage_dma_buf->addr;
++	chip->comm_page = (struct comm_page *)chip->commpage_dma_buf->area;
+ 
+ 	err = init_hw(chip, chip->pci->device, chip->pci->subsystem_device);
+ 	if (err >= 0)
+ 		err = set_mixer_defaults(chip);
+ 	if (err < 0) {
+ 		dev_err(card->dev, "init_hw err=%d\n", err);
+-		snd_echo_free(chip);
+ 		return err;
+ 	}
+ 
+-	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, chip, &ops);
+-	if (err < 0) {
+-		snd_echo_free(chip);
+-		return err;
+-	}
+-	*rchip = chip;
+-	/* Init done ! */
+ 	return 0;
+ }
+ 
+-
+-
+ /* constructor */
+ static int snd_echo_probe(struct pci_dev *pci,
+ 			  const struct pci_device_id *pci_id)
+@@ -2040,17 +1988,15 @@ static int snd_echo_probe(struct pci_dev *pci,
+ 	}
+ 
+ 	i = 0;
 -	err = snd_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
 -			   0, &card);
 +	err = snd_devm_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
-+				sizeof(*cs5535au), &card);
++				sizeof(*chip), &card);
  	if (err < 0)
  		return err;
-+	cs5535au = card->private_data;
-+	card->private_free = snd_cs5535audio_free;
++	chip = card->private_data;
  
--	err = snd_cs5535audio_create(card, pci, &cs5535au);
-+	err = snd_cs5535audio_create(card, pci);
+-	chip = NULL;	/* Tells snd_echo_create to allocate chip */
+-	err = snd_echo_create(card, pci, &chip);
+-	if (err < 0) {
+-		snd_card_free(card);
++	err = snd_echo_create(card, pci);
++	if (err < 0)
+ 		return err;
+-	}
+ 
+ 	strcpy(card->driver, "Echo_" ECHOCARD_NAME);
+ 	strcpy(card->shortname, chip->card_name);
+@@ -2066,7 +2012,6 @@ static int snd_echo_probe(struct pci_dev *pci,
+ 	err = snd_echo_new_pcm(chip);
+ 	if (err < 0) {
+ 		dev_err(chip->card->dev, "new pcm error %d\n", err);
+-		snd_card_free(card);
+ 		return err;
+ 	}
+ 
+@@ -2075,7 +2020,6 @@ static int snd_echo_probe(struct pci_dev *pci,
+ 		err = snd_echo_midi_create(card, chip);
+ 		if (err < 0) {
+ 			dev_err(chip->card->dev, "new midi error %d\n", err);
+-			snd_card_free(card);
+ 			return err;
+ 		}
+ 	}
+@@ -2085,64 +2029,64 @@ static int snd_echo_probe(struct pci_dev *pci,
+ 	snd_echo_vmixer.count = num_pipes_out(chip) * num_busses_out(chip);
+ 	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_vmixer, chip));
  	if (err < 0)
--		goto probefail_out;
--
--	card->private_data = cs5535au;
+-		goto ctl_error;
++		return err;
+ #ifdef ECHOCARD_HAS_LINE_OUT_GAIN
+ 	err = snd_ctl_add(chip->card,
+ 			  snd_ctl_new1(&snd_echo_line_output_gain, chip));
+ 	if (err < 0)
+-		goto ctl_error;
++		return err;
+ #endif
+ #else /* ECHOCARD_HAS_VMIXER */
+ 	err = snd_ctl_add(chip->card,
+ 			  snd_ctl_new1(&snd_echo_pcm_output_gain, chip));
+ 	if (err < 0)
+-		goto ctl_error;
++		return err;
+ #endif /* ECHOCARD_HAS_VMIXER */
+ 
+ #ifdef ECHOCARD_HAS_INPUT_GAIN
+ 	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_line_input_gain, chip));
+ 	if (err < 0)
+-		goto ctl_error;
++		return err;
+ #endif
+ 
+ #ifdef ECHOCARD_HAS_INPUT_NOMINAL_LEVEL
+ 	if (!chip->hasnt_input_nominal_level) {
+ 		err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_intput_nominal_level, chip));
+ 		if (err < 0)
+-			goto ctl_error;
++			return err;
+ 	}
+ #endif
+ 
+ #ifdef ECHOCARD_HAS_OUTPUT_NOMINAL_LEVEL
+ 	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_output_nominal_level, chip));
+ 	if (err < 0)
+-		goto ctl_error;
++		return err;
+ #endif
+ 
+ 	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_vumeters_switch, chip));
+ 	if (err < 0)
+-		goto ctl_error;
 +		return err;
  
- 	err = snd_cs5535audio_mixer(cs5535au);
+ 	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_vumeters, chip));
  	if (err < 0)
--		goto probefail_out;
+-		goto ctl_error;
 +		return err;
  
- 	err = snd_cs5535audio_pcm(cs5535au);
+ #ifdef ECHOCARD_HAS_MONITOR
+ 	snd_echo_monitor_mixer.count = num_busses_in(chip) * num_busses_out(chip);
+ 	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_monitor_mixer, chip));
  	if (err < 0)
--		goto probefail_out;
+-		goto ctl_error;
++		return err;
+ #endif
+ 
+ #ifdef ECHOCARD_HAS_DIGITAL_IN_AUTOMUTE
+ 	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_automute_switch, chip));
+ 	if (err < 0)
+-		goto ctl_error;
++		return err;
+ #endif
+ 
+ 	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_channels_info, chip));
+ 	if (err < 0)
+-		goto ctl_error;
 +		return err;
  
- 	strcpy(card->driver, DRIVER_NAME);
+ #ifdef ECHOCARD_HAS_DIGITAL_MODE_SWITCH
+ 	/* Creates a list of available digital modes */
+@@ -2153,7 +2097,7 @@ static int snd_echo_probe(struct pci_dev *pci,
  
-@@ -367,28 +324,17 @@ static int snd_cs5535audio_probe(struct pci_dev *pci,
+ 	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_digital_mode_switch, chip));
+ 	if (err < 0)
+-		goto ctl_error;
++		return err;
+ #endif /* ECHOCARD_HAS_DIGITAL_MODE_SWITCH */
+ 
+ #ifdef ECHOCARD_HAS_EXTERNAL_CLOCK
+@@ -2167,37 +2111,32 @@ static int snd_echo_probe(struct pci_dev *pci,
+ 		chip->clock_src_ctl = snd_ctl_new1(&snd_echo_clock_source_switch, chip);
+ 		err = snd_ctl_add(chip->card, chip->clock_src_ctl);
+ 		if (err < 0)
+-			goto ctl_error;
++			return err;
+ 	}
+ #endif /* ECHOCARD_HAS_EXTERNAL_CLOCK */
+ 
+ #ifdef ECHOCARD_HAS_DIGITAL_IO
+ 	err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_spdif_mode_switch, chip));
+ 	if (err < 0)
+-		goto ctl_error;
++		return err;
+ #endif
+ 
+ #ifdef ECHOCARD_HAS_PHANTOM_POWER
+ 	if (chip->has_phantom_power) {
+ 		err = snd_ctl_add(chip->card, snd_ctl_new1(&snd_echo_phantom_power_switch, chip));
+ 		if (err < 0)
+-			goto ctl_error;
++			return err;
+ 	}
+ #endif
  
  	err = snd_card_register(card);
  	if (err < 0)
--		goto probefail_out;
+-		goto ctl_error;
 +		return err;
+ 	dev_info(card->dev, "Card registered: %s\n", card->longname);
  
- 	pci_set_drvdata(pci, card);
+ 	pci_set_drvdata(pci, chip);
  	dev++;
  	return 0;
 -
--probefail_out:
+-ctl_error:
+-	dev_err(card->dev, "new control error %d\n", err);
 -	snd_card_free(card);
 -	return err;
+ }
+ 
+ 
+@@ -2299,18 +2238,6 @@ static SIMPLE_DEV_PM_OPS(snd_echo_pm, snd_echo_suspend, snd_echo_resume);
+ #define SND_ECHO_PM_OPS	NULL
+ #endif /* CONFIG_PM_SLEEP */
+ 
+-
+-static void snd_echo_remove(struct pci_dev *pci)
+-{
+-	struct echoaudio *chip;
+-
+-	chip = pci_get_drvdata(pci);
+-	if (chip)
+-		snd_card_free(chip->card);
 -}
 -
--static void snd_cs5535audio_remove(struct pci_dev *pci)
--{
--	olpc_quirks_cleanup();
--	snd_card_free(pci_get_drvdata(pci));
- }
- 
- static struct pci_driver cs5535audio_driver = {
+-
+-
+ /******************************************************************************
+ 	Everything starts and ends here
+ ******************************************************************************/
+@@ -2320,7 +2247,6 @@ static struct pci_driver echo_driver = {
  	.name = KBUILD_MODNAME,
- 	.id_table = snd_cs5535audio_ids,
- 	.probe = snd_cs5535audio_probe,
--	.remove = snd_cs5535audio_remove,
- #ifdef CONFIG_PM_SLEEP
+ 	.id_table = snd_echo_ids,
+ 	.probe = snd_echo_probe,
+-	.remove = snd_echo_remove,
  	.driver = {
- 		.pm = &snd_cs5535audio_pm,
-diff --git a/sound/pci/cs5535audio/cs5535audio_olpc.c b/sound/pci/cs5535audio/cs5535audio_olpc.c
-index 110d3209441b..122170a410d9 100644
---- a/sound/pci/cs5535audio/cs5535audio_olpc.c
-+++ b/sound/pci/cs5535audio/cs5535audio_olpc.c
-@@ -171,10 +171,8 @@ int olpc_quirks(struct snd_card *card, struct snd_ac97 *ac97)
- 	for (i = 0; i < ARRAY_SIZE(olpc_cs5535audio_ctls); i++) {
- 		err = snd_ctl_add(card, snd_ctl_new1(&olpc_cs5535audio_ctls[i],
- 				ac97->private_data));
--		if (err < 0) {
--			gpio_free(OLPC_GPIO_MIC_AC);
-+		if (err < 0)
- 			return err;
--		}
- 	}
- 
- 	/* turn off the mic by default */
-@@ -184,5 +182,6 @@ int olpc_quirks(struct snd_card *card, struct snd_ac97 *ac97)
- 
- void olpc_quirks_cleanup(void)
- {
--	gpio_free(OLPC_GPIO_MIC_AC);
-+	if (machine_is_olpc())
-+		gpio_free(OLPC_GPIO_MIC_AC);
- }
+ 		.pm = SND_ECHO_PM_OPS,
+ 	},
+diff --git a/sound/pci/echoaudio/echoaudio.h b/sound/pci/echoaudio/echoaudio.h
+index 0afe13f7b6e5..d51de3e4edfa 100644
+--- a/sound/pci/echoaudio/echoaudio.h
++++ b/sound/pci/echoaudio/echoaudio.h
+@@ -348,7 +348,7 @@ struct echoaudio {
+ 	struct pci_dev *pci;
+ 	unsigned long dsp_registers_phys;
+ 	struct resource *iores;
+-	struct snd_dma_buffer commpage_dma_buf;
++	struct snd_dma_buffer *commpage_dma_buf;
+ 	int irq;
+ #ifdef ECHOCARD_HAS_MIDI
+ 	struct snd_rawmidi *rmidi;
 -- 
 2.26.2
 

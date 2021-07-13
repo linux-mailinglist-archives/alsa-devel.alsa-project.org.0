@@ -2,81 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FA2D3C729F
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 16:49:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9107B3C7344
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 17:30:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 20F5E177C;
-	Tue, 13 Jul 2021 16:48:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20F5E177C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1568C168C;
+	Tue, 13 Jul 2021 17:29:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1568C168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626187745;
-	bh=K6SYEnn0Tqwq/fjv+dY0b42AyzcgoOn2IYhhMSZuyDs=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1626190211;
+	bh=Ku80l16oagNS2BsOF+i9JJBUXNx4e7L04/w83UxXH5Y=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X6FmL3ELcmRkZUuVXvlsus0DyIXbqGmoTJRvNjRBiChyc67CUwLi1Bely2fhZjHZQ
-	 gPmtgyxzzePrOGecRl4pKSgviBNZ2xceKHIezJFUi3C06hPq8DlzZhQ/MIT2H3AqDG
-	 FPJ89lczEHYYHp0RaKViGIVtnCgEOvtPS0YWEW0A=
+	b=BxCi0v2xQV4k+wBVDodaHK0lL5pck3FF52M9dczeTRULZAjVS7akpcLK83qNHruBQ
+	 n+ummMTQw8xV5bwT9oIWf+Fs1rXMVMhRlJu/CaeLH9gmMpysiGWPBKdBnv82R71S4E
+	 lCA6vVoi5odv6hYHh8tFrbjuY4VHjsx4dXAAond4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F53EF8065B;
-	Tue, 13 Jul 2021 16:31:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E64DF8016A;
+	Tue, 13 Jul 2021 17:28:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8CD24F805AA; Tue, 13 Jul 2021 16:30:18 +0200 (CEST)
+ id 56F09F80229; Tue, 13 Jul 2021 17:28:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7F4E7F804FC
- for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 16:29:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F4E7F804FC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Z8c5UsqD"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="D+G6Ou3H"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 4FBAE201DA
- for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 14:29:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1626186586; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=m6xVTqFDQohmoxIEf9s0z5yYHkj3CpZtaIStWQHEs2I=;
- b=Z8c5UsqDxJhI+XREw34BLPnDG5s5MJxyEyMTa4k3DEejHhpPE1wTT5ynL7p7fvrruQeGwP
- l5uiQrilEiA1AhIvEtWW7SJmjqZ+Mu6r05cYSTGtNRHx9IaLRjGYwJ4vyZu1ufU2JhXQQH
- CYiIYbV2+15oefp2TdKnBIPGVzCvbBE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1626186586;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=m6xVTqFDQohmoxIEf9s0z5yYHkj3CpZtaIStWQHEs2I=;
- b=D+G6Ou3HrpKWocngJjebvn9rvitqCqLuOy231MVJftIlVyERP1OaJF2yzCLYQg0RMRzkMR
- qE38LHpBBSEN9lCA==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 40070A3B8C;
- Tue, 13 Jul 2021 14:29:46 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 51/51] ALSA: mpu401: Allocate resources with device-managed
- APIs
-Date: Tue, 13 Jul 2021 16:28:57 +0200
-Message-Id: <20210713142857.19654-52-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210713142857.19654-1-tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 36BFDF8016A
+ for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 17:28:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36BFDF8016A
+X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="209999093"
+X-IronPort-AV: E=Sophos;i="5.84,236,1620716400"; d="scan'208";a="209999093"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2021 08:23:26 -0700
+X-IronPort-AV: E=Sophos;i="5.84,236,1620716400"; d="scan'208";a="493853521"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.237.180.79])
+ ([10.237.180.79])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2021 08:23:22 -0700
+Subject: Re: [PATCH 02/51] ALSA: core: Add managed card creation
+To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
 References: <20210713142857.19654-1-tiwai@suse.de>
+ <20210713142857.19654-3-tiwai@suse.de>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Message-ID: <9d6ce40b-101e-5b16-cd6c-8734aea4c4fd@linux.intel.com>
+Date: Tue, 13 Jul 2021 17:23:02 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210713142857.19654-3-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,107 +76,118 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch converts the card object management with devres as a clean
-up.  The remove callback gets reduced by that.
+On 7/13/2021 4:28 PM, Takashi Iwai wrote:
 
-This should give no user-visible functional changes.
+...
 
-Note that this converts only the mpu401 card driver.  The mpu401_uart
-component is still managed with snd_device.  It's for the case where
-the mpu401_uart component may be removed dynamically without the
-actual device unbind.
+> +
+> +/**
+> + * snd_devm_card_new - managed snd_card object creation
+> + * @parent: the parent device object
+> + * @idx: card index (address) [0 ... (SNDRV_CARDS-1)]
+> + * @xid: card identification (ASCII string)
+> + * @module: top level module for locking
+> + * @extra_size: allocate this extra size after the main soundcard structure
+> + * @card_ret: the pointer to store the created card instance
+> + *
+> + * This function works like snd_card_new() but manages the allocated resource
+> + * via devres, i.e. you don't need to free explicitly.
+> + *
+> + * When a snd_card object is created with this function and registered via
+> + * snd_card_register(), the very first devres action to call snd_card_free()
+> + * is added automatically.  In that way, the resource disconnection is assured
+> + * at first, then released in the expected order.
+> + */
+> +int snd_devm_card_new(struct device *parent, int idx, const char *xid,
+> +		      struct module *module, int extra_size,
+> +		      struct snd_card **card_ret)
+> +{
+> +	struct snd_card *card;
+> +	int err;
+> +
+> +	*card_ret = NULL;
+> +	if (extra_size < 0)
+> +		extra_size = 0;
+Maybe just make extra_size unsigned or even better size_t?
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/drivers/mpu401/mpu401.c | 33 +++++----------------------------
- 1 file changed, 5 insertions(+), 28 deletions(-)
+...
 
-diff --git a/sound/drivers/mpu401/mpu401.c b/sound/drivers/mpu401/mpu401.c
-index d0b55dbb411a..66b94f73956f 100644
---- a/sound/drivers/mpu401/mpu401.c
-+++ b/sound/drivers/mpu401/mpu401.c
-@@ -59,8 +59,8 @@ static int snd_mpu401_create(struct device *devptr, int dev,
- 		snd_printk(KERN_ERR "the uart_enter option is obsolete; remove it\n");
- 
- 	*rcard = NULL;
--	err = snd_card_new(devptr, index[dev], id[dev], THIS_MODULE,
--			   0, &card);
-+	err = snd_devm_card_new(devptr, index[dev], id[dev], THIS_MODULE,
-+				0, &card);
- 	if (err < 0)
- 		return err;
- 	strcpy(card->driver, "MPU-401 UART");
-@@ -76,15 +76,11 @@ static int snd_mpu401_create(struct device *devptr, int dev,
- 				  irq[dev], NULL);
- 	if (err < 0) {
- 		printk(KERN_ERR "MPU401 not detected at 0x%lx\n", port[dev]);
--		goto _err;
-+		return err;
- 	}
- 
- 	*rcard = card;
- 	return 0;
--
-- _err:
--	snd_card_free(card);
--	return err;
- }
- 
- static int snd_mpu401_probe(struct platform_device *devptr)
-@@ -105,20 +101,12 @@ static int snd_mpu401_probe(struct platform_device *devptr)
- 	if (err < 0)
- 		return err;
- 	err = snd_card_register(card);
--	if (err < 0) {
--		snd_card_free(card);
-+	if (err < 0)
- 		return err;
--	}
- 	platform_set_drvdata(devptr, card);
- 	return 0;
- }
- 
--static int snd_mpu401_remove(struct platform_device *devptr)
--{
--	snd_card_free(platform_get_drvdata(devptr));
--	return 0;
--}
--
- #define SND_MPU401_DRIVER	"snd_mpu401"
- 
- static struct platform_driver snd_mpu401_driver = {
-@@ -184,10 +172,8 @@ static int snd_mpu401_pnp_probe(struct pnp_dev *pnp_dev,
- 		if (err < 0)
- 			return err;
- 		err = snd_card_register(card);
--		if (err < 0) {
--			snd_card_free(card);
-+		if (err < 0)
- 			return err;
--		}
- 		pnp_set_drvdata(pnp_dev, card);
- 		snd_mpu401_devices++;
- 		++dev;
-@@ -196,19 +182,10 @@ static int snd_mpu401_pnp_probe(struct pnp_dev *pnp_dev,
- 	return -ENODEV;
- }
- 
--static void snd_mpu401_pnp_remove(struct pnp_dev *dev)
--{
--	struct snd_card *card = (struct snd_card *) pnp_get_drvdata(dev);
--
--	snd_card_disconnect(card);
--	snd_card_free_when_closed(card);
--}
--
- static struct pnp_driver snd_mpu401_pnp_driver = {
- 	.name = "mpu401",
- 	.id_table = snd_mpu401_pnpids,
- 	.probe = snd_mpu401_pnp_probe,
--	.remove = snd_mpu401_pnp_remove,
- };
- #else
- static struct pnp_driver snd_mpu401_pnp_driver;
--- 
-2.26.2
+>   
+>   /**
+>    * snd_card_ref - Get the card object from the index
+> @@ -481,6 +547,7 @@ EXPORT_SYMBOL_GPL(snd_card_disconnect_sync);
+>   
+>   static int snd_card_do_free(struct snd_card *card)
+>   {
+> +	card->releasing = true;
+>   #if IS_ENABLED(CONFIG_SND_MIXER_OSS)
+>   	if (snd_mixer_oss_notify_callback)
+>   		snd_mixer_oss_notify_callback(card, SND_MIXER_OSS_NOTIFY_FREE);
+> @@ -498,7 +565,8 @@ static int snd_card_do_free(struct snd_card *card)
+>   #endif
+>   	if (card->release_completion)
+>   		complete(card->release_completion);
+> -	kfree(card);
+> +	if (!card->managed)
+> +		kfree(card);
+>   	return 0;
+>   }
+>   
+> @@ -539,6 +607,9 @@ int snd_card_free(struct snd_card *card)
+>   	DECLARE_COMPLETION_ONSTACK(released);
+>   	int ret;
+>   
+> +	if (card->releasing)
+> +		return 0;
+> +
+
+"card->releasing" use feels bit racy to me... something like below would 
+break it?
+
+thread1                   thread2
+snd_card_free()
+if(card->releasing) == false
+thread1 goes sleep
+                           snd_card_do_free()
+                           card->releasing = true
+                           run until the end
+thread1 resume
+continues with trying to release
+
+>   	card->release_completion = &released;
+>   	ret = snd_card_free_when_closed(card);
+>   	if (ret)
+> @@ -745,6 +816,11 @@ int snd_card_add_dev_attr(struct snd_card *card,
+>   }
+>   EXPORT_SYMBOL_GPL(snd_card_add_dev_attr);
+>   
+> +static void trigger_card_free(void *data)
+> +{
+> +	snd_card_free(data);
+> +}
+> +
+>   /**
+>    *  snd_card_register - register the soundcard
+>    *  @card: soundcard structure
+> @@ -768,6 +844,15 @@ int snd_card_register(struct snd_card *card)
+>   		if (err < 0)
+>   			return err;
+>   		card->registered = true;
+> +	} else {
+> +		if (card->managed)
+> +			devm_remove_action(card->dev, trigger_card_free, card);
+
+Not sure I understand, we are in _register function, so why do we remove 
+action?
+
+> +	}
+> +
+> +	if (card->managed) {
+> +		err = devm_add_action(card->dev, trigger_card_free, card);
+> +		if (err < 0)
+> +			return err;
+>   	}
+>   
+>   	err = snd_device_register_all(card);
+> 
 

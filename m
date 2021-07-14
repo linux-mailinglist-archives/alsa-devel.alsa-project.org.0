@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 174BD3C898B
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jul 2021 19:16:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9536A3C898D
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jul 2021 19:16:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 73B1B169B;
-	Wed, 14 Jul 2021 19:15:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73B1B169B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2D206169E;
+	Wed, 14 Jul 2021 19:16:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D206169E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626282977;
-	bh=8/e/JOv6kLrtMCAhwTZRtMjrU1ksDsT5AsjxYWr9qwg=;
+	s=default; t=1626283011;
+	bh=dv7DOOnfysllpXu8bvAMg+U4dBpU/96hHx/WJqsnVD8=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iwn4fLgtstv+HgJh9AM07gn5U9BDoUGIRJUwNDJD5uT3g1X2FTfCimFzZdxbqmETf
-	 3xN1vNiHzCZdxLwk1W+IcrS61DvGI83jR3ApEvuf6ohtCnTR81MHBxxT1k8QWa9+4j
-	 2gqtArqFVNkJNjJlKM8D+r7ZcYMdQLiXM3YzKwZQ=
+	b=mqyNdMN1GIEB5mIRWwq2xlG1HgGy2K1PoWh0ZzfFK6Fo+Wc4675zlaexFeP/KIOFs
+	 HUvvLlayIVRGsdf7ZfzPNs+Z9i2HtuOfmSy+xYDC3v6vik93p6IjeNtkoefJfidDOf
+	 t+ooVRbJ2k+EtWcRhjuLxSfFa/ZNU9kt5zx4wuOI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF04BF804A9;
-	Wed, 14 Jul 2021 19:14:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07233F80253;
+	Wed, 14 Jul 2021 19:14:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86988F802E7; Wed, 14 Jul 2021 19:14:31 +0200 (CEST)
+ id 30B63F80269; Wed, 14 Jul 2021 19:14:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
@@ -33,31 +33,32 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94D5CF80253
- for <alsa-devel@alsa-project.org>; Wed, 14 Jul 2021 19:14:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94D5CF80253
-X-IronPort-AV: E=McAfee;i="6200,9189,10045"; a="190769916"
-X-IronPort-AV: E=Sophos;i="5.84,239,1620716400"; d="scan'208";a="190769916"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9B8A6F80254
+ for <alsa-devel@alsa-project.org>; Wed, 14 Jul 2021 19:14:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B8A6F80254
+X-IronPort-AV: E=McAfee;i="6200,9189,10045"; a="190769929"
+X-IronPort-AV: E=Sophos;i="5.84,239,1620716400"; d="scan'208";a="190769929"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2021 10:14:22 -0700
-X-IronPort-AV: E=Sophos;i="5.84,239,1620716400"; d="scan'208";a="413353647"
+ 14 Jul 2021 10:14:25 -0700
+X-IronPort-AV: E=Sophos;i="5.84,239,1620716400"; d="scan'208";a="413353696"
 Received: from alpinagh-mobl1.amr.corp.intel.com (HELO [10.212.71.223])
  ([10.212.71.223])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2021 10:14:21 -0700
-Subject: Re: [PATCH v2 03/16] soc: qcom: apr: Add GPR support
+ 14 Jul 2021 10:14:23 -0700
+Subject: Re: [PATCH v2 05/16] ASoC: qcom: audioreach: add basic pkt alloc
+ support
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  bjorn.andersson@linaro.org, broonie@kernel.org, robh@kernel.org
 References: <20210714153039.28373-1-srinivas.kandagatla@linaro.org>
- <20210714153039.28373-4-srinivas.kandagatla@linaro.org>
+ <20210714153039.28373-6-srinivas.kandagatla@linaro.org>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <349b94b8-0ce3-20f1-d7e3-b6d0609ecdc4@linux.intel.com>
-Date: Wed, 14 Jul 2021 11:20:14 -0500
+Message-ID: <58d6df8d-83ed-c716-81b2-e0927f58da6f@linux.intel.com>
+Date: Wed, 14 Jul 2021 11:30:12 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Firefox/78.0 Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210714153039.28373-4-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20210714153039.28373-6-srinivas.kandagatla@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -80,121 +81,73 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-> +void gpr_free_port(gpr_port_t *port)
+
+
+> diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+> index cc7c1de2f1d9..721ea56b2cb5 100644
+> --- a/sound/soc/qcom/Kconfig
+> +++ b/sound/soc/qcom/Kconfig
+> @@ -103,6 +103,12 @@ config SND_SOC_QDSP6
+>  	 audio drivers. This includes q6asm, q6adm,
+>  	 q6afe interfaces to DSP using apr.
+>  
+> +config SND_SOC_QCOM_AUDIOREACH
+> +	tristate "SoC ALSA audio drives for Qualcomm AUDIOREACH"
+
+typo: drivers?
+
+
+> +/* container config */
+> +struct apm_container_obj  {
+> +	struct apm_container_cfg container_cfg;
+> +	/* Capablity ID list */
+
+typo: Capability
+
+> +	struct apm_prop_data cap_data;
+> +	uint32_t num_capablity_id;
+
+
+> +static void *__audioreach_alloc_pkt(int payload_size, uint32_t opcode,
+> +				     uint32_t token, uint32_t src_port,
+> +				     uint32_t dest_port, bool has_cmd_hdr)
 > +{
-> +	struct packet_router *gpr = port->pr;
-> +	unsigned long flags;
+> +	struct apm_cmd_header *cmd_header;
+> +	struct gpr_pkt *pkt;
+> +	void *p;
+> +	int pkt_size = GPR_HDR_SIZE + payload_size;
 > +
-> +	spin_lock_irqsave(&gpr->svcs_lock, flags);
-> +	idr_remove(&gpr->svcs_idr, port->id);
-> +	spin_unlock_irqrestore(&gpr->svcs_lock, flags);
+> +	if (has_cmd_hdr)
+> +		pkt_size += APM_CMD_HDR_SIZE;
+> +
+> +	p = kzalloc(pkt_size, GFP_ATOMIC);
 
-maybe add a comment somewhere on why you need the irqsave/irqrestore version of spin_lock/unlock?
+is GFP_ATOMIC required? it's the same question really than my earlier one on spinlock_irqsave, it's rather hard to figure out in what context this code will run.
 
-It's not very clear by looking at this patch only that those locks are handled in interrupt context.
-
-> +
-> +	kfree(port);
-> +}
-> +EXPORT_SYMBOL_GPL(gpr_free_port);
-> +
-> +gpr_port_t *gpr_alloc_port(struct apr_device *gdev, struct device *dev,
-> +				gpr_port_cb cb,	void *priv)
-> +{
-> +	struct packet_router *pr = dev_get_drvdata(gdev->dev.parent);
-> +	gpr_port_t *port;
-> +	struct pkt_router_svc *svc;
-> +	int id;
-> +
-> +	port = kzalloc(sizeof(*port), GFP_KERNEL);
-> +	if (!port)
+> +	if (!p)
 > +		return ERR_PTR(-ENOMEM);
 > +
-> +	svc = port;
-> +	svc->callback = cb;
-> +	svc->pr = pr;
-> +	svc->priv = priv;
-> +	svc->dev = dev;
-> +	spin_lock_init(&svc->lock);
+> +	pkt = p;
+> +	pkt->hdr.version = GPR_PKT_VER;
+> +	pkt->hdr.hdr_size = 6;
+
+magic number. looks like a missing macro...
+
+> +	pkt->hdr.pkt_size = pkt_size;
+> +	pkt->hdr.dest_port = dest_port;
+> +	pkt->hdr.src_port = src_port;
 > +
-> +	spin_lock(&pr->svcs_lock);
-> +	id = idr_alloc_cyclic(&pr->svcs_idr, svc, GPR_DYNAMIC_PORT_START,
-> +			      GPR_DYNAMIC_PORT_END, GFP_ATOMIC);
-> +	if (id < 0) {
-> +		dev_err(dev, "Unable to allocate dynamic GPR src port\n");
-> +		kfree(port);
-> +		spin_unlock(&pr->svcs_lock);
-
-nit-pick: more this before the dev_err?
-
-> +		return ERR_PTR(-ENOMEM);
+> +	pkt->hdr.dest_domain = GPR_DOMAIN_ID_ADSP;
+> +	pkt->hdr.src_domain = GPR_DOMAIN_ID_APPS;
+> +	pkt->hdr.token = token;
+> +	pkt->hdr.opcode = opcode;
+> +
+> +	if (has_cmd_hdr) {
+> +		p = p + GPR_HDR_SIZE;
+> +		cmd_header = p;
+> +		cmd_header->payload_size = payload_size;
 > +	}
 > +
-> +	svc->id = id;
-> +	spin_unlock(&pr->svcs_lock);
-> +
-> +	dev_info(dev, "Adding GPR src port (%x)\n", svc->id);
-> +
-> +	return port;
+> +	return pkt;
 > +}
-
-> +static int gpr_do_rx_callback(struct packet_router *gpr, struct apr_rx_buf *abuf)
-> +{
-> +	uint16_t hdr_size, ver;
-> +	struct pkt_router_svc *svc = NULL;
-
-unnecessary init? it's overritten...
-
-> +	struct gpr_resp_pkt resp;
-> +	struct gpr_hdr *hdr;
-> +	unsigned long flags;
-> +	void *buf = abuf->buf;
-> +	int len = abuf->len;
-> +
-> +	hdr = buf;
-> +	ver = hdr->version;
-> +	if (ver > GPR_PKT_VER + 1)
-> +		return -EINVAL;
-> +
-> +	hdr_size = hdr->hdr_size;
-> +	if (hdr_size < GPR_PKT_HEADER_WORD_SIZE) {
-> +		dev_err(gpr->dev, "GPR: Wrong hdr size:%d\n", hdr_size);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (hdr->pkt_size < GPR_PKT_HEADER_BYTE_SIZE || hdr->pkt_size != len) {
-> +		dev_err(gpr->dev, "GPR: Wrong packet size\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	resp.hdr = *hdr;
-> +	resp.payload_size = hdr->pkt_size - (hdr_size * 4);
-> +
-> +	/*
-> +	 * NOTE: hdr_size is not same as GPR_HDR_SIZE as remote can include
-> +	 * optional headers in to gpr_hdr which should be ignored
-> +	 */
-> +	if (resp.payload_size > 0)
-> +		resp.payload = buf + (hdr_size *  4);
-> +
-> +
-> +	spin_lock_irqsave(&gpr->svcs_lock, flags);
-> +	svc = idr_find(&gpr->svcs_idr, hdr->dest_port);
-
-... here 
-
-> +	spin_unlock_irqrestore(&gpr->svcs_lock, flags);
-> +
-> +	if (!svc) {
-> +		dev_err(gpr->dev, "GPR: Port(%x) is not registered\n",
-> +			hdr->dest_port);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (svc->callback)
-> +		svc->callback(&resp, svc->priv, 0);
-> +
-> +	return 0;
-> +}
-> +
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BFE03C7C0F
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jul 2021 04:50:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3F083C7C0C
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jul 2021 04:49:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 169B31691;
-	Wed, 14 Jul 2021 04:49:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 169B31691
+	by alsa0.perex.cz (Postfix) with ESMTPS id 317BA169B;
+	Wed, 14 Jul 2021 04:48:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 317BA169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626231020;
-	bh=xIXdWqE+yZ7R1LvP0c0gbpZYw1I4tGp2hJpGaLMpp0w=;
+	s=default; t=1626230960;
+	bh=YT1MyTVF81kJp02unFYB356BJDdGykEtivTrtV6i844=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QyugYkV5OcNwOPae4NMpoj1BATCv5WskpD6Ka+OwoOL9Duw35e35FOegXfq/sBz31
-	 gb5LFfktFZl5nXc2KC3Rk8GlwzC6RFXPvV8hs5fDnHYkU6rGPtjC6e9QWRZQuWQ56n
-	 UiXdjeaOePg9m/UKiG4vCXyFTXfwJ3N1pP0Thj3Y=
+	b=YW16uyCPgvTBLl5yFcY66NDjdRcpMTv72evUC69VS45IcTum2DyS4NFYj7Ysv3kMv
+	 s3KJhmKbx3PvZ3RAWn68EYCQo0ZRgDVxyOgbVZo3QIrNzoKD+lvpwHG8XA/pfO1Ymq
+	 ZnVhCxrJq53h4Brt+LPCMmzQawCgCrF+zQWGiywY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8288F804FE;
-	Wed, 14 Jul 2021 04:47:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7DD9EF804EB;
+	Wed, 14 Jul 2021 04:46:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 694EFF804ED; Wed, 14 Jul 2021 04:46:56 +0200 (CEST)
+ id BA5E0F804F1; Wed, 14 Jul 2021 04:46:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,25 +33,24 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89D80F80254
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1AB8FF80269
  for <alsa-devel@alsa-project.org>; Wed, 14 Jul 2021 04:46:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89D80F80254
-X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="210092394"
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="210092394"
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AB8FF80269
+X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="210092396"
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="210092396"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 19:46:33 -0700
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="493593216"
+ 13 Jul 2021 19:46:35 -0700
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="493593226"
 Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 19:46:30 -0700
+ 13 Jul 2021 19:46:33 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [PATCH 3/6] ASoC: SOF: intel: hda: remove HDA_DSP_REG_SNDW_WAKE_STS
- definition
-Date: Wed, 14 Jul 2021 10:46:11 +0800
-Message-Id: <20210714024614.9357-4-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 4/6] ASoC: SOF: intel: move sof_intel_dsp_desc() forward
+Date: Wed, 14 Jul 2021 10:46:12 +0800
+Message-Id: <20210714024614.9357-5-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210714024614.9357-1-yung-chuan.liao@linux.intel.com>
 References: <20210714024614.9357-1-yung-chuan.liao@linux.intel.com>
@@ -73,43 +72,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-HDA_DSP_REG_SNDW_WAKE_STS is actually (SDW_SHIM_BASE + SDW_SHIM_WAKESTS)
-and SDW_SHIM_BASE is platform-dependent. Removing HDA_DSP_REG_SNDW_WAKE_STS
-and use (hdev->desc->sdw_shim_base + SDW_SHIM_WAKESTS) instead.
+sof_intel_dsp_desc() will be used by hda_dsp_check_sdw_irq() in the
+following commit.
 
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 ---
- sound/soc/sof/intel/hda.c | 2 +-
- sound/soc/sof/intel/hda.h | 1 -
- 2 files changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/sof/intel/hda.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
 diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index e1e368ff2b12..e48e030f6005 100644
+index e48e030f6005..79388489c4e2 100644
 --- a/sound/soc/sof/intel/hda.c
 +++ b/sound/soc/sof/intel/hda.c
-@@ -249,7 +249,7 @@ static bool hda_sdw_check_wakeen_irq(struct snd_sof_dev *sdev)
- 	hdev = sdev->pdata->hw_pdata;
- 	if (hdev->sdw &&
- 	    snd_sof_dsp_read(sdev, HDA_DSP_BAR,
--			     HDA_DSP_REG_SNDW_WAKE_STS))
-+			     hdev->desc->sdw_shim_base + SDW_SHIM_WAKESTS))
- 		return true;
+@@ -41,6 +41,17 @@
+ #define EXCEPT_MAX_HDR_SIZE	0x400
+ #define HDA_EXT_ROM_STATUS_SIZE 8
  
- 	return false;
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index 4d44f8910393..06ea0006999a 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -233,7 +233,6 @@
- #define HDA_DSP_REG_ADSPIS2		(HDA_DSP_GEN_BASE + 0x14)
++static const struct sof_intel_dsp_desc
++	*get_chip_info(struct snd_sof_pdata *pdata)
++{
++	const struct sof_dev_desc *desc = pdata->desc;
++	const struct sof_intel_dsp_desc *chip_info;
++
++	chip_info = desc->chip_info;
++
++	return chip_info;
++}
++
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE)
  
- #define HDA_DSP_REG_ADSPIS2_SNDW	BIT(5)
--#define HDA_DSP_REG_SNDW_WAKE_STS      0x2C192
+ /*
+@@ -668,17 +679,6 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
+ 	return 0;
+ }
  
- /* Intel HD Audio Inter-Processor Communication Registers */
- #define HDA_DSP_IPC_BASE		0x40
+-static const struct sof_intel_dsp_desc
+-	*get_chip_info(struct snd_sof_pdata *pdata)
+-{
+-	const struct sof_dev_desc *desc = pdata->desc;
+-	const struct sof_intel_dsp_desc *chip_info;
+-
+-	chip_info = desc->chip_info;
+-
+-	return chip_info;
+-}
+-
+ static irqreturn_t hda_dsp_interrupt_handler(int irq, void *context)
+ {
+ 	struct snd_sof_dev *sdev = context;
 -- 
 2.17.1
 

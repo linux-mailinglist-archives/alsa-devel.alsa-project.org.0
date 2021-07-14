@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64CF63C7CE5
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jul 2021 05:25:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D75153C7CE9
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jul 2021 05:26:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E85BF1694;
-	Wed, 14 Jul 2021 05:24:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E85BF1694
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D7C8169A;
+	Wed, 14 Jul 2021 05:25:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D7C8169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626233137;
-	bh=Z1WBAcKANN892sMNVF0rwunm+GlIrM6+A1WstJ8fP3w=;
+	s=default; t=1626233183;
+	bh=vPB4yKNbWZHAscJVOfejIkASnjvyrw30GPYW6XKkiNY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BzyjJVnUjqPhvJ5ywi9DUifFKUJq4l97tPDtV7bIAAVWP+JpLMMxbMUVNj/xN505/
-	 7a7Mn3CIhLLUPZ4KW3tT+AHXmtx7P569nkRgcLek4pmv19PvgITSnV/ZSL9Gk5kbuG
-	 Dc6YO1d1EtY5pYizeQtBobpCWIz6YiT4/Uxq9j5g=
+	b=dEv4rzFo12slSmgWO8Aue7lOd7RrSjWO57+a91tFxfSZ+8E0Ircmgb+jF/yPEKZcC
+	 AkJPBwNSMw9gDRLc+MOUmPvt8qpuV1b0e7KSZASdK/SUGgQZT1KTsaperm8ACx/3FG
+	 Z/jF1gji3+59hmGkXXbmXkbzw5AbLn9ADtmrJrb0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84CC8F804E7;
-	Wed, 14 Jul 2021 05:22:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77258F80507;
+	Wed, 14 Jul 2021 05:22:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 348B2F804DF; Wed, 14 Jul 2021 05:22:43 +0200 (CEST)
+ id 50309F804E3; Wed, 14 Jul 2021 05:22:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,25 +33,25 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4F2BF804A9
- for <alsa-devel@alsa-project.org>; Wed, 14 Jul 2021 05:22:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4F2BF804A9
-X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="232086426"
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="232086426"
+ by alsa1.perex.cz (Postfix) with ESMTPS id BA7F1F8013C
+ for <alsa-devel@alsa-project.org>; Wed, 14 Jul 2021 05:22:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA7F1F8013C
+X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="232086443"
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="232086443"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:22:36 -0700
-X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="459818164"
+ 13 Jul 2021 20:22:39 -0700
+X-IronPort-AV: E=Sophos;i="5.84,238,1620716400"; d="scan'208";a="459818176"
 Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2021 20:22:34 -0700
+ 13 Jul 2021 20:22:36 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [PATCH 05/10] soundwire: stream: don't abort bank switch on
- Command_Ignored/-ENODATA
-Date: Wed, 14 Jul 2021 11:22:04 +0800
-Message-Id: <20210714032209.11284-6-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 06/10] soundwire: add flag to ignore all command/control for
+ mockup devices
+Date: Wed, 14 Jul 2021 11:22:05 +0800
+Message-Id: <20210714032209.11284-7-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210714032209.11284-1-yung-chuan.liao@linux.intel.com>
 References: <20210714032209.11284-1-yung-chuan.liao@linux.intel.com>
@@ -73,36 +73,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This change is needed for support of mockup devices, which by
-construction will not provide any answer to a bank switch, but it's
-also legit for regular cases.
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-If for some reason a device loses sync and cannot handle a bank
-switch, we should go ahead anyways. The devices can always resync
-later.
+SoundWire mockup devices don't take part in the command/control
+protocol, so all commands will complete with -ENODATA or
+Command_Ignored results. With a flag, we can suppress such errors in
+the bus management and make it appear as if all read/writes succeed.
 
-The only case where the error flow should be used is when there is a
-Command_Aborted composite answer from SoundWire devices.
-
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- drivers/soundwire/stream.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/soundwire/sdw.h | 3 +++
+ sound/soc/codecs/sdw-mockup.c | 2 ++
+ 2 files changed, 5 insertions(+)
 
-diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-index 1a18308f4ef4..d84aaf115c13 100644
---- a/drivers/soundwire/stream.c
-+++ b/drivers/soundwire/stream.c
-@@ -697,7 +697,7 @@ static int sdw_bank_switch(struct sdw_bus *bus, int m_rt_count)
- 	else
- 		ret = sdw_transfer(bus, wr_msg);
+diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
+index a48ac3e77301..76ce3f3ac0f2 100644
+--- a/include/linux/soundwire/sdw.h
++++ b/include/linux/soundwire/sdw.h
+@@ -661,6 +661,8 @@ struct sdw_slave_ops {
+  * initialized
+  * @first_interrupt_done: status flag tracking if the interrupt handling
+  * for a Slave happens for the first time after enumeration
++ * @is_mockup_device: status flag used to squelch errors in the command/control
++ * protocol for SoundWire mockup devices
+  */
+ struct sdw_slave {
+ 	struct sdw_slave_id id;
+@@ -683,6 +685,7 @@ struct sdw_slave {
+ 	struct completion initialization_complete;
+ 	u32 unattach_request;
+ 	bool first_interrupt_done;
++	bool is_mockup_device;
+ };
  
--	if (ret < 0) {
-+	if (ret < 0 && ret != -ENODATA) {
- 		dev_err(bus->dev, "Slave frame_ctrl reg write failed\n");
- 		goto error;
- 	}
+ #define dev_to_sdw_dev(_dev) container_of(_dev, struct sdw_slave, dev)
+diff --git a/sound/soc/codecs/sdw-mockup.c b/sound/soc/codecs/sdw-mockup.c
+index a4f79eb2c69d..8ea13cfa9f8e 100644
+--- a/sound/soc/codecs/sdw-mockup.c
++++ b/sound/soc/codecs/sdw-mockup.c
+@@ -263,6 +263,8 @@ static int sdw_mockup_sdw_probe(struct sdw_slave *slave,
+ 	dev_set_drvdata(dev, sdw_mockup);
+ 	sdw_mockup->slave = slave;
+ 
++	slave->is_mockup_device = true;
++
+ 	ret =  devm_snd_soc_register_component(dev,
+ 					       &snd_soc_sdw_mockup_component,
+ 					       sdw_mockup_dai,
 -- 
 2.17.1
 

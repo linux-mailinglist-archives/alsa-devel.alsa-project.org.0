@@ -2,84 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4978B3C7438
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jul 2021 18:17:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C4EC3C7B15
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jul 2021 03:32:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4821168C;
-	Tue, 13 Jul 2021 18:16:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4821168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 796F4169A;
+	Wed, 14 Jul 2021 03:31:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 796F4169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626193042;
-	bh=hl+lIRA/4dHYDAFZ5Z4IUT8/vuPCzr6jGBJDmHqyGaY=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=AA8hcx6RzrilRQbLLgocWldGKZdsCjaifh1YawM3kqxDh2c7Z8Bu499BpND6TYygC
-	 4M/d+z0I1IMxN1ehWiDZFuKuKTcEym12bLmlG50MiyMpK3A5+Q/SwgkMVQ8AWGeUEH
-	 QcvsAavJrBQa3PvRyU5+yMUe9LrkybIJDp8p1MWk=
+	s=default; t=1626226344;
+	bh=Xs3Jemi2rq7XXMytV8JplIB/loUWYG1pYPA/65laKhU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=JaEQD5cfECLIyHA1j9AnVNIPR/I78DA2ZVyzsHimHlSzg1KnevuHxglA7LPCxIkpo
+	 Go0zArBOepKz/28vuFyrXdaG8HCBL6RSHwpRl4sJffI7nowtr0/PTTgBVUd9a0j3Qa
+	 EvVncBRFQL8qE2Ur/KOwigWDMV7Fe594fPEx1YmQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 346D0F80229;
-	Tue, 13 Jul 2021 18:15:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7FA5F800ED;
+	Wed, 14 Jul 2021 03:30:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CDB95F80217; Tue, 13 Jul 2021 18:15:54 +0200 (CEST)
+ id D9856F80217; Wed, 14 Jul 2021 03:30:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 398A3F800D3
- for <alsa-devel@alsa-project.org>; Tue, 13 Jul 2021 18:15:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 398A3F800D3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="GWqtFwcS"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="nCQhOW6o"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id B772D1FD69;
- Tue, 13 Jul 2021 16:15:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1626192951; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=LU+dInQu9Jdqkd5CpV8rL7U5oz/FsqXDg3CRBGL5+sw=;
- b=GWqtFwcSNNNC6raZp1IlALbsmbpTL2hgXcnX9ESP2gP8X3tIhGFn5764j/xXUj2Y38Le7m
- W1gRnrbj9YDEYonu5ni+Ka/7iBlTbKHvuKxXkbEoIZ5yJGsQRwuhx4fe0kyT5H+9s5Cf4e
- DfYGo/O/eKDz7btOyYn2+JdhAUJRt8o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1626192951;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=LU+dInQu9Jdqkd5CpV8rL7U5oz/FsqXDg3CRBGL5+sw=;
- b=nCQhOW6oqyije80MihcrBIgBViKqNicAniNYzIcnyAH2SIzLn+Ju6vVOBOv3Qiii84J96S
- RBYpfFIMSihMvADQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id B0BCDA3B95;
- Tue, 13 Jul 2021 16:15:51 +0000 (UTC)
-Date: Tue, 13 Jul 2021 18:15:51 +0200
-Message-ID: <s5ha6mq196w.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Amadeusz SX2awiX4ski
- <amadeuszx.slawinski@linux.intel.com>
-Subject: Re: [PATCH 02/51] ALSA: core: Add managed card creation
-In-Reply-To: <s5hfswi19o1.wl-tiwai@suse.de>
-References: <20210713142857.19654-1-tiwai@suse.de>
- <20210713142857.19654-3-tiwai@suse.de>
- <9d6ce40b-101e-5b16-cd6c-8734aea4c4fd@linux.intel.com>
- <s5hfswi19o1.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id BFF01F800ED
+ for <alsa-devel@alsa-project.org>; Wed, 14 Jul 2021 03:30:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFF01F800ED
+X-IronPort-AV: E=McAfee;i="6200,9189,10044"; a="190646659"
+X-IronPort-AV: E=Sophos;i="5.84,237,1620716400"; d="scan'208";a="190646659"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2021 18:30:40 -0700
+X-IronPort-AV: E=Sophos;i="5.84,237,1620716400"; d="scan'208";a="570947946"
+Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2021 18:30:38 -0700
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	vkoul@kernel.org
+Subject: [PATCH] soundwire: dmi-quirks: add ull suffix for SoundWire _ADR
+ values
+Date: Wed, 14 Jul 2021 09:30:27 +0800
+Message-Id: <20210714013027.17022-1-yung-chuan.liao@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: vinod.koul@linaro.org, gregkh@linuxfoundation.org,
+ pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
+ sanyog.r.kale@intel.com, rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,58 +70,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 13 Jul 2021 18:05:34 +0200,
-Takashi Iwai wrote:
-> 
-> On Tue, 13 Jul 2021 17:23:02 +0200,
-> Amadeusz SX2awiX4ski wrote:
-> > 
-> > On 7/13/2021 4:28 PM, Takashi Iwai wrote:
-> > 
-> > >     /**
-> > >    * snd_card_ref - Get the card object from the index
-> > > @@ -481,6 +547,7 @@ EXPORT_SYMBOL_GPL(snd_card_disconnect_sync);
-> > >     static int snd_card_do_free(struct snd_card *card)
-> > >   {
-> > > +	card->releasing = true;
-> > >   #if IS_ENABLED(CONFIG_SND_MIXER_OSS)
-> > >   	if (snd_mixer_oss_notify_callback)
-> > >   		snd_mixer_oss_notify_callback(card, SND_MIXER_OSS_NOTIFY_FREE);
-> > > @@ -498,7 +565,8 @@ static int snd_card_do_free(struct snd_card *card)
-> > >   #endif
-> > >   	if (card->release_completion)
-> > >   		complete(card->release_completion);
-> > > -	kfree(card);
-> > > +	if (!card->managed)
-> > > +		kfree(card);
-> > >   	return 0;
-> > >   }
-> > >   @@ -539,6 +607,9 @@ int snd_card_free(struct snd_card *card)
-> > >   	DECLARE_COMPLETION_ONSTACK(released);
-> > >   	int ret;
-> > >   +	if (card->releasing)
-> > > +		return 0;
-> > > +
-> > 
-> > "card->releasing" use feels bit racy to me... something like below
-> > would break it?
-> > 
-> > thread1                   thread2
-> > snd_card_free()
-> > if(card->releasing) == false
-> > thread1 goes sleep
-> >                           snd_card_do_free()
-> >                           card->releasing = true
-> >                           run until the end
-> > thread1 resume
-> > continues with trying to release
-> 
-> It's a destructor and can't be called in parallel.
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-That is, what the code above cares is the case where snd_card_free()
-is called explicitly even if the card is created with devres.  So the
-check of card->releasing could be __snd_card_release() instead in
-snd_card_free(), too.
+Sparse throws the following type of warnings:
 
+drivers/soundwire/dmi-quirks.c:25:17: error: constant
+0x000010025D070100 is so big it is long
 
-Takashi
+Let's add the 'ull' suffix to make this go away and find real issues.
+
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Paul Olaru <paul.olaru@oss.nxp.com>
+Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+---
+ drivers/soundwire/dmi-quirks.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/soundwire/dmi-quirks.c b/drivers/soundwire/dmi-quirks.c
+index 5db0a2443a1d..1ac16687e315 100644
+--- a/drivers/soundwire/dmi-quirks.c
++++ b/drivers/soundwire/dmi-quirks.c
+@@ -22,12 +22,12 @@ struct adr_remap {
+  */
+ static const struct adr_remap hp_spectre_360[] = {
+ 	{
+-		0x000010025D070100,
+-		0x000020025D071100
++		0x000010025D070100ull,
++		0x000020025D071100ull
+ 	},
+ 	{
+-		0x000110025d070100,
+-		0x000120025D130800
++		0x000110025d070100ull,
++		0x000120025D130800ull
+ 	},
+ 	{}
+ };
+@@ -39,18 +39,18 @@ static const struct adr_remap hp_spectre_360[] = {
+ static const struct adr_remap dell_sku_0A3E[] = {
+ 	/* rt715 on link0 */
+ 	{
+-		0x00020025d071100,
+-		0x00021025d071500
++		0x00020025d071100ull,
++		0x00021025d071500ull
+ 	},
+ 	/* rt711 on link1 */
+ 	{
+-		0x000120025d130800,
+-		0x000120025d071100,
++		0x000120025d130800ull,
++		0x000120025d071100ull,
+ 	},
+ 	/* rt1308 on link2 */
+ 	{
+-		0x000220025d071500,
+-		0x000220025d130800
++		0x000220025d071500ull,
++		0x000220025d130800ull
+ 	},
+ 	{}
+ };
+-- 
+2.17.1
+

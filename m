@@ -2,48 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6589A3C7F93
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jul 2021 09:47:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B043D3C80B0
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jul 2021 10:50:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D0BDF1690;
-	Wed, 14 Jul 2021 09:46:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0BDF1690
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C4E01688;
+	Wed, 14 Jul 2021 10:49:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C4E01688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626248862;
-	bh=aQGsDMzQ5pNrcudTU7o4WPVIFAdnFxQX65CJ3slWAhA=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=WYIb0lMK0sD5kXNY95pYm41I6dOx+YqPElc+86PBbCgVelm3Qm1eo0vDKGMJDfOID
-	 xsHS/8nPT/obp4BrcLjs8waZ3EGcW/Sn4tyqBck3iKQ7+0nuyL0wiGzjSJGIAjmGNC
-	 znNnp+wtLyIqS4xS1q0Oro4eZGRtF8/qxJsKKKNs=
+	s=default; t=1626252617;
+	bh=oapcqTKXM0wkI4XieWe/oyhhMzcsh9CmFgCUaa7VtHA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=dfY+FmVPXrrgjxjWOBuaFFcm+gti6DP5ubaTwtlwXVY29RRAInCXDpLQkKsN7cKTm
+	 EyFm8QPXQzYvgLxSYYICs+v0vWDkh9kRmUTlpQGxI0TQd4z+qxxkvs85DOjbBMIkpI
+	 728VG6prEQKWx1NtE9vhd87EiXO9RagMqSfXODKc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 279FCF8025B;
-	Wed, 14 Jul 2021 09:46:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 938D7F800D3;
+	Wed, 14 Jul 2021 10:48:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 640E5F80254; Wed, 14 Jul 2021 09:46:14 +0200 (CEST)
+ id DC691F80254; Wed, 14 Jul 2021 10:48:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id B38FBF8013C
- for <alsa-devel@alsa-project.org>; Wed, 14 Jul 2021 09:46:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B38FBF8013C
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1647F8011C
+ for <alsa-devel@alsa-project.org>; Wed, 14 Jul 2021 10:48:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1647F8011C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="NIMenlPR"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="4v4QVEDc"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 6089D227E6;
+ Wed, 14 Jul 2021 08:48:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1626252519; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=axAvMSHptEp4HM1UgZnAqjGGhj9fsxR7DUaEPimz0qk=;
+ b=NIMenlPRgk/zWvG5zWkIbWciL9/QBzFTNr2NSarLknsWhavl4ClY8QS2daNonxYOJD4dTg
+ z1wCzMuE40j1TYSrZjM0kK3BPf+CHQk6TgV+ncjNbLMKq1rVLml2dTT+VxY7B3HntUcIUk
+ lvDaMXe/dvGuZ7nYCKmtrAKDWYhXpL8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1626252519;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=axAvMSHptEp4HM1UgZnAqjGGhj9fsxR7DUaEPimz0qk=;
+ b=4v4QVEDc8OY8rlvcz6fKkTExcY1kVhOXJbx+MDuCQjqVPENwy3mTjhhw80cVfi+QldCsyO
+ k43UIiD2JYLITUDg==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 56C16A3B8A;
+ Wed, 14 Jul 2021 08:48:39 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1626248766594938993-webhooks-bot@alsa-project.org>
-References: <1626248766594938993-webhooks-bot@alsa-project.org>
-Subject: Missing macro 'AM_PATH_LD10K1' not found in library
-Message-Id: <20210714074614.640E5F80254@alsa1.perex.cz>
-Date: Wed, 14 Jul 2021 09:46:14 +0200 (CEST)
+Subject: [PATCH] ALSA: usb-audio: Add missing proc text entry for BESPOKEN type
+Date: Wed, 14 Jul 2021 10:48:36 +0200
+Message-Id: <20210714084836.1977-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Pavel Machek <pavel@denx.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,82 +85,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-tools issue #7 was opened from ronohara:
+Recently we've added a new usb_mixer element type, USB_MIXER_BESPOKEN,
+but it wasn't added in the table in snd_usb_mixer_dump_cval().  This
+is no big problem since each bespoken type should have its own dump
+method, but it still isn't disallowed to use the standard one, so we
+should cover it as well.  Along with it, define the table with the
+explicit array initializer for avoiding other pitfalls.
 
-New Linux Mint 20.0 install (Ubuntu 20.04 based) on HP X360 with TigerLake hardware.
+Fixes: 785b6f29a795 ("ALSA: usb-audio: scarlett2: Fix wrong resume call")
+Reported-by: Pavel Machek <pavel@denx.de>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/mixer.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-This distro only has lib-alsa-1.2.2   ... so I need to compile/install the latest alsa stuff from source
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index 30b3e128e28d..f4cdaf1ba44a 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -3295,7 +3295,15 @@ static void snd_usb_mixer_dump_cval(struct snd_info_buffer *buffer,
+ {
+ 	struct usb_mixer_elem_info *cval = mixer_elem_list_to_info(list);
+ 	static const char * const val_types[] = {
+-		"BOOLEAN", "INV_BOOLEAN", "S8", "U8", "S16", "U16", "S32", "U32",
++		[USB_MIXER_BOOLEAN] = "BOOLEAN",
++		[USB_MIXER_INV_BOOLEAN] = "INV_BOOLEAN",
++		[USB_MIXER_S8] = "S8",
++		[USB_MIXER_U8] = "U8",
++		[USB_MIXER_S16] = "S16",
++		[USB_MIXER_U16] = "U16",
++		[USB_MIXER_S32] = "S32",
++		[USB_MIXER_U32] = "U32",
++		[USB_MIXER_BESPOKEN] = "BESPOKEN",
+ 	};
+ 	snd_iprintf(buffer, "    Info: id=%i, control=%i, cmask=0x%x, "
+ 			    "channels=%i, type=\"%s\"\n", cval->head.id,
+-- 
+2.26.2
 
-I have the kernel working at seeing the hardware - in the mainline 5.13 kernel it is already available. Installed the firmware and UCM2 stuff.  'speaker-test' works ... lots of details in this closed bug: https://github.com/thesofproject/linux/issues/2700#issuecomment-854033711
-
-Installed alsa-lib from source, and alsa-utils .... but compiling alsa-tools (gitcompile) fails.  This macro needs to be installed, but I am wondering what the best way is ...?
-
-
-
-make[3]: Leaving directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1/src'
-make[3]: Entering directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1'
-sed -e 's,[@]sbindir[@],/usr/local/sbin,g' -e 's,[@]binarydir[@],/usr/local/bin,g' -e 's,[@]sysconfdir[@],/usr/local/etc,g' ./ld10k1d.in > ld10k1d
-make[3]: Leaving directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1'
-make[2]: Leaving directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1'
-make[1]: Leaving directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1'
-make[1]: Entering directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1'
-make  all-recursive
-make[2]: Entering directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1'
-Making all in setup
-make[3]: Entering directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1/setup'
-Making all in effects
-make[4]: Entering directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1/setup/effects'
-make[4]: Nothing to be done for 'all'.
-make[4]: Leaving directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1/setup/effects'
-make[4]: Entering directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1/setup'
-make[4]: Nothing to be done for 'all-am'.
-make[4]: Leaving directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1/setup'
-make[3]: Leaving directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1/setup'
-Making all in doc
-make[3]: Entering directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1/doc'
-make[3]: Nothing to be done for 'all'.
-make[3]: Leaving directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1/doc'
-Making all in patch
-make[3]: Entering directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1/patch'
-make[3]: Nothing to be done for 'all'.
-make[3]: Leaving directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1/patch'
-Making all in dump
-make[3]: Entering directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1/dump'
-make[3]: Nothing to be done for 'all'.
-make[3]: Leaving directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1/dump'
-Making all in contrib
-make[3]: Entering directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1/contrib'
-make[3]: Nothing to be done for 'all'.
-make[3]: Leaving directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1/contrib'
-Making all in include
-make[3]: Entering directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1/include'
-make[3]: Nothing to be done for 'all'.
-make[3]: Leaving directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1/include'
-Making all in src
-make[3]: Entering directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1/src'
-make[3]: Nothing to be done for 'all'.
-make[3]: Leaving directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1/src'
-make[3]: Entering directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1'
-make[3]: Leaving directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1'
-make[2]: Leaving directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1'
-make[1]: Leaving directory '/root/alsa-1.2.5/alsa-tools-1.2.5/ld10k1'
-./qlo10k1
-configure.ac:21: warning: macro 'AM_PATH_LD10K1' not found in library
-libtoolize: putting auxiliary files in '.'.
-libtoolize: copying file './ltmain.sh'
-libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'm4'.
-libtoolize: copying file 'm4/libtool.m4'
-libtoolize: copying file 'm4/ltoptions.m4'
-libtoolize: copying file 'm4/ltsugar.m4'
-libtoolize: copying file 'm4/ltversion.m4'
-libtoolize: copying file 'm4/lt~obsolete.m4'
-libtoolize: Consider adding '-I m4' to ACLOCAL_AMFLAGS in Makefile.am.
-configure.ac:21: warning: macro 'AM_PATH_LD10K1' not found in library
-configure.ac:21: error: possibly undefined macro: AM_PATH_LD10K1
-      If this token and others are legitimate, please use m4_pattern_allow.
-      See the Autoconf documentation.
-autoreconf: /usr/bin/autoconf failed with exit status: 1
-make: *** [Makefile:9: all] Error 1
-
-Issue URL     : https://github.com/alsa-project/alsa-tools/issues/7
-Repository URL: https://github.com/alsa-project/alsa-tools

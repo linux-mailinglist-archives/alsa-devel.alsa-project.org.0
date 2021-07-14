@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C99413C8992
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jul 2021 19:17:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 375DE3C8994
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jul 2021 19:17:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66B5C167F;
-	Wed, 14 Jul 2021 19:16:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66B5C167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id D99CA1681;
+	Wed, 14 Jul 2021 19:17:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D99CA1681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626283026;
-	bh=vp/ETeId996xyRz3qOduN7enKz3rxHVdUWm5gPOLU8Q=;
+	s=default; t=1626283076;
+	bh=zmqAOHGhKyP15v8NjCVzpJIyiLRPOkXC01wOqeHlNi0=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ak4r7I8v7aBrk27Fib4GZRz+hAwh7AhH+/gDnGMiJE8wi91ndv8V/xlwljHMHjOR4
-	 i+MqKMXn1kKb6Mjn42BTAE9401EMO0RtWuIaXlOHuSC55vOeLU6kKEA96HoZRe5HEk
-	 RNOrbHxzVj/rO99Ey0gESA3W894sTVMXiW5jwXVI=
+	b=PSkVCBMLdoe9lgwxjkYmwSPgfbJi7D5HiC9baKzzg/VQiN/ITt1ylLbkfRCWyVQMA
+	 6RUaeAWkJfWFif+nSvhkHsbpjIU1sGMzqQ4qmVfO0RZbaOiMMzYXCdmHBT3F+y+Zeg
+	 y6Qiwn5KABUsGQNd3GEEXRftOo7w9ojxfQkqZaH8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 493A6F804E3;
-	Wed, 14 Jul 2021 19:14:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69495F804FD;
+	Wed, 14 Jul 2021 19:14:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0AC4F80269; Wed, 14 Jul 2021 19:14:33 +0200 (CEST)
+ id 65C2FF804E3; Wed, 14 Jul 2021 19:14:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
@@ -33,32 +33,31 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 76AB5F8025B
- for <alsa-devel@alsa-project.org>; Wed, 14 Jul 2021 19:14:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76AB5F8025B
-X-IronPort-AV: E=McAfee;i="6200,9189,10045"; a="190769959"
-X-IronPort-AV: E=Sophos;i="5.84,239,1620716400"; d="scan'208";a="190769959"
+ by alsa1.perex.cz (Postfix) with ESMTPS id A723DF80253
+ for <alsa-devel@alsa-project.org>; Wed, 14 Jul 2021 19:14:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A723DF80253
+X-IronPort-AV: E=McAfee;i="6200,9189,10045"; a="190769967"
+X-IronPort-AV: E=Sophos;i="5.84,239,1620716400"; d="scan'208";a="190769967"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2021 10:14:29 -0700
-X-IronPort-AV: E=Sophos;i="5.84,239,1620716400"; d="scan'208";a="413353756"
+ 14 Jul 2021 10:14:32 -0700
+X-IronPort-AV: E=Sophos;i="5.84,239,1620716400"; d="scan'208";a="413353770"
 Received: from alpinagh-mobl1.amr.corp.intel.com (HELO [10.212.71.223])
  ([10.212.71.223])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2021 10:14:28 -0700
-Subject: Re: [PATCH v2 07/16] ASoC: qcom: audioreach: add module configuration
- command helpers
+ 14 Jul 2021 10:14:30 -0700
+Subject: Re: [PATCH v2 09/16] ASoC: qcom: audioreach: add q6apm-dai support
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  bjorn.andersson@linaro.org, broonie@kernel.org, robh@kernel.org
 References: <20210714153039.28373-1-srinivas.kandagatla@linaro.org>
- <20210714153039.28373-8-srinivas.kandagatla@linaro.org>
+ <20210714153039.28373-10-srinivas.kandagatla@linaro.org>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <d3e9bf09-cc72-c527-89b2-5f23a15163e4@linux.intel.com>
-Date: Wed, 14 Jul 2021 11:48:19 -0500
+Message-ID: <9b669a36-f9e4-bd90-7b02-e55fe5b99814@linux.intel.com>
+Date: Wed, 14 Jul 2021 11:59:12 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Firefox/78.0 Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210714153039.28373-8-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20210714153039.28373-10-srinivas.kandagatla@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -81,142 +80,185 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-> +static int audioreach_shmem_set_media_format(struct q6apm_graph *graph,
-> +				       struct audioreach_module *module,
-> +				       int direction, uint32_t rate,
-> +				       uint32_t num_channels,
-> +				       u8 channel_map[PCM_MAX_NUM_CHANNEL],
-> +				       uint16_t bits_per_sample)
+
+> +static void event_handler(uint32_t opcode, uint32_t token,
+> +			  uint32_t *payload, void *priv)
 > +{
-> +	struct apm_module_param_data *param_data;
-> +	struct payload_media_fmt_pcm *cfg;
-> +	struct media_format *header;
-> +	int rc, payload_size;
-> +	struct gpr_pkt *pkt;
-> +	void *p;
+> +	struct q6apm_dai_rtd *prtd = priv;
+> +	struct snd_pcm_substream *substream = prtd->substream;
 > +
-> +	if (num_channels < 0 || num_channels > 2)
-> +		dev_err(graph->dev, "Error: Invalid channels (%d)!\n", num_channels);
+> +	switch (opcode) {
+> +	case APM_CLIENT_EVENT_CMD_EOS_DONE:
+> +		prtd->state = Q6APM_STREAM_STOPPED;
+> +		break;
+> +	case APM_CLIENT_EVENT_DATA_WRITE_DONE: {
+> +		prtd->pcm_irq_pos += prtd->pcm_count;
+> +		snd_pcm_period_elapsed(substream);
 
-that doesn't sound good, you flag num_channels as an invalid value but still continue using it.
+A comment on the relationship between data writes and periods would be nice. It looks like the code assumes the period and data transfers are identical, but periods can be chosen by applications, can't they?
 
+> +		if (prtd->state == Q6APM_STREAM_RUNNING) {
+> +			q6apm_write_async(prtd->graph,
+> +					   prtd->pcm_count, 0, 0, NO_TIMESTAMP);
+> +		}
 > +
-> +	payload_size = APM_SHMEM_FMT_CFG_PSIZE(num_channels) + APM_MODULE_PARAM_DATA_SIZE;
+> +		break;
+> +		}
+> +	case APM_CLIENT_EVENT_DATA_READ_DONE:
+> +		prtd->pcm_irq_pos += prtd->pcm_count;
+> +		snd_pcm_period_elapsed(substream);
+> +		if (prtd->state == Q6APM_STREAM_RUNNING)
+> +			q6apm_read(prtd->graph);
 > +
-> +	p = audioreach_alloc_cmd_pkt(payload_size, APM_CMD_SET_CFG, 0,
-> +				     graph->port->id, module->instance_id);
-> +	if (IS_ERR(p))
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +}
+
+> +static int q6apm_dai_trigger(struct snd_soc_component *component,
+> +			     struct snd_pcm_substream *substream, int cmd)
+> +{
+> +	struct snd_pcm_runtime *runtime = substream->runtime;
+> +	struct q6apm_dai_rtd *prtd = runtime->private_data;
+> +	int ret = 0;
+> +
+> +	switch (cmd) {
+> +	case SNDRV_PCM_TRIGGER_START:
+> +	case SNDRV_PCM_TRIGGER_RESUME:
+> +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+> +		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+> +			ret = q6apm_write_async(prtd->graph, prtd->pcm_count, 0, 0, NO_TIMESTAMP);
+> +		break;
+> +	case SNDRV_PCM_TRIGGER_STOP:
+> +		prtd->state = Q6APM_STREAM_STOPPED;
+> +		//ret = q6apm_cmd_nowait(prtd->graph, CMD_EOS);
+> +		break;
+> +	case SNDRV_PCM_TRIGGER_SUSPEND:
+> +	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+> +		//ret = q6apm_cmd_nowait(prtd->graph, CMD_PAUSE);
+
+these // comments are odd, with a clear imbalance between suspend/resume and pause_push/pause_release... 
+is this intentional or a left-over from an experiment?
+
+> +		break;
+> +	default:
+> +		ret = -EINVAL;
+> +		break;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +static int q6apm_dai_open(struct snd_soc_component *component,
+> +			  struct snd_pcm_substream *substream)
+> +{
+> +	struct snd_pcm_runtime *runtime = substream->runtime;
+> +	struct snd_soc_pcm_runtime *soc_prtd = substream->private_data;
+> +	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(soc_prtd, 0);
+> +	struct q6apm_dai_rtd *prtd;
+> +	struct q6apm_dai_data *pdata;
+> +	struct device *dev = component->dev;
+> +	int ret;
+> +	int graph_id;
+> +
+> +	graph_id = cpu_dai->driver->id;
+> +
+> +	pdata = snd_soc_component_get_drvdata(component);
+> +	if (!pdata) {
+> +		dev_err(component->dev, "Drv data not found ..\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	prtd = kzalloc(sizeof(*prtd), GFP_KERNEL);
+> +	if (prtd == NULL)
 > +		return -ENOMEM;
 > +
-> +	pkt = p;
-> +	p = p + GPR_HDR_SIZE + APM_CMD_HDR_SIZE;
+> +	prtd->substream = substream;
 > +
-> +	param_data = p;
-> +	param_data->module_instance_id = module->instance_id;
-> +	param_data->error_code = 0;
-> +	param_data->param_id = PARAM_ID_MEDIA_FORMAT;
-> +	param_data->param_size = payload_size - APM_MODULE_PARAM_DATA_SIZE;
-> +	p = p + APM_MODULE_PARAM_DATA_SIZE;
+> +	prtd->graph = q6apm_graph_open(dev, (q6apm_cb)event_handler,
+> +				       prtd, graph_id);
+> +	if (IS_ERR(prtd->graph)) {
+> +		pr_info("%s: Could not allocate memory\n", __func__);
+> +		ret = PTR_ERR(prtd->graph);
+> +		kfree(prtd);
+> +		return ret;
+> +	}
 > +
-> +	header = p;
-> +	header->data_format = DATA_FORMAT_FIXED_POINT;
-> +	header->fmt_id = MEDIA_FMT_ID_PCM;
-> +	header->payload_size = payload_size - sizeof(*header);
+> +	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+> +		runtime->hw = q6apm_dai_hardware_playback;
+> +	else if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
+> +		runtime->hw = q6apm_dai_hardware_capture;
 > +
-> +	p = p + sizeof(*header);
-> +	cfg = p;
-> +	cfg->sample_rate = rate;
-> +	cfg->bit_width = bits_per_sample;
-> +	cfg->alignment = PCM_LSB_ALIGNED;
-> +	cfg->bits_per_sample = bits_per_sample;
-> +	cfg->q_factor = bits_per_sample - 1;
-> +	cfg->endianness = PCM_LITTLE_ENDIAN;
-> +	cfg->num_channels = num_channels;
+> +	/* Ensure that buffer size is a multiple of period size */
+> +	ret = snd_pcm_hw_constraint_integer(runtime,
+> +					    SNDRV_PCM_HW_PARAM_PERIODS);
+> +	if (ret < 0)
+> +		dev_err(dev, "snd_pcm_hw_constraint_integer failed\n");
 > +
-> +	if (num_channels == 1) {
-> +		cfg->channel_mapping[0] =  PCM_CHANNEL_L;
-> +	} else if (num_channels == 2) {
-> +		cfg->channel_mapping[0] =  PCM_CHANNEL_L;
-> +		cfg->channel_mapping[1] =  PCM_CHANNEL_R;
-> +	} else {
-> +		dev_err(graph->dev, "Error: Invalid channels (%d)!\n", num_channels);
+> +	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+> +		ret = snd_pcm_hw_constraint_minmax(runtime,
+> +			SNDRV_PCM_HW_PARAM_BUFFER_BYTES,
+> +			BUFFER_BYTES_MIN, BUFFER_BYTES_MAX);
+> +		if (ret < 0) {
+> +			dev_err(dev, "constraint for buffer bytes min max ret = %d\n",
+> +									ret);
+> +		}
+> +	}
+> +
+> +	ret = snd_pcm_hw_constraint_step(runtime, 0,
+> +					 SNDRV_PCM_HW_PARAM_PERIOD_BYTES, 32);
+> +	if (ret < 0) {
+> +		dev_err(dev, "constraint for period bytes step ret = %d\n",
+> +								ret);
+> +	}
+> +	ret = snd_pcm_hw_constraint_step(runtime, 0,
+> +					 SNDRV_PCM_HW_PARAM_BUFFER_BYTES, 32);
+> +	if (ret < 0) {
+> +		dev_err(dev, "constraint for buffer bytes step ret = %d\n",
+> +								ret);
+> +	}
 
-already tested above.
+dev_err() used but no return code sent?
+
+> +
+> +	runtime->private_data = prtd;
+> +	runtime->dma_bytes = BUFFER_BYTES_MAX;
+> +	if (pdata->sid < 0)
+> +		prtd->phys = substream->dma_buffer.addr;
+> +	else
+> +		prtd->phys = substream->dma_buffer.addr | (pdata->sid << 32);
+> +
+> +	snd_pcm_set_runtime_buffer(substream, &substream->dma_buffer);
+> +
+> +	return 0;
+> +}
+
+> +static int q6apm_dai_hw_params(struct snd_soc_component *component,
+> +			       struct snd_pcm_substream *substream,
+> +			       struct snd_pcm_hw_params *params)
+> +{
+> +	struct snd_pcm_runtime *runtime = substream->runtime;
+> +	struct q6apm_dai_rtd *prtd = runtime->private_data;
+> +
+> +	prtd->pcm_size = params_buffer_bytes(params);
+> +	prtd->periods = params_periods(params);
+> +
+> +	switch (params_format(params)) {
+> +	case SNDRV_PCM_FORMAT_S16_LE:
+> +		prtd->bits_per_sample = 16;
+> +		break;
+> +	case SNDRV_PCM_FORMAT_S24_LE:
+> +		prtd->bits_per_sample = 24;
+> +		break;
+
+default:
+    return -EINVAL
+?
 
 > +	}
 > +
-> +	rc = audioreach_graph_send_cmd_sync(graph, pkt, 0);
-> +
-> +	kfree(pkt);
-> +
-> +	return rc;
+> +	return 0;
 > +}
-
-> +int audioreach_shared_memory_send_eos(struct q6apm_graph *graph)
-> +{
-> +	struct data_cmd_wr_sh_mem_ep_eos *eos;
-> +	struct gpr_pkt *pkt;
-> +	int rc = 0, iid;
-
-useless init
-
-> +	void *p;
 > +
-> +	iid = q6apm_graph_get_rx_shmem_module_iid(graph);
-> +	p = audioreach_alloc_cmd_pkt(sizeof(*eos),
-> +				      DATA_CMD_WR_SH_MEM_EP_EOS,
-> +				      0,
-> +				      graph->port->id, iid);
-> +	if (IS_ERR(p))
-> +		return -ENOMEM;
-> +
-> +	pkt = p;
-> +	eos = p + GPR_HDR_SIZE + APM_CMD_HDR_SIZE;
-> +
-> +	eos->policy = WR_SH_MEM_EP_EOS_POLICY_LAST;
-> +
-> +	rc = gpr_send_port_pkt(graph->port, pkt);
-> +	kfree(pkt);
-> +
-> +	return rc;
-> +}
-
-> +int q6apm_unmap_memory_regions(struct q6apm_graph *graph,
-> +			       unsigned int dir)
-> +{
-> +	struct audioreach_graph_data *data;
-> +	struct apm_cmd_shared_mem_unmap_regions *cmd = NULL;
-
-useless init
-
-> +	struct gpr_pkt *pkt;
-> +	void *p;
-> +	int rc;
-> +
-> +	if (dir == SNDRV_PCM_STREAM_PLAYBACK)
-> +		data = &graph->rx_data;
-> +	else
-> +		data = &graph->tx_data;
-> +
-> +	if (!data->mem_map_handle)
-> +		return 0;
-> +
-> +	p = audioreach_alloc_apm_pkt(sizeof(*cmd),
-> +				      APM_CMD_SHARED_MEM_UNMAP_REGIONS, dir,
-> +				      graph->port->id);
-> +	if (IS_ERR(p))
-> +		return -ENOMEM;
-> +
-> +	pkt = p;
-> +	cmd = p + GPR_HDR_SIZE;
-> +	cmd->mem_map_handle = data->mem_map_handle;
-> +
-> +	rc = audioreach_graph_send_cmd_sync(graph, pkt, APM_CMD_SHARED_MEM_UNMAP_REGIONS);
-> +	kfree(pkt);
-> +
-> +	audioreach_graph_free_buf(graph);
-> +
-> +	return rc;
-> +}
-> +EXPORT_SYMBOL_GPL(q6apm_unmap_memory_regions);
 

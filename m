@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E28D33C9A9C
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jul 2021 10:28:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 699903C9AA0
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jul 2021 10:29:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F0B6170B;
-	Thu, 15 Jul 2021 10:27:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F0B6170B
+	by alsa0.perex.cz (Postfix) with ESMTPS id B691C171B;
+	Thu, 15 Jul 2021 10:28:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B691C171B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626337699;
-	bh=NsTOi7A7XrHjdiN0lE/+CUawVXb9U9dCVSEoPo/7Lxw=;
+	s=default; t=1626337765;
+	bh=1LgK4r7Nt4cZqkoHSz3NM/gpMmd8SDCt8Uebltn1EFI=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kfqXzSuUphPw8I4iP6hUymxghK9Xep78FP3KNQreJFecboML3OPixw/nWLZk5lliK
-	 iOC6mXyK+xJilgpIysXRYB5Bvbfrf+380vZ492rAYEoVg2Ur7+71BlojlI7HeCC+aW
-	 stuf2yHwcRk+VP5LaL6PuIYuoOdBlombafMzfnOg=
+	b=upnisMwh+F+HHFPIF+1fzDQmrCpoWqDxtzrH8NmwddO119F6WX2Dj7FFq7+Trqoo5
+	 VXn82lpprUCc0AgXHmvKIp0J2ZyKygDhrlC1E0pYgyC+FGv7V+1UkQzTnea4ipy43A
+	 2veinPBoh7q33m1L2nv1B8cLYGsF3OTsv3hhHihM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A850EF805B6;
-	Thu, 15 Jul 2021 10:01:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8D060F805C5;
+	Thu, 15 Jul 2021 10:01:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6F38F807DC; Thu, 15 Jul 2021 10:01:45 +0200 (CEST)
+ id A076BF807DC; Thu, 15 Jul 2021 10:01:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E02AF805B0
+ by alsa1.perex.cz (Postfix) with ESMTPS id EA91CF804E3
  for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 10:00:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E02AF805B0
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA91CF804E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="xefNSzcc"; 
+ header.b="ivnog7FC"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="WA5BMWGD"
+ header.b="1qHayyij"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 5809622855
+ by smtp-out1.suse.de (Postfix) with ESMTP id C59F52284F
  for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 08:00:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1626336023; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=SLbHE8gL3568LNDNyp83CCjAj1qzs/+1vwUVbQlIa84=;
- b=xefNSzccXejLvPuF6MhN4AO8p4+nuzzGs6CBhSywOAZH38EpHy/2GVOPJD1a/gWrQFTwan
- QADp1CZvdPfy2FllIqNQYBcT0aos1Lz1FyGfWMWYojysd/5/wMO5Sf8I8yXE+KEXfMIxpU
- br2BgmaxgwMxW3F0dfZdr/tPtlV2Fd4=
+ bh=6fmFbwAl0scRniMBGRmt/LYV5Q59V+Yu7zP10IIZFwE=;
+ b=ivnog7FChMq8/6wE1tFilL35CW1/ar/fVHicR8vqRx66Gi3B5p9IMMFlb+9KatY8QgJOLB
+ SelQQn5K+EJGlVblixRtdmYFt5iOtD5Vx1MRxQs4X2A8jS3PNOHdfm8+whgq3mp01IKPa8
+ vAJUDB8mg+5+9BPvVwf/IvyzsZMJdY4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1626336023;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=SLbHE8gL3568LNDNyp83CCjAj1qzs/+1vwUVbQlIa84=;
- b=WA5BMWGDWWVBceb+szFP03LbI8oNfYWmrCS3u+zf19RCaqziw2U+NkUU7+8n++5u6ygw2F
- yNOlZqLvJANXXuCQ==
+ bh=6fmFbwAl0scRniMBGRmt/LYV5Q59V+Yu7zP10IIZFwE=;
+ b=1qHayyijiqRg4zjRKeUULvrWYGnAhoLcfOhnFjKgZqoezNQbcitxysT771vtKL6Cf3PYps
+ 4bYQNamsRA9jM8CA==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 45421A3B8F;
+ by relay2.suse.de (Postfix) with ESMTP id B49E0A3B9D;
  Thu, 15 Jul 2021 08:00:23 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 71/79] ALSA: wavefront: Allocate resources with
- device-managed APIs
-Date: Thu, 15 Jul 2021 09:59:33 +0200
-Message-Id: <20210715075941.23332-72-tiwai@suse.de>
+Subject: [PATCH v2 72/79] ALSA: x86: Allocate resources with device-managed
+ APIs
+Date: Thu, 15 Jul 2021 09:59:34 +0200
+Message-Id: <20210715075941.23332-73-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210715075941.23332-1-tiwai@suse.de>
 References: <20210715075941.23332-1-tiwai@suse.de>
@@ -92,138 +92,149 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch converts the resource management in ISA wavefront driver
-with devres as a clean up.  Each manual resource management is
-converted with the corresponding devres helper.  The remove callback
-became superfluous and dropped.
-
-This should give no user-visible functional changes.
+This patch converts the resource management in x86 HDMI LPE audio
+driver with devres as a clean up.  Each manual resource management is
+converted with the corresponding devres helper now.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/isa/wavefront/wavefront.c | 46 +++++++--------------------------
- 1 file changed, 9 insertions(+), 37 deletions(-)
+ sound/x86/intel_hdmi_audio.c | 57 ++++++++++--------------------------
+ 1 file changed, 16 insertions(+), 41 deletions(-)
 
-diff --git a/sound/isa/wavefront/wavefront.c b/sound/isa/wavefront/wavefront.c
-index dfdeaf7b6bf4..e6e46a0266b0 100644
---- a/sound/isa/wavefront/wavefront.c
-+++ b/sound/isa/wavefront/wavefront.c
-@@ -308,18 +308,6 @@ static struct snd_rawmidi *snd_wavefront_new_midi(struct snd_card *card,
- 	return rmidi;
+diff --git a/sound/x86/intel_hdmi_audio.c b/sound/x86/intel_hdmi_audio.c
+index 6d87c099d997..d60e532edf5f 100644
+--- a/sound/x86/intel_hdmi_audio.c
++++ b/sound/x86/intel_hdmi_audio.c
+@@ -1657,11 +1657,6 @@ static void hdmi_lpe_audio_free(struct snd_card *card)
+ 
+ 		cancel_work_sync(&ctx->hdmi_audio_wq);
+ 	}
+-
+-	if (card_ctx->mmio_start)
+-		iounmap(card_ctx->mmio_start);
+-	if (card_ctx->irq >= 0)
+-		free_irq(card_ctx->irq, card_ctx);
  }
  
--static void
--snd_wavefront_free(struct snd_card *card)
--{
--	snd_wavefront_card_t *acard = (snd_wavefront_card_t *)card->private_data;
--	
--	if (acard) {
--		release_and_free_resource(acard->wavefront.res_base);
--		if (acard->wavefront.irq > 0)
--			free_irq(acard->wavefront.irq, (void *)acard);
--	}
--}
--
- static int snd_wavefront_card_new(struct device *pdev, int dev,
- 				  struct snd_card **cardp)
- {
-@@ -327,8 +315,8 @@ static int snd_wavefront_card_new(struct device *pdev, int dev,
- 	snd_wavefront_card_t *acard;
- 	int err;
- 
--	err = snd_card_new(pdev, index[dev], id[dev], THIS_MODULE,
--			   sizeof(snd_wavefront_card_t), &card);
-+	err = snd_devm_card_new(pdev, index[dev], id[dev], THIS_MODULE,
-+				sizeof(snd_wavefront_card_t), &card);
- 	if (err < 0)
- 		return err;
- 
-@@ -339,7 +327,6 @@ static int snd_wavefront_card_new(struct device *pdev, int dev,
- 	spin_lock_init(&acard->wavefront.midi.open);
- 	spin_lock_init(&acard->wavefront.midi.virtual);
- 	acard->wavefront.card = card;
--	card->private_free = snd_wavefront_free;
- 
- 	*cardp = card;
- 	return 0;
-@@ -394,15 +381,17 @@ snd_wavefront_probe (struct snd_card *card, int dev)
- 
- 	/* ------- ICS2115 Wavetable synth ------- */
- 
--	acard->wavefront.res_base = request_region(ics2115_port[dev], 16,
--						   "ICS2115");
-+	acard->wavefront.res_base =
-+		devm_request_region(card->dev, ics2115_port[dev], 16,
-+				    "ICS2115");
- 	if (acard->wavefront.res_base == NULL) {
- 		snd_printk(KERN_ERR "unable to grab ICS2115 i/o region 0x%lx-0x%lx\n",
- 			   ics2115_port[dev], ics2115_port[dev] + 16 - 1);
- 		return -EBUSY;
+ /*
+@@ -1699,8 +1694,8 @@ static int hdmi_lpe_audio_probe(struct platform_device *pdev)
  	}
--	if (request_irq(ics2115_irq[dev], snd_wavefront_ics2115_interrupt,
--			0, "ICS2115", acard)) {
-+	if (devm_request_irq(card->dev, ics2115_irq[dev],
-+			     snd_wavefront_ics2115_interrupt,
-+			     0, "ICS2115", acard)) {
- 		snd_printk(KERN_ERR "unable to use ICS2115 IRQ %d\n", ics2115_irq[dev]);
- 		return -EBUSY;
+ 
+ 	/* create a card instance with ALSA framework */
+-	ret = snd_card_new(&pdev->dev, hdmi_card_index, hdmi_card_id,
+-			   THIS_MODULE, sizeof(*card_ctx), &card);
++	ret = snd_devm_card_new(&pdev->dev, hdmi_card_index, hdmi_card_id,
++				THIS_MODULE, sizeof(*card_ctx), &card);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -1736,20 +1731,20 @@ static int hdmi_lpe_audio_probe(struct platform_device *pdev)
+ 		__func__, (unsigned int)res_mmio->start,
+ 		(unsigned int)res_mmio->end);
+ 
+-	card_ctx->mmio_start = ioremap(res_mmio->start,
+-					       (size_t)(resource_size(res_mmio)));
++	card_ctx->mmio_start =
++		devm_ioremap(&pdev->dev, res_mmio->start,
++			     (size_t)(resource_size(res_mmio)));
+ 	if (!card_ctx->mmio_start) {
+ 		dev_err(&pdev->dev, "Could not get ioremap\n");
+-		ret = -EACCES;
+-		goto err;
++		return -EACCES;
  	}
-@@ -556,27 +545,18 @@ static int snd_wavefront_isa_probe(struct device *pdev,
- 	if (err < 0)
- 		return err;
- 	err = snd_wavefront_probe(card, dev);
--	if (err < 0) {
--		snd_card_free(card);
-+	if (err < 0)
- 		return err;
--	}
- 	
- 	dev_set_drvdata(pdev, card);
- 	return 0;
- }
  
--static void snd_wavefront_isa_remove(struct device *devptr,
--				    unsigned int dev)
--{
--	snd_card_free(dev_get_drvdata(devptr));
--}
--
- #define DEV_NAME "wavefront"
+ 	/* setup interrupt handler */
+-	ret = request_irq(irq, display_pipe_interrupt_handler, 0,
+-			  pdev->name, card_ctx);
++	ret = devm_request_irq(&pdev->dev, irq, display_pipe_interrupt_handler,
++			       0, pdev->name, card_ctx);
+ 	if (ret < 0) {
+ 		dev_err(&pdev->dev, "request_irq failed\n");
+-		goto err;
++		return ret;
+ 	}
  
- static struct isa_driver snd_wavefront_driver = {
- 	.match		= snd_wavefront_isa_match,
- 	.probe		= snd_wavefront_isa_probe,
--	.remove		= snd_wavefront_isa_remove,
- 	/* FIXME: suspend, resume */
- 	.driver		= {
- 		.name	= DEV_NAME
-@@ -606,7 +586,6 @@ static int snd_wavefront_pnp_detect(struct pnp_card_link *pcard,
- 	if (snd_wavefront_pnp (dev, card->private_data, pcard, pid) < 0) {
- 		if (cs4232_pcm_port[dev] == SNDRV_AUTO_PORT) {
- 			snd_printk (KERN_ERR "isapnp detection failed\n");
--			snd_card_free (card);
- 			return -ENODEV;
+ 	card_ctx->irq = irq;
+@@ -1769,7 +1764,7 @@ static int hdmi_lpe_audio_probe(struct platform_device *pdev)
+ 		ret = snd_pcm_new(card, INTEL_HAD, port, MAX_PB_STREAMS,
+ 				  MAX_CAP_STREAMS, &pcm);
+ 		if (ret)
+-			goto err;
++			return ret;
+ 
+ 		/* setup private data which can be retrieved when required */
+ 		pcm->private_data = ctx;
+@@ -1790,31 +1785,29 @@ static int hdmi_lpe_audio_probe(struct platform_device *pdev)
+ 			struct snd_kcontrol *kctl;
+ 
+ 			kctl = snd_ctl_new1(&had_controls[i], ctx);
+-			if (!kctl) {
+-				ret = -ENOMEM;
+-				goto err;
+-			}
++			if (!kctl)
++				return -ENOMEM;
+ 
+ 			kctl->id.device = pcm->device;
+ 
+ 			ret = snd_ctl_add(card, kctl);
+ 			if (ret < 0)
+-				goto err;
++				return ret;
  		}
- 	}
-@@ -620,18 +599,11 @@ static int snd_wavefront_pnp_detect(struct pnp_card_link *pcard,
- 	return 0;
- }
  
--static void snd_wavefront_pnp_remove(struct pnp_card_link *pcard)
--{
--	snd_card_free(pnp_get_card_drvdata(pcard));
--	pnp_set_card_drvdata(pcard, NULL);
+ 		/* Register channel map controls */
+ 		ret = had_register_chmap_ctls(ctx, pcm);
+ 		if (ret < 0)
+-			goto err;
++			return ret;
+ 
+ 		ret = had_create_jack(ctx, pcm);
+ 		if (ret < 0)
+-			goto err;
++			return ret;
+ 	}
+ 
+ 	ret = snd_card_register(card);
+ 	if (ret)
+-		goto err;
++		return ret;
+ 
+ 	spin_lock_irq(&pdata->lpe_audio_slock);
+ 	pdata->notify_audio_lpe = notify_audio_lpe;
+@@ -1831,23 +1824,6 @@ static int hdmi_lpe_audio_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	return 0;
+-
+-err:
+-	snd_card_free(card);
+-	return ret;
 -}
 -
- static struct pnp_card_driver wavefront_pnpc_driver = {
- 	.flags		= PNP_DRIVER_RES_DISABLE,
- 	.name		= "wavefront",
- 	.id_table	= snd_wavefront_pnpids,
- 	.probe		= snd_wavefront_pnp_detect,
--	.remove		= snd_wavefront_pnp_remove,
- 	/* FIXME: suspend,resume */
+-/*
+- * hdmi_lpe_audio_remove - stop bridge with i915
+- *
+- * This function is called when the platform device is destroyed.
+- */
+-static int hdmi_lpe_audio_remove(struct platform_device *pdev)
+-{
+-	struct snd_intelhad_card *card_ctx = platform_get_drvdata(pdev);
+-
+-	snd_card_free(card_ctx->card);
+-	return 0;
+ }
+ 
+ static const struct dev_pm_ops hdmi_lpe_audio_pm = {
+@@ -1860,7 +1836,6 @@ static struct platform_driver hdmi_lpe_audio_driver = {
+ 		.pm = &hdmi_lpe_audio_pm,
+ 	},
+ 	.probe          = hdmi_lpe_audio_probe,
+-	.remove		= hdmi_lpe_audio_remove,
  };
  
+ module_platform_driver(hdmi_lpe_audio_driver);
 -- 
 2.26.2
 

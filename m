@@ -2,74 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D8F63CA8CA
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jul 2021 21:01:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EE0B3CAD55
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jul 2021 21:56:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8DAD3167F;
-	Thu, 15 Jul 2021 21:00:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DAD3167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8FAF1679;
+	Thu, 15 Jul 2021 21:55:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8FAF1679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626375692;
-	bh=8LcN4NYxf3HqS9ZbIvWxfRZMOKyqgT2pvPNqxBCkttw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=c+dykncNy1RF4zbK4RrOfNnFq1JueX4gQO+vYE6ZP6IzAQiuMzp5iAVuZhICGzlAm
-	 R8QM9HFTk2CNWI3qZTt5RGgFxtJgmue2VvCBMtPDRnPhFD2gzThg5apn//oVw7ATBK
-	 CYTTDl7ltj5/Q4v3mLZ03rHsXsAmmS+cM2pBgqvU=
+	s=default; t=1626378983;
+	bh=OzI5qhsw9AWhl+RWxjpuRTSWtsOMOBgBrux4E7l3Z2I=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Yu8UV+zzLgzK4Cw9uMeCIGgGI3Uu0heH4G6wKVZZEuj84312KDUjwAgvTFMfTLapA
+	 E/3LTz8rF7mdo6x8k8u/k3eABUsXmHtqXy8n8chLQDI3JpxlSHPdIm0UcIJmWDMr0B
+	 AdSiBNa7nIjjCT9vKlnm99O39H1u1s4aR8Kl37rg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A9A8F80095;
-	Thu, 15 Jul 2021 21:00:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 503D9F800D3;
+	Thu, 15 Jul 2021 21:54:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A86B7F80217; Thu, 15 Jul 2021 21:00:03 +0200 (CEST)
+ id 85FEDF8020C; Thu, 15 Jul 2021 21:54:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
- [209.85.166.173])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DCAAFF80095
- for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 20:59:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCAAFF80095
-Received: by mail-il1-f173.google.com with SMTP id e13so5957536ilc.1
- for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 11:59:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=RiqGFZQ7xuhJIftSUoyXu5zNuFIfnG6U5i6WL5zRw7c=;
- b=an4gWONa1K+cSGV8/EzD3Pn3GiYA1drlo1thWO93HPXSCb9PAeAzlsiTHQYbPAgqnf
- 0M42tUHk1VwcJkTY/7nrVPKdFePVVIFQmUZYKCfzAXhmGj3ZPNs35wPsK1rz3yYEV/9/
- XP8ojKeLL110w3qKw0jg/b3hGCKFC7jNwaS5/e/hAmaDcASxp6gAlKsWtxJMurobwDIk
- p6/cxpv8fVPY2trDQ4rfVEmM1S+/uhbnD+vnjZDj1B0q+8Sd1VnZzS9LpA2X75iy8W0+
- IcHtjDuTLrV3G8rLljB4ZET2+c9LS2TQ4MPkPrn4NWQRo55GzAnpV0NkmX1Bk1yxoj9T
- 0RFg==
-X-Gm-Message-State: AOAM530LM/5afwZ+r7qS10DTBveduJQhIpXS8l226lcBPQBTRpmZATnf
- AEvAhrqKuy2qdPZn4Ao8XQ==
-X-Google-Smtp-Source: ABdhPJxcoWlh2NzIThIIFpwH8hyJlQ8bztIdSda2U/1fyLTsdcs9FXHEQN+JvTWBmUmuKzvAe/ckbg==
-X-Received: by 2002:a92:db4b:: with SMTP id w11mr3755881ilq.297.1626375594912; 
- Thu, 15 Jul 2021 11:59:54 -0700 (PDT)
-Received: from xps15.herring.priv ([64.188.179.248])
- by smtp.googlemail.com with ESMTPSA id c19sm3347150ili.62.2021.07.15.11.59.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Jul 2021 11:59:54 -0700 (PDT)
-From: Rob Herring <robh@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH] ASoC: dt-bindings: renesas: rsnd: Fix incorrect 'port' regex
- schema
-Date: Thu, 15 Jul 2021 12:59:52 -0600
-Message-Id: <20210715185952.1470138-1-robh@kernel.org>
-X-Mailer: git-send-email 2.27.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 035FCF80095
+ for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 21:54:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 035FCF80095
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="NH+fs8Mu"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 05C9661396;
+ Thu, 15 Jul 2021 19:54:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1626378882;
+ bh=OzI5qhsw9AWhl+RWxjpuRTSWtsOMOBgBrux4E7l3Z2I=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=NH+fs8MuRLsG1XRUSbfDBM8sdao0m6yKhpXexYBnFO8fjVUi5nLJRF8uG1fkRspDo
+ NL4FCx7JB6WOMqxjeH6ZbhaUmCVbjbNgA+lU0Nbf05eYHogat2YAWwLpZmXCxthpGG
+ xmWWdZT46YmgKYG+WJ2SIsMCca2zzLvyLY0dEwVBqknjGStVC4OBGclOvDKBHtSt6B
+ zLAl1k3zTVp9+lHM8GBDG08TwKMHTF1YjtdKj+ZNZ1sqh/pK5N8N8HAzqikaLJJa5X
+ fT0VrVqZVLI+CRLtWguNNm3nPE/2DYcH6f3uXLdzEHsRCyarghyo7KDE/czJSqZJ4j
+ fyiBG2tycEQ1w==
+From: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH] ASoC: dt-bindings: renesas: rsnd: Fix incorrect 'port'
+ regex schema
+Date: Thu, 15 Jul 2021 20:53:58 +0100
+Message-Id: <162637883862.27669.2616702519037982107.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210715185952.1470138-1-robh@kernel.org>
+References: <20210715185952.1470138-1-robh@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -86,33 +81,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-A property regex goes under 'patternProperties', not 'properties'
-schema. Otherwise, the regex is interpretted as a fixed string.
+On Thu, 15 Jul 2021 12:59:52 -0600, Rob Herring wrote:
+> A property regex goes under 'patternProperties', not 'properties'
+> schema. Otherwise, the regex is interpretted as a fixed string.
 
-Fixes: 17c2d247ddd2 ("ASoC: dt-bindings: renesas: rsnd: tidyup properties")
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: alsa-devel@alsa-project.org
-Signed-off-by: Rob Herring <robh@kernel.org>
----
-I can take this as I have a few other things for -rc2.
+Applied to
 
- Documentation/devicetree/bindings/sound/renesas,rsnd.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
 
-diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-index ee936d1aa724..c2930d65728e 100644
---- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-+++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-@@ -114,7 +114,7 @@ properties:
- 
-   ports:
-     $ref: /schemas/graph.yaml#/properties/ports
--    properties:
-+    patternProperties:
-       port(@[0-9a-f]+)?:
-         $ref: audio-graph-port.yaml#
-         unevaluatedProperties: false
--- 
-2.27.0
+Thanks!
 
+[1/1] ASoC: dt-bindings: renesas: rsnd: Fix incorrect 'port' regex schema
+      commit: 9a3223b0713369e6258fd8656e0c0a5ed794d186
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

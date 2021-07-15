@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA5653C9A3F
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jul 2021 10:11:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6D033C9A44
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jul 2021 10:12:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 40173170E;
-	Thu, 15 Jul 2021 10:10:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40173170E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C1891718;
+	Thu, 15 Jul 2021 10:11:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C1891718
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626336691;
-	bh=NcrN6L4WZTUj1jg6eN92u1KO9xlQjaJzRLodgbjRVqY=;
+	s=default; t=1626336741;
+	bh=kkFw+cG+OvXBXoonKwLOysgYvtzZDiCs0oiGkjoNbXQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jG/ip1LMUmBbAXrbjGuQeJVboHwdcPxXtJRRyD4ZlcuI+kABbTY2/5LVPOdopUDh+
-	 ++T+HyWbWh4VumwAEPpgFWh8n7n8bR+hiH1ofa3zODExKM5fzDry1rpF9MxEtMq1xx
-	 /k/icnQdvcZtu7yDQzfY65takkz7Dy3/5879NCiw=
+	b=Y26uO2gL1KUZulp/IQIyHjN9G59gNRyp6I0pBYtJwsNds8PfrSqxu6Wb9BtBu959y
+	 9o4AdzWEjSCxRM1QPc/u6BYTJln0RSl8G5vqOhRl8ydctkaX5gxeHYrrbTQdRk9EoO
+	 DyyuZbPnCqgzI3+eZo5F8qpeRKG4NLLB9tK1eKDg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E50CF80612;
-	Thu, 15 Jul 2021 10:00:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B90A8F80510;
+	Thu, 15 Jul 2021 10:00:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9BABF804F3; Thu, 15 Jul 2021 10:00:39 +0200 (CEST)
+ id D13F2F805FC; Thu, 15 Jul 2021 10:00:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CBAA6F804F3
- for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 10:00:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBAA6F804F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34E46F804FA
+ for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 10:00:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34E46F804FA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="HkwGEo0D"; 
+ header.b="iR94wLR7"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="lNe71KBU"
+ header.b="CSRnuVSf"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id A39AD2284F
- for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 08:00:03 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 0E7EE22852
+ for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 08:00:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1626336003; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1626336004; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=8nus57fjny4yCUjw8vUksNK+8q7u3TAt5nxvdIRA/wE=;
- b=HkwGEo0DNkjfWoI5yqxRFdcG8u2FapvfCwkLVIo7a0DtNyPHavDFRYGYOUCe7hA921y7AD
- Q1qeTPWBMJjYZC2wvuxTyGUWls/0KHY/8V1DW+TUAVIH9k/+LumvmpNt5WkYwKLZdWWJiD
- uGCfMfgbIhNN2HmFO5RonG3tAVajTak=
+ bh=3mr/zNFJMS6D20lvwn61DOLlz7DX+1O7pzWKGYewfM8=;
+ b=iR94wLR7y9hwV933SYZfonu54XE1skNTUKWydbzuksEqalRElygwJRD3CnWYfoyLy53Rcz
+ 08EDTw/5tmleqLkKas+fxiRUB1kwq1gRb4YZdvEthRuBdZKVl1CgkgjiKJYJeuWT924i9y
+ 6zmJj3YzsutcKP574u59KzvwNVVoRLs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1626336003;
+ s=susede2_ed25519; t=1626336004;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=8nus57fjny4yCUjw8vUksNK+8q7u3TAt5nxvdIRA/wE=;
- b=lNe71KBUMDUG0UNloT5rvbF1BLk/BluonD8iFPmrxt2R1GmfF+fi2HyTXMM8St4pqTMi8S
- 2K4fOy7S6WJcy8CQ==
+ bh=3mr/zNFJMS6D20lvwn61DOLlz7DX+1O7pzWKGYewfM8=;
+ b=CSRnuVSfjonociupxAAfqsKU8fvFluSovmokBxReU0aog43DMBRsQeUitgWJyJklBYEHx8
+ f8/H9kG8LiDGglCg==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 914C4A3B8D;
+ by relay2.suse.de (Postfix) with ESMTP id F0D93A3B8D;
  Thu, 15 Jul 2021 08:00:03 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 26/79] ALSA: ali5451: Allocate resources with
- device-managed APIs
-Date: Thu, 15 Jul 2021 09:58:48 +0200
-Message-Id: <20210715075941.23332-27-tiwai@suse.de>
+Subject: [PATCH v2 27/79] ALSA: au88x0: Allocate resources with device-managed
+ APIs
+Date: Thu, 15 Jul 2021 09:58:49 +0200
+Message-Id: <20210715075941.23332-28-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210715075941.23332-1-tiwai@suse.de>
 References: <20210715075941.23332-1-tiwai@suse.de>
@@ -92,7 +92,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch converts the resource management in PCI ali5451 driver with
+This patch converts the resource management in PCI au88x0 driver with
 devres as a clean up.  Each manual resource management is converted
 with the corresponding devres helper, and the card object release is
 managed now via card->private_free instead of a lowlevel snd_device.
@@ -101,221 +101,284 @@ This should give no user-visible functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/ali5451/ali5451.c | 88 +++++++++----------------------------
- 1 file changed, 20 insertions(+), 68 deletions(-)
+ sound/pci/au88x0/au88x0.c | 134 +++++++++-----------------------------
+ 1 file changed, 29 insertions(+), 105 deletions(-)
 
-diff --git a/sound/pci/ali5451/ali5451.c b/sound/pci/ali5451/ali5451.c
-index 0d66b92466d5..ccbf9e2c72d6 100644
---- a/sound/pci/ali5451/ali5451.c
-+++ b/sound/pci/ali5451/ali5451.c
-@@ -1914,22 +1914,14 @@ static SIMPLE_DEV_PM_OPS(ali_pm, ali_suspend, ali_resume);
- #define ALI_PM_OPS	NULL
- #endif /* CONFIG_PM_SLEEP */
+diff --git a/sound/pci/au88x0/au88x0.c b/sound/pci/au88x0/au88x0.c
+index 1f7fee470266..342ef2a6655e 100644
+--- a/sound/pci/au88x0/au88x0.c
++++ b/sound/pci/au88x0/au88x0.c
+@@ -123,56 +123,35 @@ static void snd_vortex_workaround(struct pci_dev *vortex, int fix)
  
--static int snd_ali_free(struct snd_ali * codec)
-+static void snd_ali_free(struct snd_card *card)
+ // component-destructor
+ // (see "Management of Cards and Components")
+-static int snd_vortex_dev_free(struct snd_device *device)
++static void snd_vortex_free(struct snd_card *card)
  {
-+	struct snd_ali *codec = card->private_data;
-+
- 	if (codec->hw_initialized)
- 		snd_ali_disable_address_interrupt(codec);
--	if (codec->irq >= 0)
--		free_irq(codec->irq, codec);
--	if (codec->port)
--		pci_release_regions(codec->pci);
--	pci_disable_device(codec->pci);
--#ifdef CONFIG_PM_SLEEP
--	kfree(codec->image);
--#endif
- 	pci_dev_put(codec->pci_m1533);
- 	pci_dev_put(codec->pci_m7101);
--	kfree(codec);
--	return 0;
- }
+-	vortex_t *vortex = device->device_data;
++	vortex_t *vortex = card->private_data;
  
- static int snd_ali_chip_init(struct snd_ali *codec)
-@@ -2017,8 +2009,9 @@ static int snd_ali_resources(struct snd_ali *codec)
- 		return err;
- 	codec->port = pci_resource_start(codec->pci, 0);
- 
--	if (request_irq(codec->pci->irq, snd_ali_card_interrupt,
--			IRQF_SHARED, KBUILD_MODNAME, codec)) {
-+	if (devm_request_irq(&codec->pci->dev, codec->pci->irq,
-+			     snd_ali_card_interrupt,
-+			     IRQF_SHARED, KBUILD_MODNAME, codec)) {
- 		dev_err(codec->card->dev, "Unable to request irq.\n");
- 		return -EBUSY;
- 	}
-@@ -2027,48 +2020,29 @@ static int snd_ali_resources(struct snd_ali *codec)
- 	dev_dbg(codec->card->dev, "resources allocated.\n");
- 	return 0;
- }
--static int snd_ali_dev_free(struct snd_device *device)
--{
--	struct snd_ali *codec = device->device_data;
--	snd_ali_free(codec);
--	return 0;
--}
- 
- static int snd_ali_create(struct snd_card *card,
- 			  struct pci_dev *pci,
- 			  int pcm_streams,
--			  int spdif_support,
--			  struct snd_ali **r_ali)
-+			  int spdif_support)
- {
- 	struct snd_ali *codec;
- 	int i, err;
- 	unsigned short cmdw;
--	static const struct snd_device_ops ops = {
--		.dev_free = snd_ali_dev_free,
--        };
+ 	vortex_gameport_unregister(vortex);
+ 	vortex_core_shutdown(vortex);
+-	// Take down PCI interface.
+-	free_irq(vortex->irq, vortex);
+-	iounmap(vortex->mmio);
+-	pci_release_regions(vortex->pci_dev);
+-	pci_disable_device(vortex->pci_dev);
+-	kfree(vortex);
 -
--	*r_ali = NULL;
+-	return 0;
+ }
  
- 	dev_dbg(card->dev, "creating ...\n");
+ // chip-specific constructor
+ // (see "Management of Cards and Components")
+ static int
+-snd_vortex_create(struct snd_card *card, struct pci_dev *pci, vortex_t ** rchip)
++snd_vortex_create(struct snd_card *card, struct pci_dev *pci)
+ {
+-	vortex_t *chip;
++	vortex_t *chip = card->private_data;
+ 	int err;
+-	static const struct snd_device_ops ops = {
+-		.dev_free = snd_vortex_dev_free,
+-	};
+-
+-	*rchip = NULL;
  
- 	/* enable PCI device */
+ 	// check PCI availability (DMA).
 -	err = pci_enable_device(pci);
 +	err = pcim_enable_device(pci);
  	if (err < 0)
  		return err;
- 	/* check, if we can restrict PCI DMA transfers to 31 bits */
- 	if (dma_set_mask_and_coherent(&pci->dev, DMA_BIT_MASK(31))) {
- 		dev_err(card->dev,
- 			"architecture does not support 31bit PCI busmaster DMA\n");
+ 	if (dma_set_mask_and_coherent(&pci->dev, DMA_BIT_MASK(32))) {
+ 		dev_err(card->dev, "error to set DMA mask\n");
 -		pci_disable_device(pci);
  		return -ENXIO;
  	}
  
--	codec = kzalloc(sizeof(*codec), GFP_KERNEL);
--	if (!codec) {
+-	chip = kzalloc(sizeof(*chip), GFP_KERNEL);
+-	if (chip == NULL) {
 -		pci_disable_device(pci);
 -		return -ENOMEM;
 -	}
 -
- 	spin_lock_init(&codec->reg_lock);
- 	spin_lock_init(&codec->voice_alloc);
+ 	chip->card = card;
  
-@@ -2089,12 +2063,10 @@ static int snd_ali_create(struct snd_card *card,
- 		cmdw |= PCI_COMMAND_IO;
- 		pci_write_config_word(pci, PCI_COMMAND, cmdw);
- 	}
--	pci_set_master(pci);
- 	
--	if (snd_ali_resources(codec)) {
--		snd_ali_free(codec);
-+	if (snd_ali_resources(codec))
- 		return -EBUSY;
+ 	// initialize the stuff
+ 	chip->pci_dev = pci;
+-	chip->io = pci_resource_start(pci, 0);
+ 	chip->vendor = pci->vendor;
+ 	chip->device = pci->device;
+ 	chip->card = card;
+@@ -181,16 +160,12 @@ snd_vortex_create(struct snd_card *card, struct pci_dev *pci, vortex_t ** rchip)
+ 	// (1) PCI resource allocation
+ 	// Get MMIO area
+ 	//
+-	err = pci_request_regions(pci, CARD_NAME_SHORT);
++	err = pcim_iomap_regions(pci, 1 << 0, CARD_NAME_SHORT);
+ 	if (err)
+-		goto regions_out;
++		return err;
+ 
+-	chip->mmio = pci_ioremap_bar(pci, 0);
+-	if (!chip->mmio) {
+-		dev_err(card->dev, "MMIO area remap failed.\n");
+-		err = -ENOMEM;
+-		goto ioremap_out;
 -	}
-+	card->private_free = snd_ali_free;
++	chip->io = pci_resource_start(pci, 0);
++	chip->mmio = pcim_iomap_table(pci)[0];
  
- 	codec->synth.chmap = 0;
- 	codec->synth.chcnt = 0;
-@@ -2121,24 +2093,15 @@ static int snd_ali_create(struct snd_card *card,
- 	codec->pci_m1533 = pci_get_device(0x10b9, 0x1533, NULL);
- 	if (!codec->pci_m1533) {
- 		dev_err(card->dev, "cannot find ALi 1533 chip.\n");
--		snd_ali_free(codec);
- 		return -ENODEV;
- 	}
- 	/* M7101: power management */
- 	codec->pci_m7101 = pci_get_device(0x10b9, 0x7101, NULL);
- 	if (!codec->pci_m7101 && codec->revision == ALI_5451_V02) {
- 		dev_err(card->dev, "cannot find ALi 7101 chip.\n");
--		snd_ali_free(codec);
- 		return -ENODEV;
+ 	/* Init audio core.
+ 	 * This must be done before we do request_irq otherwise we can get spurious
+@@ -198,44 +173,22 @@ snd_vortex_create(struct snd_card *card, struct pci_dev *pci, vortex_t ** rchip)
+ 	err = vortex_core_init(chip);
+ 	if (err) {
+ 		dev_err(card->dev, "hw core init failed\n");
+-		goto core_out;
++		return err;
  	}
  
--	dev_dbg(card->dev, "snd_device_new is called.\n");
--	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, codec, &ops);
--	if (err < 0) {
--		snd_ali_free(codec);
--		return err;
--	}
+-	err = request_irq(pci->irq, vortex_interrupt,
+-			  IRQF_SHARED, KBUILD_MODNAME, chip);
++	err = devm_request_irq(&pci->dev, pci->irq, vortex_interrupt,
++			       IRQF_SHARED, KBUILD_MODNAME, chip);
+ 	if (err) {
+ 		dev_err(card->dev, "cannot grab irq\n");
+-		goto irq_out;
++		return err;
+ 	}
+ 	chip->irq = pci->irq;
+ 	card->sync_irq = chip->irq;
++	card->private_free = snd_vortex_free;
+ 
+ 	pci_set_master(pci);
+ 	// End of PCI setup.
 -
- 	/* initialise synth voices*/
- 	for (i = 0; i < ALI_CHANNELS; i++)
- 		codec->synth.voices[i].number = i;
-@@ -2150,16 +2113,14 @@ static int snd_ali_create(struct snd_card *card,
- 	}
- 
- #ifdef CONFIG_PM_SLEEP
--	codec->image = kmalloc(sizeof(*codec->image), GFP_KERNEL);
-+	codec->image = devm_kmalloc(&pci->dev, sizeof(*codec->image),
-+				    GFP_KERNEL);
- 	if (!codec->image)
- 		dev_warn(card->dev, "can't allocate apm buffer\n");
- #endif
- 
- 	snd_ali_enable_address_interrupt(codec);
- 	codec->hw_initialized = 1;
+-	// Register alsa root device.
+-	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, chip, &ops);
+-	if (err < 0)
+-		goto alloc_out;
 -
--	*r_ali = codec;
--	dev_dbg(card->dev, "created.\n");
+-	*rchip = chip;
+-
  	return 0;
+-
+-      alloc_out:
+-	free_irq(chip->irq, chip);
+-      irq_out:
+-	vortex_core_shutdown(chip);
+-      core_out:
+-	iounmap(chip->mmio);
+-      ioremap_out:
+-	pci_release_regions(chip->pci_dev);
+-      regions_out:
+-	pci_disable_device(chip->pci_dev);
+-	//FIXME: this not the right place to unregister the gameport
+-	vortex_gameport_unregister(chip);
+-	kfree(chip);
+-	return err;
  }
  
-@@ -2172,24 +2133,25 @@ static int snd_ali_probe(struct pci_dev *pci,
- 
- 	dev_dbg(&pci->dev, "probe ...\n");
- 
--	err = snd_card_new(&pci->dev, index, id, THIS_MODULE, 0, &card);
-+	err = snd_devm_card_new(&pci->dev, index, id, THIS_MODULE,
-+				sizeof(*codec), &card);
+ // constructor -- see "Constructor" sub-section
+@@ -255,17 +208,16 @@ snd_vortex_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
+ 		return -ENOENT;
+ 	}
+ 	// (2)
+-	err = snd_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
+-			   0, &card);
++	err = snd_devm_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
++				sizeof(*chip), &card);
  	if (err < 0)
  		return err;
-+	codec = card->private_data;
++	chip = card->private_data;
  
--	err = snd_ali_create(card, pci, pcm_channels, spdif, &codec);
-+	err = snd_ali_create(card, pci, pcm_channels, spdif);
- 	if (err < 0)
--		goto error;
--	card->private_data = codec;
-+		return err;
+ 	// (3)
+-	err = snd_vortex_create(card, pci, &chip);
+-	if (err < 0) {
+-		snd_card_free(card);
++	err = snd_vortex_create(card, pci);
++	if (err < 0)
+ 		return err;
+-	}
+ 	snd_vortex_workaround(pci, pcifix[dev]);
  
- 	dev_dbg(&pci->dev, "mixer building ...\n");
- 	err = snd_ali_mixer(codec);
- 	if (err < 0)
--		goto error;
-+		return err;
- 	
- 	dev_dbg(&pci->dev, "pcm building ...\n");
- 	err = snd_ali_build_pcms(codec);
- 	if (err < 0)
--		goto error;
-+		return err;
+ 	// Card details needed in snd_vortex_midi
+@@ -276,50 +228,37 @@ snd_vortex_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
  
- 	snd_ali_proc_init(codec);
+ 	// (4) Alloc components.
+ 	err = snd_vortex_mixer(chip);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}
+ 	// ADB pcm.
+ 	err = snd_vortex_new_pcm(chip, VORTEX_PCM_ADB, NR_PCM);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}
+ #ifndef CHIP_AU8820
+ 	// ADB SPDIF
+ 	err = snd_vortex_new_pcm(chip, VORTEX_PCM_SPDIF, 1);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}
+ 	// A3D
+ 	err = snd_vortex_new_pcm(chip, VORTEX_PCM_A3D, NR_A3D);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}
+ #endif
+ 	/*
+ 	   // ADB I2S
+ 	   if ((err = snd_vortex_new_pcm(chip, VORTEX_PCM_I2S, 1)) < 0) {
+-	   snd_card_free(card);
+ 	   return err;
+ 	   }
+ 	 */
+ #ifndef CHIP_AU8810
+ 	// WT pcm.
+ 	err = snd_vortex_new_pcm(chip, VORTEX_PCM_WT, NR_WT);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}
+ #endif
+ 	err = snd_vortex_midi(chip);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}
  
-@@ -2202,26 +2164,16 @@ static int snd_ali_probe(struct pci_dev *pci,
- 	dev_dbg(&pci->dev, "register card.\n");
+ 	vortex_gameport_register(chip);
+ 
+@@ -342,15 +281,11 @@ snd_vortex_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
+ 
+ 	// (5)
+ 	err = pci_read_config_word(pci, PCI_DEVICE_ID, &chip->device);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}	
+ 	err = pci_read_config_word(pci, PCI_VENDOR_ID, &chip->vendor);
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}
+ 	chip->rev = pci->revision;
+ #ifdef CHIP_AU8830
+ 	if ((chip->rev) != 0xfe && (chip->rev) != 0xfa) {
+@@ -359,18 +294,14 @@ snd_vortex_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
+ 		       chip->rev);
+ 		dev_alert(card->dev,
+ 			  "Please email the results of 'lspci -vv' to openvortex-dev@nongnu.org.\n");
+-		snd_card_free(card);
+-		err = -ENODEV;
+-		return err;
++		return -ENODEV;
+ 	}
+ #endif
+ 
+ 	// (6)
  	err = snd_card_register(card);
- 	if (err < 0)
--		goto error;
-+		return err;
- 
+-	if (err < 0) {
+-		snd_card_free(card);
++	if (err < 0)
+ 		return err;
+-	}
+ 	// (7)
  	pci_set_drvdata(pci, card);
+ 	dev++;
+@@ -379,18 +310,11 @@ snd_vortex_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
  	return 0;
--
-- error:
--	snd_card_free(card);
--	return err;
--}
--
--static void snd_ali_remove(struct pci_dev *pci)
--{
--	snd_card_free(pci_get_drvdata(pci));
  }
  
- static struct pci_driver ali5451_driver = {
+-// destructor -- see "Destructor" sub-section
+-static void snd_vortex_remove(struct pci_dev *pci)
+-{
+-	snd_card_free(pci_get_drvdata(pci));
+-}
+-
+ // pci_driver definition
+ static struct pci_driver vortex_driver = {
  	.name = KBUILD_MODNAME,
- 	.id_table = snd_ali_ids,
- 	.probe = snd_ali_probe,
--	.remove = snd_ali_remove,
- 	.driver = {
- 		.pm = ALI_PM_OPS,
- 	},
+ 	.id_table = snd_vortex_ids,
+ 	.probe = snd_vortex_probe,
+-	.remove = snd_vortex_remove,
+ };
+ 
+ module_pci_driver(vortex_driver);
 -- 
 2.26.2
 

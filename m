@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E4A83C9A18
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jul 2021 10:04:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 007213C9A1C
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jul 2021 10:05:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B626816B6;
-	Thu, 15 Jul 2021 10:03:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B626816B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70A071694;
+	Thu, 15 Jul 2021 10:04:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70A071694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626336248;
-	bh=Sgyr/28/hWi3iqXKf4RMHJdDGR7248SaE8ju4gupa08=;
+	s=default; t=1626336345;
+	bh=iL+5QYWcqFJ/rqVbv6HLHKqK9CLp3bE/Iik22OwQ83w=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cjVwnNWRCMdJ7EaIx1cpd9fCCvgHg6mioW0zbIfDEQhju1giocZk4xv4iC88GYZxz
-	 yqVoypQk5OOKXywwzkkSYhC2K24LZChEycdnirhi7loqnMXP2rZB9EKkuhCn5jbZDG
-	 wumGYZbaqYd7oaBL4SGLGrrCgrHP/WJpBbSvLcyk=
+	b=mqb2kV23RnbJhIaxnrJwvCA2i79iT4mf401G4awJ5mvoel4cAo1A+7v2ltUB/gAyf
+	 l1srwhb/znDhFc1pjl5ytDSAOxaguvQgX1QSW5jhtcZhAjSnBvsmOZeesXFQwRrHye
+	 wck9NdGJSlC/C7iNwVm1uimeuz1gr47PsMXFavGk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D50FDF8055B;
-	Thu, 15 Jul 2021 10:00:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC332F805B2;
+	Thu, 15 Jul 2021 10:00:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4A434F80527; Thu, 15 Jul 2021 10:00:11 +0200 (CEST)
+ id 295B1F80552; Thu, 15 Jul 2021 10:00:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 393C8F804A9
- for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 09:59:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 393C8F804A9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 044D5F804E0
+ for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 09:59:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 044D5F804E0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Kz3xAUIR"; 
+ header.b="npuBCsse"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="lXF94iUM"
+ header.b="BK8nBEHS"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 9517D1FDF2
- for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 07:59:55 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 1D2501FDF3
+ for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 07:59:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1626335995; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1626335996; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=i31mm3UNYG7ksKe/S6D/uXkcvMfW/Lx8iyy2EJ3/ez8=;
- b=Kz3xAUIRruBIs8U1ZoJmmRz3l6BNtDh0ZahtDeBjRW/L9y4h8+Mf8XSwrNNGVNIr4Kfy0k
- CJa1khNKdl3cjVfuY7RkJUPKvTxW8R1HUCoFyyKSvj9WPgMhTzGEFr1thQ7PChDk6W3gRI
- nrn4WS6Dp+3Wgboe78TDILsWSjV65cM=
+ bh=nl60tUDaTiqUjJ7wQbcQb591DUGCv849os2WeQHxgc8=;
+ b=npuBCsse0ffYIK2sizBbuqyrGlNEjaFU2H43lJ4MyUiYRpKFTnUaulkL1b0FT2M9hJqR38
+ SBUWV34Bz+kIoufc0n88tK4U9yKlRp1dXVyTAU1rkLF3ySveI7P4d2u8dpS/WRa/yHlO3q
+ Ux+3IlSEmen39d/1Fp1ElD8UckR62XI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1626335995;
+ s=susede2_ed25519; t=1626335996;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=i31mm3UNYG7ksKe/S6D/uXkcvMfW/Lx8iyy2EJ3/ez8=;
- b=lXF94iUMm3zjueRJcsLadDT/9fG7cbekMxCgV/1Ffeon2i/hRLrhmqMxsVlDlJ1L+9/73u
- +i4+1cjVpuFHOHCw==
+ bh=nl60tUDaTiqUjJ7wQbcQb591DUGCv849os2WeQHxgc8=;
+ b=BK8nBEHSjoaZE8DQzBi8BpkkwLNN5AKhb5E/E1kefV37UwDglzuBxZwU96nLeJWzba5dB0
+ nHsd4x5YMQxpyoDw==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 81A11A3B99;
- Thu, 15 Jul 2021 07:59:55 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTP id 165F4A3B99;
+ Thu, 15 Jul 2021 07:59:56 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 09/79] ALSA: als300: Allocate resources with device-managed
- APIs
-Date: Thu, 15 Jul 2021 09:58:31 +0200
-Message-Id: <20210715075941.23332-10-tiwai@suse.de>
+Subject: [PATCH v2 10/79] ALSA: als4000: Allocate resources with
+ device-managed APIs
+Date: Thu, 15 Jul 2021 09:58:32 +0200
+Message-Id: <20210715075941.23332-11-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210715075941.23332-1-tiwai@suse.de>
 References: <20210715075941.23332-1-tiwai@suse.de>
@@ -92,7 +92,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch converts the resource management in PCI als300 driver with
+This patch converts the resource management in PCI als4000 driver with
 devres as a clean up.  Each manual resource management is converted
 with the corresponding devres helper, and the card object release is
 managed now via card->private_free instead of a lowlevel snd_device.
@@ -101,190 +101,188 @@ This should give no user-visible functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/als300.c | 79 ++++++++++------------------------------------
- 1 file changed, 17 insertions(+), 62 deletions(-)
+ sound/pci/als4000.c | 59 +++++++++++++--------------------------------
+ 1 file changed, 17 insertions(+), 42 deletions(-)
 
-diff --git a/sound/pci/als300.c b/sound/pci/als300.c
-index 668008fc21f7..9c94072572a5 100644
---- a/sound/pci/als300.c
-+++ b/sound/pci/als300.c
-@@ -163,21 +163,11 @@ static void snd_als300_set_irq_flag(struct snd_als300 *chip, int cmd)
- 	snd_als300_gcr_write(chip->port, MISC_CONTROL, tmp);
- }
+diff --git a/sound/pci/als4000.c b/sound/pci/als4000.c
+index 509f317ee682..535eccd124be 100644
+--- a/sound/pci/als4000.c
++++ b/sound/pci/als4000.c
+@@ -746,13 +746,15 @@ static int snd_als4000_create_gameport(struct snd_card_als4000 *acard, int dev)
  
--static int snd_als300_free(struct snd_als300 *chip)
-+static void snd_als300_free(struct snd_card *card)
+ 	if (joystick_port[dev] == 1) { /* auto-detect */
+ 		for (io_port = 0x200; io_port <= 0x218; io_port += 8) {
+-			r = request_region(io_port, 8, "ALS4000 gameport");
++			r = devm_request_region(&acard->pci->dev, io_port, 8,
++						"ALS4000 gameport");
+ 			if (r)
+ 				break;
+ 		}
+ 	} else {
+ 		io_port = joystick_port[dev];
+-		r = request_region(io_port, 8, "ALS4000 gameport");
++		r = devm_request_region(&acard->pci->dev, io_port, 8,
++					"ALS4000 gameport");
+ 	}
+ 
+ 	if (!r) {
+@@ -763,7 +765,6 @@ static int snd_als4000_create_gameport(struct snd_card_als4000 *acard, int dev)
+ 	acard->gameport = gp = gameport_allocate_port();
+ 	if (!gp) {
+ 		dev_err(&acard->pci->dev, "cannot allocate memory for gameport\n");
+-		release_and_free_resource(r);
+ 		return -ENOMEM;
+ 	}
+ 
+@@ -771,7 +772,6 @@ static int snd_als4000_create_gameport(struct snd_card_als4000 *acard, int dev)
+ 	gameport_set_phys(gp, "pci%s/gameport0", pci_name(acard->pci));
+ 	gameport_set_dev_parent(gp, &acard->pci->dev);
+ 	gp->io = io_port;
+-	gameport_set_port_data(gp, r);
+ 
+ 	/* Enable legacy joystick port */
+ 	snd_als4000_set_addr(acard->iobase, 0, 0, 0, 1);
+@@ -784,15 +784,11 @@ static int snd_als4000_create_gameport(struct snd_card_als4000 *acard, int dev)
+ static void snd_als4000_free_gameport(struct snd_card_als4000 *acard)
  {
--	snd_als300_set_irq_flag(chip, IRQ_DISABLE);
--	if (chip->irq >= 0)
--		free_irq(chip->irq, chip);
--	pci_release_regions(chip->pci);
--	pci_disable_device(chip->pci);
--	kfree(chip);
--	return 0;
--}
-+	struct snd_als300 *chip = card->private_data;
- 
--static int snd_als300_dev_free(struct snd_device *device)
--{
--	struct snd_als300 *chip = device->device_data;
--	return snd_als300_free(chip);
-+	snd_als300_set_irq_flag(chip, IRQ_DISABLE);
- }
- 
- static irqreturn_t snd_als300_interrupt(int irq, void *dev_id)
-@@ -248,11 +238,6 @@ static irqreturn_t snd_als300plus_interrupt(int irq, void *dev_id)
- 	return IRQ_HANDLED;
- }
- 
--static void snd_als300_remove(struct pci_dev *pci)
--{
--	snd_card_free(pci_get_drvdata(pci));
--}
+ 	if (acard->gameport) {
+-		struct resource *r = gameport_get_port_data(acard->gameport);
 -
- static unsigned short snd_als300_ac97_read(struct snd_ac97 *ac97,
- 							unsigned short reg)
- {
-@@ -610,35 +595,22 @@ static void snd_als300_init(struct snd_als300 *chip)
+ 		gameport_unregister_port(acard->gameport);
+ 		acard->gameport = NULL;
+ 
+ 		/* disable joystick */
+ 		snd_als4000_set_addr(acard->iobase, 0, 0, 0, 0);
+-
+-		release_and_free_resource(r);
+ 	}
+ }
+ #else
+@@ -808,8 +804,6 @@ static void snd_card_als4000_free( struct snd_card *card )
+ 	snd_als4k_gcr_write_addr(acard->iobase, ALS4K_GCR8C_MISC_CTRL, 0);
+ 	/* free resources */
+ 	snd_als4000_free_gameport(acard);
+-	pci_release_regions(acard->pci);
+-	pci_disable_device(acard->pci);
  }
  
- static int snd_als300_create(struct snd_card *card,
--			     struct pci_dev *pci, int chip_type,
--			     struct snd_als300 **rchip)
-+			     struct pci_dev *pci, int chip_type)
- {
--	struct snd_als300 *chip;
-+	struct snd_als300 *chip = card->private_data;
- 	void *irq_handler;
- 	int err;
+ static int snd_card_als4000_probe(struct pci_dev *pci,
+@@ -832,36 +826,30 @@ static int snd_card_als4000_probe(struct pci_dev *pci,
+ 	}
  
--	static const struct snd_device_ops ops = {
--		.dev_free = snd_als300_dev_free,
--	};
--	*rchip = NULL;
--
+ 	/* enable PCI device */
 -	err = pci_enable_device(pci);
 +	err = pcim_enable_device(pci);
  	if (err < 0)
  		return err;
  
- 	if (dma_set_mask_and_coherent(&pci->dev, DMA_BIT_MASK(28))) {
- 		dev_err(card->dev, "error setting 28bit DMA mask\n");
+ 	/* check, if we can restrict PCI DMA transfers to 24 bits */
+ 	if (dma_set_mask_and_coherent(&pci->dev, DMA_BIT_MASK(24))) {
+ 		dev_err(&pci->dev, "architecture does not support 24bit PCI busmaster DMA\n");
 -		pci_disable_device(pci);
  		return -ENXIO;
  	}
+ 
+ 	err = pci_request_regions(pci, "ALS4000");
+-	if (err < 0) {
+-		pci_disable_device(pci);
++	if (err < 0)
+ 		return err;
+-	}
+ 	iobase = pci_resource_start(pci, 0);
+ 
+ 	pci_read_config_word(pci, PCI_COMMAND, &word);
+ 	pci_write_config_word(pci, PCI_COMMAND, word | PCI_COMMAND_IO);
  	pci_set_master(pci);
- 
--	chip = kzalloc(sizeof(*chip), GFP_KERNEL);
--	if (chip == NULL) {
--		pci_disable_device(pci);
--		return -ENOMEM;
--	}
--
- 	chip->card = card;
- 	chip->pci = pci;
- 	chip->irq = -1;
-@@ -646,11 +618,9 @@ static int snd_als300_create(struct snd_card *card,
- 	spin_lock_init(&chip->reg_lock);
- 
- 	err = pci_request_regions(pci, "ALS300");
--	if (err < 0) {
--		kfree(chip);
--		pci_disable_device(pci);
-+	if (err < 0)
- 		return err;
--	}
-+
- 	chip->port = pci_resource_start(pci, 0);
- 
- 	if (chip->chip_type == DEVICE_ALS300_PLUS)
-@@ -658,38 +628,29 @@ static int snd_als300_create(struct snd_card *card,
- 	else
- 		irq_handler = snd_als300_interrupt;
- 
--	if (request_irq(pci->irq, irq_handler, IRQF_SHARED,
--			KBUILD_MODNAME, chip)) {
-+	if (devm_request_irq(&pci->dev, pci->irq, irq_handler, IRQF_SHARED,
-+			     KBUILD_MODNAME, chip)) {
- 		dev_err(card->dev, "unable to grab IRQ %d\n", pci->irq);
--		snd_als300_free(chip);
- 		return -EBUSY;
- 	}
- 	chip->irq = pci->irq;
- 	card->sync_irq = chip->irq;
-+	card->private_free = snd_als300_free;
- 
- 	snd_als300_init(chip);
- 
- 	err = snd_als300_ac97(chip);
- 	if (err < 0) {
- 		dev_err(card->dev, "Could not create ac97\n");
--		snd_als300_free(chip);
- 		return err;
- 	}
- 
- 	err = snd_als300_new_pcm(chip);
- 	if (err < 0) {
- 		dev_err(card->dev, "Could not create PCM\n");
--		snd_als300_free(chip);
--		return err;
--	}
--
--	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, chip, &ops);
--	if (err < 0) {
--		snd_als300_free(chip);
- 		return err;
- 	}
- 
--	*rchip = chip;
- 	return 0;
- }
- 
-@@ -737,20 +698,16 @@ static int snd_als300_probe(struct pci_dev *pci,
- 		return -ENOENT;
- 	}
- 
+ 	
 -	err = snd_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
--			   0, &card);
--
-+	err = snd_devm_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
-+				sizeof(*chip), &card);
- 	if (err < 0)
- 		return err;
- 
- 	chip_type = pci_id->driver_data;
- 
--	err = snd_als300_create(card, pci, chip_type, &chip);
+-			   sizeof(*acard) /* private_data: acard */,
+-			   &card);
 -	if (err < 0) {
--		snd_card_free(card);
-+	err = snd_als300_create(card, pci, chip_type);
+-		pci_release_regions(pci);
+-		pci_disable_device(pci);
++	err = snd_devm_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
++				sizeof(*acard) /* private_data: acard */,
++				&card);
 +	if (err < 0)
  		return err;
 -	}
--	card->private_data = chip;
  
- 	strcpy(card->driver, "ALS300");
- 	if (chip->chip_type == DEVICE_ALS300_PLUS)
-@@ -764,10 +721,9 @@ static int snd_als300_probe(struct pci_dev *pci,
- 				card->shortname, chip->port, chip->irq);
+ 	acard = card->private_data;
+ 	acard->pci = pci;
+@@ -881,7 +869,7 @@ static int snd_card_als4000_probe(struct pci_dev *pci,
+ 			       SB_HW_ALS4000,
+ 			       &chip);
+ 	if (err < 0)
+-		goto out_err;
++		return err;
+ 	acard->chip = chip;
+ 
+ 	chip->pci = pci;
+@@ -902,7 +890,7 @@ static int snd_card_als4000_probe(struct pci_dev *pci,
+ 	if (err < 0) {
+ 		dev_err(&pci->dev, "no MPU-401 device at 0x%lx?\n",
+ 				iobase + ALS4K_IOB_30_MIDI_DATA);
+-		goto out_err;
++		return err;
+ 	}
+ 	/* FIXME: ALS4000 has interesting MPU401 configuration features
+ 	 * at ALS4K_CR1A_MPU401_UART_MODE_CONTROL
+@@ -912,11 +900,11 @@ static int snd_card_als4000_probe(struct pci_dev *pci,
+ 
+ 	err = snd_als4000_pcm(chip, 0);
+ 	if (err < 0)
+-		goto out_err;
++		return err;
+ 
+ 	err = snd_sbmixer_new(chip);
+ 	if (err < 0)
+-		goto out_err;
++		return err;
+ 
+ 	if (snd_opl3_create(card,
+ 				iobase + ALS4K_IOB_10_ADLIB_ADDR0,
+@@ -928,30 +916,18 @@ static int snd_card_als4000_probe(struct pci_dev *pci,
+ 	} else {
+ 		err = snd_opl3_hwdep_new(opl3, 0, 1, NULL);
+ 		if (err < 0)
+-			goto out_err;
++			return err;
+ 	}
+ 
+ 	snd_als4000_create_gameport(acard, dev);
  
  	err = snd_card_register(card);
--	if (err < 0) {
--		snd_card_free(card);
-+	if (err < 0)
- 		return err;
--	}
-+
+ 	if (err < 0)
+-		goto out_err;
++		return err;
+ 
  	pci_set_drvdata(pci, card);
  	dev++;
- 	return 0;
-@@ -777,7 +733,6 @@ static struct pci_driver als300_driver = {
+-	err = 0;
+-	goto out;
+-
+-out_err:
+-	snd_card_free(card);
+-	
+-out:
+-	return err;
+-}
+-
+-static void snd_card_als4000_remove(struct pci_dev *pci)
+-{
+-	snd_card_free(pci_get_drvdata(pci));
++	return 0;
+ }
+ 
+ #ifdef CONFIG_PM_SLEEP
+@@ -996,7 +972,6 @@ static struct pci_driver als4000_driver = {
  	.name = KBUILD_MODNAME,
- 	.id_table = snd_als300_ids,
- 	.probe = snd_als300_probe,
--	.remove = snd_als300_remove,
+ 	.id_table = snd_als4000_ids,
+ 	.probe = snd_card_als4000_probe,
+-	.remove = snd_card_als4000_remove,
  	.driver = {
- 		.pm = SND_ALS300_PM_OPS,
+ 		.pm = SND_ALS4000_PM_OPS,
  	},
 -- 
 2.26.2

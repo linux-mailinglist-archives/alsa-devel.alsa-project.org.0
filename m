@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93A853C9A0D
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jul 2021 10:02:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0953C3C9A19
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jul 2021 10:04:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 184DC1679;
-	Thu, 15 Jul 2021 10:01:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 184DC1679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 863F616A2;
+	Thu, 15 Jul 2021 10:03:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 863F616A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626336144;
-	bh=pPJ3QSnirnoKQ8jb7PixSL1owvBhNMgxbBRIhdPw/jE=;
+	s=default; t=1626336280;
+	bh=rXd3rGaZ0EkgeHDojGaFPpZiTaj1DBoxC6XqwIBWSCo=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pRcTl4coJm+4YVMGIiHsUXjA0eBLOlB+uro+UBcjf6vav5fR7PXxjURfZWe9KIRun
-	 zboNfEN4ivih25RASS0Ds3XDFDjgzqYLNQie4W1qHlERItiFwa58TVlOPtDtMHR7jc
-	 a9/VmrR+N4xT7E1E/tcZ5tulvSKcI/90NY/dHPvI=
+	b=jveJzdoF93gutoCZn46n4LIK+esO0m7u1tAsGBdr+HHuBfnhCy49FAfNXVYUFKuSm
+	 2ExS9Oc0tQjvbshdpb0LyIjGfW9sfqs8tooP0cK+ks6V98jRi6qMGmzTqR/2/lGAFX
+	 gp98F7mtdywD1MHsWTZrdTs00tMkw9KRQn1gBEMA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8AC19F80240;
-	Thu, 15 Jul 2021 10:00:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC31CF8057D;
+	Thu, 15 Jul 2021 10:00:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 08F74F80515; Thu, 15 Jul 2021 10:00:08 +0200 (CEST)
+ id 7DF04F80544; Thu, 15 Jul 2021 10:00:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,47 +34,48 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2A70EF80430
+ by alsa1.perex.cz (Postfix) with ESMTPS id CA574F804DA
  for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 09:59:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A70EF80430
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA574F804DA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="WAO5Y2E+"; 
+ header.b="HckqRdQ6"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="+Myqk21k"
+ header.b="VzJte51Y"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id EE8521FDEA
- for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 07:59:51 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 981531FDEB
+ for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 07:59:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1626335991; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
+ t=1626335992; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=JK4bm4W8Ju9sf7P7p+C4ZrlV4vlyx6xPwwho/sgk99s=;
- b=WAO5Y2E+sFaYRh1Pzy5CnGRHQ0pxNFNHdjDpBP5Gu88kwxe5qZgzI3hAJjX/chYed+1rCf
- UDPO+hSwRO23Na6df57/6HCBb3SX66MmcMtbG2s5tfmDatG4z1Y14h726T3kk9004t6af/
- OYk9OUqr/K2pKyP/WVYXg0TKTco2PbQ=
+ bh=p+80vNdV6jE9Ou8O5FXAHfr7DOF9xGqto4WGILLz14c=;
+ b=HckqRdQ6SGh9JzUdfNrkvTAQIQpQ8AtVZ8hhlYczC8/S1FTrWpscB1Cd4ENS1ATSTyvhnu
+ 0pgkie22c1dI8Ve0p5VMexSKbTQQZxqkbQlEsdZ+ULSCS5jG8rFQUh0yB1sEL7kSiF+R8P
+ jMnsFW1L+9OZ0UyCp555sF75wGcO530=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1626335991;
+ s=susede2_ed25519; t=1626335992;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=JK4bm4W8Ju9sf7P7p+C4ZrlV4vlyx6xPwwho/sgk99s=;
- b=+Myqk21knWFjOAKn7h1w+L1AwX0CLkPnAK1cLBRv0FUeqUQYbQhY9Wbs4khM65Td7TDe96
- ad2NSfXRAlbhOWAA==
+ bh=p+80vNdV6jE9Ou8O5FXAHfr7DOF9xGqto4WGILLz14c=;
+ b=VzJte51YWp6KnPn/utzTLyfXukQZ3h+HcGFW01eGjE3snTFnX5WqVpPSl3q51Idn+q6/S/
+ +R571eUdXWWaqiDA==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id DD717A3B8D;
- Thu, 15 Jul 2021 07:59:51 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTP id 85BF4A3B8F;
+ Thu, 15 Jul 2021 07:59:52 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 03/79] ALSA: core: Add device-managed request_dma()
-Date: Thu, 15 Jul 2021 09:58:25 +0200
-Message-Id: <20210715075941.23332-4-tiwai@suse.de>
+Subject: [PATCH v2 04/79] ALSA: doc: Add device-managed resource section
+Date: Thu, 15 Jul 2021 09:58:26 +0200
+Message-Id: <20210715075941.23332-5-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210715075941.23332-1-tiwai@suse.de>
 References: <20210715075941.23332-1-tiwai@suse.de>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -91,74 +92,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch adds a devres-supported helper for requesting an ISA DMA
-channel that will be automatically freed at the device unbinding.
-It'll be used by quite a few ISA sound drivers.
+Give brief explanations about the device-managed resources and the
+newly introduced snd_devm_card_new() helper.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- include/sound/core.h |  1 +
- sound/core/isadma.c  | 38 ++++++++++++++++++++++++++++++++++++++
- 2 files changed, 39 insertions(+)
+ .../kernel-api/writing-an-alsa-driver.rst     | 33 +++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/include/sound/core.h b/include/sound/core.h
-index 7885f903cd5a..b7e9b58d3c78 100644
---- a/include/sound/core.h
-+++ b/include/sound/core.h
-@@ -329,6 +329,7 @@ int snd_device_get_state(struct snd_card *card, void *device_data);
- void snd_dma_program(unsigned long dma, unsigned long addr, unsigned int size, unsigned short mode);
- void snd_dma_disable(unsigned long dma);
- unsigned int snd_dma_pointer(unsigned long dma, unsigned int size);
-+int snd_devm_request_dma(struct device *dev, int dma, const char *name);
- #endif
+diff --git a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
+index 01d59b8aea92..255b7d3bebd6 100644
+--- a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
++++ b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
+@@ -4172,6 +4172,39 @@ module license as GPL, etc., otherwise the system is shown as “tainted”.
+   MODULE_LICENSE("GPL");
  
- /* misc.c */
-diff --git a/sound/core/isadma.c b/sound/core/isadma.c
-index c3d789ef6975..1f45ede023b4 100644
---- a/sound/core/isadma.c
-+++ b/sound/core/isadma.c
-@@ -97,3 +97,41 @@ unsigned int snd_dma_pointer(unsigned long dma, unsigned int size)
- 		return size - result;
- }
- EXPORT_SYMBOL(snd_dma_pointer);
+ 
++Device-Managed Resources
++========================
 +
-+struct snd_dma_data {
-+	int dma;
-+};
++In the examples above, all resources are allocated and released
++manually.  But human beings are lazy in nature, especially developers
++are lazier.  So there are some ways to automate the release part; it's
++the (device-)managed resources aka devres or devm family.  For
++example, an object allocated via :c:func:`devm_kmalloc()` will be
++freed automatically at unbinding the device.
 +
-+static void __snd_release_dma(struct device *dev, void *data)
-+{
-+	struct snd_dma_data *p = data;
++ALSA core provides also the device-managed helper, namely,
++:c:func:`snd_devm_card_new()` for creating a card object.
++Call this functions instead of the normal :c:func:`snd_card_new()`,
++and you can forget the explicit :c:func:`snd_card_free()` call, as
++it's called automagically at error and removal paths.
 +
-+	snd_dma_disable(p->dma);
-+	free_dma(p->dma);
-+}
++One caveat is that the call of :c:func:`snd_card_free()` would be put
++at the beginning of the call chain only after you call
++:c:func:`snd_card_register()`.
 +
-+/**
-+ * snd_devm_request_dma - the managed version of request_dma()
-+ * @dev: the device pointer
-+ * @dma: the dma number
-+ * @name: the name string of the requester
-+ *
-+ * Returns zero on success, or a negative error code.
-+ * The requested DMA will be automatically released at unbinding via devres.
-+ */
-+int snd_devm_request_dma(struct device *dev, int dma, const char *name)
-+{
-+	struct snd_dma_data *p;
++Also, the ``private_free`` callback is always called at the card free,
++so be careful to put the hardware clean-up procedure in
++``private_free`` callback.  It might be called even before you
++actually set up at an earlier error path.  For avoiding such an
++invalid initialization, you can set ``private_free`` callback after
++:c:func:`snd_card_register()` call succeeds.
 +
-+	if (request_dma(dma, name))
-+		return -EBUSY;
-+	p = devres_alloc(__snd_release_dma, sizeof(*p), GFP_KERNEL);
-+	if (!p) {
-+		free_dma(dma);
-+		return -ENOMEM;
-+	}
-+	p->dma = dma;
-+	devres_add(dev, p);
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(snd_devm_request_dma);
++Another thing to be remarked is that you should use device-managed
++helpers for each component as much as possible once when you manage
++the card in that way.  Mixing up with the normal and the managed
++resources may screw up the release order.
++
++
+ How To Put Your Driver Into ALSA Tree
+ =====================================
+ 
 -- 
 2.26.2
 

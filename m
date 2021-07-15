@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C88F03C9A7C
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jul 2021 10:23:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A3233C9A81
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jul 2021 10:24:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 526AA1718;
-	Thu, 15 Jul 2021 10:22:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 526AA1718
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED8C5171C;
+	Thu, 15 Jul 2021 10:23:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED8C5171C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626337397;
-	bh=/egJmUr59IyDImqF+56T/sOM3qBax4Wvgj4zGplAkKY=;
+	s=default; t=1626337463;
+	bh=Z5jilQdlCU+ecvpcWvo7FZHN7ukKaSxot+1nMDo4rws=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KGhJIuUzAqZgXwxiB9YI26MZ4syki75UkDhLq68qhsG1xvUuwIrSmp1FztqiCS4Qh
-	 fmSPBQf9/f2Sv0QmKMd0XEhWtydLnzqVRgdCqQ+nmaptguIKqlYm1RsBPJAnVKrLDQ
-	 RxjVpXk026EwXsarsmkEZPHu22gwaW8qnbnMNVeo=
+	b=ZL2GNH8UXm3mkyUceiSPZPtzvjA33CXbumvODu3nsfKB+ucx6pWWC6J6kgGdmsNz2
+	 w5ZN+int0U5oVRgZuOlzUfFEMOarkTPRca6rg4r7jPwFSisTaXgylew0+vtbEVqUAx
+	 cl5gZDSjpemiPRkK3hgWS6PYGKQUezMLX2ZTCwOA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09D45F80764;
-	Thu, 15 Jul 2021 10:01:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E257F80791;
+	Thu, 15 Jul 2021 10:01:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 34BA3F80720; Thu, 15 Jul 2021 10:01:25 +0200 (CEST)
+ id E0411F80727; Thu, 15 Jul 2021 10:01:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6F952F8055A
- for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 10:00:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F952F8055A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 054B4F8055C
+ for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 10:00:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 054B4F8055C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ocL/1Q4W"; 
+ header.b="x89aarh3"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="5x/9JQrn"
+ header.b="ma8/nXlc"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 43B531FD3E
+ by smtp-out2.suse.de (Postfix) with ESMTP id D43F01FDE5
  for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 08:00:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1626336017; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=8N5g+KTOoao1mhuTQ2kTRzNtUtzImdgSu3SqZkxl8eg=;
- b=ocL/1Q4WlAJzIbV1Wp0wgKC/9QKnAO6tojFCPOr8ENQX71wO3m3zEqbff9ToelSkNdLJsu
- chDtdsFLephxwyHAZIKb9KT3xwPCYT8LIS8fPQYEA4gA7RCssDThRNZeua0Vu9OIoTYz0w
- rn7++Y23fZ51ELELLCbkFFk0wFeNnZ0=
+ bh=yW7HisTCVctoOzQXfvpnF5WdDsgPe7fCJ3Y4gwvxgII=;
+ b=x89aarh3S13dhizwlgZ88Bd5zAlaqvadoXBtCZl4ulzSupA1AS+LTxyELHkFfHXPgl/IBr
+ qlWAy0VIuEhDerhmWXVmKtv6NTCSFeFphseCHYrEYBnrUyjuZLXnzU74TOjOuHUHodPdsP
+ 1T2JOKmTESwcVYsy9By+vrRe5NtRR7Q=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1626336017;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=8N5g+KTOoao1mhuTQ2kTRzNtUtzImdgSu3SqZkxl8eg=;
- b=5x/9JQrnFwiqFf93i/tQofZ0qzyXcDkjNrhXZ4m1rhmu+5OcJgghJdhHaR8LR060l673oB
- DcuI9PJfOrjJpwDQ==
+ bh=yW7HisTCVctoOzQXfvpnF5WdDsgPe7fCJ3Y4gwvxgII=;
+ b=ma8/nXlcmucm02i9dMll/Xsw0LdmCsvnVT6Z838dGdf86OPjJIwPzkSug2FqWvkCOdmksq
+ CXFPUNXFJNX4+wBg==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 3BB07A3B8F;
+ by relay2.suse.de (Postfix) with ESMTP id C9F6AA3B8F;
  Thu, 15 Jul 2021 08:00:17 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 58/79] ALSA: azt2320: Allocate resources with
+Subject: [PATCH v2 59/79] ALSA: cmi8328: Allocate resources with
  device-managed APIs
-Date: Thu, 15 Jul 2021 09:59:20 +0200
-Message-Id: <20210715075941.23332-59-tiwai@suse.de>
+Date: Thu, 15 Jul 2021 09:59:21 +0200
+Message-Id: <20210715075941.23332-60-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210715075941.23332-1-tiwai@suse.de>
 References: <20210715075941.23332-1-tiwai@suse.de>
@@ -92,134 +92,113 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch converts the resource management in ISA azt2320 driver with
+This patch converts the resource management in ISA cmi8328 driver with
 devres as a clean up.  Each manual resource management is converted
-with the corresponding devres helper.  The remove callback became
-superfluous and dropped.
+with the corresponding devres helper.
 
 This should give no user-visible functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/isa/azt2320.c | 49 +++++++++++----------------------------------
- 1 file changed, 12 insertions(+), 37 deletions(-)
+ sound/isa/cmi8328.c | 31 ++++++++++---------------------
+ 1 file changed, 10 insertions(+), 21 deletions(-)
 
-diff --git a/sound/isa/azt2320.c b/sound/isa/azt2320.c
-index dd5c059b3744..761cd198df2b 100644
---- a/sound/isa/azt2320.c
-+++ b/sound/isa/azt2320.c
-@@ -169,33 +169,27 @@ static int snd_card_azt2320_probe(int dev,
- 	struct snd_wss *chip;
- 	struct snd_opl3 *opl3;
- 
--	error = snd_card_new(&pcard->card->dev,
--			     index[dev], id[dev], THIS_MODULE,
--			     sizeof(struct snd_card_azt2320), &card);
-+	error = snd_devm_card_new(&pcard->card->dev,
-+				  index[dev], id[dev], THIS_MODULE,
-+				  sizeof(struct snd_card_azt2320), &card);
- 	if (error < 0)
- 		return error;
- 	acard = card->private_data;
- 
- 	error = snd_card_azt2320_pnp(dev, acard, pcard, pid);
--	if (error) {
--		snd_card_free(card);
-+	if (error)
- 		return error;
--	}
- 
- 	error = snd_card_azt2320_enable_wss(port[dev]);
--	if (error) {
--		snd_card_free(card);
-+	if (error)
- 		return error;
--	}
- 
- 	error = snd_wss_create(card, wss_port[dev], -1,
- 			       irq[dev],
- 			       dma1[dev], dma2[dev],
- 			       WSS_HW_DETECT, 0, &chip);
--	if (error < 0) {
--		snd_card_free(card);
-+	if (error < 0)
- 		return error;
--	}
- 
- 	strcpy(card->driver, "AZT2320");
- 	strcpy(card->shortname, "Aztech AZT2320");
-@@ -203,20 +197,14 @@ static int snd_card_azt2320_probe(int dev,
- 		card->shortname, chip->port, irq[dev], dma1[dev], dma2[dev]);
- 
- 	error = snd_wss_pcm(chip, 0);
--	if (error < 0) {
--		snd_card_free(card);
-+	if (error < 0)
- 		return error;
--	}
- 	error = snd_wss_mixer(chip);
--	if (error < 0) {
--		snd_card_free(card);
-+	if (error < 0)
- 		return error;
--	}
- 	error = snd_wss_timer(chip, 0);
--	if (error < 0) {
--		snd_card_free(card);
-+	if (error < 0)
- 		return error;
--	}
- 
- 	if (mpu_port[dev] > 0 && mpu_port[dev] != SNDRV_AUTO_PORT) {
- 		if (snd_mpu401_uart_new(card, 0, MPU401_HW_AZT2320,
-@@ -233,23 +221,17 @@ static int snd_card_azt2320_probe(int dev,
- 				   fm_port[dev], fm_port[dev] + 2);
- 		} else {
- 			error = snd_opl3_timer_new(opl3, 1, 2);
--			if (error < 0) {
--				snd_card_free(card);
-+			if (error < 0)
- 				return error;
--			}
- 			error = snd_opl3_hwdep_new(opl3, 0, 1, NULL);
--			if (error < 0) {
--				snd_card_free(card);
-+			if (error < 0)
- 				return error;
--			}
- 		}
+diff --git a/sound/isa/cmi8328.c b/sound/isa/cmi8328.c
+index 3b9fbb02864b..8902cfb830f7 100644
+--- a/sound/isa/cmi8328.c
++++ b/sound/isa/cmi8328.c
+@@ -294,8 +294,8 @@ static int snd_cmi8328_probe(struct device *pdev, unsigned int ndev)
  	}
+ 	outb(val, port);
  
- 	error = snd_card_register(card);
--	if (error < 0) {
--		snd_card_free(card);
-+	if (error < 0)
- 		return error;
--	}
- 	pnp_set_card_drvdata(pcard, card);
+-	err = snd_card_new(pdev, index[ndev], id[ndev], THIS_MODULE,
+-			   sizeof(struct snd_cmi8328), &card);
++	err = snd_devm_card_new(pdev, index[ndev], id[ndev], THIS_MODULE,
++				sizeof(struct snd_cmi8328), &card);
+ 	if (err < 0)
+ 		return err;
+ 	cmi = card->private_data;
+@@ -306,18 +306,18 @@ static int snd_cmi8328_probe(struct device *pdev, unsigned int ndev)
+ 	err = snd_wss_create(card, port + 4, -1, irq[ndev], dma1[ndev],
+ 			dma2[ndev], WSS_HW_DETECT, 0, &cmi->wss);
+ 	if (err < 0)
+-		goto error;
++		return err;
+ 
+ 	err = snd_wss_pcm(cmi->wss, 0);
+ 	if (err < 0)
+-		goto error;
++		return err;
+ 
+ 	err = snd_wss_mixer(cmi->wss);
+ 	if (err < 0)
+-		goto error;
++		return err;
+ 	err = snd_cmi8328_mixer(cmi->wss);
+ 	if (err < 0)
+-		goto error;
++		return err;
+ 
+ 	if (snd_wss_timer(cmi->wss, 0) < 0)
+ 		snd_printk(KERN_WARNING "error initializing WSS timer\n");
+@@ -371,24 +371,21 @@ static int snd_cmi8328_probe(struct device *pdev, unsigned int ndev)
+ 	dev_set_drvdata(pdev, card);
+ 	err = snd_card_register(card);
+ 	if (err < 0)
+-		goto error;
++		return err;
+ #ifdef SUPPORT_JOYSTICK
+ 	if (!gameport[ndev])
+ 		return 0;
+ 	/* gameport is hardwired to 0x200 */
+-	res = request_region(0x200, 8, "CMI8328 gameport");
++	res = devm_request_region(pdev, 0x200, 8, "CMI8328 gameport");
+ 	if (!res)
+ 		snd_printk(KERN_WARNING "unable to allocate gameport I/O port\n");
+ 	else {
+ 		struct gameport *gp = cmi->gameport = gameport_allocate_port();
+-		if (!cmi->gameport)
+-			release_and_free_resource(res);
+-		else {
++		if (cmi->gameport) {
+ 			gameport_set_name(gp, "CMI8328 Gameport");
+ 			gameport_set_phys(gp, "%s/gameport0", dev_name(pdev));
+ 			gameport_set_dev_parent(gp, pdev);
+ 			gp->io = 0x200;
+-			gameport_set_port_data(gp, res);
+ 			/* Enable gameport */
+ 			snd_cmi8328_cfg_write(port, CFG1,
+ 					CFG1_SB_DISABLE | CFG1_GAMEPORT);
+@@ -397,10 +394,6 @@ static int snd_cmi8328_probe(struct device *pdev, unsigned int ndev)
+ 	}
+ #endif
  	return 0;
- }
-@@ -275,12 +257,6 @@ static int snd_azt2320_pnp_detect(struct pnp_card_link *card,
-         return -ENODEV;
+-error:
+-	snd_card_free(card);
+-
+-	return err;
  }
  
--static void snd_azt2320_pnp_remove(struct pnp_card_link *pcard)
--{
--	snd_card_free(pnp_get_card_drvdata(pcard));
--	pnp_set_card_drvdata(pcard, NULL);
--}
--
+ static void snd_cmi8328_remove(struct device *pdev, unsigned int dev)
+@@ -409,17 +402,13 @@ static void snd_cmi8328_remove(struct device *pdev, unsigned int dev)
+ 	struct snd_cmi8328 *cmi = card->private_data;
+ 
+ #ifdef SUPPORT_JOYSTICK
+-	if (cmi->gameport) {
+-		struct resource *res = gameport_get_port_data(cmi->gameport);
++	if (cmi->gameport)
+ 		gameport_unregister_port(cmi->gameport);
+-		release_and_free_resource(res);
+-	}
+ #endif
+ 	/* disable everything */
+ 	snd_cmi8328_cfg_write(cmi->port, CFG1, CFG1_SB_DISABLE);
+ 	snd_cmi8328_cfg_write(cmi->port, CFG2, 0);
+ 	snd_cmi8328_cfg_write(cmi->port, CFG3, 0);
+-	snd_card_free(card);
+ }
+ 
  #ifdef CONFIG_PM
- static int snd_azt2320_pnp_suspend(struct pnp_card_link *pcard, pm_message_t state)
- {
-@@ -310,7 +286,6 @@ static struct pnp_card_driver azt2320_pnpc_driver = {
- 	.name           = "azt2320",
- 	.id_table       = snd_azt2320_pnpids,
- 	.probe          = snd_azt2320_pnp_detect,
--	.remove         = snd_azt2320_pnp_remove,
- #ifdef CONFIG_PM
- 	.suspend	= snd_azt2320_pnp_suspend,
- 	.resume		= snd_azt2320_pnp_resume,
 -- 
 2.26.2
 

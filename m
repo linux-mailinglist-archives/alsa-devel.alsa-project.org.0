@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 955043C9E07
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jul 2021 13:53:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1ECD3CA08C
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jul 2021 16:19:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1B1A11678;
-	Thu, 15 Jul 2021 13:52:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B1A11678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 69809167E;
+	Thu, 15 Jul 2021 16:19:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69809167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626350015;
-	bh=/NnxdjlZzK51yXbx9qQZp3/zfCQENPBhu95SmkLJW88=;
+	s=default; t=1626358798;
+	bh=6Tn/bHMMoFMkTpR5Cc+yMgZwnfSPFP99ggxrB8ZaDts=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QqobTYfylIyLMKSn+tB9OJl8HSoMFvSxgNxSWUlAQC/Fak3lGLAl0Fph6izXnRvuB
-	 tHT0YWZQBp8B/Xrdn4LIRDrzBehReLgRcgf7UWd0lXKqYbo5p8YWP590vSD+Zg60hi
-	 Z0ghd0Lj884psM6LFbWyQQ6X2mfpFKXJ3AuCz2hs=
+	b=ayw+3qOWeQ0S3Z3czftlONWBwqCU4cEdu8QetQiL83+MCFdYibvqv4T0BY9SptPU3
+	 gZfcbBCTMCMPi3uskUd/0WJIiYAQQpXgB/MTbWiSl5r3FQ5U5gCBrH0eb7AgdB3PPP
+	 inyDZAvR+nD1xw2H0qfEl3QxyWjtlmQdmHFSgRMQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 873D0F8013C;
-	Thu, 15 Jul 2021 13:52:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE7AEF80229;
+	Thu, 15 Jul 2021 16:18:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5EC38F80217; Thu, 15 Jul 2021 13:52:07 +0200 (CEST)
+ id 2A962F80217; Thu, 15 Jul 2021 16:18:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,50 +33,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 043AFF8013C
- for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 13:52:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 043AFF8013C
+ by alsa1.perex.cz (Postfix) with ESMTPS id C9ED7F80095
+ for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 16:18:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9ED7F80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="cDRop29F"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 71F936117A;
- Thu, 15 Jul 2021 11:51:56 +0000 (UTC)
+ header.b="lt1+xDmj"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A0B9B6127C;
+ Thu, 15 Jul 2021 14:18:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1626349917;
- bh=/NnxdjlZzK51yXbx9qQZp3/zfCQENPBhu95SmkLJW88=;
+ s=k20201202; t=1626358698;
+ bh=6Tn/bHMMoFMkTpR5Cc+yMgZwnfSPFP99ggxrB8ZaDts=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cDRop29F3WtICh0cmknyCDrWaGO3O7u7Nc9KcixMBPDwUA3/GE40txsd71gSYXrN+
- q8+YHgHVO7eoNbIfij+tlB2XLA28nGoUYLd3dub5+zS008vXwScO+F1AAWiFEK0n7u
- pRHTLsqwL3P8TBhoz4yDuCz/L/DcYtyjPQ7IEep0gxahp/19iXR7fC9EA3JYdOAoqI
- cidgos7b+qHfVj0Xn4PygHUDMP5xUDgCAUmIGLWNnnZg3kHJxEqLrXAxkLydyZDFqC
- eaOx7gUjNTOB+gwhfn+xxm5WA0p3NKVW3YFSVAHJDloOLIEX9xyTwRqhNWlpb3Dgr7
- zucHH4EdlkKTw==
-Date: Thu, 15 Jul 2021 12:51:19 +0100
+ b=lt1+xDmjNlKpUQJ4DVBCaZQXeM4xO/RTBAFX0h0daQaABwztUHGNrS80LLRIpUn8l
+ iQ8m83UftbZPLae6PtV/AAQGkX3U81e9NsaT1TAPO583x79IfvzKnHM0XukQozjue/
+ datrukQ46KWvo0TpJJddvluztrTKMz4lpMpcozyrBtalAIhW/7/wXvmmg9tLf3ZO7S
+ ajHkydWWux7qTJ1xF73x0AX5+U+HET/ghqg6/4fq05QS7zmTmDU0V9jeCF0xJc30Gc
+ pvmC5unBHkLJ5EOdPdiG5RGM/L036H8LS75cMFedSEJEK+ea/Zp1wzGusU2RHL63dB
+ +Dwt2OqyM7uZw==
+Date: Thu, 15 Jul 2021 15:17:40 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Robert Hancock <robert.hancock@calian.com>
-Subject: Re: Issues using simple-audio-card driver with Xilinx Audio Formatter
-Message-ID: <20210715115119.GB4590@sirena.org.uk>
-References: <6c7635f59ea9b162999f060334eef48e0812534b.camel@calian.com>
- <874kd63oqa.wl-kuninori.morimoto.gx@renesas.com>
- <52eda9910822e7e854b049127e462bf468f912ed.camel@calian.com>
- <87r1g91ygm.wl-kuninori.morimoto.gx@renesas.com>
- <2cccca32d53e1d832df67d070bac9ca998a931c6.camel@calian.com>
- <87bl7cl20y.wl-kuninori.morimoto.gx@renesas.com>
- <20210709123854.GA4112@sirena.org.uk>
- <129f46987f79328edba109a800b522c6ddfec99e.camel@calian.com>
- <20210709180240.GG4112@sirena.org.uk>
- <5753ab0fbe8dad1a0ce3bbd8dbc9cfada71b21c9.camel@calian.com>
+To: Vijendar Mukunda <vijendar.mukunda@amd.com>
+Subject: Re: [PATCH V3] ASoC: add a flag to reverse the stop sequence
+Message-ID: <20210715141740.GC4590@sirena.org.uk>
+References: <20210708175529.13313-1-vijendar.mukunda@amd.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="1UWUbFP1cBYEclgG"
+ protocol="application/pgp-signature"; boundary="NU0Ex4SbNnrxsi6C"
 Content-Disposition: inline
-In-Reply-To: <5753ab0fbe8dad1a0ce3bbd8dbc9cfada71b21c9.camel@calian.com>
+In-Reply-To: <20210708175529.13313-1-vijendar.mukunda@amd.com>
 X-Cookie: You look tired.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "kuninori.morimoto.gx@renesas.com" <kuninori.morimoto.gx@renesas.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "tiwai@suse.com" <tiwai@suse.com>,
- "michal.simek@xilinx.com" <michal.simek@xilinx.com>
+Cc: alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
+ amistry@google.com, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
+ Takashi Iwai <tiwai@suse.com>, Chuhong Yuan <hslester96@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Alexander.Deucher@amd.com,
+ nartemiev@google.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,54 +86,33 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---1UWUbFP1cBYEclgG
+--NU0Ex4SbNnrxsi6C
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jul 09, 2021 at 08:25:17PM +0000, Robert Hancock wrote:
-> On Fri, 2021-07-09 at 19:02 +0100, Mark Brown wrote:
+On Thu, Jul 08, 2021 at 11:25:27PM +0530, Vijendar Mukunda wrote:
 
-> > Given that it knows the MCLK if set_sysclk() is used and it knows the
-> > sample rate it should just be able to calculate the ratio?
+>  include/sound/soc.h                  |  6 ++++++
+>  sound/soc/amd/acp-da7219-max98357a.c |  5 +++++
+>  sound/soc/soc-pcm.c                  | 22 ++++++++++++++++------
+>  3 files changed, 27 insertions(+), 6 deletions(-)
 
-> I see that snd_soc_component_driver has a set_sysclk callback as well, so=
- that
-> allows the formatter to handle setting the divider. However, right now wi=
-th
-> simple-audio-card that callback is not being invoked on the formatter, th=
-ough
-> it is on the I2S transmitter.
+This should be two patches, one adding a new feature and the other using
+it.
 
-> I'm thinking something needs to be added to asoc_simple_hw_params to call
-> snd_soc_component_set_sysclk on the platform component(s) like it calls
-> snd_soc_dai_set_sysclk for the codec DAI and CPU DAI.
-
-> Not sure exactly how that should be done though - we could use=20
-> for_each_rtd_components to iterate through all of the components and call
-> snd_soc_component_set_sysclk on all of them, though that would also poten=
-tially
-> duplicate some settings already done by the snd_soc_dai_set_sysclk calls =
-on the
-> CPU and codec DAIs. I'm not sure if that really hurts anything though?
-
-Yeah, I don't think that's likely to hurt anything - I'd be surprised if
-there were that many things that actually have set_sysclk() to even
-notice.
-
---1UWUbFP1cBYEclgG
+--NU0Ex4SbNnrxsi6C
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmDwITcACgkQJNaLcl1U
-h9DcLggAgCEgRftCr5vbIxmumUKKTwaUcj3hNWisgKCo6rMcPKTaKCQGf/EwpgKb
-JrkjJ2SZdSG4wsjbu3jAJjs1PeXOv/Xdm3r+zZ+S9/IOGA4GHIGoV5ziXv6bQG9E
-OThxHw9vVaTHXOPn+tTdGb0jHv4rr8kZSTDGgALs35PZMJr/gEtjkZ4y25tbx0V+
-YcNXN+hpqxw0NOhH65XuRbF4GDKvMh/ku6U69fH9VMKd5pxvY7dLHgjX/uLg6vGV
-6A6BSMU3e+PUOijwNUNbZ15MVxm+dOJT4UDiV9HiOv2+Sd4lIcdOfpW/UN1wY276
-hofCkFdhHyG/TNlcrvJyz5BI+dKMlw==
-=hz5l
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmDwQ4QACgkQJNaLcl1U
+h9ABpQf/XSip+BC68mqysPaI6+TXiMCNF6fKsG5ZD8dvlFh+bGqRrm+qOG/CHnqd
+IjTNrzxysPvNM19HhztFyrUyv0rAETY+4hpOFoOng4MruSnCgMOq0qBj/Xt7cxMU
+6mdWVWy9JZdFLzEUrWg6G49yr9LysgwY6HQcUVMrisi+spm6m+IG+YDGTgb5CHG5
+wqpatcj2DSoLVeOlZW9BuSZZ8+SXXcE4yy0Zh3Wm6Q7LmTw0GR4uLEoNGeQAl870
+vuFXYREMa17MCBSY83f/AWfTGJPHSneO4n3+axyfUEvQ8NKgCmScl78o8lhWi/dg
+SAQCw5LHw8j3qOhM7nFWDhAJg9raWg==
+=8oKq
 -----END PGP SIGNATURE-----
 
---1UWUbFP1cBYEclgG--
+--NU0Ex4SbNnrxsi6C--

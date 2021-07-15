@@ -2,81 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 371E03CA1B2
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jul 2021 17:52:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D8F63CA8CA
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jul 2021 21:01:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8B21167E;
-	Thu, 15 Jul 2021 17:52:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8B21167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DAD3167F;
+	Thu, 15 Jul 2021 21:00:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DAD3167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626364377;
-	bh=uzBfGX6VlX2HimgUaGLPyk8GIam2ngRr30PfT26ptfA=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=CmmeWyhpME++BOxdiFi/YMuVEpvsOojbSvWOKyzzssRb90MUyz6p4OpRlws5Cmf/1
-	 9JFm25AhbLEoIF2pxyIHW7Jc+13tfPTwwygyTFoPq4RVNCWpusR8uoc3kIBJbmFuSg
-	 CS+64qo5hkm+QYN6IejR/f2ShKgIszrZh/ktt/m4=
+	s=default; t=1626375692;
+	bh=8LcN4NYxf3HqS9ZbIvWxfRZMOKyqgT2pvPNqxBCkttw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=c+dykncNy1RF4zbK4RrOfNnFq1JueX4gQO+vYE6ZP6IzAQiuMzp5iAVuZhICGzlAm
+	 R8QM9HFTk2CNWI3qZTt5RGgFxtJgmue2VvCBMtPDRnPhFD2gzThg5apn//oVw7ATBK
+	 CYTTDl7ltj5/Q4v3mLZ03rHsXsAmmS+cM2pBgqvU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DA15F80229;
-	Thu, 15 Jul 2021 17:51:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A9A8F80095;
+	Thu, 15 Jul 2021 21:00:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 73827F80217; Thu, 15 Jul 2021 17:51:29 +0200 (CEST)
+ id A86B7F80217; Thu, 15 Jul 2021 21:00:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-io1-f52.google.com (mail-io1-f52.google.com
- [209.85.166.52])
+Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
+ [209.85.166.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 485D6F800D3
- for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 17:51:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 485D6F800D3
-Received: by mail-io1-f52.google.com with SMTP id k11so7016373ioa.5
- for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 08:51:22 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id DCAAFF80095
+ for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 20:59:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCAAFF80095
+Received: by mail-il1-f173.google.com with SMTP id e13so5957536ilc.1
+ for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 11:59:56 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
- :message-id;
- bh=JpZLiCBQnZ2+MHl1nUW2ILJ6GK8TQMEgnso1fyfpgW4=;
- b=HeD6NyYVqvJqvHNhAopSQpJdQm4VQyMFe89XCdbrWFYmN8S+6n+t7rFCZqxpoozqU9
- 3/Kz8TFByCL+fVD3Du74T/CJMqr3e8RLJOCvGjZp/0U4eTV+Ngr0vGbbnWg0qNiP9cwL
- ITbFkpvzC3JH8nrA1lmGI2N4KNYCDaql90wAEzOUMCUD9djefRL2DLI2NiZH1qK2tCd4
- 3YTAAPgA0QjCGCFXZv+Ow9dPP0qNQm7k4Zdk/GaUHBIJDgHISKba70j5dtISH1qj7zI5
- 1Bc2oGVrLQnzX69TkL8oSoPlZdGWA7BBUQM7oG7QjzyeW19k8nNoHWGItSVoPoqe+1xn
- 6YhQ==
-X-Gm-Message-State: AOAM531msmly+kYoyWQGSWgTX1f6ui1vR2It7w6hFDRjrI4xYuCG6xp7
- UcGXMXelW9AbFiKihbaH4A==
-X-Google-Smtp-Source: ABdhPJyfy6RNCVwpCt8/P77LlZHhH+LauiplhwP3w//gzu1aeDj+fIQWDdVj7YoLFnX7maRUNnZD0g==
-X-Received: by 2002:a05:6638:13ca:: with SMTP id
- i10mr952178jaj.90.1626364280999; 
- Thu, 15 Jul 2021 08:51:20 -0700 (PDT)
-Received: from robh.at.kernel.org ([64.188.179.248])
- by smtp.gmail.com with ESMTPSA id k10sm3374997ion.38.2021.07.15.08.51.18
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=RiqGFZQ7xuhJIftSUoyXu5zNuFIfnG6U5i6WL5zRw7c=;
+ b=an4gWONa1K+cSGV8/EzD3Pn3GiYA1drlo1thWO93HPXSCb9PAeAzlsiTHQYbPAgqnf
+ 0M42tUHk1VwcJkTY/7nrVPKdFePVVIFQmUZYKCfzAXhmGj3ZPNs35wPsK1rz3yYEV/9/
+ XP8ojKeLL110w3qKw0jg/b3hGCKFC7jNwaS5/e/hAmaDcASxp6gAlKsWtxJMurobwDIk
+ p6/cxpv8fVPY2trDQ4rfVEmM1S+/uhbnD+vnjZDj1B0q+8Sd1VnZzS9LpA2X75iy8W0+
+ IcHtjDuTLrV3G8rLljB4ZET2+c9LS2TQ4MPkPrn4NWQRo55GzAnpV0NkmX1Bk1yxoj9T
+ 0RFg==
+X-Gm-Message-State: AOAM530LM/5afwZ+r7qS10DTBveduJQhIpXS8l226lcBPQBTRpmZATnf
+ AEvAhrqKuy2qdPZn4Ao8XQ==
+X-Google-Smtp-Source: ABdhPJxcoWlh2NzIThIIFpwH8hyJlQ8bztIdSda2U/1fyLTsdcs9FXHEQN+JvTWBmUmuKzvAe/ckbg==
+X-Received: by 2002:a92:db4b:: with SMTP id w11mr3755881ilq.297.1626375594912; 
+ Thu, 15 Jul 2021 11:59:54 -0700 (PDT)
+Received: from xps15.herring.priv ([64.188.179.248])
+ by smtp.googlemail.com with ESMTPSA id c19sm3347150ili.62.2021.07.15.11.59.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Jul 2021 08:51:19 -0700 (PDT)
-Received: (nullmailer pid 1138776 invoked by uid 1000);
- Thu, 15 Jul 2021 15:51:17 -0000
+ Thu, 15 Jul 2021 11:59:54 -0700 (PDT)
 From: Rob Herring <robh@kernel.org>
-To: Daniel Baluta <daniel.baluta@oss.nxp.com>
-In-Reply-To: <20210715141802.880911-4-daniel.baluta@oss.nxp.com>
-References: <20210715141802.880911-1-daniel.baluta@oss.nxp.com>
- <20210715141802.880911-4-daniel.baluta@oss.nxp.com>
-Subject: Re: [PATCH 3/3] dt-bindings: dsp: fsl: Document newly introduced fsl,
- properties
-Date: Thu, 15 Jul 2021 09:51:17 -0600
-Message-Id: <1626364277.745081.1138775.nullmailer@robh.at.kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH] ASoC: dt-bindings: renesas: rsnd: Fix incorrect 'port' regex
+ schema
+Date: Thu, 15 Jul 2021 12:59:52 -0600
+Message-Id: <20210715185952.1470138-1-robh@kernel.org>
+X-Mailer: git-send-email 2.27.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- kai.vehmanen@linux.intel.com, linux-kernel@vger.kernel.org, broonie@kernel.org,
- tiwai@suse.com, pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
- robh+dt@kernel.org, daniel.baluta@gmail.com, ranjani.sridharan@linux.intel.com,
- Daniel Baluta <daniel.baluta@nxp.com>
+ linux-kernel@vger.kernel.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,39 +86,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 15 Jul 2021 17:18:02 +0300, Daniel Baluta wrote:
-> From: Daniel Baluta <daniel.baluta@nxp.com>
-> 
-> Document firmware-name, tplg-name and machine-drv-name properties.
-> 
-> Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
-> ---
->  .../devicetree/bindings/dsp/fsl,dsp.yaml      | 20 +++++++++++++++++++
->  1 file changed, 20 insertions(+)
-> 
+A property regex goes under 'patternProperties', not 'properties'
+schema. Otherwise, the regex is interpretted as a fixed string.
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Fixes: 17c2d247ddd2 ("ASoC: dt-bindings: renesas: rsnd: tidyup properties")
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: alsa-devel@alsa-project.org
+Signed-off-by: Rob Herring <robh@kernel.org>
+---
+I can take this as I have a few other things for -rc2.
 
-yamllint warnings/errors:
+ Documentation/devicetree/bindings/sound/renesas,rsnd.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-dtschema/dtc warnings/errors:
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/mailbox/arm,mhuv2.example.dt.yaml: dsp@596e8000: 'tplg-name' is a required property
-	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/mailbox/arm,mhuv2.example.dt.yaml: dsp@596e8000: 'machine-drv-name' is a required property
-	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
-\ndoc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/patch/1505740
-
-This check can fail if there are any dependencies. The base for a patch
-series is generally the most recent rc1.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit.
+diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+index ee936d1aa724..c2930d65728e 100644
+--- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
++++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+@@ -114,7 +114,7 @@ properties:
+ 
+   ports:
+     $ref: /schemas/graph.yaml#/properties/ports
+-    properties:
++    patternProperties:
+       port(@[0-9a-f]+)?:
+         $ref: audio-graph-port.yaml#
+         unevaluatedProperties: false
+-- 
+2.27.0
 

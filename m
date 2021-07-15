@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1D9D3C9A66
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jul 2021 10:19:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03A4F3C9A61
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jul 2021 10:18:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E75E170A;
-	Thu, 15 Jul 2021 10:18:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E75E170A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 768E516ED;
+	Thu, 15 Jul 2021 10:18:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 768E516ED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626337180;
-	bh=rHsxd+v0mhkecxXBQ+rDzQSZSqPBYuEhskwV0L+lXHc=;
+	s=default; t=1626337135;
+	bh=XSFCpWcarI/UhCKK6/mXpzQb2gxAtZeW+imCNhjyJEI=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=A7PDKIGjGEfwXC3b569l1eZyAjd9RIYWgOF+RIyuqzR/QJq3dWf7izIO/6KTuLkD8
-	 O6g+bjmSDqN9DAUJfMAT/Ltzr3oecfqZafC1qbTro6zPSLNGf0G3gTjkQ3wX9Xe6ZJ
-	 qZNl61c8Revf81LQ8cgfEy/dlEI7V1T+fvP9i0d8=
+	b=HQZnMlC0zjCGWhDG6SYPfXMdTwKMfJJX3M1/hA/X/bpOpJ2Jx+lXgW+hNCyIXDy9R
+	 jy9ajTSnVaoab1nXiY3Y10GkG7IJQVAFBL2r8eXHAQuxsaPqxGfFfUfPKkpX9AqpmQ
+	 /jwZaLbOOMzgmwDnHYjM5gKYhGCp7eLnCeT/gza0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97D3AF80229;
-	Thu, 15 Jul 2021 10:01:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 651C2F8070C;
+	Thu, 15 Jul 2021 10:01:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5DFC6F80536; Thu, 15 Jul 2021 10:01:13 +0200 (CEST)
+ id A91D0F806ED; Thu, 15 Jul 2021 10:01:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D298BF80528
- for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 10:00:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D298BF80528
+ by alsa1.perex.cz (Postfix) with ESMTPS id 46608F80529
+ for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 10:00:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46608F80529
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="tHkD/YS4"; 
+ header.b="haLQtpGD"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="fEM/I5YV"
+ header.b="lna+izMB"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id AA0ED1FDE5
- for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 08:00:11 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 244F01FD3E
+ for <alsa-devel@alsa-project.org>; Thu, 15 Jul 2021 08:00:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1626336011; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1626336012; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=VISn0WVaelPlAIIWemmJVN6fWOaz1Q9xpZNf/RGCWp4=;
- b=tHkD/YS4Gq4HDTsjP1v2oXGoN0TifBDL6O2SEcINMD1QlmJRoV5dCWVjW55Q0lJSyXCyLt
- 0LmpDNcwtwkOBVtD5uJqVLlrIJdy8andCgmjKiorN5rLF2atPTpR+V5O4dwB1N9UJ7Lii+
- xY2T2PnwLcn+83+6Oi1rrNEtTzIvNYg=
+ bh=FAMtIW8bRBSWt+2TSKRdiNb5VV+3csQJNzMKaqR7Heg=;
+ b=haLQtpGDwDV95wfYeLl37VFcFErSycUulMOS0IaqLs9QGNjplhxGQPKSKrfi4Juu0a6M+2
+ jOY+sqdFQOo2kl7gdaKFGUwWuESWcnY0fT7+upSIbON8kwBAMGl6ttVA5ST/9A6vcnxf+h
+ u8LCNHezcrOsiA12CyQrmlVcjcIY/iE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1626336011;
+ s=susede2_ed25519; t=1626336012;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=VISn0WVaelPlAIIWemmJVN6fWOaz1Q9xpZNf/RGCWp4=;
- b=fEM/I5YVgbQ3EB+o1EomcPDJPAQ1WSRg+2VcbK5DHpshoxncq0JuknPD/M41CCRq09A7S6
- pMRDca0q6MaKbnCQ==
+ bh=FAMtIW8bRBSWt+2TSKRdiNb5VV+3csQJNzMKaqR7Heg=;
+ b=lna+izMBho9ac8fHNt/HpCEy/TF+nrchff0/jRRuh4iHiS44Jh8a96GyzFnMh1DFJk0pLw
+ BpxFT86M7agZZMCQ==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 968FEA3B99;
- Thu, 15 Jul 2021 08:00:11 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTP id 1226EA3B99;
+ Thu, 15 Jul 2021 08:00:12 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 45/79] ALSA: hdsp: Allocate resources with device-managed
+Subject: [PATCH v2 46/79] ALSA: hdspm: Allocate resources with device-managed
  APIs
-Date: Thu, 15 Jul 2021 09:59:07 +0200
-Message-Id: <20210715075941.23332-46-tiwai@suse.de>
+Date: Thu, 15 Jul 2021 09:59:08 +0200
+Message-Id: <20210715075941.23332-47-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210715075941.23332-1-tiwai@suse.de>
 References: <20210715075941.23332-1-tiwai@suse.de>
@@ -92,105 +92,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch converts the resource management in PCI hdsp driver with
+This patch converts the resource management in PCI hdspm driver with
 devres as a clean up.  Each manual resource management is converted
-with the corresponding devres helper, the page allocations are done
-with the devres helper, and the card object release is managed now via
-card->private_free instead of a lowlevel snd_device.
+with the corresponding devres helper, and the card object release is
+managed now via card->private_free instead of a lowlevel snd_device.
 
 This should give no user-visible functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/rme9652/hdsp.c | 89 +++++++++++-----------------------------
- 1 file changed, 25 insertions(+), 64 deletions(-)
+ sound/pci/rme9652/hdspm.c | 64 ++++++++-------------------------------
+ 1 file changed, 12 insertions(+), 52 deletions(-)
 
-diff --git a/sound/pci/rme9652/hdsp.c b/sound/pci/rme9652/hdsp.c
-index 8457a4bbc3df..982278f8724d 100644
---- a/sound/pci/rme9652/hdsp.c
-+++ b/sound/pci/rme9652/hdsp.c
-@@ -468,8 +468,8 @@ struct hdsp {
- 	unsigned char         ss_out_channels;
- 	u32                   io_loopback;          /* output loopback channel states*/
- 
--	struct snd_dma_buffer capture_dma_buf;
--	struct snd_dma_buffer playback_dma_buf;
-+	struct snd_dma_buffer *capture_dma_buf;
-+	struct snd_dma_buffer *playback_dma_buf;
- 	unsigned char        *capture_buffer;	    /* suitably aligned address */
- 	unsigned char        *playback_buffer;	    /* suitably aligned address */
- 
-@@ -565,18 +565,12 @@ static const char channel_map_H9632_qs[HDSP_MAX_CHANNELS] = {
- 	-1, -1
- };
- 
--static int snd_hammerfall_get_buffer(struct pci_dev *pci, struct snd_dma_buffer *dmab, size_t size)
-+static struct snd_dma_buffer *
-+snd_hammerfall_get_buffer(struct pci_dev *pci, size_t size)
- {
--	return snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, &pci->dev, size, dmab);
-+	return snd_devm_alloc_pages(&pci->dev, SNDRV_DMA_TYPE_DEV, size);
- }
- 
--static void snd_hammerfall_free_buffer(struct snd_dma_buffer *dmab, struct pci_dev *pci)
--{
--	if (dmab->area)
--		snd_dma_free_pages(dmab);
--}
--
--
- static const struct pci_device_id snd_hdsp_ids[] = {
- 	{
- 		.vendor = PCI_VENDOR_ID_XILINX,
-@@ -3768,20 +3762,15 @@ static void snd_hdsp_proc_init(struct hdsp *hdsp)
- 	snd_card_ro_proc_new(hdsp->card, "hdsp", hdsp, snd_hdsp_proc_read);
- }
- 
--static void snd_hdsp_free_buffers(struct hdsp *hdsp)
--{
--	snd_hammerfall_free_buffer(&hdsp->capture_dma_buf, hdsp->pci);
--	snd_hammerfall_free_buffer(&hdsp->playback_dma_buf, hdsp->pci);
--}
--
- static int snd_hdsp_initialize_memory(struct hdsp *hdsp)
- {
- 	unsigned long pb_bus, cb_bus;
- 
--	if (snd_hammerfall_get_buffer(hdsp->pci, &hdsp->capture_dma_buf, HDSP_DMA_AREA_BYTES) < 0 ||
--	    snd_hammerfall_get_buffer(hdsp->pci, &hdsp->playback_dma_buf, HDSP_DMA_AREA_BYTES) < 0) {
--		if (hdsp->capture_dma_buf.area)
--			snd_dma_free_pages(&hdsp->capture_dma_buf);
-+	hdsp->capture_dma_buf =
-+		snd_hammerfall_get_buffer(hdsp->pci, HDSP_DMA_AREA_BYTES);
-+	hdsp->playback_dma_buf =
-+		snd_hammerfall_get_buffer(hdsp->pci, HDSP_DMA_AREA_BYTES);
-+	if (!hdsp->capture_dma_buf || !hdsp->playback_dma_buf) {
- 		dev_err(hdsp->card->dev,
- 			"%s: no buffers available\n", hdsp->card_name);
- 		return -ENOMEM;
-@@ -3789,16 +3778,16 @@ static int snd_hdsp_initialize_memory(struct hdsp *hdsp)
- 
- 	/* Align to bus-space 64K boundary */
- 
--	cb_bus = ALIGN(hdsp->capture_dma_buf.addr, 0x10000ul);
--	pb_bus = ALIGN(hdsp->playback_dma_buf.addr, 0x10000ul);
-+	cb_bus = ALIGN(hdsp->capture_dma_buf->addr, 0x10000ul);
-+	pb_bus = ALIGN(hdsp->playback_dma_buf->addr, 0x10000ul);
- 
- 	/* Tell the card where it is */
- 
- 	hdsp_write(hdsp, HDSP_inputBufferAddress, cb_bus);
- 	hdsp_write(hdsp, HDSP_outputBufferAddress, pb_bus);
- 
--	hdsp->capture_buffer = hdsp->capture_dma_buf.area + (cb_bus - hdsp->capture_dma_buf.addr);
--	hdsp->playback_buffer = hdsp->playback_dma_buf.area + (pb_bus - hdsp->playback_dma_buf.addr);
-+	hdsp->capture_buffer = hdsp->capture_dma_buf->area + (cb_bus - hdsp->capture_dma_buf->addr);
-+	hdsp->playback_buffer = hdsp->playback_dma_buf->area + (pb_bus - hdsp->playback_dma_buf->addr);
- 
- 	return 0;
- }
-@@ -5313,7 +5302,7 @@ static int snd_hdsp_create(struct snd_card *card,
- 		is_9632 = 1;
+diff --git a/sound/pci/rme9652/hdspm.c b/sound/pci/rme9652/hdspm.c
+index 97a0bff96b28..ff06ee82607c 100644
+--- a/sound/pci/rme9652/hdspm.c
++++ b/sound/pci/rme9652/hdspm.c
+@@ -6575,34 +6575,25 @@ static int snd_hdspm_create(struct snd_card *card,
+ 		}
  	}
  
 -	err = pci_enable_device(pci);
@@ -198,113 +117,136 @@ index 8457a4bbc3df..982278f8724d 100644
  	if (err < 0)
  		return err;
  
-@@ -5323,15 +5312,15 @@ static int snd_hdsp_create(struct snd_card *card,
+ 	pci_set_master(hdspm->pci);
+ 
+-	err = pci_request_regions(pci, "hdspm");
++	err = pcim_iomap_regions(pci, 1 << 0, "hdspm");
  	if (err < 0)
  		return err;
- 	hdsp->port = pci_resource_start(pci, 0);
--	hdsp->iobase = ioremap(hdsp->port, HDSP_IO_EXTENT);
-+	hdsp->iobase = devm_ioremap(&pci->dev, hdsp->port, HDSP_IO_EXTENT);
- 	if (!hdsp->iobase) {
- 		dev_err(hdsp->card->dev, "unable to remap region 0x%lx-0x%lx\n",
- 			hdsp->port, hdsp->port + HDSP_IO_EXTENT - 1);
- 		return -EBUSY;
- 	}
  
--	if (request_irq(pci->irq, snd_hdsp_interrupt, IRQF_SHARED,
--			KBUILD_MODNAME, hdsp)) {
-+	if (devm_request_irq(&pci->dev, pci->irq, snd_hdsp_interrupt,
-+			     IRQF_SHARED, KBUILD_MODNAME, hdsp)) {
- 		dev_err(hdsp->card->dev, "unable to use IRQ %d\n", pci->irq);
+ 	hdspm->port = pci_resource_start(pci, 0);
+ 	io_extent = pci_resource_len(pci, 0);
+-
+-	dev_dbg(card->dev, "grabbed memory region 0x%lx-0x%lx\n",
+-			hdspm->port, hdspm->port + io_extent - 1);
+-
+-	hdspm->iobase = ioremap(hdspm->port, io_extent);
+-	if (!hdspm->iobase) {
+-		dev_err(card->dev, "unable to remap region 0x%lx-0x%lx\n",
+-				hdspm->port, hdspm->port + io_extent - 1);
+-		return -EBUSY;
+-	}
++	hdspm->iobase = pcim_iomap_table(pci)[0];
+ 	dev_dbg(card->dev, "remapped region (0x%lx) 0x%lx-0x%lx\n",
+ 			(unsigned long)hdspm->iobase, hdspm->port,
+ 			hdspm->port + io_extent - 1);
+ 
+-	if (request_irq(pci->irq, snd_hdspm_interrupt,
+-			IRQF_SHARED, KBUILD_MODNAME, hdspm)) {
++	if (devm_request_irq(&pci->dev, pci->irq, snd_hdspm_interrupt,
++			     IRQF_SHARED, KBUILD_MODNAME, hdspm)) {
+ 		dev_err(card->dev, "unable to use IRQ %d\n", pci->irq);
  		return -EBUSY;
  	}
-@@ -5411,8 +5400,10 @@ static int snd_hdsp_create(struct snd_card *card,
- 	return 0;
+@@ -6614,7 +6605,7 @@ static int snd_hdspm_create(struct snd_card *card,
+ 
+ 	dev_dbg(card->dev, "kmalloc Mixer memory of %zd Bytes\n",
+ 		sizeof(*hdspm->mixer));
+-	hdspm->mixer = kzalloc(sizeof(*hdspm->mixer), GFP_KERNEL);
++	hdspm->mixer = devm_kzalloc(&pci->dev, sizeof(*hdspm->mixer), GFP_KERNEL);
+ 	if (!hdspm->mixer)
+ 		return -ENOMEM;
+ 
+@@ -6859,8 +6850,9 @@ static int snd_hdspm_create(struct snd_card *card,
  }
  
--static int snd_hdsp_free(struct hdsp *hdsp)
-+static void snd_hdsp_card_free(struct snd_card *card)
- {
-+	struct hdsp *hdsp = card->private_data;
-+
- 	if (hdsp->port) {
- 		/* stop the audio, and cancel all interrupts */
- 		cancel_work_sync(&hdsp->midi_work);
-@@ -5420,29 +5411,8 @@ static int snd_hdsp_free(struct hdsp *hdsp)
- 		hdsp_write (hdsp, HDSP_controlRegister, hdsp->control_register);
- 	}
  
--	if (hdsp->irq >= 0)
--		free_irq(hdsp->irq, (void *)hdsp);
+-static int snd_hdspm_free(struct hdspm * hdspm)
++static void snd_hdspm_card_free(struct snd_card *card)
+ {
++	struct hdspm *hdspm = card->private_data;
+ 
+ 	if (hdspm->port) {
+ 		cancel_work_sync(&hdspm->midi_work);
+@@ -6873,28 +6865,6 @@ static int snd_hdspm_free(struct hdspm * hdspm)
+ 		hdspm_write(hdspm, HDSPM_controlRegister,
+ 			    hdspm->control_register);
+ 	}
 -
--	snd_hdsp_free_buffers(hdsp);
+-	if (hdspm->irq >= 0)
+-		free_irq(hdspm->irq, (void *) hdspm);
 -
- 	release_firmware(hdsp->firmware);
- 	vfree(hdsp->fw_uploaded);
--	iounmap(hdsp->iobase);
+-	kfree(hdspm->mixer);
+-	iounmap(hdspm->iobase);
 -
--	if (hdsp->port)
--		pci_release_regions(hdsp->pci);
+-	if (hdspm->port)
+-		pci_release_regions(hdspm->pci);
 -
--	if (pci_is_enabled(hdsp->pci))
--		pci_disable_device(hdsp->pci);
+-	if (pci_is_enabled(hdspm->pci))
+-		pci_disable_device(hdspm->pci);
 -	return 0;
 -}
 -
--static void snd_hdsp_card_free(struct snd_card *card)
--{
--	struct hdsp *hdsp = card->private_data;
 -
--	if (hdsp)
--		snd_hdsp_free(hdsp);
+-static void snd_hdspm_card_free(struct snd_card *card)
+-{
+-	struct hdspm *hdspm = card->private_data;
+-
+-	if (hdspm)
+-		snd_hdspm_free(hdspm);
  }
  
- static int snd_hdsp_probe(struct pci_dev *pci,
-@@ -5460,8 +5430,8 @@ static int snd_hdsp_probe(struct pci_dev *pci,
+ 
+@@ -6913,8 +6883,8 @@ static int snd_hdspm_probe(struct pci_dev *pci,
  		return -ENOENT;
  	}
  
--	err = snd_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
--			   sizeof(struct hdsp), &card);
-+	err = snd_devm_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
-+				sizeof(struct hdsp), &card);
+-	err = snd_card_new(&pci->dev, index[dev], id[dev],
+-			   THIS_MODULE, sizeof(*hdspm), &card);
++	err = snd_devm_card_new(&pci->dev, index[dev], id[dev],
++				THIS_MODULE, sizeof(*hdspm), &card);
  	if (err < 0)
  		return err;
  
-@@ -5471,32 +5441,23 @@ static int snd_hdsp_probe(struct pci_dev *pci,
- 	hdsp->pci = pci;
- 	err = snd_hdsp_create(card, hdsp);
- 	if (err)
+@@ -6925,7 +6895,7 @@ static int snd_hdspm_probe(struct pci_dev *pci,
+ 
+ 	err = snd_hdspm_create(card, hdspm);
+ 	if (err < 0)
 -		goto free_card;
 +		return err;
  
- 	strcpy(card->shortname, "Hammerfall DSP");
- 	sprintf(card->longname, "%s at 0x%lx, irq %d", hdsp->card_name,
- 		hdsp->port, hdsp->irq);
+ 	if (hdspm->io_type != MADIface) {
+ 		snprintf(card->shortname, sizeof(card->shortname), "%s_%x",
+@@ -6944,28 +6914,18 @@ static int snd_hdspm_probe(struct pci_dev *pci,
+ 
  	err = snd_card_register(card);
--	if (err) {
--free_card:
--		snd_card_free(card);
-+	if (err)
- 		return err;
--	}
+ 	if (err < 0)
+-		goto free_card;
++		return err;
+ 
  	pci_set_drvdata(pci, card);
+ 
  	dev++;
  	return 0;
- }
- 
--static void snd_hdsp_remove(struct pci_dev *pci)
--{
--	snd_card_free(pci_get_drvdata(pci));
+-
+-free_card:
+-	snd_card_free(card);
+-	return err;
 -}
 -
- static struct pci_driver hdsp_driver = {
- 	.name =     KBUILD_MODNAME,
- 	.id_table = snd_hdsp_ids,
- 	.probe =    snd_hdsp_probe,
--	.remove = snd_hdsp_remove,
+-static void snd_hdspm_remove(struct pci_dev *pci)
+-{
+-	snd_card_free(pci_get_drvdata(pci));
+ }
+ 
+ static struct pci_driver hdspm_driver = {
+ 	.name = KBUILD_MODNAME,
+ 	.id_table = snd_hdspm_ids,
+ 	.probe = snd_hdspm_probe,
+-	.remove = snd_hdspm_remove,
  };
  
- module_pci_driver(hdsp_driver);
+ module_pci_driver(hdspm_driver);
 -- 
 2.26.2
 

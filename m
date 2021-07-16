@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A09E13CB971
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jul 2021 17:08:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B690E3CB972
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jul 2021 17:08:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C32816A6;
-	Fri, 16 Jul 2021 17:07:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C32816A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 394511693;
+	Fri, 16 Jul 2021 17:08:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 394511693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626448120;
-	bh=pGMxukKZvH4Y7JZQ4mlY+aiYhpQxmOjH0aesN0E4GE8=;
+	s=default; t=1626448134;
+	bh=+ughgdT7PQsxP8d/yuM4LkU674j7Jk0PcAMExfuRTV4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JhxCES5Tf4n8ORSfXD8N52ChwUEEyQFUopw7xvlkDSeQhB6crr9g81pdPIdT2JYDp
-	 5O0N6Hq2p7U2dHAJSIlzvL+UUtoqgQPuV+hBYcFGt+MEWNxY6s1Q0O2RAwQk/dxYBB
-	 WgJbTMbwl8fwBwH3Cv2LEjcg+Y0UctuCSSZv58cM=
+	b=e43+O5KhM8DOy5jcpayDm6eDFFoFK+F2AGAvFS2stLKJfRsBInRfBH2EdQ2vDpsPz
+	 oBzJjD1UDhF6AgP6wFTtS433XpdQvnb0FBpMrV/aJ5T7rffexmTFeFrKYzGMyN+3Ci
+	 RVbPJaYE2tHdQcgnanju7H03Tj2KG6b1e1XwveTw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C724F804E1;
-	Fri, 16 Jul 2021 17:06:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E151F80253;
+	Fri, 16 Jul 2021 17:06:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2878DF80269; Fri, 16 Jul 2021 17:06:22 +0200 (CEST)
+ id 201E2F804E2; Fri, 16 Jul 2021 17:06:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,37 +33,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BD231F800FE
- for <alsa-devel@alsa-project.org>; Fri, 16 Jul 2021 17:06:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD231F800FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id B2214F80424
+ for <alsa-devel@alsa-project.org>; Fri, 16 Jul 2021 17:06:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2214F80424
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="NHcomHnI"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id ADBD760FF3;
- Fri, 16 Jul 2021 15:06:17 +0000 (UTC)
+ header.b="rvDYBTNI"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1C734613BB;
+ Fri, 16 Jul 2021 15:06:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1626447978;
- bh=pGMxukKZvH4Y7JZQ4mlY+aiYhpQxmOjH0aesN0E4GE8=;
+ s=k20201202; t=1626447980;
+ bh=+ughgdT7PQsxP8d/yuM4LkU674j7Jk0PcAMExfuRTV4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=NHcomHnIzjnFE4Y7jk/4gnhGA99I4JQSRe7Kw7jNp6C8grwiKtxa2GqUbgTq25syZ
- wR0MvkvZfAuWzDmn689aVruliGBpRbPege7ISey4ge58lfYyW/g+vwu8DxYmM4x/+i
- PvPQjcPv07U2smtfSBj0N13SwwOgCPYpV749/Uub3UlbbSjD6S3evmW8fgyuRPn6PH
- vyyucqgTIrWev/QlKM89V4tHFpp+IJRsCS4qUFuAe8M3njR+NWE6iDoBBaHy5rF3Tq
- Cj7A+0HXcf07mvPKxnMIuEqAeVmTkKjUJYqYJDg5AkCves1THzlY9JlnP2VBBtaRDK
- 96M43IFPM9Z3g==
+ b=rvDYBTNIxGOZjUbFWtMOFIOFD25sfOMLHu+4np/Jxp5IWrlGJC4SX2FRir96+6Ub7
+ Q3I8OEad0K2ZC+qhJRDCKcFVulh3E7Sp6Tm4Qy256bK/pSKUCdFgEHRj60kQfuWl7R
+ 5XxPsOf7Mq6wO0WAFJRt4m+OZz0nbrotTLrqKKDNCEGCGGp0hvmTFk5EnSFW96iZib
+ 3rjgJDvUb6TFLhIXebTSslrygm2yB3yI8e3vaOZvgNgBhy2FXjeWBHqeAVGFy1Ze1O
+ Vsx3OVF+aeiZE7HC+MV9GxaGZ+B8wlATnQRlC8NX5Ko26ydNu/kpExE5uBdhaCq2wo
+ isrHnmtHZNDCQ==
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH] ASoC: codecs: wcd938x: setup irq during component bind
-Date: Fri, 16 Jul 2021 16:05:31 +0100
-Message-Id: <162644746764.25983.14228885456148612746.b4-ty@kernel.org>
+To: Vijendar Mukunda <vijendar.mukunda@amd.com>,
+	alsa-devel@alsa-project.org
+Subject: Re: [PATCH 1/2] ASoC: soc-pcm: add a flag to reverse the stop sequence
+Date: Fri, 16 Jul 2021 16:05:32 +0100
+Message-Id: <162644746764.25983.7997176464978252855.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210716105735.6073-1-srinivas.kandagatla@linaro.org>
-References: <20210716105735.6073-1-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20210716123015.15697-1-vijendar.mukunda@amd.com>
+References: <20210716123015.15697-1-vijendar.mukunda@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Sunil-kumar.Dommati@amd.com, amistry@google.com,
+ Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
+ Peter Ujfalusi <peter.ujfalusi@ti.com>, Mark Brown <broonie@kernel.org>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
+ nartemiev@google.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,9 +85,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 16 Jul 2021 11:57:35 +0100, Srinivas Kandagatla wrote:
-> SoundWire registers are only accessable after sdw components are succesfully
-> binded. Setup irqs at that point instead of doing at probe.
+On Fri, 16 Jul 2021 18:00:12 +0530, Vijendar Mukunda wrote:
+> On stream stop, currently CPU DAI stop sequence invoked first
+> followed by DMA. For Few platforms, it is required to stop the
+> DMA first before stopping CPU DAI.
+> 
+> Introduced new flag in dai_link structure for reordering stop sequence.
+> Based on flag check, ASoC core will re-order the stop sequence.
 
 Applied to
 
@@ -89,8 +99,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: wcd938x: setup irq during component bind
-      commit: f99986c0fcad8e1d7d842e9a636f55bcc6748da5
+[1/2] ASoC: soc-pcm: add a flag to reverse the stop sequence
+      commit: 59dd33f82dc0975c55d3d46801e7ca45532d7673
+[2/2] ASoC: amd: reverse stop sequence for stoneyridge platform
+      commit: 7883490cba002121a5870e786a1dc0acce5e1caf
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

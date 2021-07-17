@@ -2,90 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50D453CC339
-	for <lists+alsa-devel@lfdr.de>; Sat, 17 Jul 2021 14:28:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A8B93CC66A
+	for <lists+alsa-devel@lfdr.de>; Sat, 17 Jul 2021 23:01:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D2D39169B;
-	Sat, 17 Jul 2021 14:27:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2D39169B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9916E1679;
+	Sat, 17 Jul 2021 23:00:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9916E1679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626524894;
-	bh=lrout3w6B3D8kkJCNcPHKviGewLxMfJYTlKzItlutQ8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=fn0bppNM0BlXaUelxO5NPyOx6y/vhC0uNH3yLdKmdZI2i/Ay8fG+MC5vCpsIN8+6v
-	 PeKRrIaT7RzFDN/KokdRVH4a0ViWsZntCoMk2/8f/OKXr/7wMmKhmLjvsm5E8v1/fw
-	 HX9HwVbeZ98vr5IIjyDB/+pd1YlRDioyavNC+bYY=
+	s=default; t=1626555668;
+	bh=IYhVlpmc05EbLd0ZA1kqaZIyn6ruEZDqghXIkPA5+u8=;
+	h=To:From:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=b1ge3RLOt9xBfVoSl6PRDDQNaxJu672i8h1vOBbuSpyuoOIF+q3IT8eny2hbpJxGx
+	 MzymBW8+fEXWMBgTRqgSYXt244rKMz11L31EolUV+qO740NnAEk98B29WZNavaENIL
+	 q5O8G8Q2xxAMt/r5+M8gguy1uhcOiM7JRJcww+xc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE821F804DF;
-	Sat, 17 Jul 2021 14:26:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2DFFF80229;
+	Sat, 17 Jul 2021 22:59:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 58F6DF80430; Sat, 17 Jul 2021 14:26:00 +0200 (CEST)
+ id B1CABF80217; Sat, 17 Jul 2021 22:59:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BC8B2F80424
- for <alsa-devel@alsa-project.org>; Sat, 17 Jul 2021 14:25:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC8B2F80424
+ by alsa1.perex.cz (Postfix) with ESMTPS id D53C5F800C5
+ for <alsa-devel@alsa-project.org>; Sat, 17 Jul 2021 22:59:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D53C5F800C5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="e8zjZKrs"
-Received: by mail-lf1-x12e.google.com with SMTP id g8so14813258lfh.8
- for <alsa-devel@alsa-project.org>; Sat, 17 Jul 2021 05:25:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=dMgjmY3ReK3160sNRXMEVTnwL+1V9IrtsL0ZPeSMSZc=;
- b=e8zjZKrs73RqN7mZeHJnkg/8dyDHeQZFEYGqrfTildSHRgMd46L5Fuv9YNXsv/Lppf
- lyfdPvNQDwVR2SSHU874JLPJSU+2krlaEpqJH83Es4bRk+LC7zBq9vlGbQcvC9Y9t6DE
- k5eExnrQrrQ7I3Vwz5Wm7sh+N7je13cRcjU2FOThi8FMoBjeklyQ8fAeIhM07fTTCBF8
- ZUKfcB37RYn7uKlscCRfd5QOE9HPHIutglEwRKA91LHsaORFMoNXfXPDvauNiAbi/uPL
- bkdxXnVb00ka7xso05HOKLFyGDgZqPM4zZbtfUWy3HjUfnun8ZMz59VJBOiWCFBXjl5D
- nF8Q==
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="SM+KGndo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1626555570;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=IYhVlpmc05EbLd0ZA1kqaZIyn6ruEZDqghXIkPA5+u8=;
+ b=SM+KGndoeemizA9n2AT0T9DvE4frVxq+xBK+lDVmaD1DZHZEAUzRZ1yiuiwW93t2zYI54T
+ QrpF19dDfiqMRWFjR19AnbyzeK/hnzSWkPXnZYhbmvqh64e6antU2eUm2V5o8/FT2qfzBA
+ DfRxrl4A6+rWfbhCuhEGrazjkVWoZWw=
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
+ [209.85.208.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-129-LxoUtBLaNMe0DFdTwcqrXQ-1; Sat, 17 Jul 2021 16:59:28 -0400
+X-MC-Unique: LxoUtBLaNMe0DFdTwcqrXQ-1
+Received: by mail-ed1-f70.google.com with SMTP id
+ n6-20020a05640205c6b02903a65bbc4aebso6756567edx.10
+ for <alsa-devel@alsa-project.org>; Sat, 17 Jul 2021 13:59:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=dMgjmY3ReK3160sNRXMEVTnwL+1V9IrtsL0ZPeSMSZc=;
- b=HfP65IwNyD4zgtzWTHg+M/OTjKiicikdUglZ6DkOAKiFDSEWFEJJgpuY0NEmFJHIzR
- vvOREo1+2DolzgjXXZccEcIhjMyTFNhsy5+I/+72+ZEQ37l3vEl8ME26WQqiaKIocvoL
- VW3paHwBJ+IU8ELnqiNJHEV6RAsVKtE/rBW6S46ctyEG200su4npWfGsNy+oIs9TRlzM
- gHo1mVtrQTZCrfVKcT40XdtDVedzmucZAFtMwlJCXvICeNJMzWieSdCfsWja1laBV+EN
- L4+42ZvQG15/R8/9S+wrdDSMXhwJHa8pxBnRMpvon0PSpeX2NowFYJiAnUJjJaPnRbQI
- p1bg==
-X-Gm-Message-State: AOAM532Tk8eDHDJM/lDgLK0TZcWTUZAf0HJ2f1Gas1jGORl4ZzbASO6a
- B286cCJgcetYuOkzcOz39xk=
-X-Google-Smtp-Source: ABdhPJzNnnZ/ciZloNmFqhSnnXgxZ+/dcyirVsRMSt9stS8VSGTsfwwBvV+qyXoMcFYo8BCJa6TVSw==
-X-Received: by 2002:a19:c191:: with SMTP id
- r139mr11535231lff.515.1626524755702; 
- Sat, 17 Jul 2021 05:25:55 -0700 (PDT)
-Received: from localhost.localdomain (91-155-111-71.elisa-laajakaista.fi.
- [91.155.111.71])
- by smtp.gmail.com with ESMTPSA id v4sm860087lfi.118.2021.07.17.05.25.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 17 Jul 2021 05:25:55 -0700 (PDT)
-From: Peter Ujfalusi <peter.ujfalusi@gmail.com>
-To: broonie@kernel.org
-Subject: [PATCH 3/3] ASoC: ti: j721e-evm: Convert the audio domain IDs to enum
-Date: Sat, 17 Jul 2021 15:28:20 +0300
-Message-Id: <20210717122820.1467-4-peter.ujfalusi@gmail.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210717122820.1467-1-peter.ujfalusi@gmail.com>
-References: <20210717122820.1467-1-peter.ujfalusi@gmail.com>
+ h=x-gm-message-state:to:from:subject:message-id:date:user-agent
+ :mime-version:content-language:content-transfer-encoding;
+ bh=IYhVlpmc05EbLd0ZA1kqaZIyn6ruEZDqghXIkPA5+u8=;
+ b=PlEaDBypRGOnAP0fJ08HJDtiIsSaK0GSh3DsXWOqTS/Krs2nNDXvFqehFHx2rkjz7g
+ xdGfZn9RJ+owOEx679b9ixPsMkruwf0pzEHL6+4Daq/xtaXSG3ov6lPMGWTTm01b3tX3
+ X3PGc0vNVDqlEvxhTmHtMSb+D73razJYpYAsu4yJ7O3dO5BnypjuoCr/OSqkcf8NPMiZ
+ 4YL2bzVpWAdOiLHzUGqkf+UEa1a13dDiuQrqGwXLL54t7bLOj3iPPBMoVYJqw/0LqRRB
+ hLGLABXk7oE91JbEyn2Bsr2gLd4kmJs1yt9X2T2kWaZfI5peDPp79EpX9fQYM627CMV6
+ plng==
+X-Gm-Message-State: AOAM530TyOkDT07eiM1UNbwbZUTkdqc/a1TUC0nXm8sQksBMV7tgbyJo
+ Rtev8jYmUfgMcaR498fe7s7fjkFvi7ll13p+MOcW6q9hRc8fGP0NRHzIOEmHMi587Oi+U/biVDC
+ TyklvGqtSCykL2AM3ZkJBbrOuAOWtJQDXxcg3A6bxZI7UUOcLRzKR7FQahD3SYd/vdZaEbLyjy4
+ g=
+X-Received: by 2002:a17:906:70c9:: with SMTP id
+ g9mr19386053ejk.286.1626555567494; 
+ Sat, 17 Jul 2021 13:59:27 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzP4vskh5IBqK09D9H6jJPVMJsNJNG3ijBHl2N28ygS+nPvTolfpDg7Zp88YIHS2+BJ4TDnFQ==
+X-Received: by 2002:a17:906:70c9:: with SMTP id
+ g9mr19386039ejk.286.1626555567261; 
+ Sat, 17 Jul 2021 13:59:27 -0700 (PDT)
+Received: from x1.localdomain
+ (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
+ by smtp.gmail.com with ESMTPSA id ot18sm4185319ejb.109.2021.07.17.13.59.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 17 Jul 2021 13:59:26 -0700 (PDT)
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+From: Hans de Goede <hdegoede@redhat.com>
+Subject: 5.14 regression, Intel SST (BYT) audio no longer works
+Message-ID: <6ebbcf0f-3a4b-0b28-1f17-8e1108f040c0@redhat.com>
+Date: Sat, 17 Jul 2021 22:59:25 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,90 +116,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Convert the J721E_AUDIO_DOMAIN_* from defines to enum to make it possible
-to extend the number of domains in the future.
+Hi All,
 
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
----
- sound/soc/ti/j721e-evm.c | 30 +++++++++++++++++-------------
- 1 file changed, 17 insertions(+), 13 deletions(-)
+I just noticed and I won't have time to dig any deeper for approx. the
+coming 10 days. Still I wanted to report this in case anyone has any
+ideas. Or maybe you can reproduce and look for a fix ?
 
-diff --git a/sound/soc/ti/j721e-evm.c b/sound/soc/ti/j721e-evm.c
-index 265bbc5a2f96..9347f982c3e1 100644
---- a/sound/soc/ti/j721e-evm.c
-+++ b/sound/soc/ti/j721e-evm.c
-@@ -23,8 +23,11 @@
-  */
- #define J721E_CODEC_CONF_COUNT	5
- 
--#define J721E_AUDIO_DOMAIN_CPB	0
--#define J721E_AUDIO_DOMAIN_IVI	1
-+enum j721e_audio_domain_id {
-+	J721E_AUDIO_DOMAIN_CPB = 0,
-+	J721E_AUDIO_DOMAIN_IVI,
-+	J721E_AUDIO_DOMAIN_LAST,
-+};
- 
- #define J721E_CLK_PARENT_48000	0
- #define J721E_CLK_PARENT_44100	1
-@@ -78,7 +81,7 @@ struct j721e_priv {
- 	u32 pll_rates[2];
- 	unsigned int hsdiv_rates[2];
- 
--	struct j721e_audio_domain audio_domains[2];
-+	struct j721e_audio_domain audio_domains[J721E_AUDIO_DOMAIN_LAST];
- 
- 	struct mutex mutex;
- };
-@@ -199,9 +202,8 @@ static int j721e_configure_refclk(struct j721e_priv *priv,
- 
- 	if (domain->parent_clk_id == -1 || priv->hsdiv_rates[domain->parent_clk_id] != scki) {
- 		dev_dbg(priv->dev,
--			"%s configuration for %u Hz: %s, %dxFS (SCKI: %u Hz)\n",
--			audio_domain == J721E_AUDIO_DOMAIN_CPB ? "CPB" : "IVI",
--			rate,
-+			"domain%u configuration for %u Hz: %s, %dxFS (SCKI: %u Hz)\n",
-+			audio_domain, rate,
- 			clk_id == J721E_CLK_PARENT_48000 ? "PLL4" : "PLL15",
- 			ratios_for_pcm3168a[i], scki);
- 
-@@ -263,10 +265,11 @@ static int j721e_audio_startup(struct snd_pcm_substream *substream)
- 
- 	domain->active++;
- 
--	if (priv->audio_domains[J721E_AUDIO_DOMAIN_CPB].rate)
--		active_rate = priv->audio_domains[J721E_AUDIO_DOMAIN_CPB].rate;
--	else
--		active_rate = priv->audio_domains[J721E_AUDIO_DOMAIN_IVI].rate;
-+	for (i = 0; i < J721E_AUDIO_DOMAIN_LAST; i++) {
-+		active_rate = priv->audio_domains[i].rate;
-+		if (active_rate)
-+			break;
-+	}
- 
- 	if (active_rate)
- 		ret = snd_pcm_hw_constraint_single(substream->runtime,
-@@ -825,7 +828,7 @@ static int j721e_soc_probe(struct platform_device *pdev)
- 	struct snd_soc_card *card;
- 	const struct of_device_id *match;
- 	struct j721e_priv *priv;
--	int link_cnt, conf_cnt, ret;
-+	int link_cnt, conf_cnt, ret, i;
- 
- 	if (!node) {
- 		dev_err(&pdev->dev, "of node is missing.\n");
-@@ -849,8 +852,9 @@ static int j721e_soc_probe(struct platform_device *pdev)
- 	if (!priv->dai_links)
- 		return -ENOMEM;
- 
--	priv->audio_domains[J721E_AUDIO_DOMAIN_CPB].parent_clk_id = -1;
--	priv->audio_domains[J721E_AUDIO_DOMAIN_IVI].parent_clk_id = -1;
-+	for (i = 0; i < J721E_AUDIO_DOMAIN_LAST; i++)
-+		priv->audio_domains[i].parent_clk_id = -1;
-+
- 	priv->dev = &pdev->dev;
- 	card = &priv->card;
- 	card->dev = &pdev->dev;
--- 
-2.32.0
+After building + installing 5.14-rc1 on a HP Elitepad 1000 G2
+(Bay Trail) with a RT5642 codec, I noticed that sound over the
+speakers and over the docks line-out jack no longer works.
+
+Downgrading to 5.13 (without any other changes) fixes this, so this
+seems to be a regression with 5.14.
+
+I've no been able to make time to test this on other BYT/CHT hardware,
+but I suspect that other models will be affected too.
+
+Regards,
+
+Hans
 

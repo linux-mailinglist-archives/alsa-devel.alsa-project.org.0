@@ -2,105 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A8B93CC66A
-	for <lists+alsa-devel@lfdr.de>; Sat, 17 Jul 2021 23:01:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 537C33CCA2B
+	for <lists+alsa-devel@lfdr.de>; Sun, 18 Jul 2021 19:59:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9916E1679;
-	Sat, 17 Jul 2021 23:00:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9916E1679
+	by alsa0.perex.cz (Postfix) with ESMTPS id DAB9B1681;
+	Sun, 18 Jul 2021 19:59:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAB9B1681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626555668;
-	bh=IYhVlpmc05EbLd0ZA1kqaZIyn6ruEZDqghXIkPA5+u8=;
-	h=To:From:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1626631190;
+	bh=ClESuv63cHd3zQY0G0vHNVEnTexDu9RWhR1UtxNg6UI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=b1ge3RLOt9xBfVoSl6PRDDQNaxJu672i8h1vOBbuSpyuoOIF+q3IT8eny2hbpJxGx
-	 MzymBW8+fEXWMBgTRqgSYXt244rKMz11L31EolUV+qO740NnAEk98B29WZNavaENIL
-	 q5O8G8Q2xxAMt/r5+M8gguy1uhcOiM7JRJcww+xc=
+	b=UD9tM79du7MoZbHjqDtZQ41edwT/MzJvwxXqpaW4NEb3+N9IddvFn91DCsbca5c1X
+	 YcQrgbaFwrfkRUnQBH+tc6A9mnQ8FNXobT2Rhq27AQLuueCmn/9SxnJK4dxGYvtVU8
+	 kf1ACFNQ983Hb1TM+HvYSSS6dbZg3xA1DqjNk7Nc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2DFFF80229;
-	Sat, 17 Jul 2021 22:59:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49D6DF804C1;
+	Sun, 18 Jul 2021 19:58:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B1CABF80217; Sat, 17 Jul 2021 22:59:39 +0200 (CEST)
+ id 5E44BF8032B; Sun, 18 Jul 2021 19:58:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [216.205.24.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D53C5F800C5
- for <alsa-devel@alsa-project.org>; Sat, 17 Jul 2021 22:59:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D53C5F800C5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 81E6FF800DA
+ for <alsa-devel@alsa-project.org>; Sun, 18 Jul 2021 19:57:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81E6FF800DA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="SM+KGndo"
+ header.b="BWmRtom7"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1626555570;
+ s=mimecast20190719; t=1626631077;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding;
- bh=IYhVlpmc05EbLd0ZA1kqaZIyn6ruEZDqghXIkPA5+u8=;
- b=SM+KGndoeemizA9n2AT0T9DvE4frVxq+xBK+lDVmaD1DZHZEAUzRZ1yiuiwW93t2zYI54T
- QrpF19dDfiqMRWFjR19AnbyzeK/hnzSWkPXnZYhbmvqh64e6antU2eUm2V5o8/FT2qfzBA
- DfRxrl4A6+rWfbhCuhEGrazjkVWoZWw=
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
- [209.85.208.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-129-LxoUtBLaNMe0DFdTwcqrXQ-1; Sat, 17 Jul 2021 16:59:28 -0400
-X-MC-Unique: LxoUtBLaNMe0DFdTwcqrXQ-1
-Received: by mail-ed1-f70.google.com with SMTP id
- n6-20020a05640205c6b02903a65bbc4aebso6756567edx.10
- for <alsa-devel@alsa-project.org>; Sat, 17 Jul 2021 13:59:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:to:from:subject:message-id:date:user-agent
- :mime-version:content-language:content-transfer-encoding;
- bh=IYhVlpmc05EbLd0ZA1kqaZIyn6ruEZDqghXIkPA5+u8=;
- b=PlEaDBypRGOnAP0fJ08HJDtiIsSaK0GSh3DsXWOqTS/Krs2nNDXvFqehFHx2rkjz7g
- xdGfZn9RJ+owOEx679b9ixPsMkruwf0pzEHL6+4Daq/xtaXSG3ov6lPMGWTTm01b3tX3
- X3PGc0vNVDqlEvxhTmHtMSb+D73razJYpYAsu4yJ7O3dO5BnypjuoCr/OSqkcf8NPMiZ
- 4YL2bzVpWAdOiLHzUGqkf+UEa1a13dDiuQrqGwXLL54t7bLOj3iPPBMoVYJqw/0LqRRB
- hLGLABXk7oE91JbEyn2Bsr2gLd4kmJs1yt9X2T2kWaZfI5peDPp79EpX9fQYM627CMV6
- plng==
-X-Gm-Message-State: AOAM530TyOkDT07eiM1UNbwbZUTkdqc/a1TUC0nXm8sQksBMV7tgbyJo
- Rtev8jYmUfgMcaR498fe7s7fjkFvi7ll13p+MOcW6q9hRc8fGP0NRHzIOEmHMi587Oi+U/biVDC
- TyklvGqtSCykL2AM3ZkJBbrOuAOWtJQDXxcg3A6bxZI7UUOcLRzKR7FQahD3SYd/vdZaEbLyjy4
- g=
-X-Received: by 2002:a17:906:70c9:: with SMTP id
- g9mr19386053ejk.286.1626555567494; 
- Sat, 17 Jul 2021 13:59:27 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzP4vskh5IBqK09D9H6jJPVMJsNJNG3ijBHl2N28ygS+nPvTolfpDg7Zp88YIHS2+BJ4TDnFQ==
-X-Received: by 2002:a17:906:70c9:: with SMTP id
- g9mr19386039ejk.286.1626555567261; 
- Sat, 17 Jul 2021 13:59:27 -0700 (PDT)
-Received: from x1.localdomain
- (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
- by smtp.gmail.com with ESMTPSA id ot18sm4185319ejb.109.2021.07.17.13.59.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 17 Jul 2021 13:59:26 -0700 (PDT)
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+ bh=pMXqtNQYb8pZOIOQkMH7F6H0o9rVPHyBAyEGKrjx3nk=;
+ b=BWmRtom7I1odhppCwdcpmG2iXiuCynCkVLMoGgicUPPJ2jNzBnW1pFVx8ar0BTTaYOfPer
+ 2g616zP/f+Q4UxUfkx+RITnwZtVX1fqMHNl66DX+q9KzYTTgTMJMLbB9BQVZQ/+YLeubed
+ 20mI4Q8EJwGaGmhtKF2yMFwH1poZNHA=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-211-dVFi_CGuP3OG2SQKgrl8UQ-1; Sun, 18 Jul 2021 13:57:54 -0400
+X-MC-Unique: dVFi_CGuP3OG2SQKgrl8UQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D56701800D41;
+ Sun, 18 Jul 2021 17:57:52 +0000 (UTC)
+Received: from x1.localdomain (ovpn-112-58.ams2.redhat.com [10.36.112.58])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 6702060871;
+ Sun, 18 Jul 2021 17:57:51 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
-Subject: 5.14 regression, Intel SST (BYT) audio no longer works
-Message-ID: <6ebbcf0f-3a4b-0b28-1f17-8e1108f040c0@redhat.com>
-Date: Sat, 17 Jul 2021 22:59:25 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: [PATCH alsa-ucm-conf 1/2] bytcr-rt5640: Fix 'Headphone Switch' /
+ 'Headset Mic Switch' no longer getting set
+Date: Sun, 18 Jul 2021 19:57:49 +0200
+Message-Id: <20210718175750.12353-1-hdegoede@redhat.com>
 MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
+Cc: Hans de Goede <hdegoede@redhat.com>, Dmitry Osipenko <digetx@gmail.com>,
+ alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,23 +95,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi All,
+Commit 446d0a71b47f ("codecs/rt5640: Move out BayTrail-specific pin switches")
+moved the setting of the 'Headphone Switch' / 'Headset Mic Switch' into
+"If.hp" resp "If.hsmic" blocks. But instead of making them part of the
+True {} block inside that If, the statements where added add the top-level
+of the If {} block where they are no-ops.
 
-I just noticed and I won't have time to dig any deeper for approx. the
-coming 10 days. Still I wanted to report this in case anyone has any
-ideas. Or maybe you can reproduce and look for a fix ?
+Move them to inside the True blocks so that these Switches again get
+properly turned on/off. This fixes the Headphones and Headset-mic no longer
+working on bytcr-rt5640 devices.
 
-After building + installing 5.14-rc1 on a HP Elitepad 1000 G2
-(Bay Trail) with a RT5642 codec, I noticed that sound over the
-speakers and over the docks line-out jack no longer works.
+Cc: Dmitry Osipenko <digetx@gmail.com>
+Fixes: 446d0a71b47f ("codecs/rt5640: Move out BayTrail-specific pin switches")
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ ucm2/bytcr-rt5640/HiFi.conf | 36 ++++++++++++++++++++----------------
+ 1 file changed, 20 insertions(+), 16 deletions(-)
 
-Downgrading to 5.13 (without any other changes) fixes this, so this
-seems to be a regression with 5.14.
-
-I've no been able to make time to test this on other BYT/CHT hardware,
-but I suspect that other models will be affected too.
-
-Regards,
-
-Hans
+diff --git a/ucm2/bytcr-rt5640/HiFi.conf b/ucm2/bytcr-rt5640/HiFi.conf
+index a5b47df..08127e0 100644
+--- a/ucm2/bytcr-rt5640/HiFi.conf
++++ b/ucm2/bytcr-rt5640/HiFi.conf
+@@ -100,16 +100,18 @@ If.mono {
+ 
+ If.hp {
+ 	Condition { Type String Empty "" }
+-	True.Include.hs.File "/codecs/rt5640/HeadPhones.conf"
++	True {
++		Include.hs.File "/codecs/rt5640/HeadPhones.conf"
+ 
+-	SectionDevice."Headphones" {
+-		EnableSequence [
+-			cset "name='Headphone Switch' on"
+-		]
++		SectionDevice."Headphones" {
++			EnableSequence [
++				cset "name='Headphone Switch' on"
++			]
+ 
+-		DisableSequence [
+-			cset "name='Headphone Switch' off"
+-		]
++			DisableSequence [
++				cset "name='Headphone Switch' off"
++			]
++		}
+ 	}
+ }
+ 
+@@ -178,15 +180,17 @@ If.in3 {
+ 
+ If.hsmic {
+ 	Condition { Type String Empty "" }
+-	True.Include.hsmic.File "/codecs/rt5640/HeadsetMic.conf"
++	True {
++		Include.hsmic.File "/codecs/rt5640/HeadsetMic.conf"
+ 
+-	SectionDevice."Headset" {
+-		EnableSequence [
+-			cset "name='Headset Mic Switch' on"
+-		]
++		SectionDevice."Headset" {
++			EnableSequence [
++				cset "name='Headset Mic Switch' on"
++			]
+ 
+-		DisableSequence [
+-			cset "name='Headset Mic Switch' off"
+-		]
++			DisableSequence [
++				cset "name='Headset Mic Switch' off"
++			]
++		}
+ 	}
+ }
+-- 
+2.31.1
 

@@ -2,62 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 145F43CD809
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Jul 2021 17:01:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19DDA3CD6C8
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Jul 2021 16:39:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 81256167D;
-	Mon, 19 Jul 2021 17:00:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81256167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 83F90165E;
+	Mon, 19 Jul 2021 16:38:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83F90165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626706884;
-	bh=EEhTsgjYs+lNGoKqTY5AmDccxgVd8TJ8CzdBF528rn8=;
-	h=From:To:Subject:References:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1626705574;
+	bh=38Jbzd1yQrQWo+mK+beG3N2hWgTIWWiTivl7xHlI60A=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FsycQqy5I7irV1w27mtJLCZQz+rlqd62M3iM32OyxBvLyef0JGneP99pvQPCJoD74
-	 o1Rg4dHZy/rD6OvlzsvsOyj+oF8hWqYFA8G3BxYHhd9qxrrH50WoXiqLR8ycvbtERH
-	 WWMTipGLiAeARkIG+WkKQMs44fgVkn1e/YPJEj0k=
+	b=oXKODu2yDUD4Ht4zJWz1Hf40xy7mebvjwodELvF0xRInCDVnl9B1pHQcEQiqYnQi1
+	 Us9oo5WalC7tZs1kQliCEiqjPEgubnMvNaXI97ytwmN+o1OoAG1F3vIyE3URmjAmW1
+	 TSBwVzkZIwfq+8raoepYPYJvZKjf1jy3SRblxZfQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92C91F804E0;
-	Mon, 19 Jul 2021 16:59:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA0F6F80256;
+	Mon, 19 Jul 2021 16:38:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A69C8F80254; Fri, 16 Jul 2021 20:00:37 +0200 (CEST)
+ id 0552DF80227; Mon, 19 Jul 2021 16:38:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9AA1CF800FE
- for <alsa-devel@alsa-project.org>; Fri, 16 Jul 2021 20:00:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AA1CF800FE
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: krisman) with ESMTPSA id D8FFC1F43CD4
-From: Gabriel Krisman Bertazi <krisman@collabora.com>
-To: Vijendar Mukunda <vijendar.mukunda@amd.com>
-Subject: Re: [PATCH V2 12/12] ASoC: amd: enable vangogh acp5x driver build
-References: <20210716150809.21450-1-vijendar.mukunda@amd.com>
- <20210716150809.21450-13-vijendar.mukunda@amd.com>
- <87h7guduto.fsf@collabora.com>
-Date: Fri, 16 Jul 2021 14:00:26 -0400
-In-Reply-To: <87h7guduto.fsf@collabora.com> (Gabriel Krisman Bertazi's message
- of "Fri, 16 Jul 2021 13:36:51 -0400")
-Message-ID: <87czridtqd.fsf@collabora.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1F269F80169
+ for <alsa-devel@alsa-project.org>; Mon, 19 Jul 2021 16:38:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F269F80169
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="PDZnwXbm"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C26B26113B;
+ Mon, 19 Jul 2021 14:37:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1626705479;
+ bh=38Jbzd1yQrQWo+mK+beG3N2hWgTIWWiTivl7xHlI60A=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=PDZnwXbm+zL8cd4niMrPbTc0eAcKOXuV+Fz4b7nhhiW5kAxJgAnpz9vEMi+kCXwk+
+ xEAqF9YTkz/gG5UcefWI4OKWYZsEYMrnh+37BugOc9Jr9LwCOx6Am+tVxAtVWgiu46
+ X8OjinTnDQjPFkJNac4KIuuOFYcYwVN4i/qJQUqnSqdk5lk+AYUlx9p8AoUZLrUiNM
+ OUjf95LCb8bDYn32nFQsTy9sK6nLl9N83vzphciqd9XqhfhRNF7TWfXTZAE1pDoUE0
+ SEu/X0nmzx4do0GzRWLRBRX4kiyqLexITBzolNkxjaS2I2ziNTcIgFX2pNCP8bpDHb
+ XTl1nWBnSP9dg==
+From: Mark Brown <broonie@kernel.org>
+To: Peter Ujfalusi <peter.ujfalusi@gmail.com>
+Subject: Re: (subset) [PATCH 0/3] ASoC: ti: j721e-evm: Small fixes and code
+ cleanup
+Date: Mon, 19 Jul 2021 15:37:44 +0100
+Message-Id: <162670491598.20803.9221803957281036232.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210717122820.1467-1-peter.ujfalusi@gmail.com>
+References: <20210717122820.1467-1-peter.ujfalusi@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Mailman-Approved-At: Mon, 19 Jul 2021 16:59:03 +0200
-Cc: alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
- open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
- broonie@kernel.org, Alexander.Deucher@amd.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,80 +80,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Gabriel Krisman Bertazi <krisman@collabora.com> writes:
+On Sat, 17 Jul 2021 15:28:17 +0300, Peter Ujfalusi wrote:
+> I have found two issues with the machine driver which for some reason did not
+> caused errors but they are certainly bugs.
+> 
+> The last patch is just to convert the IDs from define to enum.
+> 
+> Regards,
+> Peter
 
-> Hi,
->
-> Vijendar Mukunda <vijendar.mukunda@amd.com> writes:
->> Vangogh ACP5x drivers can be built by selecting necessary
->> kernel config option.
->> The patch enables build support of the same.
->>
->> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
->> ---
->> v1 -> v2: remove extra line in Make file
->> ---
->>  sound/soc/amd/Kconfig          |  9 +++++++++
->>  sound/soc/amd/Makefile         |  1 +
->>  sound/soc/amd/vangogh/Makefile | 11 +++++++++++
->>  3 files changed, 21 insertions(+)
->>  create mode 100644 sound/soc/amd/vangogh/Makefile
->>
->> diff --git a/sound/soc/amd/Kconfig b/sound/soc/amd/Kconfig
->> index ba5a85bf7412..cc48d4e5b080 100644
->> --- a/sound/soc/amd/Kconfig
->> +++ b/sound/soc/amd/Kconfig
->> @@ -52,3 +52,12 @@ config SND_SOC_AMD_RENOIR_MACH
->>  	depends on SND_SOC_AMD_RENOIR
->>  	help
->>  	 This option enables machine driver for DMIC
->> +
->> +config SND_SOC_AMD_ACP5x
->> +	tristate "AMD Audio Coprocessor-v5.x I2S support"
->> +	depends on X86 && PCI
->> +	help
->> +	 This option enables ACP v5.x support on AMD platform
->> +
->> +	 By enabling this flag build will trigger for ACP PCI driver,
->> +	 ACP DMA drvier, CPU DAI driver.
->> diff --git a/sound/soc/amd/Makefile b/sound/soc/amd/Makefile
->> index e6df2f72a2a1..07150d26f315 100644
->> --- a/sound/soc/amd/Makefile
->> +++ b/sound/soc/amd/Makefile
->> @@ -10,3 +10,4 @@ obj-$(CONFIG_SND_SOC_AMD_CZ_RT5645_MACH) += snd-soc-acp-rt5645-mach.o
->>  obj-$(CONFIG_SND_SOC_AMD_ACP3x) += raven/
->>  obj-$(CONFIG_SND_SOC_AMD_RV_RT5682_MACH) += snd-soc-acp-rt5682-mach.o
->>  obj-$(CONFIG_SND_SOC_AMD_RENOIR) += renoir/
->> +obj-$(CONFIG_SND_SOC_AMD_ACP5x) += vangogh/
->> diff --git a/sound/soc/amd/vangogh/Makefile b/sound/soc/amd/vangogh/Makefile
->> new file mode 100644
->> index 000000000000..ae2cda804e2f
->> --- /dev/null
->> +++ b/sound/soc/amd/vangogh/Makefile
->> @@ -0,0 +1,11 @@
->> +# SPDX-License-Identifier: GPL-2.0+
->> +# Vangogh platform Support
->> +snd-pci-acp5x-objs	:= pci-acp5x.o
->> +snd-acp5x-i2s-objs	:= acp5x-i2s.o
->> +snd-acp5x-pcm-dma-objs	:= acp5x-pcm-dma.o
->> +snd-soc-acp5x-mach-objs := acp5x-nu8821-cs35l41.o
+Applied to
 
-[snip]
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
->> +
->> +obj-$(CONFIG_SND_SOC_AMD_ACP5x) += snd-pci-acp5x.o
->> +obj-$(CONFIG_SND_SOC_AMD_ACP5x)	+= snd-acp5x-i2s.o
->> +obj-$(CONFIG_SND_SOC_AMD_ACP5x) += snd-acp5x-pcm-dma.o
->> +obj-$(CONFIG_SND_SOC_AMD_VANGOGH_MACH)   += snd-soc-acp5x-mach.o
->
-> Looks like CONFIG_SND_SOC_AMD_VANGOGH_MACH is not selected by another
-> symbol and also not configurable in kconfig.
->
-> Is it missing a kconfig entry?
+Thanks!
 
-Actually, acp5x-nu8821-cs35l41.o can't be generated by my tree.  Which
-tree is this series based on?  Is there another series that's a
-prerequisite for this?
+[1/3] ASoC: ti: j721e-evm: Fix unbalanced domain activity tracking during startup
+      commit: 78d2a05ef22e7b5863b01e073dd6a06b3979bb00
+[2/3] ASoC: ti: j721e-evm: Check for not initialized parent_clk_id
+      commit: 82d28b67f780910f816fe1cfb0f676fc38c4cbb3
 
--- 
-Gabriel Krisman Bertazi
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

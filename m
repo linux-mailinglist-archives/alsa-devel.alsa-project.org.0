@@ -2,73 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0C7D3CD43B
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Jul 2021 13:58:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C6023CD5EC
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Jul 2021 15:42:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3FBA41654;
-	Mon, 19 Jul 2021 13:57:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FBA41654
+	by alsa0.perex.cz (Postfix) with ESMTPS id 792441658;
+	Mon, 19 Jul 2021 15:41:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 792441658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626695899;
-	bh=bf/A3J/zlY4cs6b/oaf8Mqh4IOEAAWYGQ8bvt90zfYU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=RpgK/MaWpW9bpz9r2OYJhFMFkTKzFFCqtDKPxQ5rLXjtPSlW5sZL+tPaEZMJNSzlz
-	 ZeUE1qRAWeUVWDqP9nA6KTBYHwYK5mpULOHdBFh8RETEPWTa4lDbWRcDTBHHdsFtR5
-	 7jyYFIZ3UAJzSyXJhfC0W9ws2rvHIAeFUeJMtVjM=
+	s=default; t=1626702148;
+	bh=OUTfEwYPWD9IEWQtJkoOidhNqWOlHSv4dzLbCzhdo3Y=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=UUdh+30ly205PwISIL23BTeXo4HCnDl2GBxwK9GoQhiABss3x6MzsdJHdQ8FCO+Pv
+	 sN3T2+xqAhy9P5dUYvf+9UQTESN8W9ups3w9rmEBnEgl7O0F2+DirVtHjl0K94HBoY
+	 e+e4cUC4Lnq1eU5t68u+vSNssc9pjV2OOs9G7znM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8CD38F80256;
-	Mon, 19 Jul 2021 13:56:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7187F804AB;
+	Mon, 19 Jul 2021 15:41:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B748FF80227; Mon, 19 Jul 2021 13:56:50 +0200 (CEST)
+ id 4C529F802DF; Mon, 19 Jul 2021 15:40:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 20122F80169
- for <alsa-devel@alsa-project.org>; Mon, 19 Jul 2021 13:56:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20122F80169
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="c3Yaxyic"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5AC156113B;
- Mon, 19 Jul 2021 11:56:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1626695800;
- bh=bf/A3J/zlY4cs6b/oaf8Mqh4IOEAAWYGQ8bvt90zfYU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=c3Yaxyic+53fBMFofsxUgVgiK9O/Nar0We6OaKpcm8f7+R3NhnK5w39KFCRPHr99+
- auqU55QHHH9DekAtqyrfV9l0HQ6F7iVjoLuCNr0YlzMYXU0hpSKIHTXKSBRfciWgGH
- 6Mh5PyLqowKbS/eASS9Yexn/XybW0M47O9x3qI9ecW6HhEBkM6uqkW4ek5O39Vq4Yu
- 3y7y9Lh9c03ifk7k49D1DaMyX793L2EUDyPA5upaa4eUWtHVslk+TCg0UXaIaBghQj
- ipyNgnAjNYF1ZUWmi/+ZrVebhTuPzEOef+9US34eGSpT12OjceKhsR5BN1LlIFKYtr
- UaoL09EvSx1qw==
-Date: Mon, 19 Jul 2021 12:56:36 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Mukunda,Vijendar" <Vijendar.Mukunda@amd.com>
-Subject: Re: [PATCH RESEND V2 00/12] Add Vangogh ACP ASoC driver
-Message-ID: <20210719115636.GA4174@sirena.org.uk>
-References: <20210717040059.310410-1-Vijendar.Mukunda@amd.com>
- <5673f620-fec1-d2a3-0b78-a1cfdda04acd@linux.intel.com>
- <ff857faa-c8c4-0f73-4ede-f8f3ded4e923@amd.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="gKMricLos+KVdGMg"
-Content-Disposition: inline
-In-Reply-To: <ff857faa-c8c4-0f73-4ede-f8f3ded4e923@amd.com>
-X-Cookie: You will be divorced within a year.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Alexander.Deucher@amd.com, alsa-devel@alsa-project.org,
- Sunil-kumar.Dommati@amd.com, krisman@collabora.com,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.4 required=5.0 tests=AC_FROM_MANY_DOTS,
+ KHOP_HELO_FCRDNS,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id E467DF80218
+ for <alsa-devel@alsa-project.org>; Mon, 19 Jul 2021 15:40:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E467DF80218
+X-IronPort-AV: E=Sophos;i="5.84,252,1620658800"; d="scan'208";a="88135498"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 19 Jul 2021 22:40:47 +0900
+Received: from localhost.localdomain (unknown [10.226.92.148])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 0388F425839B;
+ Mon, 19 Jul 2021 22:40:42 +0900 (JST)
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>
+Subject: [PATCH v2 0/8] Add RZ/G2L Sound support
+Date: Mon, 19 Jul 2021 14:40:32 +0100
+Message-Id: <20210719134040.7964-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.17.1
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Chris Paterson <Chris.Paterson2@renesas.com>,
+ Biju Das <biju.das@bp.renesas.com>, linux-renesas-soc@vger.kernel.org,
+ Chris Brandt <chris.brandt@renesas.com>, Biju Das <biju.das.jz@bp.renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,45 +70,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This patch series aims to add ASoC support on RZ/G2L SoC's.
 
---gKMricLos+KVdGMg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+It is based on the work done by Chris Brandt for RZ/A ASoC driver.
 
-On Sat, Jul 17, 2021 at 10:04:15AM +0530, Mukunda,Vijendar wrote:
-> On 7/17/21 1:22 AM, Pierre-Louis Bossart wrote:
+Biju Das (8):
+  ASoC: dt-bindings: Document RZ/G2L bindings
+  sound: soc: sh: Add RZ/G2L SSIF-2 driver
+  arm64: dts: renesas: r9a07g044: Add external audio clock nodes
+  arm64: dts: renesas: r9a07g044: Add SSI support
+  arm64: defconfig: Enable ASoC sound support for RZ/G2L SoC
+  ASoC: dt-bindings: sound: renesas,rz-ssi: Document DMA support
+  sound: sh: rz-ssi: Add SSI DMAC support
+  arm64: dts: renesas: r9a07g044: Add SSI DMA support
 
-> > usually the version number is at the patchset level, here you included =
-v1, v2 and v3 patches and all but the last one use the RESEND prefix?
-> >=20
-> > is this intentional?
+ .../bindings/sound/renesas,rz-ssi.yaml        |  100 ++
+ arch/arm64/boot/dts/renesas/r9a07g044.dtsi    |  105 ++
+ arch/arm64/configs/defconfig                  |    1 +
+ sound/soc/sh/Kconfig                          |   10 +
+ sound/soc/sh/Makefile                         |    4 +
+ sound/soc/sh/rz-ssi.c                         | 1078 +++++++++++++++++
+ 6 files changed, 1298 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/renesas,rz-ssi.yaml
+ create mode 100644 sound/soc/sh/rz-ssi.c
 
-> As We have respin the patch series, we have updated cover letter with
-> version as V2.
-> Got your point. Cover letter shouldn't have any version number.
+-- 
+2.17.1
 
-> We have updated patches as v2 version with fixes.
-
-> It's my bad. For last patch, We have removed extra stuff which we have
-> added earlier and marked patch version as V3.
-
-No, you haven't got his point - his point is that everything in the
-series (including the cover letter) should have the same version.
-
---gKMricLos+KVdGMg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmD1aHQACgkQJNaLcl1U
-h9DbeQf/Q6mYESWY3+epdVKtyZUrJTtXAnp4U+fHHTjHs4DwvIdhkcheQ1wtekLd
-6bi4I6Qda2bwzJVQFJm4fXFIIMy/G5q2HkvaHhTBWipHBsoDUdhP1qp6TFHGd+iP
-7j1vUsV5cJ69zEge4E/Ir1EnElubgSBkVrOPg1HEQzAEi7hPcUXkCcZTm9dJCwKd
-Xf9Ogegf97KKQibVnO9iI6BAezl8+v+moi2mkczJTNa0LJzTbACLM5TkUDXYxSn8
-HNnQhCPQRmiQpLLC5RiR2gh3QTJI3Z1DddiWBlbwE4TjnIBE+vDYE5HuDXUYs1HJ
-itS1pVF6/EHh9co4qCtvG6cJSmJFAw==
-=B8Fl
------END PGP SIGNATURE-----
-
---gKMricLos+KVdGMg--

@@ -2,130 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52ED83CE518
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Jul 2021 18:40:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F71C3CEAF7
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Jul 2021 20:27:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CAEEB1681;
-	Mon, 19 Jul 2021 18:39:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAEEB1681
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D4491662;
+	Mon, 19 Jul 2021 20:26:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D4491662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626712815;
-	bh=iy4xRVXga84oImz9jVdHrtkFLcRK5j9sgu/e92x2gbA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1626719238;
+	bh=W5FZC5YiULn3apcmunDg82f3EeXtcCnULPuMVgWXLFE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mO2R4+T6cPLZPBT+U+lnx0O1iM8fUZNsBHC6HVcFR3t/vROyKFGjAVmNhfrEEZizt
-	 3DoKlAaflz32sct1iai6r1oUBOTsMRmxHBsfqZwVkSSlaafL0LS56HvzETPygBlCuE
-	 rrpRsY1VJuP+GA6hf/W4Y6uvn5UDhu24jsK33J/Q=
+	b=KUE6/7goPAZIxKZpux+8EIu7AtLt99tZVV5r9+rJfkQ39uhWY41Lao0yVVwsYskck
+	 hkJCfhn94ioPu1qM4Aw1rkEC796yVeXz0O6L9pBHCyOxXO2zVUGsLIoNI3nfLHaY09
+	 p2ngit058++C/0uahQb8zGSOAV5mIrU24sy1k1jw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3991F804F3;
-	Mon, 19 Jul 2021 18:37:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89125F804E3;
+	Mon, 19 Jul 2021 20:24:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3140F804F1; Mon, 19 Jul 2021 18:37:36 +0200 (CEST)
+ id 7A6CBF804E2; Mon, 19 Jul 2021 20:24:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2063.outbound.protection.outlook.com [40.107.236.63])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 08991F80227
- for <alsa-devel@alsa-project.org>; Mon, 19 Jul 2021 18:37:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08991F80227
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="5OH0hhO3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mCEi9WBwo4YR+8QTUOgHFDHKKfl3FtWbzi+mJl34HdtUCbM84LhtoF3dOer61xN1B3MU38YjpFW7icjdsGHiiLayWPlbO7Z2xcwSkHXBy2gAJPOwkaDp/jpabi/iv0Fvv6qukEIITc6ZmUl5aWNrCve2PsRtRrlK7JaP/dagmJUbVoHA9Od7ZhrntX/zaU1Ju+02+//Ll0EXcZgeZPZjCOAQ3bl5vHB5cTVgCl1sn1H0DW2C+M/BSRPOsVocT94IErDTDKKtGrXxqa8oe9a61SE1qD1AncPLBMjtpkywLSNOU1FTL4DEwfGv+XDtWtDpe/39nWwf+jiaiFzjKkpOTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=itoC+dU7JqRwv4JQILTVtQf6KRWj2ygEKdHZk2k/eoY=;
- b=REEBaP6yd/vbVL/nkml5r0IkliCI1TO9SkeZJZnic6ebvhOmTtRj2K04QZPAc1GEYj2xmaIM0X5nk8nwGbES1b0wESMQfmRE3Rn9a/ga5eNPG7BSeEqUZvNNPhSserMrigsxy4zo8qu8a/HG/l2UJJmK1qRucMrd9m0bl4OANpO00bXHxMohmg2L6fSk23KWieozFIvwAfzbiTbEGB99pkFPGUF1K4B0TscEoUp+Esw3OkdIU/07wOdjLzjV9ww3be6qwGs7l8en0SDgSoHXD6Ql+vNfThm7C5TkRa2p5RGsv0wjS3dIzNB6ufWYsvgAXVbSjC0zInscH0N+fC4JmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=itoC+dU7JqRwv4JQILTVtQf6KRWj2ygEKdHZk2k/eoY=;
- b=5OH0hhO3NAftOjqJzYOV4Xcpm3HoC4CC/ylXjkWIFMUJNGnX6TOtyvRSsrHhXetFy68iilA3uV1t4ZBloQWEGwQx29yNINYnFoXUtJ0Jd4m7b+aSaKEXTChXwdeYwuGQHrDIP1gSy89UlcrwF8vZEsegdSEy3appiyiBvEqWMjM=
-Received: from DM5PR16CA0005.namprd16.prod.outlook.com (2603:10b6:3:c0::15) by
- DM6PR12MB3178.namprd12.prod.outlook.com (2603:10b6:5:18d::11) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4331.29; Mon, 19 Jul 2021 16:37:25 +0000
-Received: from DM6NAM11FT037.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:c0:cafe::1c) by DM5PR16CA0005.outlook.office365.com
- (2603:10b6:3:c0::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.21 via Frontend
- Transport; Mon, 19 Jul 2021 16:37:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT037.mail.protection.outlook.com (10.13.172.122) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4331.21 via Frontend Transport; Mon, 19 Jul 2021 16:37:25 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 19 Jul
- 2021 11:37:24 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 19 Jul
- 2021 11:37:24 -0500
-Received: from LinuxHost.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
- Transport; Mon, 19 Jul 2021 11:37:15 -0500
-From: Vijendar Mukunda <vijendar.mukunda@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH V3 12/12] ASoC: amd: enable vangogh acp5x driver build
-Date: Mon, 19 Jul 2021 22:21:40 +0530
-Message-ID: <20210719165140.16143-13-vijendar.mukunda@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210719165140.16143-1-vijendar.mukunda@amd.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 66596F80256
+ for <alsa-devel@alsa-project.org>; Mon, 19 Jul 2021 20:24:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66596F80256
+X-IronPort-AV: E=McAfee;i="6200,9189,10050"; a="190697627"
+X-IronPort-AV: E=Sophos;i="5.84,252,1620716400"; d="scan'208";a="190697627"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jul 2021 11:24:32 -0700
+X-IronPort-AV: E=Sophos;i="5.84,252,1620716400"; d="scan'208";a="414430038"
+Received: from rraymond-mobl1.amr.corp.intel.com (HELO [10.209.130.70])
+ ([10.209.130.70])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jul 2021 11:24:30 -0700
+Subject: Re: [PATCH V3 04/12] ASoC: amd: create acp5x platform devices
+To: Vijendar Mukunda <vijendar.mukunda@amd.com>, broonie@kernel.org,
+ alsa-devel@alsa-project.org
 References: <20210719165140.16143-1-vijendar.mukunda@amd.com>
+ <20210719165140.16143-5-vijendar.mukunda@amd.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <035b3dbe-bbe0-bf0b-3893-d176418658f7@linux.intel.com>
+Date: Mon, 19 Jul 2021 13:07:02 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fc8681c0-2373-4ad9-2e33-08d94ad37d80
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3178:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB31789A45BBB2126A79E55D7397E19@DM6PR12MB3178.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: j6vrcZ68Tv3xz24aNPCZnEYTiNuIej5sW9Z1pXeMX57gBOX3JG2k0sWI2X/qt+nSWWXBlGiUfJgUb+mSW3/LMMrFIsoIAiJyi+qpTiZkIDv/5dA1eCs8yBHFtos5HMygZxR5bYU9Db5oNU44dUcKAjFrgSN4krkBpMqLLN7yg2WpkgPBNWa9sL/HjjvP/8tbEuH+VVOiZlY9Dvolngbw/56l0f+GxzPy1BD/uc+wKeT71/AHzkDqP/Ln3w+8TwM2xiC7rVYoEqfPnGu/MLJzIfIJYD1Fkk/NUFbrt0PgLR+d4DXbUIcnP2UP3DSxqWUU3ytwJ4oCw0CVv36Ji/eTk5TEIW1H0yJyUDTaMOZRjIwIEKfP3Ovwk3MRLFzrNM9YfkTiROqY6luaWz9eBv4frK4XMCIbuzE1GWQCwsoi8rYoWWRx3YA1cbjyG6ar5bA2A0ObOusjg3g0efhiBGe2WxP3lKNa0dE81LxGmZVegr2KGsOnwZWD3gM67FIN0PRAqVUB+rTkX0C/qRp+Na0E7L7oquJqubnXLLeZ1dI/Aw4B2QXNNaqG9F5Pp5uNDVo5+4YcXx6jMmK+Y+09pTAm7/E6n8kVwt9vsLgiOt9UIbMJ0uGmwkGXKTB0GWAJ8miTu9eljihebJI3dCnBOHXdIXfq7JFMUN45yH5fgQaNqn4fLjNk6nJl+ik5JHz1mvZD7sx24peSNzyBq3wGu81RNcT9xatrlHLSbrJK+i5QX/wSmgfNQUyYE8Mp7LEV7TDCNPvXR3MIwhqszdB+F9wPjQtPUA9SMCSmNAxGHKq133Q=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(136003)(346002)(39860400002)(396003)(376002)(36840700001)(46966006)(336012)(70206006)(186003)(70586007)(6666004)(86362001)(478600001)(7696005)(81166007)(356005)(54906003)(47076005)(26005)(110136005)(2616005)(36860700001)(5660300002)(36756003)(426003)(316002)(2906002)(1076003)(82740400003)(82310400003)(4326008)(8936002)(8676002)(44832011)(42413003)(32563001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2021 16:37:25.2493 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc8681c0-2373-4ad9-2e33-08d94ad37d80
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT037.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3178
-Cc: Sunil-kumar.Dommati@amd.com, open list <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
- krisman@collabora.com
+In-Reply-To: <20210719165140.16143-5-vijendar.mukunda@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Sunil-kumar.Dommati@amd.com, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ Alexander.Deucher@amd.com, krisman@collabora.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,59 +79,198 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Vangogh ACP5x drivers can be built by selecting necessary
-kernel config option.
-The patch enables build support of the same.
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- sound/soc/amd/Kconfig          | 9 +++++++++
- sound/soc/amd/Makefile         | 1 +
- sound/soc/amd/vangogh/Makefile | 9 +++++++++
- 3 files changed, 19 insertions(+)
- create mode 100644 sound/soc/amd/vangogh/Makefile
 
-diff --git a/sound/soc/amd/Kconfig b/sound/soc/amd/Kconfig
-index ba5a85bf7412..cc48d4e5b080 100644
---- a/sound/soc/amd/Kconfig
-+++ b/sound/soc/amd/Kconfig
-@@ -52,3 +52,12 @@ config SND_SOC_AMD_RENOIR_MACH
- 	depends on SND_SOC_AMD_RENOIR
- 	help
- 	 This option enables machine driver for DMIC
-+
-+config SND_SOC_AMD_ACP5x
-+	tristate "AMD Audio Coprocessor-v5.x I2S support"
-+	depends on X86 && PCI
-+	help
-+	 This option enables ACP v5.x support on AMD platform
-+
-+	 By enabling this flag build will trigger for ACP PCI driver,
-+	 ACP DMA drvier, CPU DAI driver.
-diff --git a/sound/soc/amd/Makefile b/sound/soc/amd/Makefile
-index e6df2f72a2a1..07150d26f315 100644
---- a/sound/soc/amd/Makefile
-+++ b/sound/soc/amd/Makefile
-@@ -10,3 +10,4 @@ obj-$(CONFIG_SND_SOC_AMD_CZ_RT5645_MACH) += snd-soc-acp-rt5645-mach.o
- obj-$(CONFIG_SND_SOC_AMD_ACP3x) += raven/
- obj-$(CONFIG_SND_SOC_AMD_RV_RT5682_MACH) += snd-soc-acp-rt5682-mach.o
- obj-$(CONFIG_SND_SOC_AMD_RENOIR) += renoir/
-+obj-$(CONFIG_SND_SOC_AMD_ACP5x) += vangogh/
-diff --git a/sound/soc/amd/vangogh/Makefile b/sound/soc/amd/vangogh/Makefile
-new file mode 100644
-index 000000000000..3353f93dc610
---- /dev/null
-+++ b/sound/soc/amd/vangogh/Makefile
-@@ -0,0 +1,9 @@
-+# SPDX-License-Identifier: GPL-2.0+
-+# Vangogh platform Support
-+snd-pci-acp5x-objs	:= pci-acp5x.o
-+snd-acp5x-i2s-objs	:= acp5x-i2s.o
-+snd-acp5x-pcm-dma-objs	:= acp5x-pcm-dma.o
-+
-+obj-$(CONFIG_SND_SOC_AMD_ACP5x) += snd-pci-acp5x.o
-+obj-$(CONFIG_SND_SOC_AMD_ACP5x)	+= snd-acp5x-i2s.o
-+obj-$(CONFIG_SND_SOC_AMD_ACP5x) += snd-acp5x-pcm-dma.o
--- 
-2.17.1
+On 7/19/21 11:51 AM, Vijendar Mukunda wrote:
+> ACP5.x IP has multiple I2S controllers and DMA controller.
+> Create platform devices for I2S HS controller instance, I2S SP controller
+> instance and DMA contrller.
 
+typo: controller
+
+> Pass PCI resources like MMIO, irq to these platform devices.
+> 
+> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+> ---
+>  sound/soc/amd/vangogh/acp5x.h     | 10 ++++
+>  sound/soc/amd/vangogh/pci-acp5x.c | 95 ++++++++++++++++++++++++++++++-
+>  2 files changed, 102 insertions(+), 3 deletions(-)
+> 
+> diff --git a/sound/soc/amd/vangogh/acp5x.h b/sound/soc/amd/vangogh/acp5x.h
+> index 708586109315..bbf29fd2b12f 100644
+> --- a/sound/soc/amd/vangogh/acp5x.h
+> +++ b/sound/soc/amd/vangogh/acp5x.h
+> @@ -22,6 +22,16 @@
+>  #define ACP_ERR_INTR_MASK	0x20000000
+>  #define ACP_EXT_INTR_STAT_CLEAR_MASK 0xFFFFFFFF
+>  
+> +#define ACP5x_DEVS 0x03
+
+3?
+
+> +#define	ACP5x_REG_START	0x1240000
+> +#define	ACP5x_REG_END	0x1250200
+> +#define ACP5x_I2STDM_REG_START	0x1242400
+> +#define ACP5x_I2STDM_REG_END	0x1242410
+> +#define ACP5x_HS_TDM_REG_START	0x1242814
+> +#define ACP5x_HS_TDM_REG_END	0x1242824
+> +#define I2S_MODE 0x00
+> +#define ACP5x_I2S_MODE 0x00
+> +
+>  /* common header file uses exact offset rather than relative
+>   * offset which requires substraction logic from base_addr
+
+typo: subtraction
+
+>   * for accessing ACP5x MMIO space registers
+> diff --git a/sound/soc/amd/vangogh/pci-acp5x.c b/sound/soc/amd/vangogh/pci-acp5x.c
+> index 523b962fe35e..3cc15a15b745 100644
+> --- a/sound/soc/amd/vangogh/pci-acp5x.c
+> +++ b/sound/soc/amd/vangogh/pci-acp5x.c
+> @@ -8,11 +8,16 @@
+>  #include <linux/module.h>
+>  #include <linux/io.h>
+>  #include <linux/delay.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/interrupt.h>
+>  
+>  #include "acp5x.h"
+>  
+>  struct acp5x_dev_data {
+>  	void __iomem *acp5x_base;
+> +	bool acp5x_audio_mode;
+> +	struct resource *res;
+> +	struct platform_device *pdev[3];
+
+pdev[ACP5x_DEVS] ?
+
+>  };
+>  
+>  static int acp5x_power_on(void __iomem *acp5x_base)
+> @@ -114,9 +119,12 @@ static int snd_acp5x_probe(struct pci_dev *pci,
+>  			   const struct pci_device_id *pci_id)
+>  {
+>  	struct acp5x_dev_data *adata;
+> -	int ret;
+> -	u32 addr;
+> +	struct platform_device_info pdevinfo[3];
+> +	unsigned int irqflags;
+> +	int ret, i;
+> +	u32 addr, val;
+>  
+> +	irqflags = IRQF_SHARED;
+>  	if (pci->revision != 0x50)
+>  		return -ENODEV;
+>  
+> @@ -150,6 +158,83 @@ static int snd_acp5x_probe(struct pci_dev *pci,
+>  	if (ret)
+>  		goto release_regions;
+>  
+> +	val = acp_readl(adata->acp5x_base + ACP_PIN_CONFIG);
+> +	switch (val) {
+> +	case I2S_MODE:
+> +		adata->res = devm_kzalloc(&pci->dev,
+> +					  sizeof(struct resource) * 4,
+
+what is this 4 value?
+
+> +					  GFP_KERNEL);
+> +		if (!adata->res) {
+> +			ret = -ENOMEM;
+> +			goto de_init;
+> +		}
+> +
+> +		adata->res[0].name = "acp5x_i2s_iomem";
+> +		adata->res[0].flags = IORESOURCE_MEM;
+> +		adata->res[0].start = addr;
+> +		adata->res[0].end = addr + (ACP5x_REG_END - ACP5x_REG_START);
+> +
+> +		adata->res[1].name = "acp5x_i2s_sp";
+> +		adata->res[1].flags = IORESOURCE_MEM;
+> +		adata->res[1].start = addr + ACP5x_I2STDM_REG_START;
+> +		adata->res[1].end = addr + ACP5x_I2STDM_REG_END;
+> +
+> +		adata->res[2].name = "acp5x_i2s_hs";
+> +		adata->res[2].flags = IORESOURCE_MEM;
+> +		adata->res[2].start = addr + ACP5x_HS_TDM_REG_START;
+> +		adata->res[2].end = addr + ACP5x_HS_TDM_REG_END;
+> +
+> +		adata->res[3].name = "acp5x_i2s_irq";
+> +		adata->res[3].flags = IORESOURCE_IRQ;
+> +		adata->res[3].start = pci->irq;
+> +		adata->res[3].end = adata->res[3].start;
+> +
+> +		adata->acp5x_audio_mode = ACP5x_I2S_MODE;
+> +
+> +		memset(&pdevinfo, 0, sizeof(pdevinfo));
+> +		pdevinfo[0].name = "acp5x_i2s_dma";
+> +		pdevinfo[0].id = 0;
+> +		pdevinfo[0].parent = &pci->dev;
+> +		pdevinfo[0].num_res = 4;
+> +		pdevinfo[0].res = &adata->res[0];
+> +		pdevinfo[0].data = &irqflags;
+> +		pdevinfo[0].size_data = sizeof(irqflags);
+> +
+> +		pdevinfo[1].name = "acp5x_i2s_playcap";
+> +		pdevinfo[1].id = 0;
+> +		pdevinfo[1].parent = &pci->dev;
+> +		pdevinfo[1].num_res = 1;
+> +		pdevinfo[1].res = &adata->res[1];
+> +
+> +		pdevinfo[2].name = "acp5x_i2s_playcap";
+> +		pdevinfo[2].id = 1;
+> +		pdevinfo[2].parent = &pci->dev;
+> +		pdevinfo[2].num_res = 1;
+> +		pdevinfo[2].res = &adata->res[2];
+> +
+> +		for (i = 0; i < ACP5x_DEVS; i++) {
+> +			adata->pdev[i] =
+> +				platform_device_register_full(&pdevinfo[i]);
+> +			if (IS_ERR(adata->pdev[i])) {
+> +				dev_err(&pci->dev, "cannot register %s device\n",
+> +					pdevinfo[i].name);
+> +				ret = PTR_ERR(adata->pdev[i]);
+> +				goto unregister_devs;
+> +			}
+> +		}
+> +		break;
+> +	default:
+> +		dev_info(&pci->dev, "ACP audio mode : %d\n", val);
+> +	}
+> +	return 0;
+> +
+> +unregister_devs:
+> +	if (val == I2S_MODE)
+
+nit-pick: you can't reach this point outside of the I2S_MODE, so this test is not useful
+
+
+> +		for (i = 0; i < ACP5x_DEVS; i++)
+> +			platform_device_unregister(adata->pdev[i]);
+
+only unregister what you registered?
+
+for (--i; i > 0; i--)
+
+> +de_init:
+> +	if (acp5x_deinit(adata->acp5x_base))
+> +		dev_err(&pci->dev, "ACP de-init failed\n");
+>  release_regions:
+>  	pci_release_regions(pci);
+>  disable_pci:
+> @@ -161,9 +246,13 @@ static int snd_acp5x_probe(struct pci_dev *pci,
+>  static void snd_acp5x_remove(struct pci_dev *pci)
+>  {
+>  	struct acp5x_dev_data *adata;
+> -	int ret;
+> +	int i, ret;
+>  
+>  	adata = pci_get_drvdata(pci);
+> +	if (adata->acp5x_audio_mode == ACP5x_I2S_MODE) {
+> +		for (i = 0; i < ACP5x_DEVS; i++)
+> +			platform_device_unregister(adata->pdev[i]);
+> +	}
+>  	ret = acp5x_deinit(adata->acp5x_base);
+>  	if (ret)
+>  		dev_err(&pci->dev, "ACP de-init failed\n");
+> 

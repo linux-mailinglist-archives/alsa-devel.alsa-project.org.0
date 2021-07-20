@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECA3E3CFDC7
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Jul 2021 17:41:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ABB43CFDC8
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Jul 2021 17:42:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7660D167A;
-	Tue, 20 Jul 2021 17:41:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7660D167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6F51168E;
+	Tue, 20 Jul 2021 17:41:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6F51168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626795717;
-	bh=7ArFbZ7pWm0b0RKnzWa672by4uqOWrNYwQZeUw9sisA=;
+	s=default; t=1626795733;
+	bh=gXc8+8KwcR4JGbMNY7O/4rA/nalcEMXFX3yAAfeCOoA=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KJdJwKYML2Vx2dcAEXQKEpA45+sFgjAAGbPOLKsad4te69++OE64M2z87Dq41fF5T
-	 Fk3AhG/nP1JiMOIvzSzTedj1WRQIFP363i3y4mcWztWSB1UAkU5jB7B3Vqndoev/6B
-	 WYRRaADPuuyKH13HH+9P9XLKuY3lQGngFZObRmeA=
+	b=RLele8dzBqrLoucjxKbntjS2giFEmKbpJ2yG8TBnfAgQTYz8wtYqRhnWOEC9zLuV6
+	 FLmiOsuPM75HKOMXEVDJpXoyufx7A3zeD37l9zrbAhx5KEhqYIbTCcD7GIN2fWVc2z
+	 437OLafejZTw8MD2gE9K4bGUBKuMU55jbN+eDT2w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6390F80218;
-	Tue, 20 Jul 2021 17:40:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 750EDF8032B;
+	Tue, 20 Jul 2021 17:41:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B368F8020D; Tue, 20 Jul 2021 17:40:29 +0200 (CEST)
+ id 2438EF80104; Tue, 20 Jul 2021 17:41:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C76E6F800DA
- for <alsa-devel@alsa-project.org>; Tue, 20 Jul 2021 17:40:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C76E6F800DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 48210F80104
+ for <alsa-devel@alsa-project.org>; Tue, 20 Jul 2021 17:41:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48210F80104
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="A5Wq15YU"; 
+ header.b="rwktspjT"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="7qMtDYzU"
+ header.b="ES4Vcj+G"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 8978722453;
- Tue, 20 Jul 2021 15:40:22 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 657C71FE33;
+ Tue, 20 Jul 2021 15:41:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1626795622; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1626795666; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=PxdJRybXj0b5kor3cTcrTlW6O+XJ2p80wJ3iq0K7/j8=;
- b=A5Wq15YU8vSgD4IWRe1+oClfodgFa8siOLcT4FZxf0P/y/jS+Y/f2XmA3eWxh54vKA4TT0
- aCeZZU4KOk1M/N1r9XgdJDEmg0cpw66asaLBUsx2kCiNT1hZlznVIBe4Ld4RUrGNcjZmyP
- ef1X4RLiYNIETZn8IbZmqf7af+23Qow=
+ bh=Xf8e2orClqXM38Rstr3Oj465Y2EWTJbkcRFhNnBuq90=;
+ b=rwktspjTz9K8Zlh/HSGa6ITYGMyCx72gCMXNGDg4dmb2fLWk8A/MoEryV9uHfYAb8OKqdV
+ GJHx9tohLRspYhcXNVndBXYFL3aTJsU6DQyoG2LGrliv0re8WOm30gVvaR6pyKNSIgE40J
+ dnlJOuWu+/UKmffhdzdbHf0G7jzyaM8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1626795622;
+ s=susede2_ed25519; t=1626795666;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=PxdJRybXj0b5kor3cTcrTlW6O+XJ2p80wJ3iq0K7/j8=;
- b=7qMtDYzURtCrQN9JWRU7bf5pfv1Rqs7Bhf9scnCsrxOjj8p4biEa2zly7kctAHPcO0ZiAs
- jLsJ8gZv7nW1PMDA==
+ bh=Xf8e2orClqXM38Rstr3Oj465Y2EWTJbkcRFhNnBuq90=;
+ b=ES4Vcj+GMwThkvZx/uDfJ7GTEElW6xm6nV+aZOgFai+aVGge2X94Ru9KXU9QUynxowfUaN
+ R/G3WxcsFaeqp1AQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 71938A3B98;
- Tue, 20 Jul 2021 15:40:22 +0000 (UTC)
-Date: Tue, 20 Jul 2021 17:40:22 +0200
-Message-ID: <s5ha6mhouxl.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 54D21A3B8A;
+ Tue, 20 Jul 2021 15:41:06 +0000 (UTC)
+Date: Tue, 20 Jul 2021 17:41:06 +0200
+Message-ID: <s5h7dhlouwd.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Colin King <colin.king@canonical.com>
-Subject: Re: [PATCH][next] ALSA: opti9xx: fix missing { } around an if block
-In-Reply-To: <20210720153741.73230-1-colin.king@canonical.com>
-References: <20210720153741.73230-1-colin.king@canonical.com>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda/hdmi: Add quirk to force pin connectivity on
+ NUC10
+In-Reply-To: <20210720153216.2200938-1-kai.vehmanen@linux.intel.com>
+References: <20210720153216.2200938-1-kai.vehmanen@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,18 +93,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 20 Jul 2021 17:37:41 +0200,
-Colin King wrote:
+On Tue, 20 Jul 2021 17:32:16 +0200,
+Kai Vehmanen wrote:
 > 
-> From: Colin Ian King <colin.king@canonical.com>
+> On some Intel NUC10 variants, codec reports AC_JACK_PORT_NONE as
+> pin default config for all pins. This results in broken audio.
+> Add a quirk to force connectivity.
 > 
-> Currently the { } braces are missing around an if block causing subsequent
-> code after the return to become unreachable. Fix this by adding the
-> missing { }.
-> 
-> Addresses-Coverity: ("Structurally dead code")
-> Fixes: 2973ee4a5b54 ("ALSA: opti9xx: Allocate resources with device-managed APIs")
-> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+> BugLink: https://github.com/clearlinux/distribution/issues/2396
+> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
 Thanks, applied.
 

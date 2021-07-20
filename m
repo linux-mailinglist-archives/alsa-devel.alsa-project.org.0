@@ -2,131 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 645273CFF4B
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Jul 2021 18:26:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAC493D0123
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Jul 2021 20:02:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D54461669;
-	Tue, 20 Jul 2021 18:25:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D54461669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D213168F;
+	Tue, 20 Jul 2021 20:01:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D213168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626798365;
-	bh=V/RSoCvqUueHuWEhw1RIZGXUiphHpHJPkI81LKTyrz4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Ytff1TZtqlUX3m1HqZ4c+LnRhBfbi9hSi2te2IwTnHCYAM6F+7l4/WwAB9JgOm7YW
-	 eLLSHX5564q1cb3ocXdL8fKjDLUzT0fyQ/DJZPQ4FiBBAwytwXtPZW/CUWZe+QWrlT
-	 McrLXOXaQK7PFvhKbZcZVgkMZdR4P/enpHNBuqK8=
+	s=default; t=1626804137;
+	bh=jrJFNwhrUjpATmY0nN7b6Vv+8avcbpMYBMtGOVslp+4=;
+	h=Date:From:Subject:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=EZ5qzkW/zKXLUmrczNUi1Uhv10W7GBeT53WvunV99JXSsIsZP8tbYh7i2HFi+bkQ2
+	 YALm5m/24aBaucH1asqLTCsIJNDtQG2ArB+Oo+YKxMWHXSsMSXs3k+y8LT7qNisag4
+	 8y1vHYGn9ImjEMJQv8UkGqyLeBKG0OfmmgePWy00=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0EE7F804E2;
-	Tue, 20 Jul 2021 18:22:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BB685F80227;
+	Tue, 20 Jul 2021 20:00:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 56A97F804FC; Tue, 20 Jul 2021 18:22:21 +0200 (CEST)
+ id 8A371F80218; Tue, 20 Jul 2021 20:00:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20606.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8a::606])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx.ghoul.cz (mx.ghoul.cz [37.205.14.28])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E15EBF804CF
- for <alsa-devel@alsa-project.org>; Tue, 20 Jul 2021 18:22:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E15EBF804CF
+ by alsa1.perex.cz (Postfix) with ESMTPS id BD822F800DA
+ for <alsa-devel@alsa-project.org>; Tue, 20 Jul 2021 20:00:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD822F800DA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="N3G+CEzP"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mPPXv3S/N4eq21+WKvhWg0D+qNFcYpY5SjNMRpGjQ+221g4UlmrkGfcH763NIbdxpeCOcXlgwGXopLAdpg+n28yJMO8vBofD7vy8gIbFGp+4MQpUT/pMsuB8pOnK+n13gEqyFVgX2cvU6P9WJaigvbi+vW3Mr4vinmVaeFY8fZhDgVLKV2SfaaQPdkv3kNBPqyzaRo87KXYMTrZCs8TcYVYOq/SkUPVU9ITuldw8cFtTgzmKPOesXzC6RgmKnwDdnn1P8M336OxezjG6/4BIWss3/5x6tzwCW9hDqH8RYMs82ZGJFITDSynOKa9DURGWAkUM6TxPcFrgSqOsPUv0gA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1i0+9gPb94UsQr3Sp0gKBRXkObFv558cCC3DKJKN7Wk=;
- b=gvznEpi4q2a4xqzWjIYD15fhVKdH9IgB7mISGzSXJVXqpjuxw69TbdoTBYiC2rUj6bv24rhI7hDhTV4TLY27HnJV3f6IudBHU53RewYhsCFyzxxvzHdLBbYgp8MvILNAiG6RMGoLvRt7CcdsJPnrUr+EE8Rd86vnwDyH/jac5XhZoaQ/OUNCTkrEjIHCbIomz9MgvGb0cyn7CI2WDu0WdUYsGS4JCvND4YpDAl2da1ql5NRn3+fhRpZ9meHDray/V89HbkiKqSudSxnbAW5yx+PonViRusEdsjI9RArq00FC0gd2xYoA6Ug6CNLdF5SNXBPEZc4DrT1OeE/4KG/QdQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1i0+9gPb94UsQr3Sp0gKBRXkObFv558cCC3DKJKN7Wk=;
- b=N3G+CEzPwSl85s0zNM/nD4SkwChgLTd/6emcHx0pnaQtRRw4bZRL5cBueSe8YJ3S1HsjXkGhvNDBtzIteOxGyd1hmZfy1cP6YMmpCCVp1pWhnKeVuQUxGvzRfSefUBOBjuZBcaJQe4QRKTx+n3HX9w4OP7pdLe6KIO9dH25Q15s=
-Received: from MW4PR03CA0360.namprd03.prod.outlook.com (2603:10b6:303:dc::35)
- by DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.23; Tue, 20 Jul
- 2021 16:22:13 +0000
-Received: from CO1NAM11FT013.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:dc:cafe::ec) by MW4PR03CA0360.outlook.office365.com
- (2603:10b6:303:dc::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.21 via Frontend
- Transport; Tue, 20 Jul 2021 16:22:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT013.mail.protection.outlook.com (10.13.174.227) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4331.21 via Frontend Transport; Tue, 20 Jul 2021 16:22:12 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 20 Jul
- 2021 11:22:11 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 20 Jul
- 2021 11:22:11 -0500
-Received: from LinuxHost.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
- Transport; Tue, 20 Jul 2021 11:22:02 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH v4 12/12] ASoC: amd: enable vangogh acp5x driver build
-Date: Tue, 20 Jul 2021 22:07:32 +0530
-Message-ID: <20210720163732.23003-13-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210720163732.23003-1-Vijendar.Mukunda@amd.com>
-References: <20210720163732.23003-1-Vijendar.Mukunda@amd.com>
+ dkim=pass (2048-bit key) header.d=ufiseru.cz header.i=@ufiseru.cz
+ header.b="qLfhFFLg"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 9F3BA1B60B
+ for <alsa-devel@alsa-project.org>; Tue, 20 Jul 2021 20:00:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ufiseru.cz; s=dkim;
+ t=1626804009; h=from:subject:date:message-id:to:mime-version:content-type:
+ content-transfer-encoding; bh=jrJFNwhrUjpATmY0nN7b6Vv+8avcbpMYBMtGOVslp+4=;
+ b=qLfhFFLg46SIeBZ4FHop6tRkVz0XDbvWtylI2cYfiqWfyelPjFYwuz9t78X9l+DTitMCDt
+ sz0SkiH1Vox279DMLmrpZRcs9wzx1osFaX0OKh7SxXol039gUrnaooisDlTHjWo89Wyixo
+ tEjSvb6G809B7pzn7RSWkPThn8fVXk/zFhdE6IDw0aKQCWGtHNnOVR/Q6BAboT95ZRchh7
+ JJpjU3ZYAH7A4amq7bRYmRxhq6xVbLlJjfvER2YqMUdJj6/IYRobp8ZRTUbXCTtEclu5H6
+ U9Zv+5sPWXiywKvuKOOSnJP2LDpze+QuqPjJ1DmpBG53VTjD0UUa86E4pS0CSg==
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 33fe1a99-2684-49cb-c9db-08d94b9a880c
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:
-X-Microsoft-Antispam-PRVS: <DM4PR12MB5149899C818B880291B0B15297E29@DM4PR12MB5149.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: A3D1g9zymY6wCMMFyo4Q6XaAkWVlBAWLbRazs7v8t4+wBGbx7ohH/VkRdej4GiZ6Zruv/lA8BzLYOdFhfb5Iihayey9fAL67/4V5sTwYyxWJlUpXqQD2rHcw4trdt1Gi9NkKY5aVow2yTcWQDRAi6zgq+mwG/SEvV3bzOPmYAgggRcqzU7Hjgb25IzJAFcpUiuGIWIZO0ZCc964SctGubx7Vf8qKhPmXdev3hrzni3ZbGjUtMojQ3aD6Pit/qo9FRX3UVzcczYn6etrWhfkRDwxUfuiB62qn5oBofjy/V44UlLNG19/OpX8xT0KxXcXIg2FolP+Xr/TUK85c1C7mi+5Xmom5nbl93HIAv2bfxBjisURwH4qNo3I1VLuSaerbwycIpCmkfqdeONwkTBJQFwOOulgDSSwXDJsTcBLqY0uMARuP55I6Thr5qlaBSx3EDs1rHSpS2nRzJr5848XQvPBCSoQ4i2k3E68537xAmRBeOG7Xq67NHLRonwQbyKbQE9KG0LLQoBJOWeAXPv5FZRaeIOmkY3TOXFYB+14Ld+a1HnpIJ8b//oyXHRZuLQleYKQIZhmaYC2Yr+AKb2eLc3QAwNKYME5n5/w+k1YfLE2cZRKq1fszKjx0bMIG6A3NF2bbV0GLBicPrx7YckAtbXJHB9rBsjiv1tLRZlUy2PEt1i97YLek0M7CQ/w8AQ0IkQyLelYub/3Pha9BU8lUqqeaXc6AOTG7HdZNTE/5vDPLE68tsD6z15bKWMNIfhhtlScJAFlxoXbb+KFUM4OShi6E6cNWjkAlIsL7V7JRSw0=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(346002)(376002)(396003)(136003)(39860400002)(46966006)(36840700001)(82310400003)(81166007)(5660300002)(82740400003)(356005)(36860700001)(86362001)(478600001)(36756003)(47076005)(316002)(7696005)(336012)(426003)(2906002)(8676002)(110136005)(54906003)(6666004)(2616005)(8936002)(70586007)(70206006)(1076003)(26005)(186003)(4326008)(42413003)(32563001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2021 16:22:12.7433 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33fe1a99-2684-49cb-c9db-08d94b9a880c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT013.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5149
-Cc: Sunil-kumar.Dommati@amd.com, open list <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
- krisman@collabora.com
+Date: Tue, 20 Jul 2021 18:00:09 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "=?utf-8?B?SmFrdWIgRmnFoWVy?=" <jakub@ufiseru.cz>
+Message-ID: <53ec08048f961a8a2564556e0daa78f0@ufiseru.cz>
+Subject: mic not working on JBL Quantum series USB headsets
+To: alsa-devel@alsa-project.org
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -142,61 +74,115 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Vijendar Mukunda <vijendar.mukunda@amd.com>
+Hello Alsa people,
 
-Vangogh ACP5x drivers can be built by selecting necessary
-kernel config option.
-The patch enables build support of the same.
+hope this is the right place to post.
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- sound/soc/amd/Kconfig          | 9 +++++++++
- sound/soc/amd/Makefile         | 1 +
- sound/soc/amd/vangogh/Makefile | 9 +++++++++
- 3 files changed, 19 insertions(+)
- create mode 100644 sound/soc/amd/vangogh/Makefile
+My Quantum 800's microphone doesn't work and I found other reports sugges=
+ting
+this issue affects the whole Quantum product line.
 
-diff --git a/sound/soc/amd/Kconfig b/sound/soc/amd/Kconfig
-index ba5a85bf7412..cc48d4e5b080 100644
---- a/sound/soc/amd/Kconfig
-+++ b/sound/soc/amd/Kconfig
-@@ -52,3 +52,12 @@ config SND_SOC_AMD_RENOIR_MACH
- 	depends on SND_SOC_AMD_RENOIR
- 	help
- 	 This option enables machine driver for DMIC
-+
-+config SND_SOC_AMD_ACP5x
-+	tristate "AMD Audio Coprocessor-v5.x I2S support"
-+	depends on X86 && PCI
-+	help
-+	 This option enables ACP v5.x support on AMD platform
-+
-+	 By enabling this flag build will trigger for ACP PCI driver,
-+	 ACP DMA drvier, CPU DAI driver.
-diff --git a/sound/soc/amd/Makefile b/sound/soc/amd/Makefile
-index e6df2f72a2a1..07150d26f315 100644
---- a/sound/soc/amd/Makefile
-+++ b/sound/soc/amd/Makefile
-@@ -10,3 +10,4 @@ obj-$(CONFIG_SND_SOC_AMD_CZ_RT5645_MACH) += snd-soc-acp-rt5645-mach.o
- obj-$(CONFIG_SND_SOC_AMD_ACP3x) += raven/
- obj-$(CONFIG_SND_SOC_AMD_RV_RT5682_MACH) += snd-soc-acp-rt5682-mach.o
- obj-$(CONFIG_SND_SOC_AMD_RENOIR) += renoir/
-+obj-$(CONFIG_SND_SOC_AMD_ACP5x) += vangogh/
-diff --git a/sound/soc/amd/vangogh/Makefile b/sound/soc/amd/vangogh/Makefile
-new file mode 100644
-index 000000000000..3353f93dc610
---- /dev/null
-+++ b/sound/soc/amd/vangogh/Makefile
-@@ -0,0 +1,9 @@
-+# SPDX-License-Identifier: GPL-2.0+
-+# Vangogh platform Support
-+snd-pci-acp5x-objs	:= pci-acp5x.o
-+snd-acp5x-i2s-objs	:= acp5x-i2s.o
-+snd-acp5x-pcm-dma-objs	:= acp5x-pcm-dma.o
-+
-+obj-$(CONFIG_SND_SOC_AMD_ACP5x) += snd-pci-acp5x.o
-+obj-$(CONFIG_SND_SOC_AMD_ACP5x)	+= snd-acp5x-i2s.o
-+obj-$(CONFIG_SND_SOC_AMD_ACP5x) += snd-acp5x-pcm-dma.o
--- 
-2.17.1
+It's a wireless headset with USB dongle.
 
+I *think* the issue is with Alsa because the Capture device is "detected"=
+ but not
+populated under /sys:
+
+arecord list of devices:
+```
+% arecord -l
+**** List of CAPTURE Hardware Devices ****
+(...)
+card 1: Q800 [Quantum 800], device 0: USB Audio [USB Audio]
+Subdevices: 1/1
+Subdevice #0: subdevice #0
+```
+
+amixer knobs:
+```
+% amixer -c1
+Simple mixer control 'PCM',0
+Capabilities: pswitch pswitch-joined
+Playback channels: Mono
+Mono: Playback [on]
+Simple mixer control 'PCM',1
+Capabilities: pswitch pswitch-joined
+Playback channels: Mono
+Mono: Playback [on]
+Simple mixer control 'Headset',0
+Capabilities: cvolume cvolume-joined cswitch cswitch-joined
+Capture channels: Mono
+Limits: Capture 0 - 64
+Mono: Capture 64 [100%] [0.00dB] [on]
+```
+
+arecord trying to use the capture device:
+```
+% arecord -Dhw:1,0 /tmp/out.wav
+arecord: main:831: audio open error: No such file or directory
+```
+
+/sys pcm "endpoints" (missing capture endpoint):
+```
+% ls -1d /sys/class/sound/pcm*
+/sys/class/sound/pcmC1D0p
+/sys/class/sound/pcmC1D1p
+```
+
+nothing suspicious in dmesg:
+```
+usb 3-1.3: new full-speed USB device number 12 using xhci_hcd
+usb 3-1.3: New USB device found, idVendor=3D0ecb, idProduct=3D203e, bcdDe=
+vice=3D 1.00
+usb 3-1.3: New USB device strings: Mfr=3D4, Product=3D5, SerialNumber=3D0
+usb 3-1.3: Product: Quantum 800
+usb 3-1.3: Manufacturer: JBL
+usb 3-1.3: Found post-registration device assignment: 0ecb203e:02
+input: JBL Quantum 800 Consumer Control as
+/devices/pci0000:00/0000:00:1d.4/0000:05:00.0/0000:06:01.0/0000:08:00.0/0=
+000:09:02.0/0000:0a:00.0/us
+3/3-1/3-1.3/3-1.3:1.5/0003:0ECB:203E.0024/input/input51
+input: JBL Quantum 800 as
+/devices/pci0000:00/0000:00:1d.4/0000:05:00.0/0000:06:01.0/0000:08:00.0/0=
+000:09:02.0/0000:0a:00.0/us
+3/3-1/3-1.3/3-1.3:1.5/0003:0ECB:203E.0024/input/input52
+hid-generic 0003:0ECB:203E.0024: input,hiddev96,hidraw0: USB HID v1.11 De=
+vice [JBL Quantum 800] on
+usb-0000:0a:00.0-1.3/input5
+```
+
+Nothing at all in either Pulse or Pipewire logs.
+
+alsa-info: http://alsa-project.org/db/?f=3Dd9e7a91d97b2f64a0b2d00a05dfc9f=
+9dace3a6f6
+
+Linux 5.12.14-lqx2
+
+Other reports:
+
+https://bbs.archlinux.org/viewtopic.php?pid=3D1983686
+https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/issues/998
+
+The headset also works for me on Windows 10 out of the box (and according=
+ to the Internet, it
+works on Mac, too).
+
+Note that I updated the headset and dongle to the latest firmware (v3.1.5=
+.0) with no effect.
+
+The 800 model also has Bluetooth with both A2DP and HSP profile. Not sure=
+ if this is relevant
+but for clarity:
+
+- with Pulse A2DP profile works only as output device (SBC and AAC), othe=
+r profiles, such as
+HSP, are listed but "unavailable"
+- with Pipewire only HSP profiles are listed and available (mSBC, CVSD an=
+d "plain"),
+microphone *works*
+
+I'd like to help with debugging, just tell me how (or if) I can.
+
+thanks,
+
+-jakub.

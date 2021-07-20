@@ -2,70 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F65E3D01EA
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Jul 2021 20:50:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 508913D023B
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Jul 2021 21:43:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2A87169E;
-	Tue, 20 Jul 2021 20:50:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2A87169E
+	by alsa0.perex.cz (Postfix) with ESMTPS id E00F2168F;
+	Tue, 20 Jul 2021 21:42:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E00F2168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626807056;
-	bh=ZgNgco34g0cjFukJMoXeTAIC0r9NhF6dPTG608EQ+00=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1626810212;
+	bh=UuBvjSDOgUYO0TMkD7U40NLY1af7roVyi8SefYXK7jY=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MrDzF+hyRxPSg8jaS3Lp9fKcnnZAcsjyg9wqd9pp0+cqlHqzfWffsefFwKbGX8bcc
-	 7DxI1KZnMcEEQsBP85cwVv16J6eUFmFYV2p0hR3bXw2Omfyw1lRVNScw+VsVueIFkf
-	 YM2pBoo+Buyb+oYJNrTNU69gdzPCJtsdSIzUI27A=
+	b=Vt+3XG9juhqD38zYWl6BW/T/7qCYXZmzPjNGusmcEyqo95+qIKOphETMP2LLIeS6A
+	 IabMCJ12vRjd2/5phKT+JNuzeIbGcwnHg93Nxn5XilLwFhsOmF+A6ftGj+SO4HgssC
+	 uWYPCfash+wGUw2ky5WUInj9Vs7KddjQ2Q41LKVo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76EC7F80227;
-	Tue, 20 Jul 2021 20:48:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 400E8F800DA;
+	Tue, 20 Jul 2021 21:42:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA319F804FB; Tue, 20 Jul 2021 20:48:34 +0200 (CEST)
+ id 9C938F80218; Tue, 20 Jul 2021 21:42:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2ABE1F804F1
- for <alsa-devel@alsa-project.org>; Tue, 20 Jul 2021 20:48:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2ABE1F804F1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 269BEF80104
+ for <alsa-devel@alsa-project.org>; Tue, 20 Jul 2021 21:41:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 269BEF80104
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qHS0oXdj"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0BEEE610CC;
- Tue, 20 Jul 2021 18:48:27 +0000 (UTC)
+ header.b="XjfvV7bC"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 50EE6610A0;
+ Tue, 20 Jul 2021 19:41:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1626806908;
- bh=ZgNgco34g0cjFukJMoXeTAIC0r9NhF6dPTG608EQ+00=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=qHS0oXdj9YTwOcw7hZup4YWAKxbdnJheL6wvKwJZarUgjDg4fF9GAFWo9s+1l+yJs
- An3b95aFALXTMYiJGQ86tLyNfsdNzQvDr1nTDoCXB7v9/WeVh8hl+pYOVk5qTk/JrX
- RHGYTaocGQUW9/RJaZVQWZgvtxDovAJg2jWF91RYWE/XcCjSDeqzjHJFf8c9lCJJSa
- aCqCQo99HDu2GREv4yc3pPVCbw13LUmBxWc/FO+4BmiCcKBdI6JkP4yHzqW7/DUVfN
- E/2bL2fRumUjzDy/szhGbCG+1tqtW26BPYiPwJNEuzmWSFyVUIQkQbkDLLTfWYYph5
- LdFk7ZjO3lhwA==
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-Subject: Re: (subset) [PATCH 0/2] ASoC/soundwire: add quirks for Intel 'Bishop
- County' NUC M15
-Date: Tue, 20 Jul 2021 19:48:18 +0100
-Message-Id: <162680637204.10901.1832612641882359435.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210719233248.557923-1-pierre-louis.bossart@linux.intel.com>
-References: <20210719233248.557923-1-pierre-louis.bossart@linux.intel.com>
+ s=k20201202; t=1626810113;
+ bh=UuBvjSDOgUYO0TMkD7U40NLY1af7roVyi8SefYXK7jY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=XjfvV7bCvIXFnw+nBRdhwpWKsIMSrORlufXkSIun8YwfDnlUOcjoiTSmR258AKY1U
+ slUbkYaw+jLU7W4ZZz5gnr8l+m+oOUvHGMc4Inq1pga+edqa2L03BUngstLWLmWmSs
+ z6gtNZjM+P/xiCdyOX94pxoHjP5S09vqqAInZIdOhfBreO/DPCBcnPur1CTZixbeAT
+ lPdV9hmCc7v+B5U1yAZyO3ImMUFEZ4x1s1M8fknXGj1VnhMsTlt0HF6/jxO0TYI14p
+ BHUpKDJTyR5It9ygMH5LlO8sPr4l9UXDd4Z3tmjGtnggTbRmGMNNmQcV4HFN9koM9B
+ cSAVJ2/rCQg5g==
+Date: Tue, 20 Jul 2021 12:41:51 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH v2 39/79] ALSA: korg1212: Allocate resources with
+ device-managed APIs
+Message-ID: <YPcm/2ayBvEiHqml@Ryzen-9-3900X.localdomain>
+References: <20210715075941.23332-1-tiwai@suse.de>
+ <20210715075941.23332-40-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, gregkh@linuxfoundation.org, vkoul@kernel.org,
- Mark Brown <broonie@kernel.org>, Bard liao <yung-chuan.liao@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210715075941.23332-40-tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,41 +80,399 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 19 Jul 2021 18:32:46 -0500, Pierre-Louis Bossart wrote:
-> The 'Bishop County' NUC Laptops designed by Intel rely on SoundWire
-> peripherals. Quirks are required on the soundwire/ side to work-around
-> ACPI issues (bad _ADR) and sound/soc/ side for jack detection.
+On Thu, Jul 15, 2021 at 09:59:01AM +0200, Takashi Iwai wrote:
+> This patch converts the resource management in PCI korg1212 driver
+> with devres as a clean up.  Each manual resource management is
+> converted with the corresponding devres helper, the page allocations
+> are done with the devres helper, and the card object release is
+> managed now via card->private_free instead of a lowlevel snd_device.
 > 
-> The two patches are independent and can be merged in the two subsystem
-> independently if desired. Both patches are however required in any
-> backport.
+> This should give no user-visible functional changes.
 > 
-> [...]
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+>  sound/pci/korg1212/korg1212.c | 211 +++++++++-------------------------
+>  1 file changed, 55 insertions(+), 156 deletions(-)
+> 
+> diff --git a/sound/pci/korg1212/korg1212.c b/sound/pci/korg1212/korg1212.c
+> index 030e01b062e4..7872abbd4587 100644
+> --- a/sound/pci/korg1212/korg1212.c
+> +++ b/sound/pci/korg1212/korg1212.c
+> @@ -320,10 +320,10 @@ struct snd_korg1212 {
+>          unsigned long inIRQ;
+>          void __iomem *iobase;
+>  
+> -	struct snd_dma_buffer dma_dsp;
+> -        struct snd_dma_buffer dma_play;
+> -        struct snd_dma_buffer dma_rec;
+> -	struct snd_dma_buffer dma_shared;
+> +	struct snd_dma_buffer *dma_dsp;
+> +	struct snd_dma_buffer *dma_play;
+> +	struct snd_dma_buffer *dma_rec;
+> +	struct snd_dma_buffer *dma_shared;
+>  
+>  	u32 DataBufsSize;
+>  
+> @@ -1200,8 +1200,8 @@ static int snd_korg1212_downloadDSPCode(struct snd_korg1212 *korg1212)
+>          snd_korg1212_setCardState(korg1212, K1212_STATE_DSP_IN_PROCESS);
+>  
+>          rc = snd_korg1212_Send1212Command(korg1212, K1212_DB_StartDSPDownload,
+> -                                     UpperWordSwap(korg1212->dma_dsp.addr),
+> -                                     0, 0, 0);
+> +					  UpperWordSwap(korg1212->dma_dsp->addr),
+> +					  0, 0, 0);
+>  	if (rc)
+>  		K1212_DEBUG_PRINTK("K1212_DEBUG: Start DSP Download RC = %d [%s]\n",
+>  				   rc, stateName[korg1212->cardState]);
+> @@ -1382,7 +1382,7 @@ static int snd_korg1212_playback_open(struct snd_pcm_substream *substream)
+>  	snd_korg1212_OpenCard(korg1212);
+>  
+>          runtime->hw = snd_korg1212_playback_info;
+> -	snd_pcm_set_runtime_buffer(substream, &korg1212->dma_play);
+> +	snd_pcm_set_runtime_buffer(substream, korg1212->dma_play);
+>  
+>          spin_lock_irqsave(&korg1212->lock, flags);
+>  
+> @@ -1413,7 +1413,7 @@ static int snd_korg1212_capture_open(struct snd_pcm_substream *substream)
+>  	snd_korg1212_OpenCard(korg1212);
+>  
+>          runtime->hw = snd_korg1212_capture_info;
+> -	snd_pcm_set_runtime_buffer(substream, &korg1212->dma_rec);
+> +	snd_pcm_set_runtime_buffer(substream, korg1212->dma_rec);
+>  
+>          spin_lock_irqsave(&korg1212->lock, flags);
+>  
+> @@ -2080,71 +2080,16 @@ static void snd_korg1212_proc_init(struct snd_korg1212 *korg1212)
+>  			     snd_korg1212_proc_read);
+>  }
+>  
+> -static int
+> -snd_korg1212_free(struct snd_korg1212 *korg1212)
+> +static void
+> +snd_korg1212_free(struct snd_card *card)
+>  {
+> -        snd_korg1212_TurnOffIdleMonitor(korg1212);
+> -
+> -        if (korg1212->irq >= 0) {
+> -                snd_korg1212_DisableCardInterrupts(korg1212);
+> -                free_irq(korg1212->irq, korg1212);
+> -                korg1212->irq = -1;
+> -        }
+> -        
+> -        if (korg1212->iobase != NULL) {
+> -                iounmap(korg1212->iobase);
+> -                korg1212->iobase = NULL;
+> -        }
+> -        
+> -	pci_release_regions(korg1212->pci);
+> -
+> -        // ----------------------------------------------------
+> -        // free up memory resources used for the DSP download.
+> -        // ----------------------------------------------------
+> -        if (korg1212->dma_dsp.area) {
+> -        	snd_dma_free_pages(&korg1212->dma_dsp);
+> -        	korg1212->dma_dsp.area = NULL;
+> -        }
+> -
+> -#ifndef K1212_LARGEALLOC
+> -
+> -        // ------------------------------------------------------
+> -        // free up memory resources used for the Play/Rec Buffers
+> -        // ------------------------------------------------------
+> -	if (korg1212->dma_play.area) {
+> -		snd_dma_free_pages(&korg1212->dma_play);
+> -		korg1212->dma_play.area = NULL;
+> -        }
+> +	struct snd_korg1212 *korg1212 = card->private_data;
+>  
+> -	if (korg1212->dma_rec.area) {
+> -		snd_dma_free_pages(&korg1212->dma_rec);
+> -		korg1212->dma_rec.area = NULL;
+> -        }
+> -
+> -#endif
+> -
+> -        // ----------------------------------------------------
+> -        // free up memory resources used for the Shared Buffers
+> -        // ----------------------------------------------------
+> -	if (korg1212->dma_shared.area) {
+> -		snd_dma_free_pages(&korg1212->dma_shared);
+> -		korg1212->dma_shared.area = NULL;
+> -        }
+> -        
+> -	pci_disable_device(korg1212->pci);
+> -        kfree(korg1212);
+> -        return 0;
+> -}
+> -
+> -static int snd_korg1212_dev_free(struct snd_device *device)
+> -{
+> -        struct snd_korg1212 *korg1212 = device->device_data;
+> -        K1212_DEBUG_PRINTK("K1212_DEBUG: Freeing device\n");
+> -	return snd_korg1212_free(korg1212);
+> +	snd_korg1212_TurnOffIdleMonitor(korg1212);
+> +	snd_korg1212_DisableCardInterrupts(korg1212);
+>  }
+>  
+> -static int snd_korg1212_create(struct snd_card *card, struct pci_dev *pci,
+> -			       struct snd_korg1212 **rchip)
+> +static int snd_korg1212_create(struct snd_card *card, struct pci_dev *pci)
+>  
+>  {
+>          int err, rc;
+> @@ -2152,24 +2097,13 @@ static int snd_korg1212_create(struct snd_card *card, struct pci_dev *pci,
+>  	unsigned iomem_size;
+>  	__maybe_unused unsigned ioport_size;
+>  	__maybe_unused unsigned iomem2_size;
+> -        struct snd_korg1212 * korg1212;
+> +	struct snd_korg1212 *korg1212 = card->private_data;
+>  	const struct firmware *dsp_code;
+>  
+> -	static const struct snd_device_ops ops = {
+> -                .dev_free = snd_korg1212_dev_free,
+> -        };
+> -
+> -        * rchip = NULL;
+> -	err = pci_enable_device(pci);
+> +	err = pcim_enable_device(pci);
+>  	if (err < 0)
+>                  return err;
+>  
+> -        korg1212 = kzalloc(sizeof(*korg1212), GFP_KERNEL);
+> -        if (korg1212 == NULL) {
+> -		pci_disable_device(pci);
+> -                return -ENOMEM;
+> -	}
+> -
+>  	korg1212->card = card;
+>  	korg1212->pci = pci;
+>  
+> @@ -2198,12 +2132,9 @@ static int snd_korg1212_create(struct snd_card *card, struct pci_dev *pci,
+>          for (i=0; i<kAudioChannels; i++)
+>                  korg1212->volumePhase[i] = 0;
+>  
+> -	err = pci_request_regions(pci, "korg1212");
+> -	if (err < 0) {
+> -		kfree(korg1212);
+> -		pci_disable_device(pci);
+> +	err = pcim_iomap_regions_request_all(pci, 1 << 0, "korg1212");
+> +	if (err < 0)
+>  		return err;
+> -	}
+>  
+>          korg1212->iomem = pci_resource_start(korg1212->pci, 0);
+>          korg1212->ioport = pci_resource_start(korg1212->pci, 1);
+> @@ -2223,26 +2154,20 @@ static int snd_korg1212_create(struct snd_card *card, struct pci_dev *pci,
+>  		   korg1212->iomem2, iomem2_size,
+>  		   stateName[korg1212->cardState]);
+>  
+> -	korg1212->iobase = ioremap(korg1212->iomem, iomem_size);
+> -	if (!korg1212->iobase) {
+> -		snd_printk(KERN_ERR "korg1212: unable to remap memory region 0x%lx-0x%lx\n", korg1212->iomem,
+> -                           korg1212->iomem + iomem_size - 1);
+> -                snd_korg1212_free(korg1212);
+> -                return -EBUSY;
+> -        }
+> +	korg1212->iobase = pcim_iomap_table(pci)[0];
+>  
+> -        err = request_irq(pci->irq, snd_korg1212_interrupt,
+> +	err = devm_request_irq(&pci->dev, pci->irq, snd_korg1212_interrupt,
+>                            IRQF_SHARED,
+>                            KBUILD_MODNAME, korg1212);
+>  
+>          if (err) {
+>  		snd_printk(KERN_ERR "korg1212: unable to grab IRQ %d\n", pci->irq);
+> -                snd_korg1212_free(korg1212);
+>                  return -EBUSY;
+>          }
+>  
+>          korg1212->irq = pci->irq;
+>  	card->sync_irq = korg1212->irq;
+> +	card->private_free = snd_korg1212_free;
+>  
+>  	pci_set_master(korg1212->pci);
+>  
+> @@ -2281,41 +2206,36 @@ static int snd_korg1212_create(struct snd_card *card, struct pci_dev *pci,
+>                     korg1212->idRegPtr,
+>  		   stateName[korg1212->cardState]);
+>  
+> -	if (snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, &pci->dev,
+> -				sizeof(struct KorgSharedBuffer), &korg1212->dma_shared) < 0) {
+> -		snd_printk(KERN_ERR "korg1212: can not allocate shared buffer memory (%zd bytes)\n", sizeof(struct KorgSharedBuffer));
+> -                snd_korg1212_free(korg1212);
+> -                return -ENOMEM;
+> -        }
+> -        korg1212->sharedBufferPtr = (struct KorgSharedBuffer *)korg1212->dma_shared.area;
+> -        korg1212->sharedBufferPhy = korg1212->dma_shared.addr;
+> +	korg1212->dma_shared = snd_devm_alloc_pages(&pci->dev,
+> +						    SNDRV_DMA_TYPE_DEV,
+> +						    sizeof(struct KorgSharedBuffer));
+> +	if (!korg1212->dma_shared)
+> +		return -ENOMEM;
+> +	korg1212->sharedBufferPtr = (struct KorgSharedBuffer *)korg1212->dma_shared->area;
+> +	korg1212->sharedBufferPhy = korg1212->dma_shared->addr;
+>  
+>          K1212_DEBUG_PRINTK("K1212_DEBUG: Shared Buffer Area = 0x%p (0x%08lx), %d bytes\n", korg1212->sharedBufferPtr, korg1212->sharedBufferPhy, sizeof(struct KorgSharedBuffer));
+>  
+>  #ifndef K1212_LARGEALLOC
+> -
+>          korg1212->DataBufsSize = sizeof(struct KorgAudioBuffer) * kNumBuffers;
+> +	korg1212->dma_play = snd_devm_alloc_pages(&pci->dev, SNDRV_DMA_TYPE_DEV,
+> +						  korg1212->DataBufsSize);
+> +	if (!korg1212->dma_play)
+> +		return -ENOMEM;
+>  
+> -	if (snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, &pci->dev,
+> -				korg1212->DataBufsSize, &korg1212->dma_play) < 0) {
+> -		snd_printk(KERN_ERR "korg1212: can not allocate play data buffer memory (%d bytes)\n", korg1212->DataBufsSize);
+> -                snd_korg1212_free(korg1212);
+> -                return -ENOMEM;
+> -        }
+> -	korg1212->playDataBufsPtr = (struct KorgAudioBuffer *)korg1212->dma_play.area;
+> -	korg1212->PlayDataPhy = korg1212->dma_play.addr;
+> +	korg1212->playDataBufsPtr = (struct KorgAudioBuffer *)korg1212->dma_play->area;
+> +	korg1212->PlayDataPhy = korg1212->dma_play->addr;
+>  
+>          K1212_DEBUG_PRINTK("K1212_DEBUG: Play Data Area = 0x%p (0x%08x), %d bytes\n",
+>  		korg1212->playDataBufsPtr, korg1212->PlayDataPhy, korg1212->DataBufsSize);
+>  
+> -	if (snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, &pci->dev,
+> -				korg1212->DataBufsSize, &korg1212->dma_rec) < 0) {
+> -		snd_printk(KERN_ERR "korg1212: can not allocate record data buffer memory (%d bytes)\n", korg1212->DataBufsSize);
+> -                snd_korg1212_free(korg1212);
+> -                return -ENOMEM;
+> -        }
+> -        korg1212->recordDataBufsPtr = (struct KorgAudioBuffer *)korg1212->dma_rec.area;
+> -        korg1212->RecDataPhy = korg1212->dma_rec.addr;
+> +	korg1212->dma_rec = snd_devm_alloc_pages(&pci->dev, SNDRV_DMA_TYPE_DEV,
+> +						 korg1212->DataBufsSize);
+> +	if (!korg1212->dma_rec)
+> +		return -ENOMEM;
+> +
+> +	korg1212->recordDataBufsPtr = (struct KorgAudioBuffer *)korg1212->dma_rec->area;
+> +	korg1212->RecDataPhy = korg1212->dma_rec->addr;
+>  
+>          K1212_DEBUG_PRINTK("K1212_DEBUG: Record Data Area = 0x%p (0x%08x), %d bytes\n",
+>  		korg1212->recordDataBufsPtr, korg1212->RecDataPhy, korg1212->DataBufsSize);
+> @@ -2336,26 +2256,22 @@ static int snd_korg1212_create(struct snd_card *card, struct pci_dev *pci,
+>          korg1212->AdatTimeCodePhy = korg1212->sharedBufferPhy +
+>  		offsetof(struct KorgSharedBuffer, AdatTimeCode);
+>  
+> +	korg1212->dma_dsp = snd_devm_alloc_pages(&pci->dev, SNDRV_DMA_TYPE_DEV,
+> +						 dsp_code->size);
+> +	if (!korg1212->dma_dsp)
+> +		return -ENOMEM;
+> +
 
-Applied to
+Should this section be moved below the next one?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+sound/pci/korg1212/korg1212.c:2260:8: error: variable 'dsp_code' is uninitialized when used here [-Werror,-Wuninitialized]
+                                                 dsp_code->size);
+                                                 ^~~~~~~~
+sound/pci/korg1212/korg1212.c:2101:33: note: initialize the variable 'dsp_code' to silence this warning
+        const struct firmware *dsp_code;
+                                       ^
+                                        = NULL
+1 error generated.
 
-Thanks!
-
-[2/2] ASOC: Intel: sof_sdw: add quirk for Intel 'Bishop County' NUC M15
-      commit: 1bd80ff2cfb38582e258baf681211a21d448984f
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+>  	err = request_firmware(&dsp_code, "korg/k1212.dsp", &pci->dev);
+>  	if (err < 0) {
+>  		snd_printk(KERN_ERR "firmware not available\n");
+> -		snd_korg1212_free(korg1212);
+>  		return err;
+>  	}
+>  
+> -	if (snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, &pci->dev,
+> -				dsp_code->size, &korg1212->dma_dsp) < 0) {
+> -		snd_printk(KERN_ERR "korg1212: cannot allocate dsp code memory (%zd bytes)\n", dsp_code->size);
+> -                snd_korg1212_free(korg1212);
+> -		release_firmware(dsp_code);
+> -                return -ENOMEM;
+> -        }
+> -
+>          K1212_DEBUG_PRINTK("K1212_DEBUG: DSP Code area = 0x%p (0x%08x) %d bytes [%s]\n",
+> -		   korg1212->dma_dsp.area, korg1212->dma_dsp.addr, dsp_code->size,
+> +		   korg1212->dma_dsp->area, korg1212->dma_dsp->addr, dsp_code->size,
+>  		   stateName[korg1212->cardState]);
+>  
+> -	memcpy(korg1212->dma_dsp.area, dsp_code->data, dsp_code->size);
+> +	memcpy(korg1212->dma_dsp->area, dsp_code->data, dsp_code->size);
+>  
+>  	release_firmware(dsp_code);
+>  
+> @@ -2364,12 +2280,6 @@ static int snd_korg1212_create(struct snd_card *card, struct pci_dev *pci,
+>  	if (rc)
+>  		K1212_DEBUG_PRINTK("K1212_DEBUG: Reboot Card - RC = %d [%s]\n", rc, stateName[korg1212->cardState]);
+>  
+> -	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, korg1212, &ops);
+> -	if (err < 0) {
+> -                snd_korg1212_free(korg1212);
+> -                return err;
+> -        }
+> -        
+>  	snd_korg1212_EnableCardInterrupts(korg1212);
+>  
+>  	mdelay(CARD_BOOT_DELAY_IN_MS);
+> @@ -2411,10 +2321,8 @@ static int snd_korg1212_create(struct snd_card *card, struct pci_dev *pci,
+>          }
+>  
+>          snd_korg1212_proc_init(korg1212);
+> -        
+> -        * rchip = korg1212;
+> -	return 0;
+>  
+> +	return 0;
+>  }
+>  
+>  /*
+> @@ -2437,16 +2345,15 @@ snd_korg1212_probe(struct pci_dev *pci,
+>  		dev++;
+>  		return -ENOENT;
+>  	}
+> -	err = snd_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
+> -			   0, &card);
+> +	err = snd_devm_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
+> +				sizeof(*korg1212), &card);
+>  	if (err < 0)
+>  		return err;
+> +	korg1212 = card->private_data;
+>  
+> -	err = snd_korg1212_create(card, pci, &korg1212);
+> -	if (err < 0) {
+> -		snd_card_free(card);
+> +	err = snd_korg1212_create(card, pci);
+> +	if (err < 0)
+>  		return err;
+> -	}
+>  
+>  	strcpy(card->driver, "korg1212");
+>  	strcpy(card->shortname, "korg1212");
+> @@ -2456,25 +2363,17 @@ snd_korg1212_probe(struct pci_dev *pci,
+>          K1212_DEBUG_PRINTK("K1212_DEBUG: %s\n", card->longname);
+>  
+>  	err = snd_card_register(card);
+> -	if (err < 0) {
+> -		snd_card_free(card);
+> +	if (err < 0)
+>  		return err;
+> -	}
+>  	pci_set_drvdata(pci, card);
+>  	dev++;
+>  	return 0;
+>  }
+>  
+> -static void snd_korg1212_remove(struct pci_dev *pci)
+> -{
+> -	snd_card_free(pci_get_drvdata(pci));
+> -}
+> -
+>  static struct pci_driver korg1212_driver = {
+>  	.name = KBUILD_MODNAME,
+>  	.id_table = snd_korg1212_ids,
+>  	.probe = snd_korg1212_probe,
+> -	.remove = snd_korg1212_remove,
+>  };
+>  
+>  module_pci_driver(korg1212_driver);
+> -- 
+> 2.26.2

@@ -2,78 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 553843D0466
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jul 2021 00:18:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7E793D0467
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jul 2021 00:19:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA1BF1682;
-	Wed, 21 Jul 2021 00:18:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA1BF1682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 689A4169C;
+	Wed, 21 Jul 2021 00:18:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 689A4169C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626819536;
-	bh=M5sCuUpe4NXSXCjMGXao/bf5+SYqmQ3S+F10TohfPdk=;
+	s=default; t=1626819558;
+	bh=BMhZpeETzFRWiIRWlVsRhkwh3lKmGA3IzNTsorOMY7g=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VV92cLz4OtMd293L+zHNo+SoVuE/9PvvGLM+SJKg/fe402MTd6WOofp7A8U6AHNPT
-	 9uibRPD6v2c+kBkLbxbLmekG5nkB6JsIss06g2h6MczwSkmcnrQyVR47J6qHJEJECl
-	 /Tc4KpklXW1ewBKUmZubjccJmJDBz1vjD2XXxkwE=
+	b=TiXVOFswl9XPfn4UVxuISvdzmihBe8czTATVrvnJchjhkW2D+KSDMgr1UmgFJzY3J
+	 GsTjFRdRzSKHexFbSylxE1g5GxLR+VaTIAugkNAFj+4IZq88RvIf1Mmjw5BfUnvg0O
+	 eBEYMkzoBOuAsKX4JOpEZketGHJ9SFCncn0aFuiU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C121F80104;
-	Wed, 21 Jul 2021 00:17:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E0AAF8020D;
+	Wed, 21 Jul 2021 00:18:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 287B1F80218; Wed, 21 Jul 2021 00:17:29 +0200 (CEST)
+ id C61A8F80256; Wed, 21 Jul 2021 00:18:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E52D2F80169
- for <alsa-devel@alsa-project.org>; Wed, 21 Jul 2021 00:17:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E52D2F80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2A314F80169
+ for <alsa-devel@alsa-project.org>; Wed, 21 Jul 2021 00:18:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A314F80169
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Ju4An0+J"; 
+ header.b="pRrB/YwC"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Iv3vLw5E"
+ header.b="9BroVUBA"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id BAFF42242E;
- Tue, 20 Jul 2021 22:17:20 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 6CAE71FE65;
+ Tue, 20 Jul 2021 22:18:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1626819440; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1626819498; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=6k4rnWTIoQFHr8KfEedpi5HrJLTJfNixgTosCLenHo4=;
- b=Ju4An0+J79iFwCG6oe+DMZntGrAinqjLUcZ7hItz64lmYGG/sxHMAQajCuf7LzDwisHbKy
- VCk8O6Q51DAow+Uhq6sD0B0+nAdbJkt2Kgtwgub8xp8z/m2MrT5BCdqpha/BGqzCl7Z0av
- WP58CykAkEGgQmQnjySnQkD6SRpo0WM=
+ bh=buFihF+hISdrP7MN86FA3XGDpK4rCTplRGYeEqV+F74=;
+ b=pRrB/YwCO1S+SIEzns8H4AWtb4nuTncGBX+KNrs0K8nBVktxuHzgSsokphyyffz0FLJ8c7
+ v4QOGtH1T1kZpjuGdIyXi9xpv2K2lJRatDhR6Yguf+RSg61l/WoGM1ZpKzvPcbYrjt0/8b
+ X9nkSJlKP29wvjQIApkWRmFLWtPruNg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1626819440;
+ s=susede2_ed25519; t=1626819498;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=6k4rnWTIoQFHr8KfEedpi5HrJLTJfNixgTosCLenHo4=;
- b=Iv3vLw5E/1HqZotECg9atb1t9IjkFYLiHBpdFJAyOGHvU1GIbWhMBBlGLFj1VB6T/y9Koi
- 1lBjHvAHUCvuHlCw==
+ bh=buFihF+hISdrP7MN86FA3XGDpK4rCTplRGYeEqV+F74=;
+ b=9BroVUBAtkJDzrPpYO++pjNd2dpnZUodgHOw7d2SXVYqmAmcmOiSljhOoRCcNo9CD/HtRc
+ 8/WHEk1h3inDa4Cw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id AA9AFA3B83;
- Tue, 20 Jul 2021 22:17:20 +0000 (UTC)
-Date: Wed, 21 Jul 2021 00:17:20 +0200
-Message-ID: <s5him14ocjz.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 6731BA3B83;
+ Tue, 20 Jul 2021 22:18:18 +0000 (UTC)
+Date: Wed, 21 Jul 2021 00:18:18 +0200
+Message-ID: <s5hh7goocid.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Nathan Chancellor <nathan@kernel.org>
-Subject: Re: [PATCH v2 14/79] ALSA: cs4281: Allocate resources with
+Subject: Re: [PATCH v2 09/79] ALSA: als300: Allocate resources with
  device-managed APIs
-In-Reply-To: <YPcoJ3dkoEkc4xtP@Ryzen-9-3900X.localdomain>
+In-Reply-To: <YPcnzVns1kz7wtxd@Ryzen-9-3900X.localdomain>
 References: <20210715075941.23332-1-tiwai@suse.de>
- <20210715075941.23332-15-tiwai@suse.de>
- <YPcoJ3dkoEkc4xtP@Ryzen-9-3900X.localdomain>
+ <20210715075941.23332-10-tiwai@suse.de>
+ <YPcnzVns1kz7wtxd@Ryzen-9-3900X.localdomain>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -95,11 +95,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 20 Jul 2021 21:46:47 +0200,
+On Tue, 20 Jul 2021 21:45:17 +0200,
 Nathan Chancellor wrote:
 > 
-> On Thu, Jul 15, 2021 at 09:58:36AM +0200, Takashi Iwai wrote:
-> > This patch converts the resource management in PCI cs4281 driver with
+> On Thu, Jul 15, 2021 at 09:58:31AM +0200, Takashi Iwai wrote:
+> > This patch converts the resource management in PCI als300 driver with
 > > devres as a clean up.  Each manual resource management is converted
 > > with the corresponding devres helper, and the card object release is
 > > managed now via card->private_free instead of a lowlevel snd_device.
@@ -108,120 +108,215 @@ Nathan Chancellor wrote:
 > > 
 > > Signed-off-by: Takashi Iwai <tiwai@suse.de>
 > > ---
-> >  sound/pci/cs4281.c | 112 ++++++++++-----------------------------------
-> >  1 file changed, 24 insertions(+), 88 deletions(-)
+> >  sound/pci/als300.c | 79 ++++++++++------------------------------------
+> >  1 file changed, 17 insertions(+), 62 deletions(-)
 > > 
-> > diff --git a/sound/pci/cs4281.c b/sound/pci/cs4281.c
-> > index e122a168c148..f338caf98354 100644
-> > --- a/sound/pci/cs4281.c
-> > +++ b/sound/pci/cs4281.c
-> > @@ -1268,8 +1268,10 @@ static inline int snd_cs4281_create_gameport(struct cs4281 *chip) { return -ENOS
-> >  static inline void snd_cs4281_free_gameport(struct cs4281 *chip) { }
-> >  #endif /* IS_REACHABLE(CONFIG_GAMEPORT) */
+> > diff --git a/sound/pci/als300.c b/sound/pci/als300.c
+> > index 668008fc21f7..9c94072572a5 100644
+> > --- a/sound/pci/als300.c
+> > +++ b/sound/pci/als300.c
+> > @@ -163,21 +163,11 @@ static void snd_als300_set_irq_flag(struct snd_als300 *chip, int cmd)
+> >  	snd_als300_gcr_write(chip->port, MISC_CONTROL, tmp);
+> >  }
 > >  
-> > -static int snd_cs4281_free(struct cs4281 *chip)
-> > +static void snd_cs4281_free(struct snd_card *card)
+> > -static int snd_als300_free(struct snd_als300 *chip)
+> > +static void snd_als300_free(struct snd_card *card)
 > >  {
-> > +	struct cs4281 *chip = card->private_data;
-> > +
-> >  	snd_cs4281_free_gameport(chip);
-> >  
-> >  	/* Mask interrupts */
-> > @@ -1278,49 +1280,20 @@ static int snd_cs4281_free(struct cs4281 *chip)
-> >  	snd_cs4281_pokeBA0(chip, BA0_CLKCR1, 0);
-> >  	/* Sound System Power Management - Turn Everything OFF */
-> >  	snd_cs4281_pokeBA0(chip, BA0_SSPM, 0);
-> > -	/* PCI interface - D3 state */
-> > -	pci_set_power_state(chip->pci, PCI_D3hot);
-> > -
+> > -	snd_als300_set_irq_flag(chip, IRQ_DISABLE);
 > > -	if (chip->irq >= 0)
 > > -		free_irq(chip->irq, chip);
-> > -	iounmap(chip->ba0);
-> > -	iounmap(chip->ba1);
 > > -	pci_release_regions(chip->pci);
 > > -	pci_disable_device(chip->pci);
-> > -
 > > -	kfree(chip);
 > > -	return 0;
 > > -}
-> > -
-> > -static int snd_cs4281_dev_free(struct snd_device *device)
+> > +	struct snd_als300 *chip = card->private_data;
+> >  
+> > -static int snd_als300_dev_free(struct snd_device *device)
 > > -{
-> > -	struct cs4281 *chip = device->device_data;
-> > -	return snd_cs4281_free(chip);
+> > -	struct snd_als300 *chip = device->device_data;
+> > -	return snd_als300_free(chip);
+> > +	snd_als300_set_irq_flag(chip, IRQ_DISABLE);
 > >  }
 > >  
-> >  static int snd_cs4281_chip_init(struct cs4281 *chip); /* defined below */
+> >  static irqreturn_t snd_als300_interrupt(int irq, void *dev_id)
+> > @@ -248,11 +238,6 @@ static irqreturn_t snd_als300plus_interrupt(int irq, void *dev_id)
+> >  	return IRQ_HANDLED;
+> >  }
 > >  
-> >  static int snd_cs4281_create(struct snd_card *card,
-> >  			     struct pci_dev *pci,
-> > -			     struct cs4281 **rchip,
-> >  			     int dual_codec)
+> > -static void snd_als300_remove(struct pci_dev *pci)
+> > -{
+> > -	snd_card_free(pci_get_drvdata(pci));
+> > -}
+> > -
+> >  static unsigned short snd_als300_ac97_read(struct snd_ac97 *ac97,
+> >  							unsigned short reg)
 > >  {
-> >  	struct cs4281 *chip;
-> > -	unsigned int tmp;
-> >  	int err;
-> > -	static const struct snd_device_ops ops = {
-> > -		.dev_free =	snd_cs4281_dev_free,
-> > -	};
+> > @@ -610,35 +595,22 @@ static void snd_als300_init(struct snd_als300 *chip)
+> >  }
 > >  
+> >  static int snd_als300_create(struct snd_card *card,
+> > -			     struct pci_dev *pci, int chip_type,
+> > -			     struct snd_als300 **rchip)
+> > +			     struct pci_dev *pci, int chip_type)
+> >  {
+> > -	struct snd_als300 *chip;
+> > +	struct snd_als300 *chip = card->private_data;
+> >  	void *irq_handler;
+> >  	int err;
+> >  
+> > -	static const struct snd_device_ops ops = {
+> > -		.dev_free = snd_als300_dev_free,
+> > -	};
 > > -	*rchip = NULL;
+> > -
 > > -	err = pci_enable_device(pci);
 > > +	err = pcim_enable_device(pci);
 > >  	if (err < 0)
 > >  		return err;
+> >  
+> >  	if (dma_set_mask_and_coherent(&pci->dev, DMA_BIT_MASK(28))) {
+> >  		dev_err(card->dev, "error setting 28bit DMA mask\n");
+> > -		pci_disable_device(pci);
+> >  		return -ENXIO;
+> >  	}
+> >  	pci_set_master(pci);
+> >  
 > > -	chip = kzalloc(sizeof(*chip), GFP_KERNEL);
 > > -	if (chip == NULL) {
 > > -		pci_disable_device(pci);
 > > -		return -ENOMEM;
 > > -	}
-> >  	spin_lock_init(&chip->reg_lock);
+> > -
 > >  	chip->card = card;
+> >  	chip->pci = pci;
+> >  	chip->irq = -1;
+> > @@ -646,11 +618,9 @@ static int snd_als300_create(struct snd_card *card,
+> >  	spin_lock_init(&chip->reg_lock);
+> >  
+> >  	err = pci_request_regions(pci, "ALS300");
+> > -	if (err < 0) {
+> > -		kfree(chip);
+> > -		pci_disable_device(pci);
+> > +	if (err < 0)
+> >  		return err;
+> > -	}
+> > +
+> >  	chip->port = pci_resource_start(pci, 0);
+> >  
+> >  	if (chip->chip_type == DEVICE_ALS300_PLUS)
+> > @@ -658,38 +628,29 @@ static int snd_als300_create(struct snd_card *card,
+> >  	else
+> >  		irq_handler = snd_als300_interrupt;
+> >  
+> > -	if (request_irq(pci->irq, irq_handler, IRQF_SHARED,
+> > -			KBUILD_MODNAME, chip)) {
+> > +	if (devm_request_irq(&pci->dev, pci->irq, irq_handler, IRQF_SHARED,
+> > +			     KBUILD_MODNAME, chip)) {
+> >  		dev_err(card->dev, "unable to grab IRQ %d\n", pci->irq);
+> > -		snd_als300_free(chip);
+> >  		return -EBUSY;
+> >  	}
+> >  	chip->irq = pci->irq;
+> >  	card->sync_irq = chip->irq;
+> > +	card->private_free = snd_als300_free;
+> >  
+> >  	snd_als300_init(chip);
+> >  
+> >  	err = snd_als300_ac97(chip);
+> >  	if (err < 0) {
+> >  		dev_err(card->dev, "Could not create ac97\n");
+> > -		snd_als300_free(chip);
+> >  		return err;
+> >  	}
+> >  
+> >  	err = snd_als300_new_pcm(chip);
+> >  	if (err < 0) {
+> >  		dev_err(card->dev, "Could not create PCM\n");
+> > -		snd_als300_free(chip);
+> > -		return err;
+> > -	}
+> > -
+> > -	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, chip, &ops);
+> > -	if (err < 0) {
+> > -		snd_als300_free(chip);
+> >  		return err;
+> >  	}
+> >  
+> > -	*rchip = chip;
+> >  	return 0;
+> >  }
+> >  
+> > @@ -737,20 +698,16 @@ static int snd_als300_probe(struct pci_dev *pci,
+> >  		return -ENOENT;
+> >  	}
+> >  
+> > -	err = snd_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
+> > -			   0, &card);
+> > -
+> > +	err = snd_devm_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
+> > +				sizeof(*chip), &card);
+> >  	if (err < 0)
+> >  		return err;
+> >  
+> >  	chip_type = pci_id->driver_data;
+> >  
+> > -	err = snd_als300_create(card, pci, chip_type, &chip);
+> > -	if (err < 0) {
+> > -		snd_card_free(card);
+> > +	err = snd_als300_create(card, pci, chip_type);
+> > +	if (err < 0)
+> >  		return err;
+> > -	}
+> > -	card->private_data = chip;
+> >  
+> >  	strcpy(card->driver, "ALS300");
+> >  	if (chip->chip_type == DEVICE_ALS300_PLUS)
 > 
 > clang warns:
 > 
-> sound/pci/cs4281.c:1298:2: error: variable 'chip' is uninitialized when used here [-Werror,-Wuninitialized]
->         chip->card = card;
->         ^~~~
-> sound/pci/cs4281.c:1291:21: note: initialize the variable 'chip' to silence this warning
->         struct cs4281 *chip;
->                            ^
->                             = NULL
+> sound/pci/als300.c:713:6: error: variable 'chip' is uninitialized when used here [-Werror,-Wuninitialized]
+>         if (chip->chip_type == DEVICE_ALS300_PLUS)
+>             ^~~~
+> sound/pci/als300.c:691:25: note: initialize the variable 'chip' to silence this warning
+>         struct snd_als300 *chip;
+>                                ^
+>                                 = NULL
 > 1 error generated.
 
-Thanks!  The fix patch is below.  I'll queue it up.
+Thanks, it was another silly mistake.
+I'll queue the fix patch below.
 
 
 Takashi
 
 -- 8< --
 From: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH] ALSA: cs4281: Fix missing chip initialization
+Subject: [PATCH] ALSA: als300: Fix missing chip initialization
 
-The chip variable was forgotten to be initialized properly while
-changing the object creation from the own malloc to
-card->private_data.  This patch fixes it.
+The recent code refactoring missed the initialization of the chip
+variable as its allocation was moved to card->private_data.
+Let's fix it.
 
-Fixes: 99041fea70d0 ("ALSA: cs4281: Allocate resources with device-managed APIs")
+Fixes: 21a9314cf93b ("ALSA: als300: Allocate resources with device-managed APIs")
 Reported-by: Nathan Chancellor <nathan@kernel.org>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/cs4281.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/pci/als300.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/pci/cs4281.c b/sound/pci/cs4281.c
-index f338caf98354..e7367402b84a 100644
---- a/sound/pci/cs4281.c
-+++ b/sound/pci/cs4281.c
-@@ -1288,7 +1288,7 @@ static int snd_cs4281_create(struct snd_card *card,
- 			     struct pci_dev *pci,
- 			     int dual_codec)
- {
--	struct cs4281 *chip;
-+	struct cs4281 *chip = card->private_data;
- 	int err;
+diff --git a/sound/pci/als300.c b/sound/pci/als300.c
+index 9c94072572a5..b86565dcdbe4 100644
+--- a/sound/pci/als300.c
++++ b/sound/pci/als300.c
+@@ -702,6 +702,7 @@ static int snd_als300_probe(struct pci_dev *pci,
+ 				sizeof(*chip), &card);
+ 	if (err < 0)
+ 		return err;
++	chip = card->private_data;
  
- 	err = pcim_enable_device(pci);
+ 	chip_type = pci_id->driver_data;
+ 
 -- 
 2.26.2
 

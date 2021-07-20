@@ -2,75 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF2AF3CFD8C
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Jul 2021 17:31:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84B493CFDBA
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Jul 2021 17:39:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 489631663;
-	Tue, 20 Jul 2021 17:30:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 489631663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08A0C168E;
+	Tue, 20 Jul 2021 17:38:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08A0C168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626795067;
-	bh=oEp2K19JUWXnnTeBm2bAdgoFxFRM2L3ZcKWC/KJp+KI=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=EEKHylVaAZ9aR3IEvY0nS094jUbE76zxhefxQfLcIy7RGEgwzYBUCM+/0ESG13/1g
-	 AjgbCYaF9PkKGUib+tYM4uwMh5olPYja/gSL7WKvlDa6QO7xdY2cEnMgxMWVy8DJuH
-	 umflZJnBpKhXJ0KwtUqFF+j9AvnAptDhtkXIMb+Y=
+	s=default; t=1626795586;
+	bh=E7evmq5NKVFniatUqCEgibpxKvYAaoo9reVUGzBRSig=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lQ8jJF1dzWo699WuEUvgRw+PFG7btLeAy+BvBlgBQ6AzB/ZAheYyfoiDZ8c38hhgX
+	 LnmcoH/SeGziLRMHD+eKHO717FLOo3hX1vEnpdxTXLAx+eUuuX0/Y9TB5vbbgGuhNd
+	 aOBD5KC7BA/IHrzMqPoHQbg3l+Z3hFsZmmxZjc50=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 320ACF80218;
-	Tue, 20 Jul 2021 17:29:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BA21F8032B;
+	Tue, 20 Jul 2021 17:38:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BE15EF8020D; Tue, 20 Jul 2021 17:29:23 +0200 (CEST)
+ id D8C28F8020D; Tue, 20 Jul 2021 17:38:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D6C75F800DA
- for <alsa-devel@alsa-project.org>; Tue, 20 Jul 2021 17:29:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6C75F800DA
-X-IronPort-AV: E=McAfee;i="6200,9189,10050"; a="198461045"
-X-IronPort-AV: E=Sophos;i="5.84,255,1620716400"; d="scan'208";a="198461045"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2021 08:29:01 -0700
-X-IronPort-AV: E=Sophos;i="5.84,255,1620716400"; d="scan'208";a="462083552"
-Received: from aremenni-mobl.amr.corp.intel.com (HELO [10.209.130.10])
- ([10.209.130.10])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2021 08:28:59 -0700
-Subject: Re: [PATCH 1/3] ASoC: SOF: Parse fw/tplg filename from DT
-To: Daniel Baluta <daniel.baluta@gmail.com>, Mark Brown <broonie@kernel.org>
-References: <20210715141802.880911-1-daniel.baluta@oss.nxp.com>
- <20210715141802.880911-2-daniel.baluta@oss.nxp.com>
- <20210715143906.GD4590@sirena.org.uk>
- <CAEnQRZCdSLoaLVZ7-jtufgZCG6QshMwdfyJy_4oE6cXRbA5H8A@mail.gmail.com>
- <CAEnQRZCiC5aGK6AsD0TN5fzN6AxFn6=f8hCrd2B9fhCYfCFOSg@mail.gmail.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <bd85ea7c-e9b5-de67-07ce-7104a1e19805@linux.intel.com>
-Date: Tue, 20 Jul 2021 10:28:57 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.11.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7394AF8020D
+ for <alsa-devel@alsa-project.org>; Tue, 20 Jul 2021 17:38:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7394AF8020D
+X-IronPort-AV: E=McAfee;i="6200,9189,10050"; a="272375919"
+X-IronPort-AV: E=Sophos;i="5.84,255,1620716400"; d="scan'208";a="272375919"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jul 2021 08:38:01 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,255,1620716400"; d="scan'208";a="657579877"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by fmsmga006.fm.intel.com with ESMTP; 20 Jul 2021 08:38:00 -0700
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	tiwai@suse.de
+Subject: [PATCH] ALSA: hda/hdmi: Add quirk to force pin connectivity on NUC10
+Date: Tue, 20 Jul 2021 18:32:16 +0300
+Message-Id: <20210720153216.2200938-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-In-Reply-To: <CAEnQRZCiC5aGK6AsD0TN5fzN6AxFn6=f8hCrd2B9fhCYfCFOSg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Devicetree List <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Daniel Baluta <daniel.baluta@oss.nxp.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Daniel Baluta <daniel.baluta@nxp.com>
+Content-Transfer-Encoding: 8bit
+Cc: kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,50 +69,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On some Intel NUC10 variants, codec reports AC_JACK_PORT_NONE as
+pin default config for all pins. This results in broken audio.
+Add a quirk to force connectivity.
 
+BugLink: https://github.com/clearlinux/distribution/issues/2396
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+---
+ sound/pci/hda/patch_hdmi.c | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index 2be5eaa3d968..65d2c5539919 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -1945,6 +1945,7 @@ static const struct snd_pci_quirk force_connect_list[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x870f, "HP", 1),
+ 	SND_PCI_QUIRK(0x103c, 0x871a, "HP", 1),
+ 	SND_PCI_QUIRK(0x1462, 0xec94, "MS-7C94", 1),
++	SND_PCI_QUIRK(0x8086, 0x2081, "Intel NUC 10", 1),
+ 	{}
+ };
+ 
 
->>>> Introduce two DT properties in dsp node:
->>>>       * fw-filename, optional property giving the firmware filename
->>>>       (if this is missing fw filename is read from board description)
->>>>       * tplg-filename, mandatory giving the topology filename.
->>>
->>> These sound entirely like operating system configuration which I'd
->>> expect to be inferred from the machine identification.  What happens if
->>> a system has multiple options for firmware files, or if the OS ships the
->>> topology and firmware bundled up in a single image to avoid them getting
->>> out of sync?  What's the benefit of putting them in the DT?
-> 
-> Can you help me with this, specifically for selecting topology name.
-> 
-> I think I'm fine selecting a default value for SOF firmware name. It
-> looks like even
-> for Intel platforms there is no way of changing the firmware name.
-> 
-> But how about selecting topology name? We have lots of audio scenarios
-> that can run on the exact same hardware:
-> - e.g
->    - Audio PCM playback + Post Processing
->    - Audio Compress playback
->    - Keyword detection
-> 
-> 
-> So, we need to use different topologies to select the scenario we want
-> to demonstrate.
-> 
-> Would it be acceptable to add tplg_name as a module parameter?
-
-we already have a "tplg_path" module parameter which was intended to differentiate between product skews/versions using the same hardware and firmware version. A typical example would be an OEM using 'public' firmware + topology for basic audio support, distributed through sof-bin and packaged by distros, and 3rd-party/closed sources firmware modules in more advanced packages distributed separately by the OEM. In the latter case you do want the same path for firmware and topology, otherwise you'd have a risk of using a topology making references to a library not bundled in the firmware.
-
-There was an initial ask from Curtis to have the ability to override the firmware/topology names, but they've been able to work with the path parameters - set with udev rules for specific models.
-
-If you wanted to demonstrate 'scenarios', you could use the same approach?
-
-Two other points to reply to Mark:
-
-- we currently don't support 'shipping the topology and firmware bundled up in a single image to avoid them getting out of sync'. No idea how that might work.
-
-- if the machine driver is specified in DeviceTree, then the topology used is *required* to be aligned with the machine driver. The rules are that a topology may not make references to a BE dailink exposed in the machine driver, but conversely if the topology makes a reference to a BE dailink that is not exposed in the machine driver the topology parsing will fail. It's one of the current weaknesses of topology-based solutions, we have non-configurable hardware-related things that are described in topology but should really be described in platform firmware, be it ACPI or DT, and provided to the topology.
-
-
+base-commit: 89b4a874d2af12ad13c1c36cdc93bbc05f56cd97
+-- 
+2.32.0
 

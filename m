@@ -2,66 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72A2B3D468A
-	for <lists+alsa-devel@lfdr.de>; Sat, 24 Jul 2021 11:00:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C547F3D468C
+	for <lists+alsa-devel@lfdr.de>; Sat, 24 Jul 2021 11:01:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 045451813;
-	Sat, 24 Jul 2021 10:59:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 045451813
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D78517BC;
+	Sat, 24 Jul 2021 11:00:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D78517BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627117228;
-	bh=lA1SeTbLOiJuhIfhpEeJJtVDfLt0+CpHgV6R/aRtuS0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1627117287;
+	bh=+q+H3szsJWLTO1Wa0q0FpV2hR8KLK6TgecN5pYJuzak=;
+	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=qMFUaX4S8UbHDGONOBGoawrCZ4hnqZspG5pfEXikmdT1A6ki1EPrfyTPW/gO+jMSt
-	 wCX4YDtR7c2s1l/FvjhHO/3GhpegWBVwyHAQIZVsYaEH93n1rg0W1C01/h5GMokWma
-	 LYgPtKgw7RDW+wXWECQQS1qJ+aTOA4EFZ30Jio2A=
+	b=P9sALQNvsxEF0hicu6UwzZMruUuMn+ARAqW3nZzm9JXvQLi/WrsB4hUae91n/8Qbu
+	 D+OJWUObB5hZ48bKwWeaMRy6adOv1CpHVSKUSzZntpjoPoR9vioE99z18FSNbb+BUC
+	 KqKle9NGDJqZb/g5r0Mx0iGwyGNwha3EZ0/uaUGU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 46572F8053C;
-	Sat, 24 Jul 2021 10:53:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3BAFF80588;
+	Sat, 24 Jul 2021 10:54:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E83CF80227; Sat, 24 Jul 2021 06:24:27 +0200 (CEST)
+ id 35576F804AC; Wed, 21 Jul 2021 20:06:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
+ [IPv6:2607:f8b0:4864:20::d31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E5851F800F0
- for <alsa-devel@alsa-project.org>; Sat, 24 Jul 2021 06:24:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5851F800F0
-X-UUID: 835c1033b48042da90d5566321577798-20210724
-X-UUID: 835c1033b48042da90d5566321577798-20210724
-Received: from mtkcas07.mediatek.inc [(172.21.101.84)] by mailgw02.mediatek.com
- (envelope-from <chihhao.chen@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1923782835; Sat, 24 Jul 2021 12:24:08 +0800
-Received: from MTKCAS06.mediatek.inc (172.21.101.30) by
- mtkmbs01n2.mediatek.inc (172.21.101.79) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Sat, 24 Jul 2021 12:24:06 +0800
-Received: from mtkswgap22.mediatek.inc (172.21.77.33) by MTKCAS06.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
- Frontend Transport; Sat, 24 Jul 2021 12:24:06 +0800
-From: <chihhao.chen@mediatek.com>
-To: <linux-mediatek@lists.infradead.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <alsa-devel@alsa-project.org>, <damien@zamaudio.com>,
- <chihhao.chen@mediatek.com>, <perex@perex.cz>, <tiwai@suse.com>,
- <matthias.bgg@gmail.com>
-Subject: [PATCH] ALSA: usb-audio: fix incorrect clock source setting
-Date: Sat, 24 Jul 2021 12:23:41 +0800
-Message-ID: <1627100621-19225-1-git-send-email-chihhao.chen@mediatek.com>
-X-Mailer: git-send-email 1.7.9.5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 40E20F80143
+ for <alsa-devel@alsa-project.org>; Wed, 21 Jul 2021 20:06:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40E20F80143
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="YNR+/Qkm"
+Received: by mail-io1-xd31.google.com with SMTP id r18so3356889iot.4
+ for <alsa-devel@alsa-project.org>; Wed, 21 Jul 2021 11:06:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=+q+H3szsJWLTO1Wa0q0FpV2hR8KLK6TgecN5pYJuzak=;
+ b=YNR+/QkmRzsSAeUJV+6jDEZq+28QisNSWdoTylz7Qs3Aa6OedKXdUEmzDNLIwojyMM
+ EngDdRs0dfVJ6i84UpCDgVeXrhHZkrpCdLNnmsFRLcTHBA2Lcuybwo/jtIDrgwMBVHE7
+ whjt7lU32odpJiKbcaOvfWeujVUslMDkKbefttVBRPXYDBCqNO3ti8y0tvEQMPYBf3SR
+ OYpegbab64jMMvLNBcGlqW6DbFCBvXdaI6QPjWQjFybx/GTqH+5z9zNm/099fxLEBgIB
+ 5Uo9g1v4J7/bZfDayDRdxDOLv2Hqzsc1UR/QzWQUpSCRvX4bO+0/em28k+GkuvJ55Bv6
+ HPtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=+q+H3szsJWLTO1Wa0q0FpV2hR8KLK6TgecN5pYJuzak=;
+ b=CA3+HWQ0l0tTiGW3na9ZQUieNNUqnnW028pChl07BmpWCLUKWod2LqfZ7gjBOXXlKa
+ IvLe1aMmGtbVmLUXq4rYnFN62iv5q+nJkWmuRH4cxzbLITVlgjl2uYzDmez32aKiDY2Z
+ 3/v5odlVeC5HVr43+pxQgrfY0h+tmvq5wG43PvGYcgY9slOLhJTBCI/2kpYAH/sBO+eZ
+ P5fSAJ562sHPxzroVZqg9GJj5RUexEIdpAU5dc6Kp9+zE2Hga9bnQngLZYKOE2zP0w6w
+ a7KFf3xPj3rqXQiFLTE1UuM9GKROp5fLUEum59N3Ddr4oPo8uEdDjtJ3PfLHEqu4W4ir
+ fwiQ==
+X-Gm-Message-State: AOAM530dluRFjO+R911RqYvnQXL9H38vykN30rVzEWvtLEr6Y6NfjIyo
+ 0hoWPmIogGI9Ce7S+ZF6PXr4SppqswPcug5imFXu3Tvo
+X-Google-Smtp-Source: ABdhPJypVObUFi+KsN+X08TTRl6hN27VbLd4EiVPvMfstlMQ/+nhCLTRVJ4FwIG7u4cJ6fpB62OCdPsMgKye5BpPvXs=
+X-Received: by 2002:a05:6638:25c7:: with SMTP id
+ u7mr31770273jat.26.1626890797134; 
+ Wed, 21 Jul 2021 11:06:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-X-Mailman-Approved-At: Sat, 24 Jul 2021 10:53:22 +0200
-Cc: wsd_upstream@mediatek.com
+From: Alex Roberts <arob109@gmail.com>
+Date: Wed, 21 Jul 2021 13:06:26 -0500
+Message-ID: <CAPkENw-3zYvhjdn6J8x3W7B+u-FrnTH4Kv98NDsj4YAswjsdnQ@mail.gmail.com>
+Subject: out of memory issue
+To: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Sat, 24 Jul 2021 10:54:14 +0200
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,54 +90,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: "chihhao.chen" <chihhao.chen@mediatek.com>
+Hello,
 
-The following scenario describes an echo test for
-Samsung USBC Headset (AKG) with VID/PID (0x04e8/0xa051).
+I am developing a dummy codec to interface with an 8-channel, 24-bit
+ADC. I've got it working on an NXP imx8m through the fsl_sai driver on
+kernel 5.4.85. I can capture all 8 channels at varying sample rates
+using arecord, and I've verified correct data capture via opening the
+resulting .wav file in Audacity. The problem I am having is that
+occasionally, upon starting arecord - after a fresh power cycle - I
+get an out of memory error. Other times I get an out of memory after a
+non-deterministic period of capture. Starting capture again also
+reports out of memory, but if I wait several minutes and start capture
+it will start recording again. A power cycle usually helps, but as
+stated earlier, not 100% of the time.
 
-We first start a capture stream(USB IN transfer) in 96Khz/24bit/1ch mode.
-In clock find source function, we get value 0x2 for clock selector
-and 0x1 for clock source.
+I'm trying to track down where the oom error is coming from, but
+haven't had much luck. My colleague tried running arecord with
+valgrind to check for memory leaks and nothing of note was observed.
+My suspicion is there's something going on with allocated memory for
+DMA, like fragmentation starts to happen and it can't get a contiguous
+region for operation. Reserving a large pool - either via device tree
+or boot cmd arguments in the bootoader - did not seem to help.
 
-Kernel-4.14 behavior
-Since clock source is valid so clock selector was not set again.
-We pass through this function and start a playback stream(USB OUT transfer)
-in 48Khz/32bit/2ch mode. This time we get value 0x1 for clock selector
-and 0x1 for clock source. Finally clock id with this setting is 0x9.
+Another thought is that it's a boundary/alignment issue due to the
+24-bit data, and the error is the result of trying to allocate a chunk
+of memory for DMA that doesn't align.
 
-Kernel-5.10 behavior
-Clock selector was always set one more time even it is valid.
-When we start a playback stream, we will get 0x2 for clock selector
-and 0x1 for clock source. In this case clock id becomes 0xA.
-This is an incorrect clock source setting and results in severe noises.
-We see wrong data rate in USB IN transfer.
-(From 288 bytes/ms becomes 144 bytes/ms) It should keep in 288 bytes/ms.
+I'm very new to ALSA dev with some exposure to kernel dev in general,
+so please correct me if I'm wrong or completely mis-understanding
+something.
 
-This earphone works fine on older kernel version load because
-this is a newly-added behavior.
+Any suggestions on where I should / how I can debug this memory error?
 
-Signed-off-by: chihhao.chen <chihhao.chen@mediatek.com>
----
- sound/usb/clock.c |    6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/sound/usb/clock.c b/sound/usb/clock.c
-index 52de522..14456f6 100644
---- a/sound/usb/clock.c
-+++ b/sound/usb/clock.c
-@@ -324,6 +324,12 @@ static int __uac_clock_find_source(struct snd_usb_audio *chip,
- 					      sources[ret - 1],
- 					      visited, validate);
- 		if (ret > 0) {
-+			/*
-+			 * For Samsung USBC Headset (AKG), setting clock selector again
-+			 * will result in incorrect default clock setting problems
-+			 */
-+			if (chip->usb_id == USB_ID(0x04e8, 0xa051))
-+				return ret;
- 			err = uac_clock_selector_set_val(chip, entity_id, cur);
- 			if (err < 0)
- 				return err;
--- 
-1.7.9.5
-
+Thanks,
+Alex.

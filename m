@@ -2,68 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B06ED3D4676
-	for <lists+alsa-devel@lfdr.de>; Sat, 24 Jul 2021 10:56:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 158983D4678
+	for <lists+alsa-devel@lfdr.de>; Sat, 24 Jul 2021 10:57:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 377641773;
-	Sat, 24 Jul 2021 10:55:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 377641773
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A8A91779;
+	Sat, 24 Jul 2021 10:56:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A8A91779
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627116997;
-	bh=eAL8QwelZEjqkrY6xpSxtA3PODMbnmYsssC4KoVZiOc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1627117043;
+	bh=XuQ9EFcx1cP851y7XbiwTmU0JLx+TagB5a2E7GBJ1FY=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g4ydZQpbuTRDkNtiJsgEf4MB2kQE3DGVV0JU0zC4FFgJ1aecRyheXb3xsu8nY+bW0
-	 cfko8vS8eVSS9JvBeNw8+0+OWzRC35mwSzlvwg8tR3CQ+RI8rJK0bJG59dd+woPmk/
-	 hmeV1AQDrUIvlk4tqv3KUqqeeUqZZx+gNXareNAs=
+	b=YqonGOJSmqSd9G3oFT+hDMtuAc4HBw2SgiElaDYG0NyI4GHAvoEQshOzjYrPraA+w
+	 FeuoBVdo5KDdsoH3HI+RX5ciYX4iP0BtUOYI+4vQwGKsDOUd3Q9p6yFQeVY6PN4c0C
+	 SrjgLHnPxQNslAy8Wd9Hw8/rHD7RrQ9gY8AWBy58=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59B54F804F1;
-	Sat, 24 Jul 2021 10:53:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D1A7F804FF;
+	Sat, 24 Jul 2021 10:53:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 263FBF80218; Tue, 20 Jul 2021 22:33:22 +0200 (CEST)
+ id 8DC3BF804AC; Wed, 21 Jul 2021 10:33:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_26,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 59CFFF800DA
- for <alsa-devel@alsa-project.org>; Tue, 20 Jul 2021 22:33:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59CFFF800DA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JJpAfKhn"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id CA00A60FF2;
- Tue, 20 Jul 2021 20:33:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1626813196;
- bh=eAL8QwelZEjqkrY6xpSxtA3PODMbnmYsssC4KoVZiOc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=JJpAfKhnABUmpxOg9U/fYhIdK676lUC7zxdZO4Ov+XkzsTN1uNQpBFvYrirDfIakZ
- byh9JWGpUaePwdP9P8a5i5BEvhoOUPFLDQF/TDfF6Dt16A3BeRLHI/9/G2uzjph8jw
- MevIZGtIuySKTu1ntOZrkKNQFaWrdWeYOaJyeJpxUnq3KG8ahCOJyb+BlK+zntCxgx
- Ed4I0eXobO8J3Ubp6zPV5nmDpkVivVrUweH+mzg1CoHXf/MLoxDBrQyTc2c5HwIyLh
- QY1nFaI0Gwrfw7HTmsQ+TalbuwunzUd9K0sOoGUuoML7Km3jvcukKSLHc3yF+IDiUt
- vtHRTxUbK9qGQ==
-Date: Tue, 20 Jul 2021 21:33:12 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8BEA3F800FD
+ for <alsa-devel@alsa-project.org>; Wed, 21 Jul 2021 10:33:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BEA3F800FD
+Received: from lupine.hi.pengutronix.de
+ ([2001:67c:670:100:3ad5:47ff:feaf:1a17] helo=lupine)
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <p.zabel@pengutronix.de>)
+ id 1m67f8-0007Mj-OA; Wed, 21 Jul 2021 10:33:06 +0200
+Received: from pza by lupine with local (Exim 4.92)
+ (envelope-from <p.zabel@pengutronix.de>)
+ id 1m67f0-0007mW-Ha; Wed, 21 Jul 2021 10:32:58 +0200
+Message-ID: <8343dfe9d1af1ad4ab806104b74a95819c765dea.camel@pengutronix.de>
 Subject: Re: [PATCH] dt-bindings: Remove "status" from schema examples
-Message-ID: <20210720203312.GG5042@sirena.org.uk>
-References: <20210720172025.363238-1-robh@kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="kadn00tgSopKmJ1H"
-Content-Disposition: inline
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org
+Date: Wed, 21 Jul 2021 10:32:58 +0200
 In-Reply-To: <20210720172025.363238-1-robh@kernel.org>
-X-Cookie: Revenge is a meal best served cold.
-User-Agent: Mutt/1.10.1 (2018-07-13)
+References: <20210720172025.363238-1-robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.30.5-1.1 
+MIME-Version: 1.0
+X-SA-Exim-Connect-IP: 2001:67c:670:100:3ad5:47ff:feaf:1a17
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
 X-Mailman-Approved-At: Sat, 24 Jul 2021 10:53:22 +0200
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Olivier Moysan <olivier.moysan@st.com>,
@@ -78,14 +76,13 @@ Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Dilip Kota <eswara.kota@linux.intel.com>, Wei Xu <xuwei5@hisilicon.com>,
  Oleksij Rempel <o.rempel@pengutronix.de>, Chen-Yu Tsai <wens@csie.org>,
  Jakub Kicinski <kuba@kernel.org>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>,
  Ramesh Shanmugasundaram <rashanmu@gmail.com>,
- Rui Miguel Silva <rmfrfs@gmail.com>,
+ Rui Miguel Silva <rmfrfs@gmail.com>, Mark Brown <broonie@kernel.org>,
  "G. Jaya Kumaran" <vineetha.g.jaya.kumaran@intel.com>,
  Robert Marko <robert.marko@sartura.hr>,
  Alessandro Zummo <a.zummo@towertech.it>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
- "David S. Miller" <davem@davemloft.net>
+ linux-kernel@vger.kernel.org, "David S. Miller" <davem@davemloft.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,31 +98,69 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Rob,
 
---kadn00tgSopKmJ1H
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Tue, Jul 20, 2021 at 11:20:25AM -0600, Rob Herring wrote:
+On Tue, 2021-07-20 at 11:20 -0600, Rob Herring wrote:
 > There's no reason to have "status" properties in examples. "okay" is the
 > default, and "disabled" turns off some schema checks ('required'
 > specifically).
 
-Acked-by: Mark Brown <broonie@kernel.org>
+Is this documented somewhere? If not, should it be? (Maybe in writing-
+schema.rst -> Schema Contents -> examples?)
+=20
+> Enabling qca,ar71xx causes a warning, so let's fix the node names:
+>=20
+> Documentation/devicetree/bindings/net/qca,ar71xx.example.dt.yaml: phy@3: =
+'#phy-cells' is a required property
+>         From schema: schemas/phy/phy-provider.yaml
+>=20
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Chen-Yu Tsai <wens@csie.org>
+> Cc: Thierry Reding <thierry.reding@gmail.com>
+> Cc: Sam Ravnborg <sam@ravnborg.org>
+> Cc: Rui Miguel Silva <rmfrfs@gmail.com>
+> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+> Cc: "David S. Miller" <davem@davemloft.net>
+> Cc: Jakub Kicinski <kuba@kernel.org>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: Robert Marko <robert.marko@sartura.hr>
+> Cc: Philipp Zabel <p.zabel@pengutronix.de>
+> Cc: Alessandro Zummo <a.zummo@towertech.it>
+> Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
+> Cc: Ramesh Shanmugasundaram <rashanmu@gmail.com>
+> Cc: "G. Jaya Kumaran" <vineetha.g.jaya.kumaran@intel.com>
+> Cc: Linus Walleij <linus.walleij@linaro.org>
+> Cc: Oleksij Rempel <o.rempel@pengutronix.de>
+> Cc: ChiYuan Huang <cy_huang@richtek.com>
+> Cc: Wei Xu <xuwei5@hisilicon.com>
+> Cc: Dilip Kota <eswara.kota@linux.intel.com>
+> Cc: Karol Gugala <kgugala@antmicro.com>
+> Cc: Mateusz Holenko <mholenko@antmicro.com>
+> Cc: Olivier Moysan <olivier.moysan@st.com>
+> Cc: Peter Ujfalusi <peter.ujfalusi@ti.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-media@vger.kernel.org
+> Cc: netdev@vger.kernel.org
+> Cc: linux-rtc@vger.kernel.org
+> Cc: alsa-devel@alsa-project.org
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> ---
+>  .../display/allwinner,sun8i-a83t-dw-hdmi.yaml |  2 --
+>  .../display/panel/boe,tv101wum-nl6.yaml       |  1 -
+>  .../bindings/media/nxp,imx7-mipi-csi2.yaml    |  2 --
+>  .../bindings/media/renesas,drif.yaml          |  1 -
+>  .../bindings/net/intel,dwmac-plat.yaml        |  2 --
+>  .../bindings/net/intel,ixp4xx-ethernet.yaml   |  2 --
+>  .../bindings/net/nfc/samsung,s3fwrn5.yaml     |  3 ---
+>  .../devicetree/bindings/net/qca,ar71xx.yaml   | 25 ++++---------------
+>  .../regulator/richtek,rt6245-regulator.yaml   |  1 -
+>  .../regulator/vqmmc-ipq4019-regulator.yaml    |  1 -
+>  .../reset/hisilicon,hi3660-reset.yaml         |  1 -
+>  .../bindings/reset/intel,rcu-gw.yaml          |  1 -
+[...]
 
---kadn00tgSopKmJ1H
-Content-Type: application/pgp-signature; name="signature.asc"
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmD3MwcACgkQJNaLcl1U
-h9Bjsgf8DIiqqQ26ZTa4jvNqa3wI4t/EHPC0PLaGmxZWA2e7eTEGVrmipVIkUz2m
-dX2Rrsl6xOoU39mzMuCNQwVu9iqiJUoxt6xQsFG13raVCQhBTxxgkkVV2qU6BWh0
-TEuDrDM4Uh5EIU/PxpwbywfyPELaMCBkFvkd9D8O/0ek7OPcVuw5Au7es/ZG+NS/
-nQBA4oFRFdrIVSQmZ+Tn3/VjiivJhZ4H8MZ3oSKcFrMpQjG6ppG31dZGHpKtJNwE
-bUqasYXWrqKz1seky+xKbpbMnSjok627Byj0cGtNir3l8MpB2bV+Ae2OE/tc3nyZ
-aRZ/bNwgS/oYZ+vrKSOeJcgAasfyYw==
-=3Ukn
------END PGP SIGNATURE-----
-
---kadn00tgSopKmJ1H--
+regards
+Philipp

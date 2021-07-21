@@ -2,92 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 719E03D1580
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jul 2021 19:50:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92DD43D1582
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jul 2021 19:51:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F1419171A;
-	Wed, 21 Jul 2021 19:50:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1419171A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A0131702;
+	Wed, 21 Jul 2021 19:50:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A0131702
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626889858;
-	bh=ZSO/VnGYs9g7XoYhOhQ8wI53BJgO7sWSAhYoy9XVj2Q=;
+	s=default; t=1626889885;
+	bh=sLn13C8xRvCZ9qyT8Mn1JAk5/WcwI5L8hb2FHhTjkAk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Rk1CmZ3drIP/wao3Tg/ShWGQ18nBgs1qMY2RHirxVLHtYmRMEbhzRIC4D1e5GvqaN
-	 UUlQguIlYXV5viHXV6SXXWzMJM+zp9+uRDUpd0vVdsavH1R/gqLYgCNZC8po63TISR
-	 fYTA+QDM/ugLO9RHiCQmJRFi63WAF2foQS8DWaG0=
+	b=sLlu/Fd8QkDXa+XVbY1Jn9/poDA2zzCeIm7fMpaMXsoShrPRnOz4tBui0OtEPuiua
+	 2AguFxzRE5ssiYrSfToRWrAwUPB+rpulQ3MOzvCbJaktDhPqay0O/YveOG+4acLtgF
+	 1cRVS6n7gRFpd3A8JwOA5YIqFDyrATpWL5FX6cqE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8AB49F804FA;
-	Wed, 21 Jul 2021 19:48:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 020C0F804E1;
+	Wed, 21 Jul 2021 19:49:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47B35F804FA; Wed, 21 Jul 2021 19:48:53 +0200 (CEST)
+ id 46F6CF80507; Wed, 21 Jul 2021 19:49:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2041.outbound.protection.outlook.com [40.107.93.41])
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2054.outbound.protection.outlook.com [40.107.237.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48338F804E1
- for <alsa-devel@alsa-project.org>; Wed, 21 Jul 2021 19:48:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48338F804E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id AC7D5F804E2
+ for <alsa-devel@alsa-project.org>; Wed, 21 Jul 2021 19:49:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC7D5F804E2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="hlw0A5Wh"
+ header.b="KheNcxVn"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ERvQtgWVHwRZ+LRMmIXAm6I1/Suypcym/atFqIoGYtwq7HENrEnFVkQmGf8hZAyhP0I654bQJf+S6hyyp07SFyWF8V7d96uGaRtrroUzSrPa6kBVyYDBhx0eOAM5X8xp5qBsuPEDQna63KoUwMxu3FOL7v2GKwrd6e5ycMH8j6oETj3lqJ+DDEW8SiZGqvw4sTUWv0ZxNaLxQd0Gz6kd3BzioshgjGV3swcPLMrEcm4iiR8F8duIqeFhFCD++m/CfmbaM0j6UkNDH1F1dDl5uTEpLY0hu5ntVF9mcseOCG+iUWW+CfmBnQYqDSiYZsBD1Zvp+jZDcgLFm+f4iH7Wew==
+ b=CW4YBgc5LjgRh/ZhbEfbzh3t5PgNe+kGXBUVVqkNBRN8nrCSCgAmbotliJXzseRQUryHFx0BWRT07T0C6vi1XQiiRCVKFXmVdymsm8ONzYUKv0q2x+oyLN8yXL29jmJqI/SxROPf7ujjwOwCrostJ/NmIp+uSISpi5Ccz7lCCWkhmNHEUQstIqU0leYhIhyrcZivKgHT8qPDtCtOHVcg0nd+rxkU4RgsDydAWUEYYBVIpVD1o+VPGHGx5iyEsJ3SnP0iQq1mzUq0Ph/LHyXwmHJzOiOZyX9qECuoz2w+w8PMfHDhm+czDIicgDiYFIJ5YZU7WunyFmbtwxSrDXhQSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QYPuy+g93xQxSLXQMd/+gg9EG1KZdwXb1I3wmzqCP7U=;
- b=iQO1TG1FuSGJKYse/VFOUcgccWzRit8NGYNw6t+ntLHyDVIoxTQkMwdjKVusekyXdQVh83EMYlEzMNjDkevKw+1JbQ7uI/Kf0ivSsjWXOkL4UNV8UI08vAAzLehVWDwDgk2cMxy49ePeCJnjoogmnprU79Xx+l2Cu8KsmCpHrOvCsyLoZednKbsBGbl72vYu6cxYoL7RetsqOX9bEfbV1+tm5rliKHwMWq8mvUlfrorbgRmQoJbj6+RlyQcy3FseAIICU/PXdJCP4S6QICBHWY1zMj6c7ZFkWO5ACM/aqJOOhKgI9tkANABRAfHCG+QwsCr5NAOCam7/LnRI6ojWFA==
+ bh=+safQbXcU0Mnsj+HYozuxByaF2zXwOPApsfItM/zHqw=;
+ b=V2M1yVxbVrrm6r/kBm1rmcir9Jrf/6M7YV14KdAhrni3+qB6tOWO0L5aXABn3ICoiuOn6bPIgnzkWwjQVJrqTsSstzLolHjOkj1JB8KOsCmGoLhRqdCM74spaysKk31pPAZII5yplvo7Pz9cakmZOyJXx5Rdh6uJbvjm/Ct8q3MDKPls2fe6NR8eBibo4tyBAua5LpJ2xY49Guy+5oz0SKhv+fX1hk1TUrml7Krr/D+P52cmj9q2WZfP7eoj+KLmudpMu6sjdRqLNnmd4F6NqVZrdkCU6E5/dUHejTabDH1bE5B2JybOuRbeOAnTOK5F+j0b0z2FgHV0DQ+agwbQtA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QYPuy+g93xQxSLXQMd/+gg9EG1KZdwXb1I3wmzqCP7U=;
- b=hlw0A5Whxd98ynrTHkPUl9FMtcpkPeOvjbG+lKN9oqggTbXH0LYodKpAs98JyZrtONMsGKAoHqXVy07L7UroczNQPB3zHuT+0BYwPbm3Xx9DMLFyUnkDBhwSHw4Hba2IYrz3t9CDPfWLGREkCIK2J52Nbpugow8TFf1a1I6LnmI=
-Received: from BN9PR03CA0180.namprd03.prod.outlook.com (2603:10b6:408:f4::35)
- by CH2PR12MB4216.namprd12.prod.outlook.com (2603:10b6:610:a8::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.23; Wed, 21 Jul
- 2021 17:48:41 +0000
-Received: from BN8NAM11FT063.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f4:cafe::bd) by BN9PR03CA0180.outlook.office365.com
- (2603:10b6:408:f4::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.21 via Frontend
- Transport; Wed, 21 Jul 2021 17:48:41 +0000
+ bh=+safQbXcU0Mnsj+HYozuxByaF2zXwOPApsfItM/zHqw=;
+ b=KheNcxVnJT2atWfwq//rfWnNyv3BeMnp4ZP/93NXrxl3UIw4hrs408Va25oCWp0RU2NRyCs14FXCRQxBgXqZtEJPwPgWgrOg/20QR+kC/eHrkQPZv1q319v+k0W4/90YV/aFIX1YOQkdH+DxliNMSUQ1aNahRSIiEVTKBEPqs24=
+Received: from DM6PR10CA0036.namprd10.prod.outlook.com (2603:10b6:5:60::49) by
+ DM6PR12MB3227.namprd12.prod.outlook.com (2603:10b6:5:18d::14) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4331.29; Wed, 21 Jul 2021 17:48:55 +0000
+Received: from DM6NAM11FT064.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:60:cafe::5d) by DM6PR10CA0036.outlook.office365.com
+ (2603:10b6:5:60::49) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.22 via Frontend
+ Transport; Wed, 21 Jul 2021 17:48:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; kernel.org; dkim=none (message not signed)
  header.d=none;kernel.org; dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT063.mail.protection.outlook.com (10.13.177.110) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT064.mail.protection.outlook.com (10.13.172.234) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4352.24 via Frontend Transport; Wed, 21 Jul 2021 17:48:41 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.4352.24 via Frontend Transport; Wed, 21 Jul 2021 17:48:55 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Wed, 21 Jul
- 2021 12:48:40 -0500
+ 2021 12:48:55 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Wed, 21 Jul
+ 2021 10:48:54 -0700
 Received: from LinuxHost.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
- Transport; Wed, 21 Jul 2021 12:48:36 -0500
+ Transport; Wed, 21 Jul 2021 12:48:50 -0500
 From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH v5 07/12] ASoC: amd: add ACP5x pcm dma driver ops
-Date: Wed, 21 Jul 2021 23:34:23 +0530
-Message-ID: <20210721180430.11571-8-Vijendar.Mukunda@amd.com>
+Subject: [PATCH v5 08/12] ASoC: amd: add vangogh i2s controller driver
+Date: Wed, 21 Jul 2021 23:34:24 +0530
+Message-ID: <20210721180430.11571-9-Vijendar.Mukunda@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210721180430.11571-1-Vijendar.Mukunda@amd.com>
 References: <20210721180430.11571-1-Vijendar.Mukunda@amd.com>
@@ -95,28 +99,28 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: eccca478-aa25-46d5-e631-08d94c6fc6e0
-X-MS-TrafficTypeDiagnostic: CH2PR12MB4216:
-X-Microsoft-Antispam-PRVS: <CH2PR12MB4216C43B807D22DCA56C86B697E39@CH2PR12MB4216.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Office365-Filtering-Correlation-Id: e03ee39e-0e0f-44bf-f8ea-08d94c6fcf97
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3227:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3227CF0FFCDE635FB0AB05F397E39@DM6PR12MB3227.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:14;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GqqtwdI4eQ/9zm8afCYyCVZ4HsF2a6/nU9OBdvJIB/5fLfzgeVXujjsOE1+NbHmfouwX30pP2UdDqeZ3mBfg5Tygn9nzJoazuGOIe+QWZLxgIS7RGlWn0X5mxWx3CGKPZDycRvIuOzuJidy9Bi+qK1BMMSbxMiPJDaBQpaDQOmMVLt1SietIUnwFJ+amikUcSCMph5NwPpA/OE/UcA0ClrBT+ZuuuUtCB7kodai4h0UMgiwdMsW/5bpfAyNOs2aSBKizaHWKglEpykADDpJtMdP4S4BFruU+oizYNFzQS/7MNHaR3eo1z9Oqt0dXkUbAuN1oTCjqdR+5e418h7GItTmw8tFZgd9tpL6qSDmZdQ2817YJsmEvUlOwPwG9JLnjtHLyhEtNUR841WnI26+eys9wy0kIU2FUduRT3Y5BwGvy/Gyg2bTLAf2UKnhW4nCl3hMw/NpQVTFX8/wcR5kOYu2/iHd7RXhhMKPbpJZnMTfEpUB7OOlnAXcifv+zgIAiD/l715RYti7YHxjKI7RfBNHpu2+72GgGn9/iTr0KVJDSNL+FnyLHO4Z278xZrCurHCae8A0sBlRMgTuZ00NEIajnNT10ztOe7sucMGMvUhfPIkFsVbv9prXvIyuqf749thygYFUOe5JC8nqeji9TKdtXZlsK0nqpPfgh9G4Zepbu5yXYqcw847INMqH1hE7QqBM4T6idTsDMnpo08barJ7a2oM+QySnKEoiF6wyeM2vTt2IIIZW9VNo9TxB1wHQhhK5MyIyiFaBXKSE/NZQlyA==
+X-Microsoft-Antispam-Message-Info: Qk5LkzE7bWPgXryBOE31XGC4nwefhgTmIVHQXZ6JKWFUm+QR9g2Vw6tAzjR3ixpWErBdU8yCgLkGd6UfJ9ArGpcDuT9Pz1TcyKsyJkKermRtBMu2oObKKWC/y1gDOQhBO3MW37Ku92xDz12S4scWZtRyME4c8+DtrC2NFF5AJig2xeapRNVHQueM+8Dbt9eAN3yVMlT642gbXRkdf0ciSyQiJezgXytCM99kPIqxI9Ie16igKYU0MDDg5Wpwnpq0aGy7wIjStEm0+VYkrzHLsGU6OzpB5eXjbj5clpgbm15LBZ6I9nxFE8pUuHfpTEWMntmhpQ7HFjEmmd8k9C/tIpQE9GSb/BAYQH6DXy5ZrOEPynb7jFVWty8tm682EqntkgqsRH0u7Yw6FWNu5EMQWrR2W9bcOcFr6OTeMTF0pIaV52nIyDmTljgPbOTs6RcrrMX0aHz6Hxm8T6eV5rMZ2+3oZ7PiyXbqsGLbatwALufG48MXhKWeaJYnsxcWXJuO54OPCFT6BZIpagIPaB7gcxM3CIl2mttVyKqO7w9hvO3b4cDFcswMtuJ50wsC0zQof33pIJekeGqFLO5eAapMav8MNuJNvHLpMkTz1Oix7RxhNCK1ihAkYb2iwfkRE8wPv4j12rI2uEEhp1ZUoDfBdncRxaAoH/fMUqUhNABWNQ7zsPWtzb22xmazTzC4FkHUqSzi7ixQkudG1e2pX495IpTfcmE51ylcfvqmApdtmOg=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(346002)(39860400002)(396003)(376002)(136003)(46966006)(36840700001)(82310400003)(81166007)(47076005)(83380400001)(316002)(82740400003)(6666004)(86362001)(478600001)(36860700001)(5660300002)(356005)(2616005)(36756003)(336012)(110136005)(70206006)(8676002)(8936002)(2906002)(426003)(7696005)(70586007)(4326008)(26005)(1076003)(30864003)(186003)(54906003)(32563001)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(39860400002)(396003)(136003)(376002)(36840700001)(46966006)(478600001)(316002)(7696005)(47076005)(2616005)(54906003)(5660300002)(110136005)(8936002)(4326008)(36860700001)(86362001)(36756003)(1076003)(186003)(82310400003)(26005)(2906002)(356005)(336012)(6666004)(426003)(81166007)(70586007)(70206006)(8676002)(82740400003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2021 17:48:41.0814 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: eccca478-aa25-46d5-e631-08d94c6fc6e0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2021 17:48:55.6580 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e03ee39e-0e0f-44bf-f8ea-08d94c6fcf97
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT063.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT064.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4216
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3227
 Cc: Sunil-kumar.Dommati@amd.com, open list <linux-kernel@vger.kernel.org>,
  Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
  pierre-louis.bossart@linux.intel.com,
@@ -137,474 +141,127 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch adds ACP5x PCM driver DMA operations.
+Add Vangogh I2S controller driver to support two I2S controller
+instances.
 
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 ---
- sound/soc/amd/vangogh/acp5x-pcm-dma.c | 306 +++++++++++++++++++++++++-
- sound/soc/amd/vangogh/acp5x.h         | 106 +++++++++
- 2 files changed, 410 insertions(+), 2 deletions(-)
+ sound/soc/amd/vangogh/acp5x-i2s.c | 88 +++++++++++++++++++++++++++++++
+ sound/soc/amd/vangogh/acp5x.h     |  4 ++
+ 2 files changed, 92 insertions(+)
+ create mode 100644 sound/soc/amd/vangogh/acp5x-i2s.c
 
-diff --git a/sound/soc/amd/vangogh/acp5x-pcm-dma.c b/sound/soc/amd/vangogh/acp5x-pcm-dma.c
-index 952d5fd83653..6296b353c7f1 100644
---- a/sound/soc/amd/vangogh/acp5x-pcm-dma.c
-+++ b/sound/soc/amd/vangogh/acp5x-pcm-dma.c
-@@ -17,8 +17,42 @@
- 
- #define DRV_NAME "acp5x_i2s_dma"
- 
--static const struct snd_soc_component_driver acp5x_i2s_component = {
--	.name		= DRV_NAME,
-+static const struct snd_pcm_hardware acp5x_pcm_hardware_playback = {
-+	.info = SNDRV_PCM_INFO_INTERLEAVED |
-+		SNDRV_PCM_INFO_BLOCK_TRANSFER |
-+		SNDRV_PCM_INFO_MMAP | SNDRV_PCM_INFO_MMAP_VALID |
-+		SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME,
-+	.formats = SNDRV_PCM_FMTBIT_S16_LE |  SNDRV_PCM_FMTBIT_S8 |
-+		   SNDRV_PCM_FMTBIT_U8 | SNDRV_PCM_FMTBIT_S32_LE,
-+	.channels_min = 2,
-+	.channels_max = 2,
-+	.rates = SNDRV_PCM_RATE_8000_96000,
-+	.rate_min = 8000,
-+	.rate_max = 96000,
-+	.buffer_bytes_max = PLAYBACK_MAX_NUM_PERIODS * PLAYBACK_MAX_PERIOD_SIZE,
-+	.period_bytes_min = PLAYBACK_MIN_PERIOD_SIZE,
-+	.period_bytes_max = PLAYBACK_MAX_PERIOD_SIZE,
-+	.periods_min = PLAYBACK_MIN_NUM_PERIODS,
-+	.periods_max = PLAYBACK_MAX_NUM_PERIODS,
+diff --git a/sound/soc/amd/vangogh/acp5x-i2s.c b/sound/soc/amd/vangogh/acp5x-i2s.c
+new file mode 100644
+index 000000000000..30b651035042
+--- /dev/null
++++ b/sound/soc/amd/vangogh/acp5x-i2s.c
+@@ -0,0 +1,88 @@
++// SPDX-License-Identifier: GPL-2.0+
++//
++// AMD ALSA SoC PCM Driver
++//
++// Copyright (C) 2021 Advanced Micro Devices, Inc. All rights reserved.
++
++#include <linux/platform_device.h>
++#include <linux/module.h>
++#include <linux/err.h>
++#include <linux/io.h>
++#include <sound/pcm_params.h>
++#include <sound/soc.h>
++#include <sound/soc-dai.h>
++#include <linux/dma-mapping.h>
++
++#include "acp5x.h"
++
++#define DRV_NAME "acp5x_i2s_playcap"
++
++static const struct snd_soc_component_driver acp5x_dai_component = {
++	.name = "acp5x-i2s",
 +};
 +
-+static const struct snd_pcm_hardware acp5x_pcm_hardware_capture = {
-+	.info = SNDRV_PCM_INFO_INTERLEAVED |
-+		SNDRV_PCM_INFO_BLOCK_TRANSFER |
-+		SNDRV_PCM_INFO_MMAP | SNDRV_PCM_INFO_MMAP_VALID |
-+		SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME,
-+	.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S8 |
-+		   SNDRV_PCM_FMTBIT_U8 | SNDRV_PCM_FMTBIT_S32_LE,
-+	.channels_min = 2,
-+	.channels_max = 2,
-+	.rates = SNDRV_PCM_RATE_8000_96000,
-+	.rate_min = 8000,
-+	.rate_max = 96000,
-+	.buffer_bytes_max = CAPTURE_MAX_NUM_PERIODS * CAPTURE_MAX_PERIOD_SIZE,
-+	.period_bytes_min = CAPTURE_MIN_PERIOD_SIZE,
-+	.period_bytes_max = CAPTURE_MAX_PERIOD_SIZE,
-+	.periods_min = CAPTURE_MIN_NUM_PERIODS,
-+	.periods_max = CAPTURE_MAX_NUM_PERIODS,
- };
- 
- static irqreturn_t i2s_irq_handler(int irq, void *dev_id)
-@@ -65,6 +99,274 @@ static irqreturn_t i2s_irq_handler(int irq, void *dev_id)
- 		return IRQ_NONE;
- }
- 
-+static void config_acp5x_dma(struct i2s_stream_instance *rtd, int direction)
++static struct snd_soc_dai_driver acp5x_i2s_dai = {
++	.playback = {
++		.rates = SNDRV_PCM_RATE_8000_96000,
++		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S8 |
++			SNDRV_PCM_FMTBIT_U8 | SNDRV_PCM_FMTBIT_S32_LE,
++		.channels_min = 2,
++		.channels_max = 2,
++		.rate_min = 8000,
++		.rate_max = 96000,
++	},
++	.capture = {
++		.rates = SNDRV_PCM_RATE_8000_96000,
++		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S8 |
++			SNDRV_PCM_FMTBIT_U8 | SNDRV_PCM_FMTBIT_S32_LE,
++		.channels_min = 2,
++		.channels_max = 2,
++		.rate_min = 8000,
++		.rate_max = 96000,
++	},
++};
++
++static int acp5x_dai_probe(struct platform_device *pdev)
 +{
-+	u16 page_idx;
-+	u32 low, high, val, acp_fifo_addr, reg_fifo_addr;
-+	u32 reg_dma_size, reg_fifo_size;
-+	dma_addr_t addr;
-+
-+	addr = rtd->dma_addr;
-+	if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
-+		switch (rtd->i2s_instance) {
-+		case I2S_HS_INSTANCE:
-+			val = ACP_SRAM_HS_PB_PTE_OFFSET;
-+			break;
-+		case I2S_SP_INSTANCE:
-+		default:
-+			val = ACP_SRAM_SP_PB_PTE_OFFSET;
-+		}
-+	} else {
-+		switch (rtd->i2s_instance) {
-+		case I2S_HS_INSTANCE:
-+			val = ACP_SRAM_HS_CP_PTE_OFFSET;
-+			break;
-+		case I2S_SP_INSTANCE:
-+		default:
-+			val = ACP_SRAM_SP_CP_PTE_OFFSET;
-+		}
-+	}
-+	/* Group Enable */
-+	acp_writel(ACP_SRAM_PTE_OFFSET | BIT(31), rtd->acp5x_base +
-+		   ACPAXI2AXI_ATU_BASE_ADDR_GRP_1);
-+	acp_writel(PAGE_SIZE_4K_ENABLE, rtd->acp5x_base +
-+		   ACPAXI2AXI_ATU_PAGE_SIZE_GRP_1);
-+
-+	for (page_idx = 0; page_idx < rtd->num_pages; page_idx++) {
-+		/* Load the low address of page int ACP SRAM through SRBM */
-+		low = lower_32_bits(addr);
-+		high = upper_32_bits(addr);
-+
-+		acp_writel(low, rtd->acp5x_base + ACP_SCRATCH_REG_0 + val);
-+		high |= BIT(31);
-+		acp_writel(high, rtd->acp5x_base + ACP_SCRATCH_REG_0 + val + 4);
-+		/* Move to next physically contiguous page */
-+		val += 8;
-+		addr += PAGE_SIZE;
-+	}
-+
-+	if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
-+		switch (rtd->i2s_instance) {
-+		case I2S_HS_INSTANCE:
-+			reg_dma_size = ACP_HS_TX_DMA_SIZE;
-+			acp_fifo_addr = ACP_SRAM_PTE_OFFSET +
-+					HS_PB_FIFO_ADDR_OFFSET;
-+			reg_fifo_addr = ACP_HS_TX_FIFOADDR;
-+			reg_fifo_size = ACP_HS_TX_FIFOSIZE;
-+			acp_writel(I2S_HS_TX_MEM_WINDOW_START,
-+				   rtd->acp5x_base + ACP_HS_TX_RINGBUFADDR);
-+			break;
-+
-+		case I2S_SP_INSTANCE:
-+		default:
-+			reg_dma_size = ACP_I2S_TX_DMA_SIZE;
-+			acp_fifo_addr = ACP_SRAM_PTE_OFFSET +
-+					SP_PB_FIFO_ADDR_OFFSET;
-+			reg_fifo_addr =	ACP_I2S_TX_FIFOADDR;
-+			reg_fifo_size = ACP_I2S_TX_FIFOSIZE;
-+			acp_writel(I2S_SP_TX_MEM_WINDOW_START,
-+				   rtd->acp5x_base + ACP_I2S_TX_RINGBUFADDR);
-+		}
-+	} else {
-+		switch (rtd->i2s_instance) {
-+		case I2S_HS_INSTANCE:
-+			reg_dma_size = ACP_HS_RX_DMA_SIZE;
-+			acp_fifo_addr = ACP_SRAM_PTE_OFFSET +
-+					HS_CAPT_FIFO_ADDR_OFFSET;
-+			reg_fifo_addr = ACP_HS_RX_FIFOADDR;
-+			reg_fifo_size = ACP_HS_RX_FIFOSIZE;
-+			acp_writel(I2S_HS_RX_MEM_WINDOW_START,
-+				   rtd->acp5x_base + ACP_HS_RX_RINGBUFADDR);
-+			break;
-+
-+		case I2S_SP_INSTANCE:
-+		default:
-+			reg_dma_size = ACP_I2S_RX_DMA_SIZE;
-+			acp_fifo_addr = ACP_SRAM_PTE_OFFSET +
-+					SP_CAPT_FIFO_ADDR_OFFSET;
-+			reg_fifo_addr = ACP_I2S_RX_FIFOADDR;
-+			reg_fifo_size = ACP_I2S_RX_FIFOSIZE;
-+			acp_writel(I2S_SP_RX_MEM_WINDOW_START,
-+				   rtd->acp5x_base + ACP_I2S_RX_RINGBUFADDR);
-+		}
-+	}
-+	acp_writel(DMA_SIZE, rtd->acp5x_base + reg_dma_size);
-+	acp_writel(acp_fifo_addr, rtd->acp5x_base + reg_fifo_addr);
-+	acp_writel(FIFO_SIZE, rtd->acp5x_base + reg_fifo_size);
-+	acp_writel(BIT(I2S_RX_THRESHOLD) | BIT(HS_RX_THRESHOLD)
-+		   | BIT(I2S_TX_THRESHOLD) | BIT(HS_TX_THRESHOLD),
-+		   rtd->acp5x_base + ACP_EXTERNAL_INTR_CNTL);
-+}
-+
-+static int acp5x_dma_open(struct snd_soc_component *component,
-+			  struct snd_pcm_substream *substream)
-+{
-+	struct snd_pcm_runtime *runtime;
-+	struct snd_soc_pcm_runtime *prtd;
++	struct resource *res;
 +	struct i2s_dev_data *adata;
-+	struct i2s_stream_instance *i2s_data;
 +	int ret;
 +
-+	runtime = substream->runtime;
-+	prtd = asoc_substream_to_rtd(substream);
-+	component = snd_soc_rtdcom_lookup(prtd, DRV_NAME);
-+	adata = dev_get_drvdata(component->dev);
-+
-+	i2s_data = kzalloc(sizeof(*i2s_data), GFP_KERNEL);
-+	if (!i2s_data)
++	adata = devm_kzalloc(&pdev->dev, sizeof(struct i2s_dev_data),
++			     GFP_KERNEL);
++	if (!adata)
 +		return -ENOMEM;
 +
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		runtime->hw = acp5x_pcm_hardware_playback;
-+	else
-+		runtime->hw = acp5x_pcm_hardware_capture;
-+
-+	ret = snd_pcm_hw_constraint_integer(runtime,
-+					    SNDRV_PCM_HW_PARAM_PERIODS);
-+	if (ret < 0) {
-+		dev_err(component->dev, "set integer constraint failed\n");
-+		kfree(i2s_data);
-+		return ret;
++	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	if (!res) {
++		dev_err(&pdev->dev, "IORESOURCE_MEM FAILED\n");
++		return -ENOMEM;
 +	}
-+	i2s_data->acp5x_base = adata->acp5x_base;
-+	runtime->private_data = i2s_data;
++	adata->acp5x_base = devm_ioremap(&pdev->dev, res->start,
++					 resource_size(res));
++	if (IS_ERR(adata->acp5x_base))
++		return PTR_ERR(adata->acp5x_base);
++
++	adata->master_mode = I2S_MASTER_MODE_ENABLE;
++	dev_set_drvdata(&pdev->dev, adata);
++	ret = devm_snd_soc_register_component(&pdev->dev,
++					      &acp5x_dai_component,
++					      &acp5x_i2s_dai, 1);
++	if (ret)
++		dev_err(&pdev->dev, "Fail to register acp i2s dai\n");
 +	return ret;
 +}
 +
-+static int acp5x_dma_hw_params(struct snd_soc_component *component,
-+			       struct snd_pcm_substream *substream,
-+			       struct snd_pcm_hw_params *params)
-+{
-+	struct i2s_stream_instance *rtd;
-+	struct snd_soc_pcm_runtime *prtd;
-+	struct snd_soc_card *card;
-+	struct acp5x_platform_info *pinfo;
-+	struct i2s_dev_data *adata;
-+	u64 size;
-+
-+	prtd = asoc_substream_to_rtd(substream);
-+	card = prtd->card;
-+	pinfo = snd_soc_card_get_drvdata(card);
-+	adata = dev_get_drvdata(component->dev);
-+	rtd = substream->runtime->private_data;
-+
-+	if (!rtd)
-+		return -EINVAL;
-+
-+	if (pinfo) {
-+		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+			rtd->i2s_instance = pinfo->play_i2s_instance;
-+			switch (rtd->i2s_instance) {
-+			case I2S_HS_INSTANCE:
-+				adata->play_stream = substream;
-+				break;
-+			case I2S_SP_INSTANCE:
-+			default:
-+				adata->i2ssp_play_stream = substream;
-+			}
-+		} else {
-+			rtd->i2s_instance = pinfo->cap_i2s_instance;
-+			switch (rtd->i2s_instance) {
-+			case I2S_HS_INSTANCE:
-+				adata->capture_stream = substream;
-+				break;
-+			case I2S_SP_INSTANCE:
-+			default:
-+				adata->i2ssp_capture_stream = substream;
-+			}
-+		}
-+	} else {
-+		dev_err(component->dev, "pinfo failed\n");
-+		return -EINVAL;
-+	}
-+	size = params_buffer_bytes(params);
-+	rtd->dma_addr = substream->dma_buffer.addr;
-+	rtd->num_pages = (PAGE_ALIGN(size) >> PAGE_SHIFT);
-+	config_acp5x_dma(rtd, substream->stream);
-+	return 0;
-+}
-+
-+static snd_pcm_uframes_t acp5x_dma_pointer(struct snd_soc_component *component,
-+					   struct snd_pcm_substream *substream)
-+{
-+	struct i2s_stream_instance *rtd;
-+	u32 pos;
-+	u32 buffersize;
-+	u64 bytescount;
-+
-+	rtd = substream->runtime->private_data;
-+	buffersize = frames_to_bytes(substream->runtime,
-+				     substream->runtime->buffer_size);
-+	bytescount = acp_get_byte_count(rtd, substream->stream);
-+	if (bytescount > rtd->bytescount)
-+		bytescount -= rtd->bytescount;
-+	pos = do_div(bytescount, buffersize);
-+	return bytes_to_frames(substream->runtime, pos);
-+}
-+
-+static int acp5x_dma_new(struct snd_soc_component *component,
-+			 struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct device *parent = component->dev->parent;
-+
-+	snd_pcm_set_managed_buffer_all(rtd->pcm, SNDRV_DMA_TYPE_DEV,
-+				       parent, MIN_BUFFER, MAX_BUFFER);
-+	return 0;
-+}
-+
-+static int acp5x_dma_mmap(struct snd_soc_component *component,
-+			  struct snd_pcm_substream *substream,
-+			  struct vm_area_struct *vma)
-+{
-+	return snd_pcm_lib_default_mmap(substream, vma);
-+}
-+
-+static int acp5x_dma_close(struct snd_soc_component *component,
-+			   struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *prtd;
-+	struct i2s_dev_data *adata;
-+	struct i2s_stream_instance *ins;
-+
-+	prtd = asoc_substream_to_rtd(substream);
-+	component = snd_soc_rtdcom_lookup(prtd, DRV_NAME);
-+	adata = dev_get_drvdata(component->dev);
-+	ins = substream->runtime->private_data;
-+	if (!ins)
-+		return -EINVAL;
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+		switch (ins->i2s_instance) {
-+		case I2S_HS_INSTANCE:
-+			adata->play_stream = NULL;
-+			break;
-+		case I2S_SP_INSTANCE:
-+		default:
-+			adata->i2ssp_play_stream = NULL;
-+		}
-+	} else {
-+		switch (ins->i2s_instance) {
-+		case I2S_HS_INSTANCE:
-+			adata->capture_stream = NULL;
-+			break;
-+		case I2S_SP_INSTANCE:
-+		default:
-+			adata->i2ssp_capture_stream = NULL;
-+		}
-+	}
-+	kfree(ins);
-+	return 0;
-+}
-+
-+static const struct snd_soc_component_driver acp5x_i2s_component = {
-+	.name		= DRV_NAME,
-+	.open		= acp5x_dma_open,
-+	.close		= acp5x_dma_close,
-+	.hw_params	= acp5x_dma_hw_params,
-+	.pointer	= acp5x_dma_pointer,
-+	.mmap		= acp5x_dma_mmap,
-+	.pcm_construct	= acp5x_dma_new,
++static struct platform_driver acp5x_dai_driver = {
++	.probe = acp5x_dai_probe,
++	.driver = {
++		.name = "acp5x_i2s_playcap",
++	},
 +};
 +
- static int acp5x_audio_probe(struct platform_device *pdev)
- {
- 	struct resource *res;
++module_platform_driver(acp5x_dai_driver);
++
++MODULE_AUTHOR("Vijendar.Mukunda@amd.com");
++MODULE_DESCRIPTION("AMD ACP5.x CPU DAI Driver");
++MODULE_ALIAS("platform:" DRV_NAME);
++MODULE_LICENSE("GPL v2");
 diff --git a/sound/soc/amd/vangogh/acp5x.h b/sound/soc/amd/vangogh/acp5x.h
-index a0d898e47bb8..929be9905e8e 100644
+index 929be9905e8e..3238c1154053 100644
 --- a/sound/soc/amd/vangogh/acp5x.h
 +++ b/sound/soc/amd/vangogh/acp5x.h
-@@ -6,6 +6,7 @@
-  */
+@@ -71,7 +71,11 @@
+ #define DMA_SIZE 0x40
+ #define FRM_LEN 0x100
  
- #include "vg_chip_offset_byte.h"
-+#include <sound/pcm.h>
- 
- #define ACP5x_PHY_BASE_ADDRESS 0x1240000
- #define ACP_DEVICE_ID 0x15E2
-@@ -37,6 +38,39 @@
- #define	HS_TX_THRESHOLD 24
- #define	HS_RX_THRESHOLD 23
- 
-+#define I2S_SP_INSTANCE                 1
-+#define I2S_HS_INSTANCE                 2
-+
-+#define ACP_SRAM_PTE_OFFSET	0x02050000
-+#define ACP_SRAM_SP_PB_PTE_OFFSET	0x0
-+#define ACP_SRAM_SP_CP_PTE_OFFSET	0x100
-+#define ACP_SRAM_HS_PB_PTE_OFFSET	0x200
-+#define ACP_SRAM_HS_CP_PTE_OFFSET	0x300
-+#define PAGE_SIZE_4K_ENABLE 0x2
-+#define I2S_SP_TX_MEM_WINDOW_START	0x4000000
-+#define I2S_SP_RX_MEM_WINDOW_START	0x4020000
-+#define I2S_HS_TX_MEM_WINDOW_START	0x4040000
-+#define I2S_HS_RX_MEM_WINDOW_START	0x4060000
-+
-+#define SP_PB_FIFO_ADDR_OFFSET		0x500
-+#define SP_CAPT_FIFO_ADDR_OFFSET	0x700
-+#define HS_PB_FIFO_ADDR_OFFSET		0x900
-+#define HS_CAPT_FIFO_ADDR_OFFSET	0xB00
-+#define PLAYBACK_MIN_NUM_PERIODS    2
-+#define PLAYBACK_MAX_NUM_PERIODS    8
-+#define PLAYBACK_MAX_PERIOD_SIZE    8192
-+#define PLAYBACK_MIN_PERIOD_SIZE    1024
-+#define CAPTURE_MIN_NUM_PERIODS     2
-+#define CAPTURE_MAX_NUM_PERIODS     8
-+#define CAPTURE_MAX_PERIOD_SIZE     8192
-+#define CAPTURE_MIN_PERIOD_SIZE     1024
-+
-+#define MAX_BUFFER (PLAYBACK_MAX_PERIOD_SIZE * PLAYBACK_MAX_NUM_PERIODS)
-+#define MIN_BUFFER MAX_BUFFER
-+#define FIFO_SIZE 0x100
-+#define DMA_SIZE 0x40
-+#define FRM_LEN 0x100
++#define I2S_MASTER_MODE_ENABLE 1
++#define I2S_MASTER_MODE_DISABLE 0
 +
  struct i2s_dev_data {
++	bool master_mode;
  	unsigned int i2s_irq;
  	void __iomem *acp5x_base;
-@@ -46,6 +80,31 @@ struct i2s_dev_data {
- 	struct snd_pcm_substream *i2ssp_capture_stream;
- };
- 
-+struct i2s_stream_instance {
-+	u16 num_pages;
-+	u16 i2s_instance;
-+	u16 direction;
-+	u16 channels;
-+	u32 xfer_resolution;
-+	u32 val;
-+	dma_addr_t dma_addr;
-+	u64 bytescount;
-+	void __iomem *acp5x_base;
-+};
-+
-+union acp_dma_count {
-+	struct {
-+		u32 low;
-+		u32 high;
-+	} bcount;
-+	u64 bytescount;
-+};
-+
-+struct acp5x_platform_info {
-+	u16 play_i2s_instance;
-+	u16 cap_i2s_instance;
-+};
-+
- /* common header file uses exact offset rather than relative
-  * offset which requires subtraction logic from base_addr
-  * for accessing ACP5x MMIO space registers
-@@ -59,3 +118,50 @@ static inline void acp_writel(u32 val, void __iomem *base_addr)
- {
- 	writel(val, base_addr - ACP5x_PHY_BASE_ADDRESS);
- }
-+
-+static inline u64 acp_get_byte_count(struct i2s_stream_instance *rtd,
-+				     int direction)
-+{
-+	union acp_dma_count byte_count;
-+
-+	if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
-+		switch (rtd->i2s_instance) {
-+		case I2S_HS_INSTANCE:
-+			byte_count.bcount.high =
-+				acp_readl(rtd->acp5x_base +
-+					  ACP_HS_TX_LINEARPOSCNTR_HIGH);
-+			byte_count.bcount.low =
-+				acp_readl(rtd->acp5x_base +
-+					  ACP_HS_TX_LINEARPOSCNTR_LOW);
-+			break;
-+		case I2S_SP_INSTANCE:
-+		default:
-+			byte_count.bcount.high =
-+				acp_readl(rtd->acp5x_base +
-+					  ACP_I2S_TX_LINEARPOSCNTR_HIGH);
-+			byte_count.bcount.low =
-+				acp_readl(rtd->acp5x_base +
-+					  ACP_I2S_TX_LINEARPOSCNTR_LOW);
-+		}
-+	} else {
-+		switch (rtd->i2s_instance) {
-+		case I2S_HS_INSTANCE:
-+			byte_count.bcount.high =
-+				acp_readl(rtd->acp5x_base +
-+					  ACP_HS_RX_LINEARPOSCNTR_HIGH);
-+			byte_count.bcount.low =
-+				acp_readl(rtd->acp5x_base +
-+					  ACP_HS_RX_LINEARPOSCNTR_LOW);
-+			break;
-+		case I2S_SP_INSTANCE:
-+		default:
-+			byte_count.bcount.high =
-+				acp_readl(rtd->acp5x_base +
-+					  ACP_I2S_RX_LINEARPOSCNTR_HIGH);
-+			byte_count.bcount.low =
-+				acp_readl(rtd->acp5x_base +
-+					  ACP_I2S_RX_LINEARPOSCNTR_LOW);
-+		}
-+	}
-+	return byte_count.bytescount;
-+}
+ 	struct snd_pcm_substream *play_stream;
 -- 
 2.17.1
 

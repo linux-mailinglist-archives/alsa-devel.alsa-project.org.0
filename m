@@ -2,69 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D53AF3D25B0
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Jul 2021 16:26:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C1E73D25B1
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Jul 2021 16:27:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 666FE16EA;
-	Thu, 22 Jul 2021 16:26:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 666FE16EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id A0B5A16D4;
+	Thu, 22 Jul 2021 16:26:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0B5A16D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626964010;
-	bh=c/Ys/hpnBH4d69fBDHfMsfkITtHR3CBpaqSOrsNHHxg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1626964043;
+	bh=XmYplOie5HEy9/vSSQ/PUghbNFLBm2pTslYOOdFDp2g=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oY5B5iTKnYPHWdeTaSTHIw8vW8VWH4ixbrgWBSqDUttbx4X4QulTELLo7An9uGsJK
-	 8orFLP9BbuXUzaxnp//BHzLDZfB76g75yWP0EwymJnaCmQXiv/5c3R/tJLXYAzenl/
-	 m8niFifG4VHgCBhkGq0zqRgFlJcPoGBWJqIqR+EQ=
+	b=RA41w/3I/THEmlUM4Ei9cAw4vB2kwwgZ4e02SPbh4Fn24R1B3/N69PxmFZdzeXnsf
+	 lyy4VqP4SEB630RxX/N4zPLESL6Pt460eqLQRiDzGasN1T6ki0SXbs71xXY19bDX4n
+	 KIkisYuqJwqglUZOKL+2g3YjpR04dUOgbnUnAVZg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4829AF8032B;
-	Thu, 22 Jul 2021 16:25:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 385D7F80423;
+	Thu, 22 Jul 2021 16:26:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 89F2FF802E0; Thu, 22 Jul 2021 16:25:56 +0200 (CEST)
+ id 5F5E1F80423; Thu, 22 Jul 2021 16:26:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41A25F80218
- for <alsa-devel@alsa-project.org>; Thu, 22 Jul 2021 16:25:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41A25F80218
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="dVErfNob"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A848561264;
- Thu, 22 Jul 2021 14:25:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1626963952;
- bh=c/Ys/hpnBH4d69fBDHfMsfkITtHR3CBpaqSOrsNHHxg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dVErfNobTt33zsXPdXm/Vfj8yOOe3/mJ86IF/qtmIyDuDujjJdRJuErrSjJ5s6oNu
- uUAVKzbftKcEqgfvopNe0exwGiJPxUJnRXUguz75Qz6yIp0NQxIU+ePVAvqpXoqm+j
- ilIG8ta2hbsW07XhPs2vv5+JF6VYHIAnBIkKkyjQ/oP4AGRt+eHPjz3Ccu+0xQhrnj
- jjYUdZ/OJJr6Dppoip5QZzO/6MDqcZMJnMqw/CCybrtUEhx590+HgcsjuMt7n0lPfd
- SGNzIDRcv89L6VI5ao7TUKYKkw2b2ZcrMARxxKVYWNSnJkpL9hwx2+Ui+6TMcngRc0
- ZfFgZLaujCwoQ==
-Date: Thu, 22 Jul 2021 19:55:48 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH] soundwire: bus: update Slave status in
- sdw_clear_slave_status
-Message-ID: <YPl/7LtAzElmrFah@matsya>
-References: <20210714033609.11963-1-yung-chuan.liao@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 66ECFF80114
+ for <alsa-devel@alsa-project.org>; Thu, 22 Jul 2021 16:25:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66ECFF80114
+X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="198925439"
+X-IronPort-AV: E=Sophos;i="5.84,261,1620716400"; d="scan'208";a="198925439"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2021 07:25:55 -0700
+X-IronPort-AV: E=Sophos;i="5.84,261,1620716400"; d="scan'208";a="577312905"
+Received: from kkho1-mobl1.amr.corp.intel.com (HELO [10.212.20.95])
+ ([10.212.20.95])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2021 07:25:54 -0700
+Subject: Re: [PATCH 1/2] soundwire: dmi-quirks: add quirk for Intel 'Bishop
+ County' NUC M15
+To: Vinod Koul <vkoul@kernel.org>
+References: <20210719233248.557923-1-pierre-louis.bossart@linux.intel.com>
+ <20210719233248.557923-2-pierre-louis.bossart@linux.intel.com>
+ <YPl6Z+jqR9gnTw05@matsya>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <c86efd0f-b941-f3ff-885d-f1d0d7d46d30@linux.intel.com>
+Date: Thu, 22 Jul 2021 09:25:52 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210714033609.11963-1-yung-chuan.liao@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, gregkh@linuxfoundation.org,
- pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
- sanyog.r.kale@intel.com, rander.wang@linux.intel.com, bard.liao@intel.com
+In-Reply-To: <YPl6Z+jqR9gnTw05@matsya>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ tiwai@suse.de, gregkh@linuxfoundation.org, Rander Wang <rander.wang@intel.com>,
+ broonie@kernel.org, Bard liao <yung-chuan.liao@linux.intel.com>,
+ Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,16 +81,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 14-07-21, 11:36, Bard Liao wrote:
-> Call to sdw_update_slave_status() needs to be added to sdw_clear_slave_
-> status() to ensure Slaves are informed of the new status via update_
-> status() callback.
+
+
+On 7/22/21 9:02 AM, Vinod Koul wrote:
+> On 19-07-21, 18:32, Pierre-Louis Bossart wrote:
+>> The same quirk is used for LAPBC510 and LAPBC710 skews who use the
+>> same audio design.
+>>
+>> These devices have the same BIOS issues inherited from the Intel
+>> reference, add the same _ADR remap previously used on HP devices.
 > 
-> This will enable codec drivers to reset their internal states and make
-> sure the register settings are properly restored on pm_runtime or
-> system resume
+> This fails to apply on rc1, pls rebase or if there are any dependencies,
+> do spell them out
 
-Applied, thanks
+it likely depends on
 
--- 
-~Vinod
+[PATCH] soundwire: dmi-quirks: add ull suffix for SoundWire _ADR values
+
+which was sent by Bard when the merge window opened.

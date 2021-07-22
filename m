@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 295023D2AD7
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Jul 2021 19:12:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CADEB3D2AD8
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Jul 2021 19:12:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7A6C16FD;
-	Thu, 22 Jul 2021 19:11:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7A6C16FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 504381704;
+	Thu, 22 Jul 2021 19:11:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 504381704
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626973920;
-	bh=S9RLm3DeCynN9zkZ256FLf6Mf+VCn99E3vt5kQyes6c=;
+	s=default; t=1626973937;
+	bh=+rD2PKxj01stiGTanUKjIRztANneYKa/SZ3LruXgchc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KbJscFYP1o2/g2UQnv85MrA9IAG8cKrX7PU8IfvlelIZEVwIzudkHrGOZMFAnyTNO
-	 lK6Wa9mvOKuBHmGv4YsfN1XuV2SzqRo6tOA3fuNvYgm+b+nz+Qjv82lIvPoHlky8k9
-	 WjAHsjUlEfBdn0MlYJS44CFa3qDXvn4U6J2e5TZo=
+	b=OaB5U0CmyvZ2vmyBgwnVKwY+/dUx0a2BjKvzdLU+gfVRDhahBHY68SyFN+clGKxGv
+	 mm8KM04uFhMWYPdrKaXwNMhMYuJzy17fNX+eiwQHTDD/zmb8nakap+DOTM9sQqquoh
+	 UjN0k7iT0Cs38iuxF3rmbglQC5C1c9EhiqVy1Y7Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1172FF8032B;
-	Thu, 22 Jul 2021 19:10:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3A59AF804BB;
+	Thu, 22 Jul 2021 19:10:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7CD1EF80256; Thu, 22 Jul 2021 19:10:32 +0200 (CEST)
+ id 30C98F8049C; Thu, 22 Jul 2021 19:10:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +33,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BDBF6F800F2
- for <alsa-devel@alsa-project.org>; Thu, 22 Jul 2021 19:10:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDBF6F800F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 482C1F80218
+ for <alsa-devel@alsa-project.org>; Thu, 22 Jul 2021 19:10:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 482C1F80218
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="SQ6i9hrO"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 880FF613AE;
- Thu, 22 Jul 2021 17:10:27 +0000 (UTC)
+ header.b="icYx9b0s"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1CDAA610CC;
+ Thu, 22 Jul 2021 17:10:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1626973828;
- bh=S9RLm3DeCynN9zkZ256FLf6Mf+VCn99E3vt5kQyes6c=;
+ s=k20201202; t=1626973830;
+ bh=+rD2PKxj01stiGTanUKjIRztANneYKa/SZ3LruXgchc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SQ6i9hrOpByFJvENrXxAm+UmW/0r7dBui3Wcka9bhsVvNMEpPUyhPYhwLlrQNP1Xo
- zhIVVepNL6GnL0EWw29hb0zLP5GhSAfVwIT/6x02583VN+ujUjiiKtwQZAwNorjW5T
- Q19gBHS5TkIOYXL5RymXGhkUjlos/UDmqHSWZolEv5rping4y0LLPIuY6CFb9RWJ8i
- pmMlfEbw3KoXEaMRh8GzW2hYOYw+CApYPYPnQh9rHc0EXn22TgwnvbU9myoLodztFj
- xjlcVvR68duiYClJsykVcdkTf03UF+1kzC/MzM1YYJme7nXs7014WxgcL4P45xPmRe
- iC9c+oceRSQEA==
+ b=icYx9b0swGiJQNxMBllLxkWlkhl++ExfWLPz5vQOGR9WLXdxQAY02thuCHIfRVy2v
+ gXqWAbdIQXqcTlMfcYUuhAmvynD5aXJXIAGPwl2rDX2xSCSumgaAJU7Kj9xIKosw2w
+ 6ocfM7krt4dYE0PCoOUcl4yEYApADuYyIt5rIz8Jq036axqDSZEIXSlL5ypQ1ILKvE
+ LzEQC/CZCb4dnscCSgMUUJHX3c+tlMmtcOX2fZSySbR3zFzRBBlxMd5YiN4uOs3COu
+ G5mh0+mQfDc7tg4n14iXreSByLHP7dUMtpWa8w9JWKMDyc3JBlQ05cdoWtotz1AdIN
+ lwKVMjej/wt6Q==
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>
-Subject: Re: [PATCH] ASoC: amd: renoir: Run hibernation callbacks
-Date: Thu, 22 Jul 2021 18:10:01 +0100
-Message-Id: <162697068326.1747.9231043846370414318.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Subject: Re: [PATCH] ASoC: amd: enable stop_dma_first flag for
+ cz_dai_7219_98357 dai link
+Date: Thu, 22 Jul 2021 18:10:02 +0100
+Message-Id: <162697068327.1747.17528885369683390221.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210721183603.747-2-mario.limonciello@amd.com>
-References: <20210721183603.747-1-mario.limonciello@amd.com>
- <20210721183603.747-2-mario.limonciello@amd.com>
+In-Reply-To: <20210722130328.23796-1-Vijendar.Mukunda@amd.com>
+References: <20210722130328.23796-1-Vijendar.Mukunda@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: Sunil-kumar.Dommati@amd.com, amistry@google.com,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
+ Chuhong Yuan <hslester96@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ open list <linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>,
+ Alexander.Deucher@amd.com, nartemiev@google.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,9 +85,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 21 Jul 2021 13:36:03 -0500, Mario Limonciello wrote:
-> The registers need to be re-initialized after hibernation or
-> microphone may be non-functional.
+On Thu, 22 Jul 2021 18:33:15 +0530, Vijendar Mukunda wrote:
+> DMA driver stop sequence should be invoked first before invoking I2S
+> controller driver stop sequence for Stoneyridge platform.
+> 
+> Enable stop_dma_first flag for cz_dai_7219_98357 dai link structure.
 
 Applied to
 
@@ -93,8 +97,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: renoir: Run hibernation callbacks
-      commit: d00f541a49406afc2c091aac121e29b3b61480a2
+[1/1] ASoC: amd: enable stop_dma_first flag for cz_dai_7219_98357 dai link
+      commit: 5434d0dc56bce4510109a431a7eb71ec5131ef0f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

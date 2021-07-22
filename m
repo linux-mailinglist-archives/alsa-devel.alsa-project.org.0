@@ -2,79 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A52B3D275C
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Jul 2021 18:13:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41F7E3D2AD9
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Jul 2021 19:12:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA62216EE;
-	Thu, 22 Jul 2021 18:12:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA62216EE
+	by alsa0.perex.cz (Postfix) with ESMTPS id C296C1708;
+	Thu, 22 Jul 2021 19:12:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C296C1708
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1626970381;
-	bh=12GkNNYH/Cie2MqaCN34TlbVrTWrXPcC7bCB3oWBP+4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1626973971;
+	bh=wDaHHscThEWC8K6B4wuYHQc+xyB2BVkHsjvEDq1D9Tw=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ll3GZP/ufKifNwJrmfEzEU4xzWJPdlSap8PwpRgf6uWsMFmcyPW1I+G/9U/CpLDzE
-	 G+3lAh4UmhJlvOfItVHNdIQSYMPUR/kCEKS4bWvWTdvY11Kf4ayElUwTzUBaxYeFVX
-	 f8yR7KhHgNQp3l+8wu0RZsqBttwL2J15D47cS69g=
+	b=ujX9zR27x7VDNhHAm3kJWj/XKB+z2i3SBW3iWIMC5T2dr9NOkZPtU5ctlv/Aw3zl/
+	 OpcVIYcYjQhKQctimeH+gwbNsK5y/hJVL5w3EXi9/ZmnUnd33uwgq7lRhb3286Dplr
+	 HVIpZ2PXKXRzXUEnVp2amDDLZQ0vtaBlg4zOyFQo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C5DFF80256;
-	Thu, 22 Jul 2021 18:11:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F211FF804E0;
+	Thu, 22 Jul 2021 19:10:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ECEAEF80227; Thu, 22 Jul 2021 18:11:32 +0200 (CEST)
+ id 74E91F80423; Thu, 22 Jul 2021 19:10:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 43CD6F80114
- for <alsa-devel@alsa-project.org>; Thu, 22 Jul 2021 18:11:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43CD6F80114
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE66BF800DA
+ for <alsa-devel@alsa-project.org>; Thu, 22 Jul 2021 19:10:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE66BF800DA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="dalROMtb"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8D02C6127C;
- Thu, 22 Jul 2021 16:11:27 +0000 (UTC)
+ header.b="gtoSRNBy"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id ADE5E61183;
+ Thu, 22 Jul 2021 17:10:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1626970288;
- bh=12GkNNYH/Cie2MqaCN34TlbVrTWrXPcC7bCB3oWBP+4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dalROMtbQUq7KS/bDGjJG4zo3VlDDf3hmAHHZu8N9ybXDq01RRCxPUucxlAzWfvcd
- HrQe4Ay0mv5wvJNemd/TG+hewjsVPrmrtRSlUgeCFvzzLwZTgsoPV5qjMiioueIJ03
- 5vi1VRyOm7msXJ8oKppZKNk6pvEAHxuXcAJq6+cE61PJselwN+1FlpHg8XqrRdmJAj
- 2jnfq5s5hol46ISR38u3JWM/os/HhBhTrSvI+Q4M2D+ukHjH8U4ENHYiPozMxw5Tl9
- TCHYBpZYUvwGrqq/5Xq9Rp2kV4LPKaExk2mxst2YX9FbEi95DQkiNWVfmS4o+ICsdh
- 4i0Fqu1+lhQeg==
-Date: Thu, 22 Jul 2021 17:11:21 +0100
+ s=k20201202; t=1626973825;
+ bh=wDaHHscThEWC8K6B4wuYHQc+xyB2BVkHsjvEDq1D9Tw=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=gtoSRNBycnMVb53UygZh9kdS3XgLjzPdNq81190IZm7uHKV5aO1vCJw8LFfhBpKr7
+ 08atPhc/pOCDxc7u8RP1QEDHr6pIdRCLZlsZV2IVL85vmH81T8wi/YM8XEZwE7IPvg
+ 3pY+PjLRsvTLq7O/G008WIRNVQCYGPE1tELa+oz1s2fhyD7U08ETICMtkD4KZNfEgs
+ OOrx/rsocWbef+StyIuPG6pDoD0E7HYJIwLeYyymzQI0w0v85uDjvD0TzokOKq5cUC
+ 1faSxW3of9pGMl1yt1Xr319cGKZvqCK7GNVGPDXbG/6raERY3AH13QzO4kWROvuU/1
+ 8V9wrRlaoQz8A==
 From: Mark Brown <broonie@kernel.org>
-To: David Rhodes <drhodes@opensource.cirrus.com>
-Subject: Re: [PATCH v3 1/2] ASoC: cs35l41: CS35L41 Boosted Smart Amplifier
-Message-ID: <20210722161121.GE5258@sirena.org.uk>
-References: <20210702205127.1400539-1-drhodes@opensource.cirrus.com>
- <20210702205127.1400539-2-drhodes@opensource.cirrus.com>
- <20210705192054.GG4574@sirena.org.uk>
- <b9627394-4d71-cafa-0944-14dad137ffdd@opensource.cirrus.com>
- <20210712150341.GF4435@sirena.org.uk>
- <5ab8fd33-3164-8bf5-2fb4-4819ef01a815@opensource.cirrus.com>
- <20210721090104.GJ9223@ediswmail.ad.cirrus.com>
- <198c7169-8885-aa50-5ab4-cf53cafb16be@opensource.cirrus.com>
+To: alsa-devel@alsa-project.org,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Subject: Re: [PATCH v5 00/12] Add Vangogh ACP ASoC driver
+Date: Thu, 22 Jul 2021 18:10:00 +0100
+Message-Id: <162697068327.1747.6728778450187644611.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210721180430.11571-1-Vijendar.Mukunda@amd.com>
+References: <20210721180430.11571-1-Vijendar.Mukunda@amd.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="//IivP0gvsAy3Can"
-Content-Disposition: inline
-In-Reply-To: <198c7169-8885-aa50-5ab4-cf53cafb16be@opensource.cirrus.com>
-X-Cookie: Who's scruffy-looking?
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: robh@kernel.org, brian.austin@cirrus.com,
- Charles Keepax <ckeepax@opensource.cirrus.com>, patches@opensource.cirrus.com,
- alsa-devel@alsa-project.org, david.rhodes@cirrus.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: Alexander.Deucher@amd.com, Mark Brown <broonie@kernel.org>,
+ krisman@collabora.com, pierre-louis.bossart@linux.intel.com,
+ Sunil-kumar.Dommati@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,37 +81,64 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 21 Jul 2021 23:34:16 +0530, Vijendar Mukunda wrote:
+> This adds an ASoC driver for the ACP (Audio CoProcessor)
+> block on AMD Vangogh APU.
+> 
+> Changes since v4:
+>          - Fixed indentaion issue
+>          - Fixed error handling
+>          - reverted hex notation for macros
+>          - Fixed typo error in Kconfig file
+> 
+> [...]
 
---//IivP0gvsAy3Can
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Thu, Jul 22, 2021 at 11:07:20AM -0500, David Rhodes wrote:
-> On 7/21/21 4:01 AM, Charles Keepax wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> > why that is necessary in the first place. AFAIK DAPM won't attempt
-> > to power down a widget without powering it up first. So, at least
-> > to me, its not clear how you get to this code without GLOBAL_EN
-> > having first been set by the power up?
+Thanks!
 
-> This is a case where the bit controlling the widget defaults to enabled.
-> Would it be better to clear that bit before registering the codec?
+[01/12] ASoC: amd: add Vangogh ACP5x IP register header
+        commit: 7bf060d0d579129e5f405d2300fbaa5222e3d1cb
+[02/12] ASoC: amd: add Vangogh ACP PCI driver
+        commit: 4a7151c9688cc166ff6bf5a1a00e3cee429a2f11
+[03/12] ASoc: amd: add acp5x init/de-init functions
+        commit: 5d9ee88a10e854c5c43e0ae6b1bb0ff454cd45d1
+[04/12] ASoC: amd: create acp5x platform devices
+        commit: 603f2dedccac1ae2d201dfb10df74f3cae3c7832
+[05/12] ASoC: amd: add ACP5x PCM platform driver
+        commit: 77f61444e48b79e991b15da6399cf24685a042c9
+[06/12] ASoC: amd: irq handler changes for ACP5x PCM dma driver
+        commit: fc2c8067c76b3f322447491efb9837f051e86c69
+[07/12] ASoC: amd: add ACP5x pcm dma driver ops
+        commit: cab396d8b22c13b424d9ba66f626f036f802658c
+[08/12] ASoC: amd: add vangogh i2s controller driver
+        commit: e550339ee65226b059b4647f12c16710181e36b2
+[09/12] ASoC: amd: add vangogh i2s dai driver ops
+        commit: b80556addd1a0db551a0c82fb9651e502ac0119b
+[10/12] ASoC: amd: add vangogh pci driver pm ops
+        commit: b0a37ac6782fa0a62cf90e40e81e01728b07922a
+[11/12] ASoC: amd: add vangogh i2s dma driver pm ops
+        commit: 361414dc1f07b72f2f6942fca60f2f158c022a6d
+[12/12] ASoC: amd: enable vangogh acp5x driver build
+        commit: 08413fca62c63ccd245d20985460759c84499ebc
 
-That's probably a clearer and simpler option.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
---//IivP0gvsAy3Can
-Content-Type: application/pgp-signature; name="signature.asc"
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
------BEGIN PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmD5mKgACgkQJNaLcl1U
-h9AH6Af7BWvL/mL/COJTD5KW2iLiurpzQnoSl3dADYr+8hnElPg5VpMaN97B1Mly
-J5Ls1x04Vds1pzhl6WLkWWojVdSZLWZzWs4quDeTIO8NkbNas1C8zWxy8jbMoD4+
-fxxWxrPZmMTsCUfaszZH7kuw3dvNLBK5C3ZOQD9RqiygcK4oJdAi6+M2NwcZGXXK
-A6abnIkJCPI4IKPHyNgX27YXyeYm2DCVH+Lvqib8fuuweCg0n6BKeWmT6Ff6CPse
-5y/ZmrGT7wFMg1PaXpzyJ89pVlTu3OWX+7WQOukIq7ZV5TC/keYiaIh7lt8KeIYp
-Wfc0dkzBVX0/r4JpEecnrx//xpR4ng==
-=JqF1
------END PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---//IivP0gvsAy3Can--
+Thanks,
+Mark

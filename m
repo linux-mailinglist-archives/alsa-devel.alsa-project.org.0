@@ -2,92 +2,172 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 587843D34B0
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Jul 2021 08:29:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 984D43D39B7
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Jul 2021 13:44:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CAC0716A1;
-	Fri, 23 Jul 2021 08:28:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAC0716A1
+	by alsa0.perex.cz (Postfix) with ESMTPS id E160C16E5;
+	Fri, 23 Jul 2021 13:43:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E160C16E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627021750;
-	bh=JfWWzAHGIi1G8FyGVQYe5tGrahLfJuRWv/olBQLnvIk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1627040660;
+	bh=oVBot7nmEVlI70cytfZV7l/pL/MMhjhnMSU6NeImaUI=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hfffzF1aJH7qK0ptDV0M10pfyJJwnpzY1RSJxIkKsUkTaa9la+KVka14UB35WYJ39
-	 jcUlPeuAeVtOCPBZtFkZ6iLusXZ5/dYGeWX6r+4Wv+/j8yGgq/VKhmqL8G3cWpiaC/
-	 CVavKvJcrgYqFlOOBIRsP+11krYiU0AqwLSZFHJY=
+	b=TvMO9b8X4pDtAMryEN3LzydVnJJfG/QdOuoGKuYYzG//8p1rKo+gGZtrJr7c4Jcio
+	 Si/nefK0lIhLwSte3FDI8JUcgDEC3gigMhiq7QTSgdBY8XOz6+6gO6C8Td9RhuynZQ
+	 lvhhNMDSf+FlCq56+Q6Ic9hk9egu81Eq3+1+T1Yo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82158F804AD;
-	Fri, 23 Jul 2021 08:27:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 45D6AF804AD;
+	Fri, 23 Jul 2021 13:42:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AC972F804AC; Fri, 23 Jul 2021 08:27:38 +0200 (CEST)
+ id AE55BF804AC; Fri, 23 Jul 2021 13:42:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 31314F8016C
- for <alsa-devel@alsa-project.org>; Fri, 23 Jul 2021 08:27:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31314F8016C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0803EF8016C
+ for <alsa-devel@alsa-project.org>; Fri, 23 Jul 2021 13:42:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0803EF8016C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="Mq5GGCV+"
-Received: by mail-lj1-x234.google.com with SMTP id f12so460696ljn.1
- for <alsa-devel@alsa-project.org>; Thu, 22 Jul 2021 23:27:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=T0GVrBvGmGImfKxPRzDcgNGotPikHKH3Mvpux25X6oY=;
- b=Mq5GGCV+B929QRPJyrTzGMse9XBUGlyZKyPHB8fnqqtExM9Ug4A0KjLiEBT9A11qlU
- /FmD1oC+m3k0Ygn4RPiBOPOzPguhhIe+EsjTtJmZVvW/4Zsc01M5kvLdrrTWBb85f8vV
- jz95Y2cuiWk9C/ljQEWSe3/FL2hs/igcSXtao=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=T0GVrBvGmGImfKxPRzDcgNGotPikHKH3Mvpux25X6oY=;
- b=bkgSM3mQRwJcwM3zTmOeKgtO/O0+/Y5UfHvgha/aJTrZnafIshcAMVMuQgqhgmSRoE
- dRy8NQXHxmxGa8Wf2JBtdybPr72XwAfm/fQQ2IfusN21dqxglH+gh3gYjTKlRD23MCyZ
- F7lJEzKZmgNJbRtUBvl1L5zxDTLRfw/AY1PdD0MCC1A2mlPsDfcptGLR5nfj3H9bcjSB
- G0eRdSHFYE2NDwXmmqJuuiTMXq8bJTnHVtz6wVxbXjssTMYoIrUN5Tqaz7wDF23imjD/
- CnIObWf8WyaUTuNlRGQ7sqbAfs/1sfVZ8ja0KQ16wAycvgCFmNmgvby7GcROq2UA4cYr
- UA4Q==
-X-Gm-Message-State: AOAM531jY+p31Kt/GU5Vgo3KNzxhZOUVDWo32PYI28MOvLKSezogP7fR
- 4YpEupfDA433MxYt70JMYHK3pBhQc+cQeOHlsRZjhg==
-X-Google-Smtp-Source: ABdhPJynuPDuO/J+QwPgKhP9wnHfbra1cZFLxH2/3DFqLMhAdHNHuGZhflJxR8Mo4+dPNTgRrZsZNkYxtH6kov8bHoI=
-X-Received: by 2002:a2e:81c4:: with SMTP id s4mr2308055ljg.251.1627021646397; 
- Thu, 22 Jul 2021 23:27:26 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=intel.onmicrosoft.com
+ header.i=@intel.onmicrosoft.com header.b="RiZzrmH0"
+X-IronPort-AV: E=McAfee;i="6200,9189,10053"; a="211582228"
+X-IronPort-AV: E=Sophos;i="5.84,263,1620716400"; d="scan'208";a="211582228"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jul 2021 04:42:36 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,263,1620716400"; d="scan'208";a="496286085"
+Received: from orsmsx605.amr.corp.intel.com ([10.22.229.18])
+ by fmsmga004.fm.intel.com with ESMTP; 23 Jul 2021 04:42:35 -0700
+Received: from orsmsx609.amr.corp.intel.com (10.22.229.22) by
+ ORSMSX605.amr.corp.intel.com (10.22.229.18) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.4; Fri, 23 Jul 2021 04:42:35 -0700
+Received: from orsmsx606.amr.corp.intel.com (10.22.229.19) by
+ ORSMSX609.amr.corp.intel.com (10.22.229.22) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.10; Fri, 23 Jul 2021 04:42:34 -0700
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx606.amr.corp.intel.com (10.22.229.19) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.10 via Frontend Transport; Fri, 23 Jul 2021 04:42:34 -0700
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.106)
+ by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2242.10; Fri, 23 Jul 2021 04:42:34 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TzGGMliHDOgxHHEvifA36mOjdSIdrg0ZbE7cPi7+K/VO0Q+YLCKCsOxiMuZnoqFz44zDqYmO0aBb8LCaWouyzeyahaPulzQy3N0t8crI43bxhUswqBFzFEvmNX0CM0O67JqSJe37PQJ4V872ChQ/qiyr9uyws/JhUAd0iSPSDifvy3+X90xnPnbfCUkrg8dJEyslNK6cJNvFmkVd12BCBW47mp6YEHswfdoBmxfK5ioP9IvXyssptsLTqM1m9POtUFkzmx7N7p4LbZBYHLxu/RFj+oEygOQjukyKSCjBVEogOmXSNv3irZU0BW7PDtG5qg8Wrk8s8+em8T/SnzLJGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zx7gFzNjcBN1gsslzKj56qmbUZP8e6rZtDPGL5DTQkM=;
+ b=di0OCxBU7hIZLWTSHYrYhM9ahraBJwkSops6wMpJgsFQc/4/NrvA3he7GOQl2ZHYoighwQg4sQjjRsg4PgiIWOFH+cBP7DAaMUp0uuLqFwyBfy9LGBbO019j36RqyQGC1labNUIziUAnIG8lqQpSLPwFncN8fRGKGS1s2mbe194MgHom6XG9vUN7ZUovaiJ5XRI1+RSiKUVAJBYEVW727/5rndrUqtQOe2AxqDSUtyVsYbzSqy6ARr4t/DtYOOfxeGfEm4FeN1jBcVYATYByC+EJGqYmufUb+bR2Oo3cVHjJEN4RjtjHOiZw5EycQsaLsMKiZK6BOUjv5pFPAoqtdA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
+ s=selector2-intel-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zx7gFzNjcBN1gsslzKj56qmbUZP8e6rZtDPGL5DTQkM=;
+ b=RiZzrmH0QrKKLmjE0MJGDIu8/nkzmAK4gG5OX2Tf2cMZ4UYXoaWKW5s5QHoj3fx+a2f2+4m4xb2Wx1JOEz3+N6ojMzcUiFr2LHrJAgBm0dSDY+iDjzx6ulRGI5HhA9r9iL2qzhY/+LhSRvaR30YtKhE3AjxdiVGX8GZq2M3d3So=
+Received: from DM6PR11MB4074.namprd11.prod.outlook.com (2603:10b6:5:5::11) by
+ DM6PR11MB4722.namprd11.prod.outlook.com (2603:10b6:5:2a7::23) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4352.25; Fri, 23 Jul 2021 11:42:33 +0000
+Received: from DM6PR11MB4074.namprd11.prod.outlook.com
+ ([fe80::446b:ca82:9706:2755]) by DM6PR11MB4074.namprd11.prod.outlook.com
+ ([fe80::446b:ca82:9706:2755%7]) with mapi id 15.20.4331.034; Fri, 23 Jul 2021
+ 11:42:33 +0000
+From: "Liao, Bard" <bard.liao@intel.com>
+To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: RE: [PATCH 1/6] soundwire: move intel sdw register definitions to
+ sdw_intel.h
+Thread-Topic: [PATCH 1/6] soundwire: move intel sdw register definitions to
+ sdw_intel.h
+Thread-Index: AQHXeFp2kkRL9crGCEu8oo1j2eWJIqtPGeaAgAFiyXA=
+Date: Fri, 23 Jul 2021 11:42:33 +0000
+Message-ID: <DM6PR11MB4074511AC93DEE38E1AC1959FFE59@DM6PR11MB4074.namprd11.prod.outlook.com>
+References: <20210714024614.9357-1-yung-chuan.liao@linux.intel.com>
+ <20210714024614.9357-2-yung-chuan.liao@linux.intel.com>
+ <YPl/p7ynoRoi2auf@matsya>
+In-Reply-To: <YPl/p7ynoRoi2auf@matsya>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-version: 11.5.1.3
+dlp-reaction: no-action
+dlp-product: dlpe-windows
+authentication-results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 573171dd-ab6d-4e5b-5781-08d94dcef5d3
+x-ms-traffictypediagnostic: DM6PR11MB4722:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR11MB4722328F0B1517AAC2093B15FFE59@DM6PR11MB4722.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: OCuUUbiecD4ZeqSVUgFlmYYanjv4nY6m/5qusZMKzowLm2aRfCpkJ77uytcw5bd21VbuvRZQ+KNw2Z1XSedmIo5xmhn1K1lqInAFfWeSMliGzKJoSz/aoJHpWyeGSpkO7x6L6yviYKKrvH5DK0AE+40slPQ+UfWRmfN/GhsTk4pQ5LV20fGkNh3Uq5Q+wIY7epO566rypI4cnfz9DrWqQKAOV8O4j5q+B+rgrvqdZVt/UHde+4wwUFyTYP1/4IVYqx/lCiN/ejAkCch8QQi2XNC32rJjsoyFxjNydbOxnzzdefgKzLEqByn2Qamq5mTiTieyo/PZTmPvYix/CR0+zUzypOAcY47z3ezt58dds2kjc7AhCh3aRHT7rezWremOFqOB0/mU1eIx4hvD8mSgTIWPEH/uzDNUzKIcJXEeoA+0VxUxiFCf9VTWDl3j7mGWrflvNJzw29ebpF9eZe2iMcaq2NkS/+jCb8/zK7VfbRT2oiNgBrAufhHS20KRgyQyejZeVY/w+JgHMdszVcZchH72J1hAUmBiJFCyvdQnbucTes1GWReJITOeXy9EzFetVsHk0PXt397cC44605+1mr7Fhqw6SrHXqnNrF6BNeIQ8knq7DMyBHnk++A5TIRAciCXyEOAeFQNmRDHr/xE11PN/E0PKJg1nVldwkWhyZv1/m1yFU87yHY7PhGRiBYny28IgfhY0DQH9VacbEBNs7A==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR11MB4074.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(136003)(346002)(39860400002)(376002)(366004)(8676002)(6506007)(53546011)(9686003)(478600001)(7696005)(55016002)(33656002)(86362001)(83380400001)(26005)(76116006)(4326008)(71200400001)(186003)(52536014)(110136005)(2906002)(66556008)(66446008)(66946007)(316002)(38100700002)(64756008)(66476007)(5660300002)(8936002)(54906003)(122000001)(38070700004);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?jzxo7ALGJmtcfa4wkPom68mg4rQ/WtYaEriStF9p8/fPhzWhxBjH33HIcUAY?=
+ =?us-ascii?Q?p6cw/gYPw4GUjbRKyjIMjB1ZvN5riUgDPM5t+Z5Dgto993uheCyezg2H3znD?=
+ =?us-ascii?Q?yQNHmDq3afc8wJmR+DW9NwPR+wrkCTkkFsIee0OoYrKG+6wTCSK2DTxyAlqR?=
+ =?us-ascii?Q?wXmKIEmzhri4uNkfFWPf+DKCIIse1cePYsj9awtMUUAz9QyEgWvrShlzGbKN?=
+ =?us-ascii?Q?QuFhiWw4XMxqdKmuE21SUe758hWxjZjP0RPYEcH+2sDmT58GRe4hvzj4UTcB?=
+ =?us-ascii?Q?JidxjaI2l5SCutU1uuQRDDYaH22ysXUPjW/V8LQhsfVDJEc4vtXcYdogjb0N?=
+ =?us-ascii?Q?RroAtqUDwQIXh4I701wMHjGW8Bv6aqwokMdkZ0IXOou7Nt6NJ/NcvXMhK0YY?=
+ =?us-ascii?Q?33v5cqz+kBri82Hb8ITzyeI8kziAkmGxKC+jQo9wdyO/XepsoGVUUG3MfrCV?=
+ =?us-ascii?Q?5OZ9Hj9OKYMzuQfDWrJdFCoRMpg+XGAWXSD+yQn2cPy4SLpMEOMQyj9ISuiK?=
+ =?us-ascii?Q?51EsCNnldVErL4KA4yEvJqgywVqIH1uIUHiYBxmph1dX+2RGLofpL+ijkl/w?=
+ =?us-ascii?Q?o4Vwi0Pxxoc2JNtyQLrW2kfYYalhPW7I3aIMz7N2aY19YLZvkgQR6jtIZ3Rx?=
+ =?us-ascii?Q?Fu7ZBbDbbtxDBl63IqP8NbJqDx8qV7yAxdSsCru87j+RGKyFyky5bgTAIFiA?=
+ =?us-ascii?Q?VODWEZ1ATD4BaRG933axMbBnwY/FSVrFJrKyw2CgHnytvSo81lvouQ478TLH?=
+ =?us-ascii?Q?VSn14xjn8estEx45YJTYNtxen9/Sv2oLBB93J7EtauzfQfeuax+pzSLVmwFL?=
+ =?us-ascii?Q?fXknGjkCZdctddiFjSg9AkPiyDd+Tosfq1Y4uj5KDmaqNDviGEaDOU9jhFgJ?=
+ =?us-ascii?Q?CnYsv+hg36RBlp6YtOX5sbXQG/cV+Prkd+SKB4Ua9bKKDuzaXOceiKTCb+c3?=
+ =?us-ascii?Q?axtQ2opVjFRIiwgRpbdc+mRiTT+37MhWTr+XTUorzjNp/SGl3sIbfkLOP9Ls?=
+ =?us-ascii?Q?pG/vkVisiCzXZgQdhd6G8MLusnIGOIC/IuD3un54r7FLVJOQuewctxevQFtT?=
+ =?us-ascii?Q?Me9O+SD28iTFczMOQSrGX5yEXBCNy6w+uDiLdSoL4xg9TWXOiRuKgRBuK9mN?=
+ =?us-ascii?Q?nsNVLjjpEQ6QZaVoxRUok+NTzR2UokWWtVxNM/JIoPToZBUsMli/iS1Tce0r?=
+ =?us-ascii?Q?VgHmD7yu9yZQa0KzzprOsmZV657thDDOXd8vbu41BkW2M3Iq53bC3u+fT0i3?=
+ =?us-ascii?Q?PJBrnC6Rys2KbN/O2RHl6rWdAEVic71RjOiSgYwPGpoxmj9+2EUEr/5CF55+?=
+ =?us-ascii?Q?46Q=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <20210629014736.31153-1-trevor.wu@mediatek.com>
- <20210629014736.31153-6-trevor.wu@mediatek.com>
- <CAGXv+5FzOs+=9PbYAEahVXvdJG1FnRkSUo_r3AVYZzNKGqg0oA@mail.gmail.com>
- <9929a3a20df1a89fc94baf7c75c0c65d9a61de0f.camel@mediatek.com>
- <CAGXv+5HFjM_N_MM5ZddGLcuYVsOXAJwfNuKvB5Cfo0k=nO456g@mail.gmail.com>
- <266fd1f5de56743292ac5fc64664113c0bb0e41a.camel@mediatek.com>
- <CAGXv+5FVWNgCeAseULOJbU3=6ggQ=b=mtP_sEQd0NgtdX-ttiQ@mail.gmail.com>
- <31bcc613abb0f805400faa8b8108100cb578d9b1.camel@mediatek.com>
-In-Reply-To: <31bcc613abb0f805400faa8b8108100cb578d9b1.camel@mediatek.com>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Fri, 23 Jul 2021 14:27:15 +0800
-Message-ID: <CAGXv+5HOL5j4gjgJa0RLjvf3+Vt2sGZcWU1KQXwjn7DOYy-JWg@mail.gmail.com>
-Subject: Re: [PATCH v2 5/8] ASoC: mediatek: mt8195: add platform driver
-To: Trevor Wu <trevor.wu@mediatek.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Jimmy Cheng-Yi Chiang <cychiang@google.com>,
- Chun-Jie Chen <chun-jie.chen@mediatek.com>, tiwai@suse.com,
- Rob Herring <robh+dt@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- broonie@kernel.org, linux-mediatek@lists.infradead.org,
- Jiaxin Yu <jiaxin.yu@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- Li-Yu Yu <aaronyu@google.com>, bicycle.tsai@mediatek.com,
- linux-arm-kernel@lists.infradead.org
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB4074.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 573171dd-ab6d-4e5b-5781-08d94dcef5d3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jul 2021 11:42:33.0896 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 0jOnQWVrSMtdVbwpwT2ysHDXhISRtc4WyI1DkAwFlgLgNf506Bba+CXTR4SH3UG0lbzNa+Cy89GIC587rDppZA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4722
+X-OriginatorOrg: intel.com
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "tiwai@suse.de" <tiwai@suse.de>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
+ "broonie@kernel.org" <broonie@kernel.org>, "Kale,
+ Sanyog R" <sanyog.r.kale@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,653 +183,256 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jul 22, 2021 at 4:56 PM Trevor Wu <trevor.wu@mediatek.com> wrote:
->
-> On Mon, 2021-07-19 at 18:05 +0800, Chen-Yu Tsai wrote:
-> > Hi,
-> >
-> > On Thu, Jul 15, 2021 at 7:05 PM Trevor Wu <trevor.wu@mediatek.com>
-> > wrote:
-> > >
-> > > On Tue, 2021-07-13 at 14:00 +0800, Chen-Yu Tsai wrote:
-> > > > On Mon, Jul 12, 2021 at 11:10 PM Trevor Wu <
-> > > > trevor.wu@mediatek.com>
-> > > > wrote:
-> > > > >
-> > > > > On Mon, 2021-07-12 at 14:57 +0800, Chen-Yu Tsai wrote:
-> > > > > >  are all internal Hi,
-> > > > > >
-> > > > > > On Tue, Jun 29, 2021 at 9:49 AM Trevor Wu <
-> > > > > > trevor.wu@mediatek.com
-> > > > > > >
-> > > > > >
-> > > > > > wrote:
-> > > > > > >
-> > > > > > > This patch adds mt8195 platform and affiliated driver.
-> > > > > > >
-> > > > > > > Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
-> > > > > > > ---
-> > > > > > >  sound/soc/mediatek/Kconfig                     |    9 +
-> > > > > > >  sound/soc/mediatek/Makefile                   |    1 +
-> > > > > > >  sound/soc/mediatek/mt8195/Makefile            |   11 +
-> > > > > > >  sound/soc/mediatek/mt8195/mt8195-afe-clk.c    |  899 +++++
-> > > > > > >  sound/soc/mediatek/mt8195/mt8195-afe-clk.h    |  201 +
-> > > > > > >  sound/soc/mediatek/mt8195/mt8195-afe-common.h |  200 +
-> > > > > > >  sound/soc/mediatek/mt8195/mt8195-afe-pcm.c    | 3264
-> > > > > > > +++++++++++++++++
-> > > > > > >  sound/soc/mediatek/mt8195/mt8195-reg.h        | 2793
-> > > > > > > ++++++++++++++
-> > > > > > >  8 files changed, 7378 insertions(+)
-> > > > > > >  create mode 100644 sound/soc/mediatek/mt8195/Makefile
-> > > > > > >  create mode 100644 sound/soc/mediatek/mt8195/mt8195-afe-
-> > > > > > > clk.c
-> > > > > > >  create mode 100644 sound/soc/mediatek/mt8195/mt8195-afe-
-> > > > > > > clk.h
-> > > > > > >  create mode 100644 sound/soc/mediatek/mt8195/mt8195-afe-
-> > > > > > > common.h
-> > > > > > >  create mode 100644 sound/soc/mediatek/mt8195/mt8195-afe-
-> > > > > > > pcm.c
-> > > > > > >  create mode 100644 sound/soc/mediatek/mt8195/mt8195-reg.h
-> > > > > > >
-> > > > > > > diff --git a/sound/soc/mediatek/Kconfig
-> > > > > > > b/sound/soc/mediatek/Kconfig
-> > > > > > > index 74dae4332d17..3389f382be06 100644
-> > > > > > > --- a/sound/soc/mediatek/Kconfig
-> > > > > > > +++ b/sound/soc/mediatek/Kconfig
-> > > > > > > @@ -184,3 +184,12 @@ config
-> > > > > > > SND_SOC_MT8192_MT6359_RT1015_RT5682
-> > > > > > >           with the MT6359 RT1015 RT5682 audio codec.
-> > > > > > >           Select Y if you have such device.
-> > > > > > >           If unsure select "N".
-> > > > > > > +
-> > > > > > > +config SND_SOC_MT8195
-> > > > > > > +       tristate "ASoC support for Mediatek MT8195 chip"
-> > > > > > > +       select SND_SOC_MEDIATEK
-> > > > > > > +       help
-> > > > > > > +         This adds ASoC platform driver support for
-> > > > > > > Mediatek
-> > > > > > > MT8195 chip
-> > > > > > > +         that can be used with other codecs.
-> > > > > > > +         Select Y if you have such device.
-> > > > > > > +         If unsure select "N".
-> > > > > > > diff --git a/sound/soc/mediatek/Makefile
-> > > > > > > b/sound/soc/mediatek/Makefile
-> > > > > > > index f6cb6b8508e3..34778ca12106 100644
-> > > > > > > --- a/sound/soc/mediatek/Makefile
-> > > > > > > +++ b/sound/soc/mediatek/Makefile
-> > > > > > > @@ -5,3 +5,4 @@ obj-$(CONFIG_SND_SOC_MT6797) += mt6797/
-> > > > > > >  obj-$(CONFIG_SND_SOC_MT8173) += mt8173/
-> > > > > > >  obj-$(CONFIG_SND_SOC_MT8183) += mt8183/
-> > > > > > >  obj-$(CONFIG_SND_SOC_MT8192) += mt8192/
-> > > > > > > +obj-$(CONFIG_SND_SOC_MT8195) += mt8195/
-> > > > > > > diff --git a/sound/soc/mediatek/mt8195/Makefile
-> > > > > > > b/sound/soc/mediatek/mt8195/Makefile
-> > > > > > > new file mode 100644
-> > > > > > > index 000000000000..b2c9fd88f39e
-> > > > > > > --- /dev/null
-> > > > > > > +++ b/sound/soc/mediatek/mt8195/Makefile
-> > > > > > > @@ -0,0 +1,11 @@
-> > > > > > > +# SPDX-License-Identifier: GPL-2.0
-> > > > > > > +
-> > > > > > > +# platform driver
-> > > > > > > +snd-soc-mt8195-afe-objs := \
-> > > > > > > +       mt8195-afe-clk.o \
-> > > > > > > +       mt8195-afe-pcm.o \
-> > > > > > > +       mt8195-dai-adda.o \
-> > > > > > > +       mt8195-dai-etdm.o \
-> > > > > > > +       mt8195-dai-pcm.o
-> > > > > > > +
-> > > > > > > +obj-$(CONFIG_SND_SOC_MT8195) += snd-soc-mt8195-afe.o
-> > > > > > > diff --git a/sound/soc/mediatek/mt8195/mt8195-afe-clk.c
-> > > > > > > b/sound/soc/mediatek/mt8195/mt8195-afe-clk.c
-> > > > > > > new file mode 100644
-> > > > > > > index 000000000000..57aa799b4f41
-> > > > > > > --- /dev/null
-> > > > > > > +++ b/sound/soc/mediatek/mt8195/mt8195-afe-clk.c
-> > > > > > > @@ -0,0 +1,899 @@
-> > > > > > > +// SPDX-License-Identifier: GPL-2.0
-> > > > > > > +/*
-> > > > > > > + * mt8195-afe-clk.c  --  Mediatek 8195 afe clock ctrl
-> > > > > > > + *
-> > > > > > > + * Copyright (c) 2021 MediaTek Inc.
-> > > > > > > + * Author: Bicycle Tsai <bicycle.tsai@mediatek.com>
-> > > > > > > + *         Trevor Wu <trevor.wu@mediatek.com>
-> > > > > > > + */
-> > > > > > > +
-> > > > > > > +#include <linux/clk.h>
-> > > > > > > +
-> > > > > > > +#include "mt8195-afe-common.h"
-> > > > > > > +#include "mt8195-afe-clk.h"
-> > > > > > > +#include "mt8195-reg.h"
-> > > > > > > +
-> > > > > > > +static const char *aud_clks[MT8195_CLK_NUM] = {
-> > > > > >
-> > > > > > Most of these clocks are not described in the device tree
-> > > > > > binding. If
-> > > > > > the driver needs to reference them, they should be described.
-> > > > > > We
-> > > > > > should
-> > > > > > not be hard-coding clock names across different drivers.
-> > > > > >
-> > > > >
-> > > > > Sorry, I didn't know I have to list all clocks in the dt-
-> > > > > binding.
-> > > > > Originally, I thought these clocks will be described in the
-> > > > > clock
-> > > > > binding, so I didn't add them to the binding of afe driver.
-> > > > > I will add these clocks to mt8195-afe-pcm.yaml.
-> > > >
-> > > > If the device consumes clocks, then the clocks that get consumed
-> > > > should
-> > > > be listed in the device's bindings. This is not related to the
-> > > > clock
-> > > > bindings, which is a clock provider.
-> > > >
-> > >
-> > > Got it. Thanks.
-> > >
-> > > > > > The more important question is, why does the driver need to
-> > > > > > reference
-> > > > > > all of them? Maybe we should take a step back and draw out a
-> > > > > > clock
-> > > > > > tree
-> > > > > > diagram for the hardware?
-> > > > > >
-> > > > >
-> > > > > The clock structure is PLL -> MUX -> GATE.
-> > > > > xtal, pll and divider are the possible clock inputs for MUX.
-> > > > > Because we select the clock input of audio module based on the
-> > > > > use
-> > > > > case, we use clk_get to retrive all clocks which are possible
-> > > > > to be
-> > > > > used.
-> > > >
-> > > > So I see a couple the driver is doing reparenting:
-> > > >
-> > > >   a. Reparent audio_h to standard oscillator when ADDA is not
-> > > > used,
-> > > >      presumably to let the APLL be turned off
-> > > >
-> > > > Why not just turn off audio_h? It looks like audio_h feeds a
-> > > > couple
-> > > > clock
-> > > > gates in the audio subsystem. Just a guess, but is this the AHB
-> > > > bus
-> > > > clock?
-> > > > Why not just have it parented to "univpll_d7" all the time then?
-> > > >
-> > >
-> > > Sorry, I am not sure if it is the AHB bus clock.
-> > > I only know how audio module uses the clock.
-> > > audio_h feeds to some clock gate like aud_adc_hires, which is used
-> > > when
-> > > sampling rate is higher than 48kHz, and hardware designer suggests
-> > > us
-> > > use apll1_ck when AFE requrires the clock.
-> >
-> > I see. So the simplified explanation is high clock rate for high res
-> > audio.
-> > Would high clock rate work for standard sample rates?
->
-> As far as I know, HW will switch clock to hires clock automatically
-> when the required rate is high,(ex: aud_adc and aud_adc_hires) so it
-> can't be controlled by driver.
+> -----Original Message-----
+> From: Vinod Koul <vkoul@kernel.org>
+> Sent: Thursday, July 22, 2021 10:25 PM
+> To: Bard Liao <yung-chuan.liao@linux.intel.com>
+> Cc: alsa-devel@alsa-project.org; linux-kernel@vger.kernel.org; tiwai@suse=
+.de;
+> broonie@kernel.org; gregkh@linuxfoundation.org;
+> srinivas.kandagatla@linaro.org; pierre-louis.bossart@linux.intel.com; Kal=
+e,
+> Sanyog R <sanyog.r.kale@intel.com>; Liao, Bard <bard.liao@intel.com>
+> Subject: Re: [PATCH 1/6] soundwire: move intel sdw register definitions t=
+o
+> sdw_intel.h
+>=20
+> On 14-07-21, 10:46, Bard Liao wrote:
+> > So it is visible to other drivers.
+>=20
+> More detailed log please, who are others...
 
-I see. That might not be so friendly to the Linux clk driver.
+Thanks. I will send v2 to update the commit message.
 
-> > Would using apll1 or univpll all the time work, instead of
-> > reparenting?
-> > What's the gain if we do reparenting?
-> >
->
-> As you said before, the gain is apll can be turned off when the clock
-> is not requrired by ADDA. That's why we didn't use apll all the time.
+>=20
+> Otherwise the changes look fine to me, how do you wnat this to be picked?=
+ I
+> guess asoc parts are dependent on this
+>=20
 
-Right, and what's the gain from turning it off? Lower power consumption?
-
-> > > As I know, DSP also requires audio_h.
-> > > When we disable the clock in AFE driver, the ref count in CCF is
-> > > not
-> > > becoming zero if DSP still uses it.
-> > > But only AFE requires higher clock rate, so we reparent audio_h to
-> > > 26M
-> > > when it's not required in adda module.
-> >
-> > I see. Wouldn't reparenting the clock while it is in use by another
-> > module
-> > cause glitches?
->
-> I checked with the DSP owner.
-> audio_h clock is required for DSP bus, but the clock rate is not
-> important.
-> The only thing it cares is audio_h should be powered on, so reparenting
-> is harmless for DSP.
-
-OK.
-
-> > > > Also, reparenting really should be done implicitly with
-> > > > clk_set_rate()
-> > > > with the clock driver supporting reparenting on rate changes.
-> > > >
-> > > >   b. Assignment of PLLs for I2S/PCM MCLK outputs
-> > > >
-> > > > Is there a reason for explicit assignment, other than clock rate
-> > > > conflicts?
-> > > > CCF supports requesting and locking the clock rate. And again,
-> > > > implicit
-> > > > reparenting should be the norm. The clock driver's purpose is to
-> > > > fulfill
-> > > > any and all clock rate requirements from its consumers. The
-> > > > consumer
-> > > > should
-> > > > only need to ask for the clock rate, not a specific parent,
-> > > > unless
-> > > > there
-> > > > are details that are not yet covered by the CCF.
-> > > >
-> > >
-> > > For MCLK output, we should configure divider to get the target
-> > > rate,
-> > > and it can only divide the clock from current parent source.
-> > > So we should do reparent to divider's parent in case the parent
-> > > rate is
-> > > not a multiple of target rate.
-> >
-> > Right. That is expected. What I'm saying is that the CCF provides the
-> > framework for automatically reparenting based on the requested clock
-> > rate. This is done in the clock driver's .determine_rate op.
-> >
-> > When properly implemented, and also restricting or locking the clock
-> > rates
-> > of the PLLs, then you can simply request a clock rate on the leaf
-> > clock,
-> > in this case one of the MCLKs, and the CCF and clock driver would
-> > handle
-> > everything else. The consumer should not be reparenting clocks
-> > manually
-> > unless for a very good reason which cannot be satisfied by the CCF.
-> >
->
-> In some use cases, we really need to reparent clock manually.
-> For example, spdif in(slave) -> .... -> i2s out(master)
->
-> APLL3/APLL4 are reserved for slave input like earc in or spdif in,
-> which can refer to the external clock source.(APLL3 syncs with earc,
-> and APLL4 syncs with spdif in.)
->
-> When i2s out selects the clock source to APLL4, this makes sure that
-> spdif in and i2s out works in the same clock source.
-> If we just use APLL1/APLL2 on i2s out, there is little rate mismatch
-> between data input and output. Finally, it results in XRUN.
-
-I see, that makes more sense.
-
-> If we only use set_rate, it's possible that it can't switch to the
-> expected PLL source, because the rate of APLL3/APLL4 should be close to
-> APLL1/APLL2.
-
-Well, in theory the CCF should choose the one with the closest rate.
-And if APLL3/APLL4 is already tracking the external clock source, its
-clock rate should match.
-
-If it's a static requirement, maybe we could replace the *-mclk-source
-DT properties with standard assigned-clocks and assigned-clock-parents?
-This would get handled by CCF directly, and then the only thing the
-clk driver has to do is make sure it doesn't get reparented again.
-
-Or is there a need to do reparenting at runtime?
-
-> > > > A related question: the chip has five APLLs. How many MCLK
-> > > > combinations
-> > > > does the application need to support? I assume this includes the
-> > > > standard
-> > > > 24.576 MHz and 22.5792 MHz clock rates.
-> > > >
-> > >
-> > > APLL1 and APLL2 are used in most AFE modules, so their rate should
-> > > be
-> > > fixed.
-> > > APLL1 is fixed to 196608000Hz.
-> > > APLL2 is fixed to 180633600Hz.
-> > > APLL is inputed to the divider(8bit), and MCLK is the output of
-> > > divider.
-> > > Other APLLs are reserved for some special usage which can't be
-> > > supported by APLL1 & APLL2.
-> > > But APLL3~APLL5 aren't used in the series, so I will remove them in
-> > > v3.
-> > >
-> > > > > Some of them are not used in this series, because some modules
-> > > > > are
-> > > > > still developing. Should I only keep the clocks that have been
-> > > > > used
-> > > > > in
-> > > > > the series?
-> > > >
-> > > > Yes please. Only add the ones that are used. Things that aren't
-> > > > used
-> > > > don't get tested and verified, and end up as dead code. If there
-> > > > are
-> > > > plans to extend them in the future, and you can leave comments
-> > > > stating
-> > > > that intent, and also mention it in the cover letter.
-> > > >
-> > >
-> > > OK, I will remove the unused clock in v3.
-> > >
-> > > > > > > +       /* xtal */
-> > > > > > > +       [MT8195_CLK_XTAL_26M] = "clk26m",
-> > > > > > > +       /* pll */
-> > > > > > > +       [MT8195_CLK_APMIXED_APLL1] = "apll1",
-> > > > > > > +       [MT8195_CLK_APMIXED_APLL2] = "apll2",
-> > > > > > > +       [MT8195_CLK_APMIXED_APLL3] = "apll3",
-> > > > > > > +       [MT8195_CLK_APMIXED_APLL4] = "apll4",
-> > > > > > > +       [MT8195_CLK_APMIXED_APLL5] = "apll5",
-> > > > > > > +       [MT8195_CLK_APMIXED_HDMIRX_APLL] = "hdmirx_apll",
-> > > > > > > +       /* divider */
-> > > > > > > +       [MT8195_CLK_TOP_APLL1] = "apll1_ck",
-> > > > > > > +       [MT8195_CLK_TOP_APLL1_D4] = "apll1_d4",
-> > > > > > > +       [MT8195_CLK_TOP_APLL2] = "apll2_ck",
-> > > > > > > +       [MT8195_CLK_TOP_APLL2_D4] = "apll2_d4",
-> > > > > > > +       [MT8195_CLK_TOP_APLL3] = "apll3_ck",
-> > > > > > > +       [MT8195_CLK_TOP_APLL3_D4] = "apll3_d4",
-> > > > > > > +       [MT8195_CLK_TOP_APLL4] = "apll4_ck",
-> > > > > > > +       [MT8195_CLK_TOP_APLL4_D4] = "apll4_d4",
-> > > > > > > +       [MT8195_CLK_TOP_APLL5] = "apll5_ck",
-> > > > > > > +       [MT8195_CLK_TOP_APLL5_D4] = "apll5_d4",
-> > > > > > > +       [MT8195_CLK_TOP_APLL12_DIV0] = "apll12_div0",
-> > > > > > > +       [MT8195_CLK_TOP_APLL12_DIV1] = "apll12_div1",
-> > > > > > > +       [MT8195_CLK_TOP_APLL12_DIV2] = "apll12_div2",
-> > > > > > > +       [MT8195_CLK_TOP_APLL12_DIV3] = "apll12_div3",
-> > > > > > > +       [MT8195_CLK_TOP_APLL12_DIV4] = "apll12_div4",
-> > > > > > > +       [MT8195_CLK_TOP_APLL12_DIV9] = "apll12_div9",
-> > > > > > > +       [MT8195_CLK_TOP_HDMIRX_APLL] = "hdmirx_apll_ck",
-> > > > > > > +       [MT8195_CLK_TOP_MAINPLL_D4_D4] = "mainpll_d4_d4",
-> > > > > > > +       [MT8195_CLK_TOP_MAINPLL_D5_D2] = "mainpll_d5_d2",
-> > > > > > > +       [MT8195_CLK_TOP_MAINPLL_D7_D2] = "mainpll_d7_d2",
-> > > > > > > +       [MT8195_CLK_TOP_UNIVPLL_D4] = "univpll_d4",
-> > > > > > > +       /* mux */
-> > > > > > > +       [MT8195_CLK_TOP_APLL1_SEL] = "apll1_sel",
-> > > > > > > +       [MT8195_CLK_TOP_APLL2_SEL] = "apll2_sel",
-> > > > > > > +       [MT8195_CLK_TOP_APLL3_SEL] = "apll3_sel",
-> > > > > > > +       [MT8195_CLK_TOP_APLL4_SEL] = "apll4_sel",
-> > > > > > > +       [MT8195_CLK_TOP_APLL5_SEL] = "apll5_sel",
-> > > > > > > +       [MT8195_CLK_TOP_A1SYS_HP_SEL] = "a1sys_hp_sel",
-> > > > > > > +       [MT8195_CLK_TOP_A2SYS_SEL] = "a2sys_sel",
-> > > > > > > +       [MT8195_CLK_TOP_A3SYS_SEL] = "a3sys_sel",
-> > > > > > > +       [MT8195_CLK_TOP_A4SYS_SEL] = "a4sys_sel",
-> > > > > > > +       [MT8195_CLK_TOP_ASM_H_SEL] = "asm_h_sel",
-> > > > > > > +       [MT8195_CLK_TOP_ASM_M_SEL] = "asm_m_sel",
-> > > > > > > +       [MT8195_CLK_TOP_ASM_L_SEL] = "asm_l_sel",
-> > > > > > > +       [MT8195_CLK_TOP_AUD_IEC_SEL] = "aud_iec_sel",
-> > > > > > > +       [MT8195_CLK_TOP_AUD_INTBUS_SEL] = "aud_intbus_sel",
-> > > > > > > +       [MT8195_CLK_TOP_AUDIO_H_SEL] = "audio_h_sel",
-> > > > > > > +       [MT8195_CLK_TOP_AUDIO_LOCAL_BUS_SEL] =
-> > > > > > > "audio_local_bus_sel",
-> > > > > > > +       [MT8195_CLK_TOP_DPTX_M_SEL] = "dptx_m_sel",
-> > > > > > > +       [MT8195_CLK_TOP_INTDIR_SEL] = "intdir_sel",
-> > > > > > > +       [MT8195_CLK_TOP_I2SO1_M_SEL] = "i2so1_m_sel",
-> > > > > > > +       [MT8195_CLK_TOP_I2SO2_M_SEL] = "i2so2_m_sel",
-> > > > > > > +       [MT8195_CLK_TOP_I2SI1_M_SEL] = "i2si1_m_sel",
-> > > > > > > +       [MT8195_CLK_TOP_I2SI2_M_SEL] = "i2si2_m_sel",
-> > > > > > > +       /* clock gate */
-> > > > > > > +       [MT8195_CLK_TOP_MPHONE_SLAVE_B] = "mphone_slave_b",
-> > > > > > > +       [MT8195_CLK_TOP_CFG_26M_AUD] = "cfg_26m_aud",
-> > > > > > > +       [MT8195_CLK_INFRA_AO_AUDIO] = "infra_ao_audio",
-> > > > > > > +       [MT8195_CLK_INFRA_AO_AUDIO_26M_B] =
-> > > > > > > "infra_ao_audio_26m_b",
-> > > > > > > +       [MT8195_CLK_SCP_ADSP_AUDIODSP] =
-> > > > > > > "scp_adsp_audiodsp",
-> > > > > >
-> > > > > >
-> > > > > > > +       [MT8195_CLK_AUD_AFE] = "aud_afe",
-> > > > > > > +       [MT8195_CLK_AUD_LRCK_CNT] = "aud_lrck_cnt",
-> > > > > > > +       [MT8195_CLK_AUD_SPDIFIN_TUNER_APLL] =
-> > > > > > > "aud_spdifin_tuner_apll",
-> > > > > > > +       [MT8195_CLK_AUD_SPDIFIN_TUNER_DBG] =
-> > > > > > > "aud_spdifin_tuner_dbg",
-> > > > > > > +       [MT8195_CLK_AUD_UL_TML] = "aud_ul_tml",
-> > > > > > > +       [MT8195_CLK_AUD_APLL1_TUNER] = "aud_apll1_tuner",
-> > > > > > > +       [MT8195_CLK_AUD_APLL2_TUNER] = "aud_apll2_tuner",
-> > > > > > > +       [MT8195_CLK_AUD_TOP0_SPDF] = "aud_top0_spdf",
-> > > > > > > +       [MT8195_CLK_AUD_APLL] = "aud_apll",
-> > > > > > > +       [MT8195_CLK_AUD_APLL2] = "aud_apll2",
-> > > > > > > +       [MT8195_CLK_AUD_DAC] = "aud_dac",
-> > > > > > > +       [MT8195_CLK_AUD_DAC_PREDIS] = "aud_dac_predis",
-> > > > > > > +       [MT8195_CLK_AUD_TML] = "aud_tml",
-> > > > > > > +       [MT8195_CLK_AUD_ADC] = "aud_adc",
-> > > > > > > +       [MT8195_CLK_AUD_DAC_HIRES] = "aud_dac_hires",
-> > > > > > > +       [MT8195_CLK_AUD_A1SYS_HP] = "aud_a1sys_hp",
-> > > > > > > +       [MT8195_CLK_AUD_AFE_DMIC1] = "aud_afe_dmic1",
-> > > > > > > +       [MT8195_CLK_AUD_AFE_DMIC2] = "aud_afe_dmic2",
-> > > > > > > +       [MT8195_CLK_AUD_AFE_DMIC3] = "aud_afe_dmic3",
-> > > > > > > +       [MT8195_CLK_AUD_AFE_DMIC4] = "aud_afe_dmic4",
-> > > > > > > +       [MT8195_CLK_AUD_AFE_26M_DMIC_TM] =
-> > > > > > > "aud_afe_26m_dmic_tm",
-> > > > > > > +       [MT8195_CLK_AUD_UL_TML_HIRES] = "aud_ul_tml_hires",
-> > > > > > > +       [MT8195_CLK_AUD_ADC_HIRES] = "aud_adc_hires",
-> > > > > > > +       [MT8195_CLK_AUD_ADDA6_ADC] = "aud_adda6_adc",
-> > > > > > > +       [MT8195_CLK_AUD_ADDA6_ADC_HIRES] =
-> > > > > > > "aud_adda6_adc_hires",
-> > > > > > > +       [MT8195_CLK_AUD_LINEIN_TUNER] = "aud_linein_tuner",
-> > > > > > > +       [MT8195_CLK_AUD_EARC_TUNER] = "aud_earc_tuner",
-> > > > > > > +       [MT8195_CLK_AUD_I2SIN] = "aud_i2sin",
-> > > > > > > +       [MT8195_CLK_AUD_TDM_IN] = "aud_tdm_in",
-> > > > > > > +       [MT8195_CLK_AUD_I2S_OUT] = "aud_i2s_out",
-> > > > > > > +       [MT8195_CLK_AUD_TDM_OUT] = "aud_tdm_out",
-> > > > > > > +       [MT8195_CLK_AUD_HDMI_OUT] = "aud_hdmi_out",
-> > > > > > > +       [MT8195_CLK_AUD_ASRC11] = "aud_asrc11",
-> > > > > > > +       [MT8195_CLK_AUD_ASRC12] = "aud_asrc12",
-> > > > > > > +       [MT8195_CLK_AUD_MULTI_IN] = "aud_multi_in",
-> > > > > > > +       [MT8195_CLK_AUD_INTDIR] = "aud_intdir",
-> > > > > > > +       [MT8195_CLK_AUD_A1SYS] = "aud_a1sys",
-> > > > > > > +       [MT8195_CLK_AUD_A2SYS] = "aud_a2sys",
-> > > > > > > +       [MT8195_CLK_AUD_PCMIF] = "aud_pcmif",
-> > > > > > > +       [MT8195_CLK_AUD_A3SYS] = "aud_a3sys",
-> > > > > > > +       [MT8195_CLK_AUD_A4SYS] = "aud_a4sys",
-> > > > > > > +       [MT8195_CLK_AUD_MEMIF_UL1] = "aud_memif_ul1",
-> > > > > > > +       [MT8195_CLK_AUD_MEMIF_UL2] = "aud_memif_ul2",
-> > > > > > > +       [MT8195_CLK_AUD_MEMIF_UL3] = "aud_memif_ul3",
-> > > > > > > +       [MT8195_CLK_AUD_MEMIF_UL4] = "aud_memif_ul4",
-> > > > > > > +       [MT8195_CLK_AUD_MEMIF_UL5] = "aud_memif_ul5",
-> > > > > > > +       [MT8195_CLK_AUD_MEMIF_UL6] = "aud_memif_ul6",
-> > > > > > > +       [MT8195_CLK_AUD_MEMIF_UL8] = "aud_memif_ul8",
-> > > > > > > +       [MT8195_CLK_AUD_MEMIF_UL9] = "aud_memif_ul9",
-> > > > > > > +       [MT8195_CLK_AUD_MEMIF_UL10] = "aud_memif_ul10",
-> > > > > > > +       [MT8195_CLK_AUD_MEMIF_DL2] = "aud_memif_dl2",
-> > > > > > > +       [MT8195_CLK_AUD_MEMIF_DL3] = "aud_memif_dl3",
-> > > > > > > +       [MT8195_CLK_AUD_MEMIF_DL6] = "aud_memif_dl6",
-> > > > > > > +       [MT8195_CLK_AUD_MEMIF_DL7] = "aud_memif_dl7",
-> > > > > > > +       [MT8195_CLK_AUD_MEMIF_DL8] = "aud_memif_dl8",
-> > > > > > > +       [MT8195_CLK_AUD_MEMIF_DL10] = "aud_memif_dl10",
-> > > > > > > +       [MT8195_CLK_AUD_MEMIF_DL11] = "aud_memif_dl11",
-> > > > > > > +       [MT8195_CLK_AUD_GASRC0] = "aud_gasrc0",
-> > > > > > > +       [MT8195_CLK_AUD_GASRC1] = "aud_gasrc1",
-> > > > > > > +       [MT8195_CLK_AUD_GASRC2] = "aud_gasrc2",
-> > > > > > > +       [MT8195_CLK_AUD_GASRC3] = "aud_gasrc3",
-> > > > > > > +       [MT8195_CLK_AUD_GASRC4] = "aud_gasrc4",
-> > > > > > > +       [MT8195_CLK_AUD_GASRC5] = "aud_gasrc5",
-> > > > > > > +       [MT8195_CLK_AUD_GASRC6] = "aud_gasrc6",
-> > > > > > > +       [MT8195_CLK_AUD_GASRC7] = "aud_gasrc7",
-> > > > > > > +       [MT8195_CLK_AUD_GASRC8] = "aud_gasrc8",
-> > > > > > > +       [MT8195_CLK_AUD_GASRC9] = "aud_gasrc9",
-> > > > > > > +       [MT8195_CLK_AUD_GASRC10] = "aud_gasrc10",
-> > > > > > > +       [MT8195_CLK_AUD_GASRC11] = "aud_gasrc11",
-> > > > > > > +       [MT8195_CLK_AUD_GASRC12] = "aud_gasrc12",
-> > > > > > > +       [MT8195_CLK_AUD_GASRC13] = "aud_gasrc13",
-> > > > > > > +       [MT8195_CLK_AUD_GASRC14] = "aud_gasrc14",
-> > > > > > > +       [MT8195_CLK_AUD_GASRC15] = "aud_gasrc15",
-> > > > > > > +       [MT8195_CLK_AUD_GASRC16] = "aud_gasrc16",
-> > > > > > > +       [MT8195_CLK_AUD_GASRC17] = "aud_gasrc17",
-> > > > > > > +       [MT8195_CLK_AUD_GASRC18] = "aud_gasrc18",
-> > > > > > > +       [MT8195_CLK_AUD_GASRC19] = "aud_gasrc19",
-> > > > > >
-> > > > > > The MT8195_CLK_AUD_* clocks are all internal to the audio
-> > > > > > subsystem:
-> > > > > > the bits that control these clock gates are in the same
-> > > > > > address
-> > > > > > space
-> > > > > > as the audio parts. Would it be possible to model them as
-> > > > > > internal
-> > > > > > ASoC SUPPLY widgets? The external ones could be modeled using
-> > > > > > ASoC
-> > > > > > CLK_SUPPLY widgets, and the dependencies could be modeled
-> > > > > > with
-> > > > > > ASoC
-> > > > > > routes. The ASoC core could then handle power sequencing,
-> > > > > > which
-> > > > > > the
-> > > > > > driver currently does manually.
-> > > > > >
-> > > > > > IMO this is better than having two drivers handling two
-> > > > > > aspects
-> > > > > > of
-> > > > > > the same piece of hardware, while the two aspects are
-> > > > > > intertwined.
-> > > > > >
-> > > > >
-> > > > > Yes, it's ok to use the CLK_SUPPLY and SUPPLY to model such
-> > > > > clocks.
-> > > > > But those clocks are managed by CCF in the preceding SOCs like
-> > > > > mt2701,
-> > > > > mt6779 and mt8183. Additionally, in some audio modules, clocks
-> > > > > should
-> > > >
-> > > > This being a new driver, we have some more freedom to improve the
-> > > > design.
-> > > >
-> > > > > be enabled before configuring parameters(hw_params). As far as
-> > > > > I
-> > > > > know,
-> > > > > if we use CLK_SUPPLY or SUPPLY to model clocks, the power
-> > > > > sequence
-> > > > > is
-> > > > > controlled by DAPM. It seems to be impossible to fulfill all
-> > > > > use
-> > > > > cases.
-> > > > > That's why we just keep the manual control sequence and CCF
-> > > > > seems
-> > > > > to be
-> > > > > the best choice to model such clock gatess.
-> > > >
-> > > > I see. So yes, using CCF does give you reference counting,
-> > > > dependency
-> > > > tracking and other advantages. And using DAPM supplies means you
-> > > > can't
-> > > > enable the clock gates outside of DAPM without both pieces of
-> > > > code
-> > > > fighting for control.
-> > > >
-> > > > Can we at least move the audio clock gates into the audio driver
-> > > > though?
-> > > > The arbitrary separation into two devices and drivers is fishy.
-> > > > And
-> > > > with
-> > > > the move the external references to the audio clock gates can be
-> > > > removed.
-> > > >
-> > >
-> > > Because DAPM SUPPLY can't fit our control scenario.
-> > > Did you suggest us implement the simple logic control(including ref
-> > > count, clock dependency) for clock gate(MT8195_CLK_AUD_*) in afe
-> > > driver
-> > > instead of using CCF?
-> >
-> > I meant simply moving the CCF-based clk driver code (clk-mt8516-
-> > aud.c)
-> > from `drivers/clk` and incorporating it into the audio driver, likely
-> > in `mt8195-afe-clk.c` or maybe as a separate file. So the audio
-> > driver
-> > would be a clock provider, and a clock consumer. It will directly use
-> > the clocks it provides, internally, and you could remove all those
-> > clock references from the device tree.
-> >
-> > The goal is to have one hardware representation (device node) only,
-> > so
-> > that it matches the hardware, which is one single unified block.
-> >
-> > After the driver is completed, we can look for opportunities to
-> > improve
-> > it, if resources are available.
->
-> Thanks for your detailed information.
-> I will try to move the CCF-based clk driver code to AFE driver.
-> If there are no other internal concerns and blocking problems, I will
-> include the changes in v3.
-
-Great.
-
-> > > > And regarding the clock requirements for different modules, could
-> > > > we
-> > > > have
-> > > > that information put in comments somewhere, so if someone were to
-> > > > revisit
-> > > > it later, they would have the information needed to understand
-> > > > and
-> > > > possibly
-> > > > improve it? Because right now there's just a bunch of clocks
-> > > > enabled
-> > > > and
-> > > > disabled and nothing to explain why that's needed.
-> > > >
-> > >
-> > > For example,
-> > > MT8195_CLK_AUD_ADC(clock gate) is one of the clock feeding to ADDA
-> > > module.
-> > > Did you want me show the clock gate list feeding to ADDA?
-> > > On the other hand, I didn't know how to show the information
-> > > properly
-> > > in comments. Could you kindly share me an example for reference?
-> >
-> >
-> > For example, in `mt8195_afe_enable_reg_rw_clk()` in mt8195-afe-clk.c:
-> >
-> >         unsigned int clk_array[] = {
-> >                 MT8195_CLK_SCP_ADSP_AUDIODSP,
-> >                 MT8195_CLK_TOP_AUDIO_LOCAL_BUS_SEL,
-> >                 MT8195_CLK_TOP_CFG_26M_AUD,
-> >                 MT8195_CLK_INFRA_AO_AUDIO,
-> >                 MT8195_CLK_INFRA_AO_AUDIO_26M_B,
-> >                 MT8195_CLK_TOP_AUD_INTBUS_SEL,
-> >                 MT8195_CLK_TOP_A1SYS_HP_SEL,
-> >                 MT8195_CLK_AUD_A1SYS_HP,
-> >                 MT8195_CLK_AUD_A1SYS,
-> >                 MT8195_CLK_TOP_AUDIO_H_SEL,
-> >         };
-> >
-> > You could add a comment after each line stating why that clock needs
-> > to
-> > be enabled. A simple note like "bus access clock" or "internal logic
-> > clock"
-> > would suffice.
-> >
-> OK, I will add short notes to such clock lists.
->
-> > The above list also has some redundancies that could be eliminated.
-> > MT8195_CLK_TOP_A1SYS_HP_SEL is parent to both MT8195_CLK_AUD_A1SYS_HP
-> > and
-> > MT8195_CLK_AUD_A1SYS. When clocks are enabled, their parents are also
-> > enabled by CCF, so there's no need to enable them explicitly, unless
-> > that clock also directly feeds the clock consumer.
-> >
-> OK, I will review all clock usages and remove the unnecessary clocks.
->
-> >
-> > Another thing I wanted to bring up: is any of the code after
-> >
-> >     struct mt8195_afe_tuner_cfg {
-> >
-> > used? It looks like it is used to configure the five extra PLLs in
-> > the audio
-> > subsystem, but the exposed (non-static) functions don't seem to be
-> > called
-> > anywhere. Are they for modules not yet supported?
-> >
->
-> Yes, tuners are not supported now.
-> I will remove the code and add them back when tuners are required in
-> the future.
+Yes, ASoC parts are dependent on this. Maybe you can add an ACK if the
+SoundWire parts look good to you. And Mark can apply the series when he
+think the ASoC parts are ready to merge. The  opposite way also works for
+me.
 
 Thanks.
 
-
-ChenYu
+> >
+> > Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> > Reviewed-by: Pierre-Louis Bossart
+> > <pierre-louis.bossart@linux.intel.com>
+> > Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+> > ---
+> >  drivers/soundwire/intel.c           | 74 ---------------------------
+> >  drivers/soundwire/intel_init.c      |  6 ---
+> >  include/linux/soundwire/sdw_intel.h | 79
+> > +++++++++++++++++++++++++++++
+> >  3 files changed, 79 insertions(+), 80 deletions(-)
+> >
+> > diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
+> > index c11e3d8cd308..15668d6fecd6 100644
+> > --- a/drivers/soundwire/intel.c
+> > +++ b/drivers/soundwire/intel.c
+> > @@ -40,80 +40,6 @@ static int md_flags;
+> > module_param_named(sdw_md_flags, md_flags, int, 0444);
+> > MODULE_PARM_DESC(sdw_md_flags, "SoundWire Intel Master device flags
+> > (0x0 all off)");
+> >
+> > -/* Intel SHIM Registers Definition */
+> > -#define SDW_SHIM_LCAP			0x0
+> > -#define SDW_SHIM_LCTL			0x4
+> > -#define SDW_SHIM_IPPTR			0x8
+> > -#define SDW_SHIM_SYNC			0xC
+> > -
+> > -#define SDW_SHIM_CTLSCAP(x)		(0x010 + 0x60 * (x))
+> > -#define SDW_SHIM_CTLS0CM(x)		(0x012 + 0x60 * (x))
+> > -#define SDW_SHIM_CTLS1CM(x)		(0x014 + 0x60 * (x))
+> > -#define SDW_SHIM_CTLS2CM(x)		(0x016 + 0x60 * (x))
+> > -#define SDW_SHIM_CTLS3CM(x)		(0x018 + 0x60 * (x))
+> > -#define SDW_SHIM_PCMSCAP(x)		(0x020 + 0x60 * (x))
+> > -
+> > -#define SDW_SHIM_PCMSYCHM(x, y)		(0x022 + (0x60 * (x)) + (0x2 *
+> (y)))
+> > -#define SDW_SHIM_PCMSYCHC(x, y)		(0x042 + (0x60 * (x)) + (0x2 *
+> (y)))
+> > -#define SDW_SHIM_PDMSCAP(x)		(0x062 + 0x60 * (x))
+> > -#define SDW_SHIM_IOCTL(x)		(0x06C + 0x60 * (x))
+> > -#define SDW_SHIM_CTMCTL(x)		(0x06E + 0x60 * (x))
+> > -
+> > -#define SDW_SHIM_WAKEEN			0x190
+> > -#define SDW_SHIM_WAKESTS		0x192
+> > -
+> > -#define SDW_SHIM_LCTL_SPA		BIT(0)
+> > -#define SDW_SHIM_LCTL_SPA_MASK		GENMASK(3, 0)
+> > -#define SDW_SHIM_LCTL_CPA		BIT(8)
+> > -#define SDW_SHIM_LCTL_CPA_MASK		GENMASK(11, 8)
+> > -
+> > -#define SDW_SHIM_SYNC_SYNCPRD_VAL_24	(24000 /
+> SDW_CADENCE_GSYNC_KHZ - 1)
+> > -#define SDW_SHIM_SYNC_SYNCPRD_VAL_38_4	(38400 /
+> SDW_CADENCE_GSYNC_KHZ - 1)
+> > -#define SDW_SHIM_SYNC_SYNCPRD		GENMASK(14, 0)
+> > -#define SDW_SHIM_SYNC_SYNCCPU		BIT(15)
+> > -#define SDW_SHIM_SYNC_CMDSYNC_MASK	GENMASK(19, 16)
+> > -#define SDW_SHIM_SYNC_CMDSYNC		BIT(16)
+> > -#define SDW_SHIM_SYNC_SYNCGO		BIT(24)
+> > -
+> > -#define SDW_SHIM_PCMSCAP_ISS		GENMASK(3, 0)
+> > -#define SDW_SHIM_PCMSCAP_OSS		GENMASK(7, 4)
+> > -#define SDW_SHIM_PCMSCAP_BSS		GENMASK(12, 8)
+> > -
+> > -#define SDW_SHIM_PCMSYCM_LCHN		GENMASK(3, 0)
+> > -#define SDW_SHIM_PCMSYCM_HCHN		GENMASK(7, 4)
+> > -#define SDW_SHIM_PCMSYCM_STREAM		GENMASK(13, 8)
+> > -#define SDW_SHIM_PCMSYCM_DIR		BIT(15)
+> > -
+> > -#define SDW_SHIM_PDMSCAP_ISS		GENMASK(3, 0)
+> > -#define SDW_SHIM_PDMSCAP_OSS		GENMASK(7, 4)
+> > -#define SDW_SHIM_PDMSCAP_BSS		GENMASK(12, 8)
+> > -#define SDW_SHIM_PDMSCAP_CPSS		GENMASK(15, 13)
+> > -
+> > -#define SDW_SHIM_IOCTL_MIF		BIT(0)
+> > -#define SDW_SHIM_IOCTL_CO		BIT(1)
+> > -#define SDW_SHIM_IOCTL_COE		BIT(2)
+> > -#define SDW_SHIM_IOCTL_DO		BIT(3)
+> > -#define SDW_SHIM_IOCTL_DOE		BIT(4)
+> > -#define SDW_SHIM_IOCTL_BKE		BIT(5)
+> > -#define SDW_SHIM_IOCTL_WPDD		BIT(6)
+> > -#define SDW_SHIM_IOCTL_CIBD		BIT(8)
+> > -#define SDW_SHIM_IOCTL_DIBD		BIT(9)
+> > -
+> > -#define SDW_SHIM_CTMCTL_DACTQE		BIT(0)
+> > -#define SDW_SHIM_CTMCTL_DODS		BIT(1)
+> > -#define SDW_SHIM_CTMCTL_DOAIS		GENMASK(4, 3)
+> > -
+> > -#define SDW_SHIM_WAKEEN_ENABLE		BIT(0)
+> > -#define SDW_SHIM_WAKESTS_STATUS		BIT(0)
+> > -
+> > -/* Intel ALH Register definitions */
+> > -#define SDW_ALH_STRMZCFG(x)		(0x000 + (0x4 * (x)))
+> > -#define SDW_ALH_NUM_STREAMS		64
+> > -
+> > -#define SDW_ALH_STRMZCFG_DMAT_VAL	0x3
+> > -#define SDW_ALH_STRMZCFG_DMAT		GENMASK(7, 0)
+> > -#define SDW_ALH_STRMZCFG_CHN		GENMASK(19, 16)
+> > -
+> >  enum intel_pdi_type {
+> >  	INTEL_PDI_IN =3D 0,
+> >  	INTEL_PDI_OUT =3D 1,
+> > diff --git a/drivers/soundwire/intel_init.c
+> > b/drivers/soundwire/intel_init.c index 9e283bef53d2..03ff69ab1797
+> > 100644
+> > --- a/drivers/soundwire/intel_init.c
+> > +++ b/drivers/soundwire/intel_init.c
+> > @@ -18,12 +18,6 @@
+> >  #include "cadence_master.h"
+> >  #include "intel.h"
+> >
+> > -#define SDW_SHIM_LCAP		0x0
+> > -#define SDW_SHIM_BASE		0x2C000
+> > -#define SDW_ALH_BASE		0x2C800
+> > -#define SDW_LINK_BASE		0x30000
+> > -#define SDW_LINK_SIZE		0x10000
+> > -
+> >  static void intel_link_dev_release(struct device *dev)  {
+> >  	struct auxiliary_device *auxdev =3D to_auxiliary_dev(dev); diff --git
+> > a/include/linux/soundwire/sdw_intel.h
+> > b/include/linux/soundwire/sdw_intel.h
+> > index 1ebea7764011..7fce6aee0c36 100644
+> > --- a/include/linux/soundwire/sdw_intel.h
+> > +++ b/include/linux/soundwire/sdw_intel.h
+> > @@ -7,6 +7,85 @@
+> >  #include <linux/irqreturn.h>
+> >  #include <linux/soundwire/sdw.h>
+> >
+> > +#define SDW_SHIM_BASE			0x2C000
+> > +#define SDW_ALH_BASE			0x2C800
+> > +#define SDW_LINK_BASE			0x30000
+> > +#define SDW_LINK_SIZE			0x10000
+> > +
+> > +/* Intel SHIM Registers Definition */
+> > +#define SDW_SHIM_LCAP			0x0
+> > +#define SDW_SHIM_LCTL			0x4
+> > +#define SDW_SHIM_IPPTR			0x8
+> > +#define SDW_SHIM_SYNC			0xC
+> > +
+> > +#define SDW_SHIM_CTLSCAP(x)		(0x010 + 0x60 * (x))
+> > +#define SDW_SHIM_CTLS0CM(x)		(0x012 + 0x60 * (x))
+> > +#define SDW_SHIM_CTLS1CM(x)		(0x014 + 0x60 * (x))
+> > +#define SDW_SHIM_CTLS2CM(x)		(0x016 + 0x60 * (x))
+> > +#define SDW_SHIM_CTLS3CM(x)		(0x018 + 0x60 * (x))
+> > +#define SDW_SHIM_PCMSCAP(x)		(0x020 + 0x60 * (x))
+> > +
+> > +#define SDW_SHIM_PCMSYCHM(x, y)		(0x022 + (0x60 * (x)) + (0x2 *
+> (y)))
+> > +#define SDW_SHIM_PCMSYCHC(x, y)		(0x042 + (0x60 * (x)) + (0x2 *
+> (y)))
+> > +#define SDW_SHIM_PDMSCAP(x)		(0x062 + 0x60 * (x))
+> > +#define SDW_SHIM_IOCTL(x)		(0x06C + 0x60 * (x))
+> > +#define SDW_SHIM_CTMCTL(x)		(0x06E + 0x60 * (x))
+> > +
+> > +#define SDW_SHIM_WAKEEN			0x190
+> > +#define SDW_SHIM_WAKESTS		0x192
+> > +
+> > +#define SDW_SHIM_LCTL_SPA		BIT(0)
+> > +#define SDW_SHIM_LCTL_SPA_MASK		GENMASK(3, 0)
+> > +#define SDW_SHIM_LCTL_CPA		BIT(8)
+> > +#define SDW_SHIM_LCTL_CPA_MASK		GENMASK(11, 8)
+> > +
+> > +#define SDW_SHIM_SYNC_SYNCPRD_VAL_24	(24000 /
+> SDW_CADENCE_GSYNC_KHZ - 1)
+> > +#define SDW_SHIM_SYNC_SYNCPRD_VAL_38_4	(38400 /
+> SDW_CADENCE_GSYNC_KHZ - 1)
+> > +#define SDW_SHIM_SYNC_SYNCPRD		GENMASK(14, 0)
+> > +#define SDW_SHIM_SYNC_SYNCCPU		BIT(15)
+> > +#define SDW_SHIM_SYNC_CMDSYNC_MASK	GENMASK(19, 16)
+> > +#define SDW_SHIM_SYNC_CMDSYNC		BIT(16)
+> > +#define SDW_SHIM_SYNC_SYNCGO		BIT(24)
+> > +
+> > +#define SDW_SHIM_PCMSCAP_ISS		GENMASK(3, 0)
+> > +#define SDW_SHIM_PCMSCAP_OSS		GENMASK(7, 4)
+> > +#define SDW_SHIM_PCMSCAP_BSS		GENMASK(12, 8)
+> > +
+> > +#define SDW_SHIM_PCMSYCM_LCHN		GENMASK(3, 0)
+> > +#define SDW_SHIM_PCMSYCM_HCHN		GENMASK(7, 4)
+> > +#define SDW_SHIM_PCMSYCM_STREAM		GENMASK(13, 8)
+> > +#define SDW_SHIM_PCMSYCM_DIR		BIT(15)
+> > +
+> > +#define SDW_SHIM_PDMSCAP_ISS		GENMASK(3, 0)
+> > +#define SDW_SHIM_PDMSCAP_OSS		GENMASK(7, 4)
+> > +#define SDW_SHIM_PDMSCAP_BSS		GENMASK(12, 8)
+> > +#define SDW_SHIM_PDMSCAP_CPSS		GENMASK(15, 13)
+> > +
+> > +#define SDW_SHIM_IOCTL_MIF		BIT(0)
+> > +#define SDW_SHIM_IOCTL_CO		BIT(1)
+> > +#define SDW_SHIM_IOCTL_COE		BIT(2)
+> > +#define SDW_SHIM_IOCTL_DO		BIT(3)
+> > +#define SDW_SHIM_IOCTL_DOE		BIT(4)
+> > +#define SDW_SHIM_IOCTL_BKE		BIT(5)
+> > +#define SDW_SHIM_IOCTL_WPDD		BIT(6)
+> > +#define SDW_SHIM_IOCTL_CIBD		BIT(8)
+> > +#define SDW_SHIM_IOCTL_DIBD		BIT(9)
+> > +
+> > +#define SDW_SHIM_CTMCTL_DACTQE		BIT(0)
+> > +#define SDW_SHIM_CTMCTL_DODS		BIT(1)
+> > +#define SDW_SHIM_CTMCTL_DOAIS		GENMASK(4, 3)
+> > +
+> > +#define SDW_SHIM_WAKEEN_ENABLE		BIT(0)
+> > +#define SDW_SHIM_WAKESTS_STATUS		BIT(0)
+> > +
+> > +/* Intel ALH Register definitions */
+> > +#define SDW_ALH_STRMZCFG(x)		(0x000 + (0x4 * (x)))
+> > +#define SDW_ALH_NUM_STREAMS		64
+> > +
+> > +#define SDW_ALH_STRMZCFG_DMAT_VAL	0x3
+> > +#define SDW_ALH_STRMZCFG_DMAT		GENMASK(7, 0)
+> > +#define SDW_ALH_STRMZCFG_CHN		GENMASK(19, 16)
+> > +
+> >  /**
+> >   * struct sdw_intel_stream_params_data: configuration passed during
+> >   * the @params_stream callback, e.g. for interaction with DSP
+> > --
+> > 2.17.1
+>=20
+> --
+> ~Vinod

@@ -2,48 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3B8F3D323D
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Jul 2021 05:31:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B2CC3D346D
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Jul 2021 08:07:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7BDA716ED;
-	Fri, 23 Jul 2021 05:31:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BDA716ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id BBE5716F0;
+	Fri, 23 Jul 2021 08:07:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBE5716F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627011115;
-	bh=OW3HVwzvJcnCkUNybqsFTlT/PEYWV8Yx9+je4Qnn8wY=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1627020473;
+	bh=MjDLmdBKiP1ckIsA3tIDRIEtAdAdOT1ifF4XWjxQdpo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZLTqeZ055/4quSUWqiw5Z+qsUYgx362FIaQd1J3bjhekbJGxAD1dXYdMSKK0PLIm1
-	 eQEwIiKMNgg3jHeKcOG5Q8aRx31t4AdEhHfBtNSr9Ul5YNf1+auZgWwTEmmEKyIm0C
-	 m3Dr0E6vVZmT8vEDFROkCZKzKbIT6ccSizqjBM34=
+	b=N8VHzMwVT2GR1TR+NUAREKJ01UpOupkCih/bysF5370SwAXvxbT4ZCwAMA8MsmjZR
+	 jyYHr1WeKCa35/o3E1i4/z08rSlKPF04EBjLAFPfWIni9Dz5kC93yvWss7BG/hmVKu
+	 6UMGOK8I2kCITIhkEyIt5im5CiKN23sAg7O/7lhc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE4F5F8016C;
-	Fri, 23 Jul 2021 05:30:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C3D8F804AD;
+	Fri, 23 Jul 2021 08:06:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B367AF8016C; Fri, 23 Jul 2021 05:30:24 +0200 (CEST)
+ id BA131F804AC; Fri, 23 Jul 2021 08:06:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id DA3D3F800DA
- for <alsa-devel@alsa-project.org>; Fri, 23 Jul 2021 05:30:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA3D3F800DA
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 894BDF8016C
+ for <alsa-devel@alsa-project.org>; Fri, 23 Jul 2021 08:06:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 894BDF8016C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="j1bsxWKW"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3BDD860E8B;
+ Fri, 23 Jul 2021 06:06:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1627020379;
+ bh=MjDLmdBKiP1ckIsA3tIDRIEtAdAdOT1ifF4XWjxQdpo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=j1bsxWKWiqvlGaSobYBNH0fWWh0GQ/BEWnvfUvjQ5zbXGBNRXSbi4gzWCUxZoD0ij
+ F2sGaF01LN8mD+NaBQj9dvPYqTaXZsjkNzSPQkacUs7gTQnocuXYmXibk2NZ53WDmq
+ AGDKGU9cxn3TXA5tN9/Os/Wh9SGiVGB8Ha/t+i8v4u/4HTgsaWN9kIXXFVpr9asOkb
+ KICbifUBj/l8A1nfWfiz3ldVxGavpEVhN7BP8T61uULRPcJiNHTxsV77ZkxTa4aMvM
+ SpRhCKnsZb7L/2i01qZp1HhXXWbj0YRQZ4rH9w+0jL8N3/xvF7Olan7CJEMRDNjimq
+ uDz48CK1e8MQA==
+Date: Fri, 23 Jul 2021 11:36:15 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 1/2] soundwire: dmi-quirks: add quirk for Intel 'Bishop
+ County' NUC M15
+Message-ID: <YPpcV/dnEbWGtMFv@matsya>
+References: <20210719233248.557923-1-pierre-louis.bossart@linux.intel.com>
+ <20210719233248.557923-2-pierre-louis.bossart@linux.intel.com>
+ <YPl6Z+jqR9gnTw05@matsya>
+ <c86efd0f-b941-f3ff-885d-f1d0d7d46d30@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1627011009456574917-webhooks-bot@alsa-project.org>
-References: <1627011009456574917-webhooks-bot@alsa-project.org>
-Subject: sof-hda-dsp: Set Capture Switch on in the BootSequence
-Message-Id: <20210723033024.B367AF8016C@alsa1.perex.cz>
-Date: Fri, 23 Jul 2021 05:30:24 +0200 (CEST)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c86efd0f-b941-f3ff-885d-f1d0d7d46d30@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ tiwai@suse.de, gregkh@linuxfoundation.org, Rander Wang <rander.wang@intel.com>,
+ broonie@kernel.org, Bard liao <yung-chuan.liao@linux.intel.com>,
+ Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,17 +84,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #107 was opened from jason77-wang:
+On 22-07-21, 09:25, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 7/22/21 9:02 AM, Vinod Koul wrote:
+> > On 19-07-21, 18:32, Pierre-Louis Bossart wrote:
+> >> The same quirk is used for LAPBC510 and LAPBC710 skews who use the
+> >> same audio design.
+> >>
+> >> These devices have the same BIOS issues inherited from the Intel
+> >> reference, add the same _ADR remap previously used on HP devices.
+> > 
+> > This fails to apply on rc1, pls rebase or if there are any dependencies,
+> > do spell them out
+> 
+> it likely depends on
+> 
+> [PATCH] soundwire: dmi-quirks: add ull suffix for SoundWire _ADR values
 
-We found an issue that the PA source of Mic2/Headset and Mic2 is
-muted by default after newly install an OS, the root cause is the
-'Capture Switch' is set to off in the kernel.
+As I said above, if there is a dependency, pls spell it out!
 
-Without ucm, the /usr/share/alsa/init/default will set the 'Capture
-Switch' to on, similarly we set it to on in the BootSequence of ucm.
+> which was sent by Bard when the merge window opened.
 
-Signed-off-by: Hui Wang <hui.wang@canonical.com>
-
-Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/107
-Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/107.patch
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+-- 
+~Vinod

@@ -2,83 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E2303D3B3D
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Jul 2021 15:31:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF1533D3B92
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Jul 2021 16:02:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B4D891712;
-	Fri, 23 Jul 2021 15:30:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4D891712
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3C0CE1725;
+	Fri, 23 Jul 2021 16:01:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C0CE1725
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627047094;
-	bh=qaN728SPjkmKMcMkhQD2YNEAKYdpRVXGPMb4NJ7N3NA=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Reply-To:From;
-	b=Maz9jVoIsH+oo0PwH+5nRewftzxcHEEIQe8R2Ix6zk58kGmCvM2bXmPX/wMlJ9VI5
-	 Hswg8jsJkwNz6916wNGT1F2gDI61+w1wCw+XkRhCr+6NbK14KI3JBHkRi0jTAeh+jy
-	 U+8G4PH5ynQrGH+kGUe8XS/FTXTuhzKYu8LIxPK8=
+	s=default; t=1627048944;
+	bh=gtOq6WhWlRMQEG1wyFj0l8XWjIydftj/Y35aNv9Ibuk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=pma7AWxcJlCoscm316NN2za0leI8RUSI4B5t/VbbJDc9i+euGOmeyLEar2bHk1yeo
+	 xhhc9xV9/jfGjUyhaHpRYIJZCYcNI0xgAdtN83ClO81diboOeyw+HhJH3c+3rrPnYu
+	 g14g6sqDKN19s0pDkIJMyXd3zntHGGxQeu6aaRH4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3005FF804AD;
-	Fri, 23 Jul 2021 15:30:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99FFBF804AB;
+	Fri, 23 Jul 2021 16:00:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 40E87F804AC; Fri, 23 Jul 2021 15:30:02 +0200 (CEST)
+ id 0D070F804AC; Fri, 23 Jul 2021 16:00:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 36ABBF800DA
- for <alsa-devel@alsa-project.org>; Fri, 23 Jul 2021 15:29:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36ABBF800DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 475A6F800DA
+ for <alsa-devel@alsa-project.org>; Fri, 23 Jul 2021 16:00:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 475A6F800DA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="LaD62IdZ"
-Received: by mail-wm1-x32b.google.com with SMTP id
- o5-20020a1c4d050000b02901fc3a62af78so3510971wmh.3
- for <alsa-devel@alsa-project.org>; Fri, 23 Jul 2021 06:29:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:reply-to:from:date:message-id:subject:to:cc;
- bh=dpLzFei5Cvx6LLyH0OT3XvCHB2+UX/GuEh8ien0K9Yg=;
- b=LaD62IdZDSuQQKQFHS6w7a/PtQxRbayQaqf3solCuL8Pd25l8FEpFiH6KbTm97ccp4
- LKORpxdr8EVQbzq+g27x1cwxLlkRcurS2p8NbKyzuKY4tsOULh8UitggGjAYVBiDVHlA
- BvcRyeqWMlUMmHDFho9fpxZysilPDoqb/lNJ67C2sOGNx7JDexlqif58hIjIFSQpDIwG
- nkAwIUgGYiojz4gR6PUfpJRso8QmLgOJ0WuGWZKwpR9VZNAipCpsX6fv144ikQ/AtZKq
- mIGbRoas/avmBZThZofEtU8GXEXXgrPre8i9TPj1fKmSNDO8w7Dxwd0EoAFxhb3CgndA
- CB4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:reply-to:from:date:message-id
- :subject:to:cc;
- bh=dpLzFei5Cvx6LLyH0OT3XvCHB2+UX/GuEh8ien0K9Yg=;
- b=mnEDHomk3q3nUN+nfNgC97ryGHq9WNP+CW2R+hf+Rhnc9SjEJ19h8n+VcgQRT7OuA8
- xqdItD2FxcKxhxwAUDf7F6KwWCPaVmLxc269zkw5F0FVOH2TEJtjAYOhzcGRQAF3er/P
- nYrJ7vBRQIG3gIuLDN3m1JNYs1+YFkpC9kXpDVoT+ll55YcvRSYTsI6Oy1c9yCNChvf3
- nWcdp4cBySnil2WeVzJK0W7z9De6P2USykJRDJXeSumnMwd11+W/JWyOs/d4pHbU2LNE
- dTiU7XN3ApvvweCKLAItOKu1EmVqli1hqKzcWVCf5UYfmGDdY3BZLJiz7tQv5kroeehp
- gl/Q==
-X-Gm-Message-State: AOAM532hMAe12Q382VzdiACulFSjdH+yyqJlmcDZW6CLPwAClj0xdM4g
- CaAVYI7JOeZrA/UEvcm/aHcyK1aWOGsVNIj9LDF9qRqew8Y=
-X-Google-Smtp-Source: ABdhPJwcCpE0vbcscAHlZYD1Vxej3/O5MMSitmcknpGLe0sPZwmvpLCRq3KuaEhgLP00pQAY3M6BJdqZdG9VdWRn3Cs=
-X-Received: by 2002:a05:600c:2189:: with SMTP id
- e9mr13807184wme.35.1627046991997; 
- Fri, 23 Jul 2021 06:29:51 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="rARwCSNR"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 30A8060EB4;
+ Fri, 23 Jul 2021 14:00:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1627048846;
+ bh=gtOq6WhWlRMQEG1wyFj0l8XWjIydftj/Y35aNv9Ibuk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=rARwCSNRKEfbzSjpuZ6yueEkwaeCJSCWCLxUA2SGzRRqVvxsjb99HruHmX2f3ITUA
+ eft2dA65etzzcg7JolVO+XM7/q05X+JndqNYUmMiLyoXOrl040R8OQIgT7L/o8d3qA
+ 40yIddoyRMeayS4+bmoMZqsWWiCRL9doFnGphEx3cYh4izcHctlCGWTyapSOzbuKrM
+ MrTuh3XJ9r0M6yJp/OSJYdeJh+1P/wee7vb0wdFkX6WVKvyElxjB+Odh/pnBYp+R0b
+ b5q8145hLKg8XSv6JBuZ655zW9YdPh5oyGn3GYPSo/4EdjhkDd+gORJFAThbW26Let
+ izoulGQ23B7tg==
+Date: Fri, 23 Jul 2021 15:00:39 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "Limonciello, Mario" <Mario.Limonciello@amd.com>
+Subject: Re: [PATCH v3 1/2] ASoC: amd: Don't show messages about deferred
+ probing by default
+Message-ID: <20210723140039.GD5221@sirena.org.uk>
+References: <20210722132731.13264-1-mario.limonciello@amd.com>
+ <20210723123847.GB5221@sirena.org.uk>
+ <SA0PR12MB45103F60E23D6BE8CF7E603DE2E59@SA0PR12MB4510.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-Received: by 2002:adf:d0cc:0:0:0:0:0 with HTTP; Fri, 23 Jul 2021 06:29:51
- -0700 (PDT)
-From: Frederick Gotham <cauldwell.thomas@gmail.com>
-Date: Fri, 23 Jul 2021 14:29:51 +0100
-Message-ID: <CALtZhhNG9LrZM69_gjZV5d37ygyfZPtL0GMNZd3-5j_EOL3mKA@mail.gmail.com>
-Subject: tlv320aic3x audio driver -- possible bug
-To: alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
-Cc: broonie@kernel.org, lgirdwood@gmail.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="1sNVjLsmu1MXqwQ/"
+Content-Disposition: inline
+In-Reply-To: <SA0PR12MB45103F60E23D6BE8CF7E603DE2E59@SA0PR12MB4510.namprd12.prod.outlook.com>
+X-Cookie: Integrity has no need for rules.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, "Mukunda, Vijendar" <Vijendar.Mukunda@amd.com>,
+ "markpearson@lenovo.com" <markpearson@lenovo.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,62 +83,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Reply-To: cauldwell.thomas@gmail.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In the C source file "tlv320aic3x" in the function "aic3x_set_power",
-when the argument for power is 0, the hardware registers are saved to
-the Linux computer as follows:
 
-    regcache_cache_only(aic3x->regmap, true);
+--1sNVjLsmu1MXqwQ/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-And then later when "aic3x_set_power" is called with power set to 1,
-the previous values are then restored back to their hardware
-registers:
+On Fri, Jul 23, 2021 at 01:04:51PM +0000, Limonciello, Mario wrote:
+> > On Thu, Jul 22, 2021 at 08:27:27AM -0500, Mario Limonciello wrote:
 
-     regcache_cache_only(aic3x->regmap, false);
-     regcache_sync(aic3x->regmap);
+> > > This isn't useful to a user, especially as probing will run again.
+> > > Use the dev_err_probe helper to hide the deferrerd probing messages.
 
-When the device is powered back on, the previous setting for
-microphone bias (MICBIAS) is lost. If it was previously set to 2 volts
-or 2.5 volts, then when it's powered back on it becomes Off.
+> > The reason we have these error messages is that they are very useful to
+> > users if they ever find that the device isn't instantiating due to some
+> > missing dependency or something that leaves it stuck in probe deferral,
+> > they give some hint as to what might be wrong.
 
-I'm not very familiar with audio codec chips and how they work, but I
-think maybe the order of function calls in the "else" branch might be
-incorrect. Right now the code looks like this:
+> Right, but they should be at debugging level, if someone has a problem they
+> turn on dynamic debugging for the module and then can see these messages.
 
-		/*
-		 * Do soft reset to this codec instance in order to clear
-		 * possible VDD leakage currents in case the supply regulators
-		 * remain on
-		 */
-		snd_soc_component_write(component, AIC3X_RESET, SOFT_RESET);
-		regcache_mark_dirty(aic3x->regmap);
-		aic3x->power = 0;
-		/* HW writes are needless when bias is off */
-		regcache_cache_only(aic3x->regmap, true);
-		ret = regulator_bulk_disable(ARRAY_SIZE(aic3x->supplies),
-					     aic3x->supplies);
+Your commit message says that reporting the error isn't useful, I am
+flagging that it is useful to have the messages be available to people.
 
-However I think that the call to "regcache_cache_only" should come
-before the soft reset takeS place. The setting for MICBIAS is lost at
-this line:
+--1sNVjLsmu1MXqwQ/
+Content-Type: application/pgp-signature; name="signature.asc"
 
-    snd_soc_component_write(component, AIC3X_RESET, SOFT_RESET);
+-----BEGIN PGP SIGNATURE-----
 
-And so I think that the call to "regcache_cache_only" should be moved
-up above "snd_soc_component_write", as follows:
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmD6y4cACgkQJNaLcl1U
+h9Dl7gf9EwtHg6Jq5Oc8xZqGS3b1Kfc+fqNmXfpv1/0NXIKa/hOJ0hBu66ssoBeE
+Y6RRvEmsMMjYgyAavhPkm8fhBy9KopJkVpKx1rHoei6R4nGuxHDijT4baC6dOT9n
+GKUioqcKo+E5b8zZ+CBv+pkaejDu138/RBRnjNepjwtaaRa2m5xmV7St0lyCzvnG
+cuogRLKm3m65SphnfPZz3CO4TdqwtibbNUjkFbJYhmhDMoirJz2tuOO+66R+fL9c
+GC5tPK4NB5JO3tu0I/ZCUwxNAe4IScjsSv3DC0q6ZR+fBsQhyDJgeXNRppvwXPG/
+J+AvvEmddNGms2U09LSSWGnevgpF6g==
+=h35f
+-----END PGP SIGNATURE-----
 
-
-		/*
-		 * Do soft reset to this codec instance in order to clear
-		 * possible VDD leakage currents in case the supply regulators
-		 * remain on
-		 */
-		regcache_cache_only(aic3x->regmap, true);
-		snd_soc_component_write(component, AIC3X_RESET, SOFT_RESET);
-		regcache_mark_dirty(aic3x->regmap);
-		aic3x->power = 0;
-		ret = regulator_bulk_disable(ARRAY_SIZE(aic3x->supplies),
-					     aic3x->supplies);
+--1sNVjLsmu1MXqwQ/--

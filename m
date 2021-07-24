@@ -2,84 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83DC83D463E
-	for <lists+alsa-devel@lfdr.de>; Sat, 24 Jul 2021 10:05:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63C5A3D4640
+	for <lists+alsa-devel@lfdr.de>; Sat, 24 Jul 2021 10:07:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6ACE1767;
-	Sat, 24 Jul 2021 10:04:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6ACE1767
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8BD91742;
+	Sat, 24 Jul 2021 10:06:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8BD91742
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627113943;
-	bh=igStpwqMxg03S2SGYP5AHcg1pIzd14mRHVlmvxk9ajU=;
+	s=default; t=1627114057;
+	bh=lQvcx332K4qSNAr4S0VUT1oHkG1fLuybqh9stSzLzDA=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UiO7wjUnMIOO9KzFcJzWFR5Xhc54qCn8dBBaK9OD2Q47g7xgn4xVjei0V/lY8ogp4
-	 FwzwgiuFkZX5MpSYg6y+JDQlekCGMvXBVpnWv9iOjahO+udyaRzOHlzkg9OwToUp+G
-	 tackJE75pgsCInjPDXcOERJor26s451QRE1jeUnI=
+	b=r7ncuaRXb+oNsVpbqM8ODx4fX4aYGSc9Hblj//KQPmOQoINeWVg/363NTXG/ZpFB/
+	 nnij5kGP/R6m7vW58OsE0AyrsT0/dBTf39KSDpZD6m9n/tB7/TWtUgwMLAX1zqK3ug
+	 zYTNXx5WRXgWQYaF4SSg3Wmt0OlzQyJnDhLeWFBs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D1ACF800DA;
-	Sat, 24 Jul 2021 10:04:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94465F80218;
+	Sat, 24 Jul 2021 10:06:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 46614F80227; Sat, 24 Jul 2021 10:04:14 +0200 (CEST)
+ id 2A145F80227; Sat, 24 Jul 2021 10:06:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 350C5F800DA
- for <alsa-devel@alsa-project.org>; Sat, 24 Jul 2021 10:04:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 350C5F800DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3BA60F800F0
+ for <alsa-devel@alsa-project.org>; Sat, 24 Jul 2021 10:06:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BA60F800F0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="WtQlljWj"; 
+ header.b="NARFNJjf"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="MTkc/JF8"
+ header.b="js88NVis"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 4EC3C2001B;
- Sat, 24 Jul 2021 08:04:05 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id B98472001D;
+ Sat, 24 Jul 2021 08:06:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627113845; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1627113963; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=24IQqn9FXptEdDFM0uvk5v9JwwGmH7qRb69eCI8SxgI=;
- b=WtQlljWjRL/CjVz5fyWTfQVwmwpsKvkz5L4ASWaikYX97ZKg9d2H9t9A6niDUDT/6phiGX
- 1QnQFlfkVrbLO/lnWUJ+rr2PtEvXp7vCmLwxtefqkeQMvLe6dKWbqV2hCD1HeZKa/zY6aH
- 2HBBR/LFn6C8ei+9Wir1HgfOGxCvan4=
+ bh=Q9AiQ8cZONeV5Db2uTffyzV8eCEwnWurc6Fi0JnKDII=;
+ b=NARFNJjfQ/E131noRADAOBKCdFUvc/AoXQoJ+UDwyRlhm1afPG/ddfAZz6cIULbrY3K0iK
+ Ci+bL2D1+rKC3NhFCw9gwQMJxsFTLHZ9B9vLmSIMNuoq2Es6WgY+LXb38017LdHkEx+Gzy
+ AKZ26+9I0YD2N01zDITTvmtsj9/T/5k=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627113845;
+ s=susede2_ed25519; t=1627113963;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=24IQqn9FXptEdDFM0uvk5v9JwwGmH7qRb69eCI8SxgI=;
- b=MTkc/JF87R3cvXo51USXV8O+c1pl2c2NBub8Ce5QknywyBUKrf/C/fNIuDeWTQ6iCeXOlS
- URW7hRR0YVOkFzAg==
+ bh=Q9AiQ8cZONeV5Db2uTffyzV8eCEwnWurc6Fi0JnKDII=;
+ b=js88NVisTI/bmqS+JoHMtMdtyeKkE52oZ2WpewuwWH3KmjkyCM/fQQpntbS9WwenUfGLQ0
+ 3x9Yrt5U51a6+GCw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 1A5A0A3B87;
- Sat, 24 Jul 2021 08:04:05 +0000 (UTC)
-Date: Sat, 24 Jul 2021 10:04:05 +0200
-Message-ID: <s5h7dhgi1e2.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id B276EA3B8A;
+ Sat, 24 Jul 2021 08:06:03 +0000 (UTC)
+Date: Sat, 24 Jul 2021 10:06:03 +0200
+Message-ID: <s5h5yx0i1as.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: <chihhao.chen@mediatek.com>
-Subject: Re: [PATCH] ALSA: usb-audio: fix incorrect clock source setting
-In-Reply-To: <1627100621-19225-1-git-send-email-chihhao.chen@mediatek.com>
-References: <1627100621-19225-1-git-send-email-chihhao.chen@mediatek.com>
+To: "Geoffrey D. Bennett" <g@b4.vu>
+Subject: Re: [PATCH 0/4] ALSA: scarlett2: note gen 3 support + fix four issues
+In-Reply-To: <cover.1626959758.git.g@b4.vu>
+References: <cover.1626959758.git.g@b4.vu>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, wsd_upstream@mediatek.com, damien@zamaudio.com,
- tiwai@suse.com, linux-kernel@vger.kernel.org,
- linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
- linux-arm-kernel@lists.infradead.org
+Cc: Hin-Tak Leung <htl10@users.sourceforge.net>, alsa-devel@alsa-project.org,
+ Vladimir Sadovnikov <sadko4u@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,46 +92,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 24 Jul 2021 06:23:41 +0200,
-<chihhao.chen@mediatek.com> wrote:
+On Thu, 22 Jul 2021 22:11:40 +0200,
+Geoffrey D. Bennett wrote:
 > 
-> From: "chihhao.chen" <chihhao.chen@mediatek.com>
+> Hi Takashi,
 > 
-> The following scenario describes an echo test for
-> Samsung USBC Headset (AKG) with VID/PID (0x04e8/0xa051).
+> In the sound-5.14-rc1 merge commit log the highlights included:
+> "Scarlett2 mixer code fixes and enhancements". I think that the new
+> support for Gen 3 devices is significant enough to be worth
+> mentioning.
 > 
-> We first start a capture stream(USB IN transfer) in 96Khz/24bit/1ch mode.
-> In clock find source function, we get value 0x2 for clock selector
-> and 0x1 for clock source.
+> Can you add to the next update a note along the lines of "Support for
+> Focusrite Scarlett Solo/2i2/4i4/8i6/18i8/18i20 Gen 3 audio interface
+> proprietary mixer controls"?
 > 
-> Kernel-4.14 behavior
-> Since clock source is valid so clock selector was not set again.
-> We pass through this function and start a playback stream(USB OUT transfer)
-> in 48Khz/32bit/2ch mode. This time we get value 0x1 for clock selector
-> and 0x1 for clock source. Finally clock id with this setting is 0x9.
+> This set of patches is relative to v5.14-rc2 and fixes four issues:
 > 
-> Kernel-5.10 behavior
-> Clock selector was always set one more time even it is valid.
-> When we start a playback stream, we will get 0x2 for clock selector
-> and 0x1 for clock source. In this case clock id becomes 0xA.
-> This is an incorrect clock source setting and results in severe noises.
-> We see wrong data rate in USB IN transfer.
-> (From 288 bytes/ms becomes 144 bytes/ms) It should keep in 288 bytes/ms.
+> 1. The Mute/Dim/MSD Mode controls are missing the direction/function
+> parts of the syntax of standard control names as per
+> Documentation/sound/designs/control-names.rst
 > 
-> This earphone works fine on older kernel version load because
-> this is a newly-added behavior.
+> - This could be considered a breaking-stable change if someone is
+>   relying on the Mute/Dim control names not changing. I think it's
+>   unlikely to be a problem as this driver is still considered
+>   experimental and not enabled by default, but if never changing
+>   control names is important, then you can drop this patch.
 > 
-> Signed-off-by: chihhao.chen <chihhao.chen@mediatek.com>
+> 2. The Direct Monitor control on the 2i2 interface is an Enum, not a
+> Switch.
+> 
+> - This changes a control name, but that control was only introduced in
+>   v5.14-rc1, so not a problem to change it now.
+> 
+> 3. Fixes the mute status not being correctly read when the mute button
+> is pressed.
+> 
+> - Not applicable for stable; those controls were introduced in
+>   v5.14-rc1.
+> 
+> 4. Sends the correct notification on line out and speaker switching
+> changes.
+> 
+> - Partly applicable to stable, but will need a separate patch.
+> 
+> Thanks,
+> Geoffrey.
+> 
+> Geoffrey D. Bennett (4):
+>   ALSA: scarlett2: Fix Mute/Dim/MSD Mode control names
+>   ALSA: scarlett2: Fix Direct Monitor control name for 2i2
+>   ALSA: scarlett2: Correct channel mute status after mute button pressed
+>   ALSA: scarlett2: Fix line out/speaker switching notifications
 
-Thanks for the patch.
-
-This looks like a regression introduced by the recent commit
-d2e8f641257d ("ALSA: usb-audio: Explicitly set up the clock
-selector"), which is a fix for certain devices.  Too bad that the
-behavior really depends on the device...
-
-Maybe we need to introduce some flag to handle this commonly, but for
-now, let's take the fix as is.
+Applied all four patches now.  Thanks.
 
 
 Takashi

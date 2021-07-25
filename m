@@ -2,67 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C49D3D4A5E
-	for <lists+alsa-devel@lfdr.de>; Sat, 24 Jul 2021 23:55:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A8403D4C91
+	for <lists+alsa-devel@lfdr.de>; Sun, 25 Jul 2021 09:45:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 14A671769;
-	Sat, 24 Jul 2021 23:54:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14A671769
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D8FD174A;
+	Sun, 25 Jul 2021 09:44:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D8FD174A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627163748;
-	bh=DySfM+aaxg4ql9/44vVBshGjcUzcKlymkku+DSGOfts=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=HB4E2ET1s88RrEun0t/WKLvFlY9tHGN+6lof6JXr+g7bdl8oluI6Jcx7QYsqBsdd0
-	 sc18hA9/6IJq6V+eblxUk02jKSKvJTFR9RMPZJUT5qJI9b8uZZqDI/JBRbbyO7zutI
-	 MWgwQBpqzoNDZ1wbo7W8dHX4/DVvOK/6+l5IatEI=
+	s=default; t=1627199146;
+	bh=Mt5qcVD+0ZP9D7xmdA1qdExLXQwxLEWv6P3pevc9YVc=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Im2KiW9g2Wxu/Kih7fi93zotn5L00sscd4PtUVrNprWnDFT6sKjke3EjJCGXK40yX
+	 YOy2HckB1v1W+A6SluZCcuVhtan+lfCqw0m48IEAvDAuQ+RG/X5pxtC3Bu6RdDyCih
+	 ifOdwvrKjh5cYEDOyn59KOg8jY0/jmfVbOrqP7LY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D604EF80218;
-	Sat, 24 Jul 2021 23:54:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14D33F80276;
+	Sun, 25 Jul 2021 09:44:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B17FF80227; Sat, 24 Jul 2021 23:54:18 +0200 (CEST)
+ id 8FB64F8026C; Sun, 25 Jul 2021 09:44:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from out2.migadu.com (out2.migadu.com [IPv6:2001:41d0:2:aacc::])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1ACC9F80086
- for <alsa-devel@alsa-project.org>; Sat, 24 Jul 2021 23:54:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1ACC9F80086
+ by alsa1.perex.cz (Postfix) with ESMTPS id 68BFAF80132
+ for <alsa-devel@alsa-project.org>; Sun, 25 Jul 2021 09:44:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68BFAF80132
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=hpfr.net header.i=@hpfr.net
- header.b="SkYekklb"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpfr.net; s=key1;
- t=1627163645;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type;
- bh=1x+pujbYygguQYrnb0Q41BCRMLn5IkDC8m2IdiuwXdQ=;
- b=SkYekklb6rw8lcw4T2vEedMOfBTB+dpOQo5WuqSmn0459WQJ2yj6bTObV47NAUvC/CNkAg
- GHjpjGjqDjzx+IAVewxkEyQU4TxFOZKOOHR0B3Lhe1/Mvb9ohDWL9Psj7MsGeNnPDjdHlx
- Mpwv3rJkN7uLLLkxv4X3lZC8C7CXk+Oj2Yxqw1qBD7qDx1MIX3OW4G6SrR7p7MehBSvZ11
- NFikb6kjQ0BZMuIBZvCwYjHyq61mfoH7tK1ilH/P6TQtO/WO7zrlJtU7nLCKA+sAA/r2dJ
- MVrqDbIXoBznZigM74KPINMG5n/ZzLX5xsD45BkxRTKaHco6pcQsUP2Qg8LmLg==
-From: Liam Hupfer <liam@hpfr.net>
-To: alsa-devel@alsa-project.org
-Subject: Pulseaudio dropping GPU audio
-Date: Sat, 24 Jul 2021 16:50:09 -0500
-Message-ID: <87fsw3l6o5.fsf@hpfr.net>
-MIME-Version: 1.0
-X-Migadu-Flow: FLOW_OUT
-X-Migadu-Auth-User: liam@hpfr.net
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="JR7YVXuM"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="bqh8bugg"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 688B321FE7;
+ Sun, 25 Jul 2021 07:44:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1627199041; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=uTdCr90EhfYnVuvMUH866bNjY+DJx+dcPV6cBpY0faA=;
+ b=JR7YVXuM1KyXY9KsF7olywfQ42lvfjVIQ3rHJlj6rnRT1X8Cp6FkRYAKPKzipr2026307J
+ UchhKdD28lxNGgMvm75l0ckPIGmxcyJfAwyHnG5NFIw3BnE3IvsqmKYLmYcMuDT64gNPE0
+ UPzrvOmTeZy/gTY9Sm7sxbwjIYKzJKQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1627199041;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=uTdCr90EhfYnVuvMUH866bNjY+DJx+dcPV6cBpY0faA=;
+ b=bqh8bugg/inwtUvpftZtGto0o7dU9nbda8gUGpA4YRgoQSDW0Px0JTiFPUDZpT/+FoCTYs
+ v4i0H0vzna/4f1Dg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 3B937A3B83;
+ Sun, 25 Jul 2021 07:44:01 +0000 (UTC)
+Date: Sun, 25 Jul 2021 09:44:01 +0200
+Message-ID: <s5hwnpehm7y.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Geraldo Nascimento <geraldogabriel@gmail.com>
+Subject: Re: [PATCH] ALSA: usb-audio: fix incorrect clock source setting
+In-Reply-To: <CAEsQvcs3P+TqQFzQetPfRycpo66eJFwnzwhk2JyCXFaCLFHmFg@mail.gmail.com>
+References: <1627100621-19225-1-git-send-email-chihhao.chen@mediatek.com>
+ <s5h7dhgi1e2.wl-tiwai@suse.de>
+ <CAEsQvcs3P+TqQFzQetPfRycpo66eJFwnzwhk2JyCXFaCLFHmFg@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, wsd_upstream@mediatek.com, damien@zamaudio.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, chihhao.chen@mediatek.com,
+ linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,47 +97,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
+On Sat, 24 Jul 2021 17:04:13 +0200,
+Geraldo Nascimento wrote:
+> 
+> On Sat, Jul 24, 2021 at 8:05 AM Takashi Iwai <tiwai@suse.de> wrote:
+> >
+> > This looks like a regression introduced by the recent commit
+> > d2e8f641257d ("ALSA: usb-audio: Explicitly set up the clock
+> > selector"), which is a fix for certain devices.  Too bad that the
+> > behavior really depends on the device...
+> 
+> Dr. Iwai, perhaps we could restrict the generalized fix for the
+> Behringer UFX1604 / UFX1204 with some simple logic to devices that
+> only have *one* clock source.
+> 
+> In that case the clock selector must be set to the only clock source.
+> 
+> This way we keep the generalization without breaking devices with more
+> than one clock source.
+> 
+> Just an idea.
 
-I=E2=80=99ve set up a Linux VM where I=E2=80=99m passing through an RX 580.=
- I=E2=80=99m using the GPU
-audio and my monitor=E2=80=99s audio jack. For some reason the Linux VM kee=
-ps losing
-track of the audio output. It always shows up under `lspci' under ID `06:00=
-.0'
-using the `snd_hda_intel' driver, but `pulseaudio' (I also tried `pipewire',
-same issue) keep losing it. Most times I can restart `pulseaudio' and it wi=
-ll
-find the device again; occasionally, it takes multiple restarts.
-
-I checked the Arch wiki and I found something[=C2=B9] on audio over HDMI (I=
-=E2=80=99m using
-DisplayPort, if that matters). I checked the device and it did report `Enab=
-le+'.
-Even so, I added the kernel parameter `snd_hda_intel.enable_msi=3D1', but n=
-othing
-changed.
-
-Here are some `journalctl --user -u pulseaudio' logs:
-=E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80
-=E2=94=82 20:37:31 host pulseaudio[2373]: ALSA woke us up to write new data=
- to the device, but there was actually nothing to write.
-=E2=94=82 20:37:31 host pulseaudio[2373]: Most likely this is a bug in the =
-ALSA driver 'snd_hda_intel'. Please report this issue to the ALSA developer=
-s.
-=E2=94=82 20:37:31 host pulseaudio[2373]: We were woken up with POLLOUT set=
- -- however a subsequent snd_pcm_avail() returned 0 or another value < min_=
-avail.
-=E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80
-
-Anyone have any suggestions for troubleshooting? `pulseaudio'=E2=80=99s log=
-s suggested
-it might have to do with ALSA, so I asked for help here.
-
-Thank you!
-
-=E2=80=94Liam
+I don't think it's easy to generalize.  All those bugs are more or
+less BIOS bugs, and a logic doesn't apply always, just because it's a
+bug :)  For example, setting the clock selector itself should be a
+valid operation from the specification POV, while this leads to
+breakage on some devices.  So, even if we add a more generic
+workaround, we need to see which side effect is more commonly seen at
+first.
 
 
-[=C2=B9] <https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Slowed_=
-down_audio_pumped_through_HDMI_on_the_video_card>
+Takashi

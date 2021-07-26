@@ -2,77 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE5A43D679C
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jul 2021 21:43:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C5F33D6A79
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 01:59:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5FFEF1AF8;
-	Mon, 26 Jul 2021 21:42:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FFEF1AF8
+	by alsa0.perex.cz (Postfix) with ESMTPS id E55F31B0A;
+	Tue, 27 Jul 2021 01:58:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E55F31B0A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627328600;
-	bh=VINjGzweadj7Pej23oHt7ClCQkkBGzsHvdty6NhwjWQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=c9ht2lVZFBTbYsFgktH52FPf0E2khBYCAMzPmDpr6DUyPHD94B3ygafAdSIuuQAmc
-	 +zU0dIZC+XZdKv8fPydtPCO/D9Fr3lRVe/Lb2/d5GnDFAUhimcryPnVv42vxYqO7Vk
-	 esaEiRB3vPzMH0vls7gGmhgPRAoQoJFlgp6kb74I=
+	s=default; t=1627343955;
+	bh=Gn3RqZTx/eGY6X0euVWdmeh2aguTPteQFVb08w/gYpI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=dUWBatpmB0p+P2h/4v09QFpvSkqNWTlHdEqCXKRN2kfuT9ncqWAFsohpu1bQPrQiz
+	 PYFyHgt6dNqLq/LgdgWBZ5Te2cJTDRgOQIf5Du9F1z9naD0MykWmZifC91aBscf+1t
+	 sP1d19KuuHCRIDGXDBF4m0ZD/PLneh5n1BXS8z2Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CDA9EF80130;
-	Mon, 26 Jul 2021 21:41:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CDD4F80132;
+	Tue, 27 Jul 2021 01:57:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BF3BEF8025A; Mon, 26 Jul 2021 21:41:50 +0200 (CEST)
+ id B94A9F8025A; Tue, 27 Jul 2021 01:57:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=DATE_IN_PAST_03_06, DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
+ [IPv6:2607:f8b0:4864:20::732])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9591CF8020D
- for <alsa-devel@alsa-project.org>; Mon, 26 Jul 2021 21:41:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9591CF8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2DB82F8020D
+ for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 01:57:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DB82F8020D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="V+SmUi6q"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E630660F6E;
- Mon, 26 Jul 2021 19:41:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1627328498;
- bh=VINjGzweadj7Pej23oHt7ClCQkkBGzsHvdty6NhwjWQ=;
- h=From:To:Cc:Subject:Date:From;
- b=V+SmUi6qNWN/fxx13864gDWrJU76TZSjoQ/nFvHOB9pqgEa3HK+X3x92soSSI7jSy
- KK5PJfDek0l4c7KuKTIR2ZaglAJLNnGXAb/YDV3qbpMWNrAKTQR0Lq3OlLIMdVEUds
- UQ4lnTWuumlxNWxqfbVIWeEHPAos0hHIqx6X7e3SjzncvXwUEBV6pA2dS4yKSFIVQ3
- we2ws5o3Vwy9oDkar/GEUvzRrE3lv0HUiC1SXaQCNOoXpV9yv+fpHdgMHQOvkkIIj9
- GETENAl1JjZUl7TY06NsPmroPAtvd8UH6dlgU7M4oiJyOUkuvYG5Q3YeM50GaprrTt
- L9dbg/S+SO3jg==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH] ASoC: component: Remove misplaced prefix handling in pin
- control functions
-Date: Mon, 26 Jul 2021 20:41:23 +0100
-Message-Id: <20210726194123.54585-1-broonie@kernel.org>
-X-Mailer: git-send-email 2.20.1
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="OwnYV9rl"
+Received: by mail-qk1-x732.google.com with SMTP id b20so10708195qkj.3
+ for <alsa-devel@alsa-project.org>; Mon, 26 Jul 2021 16:57:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=+c223BNKCjVr89i78fnlRgBQMhpUOGJDxxcmZA/6yCE=;
+ b=OwnYV9rlnUfJo2RkKot5+W+rdsLUN7+zWrFy/pz8wdfqaTIej2jOIu+LgE2i3AE2nf
+ wJ1xojtvCrbUirSLD83/obiHk9C0NaQJeHN84Jvf8rNF9IdC2bfeMHCV4XWuHaSVYrzn
+ Mf0g4AHDMwR19nzAkIKwpw/xksa2aupVpgwHzQVzd5/2A18a0DQzcSpL0ShCOPBLYxVB
+ sGy/zrevQ2P/oSF7X0G3mwfdXv5hq+PmtMBMMe12omsVY03LP7HoWRAj/hD9/rRbfCXh
+ foGUXykUrM0OvoCBuftU56SdJXlPp3be6Gs2ybNAIsDSFfIlanwbCXWzPUtECc8aQpMk
+ 7tJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=+c223BNKCjVr89i78fnlRgBQMhpUOGJDxxcmZA/6yCE=;
+ b=O5hNuS0Ob298KpFew8zIukutgSKjEYJBqI91ziLf41bu+daTNC69ZVMLZuHNyMmkFu
+ O+Bt2NL2RhurJR7whM35lxgEYzg8qYnZtUWrOoW6S4RIRQPoTg5aqwBbwBulghN5qcDq
+ 3coeDQoVjwmYwX4quX+0AXc4+UxCmHJ97lnnvQgnUnr6BjCswc2Rn2gksvIRJVLE3rQp
+ rKXA9pMHYuwOL4OzqxnIbMYX29utaJULboui6b6suUVgpv62oik8Y7PvSP8zDhpNcVUV
+ m5xJnmkeW8Ya4bTcpUxiQU5kLmz46GgHjCcXI+ROEHEDQUIQ6P4hzSDjYUfMJSeuJP1o
+ GN/Q==
+X-Gm-Message-State: AOAM533Kj3Iw+OdoiR+epPwKA/r+z4WLoTfgIE9JnizzrsLp/9Zgnskj
+ Tp4R1xwjoHLhoUSss8TEiCEujZwEQVROhD2cMwU=
+X-Google-Smtp-Source: ABdhPJy2JU1ynaciVOwS/iwo88bT89yMDXeJN4d1VYgvkEp69wZdpxn6I/9NlfOvGTmgOWQap/tbBlqfqfI1ksBQUCg=
+X-Received: by 2002:a05:620a:893:: with SMTP id
+ b19mr19600194qka.487.1627343855508; 
+ Mon, 26 Jul 2021 16:57:35 -0700 (PDT)
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5244; h=from:subject;
- bh=VINjGzweadj7Pej23oHt7ClCQkkBGzsHvdty6NhwjWQ=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBg/wg7/iA/a5aFZjKXyzVd095vOGGRv76lt5jCW4JU
- cDUNXeSJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYP8IOwAKCRAk1otyXVSH0JE1B/
- 4uO/X0D7PWihSxjc2ocLrsBQi5AoYpQs6oaPCCQbIARGPe1CcjjBYM/01/RTkQfqBCVRl4Eq2zfK66
- s7Hzlfa5xhKDfw7cgUQSUryjuYV/kzA/JBnAoxg/NFwBhQtNX7G/JF3Y/Y8hmYYWH3K/9xKYtjGyZa
- kRaWoVZhVoQ9VeT5IIcYSc4czcn+Qv8DLLlMvaFrIrKh2f0KWYeuF2hhYS5ssyTQzeiCc1/+0mya25
- PPS+2VeH+grG+ZfEvNDei3HsWeRDCAkywjETFfawoSoNaai7F82Vpg445O1tOTiQQtAM/ZZDylHqj8
- GS43DdPIW5VrZQ6bWdsI/6O3vx/Li/
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Richard Fitzgerald <rf@opensource.cirrus.com>
+References: <1627100621-19225-1-git-send-email-chihhao.chen@mediatek.com>
+ <s5h7dhgi1e2.wl-tiwai@suse.de>
+ <CAEsQvcs3P+TqQFzQetPfRycpo66eJFwnzwhk2JyCXFaCLFHmFg@mail.gmail.com>
+ <s5hwnpehm7y.wl-tiwai@suse.de>
+ <CAEsQvcumEDOKgUB6h2-im5QabhPfaSaU63RF8pegPt5ZCPx+Pw@mail.gmail.com>
+ <2db5d44b88ace1c25af4a45b3469a425fe1d81a5.camel@mediatek.com>
+In-Reply-To: <2db5d44b88ace1c25af4a45b3469a425fe1d81a5.camel@mediatek.com>
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+Date: Mon, 26 Jul 2021 20:57:27 +0000
+Message-ID: <CAEsQvctJDnsaRTXAGAJ6==juKazoo2=AJrWabLzqE=jCfg5EEA@mail.gmail.com>
+Subject: Re: [PATCH] ALSA: usb-audio: fix incorrect clock source setting
+To: chihhao chen <chihhao.chen@mediatek.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, wsd_upstream@mediatek.com,
+ Takashi Iwai <tiwai@suse.de>, damien@zamaudio.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com,
+ linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,149 +103,137 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When the component level pin control functions were added they for some
-no longer obvious reason handled adding prefixing of widget names. This
-meant that when the lack of prefix handling in the DAPM level pin
-operations was fixed by ae4fc532244b3bb4d (ASoC: dapm: use component
-prefix when checking widget names) the one device using the component
-level API ended up with the prefix being applied twice, causing all
-lookups to fail.
+On Mon, Jul 26, 2021 at 8:42 AM chihhao chen <chihhao.chen@mediatek.com> wrote:
+>
+> Hello,
+>
+> Attach USB descriptor of clock source and selectior for this earphone.
+>
+> AC Clock Source Descriptor:
+> ------------------------------
+>
+> Value   Valuename
+> 0x08    bLength
+> 0x24    bDescriptorType
+> 0x0A    bDescriptorSubtype
+> 0x09    bClockID
+> 0x03    bmAttributes
+> 0x07    bmControls
+> 0x00    bAssocTerminal
+> 0x00    iClockSource
+> Hex dump:
+> 0x08 0x24 0x0A 0x09 0x03 0x07 0x00 0x00
+>
+> AC Clock Selector Descriptor:
+> ------------------------------
+>
+> Value   Valuename
+> 0x09    bLength
+> 0x24    bDescriptorType
+> 0x0B    bDescriptorSubtype
+> 0x0B    bClockID
+> 0x02    bNrInPins
+> 0x09    baCSourceID(1)
+> 0x0A    baCSourceID(2)
+> 0x03    bmControls
+> 0x00    iClockSelector
+> Hex dump:
+> 0x09 0x24 0x0B 0x0B 0x02 0x09 0x0A 0x03 0x00
+>
+> AC Clock Source Descriptor:
+> ------------------------------
+>
+> Value   Valuename
+> 0x08    bLength
+> 0x24    bDescriptorType
+> 0x0A    bDescriptorSubtype
+> 0x0A    bClockID
+> 0x03    bmAttributes
+> 0x07    bmControls
+> 0x00    bAssocTerminal
+> 0x00    iClockSource
+> Hex dump:
+> 0x08 0x24 0x0A 0x0A 0x03 0x07 0x00 0x00
+>
+> AC Clock Selector Descriptor:
+> ------------------------------
+>
+> Value   Valuename
+> 0x09    bLength
+> 0x24    bDescriptorType
+> 0x0B    bDescriptorSubtype
+> 0x0C    bClockID
+> 0x02    bNrInPins
+> 0x09    baCSourceID(1)
+> 0x0A    baCSourceID(2)
+> 0x03    bmControls
+> 0x00    iClockSelector
+> Hex dump:
+> 0x09 0x24 0x0B 0x0C 0x02 0x09 0x0A 0x03 0x00
+>
+> Thanks
+> Chihhao
 
-Fix this by removing the redundant prefixing from the component code,
-which has the nice side effect of also making that code much simpler.
+Thank you, Chihhao.
 
-Reported-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/soc-component.c | 63 +++++++++++++++++----------------------
- 1 file changed, 27 insertions(+), 36 deletions(-)
+So I was wrong about Samsung USBC Headset (AKG) with VID/PID
+(0x04e8/0xa051) having a Clock Multiplier.
 
-diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index 3a5e84e16a87..c8dfd0de30e4 100644
---- a/sound/soc/soc-component.c
-+++ b/sound/soc/soc-component.c
-@@ -148,86 +148,75 @@ int snd_soc_component_set_bias_level(struct snd_soc_component *component,
- 	return soc_component_ret(component, ret);
- }
- 
--static int soc_component_pin(struct snd_soc_component *component,
--			     const char *pin,
--			     int (*pin_func)(struct snd_soc_dapm_context *dapm,
--					     const char *pin))
--{
--	struct snd_soc_dapm_context *dapm =
--		snd_soc_component_get_dapm(component);
--	char *full_name;
--	int ret;
--
--	if (!component->name_prefix) {
--		ret = pin_func(dapm, pin);
--		goto end;
--	}
--
--	full_name = kasprintf(GFP_KERNEL, "%s %s", component->name_prefix, pin);
--	if (!full_name) {
--		ret = -ENOMEM;
--		goto end;
--	}
--
--	ret = pin_func(dapm, full_name);
--	kfree(full_name);
--end:
--	return soc_component_ret(component, ret);
--}
--
- int snd_soc_component_enable_pin(struct snd_soc_component *component,
- 				 const char *pin)
- {
--	return soc_component_pin(component, pin, snd_soc_dapm_enable_pin);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	return snd_soc_dapm_enable_pin(dapm, pin);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_enable_pin);
- 
- int snd_soc_component_enable_pin_unlocked(struct snd_soc_component *component,
- 					  const char *pin)
- {
--	return soc_component_pin(component, pin, snd_soc_dapm_enable_pin_unlocked);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	return snd_soc_dapm_enable_pin_unlocked(dapm, pin);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_enable_pin_unlocked);
- 
- int snd_soc_component_disable_pin(struct snd_soc_component *component,
- 				  const char *pin)
- {
--	return soc_component_pin(component, pin, snd_soc_dapm_disable_pin);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	return snd_soc_dapm_disable_pin(dapm, pin);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_disable_pin);
- 
- int snd_soc_component_disable_pin_unlocked(struct snd_soc_component *component,
- 					   const char *pin)
- {
--	return soc_component_pin(component, pin, snd_soc_dapm_disable_pin_unlocked);
-+	struct snd_soc_dapm_context *dapm = 
-+		snd_soc_component_get_dapm(component);
-+	return snd_soc_dapm_disable_pin_unlocked(dapm, pin);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_disable_pin_unlocked);
- 
- int snd_soc_component_nc_pin(struct snd_soc_component *component,
- 			     const char *pin)
- {
--	return soc_component_pin(component, pin, snd_soc_dapm_nc_pin);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	return snd_soc_dapm_nc_pin(dapm, pin);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_nc_pin);
- 
- int snd_soc_component_nc_pin_unlocked(struct snd_soc_component *component,
- 				      const char *pin)
- {
--	return soc_component_pin(component, pin, snd_soc_dapm_nc_pin_unlocked);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	return snd_soc_dapm_nc_pin_unlocked(dapm, pin);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_nc_pin_unlocked);
- 
- int snd_soc_component_get_pin_status(struct snd_soc_component *component,
- 				     const char *pin)
- {
--	return soc_component_pin(component, pin, snd_soc_dapm_get_pin_status);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	return snd_soc_dapm_get_pin_status(dapm, pin);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_get_pin_status);
- 
- int snd_soc_component_force_enable_pin(struct snd_soc_component *component,
- 				       const char *pin)
- {
--	return soc_component_pin(component, pin, snd_soc_dapm_force_enable_pin);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	return snd_soc_dapm_force_enable_pin(dapm, pin);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_force_enable_pin);
- 
-@@ -235,7 +224,9 @@ int snd_soc_component_force_enable_pin_unlocked(
- 	struct snd_soc_component *component,
- 	const char *pin)
- {
--	return soc_component_pin(component, pin, snd_soc_dapm_force_enable_pin_unlocked);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	return snd_soc_dapm_force_enable_pin_unlocked(dapm, pin);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_force_enable_pin_unlocked);
- 
--- 
-2.20.1
+There are two Clock Sources, both linked to the USB SOF with fixed sample rate.
 
+Plus two Clock Selectors which are host-programmable and can be set to
+either of the two Clock Sources.
+
+
+I'm still at a loss to explain what is going wrong here.
+
+Would a printk() reveal the first explicit
+uac_clock_selector_set_val() on the Clock Selector associated with
+USB_IN sets Clock Source ID to pin 1 with Clock Source ID 0x9?
+
+Or is it the other way around, i.e. it sets the Clock Source ID to pin
+2 with Clock ID 0xA for the capture stream Clock Selector?
+
+
+Chihhao Chen, could you please try the following patch for debugging
+purposes and share what is printed in dmesg?
+
+Please try one time with your fix applied and one time without, i.e.
+with an otherwise unmodified vanilla kernel.
+
+Thank you,
+Geraldo Nascimento
+
+--- clock.c.orig    2021-07-17 12:15:06.416028360 -0000
++++ clock.c    2021-07-26 20:45:58.713881962 -0000
+@@ -300,6 +300,7 @@ static int __uac_clock_find_source(struc
+         /* the entity ID we are looking for is a selector.
+          * find out what it currently selects */
+         ret = uac_clock_selector_get_val(chip, clock_id);
++        printk(KERN_ERR "FOR EP %x: Clock Selector %x has pin %d for
+Clock Source ID %x selected\n", (unsigned int)fmt->endpoint, clock_id,
+ret, sources[ret - 1]);
+         if (ret < 0) {
+             if (!chip->autoclock)
+                 return ret;
+@@ -324,6 +325,7 @@ static int __uac_clock_find_source(struc
+                           sources[ret - 1],
+                           visited, validate);
+         if (ret > 0) {
++            printk(KERN_ERR "FOR EP %x: Found Source! Clock Selector
+%x has pin %d for Clock Source ID %x about to be reselected\n",
+(unsigned int)fmt->endpoint, entity_id, cur, sources[cur - 1]);
+             err = uac_clock_selector_set_val(chip, entity_id, cur);
+             if (err < 0)
+                 return err;
+@@ -344,6 +346,7 @@ static int __uac_clock_find_source(struc
+             if (ret < 0)
+                 continue;
+
++            printk(KERN_ERR "FOR EP %x: Found source by trial and
+error! Clock Selector %x has pin %d for Clock Source ID %x about to be
+selected\n", (unsigned int)fmt->endpoint, entity_id, i, sources[i -
+1]);
+             err = uac_clock_selector_set_val(chip, entity_id, i);
+             if (err < 0)
+                 continue;

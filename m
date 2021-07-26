@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2C6D3D66A0
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jul 2021 20:20:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A44533D66A6
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jul 2021 20:21:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E0D331945;
-	Mon, 26 Jul 2021 20:19:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0D331945
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F8C31942;
+	Mon, 26 Jul 2021 20:20:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F8C31942
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627323611;
-	bh=zSiyoe0/3JwCR0vsHVDnmQxI6PffRfUHpjCk7Muhxck=;
+	s=default; t=1627323661;
+	bh=76v2APfETooY24/g29SX9gGVdrCDTCucGYfnd7TRTio=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZMKO7c44x4mfAuMtyQKm4CqRo2CK/PD3vH5KJgQabVC8RqjdvO9rjOcN2pyY47ST7
-	 lhB59+1b2F0jucVtIpM8S0RlZpB104xwg2qBfvIaAb/s3T6DAWVwx5vQeXGEn2Wm1u
-	 RGAqe9ZhDripwJXlASG9pWroLnZvfBvF1ZlvN6O4=
+	b=LGEnMCtrW4zgvZ2fXjhqlDS6HlMbuaQzVb2OWi+/PVfYSYTQ1YxzV3n65jrdwgsuq
+	 XVuZmkApK/uCoWcXkt0EFfk+10dzlBCIAVlWYffQ+S9VyACfK9bqE9J1oTXR8Goh2h
+	 U1MPW9JOQ972eBbUupBiZVqGQflTnJ2gdZ4ukAzc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8B74F804E2;
-	Mon, 26 Jul 2021 20:18:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1D9BF804E6;
+	Mon, 26 Jul 2021 20:18:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EBF21F804D2; Mon, 26 Jul 2021 20:18:24 +0200 (CEST)
+ id CBFC3F804EB; Mon, 26 Jul 2021 20:18:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,29 +34,29 @@ Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
  [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 936C6F8020D
- for <alsa-devel@alsa-project.org>; Mon, 26 Jul 2021 20:18:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 936C6F8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id B2E24F8025A
+ for <alsa-devel@alsa-project.org>; Mon, 26 Jul 2021 20:18:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2E24F8025A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="aSlVQfB+"
+ header.b="Ys87cflz"
 Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 16Q9Xco1002242; 
- Mon, 26 Jul 2021 13:18:16 -0500
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 16Q9Xco2002242; 
+ Mon, 26 Jul 2021 13:18:17 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=0rNnW8Z4b8XiJwqarrmg5DJkatkHbA93go00Slu2yVM=;
- b=aSlVQfB+x8s6Ow9laZ9l/PsFoMBdj8/5AmVdGBLAAaU1H+JlZyDE5KrXswP919VYMQne
- 2wXbvC++I6KByqwvu9eVbboXB4FN56/7o7BnUv4NHLWrCzpsreNyG+myOzKCNmYjz8N8
- LGwjMSZR3M9SH265AWc9h1VOXZcQMgyJ3ijQXe59UDDOItuHrPYTkpkkehdI7z6Xy1fj
- eTVJ6C5fJam1wVciHc/WiOv6yqh3UlL/H3EacwnM6e2c38tPm0oAzMv8E5u2gwQ1xq4v
- 3qb5MQxdGFeXe9idUb3yUu/ZZovQFDxxweT8RK6KPtIQqhDUkrKexk5gIySruJoTiO/J NQ== 
+ bh=jT3ehfJJFnaJFHyQnG+nRsZPrz0bW1wv94KleEgeMRg=;
+ b=Ys87cflz9VXPuKeuzgJ2wnmIWDslH9KuMm8+LGQuaeF3fzPQPXrBWauwYxt2Sw0+o9XQ
+ aD8gluNwKq8PgrdROaqORVi7Vlr0c5xN/ri4sv4XqRUglsm55MTy4KXctbo9nYlHwaTz
+ peXgGNLmafs8pPymTXO8SQQ4fTE/kd8bDMu2a/udBRgVq4WC1WJsP/IuuqkO8KHcaIsR
+ 1qkRjygrsfjNc8O8/saGyODLEBVyib3EgnbUWhhcD9eALkUxSitDBRWGo3wZEGSvdMWL
+ UhOpMveVZnUYIZamn2VlPav9zKW/luLRZNF6KCQbIgBtXFepUj+GRbWlVMzTCgts+1bL Ig== 
 Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com with ESMTP id 3a1th2rhbh-2
+ by mx0b-001ae601.pphosted.com with ESMTP id 3a1th2rhbh-3
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 26 Jul 2021 13:18:16 -0500
+ Mon, 26 Jul 2021 13:18:17 -0500
 Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
  (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 26 Jul
@@ -65,22 +65,22 @@ Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
  Transport; Mon, 26 Jul 2021 18:47:10 +0100
 Received: from vitaly-Inspiron-5415.ad.cirrus.com (unknown [198.90.238.32])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id AA7D345D;
- Mon, 26 Jul 2021 17:47:09 +0000 (UTC)
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 1F2732BA;
+ Mon, 26 Jul 2021 17:47:10 +0000 (UTC)
 From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
 To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 19/27] ALSA: hda/cs8409: Support multiple sub_codecs for
- Suspend/Resume/Unsol events
-Date: Mon, 26 Jul 2021 18:46:32 +0100
-Message-ID: <20210726174640.6390-20-vitalyr@opensource.cirrus.com>
+Subject: [PATCH 20/27] ALSA: hda/cs8409: Add Support to disable jack type
+ detection for CS42L42
+Date: Mon, 26 Jul 2021 18:46:33 +0100
+Message-ID: <20210726174640.6390-21-vitalyr@opensource.cirrus.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210726174640.6390-1-vitalyr@opensource.cirrus.com>
 References: <20210726174640.6390-1-vitalyr@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: TG9mJv4bwLZneN--VwlB1znxOlcxk3qX
-X-Proofpoint-GUID: TG9mJv4bwLZneN--VwlB1znxOlcxk3qX
+X-Proofpoint-ORIG-GUID: fnplYm_4CbTmei6B9kx9oQhAaX68XPPW
+X-Proofpoint-GUID: fnplYm_4CbTmei6B9kx9oQhAaX68XPPW
 X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
  priorityscore=1501 clxscore=1015
  suspectscore=0 impostorscore=0 mlxlogscore=999 lowpriorityscore=0
@@ -106,112 +106,142 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Stefan Binding <sbinding@opensource.cirrus.com>
 
+Some hardware configurations do not support jack type detection.
+Instead, for those configurations, only tip detection is supported.
+
 Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
 Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
 ---
- sound/pci/hda/patch_cs8409.c | 41 ++++++++++++++++++++++++------------
- 1 file changed, 28 insertions(+), 13 deletions(-)
+ sound/pci/hda/patch_cs8409-tables.c |  1 +
+ sound/pci/hda/patch_cs8409.c        | 72 ++++++++++++++++-------------
+ sound/pci/hda/patch_cs8409.h        |  1 +
+ 3 files changed, 43 insertions(+), 31 deletions(-)
 
+diff --git a/sound/pci/hda/patch_cs8409-tables.c b/sound/pci/hda/patch_cs8409-tables.c
+index 117c70536ff0..be9feb84aaa2 100644
+--- a/sound/pci/hda/patch_cs8409-tables.c
++++ b/sound/pci/hda/patch_cs8409-tables.c
+@@ -246,6 +246,7 @@ struct sub_codec cs8409_cs42l42_codec = {
+ 	.mic_jack_in = 0,
+ 	.paged = 1,
+ 	.suspended = 1,
++	.no_type_dect = 0,
+ };
+ 
+ /******************************************************************************
 diff --git a/sound/pci/hda/patch_cs8409.c b/sound/pci/hda/patch_cs8409.c
-index df65a5908201..8f02724621bd 100644
+index 8f02724621bd..081e348b16ef 100644
 --- a/sound/pci/hda/patch_cs8409.c
 +++ b/sound/pci/hda/patch_cs8409.c
-@@ -364,16 +364,21 @@ static int cs8409_build_controls(struct hda_codec *codec)
- 	return 0;
+@@ -535,6 +535,39 @@ static void cs42l42_run_jack_detect(struct sub_codec *cs42l42)
+ 	usleep_range(10000, 25000);
  }
  
--/* Enable/Disable Unsolicited Response for gpio(s) 3,4 */
-+/* Enable/Disable Unsolicited Response */
- static void cs8409_enable_ur(struct hda_codec *codec, int flag)
++static int cs42l42_handle_tip_sense(struct sub_codec *cs42l42, unsigned int reg_ts_status)
++{
++	int status_changed = 0;
++
++	/* TIP_SENSE INSERT/REMOVE */
++	switch (reg_ts_status) {
++	case CS42L42_JACK_INSERTED:
++		if (!cs42l42->hp_jack_in) {
++			if (cs42l42->no_type_dect) {
++				status_changed = 1;
++				cs42l42->hp_jack_in = 1;
++				cs42l42->mic_jack_in = 0;
++			} else {
++				cs42l42_run_jack_detect(cs42l42);
++			}
++		}
++		break;
++
++	case CS42L42_JACK_REMOVED:
++		if (cs42l42->hp_jack_in || cs42l42->mic_jack_in) {
++			status_changed = 1;
++			cs42l42->hp_jack_in = 0;
++			cs42l42->mic_jack_in = 0;
++		}
++		break;
++	default:
++		/* jack in transition */
++		break;
++	}
++
++	return status_changed;
++}
++
+ static int cs42l42_jack_unsol_event(struct sub_codec *cs42l42)
  {
--	/* GPIO4 INT# and GPIO3 WAKE# */
-+	struct cs8409_spec *spec = codec->spec;
-+	unsigned int ur_gpios = 0;
-+	int i;
-+
-+	for (i = 0; i < spec->num_scodecs; i++)
-+		ur_gpios |= spec->scodecs[i]->irq_mask;
-+
- 	snd_hda_codec_write(codec, CS8409_PIN_AFG, 0, AC_VERB_SET_GPIO_UNSOLICITED_RSP_MASK,
--			    flag ? CS8409_CS42L42_INT : 0);
-+			    flag ? ur_gpios : 0);
+ 	int status_changed = 0;
+@@ -559,10 +592,13 @@ static int cs42l42_jack_unsol_event(struct sub_codec *cs42l42)
+ 		cs8409_i2c_write(cs42l42, 0x131b, 0xFF);
  
- 	snd_hda_codec_write(codec, CS8409_PIN_AFG, 0, AC_VERB_SET_UNSOLICITED_ENABLE,
- 			    flag ? AC_UNSOL_ENABLED : 0);
+ 		type = ((reg_hs_status & CS42L42_HSTYPE_MASK) + 1);
+-		/* CS42L42 reports optical jack as type 4
+-		 * We don't handle optical jack
+-		 */
+-		if (type != 4) {
++
++		if (cs42l42->no_type_dect) {
++			status_changed = cs42l42_handle_tip_sense(cs42l42, reg_ts_status);
++		} else if (type == 4) {
++			/* Type 4 not supported	*/
++			status_changed = cs42l42_handle_tip_sense(cs42l42, CS42L42_JACK_REMOVED);
++		} else {
+ 			if (!cs42l42->hp_jack_in) {
+ 				status_changed = 1;
+ 				cs42l42->hp_jack_in = 1;
+@@ -572,37 +608,11 @@ static int cs42l42_jack_unsol_event(struct sub_codec *cs42l42)
+ 				status_changed = 1;
+ 				cs42l42->mic_jack_in = 1;
+ 			}
+-		} else {
+-			if (cs42l42->hp_jack_in || cs42l42->mic_jack_in) {
+-				status_changed = 1;
+-				cs42l42->hp_jack_in = 0;
+-				cs42l42->mic_jack_in = 0;
+-			}
+ 		}
 -
- }
- 
- static void cs8409_fix_caps(struct hda_codec *codec, unsigned int nid)
-@@ -605,6 +610,8 @@ static int cs42l42_jack_unsol_event(struct sub_codec *cs42l42)
- 
- static void cs42l42_resume(struct sub_codec *cs42l42)
- {
-+	struct hda_codec *codec = cs42l42->codec;
-+	unsigned int gpio_data;
- 	struct cs8409_i2c_param irq_regs[] = {
- 		{ 0x1308, 0x00 },
- 		{ 0x1309, 0x00 },
-@@ -612,6 +619,12 @@ static void cs42l42_resume(struct sub_codec *cs42l42)
- 		{ 0x130F, 0x00 },
- 	};
- 
-+	/* Bring CS42L42 out of Reset */
-+	gpio_data = snd_hda_codec_read(codec, CS8409_PIN_AFG, 0, AC_VERB_GET_GPIO_DATA, 0);
-+	gpio_data |= cs42l42->reset_gpio;
-+	snd_hda_codec_write(codec, CS8409_PIN_AFG, 0, AC_VERB_SET_GPIO_DATA, gpio_data);
-+	usleep_range(10000, 15000);
-+
- 	cs42l42->suspended = 0;
- 
- 	/* Initialize CS42L42 companion codec */
-@@ -637,10 +650,18 @@ static void cs42l42_resume(struct sub_codec *cs42l42)
- #ifdef CONFIG_PM
- static void cs42l42_suspend(struct sub_codec *cs42l42)
- {
-+	struct hda_codec *codec = cs42l42->codec;
-+	unsigned int gpio_data;
-+
- 	/* Power down CS42L42 ASP/EQ/MIX/HP */
- 	cs8409_i2c_write(cs42l42, 0x1101, 0xfe);
- 	cs42l42->suspended = 1;
- 	cs42l42->last_page = 0;
-+
-+	/* Put CS42L42 into Reset */
-+	gpio_data = snd_hda_codec_read(codec, CS8409_PIN_AFG, 0, AC_VERB_GET_GPIO_DATA, 0);
-+	gpio_data &= ~cs42l42->reset_gpio;
-+	snd_hda_codec_write(codec, CS8409_PIN_AFG, 0, AC_VERB_SET_GPIO_DATA, gpio_data);
- }
- #endif
- 
-@@ -691,13 +712,12 @@ static void cs8409_cs42l42_jack_unsol_event(struct hda_codec *codec, unsigned in
- static int cs8409_cs42l42_suspend(struct hda_codec *codec)
- {
- 	struct cs8409_spec *spec = codec->spec;
-+	int i;
- 
- 	cs8409_enable_ur(codec, 0);
- 
--	cs42l42_suspend(spec->scodecs[CS8409_CODEC0]);
+ 		/* Re-Enable Tip Sense Interrupt */
+ 		cs8409_i2c_write(cs42l42, 0x1320, 0xF3);
 -
--	/* Assert CS42L42 RTS# line */
--	snd_hda_codec_write(codec, CS8409_PIN_AFG, 0, AC_VERB_SET_GPIO_DATA, 0);
-+	for (i = 0; i < spec->num_scodecs; i++)
-+		cs42l42_suspend(spec->scodecs[i]);
- 
- 	snd_hda_shutup_pins(codec);
- 
-@@ -736,11 +756,6 @@ static void cs8409_cs42l42_hw_init(struct hda_codec *codec)
- 	if (codec->fixup_id == CS8409_WARLOCK || codec->fixup_id == CS8409_CYBORG)
- 		cs8409_vendor_coef_set(codec, 0x09, 0x0003);
- 
--	/* Release RTS# line */
--	snd_hda_codec_write(codec, CS8409_PIN_AFG, 0, AC_VERB_SET_GPIO_DATA, CS8409_CS42L42_RESET);
--	/* wait ~10ms */
--	usleep_range(10000, 15000);
+ 	} else {
+-		/* TIP_SENSE INSERT/REMOVE */
+-		switch (reg_ts_status) {
+-		case CS42L42_JACK_INSERTED:
+-			cs42l42_run_jack_detect(cs42l42);
+-			break;
 -
- 	cs42l42_resume(cs42l42);
+-		case CS42L42_JACK_REMOVED:
+-			if (cs42l42->hp_jack_in || cs42l42->mic_jack_in) {
+-				status_changed = 1;
+-				cs42l42->hp_jack_in = 0;
+-				cs42l42->mic_jack_in = 0;
+-			}
+-			break;
+-
+-		default:
+-			/* jack in transition */
+-			status_changed = 0;
+-			break;
+-		}
++		status_changed = cs42l42_handle_tip_sense(cs42l42, reg_ts_status);
+ 	}
  
- 	/* Enable Unsolicited Response */
+ 	return status_changed;
+diff --git a/sound/pci/hda/patch_cs8409.h b/sound/pci/hda/patch_cs8409.h
+index 817df295d594..a105c3c9023d 100644
+--- a/sound/pci/hda/patch_cs8409.h
++++ b/sound/pci/hda/patch_cs8409.h
+@@ -285,6 +285,7 @@ struct sub_codec {
+ 	unsigned int last_page;
+ 	unsigned int hsbias_hiz;
+ 	unsigned int full_scale_vol:1;
++	unsigned int no_type_dect:1;
+ 
+ 	s8 vol[CS42L42_VOLUMES];
+ };
 -- 
 2.25.1
 

@@ -2,94 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B23463D699E
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 00:37:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EB853D6A17
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 01:16:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3830A1DF9;
-	Tue, 27 Jul 2021 00:37:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3830A1DF9
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA2111AF5;
+	Tue, 27 Jul 2021 01:15:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA2111AF5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627339071;
-	bh=DkPNH9Mwegb87+mmR0lITz7+DeDMqaKD1GBtmL6BnoM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1627341381;
+	bh=1WQlXz+YVjvaueOaaQdzDVCRtVWgHq5c09qX4KASeog=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hdtvw3vSucizCNIWHdRjzkKGMCerLpd0070b/Xq0Ek+CasF97/J+912A52fiTIlWo
-	 tzD8/EZl82TcjcfnBIFI+Gki+dpxmx/jdYFfIxnKicZFEsVsXeKAf+ruLKbmIU4RJk
-	 H4WYrIOqIaFbFe80szsyvTqfbrwGzQ7h0cE1xA/A=
+	b=g0dJGOQ8uodXg9WhGKMzfTfGpZbMlyhF94b3l7YTSR5gffwVBAM/9uvxdqhw7SX5H
+	 ry6osu/iXxzOpC4prN2CRiyqTyxJcy/ZpxBNpkOMMrsf72ClQnkvAu/6sF3uTvXNKh
+	 gblE6nne7WO/LpHnC2v6c2RSvAgronfKPPqM6l+o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9C39F80130;
-	Tue, 27 Jul 2021 00:36:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34748F8025E;
+	Tue, 27 Jul 2021 01:14:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B49D3F8025A; Tue, 27 Jul 2021 00:36:21 +0200 (CEST)
+ id 065AAF8025A; Tue, 27 Jul 2021 01:14:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8EE55F80130
- for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 00:36:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EE55F80130
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="KTJIfadH"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 16QMZRiX008418; 
- Mon, 26 Jul 2021 17:36:05 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=KIeWfv4xvO3yYbS4lHFh9wmuxp7v1E/Yc7TYY5dOYvA=;
- b=KTJIfadHAfi0IHPPi9PGV3o6QxQQOjTCUIOlzabbcO8Hxc/gxor1PZky7FZs3FPprtb2
- CifYCRg//1D4QHydPUjhkanpiCgLoNddWI2fWa1f5RhGYPiSU9tE/wc/1q1Q6pTeZbpq
- /eXXh65ssLS7Yp5uU2h5NAgItMkfVUCY5WKRI4qYYEmtXHDlvTLXB/ZYgVKKM0B6YLSc
- 7/UTRPEfLUTyk4zRdnWMkSbcpZ8PhtkWPnX3UM1uhVitOP7pKjjTdieMTKoKMFBnSdX3
- 2/2zJ9sgqZHsKL1+VF4AIaIaXHvqQ9csAklLP+wtGYEP6z4lSdnULNAj1gF51nD79+Hk 0A== 
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 3a233y85j0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 26 Jul 2021 17:36:05 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 26 Jul
- 2021 23:36:03 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
- Transport; Mon, 26 Jul 2021 23:36:03 +0100
-Received: from localhost.localdomain (macC02XQ1DJJG5K.ad.cirrus.com
- [141.131.65.67])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 032C22BA;
- Mon, 26 Jul 2021 22:36:01 +0000 (UTC)
-From: David Rhodes <drhodes@opensource.cirrus.com>
-To: <broonie@kernel.org>, <robh@kernel.org>, <ckeepax@opensource.cirrus.com>, 
- <brian.austin@cirrus.com>, <patches@opensource.cirrus.com>,
- <alsa-devel@alsa-project.org>, <david.rhodes@cirrus.com>
-Subject: [PATCH v4 2/2] ASoC: cs35l41: Add bindings for CS35L41
-Date: Mon, 26 Jul 2021 17:34:38 -0500
-Message-ID: <20210726223438.1464333-3-drhodes@opensource.cirrus.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210726223438.1464333-1-drhodes@opensource.cirrus.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2488DF80130
+ for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 01:14:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2488DF80130
+X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="192609781"
+X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="192609781"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jul 2021 16:14:45 -0700
+X-IronPort-AV: E=Sophos;i="5.84,272,1620716400"; d="scan'208";a="579923614"
+Received: from tskelley-mobl.amr.corp.intel.com (HELO [10.212.14.236])
+ ([10.212.14.236])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jul 2021 16:14:44 -0700
+Subject: Re: [PATCH v4 1/2] ASoC: cs35l41: CS35L41 Boosted Smart Amplifier
+To: David Rhodes <drhodes@opensource.cirrus.com>, broonie@kernel.org,
+ robh@kernel.org, ckeepax@opensource.cirrus.com, brian.austin@cirrus.com,
+ patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ david.rhodes@cirrus.com
 References: <20210726223438.1464333-1-drhodes@opensource.cirrus.com>
+ <20210726223438.1464333-2-drhodes@opensource.cirrus.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <b6fd6522-3639-4452-1d8a-dc1b308cc846@linux.intel.com>
+Date: Mon, 26 Jul 2021 18:14:42 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: JNmaOesEqceWCA495ESy1CHgJEv7-QRs
-X-Proofpoint-GUID: JNmaOesEqceWCA495ESy1CHgJEv7-QRs
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 impostorscore=0
- priorityscore=1501
- phishscore=0 malwarescore=0 bulkscore=0 clxscore=1015 mlxlogscore=999
- mlxscore=0 adultscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2107140000
- definitions=main-2107260131
-Cc: David Rhodes <drhodes@opensource.cirrus.com>
+In-Reply-To: <20210726223438.1464333-2-drhodes@opensource.cirrus.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,422 +78,545 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Devicetree binding documentation for CS35L41 driver
+Couple of nit-picks and one issue with error handling, see below.
 
-CS35L41 is a 11-V Boosted Mono Class D Amplifier with
-DSP Speaker Protection and Equalization
+> +static int cs35l41_otp_unpack(void *data)
+> +{
+> +	struct cs35l41_private *cs35l41 = data;
+> +	u32 *otp_mem = NULL;
 
-Signed-off-by: David Rhodes <drhodes@opensource.cirrus.com>
----
- .../devicetree/bindings/sound/cs35l41.yaml    | 398 ++++++++++++++++++
- 1 file changed, 398 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/cs35l41.yaml
+initialization is not necessary? Even a static analyzer would not
+complain here, would it?
 
-diff --git a/Documentation/devicetree/bindings/sound/cs35l41.yaml b/Documentation/devicetree/bindings/sound/cs35l41.yaml
-new file mode 100644
-index 000000000000..f9737664bd91
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/cs35l41.yaml
-@@ -0,0 +1,398 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/cs35l41.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Cirrus Logic CS35L41 Speaker Amplifier
-+
-+maintainers:
-+  - david.rhodes@cirrus.com
-+
-+description: |
-+  CS35L41 is a boosted mono Class D amplifier with DSP
-+  speaker protection and equalization
-+
-+properties:
-+  compatible:
-+    enum:
-+      - cirrus,cs35l40
-+      - cirrus,cs35l41
-+
-+  reg:
-+    maxItems: 1
-+
-+  '#sound-dai-cells':
-+    description:
-+      The first cell indicating the audio interface.
-+    const: 1
-+
-+  cirrus,boost-peak-milliamp:
-+    description:
-+      Boost-converter peak current limit in mA.
-+      Configures the peak current by monitoring the current through the boost FET.
-+      Range starts at 1600 mA and goes to a maximum of 4500 mA with increments
-+      of 50 mA. See section 4.3.6 of the datasheet for details.
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    minimum: 1600
-+    maximum: 4500
-+    default: 4500
-+
-+  cirrus,boost-ind-nanohenry:
-+    description:
-+      Boost inductor value, expressed in nH. Valid
-+      values include 1000, 1200, 1500 and 2200.
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    minimum: 1000
-+    maximum: 2200
-+
-+  cirrus,boost-cap-microfarad:
-+    description:
-+      Total equivalent boost capacitance on the VBST
-+      and VAMP pins, derated at 11 volts DC. The value must be rounded to the
-+      nearest integer and expressed in uF.
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+
-+
-+  cirrus,sclk-force-output:
-+    description:
-+      Audio serial port SCLK force
-+      output control. Forces the SCLK to continue to drive even
-+      if no ASP_TXn channels are enabled.
-+    type: boolean
-+
-+  cirrus,lrclk-force-output:
-+    description:
-+      Audio serial port LRCLK force
-+      output control. Forces the LRCLK to continue to drive even
-+      if no ASP_TXn channels are enabled.
-+    type: boolean
-+
-+  cirrus,right-channel-amp:
-+    description:
-+      Boolean to determine which channel
-+      the amplifier is to receive the audio data on. If present the
-+      amplifier receives data on the right channel of I2S data.
-+      If not present the amplifier receives data on the left
-+      channel of I2S data
-+    type: boolean
-+
-+  cirrus,boost-ctl-millivolt:
-+    description:
-+      Boost Voltage Value. Configures the
-+      boost converter's output voltage in mV. The range is from 2550 mV to
-+      11000 mV with increments of 50 mV.  This will be the maximum voltage
-+      in Class-H mode if 'classh-bst-max-limit' is set to 1, or the fixed
-+      boost voltage if 'classh-bst-overide' is set to true.
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    minimum: 2550
-+    maximum: 11000
-+
-+  cirrus,amp-gain-zc:
-+    description:
-+      Boolean to determine whether to use the amplifier
-+      gain-change zero-crossing feature. If the feature is enabled, any
-+      user-controlled amplifier gain change will occur on a zero-crossing point.
-+      (Default) Disabled
-+    type: boolean
-+
-+  cirrus,asp-sdout-hiz:
-+    description:
-+      Audio serial port SDOUT Hi-Z control. Sets the Hi-Z
-+      configuration for SDOUT pin of amplifier.
-+      0 = Logic 0 during unused slots, and while all transmit channels disabled
-+      1 = Hi-Z during unused slots but logic 0 while all transmit channels disabled
-+      2 = (Default) Logic 0 during unused slots, but Hi-Z while all transmit channels disabled
-+      3 = Hi-Z during unused slots and while all transmit channels disabled
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    minimum: 0
-+    maximum: 3
-+    default: 2
-+
-+  cirrus,temp-warn-threshold:
-+    description:
-+      Amplifier overtemperature warning threshold.
-+      Configures the threshold at which the overtemperature warning condition occurs.
-+      When the threshold is met, the ovetemperature warning attenuation is applied
-+      and the TEMP_WARN_EINT interrupt status bit is set.
-+      If TEMP_WARN_MASK = 0, INTb is asserted.
-+      0 = 105C
-+      1 = 115C
-+      2 = 125C (Default)
-+      3 = 135C
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    minimum: 0
-+    maximum: 3
-+    default: 2
-+
-+  cirrus,hw-noise-gate-select:
-+    description: Hardware Noise Gate feature. Each bit selects
-+      a different block for detection.
-+      000000 - All noise gating functionality disabled
-+      xxxxx1 - Amplifier noise gating detection enabled
-+      xxxx1x - Boost converter DCM detection enabled
-+      xxx1xx - VMON low power mode detection enabled
-+      xx1xxx - IMON low power mode detection enabled
-+      x1xxxx - VP brownout prevention detection enabled
-+      1xxxxx - VBST brownout prevention detection enabled
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    minimum: 0
-+    maximum: 63
-+    default: 0
-+
-+  cirrus,hw-noise-gate-delay:
-+    description: Time that the incoming audio signal must be
-+      below the noise gate threshold prior to entering a noise gated state
-+      0 = 5 ms
-+      1 = 10 ms
-+      2 = 25 ms
-+      3 = 50 ms (default)
-+      4 = 100 ms
-+      5 = 250 ms
-+      6 = 500 ms
-+      7 = 1 s
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    minimum: 0
-+    maximum: 7
-+    default: 3
-+
-+  cirrus,hw-noise-gate-threshold:
-+    description: Threshold of audio signal input which the
-+      noise gate considers the input audio to be at a low enough level to be
-+      valid to enter a noise gating state of operation.
-+      0 = 0.654 mVpk
-+      1 = 0.328 mVpk
-+      2 = 0.164 mVpk
-+      3 = 0.082 mVpk (default)
-+      4 = 0.041 mVpk
-+      5 = 0.021 mVpk
-+      6 = 0.010 mVpk
-+      7 = True zero data (no LSB dither)
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    minimum: 0
-+    maximum: 7
-+    default: 3
-+
-+  cirrus,dsp-noise-gate-enable:
-+    description:
-+      DSP Noise Gate feature. If present, noise gate feature will be enabled.
-+    type: boolean
-+
-+  cirrus,dsp-noise-gate-threshold:
-+    description:
-+      Threshold of audio signal input which the
-+      noise gate considers the input audio to be at a low enough level to be
-+      valid to enter a noise gating state of operation.
-+      0 = -66 dBFS
-+      1 = -72 dBFS
-+      2 = -78 dBFS
-+      3 = -84 dBFS (default)
-+      4 = -90 dBFS
-+      5 = -96 dBFS
-+      6 = -102 dBFS
-+      7 = -108 dBFS
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    minimum: 0
-+    maximum: 7
-+    default: 3
-+
-+  cirrus,dsp-noise-gate-delay:
-+    description:
-+      Time that the incoming audio signal must be
-+      below the noise gate threshold prior to entering a noise gated state
-+      0 = 5 ms
-+      1 = 10 ms
-+      2 = 25 ms
-+      3 = 50 ms (default)
-+      4 = 100 ms
-+      5 = 250 ms
-+      6 = 500 ms
-+      7 = 1 s
-+      8 = 5 s
-+      9 = 10 s
-+      10 = 20 s
-+      11 = 30 s
-+      12 = 40 s
-+      13 = 50 s
-+      14 = 60 s
-+      15 = 120 s
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    minimum: 0
-+    maximum: 15
-+    default: 3
-+
-+  cirrus,invert-class-d:
-+    description:
-+      Inverts the polarity of the audio signal output from
-+      the Class-D amplifier.
-+    type: boolean
-+
-+  classh-internal-algo:
-+    description:
-+      Sub-node for the Internal Class H Algorithm
-+      See Section 4.4 Internal Class H Algorithm in the Datasheet.
-+      If not used, the device manages the ClassH Algorithm internally.
-+      It is strongly recommended that the Datasheet be referenced when adjusting
-+      or using these Class H Algorithm controls over the internal Algorithm.
-+      Serious damage can occur to the Device and surrounding components.
-+      Unavailable for cs35l41l.
-+    type:
-+      boolean
-+  cirrus,classh-bst-overide:
-+    description:
-+      Boolean which will disable Class H tracking and
-+      set Boost voltage to the value in the 'boost-ctl-millivolt' property
-+    type: boolean
-+  cirrus,classh-bst-max-limit:
-+    description:
-+      Value set to the BST_CTL_LIM_EN field.
-+      A value of 1 will limit the Class-H voltage to the value in the
-+      'boost-ctl-millivolt' property.
-+      0 = No Class-H limit (default)
-+      1 = Class-H limited to 'boost-ctl-millivolt' value
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    minimum: 0
-+    maximum: 1
-+  cirrus,classh-headroom:
-+    description:
-+      Class H algorithm headroom. Controls VBST headroom
-+      in the max detection path of the Class H algorithm. Step size is 0.1 V.
-+      Range is from -6.4V to +6.3V with 7-bit 2's complement representation.
-+      0 = 0V
-+      1 = 0.1V
-+      2 = 0.2V
-+      ===
-+      11 = 1.1V (Default)
-+      ===
-+      62 = 6.2V
-+      63 = 6.3V
-+      64 = -6.4V
-+      65 = -6.3V
-+      ===
-+      126 = -0.2V
-+      127 = -0.1V
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    minimum: 0
-+    maximum: 127
-+  cirrus,classh-release-rate:
-+    description:
-+      Class H release rate. Controls the amount of
-+      time required before allowing consecutive release condition VBST supply
-+      tracking updates. Step size is 5us with range from 20us to 1275us.
-+      4 = 20us (Default)
-+      5 = 25us
-+      ===
-+      254 = 1270us
-+      255 = 1275us
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    minimum: 4
-+    maximum: 255
-+  cirrus,classh-mem-depth:
-+    description:
-+      Class H memory depth. Controls the memory depth
-+      used in the Class H algorithm for audio data buffering and analysis.
-+      0 = 20.83 - 23.4 us
-+      1 = 41.67 - 46.88 us
-+      2 = 83.33 - 85.94 us
-+      3 = 166.67 - 171.88 us
-+      4 = 250.00 - 255.10 us
-+      5 = 333.33 - 335.93 us (Default)
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    minimum: 0
-+    maximum: 5
-+  cirrus,classh-wk-fet-thld:
-+    description:
-+      Weak-FET amplifier driver threshold.
-+      Configures the signal threshold at which the PWM output stage enters weak-FET
-+      operation. Step size is 0.05V. Range is from 0.05V to 0.7V.
-+      1 = 0.05V
-+      2 = 0.1V
-+      3 = 0.15V
-+      ===
-+      13 = 0.65V
-+      14 = 0.7V
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    minimum: 1
-+    maximum: 14
-+  cirrus,classh-wk-fet-delay:
-+    description:
-+      Weak-Fet entry . Controls the delay in ms
-+      before the Class H algorithm switches to the weak-FET voltage after the audio
-+      falls and remains below the value specified in 'classh-wk-fet-thld'.
-+      0 = 0ms
-+      1 = 5ms
-+      2 = 10ms
-+      3 = 50ms
-+      4 = 100ms (Default)
-+      5 = 200ms
-+      6 = 500ms
-+      7 = 1000ms
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    minimum: 0
-+    maximum: 7
-+  cirrus,gpio1-polarity-invert:
-+    description:
-+      Boolean which specifies whether the GPIO1
-+      level is inverted. If this property is not present the level is not inverted.
-+    type: boolean
-+  cirrus,gpio1-output-enable:
-+    description:
-+      Boolean which specifies whether the GPIO1 pin
-+      is configured as an output. If this property is not present the
-+      pin will be configured as an input.
-+    type: boolean
-+  cirrus,gpio1-src-select:
-+    description:
-+      Configures the function of the GPIO1 pin.
-+      Note that the options are different from the GPIO2 pin
-+      0 = High Impedance (Default)
-+      1 = GPIO
-+      2 = Sync
-+      3 = MCLK input
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    minimum: 0
-+    maximum: 3
-+  cirrus,gpio2-polarity-invert:
-+    description:
-+      Boolean which specifies whether the GPIO2
-+      level is inverted. If this property is not present the level is not inverted.
-+    type: boolean
-+  cirrus,gpio2-output-enable:
-+    description:
-+      Boolean which specifies whether the GPIO2 pin
-+      is configured as an output. If this property is not present the
-+      pin will be configured as an input.
-+    type: boolean
-+  cirrus,gpio2-src-select:
-+    description:
-+      Configures the function of the GPIO2 pin.
-+      Note that the options are different from the GPIO1 pin.
-+      0 = High Impedance (Default)
-+      1 = GPIO
-+      2 = Open Drain INTB
-+      3 = MCLK input
-+      4 = Push-pull INTB (active low)
-+      5 = Push-pull INT (active high)
-+    $ref: "/schemas/types.yaml#/definitions/uint32"
-+    minimum: 0
-+    maximum: 5
-+
-+required:
-+  - compatible
-+  - cirrus,boost-peak-milliamp
-+  - cirrus,boost-ind-nanohenry
-+  - cirrus,boost-cap-microfarad
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+      cs35l41: cs35l41@2 {
-+        compatible = "cirrus,cs35l41";
-+        reg = <2>;
-+        VA-supply = <&dummy_vreg>;
-+        VP-supply = <&dummy_vreg>;
-+        cirrus,boost-peak-milliamp = <4500>;
-+        cirrus,boost-ind-nanohenry = <1000>;
-+        cirrus,boost-cap-microfarad = <15>;
-+      };
-\ No newline at end of file
--- 
-2.25.1
+> +	int i;
+> +	int bit_offset, word_offset;
+> +	unsigned int bit_sum = 8;
+> +	u32 otp_val, otp_id_reg;
+> +	const struct cs35l41_otp_map_element_t *otp_map_match = NULL;
 
+same, this is directly assigned below.
+
+> +	const struct cs35l41_otp_packed_element_t *otp_map = NULL;
+
+same, you assign it with
+
+otp_map = otp_map_match->map;
+
+> +	unsigned int orig_spi_freq;
+> +	int ret;
+> +
+> +	otp_mem = kmalloc_array(CS35L41_OTP_SIZE_WORDS, sizeof(*otp_mem),
+> +							GFP_KERNEL);
+> +	if (!otp_mem)
+> +		return -ENOMEM;
+> +
+> +	ret = regmap_read(cs35l41->regmap, CS35L41_OTPID, &otp_id_reg);
+> +	if (ret < 0) {
+> +		dev_err(cs35l41->dev, "Read OTP ID failed\n");
+> +		ret = -EINVAL;
+> +		goto err_otp_unpack;
+> +	}
+> +
+> +	otp_map_match = cs35l41_find_otp_map(otp_id_reg);
+> +
+> +	if (otp_map_match == NULL) {
+
+if (!otp_map_match)
+
+> +		dev_err(cs35l41->dev, "OTP Map matching ID %d not found\n",
+> +				otp_id_reg);
+> +		ret = -EINVAL;
+> +		goto err_otp_unpack;
+> +	}
+> +
+> +	if (cs35l41->otp_setup)
+> +		cs35l41->otp_setup(cs35l41, true, &orig_spi_freq);
+> +
+> +	ret = regmap_bulk_read(cs35l41->regmap, CS35L41_OTP_MEM0, otp_mem,
+> +						CS35L41_OTP_SIZE_WORDS);
+> +	if (ret < 0) {
+> +		dev_err(cs35l41->dev, "Read OTP Mem failed\n");
+> +		ret = -EINVAL;
+> +		goto err_otp_unpack;
+> +	}
+> +
+> +	if (cs35l41->otp_setup)
+> +		cs35l41->otp_setup(cs35l41, false, &orig_spi_freq);
+> +
+> +	otp_map = otp_map_match->map;
+> +
+> +	bit_offset = otp_map_match->bit_offset;
+> +	word_offset = otp_map_match->word_offset;
+> +
+> +	ret = regmap_write(cs35l41->regmap, CS35L41_TEST_KEY_CTL, 0x00000055);
+> +	if (ret < 0) {
+> +		dev_err(cs35l41->dev, "Write Unlock key failed 1/2\n");
+> +		ret = -EINVAL;
+> +		goto err_otp_unpack;
+> +	}
+> +	ret = regmap_write(cs35l41->regmap, CS35L41_TEST_KEY_CTL, 0x000000AA);
+> +	if (ret < 0) {
+> +		dev_err(cs35l41->dev, "Write Unlock key failed 2/2\n");
+> +		ret = -EINVAL;
+> +		goto err_otp_unpack;
+> +	}
+> +
+> +	for (i = 0; i < otp_map_match->num_elements; i++) {
+> +		dev_dbg(cs35l41->dev,
+> +			   "bitoffset= %d, word_offset=%d, bit_sum mod 32=%d\n",
+> +					 bit_offset, word_offset, bit_sum % 32);
+> +		if (bit_offset + otp_map[i].size - 1 >= 32) {
+> +			otp_val = (otp_mem[word_offset] &
+> +					GENMASK(31, bit_offset)) >>
+> +					bit_offset;
+> +			otp_val |= (otp_mem[++word_offset] &
+> +					GENMASK(bit_offset +
+> +						otp_map[i].size - 33, 0)) <<
+> +					(32 - bit_offset);
+> +			bit_offset += otp_map[i].size - 32;
+> +		} else {
+> +
+> +			otp_val = (otp_mem[word_offset] &
+> +				GENMASK(bit_offset + otp_map[i].size - 1,
+> +					bit_offset)) >>	bit_offset;
+> +			bit_offset += otp_map[i].size;
+> +		}
+> +		bit_sum += otp_map[i].size;
+> +
+> +		if (bit_offset == 32) {
+> +			bit_offset = 0;
+> +			word_offset++;
+> +		}
+> +
+> +		if (otp_map[i].reg != 0) {
+> +			ret = regmap_update_bits(cs35l41->regmap,
+> +						otp_map[i].reg,
+> +						GENMASK(otp_map[i].shift +
+> +							otp_map[i].size - 1,
+> +						otp_map[i].shift),
+> +						otp_val << otp_map[i].shift);
+> +			if (ret < 0) {
+> +				dev_err(cs35l41->dev, "Write OTP val failed\n");
+> +				ret = -EINVAL;
+> +				goto err_otp_unpack;
+> +			}
+> +		}
+> +	}
+> +
+> +	ret = regmap_write(cs35l41->regmap, CS35L41_TEST_KEY_CTL, 0x000000CC);
+> +	if (ret < 0) {
+> +		dev_err(cs35l41->dev, "Write Lock key failed 1/2\n");
+> +		ret = -EINVAL;
+> +		goto err_otp_unpack;
+> +	}
+> +	ret = regmap_write(cs35l41->regmap, CS35L41_TEST_KEY_CTL, 0x00000033);
+> +	if (ret < 0) {
+> +		dev_err(cs35l41->dev, "Write Lock key failed 2/2\n");
+> +		ret = -EINVAL;
+> +		goto err_otp_unpack;
+> +	}
+> +	ret = 0;
+> +
+> +err_otp_unpack:
+> +	kfree(otp_mem);
+> +	return ret;
+> +}
+
+> +static int cs35l41_main_amp_event(struct snd_soc_dapm_widget *w,
+> +		struct snd_kcontrol *kcontrol, int event)
+> +{
+> +	struct snd_soc_component *component =
+> +		snd_soc_dapm_to_component(w->dapm);
+> +	struct cs35l41_private *cs35l41 =
+> +		snd_soc_component_get_drvdata(component);
+> +	int ret = 0;
+> +	int i;
+> +	bool pdn;
+> +	unsigned int val;
+
+reverse x-mas tree style for declarations?
+
+[...]
+
+> +static int cs35l41_pcm_hw_params(struct snd_pcm_substream *substream,
+> +				 struct snd_pcm_hw_params *params,
+> +				 struct snd_soc_dai *dai)
+> +{
+> +	struct cs35l41_private *cs35l41 =
+> +			snd_soc_component_get_drvdata(dai->component);
+> +	int i;
+> +	unsigned int rate = params_rate(params);
+> +	u8 asp_wl;
+
+reverse xmas-tree, move 'int i' to last line of declaration block?
+
+> +	for (i = 0; i < ARRAY_SIZE(cs35l41_fs_rates); i++) {
+> +		if (rate == cs35l41_fs_rates[i].rate)
+> +			break;
+> +	}
+> +
+> +	if (i >= ARRAY_SIZE(cs35l41_fs_rates)) {
+> +		dev_err(cs35l41->dev, "%s: Unsupported rate: %u\n",
+> +						__func__, rate);
+> +		return -EINVAL;
+> +	}
+> +
+> +	asp_wl = params_width(params);
+> +
+> +	if (i < ARRAY_SIZE(cs35l41_fs_rates))
+> +		regmap_update_bits(cs35l41->regmap, CS35L41_GLOBAL_CLK_CTRL,
+> +			CS35L41_GLOBAL_FS_MASK,
+> +			cs35l41_fs_rates[i].fs_cfg << CS35L41_GLOBAL_FS_SHIFT);
+> +
+> +	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+> +		regmap_update_bits(cs35l41->regmap, CS35L41_SP_FORMAT,
+> +				CS35L41_ASP_WIDTH_RX_MASK,
+> +				asp_wl << CS35L41_ASP_WIDTH_RX_SHIFT);
+> +		regmap_update_bits(cs35l41->regmap, CS35L41_SP_RX_WL,
+> +				CS35L41_ASP_RX_WL_MASK,
+> +				asp_wl << CS35L41_ASP_RX_WL_SHIFT);
+> +		if (cs35l41->i2s_mode) {
+> +			regmap_update_bits(cs35l41->regmap,
+> +					CS35L41_SP_FRAME_RX_SLOT,
+> +					CS35L41_ASP_RX1_SLOT_MASK,
+> +					((cs35l41->pdata.right_channel) ? 1 : 0)
+> +					 << CS35L41_ASP_RX1_SLOT_SHIFT);
+> +			regmap_update_bits(cs35l41->regmap,
+> +					CS35L41_SP_FRAME_RX_SLOT,
+> +					CS35L41_ASP_RX2_SLOT_MASK,
+> +					((cs35l41->pdata.right_channel) ? 0 : 1)
+> +					 << CS35L41_ASP_RX2_SLOT_SHIFT);
+> +		}
+> +	} else {
+> +		regmap_update_bits(cs35l41->regmap, CS35L41_SP_FORMAT,
+> +				CS35L41_ASP_WIDTH_TX_MASK,
+> +				asp_wl << CS35L41_ASP_WIDTH_TX_SHIFT);
+> +		regmap_update_bits(cs35l41->regmap, CS35L41_SP_TX_WL,
+> +				CS35L41_ASP_TX_WL_MASK,
+> +				asp_wl << CS35L41_ASP_TX_WL_SHIFT);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+
+> +static int cs35l41_boost_config(struct cs35l41_private *cs35l41,
+> +		int boost_ind, int boost_cap, int boost_ipk)
+> +{
+> +	int ret;
+
+move this last?
+
+> +	unsigned char bst_lbst_val, bst_cbst_range, bst_ipk_scaled;
+> +	struct regmap *regmap = cs35l41->regmap;
+> +	struct device *dev = cs35l41->dev;
+> +
+> +	switch (boost_ind) {
+> +	case 1000:	/* 1.0 uH */
+> +		bst_lbst_val = 0;
+> +		break;
+> +	case 1200:	/* 1.2 uH */
+> +		bst_lbst_val = 1;
+> +		break;
+> +	case 1500:	/* 1.5 uH */
+> +		bst_lbst_val = 2;
+> +		break;
+> +	case 2200:	/* 2.2 uH */
+> +		bst_lbst_val = 3;
+> +		break;
+> +	default:
+> +		dev_err(dev, "Invalid boost inductor value: %d nH\n",
+> +				boost_ind);
+> +		return -EINVAL;
+> +	}
+> +
+> +	switch (boost_cap) {
+> +	case 0 ... 19:
+> +		bst_cbst_range = 0;
+> +		break;
+> +	case 20 ... 50:
+> +		bst_cbst_range = 1;
+> +		break;
+> +	case 51 ... 100:
+> +		bst_cbst_range = 2;
+> +		break;
+> +	case 101 ... 200:
+> +		bst_cbst_range = 3;
+> +		break;
+> +	default:	/* 201 uF and greater */
+> +		bst_cbst_range = 4;
+> +	}
+> +
+> +	ret = regmap_update_bits(regmap, CS35L41_BSTCVRT_COEFF,
+> +			CS35L41_BST_K1_MASK,
+> +			cs35l41_bst_k1_table[bst_lbst_val][bst_cbst_range]
+> +				<< CS35L41_BST_K1_SHIFT);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to write boost K1 coefficient\n");
+> +		return ret;
+> +	}
+> +
+> +	ret = regmap_update_bits(regmap, CS35L41_BSTCVRT_COEFF,
+> +			CS35L41_BST_K2_MASK,
+> +			cs35l41_bst_k2_table[bst_lbst_val][bst_cbst_range]
+> +				<< CS35L41_BST_K2_SHIFT);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to write boost K2 coefficient\n");
+> +		return ret;
+> +	}
+> +
+> +	ret = regmap_update_bits(regmap, CS35L41_BSTCVRT_SLOPE_LBST,
+> +			CS35L41_BST_SLOPE_MASK,
+> +			cs35l41_bst_slope_table[bst_lbst_val]
+> +				<< CS35L41_BST_SLOPE_SHIFT);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to write boost slope coefficient\n");
+> +		return ret;
+> +	}
+> +
+> +	ret = regmap_update_bits(regmap, CS35L41_BSTCVRT_SLOPE_LBST,
+> +			CS35L41_BST_LBST_VAL_MASK,
+> +			bst_lbst_val << CS35L41_BST_LBST_VAL_SHIFT);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to write boost inductor value\n");
+> +		return ret;
+> +	}
+> +
+> +	if ((boost_ipk < 1600) || (boost_ipk > 4500)) {
+> +		dev_err(dev, "Invalid boost inductor peak current: %d mA\n",
+> +				boost_ipk);
+> +		return -EINVAL;
+> +	}
+> +	bst_ipk_scaled = ((boost_ipk - 1600) / 50) + 0x10;
+> +
+> +	ret = regmap_update_bits(regmap, CS35L41_BSTCVRT_PEAK_CUR,
+> +			CS35L41_BST_IPK_MASK,
+> +			bst_ipk_scaled << CS35L41_BST_IPK_SHIFT);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to write boost inductor peak current\n");
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+
+> +int cs35l41_probe(struct cs35l41_private *cs35l41,
+> +				struct cs35l41_platform_data *pdata)
+> +{
+> +	int ret;
+> +	u32 regid, reg_revid, i, mtl_revid, int_status, chipid_match;
+> +	int timeout;
+> +	int irq_pol = 0;
+> +
+> +
+> +	for (i = 0; i < CS35L41_NUM_SUPPLIES; i++)
+> +		cs35l41->supplies[i].supply = cs35l41_supplies[i];
+> +
+> +	ret = devm_regulator_bulk_get(cs35l41->dev, CS35L41_NUM_SUPPLIES,
+> +					cs35l41->supplies);
+> +	if (ret != 0) {
+> +		dev_err(cs35l41->dev,
+> +			"Failed to request core supplies: %d\n",
+> +			ret);
+> +		return ret;
+> +	}
+> +
+> +	if (pdata) {
+> +		cs35l41->pdata = *pdata;
+> +	} else {
+> +		ret = cs35l41_handle_pdata(cs35l41->dev, &cs35l41->pdata,
+> +					     cs35l41);
+> +		if (ret != 0) {
+> +			ret = -ENODEV;
+> +			goto err;
+
+so here you will disable regulators that have not been enabled, is it
+intentional?
+
+mixing gotos and returns is confusing...
+
+and in addition you will set the reset_gpio that you only get a couple
+of lines below, that will be a page fault?
+
+> +		}
+> +	}
+> +
+> +	ret = regulator_bulk_enable(CS35L41_NUM_SUPPLIES, cs35l41->supplies);
+> +	if (ret != 0) {
+> +		dev_err(cs35l41->dev,
+> +			"Failed to enable core supplies: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	/* returning NULL can be an option if in stereo mode */
+> +	cs35l41->reset_gpio = devm_gpiod_get_optional(cs35l41->dev, "reset",
+> +							GPIOD_OUT_LOW);
+> +	if (IS_ERR(cs35l41->reset_gpio)) {
+> +		ret = PTR_ERR(cs35l41->reset_gpio);
+> +		cs35l41->reset_gpio = NULL;
+> +		if (ret == -EBUSY) {
+> +			dev_info(cs35l41->dev,
+> +				 "Reset line busy, assuming shared reset\n");
+> +		} else {
+> +			dev_err(cs35l41->dev,
+> +				"Failed to get reset GPIO: %d\n", ret);
+> +			goto err;
+> +		}
+> +	}
+> +	if (cs35l41->reset_gpio) {
+> +		/* satisfy minimum reset pulse width spec */
+> +		usleep_range(2000, 2100);
+> +		gpiod_set_value_cansleep(cs35l41->reset_gpio, 1);
+> +	}
+> +
+> +	usleep_range(2000, 2100);
+> +
+> +	timeout = 100;
+> +	do {
+> +		if (timeout == 0) {
+> +			dev_err(cs35l41->dev,
+> +				"Timeout waiting for OTP_BOOT_DONE\n");
+> +			ret = -EBUSY;
+> +			goto err;
+> +		}
+> +		usleep_range(1000, 1100);
+> +		regmap_read(cs35l41->regmap, CS35L41_IRQ1_STATUS4, &int_status);
+> +		timeout--;
+> +	} while (!(int_status & CS35L41_OTP_BOOT_DONE));
+> +
+> +	regmap_read(cs35l41->regmap, CS35L41_IRQ1_STATUS3, &int_status);
+> +	if (int_status & CS35L41_OTP_BOOT_ERR) {
+> +		dev_err(cs35l41->dev, "OTP Boot error\n");
+> +		ret = -EINVAL;
+> +		goto err;
+> +	}
+> +
+> +	ret = regmap_read(cs35l41->regmap, CS35L41_DEVID, &regid);
+> +	if (ret < 0) {
+> +		dev_err(cs35l41->dev, "Get Device ID failed\n");
+> +		goto err;
+> +	}
+> +
+> +	ret = regmap_read(cs35l41->regmap, CS35L41_REVID, &reg_revid);
+> +	if (ret < 0) {
+> +		dev_err(cs35l41->dev, "Get Revision ID failed\n");
+> +		goto err;
+> +	}
+> +
+> +	mtl_revid = reg_revid & CS35L41_MTLREVID_MASK;
+> +
+> +	/* CS35L41 will have even MTLREVID
+> +	 * CS35L41R will have odd MTLREVID
+> +	 */
+> +	chipid_match = (mtl_revid % 2) ? CS35L41R_CHIP_ID : CS35L41_CHIP_ID;
+> +	if (regid != chipid_match) {
+> +		dev_err(cs35l41->dev, "CS35L41 Device ID (%X). Expected ID %X\n",
+> +			regid, chipid_match);
+> +		ret = -ENODEV;
+> +		goto err;
+> +	}
+> +
+> +	switch (reg_revid) {
+> +	case CS35L41_REVID_A0:
+> +		ret = regmap_register_patch(cs35l41->regmap,
+> +				cs35l41_reva0_errata_patch,
+> +				ARRAY_SIZE(cs35l41_reva0_errata_patch));
+> +		if (ret < 0) {
+> +			dev_err(cs35l41->dev,
+> +				"Failed to apply A0 errata patch %d\n", ret);
+> +			goto err;
+> +		}
+> +		break;
+> +	case CS35L41_REVID_B0:
+> +		ret = regmap_register_patch(cs35l41->regmap,
+> +				cs35l41_revb0_errata_patch,
+> +				ARRAY_SIZE(cs35l41_revb0_errata_patch));
+> +		if (ret < 0) {
+> +			dev_err(cs35l41->dev,
+> +				"Failed to apply B0 errata patch %d\n", ret);
+> +			goto err;
+> +		}
+> +		break;
+> +	case CS35L41_REVID_B2:
+> +		ret = regmap_register_patch(cs35l41->regmap,
+> +				cs35l41_revb2_errata_patch,
+> +				ARRAY_SIZE(cs35l41_revb2_errata_patch));
+> +		if (ret < 0) {
+> +			dev_err(cs35l41->dev,
+> +				"Failed to apply B2 errata patch %d\n", ret);
+> +			goto err;
+> +		}
+> +		break;
+> +	}
+> +
+> +	irq_pol = cs35l41_irq_gpio_config(cs35l41);
+> +
+> +	/* Set interrupt masks for critical errors */
+> +	regmap_write(cs35l41->regmap, CS35L41_IRQ1_MASK1,
+> +			CS35L41_INT1_MASK_DEFAULT);
+> +
+> +	ret = devm_request_threaded_irq(cs35l41->dev, cs35l41->irq, NULL,
+> +			cs35l41_irq, IRQF_ONESHOT | IRQF_SHARED | irq_pol,
+> +			"cs35l41", cs35l41);
+> +
+> +	/* CS35L41 needs INT for PDN_DONE */
+> +	if (ret != 0) {
+> +		dev_err(cs35l41->dev, "Failed to request IRQ: %d\n", ret);
+> +		ret = -ENODEV;
+> +		goto err;
+> +	}
+> +
+> +	ret = cs35l41_otp_unpack(cs35l41);
+> +	if (ret < 0) {
+> +		dev_err(cs35l41->dev, "OTP Unpack failed\n");
+> +		goto err;
+> +	}
+> +
+> +	ret = regmap_write(cs35l41->regmap, CS35L41_DSP1_CCM_CORE_CTRL, 0);
+> +	if (ret < 0) {
+> +		dev_err(cs35l41->dev, "Write CCM_CORE_CTRL failed\n");
+> +		goto err;
+> +	}
+> +
+> +	ret = regmap_update_bits(cs35l41->regmap, CS35L41_PWR_CTRL2,
+> +				 CS35L41_AMP_EN_MASK, 0);
+> +	if (ret < 0) {
+> +		dev_err(cs35l41->dev, "Write CS35L41_PWR_CTRL2 failed\n");
+> +		goto err;
+> +	}
+> +
+> +	ret = devm_snd_soc_register_component(cs35l41->dev,
+> +					&soc_component_dev_cs35l41,
+> +					cs35l41_dai, ARRAY_SIZE(cs35l41_dai));
+> +	if (ret < 0) {
+> +		dev_err(cs35l41->dev, "%s: Register codec failed\n", __func__);
+> +		goto err;
+> +	}
+> +
+> +	ret = cs35l41_set_pdata(cs35l41);
+> +	if (ret < 0) {
+> +		dev_err(cs35l41->dev, "%s: Set pdata failed\n", __func__);
+> +		goto err;
+> +	}
+> +
+> +	dev_info(cs35l41->dev, "Cirrus Logic CS35L41 (%x), Revision: %02X\n",
+> +			regid, reg_revid);
+> +
+> +	return 0;
+> +
+> +err:
+> +	regulator_bulk_disable(CS35L41_NUM_SUPPLIES, cs35l41->supplies);
+> +	gpiod_set_value_cansleep(cs35l41->reset_gpio, 0);
+> +	return ret;
+> +}
+> +
+> +int cs35l41_remove(struct cs35l41_private *cs35l41)
+> +{
+> +	regmap_write(cs35l41->regmap, CS35L41_IRQ1_MASK1, 0xFFFFFFFF);
+> +	regulator_bulk_disable(CS35L41_NUM_SUPPLIES, cs35l41->supplies);
+> +	gpiod_set_value_cansleep(cs35l41->reset_gpio, 0);
+> +	return 0;
+> +}
+> +
+>

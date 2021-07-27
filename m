@@ -2,82 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE65D3D73BD
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 12:51:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1AE63D73C6
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 12:54:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3EC7C1EE6;
-	Tue, 27 Jul 2021 12:50:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EC7C1EE6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13BCE1EDA;
+	Tue, 27 Jul 2021 12:53:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13BCE1EDA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627383080;
-	bh=tJwsXhByLV9RAmMWWNk55m2qq2+r0T1aWQb9ekDiAaQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ahWa8J7KfEe2r9bhGMYoIOI1/ef1ffbGqyaNKv/J8hzMg2NQZ5cu6RXs54cgyzAvk
-	 rMBxyZ1JiWNUZMQgd15r3ewTGdmnH8Z7b5NlkN+c4zytJXXPXdTOEZ6QUiVZlseY8H
-	 cnoDWsWUMTVdtnb8zx3IucohxbRYFkoW9mExASEA=
+	s=default; t=1627383252;
+	bh=3MaHLI2Fm8VPn5el4nKAnSxzMCDaX6IHFS7EySNy4cU=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=psHMViRHAwKx3oHClfdG+8A1154/gT3v9dhl7OSCw3HzhiD60QqF6wm3vjdx3Ucoo
+	 DNmJafTVjIvkPxmIRaz0euG9AA2tLSr6SoBOks92iHnme8F7z068h+LC5KkPh09zGK
+	 x2QfLclKYpWfILnQG9o2cvtc4q7HqjO7KvBynXgk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7DB51F80276;
-	Tue, 27 Jul 2021 12:49:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9D0AF80212;
+	Tue, 27 Jul 2021 12:52:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 31869F8026C; Tue, 27 Jul 2021 12:49:50 +0200 (CEST)
+ id EF9A6F8026C; Tue, 27 Jul 2021 12:52:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 29856F8020D
- for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 12:49:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29856F8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1B20F8020D
+ for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 12:52:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1B20F8020D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="qmPvhW17"; 
+ header.b="LxCXVljv"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="ti7W9ZUU"
+ header.b="13V7dc7V"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 8A69A22170;
- Tue, 27 Jul 2021 10:49:38 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id AB23F1FEFD
+ for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 10:52:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627382978; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=9vWutr8m18Uvrp7JvLreVO77NkuCsxh96WY55hwMKh4=;
- b=qmPvhW17lyQzwtRNZPRZ7ADcgRLVvxZQyjjgHVO77DUjyxZx1Xs6rrqLMSLweELFl7fs9R
- Za34ttYTivS5/71xWya5bitciSWwiHUgOu/DvafEfkxGc9NXEPEOcdmv4Q496nLivU8arc
- vxHxudEMdIGbkEX+gUEP/TFfYY/Ar5k=
+ t=1627383152; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=KT3G0Vqp/VuJ867O2iTLAAxJAqUY1DwjOgGF5KJWuvU=;
+ b=LxCXVljvI1JwXIutYteXC+AfpQWEQfa0/iqJrbjiJYclC0UoJizT4O/aQVDpS+I0B4HbUL
+ BpzuK8e3tio7FMlhfNzuxSiH7n8lLV/rzWI9+ev3o9+hqC8QS8A4dEyhzXFNZjl1l5TEEP
+ XJ9yzfsgYIOKEC9Hgppyo7xyo61BRs4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627382978;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=9vWutr8m18Uvrp7JvLreVO77NkuCsxh96WY55hwMKh4=;
- b=ti7W9ZUUE5vbpDpe5UtetwnHZADVlSWKQPFeju0mjcQB3qCW08QFydehxF4cHCzhDPBJVX
- 5KVHG3zW9ceW/+Bw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 70289A3B85;
- Tue, 27 Jul 2021 10:49:38 +0000 (UTC)
-Date: Tue, 27 Jul 2021 12:49:38 +0200
-Message-ID: <s5hczr4doal.wl-tiwai@suse.de>
+ s=susede2_ed25519; t=1627383152;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=KT3G0Vqp/VuJ867O2iTLAAxJAqUY1DwjOgGF5KJWuvU=;
+ b=13V7dc7VFbZjdiVyyv1rmVIQc658M6j47UYmD14hj/yI9HuyxoHIa0+yHcT5dqkm92WrGL
+ L9F7M8kQiAeO5QDQ==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id A6640A3B89;
+ Tue, 27 Jul 2021 10:52:32 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
-To: Alexander Tsoy <alexander@tsoy.me>
-Subject: Re: [PATCH] ALSA: usb-audio: Add registration quirk for JBL Quantum
- 600
-In-Reply-To: <20210727093326.1153366-1-alexander@tsoy.me>
-References: <20210727093326.1153366-1-alexander@tsoy.me>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: seq: Fix comments of wrong client number for MIDI
+ Passthrough
+Date: Tue, 27 Jul 2021 12:52:32 +0200
+Message-Id: <20210727105232.7321-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,15 +85,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 27 Jul 2021 11:33:26 +0200,
-Alexander Tsoy wrote:
-> 
-> Apparently JBL Quantum 600 has multiple hardware revisions. Apply
-> registration quirk to another device id as well.
-> 
-> Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
+MIDI Passthrough sequencer client is assigned always to the fixed
+number 14, while it's wrongly documented in the comments as if 62,
+which was an old number that was used during development.  Fix all
+those numbers.
 
-Thanks, applied.
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/seq/seq_dummy.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
+diff --git a/sound/core/seq/seq_dummy.c b/sound/core/seq/seq_dummy.c
+index ac760b1e3d12..8c18d8c4177e 100644
+--- a/sound/core/seq/seq_dummy.c
++++ b/sound/core/seq/seq_dummy.c
+@@ -20,15 +20,15 @@
+   are redirected to output port immediately.
+   The routing can be done via aconnect program in alsa-utils.
+ 
+-  Each client has a static client number 62 (= SNDRV_SEQ_CLIENT_DUMMY).
++  Each client has a static client number 14 (= SNDRV_SEQ_CLIENT_DUMMY).
+   If you want to auto-load this module, you may add the following alias
+   in your /etc/conf.modules file.
+ 
+-	alias snd-seq-client-62  snd-seq-dummy
++	alias snd-seq-client-14  snd-seq-dummy
+ 
+-  The module is loaded on demand for client 62, or /proc/asound/seq/
++  The module is loaded on demand for client 14, or /proc/asound/seq/
+   is accessed.  If you don't need this module to be loaded, alias
+-  snd-seq-client-62 as "off".  This will help modprobe.
++  snd-seq-client-14 as "off".  This will help modprobe.
+ 
+   The number of ports to be created can be specified via the module
+   parameter "ports".  For example, to create four ports, add the
+-- 
+2.26.2
 
-Takashi

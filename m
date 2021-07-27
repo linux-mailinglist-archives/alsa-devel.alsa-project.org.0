@@ -2,84 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5655B3D7AFB
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 18:32:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D63D3D7B66
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 18:51:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED4A81ABF;
-	Tue, 27 Jul 2021 18:31:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED4A81ABF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9847D1F27;
+	Tue, 27 Jul 2021 18:50:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9847D1F27
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627403556;
-	bh=IPEvoVAkhhtGtU9AEOJqOJpOx4psMbX+4RQyz62b2nI=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=QXKa7JeabNneEe1OsMmgvGo5a1DfTUqqELcKR6hF6UwZdjrYkfxLp+HftsbJhMbMG
-	 x2UDWGhAnRhbi5aLlf2wpKZOb0HnEUBqqNoUBk56HbsNXKkJ9LGytkDgi3+7zvYvRc
-	 tLOSFj6DmsWh0uri9rX6+2FUTHKir7c6XmG17vuc=
+	s=default; t=1627404694;
+	bh=Q2zwpY1I44tqF+3CLEQ1p92YZsFj7Uh2gbCDX5kaq2I=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=JjkQ0HUlCRk9jkan1QjYneuLkT7F5ETns5HbACo7sMdRnvBro3XRDQKLLyHtAdiK1
+	 6NlyhrS0dtCIgiXfqz9RtZS6CWwNO9Mo9Nt/Ca6YqROKNYx1HI61h91UGLKfkCmZHf
+	 Ysi41ewHXTfF0f2wjDOfWKfE7HrzkoYMdPbU7QlM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72597F80258;
-	Tue, 27 Jul 2021 18:31:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BF17F8026C;
+	Tue, 27 Jul 2021 18:50:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0A5DFF8026C; Tue, 27 Jul 2021 18:31:06 +0200 (CEST)
+ id 747A6F80258; Tue, 27 Jul 2021 18:50:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DFDDCF80212
- for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 18:30:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFDDCF80212
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7765EF8020D
+ for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 18:49:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7765EF8020D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Yf8Yqun3"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="WCKjisCd"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id DCCF72218F;
- Tue, 27 Jul 2021 16:30:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627403457; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=iVlKP7eZdwt8EKv/3WjfVMr8AsXYoRAD+HzItctBmlg=;
- b=Yf8Yqun3a3FNG+88neNlVFbzwGSuqy0d3niwLOQe/YWkq14/h+aPfn3XSFKdy7HTHY7WYW
- pgVp6hbmx9K1r0QrtfqBYPXmAwWBj+g2h7mEnU6eQ/mNumzi2C3cFRbsQRLB2EU4jgZJ8J
- xteciDyh0/e7/sd3iFvm/1lS3HCvzyU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627403457;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=iVlKP7eZdwt8EKv/3WjfVMr8AsXYoRAD+HzItctBmlg=;
- b=WCKjisCdOnf7SbAG1Q+9D1wO4iL3oltbKCZwpaBTQmFzNmx4Ff2FDYKasj8zVl06OTwq9U
- iwL6O1BVVqT8M3DA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id D7458A3B85;
- Tue, 27 Jul 2021 16:30:57 +0000 (UTC)
-Date: Tue, 27 Jul 2021 18:30:57 +0200
-Message-ID: <s5h1r7jd8hq.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Liam Hupfer <liam@hpfr.net>
-Subject: Re: Pulseaudio dropping GPU audio
-In-Reply-To: <87fsw3l6o5.fsf@hpfr.net>
-References: <87fsw3l6o5.fsf@hpfr.net>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="lTofL2nm"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 16R55XUZ003859; 
+ Tue, 27 Jul 2021 11:49:53 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=GayR9Rb9CjLVvh0msnLoqI/hMiOp1kLBQ2C3vuVoDUo=;
+ b=lTofL2nmuwG+baVe9p9SwdnPZ/lDe09AzlNYk62qT5FARwps2WM9DcpzjjS8gKrT4obP
+ ViPnqdV2QpsE2sGZ8cXxF4D04WCSLCUpgcSrMhQ/V3uXMmQLpJIbYtLolyMFPBl1cklO
+ stS8fhszQskacetg8DbZHXyiFnY9uI5QdxlX4aW9k58H076E4ymrpB0GG5uNXmljOo4u
+ af4Pvat9jUqF7AADTcy2FkkEkA8SHbdXDoR8TjGxi7NKRvi1SS+WlXkVa/13VieEYmaW
+ 4x1R8sTklFYFFXoao7rslLkQqBnam0vV4H71kHnNgWaY88C1uuGEnJf4rlUDHrnoZ3M3 Ew== 
+Received: from ediex02.ad.cirrus.com ([87.246.76.36])
+ by mx0a-001ae601.pphosted.com with ESMTP id 3a233y9bx9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 27 Jul 2021 11:49:53 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Tue, 27 Jul
+ 2021 17:49:51 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
+ Transport; Tue, 27 Jul 2021 17:49:51 +0100
+Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
+ [198.61.65.56])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id C00EB2BA;
+ Tue, 27 Jul 2021 16:49:50 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+Subject: [PATCH] MAINTAINERS: Add sound devicetree bindings for Wolfson Micro
+ devices
+Date: Tue, 27 Jul 2021 17:49:48 +0100
+Message-ID: <20210727164948.4308-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: TDLcE9aZT1mRIR7akA1AiqBB0LzXAu7b
+X-Proofpoint-GUID: TDLcE9aZT1mRIR7akA1AiqBB0LzXAu7b
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 impostorscore=0
+ priorityscore=1501
+ phishscore=0 malwarescore=0 bulkscore=0 clxscore=1015 mlxlogscore=838
+ mlxscore=0 adultscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2107140000
+ definitions=main-2107270101
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,47 +102,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 24 Jul 2021 23:50:09 +0200,
-Liam Hupfer wrote:
-> 
-> Hello,
-> 
-> I’ve set up a Linux VM where I’m passing through an RX 580. I’m using the GPU
-> audio and my monitor’s audio jack. For some reason the Linux VM keeps losing
-> track of the audio output. It always shows up under `lspci' under ID `06:00.0'
-> using the `snd_hda_intel' driver, but `pulseaudio' (I also tried `pipewire',
-> same issue) keep losing it. Most times I can restart `pulseaudio' and it will
-> find the device again; occasionally, it takes multiple restarts.
-> 
-> I checked the Arch wiki and I found something[¹] on audio over HDMI (I’m using
-> DisplayPort, if that matters). I checked the device and it did report `Enable+'.
-> Even so, I added the kernel parameter `snd_hda_intel.enable_msi=1', but nothing
-> changed.
-> 
-> Here are some `journalctl --user -u pulseaudio' logs:
-> ┌────
-> │ 20:37:31 host pulseaudio[2373]: ALSA woke us up to write new data to the device, but there was actually nothing to write.
-> │ 20:37:31 host pulseaudio[2373]: Most likely this is a bug in the ALSA driver 'snd_hda_intel'. Please report this issue to the ALSA developers.
-> │ 20:37:31 host pulseaudio[2373]: We were woken up with POLLOUT set -- however a subsequent snd_pcm_avail() returned 0 or another value < min_avail.
-> └────
+Include all wm* sound bindings in the section for Wolfson Micro
+drivers. This section already includes the actual driver source
+files.
 
-The message is likely a red herring and irrelevant from your problem.
+Also update the existing entry to match all wlf,* sound bindings.
 
-You can try at first the direct playback with aplay (specify the
-proper option to access without pulse plugin), and confirm that the
-device is set up.  If aplay works (at least detects), then check more
-verbose log of pulseaudio.
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+---
+ MAINTAINERS | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 19135a9d778e..d8282bb8a7e1 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -20009,7 +20009,8 @@ F:	Documentation/devicetree/bindings/extcon/wlf,arizona.yaml
+ F:	Documentation/devicetree/bindings/mfd/wlf,arizona.yaml
+ F:	Documentation/devicetree/bindings/mfd/wm831x.txt
+ F:	Documentation/devicetree/bindings/regulator/wlf,arizona.yaml
+-F:	Documentation/devicetree/bindings/sound/wlf,arizona.yaml
++F:	Documentation/devicetree/bindings/sound/wlf,*.yaml
++F:	Documentation/devicetree/bindings/sound/wm*
+ F:	Documentation/hwmon/wm83??.rst
+ F:	arch/arm/mach-s3c/mach-crag6410*
+ F:	drivers/clk/clk-wm83*.c
+-- 
+2.11.0
 
-Takashi
-
-> Anyone have any suggestions for troubleshooting? `pulseaudio'’s logs suggested
-> it might have to do with ALSA, so I asked for help here.
-> 
-> Thank you!
-> 
-> —Liam
-> 
-> 
-> [¹] <https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Slowed_down_audio_pumped_through_HDMI_on_the_video_card>
-> 

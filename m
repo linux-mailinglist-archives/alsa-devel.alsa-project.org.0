@@ -2,76 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77FF13D6F91
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 08:41:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C64F63D6FA8
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 08:49:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 13FE31EEC;
-	Tue, 27 Jul 2021 08:40:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13FE31EEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5BCE91EEA;
+	Tue, 27 Jul 2021 08:48:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BCE91EEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627368076;
-	bh=Fo32S6fSPeXgrvjQj0q4q4+jSuslRxWfQju5wOVEVtY=;
+	s=default; t=1627368564;
+	bh=o0/3pv4ZcUw9NWAeuL3K4dByC9xW+JG/4gvbfI39zBk=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c3U7DLab65rZyRJeijLrNnlPuE3uRStOlhx1VUQABB+xwag50y5wCHJ5xiYwYWLIP
-	 jzbGDB27U78ilcfru8qO4y8XOAM2V9uzLKcOS9dv6tC6a8QZHtfduDkSqTvHUAu/1O
-	 lOMob+ranLXYSAyiigE2PeyXLd9ZI4BdWKzKPseg=
+	b=QVd+SDya8Gul8Oj8lX1EYWpSahEN5Ak2cXeRQ/f1x+3ijEFbz+8IxlfOMK99buBTA
+	 VSdYQ1llSHRt5x9crVKr8/FOGXQg8vpBSJelsukbF7JpQq5iCk1OoYw7kUEBGjdDkM
+	 33Ah2l7cA0lfkCM4t4IFlmxtbzzRj/bTSTdWtWkE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76FFFF80159;
-	Tue, 27 Jul 2021 08:39:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C9F93F80159;
+	Tue, 27 Jul 2021 08:47:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D484F80258; Tue, 27 Jul 2021 08:39:46 +0200 (CEST)
+ id C35F2F8026C; Tue, 27 Jul 2021 08:47:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7CB86F80159
- for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 08:39:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CB86F80159
+ by alsa1.perex.cz (Postfix) with ESMTPS id C83D1F8020D
+ for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 08:47:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C83D1F8020D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="dg6h/H0m"; 
+ header.b="AHLjbmRm"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="tMSJBPxY"
+ header.b="MNDVyg7v"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id B1415200BC;
- Tue, 27 Jul 2021 06:39:42 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 9C02B22106;
+ Tue, 27 Jul 2021 06:47:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627367982; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1627368467; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=fPoE+Kwuy2iglyI2lCAzcgm1oX7293RMnL2/UIlVTwg=;
- b=dg6h/H0mU6+z+IwpEi2/sp7m34EnWEWDpQ5CqTJDEfvwlSuPfMsMHI1iM4OPd0FvQjh08J
- uzpGQd7Ts3U4aX2ekGd0soLTCF7JeQUL4mGnT9KY6p170sBVF0+KvyS7f7KHy7ETj5eckC
- URR8Jx2/TsH+ngJ+rKKr6BpU/4sZsS0=
+ bh=XzoDRt4O83/EYGv/WuJBa4qe/fT4Mky56nzFc8R987g=;
+ b=AHLjbmRmhNM23ZCoVwvRpM1sayHPmNAUCkKHJ6g7uGSjhLoRHU+yTeyvAA3ey8jJb2RU0w
+ LKR2d9LwX0lEtPFSeRygTdFq1k25AvU2DALdUzNXrB5y/BHCxjrYW/udE2qDYZAEWXDOsb
+ uJ7E5kxr9ceJ6U0SikW2Y5ZNTq43UHk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627367982;
+ s=susede2_ed25519; t=1627368467;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=fPoE+Kwuy2iglyI2lCAzcgm1oX7293RMnL2/UIlVTwg=;
- b=tMSJBPxYoetG6PxAqHOSy3s6h80ZwRfZeFPs33/cswZcv/qlUi3293Nr6IMXCI/vhEI007
- N9GlGgwBVd6/0eCA==
+ bh=XzoDRt4O83/EYGv/WuJBa4qe/fT4Mky56nzFc8R987g=;
+ b=MNDVyg7vE9NryVFzzkZ4xPw/loLXSJWasBTVGYSz9An/FzkM29OW+PhcnqNEHohGTHWxBB
+ ri9YLxNGMOA0CHCg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id A30D2A3B81;
- Tue, 27 Jul 2021 06:39:42 +0000 (UTC)
-Date: Tue, 27 Jul 2021 08:39:42 +0200
-Message-ID: <s5h5ywwfefl.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 881D2A3B87;
+ Tue, 27 Jul 2021 06:47:47 +0000 (UTC)
+Date: Tue, 27 Jul 2021 08:47:47 +0200
+Message-ID: <s5h4kcgfe24.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Subject: Re: [PATCH 01/27] ALSA: hda/cirrus: Move CS8409 HDA bridge to
- separate module
-In-Reply-To: <20210726174640.6390-2-vitalyr@opensource.cirrus.com>
+Subject: Re: [PATCH 13/27] ALSA: hda/cs8409: Dont disable I2C clock between
+ consecutive accesses
+In-Reply-To: <20210726174640.6390-14-vitalyr@opensource.cirrus.com>
 References: <20210726174640.6390-1-vitalyr@opensource.cirrus.com>
- <20210726174640.6390-2-vitalyr@opensource.cirrus.com>
+ <20210726174640.6390-14-vitalyr@opensource.cirrus.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -95,23 +96,164 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 26 Jul 2021 19:46:14 +0200,
+On Mon, 26 Jul 2021 19:46:26 +0200,
 Vitaly Rodionov wrote:
-> --- a/sound/pci/hda/Kconfig
-> +++ b/sound/pci/hda/Kconfig
-> @@ -150,6 +150,7 @@ comment "Set to Y if you want auto-loading the codec driver"
->  config SND_HDA_CODEC_CIRRUS
->  	tristate "Build Cirrus Logic codec support"
->  	select SND_HDA_GENERIC
-> +	select SND_HDA_CODEC_CS8409
->  	help
->  	  Say Y or M here to include Cirrus Logic codec support in
->  	  snd-hda-intel driver, such as CS4206.
+> 
+> From: Lucas Tanure <tanureal@opensource.cirrus.com>
+> 
+> Only disable I2C clock 25 ms after not being used
 
-This reverse-selection doesn't make sense, as both modules should be
-completely individual.
+This is error-prone and might be racy, I'm afraid.
+e.g. the offloaded work isn't canceled when unbinding the driver, so
+it'll lead to a use-after-free.  And the work doesn't take a mutex so
+it may conflict with re-enabling side.
+
+Above all, there is no description "why" this has to be done so.
+Is it about the performance, or any other reason?
 
 
 thanks,
 
 Takashi
+
+> 
+> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
+> Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+> ---
+>  sound/pci/hda/patch_cs8409.c | 42 +++++++++++++++++++++++-------------
+>  sound/pci/hda/patch_cs8409.h |  4 ++++
+>  2 files changed, 31 insertions(+), 15 deletions(-)
+> 
+> diff --git a/sound/pci/hda/patch_cs8409.c b/sound/pci/hda/patch_cs8409.c
+> index 08205c19698c..335bcdc69106 100644
+> --- a/sound/pci/hda/patch_cs8409.c
+> +++ b/sound/pci/hda/patch_cs8409.c
+> @@ -53,6 +53,7 @@ static struct cs8409_spec *cs8409_alloc_spec(struct hda_codec *codec)
+>  	if (!spec)
+>  		return NULL;
+>  	codec->spec = spec;
+> +	spec->codec = codec;
+>  	codec->power_save_node = 1;
+>  	snd_hda_gen_spec_init(&spec->gen);
+>  
+> @@ -72,21 +73,34 @@ static inline void cs8409_vendor_coef_set(struct hda_codec *codec, unsigned int
+>  	snd_hda_codec_write(codec, CS8409_PIN_VENDOR_WIDGET, 0, AC_VERB_SET_PROC_COEF, coef);
+>  }
+>  
+> -/**
+> +/*
+> + * cs8409_disable_i2c_clock - Worker that disable the I2C Clock after 25ms without use
+> + */
+> +static void cs8409_disable_i2c_clock(struct work_struct *work)
+> +{
+> +	struct cs8409_spec *spec = container_of(work, struct cs8409_spec, i2c_clk_work.work);
+> +
+> +	cs8409_vendor_coef_set(spec->codec, 0x0,
+> +			       cs8409_vendor_coef_get(spec->codec, 0x0) & 0xfffffff7);
+> +	spec->i2c_clck_enabled = 0;
+> +}
+> +
+> +/*
+>   * cs8409_enable_i2c_clock - Enable I2C clocks
+>   * @codec: the codec instance
+> - * @enable: Enable or disable I2C clocks
+> - *
+>   * Enable or Disable I2C clocks.
+>   */
+> -static void cs8409_enable_i2c_clock(struct hda_codec *codec, unsigned int enable)
+> +static void cs8409_enable_i2c_clock(struct hda_codec *codec)
+>  {
+> -	unsigned int retval;
+> -	unsigned int newval;
+> +	struct cs8409_spec *spec = codec->spec;
+> +
+> +	cancel_delayed_work_sync(&spec->i2c_clk_work);
+>  
+> -	retval = cs8409_vendor_coef_get(codec, 0x0);
+> -	newval = (enable) ? (retval | 0x8) : (retval & 0xfffffff7);
+> -	cs8409_vendor_coef_set(codec, 0x0, newval);
+> +	if (!spec->i2c_clck_enabled) {
+> +		cs8409_vendor_coef_set(codec, 0x0, cs8409_vendor_coef_get(codec, 0x0) | 0x8);
+> +		spec->i2c_clck_enabled = 1;
+> +	}
+> +	queue_delayed_work(system_power_efficient_wq, &spec->i2c_clk_work, msecs_to_jiffies(25));
+>  }
+>  
+>  /**
+> @@ -134,7 +148,7 @@ static int cs8409_i2c_read(struct hda_codec *codec, unsigned int i2c_address, un
+>  	if (spec->cs42l42_suspended)
+>  		return -EPERM;
+>  
+> -	cs8409_enable_i2c_clock(codec, 1);
+> +	cs8409_enable_i2c_clock(codec);
+>  	cs8409_vendor_coef_set(codec, CS8409_I2C_ADDR, i2c_address);
+>  
+>  	if (paged) {
+> @@ -157,8 +171,6 @@ static int cs8409_i2c_read(struct hda_codec *codec, unsigned int i2c_address, un
+>  	/* Register in bits 15-8 and the data in 7-0 */
+>  	read_data = cs8409_vendor_coef_get(codec, CS8409_I2C_QREAD);
+>  
+> -	cs8409_enable_i2c_clock(codec, 0);
+> -
+>  	return read_data & 0x0ff;
+>  }
+>  
+> @@ -182,7 +194,7 @@ static int cs8409_i2c_write(struct hda_codec *codec, unsigned int i2c_address, u
+>  	if (spec->cs42l42_suspended)
+>  		return -EPERM;
+>  
+> -	cs8409_enable_i2c_clock(codec, 1);
+> +	cs8409_enable_i2c_clock(codec);
+>  	cs8409_vendor_coef_set(codec, CS8409_I2C_ADDR, i2c_address);
+>  
+>  	if (paged) {
+> @@ -203,8 +215,6 @@ static int cs8409_i2c_write(struct hda_codec *codec, unsigned int i2c_address, u
+>  		return -EIO;
+>  	}
+>  
+> -	cs8409_enable_i2c_clock(codec, 0);
+> -
+>  	return 0;
+>  }
+>  
+> @@ -705,6 +715,8 @@ void cs8409_cs42l42_fixups(struct hda_codec *codec, const struct hda_fixup *fix,
+>  		spec->cs42l42_mic_jack_in = 0;
+>  		spec->cs42l42_suspended = 1;
+>  
+> +		INIT_DELAYED_WORK(&spec->i2c_clk_work, cs8409_disable_i2c_clock);
+> +
+>  		/* Basic initial sequence for specific hw configuration */
+>  		snd_hda_sequence_write(codec, cs8409_cs42l42_init_verbs);
+>  
+> diff --git a/sound/pci/hda/patch_cs8409.h b/sound/pci/hda/patch_cs8409.h
+> index bf0e8a4cc4cc..542582c213d2 100644
+> --- a/sound/pci/hda/patch_cs8409.h
+> +++ b/sound/pci/hda/patch_cs8409.h
+> @@ -11,6 +11,7 @@
+>  
+>  #include <linux/pci.h>
+>  #include <sound/tlv.h>
+> +#include <linux/workqueue.h>
+>  #include <sound/hda_codec.h>
+>  #include "hda_local.h"
+>  #include "hda_auto_parser.h"
+> @@ -267,6 +268,7 @@ struct cs8409_cir_param {
+>  
+>  struct cs8409_spec {
+>  	struct hda_gen_spec gen;
+> +	struct hda_codec *codec;
+>  
+>  	unsigned int gpio_mask;
+>  	unsigned int gpio_dir;
+> @@ -278,6 +280,8 @@ struct cs8409_spec {
+>  	s8 vol[CS42L42_VOLUMES];
+>  
+>  	struct mutex cs8409_i2c_mux;
+> +	unsigned int i2c_clck_enabled;
+> +	struct delayed_work i2c_clk_work;
+>  
+>  	/* verb exec op override */
+>  	int (*exec_verb)(struct hdac_device *dev, unsigned int cmd, unsigned int flags,
+> -- 
+> 2.25.1
+> 

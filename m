@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE0F63D6BBD
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 04:07:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E9613D6BBE
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 04:07:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 472991EDA;
-	Tue, 27 Jul 2021 04:06:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 472991EDA
+	by alsa0.perex.cz (Postfix) with ESMTPS id E0A771EDC;
+	Tue, 27 Jul 2021 04:07:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0A771EDC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627351639;
-	bh=oKRRklZKsO/FX0FYFaR0b/FNqdIBKkwF1EeY2+alM3M=;
+	s=default; t=1627351674;
+	bh=mrgPgahKII/jQFfX72UbYEXnm/L97FrjyjTlrsHNIvA=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=d6S9PZsvy0CE7BZJmFGRs2g/WCeGnVVjTl0IjO5Ohi4Y7QffCLDp/lLQRlomiNhUI
-	 TBwEm1NIKSO7+ib/PmFYhalcbepoNgPll/kGZO2zQFr88MTH79bY9lu0erCBL2IUVy
-	 Uwlx6sA8X4P0IluSH6E7cRAa6oX43tR+h6dYhGcA=
+	b=cOQ5kZq+kOZDukt11gQVoC8/4bnJO6tqY3FNvwubhoc4gOQW4PFZ3xcijRIOwNYS8
+	 uxZIYpnTfeKla+2tzBKAs9RgoJDeY5FjAJnMMMk5JtyrpjLBpibBZ+qu1p9bImNpA9
+	 eRHL3s+QlmPod38A9Zsaof7SVjfU8N34zr42nqyU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B1D9F804AF;
-	Tue, 27 Jul 2021 04:05:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E7E6F804B2;
+	Tue, 27 Jul 2021 04:05:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1FB7CF802E7; Tue, 27 Jul 2021 04:05:43 +0200 (CEST)
+ id C714CF8027C; Tue, 27 Jul 2021 04:05:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id EF616F8026C
- for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 04:05:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF616F8026C
-Date: 27 Jul 2021 11:05:34 +0900
-X-IronPort-AV: E=Sophos;i="5.84,272,1620658800"; d="scan'208";a="88848883"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 27 Jul 2021 11:05:34 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 3BEE5F8027C
+ for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 04:05:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BEE5F8027C
+Date: 27 Jul 2021 11:05:38 +0900
+X-IronPort-AV: E=Sophos;i="5.84,272,1620658800"; d="scan'208";a="88807454"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 27 Jul 2021 11:05:38 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 5858B400E8EA;
- Tue, 27 Jul 2021 11:05:34 +0900 (JST)
-Message-ID: <87tukgzf2p.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id EAC2D4164BFE;
+ Tue, 27 Jul 2021 11:05:38 +0900 (JST)
+Message-ID: <87sg00zf2l.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/5] ASoC: soc-pcm: cleanup cppcheck warning at
- soc_pcm_apply_msb()
+Subject: [PATCH 2/5] ASoC: soc-pcm: cleanup cppcheck warning at
+ soc_pcm_components_close()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87v94wzf37.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,46 +72,32 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below cppcheck warning.
 
-sound/soc/soc-pcm.c:446:29: style: The scope of the variable 'pcm_codec' can be reduced. [variableScope]
- struct snd_soc_pcm_stream *pcm_codec, *pcm_cpu;
-                            ^
-sound/soc/soc-pcm.c:446:41: style: The scope of the variable 'pcm_cpu' can be reduced. [variableScope]
- struct snd_soc_pcm_stream *pcm_codec, *pcm_cpu;
-                                        ^
+sound/soc/soc-pcm.c:631:9: style: The scope of the variable 'r' can be reduced. [variableScope]
+ int i, r, ret = 0;
+        ^
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ sound/soc/soc-pcm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index cd12ce14096d..69c1022885ed 100644
+index 69c1022885ed..c59d769ad039 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -449,13 +449,12 @@ static void soc_pcm_apply_msb(struct snd_pcm_substream *substream)
+@@ -633,10 +633,10 @@ static int soc_pcm_components_close(struct snd_pcm_substream *substream,
+ {
  	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_dai *cpu_dai;
- 	struct snd_soc_dai *codec_dai;
--	struct snd_soc_pcm_stream *pcm_codec, *pcm_cpu;
- 	int stream = substream->stream;
- 	int i;
- 	unsigned int bits = 0, cpu_bits = 0;
+ 	struct snd_soc_component *component;
+-	int i, r, ret = 0;
++	int i, ret = 0;
  
- 	for_each_rtd_codec_dais(rtd, i, codec_dai) {
--		pcm_codec = snd_soc_dai_get_pcm_stream(codec_dai, stream);
-+		struct snd_soc_pcm_stream *pcm_codec = snd_soc_dai_get_pcm_stream(codec_dai, stream);
+ 	for_each_rtd_components(rtd, i, component) {
+-		r = snd_soc_component_close(component, substream, rollback);
++		int r = snd_soc_component_close(component, substream, rollback);
+ 		if (r < 0)
+ 			ret = r; /* use last ret */
  
- 		if (pcm_codec->sig_bits == 0) {
- 			bits = 0;
-@@ -465,7 +464,7 @@ static void soc_pcm_apply_msb(struct snd_pcm_substream *substream)
- 	}
- 
- 	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
--		pcm_cpu = snd_soc_dai_get_pcm_stream(cpu_dai, stream);
-+		struct snd_soc_pcm_stream *pcm_cpu = snd_soc_dai_get_pcm_stream(cpu_dai, stream);
- 
- 		if (pcm_cpu->sig_bits == 0) {
- 			cpu_bits = 0;
 -- 
 2.25.1
 

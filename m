@@ -2,80 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E42873D7AE9
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 18:28:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5655B3D7AFB
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 18:32:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7A3751F1E;
-	Tue, 27 Jul 2021 18:27:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A3751F1E
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED4A81ABF;
+	Tue, 27 Jul 2021 18:31:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED4A81ABF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627403293;
-	bh=ncLIb0pDQ9E1DaOJSw7SUhiHEa5M2QpPcTru5VD2mIw=;
+	s=default; t=1627403556;
+	bh=IPEvoVAkhhtGtU9AEOJqOJpOx4psMbX+4RQyz62b2nI=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vBRmeFnjSUECW0Oh/BQNDU/kaJomTdPGrzo97hDoOHzGcWOCEUn5lwTOe9AWlsoKQ
-	 ZDuQSCT95o7djSi+WdgRVKddlz8smbh1jEedI3JMb7o7vs975uLzp5zl6bJ7bv8Oyi
-	 9E96HMEaOVpXFjKVHnRQFdwqfODx0AEXXTS670Kw=
+	b=QXKa7JeabNneEe1OsMmgvGo5a1DfTUqqELcKR6hF6UwZdjrYkfxLp+HftsbJhMbMG
+	 x2UDWGhAnRhbi5aLlf2wpKZOb0HnEUBqqNoUBk56HbsNXKkJ9LGytkDgi3+7zvYvRc
+	 tLOSFj6DmsWh0uri9rX6+2FUTHKir7c6XmG17vuc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EAC66F80276;
-	Tue, 27 Jul 2021 18:26:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 72597F80258;
+	Tue, 27 Jul 2021 18:31:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CAA32F8026C; Tue, 27 Jul 2021 18:26:43 +0200 (CEST)
+ id 0A5DFF8026C; Tue, 27 Jul 2021 18:31:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5A815F80212
- for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 18:26:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A815F80212
+ by alsa1.perex.cz (Postfix) with ESMTPS id DFDDCF80212
+ for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 18:30:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFDDCF80212
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="gmlMHDev"; 
+ header.b="Yf8Yqun3"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="fPi4NenG"
+ header.b="WCKjisCd"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id B1F781FF23;
- Tue, 27 Jul 2021 16:26:39 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id DCCF72218F;
+ Tue, 27 Jul 2021 16:30:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627403199; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1627403457; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=42qKF4A2qLSGbB3CAsnihdhJ6MJoy7ETPDv2arcMvEM=;
- b=gmlMHDev9Tz+ZTv7wSsxqE74HYbKiJBhMVdv7Ps0LbGluOJ8FFhhtJcOO3umMOn8wYCfa4
- Q6xLZNE34n5QKzkO7YRyI6awD3HdI4eckWn1aUmmZBFtV2tgastN7HvzVGx9oF1W7wdXwI
- TejqmzLgkT4P1D1xX2YYaZSgm1smxTg=
+ bh=iVlKP7eZdwt8EKv/3WjfVMr8AsXYoRAD+HzItctBmlg=;
+ b=Yf8Yqun3a3FNG+88neNlVFbzwGSuqy0d3niwLOQe/YWkq14/h+aPfn3XSFKdy7HTHY7WYW
+ pgVp6hbmx9K1r0QrtfqBYPXmAwWBj+g2h7mEnU6eQ/mNumzi2C3cFRbsQRLB2EU4jgZJ8J
+ xteciDyh0/e7/sd3iFvm/1lS3HCvzyU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627403199;
+ s=susede2_ed25519; t=1627403457;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=42qKF4A2qLSGbB3CAsnihdhJ6MJoy7ETPDv2arcMvEM=;
- b=fPi4NenG5vvFYdlafcicCTPHY5PKCfacrxfekTNkzS9LbL+wHz1Xl0fe3NCHoejPf1WSvK
- rMttUrYaLV2DrmAA==
+ bh=iVlKP7eZdwt8EKv/3WjfVMr8AsXYoRAD+HzItctBmlg=;
+ b=WCKjisCdOnf7SbAG1Q+9D1wO4iL3oltbKCZwpaBTQmFzNmx4Ff2FDYKasj8zVl06OTwq9U
+ iwL6O1BVVqT8M3DA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id D2A6DA3BA7;
- Tue, 27 Jul 2021 16:26:38 +0000 (UTC)
-Date: Tue, 27 Jul 2021 18:26:38 +0200
-Message-ID: <s5h35rzd8ox.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id D7458A3B85;
+ Tue, 27 Jul 2021 16:30:57 +0000 (UTC)
+Date: Tue, 27 Jul 2021 18:30:57 +0200
+Message-ID: <s5h1r7jd8hq.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Alex Roberts <arob109@gmail.com>
-Subject: Re: ASoC/ALSA Out of Memory Issue
-In-Reply-To: <CAPkENw_qS2fgP02RAJgoQHM1ROoio6Km5=bGPhi2R+h4vJQ79w@mail.gmail.com>
-References: <CAPkENw_qS2fgP02RAJgoQHM1ROoio6Km5=bGPhi2R+h4vJQ79w@mail.gmail.com>
+To: Liam Hupfer <liam@hpfr.net>
+Subject: Re: Pulseaudio dropping GPU audio
+In-Reply-To: <87fsw3l6o5.fsf@hpfr.net>
+References: <87fsw3l6o5.fsf@hpfr.net>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, kernelnewbies@kernelnewbies.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,61 +95,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 26 Jul 2021 17:07:52 +0200,
-Alex Roberts wrote:
+On Sat, 24 Jul 2021 23:50:09 +0200,
+Liam Hupfer wrote:
 > 
 > Hello,
 > 
-> I am developing a dummy codec to interface with an 8-channel, 24-bit
-> ADC. I've got it working on an NXP imx8m through the fsl_sai driver on
-> kernel 5.4.85. I can capture all 8 channels at varying sample rates
-> using arecord, and I've verified correct data capture via opening the
-> resulting .wav file in Audacity. The problem I am having is that
-> occasionally, upon starting arecord - after a fresh power cycle - I
-> get an out of memory error. Other times I get an out of memory after a
-> non-deterministic period of capture. Starting capture again also
-> reports out of memory, but if I wait several minutes and start capture
-> it will start recording again. A power cycle usually helps, but as
-> stated earlier, not 100% of the time.
+> I’ve set up a Linux VM where I’m passing through an RX 580. I’m using the GPU
+> audio and my monitor’s audio jack. For some reason the Linux VM keeps losing
+> track of the audio output. It always shows up under `lspci' under ID `06:00.0'
+> using the `snd_hda_intel' driver, but `pulseaudio' (I also tried `pipewire',
+> same issue) keep losing it. Most times I can restart `pulseaudio' and it will
+> find the device again; occasionally, it takes multiple restarts.
+> 
+> I checked the Arch wiki and I found something[¹] on audio over HDMI (I’m using
+> DisplayPort, if that matters). I checked the device and it did report `Enable+'.
+> Even so, I added the kernel parameter `snd_hda_intel.enable_msi=1', but nothing
+> changed.
+> 
+> Here are some `journalctl --user -u pulseaudio' logs:
+> ┌────
+> │ 20:37:31 host pulseaudio[2373]: ALSA woke us up to write new data to the device, but there was actually nothing to write.
+> │ 20:37:31 host pulseaudio[2373]: Most likely this is a bug in the ALSA driver 'snd_hda_intel'. Please report this issue to the ALSA developers.
+> │ 20:37:31 host pulseaudio[2373]: We were woken up with POLLOUT set -- however a subsequent snd_pcm_avail() returned 0 or another value < min_avail.
+> └────
 
-Do you mean that application gets -ENOMEM error from API, or the
-system exhausts the memory?  The former is often some buffer
-management issue (e.g. the buffer perallocation didn't happen and yet
-the dynamic allocation failed), but the latter is rather about the
-memory leaks.
+The message is likely a red herring and irrelevant from your problem.
+
+You can try at first the direct playback with aplay (specify the
+proper option to access without pulse plugin), and confirm that the
+device is set up.  If aplay works (at least detects), then check more
+verbose log of pulseaudio.
 
 
 Takashi
 
-> I'm trying to track down where the oom error is coming from, but
-> haven't had much luck. My colleague tried running arecord with
-> valgrind to check for memory leaks and nothing of note was observed.
-> My suspicion is there's something going on with allocated memory for
-> DMA, like fragmentation starts to happen and it can't get a contiguous
-> region for operation. Reserving a larger pool - either via device tree
-> or kernel cmdline arguments in the bootoader - did not seem to help.
+> Anyone have any suggestions for troubleshooting? `pulseaudio'’s logs suggested
+> it might have to do with ALSA, so I asked for help here.
 > 
-> Another thought is that it's a boundary/alignment issue due to the
-> 24-bit data, and the error is the result of trying to allocate a chunk
-> of memory for DMA that doesn't align.
+> Thank you!
 > 
-> I'm very new to ALSA dev with some exposure to kernel dev in general,
-> so please correct me if I'm wrong or completely mis-understanding
-> something.
+> —Liam
 > 
-> Any suggestions on where I should / how I can debug this memory error?
 > 
-> Thanks,
-> Alex.
-> 
-> PS: Previously sent this to just alsa-devel mailing list on 7/21, but
-> never saw it show up in the archives. Here is more info since then:
-> 
-> The goal is 8-channel, 96k sampling rate. I've reduced sampling rate
-> and still have the issue. Reducing down to 4-channels helps, but
-> haven't tested long term enough to evaluate by how much.
-> 
-> Narrowed it down to device_prep_dma_cyclic(..) returning NULL within
-> dmaengine_prep_dma_cyclic(..)..... still tracing through source to
-> learn exactly what is going on.
+> [¹] <https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Slowed_down_audio_pumped_through_HDMI_on_the_video_card>
 > 

@@ -2,105 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE6493D7187
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 10:50:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFFDD3D7219
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 11:35:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D7251EDF;
-	Tue, 27 Jul 2021 10:49:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D7251EDF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C6171EDA;
+	Tue, 27 Jul 2021 11:34:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C6171EDA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627375841;
-	bh=hi5Ut8WSNt3T7YXxqRBJhR7NzNeE4VoK2RhcBjdOZhE=;
+	s=default; t=1627378514;
+	bh=fhv6Ii0aQXQrSLDHxLP11kkH2VbKKG7f10bs9Chf1qM=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=YpWbHPVz6byYRxdy/w1DJqVLd18FiFRtLMwGHpx7+oAAwCRwaEVF2bhAluzlDvqzR
-	 msWXNjxyid+5QcNSFiA2GKji0kXeQEEj2nFAFnIHngfPeecQtpdGEvF2Be7oxFIlQ1
-	 D8if9Mo0zmO8x6/kktnlkrvwh/HM1FvOg5EbBCXA=
+	b=i2g4V84c+TTwGmfhKD4CiMgzunr3ngL8+ukplK9ODUv7XxfEVZJNTvIla7KuRpgOY
+	 hfqDc9Sh8qAqKmRjQGE5RO4aoWsxIGcsYm5LzGjiHF0SytDWBkXF7jteKTEpvrsGXa
+	 9pXobQWYs6E/jP8eMqRql4+1aAfa+h5jTI4AUr9U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D980F80159;
-	Tue, 27 Jul 2021 10:49:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC5A7F8020D;
+	Tue, 27 Jul 2021 11:33:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 54114F8026C; Tue, 27 Jul 2021 10:49:10 +0200 (CEST)
+ id 60C8AF8026C; Tue, 27 Jul 2021 11:33:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE32EF80159
- for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 10:49:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE32EF80159
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 16R8muJH3023396,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36502.realtek.com.tw[172.21.6.25])
- by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 16R8muJH3023396
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 27 Jul 2021 16:48:56 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXH36502.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Tue, 27 Jul 2021 16:48:55 +0800
-Received: from localhost.localdomain (172.22.102.1) by
- RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Tue, 27 Jul 2021 16:48:55 +0800
-From: <shumingf@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH] ASoC: rt5682: enable SAR ADC power saving mode during suspend
-Date: Tue, 27 Jul 2021 16:48:46 +0800
-Message-ID: <20210727084846.9867-1-shumingf@realtek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1B2B6F8020D
+ for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 11:33:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B2B6F8020D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=tsoy.me header.i=@tsoy.me
+ header.b="LTiDI+bj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
+ s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+ Subject:Cc:To:From:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=ff0TKrmVrdemjSMfMe4DqV1PqiQloD83VDZNoRiKJNk=; b=LTiDI+bjEJocNx/s5820y1zY4s
+ NxDOld3b8dDhLWV2XjqJNDf0HBv/eqcsksJDALYGZgfI0gW3PhAtlPq5ihqtb5AJV908d17wpWwYZ
+ XoJcmULNbFAI9dSsG4IGIU5zZl2JTZab7UM7JPowovv0WWHtmRIgOhZOVvL+XKWu6yio=;
+Received: from [2a00:1370:8125:1b84::525] (helo=work.puleglot.ru)
+ by puleglot.ru with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.94.2) (envelope-from <puleglot@puleglot.ru>)
+ id 1m8JSy-0000ta-0h; Tue, 27 Jul 2021 12:33:34 +0300
+From: Alexander Tsoy <alexander@tsoy.me>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: usb-audio: Add registration quirk for JBL Quantum 600
+Date: Tue, 27 Jul 2021 12:33:26 +0300
+Message-Id: <20210727093326.1153366-1-alexander@tsoy.me>
 X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.22.102.1]
-X-ClientProxiedBy: RTEXMBS01.realtek.com.tw (172.21.6.94) To
- RTEXMBS01.realtek.com.tw (172.21.6.94)
-X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: trusted connection
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Deterministic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 07/27/2021 08:27:00
-X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
- rules found
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIxLzcvMjcgpFekyCAwNjowMDowMA==?=
-X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
-X-KSE-ServerInfo: RTEXH36502.realtek.com.tw, 9
-X-KSE-Attachment-Filter-Triggered-Rules: Clean
-X-KSE-Attachment-Filter-Triggered-Filters: Clean
-X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
-X-KSE-AntiSpam-Outbound-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 07/27/2021 08:34:55
-X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
-X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 0
-X-KSE-AntiSpam-Info: Lua profiles 165259 [Jul 27 2021]
-X-KSE-AntiSpam-Info: Version: 5.9.20.0
-X-KSE-AntiSpam-Info: Envelope from: shumingf@realtek.com
-X-KSE-AntiSpam-Info: LuaCore: 449 449 5db59deca4a4f5e6ea34a93b13bc730e229092f4
-X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info: realtek.com:7.1.1; 127.0.0.199:7.1.2;
- d41d8cd98f00b204e9800998ecf8427e.com:7.1.1
-X-KSE-AntiSpam-Info: Rate: 0
-X-KSE-AntiSpam-Info: Status: not_detected
-X-KSE-AntiSpam-Info: Method: none
-X-KSE-AntiSpam-Info: Auth:dkim=none
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Heuristic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 07/27/2021 08:38:00
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, albertchen@realtek.com, derek.fang@realtek.com,
- sathyanarayana.nujella@intel.com, Shuming Fan <shumingf@realtek.com>,
- flove@realtek.com
+Cc: Takashi Iwai <tiwai@suse.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,82 +76,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Shuming Fan <shumingf@realtek.com>
+Apparently JBL Quantum 600 has multiple hardware revisions. Apply
+registration quirk to another device id as well.
 
-The SAR ADC power saving mode could reduce power consumption on MICVDD rail.
-Therefore, this patch saves power consumption during suspend state if the headset was connected.
-
-Signed-off-by: Shuming Fan <shumingf@realtek.com>
+Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
 ---
- sound/soc/codecs/rt5682.c | 44 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 44 insertions(+)
+ sound/usb/quirks.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-index 51ecaa2abcd1..7dc01ae6bb66 100644
---- a/sound/soc/codecs/rt5682.c
-+++ b/sound/soc/codecs/rt5682.c
-@@ -2916,10 +2916,46 @@ static void rt5682_remove(struct snd_soc_component *component)
- static int rt5682_suspend(struct snd_soc_component *component)
- {
- 	struct rt5682_priv *rt5682 = snd_soc_component_get_drvdata(component);
-+	unsigned int val;
- 
- 	if (rt5682->is_sdw)
- 		return 0;
- 
-+	cancel_delayed_work_sync(&rt5682->jack_detect_work);
-+	cancel_delayed_work_sync(&rt5682->jd_check_work);
-+	if (rt5682->hs_jack && rt5682->jack_type == SND_JACK_HEADSET) {
-+		snd_soc_component_update_bits(component, RT5682_CBJ_CTRL_1,
-+			RT5682_MB1_PATH_MASK | RT5682_MB2_PATH_MASK,
-+			RT5682_CTRL_MB1_REG | RT5682_CTRL_MB2_REG);
-+		val = snd_soc_component_read(component,
-+				RT5682_CBJ_CTRL_2) & RT5682_JACK_TYPE_MASK;
-+
-+		switch (val) {
-+		case 0x1:
-+			snd_soc_component_update_bits(component, RT5682_SAR_IL_CMD_1,
-+				RT5682_SAR_SEL_MB1_MASK | RT5682_SAR_SEL_MB2_MASK,
-+				RT5682_SAR_SEL_MB1_NOSEL | RT5682_SAR_SEL_MB2_SEL);
-+			break;
-+		case 0x2:
-+			snd_soc_component_update_bits(component, RT5682_SAR_IL_CMD_1,
-+				RT5682_SAR_SEL_MB1_MASK | RT5682_SAR_SEL_MB2_MASK,
-+				RT5682_SAR_SEL_MB1_SEL | RT5682_SAR_SEL_MB2_NOSEL);
-+			break;
-+		default:
-+			break;
-+		}
-+
-+		snd_soc_component_update_bits(component, RT5682_PWR_ANLG_3,
-+			RT5682_PWR_CBJ, 0);
-+
-+		/* enter SAR ADC power saving mode */
-+		snd_soc_component_update_bits(component, RT5682_SAR_IL_CMD_1,
-+			RT5682_SAR_BUTT_DET_MASK | RT5682_SAR_BUTDET_MODE_MASK | RT5682_SAR_BUTDET_RST_MASK, 0);
-+		snd_soc_component_update_bits(component, RT5682_SAR_IL_CMD_1,
-+			RT5682_SAR_BUTT_DET_MASK | RT5682_SAR_BUTDET_MODE_MASK | RT5682_SAR_BUTDET_RST_MASK,
-+			RT5682_SAR_BUTT_DET_EN | RT5682_SAR_BUTDET_POW_SAV | RT5682_SAR_BUTDET_RST_NORMAL);
-+	}
-+
- 	regcache_cache_only(rt5682->regmap, true);
- 	regcache_mark_dirty(rt5682->regmap);
- 	return 0;
-@@ -2935,6 +2971,14 @@ static int rt5682_resume(struct snd_soc_component *component)
- 	regcache_cache_only(rt5682->regmap, false);
- 	regcache_sync(rt5682->regmap);
- 
-+	if (rt5682->hs_jack && rt5682->jack_type == SND_JACK_HEADSET) {
-+		snd_soc_component_update_bits(component, RT5682_CBJ_CTRL_1,
-+			RT5682_MB1_PATH_MASK | RT5682_MB2_PATH_MASK,
-+			RT5682_CTRL_MB1_FSM | RT5682_CTRL_MB2_FSM);
-+		snd_soc_component_update_bits(component, RT5682_PWR_ANLG_3,
-+			RT5682_PWR_CBJ, RT5682_PWR_CBJ);
-+	}
-+
- 	mod_delayed_work(system_power_efficient_wq,
- 		&rt5682->jack_detect_work, msecs_to_jiffies(250));
- 
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index e7accd87e063..326d1b0ea5e6 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -1899,6 +1899,7 @@ static const struct registration_quirk registration_quirks[] = {
+ 	REG_QUIRK_ENTRY(0x0951, 0x16ea, 2),	/* Kingston HyperX Cloud Flight S */
+ 	REG_QUIRK_ENTRY(0x0ecb, 0x1f46, 2),	/* JBL Quantum 600 */
+ 	REG_QUIRK_ENTRY(0x0ecb, 0x2039, 2),	/* JBL Quantum 400 */
++	REG_QUIRK_ENTRY(0x0ecb, 0x203c, 2),	/* JBL Quantum 600 */
+ 	REG_QUIRK_ENTRY(0x0ecb, 0x203e, 2),	/* JBL Quantum 800 */
+ 	{ 0 }					/* terminator */
+ };
 -- 
 2.31.1
 

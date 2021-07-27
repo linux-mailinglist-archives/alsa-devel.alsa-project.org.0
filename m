@@ -2,72 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 240F53D7621
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 15:24:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AE6F3D7877
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 16:27:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B46C81EFA;
-	Tue, 27 Jul 2021 15:23:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B46C81EFA
+	by alsa0.perex.cz (Postfix) with ESMTPS id BEBFE1F15;
+	Tue, 27 Jul 2021 16:26:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEBFE1F15
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627392253;
-	bh=clXpkkKYs0rFca8LLDbeSbQ7rs6gT7Z2YGaHBpBxeRc=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1627396065;
+	bh=9jK8oHCQGaxPPjY82pbkwlekSWMg6PJmG6vxmwaoATI=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oww2xmdUd7dkKlFT7fRAB7aj9CA/ZpxK5/iaRFJfLAvi10j7gMJHGRF0V91SIhHai
-	 pP6FghstowBOk42ao9yoszQfwdWA+B7FH+GHcmoUqn2AQ1AfPzZKC8HDUhvU2IReq8
-	 U+kby92THYalaFtRHR+oDbO1IXRlZhzY1RbnGmpk=
+	b=YBBQA2xCgr3gxdNoySG972NUEu23D65ZxUSrBxnw7I6YXSIKI0eKupMNe9Xa87vbS
+	 A+A22XJqQKLoCD8etPnbJQXqClqc98Fwh5fqOBJDEF+kpybu1dMLmdSiCLtrNKJ3Ta
+	 NMX5weSD6gW70S/9W1YqktMzzJpYh9iW5542qktA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 05481F8020D;
-	Tue, 27 Jul 2021 15:20:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C52CF804AF;
+	Tue, 27 Jul 2021 16:26:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4754DF8026C; Tue, 27 Jul 2021 15:20:27 +0200 (CEST)
+ id C2852F80212; Tue, 27 Jul 2021 16:26:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED622F80258
- for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 15:20:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED622F80258
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HrbL2d0R"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D34C161A8C;
- Tue, 27 Jul 2021 13:20:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1627392018;
- bh=clXpkkKYs0rFca8LLDbeSbQ7rs6gT7Z2YGaHBpBxeRc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HrbL2d0R6xsLqrXAGA/llhFB5fsUfNf2GXWuhkhYCiUHgjSy8fFKmj1QNgYcKTKic
- cjV8FLmrP5qBDy24TuT6CjAFyDJI5xsY7ee7v+jcuRA//Zu817v+8DsYLVGMVvoJbS
- 0nrM0gD1ga5R/lSZUYz6SLB76oofAPLl3GBeYoVpobEXrJ/oDzHq93XSdEU2nfTp9x
- dNOy72F5L3lRX+f8szEoBSm0EyFYMJqYKBTTfmD+Jq5Pu4HdvXPsYq/NtWMa3xvNp8
- +2vd6DjfytqlvZi5u0Zq//azxKa5lKjGuKCpXYBfSaC7JvVIYP8AjZmcHxJkFgl+fo
- bHgKxhYviCZng==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 2/6] ASoC: tlv320aic31xx: fix reversed bclk/wclk
- master bits
-Date: Tue, 27 Jul 2021 09:20:11 -0400
-Message-Id: <20210727132015.835651-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210727132015.835651-1-sashal@kernel.org>
-References: <20210727132015.835651-1-sashal@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1C86FF80212
+ for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 16:25:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C86FF80212
+X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="192731860"
+X-IronPort-AV: E=Sophos;i="5.84,273,1620716400"; d="scan'208";a="192731860"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2021 07:25:45 -0700
+X-IronPort-AV: E=Sophos;i="5.84,273,1620716400"; d="scan'208";a="417429056"
+Received: from pmdeshpa-mobl1.amr.corp.intel.com (HELO [10.212.27.2])
+ ([10.212.27.2])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2021 07:25:44 -0700
+Subject: Re: [PATCH 1/5] ASoC: soc-pcm: cleanup cppcheck warning at
+ soc_pcm_apply_msb()
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>
+References: <87v94wzf37.wl-kuninori.morimoto.gx@renesas.com>
+ <87tukgzf2p.wl-kuninori.morimoto.gx@renesas.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <19dad670-090e-fd48-352b-e71635e66292@linux.intel.com>
+Date: Tue, 27 Jul 2021 08:33:05 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.11.0
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, Kyle Russell <bkylerussell@gmail.com>,
- Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org
+In-Reply-To: <87tukgzf2p.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,47 +78,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Kyle Russell <bkylerussell@gmail.com>
 
-[ Upstream commit 9cf76a72af6ab81030dea6481b1d7bdd814fbdaf ]
 
-These are backwards from Table 7-71 of the TLV320AIC3100 spec [1].
+On 7/26/21 9:05 PM, Kuninori Morimoto wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> 
+> This patch cleanups below cppcheck warning.
+> 
+> sound/soc/soc-pcm.c:446:29: style: The scope of the variable 'pcm_codec' can be reduced. [variableScope]
+>  struct snd_soc_pcm_stream *pcm_codec, *pcm_cpu;
+>                             ^
+> sound/soc/soc-pcm.c:446:41: style: The scope of the variable 'pcm_cpu' can be reduced. [variableScope]
+>  struct snd_soc_pcm_stream *pcm_codec, *pcm_cpu;
+>                                         ^
 
-This was broken in 12eb4d66ba2e when BCLK_MASTER and WCLK_MASTER
-were converted from 0x08 and 0x04 to BIT(2) and BIT(3), respectively.
+I personally ignore those warnings, there are hundreds of them and it'd
+be a relatively marginal improvement in code quality.
 
--#define AIC31XX_BCLK_MASTER		0x08
--#define AIC31XX_WCLK_MASTER		0x04
-+#define AIC31XX_BCLK_MASTER		BIT(2)
-+#define AIC31XX_WCLK_MASTER		BIT(3)
+my scripts use the following options to focus on more important issues
+first.
 
-Probably just a typo since the defines were not listed in bit order.
-
-[1] https://www.ti.com/lit/gpn/tlv320aic3100
-
-Signed-off-by: Kyle Russell <bkylerussell@gmail.com>
-Link: https://lore.kernel.org/r/20210622010941.241386-1-bkylerussell@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/codecs/tlv320aic31xx.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/codecs/tlv320aic31xx.h b/sound/soc/codecs/tlv320aic31xx.h
-index 0b587585b38b..6071de5fca57 100644
---- a/sound/soc/codecs/tlv320aic31xx.h
-+++ b/sound/soc/codecs/tlv320aic31xx.h
-@@ -147,8 +147,8 @@ struct aic31xx_pdata {
- #define AIC31XX_WORD_LEN_24BITS		0x02
- #define AIC31XX_WORD_LEN_32BITS		0x03
- #define AIC31XX_IFACE1_MASTER_MASK	GENMASK(3, 2)
--#define AIC31XX_BCLK_MASTER		BIT(2)
--#define AIC31XX_WCLK_MASTER		BIT(3)
-+#define AIC31XX_BCLK_MASTER		BIT(3)
-+#define AIC31XX_WCLK_MASTER		BIT(2)
- 
- /* AIC31XX_DATA_OFFSET */
- #define AIC31XX_DATA_OFFSET_MASK	GENMASK(7, 0)
--- 
-2.30.2
+--suppress=variableScope --suppress=shiftTooManyBitsSigned
+--suppress=arithOperationsOnVoidPointer --suppress=bitwiseOnBoolean
 

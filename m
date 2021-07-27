@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75B1D3D6BC0
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 04:08:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A292D3D6BC2
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 04:08:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 045D31DFE;
-	Tue, 27 Jul 2021 04:07:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 045D31DFE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 49C201EF4;
+	Tue, 27 Jul 2021 04:07:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49C201EF4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627351688;
-	bh=4o/wUmeOOyiXO2i5yGTviBhORKGnNRoBqZ1dPKdJ/bM=;
+	s=default; t=1627351728;
+	bh=yC9s4CsvxEoNcnFlZHkuMiCaIvN3GNVek4Lh2WyEoiU=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CE4CPAyy6BjZK2NyvtPILdIAp0wFYHg4ZeyvA6eQZFLAV0Z+ylYZ/lp9c50UPMnOt
-	 BYFO+Wiy9UlRp0Eb4bUjg8saKB1/kLHrMzcw30KGzpvz4kOIUWellX+HSJb2lxaGj+
-	 GkGqAfHAY8HhR0dd1Ze4V8ZsANbItkeZqRjLww5c=
+	b=nzgG/7D6eVijLyyBE+eUdCW+mdfU8Lq/NN8Gu3XtQuIvjidLPNj+2SnlxEkA/3Kp3
+	 MMAHSdHC/yYCz0TtgzKhSo51EC+j2CfLKDgUyiFkNHKWuYIctaCRvSBEQlJilT/lFW
+	 PMKUke6PyUgGe+W7sw6ZxDpe6RDtwROiJofO3UEI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E09BF804E4;
-	Tue, 27 Jul 2021 04:05:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8DBFF804F1;
+	Tue, 27 Jul 2021 04:06:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 78744F804DF; Tue, 27 Jul 2021 04:05:52 +0200 (CEST)
+ id BF177F804ED; Tue, 27 Jul 2021 04:06:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 76EACF804BD
- for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 04:05:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76EACF804BD
-Date: 27 Jul 2021 11:05:47 +0900
-X-IronPort-AV: E=Sophos;i="5.84,272,1620658800"; d="scan'208";a="88807480"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 27 Jul 2021 11:05:47 +0900
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id F0071F804E3
+ for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 04:05:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0071F804E3
+Date: 27 Jul 2021 11:05:51 +0900
+X-IronPort-AV: E=Sophos;i="5.84,272,1620658800"; d="scan'208";a="88848934"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 27 Jul 2021 11:05:51 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 4D775400E8E0;
- Tue, 27 Jul 2021 11:05:47 +0900 (JST)
-Message-ID: <87pmv4zf2c.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 89EE740B7795;
+ Tue, 27 Jul 2021 11:05:51 +0900 (JST)
+Message-ID: <87o8aozf28.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 4/5] ASoC: soc-pcm: cleanup cppcheck warning at
- dpcm_be_is_active()
+Subject: [PATCH 5/5] ASoC: soc-pcm: cleanup cppcheck warning at
+ dpcm_runtime_setup_be_chan()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87v94wzf37.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,34 +72,37 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below cppcheck warning.
 
-sound/soc/soc-pcm.c:1305:30: style: The scope of the variable 'widget' can be reduced. [variableScope]
- struct snd_soc_dapm_widget *widget;
+sound/soc/soc-pcm.c:1624:30: style: The scope of the variable 'codec_stream' can be reduced. [variableScope]
+  struct snd_soc_pcm_stream *codec_stream;
                              ^
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/soc-pcm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 33ddadafe3de..212660a5f583 100644
+index 212660a5f583..1e4423f62010 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -1307,13 +1307,12 @@ void dpcm_path_put(struct snd_soc_dapm_widget_list **list)
- static bool dpcm_be_is_active(struct snd_soc_dpcm *dpcm, int stream,
- 			      struct snd_soc_dapm_widget_list *list)
- {
--	struct snd_soc_dapm_widget *widget;
- 	struct snd_soc_dai *dai;
- 	unsigned int i;
+@@ -1625,7 +1625,6 @@ static void dpcm_runtime_setup_be_chan(struct snd_pcm_substream *substream)
  
- 	/* is there a valid DAI widget for this BE */
- 	for_each_rtd_dais(dpcm->be, i, dai) {
--		widget = snd_soc_dai_get_widget(dai, stream);
-+		struct snd_soc_dapm_widget *widget = snd_soc_dai_get_widget(dai, stream);
+ 	for_each_dpcm_be(fe, stream, dpcm) {
+ 		struct snd_soc_pcm_runtime *be = dpcm->be;
+-		struct snd_soc_pcm_stream *codec_stream;
+ 		struct snd_soc_pcm_stream *cpu_stream;
+ 		struct snd_soc_dai *dai;
+ 		int i;
+@@ -1648,7 +1647,8 @@ static void dpcm_runtime_setup_be_chan(struct snd_pcm_substream *substream)
+ 		 * DAIs connected to a single CPU DAI, use CPU DAI's directly
+ 		 */
+ 		if (be->num_codecs == 1) {
+-			codec_stream = snd_soc_dai_get_pcm_stream(asoc_rtd_to_codec(be, 0), stream);
++			struct snd_soc_pcm_stream *codec_stream = snd_soc_dai_get_pcm_stream(
++				asoc_rtd_to_codec(be, 0), stream);
  
- 		/*
- 		 * The BE is pruned only if none of the dai
+ 			soc_pcm_hw_update_chan(hw, codec_stream);
+ 		}
 -- 
 2.25.1
 

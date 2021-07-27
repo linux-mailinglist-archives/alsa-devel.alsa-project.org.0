@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3AEA3D75FD
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 15:21:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0098B3D75FE
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 15:21:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08AE41F0D;
-	Tue, 27 Jul 2021 15:20:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08AE41F0D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 87A081F12;
+	Tue, 27 Jul 2021 15:20:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87A081F12
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627392074;
-	bh=9Ekw3+9sj0iwmU+tEstdxAwWf8wSv4kj+Ikag/p3grk=;
+	s=default; t=1627392109;
+	bh=u1luN1sMFI7o5STBnQbpqlrcozJB2enfmjp0qualJQw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=S8NxXt7YUdzEMTVwkNNvtFk1dbVcVi3GcgRA/BFmwyyc9XEZfWN4hPGGzxXbu/cTi
-	 Clf8+Kz+Zp+J7rbgJUaMohAk1ZJ3tYEbFo7qJDJt0gUs5aspREI9rse0vb1cE66u7f
-	 71zVDmFTAX7ozSi91uG7YaQV177mcngu8TmGc+OI=
+	b=r4uFz2uzXNBmNXFTt/J0+0It8VAWMC6IYAEOWcHFBmlqp5S5oWcBd5ZOTkvztIbq4
+	 VQV2ykEmjci5ne1eKrargZvDDwC/PlQ1hzv2Ey5AaNsEVrBvj6NeACnEifCGuUBH8z
+	 EengZ6MIn2Rs30M7p9W7wdEIFUDFZzzA8CUBlJ3A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21718F80212;
-	Tue, 27 Jul 2021 15:19:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A79F9F804DF;
+	Tue, 27 Jul 2021 15:19:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F358FF804BD; Tue, 27 Jul 2021 15:19:32 +0200 (CEST)
+ id 316D5F804DF; Tue, 27 Jul 2021 15:19:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,31 +33,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9762CF80212
- for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 15:19:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9762CF80212
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2AA23F8026C
+ for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 15:19:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2AA23F8026C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Tswn5y/L"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7047961A8F;
- Tue, 27 Jul 2021 13:19:26 +0000 (UTC)
+ header.b="dw/jGL3n"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A46FE61A8A;
+ Tue, 27 Jul 2021 13:19:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1627391967;
- bh=9Ekw3+9sj0iwmU+tEstdxAwWf8wSv4kj+Ikag/p3grk=;
+ s=k20201202; t=1627391968;
+ bh=u1luN1sMFI7o5STBnQbpqlrcozJB2enfmjp0qualJQw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Tswn5y/LoxdKAl8jUC9VvP3ryxW460G2u8qp1yBie8HVo2tDdqn9X74pVfEbbp7Co
- UW9dydCCooxhzNJE8Gt8a/StUJR/KBrWZVcPSqBu9wkq+6v5vYXatMekzUkxE/Wnwg
- JLNzbAs99jt35Um5uFo2a2sbz4ZE0OWUHEs6hEa75nlZQiF2NQ3w1J2tjNcd5/8SiD
- 9eOGiPZxYgDk1bmIYfpTC00ntqNoJmNVCsL0cKTiwAD9UKiFsh7mjuNDnrp1n7Rsyt
- svT9UTl56LznkO/IQT86nwcuoVhlTlits2YR3+RNCm6O2DlRAUyjBxNaE+np+oqHhu
- xqmNi+128wwYw==
+ b=dw/jGL3nnSEU4BMC/t+CayYx/P8K3KrpiqvfbWAZo1/qqfUH+SD7qRe2Vmwy0ZPBz
+ m+A7hF7QDm6PLLL+FyBKi+Ulf/lwRnLv/SeeekLW3rJRbSiY1OjKG6MiyR0vBbg9L7
+ bin+fcjFAyD+S2DhgOe49L5yvsz7hZR4U2fNnVYdx1+mhPmNCB2fnGHyRMPPmKnLRS
+ kMndzjFi1kL1ISiPssN3UjNV0ZdhTxWOhyIhSIudqcjlkk9DnNVzrSYQgoGj1GqO2G
+ jMgySKpaNPaje7Y4S0g/GRz11VOyjm5FLFyqmrcqisZshkMX2E0Hsx1934XX/IDLci
+ 8MBhE+cZZBNgg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.13 13/21] ASoC: ti: j721e-evm: Fix unbalanced domain
- activity tracking during startup
-Date: Tue, 27 Jul 2021 09:19:00 -0400
-Message-Id: <20210727131908.834086-13-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.13 14/21] ASoC: ti: j721e-evm: Check for not
+ initialized parent_clk_id
+Date: Tue, 27 Jul 2021 09:19:01 -0400
+Message-Id: <20210727131908.834086-14-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210727131908.834086-1-sashal@kernel.org>
 References: <20210727131908.834086-1-sashal@kernel.org>
@@ -84,58 +84,32 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Peter Ujfalusi <peter.ujfalusi@gmail.com>
 
-[ Upstream commit 78d2a05ef22e7b5863b01e073dd6a06b3979bb00 ]
+[ Upstream commit 82d28b67f780910f816fe1cfb0f676fc38c4cbb3 ]
 
-In case of an error within j721e_audio_startup() the domain->active must
-be decremented to avoid unbalanced counter.
+During probe the parent_clk_id is set to -1 which should not be used to
+array index within hsdiv_rates[].
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
-Link: https://lore.kernel.org/r/20210717122820.1467-2-peter.ujfalusi@gmail.com
+Link: https://lore.kernel.org/r/20210717122820.1467-3-peter.ujfalusi@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/ti/j721e-evm.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ sound/soc/ti/j721e-evm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/sound/soc/ti/j721e-evm.c b/sound/soc/ti/j721e-evm.c
-index a7c0484d44ec..017c4ad11ca6 100644
+index 017c4ad11ca6..265bbc5a2f96 100644
 --- a/sound/soc/ti/j721e-evm.c
 +++ b/sound/soc/ti/j721e-evm.c
-@@ -278,23 +278,29 @@ static int j721e_audio_startup(struct snd_pcm_substream *substream)
- 					  j721e_rule_rate, &priv->rate_range,
- 					  SNDRV_PCM_HW_PARAM_RATE, -1);
- 
--	mutex_unlock(&priv->mutex);
- 
- 	if (ret)
--		return ret;
-+		goto out;
- 
- 	/* Reset TDM slots to 32 */
- 	ret = snd_soc_dai_set_tdm_slot(cpu_dai, 0x3, 0x3, 2, 32);
- 	if (ret && ret != -ENOTSUPP)
--		return ret;
-+		goto out;
- 
- 	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		ret = snd_soc_dai_set_tdm_slot(codec_dai, 0x3, 0x3, 2, 32);
- 		if (ret && ret != -ENOTSUPP)
--			return ret;
-+			goto out;
+@@ -197,7 +197,7 @@ static int j721e_configure_refclk(struct j721e_priv *priv,
+ 		return ret;
  	}
  
--	return 0;
-+	if (ret == -ENOTSUPP)
-+		ret = 0;
-+out:
-+	if (ret)
-+		domain->active--;
-+	mutex_unlock(&priv->mutex);
-+
-+	return ret;
- }
- 
- static int j721e_audio_hw_params(struct snd_pcm_substream *substream,
+-	if (priv->hsdiv_rates[domain->parent_clk_id] != scki) {
++	if (domain->parent_clk_id == -1 || priv->hsdiv_rates[domain->parent_clk_id] != scki) {
+ 		dev_dbg(priv->dev,
+ 			"%s configuration for %u Hz: %s, %dxFS (SCKI: %u Hz)\n",
+ 			audio_domain == J721E_AUDIO_DOMAIN_CPB ? "CPB" : "IVI",
 -- 
 2.30.2
 

@@ -2,72 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 185203D7AA6
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 18:13:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E42873D7AE9
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 18:28:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B059F1F1E;
-	Tue, 27 Jul 2021 18:12:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B059F1F1E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A3751F1E;
+	Tue, 27 Jul 2021 18:27:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A3751F1E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627402396;
-	bh=8NvfuJawLzbM/fVF1eKVBvd0OVlOV+tspw22b+4ukNY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1627403293;
+	bh=ncLIb0pDQ9E1DaOJSw7SUhiHEa5M2QpPcTru5VD2mIw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DQgIqmjOyk+u6OTkLJKyeSxzJ4T19Z+ZvJZxfmf19zB33f+N86mgWQJHF0RP97P8B
-	 76dq4idtnRdSc0Ro8NHDMT/Zf26T70/6ehiclCdWx18KZskrXBv0EhP2Ddin/kypaH
-	 I2aW22ezN0rVAiBFNqquMSNM+bCG4DKyoDSSE5BM=
+	b=vBRmeFnjSUECW0Oh/BQNDU/kaJomTdPGrzo97hDoOHzGcWOCEUn5lwTOe9AWlsoKQ
+	 ZDuQSCT95o7djSi+WdgRVKddlz8smbh1jEedI3JMb7o7vs975uLzp5zl6bJ7bv8Oyi
+	 9E96HMEaOVpXFjKVHnRQFdwqfODx0AEXXTS670Kw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DCC1F80276;
-	Tue, 27 Jul 2021 18:11:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EAC66F80276;
+	Tue, 27 Jul 2021 18:26:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45895F8026C; Tue, 27 Jul 2021 18:11:48 +0200 (CEST)
+ id CAA32F8026C; Tue, 27 Jul 2021 18:26:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C94EEF80159
- for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 18:11:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C94EEF80159
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5A815F80212
+ for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 18:26:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A815F80212
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Xqa+fbPN"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0FEDA61B08;
- Tue, 27 Jul 2021 16:11:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1627402302;
- bh=8NvfuJawLzbM/fVF1eKVBvd0OVlOV+tspw22b+4ukNY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Xqa+fbPNxfGShpPstJU7hTPpS3PVcEgDtgCMvkg0BH2ldKXISaEIuuJK2xGDoztZb
- lGx7h1ngNiVBeO2zLX29X8HT3B3huMBnmgWaiuJv5JtQZK+15cuk3R0gM2AuvH1p7/
- ZhnUgn8CvUhn3d+axvNcSGywgjh/6W8D4JG87QvFYcQDhfP9hhVbc6miQPy5Bum5Vl
- qFXX97qDhzC+GKdZX9XWe8GgwMrZm/0BfVPKtGPXYybN1Cis/ubAGhp9hNqLiQGVB4
- lvFrSmDqc0CjrgfIcYrnCIsW0y5M7z2BGpSSjoGX1aHxoLORf+i8HeD+TXfdHTUd3B
- piTwYs3JCQObw==
-Date: Tue, 27 Jul 2021 17:11:33 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH v2 0/6] soundwire/ASoC: abstract platform-dependent bases
-Message-ID: <20210727161133.GY4670@sirena.org.uk>
-References: <20210723115451.7245-1-yung-chuan.liao@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="ECAkxgSy0pGoHfdA"
-Content-Disposition: inline
-In-Reply-To: <20210723115451.7245-1-yung-chuan.liao@linux.intel.com>
-X-Cookie: Vini, vidi, Linux!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, vinod.koul@linaro.org, tiwai@suse.de,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- pierre-louis.bossart@linux.intel.com, vkoul@kernel.org,
- sanyog.r.kale@intel.com, bard.liao@intel.com
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="gmlMHDev"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="fPi4NenG"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id B1F781FF23;
+ Tue, 27 Jul 2021 16:26:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1627403199; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=42qKF4A2qLSGbB3CAsnihdhJ6MJoy7ETPDv2arcMvEM=;
+ b=gmlMHDev9Tz+ZTv7wSsxqE74HYbKiJBhMVdv7Ps0LbGluOJ8FFhhtJcOO3umMOn8wYCfa4
+ Q6xLZNE34n5QKzkO7YRyI6awD3HdI4eckWn1aUmmZBFtV2tgastN7HvzVGx9oF1W7wdXwI
+ TejqmzLgkT4P1D1xX2YYaZSgm1smxTg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1627403199;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=42qKF4A2qLSGbB3CAsnihdhJ6MJoy7ETPDv2arcMvEM=;
+ b=fPi4NenG5vvFYdlafcicCTPHY5PKCfacrxfekTNkzS9LbL+wHz1Xl0fe3NCHoejPf1WSvK
+ rMttUrYaLV2DrmAA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id D2A6DA3BA7;
+ Tue, 27 Jul 2021 16:26:38 +0000 (UTC)
+Date: Tue, 27 Jul 2021 18:26:38 +0200
+Message-ID: <s5h35rzd8ox.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Alex Roberts <arob109@gmail.com>
+Subject: Re: ASoC/ALSA Out of Memory Issue
+In-Reply-To: <CAPkENw_qS2fgP02RAJgoQHM1ROoio6Km5=bGPhi2R+h4vJQ79w@mail.gmail.com>
+References: <CAPkENw_qS2fgP02RAJgoQHM1ROoio6Km5=bGPhi2R+h4vJQ79w@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, kernelnewbies@kernelnewbies.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,33 +91,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, 26 Jul 2021 17:07:52 +0200,
+Alex Roberts wrote:
+> 
+> Hello,
+> 
+> I am developing a dummy codec to interface with an 8-channel, 24-bit
+> ADC. I've got it working on an NXP imx8m through the fsl_sai driver on
+> kernel 5.4.85. I can capture all 8 channels at varying sample rates
+> using arecord, and I've verified correct data capture via opening the
+> resulting .wav file in Audacity. The problem I am having is that
+> occasionally, upon starting arecord - after a fresh power cycle - I
+> get an out of memory error. Other times I get an out of memory after a
+> non-deterministic period of capture. Starting capture again also
+> reports out of memory, but if I wait several minutes and start capture
+> it will start recording again. A power cycle usually helps, but as
+> stated earlier, not 100% of the time.
 
---ECAkxgSy0pGoHfdA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Do you mean that application gets -ENOMEM error from API, or the
+system exhausts the memory?  The former is often some buffer
+management issue (e.g. the buffer perallocation didn't happen and yet
+the dynamic allocation failed), but the latter is rather about the
+memory leaks.
 
-On Fri, Jul 23, 2021 at 07:54:45PM +0800, Bard Liao wrote:
-> shim base and alh base are platform-dependent. This series suggests
-> to use variables for those bases. It allows us to use different bases
-> for new platforms.
 
-The ASoC bits look fine to me, what't eh plan for merging this?  I can
-apply to ASoC if people like, or should the Soundwire bits go via the
-Soundwire tree?
+Takashi
 
---ECAkxgSy0pGoHfdA
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEAMDQACgkQJNaLcl1U
-h9CdKAf6AtOXcvqOdSyUtr2jdrGRPbpwr3waPLn4GDw04ZKgYdJrho0PBzAxlxaB
-d0EQAW4ObIVUvo6T7TdeLXmm4fmG2Vw1g3tWpBlRQCEy0LW0vr+SlIvRWf3HrUnd
-49125Ol3XCBcQOFtIY4EDnUsSeV77MZiY4O+vwHqMC16p4fYS17CMPfuw9dTrOEc
-rSm7F6KG7umoXFKegbHqEIp2x7eSPmYNI6EcfaIo6dMDVcHB5auiUo89pMZM3T/b
-c47Pgb3iDAiYXk8+qL+6A2Pd0p5CVmLVFG+JSP8GnJw3okpHw4IMdclRtRrEQj9G
-flvy6V2bpUwCWiHrGTI7U5X1SAw37w==
-=Wttv
------END PGP SIGNATURE-----
-
---ECAkxgSy0pGoHfdA--
+> I'm trying to track down where the oom error is coming from, but
+> haven't had much luck. My colleague tried running arecord with
+> valgrind to check for memory leaks and nothing of note was observed.
+> My suspicion is there's something going on with allocated memory for
+> DMA, like fragmentation starts to happen and it can't get a contiguous
+> region for operation. Reserving a larger pool - either via device tree
+> or kernel cmdline arguments in the bootoader - did not seem to help.
+> 
+> Another thought is that it's a boundary/alignment issue due to the
+> 24-bit data, and the error is the result of trying to allocate a chunk
+> of memory for DMA that doesn't align.
+> 
+> I'm very new to ALSA dev with some exposure to kernel dev in general,
+> so please correct me if I'm wrong or completely mis-understanding
+> something.
+> 
+> Any suggestions on where I should / how I can debug this memory error?
+> 
+> Thanks,
+> Alex.
+> 
+> PS: Previously sent this to just alsa-devel mailing list on 7/21, but
+> never saw it show up in the archives. Here is more info since then:
+> 
+> The goal is 8-channel, 96k sampling rate. I've reduced sampling rate
+> and still have the issue. Reducing down to 4-channels helps, but
+> haven't tested long term enough to evaluate by how much.
+> 
+> Narrowed it down to device_prep_dma_cyclic(..) returning NULL within
+> dmaengine_prep_dma_cyclic(..)..... still tracing through source to
+> learn exactly what is going on.
+> 

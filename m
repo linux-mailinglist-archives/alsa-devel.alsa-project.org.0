@@ -2,67 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B6F63D7874
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 16:27:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DA353D79D7
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jul 2021 17:33:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F0F41EF5;
-	Tue, 27 Jul 2021 16:26:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F0F41EF5
+	by alsa0.perex.cz (Postfix) with ESMTPS id B438A1F0C;
+	Tue, 27 Jul 2021 17:32:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B438A1F0C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627396050;
-	bh=1qyfoBucutD841N0qUjue3cFf0Pcjj+62jYOKQFZjmQ=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1627399979;
+	bh=qZESz2Li7SATc5n/S6HM1Gg3kMqcExVqNUr1UA+V4Wo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=em9dhdcFitDStAqRngVwXqqqHVXUclaEIsTB8lgxgpkKBERKFDkBjWqjSSx9OsTIR
-	 G8GZE1Fr+XMdnjWvjcn5Xu4CzKd2Q5bErm9niynDV4Ny9F+iL1kfSB2GAJhq2QW+eF
-	 /GnJDg84ZnbPLXicB2E05g7JVaWJwreZ/EQvYF4A=
+	b=YicKFgITdpNDP/OU3nXJrPRSXKF4tbS1Vf0sWBgD6Zf7XAMVy6CuOqTyZ/j10E7xH
+	 tUsVqfqpX2yCPknI1inDSQ7yHSh3+uAPaXBNB/XlyS6uY9p+hFWsESzqe0qZ8BbxvI
+	 N7knxeGHlI7ytnD3syUST8k6dKv0MgdfSPOCALuE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90CD7F8027C;
-	Tue, 27 Jul 2021 16:26:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3CFE9F80276;
+	Tue, 27 Jul 2021 17:31:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6D14EF80276; Tue, 27 Jul 2021 16:26:01 +0200 (CEST)
+ id A73B5F8026C; Tue, 27 Jul 2021 17:31:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0D89F80159
- for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 16:25:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0D89F80159
-X-IronPort-AV: E=McAfee;i="6200,9189,10057"; a="192731864"
-X-IronPort-AV: E=Sophos;i="5.84,273,1620716400"; d="scan'208";a="192731864"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2021 07:25:47 -0700
-X-IronPort-AV: E=Sophos;i="5.84,273,1620716400"; d="scan'208";a="417429101"
-Received: from pmdeshpa-mobl1.amr.corp.intel.com (HELO [10.212.27.2])
- ([10.212.27.2])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2021 07:25:46 -0700
-Subject: Re: [PATCH] soundwire: intel: trap TRIGGER_SUSPEND in .trigger
- callback
-To: Takashi Iwai <tiwai@suse.de>, Bard Liao <yung-chuan.liao@linux.intel.com>
-References: <20210727053256.29949-1-yung-chuan.liao@linux.intel.com>
- <s5h8s1sfevg.wl-tiwai@suse.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <a25d47a6-2599-7101-cd93-e5304b271948@linux.intel.com>
-Date: Tue, 27 Jul 2021 09:12:27 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.11.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 53C36F80212
+ for <alsa-devel@alsa-project.org>; Tue, 27 Jul 2021 17:31:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53C36F80212
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="VkFAJMuI"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9F61561AA9;
+ Tue, 27 Jul 2021 15:31:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1627399878;
+ bh=qZESz2Li7SATc5n/S6HM1Gg3kMqcExVqNUr1UA+V4Wo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=VkFAJMuIuJRLYWiWzNvJz7VNxdeVQIPKMdoaG2qK9DXZlL04OqSIsQvVdd1XhWtFP
+ cPCRA3jwLzDMfIOFaikQSGiUSgNAUN7MI5tR4yr5zA6sJuy1xKtfxNQypb+qroXjE9
+ gFNbjaLP7Em2MwJeYh48cBo/QBmS/a+6ky7jPV8VbdkXHjsxquSPSn54X13ufM0uCS
+ rFXE2McP4rVYhQVBrP3ZOwt4pagfPwNjmOq3GpkGlMUjfLLunnL8yqoNDvu+eALVSc
+ fqyyrfmTh9HY7oVTZQfjlw6POrdb66EuTIwr2S8TwQQ+aFigmtKvJBp4c3o2JGzY/7
+ MB/hhukbShm9Q==
+Date: Tue, 27 Jul 2021 16:31:08 +0100
+From: Mark Brown <broonie@kernel.org>
+To: David Rhodes <drhodes@opensource.cirrus.com>
+Subject: Re: [PATCH v4 2/2] ASoC: cs35l41: Add bindings for CS35L41
+Message-ID: <20210727153108.GU4670@sirena.org.uk>
+References: <20210726223438.1464333-1-drhodes@opensource.cirrus.com>
+ <20210726223438.1464333-3-drhodes@opensource.cirrus.com>
 MIME-Version: 1.0
-In-Reply-To: <s5h8s1sfevg.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org, vkoul@kernel.org,
- bard.liao@intel.com, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="BrzieSmlpF6NDzIw"
+Content-Disposition: inline
+In-Reply-To: <20210726223438.1464333-3-drhodes@opensource.cirrus.com>
+X-Cookie: Vini, vidi, Linux!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: robh@kernel.org, brian.austin@cirrus.com, ckeepax@opensource.cirrus.com,
+ patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ david.rhodes@cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,85 +83,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks Takashi for the review.
 
+--BrzieSmlpF6NDzIw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
->> This patch provides both a simplification of the suspend flows and a
->> better balanced operation during suspend/resume transition.
->>
->> The exiting code relies on a convoluted way of dealing with suspend
->> signals. Since there is no .suspend DAI callback, we used the
->> component .suspend and marked all the component DAI dmas as
->> 'suspended'. The information was used in the .prepare stage to
->> differentiate resume operations from xrun handling, and only
->> reinitialize SHIM registers and DMA in the former case.
->>
->> While this solution has been working reliably for about 2 years, there
->> is a much better solution consisting in trapping the TRIGGER_SUSPEND
->> in the .trigger DAI ops. The DMA is still marked in the same way for
->> the .prepare op to run, but in addition the callbacks sent to DSP
->> firmware are now balanced.
->>
->> Normal operation:
->> hw_params -> intel_params_stream
->> hw_free   -> intel_free_stream
->>
->> suspend    -> intel_free_stream
->> prepare    -> intel_params_stream
->>
->> This balanced operation was not required with existing SOF firmware
->> relying on static pipelines instantiated at every boot. With the
->> on-going transition to dynamic pipelines, it's however a requirement
->> to keep the use count for the DAI widget balanced across all
->> transitions.
-> 
-> The trigger callback is handled in the stream lock atomically, and are
-> you sure that you want to operate a possibly heavy task there?
+On Mon, Jul 26, 2021 at 05:34:38PM -0500, David Rhodes wrote:
 
-It's a good objection that we didn't think of.
+> +  cirrus,right-channel-amp:
+> +    description:
+> +      Boolean to determine which channel
+> +      the amplifier is to receive the audio data on. If present the
+> +      amplifier receives data on the right channel of I2S data.
+> +      If not present the amplifier receives data on the left
+> +      channel of I2S data
+> +    type: boolean
 
-I guess it depends on the definition of 'heavy' and what is acceptable
-in such a 'trigger' context.
+Does this need to be in the DT or could it be a runtime control (eg, for
+a system that supports being rotated to adjust which speaker things go
+out of).
 
-The intel_free_stream() routine only sends an IPC to the firmware to
-release the DMA resources. It doesn't perform any memory allocation
-tasks at the kernel level, it only sends information to the firmware
-that the DMA can be stopped/released. We could trace how much time that
-really means but I don't expect it to be 'long'. I also don't think the
-IPC waits for the DMA to be actually stopped/released, the IPC completes
-when the message is acknowledged with the doorbell registers (I will
-double-check this point).
+> +  cirrus,amp-gain-zc:
+> +    description:
+> +      Boolean to determine whether to use the amplifier
+> +      gain-change zero-crossing feature. If the feature is enabled, any
+> +      user-controlled amplifier gain change will occur on a zero-crossing point.
+> +      (Default) Disabled
+> +    type: boolean
 
-It's really similar to all the existing IPCs sent in trigger context, we
-already send an IPC for ALL trigger commands such as
-START/STOP/PAUSE_PUSH/PAUSE_RELEASE. see e.g. sof_pcm_trigger() in
-sound/soc/sof/pcm.c
+This is usually a runtime control too.  This applies to a bunch of the
+properties TBH.
 
-What is needed for dynamic pipelines is the ability to deal with
-suspend-resume, so we would send IPCs in those cases as well.
+> +  cirrus,classh-bst-overide:
+> +    description:
+> +      Boolean which will disable Class H tracking and
+> +      set Boost voltage to the value in the 'boost-ctl-millivolt' property
+> +    type: boolean
+> +  cirrus,classh-bst-max-limit:
+> +    description:
+> +      Value set to the BST_CTL_LIM_EN field.
 
-That said, it's true that we marked all the FE dailinks as nonatomic
-precisely because they would involve IPCs, but here we are dealing with
-BE dailinks that are typically thought of as 'atomic'. Just thinking
-aloud, maybe we need to tag all those dailinks as 'nonatomic' as well?
+At some point in the file we stop having a blank line between the
+properties.
 
-> If it's just for releasing before re-acquiring a stream, you can do it
-> in sync_stop PCM ops instead, too.  This is called in prior to prepare
-> and hw_params ops when a stream has been stopped or suspended
-> beforehand.
+> +required:
+> +  - compatible
+> +  - cirrus,boost-peak-milliamp
+> +  - cirrus,boost-ind-nanohenry
+> +  - cirrus,boost-cap-microfarad
 
-Humm, I must admit I have never heard of this sync_stop routine :-)
+The driver has regulator support but there's no regulator properties
+documented anywhere in the binding document.
 
-It's not exposed as a DAI callback, I only see this exposed at the
-component level. That wouldn't be too helpful, the existing solution was
-based on using the suspend at the component level, which was a bit of a
-hack - we marked all component DAIs as suspended, including the ones
-that were never started.
+--BrzieSmlpF6NDzIw
+Content-Type: application/pgp-signature; name="signature.asc"
 
-The idea of using the DAI seems much better to me, we don't need to
-track which DAI is started or not, just use the pointer passed by higher
-layers.
+-----BEGIN PGP SIGNATURE-----
 
-Anyways, thanks for the feedback, that gave us a lot of things to think
-about.
--Pierre
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEAJrsACgkQJNaLcl1U
+h9D9bwf6AyJb60vLtROnnuA2F8E1uHDs9QP5lkZtDRlzW+71AdMvrk0fEG2OiMsZ
+gFyTzFwbEddKWWDdm0Io6yVmJgP5gl7eLWYD8J7rNfCGfAW9sl4yzDoEgfALlbe6
+TbN4/w3pX5VH2lr7PgF35SGGWf3guNprFw/o3Kv+UIq3lieGCxc7MX60QHY2QXh5
+EeMCRUIcJdKJ8llbujb0GiMjnm46gg2HHO9HwAOqpfl5enNhS/W7VnQ5YJlMEo7g
+xL7xkYxaN6AXP+g2JiiCjOlTMOiNTGdf6Rx7ShiSZf9HHDsQdQUyymuxtSk+WfrJ
+sOTnAKLhBewvm7Ftxs+NG4v2C7ylsg==
+=d14o
+-----END PGP SIGNATURE-----
+
+--BrzieSmlpF6NDzIw--

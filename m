@@ -2,74 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 984ED3D92E8
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Jul 2021 18:11:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C71D3D93CB
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Jul 2021 19:04:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2BCCE1FE5;
-	Wed, 28 Jul 2021 18:10:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BCCE1FE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F8D81FCD;
+	Wed, 28 Jul 2021 19:03:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F8D81FCD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627488694;
-	bh=kyZ1KJI1rvCVsOwDl/SsgMb6gh5MhG+3LuR4pAcoLeo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1627491869;
+	bh=fvg7qLz3gXAFQwZQxVak921OFSLOmpDASaSRnBpvenI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Y2ZmXc3Uefm8y07i2zUprMhUGNA22vg2G7umW0Z9zZNf7ZwL4Gh6/MHPWBGb4aKpZ
-	 QZbuA9L0xc/knLU4i55AARcvTqVbuJ9J4SV3SpgmZL1CaHcpetWPeOBnLwWBclqR45
-	 CG7nv/vPHTkMKY3zooJa6RUjJSso+K15AHJhZNjY=
+	b=L2+c7UDDW6pcyQmirxxWElQShAYuV1u8m2ySUtDGNzMmmqQELYMu618TvfzPLqFMP
+	 Z0EeXPDQ3QYdTxC2IsnUNtP0L8ujO/nMWo4uPnI+ERPDTRZ3brszK2b4635t5rdlgm
+	 0PfSSSDLoDNP3xGjw7+zGU2/6vaK5YENCf1Jg8FI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85D39F80212;
-	Wed, 28 Jul 2021 18:10:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B0180F80253;
+	Wed, 28 Jul 2021 19:03:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F350EF80253; Wed, 28 Jul 2021 18:10:04 +0200 (CEST)
+ id 023CBF8025A; Wed, 28 Jul 2021 19:02:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94474F8020D
- for <alsa-devel@alsa-project.org>; Wed, 28 Jul 2021 18:10:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94474F8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6CA0EF8020D
+ for <alsa-devel@alsa-project.org>; Wed, 28 Jul 2021 19:02:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CA0EF8020D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="bctTfQbg"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 944C76069E;
- Wed, 28 Jul 2021 16:09:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1627488599;
- bh=kyZ1KJI1rvCVsOwDl/SsgMb6gh5MhG+3LuR4pAcoLeo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=bctTfQbg6hhb45zejSKPM4EF4dwPXO9LmNNOcrSt74XQvCzmdxv2i57aZcTxZMdxh
- sIM23GgU/BkCtIS4bbsYGhOu/51wLbcRW+jKBuwG5ZICo8rzPiE81875mhGPTe+Q/W
- +r40gkbKslFaM1hy2s6rHv1/MpF++EckGvLxdjHDwYYw93Xd4n6Ko4whhY9yisvLlj
- gl33LtCmHmOfiY+uCEZAz3W8lZKrEm1OgQRUqpcfFByLyyfTgI6MThsO2xrVpvynhH
- IZFRzHeceysjvbed3exCnN7vzzIlK+5PsXnmXHW1NxUr9J4Dg6mQaXXomPqNK8B9Kz
- ViYYughdvLrbA==
-Date: Wed, 28 Jul 2021 17:09:48 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: dapm: Revert "use component prefix when checking
- widget names"
-Message-ID: <20210728160948.GE4670@sirena.org.uk>
-References: <20210703125034.24655-1-rf@opensource.cirrus.com>
- <20210705165041.GC4574@sirena.org.uk>
- <a882a9e0-db05-2f89-abb9-8b308ccb56c8@opensource.cirrus.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Vx/N56bIaYnO6ICL"
-Content-Disposition: inline
-In-Reply-To: <a882a9e0-db05-2f89-abb9-8b308ccb56c8@opensource.cirrus.com>
-X-Cookie: Vini, vidi, Linux!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
- shumingf@realtek.com, rander.wang@linux.intel.com
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="JMbfmhJo"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="LlDdUEIv"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 34A641FFD5;
+ Wed, 28 Jul 2021 17:02:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1627491772; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=4QcA1ooDxwwNFuX8+dVEvEspFGMcPAidGM3W6dbV2E4=;
+ b=JMbfmhJoE6gBX0kxF0oMg90xIg55UAl+kkl8+R6BD+vhNfYfEzSFtaS8I5SlhdDt0ZdiVM
+ xLqN+nV1xuFg3Ecxv6Nabc7gKMba/bBZarW0JMw9tqfg/Mg34qP0gH6nQ+LEHFiIbP6MNb
+ ATfoaUkpKykkAtNiVFQNmJKnWwx7j3c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1627491772;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=4QcA1ooDxwwNFuX8+dVEvEspFGMcPAidGM3W6dbV2E4=;
+ b=LlDdUEIvOi+R3izif9mgh+OlAKA0mdC59EPd/dQc9vj1KiBaIgMEaemOUp/PqvJbgLkIGT
+ 34Lqj/d761QdbCAw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 992D5A3B84;
+ Wed, 28 Jul 2021 17:02:51 +0000 (UTC)
+Date: Wed, 28 Jul 2021 19:02:51 +0200
+Message-ID: <s5h7dhabcck.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Alexander Monakov <amonakov@ispras.ru>
+Subject: Re: [PATCH] ALSA: hda/realtek: add mic quirk for Acer SF314-42
+In-Reply-To: <20210721170141.24807-1-amonakov@ispras.ru>
+References: <20210721170141.24807-1-amonakov@ispras.ru>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Chris Chiu <chris.chiu@canonical.com>, Jian-Hong Pan <jhp@endlessos.org>,
+ Kailang Yang <kailang@realtek.com>, alsa-devel@alsa-project.org,
+ Jeremy Szu <jeremy.szu@canonical.com>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Hui Wang <hui.wang@canonical.com>,
+ PeiSen Hou <pshou@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,39 +96,90 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 21 Jul 2021 19:01:41 +0200,
+Alexander Monakov wrote:
+> 
+> The Acer Swift SF314-42 laptop is using Realtek ALC255 codec. Add a
+> quirk so microphone in a headset connected via the right-hand side jack
+> is usable.
+> 
+> Signed-off-by: Alexander Monakov <amonakov@ispras.ru>
+> Cc: Jaroslav Kysela <perex@perex.cz>
+> Cc: Takashi Iwai <tiwai@suse.com>
+> Cc: Hui Wang <hui.wang@canonical.com>
+> Cc: Kailang Yang <kailang@realtek.com>
+> Cc: Jeremy Szu <jeremy.szu@canonical.com>
+> Cc: Jian-Hong Pan <jhp@endlessos.org>
+> Cc: Chris Chiu <chris.chiu@canonical.com>
+> Cc: PeiSen Hou <pshou@realtek.com>
+> Cc: alsa-devel@alsa-project.org
+> ---
+> Hello,
+> 
+> Acer Swift SF314-42 laptop is using AMD Ryzen SoC audio with Realtek
+> ALC255 codec. The are three ALSA cards: HDMI audio, AMD ACP card, and
+> AMD HDA card. There is an internal stereo microphone connected to the
+> ACP card, and a mini-jack connected to the Realtek codec. There are no
+> LEDs.
+> 
+> I'd like to be able to use a mic+headphones headset. Unfortunately, out
+> of the box ALSA does not correctly detect the microphone input of the
+> Realtek codec.  The suggested patch fixes that, though I cannot be sure
+> it's 100% correct.
+> 
+> With the patch, the experience is unfortunately still not ideal. I have
+> noticed a couple of issues:
+> 
+> 1) at high enough gain, recording the microphone is picking up what is
+> being played via the headphones; maybe it's supposed to be like that,
+> but it surprised me;
 
---Vx/N56bIaYnO6ICL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Hrm, that doesn't sound right.  Some internal loopback in the codec?
+Dunno.  It doesn't pick up the sound physically, right?
 
-On Thu, Jul 22, 2021 at 10:55:23AM +0100, Richard Fitzgerald wrote:
+> 2) there is a very noticeable "pop" when plugging the headset in/out,
+> accompanied by
+> 
+> pcieport 0000:00:08.1: PME: Spurious native interrupt!
+> pcieport 0000:00:08.1: PME: Spurious native interrupt!
+> 
+> in dmesg. I'd appreciate info and any help about this issue.
 
-> I don't mind if someone wants to change the core dapm functions if that
-> is generally useful, providing that it also updates all callers of those
-> functions to still work.
+The pop noise is often a thing with the codec and there are a bunch of
+different workarounds found in the driver.  But the spurious interrupt
+is more worrisome.  Is the PCI slot corresponding to the HD-audio
+controller?
 
-> Changing the behaviour of core code to fix the Realtek driver without
-> updating other callers of those functions is a problem.
+As of now, I'm inclined to take your patch as is, at least as a
+first-aid workaround.  Let's see whether we get a better development
+soonish.
 
-The thing here is that nobody would have thought that that any caller
-would have been open coding this stuff like the component things were,
-it's simply the wrong abstraction level to be implementing something
-like this so people wouldn't think of auditing the callers to find uses
-which might notice that prefixing suddenly worked.
 
---Vx/N56bIaYnO6ICL
-Content-Type: application/pgp-signature; name="signature.asc"
+thanks,
 
------BEGIN PGP SIGNATURE-----
+Takashi
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEBgUsACgkQJNaLcl1U
-h9BMgQf+PalyhGjExV/oRAmKS31UCcBtye8lKsXrMc+XX4t3uWdkNkEXB/Sw1HDb
-vmWb46mGawRE/nQvNCYFCSh2NmSVL7lz0dGvTY72/X7TEhkVx8ceFoq/VL1m8NBM
-eXBPu2ww5VI8i02FYPo6s/DLnA9JHhKqFZZZq6PGTZy1fAUeCqYZFoMMSAchNle4
-LxDh5tO134EG151LJFTBCFKQFJsYxSW1nhznw/a9MqOnpcxacCsGzDSpGHmZ6/bm
-9bLxojsH60Bfw9HhDMvUYLmznpz8uBPgr2CB21dXhQWCioAKwzv8ufol7GMTWBhD
-RX/6urs3NmTgXmi0ICbce5MlQFlsgw==
-=sHcF
------END PGP SIGNATURE-----
-
---Vx/N56bIaYnO6ICL--
+> 
+> Thanks.
+> Alexander
+> 
+>  sound/pci/hda/patch_realtek.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index ab5113cccffa..87ad8469dbc5 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -8191,6 +8191,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+>  	SND_PCI_QUIRK(0x1025, 0x1308, "Acer Aspire Z24-890", ALC286_FIXUP_ACER_AIO_HEADSET_MIC),
+>  	SND_PCI_QUIRK(0x1025, 0x132a, "Acer TravelMate B114-21", ALC233_FIXUP_ACER_HEADSET_MIC),
+>  	SND_PCI_QUIRK(0x1025, 0x1330, "Acer TravelMate X514-51T", ALC255_FIXUP_ACER_HEADSET_MIC),
+> +	SND_PCI_QUIRK(0x1025, 0x142b, "Acer Swift SF314-42", ALC255_FIXUP_ACER_MIC_NO_PRESENCE),
+>  	SND_PCI_QUIRK(0x1025, 0x1430, "Acer TravelMate B311R-31", ALC256_FIXUP_ACER_MIC_NO_PRESENCE),
+>  	SND_PCI_QUIRK(0x1025, 0x1466, "Acer Aspire A515-56", ALC255_FIXUP_ACER_HEADPHONE_AND_MIC),
+>  	SND_PCI_QUIRK(0x1028, 0x0470, "Dell M101z", ALC269_FIXUP_DELL_M101Z),
+> 
+> base-commit: 62fb9874f5da54fdb243003b386128037319b219
+> -- 
+> 2.31.1
+> 

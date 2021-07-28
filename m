@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EEB63D9977
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jul 2021 01:31:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4313C3D9971
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jul 2021 01:30:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3F861F73;
-	Thu, 29 Jul 2021 01:30:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3F861F73
+	by alsa0.perex.cz (Postfix) with ESMTPS id E247B1F5D;
+	Thu, 29 Jul 2021 01:29:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E247B1F5D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627515068;
-	bh=jKs2vwb9o0xiN7GQKe677wZ1TLjF+DReuPPA1627SKg=;
+	s=default; t=1627515021;
+	bh=O+//6IJ/VPQ62CUgWxVD82JUZheq3ea8zHr1YC2khU4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jE5ZAp//x81sbCLBYtfPD9RoWaivS/fRJFk2IU8tlFmtMlvxL+VrWUp0uLfpExB26
-	 UOs57q5hLIf/sLVrpsH4z0Nti5JQHfTooOeubRGJstciNaOVvY8V7RoUy7nFhjTND4
-	 yavAPdBsfhuE9NAVdy6GZNWmmq4Sn3V+SaonYUPs=
+	b=KtofhLLHhrxQ1DjlWWKdtG5y6rI7XR3LiitQ4aCE1tmE2NSnuLAAxp9Xq9kGBvGQ1
+	 xyKcZXsniROYyescVZi8uS3Wp+dqIJHnTeghHTNeppYWaBSMwL8sQsMPMQWvm8H2N4
+	 XjG/DnWzy9vMRge0lwIW79daDJNfFgwlu18NtweM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D241F804E3;
-	Thu, 29 Jul 2021 01:29:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 26F56F8049E;
+	Thu, 29 Jul 2021 01:28:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5FA43F80212; Thu, 29 Jul 2021 01:28:21 +0200 (CEST)
+ id 2CBCEF802A9; Thu, 29 Jul 2021 01:28:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E3DB4F80127
- for <alsa-devel@alsa-project.org>; Thu, 29 Jul 2021 01:28:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3DB4F80127
+ by alsa1.perex.cz (Postfix) with ESMTPS id A29D8F80127
+ for <alsa-devel@alsa-project.org>; Thu, 29 Jul 2021 01:28:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A29D8F80127
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fCz5915o"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5392F61039;
- Wed, 28 Jul 2021 23:28:15 +0000 (UTC)
+ header.b="JQRw58bj"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 040DF6101B;
+ Wed, 28 Jul 2021 23:28:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1627514895;
- bh=jKs2vwb9o0xiN7GQKe677wZ1TLjF+DReuPPA1627SKg=;
+ s=k20201202; t=1627514898;
+ bh=O+//6IJ/VPQ62CUgWxVD82JUZheq3ea8zHr1YC2khU4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fCz5915orU5hvygX87AGjmlSVI++7uSL3g0dV5MZ57maKXHPG/DcF6vQKy+ZlDZbv
- 4+KT16bFNpGYkT9c9wuAunMVQORbcmeKaVhSJ+ephy/vpAoznDnqx6/OKZzAcage2j
- Irt0soX1fLgTHAm2tKVOtX06dsUZVa5JblABwo9pDDxfzSmXT2WQxEAYm/BpHP/0kG
- kwmuhaqmdcPVRpiwsCcFYwkVrReAOzaAo9GDNIOSjzZ4N9vKME2ivSiSFzPcLQzVDt
- qJCVpnEKPDBcrxSSULYYpQdyCMm3djFGHjAT4jYhxvgTJnaJXK06s+Cb6kQbNFQwmF
- c+9ipdflznJ0g==
+ b=JQRw58bjtYCNMizbYEe/o+pyprfdExpIxGQFN8yiWlY/viVeE9z5mPuo7P9AbOf12
+ DmSP8aCGhgGnPH97bGg58DnLnLoTJbMRDyYomYKzdqbdHZp6d5jGwyLCILSYTPpJlu
+ 5haPpcGiN60gzdNNgqJmLvTpfkFiXVk0LZQxflLDdLhKbXKrck5aZTa+0nIeZfP91H
+ Nkcdy9QrP/WQw+eYNC7rj5MOSrvUWKwegmGcywAf54m3brX0L8Ad08OPNU8p4mZhKj
+ fMTJrID7/Lvu3Ki+RYc2ly7qnbfLdBliMEpe3fdMVEm97IVcp95vGjoXuW2XbAJxPv
+ YgovX1W/vvg0A==
 From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Subject: Re: [PATCH] MAINTAINERS: Add sound devicetree bindings for Wolfson
- Micro devices
-Date: Thu, 29 Jul 2021 00:27:54 +0100
-Message-Id: <162751391068.10122.4445316157453147618.b4-ty@kernel.org>
+To: Jie Yang <yang.jie@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Jaroslav Kysela <perex@perex.cz>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Colin King <colin.king@canonical.com>, alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ASoC: Intel: Fix spelling contraction "cant" -> "can't"
+Date: Thu, 29 Jul 2021 00:27:55 +0100
+Message-Id: <162751391069.10122.6012833198246486438.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210727164948.4308-1-rf@opensource.cirrus.com>
-References: <20210727164948.4308-1-rf@opensource.cirrus.com>
+In-Reply-To: <20210728103602.171817-1-colin.king@canonical.com>
+References: <20210728103602.171817-1-colin.king@canonical.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
+Cc: Mark Brown <broonie@kernel.org>, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,12 +84,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 27 Jul 2021 17:49:48 +0100, Richard Fitzgerald wrote:
-> Include all wm* sound bindings in the section for Wolfson Micro
-> drivers. This section already includes the actual driver source
-> files.
-> 
-> Also update the existing entry to match all wlf,* sound bindings.
+On Wed, 28 Jul 2021 11:36:02 +0100, Colin King wrote:
+> There is a spelling mistake in a dev_err message. Fix it.
 
 Applied to
 
@@ -93,8 +93,8 @@ Applied to
 
 Thanks!
 
-[1/1] MAINTAINERS: Add sound devicetree bindings for Wolfson Micro devices
-      commit: 830b69f6c059bc46451e7c4be8b796d483acb0bd
+[1/1] ASoC: Intel: Fix spelling contraction "cant" -> "can't"
+      commit: 0f6b04adb58d80e7fb5f8d9229ad22c9931c3bd1
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

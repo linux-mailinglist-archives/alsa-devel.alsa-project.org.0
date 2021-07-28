@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4313C3D9971
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jul 2021 01:30:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24B073D9974
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jul 2021 01:30:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E247B1F5D;
-	Thu, 29 Jul 2021 01:29:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E247B1F5D
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8FCE1F62;
+	Thu, 29 Jul 2021 01:30:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8FCE1F62
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627515021;
-	bh=O+//6IJ/VPQ62CUgWxVD82JUZheq3ea8zHr1YC2khU4=;
+	s=default; t=1627515055;
+	bh=aCPvxUVC7sC7xkD083hqVMmZpqx0oNjLQU9EOelj4C8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KtofhLLHhrxQ1DjlWWKdtG5y6rI7XR3LiitQ4aCE1tmE2NSnuLAAxp9Xq9kGBvGQ1
-	 xyKcZXsniROYyescVZi8uS3Wp+dqIJHnTeghHTNeppYWaBSMwL8sQsMPMQWvm8H2N4
-	 XjG/DnWzy9vMRge0lwIW79daDJNfFgwlu18NtweM=
+	b=qH9I1uXMI+t4YUDM0p3yZ9P96zmlNibZTCD36M23sZ7p1L9eOJWcBJHzmu9ry7iYt
+	 Ewsbc+86UZDrtQc7WteESA4Ga9gdvK1vSzZ4gx76xBvshwQQndZxcooN2OHSBKsT0i
+	 Zk2N1dHmy8z++50xgj1avmmLwz4JdLxKKXxr+gwE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26F56F8049E;
-	Thu, 29 Jul 2021 01:28:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71258F804DF;
+	Thu, 29 Jul 2021 01:28:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2CBCEF802A9; Thu, 29 Jul 2021 01:28:26 +0200 (CEST)
+ id 9F3ECF8025E; Thu, 29 Jul 2021 01:28:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,42 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A29D8F80127
- for <alsa-devel@alsa-project.org>; Thu, 29 Jul 2021 01:28:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A29D8F80127
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18A6AF80253
+ for <alsa-devel@alsa-project.org>; Thu, 29 Jul 2021 01:28:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18A6AF80253
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JQRw58bj"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 040DF6101B;
- Wed, 28 Jul 2021 23:28:17 +0000 (UTC)
+ header.b="T7iS53jp"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8E85461040;
+ Wed, 28 Jul 2021 23:28:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1627514898;
- bh=O+//6IJ/VPQ62CUgWxVD82JUZheq3ea8zHr1YC2khU4=;
+ s=k20201202; t=1627514901;
+ bh=aCPvxUVC7sC7xkD083hqVMmZpqx0oNjLQU9EOelj4C8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JQRw58bjtYCNMizbYEe/o+pyprfdExpIxGQFN8yiWlY/viVeE9z5mPuo7P9AbOf12
- DmSP8aCGhgGnPH97bGg58DnLnLoTJbMRDyYomYKzdqbdHZp6d5jGwyLCILSYTPpJlu
- 5haPpcGiN60gzdNNgqJmLvTpfkFiXVk0LZQxflLDdLhKbXKrck5aZTa+0nIeZfP91H
- Nkcdy9QrP/WQw+eYNC7rj5MOSrvUWKwegmGcywAf54m3brX0L8Ad08OPNU8p4mZhKj
- fMTJrID7/Lvu3Ki+RYc2ly7qnbfLdBliMEpe3fdMVEm97IVcp95vGjoXuW2XbAJxPv
- YgovX1W/vvg0A==
+ b=T7iS53jp8DkySFkh75HpDk4O/YQBWCGhGMBQwjBM/CrZSCaxX6Ld+vvwWinxjgzn7
+ 2YnZumMAZ8SO52JEl/46oLx9Y2LgkWHVoSnyUNX61jULnMAe9tAs4YF6vXeR9HtwiL
+ bOBQHYfzq6Mbgfj2bwxDccU05tEmk1KWtHOkmApVITAyr8iRBndCk2ryQx8tk8UFMz
+ OEPlQ/559MpHxBtUxyk7WGg7nNjeVeUQEeDC0hvbMrMJzxhbmsUltkGE+8DBkarxMu
+ WXKkqCTu4nG7021CMsRB2cB9C+1OrNCgFNDOd8ZFYRSPUWCou5NhQzSIJ2ycaLfcXq
+ wgbGiOz18QuCQ==
 From: Mark Brown <broonie@kernel.org>
-To: Jie Yang <yang.jie@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
- Jaroslav Kysela <perex@perex.cz>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Colin King <colin.king@canonical.com>, alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ASoC: Intel: Fix spelling contraction "cant" -> "can't"
-Date: Thu, 29 Jul 2021 00:27:55 +0100
-Message-Id: <162751391069.10122.6012833198246486438.b4-ty@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH] ASoC: component: Remove misplaced prefix handling in pin
+ control functions
+Date: Thu, 29 Jul 2021 00:27:56 +0100
+Message-Id: <162751391069.10122.272051946830261204.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210728103602.171817-1-colin.king@canonical.com>
-References: <20210728103602.171817-1-colin.king@canonical.com>
+In-Reply-To: <20210726194123.54585-1-broonie@kernel.org>
+References: <20210726194123.54585-1-broonie@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Cc: Richard Fitzgerald <rf@opensource.cirrus.com>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,8 +80,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 28 Jul 2021 11:36:02 +0100, Colin King wrote:
-> There is a spelling mistake in a dev_err message. Fix it.
+On Mon, 26 Jul 2021 20:41:23 +0100, Mark Brown wrote:
+> When the component level pin control functions were added they for some
+> no longer obvious reason handled adding prefixing of widget names. This
+> meant that when the lack of prefix handling in the DAPM level pin
+> operations was fixed by ae4fc532244b3bb4d (ASoC: dapm: use component
+> prefix when checking widget names) the one device using the component
+> level API ended up with the prefix being applied twice, causing all
+> lookups to fail.
+> 
+> [...]
 
 Applied to
 
@@ -93,8 +97,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: Fix spelling contraction "cant" -> "can't"
-      commit: 0f6b04adb58d80e7fb5f8d9229ad22c9931c3bd1
+[1/1] ASoC: component: Remove misplaced prefix handling in pin control functions
+      commit: 31428c78748cafdd9352e1f622eb89bf453d9700
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

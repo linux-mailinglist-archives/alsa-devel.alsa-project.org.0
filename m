@@ -2,99 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E1AE3D95B4
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Jul 2021 21:01:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3D993D965A
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Jul 2021 22:05:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B11171F8C;
-	Wed, 28 Jul 2021 21:00:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B11171F8C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 498641F70;
+	Wed, 28 Jul 2021 22:04:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 498641F70
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627498875;
-	bh=4AUj/P74xLSZ3g3esxKV9im5ZPtykrH/XtqjcDS1yIM=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1627502728;
+	bh=cvg6iF0ciHn4ceflNy/SW3Ujw8uBFV1qqmlzCW0GonI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jtE8xqQv4gyyPHhm0SvS/qpeUlbeY2AOdps+RO5DLlhx3wTUGdMUpzWeeVW2W0Dmz
-	 PFmyTpKGFWxiBSpnlF0ROpt+exBLMsyfLZqsLl6cxXjCc6gW1onn6twOLRNII/JAgo
-	 rF+B7lQvy/ksv+6UqA2L9zt08SJBjamDMvIHdOlo=
+	b=nDcINXRZdFbuIaBJv1W+8uxTswl23s0dbwNM/4K37mhTjBjP9NFGKUcKbAGEqqD05
+	 eboBybh7x3hL1h85MLuuyOnwO1Y4v/OJd9cD0gyyKffXXE7KfJUZvmc6Mpy1qauk4D
+	 fORkju0fuwTt7v0hhJVrZ8ugAkS3G13KvLoIsC/U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 289A2F80127;
-	Wed, 28 Jul 2021 20:59:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 88B55F8025E;
+	Wed, 28 Jul 2021 22:04:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CB547F8025A; Wed, 28 Jul 2021 20:59:46 +0200 (CEST)
+ id 28567F8025A; Wed, 28 Jul 2021 22:03:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 46FFEF80127
- for <alsa-devel@alsa-project.org>; Wed, 28 Jul 2021 20:59:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46FFEF80127
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="RI5Z9RwJ"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 16SArwea015791; 
- Wed, 28 Jul 2021 13:59:40 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=EGSW0TwfIT+GMxavIP78M2ErEcV0sbtlNTgmieySSak=;
- b=RI5Z9RwJz2wSoIcwio8LhoCnsQHohf01Mp4ZF/5fFrmu1NlVxQr3MHfcXHppJidIzEjN
- dNTbrmikP35AwDdDBD3jKyxt4slXLhl4Se+TT31VApGymMAxLcuhpJTwkLzFbr8plhfq
- Ozs7c+LAYo6f+/QUPAYaY6FJQcu3cKshiX75LmrQdqv8Hbf6NLq7c6dh23BALEweKEi+
- 9TbApERBPgNtljCp+zHV4Ib2qeBTsAXchwPFYvqmO9FAX+11JBAaR7p9jc14REkhn3iO
- VUktebKqwcDvbafANYqxp6veLEYDrb7mHFzvn867ArmbAfscvAEl9r84F2DsbPi0mIe5 Rw== 
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com with ESMTP id 3a30q20usw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 28 Jul 2021 13:59:39 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Wed, 28 Jul
- 2021 19:29:30 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
- Transport; Wed, 28 Jul 2021 19:29:30 +0100
-Received: from [10.0.2.15] (AUSNPC0LSNW1.ad.cirrus.com [198.61.65.56])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 57B7A2BA;
- Wed, 28 Jul 2021 18:29:30 +0000 (UTC)
-Subject: Re: [PATCH] ASoC: dapm: Revert "use component prefix when checking
- widget names"
-To: Mark Brown <broonie@kernel.org>
-References: <20210703125034.24655-1-rf@opensource.cirrus.com>
- <20210705165041.GC4574@sirena.org.uk>
- <a882a9e0-db05-2f89-abb9-8b308ccb56c8@opensource.cirrus.com>
- <20210728160948.GE4670@sirena.org.uk>
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-Message-ID: <a59d60bf-6bbc-c65f-bd77-2b1bc98b0d22@opensource.cirrus.com>
-Date: Wed, 28 Jul 2021 19:29:30 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id AA3D3F8020D
+ for <alsa-devel@alsa-project.org>; Wed, 28 Jul 2021 22:03:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA3D3F8020D
+Received: from monopod.intra.ispras.ru (unknown [10.10.3.121])
+ by mail.ispras.ru (Postfix) with ESMTPS id 6F2F340755F2;
+ Wed, 28 Jul 2021 20:03:45 +0000 (UTC)
+Date: Wed, 28 Jul 2021 23:03:45 +0300 (MSK)
+From: Alexander Monakov <amonakov@ispras.ru>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH] ALSA: hda/realtek: add mic quirk for Acer SF314-42
+In-Reply-To: <s5h7dhabcck.wl-tiwai@suse.de>
+Message-ID: <alpine.LNX.2.20.13.2107282230090.20403@monopod.intra.ispras.ru>
+References: <20210721170141.24807-1-amonakov@ispras.ru>
+ <s5h7dhabcck.wl-tiwai@suse.de>
+User-Agent: Alpine 2.20.13 (LNX 116 2015-12-14)
 MIME-Version: 1.0
-In-Reply-To: <20210728160948.GE4670@sirena.org.uk>
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: MQqvYS1TpwSz0d8KkpV4ovc0L2R-oIS4
-X-Proofpoint-GUID: MQqvYS1TpwSz0d8KkpV4ovc0L2R-oIS4
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- bulkscore=0 mlxscore=0
- lowpriorityscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- adultscore=0 clxscore=1015 spamscore=0 mlxlogscore=519 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2107140000
- definitions=main-2107280109
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
- shumingf@realtek.com, rander.wang@linux.intel.com
+Content-Type: text/plain; charset=US-ASCII
+Cc: Chris Chiu <chris.chiu@canonical.com>, Jian-Hong Pan <jhp@endlessos.org>,
+ Kailang Yang <kailang@realtek.com>, alsa-devel@alsa-project.org,
+ Jeremy Szu <jeremy.szu@canonical.com>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Hui Wang <hui.wang@canonical.com>,
+ PeiSen Hou <pshou@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,35 +70,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 28/07/2021 17:09, Mark Brown wrote:
-> On Thu, Jul 22, 2021 at 10:55:23AM +0100, Richard Fitzgerald wrote:
+On Wed, 28 Jul 2021, Takashi Iwai wrote:
+
+> > 1) at high enough gain, recording the microphone is picking up what is
+> > being played via the headphones; maybe it's supposed to be like that,
+> > but it surprised me;
 > 
->> I don't mind if someone wants to change the core dapm functions if that
->> is generally useful, providing that it also updates all callers of those
->> functions to still work.
+> Hrm, that doesn't sound right.  Some internal loopback in the codec?
+> Dunno.  It doesn't pick up the sound physically, right?
+
+How can I tell? If I don't have anything plugged into the jack, playback
+uses the built-in speakers. In that case there's no feedback. And if I
+plug in a headset or common headphones, then built-in speakers are automatically
+muted, and recording the mic can pick up the output signal.
+
+Is there a way to forcefully direct output to the jack instead of built-in
+speakers even when there isn't anything plugged in?
+
+I am sure it is not picking the sound over the air, but I'm considering it's
+picking it up electrically near the jack somehow.
+
+> > 2) there is a very noticeable "pop" when plugging the headset in/out,
+> > accompanied by
+> > 
+> > pcieport 0000:00:08.1: PME: Spurious native interrupt!
+> > pcieport 0000:00:08.1: PME: Spurious native interrupt!
+> > 
+> > in dmesg. I'd appreciate info and any help about this issue.
 > 
->> Changing the behaviour of core code to fix the Realtek driver without
->> updating other callers of those functions is a problem.
-> 
-> The thing here is that nobody would have thought that that any caller
-> would have been open coding this stuff like the component things were,
+> The pop noise is often a thing with the codec and there are a bunch of
+> different workarounds found in the driver.  But the spurious interrupt
+> is more worrisome.  Is the PCI slot corresponding to the HD-audio
+> controller?
 
-On the contrary, since that was the only way to use these functions with
-a prefixed component it's entirely possible that there is code already
-adding the prefix. Why would you expect nobody has ever written code
-that works?
+No, it's actually the PCI bridge under which the HDA core resides:
 
-> it's simply the wrong abstraction level to be implementing something
+00:08.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Renoir Internal PCIe GPP Bridge to Bus
+00:08.1/03:00.6 Audio device: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 10h-1fh) HD Audio Controller
 
-Ok, but that doesn't mean that it could never have happened.
+Note that I have autosuspend enabled for PCI devices. If I disable PCI
+autosuspend for the 03:00.6 HDA device, there's no "pop" and no spurious
+interrupt. My understanding that the chip generates a power management event
+when it senses a jack plug/unplug event while suspended. Apparently something
+about the PME interrupt is not fully in order?
 
-> like this so people wouldn't think of auditing the callers to find uses
+> As of now, I'm inclined to take your patch as is, at least as a
+> first-aid workaround.  Let's see whether we get a better development
+> soonish.
 
-I don't think that it's either safe or desirable to skip checking how
-callers use functionality that you want to change. My understanding of
-Linux development protocol was that if you make a change that affects
-other code, you are responsible for updating that other code to match.
-Regardless of whether you agree with how that other code was
-implemented. It creates a lot of overhead for everyone if it's ok to
-make changes without trying to fix up other code that is affected by
-that change.
+*nod*, I will appreciate it!
+
+Thank you.
+Alexander

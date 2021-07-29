@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDBDD3D9AFF
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jul 2021 03:19:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 799AE3D9B01
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jul 2021 03:19:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 692CD1F10;
-	Thu, 29 Jul 2021 03:18:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 692CD1F10
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1B2D91F54;
+	Thu, 29 Jul 2021 03:18:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B2D91F54
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627521548;
-	bh=kOMqe4BsVzWTiL2oWyDlAmQL0XmCWIL9u03PWkeUrl0=;
+	s=default; t=1627521567;
+	bh=ggfOaELZ3mRoTJVaxfuBq4M6ZygNN/xrgSfxjXK9jhU=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=raHpu4HL4IZzV6ExOM5u0W9XP0iU2eO4q4GQRiPaAOwILx2LVinO1YaU+Mq5EOkQJ
-	 ZeGehwEdesezm6MovJ26sRzdPXJk7uFG3/aKOxmGzb7Etq/Z7FPzlnawWjzVhfa19g
-	 adz5uhfYBBqgzq9/Ni5+u+aiSHE0vI6pZTze043I=
+	b=BE3ZpaT7s3bylPb4x7Y3eYKmdvqzkrJ6unz0SIlEX/Mgm7Iysh1vLPf1fpP3w2FUR
+	 MJdYYBmHnxmUAczB5Xvcog6rqlMgLZZWh/n/7D3pfOat+uUCcCvmUytpnDXq5o8CPS
+	 HAYRoBXuypPMlHtCUQgI8KmC4F1AhKkJ/BXMZbAA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2DFD1F80508;
-	Thu, 29 Jul 2021 03:16:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8AA2F80511;
+	Thu, 29 Jul 2021 03:16:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95419F80507; Thu, 29 Jul 2021 03:16:04 +0200 (CEST)
+ id 13117F80510; Thu, 29 Jul 2021 03:16:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id D8556F804F3
- for <alsa-devel@alsa-project.org>; Thu, 29 Jul 2021 03:15:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8556F804F3
-Date: 29 Jul 2021 10:15:56 +0900
-X-IronPort-AV: E=Sophos;i="5.84,276,1620658800"; d="scan'208";a="89052035"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 29 Jul 2021 10:15:56 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 63F0AF804FE
+ for <alsa-devel@alsa-project.org>; Thu, 29 Jul 2021 03:16:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63F0AF804FE
+Date: 29 Jul 2021 10:16:01 +0900
+X-IronPort-AV: E=Sophos;i="5.84,276,1620658800"; d="scan'208";a="89052041"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 29 Jul 2021 10:16:01 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 97BC241555B0;
- Thu, 29 Jul 2021 10:15:56 +0900 (JST)
-Message-ID: <87pmv1yl6b.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 053784010725;
+ Thu, 29 Jul 2021 10:16:01 +0900 (JST)
+Message-ID: <87o8alyl67.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 6/7] ASoC: soc-core: cleanup cppcheck warning at
- snd_soc_of_parse_audio_simple_widgets()
+Subject: [PATCH 7/7] ASoC: soc-core: cleanup cppcheck warning at
+ snd_soc_of_parse_audio_routing()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87y29pyl7i.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,9 +72,9 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below cppcheck warning.
 
-sound/soc/soc-core.c:2777:25: style: The scope of the variable 'ret' can be reduced. [variableScope]
- int i, j, num_widgets, ret;
-                        ^
+sound/soc/soc-core.c:2931:9: style: The scope of the variable 'ret' can be reduced. [variableScope]
+ int i, ret;
+        ^
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
@@ -82,29 +82,29 @@ Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 34182e530877..e7d1bc9e31bb 100644
+index e7d1bc9e31bb..c830e96afba2 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -2773,7 +2773,7 @@ int snd_soc_of_parse_audio_simple_widgets(struct snd_soc_card *card,
+@@ -2927,7 +2927,7 @@ int snd_soc_of_parse_audio_routing(struct snd_soc_card *card,
  	struct device_node *np = card->dev->of_node;
- 	struct snd_soc_dapm_widget *widgets;
- 	const char *template, *wname;
--	int i, j, num_widgets, ret;
-+	int i, j, num_widgets;
+ 	int num_routes;
+ 	struct snd_soc_dapm_route *routes;
+-	int i, ret;
++	int i;
  
- 	num_widgets = of_property_count_strings(np, propname);
- 	if (num_widgets < 0) {
-@@ -2803,8 +2803,8 @@ int snd_soc_of_parse_audio_simple_widgets(struct snd_soc_card *card,
+ 	num_routes = of_property_count_strings(np, propname);
+ 	if (num_routes < 0 || num_routes & 1) {
+@@ -2947,8 +2947,8 @@ int snd_soc_of_parse_audio_routing(struct snd_soc_card *card,
  	}
  
- 	for (i = 0; i < num_widgets; i++) {
+ 	for (i = 0; i < num_routes; i++) {
 -		ret = of_property_read_string_index(np, propname,
--			2 * i, &template);
+-			2 * i, &routes[i].sink);
 +		int ret = of_property_read_string_index(np, propname,
-+							2 * i, &template);
++							2 * i, &routes[i].sink);
  		if (ret) {
  			dev_err(card->dev,
- 				"ASoC: Property '%s' index %d read error:%d\n",
+ 				"ASoC: Property '%s' index %d could not be read: %d\n",
 -- 
 2.25.1
 

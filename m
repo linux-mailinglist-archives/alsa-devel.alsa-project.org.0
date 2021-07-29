@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD0283D9AF9
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jul 2021 03:17:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07F093D9AFA
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jul 2021 03:17:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E55D1F4D;
-	Thu, 29 Jul 2021 03:16:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E55D1F4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9B76B1F38;
+	Thu, 29 Jul 2021 03:16:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B76B1F38
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627521426;
-	bh=8c0BS5EQQzn3kIAvIp3P1q1oaKvczjWqUm/0kD3ThTA=;
+	s=default; t=1627521461;
+	bh=6kcMaDJsqtGjLvWl/a1G7rhvL2G4akgdzGWcp+oY8OM=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=s3fAbW/GwK6jQjG2xcyPO1VGUXQ4+Y6VZJVzeaAzsnWFb1DpnXdP8dmQd6JoCuuOX
-	 2RNwpjy3ufjT2AzofOhGksXuk13pHMaUDVImWQ81W0CGJkGiLhe5wybY/GhV1qNw3f
-	 +h7oPFcqhY79VsQK3moZfNPAmllWOigguNk7ZrHY=
+	b=UuNy7zvVkCuCs1Id1IQJ0XghsQxOhyNKY5u/m3TcJLh3DHk6x6W+NpOQVSxKfT8rV
+	 Ks7WRCzETnYJMRbE7FfHXaoigJEKq54Yu4XrzAnikNscAOKxraG/DxRWfjREmzdgQy
+	 XZ7xlinlflbhR0V+IYtSo50jsoJyp1+/8i32WRrw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57F55F8025A;
-	Thu, 29 Jul 2021 03:15:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 038A6F804DF;
+	Thu, 29 Jul 2021 03:15:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E6E78F804CF; Thu, 29 Jul 2021 03:15:50 +0200 (CEST)
+ id EC42DF804B1; Thu, 29 Jul 2021 03:15:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 261FFF80212
- for <alsa-devel@alsa-project.org>; Thu, 29 Jul 2021 03:15:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 261FFF80212
-Date: 29 Jul 2021 10:15:33 +0900
-X-IronPort-AV: E=Sophos;i="5.84,276,1620658800"; d="scan'208";a="89051985"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 29 Jul 2021 10:15:33 +0900
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 3725BF8028B
+ for <alsa-devel@alsa-project.org>; Thu, 29 Jul 2021 03:15:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3725BF8028B
+Date: 29 Jul 2021 10:15:38 +0900
+X-IronPort-AV: E=Sophos;i="5.84,276,1620658800"; d="scan'208";a="89088637"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 29 Jul 2021 10:15:38 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id B38F24013244;
- Thu, 29 Jul 2021 10:15:33 +0900 (JST)
-Message-ID: <87wnp9yl6y.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id B394C4155367;
+ Thu, 29 Jul 2021 10:15:38 +0900 (JST)
+Message-ID: <87v94tyl6t.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/7] ASoC: soc-core: cleanup cppcheck warning at
- snd_soc_set_dmi_name()
+Subject: [PATCH 2/7] ASoC: soc-core: cleanup cppcheck warning at
+ snd_soc_get_dai_name()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87y29pyl7i.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,43 +72,33 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below cppcheck warning.
 
-sound/soc/soc-core.c:1721:33: style: The scope of the variable 'product_version' can be reduced. [variableScope]
- const char *vendor, *product, *product_version, *board;
-                                ^
+sound/soc/soc-core.c:3203:22: style: The scope of the variable 'component_of_node' can be reduced. [variableScope]
+ struct device_node *component_of_node;
+                     ^
+
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-core.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ sound/soc/soc-core.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 583f2381cfc8..305b444c507a 100644
+index 305b444c507a..6889380a98fc 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -1718,7 +1718,7 @@ static void append_dmi_string(struct snd_soc_card *card, const char *str)
-  */
- int snd_soc_set_dmi_name(struct snd_soc_card *card, const char *flavour)
+@@ -3201,12 +3201,11 @@ int snd_soc_get_dai_name(const struct of_phandle_args *args,
+ 				const char **dai_name)
  {
--	const char *vendor, *product, *product_version, *board;
-+	const char *vendor, *product, *board;
+ 	struct snd_soc_component *pos;
+-	struct device_node *component_of_node;
+ 	int ret = -EPROBE_DEFER;
  
- 	if (card->long_name)
- 		return 0; /* long name already set by driver or from DMI */
-@@ -1738,13 +1738,14 @@ int snd_soc_set_dmi_name(struct snd_soc_card *card, const char *flavour)
+ 	mutex_lock(&client_mutex);
+ 	for_each_component(pos) {
+-		component_of_node = soc_component_to_node(pos);
++		struct device_node *component_of_node = soc_component_to_node(pos);
  
- 	product = dmi_get_system_info(DMI_PRODUCT_NAME);
- 	if (product && is_dmi_valid(product)) {
-+		const char *product_version = dmi_get_system_info(DMI_PRODUCT_VERSION);
-+
- 		append_dmi_string(card, product);
- 
- 		/*
- 		 * some vendors like Lenovo may only put a self-explanatory
- 		 * name in the product version field
- 		 */
--		product_version = dmi_get_system_info(DMI_PRODUCT_VERSION);
- 		if (product_version && is_dmi_valid(product_version))
- 			append_dmi_string(card, product_version);
- 	}
+ 		if (component_of_node != args->np)
+ 			continue;
 -- 
 2.25.1
 

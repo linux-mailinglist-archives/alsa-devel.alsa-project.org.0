@@ -2,77 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EABF3DA1E5
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jul 2021 13:15:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88F203DA942
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jul 2021 18:41:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08A271ED9;
-	Thu, 29 Jul 2021 13:14:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08A271ED9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 132DC1AEC;
+	Thu, 29 Jul 2021 18:41:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 132DC1AEC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627557328;
-	bh=MvtQ8xl4DaKhCl1w9NscHSGdK9FzdvJUFFdvS3LdjYQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1627576915;
+	bh=qfO0Q6LjOx6aoLqPCVbAEPm1cClSlkvPugckvWbEWIc=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qnqh8QqtbRzkjw61xXtWSQ3sszEtzE1api/faMlk48eGJtWeUbuz5DhplN1sbh8ce
-	 Mp461PPfLxYaKTpk3mDp6L/yfxuxOCR6fd/Xk6ebYhMYQpTKxxj/GMIzdkmrkmSv9R
-	 Bvkht3X6jjpmBo1drElifmH6kpxPOBE9Zb7edxtg=
+	b=jJJ6eT7xo5Vi1cy3dQzmv1Wckc8Kk8JwgDd9IB+FkfOGi5fb4J+Ab2XlHLIM9Tn2/
+	 fQtauGiRyKOfUqzmmn5yJYYU/OH7t5rhpwASPH0God3PZgQODUxYC+raX/QF7a7ttE
+	 ea1DrXrnAMvbiBSFK+zogNB8MAbV9neUjVtknOYc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 668D8F80276;
-	Thu, 29 Jul 2021 13:14:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE062F8026C;
+	Thu, 29 Jul 2021 18:40:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 44A23F8026C; Thu, 29 Jul 2021 13:14:00 +0200 (CEST)
+ id 8BD2DF804AF; Thu, 29 Jul 2021 18:40:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 329B2F8020D
- for <alsa-devel@alsa-project.org>; Thu, 29 Jul 2021 13:13:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 329B2F8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1277AF800EB
+ for <alsa-devel@alsa-project.org>; Thu, 29 Jul 2021 18:40:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1277AF800EB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="kV/G5VhW"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D7FB160F21;
- Thu, 29 Jul 2021 11:13:48 +0000 (UTC)
+ header.b="SqspFiV3"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2512960EFD;
+ Thu, 29 Jul 2021 16:39:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1627557229;
- bh=MvtQ8xl4DaKhCl1w9NscHSGdK9FzdvJUFFdvS3LdjYQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=kV/G5VhWVGkbjH584vznhhDCtFnZH1shb59Sl1uSR1HK2t+HhJ2M8mUZHXf/Z6mth
- hr4am4YazksiAwy/3K+Sg6606pRurMkdi8M1G1Y0LSHBRTSmkJi9CVp0FtgyR0IhIz
- xyqzhToyB2bDOieNdmFicurwFcrk10dr7tjr4ipX3j8P+Iy06bxrLkuQmsBQzyqvA8
- 36SWHlz0u0OegcnkaAZLbQVARTRKmMmTVg14UXMDLCj3AxMJGNfx4YjH2FagXsy0jn
- wDpyVBsUDltkKuaSHPBlBB7x8RQHBaBdlGvh6QU+7v7Ra6AJc6wPFyxWqhKGJseKan
- QEu3jpIZP2Mww==
-Date: Thu, 29 Jul 2021 12:13:38 +0100
+ s=k20201202; t=1627576797;
+ bh=qfO0Q6LjOx6aoLqPCVbAEPm1cClSlkvPugckvWbEWIc=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=SqspFiV3mqhm1frewwif4FTwVMwlZbUE3lTHfq9yBuM2jZ/ih88pm1LOk5lN1JEdU
+ lbYNL+Rsbmvr3NmeugnkRQFp9pY7mYukHYxFBffoCy1aDOYIcJJergOw2wgDSI0DHe
+ CjKNeyIM6GgLWw7+BpNl9pOYgg1zKZRf2uXWmn5R1xT5fDydcUqB+7URQwrX2h2CbX
+ g++yd1UoNpCeGNFNQ7ApnQmwh4hkYs4aj13tJBdO0uCyyVOyOEO2UG/MEtQrsC3OTg
+ FMqNjlPgHP7Fmj4MCDT22mFkEagtzpgDEXUAVPw/6WWDnOXsAAC8VaL+rDx36oYn0X
+ lMQdmnmlej/qQ==
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v2 04/16] ASoC: qcom: dt-bindings: add bindings Audio
- Processing manager
-Message-ID: <20210729111338.GJ4670@sirena.org.uk>
-References: <20210714153039.28373-1-srinivas.kandagatla@linaro.org>
- <20210714153039.28373-5-srinivas.kandagatla@linaro.org>
- <20210728173649.GA1290628@robh.at.kernel.org>
- <092018be-50ae-6dda-73cd-6c7eb002dc19@linaro.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH 0/7] ASoC: soc-core: cleanup cppcheck warning
+Date: Thu, 29 Jul 2021 17:39:44 +0100
+Message-Id: <162757633788.53168.6388280974529781837.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <87y29pyl7i.wl-kuninori.morimoto.gx@renesas.com>
+References: <87y29pyl7i.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="ZkK3DH7HIvxYLwhR"
-Content-Disposition: inline
-In-Reply-To: <092018be-50ae-6dda-73cd-6c7eb002dc19@linaro.org>
-X-Cookie: Vini, vidi, Linux!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Rob Herring <robh@kernel.org>, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, devicetree@vger.kernel.org, tiwai@suse.de,
- lgirdwood@gmail.com, plai@codeaurora.org, linux-kernel@vger.kernel.org,
- bjorn.andersson@linaro.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,200 +78,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 29 Jul 2021 10:15:13 +0900, Kuninori Morimoto wrote:
+> Now I'm posting audio-graph-card2 patch-set, but it seems it needs longer
+> discussion. Thus I want to post more easy patch first, and reduce my
+> local patches.
+> 
+> These are cppcheck warning cleanup patches for soc-core.
+> 
+> Kuninori Morimoto (7):
+>   ASoC: soc-core: cleanup cppcheck warning at snd_soc_set_dmi_name()
+>   ASoC: soc-core: cleanup cppcheck warning at snd_soc_get_dai_name()
+>   ASoC: soc-core: cleanup cppcheck warning at snd_soc_daifmt_parse_format()
+>   ASoC: soc-core: cleanup cppcheck warning at snd_soc_unregister_component()
+>   ASoC: soc-core: cleanup cppcheck warning at snd_soc_add_controls()
+>   ASoC: soc-core: cleanup cppcheck warning at snd_soc_of_parse_audio_simple_widgets()
+>   ASoC: soc-core: cleanup cppcheck warning at snd_soc_of_parse_audio_routing()
+> 
+> [...]
 
---ZkK3DH7HIvxYLwhR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-On Thu, Jul 29, 2021 at 10:18:28AM +0100, Srinivas Kandagatla wrote:
-> On 28/07/2021 18:36, Rob Herring wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> > This all looks fairly similar to the prior Qcom audio binding(s). It
-> > would be nice to not see this all re-invented.
+Thanks!
 
-> AudioReach is a new DSP signal processing framework Which is different to
-> its previous DSP firmware(aka Elite).
-> It makes use of ASoC Topology to load audio graphs on to the DSP which is
-> then managed by APM (Audio Processing Manager) service.
+[1/7] ASoC: soc-core: cleanup cppcheck warning at snd_soc_set_dmi_name()
+      commit: cdb76568b09db0ba1aa47f4e55501024342c9dfc
+[2/7] ASoC: soc-core: cleanup cppcheck warning at snd_soc_get_dai_name()
+      commit: bce00560a28e0f62b0250652b611365f363c712b
+[3/7] ASoC: soc-core: cleanup cppcheck warning at snd_soc_daifmt_parse_format()
+      commit: 5ad76775a522f728d89687523accb061f3ffb1f6
+[4/7] ASoC: soc-core: cleanup cppcheck warning at snd_soc_unregister_component()
+      commit: 5600f3d5ac53304b5068f55c69afa2b8b2380b2b
+[5/7] ASoC: soc-core: cleanup cppcheck warning at snd_soc_add_controls()
+      commit: eaf2469c340b854f5c19339d613234ce2c774a38
+[6/7] ASoC: soc-core: cleanup cppcheck warning at snd_soc_of_parse_audio_simple_widgets()
+      commit: 99c68653a56528ce66edf3d87bc050eee2ce0aee
+[7/7] ASoC: soc-core: cleanup cppcheck warning at snd_soc_of_parse_audio_routing()
+      commit: 51a3dd58424e7312e70445fcb4bca5924640af2c
 
-> So internals are not exactly same.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-> From device tree side we might end up with similar layout, but there are
-> some subtle differences like clocks are managed by q6prm service instead =
-of
-> q6afe service in old firmware, front-end pcm dais definitions come from A=
-SoC
-> topology.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-The software we're running on the hardware shouldn't impact how the
-hardware is described, it should be posible to switch DSP frameworks on
-the same hardware - look at what Intel have done with SoF.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
->=20
-> Are you suggesting that we should reuse the old bindings (q6afe, q6asm) by
-> add new compatible strings along with differences ?
->=20
->=20
-> > >=20
-> > > Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> > > ---
-> > >   .../devicetree/bindings/sound/qcom,q6apm.yaml | 87 ++++++++++++++++=
-+++
-> > >   include/dt-bindings/sound/qcom,q6apm.h        |  8 ++
-> > >   2 files changed, 95 insertions(+)
-> > >   create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6a=
-pm.yaml
-> > >   create mode 100644 include/dt-bindings/sound/qcom,q6apm.h
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/sound/qcom,q6apm.yaml =
-b/Documentation/devicetree/bindings/sound/qcom,q6apm.yaml
-> > > new file mode 100644
-> > > index 000000000000..6f27567523a9
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/sound/qcom,q6apm.yaml
-> > > @@ -0,0 +1,87 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: "http://devicetree.org/schemas/sound/qcom,q6apm.yaml#"
-> > > +$schema: "http://devicetree.org/meta-schemas/core.yaml#"
-> > > +
-> > > +title: Qualcomm Audio Process Manager binding
-> > > +
-> > > +maintainers:
-> > > +  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> > > +
-> > > +description: |
-> > > +  This binding describes the Qualcomm Audio Process Manager service =
-in DSP
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    const: qcom,q6apm
-> > > +
-> > > +  reg:
-> > > +    maxItems: 1
-> > > +
-> > > +  '#address-cells':
-> > > +    const: 1
-> > > +
-> > > +  '#size-cells':
-> > > +    const: 0
-> > > +
-> > > +#APM Services
-> > > +patternProperties:
-> > > +  'apm@[0-9]+$':
-> >=20
-> > This means '.*apm' for the node name. Did you need a '^'?
-> >=20
-> yes we need begins with '^' , will add that in next version.
->=20
-> > > +    type: object
-> > > +    description:
-> > > +      APM devices use subnodes for services.
-> > > +
-> > > +    properties:
-> > > +      compatible:
-> > > +        enum:
-> > > +          - qcom,q6apm-dais
-> > > +          - qcom,q6apm-bedais
-> > > +
-> > > +      iommus:
-> > > +        maxItems: 1
-> > > +
-> > > +      "#sound-dai-cells":
-> > > +        const: 1
-> > > +
-> > > +      reg:
-> > > +        maxItems: 1
-> > > +
-> > > +    required:
-> > > +      - compatible
-> > > +      - reg
-> > > +      - '#sound-dai-cells'
-> > > +
-> > > +    additionalProperties: false
-> > > +
-> > > +required:
-> > > +  - compatible
-> > > +  - reg
-> > > +
-> > > +additionalProperties: false
-> > > +
-> > > +examples:
-> > > +  - |
-> > > +    gpr {
-> > > +        #address-cells =3D <1>;
-> > > +        #size-cells =3D <0>;
-> > > +        gprservice@1 {
-> > > +          compatible =3D "qcom,q6apm";
-> > > +          reg =3D <1>;
-> > > +
-> > > +          #address-cells =3D <1>;
-> > > +          #size-cells =3D <0>;
-> > > +
-> > > +          apm@1 {
-> > > +            compatible =3D "qcom,q6apm-dais";
-> > > +            #sound-dai-cells =3D <1>;
-> > > +            reg =3D <1>;
-> > > +          };
-> > > +
-> > > +          apm@2 {
-> > > +            compatible =3D "qcom,q6apm-bedais";
-> > > +            #sound-dai-cells =3D <1>;
-> > > +            reg =3D <2>;
-> > > +          };
-> > > +        };
-> > > +    };
-> > > diff --git a/include/dt-bindings/sound/qcom,q6apm.h b/include/dt-bind=
-ings/sound/qcom,q6apm.h
-> > > new file mode 100644
-> > > index 000000000000..3c3987eb6e95
-> > > --- /dev/null
-> > > +++ b/include/dt-bindings/sound/qcom,q6apm.h
-> > > @@ -0,0 +1,8 @@
-> > > +/* SPDX-License-Identifier: GPL-2.0 */
-> > > +#ifndef __DT_BINDINGS_Q6_APM_H__
-> > > +#define __DT_BINDINGS_Q6_APM_H__
-> > > +
-> > > +/* Audio Process Manager (APM) virtual ports IDs */
-> > > +#include <dt-bindings/sound/qcom,q6afe.h>
-> >=20
-> > Why add this indirection? Rename the file if you need something to cover
-> > both.
->=20
-> Thats a good idea,
->=20
-> These are basically audio endpoint device ids which should be same across
-> different audio firmwares.
->=20
-> I can rename this to dt-bindings/sound/qcom,adsp-audio-ports.h or somethi=
-ng
-> more generic to be able to reuse.
->=20
-> --srini
-> >=20
-> > > +
-> > > +#endif /* __DT_BINDINGS_Q6_APM_H__ */
-> > > --=20
-> > > 2.21.0
-> > >=20
-> > >=20
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---ZkK3DH7HIvxYLwhR
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmECjWEACgkQJNaLcl1U
-h9C6dwf+PjJAuWxpbfcf4Wp0GacdzLYtni05DNXNG1JPg8AQQeCprQCUSRL2arDU
-QAzRvpaZ2ivgCxafbpCotVqw26j1NviN+NVv+67GSKw+zUASCxEnJh7FwGV7FoSY
-0GwtwNTQ2LIlt8h2OTvQvBwV4AcMLPPbblCm5E5xy4riKvFcE+kizmpBszMNmoXD
-rYt+9yVoOUzi5JEgdTtCIayWucN2N3YyBBtt6iBw6ajBS0J/aJBdM/8O52CKuGdI
-mbI4+LoOWK2/NKMXTjETyN+4rxyhqSLdrHfeonLL3yikKi1Be3ShHqkja+rtAxXB
-27Riss9bwhhhDtgBOynO1tdrh0h33A==
-=/zhk
------END PGP SIGNATURE-----
-
---ZkK3DH7HIvxYLwhR--
+Thanks,
+Mark

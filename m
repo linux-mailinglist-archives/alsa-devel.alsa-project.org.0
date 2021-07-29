@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB5173D9AFC
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jul 2021 03:18:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2122C3D9AFB
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jul 2021 03:17:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E4E21F4E;
-	Thu, 29 Jul 2021 03:17:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E4E21F4E
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1CB71F10;
+	Thu, 29 Jul 2021 03:17:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1CB71F10
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627521500;
-	bh=G0kZIEnIGuZ8kkWQl13qDOspbfuhN9KlxZqnLL5ZQ98=;
+	s=default; t=1627521474;
+	bh=hPINWki7ian4ThA25sQZtfh3P/QaSIGChXivZsOGUz8=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nIEFr5ME8/XqRLf0+FHVB0SKfBMG7BCbV7XPfYyroGhRY7zlFwz+XW7xEpGmA3vB3
-	 +D8I2ScGkkMF/8e1JTjIEKMldwKbIwBT0KWj06IpNW+TelvYNTQm454wHwQDwAK8PZ
-	 qeSoB1+85AH0XccbGxdWwlwvxNkM2EOhaSyjX0h4=
+	b=fRBftNNiElG7ViHVkrKrmfdLJ3RN8fHi9OlSJslo4Gk2x/GSkFBvZoMGfy//smd/y
+	 Pcp2crVlgLFwOUr8XWH5MheeeWuRetxBZMBmTAU/kdzhCsjnOnYliqXAdYpGmOlg/o
+	 VP3qu+RjAc4bmGfacoOXu7EeMlthNeRvQKI7yBRQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E10BF804EB;
-	Thu, 29 Jul 2021 03:15:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B485DF804E0;
+	Thu, 29 Jul 2021 03:15:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1CA8DF804B1; Thu, 29 Jul 2021 03:15:53 +0200 (CEST)
+ id 16FC8F802A9; Thu, 29 Jul 2021 03:15:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id C7A45F8025A
- for <alsa-devel@alsa-project.org>; Thu, 29 Jul 2021 03:15:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7A45F8025A
-Date: 29 Jul 2021 10:15:42 +0900
-X-IronPort-AV: E=Sophos;i="5.84,276,1620658800"; d="scan'208";a="89052003"
+ by alsa1.perex.cz (Postfix) with ESMTP id AA109F802A9
+ for <alsa-devel@alsa-project.org>; Thu, 29 Jul 2021 03:15:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA109F802A9
+Date: 29 Jul 2021 10:15:47 +0900
+X-IronPort-AV: E=Sophos;i="5.84,276,1620658800"; d="scan'208";a="89052017"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 29 Jul 2021 10:15:42 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 29 Jul 2021 10:15:47 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id EEFFE41555B0;
- Thu, 29 Jul 2021 10:15:42 +0900 (JST)
-Message-ID: <87tukdyl6p.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 4AE944155063;
+ Thu, 29 Jul 2021 10:15:47 +0900 (JST)
+Message-ID: <87sfzxyl6k.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 3/7] ASoC: soc-core: cleanup cppcheck warning at
- snd_soc_daifmt_parse_format()
+Subject: [PATCH 4/7] ASoC: soc-core: cleanup cppcheck warning at
+ snd_soc_unregister_component()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87y29pyl7i.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,37 +72,33 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below cppcheck warning.
 
-sound/soc/soc-core.c:3056:11: style: The scope of the variable 'i' can be reduced. [variableScope]
- int ret, i;
-          ^
+sound/soc/soc-core.c:2719:28: style: The scope of the variable 'component' can be reduced. [variableScope]
+ struct snd_soc_component *component;
+                           ^
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/soc-core.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 6889380a98fc..d4e3a6c5b5bb 100644
+index d4e3a6c5b5bb..e8fc6e06efdb 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -3054,7 +3054,7 @@ EXPORT_SYMBOL_GPL(snd_soc_daifmt_clock_provider_from_bitmap);
- unsigned int snd_soc_daifmt_parse_format(struct device_node *np,
- 					 const char *prefix)
+@@ -2717,11 +2717,10 @@ EXPORT_SYMBOL_GPL(snd_soc_unregister_component_by_driver);
+  */
+ void snd_soc_unregister_component(struct device *dev)
  {
--	int ret, i;
-+	int ret;
- 	char prop[128];
- 	unsigned int format = 0;
- 	int bit, frame;
-@@ -3088,6 +3088,8 @@ unsigned int snd_soc_daifmt_parse_format(struct device_node *np,
- 		ret = of_property_read_string(np, prop, &str);
- 	}
- 	if (ret == 0) {
-+		int i;
+-	struct snd_soc_component *component;
+-
+ 	mutex_lock(&client_mutex);
+ 	while (1) {
+-		component = snd_soc_lookup_component_nolocked(dev, NULL);
++		struct snd_soc_component *component = snd_soc_lookup_component_nolocked(dev, NULL);
 +
- 		for (i = 0; i < ARRAY_SIZE(of_fmt_table); i++) {
- 			if (strcmp(str, of_fmt_table[i].name) == 0) {
- 				format |= of_fmt_table[i].val;
+ 		if (!component)
+ 			break;
+ 
 -- 
 2.25.1
 

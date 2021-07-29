@@ -2,72 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 225673DAC37
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jul 2021 21:55:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F40B73DADB4
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jul 2021 22:35:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3E181EFF;
-	Thu, 29 Jul 2021 21:54:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3E181EFF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 88AE51EFB;
+	Thu, 29 Jul 2021 22:34:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88AE51EFB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627588516;
-	bh=the9VPxFqD+9/ugS0c9sVUvODmc6n6lJDaNBo6wHI0A=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1627590938;
+	bh=YbX1dO3vRf+2FhIq8EhTn4HwJ21PpdNOc/d/LsC7oJE=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vi4+kSwEOOhYJ9DEZ04BLw7fvgGgkGHQ1NIe7Gk9gqhHJR9do/Dx59LYNjItnTo+6
-	 i8fDBxpA/jtNZWkZfJ6Db55kpz6wwpGBFC/D62CdEqw6UDxcJUN9JvPQcmV4kE29fj
-	 19nIiD4L5mXHs2XpkD8PhMTxIuT0mkjo2tYtJqrE=
+	b=JF2vRE5fPzwb+P0ZEppybkRGZ3gV+P058HvWMUQpOx9lunREPVKzmaWHd9F0ss45a
+	 p2aAahAgg/nUSYgmkHrywj6x9+NlO1gm5tvTDhhoV4n/JtUTozN9EIQTzO77RFmUXp
+	 G1rtx8ThJM0Arke62HJ4ZsbP8yc8gNnf82lw13T4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18E96F800E9;
-	Thu, 29 Jul 2021 21:53:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD0D5F800E9;
+	Thu, 29 Jul 2021 22:34:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3416F8026C; Thu, 29 Jul 2021 21:53:48 +0200 (CEST)
+ id 831C9F8026C; Thu, 29 Jul 2021 22:34:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9B075F800E9
- for <alsa-devel@alsa-project.org>; Thu, 29 Jul 2021 21:53:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B075F800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 64E3FF800E9
+ for <alsa-devel@alsa-project.org>; Thu, 29 Jul 2021 22:34:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64E3FF800E9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="B0X1x7n4"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 06BC160F01;
- Thu, 29 Jul 2021 19:53:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1627588421;
- bh=the9VPxFqD+9/ugS0c9sVUvODmc6n6lJDaNBo6wHI0A=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=B0X1x7n4+MMSGyGkCzZST5UV0ajYMP3qdfsRY0kR8cazyT3LPkUcgq8laARi4DqxK
- naQGkx44vZ0m+vVk+zKHzpH4V6DOy6iG8qT+haMbi6OaX/bUu2hthUDVS8V2H31puJ
- XF+KcYJME/eg6lbc+e8jL0j2EJCz44VRXf4uGex3+vaIWe38XcXIEpdKK50qR2jYNt
- YOq1CTFSy5T4QbgJfvR4zXie/3kkyqqsNvAfcFirbds8g0izxTTQb3/zh2d8+Yn9ie
- +FiYTzugizii6qsuXJ8tXrtjvfXnay5ro23oFWpjUSfeLPg1B1xwFC1Qzk1ZD3U9y8
- gzqlf2+kk+5vQ==
-Date: Thu, 29 Jul 2021 20:53:30 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Subject: Re: [PATCH 1/3] ASoC: cs42l42: Correct definition of ADC Volume
- control
-Message-ID: <20210729195330.GW4670@sirena.org.uk>
-References: <20210729170929.6589-1-rf@opensource.cirrus.com>
- <162758812271.3952.13208728919315614383.b4-ty@kernel.org>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="EjsC/FvQ"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 16TIlJoE027129; 
+ Thu, 29 Jul 2021 15:34:02 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=subject : to :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=7iV7+dZOWyu5AT7cDsE4G5QTLSecFihGRCTs9AQSrHk=;
+ b=EjsC/FvQYtm3UAwkwrq6gwOT0xUa39aiZPNA3EVn3EZFQbqwvzaCr9htq/g2u7yzMS/H
+ 6lYSIaNDL48UC1Z85mkvLD2pH9iKAxq2Je+gtuovq8xEgM+KihHxWofxNdiUGbPJtSUQ
+ 6hWeiB6v9CHp23aaMnOEM5qW907acFLIkC1isoaM9RDo71DIjR3no2rNt+su8AmNRk28
+ Nsm64QIb5QCmKFStyq00ahc7G6tE4707WLFQDscCkRl/v7lCiXHCA3/Bi5CtyETYMYbf
+ oFVTxGmxHDUQuqswKQKh5bcbSekGqZmburyg3rl0thK74cKvIP4CER+u2w3SMh/Hoevc SQ== 
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0a-001ae601.pphosted.com with ESMTP id 3a41wd03nu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 29 Jul 2021 15:34:02 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Thu, 29 Jul
+ 2021 21:03:56 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
+ Transport; Thu, 29 Jul 2021 21:03:56 +0100
+Received: from [192.168.99.238] (macC02XQ1DJJG5K.ad.cirrus.com [141.131.65.63])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 7987A45D;
+ Thu, 29 Jul 2021 20:03:54 +0000 (UTC)
+Subject: Re: [PATCH v4 1/2] ASoC: cs35l41: CS35L41 Boosted Smart Amplifier
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ <broonie@kernel.org>, <robh@kernel.org>,
+ <ckeepax@opensource.cirrus.com>, <brian.austin@cirrus.com>,
+ <patches@opensource.cirrus.com>, <alsa-devel@alsa-project.org>,
+ <david.rhodes@cirrus.com>
+References: <20210726223438.1464333-1-drhodes@opensource.cirrus.com>
+ <20210726223438.1464333-2-drhodes@opensource.cirrus.com>
+ <b6fd6522-3639-4452-1d8a-dc1b308cc846@linux.intel.com>
+From: David Rhodes <drhodes@opensource.cirrus.com>
+Message-ID: <d7314bfb-b545-75d7-65f7-dfacf050194d@opensource.cirrus.com>
+Date: Thu, 29 Jul 2021 15:03:53 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="H23uHpCUqgUcHMpK"
-Content-Disposition: inline
-In-Reply-To: <162758812271.3952.13208728919315614383.b4-ty@kernel.org>
-X-Cookie: Vini, vidi, Linux!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+In-Reply-To: <b6fd6522-3639-4452-1d8a-dc1b308cc846@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: r622BQP15e1n9PLtK90MdGE86KNoHiHX
+X-Proofpoint-ORIG-GUID: r622BQP15e1n9PLtK90MdGE86KNoHiHX
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 impostorscore=0
+ spamscore=0 clxscore=1015 mlxscore=0 mlxlogscore=917 lowpriorityscore=0
+ malwarescore=0 phishscore=0 bulkscore=0 suspectscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2107140000
+ definitions=main-2107290125
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,40 +109,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 7/26/21 6:14 PM, Pierre-Louis Bossart wrote:
 
---H23uHpCUqgUcHMpK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+OK. Will remove those unnecessary NULL inits and reverse xmas tree the 
+declarations.
 
-On Thu, Jul 29, 2021 at 08:49:21PM +0100, Mark Brown wrote:
-> On Thu, 29 Jul 2021 18:09:27 +0100, Richard Fitzgerald wrote:
-> > The ADC volume is a signed 8-bit number with range -97 to +12,
-> > with -97 being mute. Use a SOC_SINGLE_S8_TLV() to define this
-> > and fix the DECLARE_TLV_DB_SCALE() to have the correct start and
-> > mute flag.
->=20
-> Applied to
->=20
->    torvalds/linux.git master
->=20
-> Thanks!
+> so here you will disable regulators that have not been enabled, is it
+> intentional?
+> 
+> mixing gotos and returns is confusing...
+> 
+> and in addition you will set the reset_gpio that you only get a couple
+> of lines below, that will be a page fault?
 
-Ugh, sorry - the script is confused.  This is applied to the ASoC tree.
+Not intentional. I think regulator enable should be moved before 
+handling pdata. (and every error after regulator enable will use goto 
+instead of return)
 
---H23uHpCUqgUcHMpK
-Content-Type: application/pgp-signature; name="signature.asc"
+The GPIO descriptor is validated so if it is not present or not yet 
+requested gpiod_set_value should just return without any faults.
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEDBzkACgkQJNaLcl1U
-h9BrGAf+PY+yTDXgKEFsmCiaafH3h5AnC9tHm6iKn/8k2xAVmzlWXJ1BbFhRTI1G
-MmuZC1AgDaTMb8YOPWfxfH1Wfmw3AuvU9oavT4ZQgRIF1Y792pLw7Xu0RFgmFYGK
-r4W6b9U6yLXwt9Fkky9q90TGTqWRTryoY4ed4lMlAz26L62nl1aPm1h1KIFPfpq9
-SwixS0xaUrmBHiY0I4fhCqVnbIJyjsGYjTjDiD4T6wD+vTpUCkU6g8xdrLaWUSey
-u1tTBZrybaji/jZavDOs3jIbj6x/3Y9ngLa5bQtnDIYAyy0/3oiAv9iglQOvjv9q
-M2jkPjxACZgea9gh3fwhrZWasxme/w==
-=saqM
------END PGP SIGNATURE-----
-
---H23uHpCUqgUcHMpK--
+Thanks,
+David

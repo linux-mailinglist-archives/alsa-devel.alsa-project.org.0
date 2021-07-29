@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 385903DA0F5
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jul 2021 12:17:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D2D23DA0EE
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jul 2021 12:15:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CEA0B1F19;
-	Thu, 29 Jul 2021 12:16:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEA0B1F19
+	by alsa0.perex.cz (Postfix) with ESMTPS id CD8071F32;
+	Thu, 29 Jul 2021 12:14:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD8071F32
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627553828;
-	bh=DtRM9dv7NEpGxflpwiB0NWeVKcUG67n4+Enq7Le4G/4=;
+	s=default; t=1627553738;
+	bh=wfS8e2UyQAPemhfC6gdPzMLN8v74/DqMZhKh5Tirjuo=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PR191hFeU22vZsoR5BTgUuzihvnAimL2fsOXgcSffb1g/w5DUR4WghNRTIne1LjgE
-	 8UHcAVNO8ufPxiA7EbXA+PR4T9TPTMrCfnk7CAPIp55Vkjpmf48l9XRG6jH1JfKBpr
-	 TZCq0TbRXVgoe927eoQd7zPNGgcFS5iGy3MpXHrg=
+	b=QNJcS2L1x6hV86YKSMJmM3kH9EaFvM/nckY3c2poN8iYXyI5PlWW09nolTECS5VC8
+	 Ai+ql60jiCPi8nzBHNUzBvvEKN4mcQyEGSlK80/PAgaggi/Opl+vz7C9NZXyYmH2JZ
+	 lYaAMz2ErZN9Xvj4GiC4FpfvRCzv+/1/fqwmGq4U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25EF6F804FF;
-	Thu, 29 Jul 2021 12:14:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AFE0DF804E2;
+	Thu, 29 Jul 2021 12:13:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E8E19F804EC; Thu, 29 Jul 2021 12:14:00 +0200 (CEST)
+ id C1F75F804C1; Thu, 29 Jul 2021 12:13:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 68B32F802E7
- for <alsa-devel@alsa-project.org>; Thu, 29 Jul 2021 12:13:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68B32F802E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3DFA2F8026C
+ for <alsa-devel@alsa-project.org>; Thu, 29 Jul 2021 12:13:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DFA2F8026C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="oaA/qROd"; 
+ header.b="E3ufEODy"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="pBdpNWI6"
+ header.b="nhXXY8/Q"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 901E3224E0
+ by smtp-out1.suse.de (Postfix) with ESMTP id 417B42247B
  for <alsa-devel@alsa-project.org>; Thu, 29 Jul 2021 10:13:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1627553626; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=CGMOViJ8/IVgqnD/FZvQigQyRIxfhB6rHYfXackLMdQ=;
- b=oaA/qROdz8Oyfe06zSULge3ONVnun/C3LCdZKxlSkwJMM1sUWF901umuaymw6pL9USl7NU
- t6/ZnPuCXvYvz9eA9jvBBTo67cdM9rs0S8cr9hxYXRibkXTb6wklm9mFjWlN/gvuf+pvUH
- I77+QtPeqTVXkdlufEWFicWrXLuH1WE=
+ bh=eHdOP7R/rOkuKLOZV8yLUt0xEeeaNZf2T5yEMLnlvto=;
+ b=E3ufEODyLKAhSSyOWIP5MYDxSNqmO3P3BSAfeXVR35tPOLb7LyKJLg5+iV3v91tUaFJpjN
+ OOnzZyR9lIJD+lV2NMoNP2ajkIThQw5K8o7FMr4PqeBQpemqnsfMei0DuRhrUFCoydUizW
+ X3+4B/RELW407LSNJI9cUNvaEM6dLRQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1627553626;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=CGMOViJ8/IVgqnD/FZvQigQyRIxfhB6rHYfXackLMdQ=;
- b=pBdpNWI6KicA6npVMz2+Sf0YXXerM3kJPsJeQ7RbqEYzPAmTIYtgM4222KC8pTmacFXsvX
- +AZallnYLmCwlRDQ==
+ bh=eHdOP7R/rOkuKLOZV8yLUt0xEeeaNZf2T5yEMLnlvto=;
+ b=nhXXY8/QFo273Er+AV0Bzs4pNCeVQ4Ij5boTksUYFiVmCLUy8EY4wGVD5qi1UBGvksRl5G
+ BQHisD0XJgL98IAw==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 05E46A3C86;
+ by relay2.suse.de (Postfix) with ESMTP id 12F54A3C87;
  Thu, 29 Jul 2021 07:44:06 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 13/15] ALSA: usb-audio: Move generic DSD raw detection into
- quirk_flags
-Date: Thu, 29 Jul 2021 09:44:02 +0200
-Message-Id: <20210729074404.19728-4-tiwai@suse.de>
+Subject: [PATCH 14/15] ALSA: usb-audio: Add quirk_flags module option
+Date: Thu, 29 Jul 2021 09:44:03 +0200
+Message-Id: <20210729074404.19728-5-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210729073855.19043-1-tiwai@suse.de>
 References: <20210729073855.19043-1-tiwai@suse.de>
@@ -92,107 +91,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The generic DSD raw detection is based on the known allow list, and we
-can integrate it into quirk_flags, too.
+This patch adds a new module option, quirk_flags, for allowing user to
+try some additional device-specific quirk behavior more easily.
+When this option is set to non-zero, it overrides the quirk_flags, and
+the specific workaround is applied.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/usb/quirks.c   | 51 +++++++++++++++++++++++---------------------
- sound/usb/usbaudio.h |  3 +++
- 2 files changed, 30 insertions(+), 24 deletions(-)
+ sound/usb/card.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index fce3a341adc8..670abc6318f2 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -1673,29 +1673,9 @@ u64 snd_usb_interface_dsd_format_quirks(struct snd_usb_audio *chip,
- 			return SNDRV_PCM_FMTBIT_DSD_U32_BE;
- 	}
+diff --git a/sound/usb/card.c b/sound/usb/card.c
+index 9535df39c02f..cf8f3953f78f 100644
+--- a/sound/usb/card.c
++++ b/sound/usb/card.c
+@@ -71,6 +71,7 @@ static bool autoclock = true;
+ static char *quirk_alias[SNDRV_CARDS];
+ static char *delayed_register[SNDRV_CARDS];
+ static bool implicit_fb[SNDRV_CARDS];
++static unsigned int quirk_flags[SNDRV_CARDS];
  
--	/* Mostly generic method to detect many DSD-capable implementations -
--	 * from XMOS/Thesycon
--	 */
--	switch (USB_ID_VENDOR(chip->usb_id)) {
--	case 0x152a:  /* Thesycon devices */
--	case 0x20b1:  /* XMOS based devices */
--	case 0x22d9:  /* Oppo */
--	case 0x23ba:  /* Playback Designs */
--	case 0x25ce:  /* Mytek devices */
--	case 0x278b:  /* Rotel? */
--	case 0x292b:  /* Gustard/Ess based devices */
--	case 0x2972:  /* FiiO devices */
--	case 0x2ab6:  /* T+A devices */
--	case 0x3353:  /* Khadas devices */
--	case 0x3842:  /* EVGA */
--	case 0xc502:  /* HiBy devices */
--		if (fp->dsd_raw)
--			return SNDRV_PCM_FMTBIT_DSD_U32_BE;
--		break;
--	default:
--		break;
--
--	}
-+	/* Mostly generic method to detect many DSD-capable implementations */
-+	if ((chip->quirk_flags & QUIRK_FLAG_DSD_RAW) && fp->dsd_raw)
-+		return SNDRV_PCM_FMTBIT_DSD_U32_BE;
+ bool snd_usb_use_vmalloc = true;
+ bool snd_usb_skip_validation;
+@@ -98,6 +99,8 @@ module_param_array(delayed_register, charp, NULL, 0444);
+ MODULE_PARM_DESC(delayed_register, "Quirk for delayed registration, given by id:iface, e.g. 0123abcd:4.");
+ module_param_array(implicit_fb, bool, NULL, 0444);
+ MODULE_PARM_DESC(implicit_fb, "Apply generic implicit feedback sync mode.");
++module_param_array(quirk_flags, uint, NULL, 0444);
++MODULE_PARM_DESC(quirk_flags, "Driver quirk bit flags.");
+ module_param_named(use_vmalloc, snd_usb_use_vmalloc, bool, 0444);
+ MODULE_PARM_DESC(use_vmalloc, "Use vmalloc for PCM intermediate buffers (default: yes).");
+ module_param_named(skip_validation, snd_usb_skip_validation, bool, 0444);
+@@ -631,7 +634,10 @@ static int snd_usb_audio_create(struct usb_interface *intf,
+ 	INIT_LIST_HEAD(&chip->midi_list);
+ 	INIT_LIST_HEAD(&chip->mixer_list);
  
- 	return 0;
- }
-@@ -1917,10 +1897,33 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
- 		   QUIRK_FLAG_CTL_MSG_DELAY | QUIRK_FLAG_IFACE_DELAY),
- 	VENDOR_FLG(0x07fd, /* MOTU */
- 		   QUIRK_FLAG_VALIDATE_RATES),
-+	VENDOR_FLG(0x152a, /* Thesycon devices */
-+		   QUIRK_FLAG_DSD_RAW),
- 	VENDOR_FLG(0x1de7, /* Phoenix Audio */
- 		   QUIRK_FLAG_GET_SAMPLE_RATE),
-+	VENDOR_FLG(0x20b1, /* XMOS based devices */
-+		   QUIRK_FLAG_DSD_RAW),
-+	VENDOR_FLG(0x22d9, /* Oppo */
-+		   QUIRK_FLAG_DSD_RAW),
- 	VENDOR_FLG(0x23ba, /* Playback Design */
--		   QUIRK_FLAG_CTL_MSG_DELAY | QUIRK_FLAG_IFACE_DELAY),
-+		   QUIRK_FLAG_CTL_MSG_DELAY | QUIRK_FLAG_IFACE_DELAY |
-+		   QUIRK_FLAG_DSD_RAW),
-+	VENDOR_FLG(0x25ce, /* Mytek devices */
-+		   QUIRK_FLAG_DSD_RAW),
-+	VENDOR_FLG(0x278b, /* Rotel? */
-+		   QUIRK_FLAG_DSD_RAW),
-+	VENDOR_FLG(0x292b, /* Gustard/Ess based devices */
-+		   QUIRK_FLAG_DSD_RAW),
-+	VENDOR_FLG(0x2972, /* FiiO devices */
-+		   QUIRK_FLAG_DSD_RAW),
-+	VENDOR_FLG(0x2ab6, /* T+A devices */
-+		   QUIRK_FLAG_DSD_RAW),
-+	VENDOR_FLG(0x3353, /* Khadas devices */
-+		   QUIRK_FLAG_DSD_RAW),
-+	VENDOR_FLG(0x3842, /* EVGA */
-+		   QUIRK_FLAG_DSD_RAW),
-+	VENDOR_FLG(0xc502, /* HiBy devices */
-+		   QUIRK_FLAG_DSD_RAW),
+-	snd_usb_init_quirk_flags(chip);
++	if (quirk_flags[idx])
++		chip->quirk_flags = quirk_flags[idx];
++	else
++		snd_usb_init_quirk_flags(chip);
  
- 	{} /* terminator */
- };
-diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
-index a152f5b08c7a..4e93668a2a48 100644
---- a/sound/usb/usbaudio.h
-+++ b/sound/usb/usbaudio.h
-@@ -159,6 +159,8 @@ extern bool snd_usb_skip_validation;
-  *  Disable runtime PM autosuspend
-  * QUIRK_FLAG_IGNORE_CTL_ERROR:
-  *  Ignore errors for mixer access
-+ * QUIRK_FLAG_DSD_RAW:
-+ *  Support generic DSD raw U32_BE format
-  */
+ 	card->private_free = snd_usb_audio_free;
  
- #define QUIRK_FLAG_GET_SAMPLE_RATE	(1U << 0)
-@@ -176,5 +178,6 @@ extern bool snd_usb_skip_validation;
- #define QUIRK_FLAG_VALIDATE_RATES	(1U << 12)
- #define QUIRK_FLAG_DISABLE_AUTOSUSPEND	(1U << 13)
- #define QUIRK_FLAG_IGNORE_CTL_ERROR	(1U << 14)
-+#define QUIRK_FLAG_DSD_RAW		(1U << 15)
- 
- #endif /* __USBAUDIO_H */
 -- 
 2.26.2
 

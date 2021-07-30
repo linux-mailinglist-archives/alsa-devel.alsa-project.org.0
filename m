@@ -2,98 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F40B73DADB4
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jul 2021 22:35:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD9C43DB46A
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Jul 2021 09:20:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 88AE51EFB;
-	Thu, 29 Jul 2021 22:34:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88AE51EFB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 582161AA1;
+	Fri, 30 Jul 2021 09:20:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 582161AA1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627590938;
-	bh=YbX1dO3vRf+2FhIq8EhTn4HwJ21PpdNOc/d/LsC7oJE=;
+	s=default; t=1627629655;
+	bh=+nxYGgap4TAdB1i3B/UmYl+gE78d8DaXFQfHw/ETeVQ=;
 	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JF2vRE5fPzwb+P0ZEppybkRGZ3gV+P058HvWMUQpOx9lunREPVKzmaWHd9F0ss45a
-	 p2aAahAgg/nUSYgmkHrywj6x9+NlO1gm5tvTDhhoV4n/JtUTozN9EIQTzO77RFmUXp
-	 G1rtx8ThJM0Arke62HJ4ZsbP8yc8gNnf82lw13T4=
+	b=eLgIaE1FJBgHbvsF0MbUxznpFrK40j32t1kJjCaU3bKAdid8kfN7UIeoRY1moFZiu
+	 D6GjKNe6OvDJXaCbJKUiPJcOXNCanQHGG4VRgZNZYdEhXqZgX+dVzQYuYcy2wKIe8K
+	 zxs5jLKKtVwcYeWakasfIwD0lXSE+np+5OKCk9Co=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD0D5F800E9;
-	Thu, 29 Jul 2021 22:34:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B485EF8025A;
+	Fri, 30 Jul 2021 09:19:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 831C9F8026C; Thu, 29 Jul 2021 22:34:10 +0200 (CEST)
+ id 3BA73F80253; Fri, 30 Jul 2021 09:19:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 64E3FF800E9
- for <alsa-devel@alsa-project.org>; Thu, 29 Jul 2021 22:34:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64E3FF800E9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="EjsC/FvQ"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 16TIlJoE027129; 
- Thu, 29 Jul 2021 15:34:02 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=subject : to :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=7iV7+dZOWyu5AT7cDsE4G5QTLSecFihGRCTs9AQSrHk=;
- b=EjsC/FvQYtm3UAwkwrq6gwOT0xUa39aiZPNA3EVn3EZFQbqwvzaCr9htq/g2u7yzMS/H
- 6lYSIaNDL48UC1Z85mkvLD2pH9iKAxq2Je+gtuovq8xEgM+KihHxWofxNdiUGbPJtSUQ
- 6hWeiB6v9CHp23aaMnOEM5qW907acFLIkC1isoaM9RDo71DIjR3no2rNt+su8AmNRk28
- Nsm64QIb5QCmKFStyq00ahc7G6tE4707WLFQDscCkRl/v7lCiXHCA3/Bi5CtyETYMYbf
- oFVTxGmxHDUQuqswKQKh5bcbSekGqZmburyg3rl0thK74cKvIP4CER+u2w3SMh/Hoevc SQ== 
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 3a41wd03nu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 29 Jul 2021 15:34:02 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Thu, 29 Jul
- 2021 21:03:56 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.4 via Frontend
- Transport; Thu, 29 Jul 2021 21:03:56 +0100
-Received: from [192.168.99.238] (macC02XQ1DJJG5K.ad.cirrus.com [141.131.65.63])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 7987A45D;
- Thu, 29 Jul 2021 20:03:54 +0000 (UTC)
-Subject: Re: [PATCH v4 1/2] ASoC: cs35l41: CS35L41 Boosted Smart Amplifier
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- <broonie@kernel.org>, <robh@kernel.org>,
- <ckeepax@opensource.cirrus.com>, <brian.austin@cirrus.com>,
- <patches@opensource.cirrus.com>, <alsa-devel@alsa-project.org>,
- <david.rhodes@cirrus.com>
-References: <20210726223438.1464333-1-drhodes@opensource.cirrus.com>
- <20210726223438.1464333-2-drhodes@opensource.cirrus.com>
- <b6fd6522-3639-4452-1d8a-dc1b308cc846@linux.intel.com>
-From: David Rhodes <drhodes@opensource.cirrus.com>
-Message-ID: <d7314bfb-b545-75d7-65f7-dfacf050194d@opensource.cirrus.com>
-Date: Thu, 29 Jul 2021 15:03:53 -0500
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7F43AF800E9
+ for <alsa-devel@alsa-project.org>; Fri, 30 Jul 2021 09:19:19 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 7A45AA0040;
+ Fri, 30 Jul 2021 09:19:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 7A45AA0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1627629558; bh=Hr9Ivlhoy/ID0k9dRLCgcEi8Vx4mc5oyqWtmLh362j0=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=VA/hlAf7YIY3S2/zQQyf4U2kpmP9LoByrzd3fkbQ78Kx3/rma3CJNGH2a8OWG99Cx
+ ZpHxA1DooO4UU+qXaf7Wbe+90SowYUy6E/5ij9GkKN4tWqHjWHE9hmT8+DyZZYaaN6
+ ksVFt2DPsDLR32UL3ZHeY9+tHTN1aSNiNlN1T3L8=
+Received: from p1gen2.localdomain (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Fri, 30 Jul 2021 09:19:16 +0200 (CEST)
+Subject: Re: [PATCH] ALSA: pcm: Fix mmap capability check
+To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+References: <20210720092640.12338-1-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <d0fdfe67-99fc-85be-24f0-316f6ef0a0cd@perex.cz>
+Date: Fri, 30 Jul 2021 09:19:16 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <b6fd6522-3639-4452-1d8a-dc1b308cc846@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
+In-Reply-To: <20210720092640.12338-1-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: r622BQP15e1n9PLtK90MdGE86KNoHiHX
-X-Proofpoint-ORIG-GUID: r622BQP15e1n9PLtK90MdGE86KNoHiHX
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 impostorscore=0
- spamscore=0 clxscore=1015 mlxscore=0 mlxlogscore=917 lowpriorityscore=0
- malwarescore=0 phishscore=0 bulkscore=0 suspectscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2107140000
- definitions=main-2107290125
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,25 +79,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 7/26/21 6:14 PM, Pierre-Louis Bossart wrote:
+On 20. 07. 21 11:26, Takashi Iwai wrote:
+> The hw_support_mmap() doesn't cover all memory allocation types and
+> might use a wrong device pointer for checking the capability.
+> Check the all memory allocation types more completely.
 
-OK. Will remove those unnecessary NULL inits and reverse xmas tree the 
-declarations.
+This change breaks mmap for the snd-dummy driver (fake_buffer). It seems that
+we need this fix?
 
-> so here you will disable regulators that have not been enabled, is it
-> intentional?
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 6a2971a7e6a1..09c0e2a6489c 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -246,7 +246,7 @@ static bool hw_support_mmap(struct snd_pcm_substream
+*substream)
+        if (!(substream->runtime->hw.info & SNDRV_PCM_INFO_MMAP))
+                return false;
+
+-       if (substream->ops->mmap)
++       if (substream->ops->mmap || substream->ops->page)
+                return true;
+
+        switch (substream->dma_buffer.dev.type) {
+
+
+					Jaroslav
+
+
 > 
-> mixing gotos and returns is confusing...
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+>  sound/core/pcm_native.c | 14 ++++++++++----
+>  1 file changed, 10 insertions(+), 4 deletions(-)
 > 
-> and in addition you will set the reset_gpio that you only get a couple
-> of lines below, that will be a page fault?
+> diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+> index c88c4316c417..6919d2943b9d 100644
+> --- a/sound/core/pcm_native.c
+> +++ b/sound/core/pcm_native.c
+> @@ -246,12 +246,18 @@ static bool hw_support_mmap(struct snd_pcm_substream *substream)
+>  	if (!(substream->runtime->hw.info & SNDRV_PCM_INFO_MMAP))
+>  		return false;
+>  
+> -	if (substream->ops->mmap ||
+> -	    (substream->dma_buffer.dev.type != SNDRV_DMA_TYPE_DEV &&
+> -	     substream->dma_buffer.dev.type != SNDRV_DMA_TYPE_DEV_UC))
+> +	if (substream->ops->mmap)
+>  		return true;
+>  
+> -	return dma_can_mmap(substream->dma_buffer.dev.dev);
+> +	switch (substream->dma_buffer.dev.type) {
+> +	case SNDRV_DMA_TYPE_UNKNOWN:
+> +		return false;
+> +	case SNDRV_DMA_TYPE_CONTINUOUS:
+> +	case SNDRV_DMA_TYPE_VMALLOC:
+> +		return true;
+> +	default:
+> +		return dma_can_mmap(substream->dma_buffer.dev.dev);
+> +	}
+>  }
+>  
+>  static int constrain_mask_params(struct snd_pcm_substream *substream,
+> 
 
-Not intentional. I think regulator enable should be moved before 
-handling pdata. (and every error after regulator enable will use goto 
-instead of return)
 
-The GPIO descriptor is validated so if it is not present or not yet 
-requested gpiod_set_value should just return without any faults.
-
-Thanks,
-David
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

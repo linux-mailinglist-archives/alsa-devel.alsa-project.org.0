@@ -2,74 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E3F13DBC65
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Jul 2021 17:34:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25DDA3DBCFB
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Jul 2021 18:22:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0718E214C;
-	Fri, 30 Jul 2021 17:34:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0718E214C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9924320D9;
+	Fri, 30 Jul 2021 18:21:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9924320D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627659292;
-	bh=k/bc7CooB6Vt7qo7YQeK/DVCFRTPYnIuNjAL2n0QquM=;
+	s=default; t=1627662136;
+	bh=VGa6prA1nzRPbhwNcJKeBBIqmDX/7MYK01Bhpb3t+70=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XDO7A6UXxbRvxjIJCnMYL7SIxZkud434BroD1rCoPaTendTAqJ4Zhep/6AGX7ShY6
-	 er5AdN/Wh/qx0Js983MGhkgUfX9ULza/EfwY0hX8U9WrPoN15dsDSui40J1tWjR4Tb
-	 yC9VaNLAho8kYnQfkujlX368AZVt2e08+IOLDEVY=
+	b=FH86T558OH3Y1bVrkn5C1pEgK8ZhVDkgat1+QG6IoPOuZUYxEC4yWtsSDsUZSCl18
+	 Bw19TrtgJbAc025sPIOzIGo6wANCsvj9jlNfO00pG2TyXFYpEit0TJlkV6Rq5MO4W/
+	 I35YvpC9zE/J49iycAw3pkG/Ezjlsqqcgzg0lEi8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A936F8025A;
-	Fri, 30 Jul 2021 17:33:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD807F8025A;
+	Fri, 30 Jul 2021 18:20:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5BAF5F80253; Fri, 30 Jul 2021 17:33:24 +0200 (CEST)
+ id 3803FF80253; Fri, 30 Jul 2021 18:20:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DCAF1F800ED
- for <alsa-devel@alsa-project.org>; Fri, 30 Jul 2021 17:33:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCAF1F800ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id 734BCF8019B
+ for <alsa-devel@alsa-project.org>; Fri, 30 Jul 2021 18:20:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 734BCF8019B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jaL2eOnD"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 12C4160462;
- Fri, 30 Jul 2021 15:33:15 +0000 (UTC)
+ header.b="H7oBXUB/"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5DE5560F3A;
+ Fri, 30 Jul 2021 16:20:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1627659196;
- bh=k/bc7CooB6Vt7qo7YQeK/DVCFRTPYnIuNjAL2n0QquM=;
+ s=k20201202; t=1627662036;
+ bh=VGa6prA1nzRPbhwNcJKeBBIqmDX/7MYK01Bhpb3t+70=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jaL2eOnDMN8XYoaMXX635Hfzq5VhEFuqpz2rwIojLTF8ns0MGN/exl1sIbhZ3BB+0
- nczyggBcBvVq3TMdHhWYKB6vMTFs7GxECHNIrSva/uUd5bcPcfbN7y9jk3o45RghoJ
- n8R9mtNFObcsGLyfAfyXTXenuYm3Mg4v65eweAxod49+2Y546B+gPyLTVhSpUaA0P2
- a7Z2Q5FcdHTeqrfgpQ83xzvH7zLNFPr5dHHXkWgUkqWQ7PvFfjsO/7M4F7lOjEg0f6
- OArKBCQoZIaKmip8yhFFR7vuv6Dpmo53rWluD1O0CgpSitkJhBPTdHrmuEDRlMpcFo
- Cc3pkKKak7sng==
-Date: Fri, 30 Jul 2021 16:33:04 +0100
+ b=H7oBXUB/+TuEyOeWERLFTiUFVCvas9noVX7Fh4i1NVGQztMDTKCGkqGLR4a7QsmFg
+ VdkmtGw7VIoT8HllAfhaae+FnDczEoU1rCQ+7vRUm26Nc/rHp5Wb5yvnuo424ieoTd
+ 0mehdVexG0pxgmhSDVIPmkErFogPd4HGK8vrfBu5yPTytZ1M48fuLIPp8AgJEuofOf
+ E8LUuBxzHqFkQn5zJcGeRROepbhrCftdNI32wNBRYrkBb6VXTaTQ+d1I8G36QwlGuP
+ NEXo7C2Onm6Jg3BtUfmp1C1NQHf53OHfPO8Zrdf7/dYZQsmtwJrUXPORfZE2I9vPqz
+ 8tgkuIygdeDrg==
+Date: Fri, 30 Jul 2021 17:20:25 +0100
 From: Mark Brown <broonie@kernel.org>
-To: David Rhodes <drhodes@opensource.cirrus.com>
-Subject: Re: [PATCH v4 2/2] ASoC: cs35l41: Add bindings for CS35L41
-Message-ID: <20210730153304.GA4670@sirena.org.uk>
-References: <20210726223438.1464333-1-drhodes@opensource.cirrus.com>
- <20210726223438.1464333-3-drhodes@opensource.cirrus.com>
- <20210727153108.GU4670@sirena.org.uk>
- <0aae364a-6e10-7473-fffe-ce7625319444@opensource.cirrus.com>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH 1/5] ASoC: amd: Fix reference to PCM buffer address
+Message-ID: <20210730162025.GB4670@sirena.org.uk>
+References: <20210728112353.6675-1-tiwai@suse.de>
+ <20210728112353.6675-2-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="bF8FQe8Tx5jntaYn"
+ protocol="application/pgp-signature"; boundary="4hVWSOEjyjyaPny9"
 Content-Disposition: inline
-In-Reply-To: <0aae364a-6e10-7473-fffe-ce7625319444@opensource.cirrus.com>
+In-Reply-To: <20210728112353.6675-2-tiwai@suse.de>
 X-Cookie: Vini, vidi, Linux!
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: robh@kernel.org, brian.austin@cirrus.com, ckeepax@opensource.cirrus.com,
- patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- david.rhodes@cirrus.com
+Cc: alsa-devel@alsa-project.org, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,49 +82,38 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---bF8FQe8Tx5jntaYn
+--4hVWSOEjyjyaPny9
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Fri, Jul 30, 2021 at 10:28:56AM -0500, David Rhodes wrote:
-> On 7/27/21 10:31 AM, Mark Brown wrote:
-> > > +  cirrus,right-channel-amp:
+On Wed, Jul 28, 2021 at 01:23:49PM +0200, Takashi Iwai wrote:
+> PCM buffers might be allocated dynamically when the buffer
+> preallocation failed or a larger buffer is requested, and it's not
+> guaranteed that substream->dma_buffer points to the actually used
+> buffer.  The driver needs to refer to substream->runtime->dma_addr
+> instead for the buffer address.
 
-> > Does this need to be in the DT or could it be a runtime control (eg, for
-> > a system that supports being rotated to adjust which speaker things go
-> > out of).
+This breaks the build for me on an x86-64 allmodconfig:
 
-> This can also be changed at runtime using set_channel_map.
+/mnt/kernel/sound/soc/amd/renoir/acp3x-pdm-dma.c: In function 'acp_pdm_dma_hw_params':
+/mnt/kernel/sound/soc/amd/renoir/acp3x-pdm-dma.c:245:18: error: 'runtime' undeclared (first use in this function); did you mean 'vtime'?
+  rtd->dma_addr = runtime->dma_addr;
+                  ^~~~~~~
+                  vtime
 
-Then it shouldn't be in the DT.
-
-> > This is usually a runtime control too.  This applies to a bunch of the
-> > properties TBH.
-
-> I agree, many of these properties can be changed to controls.
-> I would keep these in DT:
-> boost-peak-milliamp
-> boost-ind-nanohenry
-> boost-cap-microfarad
-> asp-sdout-hiz
-> classh-bst-max-limit
-> gpio-*
-
-Those look reasonable.
-
---bF8FQe8Tx5jntaYn
+--4hVWSOEjyjyaPny9
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEEG7AACgkQJNaLcl1U
-h9D3hwf/RdNDcxPg3KOuL2S9J07o0ScG0MupR3V0dVD8JcjtPRn/S6oJl+frfc0D
-2cLtvn+5bze0/35T/GIIYRzoqcQCNxRpLFr/40Sb/hmRIyjl157VdEEZXIPdBVHl
-cwfet0masx63HHF0u3bpdWBj9spSDLEPqTb7zj96yXz/aiQVVLvHkxet0/LUxXZV
-M3CIH8DJwIWVSkQphjPIZsVWY1EKhWKALLtET6C97zEJcpQJdH2CTEhF0FBo4hdt
-8kf5KTMsPBSpuqK++tEPM9Gu7Xhq8vjnMutOp7WwI0cZXADEBoNekHNCSRd4XvR+
-qM2iZr/IyGJnDM6Mfs9QhLi4RP31TQ==
-=/hzg
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEEJsgACgkQJNaLcl1U
+h9D/ggf+NKw2azq43RPY9BmrkJs2AXXIxLk8D2crutNB4pWDwp3vU3+FdtgawWg/
+wiO6repRQLXVvOy8RhggU97anU0EjrZQ1gMwiMcqTKjulwisnRVp1MSEJQlHFgbN
+WtAcJZr6op6O2HZZa9lOSmtnQjI4dQYDN4IMk9dwz9aIubA2FYBIPY61xC7MkQ7g
+EHHZC2emn3LJ2bvk4WdZMFj8SD0dUzpcAOSdrwcT6jvb8kwqFqBapZz9TgpQWaZg
+o+7gSWoQB9+AaeO/KXjFMoE/UPDhH07k7rV2rYpNTuohkx3ZjnAZUw3wzikHBQY0
+1eD4ZEeHP9Is9IGAx1DC/7Crzrq4jw==
+=eZ+w
 -----END PGP SIGNATURE-----
 
---bF8FQe8Tx5jntaYn--
+--4hVWSOEjyjyaPny9--

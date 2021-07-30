@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0ADB3DBEB5
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Jul 2021 21:06:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30C783DBEB6
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Jul 2021 21:06:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3EAE820BC;
-	Fri, 30 Jul 2021 21:05:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EAE820BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D25020AB;
+	Fri, 30 Jul 2021 21:05:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D25020AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627671979;
-	bh=R4HqYE4p9RbCYoGmBHCVifsnu6zFKQ5Jbfm93fo2Z8I=;
+	s=default; t=1627671995;
+	bh=zOGnjhKkN2kboqIf15L8awEjWTGdECV9Wk8eV4CT0iI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ph0btUq1SO4ia/5fT5JInO0miHD9kRWXiPFmLR78smNNl2FBkoraVaX+bIeY3ajO1
-	 /X9ZlvzF3HiLM1800hRfzfXi+YppaqkyDmbQU444di6NVvN9Jje6a9IOPgJ3ovZEE3
-	 Jk1GZkugiQPzD17/0vBY5iOFiffdvShe9LKjVOjU=
+	b=h2LUvFr2wRL1NzJeyeVOgH4CzJ+wudgm4/hwGutMow92rHRWUdW2ljkdbddSQ8YVW
+	 3QkUDgKjn8uqC1oHyRzl04k6IZDL052342ncd189A8uH27okToV3gQGPpvasVfrqDp
+	 GZrRV5fZcaPTOsG4vHofjjZo3NIMRj0IcI/apQmM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48A8FF804E0;
-	Fri, 30 Jul 2021 21:04:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C4D23F804EB;
+	Fri, 30 Jul 2021 21:04:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67F72F8028B; Fri, 30 Jul 2021 21:04:04 +0200 (CEST)
+ id 91572F800E9; Fri, 30 Jul 2021 21:04:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,37 +33,45 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F3B5FF8025E
- for <alsa-devel@alsa-project.org>; Fri, 30 Jul 2021 21:04:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3B5FF8025E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 06446F800E9
+ for <alsa-devel@alsa-project.org>; Fri, 30 Jul 2021 21:04:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06446F800E9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="dTePPkx0"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7A9DD6052B;
- Fri, 30 Jul 2021 19:03:59 +0000 (UTC)
+ header.b="BWbMtYdr"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2917660F4B;
+ Fri, 30 Jul 2021 19:04:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1627671840;
- bh=R4HqYE4p9RbCYoGmBHCVifsnu6zFKQ5Jbfm93fo2Z8I=;
+ s=k20201202; t=1627671842;
+ bh=zOGnjhKkN2kboqIf15L8awEjWTGdECV9Wk8eV4CT0iI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dTePPkx0x+ugvfaLcDYzVUrt50rApzRUIKAhR0F/2DzrdsV38GxJ+eDGDk9XuNsTJ
- f2zv3eqUOzVF3fVSJeTx39ZYmOiFi0Qb75f2olX0AxCyrlqesebHqh2Foed2TqihEe
- xPnrZy3MS56a+Q7xNfO098GX28CM10OebYeSKe7d4qkPDMIE6B7yehUESQgg1RgnEo
- XbyHe3AWvWX4LxQC8DNMAOIY7l2QK1AftCwPUgKTTJYUJtKHvh3ZzpnB53Y32HA7sG
- 7l2+92rIRo995OpOWOm/3VGlYB/C1wUgkGTpFlsNhQkxdqJrei/v3wdsMgYlJBQnOK
- fGUvu0pH7UH1A==
+ b=BWbMtYdr1e4orAi0AhIfLxTzTikGp6jegSZuSDY79Ug88WoJbJTgXZOgFD75pqzen
+ KeI/xW62UgsaqAtaUcE7wWClivboGItXaLcb+aSBDA5/DRqOEGpf5Hf2rfKj2xRQQd
+ M28VsvlYzTrqJFMOQ0wOIwUQj9cq6DSdC0+TcPTdVZgG3wsABDFACT2s8yAJRsL87C
+ V0xTa08UQkpW3UhsZ0XaybeBiOeT+Ai7P06twznG13PwvCcmr9RqHnoELnlA0BuM5t
+ 8FGK5ymWlDXldBf8AVjdy8duPyxwF6UtWhK3LxzuaX+m+WjHdrQdgo2GNtFl0QlBhh
+ BKL+F2SUREVfQ==
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>,
-	alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ASoC: amd: Drop superfluous mmap callbacks
-Date: Fri, 30 Jul 2021 20:03:37 +0100
-Message-Id: <162767143674.56427.4932382017370188684.b4-ty@kernel.org>
+To: Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Biju Das <biju.das.jz@bp.renesas.com>
+Subject: Re: (subset) [PATCH v2 0/8] Add RZ/G2L Sound support
+Date: Fri, 30 Jul 2021 20:03:38 +0100
+Message-Id: <162767143674.56427.1812897829636885311.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210728141843.17685-1-tiwai@suse.de>
-References: <20210728141843.17685-1-tiwai@suse.de>
+In-Reply-To: <20210719134040.7964-1-biju.das.jz@bp.renesas.com>
+References: <20210719134040.7964-1-biju.das.jz@bp.renesas.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>
+Cc: devicetree@vger.kernel.org, Chris Paterson <Chris.Paterson2@renesas.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Biju Das <biju.das@bp.renesas.com>, linux-renesas-soc@vger.kernel.org,
+ Chris Brandt <chris.brandt@renesas.com>, Mark Brown <broonie@kernel.org>,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,9 +87,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 28 Jul 2021 16:18:43 +0200, Takashi Iwai wrote:
-> All ASoC AMD drivers just call the standard mmap handler, hence those
-> are superfluous.  Let's drop them.
+On Mon, 19 Jul 2021 14:40:32 +0100, Biju Das wrote:
+> This patch series aims to add ASoC support on RZ/G2L SoC's.
+> 
+> It is based on the work done by Chris Brandt for RZ/A ASoC driver.
+> 
+> Biju Das (8):
+>   ASoC: dt-bindings: Document RZ/G2L bindings
+>   sound: soc: sh: Add RZ/G2L SSIF-2 driver
+>   arm64: dts: renesas: r9a07g044: Add external audio clock nodes
+>   arm64: dts: renesas: r9a07g044: Add SSI support
+>   arm64: defconfig: Enable ASoC sound support for RZ/G2L SoC
+>   ASoC: dt-bindings: sound: renesas,rz-ssi: Document DMA support
+>   sound: sh: rz-ssi: Add SSI DMAC support
+>   arm64: dts: renesas: r9a07g044: Add SSI DMA support
+> 
+> [...]
 
 Applied to
 
@@ -89,8 +110,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: Drop superfluous mmap callbacks
-      commit: f211f5f606335d75c3b346e03bceb9b10261b6b3
+[1/8] ASoC: dt-bindings: Document RZ/G2L bindings
+      commit: 2b761f476f3a6e0a212c8c88e7855f66edb177e0
+[6/8] ASoC: dt-bindings: sound: renesas,rz-ssi: Document DMA support
+      commit: 5df6dfbb6de815ba3a75c788a916865212fd5221
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

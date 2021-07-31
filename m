@@ -2,64 +2,150 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B3DA3DC707
-	for <lists+alsa-devel@lfdr.de>; Sat, 31 Jul 2021 18:55:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 189773DC41E
+	for <lists+alsa-devel@lfdr.de>; Sat, 31 Jul 2021 08:44:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 866211F27;
-	Sat, 31 Jul 2021 18:54:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 866211F27
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B1FE1FED;
+	Sat, 31 Jul 2021 08:43:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B1FE1FED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627750532;
-	bh=tkF9j2pSg2H+CVDZhhiCW/lHeCdvCBEDB/9pz64IsQA=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Z0wnt4+RnayLxnzcKsE1MtoG4dLiahyGXVvN74r7ciTq2dSVB7GfsdpqRxWuQAURM
-	 BlcTeoZChgR82PA92Z24nHiKBK7rV8hJsWEavHRi9ZhVS4tSCmKO7cGNOXuJAD7qTu
-	 9d04lPXWboBe4z7R2cdJwOpoXdGTi1OHuepbkIxg=
+	s=default; t=1627713845;
+	bh=j7JACs6sA9bHgBpo8Bfr8P1F1NgVlkBCR/QTH5qyTJ4=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=RPcQ2WuLWyQPRgMHeB/S2pY6Bqj0pjlvZcUnLHqCp6MFiGfiKOm8uNAUBGhubFUNu
+	 ZwrYogEIJhVuM0ILCbd9rsBDltu7WL9CBMNfvcbzQncCee5atcVJkAI6cSZwllpjQU
+	 D5LPBzSc8jtV+jiCEl2loPdXrHO4SsDazCIAwqoU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68084F800E9;
-	Sat, 31 Jul 2021 18:54:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B691F802DF;
+	Sat, 31 Jul 2021 08:42:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BD75FF80276; Sat, 31 Jul 2021 07:27:48 +0200 (CEST)
+ id 4064DF80276; Sat, 31 Jul 2021 08:42:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtpbg519.qq.com (smtpbg516.qq.com [203.205.250.54])
+X-Spam-Level: *
+X-Spam-Status: No, score=2.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FORGED_SPF_HELO,PDS_BAD_THREAD_QP_64,SPF_HELO_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from JPN01-OS2-obe.outbound.protection.outlook.com
+ (mail-eopbgr1410113.outbound.protection.outlook.com [40.107.141.113])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C4E08F8014D
- for <alsa-devel@alsa-project.org>; Sat, 31 Jul 2021 07:27:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4E08F8014D
-X-QQ-mid: bizesmtp38t1627709210t835i70l
-Received: from ficus.lan (unknown [171.223.99.141])
- by esmtp6.qq.com (ESMTP) with 
- id ; Sat, 31 Jul 2021 13:26:48 +0800 (CST)
-X-QQ-SSF: 01000000002000B0C000B00A0000000
-X-QQ-FEAT: s7pJguWOSDAMFImT23sH0iw24VPXGJfxegD2ZKiEalCHy0MMfVGLOoIP/046a
- Ao3Du8N4vAZuxCxa7MtgTPx//64DMo9ih+6gQ8zO+RApdwPQ1JzqPXifOeWOkaWHlupCNCl
- C6KiBqj2UAV95IAHcvZ8APHe3UZwUo7ffjP/8nzq6/PDQ02/IlvluXjCB+RI9INv1VqYM/D
- QWomz7TzdcnGlerPvhdFlZ1+S4gH3pghYK9mQY27Oqpf+pRChmf5Cs7vMip8YyYOIskZjOD
- ngMTOi8BMN6dL55D1ZKrsKExXDFXg3qtWr2C7BOPSg0GdYSELK4C3K6JXb40PdhQEDqA==
-X-QQ-GoodBg: 0
-From: Jason Wang <wangborong@cdjrlc.com>
-To: tiwai@suse.com
-Subject: [PATCH] ALSA: pcxhr: use __func__ to get funcion's name in an output
- message
-Date: Sat, 31 Jul 2021 13:26:47 +0800
-Message-Id: <20210731052647.141046-1-wangborong@cdjrlc.com>
-X-Mailer: git-send-email 2.32.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4E60F80258
+ for <alsa-devel@alsa-project.org>; Sat, 31 Jul 2021 08:42:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4E60F80258
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=renesasgroup.onmicrosoft.com
+ header.i=@renesasgroup.onmicrosoft.com header.b="Xbx0kyPn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=arOjVMdLdSlC/X+1Y6jDxXrHYQS9+H6TOvfIpn3raYkcoruCkGkiiSxl7eKHWNI06KZ5azSCrlFVQr4h/FltoRjBrptkU2IMkU7e+nLmJe9T7RrxY18+VF4QxZtgtiYxAVrI+uQ+AhfaiaRANFicILqXbplNF6dtlYgEXn0M2Eqob6Gfhw8fe73ilpd0QnjvTGA/fWTHdn3XlCyTzLALbf8lPyhG+sFQMAwtpB1UHrw13w9DwdiotPtwXzKlWyjn/gP4+g4HT2fVH1Qa2Sv208DAZKkCgOgMe12Rzg/4lJxlPTbPluVSZw3/Apl36vtGzi6FODIPUeUE7sbc41evEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hPjDVRXTsrS/UThdhy9PeO9nXsucXV5WI8sSm8fnFLc=;
+ b=mEUz7xDYTDOZv1dnFY6V9xfQHOzcHY0Fe252sjcpe1SewXB+e2vvJ+DTq51XHrNrwK6Q8d1O+emCS47dWxYCtjh9YcouFPcDvpocvmh312RL8r3Bi75dh7gpr9c9hyNJVuYZ23pjTKRurItDpMHVN9tZCphF6efZn2Er7sfGJ2G2e1OmcyRvAEU/hqMh+0c9psrcMeA03HjUkLk8D3khKMAEM40Y0D58sQFNky7iyaG11BurExf6KLT7QqfaF4I5o6gka6u465dviOn5UYvTWTVToSm4IDNEtx667iLZw3ay2VFR96dc1uUrdT2Z9x7PNKGrI4bleh5C5UtgVN6kzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=renesasgroup.onmicrosoft.com; s=selector2-renesasgroup-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hPjDVRXTsrS/UThdhy9PeO9nXsucXV5WI8sSm8fnFLc=;
+ b=Xbx0kyPnH9A5RHVV7savt+ZbHDC8ZLZgzXtGHpa+LVfwQiy19/nWEjU5jo3aM3ZA9GapBoZuvUDb/H8/IKSRnQMfOPgWDKYL47eYIiWTeIOweOS8aiWQwOpXhQbAkW3I1Oo0eWq4/6GiW24ppNPrvPcyixmlVohCZYPQb7SWcH4=
+Received: from OS0PR01MB5922.jpnprd01.prod.outlook.com (2603:1096:604:bb::5)
+ by OSAPR01MB3204.jpnprd01.prod.outlook.com (2603:1096:604:7::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.22; Sat, 31 Jul
+ 2021 06:42:14 +0000
+Received: from OS0PR01MB5922.jpnprd01.prod.outlook.com
+ ([fe80::c6f:e31f:eaa9:60fe]) by OS0PR01MB5922.jpnprd01.prod.outlook.com
+ ([fe80::c6f:e31f:eaa9:60fe%8]) with mapi id 15.20.4373.026; Sat, 31 Jul 2021
+ 06:42:14 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, Mark
+ Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>, Jaroslav Kysela
+ <perex@perex.cz>, Philipp Zabel <p.zabel@pengutronix.de>, Vinod Koul
+ <vkoul@kernel.org>
+Subject: RE: (subset) [PATCH v2 0/8] Add RZ/G2L Sound support
+Thread-Topic: (subset) [PATCH v2 0/8] Add RZ/G2L Sound support
+Thread-Index: AQHXfKOvUAXdtaEiLkeDU6Wspqxkt6tb8e0AgAACuwCAAL+fwA==
+Date: Sat, 31 Jul 2021 06:42:13 +0000
+Message-ID: <OS0PR01MB5922641004F8B0029490332F86ED9@OS0PR01MB5922.jpnprd01.prod.outlook.com>
+References: <20210719134040.7964-1-biju.das.jz@bp.renesas.com>
+ <162767143674.56427.1812897829636885311.b4-ty@kernel.org>
+ <OSZPR01MB7019905B23FA514DB08987DDAAEC9@OSZPR01MB7019.jpnprd01.prod.outlook.com>
+In-Reply-To: <OSZPR01MB7019905B23FA514DB08987DDAAEC9@OSZPR01MB7019.jpnprd01.prod.outlook.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: bp.renesas.com; dkim=none (message not signed)
+ header.d=none;bp.renesas.com; dmarc=none action=none
+ header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 505404ae-54e2-47a1-a593-08d953ee54f6
+x-ms-traffictypediagnostic: OSAPR01MB3204:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <OSAPR01MB320443476425076BD683D5AF86ED9@OSAPR01MB3204.jpnprd01.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: RxzrgEhc90IqNJELPsoaTGmofHhUK54VuQLFBDG3+N5kkq4wPMzvXCclXNUwTBWp4PJUHCgDT/F/4FySEZB/rhZJGuP17+gPqfBUgXiarPNvlC9lWleeK8dZrBJkjpxh/XXBdauULLccrT62W5/A8XJiMzGRsy1ZKmchjT/6yTsMeFr8Zol7+17ArhuKO7hTA4UcT6fHHteMgBkOW/AKIBbY+Z4LnDgMzmUZVqqHMaLnDX6aOzDoNtTeBVt0tiOoTCDLoXRZ1K7IjrPvPArJpAd5H5nggdD9z1vOkc9ezVNpwwjOnuQbIKhQySEMhtPOtzuPWnecOOz+uOGeisOxjnbj42KGk2lIx/O50dvvNHEXPqcD2iFMjzHxW/r2gDXmwCVAPb2UQx7/+jXZDqt5czZQmhZyLv1DuAentUy3QMKfXWgMaM0up5Rkz8LeGWmZf1IMx/3dgjgF51OExkEHihjLLrH7kwF5JEoiaPCu/KxKE9BDla4dP475NrrYWh7gXMCBf3rIMqk04GPgAkSMC1fUpb0kH1YNZilH1RnRSttfaU67B4iSv3Bj7Z0I2u+zCM/On9+pzMz6q+J0NETrYd+WNIXsSuWNW35Js4hrZ8jZHlyFPZaVsledVykZTnk3DpHJ2pqd4zn2AlsXioSI/o/5imvkGbkqsnsBQtGJd4ArDXw2Qu26Tt1uVtNAp9iO1VuisqVWBYcmKjLT8PzTX8wN+8pL5eOZqPap+LYi4Oml8l+1bgo6ZvCF62bvW3QMjkDaenBXHDibUbQfrdjIcoEHAEl0lOyA++so5IlD+sNGbkSyBa/Q4cQkjuoyCddADjy7Oatz4aZU6wwuyZf5eg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:OS0PR01MB5922.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(396003)(346002)(136003)(366004)(39850400004)(7696005)(9686003)(5660300002)(186003)(86362001)(55016002)(26005)(71200400001)(52536014)(53546011)(122000001)(478600001)(38100700002)(45080400002)(4326008)(7416002)(19627235002)(966005)(6506007)(8936002)(76116006)(66556008)(66476007)(66946007)(64756008)(66446008)(316002)(110136005)(33656002)(83380400001)(2906002)(54906003)(38070700005)(8676002);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?dA4SFaMzEBaRcT2EsE6GRBunZmgtEu2aU77Ean0JMAV+GZZh5EqOZICdoe8N?=
+ =?us-ascii?Q?SbyMUIU9Vyq8cEyHE6Iu5Y9yyUT5v+EWdGnTEifl8bv/gZvWjVpYCkAoceio?=
+ =?us-ascii?Q?0ijTMDO9N55zC2fC5FjjquQ2+5rTV5NH2zhGAcW8XOCyUbzXkKxobr/eWxeS?=
+ =?us-ascii?Q?Rnei6/RV3OU2ZVkl5jF573p/xmQ0l6DPeOofpHXZQ78/tGVA5JGtggMVwuND?=
+ =?us-ascii?Q?Ne7hJknVR4ZuL8/BY/BBre6y957ioUBdL/5UOVGYSeAbIp5srD6MSDFPgueY?=
+ =?us-ascii?Q?Qd/tI62xFaHQkpOoB3nbm0NqDtK7h55H67Ws+S6H9V7ZzU1kaB8tvi640kiu?=
+ =?us-ascii?Q?WPUAcdpPJT9bxDEVXBbKgi5UdVeBqlICMd3i2M/dw1LtIgPoPU1QLwtbj3aM?=
+ =?us-ascii?Q?/PEiIU9KRmiDhmyjfGDg4Yr4fobKOL3g2W8U3YPk1gikMESV7gNQ0YQKOLWR?=
+ =?us-ascii?Q?KourSDWwBitZlXlY26g7KNcCPTjlz9oEodR10BVibxe78ps2TiwS+YYcXQ2h?=
+ =?us-ascii?Q?1YQwigk6OmdTemWjTAPhmlIVT/7LxogJQaHNxshX9Z3w+y+oOkUgWDrjznmN?=
+ =?us-ascii?Q?jBoq40lnbv25r1KVZSSHlx0ZeKZHDek6KchUbpSaWltvf9t+54Xvpw4SFlYF?=
+ =?us-ascii?Q?/gPyvg2IY/1k7YXiSiCnSgNd/uLetQZFkkUZi0ZJjlztbET3CdQQhWUX6kGT?=
+ =?us-ascii?Q?iF+mjIaHYJumztFpV1um+2xUUwCXWOF56zzDEWqidJRbFn764+pIlb+h8D2i?=
+ =?us-ascii?Q?OxHfcMacY21hW5APmUVUnJuCJiCSI4Cz/T7sVn/utnPbAQ+XvoFKN876+9nE?=
+ =?us-ascii?Q?mJDgfCZFPbJ/9r4sgVTRR2MMJ2fxgC4gLhQtrt3APdUIZvxt8hwimoTShIY/?=
+ =?us-ascii?Q?EzFy/wyuxXrZ739vtmnjpAOnx7bbSLHsIY4Q29kzGcTFnJ49XSIIVo+UD7qo?=
+ =?us-ascii?Q?mV84+hgOJTjiEOdxthgypZdoUtOAFppgqq4AQEXOX86x1tIm5J6jQd86lh+c?=
+ =?us-ascii?Q?t6xMtitrANbWpScQ4q//aRL+fMF/fjks+iZEOQtAskF/qkBNmG3+WBN3jdBJ?=
+ =?us-ascii?Q?bceoRGmfD9qYEAw/wBnAHRvA0f1mhNZAOvLxyqj5aZk18yrfjGEPs9N5I0tz?=
+ =?us-ascii?Q?8AUcTgsfbT8EKssDTBRF7HD/hwtUhw7deBZ0BW+YV8trTBSFZjI91HJqr5Ql?=
+ =?us-ascii?Q?wmNFI0p4FE9LQyyv+G4r2dp1NjvevbhjI0dpC4LO10lnqiCteu+q4eFrEGwE?=
+ =?us-ascii?Q?Kh/oXNPdFC4EPXVTVlkTNT3F7c/Y3jW1D5KfAvYoEiBgHkLBgVnFYrRBpuBs?=
+ =?us-ascii?Q?WBgebyON/0xUIcERZ6rGLK5n?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:cdjrlc.com:qybgspam:qybgspam3
-X-Mailman-Approved-At: Sat, 31 Jul 2021 18:54:03 +0200
-Cc: alsa-devel@alsa-project.org, Jason Wang <wangborong@cdjrlc.com>,
- linux-kernel@vger.kernel.org, leon@kernel.org
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: OS0PR01MB5922.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 505404ae-54e2-47a1-a593-08d953ee54f6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Jul 2021 06:42:13.6563 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: O1dCUrS0S5bexFUBc/9i0aUhDMgU/tPbTLCMD5N5Pysfmj86TGNXqszDqUl1s6QrSYZRnuK6HhG3VgcSg11uElyK9X0qDrIiyeOfy6QSI7E=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSAPR01MB3204
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Chris Paterson <Chris.Paterson2@renesas.com>,
+ Biju Das <biju.das@bp.renesas.com>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ Chris Brandt <Chris.Brandt@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,175 +161,140 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Prefer using '"%s...", __func__' to get current function's name in
-an output message.
+Hi Mark and Prabhakar,
 
-Signed-off-by: Jason Wang <wangborong@cdjrlc.com>
----
- sound/pci/pcxhr/pcxhr.c | 47 ++++++++++++++++++++---------------------
- 1 file changed, 23 insertions(+), 24 deletions(-)
++ Vinod.
 
-diff --git a/sound/pci/pcxhr/pcxhr.c b/sound/pci/pcxhr/pcxhr.c
-index 96b9371c201a..242bd7e04b3e 100644
---- a/sound/pci/pcxhr/pcxhr.c
-+++ b/sound/pci/pcxhr/pcxhr.c
-@@ -366,7 +366,7 @@ static int pcxhr_sub_set_clock(struct pcxhr_mgr *mgr,
- 		mgr->codec_speed = speed;	/* save new codec speed */
- 	}
- 
--	dev_dbg(&mgr->pci->dev, "pcxhr_sub_set_clock to %dHz (realfreq=%d)\n",
-+	dev_dbg(&mgr->pci->dev, "%s to %dHz (realfreq=%d)\n", __func__,
- 		    rate, realfreq);
- 	return 0;
- }
-@@ -499,7 +499,7 @@ static int pcxhr_set_stream_state(struct snd_pcxhr *chip,
- 	else {
- 		if (stream->status != PCXHR_STREAM_STATUS_SCHEDULE_STOP) {
- 			dev_err(chip->card->dev,
--				"pcxhr_set_stream_state CANNOT be stopped\n");
-+				"%s CANNOT be stopped\n", __func__);
- 			return -EINVAL;
- 		}
- 		start = 0;
-@@ -524,7 +524,7 @@ static int pcxhr_set_stream_state(struct snd_pcxhr *chip,
- 	err = pcxhr_send_msg(chip->mgr, &rmh);
- 	if (err)
- 		dev_err(chip->card->dev,
--			"ERROR pcxhr_set_stream_state err=%x;\n", err);
-+			"ERROR %s err=%x;\n", __func__, err);
- 	stream->status =
- 	  start ? PCXHR_STREAM_STATUS_STARTED : PCXHR_STREAM_STATUS_STOPPED;
- 	return err;
-@@ -570,7 +570,7 @@ static int pcxhr_set_format(struct pcxhr_stream *stream)
- 		break;
- 	default:
- 		dev_err(chip->card->dev,
--			"error pcxhr_set_format() : unknown format\n");
-+			"error %s() : unknown format\n", __func__);
- 		return -EINVAL;
- 	}
- 
-@@ -615,7 +615,7 @@ static int pcxhr_set_format(struct pcxhr_stream *stream)
- 	err = pcxhr_send_msg(chip->mgr, &rmh);
- 	if (err)
- 		dev_err(chip->card->dev,
--			"ERROR pcxhr_set_format err=%x;\n", err);
-+			"ERROR %s err=%x;\n", __func__, err);
- 	return err;
- }
- 
-@@ -630,7 +630,7 @@ static int pcxhr_update_r_buffer(struct pcxhr_stream *stream)
- 	stream_num = is_capture ? 0 : subs->number;
- 
- 	dev_dbg(chip->card->dev,
--		"pcxhr_update_r_buffer(pcm%c%d) : addr(%p) bytes(%zx) subs(%d)\n",
-+		"%s(pcm%c%d) : addr(%p) bytes(%zx) subs(%d)\n", __func__,
- 		is_capture ? 'c' : 'p',
- 		chip->chip_idx, (void *)(long)subs->runtime->dma_addr,
- 		subs->runtime->dma_bytes, subs->number);
-@@ -721,21 +721,20 @@ static void pcxhr_start_linked_stream(struct pcxhr_mgr *mgr)
- 	}
- 	if (capture_mask == 0 && playback_mask == 0) {
- 		mutex_unlock(&mgr->setup_mutex);
--		dev_err(&mgr->pci->dev, "pcxhr_start_linked_stream : no pipes\n");
-+		dev_err(&mgr->pci->dev, "%s : no pipes\n", __func__);
- 		return;
- 	}
- 
--	dev_dbg(&mgr->pci->dev, "pcxhr_start_linked_stream : "
--		    "playback_mask=%x capture_mask=%x\n",
--		    playback_mask, capture_mask);
-+	dev_dbg(&mgr->pci->dev, "%s : playback_mask=%x capture_mask=%x\n",
-+		    __func__, playback_mask, capture_mask);
- 
- 	/* synchronous stop of all the pipes concerned */
- 	err = pcxhr_set_pipe_state(mgr,  playback_mask, capture_mask, 0);
- 	if (err) {
- 		mutex_unlock(&mgr->setup_mutex);
--		dev_err(&mgr->pci->dev, "pcxhr_start_linked_stream : "
-+		dev_err(&mgr->pci->dev, "%s : "
- 			   "error stop pipes (P%x C%x)\n",
--			   playback_mask, capture_mask);
-+			   __func__, playback_mask, capture_mask);
- 		return;
- 	}
- 
-@@ -778,9 +777,9 @@ static void pcxhr_start_linked_stream(struct pcxhr_mgr *mgr)
- 	err = pcxhr_set_pipe_state(mgr, playback_mask, capture_mask, 1);
- 	if (err) {
- 		mutex_unlock(&mgr->setup_mutex);
--		dev_err(&mgr->pci->dev, "pcxhr_start_linked_stream : "
-+		dev_err(&mgr->pci->dev, "%s : "
- 			   "error start pipes (P%x C%x)\n",
--			   playback_mask, capture_mask);
-+			   __func__, playback_mask, capture_mask);
- 		return;
- 	}
- 
-@@ -889,7 +888,7 @@ static int pcxhr_hardware_timer(struct pcxhr_mgr *mgr, int start)
- 	}
- 	err = pcxhr_send_msg(mgr, &rmh);
- 	if (err < 0)
--		dev_err(&mgr->pci->dev, "error pcxhr_hardware_timer err(%x)\n",
-+		dev_err(&mgr->pci->dev, "error %s err(%x)\n", __func__,
- 			   err);
- 	return err;
- }
-@@ -904,7 +903,7 @@ static int pcxhr_prepare(struct snd_pcm_substream *subs)
- 	int err = 0;
- 
- 	dev_dbg(chip->card->dev,
--		"pcxhr_prepare : period_size(%lx) periods(%x) buffer_size(%lx)\n",
-+		"%s : period_size(%lx) periods(%x) buffer_size(%lx)\n", __func__,
- 		    subs->runtime->period_size, subs->runtime->periods,
- 		    subs->runtime->buffer_size);
- 
-@@ -997,12 +996,12 @@ static int pcxhr_open(struct snd_pcm_substream *subs)
- 	runtime->hw = pcxhr_caps;
- 
- 	if( subs->stream == SNDRV_PCM_STREAM_PLAYBACK ) {
--		dev_dbg(chip->card->dev, "pcxhr_open playback chip%d subs%d\n",
--			    chip->chip_idx, subs->number);
-+		dev_dbg(chip->card->dev, "%s playback chip%d subs%d\n",
-+			    __func__, chip->chip_idx, subs->number);
- 		stream = &chip->playback_stream[subs->number];
- 	} else {
--		dev_dbg(chip->card->dev, "pcxhr_open capture chip%d subs%d\n",
--			    chip->chip_idx, subs->number);
-+		dev_dbg(chip->card->dev, "%s capture chip%d subs%d\n",
-+			    __func__, chip->chip_idx, subs->number);
- 		if (mgr->mono_capture)
- 			runtime->hw.channels_max = 1;
- 		else
-@@ -1011,8 +1010,8 @@ static int pcxhr_open(struct snd_pcm_substream *subs)
- 	}
- 	if (stream->status != PCXHR_STREAM_STATUS_FREE){
- 		/* streams in use */
--		dev_err(chip->card->dev, "pcxhr_open chip%d subs%d in use\n",
--			   chip->chip_idx, subs->number);
-+		dev_err(chip->card->dev, "%s chip%d subs%d in use\n",
-+			   __func__, chip->chip_idx, subs->number);
- 		mutex_unlock(&mgr->setup_mutex);
- 		return -EBUSY;
- 	}
-@@ -1077,7 +1076,7 @@ static int pcxhr_close(struct snd_pcm_substream *subs)
- 
- 	mutex_lock(&mgr->setup_mutex);
- 
--	dev_dbg(chip->card->dev, "pcxhr_close chip%d subs%d\n",
-+	dev_dbg(chip->card->dev, "%s chip%d subs%d\n", __func__,
- 		    chip->chip_idx, subs->number);
- 
- 	/* sample rate released */
-@@ -1572,7 +1571,7 @@ static int pcxhr_probe(struct pci_dev *pci,
- 	/* init setup mutex*/
- 	mutex_init(&mgr->setup_mutex);
- 
--	mgr->prmh = kmalloc(sizeof(*mgr->prmh) + 
-+	mgr->prmh = kmalloc(sizeof(*mgr->prmh) +
- 			    sizeof(u32) * (PCXHR_SIZE_MAX_LONG_STATUS -
- 					   PCXHR_SIZE_MAX_STATUS),
- 			    GFP_KERNEL);
--- 
-2.32.0
+The first binding patch is for SSI support in interrupt mode. so it is ok.
 
+The second binding patch is for adding DMA support in ssi.
+The example value in #dma-cells need to be updated. Earlier it was just MID=
+/RID value.
+
+Based on recent discussion with Vinod and Geert, It needs to updated with e=
+ncoded values of=20
+MID/RID value and legacy channel configuration parameters, as passing the l=
+ater to driver
+using slave_config is not recommended.
+
+So either drop the second patch or Will send a follow up patch fixing the e=
+xample
+
++            dmas =3D <&dmac 0x2655>,
++                   <&dmac 0x2656>;
+
+Please let me know.
+
+Regards,
+Biju
+
+> -----Original Message-----
+> From: Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> Sent: 30 July 2021 20:13
+> To: Mark Brown <broonie@kernel.org>; Takashi Iwai <tiwai@suse.com>; Liam
+> Girdwood <lgirdwood@gmail.com>; Rob Herring <robh+dt@kernel.org>; Jarosla=
+v
+> Kysela <perex@perex.cz>; Philipp Zabel <p.zabel@pengutronix.de>; Biju Das
+> <biju.das.jz@bp.renesas.com>
+> Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>; Chris Brandt
+> <Chris.Brandt@renesas.com>; Chris Paterson <Chris.Paterson2@renesas.com>;
+> Geert Uytterhoeven <geert+renesas@glider.be>; alsa-devel@alsa-project.org=
+;
+> linux-renesas-soc@vger.kernel.org; Biju Das <biju.das@bp.renesas.com>;
+> devicetree@vger.kernel.org
+> Subject: RE: (subset) [PATCH v2 0/8] Add RZ/G2L Sound support
+>=20
+> Hi Mark,
+>=20
+> > -----Original Message-----
+> > From: Mark Brown <broonie@kernel.org>
+> > Sent: 30 July 2021 20:04
+> > To: Takashi Iwai <tiwai@suse.com>; Liam Girdwood
+> > <lgirdwood@gmail.com>; Rob Herring <robh+dt@kernel.org>; Jaroslav
+> > Kysela <perex@perex.cz>; Philipp Zabel <p.zabel@pengutronix.de>; Biju
+> > Das <biju.das.jz@bp.renesas.com>
+> > Cc: Mark Brown <broonie@kernel.org>; Prabhakar Mahadev Lad
+> > <prabhakar.mahadev-lad.rj@bp.renesas.com>;
+> > Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>; Chris Brandt
+> > <Chris.Brandt@renesas.com>; Chris Paterson
+> > <Chris.Paterson2@renesas.com>; Geert Uytterhoeven
+> > <geert+renesas@glider.be>; alsa-devel@alsa- project.org;
+> > linux-renesas-soc@vger.kernel.org; Biju Das <biju.das@bp.renesas.com>;
+> > devicetree@vger.kernel.org
+> > Subject: Re: (subset) [PATCH v2 0/8] Add RZ/G2L Sound support
+> >
+> > On Mon, 19 Jul 2021 14:40:32 +0100, Biju Das wrote:
+> > > This patch series aims to add ASoC support on RZ/G2L SoC's.
+> > >
+> > > It is based on the work done by Chris Brandt for RZ/A ASoC driver.
+> > >
+> > > Biju Das (8):
+> > >   ASoC: dt-bindings: Document RZ/G2L bindings
+> > >   sound: soc: sh: Add RZ/G2L SSIF-2 driver
+> > >   arm64: dts: renesas: r9a07g044: Add external audio clock nodes
+> > >   arm64: dts: renesas: r9a07g044: Add SSI support
+> > >   arm64: defconfig: Enable ASoC sound support for RZ/G2L SoC
+> > >   ASoC: dt-bindings: sound: renesas,rz-ssi: Document DMA support
+> > >   sound: sh: rz-ssi: Add SSI DMAC support
+> > >   arm64: dts: renesas: r9a07g044: Add SSI DMA support
+> > >
+> > > [...]
+> >
+> > Applied to
+> >
+> >
+> > https://jpn01.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgit=
+.
+> > kernel.org%2Fpub%2Fscm%2Flinux%2
+> > Fkernel%2Fgit%2Fbroonie%2Fsound.git&amp;data=3D04%7C01%7Cprabhakar.maha=
+d
+> > ev-
+> > lad.rj%40bp.renesas.com%7C60c047db42e149eacdb808d9538ccc7e%7C53d82571d
+> > a1947e49cb4625a166a4a2a%7C0%7C0%
+> > 7C637632686468564246%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQI
+> > joiV2luMzIiLCJBTiI6Ik1haWwiLCJXV
+> > CI6Mn0%3D%7C1000&amp;sdata=3DRdyi2vXY9i%2Fly%2FOTWVFmc8k0rVbpM75FthJn7r=
+i
+> > jxwU%3D&amp;reserved=3D0 for-next
+> >
+> > Thanks!
+> >
+> > [1/8] ASoC: dt-bindings: Document RZ/G2L bindings
+> >       commit: 2b761f476f3a6e0a212c8c88e7855f66edb177e0
+> > [6/8] ASoC: dt-bindings: sound: renesas,rz-ssi: Document DMA support
+> >       commit: 5df6dfbb6de815ba3a75c788a916865212fd5221
+> >
+> There is a updated version of the patch [1] which was posted yesterday du=
+e
+> to change in handling DMA slave channel configuration [2]. Both the queue=
+d
+> patches need to dropped.
+>=20
+> [1] https://patchwork.kernel.org/project/linux-renesas-
+> soc/patch/20210729172311.31111-2-biju.das.jz@bp.renesas.com/
+> [2] https://patchwork.kernel.org/project/linux-renesas-
+> soc/patch/20210729082520.26186-2-biju.das.jz@bp.renesas.com/
+>=20
+> Cheers,
+> Prabhakar
+>=20
+> > All being well this means that it will be integrated into the
+> > linux-next tree (usually sometime in the next 24 hours) and sent to
+> > Linus during the next merge window (or sooner if it is a bug fix),
+> however if problems are discovered then the patch may be dropped or
+> reverted.
+> >
+> > You may get further e-mails resulting from automated or manual testing
+> > and review of the tree, please engage with people reporting problems
+> > and send followup patches addressing any issues that are reported if
+> needed.
+> >
+> > If any updates are required or you are submitting further changes they
+> > should be sent as incremental updates against current git, existing
+> patches will not be replaced.
+> >
+> > Please add any relevant lists and maintainers to the CCs when replying
+> to this mail.
+> >
+> > Thanks,
+> > Mark

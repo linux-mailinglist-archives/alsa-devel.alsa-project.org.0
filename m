@@ -2,83 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8704D3DC4DA
-	for <lists+alsa-devel@lfdr.de>; Sat, 31 Jul 2021 10:11:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5860E3DC50C
+	for <lists+alsa-devel@lfdr.de>; Sat, 31 Jul 2021 10:36:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FF2D1FD5;
-	Sat, 31 Jul 2021 10:10:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FF2D1FD5
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC0251FD0;
+	Sat, 31 Jul 2021 10:35:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC0251FD0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627719104;
-	bh=MB9ELgQioPPASfKT9IBj8udO+SmKjfUALUyiFxhMY78=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nUn4+McX94KSnyR08iC7hLm8rfXgTMpHs8JqUWsxerK3LAJfBzq/G0KdCYz+5QHQR
-	 ZeJsrpzAsNYjduNb50Vh0voEFrYLipBQ4KYxziLhUZFa+iJhpjASor/1Y+vSRnuOYY
-	 2o12CfUilu8jCIGPK78SLkYE1skVQvZ+WmXTLvtY=
+	s=default; t=1627720579;
+	bh=iolEdT0MaZ7+jAYhHUUk6qvDvpmMBEoI3WoUKhRFG+8=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=iit6XTxub1B8GAgbjSd3dr7u/xhK+LnKyUAaWhvp8zViEpc+1ddiNKwTj+mX1MGe9
+	 /dEf0jG5YsIuDdl6lKEFw0EF9zMDODCpdKg/S73giN3P/9my8XvTEB40+J7jWHrOVL
+	 p+Vzx370FJWnJSD4QlFHh8uh0uVoZ1eo2FTD1lWE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16F15F800E9;
-	Sat, 31 Jul 2021 10:10:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 148FEF802DF;
+	Sat, 31 Jul 2021 10:34:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8CC38F80276; Sat, 31 Jul 2021 10:10:14 +0200 (CEST)
+ id 8EAC3F80276; Sat, 31 Jul 2021 10:34:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 306DCF80258
- for <alsa-devel@alsa-project.org>; Sat, 31 Jul 2021 10:10:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 306DCF80258
+ by alsa1.perex.cz (Postfix) with ESMTPS id B83C6F80258
+ for <alsa-devel@alsa-project.org>; Sat, 31 Jul 2021 10:34:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B83C6F80258
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="jmEMMsXz"; 
+ header.b="hpCNre/G"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="JwitLStD"
+ header.b="zoN4Fkt4"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id D740C2240F;
- Sat, 31 Jul 2021 08:10:04 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 161FD2240F
+ for <alsa-devel@alsa-project.org>; Sat, 31 Jul 2021 08:34:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627719004; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=gT1dDClDLalcTxPbn4Jo6JruJDpREuBbFs7MF3zkOqA=;
- b=jmEMMsXz1NLGu0+5koH0mzI3hfGJF2Hp/92WGimHGIkNYjXk8oWqKeRPaUYNd3wKTr6eLE
- IgDVhTl5Eh9zH8jCyQ8hJTfMl6dkGlnPaYzxmTv0c9CXqZGLrzZJqp/UL9qu8sddJyv2Ai
- g5lBVxXuFZXiYSnAW2jPT+wGxgwGWQs=
+ t=1627720487; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=tzql9YaQYOHKV65e9pTIvu+mlHPBNjKJEK08KMKiohI=;
+ b=hpCNre/GZ55FNm6Lgm6dV5TruZKVZsycmCMKM/IFhzmNE/pASGubl9a0y0p1Q9SIWalQaf
+ MS1lXAfhIq7BfK9h2hw20dK8Ett6E+0IPl+Gr8Vtum6KFd7+bm6yVPu8IgMxiHAX3MLemy
+ Kk7E9yTGbSfS1a7REiVCHuCoDKckLWo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627719004;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=gT1dDClDLalcTxPbn4Jo6JruJDpREuBbFs7MF3zkOqA=;
- b=JwitLStDFOep9zUEQJOStKqcamruDYUCzqPxPYBowGLEpTw8ehjFgFVW1xf+HjkeXuBAkr
- CKWg5aNHQRVPw8Bw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 9DF32A3B8C;
- Sat, 31 Jul 2021 08:10:04 +0000 (UTC)
-Date: Sat, 31 Jul 2021 10:10:04 +0200
-Message-ID: <s5h35ru7vkz.wl-tiwai@suse.de>
+ s=susede2_ed25519; t=1627720487;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=tzql9YaQYOHKV65e9pTIvu+mlHPBNjKJEK08KMKiohI=;
+ b=zoN4Fkt4UEtrBGe82oL9TWHVvMYdjZXSYPRbBnk7yTqcaaCAPgFUq3VMGmLI55IsrCXY+i
+ 7Ez4EBJa4seZkKAw==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 0CB9CA3B89;
+ Sat, 31 Jul 2021 08:34:47 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [5.14 regression] "ALSA: core: Add continuous and vmalloc mmap
- ops" breaks Intel SST audio
-In-Reply-To: <8d6674da-7d7b-803e-acc9-7de6cb1223fa@redhat.com>
-References: <8d6674da-7d7b-803e-acc9-7de6cb1223fa@redhat.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: core: Fix double calls of snd_card_free() via devres
+Date: Sat, 31 Jul 2021 10:34:46 +0200
+Message-Id: <20210731083446.26680-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,35 +84,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 30 Jul 2021 22:04:00 +0200,
-Hans de Goede wrote:
-> 
-> Hi All;,
-> 
-> As discussed in the "5.14 regression, Intel SST (BYT) audio no longer works" thread,
-> audio on X86 devices using the Intel SST driver no longer works with 5.14.
-> 
-> After poking at this for a while I've found the culprit:
-> 30b7ba6972d5 ("ALSA: core: Add continuous and vmalloc mmap ops")
-> 
-> If I revert that single commit then everything works fine again with 5.14.
+At the transition to the devres-managed card release, we've put the
+check of double-free at trigger_card_release().  But this wasn't
+enough, as the code path calls snd_card_free() again, and it would
+lead to the doubly snd_card_free() calls.
 
-Does the patch below fix the problem?
+Actually the v1 patch was correct to handle this, but I forgot that
+corner case and moved the check to the more obvious place as I thought
+it's clearer.  But, as usual, devils live in details.
 
+This patch corrects the check of the double-free to the right place,
+with a bit more comments.
 
-thanks,
-
-Takashi
-
+Fixes: e8ad415b7a55 ("ALSA: core: Add managed card creation")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
---- a/sound/core/memalloc.c
-+++ b/sound/core/memalloc.c
-@@ -215,7 +215,7 @@ static int snd_dma_continuous_mmap(struct snd_dma_buffer *dmab,
- 				   struct vm_area_struct *area)
+ sound/core/init.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
+
+diff --git a/sound/core/init.c b/sound/core/init.c
+index e985185ebc91..ac335f5906c6 100644
+--- a/sound/core/init.c
++++ b/sound/core/init.c
+@@ -605,6 +605,15 @@ int snd_card_free(struct snd_card *card)
+ 	DECLARE_COMPLETION_ONSTACK(released);
+ 	int ret;
+ 
++	/* The call of snd_card_free() is allowed from various code paths;
++	 * a manual call from the driver and the call via devres_free, and
++	 * we need to avoid double-free. Moreover, the release via devres
++	 * may call snd_card_free() twice due to its nature, we need to have
++	 * the check here at the beginning.
++	 */
++	if (card->releasing)
++		return 0;
++
+ 	card->release_completion = &released;
+ 	ret = snd_card_free_when_closed(card);
+ 	if (ret)
+@@ -813,10 +822,7 @@ EXPORT_SYMBOL_GPL(snd_card_add_dev_attr);
+ 
+ static void trigger_card_free(void *data)
  {
- 	return remap_pfn_range(area, area->vm_start,
--			       dmab->addr >> PAGE_SHIFT,
-+			       page_to_pfn(virt_to_page(dmab->area)),
- 			       area->vm_end - area->vm_start,
- 			       area->vm_page_prot);
+-	struct snd_card *card = data;
+-
+-	if (!card->releasing)
+-		snd_card_free(data);
++	snd_card_free(data);
  }
+ 
+ /**
+-- 
+2.26.2
+

@@ -2,85 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 225933DCB64
-	for <lists+alsa-devel@lfdr.de>; Sun,  1 Aug 2021 13:37:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEA5E3DCB65
+	for <lists+alsa-devel@lfdr.de>; Sun,  1 Aug 2021 13:39:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 862D61893;
-	Sun,  1 Aug 2021 13:36:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 862D61893
+	by alsa0.perex.cz (Postfix) with ESMTPS id 55B4218A0;
+	Sun,  1 Aug 2021 13:39:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55B4218A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627817844;
-	bh=HwYwVEFfezuWIn5K4gt1oAMy9/x6Sk1mT/c4937faTE=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Ctzcnm3/Btt4z3wmdjwtqTOhwWH/aC7rGLGvk5drZttCf2QIGktpZrGCmAguhGxD6
-	 X2PA7IC2AwRuPXGRlxrPaOB0vqB619Pu1oC4TrkMclKB57zk5EIYN8fPHmEPNVj0Il
-	 X84L0TMGnaG1jKXTVhs/4MiLtRfWqmvXrmktPV8A=
+	s=default; t=1627817992;
+	bh=pDY3ZOfGZLbUH+Q4Fup6IqV3B1cgSelvSPp1tyUbjOs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LnI+DiQLe+mAr4pllD4EITqqxq7xluW2PX1NmSMJK5Km1ZjufGlGZ/B/U2KRst/gh
+	 qAh6lgBnhTdUkFgzV5FbMXosqBJwpAZFkQEZULhUHpg66rerv2gVBZqq56hWwr6adP
+	 HghujGInx20IM6meejteq7rl0a6Pjist62sgo1vA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D2B6AF8032D;
-	Sun,  1 Aug 2021 13:35:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2D60F8032D;
+	Sun,  1 Aug 2021 13:38:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC026F802E8; Sun,  1 Aug 2021 13:35:55 +0200 (CEST)
+ id 82FC1F802E8; Sun,  1 Aug 2021 13:38:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6DEF1F8014D
- for <alsa-devel@alsa-project.org>; Sun,  1 Aug 2021 13:35:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DEF1F8014D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 783C4F80095
+ for <alsa-devel@alsa-project.org>; Sun,  1 Aug 2021 13:38:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 783C4F80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="xtMptPab"; 
+ header.b="AItvS1dG"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="ChrLX8oU"
+ header.b="podjx3kH"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id A007B1FECE;
- Sun,  1 Aug 2021 11:35:51 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 8DEE521FC2;
+ Sun,  1 Aug 2021 11:38:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627817751; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=sCReyHorXDQNECC5Vua48zLnyjiU3NNKtcbHRBaHXYA=;
- b=xtMptPaburYTUQ7fNOmbg60XRKzVmrNipGULB/eaCBmjyKG+DCBaWOPnvTG46RxRKxT7IK
- pzCH4y4GQeLCulWVYjDWbfU0/pemJBSuDrDJ934MjIPd5xZlVyYRPBANM4f11lQ0WfvGXK
- 4qpHSuXIIfP6KtDIEDziUN7HFGmqMmc=
+ t=1627817882; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=hKOuV3qW6GcMw/hMvJ7Aj7hmmaddXE7DlF+Q+XytRhA=;
+ b=AItvS1dGEWZvSY11IGwZfGZ3yiOX6IRlAFh2zNdX1GFkte5Kp0qW3iO4kmrpTOjqHnTOkJ
+ HdR7e9kbQ1tkSnsxLqOyo5Iia7wElSTmDLuUXFikR6KXkABCs6dIrXnJB383ARAGIgBKAc
+ CRRhfuzGZliS4lkOZSX3kHYah5sJLmI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627817751;
+ s=susede2_ed25519; t=1627817882;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=sCReyHorXDQNECC5Vua48zLnyjiU3NNKtcbHRBaHXYA=;
- b=ChrLX8oUN8LXt1kNje19cjrxPnDLHBQMHvNG3qZcQNhcfvX8fQrkJ1pyScof6dePDdLg5D
- Xbbjg1JSK8DkZeBA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 85112A3BA8;
- Sun,  1 Aug 2021 11:35:51 +0000 (UTC)
-Date: Sun, 01 Aug 2021 13:35:51 +0200
-Message-ID: <s5hy29lz9bc.wl-tiwai@suse.de>
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=hKOuV3qW6GcMw/hMvJ7Aj7hmmaddXE7DlF+Q+XytRhA=;
+ b=podjx3kHzM42iYYFpW73hADdIwvzsxeGdUB2uysFbIOmC+j0crAp6PenqA+r4ndjhoR9EZ
+ 8QojImmD2KSZwyAQ==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 7C1C9A3BAA;
+ Sun,  1 Aug 2021 11:38:02 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [5.14 regression] "ALSA: core: Add continuous and vmalloc mmap
- ops" breaks Intel SST audio
-In-Reply-To: <146ba2f9-448d-7268-a197-baab618ce2e8@redhat.com>
-References: <8d6674da-7d7b-803e-acc9-7de6cb1223fa@redhat.com>
- <s5h35ru7vkz.wl-tiwai@suse.de>
- <146ba2f9-448d-7268-a197-baab618ce2e8@redhat.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: memalloc: Fix regression with SNDRV_DMA_TYPE_CONTINUOUS
+Date: Sun,  1 Aug 2021 13:38:01 +0200
+Message-Id: <20210801113801.31290-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Hans de Goede <hdegoede@redhat.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,32 +85,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 01 Aug 2021 12:27:28 +0200,
-Hans de Goede wrote:
-> 
-> Hi,
-> 
-> On 7/31/21 10:10 AM, Takashi Iwai wrote:
-> > On Fri, 30 Jul 2021 22:04:00 +0200,
-> > Hans de Goede wrote:
-> >>
-> >> Hi All;,
-> >>
-> >> As discussed in the "5.14 regression, Intel SST (BYT) audio no longer works" thread,
-> >> audio on X86 devices using the Intel SST driver no longer works with 5.14.
-> >>
-> >> After poking at this for a while I've found the culprit:
-> >> 30b7ba6972d5 ("ALSA: core: Add continuous and vmalloc mmap ops")
-> >>
-> >> If I revert that single commit then everything works fine again with 5.14.
-> > 
-> > Does the patch below fix the problem?
-> 
-> Yes that seems to fix things, thank you.
+The recent code refactoring made the mmap of continuous pages to be
+done via the own helper snd_dma_continuous_mmap() with
+remap_pfn_range().  There I overlooked that dmab->addr isn't set for
+the allocation with SNDRV_DMA_TYPE_CONTINUOUS.  This resulted always
+in an error at mmap with this buffer type on the system such as
+Intel SST Baytrail driver.
 
-Great, I'll cook up and submit the proper patch.
+This patch fixes the regression by passing the correct address.
 
+Fixes: 30b7ba6972d5 ("ALSA: core: Add continuous and vmalloc mmap ops")
+Reported-by: Hans de Goede <hdegoede@redhat.com>
+Link: https://lore.kernel.org/r/8d6674da-7d7b-803e-acc9-7de6cb1223fa@redhat.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/memalloc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-thanks,
+diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
+index 83b79edfa52d..439a358ecfe9 100644
+--- a/sound/core/memalloc.c
++++ b/sound/core/memalloc.c
+@@ -215,7 +215,7 @@ static int snd_dma_continuous_mmap(struct snd_dma_buffer *dmab,
+ 				   struct vm_area_struct *area)
+ {
+ 	return remap_pfn_range(area, area->vm_start,
+-			       dmab->addr >> PAGE_SHIFT,
++			       page_to_pfn(virt_to_page(dmab->area)),
+ 			       area->vm_end - area->vm_start,
+ 			       area->vm_page_prot);
+ }
+-- 
+2.26.2
 
-Takashi

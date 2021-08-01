@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A59733DCAB6
-	for <lists+alsa-devel@lfdr.de>; Sun,  1 Aug 2021 10:05:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 851E03DCAB9
+	for <lists+alsa-devel@lfdr.de>; Sun,  1 Aug 2021 10:07:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 23C7418B3;
-	Sun,  1 Aug 2021 10:04:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23C7418B3
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB36618BC;
+	Sun,  1 Aug 2021 10:06:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB36618BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627805131;
-	bh=smSHSTxqhYWCy1d/h/Kq+AaF9/DiPB+CLBeVfJUOLmE=;
+	s=default; t=1627805246;
+	bh=reLC7BWULyWhftpOQ5SgqalQRTYYne6OdcDWpcJ4h6g=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jPdNxAGWS6prVvxWf9FA93atUm8j/4O5Y3mAMFsHFYA/aPtgp7HKvJQlIqe3hGAu+
-	 t3QKGW5U0KbGLzOjss2ACyQUdmpATskeziDwRLsi4ULLM1av4V6/cOvfxapHodUEIW
-	 zGGZJtwmnUsQL/D4iVR57Kl33jps4P/l4apNLAbw=
+	b=XN30rRzDih5Q+dwlwf8bYfZDw5SjCb3ycSK9NDr6HQ1JqcgeFxtzyqo5zoSNNKBEo
+	 ZM+CtS2TW7Er//F298rCBK9u7GTv59UkS9q2xYj2r5Az+BgLsZMH9QMVJ+IHpe+o7h
+	 qlwUX+bAh+PMxPINIX5rCQcoApe673d5V8FBzY6A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9643EF8012E;
-	Sun,  1 Aug 2021 10:04:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 572F4F8032C;
+	Sun,  1 Aug 2021 10:05:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72224F802E8; Sun,  1 Aug 2021 10:04:01 +0200 (CEST)
+ id 17B91F802E8; Sun,  1 Aug 2021 10:05:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,53 +34,51 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C47CCF8012E
- for <alsa-devel@alsa-project.org>; Sun,  1 Aug 2021 10:03:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C47CCF8012E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 03687F8012E
+ for <alsa-devel@alsa-project.org>; Sun,  1 Aug 2021 10:05:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03687F8012E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Bz8m1F01"; 
+ header.b="iPH8gy39"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="qjaqYRQ2"
+ header.b="vWketJyJ"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 1AD0421FF9;
- Sun,  1 Aug 2021 08:03:56 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 2869622047;
+ Sun,  1 Aug 2021 08:05:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627805036; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1627805149; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=iUnvT3yBk3Ak2FNUwjA/dYWqqudAaqfeubdq+0me75I=;
- b=Bz8m1F01OxpMp2gtaAHvBzOJRO0HAy73WEx9xUN92Y/V0shSQYitGik1zp0Pscj/82IJGD
- wPRJF0usS7ouGAqkZzqy56xr1qh8JY4xXqwp2FQ6bVWRWukcVZONk6sknAXhBZDfazny/n
- EjYPz12++B1KbP0pNi0DEsb6RjzvbsE=
+ bh=bShZYYYw9gzAU9l1zpGdsOfxjisudXefIX46w2pnN4U=;
+ b=iPH8gy39Dns6MSRve5hLOOrolMWynGDNHVYEukQjhusgVTwrz1vFsKpQCYHvQtfeP442Im
+ hcxlQuuEArF28yE5TEU2Q0t5r3Fy2rL6MFG2udK7ZRJntSdiy1lYRDMOcRdhraMB8wlHoI
+ UtUJTlyTc+uVoKgTXFamrVD/8ckfpQQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627805036;
+ s=susede2_ed25519; t=1627805149;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=iUnvT3yBk3Ak2FNUwjA/dYWqqudAaqfeubdq+0me75I=;
- b=qjaqYRQ2CFcwE1tIRHdsUZGIYL0YSKnwYCNppSWb1qukP9Heb67yHuL3zOWdxpIO0esjiA
- 4SLzjXqMVShi38Bg==
+ bh=bShZYYYw9gzAU9l1zpGdsOfxjisudXefIX46w2pnN4U=;
+ b=vWketJyJpjbP1Q8vDq02caFxrWnT6rbMFUMJKtBkfeEAggOsZjEUQB2LIpNx4+S4E8ll4g
+ 6ddIZ3+e+07q4ZCA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 0774FA3BA8;
- Sun,  1 Aug 2021 08:03:56 +0000 (UTC)
-Date: Sun, 01 Aug 2021 10:03:55 +0200
-Message-ID: <s5h7dh51thw.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 1ECEEA3BA8;
+ Sun,  1 Aug 2021 08:05:49 +0000 (UTC)
+Date: Sun, 01 Aug 2021 10:05:49 +0200
+Message-ID: <s5h5ywp1teq.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Subject: Re: [PATCH v3 13/27] ALSA: hda/cs8409: Dont disable I2C clock between
- consecutive accesses
-In-Reply-To: <20210730151844.7873-14-vitalyr@opensource.cirrus.com>
-References: <20210730151844.7873-1-vitalyr@opensource.cirrus.com>
- <20210730151844.7873-14-vitalyr@opensource.cirrus.com>
+To: Colin King <colin.king@canonical.com>
+Subject: Re: [PATCH] ALSA: usb-audio: make array static const,
+ makes object smaller
+In-Reply-To: <20210801062548.137770-1-colin.king@canonical.com>
+References: <20210801062548.137770-1-colin.king@canonical.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, Stefan Binding <sbinding@opensource.cirrus.com>
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,50 +94,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 30 Jul 2021 17:18:30 +0200,
-Vitaly Rodionov wrote:
+On Sun, 01 Aug 2021 08:25:48 +0200,
+Colin King wrote:
 > 
-> From: Lucas Tanure <tanureal@opensource.cirrus.com>
+> From: Colin Ian King <colin.king@canonical.com>
 > 
-> Only disable I2C clock 25 ms after not being used.
+> Don't populate array names_to_check on the stack but instead it
+> static.  Makes the object code smaller by 56 bytes.
 > 
-> The current implementation enables and disables the I2C clock for each
-> I2C transaction. Each enable/disable call requires two verb transactions.
-> This means each I2C transaction requires a total of four verb transactions
-> to enable and disable the clock.
-> However, if there are multiple consecutive I2C transactions, it is not
-> necessary to enable and disable the clock each time, instead it is more
-> efficient to enable the clock for the first transaction, and disable it
-> after the final transaction, which would improve performance.
-> This is achieved by using a timeout which disables the clock if no request
-> to enable the clock has occurred for 25 ms.
+> Before:
+>    text    data     bss     dec     hex filename
+>  103512   34380       0  137892   21aa4 ./sound/usb/mixer.o
 > 
-> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
-> Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+> After:
+>    text    data     bss     dec     hex filename
+>  103264   34572       0  137836   21a6c ./sound/usb/mixer.o
+> 
+> gcc version 10.2.0)
+> 
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
 > ---
+>  sound/usb/mixer.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 > 
-> Changes in v2:
-> - Improved delayed work start/cancel implementation, and re-worked commit message
->  adding more explanation why this was required. 
-> 
-> Changes in v3:
-> - Cancel the disable timer, but do not wait for any running disable functions to finish.
->  If the disable timer runs out before cancel, the delayed work thread will be blocked,
->  waiting for the mutex to become unlocked. This mutex will be locked for the duration of
->  any i2c transaction, so the disable function will run to completion immediately
->  afterwards in the scenario. The next enable call will re-enable the clock, regardless.
+> diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+> index f4cdaf1ba44a..aec2499284a5 100644
+> --- a/sound/usb/mixer.c
+> +++ b/sound/usb/mixer.c
+> @@ -1572,8 +1572,9 @@ static size_t append_ctl_name(struct snd_kcontrol *kctl, const char *str)
+>  static void check_no_speaker_on_headset(struct snd_kcontrol *kctl,
+>  					struct snd_card *card)
+>  {
+> -	const char *names_to_check[] = {
+> -		"Headset", "headset", "Headphone", "headphone", NULL};
+> +	static const char *names_to_check[] = {
+> +		"Headset", "headset", "Headphone", "headphone", NULL
+> +	};
 
-This looks almost fine, but just a couple of thoughts:
+checkpatch complains like:
+  WARNING: static const char * array should probably be static const
+  char * const
 
-- cancel_delayed_work_sync() means to it might keep the i2c enabled
-  after that point (just cancel the pending work).
-  Would it cause a inconsistency afterwards?
-
-- A similar procedure is needed for suspend callback to cancel / flush
-  the work.
-  The shutdown is another question, but usually it's fine to without
-  any special handling as long as the resource is kept.
+Could you check and resubmit if it's right?
 
 
 thanks,

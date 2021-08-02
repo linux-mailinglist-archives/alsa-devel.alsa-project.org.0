@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA38A3DD03A
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 08:02:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7C053DD03D
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 08:03:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 46BBE17C7;
-	Mon,  2 Aug 2021 08:02:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46BBE17C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 420E117DB;
+	Mon,  2 Aug 2021 08:02:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 420E117DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627884176;
-	bh=T0dR4d4zIuxZMv4pwQ+15Rhrj/zsV6Q0pquQ2GVJalU=;
+	s=default; t=1627884200;
+	bh=j3wvlICTKXulsQx8y1mJ0QqEkY64xoPCki3ZA7Xzngo=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Htb+3N10muW9VZvwa09Ed1M35i9h7ndZfleK3Ph0/Q4ujW+zys274eexeBspIqvjr
-	 M8fsfEYjy0ly++avg4+Ds0QObNjysG+gwmxCmHIqBMr+5LT1I9u0QZcp2bzS2g5aCz
-	 vgNLwr+RYslMpIu2SOxt7M1pYt6DUEzpJ1K8+hw0=
+	b=IE4pCvfmM0qOIjMy/htr1MtIt3ye8arh1zucfe0X98nIpv5Y0gFlV2Ng0RwYCrlJh
+	 EomDzD7EKyzOKkJFw5/tJ7CW7pNlBFdy9Si08QyMgYDZBTGgWV4OBxHF5Xq9UWGHUq
+	 VlkYbkllTYrENec7iJ4/DFPTip/PWY/5f9ECH6vw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43EA7F804ED;
-	Mon,  2 Aug 2021 08:01:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8207F804FB;
+	Mon,  2 Aug 2021 08:01:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0A0FF804F1; Mon,  2 Aug 2021 08:01:08 +0200 (CEST)
+ id E662CF804E1; Mon,  2 Aug 2021 08:01:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id B76AFF804E5
- for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 08:00:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B76AFF804E5
-Date: 02 Aug 2021 15:00:52 +0900
-X-IronPort-AV: E=Sophos;i="5.84,287,1620658800"; d="scan'208";a="89491008"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 02 Aug 2021 15:00:52 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 275DFF804E3
+ for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 08:01:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 275DFF804E3
+Date: 02 Aug 2021 15:01:04 +0900
+X-IronPort-AV: E=Sophos;i="5.84,287,1620658800"; d="scan'208";a="89491049"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 02 Aug 2021 15:01:04 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id D05BF4009BDB;
- Mon,  2 Aug 2021 15:00:52 +0900 (JST)
-Message-ID: <87pmuwwfl7.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id A938841BCA46;
+ Mon,  2 Aug 2021 15:01:04 +0900 (JST)
+Message-ID: <87o8agwfkv.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 3/5] ASoC: soc-topology: cleanup cppcheck warning at
- soc_tplg_dapm_widget_elems_load()
+Subject: [PATCH 4/5] ASoC: soc-topology: cleanup cppcheck warning at
+ soc_tplg_kcontrol_elems_load()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87tuk8wfme.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,42 +72,37 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below cppcheck warning.
 
-sound/soc/soc-topology.c:1599:35: style: The scope of the variable 'widget' can be reduced. [variableScope]
- struct snd_soc_tplg_dapm_widget *widget;
-                                  ^
-sound/soc/soc-topology.c:1600:6: style: The scope of the variable 'ret' can be reduced. [variableScope]
- int ret, count, i;
-     ^
+sound/soc/soc-topology.c:1038:31: style: The scope of the variable 'control_hdr' can be reduced. [variableScope]
+ struct snd_soc_tplg_ctl_hdr *control_hdr;
+                              ^
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-topology.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ sound/soc/soc-topology.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
-index 359c6ac22153..98e08afd8eb9 100644
+index 98e08afd8eb9..a052dfe5efb6 100644
 --- a/sound/soc/soc-topology.c
 +++ b/sound/soc/soc-topology.c
-@@ -1583,15 +1583,16 @@ static int soc_tplg_dapm_widget_create(struct soc_tplg *tplg,
- static int soc_tplg_dapm_widget_elems_load(struct soc_tplg *tplg,
+@@ -1035,7 +1035,6 @@ static int soc_tplg_denum_create(struct soc_tplg *tplg, unsigned int count,
+ static int soc_tplg_kcontrol_elems_load(struct soc_tplg *tplg,
  	struct snd_soc_tplg_hdr *hdr)
  {
--	struct snd_soc_tplg_dapm_widget *widget;
--	int ret, count, i;
-+	int count, i;
+-	struct snd_soc_tplg_ctl_hdr *control_hdr;
+ 	int ret;
+ 	int i;
  
- 	count = le32_to_cpu(hdr->count);
+@@ -1043,8 +1042,7 @@ static int soc_tplg_kcontrol_elems_load(struct soc_tplg *tplg,
+ 		soc_tplg_get_offset(tplg));
  
- 	dev_dbg(tplg->dev, "ASoC: adding %d DAPM widgets\n", count);
+ 	for (i = 0; i < le32_to_cpu(hdr->count); i++) {
+-
+-		control_hdr = (struct snd_soc_tplg_ctl_hdr *)tplg->pos;
++		struct snd_soc_tplg_ctl_hdr *control_hdr = (struct snd_soc_tplg_ctl_hdr *)tplg->pos;
  
- 	for (i = 0; i < count; i++) {
--		widget = (struct snd_soc_tplg_dapm_widget *) tplg->pos;
-+		struct snd_soc_tplg_dapm_widget *widget = (struct snd_soc_tplg_dapm_widget *) tplg->pos;
-+		int ret;
-+
- 		if (le32_to_cpu(widget->size) != sizeof(*widget)) {
- 			dev_err(tplg->dev, "ASoC: invalid widget size\n");
- 			return -EINVAL;
+ 		if (le32_to_cpu(control_hdr->size) != sizeof(*control_hdr)) {
+ 			dev_err(tplg->dev, "ASoC: invalid control size\n");
 -- 
 2.25.1
 

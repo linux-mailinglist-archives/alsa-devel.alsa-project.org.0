@@ -2,84 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B2B13DDC0D
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 17:12:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B1AF3DDC35
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 17:18:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A9951172D;
-	Mon,  2 Aug 2021 17:12:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9951172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 811E31739;
+	Mon,  2 Aug 2021 17:17:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 811E31739
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627917175;
-	bh=eYbAQfkj5dLj8TZVr9dsvhLc2Vpxu+KWB2sW50MRnBw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rm6LRcX0nnEPcnBLAqna658y8vt8meRt7UoGLZTGSwqo6wIYkSK0wCgI+0I1MF1Jk
-	 bFTA0/OsFo5K/P4EKAIq7Mta0nFevoOF/d2t0m3zZp1bSnJAqVSVW4XfTJaL/x61+T
-	 fejfABDIIw0yGuXqVqAAqLDM4vtt+EzoyKLMHd3Q=
+	s=default; t=1627917503;
+	bh=BDIe9daKtKuSn4ban0/GgUvMK+lbJBNqXvGjVfhJm30=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=fTxuKyObTfDIGtP3VdoSR8oxPzD4EmnF1luPzzP/ayASGcJlfpxepM2Vq7ySPk9Ms
+	 TepzCXSoU0UgU80sS/vjP7iR6jVzutY6xgiALFIwNYfdFyWSQCtuipXDQQoFQ83XTK
+	 ZtKWEDdTNFzQx1T1CxClMMEbAbAibeV4NSTCyoQo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B099F80268;
-	Mon,  2 Aug 2021 17:11:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4B22F8014D;
+	Mon,  2 Aug 2021 17:16:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 688DAF8025F; Mon,  2 Aug 2021 17:11:25 +0200 (CEST)
+ id 06C0BF80268; Mon,  2 Aug 2021 17:16:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2EFBAF80095
- for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 17:11:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2EFBAF80095
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="v4PGrgER"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="tLRBmAU/"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 8EFE421E52;
- Mon,  2 Aug 2021 15:11:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627917081; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=IQdGrb23bd1E6SrTRiONuFUQpme9wiLSmj2nKQ0syrQ=;
- b=v4PGrgERavZpktGRYMNTiwTFGlwLXxmyMp10W4nI9ZTUyVyGsLBMNbr5OmuGUsu7eJvjJj
- B/mk2bZ+jYEe8REM4HgnMtmerKKFyJY41s4+Q/1BquAlbFFgQVDxcG8drjuk5cv9Efp3eu
- hvZuzsiKtg68EwPbh3mL8OSp2mf1B8U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627917081;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=IQdGrb23bd1E6SrTRiONuFUQpme9wiLSmj2nKQ0syrQ=;
- b=tLRBmAU/c+ffnAsVKikjLsrQgkOj5DR+xVvE59CfYMENZk/U7T48emwrT25iq6LxplT7H/
- UOvjo9TSd+TKNJBQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 89B0EA3BB4;
- Mon,  2 Aug 2021 15:11:21 +0000 (UTC)
-Date: Mon, 02 Aug 2021 17:11:21 +0200
-Message-ID: <s5hczqvyj8m.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: folkert <folkert@vanheusden.com>
-Subject: Re: aconnect occasionally causes kernel oopses
-In-Reply-To: <20210802091012.GR890690@belle.intranet.vanheusden.com>
-References: <20210801182754.GP890690@belle.intranet.vanheusden.com>
- <s5hlf5kz80e.wl-tiwai@suse.de>
- <20210802061845.GQ890690@belle.intranet.vanheusden.com>
- <s5him0oz5zq.wl-tiwai@suse.de>
- <20210802091012.GR890690@belle.intranet.vanheusden.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id C66B4F80095
+ for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 17:16:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C66B4F80095
+X-IronPort-AV: E=McAfee;i="6200,9189,10064"; a="211604873"
+X-IronPort-AV: E=Sophos;i="5.84,289,1620716400"; d="scan'208";a="211604873"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Aug 2021 08:16:43 -0700
+X-IronPort-AV: E=Sophos;i="5.84,289,1620716400"; d="scan'208";a="510257731"
+Received: from skarumur-mobl.amr.corp.intel.com (HELO
+ pbossart-mobl3.intel.com) ([10.212.72.192])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Aug 2021 08:16:42 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: SOF: Intel: Kconfig: fix SoundWire dependencies
+Date: Mon,  2 Aug 2021 10:16:28 -0500
+Message-Id: <20210802151628.15291-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Arnd Bergmann <arnd@arndb.de>, tiwai@suse.de,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Rander Wang <rander.wang@intel.com>, vkoul@kernel.org, broonie@kernel.org,
+ Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,62 +72,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 02 Aug 2021 11:10:12 +0200,
-folkert wrote:
-> 
-> > > > In which situation?
-> > > 
-> > > I was testing something that listens for alsa events and for that I ran
-> > > a continuous loop that did:
-> > > 
-> > > while true
-> > > do
-> > > 	aconnect 128:1 14:0
-> > > 	aconnect -d 128:1 14:0
-> > > 	aconnect -d 128:2 128:1
-> > > 	aconnect 128:2 128:1
-> > > done
-> > > 
-> > > I ran 5 instances in parallel.
-> > > 
-> > > 14 is midi through
-> > > 128 is rtpmidi
-> > 
-> > So rtpmidi process keeps running during the loop, that is, it's only
-> > about connection and disconnection, right?
-> > Also, you're listening to an event during that -- but how?
-> 
-> I tried it again but with a simpler setup:
-> 
-> I've got these devices:
-> 
-> root@lappiemctopface:~# aplaymidi -l
->  Port    Client name                      Port name
->  14:0    Midi Through                     Midi Through Port-0
-> 130:0    FLUID Synth (17032)              Synth input port (17032:0)
-> 131:0    VMPK Input                       in
-> root@lappiemctopface:~# arecordmidi -l
->  Port    Client name                      Port name
->  14:0    Midi Through                     Midi Through Port-0
-> 132:0    VMPK Output                      out
-> 
-> I run this in 3x parallel:
-> 
-> while true
-> do
->         aconnect 132:0 130:0
->         aconnect -d 132:0 130:0
-> done
-> 
-> and then in less than a minute I get a backtrace.
+The previous Kconfig cleanup added simplifications but also introduced
+a new one by moving a boolean to a tristate. This leads to randconfig
+problems.
 
-OK, thanks.  That's more promising.
+This patch moves the select operations in the SOUNDWIRE_LINK_BASELINE
+option. The INTEL_SOUNDWIRE config remains a tristate for backwards
+compatibility with older configurations but is essentially an on/off
+switch.
 
-Does this happen if you do reconnect of kernel sequencer client?
-You can use snd-virmidi as well as snd-dummy.
+Fixes: cf5807f5f814f ('ASoC: SOF: Intel: SoundWire: simplify Kconfig')
+Reported-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+Reviewed-by: Bard Liao <bard.liao@intel.com>
+---
+ sound/soc/sof/intel/Kconfig | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-I'm asking it because it'll simplify the test a lot, which will be
-almost self-contained.
+diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
+index 4bce89b5ea40..4447f515e8b1 100644
+--- a/sound/soc/sof/intel/Kconfig
++++ b/sound/soc/sof/intel/Kconfig
+@@ -278,6 +278,8 @@ config SND_SOC_SOF_HDA
+ 
+ config SND_SOC_SOF_INTEL_SOUNDWIRE_LINK_BASELINE
+ 	tristate
++	select SOUNDWIRE_INTEL if SND_SOC_SOF_INTEL_SOUNDWIRE
++	select SND_INTEL_SOUNDWIRE_ACPI if SND_SOC_SOF_INTEL_SOUNDWIRE
+ 
+ config SND_SOC_SOF_INTEL_SOUNDWIRE
+ 	tristate "SOF support for SoundWire"
+@@ -285,8 +287,6 @@ config SND_SOC_SOF_INTEL_SOUNDWIRE
+ 	depends on SND_SOC_SOF_INTEL_SOUNDWIRE_LINK_BASELINE
+ 	depends on ACPI && SOUNDWIRE
+ 	depends on !(SOUNDWIRE=m && SND_SOC_SOF_INTEL_SOUNDWIRE_LINK_BASELINE=y)
+-	select SOUNDWIRE_INTEL
+-	select SND_INTEL_SOUNDWIRE_ACPI
+ 	help
+ 	  This adds support for SoundWire with Sound Open Firmware
+ 	  for Intel(R) platforms.
+-- 
+2.25.1
 
-
-Takashi

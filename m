@@ -2,68 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DEA43DD016
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 07:40:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C35B43DD021
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 07:51:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 13C7D17D7;
-	Mon,  2 Aug 2021 07:39:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13C7D17D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2916917CA;
+	Mon,  2 Aug 2021 07:50:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2916917CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627882844;
-	bh=PUPqiGY1Lqs3wceq2cbTWPaFQYK7+AacH8oW093jjTc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1627883477;
+	bh=ZNUOHVOMTvNQKG7wc4NkZz2n3qd9Euu0whzRpsVwX+U=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nimYUE5IU04wCAKVhh7XScNlDiur1K9WmS5RtZ5ZxKKl0tQL1qN/PkTqBC9gzxpUN
-	 DTiTpv/1eYbyRdJmcvF+BuxLh728Zo0Z9BeUav0W6y2XMJLSbjSF5AI/qQc6zV0Ai0
-	 ORuMYhFK05lb1MmiDW3YW+UROGFkl4D3okAl13ZE=
+	b=BC3fklz2PE/TkYoyA6AwsvbZUcUTHsgvWzUddympsA77BUs3lleiUp6dsgiWY4upo
+	 4W/CvhrBdp6IVedm2+p3ZJK7kotcahbjZa+sPvWWn031Itvn4KKRlq88qRKLpIftmj
+	 hKRj6jO5lLTqHiT7ut6lx0Rsf2kIcdfXE9EKgnW4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E91C8F80279;
-	Mon,  2 Aug 2021 07:39:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7532DF80268;
+	Mon,  2 Aug 2021 07:49:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2EC6BF80271; Mon,  2 Aug 2021 07:39:25 +0200 (CEST)
+ id BAACEF8025F; Mon,  2 Aug 2021 07:49:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B2D6BF800BF
- for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 07:39:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2D6BF800BF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 482FAF800BF
+ for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 07:49:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 482FAF800BF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HokkQCmn"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4D61561029;
- Mon,  2 Aug 2021 05:39:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1627882760;
- bh=PUPqiGY1Lqs3wceq2cbTWPaFQYK7+AacH8oW093jjTc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=HokkQCmnsDlrMTzwbz9oR8wymqUwjm8+08bU9fyRSBmadtgrKc4fBMe+jKa4FFmG7
- wJPTl6m5lIJc7CBy1YyvdSd0VjnWCvIIPy42ax44SXGg3qzUOoa0xJPoLsa5wlDYCL
- WeXbqXDRVzpAaTfO0wiSKxA/45hfOsShy/qzC/C/yNqfl2JulQpsfJYrz9/zZZhyJv
- La1UL4girGVTgq/vuD5jXW2d5ivid4mC/ledo1U7IbWsmc8/47zcfF0PaLD/Czelco
- izc6tAn8P07YPn4ILECDxK5GtFXtdblXlGpvSYE5crTdRGSOxCLEJ31duhLV8oWrhi
- iZHumL7DOaC2w==
-Date: Mon, 2 Aug 2021 11:09:15 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH 00/10] soundwire/ASoC: add mockup codec support
-Message-ID: <YQeFA9/+OfLEftB2@matsya>
-References: <20210714032209.11284-1-yung-chuan.liao@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210714032209.11284-1-yung-chuan.liao@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- broonie@kernel.org, sanyog.r.kale@intel.com, bard.liao@intel.com
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="CfxyEyOq"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="xUEAGwmI"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id D24B21FF22;
+ Mon,  2 Aug 2021 05:49:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1627883383; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=u6oZSjcDEn8euq9JjXNB+EoE6FA+3PbTgZyitMPpz2M=;
+ b=CfxyEyOqg3j1tS44Vj/LkIYXkC5+5P1E4Qm4+pn0ZEpWnbx/XFEyK0WLXx4zP01lCXv7Si
+ yBe2GCfC6HLryXCntWE0YSLmG/ZzWaronMwSMm0RXdzoTEE5Y4JC7GcAjxerz7GbXo3wsW
+ S1Y7QJrtXI/XcRiCeRdgtufGKgxZ2Tk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1627883383;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=u6oZSjcDEn8euq9JjXNB+EoE6FA+3PbTgZyitMPpz2M=;
+ b=xUEAGwmI6qB55ht23AB/hDhTCmPwQlhhVKbFi/F4cbEq7q4WV5jECLWk+5XtwcShGM07DK
+ qit7u2A7C0u9GyDg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id C61CBA3B83;
+ Mon,  2 Aug 2021 05:49:43 +0000 (UTC)
+Date: Mon, 02 Aug 2021 07:49:43 +0200
+Message-ID: <s5hpmuwz98o.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Vinod Koul <vkoul@kernel.org>
+Subject: Re: [PATCH] soundwire: intel: trap TRIGGER_SUSPEND in .trigger
+ callback
+In-Reply-To: <YQd2BM3wGzKpfZn1@matsya>
+References: <20210727053256.29949-1-yung-chuan.liao@linux.intel.com>
+ <s5h8s1sfevg.wl-tiwai@suse.de>
+ <a25d47a6-2599-7101-cd93-e5304b271948@linux.intel.com>
+ <YQd2BM3wGzKpfZn1@matsya>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,11 +98,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 14-07-21, 11:21, Bard Liao wrote:
-> Adding mockup SoundWire codec is useful to debug driver/topology changes
-> without having any actual device connected.
+On Mon, 02 Aug 2021 06:35:16 +0200,
+Vinod Koul wrote:
+> 
+> On 27-07-21, 09:12, Pierre-Louis Bossart wrote:
+> > Thanks Takashi for the review.
+> > 
+> > 
+> > >> This patch provides both a simplification of the suspend flows and a
+> > >> better balanced operation during suspend/resume transition.
+> > >>
+> > >> The exiting code relies on a convoluted way of dealing with suspend
+> > >> signals. Since there is no .suspend DAI callback, we used the
+> > >> component .suspend and marked all the component DAI dmas as
+> > >> 'suspended'. The information was used in the .prepare stage to
+> > >> differentiate resume operations from xrun handling, and only
+> > >> reinitialize SHIM registers and DMA in the former case.
+> > >>
+> > >> While this solution has been working reliably for about 2 years, there
+> > >> is a much better solution consisting in trapping the TRIGGER_SUSPEND
+> > >> in the .trigger DAI ops. The DMA is still marked in the same way for
+> > >> the .prepare op to run, but in addition the callbacks sent to DSP
+> > >> firmware are now balanced.
+> > >>
+> > >> Normal operation:
+> > >> hw_params -> intel_params_stream
+> > >> hw_free   -> intel_free_stream
+> > >>
+> > >> suspend    -> intel_free_stream
+> > >> prepare    -> intel_params_stream
+> > >>
+> > >> This balanced operation was not required with existing SOF firmware
+> > >> relying on static pipelines instantiated at every boot. With the
+> > >> on-going transition to dynamic pipelines, it's however a requirement
+> > >> to keep the use count for the DAI widget balanced across all
+> > >> transitions.
+> > > 
+> > > The trigger callback is handled in the stream lock atomically, and are
+> > > you sure that you want to operate a possibly heavy task there?
+> > 
+> > It's a good objection that we didn't think of.
+> 
+> Doesn't Intel use non atomic trigger to send IPCs which anyway involve
+> code which can sleep..?
 
-Applied sdw patches to sdw-next, thanks
+sof_sdw.c doesn't seem setting it?
 
--- 
-~Vinod
+
+Takashi

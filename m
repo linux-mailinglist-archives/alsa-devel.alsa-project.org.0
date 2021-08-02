@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 423283DDBD6
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 17:04:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BD2F3DDBD7
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 17:05:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4F0D81742;
-	Mon,  2 Aug 2021 17:04:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F0D81742
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA2D51736;
+	Mon,  2 Aug 2021 17:04:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA2D51736
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627916690;
-	bh=RhhS5Cqwe5PdUbNw9tYQyCon0mn6XrJaXwI0EMNCLKg=;
+	s=default; t=1627916703;
+	bh=nS6WPDPr88n8oDDSgoEL5dgbm9vIRBu7xdEtK4TWgt0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MKXLjM6T3qEgrOzSpvIWnNbG04n4PhcEB0hli4GrtclXgpCRRVPBjR1bJXMCh3BJV
-	 Y1/SAtgy8VchbXyGJAHb3G0sTJjeSMdhWnLEON0t3ARr6B2/mu423v2wlpo2tvDvVv
-	 wdr9bIzE6In5oA77zVfXH2gW+4euuBltSdyhPyqk=
+	b=gcTGbpIYpLaDlOOdQNKtPKDZOE3gWGpw4Fn9B5Jo6rV3QegP0/bJ0n/VcuL0PFwel
+	 HmWe4Tu63NLVcaLu/+SqNpLy7a9pOLM/Imz++iHnmLHDh+GM1s52mmSg2IsEfRqrL/
+	 nM1Cj6l8nOrPnmSVslbYtj1V/a1EIidRX1P/mO+M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1A42F804E3;
-	Mon,  2 Aug 2021 17:03:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 536E3F80271;
+	Mon,  2 Aug 2021 17:03:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20BC9F80271; Mon,  2 Aug 2021 17:03:02 +0200 (CEST)
+ id 103DBF804E5; Mon,  2 Aug 2021 17:03:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,36 +33,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C844F8025F
- for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 17:02:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C844F8025F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 81965F80271
+ for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 17:03:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81965F80271
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="DvMx9PBj"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id BE96E610A8;
- Mon,  2 Aug 2021 15:02:55 +0000 (UTC)
+ header.b="qQ5e9oz4"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A397F61057;
+ Mon,  2 Aug 2021 15:02:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1627916576;
- bh=RhhS5Cqwe5PdUbNw9tYQyCon0mn6XrJaXwI0EMNCLKg=;
+ s=k20201202; t=1627916579;
+ bh=nS6WPDPr88n8oDDSgoEL5dgbm9vIRBu7xdEtK4TWgt0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DvMx9PBjecx3EVjBgiJZef5UBzA6M/1ked/ShK/VoDKxICO/6kxC99yXwiNwLfo7b
- 4avBl0u/+61HCUzhPjhaUgEmkkOCVNVKbQsp2SxkgtvOn79VBkphppiZacDIOPiRYZ
- BeMuRgogWYM6AQ1U0c94Lely20inW9Z/+ShYI1iCtUHzk7SFE45RU8A9GmwAOJIST5
- NgEPzzo+IXSyeYQRiuhhJMZ2HwvyTuwKIY75Tv63GTsafsbsJXv4ybhZ1PA/GAe9l/
- /zXSvbCjDs8Y6atDSWofzkKcpXphdHkqYUNQmcJSaPhgOBgMUo/4lPefUbNztYmq4m
- g1zNZ2YXEWMuA==
+ b=qQ5e9oz43I9pYmR1Ika1qyA/pz9x1re6Y8/ajUu1oIBvdDX7tHYTyB2KOwmo/PrGO
+ GJK4UmJ60B+ccFMLJrxh/8QUy6k1eXVpyI09DGuUAdVvKJKRcQnM4hKGYepsN5wE0v
+ Za5fqSHMBAhqcUoZFjBN3s9FIzAzR6ZLzDBhPrZA+f19O5CJ0vvqqSfL1zB37udae3
+ tvl0aoDhvWYwD/F3ETLK+rdnBzncSlQX9QJHZOjmidDw/xE0Uq1dsRsn7TNhIWZgun
+ jDptCLMST7rlvi+Wl8t6zhAY+ItlgyJ/eSOw5NXAu7CbpvfRWo0elZzb9VRoFhNo33
+ 9oKvDF7rBkvGg==
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH v2] ASoC: amd: Fix reference to PCM buffer address
-Date: Mon,  2 Aug 2021 16:02:34 +0100
-Message-Id: <162791613031.1468.15530322169024146309.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Colin King <colin.king@canonical.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ASoC: rsnd: make some arrays static const,
+ makes object smaller
+Date: Mon,  2 Aug 2021 16:02:35 +0100
+Message-Id: <162791613030.1468.1113702427634488424.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210731084331.32225-1-tiwai@suse.de>
-References: <20210731084331.32225-1-tiwai@suse.de>
+In-Reply-To: <20210801063237.137998-1-colin.king@canonical.com>
+References: <20210801063237.137998-1-colin.king@canonical.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,12 +83,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 31 Jul 2021 10:43:31 +0200, Takashi Iwai wrote:
-> PCM buffers might be allocated dynamically when the buffer
-> preallocation failed or a larger buffer is requested, and it's not
-> guaranteed that substream->dma_buffer points to the actually used
-> buffer.  The driver needs to refer to substream->runtime->dma_addr
-> instead for the buffer address.
+On Sun, 1 Aug 2021 07:32:37 +0100, Colin King wrote:
+> Don't populate arrays on the stack but instead them static const.
+> Makes the object code smaller by 242 bytes.
+> 
+> Before:
+>    text    data     bss     dec     hex filename
+>   23827    8764       0   32591    7f4f ./sound/soc/sh/rcar/ssi.o
+> 
+> [...]
 
 Applied to
 
@@ -91,8 +99,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: Fix reference to PCM buffer address
-      commit: 8b5d95313b6d30f642e4ed0125891984c446604e
+[1/1] ASoC: rsnd: make some arrays static const, makes object smaller
+      commit: 6dfeb70276def839aa605edd274f8e9f6189dba3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

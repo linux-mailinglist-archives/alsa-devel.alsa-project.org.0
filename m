@@ -2,74 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 144813DD065
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 08:20:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B6723DD093
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 08:31:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 765D217DE;
-	Mon,  2 Aug 2021 08:19:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 765D217DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id F132B17E0;
+	Mon,  2 Aug 2021 08:30:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F132B17E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627885225;
-	bh=2hT1dbd+DbZADbfQ8ZcZbzjzHg1SkBz/r/vNatVke8I=;
+	s=default; t=1627885900;
+	bh=vcbP7Vu0a+iv1Vktl+nPyhlOrAMgiLFmPGDZ2sL0qhU=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nMhBV7nweFJVUy2WWxhXIclNa6NLEVuqbbgHKfgBqcxzOfw371jNPmdE3cq4L1wCZ
-	 inn5yIswgEN0E5JEJYOc2ygmZlhNjkios92fdQCCQAOQlbIGHq0o5iea5oHYvhV2a9
-	 90ZaoGhPLF2G2KZQJJUS+LDyuBUmgp6NyE+nj4Ww=
+	b=hbTXjpsMxDgEFAidGqxYhZc/szToMieMtYSO/iShdIYFhsbwzfHyf1STpvD/UXpBL
+	 +7Ut20RJKj7f09fU3Q7K7rh1qC8s9tBmkBx/cUjuGNGZNRpzVaoY1XwIGW1I1REO36
+	 6+gQd7hb6NfCg0ogv/GUsNzfCmHNJBpOkpDUicjo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8564F801F7;
-	Mon,  2 Aug 2021 08:18:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83BA5F80268;
+	Mon,  2 Aug 2021 08:30:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CD30BF8025F; Mon,  2 Aug 2021 08:18:55 +0200 (CEST)
+ id D54C8F8025F; Mon,  2 Aug 2021 08:29:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from lb1-smtp-cloud8.xs4all.net (lb1-smtp-cloud8.xs4all.net
- [194.109.24.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 67A00F800BF
- for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 08:18:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67A00F800BF
-Received: from cust-b66e5d83 ([IPv6:fc0c:c157:b88d:62c6:5e3c:5f07:82d0:1b4])
- by smtp-cloud8.xs4all.net with ESMTPA
- id ARHimHbd8XTlcARHjmgjNd; Mon, 02 Aug 2021 08:18:47 +0200
-Received: from localhost (localhost [127.0.0.1])
- by keetweej.vanheusden.com (Postfix) with ESMTP id 0DC7A1626FA;
- Mon,  2 Aug 2021 08:18:46 +0200 (CEST)
-Received: from keetweej.vanheusden.com ([127.0.0.1])
- by localhost (mauer.intranet.vanheusden.com [127.0.0.1]) (amavisd-new,
- port 10024)
- with ESMTP id YHND6GR7eT-I; Mon,  2 Aug 2021 08:18:45 +0200 (CEST)
-Received: from belle.intranet.vanheusden.com (belle.intranet.vanheusden.com
- [192.168.64.100])
- by keetweej.vanheusden.com (Postfix) with ESMTP id 5BFFB162670;
- Mon,  2 Aug 2021 08:18:45 +0200 (CEST)
-Received: by belle.intranet.vanheusden.com (Postfix, from userid 1000)
- id 4A71D16063C; Mon,  2 Aug 2021 08:18:45 +0200 (CEST)
-Date: Mon, 2 Aug 2021 08:18:45 +0200
-From: folkert <folkert@vanheusden.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3390AF800BF
+ for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 08:29:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3390AF800BF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="pdZO+93d"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6DBBC61050;
+ Mon,  2 Aug 2021 06:29:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1627885771;
+ bh=vcbP7Vu0a+iv1Vktl+nPyhlOrAMgiLFmPGDZ2sL0qhU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=pdZO+93dihw2AZwZOHL5mK7DtxwsF7lY6RTv7HNaDP4Ec9o4ty+RL/AjJ2UPBUif/
+ eQSG6mbdQtwK6rD+kgmnc2hEJfjyykvcDD6Ev3eTHKoz/lb2WHV9lxsohKZPnGxHIg
+ JX8jSuRa9/6Fro5tMRng9R0jGJlYG5WU3vehVoN3A1g6yn3W9ZD8YqH4JoKZZvdK07
+ BCHMYvtieKlOI+NXIKxAWebjkLWWoNhqQTQ1+Ud3P35GEVA8CKTqYiCCd+2BhY7rb1
+ WRcPSh879h3pqXPtlzE7n8jLldOmRDlMMXMypra3cAhJprSlBbkVEiT17Ca/SWPuBn
+ y3dh6qA/ab0qw==
+Date: Mon, 2 Aug 2021 11:59:26 +0530
+From: Vinod Koul <vkoul@kernel.org>
 To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: aconnect occasionally causes kernel oopses
-Message-ID: <20210802061845.GQ890690@belle.intranet.vanheusden.com>
-References: <20210801182754.GP890690@belle.intranet.vanheusden.com>
- <s5hlf5kz80e.wl-tiwai@suse.de>
+Subject: Re: [PATCH] soundwire: intel: trap TRIGGER_SUSPEND in .trigger
+ callback
+Message-ID: <YQeQxj7Ejh14jIoc@matsya>
+References: <20210727053256.29949-1-yung-chuan.liao@linux.intel.com>
+ <s5h8s1sfevg.wl-tiwai@suse.de>
+ <a25d47a6-2599-7101-cd93-e5304b271948@linux.intel.com>
+ <YQd2BM3wGzKpfZn1@matsya> <s5hpmuwz98o.wl-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <s5hlf5kz80e.wl-tiwai@suse.de>
-Reply-By: Fri 16 Jul 2021 08:34:34 AM CEST
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-CMAE-Envelope: MS4xfLtOrAk8W54wCt/eXCKWHTSA7QjXTVjW1zivVx+j6RC29LtxUUwRXmr4jOS/HuDvCVzVLcGICOjPCkNF5NhcnGCzW8nnY9rViFgvCydpE0QsbkPsxrGG
- cOnqActeOJtcMYNN/E+r8Z94IAxHC4a/ETPB53WD8yg/ucm3ZlvvUOsKkPovTImNrfJ5EYP3NAjJzG9EG+LHUL14341R53w57s0l+QjllONQR7UO5P4NTgQ9
- rkmPHeTE7AIOz5aOpSrElg==
-Cc: alsa-devel@alsa-project.org
+In-Reply-To: <s5hpmuwz98o.wl-tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,20 +84,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> In which situation?
+On 02-08-21, 07:49, Takashi Iwai wrote:
+> On Mon, 02 Aug 2021 06:35:16 +0200,
+> Vinod Koul wrote:
+> > 
+> > On 27-07-21, 09:12, Pierre-Louis Bossart wrote:
+> > > Thanks Takashi for the review.
+> > > 
+> > > 
+> > > >> This patch provides both a simplification of the suspend flows and a
+> > > >> better balanced operation during suspend/resume transition.
+> > > >>
+> > > >> The exiting code relies on a convoluted way of dealing with suspend
+> > > >> signals. Since there is no .suspend DAI callback, we used the
+> > > >> component .suspend and marked all the component DAI dmas as
+> > > >> 'suspended'. The information was used in the .prepare stage to
+> > > >> differentiate resume operations from xrun handling, and only
+> > > >> reinitialize SHIM registers and DMA in the former case.
+> > > >>
+> > > >> While this solution has been working reliably for about 2 years, there
+> > > >> is a much better solution consisting in trapping the TRIGGER_SUSPEND
+> > > >> in the .trigger DAI ops. The DMA is still marked in the same way for
+> > > >> the .prepare op to run, but in addition the callbacks sent to DSP
+> > > >> firmware are now balanced.
+> > > >>
+> > > >> Normal operation:
+> > > >> hw_params -> intel_params_stream
+> > > >> hw_free   -> intel_free_stream
+> > > >>
+> > > >> suspend    -> intel_free_stream
+> > > >> prepare    -> intel_params_stream
+> > > >>
+> > > >> This balanced operation was not required with existing SOF firmware
+> > > >> relying on static pipelines instantiated at every boot. With the
+> > > >> on-going transition to dynamic pipelines, it's however a requirement
+> > > >> to keep the use count for the DAI widget balanced across all
+> > > >> transitions.
+> > > > 
+> > > > The trigger callback is handled in the stream lock atomically, and are
+> > > > you sure that you want to operate a possibly heavy task there?
+> > > 
+> > > It's a good objection that we didn't think of.
+> > 
+> > Doesn't Intel use non atomic trigger to send IPCs which anyway involve
+> > code which can sleep..?
+> 
+> sof_sdw.c doesn't seem setting it?
 
-I was testing something that listens for alsa events and for that I ran
-a continuous loop that did:
+Yes I think init_dai_link() should set it. Maybe Pierre/Bard would know
+why.
 
-while true
-do
-	aconnect 128:1 14:0
-	aconnect -d 128:1 14:0
-	aconnect -d 128:2 128:1
-	aconnect 128:2 128:1
-done
-
-I ran 5 instances in parallel.
-
-14 is midi through
-128 is rtpmidi
+-- 
+~Vinod

@@ -2,85 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75BD03DD210
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 10:34:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC39F3DD2AE
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 11:11:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D321E16DB;
-	Mon,  2 Aug 2021 10:33:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D321E16DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 71555179E;
+	Mon,  2 Aug 2021 11:11:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71555179E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627893260;
-	bh=1d7uOyMLFmx54oEJZyOasHdXyvUTCmrvye6O/g20wFA=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1627895510;
+	bh=vKZFJmTS6bhzE5M2ItVDQfVC++lE6lW5Tr+7YUXJMF4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JFx64a5+PeHzPhNUFeMJXrBMvEB2oUWeZWXbjXKnLmxxz05y7iUwc5nZXa4KRq6pZ
-	 3AoyHrbnogSlWfyNyV7/yQh2tLcJ7A23Mox9EJjijmXl9A5zaZYNlNje4wd/aglb6g
-	 uJ0sTAjP2YgajRo9R79zviJHwJw6uuFcty3EQZHY=
+	b=U55mJfoaO0Ydjl5eh1zvk1BUoYvsDpIuTf4FGA6fd2mRzU0Zyi8sfmjVNNzYyYp3H
+	 aWgv6SdK0sSpt/O0VZOePgGJljq/6yo7e/+ISUpBZCO33C/xMtgnqwhl0EntOGkvLQ
+	 YWIG6gy3mpPuvveakQ5wO1ci3jsT+QRdNRDlT/mQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26EF1F8014D;
-	Mon,  2 Aug 2021 10:32:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BDA8DF80095;
+	Mon,  2 Aug 2021 11:10:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0FE1AF8025F; Mon,  2 Aug 2021 10:32:51 +0200 (CEST)
+ id 29E81F8025F; Mon,  2 Aug 2021 11:10:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from lb1-smtp-cloud8.xs4all.net (lb1-smtp-cloud8.xs4all.net
+ [194.109.24.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99FACF8014D
- for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 10:32:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99FACF8014D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="l/gBBOlj"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="i3Citgw/"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 80BA31FF3D;
- Mon,  2 Aug 2021 08:32:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627893163; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=GSUJi/FQgJPeBy4COebAp293EN+KA9cmLgibEFy4Zis=;
- b=l/gBBOljOV+EaZfBH6+BCWXCYMLq5KeF36XC1crlDq7Qyl6diNDj+I0Rx9E/olwvaYYHii
- yUgb8FiEBMkxvxeGtZOnRvgV3uiQVVYg9CkaCgKBrXax1rcBQUrRdMOH45yN05Xo7sJIh8
- pYFi4bItLMrF7fRyHiechszW95074E4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627893163;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=GSUJi/FQgJPeBy4COebAp293EN+KA9cmLgibEFy4Zis=;
- b=i3Citgw/nkoWVX8un7GA77wIX5NV6D22MkNb7HRzc2khhHKgpFcipIbmWptggH+6JL9/0S
- kOnvJ4LbcvN3ZJAA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 67D47A3B83;
- Mon,  2 Aug 2021 08:32:43 +0000 (UTC)
-Date: Mon, 02 Aug 2021 10:32:43 +0200
-Message-ID: <s5h8s1kz1p0.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH] ASoC: intel: skylake: Drop superfluous mmap callback
-In-Reply-To: <e7c95cc1-f73b-34c2-e399-03e28f44626f@intel.com>
-References: <20210728141930.17740-1-tiwai@suse.de>
- <0157301f-d0c1-a4a6-ad3f-4e4ad01441f6@intel.com>
- <s5hbl6j7jfa.wl-tiwai@suse.de>
- <e7c95cc1-f73b-34c2-e399-03e28f44626f@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9600BF8014D
+ for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 11:10:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9600BF8014D
+Received: from cust-b66e5d83 ([IPv6:fc0c:c157:b88d:62c6:5e3c:5f07:82d0:1b4])
+ by smtp-cloud8.xs4all.net with ESMTPA
+ id ATxdmIrDvXTlcATxemhCK2; Mon, 02 Aug 2021 11:10:14 +0200
+Received: from localhost (localhost [127.0.0.1])
+ by keetweej.vanheusden.com (Postfix) with ESMTP id 22E791626FA;
+ Mon,  2 Aug 2021 11:10:13 +0200 (CEST)
+Received: from keetweej.vanheusden.com ([127.0.0.1])
+ by localhost (mauer.intranet.vanheusden.com [127.0.0.1]) (amavisd-new,
+ port 10024)
+ with ESMTP id mlM43yOcSmlo; Mon,  2 Aug 2021 11:10:12 +0200 (CEST)
+Received: from belle.intranet.vanheusden.com (belle.intranet.vanheusden.com
+ [192.168.64.100])
+ by keetweej.vanheusden.com (Postfix) with ESMTP id 5EF1D15F770;
+ Mon,  2 Aug 2021 11:10:12 +0200 (CEST)
+Received: by belle.intranet.vanheusden.com (Postfix, from userid 1000)
+ id 50D7116063C; Mon,  2 Aug 2021 11:10:12 +0200 (CEST)
+Date: Mon, 2 Aug 2021 11:10:12 +0200
+From: folkert <folkert@vanheusden.com>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: aconnect occasionally causes kernel oopses
+Message-ID: <20210802091012.GR890690@belle.intranet.vanheusden.com>
+References: <20210801182754.GP890690@belle.intranet.vanheusden.com>
+ <s5hlf5kz80e.wl-tiwai@suse.de>
+ <20210802061845.GQ890690@belle.intranet.vanheusden.com>
+ <s5him0oz5zq.wl-tiwai@suse.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s5him0oz5zq.wl-tiwai@suse.de>
+Reply-By: Fri 16 Jul 2021 08:34:34 AM CEST
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-CMAE-Envelope: MS4xfKIbZOadN40ysYUo83aNN8V5lWutjfrWvtOwMAbIODKz1IDxJ1uHGMab06a00DVGNO6hzxgHoUS0GjJ1CHANDXrjIYFQfWW9HC+RnIaoxV0XiRopgfy5
+ 7x7MTr3V9SKSXOYQhK00Kpn89VIzXWOWP+24OGB7dykY2V91gHObeV2P/ed9fLnUyivFqYFQjYSB229zxq+5/EvDTIfW+fPr+gsJOs3JBrK8H2sSEY/gyqzi
+ V9RvGbECdCWj2FyOCD6eRw==
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,73 +87,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 02 Aug 2021 10:07:12 +0200,
-Cezary Rojewski wrote:
+> > > In which situation?
+> > 
+> > I was testing something that listens for alsa events and for that I ran
+> > a continuous loop that did:
+> > 
+> > while true
+> > do
+> > 	aconnect 128:1 14:0
+> > 	aconnect -d 128:1 14:0
+> > 	aconnect -d 128:2 128:1
+> > 	aconnect 128:2 128:1
+> > done
+> > 
+> > I ran 5 instances in parallel.
+> > 
+> > 14 is midi through
+> > 128 is rtpmidi
 > 
-> On 2021-07-30 8:20 PM, Takashi Iwai wrote:
-> > On Fri, 30 Jul 2021 15:59:54 +0200,
-> > Cezary Rojewski wrote:
-> 
-> ...
-> 
-> >>
-> >> Thanks for the input, Takashi.
-> >> While I welcome the change, have two quick questions:
-> >>
-> >> 1) Does this impact hw_support_mmap() and its user behavior? i.e. is
-> >> there some implicit behavior change that skylake-users may experience
-> >> along the way?
-> >
-> > hw_support_mmap() must return true for this case as long as you've set
-> > up the buffer in the right way (either preallocation or managed).
-> 
-> hw_support_mmap() has an 'if' checking substream->ops->mmap. ASoC
-> framework won't assign snd_soc_pcm_component_mmap as mmap-ops in
-> soc_new_pcm() if component_driver didn't provided custom handler.
-> 
-> This makes me believe function's behavior may change but I might as
-> well be missing something here.
+> So rtpmidi process keeps running during the loop, that is, it's only
+> about connection and disconnection, right?
+> Also, you're listening to an event during that -- but how?
 
-Yes, in that sense, the behavior of the driver has changed, but it's
-only about how the function gets called and nothing visible as the
-actual user-visible behavior.  ASoC core leaves the PCM mmap callback
-empty, and ALSA core calls snd_pcm_lib_default_mmap() in the end,
-which is the same function that was called before the patch.
+I tried it again but with a simpler setup:
 
-> >> 2) Since snd_pcm_mmap_data() defaults to snd_pcm_lib_default_mmap()
-> >> why not update ops assignment - snd_pcm_set_ops() - in such a way that
-> >> if/else is no longer needed in the former?
-> >
-> > Simply put: when the buffer is allocated via
-> > snd_pcm_set_managed_buffer*(), you can omit the mmap callback.
-> > The only case you need the mmap callback is only when a special buffer
-> > is used or it needs a special way of mmap itself.
-> 
-> Comment of my was more of a suggestion i.e. snd_pcm_mmap_data() has an
-> if-statement:
-> 
-> if (substream->ops->mmap)
-> 	err = substream->ops->mmap(substream, area);
-> else
-> 	err = snd_pcm_lib-default_mmap(substream, area);
-> 
-> I believe this could be replaced by one-liner with snd_pcm_set_ops()
-> modified: do the validity check + default assignment there instead.
+I've got these devices:
 
-Well, at the point of snd_pcm_set_ops() called, it's not guaranteed
-that the driver has already set up the buffer.  So we can't check at
-that moment, but at most, only at the point when the callback gets
-actually called -- and that's not easy, either.  e.g. HD-audio driver
-calls snd_pcm_lib_default_mmap() from its own mmap callback as a
-fallback case where no special handling is needed.
+root@lappiemctopface:~# aplaymidi -l
+ Port    Client name                      Port name
+ 14:0    Midi Through                     Midi Through Port-0
+130:0    FLUID Synth (17032)              Synth input port (17032:0)
+131:0    VMPK Input                       in
+root@lappiemctopface:~# arecordmidi -l
+ Port    Client name                      Port name
+ 14:0    Midi Through                     Midi Through Port-0
+132:0    VMPK Output                      out
 
-... But, you comment made me taking a look back at the implementation
-of HD-audio mmap, and this brought an idea for a further cleanup; the
-pgprot setup could be rather in the common mmap code of WC pages,
-instead of the driver-specific one.  Then we'll be able to get rid of
-the all calls of snd_pcm_lib_default_mmap().
+I run this in 3x parallel:
+
+while true
+do
+        aconnect 132:0 130:0
+        aconnect -d 132:0 130:0
+done
+
+and then in less than a minute I get a backtrace.
+
+[ma aug  2 11:05:13 2021] Call Trace:
+[ma aug  2 11:05:13 2021]  ? snd_seq_deliver_event+0x38/0x90 [snd_seq]
+[ma aug  2 11:05:13 2021]  ? snd_seq_kernel_client_dispatch+0x72/0x90 [snd_seq]
+[ma aug  2 11:05:13 2021]  kfree+0x3bc/0x3e0
+[ma aug  2 11:05:13 2021]  ? snd_seq_port_disconnect+0x10c/0x140 [snd_seq]
+[ma aug  2 11:05:13 2021]  snd_seq_port_disconnect+0x10c/0x140 [snd_seq]
+[ma aug  2 11:05:13 2021]  snd_seq_ioctl_unsubscribe_port+0xb9/0x180 [snd_seq]
+[ma aug  2 11:05:13 2021]  ? snd_seq_port_get_subscription+0xbb/0xd0 [snd_seq]
+[ma aug  2 11:05:13 2021]  ? __check_object_size.part.0+0x3a/0x150
+[ma aug  2 11:05:13 2021]  snd_seq_ioctl+0xe8/0x1b0 [snd_seq]
+[ma aug  2 11:05:13 2021]  __x64_sys_ioctl+0x91/0xc0
+[ma aug  2 11:05:13 2021]  do_syscall_64+0x38/0x90
+[ma aug  2 11:05:13 2021]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
 
 
-thanks,
+Using:
+fluidsynth                                 2.1.7-1
+vmpk                                       0.7.2-1build1
 
-Takashi
+
+On: 5.11.0-25-generic (ubuntu) on 2 cores, 2 threads/core cpu (64b).
+

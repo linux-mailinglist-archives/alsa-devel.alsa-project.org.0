@@ -2,72 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BD2F3DDBD7
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 17:05:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B2B13DDC0D
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 17:12:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BA2D51736;
-	Mon,  2 Aug 2021 17:04:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA2D51736
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9951172D;
+	Mon,  2 Aug 2021 17:12:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9951172D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627916703;
-	bh=nS6WPDPr88n8oDDSgoEL5dgbm9vIRBu7xdEtK4TWgt0=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1627917175;
+	bh=eYbAQfkj5dLj8TZVr9dsvhLc2Vpxu+KWB2sW50MRnBw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gcTGbpIYpLaDlOOdQNKtPKDZOE3gWGpw4Fn9B5Jo6rV3QegP0/bJ0n/VcuL0PFwel
-	 HmWe4Tu63NLVcaLu/+SqNpLy7a9pOLM/Imz++iHnmLHDh+GM1s52mmSg2IsEfRqrL/
-	 nM1Cj6l8nOrPnmSVslbYtj1V/a1EIidRX1P/mO+M=
+	b=rm6LRcX0nnEPcnBLAqna658y8vt8meRt7UoGLZTGSwqo6wIYkSK0wCgI+0I1MF1Jk
+	 bFTA0/OsFo5K/P4EKAIq7Mta0nFevoOF/d2t0m3zZp1bSnJAqVSVW4XfTJaL/x61+T
+	 fejfABDIIw0yGuXqVqAAqLDM4vtt+EzoyKLMHd3Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 536E3F80271;
-	Mon,  2 Aug 2021 17:03:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B099F80268;
+	Mon,  2 Aug 2021 17:11:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 103DBF804E5; Mon,  2 Aug 2021 17:03:04 +0200 (CEST)
+ id 688DAF8025F; Mon,  2 Aug 2021 17:11:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81965F80271
- for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 17:03:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81965F80271
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2EFBAF80095
+ for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 17:11:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2EFBAF80095
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qQ5e9oz4"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A397F61057;
- Mon,  2 Aug 2021 15:02:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1627916579;
- bh=nS6WPDPr88n8oDDSgoEL5dgbm9vIRBu7xdEtK4TWgt0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=qQ5e9oz43I9pYmR1Ika1qyA/pz9x1re6Y8/ajUu1oIBvdDX7tHYTyB2KOwmo/PrGO
- GJK4UmJ60B+ccFMLJrxh/8QUy6k1eXVpyI09DGuUAdVvKJKRcQnM4hKGYepsN5wE0v
- Za5fqSHMBAhqcUoZFjBN3s9FIzAzR6ZLzDBhPrZA+f19O5CJ0vvqqSfL1zB37udae3
- tvl0aoDhvWYwD/F3ETLK+rdnBzncSlQX9QJHZOjmidDw/xE0Uq1dsRsn7TNhIWZgun
- jDptCLMST7rlvi+Wl8t6zhAY+ItlgyJ/eSOw5NXAu7CbpvfRWo0elZzb9VRoFhNo33
- 9oKvDF7rBkvGg==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Colin King <colin.king@canonical.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH] ASoC: rsnd: make some arrays static const,
- makes object smaller
-Date: Mon,  2 Aug 2021 16:02:35 +0100
-Message-Id: <162791613030.1468.1113702427634488424.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210801063237.137998-1-colin.king@canonical.com>
-References: <20210801063237.137998-1-colin.king@canonical.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="v4PGrgER"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="tLRBmAU/"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 8EFE421E52;
+ Mon,  2 Aug 2021 15:11:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1627917081; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=IQdGrb23bd1E6SrTRiONuFUQpme9wiLSmj2nKQ0syrQ=;
+ b=v4PGrgERavZpktGRYMNTiwTFGlwLXxmyMp10W4nI9ZTUyVyGsLBMNbr5OmuGUsu7eJvjJj
+ B/mk2bZ+jYEe8REM4HgnMtmerKKFyJY41s4+Q/1BquAlbFFgQVDxcG8drjuk5cv9Efp3eu
+ hvZuzsiKtg68EwPbh3mL8OSp2mf1B8U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1627917081;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=IQdGrb23bd1E6SrTRiONuFUQpme9wiLSmj2nKQ0syrQ=;
+ b=tLRBmAU/c+ffnAsVKikjLsrQgkOj5DR+xVvE59CfYMENZk/U7T48emwrT25iq6LxplT7H/
+ UOvjo9TSd+TKNJBQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 89B0EA3BB4;
+ Mon,  2 Aug 2021 15:11:21 +0000 (UTC)
+Date: Mon, 02 Aug 2021 17:11:21 +0200
+Message-ID: <s5hczqvyj8m.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: folkert <folkert@vanheusden.com>
+Subject: Re: aconnect occasionally causes kernel oopses
+In-Reply-To: <20210802091012.GR890690@belle.intranet.vanheusden.com>
+References: <20210801182754.GP890690@belle.intranet.vanheusden.com>
+ <s5hlf5kz80e.wl-tiwai@suse.de>
+ <20210802061845.GQ890690@belle.intranet.vanheusden.com>
+ <s5him0oz5zq.wl-tiwai@suse.de>
+ <20210802091012.GR890690@belle.intranet.vanheusden.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,40 +95,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 1 Aug 2021 07:32:37 +0100, Colin King wrote:
-> Don't populate arrays on the stack but instead them static const.
-> Makes the object code smaller by 242 bytes.
+On Mon, 02 Aug 2021 11:10:12 +0200,
+folkert wrote:
 > 
-> Before:
->    text    data     bss     dec     hex filename
->   23827    8764       0   32591    7f4f ./sound/soc/sh/rcar/ssi.o
+> > > > In which situation?
+> > > 
+> > > I was testing something that listens for alsa events and for that I ran
+> > > a continuous loop that did:
+> > > 
+> > > while true
+> > > do
+> > > 	aconnect 128:1 14:0
+> > > 	aconnect -d 128:1 14:0
+> > > 	aconnect -d 128:2 128:1
+> > > 	aconnect 128:2 128:1
+> > > done
+> > > 
+> > > I ran 5 instances in parallel.
+> > > 
+> > > 14 is midi through
+> > > 128 is rtpmidi
+> > 
+> > So rtpmidi process keeps running during the loop, that is, it's only
+> > about connection and disconnection, right?
+> > Also, you're listening to an event during that -- but how?
 > 
-> [...]
+> I tried it again but with a simpler setup:
+> 
+> I've got these devices:
+> 
+> root@lappiemctopface:~# aplaymidi -l
+>  Port    Client name                      Port name
+>  14:0    Midi Through                     Midi Through Port-0
+> 130:0    FLUID Synth (17032)              Synth input port (17032:0)
+> 131:0    VMPK Input                       in
+> root@lappiemctopface:~# arecordmidi -l
+>  Port    Client name                      Port name
+>  14:0    Midi Through                     Midi Through Port-0
+> 132:0    VMPK Output                      out
+> 
+> I run this in 3x parallel:
+> 
+> while true
+> do
+>         aconnect 132:0 130:0
+>         aconnect -d 132:0 130:0
+> done
+> 
+> and then in less than a minute I get a backtrace.
 
-Applied to
+OK, thanks.  That's more promising.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Does this happen if you do reconnect of kernel sequencer client?
+You can use snd-virmidi as well as snd-dummy.
 
-Thanks!
+I'm asking it because it'll simplify the test a lot, which will be
+almost self-contained.
 
-[1/1] ASoC: rsnd: make some arrays static const, makes object smaller
-      commit: 6dfeb70276def839aa605edd274f8e9f6189dba3
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Takashi

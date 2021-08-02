@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A8BA3DD5D6
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 14:39:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F2A03DD5DA
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 14:40:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 547F210E;
-	Mon,  2 Aug 2021 14:38:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 547F210E
+	by alsa0.perex.cz (Postfix) with ESMTPS id CDBDF17A4;
+	Mon,  2 Aug 2021 14:39:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDBDF17A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627907988;
-	bh=hNPTlNdpcorbvFwikvgrsQYcxYEw8WUbzAnqd8MyiH8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=pBTf/b6Hprik4yC2tH7wW58E502jt8146ZoS7TcYSkHCLT3+F7QhF6Ygr/kAeCgOV
-	 nQOX7mlX4+VCUFSGPwwqcWfUMGOuNe9LwFf1BuNqyTvj2e39DH0NfvPSPUgnqT0LG/
-	 QklXFN1dZYQLO20wdgSHZhSgriNSZczbm5AYrgr8=
+	s=default; t=1627908003;
+	bh=2QEbGxdRnwlWDEnLCa0DBqGAhmR/nswi4u4TgQaTlWQ=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=OSrt47N2JIN5ydxO+q90Gfpq+spcr3b7WZPoS62XL+bve0mV35QmLN0moNDf0wVvL
+	 2RF2NeAfHaUMsxfbA5Rrabt3ZF20r03XmxwrKJ+rV998hDQbolKsV0pkk8rE0L4Sv/
+	 fLVld8FBtpbAlnBOe7uQm7hwFOkESEtOJRNs/VhU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C3D1DF80268;
-	Mon,  2 Aug 2021 14:38:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5DF33F8026A;
+	Mon,  2 Aug 2021 14:38:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 032C9F80268; Mon,  2 Aug 2021 14:38:18 +0200 (CEST)
+ id 691B3F8025F; Mon,  2 Aug 2021 14:38:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -32,31 +33,32 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62D3BF80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5090F800BF
  for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 14:38:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62D3BF80095
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5090F800BF
 Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 172Cc5QC1018156,
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 172Cc57f9018160,
  This message is accepted by code: ctloc85258
 Received: from mail.realtek.com (rtexh36502.realtek.com.tw[172.21.6.25])
- by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 172Cc5QC1018156
+ by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 172Cc57f9018160
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
  Mon, 2 Aug 2021 20:38:05 +0800
 Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
  RTEXH36502.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Mon, 2 Aug 2021 20:38:04 +0800
+ 15.1.2106.2; Mon, 2 Aug 2021 20:38:05 +0800
 Received: from localhost.localdomain (172.16.18.80) by
  RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Mon, 2 Aug 2021 20:38:03 +0800
+ 15.1.2106.2; Mon, 2 Aug 2021 20:38:04 +0800
 From: <derek.fang@realtek.com>
 To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH 1/2] Revert "ASoC: rt5682: Adjust headset volume button
- threshold"
-Date: Mon, 2 Aug 2021 20:37:52 +0800
-Message-ID: <20210802123753.11762-1-derek.fang@realtek.com>
+Subject: [PATCH 2/2] ASoC: rt5682: Adjust the headset volume button threshold
+Date: Mon, 2 Aug 2021 20:37:53 +0800
+Message-ID: <20210802123753.11762-2-derek.fang@realtek.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210802123753.11762-1-derek.fang@realtek.com>
+References: <20210802123753.11762-1-derek.fang@realtek.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Originating-IP: [172.16.18.80]
@@ -117,20 +119,20 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Derek Fang <derek.fang@realtek.com>
 
-This reverts commit 6d20bf7c020f417fdef1810a22da17c126603472.
-Since it may risk affecting other headset Vol- button.
+Set a safe threshold of headset button volume+ to fix
+the wrong button detection issue with some brand headsets.
 
 Signed-off-by: Derek Fang <derek.fang@realtek.com>
 
 diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-index 7dc01ae6bb66..fcf442b8a732 100644
+index fcf442b8a732..fad827368c5e 100644
 --- a/sound/soc/codecs/rt5682.c
 +++ b/sound/soc/codecs/rt5682.c
-@@ -44,7 +44,6 @@ static const struct reg_sequence patch_list[] = {
+@@ -44,6 +44,7 @@ static const struct reg_sequence patch_list[] = {
  	{RT5682_I2C_CTRL, 0x000f},
  	{RT5682_PLL2_INTERNAL, 0x8266},
  	{RT5682_SAR_IL_CMD_3, 0x8365},
--	{RT5682_SAR_IL_CMD_6, 0x0180},
++	{RT5682_SAR_IL_CMD_6, 0x0110},
  };
  
  void rt5682_apply_patch_list(struct rt5682_priv *rt5682, struct device *dev)

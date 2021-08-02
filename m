@@ -2,70 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5F923DCFBC
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 06:32:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F1093DCFC6
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 06:36:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4605117C2;
-	Mon,  2 Aug 2021 06:32:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4605117C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 640BE17C9;
+	Mon,  2 Aug 2021 06:36:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 640BE17C9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627878772;
-	bh=CMsRWaz1bnKTGMU4K1R1S5AEySTCQi+MPd7WgsSgR+U=;
+	s=default; t=1627879017;
+	bh=OVnec3Fb6+MC+MzTGB40rLm+9DyEmwn6VAtvMe4QWBQ=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Qw3+nA+pGWEDdg1le3ZJPRzQfwAgyNp5R+Z0n6C2bKc79hoCEyppvRfUzO+S1mbyX
-	 5nz5oJZvghkcGtqMpAryKDxOR2FTNk051PrmNKE6pU0xdyNwRzWgP0UhM6/TI2knzx
-	 /vyWUXddB+qhVNvedcClJvvmo76esjiAktM6VUgA=
+	b=raBHzOOCd1n3mstkVfTyo3x6qvBFCQJtFZFeGWu98TZGm49v2VgTc3Rrk/QwAHqUa
+	 um4n4DQQ/oO012dBQSXjit3OkYaahh61HUH/yO8l3ImQvPJPzt+dqFPE0oWCoVHZ+d
+	 T3qXh5vGK0idSDnbTKab5c1P/MM6F+JUqe7uTUIM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7A69F80268;
-	Mon,  2 Aug 2021 06:31:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CDDFBF80268;
+	Mon,  2 Aug 2021 06:35:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8C59CF8025F; Mon,  2 Aug 2021 06:31:22 +0200 (CEST)
+ id 54E9DF8025F; Mon,  2 Aug 2021 06:35:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41FEEF800BF
- for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 06:31:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41FEEF800BF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 82D50F8014D
+ for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 06:35:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82D50F8014D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="gP9XFLvj"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C6A0360C41;
- Mon,  2 Aug 2021 04:31:10 +0000 (UTC)
+ header.b="GwxiGdVs"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0D18F60FC1;
+ Mon,  2 Aug 2021 04:35:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1627878671;
- bh=CMsRWaz1bnKTGMU4K1R1S5AEySTCQi+MPd7WgsSgR+U=;
+ s=k20201202; t=1627878921;
+ bh=OVnec3Fb6+MC+MzTGB40rLm+9DyEmwn6VAtvMe4QWBQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gP9XFLvjDRZCS8SGmpD64zqSZWBKvemGekjum+bgVvt2VGPd0an0Alg0vW8Vfx7gD
- +8269wRTUlnaNdt7p5eaLjAudEahxYYjT2Kq6cYSM9yk+v8PvUHMigBI+t1+sSogoP
- 3Ws8v8OhRD/mf3i+waPwAg13PrnXaYiMY6/BLu4MQz2CeuhINgUhQVjeiN6LInR9Lk
- 5ct+jbyRyjW/pnFeDSochgg4Eg05g1+Oj84OMv+upBGBe05huUxQNoaz5XnyIKr/+G
- 9Relp9DJHvTS81yamQdPHAqmvaDHc9iiPVaiWJ19vIIEa2ip6XfPXqMtT54g3P4qkt
- AznkuypovGNvA==
-Date: Mon, 2 Aug 2021 10:01:07 +0530
+ b=GwxiGdVsN3kxGdIuNNbMJJwSz/+uYuHdGexy2+KT3yYOaocanmNFUDo5ps1AmD+c9
+ eljfQ8f1FwnE04smZ+4L+sG7E1BkXIH6hHqJ8miP6w1d9ATAWLtaxl/oLGmEadd7FI
+ 1HPvYK3yng83vd4qL+dqRuyWUJmRjnFrStRW5w/6yaSWqrgJ/tdyv3T8Cl1d7A250x
+ CRSpbSLhOaLHcjukrZ+hNrGmTwYYium2ayf5kIPgchhC0lG0UDNrfJ6C49mXXKe+ae
+ /mxiD7JuzbIBwOmzitkgFm1A4sN4gALp2CjgPaIfpwulA67b3WTVOhHy7c6RyTgQnK
+ 1N1cbQy9mmWkw==
+Date: Mon, 2 Aug 2021 10:05:16 +0530
 From: Vinod Koul <vkoul@kernel.org>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH 3/4] soundwire: intel: exit clock stop mode on system
- suspend
-Message-ID: <YQd1C0QQMDNtzfAq@matsya>
-References: <20210727055608.30247-1-yung-chuan.liao@linux.intel.com>
- <20210727055608.30247-4-yung-chuan.liao@linux.intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] soundwire: intel: trap TRIGGER_SUSPEND in .trigger
+ callback
+Message-ID: <YQd2BM3wGzKpfZn1@matsya>
+References: <20210727053256.29949-1-yung-chuan.liao@linux.intel.com>
+ <s5h8s1sfevg.wl-tiwai@suse.de>
+ <a25d47a6-2599-7101-cd93-e5304b271948@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210727055608.30247-4-yung-chuan.liao@linux.intel.com>
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com, bard.liao@intel.com
+In-Reply-To: <a25d47a6-2599-7101-cd93-e5304b271948@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,129 +82,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 27-07-21, 13:56, Bard Liao wrote:
-> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+On 27-07-21, 09:12, Pierre-Louis Bossart wrote:
+> Thanks Takashi for the review.
 > 
-> Intel validation reported an issue where the HW_RST self-clearing bit
-> is not cleared in hardware, which as a ripple effect creates issues
-> with the clock stop mode.
 > 
-> This happens is a specific sequence where the Intel manager is
-> pm_runtime suspended with the clock-stop mode enabled. During the
-> system suspend, we currently do nothing, which can lead to potential
-> issues on system resume and the following pm_runtime suspend,
-> depending on the hardware state.
+> >> This patch provides both a simplification of the suspend flows and a
+> >> better balanced operation during suspend/resume transition.
+> >>
+> >> The exiting code relies on a convoluted way of dealing with suspend
+> >> signals. Since there is no .suspend DAI callback, we used the
+> >> component .suspend and marked all the component DAI dmas as
+> >> 'suspended'. The information was used in the .prepare stage to
+> >> differentiate resume operations from xrun handling, and only
+> >> reinitialize SHIM registers and DMA in the former case.
+> >>
+> >> While this solution has been working reliably for about 2 years, there
+> >> is a much better solution consisting in trapping the TRIGGER_SUSPEND
+> >> in the .trigger DAI ops. The DMA is still marked in the same way for
+> >> the .prepare op to run, but in addition the callbacks sent to DSP
+> >> firmware are now balanced.
+> >>
+> >> Normal operation:
+> >> hw_params -> intel_params_stream
+> >> hw_free   -> intel_free_stream
+> >>
+> >> suspend    -> intel_free_stream
+> >> prepare    -> intel_params_stream
+> >>
+> >> This balanced operation was not required with existing SOF firmware
+> >> relying on static pipelines instantiated at every boot. With the
+> >> on-going transition to dynamic pipelines, it's however a requirement
+> >> to keep the use count for the DAI widget balanced across all
+> >> transitions.
+> > 
+> > The trigger callback is handled in the stream lock atomically, and are
+> > you sure that you want to operate a possibly heavy task there?
 > 
-> This patch suggests a full resume (parent+child devices) if the
-> clock-stop mode is used. This may require extra time but will make the
-> suspend/resume flows completely symmetric. This also removes a race
-> condition where we could not access SHIM registers if the parent was
-> suspended as well. Resuming the link also resumes the parent by
-> construction.
-> 
-> BugLink: https://github.com/thesofproject/linux/issues/2606
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-> ---
->  drivers/soundwire/intel.c | 65 +++++++++++++++++++++++++++++++++++++++
->  1 file changed, 65 insertions(+)
-> 
-> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-> index 46d1645cb7fe..9d05e158fe0e 100644
-> --- a/drivers/soundwire/intel.c
-> +++ b/drivers/soundwire/intel.c
-> @@ -1527,6 +1527,70 @@ int intel_link_process_wakeen_event(struct auxiliary_device *auxdev)
->   * PM calls
->   */
->  
-> +static int intel_resume_child_device(struct device *dev, void *data)
-> +{
-> +	int ret;
-> +	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-> +
-> +	if (!slave->probed) {
-> +		dev_dbg(dev, "%s: skipping device, no probed driver\n", __func__);
-> +		return 0;
-> +	}
-> +	if (!slave->dev_num_sticky) {
-> +		dev_dbg(dev, "%s: skipping device, never detected on bus\n", __func__);
-> +		return 0;
-> +	}
-> +
-> +	ret = pm_request_resume(dev);
-> +	if (ret < 0)
-> +		dev_err(dev, "%s: pm_request_resume failed: %d\n", __func__, ret);
-> +
-> +	return ret;
-> +}
-> +
-> +static int __maybe_unused intel_pm_prepare(struct device *dev)
-> +{
-> +	struct sdw_cdns *cdns = dev_get_drvdata(dev);
-> +	struct sdw_intel *sdw = cdns_to_intel(cdns);
-> +	struct sdw_bus *bus = &cdns->bus;
-> +	u32 clock_stop_quirks;
-> +	int ret = 0;
-> +
-> +	if (bus->prop.hw_disabled || !sdw->startup_done) {
-> +		dev_dbg(dev, "SoundWire master %d is disabled or not-started, ignoring\n",
-> +			bus->link_id);
-> +		return 0;
-> +	}
-> +
-> +	clock_stop_quirks = sdw->link_res->clock_stop_quirks;
-> +
-> +	if ((clock_stop_quirks & SDW_INTEL_CLK_STOP_BUS_RESET) ||
-> +	    !clock_stop_quirks) {
-> +		/*
-> +		 * Try to resume the entire bus (parent + child devices) to exit
-> +		 * the clock stop mode. If this fails, we keep going since we don't want
-> +		 * to prevent system suspend from happening and errors should be recoverable
-> +		 * on resume.
-> +		 */
-> +		ret = device_for_each_child(bus->dev, NULL, intel_resume_child_device);
-> +
-> +		if (ret < 0)
-> +			dev_err(dev, "%s: intel_resume_child_device failed: %d\n", __func__, ret);
-> +
-> +		/*
-> +		 * in the case where a link was started but does not have anything connected,
-> +		 * we still need to resume to keep link power up/down sequences balanced.
-> +		 * This is a no-op if a child device was present, since resuming the child
-> +		 * device would also resume the parent
-> +		 */
-> +		ret = pm_request_resume(dev);
+> It's a good objection that we didn't think of.
 
-I am not sure of this patch yet, maybe I am comprehending it..
+Doesn't Intel use non atomic trigger to send IPCs which anyway involve
+code which can sleep..?
 
-1. In above you are calling resume of child devices first and then intel
-device, which sounds reverse, should you not resume intel device first
-and then child (codec devices) ?
-
-2. What about when resume is invoked by the core for the child devices.
-That would be called in the PM resume flow, so why do it here?
-
-> +		if (ret < 0)
-> +			dev_err(dev, "%s: pm_request_resume failed: %d\n", __func__, ret);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  static int __maybe_unused intel_suspend(struct device *dev)
->  {
->  	struct sdw_cdns *cdns = dev_get_drvdata(dev);
-> @@ -1923,6 +1987,7 @@ static int __maybe_unused intel_resume_runtime(struct device *dev)
->  }
->  
->  static const struct dev_pm_ops intel_pm = {
-> +	.prepare = intel_pm_prepare,
->  	SET_SYSTEM_SLEEP_PM_OPS(intel_suspend, intel_resume)
->  	SET_RUNTIME_PM_OPS(intel_suspend_runtime, intel_resume_runtime, NULL)
->  };
-> -- 
-> 2.17.1
+> 
+> I guess it depends on the definition of 'heavy' and what is acceptable
+> in such a 'trigger' context.
+> 
+> The intel_free_stream() routine only sends an IPC to the firmware to
+> release the DMA resources. It doesn't perform any memory allocation
+> tasks at the kernel level, it only sends information to the firmware
+> that the DMA can be stopped/released. We could trace how much time that
+> really means but I don't expect it to be 'long'. I also don't think the
+> IPC waits for the DMA to be actually stopped/released, the IPC completes
+> when the message is acknowledged with the doorbell registers (I will
+> double-check this point).
+> 
+> It's really similar to all the existing IPCs sent in trigger context, we
+> already send an IPC for ALL trigger commands such as
+> START/STOP/PAUSE_PUSH/PAUSE_RELEASE. see e.g. sof_pcm_trigger() in
+> sound/soc/sof/pcm.c
+> 
+> What is needed for dynamic pipelines is the ability to deal with
+> suspend-resume, so we would send IPCs in those cases as well.
+> 
+> That said, it's true that we marked all the FE dailinks as nonatomic
+> precisely because they would involve IPCs, but here we are dealing with
+> BE dailinks that are typically thought of as 'atomic'. Just thinking
+> aloud, maybe we need to tag all those dailinks as 'nonatomic' as well?
+> 
+> > If it's just for releasing before re-acquiring a stream, you can do it
+> > in sync_stop PCM ops instead, too.  This is called in prior to prepare
+> > and hw_params ops when a stream has been stopped or suspended
+> > beforehand.
+> 
+> Humm, I must admit I have never heard of this sync_stop routine :-)
+> 
+> It's not exposed as a DAI callback, I only see this exposed at the
+> component level. That wouldn't be too helpful, the existing solution was
+> based on using the suspend at the component level, which was a bit of a
+> hack - we marked all component DAIs as suspended, including the ones
+> that were never started.
+> 
+> The idea of using the DAI seems much better to me, we don't need to
+> track which DAI is started or not, just use the pointer passed by higher
+> layers.
+> 
+> Anyways, thanks for the feedback, that gave us a lot of things to think
+> about.
+> -Pierre
 
 -- 
 ~Vinod

@@ -2,70 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACA893DE0FA
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 22:46:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 508CB3DE137
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 23:06:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 29FB61713;
-	Mon,  2 Aug 2021 22:46:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29FB61713
+	by alsa0.perex.cz (Postfix) with ESMTPS id B49FD1723;
+	Mon,  2 Aug 2021 23:06:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B49FD1723
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627937217;
-	bh=Jtdbyw1KtfZCbl5QABW1yDpMjvPPKCrXpdVs6/siGp4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1627938418;
+	bh=kOJP9YcQCknQSgvOxHhwRxgy88i1CQupJ0pwITjsdZg=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HOi2Cqg+LaS0Z4yhXUYUn7BdjVg51ytEMvvXNO8AmgGs0UevmNQ5qFlgSoYakRz4N
-	 9iYOOowo0boDrZk0y4Un15jnVAUSLevGA1NVGqGLjZduFpeDxU+GJXNZCJL0Mh+Qh4
-	 lNfbAKO4gGX9yJoIiX9L5Z3q/QjwAzL6i1JWB1XM=
+	b=fxBagSjAxeNQSBcbxaPigZnzkj8TZojhkdoljmvx50tWKB9T+YnDUOl39oHAiS1t7
+	 x3arfxDM8Mva27DHDF3QbqGbp1x9zudku0d2+CHWZ8QB9C9d49coE8RaALkjjvytSk
+	 sBg8yCVgASyiMrpwGmbaOL9EDoqKtLuXKY8gEl2g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 391E3F804E2;
-	Mon,  2 Aug 2021 22:44:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D4C1F80268;
+	Mon,  2 Aug 2021 23:05:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0DDF3F80279; Mon,  2 Aug 2021 22:44:39 +0200 (CEST)
+ id D2147F8025F; Mon,  2 Aug 2021 23:05:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B5DF8F800BF
- for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 22:44:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5DF8F800BF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="i6GO5xdG"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D92FF60F93;
- Mon,  2 Aug 2021 20:44:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1627937072;
- bh=Jtdbyw1KtfZCbl5QABW1yDpMjvPPKCrXpdVs6/siGp4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=i6GO5xdG7FdvsjacXaTTLv1vh9cr04K3iTE1lLTT7ZFDwsSelwsSg6Uc3NBF0f8xx
- /MCTbqOJYsdvl9ke6NfAZ/zAKkWl2Yz8IBdTCjRWxXS8vldsYUnvj5s/zEIqROko9Y
- cElwZxLdQRr9tB6MBPeP4KdKX5+faQQf8Va+kp0lPz27yr+6HfEAORg5gvlJhPP7WF
- Pm1HnXUMSgpu71XsVXkyb++TI8JImTXHfISIhkkzC1H69Iz9KAiMK9Jpel6HXEGPwI
- hPgq2nnh41hYE1RyEZj9wsBnSIC4u+6th+DFVeptsZo/lvjetEn6Ji3CC9qIGx9Kkh
- bW5BoGwAyddcQ==
-From: Mark Brown <broonie@kernel.org>
-To: vkoul@kernel.org, Bard Liao <yung-chuan.liao@linux.intel.com>,
- alsa-devel@alsa-project.org
-Subject: Re: [PATCH v2 0/6] soundwire/ASoC: abstract platform-dependent bases
-Date: Mon,  2 Aug 2021 21:44:13 +0100
-Message-Id: <162793640708.55982.13298433414874844018.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210723115451.7245-1-yung-chuan.liao@linux.intel.com>
-References: <20210723115451.7245-1-yung-chuan.liao@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 76E36F8014D
+ for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 23:05:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76E36F8014D
+X-IronPort-AV: E=McAfee;i="6200,9189,10064"; a="213261199"
+X-IronPort-AV: E=Sophos;i="5.84,289,1620716400"; d="scan'208";a="213261199"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Aug 2021 14:05:19 -0700
+X-IronPort-AV: E=Sophos;i="5.84,289,1620716400"; d="scan'208";a="501960736"
+Received: from skarumur-mobl.amr.corp.intel.com (HELO [10.212.72.192])
+ ([10.212.72.192])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Aug 2021 14:05:18 -0700
+Subject: Re: [PATCH] ASoC: Intel: boards: Fix CONFIG_SND_SOC_SDW_MOCKUP select
+To: Nathan Chancellor <nathan@kernel.org>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
+References: <20210802190351.3201677-1-nathan@kernel.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <3929126b-b4f0-bdf5-56f5-28662c7b7b44@linux.intel.com>
+Date: Mon, 2 Aug 2021 16:05:15 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: vinod.koul@linaro.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- Mark Brown <broonie@kernel.org>, sanyog.r.kale@intel.com, bard.liao@intel.com
+In-Reply-To: <20210802190351.3201677-1-nathan@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,51 +79,64 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 23 Jul 2021 19:54:45 +0800, Bard Liao wrote:
-> shim base and alh base are platform-dependent. This series suggests
-> to use variables for those bases. It allows us to use different bases
-> for new platforms.
+
+
+On 8/2/21 2:03 PM, Nathan Chancellor wrote:
+> When CONFIG_SND_SOC_INTEL_SOUNDWIRE_SOF_MACH is enabled without
+> CONFIG_EXPERT, there is a Kconfig warning about unmet dependencies:
 > 
-> v2:
->  - Update the commit message of "soundwire: move intel sdw register
->    definitions to sdw_intel.h"
+> WARNING: unmet direct dependencies detected for SND_SOC_SDW_MOCKUP
+>   Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] &&
+> EXPERT [=n] && SOUNDWIRE [=y]
+>   Selected by [y]:
+>   - SND_SOC_INTEL_SOUNDWIRE_SOF_MACH [=y] && ...
 > 
-> [...]
+> Selecting a symbol does not account for dependencies so if symbol A
+> selects symbol B which depends on symbol C, symbol B or its select of
+> symbol A should depend on symbol C as well.
+> 
+> Make the CONFIG_SND_SOC_SDW_MOCKUP select in
+> CONFIG_SND_SOC_INTEL_SOUNDWIRE_SOF_MACH depend on CONFIG_EXPERT as the
+> help text for CONFIG_SND_SOC_SDW_MOCKUP indicates it is intended to be a
+> development option.
+> 
+> Fixes: 0ccac3bcf356 ("ASoC: Intel: boards: sof_sdw: add SoundWire mockup codecs for tests")
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> ---
+> 
+> An alternative here is if CONFIG_SND_SOC_INTEL_SOUNDWIRE_SOF_MACH wants
+> to unconditionally select CONFIG_SND_SOC_SDW_MOCKUP, the "depends on
+> EXPERT" can be moved to the prompt (tristate "..." if EXPERT). I am
+> happy to send a new patch if that is what is desired.
 
-Applied to
+Thanks for the patch Nathan, I added this depends on EXPERT and forgot
+about it when I updated the machine driver.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Maybe a better alternate would be
 
-Thanks!
+imply SND_SOC_SDW_MOCKUP
 
-[1/6] soundwire: move intel sdw register definitions to sdw_intel.h
-      commit: f01639589e252a6f72c04716e1b5f9bb10e2debc
-[2/6] ASoC: SOF: intel: add sdw_shim/alh_base to sof_intel_dsp_desc
-      commit: 1cbf6443f0de6489044909b35962ba71940d48fe
-[3/6] ASoC: SOF: intel: hda: remove HDA_DSP_REG_SNDW_WAKE_STS definition
-      commit: 781dd3c822683f4b5dc332b68ac49d2db3d400e9
-[4/6] ASoC: SOF: intel: move sof_intel_dsp_desc() forward
-      commit: 2f1315ae94b46bf0d5b4be29be15cc3641364404
-[5/6] ASoC: SOF: intel: add snd_sof_dsp_check_sdw_irq ops
-      commit: 198fa4bcf6a1e8685b43e37790d45f3ebcbc2784
-[6/6] soundwire: intel: introduce shim and alh base
-      commit: 60e9feb781dfe84158b4ec7a4d61c5103e96e6f3
+We don't necessarily want the EXPERT part to be shown in the machine
+driver lists.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+> 
+>  sound/soc/intel/boards/Kconfig | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
+> index 046955bf717c..8284c46d7435 100644
+> --- a/sound/soc/intel/boards/Kconfig
+> +++ b/sound/soc/intel/boards/Kconfig
+> @@ -602,7 +602,7 @@ config SND_SOC_INTEL_SOUNDWIRE_SOF_MACH
+>  	select SND_SOC_DMIC
+>  	select SND_SOC_INTEL_HDA_DSP_COMMON
+>  	select SND_SOC_INTEL_SOF_MAXIM_COMMON
+> -	select SND_SOC_SDW_MOCKUP
+> +	select SND_SOC_SDW_MOCKUP if EXPERT
+>  	help
+>  	  Add support for Intel SoundWire-based platforms connected to
+>  	  MAX98373, RT700, RT711, RT1308 and RT715
+> 
+> base-commit: 170c0d7460fc4aa522995ae4096b5a442f50a1fc
+> 

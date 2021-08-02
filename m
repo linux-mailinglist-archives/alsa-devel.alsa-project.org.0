@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7C053DD03D
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 08:03:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DC803DD03E
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 08:03:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 420E117DB;
-	Mon,  2 Aug 2021 08:02:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 420E117DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE7EF16FA;
+	Mon,  2 Aug 2021 08:02:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE7EF16FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627884200;
-	bh=j3wvlICTKXulsQx8y1mJ0QqEkY64xoPCki3ZA7Xzngo=;
+	s=default; t=1627884226;
+	bh=YvSFGA6Kguzd8ujdan0fUFCRr9z8T3VEnsxySR9OMzY=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IE4pCvfmM0qOIjMy/htr1MtIt3ye8arh1zucfe0X98nIpv5Y0gFlV2Ng0RwYCrlJh
-	 EomDzD7EKyzOKkJFw5/tJ7CW7pNlBFdy9Si08QyMgYDZBTGgWV4OBxHF5Xq9UWGHUq
-	 VlkYbkllTYrENec7iJ4/DFPTip/PWY/5f9ECH6vw=
+	b=Khvv9pD9SO+06wpAh9bHjOFdLJvdjd2xn+e4mwzK++jbYcPZTiCFqL6PiYcJM3lbo
+	 ovWFphIios6geUyXTha5I3ZvgQW/iOhSb/2NG7UJY/MrESfr63js+xd9WxSjkwYPHm
+	 f+fAP9jturKOVZnLyKYxYhdCRuCu/XGGJrl5X96I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8207F804FB;
-	Mon,  2 Aug 2021 08:01:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A915FF8050F;
+	Mon,  2 Aug 2021 08:01:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E662CF804E1; Mon,  2 Aug 2021 08:01:11 +0200 (CEST)
+ id D2B9EF804F2; Mon,  2 Aug 2021 08:01:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 275DFF804E3
- for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 08:01:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 275DFF804E3
-Date: 02 Aug 2021 15:01:04 +0900
-X-IronPort-AV: E=Sophos;i="5.84,287,1620658800"; d="scan'208";a="89491049"
+ by alsa1.perex.cz (Postfix) with ESMTP id 8D18AF804FF
+ for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 08:01:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D18AF804FF
+Date: 02 Aug 2021 15:01:12 +0900
+X-IronPort-AV: E=Sophos;i="5.84,287,1620658800"; d="scan'208";a="89491072"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 02 Aug 2021 15:01:04 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 02 Aug 2021 15:01:12 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id A938841BCA46;
- Mon,  2 Aug 2021 15:01:04 +0900 (JST)
-Message-ID: <87o8agwfkv.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 4D1D541BCC64;
+ Mon,  2 Aug 2021 15:01:12 +0900 (JST)
+Message-ID: <87mtq0wfkn.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 4/5] ASoC: soc-topology: cleanup cppcheck warning at
- soc_tplg_kcontrol_elems_load()
+Subject: [PATCH 5/5] ASoC: soc-topology: cleanup cppcheck warning at
+ snd_soc_find_dai_link()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87tuk8wfme.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,37 +72,31 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below cppcheck warning.
 
-sound/soc/soc-topology.c:1038:31: style: The scope of the variable 'control_hdr' can be reduced. [variableScope]
- struct snd_soc_tplg_ctl_hdr *control_hdr;
-                              ^
+sound/soc/soc-topology.c:2129:27: style: The scope of the variable 'link' can be reduced. [variableScope]
+ struct snd_soc_dai_link *link;
+                          ^
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-topology.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ sound/soc/soc-topology.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
-index 98e08afd8eb9..a052dfe5efb6 100644
+index a052dfe5efb6..f6e5ac3e0314 100644
 --- a/sound/soc/soc-topology.c
 +++ b/sound/soc/soc-topology.c
-@@ -1035,7 +1035,6 @@ static int soc_tplg_denum_create(struct soc_tplg *tplg, unsigned int count,
- static int soc_tplg_kcontrol_elems_load(struct soc_tplg *tplg,
- 	struct snd_soc_tplg_hdr *hdr)
+@@ -2124,10 +2124,9 @@ static struct snd_soc_dai_link *snd_soc_find_dai_link(struct snd_soc_card *card,
+ 						      const char *stream_name)
  {
--	struct snd_soc_tplg_ctl_hdr *control_hdr;
- 	int ret;
- 	int i;
+ 	struct snd_soc_pcm_runtime *rtd;
+-	struct snd_soc_dai_link *link;
  
-@@ -1043,8 +1042,7 @@ static int soc_tplg_kcontrol_elems_load(struct soc_tplg *tplg,
- 		soc_tplg_get_offset(tplg));
+ 	for_each_card_rtds(card, rtd) {
+-		link = rtd->dai_link;
++		struct snd_soc_dai_link *link = rtd->dai_link;
  
- 	for (i = 0; i < le32_to_cpu(hdr->count); i++) {
--
--		control_hdr = (struct snd_soc_tplg_ctl_hdr *)tplg->pos;
-+		struct snd_soc_tplg_ctl_hdr *control_hdr = (struct snd_soc_tplg_ctl_hdr *)tplg->pos;
- 
- 		if (le32_to_cpu(control_hdr->size) != sizeof(*control_hdr)) {
- 			dev_err(tplg->dev, "ASoC: invalid control size\n");
+ 		if (link->id != id)
+ 			continue;
 -- 
 2.25.1
 

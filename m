@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F08CF3DD032
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 08:02:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 330283DD038
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Aug 2021 08:02:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6975B17E4;
-	Mon,  2 Aug 2021 08:01:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6975B17E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA7ED17D6;
+	Mon,  2 Aug 2021 08:01:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA7ED17D6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627884127;
-	bh=PPNLBIKs3Ml92XWq99ErmUS6DAu82oiGeO09mcw0LBM=;
+	s=default; t=1627884162;
+	bh=+nbpdnPcIlILXHM3pDtvChHQNDgszLqGAgCdcFUdkVg=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qk6VgY1AKxFd+FVOH6NZ3x2UoD4mAZ+v7O4+I0UtHEnLCcpzwLLpzLWaCaycPEeoF
-	 8qG6JVbD1KKmBxyksodlemyrB+azXLapljIpLYSZ2arp5kg30duqkXFYfBs0bnYwFb
-	 w3haRz95s/hClzoO+FyhGty7PwMu73Q49ONBAy3M=
+	b=YyAivP9v78KTrbCKe4ZELZRkPpC0GiWPlEYG7KxUTPBV1V9A01H9ccPzMXRe86Ovr
+	 PJCgiNWAz03ZHhEp8ODoDq95D8aTQrKKb/k5H8VRIk8sq2BP7HD5oKZJqE4vdkEfah
+	 sZd5hlo6DuMuDSKPiaHSjlmamx3uorczreFgdVsQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA36FF802C4;
-	Mon,  2 Aug 2021 08:00:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91CDFF804E2;
+	Mon,  2 Aug 2021 08:00:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 854B1F8025F; Mon,  2 Aug 2021 08:00:42 +0200 (CEST)
+ id C4C04F804E1; Mon,  2 Aug 2021 08:00:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id A10D2F8025F
- for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 08:00:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A10D2F8025F
-Date: 02 Aug 2021 15:00:27 +0900
-X-IronPort-AV: E=Sophos;i="5.84,287,1620658800"; d="scan'208";a="89490939"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 02 Aug 2021 15:00:27 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 86DE6F8014D
+ for <alsa-devel@alsa-project.org>; Mon,  2 Aug 2021 08:00:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86DE6F8014D
+Date: 02 Aug 2021 15:00:42 +0900
+X-IronPort-AV: E=Sophos;i="5.84,287,1620658800"; d="scan'208";a="89490974"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 02 Aug 2021 15:00:42 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 1041E41BBD40;
- Mon,  2 Aug 2021 15:00:27 +0900 (JST)
-Message-ID: <87sfzswflw.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 0FE1E4009BDD;
+ Mon,  2 Aug 2021 15:00:42 +0900 (JST)
+Message-ID: <87r1fcwflh.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/5] ASoC: soc-topology: cleanup cppcheck warning at
- soc_tplg_process_headers()
+Subject: [PATCH 2/5] ASoC: soc-topology: cleanup cppcheck warning at
+ soc_tplg_dai_elems_load()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87tuk8wfme.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,34 +72,42 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below cppcheck warning.
 
-sound/soc/soc-topology.c:2576:27: style: The scope of the variable 'hdr' can be reduced. [variableScope]
- struct snd_soc_tplg_hdr *hdr;
+sound/soc/soc-topology.c:2350:27: style: The scope of the variable 'dai' can be reduced. [variableScope]
+ struct snd_soc_tplg_dai *dai;
                           ^
+sound/soc/soc-topology.c:2352:9: style: The scope of the variable 'ret' can be reduced. [variableScope]
+ int i, ret;
+        ^
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-topology.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/soc-topology.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
-index 0a24d0d409d2..9aa7c9c4768b 100644
+index 9aa7c9c4768b..359c6ac22153 100644
 --- a/sound/soc/soc-topology.c
 +++ b/sound/soc/soc-topology.c
-@@ -2572,13 +2572,13 @@ static int soc_tplg_load_header(struct soc_tplg *tplg,
- /* process the topology file headers */
- static int soc_tplg_process_headers(struct soc_tplg *tplg)
+@@ -2346,15 +2346,16 @@ static int soc_tplg_dai_config(struct soc_tplg *tplg,
+ static int soc_tplg_dai_elems_load(struct soc_tplg *tplg,
+ 				   struct snd_soc_tplg_hdr *hdr)
  {
--	struct snd_soc_tplg_hdr *hdr;
- 	int ret;
+-	struct snd_soc_tplg_dai *dai;
+ 	int count;
+-	int i, ret;
++	int i;
  
- 	tplg->pass = SOC_TPLG_PASS_START;
+ 	count = le32_to_cpu(hdr->count);
  
- 	/* process the header types from start to end */
- 	while (tplg->pass <= SOC_TPLG_PASS_END) {
-+		struct snd_soc_tplg_hdr *hdr;
- 
- 		tplg->hdr_pos = tplg->fw->data;
- 		hdr = (struct snd_soc_tplg_hdr *)tplg->hdr_pos;
+ 	/* config the existing BE DAIs */
+ 	for (i = 0; i < count; i++) {
+-		dai = (struct snd_soc_tplg_dai *)tplg->pos;
++		struct snd_soc_tplg_dai *dai = (struct snd_soc_tplg_dai *)tplg->pos;
++		int ret;
++
+ 		if (le32_to_cpu(dai->size) != sizeof(*dai)) {
+ 			dev_err(tplg->dev, "ASoC: invalid physical DAI size\n");
+ 			return -EINVAL;
 -- 
 2.25.1
 

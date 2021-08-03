@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 695E73DE5D0
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Aug 2021 07:03:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8288B3DE5CC
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Aug 2021 07:02:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F0ACD1726;
-	Tue,  3 Aug 2021 07:02:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0ACD1726
+	by alsa0.perex.cz (Postfix) with ESMTPS id 27CF9171A;
+	Tue,  3 Aug 2021 07:01:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27CF9171A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627967018;
-	bh=oPBE8nRAxyjd7IipQ1WXu1jvxF+38/tM7dmi9snVgM4=;
+	s=default; t=1627966969;
+	bh=Ouca89L04goDap/ocla76uJ2bq2+7iH0AS/9GTg3bB0=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QxJ1a6/0A0capZEUarAQ5dnui7ZJtB/qK6e9FKS0vocjdcr6euvToIjC5/Ot9E8vi
-	 fIB35n5G6nCScAX6EqbQHiQ5hVCcAXsSAQxeUKrhvTJeOahO+S+MG5wj3ezNIa9tDf
-	 ZXTknW2IvEURhuJ5LNjYAAZHaDQppB6QRh/I9V18=
+	b=qXuoWaOrwZ5qqyL5uCnKNuSm2c/T0ZEA6Rif1QxIKkoHT+vWwYZ1onF3N3kqmx6zy
+	 6sZuooMWeD3PIMz1NvRVoeOwTO3Ljx+TvYcv2YD6eBVLtLIq1ZFsDKf+ZKEYpBvv9+
+	 gws/i6rkGvENnO8swSk9022EhU627jFOPdrRt1H8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18867F80082;
-	Tue,  3 Aug 2021 07:02:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9CF0F804E4;
+	Tue,  3 Aug 2021 07:01:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3E5D3F802E8; Tue,  3 Aug 2021 07:02:20 +0200 (CEST)
+ id 3A24AF804E3; Tue,  3 Aug 2021 07:01:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id E8C83F8014D
- for <alsa-devel@alsa-project.org>; Tue,  3 Aug 2021 07:00:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8C83F8014D
-Date: 03 Aug 2021 14:00:49 +0900
-X-IronPort-AV: E=Sophos;i="5.84,290,1620658800"; d="scan'208";a="89637535"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 03 Aug 2021 14:00:49 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 536C8F8032C
+ for <alsa-devel@alsa-project.org>; Tue,  3 Aug 2021 07:00:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 536C8F8032C
+Date: 03 Aug 2021 14:00:55 +0900
+X-IronPort-AV: E=Sophos;i="5.84,290,1620658800"; d="scan'208";a="89637544"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 03 Aug 2021 14:00:55 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 3A175400C421;
- Tue,  3 Aug 2021 14:00:49 +0900 (JST)
-Message-ID: <8735rrw29q.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 97FE541CA0C1;
+ Tue,  3 Aug 2021 14:00:55 +0900 (JST)
+Message-ID: <871r7bw29k.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 2/4] ASoC: soc-ops: cleanup cppcheck warning at
- snd_soc_limit_volume()
+Subject: [PATCH 3/4] ASoC: soc-ops: cleanup cppcheck warning at
+ snd_soc_get_xr_sx()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <875ywnw2ar.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,9 +72,9 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below cppcheck warning.
 
-sound/soc/soc-ops.c:576:28: style: The scope of the variable 'mc' can be reduced. [variableScope]
- struct soc_mixer_control *mc;
-                           ^
+sound/soc/soc-ops.c:814:15: style: The scope of the variable 'regval' can be reduced. [variableScope]
+ unsigned int regval;
+              ^
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
@@ -82,26 +82,22 @@ Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
  1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/sound/soc/soc-ops.c b/sound/soc/soc-ops.c
-index 9742e3c345b6..11be75f25300 100644
+index 11be75f25300..93bb8bc5ae33 100644
 --- a/sound/soc/soc-ops.c
 +++ b/sound/soc/soc-ops.c
-@@ -575,7 +575,6 @@ int snd_soc_limit_volume(struct snd_soc_card *card,
- 	const char *name, int max)
- {
- 	struct snd_kcontrol *kctl;
--	struct soc_mixer_control *mc;
- 	int ret = -EINVAL;
+@@ -812,11 +812,10 @@ int snd_soc_get_xr_sx(struct snd_kcontrol *kcontrol,
+ 	long min = mc->min;
+ 	long max = mc->max;
+ 	long val = 0;
+-	unsigned int regval;
+ 	unsigned int i;
  
- 	/* Sanity check for name and max */
-@@ -584,7 +583,7 @@ int snd_soc_limit_volume(struct snd_soc_card *card,
- 
- 	kctl = snd_soc_card_get_kcontrol(card, name);
- 	if (kctl) {
--		mc = (struct soc_mixer_control *)kctl->private_value;
-+		struct soc_mixer_control *mc = (struct soc_mixer_control *)kctl->private_value;
- 		if (max <= mc->max) {
- 			mc->platform_max = max;
- 			ret = 0;
+ 	for (i = 0; i < regcount; i++) {
+-		regval = snd_soc_component_read(component, regbase+i);
++		unsigned int regval = snd_soc_component_read(component, regbase+i);
+ 		val |= (regval & regwmask) << (regwshift*(regcount-i-1));
+ 	}
+ 	val &= mask;
 -- 
 2.25.1
 

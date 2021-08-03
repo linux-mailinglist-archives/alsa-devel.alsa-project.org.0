@@ -2,84 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 415953DE763
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Aug 2021 09:42:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91FEF3DE76A
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Aug 2021 09:45:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6C81170F;
-	Tue,  3 Aug 2021 09:41:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6C81170F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 047EC1703;
+	Tue,  3 Aug 2021 09:44:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 047EC1703
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627976545;
-	bh=peYmz17I5HFABcu9ccTmycGWU8i4vj+GRQ4KeTUQeeA=;
+	s=default; t=1627976710;
+	bh=wpPsYA3XI7pAB+a0F8XfNnxDAtEvGEN+VgGaBRDi0zI=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KD6t4xPESbPdgS0RG5/L/WXRrJL+/pU7TKV6z6X3852nOxR09owTQi1GTBWq98JgI
-	 B2mhzFlPSQgIvwgzf67wDsfw08cFMfpU4M1U5dheqliCuEZ2y3iQALDcvfvC0Hwvp0
-	 KvtMW1EBxLgCJlTeVabs7RTUzgcHvShMKeoZnIe4=
+	b=ZmnOEUcTazuiBAM+Z8VerxRRS1Uv/wKCA17Exc4fp1GTiwbezMTYp/YGBH8p53qAc
+	 e9ZSgipFGqpV4pTkcFaPk3UntvfXV0cAGORh6QbL7EjlsYR4kgDRFFbeMKSHiM6Sg/
+	 NbdqjRhfplzrJaCozoPWQfCgKWKrXH8tuwWxvYg8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0AD8BF8032C;
-	Tue,  3 Aug 2021 09:40:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B478F8014D;
+	Tue,  3 Aug 2021 09:43:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B64E5F802E8; Tue,  3 Aug 2021 09:40:55 +0200 (CEST)
+ id ADFCEF802E8; Tue,  3 Aug 2021 09:43:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85B11F80082
- for <alsa-devel@alsa-project.org>; Tue,  3 Aug 2021 09:40:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85B11F80082
+ by alsa1.perex.cz (Postfix) with ESMTPS id 88457F80082
+ for <alsa-devel@alsa-project.org>; Tue,  3 Aug 2021 09:43:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88457F80082
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="GWdBVFHt"; 
+ header.b="JhLZ56MN"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="uIXpxfNL"
+ header.b="DQSCsGWX"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id B787E2207D;
- Tue,  3 Aug 2021 07:40:50 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 5F4F022080;
+ Tue,  3 Aug 2021 07:43:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627976450; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1627976615; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=cgOa2hYCzUhkzA5o+v8md7JL/JoOvkhgxW1hqHyI39s=;
- b=GWdBVFHtdj6usslVn+rJCIORJC6ccdbjbaeT2m22sp47kU+JZZe8/Dx+2/rMPLdFkHt3MA
- UuIzkhEnTOkudhwkxdsKVcbM9uFp0nl+UCTbfQbjzrxkqf46lxzN1CcoAgocoqC+eMTafM
- /pYpsGZRTbpELwKLPAMWFwwPkl+YPwk=
+ bh=/zp4Q3M5zDTF7lw5zg+pICNumLO0YA3TKVc/p0olBhQ=;
+ b=JhLZ56MNNqJx+KvdOuUFg3tZKGOyiohKcz1zhchxzJpYROmlypZ6bMz1QJzkkMvpYymqkF
+ cybeJWdPLSXqGGSojKsc8F5LJj2F2qymn52p3sGYK1IuS0esnY0318uvk/qnCxgluvroRy
+ dxwLuiDnOi/81BvmwjIbf65G1pujwXU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627976450;
+ s=susede2_ed25519; t=1627976615;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=cgOa2hYCzUhkzA5o+v8md7JL/JoOvkhgxW1hqHyI39s=;
- b=uIXpxfNLscdavhW0rkVpJ8hFabhjX7mE/eJ/z2P5b0Fzgxjv8vG2xF85S5qnSPsCdEKPxD
- 8UTVCMIBzpL4KPAw==
+ bh=/zp4Q3M5zDTF7lw5zg+pICNumLO0YA3TKVc/p0olBhQ=;
+ b=DQSCsGWXA9kAJmTa8vyZ2gZhEbl0NhgfLcvXmsaxeO5fVVB3nujN/0jhpEjpWyx9SKO0Bu
+ LYQoitQiHSR57JBg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 8F119A3BC9;
- Tue,  3 Aug 2021 07:40:50 +0000 (UTC)
-Date: Tue, 03 Aug 2021 09:40:50 +0200
-Message-ID: <s5hsfzrvuv1.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 4F197A3BCA;
+ Tue,  3 Aug 2021 07:43:35 +0000 (UTC)
+Date: Tue, 03 Aug 2021 09:43:35 +0200
+Message-ID: <s5ho8afvuqg.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Salah Triki <salah.triki@gmail.com>
-Subject: Re: [PATCH] sound: usb: get lock before calling
- usb_enable_autosuspend()
-In-Reply-To: <20210802225339.GA1461793@pc>
-References: <20210802225339.GA1461793@pc>
+To: folkert <folkert@vanheusden.com>
+Subject: Re: aconnect occasionally causes kernel oopses
+In-Reply-To: <20210803074050.GX890690@belle.intranet.vanheusden.com>
+References: <20210801182754.GP890690@belle.intranet.vanheusden.com>
+ <s5hlf5kz80e.wl-tiwai@suse.de>
+ <20210802061845.GQ890690@belle.intranet.vanheusden.com>
+ <s5him0oz5zq.wl-tiwai@suse.de>
+ <20210802091012.GR890690@belle.intranet.vanheusden.com>
+ <s5hczqvyj8m.wl-tiwai@suse.de>
+ <20210802152117.GT890690@belle.intranet.vanheusden.com>
+ <s5h5ywnydlz.wl-tiwai@suse.de>
+ <20210802195349.GV890690@belle.intranet.vanheusden.com>
+ <s5h1r7bxbiv.wl-tiwai@suse.de>
+ <20210803074050.GX890690@belle.intranet.vanheusden.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>, alsa-devel@alsa-project.org,
- Pavel Skripkin <paskripkin@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>, Joe Perches <joe@perches.com>,
- linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,46 +102,216 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 03 Aug 2021 00:53:39 +0200,
-Salah Triki wrote:
+On Tue, 03 Aug 2021 09:40:50 +0200,
+folkert wrote:
 > 
-> Based on the documentation of usb_enable_autosuspend(), the
-> caller must hold udev's device lock.
+> Hi,
+> 
+> To which kernel version should I apply it?
+> Because:
+> 
+> folkert@oensoens:~/linux-5.11.0$ patch -p1 < ~/alsa-patch.diff 
+> patching file sound/core/seq/seq_ports.c
+> patching file sound/core/seq/seq_ports.h
+> patching file sound/core/seq/seq_ports.c
+> Hunk #1 succeeded at 526 (offset 12 lines).
+> Hunk #2 succeeded at 538 (offset 12 lines).
+> Hunk #3 succeeded at 547 with fuzz 2 (offset 12 lines).
+> Hunk #4 FAILED at 602.
+> 1 out of 4 hunks FAILED -- saving rejects to file sound/core/seq/seq_ports.c.rej
 
-The device lock is already held in the caller side (in the driver
-core), hence this change will lead to a deadlock.
+Did you scratch the previous patch?  AFAIK, the latest patch should be
+applicable to 5.11 and older cleanly.
 
-
-thanks,
 
 Takashi
 
 > 
-> Signed-off-by: Salah Triki <salah.triki@gmail.com>
-> ---
->  sound/usb/card.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
+> On Tue, Aug 03, 2021 at 08:55:36AM +0200, Takashi Iwai wrote:
+> > On Mon, 02 Aug 2021 21:53:49 +0200,
+> > folkert wrote:
+> > > 
+> > > > > [ kernel bug if repeatingly aconnect'ing midi devices ]
+> > > > > 
+> > > > > > Does this happen if you do reconnect of kernel sequencer client?
+> > > > > > You can use snd-virmidi as well as snd-dummy.
+> > > > > > I'm asking it because it'll simplify the test a lot, which will be
+> > > > > > almost self-contained.
+> > > > > 
+> > > > > Like this?
+> > > > > 
+> > > > > root@lappiemctopface:~# aplaymidi -l
+> > > > >  Port    Client name                      Port name
+> > > > >  14:0    Midi Through                     Midi Through Port-0
+> > > > >  20:0    Virtual Raw MIDI 1-0             VirMIDI 1-0
+> > > > >  21:0    Virtual Raw MIDI 1-1             VirMIDI 1-1
+> > > > >  22:0    Virtual Raw MIDI 1-2             VirMIDI 1-2
+> > > > >  23:0    Virtual Raw MIDI 1-3             VirMIDI 1-3
+> > > > > 128:0    rtpmidi lappiemctopface          Network
+> > > > > 128:1    rtpmidi lappiemctopface          metronoom
+> > > > > 128:2    rtpmidi lappiemctopface          AppleMidi2IPMidiBridge
+> > > > > 128:3    rtpmidi lappiemctopface          oensoens
+> > > > > 130:0    FLUID Synth (11462)              Synth input port (11462:0)
+> > > > > 
+> > > > > and then:
+> > > > > 
+> > > > > root@lappiemctopface:~# cat test.sh 
+> > > > > while true
+> > > > > do
+> > > > > 	aconnect 20:0 21:0
+> > > > > 	aconnect -d 20:0 21:0
+> > > > > done
+> > > > > 
+> > > > > root@lappiemctopface:~# for i in `seq 0 3` ; do (./test.sh &) ; done
+> > > > > 
+> > > > > This hard locks-up my laptop: it doesn't even respond to capslock (led
+> > > > > on/off) anymore nor the ctrl+prtscr+alt+b combination.
+> > > > 
+> > > > Thanks, that's really helpful!
+> > > > I see the possible race now.
+> > > 
+> > > > Could you try the quick fix below?
+> > > 
+> > > Something may have changed:
+> > > 
+> > > folkert@oensoens:~$ aplaymidi -l
+> > > ALSA lib seq_hw.c:466:(snd_seq_hw_open) open /dev/snd/seq failed: Permission denied
+> > > Cannot open sequencer - Permission denied
+> > > 
+> > > ???
+> > 
+> > Hrm, that's unexpected.
+> > 
+> > Meanwhile, I reconsidered the fix and a better idea came after the
+> > sleep.  Below is the new fix patch.  Could you give it a try instead
+> > of the previous one?
+> > 
+> > 
+> > thanks,
+> > 
+> > Takashi
+> > 
+> > -- 8< --
+> > From: Takashi Iwai <tiwai@suse.de>
+> > Subject: [PATCH] ALSA: seq: Fix racy deletion of subscriber
+> > 
+> > It turned out that the current implementation of the port subscription
+> > is racy.  The subscription contains two linked lists, and we have to
+> > add to or delete from both lists.  Since both connection and
+> > disconnection procedures perform the same order for those two lists
+> > (i.e. src list, then dest list), when a deletion happens during a
+> > connection procedure, the src list may be deleted before the dest list
+> > addition completes, and this may lead to a use-after-free or an Oops,
+> > even though the access to both lists are protected via mutex.
+> > 
+> > The simple workaround for this race is to change the access order for
+> > the disconnection, namely, dest list, then src list.  This assures
+> > that the connection has been established when disconnecting, and also
+> > the concurrent deletion can be avoided.
+> > 
+> > Reported-by: folkert <folkert@vanheusden.com>
+> > Cc: <stable@vger.kernel.org>
+> > Link: https://lore.kernel.org/r/20210801182754.GP890690@belle.intranet.vanheusden.com
+> > Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> > ---
+> >  sound/core/seq/seq_ports.c | 39 ++++++++++++++++++++++++++------------
+> >  1 file changed, 27 insertions(+), 12 deletions(-)
+> > 
+> > diff --git a/sound/core/seq/seq_ports.c b/sound/core/seq/seq_ports.c
+> > index b9c2ce2b8d5a..84d78630463e 100644
+> > --- a/sound/core/seq/seq_ports.c
+> > +++ b/sound/core/seq/seq_ports.c
+> > @@ -514,10 +514,11 @@ static int check_and_subscribe_port(struct snd_seq_client *client,
+> >  	return err;
+> >  }
+> >  
+> > -static void delete_and_unsubscribe_port(struct snd_seq_client *client,
+> > -					struct snd_seq_client_port *port,
+> > -					struct snd_seq_subscribers *subs,
+> > -					bool is_src, bool ack)
+> > +/* called with grp->list_mutex held */
+> > +static void __delete_and_unsubscribe_port(struct snd_seq_client *client,
+> > +					  struct snd_seq_client_port *port,
+> > +					  struct snd_seq_subscribers *subs,
+> > +					  bool is_src, bool ack)
+> >  {
+> >  	struct snd_seq_port_subs_info *grp;
+> >  	struct list_head *list;
+> > @@ -525,7 +526,6 @@ static void delete_and_unsubscribe_port(struct snd_seq_client *client,
+> >  
+> >  	grp = is_src ? &port->c_src : &port->c_dest;
+> >  	list = is_src ? &subs->src_list : &subs->dest_list;
+> > -	down_write(&grp->list_mutex);
+> >  	write_lock_irq(&grp->list_lock);
+> >  	empty = list_empty(list);
+> >  	if (!empty)
+> > @@ -535,6 +535,18 @@ static void delete_and_unsubscribe_port(struct snd_seq_client *client,
+> >  
+> >  	if (!empty)
+> >  		unsubscribe_port(client, port, grp, &subs->info, ack);
+> > +}
+> > +
+> > +static void delete_and_unsubscribe_port(struct snd_seq_client *client,
+> > +					struct snd_seq_client_port *port,
+> > +					struct snd_seq_subscribers *subs,
+> > +					bool is_src, bool ack)
+> > +{
+> > +	struct snd_seq_port_subs_info *grp;
+> > +
+> > +	grp = is_src ? &port->c_src : &port->c_dest;
+> > +	down_write(&grp->list_mutex);
+> > +	__delete_and_unsubscribe_port(client, port, subs, is_src, ack);
+> >  	up_write(&grp->list_mutex);
+> >  }
+> >  
+> > @@ -590,27 +602,30 @@ int snd_seq_port_disconnect(struct snd_seq_client *connector,
+> >  			    struct snd_seq_client_port *dest_port,
+> >  			    struct snd_seq_port_subscribe *info)
+> >  {
+> > -	struct snd_seq_port_subs_info *src = &src_port->c_src;
+> > +	struct snd_seq_port_subs_info *dest = &dest_port->c_dest;
+> >  	struct snd_seq_subscribers *subs;
+> >  	int err = -ENOENT;
+> >  
+> > -	down_write(&src->list_mutex);
+> > +	/* always start from deleting the dest port for avoiding concurrent
+> > +	 * deletions
+> > +	 */
+> > +	down_write(&dest->list_mutex);
+> >  	/* look for the connection */
+> > -	list_for_each_entry(subs, &src->list_head, src_list) {
+> > +	list_for_each_entry(subs, &dest->list_head, dest_list) {
+> >  		if (match_subs_info(info, &subs->info)) {
+> > -			atomic_dec(&subs->ref_count); /* mark as not ready */
+> > +			__delete_and_unsubscribe_port(dest_client, dest_port,
+> > +						      subs, false,
+> > +						      connector->number != dest_client->number);
+> >  			err = 0;
+> >  			break;
+> >  		}
+> >  	}
+> > -	up_write(&src->list_mutex);
+> > +	up_write(&dest->list_mutex);
+> >  	if (err < 0)
+> >  		return err;
+> >  
+> >  	delete_and_unsubscribe_port(src_client, src_port, subs, true,
+> >  				    connector->number != src_client->number);
+> > -	delete_and_unsubscribe_port(dest_client, dest_port, subs, false,
+> > -				    connector->number != dest_client->number);
+> >  	kfree(subs);
+> >  	return 0;
+> >  }
+> > -- 
+> > 2.26.2
 > 
-> diff --git a/sound/usb/card.c b/sound/usb/card.c
-> index 2f6a62416c05..9290ba0acd5f 100644
-> --- a/sound/usb/card.c
-> +++ b/sound/usb/card.c
-> @@ -907,8 +907,13 @@ static void usb_audio_disconnect(struct usb_interface *intf)
->  		}
->  	}
->  
-> -	if (chip->quirk_type & QUIRK_SETUP_DISABLE_AUTOSUSPEND)
-> -		usb_enable_autosuspend(interface_to_usbdev(intf));
-> +	if (chip->quirk_type & QUIRK_SETUP_DISABLE_AUTOSUSPEND) {
-> +		struct usb_device *udev = interface_to_usbdev(intf);
-> +
-> +		usb_lock_device(udev);
-> +		usb_enable_autosuspend(udev);
-> +		usb_unlock_device(udev);
-> +	}
->  
->  	chip->num_interfaces--;
->  	if (chip->num_interfaces <= 0) {
+> 
+> Folkert van Heusden
+> 
 > -- 
-> 2.25.1
+> MultiTail is a versatile tool for watching logfiles and output of
+> commands. Filtering, coloring, merging, diff-view, etc.
+> http://www.vanheusden.com/multitail/
+> ----------------------------------------------------------------------
+> Phone: +31-6-41278122, PGP-key: 1F28D8AE, www.vanheusden.com
 > 

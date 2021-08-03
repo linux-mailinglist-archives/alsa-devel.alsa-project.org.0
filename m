@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 071E73DE5C9
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Aug 2021 07:02:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 695E73DE5D0
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Aug 2021 07:03:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 01D8A171D;
-	Tue,  3 Aug 2021 07:01:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01D8A171D
+	by alsa0.perex.cz (Postfix) with ESMTPS id F0ACD1726;
+	Tue,  3 Aug 2021 07:02:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0ACD1726
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627966935;
-	bh=WEQhXNH/KN1hnfSIC621sS9cK7ljikYQx/vKHvu/PbI=;
+	s=default; t=1627967018;
+	bh=oPBE8nRAxyjd7IipQ1WXu1jvxF+38/tM7dmi9snVgM4=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uYVbrhtgK76Xm4WER6L1acP1aaXBUnz4ImO1x47eKjrHpxugxdkbCpfByxaLtaCyi
-	 3Le2j3OjrVdq6jD5a1/HFgRg24yZ8Mg6W2dX7qm6QNXzq3DPKtH2tbpokVJ9Di8ogO
-	 cCnB/8Z8fXrqQPW7/1L49VIy5CrC45VHfLbVtMVQ=
+	b=QxJ1a6/0A0capZEUarAQ5dnui7ZJtB/qK6e9FKS0vocjdcr6euvToIjC5/Ot9E8vi
+	 fIB35n5G6nCScAX6EqbQHiQ5hVCcAXsSAQxeUKrhvTJeOahO+S+MG5wj3ezNIa9tDf
+	 ZXTknW2IvEURhuJ5LNjYAAZHaDQppB6QRh/I9V18=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E9E3F804D8;
-	Tue,  3 Aug 2021 07:00:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18867F80082;
+	Tue,  3 Aug 2021 07:02:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7A70F804AB; Tue,  3 Aug 2021 07:00:54 +0200 (CEST)
+ id 3E5D3F802E8; Tue,  3 Aug 2021 07:02:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 7BA7FF8032C
- for <alsa-devel@alsa-project.org>; Tue,  3 Aug 2021 07:00:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BA7FF8032C
-Date: 03 Aug 2021 14:00:37 +0900
-X-IronPort-AV: E=Sophos;i="5.84,290,1620658800"; d="scan'208";a="89637517"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 03 Aug 2021 14:00:37 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id E8C83F8014D
+ for <alsa-devel@alsa-project.org>; Tue,  3 Aug 2021 07:00:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8C83F8014D
+Date: 03 Aug 2021 14:00:49 +0900
+X-IronPort-AV: E=Sophos;i="5.84,290,1620658800"; d="scan'208";a="89637535"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 03 Aug 2021 14:00:49 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 241FA41CA0C1;
- Tue,  3 Aug 2021 14:00:37 +0900 (JST)
-Message-ID: <874kc7w2a2.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 3A175400C421;
+ Tue,  3 Aug 2021 14:00:49 +0900 (JST)
+Message-ID: <8735rrw29q.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/4] ASoC: soc-ops: cleanup cppcheck warning at
- snd_soc_put_volsw_sx()
+Subject: [PATCH 2/4] ASoC: soc-ops: cleanup cppcheck warning at
+ snd_soc_limit_volume()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <875ywnw2ar.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,37 +72,36 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below cppcheck warning.
 
-sound/soc/soc-ops.c:410:30: style: The scope of the variable 'val2' can be reduced. [variableScope]
- unsigned int val, val_mask, val2 = 0;
-                             ^
+sound/soc/soc-ops.c:576:28: style: The scope of the variable 'mc' can be reduced. [variableScope]
+ struct soc_mixer_control *mc;
+                           ^
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-ops.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/soc-ops.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/sound/soc/soc-ops.c b/sound/soc/soc-ops.c
-index 58527247df83..9742e3c345b6 100644
+index 9742e3c345b6..11be75f25300 100644
 --- a/sound/soc/soc-ops.c
 +++ b/sound/soc/soc-ops.c
-@@ -407,7 +407,7 @@ int snd_soc_put_volsw_sx(struct snd_kcontrol *kcontrol,
- 	int min = mc->min;
- 	unsigned int mask = (1U << (fls(min + max) - 1)) - 1;
- 	int err = 0;
--	unsigned int val, val_mask, val2;
-+	unsigned int val, val_mask;
+@@ -575,7 +575,6 @@ int snd_soc_limit_volume(struct snd_soc_card *card,
+ 	const char *name, int max)
+ {
+ 	struct snd_kcontrol *kctl;
+-	struct soc_mixer_control *mc;
+ 	int ret = -EINVAL;
  
- 	val_mask = mask << shift;
- 	val = (ucontrol->value.integer.value[0] + min) & mask;
-@@ -418,6 +418,8 @@ int snd_soc_put_volsw_sx(struct snd_kcontrol *kcontrol,
- 		return err;
+ 	/* Sanity check for name and max */
+@@ -584,7 +583,7 @@ int snd_soc_limit_volume(struct snd_soc_card *card,
  
- 	if (snd_soc_volsw_is_stereo(mc)) {
-+		unsigned int val2;
-+
- 		val_mask = mask << rshift;
- 		val2 = (ucontrol->value.integer.value[1] + min) & mask;
- 		val2 = val2 << rshift;
+ 	kctl = snd_soc_card_get_kcontrol(card, name);
+ 	if (kctl) {
+-		mc = (struct soc_mixer_control *)kctl->private_value;
++		struct soc_mixer_control *mc = (struct soc_mixer_control *)kctl->private_value;
+ 		if (max <= mc->max) {
+ 			mc->platform_max = max;
+ 			ret = 0;
 -- 
 2.25.1
 

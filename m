@@ -2,77 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A85C33DE790
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Aug 2021 09:50:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A1AA3DE79B
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Aug 2021 09:54:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3500C170B;
-	Tue,  3 Aug 2021 09:49:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3500C170B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19D0E170A;
+	Tue,  3 Aug 2021 09:53:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19D0E170A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627977032;
-	bh=0VMhLnXkgzOiK+iv8oslLLAtjCmRUhyEfZamfhJCHmA=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1627977270;
+	bh=Dms3MSQeavPrWK3Nre/eetyLttQ+isBIdqFB0n7N8wk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YoqcUVoruQFZLyoBjjQyjsabwdvWHqmwhi0OQSihf8j7rNZh4yDnHXd7oQhRI2RkB
-	 3itHJaHxfBPbjkru8kw6tonoBBnH4KUy/hN6t75HO++/WKS6/9aNVn1faP9NiR/4k6
-	 DMjIKws05JzgrJrmsVY8gi0mZFTGYYj1sxd/PS5A=
+	b=dy9NCp4mEA4SpY0Wb3sMsOrnfZZUqacCBiPtXNu99buXi2nsRvMIlGyPn0VFo8xCE
+	 OZLEn8fr16odCtqDEQpb60EFVxVv6vyWZsvDX2CJ9yiEkohlriKGewSKEbuSlzTofJ
+	 CzkOMvQpiT0pO/2qMZObz4UXVlqc0YMBHRfgvcHc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90725F8032C;
-	Tue,  3 Aug 2021 09:49:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 705A1F80082;
+	Tue,  3 Aug 2021 09:53:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9631DF802E8; Tue,  3 Aug 2021 09:49:02 +0200 (CEST)
+ id 4B9C9F802E8; Tue,  3 Aug 2021 09:53:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_APP_ATTACH,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from lb1-smtp-cloud8.xs4all.net (lb1-smtp-cloud8.xs4all.net
+ [194.109.24.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5995CF80082
- for <alsa-devel@alsa-project.org>; Tue,  3 Aug 2021 09:49:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5995CF80082
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="HFqKwXpF"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="aDGfHTXK"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 2A82C21E43;
- Tue,  3 Aug 2021 07:49:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627976940; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=fokBp9dK7Wwn65gc2JxQQ8VzK9XVUSeYxwQyRfMvwd4=;
- b=HFqKwXpFNluvuMLkEV3sQi0p+RFzHoSEn40DDCbs/eP5wMmKnuD2jfpnXn/e9ImN1npu7N
- nPxVWj+lpxggKSYM8d0zDIf+uF/dxq/xQpGnOAtM6DGwHBVFvuTDWXaXHANL4oytse6Hvw
- HEMKuS+OiZD+IW5GchPeLuWS/3gCwI0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627976940;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=fokBp9dK7Wwn65gc2JxQQ8VzK9XVUSeYxwQyRfMvwd4=;
- b=aDGfHTXK2CpHvD8L4k2xPAN/LfnkPj2MPuMsWgHh8i0imsHAWW9MLLFblxSWb1hBFswoZw
- r6SNrciFnDcUxeCw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 241CEA3BCA;
- Tue,  3 Aug 2021 07:49:00 +0000 (UTC)
-Date: Tue, 03 Aug 2021 09:49:00 +0200
-Message-ID: <s5hlf5jvuhf.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: folkert <folkert@vanheusden.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 178DCF80082
+ for <alsa-devel@alsa-project.org>; Tue,  3 Aug 2021 09:52:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 178DCF80082
+Received: from cust-b66e5d83 ([IPv6:fc0c:c157:b88d:62c6:5e3c:5f07:82d0:1b4])
+ by smtp-cloud8.xs4all.net with ESMTPA
+ id ApEOmStFrXTlcApEPmkI8G; Tue, 03 Aug 2021 09:52:57 +0200
+Received: from localhost (localhost [127.0.0.1])
+ by keetweej.vanheusden.com (Postfix) with ESMTP id 6DB8A1626C3;
+ Tue,  3 Aug 2021 09:52:56 +0200 (CEST)
+Received: from keetweej.vanheusden.com ([127.0.0.1])
+ by localhost (mauer.intranet.vanheusden.com [127.0.0.1]) (amavisd-new,
+ port 10024)
+ with ESMTP id IqUjvcgxgJ8e; Tue,  3 Aug 2021 09:52:55 +0200 (CEST)
+Received: from belle.intranet.vanheusden.com (belle.intranet.vanheusden.com
+ [192.168.64.100])
+ by keetweej.vanheusden.com (Postfix) with ESMTP id BEB0E162670;
+ Tue,  3 Aug 2021 09:52:55 +0200 (CEST)
+Received: by belle.intranet.vanheusden.com (Postfix, from userid 1000)
+ id B127D16097B; Tue,  3 Aug 2021 09:52:55 +0200 (CEST)
+Date: Tue, 3 Aug 2021 09:52:55 +0200
+From: folkert <folkert@vanheusden.com>
+To: Takashi Iwai <tiwai@suse.de>
 Subject: Re: aconnect occasionally causes kernel oopses
-In-Reply-To: <20210803074451.GY890690@belle.intranet.vanheusden.com>
-References: <20210802061845.GQ890690@belle.intranet.vanheusden.com>
- <s5him0oz5zq.wl-tiwai@suse.de>
- <20210802091012.GR890690@belle.intranet.vanheusden.com>
+Message-ID: <20210803075255.GZ890690@belle.intranet.vanheusden.com>
+References: <20210802091012.GR890690@belle.intranet.vanheusden.com>
  <s5hczqvyj8m.wl-tiwai@suse.de>
  <20210802152117.GT890690@belle.intranet.vanheusden.com>
  <s5h5ywnydlz.wl-tiwai@suse.de>
@@ -81,11 +67,16 @@ References: <20210802061845.GQ890690@belle.intranet.vanheusden.com>
  <20210803074050.GX890690@belle.intranet.vanheusden.com>
  <s5ho8afvuqg.wl-tiwai@suse.de>
  <20210803074451.GY890690@belle.intranet.vanheusden.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: multipart/mixed; boundary="Multipart_Tue_Aug__3_09:49:00_2021-1"
+ <s5hlf5jvuhf.wl-tiwai@suse.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s5hlf5jvuhf.wl-tiwai@suse.de>
+Reply-By: Fri 16 Jul 2021 08:34:34 AM CEST
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-CMAE-Envelope: MS4xfPLxQ4pjFfc7Qs7F0+IcRqlchgJk/Y7FW+YTOxNVJMFfLNaHmrdEJrMpcx7vUtdmUkItTZJdm/OsadAqMpy+4e0QSEaJ1+YNp/VqhY/bkv5rSdRc+eYz
+ k0khZuP5bvBKmivV8L+LkTcyWopYNfHyNxPAPZfKA4kVo49KLMQ4xUBn1JRg3DyTa562GKOfJFm4n9X8HCTYKB1d2SIzc5OgFGrLzf/qi4jcVhC3spk7ANBx
+ Q8nXjA1TvcKsad4fPEQ20A==
 Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -102,163 +93,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---Multipart_Tue_Aug__3_09:49:00_2021-1
-Content-Type: text/plain; charset=US-ASCII
-
-On Tue, 03 Aug 2021 09:44:51 +0200,
-folkert wrote:
+> > I did.
+> > It also fails on 5.13.7.
 > 
-> > > To which kernel version should I apply it?
-> > > Because:
-> > > 
-> > > folkert@oensoens:~/linux-5.11.0$ patch -p1 < ~/alsa-patch.diff 
-> > > patching file sound/core/seq/seq_ports.c
-> > > patching file sound/core/seq/seq_ports.h
-> > > patching file sound/core/seq/seq_ports.c
-> > > Hunk #1 succeeded at 526 (offset 12 lines).
-> > > Hunk #2 succeeded at 538 (offset 12 lines).
-> > > Hunk #3 succeeded at 547 with fuzz 2 (offset 12 lines).
-> > > Hunk #4 FAILED at 602.
-> > > 1 out of 4 hunks FAILED -- saving rejects to file sound/core/seq/seq_ports.c.rej
-> > 
-> > Did you scratch the previous patch?  AFAIK, the latest patch should be
-> > applicable to 5.11 and older cleanly.
-> 
-> I did.
-> It also fails on 5.13.7.
+> Weird, here it's applied cleanly on my machine with every kernel
+> version.  Double-check whether you really have any other changes.
+> I attach the patch again but with an attachment just to be sure.
 
-Weird, here it's applied cleanly on my machine with every kernel
-version.  Double-check whether you really have any other changes.
-I attach the patch again but with an attachment just to be sure.
-
-
-Takashi
-
-
---Multipart_Tue_Aug__3_09:49:00_2021-1
-Content-Type: application/octet-stream; type=patch
-Content-Disposition: attachment; filename="0001-ALSA-seq-Fix-racy-deletion-of-subscriber.patch"
-Content-Transfer-Encoding: 7bit
-
-From a474c4b6224556b39e20a3d13bdb56b5e6984f78 Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Tue, 3 Aug 2021 08:43:21 +0200
-Subject: [PATCH] ALSA: seq: Fix racy deletion of subscriber
-
-It turned out that the current implementation of the port subscription
-is racy.  The subscription contains two linked lists, and we have to
-add to or delete from both lists.  Since both connection and
-disconnection procedures perform the same order for those two lists
-(i.e. src list, then dest list), when a deletion happens during a
-connection procedure, the src list may be deleted before the dest list
-addition completes, and this may lead to a use-after-free or an Oops,
-even though the access to both lists are protected via mutex.
-
-The simple workaround for this race is to change the access order for
-the disconnection, namely, dest list, then src list.  This assures
-that the connection has been established when disconnecting, and also
-the concurrent deletion can be avoided.
-
-Reported-by: folkert <folkert@vanheusden.com>
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/20210801182754.GP890690@belle.intranet.vanheusden.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/seq/seq_ports.c | 39 ++++++++++++++++++++++++++------------
- 1 file changed, 27 insertions(+), 12 deletions(-)
-
-diff --git a/sound/core/seq/seq_ports.c b/sound/core/seq/seq_ports.c
-index b9c2ce2b8d5a..84d78630463e 100644
---- a/sound/core/seq/seq_ports.c
-+++ b/sound/core/seq/seq_ports.c
-@@ -514,10 +514,11 @@ static int check_and_subscribe_port(struct snd_seq_client *client,
- 	return err;
- }
- 
--static void delete_and_unsubscribe_port(struct snd_seq_client *client,
--					struct snd_seq_client_port *port,
--					struct snd_seq_subscribers *subs,
--					bool is_src, bool ack)
-+/* called with grp->list_mutex held */
-+static void __delete_and_unsubscribe_port(struct snd_seq_client *client,
-+					  struct snd_seq_client_port *port,
-+					  struct snd_seq_subscribers *subs,
-+					  bool is_src, bool ack)
- {
- 	struct snd_seq_port_subs_info *grp;
- 	struct list_head *list;
-@@ -525,7 +526,6 @@ static void delete_and_unsubscribe_port(struct snd_seq_client *client,
- 
- 	grp = is_src ? &port->c_src : &port->c_dest;
- 	list = is_src ? &subs->src_list : &subs->dest_list;
--	down_write(&grp->list_mutex);
- 	write_lock_irq(&grp->list_lock);
- 	empty = list_empty(list);
- 	if (!empty)
-@@ -535,6 +535,18 @@ static void delete_and_unsubscribe_port(struct snd_seq_client *client,
- 
- 	if (!empty)
- 		unsubscribe_port(client, port, grp, &subs->info, ack);
-+}
-+
-+static void delete_and_unsubscribe_port(struct snd_seq_client *client,
-+					struct snd_seq_client_port *port,
-+					struct snd_seq_subscribers *subs,
-+					bool is_src, bool ack)
-+{
-+	struct snd_seq_port_subs_info *grp;
-+
-+	grp = is_src ? &port->c_src : &port->c_dest;
-+	down_write(&grp->list_mutex);
-+	__delete_and_unsubscribe_port(client, port, subs, is_src, ack);
- 	up_write(&grp->list_mutex);
- }
- 
-@@ -590,27 +602,30 @@ int snd_seq_port_disconnect(struct snd_seq_client *connector,
- 			    struct snd_seq_client_port *dest_port,
- 			    struct snd_seq_port_subscribe *info)
- {
--	struct snd_seq_port_subs_info *src = &src_port->c_src;
-+	struct snd_seq_port_subs_info *dest = &dest_port->c_dest;
- 	struct snd_seq_subscribers *subs;
- 	int err = -ENOENT;
- 
--	down_write(&src->list_mutex);
-+	/* always start from deleting the dest port for avoiding concurrent
-+	 * deletions
-+	 */
-+	down_write(&dest->list_mutex);
- 	/* look for the connection */
--	list_for_each_entry(subs, &src->list_head, src_list) {
-+	list_for_each_entry(subs, &dest->list_head, dest_list) {
- 		if (match_subs_info(info, &subs->info)) {
--			atomic_dec(&subs->ref_count); /* mark as not ready */
-+			__delete_and_unsubscribe_port(dest_client, dest_port,
-+						      subs, false,
-+						      connector->number != dest_client->number);
- 			err = 0;
- 			break;
- 		}
- 	}
--	up_write(&src->list_mutex);
-+	up_write(&dest->list_mutex);
- 	if (err < 0)
- 		return err;
- 
- 	delete_and_unsubscribe_port(src_client, src_port, subs, true,
- 				    connector->number != src_client->number);
--	delete_and_unsubscribe_port(dest_client, dest_port, subs, false,
--				    connector->number != dest_client->number);
- 	kfree(subs);
- 	return 0;
- }
--- 
-2.26.2
-
-
---Multipart_Tue_Aug__3_09:49:00_2021-1
-Content-Type: text/plain; charset=US-ASCII
-
-
-
---Multipart_Tue_Aug__3_09:49:00_2021-1--
+It now applies fine!
+Strange. Most likely I made a mistake before. Anyway, it is now
+compiling.

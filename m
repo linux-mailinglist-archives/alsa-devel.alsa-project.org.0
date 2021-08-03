@@ -2,86 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BF693DED2A
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Aug 2021 13:49:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 775B13DEDE0
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Aug 2021 14:31:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B2B571767;
-	Tue,  3 Aug 2021 13:48:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2B571767
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC69E1774;
+	Tue,  3 Aug 2021 14:30:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC69E1774
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627991341;
-	bh=D9yGwB/r+EF84u5aZqAFI1XYHJi74CVr2t2YciPVX2s=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cmMZDlYt7Kmdp5AdQtmIyMMjIXp09Iq/QW8SU3g6Ts5JMkh3rES9duS2eUfYhUYMM
-	 M5szQiIXbGDCnM68vFVRcCJh7cyI1M1EYj1sUK85G55YHrBpwLe7gL1dybuH+SajnX
-	 /okrsP1/ExECKM6J9r2R8AD16yyJneVMoWvOs/qQ=
+	s=default; t=1627993884;
+	bh=cx4qYFuuQhP+mp5AN7QZ18jrdDNYsJrQY7dX+jSM8C0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=R6fBJWZz+Hq/lXgO1WtqdozxRTeI8cLKdJk44tdB119zHyHEvumJ6pFyDkrCE6Rg5
+	 hBUxLvN2vy7qGI1fmwuZjcyxEQx+8qM+T3fCH0YnI9WL816zGRID1g9utfxayXUNfu
+	 0kyOlnwhvK3/2XqxAXanYOjbgLhCbazJjcvd6bxo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B1E0F80082;
-	Tue,  3 Aug 2021 13:47:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8108CF8016D;
+	Tue,  3 Aug 2021 14:29:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3F0F5F80095; Tue,  3 Aug 2021 13:47:32 +0200 (CEST)
+ id 54F30F8032D; Tue,  3 Aug 2021 14:28:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-relay-canonical-0.canonical.com
+ (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DDAF2F80095
- for <alsa-devel@alsa-project.org>; Tue,  3 Aug 2021 13:47:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDAF2F80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id CF01FF80082
+ for <alsa-devel@alsa-project.org>; Tue,  3 Aug 2021 14:28:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF01FF80082
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="lvBgKkgP"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="9wTPy7x/"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 5169822017;
- Tue,  3 Aug 2021 11:47:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627991247; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=8O0P7Szt+v58AGp348X81vVsu2pklhC2e1J14fYQW8I=;
- b=lvBgKkgPug5wPtZAhOkjeMXe1jy8ef+wne+nqhjLHbxIQqmCSnTaIofSLbJNn8vBGa7c5M
- qihK51ImKNhsSJYUy9/O/IY5W3NqFgky49eE9i6YpNa4ArxBOrFSuAjqUgD4r3A51KTKuT
- 5svuh0xk7hiZRbQ1BQjck6BgLgAv1Bo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627991247;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=8O0P7Szt+v58AGp348X81vVsu2pklhC2e1J14fYQW8I=;
- b=9wTPy7x/et9gZPhd/v55PTclneStv8vMbujwi2OLXqXwXODSld1wNymsKyDX30/nQN5aBp
- 8hs4tAtB8XcP6zAw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 01B70A3BDB;
- Tue,  3 Aug 2021 11:47:26 +0000 (UTC)
-Date: Tue, 03 Aug 2021 13:47:26 +0200
-Message-ID: <s5h35rqwy0h.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Alexander Monakov <amonakov@ispras.ru>
-Subject: Re: [PATCH] ALSA: hda/realtek: add mic quirk for Acer SF314-42
-In-Reply-To: <alpine.LNX.2.20.13.2107282230090.20403@monopod.intra.ispras.ru>
-References: <20210721170141.24807-1-amonakov@ispras.ru>
- <s5h7dhabcck.wl-tiwai@suse.de>
- <alpine.LNX.2.20.13.2107282230090.20403@monopod.intra.ispras.ru>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: Chris Chiu <chris.chiu@canonical.com>, Jian-Hong Pan <jhp@endlessos.org>,
- Kailang Yang <kailang@realtek.com>, alsa-devel@alsa-project.org,
- Jeremy Szu <jeremy.szu@canonical.com>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, Hui Wang <hui.wang@canonical.com>,
- PeiSen Hou <pshou@realtek.com>
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="cl6lKJkA"
+Received: from localhost (1.general.cking.uk.vpn [10.172.193.212])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id D154A3F09C; 
+ Tue,  3 Aug 2021 12:28:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1627993719;
+ bh=oXGtMXBZ6/OGmpA64zDaYIoChgBpydPk9ddxo6Jrg+c=;
+ h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type;
+ b=cl6lKJkA1kWqtnek77yG6ZDauzengYEyslQAmlke+/fKzcUd5URP+119L6+WU4+0J
+ vufZbJu/7E2+bvdxVwlBBfgO9FEyuOOOtAH9/9kPLQPfuDDZHO0Dna27WuGK2J+aBr
+ yGtbQOaRQ+gu2mUOXIbDzUpN1kT73/BC48lbrSUPKJbD3A+R8xzguds9yWO2QdOBmm
+ +/2kl6c0ZOMYamQv3YsqP8Ydziv70so/hF/HmYgzV325PQq4i7P49ryTu19ixD0yIe
+ KCbhtM5JuEMLA0Ti84hcJaT4Klobkthv1o1AQwto30KyIFZtsMrgtBkM9eA7JHLMeI
+ vwJQ9N/nJjkPA==
+From: Colin King <colin.king@canonical.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org
+Subject: [PATCH][V2] ALSA: usb-audio: make array static const,
+ makes object smaller
+Date: Tue,  3 Aug 2021 13:28:39 +0100
+Message-Id: <20210803122839.7143-1-colin.king@canonical.com>
+X-Mailer: git-send-email 2.31.1
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,67 +83,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 28 Jul 2021 22:03:45 +0200,
-Alexander Monakov wrote:
-> 
-> On Wed, 28 Jul 2021, Takashi Iwai wrote:
-> 
-> > > 1) at high enough gain, recording the microphone is picking up what is
-> > > being played via the headphones; maybe it's supposed to be like that,
-> > > but it surprised me;
-> > 
-> > Hrm, that doesn't sound right.  Some internal loopback in the codec?
-> > Dunno.  It doesn't pick up the sound physically, right?
-> 
-> How can I tell? If I don't have anything plugged into the jack, playback
-> uses the built-in speakers. In that case there's no feedback. And if I
-> plug in a headset or common headphones, then built-in speakers are automatically
-> muted, and recording the mic can pick up the output signal.
-> 
-> Is there a way to forcefully direct output to the jack instead of built-in
-> speakers even when there isn't anything plugged in?
-> 
-> I am sure it is not picking the sound over the air, but I'm considering it's
-> picking it up electrically near the jack somehow.
-> 
-> > > 2) there is a very noticeable "pop" when plugging the headset in/out,
-> > > accompanied by
-> > > 
-> > > pcieport 0000:00:08.1: PME: Spurious native interrupt!
-> > > pcieport 0000:00:08.1: PME: Spurious native interrupt!
-> > > 
-> > > in dmesg. I'd appreciate info and any help about this issue.
-> > 
-> > The pop noise is often a thing with the codec and there are a bunch of
-> > different workarounds found in the driver.  But the spurious interrupt
-> > is more worrisome.  Is the PCI slot corresponding to the HD-audio
-> > controller?
-> 
-> No, it's actually the PCI bridge under which the HDA core resides:
-> 
-> 00:08.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Renoir Internal PCIe GPP Bridge to Bus
-> 00:08.1/03:00.6 Audio device: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 10h-1fh) HD Audio Controller
-> 
-> Note that I have autosuspend enabled for PCI devices. If I disable PCI
-> autosuspend for the 03:00.6 HDA device, there's no "pop" and no spurious
-> interrupt. My understanding that the chip generates a power management event
-> when it senses a jack plug/unplug event while suspended. Apparently something
-> about the PME interrupt is not fully in order?
-> 
-> > As of now, I'm inclined to take your patch as is, at least as a
-> > first-aid workaround.  Let's see whether we get a better development
-> > soonish.
-> 
-> *nod*, I will appreciate it!
+From: Colin Ian King <colin.king@canonical.com>
 
-FYI, I merged the fix to for-linus branch, which will be likely
-included in Linus tree in this week.
+Don't populate array names_to_check on the stack but instead it
+static.  Makes the object code smaller by 56 bytes.  Also clean
+up checkpatch warning by adding extra const for names_to_check
+and pointer s.
 
-For the rest issue, at least about the bogus messages from PCI bridge,
-better to report to the PCI subsystem.  It's possibly some missing PCI
-quirk for the specific chip.
+Before:
+    text    data     bss     dec     hex filename
+  103512   34380       0  137892   21aa4 ./sound/usb/mixer.o
 
+After:
+    text    data     bss     dec     hex filename
+  103264   34572       0  137836   21a6c ./sound/usb/mixer.o
 
-thanks,
+(gcc version 10.2.0)
 
-Takashi
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+
+V2: Clean up checkpatch warning on const-ness for names_to_check.
+    Add extra const to clean up build warning on pointer s.
+---
+ sound/usb/mixer.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index db7cb6b6dc4e..43bc59575a6e 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -1572,9 +1572,9 @@ static size_t append_ctl_name(struct snd_kcontrol *kctl, const char *str)
+ static void check_no_speaker_on_headset(struct snd_kcontrol *kctl,
+ 					struct snd_card *card)
+ {
+-	const char *names_to_check[] = {
++	static const char * const names_to_check[] = {
+ 		"Headset", "headset", "Headphone", "headphone", NULL};
+-	const char **s;
++	const char * const *s;
+ 	bool found = false;
+ 
+ 	if (strcmp("Speaker", kctl->id.name))
+-- 
+2.31.1
+

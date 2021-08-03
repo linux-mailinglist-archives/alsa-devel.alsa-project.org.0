@@ -2,89 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B7623DEAA3
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Aug 2021 12:15:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 047783DE9F5
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Aug 2021 11:48:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E7907171E;
-	Tue,  3 Aug 2021 12:14:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7907171E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D5C9170C;
+	Tue,  3 Aug 2021 11:47:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D5C9170C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627985716;
-	bh=uecRkhzFRdbJbeBQhFVm75yev5poE3yKgWUIXrVwhTQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=J4IvuK2PMwsV22y0hGxMHjSZLBnzDdlOmkU+7Kw0K+v+E0PftbKZNiWBJs1lbimrG
-	 DRLWX8bDZCSISo0QoJ+QeRhelacClakm7SF0rxEwv3IqmXx39ONcpi1siUpPfkeHgQ
-	 SRikOEn4kJBjlEv9huFG9eo9A9KfJrW5MxvgxR6Q=
+	s=default; t=1627984101;
+	bh=q0G5yavVXIJ42De8DLkeuFG8rONqzaKnCU6UsZxOgm4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=lGwKxCLGrcVwSneI4C4YukVyQWmjGKrh8oFI4/d58u3mPTcE/xCiWywFBHC6q+NQS
+	 KM8aAfOehZWwvijJkgk0SmEgQibYzhXCyWmBd5KIT2Dr+T2s2GzxQ55NF9apONRXfI
+	 S7ZjHoHtwDb4/fE8xlwyOrG6k5cM3ISYD97at5jo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CCF16F804E6;
-	Tue,  3 Aug 2021 12:13:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6148F8032C;
+	Tue,  3 Aug 2021 11:46:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 15BD1F802E8; Tue,  3 Aug 2021 11:21:06 +0200 (CEST)
+ id E69EFF802E8; Tue,  3 Aug 2021 11:46:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
- [IPv6:2607:f8b0:4864:20::633])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0AE42F80095
- for <alsa-devel@alsa-project.org>; Tue,  3 Aug 2021 11:21:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AE42F80095
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key)
- header.d=wistron-corp-partner-google-com.20150623.gappssmtp.com
- header.i=@wistron-corp-partner-google-com.20150623.gappssmtp.com
- header.b="pGtmmIDf"
-Received: by mail-pl1-x633.google.com with SMTP id c16so22922176plh.7
- for <alsa-devel@alsa-project.org>; Tue, 03 Aug 2021 02:21:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=wistron-corp-partner-google-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id;
- bh=/rFmcgcm4hQ2h0tl29kMkZadCPDH7bgmFtfdjJ9aePg=;
- b=pGtmmIDfokSjxryZ/p4CkTvr/sWJ7bYJrrkSQ2MWqW3bcnbBMpOysXDqtN7ag0auPk
- yJ8lLY732mHihfFe4wi74qMcGzD5eiOu7H19hUfisyW/HxSYNQq49T0RbmmrbKrFHX7I
- C9ga7GXRYrXqvEYM/MuSPMJsyapJFHypnwyLSjsJvTiDyHRTssSN9dKgQzlNb+OnQtMe
- sbmPXvU+Yy1Q9r1Q7Hq4sMz6wcJEi4CNgeF7nCHpuiPrpU2mv32iILZ0aOTT4QovJoCt
- BjWoPFrOqClhRHWY96bUKSkNMFfs7TY+FN+cJ6FgIqjP8z0R1HgQ4ueNetXYRmLMrSC1
- perA==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3F69AF8014D
+ for <alsa-devel@alsa-project.org>; Tue,  3 Aug 2021 11:46:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F69AF8014D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="ekvzSotG"
+Received: by mail-wm1-x32b.google.com with SMTP id
+ e25-20020a05600c4b99b0290253418ba0fbso1739377wmp.1
+ for <alsa-devel@alsa-project.org>; Tue, 03 Aug 2021 02:46:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=N654bATf0Rp/EECcLTy4gDSnhGedp2XduVMbEXVlJds=;
+ b=ekvzSotG4xKe7IuA4N/lB1POu1koo3sumWoy5KoQ6CHrjIEaABopurzqFn69xZE/OD
+ eSa3Q5nryIc30DB3u7AvtQa7zEiHgqdHRdTcU/bBRc/CWmiPgOt/uFiAAe4pz0lhlGvS
+ b9xizRkjiRWtub+M6lZD3IlmU0uBrf1/0tgOdVW2Nwq/rtYDVV63cwf56A4BySS50ceZ
+ ECqD8Ap4vcY79E4OKQnPOBDh9ZLLiSTtENnLj153fBx2YgKdnPATF3QQfGc9RbboAY98
+ CtaqNkjhzhY92yEGgWXmUXshKtE1kxla2omLQcEbpyaKWvhkJk5n1Q8+jzmB0CTmtU1X
+ KpLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=/rFmcgcm4hQ2h0tl29kMkZadCPDH7bgmFtfdjJ9aePg=;
- b=GykVOGP1CCdWAycPCISRuULEki0b7DsB6E1TMvYWpmMfcZaU7WTow343qJD/Znu9TH
- anbb9Hpn0yl+6i248DhQHhXop4d/0r8eEvi+EhnswCBEJX8NPu0+hJJpGtbaG5gOVgNn
- 5HrPnm/Tv4YBKXUfZhoL9teahPEsgH/X5lqsHZXfXmrxEnzqsA+WJRSjftbdeSa6FN7p
- Zt5ctEy4F0Hpgj8MCfGKk7RmLizZiNnYu+WsllON29vF4vvP+cfJF/YGkvRaifKB/yTW
- XJo9pXX0jsXciqDQtqW8ktW5+J7gIP8Aob9RER8sJeWYlC3q4PM715UiIkX1OI2n5wfe
- l8pA==
-X-Gm-Message-State: AOAM532DP3AQaXQT0gBUN0dBqAFsPouvPXOwGNPDUvYKPBrHa/lF93u2
- gVpTfqJS6qmV8E0zeOL7EAUf/hT94IJb7xaC
-X-Google-Smtp-Source: ABdhPJximAivsC6Zmfv8exbTnPGtW+8XR6+ifjGidg15PTkVFlXRmV8Amsn0drbmAr0fkXdC6LpNGA==
-X-Received: by 2002:a65:520b:: with SMTP id o11mr2522987pgp.406.1627982458836; 
- Tue, 03 Aug 2021 02:20:58 -0700 (PDT)
-Received: from localhost.localdomain ([2402:7500:4dd:3ed3:60f2:c71c:b30:a151])
- by smtp.gmail.com with ESMTPSA id
- y9sm16257616pgr.10.2021.08.03.02.20.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Aug 2021 02:20:58 -0700 (PDT)
-From: Mark Hsieh <mark_hsieh@wistron.corp-partner.google.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: Intel: sof_rt5682: Add max98390 echo reference support
-Date: Tue,  3 Aug 2021 17:20:13 +0800
-Message-Id: <20210803092013.10749-1-mark_hsieh@wistron.corp-partner.google.com>
-X-Mailer: git-send-email 2.17.1
-X-Mailman-Approved-At: Tue, 03 Aug 2021 12:13:25 +0200
-Cc: lance.hou@intel.com, cezary.rojewski@intel.com, mark_hsieh@wistron.com,
- kai.vehmanen@linux.intel.com, linux-kernel@vger.kernel.org,
- yang.jie@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- Mark Hsieh <mark_hsieh@wistron.corp-partner.google.com>,
- liam.r.girdwood@linux.intel.com, mac.chiang@intel.com, broonie@kernel.org,
- brent.lu@intel.com, bard.liao@intel.com
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=N654bATf0Rp/EECcLTy4gDSnhGedp2XduVMbEXVlJds=;
+ b=NkRKCE4qIzRX3z/guCv/ZY/UOpzuLq7tkvewbdMCiYPe96rdQNo9i3xDSb2Xp+pPOo
+ 44WbkZrW9XZR1EofSGdYc2J2YqrVH5vegrlsx2i6rMeqFM8ED2EcxT4xL39d04bViRyX
+ nuT5WDGCTHKOi4G1UrfywoTpAhB70bbVnAIpd3++wjA5WbCEHCF9DEiFYioZcsBrqyBu
+ 5le/U8y/+HXfnxlmivA9NKQmF1WNqntgRbD6PAN6TmuP3kRGJ2n1Z4H0w+fNBqrbmfIm
+ y0NK/P732QClpAtwc/EU0fhbqjif7z1QbhTaUMIOQlRx16N9WUpuR9BCK9I3XU8DNs9h
+ SJ8g==
+X-Gm-Message-State: AOAM5300BuUj08/PxIfnWc0NKwfHzg7/WNS2xzmvQrZ/bOcXy1E7ssCf
+ trIgVH+pz6uZJyQ3woi/rezMRw==
+X-Google-Smtp-Source: ABdhPJysFQSt0Wz1kiE2wqikObhUpEQ6lRgdMQQtBiOlXb0s0AkcjbJj9RDx/W1CwHt4wjkpn/LgDw==
+X-Received: by 2002:a05:600c:293:: with SMTP id
+ 19mr20767117wmk.179.1627984002645; 
+ Tue, 03 Aug 2021 02:46:42 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.googlemail.com with ESMTPSA id q7sm12725310wmq.33.2021.08.03.02.46.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 03 Aug 2021 02:46:42 -0700 (PDT)
+Subject: Re: [PATCH 14/15] ASoC: qcom: qdsp6: Use managed buffer allocation
+To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+References: <20210802072815.13551-1-tiwai@suse.de>
+ <20210802072815.13551-15-tiwai@suse.de>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <0857baf8-733b-beab-5dbc-7e5045b441c4@linaro.org>
+Date: Tue, 3 Aug 2021 10:46:41 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+MIME-Version: 1.0
+In-Reply-To: <20210802072815.13551-15-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Banajit Goswami <bgoswami@codeaurora.org>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,304 +107,121 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Signed-off-by: Mark Hsieh <mark_hsieh@wistron.corp-partner.google.com>
----
- sound/soc/intel/boards/sof_maxim_common.c     | 126 ++++++++++++++++++
- sound/soc/intel/boards/sof_maxim_common.h     |  15 +++
- sound/soc/intel/boards/sof_rt5682.c           |  43 +++++-
- .../intel/common/soc-acpi-intel-adl-match.c   |  13 ++
- 4 files changed, 196 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/intel/boards/sof_maxim_common.c b/sound/soc/intel/boards/sof_maxim_common.c
-index e9c52f8b6428..179f1d12e1b8 100644
---- a/sound/soc/intel/boards/sof_maxim_common.c
-+++ b/sound/soc/intel/boards/sof_maxim_common.c
-@@ -11,6 +11,7 @@
- #include "sof_maxim_common.h"
- 
- #define MAX_98373_PIN_NAME 16
-+#define MAX_98390_PIN_NAME 16
- 
- const struct snd_soc_dapm_route max_98373_dapm_routes[] = {
- 	/* speaker */
-@@ -133,6 +134,131 @@ void max_98373_set_codec_conf(struct snd_soc_card *card)
- }
- EXPORT_SYMBOL_NS(max_98373_set_codec_conf, SND_SOC_INTEL_SOF_MAXIM_COMMON);
- 
-+/*
-+ * Maxim MAX98390
-+ */
-+
-+const struct snd_soc_dapm_route max_98390_dapm_routes[] = {
-+	/* speaker */
-+	{ "Left Spk", NULL, "Left BE_OUT" },
-+	{ "Right Spk", NULL, "Right BE_OUT" },
-+};
-+EXPORT_SYMBOL_NS(max_98390_dapm_routes, SND_SOC_INTEL_SOF_MAXIM_COMMON);
-+
-+static struct snd_soc_codec_conf max_98390_codec_conf[] = {
-+	{
-+		.dlc = COMP_CODEC_CONF(MAX_98390_DEV0_NAME),
-+		.name_prefix = "Right",
-+	},
-+	{
-+		.dlc = COMP_CODEC_CONF(MAX_98390_DEV1_NAME),
-+		.name_prefix = "Left",
-+	},
-+};
-+
-+struct snd_soc_dai_link_component max_98390_components[] = {
-+	{  /* For Right */
-+		.name = MAX_98373_DEV0_NAME,
-+		.dai_name = MAX_98390_CODEC_DAI,
-+	},
-+	{  /* For Left */
-+		.name = MAX_98373_DEV1_NAME,
-+		.dai_name = MAX_98390_CODEC_DAI,
-+	},
-+};
-+EXPORT_SYMBOL_NS(max_98390_components, SND_SOC_INTEL_SOF_MAXIM_COMMON);
-+
-+static int max_98390_hw_params(struct snd_pcm_substream *substream,
-+			       struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	struct snd_soc_dai *codec_dai;
-+	int j;
-+
-+	for_each_rtd_codec_dais(rtd, j, codec_dai) {
-+		if (!strcmp(codec_dai->component->name, MAX_98390_DEV0_NAME)) {
-+			/* DEV0 tdm slot configuration */
-+			snd_soc_dai_set_tdm_slot(codec_dai, 0x03, 3, 8, 32);
-+		}
-+		if (!strcmp(codec_dai->component->name, MAX_98390_DEV1_NAME)) {
-+			/* DEV1 tdm slot configuration */
-+			snd_soc_dai_set_tdm_slot(codec_dai, 0x0C, 3, 8, 32);
-+		}
-+	}
-+	return 0;
-+}
-+
-+int max_98390_trigger(struct snd_pcm_substream *substream, int cmd)
-+{
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	struct snd_soc_dai *codec_dai;
-+	struct snd_soc_dai *cpu_dai;
-+	int j;
-+	int ret = 0;
-+
-+	/* set spk pin by playback only */
-+	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
-+		return 0;
-+
-+	cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	for_each_rtd_codec_dais(rtd, j, codec_dai) {
-+		struct snd_soc_dapm_context *dapm =
-+				snd_soc_component_get_dapm(cpu_dai->component);
-+		char pin_name[MAX_98390_PIN_NAME];
-+
-+		snprintf(pin_name, ARRAY_SIZE(pin_name), "%s Spk",
-+			 codec_dai->component->name_prefix);
-+
-+		switch (cmd) {
-+		case SNDRV_PCM_TRIGGER_START:
-+		case SNDRV_PCM_TRIGGER_RESUME:
-+		case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+			ret = snd_soc_dapm_enable_pin(dapm, pin_name);
-+			if (!ret)
-+				snd_soc_dapm_sync(dapm);
-+			break;
-+		case SNDRV_PCM_TRIGGER_STOP:
-+		case SNDRV_PCM_TRIGGER_SUSPEND:
-+		case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+			ret = snd_soc_dapm_disable_pin(dapm, pin_name);
-+			if (!ret)
-+				snd_soc_dapm_sync(dapm);
-+			break;
-+		default:
-+			break;
-+		}
-+	}
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_NS(max_98390_trigger, SND_SOC_INTEL_SOF_MAXIM_COMMON);
-+
-+struct snd_soc_ops max_98390_ops = {
-+	.hw_params = max_98390_hw_params,
-+	.trigger = max_98390_trigger,
-+};
-+EXPORT_SYMBOL_NS(max_98390_ops, SND_SOC_INTEL_SOF_MAXIM_COMMON);
-+
-+int max_98390_spk_codec_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_card *card = rtd->card;
-+	int ret;
-+
-+	ret = snd_soc_dapm_add_routes(&card->dapm, max_98390_dapm_routes,
-+				      ARRAY_SIZE(max_98390_dapm_routes));
-+	if (ret)
-+		dev_err(rtd->dev, "Speaker map addition failed: %d\n", ret);
-+	return ret;
-+}
-+EXPORT_SYMBOL_NS(max_98390_spk_codec_init, SND_SOC_INTEL_SOF_MAXIM_COMMON);
-+
-+void max_98390_set_codec_conf(struct snd_soc_card *card)
-+{
-+	card->codec_conf = max_98390_codec_conf;
-+	card->num_configs = ARRAY_SIZE(max_98390_codec_conf);
-+}
-+EXPORT_SYMBOL_NS(max_98390_set_codec_conf, SND_SOC_INTEL_SOF_MAXIM_COMMON);
-+
- /*
-  * Maxim MAX98357A
-  */
-diff --git a/sound/soc/intel/boards/sof_maxim_common.h b/sound/soc/intel/boards/sof_maxim_common.h
-index 2674f1e373ef..e1ad25dfb915 100644
---- a/sound/soc/intel/boards/sof_maxim_common.h
-+++ b/sound/soc/intel/boards/sof_maxim_common.h
-@@ -24,6 +24,21 @@ int max_98373_spk_codec_init(struct snd_soc_pcm_runtime *rtd);
- void max_98373_set_codec_conf(struct snd_soc_card *card);
- int max_98373_trigger(struct snd_pcm_substream *substream, int cmd);
- 
-+/*
-+ * Maxim MAX98390
-+ */
-+#define MAX_98390_CODEC_DAI	"max98390-aif1"
-+#define MAX_98390_DEV0_NAME	"i2c-MX98390:00"
-+#define MAX_98390_DEV1_NAME	"i2c-MX98390:01"
-+
-+extern struct snd_soc_dai_link_component max_98390_components[2];
-+extern struct snd_soc_ops max_98390_ops;
-+extern const struct snd_soc_dapm_route max_98390_dapm_routes[];
-+
-+int max_98390_spk_codec_init(struct snd_soc_pcm_runtime *rtd);
-+void max_98390_set_codec_conf(struct snd_soc_card *card);
-+int max_98390_trigger(struct snd_pcm_substream *substream, int cmd);
-+
- /*
-  * Maxim MAX98357A
-  */
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 39217223d50c..ea4b8056db62 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -49,6 +49,7 @@
- #define SOF_RT1015P_SPEAKER_AMP_PRESENT		BIT(16)
- #define SOF_MAX98373_SPEAKER_AMP_PRESENT	BIT(17)
- #define SOF_MAX98360A_SPEAKER_AMP_PRESENT	BIT(18)
-+#define SOF_MAX98390_SPEAKER_AMP_PRESENT	BIT(23)
- 
- /* BT audio offload: reserve 3 bits for future */
- #define SOF_BT_OFFLOAD_SSP_SHIFT		19
-@@ -162,6 +163,19 @@ static const struct dmi_system_id sof_rt5682_quirk_table[] = {
- 					SOF_RT5682_SSP_AMP(2) |
- 					SOF_RT5682_NUM_HDMIDEV(4)),
- 	},
-+	{
-+		.callback = sof_rt5682_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_FAMILY, "Google_Brya"),
-+			DMI_MATCH(DMI_OEM_STRING, "AUDIO-MAX98390_ALC5682I_I2S"),
-+		},
-+		.driver_data = (void *)(SOF_RT5682_MCLK_EN |
-+					SOF_RT5682_SSP_CODEC(0) |
-+					SOF_SPEAKER_AMP_PRESENT |
-+					SOF_MAX98390_SPEAKER_AMP_PRESENT |
-+					SOF_RT5682_SSP_AMP(2) |
-+					SOF_RT5682_NUM_HDMIDEV(4)),
-+	},
- 	{}
- };
- 
-@@ -445,6 +459,14 @@ static int sof_card_late_probe(struct snd_soc_card *card)
- 		if (err < 0)
- 			return err;
- 	}
-+	if (sof_rt5682_quirk & SOF_MAX98390_SPEAKER_AMP_PRESENT) {
-+		/* Disable Left and Right Spk pin after boot */
-+		snd_soc_dapm_disable_pin(dapm, "Left Spk");
-+		snd_soc_dapm_disable_pin(dapm, "Right Spk");
-+		err = snd_soc_dapm_sync(dapm);
-+		if (err < 0)
-+			return err;
-+	}
- 	return hdac_hdmi_jack_port_init(component, &card->dapm);
- }
- 
-@@ -781,6 +803,13 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 		} else if (sof_rt5682_quirk &
- 				SOF_RT1011_SPEAKER_AMP_PRESENT) {
- 			sof_rt1011_dai_link(&links[id]);
-+		} else if (sof_rt5682_quirk &
-+				SOF_MAX98390_SPEAKER_AMP_PRESENT) {
-+			links[id].codecs = max_98390_components;
-+			links[id].num_codecs = ARRAY_SIZE(max_98390_components);
-+			links[id].init = max_98390_spk_codec_init;
-+			links[id].ops = &max_98390_ops;
-+			links[id].dpcm_capture = 1;
- 		} else {
- 			max_98357a_dai_link(&links[id]);
- 		}
-@@ -917,7 +946,8 @@ static int sof_audio_probe(struct platform_device *pdev)
- 		sof_rt1011_codec_conf(&sof_audio_card_rt5682);
- 	else if (sof_rt5682_quirk & SOF_RT1015P_SPEAKER_AMP_PRESENT)
- 		sof_rt1015p_codec_conf(&sof_audio_card_rt5682);
--
-+	else if (sof_rt5682_quirk & SOF_MAX98390_SPEAKER_AMP_PRESENT)
-+		max_98390_set_codec_conf(&sof_audio_card_rt5682);
- 	if (sof_rt5682_quirk & SOF_SSP_BT_OFFLOAD_PRESENT)
- 		sof_audio_card_rt5682.num_links++;
- 
-@@ -1043,6 +1073,17 @@ static const struct platform_device_id board_ids[] = {
- 					SOF_RT5682_SSP_AMP(2) |
- 					SOF_RT5682_NUM_HDMIDEV(4)),
- 	},
-+	{
-+		.name = "adl_max98390_rt5682",
-+		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
-+					SOF_RT5682_SSP_CODEC(0) |
-+					SOF_SPEAKER_AMP_PRESENT |
-+					SOF_MAX98390_SPEAKER_AMP_PRESENT |
-+					SOF_RT5682_SSP_AMP(2) |
-+					SOF_RT5682_NUM_HDMIDEV(4) |
-+					SOF_BT_OFFLOAD_SSP(2) |
-+					SOF_SSP_BT_OFFLOAD_PRESENT),
-+	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(platform, board_ids);
-diff --git a/sound/soc/intel/common/soc-acpi-intel-adl-match.c b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-index a0f6a69c7038..2db152998e4a 100644
---- a/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-@@ -280,6 +280,11 @@ static const struct snd_soc_acpi_codecs adl_max98357a_amp = {
- 	.codecs = {"MX98357A"}
- };
- 
-+static const struct snd_soc_acpi_codecs adl_max98390_amp = {
-+	.num_codecs = 1,
-+	.codecs = {"MX98390"}
-+};
-+
- struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
- 	{
- 		.id = "10EC5682",
-@@ -297,6 +302,14 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
- 		.sof_fw_filename = "sof-adl.ri",
- 		.sof_tplg_filename = "sof-adl-max98357a-rt5682.tplg",
- 	},
-+	{
-+		.id = "10EC5682",
-+		.drv_name = "adl_max98390_rt5682",
-+		.machine_quirk = snd_soc_acpi_codec_list,
-+		.quirk_data = &adl_max98390_amp,
-+		.sof_fw_filename = "sof-adl.ri",
-+		.sof_tplg_filename = "sof-adl-max98390-rt5682.tplg",
-+	},
- 	{},
- };
- EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_adl_machines);
--- 
-2.17.1
 
+On 02/08/2021 08:28, Takashi Iwai wrote:
+> This patch simplifies the buffer pre-allocation code of qcom qdsp6
+> driver with the standard managed buffer helper.  It uses the newly
+> introduced fixed-size buffer allocation helper.
+> 
+> Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> Cc: Banajit Goswami <bgoswami@codeaurora.org>
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+
+Tested this on DragonBoard DB845c with WSA Playback
+
+Tested-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+
+> ---
+>   sound/soc/qcom/qdsp6/q6asm-dai.c | 63 ++------------------------------
+>   1 file changed, 3 insertions(+), 60 deletions(-)
+> 
+> diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
+> index 5ff56a735419..46f365528d50 100644
+> --- a/sound/soc/qcom/qdsp6/q6asm-dai.c
+> +++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
+> @@ -429,8 +429,6 @@ static int q6asm_dai_open(struct snd_soc_component *component,
+>   	else
+>   		prtd->phys = substream->dma_buffer.addr | (pdata->sid << 32);
+>   
+> -	snd_pcm_set_runtime_buffer(substream, &substream->dma_buffer);
+> -
+>   	return 0;
+>   }
+>   
+> @@ -470,18 +468,6 @@ static snd_pcm_uframes_t q6asm_dai_pointer(struct snd_soc_component *component,
+>   	return bytes_to_frames(runtime, (prtd->pcm_irq_pos));
+>   }
+>   
+> -static int q6asm_dai_mmap(struct snd_soc_component *component,
+> -			  struct snd_pcm_substream *substream,
+> -			  struct vm_area_struct *vma)
+> -{
+> -	struct snd_pcm_runtime *runtime = substream->runtime;
+> -	struct device *dev = component->dev;
+> -
+> -	return dma_mmap_coherent(dev, vma,
+> -			runtime->dma_area, runtime->dma_addr,
+> -			runtime->dma_bytes);
+> -}
+> -
+>   static int q6asm_dai_hw_params(struct snd_soc_component *component,
+>   			       struct snd_pcm_substream *substream,
+>   			       struct snd_pcm_hw_params *params)
+> @@ -1185,52 +1171,11 @@ static const struct snd_compress_ops q6asm_dai_compress_ops = {
+>   static int q6asm_dai_pcm_new(struct snd_soc_component *component,
+>   			     struct snd_soc_pcm_runtime *rtd)
+>   {
+> -	struct snd_pcm_substream *psubstream, *csubstream;
+>   	struct snd_pcm *pcm = rtd->pcm;
+> -	struct device *dev;
+> -	int size, ret;
+> -
+> -	dev = component->dev;
+> -	size = q6asm_dai_hardware_playback.buffer_bytes_max;
+> -	psubstream = pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream;
+> -	if (psubstream) {
+> -		ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, dev, size,
+> -					  &psubstream->dma_buffer);
+> -		if (ret) {
+> -			dev_err(dev, "Cannot allocate buffer(s)\n");
+> -			return ret;
+> -		}
+> -	}
+> +	size_t size = q6asm_dai_hardware_playback.buffer_bytes_max;
+>   
+> -	csubstream = pcm->streams[SNDRV_PCM_STREAM_CAPTURE].substream;
+> -	if (csubstream) {
+> -		ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, dev, size,
+> -					  &csubstream->dma_buffer);
+> -		if (ret) {
+> -			dev_err(dev, "Cannot allocate buffer(s)\n");
+> -			if (psubstream)
+> -				snd_dma_free_pages(&psubstream->dma_buffer);
+> -			return ret;
+> -		}
+> -	}
+> -
+> -	return 0;
+> -}
+> -
+> -static void q6asm_dai_pcm_free(struct snd_soc_component *component,
+> -			       struct snd_pcm *pcm)
+> -{
+> -	struct snd_pcm_substream *substream;
+> -	int i;
+> -
+> -	for (i = 0; i < ARRAY_SIZE(pcm->streams); i++) {
+> -		substream = pcm->streams[i].substream;
+> -		if (substream) {
+> -			snd_dma_free_pages(&substream->dma_buffer);
+> -			substream->dma_buffer.area = NULL;
+> -			substream->dma_buffer.addr = 0;
+> -		}
+> -	}
+> +	return snd_pcm_set_fixed_buffer_all(pcm, SNDRV_DMA_TYPE_DEV,
+> +					    component->dev, size);
+>   }
+>   
+>   static const struct snd_soc_dapm_widget q6asm_dapm_widgets[] = {
+> @@ -1260,9 +1205,7 @@ static const struct snd_soc_component_driver q6asm_fe_dai_component = {
+>   	.prepare	= q6asm_dai_prepare,
+>   	.trigger	= q6asm_dai_trigger,
+>   	.pointer	= q6asm_dai_pointer,
+> -	.mmap		= q6asm_dai_mmap,
+>   	.pcm_construct	= q6asm_dai_pcm_new,
+> -	.pcm_destruct	= q6asm_dai_pcm_free,
+>   	.compress_ops	= &q6asm_dai_compress_ops,
+>   	.dapm_widgets	= q6asm_dapm_widgets,
+>   	.num_dapm_widgets = ARRAY_SIZE(q6asm_dapm_widgets),
+> 

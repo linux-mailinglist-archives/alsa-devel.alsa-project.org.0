@@ -2,73 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3944A3DEC84
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Aug 2021 13:44:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BF693DED2A
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Aug 2021 13:49:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 96D821760;
-	Tue,  3 Aug 2021 13:43:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96D821760
+	by alsa0.perex.cz (Postfix) with ESMTPS id B2B571767;
+	Tue,  3 Aug 2021 13:48:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2B571767
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1627991059;
-	bh=dXQcLnBF9FUl3JXT/Hg928qManKhAisgRsJsp8kdLEw=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ICp/caJtXUSyFNwe4+jeL5yTIGdT8fawnmOfP4Dyz6hYztu3ZucGUL+PF4VFVBIyu
-	 LYMewbQwzOFdZNB9nWmoRVmDuyb0wwQcLGmnW8n9GuEXW0QwqYO6c0JfdNS0dOmtAx
-	 Omt63KcfOEuxNn0lhAQJY4Dcn/2vIKFLOPVZEqeg=
+	s=default; t=1627991341;
+	bh=D9yGwB/r+EF84u5aZqAFI1XYHJi74CVr2t2YciPVX2s=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=cmMZDlYt7Kmdp5AdQtmIyMMjIXp09Iq/QW8SU3g6Ts5JMkh3rES9duS2eUfYhUYMM
+	 M5szQiIXbGDCnM68vFVRcCJh7cyI1M1EYj1sUK85G55YHrBpwLe7gL1dybuH+SajnX
+	 /okrsP1/ExECKM6J9r2R8AD16yyJneVMoWvOs/qQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3AA4AF80082;
-	Tue,  3 Aug 2021 13:43:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B1E0F80082;
+	Tue,  3 Aug 2021 13:47:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7C5FF8032D; Tue,  3 Aug 2021 13:43:25 +0200 (CEST)
+ id 3F0F5F80095; Tue,  3 Aug 2021 13:47:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C4DC0F80082
- for <alsa-devel@alsa-project.org>; Tue,  3 Aug 2021 13:43:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4DC0F80082
+ by alsa1.perex.cz (Postfix) with ESMTPS id DDAF2F80095
+ for <alsa-devel@alsa-project.org>; Tue,  3 Aug 2021 13:47:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDAF2F80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="BaeZeEOy"; 
+ header.b="lvBgKkgP"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="YOx1iHig"
+ header.b="9wTPy7x/"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id C4EBC22017
- for <alsa-devel@alsa-project.org>; Tue,  3 Aug 2021 11:43:13 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 5169822017;
+ Tue,  3 Aug 2021 11:47:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1627990993; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=LWHmPHh8rg78j913kcUT6Sd6LMBqxaEHeiRD2di1Pys=;
- b=BaeZeEOyU3c7+QIXOzsR1wCtMjCOBg0kDog9S2SUlV7nZJOvC1YG4hrufH8qCsPjo9DzKN
- cwmpGWtsaiuTpRvXnYs/oE2LtxTLRLr2QZPH9/rONFba0bkpj/KW5Bocs4Ealsapk5pYCp
- CmKTet1A7C6LR1qk8kyjS11mpr3S5Kg=
+ t=1627991247; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=8O0P7Szt+v58AGp348X81vVsu2pklhC2e1J14fYQW8I=;
+ b=lvBgKkgPug5wPtZAhOkjeMXe1jy8ef+wne+nqhjLHbxIQqmCSnTaIofSLbJNn8vBGa7c5M
+ qihK51ImKNhsSJYUy9/O/IY5W3NqFgky49eE9i6YpNa4ArxBOrFSuAjqUgD4r3A51KTKuT
+ 5svuh0xk7hiZRbQ1BQjck6BgLgAv1Bo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1627990993;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=LWHmPHh8rg78j913kcUT6Sd6LMBqxaEHeiRD2di1Pys=;
- b=YOx1iHigZYvp7LUKDZcUW1t7qIsFkktXfj4R169zMAAAMvDM1MkTRE2NzDwv19JUnwzwPe
- 3Zr4UucW6Hk7GTCg==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id B5067A3BD1;
- Tue,  3 Aug 2021 11:43:13 +0000 (UTC)
+ s=susede2_ed25519; t=1627991247;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=8O0P7Szt+v58AGp348X81vVsu2pklhC2e1J14fYQW8I=;
+ b=9wTPy7x/et9gZPhd/v55PTclneStv8vMbujwi2OLXqXwXODSld1wNymsKyDX30/nQN5aBp
+ 8hs4tAtB8XcP6zAw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 01B70A3BDB;
+ Tue,  3 Aug 2021 11:47:26 +0000 (UTC)
+Date: Tue, 03 Aug 2021 13:47:26 +0200
+Message-ID: <s5h35rqwy0h.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: seq: Fix racy deletion of subscriber
-Date: Tue,  3 Aug 2021 13:43:12 +0200
-Message-Id: <20210803114312.2536-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+To: Alexander Monakov <amonakov@ispras.ru>
+Subject: Re: [PATCH] ALSA: hda/realtek: add mic quirk for Acer SF314-42
+In-Reply-To: <alpine.LNX.2.20.13.2107282230090.20403@monopod.intra.ispras.ru>
+References: <20210721170141.24807-1-amonakov@ispras.ru>
+ <s5h7dhabcck.wl-tiwai@suse.de>
+ <alpine.LNX.2.20.13.2107282230090.20403@monopod.intra.ispras.ru>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Chris Chiu <chris.chiu@canonical.com>, Jian-Hong Pan <jhp@endlessos.org>,
+ Kailang Yang <kailang@realtek.com>, alsa-devel@alsa-project.org,
+ Jeremy Szu <jeremy.szu@canonical.com>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Hui Wang <hui.wang@canonical.com>,
+ PeiSen Hou <pshou@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,113 +97,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-It turned out that the current implementation of the port subscription
-is racy.  The subscription contains two linked lists, and we have to
-add to or delete from both lists.  Since both connection and
-disconnection procedures perform the same order for those two lists
-(i.e. src list, then dest list), when a deletion happens during a
-connection procedure, the src list may be deleted before the dest list
-addition completes, and this may lead to a use-after-free or an Oops,
-even though the access to both lists are protected via mutex.
+On Wed, 28 Jul 2021 22:03:45 +0200,
+Alexander Monakov wrote:
+> 
+> On Wed, 28 Jul 2021, Takashi Iwai wrote:
+> 
+> > > 1) at high enough gain, recording the microphone is picking up what is
+> > > being played via the headphones; maybe it's supposed to be like that,
+> > > but it surprised me;
+> > 
+> > Hrm, that doesn't sound right.  Some internal loopback in the codec?
+> > Dunno.  It doesn't pick up the sound physically, right?
+> 
+> How can I tell? If I don't have anything plugged into the jack, playback
+> uses the built-in speakers. In that case there's no feedback. And if I
+> plug in a headset or common headphones, then built-in speakers are automatically
+> muted, and recording the mic can pick up the output signal.
+> 
+> Is there a way to forcefully direct output to the jack instead of built-in
+> speakers even when there isn't anything plugged in?
+> 
+> I am sure it is not picking the sound over the air, but I'm considering it's
+> picking it up electrically near the jack somehow.
+> 
+> > > 2) there is a very noticeable "pop" when plugging the headset in/out,
+> > > accompanied by
+> > > 
+> > > pcieport 0000:00:08.1: PME: Spurious native interrupt!
+> > > pcieport 0000:00:08.1: PME: Spurious native interrupt!
+> > > 
+> > > in dmesg. I'd appreciate info and any help about this issue.
+> > 
+> > The pop noise is often a thing with the codec and there are a bunch of
+> > different workarounds found in the driver.  But the spurious interrupt
+> > is more worrisome.  Is the PCI slot corresponding to the HD-audio
+> > controller?
+> 
+> No, it's actually the PCI bridge under which the HDA core resides:
+> 
+> 00:08.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Renoir Internal PCIe GPP Bridge to Bus
+> 00:08.1/03:00.6 Audio device: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 10h-1fh) HD Audio Controller
+> 
+> Note that I have autosuspend enabled for PCI devices. If I disable PCI
+> autosuspend for the 03:00.6 HDA device, there's no "pop" and no spurious
+> interrupt. My understanding that the chip generates a power management event
+> when it senses a jack plug/unplug event while suspended. Apparently something
+> about the PME interrupt is not fully in order?
+> 
+> > As of now, I'm inclined to take your patch as is, at least as a
+> > first-aid workaround.  Let's see whether we get a better development
+> > soonish.
+> 
+> *nod*, I will appreciate it!
 
-The simple workaround for this race is to change the access order for
-the disconnection, namely, dest list, then src list.  This assures
-that the connection has been established when disconnecting, and also
-the concurrent deletion can be avoided.
+FYI, I merged the fix to for-linus branch, which will be likely
+included in Linus tree in this week.
 
-Reported-and-tested-by: folkert <folkert@vanheusden.com>
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/20210801182754.GP890690@belle.intranet.vanheusden.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/seq/seq_ports.c | 39 ++++++++++++++++++++++++++------------
- 1 file changed, 27 insertions(+), 12 deletions(-)
+For the rest issue, at least about the bogus messages from PCI bridge,
+better to report to the PCI subsystem.  It's possibly some missing PCI
+quirk for the specific chip.
 
-diff --git a/sound/core/seq/seq_ports.c b/sound/core/seq/seq_ports.c
-index b9c2ce2b8d5a..84d78630463e 100644
---- a/sound/core/seq/seq_ports.c
-+++ b/sound/core/seq/seq_ports.c
-@@ -514,10 +514,11 @@ static int check_and_subscribe_port(struct snd_seq_client *client,
- 	return err;
- }
- 
--static void delete_and_unsubscribe_port(struct snd_seq_client *client,
--					struct snd_seq_client_port *port,
--					struct snd_seq_subscribers *subs,
--					bool is_src, bool ack)
-+/* called with grp->list_mutex held */
-+static void __delete_and_unsubscribe_port(struct snd_seq_client *client,
-+					  struct snd_seq_client_port *port,
-+					  struct snd_seq_subscribers *subs,
-+					  bool is_src, bool ack)
- {
- 	struct snd_seq_port_subs_info *grp;
- 	struct list_head *list;
-@@ -525,7 +526,6 @@ static void delete_and_unsubscribe_port(struct snd_seq_client *client,
- 
- 	grp = is_src ? &port->c_src : &port->c_dest;
- 	list = is_src ? &subs->src_list : &subs->dest_list;
--	down_write(&grp->list_mutex);
- 	write_lock_irq(&grp->list_lock);
- 	empty = list_empty(list);
- 	if (!empty)
-@@ -535,6 +535,18 @@ static void delete_and_unsubscribe_port(struct snd_seq_client *client,
- 
- 	if (!empty)
- 		unsubscribe_port(client, port, grp, &subs->info, ack);
-+}
-+
-+static void delete_and_unsubscribe_port(struct snd_seq_client *client,
-+					struct snd_seq_client_port *port,
-+					struct snd_seq_subscribers *subs,
-+					bool is_src, bool ack)
-+{
-+	struct snd_seq_port_subs_info *grp;
-+
-+	grp = is_src ? &port->c_src : &port->c_dest;
-+	down_write(&grp->list_mutex);
-+	__delete_and_unsubscribe_port(client, port, subs, is_src, ack);
- 	up_write(&grp->list_mutex);
- }
- 
-@@ -590,27 +602,30 @@ int snd_seq_port_disconnect(struct snd_seq_client *connector,
- 			    struct snd_seq_client_port *dest_port,
- 			    struct snd_seq_port_subscribe *info)
- {
--	struct snd_seq_port_subs_info *src = &src_port->c_src;
-+	struct snd_seq_port_subs_info *dest = &dest_port->c_dest;
- 	struct snd_seq_subscribers *subs;
- 	int err = -ENOENT;
- 
--	down_write(&src->list_mutex);
-+	/* always start from deleting the dest port for avoiding concurrent
-+	 * deletions
-+	 */
-+	down_write(&dest->list_mutex);
- 	/* look for the connection */
--	list_for_each_entry(subs, &src->list_head, src_list) {
-+	list_for_each_entry(subs, &dest->list_head, dest_list) {
- 		if (match_subs_info(info, &subs->info)) {
--			atomic_dec(&subs->ref_count); /* mark as not ready */
-+			__delete_and_unsubscribe_port(dest_client, dest_port,
-+						      subs, false,
-+						      connector->number != dest_client->number);
- 			err = 0;
- 			break;
- 		}
- 	}
--	up_write(&src->list_mutex);
-+	up_write(&dest->list_mutex);
- 	if (err < 0)
- 		return err;
- 
- 	delete_and_unsubscribe_port(src_client, src_port, subs, true,
- 				    connector->number != src_client->number);
--	delete_and_unsubscribe_port(dest_client, dest_port, subs, false,
--				    connector->number != dest_client->number);
- 	kfree(subs);
- 	return 0;
- }
--- 
-2.26.2
 
+thanks,
+
+Takashi

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1866B3DF809
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Aug 2021 00:38:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C25D83DF80B
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Aug 2021 00:39:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A1E74171B;
-	Wed,  4 Aug 2021 00:38:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1E74171B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4352F173A;
+	Wed,  4 Aug 2021 00:38:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4352F173A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628030334;
-	bh=itzEvpfQl30/cXcBzgEf8EEtRC4VYD4DYNiKCZ3vOGg=;
+	s=default; t=1628030375;
+	bh=hcHr3un6vM6Jy8wur/6t7L/Lhc7LHra5hoSt0Zdm0Nk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KJ3M08OUqh2K3aEji084+pc3YLBYySy6YZsIj5TtNr3uqvRT+eiJ4LP395/e6N9JP
-	 DDV966tmzw/+56pwWgle1NnGvBhkyov+0gNJa4wyubaKx/BrSZHCoVocpSiyEBYZtL
-	 rqxhOuVYQgBFU9Cyyil2VmRIccMDaqrukEKz37dg=
+	b=BBGSG8Q4Bu4E4T6a0T2LcDvFgF/891nJVlZ+OchiV1F1pG4bjq0kfiCVxsaf//1HE
+	 hFmQIixf2AgkVqCWvmOZSkHrunZJu4UPKrHjxs1vp8B3Q9tEjfqmihW6MiDCPBzfyA
+	 WvZPygUM9C4Qx1XMRBdVOEX9ihxXsz8eHcRsJqMM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B443AF804FA;
-	Wed,  4 Aug 2021 00:36:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23B4DF804FD;
+	Wed,  4 Aug 2021 00:36:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 13C27F804F1; Wed,  4 Aug 2021 00:36:29 +0200 (CEST)
+ id 3A042F804FB; Wed,  4 Aug 2021 00:36:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00312F804E3
- for <alsa-devel@alsa-project.org>; Wed,  4 Aug 2021 00:36:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00312F804E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 14F6FF804EC
+ for <alsa-devel@alsa-project.org>; Wed,  4 Aug 2021 00:36:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14F6FF804EC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="foRO6o1E"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 042896103C;
- Tue,  3 Aug 2021 22:36:22 +0000 (UTC)
+ header.b="Gt7uODj/"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C424461078;
+ Tue,  3 Aug 2021 22:36:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1628030183;
- bh=itzEvpfQl30/cXcBzgEf8EEtRC4VYD4DYNiKCZ3vOGg=;
+ s=k20201202; t=1628030186;
+ bh=hcHr3un6vM6Jy8wur/6t7L/Lhc7LHra5hoSt0Zdm0Nk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=foRO6o1EZx7gXIkzctHRZgj38RJq8ES+P+LemUCu1nTlw3N2ccFJTX8io4WqKmc6Q
- LR0zjB/9x70CQYbDODAWOejaEzOQlgipFtdR/xW11wX7ITL1vhqOBbZ/28Xl3mTU1c
- mSgcSvY2J7SiITiioaH+EIgdw2riXJwtZMxWILTjrVMRsQrrWfhaS0PTbPYBuHQXek
- ib14HiOtpXEvwBkFGlPbyfj0gbRGbmxgaENn/oNjo+4IpZMgzhXKzzZ0VAeD30b+i2
- evLgNGvldVzzx1E7DqzJ03HBXJlHtHjOf9Ek7+BZG8zagT88wEW9DzEPVn9e1DDfj6
- /0VIrx/IMog+g==
+ b=Gt7uODj/2ODw1IRh8Wtq3MriRjB4G8ItAvkRnU21Gm35JbsAP8v5Ykgz8ZdI24naW
+ j0uOlC3xxzyLHykiig/C1Fq4TGlwHRNJxX82ardqhmhxgRGkiBTUtOLnnnpvJHrVT5
+ q8d+ef/IdAnzof3/sLd1Xj5G4/93vcqqCkORxSB39wJodXaLHvfQo4fZkMUup25B+u
+ 8zJyYisVT2o7QtgbaSHUDGjM7KlIqkkVFzE7JU6EOpTKUsAaff40ChfAX4/zy3YMIM
+ Ah6JhK3/2X7YtWbKktO0o8vBrIqtwJ5F/q74xEEaW5DxfmZFU0CkCjOggihxBq4E5n
+ 89bFAMNtABpiQ==
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ASoC: SOF: Intel: hda-ipc: fix reply size checking
-Date: Tue,  3 Aug 2021 23:35:39 +0100
-Message-Id: <162802985540.42099.7162137224505669472.b4-ty@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Subject: Re: [PATCH 1/2] ASoC: cs42l42: Fix inversion of ADC Notch Switch
+ control
+Date: Tue,  3 Aug 2021 23:35:40 +0100
+Message-Id: <162802985541.42099.7806067166014112149.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210802151749.15417-1-pierre-louis.bossart@linux.intel.com>
-References: <20210802151749.15417-1-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20210803160834.9005-1-rf@opensource.cirrus.com>
+References: <20210803160834.9005-1-rf@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de,
- Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,9 +80,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 2 Aug 2021 10:17:49 -0500, Pierre-Louis Bossart wrote:
-> Checking that two values don't have common bits makes no sense,
-> strict equality is meant.
+On Tue, 3 Aug 2021 17:08:33 +0100, Richard Fitzgerald wrote:
+> The underlying register field has inverted sense (0 = enabled) so
+> the control definition must be marked as inverted.
+> 
+> 
+> 
+> 
 
 Applied to
 
@@ -92,8 +94,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: Intel: hda-ipc: fix reply size checking
-      commit: 973b393fdf073a4ebd8d82ef6edea99fedc74af9
+[1/2] ASoC: cs42l42: Fix inversion of ADC Notch Switch control
+      commit: 30615bd21b4cc3c3bb5ae8bd70e2a915cc5f75c7
+[2/2] ASoC: cs42l42: Remove duplicate control for WNF filter frequency
+      commit: 8b353bbeae20e2214c9d9d88bcb2fda4ba145d83
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 705DC3DF80A
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Aug 2021 00:39:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E29103DF80C
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Aug 2021 00:39:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0EFFF172D;
-	Wed,  4 Aug 2021 00:38:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EFFF172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84F801746;
+	Wed,  4 Aug 2021 00:39:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84F801746
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628030357;
-	bh=DOyU2sYorvQY4kQgLU4xRaU30VsJypmI5w2Lq/QPj1E=;
+	s=default; t=1628030390;
+	bh=W6wGwDkGz1Q64FWYoYQlIjt/pCG+c+LwgzT4EQZImK0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qJHrbpyAQgk/JkcoRo9qOXO6PENSjNYVD6B8lSHvokjqxAlZlvr+lqVt2rxmoqP5v
-	 rkKKXX9Bl0WYhVeRutm/Mvj/sOvX7rZ82BorpiB75EHsTt5JINQQOpx7a3QqHbDnFR
-	 WVxX7+/GLVNN5Av30UJGa+lowvzw7hJ0OhI740Gs=
+	b=SZ4/FH+S9UT7OAWQICNtq5Je5m4tBPjRdGM3HEox7+wafKVaXIxgBChEhgx+tyzte
+	 XwDlBqrcRslXQyZEkueTV3tSCyZ1EXOaLudKy+dmxziDJUGjYpEbafeDLmDhBp6SDR
+	 sgxwbqwK166AGiSMoiazbdwf4W+pWGhpZwi1qTfk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89BA7F804FC;
-	Wed,  4 Aug 2021 00:36:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B11A8F80510;
+	Wed,  4 Aug 2021 00:36:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE67AF804FC; Wed,  4 Aug 2021 00:36:31 +0200 (CEST)
+ id B1898F8050F; Wed,  4 Aug 2021 00:36:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 30DB0F804ED
- for <alsa-devel@alsa-project.org>; Wed,  4 Aug 2021 00:36:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30DB0F804ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id 53121F80506
+ for <alsa-devel@alsa-project.org>; Wed,  4 Aug 2021 00:36:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53121F80506
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="mJNgikBq"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 52206601FD;
- Tue,  3 Aug 2021 22:36:28 +0000 (UTC)
+ header.b="Vk1ewMc3"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D403D6103C;
+ Tue,  3 Aug 2021 22:36:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1628030188;
- bh=DOyU2sYorvQY4kQgLU4xRaU30VsJypmI5w2Lq/QPj1E=;
+ s=k20201202; t=1628030191;
+ bh=W6wGwDkGz1Q64FWYoYQlIjt/pCG+c+LwgzT4EQZImK0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=mJNgikBqAHXwSOywcGo5VU4P3Tj/C+pEjPqGfm4bXxcKiHYWMXUavkSi6zA0co2JI
- vduvjGSg09xv766Qi0TyIIhilCX1702yvctSMKWj9s6MKBZgrLhgFFzvGIkkIS/362
- u9YxQXlDK8NdjUdRtMb/+h7K30jWCuhxivhNLHUwIOV2eboUrY2IWTCupksdnJCyxF
- hG1syLWZXJX6lEjndS+S/evcbzlgWVR3lcI2IWp3WArnzq05xf/e4s7rryfRFI0Ihr
- QXkXtyoq3SvI286rw2u0lrzn16dqANM6oAAH759fErreakDGTEhRU2dYIFe493iuw9
- 9GqOo0lKJplbA==
+ b=Vk1ewMc3/UZsXVOgFGT8sZanMhVR9mwXvw4h2uBKLfbhPNUE/7lc4gkuKI1zOOflo
+ L399NSzkqLdmV//zD9coxdk+3OuOMQW8Ga6s0SdUJ6Kzw+/Ef/7Fy5/U7Nead2Hg5d
+ S2atCRLFKAEx5vfcNqcsvkbiIf9eTCyVr/S9ErK1IMrhLYY7J0SnlmcdeLD0r7g2XW
+ aXYjIfymSosKxhNOMOQpjrrIAP3+/lAbMT4IriWPyKEDd6IFUsy39Y/2mQrZz3fSqp
+ y7D354iWDU/+NbZCNVWM6HraAkF8+x+QCU3CQAteaQ/vn9j1LGEIldZ1fh+YKy6NIw
+ K7eDcTNJqgLvw==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-Subject: Re: [PATCH] ASoC: codecs: ad193x: add support for 96kHz and 192kHz
- playback rates
-Date: Tue,  3 Aug 2021 23:35:41 +0100
-Message-Id: <162802985539.42099.2701841258072136197.b4-ty@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH 0/4] ASoC: soc-ops: cleanup cppcheck warning
+Date: Tue,  3 Aug 2021 23:35:42 +0100
+Message-Id: <162802985540.42099.16970663853785518537.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210803104825.2198335-1-codrin.ciubotariu@microchip.com>
-References: <20210803104825.2198335-1-codrin.ciubotariu@microchip.com>
+In-Reply-To: <875ywnw2ar.wl-kuninori.morimoto.gx@renesas.com>
+References: <875ywnw2ar.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: lars@metafoo.de, lgirdwood@gmail.com, tiwai@suse.com,
- nicolas.ferre@microchip.com, Mark Brown <broonie@kernel.org>,
- nuno.sa@analog.com
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,10 +78,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 3 Aug 2021 13:48:25 +0300, Codrin Ciubotariu wrote:
-> ad193x devices support 96KHz and 192KHz sampling rates, when PLL/MCLK is
-> referenced to 48kHz.
-> Tested on ad1934.
+On 03 Aug 2021 14:00:12 +0900, Kuninori Morimoto wrote:
+> Now I'm posting audio-graph-card2 patch-set, but it seems it needs longer
+> discussion. Thus I want to post more easy patch first, and reduce my
+> local patches.
+> 
+> These are cppcheck warning cleanup patches for soc-ops.
+> 
+> Kuninori Morimoto (4):
+>   ASoC: soc-ops: cleanup cppcheck warning at snd_soc_put_volsw_sx()
+>   ASoC: soc-ops: cleanup cppcheck warning at snd_soc_limit_volume()
+>   ASoC: soc-ops: cleanup cppcheck warning at snd_soc_get_xr_sx()
+>   ASoC: soc-ops: cleanup cppcheck warning at snd_soc_put_xr_sx()
+> 
+> [...]
 
 Applied to
 
@@ -93,8 +99,14 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: ad193x: add support for 96kHz and 192kHz playback rates
-      commit: 0d73297e483e5b7ce197c0a923424e5dd96eae4d
+[1/4] ASoC: soc-ops: cleanup cppcheck warning at snd_soc_put_volsw_sx()
+      commit: 58f42dfd7977599b060996491412fcec688d025d
+[2/4] ASoC: soc-ops: cleanup cppcheck warning at snd_soc_limit_volume()
+      commit: 872040f7980b929d75877e7b9d721ea808ce06e1
+[3/4] ASoC: soc-ops: cleanup cppcheck warning at snd_soc_get_xr_sx()
+      commit: b1ebecb90bf69fbd288e873bbf545061f5a6c144
+[4/4] ASoC: soc-ops: cleanup cppcheck warning at snd_soc_put_xr_sx()
+      commit: b285b51018a7ca206401829fb83c8b967c22bfa5
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

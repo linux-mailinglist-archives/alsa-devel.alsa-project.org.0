@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F287B3DF397
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Aug 2021 19:10:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF5D33E0E42
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Aug 2021 08:22:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 80EEC822;
-	Tue,  3 Aug 2021 19:09:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80EEC822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 530D41688;
+	Thu,  5 Aug 2021 08:21:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 530D41688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628010610;
-	bh=+LKKiI1JV00lrTwHMho5wocCtWGVV0fIOWNcJuHlHa4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1628144558;
+	bh=VLQDPuYtppmqHTWikIAl/LlTeEVdU62YKptNtZBvwDM=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LAEkSaIuCivATtEGABc5n/Ao3EZ0fNz6N1dIrN946P9gDuR0D4lbrQbDEMjh7KIJm
-	 pkcB/hfc1Ydjr2oUxttlTs00NoQ2bVR66GclKOr52pXPtGr+kbgHCN+mYIOWGJdaIK
-	 9tvBpcJSxLq/ldSAde+BoEmfLBX7gQITcP0KGmAk=
+	b=nnxATRf+C6tMlFL3RYJhh4d7t7TWjqVN2XYKDEvlX9OJgMk+MR8OfbIxjCdCOFis+
+	 4G10/tNkxYJlC7N9yQHelXeUXI5y1dfGnuGm7MT6YIgWYCA032WXyhOmQRawAOvIye
+	 JsYlmyCdbgm83HxhoJCEJ6gtKnswIAJIpAt2qlV8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8CFAF80082;
-	Tue,  3 Aug 2021 19:08:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BBBE0F8032C;
+	Thu,  5 Aug 2021 08:21:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AAF3EF802E8; Tue,  3 Aug 2021 19:08:40 +0200 (CEST)
+ id EA812F802E8; Wed,  4 Aug 2021 00:36:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,63 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 58D70F8014D
- for <alsa-devel@alsa-project.org>; Tue,  3 Aug 2021 19:08:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58D70F8014D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 63998F80095
+ for <alsa-devel@alsa-project.org>; Wed,  4 Aug 2021 00:36:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63998F80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JDlYAx0v"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2065560230;
- Tue,  3 Aug 2021 17:08:31 +0000 (UTC)
+ header.b="XiC4OcyA"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D3C4560525;
+ Tue,  3 Aug 2021 22:35:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1628010512;
- bh=+LKKiI1JV00lrTwHMho5wocCtWGVV0fIOWNcJuHlHa4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=JDlYAx0vsZ/++deZmft1gx1C5nBFmCAEfo5FJAkYI8YwuA4VO/jC1jTsFoLXiQILV
- +icTUjBevOsNxyDugtBnb8zIMviq8kjb3etux6BvwlhV79a2ZUNg56nL9oo/VQfQWA
- t34P61zzGGV8Zjk8PetjwQiQR3gXLcQP5KT1f0tHs11EyFkOVtfZc4RWaQTEnsKFpO
- Y60OQQDmGH5w7qGxGTLfkusENXcHSt/RAvcdzB+xmSVUOpOoCUOy4h+sLus80CTcap
- 7t1zQ4CmimJVyke/DEXlyqihlTbCJd1jLUJvSLpq06cw1O5NCSUDIDKp5101mKNpUB
- wwk9PBQtxc5Mg==
-Date: Tue, 3 Aug 2021 18:08:17 +0100
+ s=k20201202; t=1628030159;
+ bh=VLQDPuYtppmqHTWikIAl/LlTeEVdU62YKptNtZBvwDM=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=XiC4OcyA9vPRScT+26U/MPHk/PLw7cfWKDzQmhm7L/2ifrhJ/zeydraOBFfSielel
+ C9CoTPz9m8g5nHPqw5lV3cach9MFKoQo7P1BIrAUEWxt2n34NVbQ8Vq9y9Bk17olEn
+ YwLObrlxabk//+7InLHI/JB3MrRVuc6CLmVXUNAItfsddCLQfVMIBm5OTMNUIr0d2j
+ 6rr6MddHbqKXUpTXihj8VOyu+VpdlXivyHd+uCltwAZVIFEkOJPzox3KYwl2CflZxe
+ PtulX27cIMv06Ar6mdPJO8Z5O1byM1L5d1FcFiP35VJWL3P8a4KAnMf4Mgm9Rzd4KU
+ G6lou/vcPBEZA==
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v2 02/14] ASoC: test-component: add Test Component for
- Sound debug/test
-Message-ID: <20210803170817.GP4668@sirena.org.uk>
-References: <87a6mhwyqn.wl-kuninori.morimoto.gx@renesas.com>
- <877dhlwyoz.wl-kuninori.morimoto.gx@renesas.com>
+To: Alexander Sverdlin <alexander.sverdlin@gmail.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Nikita Shubin <nikita.shubin@maquefel.me>
+Subject: Re: (subset) [PATCH v2 0/8] arm: ep93xx: CCF conversion
+Date: Tue,  3 Aug 2021 23:35:30 +0100
+Message-Id: <162803013703.42391.16928190328940334025.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210726140001.24820-1-nikita.shubin@maquefel.me>
+References: <20210726115058.23729-1-nikita.shubin@maquefel.me>
+ <20210726140001.24820-1-nikita.shubin@maquefel.me>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="YyxzkC/DtE3JUx8+"
-Content-Disposition: inline
-In-Reply-To: <877dhlwyoz.wl-kuninori.morimoto.gx@renesas.com>
-X-Cookie: There's only one everything.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, robh+dt@kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 05 Aug 2021 08:21:08 +0200
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ "open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>,
+ "open list:FRAMEBUFFER LAYER" <dri-devel@lists.freedesktop.org>,
+ Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ Ard Biesheuvel <ardb@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ YiFei Zhu <yifeifz2@illinois.edu>, Krzysztof Kozlowski <krzk@kernel.org>,
+ "open list:INPUT KEYBOARD, MOUSE, JOYSTICK ,
+ TOUCHSCREEN..." <linux-input@vger.kernel.org>,
+ "open list:PWM SUBSYSTEM" <linux-pwm@vger.kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, Anshuman Khandual <anshuman.khandual@arm.com>,
+ =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Russell King <rmk+kernel@armlinux.org.uk>, Mark Brown <broonie@kernel.org>,
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ "moderated list:ARM PORT" <linux-arm-kernel@lists.infradead.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
+ "open list:DMA GENERIC OFFLOAD ENGINE SUBSYSTEM" <dmaengine@vger.kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,41 +105,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, 26 Jul 2021 16:59:48 +0300, Nikita Shubin wrote:
+> This series series of patches converts ep93xx to Common Clock Framework.
+> 
+> It consists of preparation patches to use clk_prepare_enable where it is
+> needed, instead of clk_enable used in ep93xx drivers prior to CCF and
+> a patch converting mach-ep93xx/clock.c to CCF.
+> 
+> Link: https://lore.kernel.org/patchwork/cover/1445563/
+> Link: https://lore.kernel.org/patchwork/patch/1435884/
+> 
+> [...]
 
---YyxzkC/DtE3JUx8+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Tue, Jul 20, 2021 at 10:39:42AM +0900, Kuninori Morimoto wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
 
-> for example,
-> 	test-cpu    : silent  Component, silent  DAI
-> 	test-cpu-vn : verbose Component, silent  DAI
-> 	test-cpu-nv : silent  Component, verbose DAI
-> 	test-cpu-vv : verbose Component, verbose DAI
+Thanks!
 
-Should these be runtime rather than binding options?  Or at least
-properties rather than something that's part of the compatible.  It
-doesn't feel right to have flags like that in the compatible at any
-rate, and if we're making fixed DTs for test purposes (eg, to run in
-qemu as part of a testsuite) it's no more difficult to use properties.
+[2/8] spi: spi-ep93xx: Prepare clock before using it
+      commit: 7c72dc56a631b87043e3c5838f5094db30d8c58d
 
-I'm not sure if Rob has thoughts on the base concept of such virtual for
-test bindings but they do seem like something that might be useful.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
---YyxzkC/DtE3JUx8+
-Content-Type: application/pgp-signature; name="signature.asc"
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
------BEGIN PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEJeAAACgkQJNaLcl1U
-h9BXRwf/Xqce8sMfEFt2/j366pXYg6pdrJwZVmaZzzIcPBSrUrlwF90udc1VgktL
-RKqyH/dxG9a1rLip4zyPH78h7E+S2N1ZfAh9RT8+Gt//Uy/x+AJ8PUCNuS5eqiky
-7zTFHrzMRnzp37dBKHGtvinrx1Mi/mK7i4Uls61sKlFGfO8BVBYmkUDzt7mup7f4
-NesORJpdQMUDow8tzxxbhh4w0a4z3M2HLvhn9kQ/eqHgPuJjzkWvJjczGF/yhk+W
-3xf5+SDfuxgE+asHMN24OOBO7MljUq99k+8uk/lyHPKpoUXwDUDzntN3Zl9wl+Es
-j0ijsi7uKCg1WgVpLyfvauA5NI/UZw==
-=HmGH
------END PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---YyxzkC/DtE3JUx8+--
+Thanks,
+Mark

@@ -2,62 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 723BE3E08CB
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Aug 2021 21:27:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E69BC3E0AF7
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Aug 2021 01:49:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 144C11688;
-	Wed,  4 Aug 2021 21:27:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 144C11688
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3E6351689;
+	Thu,  5 Aug 2021 01:48:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E6351689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628105275;
-	bh=/fMfRYS5yEvFz9CF1BGPbJ2WV1MF/BgP9q46Zj2jwR8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1628120970;
+	bh=42pUqrBF3yKy3fJ12VQgSEJCjXcmMBD9DO6VlgEbmL8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MO51l8e4dp8NWQWSHVfJFWU9jKEXjVfBKfp1IdxfAZbYANSK3zY3km+7zE7Nn8lyc
-	 bP9TkK2sG906tftYq13AyXZkqSXIfSz5esFJyqGmGeLYuwyCneBC2s8g+p0GO1AV8B
-	 avdrt6eFKyufBt3bRTiWItuIo3WjfTc8UGp2rY0Y=
+	b=px7t9Bp079X3VC9LYMi/MBTOdsBApM45aY5K5skMhq8k9BzkqTNCts6vxnqQBMjv3
+	 etsRZOSevgvHeyxej9QsBDHciLjDorklIM6jhFKQc+HmH3yacUX6fThGaBGWE7HwiB
+	 iZ2BSln8bO2oKJh4lvvS8URxWYiHb+RH7EOCJdHE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7398EF804E6;
-	Wed,  4 Aug 2021 21:25:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCB65F8016C;
+	Thu,  5 Aug 2021 01:47:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A67BAF804E5; Wed,  4 Aug 2021 21:25:31 +0200 (CEST)
+ id 8D4A3F8025F; Thu,  5 Aug 2021 01:47:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02E0BF8014D
- for <alsa-devel@alsa-project.org>; Wed,  4 Aug 2021 21:25:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02E0BF8014D
-X-IronPort-AV: E=McAfee;i="6200,9189,10066"; a="235952810"
-X-IronPort-AV: E=Sophos;i="5.84,295,1620716400"; d="scan'208";a="235952810"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Aug 2021 12:25:11 -0700
-X-IronPort-AV: E=Sophos;i="5.84,295,1620716400"; d="scan'208";a="569142462"
-Received: from ccho-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
- ([10.209.189.253])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Aug 2021 12:25:11 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/3] ASoC: wcd938x: simplify return value
-Date: Wed,  4 Aug 2021 14:24:56 -0500
-Message-Id: <20210804192456.278702-4-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210804192456.278702-1-pierre-louis.bossart@linux.intel.com>
-References: <20210804192456.278702-1-pierre-louis.bossart@linux.intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, broonie@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 30479F8014D
+ for <alsa-devel@alsa-project.org>; Thu,  5 Aug 2021 01:47:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30479F8014D
+Date: 05 Aug 2021 08:47:46 +0900
+X-IronPort-AV: E=Sophos;i="5.84,295,1620658800"; d="scan'208";a="89856438"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 05 Aug 2021 08:47:46 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 546FD400755D;
+ Thu,  5 Aug 2021 08:47:46 +0900 (JST)
+Message-ID: <875ywkvkkd.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v2 09/14] ASoC: audio-graph-card2: add Yaml Document
+In-Reply-To: <20210804171748.GC26252@sirena.org.uk>
+References: <87a6mhwyqn.wl-kuninori.morimoto.gx@renesas.com>
+ <87wnplvk2a.wl-kuninori.morimoto.gx@renesas.com>
+ <CAL_JsqJKZ-sjbnihAkdXDk4tW8xVmyhwkHLHWouZg6da0cc99g@mail.gmail.com>
+ <87lf60v9xk.wl-kuninori.morimoto.gx@renesas.com>
+ <20210721115433.GB4259@sirena.org.uk>
+ <87fsw124wn.wl-kuninori.morimoto.gx@renesas.com>
+ <20210803165328.GO4668@sirena.org.uk>
+ <87mtpyuj8c.wl-kuninori.morimoto.gx@renesas.com>
+ <20210804171748.GC26252@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,40 +75,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-cppcheck warning:
 
-sound/soc/codecs/wcd938x.c:3701:9: warning: Identical condition and
-return expression 'ret', return value is always 0
-[identicalConditionAfterEarlyExit]
+Hi Mark
 
- return ret;
-        ^
-sound/soc/codecs/wcd938x.c:3691:6: note: If condition 'ret' is true,
-        the function will return/exit
- if (ret)
-     ^
-sound/soc/codecs/wcd938x.c:3701:9: note: Returning identical expression 'ret'
- return ret;
-        ^
+Thank you for your feedback
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> The -mf- there reads unfortunately differently in English so we
+> definitely don't want to go with that one I think.  I do agree that it's
+> hard to come up with a name, possibly rich-link-graph-card or something?
+
+Thanks. It is a little bit long name, so,
+rich-graph-card, or rich-link-card is nice for me.
+
+> Well, I think the big issue from a DT point of view is needing to add a
+> new generic card at all - there's much less problem with keeping the old
+> ones around than there is with keeping on adding new generic cards.
+
+I guess/hope the DT issue will be disappear if new card can keep
+existing binding...
+
+> Actually, looking at the bindings documents I'm not 100% clear what the
+> differences in the binding (as opposed to the code that parses it) are -
+> this may just be the examples being too cut down to show them.  I'm not
+> 100% clear why we have the three different compatibles in there, that
+> feels like something that should just be in the graph description,
+
+Ohhhh, yes, indeed. I didn't notice about that !
+If my understanding was correct, it can be something like ...
+
+	card {
+		compatible = "rich-graph-card";
+		...
+		links = ...
+		
+		mix {
+			...
+		}
+		multi {
+			...
+		}
+		codec2codec {
+			...
+		}
+	}
+
+Hmm, nice idea.
+
+> especially codec2codec since we might have for example both a DSP and a
+> codec2codec link in the same card.
+
+It is possible in my understanding, but am I misunderstanding ?
+
+... is it naming issue ?
+In my understanding, both "DSP" and "MIXer" are using "DPCM" connection,
+but driver/sample is calling it as "DSP".
+I think "MIXer" and "Codec2Codec" in same card is possible.
+I'm not sure about "DSP" case...
+
+Thank you for your help !!
+
+Best regards
 ---
- sound/soc/codecs/wcd938x.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/codecs/wcd938x.c b/sound/soc/codecs/wcd938x.c
-index dd69653ceec0..a1d03cfcf92d 100644
---- a/sound/soc/codecs/wcd938x.c
-+++ b/sound/soc/codecs/wcd938x.c
-@@ -3698,7 +3698,7 @@ static int wcd938x_probe(struct platform_device *pdev)
- 	pm_runtime_enable(dev);
- 	pm_runtime_idle(dev);
- 
--	return ret;
-+	return 0;
- }
- 
- static int wcd938x_remove(struct platform_device *pdev)
--- 
-2.25.1
-
+Kuninori Morimoto

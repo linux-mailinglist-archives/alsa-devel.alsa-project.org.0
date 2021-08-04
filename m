@@ -2,94 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDD7C3E040E
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Aug 2021 17:22:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 373DB3E06A4
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Aug 2021 19:19:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59ABE16EA;
-	Wed,  4 Aug 2021 17:21:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59ABE16EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CC99168F;
+	Wed,  4 Aug 2021 19:18:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CC99168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628090539;
-	bh=VzV2Lqb65WQu0XybYy0BAgKSCj+giKWsFPOpwDjugKQ=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1628097581;
+	bh=w3g9di0uKCNKpTWayQSuOwVPF2uQr+amMkwbgQIc6l4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G5XPFR71Qf2B6KtWgimhYbyPvoQx6ROi97D5VR3TmlkLd7qVEBnM7RBXrZicoYyVx
-	 dOYDkw6YJXJaPLsgzvifR6AAmb5FjkORq8XPU9DYBVJj/IPSW/DN2g0VYmMKwp6Ku1
-	 KjcQA50py9BJLs/63LGNOTsqFNXw+RVLiIyhLeUo=
+	b=DTnIkiA1tTO/0jY9zvUWy4+fjE4Zo7ApRzQpCjgoCBIrYGfffKeOR4sAIMVBVDe9O
+	 SYepRHW12S0TVIkDmvk3eldrjx4UQsFczkxV6V6QKz9RJPpoNy+1oJisDEawmW3viG
+	 XrQECjiV6NuRAY3ylI5I/1MuAib9pI8DfDR5pSdA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9F84F801F7;
-	Wed,  4 Aug 2021 17:20:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6621F80268;
+	Wed,  4 Aug 2021 19:18:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9FDB9F8025F; Wed,  4 Aug 2021 17:20:49 +0200 (CEST)
+ id 4346AF8025F; Wed,  4 Aug 2021 19:18:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9BDF6F8014D
- for <alsa-devel@alsa-project.org>; Wed,  4 Aug 2021 17:20:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BDF6F8014D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8833AF8014D
+ for <alsa-devel@alsa-project.org>; Wed,  4 Aug 2021 19:18:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8833AF8014D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="qUZNQdiU"
-Received: by mail-wm1-x32b.google.com with SMTP id u15so1435628wmj.1
- for <alsa-devel@alsa-project.org>; Wed, 04 Aug 2021 08:20:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=wkTZ3Cvpq95tTZxxGhMCSQ7ZSKfjC1tE+mWWe/3jYYM=;
- b=qUZNQdiUlWR4fZqQO2qEpJtqRJQ4OvzIr7Kuz9UvfnzaGHos0+g8dvDCMYOlI5J7GU
- eeasVfDunhWAcLlMXsqm2G+7tMA4Tzwj+S8NId/qQa71KiYOCauH4JQ8SyB8aLK/YNdL
- B7NKOYK+N4ZYH9L7tlrd5tkaYuAnrJna9N6lZCUSpA4un6DJCTEZER4MySW9f2alcjoD
- adI9r0igmhMxhG98XiyJoix/FjnxEvEs+dyMVVkaJtjz/IVDBwkjCmEoDWcuW17yRy3X
- 0AxR5OTFG6mqSwU6Vp0VkcNjL8y/xZlU5ihBkwmRic9rvY2yPICUqX80937llq8ad+Ob
- CjiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=wkTZ3Cvpq95tTZxxGhMCSQ7ZSKfjC1tE+mWWe/3jYYM=;
- b=NwxbXkdohsUTiGVKzzGzKV3C3L9oPBusTVrBVQo8qpCO7Nov4LflPnKqldvLXT10RT
- XjIvF7yrB38UYzohvD+5T6DMnISLbPP3QdYTTBd5etuS7xlZHZot9mxXK1ufeh0qQAhy
- 30wR9zMQHr2B57/rlzYohuL3wRc26q8ZGyO4cViqQTma0oqJdZtWs7XGt19uVGSzMkB6
- T3YoGU5JLmDo8welG4RnIWsUtS841URH/ZtXqtxs9ufre7QdkYwnWjEGru3j4rqqZ+5f
- W6sf7sxUM9iDRuVVcFStFrROi/dHf41HRUNajzgoIdrCJknHw2ClBYS6YnHAlLShCmhe
- 0rvg==
-X-Gm-Message-State: AOAM532hx0OFytRwh1/Rw198CUTRkS3MH9wj8B5lF6ndycwKS7FnbuJ1
- uvyT8+Slhodc5JAlfJHa1UBugQ==
-X-Google-Smtp-Source: ABdhPJxlJgsrspf5ejM/fhtSz3NsEDL5vJUuMjql93SBjwME2huq7rwsShUGxl7Fjxqnn1rhr3EBSw==
-X-Received: by 2002:a1c:f30a:: with SMTP id q10mr154955wmq.138.1628090440673; 
- Wed, 04 Aug 2021 08:20:40 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id l4sm2876434wrw.32.2021.08.04.08.20.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Aug 2021 08:20:40 -0700 (PDT)
-Subject: Re: [PATCH] ASoC: qcom: apq8016_sbc: Add SEC_MI2S support
-To: Vincent Knecht <vincent.knecht@mailoo.org>, tiwai@suse.com, perex@perex.cz
-References: <20210801072951.1403241-1-vincent.knecht@mailoo.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <c1ef8096-0aa6-9b26-951d-cb673d03cf50@linaro.org>
-Date: Wed, 4 Aug 2021 16:20:39 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="sZvRW6P7"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id CD1EE60E53;
+ Wed,  4 Aug 2021 17:18:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1628097483;
+ bh=w3g9di0uKCNKpTWayQSuOwVPF2uQr+amMkwbgQIc6l4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=sZvRW6P73sLwIr/QqduEUX6My7MvMaCnaujgDDI34903hG7ZDuM705zw8XDnminx8
+ tmKFm0G/gqjSj40GgFpVebxab0CETgGjZ0V8zW6KYB3aAm0r2CLsy3xaqG+GN/3q6f
+ +sCZFl+RaybxPIbAHa+l1T3Zo3Ti6WNJsCsJ5F/4TOWQ9XTDMSolghGxJHuEppPPnh
+ lqVe7VQn+XjBI2j7RH/Ho//hlqS/+RZl5Ftk6GuIDQMaHi3gkXovW4XZbmv8BMqAkP
+ iuTRVM7dekYceq5dEzOEJCRwmxt6uNObB6fOW5qAqPmdPFOLqIxRYkYBVgtSoBndeI
+ f5jurxp+2GNZw==
+Date: Wed, 4 Aug 2021 18:17:48 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH v2 09/14] ASoC: audio-graph-card2: add Yaml Document
+Message-ID: <20210804171748.GC26252@sirena.org.uk>
+References: <87a6mhwyqn.wl-kuninori.morimoto.gx@renesas.com>
+ <87wnplvk2a.wl-kuninori.morimoto.gx@renesas.com>
+ <CAL_JsqJKZ-sjbnihAkdXDk4tW8xVmyhwkHLHWouZg6da0cc99g@mail.gmail.com>
+ <87lf60v9xk.wl-kuninori.morimoto.gx@renesas.com>
+ <20210721115433.GB4259@sirena.org.uk>
+ <87fsw124wn.wl-kuninori.morimoto.gx@renesas.com>
+ <20210803165328.GO4668@sirena.org.uk>
+ <87mtpyuj8c.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
-In-Reply-To: <20210801072951.1403241-1-vincent.knecht@mailoo.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, bgoswami@codeaurora.org, stephan@gerhold.net,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com, broonie@kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="aT9PWwzfKXlsBJM1"
+Content-Disposition: inline
+In-Reply-To: <87mtpyuj8c.wl-kuninori.morimoto.gx@renesas.com>
+X-Cookie: MOUNT TAPE U1439 ON B3, NO RING
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,56 +88,66 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--aT9PWwzfKXlsBJM1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 01/08/2021 08:29, Vincent Knecht wrote:
-> This patch adds external codec support on secondary mi2s.
-> It is used for headphones on some devices, eg. alcatel-idol347.
-> 
-> Signed-off-by: Vincent Knecht <vincent.knecht@mailoo.org>
-> ---
->   sound/soc/qcom/apq8016_sbc.c | 12 ++++++++++++
->   1 file changed, 12 insertions(+)
-> 
-> diff --git a/sound/soc/qcom/apq8016_sbc.c b/sound/soc/qcom/apq8016_sbc.c
-> index 08a05f0ecad7..53460272eb1e 100644
-> --- a/sound/soc/qcom/apq8016_sbc.c
-> +++ b/sound/soc/qcom/apq8016_sbc.c
-> @@ -30,6 +30,11 @@ struct apq8016_sbc_data {
->   #define MIC_CTRL_QUA_WS_SLAVE_SEL_10	BIT(17)
->   #define MIC_CTRL_TLMM_SCLK_EN		BIT(1)
->   #define	SPKR_CTL_PRI_WS_SLAVE_SEL_11	(BIT(17) | BIT(16))
-> +#define SPKR_CTL_TLMM_MCLK_EN		BIT(1)
-> +#define SPKR_CTL_TLMM_SCLK_EN		BIT(2)
-> +#define SPKR_CTL_TLMM_DATA1_EN		BIT(3)
-> +#define SPKR_CTL_TLMM_WS_OUT_SEL	BIT(6)
-> +#define SPKR_CTL_TLMM_WS_EN_SEL		BIT(18)
+On Wed, Aug 04, 2021 at 09:49:39AM +0900, Kuninori Morimoto wrote:
 
-Can you please add suffix to these defines something like:
-#define SPKR_CTL_TLMM_WS_EN_SEL_SECONDARY	BIT(18)
-so it becomes more obvious, As we have 4 possible values for this field 
-[18:19]
-same for WS_OUT_SEL.
+> OK, it is nice idea for me, "descriptive" is difficult,
+> but for example...
 
-Also you should make sure that other bits in this fields are cleared 
-before writing.
+> 	- audio-link-card
+> 	- multi-graph-card
+> 	- link-graph-card
+> 	- audio-mf-graph-card (mf = multi functional)
 
---srini
+The -mf- there reads unfortunately differently in English so we
+definitely don't want to go with that one I think.  I do agree that it's
+hard to come up with a name, possibly rich-link-graph-card or something?
+Actually, looking at the bindings documents I'm not 100% clear what the
+differences in the binding (as opposed to the code that parses it) are -
+this may just be the examples being too cut down to show them.  I'm not
+100% clear why we have the three different compatibles in there, that
+feels like something that should just be in the graph description,
+especially codec2codec since we might have for example both a DSP and a
+codec2codec link in the same card.
 
->   #define DEFAULT_MCLK_RATE		9600000
->   
->   static int apq8016_sbc_dai_init(struct snd_soc_pcm_runtime *rtd)
-> @@ -53,6 +58,13 @@ static int apq8016_sbc_dai_init(struct snd_soc_pcm_runtime *rtd)
->   			MIC_CTRL_TLMM_SCLK_EN,
->   			pdata->mic_iomux);
->   		break;
-> +	case MI2S_SECONDARY:
-> +		/* Configure the Sec MI2S to TLMM */
-> +		writel(readl(pdata->spkr_iomux) | SPKR_CTL_TLMM_MCLK_EN |
-> +			SPKR_CTL_TLMM_SCLK_EN | SPKR_CTL_TLMM_DATA1_EN |
-> +			SPKR_CTL_TLMM_WS_OUT_SEL | SPKR_CTL_TLMM_WS_EN_SEL,
-> +			pdata->spkr_iomux);
-> +		break;
->   	case MI2S_TERTIARY:
->   		writel(readl(pdata->mic_iomux) | MIC_CTRL_TER_WS_SLAVE_SEL |
->   			MIC_CTRL_TLMM_SCLK_EN,
-> 
+> Other one is that new card is assuming that using auto format
+> (= using .get_fmt on each driver), but we can use "format" property for it
+> and possible to overwrite.
+> So, I noticed that keeping Normal connection compatibility on new card
+> is not super difficult, and "un-recommended" is very small (In my quick check).
+
+> Ahh, new card is not supporting "platform" so far (it is supported on audio-graph-card),
+> and maybe other options/property which I'm not using too.
+> But it is not a big problem I think, we can add these later.
+
+Yes, these both feel like things we can do on both cards.
+
+> I want to tell here is that, we can add new card (by new name), and
+> I think we can keep audio-graph-card's *normal* compatibility on it, (not DPCM).
+> Of cource we can keep existing audio-graph-card, but easy to switch to new card (?).
+
+> I'm not sure it is OK for DT maintainer.
+
+Well, I think the big issue from a DT point of view is needing to add a
+new generic card at all - there's much less problem with keeping the old
+ones around than there is with keeping on adding new generic cards.
+
+--aT9PWwzfKXlsBJM1
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEKy7sACgkQJNaLcl1U
+h9BT9Qf8DITWZIzEHfgWEnrEVm1ZIyqSZ/invl4qaXH6bCcdfMn4YdCoyxZEcsv0
+epUsUCI5Rfr9/qOjYqZn9LmsjEG+yJ5Ha7+mgWNryQhaU60tLu1/OwGCEEuYnhAw
+7uXZMNXwN/ksULuDb6GAQaprstBlFu4/aDW7CEGBRssUCHNSeVpIwu/ntBfRG/Mz
+pT1eocCeb0WFZTl3GL9j7HbaTw1aGslRSBbtu1fB9hEJFzH6/rfstkJt1tGrWeUa
+AwEZWDqA/OUOOiz7KBUlu1aFStkI8pAZyqAqtuyaSUg0+HS/GjYYBoapjlFgThyT
+96gpUuY6ViNqyPxOdoHZTJZ3PvpygQ==
+=qK5/
+-----END PGP SIGNATURE-----
+
+--aT9PWwzfKXlsBJM1--

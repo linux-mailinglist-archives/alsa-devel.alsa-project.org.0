@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77C4B3E0715
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Aug 2021 20:03:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB1553E071B
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Aug 2021 20:03:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8C18C1697;
-	Wed,  4 Aug 2021 20:02:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C18C1697
+	by alsa0.perex.cz (Postfix) with ESMTPS id B264216A4;
+	Wed,  4 Aug 2021 20:02:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B264216A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628100182;
-	bh=XtYeLMT1UphzeTQrv/0yWpjX/9zyUNUmseX4712AJTM=;
+	s=default; t=1628100199;
+	bh=p88iTvuxkM9l7hM2G77m+PTe5g6FuVL6G5B/UoxLQzk=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=e30skc4lZI9P7qWdfJr9QWYWzYTKXmmiETa65HFvF9NjG7eSG2fvuTukNeluDPy35
-	 QT6FRELXGvREFoW9b+vuMc8KtV6WpsCqp1eQgLMrHjeqTNpY+b9JokAM/o9NzHVRwl
-	 hiJlweSycGfifq8IQn/nqhqlOfknhdto28MJP+5k=
+	b=rk3Lib1En5AbxMIHowmZDtUBb0js5rJfe8kHFxsy36AsBbUvA4vCgZ/AwCiU2exMf
+	 /Sk0HffijNbygqWWrY0Uq+hJIq+1bIjbBPgmYAUiF3sendOC980TU7cPhO/woUyU/e
+	 j/jQ4q2I48Q4nQY+IwxKFsGZeA8pIE8gBXehop+o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DEC11F80268;
-	Wed,  4 Aug 2021 20:01:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69E85F8010A;
+	Wed,  4 Aug 2021 20:02:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6588BF8010A; Wed,  4 Aug 2021 20:01:33 +0200 (CEST)
+ id 54DA9F80271; Wed,  4 Aug 2021 20:02:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,37 +33,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03622F8010A
- for <alsa-devel@alsa-project.org>; Wed,  4 Aug 2021 20:01:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03622F8010A
+ by alsa1.perex.cz (Postfix) with ESMTPS id EDFA9F8010A
+ for <alsa-devel@alsa-project.org>; Wed,  4 Aug 2021 20:02:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EDFA9F8010A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RBDoPrUH"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D121260C41;
- Wed,  4 Aug 2021 18:01:25 +0000 (UTC)
+ header.b="DMrk0DD6"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6975760FC4;
+ Wed,  4 Aug 2021 18:01:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1628100086;
- bh=XtYeLMT1UphzeTQrv/0yWpjX/9zyUNUmseX4712AJTM=;
+ s=k20201202; t=1628100118;
+ bh=p88iTvuxkM9l7hM2G77m+PTe5g6FuVL6G5B/UoxLQzk=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RBDoPrUHYoYRPPZQouRH1CAN5AYTzl+GH48CZ24yp/mZ+cvZP4Vy5amzK7YfIH4oZ
- 7Sa2f+yilull80dIK5sFvl/LfmBYe77kR4GFi0IRv7SV1d2r1wQJ7X7OU0+URNjs0h
- pEXNm0XsFrtwVuaHfCF5B2u3ttPFk1YNFIcvTX8VOIU08AcchwqvRe3WhKoPToZo6h
- 9zUT5xKJIMdXzlXSYehU29Is1/al7qcJPTceXJgZbrZELB+i87BllE6ZO0BHTwBrlx
- N/39e8KgTw/7fZGJK1rxhFuDxTCzBgmg29sakmfG8f/oZHLSMnOEqNuhOXLWnKID94
- FTXdgsw0VIzYg==
-Date: Wed, 4 Aug 2021 19:01:11 +0100
+ b=DMrk0DD6FNclnMVAmZJYRQQc1EhFqitanW2r/SBPW43BkpVBc0eTJKRoZN+BEocxI
+ vp23wktuvxfmwvzuhzdf/xk+Je40Y2bII/Ch1Bhv0JoNSQl9YDVS6bpMTOPABtSkWY
+ JZYUxKM4R6UamGBqKYZkU1BZXBGsTzkDxldq59SYBVpmWb0NAqEY0urXD2HTgZtzk/
+ 73MhcGizo2CYJ8VY28V5nDnnltf/nofllig7n4GU09RubVKHgItucBib0AXIwlQG+1
+ qm1ZNZG8rOUhaA6CU6AGFZEy0g7Shb0IiOnM09Y4IXFSWOPHhIX4ShiN4Xgpe8J+H3
+ fuV0Fa+94V32A==
+Date: Wed, 4 Aug 2021 19:01:43 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v3 10/20] ASoC: dt-bindings: q6dsp: add q6apm-dai
+Subject: Re: [PATCH v3 11/20] ASoC: dt-bindings: q6dsp: add q6apm-bedai
  compatible
-Message-ID: <20210804180111.GF26252@sirena.org.uk>
+Message-ID: <20210804180143.GG26252@sirena.org.uk>
 References: <20210803125411.28066-1-srinivas.kandagatla@linaro.org>
- <20210803125411.28066-11-srinivas.kandagatla@linaro.org>
+ <20210803125411.28066-12-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="s5/bjXLgkIwAv6Hi"
+ protocol="application/pgp-signature"; boundary="sClP8c1IaQxyux9v"
 Content-Disposition: inline
-In-Reply-To: <20210803125411.28066-11-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20210803125411.28066-12-srinivas.kandagatla@linaro.org>
 X-Cookie: MOUNT TAPE U1439 ON B3, NO RING
 User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: robh@kernel.org, alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
@@ -85,33 +85,32 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---s5/bjXLgkIwAv6Hi
+--sClP8c1IaQxyux9v
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, Aug 03, 2021 at 01:54:01PM +0100, Srinivas Kandagatla wrote:
+On Tue, Aug 03, 2021 at 01:54:02PM +0100, Srinivas Kandagatla wrote:
 
->    compatible:
-> -    const: qcom,q6asm-dais
 > +    enum:
-> +      - qcom,q6asm-dais
-> +      - qcom,q6apm-dais
+> +      - qcom,q6afe-dais
+> +      - qcom,q6apm-bedais
 
-What do these two compatibles mean?
+What do these compatibles mean?  The bedais is sounding suspicously like
+putting DPCM into DT bindings...
 
---s5/bjXLgkIwAv6Hi
+--sClP8c1IaQxyux9v
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEK1eYACgkQJNaLcl1U
-h9BmLgf/WyWLyNw9CyY52qyGTgLXfSRuuRlLrbbYVsLn4Vl+v5Xv1ozpRKqbJn9m
-kt9cJ5ZQ1O+AmhwjOoqMTGcysEW+g2/tbFZE/wyBBi3aI1ivrMNxizxu5QurZQMI
-IGli4YflL5zoIjJbNqvyse8KbQh8l7yBuLQmO9uIM4tkiBpOPIQP+LEe+3WQkYvZ
-TvlnxF1d6HOXjCegsM2ettpDZKmHgoWphX8rTrZxzLlWJjv1XPiy2vTaSPaLh3p6
-qQTu8exKkqF32G8268w09xI3EGm4IyQ87jALk14e4rUc9AqxO9uXjBdVb7vcVH9V
-VeGLPMII5yeIyoyudMGaKcVMiw70Kw==
-=p1sr
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEK1gYACgkQJNaLcl1U
+h9CVFgf9HBHH7OPjCrD5uA17rPED5WD5V9vFTI2hDMEjKCkh1uN1HHrNwGiXEaB0
+374wYHH4R2AMs5jag6HeeyhMtz7y3fECZ1rZcfh96/xMS0KZzUzavSpQiQ5C71ld
+NtGgb9762pRC4rre0/lGVDDyhEdzWPUvDFwZoga1fXXIOOC6A8B4+6Tr0fXLDkbo
+JCqfQfRisaClCLkmuIOzPtnJ45LmPWdplOYR+27EHojSH2aJX4e3UIkQ6mzsO52k
+YqlnW/C3o2iV16p4NmMSwy++cDLkpqEyQio+uG4HqtUU4rkVGt78ObBmN2tdh7kd
+3lDU2zhG93z8ZgQdCDEPMTOlyKCvuw==
+=i2xl
 -----END PGP SIGNATURE-----
 
---s5/bjXLgkIwAv6Hi--
+--sClP8c1IaQxyux9v--

@@ -2,62 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 099CD3E0B00
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Aug 2021 01:53:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B13D3E0BF6
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Aug 2021 03:12:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7BA451689;
-	Thu,  5 Aug 2021 01:52:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BA451689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 87E1E1690;
+	Thu,  5 Aug 2021 03:11:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87E1E1690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628121207;
-	bh=7a9pEhQS3Zatmbd6XkxxOqQzu3ywSCKTqsEvb4dDfwg=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=a7ghS7dVCCmKThAkgiFkGM6Eb4aq+DDrulCHxw3wWLtHTbgkkeu7QKVfKRRsdfS5L
-	 WivWkx7XpnAiMlWmvWohQDluQXEr5tX8xqWoXmE6a70KY+zdK87OAic2uR5CXXvKK/
-	 INJAOOi0kZ3ufAq818u5Maq0C9eDVWQLdqHe8uH0=
+	s=default; t=1628125935;
+	bh=br9WtZANBIlQGse4xyjfPwsZX21Id6l9oeNh0exbhtQ=;
+	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=UVqdUqFwfCJrEm6fTWmcyntydtyycEnK1J0vVhu1UzAfbTV0ZkI2YQcyKr9u4z1sc
+	 8STOnB5Rt3fNn0jO5LTCQUXKkuWWm14sVaOEE+k9GDKjMtFDxx+LPhdn9KkCmqfmEW
+	 vZptKuWbfvg6XLs3gQ/BgYGqVbnzTpEk00kDe5Gw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50AA7F8014D;
-	Thu,  5 Aug 2021 01:51:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 083D1F8010A;
+	Thu,  5 Aug 2021 03:10:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 789D9F8025F; Thu,  5 Aug 2021 01:51:57 +0200 (CEST)
+ id 6627AF8010A; Thu,  5 Aug 2021 03:10:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 10922F8016C
- for <alsa-devel@alsa-project.org>; Thu,  5 Aug 2021 01:51:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10922F8016C
-Date: 05 Aug 2021 08:51:50 +0900
-X-IronPort-AV: E=Sophos;i="5.84,295,1620658800"; d="scan'208";a="89856779"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 05 Aug 2021 08:51:50 +0900
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.4 required=5.0 tests=AC_FROM_MANY_DOTS,
+ KHOP_HELO_FCRDNS,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id D6B57F8010A
+ for <alsa-devel@alsa-project.org>; Thu,  5 Aug 2021 03:10:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6B57F8010A
+Date: 05 Aug 2021 10:10:35 +0900
+X-IronPort-AV: E=Sophos;i="5.84,296,1620658800"; d="scan'208";a="89847525"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 05 Aug 2021 10:10:35 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id BB994411777B;
- Thu,  5 Aug 2021 08:51:50 +0900 (JST)
-Message-ID: <874kc4vkdl.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 942C440116B2;
+ Thu,  5 Aug 2021 10:10:35 +0900 (JST)
+Message-ID: <87zgtwu25w.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v2 09/14] ASoC: audio-graph-card2: add Yaml Document
-In-Reply-To: <875ywkvkkd.wl-kuninori.morimoto.gx@renesas.com>
-References: <87a6mhwyqn.wl-kuninori.morimoto.gx@renesas.com>
- <87wnplvk2a.wl-kuninori.morimoto.gx@renesas.com>
- <CAL_JsqJKZ-sjbnihAkdXDk4tW8xVmyhwkHLHWouZg6da0cc99g@mail.gmail.com>
- <87lf60v9xk.wl-kuninori.morimoto.gx@renesas.com>
- <20210721115433.GB4259@sirena.org.uk>
- <87fsw124wn.wl-kuninori.morimoto.gx@renesas.com>
- <20210803165328.GO4668@sirena.org.uk>
- <87mtpyuj8c.wl-kuninori.morimoto.gx@renesas.com>
- <20210804171748.GC26252@sirena.org.uk>
- <875ywkvkkd.wl-kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH 00/12] ASoC: soc-dapm: cleanup cppcheck warning
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+To: Mark Brown <broonie@kernel.org>
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>
@@ -77,67 +65,31 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-Hi Mark again
+Hi Mark
 
-I will take Summer Vacation from tomorrow in 1 week.
-I'm sorry for my long term no respoce then.
+Now I'm posting audio-graph-card2 patch-set, but it seems it needs longer
+discussion. Thus I want to post more easy patch first, and reduce my
+local patches.
 
-> Thank you for your feedback
-> 
-> > The -mf- there reads unfortunately differently in English so we
-> > definitely don't want to go with that one I think.  I do agree that it's
-> > hard to come up with a name, possibly rich-link-graph-card or something?
-> 
-> Thanks. It is a little bit long name, so,
-> rich-graph-card, or rich-link-card is nice for me.
-> 
-> > Well, I think the big issue from a DT point of view is needing to add a
-> > new generic card at all - there's much less problem with keeping the old
-> > ones around than there is with keeping on adding new generic cards.
-> 
-> I guess/hope the DT issue will be disappear if new card can keep
-> existing binding...
-> 
-> > Actually, looking at the bindings documents I'm not 100% clear what the
-> > differences in the binding (as opposed to the code that parses it) are -
-> > this may just be the examples being too cut down to show them.  I'm not
-> > 100% clear why we have the three different compatibles in there, that
-> > feels like something that should just be in the graph description,
-> 
-> Ohhhh, yes, indeed. I didn't notice about that !
-> If my understanding was correct, it can be something like ...
-> 
-> 	card {
-> 		compatible = "rich-graph-card";
-> 		...
-> 		links = ...
-> 		
-> 		mix {
-> 			...
-> 		}
-> 		multi {
-> 			...
-> 		}
-> 		codec2codec {
-> 			...
-> 		}
-> 	}
-> 
-> Hmm, nice idea.
-> 
-> > especially codec2codec since we might have for example both a DSP and a
-> > codec2codec link in the same card.
-> 
-> It is possible in my understanding, but am I misunderstanding ?
-> 
-> ... is it naming issue ?
-> In my understanding, both "DSP" and "MIXer" are using "DPCM" connection,
-> but driver/sample is calling it as "DSP".
-> I think "MIXer" and "Codec2Codec" in same card is possible.
-> I'm not sure about "DSP" case...
-> 
-> Thank you for your help !!
-> 
-> Best regards
-> ---
-> Kuninori Morimoto
+These are cppcheck warning cleanup patches for soc-dapm.
+
+Kuninori Morimoto (12):
+  ASoC: soc-dapm: cleanup cppcheck warning at dapm_wcache_lookup()
+  ASoC: soc-dapm: cleanup cppcheck warning at dapm_connect_mux()
+  ASoC: soc-dapm: cleanup cppcheck warning at dapm_set_mixer_path_status()
+  ASoC: soc-dapm: cleanup cppcheck warning at dapm_new_pga()
+  ASoC: soc-dapm: cleanup cppcheck warning at dapm_new_dai_link()
+  ASoC: soc-dapm: cleanup cppcheck warning at dapm_seq_check_event()
+  ASoC: soc-dapm: cleanup cppcheck warning at dapm_seq_run()
+  ASoC: soc-dapm: cleanup cppcheck warning at snd_soc_dapm_del_route()
+  ASoC: soc-dapm: cleanup cppcheck warning at snd_soc_dapm_add_routes()
+  ASoC: soc-dapm: cleanup cppcheck warning at snd_soc_dapm_weak_routes()
+  ASoC: soc-dapm: cleanup cppcheck warning at snd_soc_dapm_new_controls()
+  ASoC: soc-dapm: cleanup cppcheck warning at soc_dapm_dai_stream_event()
+
+ sound/soc/soc-dapm.c | 65 ++++++++++++++++++++++----------------------
+ 1 file changed, 33 insertions(+), 32 deletions(-)
+
+-- 
+2.25.1
+

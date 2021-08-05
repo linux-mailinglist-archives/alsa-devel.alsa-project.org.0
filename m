@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 668AE3E0BFC
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Aug 2021 03:14:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 889E33E0BFD
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Aug 2021 03:14:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 07B7B168A;
-	Thu,  5 Aug 2021 03:13:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07B7B168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB4B9169A;
+	Thu,  5 Aug 2021 03:14:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB4B9169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628126069;
-	bh=nqQHrglwnjmE3g4EztGgimHUGII1TFggTYOxIq7xqPk=;
+	s=default; t=1628126093;
+	bh=88vThFU6cGtDZaq9TA0ANPEBT+SC5hvfCWIuU4HadE0=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cSka+rfDZ0L4B8fN5Pw6rM60/ypOPuB9clWlX9MRVOuD7vzcoDRG6JkUCmVF3TV5W
-	 Ldkj3/X4wFy8pGi62TMrBEwJa0YACx2PPVIaDY/8BI8/a2fkJv/PchIhdGdwFWVs8L
-	 /bXK1ylPwa8q6l92w/gjJ0axRIqITkYDuOVqqREE=
+	b=MMNSt4VU4teaBC1AGBGu7NyN8B/tKAvv5/aYg8RtEYUDN2jyxxOphScTdeTCYF0GE
+	 D77nYjwV6tmK6q1K0z9QfqBJPxJ2pXPw1X5hCW0CcbpX6DQHNNgwn8naYjeXIqqCTV
+	 SW1Dz3hkEtkXSXHqESYb+m7+t0alDH4akN1jXl80=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 95A1BF804FF;
-	Thu,  5 Aug 2021 03:11:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F2F0F8050F;
+	Thu,  5 Aug 2021 03:11:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88934F804FE; Thu,  5 Aug 2021 03:11:27 +0200 (CEST)
+ id B498AF80507; Thu,  5 Aug 2021 03:11:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id B4B27F804F2
- for <alsa-devel@alsa-project.org>; Thu,  5 Aug 2021 03:11:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4B27F804F2
-Date: 05 Aug 2021 10:11:20 +0900
-X-IronPort-AV: E=Sophos;i="5.84,296,1620658800"; d="scan'208";a="89847611"
+ by alsa1.perex.cz (Postfix) with ESMTP id E9630F804FB
+ for <alsa-devel@alsa-project.org>; Thu,  5 Aug 2021 03:11:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9630F804FB
+Date: 05 Aug 2021 10:11:24 +0900
+X-IronPort-AV: E=Sophos;i="5.84,296,1620658800"; d="scan'208";a="89847617"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 05 Aug 2021 10:11:20 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 05 Aug 2021 10:11:24 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 57C80413A8FE;
- Thu,  5 Aug 2021 10:11:20 +0900 (JST)
-Message-ID: <87r1f8u24n.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 8C489413AA58;
+ Thu,  5 Aug 2021 10:11:24 +0900 (JST)
+Message-ID: <87pmusu24j.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 06/12] ASoC: soc-dapm: cleanup cppcheck warning at
- dapm_seq_check_event()
+Subject: [PATCH 07/12] ASoC: soc-dapm: cleanup cppcheck warning at
+ dapm_seq_run()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87zgtwu25w.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,37 +72,37 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below cppcheck warning.
 
-sound/soc/soc-dapm.c:1531:13: style: The scope of the variable 'ret' can be reduced. [variableScope]
- int power, ret;
-            ^
+sound/soc/soc-dapm.c:1648:6: style: The scope of the variable 'ret' can be reduced. [variableScope]
+ int ret, i;
+     ^
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-dapm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/soc-dapm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index cce6c9122397..7cb832ddf4af 100644
+index 7cb832ddf4af..bd3b443019fb 100644
 --- a/sound/soc/soc-dapm.c
 +++ b/sound/soc/soc-dapm.c
-@@ -1528,7 +1528,7 @@ static void dapm_seq_check_event(struct snd_soc_card *card,
- 				 struct snd_soc_dapm_widget *w, int event)
- {
- 	const char *ev_name;
--	int power, ret;
-+	int power;
+@@ -1647,7 +1647,7 @@ static void dapm_seq_run(struct snd_soc_card *card,
+ 	int cur_subseq = -1;
+ 	int cur_reg = SND_SOC_NOPM;
+ 	struct snd_soc_dapm_context *cur_dapm = NULL;
+-	int ret, i;
++	int i;
+ 	int *sort;
  
- 	switch (event) {
- 	case SND_SOC_DAPM_PRE_PMU:
-@@ -1564,6 +1564,8 @@ static void dapm_seq_check_event(struct snd_soc_card *card,
- 		return;
+ 	if (power_up)
+@@ -1656,7 +1656,7 @@ static void dapm_seq_run(struct snd_soc_card *card,
+ 		sort = dapm_down_seq;
  
- 	if (w->event && (w->event_flags & event)) {
-+		int ret;
-+
- 		pop_dbg(w->dapm->dev, card->pop_time, "pop test : %s %s\n",
- 			w->name, ev_name);
- 		soc_dapm_async_complete(w->dapm);
+ 	list_for_each_entry_safe(w, n, list, power_list) {
+-		ret = 0;
++		int ret = 0;
+ 
+ 		/* Do we need to apply any queued changes? */
+ 		if (sort[w->id] != cur_sort || w->reg != cur_reg ||
 -- 
 2.25.1
 

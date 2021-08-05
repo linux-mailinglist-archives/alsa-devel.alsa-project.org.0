@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 889E33E0BFD
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Aug 2021 03:14:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E30803E0BFE
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Aug 2021 03:15:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB4B9169A;
-	Thu,  5 Aug 2021 03:14:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB4B9169A
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD057168E;
+	Thu,  5 Aug 2021 03:14:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD057168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628126093;
-	bh=88vThFU6cGtDZaq9TA0ANPEBT+SC5hvfCWIuU4HadE0=;
+	s=default; t=1628126117;
+	bh=Wk6qcevI4s9fQpYd6Rf/lCn7zr/4Hh4eUvcf3OxpXbg=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MMNSt4VU4teaBC1AGBGu7NyN8B/tKAvv5/aYg8RtEYUDN2jyxxOphScTdeTCYF0GE
-	 D77nYjwV6tmK6q1K0z9QfqBJPxJ2pXPw1X5hCW0CcbpX6DQHNNgwn8naYjeXIqqCTV
-	 SW1Dz3hkEtkXSXHqESYb+m7+t0alDH4akN1jXl80=
+	b=N96zsHp8WFdxdntrNlJyQmE/hNgR4ABGyEn+KLQYU2lFCs7K9yRsScduFZJSB+DPn
+	 HfqYy5ULa3oPoZZyYij9A5lpa7qRV00e8tLpvro+27rPfY5ZTyVzSSoZY99AKrK3tj
+	 0nBUsRPZG7ntWo3kWMKT7+zqnkhNEYKRY/FfgG60=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F2F0F8050F;
-	Thu,  5 Aug 2021 03:11:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96E62F8051A;
+	Thu,  5 Aug 2021 03:11:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B498AF80507; Thu,  5 Aug 2021 03:11:31 +0200 (CEST)
+ id BD50EF8051A; Thu,  5 Aug 2021 03:11:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id E9630F804FB
- for <alsa-devel@alsa-project.org>; Thu,  5 Aug 2021 03:11:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9630F804FB
-Date: 05 Aug 2021 10:11:24 +0900
-X-IronPort-AV: E=Sophos;i="5.84,296,1620658800"; d="scan'208";a="89847617"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id D6FE1F804FC
+ for <alsa-devel@alsa-project.org>; Thu,  5 Aug 2021 03:11:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6FE1F804FC
+Date: 05 Aug 2021 10:11:28 +0900
+X-IronPort-AV: E=Sophos;i="5.84,296,1620658800"; d="scan'208";a="89866202"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 05 Aug 2021 10:11:24 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 05 Aug 2021 10:11:28 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 8C489413AA58;
- Thu,  5 Aug 2021 10:11:24 +0900 (JST)
-Message-ID: <87pmusu24j.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 9F9A9413AA58;
+ Thu,  5 Aug 2021 10:11:28 +0900 (JST)
+Message-ID: <87o8acu24f.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 07/12] ASoC: soc-dapm: cleanup cppcheck warning at
- dapm_seq_run()
+Subject: [PATCH 08/12] ASoC: soc-dapm: cleanup cppcheck warning at
+ snd_soc_dapm_del_route()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87zgtwu25w.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,37 +72,41 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below cppcheck warning.
 
-sound/soc/soc-dapm.c:1648:6: style: The scope of the variable 'ret' can be reduced. [variableScope]
- int ret, i;
-     ^
+sound/soc/soc-dapm.c:3007:30: style: The scope of the variable 'wsource' can be reduced. [variableScope]
+ struct snd_soc_dapm_widget *wsource, *wsink;
+                             ^
+sound/soc/soc-dapm.c:3007:40: style: The scope of the variable 'wsink' can be reduced. [variableScope]
+ struct snd_soc_dapm_widget *wsource, *wsink;
+                                       ^
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-dapm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/soc-dapm.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index 7cb832ddf4af..bd3b443019fb 100644
+index bd3b443019fb..c7fb142f3462 100644
 --- a/sound/soc/soc-dapm.c
 +++ b/sound/soc/soc-dapm.c
-@@ -1647,7 +1647,7 @@ static void dapm_seq_run(struct snd_soc_card *card,
- 	int cur_subseq = -1;
- 	int cur_reg = SND_SOC_NOPM;
- 	struct snd_soc_dapm_context *cur_dapm = NULL;
--	int ret, i;
-+	int i;
- 	int *sort;
+@@ -3006,7 +3006,6 @@ static int snd_soc_dapm_add_route(struct snd_soc_dapm_context *dapm,
+ static int snd_soc_dapm_del_route(struct snd_soc_dapm_context *dapm,
+ 				  const struct snd_soc_dapm_route *route)
+ {
+-	struct snd_soc_dapm_widget *wsource, *wsink;
+ 	struct snd_soc_dapm_path *path, *p;
+ 	const char *sink;
+ 	const char *source;
+@@ -3044,8 +3043,8 @@ static int snd_soc_dapm_del_route(struct snd_soc_dapm_context *dapm,
+ 	}
  
- 	if (power_up)
-@@ -1656,7 +1656,7 @@ static void dapm_seq_run(struct snd_soc_card *card,
- 		sort = dapm_down_seq;
+ 	if (path) {
+-		wsource = path->source;
+-		wsink = path->sink;
++		struct snd_soc_dapm_widget *wsource = path->source;
++		struct snd_soc_dapm_widget *wsink = path->sink;
  
- 	list_for_each_entry_safe(w, n, list, power_list) {
--		ret = 0;
-+		int ret = 0;
- 
- 		/* Do we need to apply any queued changes? */
- 		if (sort[w->id] != cur_sort || w->reg != cur_reg ||
+ 		dapm_mark_dirty(wsource, "Route removed");
+ 		dapm_mark_dirty(wsink, "Route removed");
 -- 
 2.25.1
 

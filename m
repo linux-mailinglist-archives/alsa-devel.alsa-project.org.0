@@ -2,99 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 832C43E112E
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Aug 2021 11:19:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6D283E14CA
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Aug 2021 14:34:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B5841684;
-	Thu,  5 Aug 2021 11:18:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B5841684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 22B711683;
+	Thu,  5 Aug 2021 14:33:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22B711683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628155172;
-	bh=FiyaLWrw2fM5vbPkd0/aCwGhQFcI/3W6ACpjDkQwdnE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1628166885;
+	bh=l5rwYWEFklQRXMuTSJIAteK7ZkqvTvRw2bjGloAZJ0E=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IgeA0USx41W1We3DOIuLIArXOqFvuxzHFL4znm5vIsRXMk8kHZSJ1RrFgDfg80kTC
-	 qE3FWuFSlBhq2ZeYHBJAY8wQv54LAqYoaJ7OfYt60ZlbrUPFq81S4R91Usg5zPup5u
-	 cgZc/Ff7rENjhG1EeOHcM8DUgtUbcnOfw8nc4wfs=
+	b=XK/FYMEetegiYjpL3IIw+qLdRgH82ZAksHY2D7c04VoxG6mNg6z0hVRvGHei1jHuq
+	 5oH4O4ewkPMrRL0ommz3xU7efpjRj0X+sKBSBCzERM1AL7zjs7lG1UOMDmeSmm0XsG
+	 RkRZbMOo9qmDvseMMXUoy56+a0VB3OH4d6jWch/A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D596DF804F2;
-	Thu,  5 Aug 2021 11:17:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F5CDF8010A;
+	Thu,  5 Aug 2021 14:33:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2EFD6F804F1; Thu,  5 Aug 2021 11:17:51 +0200 (CEST)
+ id D30F4F802E8; Thu,  5 Aug 2021 14:33:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B33BDF804EC
- for <alsa-devel@alsa-project.org>; Thu,  5 Aug 2021 11:17:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B33BDF804EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 884A2F8010A
+ for <alsa-devel@alsa-project.org>; Thu,  5 Aug 2021 14:33:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 884A2F8010A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="FoeB+ExM"
-Received: by mail-wr1-x42e.google.com with SMTP id m12so5554395wru.12
- for <alsa-devel@alsa-project.org>; Thu, 05 Aug 2021 02:17:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=GJa/B18PSEsyuwuolhK87OQEucGZlB6tOjan1zRCNT0=;
- b=FoeB+ExM0YyDzrhJr5Hrfq/5Ie3qBvxf3tj3hmjniSZ5+q2tkESR4New7V5OvgKipz
- kbYZYUwjy9QyRovmHnqgjKJA8MYh/kg1IXccqlzXRGOb+7SUwl1PiBo903EbIOkqVQt0
- 8jBG7zN3oMtJ/V4Py+eE4EmwvJgXLBsiYuxLaicwdkMEgfXG4+SRjwEKGNizhUpIGEwI
- ywZsxlNwBMugfCkjuRb3MJYJFfl2PVFyaFWjOYvONjOSFnBjHThwhe+aNm+SnAeOG0MD
- opkcvcuGVnpHyNxjX6W1LjnfJpK6HJ0c5aXh8dgDb6vF6k9S0xXrG9zcPU8kKmOOQNhz
- AWgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=GJa/B18PSEsyuwuolhK87OQEucGZlB6tOjan1zRCNT0=;
- b=CNrc6cbbl4bqBRFl0jSFio9TH9mAscs3674SoXUhaR6CNN8dPHR7ZgB/tViYEqDpFW
- QmLI7YKuDtLlxa0vwkMGahR3fk4XHpmT5bTL6xdjiIkyH81n03s07rMVpXM2mtwsmTyX
- ALXuxVNCVJOwfweA3R7JBIik3bXL0ppHyP62PZZOxYSIp+8RfhviT/N8uY4EW/Jc+eTT
- ljeGzHvsGUoE+bilZ4nQxobsH6jSrka68eb+EnszWH2orlT4guvXzcAFeDoKxlk8KkCT
- ELPf273hs5OcIVrrL2hT+BavbKZKQzNtjoK5d+GGeT1B66jEW6WpC0ASiilAKcHhK9PS
- 9ByQ==
-X-Gm-Message-State: AOAM530YfeAidt8cb17/zpGVn4s2Uto/JrYfn2do3cX3BpxTvYVDhNCH
- HxdgwIliGyiDEAlB1djZrgEmDw==
-X-Google-Smtp-Source: ABdhPJyw7RtsLTkUNzM22r7POq5inabh4RlxT4Iy01PZDkOWRZ+kwsUqzOEZmDpvnOjRZ3pc64cYFw==
-X-Received: by 2002:a05:6000:1818:: with SMTP id
- m24mr4019566wrh.49.1628155066067; 
- Thu, 05 Aug 2021 02:17:46 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id j14sm5617073wru.58.2021.08.05.02.17.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Aug 2021 02:17:45 -0700 (PDT)
-Subject: Re: [PATCH v3 13/20] ASoC: qdsp6: audioreach: add basic pkt alloc
- support
-To: Mark Brown <broonie@kernel.org>
-References: <20210803125411.28066-1-srinivas.kandagatla@linaro.org>
- <20210803125411.28066-14-srinivas.kandagatla@linaro.org>
- <20210804180947.GI26252@sirena.org.uk>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <a23bdeed-9986-2e29-54d8-dcfba440825b@linaro.org>
-Date: Thu, 5 Aug 2021 10:17:44 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="FIINX73E"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D4C4A6113E;
+ Thu,  5 Aug 2021 12:33:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1628166784;
+ bh=l5rwYWEFklQRXMuTSJIAteK7ZkqvTvRw2bjGloAZJ0E=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=FIINX73EPtnm1YlzmeS1CtRtyc6ZQkVYce+fx6dQ+3GRun9h5hhouMN7TbteccqBb
+ BnVGpC2c+PXEDj+nHqTq+IlbBJJ0QCGOqQQiawA7Lt6wcOSvN5mkU1STMATPRz37bS
+ SWxUMTKNHS1MSwK3Gd3jrdrxy4qWzRh9cC1bwmAgGdQRn6kTO97t1nKCgvd5LwciEM
+ owf1Aemjpw3fw+ihigKkyInY0b8ADYcu9jX6jnqpWMHqIBI1RRh+bcpX2v3lC0OTxx
+ GyAYPk5Ym8IEaNpNKxyajIr2UwiPR/WBNVEYOPAxfBe8yGvUJMaVXeO7PQQfxBqtfP
+ 2Ww9FrlMf6/5Q==
+Date: Thu, 5 Aug 2021 13:32:48 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH] ASoC: simple-card-utils: Avoid over-allocating DLCs
+Message-ID: <20210805123248.GK26252@sirena.org.uk>
+References: <20210805050706.46833-1-samuel@sholland.org>
+ <87eeb8tquq.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
-In-Reply-To: <20210804180947.GI26252@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: robh@kernel.org, alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
- devicetree@vger.kernel.org, tiwai@suse.de, plai@codeaurora.org,
- lgirdwood@gmail.com, bjorn.andersson@linaro.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="jITzwD3HDGXid3BE"
+Content-Disposition: inline
+In-Reply-To: <87eeb8tquq.wl-kuninori.morimoto.gx@renesas.com>
+X-Cookie: MOUNT TAPE U1439 ON B3, NO RING
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Samuel Holland <samuel@sholland.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,37 +83,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks Mark for the review,
 
-On 04/08/2021 19:09, Mark Brown wrote:
-> On Tue, Aug 03, 2021 at 01:54:04PM +0100, Srinivas Kandagatla wrote:
-> 
->> +config SND_SOC_QDSP6_AUDIOREACH
->> +	tristate "SoC ALSA audio drives for Qualcomm QDSP AUDIOREACH Framework"
->> +	depends on QCOM_GPR
->> +	help
->> +	 To add support for Qualcomm QDSP6 AudioReach Audio Framework.
->> +	 This will enable sound soc platform specific audio drivers.
->> +	 This includes q6apm, q6prm and associated dai and clock drivers
->> +	 for DSP.
->> +
-> 
-> We're adding the Kconfig before we've added all the code so the thing
-> works?
+--jITzwD3HDGXid3BE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-These are compile tested, but as you said previously with other patches 
-I can move these Kconfig changes to patch at end of the series.
+On Thu, Aug 05, 2021 at 02:14:53PM +0900, Kuninori Morimoto wrote:
 
-> 
->>   obj-$(CONFIG_SND_SOC_QDSP6) += qdsp6/
->> +obj-${CONFIG_SND_SOC_QDSP6_AUDIOREACH} += qdsp6/
-> 
-> This adds two different references to the qdsp6 subdirectory which feels
-> like there's something wrong...
+> 	Reviewed-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-I could have avoided this extra config by adding all audioreach configs 
-under CONFIG_SND_SOC_QDSP6. Will fix that in next version.
+If you put spaces at the start of the line then none of the tooling will
+pick up tags you add.
 
---srini
+--jITzwD3HDGXid3BE
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEL2m8ACgkQJNaLcl1U
+h9B2Bwf/TFmGEHGgh1Y98seQLwiGG08YJnWDhxwX4jp2iislmOcbv84PWSMMSTj5
+wksMM0/GX0Spij7hDC+c/lMF9pwZuhBApKc7yps13PS+Kr5vOVw4zGoQOi3+cC1k
+fZW4eblaw6NTtz0F5AIhPnPPnjOi7S15K9OOY0l2MiMRetQu1yCnJDCH+yMfqMlS
+BI4Xx8NZBzz0vjOFRaRty28xp0zsF4DXcCO628llr9bMQG2AD0sKXqlge+r83XVy
+uke19x1f1/mqdxvVtrON70YXJ27iL6XB9gQe/M74kqMPMzCNde0OcTfbhrAdCq7d
+TufLjnhRjUfgQHOwvqIoqbKogPW0oQ==
+=g/K2
+-----END PGP SIGNATURE-----
+
+--jITzwD3HDGXid3BE--

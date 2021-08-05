@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FE5B3E0BF7
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Aug 2021 03:12:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78EEE3E0BF9
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Aug 2021 03:13:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7EC3816A1;
-	Thu,  5 Aug 2021 03:11:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EC3816A1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F82E16A6;
+	Thu,  5 Aug 2021 03:12:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F82E16A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628125957;
-	bh=WAE8UDBQnYY7CklUVs3dOfpHXMRQBLgAwVCpwLQZSz8=;
+	s=default; t=1628126009;
+	bh=H+It2VhNlLTUrfQqAqBS82sj+g2BbZzgwZVMRUNM/us=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mXgAyJ05AmV0F9xVR+gSZT5JEXepDgT5uhGFyqtWQDl9E6fPyFuQH3+uJbMHm9rnR
-	 w3pBP4R27vwRfNBSLJsq3OI3z4VYK5Pa+UgJNk1kFj7qlt1thOeZ6Y7s9gjid7iEBK
-	 Z1mbPLg0OSLF6WL02qfrQwA+GiNXSlTRan4BkaKg=
+	b=mPHAwT6do4WwUE1nDoETHyWQ3FybSrQ/hh/ookpJb3V7yyaerCj9EmBcVOW325Zzi
+	 8vHlV8Al3ZcpT8MdGXwXncE89b8FGFtjkZlhg7v1DT13EiS1sqTvLE1aEQ1FYCcO26
+	 L2j5x3snagpfQha1hVtUZBRoNaewtId3oQ1KpGYU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 178AEF804BC;
-	Thu,  5 Aug 2021 03:11:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C110F804E7;
+	Thu,  5 Aug 2021 03:11:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2D1B1F8026A; Thu,  5 Aug 2021 03:11:07 +0200 (CEST)
+ id 2DF4FF804E2; Thu,  5 Aug 2021 03:11:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 65C96F80268
- for <alsa-devel@alsa-project.org>; Thu,  5 Aug 2021 03:10:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65C96F80268
-Date: 05 Aug 2021 10:10:55 +0900
-X-IronPort-AV: E=Sophos;i="5.84,296,1620658800"; d="scan'208";a="89847572"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 05 Aug 2021 10:10:55 +0900
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 33D4CF80279
+ for <alsa-devel@alsa-project.org>; Thu,  5 Aug 2021 03:11:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33D4CF80279
+Date: 05 Aug 2021 10:11:00 +0900
+X-IronPort-AV: E=Sophos;i="5.84,296,1620658800"; d="scan'208";a="89866160"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 05 Aug 2021 10:11:00 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 0B73B40116B2;
- Thu,  5 Aug 2021 10:10:55 +0900 (JST)
-Message-ID: <87y29gu25d.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 581EF413A8E8;
+ Thu,  5 Aug 2021 10:11:00 +0900 (JST)
+Message-ID: <87wnp0u257.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 01/12] ASoC: soc-dapm: cleanup cppcheck warning at
- dapm_wcache_lookup()
+Subject: [PATCH 02/12] ASoC: soc-dapm: cleanup cppcheck warning at
+ dapm_connect_mux()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87zgtwu25w.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,38 +72,32 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below cppcheck warning.
 
-sound/soc/soc-dapm.c:653:20: style: The scope of the variable 'wlist' can be reduced. [variableScope]
- struct list_head *wlist;
-                   ^
-sound/soc/soc-dapm.c:655:6: style: The scope of the variable 'i' can be reduced. [variableScope]
- int i = 0;
-     ^
+sound/soc/soc-dapm.c:751:15: style: The scope of the variable 'val' can be reduced. [variableScope]
+ unsigned int val, item;
+              ^
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-dapm.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ sound/soc/soc-dapm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index 91bf939d5233..92193e9e1084 100644
+index 92193e9e1084..1c0457715008 100644
 --- a/sound/soc/soc-dapm.c
 +++ b/sound/soc/soc-dapm.c
-@@ -650,12 +650,11 @@ static struct snd_soc_dapm_widget *
- dapm_wcache_lookup(struct snd_soc_dapm_wcache *wcache, const char *name)
+@@ -747,10 +747,11 @@ static int dapm_connect_mux(struct snd_soc_dapm_context *dapm,
  {
- 	struct snd_soc_dapm_widget *w = wcache->widget;
--	struct list_head *wlist;
--	const int depth = 2;
--	int i = 0;
+ 	const struct snd_kcontrol_new *kcontrol = &w->kcontrol_news[0];
+ 	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
+-	unsigned int val, item;
++	unsigned int item;
+ 	int i;
  
- 	if (w) {
--		wlist = &w->dapm->card->widgets;
-+		struct list_head *wlist = &w->dapm->card->widgets;
-+		const int depth = 2;
-+		int i = 0;
- 
- 		list_for_each_entry_from(w, wlist, list) {
- 			if (!strcmp(name, w->name))
+ 	if (e->reg != SND_SOC_NOPM) {
++		unsigned int val;
+ 		val = soc_dapm_read(dapm, e->reg);
+ 		val = (val >> e->shift_l) & e->mask;
+ 		item = snd_soc_enum_val_to_item(e, val);
 -- 
 2.25.1
 

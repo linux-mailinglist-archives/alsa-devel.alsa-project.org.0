@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 702743E0BF8
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Aug 2021 03:13:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A4B53E0BFA
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Aug 2021 03:13:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9DA2167E;
-	Thu,  5 Aug 2021 03:12:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9DA2167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 185E0169F;
+	Thu,  5 Aug 2021 03:13:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 185E0169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628125993;
-	bh=LsE/RJDbeNsu2dOPBee1JE8mYvaLhD2X6Ob8LJU4Yv4=;
+	s=default; t=1628126031;
+	bh=p98zqiZa6xx0e0zC3P7GesUnWDtTXa1jYbA0tt7LGx0=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hAfXy4z4ApTs9zcJ7xRzptIdnuXiRVx0X10pBxKg6U4GpDFECmxvTv4pH09OpkVIU
-	 CdajAb77jXt+izpE3GxwZiqwniZAxWBMe+FsniumleNtGn3vvgjzB7966LnVRNrlS4
-	 7KCLpO0LJI+383VrmHWIQwicqK0QPSP0tdmF7KuM=
+	b=MAYuabPjT1yk2MiioKIVs8LWRGZ0GPa5dZsYX3ivYqLQvH96+UU0y2IBy8vzlpNmR
+	 JWgk3weZh9cnXGMCH+BrD5IG4p2PiyPmhlXCp8cQBRKHwK+ItIv0fA+9TdcVVwnf3f
+	 M2H0w53FoERYCk5RJSAu4L8+hBNkzPh622rSQiaw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ACB34F804E3;
-	Thu,  5 Aug 2021 03:11:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46343F804EB;
+	Thu,  5 Aug 2021 03:11:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D394F804E3; Thu,  5 Aug 2021 03:11:12 +0200 (CEST)
+ id 9A0B4F804EC; Thu,  5 Aug 2021 03:11:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id A8FC7F8016C
- for <alsa-devel@alsa-project.org>; Thu,  5 Aug 2021 03:11:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8FC7F8016C
-Date: 05 Aug 2021 10:11:05 +0900
-X-IronPort-AV: E=Sophos;i="5.84,296,1620658800"; d="scan'208";a="89847590"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 008ADF8026A
+ for <alsa-devel@alsa-project.org>; Thu,  5 Aug 2021 03:11:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 008ADF8026A
+Date: 05 Aug 2021 10:11:10 +0900
+X-IronPort-AV: E=Sophos;i="5.84,296,1620658800"; d="scan'208";a="89866181"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 05 Aug 2021 10:11:05 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 05 Aug 2021 10:11:10 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 4DEA44005161;
- Thu,  5 Aug 2021 10:11:05 +0900 (JST)
-Message-ID: <87v94ku252.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 5B19940116B2;
+ Thu,  5 Aug 2021 10:11:10 +0900 (JST)
+Message-ID: <87tuk4u24x.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 03/12] ASoC: soc-dapm: cleanup cppcheck warning at
- dapm_set_mixer_path_status()
+Subject: [PATCH 04/12] ASoC: soc-dapm: cleanup cppcheck warning at
+ dapm_new_pga()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87zgtwu25w.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,40 +70,34 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-This patch cleanups below cppcheck warning, and its related code.
+This patch cleanups below cppcheck warning.
 
-sound/soc/soc-dapm.c:789:15: style: The scope of the variable 'val' can be reduced. [variableScope]
- unsigned int val;
-              ^
+sound/soc/soc-dapm.c:1063:9: style: The scope of the variable 'ret' can be reduced. [variableScope]
+ int i, ret;
+        ^
+
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-dapm.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ sound/soc/soc-dapm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index 1c0457715008..0ccc59287513 100644
+index 0ccc59287513..50f49a545596 100644
 --- a/sound/soc/soc-dapm.c
 +++ b/sound/soc/soc-dapm.c
-@@ -782,14 +782,14 @@ static void dapm_set_mixer_path_status(struct snd_soc_dapm_path *p, int i,
- 	struct soc_mixer_control *mc = (struct soc_mixer_control *)
- 		p->sink->kcontrol_news[i].private_value;
- 	unsigned int reg = mc->reg;
--	unsigned int shift = mc->shift;
--	unsigned int max = mc->max;
--	unsigned int mask = (1 << fls(max)) - 1;
- 	unsigned int invert = mc->invert;
--	unsigned int val;
+@@ -1060,10 +1060,10 @@ static int dapm_new_mux(struct snd_soc_dapm_widget *w)
+ /* create new dapm volume control */
+ static int dapm_new_pga(struct snd_soc_dapm_widget *w)
+ {
+-	int i, ret;
++	int i;
  
- 	if (reg != SND_SOC_NOPM) {
--		val = soc_dapm_read(p->sink->dapm, reg);
-+		unsigned int shift = mc->shift;
-+		unsigned int max = mc->max;
-+		unsigned int mask = (1 << fls(max)) - 1;
-+		unsigned int val = soc_dapm_read(p->sink->dapm, reg);
-+
- 		/*
- 		 * The nth_path argument allows this function to know
- 		 * which path of a kcontrol it is setting the initial
+ 	for (i = 0; i < w->num_kcontrols; i++) {
+-		ret = dapm_create_or_share_kcontrol(w, i);
++		int ret = dapm_create_or_share_kcontrol(w, i);
+ 		if (ret < 0)
+ 			return ret;
+ 	}
 -- 
 2.25.1
 

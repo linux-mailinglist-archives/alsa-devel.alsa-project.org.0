@@ -2,94 +2,147 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B47B53E2A56
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Aug 2021 14:07:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE11A3E2A8F
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Aug 2021 14:30:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D5F116E3;
-	Fri,  6 Aug 2021 14:07:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D5F116E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 738A016E3;
+	Fri,  6 Aug 2021 14:29:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 738A016E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628251676;
-	bh=eudImTHebuXzISONw5Lde65E7fQbPCiVOKJ0D4gBvuE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1628253044;
+	bh=vNYyjeT3EYB9nMikL9IFiZ+rnZFmsNT3C9tVBtrUTBw=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tdkgFJEByOD9vNY9Nuk4T6CshCEP2YJ+/hK6W6bsDMV7Xfh8mScr2MpcVgyNg45ms
-	 YxWEvOJpbjASusaiMl8nAYv7FR2E5HGu+x5Vax0VjuBknIuBqV9RLYbq75Cfi4BvnW
-	 K0wHE6n9WWCEAaWn6Jf0KE2hax40RJM3ear8lfE4=
+	b=RbxfOmA/R1CTFnnFgJwfEdF0v06ne5c4dcCNCclEbYAimTIlDk+4uDIij6ABixq5M
+	 lkSnn4uyVnvy+7e6On6cKZledVfD3c6ywcF7NhiPa24g9QVqqDH8KEXC2gLMepg+6S
+	 RxNmbqj0XFe2C8JBo7UMkqrGZddXwVOpJPPh9LPE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 870E3F80108;
-	Fri,  6 Aug 2021 14:06:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D04E4F80268;
+	Fri,  6 Aug 2021 14:29:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B54AF801F7; Fri,  6 Aug 2021 14:06:26 +0200 (CEST)
+ id 8C8A7F8025F; Fri,  6 Aug 2021 14:28:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from JPN01-TY1-obe.outbound.protection.outlook.com
+ (mail-eopbgr1400139.outbound.protection.outlook.com [40.107.140.139])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A94F9F80108
- for <alsa-devel@alsa-project.org>; Fri,  6 Aug 2021 14:06:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A94F9F80108
+ by alsa1.perex.cz (Postfix) with ESMTPS id 81DAEF80169
+ for <alsa-devel@alsa-project.org>; Fri,  6 Aug 2021 14:28:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81DAEF80169
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="O7Esh5bM"
-Received: by mail-wr1-x434.google.com with SMTP id p5so10795967wro.7
- for <alsa-devel@alsa-project.org>; Fri, 06 Aug 2021 05:06:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=zIkPlaepn7cVcLOlogP6tw0QtR3s5KOOKLFL6W1I1W8=;
- b=O7Esh5bM7oIRAVW8/fvggmwsEzQcwYSJ6FyLR+xYmRzr3lmCuVujcv1hegf0teu7/A
- K8aA60nMMx925AfIFzvofaxB6u3FegMJ4ySiqQa/VMG3PiKfk53WEDfwE/u1NjjvHm4n
- z/LiMy2qmkT2NKM49iiHGKeSs4ZC8RdzgEOhCSNK3T0dUEpBP1+1J3CiBXUmF3xOC+oD
- oVw19cTYJq6Ga5S878FJ8nALwWee6n+NiNgtvtwqV3mRnFz1h+7lyRwKMYJ9YP7grjfe
- ZktoAh5164GlnZJvrje+fdjDb6vIoa3VFau5aopcZ0+KzmoSkmd7/SEtzLgQqJOghFGO
- 35jA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=zIkPlaepn7cVcLOlogP6tw0QtR3s5KOOKLFL6W1I1W8=;
- b=AC2lHurS6li2IgvJL3jO0nI6qxLuSQN8x8QbCHR/Q3/8fuN32Z9aNNxduVzd3JWdFj
- vA6QFu3IZw65Ygo4IlCOY5LArsFS4LkYepVvA9jzp3YOLU66SZIFnRcwuT4TNIGnpuyu
- X5zJyl6BRdRRyGLyJmkzNMMGDS0r3CGTbfNTe5ibf+joP79ZBl4K6NAgQ0+3eCkIXfDS
- hW6GgvZsvlRJTwwyDXVRASUG6yWs28yUIy/3L9pz+9nsiFqcd0FjG54BZ5jwfiChzSfm
- /yjpdTWaV9KNq1hSzUktX3KMNNudilkGjjw2uAeQUQZihBD1H0R3TwYdZaOegQSZVpRd
- HwRw==
-X-Gm-Message-State: AOAM530dn57x3KZXb6dv8d+ssd5oYWUqJB6wEstYPwDmjl4ci20oZ6mo
- 1hhyXljRzy6GM9hKR6rRVrsjkA==
-X-Google-Smtp-Source: ABdhPJxTl539JAuxpt6ru9+KOop6BTMQtlaB06v648QGj3hRa7CfCjgLIUyK4ar3zP3KVyDPnMY70w==
-X-Received: by 2002:adf:f8c8:: with SMTP id f8mr10641921wrq.204.1628251579670; 
- Fri, 06 Aug 2021 05:06:19 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id x18sm8335417wmc.17.2021.08.06.05.06.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Aug 2021 05:06:19 -0700 (PDT)
-Subject: Re: [PATCH v2] ASoC: qcom: apq8016_sbc: Add SEC_MI2S support
-To: Vincent Knecht <vincent.knecht@mailoo.org>, tiwai@suse.com, perex@perex.cz
-References: <20210806114116.895473-1-vincent.knecht@mailoo.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <facfd3cb-7546-ce65-c342-70b88b46b36e@linaro.org>
-Date: Fri, 6 Aug 2021 13:06:17 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-MIME-Version: 1.0
-In-Reply-To: <20210806114116.895473-1-vincent.knecht@mailoo.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ dkim=pass (1024-bit key) header.d=renesasgroup.onmicrosoft.com
+ header.i=@renesasgroup.onmicrosoft.com header.b="Qpj0LL9X"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CzW4zKK0o+pG/io3YGeXF98c3b38p/dnZkxQ41ODxOpiWO0GILWuYqIvr/u7H+xPUOAW+Gf6MIxXHQpgPMR+fFHKhUlIUSWh3hJFBmkSgkxruFUAlWWYYtstJxNl/xtZFb7b8Xg4cHjH5KyB0FR6BsoiJq2mPmwck0FwwW70CzhPyb5cWvFX8nDzu3DPrp9qZgY/LcYR8F2AAmBGTs3+nisCX9MGPKVFG9nybMMzuQVoJuv5tr43TSds4pj2IcwQQhNrYIIlMilz03jIa34ViDSSIZEsG5nTLsHE0eLfZo1AltBXerpKNAxCxfwqypztqGgEvjPLWq9GWxKlK/OfgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=G7wfBNuLwNlSQ0+d5GTRV74CACYVFWfVN2b0eQJGEVg=;
+ b=XbSMBuqEMjKPGCKM96mkUBvNxrhajheo66nVUYBcQjNAh1mLrzj5ejsqJyaNRNtlAHYHjh+Ry8R0K691tYAC4DDn/isAIGb302XDVEXm1JK4lafGE8ialzYw2H0lH6OiLjb8k6ENtBhNsTyuRDLwgSi9oPyy5PhjcmeGt1O4cJ+WSbfevX4VSUXzaa4nA3i5RSFTrTo7EZsVAxdQEFUwbjNU1kPZYlXoMv5DUbPYroBgYJ455dCp0fI9NhmSU+xOxyhJenRJSgX93uOrcjWY2Il/xfeB/lYborx0GkTNOFcGMR0fObtXzY0uk83+e0WfIG3GIc7NyCpbALYtxipblA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=renesasgroup.onmicrosoft.com; s=selector2-renesasgroup-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=G7wfBNuLwNlSQ0+d5GTRV74CACYVFWfVN2b0eQJGEVg=;
+ b=Qpj0LL9Xxu8P3gtHFPfBbdw+U+VEwXrNagE9zr/vZhrYixX/a3pJJqYg0R8PXO1Omp8HLnMTwne+2G+tXtEobV9tnqRpQQUbxpSbAPCgKT8XQmZulARn6b9NYFA8kCG2d6yKHGzC33pNldg6nXTW75m1c3c1PCHKx2hpxAvACO4=
+Received: from OS0PR01MB5922.jpnprd01.prod.outlook.com (2603:1096:604:bb::5)
+ by OS0PR01MB5842.jpnprd01.prod.outlook.com (2603:1096:604:bb::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.18; Fri, 6 Aug
+ 2021 12:28:33 +0000
+Received: from OS0PR01MB5922.jpnprd01.prod.outlook.com
+ ([fe80::c6f:e31f:eaa9:60fe]) by OS0PR01MB5922.jpnprd01.prod.outlook.com
+ ([fe80::c6f:e31f:eaa9:60fe%9]) with mapi id 15.20.4394.020; Fri, 6 Aug 2021
+ 12:28:32 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: RE: [PATCH v4 1/3] ASoC: sh: Add RZ/G2L SSIF-2 driver
+Thread-Topic: [PATCH v4 1/3] ASoC: sh: Add RZ/G2L SSIF-2 driver
+Thread-Index: AQHXiq36OuYLqS0sUU+zpfyOWsgWt6tmVtyAgAALnHA=
+Date: Fri, 6 Aug 2021 12:28:31 +0000
+Message-ID: <OS0PR01MB5922A39CBDA225F1CA79B39686F39@OS0PR01MB5922.jpnprd01.prod.outlook.com>
+References: <20210806102930.3024-1-biju.das.jz@bp.renesas.com>
+ <20210806102930.3024-2-biju.das.jz@bp.renesas.com>
+ <20210806112759.GX26252@sirena.org.uk>
+In-Reply-To: <20210806112759.GX26252@sirena.org.uk>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, bgoswami@codeaurora.org, stephan@gerhold.net,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com, broonie@kernel.org
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 8a480573-d888-41de-1102-08d958d5b402
+x-ms-traffictypediagnostic: OS0PR01MB5842:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <OS0PR01MB5842FB610EE103596FA41E5D86F39@OS0PR01MB5842.jpnprd01.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6430;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: R33b+sw3KD2JC83SKBV+ZC0QlMHIXncJlnSSDbe6FdZjtg0q347L6xmhjPtKPwYP6j8dxsR9rkm9lbNHfu/hb/L8VfZhJkLEE/tnvmH0+7x07TqJT1dl4jnDVJR7IJ+qIeU3RiNn1GbpQam0FfP6X1OT2Q2mV0KFzg1RkS92LSQbRYVyMOmTqHTIkD8RVD+xHV0gtQymd9nNIzmWE7LA1nrrEu+1Os11SwQIKzRGs6hsx8kK1rRk9LBGHSXE+X9tFZuTI15fGqbfnLDqXjpsdGKQCWq+JSaj1bVpQJKum8EbX0k1e0pT7rSYhD8afFjpuN+9TPuN1Bqo1wbu8mNTrq0ibPSBMRPRVsKXHvjGZNSLGRnDxNZdpS5VN98Mtxorzhae4gJzqm8iPOHo8IzqTNnnKYKraZPFqdBcbWvhOT4M1r2jzDt9zv8mwBljp3wkZADYtF0bX3/4jiOS74+3zXoWCTsGoed7i8Ef1Jupp71cAL2yad76IeeJnXNEnlVpfXaw6cEqPlQDMMmSMD9IuO2emzbtmN7UUzUxJtMs+B00iEiRiLYSIw20JMcRNVPeUhYWySUbEDXnikLvpoTJfUXeh4sxUmgcKdG2Yhq6HqsfsnCWB1shlzneXkTh2ObEr+RvWDPlFeGLy8Qj9gwHkN1iFfACTIdZP4+XytUQbrRFRCaHuBjjr7Sp5awbgnn0Z6jJ4grcZzPzTmz1OmTX3g==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:OS0PR01MB5922.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(396003)(136003)(366004)(39850400004)(346002)(478600001)(38070700005)(6506007)(86362001)(66556008)(186003)(76116006)(122000001)(71200400001)(6916009)(8936002)(9686003)(38100700002)(66476007)(64756008)(66446008)(83380400001)(26005)(2906002)(66946007)(55016002)(316002)(4326008)(5660300002)(54906003)(33656002)(7416002)(52536014)(8676002)(7696005);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?G11PGvOGv7p4+XwAJ7IDPrcHLwbdxqnink0W/p0yM4I/u0RIEDDW3RouDzFt?=
+ =?us-ascii?Q?Ve6LAEtsVVq2z8i1LfMJz720gdg5+POEmgnY+dh6Djnsu312Uato3M62oNnp?=
+ =?us-ascii?Q?sSSNGOnpTxWmWF+bXmUAA4cyGVLbqRezCQ56OQ5UqWc5Zk6qvJklwjr46e7k?=
+ =?us-ascii?Q?8tuHqyAF03T6IagjDym1/wms0ZyhaAp2sypKeKhYiWuUxAfNBtE/8iz6fRcJ?=
+ =?us-ascii?Q?pTlJGOGpLPaFktl7YBXJGf9JMbKMTQBGyQWBgwHiCcz1yS8Qlb/sJr154N5p?=
+ =?us-ascii?Q?hxqnIhi32HQaecpexzKe1xyqn1VnZGJEMRFblMPuAorDRzjaQHZ7zIzfxjUx?=
+ =?us-ascii?Q?hQRa9YtSZ+oxsSOHyYZoEN4ajvPqq7iUGdxm3Bz4ao2WegbEQv7BqEbDCrYf?=
+ =?us-ascii?Q?bZKJJgLU94MWEazBD9WGIaF2LQq/b/JskcqG+s8yhWVL+q/tJU9iMsT4li7D?=
+ =?us-ascii?Q?zIdoUYVjYNrQD0sNoDNIbYZSMX9aHLMzfe+jrHTXUTUGmHO667CgNnqDHoGb?=
+ =?us-ascii?Q?H5I2tRWCRxC0kIh3RPEVFETI0HB0S5YLEG1zcUrxt+7BUb9h41Wo4J5909WC?=
+ =?us-ascii?Q?0f9+qfYNC9NIbe2MDxSWRYuMhoOOqhcZN3ug51IM1m3EE6rJnjBdKHg1dkUk?=
+ =?us-ascii?Q?mxRPNe0BMxqa6YN0O1/8pKmazq8DW7rki9ys+EaacGkKUkjf39gP7oUoUTk1?=
+ =?us-ascii?Q?d2TJ4PHukteO5cMZBz8c0rMIi6jyG2eDG6ayPEnyv3YFXyxyr25VIYte+Q1f?=
+ =?us-ascii?Q?QYLWjHsj7m4cg9NvuriKazXq4fjzD3JvL7L3qDDfRlsd1qG1f/BGKnwpy3oR?=
+ =?us-ascii?Q?G4/8Uop4SNaYXVscUMajqgfHWXyAvaJ+m1QbD0I2P3njiySNehtqdhK1T2m6?=
+ =?us-ascii?Q?bP4RnobhcuE42nDADp6WZNuQRo2z27E8Gb0MNmDXgpEq7rw1fpXslsfKzVZZ?=
+ =?us-ascii?Q?hP0Euf84ukLPjLO2qCN3N2HPmhZufL06xE+QBIX5Eb57my2rA9LzWdePmB0x?=
+ =?us-ascii?Q?kPTu6QkCypvofbvkxidYlXwQ5KVhbticRKwqqT//ZCD5JloQ7gHd873Z9p07?=
+ =?us-ascii?Q?2770uxXylblRberuYWc2ujukcxf3Hh60Amh1N7pQbvbin82gRb+FMUMswnmI?=
+ =?us-ascii?Q?nJFYNA+ZTw4AfahhDlfQbSVKokiujEJWc+dTBRz03mR0q5W9iPG7Njmz6o8/?=
+ =?us-ascii?Q?bN1HudbvkLHFQGDEVfBROOJkWmKV0uo+LsLsbm+RIT/E17oiWbYcSNeXtuPA?=
+ =?us-ascii?Q?PjEVilL6jxemxpJJn8AtYcm3F5eF+o2OLhq0sOve5D4Jju5Wd4XmVkUrCj6q?=
+ =?us-ascii?Q?KfUTZirUiFIpNFXvowk/6eli?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: OS0PR01MB5922.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a480573-d888-41de-1102-08d958d5b402
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Aug 2021 12:28:31.4964 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: UB27Uc8uw/+SB8aPV4SyyFCWnFJjemerpnBPKgrWaT4M3v7hfPmpBVYD63Tsw1unM5oprlaGfVYqnXzswplwqiu/cuZ6OixSXV3yG33kZFM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS0PR01MB5842
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Randy Dunlap <rdunlap@infradead.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Chris Paterson <Chris.Paterson2@renesas.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Chris Brandt <Chris.Brandt@renesas.com>, Biju Das <biju.das@bp.renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,66 +158,99 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Mark,
 
+Thanks for the feedback.
 
-On 06/08/2021 12:41, Vincent Knecht wrote:
-> This patch adds external codec support on secondary mi2s.
-> It is used for headphones on some devices, eg. alcatel-idol347.
-> 
-> Signed-off-by: Vincent Knecht <vincent.knecht@mailoo.org>
+> Subject: Re: [PATCH v4 1/3] ASoC: sh: Add RZ/G2L SSIF-2 driver
+>=20
+> On Fri, Aug 06, 2021 at 11:29:28AM +0100, Biju Das wrote:
+>=20
+> > +static int rz_ssi_stream_init(struct rz_ssi_priv *ssi,
+> > +			      struct rz_ssi_stream *strm,
+> > +			      struct snd_pcm_substream *substream) {
+> > +	struct snd_pcm_runtime *runtime =3D substream->runtime;
+> > +
+> > +	if (runtime->sample_bits !=3D 16) {
+> > +		dev_err(ssi->dev, "Unsupported sample width: %d\n",
+> > +			runtime->sample_bits);
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	if (runtime->frame_bits !=3D 32) {
+> > +		dev_err(ssi->dev, "Unsupported frame width: %d\n",
+> > +			runtime->sample_bits);
+> > +		return -EINVAL;
+> > +	}
+>=20
+> You should be doing *all* this validation at the time things are
+> configured, not during trigger.
 
-Thanks for rework, LGTM.
+OK, Will move sample_bits validation to hw_params.
 
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+From core/pcm_native.c,=20
 
-> ---
-> v1->v2: thanks Srinivas for the review, and Stephan for guidance
-> - Add _SEC suffix to defines to highlight usage for secondary mi2s
-> - Clear TLMM_WS_OUT_SEL and TLMM_WS_EN_SEL fields before setting value
-> ---
->   sound/soc/qcom/apq8016_sbc.c | 17 +++++++++++++++++
->   1 file changed, 17 insertions(+)
-> 
-> diff --git a/sound/soc/qcom/apq8016_sbc.c b/sound/soc/qcom/apq8016_sbc.c
-> index 08a05f0ecad7..ba2a98268ee4 100644
-> --- a/sound/soc/qcom/apq8016_sbc.c
-> +++ b/sound/soc/qcom/apq8016_sbc.c
-> @@ -30,6 +30,13 @@ struct apq8016_sbc_data {
->   #define MIC_CTRL_QUA_WS_SLAVE_SEL_10	BIT(17)
->   #define MIC_CTRL_TLMM_SCLK_EN		BIT(1)
->   #define	SPKR_CTL_PRI_WS_SLAVE_SEL_11	(BIT(17) | BIT(16))
-> +#define SPKR_CTL_TLMM_MCLK_EN		BIT(1)
-> +#define SPKR_CTL_TLMM_SCLK_EN		BIT(2)
-> +#define SPKR_CTL_TLMM_DATA1_EN		BIT(3)
-> +#define SPKR_CTL_TLMM_WS_OUT_SEL_MASK	GENMASK(7, 6)
-> +#define SPKR_CTL_TLMM_WS_OUT_SEL_SEC	BIT(6)
-> +#define SPKR_CTL_TLMM_WS_EN_SEL_MASK	GENMASK(19, 18)
-> +#define SPKR_CTL_TLMM_WS_EN_SEL_SEC	BIT(18)
->   #define DEFAULT_MCLK_RATE		9600000
->   
->   static int apq8016_sbc_dai_init(struct snd_soc_pcm_runtime *rtd)
-> @@ -40,6 +47,7 @@ static int apq8016_sbc_dai_init(struct snd_soc_pcm_runtime *rtd)
->   	struct snd_soc_card *card = rtd->card;
->   	struct apq8016_sbc_data *pdata = snd_soc_card_get_drvdata(card);
->   	int i, rval;
-> +	u32 value;
->   
->   	switch (cpu_dai->id) {
->   	case MI2S_PRIMARY:
-> @@ -53,6 +61,15 @@ static int apq8016_sbc_dai_init(struct snd_soc_pcm_runtime *rtd)
->   			MIC_CTRL_TLMM_SCLK_EN,
->   			pdata->mic_iomux);
->   		break;
-> +	case MI2S_SECONDARY:
-> +		/* Clear TLMM_WS_OUT_SEL and TLMM_WS_EN_SEL fields */
-> +		value = readl(pdata->spkr_iomux) &
-> +			~(SPKR_CTL_TLMM_WS_OUT_SEL_MASK | SPKR_CTL_TLMM_WS_EN_SEL_MASK);
-> +		/* Configure the Sec MI2S to TLMM */
-> +		writel(value | SPKR_CTL_TLMM_MCLK_EN | SPKR_CTL_TLMM_SCLK_EN |
-> +			SPKR_CTL_TLMM_DATA1_EN | SPKR_CTL_TLMM_WS_OUT_SEL_SEC |
-> +			SPKR_CTL_TLMM_WS_EN_SEL_SEC, pdata->spkr_iomux);
-> +		break;
->   	case MI2S_TERTIARY:
->   		writel(readl(pdata->mic_iomux) | MIC_CTRL_TER_WS_SLAVE_SEL |
->   			MIC_CTRL_TLMM_SCLK_EN,
-> 
+frame_bits =3D channels * sample_bits;
+
+since we are validating both channels and sample_bits,
+there is no need to validate frame_bits.
+
+So I am dropping frame_bits validation on next version.
+
+>=20
+> > +static int rz_ssi_start_stop(struct rz_ssi_priv *ssi,
+> > +			     struct rz_ssi_stream *strm,
+> > +			     int start)
+> > +{
+> > +	struct snd_pcm_substream *substream =3D strm->substream;
+> > +	u32 ssicr, ssifcr;
+> > +	int timeout;
+> > +
+> > +	if (start) {
+> > +		bool is_play =3D rz_ssi_stream_is_play(ssi, substream);
+>=20
+> ...
+>=20
+> > +	} else {
+> > +		strm->running =3D 0;
+>=20
+> ...
+>=20
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+>=20
+> This is two functions merged into one with zero shared code, just make
+> them two separate functions and then people don't need to guess if true i=
+s
+> start or stop.
+
+OK. Will split this into 2 separate function.
+
+>=20
+> > +	switch (cmd) {
+> > +	case SNDRV_PCM_TRIGGER_START:
+> > +		/* Soft Reset */
+> > +		rz_ssi_reg_mask_setl(ssi, SSIFCR, 0, SSIFCR_SSIRST);
+> > +		rz_ssi_reg_mask_setl(ssi, SSIFCR, SSIFCR_SSIRST, 0);
+> > +		udelay(5);
+> > +
+> > +		spin_lock_irqsave(&ssi->lock, flags);
+> > +		ret =3D rz_ssi_stream_init(ssi, strm, substream);
+> > +		spin_unlock_irqrestore(&ssi->lock, flags);
+>=20
+> It's not clear what this lock is intended to accomplish.  It's only used
+> in trigger like this and in _stream_is_valid().  In trigger() we're
+> already in atomic context so don't have to worry about simultaneous calls
+> to trigger() while in _stream_is_valid() we're just checking if there's a
+> runtime present but since the lock is taken and held within the function
+> the status could change before we've even returned to the caller.  The tw=
+o
+> uses don't seem joined up with each other and neither seems to do much.
+
+Thanks for  pointing out. After re-checking, locking is not needed at this
+place. It is required only for _stream_is_valid() and _stream_quit().
+
+Cheers,
+Biju

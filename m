@@ -2,72 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9E8C3E2E1C
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Aug 2021 18:07:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE1033E2E47
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Aug 2021 18:21:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 33E7D16D7;
-	Fri,  6 Aug 2021 18:06:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33E7D16D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 36FCF16D7;
+	Fri,  6 Aug 2021 18:20:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36FCF16D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628266020;
-	bh=j/EUqqoXp3hLjtrDITBhx7StqHXVYurg1ZFyajz8a0Y=;
+	s=default; t=1628266878;
+	bh=1hmY7QBHkmCKoAaLu7UgnA06w2lR2gGTY7pMRZqdTOg=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=baeauvIxxfyBu3Dh0/4xOTrTgP5IEhSjN2GZfzds0r0XGCzt52FagiRJGTEd8dtbU
-	 774dv/jyv/SZMGZZ+UYKTx1rZO52+Ak3zHvgfw2SZv8JQ/vwMaFwD8sm63DdEk50Q0
-	 bX7Aygbx10em1gsuCzHWwj2QxGtxm8JBgekEMBBM=
+	b=etsp/yX/PCZXPA9MDjDPOb13FvVZZTYkA/p4+C931iyc+8Vz6ZW6Ec54Nt63+LL9T
+	 zErLtLJZ0mmILPtmkcvmFjkaKDeQXZYNuUDRG3bWPSAMmYeqWUeD5VFJNYlUCgJs1p
+	 VzIGX/5u2654ExL92hfyCxvsm16ABrDWord+ZRPE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A61E4F8025F;
-	Fri,  6 Aug 2021 18:05:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8DA45F80268;
+	Fri,  6 Aug 2021 18:19:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B2A5F8025F; Fri,  6 Aug 2021 18:05:30 +0200 (CEST)
+ id F249BF8025F; Fri,  6 Aug 2021 18:19:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
  SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 04E72F80169
- for <alsa-devel@alsa-project.org>; Fri,  6 Aug 2021 18:05:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04E72F80169
-X-IronPort-AV: E=McAfee;i="6200,9189,10068"; a="299984281"
-X-IronPort-AV: E=Sophos;i="5.84,301,1620716400"; d="scan'208";a="299984281"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 706C7F80169
+ for <alsa-devel@alsa-project.org>; Fri,  6 Aug 2021 18:19:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 706C7F80169
+X-IronPort-AV: E=McAfee;i="6200,9189,10068"; a="214381962"
+X-IronPort-AV: E=Sophos;i="5.84,301,1620716400"; d="scan'208";a="214381962"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2021 09:03:28 -0700
-X-IronPort-AV: E=Sophos;i="5.84,301,1620716400"; d="scan'208";a="523548012"
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Aug 2021 09:19:39 -0700
+X-IronPort-AV: E=Sophos;i="5.84,301,1620716400"; d="scan'208";a="523552689"
 Received: from asobi-mobl1.amr.corp.intel.com (HELO [10.213.162.7])
  ([10.213.162.7])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2021 09:03:27 -0700
-Subject: Re: [PATCH 3/4] soundwire: intel: exit clock stop mode on system
- suspend
+ 06 Aug 2021 09:19:38 -0700
+Subject: Re: [PATCH] soundwire: intel: trap TRIGGER_SUSPEND in .trigger
+ callback
 To: Vinod Koul <vkoul@kernel.org>
-References: <20210727055608.30247-1-yung-chuan.liao@linux.intel.com>
- <20210727055608.30247-4-yung-chuan.liao@linux.intel.com>
- <YQd1C0QQMDNtzfAq@matsya>
- <792f70bd-b4ae-e3a1-c37e-ba2913018d0b@linux.intel.com>
- <2b7f632d-e8b2-7a14-54c6-86d19ca4ba01@linux.intel.com>
- <YQ05yYz1UR9Du92R@matsya>
+References: <20210727053256.29949-1-yung-chuan.liao@linux.intel.com>
+ <s5h8s1sfevg.wl-tiwai@suse.de>
+ <a25d47a6-2599-7101-cd93-e5304b271948@linux.intel.com>
+ <YQd2BM3wGzKpfZn1@matsya> <s5hpmuwz98o.wl-tiwai@suse.de>
+ <YQeQxj7Ejh14jIoc@matsya>
+ <DM6PR11MB4074EF8726AA5ED297871225FFEF9@DM6PR11MB4074.namprd11.prod.outlook.com>
+ <9ef7e341-13f4-69f7-964d-8e6efdd57ca7@linux.intel.com>
+ <YQ07BVDyPD1Vb4R8@matsya>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <7dd06fbe-2ba1-7d25-b620-c34c93e2582c@linux.intel.com>
-Date: Fri, 6 Aug 2021 11:03:25 -0500
+Message-ID: <a40644ba-bee7-0fc2-93e5-b1746ecda938@linux.intel.com>
+Date: Fri, 6 Aug 2021 11:17:04 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Firefox/78.0 Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <YQ05yYz1UR9Du92R@matsya>
+In-Reply-To: <YQ07BVDyPD1Vb4R8@matsya>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, "Rafael J. Wysocki" <rafael@kernel.org>,
- tiwai@suse.de, broonie@kernel.org, Bard Liao <yung-chuan.liao@linux.intel.com>,
- bard.liao@intel.com
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Takashi Iwai <tiwai@suse.de>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, "Liao,
+ Bard" <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,69 +90,99 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 8/6/21 8:31 AM, Vinod Koul wrote:
-> On 02-08-21, 11:28, Pierre-Louis Bossart wrote:
+On 8/6/21 8:37 AM, Vinod Koul wrote:
+> On 02-08-21, 10:46, Pierre-Louis Bossart wrote:
 >>
->>
->>
->>>> 1. In above you are calling resume of child devices first and then intel
->>>> device, which sounds reverse, should you not resume intel device first
->>>> and then child (codec devices) ?
+>>>>>>>> The trigger callback is handled in the stream lock atomically,
+>>>>>>>> and are you sure that you want to operate a possibly heavy task there?
+>>>>>>>
+>>>>>>> It's a good objection that we didn't think of.
+>>>>>>
+>>>>>> Doesn't Intel use non atomic trigger to send IPCs which anyway
+>>>>>> involve code which can sleep..?
+>>>>>
+>>>>> sof_sdw.c doesn't seem setting it?
 >>>>
->>>> 2. What about when resume is invoked by the core for the child devices.
->>>> That would be called in the PM resume flow, so why do it here?
+>>>> Yes I think init_dai_link() should set it. Maybe Pierre/Bard would know why.
 >>>
->>> I realize it's a complicated sequence, it took us multiple phases to get
->>> it right. There are multiple layers between power domain, bus and driver.
->>>
->>> The .prepare phase happens before the system suspend phase. Unlike
->>> suspend, which progresses from children to parents, the .prepare is
->>> handled parent first.
->>>
->>> When we do a request_resume of the child device, by construction that
->>> also resumes the parent. In other words, if we have multiple codecs on a
->>> link, the first iteration of device_for_each_child() will already resume
->>> the parent and the first device, and the second iteration will only
->>> resume the second device.
->>>
->>> What this step does is make sure than when the codec .suspend routine is
->>> invoked, the entire bus is already back to full power. I did check
->>> privately with Rafael (CC:ed) if this sequence was legit.
->>>
->>> We did consider modifying the system suspend callback in codec drivers,
->>> so that we would do a pm_runtime resume(). This is functionally
->>> equivalent to what we are suggesting here, but we decided not to do so
->>> for two main reasons
->>>
->>> a) lots of code changes across all codecs for an Intel-specific issue
->>>
->>> b) we would need to add a flag so that codec drivers would know in which
->>> Intel-specific clock-stop mode the bus was configured. That's not so
->>> good either.
->>>
->>> It seemed simpler to use to add this .prepare step and test on the Intel
->>> clock stop mode before doing a pm_runtime_resume for all codecs.
-> 
-> Ack, the code looks neat. But glancing at it, reader might get confused
-> about the sequencing done here.. It is not very obvious, so consider
-> adding this to changelog or driver comments. It will be helpful
-
-Yep, even in internal reviews this was far from straightforward to
-explain. I added comments but I can certainly try to explain more.
-
+>>> init_dai_link() is to assign dai link elements only. No IPC is needed.
 >>
->> Note that we could invert the two parts and do a parent resume first,
->> and a loop for all children second. It's completely equivalent, but
->> might be less convoluted to understand without any implicit behavior
->> assumed.
+>> The 'nonatomic' concept is only used for an FE dailink which expose a
+>> PCM device:
+>>
+>> soc-pcm.c:	pcm->nonatomic = rtd->dai_link->nonatomic;
+>>
+>> Setting a BE dailink as 'nonatomic' would not accomplish much since BEs
+>> use the 'no_pcm' option.
 > 
-> Agree, it would be redundant as PM core would take care of it. maybe
-> add a comment so that it is explicit
+> are no_pcm & nonatomic supposed to be not used together? So if FE is
+> nonatomic would BE trigger be atomic or nonatomic?
 
-Will add comments as well.
+I don't follow the multiple negations, so let me retry:
 
-Note that I have another lead to further improve suspend-resume, running
-stress tests on thousands of cycles atm. I'll wait until we have more
-results to resubmit this series.
+For Intel machine drivers, all BE dailinks use
+.no_pcm = 1 (explicit setting)
+.nonatomic = 0 (implicit).
 
-Thanks for the reviews!
+All FE dailinks use
+.no_pcm = 0 (implicit)
+.nonatomic = 1 (explicit setting)
+
+>> So the question is: is there any issue with sending an IPC in a DAI
+>> trigger callback?
+> 
+> Sorry looks like we diverged, orignal question was can we do heavy tasks
+> in trigger, the answer is no, unless one uses nonatomic flag which was
+> added so that people can do that work with DSPs like sending IPCs..
+> Maybe we should add heavy slimbus/soundwire handling to it too...?
+
+I don't think the answer is as clear as you describe it Vinod.
+
+The .nonatomic field is at the BE dailink level.
+
+Unless I am missing something, I don't see anything that lets me set a
+.nonatomic property at the *DAI* level.
+
+The other problem is to define 'heavy task'. In this case, we are
+sending an IPC indeed, but the response is immediate, typically in the
+next ms tick.
+
+IOW, if the response time is in the ms order of magnitude, is this 'heavy'?
+
+>> This is not very different from sending a command on a
+>> bus btw, I see a similar example for SLIMbus devices:
+>>
+>> wcd9335.c:      case SNDRV_PCM_TRIGGER_SUSPEND:
+>> wcd9335.c-      case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+>> wcd9335.c-              slim_stream_unprepare(dai_data->sruntime);
+>> wcd9335.c-              slim_stream_disable(dai_data->sruntime);
+>>
+>> int slim_stream_unprepare(struct slim_stream_runtime *stream)
+>> {
+>> 	int i;
+>>
+>> 	for (i = 0; i < stream->num_ports; i++)
+>> 		slim_disconnect_port(stream, &stream->ports[i]);
+>>
+>> static int slim_disconnect_port(struct slim_stream_runtime *stream,
+>> 				struct slim_port *port)
+>> {
+>> 	struct slim_device *sdev = stream->dev;
+>> 	u8 wbuf[1];
+>> 	struct slim_val_inf msg = {0, 1, NULL, wbuf, NULL};
+>> 	u8 mc = SLIM_MSG_MC_DISCONNECT_PORT;
+>> 	DEFINE_SLIM_LDEST_TXN(txn, mc, 5, stream->dev->laddr, &msg);
+>>
+>> 	wbuf[0] = port->id;
+>> 	port->ch.state = SLIM_CH_STATE_DISCONNECTED;
+>> 	port->state = SLIM_PORT_DISCONNECTED;
+>>
+>> 	return slim_do_transfer(sdev->ctrl, &txn);
+>> }
+>>
+>> Such commands may take time...
+> 
+> Agree, so users should be recommended to use nonatomic triggers.
+
+The SLIMbus example relies on DAIs as well, and this option does not
+exist, does it?

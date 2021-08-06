@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19C5D3E204C
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Aug 2021 02:51:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A68D3E204D
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Aug 2021 02:51:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7DED1733;
-	Fri,  6 Aug 2021 02:50:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7DED1733
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4DA216DF;
+	Fri,  6 Aug 2021 02:51:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4DA216DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628211089;
-	bh=STQ4jFjhT2tAmblc4n9G9SuqeStkebra6JvvzascIDk=;
+	s=default; t=1628211114;
+	bh=ebSCxHPLyiLi3QtLw46r1IOo/s6BBPhByAQ8UJYP2kc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=t3+j2PQS4tpDFySCL9c29lVWaALsLTf+OBfxJN7xOW77S/KJ5O+1ZIdJGeWsZ5X1w
-	 yFTpxL0Zx7oyQ4REVzCigWKhIDvgBqpI+6mwNbW5/5jH2+r2iLW4Bzu8HRAi+bLFXn
-	 pWArDT+TcCnC8KCM4GvDL5f22QOZOUYbjgImxxrQ=
+	b=ipOD48qO0KrkAy78Ba4C8bYrExT2WuowxZFlP8a4nxS2M9tG0uAC/a3sGxoemexAd
+	 4lSm9de2wsrPLrwfvTSuJ+9dwmhJd92jah68d4nYqcMBnhIRrxcA6WrSX74v4X5Lvh
+	 7mUE5oEPQ/qdRAHDnFYnm3wtbwUMhrMvTMMS94Mk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 561D5F804E7;
-	Fri,  6 Aug 2021 02:48:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9308FF804FF;
+	Fri,  6 Aug 2021 02:48:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 747FFF804E4; Fri,  6 Aug 2021 02:48:37 +0200 (CEST)
+ id 5B55DF804FE; Fri,  6 Aug 2021 02:48:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E4987F8049E
- for <alsa-devel@alsa-project.org>; Fri,  6 Aug 2021 02:48:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4987F8049E
+ by alsa1.perex.cz (Postfix) with ESMTPS id EA6E9F804EB
+ for <alsa-devel@alsa-project.org>; Fri,  6 Aug 2021 02:48:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA6E9F804EB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RlqQV+Lj"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B86D0611B0;
- Fri,  6 Aug 2021 00:48:32 +0000 (UTC)
+ header.b="UTgayJVE"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3EF1C60F14;
+ Fri,  6 Aug 2021 00:48:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1628210913;
- bh=STQ4jFjhT2tAmblc4n9G9SuqeStkebra6JvvzascIDk=;
+ s=k20201202; t=1628210915;
+ bh=ebSCxHPLyiLi3QtLw46r1IOo/s6BBPhByAQ8UJYP2kc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=RlqQV+LjV79/5T6Sgc9AYyJVBE7WqUD0pgceK4Wl3br44c5rO547dKLvO94s8BZMl
- V8xpSEK4DtZRj7RG9EWrRPAC25M2VHzrfTzF4UethXekitZLBdFiP0uyVpFRQROyUr
- ECao3mAf63mONRJfpwAolwuY+vWnwA0aJ5Krshz+ra0rhz117qRQyvIUm8+cf5aXgN
- IApP4ynfieNpBS4O0MLOFaCORNdLxiOe7lLm+WTiFagMY3KEs3Z2kxPj5C4UhZd8mv
- o1v89LuEAJ5HSillKDoFiekthSutAYruewBrs+bjs0SOtH+InZJXiP6uRAJ2GmFzVK
- sfGMqdAI3roGg==
+ b=UTgayJVEpwi1QPCt4Jq5pi3YwiJznCf/jxdX63XE4S7egAFn1hD0BWykWuoHulg8z
+ TiRTWhfBWejXyCydFin1Kp1asf69JymlmBFirTqcaeHes871cn9yFtO/f8gdB/cSEd
+ yiYVu+ygwao2Mn5xRz+Iu7vswSCU6o3/eDOEotrj8Gq+7VtMU3nkc9UUQbHi1chkT4
+ sDIvBZanMznGFKIEZWwtKIBQjNuykOEECW/hbNRlJApz2gFkNSlS7Ymb2PkkWBY4al
+ APzQ+IYe/e3Hnf/3cSoo9FXELSZNuOqmMiZMJ0AP6bJE+Q9OEX+4pMIaUpiZuOwHdm
+ 2ThIkeqXnWq/Q==
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH] ASoC: codecs: wcd938x: add Multi Button Headset Control
- support
-Date: Fri,  6 Aug 2021 01:47:52 +0100
-Message-Id: <162821054282.18754.16317109735589826799.b4-ty@kernel.org>
+To: Samuel Holland <samuel@sholland.org>, Liam Girdwood <lgirdwood@gmail.com>
+Subject: Re: [PATCH] ASoC: simple-card-utils: Avoid over-allocating DLCs
+Date: Fri,  6 Aug 2021 01:47:53 +0100
+Message-Id: <162821054281.18754.4391897780830223126.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210716105918.7301-1-srinivas.kandagatla@linaro.org>
-References: <20210716105918.7301-1-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20210805050706.46833-1-samuel@sholland.org>
+References: <20210805050706.46833-1-samuel@sholland.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com
+ linux-kernel@vger.kernel.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,11 +80,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 16 Jul 2021 11:59:18 +0100, Srinivas Kandagatla wrote:
-> WCD938x has Multi Button Headset Control hardware to support Headset
-> insertion, type detection, 8 headset buttons detection, Over Current
-> detection and Impedence measurements.
-> This patch adds support for this using wcd-mbhc apis.
+On Thu, 5 Aug 2021 00:07:06 -0500, Samuel Holland wrote:
+> The allocation of the DAI link components (DLCs) passed the wrong
+> pointer to sizeof. Since simple_dai_props is much larger than
+> snd_soc_dai_link_component, there was no out of bounds access, only
+> wasted memory.
 > 
 > 
 > 
@@ -96,8 +96,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: wcd938x: add Multi Button Headset Control support
-      commit: bcee7ed09b8e70b65d5c04f5d1acd2cf4213c2f3
+[1/1] ASoC: simple-card-utils: Avoid over-allocating DLCs
+      commit: 36a9d79e5e9518dfd9548e3237e7a49464c16922
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

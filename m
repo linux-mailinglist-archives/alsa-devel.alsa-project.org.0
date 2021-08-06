@@ -2,79 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC9203E2991
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Aug 2021 13:29:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C6293E29F5
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Aug 2021 13:44:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 56F0416E1;
-	Fri,  6 Aug 2021 13:29:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56F0416E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id F2E3116E1;
+	Fri,  6 Aug 2021 13:44:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2E3116E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628249395;
-	bh=49mJJpkP7jJeQdk4rRiPSuGcgUo2/mtXGQECWbZUU3w=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=tPO19Rzf+aQ7Xl6dAb+VzlAnbUXk3gG4cEU7U14vhK5WKWdKxDrNagMVxZkpLFPXc
-	 y7J2KCgwJGoHintkO4bm8vcBPrsL3nIZg4XmEnl24Tc/bIWT6LiMUJnhl2Y+DaCmJV
-	 b8FUvm+XAVpnovnYBBlPMTklmvrMjw0cVHB48gyg=
+	s=default; t=1628250295;
+	bh=chhPzgGlHlmsI2aXic5J0cn66W0OA9yfV1Ne08AgXr4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=W1ZnMPvZxWdop88IVcUSCaw9q5xW4cla076mfXZNfqS9RxIbDlgdy6Qsf/XNWjL/l
+	 YtIHgRMM4+p8BS2quNgnc6ZlFtc6mUYvScku3crvO9+j8wvk9pDIs+uNFlZYu2s7vt
+	 LGnozpfSNe0DVcLhkZfwEaA1hZroxQsnY1H2ynvI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA898F80169;
-	Fri,  6 Aug 2021 13:28:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70D6AF80169;
+	Fri,  6 Aug 2021 13:43:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 18775F8025F; Fri,  6 Aug 2021 13:28:23 +0200 (CEST)
+ id 831D7F801F7; Fri,  6 Aug 2021 13:43:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from msg-4.mailo.com (ip-15.mailobj.net [213.182.54.15])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A686F80169
- for <alsa-devel@alsa-project.org>; Fri,  6 Aug 2021 13:28:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A686F80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id 011D4F8010A
+ for <alsa-devel@alsa-project.org>; Fri,  6 Aug 2021 13:43:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 011D4F8010A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XK4nulXt"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0CE0760F70;
- Fri,  6 Aug 2021 11:28:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1628249295;
- bh=49mJJpkP7jJeQdk4rRiPSuGcgUo2/mtXGQECWbZUU3w=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=XK4nulXtxvL5HkMZ3FpmZ0r6LMzqzDkQEPHtfgCggTUj6OdKfoGi1HR2KILAy+dSr
- iEBysDKYeaa1bNtJ2yAqpLze4PzHDgikegXsS65OQqFyY7wKVNwaZCZoICDVAQjR5Q
- GRxyznQsFECV7bFc1yDSK+BJpTtkTAZgnscDaJxs7rfmfTieV3MHxc28s0VjwGhM8v
- xlJmrqP2jLeaFme3yine4d8yweRNDzzbXazGTvqYuecgMa86TuPA8ZKjXIx39ghsIF
- EjAuavSFJ+20AuMNGi4Nc2IBy2pWLQRCWJT0S7dxGLKGoWzoY1aqEQWUz6Gh15xkea
- uokxe7XBJDz7A==
-Date: Fri, 6 Aug 2021 12:27:59 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Subject: Re: [PATCH v4 1/3] ASoC: sh: Add RZ/G2L SSIF-2 driver
-Message-ID: <20210806112759.GX26252@sirena.org.uk>
-References: <20210806102930.3024-1-biju.das.jz@bp.renesas.com>
- <20210806102930.3024-2-biju.das.jz@bp.renesas.com>
+ dkim=pass (1024-bit key) header.d=mailoo.org header.i=@mailoo.org
+ header.b="LftT4vEU"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mailoo.org; s=mailo;
+ t=1628250147; bh=chhPzgGlHlmsI2aXic5J0cn66W0OA9yfV1Ne08AgXr4=;
+ h=X-EA-Auth:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+ MIME-Version:Content-Transfer-Encoding;
+ b=LftT4vEUS3JYLqt4eQZJRY2sGHsCJDr3rARelYCOU+2+1h5GOgfw0K+Z4a8IVAEmo
+ CVsYTA4cVUkgQc64ZKc4gecrJp+oIjnnM2vw84JUujR6XQGxLgMDCOlMT3CoJY5MrW
+ BWtOUhbMm3RUIL/1OzsyyEAAH2fpC+TUc77FAkog=
+Received: by b-3.in.mailobj.net [192.168.90.13] with ESMTP
+ via proxy.mailoo.org [213.182.55.207]
+ Fri,  6 Aug 2021 13:42:27 +0200 (CEST)
+X-EA-Auth: 8DhMzZZrEP2yfjEUnkrIZeRAg9eb4SA3Djlt8yEJXqLYwqs+EH5Dgaq3W/ifqIT2E9wwbfOiH+3BpMkUTz/OcJ20/nE7+CBOgyrNnk5SALA=
+From: Vincent Knecht <vincent.knecht@mailoo.org>
+To: tiwai@suse.com,
+	perex@perex.cz
+Subject: [PATCH v2] ASoC: qcom: apq8016_sbc: Add SEC_MI2S support
+Date: Fri,  6 Aug 2021 13:41:16 +0200
+Message-Id: <20210806114116.895473-1-vincent.knecht@mailoo.org>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="+mSjbC2tVdWE/Wop"
-Content-Disposition: inline
-In-Reply-To: <20210806102930.3024-2-biju.das.jz@bp.renesas.com>
-X-Cookie: MOUNT TAPE U1439 ON B3, NO RING
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Geert Uytterhoeven <geert+renesas@glider.be>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Randy Dunlap <rdunlap@infradead.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- linux-renesas-soc@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- Chris Paterson <Chris.Paterson2@renesas.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Chris Brandt <chris.brandt@renesas.com>, Biju Das <biju.das@bp.renesas.com>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, bgoswami@codeaurora.org, stephan@gerhold.net,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com, broonie@kernel.org,
+ Vincent Knecht <vincent.knecht@mailoo.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,94 +77,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This patch adds external codec support on secondary mi2s.
+It is used for headphones on some devices, eg. alcatel-idol347.
 
---+mSjbC2tVdWE/Wop
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Signed-off-by: Vincent Knecht <vincent.knecht@mailoo.org>
+---
+v1->v2: thanks Srinivas for the review, and Stephan for guidance
+- Add _SEC suffix to defines to highlight usage for secondary mi2s
+- Clear TLMM_WS_OUT_SEL and TLMM_WS_EN_SEL fields before setting value
+---
+ sound/soc/qcom/apq8016_sbc.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-On Fri, Aug 06, 2021 at 11:29:28AM +0100, Biju Das wrote:
+diff --git a/sound/soc/qcom/apq8016_sbc.c b/sound/soc/qcom/apq8016_sbc.c
+index 08a05f0ecad7..ba2a98268ee4 100644
+--- a/sound/soc/qcom/apq8016_sbc.c
++++ b/sound/soc/qcom/apq8016_sbc.c
+@@ -30,6 +30,13 @@ struct apq8016_sbc_data {
+ #define MIC_CTRL_QUA_WS_SLAVE_SEL_10	BIT(17)
+ #define MIC_CTRL_TLMM_SCLK_EN		BIT(1)
+ #define	SPKR_CTL_PRI_WS_SLAVE_SEL_11	(BIT(17) | BIT(16))
++#define SPKR_CTL_TLMM_MCLK_EN		BIT(1)
++#define SPKR_CTL_TLMM_SCLK_EN		BIT(2)
++#define SPKR_CTL_TLMM_DATA1_EN		BIT(3)
++#define SPKR_CTL_TLMM_WS_OUT_SEL_MASK	GENMASK(7, 6)
++#define SPKR_CTL_TLMM_WS_OUT_SEL_SEC	BIT(6)
++#define SPKR_CTL_TLMM_WS_EN_SEL_MASK	GENMASK(19, 18)
++#define SPKR_CTL_TLMM_WS_EN_SEL_SEC	BIT(18)
+ #define DEFAULT_MCLK_RATE		9600000
+ 
+ static int apq8016_sbc_dai_init(struct snd_soc_pcm_runtime *rtd)
+@@ -40,6 +47,7 @@ static int apq8016_sbc_dai_init(struct snd_soc_pcm_runtime *rtd)
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct apq8016_sbc_data *pdata = snd_soc_card_get_drvdata(card);
+ 	int i, rval;
++	u32 value;
+ 
+ 	switch (cpu_dai->id) {
+ 	case MI2S_PRIMARY:
+@@ -53,6 +61,15 @@ static int apq8016_sbc_dai_init(struct snd_soc_pcm_runtime *rtd)
+ 			MIC_CTRL_TLMM_SCLK_EN,
+ 			pdata->mic_iomux);
+ 		break;
++	case MI2S_SECONDARY:
++		/* Clear TLMM_WS_OUT_SEL and TLMM_WS_EN_SEL fields */
++		value = readl(pdata->spkr_iomux) &
++			~(SPKR_CTL_TLMM_WS_OUT_SEL_MASK | SPKR_CTL_TLMM_WS_EN_SEL_MASK);
++		/* Configure the Sec MI2S to TLMM */
++		writel(value | SPKR_CTL_TLMM_MCLK_EN | SPKR_CTL_TLMM_SCLK_EN |
++			SPKR_CTL_TLMM_DATA1_EN | SPKR_CTL_TLMM_WS_OUT_SEL_SEC |
++			SPKR_CTL_TLMM_WS_EN_SEL_SEC, pdata->spkr_iomux);
++		break;
+ 	case MI2S_TERTIARY:
+ 		writel(readl(pdata->mic_iomux) | MIC_CTRL_TER_WS_SLAVE_SEL |
+ 			MIC_CTRL_TLMM_SCLK_EN,
+-- 
+2.31.1
 
-> +static int rz_ssi_stream_init(struct rz_ssi_priv *ssi,
-> +			      struct rz_ssi_stream *strm,
-> +			      struct snd_pcm_substream *substream)
-> +{
-> +	struct snd_pcm_runtime *runtime = substream->runtime;
-> +
-> +	if (runtime->sample_bits != 16) {
-> +		dev_err(ssi->dev, "Unsupported sample width: %d\n",
-> +			runtime->sample_bits);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (runtime->frame_bits != 32) {
-> +		dev_err(ssi->dev, "Unsupported frame width: %d\n",
-> +			runtime->sample_bits);
-> +		return -EINVAL;
-> +	}
 
-You should be doing *all* this validation at the time things are
-configured, not during trigger.
 
-> +static int rz_ssi_start_stop(struct rz_ssi_priv *ssi,
-> +			     struct rz_ssi_stream *strm,
-> +			     int start)
-> +{
-> +	struct snd_pcm_substream *substream = strm->substream;
-> +	u32 ssicr, ssifcr;
-> +	int timeout;
-> +
-> +	if (start) {
-> +		bool is_play = rz_ssi_stream_is_play(ssi, substream);
-
-...
-
-> +	} else {
-> +		strm->running = 0;
-
-...
-
-> +	}
-> +
-> +	return 0;
-> +}
-
-This is two functions merged into one with zero shared code, just make
-them two separate functions and then people don't need to guess if true
-is start or stop.
-
-> +	switch (cmd) {
-> +	case SNDRV_PCM_TRIGGER_START:
-> +		/* Soft Reset */
-> +		rz_ssi_reg_mask_setl(ssi, SSIFCR, 0, SSIFCR_SSIRST);
-> +		rz_ssi_reg_mask_setl(ssi, SSIFCR, SSIFCR_SSIRST, 0);
-> +		udelay(5);
-> +
-> +		spin_lock_irqsave(&ssi->lock, flags);
-> +		ret = rz_ssi_stream_init(ssi, strm, substream);
-> +		spin_unlock_irqrestore(&ssi->lock, flags);
-
-It's not clear what this lock is intended to accomplish.  It's only used
-in trigger like this and in _stream_is_valid().  In trigger() we're
-already in atomic context so don't have to worry about simultaneous
-calls to trigger() while in _stream_is_valid() we're just checking if
-there's a runtime present but since the lock is taken and held within
-the function the status could change before we've even returned to the
-caller.  The two uses don't seem joined up with each other and neither
-seems to do much.
-
---+mSjbC2tVdWE/Wop
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmENHL4ACgkQJNaLcl1U
-h9CFUAf/ZuHOAM0zjQxIdmxcvmfIalUNx2feYVhobCztja3Mvufl6Rg+OHwRQ7aJ
-ZXCjY+qeltf7EAmdNEiftnW13g8YLawZWDzZhnk172lwqKOxYAvsQfnLdZHLOljp
-U39Xg77d+swsHhhgS2cjUTLRGhbv/QdQr4cc77xYWwZY4me4xrhFR+HQaSv+JVax
-ye9+bDqQGuUPmBrZ4x1sgoOI920Gry3bl4uwMqV0c2i9q8ziFhYqU7SI8MJbhuwc
-zCOhBAridzGSSpS1zYGpQS5PpYZcUsJenas4vjZFvSR5Qw6jbWEWEBV4x5N8bWV3
-rMEmou6riADGPoQo6NNiRpdrbT23hQ==
-=k+yj
------END PGP SIGNATURE-----
-
---+mSjbC2tVdWE/Wop--

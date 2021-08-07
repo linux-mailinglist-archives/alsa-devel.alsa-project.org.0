@@ -2,89 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1995D3E344C
-	for <lists+alsa-devel@lfdr.de>; Sat,  7 Aug 2021 11:21:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE6CA3E344E
+	for <lists+alsa-devel@lfdr.de>; Sat,  7 Aug 2021 11:28:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A09FF16B6;
-	Sat,  7 Aug 2021 11:20:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A09FF16B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F78E16BD;
+	Sat,  7 Aug 2021 11:27:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F78E16BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628328091;
-	bh=VWdFDYXJSZVylYpFCWqUgOsve8YXeig5KzLoQwFKAvA=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=P27T4BsLch5yXAg4AO/6L/6OjfdYeisEPg9NTpZDBviXCQdHbpkzOi+xVoH49/IXM
-	 5m9wT+5FXjs4wJsZFKSdAqdp4cqGjDlxzLMItuGEQqMQK1hWb0QT5Nayg6SuQKKwEx
-	 RCWibokRn7bvet9pIq4O9gNMOZvfinDMLc3EUpvg=
+	s=default; t=1628328494;
+	bh=ZD5OolJS1SDE0CdYmAzWzlkZQJFEC95DjszGVTgdTZM=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=tdVzDHV3AemznFJ+6GKo8cTWmCYBCPWorKKwB7R6feQY6XcSBZFS7PEHcqszj5N+h
+	 fKd9wrDehemFENuEJ+hjPt/oTmBuZRnpmaHndY0U480DUgINCAmRFyimBdzT6ESCED
+	 embczHAVNx8gKMpscTbtxq7ilZDCgXyKr3qbn1ZU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10E17F8014B;
-	Sat,  7 Aug 2021 11:20:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5DB2F80108;
+	Sat,  7 Aug 2021 11:26:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C01FDF8027C; Sat,  7 Aug 2021 11:20:01 +0200 (CEST)
+ id 41507F8027C; Sat,  7 Aug 2021 11:26:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 88D60F80108
- for <alsa-devel@alsa-project.org>; Sat,  7 Aug 2021 11:19:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88D60F80108
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1mCIUh-00081r-2U; Sat, 07 Aug 2021 11:19:51 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1mCIUd-0007TE-U8; Sat, 07 Aug 2021 11:19:47 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1mCIUd-0007BA-Sd; Sat, 07 Aug 2021 11:19:47 +0200
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Helge Deller <deller@gmx.de>
-Subject: [PATCH v2] parisc: Make struct parisc_driver::remove() return void
-Date: Sat,  7 Aug 2021 11:19:27 +0200
-Message-Id: <20210807091927.1974404-1-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.30.2
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Patch-Hashes: v=1; h=sha256; i=HLXgmV0qGpnDkwp+WuFBRiMxpahH8/d1S8XGx9ztOew=;
- m=Y47egUn9xv4zV0oRPzmqtfrC4Cq3LL92p91+nnYEBpw=;
- p=ewHXarufZQr2anT8oyck1ndK2dW3MslmkWjWY2yS1gY=;
- g=7185a4ecf135c7c2ac352e51ab9ffd4d6921a013
-X-Patch-Sig: m=pgp; i=u.kleine-koenig@pengutronix.de;
- s=0x0D2511F322BFAB1C1580266BE2DCDD9132669BD6;
- b=iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmEOUBwACgkQwfwUeK3K7AlRqAf+J44
- Xy2uy4N5bdeVtaIfhOeXrP9kqqMZ1/u6CsuZNj2UlNC2QtzFw6L7/p+GuxLPEs1KITgHH6S8ytaFi
- xt+UVh7hmqSz3nRLGJ6OF88hkxKACIENmGCQVvwW++cz6Cpi7BmxR/GoqeJnaqYP/g5ATnlT2Jna7
- Xg8CprtXivlROo8BkfR4FffcCBdj5p3K+U3/s3ItjMBHNGqNMscdp8Fhl1ITn0wdy7FNdSJ3F00cp
- YKohme6JRqIxgOzRT9eGkMtU6h0ifWQG4qUGzinMute/gWKx7HBlIXg+x4LmImGtVRLjYVnmQnVKw
- YV4O5tVYfHrRzBEMnbVaU2BlLKcEqKQ==
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: linux-input@vger.kernel.org, alsa-devel@alsa-project.org,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Corey Minyard <minyard@acm.org>, linux-serial@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "David S. Miller" <davem@davemloft.net>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- netdev@vger.kernel.org, linux-parisc@vger.kernel.org, kernel@pengutronix.de,
- linux-scsi@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- openipmi-developer@lists.sourceforge.net, Jiri Slaby <jirislaby@kernel.org>,
- Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id AC48AF8014B
+ for <alsa-devel@alsa-project.org>; Sat,  7 Aug 2021 11:26:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC48AF8014B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="hQghiuen"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="a6ziqDjP"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id AE7D21FF39;
+ Sat,  7 Aug 2021 09:26:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1628328392; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vlKA8UKfl2p3PP4/aX652JQZs39iI//1koem5Cv6x/8=;
+ b=hQghiuenvSRfzYBBx8E2fRZFZMSfFx8WmkxFpXOfeTOgpO2ayU11Zdk7RdNIfz9KQpy8O1
+ ZAVuN6PdW6T5lzSciIYK4JP13tKPXIpYVdePK2nWDxfcUmBsAxTwGI2eVs872UgH69XXza
+ 8z3sUjaE2tOXevBWomtHKFviwsckdj4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1628328392;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vlKA8UKfl2p3PP4/aX652JQZs39iI//1koem5Cv6x/8=;
+ b=a6ziqDjPnBwIQohEkgvcQfia0ejzefQODSwHUEcyQH6C1k1uRK5v+Ugocm3x94M05slM3v
+ WLAA74bZ4TQI61AQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 915DAA3B87;
+ Sat,  7 Aug 2021 09:26:32 +0000 (UTC)
+Date: Sat, 07 Aug 2021 11:26:32 +0200
+Message-ID: <s5htuk1ppvb.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Greg KH <gregkh@linuxfoundation.org>
+Subject: Re: Kernel 5.13.6 breaks mmap with snd-hdsp module
+In-Reply-To: <YQ5Bb+mPgPivLqvX@kroah.com>
+References: <17b1f9647ee.1179b6a05461889.5940365952430364689@fnordco.com>
+ <YQ5Bb+mPgPivLqvX@kroah.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Jeff Woods <jwoods@fnordco.com>,
+ regressions <regressions@lists.linux.dev>, stable <stable@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,294 +94,103 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The caller of this function (parisc_driver_remove() in
-arch/parisc/kernel/drivers.c) ignores the return value, so better don't
-return any value at all to not wake wrong expectations in driver authors.
+On Sat, 07 Aug 2021 10:16:47 +0200,
+Greg KH wrote:
+> 
+> On Sat, Aug 07, 2021 at 12:49:07AM -0700, Jeff Woods wrote:
+> > Specifically, commit c4824ae7db418aee6f50f308a20b832e58e997fd triggers the problem. Reverting this change restores functionality.
+> > 
+> > The device is an RME Multiface II, using the snd-hdsp driver.
+> > 
+> > Expected behavior: Device plays sound normally
+> > 
+> > Exhibited behavior: When a program attempts to open the device, the following ALSA lib error happens:
+> > 
+> > ALSA lib pcm_direct.c:1169:(snd1_pcm_direct_initialize_slave) slave plugin does not support mmap interleaved or mmap noninterleaved access
+> > 
+> > This change hasn't affected my other computers with less esoteric hardware, so probably the problem lies with the snd-hdsp driver, but the device is unusable without reverting that commit.
+> > 
+> > I am available to test any patches for this issue.
+> 
+> Have you notified the developers involved in this change about this
+> issue?
 
-The only function that could return a non-zero value before was
-ipmi_parisc_remove() which returns the return value of
-ipmi_si_remove_by_dev(). Make this function return void, too, as for all
-other callers the value is ignored, too.
+No, it's a new report :)
 
-Also fold in a small checkpatch fix for:
+> Adding them now...
 
-WARNING: Unnecessary space before function pointer arguments
-+	void (*remove) (struct parisc_device *dev);
+Could you try the patch below?
 
-Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com> (for drivers/input)
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+
+thanks,
+
+Takashi
+
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] ALSA: pci: rme: Fix mmap breakage
+
+The recent change in the PCM core restricts the mmap of unknown buffer
+type, and this broke the mmap on RME9652 and HDSP drivers that didn't
+set up properly.  Actually those driver do use the buffers allocated
+in a standard way, and the proper calls should fix the breakage.
+
+Fixes: c4824ae7db41 ("ALSA: pcm: Fix mmap capability check")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
-changes since v1 sent with Message-Id:
-20210806093938.1950990-1-u.kleine-koenig@pengutronix.de:
+ sound/pci/rme9652/hdsp.c    | 6 ++----
+ sound/pci/rme9652/rme9652.c | 6 ++----
+ 2 files changed, 4 insertions(+), 8 deletions(-)
 
- - Fix a compiler error noticed by the kernel test robot
- - Add Ack for Dmitry
-
- arch/parisc/include/asm/parisc-device.h  | 4 ++--
- drivers/char/ipmi/ipmi_si.h              | 2 +-
- drivers/char/ipmi/ipmi_si_intf.c         | 6 +-----
- drivers/char/ipmi/ipmi_si_parisc.c       | 4 ++--
- drivers/char/ipmi/ipmi_si_platform.c     | 4 +++-
- drivers/input/keyboard/hilkbd.c          | 4 +---
- drivers/input/serio/gscps2.c             | 3 +--
- drivers/net/ethernet/i825xx/lasi_82596.c | 3 +--
- drivers/parport/parport_gsc.c            | 3 +--
- drivers/scsi/lasi700.c                   | 4 +---
- drivers/scsi/zalon.c                     | 4 +---
- drivers/tty/serial/mux.c                 | 3 +--
- sound/parisc/harmony.c                   | 3 +--
- 13 files changed, 17 insertions(+), 30 deletions(-)
-
-diff --git a/arch/parisc/include/asm/parisc-device.h b/arch/parisc/include/asm/parisc-device.h
-index d02d144c6012..4de3b391d812 100644
---- a/arch/parisc/include/asm/parisc-device.h
-+++ b/arch/parisc/include/asm/parisc-device.h
-@@ -34,8 +34,8 @@ struct parisc_driver {
- 	struct parisc_driver *next;
- 	char *name; 
- 	const struct parisc_device_id *id_table;
--	int (*probe) (struct parisc_device *dev); /* New device discovered */
--	int (*remove) (struct parisc_device *dev);
-+	int (*probe)(struct parisc_device *dev); /* New device discovered */
-+	void (*remove)(struct parisc_device *dev);
- 	struct device_driver drv;
- };
+diff --git a/sound/pci/rme9652/hdsp.c b/sound/pci/rme9652/hdsp.c
+index 8457a4bbc3df..b32a72e28917 100644
+--- a/sound/pci/rme9652/hdsp.c
++++ b/sound/pci/rme9652/hdsp.c
+@@ -4518,8 +4518,7 @@ static int snd_hdsp_playback_open(struct snd_pcm_substream *substream)
+ 	snd_pcm_set_sync(substream);
  
-diff --git a/drivers/char/ipmi/ipmi_si.h b/drivers/char/ipmi/ipmi_si.h
-index 0a4c69539f24..a7ead2a4c753 100644
---- a/drivers/char/ipmi/ipmi_si.h
-+++ b/drivers/char/ipmi/ipmi_si.h
-@@ -73,7 +73,7 @@ irqreturn_t ipmi_si_irq_handler(int irq, void *data);
- void ipmi_irq_start_cleanup(struct si_sm_io *io);
- int ipmi_std_irq_setup(struct si_sm_io *io);
- void ipmi_irq_finish_setup(struct si_sm_io *io);
--int ipmi_si_remove_by_dev(struct device *dev);
-+void ipmi_si_remove_by_dev(struct device *dev);
- struct device *ipmi_si_remove_by_data(int addr_space, enum si_type si_type,
- 				      unsigned long addr);
- void ipmi_hardcode_init(void);
-diff --git a/drivers/char/ipmi/ipmi_si_intf.c b/drivers/char/ipmi/ipmi_si_intf.c
-index 62929a3e397e..bb466981dc1b 100644
---- a/drivers/char/ipmi/ipmi_si_intf.c
-+++ b/drivers/char/ipmi/ipmi_si_intf.c
-@@ -2228,22 +2228,18 @@ static void cleanup_one_si(struct smi_info *smi_info)
- 	kfree(smi_info);
- }
+         runtime->hw = snd_hdsp_playback_subinfo;
+-	runtime->dma_area = hdsp->playback_buffer;
+-	runtime->dma_bytes = HDSP_DMA_AREA_BYTES;
++	snd_pcm_set_runtime_buffer(substream, hdsp->playback_dma_buf);
  
--int ipmi_si_remove_by_dev(struct device *dev)
-+void ipmi_si_remove_by_dev(struct device *dev)
- {
- 	struct smi_info *e;
--	int rv = -ENOENT;
+ 	hdsp->playback_pid = current->pid;
+ 	hdsp->playback_substream = substream;
+@@ -4595,8 +4594,7 @@ static int snd_hdsp_capture_open(struct snd_pcm_substream *substream)
+ 	snd_pcm_set_sync(substream);
  
- 	mutex_lock(&smi_infos_lock);
- 	list_for_each_entry(e, &smi_infos, link) {
- 		if (e->io.dev == dev) {
- 			cleanup_one_si(e);
--			rv = 0;
- 			break;
- 		}
- 	}
- 	mutex_unlock(&smi_infos_lock);
--
--	return rv;
- }
+ 	runtime->hw = snd_hdsp_capture_subinfo;
+-	runtime->dma_area = hdsp->capture_buffer;
+-	runtime->dma_bytes = HDSP_DMA_AREA_BYTES;
++	snd_pcm_set_runtime_buffer(substream, hdsp->capture_dma_buf);
  
- struct device *ipmi_si_remove_by_data(int addr_space, enum si_type si_type,
-diff --git a/drivers/char/ipmi/ipmi_si_parisc.c b/drivers/char/ipmi/ipmi_si_parisc.c
-index 11c9160275df..2be2967f6b5f 100644
---- a/drivers/char/ipmi/ipmi_si_parisc.c
-+++ b/drivers/char/ipmi/ipmi_si_parisc.c
-@@ -29,9 +29,9 @@ static int __init ipmi_parisc_probe(struct parisc_device *dev)
- 	return ipmi_si_add_smi(&io);
- }
+ 	hdsp->capture_pid = current->pid;
+ 	hdsp->capture_substream = substream;
+diff --git a/sound/pci/rme9652/rme9652.c b/sound/pci/rme9652/rme9652.c
+index f1aad38760d6..8036ed761d53 100644
+--- a/sound/pci/rme9652/rme9652.c
++++ b/sound/pci/rme9652/rme9652.c
+@@ -2279,8 +2279,7 @@ static int snd_rme9652_playback_open(struct snd_pcm_substream *substream)
+ 	snd_pcm_set_sync(substream);
  
--static int __exit ipmi_parisc_remove(struct parisc_device *dev)
-+static void __exit ipmi_parisc_remove(struct parisc_device *dev)
- {
--	return ipmi_si_remove_by_dev(&dev->dev);
-+	ipmi_si_remove_by_dev(&dev->dev);
- }
+         runtime->hw = snd_rme9652_playback_subinfo;
+-	runtime->dma_area = rme9652->playback_buffer;
+-	runtime->dma_bytes = RME9652_DMA_AREA_BYTES;
++	snd_pcm_set_runtime_buffer(substream, rme9652->playback_dma_buf);
  
- static const struct parisc_device_id ipmi_parisc_tbl[] __initconst = {
-diff --git a/drivers/char/ipmi/ipmi_si_platform.c b/drivers/char/ipmi/ipmi_si_platform.c
-index 380a6a542890..505cc978c97a 100644
---- a/drivers/char/ipmi/ipmi_si_platform.c
-+++ b/drivers/char/ipmi/ipmi_si_platform.c
-@@ -411,7 +411,9 @@ static int ipmi_probe(struct platform_device *pdev)
+ 	if (rme9652->capture_substream == NULL) {
+ 		rme9652_stop(rme9652);
+@@ -2339,8 +2338,7 @@ static int snd_rme9652_capture_open(struct snd_pcm_substream *substream)
+ 	snd_pcm_set_sync(substream);
  
- static int ipmi_remove(struct platform_device *pdev)
- {
--	return ipmi_si_remove_by_dev(&pdev->dev);
-+	ipmi_si_remove_by_dev(&pdev->dev);
-+
-+	return 0;
- }
+ 	runtime->hw = snd_rme9652_capture_subinfo;
+-	runtime->dma_area = rme9652->capture_buffer;
+-	runtime->dma_bytes = RME9652_DMA_AREA_BYTES;
++	snd_pcm_set_runtime_buffer(substream, rme9652->capture_dma_buf);
  
- static int pdev_match_name(struct device *dev, const void *data)
-diff --git a/drivers/input/keyboard/hilkbd.c b/drivers/input/keyboard/hilkbd.c
-index 62ccfebf2f60..c1a4d5055de6 100644
---- a/drivers/input/keyboard/hilkbd.c
-+++ b/drivers/input/keyboard/hilkbd.c
-@@ -316,11 +316,9 @@ static int __init hil_probe_chip(struct parisc_device *dev)
- 	return hil_keyb_init();
- }
- 
--static int __exit hil_remove_chip(struct parisc_device *dev)
-+static void __exit hil_remove_chip(struct parisc_device *dev)
- {
- 	hil_keyb_exit();
--
--	return 0;
- }
- 
- static const struct parisc_device_id hil_tbl[] __initconst = {
-diff --git a/drivers/input/serio/gscps2.c b/drivers/input/serio/gscps2.c
-index 2f9775de3c5b..a9065c6ab550 100644
---- a/drivers/input/serio/gscps2.c
-+++ b/drivers/input/serio/gscps2.c
-@@ -411,7 +411,7 @@ static int __init gscps2_probe(struct parisc_device *dev)
-  * @return: success/error report
-  */
- 
--static int __exit gscps2_remove(struct parisc_device *dev)
-+static void __exit gscps2_remove(struct parisc_device *dev)
- {
- 	struct gscps2port *ps2port = dev_get_drvdata(&dev->dev);
- 
-@@ -425,7 +425,6 @@ static int __exit gscps2_remove(struct parisc_device *dev)
- #endif
- 	dev_set_drvdata(&dev->dev, NULL);
- 	kfree(ps2port);
--	return 0;
- }
- 
- 
-diff --git a/drivers/net/ethernet/i825xx/lasi_82596.c b/drivers/net/ethernet/i825xx/lasi_82596.c
-index 96c6f4f36904..48e001881c75 100644
---- a/drivers/net/ethernet/i825xx/lasi_82596.c
-+++ b/drivers/net/ethernet/i825xx/lasi_82596.c
-@@ -196,7 +196,7 @@ lan_init_chip(struct parisc_device *dev)
- 	return retval;
- }
- 
--static int __exit lan_remove_chip(struct parisc_device *pdev)
-+static void __exit lan_remove_chip(struct parisc_device *pdev)
- {
- 	struct net_device *dev = parisc_get_drvdata(pdev);
- 	struct i596_private *lp = netdev_priv(dev);
-@@ -205,7 +205,6 @@ static int __exit lan_remove_chip(struct parisc_device *pdev)
- 	dma_free_noncoherent(&pdev->dev, sizeof(struct i596_private), lp->dma,
- 		       lp->dma_addr, DMA_BIDIRECTIONAL);
- 	free_netdev (dev);
--	return 0;
- }
- 
- static const struct parisc_device_id lan_tbl[] __initconst = {
-diff --git a/drivers/parport/parport_gsc.c b/drivers/parport/parport_gsc.c
-index 1e43b3f399a8..4332692ca4b8 100644
---- a/drivers/parport/parport_gsc.c
-+++ b/drivers/parport/parport_gsc.c
-@@ -378,7 +378,7 @@ static int __init parport_init_chip(struct parisc_device *dev)
- 	return 0;
- }
- 
--static int __exit parport_remove_chip(struct parisc_device *dev)
-+static void __exit parport_remove_chip(struct parisc_device *dev)
- {
- 	struct parport *p = dev_get_drvdata(&dev->dev);
- 	if (p) {
-@@ -397,7 +397,6 @@ static int __exit parport_remove_chip(struct parisc_device *dev)
- 		parport_put_port(p);
- 		kfree (ops); /* hope no-one cached it */
- 	}
--	return 0;
- }
- 
- static const struct parisc_device_id parport_tbl[] __initconst = {
-diff --git a/drivers/scsi/lasi700.c b/drivers/scsi/lasi700.c
-index 6d14a7a94d0b..86fe19e0468d 100644
---- a/drivers/scsi/lasi700.c
-+++ b/drivers/scsi/lasi700.c
-@@ -134,7 +134,7 @@ lasi700_probe(struct parisc_device *dev)
- 	return -ENODEV;
- }
- 
--static int __exit
-+static void __exit
- lasi700_driver_remove(struct parisc_device *dev)
- {
- 	struct Scsi_Host *host = dev_get_drvdata(&dev->dev);
-@@ -146,8 +146,6 @@ lasi700_driver_remove(struct parisc_device *dev)
- 	free_irq(host->irq, host);
- 	iounmap(hostdata->base);
- 	kfree(hostdata);
--
--	return 0;
- }
- 
- static struct parisc_driver lasi700_driver __refdata = {
-diff --git a/drivers/scsi/zalon.c b/drivers/scsi/zalon.c
-index 7eac76cccc4c..f1e5cf8a17d9 100644
---- a/drivers/scsi/zalon.c
-+++ b/drivers/scsi/zalon.c
-@@ -168,15 +168,13 @@ static const struct parisc_device_id zalon_tbl[] __initconst = {
- 
- MODULE_DEVICE_TABLE(parisc, zalon_tbl);
- 
--static int __exit zalon_remove(struct parisc_device *dev)
-+static void __exit zalon_remove(struct parisc_device *dev)
- {
- 	struct Scsi_Host *host = dev_get_drvdata(&dev->dev);
- 
- 	scsi_remove_host(host);
- 	ncr53c8xx_release(host);
- 	free_irq(dev->irq, host);
--
--	return 0;
- }
- 
- static struct parisc_driver zalon_driver __refdata = {
-diff --git a/drivers/tty/serial/mux.c b/drivers/tty/serial/mux.c
-index be640d9863cd..643dfbcc43f9 100644
---- a/drivers/tty/serial/mux.c
-+++ b/drivers/tty/serial/mux.c
-@@ -496,7 +496,7 @@ static int __init mux_probe(struct parisc_device *dev)
- 	return 0;
- }
- 
--static int __exit mux_remove(struct parisc_device *dev)
-+static void __exit mux_remove(struct parisc_device *dev)
- {
- 	int i, j;
- 	int port_count = (long)dev_get_drvdata(&dev->dev);
-@@ -518,7 +518,6 @@ static int __exit mux_remove(struct parisc_device *dev)
- 	}
- 
- 	release_mem_region(dev->hpa.start + MUX_OFFSET, port_count * MUX_LINE_OFFSET);
--	return 0;
- }
- 
- /* Hack.  This idea was taken from the 8250_gsc.c on how to properly order
-diff --git a/sound/parisc/harmony.c b/sound/parisc/harmony.c
-index 1440db8b4177..2e3e5aa47682 100644
---- a/sound/parisc/harmony.c
-+++ b/sound/parisc/harmony.c
-@@ -968,11 +968,10 @@ snd_harmony_probe(struct parisc_device *padev)
- 	return err;
- }
- 
--static int __exit
-+static void __exit
- snd_harmony_remove(struct parisc_device *padev)
- {
- 	snd_card_free(parisc_get_drvdata(padev));
--	return 0;
- }
- 
- static struct parisc_driver snd_harmony_driver __refdata = {
-
-base-commit: c500bee1c5b2f1d59b1081ac879d73268ab0ff17
+ 	if (rme9652->playback_substream == NULL) {
+ 		rme9652_stop(rme9652);
 -- 
-2.30.2
+2.26.2
 

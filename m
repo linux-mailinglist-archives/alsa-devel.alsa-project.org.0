@@ -2,73 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E7493E3460
-	for <lists+alsa-devel@lfdr.de>; Sat,  7 Aug 2021 11:36:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60CF63E3538
+	for <lists+alsa-devel@lfdr.de>; Sat,  7 Aug 2021 14:02:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B00AC16B5;
-	Sat,  7 Aug 2021 11:36:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B00AC16B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC8AE16AF;
+	Sat,  7 Aug 2021 14:01:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC8AE16AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628329011;
-	bh=yAHRmvW76n2qnKnQfIDsGd4zrK7E1BvV+t8Qnlkb5Yo=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=YsF/dJamRHMu0YAY78Tx821RGMuyv/soPg/P2wOoRPuGIGWa/Bt697bs5AqEC2Yv+
-	 8iU9Yy0Z4bkmlS5O15Tmi3gTNrCuvZaelnw09I+Iz3WL6GC2pM9kT08HNueFSbErhn
-	 OdMLRYiEM61uoYxzFSRLnp4aLeUaPG4/H/T99r9A=
+	s=default; t=1628337724;
+	bh=OilFXgzoWAful73M4fYDTQXrwb6IepswQl0qEidF5Gk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=fGpNycbABbLbCKrVIgk4SG1o3mjcG7iUDZ+wm/6LeNxxf/TwFjnN7J0fyTDT2KEyF
+	 HI0pTuLpTLH6YtBIu6pRbd/dW67T7zxicUiwAB4yS0us7D6R+c7FcjHxblwvhqCV5F
+	 UrQc0FGvF+ex+mZJKpYixQi809mu3Xn0FHHEXlDY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B92BF802E8;
-	Sat,  7 Aug 2021 11:35:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5286CF8016D;
+	Sat,  7 Aug 2021 14:00:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 79DC8F8027C; Sat,  7 Aug 2021 11:35:21 +0200 (CEST)
+ id 80B0FF802E8; Sat,  7 Aug 2021 14:00:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-yb1-xb2e.google.com (mail-yb1-xb2e.google.com
+ [IPv6:2607:f8b0:4864:20::b2e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7DC6DF8014B
- for <alsa-devel@alsa-project.org>; Sat,  7 Aug 2021 11:35:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7DC6DF8014B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3129BF800FD
+ for <alsa-devel@alsa-project.org>; Sat,  7 Aug 2021 14:00:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3129BF800FD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="I5BUuc26"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="S8R1cNbL"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id F20A71FF3D
- for <alsa-devel@alsa-project.org>; Sat,  7 Aug 2021 09:35:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1628328913; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=rnzt9k0Jv+SzziFauGhDtWBnS/2syywcLWYIg443YAU=;
- b=I5BUuc26Cm0fSIgTKLy86u65SACMrus+xn21eGFba0SkZYlEv43aNzC3rcpvTngX3CS5/4
- 0fLHQhCqO7pA2acEtjZFFBiLnYruxbi54Qp72+kpEbLE3HeexViaC929I+FOa3YYbzM6WE
- VnTHyx5LLCuT0lgv89m7lzCPe4s6Y8w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1628328913;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=rnzt9k0Jv+SzziFauGhDtWBnS/2syywcLWYIg443YAU=;
- b=S8R1cNbLB1lEs8Jp+PHsD+JTKg7sAqv9DkXnt3f15sY0CG0rl1QlpFSm45/+NzILNhfpF7
- IDizvVMu1xraS6Cg==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id E20ADA3B87;
- Sat,  7 Aug 2021 09:35:13 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: cs46xx: Fix possible mmap breakage
-Date: Sat,  7 Aug 2021 11:35:13 +0200
-Message-Id: <20210807093513.817-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="QOdR5x9J"
+Received: by mail-yb1-xb2e.google.com with SMTP id z18so20204767ybg.8
+ for <alsa-devel@alsa-project.org>; Sat, 07 Aug 2021 05:00:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=WyWRBH02aF7TMZK2H9iKEqjuVSj2aT5mi1GkBNRCyKg=;
+ b=QOdR5x9JTDfThKVhuyhEYPReV0+hyqKytp6bhrDU9jtJxybQG/OIAaA3oWXzAmhUeI
+ OpdNdHL2cTWOdcoGJdjl6SMiapPShk5dqCtzePXNHkSDDTyDYEUVEMRWoeWDVMRgEvWT
+ F3WsjtH95W2GEqcxmYbu5Nki6iHjaP/wAYl8B41Jx1LBzEzxM7r/El9yGNDidzRbvvqa
+ Kmis+CIiKYZTjEfn/MyNVZZE/sJlnMzcMNu5e2sZtEh+M3pQUSfAAN/s+5gpulRT28gX
+ WpDFxD9aYBck7JqESW1IHpFohPSZLTlNkFRqH4KUtyrj9Pxrh4lb4vBKQjKvBi3tS5E+
+ KYxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=WyWRBH02aF7TMZK2H9iKEqjuVSj2aT5mi1GkBNRCyKg=;
+ b=HQT5S9fvai+Y6+IHF0ECDVC2UaON8lvDZfW71pCigFrfCK1Gr5f10W6d0qKS8y+HSS
+ svWO9quaJRA4ofvmvWSeiFzA5jZXhhOoU3le6MBhjYOKWWze0wROyuxt8DPYsxzJn7zC
+ DKjnQp0G+syMiGufjxrqQWW8PygXsYxTX0zU1afRU9mYgN6km5mU0WBVOoAxb9f0DUC+
+ 4AsNoPejdCm0BkTYd9VRtFLHb9yKtm2rStE4KIumFHDlnq2Jha4PIE0jhe1I10EnSGwf
+ l5m8hRKpZJtmGRpcwQbiVO5+7cjw9vOF95W8bdFoU5y3w6Q3hXb9qjlYMj4FiK7zg4pz
+ +OVg==
+X-Gm-Message-State: AOAM5320lemiAPUcdpjM4lXy/Y7NXVZaDu3nzqf0vSMzJxl09XasWMOt
+ MwkdKUpe+Psuw0IE3TVYO77C/vNg6c+XVwlisyQ=
+X-Google-Smtp-Source: ABdhPJxo9qHswzoJFxioC74Rd4uuv/McBZ+hRPGpGsGEvfuOE6rZWY4LuFWwzY6Vg59fOtg8kqf5oNFF1j4ZtwtEzDU=
+X-Received: by 2002:a25:1546:: with SMTP id 67mr19373700ybv.331.1628337626600; 
+ Sat, 07 Aug 2021 05:00:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20210807091927.1974404-1-u.kleine-koenig@pengutronix.de>
+In-Reply-To: <20210807091927.1974404-1-u.kleine-koenig@pengutronix.de>
+From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+Date: Sat, 7 Aug 2021 12:59:50 +0100
+Message-ID: <CADVatmO7Wtc8+4mzorrmcwKv2QXg579avynK==9D1Dqz9PHaJw@mail.gmail.com>
+Subject: Re: [PATCH v2] parisc: Make struct parisc_driver::remove() return void
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: linux-input@vger.kernel.org, alsa-devel@alsa-project.org,
+ Corey Minyard <minyard@acm.org>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ linux-serial@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Helge Deller <deller@gmx.de>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ netdev <netdev@vger.kernel.org>, linux-parisc <linux-parisc@vger.kernel.org>,
+ Sascha Hauer <kernel@pengutronix.de>, linux-scsi@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, openipmi-developer@lists.sourceforge.net,
+ Jiri Slaby <jirislaby@kernel.org>, "David S. Miller" <davem@davemloft.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,93 +105,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-CS46xx driver switches the buffer depending on the number of periods,
-and in some cases it switches to the own buffer without updating the
-buffer type properly.  This may cause a problem due to the recent
-introduced more strict mmap buffer check.
+On Sat, Aug 7, 2021 at 10:19 AM Uwe Kleine-K=C3=B6nig
+<u.kleine-koenig@pengutronix.de> wrote:
+>
+> The caller of this function (parisc_driver_remove() in
+> arch/parisc/kernel/drivers.c) ignores the return value, so better don't
+> return any value at all to not wake wrong expectations in driver authors.
+>
+> The only function that could return a non-zero value before was
+> ipmi_parisc_remove() which returns the return value of
+> ipmi_si_remove_by_dev(). Make this function return void, too, as for all
+> other callers the value is ignored, too.
+>
+> Also fold in a small checkpatch fix for:
+>
+> WARNING: Unnecessary space before function pointer arguments
+> +       void (*remove) (struct parisc_device *dev);
+>
+> Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com> (for drivers/input)
+> Signed-off-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.de>
+> ---
+> changes since v1 sent with Message-Id:
+> 20210806093938.1950990-1-u.kleine-koenig@pengutronix.de:
+>
+>  - Fix a compiler error noticed by the kernel test robot
+>  - Add Ack for Dmitry
+>
+>  arch/parisc/include/asm/parisc-device.h  | 4 ++--
+>  drivers/char/ipmi/ipmi_si.h              | 2 +-
+>  drivers/char/ipmi/ipmi_si_intf.c         | 6 +-----
+>  drivers/char/ipmi/ipmi_si_parisc.c       | 4 ++--
+>  drivers/char/ipmi/ipmi_si_platform.c     | 4 +++-
+>  drivers/input/keyboard/hilkbd.c          | 4 +---
+>  drivers/input/serio/gscps2.c             | 3 +--
+>  drivers/net/ethernet/i825xx/lasi_82596.c | 3 +--
+>  drivers/parport/parport_gsc.c            | 3 +--
 
-This patch addresses the potential breakage by replacing the buffer
-setup with the proper macro.  It also simplifies the source code,
-too.
+Acked-by:  Sudip Mukherjee <sudipm.mukherjee@gmail.com>
 
-Fixes: c4824ae7db41 ("ALSA: pcm: Fix mmap capability check")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/cs46xx/cs46xx_lib.c | 30 ++++++++----------------------
- 1 file changed, 8 insertions(+), 22 deletions(-)
 
-diff --git a/sound/pci/cs46xx/cs46xx_lib.c b/sound/pci/cs46xx/cs46xx_lib.c
-index 1e1eb17f8e07..d43927dcd61e 100644
---- a/sound/pci/cs46xx/cs46xx_lib.c
-+++ b/sound/pci/cs46xx/cs46xx_lib.c
-@@ -1121,9 +1121,7 @@ static int snd_cs46xx_playback_hw_params(struct snd_pcm_substream *substream,
- 	if (params_periods(hw_params) == CS46XX_FRAGS) {
- 		if (runtime->dma_area != cpcm->hw_buf.area)
- 			snd_pcm_lib_free_pages(substream);
--		runtime->dma_area = cpcm->hw_buf.area;
--		runtime->dma_addr = cpcm->hw_buf.addr;
--		runtime->dma_bytes = cpcm->hw_buf.bytes;
-+		snd_pcm_set_runtime_buffer(substream, &cpcm->hw_buf);
- 
- 
- #ifdef CONFIG_SND_CS46XX_NEW_DSP
-@@ -1143,11 +1141,8 @@ static int snd_cs46xx_playback_hw_params(struct snd_pcm_substream *substream,
- #endif
- 
- 	} else {
--		if (runtime->dma_area == cpcm->hw_buf.area) {
--			runtime->dma_area = NULL;
--			runtime->dma_addr = 0;
--			runtime->dma_bytes = 0;
--		}
-+		if (runtime->dma_area == cpcm->hw_buf.area)
-+			snd_pcm_set_runtime_buffer(substream, NULL);
- 		err = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
- 		if (err < 0) {
- #ifdef CONFIG_SND_CS46XX_NEW_DSP
-@@ -1196,9 +1191,7 @@ static int snd_cs46xx_playback_hw_free(struct snd_pcm_substream *substream)
- 	if (runtime->dma_area != cpcm->hw_buf.area)
- 		snd_pcm_lib_free_pages(substream);
-     
--	runtime->dma_area = NULL;
--	runtime->dma_addr = 0;
--	runtime->dma_bytes = 0;
-+	snd_pcm_set_runtime_buffer(substream, NULL);
- 
- 	return 0;
- }
-@@ -1287,16 +1280,11 @@ static int snd_cs46xx_capture_hw_params(struct snd_pcm_substream *substream,
- 	if (runtime->periods == CS46XX_FRAGS) {
- 		if (runtime->dma_area != chip->capt.hw_buf.area)
- 			snd_pcm_lib_free_pages(substream);
--		runtime->dma_area = chip->capt.hw_buf.area;
--		runtime->dma_addr = chip->capt.hw_buf.addr;
--		runtime->dma_bytes = chip->capt.hw_buf.bytes;
-+		snd_pcm_set_runtime_buffer(substream, &chip->capt.hw_buf);
- 		substream->ops = &snd_cs46xx_capture_ops;
- 	} else {
--		if (runtime->dma_area == chip->capt.hw_buf.area) {
--			runtime->dma_area = NULL;
--			runtime->dma_addr = 0;
--			runtime->dma_bytes = 0;
--		}
-+		if (runtime->dma_area == chip->capt.hw_buf.area)
-+			snd_pcm_set_runtime_buffer(substream, NULL);
- 		err = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
- 		if (err < 0)
- 			return err;
-@@ -1313,9 +1301,7 @@ static int snd_cs46xx_capture_hw_free(struct snd_pcm_substream *substream)
- 
- 	if (runtime->dma_area != chip->capt.hw_buf.area)
- 		snd_pcm_lib_free_pages(substream);
--	runtime->dma_area = NULL;
--	runtime->dma_addr = 0;
--	runtime->dma_bytes = 0;
-+	snd_pcm_set_runtime_buffer(substream, NULL);
- 
- 	return 0;
- }
--- 
-2.26.2
-
+--=20
+Regards
+Sudip

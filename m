@@ -2,85 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DAD33E3946
-	for <lists+alsa-devel@lfdr.de>; Sun,  8 Aug 2021 09:02:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE46A3E398A
+	for <lists+alsa-devel@lfdr.de>; Sun,  8 Aug 2021 10:02:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA315168A;
-	Sun,  8 Aug 2021 09:02:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA315168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53D5710E;
+	Sun,  8 Aug 2021 10:01:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53D5710E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628406176;
-	bh=S1VEMX6Vyf2WWWVv3QthW0zD4ORDbByuopznCckUILg=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=VFHzVsgktANmTXPYVrh+AB7azSWqjSf3tIi8hSosSWJQZ0aZc8cuGi9FOMPCg1035
-	 avqymW0pnfsNgHPAWeMltLIQdk0486ioRKpYtpSYPAgXO3mQ5LSF/BiMKrfRh7lBka
-	 ZDgXa9gtC2rV75rSdzZyOuGGBNyBl+ITRl6UYGYM=
+	s=default; t=1628409734;
+	bh=CFTDNQQ1O9lN7szaFTEgG2oZGeC/XaFZMuPM0wcv00s=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=VMOSjbXsEZCvuFLKLNNOulYrLJhulnkj24gN+fqpASYmjqzgC344TaaDwWTFxnKn3
+	 QH7RABw280NcbdhnGVHaT7zXRxW1nfCcROujxaTkYRHHB427SzVtqR45LYwgnuRz+m
+	 Aco502FK9DU8IAwLGe3zjt1XZHSmgK9M2pQX5pSI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 577E9F800FD;
-	Sun,  8 Aug 2021 09:01:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6BDAF800C9;
+	Sun,  8 Aug 2021 10:00:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9A113F801DB; Sun,  8 Aug 2021 09:01:26 +0200 (CEST)
+ id B4ECDF801DB; Sun,  8 Aug 2021 10:00:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 67A11F800FD
- for <alsa-devel@alsa-project.org>; Sun,  8 Aug 2021 09:01:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67A11F800FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6DF33F8007E
+ for <alsa-devel@alsa-project.org>; Sun,  8 Aug 2021 10:00:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DF33F8007E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="qEgIKjyX"; 
+ header.b="gTj1Zy61"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="jsyvJN7f"
+ header.b="0hxzhkni"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 718561FFA9;
- Sun,  8 Aug 2021 07:01:16 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id D482C21EEE
+ for <alsa-devel@alsa-project.org>; Sun,  8 Aug 2021 08:00:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1628406076; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Y5UpqnLRSiY0Moj3dbDfnxwe3jlYV3PbUnFP0GwyrTQ=;
- b=qEgIKjyXYF6QGoha7rkKCR+IRANTmbPGlkFFyG7Nf6rCQoPAtN9cWcMBuRQKUi2KNIl4sQ
- XfCbuqI167GFDIIeazBtWWgtcjmdHOwxVF2MtoeX768DlkNJFchaXq4hfGCFeMQuk7P/Id
- qQM5/lwA12DMUYlHMB6+AeoE1o/SJwM=
+ t=1628409635; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=9ZLEk7c/q+wskQ6xoHcW6sk9EzNUBb7H3aWLZ6m+7Gk=;
+ b=gTj1Zy61pXMKxHQw2Xi3CU7lMqudJYqio7dSQ6Arn18YBfZ561/uKHnm1xT02onpbEhxUP
+ KSIhDJTHw0CUV8qfAkXvKSyw+haP8m2QFgA6QalKhUjYMWAHUcd4oYQj6O0EJAIBoy0aJD
+ t9tz2NWSlOvnNgRzStVE+ZRCzogFL/8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1628406076;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Y5UpqnLRSiY0Moj3dbDfnxwe3jlYV3PbUnFP0GwyrTQ=;
- b=jsyvJN7fey1mzQjMrfh5PHVmvCZ5tJBSptfULwVepV1ij0OBFI/Jp2ngn/ubD75pGtJkCz
- n+g2EULDwITUp9CQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 5E0B7A3B81;
- Sun,  8 Aug 2021 07:01:16 +0000 (UTC)
-Date: Sun, 08 Aug 2021 09:01:16 +0200
-Message-ID: <s5him0gpghv.wl-tiwai@suse.de>
+ s=susede2_ed25519; t=1628409635;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=9ZLEk7c/q+wskQ6xoHcW6sk9EzNUBb7H3aWLZ6m+7Gk=;
+ b=0hxzhkniqX8GFtUaYxvocuAKo6zNEGetWw7UuNdueqxaiYL4AzMPivnN6g/rxPxXkTlJU6
+ LPtRBuEB5IyHD4Dg==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id C6923A3B8A;
+ Sun,  8 Aug 2021 08:00:35 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
-To: Jeff Woods <jwoods@fnordco.com>
-Subject: Re: Kernel 5.13.6 breaks mmap with snd-hdsp module
-In-Reply-To: <17b22d08355.f21da1f938057.6900412371441404465@fnordco.com>
-References: <17b1f9647ee.1179b6a05461889.5940365952430364689@fnordco.com>
- <YQ5Bb+mPgPivLqvX@kroah.com> <s5htuk1ppvb.wl-tiwai@suse.de>
- <17b22d08355.f21da1f938057.6900412371441404465@fnordco.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: Greg KH <gregkh@linuxfoundation.org>,
- alsa-devel <alsa-devel@alsa-project.org>,
- regressions <regressions@lists.linux.dev>, stable <stable@vger.kernel.org>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: memalloc: Fix mmap of SG-buffer with WC pages
+Date: Sun,  8 Aug 2021 10:00:34 +0200
+Message-Id: <20210808080034.20337-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,160 +84,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 08 Aug 2021 00:51:35 +0200,
-Jeff Woods wrote:
-> 
->  ---- On Sat, 07 Aug 2021 02:26:32 -0700 Takashi Iwai <tiwai@suse.de> wrote ----
->  > On Sat, 07 Aug 2021 10:16:47 +0200,
->  > Greg KH wrote:
->  > > 
->  > > On Sat, Aug 07, 2021 at 12:49:07AM -0700, Jeff Woods wrote:
->  > > > Specifically, commit c4824ae7db418aee6f50f308a20b832e58e997fd triggers the problem. Reverting this change restores functionality.
->  > > > 
->  > > > The device is an RME Multiface II, using the snd-hdsp driver.
->  > > > 
->  > > > Expected behavior: Device plays sound normally
->  > > > 
->  > > > Exhibited behavior: When a program attempts to open the device, the following ALSA lib error happens:
->  > > > 
->  > > > ALSA lib pcm_direct.c:1169:(snd1_pcm_direct_initialize_slave) slave plugin does not support mmap interleaved or mmap noninterleaved access
->  > > > 
->  > > > This change hasn't affected my other computers with less esoteric hardware, so probably the problem lies with the snd-hdsp driver, but the device is unusable without reverting that commit.
->  > > > 
->  > > > I am available to test any patches for this issue.
->  > > 
->  > > Have you notified the developers involved in this change about this
->  > > issue?
->  > 
->  > No, it's a new report :)
->  > 
->  > > Adding them now...
->  > 
->  > Could you try the patch below?
->  > 
->  > 
->  > thanks,
->  > 
->  > Takashi
->  > 
->  > -- 8< --
->  > From: Takashi Iwai <tiwai@suse.de>
->  > Subject: [PATCH] ALSA: pci: rme: Fix mmap breakage
->  > 
->  > The recent change in the PCM core restricts the mmap of unknown buffer
->  > type, and this broke the mmap on RME9652 and HDSP drivers that didn't
->  > set up properly.  Actually those driver do use the buffers allocated
->  > in a standard way, and the proper calls should fix the breakage.
->  > 
->  > Fixes: c4824ae7db41 ("ALSA: pcm: Fix mmap capability check")
->  > Cc: <stable@vger.kernel.org>
->  > Signed-off-by: Takashi Iwai <tiwai@suse.de>
->  > ---
->  >  sound/pci/rme9652/hdsp.c    | 6 ++----
->  >  sound/pci/rme9652/rme9652.c | 6 ++----
->  >  2 files changed, 4 insertions(+), 8 deletions(-)
->  > 
->  > diff --git a/sound/pci/rme9652/hdsp.c b/sound/pci/rme9652/hdsp.c
->  > index 8457a4bbc3df..b32a72e28917 100644
->  > --- a/sound/pci/rme9652/hdsp.c
->  > +++ b/sound/pci/rme9652/hdsp.c
->  > @@ -4518,8 +4518,7 @@ static int snd_hdsp_playback_open(struct snd_pcm_substream *substream)
->  >      snd_pcm_set_sync(substream);
->  >  
->  >          runtime->hw = snd_hdsp_playback_subinfo;
->  > -    runtime->dma_area = hdsp->playback_buffer;
->  > -    runtime->dma_bytes = HDSP_DMA_AREA_BYTES;
->  > +    snd_pcm_set_runtime_buffer(substream, hdsp->playback_dma_buf);
->  >  
->  >      hdsp->playback_pid = current->pid;
->  >      hdsp->playback_substream = substream;
->  > @@ -4595,8 +4594,7 @@ static int snd_hdsp_capture_open(struct snd_pcm_substream *substream)
->  >      snd_pcm_set_sync(substream);
->  >  
->  >      runtime->hw = snd_hdsp_capture_subinfo;
->  > -    runtime->dma_area = hdsp->capture_buffer;
->  > -    runtime->dma_bytes = HDSP_DMA_AREA_BYTES;
->  > +    snd_pcm_set_runtime_buffer(substream, hdsp->capture_dma_buf);
->  >  
->  >      hdsp->capture_pid = current->pid;
->  >      hdsp->capture_substream = substream;
->  > diff --git a/sound/pci/rme9652/rme9652.c b/sound/pci/rme9652/rme9652.c
->  > index f1aad38760d6..8036ed761d53 100644
->  > --- a/sound/pci/rme9652/rme9652.c
->  > +++ b/sound/pci/rme9652/rme9652.c
->  > @@ -2279,8 +2279,7 @@ static int snd_rme9652_playback_open(struct snd_pcm_substream *substream)
->  >      snd_pcm_set_sync(substream);
->  >  
->  >          runtime->hw = snd_rme9652_playback_subinfo;
->  > -    runtime->dma_area = rme9652->playback_buffer;
->  > -    runtime->dma_bytes = RME9652_DMA_AREA_BYTES;
->  > +    snd_pcm_set_runtime_buffer(substream, rme9652->playback_dma_buf);
->  >  
->  >      if (rme9652->capture_substream == NULL) {
->  >          rme9652_stop(rme9652);
->  > @@ -2339,8 +2338,7 @@ static int snd_rme9652_capture_open(struct snd_pcm_substream *substream)
->  >      snd_pcm_set_sync(substream);
->  >  
->  >      runtime->hw = snd_rme9652_capture_subinfo;
->  > -    runtime->dma_area = rme9652->capture_buffer;
->  > -    runtime->dma_bytes = RME9652_DMA_AREA_BYTES;
->  > +    snd_pcm_set_runtime_buffer(substream, rme9652->capture_dma_buf);
->  >  
->  >      if (rme9652->playback_substream == NULL) {
->  >          rme9652_stop(rme9652);
->  > -- 
->  > 2.26.2
->  > 
->  
-> I applied the patch to kernel 5.13.8, but compilation fails with these errors:
+The code refactoring to move the WC page handling into the common
+memalloc layer caused a breakage for HD-audio HDMI.  I overlooked that
+the driver is using the SG-buffer, which isn't covered by the patch.
 
-Oops, sorry, that was the patch for linux-next, and I forgot the
-recent code change.  And it turned out not to be effective.
+This patch adds the mmap workaround for WC pages to SG-buffer
+handler.  A caveat is that it falls back to the default handler by
+returning an error after setting the pgprot, so it won't work in all
+cases but merely for PCM (which is currently the only use case).
 
-Below is another try.  Scratch the previous one (although it cannot
-hurt), and try this one instead.
-
-
-thanks,
-
-Takashi
-
--- 8< --
-From: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH] ALSA: pcm: Fix mmap breakage without explicit buffer setup
-
-The recent fix c4824ae7db41 ("ALSA: pcm: Fix mmap capability check")
-restricts the mmap capability only to the drivers that properly set up
-the buffers, but it caused a regression for a few drivers that manage
-the buffer on its own way.
-
-For those with UNKNOWN buffer type (i.e. the uninitialized / unused
-substream->dma_buffer), just assume that the driver handles the mmap
-properly and blindly trust the hardware info bit.
-
-Fixes: c4824ae7db41 ("ALSA: pcm: Fix mmap capability check")
-Cc: <stable@vger.kernel.org>
+Fixes: 623c10108338 ("ALSA: memalloc: Fix pgprot for WC mmap on x86")
+Reported-and-tested-by: Andy Lavr <andy.lavr@gmail.com>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/core/pcm_native.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ sound/core/sgbuf.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 09c0e2a6489c..71323d807dbf 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -251,7 +251,10 @@ static bool hw_support_mmap(struct snd_pcm_substream *substream)
+diff --git a/sound/core/sgbuf.c b/sound/core/sgbuf.c
+index 9666a95f5a5c..8352a5cdb19f 100644
+--- a/sound/core/sgbuf.c
++++ b/sound/core/sgbuf.c
+@@ -183,10 +183,19 @@ static unsigned int snd_dma_sg_get_chunk_size(struct snd_dma_buffer *dmab,
+ 	return size;
+ }
  
- 	switch (substream->dma_buffer.dev.type) {
- 	case SNDRV_DMA_TYPE_UNKNOWN:
--		return false;
-+		/* we can't know the device, so just assume that the driver does
-+		 * everything right
-+		 */
-+		return true;
- 	case SNDRV_DMA_TYPE_CONTINUOUS:
- 	case SNDRV_DMA_TYPE_VMALLOC:
- 		return true;
++static int snd_dma_sg_mmap(struct snd_dma_buffer *dmab,
++			   struct vm_area_struct *area)
++{
++	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG)
++		area->vm_page_prot = pgprot_writecombine(area->vm_page_prot);
++	return -ENOENT; /* continue with the default mmap handler */
++}
++
+ const struct snd_malloc_ops snd_dma_sg_ops = {
+ 	.alloc = snd_dma_sg_alloc,
+ 	.free = snd_dma_sg_free,
+ 	.get_addr = snd_dma_sg_get_addr,
+ 	.get_page = snd_dma_sg_get_page,
+ 	.get_chunk_size = snd_dma_sg_get_chunk_size,
++	.mmap = snd_dma_sg_mmap,
+ };
 -- 
 2.26.2
 

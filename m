@@ -2,80 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 099E43E48F8
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Aug 2021 17:37:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A5423E4908
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Aug 2021 17:40:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 73FEF852;
-	Mon,  9 Aug 2021 17:36:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73FEF852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C0F7165D;
+	Mon,  9 Aug 2021 17:39:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C0F7165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628523460;
-	bh=Ul8U5Q5qokvySYpt/8vNtUu0g5G6kfwAV3795wPIyCc=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1628523633;
+	bh=FL2Y67qQKqHbmqaV1S2aZjqQmb/E5C5ZK3+E4BtHn/c=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ftoaSzFSknw7XIk9Zm/cHdhWOkl3rmJvKXfWGKIZN9n6PXXbOE6Yh0/HiRlcysPTt
-	 CcY7yRiRQVArEOI5i8T/0TUydn+iGM41dGT9EPZBOo2k6HuVhEk/LlYYQgR5Qgf5jr
-	 uvcspbkPsMlfXXJzyIq+eftMNdPgLsaGMLqaJOT0=
+	b=YdeptYdo1jZm6NNTyxWx9hY7NZiG5oLc4MXuXtimXNvUL4IFMy65v0mlB4lyg+Mlj
+	 tioNy1llzPyoKyajzsZVdG0QjvQWlV5p5Yikbr0bD3n88u9iTGps1el1CRIKMx7BaR
+	 kxWUQTsbSMOGK1PNLzr26Yc4sf6+Iy7PkIUGN6gw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA4F9F8032D;
-	Mon,  9 Aug 2021 17:36:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1460F800CB;
+	Mon,  9 Aug 2021 17:39:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 64B82F802D2; Mon,  9 Aug 2021 17:36:10 +0200 (CEST)
+ id CCFC2F802D2; Mon,  9 Aug 2021 17:39:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 039EAF800FD
- for <alsa-devel@alsa-project.org>; Mon,  9 Aug 2021 17:36:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 039EAF800FD
-X-IronPort-AV: E=McAfee;i="6200,9189,10070"; a="194309997"
-X-IronPort-AV: E=Sophos;i="5.84,307,1620716400"; d="scan'208";a="194309997"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Aug 2021 08:36:01 -0700
-X-IronPort-AV: E=Sophos;i="5.84,307,1620716400"; d="scan'208";a="505287039"
-Received: from jsmalone-mobl1.amr.corp.intel.com (HELO [10.212.48.42])
- ([10.212.48.42])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Aug 2021 08:36:01 -0700
-Subject: Re: [PATCH] soundwire: intel: trap TRIGGER_SUSPEND in .trigger
- callback
-To: Takashi Iwai <tiwai@suse.de>
-References: <20210727053256.29949-1-yung-chuan.liao@linux.intel.com>
- <s5h8s1sfevg.wl-tiwai@suse.de>
- <a25d47a6-2599-7101-cd93-e5304b271948@linux.intel.com>
- <YQd2BM3wGzKpfZn1@matsya> <s5hpmuwz98o.wl-tiwai@suse.de>
- <YQeQxj7Ejh14jIoc@matsya>
- <DM6PR11MB4074EF8726AA5ED297871225FFEF9@DM6PR11MB4074.namprd11.prod.outlook.com>
- <9ef7e341-13f4-69f7-964d-8e6efdd57ca7@linux.intel.com>
- <YQ07BVDyPD1Vb4R8@matsya>
- <a40644ba-bee7-0fc2-93e5-b1746ecda938@linux.intel.com>
- <YRCozWNtypjnTp0b@matsya> <s5hy29bnkqh.wl-tiwai@suse.de>
- <acef4e19-dd85-a079-341b-4b26b45c8efb@linux.intel.com>
- <s5h7dguodn8.wl-tiwai@suse.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <1096a0dc-0c8d-b7e8-bfd3-f157c1b696de@linux.intel.com>
-Date: Mon, 9 Aug 2021 10:35:58 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.11.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54919F800FD
+ for <alsa-devel@alsa-project.org>; Mon,  9 Aug 2021 17:38:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54919F800FD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="ThBmEC6N"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1B2B361052
+ for <alsa-devel@alsa-project.org>; Mon,  9 Aug 2021 15:38:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1628523527;
+ bh=FL2Y67qQKqHbmqaV1S2aZjqQmb/E5C5ZK3+E4BtHn/c=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=ThBmEC6NAEFNIVe7zi0ikhLlp1LQUgLjgcr1OHxgamGrdkou1CxI8/WW9Quz41dkj
+ 9bAqNN/LbbdCxU8sbgiYC/OhTxhbY/ZvDKgsn5r2cgZlMnCshpui5qhmh/D7FR4Bmc
+ tN5Bc2X/B50H2gtHnAO/HAgwZz2H6PkjJ2qJNES3jBNB3Fh1emea2LlxtZx07wG+jG
+ loBVXuxenCFZimPsmxiFJgLXYIWLD88fa3JX4aF73WNbaBkUyrU4E5x14Jh3o0aOvL
+ Q2LMCk2EG8/DpV2F51j9nzmvamtxk6/tMDaeO1/5f9WSEWj4U0LzdAC0t8dNpds7I2
+ 4jnu+qdwaxtRg==
+Received: by mail-ed1-f45.google.com with SMTP id x14so2719687edr.12
+ for <alsa-devel@alsa-project.org>; Mon, 09 Aug 2021 08:38:47 -0700 (PDT)
+X-Gm-Message-State: AOAM530bBIEdTLPXx4aPRdhnJUeIeUlb1PyOSsY+Dp7j+iA9IxHF2lWr
+ 59Ozlad8GArVahlp83npnR7gYzQO4hDt1U93kA==
+X-Google-Smtp-Source: ABdhPJwHWW7SqmOjHtOtDmm2lqoa/xhxT33kYVNt+5rEFpgw+r5ogOrkLJOTa6lP4ZuTcsVI90qDJqnl+p/h4q514Ag=
+X-Received: by 2002:a05:6402:104b:: with SMTP id
+ e11mr14192653edu.62.1628523525547; 
+ Mon, 09 Aug 2021 08:38:45 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <s5h7dguodn8.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Vinod Koul <vkoul@kernel.org>, "broonie@kernel.org" <broonie@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, "Liao,
- Bard" <bard.liao@intel.com>
+References: <ce9e2f298f0c4fc59f756c39736a297a@realtek.com>
+In-Reply-To: <ce9e2f298f0c4fc59f756c39736a297a@realtek.com>
+From: Rob Herring <robh@kernel.org>
+Date: Mon, 9 Aug 2021 09:38:33 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqKbHF12TVnktAh6Hq0mLnx9xV__rM_kHcyaJt58sXK0ww@mail.gmail.com>
+Message-ID: <CAL_JsqKbHF12TVnktAh6Hq0mLnx9xV__rM_kHcyaJt58sXK0ww@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ASoC: dt-bindings: rt1015p: add new compatible id
+To: Jack Yu <jack.yu@realtek.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Oder Chiou <oder_chiou@realtek.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>,
+ =?UTF-8?B?a2VudF9jaGVuQHJlYWx0ZWsuY29tIFvpmbPlu7rlro9d?=
+ <kent_chen@realtek.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
+ =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
+ "Flove\(HsinFu\)" <flove@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,65 +96,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, Aug 9, 2021 at 4:27 AM Jack Yu <jack.yu@realtek.com> wrote:
+>
+> Add new compatible ID for rt1015p in dt-bindings document.
 
+Please resend without the winmail.dat attachment. And run 'make
+dt_binding_check' as this will fail.
 
-
->>> Actually, there was one big piece I overlooked.  The whole DPCM BE
->>> operation is *always* tied with FE's.  That is, the nonatomic flag is
->>> completely ignored for BE, but just follows what FE sets up.
->>>
->>> And that's the very confusing point when reviewing the code.  You
->>> cannot know whether it's written for non-atomic context or not.  This
->>> means that it's also error-prone; the code that assumes the operation
->>> in a certain mode might mismatch with the bound FE.
->>>
->>> So, ideally, both FE and BE should set the proper nonatomic flags, and
->>> have a consistency check with WARN_ON() at the run time.
->>
->> Sorry Takashi, I am not following. Are you asking me to add a .nonatomic
->> flag in all the exiting BEs along with a WARN_ON?
->>
->> I can do this, but that's a sure way to trigger massive amounts of
->> user-reported "regression in kernel 5.1x". Is this really what you want?
-> 
-> That's why I wrote "ideally".  We all know that the world is no
-> perfect...  So hardening in that way would be possible, but it has to
-> be done carefully if we really go for it, and I'm not asking you to do
-> that now.
-> 
->> Also I don't understand how this would help with the specific problem
->> raised in this patch: can we yes/no do something 'heavy' in a *DAI*
->> callback? What is the definition of 'heavy'?
-> 
-> My previous comment wasn't specifically about your patch itself but
-> rather arguing a generic problem.  We have no notion or matching
-> mechanism of the atomicity of DPCM BE.
-
-I think the only problem is actually on the SoundWire dailinks.
-
-For SSP/DMIC we don't do anything for BE dailinks, there's no IPC or
-waits, only some settings/masks. I don't see any need to set the
-.nonatomic field in those cases.
-
-But for SoundWire, we do use the 'stream' functions from the BE ops
-callbacks - sdw_prepare_stream, sdw_trigger_stream - which will do a
-bank switch operation. That's certainly not an atomic operation, there's
-a clear wait_for_completion().
-
-That seems like a miss indeed, I'll add a patch to set the .nonatomic
-field for these links.
-
-But for this patch proper, does anyone have an objection? I am still not
-clear on what is permissible at the DAI level.
-
->> And last, I am not sure it's always the case that a BE follows the FE
->> configuration. We've had cases of BE->BE loopbacks where the host
->> doesn't see or configured the data.
-> 
-> Hm, how the trigger and other PCM callbacks for BE get called in that
-> mode?
-
-
-IIRC everything was handled with DAPM, changing pin states would enable
-data transfers. Not 100% sure and that's not really relevant anyways,
-you did have a point that the SoundWire BEs are not correctly configured.
+>
+> Signed-off-by: Jack Yu <jack.yu@realtek.com>
+> ---
+>  Documentation/devicetree/bindings/sound/realtek,rt1015p.yaml | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/Documentation/devicetree/bindings/sound/realtek,rt1015p.yaml b/Documentation/devicetree/bindings/sound/realtek,rt1015p.yaml
+> index 644b68edf3e1..8fcb5f79a1b5 100644
+> --- a/Documentation/devicetree/bindings/sound/realtek,rt1015p.yaml
+> +++ b/Documentation/devicetree/bindings/sound/realtek,rt1015p.yaml
+> @@ -15,7 +15,9 @@ description: |
+>
+>  properties:
+>    compatible:
+> -    const: realtek,rt1015p
+> +      oneOf:
+> +        const: realtek,rt1015p
+> +        const: realtek,rt1019p
+>
+>    sdb-gpios:
+>      description:
+> --
+> 2.31.1
+>

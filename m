@@ -2,87 +2,153 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82ACB3E562A
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Aug 2021 11:02:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4465C3E3D62
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Aug 2021 02:59:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 079FC167E;
-	Tue, 10 Aug 2021 11:01:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 079FC167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C0182166F;
+	Mon,  9 Aug 2021 02:58:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0182166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628586152;
-	bh=dFz5SVRinIwJqOh9qb41yUdSfnQq3mR4VmwBHmJJwc4=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1628470767;
+	bh=NN4HugGswhJvLgqbSfZo7eXtRG708DrBPM1XIoVwsYY=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Bp72wpSS6k0fhjuEG6Pk3ukyC8E1RfP2Qe4glpKjhWWRUPjMvocmMVlBxWm7xp66S
-	 URtmFF9quocdVTfGXrM+31rVkE2CZxjfrw+M30Dz+iSJNPcgwY1Nu03Mq3ZdIbAPUB
-	 DcnFlilMAxVxaa1HgMzoBh9mhiAIvlu1LUbXGOho=
+	b=skQUQu+WgMN9wyWOEVvcFqndO0rWSTPHjS2g+DXOWXwZkn1f4PfhMKTcKv80w041+
+	 rQsN/cfyl4INI5m2S0r/I4QhbDQdOKjAD17LORhUauunIiVXdr9Kq1RqkDoP+lxny8
+	 bQRA9YB2yl1WiYpx/vr88OsbR25JiGe2+oIP5tgo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 600EAF802A0;
-	Tue, 10 Aug 2021 11:00:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 26DFBF80245;
+	Mon,  9 Aug 2021 02:58:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25795F801DB; Sun,  8 Aug 2021 21:10:08 +0200 (CEST)
+ id 13ACDF801DB; Mon,  9 Aug 2021 02:57:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from sender4-of-o58.zoho.com (sender4-of-o58.zoho.com
- [136.143.188.58])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2091.outbound.protection.outlook.com [40.107.237.91])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 46DC2F8007E
- for <alsa-devel@alsa-project.org>; Sun,  8 Aug 2021 21:09:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46DC2F8007E
+ by alsa1.perex.cz (Postfix) with ESMTPS id CA146F800FD
+ for <alsa-devel@alsa-project.org>; Mon,  9 Aug 2021 02:57:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA146F800FD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=fnordco.com header.i=jwoods@fnordco.com
- header.b="ObkVyKdS"
-ARC-Seal: i=1; a=rsa-sha256; t=1628449785; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=V/0g2zXgkcnEU7cZqd5oiW0yljfwQUgoFSMTLTOIL59AX6tHln+I9VfTWR4GMEhWQH7Q4RIbgT3xmNggxqBDEOpBusz9TiLuRw4jJIN1Tmcdt9r7H07qbC9/jYMLIBUYFJbZ/3YNCG14KO+9AVhaxD9lEzX7OuFbnGHB+zIHVz4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1628449785;
- h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To;
- bh=gA8w0xb5eG5/2ysoihZoWJ6NWEiS8D1GIp2NAPTBvaQ=; 
- b=PPKrFfTDN2hou47rD8f9uAT91bBicSORfVOTjSxzCF/0KsvXuDIBBx55ipJeyVfyiR8fp0SKPh9NMx/fy71QAlJbvxPQmG6k0jO3a97nBXOvNYI2h7D3rG3C5T2EcpOU0gyOcsbVvWKXjBP7w/yCZgdvSq6LLMtVS4BBELUTgg4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=fnordco.com;
- spf=pass  smtp.mailfrom=klaatu@fnordco.com;
- dmarc=pass header.from=<jwoods@fnordco.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1628449785; 
- s=zoho; d=fnordco.com; i=jwoods@fnordco.com;
- h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding;
- bh=gA8w0xb5eG5/2ysoihZoWJ6NWEiS8D1GIp2NAPTBvaQ=;
- b=ObkVyKdS3g9X6GA1Kx9n0D9LAixHVtrX/JfwMzlBA7rR4Y8kl9l46ya4iR3/4v1d
- PxCkhV6nW/hQ7H/UY/2kbOQhRp0zus/HbFxZuPId+H1CzMZrHLnPJ6EFfoikFq1X0Mu
- sSa7itZA8WDEOPpV8vy12xLAgQSdWMLN3JOHQdUM=
-Received: from mail.zoho.com by mx.zohomail.com
- with SMTP id 1628449778840774.0347226881267;
- Sun, 8 Aug 2021 12:09:38 -0700 (PDT)
-Date: Sun, 08 Aug 2021 12:09:38 -0700
-From: Jeff Woods <jwoods@fnordco.com>
-To: "Takashi Iwai" <tiwai@suse.de>
-Message-ID: <17b272bac81.10ac3bd0570099.4091761174182420511@fnordco.com>
-In-Reply-To: <s5him0gpghv.wl-tiwai@suse.de>
-References: <17b1f9647ee.1179b6a05461889.5940365952430364689@fnordco.com>
- <YQ5Bb+mPgPivLqvX@kroah.com> <s5htuk1ppvb.wl-tiwai@suse.de>
- <17b22d08355.f21da1f938057.6900412371441404465@fnordco.com>
- <s5him0gpghv.wl-tiwai@suse.de>
-Subject: Re: Kernel 5.13.6 breaks mmap with snd-hdsp module
+ dkim=pass (1024-bit key) header.d=maximintegrated.onmicrosoft.com
+ header.i=@maximintegrated.onmicrosoft.com header.b="cljYwmLx"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HKRCF5MO5UfycEGXbHYeUE1NSXSTV6gXMXqTFMptEHBcfIoQOowJ0On7JMUPkXOQdO4Bs0cU2WlUZ9FRR01aCFuLtvaeTLXSht7deImZMcVJZDglVk+zZxqO8O5B92fHozSDTeXDUhay4D4XgPk79WAEcXR4msz0xC3JN5E4tkKhbBs1g6n39Db26pXYCb1k/Qr/GSix6X5fjaAAwgUivdRsFobyTfbBlYclXIxJa+DJHjmcPVlwaaUwsu6jL2VDNEk2ycg5+5P/huiG+xfwN+v/uYjfJIsZJBK0kRilgOONIi+LCtjjdGpWBI3HJ+MsmqzWrh5O2A7kFp4CzUnbgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7Cao69goJ4KY3620o61bvt/NQROwEcneQXzj996yD8s=;
+ b=E+SJTWVLfFIHBs7t0a2aRjOQKGfa7RltUAk7UbPWSixcX8XcH/saatu9E+BLB4BtJrpkJS5pvfFWCnwcfDfzyj/3+Dkw6gZL6owTRy/lwGPdT2IJglMD46hwrlbbk76DPjPGMMmh2dP2YM0Am6xF4vLtuyZ0MXyAxSlnafo4RHXW8e3chHvfZOMm1er4OWV9f+R1CWY0hppFxTd5Wfp3vM88gHhUw7rG5LAIU1shWuXvnC3gHc+HD697n4ru6sPxi0a3tL68Dg0n3cdPvXssDj2Igk2ofDYJozbr/w9aCCtEyTNu7bhMh+MN3kC7rn+2e1hO9ELdjdxRXPmk00CSVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=maximintegrated.com; dmarc=pass action=none
+ header.from=maximintegrated.com; dkim=pass header.d=maximintegrated.com;
+ arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=maximintegrated.onmicrosoft.com;
+ s=selector2-maximintegrated-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7Cao69goJ4KY3620o61bvt/NQROwEcneQXzj996yD8s=;
+ b=cljYwmLxUdWpJtyoU0ZVx9ypTGrPVGfg0Ru+lhPcUFiAfs1WTnypJOmS9dh9xzNUfSI5gIeMMRSkLdRofrDEtxDbMI2PvXTPbs2JPDANncaS4Ee5hd4e0DFPz3b0+Q7ZxLLZaklNttURPIsZtu9heLB/Drdn/IGEIjBbu96UKPA=
+Received: from CO1PR11MB5089.namprd11.prod.outlook.com (2603:10b6:303:9b::16)
+ by MWHPR1101MB2080.namprd11.prod.outlook.com (2603:10b6:301:56::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.19; Mon, 9 Aug
+ 2021 00:57:49 +0000
+Received: from CO1PR11MB5089.namprd11.prod.outlook.com
+ ([fe80::adef:da48:ea32:5960]) by CO1PR11MB5089.namprd11.prod.outlook.com
+ ([fe80::adef:da48:ea32:5960%3]) with mapi id 15.20.4394.021; Mon, 9 Aug 2021
+ 00:57:48 +0000
+From: Steve Lee <SteveS.Lee@maximintegrated.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: RE: [EXTERNAL] Re: [PATCH] ASoC: max98390: Add support change dsm
+ param name
+Thread-Topic: [EXTERNAL] Re: [PATCH] ASoC: max98390: Add support change dsm
+ param name
+Thread-Index: AQHXippclk84bnNRdUe7mfrYo+58kKtmUAmAgAQN46A=
+Date: Mon, 9 Aug 2021 00:57:48 +0000
+Message-ID: <CO1PR11MB5089212BFBF03F82AE41E34C92F69@CO1PR11MB5089.namprd11.prod.outlook.com>
+References: <20210806080834.16705-1-steves.lee@maximintegrated.com>
+ <20210806110301.GW26252@sirena.org.uk>
+In-Reply-To: <20210806110301.GW26252@sirena.org.uk>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none
+ header.from=maximintegrated.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: a53f695f-df83-4ab4-fbdb-08d95ad0b51d
+x-ms-traffictypediagnostic: MWHPR1101MB2080:
+x-microsoft-antispam-prvs: <MWHPR1101MB2080B5E8EF2C88E4629D775D92F69@MWHPR1101MB2080.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1060;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: MxnRvQEgKr8x+Vezppq511r6FZFgXgpltQTUZ6pZBleQFKvloHylOP5SQtFFe2MyPceOi6EtOGDErl4Hpmgsi7oadcvR+5HgkfS9te2kGHgZjEqX4wNTLbdhao9tUh6sWPLhOKuR6ZH+gQ74WKS1Zn1nXzUjPbS6PA4U/8YUOyC3LpBSYCM0eoup9u+xQjRHV84hXgRxuetrNXfKADoEJIj8qbFPUmygkZeoOqbtkVSSESwB9lXTJQz4VLK7pgHoUjIaEM58gd7GsVJYkT7YyE6Ix35ubxFi5e4a1AL3A83/WJA7IJUBgAH1y9pGR6wFdiRsNiQrEBpzVXGmRr44hdCyH7TdJvva1niU+Zwf/nUuwWHW+8Z+DC8X/Z/beMgV02eiUu/GaZ6lW5AcOvzDSIBGP8E6fEsc50hHjgHejUwT6uxg4vJjcUGXU3i+aYMA1JxH5JPlZm9wz6Ei1gAQqo9SZR8G3/ZS81wScigNdsDoBjr03TIEfrSla1zKB06pC0ieNGYGYvkcKHZi3Hctvn7KNZIASnEXQEClhgtdAiKmTOwTS+ufdyHfjEFUeebRPcaWanTmd9FcpX+R5dtfIHhmRR/lo4Ri/37Rw5B5DDjM25KujSpsq+WoWrRwkV0dISFktnzhGxewMrsF4WHVmgzLtcfIXVVgyOfSOCLN5T2sSBqjIUhBAar1v71ExYNoMKGRjbDFJOeCixOhfyIErw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB5089.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(376002)(346002)(366004)(136003)(39850400004)(52536014)(9686003)(83380400001)(66446008)(64756008)(66946007)(8936002)(6916009)(8676002)(66476007)(2906002)(55016002)(71200400001)(66556008)(6506007)(5660300002)(122000001)(186003)(33656002)(38070700005)(26005)(4744005)(76116006)(86362001)(7696005)(478600001)(54906003)(38100700002)(316002)(7416002)(4326008);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?4UJDw/TLJEyRokhdqsyjglqSQIQ17vKkfyKK2a9/J6r5R3XjphHmCKKmBLw+?=
+ =?us-ascii?Q?pyq550Zddn8Bj9CIOB8YnNt3/dbtXYRmmi/FifPyrtESr4QtSuxLS7AgU+qF?=
+ =?us-ascii?Q?IrtgOjFRW445wV/zQGU0JYtsC34PQNVBd/dVco3feumu20WEJZEpL3U+h2nX?=
+ =?us-ascii?Q?27Fx+sBAkNBQ0FwMklRGAxlVvjkU1FnXUsHCC9pei0aCt0odYUWOSeBbg6u8?=
+ =?us-ascii?Q?mmAxxLqDpDc0Amu883vFyNs5Q5Wre3aYiqoRQuWd/KnNwnp3rSPGmSf7TMSz?=
+ =?us-ascii?Q?I78kEbALOYUiNwUr6gxlS8KLqQoct3pJ3qBcIkcrIFRmBJ8HD7hGlIanrGND?=
+ =?us-ascii?Q?PySw9HHmVBfaaq5bKy69zZQ6r7DTifzL466S2zsnazG85mQgLEXDqq1F34Sg?=
+ =?us-ascii?Q?fFB2kR1eDZ0vDFinEAzZ8c9NPBCCeWga/x4gVmuSQ0gqUF7/Nfl29HPk8vKh?=
+ =?us-ascii?Q?iQsXf264Yjb+EKaNmkB4EY43XSaMtZZersjzZONvHUh0uVeetBEH7B/5c5mf?=
+ =?us-ascii?Q?bP+vuOQC2H+0RKR+uehLTlPM+l2z4vjsnv0BQVSU14bSuwKgr/gbx1aMHFl6?=
+ =?us-ascii?Q?IQdJWb+SCnj570h0fhgLhtyG6VL55tKwwjvjgTqgZZwH8GNiTe3ns7hGGYJn?=
+ =?us-ascii?Q?WZFrWvgPsqW3SKtkNrEQUn8v8plQ5x7xWHedAVhef4qr13lYZgrfIIMh45IC?=
+ =?us-ascii?Q?p6kUsmv2DoBPXulix27faMdDoN0zwOaZQTGbhbuWLznr89XQlcOD8bjgNOz7?=
+ =?us-ascii?Q?E8nXJdCEdD0S2cDPAb1Jr1GyR06nnHeGQitpTATF7wbTdooHPGrk4mJ/oGm4?=
+ =?us-ascii?Q?TqM5xwbRdkPe1FRNMFKuVrxCrtKteV6gM9XyJGWiwAJEY+/nAT52+oAcAwKj?=
+ =?us-ascii?Q?gVZTCPca99eZvG1hm77C8zdP1uhjdhSiyNoaaJWUhLWXNNd2YIldZR4SLKkD?=
+ =?us-ascii?Q?BGf5suYGoKfzWmaDBPnsjYQwzbW4UGGdeKq608vtzNmK7e9BYnOHLqlSE+/+?=
+ =?us-ascii?Q?PyzgNQyVIF6bcvbYXW7RQf7oU+V82THKq8TLZSEvHT38MHjBTr1WUU/PIOQw?=
+ =?us-ascii?Q?gioW8mFpWSEIObLnERG9Y+4KKoLA+HCnKrohoAUa0bv9Em/qzTag+//IX2lS?=
+ =?us-ascii?Q?SbzL3U7Qa9+UsUzbC76PhDnZBzgjhQOJidBAB5bt2LGrKklcij5AQbpOQAd0?=
+ =?us-ascii?Q?BrEMLawruk8SWHXLjRm+YKnPRf3RVBLd1fmNf/qua/sjjEp6AuQYHI1wWAnW?=
+ =?us-ascii?Q?RkB7hHWfk/CpBrFWffYgmqNbCZtMCS4njxixP9cg98FbQK49J7EoumcTW9M3?=
+ =?us-ascii?Q?GGoyJaV8RPqLlGO0iN566y4n?=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
-X-Mailman-Approved-At: Tue, 10 Aug 2021 11:00:44 +0200
-Cc: Greg KH <gregkh@linuxfoundation.org>,
- alsa-devel <alsa-devel@alsa-project.org>,
- regressions <regressions@lists.linux.dev>, stable <stable@vger.kernel.org>
+X-OriginatorOrg: maximintegrated.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5089.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a53f695f-df83-4ab4-fbdb-08d95ad0b51d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Aug 2021 00:57:48.3693 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: fbd909df-ea69-4788-a554-f24b7854ad03
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: CdT2d/iXdF4g4sjYJCwQ0boTBXAJdd1VX4D+Vt3jQoUkrxGqZx/VclANyeqAXO1XOBgrniQEsuVPN/ibq4E+bQTpZM4zGpPswGrScP6dZXk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1101MB2080
+Cc: "jack.yu@realtek.com" <jack.yu@realtek.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "ryan.lee.maxim@gmail.com" <ryan.lee.maxim@gmail.com>,
+ "ckeepax@opensource.cirrus.com" <ckeepax@opensource.cirrus.com>,
+ "steves.lee.maxim@gmail.com" <steves.lee.maxim@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "tiwai@suse.com" <tiwai@suse.com>, "krzk@kernel.org" <krzk@kernel.org>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "nuno.sa@analog.com" <nuno.sa@analog.com>,
+ "geert@linux-m68k.org" <geert@linux-m68k.org>,
+ "dmurphy@ti.com" <dmurphy@ti.com>,
+ "shumingf@realtek.com" <shumingf@realtek.com>,
+ "rf@opensource.wolfsonmicro.com" <rf@opensource.wolfsonmicro.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,176 +164,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
- ---- On Sun, 08 Aug 2021 00:01:16 -0700 Takashi Iwai <tiwai@suse.de> wrote ----
- > On Sun, 08 Aug 2021 00:51:35 +0200,
- > Jeff Woods wrote:
- > > 
- > >  ---- On Sat, 07 Aug 2021 02:26:32 -0700 Takashi Iwai <tiwai@suse.de> wrote ----
- > >  > On Sat, 07 Aug 2021 10:16:47 +0200,
- > >  > Greg KH wrote:
- > >  > > 
- > >  > > On Sat, Aug 07, 2021 at 12:49:07AM -0700, Jeff Woods wrote:
- > >  > > > Specifically, commit c4824ae7db418aee6f50f308a20b832e58e997fd triggers the problem. Reverting this change restores functionality.
- > >  > > > 
- > >  > > > The device is an RME Multiface II, using the snd-hdsp driver.
- > >  > > > 
- > >  > > > Expected behavior: Device plays sound normally
- > >  > > > 
- > >  > > > Exhibited behavior: When a program attempts to open the device, the following ALSA lib error happens:
- > >  > > > 
- > >  > > > ALSA lib pcm_direct.c:1169:(snd1_pcm_direct_initialize_slave) slave plugin does not support mmap interleaved or mmap noninterleaved access
- > >  > > > 
- > >  > > > This change hasn't affected my other computers with less esoteric hardware, so probably the problem lies with the snd-hdsp driver, but the device is unusable without reverting that commit.
- > >  > > > 
- > >  > > > I am available to test any patches for this issue.
- > >  > > 
- > >  > > Have you notified the developers involved in this change about this
- > >  > > issue?
- > >  > 
- > >  > No, it's a new report :)
- > >  > 
- > >  > > Adding them now...
- > >  > 
- > >  > Could you try the patch below?
- > >  > 
- > >  > 
- > >  > thanks,
- > >  > 
- > >  > Takashi
- > >  > 
- > >  > -- 8< --
- > >  > From: Takashi Iwai <tiwai@suse.de>
- > >  > Subject: [PATCH] ALSA: pci: rme: Fix mmap breakage
- > >  > 
- > >  > The recent change in the PCM core restricts the mmap of unknown buffer
- > >  > type, and this broke the mmap on RME9652 and HDSP drivers that didn't
- > >  > set up properly.  Actually those driver do use the buffers allocated
- > >  > in a standard way, and the proper calls should fix the breakage.
- > >  > 
- > >  > Fixes: c4824ae7db41 ("ALSA: pcm: Fix mmap capability check")
- > >  > Cc: <stable@vger.kernel.org>
- > >  > Signed-off-by: Takashi Iwai <tiwai@suse.de>
- > >  > ---
- > >  >  sound/pci/rme9652/hdsp.c    | 6 ++----
- > >  >  sound/pci/rme9652/rme9652.c | 6 ++----
- > >  >  2 files changed, 4 insertions(+), 8 deletions(-)
- > >  > 
- > >  > diff --git a/sound/pci/rme9652/hdsp.c b/sound/pci/rme9652/hdsp.c
- > >  > index 8457a4bbc3df..b32a72e28917 100644
- > >  > --- a/sound/pci/rme9652/hdsp.c
- > >  > +++ b/sound/pci/rme9652/hdsp.c
- > >  > @@ -4518,8 +4518,7 @@ static int snd_hdsp_playback_open(struct snd_pcm_substream *substream)
- > >  >      snd_pcm_set_sync(substream);
- > >  >  
- > >  >          runtime->hw = snd_hdsp_playback_subinfo;
- > >  > -    runtime->dma_area = hdsp->playback_buffer;
- > >  > -    runtime->dma_bytes = HDSP_DMA_AREA_BYTES;
- > >  > +    snd_pcm_set_runtime_buffer(substream, hdsp->playback_dma_buf);
- > >  >  
- > >  >      hdsp->playback_pid = current->pid;
- > >  >      hdsp->playback_substream = substream;
- > >  > @@ -4595,8 +4594,7 @@ static int snd_hdsp_capture_open(struct snd_pcm_substream *substream)
- > >  >      snd_pcm_set_sync(substream);
- > >  >  
- > >  >      runtime->hw = snd_hdsp_capture_subinfo;
- > >  > -    runtime->dma_area = hdsp->capture_buffer;
- > >  > -    runtime->dma_bytes = HDSP_DMA_AREA_BYTES;
- > >  > +    snd_pcm_set_runtime_buffer(substream, hdsp->capture_dma_buf);
- > >  >  
- > >  >      hdsp->capture_pid = current->pid;
- > >  >      hdsp->capture_substream = substream;
- > >  > diff --git a/sound/pci/rme9652/rme9652.c b/sound/pci/rme9652/rme9652.c
- > >  > index f1aad38760d6..8036ed761d53 100644
- > >  > --- a/sound/pci/rme9652/rme9652.c
- > >  > +++ b/sound/pci/rme9652/rme9652.c
- > >  > @@ -2279,8 +2279,7 @@ static int snd_rme9652_playback_open(struct snd_pcm_substream *substream)
- > >  >      snd_pcm_set_sync(substream);
- > >  >  
- > >  >          runtime->hw = snd_rme9652_playback_subinfo;
- > >  > -    runtime->dma_area = rme9652->playback_buffer;
- > >  > -    runtime->dma_bytes = RME9652_DMA_AREA_BYTES;
- > >  > +    snd_pcm_set_runtime_buffer(substream, rme9652->playback_dma_buf);
- > >  >  
- > >  >      if (rme9652->capture_substream == NULL) {
- > >  >          rme9652_stop(rme9652);
- > >  > @@ -2339,8 +2338,7 @@ static int snd_rme9652_capture_open(struct snd_pcm_substream *substream)
- > >  >      snd_pcm_set_sync(substream);
- > >  >  
- > >  >      runtime->hw = snd_rme9652_capture_subinfo;
- > >  > -    runtime->dma_area = rme9652->capture_buffer;
- > >  > -    runtime->dma_bytes = RME9652_DMA_AREA_BYTES;
- > >  > +    snd_pcm_set_runtime_buffer(substream, rme9652->capture_dma_buf);
- > >  >  
- > >  >      if (rme9652->playback_substream == NULL) {
- > >  >          rme9652_stop(rme9652);
- > >  > -- 
- > >  > 2.26.2
- > >  > 
- > >  
- > > I applied the patch to kernel 5.13.8, but compilation fails with these errors:
- > 
- > Oops, sorry, that was the patch for linux-next, and I forgot the
- > recent code change.  And it turned out not to be effective.
- > 
- > Below is another try.  Scratch the previous one (although it cannot
- > hurt), and try this one instead.
- > 
- > 
- > thanks,
- > 
- > Takashi
- > 
- > -- 8< --
- > From: Takashi Iwai <tiwai@suse.de>
- > Subject: [PATCH] ALSA: pcm: Fix mmap breakage without explicit buffer setup
- > 
- > The recent fix c4824ae7db41 ("ALSA: pcm: Fix mmap capability check")
- > restricts the mmap capability only to the drivers that properly set up
- > the buffers, but it caused a regression for a few drivers that manage
- > the buffer on its own way.
- > 
- > For those with UNKNOWN buffer type (i.e. the uninitialized / unused
- > substream->dma_buffer), just assume that the driver handles the mmap
- > properly and blindly trust the hardware info bit.
- > 
- > Fixes: c4824ae7db41 ("ALSA: pcm: Fix mmap capability check")
- > Cc: <stable@vger.kernel.org>
- > Signed-off-by: Takashi Iwai <tiwai@suse.de>
- > ---
- >  sound/core/pcm_native.c | 5 ++++-
- >  1 file changed, 4 insertions(+), 1 deletion(-)
- > 
- > diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
- > index 09c0e2a6489c..71323d807dbf 100644
- > --- a/sound/core/pcm_native.c
- > +++ b/sound/core/pcm_native.c
- > @@ -251,7 +251,10 @@ static bool hw_support_mmap(struct snd_pcm_substream *substream)
- >  
- >      switch (substream->dma_buffer.dev.type) {
- >      case SNDRV_DMA_TYPE_UNKNOWN:
- > -        return false;
- > +        /* we can't know the device, so just assume that the driver does
- > +         * everything right
- > +         */
- > +        return true;
- >      case SNDRV_DMA_TYPE_CONTINUOUS:
- >      case SNDRV_DMA_TYPE_VMALLOC:
- >          return true;
- > -- 
- > 2.26.2
- > 
- > 
-
-I applied the patch to 5.13.9, and it did indeed solve the problem.
-
-Thank you very much!
-
-For future reference, if I am reporting an issue with stable and I know the
-commit that caused it, should I contact the committer directly *and* cc the
-stable and regressions list?
-
-I'm trying to keep protocol and not spam things up too much.
-
-Thanks,
-Jeff
-
+On Fri, Aug 06, 2021 at 05:08:34PM +0900, Steve Lee wrote:
+>=20
+> >  	ret =3D request_firmware(&fw, filename, component->dev);
+> >  	if (ret) {
+> > -		ret =3D request_firmware(&fw, "dsm_param.bin", component-
+> >dev);
+> > +		ret =3D request_firmware(&fw, "dsmparam.bin", component-
+> >dev);
+>=20
+> This will break anything using dsm_param.bin as the default - why make th=
+e
+> change?
+ I'd like to make that as same name with other using SoF project line.
+This originally production default is "dsm_param_%s_%s.bin with vendor and =
+product name".

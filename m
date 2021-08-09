@@ -2,85 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE2323E44F7
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Aug 2021 13:33:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA0C93E44F0
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Aug 2021 13:32:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 64B21170F;
-	Mon,  9 Aug 2021 13:33:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64B21170F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5234616FE;
+	Mon,  9 Aug 2021 13:31:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5234616FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628508835;
-	bh=iW858D4VL6e2ntURaG9FIwcab19Z8iS4nlTjE5txegQ=;
+	s=default; t=1628508734;
+	bh=/aT/YhAljqLOINHDktfw4b55l5fMnEgDSuuOtbwJQx0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kG7PIQsGT5u+JYWGN8k6Vz2qlv+PBSQmzCv6y+XaQYW7Y7zDdUylFWexkCFLBTkdJ
-	 0wAOH9F0UC2H7SmSVjLOeS11b8xjmSADo/ZG4+FIavNxUaYUdJjy2f9ehDehKdpXJA
-	 LbtiLDRVGbuKEZI8O3p/h2R8mV+chvxOSvaJH3pw=
+	b=SHZH8zl5/TOvRlqDJFDnpTxMp5tPR9FTzUyr1Fst3doaC70Gh8ISfFmEDTUvHPNAS
+	 OMpt+ody3ercWvVKiOKbk9rqnbAi5xsuvDgDB/qyfCf7kzyySuR50+6d8DpylSjrCx
+	 b9GOR3ffOTM4xfKTRbnC6XqLvxU/6sdx4YCUiSnc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA862F805C6;
-	Mon,  9 Aug 2021 13:25:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3F7BEF80587;
+	Mon,  9 Aug 2021 13:25:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 15953F80551; Mon,  9 Aug 2021 13:25:13 +0200 (CEST)
+ id BCCCAF8053C; Mon,  9 Aug 2021 13:25:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02DB4F804EC
- for <alsa-devel@alsa-project.org>; Mon,  9 Aug 2021 13:24:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02DB4F804EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3190F804B4
+ for <alsa-devel@alsa-project.org>; Mon,  9 Aug 2021 13:24:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3190F804B4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="TchZgbao"
-Received: by mail-wr1-x435.google.com with SMTP id k29so8132407wrd.7
- for <alsa-devel@alsa-project.org>; Mon, 09 Aug 2021 04:24:54 -0700 (PDT)
+ header.b="x4UvNeA8"
+Received: by mail-wr1-x42d.google.com with SMTP id h14so20902716wrx.10
+ for <alsa-devel@alsa-project.org>; Mon, 09 Aug 2021 04:24:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=W1prmEncURGCtPlVv8tGDS5bl/m+IDYi1QOyOLofCsI=;
- b=TchZgbaoPlIego3E4w66gY0Jl2/yNoaGKvdsAXyRD3BeV+I/38wdth2uXUwOs6WR7/
- OBY8fPDGQw8/FYktvMcZdyxm47Wy7rWFCbkz6aPldOC2w1SiTENxwytdzFe3veMl0AKy
- ndja393uWj7I41Q/jK7PCIy/BuE535Qeu3qtprDjnpW3bDySQzgdPrI+hcNTziIpGM2s
- 5Ad3o9Y9FDOzD58SeffUNq72MOXhINjROJR/eaAq0j+039a8Dwyv5OIizNWLH4eT1wtG
- flm/dn5S2oNFAD49F5g4FDsclRBFXxN343y7lwbYLNVg4cBa+fxaGhmJfd+/ETcXfkdF
- J32g==
+ bh=HgvzBnx/H8EJS6d9iFwurIUtcfEU4ki7XRZAyqJbBlk=;
+ b=x4UvNeA8mV4VRqLpIiHjecgoyxfXWb4jDzoO26Yri5drDgUfn+ZTPqwttxxE1sH7IP
+ Shgph0rgTjxJMq8Lsk/leNL8xPLRx2QJQXDHtxbHNYET0i32/CiZoQ4q3wIp4cKWvMse
+ dtPe7rHvf7t0s7wQ38Qvz/KFiz0ckhX4QDNgGQik6BDkg70R86V4fO013DIIo/Q1iPRW
+ 3KAz3NJvwJ/CQBbg2pV3B+VqXRMgo/2/fLaRsrmhx3taDVk0A47zsA8PtXIB82pLt5II
+ Evt754eKQ7LAbtoHD/q5dCdgedAn2SWBJj5o6PYzzZqR4GwE7WW8TPEWyLU/MJQBeTuq
+ ykuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=W1prmEncURGCtPlVv8tGDS5bl/m+IDYi1QOyOLofCsI=;
- b=BOdwV4C2u/lbuylr6+4M5M6Uyfe7hy5yFFXmhAjTSwIpNZR0mjjaU3CtXTFTb136pL
- EDg7vTO2/53xsifsPHx/vTK2/CjXbRlEOFgXyh7OLRYCRyrwsho/Qmv4BaziEyUsPQk1
- nK9flXo77LOFGKymruT5TVUBfmuTr7Sr8CkioZ5RsCwV5PR4WW/zgIPqCEEsqhr3+VZ3
- LwEVqJhCaz4tW3eORsNxlyoODEpmOL2GE7LyjRZ1lvUbE254Dd3TNymxW04p7z96MhK8
- mnt9rzRDd6sp6OCplwo77EX7UIAz9f1KqIJJonAZUETlY6bflF+G+Q73w6PoKQgtg0xV
- V5Vg==
-X-Gm-Message-State: AOAM530qNZYjiNail47HrtI5mb9A5WzKcFAkTmDSDKvnhN+NsQ2FB5h4
- LjuQhOeBwSVBx+9jfiN2fn3uNQ==
-X-Google-Smtp-Source: ABdhPJwbTLydnzGvA39Ws9QYU7RJMWTvBYayKBknZX1gj1vgQHR3p6r/+M3AHeyACgo+Hl1utWsdvA==
-X-Received: by 2002:adf:df12:: with SMTP id y18mr24917105wrl.189.1628508288579; 
- Mon, 09 Aug 2021 04:24:48 -0700 (PDT)
+ bh=HgvzBnx/H8EJS6d9iFwurIUtcfEU4ki7XRZAyqJbBlk=;
+ b=GRIZ6J4ShXpd28aUXAv+xfdYGeJToGJ6Arrj8krU3NoEqoMW2iTfFSclg3gNbZTto8
+ zHAV8rfvz6Nf1xuZnCVJcRxZXpue44xVMSXWf5l+g73fyqjTGO3UH82u+l7zMjUehbTH
+ MlgDwylg3LFsWfu5ugZD/RxAtQ0trNOd57pYAh/mTThheddhxtVlJn5fIPj2xmFwwtOa
+ tbWUTAhSUrrwlm9DElo9heb8UryaNt4JlwW53Zfd0vB8iuN+CR71rqVomTLnHIX+Z3M4
+ 1e2Zkc4y8gDUJqSnA2SKxuv3TNh2w7m+ENCXW+2rk+vHeNAnKVYB2m/PK9v6AAMfcjDA
+ hc2g==
+X-Gm-Message-State: AOAM532uvc+uaSNjdyfb6LH58gk1y0r7Pl+a4EnoYM3TnIXAzXMGHKQc
+ 5jXT/64WhXTHL9Sa8/PmHSqALQ==
+X-Google-Smtp-Source: ABdhPJy7jlb6SVPTLWM/UR5MuO3G2V37s3D5ZTp+76LwSFGXSJGPcpC1MmStFj6SPdPUQo+ssxy97Q==
+X-Received: by 2002:a5d:6284:: with SMTP id k4mr21946905wru.182.1628508289813; 
+ Mon, 09 Aug 2021 04:24:49 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id b80sm7774900wmb.2.2021.08.09.04.24.47
+ by smtp.gmail.com with ESMTPSA id b80sm7774900wmb.2.2021.08.09.04.24.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Aug 2021 04:24:48 -0700 (PDT)
+ Mon, 09 Aug 2021 04:24:49 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: bjorn.andersson@linaro.org,
 	broonie@kernel.org,
 	robh@kernel.org
-Subject: [PATCH v4 16/20] ASoC: qdsp6: audioreach: add topology support
-Date: Mon,  9 Aug 2021 12:23:35 +0100
-Message-Id: <20210809112339.8368-17-srinivas.kandagatla@linaro.org>
+Subject: [PATCH v4 17/20] ASoC: qdsp6: audioreach: add q6apm-dai support
+Date: Mon,  9 Aug 2021 12:23:36 +0100
+Message-Id: <20210809112339.8368-18-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20210809112339.8368-1-srinivas.kandagatla@linaro.org>
 References: <20210809112339.8368-1-srinivas.kandagatla@linaro.org>
@@ -104,1395 +104,550 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add ASoC topology support in audioreach
-
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- include/uapi/sound/snd_ar_tokens.h |  203 +++++
- sound/soc/qcom/Kconfig             |    1 +
- sound/soc/qcom/qdsp6/Makefile      |    2 +-
- sound/soc/qcom/qdsp6/q6apm.c       |    4 +-
- sound/soc/qcom/qdsp6/topology.c    | 1118 ++++++++++++++++++++++++++++
- 5 files changed, 1326 insertions(+), 2 deletions(-)
- create mode 100644 include/uapi/sound/snd_ar_tokens.h
- create mode 100644 sound/soc/qcom/qdsp6/topology.c
+ sound/soc/qcom/Kconfig           |   5 +
+ sound/soc/qcom/qdsp6/Makefile    |   1 +
+ sound/soc/qcom/qdsp6/q6apm-dai.c | 504 +++++++++++++++++++++++++++++++
+ 3 files changed, 510 insertions(+)
+ create mode 100644 sound/soc/qcom/qdsp6/q6apm-dai.c
 
-diff --git a/include/uapi/sound/snd_ar_tokens.h b/include/uapi/sound/snd_ar_tokens.h
-new file mode 100644
-index 000000000000..1a2582af0251
---- /dev/null
-+++ b/include/uapi/sound/snd_ar_tokens.h
-@@ -0,0 +1,203 @@
-+/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
-+
-+#ifndef __SND_AR_TOKENS_H__
-+#define __SND_AR_TOKENS_H__
-+
-+#define APM_SUB_GRAPH_PERF_MODE_LOW_POWER	0x1
-+#define APM_SUB_GRAPH_PERF_MODE_LOW_LATENCY	0x2
-+
-+#define APM_SUB_GRAPH_DIRECTION_TX		0x1
-+#define APM_SUB_GRAPH_DIRECTION_RX		0x2
-+
-+/** Scenario ID Audio Playback */
-+#define APM_SUB_GRAPH_SID_AUDIO_PLAYBACK          0x1
-+/* Scenario ID Audio Record */
-+#define APM_SUB_GRAPH_SID_AUDIO_RECORD            0x2
-+/* Scenario ID Voice call. */
-+#define APM_SUB_GRAPH_SID_VOICE_CALL              0x3
-+
-+/* container capability ID Pre/Post Processing (PP) */
-+#define APM_CONTAINER_CAP_ID_PP                   0x1
-+/* container capability ID Compression/Decompression (CD) */
-+#define APM_CONTAINER_CAP_ID_CD                   0x2
-+/* container capability ID End Point(EP) */
-+#define APM_CONTAINER_CAP_ID_EP                   0x3
-+/* container capability ID Offload (OLC) */
-+#define APM_CONTAINER_CAP_ID_OLC                  0x4
-+
-+/* container graph position Stream */
-+#define APM_CONT_GRAPH_POS_STREAM                 0x1
-+/* container graph position Per Stream Per Device*/
-+#define APM_CONT_GRAPH_POS_PER_STR_PER_DEV        0x2
-+/* container graph position Stream-Device */
-+#define APM_CONT_GRAPH_POS_STR_DEV                0x3
-+/* container graph position Global Device */
-+#define APM_CONT_GRAPH_POS_GLOBAL_DEV             0x4
-+
-+#define APM_PROC_DOMAIN_ID_MDSP			0x1
-+#define APM_PROC_DOMAIN_ID_ADSP			0x2
-+#define APM_PROC_DOMAIN_ID_SDSP			0x4
-+#define APM_PROC_DOMAIN_ID_CDSP			0x5
-+
-+#define PCM_INTERLEAVED			1
-+#define PCM_DEINTERLEAVED_PACKED	2
-+#define PCM_DEINTERLEAVED_UNPACKED	3
-+#define AR_I2S_WS_SRC_EXTERNAL	0
-+#define AR_I2S_WS_SRC_INTERNAL	1
-+
-+/*
-+ * Kcontrol IDs
-+ */
-+#define SND_SOC_AR_TPLG_FE_BE_GRAPH_CTL_MIX	256
-+#define SND_SOC_AR_TPLG_VOL_CTL			257
-+
-+/**
-+ * %AR_TKN_U32_SUB_GRAPH_INSTANCE_ID:		Sub Graph Instance Id
-+ *
-+ * %AR_TKN_U32_SUB_GRAPH_PERF_MODE:		Performance mode of subgraph
-+ *						APM_SUB_GRAPH_PERF_MODE_LOW_POWER = 1,
-+ *						APM_SUB_GRAPH_PERF_MODE_LOW_LATENCY = 2
-+ *
-+ * %AR_TKN_U32_SUB_GRAPH_DIRECTION:		Direction of subgraph
-+ *						APM_SUB_GRAPH_DIRECTION_TX = 1,
-+ *						APM_SUB_GRAPH_DIRECTION_RX = 2
-+ *
-+ * %AR_TKN_U32_SUB_GRAPH_SCENARIO_ID:		Scenario ID for subgraph
-+ *						APM_SUB_GRAPH_SID_AUDIO_PLAYBACK = 1,
-+ *						APM_SUB_GRAPH_SID_AUDIO_RECORD = 2,
-+ *						APM_SUB_GRAPH_SID_VOICE_CALL = 3
-+ *
-+ * %AR_TKN_U32_CONTAINER_INSTANCE_ID:		Container Instance ID
-+ *
-+ * %AR_TKN_U32_CONTAINER_CAPABILITY_ID:		Container capability ID
-+ *						APM_CONTAINER_CAP_ID_PP = 1,
-+ *						APM_CONTAINER_CAP_ID_CD = 2,
-+ *						APM_CONTAINER_CAP_ID_EP = 3,
-+ *						APM_CONTAINER_CAP_ID_OLC = 4
-+ *
-+ * %AR_TKN_U32_CONTAINER_STACK_SIZE:		Stack size in the container.
-+ *
-+ * %AR_TKN_U32_CONTAINER_GRAPH_POS:		Graph Position
-+ *						APM_CONT_GRAPH_POS_STREAM = 1,
-+ *						APM_CONT_GRAPH_POS_PER_STR_PER_DEV = 2,
-+ *						APM_CONT_GRAPH_POS_STR_DEV = 3,
-+ *						APM_CONT_GRAPH_POS_GLOBAL_DEV = 4
-+ *
-+ * %AR_TKN_U32_CONTAINER_PROC_DOMAIN:		Processor domain of container
-+ *						APM_PROC_DOMAIN_ID_MDSP = 1,
-+ *						APM_PROC_DOMAIN_ID_ADSP = 2,
-+ *						APM_PROC_DOMAIN_ID_SDSP = 4,
-+ *						APM_PROC_DOMAIN_ID_CDSP = 5
-+ *
-+ * %AR_TKN_U32_MODULE_ID:			Module ID
-+ *
-+ * %AR_TKN_U32_MODULE_INSTANCE_ID:		Module Instance ID.
-+ *
-+ * %AR_TKN_U32_MODULE_MAX_IP_PORTS:		Module maximum input ports
-+ *
-+ * %AR_TKN_U32_MODULE_MAX_OP_PORTS:		Module maximum output ports.
-+ *
-+ * %AR_TKN_U32_MODULE_IN_PORTS:			Number of in ports
-+ *
-+ * %AR_TKN_U32_MODULE_OUT_PORTS:		Number of out ports.
-+ *
-+ * %AR_TKN_U32_MODULE_SRC_OP_PORT_ID:		Source module output port ID
-+ *
-+ * %AR_TKN_U32_MODULE_DST_IN_PORT_ID:		Destination module input port ID
-+ *
-+ * %AR_TKN_U32_MODULE_HW_IF_IDX:		Interface index types for I2S/LPAIF
-+ *
-+ * %AR_TKN_U32_MODULE_HW_IF_TYPE:		Interface type
-+ *						LPAIF = 0,
-+ *						LPAIF_RXTX = 1,
-+ *						LPAIF_WSA = 2,
-+ *						LPAIF_VA = 3,
-+ *						LPAIF_AXI = 4
-+ *
-+ * %AR_TKN_U32_MODULE_FMT_INTERLEAVE:		PCM Interleaving
-+ *						PCM_INTERLEAVED = 1,
-+ *						PCM_DEINTERLEAVED_PACKED = 2,
-+ *						PCM_DEINTERLEAVED_UNPACKED = 3
-+ *
-+ * %AR_TKN_U32_MODULE_FMT_DATA:			data format
-+ *						FIXED POINT = 1,
-+ *						IEC60958 PACKETIZED = 3,
-+ *						IEC60958 PACKETIZED NON LINEAR = 8,
-+ *						COMPR OVER PCM PACKETIZED = 7,
-+ *						IEC61937 PACKETIZED = 2,
-+ *						GENERIC COMPRESSED = 5
-+ *
-+ * %AR_TKN_U32_MODULE_FMT_FREQ:			bit rate
-+ *
-+ * %AR_TKN_U32_MODULE_FMT_BIT_DEPTH:		bit depth
-+ *
-+ * %AR_TKN_U32_MODULE_SD_LINE_IDX:		I2S serial data line idx
-+ *						I2S_SD0 = 1,
-+ *						I2S_SD1 = 2,
-+ *						I2S_SD2 = 3,
-+ *						I2S_SD3 = 4,
-+ *						I2S_QUAD01 = 5,
-+ *						I2S_QUAD23 = 6,
-+ *						I2S_6CHS = 7,
-+ *						I2S_8CHS = 8
-+ *
-+ * %AR_TKN_U32_MODULE_WS_SRC:			Word Select Source
-+ *						AR_I2S_WS_SRC_EXTERNAL = 0,
-+ *						AR_I2S_WS_SRC_INTERNAL = 1,
-+ *
-+ * %AR_TKN_U32_MODULE_FRAME_SZ_FACTOR:		Frame size factor
-+ *
-+ * %AR_TKN_U32_MODULE_LOG_CODE:			Log Module Code
-+ *
-+ * %AR_TKN_U32_MODULE_LOG_TAP_POINT_ID:		logging tap point of this module
-+ *
-+ * %AR_TKN_U32_MODULE_LOG_MODE:			logging mode
-+ *						LOG_WAIT = 0,
-+ *						LOG_IMMEDIATELY = 1
-+ *
-+ * %AR_TKN_DAI_INDEX:				dai index
-+ *
-+ */
-+
-+/* DAI Tokens */
-+#define AR_TKN_DAI_INDEX			1
-+/* SUB GRAPH Tokens */
-+#define AR_TKN_U32_SUB_GRAPH_INSTANCE_ID	2
-+#define AR_TKN_U32_SUB_GRAPH_PERF_MODE		3
-+#define AR_TKN_U32_SUB_GRAPH_DIRECTION		4
-+#define AR_TKN_U32_SUB_GRAPH_SCENARIO_ID	5
-+
-+/* Container Tokens */
-+#define AR_TKN_U32_CONTAINER_INSTANCE_ID		100
-+#define AR_TKN_U32_CONTAINER_CAPABILITY_ID	101
-+#define AR_TKN_U32_CONTAINER_STACK_SIZE		102
-+#define AR_TKN_U32_CONTAINER_GRAPH_POS		103
-+#define AR_TKN_U32_CONTAINER_PROC_DOMAIN		104
-+
-+/* Module Tokens */
-+#define AR_TKN_U32_MODULE_ID			200
-+#define AR_TKN_U32_MODULE_INSTANCE_ID		201
-+#define AR_TKN_U32_MODULE_MAX_IP_PORTS		202
-+#define AR_TKN_U32_MODULE_MAX_OP_PORTS		203
-+#define AR_TKN_U32_MODULE_IN_PORTS		204
-+#define AR_TKN_U32_MODULE_OUT_PORTS		205
-+#define AR_TKN_U32_MODULE_SRC_OP_PORT_ID	206
-+#define AR_TKN_U32_MODULE_DST_IN_PORT_ID	207
-+#define AR_TKN_U32_MODULE_SRC_INSTANCE_ID	208
-+#define AR_TKN_U32_MODULE_DST_INSTANCE_ID	209
-+
-+
-+#define AR_TKN_U32_MODULE_HW_IF_IDX		250
-+#define AR_TKN_U32_MODULE_HW_IF_TYPE		251
-+#define AR_TKN_U32_MODULE_FMT_INTERLEAVE	252
-+#define AR_TKN_U32_MODULE_FMT_DATA		253
-+#define AR_TKN_U32_MODULE_FMT_FREQ		254
-+#define AR_TKN_U32_MODULE_FMT_BIT_DEPTH		255
-+#define AR_TKN_U32_MODULE_SD_LINE_IDX		256
-+#define AR_TKN_U32_MODULE_WS_SRC		257
-+#define AR_TKN_U32_MODULE_FRAME_SZ_FACTOR	258
-+#define AR_TKN_U32_MODULE_LOG_CODE		259
-+#define AR_TKN_U32_MODULE_LOG_TAP_POINT_ID	260
-+#define AR_TKN_U32_MODULE_LOG_MODE		261
-+
-+#endif /* __SND_AR_TOKENS_H__ */
 diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-index 5a693f83fd6c..66d8436ab0a8 100644
+index 66d8436ab0a8..fb1921889dc4 100644
 --- a/sound/soc/qcom/Kconfig
 +++ b/sound/soc/qcom/Kconfig
-@@ -100,6 +100,7 @@ config SND_SOC_QDSP6
- 	select SND_SOC_QDSP6_ROUTING
- 	select SND_SOC_QDSP6_ASM
- 	select SND_SOC_QDSP6_ASM_DAI
-+	select SND_SOC_TOPOLOGY
- 	select SND_SOC_QDSP6_APM
- 	help
- 	 To add support for MSM QDSP6 Soc Audio.
+@@ -84,7 +84,12 @@ config SND_SOC_QDSP6_ASM_DAI
+ 	select SND_SOC_COMPRESS
+ 	tristate
+ 
++config SND_SOC_QDSP6_APM_DAI
++	select SND_SOC_COMPRESS
++	tristate
++
+ config SND_SOC_QDSP6_APM
++	select SND_SOC_QDSP6_APM_DAI
+ 	tristate
+ 
+ config SND_SOC_QDSP6
 diff --git a/sound/soc/qcom/qdsp6/Makefile b/sound/soc/qcom/qdsp6/Makefile
-index 1a0803d97eec..766b824f6597 100644
+index 766b824f6597..a4ec7c4d0e48 100644
 --- a/sound/soc/qcom/qdsp6/Makefile
 +++ b/sound/soc/qcom/qdsp6/Makefile
-@@ -1,6 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
- snd-q6dsp-common-objs := q6dsp-common.o q6dsp-lpass-ports.o q6dsp-lpass-clocks.o
--snd-q6apm-objs := q6apm.o audioreach.o
-+snd-q6apm-objs := q6apm.o audioreach.o topology.o
+@@ -13,3 +13,4 @@ obj-$(CONFIG_SND_SOC_QDSP6_ASM) += q6asm.o
+ obj-$(CONFIG_SND_SOC_QDSP6_ASM_DAI) += q6asm-dai.o
  
- obj-$(CONFIG_SND_SOC_QDSP6_COMMON) += snd-q6dsp-common.o
- obj-$(CONFIG_SND_SOC_QDSP6_CORE) += q6core.o
-diff --git a/sound/soc/qcom/qdsp6/q6apm.c b/sound/soc/qcom/qdsp6/q6apm.c
-index acb9c7ad6fcd..1b7ba454f87d 100644
---- a/sound/soc/qcom/qdsp6/q6apm.c
-+++ b/sound/soc/qcom/qdsp6/q6apm.c
-@@ -785,11 +785,13 @@ EXPORT_SYMBOL_GPL(q6apm_graph_flush);
- 
- static int q6apm_audio_probe(struct snd_soc_component *component)
- {
--	return 0;
-+	return audioreach_tplg_init(component);
- }
- 
- static void q6apm_audio_remove(struct snd_soc_component *component)
- {
-+	/* remove topology */
-+	snd_soc_tplg_component_remove(component);
- }
- 
- #define APM_AUDIO_DRV_NAME "q6apm-audio"
-diff --git a/sound/soc/qcom/qdsp6/topology.c b/sound/soc/qcom/qdsp6/topology.c
+ obj-$(CONFIG_SND_SOC_QDSP6_APM) += snd-q6apm.o
++obj-$(CONFIG_SND_SOC_QDSP6_APM_DAI) += q6apm-dai.o
+diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
 new file mode 100644
-index 000000000000..37d21d7898f1
+index 000000000000..be6dc6232290
 --- /dev/null
-+++ b/sound/soc/qcom/qdsp6/topology.c
-@@ -0,0 +1,1118 @@
++++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
+@@ -0,0 +1,504 @@
 +// SPDX-License-Identifier: GPL-2.0
-+// Copyright (c) 2020, Linaro Limited
++// Copyright (c) 2021, Linaro Limited
 +
++#include <linux/init.h>
++#include <linux/err.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/slab.h>
 +#include <sound/soc.h>
 +#include <sound/soc-dapm.h>
 +#include <sound/pcm.h>
-+#include <sound/control.h>
-+#include <sound/asound.h>
-+#include <linux/firmware.h>
-+#include <sound/soc-topology.h>
-+#include <sound/soc-dpcm.h>
-+#include <uapi/sound/snd_ar_tokens.h>
-+#include <linux/kernel.h>
-+#include <linux/wait.h>
++#include <linux/spinlock.h>
++#include <asm/dma.h>
++#include <linux/dma-mapping.h>
++#include <linux/of_device.h>
++#include <sound/pcm_params.h>
 +#include "q6apm.h"
-+#include "audioreach.h"
 +
-+struct snd_ar_control {
-+	u32 sgid; /* Sub Graph ID */
-+	struct snd_soc_component *scomp;
++#define DRV_NAME "q6apm-dai"
++
++#define PLAYBACK_MIN_NUM_PERIODS    2
++#define PLAYBACK_MAX_NUM_PERIODS   8
++#define PLAYBACK_MAX_PERIOD_SIZE    65536
++#define PLAYBACK_MIN_PERIOD_SIZE    128
++#define CAPTURE_MIN_NUM_PERIODS     2
++#define CAPTURE_MAX_NUM_PERIODS     8
++#define CAPTURE_MAX_PERIOD_SIZE     4096
++#define CAPTURE_MIN_PERIOD_SIZE     320
++#define BUFFER_BYTES_MAX (PLAYBACK_MAX_NUM_PERIODS * PLAYBACK_MAX_PERIOD_SIZE)
++#define BUFFER_BYTES_MIN (PLAYBACK_MIN_NUM_PERIODS * PLAYBACK_MIN_PERIOD_SIZE)
++
++#define SID_MASK_DEFAULT	0xF
++
++enum stream_state {
++	Q6APM_STREAM_IDLE = 0,
++	Q6APM_STREAM_STOPPED,
++	Q6APM_STREAM_RUNNING,
 +};
 +
-+static struct audioreach_graph_info *audioreach_tplg_alloc_graph_info(
-+					struct q6apm *apm, uint32_t graph_id,
-+					bool *found)
++struct q6apm_dai_rtd {
++	struct snd_pcm_substream *substream;
++	struct snd_compr_stream *cstream;
++	struct snd_compr_params codec_param;
++	struct snd_dma_buffer dma_buffer;
++	spinlock_t lock;
++	phys_addr_t phys;
++	unsigned int pcm_size;
++	unsigned int pcm_count;
++	unsigned int pcm_irq_pos;       /* IRQ position */
++	unsigned int periods;
++	unsigned int bytes_sent;
++	unsigned int bytes_received;
++	unsigned int copied_total;
++	uint16_t bits_per_sample;
++	uint16_t source; /* Encoding source bit mask */
++	uint16_t session_id;
++	enum stream_state state;
++	struct q6apm_graph *graph;
++};
++
++struct q6apm_dai_data {
++	long long sid;
++};
++
++static struct snd_pcm_hardware q6apm_dai_hardware_capture = {
++	.info =                 (SNDRV_PCM_INFO_MMAP |
++				SNDRV_PCM_INFO_BLOCK_TRANSFER |
++				SNDRV_PCM_INFO_MMAP_VALID |
++				SNDRV_PCM_INFO_INTERLEAVED |
++				SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME),
++	.formats =              (SNDRV_PCM_FMTBIT_S16_LE |
++				SNDRV_PCM_FMTBIT_S24_LE),
++	.rates =                SNDRV_PCM_RATE_8000_48000,
++	.rate_min =             8000,
++	.rate_max =             48000,
++	.channels_min =         2,
++	.channels_max =         4,
++	.buffer_bytes_max =     CAPTURE_MAX_NUM_PERIODS *
++				CAPTURE_MAX_PERIOD_SIZE,
++	.period_bytes_min =	CAPTURE_MIN_PERIOD_SIZE,
++	.period_bytes_max =     CAPTURE_MAX_PERIOD_SIZE,
++	.periods_min =          CAPTURE_MIN_NUM_PERIODS,
++	.periods_max =          CAPTURE_MAX_NUM_PERIODS,
++	.fifo_size =            0,
++};
++
++static struct snd_pcm_hardware q6apm_dai_hardware_playback = {
++	.info =                 (SNDRV_PCM_INFO_MMAP |
++				SNDRV_PCM_INFO_BLOCK_TRANSFER |
++				SNDRV_PCM_INFO_MMAP_VALID |
++				SNDRV_PCM_INFO_INTERLEAVED |
++				SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME),
++	.formats =              (SNDRV_PCM_FMTBIT_S16_LE |
++				SNDRV_PCM_FMTBIT_S24_LE),
++	.rates =                SNDRV_PCM_RATE_8000_192000,
++	.rate_min =             8000,
++	.rate_max =             192000,
++	.channels_min =         2,
++	.channels_max =         8,
++	.buffer_bytes_max =     (PLAYBACK_MAX_NUM_PERIODS *
++				PLAYBACK_MAX_PERIOD_SIZE),
++	.period_bytes_min =	PLAYBACK_MIN_PERIOD_SIZE,
++	.period_bytes_max =     PLAYBACK_MAX_PERIOD_SIZE,
++	.periods_min =          PLAYBACK_MIN_NUM_PERIODS,
++	.periods_max =          PLAYBACK_MAX_NUM_PERIODS,
++	.fifo_size =            0,
++};
++
++static void event_handler(uint32_t opcode, uint32_t token,
++			  uint32_t *payload, void *priv)
 +{
-+	struct audioreach_graph_info *info;
-+	int ret;
++	struct q6apm_dai_rtd *prtd = priv;
++	struct snd_pcm_substream *substream = prtd->substream;
 +
-+	spin_lock(&apm->lock);
-+	info = idr_find(&apm->graph_info_idr, graph_id);
-+	spin_unlock(&apm->lock);
-+
-+	if (info) {
-+		*found = true;
-+		return info;
-+	}
-+
-+	*found = false;
-+	info = kzalloc(sizeof(*info), GFP_KERNEL);
-+	if (!info)
-+		return ERR_PTR(-ENOMEM);
-+
-+
-+	INIT_LIST_HEAD(&info->sg_list);
-+	spin_lock_init(&info->sg_list_lock);
-+
-+	spin_lock(&apm->lock);
-+	ret = idr_alloc(&apm->graph_info_idr, info, graph_id,
-+			graph_id + 1, GFP_ATOMIC);
-+	spin_unlock(&apm->lock);
-+
-+	if (ret < 0) {
-+		dev_err(apm->dev, "Failed to allocate Graph ID (%x)\n", graph_id);
-+		kfree(info);
-+		return ERR_PTR(ret);
-+	}
-+
-+	info->id = ret;
-+
-+	return info;
-+}
-+
-+static void audioreach_tplg_add_sub_graph(struct audioreach_sub_graph *sg,
-+					  struct audioreach_graph_info *info)
-+{
-+	list_add_tail(&sg->node, &info->sg_list);
-+	sg->info = info;
-+	info->num_sub_graphs++;
-+}
-+
-+
-+static struct audioreach_sub_graph *audioreach_tplg_alloc_sub_graph(
-+						struct q6apm *apm,
-+						uint32_t sub_graph_id,
-+						bool *found)
-+{
-+	struct audioreach_sub_graph *sg = NULL;
-+	int ret;
-+
-+	if (!sub_graph_id)
-+		return ERR_PTR(-EINVAL);
-+
-+	/* Find if there is already a matching sub-graph */
-+	spin_lock(&apm->lock);
-+	sg = idr_find(&apm->sub_graphs_idr, sub_graph_id);
-+	spin_unlock(&apm->lock);
-+
-+
-+	if (sg) {
-+		*found = true;
-+		return sg;
-+	}
-+
-+	*found = false;
-+	sg = kzalloc(sizeof(*sg), GFP_KERNEL);
-+	if (!sg)
-+		return ERR_PTR(-ENOMEM);
-+
-+	INIT_LIST_HEAD(&sg->container_list);
-+
-+	spin_lock(&apm->lock);
-+	ret = idr_alloc(&apm->sub_graphs_idr, sg, sub_graph_id,
-+			sub_graph_id + 1, GFP_ATOMIC);
-+	spin_unlock(&apm->lock);
-+
-+	if (ret < 0) {
-+		dev_err(apm->dev,
-+			"Failed to allocate Sub-Graph Instance ID (%x)\n",
-+			sub_graph_id);
-+		kfree(sg);
-+		return ERR_PTR(ret);
-+	}
-+
-+	sg->sub_graph_id = ret;
-+
-+	return sg;
-+}
-+
-+static struct audioreach_container *audioreach_tplg_alloc_container(struct q6apm *apm,
-+						struct audioreach_sub_graph *sg,
-+						uint32_t container_id,
-+						bool *found)
-+{
-+	struct audioreach_container *cont = NULL;
-+	int ret;
-+
-+	if (!container_id)
-+		return ERR_PTR(-EINVAL);
-+
-+	spin_lock(&apm->lock);
-+	cont = idr_find(&apm->containers_idr, container_id);
-+	spin_unlock(&apm->lock);
-+
-+	if (cont) {
-+		*found = true;
-+		return cont;
-+	}
-+	*found = false;
-+
-+	cont = kzalloc(sizeof(*cont), GFP_KERNEL);
-+	if (!cont)
-+		return ERR_PTR(-ENOMEM);
-+
-+	INIT_LIST_HEAD(&cont->modules_list);
-+
-+	spin_lock(&apm->lock);
-+	ret = idr_alloc(&apm->containers_idr, cont, container_id,
-+				container_id + 1, GFP_ATOMIC);
-+	spin_unlock(&apm->lock);
-+
-+	if (ret < 0) {
-+		dev_err(apm->dev,
-+			"Failed to allocate Container Instance ID (%x)\n",
-+			container_id);
-+		kfree(cont);
-+		return ERR_PTR(ret);
-+	}
-+
-+	cont->container_id = ret;
-+	cont->sub_graph = sg;
-+	/* add to container list */
-+	list_add_tail(&cont->node, &sg->container_list);
-+	sg->num_containers++;
-+
-+	return cont;
-+}
-+
-+static struct audioreach_module *audioreach_tplg_alloc_module(struct q6apm *apm,
-+					struct audioreach_container *cont,
-+					struct snd_soc_dapm_widget *w,
-+					uint32_t module_id,
-+					bool *found)
-+{
-+	struct audioreach_module *mod;
-+	int ret;
-+
-+	spin_lock(&apm->lock);
-+	mod = idr_find(&apm->modules_idr, module_id);
-+	spin_unlock(&apm->lock);
-+
-+	if (mod) {
-+		*found = true;
-+		return mod;
-+	}
-+	*found = false;
-+	mod = kzalloc(sizeof(*mod), GFP_KERNEL);
-+	if (!mod)
-+		return ERR_PTR(-ENOMEM);
-+
-+	spin_lock(&apm->lock);
-+	if (!module_id) { /* alloc module id dynamically */
-+		ret = idr_alloc_cyclic(&apm->modules_idr, mod,
-+				       AR_MODULE_DYNAMIC_INSTANCE_ID_START,
-+				       AR_MODULE_DYNAMIC_INSTANCE_ID_END,
-+				       GFP_ATOMIC);
-+	} else {
-+		ret = idr_alloc(&apm->modules_idr, mod, module_id,
-+			  module_id + 1, GFP_ATOMIC);
-+	}
-+	spin_unlock(&apm->lock);
-+
-+	if (ret < 0) {
-+		dev_err(apm->dev,
-+			"Failed to allocate Module Instance ID (%x)\n", module_id);
-+		kfree(mod);
-+		return ERR_PTR(ret);
-+	}
-+
-+	mod->instance_id = ret;
-+	dev_err(apm->dev, "Module Instance ID (0x%08x) allocated\n", ret);
-+	/* add to module list */
-+	list_add_tail(&mod->node, &cont->modules_list);
-+	mod->container = cont;
-+	mod->widget = w;
-+	cont->num_modules++;
-+
-+	return mod;
-+}
-+
-+static struct snd_soc_tplg_vendor_array *audioreach_get_sg_array(
-+					struct snd_soc_tplg_private *private)
-+{
-+	struct snd_soc_tplg_vendor_array *sg_array = NULL;
-+	bool found = false;
-+	int sz;
-+
-+	for (sz = 0; !found && (sz < le32_to_cpu(private->size)); ) {
-+		struct snd_soc_tplg_vendor_value_elem *sg_elem;
-+		int tkn_count = 0;
-+
-+		sg_array = (struct snd_soc_tplg_vendor_array *)((u8 *)private->array + sz);
-+		sg_elem = sg_array->value;
-+		sz = sz + le32_to_cpu(sg_array->size);
-+		while (!found && tkn_count <= (le32_to_cpu(sg_array->num_elems) - 1)) {
-+			switch (le32_to_cpu(sg_elem->token)) {
-+			case AR_TKN_U32_SUB_GRAPH_INSTANCE_ID:
-+				found = true;
-+				break;
-+			default:
-+				break;
-+			}
-+			tkn_count++;
-+			sg_elem++;
-+		}
-+	}
-+
-+	if (found)
-+		return sg_array;
-+
-+	return NULL;
-+}
-+
-+static struct snd_soc_tplg_vendor_array *audioreach_get_cont_array(
-+					struct snd_soc_tplg_private *private)
-+{
-+	struct snd_soc_tplg_vendor_array *cont_array = NULL;
-+	bool found = false;
-+	int sz;
-+
-+	for (sz = 0; !found && (sz < le32_to_cpu(private->size)); ) {
-+		struct snd_soc_tplg_vendor_value_elem *cont_elem;
-+		int tkn_count = 0;
-+
-+		cont_array = (struct snd_soc_tplg_vendor_array *)((u8 *)private->array + sz);
-+		cont_elem = cont_array->value;
-+		sz = sz + le32_to_cpu(cont_array->size);
-+		while (!found && tkn_count <= (le32_to_cpu(cont_array->num_elems) - 1)) {
-+			switch (le32_to_cpu(cont_elem->token)) {
-+			case AR_TKN_U32_CONTAINER_INSTANCE_ID:
-+				found = true;
-+				break;
-+			default:
-+				break;
-+			}
-+			tkn_count++;
-+			cont_elem++;
-+		}
-+	}
-+
-+	if (found)
-+		return cont_array;
-+
-+	return NULL;
-+}
-+
-+static struct snd_soc_tplg_vendor_array *audioreach_get_module_array(
-+					struct snd_soc_tplg_private *private)
-+{
-+	struct snd_soc_tplg_vendor_array *mod_array = NULL;
-+	bool found = false;
-+	int sz = 0;
-+
-+	for (sz = 0; !found && (sz < le32_to_cpu(private->size)); ) {
-+		struct snd_soc_tplg_vendor_value_elem *mod_elem;
-+		int tkn_count = 0;
-+
-+		mod_array = (struct snd_soc_tplg_vendor_array *)((u8 *)private->array + sz);
-+		mod_elem = mod_array->value;
-+		sz = sz + le32_to_cpu(mod_array->size);
-+		while (!found && tkn_count <= (le32_to_cpu(mod_array->num_elems) - 1)) {
-+			switch (le32_to_cpu(mod_elem->token)) {
-+			case AR_TKN_U32_MODULE_INSTANCE_ID:
-+				found = true;
-+				break;
-+			default:
-+				break;
-+			}
-+			tkn_count++;
-+			mod_elem++;
-+		}
-+	}
-+
-+	if (found)
-+		return mod_array;
-+
-+	return NULL;
-+}
-+
-+static struct audioreach_sub_graph *audioreach_parse_sg_tokens(struct q6apm *apm,
-+					struct snd_soc_tplg_private *private)
-+{
-+	struct audioreach_graph_info *info = NULL;
-+	struct snd_soc_tplg_vendor_array *sg_array;
-+	struct snd_soc_tplg_vendor_value_elem *sg_elem;
-+	struct audioreach_sub_graph *sg;
-+	int graph_id, sub_graph_id, tkn_count = 0;
-+	bool found;
-+
-+	sg_array = audioreach_get_sg_array(private);
-+	sg_elem = sg_array->value;
-+
-+	while (tkn_count <= (le32_to_cpu(sg_array->num_elems) - 1)) {
-+		switch (le32_to_cpu(sg_elem->token)) {
-+		case AR_TKN_U32_SUB_GRAPH_INSTANCE_ID:
-+			sub_graph_id = le32_to_cpu(sg_elem->value);
-+			sg = audioreach_tplg_alloc_sub_graph(apm, sub_graph_id, &found);
-+			if (IS_ERR(sg)) {
-+				return sg;
-+			} else if (found) {
-+				/* Already parsed data for this sub-graph */
-+				return sg;
-+			}
-+			dev_err(apm->dev, "%s: New subgraph id : 0x%08x\n", __func__,
-+				sub_graph_id);
-+			break;
-+		case AR_TKN_DAI_INDEX:
-+			/* Sub graph is associated with predefined graph */
-+			graph_id = le32_to_cpu(sg_elem->value);
-+			info = audioreach_tplg_alloc_graph_info(apm, graph_id, &found);
-+			if (IS_ERR(info))
-+				return ERR_CAST(info);
-+			break;
-+		case AR_TKN_U32_SUB_GRAPH_PERF_MODE:
-+			sg->perf_mode = le32_to_cpu(sg_elem->value);
-+			break;
-+		case AR_TKN_U32_SUB_GRAPH_DIRECTION:
-+			sg->direction = le32_to_cpu(sg_elem->value);
-+			break;
-+		case AR_TKN_U32_SUB_GRAPH_SCENARIO_ID:
-+			sg->scenario_id = le32_to_cpu(sg_elem->value);
-+			break;
-+		default:
-+			dev_err(apm->dev, "Not a valid token %d for graph\n",
-+				sg_elem->token);
++	switch (opcode) {
++	case APM_CLIENT_EVENT_CMD_EOS_DONE:
++		prtd->state = Q6APM_STREAM_STOPPED;
 +		break;
-+
++	case APM_CLIENT_EVENT_DATA_WRITE_DONE: {
++		prtd->pcm_irq_pos += prtd->pcm_count;
++		snd_pcm_period_elapsed(substream);
++		if (prtd->state == Q6APM_STREAM_RUNNING) {
++			q6apm_write_async(prtd->graph,
++					   prtd->pcm_count, 0, 0, NO_TIMESTAMP);
 +		}
-+		tkn_count++;
-+		sg_elem++;
-+	}
 +
-+	/* Sub graph is associated with predefined graph */
-+	if (info) {
-+		dev_err(apm->dev, "%s: adding subgraph id : 0x%08x -> %d\n", __func__,
-+		sub_graph_id, graph_id);
-+
-+		audioreach_tplg_add_sub_graph(sg, info);
-+	}
-+
-+	return sg;
-+}
-+
-+static struct audioreach_container *audioreach_parse_cont_tokens(struct q6apm *apm,
-+						struct audioreach_sub_graph *sg,
-+						struct snd_soc_tplg_private *private)
-+{
-+	struct snd_soc_tplg_vendor_array *cont_array;
-+	struct snd_soc_tplg_vendor_value_elem *cont_elem;
-+	struct audioreach_container *cont;
-+	int container_id, tkn_count = 0;
-+	bool found = false;
-+
-+	cont_array = audioreach_get_cont_array(private);
-+	cont_elem = cont_array->value;
-+
-+	while (tkn_count <= (le32_to_cpu(cont_array->num_elems) - 1)) {
-+		switch (le32_to_cpu(cont_elem->token)) {
-+		case AR_TKN_U32_CONTAINER_INSTANCE_ID:
-+			container_id = le32_to_cpu(cont_elem->value);
-+			cont = audioreach_tplg_alloc_container(apm, sg, container_id, &found);
-+			if (IS_ERR(cont))
-+				return ERR_PTR(-ENOMEM);
-+			else if (found) /* Already parsed container data */
-+				return cont;
-+
-+			break;
-+		case AR_TKN_U32_CONTAINER_CAPABILITY_ID:
-+			cont->capability_id = le32_to_cpu(cont_elem->value);
-+			break;
-+		case AR_TKN_U32_CONTAINER_STACK_SIZE:
-+			cont->stack_size = le32_to_cpu(cont_elem->value);
-+			break;
-+		case AR_TKN_U32_CONTAINER_GRAPH_POS:
-+			cont->graph_pos = le32_to_cpu(cont_elem->value);
-+			break;
-+		case AR_TKN_U32_CONTAINER_PROC_DOMAIN:
-+			cont->proc_domain = le32_to_cpu(cont_elem->value);
-+			break;
-+		default:
-+			dev_err(apm->dev, "Not a valid token %d for graph\n",
-+				cont_elem->token);
 +		break;
-+
 +		}
-+		tkn_count++;
-+		cont_elem++;
-+	}
++	case APM_CLIENT_EVENT_DATA_READ_DONE:
++		prtd->pcm_irq_pos += prtd->pcm_count;
++		snd_pcm_period_elapsed(substream);
++		if (prtd->state == Q6APM_STREAM_RUNNING)
++			q6apm_read(prtd->graph);
 +
-+	return cont;
-+}
-+
-+static struct audioreach_module *audioreach_parse_common_tokens(struct q6apm *apm,
-+							struct audioreach_container *cont,
-+							struct snd_soc_tplg_private *private,
-+							struct snd_soc_dapm_widget *w)
-+{
-+	struct snd_soc_tplg_vendor_array *mod_array;
-+	struct snd_soc_tplg_vendor_value_elem *mod_elem;
-+	uint32_t max_ip_port = 0, max_op_port = 0, in_port = 0, out_port = 0;
-+	uint32_t src_mod_inst_id = 0, src_mod_op_port_id = 0;
-+	uint32_t dst_mod_inst_id = 0, dst_mod_ip_port_id = 0;
-+	int module_id = 0, instance_id = 0, tkn_count = 0;
-+	struct audioreach_module *mod = NULL;
-+	bool found;
-+
-+	mod_array = audioreach_get_module_array(private);
-+	mod_elem = mod_array->value;
-+
-+	while (tkn_count <= (le32_to_cpu(mod_array->num_elems) - 1)) {
-+		switch (le32_to_cpu(mod_elem->token)) {
-+		/* common module info */
-+		case AR_TKN_U32_MODULE_ID:
-+			module_id = le32_to_cpu(mod_elem->value);
-+			break;
-+		case AR_TKN_U32_MODULE_INSTANCE_ID:
-+			instance_id = le32_to_cpu(mod_elem->value);
-+			mod = audioreach_tplg_alloc_module(apm, cont, w,
-+							   instance_id, &found);
-+			if (IS_ERR(mod)) {
-+				return ERR_PTR(-ENOMEM);
-+			} else if (found) {
-+				dev_err(apm->dev, "Duplicate Module Instance ID 0x%08x found\n",
-+					instance_id);
-+				return ERR_PTR(-EINVAL);
-+			}
-+
-+			break;
-+		case AR_TKN_U32_MODULE_MAX_IP_PORTS:
-+			max_ip_port = le32_to_cpu(mod_elem->value);
-+			break;
-+		case AR_TKN_U32_MODULE_MAX_OP_PORTS:
-+			max_op_port = le32_to_cpu(mod_elem->value);
-+			break;
-+		case AR_TKN_U32_MODULE_IN_PORTS:
-+			in_port = le32_to_cpu(mod_elem->value);
-+			break;
-+		case AR_TKN_U32_MODULE_OUT_PORTS:
-+			out_port = le32_to_cpu(mod_elem->value);
-+			break;
-+		case AR_TKN_U32_MODULE_SRC_OP_PORT_ID:
-+			src_mod_op_port_id = le32_to_cpu(mod_elem->value);
-+			break;
-+		case AR_TKN_U32_MODULE_SRC_INSTANCE_ID:
-+			src_mod_inst_id = le32_to_cpu(mod_elem->value);
-+			break;
-+		case AR_TKN_U32_MODULE_DST_INSTANCE_ID:
-+			dst_mod_inst_id = le32_to_cpu(mod_elem->value);
-+			break;
-+		case AR_TKN_U32_MODULE_DST_IN_PORT_ID:
-+			dst_mod_ip_port_id = le32_to_cpu(mod_elem->value);
-+
-+		default:
-+			break;
-+
-+		}
-+		tkn_count++;
-+		mod_elem++;
-+	}
-+
-+	if (mod) {
-+		mod->module_id = module_id;
-+		mod->max_ip_port = max_ip_port;
-+		mod->max_op_port = max_op_port;
-+		mod->in_port = in_port;
-+		mod->out_port = out_port;
-+		mod->src_mod_inst_id = src_mod_inst_id;
-+		mod->src_mod_op_port_id = src_mod_op_port_id;
-+		mod->dst_mod_inst_id = dst_mod_inst_id;
-+		mod->dst_mod_ip_port_id = dst_mod_ip_port_id;
-+	}
-+
-+	return mod;
-+}
-+
-+static int audioreach_widget_load_module_common(struct snd_soc_component *component,
-+				      int index, struct snd_soc_dapm_widget *w,
-+				      struct snd_soc_tplg_dapm_widget *tplg_w)
-+{
-+	struct q6apm *apm = dev_get_drvdata(component->dev);
-+	struct audioreach_sub_graph *sg;
-+	struct audioreach_container *cont;
-+	struct audioreach_module *mod;
-+	struct snd_soc_dobj *dobj;
-+
-+	sg = audioreach_parse_sg_tokens(apm, &tplg_w->priv);
-+	if (IS_ERR(sg))
-+		return PTR_ERR(sg);
-+
-+	cont = audioreach_parse_cont_tokens(apm, sg, &tplg_w->priv);
-+	if (IS_ERR(cont))
-+		return PTR_ERR(cont);
-+
-+	mod = audioreach_parse_common_tokens(apm, cont, &tplg_w->priv, w);
-+	if (IS_ERR(mod))
-+		return PTR_ERR(mod);
-+
-+	dobj = &w->dobj;
-+	dobj->private = mod;
-+
-+	return 0;
-+}
-+
-+static int audioreach_widget_load_enc_dec_cnv(struct snd_soc_component *component,
-+					  int index, struct snd_soc_dapm_widget *w,
-+					  struct snd_soc_tplg_dapm_widget *tplg_w)
-+{
-+	struct	snd_soc_tplg_vendor_array *mod_array;
-+	struct snd_soc_tplg_vendor_value_elem *mod_elem;
-+	struct audioreach_module *mod;
-+	struct snd_soc_dobj *dobj;
-+	int tkn_count = 0;
-+	int ret;
-+
-+	ret = audioreach_widget_load_module_common(component, index, w, tplg_w);
-+	if (ret)
-+		return ret;
-+
-+	dobj = &w->dobj;
-+	mod = dobj->private;
-+	mod_array = audioreach_get_module_array(&tplg_w->priv);
-+	mod_elem = mod_array->value;
-+
-+	while (tkn_count <= (le32_to_cpu(mod_array->num_elems) - 1)) {
-+		switch (le32_to_cpu(mod_elem->token)) {
-+		case AR_TKN_U32_MODULE_FMT_INTERLEAVE:
-+			mod->interleave_type = le32_to_cpu(mod_elem->value);
-+			break;
-+		case AR_TKN_U32_MODULE_FMT_FREQ:
-+			mod->rate = le32_to_cpu(mod_elem->value);
-+			break;
-+		case AR_TKN_U32_MODULE_FMT_BIT_DEPTH:
-+			mod->bit_depth = le32_to_cpu(mod_elem->value);
-+			break;
-+		default:
-+			break;
-+		}
-+		tkn_count++;
-+		mod_elem++;
-+	}
-+
-+	return 0;
-+}
-+
-+static int audioreach_widget_log_module_load(struct audioreach_module *mod,
-+					     struct snd_soc_tplg_vendor_array *mod_array)
-+{
-+	struct snd_soc_tplg_vendor_value_elem *mod_elem;
-+	int tkn_count = 0;
-+
-+	mod_elem = mod_array->value;
-+
-+	while (tkn_count <= (le32_to_cpu(mod_array->num_elems) - 1)) {
-+		switch (le32_to_cpu(mod_elem->token)) {
-+
-+		case AR_TKN_U32_MODULE_LOG_CODE:
-+			mod->log_code = le32_to_cpu(mod_elem->value);
-+			break;
-+		case AR_TKN_U32_MODULE_LOG_TAP_POINT_ID:
-+			mod->log_tap_point_id = le32_to_cpu(mod_elem->value);
-+			break;
-+		case AR_TKN_U32_MODULE_LOG_MODE:
-+			mod->mode = le32_to_cpu(mod_elem->value);
-+			break;
-+		default:
-+			break;
-+		}
-+		tkn_count++;
-+		mod_elem++;
-+	}
-+
-+	return 0;
-+}
-+
-+static int audioreach_widget_dma_module_load(struct audioreach_module *mod,
-+					     struct snd_soc_tplg_vendor_array *mod_array)
-+{
-+	struct snd_soc_tplg_vendor_value_elem *mod_elem;
-+	int tkn_count = 0;
-+
-+	mod_elem = mod_array->value;
-+
-+	while (tkn_count <= (le32_to_cpu(mod_array->num_elems) - 1)) {
-+		switch (le32_to_cpu(mod_elem->token)) {
-+		case AR_TKN_U32_MODULE_HW_IF_IDX:
-+			mod->hw_interface_idx = le32_to_cpu(mod_elem->value);
-+			break;
-+		case AR_TKN_U32_MODULE_FMT_DATA:
-+			mod->data_format = le32_to_cpu(mod_elem->value);
-+			break;
-+		case AR_TKN_U32_MODULE_HW_IF_TYPE:
-+			mod->hw_interface_type = le32_to_cpu(mod_elem->value);
-+			break;
-+		default:
-+			break;
-+		}
-+		tkn_count++;
-+		mod_elem++;
-+	}
-+
-+	return 0;
-+}
-+
-+static int audioreach_widget_i2s_module_load(struct audioreach_module *mod,
-+					     struct snd_soc_tplg_vendor_array *mod_array)
-+{
-+	struct snd_soc_tplg_vendor_value_elem *mod_elem;
-+	int tkn_count = 0;
-+
-+	mod_elem = mod_array->value;
-+
-+	while (tkn_count <= (le32_to_cpu(mod_array->num_elems) - 1)) {
-+		switch (le32_to_cpu(mod_elem->token)) {
-+		case AR_TKN_U32_MODULE_HW_IF_IDX:
-+			mod->hw_interface_idx = le32_to_cpu(mod_elem->value);
-+			break;
-+		case AR_TKN_U32_MODULE_FMT_DATA:
-+			mod->data_format = le32_to_cpu(mod_elem->value);
-+			break;
-+		case AR_TKN_U32_MODULE_HW_IF_TYPE:
-+			mod->hw_interface_type = le32_to_cpu(mod_elem->value);
-+			break;
-+		case AR_TKN_U32_MODULE_SD_LINE_IDX:
-+			mod->sd_line_idx = le32_to_cpu(mod_elem->value);
-+			break;
-+		case AR_TKN_U32_MODULE_WS_SRC:
-+			mod->ws_src = le32_to_cpu(mod_elem->value);
-+			break;
-+		default:
-+			break;
-+		}
-+		tkn_count++;
-+		mod_elem++;
-+	}
-+
-+	return 0;
-+}
-+
-+static int audioreach_widget_load_buffer(struct snd_soc_component *component,
-+					 int index, struct snd_soc_dapm_widget *w,
-+					 struct snd_soc_tplg_dapm_widget *tplg_w)
-+{
-+	struct snd_soc_tplg_vendor_array *mod_array;
-+	struct audioreach_module *mod;
-+	struct snd_soc_dobj *dobj;
-+	int ret;
-+
-+	ret = audioreach_widget_load_module_common(component, index, w, tplg_w);
-+	if (ret)
-+		return ret;
-+
-+	dobj = &w->dobj;
-+	mod = dobj->private;
-+
-+	mod_array = audioreach_get_module_array(&tplg_w->priv);
-+
-+	switch (mod->module_id) {
-+	case MODULE_ID_CODEC_DMA_SINK:
-+	case MODULE_ID_CODEC_DMA_SOURCE:
-+		audioreach_widget_dma_module_load(mod, mod_array);
-+		break;
-+	case MODULE_ID_DATA_LOGGING:
-+		audioreach_widget_log_module_load(mod, mod_array);
-+		break;
-+	case MODULE_ID_I2S_SINK:
-+	case MODULE_ID_I2S_SOURCE:
-+		audioreach_widget_i2s_module_load(mod, mod_array);
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static int audioreach_widget_load_mixer(struct snd_soc_component *component,
-+					int index, struct snd_soc_dapm_widget *w,
-+					struct snd_soc_tplg_dapm_widget *tplg_w)
-+{
-+	struct snd_soc_tplg_vendor_value_elem *w_elem;
-+	struct snd_soc_tplg_vendor_array *w_array;
-+	struct snd_ar_control *scontrol;
-+	struct snd_soc_dobj *dobj;
-+	int tkn_count = 0;
-+
-+	w_array = &tplg_w->priv.array[0];
-+
-+	scontrol = kzalloc(sizeof(*scontrol), GFP_KERNEL);
-+	if (!scontrol)
-+		return -ENOMEM;
-+
-+	scontrol->scomp = component;
-+	dobj = &w->dobj;
-+	dobj->private = scontrol;
-+
-+	w_elem = w_array->value;
-+	while (tkn_count <= (le32_to_cpu(w_array->num_elems) - 1)) {
-+		switch (le32_to_cpu(w_elem->token)) {
-+		case AR_TKN_U32_SUB_GRAPH_INSTANCE_ID:
-+			scontrol->sgid = le32_to_cpu(w_elem->value);
-+			break;
-+		default: /* ignore other tokens */
-+			break;
-+		}
-+		tkn_count++;
-+		w_elem++;
-+	}
-+
-+	return 0;
-+}
-+
-+static int audioreach_widget_load_pga(struct snd_soc_component *component,
-+					int index, struct snd_soc_dapm_widget *w,
-+					struct snd_soc_tplg_dapm_widget *tplg_w)
-+{
-+	struct audioreach_module *mod;
-+	struct snd_soc_dobj *dobj;
-+	int ret;
-+
-+	ret = audioreach_widget_load_module_common(component, index, w, tplg_w);
-+	if (ret)
-+		return ret;
-+
-+	dobj = &w->dobj;
-+	mod = dobj->private;
-+	mod->gain = VOL_CTRL_DEFAULT_GAIN;
-+
-+	return 0;
-+}
-+
-+static int audioreach_widget_ready(struct snd_soc_component *component,
-+				   int index, struct snd_soc_dapm_widget *w,
-+				   struct snd_soc_tplg_dapm_widget *tplg_w)
-+{
-+	switch (w->id) {
-+	case snd_soc_dapm_aif_in:
-+	case snd_soc_dapm_aif_out:
-+		audioreach_widget_load_buffer(component, index, w, tplg_w);
-+		break;
-+	case snd_soc_dapm_decoder:
-+	case snd_soc_dapm_encoder:
-+	case snd_soc_dapm_src:
-+		audioreach_widget_load_enc_dec_cnv(component, index, w, tplg_w);
-+		break;
-+	case snd_soc_dapm_buffer:
-+		audioreach_widget_load_buffer(component, index, w, tplg_w);
-+		break;
-+	case snd_soc_dapm_mixer:
-+		return audioreach_widget_load_mixer(component, index, w, tplg_w);
-+	case snd_soc_dapm_pga:
-+		return audioreach_widget_load_pga(component, index, w, tplg_w);
-+	case snd_soc_dapm_dai_link:
-+	case snd_soc_dapm_scheduler:
-+	case snd_soc_dapm_out_drv:
-+	default:
-+		dev_err(component->dev, "Widget type (0x%x) not yet supported\n",
-+			w->id);
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+
-+static int audioreach_widget_unload(struct snd_soc_component *scomp,
-+				    struct snd_soc_dobj *dobj)
-+{
-+	struct q6apm *apm = dev_get_drvdata(scomp->dev);
-+	struct audioreach_container *cont;
-+	struct audioreach_module *mod;
-+	struct snd_soc_dapm_widget *w =
-+		container_of(dobj, struct snd_soc_dapm_widget, dobj);
-+
-+	mod = dobj->private;
-+	cont = mod->container;
-+
-+	if (w->id == snd_soc_dapm_mixer) {
-+		/* virtual widget */
-+		kfree(dobj->private);
-+		return 0;
-+	}
-+
-+	spin_lock(&apm->lock);
-+	idr_remove(&apm->modules_idr, mod->instance_id);
-+	cont->num_modules--;
-+
-+	/* delete list */
-+	list_del(&mod->node);
-+	/* free memory */
-+	kfree(mod);
-+
-+	if (list_empty(&cont->modules_list)) { /* remove container */
-+		struct audioreach_sub_graph *sg = cont->sub_graph;
-+
-+		idr_remove(&apm->containers_idr, cont->container_id);
-+		list_del(&cont->node);
-+		sg->num_containers--;
-+		kfree(cont);
-+		if (list_empty(&sg->container_list)) { /* remove sg */
-+			struct audioreach_graph_info *info = sg->info;
-+
-+			idr_remove(&apm->sub_graphs_idr, sg->sub_graph_id);
-+			list_del(&sg->node);
-+			info->num_sub_graphs--;
-+			kfree(sg);
-+			if (list_empty(&info->sg_list)) { /* remove graph info */
-+				idr_remove(&apm->graph_info_idr, info->id);
-+				kfree(info);
-+			}
-+		}
-+	}
-+
-+	spin_unlock(&apm->lock);
-+
-+	return 0;
-+}
-+
-+static struct audioreach_module *audioreach_find_widget(struct snd_soc_component *comp,
-+							const char *name)
-+{
-+	struct q6apm *apm = dev_get_drvdata(comp->dev);
-+	struct audioreach_module *module;
-+	int id = 0;
-+
-+	idr_for_each_entry(&apm->modules_idr, module, id) {
-+		if (!strcmp(name, module->widget->name))
-+			return module;
-+	}
-+
-+	return NULL;
-+}
-+
-+static int audioreach_route_load(struct snd_soc_component *scomp, int index,
-+			  struct snd_soc_dapm_route *route)
-+{
-+	struct audioreach_module *src, *sink;
-+
-+	src = audioreach_find_widget(scomp, route->source);
-+	sink = audioreach_find_widget(scomp, route->sink);
-+
-+	if (src && sink) {
-+		src->dst_mod_inst_id = sink->instance_id;
-+		sink->src_mod_inst_id = src->instance_id;
-+	}
-+
-+	return 0;
-+}
-+
-+static int audioreach_route_unload(struct snd_soc_component *scomp,
-+			    struct snd_soc_dobj *dobj)
-+{
-+
-+	return 0;
-+}
-+
-+static void audioreach_tplg_complete(struct snd_soc_component *component)
-+{
-+	/* TBD */
-+}
-+
-+/* DAI link - used for any driver specific init */
-+static int audioreach_link_load(struct snd_soc_component *component, int index,
-+				struct snd_soc_dai_link *link,
-+				struct snd_soc_tplg_link_config *cfg)
-+{
-+	link->nonatomic = true;
-+	link->dynamic = true;
-+	link->platforms->name = NULL;
-+	link->platforms->of_node = of_get_compatible_child(component->dev->of_node,
-+				"qcom,q6apm-dais");
-+	link->trigger[0] = SND_SOC_DPCM_TRIGGER_POST;
-+	link->trigger[1] = SND_SOC_DPCM_TRIGGER_POST;
-+
-+	return 0;
-+}
-+
-+static int audioreach_get_audio_mixer(struct snd_kcontrol *kcontrol,
-+				       struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_dapm_widget *dw = snd_soc_dapm_kcontrol_widget(kcontrol);
-+	struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_dapm(kcontrol);
-+	struct snd_soc_component *c = snd_soc_dapm_to_component(dapm);
-+	struct soc_mixer_control *mc = (struct soc_mixer_control *)kcontrol->private_value;
-+	struct snd_ar_control *scontrol = mc->dobj.private;
-+	struct snd_ar_control *dapm_scontrol = dw->dobj.private;
-+	struct q6apm *data = dev_get_drvdata(c->dev);
-+	bool connected;
-+
-+	connected = q6apm_is_sub_graphs_connected(data, scontrol->sgid,
-+						  dapm_scontrol->sgid);
-+	if (connected)
-+		ucontrol->value.integer.value[0] = 1;
-+	else
-+		ucontrol->value.integer.value[0] = 0;
-+
-+	return 0;
-+}
-+
-+static int audioreach_put_audio_mixer(struct snd_kcontrol *kcontrol,
-+				      struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_dapm_widget *dw = snd_soc_dapm_kcontrol_widget(kcontrol);
-+	struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_dapm(kcontrol);
-+	struct snd_soc_component *c = snd_soc_dapm_to_component(dapm);
-+	struct soc_mixer_control *mc = (struct soc_mixer_control *)kcontrol->private_value;
-+	struct snd_ar_control *scontrol = mc->dobj.private;
-+	struct snd_ar_control *dapm_scontrol = dw->dobj.private;
-+	struct q6apm *data = dev_get_drvdata(c->dev);
-+	struct snd_soc_dapm_update *update = NULL;
-+
-+	if (ucontrol->value.integer.value[0]) {
-+		q6apm_connect_sub_graphs(data, scontrol->sgid,
-+					 dapm_scontrol->sgid, true);
-+		snd_soc_dapm_mixer_update_power(dapm, kcontrol, 1, update);
-+	} else {
-+		q6apm_connect_sub_graphs(data, scontrol->sgid,
-+					 dapm_scontrol->sgid, false);
-+		snd_soc_dapm_mixer_update_power(dapm, kcontrol, 0, update);
-+	}
-+	return 0;
-+}
-+
-+static int audioreach_get_vol_ctrl_audio_mixer(struct snd_kcontrol *kcontrol,
-+				       struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_dapm_widget *dw = snd_soc_dapm_kcontrol_widget(kcontrol);
-+	struct audioreach_module *mod = dw->dobj.private;
-+
-+	/* Check if the graph is active or not */
-+	ucontrol->value.integer.value[0] = mod->gain;
-+
-+	return 0;
-+}
-+
-+static int audioreach_put_vol_ctrl_audio_mixer(struct snd_kcontrol *kcontrol,
-+				      struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_dapm_widget *dw = snd_soc_dapm_kcontrol_widget(kcontrol);
-+	struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_dapm(kcontrol);
-+	struct snd_soc_component *c = snd_soc_dapm_to_component(dapm);
-+	struct audioreach_module *mod = dw->dobj.private;
-+	struct q6apm *apm = dev_get_drvdata(c->dev);
-+	int vol = ucontrol->value.integer.value[0];
-+
-+	/* Check if the graph is active or not */
-+	if (dw->power) {
-+		audioreach_gain_set_vol_ctrl(apm, mod, vol);
-+		mod->gain = vol;
-+		return 1;
-+	}
-+
-+	dev_err(apm->dev, "Unable to set volume as graph is not	active\n");
-+	return 0;
-+
-+}
-+
-+static int audioreach_control_load_mix(struct snd_soc_component *scomp,
-+					  struct snd_ar_control *scontrol,
-+					  struct snd_kcontrol_new *kc,
-+					  struct snd_soc_tplg_ctl_hdr *hdr)
-+{
-+	struct snd_soc_tplg_mixer_control *mc;
-+	struct snd_soc_tplg_vendor_array *c_array;
-+	struct snd_soc_tplg_vendor_value_elem *c_elem;
-+	int tkn_count = 0;
-+
-+	mc = container_of(hdr, struct snd_soc_tplg_mixer_control, hdr);
-+	c_array = (struct snd_soc_tplg_vendor_array *)mc->priv.data;
-+
-+	c_elem = c_array->value;
-+
-+	while (tkn_count <= (le32_to_cpu(c_array->num_elems) - 1)) {
-+		switch (le32_to_cpu(c_elem->token)) {
-+		case AR_TKN_U32_SUB_GRAPH_INSTANCE_ID:
-+			scontrol->sgid = le32_to_cpu(c_elem->value);
-+			break;
-+		default:
-+			/* Ignore other tokens */
-+		break;
-+
-+		}
-+		c_elem++;
-+		tkn_count++;
-+	}
-+
-+	return 0;
-+}
-+
-+static int audioreach_control_load(struct snd_soc_component *scomp, int index,
-+				   struct snd_kcontrol_new *kc,
-+				   struct snd_soc_tplg_ctl_hdr *hdr)
-+{
-+	struct snd_ar_control *scontrol;
-+	struct snd_soc_dobj *dobj;
-+	struct soc_mixer_control *sm;
-+	int ret;
-+
-+	scontrol = kzalloc(sizeof(*scontrol), GFP_KERNEL);
-+	if (!scontrol)
-+		return -ENOMEM;
-+
-+	scontrol->scomp = scomp;
-+
-+	switch (le32_to_cpu(hdr->ops.get)) {
-+	case SND_SOC_AR_TPLG_FE_BE_GRAPH_CTL_MIX:
-+		sm = (struct soc_mixer_control *)kc->private_value;
-+		dobj = &sm->dobj;
-+		ret = audioreach_control_load_mix(scomp, scontrol, kc, hdr);
-+		break;
-+	case SND_SOC_AR_TPLG_VOL_CTL:
-+		sm = (struct soc_mixer_control *)kc->private_value;
-+		dobj = &sm->dobj;
 +		break;
 +	default:
-+		dev_warn(scomp->dev, "control type not supported %d:%d:%d\n",
-+			 hdr->ops.get, hdr->ops.put, hdr->ops.info);
-+		kfree(scontrol);
++		break;
++	}
++}
++
++static int q6apm_dai_prepare(struct snd_soc_component *component,
++			     struct snd_pcm_substream *substream)
++{
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct q6apm_dai_rtd *prtd = runtime->private_data;
++	struct audioreach_module_config cfg;
++	struct q6apm_dai_data *pdata;
++	int ret;
++
++	pdata = snd_soc_component_get_drvdata(component);
++	if (!pdata)
++		return -EINVAL;
++
++	if (!prtd || !prtd->graph) {
++		dev_err(component->dev, "%s: private data null or audio client freed\n",
++			__func__);
 +		return -EINVAL;
 +	}
 +
-+	dobj->private = scontrol;
++	cfg.direction = substream->stream;
++	cfg.sample_rate = runtime->rate;
++	cfg.num_channels = runtime->channels;
++	cfg.bit_width = prtd->bits_per_sample;
++
++	prtd->pcm_count = snd_pcm_lib_period_bytes(substream);
++	prtd->pcm_irq_pos = 0;
++	/* rate and channels are sent to audio driver */
++	ret = q6apm_graph_media_format_shmem(prtd->graph, &cfg);
++	if (ret < 0) {
++		dev_err(component->dev, "%s: q6apm_open_write failed\n", __func__);
++		return ret;
++	}
++
++	ret = q6apm_graph_media_format_pcm(prtd->graph, &cfg);
++	if (ret < 0)
++		pr_info("%s: CMD Format block failed\n", __func__);
++
++	ret = q6apm_map_memory_regions(prtd->graph,
++				       substream->stream,
++				       prtd->phys,
++				       (prtd->pcm_size / prtd->periods),
++				       prtd->periods);
++
++	if (ret < 0) {
++		dev_err(component->dev, "Audio Start: Buffer Allocation failed rc = %d\n",
++							ret);
++		return -ENOMEM;
++	}
++
++	ret = q6apm_graph_prepare(prtd->graph);
++	if (ret) {
++		dev_err(component->dev, "Failed to prepare Graph %d\n", ret);
++		return ret;
++	}
++
++	ret = q6apm_graph_start(prtd->graph);
++	if (ret) {
++		dev_err(component->dev, "Failed to Start Graph %d\n", ret);
++		return ret;
++	}
++
++	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE) {
++		int i;
++		/* Queue the buffers */
++		for (i = 0; i < runtime->periods; i++)
++			q6apm_read(prtd->graph);
++
++	}
++	prtd->state = Q6APM_STREAM_RUNNING;
++
++	return 0;
++}
++
++static int q6apm_dai_trigger(struct snd_soc_component *component,
++			     struct snd_pcm_substream *substream, int cmd)
++{
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct q6apm_dai_rtd *prtd = runtime->private_data;
++	int ret = 0;
++
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_START:
++	case SNDRV_PCM_TRIGGER_RESUME:
++	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
++			ret = q6apm_write_async(prtd->graph, prtd->pcm_count, 0, 0, NO_TIMESTAMP);
++		break;
++	case SNDRV_PCM_TRIGGER_STOP:
++		prtd->state = Q6APM_STREAM_STOPPED;
++		break;
++	case SNDRV_PCM_TRIGGER_SUSPEND:
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++		break;
++	default:
++		ret = -EINVAL;
++		break;
++	}
++
 +	return ret;
 +}
 +
-+static int audioreach_control_unload(struct snd_soc_component *scomp,
-+				     struct snd_soc_dobj *dobj)
++static int q6apm_dai_open(struct snd_soc_component *component,
++			  struct snd_pcm_substream *substream)
 +{
-+	struct snd_ar_control *scontrol = dobj->private;
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct snd_soc_pcm_runtime *soc_prtd = substream->private_data;
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(soc_prtd, 0);
++	struct q6apm_dai_rtd *prtd;
++	struct q6apm_dai_data *pdata;
++	struct device *dev = component->dev;
++	int ret;
++	int graph_id;
 +
-+	kfree(scontrol);
++	graph_id = cpu_dai->driver->id;
++
++	pdata = snd_soc_component_get_drvdata(component);
++	if (!pdata) {
++		dev_err(component->dev, "Drv data not found ..\n");
++		return -EINVAL;
++	}
++
++	prtd = kzalloc(sizeof(*prtd), GFP_KERNEL);
++	if (prtd == NULL)
++		return -ENOMEM;
++
++	prtd->substream = substream;
++
++	prtd->graph = q6apm_graph_open(dev, (q6apm_cb)event_handler,
++				       prtd, graph_id);
++	if (IS_ERR(prtd->graph)) {
++		pr_info("%s: Could not allocate memory\n", __func__);
++		ret = PTR_ERR(prtd->graph);
++		kfree(prtd);
++		return ret;
++	}
++
++	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
++		runtime->hw = q6apm_dai_hardware_playback;
++	else if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
++		runtime->hw = q6apm_dai_hardware_capture;
++
++	/* Ensure that buffer size is a multiple of period size */
++	ret = snd_pcm_hw_constraint_integer(runtime,
++					    SNDRV_PCM_HW_PARAM_PERIODS);
++	if (ret < 0) {
++		dev_err(dev, "snd_pcm_hw_constraint_integer failed\n");
++		return ret;
++	}
++
++	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
++		ret = snd_pcm_hw_constraint_minmax(runtime,
++			SNDRV_PCM_HW_PARAM_BUFFER_BYTES,
++			BUFFER_BYTES_MIN, BUFFER_BYTES_MAX);
++		if (ret < 0) {
++			dev_err(dev, "constraint for buffer bytes min max ret = %d\n",
++									ret);
++			return ret;
++		}
++	}
++
++	ret = snd_pcm_hw_constraint_step(runtime, 0,
++					 SNDRV_PCM_HW_PARAM_PERIOD_BYTES, 32);
++	if (ret < 0) {
++		dev_err(dev, "constraint for period bytes step ret = %d\n",
++								ret);
++		return ret;
++	}
++	ret = snd_pcm_hw_constraint_step(runtime, 0,
++					 SNDRV_PCM_HW_PARAM_BUFFER_BYTES, 32);
++	if (ret < 0) {
++		dev_err(dev, "constraint for buffer bytes step ret = %d\n",
++								ret);
++		return ret;
++	}
++
++	runtime->private_data = prtd;
++	runtime->dma_bytes = BUFFER_BYTES_MAX;
++	if (pdata->sid < 0)
++		prtd->phys = substream->dma_buffer.addr;
++	else
++		prtd->phys = substream->dma_buffer.addr | (pdata->sid << 32);
++
++	snd_pcm_set_runtime_buffer(substream, &substream->dma_buffer);
 +
 +	return 0;
 +}
 +
-+static const struct snd_soc_tplg_kcontrol_ops audioreach_io_ops[] = {
-+	{SND_SOC_AR_TPLG_FE_BE_GRAPH_CTL_MIX, audioreach_get_audio_mixer,
-+		audioreach_put_audio_mixer, snd_soc_info_volsw},
-+	{SND_SOC_AR_TPLG_VOL_CTL, audioreach_get_vol_ctrl_audio_mixer,
-+		audioreach_put_vol_ctrl_audio_mixer, snd_soc_info_volsw},
-+};
-+
-+static struct snd_soc_tplg_ops audioreach_tplg_ops  = {
-+	.io_ops = audioreach_io_ops,
-+	.io_ops_count = ARRAY_SIZE(audioreach_io_ops),
-+
-+	.control_load	= audioreach_control_load,
-+	.control_unload	= audioreach_control_unload,
-+
-+	.widget_ready = audioreach_widget_ready,
-+	.widget_unload = audioreach_widget_unload,
-+
-+	.complete = audioreach_tplg_complete,
-+	.link_load = audioreach_link_load,
-+
-+	.dapm_route_load	= audioreach_route_load,
-+	.dapm_route_unload	= audioreach_route_unload,
-+};
-+
-+int audioreach_tplg_init(struct snd_soc_component *component)
++static int q6apm_dai_close(struct snd_soc_component *component,
++			   struct snd_pcm_substream *substream)
 +{
-+	struct device *dev = component->dev;
-+	const struct firmware *fw;
-+	int ret;
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct q6apm_dai_rtd *prtd = runtime->private_data;
 +
-+	ret = request_firmware(&fw, "audioreach.bin", dev);
-+	if (ret < 0) {
-+		dev_err(dev, "tplg fw audioreach.bin load failed with %d\n", ret);
-+		return ret;
++	if (prtd && prtd->graph) {
++		q6apm_graph_stop(prtd->graph);
++
++		q6apm_unmap_memory_regions(prtd->graph,
++					   substream->stream);
++		q6apm_graph_close(prtd->graph);
++		prtd->graph = NULL;
++		kfree(prtd);
++		runtime->private_data = NULL;
 +	}
 +
-+	ret = snd_soc_tplg_component_load(component, &audioreach_tplg_ops, fw);
-+	if (ret < 0) {
-+		dev_err(dev, "tplg component load failed%d\n", ret);
-+		release_firmware(fw);
++	return 0;
++}
++
++static snd_pcm_uframes_t q6apm_dai_pointer(struct snd_soc_component *component,
++					   struct snd_pcm_substream *substream)
++{
++
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct q6apm_dai_rtd *prtd = runtime->private_data;
++
++	if (prtd->pcm_irq_pos >= prtd->pcm_size)
++		prtd->pcm_irq_pos = 0;
++
++	return bytes_to_frames(runtime, (prtd->pcm_irq_pos));
++}
++
++static int q6apm_dai_mmap(struct snd_soc_component *component,
++			  struct snd_pcm_substream *substream,
++			  struct vm_area_struct *vma)
++{
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct device *dev = component->dev;
++
++	return dma_mmap_coherent(dev, vma,
++			runtime->dma_area, runtime->dma_addr,
++			runtime->dma_bytes);
++}
++
++static int q6apm_dai_hw_params(struct snd_soc_component *component,
++			       struct snd_pcm_substream *substream,
++			       struct snd_pcm_hw_params *params)
++{
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct q6apm_dai_rtd *prtd = runtime->private_data;
++
++	prtd->pcm_size = params_buffer_bytes(params);
++	prtd->periods = params_periods(params);
++
++	switch (params_format(params)) {
++	case SNDRV_PCM_FORMAT_S16_LE:
++		prtd->bits_per_sample = 16;
++		break;
++	case SNDRV_PCM_FORMAT_S24_LE:
++		prtd->bits_per_sample = 24;
++		break;
++	default:
 +		return -EINVAL;
 +	}
 +
 +	return 0;
 +}
-+EXPORT_SYMBOL_GPL(audioreach_tplg_init);
++
++static int q6apm_dai_pcm_new(struct snd_soc_component *component,
++			     struct snd_soc_pcm_runtime *rtd)
++{
++	struct snd_pcm_substream *psubstream, *csubstream;
++	struct snd_pcm *pcm = rtd->pcm;
++	struct device *dev;
++	int size, ret;
++
++	dev = component->dev;
++	size = BUFFER_BYTES_MAX;
++	psubstream = pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream;
++	if (psubstream) {
++		ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, dev, size,
++					  &psubstream->dma_buffer);
++		if (ret) {
++			dev_err(dev, "Cannot allocate buffer(s)\n");
++			return ret;
++		}
++	}
++
++	csubstream = pcm->streams[SNDRV_PCM_STREAM_CAPTURE].substream;
++	if (csubstream) {
++		ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, dev, size,
++					  &csubstream->dma_buffer);
++		if (ret) {
++			dev_err(dev, "Cannot allocate buffer(s)\n");
++			if (psubstream)
++				snd_dma_free_pages(&psubstream->dma_buffer);
++			return ret;
++		}
++	}
++
++	return 0;
++}
++
++static void q6apm_dai_pcm_free(struct snd_soc_component *component,
++			       struct snd_pcm *pcm)
++{
++	struct snd_pcm_substream *substream;
++	int i;
++
++	if (!pcm->streams)
++		return;
++
++	for (i = 0; i < ARRAY_SIZE(pcm->streams); i++) {
++		substream = pcm->streams[i].substream;
++		if (substream) {
++			snd_dma_free_pages(&substream->dma_buffer);
++			substream->dma_buffer.area = NULL;
++			substream->dma_buffer.addr = 0;
++		}
++	}
++}
++
++static const struct snd_soc_component_driver q6apm_fe_dai_component = {
++	.name		= DRV_NAME,
++	.open		= q6apm_dai_open,
++	.close		= q6apm_dai_close,
++	.prepare	= q6apm_dai_prepare,
++	.pcm_construct	= q6apm_dai_pcm_new,
++	.pcm_destruct	= q6apm_dai_pcm_free,
++	.mmap		= q6apm_dai_mmap,
++	.hw_params	= q6apm_dai_hw_params,
++	.pointer	= q6apm_dai_pointer,
++	.trigger	= q6apm_dai_trigger,
++};
++
++static int q6apm_dai_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct device_node *node = dev->of_node;
++	struct of_phandle_args args;
++	struct q6apm_dai_data *pdata;
++	int rc;
++
++	pdata = devm_kzalloc(dev, sizeof(*pdata), GFP_KERNEL);
++	if (!pdata)
++		return -ENOMEM;
++
++	rc = of_parse_phandle_with_fixed_args(node, "iommus", 1, 0, &args);
++	if (rc < 0)
++		pdata->sid = -1;
++	else
++		pdata->sid = args.args[0] & SID_MASK_DEFAULT;
++
++	dev_set_drvdata(dev, pdata);
++
++	return devm_snd_soc_register_component(dev, &q6apm_fe_dai_component,
++					       NULL, 0);
++}
++
++static const struct of_device_id q6apm_dai_device_id[] = {
++	{ .compatible = "qcom,q6apm-dais" },
++	{},
++};
++MODULE_DEVICE_TABLE(of, q6apm_dai_device_id);
++
++static struct platform_driver q6apm_dai_platform_driver = {
++	.driver = {
++		.name = "q6apm-dai",
++		.of_match_table = of_match_ptr(q6apm_dai_device_id),
++	},
++	.probe = q6apm_dai_probe,
++};
++module_platform_driver(q6apm_dai_platform_driver);
++
++MODULE_DESCRIPTION("Q6APM dai driver");
++MODULE_LICENSE("GPL v2");
 -- 
 2.21.0
 

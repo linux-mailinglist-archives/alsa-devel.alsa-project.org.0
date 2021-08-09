@@ -2,80 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F17D33E40C1
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Aug 2021 09:20:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CB783E40CC
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Aug 2021 09:26:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 473C11689;
-	Mon,  9 Aug 2021 09:19:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 473C11689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79933167F;
+	Mon,  9 Aug 2021 09:25:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79933167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628493609;
-	bh=YnxI0PlQXDFuOPDVpsE7+IA3Ga26d+jznx3+r4B2cVA=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1628493995;
+	bh=vO8xWt6aA77pd0HfmgnAcowTFwOKqSlQBHeqmF54uCs=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cniFDCVyXp9cmTMzM+1Y1w1EMqjB7esPByl5n7EAUdr5LYYEC6EdcXe0aHmG+G+EG
-	 zHn6y2suyv0yeTv1d1CMLn6kPmb1TvNKwyKtq4g8+zN5NdkrqNmDF0vJptTnn8q74e
-	 HlTQgvhwOMYw3R03BWdXoOIcKfwI4WEWcc8nNUnQ=
+	b=SsCSdlm+NRaEH1kOZbcxXBxGI9HUk1s10Ji7TezQz1aZJWP4dcqi95bTprx4ckoJk
+	 0Xv9SRBUdJAh6xUhS9VMq1u4zKmqhnc42/RhkszXnxORRQKwLb+scTgWmXKoiKvjl8
+	 wgpMZWiG8TlsbjAMC0NtBxOCqhwToonBIaVT0Iww=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8714F804B4;
-	Mon,  9 Aug 2021 09:18:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0F00F80105;
+	Mon,  9 Aug 2021 09:25:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47E27F804B0; Mon,  9 Aug 2021 09:18:39 +0200 (CEST)
+ id EF917F802D2; Mon,  9 Aug 2021 09:25:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 44F2BF800FD
- for <alsa-devel@alsa-project.org>; Mon,  9 Aug 2021 09:18:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44F2BF800FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id A5A3FF800FD
+ for <alsa-devel@alsa-project.org>; Mon,  9 Aug 2021 09:24:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5A3FF800FD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="gLYQ/rHh"; 
+ header.b="groVSyog"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="c8ygw2p1"
+ header.b="LVeX3DcF"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id DBCEB1FD9A
- for <alsa-devel@alsa-project.org>; Mon,  9 Aug 2021 07:18:30 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 8A9F321F13;
+ Mon,  9 Aug 2021 07:24:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1628493510; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1628493894; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=7+dNoYaWFX4MfYyLQWN/6sfFfVFohE3MaNlq8WHANJg=;
- b=gLYQ/rHh3/97iA24bYZwHo6yduX9XFeiF8dhdGUH8BoeIFNn0p1Ckn8IqZmxSBcVk7BxS0
- VF0RUmM6wKskKiRn2i8EXL2O63gjsUewND8f1I9y4zldmdifNEaJaTr7fGokfTZ+LBTkp5
- OXyoiI1We9baLkAZqRR0sj+C7gyo2k0=
+ bh=zgwzLo1pz+a4PSO9fAiq/SggKM+b9nLZlLr987GkDAc=;
+ b=groVSyogXlraiUvF2QrDF/PnFhyl6YthOeEB6SxeipogR09eR6yk5hq+d6Ko9SCpdpqbq1
+ LMnkfGfF2SvMukop7n9KmxSxjekkMgEnFHCHT9WpNnOroxId43KkdyljpKRbycAq+F358F
+ /RgVklM/pWSsy/6RdYEadrgs+bm5B+k=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1628493510;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ s=susede2_ed25519; t=1628493894;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=7+dNoYaWFX4MfYyLQWN/6sfFfVFohE3MaNlq8WHANJg=;
- b=c8ygw2p1isKLYGTzAIQMC53fUS8cI9L7FtlOylSY+27N0sxXBFmhloE4i1DkvLpSwrYVjS
- buLVa1V1hZ98zmAw==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id CBA88A3B88;
- Mon,  9 Aug 2021 07:18:30 +0000 (UTC)
+ bh=zgwzLo1pz+a4PSO9fAiq/SggKM+b9nLZlLr987GkDAc=;
+ b=LVeX3DcFxvonggimpT8x/p1lP+BpuNW9EJl/GmDu6U+T+VsdJS3gqDk12nJnfDOtXNeJoB
+ xM0AgmrFa4/A05DQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 738BAA3B88;
+ Mon,  9 Aug 2021 07:24:54 +0000 (UTC)
+Date: Mon, 09 Aug 2021 09:24:54 +0200
+Message-ID: <s5hy29bnkqh.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/3] ALSA: pci: cs46xx: Fix set up buffer type properly
-Date: Mon,  9 Aug 2021 09:18:29 +0200
-Message-Id: <20210809071829.22238-4-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210809071829.22238-1-tiwai@suse.de>
-References: <20210809071829.22238-1-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+To: Vinod Koul <vkoul@kernel.org>
+Subject: Re: [PATCH] soundwire: intel: trap TRIGGER_SUSPEND in .trigger
+ callback
+In-Reply-To: <YRCozWNtypjnTp0b@matsya>
+References: <20210727053256.29949-1-yung-chuan.liao@linux.intel.com>
+ <s5h8s1sfevg.wl-tiwai@suse.de>
+ <a25d47a6-2599-7101-cd93-e5304b271948@linux.intel.com>
+ <YQd2BM3wGzKpfZn1@matsya> <s5hpmuwz98o.wl-tiwai@suse.de>
+ <YQeQxj7Ejh14jIoc@matsya>
+ <DM6PR11MB4074EF8726AA5ED297871225FFEF9@DM6PR11MB4074.namprd11.prod.outlook.com>
+ <9ef7e341-13f4-69f7-964d-8e6efdd57ca7@linux.intel.com>
+ <YQ07BVDyPD1Vb4R8@matsya>
+ <a40644ba-bee7-0fc2-93e5-b1746ecda938@linux.intel.com>
+ <YRCozWNtypjnTp0b@matsya>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, "Liao,
+ Bard" <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,92 +106,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-CS46xx driver switches the buffer depending on the number of periods,
-and in some cases it switches to the own buffer without updating the
-buffer type properly.  This may cause a problem with the mmap on
-exotic architectures that require the own mmap call for the coherent
-DMA buffer.
+On Mon, 09 Aug 2021 06:02:21 +0200,
+Vinod Koul wrote:
+> 
+> On 06-08-21, 11:17, Pierre-Louis Bossart wrote:
+> > 
+> > 
+> > On 8/6/21 8:37 AM, Vinod Koul wrote:
+> > > On 02-08-21, 10:46, Pierre-Louis Bossart wrote:
+> > >>
+> > >>>>>>>> The trigger callback is handled in the stream lock atomically,
+> > >>>>>>>> and are you sure that you want to operate a possibly heavy task there?
+> > >>>>>>>
+> > >>>>>>> It's a good objection that we didn't think of.
+> > >>>>>>
+> > >>>>>> Doesn't Intel use non atomic trigger to send IPCs which anyway
+> > >>>>>> involve code which can sleep..?
+> > >>>>>
+> > >>>>> sof_sdw.c doesn't seem setting it?
+> > >>>>
+> > >>>> Yes I think init_dai_link() should set it. Maybe Pierre/Bard would know why.
+> > >>>
+> > >>> init_dai_link() is to assign dai link elements only. No IPC is needed.
+> > >>
+> > >> The 'nonatomic' concept is only used for an FE dailink which expose a
+> > >> PCM device:
+> > >>
+> > >> soc-pcm.c:	pcm->nonatomic = rtd->dai_link->nonatomic;
+> > >>
+> > >> Setting a BE dailink as 'nonatomic' would not accomplish much since BEs
+> > >> use the 'no_pcm' option.
+> > > 
+> > > are no_pcm & nonatomic supposed to be not used together? So if FE is
+> > > nonatomic would BE trigger be atomic or nonatomic?
+> > 
+> > I don't follow the multiple negations, so let me retry:
+> > 
+> > For Intel machine drivers, all BE dailinks use
+> > .no_pcm = 1 (explicit setting)
+> > .nonatomic = 0 (implicit).
+> 
+> that was my question, how is it implicit?
+> Should be explicitly set, right?
+> 
+> > 
+> > All FE dailinks use
+> > .no_pcm = 0 (implicit)
+> > .nonatomic = 1 (explicit setting)
+> > 
+> > >> So the question is: is there any issue with sending an IPC in a DAI
+> > >> trigger callback?
+> > > 
+> > > Sorry looks like we diverged, orignal question was can we do heavy tasks
+> > > in trigger, the answer is no, unless one uses nonatomic flag which was
+> > > added so that people can do that work with DSPs like sending IPCs..
+> > > Maybe we should add heavy slimbus/soundwire handling to it too...?
+> > 
+> > I don't think the answer is as clear as you describe it Vinod.
+> > 
+> > The .nonatomic field is at the BE dailink level.
+> > 
+> > Unless I am missing something, I don't see anything that lets me set a
+> > .nonatomic property at the *DAI* level.
+> 
+> I would say that was a miss in original design, it should have been set
+> at dai level or at least allowed to propagate from dai level setting.
+> 
+> Now we are allowed to set it at dai_link but it is governed by dai
+> behaviour (DSP based DAI etc...)
 
-This patch addresses the potential breakage by replacing the buffer
-setup with the proper macro.  It also simplifies the source code,
-too.
+Actually, there was one big piece I overlooked.  The whole DPCM BE
+operation is *always* tied with FE's.  That is, the nonatomic flag is
+completely ignored for BE, but just follows what FE sets up.
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/cs46xx/cs46xx_lib.c | 30 ++++++++----------------------
- 1 file changed, 8 insertions(+), 22 deletions(-)
+And that's the very confusing point when reviewing the code.  You
+cannot know whether it's written for non-atomic context or not.  This
+means that it's also error-prone; the code that assumes the operation
+in a certain mode might mismatch with the bound FE.
 
-diff --git a/sound/pci/cs46xx/cs46xx_lib.c b/sound/pci/cs46xx/cs46xx_lib.c
-index 8877afb66704..62f45847b351 100644
---- a/sound/pci/cs46xx/cs46xx_lib.c
-+++ b/sound/pci/cs46xx/cs46xx_lib.c
-@@ -1121,9 +1121,7 @@ static int snd_cs46xx_playback_hw_params(struct snd_pcm_substream *substream,
- 	if (params_periods(hw_params) == CS46XX_FRAGS) {
- 		if (runtime->dma_area != cpcm->hw_buf.area)
- 			snd_pcm_lib_free_pages(substream);
--		runtime->dma_area = cpcm->hw_buf.area;
--		runtime->dma_addr = cpcm->hw_buf.addr;
--		runtime->dma_bytes = cpcm->hw_buf.bytes;
-+		snd_pcm_set_runtime_buffer(substream, &cpcm->hw_buf);
- 
- 
- #ifdef CONFIG_SND_CS46XX_NEW_DSP
-@@ -1143,11 +1141,8 @@ static int snd_cs46xx_playback_hw_params(struct snd_pcm_substream *substream,
- #endif
- 
- 	} else {
--		if (runtime->dma_area == cpcm->hw_buf.area) {
--			runtime->dma_area = NULL;
--			runtime->dma_addr = 0;
--			runtime->dma_bytes = 0;
--		}
-+		if (runtime->dma_area == cpcm->hw_buf.area)
-+			snd_pcm_set_runtime_buffer(substream, NULL);
- 		err = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
- 		if (err < 0) {
- #ifdef CONFIG_SND_CS46XX_NEW_DSP
-@@ -1196,9 +1191,7 @@ static int snd_cs46xx_playback_hw_free(struct snd_pcm_substream *substream)
- 	if (runtime->dma_area != cpcm->hw_buf.area)
- 		snd_pcm_lib_free_pages(substream);
-     
--	runtime->dma_area = NULL;
--	runtime->dma_addr = 0;
--	runtime->dma_bytes = 0;
-+	snd_pcm_set_runtime_buffer(substream, NULL);
- 
- 	return 0;
- }
-@@ -1287,16 +1280,11 @@ static int snd_cs46xx_capture_hw_params(struct snd_pcm_substream *substream,
- 	if (runtime->periods == CS46XX_FRAGS) {
- 		if (runtime->dma_area != chip->capt.hw_buf.area)
- 			snd_pcm_lib_free_pages(substream);
--		runtime->dma_area = chip->capt.hw_buf.area;
--		runtime->dma_addr = chip->capt.hw_buf.addr;
--		runtime->dma_bytes = chip->capt.hw_buf.bytes;
-+		snd_pcm_set_runtime_buffer(substream, &chip->capt.hw_buf);
- 		substream->ops = &snd_cs46xx_capture_ops;
- 	} else {
--		if (runtime->dma_area == chip->capt.hw_buf.area) {
--			runtime->dma_area = NULL;
--			runtime->dma_addr = 0;
--			runtime->dma_bytes = 0;
--		}
-+		if (runtime->dma_area == chip->capt.hw_buf.area)
-+			snd_pcm_set_runtime_buffer(substream, NULL);
- 		err = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
- 		if (err < 0)
- 			return err;
-@@ -1313,9 +1301,7 @@ static int snd_cs46xx_capture_hw_free(struct snd_pcm_substream *substream)
- 
- 	if (runtime->dma_area != chip->capt.hw_buf.area)
- 		snd_pcm_lib_free_pages(substream);
--	runtime->dma_area = NULL;
--	runtime->dma_addr = 0;
--	runtime->dma_bytes = 0;
-+	snd_pcm_set_runtime_buffer(substream, NULL);
- 
- 	return 0;
- }
--- 
-2.26.2
+So, ideally, both FE and BE should set the proper nonatomic flags, and
+have a consistency check with WARN_ON() at the run time.
 
+
+thanks,
+
+Takashi

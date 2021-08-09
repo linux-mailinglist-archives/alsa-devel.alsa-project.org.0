@@ -2,85 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F1553E44D6
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Aug 2021 13:28:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B9083E44CB
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Aug 2021 13:26:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB74D1686;
-	Mon,  9 Aug 2021 13:27:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB74D1686
+	by alsa0.perex.cz (Postfix) with ESMTPS id E1DAC1683;
+	Mon,  9 Aug 2021 13:25:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1DAC1683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628508492;
-	bh=qIrcVPEyfMZj5UrqZH5jm6gJcLVtsHpiC8HGBz8cSLo=;
+	s=default; t=1628508375;
+	bh=o9/vcpx0mZFCrd2CXPMV0OGXddgLmM6Nb4TIfiT9ukE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YsIG65h0Uqmi0DVg2gpFw+UMRaudnX7gN5xNr8EO6PoyjKZquwRcA93efwCEwioRI
-	 j+HbNteCcEbwuSxsGkQhGcPBXLSuoYF90pUZaf7jWEDRRcU/c+X5uUbeTBlO7G9c06
-	 p80uYMmACNtSx9bX3ueysH8FqOewgY8+xWXsF70s=
+	b=g289G4ArcUKM7bXU29arXDlQ95H8mdVhGBQzexWzSs1Hx+v4+8TtsLc+Xi4/9MdBM
+	 HcPMYmimRfprOIacL/1XS4YeVgapyskVXiK9BZZEhJjITwR+TY3+kiL3T3irxucndf
+	 zagUZiEPCC2NQP9uyapYrkMU/WfTsPzjiVO6VBfo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93850F80105;
-	Mon,  9 Aug 2021 13:24:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9CA1F804AE;
+	Mon,  9 Aug 2021 13:24:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D90D8F804E4; Mon,  9 Aug 2021 13:24:48 +0200 (CEST)
+ id 8CB7EF804D2; Mon,  9 Aug 2021 13:24:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [IPv6:2a00:1450:4864:20::432])
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 728D5F802D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9A05CF800C8
  for <alsa-devel@alsa-project.org>; Mon,  9 Aug 2021 13:24:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 728D5F802D2
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A05CF800C8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="OVITxYzS"
-Received: by mail-wr1-x432.google.com with SMTP id c9so20890153wri.8
+ header.b="eu5pY9FW"
+Received: by mail-wm1-x32f.google.com with SMTP id u1so334494wmm.0
  for <alsa-devel@alsa-project.org>; Mon, 09 Aug 2021 04:24:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=R63M4/FB38pewmBv4s/N5td47VGDDzMLbJRs6dsaRiY=;
- b=OVITxYzS5WiJfIyFpogiKzse6szODxrBnRT3AWxkd2ly9XNpdHn4NVHAgcPFc+4vk9
- K29tuyFQJu560G5CkPg0WjC6QDBzh41emyTglqGfdPbOei/cj4+WAcnMLo7tAMccFDy5
- jWemhozzh0vAjKe1jWsV1yf/miD97Nw3sq6ndwVg5sm5sfj8bf4fuoHYRiXb58Tdnlr/
- VNk8wQOxSaCGsRAi8nBjKfBF+LeGqGk2mW5+h87Qcj0fk+edUvlNWYF3aYgjYEdud1gT
- XG8mmTgZOVXRD1k7saQIelt84uR/eXeUQInxLDKnCsNXJhVjJN/xTipR4lAdhEBToDw8
- snSQ==
+ bh=Mb/A8OAZr4+46r37MNQU/DLrZcqFJMwc4nAMj4//Jjc=;
+ b=eu5pY9FW/kHGAwMPLRK3n59MK4WTEMqa3CgufZuL1CIC3hBW+SdhNLofxLMxruFgiP
+ sLKSj9vDhw1ewtY/q9u/Xaj8hx6X+e/gg4SB1hjNFcYr1c+OwQHSFbDploQSU/+VYF/+
+ kJGrX6XHqGaawjWXza4g77YZGWIlPLLsTZXZ/bHXyYMRSRjNPaTWJoOwqUYJbcvpEyeH
+ DTNtC5OsJzMZQpF2HQDpQ0rJmq/kqtD+cf0b2yTuzgERSb9dq20emqqBnk/Tqe8yqJ5Z
+ q0fiWZgiZRvSyZEFF9oPNIlXLn7yZe1wI0ke/fhfB3+kz9Skse5/wN8Dv1qtTOilRVCN
+ 2vCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=R63M4/FB38pewmBv4s/N5td47VGDDzMLbJRs6dsaRiY=;
- b=ceXQ98HFVd3pVCrKh1CVdKgyOW+RLcyRvsq6PbUzcrIGcMmnkllmB+oUC/3/d4wtT1
- USj7uYTjjMyP5yd69WyfZKby48EnRBRM9lVIUfMEsEg6+GJWr+EVIz7RU8zf6prN4z0k
- JlfcLuMcYiHPmmgO2eKZl123pnmmHs+iIvD9B1xAqR18ut+0zODDNHAZvqWDztI1HHai
- 524/Gk7WcMTuEBdvf4uGJT4H74fFbRr41MQC6/AFsxn4L4GU0LjKoHu9uA8lF68dWpJV
- 8BplKm/tbAj6HbVNCYV56yYmdN3KIlHBKK6irYBBOd8xE2icbKvsPGoBQeWFkdwwH0rJ
- gSkA==
-X-Gm-Message-State: AOAM532GoqjvroMwiIaT/BAJ54ebK2WVZR4cU7Oz3UI+yNPussNZhUvi
- 3JGD5FMXkB0TO8MqYUVZLvZVPg==
-X-Google-Smtp-Source: ABdhPJyCYgxx5yjc5x8PW1pZKHkGPYZFoL2GJN60nTAXiq/nCz9pqcCD2yDZmk6IJHNefq7W133Qmg==
-X-Received: by 2002:a5d:6b8f:: with SMTP id n15mr24062084wrx.103.1628508270761; 
- Mon, 09 Aug 2021 04:24:30 -0700 (PDT)
+ bh=Mb/A8OAZr4+46r37MNQU/DLrZcqFJMwc4nAMj4//Jjc=;
+ b=kbv0FzacZ2hisd7u527fOw01K5Ssp6KVM7zUecL1KdHV8MItt6Crmo6lqFy91pooRI
+ dgA/TzMJ/20kt4Ro3fi5GDYCGGIgLawv5DH/OnU3prO9JlEmmRyVyd0NGLxUIdvdTzFI
+ Saf8e6T8rYBv3QeceOCSGyRxnyp4FTnandWmMQC+hwfVIzFuNhy4QWtyUBF5kmPpE3kr
+ CNtcbBtVqs6HQ0DowqsVRLOEYSi/NAEoSlpuQwjKxSqP3VB6+uEf5UH4iRVFrPhQpjB+
+ OqKs8WNRg08l+ZM5LK7DKwrrKZ8S1rF9SKcTKzgOIhz4N0nI+P0sdqZeIzXlzfafyHPb
+ mkdg==
+X-Gm-Message-State: AOAM533upt4PlzFBzjqhybxgRmtgj/IXSNCizNX6Tfl2U0DV178bO4qr
+ W0f1MMMOp8a3YznnenXpp3gnzA==
+X-Google-Smtp-Source: ABdhPJysMWSa6q/wLlrOUuLGhaldjIu4tVnNDVSGXPu1XKzx3BTOHULU3b4x4hMthpB6UUXq1IngbA==
+X-Received: by 2002:a1c:f306:: with SMTP id q6mr15854580wmq.129.1628508272036; 
+ Mon, 09 Aug 2021 04:24:32 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id b80sm7774900wmb.2.2021.08.09.04.24.29
+ by smtp.gmail.com with ESMTPSA id b80sm7774900wmb.2.2021.08.09.04.24.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Aug 2021 04:24:30 -0700 (PDT)
+ Mon, 09 Aug 2021 04:24:31 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: bjorn.andersson@linaro.org,
 	broonie@kernel.org,
 	robh@kernel.org
-Subject: [PATCH v4 01/20] soc: dt-bindings: qcom: apr: convert to yaml
-Date: Mon,  9 Aug 2021 12:23:20 +0100
-Message-Id: <20210809112339.8368-2-srinivas.kandagatla@linaro.org>
+Subject: [PATCH v4 02/20] soc: qcom: apr: make code more reuseable
+Date: Mon,  9 Aug 2021 12:23:21 +0100
+Message-Id: <20210809112339.8368-3-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20210809112339.8368-1-srinivas.kandagatla@linaro.org>
 References: <20210809112339.8368-1-srinivas.kandagatla@linaro.org>
@@ -104,292 +104,398 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Convert APR bindings to yaml format so that we could add new bindings support.
+APR and other packet routers like GPR are pretty much same and
+interact with other drivers in similar way.
 
-All the dsp services bindings are now part of apr bindings instead
-of adding them to audio bindings.
+Ex: GPR ports can be considered as APR services, only difference
+is they are allocated dynamically.
+
+Other difference is packet layout, which should not matter
+with the apis abstracted. Apart from this the rest of the
+functionality is pretty much identical across APR and GPR.
+
+Make the apr code more reusable by abstracting it service level,
+rather than device level so that we do not need to write
+new drivers for other new packet routers like GPR.
+
+This patch is in preparation to add GPR support to this driver.
 
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- .../devicetree/bindings/soc/qcom/qcom,apr.txt | 134 ------------------
- .../bindings/soc/qcom/qcom,apr.yaml           | 127 +++++++++++++++++
- 2 files changed, 127 insertions(+), 134 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/soc/qcom/qcom,apr.txt
- create mode 100644 Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
+ drivers/soc/qcom/apr.c       | 124 +++++++++++++++++++++--------------
+ include/linux/soc/qcom/apr.h |  12 +++-
+ 2 files changed, 86 insertions(+), 50 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,apr.txt b/Documentation/devicetree/bindings/soc/qcom/qcom,apr.txt
-deleted file mode 100644
-index 2e2f6dc351c0..000000000000
---- a/Documentation/devicetree/bindings/soc/qcom/qcom,apr.txt
-+++ /dev/null
-@@ -1,134 +0,0 @@
--Qualcomm APR (Asynchronous Packet Router) binding
+diff --git a/drivers/soc/qcom/apr.c b/drivers/soc/qcom/apr.c
+index 7abfc8c4fdc7..1a81dcfc3ff3 100644
+--- a/drivers/soc/qcom/apr.c
++++ b/drivers/soc/qcom/apr.c
+@@ -15,13 +15,18 @@
+ #include <linux/rpmsg.h>
+ #include <linux/of.h>
+ 
+-struct apr {
++enum {
++	PR_TYPE_APR = 0,
++};
++
++struct packet_router {
+ 	struct rpmsg_endpoint *ch;
+ 	struct device *dev;
+ 	spinlock_t svcs_lock;
+ 	spinlock_t rx_lock;
+ 	struct idr svcs_idr;
+ 	int dest_domain_id;
++	int type;
+ 	struct pdr_handle *pdr;
+ 	struct workqueue_struct *rxwq;
+ 	struct work_struct rx_work;
+@@ -44,21 +49,21 @@ struct apr_rx_buf {
+  */
+ int apr_send_pkt(struct apr_device *adev, struct apr_pkt *pkt)
+ {
+-	struct apr *apr = dev_get_drvdata(adev->dev.parent);
++	struct packet_router *apr = dev_get_drvdata(adev->dev.parent);
+ 	struct apr_hdr *hdr;
+ 	unsigned long flags;
+ 	int ret;
+ 
+-	spin_lock_irqsave(&adev->lock, flags);
++	spin_lock_irqsave(&adev->svc.lock, flags);
+ 
+ 	hdr = &pkt->hdr;
+ 	hdr->src_domain = APR_DOMAIN_APPS;
+-	hdr->src_svc = adev->svc_id;
++	hdr->src_svc = adev->svc.id;
+ 	hdr->dest_domain = adev->domain_id;
+-	hdr->dest_svc = adev->svc_id;
++	hdr->dest_svc = adev->svc.id;
+ 
+ 	ret = rpmsg_trysend(apr->ch, pkt, hdr->pkt_size);
+-	spin_unlock_irqrestore(&adev->lock, flags);
++	spin_unlock_irqrestore(&adev->svc.lock, flags);
+ 
+ 	return ret ? ret : hdr->pkt_size;
+ }
+@@ -74,7 +79,7 @@ static void apr_dev_release(struct device *dev)
+ static int apr_callback(struct rpmsg_device *rpdev, void *buf,
+ 				  int len, void *priv, u32 addr)
+ {
+-	struct apr *apr = dev_get_drvdata(&rpdev->dev);
++	struct packet_router *apr = dev_get_drvdata(&rpdev->dev);
+ 	struct apr_rx_buf *abuf;
+ 	unsigned long flags;
+ 
+@@ -100,11 +105,11 @@ static int apr_callback(struct rpmsg_device *rpdev, void *buf,
+ 	return 0;
+ }
+ 
 -
--This binding describes the Qualcomm APR. APR is a IPC protocol for
--communication between Application processor and QDSP. APR is mainly
--used for audio/voice services on the QDSP.
--
--- compatible:
--	Usage: required
--	Value type: <stringlist>
--	Definition: must be "qcom,apr-v<VERSION-NUMBER>", example "qcom,apr-v2"
--
--- qcom,apr-domain
--	Usage: required
--	Value type: <u32>
--	Definition: Destination processor ID.
--	Possible values are :
--			1 - APR simulator
--			2 - PC
--			3 - MODEM
--			4 - ADSP
--			5 - APPS
--			6 - MODEM2
--			7 - APPS2
--
--= APR SERVICES
--Each subnode of the APR node represents service tied to this apr. The name
--of the nodes are not important. The properties of these nodes are defined
--by the individual bindings for the specific service
--- All APR services MUST contain the following property:
--
--- reg
--	Usage: required
--	Value type: <u32>
--	Definition: APR Service ID
--	Possible values are :
--			3 - DSP Core Service
--			4 - Audio Front End Service.
--			5 - Voice Stream Manager Service.
--			6 - Voice processing manager.
--			7 - Audio Stream Manager Service.
--			8 - Audio Device Manager Service.
--			9 - Multimode voice manager.
--			10 - Core voice stream.
--			11 - Core voice processor.
--			12 - Ultrasound stream manager.
--			13 - Listen stream manager.
--
--- qcom,protection-domain
--	Usage: optional
--	Value type: <stringlist>
--	Definition: Must list the protection domain service name and path
--		    that the particular apr service has a dependency on.
--	Possible values are :
--			"avs/audio", "msm/adsp/audio_pd".
--			"kernel/elf_loader", "msm/modem/wlan_pd".
--			"tms/servreg", "msm/adsp/audio_pd".
--			"tms/servreg", "msm/modem/wlan_pd".
--			"tms/servreg", "msm/slpi/sensor_pd".
--
--= EXAMPLE
--The following example represents a QDSP based sound card on a MSM8996 device
--which uses apr as communication between Apps and QDSP.
--
--	apr {
--		compatible = "qcom,apr-v2";
--		qcom,apr-domain = <APR_DOMAIN_ADSP>;
--
--		apr-service@3 {
--			compatible = "qcom,q6core";
--			reg = <APR_SVC_ADSP_CORE>;
--		};
--
--		apr-service@4 {
--			compatible = "qcom,q6afe";
--			reg = <APR_SVC_AFE>;
--
--			dais {
--				#sound-dai-cells = <1>;
--				dai@1 {
--					reg = <HDMI_RX>;
--				};
--			};
--		};
--
--		apr-service@7 {
--			compatible = "qcom,q6asm";
--			reg = <APR_SVC_ASM>;
--			...
--		};
--
--		apr-service@8 {
--			compatible = "qcom,q6adm";
--			reg = <APR_SVC_ADM>;
--			...
--		};
--	};
--
--= EXAMPLE 2
--The following example represents a QDSP based sound card with protection domain
--dependencies specified. Here some of the apr services are dependent on services
--running on protection domain hosted on ADSP/SLPI remote processors while others
--have no such dependency.
--
--	apr {
--		compatible = "qcom,apr-v2";
--		qcom,glink-channels = "apr_audio_svc";
--		qcom,apr-domain = <APR_DOMAIN_ADSP>;
--
--		apr-service@3 {
--			compatible = "qcom,q6core";
--			reg = <APR_SVC_ADSP_CORE>;
--		};
--
--		q6afe: apr-service@4 {
--			compatible = "qcom,q6afe";
--			reg = <APR_SVC_AFE>;
--			qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
--			...
--		};
--
--		q6asm: apr-service@7 {
--			compatible = "qcom,q6asm";
--			reg = <APR_SVC_ASM>;
--			qcom,protection-domain = "tms/servreg", "msm/slpi/sensor_pd";
--			...
--		};
--
--		q6adm: apr-service@8 {
--			compatible = "qcom,q6adm";
--			reg = <APR_SVC_ADM>;
--			qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
--			...
--		};
--	};
-diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
-new file mode 100644
-index 000000000000..12650f7084f4
---- /dev/null
-+++ b/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
-@@ -0,0 +1,127 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: "http://devicetree.org/schemas/soc/qcom/qcom,apr.yaml#"
-+$schema: "http://devicetree.org/meta-schemas/core.yaml#"
+-static int apr_do_rx_callback(struct apr *apr, struct apr_rx_buf *abuf)
++static int apr_do_rx_callback(struct packet_router *apr, struct apr_rx_buf *abuf)
+ {
+ 	uint16_t hdr_size, msg_type, ver, svc_id;
+-	struct apr_device *svc = NULL;
++	struct pkt_router_svc *svc;
++	struct apr_device *adev;
+ 	struct apr_driver *adrv = NULL;
+ 	struct apr_resp_pkt resp;
+ 	struct apr_hdr *hdr;
+@@ -145,12 +150,15 @@ static int apr_do_rx_callback(struct apr *apr, struct apr_rx_buf *abuf)
+ 	svc_id = hdr->dest_svc;
+ 	spin_lock_irqsave(&apr->svcs_lock, flags);
+ 	svc = idr_find(&apr->svcs_idr, svc_id);
+-	if (svc && svc->dev.driver)
+-		adrv = to_apr_driver(svc->dev.driver);
++	if (svc && svc->dev->driver) {
++		adev = svc_to_apr_device(svc);
++		adrv = to_apr_driver(adev->dev.driver);
++	}
+ 	spin_unlock_irqrestore(&apr->svcs_lock, flags);
+ 
+-	if (!adrv) {
+-		dev_err(apr->dev, "APR: service is not registered\n");
++	if (!adrv || !adev) {
++		dev_err(apr->dev, "APR: service is not registered (%d)\n",
++			svc_id);
+ 		return -EINVAL;
+ 	}
+ 
+@@ -164,20 +172,26 @@ static int apr_do_rx_callback(struct apr *apr, struct apr_rx_buf *abuf)
+ 	if (resp.payload_size > 0)
+ 		resp.payload = buf + hdr_size;
+ 
+-	adrv->callback(svc, &resp);
++	adrv->callback(adev, &resp);
+ 
+ 	return 0;
+ }
+ 
+ static void apr_rxwq(struct work_struct *work)
+ {
+-	struct apr *apr = container_of(work, struct apr, rx_work);
++	struct packet_router *apr = container_of(work, struct packet_router, rx_work);
+ 	struct apr_rx_buf *abuf, *b;
+ 	unsigned long flags;
+ 
+ 	if (!list_empty(&apr->rx_list)) {
+ 		list_for_each_entry_safe(abuf, b, &apr->rx_list, node) {
+-			apr_do_rx_callback(apr, abuf);
++			switch (apr->type) {
++			case PR_TYPE_APR:
++				apr_do_rx_callback(apr, abuf);
++				break;
++			default:
++				break;
++			}
+ 			spin_lock_irqsave(&apr->rx_lock, flags);
+ 			list_del(&abuf->node);
+ 			spin_unlock_irqrestore(&apr->rx_lock, flags);
+@@ -201,7 +215,7 @@ static int apr_device_match(struct device *dev, struct device_driver *drv)
+ 
+ 	while (id->domain_id != 0 || id->svc_id != 0) {
+ 		if (id->domain_id == adev->domain_id &&
+-		    id->svc_id == adev->svc_id)
++		    id->svc_id == adev->svc.id)
+ 			return 1;
+ 		id++;
+ 	}
+@@ -221,14 +235,14 @@ static int apr_device_remove(struct device *dev)
+ {
+ 	struct apr_device *adev = to_apr_device(dev);
+ 	struct apr_driver *adrv;
+-	struct apr *apr = dev_get_drvdata(adev->dev.parent);
++	struct packet_router *apr = dev_get_drvdata(adev->dev.parent);
+ 
+ 	if (dev->driver) {
+ 		adrv = to_apr_driver(dev->driver);
+ 		if (adrv->remove)
+ 			adrv->remove(adev);
+ 		spin_lock(&apr->svcs_lock);
+-		idr_remove(&apr->svcs_idr, adev->svc_id);
++		idr_remove(&apr->svcs_idr, adev->svc.id);
+ 		spin_unlock(&apr->svcs_lock);
+ 	}
+ 
+@@ -257,28 +271,39 @@ struct bus_type aprbus = {
+ EXPORT_SYMBOL_GPL(aprbus);
+ 
+ static int apr_add_device(struct device *dev, struct device_node *np,
+-			  const struct apr_device_id *id)
++			  u32 svc_id, u32 domain_id)
+ {
+-	struct apr *apr = dev_get_drvdata(dev);
++	struct packet_router *apr = dev_get_drvdata(dev);
+ 	struct apr_device *adev = NULL;
++	struct pkt_router_svc *svc;
+ 	int ret;
+ 
+ 	adev = kzalloc(sizeof(*adev), GFP_KERNEL);
+ 	if (!adev)
+ 		return -ENOMEM;
+ 
+-	spin_lock_init(&adev->lock);
++	adev->svc_id = svc_id;
++	svc = &adev->svc;
 +
-+title: Qualcomm APR (Asynchronous Packet Router) binding
++	svc->id = svc_id;
++	svc->pr = apr;
++	svc->priv = adev;
++	svc->dev = dev;
++	spin_lock_init(&svc->lock);
 +
-+maintainers:
-+  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
++	adev->domain_id = domain_id;
+ 
+-	adev->svc_id = id->svc_id;
+-	adev->domain_id = id->domain_id;
+-	adev->version = id->svc_version;
+ 	if (np)
+ 		snprintf(adev->name, APR_NAME_SIZE, "%pOFn", np);
+-	else
+-		strscpy(adev->name, id->name, APR_NAME_SIZE);
+ 
+-	dev_set_name(&adev->dev, "aprsvc:%s:%x:%x", adev->name,
+-		     id->domain_id, id->svc_id);
++	switch (apr->type) {
++	case PR_TYPE_APR:
++		dev_set_name(&adev->dev, "aprsvc:%s:%x:%x", adev->name,
++			     domain_id, svc_id);
++		break;
++	default:
++		break;
++	}
+ 
+ 	adev->dev.bus = &aprbus;
+ 	adev->dev.parent = dev;
+@@ -287,8 +312,7 @@ static int apr_add_device(struct device *dev, struct device_node *np,
+ 	adev->dev.driver = NULL;
+ 
+ 	spin_lock(&apr->svcs_lock);
+-	idr_alloc(&apr->svcs_idr, adev, id->svc_id,
+-		  id->svc_id + 1, GFP_ATOMIC);
++	idr_alloc(&apr->svcs_idr, svc, svc_id, svc_id + 1, GFP_ATOMIC);
+ 	spin_unlock(&apr->svcs_lock);
+ 
+ 	of_property_read_string_index(np, "qcom,protection-domain",
+@@ -308,7 +332,7 @@ static int apr_add_device(struct device *dev, struct device_node *np,
+ static int of_apr_add_pd_lookups(struct device *dev)
+ {
+ 	const char *service_name, *service_path;
+-	struct apr *apr = dev_get_drvdata(dev);
++	struct packet_router *apr = dev_get_drvdata(dev);
+ 	struct device_node *node;
+ 	struct pdr_service *pds;
+ 	int ret;
+@@ -338,13 +362,14 @@ static int of_apr_add_pd_lookups(struct device *dev)
+ 
+ static void of_register_apr_devices(struct device *dev, const char *svc_path)
+ {
+-	struct apr *apr = dev_get_drvdata(dev);
++	struct packet_router *apr = dev_get_drvdata(dev);
+ 	struct device_node *node;
+ 	const char *service_path;
+ 	int ret;
+ 
+ 	for_each_child_of_node(dev->of_node, node) {
+-		struct apr_device_id id = { {0} };
++		u32 svc_id;
++		u32 domain_id;
+ 
+ 		/*
+ 		 * This function is called with svc_path NULL during
+@@ -374,13 +399,13 @@ static void of_register_apr_devices(struct device *dev, const char *svc_path)
+ 				continue;
+ 		}
+ 
+-		if (of_property_read_u32(node, "reg", &id.svc_id))
++		if (of_property_read_u32(node, "reg", &svc_id))
+ 			continue;
+ 
+-		id.domain_id = apr->dest_domain_id;
++		domain_id = apr->dest_domain_id;
+ 
+-		if (apr_add_device(dev, node, &id))
+-			dev_err(dev, "Failed to add apr %d svc\n", id.svc_id);
++		if (apr_add_device(dev, node, svc_id, domain_id))
++			dev_err(dev, "Failed to add apr %d svc\n", svc_id);
+ 	}
+ }
+ 
+@@ -400,7 +425,7 @@ static int apr_remove_device(struct device *dev, void *svc_path)
+ 
+ static void apr_pd_status(int state, char *svc_path, void *priv)
+ {
+-	struct apr *apr = (struct apr *)priv;
++	struct packet_router *apr = (struct packet_router *)priv;
+ 
+ 	switch (state) {
+ 	case SERVREG_SERVICE_STATE_UP:
+@@ -415,7 +440,7 @@ static void apr_pd_status(int state, char *svc_path, void *priv)
+ static int apr_probe(struct rpmsg_device *rpdev)
+ {
+ 	struct device *dev = &rpdev->dev;
+-	struct apr *apr;
++	struct packet_router *apr;
+ 	int ret;
+ 
+ 	apr = devm_kzalloc(dev, sizeof(*apr), GFP_KERNEL);
+@@ -423,8 +448,9 @@ static int apr_probe(struct rpmsg_device *rpdev)
+ 		return -ENOMEM;
+ 
+ 	ret = of_property_read_u32(dev->of_node, "qcom,apr-domain", &apr->dest_domain_id);
++	apr->type = PR_TYPE_APR;
+ 	if (ret) {
+-		dev_err(dev, "APR Domain ID not specified in DT\n");
++		dev_err(dev, "Domain ID not specified in DT\n");
+ 		return ret;
+ 	}
+ 
+@@ -467,7 +493,7 @@ static int apr_probe(struct rpmsg_device *rpdev)
+ 
+ static void apr_remove(struct rpmsg_device *rpdev)
+ {
+-	struct apr *apr = dev_get_drvdata(&rpdev->dev);
++	struct packet_router *apr = dev_get_drvdata(&rpdev->dev);
+ 
+ 	pdr_handle_release(apr->pdr);
+ 	device_for_each_child(&rpdev->dev, NULL, apr_remove_device);
+@@ -504,20 +530,20 @@ void apr_driver_unregister(struct apr_driver *drv)
+ }
+ EXPORT_SYMBOL_GPL(apr_driver_unregister);
+ 
+-static const struct of_device_id apr_of_match[] = {
++static const struct of_device_id pkt_router_of_match[] = {
+ 	{ .compatible = "qcom,apr"},
+ 	{ .compatible = "qcom,apr-v2"},
+ 	{}
+ };
+-MODULE_DEVICE_TABLE(of, apr_of_match);
++MODULE_DEVICE_TABLE(of, pkt_router_of_match);
+ 
+-static struct rpmsg_driver apr_driver = {
++static struct rpmsg_driver packet_router_driver = {
+ 	.probe = apr_probe,
+ 	.remove = apr_remove,
+ 	.callback = apr_callback,
+ 	.drv = {
+ 		.name = "qcom,apr",
+-		.of_match_table = apr_of_match,
++		.of_match_table = pkt_router_of_match,
+ 	},
+ };
+ 
+@@ -527,7 +553,7 @@ static int __init apr_init(void)
+ 
+ 	ret = bus_register(&aprbus);
+ 	if (!ret)
+-		ret = register_rpmsg_driver(&apr_driver);
++		ret = register_rpmsg_driver(&packet_router_driver);
+ 	else
+ 		bus_unregister(&aprbus);
+ 
+@@ -537,7 +563,7 @@ static int __init apr_init(void)
+ static void __exit apr_exit(void)
+ {
+ 	bus_unregister(&aprbus);
+-	unregister_rpmsg_driver(&apr_driver);
++	unregister_rpmsg_driver(&packet_router_driver);
+ }
+ 
+ subsys_initcall(apr_init);
+diff --git a/include/linux/soc/qcom/apr.h b/include/linux/soc/qcom/apr.h
+index 137f9f2ac4c3..7bca213a3f83 100644
+--- a/include/linux/soc/qcom/apr.h
++++ b/include/linux/soc/qcom/apr.h
+@@ -79,6 +79,15 @@ struct apr_resp_pkt {
+ #define APR_SVC_MAJOR_VERSION(v)	((v >> 16) & 0xFF)
+ #define APR_SVC_MINOR_VERSION(v)	(v & 0xFF)
+ 
++struct packet_router;
++struct pkt_router_svc {
++	struct device *dev;
++	struct packet_router *pr;
++	spinlock_t lock;
++	int id;
++	void *priv;
++};
 +
-+description: |
-+  This binding describes the Qualcomm APR, APR is a IPC protocol for
-+  communication between Application processor and QDSP. APR is mainly
-+  used for audio/voice services on the QDSP.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - qcom,apr
-+      - qcom,apr-v2
-+
-+  qcom,apr-domain:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [1, 2, 3, 4, 5, 6, 7]
-+    description:
-+      Selects the processor domain for apr
-+        1 = APR simulator
-+        2 = PC Domain
-+        3 = Modem Domain
-+        4 = ADSP Domain
-+        5 = Application processor Domain
-+        6 = Modem2 Domain
-+        7 = Application Processor2 Domain
-+
-+  '#address-cells':
-+    const: 1
-+
-+  '#size-cells':
-+    const: 0
-+
-+#APR Services
-+patternProperties:
-+  "^apr-service@[0-9a-e]$":
-+    type: object
-+    description:
-+      APR node's client devices use subnodes for desired static port services.
-+
-+    properties:
-+      compatible:
-+        enum:
-+          - qcom,q6core
-+          - qcom,q6asm
-+          - qcom,q6afe
-+          - qcom,q6adm
-+
-+      reg:
-+        enum: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-+        description:
-+          APR Service ID
-+            3 = DSP Core Service
-+            4 = Audio  Front End Service.
-+            5 = Voice Stream Manager Service.
-+            6 = Voice processing manager.
-+            7 = Audio Stream Manager Service.
-+            8 = Audio Device Manager Service.
-+            9 = Multimode voice manager.
-+            10 = Core voice stream.
-+            11 = Core voice processor.
-+            12 = Ultrasound stream manager.
-+            13 = Listen stream manager.
-+
-+      qcom,protection-domain:
-+        $ref: /schemas/types.yaml#/definitions/string-array
-+        description: protection domain service name and path for apr service
-+          has dependency on.
-+        items:
-+          - const: avs/audio
-+          - const: msm/adsp/audio_pd
-+
-+      '#address-cells':
-+        const: 1
-+
-+      '#size-cells':
-+        const: 0
-+
-+    additionalProperties: false
-+
-+required:
-+  - compatible
-+  - qcom,apr-domain
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/soc/qcom,apr.h>
-+    apr {
-+        compatible = "qcom,apr-v2";
-+        qcom,apr-domain = <APR_DOMAIN_ADSP>;
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        q6core: apr-service@3 {
-+          compatible = "qcom,q6core";
-+          reg = <APR_SVC_ADSP_CORE>;
-+          qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
-+        };
-+
-+        q6afe: apr-service@4 {
-+          compatible = "qcom,q6afe";
-+          reg = <APR_SVC_AFE>;
-+          qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
-+        };
-+
-+        q6asm: apr-service@7 {
-+          compatible = "qcom,q6asm";
-+          reg = <APR_SVC_ASM>;
-+          qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
-+        };
-+
-+        q6adm: apr-service@8 {
-+          compatible = "qcom,q6adm";
-+          reg = <APR_SVC_ADM>;
-+          qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
-+        };
-+    };
+ struct apr_device {
+ 	struct device	dev;
+ 	uint16_t	svc_id;
+@@ -86,11 +95,12 @@ struct apr_device {
+ 	uint32_t	version;
+ 	char name[APR_NAME_SIZE];
+ 	const char *service_path;
+-	spinlock_t	lock;
++	struct pkt_router_svc svc;
+ 	struct list_head node;
+ };
+ 
+ #define to_apr_device(d) container_of(d, struct apr_device, dev)
++#define svc_to_apr_device(d) container_of(d, struct apr_device, svc)
+ 
+ struct apr_driver {
+ 	int	(*probe)(struct apr_device *sl);
 -- 
 2.21.0
 

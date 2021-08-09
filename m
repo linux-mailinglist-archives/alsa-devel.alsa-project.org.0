@@ -2,85 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E21A3E44D0
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Aug 2021 13:27:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F1553E44D6
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Aug 2021 13:28:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 143A1168B;
-	Mon,  9 Aug 2021 13:26:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 143A1168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB74D1686;
+	Mon,  9 Aug 2021 13:27:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB74D1686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628508442;
-	bh=XellCp9/xjnnX5uQA1j8/rxIHgDRwNTbxROstjRdoEc=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=aK9xkDAGyvLr1M6aioaylGpk2R3lMItgvE3eACasRa4mSyZxLOA1FYXFZEbGvmZob
-	 ynbcjoHRWBZw9Xkltzfc69wTMqcaWJ02y1ByvovIS5FzU230/eNYUyZ+6SDjwMZIlT
-	 8BTEY5V706HOg6LfAGTO0MFfmVYEWJ2bxQbXckhs=
+	s=default; t=1628508492;
+	bh=qIrcVPEyfMZj5UrqZH5jm6gJcLVtsHpiC8HGBz8cSLo=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=YsIG65h0Uqmi0DVg2gpFw+UMRaudnX7gN5xNr8EO6PoyjKZquwRcA93efwCEwioRI
+	 j+HbNteCcEbwuSxsGkQhGcPBXLSuoYF90pUZaf7jWEDRRcU/c+X5uUbeTBlO7G9c06
+	 p80uYMmACNtSx9bX3ueysH8FqOewgY8+xWXsF70s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 951ABF80506;
-	Mon,  9 Aug 2021 13:24:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93850F80105;
+	Mon,  9 Aug 2021 13:24:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4A253F804E2; Mon,  9 Aug 2021 13:24:48 +0200 (CEST)
+ id D90D8F804E4; Mon,  9 Aug 2021 13:24:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CEA00F8032D
- for <alsa-devel@alsa-project.org>; Mon,  9 Aug 2021 13:24:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CEA00F8032D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 728D5F802D2
+ for <alsa-devel@alsa-project.org>; Mon,  9 Aug 2021 13:24:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 728D5F802D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="rf+o0Vs8"
-Received: by mail-wr1-x435.google.com with SMTP id l18so20952640wrv.5
- for <alsa-devel@alsa-project.org>; Mon, 09 Aug 2021 04:24:34 -0700 (PDT)
+ header.b="OVITxYzS"
+Received: by mail-wr1-x432.google.com with SMTP id c9so20890153wri.8
+ for <alsa-devel@alsa-project.org>; Mon, 09 Aug 2021 04:24:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=H0QvTsq4Hu71SVIzc9UOs12oE6N97i7FOoAniQXjLLE=;
- b=rf+o0Vs8HTQ+ELojlj/jSA/9bWOMyF5sRz8gQnJ2VYZqkZFmoT+3CVYwZuzFQZwlmK
- bXyPjbOSyGokx+KzWk3tN07Mmy7SxMtCYv8ZRofXWAZ9tzDG4jEqxmiyvwACkfHdJx/l
- w9qoPS+HTLOAmZhwJ8ZkvjfAW10SMHPEsZCo3d0xKoA14zWFqps0rwa04lD7XDWsSMBR
- cqGEjeHb5WGuvHuWAbofjcM0WEhdjrI/x7Orj42E0BdEzqXxnbs+Cul8d0GVPkP3i5Iz
- 9uKmg8E9zOnpzYSlzfeCvJ9HZatPic2Hb7kQVSZeP4V01pqsRtoRPQcrK7e3lUd14dnF
- yPUQ==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=R63M4/FB38pewmBv4s/N5td47VGDDzMLbJRs6dsaRiY=;
+ b=OVITxYzS5WiJfIyFpogiKzse6szODxrBnRT3AWxkd2ly9XNpdHn4NVHAgcPFc+4vk9
+ K29tuyFQJu560G5CkPg0WjC6QDBzh41emyTglqGfdPbOei/cj4+WAcnMLo7tAMccFDy5
+ jWemhozzh0vAjKe1jWsV1yf/miD97Nw3sq6ndwVg5sm5sfj8bf4fuoHYRiXb58Tdnlr/
+ VNk8wQOxSaCGsRAi8nBjKfBF+LeGqGk2mW5+h87Qcj0fk+edUvlNWYF3aYgjYEdud1gT
+ XG8mmTgZOVXRD1k7saQIelt84uR/eXeUQInxLDKnCsNXJhVjJN/xTipR4lAdhEBToDw8
+ snSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=H0QvTsq4Hu71SVIzc9UOs12oE6N97i7FOoAniQXjLLE=;
- b=mOa+7I7AeWV4D1lGadHG9q8znvu3Yy2dzcRkkG6PNiPg5HsiOWefJeQAAYaq1AoPPm
- rX6BCCwTuHvArdcPOD6VwBPncKWSRwhXwYR4CMvlcTuZACB11kN39AV8kNf+QqXLFmUf
- VRTwbSRfJeFCrkvO0W3VgFhZfrUFcIBsNHa2HaHbgoH7unv8877MXpGergUqKSrQeph2
- bhgHHALYWLjsEdv84NYet8Unmzow0QJptgw6ccW5s7Mp2GHMFs0FuDRS69zDtFoB7KX0
- FFBFbLq+xNQZ08A0na3XHE+A2EOyXAtc/uXhdXiVjkyHTwkx8LK5LzNX+EnBJfOfWp03
- 1AWA==
-X-Gm-Message-State: AOAM532+vqwuS/aQF8Ce/691nGxDJH+nrJ1/lgPU2XduKeXqTHnAz4bl
- 8BfdGzoSD3EsgmA8zddDSl0qiQ==
-X-Google-Smtp-Source: ABdhPJyWFpY0/upVyfo6RxXi4JmK5/VEf6Wlgx9PAPwR7MnCpTJO3xbcF1vbBe0fH0FG0RPgnjsxdA==
-X-Received: by 2002:a5d:6905:: with SMTP id t5mr23919160wru.78.1628508269392; 
- Mon, 09 Aug 2021 04:24:29 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=R63M4/FB38pewmBv4s/N5td47VGDDzMLbJRs6dsaRiY=;
+ b=ceXQ98HFVd3pVCrKh1CVdKgyOW+RLcyRvsq6PbUzcrIGcMmnkllmB+oUC/3/d4wtT1
+ USj7uYTjjMyP5yd69WyfZKby48EnRBRM9lVIUfMEsEg6+GJWr+EVIz7RU8zf6prN4z0k
+ JlfcLuMcYiHPmmgO2eKZl123pnmmHs+iIvD9B1xAqR18ut+0zODDNHAZvqWDztI1HHai
+ 524/Gk7WcMTuEBdvf4uGJT4H74fFbRr41MQC6/AFsxn4L4GU0LjKoHu9uA8lF68dWpJV
+ 8BplKm/tbAj6HbVNCYV56yYmdN3KIlHBKK6irYBBOd8xE2icbKvsPGoBQeWFkdwwH0rJ
+ gSkA==
+X-Gm-Message-State: AOAM532GoqjvroMwiIaT/BAJ54ebK2WVZR4cU7Oz3UI+yNPussNZhUvi
+ 3JGD5FMXkB0TO8MqYUVZLvZVPg==
+X-Google-Smtp-Source: ABdhPJyCYgxx5yjc5x8PW1pZKHkGPYZFoL2GJN60nTAXiq/nCz9pqcCD2yDZmk6IJHNefq7W133Qmg==
+X-Received: by 2002:a5d:6b8f:: with SMTP id n15mr24062084wrx.103.1628508270761; 
+ Mon, 09 Aug 2021 04:24:30 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id b80sm7774900wmb.2.2021.08.09.04.24.28
+ by smtp.gmail.com with ESMTPSA id b80sm7774900wmb.2.2021.08.09.04.24.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Aug 2021 04:24:28 -0700 (PDT)
+ Mon, 09 Aug 2021 04:24:30 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: bjorn.andersson@linaro.org,
 	broonie@kernel.org,
 	robh@kernel.org
-Subject: [PATCH v4 00/20] ASoC: qcom: Add AudioReach support
-Date: Mon,  9 Aug 2021 12:23:19 +0100
-Message-Id: <20210809112339.8368-1-srinivas.kandagatla@linaro.org>
+Subject: [PATCH v4 01/20] soc: dt-bindings: qcom: apr: convert to yaml
+Date: Mon,  9 Aug 2021 12:23:20 +0100
+Message-Id: <20210809112339.8368-2-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
+In-Reply-To: <20210809112339.8368-1-srinivas.kandagatla@linaro.org>
+References: <20210809112339.8368-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
@@ -101,208 +104,292 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Many thanks for reviewing v3. This version addresses all the comments
-raised as part of v3 review.
+Convert APR bindings to yaml format so that we could add new bindings support.
 
-This patchset adds ASoC driver support to configure signal processing
-framework ("AudioReach") which is integral part of Qualcomm next
-generation audio SDK and will be deployed on upcoming Qualcomm chipsets.
-It makes use of ASoC Topology to load graphs on to the DSP which is then
-managed by APM (Audio Processing Manager) service to prepare/start/stop.
+All the dsp services bindings are now part of apr bindings instead
+of adding them to audio bindings.
 
-Here is simpified high-level block diagram of AudioReach:
-
- ___________________________________________________________
-|                 CPU (Application Processor)               |
-|  +---------+          +---------+         +----------+    |
-|  |  q6apm  |          |  q6apm  |         |  q6apm   |    |
-|  |   dais  | <------> |         | <-----> |lpass-dais|    |
-|  +---------+          +---------+         +----------+    |
-|                            ^  ^                           |
-|                            |  |           +---------+     |
-|  +---------+               v  +---------->|topology |     |
-|  | q6prm   |          +---------+         |         |     |
-|  |         |<-------->|   GPR   |         +---------+     |
-|  +---------+          +---------+                         |
-|       ^                    ^                              |
-|       |                    |                              |
-|  +----------+              |                              |
-|  |   q6prm  |              |                              |
-|  |lpass-clks|              |                              |
-|  +----------+              |                              |
-|____________________________|______________________________|
-                             |  
-                             | RPMSG (IPC over GLINK)              
- ____________________________|______________________________
-|                            |                              |
-|    +-----------------------+                              |
-|    |                       |                              |
-|    v                       v              q6 (Audio DSP)  |
-|+-----+    +----------------------------------+            |
-|| PRM |    | APM (Audio Processing Manager)   |            |
-|+-----+    |  . Graph Management              |            |  
-|           |  . Command Handing               |            |  
-|           |  . Event Management              |            |  
-|           |  ...                             |            |  
-|           +----------------------------------+            |  
-|                            ^                              |
-|____________________________|______________________________|
-                             |  
-                             |   LPASS AIF
- ____________________________|______________________________
-|                            |            Audio I/O         |
-|                            v                              |
-|   +--------------------------------------------------+    |
-|    |                Audio devices                     |   |
-|    | CODEC | HDMI-TX | PCM  | SLIMBUS | I2S |MI2S |...|   |
-|    |                                                  |   |
-|    +--------------------------------------------------+   |
-|___________________________________________________________|
-
-AudioReach has constructs of sub-graph, container and modules.
-Each sub-graph can have N containers and each Container can have N Modules
-and connections between them can be linear or non-linear.
-An audio function can be realized with one or many connected
-sub-graphs. There are also control/event paths between modules that can
-be wired up while building graph to achieve various control mechanism
-between modules. These concepts of Sub-Graph, Containers and Modules
-are represented in ASoC topology.
-
-Here is simple I2S graph with a Write Shared Memory and a
-Volume control module within a single Subgraph (1) with one Container (1)
-and 5 modules.
-
-  ____________________________________________________________
- |                        Sub-Graph [1]                       |
- |  _______________________________________________________   |
- | |                       Container [1]                   |  |
- | | [WR_SH] -> [PCM DEC] -> [PCM CONV] -> [VOL]-> [I2S-EP]|  |
- | |_______________________________________________________|  |
- |____________________________________________________________|
-
-For now this graph is split into two subgraphs to achieve dpcm like below:
- ________________________________________________    _________________
-|                Sub-Graph [1]                   |  |  Sub-Graph [2]  |
-|  ____________________________________________  |  |  _____________  |
-| |              Container [1]                 | |  | |Container [2]| |
-| | [WR_SH] -> [PCM DEC] -> [PCM CONV] -> [VOL]| |  | |   [I2S-EP]  | |
-| |____________________________________________| |  | |_____________| |
-|________________________________________________|  |_________________|
-
-                                                      _________________
-                                                    |  Sub-Graph [3]  |
-                                                    |  _____________  |
-                                                    | |Container [3]| |
-                                                    | |  [DMA-EP]   | |
-                                                    | |_____________| |
-                                                    |_________________|
-
-
-This patchset adds very minimal support for AudioReach which includes
-supporting sub-graphs containing CODEC DMA ports and simple PCM
-Decoder/Encoder and Logger Modules. Additional capabilities will
-be built over time to expose features offered by AudioReach. 
-
-This patchset is Tested on SM8250 SoC based Qualcomm Robotics Platform RB5
-and SM9250 MTP with WSA881X Smart Speaker Amplifiers, DMICs connected via
-VA Macro and WCD938x Codec connected via TX and RX Macro and HDMI audio
-via I2S.
-
-First 10 Patches are mostly reorganization existing Old QDSP Audio
-Framework code and bindings so that we could reuse them on AudioReach.
-
-ASoC topology graphs for DragonBoard RB5 and SM8250 MTP are available at 
-https://git.linaro.org/people/srinivas.kandagatla/audioreach-topology.git/
-
-Thanks,
-srini
-
-Changes since v3:
-- Split some dt-bindings patches for easy review.
-- fixed various cppcheck warnings and ignore some bogus ones.
-- fixed memory leak in various places in topology
-- reordered Kconfig and Makefile changes
-- cleaned Kconfig symbols to fit in properly with existing Q6DSP KConfigs
-- added lpass suffix to compatible for nodes that are dealing with LPASS IP.
-- fix few typos.
-
-Srinivas Kandagatla (20):
-  soc: dt-bindings: qcom: apr: convert to yaml
-  soc: qcom: apr: make code more reuseable
-  soc: dt-bindings: qcom: add gpr bindings
-  soc: qcom: apr: Add GPR support
-  ASoC: dt-bindings: move LPASS dai related bindings out of q6afe
-  ASoC: dt-bindings: move LPASS clocks related bindings out of q6afe
-  ASoC: dt-bindings: rename q6afe.h to q6dsp-lpass-ports.h
-  ASoC: qdsp6: q6afe-dai: move lpass audio ports to common file
-  ASoC: qdsp6: q6afe-clocks: move audio-clocks to common file
-  ASoC: dt-bindings: q6dsp: add q6apm-lpass-dai compatible
-  ASoC: dt-bindings: lpass-clocks: add q6prm clocks compatible
-  ASoC: dt-bindings: add q6apm digital audio stream bindings
-  ASoC: qdsp6: audioreach: add basic pkt alloc support
-  ASoC: qdsp6: audioreach: add q6apm support
-  ASoC: qdsp6: audioreach: add module configuration command helpers
-  ASoC: qdsp6: audioreach: add topology support
-  ASoC: qdsp6: audioreach: add q6apm-dai support
-  ASoC: qdsp6: audioreach: add q6apm lpass dai support
-  ASoC: qdsp6: audioreach: add q6prm support
-  ASoC: qdsp6: audioreach: add support for q6prm-clocks
-
- .../devicetree/bindings/soc/qcom/qcom,apr.txt |  134 --
- .../bindings/soc/qcom/qcom,apr.yaml           |  209 +++
- .../devicetree/bindings/sound/qcom,q6afe.txt  |  181 ---
- .../bindings/sound/qcom,q6apm-dai.yaml        |   50 +
- .../sound/qcom,q6dsp-lpass-clocks.yaml        |   74 ++
- .../sound/qcom,q6dsp-lpass-ports.yaml         |  202 +++
- drivers/soc/qcom/Kconfig                      |    8 +
- drivers/soc/qcom/apr.c                        |  286 +++-
- include/dt-bindings/soc/qcom,gpr.h            |   18 +
- include/dt-bindings/sound/qcom,q6afe.h        |  203 +--
- .../sound/qcom,q6dsp-lpass-ports.h            |  208 +++
- include/linux/soc/qcom/apr.h                  |   70 +-
- include/uapi/sound/snd_ar_tokens.h            |  203 +++
- sound/soc/qcom/Kconfig                        |   22 +
- sound/soc/qcom/qdsp6/Makefile                 |   11 +-
- sound/soc/qcom/qdsp6/audioreach.c             | 1170 +++++++++++++++++
- sound/soc/qcom/qdsp6/audioreach.h             |  692 ++++++++++
- sound/soc/qcom/qdsp6/q6afe-clocks.c           |  187 +--
- sound/soc/qcom/qdsp6/q6afe-dai.c              |  687 +---------
- sound/soc/qcom/qdsp6/q6apm-dai.c              |  504 +++++++
- sound/soc/qcom/qdsp6/q6apm-lpass-dais.c       |  266 ++++
- sound/soc/qcom/qdsp6/q6apm.c                  |  916 +++++++++++++
- sound/soc/qcom/qdsp6/q6apm.h                  |  154 +++
- sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c     |  186 +++
- sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.h     |   30 +
- sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c      |  627 +++++++++
- sound/soc/qcom/qdsp6/q6dsp-lpass-ports.h      |   22 +
- sound/soc/qcom/qdsp6/q6prm-clocks.c           |   85 ++
- sound/soc/qcom/qdsp6/q6prm.c                  |  256 ++++
- sound/soc/qcom/qdsp6/q6prm.h                  |   78 ++
- sound/soc/qcom/qdsp6/topology.c               | 1118 ++++++++++++++++
- 31 files changed, 7443 insertions(+), 1414 deletions(-)
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ .../devicetree/bindings/soc/qcom/qcom,apr.txt | 134 ------------------
+ .../bindings/soc/qcom/qcom,apr.yaml           | 127 +++++++++++++++++
+ 2 files changed, 127 insertions(+), 134 deletions(-)
  delete mode 100644 Documentation/devicetree/bindings/soc/qcom/qcom,apr.txt
  create mode 100644 Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-clocks.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml
- create mode 100644 include/dt-bindings/soc/qcom,gpr.h
- create mode 100644 include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
- create mode 100644 include/uapi/sound/snd_ar_tokens.h
- create mode 100644 sound/soc/qcom/qdsp6/audioreach.c
- create mode 100644 sound/soc/qcom/qdsp6/audioreach.h
- create mode 100644 sound/soc/qcom/qdsp6/q6apm-dai.c
- create mode 100644 sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
- create mode 100644 sound/soc/qcom/qdsp6/q6apm.c
- create mode 100644 sound/soc/qcom/qdsp6/q6apm.h
- create mode 100644 sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
- create mode 100644 sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.h
- create mode 100644 sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c
- create mode 100644 sound/soc/qcom/qdsp6/q6dsp-lpass-ports.h
- create mode 100644 sound/soc/qcom/qdsp6/q6prm-clocks.c
- create mode 100644 sound/soc/qcom/qdsp6/q6prm.c
- create mode 100644 sound/soc/qcom/qdsp6/q6prm.h
- create mode 100644 sound/soc/qcom/qdsp6/topology.c
 
+diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,apr.txt b/Documentation/devicetree/bindings/soc/qcom/qcom,apr.txt
+deleted file mode 100644
+index 2e2f6dc351c0..000000000000
+--- a/Documentation/devicetree/bindings/soc/qcom/qcom,apr.txt
++++ /dev/null
+@@ -1,134 +0,0 @@
+-Qualcomm APR (Asynchronous Packet Router) binding
+-
+-This binding describes the Qualcomm APR. APR is a IPC protocol for
+-communication between Application processor and QDSP. APR is mainly
+-used for audio/voice services on the QDSP.
+-
+-- compatible:
+-	Usage: required
+-	Value type: <stringlist>
+-	Definition: must be "qcom,apr-v<VERSION-NUMBER>", example "qcom,apr-v2"
+-
+-- qcom,apr-domain
+-	Usage: required
+-	Value type: <u32>
+-	Definition: Destination processor ID.
+-	Possible values are :
+-			1 - APR simulator
+-			2 - PC
+-			3 - MODEM
+-			4 - ADSP
+-			5 - APPS
+-			6 - MODEM2
+-			7 - APPS2
+-
+-= APR SERVICES
+-Each subnode of the APR node represents service tied to this apr. The name
+-of the nodes are not important. The properties of these nodes are defined
+-by the individual bindings for the specific service
+-- All APR services MUST contain the following property:
+-
+-- reg
+-	Usage: required
+-	Value type: <u32>
+-	Definition: APR Service ID
+-	Possible values are :
+-			3 - DSP Core Service
+-			4 - Audio Front End Service.
+-			5 - Voice Stream Manager Service.
+-			6 - Voice processing manager.
+-			7 - Audio Stream Manager Service.
+-			8 - Audio Device Manager Service.
+-			9 - Multimode voice manager.
+-			10 - Core voice stream.
+-			11 - Core voice processor.
+-			12 - Ultrasound stream manager.
+-			13 - Listen stream manager.
+-
+-- qcom,protection-domain
+-	Usage: optional
+-	Value type: <stringlist>
+-	Definition: Must list the protection domain service name and path
+-		    that the particular apr service has a dependency on.
+-	Possible values are :
+-			"avs/audio", "msm/adsp/audio_pd".
+-			"kernel/elf_loader", "msm/modem/wlan_pd".
+-			"tms/servreg", "msm/adsp/audio_pd".
+-			"tms/servreg", "msm/modem/wlan_pd".
+-			"tms/servreg", "msm/slpi/sensor_pd".
+-
+-= EXAMPLE
+-The following example represents a QDSP based sound card on a MSM8996 device
+-which uses apr as communication between Apps and QDSP.
+-
+-	apr {
+-		compatible = "qcom,apr-v2";
+-		qcom,apr-domain = <APR_DOMAIN_ADSP>;
+-
+-		apr-service@3 {
+-			compatible = "qcom,q6core";
+-			reg = <APR_SVC_ADSP_CORE>;
+-		};
+-
+-		apr-service@4 {
+-			compatible = "qcom,q6afe";
+-			reg = <APR_SVC_AFE>;
+-
+-			dais {
+-				#sound-dai-cells = <1>;
+-				dai@1 {
+-					reg = <HDMI_RX>;
+-				};
+-			};
+-		};
+-
+-		apr-service@7 {
+-			compatible = "qcom,q6asm";
+-			reg = <APR_SVC_ASM>;
+-			...
+-		};
+-
+-		apr-service@8 {
+-			compatible = "qcom,q6adm";
+-			reg = <APR_SVC_ADM>;
+-			...
+-		};
+-	};
+-
+-= EXAMPLE 2
+-The following example represents a QDSP based sound card with protection domain
+-dependencies specified. Here some of the apr services are dependent on services
+-running on protection domain hosted on ADSP/SLPI remote processors while others
+-have no such dependency.
+-
+-	apr {
+-		compatible = "qcom,apr-v2";
+-		qcom,glink-channels = "apr_audio_svc";
+-		qcom,apr-domain = <APR_DOMAIN_ADSP>;
+-
+-		apr-service@3 {
+-			compatible = "qcom,q6core";
+-			reg = <APR_SVC_ADSP_CORE>;
+-		};
+-
+-		q6afe: apr-service@4 {
+-			compatible = "qcom,q6afe";
+-			reg = <APR_SVC_AFE>;
+-			qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
+-			...
+-		};
+-
+-		q6asm: apr-service@7 {
+-			compatible = "qcom,q6asm";
+-			reg = <APR_SVC_ASM>;
+-			qcom,protection-domain = "tms/servreg", "msm/slpi/sensor_pd";
+-			...
+-		};
+-
+-		q6adm: apr-service@8 {
+-			compatible = "qcom,q6adm";
+-			reg = <APR_SVC_ADM>;
+-			qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
+-			...
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
+new file mode 100644
+index 000000000000..12650f7084f4
+--- /dev/null
++++ b/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
+@@ -0,0 +1,127 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: "http://devicetree.org/schemas/soc/qcom/qcom,apr.yaml#"
++$schema: "http://devicetree.org/meta-schemas/core.yaml#"
++
++title: Qualcomm APR (Asynchronous Packet Router) binding
++
++maintainers:
++  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
++
++description: |
++  This binding describes the Qualcomm APR, APR is a IPC protocol for
++  communication between Application processor and QDSP. APR is mainly
++  used for audio/voice services on the QDSP.
++
++properties:
++  compatible:
++    enum:
++      - qcom,apr
++      - qcom,apr-v2
++
++  qcom,apr-domain:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [1, 2, 3, 4, 5, 6, 7]
++    description:
++      Selects the processor domain for apr
++        1 = APR simulator
++        2 = PC Domain
++        3 = Modem Domain
++        4 = ADSP Domain
++        5 = Application processor Domain
++        6 = Modem2 Domain
++        7 = Application Processor2 Domain
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++#APR Services
++patternProperties:
++  "^apr-service@[0-9a-e]$":
++    type: object
++    description:
++      APR node's client devices use subnodes for desired static port services.
++
++    properties:
++      compatible:
++        enum:
++          - qcom,q6core
++          - qcom,q6asm
++          - qcom,q6afe
++          - qcom,q6adm
++
++      reg:
++        enum: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
++        description:
++          APR Service ID
++            3 = DSP Core Service
++            4 = Audio  Front End Service.
++            5 = Voice Stream Manager Service.
++            6 = Voice processing manager.
++            7 = Audio Stream Manager Service.
++            8 = Audio Device Manager Service.
++            9 = Multimode voice manager.
++            10 = Core voice stream.
++            11 = Core voice processor.
++            12 = Ultrasound stream manager.
++            13 = Listen stream manager.
++
++      qcom,protection-domain:
++        $ref: /schemas/types.yaml#/definitions/string-array
++        description: protection domain service name and path for apr service
++          has dependency on.
++        items:
++          - const: avs/audio
++          - const: msm/adsp/audio_pd
++
++      '#address-cells':
++        const: 1
++
++      '#size-cells':
++        const: 0
++
++    additionalProperties: false
++
++required:
++  - compatible
++  - qcom,apr-domain
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/soc/qcom,apr.h>
++    apr {
++        compatible = "qcom,apr-v2";
++        qcom,apr-domain = <APR_DOMAIN_ADSP>;
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        q6core: apr-service@3 {
++          compatible = "qcom,q6core";
++          reg = <APR_SVC_ADSP_CORE>;
++          qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
++        };
++
++        q6afe: apr-service@4 {
++          compatible = "qcom,q6afe";
++          reg = <APR_SVC_AFE>;
++          qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
++        };
++
++        q6asm: apr-service@7 {
++          compatible = "qcom,q6asm";
++          reg = <APR_SVC_ASM>;
++          qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
++        };
++
++        q6adm: apr-service@8 {
++          compatible = "qcom,q6adm";
++          reg = <APR_SVC_ADM>;
++          qcom,protection-domain = "avs/audio", "msm/adsp/audio_pd";
++        };
++    };
 -- 
 2.21.0
 

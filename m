@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 473723E4801
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Aug 2021 16:54:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4ABCE3E484C
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Aug 2021 17:04:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8EF41165D;
-	Mon,  9 Aug 2021 16:53:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EF41165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0789165D;
+	Mon,  9 Aug 2021 17:04:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0789165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628520865;
-	bh=xV/SErFyYsqlSf589SZoN8qb7Gf4IrSNiG53m5VhWSs=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1628521491;
+	bh=URrzTKRqKr1FjkmSe/5lJq47ELEjLlRBnPCZMoJirNE=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fNUOgJ4NPuU71QDh27zP5r8Pn+GSN8Hb0xh/lawQ50WB3CgX3kJ7OxFl+hsxjHpbE
-	 FpVzLkm/j7uK3mWbJumKC2+iPpmEBoKOi3vk//k4Ou4eo2WJAB9zb49M7iwb6YqnM8
-	 zhNWjO4bbdjC4szpA8GpEWEpJYUJGOrrmL2j3YkQ=
+	b=sIb+rPK4dbEo8U8m+iAttJ8yyW5KTwlRQyR+8R8AAckIYIl2n58yUBxlP9ospPJci
+	 qeggG0tI7Ifp11KaW2fbP8SLPeTVdEvJ6XiPLgzFh5bgAg+tUJU4LEA9tmlUbbJAcp
+	 48k/Jo/xZJ0u/2Ny37JsN1Qjz7esAgJOWXfFB5go=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B124F8032D;
-	Mon,  9 Aug 2021 16:52:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07250F80105;
+	Mon,  9 Aug 2021 17:03:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 413B0F802D2; Mon,  9 Aug 2021 16:52:56 +0200 (CEST)
+ id 5C099F802D2; Mon,  9 Aug 2021 17:03:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,50 +33,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CBEC1F800FD
- for <alsa-devel@alsa-project.org>; Mon,  9 Aug 2021 16:52:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBEC1F800FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0AD8BF800FD
+ for <alsa-devel@alsa-project.org>; Mon,  9 Aug 2021 17:03:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AD8BF800FD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="AgM/eB4D"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 021496101D;
- Mon,  9 Aug 2021 14:52:46 +0000 (UTC)
+ header.b="jZx/8Ckb"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9CFBD60F8F;
+ Mon,  9 Aug 2021 15:03:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1628520767;
- bh=xV/SErFyYsqlSf589SZoN8qb7Gf4IrSNiG53m5VhWSs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=AgM/eB4DEZPfF3dnR/x1sTluxCzwbIhyWqLWyQZPr1IjMuAW+lJrvRTfalxNhm6J1
- EnH4R5C6COcvF2WrF4lLCua1zu4s0umSkr74I9P9pjgUqlc8rE7XoAjNiG002sAqOu
- 8sHIfvXWG+b8h+yRGyA3boJK4Z5Fm7MlB72uZ9DRudoNCYi0VvLTZmz81MdgnQ8TRH
- pLNUE3F3Qd2m5K/LwS/m9DNFKpChKOJMjMwIEoihA1v2B1WzGcmD7S5C2O+nGzvJ2k
- i8L05O81soj4SHPu/7hZaqDoTbuRLfFeMmALLoVAVn0lu4X/k7WfhXSEspqC+Gcwr0
- TcfBqcLGx4sdg==
-Date: Mon, 9 Aug 2021 15:52:30 +0100
+ s=k20201202; t=1628521396;
+ bh=URrzTKRqKr1FjkmSe/5lJq47ELEjLlRBnPCZMoJirNE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=jZx/8CkbtjmOy/zSc0UbzIiblWkdBc4qNJGlC8WbWDORtsxuOIB6vrr79e1g2vF+V
+ UO0eCF8NbtuD+iARFv7x2oRK8rbSZQ6mQIfjc8OkfdN7HimY8W4pS6a1ZMwfZzone4
+ OHcfQPyYd7QQ3Gq24tUC7DjVJbXy8FTQDr5MH7VGBMMFr1xm3Xs/ME0Lly4ORc28AR
+ r/BStO0gtBE2rlX5CL07RRQ4rvcdp2swyo/tIimYqaQsgCNhenixBrjC5HQAkFaigH
+ hMQ0B2LmFsCiWHHFsPdCANgf3GPP4V4lX9LDRUTBZich6lZBMKNVc6VrYwE3xlLKAq
+ DCQkQ9cWUamvA==
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] soundwire: intel: trap TRIGGER_SUSPEND in .trigger
- callback
-Message-ID: <20210809145230.GD4866@sirena.org.uk>
-References: <YQd2BM3wGzKpfZn1@matsya> <s5hpmuwz98o.wl-tiwai@suse.de>
- <YQeQxj7Ejh14jIoc@matsya>
- <DM6PR11MB4074EF8726AA5ED297871225FFEF9@DM6PR11MB4074.namprd11.prod.outlook.com>
- <9ef7e341-13f4-69f7-964d-8e6efdd57ca7@linux.intel.com>
- <YQ07BVDyPD1Vb4R8@matsya>
- <a40644ba-bee7-0fc2-93e5-b1746ecda938@linux.intel.com>
- <YRCozWNtypjnTp0b@matsya> <s5hy29bnkqh.wl-tiwai@suse.de>
- <acef4e19-dd85-a079-341b-4b26b45c8efb@linux.intel.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH 0/2] ASoC: qdsp6: cppcheck warnings
+Date: Mon,  9 Aug 2021 16:02:55 +0100
+Message-Id: <162852092935.45967.5254005779519097775.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210809123137.14456-1-srinivas.kandagatla@linaro.org>
+References: <20210809123137.14456-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="qM81t570OJUP5TU/"
-Content-Disposition: inline
-In-Reply-To: <acef4e19-dd85-a079-341b-4b26b45c8efb@linux.intel.com>
-X-Cookie: Flattery will get you everywhere.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Takashi Iwai <tiwai@suse.de>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- "Liao, Bard" <bard.liao@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ lgirdwood@gmail.com, bgoswami@codeaurora.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,37 +79,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, 9 Aug 2021 13:31:35 +0100, Srinivas Kandagatla wrote:
+> cppcheck throws below two warnings in qdsp6 code due to unnecessary initialization
+> of variables
+> 
+> q6asm.c:1631: (style) Variable 'port' is reassigned a value before the
+>     old one has been used.
+> 
+> q6adm.c:475]: (style) Variable 'matrix_map' is reassigned a value before the
+>     old one has been used.
+> 
+> [...]
 
---qM81t570OJUP5TU/
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Mon, Aug 09, 2021 at 09:26:51AM -0500, Pierre-Louis Bossart wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> >>> For Intel machine drivers, all BE dailinks use
-> >>> .no_pcm = 1 (explicit setting)
-> >>> .nonatomic = 0 (implicit).
-> >>
-> >> that was my question, how is it implicit?
-> >> Should be explicitly set, right?
+Thanks!
 
-> implicit behavior with C, if you don't set a field its value is zero...
+[1/2] ASoC: qdsp6: q6asm: fix cppcheck warnings for unnecessary initialization
+      commit: e05f9ee5eabf4b88f9b9b264c8594ee6984b2131
+[2/2] ASoC: qdsp6: q6adm: fix cppcheck warnings for unnecessary initialization
+      commit: 455ecc808e99f154bd80541219f207f752a61c16
 
-Only for things declared static.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
---qM81t570OJUP5TU/
-Content-Type: application/pgp-signature; name="signature.asc"
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
------BEGIN PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmERQS0ACgkQJNaLcl1U
-h9AfwAf/cw9Ibkn4vluExONfpHhoWeXmQekzly7luUYf0nbVVvFtonUpAeUsVEj4
-WXeQhwnZ0jMEVrF2f+779AWKHnZyubzjh5L8hK+AoEUvU19pv4QRtWS5mDUF5QF+
-FapDrxehDGyTQRlpRC9btMIli+xb4EhjR7GKiY9cK/gcL2ZhxZCaMkLLvyQ64BjC
-WJWn2K71OoQV0ohMgLgAbM/bNV/5lDZZIF7uCVHic+kla9hm+dkEXJNU/3MFB6ed
-w4QUSJANHI+IlUJSz5c+hOuQuOI8jPObdiKusjvqYKTEW4Y5pvWFC7AoNrVT4gvI
-UuATlzLEptw+uBNwLf8zA6Ozid7pmg==
-=GnTI
------END PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---qM81t570OJUP5TU/--
+Thanks,
+Mark

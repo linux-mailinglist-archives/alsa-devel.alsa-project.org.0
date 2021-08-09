@@ -2,114 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 230ED3E43F1
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Aug 2021 12:29:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9F2B3E441D
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Aug 2021 12:46:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9804A168C;
-	Mon,  9 Aug 2021 12:28:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9804A168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FA63167E;
+	Mon,  9 Aug 2021 12:45:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FA63167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628504950;
-	bh=6ooh6XGJHmOG+ubD+1vf0E3UsMWQKRv6jiIdPVq5Pmw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=WMzlKSsPbye+Uq4It7Nj1Y1jusy9GkOlZEWLQE1eklETPrTQHeIqTGSzEiyqdjdok
-	 7r7e5oMWhJkgsjiiZ06DONgrYnGULikvRU6Ge+ytFxtt5YYSNko4XBzU/ujnxnrEhb
-	 9InjYkvLFIEvhkmmEeSM+icdAQSkpRL0FeMJDNtA=
+	s=default; t=1628505976;
+	bh=rMlA82JGaLiJR86gO6cuWzk+Ciy2mu6QJFvT7YeHNEM=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=SvlSUbZQIqoB3qsSy5EJ38IgauiAwIaUnn6zglfUOzM0OfGTPGhoc6qC4eTqZJFjC
+	 2yLEd5UXP3I2UZMrMYjUJWFCx2kJIucZIqe0wZXTwX3WGNXbLN90a/xFtLypl/PCpR
+	 NUQkRHgetpIr+YLHDzT6xcvu3o89C6ri6ECpBg7w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9183CF804B4;
-	Mon,  9 Aug 2021 12:27:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3992F8032D;
+	Mon,  9 Aug 2021 12:44:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A00D1F802D2; Mon,  9 Aug 2021 12:27:26 +0200 (CEST)
+ id 3659BF802D2; Mon,  9 Aug 2021 12:44:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D7750F800C8
- for <alsa-devel@alsa-project.org>; Mon,  9 Aug 2021 12:27:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7750F800C8
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 179ARFs54006813,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36502.realtek.com.tw[172.21.6.25])
- by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 179ARFs54006813
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 9 Aug 2021 18:27:15 +0800
-Received: from RTEXMBS04.realtek.com.tw (172.21.6.97) by
- RTEXH36502.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Mon, 9 Aug 2021 18:27:14 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS04.realtek.com.tw (172.21.6.97) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Mon, 9 Aug 2021 18:27:14 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::50bb:7602:98b5:697f]) by
- RTEXMBS01.realtek.com.tw ([fe80::50bb:7602:98b5:697f%5]) with mapi id
- 15.01.2106.013; Mon, 9 Aug 2021 18:27:14 +0800
-Content-Type: multipart/mixed;
- boundary="_000_ce9e2f298f0c4fc59f756c39736a297arealtekcom_"
-From: Jack Yu <jack.yu@realtek.com>
-To: "broonie@kernel.org" <broonie@kernel.org>, "lgirdwood@gmail.com"
- <lgirdwood@gmail.com>, "robh@kernel.org" <robh@kernel.org>
-Subject: [PATCH 2/2] ASoC: dt-bindings: rt1015p: add new compatible id
-Thread-Topic: [PATCH 2/2] ASoC: dt-bindings: rt1015p: add new compatible id
-Thread-Index: AdeNCR5XEhUWt6TcSgGLE9pKpAztpw==
-Date: Mon, 9 Aug 2021 10:27:14 +0000
-Message-ID: <ce9e2f298f0c4fc59f756c39736a297a@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: <ce9e2f298f0c4fc59f756c39736a297a@realtek.com>
-x-originating-ip: [172.22.102.167]
-x-kse-serverinfo: RTEXMBS04.realtek.com.tw, 9
-x-kse-attachmentfiltering-interceptor-info: no applicable attachment filtering
- rules found
-x-kse-antivirus-interceptor-info: scan successful
-x-kse-antivirus-info: =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIxLzgvOSCkV6TIIDA3OjA0OjAw?=
-x-kse-bulkmessagesfiltering-scan-result: protection disabled
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7DDCCF800FD
+ for <alsa-devel@alsa-project.org>; Mon,  9 Aug 2021 12:44:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7DDCCF800FD
+X-IronPort-AV: E=McAfee;i="6200,9189,10070"; a="214395227"
+X-IronPort-AV: E=Sophos;i="5.84,307,1620716400"; d="scan'208";a="214395227"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Aug 2021 03:44:34 -0700
+X-IronPort-AV: E=Sophos;i="5.84,307,1620716400"; d="scan'208";a="438886157"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.237.12.103])
+ ([10.237.12.103])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Aug 2021 03:44:32 -0700
+Subject: Re: [PATCH] ASoC: nau8821: new driver
+To: Seven Lee <wtli@nuvoton.com>, broonie@kernel.org
+References: <20210809101000.3947156-1-wtli@nuvoton.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Message-ID: <7fac2710-0173-cbc0-94e1-fb168dc4f069@linux.intel.com>
+Date: Mon, 9 Aug 2021 12:44:29 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-X-KSE-ServerInfo: RTEXH36502.realtek.com.tw, 9
-X-KSE-Attachment-Filter-Triggered-Rules: Clean
-X-KSE-Attachment-Filter-Triggered-Filters: Clean
-X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
-X-KSE-AntiSpam-Outbound-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 08/09/2021 10:15:06
-X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
-X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 0
-X-KSE-AntiSpam-Info: Lua profiles 165459 [Aug 09 2021]
-X-KSE-AntiSpam-Info: Version: 5.9.20.0
-X-KSE-AntiSpam-Info: Envelope from: jack.yu@realtek.com
-X-KSE-AntiSpam-Info: LuaCore: 454 454 39c6e442fd417993330528e7f9d13ac1bf7fdf8c
-X-KSE-AntiSpam-Info: {tnef_exp}
-X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info: realtek.com:7.1.1;
- d41d8cd98f00b204e9800998ecf8427e.com:7.1.1; 127.0.0.199:7.1.2
-X-KSE-AntiSpam-Info: {Track_Chinese_Simplified, headers_charset}
-X-KSE-AntiSpam-Info: Rate: 0
-X-KSE-AntiSpam-Info: Status: not_detected
-X-KSE-AntiSpam-Info: Method: none
-X-KSE-AntiSpam-Info: Auth:dkim=none
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Heuristic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 08/09/2021 10:18:00
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- =?big5?B?a2VudF9jaGVuQHJlYWx0ZWsuY29tIFuzr6vYp7td?= <kent_chen@realtek.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- =?big5?B?RGVyZWsgW6TovHe4cV0=?= <derek.fang@realtek.com>,
- =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?= <shumingf@realtek.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>
+In-Reply-To: <20210809101000.3947156-1-wtli@nuvoton.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, scott6986@gmail.com, KCHSU0@nuvoton.com,
+ lgirdwood@gmail.com, YHCHuang@nuvoton.com, CTLIN0@nuvoton.com,
+ dardar923@gmail.com, supercraig0719@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,130 +78,102 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---_000_ce9e2f298f0c4fc59f756c39736a297arealtekcom_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+On 8/9/2021 12:10 PM, Seven Lee wrote:
+> Add driver for NAU88L21.
+> 
+> Signed-off-by: Seven Lee <wtli@nuvoton.com>
+> ---
 
-QWRkIG5ldyBjb21wYXRpYmxlIElEIGZvciBydDEwMTVwIGluIGR0LWJpbmRpbmdzIGRvY3VtZW50
-Lg0KDQpTaWduZWQtb2ZmLWJ5OiBKYWNrIFl1IDxqYWNrLnl1QHJlYWx0ZWsuY29tPg0KLS0tDQog
-RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5kL3JlYWx0ZWsscnQxMDE1cC55
-YW1sIHwgNCArKystDQogMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlv
-bigtKQ0KDQpkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3Nv
-dW5kL3JlYWx0ZWsscnQxMDE1cC55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
-bmdzL3NvdW5kL3JlYWx0ZWsscnQxMDE1cC55YW1sDQppbmRleCA2NDRiNjhlZGYzZTEuLjhmY2I1
-Zjc5YTFiNSAxMDA2NDQNCi0tLSBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9z
-b3VuZC9yZWFsdGVrLHJ0MTAxNXAueWFtbA0KKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVl
-L2JpbmRpbmdzL3NvdW5kL3JlYWx0ZWsscnQxMDE1cC55YW1sDQpAQCAtMTUsNyArMTUsOSBAQCBk
-ZXNjcmlwdGlvbjogfA0KIA0KIHByb3BlcnRpZXM6DQogICBjb21wYXRpYmxlOg0KLSAgICBjb25z
-dDogcmVhbHRlayxydDEwMTVwDQorICAgICAgb25lT2Y6DQorICAgICAgICBjb25zdDogcmVhbHRl
-ayxydDEwMTVwDQorICAgICAgICBjb25zdDogcmVhbHRlayxydDEwMTlwDQogDQogICBzZGItZ3Bp
-b3M6DQogICAgIGRlc2NyaXB0aW9uOg0KLS0gDQoyLjMxLjENCg0K
+...
 
---_000_ce9e2f298f0c4fc59f756c39736a297arealtekcom_
-Content-Disposition: attachment; filename="winmail.dat"
-Content-Transfer-Encoding: base64
-Content-Type: application/ms-tnef; name="winmail.dat"
+> +
+> +static int dmic_clock_control(struct snd_soc_dapm_widget *w,
+> +		struct snd_kcontrol *k, int  event)
+> +{
+> +	struct snd_soc_component *component =
+> +		snd_soc_dapm_to_component(w->dapm);
+> +	struct nau8821 *nau8821 = snd_soc_component_get_drvdata(component);
+> +	int i, speed_selection, clk_adc_src, clk_adc;
+> +	unsigned int clk_divider_r03;
+> +
+> +	/* The DMIC clock is gotten from adc clock divided by
+> +	 * CLK_DMIC_SRC (1, 2, 4, 8). The clock has to be equal or
+> +	 * less than nau8821->dmic_clk_threshold.
+> +	 */
+> +	regmap_read(nau8821->regmap, NAU8821_R03_CLK_DIVIDER,
+> +		&clk_divider_r03);
+> +	clk_adc_src = (clk_divider_r03 & NAU8821_CLK_ADC_SRC_MASK)
+> +		>> NAU8821_CLK_ADC_SRC_SFT;
+> +
+> +	switch (clk_adc_src) {
+> +	case 0:
+> +		clk_adc = nau8821->fs * 256;
+> +		break;
+> +	case 1:
+> +		clk_adc = (nau8821->fs * 256) >> 1;
+> +		break;
+> +	case 2:
+> +		clk_adc = (nau8821->fs * 256) >> 2;
+> +		break;
+> +	case 3:
+> +		clk_adc = (nau8821->fs * 256) >> 3;
+> +		break;
+> +	}
 
-eJ8+InlVAQaQCAAEAAAAAAABAAEAAQeQBgAIAAAAtgMAAAAAAAC5AAEJgAEAIQAAADcyMDVDQUM0
-QTMxOUI1NEM5Rjk0OTY1RjQyRDhBN0VBAEsHAQ2ABAACAAAAAgACAAEFgAMADgAAAOUHCAAJAAoA
-GwAOAAEAMQEBIIADAA4AAADlBwgACQAKABsADgABADEBAQiABwAYAAAASVBNLk1pY3Jvc29mdCBN
-YWlsLk5vdGUAMQgBBIABAD4AAABbUEFUQ0ggMi8yXSBBU29DOiBkdC1iaW5kaW5nczogcnQxMDE1
-cDogYWRkIG5ldyBjb21wYXRpYmxlIGlkAH8TAQuAAQAhAAAANzIwNUNBQzRBMzE5QjU0QzlGOTQ5
-NjVGNDJEOEE3RUEASwcBA5AGACQVAABJAAAAAgF/AAEAAAAvAAAAPGNlOWUyZjI5OGYwYzRmYzU5
-Zjc1NmMzOTczNmEyOTdhQHJlYWx0ZWsuY29tPgAACwAfDgAAAAACAQkQAQAAAKACAACcAgAA2AQA
-AExaRnWVJ8G5YQAKZmJpZAQAAGNjwHBnMTI1MgD+A0PwdGV4dAH3AqQD4wIABGNoCsBzZXQwIO8H
-bQKDAFARTTIKgAa0AoCWfQqACMg7CWIxOQ7AvwnDFnIKMhZxAoAVYioJsHMJ8ASQYXQFsg5QA2Bz
-om8BgCBFeBHBbhgwXQZSdgSQF7YCEHIAwHR9CFBuGjEQIAXABaAbZGSaIANSIBAiF7JcdgiQ5Hdr
-C4BkNR1TBPAHQA0XcDAKcRfyYmttawZzAZAAICBCTV9C4EVHSU59CvwB8QvxeCBBZBxgGFAH4AWg
-bZkKsHRpAmAZ4ElEHHCHBbEAIB6QMTVwIAuAcCBkdC0NwB3AC4BnYQQgZG9jdQeAAjAuNFxsC4Bl
-CoElVFNpUmcYUGQtGTBmJBB5CDogSgDQayBZdQggPGonIS55dUBfCXAHQBAgJ9AiIT4lRS1zKVAl
-RSBEJMUiYQIgL1sBAB1gYxIQCdEvJCYv1RkgdR3ALyglLCNFJ+AEYW0DIHwgNCArey4QKXcxHHAD
-EBngGZRkeCwgMyOxEgAAICqhc/goKykvsC7QAQAecCqSuCgtKSVMDeABICApUORnaQVAYS8qDysf
-LC/9LThiM180bzV/LSglRR2xARAwIDY0NGI2OIkJgGYzF3AuLjgRsIBiNWY3OWExPPD/LsAeoDvh
-KOgzPzg/OU86X38KgC4RNy8/r0C/Qc8KgEBmQDLQI4AsNy4AR8E5viBHgQEABPRD8SbwfCmGtSmG
-cANgcDAiB5A6KYa/S6AiKEsmPoBLowCAdCbwH0XdQoZNAkugAiBlT2a/SyZPFU0vTj9QjzYnOU6W
-o0n3S6BzZGIy8HBD8B9LGkugSKoo50n2Mi4zHzyQAFAlWxVCWnAfAEIAAQAAABAAAABKAGEAYwBr
-ACAAWQB1AAAAHwBlAAEAAAAoAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBjAG8A
-bQAAAB8AZAABAAAACgAAAFMATQBUAFAAAAAAAAIBQQABAAAAWgAAAAAAAACBKx+kvqMQGZ1uAN0B
-D1QCAAAAgEoAYQBjAGsAIABZAHUAAABTAE0AVABQAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwA
-dABlAGsALgBjAG8AbQAAAAAAHwACXQEAAAAoAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABl
-AGsALgBjAG8AbQAAAB8A5V8BAAAAMAAAAHMAaQBwADoAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwA
-dABlAGsALgBjAG8AbQAAAB8AGgwBAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfAB8MAQAAACgAAABq
-AGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwAeDAEAAAAKAAAAUwBNAFQA
-UAAAAAAAAgEZDAEAAABaAAAAAAAAAIErH6S+oxAZnW4A3QEPVAIAAACASgBhAGMAawAgAFkAdQAA
-AFMATQBUAFAAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAAAAfAAFd
-AQAAACgAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAACwBAOgEAAAAf
-ABoAAQAAABIAAABJAFAATQAuAE4AbwB0AGUAAAAAAAMA8T8EBAAACwBAOgEAAAADAP0/tgMAAAIB
-CzABAAAAEAAAAHIFysSjGbVMn5SWX0LYp+oDABcAAQAAAEAAOQAALbMeCY3XAUAACDB5lLgeCY3X
-AQsAKQAAAAAAHwDZPwEAAAAAAgAAQQBkAGQAIABuAGUAdwAgAGMAbwBtAHAAYQB0AGkAYgBsAGUA
-IABJAEQAIABmAG8AcgAgAHIAdAAxADAAMQA1AHAAIABpAG4AIABkAHQALQBiAGkAbgBkAGkAbgBn
-AHMAIABkAG8AYwB1AG0AZQBuAHQALgANAAoADQAKAFMAaQBnAG4AZQBkAC0AbwBmAGYALQBiAHkA
-OgAgAEoAYQBjAGsAIABZAHUAIAA8AGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBv
-AG0APgANAAoALQAtAC0ADQAKACAARABvAGMAdQBtAGUAbgB0AGEAdABpAG8AbgAvAGQAZQB2AGkA
-YwBlAHQAcgBlAGUALwBiAGkAbgBkAGkAbgBnAHMALwBzAG8AdQBuAGQALwByAGUAYQBsAHQAZQBr
-ACwAcgB0ADEAMAAxADUAcAAuAHkAYQBtAGwAIAB8ACAANAAgACsAKwArAC0ADQAKACAAMQAgAGYA
-aQBsAGUAIABjAGgAYQBuAGcAZQBkACwAIAAzACAAaQBuAHMAZQByAHQAaQBvAG4AcwAoACsAKQAs
-ACAAMQAgAGQAZQBsAGUAdABpAG8AbgAoAC0AKQANAAoADQAKAGQAaQBmAGYAIAAtAC0AZwBpAHQA
-IABhAC8ARABvAGMAdQBtAGUAAAALAACACCAGAAAAAADAAAAAAAAARgAAAAAUhQAAAQAAAB8AAICG
-AwIAAAAAAMAAAAAAAABGAQAAAB4AAABhAGMAYwBlAHAAdABsAGEAbgBnAHUAYQBnAGUAAAAAAAEA
-AAAaAAAAegBoAC0AVABXACwAIABlAG4ALQBVAFMAAAAAAAMAAIAIIAYAAAAAAMAAAAAAAABGAQAA
-ADIAAABFAHgAYwBoAGEAbgBnAGUAQQBwAHAAbABpAGMAYQB0AGkAbwBuAEYAbABhAGcAcwAAAAAA
-IAAAAEgAAIAIIAYAAAAAAMAAAAAAAABGAQAAACIAAABOAGUAdAB3AG8AcgBrAE0AZQBzAHMAYQBn
-AGUASQBkAAAAAAD4KI0/K6tpQqyfCNlbIEFJHwAAgBOP8kH0gxRBpYTu21prC/8BAAAAFgAAAEMA
-bABpAGUAbgB0AEkAbgBmAG8AAAAAAAEAAAAqAAAAQwBsAGkAZQBuAHQAPQBNAFMARQB4AGMAaABh
-AG4AZwBlAFIAUABDAAAAAAAfAPo/AQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwA3AAEAAAB8AAAA
-WwBQAEEAVABDAEgAIAAyAC8AMgBdACAAQQBTAG8AQwA6ACAAZAB0AC0AYgBpAG4AZABpAG4AZwBz
-ADoAIAByAHQAMQAwADEANQBwADoAIABhAGQAZAAgAG4AZQB3ACAAYwBvAG0AcABhAHQAaQBiAGwA
-ZQAgAGkAZAAAAB8APQABAAAAAgAAAAAAAAADADYAAAAAAAIBcQABAAAAFgAAAAHXjQkeVxIVFrek
-3EoBixPaSqQM7acAAB8AcAABAAAAfAAAAFsAUABBAFQAQwBIACAAMgAvADIAXQAgAEEAUwBvAEMA
-OgAgAGQAdAAtAGIAaQBuAGQAaQBuAGcAcwA6ACAAcgB0ADEAMAAxADUAcAA6ACAAYQBkAGQAIABu
-AGUAdwAgAGMAbwBtAHAAYQB0AGkAYgBsAGUAIABpAGQAAAAfADUQAQAAAF4AAAA8AGMAZQA5AGUA
-MgBmADIAOQA4AGYAMABjADQAZgBjADUAOQBmADcANQA2AGMAMwA5ADcAMwA2AGEAMgA5ADcAYQBA
-AHIAZQBhAGwAdABlAGsALgBjAG8AbQA+AAAAAAADAN4/tgMAAAMAExIAAAAAAgEAgBOP8kH0gxRB
-pYTu21prC/8BAAAALgAAAEgAZQBhAGQAZQByAEIAbwBkAHkARgByAGEAZwBtAGUAbgB0AEwAaQBz
-AHQAAAAAAAEAAAAiAAAAAQAKAAAABAAAAAAAAAAUAAAAAAAAAAAAAAD/////AAAAAAAACwAAgBOP
-8kH0gxRBpYTu21prC/8BAAAAHAAAAEgAYQBzAFEAdQBvAHQAZQBkAFQAZQB4AHQAAAAAAAAACwAA
-gBOP8kH0gxRBpYTu21prC/8BAAAAKAAAAEkAcwBRAHUAbwB0AGUAZABUAGUAeAB0AEMAaABhAG4A
-ZwBlAGQAAAAAAAAAQAAHMF0xsB4JjdcBAgELAAEAAAAQAAAAcgXKxKMZtUyflJZfQtin6gMAJgAA
-AAAACwAGDAAAAAACARAwAQAAAEYAAAAAAAAA2+nESiSg50GTGyq7K7NtTAcATLd9DVWheUS+c4U5
-YtAApQAAAGlg9wAAMq84BUqwTkaAx8c4IroPWgAAAdeoiQAAAAACARMwAQAAABAAAAASFRa3pNxK
-AYsT2kqkDO2nAgEUMAEAAAAMAAAAMAAAAEsiBS5BAAAAHwD4PwEAAAAQAAAASgBhAGMAawAgAFkA
-dQAAAB8AIkABAAAABgAAAEUAWAAAAAAAHwAjQAEAAAC2AAAALwBPAD0AUgBUAEUAWABDAEgALwBP
-AFUAPQBFAFgAQwBIAEEATgBHAEUAIABBAEQATQBJAE4ASQBTAFQAUgBBAFQASQBWAEUAIABHAFIA
-TwBVAFAAIAAoAEYAWQBEAEkAQgBPAEgARgAyADMAUwBQAEQATABUACkALwBDAE4APQBSAEUAQwBJ
-AFAASQBFAE4AVABTAC8AQwBOAD0AVQBTAEUAUgA1ADkAOAA2ADUAMQAwADkAAAAAAB8AJEABAAAA
-BgAAAEUAWAAAAAAAHwAlQAEAAAC2AAAALwBPAD0AUgBUAEUAWABDAEgALwBPAFUAPQBFAFgAQwBI
-AEEATgBHAEUAIABBAEQATQBJAE4ASQBTAFQAUgBBAFQASQBWAEUAIABHAFIATwBVAFAAIAAoAEYA
-WQBEAEkAQgBPAEgARgAyADMAUwBQAEQATABUACkALwBDAE4APQBSAEUAQwBJAFAASQBFAE4AVABT
-AC8AQwBOAD0AVQBTAEUAUgA1ADkAOAA2ADUAMQAwADkAAAAAAB8AMEABAAAAEAAAAEoAYQBjAGsA
-IABZAHUAAAAfADFAAQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwA4QAEAAAAQAAAASgBhAGMAawAg
-AFkAdQAAAB8AOUABAAAAEAAAAEoAYQBjAGsAIABZAHUAAAADAFlAAAAAAAMAWkAAAAAAAwAJWQEA
-AAAfAApdAQAAACgAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwAL
-XQEAAAAoAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAAAB8AAIAfpOsz
-qHouQr57eeGpjlSzAQAAADgAAABDAG8AbgB2AGUAcgBzAGEAdABpAG8AbgBJAG4AZABlAHgAVABy
-AGEAYwBrAGkAbgBnAEUAeAAAAAEAAAAkAQAASQBJAD0AWwBDAEkARAA9AGIANwAxADYAMQA1ADEA
-MgAtAGQAYwBhADQALQAwADEANABhAC0AOABiADEAMwAtAGQAYQA0AGEAYQA0ADAAYwBlAGQAYQA3
-ADsASQBEAFgASABFAEEARAA9AEQANwA4AEQAMAA5ADEARQA1ADcAOwBJAEQAWABDAE8AVQBOAFQA
-PQAxAF0AOwBQAFMAPQBVAG4AawBuAG8AdwBuADsAVgBlAHIAcwBpAG8AbgA9AFYAZQByAHMAaQBv
-AG4AIAAxADUALgAxACAAKABCAHUAaQBsAGQAIAAyADEAMAA2AC4AMAApACwAIABTAHQAYQBnAGUA
-PQBIADQAOwBVAFAAPQAxADAAOwBEAFAAPQAxAEMANQAAAAsAAIAIIAYAAAAAAMAAAAAAAABGAAAA
-AIKFAAAAAAAAAwANNP0/AAAfAACAhgMCAAAAAADAAAAAAAAARgEAAAAgAAAAeAAtAG0AcwAtAGgA
-YQBzAC0AYQB0AHQAYQBjAGgAAAABAAAAAgAAAAAAAAAfAACAhgMCAAAAAADAAAAAAAAARgEAAAAi
-AAAAeAAtAG8AcgBpAGcAaQBuAGEAdABpAG4AZwAtAGkAcAAAAAAAAQAAACIAAABbADEANwAyAC4A
-MgAyAC4AMQAwADIALgAxADYANwBdAAAAAAAfAACAhgMCAAAAAADAAAAAAAAARgEAAAAiAAAAeAAt
-AGsAcwBlAC0AcwBlAHIAdgBlAHIAaQBuAGYAbwAAAAAAAQAAADgAAABSAFQARQBYAE0AQgBTADAA
-NAAuAHIAZQBhAGwAdABlAGsALgBjAG8AbQAuAHQAdwAsACAAOQAAAB8AAICGAwIAAAAAAMAAAAAA
-AABGAQAAAFYAAAB4AC0AawBzAGUALQBhAHQAdABhAGMAaABtAGUAbgB0AGYAaQBsAHQAZQByAGkA
-bgBnAC0AaQBuAHQAZQByAGMAZQBwAHQAbwByAC0AaQBuAGYAbwAAAAAAAQAAAF4AAABuAG8AIABh
-AHAAcABsAGkAYwBhAGIAbABlACAAYQB0AHQAYQBjAGgAbQBlAG4AdAAgAGYAaQBsAHQAZQByAGkA
-bgBnACAAcgB1AGwAZQBzACAAZgBvAHUAbgBkAAAAAAAfAACAhgMCAAAAAADAAAAAAAAARgEAAABC
-AAAAeAAtAGsAcwBlAC0AYQBuAHQAaQB2AGkAcgB1AHMALQBpAG4AdABlAHIAYwBlAHAAdABvAHIA
-LQBpAG4AZgBvAAAAAAABAAAAIAAAAHMAYwBhAG4AIABzAHUAYwBjAGUAcwBzAGYAdQBsAAAAHwAA
-gIYDAgAAAAAAwAAAAAAAAEYBAAAAKgAAAHgALQBrAHMAZQAtAGEAbgB0AGkAdgBpAHIAdQBzAC0A
-aQBuAGYAbwAAAAAAAQAAAEYAAABDAGwAZQBhAG4ALAAgAGIAYQBzAGUAcwA6ACAAMgAwADIAMQAv
-ADgALwA5ACAACk5IUyAAMAA3ADoAMAA0ADoAMAAwAAAAAAAfAACAhgMCAAAAAADAAAAAAAAARgEA
-AABQAAAAeAAtAGsAcwBlAC0AYgB1AGwAawBtAGUAcwBzAGEAZwBlAHMAZgBpAGwAdABlAHIAaQBu
-AGcALQBzAGMAYQBuAC0AcgBlAHMAdQBsAHQAAAABAAAAKAAAAHAAcgBvAHQAZQBjAHQAaQBvAG4A
-IABkAGkAcwBhAGIAbABlAGQAAABorg==
+Just do:
+clk_adc = (nau8821->fs * 256) >> clk_adc_src;
+instead of whole switch?
 
---_000_ce9e2f298f0c4fc59f756c39736a297arealtekcom_--
+> +
+> +	for (i = 0 ; i < 4 ; i++) {
+> +		if ((clk_adc >> dmic_speed_sel[i].param) <=
+> +			nau8821->dmic_clk_threshold) {
+> +			speed_selection = dmic_speed_sel[i].val;
+> +			break;
+> +		}
+> +	}
+> +
+> +	dev_dbg(nau8821->dev,
+> +		"clk_adc=%d, dmic_clk_threshold = %d, param=%d, val = %d\n",
+> +		clk_adc, nau8821->dmic_clk_threshold,
+> +		dmic_speed_sel[i].param, dmic_speed_sel[i].val);
+> +	regmap_update_bits(nau8821->regmap, NAU8821_R13_DMIC_CTRL,
+> +		NAU8821_DMIC_SRC_MASK,
+> +		(speed_selection << NAU8821_DMIC_SRC_SFT));
+> +
+> +	return 0;
+> +}
+> +
+
+...
+
+> +
+> +static int nau8821_clock_check(struct nau8821 *nau8821,
+> +	int stream, int rate, int osr)
+> +{
+> +	int osrate = 0;
+> +
+> +	if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
+> +		if (osr >= ARRAY_SIZE(osr_dac_sel))
+> +			return -EINVAL;
+> +		osrate = osr_dac_sel[osr].osr;
+> +	} else {
+> +		if (osr >= ARRAY_SIZE(osr_adc_sel))
+> +			return -EINVAL;
+> +		osrate = osr_adc_sel[osr].osr;
+> +	}
+true and false cases seem to be the same here, you can remove the "if 
+else" and just leave one of them.
+
+> +
+> +	if (!osrate || rate * osrate > CLK_DA_AD_MAX) {
+> +		dev_err(nau8821->dev,
+> +		"exceed the maximum frequency of CLK_ADC or CLK_DAC\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+
+...

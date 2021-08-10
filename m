@@ -2,63 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6ED383E7C9B
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Aug 2021 17:42:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 099813E7CA6
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Aug 2021 17:44:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E68BD170E;
-	Tue, 10 Aug 2021 17:41:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E68BD170E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84D8F176E;
+	Tue, 10 Aug 2021 17:43:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84D8F176E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628610136;
-	bh=tG12jlCTnJ0e6CK5TwVhtixp695E5mcwD5sobIYghq8=;
+	s=default; t=1628610248;
+	bh=2uctnK5f+kFNTGZiks6tsWOAbxnxhnNaMaMA2F+VbbU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=o2jc+BcB3ZuuRSwWqS4SVbf9oerCSskQSkweidnhwsYcWuBzOqSC4ZcnOZyF+jOlQ
-	 5VmHExCGwIzSaXKL6yhNFeV4tEmBgvxaGy5nqCPhBze4x1IMmg1IsZMt69vCEiLV0i
-	 RFRt6zOGMEkEYFAtUWzVqy8UNLsXxqX0lSt4WZKY=
+	b=QhpYWlhXR2EXp5dP3hqg01qeBC/hs+XJQ7kAb26BJDL1ajO8E9zzbH75RaNyCW1Gj
+	 c+knAqPFoPZOAFxLBJIlKV/GVagZxTaGUXC/0Cw3yR4FNNWvh3bYyLWgTHuX8/NMdX
+	 m/oPM13suK/cr/zEvzN1YWB50MeL8qNrtLPHNw40=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D54FFF80517;
-	Tue, 10 Aug 2021 17:38:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84A72F80538;
+	Tue, 10 Aug 2021 17:38:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A986EF80279; Tue, 10 Aug 2021 17:38:19 +0200 (CEST)
+ id B3031F80520; Tue, 10 Aug 2021 17:38:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 713A7F802A0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C5BCF800C8
  for <alsa-devel@alsa-project.org>; Tue, 10 Aug 2021 17:38:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 713A7F802A0
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C5BCF800C8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="j1K7YFSE"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 17A75fJR008310; 
+ header.b="jYcLpBRq"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 17AAlVvA027584; 
  Tue, 10 Aug 2021 10:38:07 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=mKano9YDWLykHLXNNc6xzmZykAqhECfAc4nYZheaHPo=;
- b=j1K7YFSEzpovuSAmZ8fNtj0XeF9gT0MPl5Oqk39qRiqosiQXVSO08/KFWvyX031TtBB7
- p9Hf6o35boybmdQ4v9/cw4Hr+USAWpqNb18a6xKuccLDpoY/ukCci3Vm6vXoP8epA6sq
- Y8OOlUvbb4ybiae8Lus/fDgDb7mKEhKwEE9iyuFUjd4f9hNdR8HVK8bUVojxTFpsRnIV
- JidONZvVxyyiodE+WP45hxM3eE3aKuX+cVFjw4BC/UmibVUp+/9a4p9dtpC9OCwmWlQU
- mTp9pWx7oPQqvlEOQXgiWTTbsAxq6qsMATJxn6Mc+Br8D5vImNdBuvR5gZQnEH4w5zfX wg== 
-Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com with ESMTP id 3abmrkgkf6-5
+ bh=DPhyqgUnsrA72hgwecq75U2I1wXQsCV52Caviz1x0yg=;
+ b=jYcLpBRqZKejCGDoZv1kSbfh+xxtx9kUnfvHqRQkOFrVyDnu6/lqQJPTUvb3OMZ2UaG8
+ OIEI/lCsHOBuac+00blJsTE+Cfr9MgfluUhqocln/GMAn7fXODTpsQEEU6oZ0Xre4+Ov
+ UhGCuuAIInQhXBPzvlaH7/lcX6+VhLZ6EsdVmBC2UQwVd6iHzKRRArJnd6pLI3R6UzQo
+ iJhMtsgWnwdP44Ujz9DzpOAx0Tid8u1zMxxnLoQMNuohc/geT+TI3bvHOIr2IAzodgTF
+ xS3uu9359klGp7lpJAzILsJcGPqIfvI83pl/j2j9lLRG+4ptYHsNqUN7bj0h2wukeSxX hw== 
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0a-001ae601.pphosted.com with ESMTP id 3abr0u0e2c-4
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
  Tue, 10 Aug 2021 10:38:07 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Tue, 10 Aug
  2021 16:38:04 +0100
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
@@ -66,26 +66,26 @@ Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  Frontend Transport; Tue, 10 Aug 2021 16:38:04 +0100
 Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
  [198.61.64.221])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 5D0F546E;
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id A027E478;
  Tue, 10 Aug 2021 15:38:04 +0000 (UTC)
 From: Richard Fitzgerald <rf@opensource.cirrus.com>
 To: <broonie@kernel.org>
-Subject: [PATCH 07/12] ASoC: cs42l42: Allow time for HP/ADC to power-up after
- enable
-Date: Tue, 10 Aug 2021 16:37:54 +0100
-Message-ID: <20210810153759.24333-8-rf@opensource.cirrus.com>
+Subject: [PATCH 08/12] ASoC: cs42l42: Prevent NULL pointer deref in interrupt
+ handler
+Date: Tue, 10 Aug 2021 16:37:55 +0100
+Message-ID: <20210810153759.24333-9-rf@opensource.cirrus.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210810153759.24333-1-rf@opensource.cirrus.com>
 References: <20210810153759.24333-1-rf@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-GUID: OcM8UVQDvSGGMpD_UWXmo7RwjkXPpgLS
-X-Proofpoint-ORIG-GUID: OcM8UVQDvSGGMpD_UWXmo7RwjkXPpgLS
+X-Proofpoint-ORIG-GUID: DxAYCz2QYA4ZbJq4j_uGxAGfBETGp0OF
+X-Proofpoint-GUID: DxAYCz2QYA4ZbJq4j_uGxAGfBETGp0OF
 X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- bulkscore=0 adultscore=0
- spamscore=0 lowpriorityscore=0 priorityscore=1501 malwarescore=0
- clxscore=1015 mlxlogscore=999 mlxscore=0 phishscore=0 impostorscore=0
+ phishscore=0
+ clxscore=1015 priorityscore=1501 adultscore=0 mlxlogscore=999 mlxscore=0
+ spamscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2107140000
  definitions=main-2108100099
 Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
@@ -105,92 +105,123 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-After enabling the HP or ADC by writing the corresponding PDN=0,
-it takes around 20 milliseconds for it to power up and the midrail
-supply to be stable. Add this wait into a DAPM widget callback.
+The interrupt handling code was getting the struct device* from a
+struct snd_soc_component* stored in struct cs42l42_private. If the
+interrupt was asserted before ASoC calls component_probe() the
+snd_soc_component* will be NULL.
 
-If HP and ADC are both powering up in a DAPM sequence, there's no
-need to do the wait twice. The widget will perform one wait in the
-POST_PMU if there was a PRE_PMU for one or both.
+The stored snd_soc_component* is not actually used for anything other
+than indirectly getting the struct device*. Remove it, and store the
+struct device* in struct cs42l42_private.
 
 Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 ---
- sound/soc/codecs/cs42l42.c | 31 +++++++++++++++++++++++++++++--
- sound/soc/codecs/cs42l42.h |  2 ++
- 2 files changed, 31 insertions(+), 2 deletions(-)
+ sound/soc/codecs/cs42l42.c | 26 ++++++++------------------
+ sound/soc/codecs/cs42l42.h |  2 +-
+ 2 files changed, 9 insertions(+), 19 deletions(-)
 
 diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
-index dd677055a3c1..0b63dba07b6d 100644
+index 0b63dba07b6d..b7a1231add2d 100644
 --- a/sound/soc/codecs/cs42l42.c
 +++ b/sound/soc/codecs/cs42l42.c
-@@ -456,10 +456,36 @@ static const struct snd_kcontrol_new cs42l42_snd_controls[] = {
- 				0x3f, 1, mixer_tlv)
- };
+@@ -554,17 +554,7 @@ static int cs42l42_set_jack(struct snd_soc_component *component, struct snd_soc_
+ 	return 0;
+ }
  
-+static int cs42l42_hp_adc_ev(struct snd_soc_dapm_widget *w,
-+			  struct snd_kcontrol *kcontrol, int event)
-+{
-+	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-+	struct cs42l42_private *cs42l42 = snd_soc_component_get_drvdata(component);
-+
-+	switch (event) {
-+	case SND_SOC_DAPM_PRE_PMU:
-+		cs42l42->hp_adc_up_pending = true;
-+		break;
-+	case SND_SOC_DAPM_POST_PMU:
-+		/* Only need one delay if HP and ADC are both powering-up */
-+		if (cs42l42->hp_adc_up_pending) {
-+			usleep_range(CS42L42_HP_ADC_EN_TIME_US,
-+				     CS42L42_HP_ADC_EN_TIME_US + 1000);
-+			cs42l42->hp_adc_up_pending = false;
-+		}
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
- static const struct snd_soc_dapm_widget cs42l42_dapm_widgets[] = {
- 	/* Playback Path */
- 	SND_SOC_DAPM_OUTPUT("HP"),
--	SND_SOC_DAPM_DAC("DAC", NULL, CS42L42_PWR_CTL1, CS42L42_HP_PDN_SHIFT, 1),
-+	SND_SOC_DAPM_DAC_E("DAC", NULL, CS42L42_PWR_CTL1, CS42L42_HP_PDN_SHIFT, 1,
-+			   cs42l42_hp_adc_ev, SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU),
- 	SND_SOC_DAPM_MIXER("MIXER", CS42L42_PWR_CTL1, CS42L42_MIXER_PDN_SHIFT, 1, NULL, 0),
- 	SND_SOC_DAPM_AIF_IN("SDIN1", NULL, 0, SND_SOC_NOPM, 0, 0),
- 	SND_SOC_DAPM_AIF_IN("SDIN2", NULL, 1, SND_SOC_NOPM, 0, 0),
-@@ -469,7 +495,8 @@ static const struct snd_soc_dapm_widget cs42l42_dapm_widgets[] = {
+-static int cs42l42_component_probe(struct snd_soc_component *component)
+-{
+-	struct cs42l42_private *cs42l42 = snd_soc_component_get_drvdata(component);
+-
+-	cs42l42->component = component;
+-
+-	return 0;
+-}
+-
+ static const struct snd_soc_component_driver soc_component_dev_cs42l42 = {
+-	.probe			= cs42l42_component_probe,
+ 	.set_jack		= cs42l42_set_jack,
+ 	.dapm_widgets		= cs42l42_dapm_widgets,
+ 	.num_dapm_widgets	= ARRAY_SIZE(cs42l42_dapm_widgets),
+@@ -1416,19 +1406,19 @@ static int cs42l42_handle_button_press(struct cs42l42_private *cs42l42)
+ 	switch (bias_level) {
+ 	case 1: /* Function C button press */
+ 		bias_level = SND_JACK_BTN_2;
+-		dev_dbg(cs42l42->component->dev, "Function C button press\n");
++		dev_dbg(cs42l42->dev, "Function C button press\n");
+ 		break;
+ 	case 2: /* Function B button press */
+ 		bias_level = SND_JACK_BTN_1;
+-		dev_dbg(cs42l42->component->dev, "Function B button press\n");
++		dev_dbg(cs42l42->dev, "Function B button press\n");
+ 		break;
+ 	case 3: /* Function D button press */
+ 		bias_level = SND_JACK_BTN_3;
+-		dev_dbg(cs42l42->component->dev, "Function D button press\n");
++		dev_dbg(cs42l42->dev, "Function D button press\n");
+ 		break;
+ 	case 4: /* Function A button press */
+ 		bias_level = SND_JACK_BTN_0;
+-		dev_dbg(cs42l42->component->dev, "Function A button press\n");
++		dev_dbg(cs42l42->dev, "Function A button press\n");
+ 		break;
+ 	default:
+ 		bias_level = 0;
+@@ -1502,7 +1492,6 @@ static const struct cs42l42_irq_params irq_params_table[] = {
+ static irqreturn_t cs42l42_irq_thread(int irq, void *data)
+ {
+ 	struct cs42l42_private *cs42l42 = (struct cs42l42_private *)data;
+-	struct snd_soc_component *component = cs42l42->component;
+ 	unsigned int stickies[12];
+ 	unsigned int masks[12];
+ 	unsigned int current_plug_status;
+@@ -1549,7 +1538,7 @@ static irqreturn_t cs42l42_irq_thread(int irq, void *data)
+ 			default:
+ 				break;
+ 			}
+-			dev_dbg(component->dev, "Auto detect done (%d)\n", cs42l42->hs_type);
++			dev_dbg(cs42l42->dev, "Auto detect done (%d)\n", cs42l42->hs_type);
+ 		}
+ 	}
  
- 	/* Capture Path */
- 	SND_SOC_DAPM_INPUT("HS"),
--	SND_SOC_DAPM_ADC("ADC", NULL, CS42L42_PWR_CTL1, CS42L42_ADC_PDN_SHIFT, 1),
-+	SND_SOC_DAPM_ADC_E("ADC", NULL, CS42L42_PWR_CTL1, CS42L42_ADC_PDN_SHIFT, 1,
-+			   cs42l42_hp_adc_ev, SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU),
- 	SND_SOC_DAPM_AIF_OUT("SDOUT1", NULL, 0, CS42L42_ASP_TX_CH_EN, CS42L42_ASP_TX0_CH1_SHIFT, 0),
- 	SND_SOC_DAPM_AIF_OUT("SDOUT2", NULL, 1, CS42L42_ASP_TX_CH_EN, CS42L42_ASP_TX0_CH2_SHIFT, 0),
+@@ -1583,7 +1572,7 @@ static irqreturn_t cs42l42_irq_thread(int irq, void *data)
+ 						    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 						    SND_JACK_BTN_2 | SND_JACK_BTN_3);
  
+-				dev_dbg(component->dev, "Unplug event\n");
++				dev_dbg(cs42l42->dev, "Unplug event\n");
+ 			}
+ 			break;
+ 
+@@ -1599,7 +1588,7 @@ static irqreturn_t cs42l42_irq_thread(int irq, void *data)
+ 			CS42L42_M_HSBIAS_HIZ_MASK)) {
+ 
+ 			if (current_button_status & CS42L42_M_DETECT_TF_MASK) {
+-				dev_dbg(component->dev, "Button released\n");
++				dev_dbg(cs42l42->dev, "Button released\n");
+ 				report = 0;
+ 			} else if (current_button_status & CS42L42_M_DETECT_FT_MASK) {
+ 				report = cs42l42_handle_button_press(cs42l42);
+@@ -1953,6 +1942,7 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client,
+ 	if (!cs42l42)
+ 		return -ENOMEM;
+ 
++	cs42l42->dev = &i2c_client->dev;
+ 	i2c_set_clientdata(i2c_client, cs42l42);
+ 
+ 	cs42l42->regmap = devm_regmap_init_i2c(i2c_client, &cs42l42_regmap);
 diff --git a/sound/soc/codecs/cs42l42.h b/sound/soc/codecs/cs42l42.h
-index addb6560c649..d13749e9d8c5 100644
+index d13749e9d8c5..a1e6d443b489 100644
 --- a/sound/soc/codecs/cs42l42.h
 +++ b/sound/soc/codecs/cs42l42.h
-@@ -762,6 +762,7 @@
- #define CS42L42_CLOCK_SWITCH_DELAY_US 150
- #define CS42L42_PLL_LOCK_POLL_US	250
- #define CS42L42_PLL_LOCK_TIMEOUT_US	1250
-+#define CS42L42_HP_ADC_EN_TIME_US	20000
+@@ -774,7 +774,7 @@ static const char *const cs42l42_supply_names[CS42L42_NUM_SUPPLIES] = {
  
- static const char *const cs42l42_supply_names[CS42L42_NUM_SUPPLIES] = {
- 	"VA",
-@@ -795,6 +796,7 @@ struct  cs42l42_private {
- 	u8 hs_bias_ramp_time;
- 	u8 hs_bias_sense_en;
- 	u8 stream_use;
-+	bool hp_adc_up_pending;
- };
- 
- #endif /* __CS42L42_H__ */
+ struct  cs42l42_private {
+ 	struct regmap *regmap;
+-	struct snd_soc_component *component;
++	struct device *dev;
+ 	struct regulator_bulk_data supplies[CS42L42_NUM_SUPPLIES];
+ 	struct gpio_desc *reset_gpio;
+ 	struct completion pdn_done;
 -- 
 2.11.0
 

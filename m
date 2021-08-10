@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 955903E59DA
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Aug 2021 14:25:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6EAB3E59DD
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Aug 2021 14:25:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F7BF1677;
-	Tue, 10 Aug 2021 14:24:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F7BF1677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4BA2785D;
+	Tue, 10 Aug 2021 14:24:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BA2785D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628598319;
-	bh=H83WsfgY8KFZL1PLlxT2/WoIHmS/QLFcjVxiT40IQwE=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=bc57L3ohdWBYe4Sh+6uo+D+PL0F2piVfJB0JIYfV73hwPt7/d7hSPJixhHzPVJcp2
-	 dYvRmrU/N3wcA97SpE9yXIjl7kmH6+7fyNCB8Wo6DJjZrql5HnRaNXsLDgOkPEcNJ+
-	 KcHyzs6sahgwfHarIgls7nKlBTwv97KOSgg6la6E=
+	s=default; t=1628598336;
+	bh=4g48p8POQn+VxHuIaxiexhbIYzob/N8ivj1Cl1AUP/M=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=dhhkArd7vOUVHz4bOpijXfq0tDZ8rkhHPYq16JhLTwBoHx5Bg1FqMG58BcpShNnGP
+	 MTZyFobAld3OA6zO42/ppVULfXy1reeEJXsYrPUZKYtTUyYIe/ii4B+UZC0kQzdY2i
+	 pEPSLKt8NGrffsQrP5GXdEmmZZBo0wKlL0iJCc0I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67A84F804FB;
+	by alsa1.perex.cz (Postfix) with ESMTP id E77C6F804FC;
 	Tue, 10 Aug 2021 14:22:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02A43F804D1; Tue, 10 Aug 2021 14:22:20 +0200 (CEST)
+ id 4EF79F800FD; Tue, 10 Aug 2021 14:22:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +34,47 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 76B45F80279
+ by alsa1.perex.cz (Postfix) with ESMTPS id C71F0F802A0
  for <alsa-devel@alsa-project.org>; Tue, 10 Aug 2021 14:22:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76B45F80279
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C71F0F802A0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="BCFm5vhS"; 
+ header.b="cTAoK5jc"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="miuuXfin"
+ header.b="ZBtUlWy+"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 9B0D022024
+ by smtp-out1.suse.de (Postfix) with ESMTP id A746E22052
  for <alsa-devel@alsa-project.org>; Tue, 10 Aug 2021 12:22:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1628598123; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=ZTY+/atdF/ux4ZWjcZEEo0GeD9uvV3FBOiivcBYk3LY=;
- b=BCFm5vhSGOGcaZU9IEvBinkGwRtEdMf4xJNFaGxSceRYN8OCqX9SQHPHbdwjW0X24kkraM
- XQfz/fbZzqLuDXwIr5i7oFKRwhFB55f5RFpZNmJ/rhRB6IFH+xIh4/YitM06GU36Bg3KTQ
- 9niX2HGe0DM+R/yEAK5x/Ln+uOQWZr0=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=v0KcIkEv8SYFxGqlsKcX6RCLO/gjbURTyZnxpeSaOJw=;
+ b=cTAoK5jcKaEAHPF8rO3rv+mnzArCtxh3C+ys3yVSboxfMzfeE479yE50J5pgVK/2xGL4Th
+ r1XENR6wVI6PscOktrEWKGg2xyYYfIYvLe7siIdbQpAMPoXci1kc+BkP0XAhttCdOMC9qR
+ rUBJUTYZekyEwUzJ4xPVCUa/MyJnm1c=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1628598123;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=ZTY+/atdF/ux4ZWjcZEEo0GeD9uvV3FBOiivcBYk3LY=;
- b=miuuXfinOljjXdODoamb2gPapADLQttkkE8SwIub6urmbKJbKb8IntHV/+UfZpiVU4jlNT
- zS76D3DZ98LoFdDg==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=v0KcIkEv8SYFxGqlsKcX6RCLO/gjbURTyZnxpeSaOJw=;
+ b=ZBtUlWy+T+mOkVbT/GFv8PTYcMJS1UHBrI7h4C4wBOO28R9lkVgk9srNXneqDzzBJysZI2
+ YZKqBf9+Mp6WjaDQ==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 87866A3B85;
+ by relay2.suse.de (Postfix) with ESMTP id 96771A3B88;
  Tue, 10 Aug 2021 12:22:03 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH RFC 0/5] ALSA: Support for non-coherent and non-contiguous
- page allocation
-Date: Tue, 10 Aug 2021 14:21:55 +0200
-Message-Id: <20210810122200.971-1-tiwai@suse.de>
+Subject: [PATCH RFC 1/5] ALSA: memalloc: Count continuous pages in vmalloc
+ buffer handler
+Date: Tue, 10 Aug 2021 14:21:56 +0200
+Message-Id: <20210810122200.971-2-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20210810122200.971-1-tiwai@suse.de>
+References: <20210810122200.971-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -85,71 +92,77 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+This is an enhancement for the SG-style page handling in vmalloc
+buffer handler to calculate the continuous pages.
+When snd_sgbuf_get_chunk_size() is called for a vmalloc buffer,
+currently we return only the size that fits into a single page.
+However, this API call is rather supposed for obtaining the continuous
+pages and most of vmalloc or noncontig buffers do have lots of
+continuous pages indeed.  So, in this patch, the callback now
+calculates the possibly continuous pages up to the given size limit.
 
-this is an experimental patch set to add the support for PCM buffers
-with non-coherent and non-contiguous pages, typically useful for
-non-x86 architectures.  The first patch improves the SG-buffer
-handling, then add a new PCM info flag that disables the control and
-status mmap, and implements two new buffer types,
-SNDRV_DMA_TYPE_NONCONTIG and SNDRV_DMA_TYPE_NONCOHERENT.  The former
-is the SG-buffer and the latter is the continuous page allocation,
-corresponding to SNDRV_DMA_TYPE_DEV_SG and SNDRV_DMA_TYPE_DEV on x86.
+Note that the end address in the function is calculated from the last
+byte, hence it's one byte shorter.  This is because ofs + size can be
+above the actual buffer size boundary.
 
-Unlike other page types, those are directional (that need the DMA
-direction at allocation time) and require the explicit sync of buffers
-around the data transfer (flushing, invalidating).  The sync is
-implemented inside ALSA PCM core and automatically applied at updating
-the applptr and hwsync via SYNC_PTR ioctl, which should be issued
-during mmap operation, so it should work transparently as long as
-applications are running with alsa-lib.  For tinyALSA, we might need
-to revisit the implementation.
+Until now, this feature isn't really used, but it'll become useful in
+a later patch that adds the non-contiguous buffer type that shares the
+same callback function as vmalloc.
 
-This is currently an RFC -- more exactly, CALL FOR TESTERS, as I have
-no Arm machine with the sound device for now.  The needed change for
-an existing driver is simple:
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/memalloc.c | 28 +++++++++++++++++++++-------
+ 1 file changed, 21 insertions(+), 7 deletions(-)
 
-* Replace the buffer type from SNDRV_DMA_TYPE_DEV to
-  SNDRV_DMA_TYPE_NONCOHERENT (or from SNDRV_DMA_TYPE_DEV_SG to
-  SNDRV_DMA_TYPE_NONCONTIG), which is set up typically in
-  snd_pcm_set_managed_buffer*() call.
-
-* Add SNDRV_PCM_INFO_EXPLICIT_SYNC flag to the PCM runtime
-  hardware.info field
-
-It'd be greatly appreciated if anyone can test and try the changes,
-and help debugging.  Again, the code is faily untested.
-
-The latest code is found in topic/memalloc-noncontig branch of my
-sound git tree:
- git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git
-
-The patch set is based on for-next branch, i.e. changes for 5.15 are
-included.
-
-
-thanks,
-
-Takashi
-
-===
-
-Takashi Iwai (5):
-  ALSA: memalloc: Count continuous pages in vmalloc buffer handler
-  ALSA: pcm: Add SNDRV_PCM_INFO_EXPLICIT_SYNC flag
-  ALSA: memalloc: Assign ops field to snd_dma_buffer
-  ALSA: memalloc: Support for non-contiguous page allocation
-  ALSA: memalloc: Support for non-coherent page allocation
-
- include/sound/memalloc.h    |  48 +++++++-
- include/uapi/sound/asound.h |   1 +
- sound/core/memalloc.c       | 223 ++++++++++++++++++++++++++++--------
- sound/core/memalloc_local.h |   1 +
- sound/core/pcm_lib.c        |   9 ++
- sound/core/pcm_memory.c     |  13 ++-
- sound/core/pcm_native.c     |  22 ++++
- 7 files changed, 263 insertions(+), 54 deletions(-)
-
+diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
+index 1cea8cb9668f..c7c943c661e6 100644
+--- a/sound/core/memalloc.c
++++ b/sound/core/memalloc.c
+@@ -290,11 +290,13 @@ static int snd_dma_vmalloc_mmap(struct snd_dma_buffer *dmab,
+ 	return remap_vmalloc_range(area, dmab->area, 0);
+ }
+ 
++#define get_vmalloc_page_addr(dmab, offset) \
++	page_to_phys(vmalloc_to_page((dmab)->area + (offset)))
++
+ static dma_addr_t snd_dma_vmalloc_get_addr(struct snd_dma_buffer *dmab,
+ 					   size_t offset)
+ {
+-	return page_to_phys(vmalloc_to_page(dmab->area + offset)) +
+-		offset % PAGE_SIZE;
++	return get_vmalloc_page_addr(dmab, offset) + offset % PAGE_SIZE;
+ }
+ 
+ static struct page *snd_dma_vmalloc_get_page(struct snd_dma_buffer *dmab,
+@@ -307,11 +309,23 @@ static unsigned int
+ snd_dma_vmalloc_get_chunk_size(struct snd_dma_buffer *dmab,
+ 			       unsigned int ofs, unsigned int size)
+ {
+-	ofs %= PAGE_SIZE;
+-	size += ofs;
+-	if (size > PAGE_SIZE)
+-		size = PAGE_SIZE;
+-	return size - ofs;
++	unsigned int start, end;
++	unsigned long addr;
++
++	start = ALIGN_DOWN(ofs, PAGE_SIZE);
++	end = ofs + size - 1; /* the last byte address */
++	/* check page continuity */
++	addr = get_vmalloc_page_addr(dmab, start);
++	for (;;) {
++		start += PAGE_SIZE;
++		if (start > end)
++			break;
++		addr += PAGE_SIZE;
++		if (get_vmalloc_page_addr(dmab, start) != addr)
++			return start - ofs;
++	}
++	/* ok, all on continuous pages */
++	return size;
+ }
+ 
+ static const struct snd_malloc_ops snd_dma_vmalloc_ops = {
 -- 
 2.26.2
 

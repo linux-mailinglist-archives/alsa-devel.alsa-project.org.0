@@ -2,88 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08F0B3E7BCD
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Aug 2021 17:11:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AE8C3E7C0D
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Aug 2021 17:22:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 37D1283E;
-	Tue, 10 Aug 2021 17:10:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37D1283E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2DA8B850;
+	Tue, 10 Aug 2021 17:21:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DA8B850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628608299;
-	bh=gtIOF0vg8Qh1j3Jq/ciBXoumlyrgqhsCiCBSlHEamfc=;
-	h=In-Reply-To:References:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1628608923;
+	bh=jl3RsWR+UcsKoql2BcO8OIIxJBAOHD7TPFdPhmiPJnY=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Wa9HeyJdgx7UFDQxFetQpj0qmD4jaNNJBPrtMdaLd0J5h0X6vKE2ADd3PSWQSJLtx
-	 /pDdkQPC2oLpaxeABojsUI3ms8Yg2iZ12LxSIKtai3jWXVIgs/dHIJPZE0BTOLb2Jq
-	 zoLS40LBKJs6qQFlAHc4G4342tAAIwqk13VxIPvg=
+	b=k+QqsMb539KcCg+iktw49kqK2o2kM6fw5tFuYeXbc92otXpeR8mp+5miI/G+pgrc0
+	 eJClty1kOEjmh0BkDtx0ZOfxkqB1O94r7WFlCAiNgwpOZLMe7hzs4WTw5q1KS7EdNV
+	 HenAcDZwEs4PG3hy3QQoXpt1D0/uPXgnL33eOCnc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A4AAF80279;
-	Tue, 10 Aug 2021 17:10:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A91D0F8016B;
+	Tue, 10 Aug 2021 17:20:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A17B1F8025D; Tue, 10 Aug 2021 17:10:06 +0200 (CEST)
+ id 69A54F80245; Tue, 10 Aug 2021 17:20:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
- [IPv6:2607:f8b0:4864:20::c2e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3902BF800C8
- for <alsa-devel@alsa-project.org>; Tue, 10 Aug 2021 17:10:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3902BF800C8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1A4B9F800C8
+ for <alsa-devel@alsa-project.org>; Tue, 10 Aug 2021 17:20:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A4B9F800C8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="G2FTdSoH"
-Received: by mail-oo1-xc2e.google.com with SMTP id
- z3-20020a4a98430000b029025f4693434bso5418161ooi.3
- for <alsa-devel@alsa-project.org>; Tue, 10 Aug 2021 08:10:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=g0I9IMGbZ0SJcY7Jg/RCs/PLaYfCHkgjx/KEvzXupe0=;
- b=G2FTdSoHCshVXI9EbAtPQDtCbPILnchvSE3uXzXiIg9EPCXL5goRBz518+ibZB19Mp
- K5QKWtDDuojbx2RxhQ5SHJCPqENrLJEbxkLH6l8cL/hibe3WJKo2/LRnYRmVXI8n+OiE
- pR9HI6tWKHNZb76+4hEG/G4UiP5/Hwpw8hLOqZoVIeTUOnVMo6VaKkZbI9KXyWzAWgJA
- cXb7wOhlzzIq07e2nr+mcluuz8YZqX0H5v8mjeVZU5pteziU5uMYhJpLjMHztlOqiBqy
- tv5zVqrdHvXrHWOauJKNO1HkZ9nUIsX1g6p/avF9VWcKXMyIdyxAnWwpoW4JnrDo+YHY
- ZTzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=g0I9IMGbZ0SJcY7Jg/RCs/PLaYfCHkgjx/KEvzXupe0=;
- b=k/WLdPa7myHb7XKwHF06So+XX3Fgj22j8BvDF2k9zrHiYtdXTzjs8YrN7xDa/rxKhN
- cnLPPXop+oLX5ifJUExK62i7vnwNDLJ56wrA2W3JU/cXmFbNBsUpKIIBWlDKpdJ5MZ9I
- EWfDImuf8WtQ8Kq0PQuSOIRQbwFYw4OXOnPpUP56iqAo7Ssh/8DjIdF2ZH6vDy7iTHwJ
- NkR8oNGM2z+ETl+JqD6ORdnP0PDu0hbOrUv9/aGox1ts3mSKIpgcaneObOFe7Jdc9gNz
- Y6TIPE79rVaMBhRvfXpZsZKRKVLx507lfWRJ4u7OiZD4OAy4+SjG+5nen2UK/HBO2Mgz
- zfyA==
-X-Gm-Message-State: AOAM530R0ZvRkhE6UWMtiY88qQ1jLF8q0evvEmfqmLZ2PGwuSy7gK8EX
- fRXOQfc2zCOYjbsKHCteBuOwLM2BOBvpp62/eZA=
-X-Google-Smtp-Source: ABdhPJxP/RVz2hQQZZPWL9Z3NRvn08BFeLaliK0VVBpI0fnEkXlNivlCCCc4LQqq4DeF+45dM/IPf3R0qpuFVdoQfig=
-X-Received: by 2002:a4a:41d2:: with SMTP id x201mr7281522ooa.71.1628608195140; 
- Tue, 10 Aug 2021 08:09:55 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Yxael6Ct"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 292A760F25;
+ Tue, 10 Aug 2021 15:20:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1628608823;
+ bh=jl3RsWR+UcsKoql2BcO8OIIxJBAOHD7TPFdPhmiPJnY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Yxael6Ct6ez1wKcenBPrC6z9pMpZhQPd/Qobfhbyh0UoHBomZPldm0Lmw+dv5Yc71
+ yFDRjNByXH0vn6f4qrOdVKGO9S9YqJQjFPawXwnWpj018Xjb3jl7kfiSCJKOABfwED
+ XgocEwIbrX/Wkya3t8F8aB/Cd80G57vm/3nlIBYZnTAahgxviQLZgAtt/lgOSAYAnP
+ l2nW7j5/5SkXs3G8rhi6MipHqFE8AT7ZFT0kFuYfM1x4a4GawvZcc5JZczYLGMRG5G
+ tROvZ8/chwMcew31YfaIQTxNVqfjM7qvp7DB6ksmGHn6UeXBBvWazDvm/TbVh2MZNc
+ dGfq5AwQ6/rIg==
+From: Mark Brown <broonie@kernel.org>
+To: alsa-devel@alsa-project.org,
+	Curtis Malainey <cujomalainey@chromium.org>
+Subject: Re: [PATCH v2] ASoC: Intel: Fix platform ID matching
+Date: Tue, 10 Aug 2021 16:20:01 +0100
+Message-Id: <162860604513.6045.9202565907130554514.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210809213544.1682444-1-cujomalainey@chromium.org>
+References: <20210809213544.1682444-1-cujomalainey@chromium.org>
 MIME-Version: 1.0
-Received: by 2002:a9d:7d93:0:0:0:0:0 with HTTP; Tue, 10 Aug 2021 08:09:54
- -0700 (PDT)
-In-Reply-To: <20210810145018.24001-1-youling257@gmail.com>
-References: <20210623134601.2128663-1-imre.deak@intel.com>
- <20210810145018.24001-1-youling257@gmail.com>
-From: youling 257 <youling257@gmail.com>
-Date: Tue, 10 Aug 2021 23:09:54 +0800
-Message-ID: <CAOzgRdY6cYCyezHZD-GQptgN2-1CNeNm8PSGtjN7mSEb8kQ7Pg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] ALSA: hda: Release controller display power during
- shutdown/reboot
-To: imre.deak@intel.com
-Content-Type: text/plain; charset="UTF-8"
-Cc: tiwai@suse.de, tv@lio96.de, alsa-devel@alsa-project.org,
- intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Rander Wang <rander.wang@intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Matt Davis <mattedavis@google.com>, Mark Brown <broonie@kernel.org>,
+ Paul Olaru <paul.olaru@oss.nxp.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,30 +88,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-my 7820hk sound card is alc662
+On Mon, 9 Aug 2021 14:35:39 -0700, Curtis Malainey wrote:
+> Sparse warnings triggered truncating the IDs of some platform device
+> tables. Unfortunately some of the IDs in the match tables were missed
+> which breaks audio. The KBL change has been verified to fix audio, the
+> CML change was not tested as it was found through grepping the broken
+> changes and found to match the same situation in anticipation that it
+> should also be fixed.
+> 
+> [...]
 
-android_x86:/ # aplay -l
-**** List of PLAYBACK Hardware Devices ****
-card 0: PCH [HDA Intel PCH], device 0: ALC662 rev3 Analog [ALC662 rev3 Analog]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 0: PCH [HDA Intel PCH], device 3: HDMI 0 [HDMI 0]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 0: PCH [HDA Intel PCH], device 7: HDMI 1 [HDMI 1]
-  Subdevices: 0/1
-  Subdevice #0: subdevice #0
-card 0: PCH [HDA Intel PCH], device 8: HDMI 2 [HDMI 2]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 0: PCH [HDA Intel PCH], device 9: HDMI 3 [HDMI 3]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 0: PCH [HDA Intel PCH], device 10: HDMI 4 [HDMI 4]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-android_x86:/ #
+Applied to
 
-2021-08-10 22:50 GMT+08:00, youling257 <youling257@gmail.com>:
-> it cause my intel 7820hk cpu failed shutdown.
->
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: Intel: Fix platform ID matching
+      commit: f4eeaed04e861b95f1f2c911263f2fcaa959c078
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

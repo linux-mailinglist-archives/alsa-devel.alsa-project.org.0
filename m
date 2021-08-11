@@ -2,82 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96D743E979D
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Aug 2021 20:26:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8500B3E984A
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Aug 2021 21:06:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3238D1745;
-	Wed, 11 Aug 2021 20:25:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3238D1745
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D851191E;
+	Wed, 11 Aug 2021 21:05:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D851191E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628706395;
-	bh=IAw/mA4lggiQovXp4hNUsxGrAs4WDvJ37fmSi4Jku6A=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1628708780;
+	bh=ZPGvdAiCmx53s1KkaKeYSBV9ItgFSnLQuUI5ZAbG/og=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DDlg8O/ZzZ90UhgbbUWgjC2IAKxgwZug91tx9jD5fr0u1Mr8iyVAzO9zrRQXGdmzC
-	 zbJX/RhVmBhdawAGknHVkOZ6s3GWCciyKDKtjK/cSJUdUlFwPU4vhbawOUt31zJfbL
-	 XUL/sekp1xWEdEh+zn5oQEtdAejkCupAGTDSyP60=
+	b=UbwzO34ueRQHGkJcNEYx0OKExPDVg7FNWWUAACfHcUo7QphM1Gh+liKRpj8i3G7hh
+	 1wKq0cHLrI6zSCO4YYGj1JijbsQijmmrEUQlGasYWuDAKXpF8oxqLjQO3mB55v4FVH
+	 bphnImRvkMywV5TL8oK+vz/cO2z/TBHLBwNWw4Hw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7DCFDF8016B;
-	Wed, 11 Aug 2021 20:25:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB112F804B0;
+	Wed, 11 Aug 2021 21:04:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B1F2BF802D2; Wed, 11 Aug 2021 20:25:06 +0200 (CEST)
+ id ABE52F8032D; Wed, 11 Aug 2021 21:04:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 49D93F800F4
- for <alsa-devel@alsa-project.org>; Wed, 11 Aug 2021 20:24:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49D93F800F4
-Received: by mail-pj1-f50.google.com with SMTP id
- u13-20020a17090abb0db0290177e1d9b3f7so11019452pjr.1
- for <alsa-devel@alsa-project.org>; Wed, 11 Aug 2021 11:24:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=uR0s0AU+M7YxxJS85wJoKJfjFhScm/FPYXJ1t4tDEUM=;
- b=mEilV60D4LCmO03UNrq0KzAOyt+5WhBeKZeh0eGTohC87T7EpsixeGLtcCgkFIGMrj
- Q/bRMAZ0y9HwxyPucgZpUPZLxTiwP5pvUeqq2BIXzY7Br9CeRWBZ4XnN5WCMOHmrD5Nw
- EUlO/cqNrC8JO6sHt/vqFouH0zxlUMpFtV+em5pVvBOhK+G17cGmwjUnzYbVQj/g9yTO
- g50ZAa7VRuB/vExEPxn2HcnNg8IxapBZmY7wUSXlbkV1SmXVvIiWnQCM/6bBaPPBVWzZ
- MyAKtGPrqET4X25GoFwc6yYd5oGJlF8ysZmFjhzyhVPh+ePnKPCxij6K5d+l5bgwFKFj
- jQEg==
-X-Gm-Message-State: AOAM532kvKdaZhB1XQ0rP+R67NmtHj6vuoENObp3TKFmDLopSUk6REP/
- nqlhGfavGpi7v+5Rtx/zzQ==
-X-Google-Smtp-Source: ABdhPJyGrWyK5wGdhAncfGSofyVJ4NqhVg2p8ntFX0yjQ+DE10PUC1LDoID8zGN8l2MM9cl7QHpKiQ==
-X-Received: by 2002:a63:5b24:: with SMTP id p36mr40450pgb.91.1628706292194;
- Wed, 11 Aug 2021 11:24:52 -0700 (PDT)
-Received: from robh.at.kernel.org ([208.184.162.215])
- by smtp.gmail.com with ESMTPSA id r3sm195193pff.119.2021.08.11.11.24.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Aug 2021 11:24:51 -0700 (PDT)
-Received: (nullmailer pid 39491 invoked by uid 1000);
- Wed, 11 Aug 2021 18:24:47 -0000
-Date: Wed, 11 Aug 2021 12:24:47 -0600
-From: Rob Herring <robh@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v3 06/20] ASoC: dt-bindings: replace q6afe-clk with q6dsp
- audio clk bindings
-Message-ID: <YRQV74TApmx949vZ@robh.at.kernel.org>
-References: <20210803125411.28066-1-srinivas.kandagatla@linaro.org>
- <20210803125411.28066-7-srinivas.kandagatla@linaro.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E2E5CF8020D
+ for <alsa-devel@alsa-project.org>; Wed, 11 Aug 2021 21:03:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2E5CF8020D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="Tcq5bmPN"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 17B9h6i2011884; 
+ Wed, 11 Aug 2021 14:03:56 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=v5Vu9aZBmdP+Jr7hBzk15imFcZepXERnAkfrfZhtuN0=;
+ b=Tcq5bmPNSj6da9PLgEgELcUNG7zA94JWT9v4PaVnCcMZmqJbxbQbKO1G/p951nKKyRw1
+ Xifk1aTwMmGUON2pTL3ExISdKlUG5WYNON8O/ZL6Lgiy9tVCC2ols0r79Y+WpIRi/eCJ
+ 6Qh6+cMpBRIjTda0I5/GIJ4aXLiATtVcHnZMIWxRmjZhb/VWDxjXGvzsZ1zhcq/j95Rz
+ SPEDYBuhhqWkx//0wJ0Z31/uMRkdWB/PxGtxJsEZ13BhFXTH3poCMR4uAUtkdrrMNXjm
+ srmDzOE7YvxRIaCKfOCb+CI4fe5Jg7RiLVMTxPKTD13asGDrbUH4/rDwGsLF17QRKtbf jw== 
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0b-001ae601.pphosted.com with ESMTP id 3acc5ngp6n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 11 Aug 2021 14:03:56 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Wed, 11 Aug
+ 2021 19:33:49 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.12 via
+ Frontend Transport; Wed, 11 Aug 2021 19:33:49 +0100
+Received: from [198.90.238.180] (unknown [198.90.238.180])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 59D1145D;
+ Wed, 11 Aug 2021 18:33:37 +0000 (UTC)
+Subject: Re: [PATCH v3 13/27] ALSA: hda/cs8409: Dont disable I2C clock between
+ consecutive accesses
+To: Takashi Iwai <tiwai@suse.de>
+References: <20210730151844.7873-1-vitalyr@opensource.cirrus.com>
+ <20210730151844.7873-14-vitalyr@opensource.cirrus.com>
+ <s5h7dh51thw.wl-tiwai@suse.de>
+From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+Message-ID: <499860c1-bf6f-969a-a987-3302820b66af@opensource.cirrus.com>
+Date: Wed, 11 Aug 2021 19:33:07 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210803125411.28066-7-srinivas.kandagatla@linaro.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, tiwai@suse.de, plai@codeaurora.org,
- lgirdwood@gmail.com, broonie@kernel.org, bjorn.andersson@linaro.org
+In-Reply-To: <s5h7dh51thw.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Proofpoint-ORIG-GUID: rOFeh5WWX3Sx3NKLHQtwpYVvFBDZHmBR
+X-Proofpoint-GUID: rOFeh5WWX3Sx3NKLHQtwpYVvFBDZHmBR
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ bulkscore=0 phishscore=0
+ clxscore=1015 priorityscore=1501 suspectscore=0 impostorscore=0
+ malwarescore=0 adultscore=0 mlxlogscore=763 mlxscore=0 lowpriorityscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2107140000
+ definitions=main-2108110130
+Cc: alsa-devel@alsa-project.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
+ patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Stefan Binding <sbinding@opensource.cirrus.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,20 +110,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 03 Aug 2021 13:53:57 +0100, Srinivas Kandagatla wrote:
-> DSP Audio clock bindings have been documented with DSP services bindings
-> which makes it difficult to reuse them, so pull them out in to a dedicated
-> bindings.
-> Also as part of this change convert them into yaml format.
-> 
-> q6afe-clocks were part of q6afe bindings which are deleted in previous patch, this
-> patch just adds replacement bindings for clocks in yaml format.
-> 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->  .../sound/qcom,q6dsp-audio-clocks.yaml        | 55 +++++++++++++++++++
->  1 file changed, 55 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6dsp-audio-clocks.yaml
-> 
+On 01/08/2021 9:03 am, Takashi Iwai wrote:
+> On Fri, 30 Jul 2021 17:18:30 +0200,
+> Vitaly Rodionov wrote:
+>> From: Lucas Tanure <tanureal@opensource.cirrus.com>
+>>
+>> Only disable I2C clock 25 ms after not being used.
+>>
+>> The current implementation enables and disables the I2C clock for each
+>> I2C transaction. Each enable/disable call requires two verb transactions.
+>> This means each I2C transaction requires a total of four verb transactions
+>> to enable and disable the clock.
+>> However, if there are multiple consecutive I2C transactions, it is not
+>> necessary to enable and disable the clock each time, instead it is more
+>> efficient to enable the clock for the first transaction, and disable it
+>> after the final transaction, which would improve performance.
+>> This is achieved by using a timeout which disables the clock if no request
+>> to enable the clock has occurred for 25 ms.
+>>
+>> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
+>> Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+>> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+>> ---
+>>
+>> Changes in v2:
+>> - Improved delayed work start/cancel implementation, and re-worked commit message
+>>   adding more explanation why this was required.
+>>
+>> Changes in v3:
+>> - Cancel the disable timer, but do not wait for any running disable functions to finish.
+>>   If the disable timer runs out before cancel, the delayed work thread will be blocked,
+>>   waiting for the mutex to become unlocked. This mutex will be locked for the duration of
+>>   any i2c transaction, so the disable function will run to completion immediately
+>>   afterwards in the scenario. The next enable call will re-enable the clock, regardless.
+> This looks almost fine, but just a couple of thoughts:
+>
+> - cancel_delayed_work_sync() means to it might keep the i2c enabled
+>    after that point (just cancel the pending work).
+>    Would it cause a inconsistency afterwards?
+>
+> - A similar procedure is needed for suspend callback to cancel / flush
+>    the work.
+>    The shutdown is another question, but usually it's fine to without
+>    any special handling as long as the resource is kept.
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Hi Takashi,
+
+Thank you very much for your comments. It all make sense.
+
+We will make further improvement and submit next version.
+
+Thanks,
+
+Vitaly
+
+>
+> thanks,
+>
+> Takashi
+
+

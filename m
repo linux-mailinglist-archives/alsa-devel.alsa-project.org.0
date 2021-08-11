@@ -2,99 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8500B3E984A
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Aug 2021 21:06:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8D493E9821
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Aug 2021 20:59:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D851191E;
-	Wed, 11 Aug 2021 21:05:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D851191E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 742CF177F;
+	Wed, 11 Aug 2021 20:59:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 742CF177F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628708780;
-	bh=ZPGvdAiCmx53s1KkaKeYSBV9ItgFSnLQuUI5ZAbG/og=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UbwzO34ueRQHGkJcNEYx0OKExPDVg7FNWWUAACfHcUo7QphM1Gh+liKRpj8i3G7hh
-	 1wKq0cHLrI6zSCO4YYGj1JijbsQijmmrEUQlGasYWuDAKXpF8oxqLjQO3mB55v4FVH
-	 bphnImRvkMywV5TL8oK+vz/cO2z/TBHLBwNWw4Hw=
+	s=default; t=1628708397;
+	bh=JEVPjSYKWi6aZpm2PxHbliwR7fwc6DJh0c4wyAU6rgo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=QXG3m3hAvykhTLBbqFZYpvB+GFsCpMkWNUCgEiN1kVeTyEbPesosy5JaKGYEkv82u
+	 kq5Bx7Lmu0gqCrtkI1ABax+LHim8BhRbcX6ZtmW40jxsCgOaszhnUL0x1r4tPjR+ZR
+	 R1KzyNMB95KctrYTYF+ZAwwTlgvn3xaNzeZfBSsY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AB112F804B0;
-	Wed, 11 Aug 2021 21:04:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06792F8050F;
+	Wed, 11 Aug 2021 20:57:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ABE52F8032D; Wed, 11 Aug 2021 21:04:05 +0200 (CEST)
+ id AF5CBF804FC; Wed, 11 Aug 2021 20:57:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
  [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E2E5CF8020D
- for <alsa-devel@alsa-project.org>; Wed, 11 Aug 2021 21:03:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2E5CF8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id C6C0FF8020D
+ for <alsa-devel@alsa-project.org>; Wed, 11 Aug 2021 20:57:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6C0FF8020D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="Tcq5bmPN"
+ header.b="ReA0dVCo"
 Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 17B9h6i2011884; 
- Wed, 11 Aug 2021 14:03:56 -0500
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 17B9h6hH011884; 
+ Wed, 11 Aug 2021 13:57:26 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=v5Vu9aZBmdP+Jr7hBzk15imFcZepXERnAkfrfZhtuN0=;
- b=Tcq5bmPNSj6da9PLgEgELcUNG7zA94JWT9v4PaVnCcMZmqJbxbQbKO1G/p951nKKyRw1
- Xifk1aTwMmGUON2pTL3ExISdKlUG5WYNON8O/ZL6Lgiy9tVCC2ols0r79Y+WpIRi/eCJ
- 6Qh6+cMpBRIjTda0I5/GIJ4aXLiATtVcHnZMIWxRmjZhb/VWDxjXGvzsZ1zhcq/j95Rz
- SPEDYBuhhqWkx//0wJ0Z31/uMRkdWB/PxGtxJsEZ13BhFXTH3poCMR4uAUtkdrrMNXjm
- srmDzOE7YvxRIaCKfOCb+CI4fe5Jg7RiLVMTxPKTD13asGDrbUH4/rDwGsLF17QRKtbf jw== 
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com with ESMTP id 3acc5ngp6n-1
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=9mk+IcNawFgWfDj5ophU/HQmwttfCHU7q52+p3GquR4=;
+ b=ReA0dVCoPpTKkTJ0ktfOxJmzxNH6TJoDWFKymlYjM7kc7xXG8snY/GlvooGw3Sx1tvSO
+ Yf+3MXT5QfOT4FxaFKZv7cV/BZxZOJcqY4FU9HYoBBNJBerdLLPBJ/ljjveLKUm0vUxz
+ bHABVQsOtJm7Gxhsygh4q8C37UsiHjx6mdAiDZ9itYKBLWtYm6h2qDB3jaVjdNzfgz7J
+ I5koABV5JnmR1/+7aVJkY9a2txUdiD+N8pn2ISsGU2ISqmSvA5MKtFl8G7uxE8War8qj
+ Fpcmk4I5JE2yToOxAfF5yk+jMmR5ztIAS/rU5MsF7dmtDgwPUPXIDtCKNzI4EGy/PYPq CQ== 
+Received: from ediex02.ad.cirrus.com ([87.246.76.36])
+ by mx0b-001ae601.pphosted.com with ESMTP id 3acc5ngnt3-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 11 Aug 2021 14:03:56 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ Wed, 11 Aug 2021 13:57:26 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Wed, 11 Aug
- 2021 19:33:49 +0100
+ 2021 19:57:24 +0100
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.12 via
- Frontend Transport; Wed, 11 Aug 2021 19:33:49 +0100
-Received: from [198.90.238.180] (unknown [198.90.238.180])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 59D1145D;
- Wed, 11 Aug 2021 18:33:37 +0000 (UTC)
-Subject: Re: [PATCH v3 13/27] ALSA: hda/cs8409: Dont disable I2C clock between
- consecutive accesses
-To: Takashi Iwai <tiwai@suse.de>
-References: <20210730151844.7873-1-vitalyr@opensource.cirrus.com>
- <20210730151844.7873-14-vitalyr@opensource.cirrus.com>
- <s5h7dh51thw.wl-tiwai@suse.de>
+ Frontend Transport; Wed, 11 Aug 2021 19:57:24 +0100
+Received: from vitaly-Inspiron-5415.ad.cirrus.com (unknown [198.90.238.180])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 8EF6345D;
+ Wed, 11 Aug 2021 18:57:24 +0000 (UTC)
 From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Message-ID: <499860c1-bf6f-969a-a987-3302820b66af@opensource.cirrus.com>
-Date: Wed, 11 Aug 2021 19:33:07 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v4 00/27] ALSA: hda/cirrus: Split generic cirrus HDA codecs
+ and CS8490 bridge into separate modules.
+Date: Wed, 11 Aug 2021 19:56:27 +0100
+Message-ID: <20210811185654.6837-1-vitalyr@opensource.cirrus.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <s5h7dh51thw.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Proofpoint-ORIG-GUID: rOFeh5WWX3Sx3NKLHQtwpYVvFBDZHmBR
-X-Proofpoint-GUID: rOFeh5WWX3Sx3NKLHQtwpYVvFBDZHmBR
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: 71bJun0WJ5zmjfCInKfazoVvScfGd5GF
+X-Proofpoint-GUID: 71bJun0WJ5zmjfCInKfazoVvScfGd5GF
 X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
  bulkscore=0 phishscore=0
  clxscore=1015 priorityscore=1501 suspectscore=0 impostorscore=0
- malwarescore=0 adultscore=0 mlxlogscore=763 mlxscore=0 lowpriorityscore=0
+ malwarescore=0 adultscore=0 mlxlogscore=999 mlxscore=0 lowpriorityscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2107140000
  definitions=main-2108110130
-Cc: alsa-devel@alsa-project.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, Stefan Binding <sbinding@opensource.cirrus.com>
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,63 +101,69 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 01/08/2021 9:03 am, Takashi Iwai wrote:
-> On Fri, 30 Jul 2021 17:18:30 +0200,
-> Vitaly Rodionov wrote:
->> From: Lucas Tanure <tanureal@opensource.cirrus.com>
->>
->> Only disable I2C clock 25 ms after not being used.
->>
->> The current implementation enables and disables the I2C clock for each
->> I2C transaction. Each enable/disable call requires two verb transactions.
->> This means each I2C transaction requires a total of four verb transactions
->> to enable and disable the clock.
->> However, if there are multiple consecutive I2C transactions, it is not
->> necessary to enable and disable the clock each time, instead it is more
->> efficient to enable the clock for the first transaction, and disable it
->> after the final transaction, which would improve performance.
->> This is achieved by using a timeout which disables the clock if no request
->> to enable the clock has occurred for 25 ms.
->>
->> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
->> Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
->> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
->> ---
->>
->> Changes in v2:
->> - Improved delayed work start/cancel implementation, and re-worked commit message
->>   adding more explanation why this was required.
->>
->> Changes in v3:
->> - Cancel the disable timer, but do not wait for any running disable functions to finish.
->>   If the disable timer runs out before cancel, the delayed work thread will be blocked,
->>   waiting for the mutex to become unlocked. This mutex will be locked for the duration of
->>   any i2c transaction, so the disable function will run to completion immediately
->>   afterwards in the scenario. The next enable call will re-enable the clock, regardless.
-> This looks almost fine, but just a couple of thoughts:
->
-> - cancel_delayed_work_sync() means to it might keep the i2c enabled
->    after that point (just cancel the pending work).
->    Would it cause a inconsistency afterwards?
->
-> - A similar procedure is needed for suspend callback to cancel / flush
->    the work.
->    The shutdown is another question, but usually it's fine to without
->    any special handling as long as the resource is kept.
+This series of patches splits generic cirrus HDA codecs and CS8490 bridge
+into separate modules, adds support for multiple companion codecs connected to
+CS8409, and also adds support for new DELL HW platform.
 
-Hi Takashi,
+CS8409 part is not really a HDA codec, it is a HDA bridge where companion codecs
+(up to 16) can be attached. With growing number of supported configurations and 
+platforms, patch_cirrus is getting less and less transparent and maintainable.
+So, the logical step is to separate generic Cirrus HDA codecs support 
+and Cirrus HDA bridge support.
 
-Thank you very much for your comments. It all make sense.
+Lots of improvements to existing functionality, code clean-up and refactoring,
+remove duplicated/redundant code, improve I2C functions etc.
 
-We will make further improvement and submit next version.
+Add support for new DELL HW platform with 2 CS42L42 codecs for front and rear jacks.
 
-Thanks,
+Lucas Tanure (12):
+  ALSA: hda/cirrus: Move CS8409 HDA bridge to separate module
+  ALSA: hda/cs8409: Move arrays of configuration to a new file
+  ALSA: hda/cs8409: Disable unsolicited response for the first boot
+  ALSA: hda/cs8409: Prevent I2C access during suspend time
+  ALSA: hda/cs8409: Generalize volume controls
+  ALSA: hda/cs8409: Dont disable I2C clock between consecutive accesses
+  ALSA: hda/cs8409: Avoid setting the same I2C address for every access
+  ALSA: hda/cs8409: Avoid re-setting the same page as the last access
+  ALSA: hda/cs8409: Support i2c bulk read/write functions
+  ALSA: hda/cs8409: Separate CS8409, CS42L42 and project functions
+  ALSA: hda/cs8409: Move codec properties to its own struct
+  ALSA: hda/cs8409: Add support for dolphin
 
-Vitaly
+Stefan Binding (15):
+  ALSA: hda/cs8409: Use enums for register names and coefficients
+  ALSA: hda/cs8409: Mask all CS42L42 interrupts on initialization
+  ALSA: hda/cs8409: Reduce HS pops/clicks for Cyborg
+  ALSA: hda/cs8409: Disable unnecessary Ring Sense for
+    Cyborg/Warlock/Bullseye
+  ALSA: hda/cs8409: Disable unsolicited responses during suspend
+  ALSA: hda/cs8409: Mask CS42L42 wake events
+  ALSA: hda/cs8409: Simplify CS42L42 jack detect.
+  ALSA: hda/cs8409: Support multiple sub_codecs for Suspend/Resume/Unsol
+    events
+  ALSA: hda/cs8409: Add Support to disable jack type detection for
+    CS42L42
+  ALSA: hda/cs8409: Enable Full Scale Volume for Line Out Codec on
+    Dolphin
+  ALSA: hda/cs8409: Set fixed sample rate of 48kHz for CS42L42
+  ALSA: hda/cs8409: Use timeout rather than retries for I2C transaction
+    waits
+  ALSA: hda/cs8409: Remove unnecessary delays
+  ALSA: hda/cs8409: Follow correct CS42L42 power down sequence for
+    suspend
+  ALSA: hda/cs8409: Unmute/Mute codec when stream starts/stops
 
->
-> thanks,
->
-> Takashi
+ sound/pci/hda/Kconfig               |   10 +
+ sound/pci/hda/Makefile              |    2 +
+ sound/pci/hda/patch_cirrus.c        | 1074 ----------------------
+ sound/pci/hda/patch_cs8409-tables.c |  560 ++++++++++++
+ sound/pci/hda/patch_cs8409.c        | 1273 +++++++++++++++++++++++++++
+ sound/pci/hda/patch_cs8409.h        |  369 ++++++++
+ 6 files changed, 2214 insertions(+), 1074 deletions(-)
+ create mode 100644 sound/pci/hda/patch_cs8409-tables.c
+ create mode 100644 sound/pci/hda/patch_cs8409.c
+ create mode 100644 sound/pci/hda/patch_cs8409.h
 
+-- 
+2.25.1
 

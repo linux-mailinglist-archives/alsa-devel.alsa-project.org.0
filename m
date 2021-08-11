@@ -2,76 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E97D93E93D0
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Aug 2021 16:43:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F26B43E9435
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Aug 2021 17:05:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 90EA21772;
-	Wed, 11 Aug 2021 16:42:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90EA21772
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8804F173B;
+	Wed, 11 Aug 2021 17:04:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8804F173B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628692991;
-	bh=567DqEJ2CW8yoSvw1a5r0eKHS+MofAlVun4Dh6mctKw=;
+	s=default; t=1628694343;
+	bh=MEKpd2JWqLokdbSkx61YNu9WAsXeRAvvzmRiMnR33Ng=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cHgbcqmPF2k3OOYb0oVyDOqyMEEfXvvzK6FIgZxYli9jpFWwnG0NPiUoIgPuszhzP
-	 PLxwJrlHfyQf4o/zWzvFxGn/EHTUypGvtkbfC6QM7OIugypq9uDK3qAg7egzqCzris
-	 c9uCoJ/LpvlEPHqTJyHPXn+RLiSJ8LhB74GWgrnE=
+	b=enSqp7JbdDVwqC2oL0O5rxiv0h0SLzbrUM4kixvdjbnru30hHUsIgZQnH7GcPyhmW
+	 V1DdFlfbm90Igf/Sqm8jxYsdIfhJmfw070l+64Kts6TEylHBa+iW7JRorgggYW+EE0
+	 NpPudxhGq8B3LUkJudakGpbHqmOrFFeO+a4WmJnQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88CFFF804B4;
-	Wed, 11 Aug 2021 16:42:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2688F80148;
+	Wed, 11 Aug 2021 17:04:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6023AF804B0; Wed, 11 Aug 2021 16:42:09 +0200 (CEST)
+ id DE9E5F8020D; Wed, 11 Aug 2021 17:04:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0D8BF80148
- for <alsa-devel@alsa-project.org>; Wed, 11 Aug 2021 16:42:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0D8BF80148
+ by alsa1.perex.cz (Postfix) with ESMTPS id B31D0F800F4
+ for <alsa-devel@alsa-project.org>; Wed, 11 Aug 2021 17:04:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B31D0F800F4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="m4nzoWsz"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 839BE60C40;
- Wed, 11 Aug 2021 14:42:01 +0000 (UTC)
+ header.b="s8WWgAep"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3436060FDA;
+ Wed, 11 Aug 2021 15:03:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1628692922;
- bh=567DqEJ2CW8yoSvw1a5r0eKHS+MofAlVun4Dh6mctKw=;
+ s=k20201202; t=1628694239;
+ bh=MEKpd2JWqLokdbSkx61YNu9WAsXeRAvvzmRiMnR33Ng=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=m4nzoWszuVSWD73z+V3eW7ZyJ6MkRW74PpSMwcdiB/R7qEeMB1o8ISO5BGDySgBJB
- 3uqKiK55QBIZIP2CGQ2d2udlzk1wS83qUnCPxWJxQiXoALMiq/tzoNfNEi3QgKai3k
- Z4CaQVTgkMUctnm2fYN3ns33UQp/mHzrP4cjGDL+dyGiZUnC5lH1zAzNQaEUTvmz4I
- 6pV0OhGv7VDZqhKvHDz+trOk0szvz10ayMFJWWCvJ4M5SN+Dn5nhKoTxzjBlq3b4Xn
- XzBy9ExsbfE4rMRCAX6vrzrI2ZcKaWq1jAoaqnjtWwA+mncFk2LfjLl2lJXKZN8sF1
- IyUAKbNbmVUVQ==
-Date: Wed, 11 Aug 2021 15:41:43 +0100
+ b=s8WWgAepXBPBgkk9rn/oSYpYObUthAeDylwJBqIKptcOjxqjN8Ln3GNc/jpYGR0rs
+ skB7OXc+ggRXWgUpNjMgrhD2NHQsvYaJvLmSYG+SQVCTh49HJS/Mx7ovF80qUVvHTi
+ kHRECWufjTHQ+tVSFlyfGV7kLrLGIgqHv6bQQ7QMuO14lbKaZCWlEYbHg+XM7HVsaD
+ 5pua2rb2ZJfwY1ZAvsll0Pn3jNxeLpEilrqTcyFYKXWl5xmvdVFDhQA0tkSYbINN8w
+ btgAxzAyhu10vWrVcUcGPdZ6oZPdHM5PiQVLRdxV5EWB/kPXzQHMB6ivsqTRyG++dC
+ mxocrA/vQ99Kg==
+Date: Wed, 11 Aug 2021 16:03:40 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Subject: Re: [PATCH 04/12] ASoC: cs42l42: Don't reconfigure the PLL while it
- is running
-Message-ID: <20210811144143.GE4167@sirena.org.uk>
-References: <20210810153759.24333-1-rf@opensource.cirrus.com>
- <20210810153759.24333-5-rf@opensource.cirrus.com>
- <20210810154959.GD4704@sirena.org.uk>
- <c194004a-2a22-5354-9042-3ce811236319@opensource.cirrus.com>
- <20210811115637.GA4167@sirena.org.uk>
- <bae1afcb-d983-c17c-d932-3afac16df501@opensource.cirrus.com>
+To: Doug Anderson <dianders@chromium.org>
+Subject: Re: [PATCH] ASoC: rt5682: Properly turn off regulators if wrong
+ device ID
+Message-ID: <20210811150340.GG4167@sirena.org.uk>
+References: <20210810165850.1.I4a1d9aa5d99e05aeee15c2768db600158d76cab8@changeid>
+ <CAE-0n50K+gAa0U9-kswTCdt+UAkxhuJ8BMg-D4sQayP1xqWTyQ@mail.gmail.com>
+ <CAD=FV=VdjTYvLmKfGONCZhpbyrzM_tG7uXkm5==-X6-uO1gTVw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="WK3l2KTTmXPVedZ6"
+ protocol="application/pgp-signature"; boundary="Zrag5V6pnZGjLKiw"
 Content-Disposition: inline
-In-Reply-To: <bae1afcb-d983-c17c-d932-3afac16df501@opensource.cirrus.com>
+In-Reply-To: <CAD=FV=VdjTYvLmKfGONCZhpbyrzM_tG7uXkm5==-X6-uO1gTVw@mail.gmail.com>
 X-Cookie: To stay youthful, stay useful.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: Oder Chiou <oder_chiou@realtek.com>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, LKML <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Bard Liao <bardliao@realtek.com>,
+ Stephen Boyd <swboyd@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,51 +89,37 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---WK3l2KTTmXPVedZ6
+--Zrag5V6pnZGjLKiw
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Wed, Aug 11, 2021 at 01:21:24PM +0100, Richard Fitzgerald wrote:
-> On 11/08/2021 12:56, Mark Brown wrote:
-> > On Tue, Aug 10, 2021 at 05:27:45PM +0100, Richard Fitzgerald wrote:
+On Wed, Aug 11, 2021 at 07:40:59AM -0700, Doug Anderson wrote:
+> On Tue, Aug 10, 2021 at 9:24 PM Stephen Boyd <swboyd@chromium.org> wrote:
 
-> > > cs42l42_pll_config() could check whether it is already running and skip
-> > > configuration in that case, but that seems to me a rather opaque
-> > > implementation. In my opinion this doesn't really fall into the case of
-> > > ignoring-bad-stuff-to-be-helpful (like free() accepting a NULL).
+> > Nit: Add newline here.
 
-> > This doesn't treat the situation as an error though, it just ignores it,
-> > and there's nothing to stop _pll_config() generating a warning if that
-> > makes sense.
+> How strongly do you feel about it? I purposely left the newline off to
+> try to tie the devm_add_action_or_reset() more closely to the
+> devm_regulator_bulk_get(). I wanted to make it more obvious that the
+> two of them were "together" and shouldn't be split up. That being
+> said, it's no skin off my teeth to add a newline if everyone likes it
+> better. ;-)
 
-> It isn't an error. hw_params() will be called for both substreams
-> (PLAYBACK and CAPTURE) and if one is already running we mustn't
-> reconfigure the things we already configured. The DAI is marked
-> symmetric so both substreams will always produce the same I2C BCLK.
+TBH the newline looks off before I've got as far as reading the code.
 
-If it's a noop reconfiguration then there's a case for saying that
-_pll_config() should just silently do nothing anyway regardless of
-issues with reconfiguring, though you might also want to warn dpeending
-on other expectations.  If it's not a noop reconfiguration then
-presumably the new configuration not taking effect might mean that other
-things aren't going to see the clocks they expect.  Either way if a
-reconfiguration gets introduced via a path other than hw_params(),
-either now or later, having the check in the _pll_config() would catch
-it.
-
---WK3l2KTTmXPVedZ6
+--Zrag5V6pnZGjLKiw
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmET4aYACgkQJNaLcl1U
-h9DrmQgAhIQarTTvYNjhmlbeS0r6u4MqTIjCzyT8my/0LDFR/3QbeNOLzkt5BmaN
-he52NPO92gWzet0lby3zYDerMvDsHZniAfV/c0U+u+ZhN6wRWMzNbAfH6VR6ijgw
-fL0cT2Gtr4C7WGWnDrvBNJxx1QgiQjIZD4d8wTT1lKZNWEYK9gUUyUA9OEYR4YFM
-wVvKPIS6N2zRx1kRauCCy4tOtq3k+MorJ04T6VpUKc/72CUmx8uSI7Fc9Z5H0UO6
-Do70jom82Aj6dEbbSWCyXHQnxaB5JiuUkr/7TLXVea2Gfr1v1ssxc1R4uXlo3O11
-mADp4anO/f5zLjL4+o5tC5ndq2RCew==
-=Io2A
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmET5ssACgkQJNaLcl1U
+h9BthQf/fUr37JaTB6dDdW5fjOJOkbaLPTH1s18AdnVXPERV5CAFhW7MLpHpQtAJ
+5YeFi0j26U5SHmdyk0gWijwgT+NqBzIyPQBC5wo8wr7XniyF+XZTRw68oVB+1UPW
+3EO3n6jvlSqM9GKRHh3vvOcOeS7DKcUXWHlU15dfTMCPLpYebjU4/HVSADQMfifr
+WBP5iTnEg4G/0lkihF5gZSdkV7o+3D8uXLO7Lo1SMyteEXeQO6eOl9MwRKl6dGPF
++VxNGfSwCWQjRMZIXGwvRdIUQejFJfsUHLb8OzZ85S+qOLiu5yPckjT19hJsF679
++ThWf0Yaw/mMpWppdr7wuQKgq1cCMQ==
+=4IAY
 -----END PGP SIGNATURE-----
 
---WK3l2KTTmXPVedZ6--
+--Zrag5V6pnZGjLKiw--

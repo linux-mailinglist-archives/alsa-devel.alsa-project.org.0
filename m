@@ -2,85 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D39F83EAFE4
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Aug 2021 08:12:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A403C3EB2F0
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Aug 2021 10:53:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 698E618BF;
-	Fri, 13 Aug 2021 08:11:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 698E618BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2016C189F;
+	Fri, 13 Aug 2021 10:52:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2016C189F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628835147;
-	bh=OZnqWEmObutnH07UnWdDL1z8zeCgD+MlXGFS009GDn0=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1628844781;
+	bh=Uqwt4Q9L5x+M9THC59RJEIFGR1XoNby5gjlUe2bGqjo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=caLhdQHCIf3mRfrHHlwNMk/QacywquZbr2i7LmlOIMfwWRA18Av/4R99j8ppYQIon
-	 g8HaP+/oOnbLpaQHmbTonAVj4ciqKQEmmLKoohaoa6sy12ei435OuVjLbUvCrJAPWT
-	 wyPyXE4KoAfmrdjsvRe02JxmTIzddFa2gVYDd38Y=
+	b=HFh+gMuCDhrIYY8aNNqgPWTXzQTdCatmUepl3qouKzU2MIEMXA9WKil7SFf8ut8+g
+	 GHFmsaJK7DHmucTEohuZhuYShv8/oBhtlXkxRNOmzCjzBlWfZZc3dg1idzjPDXCSR+
+	 VL704X5I5qxosyrE2LSMTvVzO3Inr6dg3poPoPfA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0ABAF80129;
-	Fri, 13 Aug 2021 08:10:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8CCFAF8032D;
+	Fri, 13 Aug 2021 10:51:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76939F802D2; Fri, 13 Aug 2021 08:10:57 +0200 (CEST)
+ id 44754F802D2; Wed, 11 Aug 2021 14:43:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=0.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,HTML_MESSAGE,
+ PRX_BODY_13,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
+ [IPv6:2607:f8b0:4864:20::102e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 389EDF800E5
- for <alsa-devel@alsa-project.org>; Fri, 13 Aug 2021 08:10:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 389EDF800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 96253F800F4
+ for <alsa-devel@alsa-project.org>; Wed, 11 Aug 2021 14:43:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96253F800F4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="gCyH+u89"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Nf4AzfPJ"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id E810E1FD90;
- Fri, 13 Aug 2021 06:10:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1628835047; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=JtlNSEjo/aAGUyeOb1fWgW8Jo9JxLdbdVNlnrm++LWM=;
- b=gCyH+u89wcAxHSXRzVLE7LRQGjVdUF5Yfbdr3Jc6BieHi2xbtch0JKriDS3ydz5lGfCs5O
- XybX+4XM1Smk0bTcmFz1poRg9YAz7Irw6vd2tq2Z5s6A3OppzzBahz84AA8FTF2POjjyFF
- l88HNwcR8Q8ZdinuZmipf/cj5wBPzPw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1628835047;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=JtlNSEjo/aAGUyeOb1fWgW8Jo9JxLdbdVNlnrm++LWM=;
- b=Nf4AzfPJJZhIe1hEDRIaJEVNBJRzlFvxuoPL1r+4ybXT3OISzpTb+nWwVGV3AZoalHjZz/
- 8fPLFbsp/EtqHUAw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id DC400A3B84;
- Fri, 13 Aug 2021 06:10:47 +0000 (UTC)
-Date: Fri, 13 Aug 2021 08:10:47 +0200
-Message-ID: <s5h1r6xlvrs.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Subject: Re: [PATCH 2/2] ALSA: hda/cs8409: Prevent pops and clicks during
- reboot
-In-Reply-To: <20210812183433.6330-2-vitalyr@opensource.cirrus.com>
-References: <20210812183433.6330-1-vitalyr@opensource.cirrus.com>
- <20210812183433.6330-2-vitalyr@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- Stefan Binding <sbinding@opensource.cirrus.com>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="DB0iYLXu"
+Received: by mail-pj1-x102e.google.com with SMTP id
+ u21-20020a17090a8915b02901782c36f543so9297659pjn.4
+ for <alsa-devel@alsa-project.org>; Wed, 11 Aug 2021 05:43:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=cOANcQIs9Ar+QX5NpzQhxFpOziOhNrP1h0WDxrVgheI=;
+ b=DB0iYLXuIEwwm5YwvrLlw2MuD58mpbtrBTT8ScPyeqA+ndPVqYjWjTu46Vb6KTsQfX
+ M2SzvhdudAbsDyDA5/Ypc2FPxYoIVMetI+Sea/k6YS8DwFOerjNCiqNDs8TT23D5eNt9
+ pR6atqyaxThOIZzQphBTlEStmrXxsIM9iaqDkC4mDpO7wivkMibNKsPWnZiwitbZymQ/
+ rb2+IFGn8boRShsJtljymlmZlCtG8jl5ehL+pyEEA9a6+3j6JcHtTe6abGEIqd5vx0h2
+ hCUAdWGG1Gi8MRNN+gwXCdtdAzhw/hSjQQmR9JlAKSNKzbRcf7Ikt0NFl4DZQ0JG0U6m
+ M/uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=cOANcQIs9Ar+QX5NpzQhxFpOziOhNrP1h0WDxrVgheI=;
+ b=EItVbGxYjfRTulpEXOSI+NgdAX8BB0bokrNEV8gPT9U7PU8LUBcF5scKIpI8FzyIaq
+ KSW0HtxTBUqjYnmbaEhkFlRQhyej3w/BjNdlJKE1Ct6+5mYpDVFiZrzF2aKDPmfdukE0
+ JWL8DF2xn17sjIiys6aU9L50zrsSIbZ9YFrE5gEFlOcpdfrMDwfy/UJsUXYz3C8Zx5Rw
+ WUmCc2s2VUxTcPcoxCnaO8mIt8ffp0tcSM5z35sxGVtreuNIzA7nBqs1685bSnhwZV8g
+ UBVtkWWvNREoYEIeFh2oBMrtL1cM5+YgZNR781IjcsJb7Ue5gsEdk/RWSj5IulVtU7S6
+ kSSA==
+X-Gm-Message-State: AOAM533DvmfiM2/stSKnTBhnzyw7rMTjvVn3msKSTS3miuxfmWyKyxtW
+ HJ0sYF0mdUJwLvwtDvu3Te+PePvgh7TKZ0ADT/s=
+X-Google-Smtp-Source: ABdhPJzE+sjikp72XXtYUufc1yc4N1KgY8GbaXGkC4mCJEVBVocoKSkuZVKRJaYTGwwYcOAX87vqLop4x4M/mfSNUKU=
+X-Received: by 2002:a17:90a:2c05:: with SMTP id
+ m5mr37855025pjd.32.1628685795924; 
+ Wed, 11 Aug 2021 05:43:15 -0700 (PDT)
+MIME-Version: 1.0
+References: <CAHhAz+hQBnUVWBnoQO6y44C-G5CnZdFLJ7v738_Y5Rt6AZSkrA@mail.gmail.com>
+In-Reply-To: <CAHhAz+hQBnUVWBnoQO6y44C-G5CnZdFLJ7v738_Y5Rt6AZSkrA@mail.gmail.com>
+From: vishnu <vardhanraj4143@gmail.com>
+Date: Wed, 11 Aug 2021 18:13:04 +0530
+Message-ID: <CACk2A5ZOhZwvoLR-+m8LMpmC5stFhAvcxLuZZ+7ad47gaiVfkg@mail.gmail.com>
+Subject: Re: USB-Audio: Device or resource busy (strace log)
+To: Muni Sekhar <munisekharrms@gmail.com>
+X-Mailman-Approved-At: Fri, 13 Aug 2021 10:51:31 +0200
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel <alsa-devel@alsa-project.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
+ kernelnewbies <kernelnewbies@kernelnewbies.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,28 +99,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 12 Aug 2021 20:34:33 +0200,
-Vitaly Rodionov wrote:
-> 
-> From: Stefan Binding <sbinding@opensource.cirrus.com>
-> 
-> During reboot, when the CS42L42 powers down, pops and clicks
-> may occur due to the codec not being shutdown gracefully.
-> This can be fixed by going through the suspend sequence,
-> which shuts down the codec cleanly inside the reboot_notify
-> hook, which is called on reboot.
-> 
-> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
-> Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+can you paste output of
+arecord -l (list of capture devices).
+Which device you are using and os.
+Does this instance is already open by default? like any video playing or
+something like that?
 
-I hold this one for now, as there is a fix series that deprecates the
-reboot_notify callback of HD-audio by forcibly doing runtime-suspend
-at shutdown.  Please check the three patches in
-  https://bugzilla.kernel.org/show_bug.cgi?id=214045
+On Wed, Aug 11, 2021 at 6:06 PM Muni Sekhar <munisekharrms@gmail.com> wrote:
 
-I'm going to submit those soon in anyway.
-
-
-thanks,
-
-Takashi
+> Hi All,
+>
+> $ cat /proc/asound/cards
+>  0 [USB            ]: USB-Audio - Plantronics .Audio 628 USB
+>                       Plantronics Plantronics .Audio 628 USB at
+> usb-0000:00:14.0-2, full speed
+>
+> I am using a Plantronics USB Audio headset.
+>
+> $ arecord --device hw:0,0 --channels 2 --format S16_LE --rate 44100Hz x.wav
+> arecord: main:722: audio open error: Device or resource busy
+>
+>
+> 'arecord' command always fails the first time after system boot in my
+> system. But subsequent execution of the 'arecord' command runs fine.
+>
+>
+> I've attached the strace log for the "audio open error: Device or
+> resource busy" failure. Is there any fix available for this issue?
+>
+> --
+> Thanks,
+> Sekhar
+>

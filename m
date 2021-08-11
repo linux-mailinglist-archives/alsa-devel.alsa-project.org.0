@@ -2,88 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 230173E9470
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Aug 2021 17:20:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD69B3E9471
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Aug 2021 17:20:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A24E175B;
-	Wed, 11 Aug 2021 17:19:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A24E175B
+	by alsa0.perex.cz (Postfix) with ESMTPS id B4423176B;
+	Wed, 11 Aug 2021 17:19:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4423176B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628695201;
-	bh=WHWMSxhLAxLNIH7J9p8IWUKVeDJ5ODPmoV6qic2rOzI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=uAueMElgNOnc4Y2Qnkp76trqM3zmi/NCtPztz5D3PliqnREL1Nlb/UPYBrbUb/BTf
-	 Csxp7D7G1zRAVJcnRWlPXMEqGhXYZ3U7YQyKBNFo9DjqQOZO220liXK830o5LpUl88
-	 wv+da/F85P9T5+Q80Ft/oqmz0+DJaL7rKIOtB0b4=
+	s=default; t=1628695249;
+	bh=PTbZTB0OggPkXAxfHZ6VcjTpKi0pARGB5K9rQpw80Ro=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=DiimsHvteoXl/a70lJOh8GMvlPga6CHnkVFzxut4EGwRpAsvOdfpqz8lG8bXSOKG2
+	 roeoALB25A4Bsyyen2NZHbnhlPD3PMAQt7wLXcirEdZqkiBxFzwQ4NMqsE/RMBxUf+
+	 lTBsSkfCj0VTxz7o+gHrI7B0d9R2N5QNdN8w8LAM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 077EAF802D2;
-	Wed, 11 Aug 2021 17:18:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B134F804AE;
+	Wed, 11 Aug 2021 17:19:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3868F8020D; Wed, 11 Aug 2021 17:18:31 +0200 (CEST)
+ id 58670F804AE; Wed, 11 Aug 2021 17:19:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
- [IPv6:2607:f8b0:4864:20::102c])
+Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
+ [IPv6:2607:f8b0:4864:20::82c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6766BF80148
- for <alsa-devel@alsa-project.org>; Wed, 11 Aug 2021 17:18:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6766BF80148
+ by alsa1.perex.cz (Postfix) with ESMTPS id 073F3F80148
+ for <alsa-devel@alsa-project.org>; Wed, 11 Aug 2021 17:19:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 073F3F80148
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="CpiIzIOh"
-Received: by mail-pj1-x102c.google.com with SMTP id
- 28-20020a17090a031cb0290178dcd8a4d1so5246162pje.0
- for <alsa-devel@alsa-project.org>; Wed, 11 Aug 2021 08:18:23 -0700 (PDT)
+ header.b="FqBrCE1C"
+Received: by mail-qt1-x82c.google.com with SMTP id c6so2364378qtv.5
+ for <alsa-devel@alsa-project.org>; Wed, 11 Aug 2021 08:19:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ygxUpyRX9wOtF8ZOqKu/KuzaLXR5hL1hZ6xZFoZuCD4=;
- b=CpiIzIOhMYLbVZHyvo6F+/4fLJHxng97OOxY6LZyn8+rJFWiHXYtRIt1jYgPz3yXcy
- 5u3a7v/iHytl5YWjA+3VnvTejeZEGumLYoT5g250NMttmMUFe+dVQ9NQowYJlR8q3O/+
- U3TYeQsC+9f8eOPweI4vaw0LoPWeCNXIZlpq8=
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=PTbZTB0OggPkXAxfHZ6VcjTpKi0pARGB5K9rQpw80Ro=;
+ b=FqBrCE1C6bKWw4lmcwBR4rx6mFcqiMBN7iKQCz4ZMcW0+Yvah7IpY8WsGQ8xGinZFb
+ v8MSypdJ4RlYSnsHekMoKjfsdntcqaPm9g7AJNSucqgB/kAspGIodBNXaCAJ5W21tPUf
+ 0J+ruriImy6cMSCdkp1m+UYWZw/8XJgK+b1UE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ygxUpyRX9wOtF8ZOqKu/KuzaLXR5hL1hZ6xZFoZuCD4=;
- b=fpEIT7vFI5mKcLnz9hZyyS0yDCrQ+ROh+Gv/AVAVuu/4YS4lAw53pTjXpy0i3vkTRd
- 0mFdzr0cIckde8fqedk/c3L+3Ly+U0xz3jRFXtbp6TO627qE77E5jtJDhYCBbunheeUT
- XZzXC/drCc0LNDni60nTie7ZePaHApBm7P+zwPJssVwATg8xIEfqArQjfcGqpHWNsM13
- 9XLyuT01lZizitzgZP9PbiKajkKvWJ9PXT2I3vK0ShfevWOGfUTou4XO4R32wS8sI2UD
- BJmPsLRBt0Bvb3D01AdZwrQFjsmnUWMQDi7jFjahOUXlxI/vx0zG3ojUcgVqYiGh4ccr
- nH8Q==
-X-Gm-Message-State: AOAM530jdr328qsfjXwYoHsGxxf+Fu0IlWV/jNYgWyU0mC1pV+8YwcI5
- h0uJ5Bsf8nDPLVD4iH61J6MDuQ==
-X-Google-Smtp-Source: ABdhPJxuQ9F1OGZdSAD5Ml4b3eKOeX4HHmdbExxTwfq7eiGklUYibxeF6HOax62CXeDESYQJwvVEkQ==
-X-Received: by 2002:a17:902:8c83:b029:11b:3f49:f88c with SMTP id
- t3-20020a1709028c83b029011b3f49f88cmr4563235plo.63.1628695099936; 
- Wed, 11 Aug 2021 08:18:19 -0700 (PDT)
-Received: from tictac2.mtv.corp.google.com
- ([2620:15c:202:201:2800:b98b:b4d4:10f9])
- by smtp.gmail.com with ESMTPSA id 22sm30083544pgn.88.2021.08.11.08.18.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Aug 2021 08:18:19 -0700 (PDT)
-From: Douglas Anderson <dianders@chromium.org>
-To: Oder Chiou <oder_chiou@realtek.com>,
-	Mark Brown <broonie@kernel.org>
-Subject: [PATCH v2] ASoC: rt5682: Properly turn off regulators if wrong device
- ID
-Date: Wed, 11 Aug 2021 08:17:56 -0700
-Message-Id: <20210811081751.v2.1.I4a1d9aa5d99e05aeee15c2768db600158d76cab8@changeid>
-X-Mailer: git-send-email 2.32.0.605.g8dce9f2422-goog
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=PTbZTB0OggPkXAxfHZ6VcjTpKi0pARGB5K9rQpw80Ro=;
+ b=sb8nZZZEqrzJrfFB2ObFD/Hs07FDmCumQ5uoMV4qyyDAlnGDLffwEIbyz5Knkm7mtN
+ NtqDzZ8PgcrIQwkWylCJuLWxbkR+oCK7ohP6nSNSiOyWTo0Z2+p0sIzsmy8PQRBx1rae
+ FpOYCF2xaQ3NieDIHvxb2uFhAEyO6pcvlIgxS87Z+FKZnD/nuPFD2aVYKc2Ru3SZdanG
+ A4zeNmlbN1vPaa95UJ+UTy54YP+sC4SwB0C0KC7Cb/+OZQCmwhPRSBNhBxXx7N8VUVhV
+ RqPoDqnrZCyYBwhyUsdT9HMTEF38EFjSXxhJte7Brm+OunRRuqlTOL5nuzPsuz9S+gj9
+ smHA==
+X-Gm-Message-State: AOAM532LEJwgl28LBsA5xVMbpxjzZbQkpM/5UB1sDutk3jPs1ON3IS/S
+ tT3BiLBcZnbeYYYeW7hLU2atppp5jTPsQg==
+X-Google-Smtp-Source: ABdhPJyLTie7+TyfG4AbrO0hs7Ga15L1bfXGINutYbP3v1jaXpApHF5KqJbJxrOF8Zls84pU1BAWPQ==
+X-Received: by 2002:ac8:6d37:: with SMTP id r23mr28585530qtu.372.1628695184417; 
+ Wed, 11 Aug 2021 08:19:44 -0700 (PDT)
+Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com.
+ [209.85.219.179])
+ by smtp.gmail.com with ESMTPSA id f12sm9560371qtj.40.2021.08.11.08.19.43
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 11 Aug 2021 08:19:44 -0700 (PDT)
+Received: by mail-yb1-f179.google.com with SMTP id a201so5300129ybg.12
+ for <alsa-devel@alsa-project.org>; Wed, 11 Aug 2021 08:19:43 -0700 (PDT)
+X-Received: by 2002:a25:ba44:: with SMTP id z4mr44554834ybj.476.1628695183483; 
+ Wed, 11 Aug 2021 08:19:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Douglas Anderson <dianders@chromium.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+References: <20210810165850.1.I4a1d9aa5d99e05aeee15c2768db600158d76cab8@changeid>
+ <CAE-0n50K+gAa0U9-kswTCdt+UAkxhuJ8BMg-D4sQayP1xqWTyQ@mail.gmail.com>
+ <CAD=FV=VdjTYvLmKfGONCZhpbyrzM_tG7uXkm5==-X6-uO1gTVw@mail.gmail.com>
+ <20210811150340.GG4167@sirena.org.uk>
+In-Reply-To: <20210811150340.GG4167@sirena.org.uk>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 11 Aug 2021 08:19:32 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=W0rS0-EZQn3i1GxgYy2A4OhnMNk=W0WUSrFOssjnUOYw@mail.gmail.com>
+Message-ID: <CAD=FV=W0rS0-EZQn3i1GxgYy2A4OhnMNk=W0WUSrFOssjnUOYw@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: rt5682: Properly turn off regulators if wrong
+ device ID
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Oder Chiou <oder_chiou@realtek.com>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, LKML <linux-kernel@vger.kernel.org>,
  Takashi Iwai <tiwai@suse.com>, Bard Liao <bardliao@realtek.com>,
  Stephen Boyd <swboyd@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -101,79 +109,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When I booted up on a board that had a slightly different codec
-stuffed on it, I got this message at bootup:
+Hi,
 
-  rt5682 9-001a: Device with ID register 6749 is not rt5682
+On Wed, Aug 11, 2021 at 8:04 AM Mark Brown <broonie@kernel.org> wrote:
+>
+> On Wed, Aug 11, 2021 at 07:40:59AM -0700, Doug Anderson wrote:
+> > On Tue, Aug 10, 2021 at 9:24 PM Stephen Boyd <swboyd@chromium.org> wrote:
+>
+> > > Nit: Add newline here.
+>
+> > How strongly do you feel about it? I purposely left the newline off to
+> > try to tie the devm_add_action_or_reset() more closely to the
+> > devm_regulator_bulk_get(). I wanted to make it more obvious that the
+> > two of them were "together" and shouldn't be split up. That being
+> > said, it's no skin off my teeth to add a newline if everyone likes it
+> > better. ;-)
+>
+> TBH the newline looks off before I've got as far as reading the code.
 
-That's normal/expected, but what wasn't normal was the splat that I
-got after:
+Fair 'nuff. v2 is posted with the blank line.
 
-  WARNING: CPU: 7 PID: 176 at drivers/regulator/core.c:2151 _regulator_put+0x150/0x158
-  pc : _regulator_put+0x150/0x158
-  ...
-  Call trace:
-   _regulator_put+0x150/0x158
-   regulator_bulk_free+0x48/0x70
-   devm_regulator_bulk_release+0x20/0x2c
-   release_nodes+0x1cc/0x244
-   devres_release_all+0x44/0x60
-   really_probe+0x17c/0x378
-   ...
+https://lore.kernel.org/r/20210811081751.v2.1.I4a1d9aa5d99e05aeee15c2768db600158d76cab8@changeid/
 
-This is because the error paths don't turn off the regulator. Let's
-fix that.
-
-Fixes: 0ddce71c21f0 ("ASoC: rt5682: add rt5682 codec driver")
-Fixes: 87b42abae99d ("ASoC: rt5682: Implement remove callback")
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
----
-
-Changes in v2:
-- Add a blank line.
-
- sound/soc/codecs/rt5682-i2c.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/codecs/rt5682-i2c.c b/sound/soc/codecs/rt5682-i2c.c
-index 4a56a52adab5..e559b965a0a6 100644
---- a/sound/soc/codecs/rt5682-i2c.c
-+++ b/sound/soc/codecs/rt5682-i2c.c
-@@ -117,6 +117,13 @@ static struct snd_soc_dai_driver rt5682_dai[] = {
- 	},
- };
- 
-+static void rt5682_i2c_disable_regulators(void *data)
-+{
-+	struct rt5682_priv *rt5682 = data;
-+
-+	regulator_bulk_disable(ARRAY_SIZE(rt5682->supplies), rt5682->supplies);
-+}
-+
- static int rt5682_i2c_probe(struct i2c_client *i2c,
- 		const struct i2c_device_id *id)
- {
-@@ -157,6 +164,11 @@ static int rt5682_i2c_probe(struct i2c_client *i2c,
- 		return ret;
- 	}
- 
-+	ret = devm_add_action_or_reset(&i2c->dev, rt5682_i2c_disable_regulators,
-+				       rt5682);
-+	if (ret)
-+		return ret;
-+
- 	ret = regulator_bulk_enable(ARRAY_SIZE(rt5682->supplies),
- 				    rt5682->supplies);
- 	if (ret) {
-@@ -285,7 +297,6 @@ static int rt5682_i2c_remove(struct i2c_client *client)
- 	struct rt5682_priv *rt5682 = i2c_get_clientdata(client);
- 
- 	rt5682_i2c_shutdown(client);
--	regulator_bulk_disable(ARRAY_SIZE(rt5682->supplies), rt5682->supplies);
- 
- 	return 0;
- }
--- 
-2.32.0.605.g8dce9f2422-goog
-
+-Doug

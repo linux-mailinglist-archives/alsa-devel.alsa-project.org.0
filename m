@@ -2,98 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD69B3E9471
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Aug 2021 17:20:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 562E23E9486
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Aug 2021 17:27:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B4423176B;
-	Wed, 11 Aug 2021 17:19:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4423176B
+	by alsa0.perex.cz (Postfix) with ESMTPS id EA1701758;
+	Wed, 11 Aug 2021 17:26:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA1701758
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628695249;
-	bh=PTbZTB0OggPkXAxfHZ6VcjTpKi0pARGB5K9rQpw80Ro=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1628695665;
+	bh=ns68QrXEZaN87B+t6HFj35tI6Mfk7xun7e+jNDx67VU=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DiimsHvteoXl/a70lJOh8GMvlPga6CHnkVFzxut4EGwRpAsvOdfpqz8lG8bXSOKG2
-	 roeoALB25A4Bsyyen2NZHbnhlPD3PMAQt7wLXcirEdZqkiBxFzwQ4NMqsE/RMBxUf+
-	 lTBsSkfCj0VTxz7o+gHrI7B0d9R2N5QNdN8w8LAM=
+	b=H/trxvmJIXT6oXG0b//c3fAaGmaPOykK5/uFHMGsFgRKoch3EuleBDmqkFY0jijUd
+	 m50pGX1Z8xC2pjh0SdheQ7djumwfsSlTdlStptkP1MB8NMefE4WcqRREH+H5/rVF+d
+	 SbX3HdInk8/Rllx7EWMCTQ71Jx7W4cARzwq1Tm/U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4B134F804AE;
-	Wed, 11 Aug 2021 17:19:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A13BF80148;
+	Wed, 11 Aug 2021 17:26:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 58670F804AE; Wed, 11 Aug 2021 17:19:57 +0200 (CEST)
+ id 5044AF8020D; Wed, 11 Aug 2021 17:26:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
- [IPv6:2607:f8b0:4864:20::82c])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 073F3F80148
- for <alsa-devel@alsa-project.org>; Wed, 11 Aug 2021 17:19:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 073F3F80148
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D1EEF80148
+ for <alsa-devel@alsa-project.org>; Wed, 11 Aug 2021 17:26:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D1EEF80148
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="FqBrCE1C"
-Received: by mail-qt1-x82c.google.com with SMTP id c6so2364378qtv.5
- for <alsa-devel@alsa-project.org>; Wed, 11 Aug 2021 08:19:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=PTbZTB0OggPkXAxfHZ6VcjTpKi0pARGB5K9rQpw80Ro=;
- b=FqBrCE1C6bKWw4lmcwBR4rx6mFcqiMBN7iKQCz4ZMcW0+Yvah7IpY8WsGQ8xGinZFb
- v8MSypdJ4RlYSnsHekMoKjfsdntcqaPm9g7AJNSucqgB/kAspGIodBNXaCAJ5W21tPUf
- 0J+ruriImy6cMSCdkp1m+UYWZw/8XJgK+b1UE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=PTbZTB0OggPkXAxfHZ6VcjTpKi0pARGB5K9rQpw80Ro=;
- b=sb8nZZZEqrzJrfFB2ObFD/Hs07FDmCumQ5uoMV4qyyDAlnGDLffwEIbyz5Knkm7mtN
- NtqDzZ8PgcrIQwkWylCJuLWxbkR+oCK7ohP6nSNSiOyWTo0Z2+p0sIzsmy8PQRBx1rae
- FpOYCF2xaQ3NieDIHvxb2uFhAEyO6pcvlIgxS87Z+FKZnD/nuPFD2aVYKc2Ru3SZdanG
- A4zeNmlbN1vPaa95UJ+UTy54YP+sC4SwB0C0KC7Cb/+OZQCmwhPRSBNhBxXx7N8VUVhV
- RqPoDqnrZCyYBwhyUsdT9HMTEF38EFjSXxhJte7Brm+OunRRuqlTOL5nuzPsuz9S+gj9
- smHA==
-X-Gm-Message-State: AOAM532LEJwgl28LBsA5xVMbpxjzZbQkpM/5UB1sDutk3jPs1ON3IS/S
- tT3BiLBcZnbeYYYeW7hLU2atppp5jTPsQg==
-X-Google-Smtp-Source: ABdhPJyLTie7+TyfG4AbrO0hs7Ga15L1bfXGINutYbP3v1jaXpApHF5KqJbJxrOF8Zls84pU1BAWPQ==
-X-Received: by 2002:ac8:6d37:: with SMTP id r23mr28585530qtu.372.1628695184417; 
- Wed, 11 Aug 2021 08:19:44 -0700 (PDT)
-Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com.
- [209.85.219.179])
- by smtp.gmail.com with ESMTPSA id f12sm9560371qtj.40.2021.08.11.08.19.43
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Aug 2021 08:19:44 -0700 (PDT)
-Received: by mail-yb1-f179.google.com with SMTP id a201so5300129ybg.12
- for <alsa-devel@alsa-project.org>; Wed, 11 Aug 2021 08:19:43 -0700 (PDT)
-X-Received: by 2002:a25:ba44:: with SMTP id z4mr44554834ybj.476.1628695183483; 
- Wed, 11 Aug 2021 08:19:43 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210810165850.1.I4a1d9aa5d99e05aeee15c2768db600158d76cab8@changeid>
- <CAE-0n50K+gAa0U9-kswTCdt+UAkxhuJ8BMg-D4sQayP1xqWTyQ@mail.gmail.com>
- <CAD=FV=VdjTYvLmKfGONCZhpbyrzM_tG7uXkm5==-X6-uO1gTVw@mail.gmail.com>
- <20210811150340.GG4167@sirena.org.uk>
-In-Reply-To: <20210811150340.GG4167@sirena.org.uk>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 11 Aug 2021 08:19:32 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=W0rS0-EZQn3i1GxgYy2A4OhnMNk=W0WUSrFOssjnUOYw@mail.gmail.com>
-Message-ID: <CAD=FV=W0rS0-EZQn3i1GxgYy2A4OhnMNk=W0WUSrFOssjnUOYw@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: rt5682: Properly turn off regulators if wrong
- device ID
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Liam Girdwood <lgirdwood@gmail.com>, LKML <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Bard Liao <bardliao@realtek.com>,
- Stephen Boyd <swboyd@chromium.org>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="OqdRWrTB"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="RG2xGvWz"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id AE9EE20183;
+ Wed, 11 Aug 2021 15:26:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1628695570; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=6OYnzBvpehxl2TCV0hJo0/rGzlW7Sk7CLAiUwHsUqGI=;
+ b=OqdRWrTBJRGoqSJaBqdlfj1oFiJqGtVla/UvUwWD1msCCAHQyh7tv9g2d55JP0Y5ItPmHQ
+ z8zjU8WfXrxEcUv8jTFzzpstYrBum57bzQ+D1ohkOu8wSm4SUWtSwRmuZ03qVW/SLrZQiY
+ eEO57X+ElzVE3NZizwFFyxy6Hd2QtFo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1628695570;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=6OYnzBvpehxl2TCV0hJo0/rGzlW7Sk7CLAiUwHsUqGI=;
+ b=RG2xGvWzY7xGKQ3kEjxHkEZ6Y0uoa9Xvoiw9GaPBrNiifhYxbBjKxKiCuNiUGJjJJuqCaH
+ vsQ+YKhPQWa1amDg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id A93B3A3CE2;
+ Wed, 11 Aug 2021 15:26:10 +0000 (UTC)
+Date: Wed, 11 Aug 2021 17:26:10 +0200
+Message-ID: <s5hczqkj94d.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Damien Zammit <damien@zamaudio.com>
+Subject: Re: [PATCH] usb-audio: Input source control - digidesign mbox
+In-Reply-To: <20210808050931.59356-1-damien@zamaudio.com>
+References: <20210808050931.59356-1-damien@zamaudio.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,26 +91,115 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+On Sun, 08 Aug 2021 07:09:31 +0200,
+Damien Zammit wrote:
+> 
+> This adds a second mixer control to Digidesign Mbox
+> to select between Analog/SPDIF capture.
+> 
+> Users will note that selecting the SPDIF input source
+> automatically switches the clock mode to sync to SPDIF,
+> which is a feature of the hardware.
+> 
+> (You can change the clock source back to internal if you want
+> to capture from spdif but not sync to its clock although this mode
+> is probably not recommended).
+> 
+> Unfortunately, starting the stream resets both modes
+> to Internally clocked and Analog input mode.
 
-On Wed, Aug 11, 2021 at 8:04 AM Mark Brown <broonie@kernel.org> wrote:
->
-> On Wed, Aug 11, 2021 at 07:40:59AM -0700, Doug Anderson wrote:
-> > On Tue, Aug 10, 2021 at 9:24 PM Stephen Boyd <swboyd@chromium.org> wrote:
->
-> > > Nit: Add newline here.
->
-> > How strongly do you feel about it? I purposely left the newline off to
-> > try to tie the devm_add_action_or_reset() more closely to the
-> > devm_regulator_bulk_get(). I wanted to make it more obvious that the
-> > two of them were "together" and shouldn't be split up. That being
-> > said, it's no skin off my teeth to add a newline if everyone likes it
-> > better. ;-)
->
-> TBH the newline looks off before I've got as far as reading the code.
+Please add your Signed-off-by line.  It's mandatory.
 
-Fair 'nuff. v2 is posted with the blank line.
+About the code change:
+> @@ -596,31 +596,53 @@ static int snd_xonar_u1_controls_create(struct usb_mixer_interface *mixer)
+>  
+>  /* Digidesign Mbox 1 clock source switch (internal/spdif) */
+>  
+> -static int snd_mbox1_switch_get(struct snd_kcontrol *kctl,
+> -				struct snd_ctl_elem_value *ucontrol)
+> +static int snd_mbox1_clk_switch_get(struct snd_kcontrol *kctl,
+> +				    struct snd_ctl_elem_value *ucontrol)
+>  {
+> +	struct usb_mixer_elem_list *list = snd_kcontrol_chip(kctl);
+> +	struct snd_usb_audio *chip = list->mixer->chip;
+> +	unsigned char buff[3];
+> +
 
-https://lore.kernel.org/r/20210811081751.v2.1.I4a1d9aa5d99e05aeee15c2768db600158d76cab8@changeid/
+You need to wrap the execution with snd_usb_lock_shutdown() /
+snd_usb_unlock_shutdown().
 
--Doug
+> +	/* Read clock source */
+> +	snd_usb_ctl_msg(chip->dev,
+> +				usb_rcvctrlpipe(chip->dev, 0), 0x81,
+> +				USB_DIR_IN |
+> +				USB_TYPE_CLASS |
+> +				USB_RECIP_ENDPOINT, 0x100, 0x81, buff, 3);
+
+Please try to align the indent level.
+And, the execution error check is missing.
+
+Also, I believe it'd be wise to make it a helper function, as this is
+used in another place, too.  Ditto for other snd_usb_ctl_msg() calls,
+too.
+
+> +static int snd_mbox1_src_switch_get(struct snd_kcontrol *kctl,
+> +				    struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct usb_mixer_elem_list *list = snd_kcontrol_chip(kctl);
+> +	struct snd_usb_audio *chip = list->mixer->chip;
+> +	unsigned char source[1];
+
+Missing snd_usb_lock_shutdown() / *_unlock_*() here, too.
+
+> +	/* Read input source */
+> +	snd_usb_ctl_msg(chip->dev,
+> +				usb_rcvctrlpipe(chip->dev, 0), 0x81,
+> +				USB_DIR_IN |
+> +				USB_TYPE_CLASS |
+> +				USB_RECIP_INTERFACE, 0x00, 0x500, source, 1);
+
+Check the error.
+
+> +	kctl->private_value = source[0] - 1;
+
+The value returned from the hardware isn't reliable.  Check whether
+it's a valid value.
+
+
+> +	ucontrol->value.enumerated.item[0] = kctl->private_value;
+> +	return 0;
+> +}
+> +
+> +static int snd_mbox1_src_switch_update(struct usb_mixer_interface *mixer, int val)
+> +{
+> +	struct snd_usb_audio *chip = mixer->chip;
+> +	int err;
+> +	unsigned char buff[3];
+> +	unsigned char source[1];
+> +
+> +	err = snd_usb_lock_shutdown(chip);
+> +	if (err < 0)
+> +		return err;
+> +
+> +	/* Read input source */
+> +	err = snd_usb_ctl_msg(chip->dev,
+> +				usb_rcvctrlpipe(chip->dev, 0), 0x81,
+> +				USB_DIR_IN |
+> +				USB_TYPE_CLASS |
+> +				USB_RECIP_INTERFACE, 0x00, 0x500, source, 1);
+> +	if (err < 0)
+> +		goto err;
+> +
+> +	/* 2 possibilities:	ANALOG Source  -> 0x01
+> +	 *			S/PDIF Source  -> 0x02
+> +	 * Setting the input source to S/PDIF resets the clock source to S/PDIF
+> +	 */
+> +	source[0] = (val + 1) & 0xff;
+
+Here better to trust private_value is a valid value, and you can drop
+the superfluous "& 0xff".  It's cut down anyway.
+
+
+thanks,
+
+Takashi

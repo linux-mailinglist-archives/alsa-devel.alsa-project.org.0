@@ -2,72 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D72873EA449
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Aug 2021 14:09:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD05A3EA706
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Aug 2021 17:01:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C4241AA1;
-	Thu, 12 Aug 2021 14:08:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C4241AA1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3BB841917;
+	Thu, 12 Aug 2021 17:00:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BB841917
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628770189;
-	bh=MKJ7kDBbi+kI+OEuDOgJQvmiexrSsTJ4gF9df4OaPVA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1628780490;
+	bh=aRKNoV+jtL22hZ7nue0Gh7dUJNgcz7KFLyJNcb2mGFQ=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hzr1e1d3Z8kXdCCNQgwAdd8fBWG2RfS0BPuUrl5+BDVyVbpxEkZe4pZmofz036TbE
-	 DehvB8euuitgtUMq1SMeu9Fwbz9AJBCyNVqF4WemcHTmPhAvojeZqZ0CDXDif+YCay
-	 HraglUPLXsk/VVBdw5+cpYbM5oBUmX6JBpP+QAsk=
+	b=AXVP3sDWr8bq6Vqylx4sxOwV+UErOVVqIQhXZs+WE8gBGV8+1Ffcs9zeZPggbQu1p
+	 /djWhJqv2aXFyktSwvcfoXIk+pa+OzMutvfq3vYKy1yb/n5fxi/97CJRLJcyFGvZdq
+	 e5q5xkCz/pPuV/Hfh469M3HxSyeOF2TQV7SCh0nw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA8BCF804E1;
-	Thu, 12 Aug 2021 14:07:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94FFDF80279;
+	Thu, 12 Aug 2021 17:00:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B6B9F804DA; Thu, 12 Aug 2021 14:07:33 +0200 (CEST)
+ id F177DF8025D; Thu, 12 Aug 2021 16:59:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E2562F800AF
- for <alsa-devel@alsa-project.org>; Thu, 12 Aug 2021 14:07:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2562F800AF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="cVxJ5xcS"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9B4E96108C;
- Thu, 12 Aug 2021 12:07:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1628770045;
- bh=MKJ7kDBbi+kI+OEuDOgJQvmiexrSsTJ4gF9df4OaPVA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cVxJ5xcS7ftQHE7XtPfIL0JrvEH4fyAeUrotB/7v/jvf5QgvBZ2D9OPgWRO5vNm3a
- 8UKuZn897aTTbcJ9jxBLQyOcZDzf+9NLRrVraZUJc4P5Xw47jpTjK43Z8Exhg2Mqh1
- OiPBCJ+v7An04q8FWLZ9Yp+QbIOlmSTpNYpGrz16/U5PO345S93G0/K5W2br/qIsve
- +DanvHT3FdGftM0HBFU9IoPQnrE7vS5yW4fLkkisAZ6NXT0K5B2fQjn56vaNDBCPTn
- wP9vvc/ROlBmPrEri0VgJYAlr50vTYpReqn47asW9QfCYDU8HgYUfIgBLBJ5GtDVTo
- thL99MttxYpBQ==
-From: Mark Brown <broonie@kernel.org>
-To: derek.fang@realtek.com,
-	lgirdwood@gmail.com
-Subject: Re: [PATCH 1/2] Revert "ASoC: rt5682: Adjust headset volume button
- threshold"
-Date: Thu, 12 Aug 2021 13:07:00 +0100
-Message-Id: <162876970127.42668.10498865334575138313.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210811083750.26680-1-derek.fang@realtek.com>
-References: <20210811083750.26680-1-derek.fang@realtek.com>
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id A6EEEF800AF
+ for <alsa-devel@alsa-project.org>; Thu, 12 Aug 2021 16:59:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6EEEF800AF
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, albertchen@realtek.com, Mark Brown <broonie@kernel.org>,
- shumingf@realtek.com, flove@realtek.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1628780392718550920-webhooks-bot@alsa-project.org>
+References: <1628780392718550920-webhooks-bot@alsa-project.org>
+Subject: pulseaudio: a52 sink doesn't stream audio from bluez source
+Message-Id: <20210812145959.F177DF8025D@alsa1.perex.cz>
+Date: Thu, 12 Aug 2021 16:59:59 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,42 +59,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 11 Aug 2021 16:37:49 +0800, derek.fang@realtek.com wrote:
-> From: Derek Fang <derek.fang@realtek.com>
-> 
-> This reverts commit 6d20bf7c020f417fdef1810a22da17c126603472.
-> Since it may risk affecting other headset Vol- button.
-> 
-> 
-> 
-> [...]
+alsa-project/alsa-plugins issue #32 was opened from quequotion:
 
-Applied to
+Sorry to beat a dead horse, and double if this is in fact a pulseaudio issue.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+I recently configured bluez and pulseaudio to receive streams from devices over bluetooth (eg, to play audio from a phone over the PC's speaker system).
 
-Thanks!
+This works when the PC's sound card is set to profiles *other than* the A52 plugin (ie, pulseaudio's provided digital stereo output and also the [DTS alsa plugin](https://github.com/darealshinji/dcaenc)).
 
-[1/2] Revert "ASoC: rt5682: Adjust headset volume button threshold"
-      commit: cf2a19f7d2b7d777b4a0ec6f3faa7fe3e4ad568e
-[2/2] ASoC: rt5682: Fix the vol+ button detection issue
-      (no commit info)
+Only when set to use the AC3 output profile, audio from the bluez source is not produced.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+pavucontrol shows the bluez source is producing sound (the level bounces appropriately), but no audio comes out of the sink (no level bounce in pavucontrol either).
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Any ideas?
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Issue URL     : https://github.com/alsa-project/alsa-plugins/issues/32
+Repository URL: https://github.com/alsa-project/alsa-plugins

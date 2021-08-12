@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C0B23EA445
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Aug 2021 14:08:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9B8B3EA446
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Aug 2021 14:09:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB92C1935;
-	Thu, 12 Aug 2021 14:08:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB92C1935
+	by alsa0.perex.cz (Postfix) with ESMTPS id 490101A9B;
+	Thu, 12 Aug 2021 14:08:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 490101A9B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628770139;
-	bh=5ADPpdHccujvZQXPlEKxF5syhlR8SQp8WXqrMYPJmfc=;
+	s=default; t=1628770154;
+	bh=fu4ur+beZ0q1SwKzI6UwIh8hDnNHsHmUrehjdJC1COk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=q8MpHCIlqWUXofxRzKf3mzYk4bZR0hG8NtOrlHHmZmZS+CNE4L7q2nGLYNXMc2DLI
-	 I/8wm3IngZ+Mt0ob1VDgGPe0XPElgcb3Zls8kjQc05GCElyYOanlaM62RJveNe8kD3
-	 eTCZLfiHW99pzYNGXLUsdEoUP/h8kVNjn1BpXoek=
+	b=u5R+Mvytm+W/qCAhvosWS83gBxjtdvTMhhC3WPEKUuIAdgS6yDugXkWVtmKXO7TYt
+	 x1lO4lau1ieMw/l6by0n00Xv7wDs2gF/jkkVgRvD2eQwJipXlM1HJKf7/o3DON5MTN
+	 YRK9eB3aGagopjKDpIMIGpB/WBB+Khov3IiAj0c8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D283F802E3;
-	Thu, 12 Aug 2021 14:07:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43ADCF800AF;
+	Thu, 12 Aug 2021 14:07:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A965FF8025D; Thu, 12 Aug 2021 14:07:27 +0200 (CEST)
+ id 61663F802A0; Thu, 12 Aug 2021 14:07:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,34 +33,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 826B0F80148
- for <alsa-devel@alsa-project.org>; Thu, 12 Aug 2021 14:07:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 826B0F80148
+ by alsa1.perex.cz (Postfix) with ESMTPS id E843AF80148
+ for <alsa-devel@alsa-project.org>; Thu, 12 Aug 2021 14:07:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E843AF80148
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qXcBuBlb"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4BDF260FD7;
- Thu, 12 Aug 2021 12:07:19 +0000 (UTC)
+ header.b="eG+fHFw/"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id EDB776104F;
+ Thu, 12 Aug 2021 12:07:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1628770039;
- bh=5ADPpdHccujvZQXPlEKxF5syhlR8SQp8WXqrMYPJmfc=;
+ s=k20201202; t=1628770042;
+ bh=fu4ur+beZ0q1SwKzI6UwIh8hDnNHsHmUrehjdJC1COk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=qXcBuBlb176dtDabI0bDUbinjkmt1fCYpG1zBI2xQv18Cj+zggQYEt+X7Dx5qzei2
- Xb0Uq54jZzr+rGejQp234gIERb2r1ynDSpH4/NIgz4C9bBnaCfrwsGhESZ/qgda5Yw
- wtYPrMvUUl0u7F4PkDQOJhPo+dWSpdD2owjEhZ6ChVofBB7zdJVqcjio7kEj6FFNip
- UFB9mA/K6Znprgs8X1+QlC/M7iPgX8Lh3RDf9nPCHp7auAjL3PqW03XbpMdz/8A9Sy
- 2tPXo60bbwyF4gZQkxK3AU/16Z7URLIwo2YRAOiJjpeV8WQ4OriPRRf3sJLAFiPr57
- FX/QNGTfyAJug==
+ b=eG+fHFw/vDlEPf80WDOc1A/5OIrwUO5pAHmwy8MevtDxY9I3moktxkrXnVRRSFcCM
+ o8rUbAQd/dwwz6D5AMBVAUxbtG09VS0uTOrTMAnq1fNXWRMh2I6ngL3SNGGng/m3JB
+ rhNJc/rbT2vf3/5MQN1CQsEFlNzr1wSiI4o3xH4mmCf8A1muECLZZl+vJewrkMxNEt
+ qTxLgctXIWXlQ/TpAw0ubs36dIDC0827RC1yBaIrTKbzqzXAk5CUN5yn7gk/p3JxuT
+ AX0BuK6K3U+r1KFGOmHjKLxrk2k3N3xwulEIlpcbzjpOPu9XUTvxcR4pHJVEY4GRhW
+ ZyNabSn41TiDA==
 From: Mark Brown <broonie@kernel.org>
 To: Oder Chiou <oder_chiou@realtek.com>,
  Douglas Anderson <dianders@chromium.org>
-Subject: Re: [PATCH] ASoC: rt5682: Properly turn off regulators if wrong
+Subject: Re: [PATCH v2] ASoC: rt5682: Properly turn off regulators if wrong
  device ID
-Date: Thu, 12 Aug 2021 13:06:58 +0100
-Message-Id: <162876970126.42668.8724722824512964124.b4-ty@kernel.org>
+Date: Thu, 12 Aug 2021 13:06:59 +0100
+Message-Id: <162876970127.42668.2574394243785887563.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210810165850.1.I4a1d9aa5d99e05aeee15c2768db600158d76cab8@changeid>
-References: <20210810165850.1.I4a1d9aa5d99e05aeee15c2768db600158d76cab8@changeid>
+In-Reply-To: <20210811081751.v2.1.I4a1d9aa5d99e05aeee15c2768db600158d76cab8@changeid>
+References: <20210811081751.v2.1.I4a1d9aa5d99e05aeee15c2768db600158d76cab8@changeid>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -83,7 +83,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 10 Aug 2021 16:59:15 -0700, Douglas Anderson wrote:
+On Wed, 11 Aug 2021 08:17:56 -0700, Douglas Anderson wrote:
 > When I booted up on a board that had a slightly different codec
 > stuffed on it, I got this message at bootup:
 > 

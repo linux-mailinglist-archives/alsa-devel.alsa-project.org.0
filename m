@@ -2,103 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 395263E9B16
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Aug 2021 00:58:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 469F33E9C97
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Aug 2021 04:30:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC1C01AF7;
-	Thu, 12 Aug 2021 00:57:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC1C01AF7
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB55C1926;
+	Thu, 12 Aug 2021 04:30:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB55C1926
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628722729;
-	bh=AsTYz/Srw+pdgAC/lSY3iuaisyOC4LJx9jeV8CqLIG0=;
-	h=Resent-From:Resent-Date:Resent-To:Date:From:To:Subject:References:
-	 In-Reply-To:List-Id:List-Unsubscribe:List-Archive:List-Post:
-	 List-Help:List-Subscribe:From;
-	b=nXW36bsO2U+wVaEtx9UoqCvmkGUrQv02bvBuOF+q/QYDcxRKvH6bekZeN0bGybYos
-	 +4T/TRRNJjjhPSyVTPUknh+rFNwYcpDlgW18FdAcmGN+Guosf46UWiOMfYGL40lgrr
-	 ZHgqELlF/XvJE/uW0deingkjdkj2ooBDL9v5quTg=
+	s=default; t=1628735454;
+	bh=S+Ckp/ReYeriTnvGdBBNBGJ2s2ExlJ4GA/Az+hulZY8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=batU2xjk5t4FdgbXP3tGhyj6ncKpo4raVm6qu7uRncS6WV0sC22RIbaWidu7k/Pjd
+	 F31aw1e+Hsu3LLFHwZEWbEEegzsc7SdolC+dNQczATZQtye4dzjvWuezFfVUdK/hbR
+	 8Hgu0X+aDzWWbB5qigtJV4PuHhHgPw+Nl5KZ8664=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23582F8032D;
-	Thu, 12 Aug 2021 00:57:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D27C6F80279;
+	Thu, 12 Aug 2021 04:29:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 775A2F802D2; Thu, 12 Aug 2021 00:57:10 +0200 (CEST)
+ id AAFB4F8025D; Thu, 12 Aug 2021 04:29:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from gateway23.websitewelcome.com (gateway23.websitewelcome.com
- [192.185.50.161])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0745BF80148
- for <alsa-devel@alsa-project.org>; Thu, 12 Aug 2021 00:57:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0745BF80148
+ by alsa1.perex.cz (Postfix) with ESMTPS id 44A76F800E5
+ for <alsa-devel@alsa-project.org>; Thu, 12 Aug 2021 04:28:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44A76F800E5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=offbeat.tech header.i=@offbeat.tech
- header.b="Ye2VtBkC"
-Received: from cm13.websitewelcome.com (cm13.websitewelcome.com [100.42.49.6])
- by gateway23.websitewelcome.com (Postfix) with ESMTP id 6EDE014677
- for <alsa-devel@alsa-project.org>; Wed, 11 Aug 2021 17:56:58 -0500 (CDT)
-Received: from gator4324.hostgator.com ([162.241.194.183]) by cmsmtp with SMTP
- id Dx9emgJGBrJtZDx9emEFAj; Wed, 11 Aug 2021 17:56:58 -0500
-X-Authority-Reason: nr=8
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=offbeat.tech; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
- :Message-ID:Subject:To:From:Date:Resent-To:Resent-Message-ID:Resent-Date:
- Resent-From:Sender:Reply-To:Cc:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Sender:Resent-Cc:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=n+TmzxRuJEUq/z0+cU1LTBHfE9TU/A9REMvx5sV2jxo=; b=Ye2VtBkC8LKN3rdrhx0z9sF/M4
- dpcsvoWFY51DN69EnZkKJHSrNTgxspklDA4RAGbqnmvjzf3hx/w9RUilMLp4E/a3FcjFTN/NFkcVL
- DwipDH5WkvnArsvALBYoTk+y/FJi9FoITlwG2ltqesQ4qFmPl2F2Z590DELCpRy/Awq0XrhGkB9u4
- wxkNEGRzB+5aEaCzkxl7J1E7vobysUz5k8t6OQLzem0kzef76kIqwMGmlP5HVUwZSL7mpwGDjoMjn
- uRLihGpkUWyKYXkpIRO1yUr61I1sen0ekToflwrwvcP3HadKbGYwLhMYjtXVJNEA40w7T4eHU93kq
- 1jRzLjjQ==;
-Received: from c-73-213-206-7.hsd1.md.comcast.net ([73.213.206.7]:59140
- helo=localhost) by gator4324.hostgator.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <tom@offbeat.tech>) id 1mDx9d-003m2J-VD
- for alsa-devel@alsa-project.org; Wed, 11 Aug 2021 17:56:58 -0500
-Resent-From: tom <tom@offbeat.tech>
-Resent-Date: Wed, 11 Aug 2021 18:56:57 -0400
-Resent-Message-ID: <20210811225657.uszcagp5btluigi7@offbeat.tech>
-Resent-To: alsa-devel@alsa-project.org
-Date: Tue, 10 Aug 2021 21:22:37 -0400
-From: tom <tom@offbeat.tech>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: CORB reset timeout, Intel 3400 onboard chip
-Message-ID: <20210811012236.r7cepbgeepef2b5w@offbeat.tech>
-References: <20210810223536.u2y2cggfgrdqyhby@offbeat.tech>
- <c2883e45-5822-c154-9057-14a2b0f05938@linux.intel.com>
- <20210811012120.eafmshqoqvaobe7g@offbeat.tech>
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="8admbe+Q"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="s7yIU+df"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 1A4005C0101;
+ Wed, 11 Aug 2021 22:28:47 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Wed, 11 Aug 2021 22:28:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm2; bh=/oWlzCQSGq1c0EM5NJGe2/7uMs
+ 6/P30U6TsCK2RrOT0=; b=8admbe+QIFtWxWpaNxgysmaWAtRhpGhuLhDMPDdvdz
+ ZoPX38FwgSFQxRYynVKr/dw5Ve09rq59vRI/KTZgRIvtUHfkPvA0lgX4NiB+nmRt
+ ZyMh11qjIzoyqv/Xyc2QmbL2xxDbFSS3G1TSUx4I0YfMM68hjL20xN1mkzT0hQbD
+ oVfN7SfQjDCodbAxlF+mGnIwQzJZfehVOZIMBGNTiBXDuiH6I0Fvcq4ABPXYR+mL
+ 4nfLyDP05OQjNbMoRTqjHdyRrCLs6dKflR81lKAufDcD5zkhT/NRqb0iFs9mQXap
+ imOQmaIly81MxjyyGbr3dHzRuP3ttHdScWgAxcpAdWUg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=/oWlzCQSGq1c0EM5N
+ JGe2/7uMs6/P30U6TsCK2RrOT0=; b=s7yIU+dfwiNZn95xUUJov9P6Qsxcsh6L4
+ v727GG7DeKXjuk+XXSb6auXNI0AUUf2wrbvASC3Tzk5TefwUPA1tvndHNoyFWKXV
+ 61XVdFRKfFyFQD6avx5HbdNrxR+1svn17A+Dw4JyT0gjY4dCfgFJ3ISHk1QQxCdp
+ qMxap8KTPX2Rv/O8jLjA96m/Z68yzd4W1PB8RAw8PwW+XUvfx1K7JkyWr+u0t2LI
+ BKI6NNaj7fDun4gR8j3428Zoe2WXPrt9ylV0okJc0nc0dF31mVpE43PKEkQbVK/D
+ XcPxwfp2JOwpo4eklESX0myuSzdsuhOSUaZHnkvaJgr5YPaSkImrA==
+X-ME-Sender: <xms:XYcUYUBRW8huNa7zhVu2VXJQWO988qtmsOVetq7wCIgMZR3THjGE4w>
+ <xme:XYcUYWg01wgA99yMRd3-fgzCrMvb668RRsmJ14X04H_Yur5YX9bKHHWE9F1htuekH
+ 0sSEhtfHQTERVRCILY>
+X-ME-Received: <xmr:XYcUYXkY95MTZk2w0WH6-Bj2hL35bt4Wlx-rNsJqjyHOypq6Eq_mguKZNLp5c-j-j8trBOy0cNfkpJst3-UD_-I1KcJuBEVqt9wrPjvnrjn1_A_Ng4UU>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrkedvgdehjecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertdertd
+ dtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhi
+ sehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpedujeetlefhtddtke
+ fgtdeuieelhffgteejjeehkeegveduvdevgeeiheeuueekjeenucevlhhushhtvghrufhi
+ iigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrg
+ hmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:XYcUYayNocILWVENkQ-4nriUPDMuoZ27H4MiifXaUPD6rtxCwzxmvg>
+ <xmx:XYcUYZSe5QIkXX1oOvFfXqC19aYzl-JRzt2mtqD8t3kVSqzzgkJVuw>
+ <xmx:XYcUYVYZlJH_O74lsf2SyFeClwl02KMncPdPdIOaeDaTXpHmviXN6g>
+ <xmx:X4cUYUdqRpG1rLgLmP5DNKtRQ2-lf_NSeMFVGPcjNo5L5bsjoH5c6A>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 11 Aug 2021 22:28:44 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: tiwai@suse.de
+Subject: [PATCH] ALSA: oxfw: fix functioal regression for silence in Apogee
+ Duet FireWire
+Date: Thu, 12 Aug 2021 11:28:39 +0900
+Message-Id: <20210812022839.42043-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210811012120.eafmshqoqvaobe7g@offbeat.tech>
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4324.hostgator.com
-X-AntiAbuse: Original Domain - alsa-project.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - offbeat.tech
-X-BWhitelist: no
-X-Source-IP: 73.213.206.7
-X-Source-L: No
-X-Exim-ID: 1mDx9d-003m2J-VD
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-213-206-7.hsd1.md.comcast.net (localhost)
- [73.213.206.7]:59140
-X-Source-Auth: tom@offbeat.tech
-X-Email-Count: 1
-X-Source-Cap: b2ZmYmVhdDY7b2ZmYmVhdDY7Z2F0b3I0MzI0Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,68 +109,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 21/08/10 09:21PM, tom wrote:
-> On 21/08/10 09:16PM, tom wrote:
-> > On 21/08/10 06:03PM, Pierre-Louis Bossart wrote:
-> > > 
-> > > 
-> > > On 8/10/21 5:35 PM, tom wrote:
-> > > > Hello all,
-> > > > I am experiencing an issue with my onboard sound card, where I have no sound
-> > > > output. Please see a copy of my alsa-info.sh for my current 
-> > > > /etc/modprobe.d/*.conf config, located here:
-> > > > 
-> > > > http://ix.io/3vAV
-> > > > 
-> > > > I attempted troubleshooting using some config options that I saw listed in 
-> > > > HDAudio.txt. Specifically, I tried model options for "generic". I also tried a 
-> > > > few options for probe_mask, including "1" and "0x100".
-> > > > 
-> > > > 
-> > > > It seems that no matter which options I put in, I always get a
-> > > > CORB timeout from desg:
-> > > > 
-> > > > [    4.052955] snd_hda_intel 0000:00:1b.0: CORB reset timeout#1, CORBRP = 0
-> > > > [    4.053038] snd_hda_intel 0000:00:1b.0: no codecs initialized
-> > > > 
-> > > > When I remove my probe_mask options, it first switches to polling mode, then
-> > > > single_cmd mode, and finally fails to initialize any codecs. I looked at the
-> > > > hda_intel.c file and saw a section for my onboard sound card (ref line 2515):
-> > > > 
-> > > > 00:1b.0 Audio device: Intel Corporation 5 Series/3400 Series Chipset High 
-> > > > Definition Audio (rev 05)
-> > > 
-> > > In the alsa-info.sh log, I can see this
-> > > [    3.950319] snd_hda_intel 0000:00:1b.0: codec_mask forced to 0x0
-> > > 
-> > > I am not sure how this might happen, this looks like a bad configuration
-> > > to me?
-> > > 
-> > > 	/* check forced option */
-> > > 	if (chip->codec_probe_mask != -1 &&
-> > > 	    (chip->codec_probe_mask & AZX_FORCE_CODEC_MASK)) {
-> > > 		azx_bus(chip)->codec_mask = chip->codec_probe_mask & 0xff;
-> > > 		dev_info(chip->card->dev, "codec_mask forced to 0x%x\n",
-> > > 			 (int)azx_bus(chip)->codec_mask);
-> > > 	}
-> > 
-  Hello Pierre,
-  
-  My /etc/modprobe.d/alsa-base.conf file looks as follows:
-  
-  options snd_hda_intel probe_mask=0x100
-  
-  And this was based on a suggestion from "HDAudio.txt"
-  
-  If I comment this line out, I will instead get the following from the
-  command "sudo dmesg | grep -i snd":
-  
-  [    4.110018] snd_hda_intel 0000:00:1b.0: CORB reset timeout#1, CORBRP = 0
- [    5.114462] snd_hda_intel 0000:00:1b.0: azx_get_response timeout, switching to polling mode: last cmd=0x100f0000
- [    6.124488] snd_hda_intel 0000:00:1b.0: No response from codec, disabling MSI: last cmd=0x100f0000
- [    7.131158] snd_hda_intel 0000:00:1b.0: Codec #1 probe error; disabling it...
- [    7.236557] snd_hda_intel 0000:00:1b.0: CORB reset timeout#1, CORBRP = 0
- [    8.244423] snd_hda_intel 0000:00:1b.0: azx_get_respons timeout, switching to single_cmd mode: last cmd=0x100f0000
- [    8.244955] snd_hda_intel 0000:00:1b.0: no codecs initialized
+OXFW 971 has no function to use the value in syt field of received
+isochronous packet for playback timing generation. In kernel prepatch for
+v5.14, ALSA OXFW driver got change to send NO_INFO value in the field
+instead of actual timing value. The change brings Apogee Duet FireWire to
+generate no playback sound, while output meter moves.
+
+As long as I investigate, _any_ value in the syt field takes the device to
+generate sound. It's reasonable to think that the device just ignores data
+blocks in packet with NO_INFO value in its syt field for audio data
+processing.
+
+This commit adds a new flag for the quirk to fix regression.
+
+Fixes: 029ffc429440 ("ALSA: oxfw: perform sequence replay for media clock recovery")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ sound/firewire/oxfw/oxfw-stream.c | 9 ++++++++-
+ sound/firewire/oxfw/oxfw.c        | 6 ++++--
+ sound/firewire/oxfw/oxfw.h        | 5 +++++
+ 3 files changed, 17 insertions(+), 3 deletions(-)
+
+diff --git a/sound/firewire/oxfw/oxfw-stream.c b/sound/firewire/oxfw/oxfw-stream.c
+index 0ef242fdd3bc..fff18b5d4e05 100644
+--- a/sound/firewire/oxfw/oxfw-stream.c
++++ b/sound/firewire/oxfw/oxfw-stream.c
+@@ -153,7 +153,7 @@ static int init_stream(struct snd_oxfw *oxfw, struct amdtp_stream *stream)
+ 	struct cmp_connection *conn;
+ 	enum cmp_direction c_dir;
+ 	enum amdtp_stream_direction s_dir;
+-	unsigned int flags = CIP_UNAWARE_SYT;
++	unsigned int flags = 0;
+ 	int err;
  
- I hope this helps!
+ 	if (!(oxfw->quirks & SND_OXFW_QUIRK_BLOCKING_TRANSMISSION))
+@@ -161,6 +161,13 @@ static int init_stream(struct snd_oxfw *oxfw, struct amdtp_stream *stream)
+ 	else
+ 		flags |= CIP_BLOCKING;
+ 
++	// OXFW 970/971 has no function to generate playback timing according to the sequence
++	// of value in syt field, thus the packet should include NO_INFO value in the field.
++	// However, some models just ignore data blocks in packet with NO_INFO for audio data
++	// processing.
++	if (!(oxfw->quirks & SND_OXFW_QUIRK_IGNORE_NO_INFO_PACKET))
++		flags |= CIP_UNAWARE_SYT;
++
+ 	if (stream == &oxfw->tx_stream) {
+ 		conn = &oxfw->out_conn;
+ 		c_dir = CMP_OUTPUT;
+diff --git a/sound/firewire/oxfw/oxfw.c b/sound/firewire/oxfw/oxfw.c
+index 84971d78d152..cb5b5e3a481b 100644
+--- a/sound/firewire/oxfw/oxfw.c
++++ b/sound/firewire/oxfw/oxfw.c
+@@ -159,8 +159,10 @@ static int detect_quirks(struct snd_oxfw *oxfw, const struct ieee1394_device_id
+ 		return snd_oxfw_scs1x_add(oxfw);
+ 	}
+ 
+-	if (entry->vendor_id == OUI_APOGEE && entry->model_id == MODEL_DUET_FW)
+-		oxfw->quirks |= SND_OXFW_QUIRK_BLOCKING_TRANSMISSION;
++	if (entry->vendor_id == OUI_APOGEE && entry->model_id == MODEL_DUET_FW) {
++		oxfw->quirks |= SND_OXFW_QUIRK_BLOCKING_TRANSMISSION |
++				SND_OXFW_QUIRK_IGNORE_NO_INFO_PACKET;
++	}
+ 
+ 	/*
+ 	 * TASCAM FireOne has physical control and requires a pair of additional
+diff --git a/sound/firewire/oxfw/oxfw.h b/sound/firewire/oxfw/oxfw.h
+index ee47abcb0c90..c13034f6c2ca 100644
+--- a/sound/firewire/oxfw/oxfw.h
++++ b/sound/firewire/oxfw/oxfw.h
+@@ -42,6 +42,11 @@ enum snd_oxfw_quirk {
+ 	SND_OXFW_QUIRK_BLOCKING_TRANSMISSION = 0x04,
+ 	// Stanton SCS1.d and SCS1.m support unique transaction.
+ 	SND_OXFW_QUIRK_SCS_TRANSACTION = 0x08,
++	// Apogee Duet FireWire ignores data blocks in packet with NO_INFO for audio data
++	// processing, while output level meter moves. Any value in syt field of packet takes
++	// the device to process audio data even if the value is invalid in a point of
++	// IEC 61883-1/6.
++	SND_OXFW_QUIRK_IGNORE_NO_INFO_PACKET = 0x10,
+ };
+ 
+ /* This is an arbitrary number for convinience. */
+-- 
+2.30.2
+

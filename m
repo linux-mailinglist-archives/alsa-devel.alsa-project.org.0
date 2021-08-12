@@ -2,98 +2,158 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 469F33E9C97
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Aug 2021 04:30:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70FD93E9F5F
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Aug 2021 09:21:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB55C1926;
-	Thu, 12 Aug 2021 04:30:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB55C1926
+	by alsa0.perex.cz (Postfix) with ESMTPS id 03B9C1AA6;
+	Thu, 12 Aug 2021 09:20:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03B9C1AA6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628735454;
-	bh=S+Ckp/ReYeriTnvGdBBNBGJ2s2ExlJ4GA/Az+hulZY8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=batU2xjk5t4FdgbXP3tGhyj6ncKpo4raVm6qu7uRncS6WV0sC22RIbaWidu7k/Pjd
-	 F31aw1e+Hsu3LLFHwZEWbEEegzsc7SdolC+dNQczATZQtye4dzjvWuezFfVUdK/hbR
-	 8Hgu0X+aDzWWbB5qigtJV4PuHhHgPw+Nl5KZ8664=
+	s=default; t=1628752894;
+	bh=rdQGJ9xye6Nn9iEL4tNXAexEsmDhp6zP/OSzEQEvt0M=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=AUZmh9WurAGC50wyPbxJBsTtgMl90J7W1gU/x0Svw0FQEuKL16Y+WcaCf30/DadBT
+	 tSZW+yXvzMDkY1mYJmh+4gVwVXjZ0THkcVQqylGHfc2/OrPme6T4GGxH6aToRrc0n1
+	 gPhzwjJSXnokt4HG1RoIIqYdhVTsvrRXL4hmSFCY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D27C6F80279;
-	Thu, 12 Aug 2021 04:29:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A4AEF80279;
+	Thu, 12 Aug 2021 09:20:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AAFB4F8025D; Thu, 12 Aug 2021 04:29:03 +0200 (CEST)
+ id 65932F80279; Thu, 12 Aug 2021 09:20:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from JPN01-OS2-obe.outbound.protection.outlook.com
+ (mail-eopbgr1410139.outbound.protection.outlook.com [40.107.141.139])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 44A76F800E5
- for <alsa-devel@alsa-project.org>; Thu, 12 Aug 2021 04:28:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44A76F800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2EC99F80245
+ for <alsa-devel@alsa-project.org>; Thu, 12 Aug 2021 09:19:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2EC99F80245
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="8admbe+Q"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="s7yIU+df"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 1A4005C0101;
- Wed, 11 Aug 2021 22:28:47 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Wed, 11 Aug 2021 22:28:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm2; bh=/oWlzCQSGq1c0EM5NJGe2/7uMs
- 6/P30U6TsCK2RrOT0=; b=8admbe+QIFtWxWpaNxgysmaWAtRhpGhuLhDMPDdvdz
- ZoPX38FwgSFQxRYynVKr/dw5Ve09rq59vRI/KTZgRIvtUHfkPvA0lgX4NiB+nmRt
- ZyMh11qjIzoyqv/Xyc2QmbL2xxDbFSS3G1TSUx4I0YfMM68hjL20xN1mkzT0hQbD
- oVfN7SfQjDCodbAxlF+mGnIwQzJZfehVOZIMBGNTiBXDuiH6I0Fvcq4ABPXYR+mL
- 4nfLyDP05OQjNbMoRTqjHdyRrCLs6dKflR81lKAufDcD5zkhT/NRqb0iFs9mQXap
- imOQmaIly81MxjyyGbr3dHzRuP3ttHdScWgAxcpAdWUg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=/oWlzCQSGq1c0EM5N
- JGe2/7uMs6/P30U6TsCK2RrOT0=; b=s7yIU+dfwiNZn95xUUJov9P6Qsxcsh6L4
- v727GG7DeKXjuk+XXSb6auXNI0AUUf2wrbvASC3Tzk5TefwUPA1tvndHNoyFWKXV
- 61XVdFRKfFyFQD6avx5HbdNrxR+1svn17A+Dw4JyT0gjY4dCfgFJ3ISHk1QQxCdp
- qMxap8KTPX2Rv/O8jLjA96m/Z68yzd4W1PB8RAw8PwW+XUvfx1K7JkyWr+u0t2LI
- BKI6NNaj7fDun4gR8j3428Zoe2WXPrt9ylV0okJc0nc0dF31mVpE43PKEkQbVK/D
- XcPxwfp2JOwpo4eklESX0myuSzdsuhOSUaZHnkvaJgr5YPaSkImrA==
-X-ME-Sender: <xms:XYcUYUBRW8huNa7zhVu2VXJQWO988qtmsOVetq7wCIgMZR3THjGE4w>
- <xme:XYcUYWg01wgA99yMRd3-fgzCrMvb668RRsmJ14X04H_Yur5YX9bKHHWE9F1htuekH
- 0sSEhtfHQTERVRCILY>
-X-ME-Received: <xmr:XYcUYXkY95MTZk2w0WH6-Bj2hL35bt4Wlx-rNsJqjyHOypq6Eq_mguKZNLp5c-j-j8trBOy0cNfkpJst3-UD_-I1KcJuBEVqt9wrPjvnrjn1_A_Ng4UU>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrkedvgdehjecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertdertd
- dtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhi
- sehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpedujeetlefhtddtke
- fgtdeuieelhffgteejjeehkeegveduvdevgeeiheeuueekjeenucevlhhushhtvghrufhi
- iigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrg
- hmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:XYcUYayNocILWVENkQ-4nriUPDMuoZ27H4MiifXaUPD6rtxCwzxmvg>
- <xmx:XYcUYZSe5QIkXX1oOvFfXqC19aYzl-JRzt2mtqD8t3kVSqzzgkJVuw>
- <xmx:XYcUYVYZlJH_O74lsf2SyFeClwl02KMncPdPdIOaeDaTXpHmviXN6g>
- <xmx:X4cUYUdqRpG1rLgLmP5DNKtRQ2-lf_NSeMFVGPcjNo5L5bsjoH5c6A>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 11 Aug 2021 22:28:44 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH] ALSA: oxfw: fix functioal regression for silence in Apogee
- Duet FireWire
-Date: Thu, 12 Aug 2021 11:28:39 +0900
-Message-Id: <20210812022839.42043-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.30.2
+ dkim=pass (1024-bit key) header.d=renesasgroup.onmicrosoft.com
+ header.i=@renesasgroup.onmicrosoft.com header.b="LYjauC0a"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=X1gMmJuhMVfBNxwWy+FC/oqxf7C+1jaefjTAQs1Hf9Z8IY3uwuStNCL4v999BCLicDZPRoPFdLilGZt2pq0LY1aX2OJvd5kEX68MQelZDqtjNEDc1tYNVppYeamut+vSOFOQJuFvdXuPBOMmBu+DAb6HS/WcXouuw8nzmdKZgjjBBtrV8IYYucLVczHdLM1OwfXEPrSY1vc3Dz6XECdUfhks8thAfvghES2SX+IFqTW8hpSHEC6fJlS5shyIPWPgi6ijSqRdXobs+FRJ94xA4Gu+RuZbb7isytVtuU33J+ewtf//RTc9PqoVkPOWJh4AKKQ7cPWBWj9wUlsQSZ+H5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rdQGJ9xye6Nn9iEL4tNXAexEsmDhp6zP/OSzEQEvt0M=;
+ b=ngS3tsDHpsl9J9MQA4bPjP4deNtQo8c9+lc8uKToLXIjr5r8rjMblk+3NiQrFs1WHPmiNRSSmMGZi3ULKzs1gsVW18BBhv6ieEjEFDV5xKVAyIyfBK44UHnFk264XR3wgOrIp1+Tm4+95Mw0ym8ao7c24oWMJuHeFlDIM31bXp2SV2z1PqdA2X73grql3A4sNiOnFbu+QjyDEgrUUVeXWygaodlI7VW/UYgYuBhPkG0ofcKuqia51x6K+WUteWpGc2bnnbWHuqVLvzGoTBJTj5ToHk2jaOg/X0AUT3BrKb+lNpeoJB8poVGltux/MrLtjOiRVQv97WC636XvTIvkrA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=renesasgroup.onmicrosoft.com; s=selector2-renesasgroup-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rdQGJ9xye6Nn9iEL4tNXAexEsmDhp6zP/OSzEQEvt0M=;
+ b=LYjauC0aRNOu9s7QrCG8ZEdES1TttdU9DgkUEfYiGUtmepU5PmYMhcA/YL87V+7N8FmBlyaJxwYzzebUNF+rYjEvupHK1hY7m9zWXnBKvhHTYGuzBn0eNJ0Y6EECUAXk/L7mby2r2sPWOwYltGphihwWbM3cQe7lealDOvhXngI=
+Received: from OS0PR01MB5922.jpnprd01.prod.outlook.com (2603:1096:604:bb::5)
+ by OSBPR01MB3477.jpnprd01.prod.outlook.com (2603:1096:604:44::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.17; Thu, 12 Aug
+ 2021 07:19:49 +0000
+Received: from OS0PR01MB5922.jpnprd01.prod.outlook.com
+ ([fe80::c6f:e31f:eaa9:60fe]) by OS0PR01MB5922.jpnprd01.prod.outlook.com
+ ([fe80::c6f:e31f:eaa9:60fe%9]) with mapi id 15.20.4415.017; Thu, 12 Aug 2021
+ 07:19:49 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Subject: RE: [PATCH v4 2/3] ASoC: dt-bindings: sound: renesas,rz-ssi: Update
+ slave dma channel configuration parameters
+Thread-Topic: [PATCH v4 2/3] ASoC: dt-bindings: sound: renesas, rz-ssi: Update
+ slave dma channel configuration parameters
+Thread-Index: AQHXiq37lTDjQJIV3E2Kf4EpyfxHo6trJuCAgARYNvA=
+Date: Thu, 12 Aug 2021 07:19:49 +0000
+Message-ID: <OS0PR01MB5922D3C1DA1335FE2676B89186F99@OS0PR01MB5922.jpnprd01.prod.outlook.com>
+References: <20210806102930.3024-1-biju.das.jz@bp.renesas.com>
+ <20210806102930.3024-3-biju.das.jz@bp.renesas.com>
+ <CAMuHMdVnU4HSXCr08WEiVmYCNoRBcdZGOfS7mwmS_euo2RZaEA@mail.gmail.com>
+In-Reply-To: <CAMuHMdVnU4HSXCr08WEiVmYCNoRBcdZGOfS7mwmS_euo2RZaEA@mail.gmail.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: linux-m68k.org; dkim=none (message not signed)
+ header.d=none;linux-m68k.org; dmarc=none action=none
+ header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 4a7d887a-c6fd-4486-ecc5-08d95d619226
+x-ms-traffictypediagnostic: OSBPR01MB3477:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <OSBPR01MB3477E437371A78B7DA471EBF86F99@OSBPR01MB3477.jpnprd01.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: g9ER5dgxQma7k6XPLEeCn+Mr931Thcgz3PDsyDCagycQu+xv7diEpPhB80rc9xXbBnCo6nM1P4wFMYHjFxw+XqddGPXPBgiyR3nbq7HlNAFuj5A80vgwLcn+SGsWPeXXcEJPMeIcYal+WMM3MR3WHmSxPonkIstOqnHrHlWtn65QooJSbOme2HF9xE9IqI/+g+9lNd8BfLsteaJMddsuPX3inFWmNKF58j54WUXgKxVyy1VulqEH7xS8D/qQ4S9Bt02rVkojWM5VVZGAnNTjN29YiojLQZLyPS+98erim+sOg+Tq1ISIRPXLjmHHke/HhHCpz9G7Bn62wWbi0mKmzKdEB0S/vRVGq99L5y/euEdjC2BzmD2sQmn4XRsDF51Fy3yvRf3JDAVqSpe756osj03yuxPoBoKfBFPGS03JWF4OIGrLgj5Kj7rlMfO5m/0kQaOEM1rCQ9MDBoU/OU7VCTJqzNiP11LtyuCUsK/DQSqi78MPhad8yZkz6vxjveyKhtdEVxU1uEw/T5i1b0YKppIc15KjY0NqBFp74JdSSIYxP2blhdALEiDneJi68FzcnuC29NHtnXucz98GwPDXcPm2QcpKHzn4JvQFuXunHrm7Zru4zkKnv5GhtalWARKMNZXKkJf6tuJZepd/ljpX2ZrJR/sbfd3wJAdVyztDn3qBHY16Yh6cSqRqLTt4BzfsABwI3wCnQTp5uaucVc1OiA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:OS0PR01MB5922.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(366004)(39860400002)(346002)(136003)(376002)(26005)(8936002)(9686003)(52536014)(5660300002)(478600001)(122000001)(76116006)(38070700005)(83380400001)(2906002)(86362001)(316002)(66446008)(71200400001)(7696005)(33656002)(53546011)(38100700002)(55016002)(6506007)(54906003)(66476007)(6916009)(66946007)(186003)(64756008)(66556008)(8676002)(15650500001)(4326008);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?U1Q1cDlna3dtVjFsbjdjQzJVZmg3U1Q5QmQ2TkdXR0tNdU9ZRG1hSm1mTHBO?=
+ =?utf-8?B?a0l3elEyZlNqS2dFU0ZNZzl3N2FsWTNaSmxPMGR2TjFVNUEyZTBXWmFvWHZt?=
+ =?utf-8?B?UWJCNmFFRlNDUkowdHRtNXNheGs5Qllrb0J0YVNDODRkTjlveUlkUENaK1ZX?=
+ =?utf-8?B?UTRZZnBqQ0l1TE9wWTdaVnlSOXNEd2t2MTNNVnIrZHBSWDJyVDU4TWlsVmhS?=
+ =?utf-8?B?NE9hbkErV1lEWGpSOTRReE5YWFhTekhJRlpZa3NmdS9NM2Z5amV6TS9GYndh?=
+ =?utf-8?B?QWhuYk14Z01RSGoyWjlZUVdidTNTQ2U0bE43NTJXY0l0cHI1dlBPakRHMVZX?=
+ =?utf-8?B?R2RTYU9sdHJUcDcrNXlscjlpV2JkZVVCUDhLcjJGM2JjKzB3eUsvUTJUWVNB?=
+ =?utf-8?B?VG5Cc2pVWGwyN2NzaUgvcmxVQUNMK0FOMlMxMzhCeko5bkMrMXNuWXI3YlFR?=
+ =?utf-8?B?amZSZmVXUUhCMllUN1pzTUtpZFpNaWNUQWxiYUtlSTZ6czRNcDFBeElLQzd0?=
+ =?utf-8?B?K2RlR0J4dHBmMjBUZ2NzR0tORG9HS3BNMXc3anJnNkNBc3Z5Wll5R2lqUWVM?=
+ =?utf-8?B?bHV6VUlqMm9xZ29aaXhnUVpmU3g1Nytaejk4WGx4ejNodEJNdDhHWVhUYmtl?=
+ =?utf-8?B?cmk0TnRNOXROcElrWkpkemZLTXdrMGhtbXVDMlZJL0o0M2d5UUVIb25tR3hV?=
+ =?utf-8?B?Q0pXTlNCMnMwUkE4eGlQQXVVTFBvVUVUWFFHejRnWFpkQlFDZHJvdGpZbGNZ?=
+ =?utf-8?B?K1g0QTVRWUxlaWFZZmo1a2tHaGlNYy9FVnJBa3dMZ0lMZ041SjdDeEQ0SzJC?=
+ =?utf-8?B?SzgweEhETFNiZ1ZuV0V6bkFHcXRPUWNsa1RqbkptWDQ1bU1yVkNUbVNZeVdk?=
+ =?utf-8?B?RU5haTVnM1RKalc4Vi8xNUJqSHU4ZHpCYjFGYzJ0UHNOUWtGd3Z5VlJBeFE4?=
+ =?utf-8?B?YkNxS01wTW9BVG85NkxHUTlWY2FpS281Vmg5VnU3Q2FIZnQ0bjVnSW9kczZn?=
+ =?utf-8?B?MGdPQjdCYXY2SzJtMk5TSjNFRUFRNWdSSEZtU0xGMEtHc2M0TzgxM2xtdTNS?=
+ =?utf-8?B?cll4QUlHMnNVNDNFUi9OTkJnWUtMU1MvWklBRy9pcjhSNEM4bS84V3Z5SnlC?=
+ =?utf-8?B?VkhHVGhIZ0FEUFJNWVU2Y0M4RzB6eEFXcXVYdm5FRHZsUGZWZzk2YVp3M0t4?=
+ =?utf-8?B?WVQrbTFUWmwzNEJEUlpvNk83b1FBck45TFIvbmc0SmxLVk1jYjBIWlkzWmVl?=
+ =?utf-8?B?TEsxWWp5MG5kZ2dmSFU5NndaMW5udjhkYjdQaU9Hb1JNSnpXa3pTMDd5NUNM?=
+ =?utf-8?B?Y0RqYytYTkg2MkM2ZGRERjVuWHlwNWozS3FjZWdhNkZBWlJBYkVYK3o5SHcy?=
+ =?utf-8?B?THpqOUhZQm9NbjI4Ti80Mm5uUHFDdWd4bGk3UFpiYmgyOUQrUTArSW1lK0dD?=
+ =?utf-8?B?dkFIcWxyZGpiem01enRSQ0gxTldZMzYxMjlQSTEyRHBIblU4UkNwelRVbnVF?=
+ =?utf-8?B?MUdVL3Jtang2SHdmZ3VFSDIrOCtMZE1LaUN6YzlTZlNCbmZNbjdmTXEwdC9m?=
+ =?utf-8?B?MUUzc0p6WDAzVkt6ejdXUDNZZmIzR3lJclhXcWlhcmg2VDBacFNvU2R2Ulh0?=
+ =?utf-8?B?RUVGMktZeS9SU0pmdG14Z2RaRElNRU1zQ1ptUmJ3VlZLUHF0aE5UL2I2YlBp?=
+ =?utf-8?B?bUt3ZndFNlJ0MnJ2cGJ2d2F2TnpGWUxZQzNRTnJrVnBDZlBjT3FnYVB0ZFI0?=
+ =?utf-8?Q?bd2a8nsweWNevANsNmsCavDiCYpQQ8WIDUhrWHf?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de, stable@vger.kernel.org
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: OS0PR01MB5922.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a7d887a-c6fd-4486-ecc5-08d95d619226
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Aug 2021 07:19:49.3113 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: z1rNtQF6GXH+2bgCikfZGrD8IJmgFg6g9sfcfOVRjsH6X1fMU8DEEQ9b0yUmIB+ZAZi7sITm4rKoirUaDsohwfAP/kJq92IyWvqdyLL4umc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSBPR01MB3477
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE
+ TREE BINDINGS" <devicetree@vger.kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Biju Das <biju.das@bp.renesas.com>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Chris Paterson <Chris.Paterson2@renesas.com>,
+ Chris Brandt <Chris.Brandt@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,88 +169,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-OXFW 971 has no function to use the value in syt field of received
-isochronous packet for playback timing generation. In kernel prepatch for
-v5.14, ALSA OXFW driver got change to send NO_INFO value in the field
-instead of actual timing value. The change brings Apogee Duet FireWire to
-generate no playback sound, while output meter moves.
-
-As long as I investigate, _any_ value in the syt field takes the device to
-generate sound. It's reasonable to think that the device just ignores data
-blocks in packet with NO_INFO value in its syt field for audio data
-processing.
-
-This commit adds a new flag for the quirk to fix regression.
-
-Fixes: 029ffc429440 ("ALSA: oxfw: perform sequence replay for media clock recovery")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/firewire/oxfw/oxfw-stream.c | 9 ++++++++-
- sound/firewire/oxfw/oxfw.c        | 6 ++++--
- sound/firewire/oxfw/oxfw.h        | 5 +++++
- 3 files changed, 17 insertions(+), 3 deletions(-)
-
-diff --git a/sound/firewire/oxfw/oxfw-stream.c b/sound/firewire/oxfw/oxfw-stream.c
-index 0ef242fdd3bc..fff18b5d4e05 100644
---- a/sound/firewire/oxfw/oxfw-stream.c
-+++ b/sound/firewire/oxfw/oxfw-stream.c
-@@ -153,7 +153,7 @@ static int init_stream(struct snd_oxfw *oxfw, struct amdtp_stream *stream)
- 	struct cmp_connection *conn;
- 	enum cmp_direction c_dir;
- 	enum amdtp_stream_direction s_dir;
--	unsigned int flags = CIP_UNAWARE_SYT;
-+	unsigned int flags = 0;
- 	int err;
- 
- 	if (!(oxfw->quirks & SND_OXFW_QUIRK_BLOCKING_TRANSMISSION))
-@@ -161,6 +161,13 @@ static int init_stream(struct snd_oxfw *oxfw, struct amdtp_stream *stream)
- 	else
- 		flags |= CIP_BLOCKING;
- 
-+	// OXFW 970/971 has no function to generate playback timing according to the sequence
-+	// of value in syt field, thus the packet should include NO_INFO value in the field.
-+	// However, some models just ignore data blocks in packet with NO_INFO for audio data
-+	// processing.
-+	if (!(oxfw->quirks & SND_OXFW_QUIRK_IGNORE_NO_INFO_PACKET))
-+		flags |= CIP_UNAWARE_SYT;
-+
- 	if (stream == &oxfw->tx_stream) {
- 		conn = &oxfw->out_conn;
- 		c_dir = CMP_OUTPUT;
-diff --git a/sound/firewire/oxfw/oxfw.c b/sound/firewire/oxfw/oxfw.c
-index 84971d78d152..cb5b5e3a481b 100644
---- a/sound/firewire/oxfw/oxfw.c
-+++ b/sound/firewire/oxfw/oxfw.c
-@@ -159,8 +159,10 @@ static int detect_quirks(struct snd_oxfw *oxfw, const struct ieee1394_device_id
- 		return snd_oxfw_scs1x_add(oxfw);
- 	}
- 
--	if (entry->vendor_id == OUI_APOGEE && entry->model_id == MODEL_DUET_FW)
--		oxfw->quirks |= SND_OXFW_QUIRK_BLOCKING_TRANSMISSION;
-+	if (entry->vendor_id == OUI_APOGEE && entry->model_id == MODEL_DUET_FW) {
-+		oxfw->quirks |= SND_OXFW_QUIRK_BLOCKING_TRANSMISSION |
-+				SND_OXFW_QUIRK_IGNORE_NO_INFO_PACKET;
-+	}
- 
- 	/*
- 	 * TASCAM FireOne has physical control and requires a pair of additional
-diff --git a/sound/firewire/oxfw/oxfw.h b/sound/firewire/oxfw/oxfw.h
-index ee47abcb0c90..c13034f6c2ca 100644
---- a/sound/firewire/oxfw/oxfw.h
-+++ b/sound/firewire/oxfw/oxfw.h
-@@ -42,6 +42,11 @@ enum snd_oxfw_quirk {
- 	SND_OXFW_QUIRK_BLOCKING_TRANSMISSION = 0x04,
- 	// Stanton SCS1.d and SCS1.m support unique transaction.
- 	SND_OXFW_QUIRK_SCS_TRANSACTION = 0x08,
-+	// Apogee Duet FireWire ignores data blocks in packet with NO_INFO for audio data
-+	// processing, while output level meter moves. Any value in syt field of packet takes
-+	// the device to process audio data even if the value is invalid in a point of
-+	// IEC 61883-1/6.
-+	SND_OXFW_QUIRK_IGNORE_NO_INFO_PACKET = 0x10,
- };
- 
- /* This is an arbitrary number for convinience. */
--- 
-2.30.2
-
+SGkgR2VlcnQsDQoNClRoYW5rcyBmb3IgdGhlIHVwZGF0ZS4NCg0KPiBTdWJqZWN0OiBSZTogW1BB
+VENIIHY0IDIvM10gQVNvQzogZHQtYmluZGluZ3M6IHNvdW5kOiByZW5lc2FzLHJ6LXNzaToNCj4g
+VXBkYXRlIHNsYXZlIGRtYSBjaGFubmVsIGNvbmZpZ3VyYXRpb24gcGFyYW1ldGVycw0KPiANCj4g
+SGkgQmlqdSwNCj4gDQo+IE9uIEZyaSwgQXVnIDYsIDIwMjEgYXQgMTI6MjkgUE0gQmlqdSBEYXMg
+PGJpanUuZGFzLmp6QGJwLnJlbmVzYXMuY29tPg0KPiB3cm90ZToNCj4gPiBUaGUgRE1BQyBkcml2
+ZXIgb24gUlovRzJMIGV4cGVjdHMgdGhlIHNsYXZlIGNoYW5uZWwgY29uZmlndXJhdGlvbiB0bw0K
+PiA+IGJlIHBhc3NlZCBpbiBkbWFzIHByb3BlcnR5Lg0KPiA+IFRoaXMgcGF0Y2ggdXBkYXRlcyB0
+aGUgZXhhbXBsZSBub2RlIHRvIGluY2x1ZGUgdGhlIGVuY29kZWQgc2xhdmUNCj4gPiBjaGFubmVs
+IGNvbmZpZ3VyYXRpb24uDQo+ID4NCj4gPiBGaXhlczogNWRmNmRmYmI2ZGU4MTViYTNhKCJBU29D
+OiBkdC1iaW5kaW5nczogc291bmQ6IHJlbmVzYXMscnotc3NpOg0KPiA+IERvY3VtZW50IERNQSBz
+dXBwb3J0IikNCj4gPiBTaWduZWQtb2ZmLWJ5OiBCaWp1IERhcyA8YmlqdS5kYXMuanpAYnAucmVu
+ZXNhcy5jb20+DQo+ID4gUmV2aWV3ZWQtYnk6IExhZCBQcmFiaGFrYXIgPHByYWJoYWthci5tYWhh
+ZGV2LWxhZC5yakBicC5yZW5lc2FzLmNvbT4NCj4gDQo+ID4gdjMtPnY0Og0KPiA+ICAqIFVwZGF0
+ZWQgYmluZGluZ3MgYXMgdGhlIERNQUMgZHJpdmVyIG9uIFJaL0cyTCBleHBlY3RzIHRoZQ0KPiA+
+ICAgIHNsYXZlIGNoYW5uZWwgY29uZmlndXJhdGlvbiB0byBiZSBwYXNzZWQgaW4gZG1hcyBwcm9w
+ZXJ0eS4NCj4gDQo+IFRoYW5rcyBmb3IgdGhlIHVwZGF0ZSENCj4gDQo+ID4gLS0tIGEvRG9jdW1l
+bnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5kL3JlbmVzYXMscnotc3NpLnlhbWwNCj4g
+PiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc291bmQvcmVuZXNhcyxy
+ei1zc2kueWFtbA0KPiA+IEBAIC05Myw4ICs5Myw4IEBAIGV4YW1wbGVzOg0KPiA+ICAgICAgICAg
+ICAgICBjbG9jay1uYW1lcyA9ICJzc2kiLCAic3NpX3NmciIsICJhdWRpb19jbGsxIiwgImF1ZGlv
+X2NsazIiOw0KPiA+ICAgICAgICAgICAgICBwb3dlci1kb21haW5zID0gPCZjcGc+Ow0KPiA+ICAg
+ICAgICAgICAgICByZXNldHMgPSA8JmNwZyBSOUEwN0cwNDRfU1NJMF9SU1RfTTJfUkVHPjsNCj4g
+PiAtICAgICAgICAgICAgZG1hcyA9IDwmZG1hYyAweDI1NT4sDQo+ID4gLSAgICAgICAgICAgICAg
+ICAgICA8JmRtYWMgMHgyNTY+Ow0KPiA+ICsgICAgICAgICAgICBkbWFzID0gPCZkbWFjIDB4MjY1
+NT4sDQo+ID4gKyAgICAgICAgICAgICAgICAgICA8JmRtYWMgMHgyNjU2PjsNCj4gPiAgICAgICAg
+ICAgICAgZG1hLW5hbWVzID0gInR4IiwgInJ4IjsNCj4gPiAgICAgICAgICAgICAgI3NvdW5kLWRh
+aS1jZWxscyA9IDwwPjsNCj4gPiAgICAgIH07DQo+IA0KPiBJIHRoaW5rIGl0IHdvdWxkIGJlIGdv
+b2QgdG8gZGVzY3JpYmUgdGhlIGV4cGVjdGVkIGZvcm1hdCBpbiB0aGUNCj4gZGVzY3JpcHRpb24g
+Zm9yIHRoZSBkbWFzIHByb3BlcnR5LCBzbyB0aGUgRFRTIHdyaXRlciBrbm93cyB3aGF0IHRoZQ0K
+PiBudW1lcmljYWwgdmFsdWVzIGluIHRoZSBleGFtcGxlIHJlYWxseSBtZWFuLg0KDQpBZ3JlZSwg
+d2lsbCBhZGQgZGVzY3JpcHRpb24gZm9yIGRtYXMgcHJvcGVydHkuDQoNClJlZ2FyZHMsDQpCaWp1
+DQo=

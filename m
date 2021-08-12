@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB0683EAD5A
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Aug 2021 00:47:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 092AE3EAD63
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Aug 2021 00:49:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A45419FD;
-	Fri, 13 Aug 2021 00:47:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A45419FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8BBC11925;
+	Fri, 13 Aug 2021 00:48:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BBC11925
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628808471;
-	bh=1M+URWOdEifOoyhSfuOcXZPCsYymOiM25Wzj/SVyn78=;
+	s=default; t=1628808564;
+	bh=VaYSMc9OE+NExVhqATtGI9ZaidjqEE5qCbsJQGAwXSI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IbxYCf8Csq33O3EvPaBgjM50VkWiqMNtHX/sP1EvSJD31xUg10vhJx5Hbmv8WQ9Uj
-	 L6y2g2R0WOz1k2yXFh3iD+rMsNYEcaYWgwm8kMN4lRT2K5/VMT5jT2QfmhXwI9kLZA
-	 U7uybl60S4DwDzmdn5tQnEA8hGJ20mahhqn13oIg=
+	b=aIXwYBM7ZcKJnKCi6gea0nNArlGdvNQYvxR1isVbhuacps24fJJfwfJuhKCSsmTQo
+	 prRyS7NweSIevsFYhxPB3eXORHz2Vs2Dy8BM9qoCsMbPYzI7uBzpkk+nlRlJeFOZJ3
+	 lcbqsvehAtlobA/UeE/ZAtIUCuDiaOs0m8eWHKJs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84BB7F804EB;
-	Fri, 13 Aug 2021 00:45:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED603F8051C;
+	Fri, 13 Aug 2021 00:45:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 62C76F804E2; Fri, 13 Aug 2021 00:45:24 +0200 (CEST)
+ id B2548F804FE; Fri, 13 Aug 2021 00:45:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,25 +33,25 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C1F97F800AF
- for <alsa-devel@alsa-project.org>; Fri, 13 Aug 2021 00:45:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1F97F800AF
-X-IronPort-AV: E=McAfee;i="6200,9189,10074"; a="212349756"
-X-IronPort-AV: E=Sophos;i="5.84,317,1620716400"; d="scan'208";a="212349756"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 541AEF802A0
+ for <alsa-devel@alsa-project.org>; Fri, 13 Aug 2021 00:45:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 541AEF802A0
+X-IronPort-AV: E=McAfee;i="6200,9189,10074"; a="212349758"
+X-IronPort-AV: E=Sophos;i="5.84,317,1620716400"; d="scan'208";a="212349758"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Aug 2021 15:45:11 -0700
-X-IronPort-AV: E=Sophos;i="5.84,317,1620716400"; d="scan'208";a="517647196"
+X-IronPort-AV: E=Sophos;i="5.84,317,1620716400"; d="scan'208";a="517647199"
 Received: from evanklei-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.77.110])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2021 15:45:10 -0700
+ 12 Aug 2021 15:45:11 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 4/8] ASoC: Intel: sof_sdw: pass card information to
- init/exit functions
-Date: Thu, 12 Aug 2021 17:44:39 -0500
-Message-Id: <20210812224443.170144-5-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH v2 5/8] ASoC: Intel: sof_sdw_rt711*: keep codec device
+ reference until remove
+Date: Thu, 12 Aug 2021 17:44:40 -0500
+Message-Id: <20210812224443.170144-6-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210812224443.170144-1-pierre-louis.bossart@linux.intel.com>
 References: <20210812224443.170144-1-pierre-louis.bossart@linux.intel.com>
@@ -76,362 +76,184 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If we want to handle a context in init/exit function, we have to pass
-the card information. This will be necessary to better deal with
-device properties in the follow-up commits.
+Follow the example of Intel Atom drivers and keep a reference to the
+headset codec until the properties are removed.
 
-No functional change other than prototype update.
+There is no guarantee that the module for the codec driver is loaded
+before the machine driver probe, the use of the deferred probe
+mechanism is required.
 
 Reviewed-by: Hans de Goede <hdegoede@redhat.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_sdw.c            | 20 ++++++-----
- sound/soc/intel/boards/sof_sdw_common.h     | 37 +++++++++++++--------
- sound/soc/intel/boards/sof_sdw_max98373.c   |  3 +-
- sound/soc/intel/boards/sof_sdw_rt1308.c     |  3 +-
- sound/soc/intel/boards/sof_sdw_rt1316.c     |  3 +-
- sound/soc/intel/boards/sof_sdw_rt5682.c     |  3 +-
- sound/soc/intel/boards/sof_sdw_rt700.c      |  3 +-
- sound/soc/intel/boards/sof_sdw_rt711.c      |  5 +--
- sound/soc/intel/boards/sof_sdw_rt711_sdca.c |  5 +--
- sound/soc/intel/boards/sof_sdw_rt715.c      |  3 +-
- sound/soc/intel/boards/sof_sdw_rt715_sdca.c |  3 +-
- 11 files changed, 56 insertions(+), 32 deletions(-)
+ sound/soc/intel/boards/sof_sdw_rt711.c      | 44 +++++++++------------
+ sound/soc/intel/boards/sof_sdw_rt711_sdca.c | 43 +++++++++-----------
+ 2 files changed, 38 insertions(+), 49 deletions(-)
 
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 6c946d7ee0a6..6602eda89e8e 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -352,7 +352,8 @@ static const struct snd_soc_ops sdw_ops = {
- 	.shutdown = sdw_shutdown,
- };
- 
--static int sof_sdw_mic_codec_mockup_init(const struct snd_soc_acpi_link_adr *link,
-+static int sof_sdw_mic_codec_mockup_init(struct snd_soc_card *card,
-+					 const struct snd_soc_acpi_link_adr *link,
- 					 struct snd_soc_dai_link *dai_links,
- 					 struct sof_sdw_codec_info *info,
- 					 bool playback)
-@@ -697,7 +698,8 @@ static int create_codec_dai_name(struct device *dev,
- 	return 0;
- }
- 
--static int set_codec_init_func(const struct snd_soc_acpi_link_adr *link,
-+static int set_codec_init_func(struct snd_soc_card *card,
-+			       const struct snd_soc_acpi_link_adr *link,
- 			       struct snd_soc_dai_link *dai_links,
- 			       bool playback, int group_id)
- {
-@@ -720,7 +722,8 @@ static int set_codec_init_func(const struct snd_soc_acpi_link_adr *link,
- 			if (link->adr_d[i].endpoints->group_id != group_id)
- 				continue;
- 			if (codec_info_list[codec_index].init)
--				codec_info_list[codec_index].init(link,
-+				codec_info_list[codec_index].init(card,
-+						link,
- 						dai_links,
- 						&codec_info_list[codec_index],
- 						playback);
-@@ -805,7 +808,8 @@ static int get_slave_info(const struct snd_soc_acpi_link_adr *adr_link,
- 	return 0;
- }
- 
--static int create_sdw_dailink(struct device *dev, int *be_index,
-+static int create_sdw_dailink(struct snd_soc_card *card,
-+			      struct device *dev, int *be_index,
- 			      struct snd_soc_dai_link *dai_links,
- 			      int sdw_be_num, int sdw_cpu_dai_num,
- 			      struct snd_soc_dai_link_component *cpus,
-@@ -926,7 +930,7 @@ static int create_sdw_dailink(struct device *dev, int *be_index,
- 			      codecs, codec_num,
- 			      NULL, &sdw_ops);
- 
--		ret = set_codec_init_func(link, dai_links + (*be_index)++,
-+		ret = set_codec_init_func(card, link, dai_links + (*be_index)++,
- 					  playback, group_id);
- 		if (ret < 0) {
- 			dev_err(dev, "failed to init codec %d", codec_index);
-@@ -1107,7 +1111,7 @@ static int sof_card_dai_links_create(struct device *dev,
- 		    group_generated[endpoint->group_id])
- 			continue;
- 
--		ret = create_sdw_dailink(dev, &be_id, links, sdw_be_num,
-+		ret = create_sdw_dailink(card, dev, &be_id, links, sdw_be_num,
- 					 sdw_cpu_dai_num, cpus, adr_link,
- 					 &cpu_id, group_generated,
- 					 codec_conf, codec_conf_count,
-@@ -1170,7 +1174,7 @@ static int sof_card_dai_links_create(struct device *dev,
- 			      ssp_components, 1,
- 			      NULL, info->ops);
- 
--		ret = info->init(NULL, links + link_id, info, 0);
-+		ret = info->init(card, NULL, links + link_id, info, 0);
- 		if (ret < 0)
- 			return ret;
- 
-@@ -1393,7 +1397,7 @@ static int mc_remove(struct platform_device *pdev)
- 		for_each_card_prelinks(card, j, link) {
- 			if (!strcmp(link->codecs[0].dai_name,
- 				    codec_info_list[i].dai_name)) {
--				ret = codec_info_list[i].exit(&pdev->dev, link);
-+				ret = codec_info_list[i].exit(card, link);
- 				if (ret)
- 					dev_warn(&pdev->dev,
- 						 "codec exit failed %d\n",
-diff --git a/sound/soc/intel/boards/sof_sdw_common.h b/sound/soc/intel/boards/sof_sdw_common.h
-index 472ccfbbd207..b35f5a9b96f5 100644
---- a/sound/soc/intel/boards/sof_sdw_common.h
-+++ b/sound/soc/intel/boards/sof_sdw_common.h
-@@ -62,12 +62,13 @@ struct sof_sdw_codec_info {
- 	const char *dai_name;
- 	const struct snd_soc_ops *ops;
- 
--	int  (*init)(const struct snd_soc_acpi_link_adr *link,
-+	int  (*init)(struct snd_soc_card *card,
-+		     const struct snd_soc_acpi_link_adr *link,
- 		     struct snd_soc_dai_link *dai_links,
- 		     struct sof_sdw_codec_info *info,
- 		     bool playback);
- 
--	int (*exit)(struct device *dev, struct snd_soc_dai_link *dai_link);
-+	int (*exit)(struct snd_soc_card *card, struct snd_soc_dai_link *dai_link);
- 	bool late_probe;
- 	int (*codec_card_late_probe)(struct snd_soc_card *card);
- };
-@@ -76,6 +77,7 @@ struct mc_private {
- 	struct list_head hdmi_pcm_list;
- 	bool idisp_codec;
- 	struct snd_soc_jack sdw_headset;
-+	struct device *headset_codec_dev; /* only one headset per card */
- };
- 
- extern unsigned long sof_sdw_quirk;
-@@ -95,21 +97,24 @@ int sof_sdw_hdmi_card_late_probe(struct snd_soc_card *card);
- int sof_sdw_dmic_init(struct snd_soc_pcm_runtime *rtd);
- 
- /* RT711 support */
--int sof_sdw_rt711_init(const struct snd_soc_acpi_link_adr *link,
-+int sof_sdw_rt711_init(struct snd_soc_card *card,
-+		       const struct snd_soc_acpi_link_adr *link,
- 		       struct snd_soc_dai_link *dai_links,
- 		       struct sof_sdw_codec_info *info,
- 		       bool playback);
--int sof_sdw_rt711_exit(struct device *dev, struct snd_soc_dai_link *dai_link);
-+int sof_sdw_rt711_exit(struct snd_soc_card *card, struct snd_soc_dai_link *dai_link);
- 
- /* RT711-SDCA support */
--int sof_sdw_rt711_sdca_init(const struct snd_soc_acpi_link_adr *link,
-+int sof_sdw_rt711_sdca_init(struct snd_soc_card *card,
-+			    const struct snd_soc_acpi_link_adr *link,
- 			    struct snd_soc_dai_link *dai_links,
- 			    struct sof_sdw_codec_info *info,
- 			    bool playback);
--int sof_sdw_rt711_sdca_exit(struct device *dev, struct snd_soc_dai_link *dai_link);
-+int sof_sdw_rt711_sdca_exit(struct snd_soc_card *card, struct snd_soc_dai_link *dai_link);
- 
- /* RT700 support */
--int sof_sdw_rt700_init(const struct snd_soc_acpi_link_adr *link,
-+int sof_sdw_rt700_init(struct snd_soc_card *card,
-+		       const struct snd_soc_acpi_link_adr *link,
- 		       struct snd_soc_dai_link *dai_links,
- 		       struct sof_sdw_codec_info *info,
- 		       bool playback);
-@@ -117,31 +122,36 @@ int sof_sdw_rt700_init(const struct snd_soc_acpi_link_adr *link,
- /* RT1308 support */
- extern struct snd_soc_ops sof_sdw_rt1308_i2s_ops;
- 
--int sof_sdw_rt1308_init(const struct snd_soc_acpi_link_adr *link,
-+int sof_sdw_rt1308_init(struct snd_soc_card *card,
-+			const struct snd_soc_acpi_link_adr *link,
- 			struct snd_soc_dai_link *dai_links,
- 			struct sof_sdw_codec_info *info,
- 			bool playback);
- 
- /* RT1316 support */
--int sof_sdw_rt1316_init(const struct snd_soc_acpi_link_adr *link,
-+int sof_sdw_rt1316_init(struct snd_soc_card *card,
-+			const struct snd_soc_acpi_link_adr *link,
- 			struct snd_soc_dai_link *dai_links,
- 			struct sof_sdw_codec_info *info,
- 			bool playback);
- 
- /* RT715 support */
--int sof_sdw_rt715_init(const struct snd_soc_acpi_link_adr *link,
-+int sof_sdw_rt715_init(struct snd_soc_card *card,
-+		       const struct snd_soc_acpi_link_adr *link,
- 		       struct snd_soc_dai_link *dai_links,
- 		       struct sof_sdw_codec_info *info,
- 		       bool playback);
- 
- /* RT715-SDCA support */
--int sof_sdw_rt715_sdca_init(const struct snd_soc_acpi_link_adr *link,
-+int sof_sdw_rt715_sdca_init(struct snd_soc_card *card,
-+			    const struct snd_soc_acpi_link_adr *link,
- 			    struct snd_soc_dai_link *dai_links,
- 			    struct sof_sdw_codec_info *info,
- 			    bool playback);
- 
- /* MAX98373 support */
--int sof_sdw_mx8373_init(const struct snd_soc_acpi_link_adr *link,
-+int sof_sdw_mx8373_init(struct snd_soc_card *card,
-+			const struct snd_soc_acpi_link_adr *link,
- 			struct snd_soc_dai_link *dai_links,
- 			struct sof_sdw_codec_info *info,
- 			bool playback);
-@@ -149,7 +159,8 @@ int sof_sdw_mx8373_init(const struct snd_soc_acpi_link_adr *link,
- int sof_sdw_mx8373_late_probe(struct snd_soc_card *card);
- 
- /* RT5682 support */
--int sof_sdw_rt5682_init(const struct snd_soc_acpi_link_adr *link,
-+int sof_sdw_rt5682_init(struct snd_soc_card *card,
-+			const struct snd_soc_acpi_link_adr *link,
- 			struct snd_soc_dai_link *dai_links,
- 			struct sof_sdw_codec_info *info,
- 			bool playback);
-diff --git a/sound/soc/intel/boards/sof_sdw_max98373.c b/sound/soc/intel/boards/sof_sdw_max98373.c
-index 25f9065b627c..77a3f32db11e 100644
---- a/sound/soc/intel/boards/sof_sdw_max98373.c
-+++ b/sound/soc/intel/boards/sof_sdw_max98373.c
-@@ -120,7 +120,8 @@ static const struct snd_soc_ops max_98373_sdw_ops = {
- 	.shutdown = sdw_shutdown,
- };
- 
--int sof_sdw_mx8373_init(const struct snd_soc_acpi_link_adr *link,
-+int sof_sdw_mx8373_init(struct snd_soc_card *card,
-+			const struct snd_soc_acpi_link_adr *link,
- 			struct snd_soc_dai_link *dai_links,
- 			struct sof_sdw_codec_info *info,
- 			bool playback)
-diff --git a/sound/soc/intel/boards/sof_sdw_rt1308.c b/sound/soc/intel/boards/sof_sdw_rt1308.c
-index 0d476f6f6313..f078fb1aad02 100644
---- a/sound/soc/intel/boards/sof_sdw_rt1308.c
-+++ b/sound/soc/intel/boards/sof_sdw_rt1308.c
-@@ -127,7 +127,8 @@ struct snd_soc_ops sof_sdw_rt1308_i2s_ops = {
- 	.hw_params = rt1308_i2s_hw_params,
- };
- 
--int sof_sdw_rt1308_init(const struct snd_soc_acpi_link_adr *link,
-+int sof_sdw_rt1308_init(struct snd_soc_card *card,
-+			const struct snd_soc_acpi_link_adr *link,
- 			struct snd_soc_dai_link *dai_links,
- 			struct sof_sdw_codec_info *info,
- 			bool playback)
-diff --git a/sound/soc/intel/boards/sof_sdw_rt1316.c b/sound/soc/intel/boards/sof_sdw_rt1316.c
-index d6e1ebf18d57..58194b380232 100644
---- a/sound/soc/intel/boards/sof_sdw_rt1316.c
-+++ b/sound/soc/intel/boards/sof_sdw_rt1316.c
-@@ -89,7 +89,8 @@ static int all_spk_init(struct snd_soc_pcm_runtime *rtd)
- 	return second_spk_init(rtd);
- }
- 
--int sof_sdw_rt1316_init(const struct snd_soc_acpi_link_adr *link,
-+int sof_sdw_rt1316_init(struct snd_soc_card *card,
-+			const struct snd_soc_acpi_link_adr *link,
- 			struct snd_soc_dai_link *dai_links,
- 			struct sof_sdw_codec_info *info,
- 			bool playback)
-diff --git a/sound/soc/intel/boards/sof_sdw_rt5682.c b/sound/soc/intel/boards/sof_sdw_rt5682.c
-index 5fa1a59615b6..ea55479609a8 100644
---- a/sound/soc/intel/boards/sof_sdw_rt5682.c
-+++ b/sound/soc/intel/boards/sof_sdw_rt5682.c
-@@ -111,7 +111,8 @@ static int rt5682_rtd_init(struct snd_soc_pcm_runtime *rtd)
- 	return ret;
- }
- 
--int sof_sdw_rt5682_init(const struct snd_soc_acpi_link_adr *link,
-+int sof_sdw_rt5682_init(struct snd_soc_card *card,
-+			const struct snd_soc_acpi_link_adr *link,
- 			struct snd_soc_dai_link *dai_links,
- 			struct sof_sdw_codec_info *info,
- 			bool playback)
-diff --git a/sound/soc/intel/boards/sof_sdw_rt700.c b/sound/soc/intel/boards/sof_sdw_rt700.c
-index 21e7e4a81779..bb9584c8f866 100644
---- a/sound/soc/intel/boards/sof_sdw_rt700.c
-+++ b/sound/soc/intel/boards/sof_sdw_rt700.c
-@@ -110,7 +110,8 @@ static int rt700_rtd_init(struct snd_soc_pcm_runtime *rtd)
- 	return ret;
- }
- 
--int sof_sdw_rt700_init(const struct snd_soc_acpi_link_adr *link,
-+int sof_sdw_rt700_init(struct snd_soc_card *card,
-+		       const struct snd_soc_acpi_link_adr *link,
- 		       struct snd_soc_dai_link *dai_links,
- 		       struct sof_sdw_codec_info *info,
- 		       bool playback)
 diff --git a/sound/soc/intel/boards/sof_sdw_rt711.c b/sound/soc/intel/boards/sof_sdw_rt711.c
-index 04074c09dded..8a6a17fe676e 100644
+index 8a6a17fe676e..510301e09b09 100644
 --- a/sound/soc/intel/boards/sof_sdw_rt711.c
 +++ b/sound/soc/intel/boards/sof_sdw_rt711.c
-@@ -135,7 +135,7 @@ static int rt711_rtd_init(struct snd_soc_pcm_runtime *rtd)
- 	return ret;
+@@ -21,25 +21,15 @@
+  * Note this MUST be called before snd_soc_register_card(), so that the props
+  * are in place before the codec component driver's probe function parses them.
+  */
+-static int rt711_add_codec_device_props(const char *sdw_dev_name)
++static int rt711_add_codec_device_props(struct device *sdw_dev)
+ {
+ 	struct property_entry props[MAX_NO_PROPS] = {};
+-	struct device *sdw_dev;
+-	int ret;
+-
+-	sdw_dev = bus_find_device_by_name(&sdw_bus_type, NULL, sdw_dev_name);
+-	if (!sdw_dev)
+-		return -EPROBE_DEFER;
+ 
+-	if (SOF_RT711_JDSRC(sof_sdw_quirk)) {
+-		props[0] = PROPERTY_ENTRY_U32("realtek,jd-src",
+-					      SOF_RT711_JDSRC(sof_sdw_quirk));
+-	}
+-
+-	ret = device_add_properties(sdw_dev, props);
+-	put_device(sdw_dev);
++	if (!SOF_RT711_JDSRC(sof_sdw_quirk))
++		return 0;
++	props[0] = PROPERTY_ENTRY_U32("realtek,jd-src", SOF_RT711_JDSRC(sof_sdw_quirk));
+ 
+-	return ret;
++	return device_add_properties(sdw_dev, props);
  }
  
--int sof_sdw_rt711_exit(struct device *dev, struct snd_soc_dai_link *dai_link)
-+int sof_sdw_rt711_exit(struct snd_soc_card *card, struct snd_soc_dai_link *dai_link)
- {
- 	struct device *sdw_dev;
+ static const struct snd_soc_dapm_widget rt711_widgets[] = {
+@@ -137,15 +127,10 @@ static int rt711_rtd_init(struct snd_soc_pcm_runtime *rtd)
  
-@@ -150,7 +150,8 @@ int sof_sdw_rt711_exit(struct device *dev, struct snd_soc_dai_link *dai_link)
+ int sof_sdw_rt711_exit(struct snd_soc_card *card, struct snd_soc_dai_link *dai_link)
+ {
+-	struct device *sdw_dev;
+-
+-	sdw_dev = bus_find_device_by_name(&sdw_bus_type, NULL,
+-					  dai_link->codecs[0].name);
+-	if (!sdw_dev)
+-		return -EINVAL;
++	struct mc_private *ctx = snd_soc_card_get_drvdata(card);
+ 
+-	device_remove_properties(sdw_dev);
+-	put_device(sdw_dev);
++	device_remove_properties(ctx->headset_codec_dev);
++	put_device(ctx->headset_codec_dev);
+ 
  	return 0;
  }
- 
--int sof_sdw_rt711_init(const struct snd_soc_acpi_link_adr *link,
-+int sof_sdw_rt711_init(struct snd_soc_card *card,
-+		       const struct snd_soc_acpi_link_adr *link,
- 		       struct snd_soc_dai_link *dai_links,
+@@ -156,6 +141,8 @@ int sof_sdw_rt711_init(struct snd_soc_card *card,
  		       struct sof_sdw_codec_info *info,
  		       bool playback)
+ {
++	struct mc_private *ctx = snd_soc_card_get_drvdata(card);
++	struct device *sdw_dev;
+ 	int ret;
+ 
+ 	/*
+@@ -165,9 +152,16 @@ int sof_sdw_rt711_init(struct snd_soc_card *card,
+ 	if (!playback)
+ 		return 0;
+ 
+-	ret = rt711_add_codec_device_props(dai_links->codecs[0].name);
+-	if (ret < 0)
++	sdw_dev = bus_find_device_by_name(&sdw_bus_type, NULL, dai_links->codecs[0].name);
++	if (!sdw_dev)
++		return -EPROBE_DEFER;
++
++	ret = rt711_add_codec_device_props(sdw_dev);
++	if (ret < 0) {
++		put_device(sdw_dev);
+ 		return ret;
++	}
++	ctx->headset_codec_dev = sdw_dev;
+ 
+ 	dai_links->init = rt711_rtd_init;
+ 
 diff --git a/sound/soc/intel/boards/sof_sdw_rt711_sdca.c b/sound/soc/intel/boards/sof_sdw_rt711_sdca.c
-index 19496f0f9110..1ae66f266c6c 100644
+index 1ae66f266c6c..94af40e2beb0 100644
 --- a/sound/soc/intel/boards/sof_sdw_rt711_sdca.c
 +++ b/sound/soc/intel/boards/sof_sdw_rt711_sdca.c
-@@ -135,7 +135,7 @@ static int rt711_sdca_rtd_init(struct snd_soc_pcm_runtime *rtd)
- 	return ret;
- }
- 
--int sof_sdw_rt711_sdca_exit(struct device *dev, struct snd_soc_dai_link *dai_link)
-+int sof_sdw_rt711_sdca_exit(struct snd_soc_card *card, struct snd_soc_dai_link *dai_link)
+@@ -21,25 +21,16 @@
+  * Note this MUST be called before snd_soc_register_card(), so that the props
+  * are in place before the codec component driver's probe function parses them.
+  */
+-static int rt711_sdca_add_codec_device_props(const char *sdw_dev_name)
++static int rt711_sdca_add_codec_device_props(struct device *sdw_dev)
  {
- 	struct device *sdw_dev;
+ 	struct property_entry props[MAX_NO_PROPS] = {};
+-	struct device *sdw_dev;
+-	int ret;
+-
+-	sdw_dev = bus_find_device_by_name(&sdw_bus_type, NULL, sdw_dev_name);
+-	if (!sdw_dev)
+-		return -EPROBE_DEFER;
  
-@@ -150,7 +150,8 @@ int sof_sdw_rt711_sdca_exit(struct device *dev, struct snd_soc_dai_link *dai_lin
- 	return 0;
+-	if (SOF_RT711_JDSRC(sof_sdw_quirk)) {
+-		props[0] = PROPERTY_ENTRY_U32("realtek,jd-src",
+-					      SOF_RT711_JDSRC(sof_sdw_quirk));
+-	}
++	if (!SOF_RT711_JDSRC(sof_sdw_quirk))
++		return 0;
+ 
+-	ret = device_add_properties(sdw_dev, props);
+-	put_device(sdw_dev);
++	props[0] = PROPERTY_ENTRY_U32("realtek,jd-src", SOF_RT711_JDSRC(sof_sdw_quirk));
+ 
+-	return ret;
++	return device_add_properties(sdw_dev, props);
  }
  
--int sof_sdw_rt711_sdca_init(const struct snd_soc_acpi_link_adr *link,
-+int sof_sdw_rt711_sdca_init(struct snd_soc_card *card,
-+			    const struct snd_soc_acpi_link_adr *link,
- 			    struct snd_soc_dai_link *dai_links,
+ static const struct snd_soc_dapm_widget rt711_sdca_widgets[] = {
+@@ -137,15 +128,10 @@ static int rt711_sdca_rtd_init(struct snd_soc_pcm_runtime *rtd)
+ 
+ int sof_sdw_rt711_sdca_exit(struct snd_soc_card *card, struct snd_soc_dai_link *dai_link)
+ {
+-	struct device *sdw_dev;
+-
+-	sdw_dev = bus_find_device_by_name(&sdw_bus_type, NULL,
+-					  dai_link->codecs[0].name);
+-	if (!sdw_dev)
+-		return -EINVAL;
++	struct mc_private *ctx = snd_soc_card_get_drvdata(card);
+ 
+-	device_remove_properties(sdw_dev);
+-	put_device(sdw_dev);
++	device_remove_properties(ctx->headset_codec_dev);
++	put_device(ctx->headset_codec_dev);
+ 
+ 	return 0;
+ }
+@@ -156,6 +142,8 @@ int sof_sdw_rt711_sdca_init(struct snd_soc_card *card,
  			    struct sof_sdw_codec_info *info,
  			    bool playback)
-diff --git a/sound/soc/intel/boards/sof_sdw_rt715.c b/sound/soc/intel/boards/sof_sdw_rt715.c
-index 9b298f79e784..c8af3780cbc3 100644
---- a/sound/soc/intel/boards/sof_sdw_rt715.c
-+++ b/sound/soc/intel/boards/sof_sdw_rt715.c
-@@ -24,7 +24,8 @@ static int rt715_rtd_init(struct snd_soc_pcm_runtime *rtd)
- 	return 0;
- }
+ {
++	struct mc_private *ctx = snd_soc_card_get_drvdata(card);
++	struct device *sdw_dev;
+ 	int ret;
  
--int sof_sdw_rt715_init(const struct snd_soc_acpi_link_adr *link,
-+int sof_sdw_rt715_init(struct snd_soc_card *card,
-+		       const struct snd_soc_acpi_link_adr *link,
- 		       struct snd_soc_dai_link *dai_links,
- 		       struct sof_sdw_codec_info *info,
- 		       bool playback)
-diff --git a/sound/soc/intel/boards/sof_sdw_rt715_sdca.c b/sound/soc/intel/boards/sof_sdw_rt715_sdca.c
-index c056e56a139b..85d3d8c355cc 100644
---- a/sound/soc/intel/boards/sof_sdw_rt715_sdca.c
-+++ b/sound/soc/intel/boards/sof_sdw_rt715_sdca.c
-@@ -24,7 +24,8 @@ static int rt715_sdca_rtd_init(struct snd_soc_pcm_runtime *rtd)
- 	return 0;
- }
+ 	/*
+@@ -165,9 +153,16 @@ int sof_sdw_rt711_sdca_init(struct snd_soc_card *card,
+ 	if (!playback)
+ 		return 0;
  
--int sof_sdw_rt715_sdca_init(const struct snd_soc_acpi_link_adr *link,
-+int sof_sdw_rt715_sdca_init(struct snd_soc_card *card,
-+			    const struct snd_soc_acpi_link_adr *link,
- 			    struct snd_soc_dai_link *dai_links,
- 			    struct sof_sdw_codec_info *info,
- 			    bool playback)
+-	ret = rt711_sdca_add_codec_device_props(dai_links->codecs[0].name);
+-	if (ret < 0)
++	sdw_dev = bus_find_device_by_name(&sdw_bus_type, NULL, dai_links->codecs[0].name);
++	if (!sdw_dev)
++		return -EPROBE_DEFER;
++
++	ret = rt711_sdca_add_codec_device_props(sdw_dev);
++	if (ret < 0) {
++		put_device(sdw_dev);
+ 		return ret;
++	}
++	ctx->headset_codec_dev = sdw_dev;
+ 
+ 	dai_links->init = rt711_sdca_rtd_init;
+ 
 -- 
 2.25.1
 

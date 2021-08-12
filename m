@@ -2,65 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2066C3EA816
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Aug 2021 17:55:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21A063EAA55
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Aug 2021 20:37:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B39B1922;
-	Thu, 12 Aug 2021 17:54:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B39B1922
+	by alsa0.perex.cz (Postfix) with ESMTPS id B229B192D;
+	Thu, 12 Aug 2021 20:36:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B229B192D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628783734;
-	bh=FX1rRv7pqSgLGleg5/MNoYbT3U3sZwfdfSbcGvIzW1o=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1628793427;
+	bh=pxLLZjc1ttgNEwwBJDPgk7zRpw3SnIdW0QXgtqx19Z4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=iCEBV/b60VIOUXwviOPc+9H7zkyPzgJXsmKcflPU5qK++UxD2E56u5Tfy14EL6COz
-	 lbYtMgweGQoyouluHhvmSI6TFpXzfLPe27MMcflzOOeR0eFxaGwxQo1eHI1hHS0t/3
-	 20l0e5o4JEOl6qUpnZs2WOiEuoQvgzRfeiKWYMAw=
+	b=mHEsxvbi3HRL6sd0oBYPllDr1O5RPa3SRxa/sBzqH7eNUfj98JKEkttVOqv1AWivV
+	 JABeKQhH7wL8aib/gv5ZuWSoduh+rW9k5C1QumQ4ubMIePxl3n1Y0CaZ3IrZqTqvQz
+	 sguNARORSe5bwTXzBf+y8mpmJev1IEgwa1EncH/Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8059F80279;
-	Thu, 12 Aug 2021 17:54:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BDBA9F804E4;
+	Thu, 12 Aug 2021 20:35:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 13A86F8025D; Thu, 12 Aug 2021 17:54:04 +0200 (CEST)
+ id ED99DF80279; Thu, 12 Aug 2021 20:35:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from sender11-of-o52.zoho.eu (sender11-of-o52.zoho.eu
- [31.186.226.238])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6DB21F80148
- for <alsa-devel@alsa-project.org>; Thu, 12 Aug 2021 17:53:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DB21F80148
-ARC-Seal: i=1; a=rsa-sha256; t=1628783632; cv=none; d=zohomail.eu; s=zohoarc; 
- b=Xj64sDJVoXGAykimUvRpC3EtXOkURq1n8hAHqYBcqaKtLIhmMtebfBTbvpoH6ac1D9FDOwaCuFTmslZ02j23E5k48EOSikrh9U5zjZBHMtL+MkzNr45GVCCil42TM5PjKPpltlWP3GhTnk+P+ULIBrs2ng1kImAdDM2myo88Ayw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu;
- s=zohoarc; t=1628783632;
- h=Content-Type:Content-Transfer-Encoding:Date:From:MIME-Version:Message-ID:Subject:To;
- bh=QNykV9Fc66Oo3LQ0uiSSO3Q3uGX2Jsb7RLwuojfsZc4=; 
- b=hF4YlzqFaRVyaMzuKp7s7LTpBkrUWEr/y73a+305TIz4+LA0l7UN387SJJx9/B6C7BX8AelrCz8atcoWzdyg+OSkcqx88qd5rikuGAvjWPWUd9G5m9pTEn+P+9gLIdrhGZMqnuJlvmtjbC28lMnAEGxbrduoToSSpIZK1/5ZyL8=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
- spf=pass  smtp.mailfrom=devnull@uvos.xyz;
- dmarc=pass header.from=<devnull@uvos.xyz>
-Received: from UVOSLinux (aftr-37-201-192-117.unity-media.net
- [37.201.192.117]) by mx.zoho.eu
- with SMTPS id 1628783630140636.4421334327841;
- Thu, 12 Aug 2021 17:53:50 +0200 (CEST)
-Date: Thu, 12 Aug 2021 17:53:48 +0200
-From: Dev Null <devnull@uvos.xyz>
-To: alsa-devel@alsa-project.org
-Subject: ASoC: question about asoc and external modem used with mux
-Message-Id: <20210812175348.78eb56e3595c4b0cb0a60225@uvos.xyz>
-Organization: UVOS Organization
-X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.33; x86_64-unknown-linux-gnu)
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+ by alsa1.perex.cz (Postfix) with ESMTPS id 20CC2F80245
+ for <alsa-devel@alsa-project.org>; Thu, 12 Aug 2021 20:35:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20CC2F80245
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="N9q1WjNX"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 17CG4uIo006578; 
+ Thu, 12 Aug 2021 13:35:07 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=2qaNU/9SbdAwPAbu1s3M/VnkPHYwhQu8hZp0xILVN2M=;
+ b=N9q1WjNXGMbN29PtmnKP7DVSHdobxG0Wr8SK/yu399Z/7TM9/VE6fyWCSe0OzhzyZ02g
+ lx8vkqtpd5WOC+6itJmtKXv/9ydJi+rNG+C7VTrmH6gKC09kXayFAxJecrjqmsmL3TZw
+ m9qBKKAdL1jgQKpfsmCTXnFao6D1bZXeHeUabwvMoI94sGD1Wxq1JH/V6C1pTMmBWtq/
+ ftaC0LZh5zZy8YI9BfGN7LRp4NoYdt7VyedQGe5DXtasq0i6r33jIdSujp/mg0dc1F0B
+ VwQvyYjNp+oeQg313RzGGPD6bguHFiyPoP8+j6yYKY3Sb5xS48WjVbZJufUjAlCioqS5 Sw== 
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0a-001ae601.pphosted.com with ESMTP id 3ad6urg6vc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 12 Aug 2021 13:35:06 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 12 Aug
+ 2021 19:35:04 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.12 via
+ Frontend Transport; Thu, 12 Aug 2021 19:35:04 +0100
+Received: from vitaly-Inspiron-5415.ad.cirrus.com (unknown [198.90.238.180])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 958EA45D;
+ Thu, 12 Aug 2021 18:35:04 +0000 (UTC)
+From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH 1/2] ALSA: hda/cs8409: Prevent pops and clicks during suspend
+Date: Thu, 12 Aug 2021 19:34:32 +0100
+Message-ID: <20210812183433.6330-1-vitalyr@opensource.cirrus.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: zMKMBwW3dRiq2f0298hxpr9cRXiDEW5X
+X-Proofpoint-GUID: zMKMBwW3dRiq2f0298hxpr9cRXiDEW5X
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 impostorscore=0 lowpriorityscore=0
+ mlxlogscore=999 clxscore=1015 phishscore=0 adultscore=0 bulkscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2107140000 definitions=main-2108120120
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Stefan Binding <sbinding@opensource.cirrus.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,35 +100,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+From: Stefan Binding <sbinding@opensource.cirrus.com>
 
-On the motorola droid 4 (xt894 rch/arm/boot/dts/omap4-droid4-xt894.dts)
-the cpcap asoc codec  is used for sound (sound/soc/codecs/cpcap.c). The
-codec contains a hifi and voice DAI and mixer controlls to connect the
-various outputs (headphones, internal speaker, earpiece etc) to these
-dai. The hardware setup looks like this
-https://lkml.org/lkml/2018/3/27/1225 with the cpcap chip acting as a
-mux for various other devices on the pcb. The modem is one of these
-devices. 
+Some of the register values set for type detection cause pops during suspend,
+ensure these are cleaned up after type detection completes, as well
+ensuring that these are cleared when we suspend.
 
-The problem is that the kernel has really no way of knowing if the
-modem is outputing anything or not and thus if the mixer is setup sutch
-that the modem is driving some output though dapm route (eg the
-earpiece), the entire dapm route chain will remain off and inactive
-causeing the kernel to disable the Earpiece PGA. Thus no output makes
-it out of the device and the voice call fails unless one messes with
-the registers to enable Earpiece PGA by hand.
+Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+---
+ sound/pci/hda/patch_cs8409.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Now i know of various ways to hack this problem away and have been
-looking at the asoc/ alsa documentation for some time now but i really
-cant seam to figure out how to solve this problem correctly. Really i
-would need a way to pin the voice dai to be considerd allways active by
-the kernel so that all downsteam devices get truned on when the mixer
-is setup sutch that they are conected in a route.  Or give userspace a
-mixer switch or other mechanisum to tell the kernel that the modem is
-currently actively playing sound.
-
-any help that can be given in this problem would me mutch appreciated.
-
+diff --git a/sound/pci/hda/patch_cs8409.c b/sound/pci/hda/patch_cs8409.c
+index 272497b6cfcb..9db16b6292f4 100644
+--- a/sound/pci/hda/patch_cs8409.c
++++ b/sound/pci/hda/patch_cs8409.c
+@@ -708,6 +708,10 @@ static int cs42l42_jack_unsol_event(struct sub_codec *cs42l42)
+ 				cs42l42->mic_jack_in = 1;
+ 			}
+ 		}
++		/* Configure the HSDET mode. */
++		cs8409_i2c_write(cs42l42, 0x1120, 0x80);
++		/* Enable the HPOUT ground clamp and configure the HP pull-down */
++		cs8409_i2c_write(cs42l42, 0x1F06, 0x02);
+ 		/* Re-Enable Tip Sense Interrupt */
+ 		cs8409_i2c_write(cs42l42, 0x1320, 0xF3);
+ 	} else {
+@@ -756,6 +760,8 @@ static void cs42l42_suspend(struct sub_codec *cs42l42)
+ 	unsigned int gpio_data;
+ 	int reg_cdc_status = 0;
+ 	const struct cs8409_i2c_param cs42l42_pwr_down_seq[] = {
++		{ 0x1F06, 0x02 },
++		{ 0x1129, 0x00 },
+ 		{ 0x2301, 0x3F },
+ 		{ 0x2302, 0x3F },
+ 		{ 0x2303, 0x3F },
 -- 
-Dev Null <devnull@uvos.xyz>
+2.25.1
+

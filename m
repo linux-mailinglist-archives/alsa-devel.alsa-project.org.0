@@ -2,82 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 043AB3EA401
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Aug 2021 13:49:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16D7A3EA438
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Aug 2021 14:01:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9948A1935;
-	Thu, 12 Aug 2021 13:48:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9948A1935
+	by alsa0.perex.cz (Postfix) with ESMTPS id A3A001934;
+	Thu, 12 Aug 2021 14:00:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3A001934
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628768966;
-	bh=NIfQHErojG4QnF7sGIORUXB5GFr5Uu3jyonX9Ni9Rbc=;
+	s=default; t=1628769695;
+	bh=IRbB7JPcE130Gy4cWiN3RAxK51BnGcfc26Q/nKbZIlU=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BCvbY4UTU6TCscyLGiiKa7LrQiHucqp+sf66FCO/whaiGoaH46ZJbor+dzNEM22JR
-	 eiuqx7BtRDcQ09lXdFdJab5zeixVaKdi4FsOK7C3q+bOG2cbyLa3fQzYiW4QoWnHM3
-	 PdHlneDD8o6Q01Hu399019E/0u7XwCFYcVquviNs=
+	b=T9ZFwBGPqjTLwdfJFQMZINyFkDglAWdLVCPIMtZQG+jjWHsH9XP7AxZpylXYg2PT2
+	 nI93Re6BzcmX0OmGRqChv1jJ3xtSxOhOGcsRQkyAE2oodmb3cdtEcoHzwpmUby5Dmj
+	 809DLzNj4P7LtKZA93ksnNTdbu5CV7VmSKvZdh0c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02DFAF80279;
-	Thu, 12 Aug 2021 13:47:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0FB11F80279;
+	Thu, 12 Aug 2021 14:00:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D2101F800AF; Thu, 12 Aug 2021 13:47:56 +0200 (CEST)
+ id 7337AF8025D; Thu, 12 Aug 2021 14:00:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PDS_TONAME_EQ_TOLOCAL_SHORT,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 24811F800AF
- for <alsa-devel@alsa-project.org>; Thu, 12 Aug 2021 13:47:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24811F800AF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 378C1F80148
+ for <alsa-devel@alsa-project.org>; Thu, 12 Aug 2021 14:00:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 378C1F80148
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="VrudGW0o"; 
+ header.b="xVxyo2At"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="kjGv5ndP"
+ header.b="1B+gncnE"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 6025D1FF38;
- Thu, 12 Aug 2021 11:47:49 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 1590C1FF36;
+ Thu, 12 Aug 2021 12:00:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1628768869; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1628769600; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=UsnGN8G6MbJhWNJtgd31YPMCzs62W5YWWfIm0pXOrbU=;
- b=VrudGW0oJ+TBUCeEvUMhreCvashh+/6TubEqnieCxUXQLPbmVcvh/lfi0jMyuHxW16B2zm
- uxJ+BC2Tg9A5Cvvy1X76F1mzVh7GTM+Bd44VYWz6Jvhu4cNYJGNWVCpDjDyD2Pb+Kw8ML+
- luWdZjLmUq3gBDogiR8Lh+eDQLIIzDE=
+ bh=4r0y4btZlOlF3X1ot4mdSAmvjxoAlF2u85lqdaoQQwQ=;
+ b=xVxyo2AtDkH2IGVXZfXf0+9lcVaVi7l+ScqubyNVbglZ4BQqnLMRy9lJbzXFg33Nvgeecf
+ FL/OxRfKeMlvJDwy2/xhAzPax49jDwj2TATG8NOesxdVsPadqaB0dpz/Hb0KrHAzK8Dc4W
+ aIEY3rbxkBxeFh5WgbASLSkVcB7r4iQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1628768869;
+ s=susede2_ed25519; t=1628769600;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=UsnGN8G6MbJhWNJtgd31YPMCzs62W5YWWfIm0pXOrbU=;
- b=kjGv5ndPGpcGN82ZM03CXYzsW8IpEKeGxQsG7uaYIC4ilRI96VDOrWuv47dy/0HKe0psX0
- QwiewyPSIUO8alDQ==
+ bh=4r0y4btZlOlF3X1ot4mdSAmvjxoAlF2u85lqdaoQQwQ=;
+ b=1B+gncnEwr8Dtx2Bz6aUqAcFmf14PYPEw8Br8cQfB0X8ToqCEXLSY7vh32KcM+uKupWJiU
+ z21i/3of+Qw3PsAA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 581B2A3EF7;
- Thu, 12 Aug 2021 11:47:49 +0000 (UTC)
-Date: Thu, 12 Aug 2021 13:47:49 +0200
-Message-ID: <s5hfsvej34q.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id EEFA6A3EF2;
+ Thu, 12 Aug 2021 11:59:59 +0000 (UTC)
+Date: Thu, 12 Aug 2021 13:59:59 +0200
+Message-ID: <s5hczqij2kg.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Subject: Re: [PATCH v4 00/27] ALSA: hda/cirrus: Split generic cirrus HDA
- codecs and CS8490 bridge into separate modules.
-In-Reply-To: <20210811185654.6837-1-vitalyr@opensource.cirrus.com>
-References: <20210811185654.6837-1-vitalyr@opensource.cirrus.com>
+To: folkert <folkert@vanheusden.com>
+Subject: Re: waiting for a connection
+In-Reply-To: <20210809072712.GL890690@belle.intranet.vanheusden.com>
+References: <20210809072712.GL890690@belle.intranet.vanheusden.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,62 +92,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 11 Aug 2021 20:56:27 +0200,
-Vitaly Rodionov wrote:
+On Mon, 09 Aug 2021 09:27:12 +0200,
+folkert wrote:
 > 
-> This series of patches splits generic cirrus HDA codecs and CS8490 bridge
-> into separate modules, adds support for multiple companion codecs connected to
-> CS8409, and also adds support for new DELL HW platform.
+> Hi,
 > 
-> CS8409 part is not really a HDA codec, it is a HDA bridge where companion codecs
-> (up to 16) can be attached. With growing number of supported configurations and 
-> platforms, patch_cirrus is getting less and less transparent and maintainable.
-> So, the logical step is to separate generic Cirrus HDA codecs support 
-> and Cirrus HDA bridge support.
-> 
-> Lots of improvements to existing functionality, code clean-up and refactoring,
-> remove duplicated/redundant code, improve I2C functions etc.
-> 
-> Add support for new DELL HW platform with 2 CS42L42 codecs for front and rear jacks.
-> 
-> Lucas Tanure (12):
->   ALSA: hda/cirrus: Move CS8409 HDA bridge to separate module
->   ALSA: hda/cs8409: Move arrays of configuration to a new file
->   ALSA: hda/cs8409: Disable unsolicited response for the first boot
->   ALSA: hda/cs8409: Prevent I2C access during suspend time
->   ALSA: hda/cs8409: Generalize volume controls
->   ALSA: hda/cs8409: Dont disable I2C clock between consecutive accesses
->   ALSA: hda/cs8409: Avoid setting the same I2C address for every access
->   ALSA: hda/cs8409: Avoid re-setting the same page as the last access
->   ALSA: hda/cs8409: Support i2c bulk read/write functions
->   ALSA: hda/cs8409: Separate CS8409, CS42L42 and project functions
->   ALSA: hda/cs8409: Move codec properties to its own struct
->   ALSA: hda/cs8409: Add support for dolphin
-> 
-> Stefan Binding (15):
->   ALSA: hda/cs8409: Use enums for register names and coefficients
->   ALSA: hda/cs8409: Mask all CS42L42 interrupts on initialization
->   ALSA: hda/cs8409: Reduce HS pops/clicks for Cyborg
->   ALSA: hda/cs8409: Disable unnecessary Ring Sense for
->     Cyborg/Warlock/Bullseye
->   ALSA: hda/cs8409: Disable unsolicited responses during suspend
->   ALSA: hda/cs8409: Mask CS42L42 wake events
->   ALSA: hda/cs8409: Simplify CS42L42 jack detect.
->   ALSA: hda/cs8409: Support multiple sub_codecs for Suspend/Resume/Unsol
->     events
->   ALSA: hda/cs8409: Add Support to disable jack type detection for
->     CS42L42
->   ALSA: hda/cs8409: Enable Full Scale Volume for Line Out Codec on
->     Dolphin
->   ALSA: hda/cs8409: Set fixed sample rate of 48kHz for CS42L42
->   ALSA: hda/cs8409: Use timeout rather than retries for I2C transaction
->     waits
->   ALSA: hda/cs8409: Remove unnecessary delays
->   ALSA: hda/cs8409: Follow correct CS42L42 power down sequence for
->     suspend
->   ALSA: hda/cs8409: Unmute/Mute codec when stream starts/stops
+> When I create an ALSA MIDI port, is it possible (how?) to wait for
+> someone to connect to it/map it to an other port?
 
-Thanks, applied now all 27 patches to for-next branch.
+For rawmidi, there is no such a feature.
+
+For ALSA sequencer, you can watch the subscription notifications, at
+least.
 
 
 Takashi
+
+> 
+> This would allow me to only allocate extra resources when needed (in my
+> case: connect to ipmidi-peer (in unicast mode)).
+> 
+> 
+> regards
+> 

@@ -2,77 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E7013EAFDB
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Aug 2021 08:05:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D96AF3EAFDD
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Aug 2021 08:07:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A460189C;
-	Fri, 13 Aug 2021 08:04:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A460189C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5DD9818DC;
+	Fri, 13 Aug 2021 08:06:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DD9818DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628834731;
-	bh=dJvDtyU7VS7zQfEA1POZ4qavldJlxDWog5Jx5nFn2Ls=;
+	s=default; t=1628834853;
+	bh=3AjdJJPPek2Go9IJETD/1yL9NHos3dp1GcPiLRYQfGU=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G+CvJVf4L1UUrvz+AHidvgKO2LbwPD4l5EauRg5F2WmklKbrzAH7cRz93f0+jet4a
-	 QpTYJXMI8DBY39xHf8nQBL5W0MzvuFqzV66NR/JREA5CARxaMQQuIM7QsHDiA6ZQuP
-	 Za+ac2q7S8Wvd897ZuVgXJa7yVRQir3EfdXqB9NU=
+	b=RDbhqfTpCDbFwQ5eb9wNZYLzDW2bIv+aKz9FvsG6lrcv2xSTmX0TQMBg5ItolSJ01
+	 eVRJE0Ic8nGYyEZKUYxdRLfwxOdt0ccKk5fLI+Ur2d30Mpq9+omGnG1C3sF/b4bAsp
+	 /GxHBLyZ11uvVpHn2uaJOqQ1xzRni3M0KXnmvG4c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E7042F800E5;
-	Fri, 13 Aug 2021 08:04:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1126F8020D;
+	Fri, 13 Aug 2021 08:06:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4C053F802D2; Fri, 13 Aug 2021 08:04:02 +0200 (CEST)
+ id 76957F802D2; Fri, 13 Aug 2021 08:06:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 13474F800E5
- for <alsa-devel@alsa-project.org>; Fri, 13 Aug 2021 08:03:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13474F800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C5ECF800E5
+ for <alsa-devel@alsa-project.org>; Fri, 13 Aug 2021 08:05:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C5ECF800E5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="vpE3drXj"; 
+ header.b="waf+zpQd"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="TIYaSpt7"
+ header.b="ov68wU3Q"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id F3B7522289;
- Fri, 13 Aug 2021 06:03:51 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 4EC081FF82;
+ Fri, 13 Aug 2021 06:05:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1628834632; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1628834756; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=jZDOegIlxdbZkg8N7zo2cwCahBOtWzugDRLGWu65XRk=;
- b=vpE3drXjTgXkDa7DllG591U9QY6lugSNSQqSt6pZNNu5jwW6ex6CrT4gATQWUzNGz98IY+
- Ij//EhIwJ4/+ptf12DIdqRLKMoY+subbT3lifRHhs0R9AfYo0QEfShIMIK7gK8VWAMALVD
- V5cYX/lY4r6rIqtxaPrP/TkMrbNijWA=
+ bh=eFBR02RwLmSEu5zu4yGpiRdEAvHtaAt19JuwTPfBy1Q=;
+ b=waf+zpQd62hX0KxYJ/iIg9Fr/VLia9EG55Tq2d6NxEUayyPYsERva+3y+Ln8FcfofDBy/W
+ saL0u7N165y2W7N1gXPVn5Ms416q7fjcMFoq5/iISU6i0D/WaxpnD6sDuk7w0zciYPCsdX
+ KKVytNqLGgNRE8yVRwu2rD+oqOEdeE4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1628834632;
+ s=susede2_ed25519; t=1628834756;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=jZDOegIlxdbZkg8N7zo2cwCahBOtWzugDRLGWu65XRk=;
- b=TIYaSpt75y4nZFurSkhrIj0q0E7TY9IcFyCZL8jjuVoRxE8u7BfUVwsFDcN1orGdO+OeTt
- 86IEIC5kV/OdtYAg==
+ bh=eFBR02RwLmSEu5zu4yGpiRdEAvHtaAt19JuwTPfBy1Q=;
+ b=ov68wU3Q1d9bkWNAe1upsGWvc8m1b9nhBnjrc3oUe/l779zU0ELDUuq023h3s7HvznBewQ
+ e9Loikn+3tKC+TBQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id EC2FAA3B87;
- Fri, 13 Aug 2021 06:03:51 +0000 (UTC)
-Date: Fri, 13 Aug 2021 08:03:51 +0200
-Message-ID: <s5h7dgplw3c.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 3C544A3B8C;
+ Fri, 13 Aug 2021 06:05:56 +0000 (UTC)
+Date: Fri, 13 Aug 2021 08:05:56 +0200
+Message-ID: <s5h5yw9lvzv.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH RFC v2 2/4] ALSA: pcm: Add SNDRV_PCM_INFO_EXPLICIT_SYNC
- flag
-In-Reply-To: <0a2debee-439d-ebb8-2832-039074194d75@linux.intel.com>
-References: <20210812113818.6479-1-tiwai@suse.de>
- <20210812113818.6479-3-tiwai@suse.de>
- <0a2debee-439d-ebb8-2832-039074194d75@linux.intel.com>
+Subject: Re: [PATCH 0/2] ALSA: trivial corrections
+In-Reply-To: <20210812225904.171529-1-pierre-louis.bossart@linux.intel.com>
+References: <20210812225904.171529-1-pierre-louis.bossart@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -94,48 +91,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 12 Aug 2021 20:37:06 +0200,
+On Fri, 13 Aug 2021 00:59:02 +0200,
 Pierre-Louis Bossart wrote:
 > 
+> One typo and one deprecated function to be replaced.
 > 
-> Hi Takashi,
-> 
-> > ALSA PCM core has an optimized way to communicate with user-space for
-> > its control and status data via mmap on the supported architectures
-> > like x86.  Depending on the situation, however, we'd rather want to
-> > enforce user-space notifying the applptr or hwptr change explicitly
-> > via ioctl.  For example, the upcoming non-contig and non-coherent
-> > buffer handling would need an explicit sync, and this needs to catch
-> > the applptr and hwptr changes.
-> > 
-> > This patch adds the new PCM hardware info flag,
-> > SNDRV_PCM_INFO_EXPLICIT_SYNC.  When this flag is set, PCM core
-> > disables both the control and the status mmap, which enforces
-> > user-space to update via SYNC_PTR ioctl.  In that way, drivers can
-> > catch the applptr and hwptr update and apply the sync operation if
-> > needed.
-> 
-> This looks like the same functionality as in the patch "ALSA: pcm:
-> conditionally avoid mmap of control data" that we submitted for the SPIB
-> support, no?
+> Pierre-Louis Bossart (2):
+>   ALSA: core: control_led: use strscpy instead of strlcpy
+>   ALSA: hda_audio_ext: fix kernel-doc
 
-Yes, quite similar.  That's what I mentioned in the reply at that
-time.
+Applied both patches now.  Thanks.
 
-> I was about to resubmit a v2 based on my version (code was reviewed on
-> GitHub in https://github.com/thesofproject/linux/pull/3076).
-> 
-> If it's the same solution, could this patch be applied first so we are
-> aligned regardless of the order in which memalloc and SPIB patches are
-> merged? The renaming is fine, and that was your idea that I implemented
-> anyways.
-> 
-> I think there would be a need for a tag as well so that Mark's tree
-> compiles when the SOF driver uses this.
-
-Sure, I can merge this one with a slight more rewording.
-
-
-thanks,
 
 Takashi

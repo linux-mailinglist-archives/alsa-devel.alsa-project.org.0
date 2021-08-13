@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71B333EBB7A
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Aug 2021 19:28:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E0B53EBB78
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Aug 2021 19:28:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0DC7F1887;
-	Fri, 13 Aug 2021 19:28:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DC7F1887
+	by alsa0.perex.cz (Postfix) with ESMTPS id A68AB1878;
+	Fri, 13 Aug 2021 19:27:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A68AB1878
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628875733;
-	bh=g0u5xuIwlbndrt3NBTxfX3qA3PDNBcMigkpyLBKohp0=;
+	s=default; t=1628875697;
+	bh=aOqBmh5sZWNm3xPDNpYuAmOxdQby4H5RHJySluzbP5Y=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uWHNfm/0iYIv1ka1pSS/Pk6mp3CLdbSVflsmO0E3j5NgYo6UQfLdRanzuhzJzx7Ra
-	 iA4OMQj4/0UE4j8m+zxPy+bk28XiBq+dm50lHAifuJMHktPWQ5ILPJgGoMI+GG/qQ9
-	 8y7Q35PxbEZg8dsySh54+wW+ZOUFH5qPTwYCk4pM=
+	b=X+uXETWgWQdDRkggVdoo2pcCuhqYtY4Y79YYAIxF5PYQBea8/7z5T36GNggW64ckb
+	 RXnMrmJ1sJfWOMTB7LaPFVcXq9Sa++IRd7ny+fpeB6xgimAMJ/xTCZaK3T2oEvJsy9
+	 eoiAqyXiRE3qvV5pX24MJiXdrv4XJLoKoZTUDzm4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45ED8F804E1;
-	Fri, 13 Aug 2021 19:26:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E590EF804B4;
+	Fri, 13 Aug 2021 19:26:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14354F802D2; Fri, 13 Aug 2021 19:26:33 +0200 (CEST)
+ id 96D80F804BB; Fri, 13 Aug 2021 19:26:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,47 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B49F1F800AF
- for <alsa-devel@alsa-project.org>; Fri, 13 Aug 2021 19:26:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B49F1F800AF
+ by alsa1.perex.cz (Postfix) with ESMTPS id D566AF800AF
+ for <alsa-devel@alsa-project.org>; Fri, 13 Aug 2021 19:26:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D566AF800AF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ggLMQR/A"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id DE53D60F36;
- Fri, 13 Aug 2021 17:26:27 +0000 (UTC)
+ header.b="fWsazR2N"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5BD0D60FC3;
+ Fri, 13 Aug 2021 17:26:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1628875588;
- bh=g0u5xuIwlbndrt3NBTxfX3qA3PDNBcMigkpyLBKohp0=;
+ s=k20201202; t=1628875590;
+ bh=aOqBmh5sZWNm3xPDNpYuAmOxdQby4H5RHJySluzbP5Y=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ggLMQR/AUonYNRarxEV87X8y9gm/9UNY5AjWoshzw2LIM+18sAoz8eZuLiteWHN0y
- W3uKVREkE3ccfIeIlQtnxJEpzrnRHT5ldHYBtDtBXZR1MpxsFH5H2PzEkjZeqK60Pz
- uyIhvHQ1b9NAAtQgmpCyBnylcuRzMKTGzY5pJoSdoiklIYvzU0kjf1M8EvYCfBSA26
- Hu6e67mJ2YL86aODvotSKCD4FzSntmdAoJQgRJPuENukFUkfLjVwwjRWi4Dd8aintG
- ZhktwsKB8wTDZlg0j3o6ZmwIQvdZ45HbflpJytHszDrfoYMVq6EEeazD7cRMIuWRpH
- 9xVKzrIRSbIYQ==
+ b=fWsazR2NAX1xidpKZN7MEQv9wH2vt03JKbTAz7XXy3fLrHBYA7nBD18r+ydeYhJv/
+ HBiuMIx5K2viPzMRl8iTGt0lfbtaDUcrDzwCws+Qalq5189PIRhClu68R3zrWpCtNx
+ 8pxIifoLCVCQ7139bAnJ24ALaBrhE4LMzhDVH690GsKcJ2X7btNtTSTsAG6HCrxtE9
+ bdUMLh54csiyk+m38cTkJh6aKYu0gih1n2H3g5JEHF2mKDduqFZtw3ahKWSZDMkIf1
+ NivepE3Hjg4caSAhRKxcIogmcxROFEPvfQBXQsbt8tfL0m8ROYJDAU4DwqRO8DZhwB
+ g/PWza4uVTN+w==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v3 0/8] ASoC: Intel: boards: use software node API
-Date: Fri, 13 Aug 2021 18:26:01 +0100
-Message-Id: <162887455325.19744.17516860614733384686.b4-ty@kernel.org>
+To: Takashi Iwai <tiwai@suse.com>, Biju Das <biju.das.jz@bp.renesas.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Jaroslav Kysela <perex@perex.cz>,
+ Rob Herring <robh+dt@kernel.org>
+Subject: Re: [PATCH v5 0/3] Add RZ/G2L Sound support
+Date: Fri, 13 Aug 2021 18:26:02 +0100
+Message-Id: <162887455324.19744.6771563830810696575.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210813151116.23931-1-pierre-louis.bossart@linux.intel.com>
-References: <20210813151116.23931-1-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20210813091156.10700-1-biju.das.jz@bp.renesas.com>
+References: <20210813091156.10700-1-biju.das.jz@bp.renesas.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Hans de Goede <hdegoede@redhat.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Vinod Koul <vkoul@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-renesas-soc@vger.kernel.org,
+ Chris Brandt <chris.brandt@renesas.com>, Mark Brown <broonie@kernel.org>,
+ Chris Paterson <Chris.Paterson2@renesas.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Biju Das <biju.das@bp.renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,15 +89,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 13 Aug 2021 10:11:08 -0500, Pierre-Louis Bossart wrote:
-> This is an update on an earlier contribution from Heikki Krogerus
+On Fri, 13 Aug 2021 10:11:53 +0100, Biju Das wrote:
+> This patch series aims to add ASoC support on RZ/G2L SoC's.
 > 
-> The function device_add_properties() is going to be removed.
-> Replacing it with software node API equivalents.
+> It is based on the work done by Chris Brandt for RZ/A ASoC driver.
 > 
-> Thanks for Hans de Goede and Andy Shevchenko for their comments,
-> suggestions and Reviewed-by tags on GitHub. The review thread can be
-> found at https://github.com/thesofproject/linux/pull/3041)
+> v4->v5
+>  * Moved validation of sample bits in hw_params
+>  * Removed validation of frame bits as it is redundant
+>  * split the rz_ssi_start_stop function into rz_ssi_start and rz_ssi_stop.
+>  * remove the spin_lock around rz_ssi_stream_init.
+>  * Updated dmas description and removed fixes as it is an enhancement
+>    now.
+>  * updated ssi_start functions with setting fifo thresholds
+>    and ssi_stop function with cancel all dma txn.
+> v3->v4:
+>  * Updated the subject line as per style for the subsystem.
+>  * Removed select SND_SIMPLE_CARD from Kconfig
+>  * Added C++ comments for copyright and driver description.
+>  * Moved validation of channels in hw_params
+>  * removed asm issue reported by bot as well as Mark
+>  * replaced master/slave macros with provider/consumer macros
+>  * Improved locking and added more null pointer checks.
+> v2->v3:
+>  * Fixed the dependency on KCONFIG
+>  * Merged the binding patch with dma feature added
+>  * Updated dt binding example with encoded #dma-cells value.
+>  * Improved Error handling in probe function
+>  * Removed the passing legacy channel configuration parameters from
+>    dmaengine_slave_config function
+>  * started using dma_request_chan instead of deprecated
+>    dma_request_slave_channel
+>  * Removed SoC dtsi and config patches from this series. Will send it later.
+> v1->v2:
+>  * Rebased to latest rc kernel
 > 
 > [...]
 
@@ -100,22 +132,12 @@ Applied to
 
 Thanks!
 
-[1/8] ASoC: Intel: boards: harden codec property handling
-      commit: c50f126b3c9ebb77585838726a3a490ad33b92cd
-[2/8] ASoC: Intel: boards: handle errors with acpi_dev_get_first_match_dev()
-      commit: 69efe3b834c0803d170ec8957021543963868e63
-[3/8] ASoC: Intel: boards: get codec device with ACPI instead of bus search
-      commit: d3409eb20d3ed7d9e021cd13243e9e63255a315f
-[4/8] ASoC: Intel: sof_sdw: pass card information to init/exit functions
-      commit: cdf99c9ab72161885d8670723a21699a384a5dbe
-[5/8] ASoC: Intel: sof_sdw_rt711*: keep codec device reference until remove
-      commit: 82027585fce0c5e78e666cfbd0066fe3c80070dd
-[6/8] ASoC: Intel: use software node API in SoundWire machines
-      commit: e5a292d39466ca1f45e185be713616f9389e6a4e
-[7/8] ASoC: Intel: remove device_properties for Atom boards
-      commit: f1f8a9615451ec3762a45b6985e072c44a995a45
-[8/8] ASoC: Intel: boards: use software node API in Atom boards
-      commit: 0bd3c071e6e7e140c8b39caab99b3b6f05cb5290
+[1/3] ASoC: sh: Add RZ/G2L SSIF-2 driver
+      commit: 03e786bd43410fa93e5d2459f7a43e90ff0ae801
+[2/3] ASoC: dt-bindings: renesas,rz-ssi: Update slave dma channel configuration parameter
+      commit: bed0b1c1e88a27b76c74584128cadebc6fa58622
+[3/3] ASoC: sh: rz-ssi: Add SSI DMAC support
+      commit: 26ac471c5354583cf4fe0e42537a2c6b84d6d74e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

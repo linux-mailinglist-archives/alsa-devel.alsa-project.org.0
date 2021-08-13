@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 992A53EB777
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Aug 2021 17:13:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C05693EB778
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Aug 2021 17:13:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 203601897;
-	Fri, 13 Aug 2021 17:12:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 203601897
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4AD4E189B;
+	Fri, 13 Aug 2021 17:13:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AD4E189B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628867603;
-	bh=FUuCZ8Q0URZNdZL9qrZQEawsTtV2tXbXDTmatC+Maq0=;
+	s=default; t=1628867638;
+	bh=37Oqj2pLC9unks56W7cl8VkW24DQPb51AT5K+psWob4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MgbreLUJTrfJ83CaW1gFHZ5RF4+Nf+f1GGtgkPnMuELVByb1NZZtuNOuWIMPNS3c6
-	 JC7uwP8SNMJ83JSr0kbWQYk+ueq5a/pIskvsUXGvHJVsytrT7rIlQ5lJok1G9D1Jkl
-	 UTVSFfFo4OlvI9l7RmMujPe/ImQHUBpkRHcodTOc=
+	b=IE8KrQzRy9maypPaenfPm4xxX0hopPsWd5wtNBRlkfnEtt35wEAi/VBaYyMKz0KHz
+	 Bf7NeTKGyQ5bGpbkipuHqmDlGrbLhHWQXNbsZw67oThUDuNSxMSj5l63I4lMiTjN7h
+	 71NwOzzPEuVd/k/YSRf1a0Oo7JFsYxB3QKXpgMWc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 193EAF804E1;
-	Fri, 13 Aug 2021 17:11:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2B6DF8020D;
+	Fri, 13 Aug 2021 17:11:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D1F13F804E4; Fri, 13 Aug 2021 17:11:41 +0200 (CEST)
+ id 363D5F804E1; Fri, 13 Aug 2021 17:11:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,24 +33,25 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F16B9F8020D
- for <alsa-devel@alsa-project.org>; Fri, 13 Aug 2021 17:11:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F16B9F8020D
-X-IronPort-AV: E=McAfee;i="6200,9189,10075"; a="215301875"
-X-IronPort-AV: E=Sophos;i="5.84,319,1620716400"; d="scan'208";a="215301875"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 29A53F802D2
+ for <alsa-devel@alsa-project.org>; Fri, 13 Aug 2021 17:11:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29A53F802D2
+X-IronPort-AV: E=McAfee;i="6200,9189,10075"; a="215301877"
+X-IronPort-AV: E=Sophos;i="5.84,319,1620716400"; d="scan'208";a="215301877"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2021 08:11:28 -0700
-X-IronPort-AV: E=Sophos;i="5.84,319,1620716400"; d="scan'208";a="422888857"
+ 13 Aug 2021 08:11:29 -0700
+X-IronPort-AV: E=Sophos;i="5.84,319,1620716400"; d="scan'208";a="422888860"
 Received: from mchatter-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.54.162])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2021 08:11:27 -0700
+ 13 Aug 2021 08:11:28 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v3 1/8] ASoC: Intel: boards: harden codec property handling
-Date: Fri, 13 Aug 2021 10:11:09 -0500
-Message-Id: <20210813151116.23931-2-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH v3 2/8] ASoC: Intel: boards: handle errors with
+ acpi_dev_get_first_match_dev()
+Date: Fri, 13 Aug 2021 10:11:10 -0500
+Message-Id: <20210813151116.23931-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210813151116.23931-1-pierre-louis.bossart@linux.intel.com>
 References: <20210813151116.23931-1-pierre-louis.bossart@linux.intel.com>
@@ -75,307 +76,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In current ACPI-based devices, the DSDT does not include any of the
-properties required by the codec driver. This is not an ACPI
-limitation proper since the _DSD method could be used, as done for
-Camera and SoundWire in newer platforms. For legacy devices, there is
-unfortunately no other option than using a work-around: we add
-properties to the codec device from the machine driver.
+acpi_dev_get_first_match_dev() searches for an acpi_handle
+instantiated by the ACPI table scanning done early during boot.
 
-To avoid any issues with the codec driver being unbound, we need to
-keep a reference to the codec device until the card is removed.
+Two of three machine drivers using this search don't deal with errors
+and the one which does (bytcr_rt5651) returns -ENODEV, which doesn't
+make sense here: an alternate driver will not be probed.
 
+Add consistent error handling and report -ENXIO.
+
+Suggested-by: Hans de Goede <hdegoede@redhat.com>
+Reviewed-by: Hans de Goede <hdegoede@redhat.com>
 Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Co-developed-by: Hans de Goede <hdegoede@redhat.com>
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/intel/boards/bytcht_es8316.c | 12 +++++--
- sound/soc/intel/boards/bytcr_rt5640.c  | 47 +++++++++++++++++---------
- sound/soc/intel/boards/bytcr_rt5651.c  | 37 +++++++++++++-------
- 3 files changed, 64 insertions(+), 32 deletions(-)
+ sound/soc/intel/boards/bytcht_es8316.c | 3 +++
+ sound/soc/intel/boards/bytcr_rt5640.c  | 3 +++
+ sound/soc/intel/boards/bytcr_rt5651.c  | 2 +-
+ 3 files changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/sound/soc/intel/boards/bytcht_es8316.c b/sound/soc/intel/boards/bytcht_es8316.c
-index a0af91580184..893dd74adb94 100644
+index 893dd74adb94..3224ab7faaa3 100644
 --- a/sound/soc/intel/boards/bytcht_es8316.c
 +++ b/sound/soc/intel/boards/bytcht_es8316.c
-@@ -37,6 +37,7 @@ struct byt_cht_es8316_private {
- 	struct clk *mclk;
- 	struct snd_soc_jack jack;
- 	struct gpio_desc *speaker_en_gpio;
-+	struct device *codec_dev;
- 	bool speaker_en;
- };
- 
-@@ -555,7 +556,7 @@ static int snd_byt_cht_es8316_mc_probe(struct platform_device *pdev)
- 		gpiod_get_index(codec_dev, "speaker-enable", 0,
- 				/* see comment in byt_cht_es8316_resume */
- 				GPIOD_OUT_LOW | GPIOD_FLAGS_BIT_NONEXCLUSIVE);
--	put_device(codec_dev);
-+	priv->codec_dev = codec_dev;
- 
- 	if (IS_ERR(priv->speaker_en_gpio)) {
- 		ret = PTR_ERR(priv->speaker_en_gpio);
-@@ -567,7 +568,7 @@ static int snd_byt_cht_es8316_mc_probe(struct platform_device *pdev)
- 			dev_err(dev, "get speaker GPIO failed: %d\n", ret);
- 			fallthrough;
- 		case -EPROBE_DEFER:
--			return ret;
-+			goto err_put_codec;
- 		}
+@@ -492,6 +492,9 @@ static int snd_byt_cht_es8316_mc_probe(struct platform_device *pdev)
+ 			 "i2c-%s", acpi_dev_name(adev));
+ 		put_device(&adev->dev);
+ 		byt_cht_es8316_dais[dai_index].codecs->name = codec_name;
++	} else {
++		dev_err(&pdev->dev, "Error cannot find '%s' dev\n", mach->id);
++		return -ENXIO;
  	}
  
-@@ -605,10 +606,14 @@ static int snd_byt_cht_es8316_mc_probe(struct platform_device *pdev)
- 	if (ret) {
- 		gpiod_put(priv->speaker_en_gpio);
- 		dev_err(dev, "snd_soc_register_card failed: %d\n", ret);
--		return ret;
-+		goto err_put_codec;
- 	}
- 	platform_set_drvdata(pdev, &byt_cht_es8316_card);
- 	return 0;
-+
-+err_put_codec:
-+	put_device(priv->codec_dev);
-+	return ret;
- }
- 
- static int snd_byt_cht_es8316_mc_remove(struct platform_device *pdev)
-@@ -617,6 +622,7 @@ static int snd_byt_cht_es8316_mc_remove(struct platform_device *pdev)
- 	struct byt_cht_es8316_private *priv = snd_soc_card_get_drvdata(card);
- 
- 	gpiod_put(priv->speaker_en_gpio);
-+	put_device(priv->codec_dev);
- 	return 0;
- }
- 
+ 	/* override plaform name, if required */
 diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index d51bd22073df..b25ca99d9855 100644
+index b25ca99d9855..65c37b037a97 100644
 --- a/sound/soc/intel/boards/bytcr_rt5640.c
 +++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -90,6 +90,7 @@ enum {
- struct byt_rt5640_private {
- 	struct snd_soc_jack jack;
- 	struct clk *mclk;
-+	struct device *codec_dev;
- };
- static bool is_bytcr;
- 
-@@ -969,15 +970,11 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
-  * Note this MUST be called before snd_soc_register_card(), so that the props
-  * are in place before the codec component driver's probe function parses them.
-  */
--static int byt_rt5640_add_codec_device_props(const char *i2c_dev_name)
-+static int byt_rt5640_add_codec_device_props(struct device *i2c_dev,
-+					     struct byt_rt5640_private *priv)
- {
- 	struct property_entry props[MAX_NO_PROPS] = {};
--	struct device *i2c_dev;
--	int ret, cnt = 0;
--
--	i2c_dev = bus_find_device_by_name(&i2c_bus_type, NULL, i2c_dev_name);
--	if (!i2c_dev)
--		return -EPROBE_DEFER;
-+	int cnt = 0;
- 
- 	switch (BYT_RT5640_MAP(byt_rt5640_quirk)) {
- 	case BYT_RT5640_DMIC1_MAP:
-@@ -1017,10 +1014,7 @@ static int byt_rt5640_add_codec_device_props(const char *i2c_dev_name)
- 	if (byt_rt5640_quirk & BYT_RT5640_JD_NOT_INV)
- 		props[cnt++] = PROPERTY_ENTRY_BOOL("realtek,jack-detect-not-inverted");
- 
--	ret = device_add_properties(i2c_dev, props);
--	put_device(i2c_dev);
--
--	return ret;
-+	return device_add_properties(i2c_dev, props);
- }
- 
- static int byt_rt5640_init(struct snd_soc_pcm_runtime *runtime)
-@@ -1367,6 +1361,7 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
- 	struct snd_soc_acpi_mach *mach;
- 	const char *platform_name;
- 	struct acpi_device *adev;
-+	struct device *codec_dev;
- 	bool sof_parent;
- 	int ret_val = 0;
- 	int dai_index = 0;
-@@ -1475,10 +1470,16 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
- 		byt_rt5640_quirk = quirk_override;
+@@ -1394,6 +1394,9 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
+ 			 "i2c-%s", acpi_dev_name(adev));
+ 		put_device(&adev->dev);
+ 		byt_rt5640_dais[dai_index].codecs->name = byt_rt5640_codec_name;
++	} else {
++		dev_err(&pdev->dev, "Error cannot find '%s' dev\n", mach->id);
++		return -ENXIO;
  	}
  
-+	codec_dev = bus_find_device_by_name(&i2c_bus_type, NULL, byt_rt5640_codec_name);
-+	if (!codec_dev)
-+		return -EPROBE_DEFER;
-+
-+	priv->codec_dev = codec_dev;
-+
- 	/* Must be called before register_card, also see declaration comment. */
--	ret_val = byt_rt5640_add_codec_device_props(byt_rt5640_codec_name);
-+	ret_val = byt_rt5640_add_codec_device_props(codec_dev, priv);
- 	if (ret_val)
--		return ret_val;
-+		goto err;
- 
- 	log_quirks(&pdev->dev);
- 
-@@ -1509,7 +1510,7 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
- 			 * for all other errors, including -EPROBE_DEFER
- 			 */
- 			if (ret_val != -ENOENT)
--				return ret_val;
-+				goto err;
- 			byt_rt5640_quirk &= ~BYT_RT5640_MCLK_EN;
- 		}
- 	}
-@@ -1553,7 +1554,7 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
- 	ret_val = snd_soc_fixup_dai_links_platform_name(&byt_rt5640_card,
- 							platform_name);
- 	if (ret_val)
--		return ret_val;
-+		goto err;
- 
- 	sof_parent = snd_soc_acpi_sof_parent(&pdev->dev);
- 
-@@ -1575,10 +1576,23 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
- 	if (ret_val) {
- 		dev_err(&pdev->dev, "devm_snd_soc_register_card failed %d\n",
- 			ret_val);
--		return ret_val;
-+		goto err;
- 	}
- 	platform_set_drvdata(pdev, &byt_rt5640_card);
- 	return ret_val;
-+
-+err:
-+	put_device(priv->codec_dev);
-+	return ret_val;
-+}
-+
-+static int snd_byt_rt5640_mc_remove(struct platform_device *pdev)
-+{
-+	struct snd_soc_card *card = platform_get_drvdata(pdev);
-+	struct byt_rt5640_private *priv = snd_soc_card_get_drvdata(card);
-+
-+	put_device(priv->codec_dev);
-+	return 0;
- }
- 
- static struct platform_driver snd_byt_rt5640_mc_driver = {
-@@ -1586,6 +1600,7 @@ static struct platform_driver snd_byt_rt5640_mc_driver = {
- 		.name = "bytcr_rt5640",
- 	},
- 	.probe = snd_byt_rt5640_mc_probe,
-+	.remove = snd_byt_rt5640_mc_remove,
- };
- 
- module_platform_driver(snd_byt_rt5640_mc_driver);
+ 	/*
 diff --git a/sound/soc/intel/boards/bytcr_rt5651.c b/sound/soc/intel/boards/bytcr_rt5651.c
-index e13c0c63a949..7033c07f8fd6 100644
+index 7033c07f8fd6..b4307d1d5527 100644
 --- a/sound/soc/intel/boards/bytcr_rt5651.c
 +++ b/sound/soc/intel/boards/bytcr_rt5651.c
-@@ -85,6 +85,7 @@ struct byt_rt5651_private {
- 	struct gpio_desc *ext_amp_gpio;
- 	struct gpio_desc *hp_detect;
- 	struct snd_soc_jack jack;
-+	struct device *codec_dev;
- };
- 
- static const struct acpi_gpio_mapping *byt_rt5651_gpios;
-@@ -993,12 +994,12 @@ static int snd_byt_rt5651_mc_probe(struct platform_device *pdev)
- 		byt_rt5651_quirk = quirk_override;
+@@ -921,7 +921,7 @@ static int snd_byt_rt5651_mc_probe(struct platform_device *pdev)
+ 		byt_rt5651_dais[dai_index].codecs->name = byt_rt5651_codec_name;
+ 	} else {
+ 		dev_err(&pdev->dev, "Error cannot find '%s' dev\n", mach->id);
+-		return -ENODEV;
++		return -ENXIO;
  	}
  
-+	priv->codec_dev = codec_dev;
-+
- 	/* Must be called before register_card, also see declaration comment. */
- 	ret_val = byt_rt5651_add_codec_device_props(codec_dev);
--	if (ret_val) {
--		put_device(codec_dev);
--		return ret_val;
--	}
-+	if (ret_val)
-+		goto err;
- 
- 	/* Cherry Trail devices use an external amplifier enable gpio */
- 	if (soc_intel_is_cht() && !byt_rt5651_gpios)
-@@ -1022,8 +1023,7 @@ static int snd_byt_rt5651_mc_probe(struct platform_device *pdev)
- 					ret_val);
- 				fallthrough;
- 			case -EPROBE_DEFER:
--				put_device(codec_dev);
--				return ret_val;
-+				goto err;
- 			}
- 		}
- 		priv->hp_detect = devm_fwnode_gpiod_get(&pdev->dev,
-@@ -1042,14 +1042,11 @@ static int snd_byt_rt5651_mc_probe(struct platform_device *pdev)
- 					ret_val);
- 				fallthrough;
- 			case -EPROBE_DEFER:
--				put_device(codec_dev);
--				return ret_val;
-+				goto err;
- 			}
- 		}
- 	}
- 
--	put_device(codec_dev);
--
- 	log_quirks(&pdev->dev);
- 
- 	if ((byt_rt5651_quirk & BYT_RT5651_SSP2_AIF2) ||
-@@ -1073,7 +1070,7 @@ static int snd_byt_rt5651_mc_probe(struct platform_device *pdev)
- 			 * for all other errors, including -EPROBE_DEFER
- 			 */
- 			if (ret_val != -ENOENT)
--				return ret_val;
-+				goto err;
- 			byt_rt5651_quirk &= ~BYT_RT5651_MCLK_EN;
- 		}
- 	}
-@@ -1102,7 +1099,7 @@ static int snd_byt_rt5651_mc_probe(struct platform_device *pdev)
- 	ret_val = snd_soc_fixup_dai_links_platform_name(&byt_rt5651_card,
- 							platform_name);
- 	if (ret_val)
--		return ret_val;
-+		goto err;
- 
- 	sof_parent = snd_soc_acpi_sof_parent(&pdev->dev);
- 
-@@ -1124,10 +1121,23 @@ static int snd_byt_rt5651_mc_probe(struct platform_device *pdev)
- 	if (ret_val) {
- 		dev_err(&pdev->dev, "devm_snd_soc_register_card failed %d\n",
- 			ret_val);
--		return ret_val;
-+		goto err;
- 	}
- 	platform_set_drvdata(pdev, &byt_rt5651_card);
- 	return ret_val;
-+
-+err:
-+	put_device(priv->codec_dev);
-+	return ret_val;
-+}
-+
-+static int snd_byt_rt5651_mc_remove(struct platform_device *pdev)
-+{
-+	struct snd_soc_card *card = platform_get_drvdata(pdev);
-+	struct byt_rt5651_private *priv = snd_soc_card_get_drvdata(card);
-+
-+	put_device(priv->codec_dev);
-+	return 0;
- }
- 
- static struct platform_driver snd_byt_rt5651_mc_driver = {
-@@ -1135,6 +1145,7 @@ static struct platform_driver snd_byt_rt5651_mc_driver = {
- 		.name = "bytcr_rt5651",
- 	},
- 	.probe = snd_byt_rt5651_mc_probe,
-+	.remove = snd_byt_rt5651_mc_remove,
- };
- 
- module_platform_driver(snd_byt_rt5651_mc_driver);
+ 	codec_dev = bus_find_device_by_name(&i2c_bus_type, NULL,
 -- 
 2.25.1
 

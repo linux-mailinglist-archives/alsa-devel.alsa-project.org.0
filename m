@@ -2,88 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 204613EB96D
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Aug 2021 17:47:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FDC23EBA16
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Aug 2021 18:31:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 983801868;
-	Fri, 13 Aug 2021 17:46:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 983801868
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1B131867;
+	Fri, 13 Aug 2021 18:30:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1B131867
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628869633;
-	bh=IHuDdb+WXOFRmC/LOUYJlgHAErWRMwyktxLBxGw0HxU=;
-	h=In-Reply-To:References:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1628872300;
+	bh=1mZiTEvvyEZOq8d6CZbFmNJ7wuQd8bICUyH00oJGrkI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=r+chqEWWmC5IDERVWtmYP7dH43eb673fpun4VwErOb/vAG3Gbq1f9PWoK7TjqoeBV
-	 RMQO8Q15jEmRt5Q+3C9dJX+l998+kz+RJZ8GrTVr5L3c9EeQDMeDAv1x5YICyNAOt1
-	 D3Pfj2i0nIBy+hI03p9E/5WZ6RCIY2U1vbm7kaPU=
+	b=aYhTRQQHwKCcrYjLiTvrF1faUTFI5Y3AAL9CpuEWfkF8gIvggrftkilPe7aq8/zu8
+	 jKeg6v8b8GYM/RzRKY6hZSL6EQH5PyYgX4LOHCZki0BlzcMa25oVXA7jj8TjY0j666
+	 XeHnCS4amUwU+3UdfJMjdBdnOUmvi/FJ5t4MGe5Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EBE04F8032D;
-	Fri, 13 Aug 2021 17:45:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CC51F800AF;
+	Fri, 13 Aug 2021 18:30:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CC064F800E5; Fri, 13 Aug 2021 17:45:41 +0200 (CEST)
+ id 480A6F802D2; Fri, 13 Aug 2021 18:29:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
- [IPv6:2607:f8b0:4864:20::32a])
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99750F800E5
- for <alsa-devel@alsa-project.org>; Fri, 13 Aug 2021 17:45:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99750F800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id B855EF800E5
+ for <alsa-devel@alsa-project.org>; Fri, 13 Aug 2021 18:29:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B855EF800E5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="ULJhbpXY"
-Received: by mail-ot1-x32a.google.com with SMTP id
- c2-20020a0568303482b029048bcf4c6bd9so12509489otu.8
- for <alsa-devel@alsa-project.org>; Fri, 13 Aug 2021 08:45:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=IHuDdb+WXOFRmC/LOUYJlgHAErWRMwyktxLBxGw0HxU=;
- b=ULJhbpXYjp+Nb8nY1QTOgIpZmKriaLS+clQDyIrL8scdUS5+wl8flBUQ4HzjFvIX/g
- PTptRsZbYKnkrHyCt2PRmyg3y2GLz8cMmnK7Lk1N2WsGD795suYVsbcmsSHs4Yn5kkRk
- Qss57AaOCHYzvnPVU1iL65kI5NPBEssmAUg0k=
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Oquwslrv"
+Received: by mail-lj1-x233.google.com with SMTP id y7so16446340ljp.3
+ for <alsa-devel@alsa-project.org>; Fri, 13 Aug 2021 09:29:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=lSjANMOkeDV/0UvMiD3d/wgPXF81D4gziwyjM+awd5c=;
+ b=Oquwslrv0iZO0iE4+rg2oqrPU9W7lCXWmZo8U1byMsIeJqu7KOK/WmqadDlVomPZ3Z
+ NUvTbj8Mlso65qDPO523wiGbXwH/sTgFXJuqIb5kplbAz3s69wJ+TaHPXpZIjy9OiSvF
+ 8lcu89HaYJwEEO75RNV4jgueP7YS/2YdnToXR2fgEUuVQKWBgAqS8E7vYjsgRXXi0lla
+ Bj5frT1giO08YsBWMmdsCsdRHBZgSvZeoMmKFckysmdWn6nIySXuIGQo7/RN/Kt++rFJ
+ BG8GLADvjfgqW0wrFovbCeq4if/pFdveRNZYNlMnOYhaLvKnad1eSvf91x87zaweD6Gn
+ RLpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=IHuDdb+WXOFRmC/LOUYJlgHAErWRMwyktxLBxGw0HxU=;
- b=pl93mNJGKEYN1C7kCBdU6769yfFdNp9ZqjK900DGTps5w++As05uT0v2AgKidY7bjB
- 7ezJi4hPoyvA+/I0ZwYegJuTZJizqG5Y91CMptXppRRNh5GXoc5GaBEuaJsNCqphIbhi
- 7YAFDC0b5Eypdp4Hoh3GReWmLjd6AknkG8NndqWGvSsN9LwO8y571iPOkHKPHQORB3ds
- 2Hnn0BkTNEMNWYDSz3RYMVRZjL3cB3bNrfuo6GG8gh2fKOP77iqPcSN3WSRQHGbsV86S
- tUoJJF7DczCNuCuWWKQm61oBkKHfmAhwsW17gBY0egyxumO2Q+BDNOfKNK55J67+ZSuO
- qIFg==
-X-Gm-Message-State: AOAM532j9UCEN6sGoRJOy4WrlyVgr6i5hIhsr7HCbbu1DIpDYOKaaWDg
- OvrWIFV79HPaeDi+7+QYgeqxo6/fWHkcRQVBTFzG6g==
-X-Google-Smtp-Source: ABdhPJxJH8BwLTYD+I8QdwbyJlfIh+pbTo/uAp5m5ivMZnAvzUrlZ7qudZrfjyIc8BvwEVNQ0YP54Lm9a9ekOKdE+x8=
-X-Received: by 2002:a9d:5542:: with SMTP id h2mr2650353oti.25.1628869530754;
- Fri, 13 Aug 2021 08:45:30 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 13 Aug 2021 08:45:30 -0700
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=lSjANMOkeDV/0UvMiD3d/wgPXF81D4gziwyjM+awd5c=;
+ b=KalwLOgySVamTlzx1mlysFx/6SKl23iD5mWyT7gflXD02NiEL/v/jsRm7iiBzLKrW6
+ R8XSmu9kZBOw0EEeZuUJKuttNy4tmbL3aBapospJRou3PEtr8Hr07Wx4thsciJJBGn63
+ 17Fy/HhZRvd2pTfqJk64siIHfH9qvxPIfahxfTupHZoIXCBCLyInGa93fh+pVP0KzyGQ
+ QcJLLhPyIk/nknkigCPLH+72OaFJDXrtkeQgZ9TYD97CeFS6iW+iGOLph9vFpgTZWfdx
+ YSRs8m4qVOF4Epyp0aRmY4ra0X7YzLDrD6vHhcNku/vBYgrwcPefmLvAmS5rtl8X5DZz
+ iyxQ==
+X-Gm-Message-State: AOAM531+erwytmsHgrmqRY3UwHfMPIU+COoKqJToLsyjcvqLKRneoNMd
+ upLSYuwgp70ZGnv1EidM0XxneTdR+d1yYUThQp4=
+X-Google-Smtp-Source: ABdhPJw7IU0i3kJszwAd/r6LZDHpmqyuenklMvUuyjDAEcVXEQ5w6NynYbqNk6S0sprJyfm2fRUjHi3oxxQANr8xgoc=
+X-Received: by 2002:a2e:3607:: with SMTP id d7mr2452450lja.481.1628872181924; 
+ Fri, 13 Aug 2021 09:29:41 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210813073402.1.Iaa9425cfab80f5233afa78b32d02b6dc23256eb3@changeid>
-References: <20210813073402.1.Iaa9425cfab80f5233afa78b32d02b6dc23256eb3@changeid>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Fri, 13 Aug 2021 08:45:30 -0700
-Message-ID: <CAE-0n50VyHtGf4TmZBdsQ+nFo_SPk2dBofLgYCQsgZtZyTs-iQ@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: rt5682: Remove unused variable in
- rt5682_i2c_remove()
-To: Douglas Anderson <dianders@chromium.org>, Mark Brown <broonie@kernel.org>
+References: <CAHhAz+hQBnUVWBnoQO6y44C-G5CnZdFLJ7v738_Y5Rt6AZSkrA@mail.gmail.com>
+ <41bebccc-7940-8379-0108-047bd1cc92f9@perex.cz>
+ <CACk2A5ZcrVTv4AVHdmRDh-xWkx=1BHi6SV8yYqX1Z2DzcDR8hA@mail.gmail.com>
+ <CAHhAz+gD-UtvXgsWnWx8yPwMbpY4R-ZJqPg9TNNF+iZrmKxQSA@mail.gmail.com>
+In-Reply-To: <CAHhAz+gD-UtvXgsWnWx8yPwMbpY4R-ZJqPg9TNNF+iZrmKxQSA@mail.gmail.com>
+From: Muni Sekhar <munisekharrms@gmail.com>
+Date: Fri, 13 Aug 2021 21:59:30 +0530
+Message-ID: <CAHhAz+jVm6_B8Fje5TafKFFXk9x801z07afivsfHw7tWp4eB=w@mail.gmail.com>
+Subject: Re: USB-Audio: Device or resource busy (strace log)
+To: vishnu <vardhanraj4143@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>
+Cc: alsa-devel <alsa-devel@alsa-project.org>,
+ kernelnewbies <kernelnewbies@kernelnewbies.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,14 +98,151 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Quoting Douglas Anderson (2021-08-13 07:34:05)
-> In commit 772d44526e20 ("ASoC: rt5682: Properly turn off regulators if
-> wrong device ID") I deleted code but forgot to delete a variable
-> that's now unused. Delete it.
+On Wed, Aug 11, 2021 at 6:48 PM Muni Sekhar <munisekharrms@gmail.com> wrote:
 >
-> Fixes: 772d44526e20 ("ASoC: rt5682: Properly turn off regulators if wrong device ID")
-> Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> ---
+> On Wed, Aug 11, 2021 at 6:19 PM vishnu <vardhanraj4143@gmail.com> wrote:
+> >
+> > can you paste output of
+> > arecord -l (list of capture devices).
+> $ arecord -l
+> **** List of CAPTURE Hardware Devices ****
+> card 0: USB [Plantronics .Audio 628 USB], device 0: USB Audio [USB Audio]
+>   Subdevices: 1/1
+>   Subdevice #0: subdevice #0
+>
+>
+> > Which device you are using and os.
+> > Does this instance is already open by default? like any video playing or something like that?
+> lsof does not catch it.
+>
+> >
+> > Yes you can stop pulse audio and try..
+> >
+> > On Wed, Aug 11, 2021 at 6:17 PM Jaroslav Kysela <perex@perex.cz> wrote:
+> >>
+> >> On 11. 08. 21 14:36, Muni Sekhar wrote:
+> >> > Hi All,
+> >> >
+> >> > $ cat /proc/asound/cards
+> >> >  0 [USB            ]: USB-Audio - Plantronics .Audio 628 USB
+> >> >                       Plantronics Plantronics .Audio 628 USB at
+> >> > usb-0000:00:14.0-2, full speed
+> >> >
+> >> > I am using a Plantronics USB Audio headset.
+> >> >
+> >> > $ arecord --device hw:0,0 --channels 2 --format S16_LE --rate 44100Hz x.wav
+> >> > arecord: main:722: audio open error: Device or resource busy
+> >> >
+> >> >
+> >> > 'arecord' command always fails the first time after system boot in my
+> >> > system. But subsequent execution of the 'arecord' command runs fine.
+> >> >
+> >> >
+> >> > I've attached the strace log for the "audio open error: Device or
+> >> > resource busy" failure. Is there any fix available for this issue?
+> >>
+> >> You may check which other task blocks the PCM device:
+> >>
+> >>   lsof /dev/snd/pcmC0D0c
+> It does not output any process.
+> $ lsof /dev/snd/pcmC0D0c
+>
+> 1st run:
+> ----------
+> $ arecord --device hw:0,0 --channels 2 --format S16_LE --rate 44100Hz x.wav
+> arecord: main:722: audio open error: Device or resource busy
+>
+> 2nd run:
+> ----------
+> $ arecord --device hw:0,0 --channels 2 --format S16_LE --rate 44100Hz x.wav
+> Recording WAVE 'x.wav' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
+> ^CAborted by signal Interrupt...
+>
+>
+> >>
+> >> I guess that it will be pulseaudio (device enumeration).
+I see that pulseaudio is getting loaded on invoking the 1st run of
+'arecord' command. Here is the log:
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+After system boot I verified that pulseaudio is not in the memory.
+
+test@test594:~$ uptime
+ 21:39:27 up 0 min,  1 user,  load average: 0.70, 0.25, 0.09
+test@test594:~$ ls -ltr /dev/snd/controlC1
+crw-rw---- 1 root audio 116, 2 Aug 13 21:38 /dev/snd/controlC1
+test@test594:~$ ls -ltr /dev/snd/
+total 0
+crw-rw---- 1 root audio 116, 33 Aug 13 21:38 timer
+crw-rw---- 1 root audio 116,  1 Aug 13 21:38 seq
+crw-rw---- 1 root audio 116,  3 Aug 13 21:38 pcmC1D0p
+crw-rw---- 1 root audio 116,  4 Aug 13 21:38 pcmC1D0c
+crw-rw---- 1 root audio 116,  2 Aug 13 21:38 controlC1
+drwxr-xr-x 2 root root       60 Aug 13 21:38 by-path
+drwxr-xr-x 2 root root       60 Aug 13 21:38 by-id
+test@test594:~$ lsof /dev/snd/controlC1
+test@test594:~$ lsof /dev/snd/pcmC1D0c
+test@test594:~$
+
+
+1st run of 'arecord':
+-------------------------
+I triggered 'arecord' after 2 mins of the system boot. In the 1st run,
+it failed with "Device or resource busy" and I see that pulseaudio
+loaded in the memory.
+Why does pulseaudio get triggered on running the alsa-utils command?
+How is the failure message "Device or resource busy" from the kernel code?
+
+
+test@test594:~$ arecord --device hw:1,0 --channels 2 --format S16_LE
+--rate 44100Hz x.wav
+arecord: main:722: audio open error: Device or resource busy
+test@test594:~$
+test@test594:~$ lsof /dev/snd/pcmC1D0c
+COMMAND    PID   USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+pulseaudi 1550 test  mem    CHR  116,4           463 /dev/snd/pcmC1D0c
+pulseaudi 1550 test   27u   CHR  116,4      0t0  463 /dev/snd/pcmC1D0c
+test@test594:~$ lsof /dev/snd/controlC1
+COMMAND    PID   USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+pulseaudi 1550 test   20u   CHR  116,2      0t0  461 /dev/snd/controlC1
+pulseaudi 1550 test   26u   CHR  116,2      0t0  461 /dev/snd/controlC1
+test@test594:~$ lsof /dev/snd/pcmC1D0p
+test@test594:~$
+test@test594:~$ uptime
+ 21:41:06 up 2 min,  1 user,  load average: 0.20, 0.19, 0.08
+
+
+2nd run of 'arecord':
+-------------------------
+The subsequent run of arecord runs fine without any issues even though
+pulseaudio is still in memory.
+
+test@test594:~$ arecord --device hw:1,0 --channels 2 --format S16_LE
+--rate 44100Hz x.wav
+Recording WAVE 'x.wav' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
+^CAborted by signal Interrupt...
+test@test594:~$ uptime
+ 21:41:22 up 2 min,  1 user,  load average: 0.14, 0.18, 0.08
+test@test594:~$
+
+What is the role of pulseaudio? Is there a way to disable it from running it?
+Disabling pulseaudio causes any issues while testing audio drivers?
+
+
+> >>
+> >>                                         Jaroslav
+> >>
+> >> --
+> >> Jaroslav Kysela <perex@perex.cz>
+> >> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+>
+>
+>
+> --
+> Thanks,
+> Sekhar
+
+
+
+-- 
+Thanks,
+Sekhar

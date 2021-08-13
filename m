@@ -2,81 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B3533EB269
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Aug 2021 10:15:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C17363EB279
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Aug 2021 10:18:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B9D818D2;
-	Fri, 13 Aug 2021 10:14:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B9D818D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FA6D18B2;
+	Fri, 13 Aug 2021 10:17:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FA6D18B2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628842515;
-	bh=aWC30nq6Er6OdKy4XaKcx8M9+gvmU//ddbEEXBz+2sU=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=bmCxR2cnm2xuZ8BW/GFwIlYqfKfi6c3KTt6QdrKfzHGFxta458DWdBUv3hICMI23U
-	 mvB4t5p5eyGCIw78h3AKt3sj1CugdMV9jA7hpTNLRuf+/QRhuGA6hg4O+GskxjGpFq
-	 rEqP3p4CIjeuoxMIpTkYl1UvuP8jSxerOp8yucRo=
+	s=default; t=1628842703;
+	bh=DvyKZMz7EF+ssjfSznv3gqDext1BOubt17m94A+jIQc=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LarAGUGhfbXTEwP4mEesKrI3tr/wNtKXdZcBfXo9BgfsXeeX6RzpqFZt/FYG8KkbQ
+	 vPtpGSGlhfuzuY1qEbN5Yh+MKkWzZbP8Rl5rkKeFs5Gyf0wKLM/1R7FMxYdHwbmajg
+	 R5vM+nPxh2Me1/7Rq9IJIp+JaqvSDu6XCGHrohPo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F344F804E5;
-	Fri, 13 Aug 2021 10:12:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E07F9F8032D;
+	Fri, 13 Aug 2021 10:16:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DD403F802D2; Fri, 13 Aug 2021 10:12:43 +0200 (CEST)
+ id 23759F802D2; Fri, 13 Aug 2021 10:16:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B537F802D2
- for <alsa-devel@alsa-project.org>; Fri, 13 Aug 2021 10:12:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B537F802D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25229F800E5
+ for <alsa-devel@alsa-project.org>; Fri, 13 Aug 2021 10:16:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25229F800E5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="HEBijw9y"; 
+ header.b="AoaEVYJF"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="kSOu0HNe"
+ header.b="e/3AwCGW"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id D741622288;
- Fri, 13 Aug 2021 08:12:33 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 298EA1FF8A
+ for <alsa-devel@alsa-project.org>; Fri, 13 Aug 2021 08:16:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1628842353; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=sbxqOtTsgrC8b+w0RtyRHNpkZXH11btK90z3YXULBdM=;
- b=HEBijw9yqpeqxk9GiXH0BogNsUYDMyXFb1rQZyNaNdarA8Er0zmqmDuqXJXlEOh6ShKMVw
- 5A7X8OwRs287NFCSCctEYwtkp2GLWqd8sdMPSMeRw0DzscwRRuukJNxzTPYUO0bLHPXMf+
- yQKnqr9/lpajlMJbw3GIG/nOeGJx2Kk=
+ t=1628842607; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=JDV5LvD+W5sczUS4yZwH7w3MapB294d75NkJUxbi5aI=;
+ b=AoaEVYJFa9sVFf4wYeblm0mOvaQqdwfavVuQJOrZMl1TvaQNY5124QHWQzUizzYoitk6rF
+ wQsFhB2vcghzOELP5jtFVICU6twsu5EwppEHMnY6KLPdeukXYZHWePSAJHk9vPYJso+ZW4
+ f5IYUvN8J75WWeZN6b34Wx7/k0v37f4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1628842353;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=sbxqOtTsgrC8b+w0RtyRHNpkZXH11btK90z3YXULBdM=;
- b=kSOu0HNeWBXxQXpVA/NsM+QHWIYdU11QOoriPm6bGhVZ+qNM6raZ01ojxDr1tajF3XJCE+
- //46UiMseTjwbeDA==
+ s=susede2_ed25519; t=1628842607;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=JDV5LvD+W5sczUS4yZwH7w3MapB294d75NkJUxbi5aI=;
+ b=e/3AwCGWJ1iBra8Di/Zc9vMpDkkpV/MHoWxw/YFJJg5+ZftO4jSpQcDynU4aPWPUNDi4rl
+ d9zGrX81L0KJrMBQ==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id C4D67A3B84;
- Fri, 13 Aug 2021 08:12:33 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTP id 178C6A3B84;
+ Fri, 13 Aug 2021 08:16:47 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/3] ALSA: hda: Nuke unused reboot_notify callback
-Date: Fri, 13 Aug 2021 10:12:30 +0200
-Message-Id: <20210813081230.4268-4-tiwai@suse.de>
+Subject: [PATCH] ALSA: memalloc: Count continuous pages in vmalloc buffer
+ handler
+Date: Fri, 13 Aug 2021 10:16:45 +0200
+Message-Id: <20210813081645.4680-1-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210813081230.4268-1-tiwai@suse.de>
-References: <20210813081230.4268-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: youling257@gmail.com, Imre Deak <imre.deak@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,206 +85,78 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-As reboot_notify callback is no longer used by the codec core, let's
-get rid of the unused code.  Conexant codec needs a slight code change
-as it used to call the reboot_notify at the codec removal, too.
+This is an enhancement for the SG-style page handling in vmalloc
+buffer handler to calculate the continuous pages.
+When snd_sgbuf_get_chunk_size() is called for a vmalloc buffer,
+currently we return only the size that fits into a single page.
+However, this API call is rather supposed for obtaining the continuous
+pages and most of vmalloc or noncontig buffers do have lots of
+continuous pages indeed.  So, in this patch, the callback now
+calculates the possibly continuous pages up to the given size limit.
 
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=214045
+Note that the end address in the function is calculated from the last
+byte, hence it's one byte shorter.  This is because ofs + size can be
+above the actual buffer size boundary.
+
+Until now, this feature isn't really used, but it'll become useful in
+a later patch that adds the non-contiguous buffer type that shares the
+same callback function as vmalloc.
+
+Link: https://lore.kernel.org/r/20210812113818.6479-1-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- include/sound/hda_codec.h      |  1 -
- sound/pci/hda/hda_generic.c    | 19 -------------------
- sound/pci/hda/hda_generic.h    |  1 -
- sound/pci/hda/patch_analog.c   |  1 -
- sound/pci/hda/patch_ca0132.c   |  6 ------
- sound/pci/hda/patch_conexant.c |  9 +--------
- sound/pci/hda/patch_realtek.c  | 13 -------------
- sound/pci/hda/patch_sigmatel.c |  1 -
- 8 files changed, 1 insertion(+), 50 deletions(-)
+ sound/core/memalloc.c | 28 +++++++++++++++++++++-------
+ 1 file changed, 21 insertions(+), 7 deletions(-)
 
-diff --git a/include/sound/hda_codec.h b/include/sound/hda_codec.h
-index 2e8d51937acd..01570dbda503 100644
---- a/include/sound/hda_codec.h
-+++ b/include/sound/hda_codec.h
-@@ -114,7 +114,6 @@ struct hda_codec_ops {
- 	int (*resume)(struct hda_codec *codec);
- 	int (*check_power_status)(struct hda_codec *codec, hda_nid_t nid);
- #endif
--	void (*reboot_notify)(struct hda_codec *codec);
- 	void (*stream_pm)(struct hda_codec *codec, hda_nid_t nid, bool on);
- };
- 
-diff --git a/sound/pci/hda/hda_generic.c b/sound/pci/hda/hda_generic.c
-index e97d00585e8e..f46d4e7f499c 100644
---- a/sound/pci/hda/hda_generic.c
-+++ b/sound/pci/hda/hda_generic.c
-@@ -6000,24 +6000,6 @@ void snd_hda_gen_free(struct hda_codec *codec)
- }
- EXPORT_SYMBOL_GPL(snd_hda_gen_free);
- 
--/**
-- * snd_hda_gen_reboot_notify - Make codec enter D3 before rebooting
-- * @codec: the HDA codec
-- *
-- * This can be put as patch_ops reboot_notify function.
-- */
--void snd_hda_gen_reboot_notify(struct hda_codec *codec)
--{
--	/* Make the codec enter D3 to avoid spurious noises from the internal
--	 * speaker during (and after) reboot
--	 */
--	snd_hda_codec_set_power_to_all(codec, codec->core.afg, AC_PWRST_D3);
--	snd_hda_codec_write(codec, codec->core.afg, 0,
--			    AC_VERB_SET_POWER_STATE, AC_PWRST_D3);
--	msleep(10);
--}
--EXPORT_SYMBOL_GPL(snd_hda_gen_reboot_notify);
--
- #ifdef CONFIG_PM
- /**
-  * snd_hda_gen_check_power_status - check the loopback power save state
-@@ -6045,7 +6027,6 @@ static const struct hda_codec_ops generic_patch_ops = {
- 	.init = snd_hda_gen_init,
- 	.free = snd_hda_gen_free,
- 	.unsol_event = snd_hda_jack_unsol_event,
--	.reboot_notify = snd_hda_gen_reboot_notify,
- #ifdef CONFIG_PM
- 	.check_power_status = snd_hda_gen_check_power_status,
- #endif
-diff --git a/sound/pci/hda/hda_generic.h b/sound/pci/hda/hda_generic.h
-index d4dd1b8a2e7e..c43bd0f0338e 100644
---- a/sound/pci/hda/hda_generic.h
-+++ b/sound/pci/hda/hda_generic.h
-@@ -324,7 +324,6 @@ int snd_hda_gen_parse_auto_config(struct hda_codec *codec,
- 				  struct auto_pin_cfg *cfg);
- int snd_hda_gen_build_controls(struct hda_codec *codec);
- int snd_hda_gen_build_pcms(struct hda_codec *codec);
--void snd_hda_gen_reboot_notify(struct hda_codec *codec);
- 
- /* standard jack event callbacks */
- void snd_hda_gen_hp_automute(struct hda_codec *codec,
-diff --git a/sound/pci/hda/patch_analog.c b/sound/pci/hda/patch_analog.c
-index 2132b2acec4d..a356e1662929 100644
---- a/sound/pci/hda/patch_analog.c
-+++ b/sound/pci/hda/patch_analog.c
-@@ -168,7 +168,6 @@ static const struct hda_codec_ops ad198x_auto_patch_ops = {
- 	.check_power_status = snd_hda_gen_check_power_status,
- 	.suspend = ad198x_suspend,
- #endif
--	.reboot_notify = ad198x_shutup,
- };
- 
- 
-diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
-index 50ca72ee586e..208933792787 100644
---- a/sound/pci/hda/patch_ca0132.c
-+++ b/sound/pci/hda/patch_ca0132.c
-@@ -9682,11 +9682,6 @@ static void dbpro_free(struct hda_codec *codec)
- 	kfree(codec->spec);
+diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
+index 1cea8cb9668f..c7c943c661e6 100644
+--- a/sound/core/memalloc.c
++++ b/sound/core/memalloc.c
+@@ -290,11 +290,13 @@ static int snd_dma_vmalloc_mmap(struct snd_dma_buffer *dmab,
+ 	return remap_vmalloc_range(area, dmab->area, 0);
  }
  
--static void ca0132_reboot_notify(struct hda_codec *codec)
--{
--	codec->patch_ops.free(codec);
--}
--
- #ifdef CONFIG_PM
- static int ca0132_suspend(struct hda_codec *codec)
++#define get_vmalloc_page_addr(dmab, offset) \
++	page_to_phys(vmalloc_to_page((dmab)->area + (offset)))
++
+ static dma_addr_t snd_dma_vmalloc_get_addr(struct snd_dma_buffer *dmab,
+ 					   size_t offset)
  {
-@@ -9706,7 +9701,6 @@ static const struct hda_codec_ops ca0132_patch_ops = {
- #ifdef CONFIG_PM
- 	.suspend = ca0132_suspend,
- #endif
--	.reboot_notify = ca0132_reboot_notify,
- };
- 
- static const struct hda_codec_ops dbpro_patch_ops = {
-diff --git a/sound/pci/hda/patch_conexant.c b/sound/pci/hda/patch_conexant.c
-index 6d2bdef7f017..0515137a75b0 100644
---- a/sound/pci/hda/patch_conexant.c
-+++ b/sound/pci/hda/patch_conexant.c
-@@ -186,15 +186,9 @@ static void cx_auto_shutdown(struct hda_codec *codec)
- 	cx_auto_turn_eapd(codec, spec->num_eapds, spec->eapds, false);
+-	return page_to_phys(vmalloc_to_page(dmab->area + offset)) +
+-		offset % PAGE_SIZE;
++	return get_vmalloc_page_addr(dmab, offset) + offset % PAGE_SIZE;
  }
  
--static void cx_auto_reboot_notify(struct hda_codec *codec)
--{
--	cx_auto_shutdown(codec);
--	snd_hda_gen_reboot_notify(codec);
--}
--
- static void cx_auto_free(struct hda_codec *codec)
+ static struct page *snd_dma_vmalloc_get_page(struct snd_dma_buffer *dmab,
+@@ -307,11 +309,23 @@ static unsigned int
+ snd_dma_vmalloc_get_chunk_size(struct snd_dma_buffer *dmab,
+ 			       unsigned int ofs, unsigned int size)
  {
--	cx_auto_reboot_notify(codec);
-+	cx_auto_shutdown(codec);
- 	snd_hda_gen_free(codec);
+-	ofs %= PAGE_SIZE;
+-	size += ofs;
+-	if (size > PAGE_SIZE)
+-		size = PAGE_SIZE;
+-	return size - ofs;
++	unsigned int start, end;
++	unsigned long addr;
++
++	start = ALIGN_DOWN(ofs, PAGE_SIZE);
++	end = ofs + size - 1; /* the last byte address */
++	/* check page continuity */
++	addr = get_vmalloc_page_addr(dmab, start);
++	for (;;) {
++		start += PAGE_SIZE;
++		if (start > end)
++			break;
++		addr += PAGE_SIZE;
++		if (get_vmalloc_page_addr(dmab, start) != addr)
++			return start - ofs;
++	}
++	/* ok, all on continuous pages */
++	return size;
  }
  
-@@ -210,7 +204,6 @@ static const struct hda_codec_ops cx_auto_patch_ops = {
- 	.build_controls = snd_hda_gen_build_controls,
- 	.build_pcms = snd_hda_gen_build_pcms,
- 	.init = cx_auto_init,
--	.reboot_notify = cx_auto_reboot_notify,
- 	.free = cx_auto_free,
- 	.unsol_event = snd_hda_jack_unsol_event,
- #ifdef CONFIG_PM
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 4043a2362f27..4f2296d062d5 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -109,7 +109,6 @@ struct alc_spec {
- 	void (*power_hook)(struct hda_codec *codec);
- #endif
- 	void (*shutup)(struct hda_codec *codec);
--	void (*reboot_notify)(struct hda_codec *codec);
- 
- 	int init_amp;
- 	int codec_variant;	/* flag for other variants */
-@@ -897,16 +896,6 @@ static inline void alc_shutup(struct hda_codec *codec)
- 		alc_shutup_pins(codec);
- }
- 
--static void alc_reboot_notify(struct hda_codec *codec)
--{
--	struct alc_spec *spec = codec->spec;
--
--	if (spec && spec->reboot_notify)
--		spec->reboot_notify(codec);
--	else
--		alc_shutup(codec);
--}
--
- #define alc_free	snd_hda_gen_free
- 
- #ifdef CONFIG_PM
-@@ -952,7 +941,6 @@ static const struct hda_codec_ops alc_patch_ops = {
- 	.suspend = alc_suspend,
- 	.check_power_status = snd_hda_gen_check_power_status,
- #endif
--	.reboot_notify = alc_reboot_notify,
- };
- 
- 
-@@ -5773,7 +5761,6 @@ static void alc_fixup_tpt440_dock(struct hda_codec *codec,
- 	struct alc_spec *spec = codec->spec;
- 
- 	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
--		spec->reboot_notify = snd_hda_gen_reboot_notify; /* reduce noise */
- 		spec->parse_flags = HDA_PINCFG_NO_HP_FIXUP;
- 		codec->power_save_node = 0; /* avoid click noises */
- 		snd_hda_apply_pincfgs(codec, pincfgs);
-diff --git a/sound/pci/hda/patch_sigmatel.c b/sound/pci/hda/patch_sigmatel.c
-index 3bd592e126a3..3e00116db86e 100644
---- a/sound/pci/hda/patch_sigmatel.c
-+++ b/sound/pci/hda/patch_sigmatel.c
-@@ -4460,7 +4460,6 @@ static const struct hda_codec_ops stac_patch_ops = {
- #ifdef CONFIG_PM
- 	.suspend = stac_suspend,
- #endif
--	.reboot_notify = stac_shutup,
- };
- 
- static int alloc_stac_spec(struct hda_codec *codec)
+ static const struct snd_malloc_ops snd_dma_vmalloc_ops = {
 -- 
 2.26.2
 

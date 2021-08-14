@@ -2,81 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 692793EC0EE
-	for <lists+alsa-devel@lfdr.de>; Sat, 14 Aug 2021 08:39:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 852F63EC0FA
+	for <lists+alsa-devel@lfdr.de>; Sat, 14 Aug 2021 08:43:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D9EF51744;
-	Sat, 14 Aug 2021 08:38:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9EF51744
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08FF617C0;
+	Sat, 14 Aug 2021 08:42:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08FF617C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628923164;
-	bh=77MlmmS20L2+mm9fvvacsaYOYa2YjR0tERWG8z3jp/s=;
+	s=default; t=1628923402;
+	bh=BoyF/hxJciB3sCgRLpGEfxrcMXbyX0mLYKQ4v1i1EHY=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=r+2bWogG17u09qxEm5kkEZghmCG4c226io1hz+45He8qvk8p/ArkBCMWAAwDZIIKR
-	 RAIRp4pAIqJznwqmMjOGpHN6XJeCjwcDI8CxXvPRRQWfwYPEEA+aGCQpy8REDhdeWI
-	 zRKeQV0IricryV+kvcQgpEzYmcxtVjxBRp9rB+fU=
+	b=Lx0gNoiito0qUsCQFAB9Rf4wpCv5bQTf5ou8rXP853iSFdtCTkci3eQkjFIp3KAMI
+	 KbEF2JA2N48GC1Xgi21fg44t1g5uzfgkUuTtcvlbeIYFL6TWH/RwAUDfbpZ4ODyUmz
+	 oqgVbckQLF49taFZ3Hg3B+4juvHCFf7/1tdUA+oc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C521F80279;
-	Sat, 14 Aug 2021 08:37:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D24D8F80279;
+	Sat, 14 Aug 2021 08:41:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F306F8025D; Sat, 14 Aug 2021 08:37:53 +0200 (CEST)
+ id 97E87F8025D; Sat, 14 Aug 2021 08:41:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 24B36F80127
- for <alsa-devel@alsa-project.org>; Sat, 14 Aug 2021 08:37:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24B36F80127
+ by alsa1.perex.cz (Postfix) with ESMTPS id 45EB4F80127
+ for <alsa-devel@alsa-project.org>; Sat, 14 Aug 2021 08:41:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45EB4F80127
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="L9FsteHS"; 
+ header.b="LnX+PgqV"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="q+AfDRS5"
+ header.b="r0tiQSB/"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id DEC412233B;
- Sat, 14 Aug 2021 06:37:43 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id B20AB1FD7A;
+ Sat, 14 Aug 2021 06:41:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1628923063; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1628923300; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=mVhYR4Sg5gtzl69OiwkeKQq1QKaaQzlQ1qi+NaT+3K0=;
- b=L9FsteHSxk+ak0fJfaV4ZPPrP4JNIjcC90ZRIoyc5WWwzGr1vsYgiud3LqzbxTu6i4UJhM
- 5q18oNApLPGmI0Fv90OjMNcpjKOQE1SZOwKTOa8poFkt1XqFHQhSm5DD1tunGYnqbyfobr
- VafcavEJnXIKaTx1zEHgmdvB9Vv9dJw=
+ bh=bY9UicE6suD1hc9Vf3ljsJVirNPAPxuBei1t88BMrLw=;
+ b=LnX+PgqVW1Fpkwu+mHxfNA4GGhekKyUdjUhZMh5Cljnf1lM504am/QzskZHSdAHr59rVPS
+ rLhyF1DuhR5K/3KvQWS728y6p/sm8p02nu5k8tbCStgowHb6Ql+fUEbqPbUxUBRGsH3f1l
+ y3ivi/65KPnAD0p3SKOnPnouie4WGeU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1628923063;
+ s=susede2_ed25519; t=1628923300;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=mVhYR4Sg5gtzl69OiwkeKQq1QKaaQzlQ1qi+NaT+3K0=;
- b=q+AfDRS5bu6TfHgXAAmuDAs/WkKX6PyZE3iKO/zqkZW1lBnPrW8cMaX8pdlLQl4ZYJhpiz
- bJXAGPsD8c+FmwCg==
+ bh=bY9UicE6suD1hc9Vf3ljsJVirNPAPxuBei1t88BMrLw=;
+ b=r0tiQSB/ZjjwkaS9DfmzvpD0bFpOGxAosr4CLAyQmZpMdItcADSgM4cPVgn6u/wMevpZc3
+ TjrP+fqhU0GX5bDg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id C1509A3B85;
- Sat, 14 Aug 2021 06:37:43 +0000 (UTC)
-Date: Sat, 14 Aug 2021 08:37:43 +0200
-Message-ID: <s5heeawilag.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 98B03A3B85;
+ Sat, 14 Aug 2021 06:41:40 +0000 (UTC)
+Date: Sat, 14 Aug 2021 08:41:40 +0200
+Message-ID: <s5hczqgil3v.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Damien Zammit <damien@zamaudio.com>
-Subject: Re: [PATCH v2] usb-audio: Input source control - digidesign mbox
-In-Reply-To: <20210813113402.11849-1-damien@zamaudio.com>
-References: <20210813113402.11849-1-damien@zamaudio.com>
+To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+Subject: Re: [PATCH 2/2] ALSA: hda/cs8409: Prevent pops and clicks during
+ reboot
+In-Reply-To: <s5h1r6xlvrs.wl-tiwai@suse.de>
+References: <20210812183433.6330-1-vitalyr@opensource.cirrus.com>
+ <20210812183433.6330-2-vitalyr@opensource.cirrus.com>
+ <s5h1r6xlvrs.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ Stefan Binding <sbinding@opensource.cirrus.com>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,27 +97,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 13 Aug 2021 13:34:02 +0200,
-Damien Zammit wrote:
+On Fri, 13 Aug 2021 08:10:47 +0200,
+Takashi Iwai wrote:
 > 
-> This adds a second mixer control to Digidesign Mbox
-> to select between Analog/SPDIF capture.
+> On Thu, 12 Aug 2021 20:34:33 +0200,
+> Vitaly Rodionov wrote:
+> > 
+> > From: Stefan Binding <sbinding@opensource.cirrus.com>
+> > 
+> > During reboot, when the CS42L42 powers down, pops and clicks
+> > may occur due to the codec not being shutdown gracefully.
+> > This can be fixed by going through the suspend sequence,
+> > which shuts down the codec cleanly inside the reboot_notify
+> > hook, which is called on reboot.
+> > 
+> > Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+> > Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
 > 
-> Users will note that selecting the SPDIF input source
-> automatically switches the clock mode to sync to SPDIF,
-> which is a feature of the hardware.
+> I hold this one for now, as there is a fix series that deprecates the
+> reboot_notify callback of HD-audio by forcibly doing runtime-suspend
+> at shutdown.  Please check the three patches in
+>   https://bugzilla.kernel.org/show_bug.cgi?id=214045
 > 
-> (You can change the clock source back to internal if you want
-> to capture from spdif but not sync to its clock although this mode
-> is probably not recommended).
-> 
-> Unfortunately, starting the stream resets both modes
-> to Internally clocked and Analog input mode.
-> 
-> Signed-off-by: Damien Zammit <damien@zamaudio.com>
-> Tested-by: Damien Zammit <damien@zamaudio.com>
+> I'm going to submit those soon in anyway.
 
-Thanks, applied now.
+The removal of reboot_notifier landed in my for-next branch now.
+Please rebase and adapt the changes appropriately.  In short, the
+runtime suspend is applied at the shutdown, so the workaround is
+needed only for suspend.
 
+
+thanks,
 
 Takashi

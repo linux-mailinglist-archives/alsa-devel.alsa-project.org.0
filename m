@@ -2,82 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86ED73EC0FB
-	for <lists+alsa-devel@lfdr.de>; Sat, 14 Aug 2021 08:43:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2D8D3EC18B
+	for <lists+alsa-devel@lfdr.de>; Sat, 14 Aug 2021 11:13:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0025A17CD;
-	Sat, 14 Aug 2021 08:42:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0025A17CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC198179B;
+	Sat, 14 Aug 2021 11:12:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC198179B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1628923418;
-	bh=096/3vIrkzGJ4P6/BT96g5hdNK5KfNMrpZ+R9llgpaQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1628932386;
+	bh=siHcT+7aC7YWPuDXHag/aUpnEMGtgoxRTOAnlbWoF2M=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mWg2tlOr03uFSbv4amuFZNDLjQq39j8g5tc/4m6/Hzvo6GNtesGX1rw+O7joRbnJA
-	 5x/cE/6KBpeIyFQwNyWuJuQdz2LrkZGEz6AotqgVCO83RfKCvWERQtly3/w05ot/S+
-	 zN459mlZfS8BlxQLAEwuvkglXt/k/4SKD/a+PIOk=
+	b=U4FkGx/kfJkkLGx7r+zogS9TNfv6UiC2q1RpjMQuL1BeFg2qyi0VI/JSFOdRvEuL3
+	 eqYT1DwaNdLp27cRlYn7euOMmo+83dYHl22sRHYXFSuqpjxlCwtU9qyUShhDAYG4f3
+	 t24D5TJv7xzsgy7dx6WNY8oSBR1TtlkgHLj0dbYA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF986F804BB;
-	Sat, 14 Aug 2021 08:42:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2A24F80279;
+	Sat, 14 Aug 2021 11:11:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 32E2BF804B1; Sat, 14 Aug 2021 08:42:26 +0200 (CEST)
+ id 5B8BFF8025D; Sat, 14 Aug 2021 11:11:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com
+ [209.85.222.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED96AF8025D
- for <alsa-devel@alsa-project.org>; Sat, 14 Aug 2021 08:42:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED96AF8025D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="XWHifQsX"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="T1P1Usdw"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id EE35422147;
- Sat, 14 Aug 2021 06:42:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1628923338; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=VtCftruiwd82OTy1PtvwvobWVRHNnnQK3ux9AXqFyXo=;
- b=XWHifQsXPE/Av1e/mtxtEJP5Pww3AFiioaOWVzWiPAUlOP+wG1f6FYADGm+ms2DXXzAMA0
- H80L4o98kSz3JNwJhFlGFBrSLO8brd859OJIDc/5b83lsVvQQVwmXvzZKJpaAWNuDtgEJo
- iUKO5l3fZ6Lrs37JoVtg53s7BR4bk74=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1628923338;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=VtCftruiwd82OTy1PtvwvobWVRHNnnQK3ux9AXqFyXo=;
- b=T1P1UsdwggRcr4ROdsgQYb3Ks026jIxsnpLfg3pkRh7di2Ze9R41veLVPd7W/6Wu0FirFG
- NPgJ5aLXFv6EcXCg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id D4D21A3B85;
- Sat, 14 Aug 2021 06:42:18 +0000 (UTC)
-Date: Sat, 14 Aug 2021 08:42:18 +0200
-Message-ID: <s5ha6lkil2t.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH] ALSA: pcm: Add SNDRV_PCM_INFO_EXPLICIT_SYNC flag
-In-Reply-To: <20210813082142.5375-1-tiwai@suse.de>
-References: <20210813082142.5375-1-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3A660F800BB
+ for <alsa-devel@alsa-project.org>; Sat, 14 Aug 2021 11:11:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A660F800BB
+Received: by mail-ua1-f44.google.com with SMTP id m39so5414795uad.9
+ for <alsa-devel@alsa-project.org>; Sat, 14 Aug 2021 02:11:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=nS2GBUaZJqdSBV6ll8beKF35e+BRExfjUT6JLRFqePs=;
+ b=JFcmK/rf0zSfrW2L4Kjv2QTOIWoDJ9JzX77YoSeW3VcoG+THex+fwYBf647FKW3fnU
+ lnzGHoGdfIeLyl7A6QDZkjHb4g1DPrtsDIyA9FNnsy7tZwtOhWff9qybc6SrSZw8mjGm
+ p7r7iImiGHc9F7o6ev6fcELExdHyTgPxINc+hb+aOmx1wrfWFcfl+Z37vm5xXIkxuhbf
+ fFXDEOv8cC/s9lSTUlOnrwGoUHaCGrOpCtU/lDA40d+L4ZZswsNO96YoGZKIpJsBboth
+ hgPo5+1nsB6muwWlGpjmRoJLg/UDc9vsgxAEo9vazk1EDJBN+DcrvmyTx0v10Sbhd2Af
+ 3/9g==
+X-Gm-Message-State: AOAM533Bs19GB6Bc+1/WewVUbAnkPrDyL86giq4ST78W3T5i3b1LHD3f
+ h1YZ2cBwjsaKSi3hobikmSbj2JuGJA9pbZpmRcE=
+X-Google-Smtp-Source: ABdhPJwDZ92lrh+CYuLTZSHlHS4ZHH7Rm08fcznOaAAqNrX88dRPlmVucjpDawgMaoLwq6WOgO2xuYqn0lpv41Vl01E=
+X-Received: by 2002:ab0:6887:: with SMTP id t7mr4505712uar.114.1628932275340; 
+ Sat, 14 Aug 2021 02:11:15 -0700 (PDT)
+MIME-Version: 1.0
+References: <20210806102930.3024-1-biju.das.jz@bp.renesas.com>
+ <20210806102930.3024-3-biju.das.jz@bp.renesas.com>
+ <CAMuHMdVnU4HSXCr08WEiVmYCNoRBcdZGOfS7mwmS_euo2RZaEA@mail.gmail.com>
+ <YRbSHw9X51Nif/Sd@robh.at.kernel.org>
+In-Reply-To: <YRbSHw9X51Nif/Sd@robh.at.kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Sat, 14 Aug 2021 11:11:03 +0200
+Message-ID: <CAMuHMdXipSxTTEtiAYrZNXz6POzB9C_qaRUv+KXYtUS+DeGzug@mail.gmail.com>
+Subject: Re: [PATCH v4 2/3] ASoC: dt-bindings: sound: renesas,rz-ssi: Update
+ slave dma channel configuration parameters
+To: Rob Herring <robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Biju Das <biju.das@bp.renesas.com>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Chris Paterson <Chris.Paterson2@renesas.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>, Chris Brandt <chris.brandt@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,31 +95,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 13 Aug 2021 10:21:42 +0200,
-Takashi Iwai wrote:
-> 
-> ALSA PCM core has an optimized way to communicate with user-space for
-> its control and status data via mmap on the supported architectures
-> like x86.  Depending on the situation, however, we'd rather want to
-> enforce user-space notifying the applptr or hwptr change explicitly
-> via ioctl.  For example, the upcoming non-contig and non-coherent
-> buffer handling would need an explicit sync, and this needs to catch
-> the applptr and hwptr changes.  Also, ASoC SOF driver will have the
-> SPIB support that has the similar requirement for the explicit control
-> of the applptr and hwptr.
-> 
-> This patch adds the new PCM hardware info flag,
-> SNDRV_PCM_INFO_EXPLICIT_SYNC.  When this flag is set, PCM core
-> disables both the control and the status mmap, which enforces
-> user-space to update via SYNC_PTR ioctl.  In that way, drivers can
-> catch the applptr and hwptr update and apply the sync operation if
-> needed.
-> 
-> Link: https://lore.kernel.org/r/20210812113818.6479-1-tiwai@suse.de
-> Link: https://lore.kernel.org/r/20210610205326.1176400-1-pierre-louis.bossart@linux.intel.com
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Hi Rob,
 
-Now merged to for-next branch.
+On Fri, Aug 13, 2021 at 10:12 PM Rob Herring <robh@kernel.org> wrote:
+> On Mon, Aug 09, 2021 at 02:57:33PM +0200, Geert Uytterhoeven wrote:
+> > On Fri, Aug 6, 2021 at 12:29 PM Biju Das <biju.das.jz@bp.renesas.com> wrote:
+> > > The DMAC driver on RZ/G2L expects the slave channel configuration
+> > > to be passed in dmas property.
+> > > This patch updates the example node to include the encoded slave
+> > > channel configuration.
+> > >
+> > > Fixes: 5df6dfbb6de815ba3a("ASoC: dt-bindings: sound: renesas,rz-ssi: Document DMA support")
+> > > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> > > Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> >
+> > > v3->v4:
+> > >  * Updated bindings as the DMAC driver on RZ/G2L expects the
+> > >    slave channel configuration to be passed in dmas property.
+> >
+> > Thanks for the update!
+> >
+> > > --- a/Documentation/devicetree/bindings/sound/renesas,rz-ssi.yaml
+> > > +++ b/Documentation/devicetree/bindings/sound/renesas,rz-ssi.yaml
+> > > @@ -93,8 +93,8 @@ examples:
+> > >              clock-names = "ssi", "ssi_sfr", "audio_clk1", "audio_clk2";
+> > >              power-domains = <&cpg>;
+> > >              resets = <&cpg R9A07G044_SSI0_RST_M2_REG>;
+> > > -            dmas = <&dmac 0x255>,
+> > > -                   <&dmac 0x256>;
+> > > +            dmas = <&dmac 0x2655>,
+> > > +                   <&dmac 0x2656>;
+> > >              dma-names = "tx", "rx";
+> > >              #sound-dai-cells = <0>;
+> > >      };
+> >
+> > I think it would be good to describe the expected format in the description
+> > for the dmas property, so the DTS writer knows what the numerical
+> > values in the example really mean.
+>
+> Yes, but that's a property of the DMA controller binding, not this one.
+> It could vary from chip to chip.
 
+Right, unlike the other Renesas SoCs, RZ/G2L uses the normal DMAC for
+audio, not an audio-specific one.
 
-Takashi
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

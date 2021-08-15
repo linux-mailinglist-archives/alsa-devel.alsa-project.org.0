@@ -2,87 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 461BB3EC855
-	for <lists+alsa-devel@lfdr.de>; Sun, 15 Aug 2021 11:21:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24D8A3ECA19
+	for <lists+alsa-devel@lfdr.de>; Sun, 15 Aug 2021 17:53:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2C461729;
-	Sun, 15 Aug 2021 11:21:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2C461729
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC9D8171E;
+	Sun, 15 Aug 2021 17:53:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC9D8171E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629019317;
-	bh=+2U65Iu2KedVVjCWuP8OP9dKPSarUvhE2umALz+ZbyY=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=MCVGUuIof43htZMfBGYsnEt+LzaIiOfaLL+PteITw2mmEbzvOW/HCSozKGKVkvoGS
-	 09WJPEcb+Rmfo1k7v/qlk8ysiUX6W6FLvbhKXpU24q8k922O/l9BohvZxF2QdoiKlD
-	 Pp9zs0QojzRGM7p6UWPjVAX1FIHCBBrLehKQ5vbw=
+	s=default; t=1629042833;
+	bh=0uJVMlwrOn8GpNBQepSCmTmGaUQwONgnnej/6xijOak=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=SZhNUjWCALFyCbSOhSu4TE9elHKmjr0qq6SfrVKU2Uw46i4jzRErcuJ55LR8jtaba
+	 osjHPlkmyoFmdtXyjnaOC9Ry3ex85zZkDvVREIcTjna3MTrbsf8JvqV4YsY2yvYcbS
+	 tIiE+MKKoyNw9RVi3Bsei1gWhw+r8tqCNBPBqH6c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2628AF80301;
-	Sun, 15 Aug 2021 11:20:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BEC0CF804E5;
+	Sun, 15 Aug 2021 17:51:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3613BF80272; Sun, 15 Aug 2021 11:20:28 +0200 (CEST)
+ id 2010EF8026D; Sun, 15 Aug 2021 17:51:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E96C3F800AF
- for <alsa-devel@alsa-project.org>; Sun, 15 Aug 2021 11:20:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E96C3F800AF
+ by alsa1.perex.cz (Postfix) with ESMTPS id E760DF80301
+ for <alsa-devel@alsa-project.org>; Sun, 15 Aug 2021 17:49:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E760DF80301
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="UXeFQoDZ"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="0N5XH1G+"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id A149621F81;
- Sun, 15 Aug 2021 09:20:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1629019216; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=VWHJXr8LZmGJbQ83bnEQO4WAj6GdUgXOoLBUutZq494=;
- b=UXeFQoDZ0eUlbLqQdilOhBhPmqjUK7KLZAJgY6iLOci4SDBwIR67285SpbzgmPrDlrVLd4
- WOErA8yBn1fH34GjNftoLzuDzpEmziwxRpY9Jpk+R2ay/SDORS94Y4jvcWecB8RHi0o8vi
- /CM5bB31MRWFunB4zmG90BPp2g+OUKI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1629019216;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=VWHJXr8LZmGJbQ83bnEQO4WAj6GdUgXOoLBUutZq494=;
- b=0N5XH1G+96cLf5aihvmJW9SBJiyS//afbMb7gn4X+yPt0W9g8aN4tvGJnWZewKZ2xMalR8
- K6rem/5tpKlPbBCA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 7932DA3B83;
- Sun, 15 Aug 2021 09:20:16 +0000 (UTC)
-Date: Sun, 15 Aug 2021 11:20:16 +0200
-Message-ID: <s5hy293gj3j.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: =?UTF-8?B?6JeN5oy655GL?= <lantw44@gmail.com>
-Subject: Re: [REGRESSION] "ALSA: HDA: Early Forbid of runtime PM" broke my
- laptop's internal audio
-In-Reply-To: <ac2232f142efcd67fe6ac38897f704f7176bd200.camel@gmail.com>
-References: <s5h7dnvlgg8.wl-tiwai@suse.de>
- <ac2232f142efcd67fe6ac38897f704f7176bd200.camel@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="NIfpyZq0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1629042584;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=cIv7mto7K0oCtVLPCfzcb2rfaoAVLQfQfdk+mXsMgdw=;
+ b=NIfpyZq0l99aHssTZGmLUeJ/n+wDY0lCe2tldBPe+JcY+AlueJMs3/cubm5eGBN2jIq6uk
+ qhPHRhSnXfch+NEKtHeHEXi3sxAcPa988Y2AhLA3v5a69qXkvL5QRCOqN2CRtQuNvY2+EW
+ SimJxuC+LxxwejD1KPeCAKvyp02Gl+E=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-341-KVKfU4SINTWlOJb0m5f2uQ-1; Sun, 15 Aug 2021 11:49:41 -0400
+X-MC-Unique: KVKfU4SINTWlOJb0m5f2uQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 893F1185302F;
+ Sun, 15 Aug 2021 15:49:39 +0000 (UTC)
+Received: from x1.localdomain (unknown [10.39.192.57])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 0F98960871;
+ Sun, 15 Aug 2021 15:49:36 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
+Subject: [PATCH 0/5] ASoC: Intel/rt5640: Add support for HP Elite Pad 1000G2
+ jack-detect
+Date: Sun, 15 Aug 2021 17:49:30 +0200
+Message-Id: <20210815154935.101178-1-hdegoede@redhat.com>
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, harshapriya.n@intel.com, tiwai@suse.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, kai.vehmanen@intel.com,
- mcatanzaro@redhat.com
+Content-Type: text/plain; charset="US-ASCII"
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
+ Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,37 +95,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 14 Aug 2021 16:02:36 +0200,
-藍挺瑋 wrote:
-> 
-> I am not sure if I should join this old thread, but it seems that I saw the same
-> issue on my ASUS B23E laptop. It couldn't produce any sound after upgrading to
-> Linux 5.10, and 'git bisect' shows it was broken by the same commit
-> a0645daf16101bb9a6d87598c17e9a8b7bd60ea7.
-> 
-> I have tested the latest master branch (v5.14-rc4-322-gcceb634774ef) last week.
-> It still had no sound. If I reverted the broken commit, sound worked.
+The HP Elitepad 1000 G2 tablet has 2 headset jacks:
 
-> 
-> alsa-info from the broken kernel:
-> https://gist.github.com/lantw44/0660e059c488e3ff3d841bb03b371866
-> 
-> alsa-info from the working kernel:
-> https://gist.github.com/lantw44/9367f425e4f5ba98cf12343cb90f3301
+1. on the dock which uses the output of the codecs built-in HP-amp +
+the standard IN2 input which is always used with the headset-jack.
 
-Thanks for the report.  A quick workaround be a patch like below.
-Could you verify whether it fixes the problem?
+2. on the tablet itself, this uses the line-out of the codec + an external
+HP-amp, which gets enabled by the ALC5642 codec's GPIO1 pin; and IN1 for
+the headset-mic.
+
+The codec's GPIO1 is also its only IRQ output pin, so this means that
+the codec's IRQ cannot be used on this tablet. Instead the jack-detect
+is connected directly to GPIOs on the main SoC. The dock has a helper
+chip which also detects if a headset-mic is present or not, so there
+are 2 GPIOs for the jack-detect status of the dock. The tablet jack
+uses a single GPIO which indicates if a jack is present or not.
+
+Differentiating between between headphones vs a headset on the tablet jack
+is done by using the usual mic-bias over-current-detection mechanism.
+
+Regards,
+
+Hans
 
 
-Takashi
+Hans de Goede (5):
+  ASoC: rt5640: Move rt5640_disable_jack_detect() up in the rt5640.c
+    file
+  ASoC: rt5640: Delay requesting IRQ until the machine-drv calls
+    set_jack
+  ASoC: rt5640: Add optional hp_det_gpio parameter to
+    rt5640_detect_headset()
+  ASoC: rt5640: Add rt5640_set_ovcd_params() helper
+  ASoC: Intel: bytcr_rt5640: Add support for HP Elite Pad 1000G2
+    jack-detect
 
---- a/sound/pci/hda/patch_via.c
-+++ b/sound/pci/hda/patch_via.c
-@@ -1041,6 +1041,7 @@ static const struct hda_fixup via_fixups[] = {
- };
- 
- static const struct snd_pci_quirk vt2002p_fixups[] = {
-+	SND_PCI_QUIRK(0x1043, 0x13f7, "Asus B23E", VIA_FIXUP_POWER_SAVE),
- 	SND_PCI_QUIRK(0x1043, 0x1487, "Asus G75", VIA_FIXUP_ASUS_G75),
- 	SND_PCI_QUIRK(0x1043, 0x8532, "Asus X202E", VIA_FIXUP_INTMIC_BOOST),
- 	SND_PCI_QUIRK_VENDOR(0x1558, "Clevo", VIA_FIXUP_POWER_SAVE),
+ sound/soc/codecs/rt5640.c             | 133 ++++++++++++-----------
+ sound/soc/codecs/rt5640.h             |   6 ++
+ sound/soc/intel/boards/bytcr_rt5640.c | 146 +++++++++++++++++++++++++-
+ 3 files changed, 225 insertions(+), 60 deletions(-)
+
+-- 
+2.31.1
+

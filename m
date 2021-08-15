@@ -2,83 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB9453EC7FD
-	for <lists+alsa-devel@lfdr.de>; Sun, 15 Aug 2021 09:35:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 461BB3EC855
+	for <lists+alsa-devel@lfdr.de>; Sun, 15 Aug 2021 11:21:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E4CB17A5;
-	Sun, 15 Aug 2021 09:34:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E4CB17A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id C2C461729;
+	Sun, 15 Aug 2021 11:21:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2C461729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629012924;
-	bh=IoxXG1Gvclu4tMqIY3TSBjUOaqpriks1LzPDAsqN68E=;
+	s=default; t=1629019317;
+	bh=+2U65Iu2KedVVjCWuP8OP9dKPSarUvhE2umALz+ZbyY=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SdkWvxzKGnEDN6Ps8L5LoA60uMhXinZ6eTNhfkRxvFXRmiIJhDx1WWWYMvZOW4N+F
-	 Q5RrD4mmYX/L73EZJit5VEQNdGEopEOUaDkDmgOdV3DmFVnCiA7A8aP+bmKNdXEwn/
-	 GoyOmVU5aALvY7cew9JiWB7QE/C/XyJ/LkZx4Btc=
+	b=MCVGUuIof43htZMfBGYsnEt+LzaIiOfaLL+PteITw2mmEbzvOW/HCSozKGKVkvoGS
+	 09WJPEcb+Rmfo1k7v/qlk8ysiUX6W6FLvbhKXpU24q8k922O/l9BohvZxF2QdoiKlD
+	 Pp9zs0QojzRGM7p6UWPjVAX1FIHCBBrLehKQ5vbw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42039F8051E;
-	Sun, 15 Aug 2021 09:31:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2628AF80301;
+	Sun, 15 Aug 2021 11:20:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D77C8F80272; Sun, 15 Aug 2021 09:31:55 +0200 (CEST)
+ id 3613BF80272; Sun, 15 Aug 2021 11:20:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02685F80524
- for <alsa-devel@alsa-project.org>; Sun, 15 Aug 2021 09:30:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02685F80524
+ by alsa1.perex.cz (Postfix) with ESMTPS id E96C3F800AF
+ for <alsa-devel@alsa-project.org>; Sun, 15 Aug 2021 11:20:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E96C3F800AF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="yN9qjr74"; 
+ header.b="UXeFQoDZ"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="VB0Z+o90"
+ header.b="0N5XH1G+"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id D443821FA2;
- Sun, 15 Aug 2021 07:30:49 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id A149621F81;
+ Sun, 15 Aug 2021 09:20:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1629012649; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1629019216; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=fQu1Y0kxtEnpxUwvGLssrYAMhEy0FrOA3iD90t/w9Zk=;
- b=yN9qjr74IDs+wJ+QSTHaPbRVzlfR130BViKyGd6DNF9Sa29nJbtom/EV2M9Rmim1dVD1/a
- giTOKoZEJwMvhXvopk9Iy+Hecv7C0nIbI/Qo32G1i8hmqaqlpGZ5F1RT/TtZjmaap/0dPm
- 9yNsPTEYxEEEvUYBR4fIYlYQeim8CzA=
+ bh=VWHJXr8LZmGJbQ83bnEQO4WAj6GdUgXOoLBUutZq494=;
+ b=UXeFQoDZ0eUlbLqQdilOhBhPmqjUK7KLZAJgY6iLOci4SDBwIR67285SpbzgmPrDlrVLd4
+ WOErA8yBn1fH34GjNftoLzuDzpEmziwxRpY9Jpk+R2ay/SDORS94Y4jvcWecB8RHi0o8vi
+ /CM5bB31MRWFunB4zmG90BPp2g+OUKI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1629012649;
+ s=susede2_ed25519; t=1629019216;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=fQu1Y0kxtEnpxUwvGLssrYAMhEy0FrOA3iD90t/w9Zk=;
- b=VB0Z+o90fU42qneGrVb0LKXG+fWNgB7XwLSsvGbw1a90qAx1XZSDt7ST2FCq7nfvZKGB0x
- 41MsLULR9FttM/Aw==
+ bh=VWHJXr8LZmGJbQ83bnEQO4WAj6GdUgXOoLBUutZq494=;
+ b=0N5XH1G+96cLf5aihvmJW9SBJiyS//afbMb7gn4X+yPt0W9g8aN4tvGJnWZewKZ2xMalR8
+ K6rem/5tpKlPbBCA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id B2F5FA3B83;
- Sun, 15 Aug 2021 07:30:49 +0000 (UTC)
-Date: Sun, 15 Aug 2021 09:30:49 +0200
-Message-ID: <s5h1r6vi2qe.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 7932DA3B83;
+ Sun, 15 Aug 2021 09:20:16 +0000 (UTC)
+Date: Sun, 15 Aug 2021 11:20:16 +0200
+Message-ID: <s5hy293gj3j.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Kristin Paget <kristin@tombom.co.uk>
-Subject: Re: [PATCH] ALSA: hda/realtek: Enable 4-speaker output for Dell XPS
- 15 9510 laptop
-In-Reply-To: <e1fc95c5-c10a-1f98-a5c2-dd6e336157e1@tombom.co.uk>
-References: <e1fc95c5-c10a-1f98-a5c2-dd6e336157e1@tombom.co.uk>
+To: =?UTF-8?B?6JeN5oy655GL?= <lantw44@gmail.com>
+Subject: Re: [REGRESSION] "ALSA: HDA: Early Forbid of runtime PM" broke my
+ laptop's internal audio
+In-Reply-To: <ac2232f142efcd67fe6ac38897f704f7176bd200.camel@gmail.com>
+References: <s5h7dnvlgg8.wl-tiwai@suse.de>
+ <ac2232f142efcd67fe6ac38897f704f7176bd200.camel@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, harshapriya.n@intel.com, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, kai.vehmanen@intel.com,
+ mcatanzaro@redhat.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,19 +98,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 15 Aug 2021 00:46:05 +0200,
-Kristin Paget wrote:
+On Sat, 14 Aug 2021 16:02:36 +0200,
+藍挺瑋 wrote:
 > 
-> The 2021-model XPS 15 appears to use the same 4-speakers-on-ALC289 audio
-> setup as the Precision models, so requires the same quirk to enable woofer
-> output. Tested on my own 9510.
+> I am not sure if I should join this old thread, but it seems that I saw the same
+> issue on my ASUS B23E laptop. It couldn't produce any sound after upgrading to
+> Linux 5.10, and 'git bisect' shows it was broken by the same commit
+> a0645daf16101bb9a6d87598c17e9a8b7bd60ea7.
 > 
-> Signed-off-by: Kristin Paget <kristin@tombom.co.uk>
+> I have tested the latest master branch (v5.14-rc4-322-gcceb634774ef) last week.
+> It still had no sound. If I reverted the broken commit, sound worked.
 
-It seems that your MUA broken the patch (tabs converted to spaces).
-Since it's a trivial oneliner, I applied manually.  But for the next
-time, please try to fix your MUA setup.
+> 
+> alsa-info from the broken kernel:
+> https://gist.github.com/lantw44/0660e059c488e3ff3d841bb03b371866
+> 
+> alsa-info from the working kernel:
+> https://gist.github.com/lantw44/9367f425e4f5ba98cf12343cb90f3301
 
-Thanks!
+Thanks for the report.  A quick workaround be a patch like below.
+Could you verify whether it fixes the problem?
+
 
 Takashi
+
+--- a/sound/pci/hda/patch_via.c
++++ b/sound/pci/hda/patch_via.c
+@@ -1041,6 +1041,7 @@ static const struct hda_fixup via_fixups[] = {
+ };
+ 
+ static const struct snd_pci_quirk vt2002p_fixups[] = {
++	SND_PCI_QUIRK(0x1043, 0x13f7, "Asus B23E", VIA_FIXUP_POWER_SAVE),
+ 	SND_PCI_QUIRK(0x1043, 0x1487, "Asus G75", VIA_FIXUP_ASUS_G75),
+ 	SND_PCI_QUIRK(0x1043, 0x8532, "Asus X202E", VIA_FIXUP_INTMIC_BOOST),
+ 	SND_PCI_QUIRK_VENDOR(0x1558, "Clevo", VIA_FIXUP_POWER_SAVE),

@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D886C3ECDEA
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 07:05:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF33E3ECDD8
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 06:59:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F16816F5;
-	Mon, 16 Aug 2021 06:57:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F16816F5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F8291701;
+	Mon, 16 Aug 2021 06:58:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F8291701
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629089911;
-	bh=sEAqrevb1X4UW7gM3UVfJE/SRcUbsBfOWT89noNyQd4=;
+	s=default; t=1629089937;
+	bh=wdzfLyo8a/18dOZx9nnJ7uFouvOcwJD28rY/kgDgmRU=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ClOSKhOjldapC8OqALMJom0Cu7HLPKeLMp1dnSvktaXntp1AK1YsxrbpB7yY8741J
-	 lyQMT/155ody/8JoTFloXlADqJk7YcG/dLzx7PX24d8AilKREAnkUWPYFCK7trwFvb
-	 Topwg3kZBf50aDRtzMjx2z3PE/paPMrJ1lFQvx1Q=
+	b=GkSom0hiDztwBA/w8XBzdOPskpHQuzLhZkSldgpq1m0nJnstgc8OXQPsCBRfAmEmm
+	 K3FnaBXKlBpIuha7TQeKm2a6ysR88IdEjlQEMkt0mgvLTWAsrrHWbbzZbx/z3PT5sK
+	 QxOnW5E+ZL4vFfk0TaDm+TX3PcYZ4AaZ3G0fQAFg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 538D5F804E6;
-	Mon, 16 Aug 2021 06:56:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2DD90F804F3;
+	Mon, 16 Aug 2021 06:56:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 60615F804E3; Mon, 16 Aug 2021 06:56:04 +0200 (CEST)
+ id 40A69F804EB; Mon, 16 Aug 2021 06:56:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 51B68F80259
- for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 06:55:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51B68F80259
-Date: 16 Aug 2021 13:55:56 +0900
-X-IronPort-AV: E=Sophos;i="5.84,324,1620658800"; d="scan'208";a="90751743"
+ by alsa1.perex.cz (Postfix) with ESMTP id 45B2BF80134
+ for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 06:56:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45B2BF80134
+Date: 16 Aug 2021 13:56:01 +0900
+X-IronPort-AV: E=Sophos;i="5.84,324,1620658800"; d="scan'208";a="90751748"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 16 Aug 2021 13:55:56 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 16 Aug 2021 13:56:01 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 910164001948;
- Mon, 16 Aug 2021 13:55:56 +0900 (JST)
-Message-ID: <87zgtiyomb.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 82A2F40041AC;
+ Mon, 16 Aug 2021 13:56:01 +0900 (JST)
+Message-ID: <87y292yom6.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 3/9] ASoC: soc-generic-dmaengine-pcm: cleanup cppcheck warning
- at dmaengine_copy_user()
+Subject: [PATCH 4/9] ASoC: soc-dai: cleanup cppcheck warning at
+ snd_soc_dai_link_set_capabilities()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <874kbq0z0p.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,35 +72,47 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below cppcheck warning.
 
-sound/soc/soc-generic-dmaengine-pcm.c:310:6: style: The scope of the variable 'ret' can be reduced. [variableScope]
- int ret;
-     ^
+sound/soc/soc-dai.c:454:7: style: The scope of the variable 'supported_cpu' can be reduced. [variableScope]
+ bool supported_cpu;
+      ^
+sound/soc/soc-dai.c:455:7: style: The scope of the variable 'supported_codec' can be reduced. [variableScope]
+ bool supported_codec;
+      ^
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-generic-dmaengine-pcm.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/soc-dai.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
-index 24b240783cf1..4aa48c74f21a 100644
---- a/sound/soc/soc-generic-dmaengine-pcm.c
-+++ b/sound/soc/soc-generic-dmaengine-pcm.c
-@@ -305,14 +305,13 @@ static int dmaengine_copy_user(struct snd_soc_component *component,
- 	bool is_playback = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
- 	void *dma_ptr = runtime->dma_area + hwoff +
- 			channel * (runtime->dma_bytes / runtime->channels);
--	int ret;
+diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
+index a56dcc8d6fb7..a4e1c27a4ed2 100644
+--- a/sound/soc/soc-dai.c
++++ b/sound/soc/soc-dai.c
+@@ -492,18 +492,16 @@ bool snd_soc_dai_stream_valid(struct snd_soc_dai *dai, int dir)
+  */
+ void snd_soc_dai_link_set_capabilities(struct snd_soc_dai_link *dai_link)
+ {
+-	struct snd_soc_dai_link_component *cpu;
+-	struct snd_soc_dai_link_component *codec;
+-	struct snd_soc_dai *dai;
+ 	bool supported[SNDRV_PCM_STREAM_LAST + 1];
+-	bool supported_cpu;
+-	bool supported_codec;
+ 	int direction;
+-	int i;
  
- 	if (is_playback)
- 		if (copy_from_user(dma_ptr, buf, bytes))
- 			return -EFAULT;
+ 	for_each_pcm_streams(direction) {
+-		supported_cpu = false;
+-		supported_codec = false;
++		struct snd_soc_dai_link_component *cpu;
++		struct snd_soc_dai_link_component *codec;
++		struct snd_soc_dai *dai;
++		bool supported_cpu = false;
++		bool supported_codec = false;
++		int i;
  
- 	if (process) {
--		ret = process(substream, channel, hwoff, (__force void *)buf, bytes);
-+		int ret = process(substream, channel, hwoff, (__force void *)buf, bytes);
- 		if (ret < 0)
- 			return ret;
- 	}
+ 		for_each_link_cpus(dai_link, i, cpu) {
+ 			dai = snd_soc_find_dai_with_mutex(cpu);
 -- 
 2.25.1
 

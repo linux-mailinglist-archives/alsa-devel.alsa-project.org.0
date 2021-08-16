@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01F9A3ECDF8
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 07:21:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2DAD3ECDE3
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 07:00:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 76AB3171D;
-	Mon, 16 Aug 2021 07:08:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76AB3171D
+	by alsa0.perex.cz (Postfix) with ESMTPS id EFC861726;
+	Mon, 16 Aug 2021 06:59:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFC861726
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629090550;
-	bh=Bgo2d07SdWbKLR4HiUVkIPOJfdikpO7o6q+kWWJfxMk=;
+	s=default; t=1629090002;
+	bh=XCAA0+TFl29DV3XXBzOU2SxiMN7yMe9vLyBZR2Z1CGY=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RCyyThf2Hr2CGSYB+ynfpiR9NCDIa9zHo8QrYCUBfLCTg+EftVNl+VDNNJPmwA/On
-	 2WAtGZjRF93VGRE8TfMKFP2bRZWFic2IAY/57LuMnWFjVRoWw1AmzES7L6f8vPLYyD
-	 rdaBmJuxKs546kneiqvBoQXuMQMX50oWGwZQDUn0=
+	b=B1mY2+x79V9qBSR3lDPIijxRBhw7s2LbM/W1f1trzzJuV8ESm70TY7k13qvVFplKE
+	 M4r5x1+veuWsOPcjqc9BozEo/ULkyQoa+ZnWA362TfL6s4xqFkYnIb4qGj1SA4Y9EM
+	 XRj9JW0rstfGTuOjb1QZM43Biqsoups7Jh01J2Wk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22C49F80506;
-	Mon, 16 Aug 2021 06:56:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E136F80246;
+	Mon, 16 Aug 2021 06:56:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65333F80506; Mon, 16 Aug 2021 06:56:19 +0200 (CEST)
+ id 26F57F80516; Mon, 16 Aug 2021 06:56:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 8A715F804FC
- for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 06:56:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A715F804FC
-Date: 16 Aug 2021 13:56:10 +0900
-X-IronPort-AV: E=Sophos;i="5.84,324,1620658800"; d="scan'208";a="90751764"
+ by alsa1.perex.cz (Postfix) with ESMTP id 867D7F804FD
+ for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 06:56:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 867D7F804FD
+Date: 16 Aug 2021 13:56:15 +0900
+X-IronPort-AV: E=Sophos;i="5.84,324,1620658800"; d="scan'208";a="90751769"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 16 Aug 2021 13:56:10 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 16 Aug 2021 13:56:15 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 8F13541B5C0B;
- Mon, 16 Aug 2021 13:56:10 +0900 (JST)
-Message-ID: <87v946yolx.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 15B3041B5990;
+ Mon, 16 Aug 2021 13:56:15 +0900 (JST)
+Message-ID: <87tujqyols.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 6/9] ASoC: soc-jack: cleanup cppcheck warning at
- snd_soc_jack_report()
+Subject: [PATCH 7/9] ASoC: soc-jack: cleanup cppcheck warning for
+ CONFIG_GPIOLIB
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <874kbq0z0p.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,36 +72,48 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below cppcheck warning.
 
-sound/soc/soc-jack.c:45:6: style: The scope of the variable 'enable' can be reduced. [variableScope]
- int enable;
+sound/soc/soc-jack.c:21:6: style: struct member 'jack_gpio_tbl::count' is never used. [unusedStructMember]
+ int count;
      ^
+sound/soc/soc-jack.c:23:28: style: struct member 'jack_gpio_tbl::gpios' is never used. [unusedStructMember]
+ struct snd_soc_jack_gpio *gpios;
+                           ^
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-jack.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/soc-jack.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/sound/soc/soc-jack.c b/sound/soc/soc-jack.c
-index 0f1820f36b4d..11961e35ad02 100644
+index 11961e35ad02..d798765d168c 100644
 --- a/sound/soc/soc-jack.c
 +++ b/sound/soc/soc-jack.c
-@@ -42,7 +42,6 @@ void snd_soc_jack_report(struct snd_soc_jack *jack, int status, int mask)
- 	struct snd_soc_dapm_context *dapm;
- 	struct snd_soc_jack_pin *pin;
- 	unsigned int sync = 0;
--	int enable;
+@@ -17,12 +17,6 @@
+ #include <linux/suspend.h>
+ #include <trace/events/asoc.h>
  
- 	if (!jack)
- 		return;
-@@ -58,7 +57,7 @@ void snd_soc_jack_report(struct snd_soc_jack *jack, int status, int mask)
- 	trace_snd_soc_jack_notify(jack, status);
+-struct jack_gpio_tbl {
+-	int count;
+-	struct snd_soc_jack *jack;
+-	struct snd_soc_jack_gpio *gpios;
+-};
+-
+ /**
+  * snd_soc_jack_report - Report the current status for a jack
+  *
+@@ -207,6 +201,12 @@ void snd_soc_jack_notifier_unregister(struct snd_soc_jack *jack,
+ EXPORT_SYMBOL_GPL(snd_soc_jack_notifier_unregister);
  
- 	list_for_each_entry(pin, &jack->pins, list) {
--		enable = pin->mask & jack->status;
-+		int enable = pin->mask & jack->status;
- 
- 		if (pin->invert)
- 			enable = !enable;
+ #ifdef CONFIG_GPIOLIB
++struct jack_gpio_tbl {
++	int count;
++	struct snd_soc_jack *jack;
++	struct snd_soc_jack_gpio *gpios;
++};
++
+ /* gpio detect */
+ static void snd_soc_jack_gpio_detect(struct snd_soc_jack_gpio *gpio)
+ {
 -- 
 2.25.1
 

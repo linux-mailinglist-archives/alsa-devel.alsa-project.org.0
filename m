@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F0233ECDD5
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 06:57:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F2383ECE23
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 07:50:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2890E16CD;
-	Mon, 16 Aug 2021 06:56:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2890E16CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD6F916E8;
+	Mon, 16 Aug 2021 06:57:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD6F916E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629089868;
-	bh=3L6RNVVdYgLc3LPu4Pjz9RCx8JcYZQQKanswYab91sM=;
+	s=default; t=1629089886;
+	bh=nuJAsdhRU6GW/E8ThlqpZMJ7gA0fYB0WJcQtMOfvXEM=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U7jtGtKCkblIh2jVgt/3wXgvxPssO1yIXjOMKUnsvG9Q/qAmedNeKgwibK5ulk7DO
-	 P5q32/1TYaReWxU2g1e4707uU0iz5Hkp4pspmlAGbsIHALPQCfCMJgrG6kO7LjHbCw
-	 JBf4JlDwY5fdl6bhVzn2ca/1YtW7FjramREhluEI=
+	b=CJVg1HlXJITHe8ZCSZMO4oLf7/Yo791VY7Ki5bq3PtNQwRQ014jRu3pTZzinaosPM
+	 znMzIO6QF6ADMXQJ3LBAeD7VGdHykKQbMnyURpALrdSYAO8feab7i8sFUsOF4FnEnU
+	 MskU7r7J5YbeTyaYHtZsXJfxKRguO0FlQzBdAHU4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44E55F804AC;
-	Mon, 16 Aug 2021 06:56:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D37C4F804E1;
+	Mon, 16 Aug 2021 06:56:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 39FA0F802C8; Mon, 16 Aug 2021 06:55:58 +0200 (CEST)
+ id 1D937F804E1; Mon, 16 Aug 2021 06:56:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 23DA3F80259
- for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 06:55:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23DA3F80259
-Date: 16 Aug 2021 13:55:44 +0900
-X-IronPort-AV: E=Sophos;i="5.84,324,1620658800"; d="scan'208";a="90751717"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 48A33F80134
+ for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 06:55:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48A33F80134
+Date: 16 Aug 2021 13:55:51 +0900
+X-IronPort-AV: E=Sophos;i="5.84,324,1620658800"; d="scan'208";a="90740471"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 16 Aug 2021 13:55:44 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 16 Aug 2021 13:55:51 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 7971D4001948;
- Mon, 16 Aug 2021 13:55:44 +0900 (JST)
-Message-ID: <8735ra0yzz.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 742914001948;
+ Mon, 16 Aug 2021 13:55:51 +0900 (JST)
+Message-ID: <871r6u0yzs.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/9] ASoC: soc-generic-dmaengine-pcm: cleanup cppcheck warning
- at dmaengine_pcm_hw_params()
+Subject: [PATCH 2/9] ASoC: soc-generic-dmaengine-pcm: cleanup cppcheck warning
+ at dmaengine_pcm_new()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <874kbq0z0p.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,9 +72,9 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below cppcheck warning.
 
-sound/soc/soc-generic-dmaengine-pcm.c:82:6: style: The scope of the variable 'ret' can be reduced. [variableScope]
- int ret;
-     ^
+sound/soc/soc-generic-dmaengine-pcm.c:233:28: style: The scope of the variable 'substream' can be reduced. [variableScope]
+ struct snd_pcm_substream *substream;
+                           ^
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
@@ -82,25 +82,25 @@ Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
  1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
-index 9ef80a48707e..9949db4649f4 100644
+index 9949db4649f4..24b240783cf1 100644
 --- a/sound/soc/soc-generic-dmaengine-pcm.c
 +++ b/sound/soc/soc-generic-dmaengine-pcm.c
-@@ -79,7 +79,6 @@ static int dmaengine_pcm_hw_params(struct snd_soc_component *component,
- 			struct snd_pcm_hw_params *params,
- 			struct dma_slave_config *slave_config);
- 	struct dma_slave_config slave_config;
--	int ret;
+@@ -229,7 +229,6 @@ static int dmaengine_pcm_new(struct snd_soc_component *component,
+ 	struct dmaengine_pcm *pcm = soc_component_to_pcm(component);
+ 	const struct snd_dmaengine_pcm_config *config = pcm->config;
+ 	struct device *dev = component->dev;
+-	struct snd_pcm_substream *substream;
+ 	size_t prealloc_buffer_size;
+ 	size_t max_buffer_size;
+ 	unsigned int i;
+@@ -243,7 +242,7 @@ static int dmaengine_pcm_new(struct snd_soc_component *component,
+ 	}
  
- 	memset(&slave_config, 0, sizeof(slave_config));
- 
-@@ -89,7 +88,7 @@ static int dmaengine_pcm_hw_params(struct snd_soc_component *component,
- 		prepare_slave_config = pcm->config->prepare_slave_config;
- 
- 	if (prepare_slave_config) {
--		ret = prepare_slave_config(substream, params, &slave_config);
-+		int ret = prepare_slave_config(substream, params, &slave_config);
- 		if (ret)
- 			return ret;
+ 	for_each_pcm_streams(i) {
+-		substream = rtd->pcm->streams[i].substream;
++		struct snd_pcm_substream *substream = rtd->pcm->streams[i].substream;
+ 		if (!substream)
+ 			continue;
  
 -- 
 2.25.1

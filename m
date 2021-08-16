@@ -2,69 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14D4E3EDD42
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 20:41:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B16E43EDCC5
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 20:03:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A895C16BF;
-	Mon, 16 Aug 2021 20:41:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A895C16BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 463A416A5;
+	Mon, 16 Aug 2021 20:03:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 463A416A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629139315;
-	bh=2Ub8Ku+h4nm9vHBqpQP9yfo9PXbtBQpBRJmRgyeSeJE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=pgR2iHeRpLsL3SoBC/zZdInoGU2i7sNN3w0eW7yVz4rc2rBmC+Fs28jIkhf9QQGUA
-	 FmV5ue3YPYddGYGONYWvAQJqIqD0UIDwdjsU7TH1X50AYMNwkFkiOkHVBWyBoUe9R6
-	 JbrqcPaI+kZ/7p8uRiZYZOqQSe+SfbiHh3rtyEGc=
+	s=default; t=1629137032;
+	bh=B2jyaNj79A42m28exuRget68ed7+1u8WgVhr2RwnPkY=;
+	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=A4FRmvFQrOTQnOap1suDW2PtB7xmdsYg/NHsNZwljnrBJcZK+UD3GrHJhbDlESXec
+	 j2/vxiLqWXP1mS0g1ExhW1+NEk89K5LcNAptbsV3VHWKgIgYxNuYh/gPIy0vnk46gE
+	 Pzl7zQq0SDZ8/8hYvM8REByueqeSWI1Mv7tb2P88=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72C6DF804E1;
-	Mon, 16 Aug 2021 20:39:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C145CF80259;
+	Mon, 16 Aug 2021 20:02:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E577FF804DA; Mon, 16 Aug 2021 20:39:55 +0200 (CEST)
+ id 65662F80249; Mon, 16 Aug 2021 20:02:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_03_06,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 15F68F80134
- for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 20:39:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15F68F80134
-X-IronPort-AV: E=McAfee;i="6200,9189,10078"; a="195501391"
-X-IronPort-AV: E=Sophos;i="5.84,326,1620716400"; d="scan'208";a="195501391"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2021 11:39:43 -0700
-X-IronPort-AV: E=Sophos;i="5.84,326,1620716400"; d="scan'208";a="470893283"
-Received: from vmartin1-mobl1.amr.corp.intel.com (HELO [10.212.120.166])
- ([10.212.120.166])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2021 11:39:43 -0700
-Subject: Re: [PATCH] ASoC: Intel: bytcr_rt5640: Use cfg-lineout:2 in the
- components string
-To: Hans de Goede <hdegoede@redhat.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-References: <20210816114722.107363-1-hdegoede@redhat.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <98e5c033-93d4-1d80-6770-914af26da6eb@linux.intel.com>
-Date: Mon, 16 Aug 2021 08:32:59 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.11.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id C945EF80154
+ for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 20:02:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C945EF80154
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="YozBxOdS"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BFC3160462;
+ Mon, 16 Aug 2021 18:02:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1629136934;
+ bh=B2jyaNj79A42m28exuRget68ed7+1u8WgVhr2RwnPkY=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=YozBxOdSA4wdQxQTcgrxfYHbJVGLAIgbuqAJW5BL25XSn5gcEXpkSTERuIKdJIv4w
+ EdRxQ2e59ucRTjQqaY05rKXCb1t18D9/dTpg5TNNisvhs5ci9Q39hi4FhuFMdt/kR8
+ CwLhCdaKRIZdkPC2oHPJ4lOzHT/NhIvtNXkOsHtFpoNHl+f5rCrOuHq8qW1v1Gc3QI
+ yIAz8+EVKnuRXWeAdwNkjg/8+6kjeKdfD9O4+qBtkCZ5zFbXwOwFAnuUYB+Wae9y5l
+ BV4B2Sw7PwvrkzsLSQYgHQAdAqplCWFHIJHPz6mwnl5mf+uhNYXv5AdjJ9QyCsF0NQ
+ KQ7QQmXDLhfSw==
+Date: Mon, 16 Aug 2021 13:02:12 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Aakash Hemadri <aakashhemadri123@gmail.com>
+Subject: Re: [PATCH 1/2] ASoC: tegra30: ahub: Use of_device_get_match_data
+Message-ID: <20210816180212.GA2933142@bjorn-Precision-5520>
 MIME-Version: 1.0
-In-Reply-To: <20210816114722.107363-1-hdegoede@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e568d621c9c05ee23732a6a6f9e3606a780b1707.1628971397.git.aakashhemadri123@gmail.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Bjorn Helgaas <bjorn@helgaas.com>, Mark Brown <broonie@kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-tegra@vger.kernel.org, Jonathan Hunter <jonathanh@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,41 +80,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 8/16/21 6:47 AM, Hans de Goede wrote:
-> Use "cfg-lineout:2" in the components string on boards with a lineout
-> instead of "cfg-lineout:1", this better mirrors the speaker part of
-> the components string where we use "cfg-spk:1" for devices with a single
-> speaker and "cfg-spk:2" for stereo speakers.
+On Sun, Aug 15, 2021 at 01:42:18AM +0530, Aakash Hemadri wrote:
+> Prefer `of_device_get_match_data` over `of_match_device`
 > 
-> The lineout is stereo by default, so using ":2" makes more sense, this
-> way we keep ":1" reserved in case we ever encounter a device with
-> a mono lineout.
+> Retrieve OF match data using `of_device_get_match_data`, this is cleaner
+> and better expresses intent.
 > 
-> We can make this change without breaking userspace because no kernel
-> has shipped with "cfg-lineout:1" in the component-string yet; and there
-> also are no userspace bits (UCM profiles) checking for this yet.
-> 
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
+> Signed-off-by: Aakash Hemadri <aakashhemadri123@gmail.com>
 > ---
->  sound/soc/intel/boards/bytcr_rt5640.c | 2 +-
+>  sound/soc/tegra/tegra30_ahub.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-> index 369642c07a5d..f79234f49c7c 100644
-> --- a/sound/soc/intel/boards/bytcr_rt5640.c
-> +++ b/sound/soc/intel/boards/bytcr_rt5640.c
-> @@ -1688,7 +1688,7 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
->  		if (byt_rt5640_quirk & BYT_RT5640_LINEOUT_AS_HP2)
->  			lineout_string = " cfg-hp2:lineout";
->  		else
-> -			lineout_string = " cfg-lineout:1";
-> +			lineout_string = " cfg-lineout:2";
->  	}
+> diff --git a/sound/soc/tegra/tegra30_ahub.c b/sound/soc/tegra/tegra30_ahub.c
+> index b3e1df693381..0ac109b32329 100644
+> --- a/sound/soc/tegra/tegra30_ahub.c
+> +++ b/sound/soc/tegra/tegra30_ahub.c
+> @@ -518,7 +518,7 @@ static int tegra30_ahub_probe(struct platform_device *pdev)
+>  	void __iomem *regs_apbif, *regs_ahub;
+>  	int ret = 0;
 >  
->  	if (byt_rt5640_quirk & BYT_RT5640_HSMIC2_ON_IN1)
+> -	match = of_match_device(tegra30_ahub_of_match, &pdev->dev);
+> +	match = of_device_get_match_data(&pdev->dev);
+
+I think this is incorrect.
+
+  const struct of_device_id *of_match_device(...)
+  const void *of_device_get_match_data(...)
+
+of_match_device() returns "struct of_device_id *", i.e., "match".
+
+of_device_get_match_data() calls of_match_device() internally, then
+returns "match->data".
+
+>  	if (!match)
+>  		return -EINVAL;
+>  	soc_data = match->data;
+> -- 
+> 2.32.0
 > 

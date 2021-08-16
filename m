@@ -2,63 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 358413ECDC2
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 06:35:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DEEF3ECDE9
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 07:04:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B51D116CB;
-	Mon, 16 Aug 2021 06:34:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B51D116CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id AEE4E1764;
+	Mon, 16 Aug 2021 07:03:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEE4E1764
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629088512;
-	bh=rt8ijjUIfaCvw1EVT6ZsW4fFYMcdyq2hScRTUuBID+Y=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Io4DCSipaOLrfOj2q3BFA770pQjtpcXYToDKOmzp4X1w0H0qt5GG86TIuGdMSXGOz
-	 jKDZTBtRoAs8DZVPqlAICEMnHYdJwbNMNMI9DW0ejqlamAf27WdstvmGY5VhaeN/dW
-	 16sYzOuBs/RUMycpxsJZMdcHYT61VOEII3LO5QzM=
+	s=default; t=1629090249;
+	bh=0qnkchoEcLAV2jkf4s8Z6VVVkcGurjS80skHkp/YyAY=;
+	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=DH7nzHFUZTUNvxvOldKEmdNuGiDbiaTurmcgUoJGBCZJ+XJOtS8oFAkM7icCREJ8+
+	 +vgwsoJVOPeg1IGz/y9b2csBFN9owqUAtm/Vas1WhbuI8JD3WQ8vPBWM4Xct65x8qJ
+	 STOY2Gb6M0ZrWf3/+v/4X3SJdekciWEiW3Rw1JmA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9709BF80259;
-	Mon, 16 Aug 2021 06:33:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D393AF80154;
+	Mon, 16 Aug 2021 06:55:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1DA98F80249; Mon, 16 Aug 2021 06:33:35 +0200 (CEST)
+ id 45D8FF80249; Mon, 16 Aug 2021 06:55:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 7D407F80154
- for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 06:33:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D407F80154
-Date: 16 Aug 2021 13:33:22 +0900
-X-IronPort-AV: E=Sophos;i="5.84,324,1620658800"; d="scan'208";a="90749727"
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.4 required=5.0 tests=AC_FROM_MANY_DOTS,
+ KHOP_HELO_FCRDNS,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 8A819F80154
+ for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 06:55:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A819F80154
+Date: 16 Aug 2021 13:55:18 +0900
+X-IronPort-AV: E=Sophos;i="5.84,324,1620658800"; d="scan'208";a="90740420"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 16 Aug 2021 13:33:22 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 16 Aug 2021 13:55:18 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 12DD741AE7B8;
- Mon, 16 Aug 2021 13:33:22 +0900 (JST)
-Message-ID: <875yw61019.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 419A141B597E;
+ Mon, 16 Aug 2021 13:55:18 +0900 (JST)
+Message-ID: <874kbq0z0p.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v2 09/14] ASoC: audio-graph-card2: add Yaml Document
-In-Reply-To: <20210813194325.GH5209@sirena.org.uk>
-References: <87a6mhwyqn.wl-kuninori.morimoto.gx@renesas.com>
- <87wnplvk2a.wl-kuninori.morimoto.gx@renesas.com>
- <CAL_JsqJKZ-sjbnihAkdXDk4tW8xVmyhwkHLHWouZg6da0cc99g@mail.gmail.com>
- <87lf60v9xk.wl-kuninori.morimoto.gx@renesas.com>
- <20210721115433.GB4259@sirena.org.uk>
- <87fsw124wn.wl-kuninori.morimoto.gx@renesas.com>
- <20210803165328.GO4668@sirena.org.uk>
- <87mtpyuj8c.wl-kuninori.morimoto.gx@renesas.com>
- <20210804171748.GC26252@sirena.org.uk>
- <875ywkvkkd.wl-kuninori.morimoto.gx@renesas.com>
- <20210813194325.GH5209@sirena.org.uk>
+Subject: [PATCH 0/9] ASoC: soc-xxx: cleanup cppcheck warning
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+To: Mark Brown <broonie@kernel.org>
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>
@@ -80,33 +67,30 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Hi Mark
 
-Thank you for your feedback.
+Now I'm posting audio-graph-card2 patch-set, but it seems it needs longer
+discussion. Thus I want to post more easy patch first, and reduce my
+local patches.
 
-> > rich-graph-card, or rich-link-card is nice for me.
-> Yeah, let's go with that for now.
+These are cppcheck warning cleanup patches for soc-xxx.
 
-OK, thanks.
+Kuninori Morimoto (9):
+  ASoC: soc-generic-dmaengine-pcm: cleanup cppcheck warning at dmaengine_pcm_hw_params()
+  ASoC: soc-generic-dmaengine-pcm: cleanup cppcheck warning at dmaengine_pcm_new()
+  ASoC: soc-generic-dmaengine-pcm: cleanup cppcheck warning at dmaengine_copy_user()
+  ASoC: soc-dai: cleanup cppcheck warning at snd_soc_dai_link_set_capabilities()
+  ASoC: soc-dai: cleanup cppcheck warning at snd_soc_pcm_dai_new()
+  ASoC: soc-jack: cleanup cppcheck warning at snd_soc_jack_report()
+  ASoC: soc-jack: cleanup cppcheck warning for CONFIG_GPIOLIB
+  ASoC: soc-component: cleanup cppcheck warning at snd_soc_pcm_component_pm_runtime_get()
+  ASoC: soc-ac97: cleanup cppcheck warning
 
-> Can we merge some of these types - for example what happens if we get a
-> CODEC to CODEC link with TDM (eg, a DSP with a link to two mono speakers).
-> I think we should at least be able to merge TDM with anything else, I
-> guess we could have all three if we had a DPCM SoC with two CODECs on a
-> single link though that feels a bit pathological.
+ sound/soc/soc-ac97.c                  | 14 ++++++--------
+ sound/soc/soc-component.c             |  4 ++--
+ sound/soc/soc-dai.c                   | 18 ++++++++----------
+ sound/soc/soc-generic-dmaengine-pcm.c |  9 +++------
+ sound/soc/soc-jack.c                  | 15 +++++++--------
+ 5 files changed, 26 insertions(+), 34 deletions(-)
 
-Hmm... good question.
-I need to double-check it before posting v3.
+-- 
+2.25.1
 
-For this kind of "complex connection", "DT sample" which can be
-easily use/test is very helpful for user I hope.
-
-> I think you're understanding it right - I'm using DSP to mean a SoC
-> needing DPCM because of the DSP here, sorry that wasn't the clearest way
-> to describe things.
-
-OK, complex enough :)
-
-Thank you for your help !!
-
-Best regards
----
-Kuninori Morimoto

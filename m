@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E4803ECDE2
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 07:00:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01F9A3ECDF8
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 07:21:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8131916DC;
-	Mon, 16 Aug 2021 06:58:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8131916DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 76AB3171D;
+	Mon, 16 Aug 2021 07:08:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76AB3171D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629089981;
-	bh=hyrEaLuWOUJWQ98kn31b8n+jcB6+Mou3uma5nE0bAYQ=;
+	s=default; t=1629090550;
+	bh=Bgo2d07SdWbKLR4HiUVkIPOJfdikpO7o6q+kWWJfxMk=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jk1MAHBKRllcufq2gg15GDtZ8FPQ9uQtnd9OvxA0N24+PwAZVqdmOFKwb4UBvpyL9
-	 hriESmRj6RwRez05CJNUMLNVFdTq+9cDODDLVq3duBWGSn5/EtyD9plp7r8ADP+wux
-	 syvqw23s/kuIehg32jn9zZeKdZa1GIA17F71TLA8=
+	b=RCyyThf2Hr2CGSYB+ynfpiR9NCDIa9zHo8QrYCUBfLCTg+EftVNl+VDNNJPmwA/On
+	 2WAtGZjRF93VGRE8TfMKFP2bRZWFic2IAY/57LuMnWFjVRoWw1AmzES7L6f8vPLYyD
+	 rdaBmJuxKs546kneiqvBoQXuMQMX50oWGwZQDUn0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C3E89F80510;
+	by alsa1.perex.cz (Postfix) with ESMTP id 22C49F80506;
 	Mon, 16 Aug 2021 06:56:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 84802F804FF; Mon, 16 Aug 2021 06:56:19 +0200 (CEST)
+ id 65333F80506; Mon, 16 Aug 2021 06:56:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 5EB76F804E5
- for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 06:56:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EB76F804E5
-Date: 16 Aug 2021 13:56:06 +0900
-X-IronPort-AV: E=Sophos;i="5.84,324,1620658800"; d="scan'208";a="90740492"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 16 Aug 2021 13:56:06 +0900
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 8A715F804FC
+ for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 06:56:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A715F804FC
+Date: 16 Aug 2021 13:56:10 +0900
+X-IronPort-AV: E=Sophos;i="5.84,324,1620658800"; d="scan'208";a="90751764"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 16 Aug 2021 13:56:10 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 158384001948;
- Mon, 16 Aug 2021 13:56:06 +0900 (JST)
-Message-ID: <87wnomyom1.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 8F13541B5C0B;
+ Mon, 16 Aug 2021 13:56:10 +0900 (JST)
+Message-ID: <87v946yolx.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 5/9] ASoC: soc-dai: cleanup cppcheck warning at
- snd_soc_pcm_dai_new()
+Subject: [PATCH 6/9] ASoC: soc-jack: cleanup cppcheck warning at
+ snd_soc_jack_report()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <874kbq0z0p.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,33 +72,36 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below cppcheck warning.
 
-sound/soc/soc-dai.c:553:13: style: Variable 'ret' is assigned a value that is never used. [unreadVariable]
- int i, ret = 0;
-            ^
+sound/soc/soc-jack.c:45:6: style: The scope of the variable 'enable' can be reduced. [variableScope]
+ int enable;
+     ^
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-dai.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/soc-jack.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
-index a4e1c27a4ed2..3db0fcf24385 100644
---- a/sound/soc/soc-dai.c
-+++ b/sound/soc/soc-dai.c
-@@ -595,11 +595,11 @@ int snd_soc_pcm_dai_remove(struct snd_soc_pcm_runtime *rtd, int order)
- int snd_soc_pcm_dai_new(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct snd_soc_dai *dai;
--	int i, ret = 0;
-+	int i;
+diff --git a/sound/soc/soc-jack.c b/sound/soc/soc-jack.c
+index 0f1820f36b4d..11961e35ad02 100644
+--- a/sound/soc/soc-jack.c
++++ b/sound/soc/soc-jack.c
+@@ -42,7 +42,6 @@ void snd_soc_jack_report(struct snd_soc_jack *jack, int status, int mask)
+ 	struct snd_soc_dapm_context *dapm;
+ 	struct snd_soc_jack_pin *pin;
+ 	unsigned int sync = 0;
+-	int enable;
  
- 	for_each_rtd_dais(rtd, i, dai) {
- 		if (dai->driver->pcm_new) {
--			ret = dai->driver->pcm_new(rtd, dai);
-+			int ret = dai->driver->pcm_new(rtd, dai);
- 			if (ret < 0)
- 				return soc_dai_ret(dai, ret);
- 		}
+ 	if (!jack)
+ 		return;
+@@ -58,7 +57,7 @@ void snd_soc_jack_report(struct snd_soc_jack *jack, int status, int mask)
+ 	trace_snd_soc_jack_notify(jack, status);
+ 
+ 	list_for_each_entry(pin, &jack->pins, list) {
+-		enable = pin->mask & jack->status;
++		int enable = pin->mask & jack->status;
+ 
+ 		if (pin->invert)
+ 			enable = !enable;
 -- 
 2.25.1
 

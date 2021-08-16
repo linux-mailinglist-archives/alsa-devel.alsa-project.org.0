@@ -2,96 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93D3F3EDF2D
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 23:17:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FB353EE02A
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Aug 2021 01:01:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3583283A;
-	Mon, 16 Aug 2021 23:16:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3583283A
+	by alsa0.perex.cz (Postfix) with ESMTPS id EF1A983A;
+	Tue, 17 Aug 2021 01:00:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF1A983A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629148646;
-	bh=kU1dHfBGIiB+lL6u/dWeJXq07GEDV0GGo5cTgY7VwJg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=oA9Ks87L/sI28mVlS6IVCc+NGf9PI65rN6qzOObvHr/uKRNxTcppFwWABIeQdSiTx
-	 7Xswq30aeclpTPEAlvfW8AkUEkmIQBNdaatHN4DXzxWORWOMNUCC3ToMF564yH4dY1
-	 M9HN7gfA9iUc8H3//VCHmBxVOs+0JN95DhvqADAA=
+	s=default; t=1629154905;
+	bh=i2ad8iQTltMdfxnYefRgjdo4D3sFI6KPoJma10uoHFo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=FBoTghcVhk4YUUhETjpPtfrECEGZIztdH1rlDwt2lvsyVAtSt0TFs57hppKdRh4Az
+	 /0i0laHQHg40vvWPdKn31b+I/CAt3uFVDaGryPNT9xMmEodp902DtAjYRpcuT1IMlE
+	 P7byKlrmAFjbP3cVVo/+VvTRKayITcnFtc0R1JII=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15D93F804E7;
-	Mon, 16 Aug 2021 23:15:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 211E8F80249;
+	Tue, 17 Aug 2021 01:00:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 139FCF804E5; Mon, 16 Aug 2021 23:15:24 +0200 (CEST)
+ id B44EBF80249; Tue, 17 Aug 2021 01:00:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE, URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
- [IPv6:2607:f8b0:4864:20::102b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7F05EF8028D
- for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 23:15:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F05EF8028D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 55ECEF800AF
+ for <alsa-devel@alsa-project.org>; Tue, 17 Aug 2021 01:00:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55ECEF800AF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="t4xoxQNZ"
-Received: by mail-pj1-x102b.google.com with SMTP id
- u13-20020a17090abb0db0290177e1d9b3f7so1036173pjr.1
- for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 14:15:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=g1dC/n65USYYjusFSHlK9vgvBZI+Oht+fJhBix7TCeM=;
- b=t4xoxQNZT+ddH/5CyxnTOTAsIOrlFK0h8YIrmhdRIIzq6YqwuYzLmD42x5ufOdt2Kh
- Qjz+yojzhOH+R2Cqvujce8uwq4FQ4yKFuZZ4tWTqbh+Mzm6oOzk485L6ViKdzQRJrK8k
- vrcOIX6Vi10mJirmOboPGb1aJLkvwNJyPUjquLbdSyOy3w3e/0Sr/kIFfXhu6GFwBqGk
- B5knjVopEOwgh63nDkMMLz1TrLO+TgsXvnhcM9ZkxQtB7o4pM+A0Q04hKsvcNTLXD6Tr
- GKVEitBx67K+T66SO1CNCAm61aLGbE6ZsnI2HmOc8bhSzI26WuyNC6Dp/meCt06I+Wfn
- +FSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=g1dC/n65USYYjusFSHlK9vgvBZI+Oht+fJhBix7TCeM=;
- b=r3l8ivzD3JnKW+tU7Q4p8YAug/4E/1XAHcPbaMhCa1yrxBHJF2mhIOfxud/xGEALYA
- EvNFzodFAH34pcoaAambFmGs89bOHifGl1j6OcHsTb9XmXMj8ht0Eei6Szwxh2CKZsGg
- DaOeN1oybL829/Aw4H90Wl0Joy8NnV5u5rExh/AqnBYDS5ceGGEcQveflH3oYF+Lqk0E
- 3LmdatU3bH7AR1AV9zjLoCKm2fRocDudWr4IEmXJ8gw1feAXQdmJ4b3PY7ebRFFpPGpI
- rDjcjBNAwzjZgisnAiAwTv0ha9JQkCZCAtuhvufJCAON5fkLA3YxBGuMUhkDtTP7OD2o
- 5SwQ==
-X-Gm-Message-State: AOAM533CHk1KvmA/jO4++Gb6KUQMJ1ke7AT5W+j2+h94oliX3ywigk3D
- Nff2U6RMhgUEp/xunP39jVs=
-X-Google-Smtp-Source: ABdhPJxjLEm08f2XZOAIRQkKqH3kneBQs/5LROljNjO6HNA+l0EUm6jIrU0DDbEv3pH+REERz2pRUQ==
-X-Received: by 2002:a17:90a:ee91:: with SMTP id
- i17mr605327pjz.67.1629148512230; 
- Mon, 16 Aug 2021 14:15:12 -0700 (PDT)
-Received: from xps.yggdrasil ([49.207.137.16])
- by smtp.gmail.com with ESMTPSA id b12sm103154pff.63.2021.08.16.14.15.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Aug 2021 14:15:11 -0700 (PDT)
-From: Aakash Hemadri <aakashhemadri123@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH 2/2] ASoC: tegra30: i2s: Fix incorrect usage of
- of_device_get_match_data
-Date: Tue, 17 Aug 2021 02:44:52 +0530
-Message-Id: <4805c7fcd35c8deada63d41cb34d40de80f85a13.1629148177.git.aakashhemadri123@gmail.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <cover.1629148177.git.aakashhemadri123@gmail.com>
-References: <cover.1629148177.git.aakashhemadri123@gmail.com>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="IQV6NobS"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 17GMH11A010018; 
+ Mon, 16 Aug 2021 18:00:04 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=KhkIL0a5tMDNUUmg02BWrUu4qUrxwlPyl/qc6Jugidw=;
+ b=IQV6NobS4MbpNq4rcf6uX6wIa/PS/vuOufU56VdOKRMMEzoY49zyIeHHzDBgrCtbWpix
+ sJCqa6w6M9gqKhwIXC6eYGlPDbgZVxFytaQfkcxWZrd/lCNhKZj5YV6ouuzQlqgYJ+um
+ LcNSptbrJvBmcvC//HNvj1etKpdWyFxzxWYtvYt5m2nZhcnFUyeFuHeONVHZLKUa9am3
+ Nx31QL12+/T2bxdhUc6cwYBsRvLeL/qeV2X2NBL/JQYeStGKOMWy+yv7ujUteJ+ONQY0
+ RTw2ATIFZLLSrOpl1CyVPeYQJFS1ymGQD6LeGX7KhYDJ5JFuj8NxC0M6weuq1DNQ9eQR tQ== 
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0a-001ae601.pphosted.com with ESMTP id 3ag0ngg184-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 16 Aug 2021 18:00:04 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 16 Aug
+ 2021 23:45:00 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.12 via
+ Frontend Transport; Mon, 16 Aug 2021 23:45:00 +0100
+Received: from localhost.localdomain (unknown [141.131.77.62])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 09B802A9;
+ Mon, 16 Aug 2021 22:44:58 +0000 (UTC)
+From: David Rhodes <drhodes@opensource.cirrus.com>
+To: <broonie@kernel.org>, <robh@kernel.org>, <ckeepax@opensource.cirrus.com>, 
+ <brian.austin@cirrus.com>, <patches@opensource.cirrus.com>,
+ <alsa-devel@alsa-project.org>, <david.rhodes@cirrus.com>,
+ <pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH v5 0/2] Cirrus Logic CS35L41 Amplifier
+Date: Mon, 16 Aug 2021 17:43:08 -0500
+Message-ID: <20210816224310.344931-1-drhodes@opensource.cirrus.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Bjorn Helgaas <bjorn@helgaas.com>, Thierry Reding <thierry.reding@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Shuah Khan <skhan@linuxfoundation.org>,
- linux-tegra@vger.kernel.org
+Content-Type: text/plain
+X-Proofpoint-GUID: bYbf7-VQFxESIlNoR7zQq7qqjlElDoEp
+X-Proofpoint-ORIG-GUID: bYbf7-VQFxESIlNoR7zQq7qqjlElDoEp
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ lowpriorityscore=0 suspectscore=0
+ impostorscore=0 mlxlogscore=999 clxscore=1015 bulkscore=0 malwarescore=0
+ mlxscore=0 spamscore=0 adultscore=0 phishscore=0 priorityscore=1501
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2107140000
+ definitions=main-2108160143
+Cc: David Rhodes <drhodes@opensource.cirrus.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,49 +102,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-const struct of_device_id incorrectly assigned "match->data" using
-    of_device_get_match_data()
+ASoC driver and devicetree documentation for a new
+Cirrus Logic amplifier CS35L41
 
-Instead assign `const struct tegra30_i2s_soc_data *soc_data` with
-const void *of_device_get_match_data(...)
+v5 changes:
+Reverse xmas-tree style for declarations
+At probe, regulator enable before handle pdata
+At probe, set pdata before component registration
+Remove several DT properties and implement as mixer controls
+Remove some unnecessary NULL inits in otp_unpack
+Revise license header style
 
-Fixes: 356b94a32a75 ("ASoC: tegra30: i2s: Use of_device_get_match_data")
+David Rhodes (2):
+  ASoC: cs35l41: CS35L41 Boosted Smart Amplifier
+  ASoC: cs35l41: Add bindings for CS35L41
 
-Signed-off-by: Aakash Hemadri <aakashhemadri123@gmail.com>
----
- sound/soc/tegra/tegra30_i2s.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ .../devicetree/bindings/sound/cs35l41.yaml    |  162 ++
+ include/sound/cs35l41.h                       |   35 +
+ sound/soc/codecs/Kconfig                      |   12 +
+ sound/soc/codecs/Makefile                     |    4 +
+ sound/soc/codecs/cs35l41-i2c.c                |  115 ++
+ sound/soc/codecs/cs35l41-spi.c                |  144 ++
+ sound/soc/codecs/cs35l41-tables.c             |  611 +++++++
+ sound/soc/codecs/cs35l41.c                    | 1587 +++++++++++++++++
+ sound/soc/codecs/cs35l41.h                    |  774 ++++++++
+ 9 files changed, 3444 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/cs35l41.yaml
+ create mode 100644 include/sound/cs35l41.h
+ create mode 100644 sound/soc/codecs/cs35l41-i2c.c
+ create mode 100644 sound/soc/codecs/cs35l41-spi.c
+ create mode 100644 sound/soc/codecs/cs35l41-tables.c
+ create mode 100644 sound/soc/codecs/cs35l41.c
+ create mode 100644 sound/soc/codecs/cs35l41.h
 
-diff --git a/sound/soc/tegra/tegra30_i2s.c b/sound/soc/tegra/tegra30_i2s.c
-index d4c5594efaf1..084a533bf4f2 100644
---- a/sound/soc/tegra/tegra30_i2s.c
-+++ b/sound/soc/tegra/tegra30_i2s.c
-@@ -406,7 +406,7 @@ static const struct of_device_id tegra30_i2s_of_match[] = {
- static int tegra30_i2s_platform_probe(struct platform_device *pdev)
- {
- 	struct tegra30_i2s *i2s;
--	const struct of_device_id *match;
-+	const struct tegra30_i2s_soc_data *soc_data;
- 	u32 cif_ids[2];
- 	void __iomem *regs;
- 	int ret;
-@@ -418,13 +418,13 @@ static int tegra30_i2s_platform_probe(struct platform_device *pdev)
- 	}
- 	dev_set_drvdata(&pdev->dev, i2s);
- 
--	match = of_device_get_match_data(&pdev->dev);
--	if (!match) {
-+	soc_data = of_device_get_match_data(&pdev->dev);
-+	if (!soc_data) {
- 		dev_err(&pdev->dev, "Error: No device match found\n");
- 		ret = -ENODEV;
- 		goto err;
- 	}
--	i2s->soc_data = (struct tegra30_i2s_soc_data *)match->data;
-+	i2s->soc_data = soc_data;
- 
- 	i2s->dai = tegra30_i2s_dai_template;
- 	i2s->dai.name = dev_name(&pdev->dev);
 -- 
-2.32.0
+2.25.1
 

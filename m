@@ -2,50 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 842773ECE16
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 07:35:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 699673ECDE5
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 07:01:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B46F1711;
-	Mon, 16 Aug 2021 07:08:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B46F1711
+	by alsa0.perex.cz (Postfix) with ESMTPS id 16FED1745;
+	Mon, 16 Aug 2021 06:59:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16FED1745
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629090549;
-	bh=Ih38F/duR40nrm14B8UlMbSvOfXv6e++HJDGYIfZPio=;
+	s=default; t=1629090045;
+	bh=apEs6HibL5RXzFybGOqF/ACZHVaDDA0E530dXp1wFPY=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=N+YMgCnQeVw88tBdltH/PWBGPN3PBsPE6O4/eGDWIBKh01JZaM3Jf4gv9NlHEd1BU
-	 QQ8trqyKSBkr/hrrz0SinGlxUtaVMv/VNDrWYRNGYHz6cF95f3TQcZl3gvYdLyQFYZ
-	 nx4pL60JljHJjH3wgjNB7ZXt/JeU5nPdjoTQyB70=
+	b=RjwKYBD4T2TnmNRkg9UzXZ1Dr554hpA/fou33o8k5EVAucz9KHkR8qOfm1//fAqSW
+	 kXUZrCn/w2I2/BMfq8lKYopCc7VrtDZl0SW7ZKDiXTKSkRFWegvCo+/3wfxgl0d6KN
+	 2+fEVX35vWb3CNu7cqPB1G+tQTeeTvCKaF0kyA7Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9427EF8051A;
-	Mon, 16 Aug 2021 06:56:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BB8B2F8051D;
+	Mon, 16 Aug 2021 06:56:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0A5C7F80515; Mon, 16 Aug 2021 06:56:28 +0200 (CEST)
+ id D32EAF8051C; Mon, 16 Aug 2021 06:56:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id E0AB0F80246
- for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 06:56:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0AB0F80246
-Date: 16 Aug 2021 13:56:19 +0900
-X-IronPort-AV: E=Sophos;i="5.84,324,1620658800"; d="scan'208";a="90751776"
+ by alsa1.perex.cz (Postfix) with ESMTP id 573DDF80511
+ for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 06:56:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 573DDF80511
+Date: 16 Aug 2021 13:56:23 +0900
+X-IronPort-AV: E=Sophos;i="5.84,324,1620658800"; d="scan'208";a="90751784"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 16 Aug 2021 13:56:19 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 16 Aug 2021 13:56:23 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 6CA8841B5BE7;
- Mon, 16 Aug 2021 13:56:19 +0900 (JST)
-Message-ID: <87sfzayolo.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id D902241B5BE7;
+ Mon, 16 Aug 2021 13:56:23 +0900 (JST)
+Message-ID: <87r1euyolk.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 8/9] ASoC: soc-component: cleanup cppcheck warning at
- snd_soc_pcm_component_pm_runtime_get()
+Subject: [PATCH 9/9] ASoC: soc-ac97: cleanup cppcheck warning
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <874kbq0z0p.wl-kuninori.morimoto.gx@renesas.com>
@@ -68,36 +67,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below cppcheck warning.
 
-sound/soc/soc-component.c:1183:9: style: The scope of the variable 'ret' can be reduced. [variableScope]
- int i, ret;
-        ^
+sound/soc/soc-ac97.c:41:15: style: struct member 'snd_ac97_gpio_priv::gpios_set' is never used. [unusedStructMember]
+ unsigned int gpios_set;
+              ^
+sound/soc/soc-ac97.c:42:28: style: struct member 'snd_ac97_gpio_priv::component' is never used. [unusedStructMember]
+ struct snd_soc_component *component;
+                           ^
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-component.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/soc-ac97.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index c8dfd0de30e4..8e8d917d22f8 100644
---- a/sound/soc/soc-component.c
-+++ b/sound/soc/soc-component.c
-@@ -1171,10 +1171,10 @@ int snd_soc_pcm_component_pm_runtime_get(struct snd_soc_pcm_runtime *rtd,
- 					 void *stream)
- {
- 	struct snd_soc_component *component;
--	int i, ret;
-+	int i;
+diff --git a/sound/soc/soc-ac97.c b/sound/soc/soc-ac97.c
+index 65db083e242b..5f49e3dec3fc 100644
+--- a/sound/soc/soc-ac97.c
++++ b/sound/soc/soc-ac97.c
+@@ -34,14 +34,6 @@ struct snd_ac97_reset_cfg {
+ 	int gpio_reset;
+ };
  
- 	for_each_rtd_components(rtd, i, component) {
--		ret = pm_runtime_get_sync(component->dev);
-+		int ret = pm_runtime_get_sync(component->dev);
- 		if (ret < 0 && ret != -EACCES) {
- 			pm_runtime_put_noidle(component->dev);
- 			return soc_component_ret(component, ret);
+-struct snd_ac97_gpio_priv {
+-#ifdef CONFIG_GPIOLIB
+-	struct gpio_chip gpio_chip;
+-#endif
+-	unsigned int gpios_set;
+-	struct snd_soc_component *component;
+-};
+-
+ static struct snd_ac97_bus soc_ac97_bus = {
+ 	.ops = NULL, /* Gets initialized in snd_soc_set_ac97_ops() */
+ };
+@@ -52,6 +44,12 @@ static void soc_ac97_device_release(struct device *dev)
+ }
+ 
+ #ifdef CONFIG_GPIOLIB
++struct snd_ac97_gpio_priv {
++	struct gpio_chip gpio_chip;
++	unsigned int gpios_set;
++	struct snd_soc_component *component;
++};
++
+ static inline struct snd_soc_component *gpio_to_component(struct gpio_chip *chip)
+ {
+ 	struct snd_ac97_gpio_priv *gpio_priv = gpiochip_get_data(chip);
 -- 
 2.25.1
 

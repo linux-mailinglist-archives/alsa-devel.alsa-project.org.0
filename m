@@ -2,67 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DDCC3ED98F
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 17:10:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AAC13EDA8D
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 18:08:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1555B16AF;
-	Mon, 16 Aug 2021 17:09:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1555B16AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id E739216B5;
+	Mon, 16 Aug 2021 18:07:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E739216B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629126636;
-	bh=6HFiPE1qw6l2Lc4obceqRDiIYfM21H5OoO9p55+MIow=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=AnwYuIZp6ZaQ7TpdFQ4z2C6umqVZE93xFmJ9XxbdylRMi9/92W8Qu/6rMI8fn1Ryb
-	 Sbe1Obc0j6FqmwANQzeFrmDFq475pWFjfK9689YaGq70YdMkQVkYYRTMBMbcyJn018
-	 Q0K01qYJTTddn/fk6Udp3cxAFg0fnJW+UBNKlqNc=
+	s=default; t=1629130114;
+	bh=mEKnC2Nz/2iVluHF78TpF+3H5JmAlHswK8HO6PhUpFI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=L5x5KEv9FkWBIBtOuKp7ufHHavYXuy0F2Ze29ZcAbvKFVtG8kVifUboR3Gb1RsHY9
+	 yQ8i99HkPfEjcTuerDmV3EHV21GeMDnkrPmyoYBtUE99Grr4cVbJ/qAmKjVGuPDSBY
+	 vb8DB7u2EUfXOCYGDs0uy+fxsCZb1i6cIdsKOmDQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99454F80154;
-	Mon, 16 Aug 2021 17:09:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A78AF802BE;
+	Mon, 16 Aug 2021 18:07:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9AD95F80249; Mon, 16 Aug 2021 17:09:05 +0200 (CEST)
+ id E23E1F8028D; Mon, 16 Aug 2021 18:07:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from ns4.inleed.net (mailout4.inleed.net
+ [IPv6:2a0b:dc80:cafe:104::1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62848F80154
- for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 17:08:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62848F80154
-X-IronPort-AV: E=McAfee;i="6200,9189,10078"; a="203033967"
-X-IronPort-AV: E=Sophos;i="5.84,326,1620716400"; d="scan'208";a="203033967"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2021 08:08:49 -0700
-X-IronPort-AV: E=Sophos;i="5.84,326,1620716400"; d="scan'208";a="519684587"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.213.17.51])
- ([10.213.17.51])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2021 08:08:48 -0700
-Subject: Re: [PATCH v3 0/8] ASoC: Intel: boards: use software node API
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-References: <20210813151116.23931-1-pierre-louis.bossart@linux.intel.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <a4feb922-fe6b-1194-ac25-80f0a157ae80@intel.com>
-Date: Mon, 16 Aug 2021 17:08:45 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.12.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 58D96F800AF
+ for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 18:06:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58D96F800AF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=diwic.se header.i=@diwic.se
+ header.b="h/awexmN"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=diwic.se;
+ s=x; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:Cc:To:
+ From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:
+ References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:
+ List-Owner:List-Archive; bh=ROB3ZKTXF964yivwQ+h+oKLCMGkU/2DGLtyDZ9pRQZ0=; b=h
+ /awexmNnMpDBQV08tDH4fgqU+9NrobUsEql4CMIa2AWkaYRGumONEh0m7WbhZkhXFJJFUr+dCfPcl
+ NKHv+h5kOoh+3e26kxhfnhC9LtNA0t6ZHRcfdYopkJ0wea3CRP211CsZwOEmphJSuLuhjDGysaLAJ
+ 4uEjtH0uReB9no3gV0JQ+7kd2jV/+AswvmfJhu5IXLQEGEP0v6AWAMvXb2sqtSPFQPqbr3AXQ3i1F
+ 6R2hcCSgfQYLW13TTO1ygzBgKiU5h5P8jJ61x1Fp9IbzPbgspmb3EERF9vVz+r3s54WyxbrFLHkH2
+ yPWI7Bt+T8lDss3ASw4Uucr4daCExmlOA==;
+Received: from c83-254-143-147.bredband.tele2.se ([83.254.143.147]
+ helo=localhost.localdomain)
+ by ns4.inleed.net with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
+ (envelope-from <coding@diwic.se>)
+ id 1mFf8S-0044Nq-I6; Mon, 16 Aug 2021 18:06:48 +0200
+From: David Henningsson <coding@diwic.se>
+To: tiwai@suse.de,
+	perex@perex.cz,
+	alsa-devel@alsa-project.org
+Subject: [PATCH 0/2] alsa-lib patches for rawmidi tstamp framing
+Date: Mon, 16 Aug 2021 18:06:23 +0200
+Message-Id: <20210816160625.17796-1-coding@diwic.se>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20210813151116.23931-1-pierre-louis.bossart@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: tiwai@suse.de, Hans de Goede <hdegoede@redhat.com>, broonie@kernel.org,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Content-Transfer-Encoding: 8bit
+X-Authenticated-Id: coding@diwic.se
+Cc: David Henningsson <coding@diwic.se>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,42 +83,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2021-08-13 5:11 PM, Pierre-Louis Bossart wrote:
-> This is an update on an earlier contribution from Heikki Krogerus
-> 
-> The function device_add_properties() is going to be removed.
-> Replacing it with software node API equivalents.
-> 
-> Thanks for Hans de Goede and Andy Shevchenko for their comments,
-> suggestions and Reviewed-by tags on GitHub. The review thread can be
-> found at https://github.com/thesofproject/linux/pull/3041)
-> 
-> v3 changes:
-> Fixed nit-picks from Andy: label, return value, missing commas/periods.
-> Added Andy's Reviewed-by tag
-> 
-> v2 changes: feedback from Andy and Hans
-> Better error handling
-> Codec reference is kept until the .remove callback
-> Remove bus search to find device
-> 
-> v1 changes from Heikki's patches:
-> Avoid the use of devm_ routines for Baytrail machine drivers.
+Well, now that we're about to release a kernel with support for rawmidi tstamp framing,
+how about some alsa-lib support for it as well?
 
-While sof_sdw_* machine boards history shows these have been updated 
-concurrently, the same cannot be said for other, older Intel boards. And 
-thus, I'd advise to separate changes for each older board, here: 
-bytcht_es8316, bytcr_rt5640 and bytcr_rt5651. You could even squash 
-smaller changes so the number of patches isn't getting out of control.
+David Henningsson (2):
+  Add rawmidi framing API
+  Add test for rawmidi framing API
 
-If regression occurs in just one of them - even due to spelling error or 
-unintended code line - revert will impact all the boards. In the past 
-having separate patches for kbl_*, bdw_* and such saved a lot of 
-trouble, especially given their history.
+ include/rawmidi.h           | 26 ++++++++++++
+ include/sound/uapi/asound.h | 30 +++++++++++++-
+ src/rawmidi/rawmidi.c       | 83 +++++++++++++++++++++++++++++++++++++
+ src/rawmidi/rawmidi_hw.c    |  2 +
+ src/rawmidi/rawmidi_local.h |  2 +
+ test/rawmidi.c              | 65 ++++++++++++++++++++++++++---
+ 6 files changed, 200 insertions(+), 8 deletions(-)
 
-This is more of an suggestion than a blocker. Haven't found any code issues:
+-- 
+2.25.1
 
-Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
-
-Regards,
-Czarek

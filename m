@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 302FB3EDC05
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 19:07:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A1543EDC04
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 19:06:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C607A16B1;
-	Mon, 16 Aug 2021 19:06:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C607A16B1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D2BD16BE;
+	Mon, 16 Aug 2021 19:06:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D2BD16BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629133653;
-	bh=RrPpirxSrKSMhGZJ+QCIH5ubgH4kZX6FvSaNS2s3bXQ=;
+	s=default; t=1629133618;
+	bh=HWHMqyb9p8a+GVX+Bg/1H1OW1JY3Ch7vjU0hoyVgMJs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UIpbBfxIKadtAj0VWUuonmMbYEsVzL2heni0hw6Eo6BccJpAv2qKbIfcnw7wYDrFI
-	 l0TERvSYd0kdxNb+3FGywQnuz1D1rOL7WPLqfLKxpuh3viSmDKBGYtK4OaaGJAil3E
-	 uYlURrhO/hvd75gF3oqE2qorQuG6VJhL+L8Fhuxo=
+	b=R3SzA6WWaIDmMXzSSKub4mgir7ErcccO1v03UnmTmzx7wdBjhPT6aBNkDUD9dLrYh
+	 Y6kL4x3FvAVDKtH9lSaPBR7acBqnTnJ4FGQBpMUqWq31hJSzIPR8y0b96FBaF6MuQe
+	 YNfW/CYNf5wxsEwGUmy9cm9Q6DgAWoUzs43neYXo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03184F804E1;
-	Mon, 16 Aug 2021 19:05:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 45BF4F80134;
+	Mon, 16 Aug 2021 19:05:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 62B15F802BE; Mon, 16 Aug 2021 19:05:17 +0200 (CEST)
+ id 393EAF80425; Mon, 16 Aug 2021 19:05:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,42 +33,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1377BF80249
- for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 19:05:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1377BF80249
+ by alsa1.perex.cz (Postfix) with ESMTPS id E32A1F80134
+ for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 19:05:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E32A1F80134
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="inuI2C2j"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 206CC60E76;
- Mon, 16 Aug 2021 17:05:07 +0000 (UTC)
+ header.b="g3G3zmx9"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B681760F36;
+ Mon, 16 Aug 2021 17:05:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1629133508;
- bh=RrPpirxSrKSMhGZJ+QCIH5ubgH4kZX6FvSaNS2s3bXQ=;
+ s=k20201202; t=1629133511;
+ bh=HWHMqyb9p8a+GVX+Bg/1H1OW1JY3Ch7vjU0hoyVgMJs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=inuI2C2jITpMS8AKBKtJoXTf2zBpon/qSOFvDvMFs9vw9YUxzFHKdDaKaHPn5Qqeh
- RNBlEGqXdKULxwF2io8nQwSMfq59mOLIGKazvnA6NJqGafauTdoQnyB8XzM/YGyYzD
- K2QvcSVxWZC2re7K7KmlWLXE6jms0bxjyFVTcOBJgPXTOrHKGESRItexrbXUDyqpw6
- U9L/R0OqjEfux9335576InPpj9BdcZaeYQ4BYHaSG4IiYP8YeWMLV+0pbxXUdCOCou
- COvEWGf06XG9WmU77ipHafHzgWNHgAZIECGmsZCEayGWLuz1rdddf1eUbrW+YYOJ9i
- aKl57NGa3PIpw==
+ b=g3G3zmx9ePnrs6ccLN/NswmTF/qaGnph23JbwcKDnrbm6jCSXw3ONgPgNXXkNKfN7
+ nd3mS0CjqU90LwjDr8/outvFs7RjUqfPp0cQN710pkEdlAUZuJUL2eJ79Otu8AVndW
+ jDwZ0JanvGpDFYIj4aeaYUkpwgfJFZLP0//48vKw/BfIZPvoNfuCBysXMcbcZ3LISB
+ PS/iV0wOGfk/caMiA7G0OGhFetJsnS+HjwaMzTL1CvX9CFX90XYyY52JfG2akrO9mI
+ cM1MG7SeFGMaS5z/e/a8IwU9QJF5Seo5nK1xP6IuvTeIolGoxgqJea+SpbrrmzHgeW
+ 4Srbn/b0Tenog==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
- Aakash Hemadri <aakashhemadri123@gmail.com>
-Subject: Re: [PATCH 0/2] ASoC: tegra: Use of_device_get_match_data
-Date: Mon, 16 Aug 2021 18:04:40 +0100
-Message-Id: <162913223312.13582.10888100799475599538.b4-ty@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH 0/9] ASoC: soc-xxx: cleanup cppcheck warning
+Date: Mon, 16 Aug 2021 18:04:41 +0100
+Message-Id: <162913223313.13582.4677317494415350798.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <cover.1628971397.git.aakashhemadri123@gmail.com>
-References: <cover.1628971397.git.aakashhemadri123@gmail.com>
+In-Reply-To: <874kbq0z0p.wl-kuninori.morimoto.gx@renesas.com>
+References: <874kbq0z0p.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Bjorn Helgaas <bjorn@helgaas.com>, Mark Brown <broonie@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Shuah Khan <skhan@linuxfoundation.org>,
- linux-tegra@vger.kernel.org
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,15 +78,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 15 Aug 2021 01:42:17 +0530, Aakash Hemadri wrote:
-> 	Prefer `of_device_get_match_data` over `of_match_device`. This patch
-> replaces of_match_device with of_device_get_match_data.
+On 16 Aug 2021 13:55:18 +0900, Kuninori Morimoto wrote:
+> Now I'm posting audio-graph-card2 patch-set, but it seems it needs longer
+> discussion. Thus I want to post more easy patch first, and reduce my
+> local patches.
 > 
-> This patch series will apply cleanly on for-next
+> These are cppcheck warning cleanup patches for soc-xxx.
 > 
-> Aakash Hemadri (2):
->   ASoC: tegra30: ahub: Use of_device_get_match_data
->   ASoC: tegra30: i2s: Use of_device_get_match_data
+> Kuninori Morimoto (9):
+>   ASoC: soc-generic-dmaengine-pcm: cleanup cppcheck warning at dmaengine_pcm_hw_params()
+>   ASoC: soc-generic-dmaengine-pcm: cleanup cppcheck warning at dmaengine_pcm_new()
+>   ASoC: soc-generic-dmaengine-pcm: cleanup cppcheck warning at dmaengine_copy_user()
+>   ASoC: soc-dai: cleanup cppcheck warning at snd_soc_dai_link_set_capabilities()
+>   ASoC: soc-dai: cleanup cppcheck warning at snd_soc_pcm_dai_new()
+>   ASoC: soc-jack: cleanup cppcheck warning at snd_soc_jack_report()
+>   ASoC: soc-jack: cleanup cppcheck warning for CONFIG_GPIOLIB
+>   ASoC: soc-component: cleanup cppcheck warning at snd_soc_pcm_component_pm_runtime_get()
+>   ASoC: soc-ac97: cleanup cppcheck warning
 > 
 > [...]
 
@@ -102,10 +104,24 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: tegra30: ahub: Use of_device_get_match_data
-      commit: 80165bb8043391f4ef4916bde947a4d805a54aa6
-[2/2] ASoC: tegra30: i2s: Use of_device_get_match_data
-      commit: 356b94a32a75203616e5a7c3cd2b19101bc87086
+[1/9] ASoC: soc-generic-dmaengine-pcm: cleanup cppcheck warning at dmaengine_pcm_hw_params()
+      commit: 0a1e5ac50de2185d6e50b0d09fbed3ef06950d90
+[2/9] ASoC: soc-generic-dmaengine-pcm: cleanup cppcheck warning at dmaengine_pcm_new()
+      commit: 9cec66fa702646b83ed970a91edd712d156c380f
+[3/9] ASoC: soc-generic-dmaengine-pcm: cleanup cppcheck warning at dmaengine_copy_user()
+      commit: a2659768893bd90be4a243472e8bd2ef614c9de7
+[4/9] ASoC: soc-dai: cleanup cppcheck warning at snd_soc_dai_link_set_capabilities()
+      commit: d490f4e73e3c0b217242d92a8f679e62dc657001
+[5/9] ASoC: soc-dai: cleanup cppcheck warning at snd_soc_pcm_dai_new()
+      commit: 454a7422fa287d38fbc433260932383ed70b8af0
+[6/9] ASoC: soc-jack: cleanup cppcheck warning at snd_soc_jack_report()
+      commit: c2dea1fba206b6e16940fb2bbf5209b30018833c
+[7/9] ASoC: soc-jack: cleanup cppcheck warning for CONFIG_GPIOLIB
+      commit: c7577906865c5da232c1eeabaa80129f4702290d
+[8/9] ASoC: soc-component: cleanup cppcheck warning at snd_soc_pcm_component_pm_runtime_get()
+      commit: 500b39da62499721ffd287994322a36440d1bb9c
+[9/9] ASoC: soc-ac97: cleanup cppcheck warning
+      commit: 834a36ddc6d276fce177fde6c994751aa40d498f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

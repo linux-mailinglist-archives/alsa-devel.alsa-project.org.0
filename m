@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F2383ECE23
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 07:50:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D886C3ECDEA
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Aug 2021 07:05:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD6F916E8;
-	Mon, 16 Aug 2021 06:57:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD6F916E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F16816F5;
+	Mon, 16 Aug 2021 06:57:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F16816F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629089886;
-	bh=nuJAsdhRU6GW/E8ThlqpZMJ7gA0fYB0WJcQtMOfvXEM=;
+	s=default; t=1629089911;
+	bh=sEAqrevb1X4UW7gM3UVfJE/SRcUbsBfOWT89noNyQd4=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CJVg1HlXJITHe8ZCSZMO4oLf7/Yo791VY7Ki5bq3PtNQwRQ014jRu3pTZzinaosPM
-	 znMzIO6QF6ADMXQJ3LBAeD7VGdHykKQbMnyURpALrdSYAO8feab7i8sFUsOF4FnEnU
-	 MskU7r7J5YbeTyaYHtZsXJfxKRguO0FlQzBdAHU4=
+	b=ClOSKhOjldapC8OqALMJom0Cu7HLPKeLMp1dnSvktaXntp1AK1YsxrbpB7yY8741J
+	 lyQMT/155ody/8JoTFloXlADqJk7YcG/dLzx7PX24d8AilKREAnkUWPYFCK7trwFvb
+	 Topwg3kZBf50aDRtzMjx2z3PE/paPMrJ1lFQvx1Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D37C4F804E1;
-	Mon, 16 Aug 2021 06:56:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 538D5F804E6;
+	Mon, 16 Aug 2021 06:56:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1D937F804E1; Mon, 16 Aug 2021 06:56:02 +0200 (CEST)
+ id 60615F804E3; Mon, 16 Aug 2021 06:56:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 48A33F80134
- for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 06:55:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48A33F80134
-Date: 16 Aug 2021 13:55:51 +0900
-X-IronPort-AV: E=Sophos;i="5.84,324,1620658800"; d="scan'208";a="90740471"
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 51B68F80259
+ for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 06:55:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51B68F80259
+Date: 16 Aug 2021 13:55:56 +0900
+X-IronPort-AV: E=Sophos;i="5.84,324,1620658800"; d="scan'208";a="90751743"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 16 Aug 2021 13:55:51 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 16 Aug 2021 13:55:56 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 742914001948;
- Mon, 16 Aug 2021 13:55:51 +0900 (JST)
-Message-ID: <871r6u0yzs.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 910164001948;
+ Mon, 16 Aug 2021 13:55:56 +0900 (JST)
+Message-ID: <87zgtiyomb.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 2/9] ASoC: soc-generic-dmaengine-pcm: cleanup cppcheck warning
- at dmaengine_pcm_new()
+Subject: [PATCH 3/9] ASoC: soc-generic-dmaengine-pcm: cleanup cppcheck warning
+ at dmaengine_copy_user()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <874kbq0z0p.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,9 +72,9 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 This patch cleanups below cppcheck warning.
 
-sound/soc/soc-generic-dmaengine-pcm.c:233:28: style: The scope of the variable 'substream' can be reduced. [variableScope]
- struct snd_pcm_substream *substream;
-                           ^
+sound/soc/soc-generic-dmaengine-pcm.c:310:6: style: The scope of the variable 'ret' can be reduced. [variableScope]
+ int ret;
+     ^
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
@@ -82,26 +82,25 @@ Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
  1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
-index 9949db4649f4..24b240783cf1 100644
+index 24b240783cf1..4aa48c74f21a 100644
 --- a/sound/soc/soc-generic-dmaengine-pcm.c
 +++ b/sound/soc/soc-generic-dmaengine-pcm.c
-@@ -229,7 +229,6 @@ static int dmaengine_pcm_new(struct snd_soc_component *component,
- 	struct dmaengine_pcm *pcm = soc_component_to_pcm(component);
- 	const struct snd_dmaengine_pcm_config *config = pcm->config;
- 	struct device *dev = component->dev;
--	struct snd_pcm_substream *substream;
- 	size_t prealloc_buffer_size;
- 	size_t max_buffer_size;
- 	unsigned int i;
-@@ -243,7 +242,7 @@ static int dmaengine_pcm_new(struct snd_soc_component *component,
+@@ -305,14 +305,13 @@ static int dmaengine_copy_user(struct snd_soc_component *component,
+ 	bool is_playback = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+ 	void *dma_ptr = runtime->dma_area + hwoff +
+ 			channel * (runtime->dma_bytes / runtime->channels);
+-	int ret;
+ 
+ 	if (is_playback)
+ 		if (copy_from_user(dma_ptr, buf, bytes))
+ 			return -EFAULT;
+ 
+ 	if (process) {
+-		ret = process(substream, channel, hwoff, (__force void *)buf, bytes);
++		int ret = process(substream, channel, hwoff, (__force void *)buf, bytes);
+ 		if (ret < 0)
+ 			return ret;
  	}
- 
- 	for_each_pcm_streams(i) {
--		substream = rtd->pcm->streams[i].substream;
-+		struct snd_pcm_substream *substream = rtd->pcm->streams[i].substream;
- 		if (!substream)
- 			continue;
- 
 -- 
 2.25.1
 

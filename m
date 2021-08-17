@@ -2,79 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 889DB3F272B
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Aug 2021 09:03:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96D513F272C
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Aug 2021 09:04:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B2E691683;
-	Fri, 20 Aug 2021 09:03:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2E691683
+	by alsa0.perex.cz (Postfix) with ESMTPS id 03F54168A;
+	Fri, 20 Aug 2021 09:03:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03F54168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629443036;
-	bh=6IS2xSlIFJuzjsHqgXzTbagwQV4EfbdfEDtZ8/Od+vM=;
-	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1629443051;
+	bh=H7lOSrLiwECEE/TGWWEezYApC6yd9l+zOtf+Y4a36l0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Ps2d1AF4Y4yZ0e0zcYzLovFiMAZUveCXbrZ6811tyRW+pRqIZGhzWTfJuYNSBAsqw
-	 S9tXy6TRPCb012qRY88ADCPWRvjhrTI46AS7t3ahnzCfBUeaGxpTTOBg4ttRguC1YI
-	 GNXHcog9084ZrgvXLZfEOZnkG+rDFmS+eyFCCUFk=
+	b=bKvravSuHH06vCtHU+3lfmzxdpq+2w3vrG7JVJ2sTPgqh4f6IeCaEuzzu15xsK6mm
+	 LiE7ihKXY1wFffpHJZAS8XqL0oe8K5Jc8HL9OR402yZCgZJKwuWkE0nMGF2opFTSKT
+	 yfey7I0xCVGmoXzF4QmroYXFtNH0jQYiYYB33SXE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DBA34F804BC;
-	Fri, 20 Aug 2021 09:02:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CE6F4F804E1;
+	Fri, 20 Aug 2021 09:02:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D4C9BF80272; Tue, 17 Aug 2021 10:38:27 +0200 (CEST)
+ id 1F2E9F80272; Tue, 17 Aug 2021 12:12:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,HTML_MESSAGE,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 799DCF80134
- for <alsa-devel@alsa-project.org>; Tue, 17 Aug 2021 10:38:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 799DCF80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9659AF80111
+ for <alsa-devel@alsa-project.org>; Tue, 17 Aug 2021 12:11:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9659AF80111
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="LjgN5Hz7"
-Received: by mail-lf1-x135.google.com with SMTP id z2so39971453lft.1
- for <alsa-devel@alsa-project.org>; Tue, 17 Aug 2021 01:38:21 -0700 (PDT)
+ header.b="ZOD4sNyt"
+Received: by mail-ej1-x630.google.com with SMTP id z20so37543590ejf.5
+ for <alsa-devel@alsa-project.org>; Tue, 17 Aug 2021 03:11:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=bhLNaIlUAynXMcPAdw8YZZKbh6F9QJxgke4UT1n16VE=;
- b=LjgN5Hz7IJCKd5kDTrajYBmM7Qpaf6/hW1YYmRclGSmBK4Wh8T29MTa7czrXF0ai8e
- ylncr/tRYJU7CL7H2wiXUXDHU3nAteD7xpUqTTXhHeuy7veeaSX6P4iXluJwXYT8iUhG
- kM94bg0ahdVJebFUx2eIoLbb1E04CmGievFyfdaFEfqnoWACBzU1bRSh8iaEuzk/DZW3
- /tTVssHqLDtKEeJuW7K+MzhBUN4jNSnkzcQDB1TgwLDIqT360DqXW8nk6impIyWVgN/V
- prXe923qQc8Cc8S690+BGDwbcp+094PadTSKia0t2eRHyEFw5P9DlcnVQndzm45mIM8n
- kovw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Jqw1AzmRK6zGBEx+a2c5M5+dO2MAySjNQQ8o1qXDJs8=;
+ b=ZOD4sNytd4WPSZyPmbX2m9LgLSk9COCpOOmzj4bjLOzp2hFpikCaBnzFGgBEJXICwt
+ DFV6SrstOLxM3pjIJQkIqAsjum+an8vUqUMGq4tdyNV+qQLzWl24Xn6SIoHoZiT9HmYs
+ K6tTCTfaBYOh91jPdHHjTqZ9i22gfQjdka4U+GzF0Om23yB3MrVUsgNm8U+9JusW64Tz
+ V1BHhVIxeqkxBphRPnqyzO33KJn02nxmZ4XjS4gU2sPLGkTt+gWcF1QVjPF6t4Wljy+X
+ 3UMt9JMbllLtSImr1hQHs/PyaM3QIy0V6JWU/I2K4yx+UPq+RTJBXjI6OSHlMMH9xHIq
+ Ie2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=bhLNaIlUAynXMcPAdw8YZZKbh6F9QJxgke4UT1n16VE=;
- b=I7vP5sKh1hPyo/fPb48JgxSGPuPI6x7BU9dygiyFGc7ZSFNJ+NO9/eLv7x9q0WKy7a
- YG4zU/nRfUlx71N6CtpQVgJ2MthPI4Q4t/AFW1pbpSwN8ZLpf5JTdDoWQkid2p2uq1Y8
- nLm1CCx7MPcB26vVTO8OT1doTASaXXV3JXfWvO0YqN4+KDUz8uBYkXIMf//xBi8SRXhg
- JPMbqPiVohWfl4NiaRC36eMjNjeQ9VBO4T4E4f021s6RssFo/KiXOHGO4PNzAKNfz60V
- oXTHCWO8iQoEc0P62+/IYy8IzWvCakUKxOnWJacS7PcTka/WT6V4JqSfOdD5/3Jy5dCn
- T4Vg==
-X-Gm-Message-State: AOAM533U1ALs2BL15am7F2GonYifdQbOGG2L84pesosC6m+XIr8Jg3lW
- wR+5QgMgMRQYxwacTxp4m008TC7fmjLdizcTN1YoVnMFZXHSxA==
-X-Google-Smtp-Source: ABdhPJyyXpVjIyGl7OjMAwVHn2U4gvRfJ0u5M64nFPre967KYdENJXXorFwxViaSWo8HuiC6dYxxhOTrttPzqV/5KXI=
-X-Received: by 2002:a19:c150:: with SMTP id r77mr1539595lff.511.1629189499790; 
- Tue, 17 Aug 2021 01:38:19 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Jqw1AzmRK6zGBEx+a2c5M5+dO2MAySjNQQ8o1qXDJs8=;
+ b=nkw2qJEdmmg3kuZr8HDmUE+cVHzO22CtYCTdXgRstXg5npCsZoqv3O5gWMOFGTLSTT
+ wTWBWMkwka9zy80UuhHLMwaMJDxRGRNOhCXm5YrdWLv3UDSFY8DxEg9NLk2dq6MgKsiE
+ B5/ocV4Yu3BG3icTLzIClXTE/6/2HMetZ/9cl4WiXYM2GeXpXAF1yJ8enV9guJtJDQpe
+ 6EjsXlGaj06fgdZq0RU7WraUxgd5Rl+/cErTkSoInaIOc0njBXso/ueKNZU9QEViOyy3
+ HzyVfFknwoQZdq+sEbaxAhE2xTWC4MAb7/xpwCdaQZIG6q86ZeDQ0DAtHAIn3wt4ffo9
+ Ra+g==
+X-Gm-Message-State: AOAM533InH2Bm4h8CHSNfC+CjtimoHyXcOd5QwcHdxVmeEVdbBITKPHj
+ axK/Z6LvzseyK/aTDDzt3fs=
+X-Google-Smtp-Source: ABdhPJx7FraHwOny+E8f8qN3AMF/gbn3eNC37y6iQIiMzCrRbYBFSEtrtKJm1qLG9Pa6rK1MeNaVHg==
+X-Received: by 2002:a17:906:4e59:: with SMTP id
+ g25mr3104501ejw.399.1629195115109; 
+ Tue, 17 Aug 2021 03:11:55 -0700 (PDT)
+Received: from localhost.localdomain ([185.213.155.232])
+ by smtp.gmail.com with ESMTPSA id m6sm822920edq.22.2021.08.17.03.11.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Aug 2021 03:11:54 -0700 (PDT)
+From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+To: 
+Subject: [PATCH 0/4] Rockchip I2S/TDM controller
+Date: Tue, 17 Aug 2021 12:11:15 +0200
+Message-Id: <20210817101119.423853-1-frattaroli.nicolas@gmail.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-From: sujith kumar reddy <sujithreddy6192@gmail.com>
-Date: Tue, 17 Aug 2021 14:08:08 +0530
-Message-ID: <CAAd2w=ZD4qiRJkrA23jBazc1u3dBjy_bJY0jbcp03gJFuLsRAQ@mail.gmail.com>
-Subject: arecord is failing with -V stereo
-To: alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 20 Aug 2021 09:02:12 +0200
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,18 +101,77 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi All,
+Hello,
 
-arecord is  failing vumeter option -V stereo only.
+I come bearing four patches for your consideration.
 
-localhost ~ # arecord -Dhw:1,2 -r48000 -c2 -fS32_LE /tmp/test_record.wav -M
--d 1 -V stereo
-Recording WAVE '/tmp/test_record.wav' : Signed 32 bit Little Endian, Rate
-48000 Hz, Stereo
-*** buffer overflow detected ***: terminated
-Aborted by signal Aborted...
+The first of these four patches adds a driver for the Rockchip
+I2S/TDM controller, used in interfacing between the AHB bus and the
+I2S bus on some Rockchip SoCs. This allows for audio playback with
+a matching codec.
 
-Please provide pointers to debug this option.
+The controller has three different modes: I2S, I2S/TDM and PCM.
+It is distinct from the earlier Rockchip I2S controller, and
+therefore not just an extension of that driver.
 
-Thanks
-Sujith
+The driver is based on the downstream version, though various
+changes have been made to hopefully make it more palatable to
+upstream. Some needless code duplication has been refactored, and
+the probe function will no longer let wrong device tree values
+write nonsense to hardware registers. Properties have been renamed
+and had their semantics changed. I won't bore you with the details
+of what downstream did, since that's not what I'm submitting, but
+the changes are significant enough that I've added myself to the
+list of authors.
+
+The second patch adds the YAML device tree bindings for this, which
+have been written from scratch by yours truly. Since I didn't like
+having random integers mean things, I defined them as constants in
+a header file for the bindings.
+
+The third patch adds the i2s1 controller to the rk356x device tree.
+I didn't add any of the other i2s controllers on that SoC for now as
+I have no way of testing them; in particular, i2s0 is tied to HDMI,
+so needs a functioning VOP2 driver to even have a chance of working.
+
+The fourth patch makes use of the i2s1 controller to enable analog
+audio output on the Quartz64 Model A through its RK817 codec. I've
+tested this to work properly at both 44.1 kHz and 96 kHz, so both
+mclk_root0 and mclk_root1 are definitely functioning.
+
+This is my first kernel contribution, so I most likely did
+something horribly wrong. That's why I'm more than happy to receive
+any criticisms and concerns over how the driver is implemented,
+because I've run out of ideas on how to make it clearly better
+myself.
+
+I'd also like to extend my thanks to Peter Geis, who has been
+acting as somewhat of a mentor and gave me occasional feedback
+and ideas during the writing of this patch series.
+
+Regards,
+Nicolas Frattaroli
+
+Nicolas Frattaroli (4):
+  ASoC: rockchip: add support for i2s-tdm controller
+  dt-bindings: sound: add rockchip i2s-tdm binding
+  arm64: dts: rockchip: add i2s1 on rk356x
+  arm64: dts: rockchip: add analog audio on Quartz64
+
+ .../bindings/sound/rockchip,i2s-tdm.yaml      |  221 ++
+ .../boot/dts/rockchip/rk3566-quartz64-a.dts   |   36 +-
+ arch/arm64/boot/dts/rockchip/rk356x.dtsi      |   26 +
+ include/dt-bindings/sound/rockchip,i2s-tdm.h  |    9 +
+ sound/soc/rockchip/Kconfig                    |   11 +
+ sound/soc/rockchip/Makefile                   |    2 +
+ sound/soc/rockchip/rockchip_i2s_tdm.c         | 1804 +++++++++++++++++
+ sound/soc/rockchip/rockchip_i2s_tdm.h         |  400 ++++
+ 8 files changed, 2508 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+ create mode 100644 include/dt-bindings/sound/rockchip,i2s-tdm.h
+ create mode 100644 sound/soc/rockchip/rockchip_i2s_tdm.c
+ create mode 100644 sound/soc/rockchip/rockchip_i2s_tdm.h
+
+-- 
+2.32.0
+

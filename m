@@ -2,77 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFA0A3EEE6E
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Aug 2021 16:23:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 095803EEE71
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Aug 2021 16:24:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B34CB1684;
-	Tue, 17 Aug 2021 16:22:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B34CB1684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 201E61693;
+	Tue, 17 Aug 2021 16:23:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 201E61693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629210195;
-	bh=93H/Bl3tvzo2/7LaIskWg0eB/fEr0vRwbw2h76IUyWs=;
+	s=default; t=1629210276;
+	bh=BghacR8oaU4UL7U6wQSFD1t7wDKOPESMTm6bkFZ1ZZE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IUlvReuv3z2ONCmLNww3yHdUgJtXYyGhFpQpl37s3ekD1XJg3lHISKlgpO/vIo9ld
-	 5zSsRE+5dTVIAUiaedh0kvpn8phKGNrWgbi6dLPrbk/Vk1lGZDCRD0jqbYlIJk1mPX
-	 Bs0St8pv0952MVNzCbwhQhx2JKa4kUbQZlRC/uVI=
+	b=Eu68EEiCx7Ifb0suQMm6sc+YBO8qDSXEd0cXtXvGYnfgp2RDWJvgcWIaeGmPVDVKe
+	 e+Ji9xQXm+rTtSS9bI+lOXZ17scmofWeYO5K8zS1BxzkzrjHM54w2KLRiQxCBu0a9Q
+	 5iR23yB6i04iNFEH5D4OMvxr08Xw2C8gvg7EayzE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16929F804BC;
-	Tue, 17 Aug 2021 16:21:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C5576F804E4;
+	Tue, 17 Aug 2021 16:23:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19ABEF804B0; Tue, 17 Aug 2021 16:21:34 +0200 (CEST)
+ id 57B07F804CF; Tue, 17 Aug 2021 16:23:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from ns4.inleed.net (mailout4.inleed.net
- [IPv6:2a0b:dc80:cafe:104::1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 749BFF8026D
- for <alsa-devel@alsa-project.org>; Tue, 17 Aug 2021 16:21:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 749BFF8026D
+ by alsa1.perex.cz (Postfix) with ESMTPS id D765FF80272
+ for <alsa-devel@alsa-project.org>; Tue, 17 Aug 2021 16:23:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D765FF80272
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=diwic.se header.i=@diwic.se
- header.b="ErrNzN2y"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=diwic.se;
- s=x; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=rylYG2wCpd7lY70YRMKs49j3We6VXqSIQYSpyRsGnjI=; b=ErrNzN2y6hszVMzFC1WfoltTU0
- 1L2lktqsnBluSGwgnB9rHFaGX4lfLN3ncgz+mQHkP0mH/bn7ZxI1hepTe2fUzHizh94L57SANKikX
- DAmKVxCQvy1zupAs3DbQf/8IjA7anyG2WXt1eF3aNx2gSdFGBYOB7dSNiAu3KATS9Vu5qzKLpmhIZ
- JEcqPYQpEEAZGIL2iQgoBQJoUDxXSS2uIMnBzEc7aLucuWCMhToGqPhYLftH8tEvGv0H8Eso368bl
- ffJdQilzt6vDomzfRlbhm/VkufHEgc3W1UmoaLF6R6NuY61kCv2edau9u/Oq5Rgjzalljzxf7QSv0
- jc2yhHMg==;
-Received: from c83-254-143-147.bredband.tele2.se ([83.254.143.147]
- helo=localhost.localdomain)
- by ns4.inleed.net with esmtpsa (TLS1.2) tls
- TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
- (envelope-from <coding@diwic.se>)
- id 1mFzxz-00EDyU-1N; Tue, 17 Aug 2021 16:21:23 +0200
-From: David Henningsson <coding@diwic.se>
-To: tiwai@suse.de,
-	alsa-devel@alsa-project.org,
-	perex@perex.cz
-Subject: [PATCH v3 2/2] Add test for rawmidi framing API
-Date: Tue, 17 Aug 2021 16:21:13 +0200
-Message-Id: <20210817142113.14750-3-coding@diwic.se>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210817142113.14750-1-coding@diwic.se>
-References: <20210817142113.14750-1-coding@diwic.se>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="vAbAFVUv"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 223C160FDA;
+ Tue, 17 Aug 2021 14:22:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1629210180;
+ bh=BghacR8oaU4UL7U6wQSFD1t7wDKOPESMTm6bkFZ1ZZE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=vAbAFVUvZH/p5z1b6N/U8D5YVzQyTPrQ+UYTVz4FiYK555tiEmJn6WpL/qUlbCKRF
+ VYCT1xRWJntGK9gsvEVaK/J1GGArhUBlskIU/1es7azdUXXMsTOp9a4ha2PIa6Wvsb
+ /gK08/JG2MU9NJoqHGLTi5HMk76tNKjzMcOMOoRuXXcchNqk7j8wSTI2e/TCQSxlF5
+ FA/O0vSzOOj4+cuqggkcBf9tJp4AGqx44x5mxCuuynHXLAVoSMp7v1zLXK5lEl98Fq
+ jHgqGoWE/OVYOJatX3z13JdNwiameSv00d+ge8V4WjwAJGeV0UWNsEDhnV4JJQw1fB
+ rzjCZjJK3zekQ==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ Aakash Hemadri <aakashhemadri123@gmail.com>
+Subject: Re: [PATCH 0/2] ASoC: tegra30: Fix use of of_device_get_match_data
+Date: Tue, 17 Aug 2021 15:22:33 +0100
+Message-Id: <162920984134.3104.358684242050344444.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <cover.1629148177.git.aakashhemadri123@gmail.com>
+References: <cover.1629148177.git.aakashhemadri123@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Authenticated-Id: coding@diwic.se
-Cc: David Henningsson <coding@diwic.se>
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Jonathan Hunter <jonathanh@nvidia.com>,
+ Bjorn Helgaas <bjorn@helgaas.com>, Mark Brown <broonie@kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,121 +84,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Adds a "clock type" parameter to the "rawmidi" test program, that when
-used and combined with -i (and -v to be useful), activates tstamp type
-framing with the specified clock type.
+On Tue, 17 Aug 2021 02:44:50 +0530, Aakash Hemadri wrote:
+> This patchset fixes my previous incorrect patches.
+> 
+> 356b94a32a75 ("ASoC: tegra30: i2s: Use of_device_get_match_data")
+> 80165bb80433 ("ASoC: tegra30: ahub: Use of_device_get_match_data")
+> 
+> Aakash Hemadri (2):
+>   ASoC: tegra30: ahub: Fix incorrect usage of of_device_get_match_data
+>   ASoC: tegra30: i2s: Fix incorrect usage of of_device_get_match_data
+> 
+> [...]
 
-Signed-off-by: David Henningsson <coding@diwic.se>
----
- test/rawmidi.c | 65 +++++++++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 59 insertions(+), 6 deletions(-)
+Applied to
 
-diff --git a/test/rawmidi.c b/test/rawmidi.c
-index 67f585b0..1090d44b 100644
---- a/test/rawmidi.c
-+++ b/test/rawmidi.c
-@@ -13,6 +13,7 @@ static void usage(void)
- 	fprintf(stderr, "    -o device-id : test ALSA output device\n");
- 	fprintf(stderr, "    -I node      : test input node\n");
- 	fprintf(stderr, "    -O node      : test output node\n");
-+	fprintf(stderr, "    -c clock     : kernel clock type (0=none, 1=realtime, 2=monotonic, 3=monotonic raw)\n");
- 	fprintf(stderr, "    -t: test midi thru\n");
- 	fprintf(stderr, "  example:\n");
- 	fprintf(stderr, "    rawmidi -i hw:0,0 -O /dev/midi1\n");
-@@ -37,7 +38,8 @@ int main(int argc,char** argv)
- 	char *device_out = NULL;
- 	char *node_in = NULL;
- 	char *node_out = NULL;
--	
-+	int clock_type = -1;
-+
- 	int fd_in = -1,fd_out = -1;
- 	snd_rawmidi_t *handle_in = 0,*handle_out = 0;
- 	
-@@ -58,6 +60,10 @@ int main(int argc,char** argv)
- 				case 't':
- 					thru = 1;
- 					break;
-+				case 'c':
-+					if (i + 1 < argc)
-+						clock_type = atoi(argv[++i]);
-+					break;
- 				case 'i':
- 					if (i + 1 < argc)
- 						device_in = argv[++i];
-@@ -133,20 +139,67 @@ int main(int argc,char** argv)
- 		}		
- 	}
- 
--
--
- 	if (!thru) {
- 		if (handle_in || fd_in!=-1) {
-+			if (clock_type != -1) {
-+				snd_rawmidi_params_t *params;
-+				snd_rawmidi_params_malloc(&params);
-+				if (!handle_in) {
-+					fprintf(stderr, "-c only usable with -i");
-+					clock_type = -1;
-+				}
-+				if (clock_type != -1) {
-+					fprintf(stderr, "Enable kernel clock type %d\n", clock_type);
-+					snd_rawmidi_params_current(handle_in, params);
-+					err = snd_rawmidi_params_set_framing_type(handle_in, params, 1);
-+					if (err) {
-+						fprintf(stderr,"snd_rawmidi_params_set_framing_type failed: %d\n", err);
-+						clock_type = -1;
-+					}
-+				}
-+				if (clock_type != -1) {
-+					err = snd_rawmidi_params_set_clock_type(handle_in, params, clock_type);
-+					if (err) {
-+						fprintf(stderr, "snd_rawmidi_params_set_clock_type failed: %d\n", err);
-+						clock_type = -1;
-+					}
-+				}
-+				if (clock_type != -1) {
-+					err = snd_rawmidi_params(handle_in, params);
-+					if (err) {
-+						fprintf(stderr, "snd_rawmidi_params failed: %d\n", err);
-+						clock_type = -1;
-+					}
-+				}
-+				snd_rawmidi_params_free(params);
-+			}
-+
- 			fprintf(stderr,"Read midi in\n");
- 			fprintf(stderr,"Press ctrl-c to stop\n");
- 		}
- 
- 		if (handle_in) {
- 			unsigned char ch;
-+			snd_rawmidi_framing_tstamp_t frame;
- 			while (!stop) {
--				snd_rawmidi_read(handle_in,&ch,1);
--				if (verbose) {
--					fprintf(stderr,"read %02x\n",ch);
-+				if (clock_type != -1) {
-+					snd_rawmidi_read(handle_in, &frame, sizeof(frame));
-+					if (verbose) {
-+						int i;
-+						if (frame.frame_type) {
-+							fprintf(stderr, "read unknown frame %d", frame.frame_type);
-+							continue;
-+						}
-+						fprintf(stderr, "read [%lld:%09d]", frame.tv_sec, frame.tv_nsec);
-+						for (i = 0; i < frame.length; i++)
-+							fprintf(stderr, " %02x", frame.data[i]);
-+						fprintf(stderr, "\n");
-+					}
-+				}
-+				else {
-+					snd_rawmidi_read(handle_in,&ch,1);
-+					if (verbose)
-+						fprintf(stderr,"read %02x\n",ch);
- 				}
- 			}
- 		}
--- 
-2.25.1
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
+Thanks!
+
+[1/2] ASoC: tegra30: ahub: Fix incorrect usage of of_device_get_match_data
+      commit: ea2efedefbc34f782db396c3d90e80aa1fff57a5
+[2/2] ASoC: tegra30: i2s: Fix incorrect usage of of_device_get_match_data
+      commit: 240fdf3f42fc6505adecaf5a74fac75b3c702cf1
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

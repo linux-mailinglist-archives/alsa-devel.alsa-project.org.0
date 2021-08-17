@@ -2,87 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 968363EEC46
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Aug 2021 14:18:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A65A3EECD8
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Aug 2021 14:53:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E039166F;
-	Tue, 17 Aug 2021 14:17:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E039166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F38E167A;
+	Tue, 17 Aug 2021 14:52:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F38E167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629202703;
-	bh=65U3dXwiuFILDOSVFAzENy+EkTfw9kIU84CWNhz6Bqk=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=OH3SPmZFFe5Sy9G9t4VCBmSdj5ScS/ChR3PvxLVIi/VCZvkxO/QU/vRrMxmTbtg95
-	 k5AIqti61Ot0lFUfWDRwb2Hx/Zsg3AzRPgTmKECZpm9fFVfMbohsaOz7syRa3++/nE
-	 Fhx7Tised9w17hdzps+UZ/+TChFR79OxEtudba5U=
+	s=default; t=1629204789;
+	bh=78nWWnDgAqcSfFQJhIfNk1zk/lLzYiBi4k088imddSw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=CIyLYB1MSdPa2U37UUhpr3zo3BZo8QjeFYY4e5Q/h+vRnh1DFJdDLdpS1rUptFqlx
+	 pkERIhN8xUB1OlZ8kYb7bnZwkydr0mGtOSpM5Nzt+wlKBJIaMeGm2p87yfqJB7lH8+
+	 VrcWK6edeoPYirfMMOlI9lZkJkahrsMPmS3aaAHE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 627C0F80111;
-	Tue, 17 Aug 2021 14:17:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7F4ABF80301;
+	Tue, 17 Aug 2021 14:51:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C36CF80272; Tue, 17 Aug 2021 14:17:03 +0200 (CEST)
+ id 0B398F80272; Tue, 17 Aug 2021 14:51:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from ns4.inleed.net (mailout4.inleed.net
+ [IPv6:2a0b:dc80:cafe:104::1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3B29CF80111
- for <alsa-devel@alsa-project.org>; Tue, 17 Aug 2021 14:16:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B29CF80111
+ by alsa1.perex.cz (Postfix) with ESMTPS id 344F2F80163
+ for <alsa-devel@alsa-project.org>; Tue, 17 Aug 2021 14:51:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 344F2F80163
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="f1rIsMSo"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Gon1bCwy"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 90E451FF39;
- Tue, 17 Aug 2021 12:16:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1629202613; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=G/2HJak15dflWaTGZnj+3NYKbo9ai98dsxV58b8Kg8A=;
- b=f1rIsMSoGUbYEBklA+eWNyWT9bIMvt3ExR7DC9IqcE5ZOwExUFiqNZVIrHQN5uBdxkb/Q0
- iBvo7vjSa7EP9g9rnFk2iohWAO2wxAuwW0ADuRfjru0GiToy4Lq7gQAC1VS1YpIKLPs6s0
- Frd/Y9WKqt4aZGlrPAZO6D2sp29OBPM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1629202613;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=G/2HJak15dflWaTGZnj+3NYKbo9ai98dsxV58b8Kg8A=;
- b=Gon1bCwyVfHouaQAm+/4ST2Yzyarl8TL9XVJoJ9VfmdOwqG3gygu1pTYJNTrQfeCffxGGa
- CiuVcEB4tcedqsBQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 7A8B0A3B99;
- Tue, 17 Aug 2021 12:16:53 +0000 (UTC)
-Date: Tue, 17 Aug 2021 14:16:53 +0200
-Message-ID: <s5hpmuce05m.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Subject: Re: [PATCH 2/2] ALSA: hda/cs8409: Prevent pops and clicks during
- reboot
-In-Reply-To: <6595e87d-1dae-b536-c17b-eafa07d04bbe@opensource.cirrus.com>
-References: <20210812183433.6330-1-vitalyr@opensource.cirrus.com>
- <20210812183433.6330-2-vitalyr@opensource.cirrus.com>
- <s5h1r6xlvrs.wl-tiwai@suse.de> <s5hczqgil3v.wl-tiwai@suse.de>
- <6595e87d-1dae-b536-c17b-eafa07d04bbe@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- Stefan Binding <sbinding@opensource.cirrus.com>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org
+ dkim=pass (2048-bit key) header.d=diwic.se header.i=@diwic.se
+ header.b="hGV5yMd6"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=diwic.se;
+ s=x; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:Cc:To:
+ From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:
+ References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:
+ List-Owner:List-Archive; bh=j+1kC4HHAD2lR906YjFY/es+SLKcT+7W9dJWw8F3nUM=; b=h
+ GV5yMd6UdnjUbpXPe4VhXZRZ7O+Of7NL7Ee4WJEUBjIRBEaEAzlQ4uOtPj5vGVl3aLS34ZdIRP/yM
+ LWuBwPzOPPRPkhNHWhk6uxPPYcXTKA8ng4hUauZ86Xp8qfT19qe56lk5EGBXf6PeDQyUL5qGA2i0w
+ w4S/j3QTUByurzs7FOFl91SwePsF1nIppoDXNmq+tW1O1LFWQViCK3xTn+9JOGxcklCezM8NGZ+Sh
+ fApyPK5LAsBBvkQ+fyoMZWHwRUsCRP9vJjvS8CtCJhyLfkn9Uo3UxtYqYkcgvzAkVKtsKkkOZbFxB
+ bLj91CiApPGL7BU6vOdg1hYD2Vmjt3lEA==;
+Received: from c83-254-143-147.bredband.tele2.se ([83.254.143.147]
+ helo=localhost.localdomain)
+ by ns4.inleed.net with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
+ (envelope-from <coding@diwic.se>)
+ id 1mFyZD-00DMgr-0a; Tue, 17 Aug 2021 14:51:43 +0200
+From: David Henningsson <coding@diwic.se>
+To: tiwai@suse.de,
+	alsa-devel@alsa-project.org,
+	perex@perex.cz
+Subject: [PATCH v2 0/2] alsa-lib patches for rawmidi tstamp framing
+Date: Tue, 17 Aug 2021 14:51:30 +0200
+Message-Id: <20210817125132.5737-1-coding@diwic.se>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Authenticated-Id: coding@diwic.se
+Cc: David Henningsson <coding@diwic.se>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,45 +83,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 17 Aug 2021 13:28:21 +0200,
-Vitaly Rodionov wrote:
-> 
-> On 14/08/2021 7:41 am, Takashi Iwai wrote:
-> > On Fri, 13 Aug 2021 08:10:47 +0200,
-> > Takashi Iwai wrote:
-> >> On Thu, 12 Aug 2021 20:34:33 +0200,
-> >> Vitaly Rodionov wrote:
-> >>> From: Stefan Binding <sbinding@opensource.cirrus.com>
-> >>>
-> >>> During reboot, when the CS42L42 powers down, pops and clicks
-> >>> may occur due to the codec not being shutdown gracefully.
-> >>> This can be fixed by going through the suspend sequence,
-> >>> which shuts down the codec cleanly inside the reboot_notify
-> >>> hook, which is called on reboot.
-> >>>
-> >>> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
-> >>> Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-> >> I hold this one for now, as there is a fix series that deprecates the
-> >> reboot_notify callback of HD-audio by forcibly doing runtime-suspend
-> >> at shutdown.  Please check the three patches in
-> >>    https://bugzilla.kernel.org/show_bug.cgi?id=214045
-> >>
-> >> I'm going to submit those soon in anyway.
-> 
-> Hi Takashi,
-> 
-> Thanks for letting us know. We have tested against for-next branch and
-> we have an issue.
-> 
-> Loud pops on reboot. It looks like suspend have never been called on
-> reboot or shutdown for us.
+v2: Improved commit messages
 
-OK, we need to track down the cause.
+David Henningsson (2):
+  Add rawmidi framing API
+  Add test for rawmidi framing API
 
-Does the noise persist if the codec has been runtime-suspended
-beforehand?  You can check the status in sysfs.
+ include/rawmidi.h           | 26 ++++++++++++
+ include/sound/uapi/asound.h | 30 +++++++++++++-
+ src/rawmidi/rawmidi.c       | 83 +++++++++++++++++++++++++++++++++++++
+ src/rawmidi/rawmidi_hw.c    |  2 +
+ src/rawmidi/rawmidi_local.h |  2 +
+ test/rawmidi.c              | 65 ++++++++++++++++++++++++++---
+ 6 files changed, 200 insertions(+), 8 deletions(-)
 
+-- 
+2.25.1
 
-thanks,
-
-Takashi

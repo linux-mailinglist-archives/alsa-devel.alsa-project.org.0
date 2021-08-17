@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59B163EE150
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Aug 2021 02:38:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51C663EE152
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Aug 2021 02:38:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D86A8829;
-	Tue, 17 Aug 2021 02:37:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D86A8829
+	by alsa0.perex.cz (Postfix) with ESMTPS id E2A201669;
+	Tue, 17 Aug 2021 02:38:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2A201669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629160703;
-	bh=otfWXTTclp8V/hz/HUXQCkvW4Hvw8Bf9NI/fjWoDTVk=;
+	s=default; t=1629160736;
+	bh=vtINDJhnYlJbTwKRcDq6V78h1LvBAO6MvAcQ0pJthX8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mLx6hl6RDzU87jwEAqD0wEh4fFN1h5pQdG2oltL6vpSnxVkf08eX/tjf3OioJxCLP
-	 bcc4sSt3Vv1Dl6V6DUSMUFd4A95pTItQpmOQlKmThbKaRowXZPeLMBsSHBJfvJCdYT
-	 Lj17njkZqbasAGVaJvR4WmQiHPoa7y6c3GEv6uEc=
+	b=kBNf8s2hcBg5gpGtANKw3rrHpR/HH7WMd2pGBV7D3mj1Gle91XmwK3DU4jt2obm+F
+	 fZlhZ2ICxtNGJBYQBGI5cLmf/RcO1CePRm5Rn+z4dr5XzR48YerzB2xsLWXjhFaXER
+	 McBmGjy36GCKIBQrTKCGNa5BhkQt5AGEdejYaciE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 141A8F804E5;
-	Tue, 17 Aug 2021 02:36:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 33E0DF804F3;
+	Tue, 17 Aug 2021 02:36:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A57C3F804E6; Tue, 17 Aug 2021 02:36:03 +0200 (CEST)
+ id 08635F804EB; Tue, 17 Aug 2021 02:36:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B8BBEF804AC
- for <alsa-devel@alsa-project.org>; Tue, 17 Aug 2021 02:35:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8BBEF804AC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3AE93F804E3
+ for <alsa-devel@alsa-project.org>; Tue, 17 Aug 2021 02:36:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3AE93F804E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="QNyCKaX0"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1ADCA60F5C;
- Tue, 17 Aug 2021 00:35:57 +0000 (UTC)
+ header.b="OaL+Tmvo"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 56A1960EBD;
+ Tue, 17 Aug 2021 00:35:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1629160557;
- bh=otfWXTTclp8V/hz/HUXQCkvW4Hvw8Bf9NI/fjWoDTVk=;
+ s=k20201202; t=1629160559;
+ bh=vtINDJhnYlJbTwKRcDq6V78h1LvBAO6MvAcQ0pJthX8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QNyCKaX0aG21cuOJNAy60KmI9/Rhx2lMj/bDW7Yahd7FzF6HMOwKXm16gVpN0b9Ya
- KtyQHHkTZFl13BOBzLuVH0JtdDpQQpu7q/psYQuGIIWtcp+M0togCmFJu+98HfDlJL
- sCqIPSfWBiJEP5gFCPHLCDqgW44nQHZw50hXq0YD1OgCP2pKaq+GZfFfzbWhvXg89n
- 7g9nbSsS7PHo1yU6hpibRLA8qVRrJ/c1IepRcAkohjmCMqRZiLGo4OiwAPlu387rXM
- n8sn68YxzJX8KwKS4twybixUJk5mj++rPFuut0LbnxRkkrp7UTkhqdx/tF6vS/JWFW
- ZXO8dJYZtS7WA==
+ b=OaL+TmvoEDWtPvrfxCxb/kvpUwZINHmW9E7B658jsEdVups6nNITnZZVY6ErAfXb5
+ uxyI+mtRP4Y8JoC8kT7ybO1xBMeN/BVgfHECFZV7YVox3u7ccEMbsKIM1hLuWx0INR
+ 53XbPa1tYcCA7uC5hNnLuLKgAC075PDua1hbihLIZYYqLWXJkKPhlCAd9iliaH8zCX
+ a5zJYTYyoIirULWQoiBeoVmOP6MIRKepHLv/26NEx42/Ya5ynexeb5YqjAqqn6jANU
+ 7Vyo/UgcwNV9AscnH8446Lr3Dq5v6X7OEInpTZyHgvNYdHYMk0k4njsP8hQRUnxDYy
+ N+5+9L8IlSptg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 2/9] ASoC: component: Remove misplaced prefix
- handling in pin control functions
-Date: Mon, 16 Aug 2021 20:35:47 -0400
-Message-Id: <20210817003554.83213-2-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 3/9] ASoC: wm_adsp: Let
+ soc_cleanup_component_debugfs remove debugfs
+Date: Mon, 16 Aug 2021 20:35:48 -0400
+Message-Id: <20210817003554.83213-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210817003554.83213-1-sashal@kernel.org>
 References: <20210817003554.83213-1-sashal@kernel.org>
@@ -66,9 +66,9 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
- alsa-devel@alsa-project.org, Lucas Tanure <tanureal@opensource.cirrus.com>
+Cc: Sasha Levin <sashal@kernel.org>, patches@opensource.cirrus.com,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,157 +84,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Mark Brown <broonie@kernel.org>
+From: Lucas Tanure <tanureal@opensource.cirrus.com>
 
-[ Upstream commit 31428c78748cafdd9352e1f622eb89bf453d9700 ]
+[ Upstream commit acbf58e530416e167c3b323111f4013d9f2b0a7d ]
 
-When the component level pin control functions were added they for some
-no longer obvious reason handled adding prefixing of widget names. This
-meant that when the lack of prefix handling in the DAPM level pin
-operations was fixed by ae4fc532244b3bb4d (ASoC: dapm: use component
-prefix when checking widget names) the one device using the component
-level API ended up with the prefix being applied twice, causing all
-lookups to fail.
+soc_cleanup_component_debugfs will debugfs_remove_recursive
+the component->debugfs_root, so adsp doesn't need to also
+remove the same entry.
+By doing that adsp also creates a race with core component,
+which causes a NULL pointer dereference
 
-Fix this by removing the redundant prefixing from the component code,
-which has the nice side effect of also making that code much simpler.
-
-Reported-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Tested-by: Lucas Tanure <tanureal@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20210726194123.54585-1-broonie@kernel.org
+Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
+Link: https://lore.kernel.org/r/20210728104416.636591-1-tanureal@opensource.cirrus.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/soc-component.c | 63 +++++++++++++++++----------------------
- 1 file changed, 27 insertions(+), 36 deletions(-)
+ sound/soc/codecs/wm_adsp.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index 728e93f35ffb..4295c0592901 100644
---- a/sound/soc/soc-component.c
-+++ b/sound/soc/soc-component.c
-@@ -135,86 +135,75 @@ int snd_soc_component_set_bias_level(struct snd_soc_component *component,
- 	return soc_component_ret(component, ret);
- }
- 
--static int soc_component_pin(struct snd_soc_component *component,
--			     const char *pin,
--			     int (*pin_func)(struct snd_soc_dapm_context *dapm,
--					     const char *pin))
--{
--	struct snd_soc_dapm_context *dapm =
--		snd_soc_component_get_dapm(component);
--	char *full_name;
--	int ret;
--
--	if (!component->name_prefix) {
--		ret = pin_func(dapm, pin);
--		goto end;
--	}
--
--	full_name = kasprintf(GFP_KERNEL, "%s %s", component->name_prefix, pin);
--	if (!full_name) {
--		ret = -ENOMEM;
--		goto end;
--	}
--
--	ret = pin_func(dapm, full_name);
--	kfree(full_name);
--end:
--	return soc_component_ret(component, ret);
--}
--
- int snd_soc_component_enable_pin(struct snd_soc_component *component,
- 				 const char *pin)
+diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
+index 51d95437e0fd..ac3c612ad2f1 100644
+--- a/sound/soc/codecs/wm_adsp.c
++++ b/sound/soc/codecs/wm_adsp.c
+@@ -754,7 +754,6 @@ static void wm_adsp2_init_debugfs(struct wm_adsp *dsp,
+ static void wm_adsp2_cleanup_debugfs(struct wm_adsp *dsp)
  {
--	return soc_component_pin(component, pin, snd_soc_dapm_enable_pin);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	return snd_soc_dapm_enable_pin(dapm, pin);
+ 	wm_adsp_debugfs_clear(dsp);
+-	debugfs_remove_recursive(dsp->debugfs_root);
  }
- EXPORT_SYMBOL_GPL(snd_soc_component_enable_pin);
- 
- int snd_soc_component_enable_pin_unlocked(struct snd_soc_component *component,
- 					  const char *pin)
- {
--	return soc_component_pin(component, pin, snd_soc_dapm_enable_pin_unlocked);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	return snd_soc_dapm_enable_pin_unlocked(dapm, pin);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_enable_pin_unlocked);
- 
- int snd_soc_component_disable_pin(struct snd_soc_component *component,
- 				  const char *pin)
- {
--	return soc_component_pin(component, pin, snd_soc_dapm_disable_pin);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	return snd_soc_dapm_disable_pin(dapm, pin);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_disable_pin);
- 
- int snd_soc_component_disable_pin_unlocked(struct snd_soc_component *component,
- 					   const char *pin)
- {
--	return soc_component_pin(component, pin, snd_soc_dapm_disable_pin_unlocked);
-+	struct snd_soc_dapm_context *dapm = 
-+		snd_soc_component_get_dapm(component);
-+	return snd_soc_dapm_disable_pin_unlocked(dapm, pin);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_disable_pin_unlocked);
- 
- int snd_soc_component_nc_pin(struct snd_soc_component *component,
- 			     const char *pin)
- {
--	return soc_component_pin(component, pin, snd_soc_dapm_nc_pin);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	return snd_soc_dapm_nc_pin(dapm, pin);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_nc_pin);
- 
- int snd_soc_component_nc_pin_unlocked(struct snd_soc_component *component,
- 				      const char *pin)
- {
--	return soc_component_pin(component, pin, snd_soc_dapm_nc_pin_unlocked);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	return snd_soc_dapm_nc_pin_unlocked(dapm, pin);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_nc_pin_unlocked);
- 
- int snd_soc_component_get_pin_status(struct snd_soc_component *component,
- 				     const char *pin)
- {
--	return soc_component_pin(component, pin, snd_soc_dapm_get_pin_status);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	return snd_soc_dapm_get_pin_status(dapm, pin);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_get_pin_status);
- 
- int snd_soc_component_force_enable_pin(struct snd_soc_component *component,
- 				       const char *pin)
- {
--	return soc_component_pin(component, pin, snd_soc_dapm_force_enable_pin);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	return snd_soc_dapm_force_enable_pin(dapm, pin);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_force_enable_pin);
- 
-@@ -222,7 +211,9 @@ int snd_soc_component_force_enable_pin_unlocked(
- 	struct snd_soc_component *component,
- 	const char *pin)
- {
--	return soc_component_pin(component, pin, snd_soc_dapm_force_enable_pin_unlocked);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	return snd_soc_dapm_force_enable_pin_unlocked(dapm, pin);
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_force_enable_pin_unlocked);
- 
+ #else
+ static inline void wm_adsp2_init_debugfs(struct wm_adsp *dsp,
 -- 
 2.30.2
 

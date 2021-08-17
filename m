@@ -2,67 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B0FA3F2653
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Aug 2021 07:10:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2A203F272A
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Aug 2021 09:03:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 898D71679;
-	Fri, 20 Aug 2021 07:09:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 898D71679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 659B71679;
+	Fri, 20 Aug 2021 09:02:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 659B71679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629436209;
-	bh=Yf7Cyb80HadJMBjv+w9vz/F60nyIJkbvZuCFGTRM9UQ=;
-	h=To:From:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=LxqFN2GJUJMM/gCIywgLsNeEU/7EDmmwcQNVwrGGUCEKu0TIIJEJiyzTuHcIhhMre
-	 Z/09p0RgV2CqI9gMQpIUIJe5LzzvcKbx0Qnr/P26Q1B4bCY9fD55Oqzy5gcOYz8/WQ
-	 ChaH6JqsS6fSaNJ5g2HM6fdbUTkVhPTmqwawjYo0=
+	s=default; t=1629443013;
+	bh=tDZmzWBNezGcM3fsAJ9Lxw4N/PNtQhG/IOChrGPrimA=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=EExfXlhgpsJsqokLmVzBu9PgBCPnMyXEaBJp2NvFzyWRTIyn8Fj3jfGGFrDmj4kdb
+	 KFLe0tQNeRd3jr6ssMGtvc30fQbTXnBx+X+etFiG9hQ8iAEyxoLp9enxkfNKhw/7VN
+	 Go1oW1iPU/B1YdbpLlOkaz8dpSCxPGxGZBSVyBoM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B452DF800CC;
-	Fri, 20 Aug 2021 07:08:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7E5AF80259;
+	Fri, 20 Aug 2021 09:02:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 60394F80249; Fri, 20 Aug 2021 07:08:48 +0200 (CEST)
+ id B59DEF80111; Tue, 17 Aug 2021 07:58:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
+ [IPv6:2607:f8b0:4864:20::629])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2FAE2F800EC
- for <alsa-devel@alsa-project.org>; Fri, 20 Aug 2021 07:08:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FAE2F800EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 420EAF80111
+ for <alsa-devel@alsa-project.org>; Tue, 17 Aug 2021 07:58:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 420EAF80111
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="zsCwN4DV"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:MIME-Version:Date:Message-ID:Subject:From:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:In-Reply-To:References;
- bh=gtlfkhGirRBJ8Rr1d2z1tTWoOCPLuNEfEmn6mu6cjLA=; b=zsCwN4DVnmIEnuaqX8EyuapcBq
- IZ1aPF0kFZO3gVoseO7Egt7H6jdzUTRt0gK4Mphf+Q1pbWwT8XDv40DZgswofC9kIkx2HObR8Gz57
- 5ZB0IYkfY9jTbEjWt6p23Jb8+RGwshevMkxNhO4EC5RfhVZ0DQBjhSh8lrbMFxjAGsq25ss8auMeq
- K7zfgmc9lQs2Oz3e2C7ZjONDPNg+iTU3KXclnFnunOaFrL1q2+aNdYnDSJ8S9QE7jovXWs7cDJEsk
- wssGU9pIDLfne3mEaU9kozsWxurmchofdo/6YmJBIAobmarmm9B77Jk9d+TYUF9yTaxw6JLIsiQEd
- Yrp/6wAA==;
-Received: from [2601:1c0:6280:3f0::aa0b]
- by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1mGwle-00A6pi-EP; Fri, 20 Aug 2021 05:08:34 +0000
-To: alsa-devel@alsa-project.org, LKML <linux-kernel@vger.kernel.org>
-From: Randy Dunlap <rdunlap@infradead.org>
-Subject: HDA codec problem
-Message-ID: <12bbf54b-3ef6-8fa8-37fc-5f1e8d134bba@infradead.org>
-Date: Thu, 19 Aug 2021 22:08:34 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="S+4YZ6S9"
+Received: by mail-pl1-x629.google.com with SMTP id w6so16622952plg.9
+ for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 22:58:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=IxafAGsMTAwB8VQj4VftuWH0xnZbthsj3itwHDoB7/o=;
+ b=S+4YZ6S9MuIMk2XbSfM1Uac7rFCC1w6XHTVMgjDOE5t6zEjjnbgAyW9120xhv5vRFs
+ 9kVE7Y09h0TqWISKKpigDwi6n15NTFYtp835p5eiZQGLu7wllgM97IF6fZHnxjxAeKV1
+ hEg4hoLzFNOjH6sONx+cOOosGRqfBU9LzGikWBtMi6OTTyb7Hq0hzARr671NV4iNhnSV
+ D1dhcTRGXOllqbGGAIwJxVOch1LfwX3Xrx/ROn1ObYC1mrf5Gk3uPUyecPhcQ5l3FUTq
+ 79M28k83DafAcfSGS9Pr+mAETIBLuEeEaUw1MjBuRQMSXQQNRzsWpmCNycsysYhN3Op2
+ MTSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=IxafAGsMTAwB8VQj4VftuWH0xnZbthsj3itwHDoB7/o=;
+ b=pCFIAX/FrZbRjBmH7tPgjxf9210K+qzuAr+vgJ0Tv9d/0NSBQNic36UX9PJH984jfX
+ y992Zip/KwOAzononc9udJ5PkCbk6TDlfnhuA4gBzc/mpgsXgsTZsM3u1q/Vw+VVlLek
+ TaG9UjI14GjmpZiv0RnqqQ21ubKzzSz36kkLQAbzokMuY5+RGixmfCLUiRsBxOb/2AA3
+ GQV6GAxtQbCDMleNeKgIPJLsd8XYZPXvBrmLK5b+0W+0SgVk2Nh35gf1gCmvpZm9Zu8V
+ 5CLhk27d+lasfU+pOIWwuHZIbNVHoIFgEAXvrXKpjJ1D9fpP4PNkbpWzGBfCvVaKIvLs
+ //+A==
+X-Gm-Message-State: AOAM532jb9RvfSgSyFapEz1DYOTkHGnMuI83lC0X3Zi+7BZZWbYKHwht
+ gld305OoeunvxlZEzKdjvfo=
+X-Google-Smtp-Source: ABdhPJxIT9EkLVBK+gj5REka81141iSYHg81CGXL/NAfE+gcwObrJh6fa43WplDkq1Kr0jFoKpi6YA==
+X-Received: by 2002:a17:90a:fd11:: with SMTP id
+ cv17mr1809949pjb.45.1629179913968; 
+ Mon, 16 Aug 2021 22:58:33 -0700 (PDT)
+Received: from [172.20.10.3] (42-73-205-76.emome-ip.hinet.net. [42.73.205.76])
+ by smtp.gmail.com with ESMTPSA id
+ g2sm1082073pfi.211.2021.08.16.22.58.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 Aug 2021 22:58:33 -0700 (PDT)
+Subject: Re: [PATCH] ASoC: nau8821: new driver
+To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, Seven Lee <wtli@nuvoton.com>,
+ broonie@kernel.org
+References: <20210809101000.3947156-1-wtli@nuvoton.com>
+ <7fac2710-0173-cbc0-94e1-fb168dc4f069@linux.intel.com>
+From: Seven Lee <scott6986@gmail.com>
+Message-ID: <5035c750-f061-d3e5-45df-4eb2ae46a420@gmail.com>
+Date: Tue, 17 Aug 2021 13:58:29 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
+In-Reply-To: <7fac2710-0173-cbc0-94e1-fb168dc4f069@linux.intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Fri, 20 Aug 2021 09:02:13 +0200
+Cc: alsa-devel@alsa-project.org, KCHSU0@nuvoton.com, lgirdwood@gmail.com,
+ YHCHuang@nuvoton.com, CTLIN0@nuvoton.com, dardar923@gmail.com,
+ supercraig0719@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,47 +111,118 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
 
-I am having problems getting audio working on my computer:
+Amadeusz Sławiński 於 2021/8/9 下午 06:44 寫道:
+> On 8/9/2021 12:10 PM, Seven Lee wrote:
+>> Add driver for NAU88L21.
+>>
+>> Signed-off-by: Seven Lee <wtli@nuvoton.com>
+>> ---
+>
+> ...
+>
+>> +
+>> +static int dmic_clock_control(struct snd_soc_dapm_widget *w,
+>> +        struct snd_kcontrol *k, int  event)
+>> +{
+>> +    struct snd_soc_component *component =
+>> +        snd_soc_dapm_to_component(w->dapm);
+>> +    struct nau8821 *nau8821 = snd_soc_component_get_drvdata(component);
+>> +    int i, speed_selection, clk_adc_src, clk_adc;
+>> +    unsigned int clk_divider_r03;
+>> +
+>> +    /* The DMIC clock is gotten from adc clock divided by
+>> +     * CLK_DMIC_SRC (1, 2, 4, 8). The clock has to be equal or
+>> +     * less than nau8821->dmic_clk_threshold.
+>> +     */
+>> +    regmap_read(nau8821->regmap, NAU8821_R03_CLK_DIVIDER,
+>> +        &clk_divider_r03);
+>> +    clk_adc_src = (clk_divider_r03 & NAU8821_CLK_ADC_SRC_MASK)
+>> +        >> NAU8821_CLK_ADC_SRC_SFT;
+>> +
+>> +    switch (clk_adc_src) {
+>> +    case 0:
+>> +        clk_adc = nau8821->fs * 256;
+>> +        break;
+>> +    case 1:
+>> +        clk_adc = (nau8821->fs * 256) >> 1;
+>> +        break;
+>> +    case 2:
+>> +        clk_adc = (nau8821->fs * 256) >> 2;
+>> +        break;
+>> +    case 3:
+>> +        clk_adc = (nau8821->fs * 256) >> 3;
+>> +        break;
+>> +    }
+>
+> Just do:
+> clk_adc = (nau8821->fs * 256) >> clk_adc_src;
+> instead of whole switch?
 
-00:1f.3 Audio device: Intel Corporation Device f1c8
 
-I did an internet search that said that I would need 5.13 or later to
-have support for this device.
+Yes, you are right. I will fix it.
 
 
-openSUSE 15.3 kernel 5.3.18-59.19-default says:
+>
+>> +
+>> +    for (i = 0 ; i < 4 ; i++) {
+>> +        if ((clk_adc >> dmic_speed_sel[i].param) <=
+>> +            nau8821->dmic_clk_threshold) {
+>> +            speed_selection = dmic_speed_sel[i].val;
+>> +            break;
+>> +        }
+>> +    }
+>> +
+>> +    dev_dbg(nau8821->dev,
+>> +        "clk_adc=%d, dmic_clk_threshold = %d, param=%d, val = %d\n",
+>> +        clk_adc, nau8821->dmic_clk_threshold,
+>> +        dmic_speed_sel[i].param, dmic_speed_sel[i].val);
+>> +    regmap_update_bits(nau8821->regmap, NAU8821_R13_DMIC_CTRL,
+>> +        NAU8821_DMIC_SRC_MASK,
+>> +        (speed_selection << NAU8821_DMIC_SRC_SFT));
+>> +
+>> +    return 0;
+>> +}
+>> +
+>
+> ...
+>
+>> +
+>> +static int nau8821_clock_check(struct nau8821 *nau8821,
+>> +    int stream, int rate, int osr)
+>> +{
+>> +    int osrate = 0;
+>> +
+>> +    if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
+>> +        if (osr >= ARRAY_SIZE(osr_dac_sel))
+>> +            return -EINVAL;
+>> +        osrate = osr_dac_sel[osr].osr;
+>> +    } else {
+>> +        if (osr >= ARRAY_SIZE(osr_adc_sel))
+>> +            return -EINVAL;
+>> +        osrate = osr_adc_sel[osr].osr;
+>> +    }
+> true and false cases seem to be the same here, you can remove the "if 
+> else" and just leave one of them.
 
-snd_hda_codec_realtek hdaudioC0D0: autoconfig for ALC233: line_outs=1 (0x1b/0x0/0x0/0x0/0x0) type:line
-snd_hda_codec_realtek hdaudioC0D0:    speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
-snd_hda_codec_realtek hdaudioC0D0:    hp_outs=1 (0x21/0x0/0x0/0x0/0x0)
-snd_hda_codec_realtek hdaudioC0D0:    mono: mono_out=0x0
-snd_hda_codec_realtek hdaudioC0D0:    inputs:
-snd_hda_codec_realtek hdaudioC0D0:      Mic=0x1a
-snd_hda_codec_realtek hdaudioC0D0:      Mic=0x19
 
-but produces no sound output.
-
-Kernel 5.13.10 or 5.14-rc6 say:
-
-calling  azx_driver_init+0x0/0x20 @ 1
-snd_hda_intel 0000:00:1f.3: enabling device (0000 -> 0002)
-snd_hda_intel 0000:00:1f.3: bound 0000:00:02.0 (ops i915_audio_component_bind_ops)
-snd_hda_intel 0000:00:1f.3: azx_get_response timeout, switching to polling mode: last cmd=0x200f0000
-snd_hda_intel 0000:00:1f.3: No response from codec, disabling MSI: last cmd=0x200f0000
-snd_hda_intel 0000:00:1f.3: Codec #2 probe error; disabling it...
-snd_hda_intel 0000:00:1f.3: azx_get_response timeout, switching to single_cmd mode: last cmd=0x000f0001
-hdaudio hdaudioC0D0: no AFG or MFG node found
-snd_hda_intel 0000:00:1f.3: no codecs initialized
-
-and of course no sound output.
+The OSR of DAC and ADC can be different. And the ratio corresponding
+to the bit is also different. They are two different tables for
+osr_dac_sel and osr_adc_sel. Then it should be noted that the OSR and
+Fs must be selected carefully so that the max frequency of CLK_ADC or
+CLK_DAC are less than or equal to 6.144MHz.
 
 
-Anyone have suggestions or has a fix for this already been posted?
-or maybe I am just doing something wrong?
-
-thanks.
--- 
-~Randy
-
+>
+>> +
+>> +    if (!osrate || rate * osrate > CLK_DA_AD_MAX) {
+>> +        dev_err(nau8821->dev,
+>> +        "exceed the maximum frequency of CLK_ADC or CLK_DAC\n");
+>> +        return -EINVAL;
+>> +    }
+>> +
+>> +    return 0;
+>> +}
+>> +
+>
+> ...

@@ -2,100 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2A203F272A
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Aug 2021 09:03:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 889DB3F272B
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Aug 2021 09:03:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 659B71679;
-	Fri, 20 Aug 2021 09:02:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 659B71679
+	by alsa0.perex.cz (Postfix) with ESMTPS id B2E691683;
+	Fri, 20 Aug 2021 09:03:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2E691683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629443013;
-	bh=tDZmzWBNezGcM3fsAJ9Lxw4N/PNtQhG/IOChrGPrimA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=EExfXlhgpsJsqokLmVzBu9PgBCPnMyXEaBJp2NvFzyWRTIyn8Fj3jfGGFrDmj4kdb
-	 KFLe0tQNeRd3jr6ssMGtvc30fQbTXnBx+X+etFiG9hQ8iAEyxoLp9enxkfNKhw/7VN
-	 Go1oW1iPU/B1YdbpLlOkaz8dpSCxPGxGZBSVyBoM=
+	s=default; t=1629443036;
+	bh=6IS2xSlIFJuzjsHqgXzTbagwQV4EfbdfEDtZ8/Od+vM=;
+	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Ps2d1AF4Y4yZ0e0zcYzLovFiMAZUveCXbrZ6811tyRW+pRqIZGhzWTfJuYNSBAsqw
+	 S9tXy6TRPCb012qRY88ADCPWRvjhrTI46AS7t3ahnzCfBUeaGxpTTOBg4ttRguC1YI
+	 GNXHcog9084ZrgvXLZfEOZnkG+rDFmS+eyFCCUFk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D7E5AF80259;
-	Fri, 20 Aug 2021 09:02:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DBA34F804BC;
+	Fri, 20 Aug 2021 09:02:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B59DEF80111; Tue, 17 Aug 2021 07:58:47 +0200 (CEST)
+ id D4C9BF80272; Tue, 17 Aug 2021 10:38:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
- [IPv6:2607:f8b0:4864:20::629])
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,HTML_MESSAGE,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 420EAF80111
- for <alsa-devel@alsa-project.org>; Tue, 17 Aug 2021 07:58:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 420EAF80111
+ by alsa1.perex.cz (Postfix) with ESMTPS id 799DCF80134
+ for <alsa-devel@alsa-project.org>; Tue, 17 Aug 2021 10:38:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 799DCF80134
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="S+4YZ6S9"
-Received: by mail-pl1-x629.google.com with SMTP id w6so16622952plg.9
- for <alsa-devel@alsa-project.org>; Mon, 16 Aug 2021 22:58:37 -0700 (PDT)
+ header.b="LjgN5Hz7"
+Received: by mail-lf1-x135.google.com with SMTP id z2so39971453lft.1
+ for <alsa-devel@alsa-project.org>; Tue, 17 Aug 2021 01:38:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=IxafAGsMTAwB8VQj4VftuWH0xnZbthsj3itwHDoB7/o=;
- b=S+4YZ6S9MuIMk2XbSfM1Uac7rFCC1w6XHTVMgjDOE5t6zEjjnbgAyW9120xhv5vRFs
- 9kVE7Y09h0TqWISKKpigDwi6n15NTFYtp835p5eiZQGLu7wllgM97IF6fZHnxjxAeKV1
- hEg4hoLzFNOjH6sONx+cOOosGRqfBU9LzGikWBtMi6OTTyb7Hq0hzARr671NV4iNhnSV
- D1dhcTRGXOllqbGGAIwJxVOch1LfwX3Xrx/ROn1ObYC1mrf5Gk3uPUyecPhcQ5l3FUTq
- 79M28k83DafAcfSGS9Pr+mAETIBLuEeEaUw1MjBuRQMSXQQNRzsWpmCNycsysYhN3Op2
- MTSw==
+ h=mime-version:from:date:message-id:subject:to;
+ bh=bhLNaIlUAynXMcPAdw8YZZKbh6F9QJxgke4UT1n16VE=;
+ b=LjgN5Hz7IJCKd5kDTrajYBmM7Qpaf6/hW1YYmRclGSmBK4Wh8T29MTa7czrXF0ai8e
+ ylncr/tRYJU7CL7H2wiXUXDHU3nAteD7xpUqTTXhHeuy7veeaSX6P4iXluJwXYT8iUhG
+ kM94bg0ahdVJebFUx2eIoLbb1E04CmGievFyfdaFEfqnoWACBzU1bRSh8iaEuzk/DZW3
+ /tTVssHqLDtKEeJuW7K+MzhBUN4jNSnkzcQDB1TgwLDIqT360DqXW8nk6impIyWVgN/V
+ prXe923qQc8Cc8S690+BGDwbcp+094PadTSKia0t2eRHyEFw5P9DlcnVQndzm45mIM8n
+ kovw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=IxafAGsMTAwB8VQj4VftuWH0xnZbthsj3itwHDoB7/o=;
- b=pCFIAX/FrZbRjBmH7tPgjxf9210K+qzuAr+vgJ0Tv9d/0NSBQNic36UX9PJH984jfX
- y992Zip/KwOAzononc9udJ5PkCbk6TDlfnhuA4gBzc/mpgsXgsTZsM3u1q/Vw+VVlLek
- TaG9UjI14GjmpZiv0RnqqQ21ubKzzSz36kkLQAbzokMuY5+RGixmfCLUiRsBxOb/2AA3
- GQV6GAxtQbCDMleNeKgIPJLsd8XYZPXvBrmLK5b+0W+0SgVk2Nh35gf1gCmvpZm9Zu8V
- 5CLhk27d+lasfU+pOIWwuHZIbNVHoIFgEAXvrXKpjJ1D9fpP4PNkbpWzGBfCvVaKIvLs
- //+A==
-X-Gm-Message-State: AOAM532jb9RvfSgSyFapEz1DYOTkHGnMuI83lC0X3Zi+7BZZWbYKHwht
- gld305OoeunvxlZEzKdjvfo=
-X-Google-Smtp-Source: ABdhPJxIT9EkLVBK+gj5REka81141iSYHg81CGXL/NAfE+gcwObrJh6fa43WplDkq1Kr0jFoKpi6YA==
-X-Received: by 2002:a17:90a:fd11:: with SMTP id
- cv17mr1809949pjb.45.1629179913968; 
- Mon, 16 Aug 2021 22:58:33 -0700 (PDT)
-Received: from [172.20.10.3] (42-73-205-76.emome-ip.hinet.net. [42.73.205.76])
- by smtp.gmail.com with ESMTPSA id
- g2sm1082073pfi.211.2021.08.16.22.58.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Aug 2021 22:58:33 -0700 (PDT)
-Subject: Re: [PATCH] ASoC: nau8821: new driver
-To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>, Seven Lee <wtli@nuvoton.com>,
- broonie@kernel.org
-References: <20210809101000.3947156-1-wtli@nuvoton.com>
- <7fac2710-0173-cbc0-94e1-fb168dc4f069@linux.intel.com>
-From: Seven Lee <scott6986@gmail.com>
-Message-ID: <5035c750-f061-d3e5-45df-4eb2ae46a420@gmail.com>
-Date: Tue, 17 Aug 2021 13:58:29 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=bhLNaIlUAynXMcPAdw8YZZKbh6F9QJxgke4UT1n16VE=;
+ b=I7vP5sKh1hPyo/fPb48JgxSGPuPI6x7BU9dygiyFGc7ZSFNJ+NO9/eLv7x9q0WKy7a
+ YG4zU/nRfUlx71N6CtpQVgJ2MthPI4Q4t/AFW1pbpSwN8ZLpf5JTdDoWQkid2p2uq1Y8
+ nLm1CCx7MPcB26vVTO8OT1doTASaXXV3JXfWvO0YqN4+KDUz8uBYkXIMf//xBi8SRXhg
+ JPMbqPiVohWfl4NiaRC36eMjNjeQ9VBO4T4E4f021s6RssFo/KiXOHGO4PNzAKNfz60V
+ oXTHCWO8iQoEc0P62+/IYy8IzWvCakUKxOnWJacS7PcTka/WT6V4JqSfOdD5/3Jy5dCn
+ T4Vg==
+X-Gm-Message-State: AOAM533U1ALs2BL15am7F2GonYifdQbOGG2L84pesosC6m+XIr8Jg3lW
+ wR+5QgMgMRQYxwacTxp4m008TC7fmjLdizcTN1YoVnMFZXHSxA==
+X-Google-Smtp-Source: ABdhPJyyXpVjIyGl7OjMAwVHn2U4gvRfJ0u5M64nFPre967KYdENJXXorFwxViaSWo8HuiC6dYxxhOTrttPzqV/5KXI=
+X-Received: by 2002:a19:c150:: with SMTP id r77mr1539595lff.511.1629189499790; 
+ Tue, 17 Aug 2021 01:38:19 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <7fac2710-0173-cbc0-94e1-fb168dc4f069@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-Mailman-Approved-At: Fri, 20 Aug 2021 09:02:13 +0200
-Cc: alsa-devel@alsa-project.org, KCHSU0@nuvoton.com, lgirdwood@gmail.com,
- YHCHuang@nuvoton.com, CTLIN0@nuvoton.com, dardar923@gmail.com,
- supercraig0719@gmail.com
+From: sujith kumar reddy <sujithreddy6192@gmail.com>
+Date: Tue, 17 Aug 2021 14:08:08 +0530
+Message-ID: <CAAd2w=ZD4qiRJkrA23jBazc1u3dBjy_bJY0jbcp03gJFuLsRAQ@mail.gmail.com>
+Subject: arecord is failing with -V stereo
+To: alsa-devel@alsa-project.org
+X-Mailman-Approved-At: Fri, 20 Aug 2021 09:02:12 +0200
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,118 +90,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi All,
 
-Amadeusz Sławiński 於 2021/8/9 下午 06:44 寫道:
-> On 8/9/2021 12:10 PM, Seven Lee wrote:
->> Add driver for NAU88L21.
->>
->> Signed-off-by: Seven Lee <wtli@nuvoton.com>
->> ---
->
-> ...
->
->> +
->> +static int dmic_clock_control(struct snd_soc_dapm_widget *w,
->> +        struct snd_kcontrol *k, int  event)
->> +{
->> +    struct snd_soc_component *component =
->> +        snd_soc_dapm_to_component(w->dapm);
->> +    struct nau8821 *nau8821 = snd_soc_component_get_drvdata(component);
->> +    int i, speed_selection, clk_adc_src, clk_adc;
->> +    unsigned int clk_divider_r03;
->> +
->> +    /* The DMIC clock is gotten from adc clock divided by
->> +     * CLK_DMIC_SRC (1, 2, 4, 8). The clock has to be equal or
->> +     * less than nau8821->dmic_clk_threshold.
->> +     */
->> +    regmap_read(nau8821->regmap, NAU8821_R03_CLK_DIVIDER,
->> +        &clk_divider_r03);
->> +    clk_adc_src = (clk_divider_r03 & NAU8821_CLK_ADC_SRC_MASK)
->> +        >> NAU8821_CLK_ADC_SRC_SFT;
->> +
->> +    switch (clk_adc_src) {
->> +    case 0:
->> +        clk_adc = nau8821->fs * 256;
->> +        break;
->> +    case 1:
->> +        clk_adc = (nau8821->fs * 256) >> 1;
->> +        break;
->> +    case 2:
->> +        clk_adc = (nau8821->fs * 256) >> 2;
->> +        break;
->> +    case 3:
->> +        clk_adc = (nau8821->fs * 256) >> 3;
->> +        break;
->> +    }
->
-> Just do:
-> clk_adc = (nau8821->fs * 256) >> clk_adc_src;
-> instead of whole switch?
+arecord is  failing vumeter option -V stereo only.
 
+localhost ~ # arecord -Dhw:1,2 -r48000 -c2 -fS32_LE /tmp/test_record.wav -M
+-d 1 -V stereo
+Recording WAVE '/tmp/test_record.wav' : Signed 32 bit Little Endian, Rate
+48000 Hz, Stereo
+*** buffer overflow detected ***: terminated
+Aborted by signal Aborted...
 
-Yes, you are right. I will fix it.
+Please provide pointers to debug this option.
 
-
->
->> +
->> +    for (i = 0 ; i < 4 ; i++) {
->> +        if ((clk_adc >> dmic_speed_sel[i].param) <=
->> +            nau8821->dmic_clk_threshold) {
->> +            speed_selection = dmic_speed_sel[i].val;
->> +            break;
->> +        }
->> +    }
->> +
->> +    dev_dbg(nau8821->dev,
->> +        "clk_adc=%d, dmic_clk_threshold = %d, param=%d, val = %d\n",
->> +        clk_adc, nau8821->dmic_clk_threshold,
->> +        dmic_speed_sel[i].param, dmic_speed_sel[i].val);
->> +    regmap_update_bits(nau8821->regmap, NAU8821_R13_DMIC_CTRL,
->> +        NAU8821_DMIC_SRC_MASK,
->> +        (speed_selection << NAU8821_DMIC_SRC_SFT));
->> +
->> +    return 0;
->> +}
->> +
->
-> ...
->
->> +
->> +static int nau8821_clock_check(struct nau8821 *nau8821,
->> +    int stream, int rate, int osr)
->> +{
->> +    int osrate = 0;
->> +
->> +    if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
->> +        if (osr >= ARRAY_SIZE(osr_dac_sel))
->> +            return -EINVAL;
->> +        osrate = osr_dac_sel[osr].osr;
->> +    } else {
->> +        if (osr >= ARRAY_SIZE(osr_adc_sel))
->> +            return -EINVAL;
->> +        osrate = osr_adc_sel[osr].osr;
->> +    }
-> true and false cases seem to be the same here, you can remove the "if 
-> else" and just leave one of them.
-
-
-The OSR of DAC and ADC can be different. And the ratio corresponding
-to the bit is also different. They are two different tables for
-osr_dac_sel and osr_adc_sel. Then it should be noted that the OSR and
-Fs must be selected carefully so that the max frequency of CLK_ADC or
-CLK_DAC are less than or equal to 6.144MHz.
-
-
->
->> +
->> +    if (!osrate || rate * osrate > CLK_DA_AD_MAX) {
->> +        dev_err(nau8821->dev,
->> +        "exceed the maximum frequency of CLK_ADC or CLK_DAC\n");
->> +        return -EINVAL;
->> +    }
->> +
->> +    return 0;
->> +}
->> +
->
-> ...
+Thanks
+Sujith

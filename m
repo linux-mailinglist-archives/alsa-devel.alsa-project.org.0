@@ -2,95 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C143C3F07F6
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Aug 2021 17:19:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAD243F07F5
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Aug 2021 17:19:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 64AA8169F;
-	Wed, 18 Aug 2021 17:18:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64AA8169F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4BD03168F;
+	Wed, 18 Aug 2021 17:18:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BD03168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629299982;
-	bh=iQgIItythd5DysvM/wzoV1WOmmN9QTgYHB+roZgovJI=;
-	h=From:Subject:Date:To:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1629299959;
+	bh=hsfJ0ac13TEY4MTKREFEYmNWAzMWz44gYf8stSnKUO0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=TqcjyI6D6baFjtcGjP4fL0kqImuxtdJarphYeXnvtzOMfJ7/97FHT9ZvFX4iBlrYV
-	 B9Dd63PeSmKdX7QcJunB9el8Au1xDJOIkEAAOufB19Y94WB1fujegM50MWdl+14IlU
-	 Z2aW2tSBw3A3A+olRPe5iX+RbyBYSA1j52phLLxY=
+	b=k+puX9mXnWGya0TNXI4Xxar2vtAnQWrKQ6cCYmaQ3ANRu3a6vKwm9qYmW6hU9iryZ
+	 GsZmXY4BhNpreP4mqTvu2S2DQnV9gxEx0GTQSDJutzv6BuOlzL/GkAjmOWKy7ytaem
+	 saKxtOyEBb8qtPfzTG26UQ/KA9rjTdc7HBt3hxDs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B23B2F804E3;
-	Wed, 18 Aug 2021 17:18:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84DECF80259;
+	Wed, 18 Aug 2021 17:18:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3E0BF804E2; Wed, 18 Aug 2021 17:18:28 +0200 (CEST)
+ id 1B6DDF80249; Wed, 18 Aug 2021 17:17:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from com-out001.mailprotect.be (com-out001.mailprotect.be
- [83.217.72.83])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-relay-canonical-1.canonical.com
+ (smtp-relay-canonical-1.canonical.com [185.125.188.121])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F450F804DA
- for <alsa-devel@alsa-project.org>; Wed, 18 Aug 2021 17:18:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F450F804DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 93105F80169
+ for <alsa-devel@alsa-project.org>; Wed, 18 Aug 2021 17:17:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93105F80169
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=mailprotect.be header.i=@mailprotect.be
- header.b="jY5xNxOh"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=mailprotect.be; s=mail; h=To:Date:Message-Id:Subject:Mime-Version:
- Content-Transfer-Encoding:Content-Type:From:reply-to:sender:cc:bcc:
- in-reply-to:references; bh=iQgIItythd5DysvM/wzoV1WOmmN9QTgYHB+roZgovJI=; b=jY
- 5xNxOhoAxmlV4DneVbX5+Jw7gINOelJZMnTkjZkWk9p5TitqPwcvZWnOTFGqVES/Wd+qUMMmcsmhD
- NghlHJSlO+ORmOspFnaXGhYFDKsyYIM90mfB+05wPhLbJ5mjHr3owvSo2FxCjkElpaNe3oHI5yhO6
- uY3vc0cVIoQnq6JLIQ2B40VAMMqzk2X5Xydlolzhr0yFS9ZFwHDIbNhh0dUJTgvJXgmrHS9MTjSg6
- 9ZxBZVVGEUvUxKW233X0rDGvzsfScbwa9mxzQCrVfbRhU9q2qpGokIXZ5+0nrcd7JQpvQisuZyvfJ
- au/pw7vcWZxkz4louVMKZ3bFFY8pTiuQ==;
-Received: from smtp-auth.mailprotect.be ([178.208.39.159])
- by com-mpt-out001.mailprotect.be with esmtp (Exim 4.92)
- (envelope-from <linux@panokkel.be>) id 1mGNKb-000Bzh-BB
- for alsa-devel@alsa-project.org; Wed, 18 Aug 2021 17:18:17 +0200
-Received: from [192.168.0.48] (188.144-179-91.adsl-dyn.isp.belgacom.be
- [91.179.144.188])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by smtp-auth.mailprotect.be (Postfix) with ESMTPSA id 2208BC040F
- for <alsa-devel@alsa-project.org>; Wed, 18 Aug 2021 17:16:27 +0200 (CEST)
-From: Philippe Bekaert <linux@panokkel.be>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Subject: PCM channel names
-Message-Id: <8FD26792-0CE4-4E46-B2A5-E3780FC3B15B@panokkel.be>
-Date: Wed, 18 Aug 2021 17:16:24 +0200
-To: alsa-devel@alsa-project.org
-X-Mailer: Apple Mail (2.3273)
-X-Originating-IP: 178.208.39.159
-X-SpamExperts-Domain: mailprotect.be
-X-SpamExperts-Username: 178.208.39.128/27
-Authentication-Results: mailprotect.be;
- auth=pass smtp.auth=178.208.39.128/27@mailprotect.be
-X-SpamExperts-Outgoing-Class: unsure
-X-SpamExperts-Outgoing-Evidence: Combined (0.38)
-X-Recommended-Action: accept
-X-Filter-ID: Pt3MvcO5N4iKaDQ5O6lkdGlMVN6RH8bjRMzItlySaT/Q5H4Zvcmvl81aCYzOTZhePUtbdvnXkggZ
- 3YnVId/Y5jcf0yeVQAvfjHznO7+bT5wI8D5AnkcPR12/sl/nlqnGQ20HGDJnwk8BgzAUpYTUGKvp
- k7Vp2UXVHEQMIct0liJdJW9puLtvUuoag78dzBFnswKQDamPN66SYe4XX4xmgBmNBHh5pvNozdjh
- iHhZmV6hiiPox9Yu1atsOeRdW0omz0d+/hdeAZZOrheiaMELaayFgolxSvX8PPuD51I4GcLonZtA
- vX1WzENHOSMGSyH29yQ3U0m75sPR68f+76r/Ud8cjIN3reG9z0FKKQ5m2Qooa20mCX0fi2bWQ7rT
- SQDxs5srTnb+Mu57A5wjlqYzGz24rQe9+/XtclLOTVMRq9W72rVlokj9CcZZe4NWxmYtUTBsIV2x
- qb9+rE9eAlaoqpphCjLoM3OhjV6kvTjjyvBdjx85xQq9VD42UbTRudBo31/E3ahF5MMcDI7KdpjQ
- Kb7VhVlAbuQohUsoMB8/9+IvP92yJqFDUMWgYkYfhC80Gwm1A8pCIdnIW9QdjDt5I4lSPGIn6LIh
- 6vfZt6Tuc+uVfVL7ygxIxIEhQBgsu7ia6J1fhOzjF0b4LXcjJZ5loorRYn0ZvHpcLl/OavUi/RGk
- 3lS1t6QdEPz08qMKOQH7sIbE4UiyqJdelX29TgsXf5+ZnvDDYbgvmGdEE1VWx8J8rh7h1s6DSh98
- 40yDjMKs5/gE7OC0au1m7aV/2lYNTueURvP7468+f+EGtWkSZL0nBy/PpUxgSFRPcWxJF+/bGKab
- 80xeVn/GOpnd9ZL3zxrHbsy2AzqLkuSV7xq9g7gUSunMfqfSQSJ4CoLIQdUnIbtf63VNbf0lrvss
- Y+k7AOMp68n5Mxe8trh3A6NtxGO8IkwAXSHU/VLEuRIRyzml0jXsax3qUOPIpGgqdLeqBjA0XAoG
- ECHs14pjPDDBgak9LF0rECLmIIcFbKgxie4a09PDcKZtfuSpOwk1tGwWvHPw17RyTo/iK8p1aZEn
- H6DUdQkQGCPtwXjXyPZWpNzWSy/3tDea9a84QNt8xrcOgd7mq705+GIFeYFzkUqu2/Y=
-X-Report-Abuse-To: spam@com-mpt-mgt001.mailprotect.be
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="hf4+LckN"
+Received: from localhost (1.general.cking.uk.vpn [10.172.193.212])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id B0AE13F361; 
+ Wed, 18 Aug 2021 15:17:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1629299866;
+ bh=z5jVFxsMugjMYW/N4BEa1uHFJbg9/7T7WDVguO5VseE=;
+ h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type;
+ b=hf4+LckNw4pkWkuwMlwbVkmrw9okQEDxKdkcCSMAUMHNySVa0i9QPu/En3qJSZJeU
+ t4x9CtV6yubBhn1kFq/mRQfK6GOUMNmhDMO2fqqQznJY8/6lzi1aBQLByu44/Z2wvL
+ ANfox6rDlHHMKnaVrXgSyWkagjTYyfQwiDgYn+Fj18bLYDG1mi8N9Iq49Zr3a7wC8l
+ ieDDfsYsU1JlKDn+UgEryq+2MxlIBOV/7jUFqJokvreB2WX0HK+ovS+nSTCwlZc5VN
+ u6tPsLrb9BOrni6AFUdKYYdQ17RQqbv6lhowtZgfydvFxbv8Do9muwQATqUbd31ii5
+ 3ANfJY9nwOIyQ==
+From: Colin King <colin.king@canonical.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>, alsa-devel@alsa-project.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: [PATCH] ASoC: uniphier: make arrays mul and div static const,
+ makes object smaller
+Date: Wed, 18 Aug 2021 16:17:46 +0100
+Message-Id: <20210818151746.38520-1-colin.king@canonical.com>
+X-Mailer: git-send-email 2.32.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,31 +86,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Same context as my previous mail =E2=80=A6
+From: Colin Ian King <colin.king@canonical.com>
 
-The RME HDSPe cards have a large number of input and outputs for which =
-the standard ALSA channels names and mappings make little sense.=20
+Don't populate the arrays mul and div on the stack but instead make them
+static const. Makes the object code smaller by 4 bytes.
 
-Names depend on the card, e.g. Analog.L, Analog.R, AES.1/1 =E2=80=A6 =
-AES.1/8, ADAT.1 =E2=80=A6 ADAT.8 etc=E2=80=A6
+Before:
+   text    data     bss     dec     hex filename
+  16226    4984      64   21274    531a ./sound/soc/uniphier/aio-cpu.o
 
-Right now, the hdspm driver provides a ad-hoc virtual file in =
-/proc/asound/card<n> containing these names.=20
+After:
+   text    data     bss     dec     hex filename
+  16062    5144      64   21270    5316 ./sound/soc/uniphier/aio-cpu.o
 
-Isn=E2=80=99t there a more generic interface to communicate PCM channel =
-names from driver to user space
+(gcc version 10.2.0)
 
-Same questions as before:
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ sound/soc/uniphier/aio-cpu.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Has anyone been facing similar issues? How have you been solving it? Is =
-there any =E2=80=9Ccommon practice=E2=80=9D or =E2=80=9Chabits=E2=80=9D =
-in this community concerning this topic? Would it make sense to define a =
-kind of generic interface for PCM naming? Then, has anyone an idea or =
-preference how it should look like?
-
-Again looking forward to your feedback.
-
-Best regards and thanks in advance,
-
-Philippe.
+diff --git a/sound/soc/uniphier/aio-cpu.c b/sound/soc/uniphier/aio-cpu.c
+index cf9814130067..4e8d5f7532ba 100644
+--- a/sound/soc/uniphier/aio-cpu.c
++++ b/sound/soc/uniphier/aio-cpu.c
+@@ -128,8 +128,8 @@ static const struct uniphier_aio_spec *find_spec(struct uniphier_aio *aio,
+ static int find_divider(struct uniphier_aio *aio, int pll_id, unsigned int freq)
+ {
+ 	struct uniphier_aio_pll *pll;
+-	int mul[] = { 1, 1, 1, 2, };
+-	int div[] = { 2, 3, 1, 3, };
++	static const int mul[] = { 1, 1, 1, 2, };
++	static const int div[] = { 2, 3, 1, 3, };
+ 	int i;
+ 
+ 	if (!is_valid_pll(aio->chip, pll_id))
+-- 
+2.32.0
 

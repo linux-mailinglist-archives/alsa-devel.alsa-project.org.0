@@ -2,95 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDCCB3F0471
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Aug 2021 15:17:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3CD43F048C
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Aug 2021 15:23:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6250A1676;
-	Wed, 18 Aug 2021 15:16:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6250A1676
+	by alsa0.perex.cz (Postfix) with ESMTPS id 859931680;
+	Wed, 18 Aug 2021 15:23:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 859931680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629292637;
-	bh=/2gFWHnrWENoVI9Yh2X0Vf5/ajiJPLw1zMu5y47s1+k=;
+	s=default; t=1629293030;
+	bh=mUS2XHoBNSYTIuTRFqsUU57sxADOx3BgsDP98f3EzMY=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QO+CeN6ZoGVTp36Mf72BfPW+mizFlVKS9aV18oitWF5gTbq58eai1CdGs8NeE1qIB
-	 A47PIPeh3hPro6IiMhB6FVL8DWSjOdEF2WVFV5Jvelvi3g+Gbazw3ifRe/9LwGwbOl
-	 pmI4Fxy94Z7pVky+nen7h7n3KD7KRLBwLAeQvV7c=
+	b=fdkdUnZ3Bk8EW7OSdTfjRfe0+SD3SRLtY14yr3gmA3XvaRkB7Zyfdjj95jv1Dv2pr
+	 RswnzcHTGZr0FYn0r1t1vdA02+z0RS6h/EwAnG9+0MRhuthMGL0rPlODz27Jnj9jIZ
+	 rd9UW4i6Z6b8aAsH8abwlkequUyHAFY94vgH1P2c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AE258F800EC;
-	Wed, 18 Aug 2021 15:15:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0FEFF800EC;
+	Wed, 18 Aug 2021 15:22:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D2FE3F80249; Wed, 18 Aug 2021 15:15:57 +0200 (CEST)
+ id 994DEF80249; Wed, 18 Aug 2021 15:22:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6E36EF800EC
- for <alsa-devel@alsa-project.org>; Wed, 18 Aug 2021 15:15:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E36EF800EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9273FF800EC
+ for <alsa-devel@alsa-project.org>; Wed, 18 Aug 2021 15:22:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9273FF800EC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="HjNMFg39"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 17IDAl0S027040; 
- Wed, 18 Aug 2021 08:15:47 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=RT10YEEl56y+8zUe9U6xjHrzQdqClkYbLj6Atk7GYAo=;
- b=HjNMFg39N0Q0J+3so/7kGFLXm4GG0+NFLyUv33EyDGRLypVvftP1ApSCavCWiLl2L70I
- uRgfn+ERzZEOFtZbi4rwJJ4acQkDA4VYyN2VqD+b3dj02uZ/owsIWp9/mhNVOsV2egSE
- Tv408e7Kd5G5y/3pTKRns6qZKVjvs1rdej5TNXk32ADZruWDxum1tnsszstN/BmhGI9B
- HeXPXilVQAlYoZ21O4a0DgK+uVkVjoyKWn+Jbr5W/CRPOmVvjEx2g4ChLcWkU+pDD/kS
- GJSBL/Gfd1QuQmjQBgwgqPiTxwJLo92RSdSB4ECOmfu4bzJiTr2dMYmmVutcaEf4foSG ow== 
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 3agtd4gp6k-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 18 Aug 2021 08:15:47 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Wed, 18 Aug
- 2021 14:15:45 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.12 via
- Frontend Transport; Wed, 18 Aug 2021 14:15:45 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id DFED445D;
- Wed, 18 Aug 2021 13:15:44 +0000 (UTC)
-Date: Wed, 18 Aug 2021 13:15:44 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH AUTOSEL 5.13 03/12] ASoC: wm_adsp: Let
- soc_cleanup_component_debugfs remove debugfs
-Message-ID: <20210818131544.GL9223@ediswmail.ad.cirrus.com>
-References: <20210817003536.83063-1-sashal@kernel.org>
- <20210817003536.83063-3-sashal@kernel.org>
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="D/jrowO1"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A0D7160232;
+ Wed, 18 Aug 2021 13:22:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1629292942;
+ bh=mUS2XHoBNSYTIuTRFqsUU57sxADOx3BgsDP98f3EzMY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=D/jrowO11usaVNWUNbge+kprse4L+XNseJefutlHU6ZDzNuidRBevYMPNo/9Scubx
+ W7zY9wGu29+Wfb+b2voB6OMjqKXLQfMtNJj2oqiQhxnyOkRIVF2/fCxoxuvNdvB5/t
+ LqtqTz1iIBHfptgtYoXwhTo/5uyyCjwpQEZFFMFk=
+Date: Wed, 18 Aug 2021 15:22:19 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [RFC PATCH 1/2] driver core: export
+ driver_deferred_probe_trigger()
+Message-ID: <YR0Ji7DQXoo0z4vP@kroah.com>
+References: <20210817190057.255264-1-pierre-louis.bossart@linux.intel.com>
+ <20210817190057.255264-2-pierre-louis.bossart@linux.intel.com>
+ <YRyeR6imvSwOOasQ@kroah.com> <20210818115736.GA4177@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210817003536.83063-3-sashal@kernel.org>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: 07ovo_PiZY4C71smc856evkHyhsV5zae
-X-Proofpoint-GUID: 07ovo_PiZY4C71smc856evkHyhsV5zae
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1031
- suspectscore=0
- impostorscore=0 malwarescore=0 lowpriorityscore=0 bulkscore=0 spamscore=0
- adultscore=0 priorityscore=1501 mlxscore=0 mlxlogscore=999 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2107140000
- definitions=main-2108180083
-Cc: alsa-devel@alsa-project.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Mark Brown <broonie@kernel.org>
+In-Reply-To: <20210818115736.GA4177@sirena.org.uk>
+Cc: alsa-devel@alsa-project.org, "Rafael J . Wysocki" <rafael@kernel.org>,
+ tiwai@suse.de, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ linux-kernel@vger.kernel.org, liam.r.girdwood@linux.intel.com,
+ vkoul@kernel.org, Geert Uytterhoeven <geert@linux-m68k.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Dan Williams <dan.j.williams@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Christoph Hellwig <hch@lst.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,47 +83,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Aug 16, 2021 at 08:35:27PM -0400, Sasha Levin wrote:
-> From: Lucas Tanure <tanureal@opensource.cirrus.com>
+On Wed, Aug 18, 2021 at 12:57:36PM +0100, Mark Brown wrote:
+> On Wed, Aug 18, 2021 at 07:44:39AM +0200, Greg Kroah-Hartman wrote:
+> > On Tue, Aug 17, 2021 at 02:00:56PM -0500, Pierre-Louis Bossart wrote:
 > 
-> [ Upstream commit acbf58e530416e167c3b323111f4013d9f2b0a7d ]
+> > > In these cases, there is no way to notify the deferred probe
+> > > infrastructure of the enablement of resources after the driver
+> > > binding.
 > 
-> soc_cleanup_component_debugfs will debugfs_remove_recursive
-> the component->debugfs_root, so adsp doesn't need to also
-> remove the same entry.
-> By doing that adsp also creates a race with core component,
-> which causes a NULL pointer dereference
+> > Then just wait for it to happen naturally?
 > 
-> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
-> Link: https://lore.kernel.org/r/20210728104416.636591-1-tanureal@opensource.cirrus.com
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  sound/soc/codecs/wm_adsp.c | 1 -
->  1 file changed, 1 deletion(-)
+> Through what mechanism will it happen naturally?  Deferred probe
+> currently only does things if things are being registered or if probes
+> complete.
 > 
-> diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
-> index cef05d81c39b..6698b5343974 100644
-> --- a/sound/soc/codecs/wm_adsp.c
-> +++ b/sound/soc/codecs/wm_adsp.c
-> @@ -746,7 +746,6 @@ static void wm_adsp2_init_debugfs(struct wm_adsp *dsp,
->  static void wm_adsp2_cleanup_debugfs(struct wm_adsp *dsp)
->  {
->  	wm_adsp_debugfs_clear(dsp);
-> -	debugfs_remove_recursive(dsp->debugfs_root);
->  }
+> > > The driver_deferred_probe_trigger() function is currently used
+> > > 'anytime a driver is successfully bound to a device', this patch
+> > > suggest exporing by exporting it so that drivers can kick-off
+> > > re-probing of deferred devices at the end of a deferred processing.
+> 
+> > I really do not want to export this as it will get really messy very
+> > quickly with different drivers/busses attempting to call this.
+> 
+> I'm not sure I see the mess here - it's just queueing some work, one of
+> the things that the workqueue stuff does well is handle things getting
+> scheduled while they're already queued.  Honestly having understood
+> their problem I think we need to be adding these calls into all the
+> resource provider APIs.
+> 
+> > Either handle it in your driver (why do you have to defer probe at all,
+> > just succeed and move on to register the needed stuff after you are
+> > initialized) or rely on the driver core here.
+> 
+> That's exactly what they're doing currently and the driver core isn't
+> delivering.
+> 
+> Driver A is slow to start up and providing a resource to driver B, this
+> gets handled in driver A by succeeding immediately and then registering
+> the resource once the startup has completed.  Unfortunately while that
+> was happening not only has driver B registered and deferred but the rest
+> of the probes/defers in the system have completed so the deferred probe
+> mechanism is idle.  Nothing currently tells the deferred probe mechanism
+> that a new resource is now available so it never retries the probe of
+> driver B.  The only way I can see to fix this without modifying the
+> driver core is to make driver A block during probe but that would at
+> best slow down boot.
+> 
+> The issue is that the driver core is using drivers completing probe as a
+> proxy for resources becoming available.  That works most of the time
+> because most probes are fully synchronous but it breaks down if a
+> resource provider registers resources outside of probe, we might still
+> be fine if system boot is still happening and something else probes but
+> only through luck.
 
-It might be better not to backport this patch to the stable
-kernels. The issue has only been seen on one out of tree driver
-and the patch looks a little off to me. This
-debugfs_remove_recursive should run before the
-soc_cleanup_component_debugfs one, and as such it's hard to see
-what is actually going on. We are currently investigating internally
-but we might end up reverting the change, and it only seems to be
-causing issues on the one not upstreamed part.
+The driver core is not using that as a proxy, that is up to the driver
+itself or not.  All probe means is "yes, this driver binds to this
+device, thank you!" for that specific bus/class type.  That's all, if
+the driver needs to go off and do real work before it can properly
+control the device, wonderful, have it go and do that async.
 
-Apologies for missing the review of this one when it went up
-Mark, I was on holiday at the time.
+So if you know you should be binding to the device, great, kick off some
+other work and return success from probe.  There's no reason you have to
+delay or defer for no good reason, right?
 
-Thanks,
-Charles
+But yes, if you do get new resources, the probe should be called again,
+that's what the deferred logic is for (or is that the link logic, I
+can't recall)  This shouldn't be a new thing, no needing to call the
+driver core directly like this at all, it should "just happen", right?
+
+thanks,
+
+greg k-h

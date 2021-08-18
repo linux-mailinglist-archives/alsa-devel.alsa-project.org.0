@@ -2,75 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAD243F07F5
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Aug 2021 17:19:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E8053F080C
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Aug 2021 17:28:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BD03168F;
-	Wed, 18 Aug 2021 17:18:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BD03168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD2481691;
+	Wed, 18 Aug 2021 17:28:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD2481691
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629299959;
-	bh=hsfJ0ac13TEY4MTKREFEYmNWAzMWz44gYf8stSnKUO0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=k+puX9mXnWGya0TNXI4Xxar2vtAnQWrKQ6cCYmaQ3ANRu3a6vKwm9qYmW6hU9iryZ
-	 GsZmXY4BhNpreP4mqTvu2S2DQnV9gxEx0GTQSDJutzv6BuOlzL/GkAjmOWKy7ytaem
-	 saKxtOyEBb8qtPfzTG26UQ/KA9rjTdc7HBt3hxDs=
+	s=default; t=1629300537;
+	bh=pfia9gO0icSDW8FyaA6UM0W2C3cMTPYtsdLnMTmMHPI=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=rWL1yVkKaKNXEtRxzwQYAhXh98nYwBrHBnS8g8Wfvh3ktmHaZOlY+NXy0ugk732D2
+	 5XiAyVepbPiYt+lTVq2xvq3M4rA+0FlblzOuslAjLJkcQjNpN4t+vysJaavlnz+RQ+
+	 CySClDJVUjqvr+ycT9/va9LNTOOk6QAifmYuZKx8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84DECF80259;
-	Wed, 18 Aug 2021 17:18:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31FE8F800EC;
+	Wed, 18 Aug 2021 17:27:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B6DDF80249; Wed, 18 Aug 2021 17:17:59 +0200 (CEST)
+ id 6887AF80249; Wed, 18 Aug 2021 17:27:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-relay-canonical-1.canonical.com
- (smtp-relay-canonical-1.canonical.com [185.125.188.121])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 93105F80169
- for <alsa-devel@alsa-project.org>; Wed, 18 Aug 2021 17:17:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93105F80169
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="hf4+LckN"
-Received: from localhost (1.general.cking.uk.vpn [10.172.193.212])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id B0AE13F361; 
- Wed, 18 Aug 2021 15:17:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1629299866;
- bh=z5jVFxsMugjMYW/N4BEa1uHFJbg9/7T7WDVguO5VseE=;
- h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type;
- b=hf4+LckNw4pkWkuwMlwbVkmrw9okQEDxKdkcCSMAUMHNySVa0i9QPu/En3qJSZJeU
- t4x9CtV6yubBhn1kFq/mRQfK6GOUMNmhDMO2fqqQznJY8/6lzi1aBQLByu44/Z2wvL
- ANfox6rDlHHMKnaVrXgSyWkagjTYyfQwiDgYn+Fj18bLYDG1mi8N9Iq49Zr3a7wC8l
- ieDDfsYsU1JlKDn+UgEryq+2MxlIBOV/7jUFqJokvreB2WX0HK+ovS+nSTCwlZc5VN
- u6tPsLrb9BOrni6AFUdKYYdQ17RQqbv6lhowtZgfydvFxbv8Do9muwQATqUbd31ii5
- 3ANfJY9nwOIyQ==
-From: Colin King <colin.king@canonical.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>, alsa-devel@alsa-project.org,
- linux-arm-kernel@lists.infradead.org
-Subject: [PATCH] ASoC: uniphier: make arrays mul and div static const,
- makes object smaller
-Date: Wed, 18 Aug 2021 16:17:46 +0100
-Message-Id: <20210818151746.38520-1-colin.king@canonical.com>
-X-Mailer: git-send-email 2.32.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id A33F1F80169;
+ Wed, 18 Aug 2021 17:27:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A33F1F80169
+X-IronPort-AV: E=McAfee;i="6200,9189,10080"; a="214502372"
+X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="214502372"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2021 08:25:28 -0700
+X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="449796910"
+Received: from ksawchu-mobl.amr.corp.intel.com (HELO [10.212.83.236])
+ ([10.212.83.236])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2021 08:25:26 -0700
+Subject: Re: [RFC PATCH 2/2] ASoC: SOF: trigger re-probing of deferred devices
+ from workqueue
+To: Mark Brown <broonie@kernel.org>
+References: <20210817190057.255264-1-pierre-louis.bossart@linux.intel.com>
+ <20210817190057.255264-3-pierre-louis.bossart@linux.intel.com>
+ <20210818120700.GB4177@sirena.org.uk>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <3985f754-a0a2-92f7-1585-3b177c172664@linux.intel.com>
+Date: Wed, 18 Aug 2021 10:25:19 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20210818120700.GB4177@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, tiwai@suse.de,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, liam.r.girdwood@linux.intel.com,
+ vkoul@kernel.org, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Jason Gunthorpe <jgg@nvidia.com>, Dan Williams <dan.j.williams@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Christoph Hellwig <hch@lst.de>,
+ "moderated list:SOUND - SOUND OPEN FIRMWARE \(SOF\) DRIVERS"
+ <sound-open-firmware@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,41 +88,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Colin Ian King <colin.king@canonical.com>
 
-Don't populate the arrays mul and div on the stack but instead make them
-static const. Makes the object code smaller by 4 bytes.
 
-Before:
-   text    data     bss     dec     hex filename
-  16226    4984      64   21274    531a ./sound/soc/uniphier/aio-cpu.o
+On 8/18/21 7:07 AM, Mark Brown wrote:
+> On Tue, Aug 17, 2021 at 02:00:57PM -0500, Pierre-Louis Bossart wrote:
+> 
+>> +++ b/sound/soc/sof/core.c
+>> @@ -251,6 +251,9 @@ static int sof_probe_continue(struct snd_sof_dev *sdev)
+>>  
+>>  	sdev->probe_completed = true;
+>>  
+>> +	/* kick-off re-probing of deferred devices */
+>> +	driver_deferred_probe_trigger();
+>> +
+> 
+> I think we should move this into snd_soc_register_component() - the same
+> issue could occur with any other component, the only other thing I can
+> see kicking in here is the machine driver registration but that ought to
+> kick probe itself anyway.  Or is there some other case here?
 
-After:
-   text    data     bss     dec     hex filename
-  16062    5144      64   21270    5316 ./sound/soc/uniphier/aio-cpu.o
+Thanks for the suggestion Mark, it would be more consistent indeed to
+kick a re-evaluation of the deferred probe list when ASoC components are
+successfully registered with something like this:
 
-(gcc version 10.2.0)
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index c830e96afba2..9d6feea7719c 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -2677,7 +2677,14 @@ int snd_soc_register_component(struct device *dev,
+        if (ret < 0)
+                return ret;
 
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- sound/soc/uniphier/aio-cpu.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+-       return snd_soc_add_component(component, dai_drv, num_dai);
++       ret = snd_soc_add_component(component, dai_drv, num_dai);
++       if (ret < 0)
++               return ret;
++
++       /* kick-off re-probing of deferred devices */
++       driver_deferred_probe_trigger();
++
++       return 0;
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_register_component);
 
-diff --git a/sound/soc/uniphier/aio-cpu.c b/sound/soc/uniphier/aio-cpu.c
-index cf9814130067..4e8d5f7532ba 100644
---- a/sound/soc/uniphier/aio-cpu.c
-+++ b/sound/soc/uniphier/aio-cpu.c
-@@ -128,8 +128,8 @@ static const struct uniphier_aio_spec *find_spec(struct uniphier_aio *aio,
- static int find_divider(struct uniphier_aio *aio, int pll_id, unsigned int freq)
- {
- 	struct uniphier_aio_pll *pll;
--	int mul[] = { 1, 1, 1, 2, };
--	int div[] = { 2, 3, 1, 3, };
-+	static const int mul[] = { 1, 1, 1, 2, };
-+	static const int div[] = { 2, 3, 1, 3, };
- 	int i;
- 
- 	if (!is_valid_pll(aio->chip, pll_id))
--- 
-2.32.0
+In the case of this SOF driver, it'd be completely equivalent to what
+this patch suggested, the snd_soc_register_component() is what we do
+last in the workqueue.
 
+In the case of 'regular' drivers, the component registration is
+typically done last as well before the end of the probe. This would
+result in 2 evaluations (one on successful ASoC component registration
+and one on successful probe), and maybe on the second evaluation there's
+nothing to do.
+
+I can't think of any negative side-effects.

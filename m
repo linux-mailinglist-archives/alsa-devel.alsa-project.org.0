@@ -2,76 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C1003F06EB
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Aug 2021 16:43:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2D613F0727
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Aug 2021 16:53:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ECF281687;
-	Wed, 18 Aug 2021 16:42:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECF281687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40DD91686;
+	Wed, 18 Aug 2021 16:52:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40DD91686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629297789;
-	bh=ZxikT1XXvzJQ9Ae02oMPYenOGcfe0yNLiqjBWEb8cEE=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ZJtPC7DtxGwVSckXecVmbncU16LIABezbG90XyWF6cGaiZYcbX/nQeFmTu98++eZ0
-	 f6kXv/TrBk+Gpu7snyZfg/F5mS24rdu2Z/rm882+hndoIt8IV41P8iPSzSMcWTvsS9
-	 11aouBcHy4aLKXelu/7HX95N/+c8W+RxOMncxc/4=
+	s=default; t=1629298406;
+	bh=GlcqvJiNr5ZJ2FBGP0KcF/i1TrSri6r7/Qfg5Ti4Bng=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=WToIbqlggXMYoCtbviBafDBT/w4qu44ZKgeaMpII6ibB3TlCd83UaV47N3vkSa8Zo
+	 rjSsu1IuOJDUipx0rinSSOCh0wqdOnYmonzLKwBv8MJZKab11GCMGPhtIi8rowtWSm
+	 vpREgobeF9quanM0vwUs0okD2ku+o7JWxSeoiyDc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0144BF80169;
-	Wed, 18 Aug 2021 16:41:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9FC12F80163;
+	Wed, 18 Aug 2021 16:52:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 82174F80249; Wed, 18 Aug 2021 16:41:48 +0200 (CEST)
+ id 541C2F80249; Wed, 18 Aug 2021 16:52:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-relay-canonical-0.canonical.com
- (smtp-relay-canonical-0.canonical.com [185.125.188.120])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CBE44F80163
- for <alsa-devel@alsa-project.org>; Wed, 18 Aug 2021 16:41:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBE44F80163
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="AnznNO2B"
-Received: from localhost.localdomain (1-171-94-217.dynamic-ip.hinet.net
- [1.171.94.217])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 6266F3F22D; 
- Wed, 18 Aug 2021 14:41:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1629297693;
- bh=rpYQZJkVgHmqwjumc9YZsbkB/HagkENpYBYIqPk3wwM=;
- h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
- b=AnznNO2B+u1KZWg60EjPbLMutpwzbgyrY+ojeRNxn6JmhlkoxUi5ja7MhwYdyid5p
- 2dkdOoNWeoENtk8O+nNWbPTj+vlgjytzkE502ojh6qSX0Zi8vLZfT8EakRzkcZLQyN
- qOvan470Ux70EcuZ+5qGfdjvIUdIi7jKE04IoO6q+ILHfTaxsP3pppqUbTl2/I70P0
- pxwZW+uHkm0HT/Cwz5WdOcDQCAzL8fRdMs3hxJjPFeZltx6QVjBnU3Bkw3UtzG6SPq
- DKtIm/BoDeTW2BDs/TaZAE5ADB904609yQT47wlIJpLJApRvzjyCLD0wI0MdFJP9z7
- 5mHN98cM5PdCw==
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-To: tiwai@suse.com
-Subject: [PATCH] ALSA: hda/realtek: Limit mic boost on HP ProBook 445 G8
-Date: Wed, 18 Aug 2021 22:41:18 +0800
-Message-Id: <20210818144119.121738-1-kai.heng.feng@canonical.com>
-X-Mailer: git-send-email 2.32.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34CB1F80169
+ for <alsa-devel@alsa-project.org>; Wed, 18 Aug 2021 16:51:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34CB1F80169
+X-IronPort-AV: E=McAfee;i="6200,9189,10080"; a="216335124"
+X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="216335124"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2021 07:51:55 -0700
+X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="449785281"
+Received: from ksawchu-mobl.amr.corp.intel.com (HELO [10.212.83.236])
+ ([10.212.83.236])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2021 07:51:53 -0700
+Subject: Re: [RFC PATCH 1/2] driver core: export
+ driver_deferred_probe_trigger()
+To: Mark Brown <broonie@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <20210817190057.255264-1-pierre-louis.bossart@linux.intel.com>
+ <20210817190057.255264-2-pierre-louis.bossart@linux.intel.com>
+ <YRyeR6imvSwOOasQ@kroah.com> <20210818115736.GA4177@sirena.org.uk>
+ <YR0Ji7DQXoo0z4vP@kroah.com> <20210818134814.GF4177@sirena.org.uk>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <14235b8d-d375-6e2d-cae9-33adf9c48120@linux.intel.com>
+Date: Wed, 18 Aug 2021 09:51:51 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Chris Chiu <chris.chiu@canonical.com>,
- "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
- open list <linux-kernel@vger.kernel.org>, Luke D Jones <luke@ljones.dev>,
- Jian-Hong Pan <jhp@endlessos.org>, Werner Sembach <wse@tuxedocomputers.com>,
- Hui Wang <hui.wang@canonical.com>, PeiSen Hou <pshou@realtek.com>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>, Sami Loone <sami@loone.fi>
+In-Reply-To: <20210818134814.GF4177@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, "Rafael J . Wysocki" <rafael@kernel.org>,
+ tiwai@suse.de, linux-kernel@vger.kernel.org, liam.r.girdwood@linux.intel.com,
+ vkoul@kernel.org, Geert Uytterhoeven <geert@linux-m68k.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Dan Williams <dan.j.williams@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Christoph Hellwig <hch@lst.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,50 +85,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The mic has lots of noises if mic boost is enabled. So disable mic boost
-to get crystal clear audio capture.
 
-Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
----
- sound/pci/hda/patch_realtek.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 8b72064f83211..cdd87917dd8cf 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -6645,6 +6645,7 @@ enum {
- 	ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP,
- 	ALC623_FIXUP_LENOVO_THINKSTATION_P340,
- 	ALC255_FIXUP_ACER_HEADPHONE_AND_MIC,
-+	ALC236_FIXUP_HP_LIMIT_INT_MIC_BOOST,
- };
- 
- static const struct hda_fixup alc269_fixups[] = {
-@@ -8229,6 +8230,12 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC255_FIXUP_XIAOMI_HEADSET_MIC
- 	},
-+	[ALC236_FIXUP_HP_LIMIT_INT_MIC_BOOST] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc269_fixup_limit_int_mic_boost,
-+		.chained = true,
-+		.chain_id = ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF,
-+	},
- };
- 
- static const struct snd_pci_quirk alc269_fixup_tbl[] = {
-@@ -8425,8 +8432,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x8847, "HP EliteBook x360 830 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x884b, "HP EliteBook 840 Aero G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x884c, "HP EliteBook 840 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
--	SND_PCI_QUIRK(0x103c, 0x8862, "HP ProBook 445 G8 Notebook PC", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
--	SND_PCI_QUIRK(0x103c, 0x8863, "HP ProBook 445 G8 Notebook PC", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
-+	SND_PCI_QUIRK(0x103c, 0x8862, "HP ProBook 445 G8 Notebook PC", ALC236_FIXUP_HP_LIMIT_INT_MIC_BOOST),
-+	SND_PCI_QUIRK(0x103c, 0x8863, "HP ProBook 445 G8 Notebook PC", ALC236_FIXUP_HP_LIMIT_INT_MIC_BOOST),
- 	SND_PCI_QUIRK(0x103c, 0x886d, "HP ZBook Fury 17.3 Inch G8 Mobile Workstation PC", ALC285_FIXUP_HP_GPIO_AMP_INIT),
- 	SND_PCI_QUIRK(0x103c, 0x8870, "HP ZBook Fury 15.6 Inch G8 Mobile Workstation PC", ALC285_FIXUP_HP_GPIO_AMP_INIT),
- 	SND_PCI_QUIRK(0x103c, 0x8873, "HP ZBook Studio 15.6 Inch G8 Mobile Workstation PC", ALC285_FIXUP_HP_GPIO_AMP_INIT),
--- 
-2.32.0
+>>> The issue is that the driver core is using drivers completing probe as a
+>>> proxy for resources becoming available.  That works most of the time
+>>> because most probes are fully synchronous but it breaks down if a
+>>> resource provider registers resources outside of probe, we might still
+>>> be fine if system boot is still happening and something else probes but
+>>> only through luck.
+> 
+>> The driver core is not using that as a proxy, that is up to the driver
+>> itself or not.  All probe means is "yes, this driver binds to this
+>> device, thank you!" for that specific bus/class type.  That's all, if
+>> the driver needs to go off and do real work before it can properly
+>> control the device, wonderful, have it go and do that async.
+> 
+> Right, which is what is happening here - but the deferred probe
+> machinery in the core is reading more into the probe succeeding than it
+> should.
 
+I think Greg was referring to the use of the PROBE_PREFER_ASYNCHRONOUS
+probe type. We tried just that and got a nice WARN_ON because we are
+using request_module() to deal with HDaudio codecs. The details are in
+[1] but the kernel code is unambiguous...
+
+        /*
+	 * We don't allow synchronous module loading from async.  Module
+	 * init may invoke async_synchronize_full() which will end up
+	 * waiting for this task which already is waiting for the module
+	 * loading to complete, leading to a deadlock.
+	 */
+	WARN_ON_ONCE(wait && current_is_async());
+
+
+The reason why we use a workqueue is because we are otherwise painted in
+a corner by conflicting requirements.
+
+a) we have to use request_module()
+b) we cannot use the async probe because of the request_module()
+c) we have to avoid blocking on boot
+
+I understand the resistance to exporting this function, no one in our
+team was really happy about it, but no one could find an alternate
+solution. If there is something better, I am all ears.
+
+Thanks
+-Pierre
+
+[1] https://github.com/thesofproject/linux/pull/3079

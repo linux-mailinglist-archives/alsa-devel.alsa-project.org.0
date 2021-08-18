@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07E613EF842
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Aug 2021 04:52:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 403473EF843
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Aug 2021 04:52:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F89E1681;
-	Wed, 18 Aug 2021 04:51:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F89E1681
+	by alsa0.perex.cz (Postfix) with ESMTPS id D38FE1688;
+	Wed, 18 Aug 2021 04:51:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D38FE1688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629255138;
-	bh=i6d4n4cMC0HFKL3t72vpHuGrLTiZVraXbqSkSb/g0Fo=;
+	s=default; t=1629255164;
+	bh=ldHlrDYWQFsS+C54ne+yk/uxfMX3FyBLOXpu4/5X+KY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=L1LNjErkJC5E58nZUAKFLfIsaNjycjUWcS/6naqre5V5yZdKkhDw/QuWt1Iz/yFV8
-	 afyjtltDRqJZYF62gXEdkpp7fhwwC9fyf1P/5U1gYk1B5qrYQ0yuXZx5pMcYN7FO3d
-	 nopgiUgMC9Nd30ygly5ewvkKZ35YHKvT47vc1aUM=
+	b=V0BbOjGlYzoGPTc4BM7ZsalFHu9TnaO3z0koVsR6ol3GR3QdmZLzPE5PKDrr+rwGF
+	 o0ln5JqObwMidKxEpOQMfxZo8rQl3Sr2xMoyy07ZkKS0sUEM041FeCXUliWEdI/v/n
+	 tyG5mwJYgHzh6dtmUGAACxFAUhoNPmqJh/ehQSmk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17E48F804CA;
-	Wed, 18 Aug 2021 04:50:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C7353F80169;
+	Wed, 18 Aug 2021 04:50:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2210CF802C8; Wed, 18 Aug 2021 04:50:33 +0200 (CEST)
+ id 63BA7F804E2; Wed, 18 Aug 2021 04:50:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,25 +33,25 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35299F80249
- for <alsa-devel@alsa-project.org>; Wed, 18 Aug 2021 04:50:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35299F80249
-X-IronPort-AV: E=McAfee;i="6200,9189,10079"; a="213119365"
-X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="213119365"
+ by alsa1.perex.cz (Postfix) with ESMTPS id CC195F80169
+ for <alsa-devel@alsa-project.org>; Wed, 18 Aug 2021 04:50:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC195F80169
+X-IronPort-AV: E=McAfee;i="6200,9189,10079"; a="213119370"
+X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="213119370"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2021 19:50:23 -0700
-X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="520723308"
+ 17 Aug 2021 19:50:26 -0700
+X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="520723316"
 Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2021 19:50:19 -0700
+ 17 Aug 2021 19:50:23 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [PATCH v2 2/3] soundwire: intel: skip suspend/resume/wake when link
- was not started
-Date: Wed, 18 Aug 2021 10:49:53 +0800
-Message-Id: <20210818024954.16873-3-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH v2 3/3] soundwire: intel: conditionally exit clock stop mode
+ on system suspend
+Date: Wed, 18 Aug 2021 10:49:54 +0800
+Message-Id: <20210818024954.16873-4-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210818024954.16873-1-yung-chuan.liao@linux.intel.com>
 References: <20210818024954.16873-1-yung-chuan.liao@linux.intel.com>
@@ -75,122 +75,177 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-The SoundWire Linux devices are created purely based on information
-provided by platform firmware (e.g. ACPI DSDT table). When the kernel
-finds a matching driver for the device address (_ADR), the probe will
-initialize required data structures and initialize pm ops.
+Intel stress tests reported issues with the clock stop mode,
+specifically when trying to do a system suspend while the link is
+already pm_runtime suspended.
 
-When the SoundWire link is started at a later point, the physical
-devices will synchronize on the SoundWire frames and report their
-attachment status, thereby triggering the enumeration and
-initialization of device registers.
+In this case, we need to disable the shim wake, but when the PCI
+parent device is also pm_runtime suspended the SHIM registers are not
+accessible.
 
-This two-step solution was a conscious design decision to allow e.g. a
-driver to use sideband mechanisms to turn power rails on. This can
-also allow OEMs to describe multiple platforms with the same DSDT
-table, the devices that are not physically present in hardware.
+Since this is an invalid corner case, this patch suggests a pm_runtime
+resume of the entire bus to full power (parent+child devices) before
+the system suspend so that the shim wake can be disabled.
 
-The drawback of this approach is a bit of confusion, with more devices
-than are actually present in hardware. This results in 'ghost'
-devices, for which the driver successfully probes, but that will not
-generate any traffic on the bus. suspend-resume transitions are
-handled by drivers, and skipped when the devices are not physically
-present.
+Unlike the suspend operation, the .prepare callbacks are propagated
+from root device to leaf devices. By adding a .prepare callback at the
+SoundWire link level, we can double-check the pm_runtime status of the
+device as well as its parent PCI device. When the problematic
+configuration is detected, the device is pm_runtime resumed - which by
+construction also resume its parent.
 
-This patch provides a work-around for a second-level of confusion in
-platform firmware: some platforms only use HDaudio links, but
-nevertheless expose SoundWire 'ghost' devices. This results in error
-messages in the Intel driver while trying to suspend/resume these
-links. The simplest solution is to add a boolean status flag to skip
-all suspend/resume/wake sequences if the link was never started.
+An additional loop is added to resume all child devices. In theory we
+only need to restart the link, but doing so will also cause the
+physical devices to synchronize and re-initialize, while their Linux
+devices remain pm_runtime suspended. It's simpler to make sure the
+codec devices are fully resumed so that we don't have to deal with
+zombie states.
 
+This additional loop could have been avoided by adding a .prepare
+callback in SoundWire codec drivers. Functionally this would have been
+equivalent. The rationale for implementing a loop at the link level is
+only to reduce the amount of code required to deal at the codec level
+with an Intel corner case - in other words keep codec drivers
+independent from Intel platform-specific programming sequences.
+
+BugLink: https://github.com/thesofproject/linux/issues/2606
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- drivers/soundwire/intel.c | 22 ++++++++++++----------
- drivers/soundwire/intel.h |  1 +
- 2 files changed, 13 insertions(+), 10 deletions(-)
+ drivers/soundwire/intel.c | 105 +++++++++++++++++++++++++++++++++-----
+ 1 file changed, 93 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index 808dda1380c2..8b42053b171f 100644
+index 8b42053b171f..f66fcbc33a2f 100644
 --- a/drivers/soundwire/intel.c
 +++ b/drivers/soundwire/intel.c
-@@ -1525,6 +1525,7 @@ int intel_link_startup(struct auxiliary_device *auxdev)
- 	if (!(link_flags & SDW_INTEL_MASTER_DISABLE_PM_RUNTIME_IDLE))
- 		pm_runtime_idle(dev);
+@@ -1596,6 +1596,87 @@ int intel_link_process_wakeen_event(struct auxiliary_device *auxdev)
+  * PM calls
+  */
  
-+	sdw->startup_done = true;
- 	return 0;
- 
- err_interrupt:
-@@ -1564,8 +1565,9 @@ int intel_link_process_wakeen_event(struct auxiliary_device *auxdev)
- 	sdw = dev_get_drvdata(dev);
- 	bus = &sdw->cdns.bus;
- 
--	if (bus->prop.hw_disabled) {
--		dev_dbg(dev, "SoundWire master %d is disabled, ignoring\n", bus->link_id);
++static int intel_resume_child_device(struct device *dev, void *data)
++{
++	int ret;
++	struct sdw_slave *slave = dev_to_sdw_dev(dev);
++
++	if (!slave->probed) {
++		dev_dbg(dev, "%s: skipping device, no probed driver\n", __func__);
++		return 0;
++	}
++	if (!slave->dev_num_sticky) {
++		dev_dbg(dev, "%s: skipping device, never detected on bus\n", __func__);
++		return 0;
++	}
++
++	ret = pm_request_resume(dev);
++	if (ret < 0)
++		dev_err(dev, "%s: pm_request_resume failed: %d\n", __func__, ret);
++
++	return ret;
++}
++
++static int __maybe_unused intel_pm_prepare(struct device *dev)
++{
++	struct sdw_cdns *cdns = dev_get_drvdata(dev);
++	struct sdw_intel *sdw = cdns_to_intel(cdns);
++	struct sdw_bus *bus = &cdns->bus;
++	u32 clock_stop_quirks;
++	int ret = 0;
++
 +	if (bus->prop.hw_disabled || !sdw->startup_done) {
 +		dev_dbg(dev, "SoundWire master %d is disabled or not-started, ignoring\n",
 +			bus->link_id);
- 		return 0;
- 	}
++		return 0;
++	}
++
++	clock_stop_quirks = sdw->link_res->clock_stop_quirks;
++
++	if (pm_runtime_suspended(dev) &&
++	    pm_runtime_suspended(dev->parent) &&
++	    ((clock_stop_quirks & SDW_INTEL_CLK_STOP_BUS_RESET) ||
++	     !clock_stop_quirks)) {
++		/*
++		 * if we've enabled clock stop, and the parent is suspended, the SHIM registers
++		 * are not accessible and the shim wake cannot be disabled.
++		 * The only solution is to resume the entire bus to full power
++		 */
++
++		/*
++		 * If any operation in this block fails, we keep going since we don't want
++		 * to prevent system suspend from happening and errors should be recoverable
++		 * on resume.
++		 */
++
++		/*
++		 * first resume the device for this link. This will also by construction
++		 * resume the PCI parent device.
++		 */
++		ret = pm_request_resume(dev);
++		if (ret < 0) {
++			dev_err(dev, "%s: pm_request_resume failed: %d\n", __func__, ret);
++			return 0;
++		}
++
++		/*
++		 * Continue resuming the entire bus (parent + child devices) to exit
++		 * the clock stop mode. If there are no devices connected on this link
++		 * this is a no-op.
++		 * The resume to full power could have been implemented with a .prepare
++		 * step in SoundWire codec drivers. This would however require a lot
++		 * of code to handle an Intel-specific corner case. It is simpler in
++		 * practice to add a loop at the link level.
++		 */
++		ret = device_for_each_child(bus->dev, NULL, intel_resume_child_device);
++
++		if (ret < 0)
++			dev_err(dev, "%s: intel_resume_child_device failed: %d\n", __func__, ret);
++	}
++
++	return 0;
++}
++
+ static int __maybe_unused intel_suspend(struct device *dev)
+ {
+ 	struct sdw_cdns *cdns = dev_get_drvdata(dev);
+@@ -1615,19 +1696,18 @@ static int __maybe_unused intel_suspend(struct device *dev)
  
-@@ -1602,8 +1604,8 @@ static int __maybe_unused intel_suspend(struct device *dev)
- 	u32 clock_stop_quirks;
- 	int ret;
+ 		clock_stop_quirks = sdw->link_res->clock_stop_quirks;
  
--	if (bus->prop.hw_disabled) {
--		dev_dbg(dev, "SoundWire master %d is disabled, ignoring\n",
-+	if (bus->prop.hw_disabled || !sdw->startup_done) {
-+		dev_dbg(dev, "SoundWire master %d is disabled or not-started, ignoring\n",
- 			bus->link_id);
- 		return 0;
- 	}
-@@ -1656,8 +1658,8 @@ static int __maybe_unused intel_suspend_runtime(struct device *dev)
- 	u32 clock_stop_quirks;
- 	int ret;
+-		if ((clock_stop_quirks & SDW_INTEL_CLK_STOP_BUS_RESET ||
+-		     !clock_stop_quirks) &&
+-		    !pm_runtime_suspended(dev->parent)) {
++		if ((clock_stop_quirks & SDW_INTEL_CLK_STOP_BUS_RESET) ||
++		    !clock_stop_quirks) {
  
--	if (bus->prop.hw_disabled) {
--		dev_dbg(dev, "SoundWire master %d is disabled, ignoring\n",
-+	if (bus->prop.hw_disabled || !sdw->startup_done) {
-+		dev_dbg(dev, "SoundWire master %d is disabled or not-started, ignoring\n",
- 			bus->link_id);
- 		return 0;
- 	}
-@@ -1721,8 +1723,8 @@ static int __maybe_unused intel_resume(struct device *dev)
- 	bool multi_link;
- 	int ret;
+-			/*
+-			 * if we've enabled clock stop, and the parent
+-			 * is still active, disable shim wake. The
+-			 * SHIM registers are not accessible if the
+-			 * parent is already pm_runtime suspended so
+-			 * it's too late to change that configuration
+-			 */
+-
+-			intel_shim_wake(sdw, false);
++			if (pm_runtime_suspended(dev->parent)) {
++				/*
++				 * paranoia check: this should not happen with the .prepare
++				 * resume to full power
++				 */
++				dev_err(dev, "%s: invalid config: parent is suspended\n", __func__);
++			} else {
++				intel_shim_wake(sdw, false);
++			}
+ 		}
  
--	if (bus->prop.hw_disabled) {
--		dev_dbg(dev, "SoundWire master %d is disabled, ignoring\n",
-+	if (bus->prop.hw_disabled || !sdw->startup_done) {
-+		dev_dbg(dev, "SoundWire master %d is disabled or not-started, ignoring\n",
- 			bus->link_id);
  		return 0;
- 	}
-@@ -1819,8 +1821,8 @@ static int __maybe_unused intel_resume_runtime(struct device *dev)
- 	int status;
- 	int ret;
+@@ -1992,6 +2072,7 @@ static int __maybe_unused intel_resume_runtime(struct device *dev)
+ }
  
--	if (bus->prop.hw_disabled) {
--		dev_dbg(dev, "SoundWire master %d is disabled, ignoring\n",
-+	if (bus->prop.hw_disabled || !sdw->startup_done) {
-+		dev_dbg(dev, "SoundWire master %d is disabled or not-started, ignoring\n",
- 			bus->link_id);
- 		return 0;
- 	}
-diff --git a/drivers/soundwire/intel.h b/drivers/soundwire/intel.h
-index 0b47b148da3f..cd93a44dba9a 100644
---- a/drivers/soundwire/intel.h
-+++ b/drivers/soundwire/intel.h
-@@ -41,6 +41,7 @@ struct sdw_intel {
- 	struct sdw_cdns cdns;
- 	int instance;
- 	struct sdw_intel_link_res *link_res;
-+	bool startup_done;
- #ifdef CONFIG_DEBUG_FS
- 	struct dentry *debugfs;
- #endif
+ static const struct dev_pm_ops intel_pm = {
++	.prepare = intel_pm_prepare,
+ 	SET_SYSTEM_SLEEP_PM_OPS(intel_suspend, intel_resume)
+ 	SET_RUNTIME_PM_OPS(intel_suspend_runtime, intel_resume_runtime, NULL)
+ };
 -- 
 2.17.1
 

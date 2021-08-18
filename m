@@ -2,71 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5A6E3F089A
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Aug 2021 17:59:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA90C3F08C4
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Aug 2021 18:14:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 70E0616A3;
-	Wed, 18 Aug 2021 17:58:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70E0616A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 704901695;
+	Wed, 18 Aug 2021 18:13:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 704901695
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629302352;
-	bh=Al3BltZ4/e59dOfCbPW4v146HmHcTTI059+bhxobTLU=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1629303249;
+	bh=JWW5Yxq0yaTQMvkOTdyI+JSYXK2HUBiyO98PmK+0Aes=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TufMgNw3xQJwBwvrWB6Txjx5pdTG081Jzx6vF309B5ITEYvlPea0ywOSyO/KNLQe6
-	 wEQ9dl/F0XHkYlizFitRkmWEq6dKydig/8Y9fe4seUrX/epIK/0m03xAjyPfmp9cM3
-	 cpjTfdzsGfew1TEzRg1mFG+P3LgFGAP8LEB+7S9s=
+	b=jtmhjDc7zJMcmvvXq/pGexAvTRKUKED40RCLdOvWmUOszKUnxLZdyQFPFLjXyj6te
+	 TterzWm67DiQ4Hfw27PBUOMxnexUhgRqytD5qNqQRpQBcJSWOPfmJUjbgCCJn5JC1A
+	 ZdCmfESS0FI5kH6d3aRodXit0V6tAR/v7l66P1uU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB25AF800EC;
-	Wed, 18 Aug 2021 17:57:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C06B0F80259;
+	Wed, 18 Aug 2021 18:12:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E0906F800EC; Wed, 18 Aug 2021 17:57:52 +0200 (CEST)
+ id 211B6F80249; Wed, 18 Aug 2021 18:12:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=NICE_REPLY_A,PRX_BODY_30,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E3E3DF800EC
- for <alsa-devel@alsa-project.org>; Wed, 18 Aug 2021 17:57:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3E3DF800EC
-X-IronPort-AV: E=McAfee;i="6200,9189,10080"; a="195940707"
-X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="195940707"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2021 08:57:42 -0700
-X-IronPort-AV: E=Sophos;i="5.84,330,1620716400"; d="scan'208";a="449810907"
-Received: from ksawchu-mobl.amr.corp.intel.com (HELO [10.212.83.236])
- ([10.212.83.236])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2021 08:57:41 -0700
-Subject: Re: [PATCH 5/5] ASoC: Intel: bytcr_rt5640: Add support for HP Elite
- Pad 1000G2 jack-detect
-To: Hans de Goede <hdegoede@redhat.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C9A25F80169
+ for <alsa-devel@alsa-project.org>; Wed, 18 Aug 2021 18:12:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9A25F80169
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="nYfjX7SN"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C32B3610A6;
+ Wed, 18 Aug 2021 16:12:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1629303161;
+ bh=JWW5Yxq0yaTQMvkOTdyI+JSYXK2HUBiyO98PmK+0Aes=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=nYfjX7SNalRDHX6xdWVXgsESrBY/6uUKKC2n+TnLjETAbhePrwqKmjfO8hM0QO687
+ p9soaYhjNRGG2/cEbt0KjAYkUYf0pWMruVpnxa+APeF3wBK2+MZX8cltWbkP4USd9o
+ GK8V84c3AGk1fCTE84d1tV7qj/1hLzhbGLRX4iKtke+sGHB+pTvm5DZv9WkbIWVNpD
+ oLECaSVfpLYQOBpCITUdItFBnZNZ9Od2VV2L0eMR//dttojW7aYVjjltrozmtTs8hB
+ /j3X1ozIr/966HLiWRi8yLdxDdN1RUzmmOOCi26kKaKlTvJgSG9vfrIdoDvcQx24K0
+ Da2GafP9T2ZQw==
+Date: Wed, 18 Aug 2021 17:12:17 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Hans de Goede <hdegoede@redhat.com>
+Subject: Re: [PATCH 1/5] ASoC: rt5640: Move rt5640_disable_jack_detect() up
+ in the rt5640.c file
+Message-ID: <20210818161217.GG4177@sirena.org.uk>
 References: <20210815154935.101178-1-hdegoede@redhat.com>
- <20210815154935.101178-6-hdegoede@redhat.com>
- <f29d3c63-05ef-73f6-760c-e1b715d96651@linux.intel.com>
- <2ea10f32-8810-8257-845e-ec16835fbf19@redhat.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <c611bc89-124f-0d83-15d6-4e04e9b4d8c8@linux.intel.com>
-Date: Wed, 18 Aug 2021 10:57:41 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.11.0
+ <20210815154935.101178-2-hdegoede@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <2ea10f32-8810-8257-845e-ec16835fbf19@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Bard Liao <bard.liao@intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="gvF4niNJ+uBMJnEh"
+Content-Disposition: inline
+In-Reply-To: <20210815154935.101178-2-hdegoede@redhat.com>
+X-Cookie: She sells cshs by the cshore.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,49 +87,29 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--gvF4niNJ+uBMJnEh
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Sun, Aug 15, 2021 at 05:49:31PM +0200, Hans de Goede wrote:
+> Move rt5640_disable_jack_detect() to above rt5640_enable_jack_detect().
+> This is a preparation patch for reworking how the IRQ gets requested.
 
-> But I guess things won't be so bad wrt err-exit-path complexity as for
-> them to really be a problem, so if you prefer I can also:
-> 
-> 1. Remove the second acpi_dev_add_driver_gpios + acpi_dev_remove_driver_gpios
-> pair from the dai_link .init/.exit.
-> 2. Remove the acpi_dev_remove_driver_gpios(ACPI_COMPANION(priv->codec_dev) call here
-> moving it to snd_byt_rt5640_mc_remove()
-> 3. Introduce a acpi_dev_remove_driver_gpios() remove in the error-exit paths
-> of snd_byt_rt5640_mc_probe where necessary.
+This doesn't apply against current code, please check and resend.
 
-that sounds good to me, it's probably better to do things once with a
-bit of additional error handling.
+--gvF4niNJ+uBMJnEh
+Content-Type: application/pgp-signature; name="signature.asc"
 
->>> +		if (IS_ERR(priv->hsmic_detect)) {
->>> +			ret_val = PTR_ERR(priv->hsmic_detect);
->>> +			dev_err_probe(&pdev->dev, ret_val, "getting hsmic-detect GPIO\n");
->>> +			goto err_device;
->>> +		}
->>> +	}
->> Does this part need to be part of the machine driver probe, or could it
->> be moved in the dailink .init function?
-> 
-> The idea here is that the gpiod_get may fail with -EPROBE_DEFER and then I want
-> to fail as early as possible, so right in the probe function.
-> 
-> This is also why the error is logged with dev_err_probe() which does not
-> log anything for EPROBE_DEFER as retval.
-> 
->> Is this because you wanted to use devm_ function?
-> 
-> No, I did consider adding the gpiod_get() for priv->hsmic_detect to the
-> dai_link .init function and then I would just use a normal get, combined
-> with an explicit _put in the dailink exit. I put this gpiod_get in
-> the platform_driver probe to handle EPROBE_DEFER early on, rather then
-> having it happen deep inside the devm_snd_soc_register_card() call-graph
-> (when it calls the dailink .init).
-> 
-> I would prefer to keep the gpiod_get inside snd_byt_rt5640_mc_probe for this
-> reason, but as mentioned I can removed the second acpi_dev_add_driver_gpios +
-> acpi_dev_remove_driver_gpios call pair from the dai_link .init/.exit.
-> 
-> Please let me know how you want to proceed with this.
+-----BEGIN PGP SIGNATURE-----
 
-ok with the suggestion above. Thanks Hans!
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEdMWAACgkQJNaLcl1U
+h9AcmAf/Qo/LMw6LQABck3jNO4onCcfDZZzQNajTz1PQwCZP7teKt+MJcan56xD+
+wnXvODCYwGV52K3zmyYJQP1+yh1wmNQVF0HwUtm4YBQbBmYqfjImBgFNluKjQtGo
+yBuW94kD5pipYW7UpVzbphmWnf7lyCaVIjyk7/DICzqElYGMLqqGzSOdvvQOInZV
+eajSf3JurA2yILbwjCgHKxyk46QDD6Iqytp5+oEZL7roZznFgDUnlOYDoVGVIg+Z
+R3PFPfNInSYiLBS0Y2fSPYjMTG+WLl9nYYj7quGVnGG2vbH07W3HPqm+uA7HAjNj
+mIWGPPwuMl73rdYDPTtA744y0c1GsA==
+=UTm2
+-----END PGP SIGNATURE-----
+
+--gvF4niNJ+uBMJnEh--

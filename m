@@ -2,71 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CA283EFA55
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Aug 2021 07:46:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7536E3EFA5F
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Aug 2021 07:53:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D0CA1676;
-	Wed, 18 Aug 2021 07:45:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D0CA1676
+	by alsa0.perex.cz (Postfix) with ESMTPS id 212B61675;
+	Wed, 18 Aug 2021 07:52:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 212B61675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629265570;
-	bh=7446DzpnOmXY4YsWJJYk17WCKdb6uzLqiGzSw2ucE7Y=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1629265987;
+	bh=Vof9rp4Xf5nmnFkcsd/nQQv/ppl4cjEL4t+6pG9S/Fo=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uFGiGZBACmDx3G4I8vJOn+JkKx4vPHTkDEF7clVvJvO3dcNMfPNubk6ZgZ35ur4Ml
-	 uERY1r5TH7y05VChTSRkdNKBvarT0kvtTf96MznpV4k2jdI6lqcHFjGDDVrFWglqSm
-	 b6AqswVAjuvqDkGCSWmrPOGrE7J9vklkEb3p/sCo=
+	b=ic7T8dIBoge4h1cJFE6E+5cxF44B18jxRFxipKGCBEkC0hsMkXYlsMpUkoCCizYef
+	 4GPqwDjOL/SQUWLAMSdFNCY0E9STVRmjpESRXCg44kTmlCFnRcijhOkOtlSTbEevBD
+	 YzdjPQl5souJN4dag98ANZb9cg6gcgzKkKGPPods=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E229BF80259;
-	Wed, 18 Aug 2021 07:44:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 716B5F80259;
+	Wed, 18 Aug 2021 07:51:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67BB4F80249; Wed, 18 Aug 2021 07:44:51 +0200 (CEST)
+ id B67D9F80249; Wed, 18 Aug 2021 07:51:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2B13F800EC
- for <alsa-devel@alsa-project.org>; Wed, 18 Aug 2021 07:44:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2B13F800EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7591CF800EC
+ for <alsa-devel@alsa-project.org>; Wed, 18 Aug 2021 07:51:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7591CF800EC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="DIt3/ctK"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E282C61029;
- Wed, 18 Aug 2021 05:44:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1629265483;
- bh=7446DzpnOmXY4YsWJJYk17WCKdb6uzLqiGzSw2ucE7Y=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DIt3/ctKDnKk1yHUF5CEjOyKodI6tV6uqCyZgbnHxUXsQV9sSGF69aNnJSta7tdP0
- KEcg/j6ezycsgOnXBQhFi9+L33P0xEBC7odObRiNyUNsrjYNgizGq9/AqUo0BqYqeZ
- mO/IaPxHCz0Kdm5Vlphzj8C2/BwLu0Pq26qpTw1c=
-Date: Wed, 18 Aug 2021 07:44:39 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [RFC PATCH 1/2] driver core: export
- driver_deferred_probe_trigger()
-Message-ID: <YRyeR6imvSwOOasQ@kroah.com>
-References: <20210817190057.255264-1-pierre-louis.bossart@linux.intel.com>
- <20210817190057.255264-2-pierre-louis.bossart@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210817190057.255264-2-pierre-louis.bossart@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, "Rafael J . Wysocki" <rafael@kernel.org>,
- tiwai@suse.de, linux-kernel@vger.kernel.org, liam.r.girdwood@linux.intel.com,
- vkoul@kernel.org, broonie@kernel.org,
- Geert Uytterhoeven <geert@linux-m68k.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Christoph Hellwig <hch@lst.de>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="GAHoJJJD"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="nkJDNSlz"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id DC05E21FF9;
+ Wed, 18 Aug 2021 05:51:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1629265900; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=JDYguPju9/kPVOrdvj2ecQ6HV2Um3jbt5Pj+dMvZWls=;
+ b=GAHoJJJDoygCHqXZ3aOczRyPolrBFhIQi7V4QXFEUoJgPT3qNv1yB8nTfGd7StoOjSMUrt
+ bXeTJKa3fNhRbIsj+LYRi2++mK9lJhtaApZIM8nNIEHUoKHbUd7aXnJGNwx1X7ivm177bq
+ 7uX9Ihqq14LRJ8OQ0q4W6vEb22U2DJE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1629265900;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=JDYguPju9/kPVOrdvj2ecQ6HV2Um3jbt5Pj+dMvZWls=;
+ b=nkJDNSlzTnYWCUouxMfWcX6LbxFTPHHlTHazc1i7Rt/8GMTrECKa4d2Oh/PdqnjLry9IAL
+ 3XQf/Dpvs0Pv1FBQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id BEA82A3B91;
+ Wed, 18 Aug 2021 05:51:40 +0000 (UTC)
+Date: Wed, 18 Aug 2021 07:51:40 +0200
+Message-ID: <s5hpmubcnbn.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Nathan Chancellor <nathan@kernel.org>
+Subject: Re: [PATCH 1/2] ALSA: hda/sigmatel - Sink stac_shutup() into
+ stac_suspend()
+In-Reply-To: <20210818012705.311963-1-nathan@kernel.org>
+References: <20210818012705.311963-1-nathan@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,42 +93,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Aug 17, 2021 at 02:00:56PM -0500, Pierre-Louis Bossart wrote:
-> The premise of the deferred probe implementation is that a successful
-> driver binding is a proxy for the resources provided by this driver
-> becoming available. While this is a correct assumption in most of the
-> cases, there are exceptions to the rule such as
+On Wed, 18 Aug 2021 03:27:04 +0200,
+Nathan Chancellor wrote:
 > 
-> a) the use of request_firmware_nowait(). In this case, the resources
-> may become available when the 'cont' callback completes, for example
-> when if the firmware needs to be downloaded and executed on a SoC
-> core or DSP.
+> When CONFIG_PM is not set, there is an unused function warning:
 > 
-> b) a split implementation of the probe with a workqueue when one or
-> ore request_module() calls are required: a synchronous probe prevents
-> other drivers from probing, impacting boot time, and an async probe is
-> not allowed to avoid a deadlock. This is the case on all Intel audio
-> platforms, with request_module() being required for the i915 display
-> audio and HDaudio external codecs.
+> sound/pci/hda/patch_sigmatel.c:4383:13: warning: unused function
+> 'stac_shutup' [-Wunused-function]
+> static void stac_shutup(struct hda_codec *codec)
+>             ^
+> 1 warning generated.
 > 
-> In these cases, there is no way to notify the deferred probe
-> infrastructure of the enablement of resources after the driver
-> binding.
+> Sink the contents of stac_shutup() into stac_suspend() since
+> stac_shutup() is only called in that one location now.
+> 
+> Fixes: 327b34f2a97d ("ALSA: hda: Nuke unused reboot_notify callback")
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 
-Then just wait for it to happen naturally?
+Thanks, applied.
 
-> The driver_deferred_probe_trigger() function is currently used
-> 'anytime a driver is successfully bound to a device', this patch
-> suggest exporing by exporting it so that drivers can kick-off
-> re-probing of deferred devices at the end of a deferred processing.
 
-I really do not want to export this as it will get really messy very
-quickly with different drivers/busses attempting to call this.
-
-Either handle it in your driver (why do you have to defer probe at all,
-just succeed and move on to register the needed stuff after you are
-initialized) or rely on the driver core here.
-
-thanks,
-
-greg k-h
+Takashi

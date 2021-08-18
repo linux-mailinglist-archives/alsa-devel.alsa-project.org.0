@@ -2,94 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 407FD3F2734
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Aug 2021 09:04:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCC6E3F2746
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Aug 2021 09:05:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D324B169C;
-	Fri, 20 Aug 2021 09:03:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D324B169C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5DB31167A;
+	Fri, 20 Aug 2021 09:04:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DB31167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629443089;
-	bh=tRSHPUbVmpLKNh3OA9sq5QPTYiD0X6XsWQStXc2Z0Mg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1629443137;
+	bh=tDZmzWBNezGcM3fsAJ9Lxw4N/PNtQhG/IOChrGPrimA=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=B0H0ApJrnHs6K+XDRn2azvqwZQemtMoPMnXWQnWLLXoy3c4BPlmM+/KNWMMXzTTVX
-	 NZCAoxwz9t2s7PD1X51XZM4i0PZRj4Io69Ydwi/aDf98Uy20CzGOlTtiJ3WX7cHWuX
-	 EG99meyGTWLSvYmrLCc88ILVArXECcjhetXntI0U=
+	b=l6QHtFE6YluN9UkbPePsCbKeOlCL5WVTE51Js5elvtOGwOng9cIVYgb9cMiOlDdUY
+	 Tws/jm9IYlT0UFPmvqZxnRJjCI95SrzaSMGDfu+mgltYqtn/QUw/zPM8ZRwKqebr+h
+	 PG2WMLw5lVyjc1EsKFvFz9bIpJ3BlxDdQJsP6fXc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55E72F804EC;
-	Fri, 20 Aug 2021 09:02:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2BE90F804FD;
+	Fri, 20 Aug 2021 09:02:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B5AAF80111; Tue, 17 Aug 2021 12:12:44 +0200 (CEST)
+ id F12ECF80169; Wed, 18 Aug 2021 05:20:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [IPv6:2607:f8b0:4864:20::632])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B7B2F80134
- for <alsa-devel@alsa-project.org>; Tue, 17 Aug 2021 12:12:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B7B2F80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 037A7F80169
+ for <alsa-devel@alsa-project.org>; Wed, 18 Aug 2021 05:19:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 037A7F80169
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ERgDuTUB"
-Received: by mail-ed1-x531.google.com with SMTP id cn28so18939032edb.6
- for <alsa-devel@alsa-project.org>; Tue, 17 Aug 2021 03:12:32 -0700 (PDT)
+ header.b="CD4QmCLJ"
+Received: by mail-pl1-x632.google.com with SMTP id u15so898183plg.13
+ for <alsa-devel@alsa-project.org>; Tue, 17 Aug 2021 20:19:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=NAZ3iHRhwDa0VlHkXe1bEIQ5yvY78DPN6f7/EwPF9pU=;
- b=ERgDuTUBHyA06UX4V6nQdVQ1RRdLdu5ViHA9SN3iAOnoJ5TxnKpVdkMqSihOCl6YOp
- drNLp8Qi1wwNoVXQDPtaCJfXgOCbJt3j8W8kgF9oYNjrfQkgLaHt+pFQKFGsHhBcyLUX
- +I+6ZKBd5xU+2k1v7OlD7pmbrSqUMpmIlSEnN8Wwh3PwAVCFULw5gywPjZLppu8WA7MC
- 7XFh+TFhOyjqtYy9hBSW8y5xtqA5/HOHJ0TkeQbj+Th3z/Vdq0sjaCqrGaCr2TSJgVB5
- w684guCIgpwXdTTbpGb7PKj95Q74WEiY6i35HAuloDdkbQh5+f0PdU270Qv8+sI09sHp
- wy0A==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=IxafAGsMTAwB8VQj4VftuWH0xnZbthsj3itwHDoB7/o=;
+ b=CD4QmCLJySZtz8HbVHA8ZdOnN1QCR8+opoaE26JkuCJkQzCpIdHmBVyrQ246IqFvVG
+ uet9qDdIczhU5HrfaM1PF+kQ2kFM7734DTV6XXLE5i8yRaXwNTKgDp6HNKglaxzyJoEw
+ R5bn5PFvbzJ9Dvke9fHwgp6Mx9HG1INs61jnHclZqDG7WMCLy48/75uX/pycUr7zv1qY
+ mH9RMhynYZgsCj/tvUvJDV1VJMmFTGQZloJHprCuz9QdLfgsg7DVoDxkjQKGkXXQD5tC
+ 7xrgWesvthH5XU56RisC8jlXmxgaYSwqUDMqjtkgZ9UekkW2YeqkYOBV/HEe2f43+pXM
+ wpIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=NAZ3iHRhwDa0VlHkXe1bEIQ5yvY78DPN6f7/EwPF9pU=;
- b=s9Nx1oTIbeizeuPWENOHggtxkyjvSdTLpA5HS+guiapStiq86w5a+xStmqhbsQ+IIt
- O7za8E+TVZZTsxoDVFxCyu7fsxeDuVHFVLC0aVt4+2PvpH87qM6XKishUepxFYiD75Gj
- 8oqePGKe1JLYFbiK8zC3M4pLBw3QJfadvsD4GnbvT8Fs7EHIlmd4qxwdsXxIG2tRChHa
- TKLZBVtuI0e3NACWn2VHd9XIusnnQOqFnCx9k8OiDizg5IMx1X27TBpy3tB2mPt9X/TD
- c3/RV9ZAhZqqww/lMWw1tssESzWDrR4DqijDEm1TZhVbOtb+3JjV6oVqJ/GnDavm5CYB
- JP+Q==
-X-Gm-Message-State: AOAM531MIun2qA+GIGediLiZ2ykhOPFge5p5QmsH08LD9Cl6lK4qF+0W
- pW9ax4c1psoyHikzCy8d3dU=
-X-Google-Smtp-Source: ABdhPJxYz8f+mVFJRA/q2G+Cscc5uGswKuR6xxueeR30RVFhGSloF2s+aA6GlfdsmJfDhSZfrhgzeA==
-X-Received: by 2002:a05:6402:b7a:: with SMTP id
- cb26mr3297856edb.33.1629195151747; 
- Tue, 17 Aug 2021 03:12:31 -0700 (PDT)
-Received: from localhost.localdomain ([185.213.155.232])
- by smtp.gmail.com with ESMTPSA id m6sm822920edq.22.2021.08.17.03.12.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Aug 2021 03:12:31 -0700 (PDT)
-From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
-Subject: [PATCH 2/4] dt-bindings: sound: add rockchip i2s-tdm binding
-Date: Tue, 17 Aug 2021 12:11:17 +0200
-Message-Id: <20210817101119.423853-3-frattaroli.nicolas@gmail.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210817101119.423853-1-frattaroli.nicolas@gmail.com>
-References: <20210817101119.423853-1-frattaroli.nicolas@gmail.com>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=IxafAGsMTAwB8VQj4VftuWH0xnZbthsj3itwHDoB7/o=;
+ b=kblOVbi2fiA295CHqtxDXAKOZ70P+5tUGDovAYHLgAacT3LWej8SMGJKNj3xiOVJ4G
+ LmnvxU71lsW6ycw4tFyUVaMh8iwlZk7nOq/DH6VHBI0/nXqbC6qzuvpV3J3xxqn5GJvn
+ JlggybSmfUKx8QEM7WDqAXayY6jtXcsc2LHw1+YyB0tbbeuLZLGZJLrzY6ow6RnHjt+0
+ ay6z84AfLi4t2A/dVw74IW7hBLlXftl/eSYPSY26JfFIGtYIn/Gp4l8dlGa2F5FmRmx/
+ EpQDzqRiBsAFqNN+xlAGeSfEq6zlwDm3lTpto+gMiyTppyNRfSjrWMZb1p3m+xBASHZB
+ /aLg==
+X-Gm-Message-State: AOAM530LZdZG3qcfKlq54u9QRuOZjn7Q1AvfrL9xXJYLLm0JBO6v9q8k
+ 9jDDSu95+UCdzfEJopHbSfU=
+X-Google-Smtp-Source: ABdhPJzgr+gKl19FqRqaQIvsm/7qYw3mjKUFmjkYiyPHELB+c+7BBdZUicUVvuzNO4GdqIDsLw7XFw==
+X-Received: by 2002:a17:90b:1886:: with SMTP id
+ mn6mr6908506pjb.58.1629256790672; 
+ Tue, 17 Aug 2021 20:19:50 -0700 (PDT)
+Received: from [172.20.10.3] (42-73-205-76.emome-ip.hinet.net. [42.73.205.76])
+ by smtp.gmail.com with ESMTPSA id
+ l12sm3833120pff.182.2021.08.17.20.19.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 17 Aug 2021 20:19:50 -0700 (PDT)
+Subject: [PATCH] ASoC: nau8821: new driver
+To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, Seven Lee <wtli@nuvoton.com>,
+ broonie@kernel.org
+References: <20210809101000.3947156-1-wtli@nuvoton.com>
+ <7fac2710-0173-cbc0-94e1-fb168dc4f069@linux.intel.com>
+From: Seven Lee <scott6986@gmail.com>
+Message-ID: <603fe5ab-76b0-bdee-417c-26bf7cf80cad@gmail.com>
+Date: Wed, 18 Aug 2021 11:19:45 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
+In-Reply-To: <7fac2710-0173-cbc0-94e1-fb168dc4f069@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 20 Aug 2021 09:02:12 +0200
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
+Content-Language: en-US
+X-Mailman-Approved-At: Fri, 20 Aug 2021 09:02:13 +0200
+Cc: alsa-devel@alsa-project.org, KCHSU0@nuvoton.com, lgirdwood@gmail.com,
+ YHCHuang@nuvoton.com, CTLIN0@nuvoton.com, dardar923@gmail.com,
+ supercraig0719@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,258 +111,118 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This adds the YAML bindings for the Rockchip I2S/TDM audio driver.
 
-Signed-off-by: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
----
- .../bindings/sound/rockchip,i2s-tdm.yaml      | 221 ++++++++++++++++++
- include/dt-bindings/sound/rockchip,i2s-tdm.h  |   9 +
- 2 files changed, 230 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
- create mode 100644 include/dt-bindings/sound/rockchip,i2s-tdm.h
+Amadeusz Sławiński 於 2021/8/9 下午 06:44 寫道:
+> On 8/9/2021 12:10 PM, Seven Lee wrote:
+>> Add driver for NAU88L21.
+>>
+>> Signed-off-by: Seven Lee <wtli@nuvoton.com>
+>> ---
+>
+> ...
+>
+>> +
+>> +static int dmic_clock_control(struct snd_soc_dapm_widget *w,
+>> +        struct snd_kcontrol *k, int  event)
+>> +{
+>> +    struct snd_soc_component *component =
+>> +        snd_soc_dapm_to_component(w->dapm);
+>> +    struct nau8821 *nau8821 = snd_soc_component_get_drvdata(component);
+>> +    int i, speed_selection, clk_adc_src, clk_adc;
+>> +    unsigned int clk_divider_r03;
+>> +
+>> +    /* The DMIC clock is gotten from adc clock divided by
+>> +     * CLK_DMIC_SRC (1, 2, 4, 8). The clock has to be equal or
+>> +     * less than nau8821->dmic_clk_threshold.
+>> +     */
+>> +    regmap_read(nau8821->regmap, NAU8821_R03_CLK_DIVIDER,
+>> +        &clk_divider_r03);
+>> +    clk_adc_src = (clk_divider_r03 & NAU8821_CLK_ADC_SRC_MASK)
+>> +        >> NAU8821_CLK_ADC_SRC_SFT;
+>> +
+>> +    switch (clk_adc_src) {
+>> +    case 0:
+>> +        clk_adc = nau8821->fs * 256;
+>> +        break;
+>> +    case 1:
+>> +        clk_adc = (nau8821->fs * 256) >> 1;
+>> +        break;
+>> +    case 2:
+>> +        clk_adc = (nau8821->fs * 256) >> 2;
+>> +        break;
+>> +    case 3:
+>> +        clk_adc = (nau8821->fs * 256) >> 3;
+>> +        break;
+>> +    }
+>
+> Just do:
+> clk_adc = (nau8821->fs * 256) >> clk_adc_src;
+> instead of whole switch?
 
-diff --git a/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml b/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
-new file mode 100644
-index 000000000000..c3022620b47f
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
-@@ -0,0 +1,221 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/rockchip,i2s-tdm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Rockchip I2S/TDM Controller
-+
-+description:
-+  The Rockchip I2S/TDM Controller is a Time Division Multiplexed
-+  audio interface found in various Rockchip SoCs, allowing up
-+  to 8 channels of audio over a serial interface.
-+
-+maintainers:
-+  - Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - rockchip,px30-i2s-tdm
-+      - rockchip,rk1808-i2s-tdm
-+      - rockchip,rk3308-i2s-tdm
-+      - rockchip,rk3568-i2s-tdm
-+      - rockchip,rv1126-i2s-tdm
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  dmas:
-+    minItems: 1
-+    maxItems: 2
-+
-+  dma-names:
-+    oneOf:
-+      - const: rx
-+      - items:
-+          - const: tx
-+          - const: rx
-+
-+  clocks:
-+    items:
-+      - description: clock for TX
-+      - description: clock for RX
-+      - description: clock for I2S bus
-+
-+  clock-names:
-+    items:
-+      - const: mclk_tx
-+      - const: mclk_rx
-+      - const: hclk
-+
-+  rockchip,frame-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    default: 64
-+    minimum: 32
-+    maximum: 512
-+    description:
-+      Width of a frame, usually slot width multiplied by number of slots.
-+      Must be even.
-+
-+  resets:
-+    items:
-+      - description: reset for TX
-+      - description: reset for RX
-+
-+  reset-names:
-+    items:
-+      - const: tx-m
-+      - const: rx-m
-+
-+  rockchip,cru:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      The phandle of the cru.
-+      Required if both playback and capture are used, i.e. if rockchip,clk-trcm
-+      is 0.
-+
-+  rockchip,grf:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      The phandle of the syscon node for the GRF register.
-+
-+  rockchip,mclk-calibrate:
-+    description:
-+      Enable mclk source calibration.
-+    type: boolean
-+
-+  rockchip,trcm-sync:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Which lrck/bclk clocks each direction will sync to. You should use the
-+      constants in <dt-bindings/sound/rockchip,i2s-tdm.h>
-+    oneOf:
-+      - const: 0
-+        description:
-+          RK_TRCM_TXRX. Use both the TX and the RX clock for TX and RX.
-+      - const: 1
-+        description:
-+          RK_TRCM_TX. Use only the TX clock for TX and RX.
-+      - const: 2
-+        description:
-+          RK_TRCM_RX. Use only the RX clock for TX and RX.
-+
-+  "#sound-dai-cells":
-+    const: 0
-+
-+  rockchip,no-dmaengine:
-+    description:
-+      If present, driver will not register a pcm dmaengine, only the dai.
-+      If the dai is part of multi-dais, the property should be present.
-+    type: boolean
-+
-+  rockchip,playback-only:
-+    description: Specify that the controller only has playback capability.
-+    type: boolean
-+
-+  rockchip,capture-only:
-+    description: Specify that the controller only has capture capability.
-+    type: boolean
-+
-+  rockchip,i2s-rx-route:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Defines the mapping of I2S RX sdis to I2S data bus lines.
-+      By default, they are mapped one-to-one.
-+    items:
-+      - description: which sdi to connect to data line 0
-+      - description: which sdi to connect to data line 1
-+      - description: which sdi to connect to data line 2
-+      - description: which sdi to connect to data line 3
-+
-+  rockchip,i2s-tx-route:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Defines the mapping of I2S TX sdos to I2S data bus lines.
-+      By default, they are mapped one-to-one.
-+    items:
-+      - description: which sdo to connect to data line 0
-+      - description: which sdo to connect to data line 1
-+      - description: which sdo to connect to data line 2
-+      - description: which sdo to connect to data line 3
-+
-+  rockchip,tdm-fsync-half-frame:
-+    description: Whether to use half frame fsync.
-+    type: boolean
-+
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - dmas
-+  - dma-names
-+  - clocks
-+  - clock-names
-+  - resets
-+  - reset-names
-+  - rockchip,grf
-+  - "#sound-dai-cells"
-+  - rockchip,trcm-sync
-+
-+allOf:
-+  - if:
-+      properties:
-+        rockchip,clk-trcm:
-+          contains:
-+            enum: [0]
-+    then:
-+      required:
-+        - rockchip,cru
-+
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/rk3568-cru.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/pinctrl/rockchip.h>
-+    #include <dt-bindings/sound/rockchip,i2s-tdm.h>
-+
-+
-+    foo {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+        i2s@fe410000 {
-+            compatible = "rockchip,rk3568-i2s-tdm";
-+            reg = <0x0 0xfe410000 0x0 0x1000>;
-+            interrupts = <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>;
-+            clocks = <&cru MCLK_I2S1_8CH_TX>, <&cru MCLK_I2S1_8CH_RX>,
-+                     <&cru HCLK_I2S1_8CH>;
-+            clock-names = "mclk_tx", "mclk_rx", "hclk";
-+            dmas = <&dmac1 2>, <&dmac1 3>;
-+            dma-names = "tx", "rx";
-+            resets = <&cru SRST_M_I2S1_8CH_TX>, <&cru SRST_M_I2S1_8CH_RX>;
-+            reset-names = "tx-m", "rx-m";
-+            rockchip,trcm-sync = <RK_TRCM_TX>;
-+            rockchip,cru = <&cru>;
-+            rockchip,grf = <&grf>;
-+            #sound-dai-cells = <0>;
-+            pinctrl-names = "default";
-+            pinctrl-0 =
-+                <&i2s1m0_sclktx
-+                &i2s1m0_sclkrx
-+                &i2s1m0_lrcktx
-+                &i2s1m0_lrckrx
-+                &i2s1m0_sdi0
-+                &i2s1m0_sdi1
-+                &i2s1m0_sdi2
-+                &i2s1m0_sdi3
-+                &i2s1m0_sdo0
-+                &i2s1m0_sdo1
-+                &i2s1m0_sdo2
-+                &i2s1m0_sdo3>;
-+            status = "disabled";
-+        };
-+    };
-diff --git a/include/dt-bindings/sound/rockchip,i2s-tdm.h b/include/dt-bindings/sound/rockchip,i2s-tdm.h
-new file mode 100644
-index 000000000000..32494d64cf33
---- /dev/null
-+++ b/include/dt-bindings/sound/rockchip,i2s-tdm.h
-@@ -0,0 +1,9 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef _DT_BINDINGS_ROCKCHIP_I2S_TDM_H
-+#define _DT_BINDINGS_ROCKCHIP_I2S_TDM_H
-+
-+#define RK_TRCM_TXRX 0
-+#define RK_TRCM_TX 1
-+#define RK_TRCM_RX 2
-+
-+#endif /* _DT_BINDINGS_ROCKCHIP_I2S_TDM_H */
--- 
-2.32.0
 
+Yes, you are right. I will fix it.
+
+
+>
+>> +
+>> +    for (i = 0 ; i < 4 ; i++) {
+>> +        if ((clk_adc >> dmic_speed_sel[i].param) <=
+>> +            nau8821->dmic_clk_threshold) {
+>> +            speed_selection = dmic_speed_sel[i].val;
+>> +            break;
+>> +        }
+>> +    }
+>> +
+>> +    dev_dbg(nau8821->dev,
+>> +        "clk_adc=%d, dmic_clk_threshold = %d, param=%d, val = %d\n",
+>> +        clk_adc, nau8821->dmic_clk_threshold,
+>> +        dmic_speed_sel[i].param, dmic_speed_sel[i].val);
+>> +    regmap_update_bits(nau8821->regmap, NAU8821_R13_DMIC_CTRL,
+>> +        NAU8821_DMIC_SRC_MASK,
+>> +        (speed_selection << NAU8821_DMIC_SRC_SFT));
+>> +
+>> +    return 0;
+>> +}
+>> +
+>
+> ...
+>
+>> +
+>> +static int nau8821_clock_check(struct nau8821 *nau8821,
+>> +    int stream, int rate, int osr)
+>> +{
+>> +    int osrate = 0;
+>> +
+>> +    if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
+>> +        if (osr >= ARRAY_SIZE(osr_dac_sel))
+>> +            return -EINVAL;
+>> +        osrate = osr_dac_sel[osr].osr;
+>> +    } else {
+>> +        if (osr >= ARRAY_SIZE(osr_adc_sel))
+>> +            return -EINVAL;
+>> +        osrate = osr_adc_sel[osr].osr;
+>> +    }
+> true and false cases seem to be the same here, you can remove the "if 
+> else" and just leave one of them.
+
+
+The OSR of DAC and ADC can be different. And the ratio corresponding
+to the bit is also different. They are two different tables for
+osr_dac_sel and osr_adc_sel. Then it should be noted that the OSR and
+Fs must be selected carefully so that the max frequency of CLK_ADC or
+CLK_DAC are less than or equal to 6.144MHz.
+
+
+>
+>> +
+>> +    if (!osrate || rate * osrate > CLK_DA_AD_MAX) {
+>> +        dev_err(nau8821->dev,
+>> +        "exceed the maximum frequency of CLK_ADC or CLK_DAC\n");
+>> +        return -EINVAL;
+>> +    }
+>> +
+>> +    return 0;
+>> +}
+>> +
+>
+> ...

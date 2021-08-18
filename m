@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3CD43F048C
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Aug 2021 15:23:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 994993F053F
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Aug 2021 15:50:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 859931680;
-	Wed, 18 Aug 2021 15:23:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 859931680
+	by alsa0.perex.cz (Postfix) with ESMTPS id 366311686;
+	Wed, 18 Aug 2021 15:49:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 366311686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629293030;
-	bh=mUS2XHoBNSYTIuTRFqsUU57sxADOx3BgsDP98f3EzMY=;
+	s=default; t=1629294606;
+	bh=0JN4PN4tbkcM834D1zmXbpBdVxfX6OE1teF1op5KPZo=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fdkdUnZ3Bk8EW7OSdTfjRfe0+SD3SRLtY14yr3gmA3XvaRkB7Zyfdjj95jv1Dv2pr
-	 RswnzcHTGZr0FYn0r1t1vdA02+z0RS6h/EwAnG9+0MRhuthMGL0rPlODz27Jnj9jIZ
-	 rd9UW4i6Z6b8aAsH8abwlkequUyHAFY94vgH1P2c=
+	b=E4gQ1sJm2mEYJGi4tD/HiYL04k7MNsXNRknAPccaUoGRgqxsIbQmfep5vWDfzh8zD
+	 hzpsi+f5LERvwhAw4ee41QIFlxDG+pe/LtGDOWIrV9RQKjqSBXWUb8fDPWCzgWfP+c
+	 c9BbaOS5igNdlGHn2wFd4hrcQ68so36oxvuGXioI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0FEFF800EC;
-	Wed, 18 Aug 2021 15:22:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83C26F80259;
+	Wed, 18 Aug 2021 15:48:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 994DEF80249; Wed, 18 Aug 2021 15:22:31 +0200 (CEST)
+ id DE090F80249; Wed, 18 Aug 2021 15:48:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,34 +33,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9273FF800EC
- for <alsa-devel@alsa-project.org>; Wed, 18 Aug 2021 15:22:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9273FF800EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3CEEFF80163
+ for <alsa-devel@alsa-project.org>; Wed, 18 Aug 2021 15:48:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CEEFF80163
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="D/jrowO1"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A0D7160232;
- Wed, 18 Aug 2021 13:22:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1629292942;
- bh=mUS2XHoBNSYTIuTRFqsUU57sxADOx3BgsDP98f3EzMY=;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="RzB8jq+K"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5669B6109F;
+ Wed, 18 Aug 2021 13:48:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1629294517;
+ bh=0JN4PN4tbkcM834D1zmXbpBdVxfX6OE1teF1op5KPZo=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=D/jrowO11usaVNWUNbge+kprse4L+XNseJefutlHU6ZDzNuidRBevYMPNo/9Scubx
- W7zY9wGu29+Wfb+b2voB6OMjqKXLQfMtNJj2oqiQhxnyOkRIVF2/fCxoxuvNdvB5/t
- LqtqTz1iIBHfptgtYoXwhTo/5uyyCjwpQEZFFMFk=
-Date: Wed, 18 Aug 2021 15:22:19 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Mark Brown <broonie@kernel.org>
+ b=RzB8jq+KqDoZy4T1vdam1qn0CBnITBxKoejFRpEPJaJc+3VNSl3vOvdEFWzCdWr+5
+ VHy9Els32tdBjtFktRZv6Kf39PbdOzN2ysJaLyL+nYBjjCdAv4nByek+c7Je1J+MQz
+ R9SXcJa/uv9SXFUGdBTwcfO1b/9/sifB7ruw0pzXOvdph6vsXNz+SH53MqTthbAday
+ V8iSY//Dvc4tsfnF/lgVsqvOCvQoCaalxma0z3GsrzWIGp+FBFDT84W0PkDXK5PgT8
+ AwpqfdQ2Ae9BkAi3ajSGwm3/8ZRvrN86rHjOnXpt3YNqrYrWyBwHvE/NhBRI7cphVB
+ oEWh3d75Feqsw==
+Date: Wed, 18 Aug 2021 14:48:14 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Subject: Re: [RFC PATCH 1/2] driver core: export
  driver_deferred_probe_trigger()
-Message-ID: <YR0Ji7DQXoo0z4vP@kroah.com>
+Message-ID: <20210818134814.GF4177@sirena.org.uk>
 References: <20210817190057.255264-1-pierre-louis.bossart@linux.intel.com>
  <20210817190057.255264-2-pierre-louis.bossart@linux.intel.com>
  <YRyeR6imvSwOOasQ@kroah.com> <20210818115736.GA4177@sirena.org.uk>
+ <YR0Ji7DQXoo0z4vP@kroah.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="AH+kv8CCoFf6qPuz"
 Content-Disposition: inline
-In-Reply-To: <20210818115736.GA4177@sirena.org.uk>
+In-Reply-To: <YR0Ji7DQXoo0z4vP@kroah.com>
+X-Cookie: She sells cshs by the cshore.
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: alsa-devel@alsa-project.org, "Rafael J . Wysocki" <rafael@kernel.org>,
  tiwai@suse.de, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  linux-kernel@vger.kernel.org, liam.r.girdwood@linux.intel.com,
@@ -83,74 +90,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Aug 18, 2021 at 12:57:36PM +0100, Mark Brown wrote:
-> On Wed, Aug 18, 2021 at 07:44:39AM +0200, Greg Kroah-Hartman wrote:
-> > On Tue, Aug 17, 2021 at 02:00:56PM -0500, Pierre-Louis Bossart wrote:
-> 
-> > > In these cases, there is no way to notify the deferred probe
-> > > infrastructure of the enablement of resources after the driver
-> > > binding.
-> 
-> > Then just wait for it to happen naturally?
-> 
-> Through what mechanism will it happen naturally?  Deferred probe
-> currently only does things if things are being registered or if probes
-> complete.
-> 
-> > > The driver_deferred_probe_trigger() function is currently used
-> > > 'anytime a driver is successfully bound to a device', this patch
-> > > suggest exporing by exporting it so that drivers can kick-off
-> > > re-probing of deferred devices at the end of a deferred processing.
-> 
-> > I really do not want to export this as it will get really messy very
-> > quickly with different drivers/busses attempting to call this.
-> 
-> I'm not sure I see the mess here - it's just queueing some work, one of
-> the things that the workqueue stuff does well is handle things getting
-> scheduled while they're already queued.  Honestly having understood
-> their problem I think we need to be adding these calls into all the
-> resource provider APIs.
-> 
-> > Either handle it in your driver (why do you have to defer probe at all,
-> > just succeed and move on to register the needed stuff after you are
-> > initialized) or rely on the driver core here.
-> 
-> That's exactly what they're doing currently and the driver core isn't
-> delivering.
-> 
-> Driver A is slow to start up and providing a resource to driver B, this
-> gets handled in driver A by succeeding immediately and then registering
-> the resource once the startup has completed.  Unfortunately while that
-> was happening not only has driver B registered and deferred but the rest
-> of the probes/defers in the system have completed so the deferred probe
-> mechanism is idle.  Nothing currently tells the deferred probe mechanism
-> that a new resource is now available so it never retries the probe of
-> driver B.  The only way I can see to fix this without modifying the
-> driver core is to make driver A block during probe but that would at
-> best slow down boot.
-> 
-> The issue is that the driver core is using drivers completing probe as a
-> proxy for resources becoming available.  That works most of the time
-> because most probes are fully synchronous but it breaks down if a
-> resource provider registers resources outside of probe, we might still
-> be fine if system boot is still happening and something else probes but
-> only through luck.
 
-The driver core is not using that as a proxy, that is up to the driver
-itself or not.  All probe means is "yes, this driver binds to this
-device, thank you!" for that specific bus/class type.  That's all, if
-the driver needs to go off and do real work before it can properly
-control the device, wonderful, have it go and do that async.
+--AH+kv8CCoFf6qPuz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-So if you know you should be binding to the device, great, kick off some
-other work and return success from probe.  There's no reason you have to
-delay or defer for no good reason, right?
+On Wed, Aug 18, 2021 at 03:22:19PM +0200, Greg Kroah-Hartman wrote:
+> On Wed, Aug 18, 2021 at 12:57:36PM +0100, Mark Brown wrote:
 
-But yes, if you do get new resources, the probe should be called again,
-that's what the deferred logic is for (or is that the link logic, I
-can't recall)  This shouldn't be a new thing, no needing to call the
-driver core directly like this at all, it should "just happen", right?
+> > The issue is that the driver core is using drivers completing probe as a
+> > proxy for resources becoming available.  That works most of the time
+> > because most probes are fully synchronous but it breaks down if a
+> > resource provider registers resources outside of probe, we might still
+> > be fine if system boot is still happening and something else probes but
+> > only through luck.
 
-thanks,
+> The driver core is not using that as a proxy, that is up to the driver
+> itself or not.  All probe means is "yes, this driver binds to this
+> device, thank you!" for that specific bus/class type.  That's all, if
+> the driver needs to go off and do real work before it can properly
+> control the device, wonderful, have it go and do that async.
 
-greg k-h
+Right, which is what is happening here - but the deferred probe
+machinery in the core is reading more into the probe succeeding than it
+should.
+
+> So if you know you should be binding to the device, great, kick off some
+> other work and return success from probe.  There's no reason you have to
+> delay or defer for no good reason, right?
+
+The driver that's deferring isn't the one that takes a long time to
+probe - the driver that's deferring depends on the driver that takes a
+long time to probe, it defers because the resource it needs isn't
+available when it tries to probe as the slow device is still doing it's
+thing asynchronously.  The problem is that the driver core isn't going
+back and attempting to probe the deferred device again once the driver
+that took a long time has provided resources.
+
+> But yes, if you do get new resources, the probe should be called again,
+> that's what the deferred logic is for (or is that the link logic, I
+> can't recall)  This shouldn't be a new thing, no needing to call the
+> driver core directly like this at all, it should "just happen", right?
+
+How specifically does new resources becoming available directly cause
+a new probe deferral run at the moment?  I can't see anything that
+resource provider APIs are doing to say that a new resource has become
+available, this patch is trying to provide something they can do.
+
+--AH+kv8CCoFf6qPuz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEdD50ACgkQJNaLcl1U
+h9DvcQf7ByAlmoXWhkLU3DIqWbUI/qYSjhgG6r9B0oaU0bZjJvbxEDCAt7n66jdJ
+XtuJ7GQ6iG2EnYiYkFwu8tiVLH8jbiIjSiWmKalz3e7FHawVg7fwTdGxw13Fh9Z0
+YpJjFbLf1OKO2OmYjtcDOAx0LXDvAIYDg+fd6dYf3tqH8gheT3hfMpvqJ0DANOAG
+LwLiexLkX8ZIpZo2Utksj5XAnSBaoSmDTbVwWJPz7EKOKj9UA93n1wB+voxJxMmZ
+Z4wlTQgpcJ/a28ZxhfS5auZ5bouxlnER2dfdEGUCFTl3MqgfYrh1068SKpFZexUV
+9JFTsoDZ8OoP8vjCwqA4AmJmi198fw==
+=NcUi
+-----END PGP SIGNATURE-----
+
+--AH+kv8CCoFf6qPuz--

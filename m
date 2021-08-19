@@ -2,86 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0CA73F1C81
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Aug 2021 17:19:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8B843F1C82
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Aug 2021 17:19:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3CB281688;
-	Thu, 19 Aug 2021 17:18:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CB281688
+	by alsa0.perex.cz (Postfix) with ESMTPS id 66DEE1690;
+	Thu, 19 Aug 2021 17:19:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66DEE1690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629386375;
-	bh=KlPT9R3Qu/6AyGv3oDMraKbdt4P/gvZXhmrZskuhFLk=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1629386398;
+	bh=HAVW71dZNQhgeIsQaFVyNX/AKtA5V/U7UmPSrxQma6U=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cnQPOmWpdj7Kj+bunge/MZd+he1Oduan/LCBC0jNxS89Y3oM2t5L7rd6jCNu9zq/u
-	 YwcWbfQu5AmOC8Du0KuNgTE4KnLZFa+yNQeYWqBhQOW43iseBoSace28Nay7EEI4cw
-	 4Kptlg8ocfR9PkK1opXBq2HIUBWTEJBg8QZpxrw0=
+	b=NFfgeT/6EEM4kY/hOVMABaDiBUw83ggFviSkCzYoSVjXkrHStNqn6leWniXr8Tv7O
+	 LU70fXvMYFXQHYB/9MEGPFcOEAlMe0Ey8fXijz7c/DFDSwUEleALvv+ULnqh27sfdO
+	 Cm7Bc6LGKiZE+4uoewFB+GhS5+Q93tknJ9xYUsIo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C4E8F80272;
-	Thu, 19 Aug 2021 17:18:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 53133F80302;
+	Thu, 19 Aug 2021 17:19:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D91F7F8026D; Thu, 19 Aug 2021 17:18:15 +0200 (CEST)
+ id B3915F8026D; Thu, 19 Aug 2021 17:19:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 97DEDF800EC
- for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 17:18:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97DEDF800EC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="o/or+vJr"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="sqACcq8E"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id A16E32203A;
- Thu, 19 Aug 2021 15:18:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1629386291; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=0Lp7wQPZlTVrY/eHAucScyXQVNtYH+/4J4uKLoTM2SE=;
- b=o/or+vJrNCaUK8XQFJmFtu171LIyZjyw3F0EQV21TRGCIhT17WL3aLf/A2avZXO9bq0VWG
- GGUUOYRJkRis3WNI79AUrMmKdtVhtH7XA0TEygAUV5P+7iOsgjdcsWMNUkFJ9f0gI2pyma
- LFC3dQV1hXSWBER7KLsZ8p+t5NEKbiM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1629386291;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=0Lp7wQPZlTVrY/eHAucScyXQVNtYH+/4J4uKLoTM2SE=;
- b=sqACcq8EXQb2rfdA915R01YN+H7dYD58wGrZlL12de7LDeFG0bBgv3++8S/jblM7hwlS8P
- tSOBODlm8SCMLtAA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 968B6A3B8E;
- Thu, 19 Aug 2021 15:18:11 +0000 (UTC)
-Date: Thu, 19 Aug 2021 17:18:11 +0200
-Message-ID: <s5hy28x8nv0.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [5.14 regression] "ASoC: intel: atom: Fix reference to PCM buffer
- address" breaks Intel SST audio
-In-Reply-To: <aa8f9df0-96a4-4050-454c-dda7104bce3c@redhat.com>
-References: <2048c6aa-2187-46bd-6772-36a4fb3c5aeb@redhat.com>
- <e9ac9c13-75c6-89a4-39d0-8c82dda2e560@redhat.com>
- <s5ha6lda3lr.wl-tiwai@suse.de>
- <aa8f9df0-96a4-4050-454c-dda7104bce3c@redhat.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25C42F8026D
+ for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 17:18:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25C42F8026D
+X-IronPort-AV: E=McAfee;i="6200,9189,10081"; a="238696714"
+X-IronPort-AV: E=Sophos;i="5.84,335,1620716400"; d="scan'208";a="238696714"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Aug 2021 08:18:47 -0700
+X-IronPort-AV: E=Sophos;i="5.84,335,1620716400"; d="scan'208";a="489703501"
+Received: from mmdandap-mobl.amr.corp.intel.com (HELO [10.213.172.210])
+ ([10.213.172.210])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Aug 2021 08:18:46 -0700
+Subject: Re: [PATCH v2] ASoC: Intel: Fix platform ID matching for
+ kbl_da7219_max98373
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Lukasz Majczak <lma@semihalf.com>
+References: <20210819082414.39497-1-lma@semihalf.com>
+ <87736cce-a96f-064e-6d60-71645ba46f13@linux.intel.com>
+ <aeb40985-140f-b013-f368-778ad33fc7d0@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <50eb6c88-5f1a-7a42-adaf-da16f711e5c5@linux.intel.com>
+Date: Thu, 19 Aug 2021 10:18:43 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.11.0
+MIME-Version: 1.0
+In-Reply-To: <aeb40985-140f-b013-f368-778ad33fc7d0@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: Curtis Malainey <cujomalainey@chromium.org>, alsa-devel@alsa-project.org,
+ upstream@semihalf.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,70 +80,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 19 Aug 2021 17:11:25 +0200,
-Hans de Goede wrote:
+
+
+On 8/19/21 10:06 AM, Cezary Rojewski wrote:
+> On 2021-08-19 4:30 PM, Pierre-Louis Bossart wrote:
+>> On 8/19/21 3:24 AM, Lukasz Majczak wrote:
+>>> Sparse warnings triggered truncating the IDs of some platform device
+>>> tables. Unfortunately kbl_da7219_max98373 was also truncated.
+>>> This patch is reverting the original ID.
+>>> Tested on Atlas chromebook.
+>>
+>> Instead of reverting, how about changing the remaining occurrences of
+>> the old name in the machine driver?
+>>
+>> sound/soc/intel/boards/kbl_da7219_max98927.c:   if (!strcmp(pdev->name,
+>> "kbl_da7219_max98373") ||
+>> sound/soc/intel/boards/kbl_da7219_max98927.c:           .name =
+>> "kbl_da7219_max98373",
 > 
-> Hi,
+> Mentioned by 'Fixes' tag patch clearly introduced regression. If we are
+> to update any name-fields, it's better to have a fresh start and update
+> all the boards in one-go than doing so separately.
 > 
-> On 8/19/21 4:52 PM, Takashi Iwai wrote:
-> > On Thu, 19 Aug 2021 16:45:19 +0200,
-> > Hans de Goede wrote:
-> >>
-> >> Hi,
-> >>
-> >> On 8/19/21 4:42 PM, Hans de Goede wrote:
-> >>> Hi All,
-> >>>
-> >>> After rebasing a set of bytcr_rt5640 patches, on top of asoc/for-next
-> >>> I noticed that playing back audio would only generate random-noise / buzzing
-> >>> (I did not try recording any audio). 
-> >>>
-> >>> After poking at this for a while I've found the culprit:
-> >>>
-> >>> 2e6b836312a4 ("ASoC: intel: atom: Fix reference to PCM buffer address")
-> >>>
-> >>> If I revert that single commit then audio on Intel Bay Trail and
-> >>> Cherry Trail devices works fine again with 5.14.
-> >>>
-> >>> This is with a Fedora 34 userspace using pipewire as audiodaemon
-> >>>
-> >>> I'm not sure what is going on here, but since the old code
-> >>> changed by the broken commit has worked fine for ages and
-> >>> given where we are in the devel-cycle I think it might be best
-> >>> to just revert 2e6b836312a4 again.
-> >>
-> >> p.s. to be clear I noticed this after rebasing on top of asoc/for-next
-> >> but the troublesome commit is actually in Linus tree now and thus
-> >> will hit end users once 5.14 is released.
-> >>
-> >> (the troublesome commit landed in 5.14-rc6 and my previous tests
-> >> were with 5.14-rc5)
-> > 
-> > Ah, the commit might be problematic on 5.14 where dma_addr isn't set
-> > yet for the CONTINUOUS buffer type (which was fixed in sound.git
-> > for-next branch).
-> > 
-> > Could you try the patch below?
-> 
-> I can confirm that this fixes things.
-> 
-> Note though that I'm running 5.14-rc6 with asoc/for-next merged in,
-> so this suggest that the "dma_addr isn't set yet for the CONTINUOUS
-> buffer type" problem also exists in asoc/for-next which means that
-> asoc/for-next as a standalone tree also has broken Intel SST audio
-> atm (I did not verify this).
+> Apart from that, Maxim codecs go by the name of 'max' in
+> sound/soc/codecs/. It's more intuitive to have equivalent shortcut used
+> in board's name.
 
-Yes, asoc/for-next is behind my for-next branch, so it doesn't contain
-the necessary commit yet.
+the ACPI HID start with MX and there's not much consistency in naming,
+is there?
 
-> Either way I guess that even with the dma_addr being set doing
-> virt_to_phys(substream->runtime->dma_area) will still be fine,
-> so this probably is the right thing to do for now regardless.
+		.drv_name = "kbl_r5514_5663_max",
+		.drv_name = "kbl_rt5663_m98927",
+		.drv_name = "kbl_da7219_mx98357a",
+		.drv_name = "kbl_da7219_max98927",
+		.drv_name = "kbl_max98373",
 
-I'll submit the proper patch with this fix.  After the merge for 5.14,
-it'll be reverted again for 5.15.
-
-
-thanks,
-
-Takashi
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>

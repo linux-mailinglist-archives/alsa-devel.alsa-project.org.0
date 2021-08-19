@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9DA93F205A
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Aug 2021 21:07:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 796E63F205B
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Aug 2021 21:07:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 53F391682;
-	Thu, 19 Aug 2021 21:06:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53F391682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85624168F;
+	Thu, 19 Aug 2021 21:06:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85624168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629400038;
-	bh=D5m3uRDzHgxxpHX4TgIfeKuOO9R71dWNkZPiZVSaehI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=BkSg6QWcHaM4ZXbLXYmeKPxPnc2rhWBs5sziUAIFGK8rv6QZS7RCJEQ7DjzRz6Zx5
-	 p2hT+6W4p2seJAUnryKh8N9klBN0itU/t9Gp2H8KsCbunHrYegoyoML9OfaHvpvmrR
-	 TTgzW4bAos9OIF3/2k0sJYejYnEjEzzqqWhpd0pA=
+	s=default; t=1629400061;
+	bh=Px1Rwx/R7q98fnya8qh5rrVdKaSKRdWIl04SPONGFHQ=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=V3Ia/wz+SJfofovTKcQjqrWzrfGOru0wkmKpx9yQ3JgaIotEYZ+YV3PlgrqV6mzl5
+	 fRG+JHEKYaUrVhcxQaAQ55mOUoq60NfBBXcrnpyi3IJworGpemAOiTvIW2c0WbwH8q
+	 Ky77Fi29Hs7MGVLE43ZyDD0sl7Q0qO3/OocVO49Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0146F8026D;
-	Thu, 19 Aug 2021 21:06:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2C79DF804DA;
+	Thu, 19 Aug 2021 21:06:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1BC4EF80272; Thu, 19 Aug 2021 21:05:58 +0200 (CEST)
+ id BFFFDF801EC; Thu, 19 Aug 2021 21:05:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,43 +34,46 @@ Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6EBD9F800EC
- for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 21:05:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EBD9F800EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id D7492F801EC
+ for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 21:05:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7492F801EC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="S4WMrp1O"
+ header.b="RaJXT7ER"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1629399950;
+ s=mimecast20190719; t=1629399953;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=JRp+GRYjdvQm40AfGyUZxP70WcUKnCmS/X2SPZDGQm0=;
- b=S4WMrp1OBdPSkcrVU8jX8FNsXqg5ZOrU30Pt5uih+hLaHoGnp781oKI5Xupw0JixaB6PMd
- AOQT4zksRfrkJJ2KjRxKYasMhsTC7Gp3+SgLItMFBkqaaE2JherUaWC8CkS6k2PHfEuCH2
- 93ShCmUvp2dJsnux8W4Z54eG4mIgfHM=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=YBPT/37tRb/n40pAmz6S3xC5yaQo/fMZwHuiB530+x8=;
+ b=RaJXT7ER50vaLT5fcTZjbmvi+jaP8aK0WsVOLHQNhCpgfkl/+rWuRGjqt2sRV8I+X19eJK
+ eR2tjxqIl6zRXoIdVzsgQPgITSav6vHZ+GYx1s5XOMAhK0wMJUooqfqeFzAEr3kd4nN+9z
+ ixioHeSqoE+yfScfBa3mcjJoJdjPbtY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-532-k2gPbnknM_mTHKbLT5392w-1; Thu, 19 Aug 2021 15:05:49 -0400
-X-MC-Unique: k2gPbnknM_mTHKbLT5392w-1
+ us-mta-554-5gFFQU7BOF6pwQU3D2bKIw-1; Thu, 19 Aug 2021 15:05:50 -0400
+X-MC-Unique: 5gFFQU7BOF6pwQU3D2bKIw-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
  [10.5.11.23])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6A558801B3C;
- Thu, 19 Aug 2021 19:05:47 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 756E193920;
+ Thu, 19 Aug 2021 19:05:49 +0000 (UTC)
 Received: from x1.localdomain.com (unknown [10.39.192.43])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B0CAE1971B;
- Thu, 19 Aug 2021 19:05:44 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id B59E21A26A;
+ Thu, 19 Aug 2021 19:05:47 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Cezary Rojewski <cezary.rojewski@intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Liam Girdwood <liam.r.girdwood@linux.intel.com>,
  Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
-Subject: [PATCH v2 0/6] ASoC: Intel/rt5640: Add support for HP Elite Pad
- 1000G2 jack-detect
-Date: Thu, 19 Aug 2021 21:05:37 +0200
-Message-Id: <20210819190543.784415-1-hdegoede@redhat.com>
+Subject: [PATCH v2 1/6] ASoC: rt5640: Move rt5640_disable_jack_detect() up in
+ the rt5640.c file
+Date: Thu, 19 Aug 2021 21:05:38 +0200
+Message-Id: <20210819190543.784415-2-hdegoede@redhat.com>
+In-Reply-To: <20210819190543.784415-1-hdegoede@redhat.com>
+References: <20210819190543.784415-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
@@ -95,57 +99,78 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Changes in v2:
-- Rebase on asoc/for-next
-- New patch: "ASoC: Intel: bytct_rt5640: Add a separate "Headset Mic 2"
-  DAPM pin for the mic on the 2nd jack"
-- Addressed Pierre-Louis' comments about calling
-  acpi_dev_add_driver_gpios() twice
+Move rt5640_disable_jack_detect() to above rt5640_enable_jack_detect().
+This is a preparation patch for reworking how the IRQ gets requested.
 
-Original cover-letter:
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ sound/soc/codecs/rt5640.c | 46 +++++++++++++++++++--------------------
+ 1 file changed, 23 insertions(+), 23 deletions(-)
 
-The HP Elitepad 1000 G2 tablet has 2 headset jacks:
-
-1. on the dock which uses the output of the codecs built-in HP-amp +
-the standard IN2 input which is always used with the headset-jack.
-
-2. on the tablet itself, this uses the line-out of the codec + an external
-HP-amp, which gets enabled by the ALC5642 codec's GPIO1 pin; and IN1 for
-the headset-mic.
-
-The codec's GPIO1 is also its only IRQ output pin, so this means that
-the codec's IRQ cannot be used on this tablet. Instead the jack-detect
-is connected directly to GPIOs on the main SoC. The dock has a helper
-chip which also detects if a headset-mic is present or not, so there
-are 2 GPIOs for the jack-detect status of the dock. The tablet jack
-uses a single GPIO which indicates if a jack is present or not.
-
-Differentiating between between headphones vs a headset on the tablet jack
-is done by using the usual mic-bias over-current-detection mechanism.
-
-Regards,
-
-Hans
-
-
-Hans de Goede (6):
-  ASoC: rt5640: Move rt5640_disable_jack_detect() up in the rt5640.c
-    file
-  ASoC: rt5640: Delay requesting IRQ until the machine-drv calls
-    set_jack
-  ASoC: rt5640: Add optional hp_det_gpio parameter to
-    rt5640_detect_headset()
-  ASoC: rt5640: Add rt5640_set_ovcd_params() helper
-  ASoC: Intel: bytct_rt5640: Add a separate "Headset Mic 2" DAPM pin for
-    the mic on the 2nd jack
-  ASoC: Intel: bytcr_rt5640: Add support for HP Elite Pad 1000G2
-    jack-detect
-
- sound/soc/codecs/rt5640.c             | 136 ++++++++++++----------
- sound/soc/codecs/rt5640.h             |   6 +
- sound/soc/intel/boards/bytcr_rt5640.c | 158 +++++++++++++++++++++++++-
- 3 files changed, 234 insertions(+), 66 deletions(-)
-
+diff --git a/sound/soc/codecs/rt5640.c b/sound/soc/codecs/rt5640.c
+index 0f5087a7644b..5439f771eef5 100644
+--- a/sound/soc/codecs/rt5640.c
++++ b/sound/soc/codecs/rt5640.c
+@@ -2362,6 +2362,29 @@ static void rt5640_cancel_work(void *data)
+ 	cancel_delayed_work_sync(&rt5640->bp_work);
+ }
+ 
++static void rt5640_disable_jack_detect(struct snd_soc_component *component)
++{
++	struct rt5640_priv *rt5640 = snd_soc_component_get_drvdata(component);
++
++	/*
++	 * soc_remove_component() force-disables jack and thus rt5640->jack
++	 * could be NULL at the time of driver's module unloading.
++	 */
++	if (!rt5640->jack)
++		return;
++
++	disable_irq(rt5640->irq);
++	rt5640_cancel_work(rt5640);
++
++	if (rt5640->jack->status & SND_JACK_MICROPHONE) {
++		rt5640_disable_micbias1_ovcd_irq(component);
++		rt5640_disable_micbias1_for_ovcd(component);
++		snd_soc_jack_report(rt5640->jack, 0, SND_JACK_BTN_0);
++	}
++
++	rt5640->jack = NULL;
++}
++
+ static void rt5640_enable_jack_detect(struct snd_soc_component *component,
+ 				      struct snd_soc_jack *jack)
+ {
+@@ -2428,29 +2451,6 @@ static void rt5640_enable_jack_detect(struct snd_soc_component *component,
+ 	queue_work(system_long_wq, &rt5640->jack_work);
+ }
+ 
+-static void rt5640_disable_jack_detect(struct snd_soc_component *component)
+-{
+-	struct rt5640_priv *rt5640 = snd_soc_component_get_drvdata(component);
+-
+-	/*
+-	 * soc_remove_component() force-disables jack and thus rt5640->jack
+-	 * could be NULL at the time of driver's module unloading.
+-	 */
+-	if (!rt5640->jack)
+-		return;
+-
+-	disable_irq(rt5640->irq);
+-	rt5640_cancel_work(rt5640);
+-
+-	if (rt5640->jack->status & SND_JACK_MICROPHONE) {
+-		rt5640_disable_micbias1_ovcd_irq(component);
+-		rt5640_disable_micbias1_for_ovcd(component);
+-		snd_soc_jack_report(rt5640->jack, 0, SND_JACK_BTN_0);
+-	}
+-
+-	rt5640->jack = NULL;
+-}
+-
+ static int rt5640_set_jack(struct snd_soc_component *component,
+ 			   struct snd_soc_jack *jack, void *data)
+ {
 -- 
 2.31.1
 

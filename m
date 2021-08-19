@@ -2,87 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D3583F1D58
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Aug 2021 17:54:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 400C23F1E8D
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Aug 2021 19:00:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A1EE41692;
-	Thu, 19 Aug 2021 17:54:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1EE41692
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3AF391693;
+	Thu, 19 Aug 2021 18:59:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AF391693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629388496;
-	bh=e8M/6J6p3/rIj8ix6XIwGs+zOQOa8Y581pbW6dcWvyQ=;
+	s=default; t=1629392433;
+	bh=Cj40uY9jqlPlk2QBPZ7PY4XcsnBKujtjG0DoGBKLLRE=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gJTu0XpZT0p3OixW2A3hbGQJ9RMcyUkY0m0Q6uaQ/cnNVem/bmWfBzrgKCBi53go4
-	 961+O4jqXwB5L1jGQRp9wta8gIE2r96CvVIHOIbA5oUl+0gMxTtYZAyyFDpoBWJpZq
-	 TPwGfKfOw8PIjsPLn/fQxfec78e66jaaaFZzYi50=
+	b=p21+deJbjrOL1LuqRK6xSSo+6oIT/zb9WZyrXvrb/KkiO0OyvXzay6vy/aYe2wvX9
+	 pI8cCnMfX0uJIPjmcM62Mv3UVqJnqJr4E/2jCtltbbnIGdICkClatnjVovGnWRw5/B
+	 CUdGKefbxm7EhKe+zsp4svJOvHuuk7Acz6Ro5YEY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D305DF80272;
-	Thu, 19 Aug 2021 17:53:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E440F80272;
+	Thu, 19 Aug 2021 18:59:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38349F8026D; Thu, 19 Aug 2021 17:53:37 +0200 (CEST)
+ id 2E387F8026D; Thu, 19 Aug 2021 18:59:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C339F800F8
- for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 17:53:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C339F800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83A32F800CC
+ for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 18:59:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83A32F800CC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="0dkqwBvK"; 
+ header.b="TMBJHgPe"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="/tSSsdNG"
+ header.b="FUtMZU5M"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 672CA1FDA8;
- Thu, 19 Aug 2021 15:53:28 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id D06D0200F3;
+ Thu, 19 Aug 2021 16:59:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1629388408; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1629392348; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=flDYYOinT9b/JxayhbpIs6iw0FYKd/UqxElFWkzoHrs=;
- b=0dkqwBvKqU9JHFUzvFEwoNXfh2eyuUMusx3/YrUNP3Jwpaw7JY8IKVVKKc0utB7FOqhQi0
- lMn9avG32AiW8xj3LEJ/H8ROanJ78oUjRfvlw8PlxasPDSFC5rnoaQ1PvGwY6FnnwNqGMD
- +EUyKjXGtex/cxLc/5kU75JiUSM2oBw=
+ bh=XQ0RiYCPJm01UQt9lHfGTT6eG6iCldQqK5cR9NQGxQo=;
+ b=TMBJHgPeitq2upcLs6oLVQ5vqZh8BvpX2HdifPPQwmEkNmeX1wIzlE2jKgTLV9fuPVBwjX
+ m6a/GkztIwd7t8xYhqqSvjxOVOFH3tS7mQ7xx26HfKUQn36rd7+I2/mWgXT+fRNs8U7VvL
+ YILZUsSu8aX+An1HCjPu0z1cddyU5Bc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1629388408;
+ s=susede2_ed25519; t=1629392348;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=flDYYOinT9b/JxayhbpIs6iw0FYKd/UqxElFWkzoHrs=;
- b=/tSSsdNG9+Vb+zFE5aigeVNRUI1kuSypOTnBEE5IQxmqA5nSLTtbefmh6R9vl1VkJ6z6dD
- r4XmVu6CcbEJC0Dw==
+ bh=XQ0RiYCPJm01UQt9lHfGTT6eG6iCldQqK5cR9NQGxQo=;
+ b=FUtMZU5M+iHOXyEAIen85ji2422N8ngdP6kLNZOL0WqVveKPMPxDB2x0NYDtT66Qc9Lxhs
+ hIJPnOuuUz1k99DQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id D58B6A3B83;
- Thu, 19 Aug 2021 15:53:27 +0000 (UTC)
-Date: Thu, 19 Aug 2021 17:53:27 +0200
-Message-ID: <s5htujl8m88.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id BDF20A3B8B;
+ Thu, 19 Aug 2021 16:59:08 +0000 (UTC)
+Date: Thu, 19 Aug 2021 18:59:08 +0200
+Message-ID: <s5hmtpd8j6r.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: Limit mic boost on HP ProBook 445 G8
-In-Reply-To: <20210818144119.121738-1-kai.heng.feng@canonical.com>
-References: <20210818144119.121738-1-kai.heng.feng@canonical.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH] ASoC: intel: atom: Fix breakage for PCM buffer address
+ setup
+In-Reply-To: <20210819154030.GO4177@sirena.org.uk>
+References: <20210819152945.8510-1-tiwai@suse.de>
+ <s5hwnoh8n2h.wl-tiwai@suse.de>
+ <20210819154030.GO4177@sirena.org.uk>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: Chris Chiu <chris.chiu@canonical.com>,
- "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
- open list <linux-kernel@vger.kernel.org>, Luke D Jones <luke@ljones.dev>,
- Jian-Hong Pan <jhp@endlessos.org>, Werner Sembach <wse@tuxedocomputers.com>,
- tiwai@suse.com, Hui Wang <hui.wang@canonical.com>,
- PeiSen Hou <pshou@realtek.com>, Sami Loone <sami@loone.fi>
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,15 +94,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 18 Aug 2021 16:41:18 +0200,
-Kai-Heng Feng wrote:
+On Thu, 19 Aug 2021 17:40:30 +0200,
+Mark Brown wrote:
 > 
-> The mic has lots of noises if mic boost is enabled. So disable mic boost
-> to get crystal clear audio capture.
+> On Thu, Aug 19, 2021 at 05:35:18PM +0200, Takashi Iwai wrote:
 > 
-> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> > Mark, as it's close to the 5.14 final, exceptionally I'd like to merge
+> > this into my tree directly now, so that it can be certainly included
+> > in the next PR to Linus.
+> > (Also because the commit will be reverted on for-next again, too.)
+> 
+> > After the merge, feel free to pull my for-linus branch into yours.
+> 
+> Acked-by: Mark Brown <broonie@kernel.org>
 
-Thanks, applied.
+Thanks, now merged and pushed out for-linus branch, commit
+65ca89c2b12cca0d473f3dd54267568ad3af55cc.
 
 
 Takashi

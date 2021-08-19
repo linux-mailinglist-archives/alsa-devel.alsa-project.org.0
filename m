@@ -2,63 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62EA73F18D2
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Aug 2021 14:10:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2266C3F1A5C
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Aug 2021 15:28:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F201D1684;
-	Thu, 19 Aug 2021 14:09:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F201D1684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9B9BA167F;
+	Thu, 19 Aug 2021 15:27:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B9BA167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629375014;
-	bh=hpO6ax0Hi4xev75K9dWgahsYYjc0HxuMg6p4EJzh7xA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1629379688;
+	bh=PQKS7ifiKL5AQ+28N4ttww+q8yDryty2pNVgBMcPytM=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AzVZl7fup6SOmgDwVO5GOTI52y8FuzRMgWGbfdzQ0hoR+/FXGK0ys/Vufl6QWA1zT
-	 7PUvn6+Y/ht3w/TaxvZUZgRis4ZkOHCPSNOJRLtxuiClb8LG+OGAurOd+IYNGkoyG7
-	 XGNWsA6Sojv7zzpeCQ9gu55rvPa3Bj20Uf9tcp+s=
+	b=XwGZkoroLVCPKyQCHdfz6kRpHq+3ilkEcdzpcxqibhzJftQ+Xh/UzaYiPk32zion4
+	 Qwl/Le7RH+jKECmIy/8hzzB2wideFTD9xcM0ffxkaehWkxMHzHsKCHt2at3GKGGJNd
+	 6HjWBBeaYMEjQiBY3Ph5QpydA6M/fL86eUYgm/7I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A1C3F800CC;
-	Thu, 19 Aug 2021 14:08:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A1DBF80272;
+	Thu, 19 Aug 2021 15:26:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88337F8026D; Thu, 19 Aug 2021 14:08:54 +0200 (CEST)
+ id 5C057F8026D; Thu, 19 Aug 2021 15:26:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id BA701F800F8
- for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 14:08:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA701F800F8
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 44D5A31B;
- Thu, 19 Aug 2021 05:08:43 -0700 (PDT)
-Received: from [10.57.36.146] (unknown [10.57.36.146])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AC2A13F70D;
- Thu, 19 Aug 2021 05:08:41 -0700 (PDT)
-Subject: Re: [PATCH 2/4] dt-bindings: sound: add rockchip i2s-tdm binding
-To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-References: <20210817101119.423853-1-frattaroli.nicolas@gmail.com>
- <20210817101119.423853-3-frattaroli.nicolas@gmail.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <deb50900-fcfd-23d0-ab8a-0e64b2abb063@arm.com>
-Date: Thu, 19 Aug 2021 13:08:36 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A6CE7F800F8
+ for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 15:26:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6CE7F800F8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="tycrSuyO"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6259E60C40;
+ Thu, 19 Aug 2021 13:26:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1629379595;
+ bh=PQKS7ifiKL5AQ+28N4ttww+q8yDryty2pNVgBMcPytM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=tycrSuyOSNYl1aTSKDaJEM7Mq5BYIH3GS8sAOKgYCNSQLxbpEvRzzholgpUhN6vmj
+ vgt7YP9sgB8H49kOHC9V+ANMjbMvJHcPHJrlSr9Ex2ADGopBwhbuUUMZrcfkG0gMDH
+ ISEUc8/ZdqBVyN232BucS+SxFLLUJTBQOek8uAIwhyIvYS3ztxCcHOxO6Yldq94EHF
+ 5uueggVbebDyajNm4f42tNzlSXCLguWsAW3Gbc5c76Le8r9mcf11CB/HbkQmaof6jS
+ PvIybP/IT3rJ6nk5Dd8iWBLi21jz70AnZM5EV0ZLiXxF8f2+oDG4qb49vgkHwyXMnN
+ Erbk1h2KWub/w==
+Date: Thu, 19 Aug 2021 09:26:34 -0400
+From: Sasha Levin <sashal@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH AUTOSEL 5.13 03/12] ASoC: wm_adsp: Let
+ soc_cleanup_component_debugfs remove debugfs
+Message-ID: <YR5cCqyVQRnDjuo3@sashalap>
+References: <20210817003536.83063-1-sashal@kernel.org>
+ <20210817003536.83063-3-sashal@kernel.org>
+ <20210818131544.GL9223@ediswmail.ad.cirrus.com>
 MIME-Version: 1.0
-In-Reply-To: <20210817101119.423853-3-frattaroli.nicolas@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20210818131544.GL9223@ediswmail.ad.cirrus.com>
+Cc: alsa-devel@alsa-project.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,286 +83,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2021-08-17 11:11, Nicolas Frattaroli wrote:
-> This adds the YAML bindings for the Rockchip I2S/TDM audio driver.
-> 
-> Signed-off-by: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
-> ---
->   .../bindings/sound/rockchip,i2s-tdm.yaml      | 221 ++++++++++++++++++
->   include/dt-bindings/sound/rockchip,i2s-tdm.h  |   9 +
->   2 files changed, 230 insertions(+)
->   create mode 100644 Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
->   create mode 100644 include/dt-bindings/sound/rockchip,i2s-tdm.h
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml b/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
-> new file mode 100644
-> index 000000000000..c3022620b47f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
-> @@ -0,0 +1,221 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/rockchip,i2s-tdm.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Rockchip I2S/TDM Controller
-> +
-> +description:
-> +  The Rockchip I2S/TDM Controller is a Time Division Multiplexed
-> +  audio interface found in various Rockchip SoCs, allowing up
-> +  to 8 channels of audio over a serial interface.
-> +
-> +maintainers:
-> +  - Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - rockchip,px30-i2s-tdm
-> +      - rockchip,rk1808-i2s-tdm
-> +      - rockchip,rk3308-i2s-tdm
-> +      - rockchip,rk3568-i2s-tdm
-> +      - rockchip,rv1126-i2s-tdm
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  dmas:
-> +    minItems: 1
-> +    maxItems: 2
-> +
-> +  dma-names:
-> +    oneOf:
-> +      - const: rx
-> +      - items:
-> +          - const: tx
-> +          - const: rx
+On Wed, Aug 18, 2021 at 01:15:44PM +0000, Charles Keepax wrote:
+>On Mon, Aug 16, 2021 at 08:35:27PM -0400, Sasha Levin wrote:
+>> From: Lucas Tanure <tanureal@opensource.cirrus.com>
+>>
+>> [ Upstream commit acbf58e530416e167c3b323111f4013d9f2b0a7d ]
+>>
+>> soc_cleanup_component_debugfs will debugfs_remove_recursive
+>> the component->debugfs_root, so adsp doesn't need to also
+>> remove the same entry.
+>> By doing that adsp also creates a race with core component,
+>> which causes a NULL pointer dereference
+>>
+>> Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
+>> Link: https://lore.kernel.org/r/20210728104416.636591-1-tanureal@opensource.cirrus.com
+>> Signed-off-by: Mark Brown <broonie@kernel.org>
+>> Signed-off-by: Sasha Levin <sashal@kernel.org>
+>> ---
+>>  sound/soc/codecs/wm_adsp.c | 1 -
+>>  1 file changed, 1 deletion(-)
+>>
+>> diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
+>> index cef05d81c39b..6698b5343974 100644
+>> --- a/sound/soc/codecs/wm_adsp.c
+>> +++ b/sound/soc/codecs/wm_adsp.c
+>> @@ -746,7 +746,6 @@ static void wm_adsp2_init_debugfs(struct wm_adsp *dsp,
+>>  static void wm_adsp2_cleanup_debugfs(struct wm_adsp *dsp)
+>>  {
+>>  	wm_adsp_debugfs_clear(dsp);
+>> -	debugfs_remove_recursive(dsp->debugfs_root);
+>>  }
+>
+>It might be better not to backport this patch to the stable
+>kernels. The issue has only been seen on one out of tree driver
+>and the patch looks a little off to me. This
+>debugfs_remove_recursive should run before the
+>soc_cleanup_component_debugfs one, and as such it's hard to see
+>what is actually going on. We are currently investigating internally
+>but we might end up reverting the change, and it only seems to be
+>causing issues on the one not upstreamed part.
+>
+>Apologies for missing the review of this one when it went up
+>Mark, I was on holiday at the time.
 
-It seems a bit weird for Rx DMA to be mandatory when other things imply 
-that some interfaces may only be used for Tx.
+I'll drop it, it didn't go anywhere yet :) Thanks!
 
-> +
-> +  clocks:
-> +    items:
-> +      - description: clock for TX
-> +      - description: clock for RX
-> +      - description: clock for I2S bus
-
-Nit: "hclk" normally means the AHB clock driving the bus interface which 
-connects to the rest of the SoC (and often doubling up as the core clock 
-for the IP block itself) - AIUI the Tx and Rx represent the I2S bus(es).
-
-> +
-> +  clock-names:
-> +    items:
-> +      - const: mclk_tx
-> +      - const: mclk_rx
-> +      - const: hclk
-> +
-> +  rockchip,frame-width:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    default: 64
-> +    minimum: 32
-> +    maximum: 512
-> +    description:
-> +      Width of a frame, usually slot width multiplied by number of slots.
-> +      Must be even.
-> +
-> +  resets:
-> +    items:
-> +      - description: reset for TX
-> +      - description: reset for RX
-> +
-> +  reset-names:
-> +    items:
-> +      - const: tx-m
-> +      - const: rx-m
-> +
-> +  rockchip,cru:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description:
-> +      The phandle of the cru.
-> +      Required if both playback and capture are used, i.e. if rockchip,clk-trcm
-> +      is 0.
-> +
-> +  rockchip,grf:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description:
-> +      The phandle of the syscon node for the GRF register.
-> +
-> +  rockchip,mclk-calibrate:
-> +    description:
-> +      Enable mclk source calibration.
-> +    type: boolean
-> +
-> +  rockchip,trcm-sync:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      Which lrck/bclk clocks each direction will sync to. You should use the
-> +      constants in <dt-bindings/sound/rockchip,i2s-tdm.h>
-> +    oneOf:
-> +      - const: 0
-> +        description:
-> +          RK_TRCM_TXRX. Use both the TX and the RX clock for TX and RX.
-> +      - const: 1
-> +        description:
-> +          RK_TRCM_TX. Use only the TX clock for TX and RX.
-> +      - const: 2
-> +        description:
-> +          RK_TRCM_RX. Use only the RX clock for TX and RX.
-
-I wonder if that might make sense to have boolean properties to describe 
-the latter two cases (which would effectively be mutually-exclusive), 
-rather than a magic number? Or possibly even just make the respective 
-clocks optional, if this is something which would be done per-SoC rather 
-than per-board?
-
-> +
-> +  "#sound-dai-cells":
-> +    const: 0
-> +
-> +  rockchip,no-dmaengine:
-> +    description:
-> +      If present, driver will not register a pcm dmaengine, only the dai.
-> +      If the dai is part of multi-dais, the property should be present.
-> +    type: boolean
-
-That sounds a lot more like a policy decision specific to the Linux 
-driver implementation, than something which really belongs in DT as a 
-description of the platform.
-
-> +
-> +  rockchip,playback-only:
-> +    description: Specify that the controller only has playback capability.
-> +    type: boolean
-> +
-> +  rockchip,capture-only:
-> +    description: Specify that the controller only has capture capability.
-> +    type: boolean
-
-Could those be inferred from the compatible string, or are there cases 
-where you have multiple instances of the IP block in different 
-configurations within the same SoC? (Or if it's merely reflecting 
-whether the respective interface is actually wired up externally, could 
-that be inferred from the attached codec?)
-
-Robin.
-
-> +  rockchip,i2s-rx-route:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      Defines the mapping of I2S RX sdis to I2S data bus lines.
-> +      By default, they are mapped one-to-one.
-> +    items:
-> +      - description: which sdi to connect to data line 0
-> +      - description: which sdi to connect to data line 1
-> +      - description: which sdi to connect to data line 2
-> +      - description: which sdi to connect to data line 3
-> +
-> +  rockchip,i2s-tx-route:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      Defines the mapping of I2S TX sdos to I2S data bus lines.
-> +      By default, they are mapped one-to-one.
-> +    items:
-> +      - description: which sdo to connect to data line 0
-> +      - description: which sdo to connect to data line 1
-> +      - description: which sdo to connect to data line 2
-> +      - description: which sdo to connect to data line 3
-> +
-> +  rockchip,tdm-fsync-half-frame:
-> +    description: Whether to use half frame fsync.
-> +    type: boolean
-> +
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - dmas
-> +  - dma-names
-> +  - clocks
-> +  - clock-names
-> +  - resets
-> +  - reset-names
-> +  - rockchip,grf
-> +  - "#sound-dai-cells"
-> +  - rockchip,trcm-sync
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        rockchip,clk-trcm:
-> +          contains:
-> +            enum: [0]
-> +    then:
-> +      required:
-> +        - rockchip,cru
-> +
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/rk3568-cru.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    #include <dt-bindings/pinctrl/rockchip.h>
-> +    #include <dt-bindings/sound/rockchip,i2s-tdm.h>
-> +
-> +
-> +    foo {
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +        i2s@fe410000 {
-> +            compatible = "rockchip,rk3568-i2s-tdm";
-> +            reg = <0x0 0xfe410000 0x0 0x1000>;
-> +            interrupts = <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>;
-> +            clocks = <&cru MCLK_I2S1_8CH_TX>, <&cru MCLK_I2S1_8CH_RX>,
-> +                     <&cru HCLK_I2S1_8CH>;
-> +            clock-names = "mclk_tx", "mclk_rx", "hclk";
-> +            dmas = <&dmac1 2>, <&dmac1 3>;
-> +            dma-names = "tx", "rx";
-> +            resets = <&cru SRST_M_I2S1_8CH_TX>, <&cru SRST_M_I2S1_8CH_RX>;
-> +            reset-names = "tx-m", "rx-m";
-> +            rockchip,trcm-sync = <RK_TRCM_TX>;
-> +            rockchip,cru = <&cru>;
-> +            rockchip,grf = <&grf>;
-> +            #sound-dai-cells = <0>;
-> +            pinctrl-names = "default";
-> +            pinctrl-0 =
-> +                <&i2s1m0_sclktx
-> +                &i2s1m0_sclkrx
-> +                &i2s1m0_lrcktx
-> +                &i2s1m0_lrckrx
-> +                &i2s1m0_sdi0
-> +                &i2s1m0_sdi1
-> +                &i2s1m0_sdi2
-> +                &i2s1m0_sdi3
-> +                &i2s1m0_sdo0
-> +                &i2s1m0_sdo1
-> +                &i2s1m0_sdo2
-> +                &i2s1m0_sdo3>;
-> +            status = "disabled";
-> +        };
-> +    };
-> diff --git a/include/dt-bindings/sound/rockchip,i2s-tdm.h b/include/dt-bindings/sound/rockchip,i2s-tdm.h
-> new file mode 100644
-> index 000000000000..32494d64cf33
-> --- /dev/null
-> +++ b/include/dt-bindings/sound/rockchip,i2s-tdm.h
-> @@ -0,0 +1,9 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +#ifndef _DT_BINDINGS_ROCKCHIP_I2S_TDM_H
-> +#define _DT_BINDINGS_ROCKCHIP_I2S_TDM_H
-> +
-> +#define RK_TRCM_TXRX 0
-> +#define RK_TRCM_TX 1
-> +#define RK_TRCM_RX 2
-> +
-> +#endif /* _DT_BINDINGS_ROCKCHIP_I2S_TDM_H */
-> 
+-- 
+Thanks,
+Sasha

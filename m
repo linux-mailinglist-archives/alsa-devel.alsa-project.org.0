@@ -2,73 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8712D3F208A
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Aug 2021 21:24:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 784883F2139
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Aug 2021 21:58:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D48F168A;
-	Thu, 19 Aug 2021 21:23:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D48F168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 02DE8167F;
+	Thu, 19 Aug 2021 21:57:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02DE8167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629401044;
-	bh=5nD+NxhHJqubpk1hmDTlASfSl9wCtYPZQgvo9y0BqQ4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1629403104;
+	bh=FR3BXOj4vhtjM6L5tneHSA4S3Ta65wB1g+vD5BrgVA4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qX4v2pF+UruJiDdE36TU8/WJe9yTYLjmtD9zYhfOgxpJ6P+mSdRj6cjQ/7RaSduao
-	 qocedasqcz3SyU0E1vSOEe3jdBmnnpqTPxMhracJeShapKis6VFFfK7opncRQjSb+9
-	 cZ30BjowRKvQje9sY+MeexzgOBJoFlqC5z5HlfD0=
+	b=fQTEoAkrvKDE2Com+oE3qGv1vLdr3GYEJIhLEoOLKocE8pejBNNDSACrFEgLmk7h9
+	 hwOBv2sviQUpxK3vAQOfd6TPn3QBNcH7P8EENWQ7iIDOgRuFmXNsmzNFvtj9/YLdMh
+	 80nsB6ZYYPXK/kRPoQMZWICoAt5H2BsWM2UzDx0E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 554DBF801EC;
-	Thu, 19 Aug 2021 21:22:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C1DCF800EC;
+	Thu, 19 Aug 2021 21:57:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CF5FEF80272; Thu, 19 Aug 2021 21:22:44 +0200 (CEST)
+ id 540F2F8026D; Thu, 19 Aug 2021 21:57:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL
+ autolearn=disabled version=3.4.0
+Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
+ [IPv6:2607:f8b0:4864:20::832])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 734DBF801EC
- for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 21:22:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 734DBF801EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 53CD8F800F8
+ for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 21:56:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53CD8F800F8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="X7qpYVrZ"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B8AF060F39;
- Thu, 19 Aug 2021 19:22:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1629400959;
- bh=5nD+NxhHJqubpk1hmDTlASfSl9wCtYPZQgvo9y0BqQ4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=X7qpYVrZi9jpExJW+0EhR4myp+16GytmRKQ5pS0h7qBh2ulj6B+bibLMALhG+GA1D
- 6GBChkCKmULVqOSkTXhIfLV59owoafNoQyxZrerc85XE73SXFjxmBJaqrLOxtXg+sq
- RA7DTbYt5CMafK9nisU5gsAtthp93Nn2qZ+wCIHhIYUzPsHek77C/+wn5MGUPRu7/K
- VTB0/+/0i3YOTXJqL/rO2hA/4qQdfXGE3u7MV/4mItIVvQ4oqqJsEpjg2WdakmSdVK
- MiR2nkpaSXOrz5yPXGnZa/zakYuD3ClJlEdHOL3SpMB7RfTT8ZRM+sJ3IqAPqcq0kE
- si0WTWlU7B6dg==
-From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Biju Das <biju.das.jz@bp.renesas.com>
-Subject: Re: [PATCH v3] ASoC: sh: rz-ssi: Improve error handling in
- rz_ssi_dma_request function
-Date: Thu, 19 Aug 2021 20:22:09 +0100
-Message-Id: <162940023650.48070.12049950686133021944.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210818101450.15948-1-biju.das.jz@bp.renesas.com>
-References: <20210818101450.15948-1-biju.das.jz@bp.renesas.com>
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="MIVsKPsX"
+Received: by mail-qt1-x832.google.com with SMTP id e15so5604093qtx.1
+ for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 12:56:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=bANW2RCtdy9VBEeiI3j/+3mwESh5TfgXMzY62Tyl/KY=;
+ b=MIVsKPsX0m5oGzVZZ9BQazgNSDiHWSb1CCTfuTS8pwpQQx83c8kpTvaGcD194qOFKj
+ 8vrs6YFwpiNxPZcTD7+7EsCpPXlyABlxuo1ZsAnwHwfMz8SRAfw6SM6n4Gj7ncQLxlYg
+ JOIl7OXEXudLAN9TjYPcF/AlO/CNcnedGTGdghxtxVggxtm6Fs5LksyYJqUlPjyIh3T2
+ 51Gz4VetvAV30nUmBVfOTZsfRwnxYp5K0jV5b4oNZZSZGf746vESMs395+mJ4oYtvNpE
+ 5OemqCCEh3KUH/xdocg9rR8atH3292fgfkF/ZnJP7GtH1sW6Gvtt86Po2FRD2VxWTFCV
+ 3I2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=bANW2RCtdy9VBEeiI3j/+3mwESh5TfgXMzY62Tyl/KY=;
+ b=NPF6WUX1E3+zbvvnvDZgCjCSRikLF9FlBMv5UMB/Dv1t7F6ZRcGvT2WhshNS5zMz/7
+ 0W0hphYp7Ew6tDzFIANgkuCLnhVb3dDUXKjQJYGOU9k0N72g7CzDtx+VVn/U9h0hBql6
+ IjkA56NA2jJGrSKpSRSWnPqrozYOG5D5pdvJGAgqNL+h61WshbkJDOme2mU1+VEbyyA9
+ 8izgIOR3yTA3Qk8z5RB/wzt52R0VLUvfdJOXl7wVTeItu+e8YjbRhxH7JvGNUwpUnNSr
+ 4baUrByyl//5KydMI8Syba/+nkszkXWF3YkhNRXK2V0qdyaTEcaMWvw3lmwcXh8js3yS
+ cTOA==
+X-Gm-Message-State: AOAM5336pQwmBvVsDZk6X4CHKO6Mxzr7emtBw/Ftw8m3aUwJgNRggslG
+ HTcw1sxsmK/Fo+NMBzopZKvt3Ns8KvuBjTBKZVDmfg==
+X-Google-Smtp-Source: ABdhPJwkuAoHR2v85paRVB6WkwhSPnm/ZbeEDoNIM89M/n93VBm5j94D1WVJvgGLl+kXHKm1BP20/nEUykvxwyNYHwU=
+X-Received: by 2002:a05:622a:509:: with SMTP id
+ l9mr14447454qtx.355.1629403010889; 
+ Thu, 19 Aug 2021 12:56:50 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Geert Uytterhoeven <geert+renesas@glider.be>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Biju Das <biju.das@bp.renesas.com>, linux-renesas-soc@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Chris Paterson <Chris.Paterson2@renesas.com>
+References: <20210819082414.39497-1-lma@semihalf.com>
+ <87736cce-a96f-064e-6d60-71645ba46f13@linux.intel.com>
+ <aeb40985-140f-b013-f368-778ad33fc7d0@intel.com>
+ <50eb6c88-5f1a-7a42-adaf-da16f711e5c5@linux.intel.com>
+In-Reply-To: <50eb6c88-5f1a-7a42-adaf-da16f711e5c5@linux.intel.com>
+From: Curtis Malainey <cujomalainey@google.com>
+Date: Thu, 19 Aug 2021 12:56:40 -0700
+Message-ID: <CAOReqxiYYPgmAcN1RnVnOKziV+cnwD8nRCT_x3k7H3FeUW1SYA@mail.gmail.com>
+Subject: Re: [PATCH v2] ASoC: Intel: Fix platform ID matching for
+ kbl_da7219_max98373
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, upstream@semihalf.com,
+ ALSA development <alsa-devel@alsa-project.org>, stable@vger.kernel.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Curtis Malainey <cujomalainey@chromium.org>, Lukasz Majczak <lma@semihalf.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,40 +101,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 18 Aug 2021 11:14:50 +0100, Biju Das wrote:
-> dma_request_chan() returns error pointer in case of failures, but
-> the rz_ssi_dma_request() checked for NULL pointer instead.
-> 
-> This patch fixes the issue by checking for ERR_PTR() instead of
-> NULL and sets the DMA pointers to NULL in error case so that ssi
-> can fallback to PIO mode.
-> 
-> [...]
+On Thu, Aug 19, 2021 at 8:18 AM Pierre-Louis Bossart
+<pierre-louis.bossart@linux.intel.com> wrote:
+>
+>
+> >
+> > Apart from that, Maxim codecs go by the name of 'max' in
+> > sound/soc/codecs/. It's more intuitive to have equivalent shortcut used
+> > in board's name.
+>
+> the ACPI HID start with MX and there's not much consistency in naming,
+> is there?
+>
+>                 .drv_name = "kbl_r5514_5663_max",
+>                 .drv_name = "kbl_rt5663_m98927",
+>                 .drv_name = "kbl_da7219_mx98357a",
+>                 .drv_name = "kbl_da7219_max98927",
+>                 .drv_name = "kbl_max98373",
+>
+> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Applied to
+Agreed, it is definitely better to revisit and get it all in one go so
+we don't end up with a cherry-picking nightmare
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: sh: rz-ssi: Improve error handling in rz_ssi_dma_request function
-      commit: 4b14f17912052a6963580dfba04781cfe6ccba02
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Acked-by: Curtis Malainey <cujomalainey@chromium.org>

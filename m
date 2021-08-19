@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BC553F2744
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Aug 2021 09:05:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D8053F2747
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Aug 2021 09:05:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0EDD1168B;
-	Fri, 20 Aug 2021 09:04:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EDD1168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id EECE91684;
+	Fri, 20 Aug 2021 09:04:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EECE91684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629443112;
+	s=default; t=1629443148;
 	bh=LxAzunjmWpf/te5x8VULtQ37SwZHrLDs9zuAlYYvwkk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YYxAnk419ywFoFCV6KcrArhRU25bpL+uD2UDT/Nv/hMGyOBJ4VHg0FnA/oNhoqWkZ
-	 rcx8RyPuxgyisWpWgu1uJIr7Nsn/k5sLZLdsN2jBKH5EsiQ5LsHlzgupzGMpEfFlQj
-	 0mBACQj0+GpMRGQcQSeZjpWTFD9lO0q7TWYDID+k=
+	b=io1E7f2pCKLVDwvUk49kfQa62Lkafb+VCyiDOT1eOHxcUBCPkEzEs1NFoJOCr8s0J
+	 4/249XBC7IWY7lT7Vhj26FdpkubgkmLHYWo//Xv+oifTYmtm5JA0Z6+RSFd6GMzJGA
+	 VfvdqTdKioO3pMO9SkBFkFGZF/jPJUTQ1c5HSfZ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1AADCF804E7;
-	Fri, 20 Aug 2021 09:02:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70248F80507;
+	Fri, 20 Aug 2021 09:02:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DBBC4F80544; Wed, 18 Aug 2021 12:33:01 +0200 (CEST)
+ id A422BF80544; Thu, 19 Aug 2021 10:43:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
@@ -33,30 +33,30 @@ X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
 Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0F14CF80246
- for <alsa-devel@alsa-project.org>; Wed, 18 Aug 2021 12:32:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F14CF80246
-X-UUID: fea2776ff061461ab086a487244c5fae-20210818
-X-UUID: fea2776ff061461ab086a487244c5fae-20210818
-Received: from mtkcas07.mediatek.inc [(172.21.101.84)] by mailgw01.mediatek.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 89FBEF804DA
+ for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 10:43:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89FBEF804DA
+X-UUID: d6b7673ba5564566997549e4a2728e26-20210819
+X-UUID: d6b7673ba5564566997549e4a2728e26-20210819
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw01.mediatek.com
  (envelope-from <trevor.wu@mediatek.com>)
  (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1272556009; Wed, 18 Aug 2021 18:32:23 +0800
+ with ESMTP id 619459880; Thu, 19 Aug 2021 16:43:11 +0800
 Received: from mtkcas07.mediatek.inc (172.21.101.84) by
  mtkmbs05n2.mediatek.inc (172.21.101.140) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Wed, 18 Aug 2021 18:32:22 +0800
+ 15.0.1497.2; Thu, 19 Aug 2021 16:43:09 +0800
 Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas07.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
- Frontend Transport; Wed, 18 Aug 2021 18:32:22 +0800
+ Frontend Transport; Thu, 19 Aug 2021 16:43:09 +0800
 From: Trevor Wu <trevor.wu@mediatek.com>
 To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
  <robh+dt@kernel.org>, <matthias.bgg@gmail.com>
-Subject: [PATCH v4 06/11] ASoC: mediatek: mt8195: add platform driver
-Date: Wed, 18 Aug 2021 18:32:10 +0800
-Message-ID: <20210818103215.9186-7-trevor.wu@mediatek.com>
+Subject: [PATCH v5 06/11] ASoC: mediatek: mt8195: add platform driver
+Date: Thu, 19 Aug 2021 16:41:39 +0800
+Message-ID: <20210819084144.18483-7-trevor.wu@mediatek.com>
 X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20210818103215.9186-1-trevor.wu@mediatek.com>
-References: <20210818103215.9186-1-trevor.wu@mediatek.com>
+In-Reply-To: <20210819084144.18483-1-trevor.wu@mediatek.com>
+References: <20210819084144.18483-1-trevor.wu@mediatek.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-MTK: N

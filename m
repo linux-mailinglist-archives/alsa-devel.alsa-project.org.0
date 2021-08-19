@@ -2,84 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6C613F2015
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Aug 2021 20:44:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9DA93F205A
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Aug 2021 21:07:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 57FC01683;
-	Thu, 19 Aug 2021 20:44:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57FC01683
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53F391682;
+	Thu, 19 Aug 2021 21:06:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53F391682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629398692;
-	bh=JmnXvtA27f3HNWDeH3joOjOLqfHZmsqnbaeRmH4xmZw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=XxL3v+S/2IIr/IXYzLYdKVkXUeISbp6YhGHJHTsBm6bMp9M6QPz+zCmknAzMdNj+R
-	 MvyoE1Z7YBZx7n/UcPh7AGJobcCfA30ruUJV3N1yPzfsTis+ITgFNrV0N0Iv2ogs0i
-	 l1f3qVCgkIcGjxpo413j94bDQaY7SkKX7Jj12CRI=
+	s=default; t=1629400038;
+	bh=D5m3uRDzHgxxpHX4TgIfeKuOO9R71dWNkZPiZVSaehI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=BkSg6QWcHaM4ZXbLXYmeKPxPnc2rhWBs5sziUAIFGK8rv6QZS7RCJEQ7DjzRz6Zx5
+	 p2hT+6W4p2seJAUnryKh8N9klBN0itU/t9Gp2H8KsCbunHrYegoyoML9OfaHvpvmrR
+	 TTgzW4bAos9OIF3/2k0sJYejYnEjEzzqqWhpd0pA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA2A7F80272;
-	Thu, 19 Aug 2021 20:43:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0146F8026D;
+	Thu, 19 Aug 2021 21:06:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55CC0F800CC; Thu, 19 Aug 2021 20:43:33 +0200 (CEST)
+ id 1BC4EF80272; Thu, 19 Aug 2021 21:05:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,HTML_MESSAGE,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1023BF800CC
- for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 20:43:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1023BF800CC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6EBD9F800EC
+ for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 21:05:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EBD9F800EC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="WEgNjKT+"
-Received: by mail-lf1-x12c.google.com with SMTP id o10so14937902lfr.11
- for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 11:43:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=c5zVDBtjJvuw3n2j1usmurBdgybO6iB7zH3x0zJhcS4=;
- b=WEgNjKT+jKwxfCEmWRVI5h0DSy7dl5DMhsaDoroFmJ3u/m9OVUvV++QiAIf/uv07Vx
- UgCHHJM8/tzRBd64tdY1DHXg2J6YFyS9afWAXBshYv41dUDsCUOd3lyBEaMdu7RcmVXD
- FyP9KM5+gO2z1y4lqewUHkpmMT4If8VElioNLlkJV6FJGON2XZD/ZNLUjZXGAS61VwtW
- VRJssnpxugFHB8Gp0w4y4aujqlWGFzfFXZdGXcroXH8rOw2baF28ZY34ow1lyhvTdIq2
- UkM2kHjYmI1bc3xRO7ONcylSmWRgAYEosO6j4dtIKelF4ECg/QYLN1uPWZJFDGfUBAV+
- IrXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=c5zVDBtjJvuw3n2j1usmurBdgybO6iB7zH3x0zJhcS4=;
- b=aYJwYURm8vOP7TiiFmFabCvzfZej1rD79Qu5dF72jsBR1xaZ7vtsOaWf1ANIs6FjZF
- cZ9VRsqBcJnyJxLQn9sYpn+PcyGx3VVBinxqyl6OuYHp7ibOmIpcdCr0Qp55cZoivvnZ
- HCKyq1cQ6XIS2ijqpDXOdyPxX1wGHfEKc953t5bo58j9K0cIMjKGOZQWf3k0HYaDtVUC
- Xi8v+z8xRGLWM5YggtvOdcmcsxCN4xm0SUaLMOsmyCQvBHdLrpvYR3KQ1OWAk6IHpDzc
- 62FltOhkXLnPRSz5Ip6pss6rqkdvDtRb9OEX5b3dnVV0GAnJ9nm6RbWmrnYLS5oDQ5es
- ARIQ==
-X-Gm-Message-State: AOAM533epe3KR8/rfa8MyUvIgaGkj8rhygOOwnNqqRmqR1T0CI5zWCIY
- ELQudo6QbAwbq01uQ6eHK3oupCMNTeBzwVkOMq0=
-X-Google-Smtp-Source: ABdhPJxUzOlnMgY2Xdmm/PplOzBYb7NTqWgZaPz2PooQD8gxWkgavsv8Or3bWWSGtbw0Tf1hGHj1DFX0KsURLA/wcGM=
-X-Received: by 2002:ac2:5470:: with SMTP id e16mr11552167lfn.399.1629398604609; 
- Thu, 19 Aug 2021 11:43:24 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="S4WMrp1O"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1629399950;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=JRp+GRYjdvQm40AfGyUZxP70WcUKnCmS/X2SPZDGQm0=;
+ b=S4WMrp1OBdPSkcrVU8jX8FNsXqg5ZOrU30Pt5uih+hLaHoGnp781oKI5Xupw0JixaB6PMd
+ AOQT4zksRfrkJJ2KjRxKYasMhsTC7Gp3+SgLItMFBkqaaE2JherUaWC8CkS6k2PHfEuCH2
+ 93ShCmUvp2dJsnux8W4Z54eG4mIgfHM=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-532-k2gPbnknM_mTHKbLT5392w-1; Thu, 19 Aug 2021 15:05:49 -0400
+X-MC-Unique: k2gPbnknM_mTHKbLT5392w-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6A558801B3C;
+ Thu, 19 Aug 2021 19:05:47 +0000 (UTC)
+Received: from x1.localdomain.com (unknown [10.39.192.43])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id B0CAE1971B;
+ Thu, 19 Aug 2021 19:05:44 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
+Subject: [PATCH v2 0/6] ASoC: Intel/rt5640: Add support for HP Elite Pad
+ 1000G2 jack-detect
+Date: Thu, 19 Aug 2021 21:05:37 +0200
+Message-Id: <20210819190543.784415-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-References: <CAAd2w=btf3DZLbPuovAC9xo3rizmFeT4iAxJs6zNZwKxOnKT6A@mail.gmail.com>
- <20210819183450.GV890690@belle.intranet.vanheusden.com>
-In-Reply-To: <20210819183450.GV890690@belle.intranet.vanheusden.com>
-From: sujith kumar reddy <sujithreddy6192@gmail.com>
-Date: Fri, 20 Aug 2021 00:13:12 +0530
-Message-ID: <CAAd2w=YFhiJJ=4nqo7JfbrqdNWVxvSp06E=1XiHOXV8Kp2sgaQ@mail.gmail.com>
-Subject: Re: arecord is failing with -V stereo
-To: folkert <folkert@vanheusden.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
+ Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,14 +95,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-1.2.1.2
+Changes in v2:
+- Rebase on asoc/for-next
+- New patch: "ASoC: Intel: bytct_rt5640: Add a separate "Headset Mic 2"
+  DAPM pin for the mic on the 2nd jack"
+- Addressed Pierre-Louis' comments about calling
+  acpi_dev_add_driver_gpios() twice
 
-On Fri, 20 Aug, 2021, 12:04 AM folkert, <folkert@vanheusden.com> wrote:
+Original cover-letter:
 
-> > arecord is  failing vumeter option -V stereo only.
->
-> What version?
-> Because the commandline you provide works fine here with 1.2.4-1ubuntu3.
->
->
->
+The HP Elitepad 1000 G2 tablet has 2 headset jacks:
+
+1. on the dock which uses the output of the codecs built-in HP-amp +
+the standard IN2 input which is always used with the headset-jack.
+
+2. on the tablet itself, this uses the line-out of the codec + an external
+HP-amp, which gets enabled by the ALC5642 codec's GPIO1 pin; and IN1 for
+the headset-mic.
+
+The codec's GPIO1 is also its only IRQ output pin, so this means that
+the codec's IRQ cannot be used on this tablet. Instead the jack-detect
+is connected directly to GPIOs on the main SoC. The dock has a helper
+chip which also detects if a headset-mic is present or not, so there
+are 2 GPIOs for the jack-detect status of the dock. The tablet jack
+uses a single GPIO which indicates if a jack is present or not.
+
+Differentiating between between headphones vs a headset on the tablet jack
+is done by using the usual mic-bias over-current-detection mechanism.
+
+Regards,
+
+Hans
+
+
+Hans de Goede (6):
+  ASoC: rt5640: Move rt5640_disable_jack_detect() up in the rt5640.c
+    file
+  ASoC: rt5640: Delay requesting IRQ until the machine-drv calls
+    set_jack
+  ASoC: rt5640: Add optional hp_det_gpio parameter to
+    rt5640_detect_headset()
+  ASoC: rt5640: Add rt5640_set_ovcd_params() helper
+  ASoC: Intel: bytct_rt5640: Add a separate "Headset Mic 2" DAPM pin for
+    the mic on the 2nd jack
+  ASoC: Intel: bytcr_rt5640: Add support for HP Elite Pad 1000G2
+    jack-detect
+
+ sound/soc/codecs/rt5640.c             | 136 ++++++++++++----------
+ sound/soc/codecs/rt5640.h             |   6 +
+ sound/soc/intel/boards/bytcr_rt5640.c | 158 +++++++++++++++++++++++++-
+ 3 files changed, 234 insertions(+), 66 deletions(-)
+
+-- 
+2.31.1
+

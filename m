@@ -2,68 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 664353F21AA
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Aug 2021 22:33:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF4043F2286
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Aug 2021 23:54:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EEF5E167A;
-	Thu, 19 Aug 2021 22:32:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEF5E167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 536A71679;
+	Thu, 19 Aug 2021 23:53:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 536A71679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629405212;
-	bh=1Kg48ZCoPuU0dDhS+OtxNP178W9+2630q1o/kZ+5H9s=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1629410064;
+	bh=hz4ToEn11O2DiQ3bxZuN8OGUGc7W0kXGCy2CxI1VoXk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rmfDn7uFNzen+FR21qaZeKVxSuR4T8SFXHP2HsgVPR77GqV9Y//gx6+5wc0bbax5N
-	 Onv1KS1zuXIiULYotVHoWkOiRI3yI754TcIxiPGZIdQk5MZubeNdJc6XeaNwU02uYT
-	 A/A7rHptLHsX6y30P0LmoN8YdtE7V+qXfT8dzo0k=
+	b=kSnGrr6QjUERj5LMPzsURB3sgYM12YN2g/WRbeFMlJtrtb9zHdBf5AiWyXM/RAsvB
+	 6tiI9DbZDhAwTyyH8uFp9b1MdevdiiUa6UCE3asUNY9QaHw3AFkO2xA5Duryeb+mlM
+	 i/S81ZvycSCW7JdI1twkV6yxj3IZmdIaM7Xnfhts=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62612F800EC;
-	Thu, 19 Aug 2021 22:32:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3000F800CC;
+	Thu, 19 Aug 2021 23:53:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D7FCAF800EC; Thu, 19 Aug 2021 22:32:00 +0200 (CEST)
+ id 4D0FAF8026D; Thu, 19 Aug 2021 23:53:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A571AF800EC
- for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 22:31:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A571AF800EC
-X-IronPort-AV: E=McAfee;i="6200,9189,10081"; a="277665018"
-X-IronPort-AV: E=Sophos;i="5.84,335,1620716400"; d="scan'208";a="277665018"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2021 13:31:44 -0700
-X-IronPort-AV: E=Sophos;i="5.84,335,1620716400"; d="scan'208";a="489883816"
-Received: from mmdandap-mobl.amr.corp.intel.com (HELO [10.213.172.210])
- ([10.213.172.210])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2021 13:31:43 -0700
-Subject: Re: [PATCH v2 0/6] ASoC: Intel/rt5640: Add support for HP Elite Pad
- 1000G2 jack-detect
-To: Hans de Goede <hdegoede@redhat.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
-References: <20210819190543.784415-1-hdegoede@redhat.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <c6c148e7-3f1d-7f05-aae1-9d6928640593@linux.intel.com>
-Date: Thu, 19 Aug 2021 15:31:41 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.11.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 69B65F800CC
+ for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 23:52:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69B65F800CC
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Kng3t7dj"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 87D05610A5
+ for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 21:52:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1629409971;
+ bh=hz4ToEn11O2DiQ3bxZuN8OGUGc7W0kXGCy2CxI1VoXk=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=Kng3t7djpyX+7l91WqS70uHZCu/kiK7US//O1ZdEu2yJXPi5OjnT3+XbL9fWqW2r3
+ oOOC5ZcT9UfiilbP2KUrF4yNg7i9OHkYJAj1PZQsJrfiybepbQty3tIGbK0ZGpJ6Bz
+ tFM+ElKP3lxRGvUcLGKvDMvY5QNiPbUv5faLcqjK4b1URCH207khCLwlVG1FWcVNxm
+ 08Bo8t9l4DH9VHK0FxqtJWae5Q/6+K+rDJRbVyLWP1HBc8QrZnnhuQdQuw6ujpcNy9
+ R+unuj2iZ1hXq9uGmVXKn1QRpm2MpA1pjXSMFfSQpvLLxghk6Pef9X3pR9v8i3OvHh
+ S5plU2uqokfeQ==
+Received: by mail-ed1-f49.google.com with SMTP id dj8so10976752edb.2
+ for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 14:52:51 -0700 (PDT)
+X-Gm-Message-State: AOAM530IHcSgMIBfBmz29xnNLOW+kSkAwRbNoGoPT6MG3Yu+BBYTwsM7
+ nuO/rwmcfClw4Tf4AjHQZ0QWgW2htLRbBZC2JQ==
+X-Google-Smtp-Source: ABdhPJw0hq/j5YRbpD02wnMJhEDVCeMQ0sCrUH9AvIo9gZG8TCf7667Nb/WyMEJegfKzTCD/BF4SZP3zTCNMf4ZT1/A=
+X-Received: by 2002:a05:6402:104b:: with SMTP id
+ e11mr18790051edu.62.1629409970123; 
+ Thu, 19 Aug 2021 14:52:50 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210819190543.784415-1-hdegoede@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Bard Liao <bard.liao@intel.com>
+References: <20210819101020.26368-1-krzysztof.kozlowski@canonical.com>
+ <20210819101020.26368-2-krzysztof.kozlowski@canonical.com>
+In-Reply-To: <20210819101020.26368-2-krzysztof.kozlowski@canonical.com>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Thu, 19 Aug 2021 16:52:38 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqK1dhwSKbmCbuaWtBWQH0e-+rdJaWkzfx5b_5vX0toAjg@mail.gmail.com>
+Message-ID: <CAL_JsqK1dhwSKbmCbuaWtBWQH0e-+rdJaWkzfx5b_5vX0toAjg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] dt-bindings: sound: rt1015p: correct indentation
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
+ David Airlie <airlied@linux.ie>, Dillon Min <dillon.minfei@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Tzung-Bi Shih <tzungbi@google.com>, Mark Brown <broonie@kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sam Ravnborg <sam@ravnborg.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,62 +94,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, Aug 19, 2021 at 5:12 AM Krzysztof Kozlowski
+<krzysztof.kozlowski@canonical.com> wrote:
+>
+> Use common enum instead of oneOf and correct indentation warning:
+>   realtek,rt1015p.yaml:18:7: [warning] wrong indentation: expected 4 but found 6 (indentation)
+>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+> ---
+>  .../devicetree/bindings/sound/realtek,rt1015p.yaml          | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 
-
-On 8/19/21 2:05 PM, Hans de Goede wrote:
-> Changes in v2:
-> - Rebase on asoc/for-next
-> - New patch: "ASoC: Intel: bytct_rt5640: Add a separate "Headset Mic 2"
->   DAPM pin for the mic on the 2nd jack"
-> - Addressed Pierre-Louis' comments about calling
->   acpi_dev_add_driver_gpios() twice
-
-Thanks Hans, the code in patch6 looks much simpler now.
-
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-> 
-> Original cover-letter:
-> 
-> The HP Elitepad 1000 G2 tablet has 2 headset jacks:
-> 
-> 1. on the dock which uses the output of the codecs built-in HP-amp +
-> the standard IN2 input which is always used with the headset-jack.
-> 
-> 2. on the tablet itself, this uses the line-out of the codec + an external
-> HP-amp, which gets enabled by the ALC5642 codec's GPIO1 pin; and IN1 for
-> the headset-mic.
-> 
-> The codec's GPIO1 is also its only IRQ output pin, so this means that
-> the codec's IRQ cannot be used on this tablet. Instead the jack-detect
-> is connected directly to GPIOs on the main SoC. The dock has a helper
-> chip which also detects if a headset-mic is present or not, so there
-> are 2 GPIOs for the jack-detect status of the dock. The tablet jack
-> uses a single GPIO which indicates if a jack is present or not.
-> 
-> Differentiating between between headphones vs a headset on the tablet jack
-> is done by using the usual mic-bias over-current-detection mechanism.
-> 
-> Regards,
-> 
-> Hans
-> 
-> 
-> Hans de Goede (6):
->   ASoC: rt5640: Move rt5640_disable_jack_detect() up in the rt5640.c
->     file
->   ASoC: rt5640: Delay requesting IRQ until the machine-drv calls
->     set_jack
->   ASoC: rt5640: Add optional hp_det_gpio parameter to
->     rt5640_detect_headset()
->   ASoC: rt5640: Add rt5640_set_ovcd_params() helper
->   ASoC: Intel: bytct_rt5640: Add a separate "Headset Mic 2" DAPM pin for
->     the mic on the 2nd jack
->   ASoC: Intel: bytcr_rt5640: Add support for HP Elite Pad 1000G2
->     jack-detect
-> 
->  sound/soc/codecs/rt5640.c             | 136 ++++++++++++----------
->  sound/soc/codecs/rt5640.h             |   6 +
->  sound/soc/intel/boards/bytcr_rt5640.c | 158 +++++++++++++++++++++++++-
->  3 files changed, 234 insertions(+), 66 deletions(-)
-> 
+Acked-by: Rob Herring <robh@kernel.org>

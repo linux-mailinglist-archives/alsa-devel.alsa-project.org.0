@@ -2,89 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 481F93F1523
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Aug 2021 10:25:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31E443F1579
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Aug 2021 10:45:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CFD73167E;
-	Thu, 19 Aug 2021 10:25:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFD73167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D43991685;
+	Thu, 19 Aug 2021 10:44:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D43991685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629361554;
-	bh=rrgGBZsCsT0Th52o99lDjoMhuADzm6Du5pd8kMcMnZ4=;
+	s=default; t=1629362722;
+	bh=Yy8gPv/5S0CqdpFN6fDHsaFmJ/HeFGpSqP+f+YSNjbY=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=kE3+KqF5gYrXskcZYuu2j3WM446jw70qZVe2lZvFJBTflm7YBWc06yq/VnDTRGlNd
-	 kB4i7AhImDJB5OkOhkULP0KHB3Z7GtHOoU9C57050+kYrdQX31M+mDZ1+CvnDEDtUv
-	 Sdeo3L7e3Zg/EZz2tSva5cvpHPUFu8W2zQfP01Pk=
+	b=bk7TbhqrstliU/W+L3HpE6MQcmBtPnx+fmwDtcD9Zl7YkLdhZe8uHOnbE68SXhT6C
+	 rzYCtgySv3+Q2DR5Qgbr62DbDY6WTvu1xVbAcVktFUU8o9MkQZvy6cQmtRPt1WG/bg
+	 SPjpFiKGYnl/N7++s7tAlsk9HAiesFTUChIHgLJY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2891CF800CC;
-	Thu, 19 Aug 2021 10:24:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64263F804E7;
+	Thu, 19 Aug 2021 10:43:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20832F800CC; Thu, 19 Aug 2021 10:24:36 +0200 (CEST)
+ id 65A66F804E5; Thu, 19 Aug 2021 10:43:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90BE4F800CC
- for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 10:24:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90BE4F800CC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=semihalf-com.20150623.gappssmtp.com
- header.i=@semihalf-com.20150623.gappssmtp.com header.b="RcAvziP+"
-Received: by mail-lj1-x22b.google.com with SMTP id q21so10118600ljj.6
- for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 01:24:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=semihalf-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=/XAahqRt3aqb5MLsAR4aGo2YrpQJcocQPKcdesYZ7FU=;
- b=RcAvziP+WN1UOMn0gnMYQuuLjCzZ64hq+bqIFy7PKLgj0j7FlnklStb/5VP+8K392u
- 5vxjtPevFVn2jjF0xsRBGpiYWWEJGdFfrSWwn3rtCX6mOtVk6Z8m0hMCZIA0C7LJ1XoL
- QF4OmiGaRV9vagjPHFEHYD0D1FAdF0rDjQvQA6dmGuk8ikxPvCtbABlFpZ/pPOOeMNyb
- ImvwxAK+0OZBp9mjcuF6SOIjgU1Wi0C2n9/EstWi4HFnm81Is0cjDHp4r6sFdqyjPLX3
- g20uMsfhz9USgQRl7RiDY11PnjllXnpuUD2irc4QjgWq1BUnywDk8PKQ8K1iVbQiI0AH
- 2+9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=/XAahqRt3aqb5MLsAR4aGo2YrpQJcocQPKcdesYZ7FU=;
- b=goqfnoUI+VF7wBEzsECfepEue3WKIU7qWrg4DP2FIeEkkam9jzdHn6xqBLI3kgBu3U
- 9NJALiWX0VHGW0FHdn1tiZRnqKjj8icZO7HWMrzdvSHmMNuUolRTEsbnR0U/U26tEa13
- HFxUq/VHHdC84X0vJ9cxjZjPnX7HWnhBjtcNPy2JffUE5NuG/Fs2hq20tuta9tnMAus1
- anDjEYVzkDlmvNNfUliBAQElP63vttQeRi+2f6l70z7Q1DCs25ioDL0i+EfXFJ/1Ih5M
- 9oFT4IZr1z2ZBTxBnQdYrr1amn77MN/ZzMCs62RLwBAF5N5G1ih0TCTdkmBtBZ4F+s23
- JaDQ==
-X-Gm-Message-State: AOAM532SHvczI7dahhs4Jnr667Z+x6UVe5d9lcvYb+tCKeApsVO4jUEu
- v6XfSFHuzG6XxdqZJv478fR4sA==
-X-Google-Smtp-Source: ABdhPJyRbn332NGgU8QZSuxAjb3e9exmd8DFOkcZswqNNaTkzwNrFUsgkx4du82jsWbVD/9EFxxnqw==
-X-Received: by 2002:a2e:a44f:: with SMTP id v15mr11142228ljn.301.1629361466060; 
- Thu, 19 Aug 2021 01:24:26 -0700 (PDT)
-Received: from lmajczak1-l.semihalf.net ([83.142.187.84])
- by smtp.gmail.com with ESMTPSA id f16sm198210ljq.58.2021.08.19.01.24.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Aug 2021 01:24:25 -0700 (PDT)
-From: Lukasz Majczak <lma@semihalf.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH v2] ASoC: Intel: Fix platform ID matching for
- kbl_da7219_max98373
-Date: Thu, 19 Aug 2021 10:24:14 +0200
-Message-Id: <20210819082414.39497-1-lma@semihalf.com>
-X-Mailer: git-send-email 2.33.0.rc2.250.ged5fa647cd-goog
+ by alsa1.perex.cz (Postfix) with ESMTPS id 05DB9F800CC
+ for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 10:43:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05DB9F800CC
+X-UUID: a441367bdd0d426180cbcfe9dab562bf-20210819
+X-UUID: a441367bdd0d426180cbcfe9dab562bf-20210819
+Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
+ mailgw01.mediatek.com (envelope-from <trevor.wu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 2127302238; Thu, 19 Aug 2021 16:43:08 +0800
+Received: from mtkcas07.mediatek.inc (172.21.101.84) by
+ mtkmbs05n2.mediatek.inc (172.21.101.140) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Thu, 19 Aug 2021 16:43:06 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas07.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
+ Frontend Transport; Thu, 19 Aug 2021 16:43:06 +0800
+From: Trevor Wu <trevor.wu@mediatek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
+ <robh+dt@kernel.org>, <matthias.bgg@gmail.com>
+Subject: [PATCH v5 00/11] ASoC: mediatek: Add support for MT8195 SoC
+Date: Thu, 19 Aug 2021 16:41:33 +0800
+Message-ID: <20210819084144.18483-1-trevor.wu@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, upstream@semihalf.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Curtis Malainey <cujomalainey@chromium.org>, Lukasz Majczak <lma@semihalf.com>
+Content-Type: text/plain
+X-MTK: N
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ cychiang@google.com, bicycle.tsai@mediatek.com, linux-kernel@vger.kernel.org,
+ jiaxin.yu@mediatek.com, linux-mediatek@lists.infradead.org,
+ trevor.wu@mediatek.com, wenst@chromium.org, aaronyu@google.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,33 +77,82 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Sparse warnings triggered truncating the IDs of some platform device
-tables. Unfortunately kbl_da7219_max98373 was also truncated.
-This patch is reverting the original ID.
-Tested on Atlas chromebook.
+This series of patches adds support for Mediatek AFE of MT8195 SoC.
+Patches are based on broonie tree "for-next" branch.
 
-Fixes: 94efd726b947 ("ASoC: Intel: kbl_da7219_max98357a: shrink platform_id below 20 characters")
-Cc: <stable@vger.kernel.org> # 5.4+
-Tested-by: Lukasz Majczak <lma@semihalf.com>
-Signed-off-by: Lukasz Majczak <lma@semihalf.com>
-Suggested-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
- sound/soc/intel/common/soc-acpi-intel-kbl-match.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes since v4:
+  - removed sof related code
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-kbl-match.c b/sound/soc/intel/common/soc-acpi-intel-kbl-match.c
-index 741bf2f9e081..8cab91a00b1a 100644
---- a/sound/soc/intel/common/soc-acpi-intel-kbl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-kbl-match.c
-@@ -113,7 +113,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_kbl_machines[] = {
- 	},
- 	{
- 		.id = "DLGS7219",
--		.drv_name = "kbl_da7219_mx98373",
-+		.drv_name = "kbl_da7219_max98373",
- 		.fw_filename = "intel/dsp_fw_kbl.bin",
- 		.machine_quirk = snd_soc_acpi_codec_list,
- 		.quirk_data = &kbl_7219_98373_codecs,
+Changes since v3:
+  - fixed warnings found by kernel test robot
+  - removed unused critical section
+  - corrected the lock protected sections on etdm driver
+  - added DPTX and HDMITX audio support
+
+Changes since v2:
+  - added audio clock gate control
+  - added 'mediatek' prefix to private dts properties
+  - added consumed clocks to dt-bindins and adopted suggestions from Rob
+  - refined clock usage and remove unused clock and control code
+  - fixed typos
+
+Changes since v1:
+  - fixed some problems related to dt-bindings
+  - added some missing properties to dt-bindings
+  - added depency declaration on dt-bindings
+  - fixed some warnings found by kernel test robot
+
+Trevor Wu (11):
+  ASoC: mediatek: mt8195: update mediatek common driver
+  ASoC: mediatek: mt8195: support audsys clock control
+  ASoC: mediatek: mt8195: support etdm in platform driver
+  ASoC: mediatek: mt8195: support adda in platform driver
+  ASoC: mediatek: mt8195: support pcm in platform driver
+  ASoC: mediatek: mt8195: add platform driver
+  dt-bindings: mediatek: mt8195: add audio afe document
+  ASoC: mediatek: mt8195: add machine driver with mt6359, rt1019 and
+    rt5682
+  ASoC: mediatek: mt8195: add DPTX audio support
+  ASoC: mediatek: mt8195: add HDMITX audio support
+  dt-bindings: mediatek: mt8195: add mt8195-mt6359-rt1019-rt5682
+    document
+
+ .../bindings/sound/mt8195-afe-pcm.yaml        |  184 +
+ .../sound/mt8195-mt6359-rt1019-rt5682.yaml    |   47 +
+ sound/soc/mediatek/Kconfig                    |   24 +
+ sound/soc/mediatek/Makefile                   |    1 +
+ sound/soc/mediatek/common/mtk-afe-fe-dai.c    |   22 +-
+ sound/soc/mediatek/common/mtk-base-afe.h      |   10 +-
+ sound/soc/mediatek/mt8195/Makefile            |   15 +
+ sound/soc/mediatek/mt8195/mt8195-afe-clk.c    |  441 +++
+ sound/soc/mediatek/mt8195/mt8195-afe-clk.h    |  109 +
+ sound/soc/mediatek/mt8195/mt8195-afe-common.h |  158 +
+ sound/soc/mediatek/mt8195/mt8195-afe-pcm.c    | 3281 +++++++++++++++++
+ sound/soc/mediatek/mt8195/mt8195-audsys-clk.c |  214 ++
+ sound/soc/mediatek/mt8195/mt8195-audsys-clk.h |   15 +
+ .../soc/mediatek/mt8195/mt8195-audsys-clkid.h |   93 +
+ sound/soc/mediatek/mt8195/mt8195-dai-adda.c   |  830 +++++
+ sound/soc/mediatek/mt8195/mt8195-dai-etdm.c   | 2639 +++++++++++++
+ sound/soc/mediatek/mt8195/mt8195-dai-pcm.c    |  389 ++
+ .../mt8195/mt8195-mt6359-rt1019-rt5682.c      | 1087 ++++++
+ sound/soc/mediatek/mt8195/mt8195-reg.h        | 2796 ++++++++++++++
+ 19 files changed, 12350 insertions(+), 5 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/mt8195-afe-pcm.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/mt8195-mt6359-rt1019-rt5682.yaml
+ create mode 100644 sound/soc/mediatek/mt8195/Makefile
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-afe-clk.c
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-afe-clk.h
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-afe-common.h
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-audsys-clk.c
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-audsys-clk.h
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-audsys-clkid.h
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-dai-adda.c
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-dai-etdm.c
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-dai-pcm.c
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
+ create mode 100644 sound/soc/mediatek/mt8195/mt8195-reg.h
+
 -- 
-2.33.0.rc2.250.ged5fa647cd-goog
+2.18.0
 

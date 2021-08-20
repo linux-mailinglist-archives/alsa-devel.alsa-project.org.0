@@ -2,74 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BDEA3F2E25
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Aug 2021 16:33:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53AC33F2E43
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Aug 2021 16:41:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 902C81676;
-	Fri, 20 Aug 2021 16:32:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 902C81676
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7341715E2;
+	Fri, 20 Aug 2021 16:40:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7341715E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629470026;
-	bh=hb1FteaiFjxj4Sh/v3Gpg/D8bjLwvAALDku63DLHdm4=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=X9xUSh+HyG+z0m2wPSsvbWcgUmOqLXPVciCk+mIxTgrXx/16OnC4QREof54OIPwf0
-	 E/hMFAGSCmH7ubgsLZ8l0KiybwYZNg2a1IwY38N0aE+WF/UYgJsT2LeHTvbDt4ezJ8
-	 1DqnRQ4rVaoj1KFMpuGPOly5ZRzG6uDxMbc4pdRk=
+	s=default; t=1629470499;
+	bh=F32fCmxVJwHzZwoiAb4BAyJmdbuG0TKtKRRbOrhhKJc=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=IIzaGQmjPHxV1tvjoOMROFuG54bokbl2MeQyBJACFL8inGfIpurXcvHGsI+0Zmcj2
+	 zkFqz7ep7NtXeUMcR1VrU/n9zxfIAa26hbQxPRAfHUbZWIPh9wQB9j60d5kfnGfsFl
+	 DQ/3Nk9FD/AUkA8rGQiyGxGEF6sw7VJ1fVZubfiA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20202F80259;
-	Fri, 20 Aug 2021 16:32:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 373C3F804BC;
+	Fri, 20 Aug 2021 16:39:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19557F80249; Fri, 20 Aug 2021 16:32:26 +0200 (CEST)
+ id 4CD4BF8028D; Fri, 20 Aug 2021 16:39:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ADA90F800EC
- for <alsa-devel@alsa-project.org>; Fri, 20 Aug 2021 16:32:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADA90F800EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 96824F80249
+ for <alsa-devel@alsa-project.org>; Fri, 20 Aug 2021 16:39:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96824F80249
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="zLW7tTdv"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="/l7q3CpQ"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 2CC731FE1C
- for <alsa-devel@alsa-project.org>; Fri, 20 Aug 2021 14:32:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1629469936; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=QDRgVCbD1a3ZlbdzEVPWKhSGGil4dGkYjGirqOoMBzs=;
- b=zLW7tTdvWXDGh6UTPeugMHXXiEscrKMQI5v2nZ0/LPADVn7lSCIxeH3X+xnlKTQUMOqKkZ
- pQXCpgqxKBkky9b04Y1XsFg/1ofGj6zT41PauEdEHeLCAuaNkOxpx8BDUp1ZjOpoVJfiCU
- 7hQTp00xUrY49xGU/mG/DJ/o1o9giSc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1629469936;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=QDRgVCbD1a3ZlbdzEVPWKhSGGil4dGkYjGirqOoMBzs=;
- b=/l7q3CpQTMK/c+Ow/C3pOEDHrgL9RxqslNbQmcy2WCk9mhrm8AruKmywsARu9Ek895SfHG
- +fYrndQ6oTc3pWBw==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 25912A3B92;
- Fri, 20 Aug 2021 14:32:16 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: hda/realtek: Workaround for conflicting SSID on ASUS
- ROG Strix G17
-Date: Fri, 20 Aug 2021 16:32:14 +0200
-Message-Id: <20210820143214.3654-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="noy9oCEs"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 850D860F39;
+ Fri, 20 Aug 2021 14:39:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1629470381;
+ bh=F32fCmxVJwHzZwoiAb4BAyJmdbuG0TKtKRRbOrhhKJc=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=noy9oCEsp5wcdpo0GFm0RVPbid720PEICI9jtMEksr3WuBxycdXczJk19RaAyQXRE
+ pbAahyn2J72vP8Vwgt4T1t92fXiBY+7WFGltDoDh5fdCJTAHDoD/InPNtpvLfJJBJr
+ 7ukJxiuMcnqYBEpg0+VpO32EegACr99WFVCiyYZldNQad5epUwec+8L6CeS9PqC6JA
+ RBOErwTTaovvyoIEoxwqqczYGnKmk1zjX+K5CTNjCTjQ6WiSOA4jqtHFSuLj6pFfKn
+ UXuJwxFhSO/lm/DwCSQoSce462vMgz/wnh2Cxn8zG91t+s8Psxgwt4jojqgja3b7g1
+ CsZFFnWtP/fcQ==
+From: Mark Brown <broonie@kernel.org>
+To: Hans de Goede <hdegoede@redhat.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>
+Subject: Re: [PATCH v2 0/6] ASoC: Intel/rt5640: Add support for HP Elite Pad
+ 1000G2 jack-detect
+Date: Fri, 20 Aug 2021 15:39:10 +0100
+Message-Id: <162947011160.28998.8816188684211303425.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210819190543.784415-1-hdegoede@redhat.com>
+References: <20210819190543.784415-1-hdegoede@redhat.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,45 +84,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-ASUS ROG Strix G17 has the very same PCI and codec SSID (1043:103f) as
-ASUS TX300, and unfortunately, the existing quirk for TX300 is broken
-on ASUS ROG.  Actually the device works without the quirk, so we'll
-need to clear the quirk before applying for this device.
-Since ASUS ROG has a different codec (ALC294 - while TX300 has
-ALC282), this patch adds a workaround for the device, just clearing
-the codec->fixup_id by checking the codec vendor_id.
+On Thu, 19 Aug 2021 21:05:37 +0200, Hans de Goede wrote:
+> Changes in v2:
+> - Rebase on asoc/for-next
+> - New patch: "ASoC: Intel: bytct_rt5640: Add a separate "Headset Mic 2"
+>   DAPM pin for the mic on the 2nd jack"
+> - Addressed Pierre-Louis' comments about calling
+>   acpi_dev_add_driver_gpios() twice
+> 
+> [...]
 
-It's a bit ugly to add such a workaround there, but it seems to be the
-simplest way.
+Applied to
 
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=214101
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/hda/patch_realtek.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 7ad689f991e7..3d525b79b848 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9521,6 +9521,16 @@ static int patch_alc269(struct hda_codec *codec)
- 
- 	snd_hda_pick_fixup(codec, alc269_fixup_models,
- 		       alc269_fixup_tbl, alc269_fixups);
-+	/* FIXME: both TX300 and ROG Strix G17 have the same SSID, and
-+	 * the quirk breaks the latter (bko#214101).
-+	 * Clear the wrong entry.
-+	 */
-+	if (codec->fixup_id == ALC282_FIXUP_ASUS_TX300 &&
-+	    codec->core.vendor_id == 0x10ec0294) {
-+		codec_dbg(codec, "Clear wrong fixup for ASUS ROG Strix G17\n");
-+		codec->fixup_id = HDA_FIXUP_ID_NOT_SET;
-+	}
-+
- 	snd_hda_pick_pin_fixup(codec, alc269_pin_fixup_tbl, alc269_fixups, true);
- 	snd_hda_pick_pin_fixup(codec, alc269_fallback_pin_fixup_tbl, alc269_fixups, false);
- 	snd_hda_pick_fixup(codec, NULL,	alc269_fixup_vendor_tbl,
--- 
-2.26.2
+Thanks!
 
+[1/6] ASoC: rt5640: Move rt5640_disable_jack_detect() up in the rt5640.c file
+      commit: 5caab9f48b96f6998fb23d38a7b57fca91ef1653
+[2/6] ASoC: rt5640: Delay requesting IRQ until the machine-drv calls set_jack
+      commit: 15d54840ecf6f00061d03180394a0a21ff8ffa48
+[3/6] ASoC: rt5640: Add optional hp_det_gpio parameter to rt5640_detect_headset()
+      commit: d21213b4503ea66777313e4345e116cc8a5366bf
+[4/6] ASoC: rt5640: Add rt5640_set_ovcd_params() helper
+      commit: e3f2a6603a982467601e0831d706786ed1ade833
+[5/6] ASoC: Intel: bytct_rt5640: Add a separate "Headset Mic 2" DAPM pin for the mic on the 2nd jack
+      commit: 0a61bcbba8737fe6d43dc34070ffa84a2f12e990
+[6/6] ASoC: Intel: bytcr_rt5640: Add support for HP Elite Pad 1000G2 jack-detect
+      commit: 9ba00856686ade106afee2884b5e8ac1e09d137a
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

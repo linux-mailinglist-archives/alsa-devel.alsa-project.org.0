@@ -2,83 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3EA03F2DC5
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Aug 2021 16:12:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BDEA3F2E25
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Aug 2021 16:33:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3DBBC166F;
-	Fri, 20 Aug 2021 16:12:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DBBC166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 902C81676;
+	Fri, 20 Aug 2021 16:32:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 902C81676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629468776;
-	bh=e91bFowsDzXcwTMFhTVLckSIc+A/AjqGTdiWYV9J/rI=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Sb+rB8oql1hoBBwu8pS6f2N0m2F0X7Yre3Vjjl7+CrbAkyWDHI5iPmNiJTOjjS4pI
-	 hPoM7rMq6pq2zordPjCz8gAOiMrJPr4Ye+TpQZ50TKzO0XuvjPz0862OxEdwlV7ov0
-	 KcYitWuIpMpvyzUHj2MCkuBXkndq9Fja1PQKd3vo=
+	s=default; t=1629470026;
+	bh=hb1FteaiFjxj4Sh/v3Gpg/D8bjLwvAALDku63DLHdm4=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=X9xUSh+HyG+z0m2wPSsvbWcgUmOqLXPVciCk+mIxTgrXx/16OnC4QREof54OIPwf0
+	 E/hMFAGSCmH7ubgsLZ8l0KiybwYZNg2a1IwY38N0aE+WF/UYgJsT2LeHTvbDt4ezJ8
+	 1DqnRQ4rVaoj1KFMpuGPOly5ZRzG6uDxMbc4pdRk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FE95F80259;
-	Fri, 20 Aug 2021 16:11:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20202F80259;
+	Fri, 20 Aug 2021 16:32:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CCBF1F80249; Fri, 20 Aug 2021 16:11:35 +0200 (CEST)
+ id 19557F80249; Fri, 20 Aug 2021 16:32:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B8E1FF800C1
- for <alsa-devel@alsa-project.org>; Fri, 20 Aug 2021 16:11:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8E1FF800C1
+ by alsa1.perex.cz (Postfix) with ESMTPS id ADA90F800EC
+ for <alsa-devel@alsa-project.org>; Fri, 20 Aug 2021 16:32:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADA90F800EC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="xlcfo1X/"; 
+ header.b="zLW7tTdv"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="nHKlxCjB"
+ header.b="/l7q3CpQ"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 4387F221B1;
- Fri, 20 Aug 2021 14:11:23 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 2CC731FE1C
+ for <alsa-devel@alsa-project.org>; Fri, 20 Aug 2021 14:32:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1629468683; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=7GaTEj+nLF/pVbFBAQ7GIWL2RhL7o2Bafz4fFD/xuVc=;
- b=xlcfo1X/llIopFhO8nF3cEML2OB+0+axU1AAK+t6bi0E2+HNFCzIRpM+6ZnPnSY4ZDiBO7
- BjLPMWs3aC+ccLT2qa7bbqYyF4ef9ViXq/Zkc766SH6TCt3AsFB87slQ1zb5K6S9fc/Pkh
- ZgXRgkthANGGrMVC4DnrLPmIntmEV94=
+ t=1629469936; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=QDRgVCbD1a3ZlbdzEVPWKhSGGil4dGkYjGirqOoMBzs=;
+ b=zLW7tTdvWXDGh6UTPeugMHXXiEscrKMQI5v2nZ0/LPADVn7lSCIxeH3X+xnlKTQUMOqKkZ
+ pQXCpgqxKBkky9b04Y1XsFg/1ofGj6zT41PauEdEHeLCAuaNkOxpx8BDUp1ZjOpoVJfiCU
+ 7hQTp00xUrY49xGU/mG/DJ/o1o9giSc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1629468683;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=7GaTEj+nLF/pVbFBAQ7GIWL2RhL7o2Bafz4fFD/xuVc=;
- b=nHKlxCjBPoSxn63IMqxJzJPOr+5K5jcYmQPCgTvaFBiGqfqs5gaLeNFojymcW4c3GbasAC
- 3gnLSh8SheHjRaBg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 38729A3B8B;
- Fri, 20 Aug 2021 14:11:23 +0000 (UTC)
-Date: Fri, 20 Aug 2021 16:11:23 +0200
-Message-ID: <s5hczq86wac.wl-tiwai@suse.de>
+ s=susede2_ed25519; t=1629469936;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=QDRgVCbD1a3ZlbdzEVPWKhSGGil4dGkYjGirqOoMBzs=;
+ b=/l7q3CpQTMK/c+Ow/C3pOEDHrgL9RxqslNbQmcy2WCk9mhrm8AruKmywsARu9Ek895SfHG
+ +fYrndQ6oTc3pWBw==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 25912A3B92;
+ Fri, 20 Aug 2021 14:32:16 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
-To: Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: HDA codec problem
-In-Reply-To: <12443ca6-99dd-aea3-c35b-4c68ad0e0b31@infradead.org>
-References: <12bbf54b-3ef6-8fa8-37fc-5f1e8d134bba@infradead.org>
- <s5hfsv48vk8.wl-tiwai@suse.de>
- <12443ca6-99dd-aea3-c35b-4c68ad0e0b31@infradead.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, LKML <linux-kernel@vger.kernel.org>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda/realtek: Workaround for conflicting SSID on ASUS
+ ROG Strix G17
+Date: Fri, 20 Aug 2021 16:32:14 +0200
+Message-Id: <20210820143214.3654-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,58 +85,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 20 Aug 2021 15:54:51 +0200,
-Randy Dunlap wrote:
-> 
-> On 8/19/21 11:44 PM, Takashi Iwai wrote:
-> > On Fri, 20 Aug 2021 07:08:34 +0200,
-> > Randy Dunlap wrote:
-> >>
-> >> Hi,
-> >>
-> >> I am having problems getting audio working on my computer:
-> >>
-> >> 00:1f.3 Audio device: Intel Corporation Device f1c8
-> >>
-> >> I did an internet search that said that I would need 5.13 or later to
-> >> have support for this device.
-> >
-> > The above is Cometlake-H, and it pretty much depends on the machine
-> > configuration.
-> >
-> >> openSUSE 15.3 kernel 5.3.18-59.19-default says:
-> >>
-> >> snd_hda_codec_realtek hdaudioC0D0: autoconfig for ALC233: line_outs=1 (0x1b/0x0/0x0/0x0/0x0) type:line
-> >> snd_hda_codec_realtek hdaudioC0D0:    speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
-> >> snd_hda_codec_realtek hdaudioC0D0:    hp_outs=1 (0x21/0x0/0x0/0x0/0x0)
-> >> snd_hda_codec_realtek hdaudioC0D0:    mono: mono_out=0x0
-> >> snd_hda_codec_realtek hdaudioC0D0:    inputs:
-> >> snd_hda_codec_realtek hdaudioC0D0:      Mic=0x1a
-> >> snd_hda_codec_realtek hdaudioC0D0:      Mic=0x19
-> >>
-> >> but produces no sound output.
-> >
-> > FWIW, openSUSE Leap 15.3 kernel is based on 5.3 but got tons of
-> > backports, hence its HD-audio part is almost equivalent with 5.13 or
-> > later kernel (except for the recently changed mute-LED handling --
-> > which must be irrelevant with your problem).
-> >
-> > The above indicates that the codec is detected and set up.  The rest
-> > part is often some vendor-specific quirks.  For that, details are
-> > missing completely.  At best please give alsa-info.sh output (run the
-> > script with --no-upload and attach the output).
-> >
-> 
-> Oh, of course. Now attached.
+ASUS ROG Strix G17 has the very same PCI and codec SSID (1043:103f) as
+ASUS TX300, and unfortunately, the existing quirk for TX300 is broken
+on ASUS ROG.  Actually the device works without the quirk, so we'll
+need to clear the quirk before applying for this device.
+Since ASUS ROG has a different codec (ALC294 - while TX300 has
+ALC282), this patch adds a workaround for the device, just clearing
+the codec->fixup_id by checking the codec vendor_id.
 
-I see that the Headphone mixer switch is off by some reason.
-But it should have been toggled by PulseAudio.
+It's a bit ugly to add such a workaround there, but it seems to be the
+simplest way.
 
-You can test like:
-  amixer -c0 set "Headphone" unmute
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=214101
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/pci/hda/patch_realtek.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-Also, just to be sure: did you install both pulseaudio and pipewire?
-They may conflict.
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 7ad689f991e7..3d525b79b848 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9521,6 +9521,16 @@ static int patch_alc269(struct hda_codec *codec)
+ 
+ 	snd_hda_pick_fixup(codec, alc269_fixup_models,
+ 		       alc269_fixup_tbl, alc269_fixups);
++	/* FIXME: both TX300 and ROG Strix G17 have the same SSID, and
++	 * the quirk breaks the latter (bko#214101).
++	 * Clear the wrong entry.
++	 */
++	if (codec->fixup_id == ALC282_FIXUP_ASUS_TX300 &&
++	    codec->core.vendor_id == 0x10ec0294) {
++		codec_dbg(codec, "Clear wrong fixup for ASUS ROG Strix G17\n");
++		codec->fixup_id = HDA_FIXUP_ID_NOT_SET;
++	}
++
+ 	snd_hda_pick_pin_fixup(codec, alc269_pin_fixup_tbl, alc269_fixups, true);
+ 	snd_hda_pick_pin_fixup(codec, alc269_fallback_pin_fixup_tbl, alc269_fixups, false);
+ 	snd_hda_pick_fixup(codec, NULL,	alc269_fixup_vendor_tbl,
+-- 
+2.26.2
 
-
-Takashi

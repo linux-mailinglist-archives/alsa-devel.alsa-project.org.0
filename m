@@ -2,94 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EBA33F33D0
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Aug 2021 20:30:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 000DE3F33FF
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Aug 2021 20:41:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 03BBF1676;
-	Fri, 20 Aug 2021 20:29:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03BBF1676
+	by alsa0.perex.cz (Postfix) with ESMTPS id 920191678;
+	Fri, 20 Aug 2021 20:40:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 920191678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629484228;
-	bh=wZbDYsyIx99FtDSoxaLbIXaYgQ0rZkxxVo0KsgFG2Fg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1629484898;
+	bh=mhNg/uKLPouMcVdgXuvVkmH3+/DVabdWhxyPUdB2ubI=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XEK/iJcRoqP9vjm9FOnRwKO2+IhX+lcQ1jbIjIy67qQfNyZn2WSnUjchfQh3jzOh4
-	 ZK3fati8sMVwyZDC54qs03UzxHv5SjF1bBs/TN/Lf1AYXUXkuwvDo2FzV59FdiJNWo
-	 oe8UEZqEfwAVhVrcwe7184HYQNP9pDP7onaWMEZA=
+	b=dBu/dwlEFTSx7R0o+HqI42GDceVXCDstbIt/p8jKLAZzSDIF3YPggwnlyVoe0P+PD
+	 JowPjfEwO4dvGLHXUc7igJ2IhzZA8wiAvjEY/+KGqMFdnUiY3p+K/6lR1Bg9kQfJLm
+	 I0JayEt1KYHPQC819hbrTM2Nhgv0RbUetLZEke0M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89A84F804E5;
-	Fri, 20 Aug 2021 20:29:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7FD5F80259;
+	Fri, 20 Aug 2021 20:40:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EBF1FF8028D; Fri, 20 Aug 2021 20:28:54 +0200 (CEST)
+ id 02A9AF80249; Fri, 20 Aug 2021 20:40:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 30A41F8028D
- for <alsa-devel@alsa-project.org>; Fri, 20 Aug 2021 20:28:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30A41F8028D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="fmQa0P4B"
-Received: by mail-ed1-x533.google.com with SMTP id s25so2534126edw.0
- for <alsa-devel@alsa-project.org>; Fri, 20 Aug 2021 11:28:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=vZDy1x9D5JtkqfcRQjfd53QGn6iJ9BMpivoJMSl8pJ8=;
- b=fmQa0P4B9hA4sh0ZCmAsSl5LTMxmey8qx3jbAoRjLi+0oI4O4HOkVS7FFZ0N907Lqp
- 8qhlx2ZBPv3XlIllz2kZ4CuSTyJKaXV9m9nyuuevKIn+48fps1JyCaEbbbq49pFyR2RQ
- 9ZKRMXGI4QUhrM4Yj87cGP7wGZPSO/FL+Z9qMR3mn/AhMAxWFIgzgHLom930t8CqxPbB
- /iMI11zNM5hoEgEWEur1rbfM2vxTRt6w0lEZV6BdiVZRq9UgIiqnzen1Me5KAkL5BBsu
- dEIM9LvkdNQjxBqq+2366JTSvRCVzxQORGa036UwBIt7KtaRvfegEDpbwV+uVoIc3iS8
- hg2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=vZDy1x9D5JtkqfcRQjfd53QGn6iJ9BMpivoJMSl8pJ8=;
- b=k9ZQlQ1Jpo4PFc5xC4m7IZ77IF540phpB9oN89m+T6ieLHh80JLokgNGLQDyQCaU5y
- 5fcjJ+i4QBMmGwBHhROhGy/GViyOS+1ppgDYgBZnqtBaAH4njn4BgUAoKYSUEiRAeVvy
- 0i09Eou9WPAbvas7W4ozcNhGBlevpo9GrKibcxQC7x/wlOZ5rph5WeF3DgaQzmpCHe+5
- fyV7bQC78NrlCMQKKM9dO3zQASGYGsVVJ3gIpkOmhy56a1pvj14FyD7Y4oZLQdwaWjmQ
- anj8sTVTqOZiO3V1bc19oirzA0J0Y97Wal4Dqz/dlfgyVkt+sCBVBrIF0+6YwsE6P4ip
- dKMw==
-X-Gm-Message-State: AOAM530d+ywlMPnM6JlLhdUE36YbJinntXf4kJeHzjC0xG8BChf3ffSr
- 8/880v7UV+k29XlZKCkJKl8=
-X-Google-Smtp-Source: ABdhPJzgSnJsp3iubsjpHromUDbigdKv6m20aPiANrHaRWsq0/+FbeoENQom5o48qfFehAsyu/dtIA==
-X-Received: by 2002:a05:6402:5:: with SMTP id
- d5mr23652880edu.359.1629484124033; 
- Fri, 20 Aug 2021 11:28:44 -0700 (PDT)
-Received: from localhost.localdomain (84-72-105-84.dclient.hispeed.ch.
- [84.72.105.84])
- by smtp.gmail.com with ESMTPSA id n10sm3255724ejk.86.2021.08.20.11.28.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Aug 2021 11:28:43 -0700 (PDT)
-From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
-Subject: [PATCH v2 2/4] dt-bindings: sound: add rockchip i2s-tdm binding
-Date: Fri, 20 Aug 2021 20:27:29 +0200
-Message-Id: <20210820182731.29370-3-frattaroli.nicolas@gmail.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210820182731.29370-1-frattaroli.nicolas@gmail.com>
-References: <20210820182731.29370-1-frattaroli.nicolas@gmail.com>
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id B956AF800CC
+ for <alsa-devel@alsa-project.org>; Fri, 20 Aug 2021 20:40:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B956AF800CC
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1629484806165328979-webhooks-bot@alsa-project.org>
+References: <1629484806165328979-webhooks-bot@alsa-project.org>
+Subject: (.text+0x0): multiple definition of `__packed';
+ .libs/conf.o (symbol from plugin):(.text+0x0): first defined here
+Message-Id: <20210820184020.02A9AF80249@alsa1.perex.cz>
+Date: Fri, 20 Aug 2021 20:40:20 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,213 +60,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This adds the YAML bindings for the Rockchip I2S/TDM audio driver.
+alsa-project/alsa-lib issue #171 was opened from shoober420:
 
-Signed-off-by: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
----
- .../bindings/sound/rockchip,i2s-tdm.yaml      | 193 ++++++++++++++++++
- 1 file changed, 193 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+Trying to compile alsa-lib from the latest two commits as of Aug 20th (https://github.com/alsa-project/alsa-lib/commit/868ecd509deb05938107faf66577c69e1702d6f3) (https://github.com/alsa-project/alsa-lib/commit/95eb312fade1908a2c944e9de4626c0ff60b2203), I get this error during build. Im using Gentoo Linux with GCC 11.2 version.
 
-diff --git a/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml b/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
-new file mode 100644
-index 000000000000..1e8c1500ba40
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
-@@ -0,0 +1,193 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/rockchip,i2s-tdm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Rockchip I2S/TDM Controller
-+
-+description:
-+  The Rockchip I2S/TDM Controller is a Time Division Multiplexed
-+  audio interface found in various Rockchip SoCs, allowing up
-+  to 8 channels of audio over a serial interface.
-+
-+maintainers:
-+  - Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - rockchip,px30-i2s-tdm
-+      - rockchip,rk1808-i2s-tdm
-+      - rockchip,rk3308-i2s-tdm
-+      - rockchip,rk3568-i2s-tdm
-+      - rockchip,rv1126-i2s-tdm
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  dmas:
-+    minItems: 1
-+    maxItems: 2
-+
-+  dma-names:
-+    minItems: 1
-+    items:
-+      - const: rx
-+      - const: tx
-+
-+  clocks:
-+    items:
-+      - description: clock for TX
-+      - description: clock for RX
-+      - description: AHB clock driving the interface
-+
-+  clock-names:
-+    items:
-+      - const: mclk_tx
-+      - const: mclk_rx
-+      - const: hclk
-+
-+  rockchip,frame-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    default: 64
-+    minimum: 32
-+    maximum: 512
-+    description:
-+      Width of a frame, usually slot width multiplied by number of slots.
-+      Must be even.
-+
-+  resets:
-+    items:
-+      - description: reset for TX
-+      - description: reset for RX
-+
-+  reset-names:
-+    items:
-+      - const: tx-m
-+      - const: rx-m
-+
-+  rockchip,cru:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      The phandle of the cru.
-+      Required if both playback and capture are used, i.e. if rockchip,clk-trcm
-+      is 0.
-+
-+  rockchip,grf:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      The phandle of the syscon node for the GRF register.
-+
-+  rockchip,mclk-calibrate:
-+    description:
-+      Enable mclk source calibration.
-+    type: boolean
-+
-+  rockchip,trcm-sync-tx-only:
-+    type: boolean
-+    description: Use TX BCLK/LRCK for both TX and RX.
-+
-+  rockchip,trcm-sync-rx-only:
-+    type: boolean
-+    description: Use RX BCLK/LRCK for both TX and RX.
-+
-+  "#sound-dai-cells":
-+    const: 0
-+
-+  rockchip,i2s-rx-route:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description:
-+      Defines the mapping of I2S RX sdis to I2S data bus lines.
-+      By default, they are mapped one-to-one.
-+    items:
-+      - description: which sdi to connect to data line 0
-+      - description: which sdi to connect to data line 1
-+      - description: which sdi to connect to data line 2
-+      - description: which sdi to connect to data line 3
-+
-+  rockchip,i2s-tx-route:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description:
-+      Defines the mapping of I2S TX sdos to I2S data bus lines.
-+      By default, they are mapped one-to-one.
-+    items:
-+      - description: which sdo to connect to data line 0
-+      - description: which sdo to connect to data line 1
-+      - description: which sdo to connect to data line 2
-+      - description: which sdo to connect to data line 3
-+
-+  rockchip,tdm-fsync-half-frame:
-+    description: Whether to use half frame fsync.
-+    type: boolean
-+
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - dmas
-+  - dma-names
-+  - clocks
-+  - clock-names
-+  - resets
-+  - reset-names
-+  - rockchip,grf
-+  - "#sound-dai-cells"
-+
-+allOf:
-+  - if:
-+      properties:
-+        rockchip,trcm-sync-tx-only: false
-+        rockchip,trcm-sync-rx-only: false
-+    then:
-+      required:
-+        - rockchip,cru
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/rk3568-cru.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/pinctrl/rockchip.h>
-+
-+    foo {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+        i2s@fe410000 {
-+            compatible = "rockchip,rk3568-i2s-tdm";
-+            reg = <0x0 0xfe410000 0x0 0x1000>;
-+            interrupts = <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>;
-+            clocks = <&cru MCLK_I2S1_8CH_TX>, <&cru MCLK_I2S1_8CH_RX>,
-+                     <&cru HCLK_I2S1_8CH>;
-+            clock-names = "mclk_tx", "mclk_rx", "hclk";
-+            dmas = <&dmac1 3>, <&dmac1 2>;
-+            dma-names = "rx", "tx";
-+            resets = <&cru SRST_M_I2S1_8CH_TX>, <&cru SRST_M_I2S1_8CH_RX>;
-+            reset-names = "tx-m", "rx-m";
-+            rockchip,trcm-sync-tx-only;
-+            rockchip,cru = <&cru>;
-+            rockchip,grf = <&grf>;
-+            #sound-dai-cells = <0>;
-+            pinctrl-names = "default";
-+            pinctrl-0 =
-+                <&i2s1m0_sclktx
-+                &i2s1m0_sclkrx
-+                &i2s1m0_lrcktx
-+                &i2s1m0_lrckrx
-+                &i2s1m0_sdi0
-+                &i2s1m0_sdi1
-+                &i2s1m0_sdi2
-+                &i2s1m0_sdi3
-+                &i2s1m0_sdo0
-+                &i2s1m0_sdo1
-+                &i2s1m0_sdo2
-+                &i2s1m0_sdo3>;
-+            status = "okay";
-+        };
-+    };
--- 
-2.32.0
+[buildalsalib.log](https://github.com/alsa-project/alsa-lib/files/7023522/buildalsalib.log)
 
+```
+(.text+0x0): multiple definition of `__packed'; .libs/conf.o (symbol from plugin):(.text+0x0): first defined here
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/../../../../x86_64-pc-linux-gnu/bin/ld: parser.o (symbol from plugin): in function `uc_mgr_config_load_file':
+(.text+0x0): multiple definition of `__packed'; .libs/conf.o (symbol from plugin):(.text+0x0): first defined here
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/../../../../x86_64-pc-linux-gnu/bin/ld: ucm_cond.o (symbol from plugin): in function `uc_mgr_evaluate_condition':
+(.text+0x0): multiple definition of `__packed'; .libs/conf.o (symbol from plugin):(.text+0x0): first defined here
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/../../../../x86_64-pc-linux-gnu/bin/ld: ucm_subs.o (symbol from plugin): in function `uc_mgr_get_substituted_value':
+(.text+0x0): multiple definition of `__packed'; .libs/conf.o (symbol from plugin):(.text+0x0): first defined here
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/../../../../x86_64-pc-linux-gnu/bin/ld: ucm_include.o (symbol from plugin): in function `uc_mgr_config_tree_merge':
+(.text+0x0): multiple definition of `__packed'; .libs/conf.o (symbol from plugin):(.text+0x0): first defined here
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/../../../../x86_64-pc-linux-gnu/bin/ld: ucm_regex.o (symbol from plugin): in function `uc_mgr_define_regex':
+(.text+0x0): multiple definition of `__packed'; .libs/conf.o (symbol from plugin):(.text+0x0): first defined here
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/../../../../x86_64-pc-linux-gnu/bin/ld: ucm_exec.o (symbol from plugin): in function `uc_mgr_exec':
+(.text+0x0): multiple definition of `__packed'; .libs/conf.o (symbol from plugin):(.text+0x0): first defined here
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/../../../../x86_64-pc-linux-gnu/bin/ld: main.o (symbol from plugin): in function `snd_use_case_identifier':
+(.text+0x0): multiple definition of `__packed'; .libs/conf.o (symbol from plugin):(.text+0x0): first defined here
+collect2: error: ld returned 1 exit status
+make[2]: *** [Makefile:495: libasound.la] Error 1
+make[2]: Leaving directory '/var/tmp/portage/media-libs/alsa-lib-9999/work/alsa-lib-9999-abi_x86_32.x86/src'
+make[1]: *** [Makefile:555: all-recursive] Error 1
+make[1]: Leaving directory '/var/tmp/portage/media-libs/alsa-lib-9999/work/alsa-lib-9999-abi_x86_32.x86/src'
+make: *** [Makefile:407: all-recursive] Error 1
+```
+
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/171
+Repository URL: https://github.com/alsa-project/alsa-lib

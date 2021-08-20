@@ -2,75 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9750F3F2E53
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Aug 2021 16:45:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61B013F33CB
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Aug 2021 20:29:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FF9141;
-	Fri, 20 Aug 2021 16:44:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FF9141
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6C7D1662;
+	Fri, 20 Aug 2021 20:28:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6C7D1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629470703;
-	bh=9Rq0aBczUOn505yf6Ym4Fj3LdUbpUiExRB5LJGbJEkA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=GTroR2Sunf4A4ztQXxvpNSVuYRh1VwVRqsx7d+++dicnpBVHvn2a53X5tuuPWgs8u
-	 D+yq7AxAgY9Fa7GTd7RW8hZgmUnCYjQViqsrI0JjrBiPf22AdQ2tCthR2naTsFHHY7
-	 UD9YKFkAXS974iGzbA0uSzMlYzlCK5quFKr2kjP4=
+	s=default; t=1629484185;
+	bh=+0EXsh46ezYMxLhVldwlLYDc06Zw0+basYbnv3QeQhg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=CCKb/9CtrBbAsmILJ1hmqWpJHQQFcGNzn9kjmQ8y9E2nbsPIu4Rka9JoPJoGsfvoU
+	 KUP6e9Zzub5u57PvyA2D2kiz0Nj0WtNtvTwqb+sGjD0vFiXX0N/yRE8LFe7onHXY5+
+	 45CI3zX32BukXkBRiD0IMPWpNXUeyPsCsolKmtYI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9120CF80259;
-	Fri, 20 Aug 2021 16:43:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A53AF800C1;
+	Fri, 20 Aug 2021 20:28:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4422FF80249; Fri, 20 Aug 2021 16:43:44 +0200 (CEST)
+ id F2982F80249; Fri, 20 Aug 2021 20:28:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1E80DF800CC
- for <alsa-devel@alsa-project.org>; Fri, 20 Aug 2021 16:43:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E80DF800CC
+ by alsa1.perex.cz (Postfix) with ESMTPS id BFF78F800C1
+ for <alsa-devel@alsa-project.org>; Fri, 20 Aug 2021 20:28:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFF78F800C1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="Af5XQnWs"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:
- Subject:Sender:Reply-To:Content-ID:Content-Description;
- bh=xGFbl2uZTEy0EpezAMk2wpGgS4j0k7wV10mN9c0Qz7E=; b=Af5XQnWsLPo71t9MoOv9U85xTo
- P26GNoILOiVBipg5SNn9ZFzrqwqryhSBDQLWzKD6FbmkRotvLy/A0VEItnwIoso9UhUL8zILD8QvN
- pBHM/12o8rcFBjYUzrOlwD999Q9QeVHt+YLiBBP9kl3wLvf3hzsJiedXsXAG6Zg8unJBYMsC25PhM
- 8mxjSK1Dqqbzyo106YK2uza17k3bmR7KEF/fEDPoGY/MhgSatak7DhqYA1KM3vQoXzFuA/fzyPgP5
- dTRCfbaPtGKcscV9p8ZX9NmEEjo/pVr5cf1iEFwmzqyVOH/gpWzk7ty55o0opXqzsU+0o1ToOy7qw
- Y23kdmDA==;
-Received: from [2601:1c0:6280:3f0::aa0b]
- by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1mH5jy-00BPRq-UA; Fri, 20 Aug 2021 14:43:27 +0000
-Subject: Re: HDA codec problem
-To: Takashi Iwai <tiwai@suse.de>
-References: <12bbf54b-3ef6-8fa8-37fc-5f1e8d134bba@infradead.org>
- <s5hfsv48vk8.wl-tiwai@suse.de>
- <12443ca6-99dd-aea3-c35b-4c68ad0e0b31@infradead.org>
- <s5hczq86wac.wl-tiwai@suse.de>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <775793c5-979a-169b-3634-e08e62284b36@infradead.org>
-Date: Fri, 20 Aug 2021 07:43:26 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="f9cByAwt"
+Received: by mail-ed1-x52c.google.com with SMTP id n12so15230168edx.8
+ for <alsa-devel@alsa-project.org>; Fri, 20 Aug 2021 11:28:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=+fwJK6cnEZCMjdsnKpqrNeZQk4XPHKUiIqGOR28Ciyc=;
+ b=f9cByAwt5N7co5rgLKUdcfgA3NWyB8162sDzKYPn0MfsiCQGnTm6Po9A5Yz9vGAJhN
+ adtn6UIXbJ1zm0Ax5yU1pgAKgJeFCyyYM2rvRMhK7AQBy8mkuwe2lfDflteCV9s4TmMj
+ Al7TVZS7MX7aA/U3nz3RvspdJelXqNjXSbTJCShro89hsFSXXpfIeAMl+WYXJKNhs/JY
+ 3HVYd6Yg34SLpsWSjuQwCCj+oeZJbRHwVNI7++0BA1dClsMr5+Qw468EQeT/YlHkQN4a
+ wGu2FNyH2eCUti/TfIVVtqTwNdpfAcRlTswIbNf1V8AAp/pAvXU5MKgt2vDXWnSdAJl4
+ tC3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=+fwJK6cnEZCMjdsnKpqrNeZQk4XPHKUiIqGOR28Ciyc=;
+ b=dWkfEsz8dzEIewiZDVkCU8NH7dNrx1uzEe36sksYtShoJAr+x1m/EG18QPQiZppJKs
+ 0miQ5MxQ0kpvbdVPVOpoHwyyjc+uHdMFi5bXXbGE6waIcyTZHqtJ6I7fCws0PXooWvM9
+ hsJ4hX+p0nokDBiZABk0RUESQNh6gOr2c9lVBI2GRB8E2VevGvaIIldEc7I/raY0iQaH
+ zPbDHkxqaE9wNcXWIptE6EiJUm8FFEB71lI0oVvi98JZdQ/Z3YdFZX/8mli5scYva60F
+ F6b+/GdzvulktzGTLF/hA2q33MxdvbjrfJU6KZKfOZvRpS8RHW+hEBZTkIH0dhLdvpI0
+ iZlg==
+X-Gm-Message-State: AOAM530Rj/xtM5uBe/EJSdHttGoecFdmuXkPdhBop7hRtYe8saa7egIA
+ OmDugk4mfTlrPddgEH5c/o0=
+X-Google-Smtp-Source: ABdhPJzJfYq4YbWtWWxg0FlVHG1GBA1BRHiyIib6NSGMRYw5NSToA66ll1pqB7aSeGllAPnac5DuPA==
+X-Received: by 2002:a05:6402:100d:: with SMTP id
+ c13mr23727138edu.261.1629484094603; 
+ Fri, 20 Aug 2021 11:28:14 -0700 (PDT)
+Received: from localhost.localdomain (84-72-105-84.dclient.hispeed.ch.
+ [84.72.105.84])
+ by smtp.gmail.com with ESMTPSA id n10sm3255724ejk.86.2021.08.20.11.28.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 20 Aug 2021 11:28:14 -0700 (PDT)
+From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+To: 
+Subject: [PATCH v2 0/4] Rockchip I2S/TDM controller
+Date: Fri, 20 Aug 2021 20:27:27 +0200
+Message-Id: <20210820182731.29370-1-frattaroli.nicolas@gmail.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-In-Reply-To: <s5hczq86wac.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, LKML <linux-kernel@vger.kernel.org>
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,75 +101,105 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 8/20/21 7:11 AM, Takashi Iwai wrote:
-> On Fri, 20 Aug 2021 15:54:51 +0200,
-> Randy Dunlap wrote:
->>
->> On 8/19/21 11:44 PM, Takashi Iwai wrote:
->>> On Fri, 20 Aug 2021 07:08:34 +0200,
->>> Randy Dunlap wrote:
->>>>
->>>> Hi,
->>>>
->>>> I am having problems getting audio working on my computer:
->>>>
->>>> 00:1f.3 Audio device: Intel Corporation Device f1c8
->>>>
->>>> I did an internet search that said that I would need 5.13 or later to
->>>> have support for this device.
->>>
->>> The above is Cometlake-H, and it pretty much depends on the machine
->>> configuration.
->>>
->>>> openSUSE 15.3 kernel 5.3.18-59.19-default says:
->>>>
->>>> snd_hda_codec_realtek hdaudioC0D0: autoconfig for ALC233: line_outs=1 (0x1b/0x0/0x0/0x0/0x0) type:line
->>>> snd_hda_codec_realtek hdaudioC0D0:    speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
->>>> snd_hda_codec_realtek hdaudioC0D0:    hp_outs=1 (0x21/0x0/0x0/0x0/0x0)
->>>> snd_hda_codec_realtek hdaudioC0D0:    mono: mono_out=0x0
->>>> snd_hda_codec_realtek hdaudioC0D0:    inputs:
->>>> snd_hda_codec_realtek hdaudioC0D0:      Mic=0x1a
->>>> snd_hda_codec_realtek hdaudioC0D0:      Mic=0x19
->>>>
->>>> but produces no sound output.
->>>
->>> FWIW, openSUSE Leap 15.3 kernel is based on 5.3 but got tons of
->>> backports, hence its HD-audio part is almost equivalent with 5.13 or
->>> later kernel (except for the recently changed mute-LED handling --
->>> which must be irrelevant with your problem).
->>>
->>> The above indicates that the codec is detected and set up.  The rest
->>> part is often some vendor-specific quirks.  For that, details are
->>> missing completely.  At best please give alsa-info.sh output (run the
->>> script with --no-upload and attach the output).
->>>
->>
->> Oh, of course. Now attached.
-> 
-> I see that the Headphone mixer switch is off by some reason.
-> But it should have been toggled by PulseAudio.
-> 
-> You can test like:
->    amixer -c0 set "Headphone" unmute
+Changes in v2:
+ - remove ad-hoc writeq and needless (and broken) optimisation in
+   reset assert/deassert. This wouldn't have worked on Big Endian,
+   and would've been pointless on any other platform, as the
+   overhead for saving one write was comparatively big
+ - fix various checkpatch issues
+ - get rid of leftover clk-trcm in schema
+ - set status = "okay" in example in schema instead of "disabled"
+ - change dma-names so rx is first, adjust device trees as necessary
+ - properly reference uint32-array for rx-route and tx-route
+   instead of uint32
+ - replace trcm-sync with two boolean properties, adjust DT changes
+   accordingly and also get rid of the header file
+ - get rid of rockchip,no-dmaengine. This was only needed for
+   some downstream driver and shouldn't be in the DT
+ - get rid of rockchip,capture-only/playback-only. Rationale being
+   that I have no way to test whether they're needed, and
+   unconditionally setting channels_min to 0 breaks everything
+ - change hclk description in "clocks"
 
-Simple mixer control 'Headphone',0
-   Capabilities: pvolume pswitch
-   Playback channels: Front Left - Front Right
-   Limits: Playback 0 - 87
-   Mono:
-   Front Left: Playback 87 [100%] [0.00dB] [on]
-   Front Right: Playback 87 [100%] [0.00dB] [on]
+Additionally, I have been made aware that registers and code seem
+to be an extension of the rockchip_i2s driver. This is true,
+though merging the two seems like more effort than just slapping
+a few compatibles and properties into the mix. I'll investigate
+it further in the coming weeks, but would likely still prefer
+basing any unified driver on mine rather than the other way
+around, since I think it has better code quality now.
 
+Original cover letter:
 
-> Also, just to be sure: did you install both pulseaudio and pipewire?
-> They may conflict.
+Hello,
 
-Yes. pipewire is now gone.
+I come bearing four patches for your consideration.
 
-Still no sound but I might need to restart...
+The first of these four patches adds a driver for the Rockchip
+I2S/TDM controller, used in interfacing between the AHB bus and the
+I2S bus on some Rockchip SoCs. This allows for audio playback with
+a matching codec.
 
-Thanks!
+The controller has three different modes: I2S, I2S/TDM and PCM.
+It is distinct from the earlier Rockchip I2S controller, and
+therefore not just an extension of that driver.
+
+The driver is based on the downstream version, though various
+changes have been made to hopefully make it more palatable to
+upstream. Some needless code duplication has been refactored, and
+the probe function will no longer let wrong device tree values
+write nonsense to hardware registers. Properties have been renamed
+and had their semantics changed. I won't bore you with the details
+of what downstream did, since that's not what I'm submitting, but
+the changes are significant enough that I've added myself to the
+list of authors.
+
+The second patch adds the YAML device tree bindings for this, which
+have been written from scratch by yours truly. Since I didn't like
+having random integers mean things, I defined them as constants in
+a header file for the bindings.
+
+The third patch adds the i2s1 controller to the rk356x device tree.
+I didn't add any of the other i2s controllers on that SoC for now as
+I have no way of testing them; in particular, i2s0 is tied to HDMI,
+so needs a functioning VOP2 driver to even have a chance of working.
+
+The fourth patch makes use of the i2s1 controller to enable analog
+audio output on the Quartz64 Model A through its RK817 codec. I've
+tested this to work properly at both 44.1 kHz and 96 kHz, so both
+mclk_root0 and mclk_root1 are definitely functioning.
+
+This is my first kernel contribution, so I most likely did
+something horribly wrong. That's why I'm more than happy to receive
+any criticisms and concerns over how the driver is implemented,
+because I've run out of ideas on how to make it clearly better
+myself.
+
+I'd also like to extend my thanks to Peter Geis, who has been
+acting as somewhat of a mentor and gave me occasional feedback
+and ideas during the writing of this patch series.
+
+Regards,
+Nicolas Frattaroli
+
+Nicolas Frattaroli (4):
+  ASoC: rockchip: add support for i2s-tdm controller
+  dt-bindings: sound: add rockchip i2s-tdm binding
+  arm64: dts: rockchip: add i2s1 on rk356x
+  arm64: dts: rockchip: add analog audio on Quartz64
+
+ .../bindings/sound/rockchip,i2s-tdm.yaml      |  193 ++
+ .../boot/dts/rockchip/rk3566-quartz64-a.dts   |   35 +-
+ arch/arm64/boot/dts/rockchip/rk356x.dtsi      |   26 +
+ sound/soc/rockchip/Kconfig                    |   11 +
+ sound/soc/rockchip/Makefile                   |    2 +
+ sound/soc/rockchip/rockchip_i2s_tdm.c         | 1737 +++++++++++++++++
+ sound/soc/rockchip/rockchip_i2s_tdm.h         |  398 ++++
+ 7 files changed, 2401 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+ create mode 100644 sound/soc/rockchip/rockchip_i2s_tdm.c
+ create mode 100644 sound/soc/rockchip/rockchip_i2s_tdm.h
 
 -- 
-~Randy
+2.32.0
 

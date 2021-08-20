@@ -2,98 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED2993F26C2
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Aug 2021 08:24:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0DC73F2709
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Aug 2021 08:45:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F947167C;
-	Fri, 20 Aug 2021 08:23:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F947167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 43A3084D;
+	Fri, 20 Aug 2021 08:44:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43A3084D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629440662;
-	bh=DPdFuoYVBV2fy44BIlhXhA216bktD1PVavyAP1G8DyQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1629441937;
+	bh=Z3o9abSx0KJ/B9a1W7u8F2LF7y2Sp1bnNzY+Z1WEcQM=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ts0RCI/0wPVyE5m051QhM9U2ZWHxOqez7qs/EavG7kqH2acCiDqIdK0L2zN1l7zrl
-	 wk04GFPP+Zv9dcexmx8jCqXSaH6gPqWQxUCT6RPkAdFTIvGx2I1k4FvYh/I10rtITw
-	 jHaDKwcJdYozHz+mU9IWuNv6CdHnR5bJUYNhFOJk=
+	b=sQf4uzCTsiZOFhqa8zbw0z2sHhMEA/wEAlozzFYIJyzeKMiNkWRxf+UXXZz5g0C++
+	 udQV4BP55F1pry9ENnLoghMJaKuVmvsO1ghN3GJ13iIGrpdD5kQq6rCAE5NjlDpeKB
+	 emdXqP/SfnS2cPwt8YNNob5FMmN7Du4e0YcHFJwQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE266F800C1;
-	Fri, 20 Aug 2021 08:23:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 954C4F80259;
+	Fri, 20 Aug 2021 08:44:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CEAB9F80249; Fri, 20 Aug 2021 08:23:00 +0200 (CEST)
+ id C581DF80249; Fri, 20 Aug 2021 08:44:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL
- autolearn=disabled version=3.4.0
-Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
- [IPv6:2607:f8b0:4864:20::434])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F3A0AF800C1
- for <alsa-devel@alsa-project.org>; Fri, 20 Aug 2021 08:22:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3A0AF800C1
+ by alsa1.perex.cz (Postfix) with ESMTPS id D2AB1F800C1
+ for <alsa-devel@alsa-project.org>; Fri, 20 Aug 2021 08:44:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2AB1F800C1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="AelbYVYX"
-Received: by mail-pf1-x434.google.com with SMTP id j187so7720129pfg.4
- for <alsa-devel@alsa-project.org>; Thu, 19 Aug 2021 23:22:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=99KnB+URAYBtBEFeaEEoqvbN3Lia8bbvXa6b4D4VGvk=;
- b=AelbYVYXhvB2C9bFtneY/yrgfG2toP1CjqK6lvDsXri4wpxXyhmsJgoDY6ahx/XN61
- vKAczg+E4fXnnS8G0G93MoK9T+n8JSHY8ekq/8I4u69XNDvXXmaeliXWl3ny7DbR459m
- W50jTwNToE1LmUUokyr6le1aob0gVY3GnP1Ka3mI4XHwRz2fWCsY/l4SMPzwsS0xTXB9
- EixGvESxoBHqQEVnBddxUt4aKYU3B3NSH4JBU4qDMkK7Jhzi3FgC5Vb8HdCiGR2LwcMT
- sxBxULIIw3r+NvwPaEY2Ixaz7kUmSTr4+dFabybVlm+sD0srX/k7GhsedXDOGcsj6xyH
- 5o7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=99KnB+URAYBtBEFeaEEoqvbN3Lia8bbvXa6b4D4VGvk=;
- b=Dlh2LRcc+4VD8Hr02is+cNi+RiJ6dPxRsWwQvXElZihiy8X6dBKFUrq6axjmdTMy4o
- C1q+lRgFsWJ5qiHI3l6szTTfyNyfkwTE8v5qO703VgusUNlp4gkojbJ0tLGDqF/Rezoh
- kvVIjG9G7Y4lEz4BXbr6v7YyuiAdMQwU19Tusc1/oRtCLuNYVOCtuIz5g3VG3dxToMQK
- c8F0Fw6TBG17MdA5CwqryJQajipv1eh2iMOjRjxATNJlaAKWYK9xAIYWulxKu+lwBY/L
- YmMXq45kYKJsZ6UMfdMo1ZgawBecWgjnJRBQwvId21qJJOGs9GNy1gxw+sUJ664YEuVB
- 3FCA==
-X-Gm-Message-State: AOAM533MFnn+qDYXRUV5veN+i6n9e1zc6Z3zUW3bn/HwSYe23Fb8dDu6
- HKGV7RW5dO7QHvsoEIRK6wUlHg==
-X-Google-Smtp-Source: ABdhPJypGMO2Ed7IdFKaQRO9FolvH4ihNSVV3QakhuP+Wz6bn/ypKEJCBJHQBshWUbxfQ2Oh/Vy6BA==
-X-Received: by 2002:a62:b414:0:b029:317:52d:7fd5 with SMTP id
- h20-20020a62b4140000b0290317052d7fd5mr18445201pfn.30.1629440567069; 
- Thu, 19 Aug 2021 23:22:47 -0700 (PDT)
-Received: from google.com ([2401:fa00:1:10:549a:ad5a:e5bd:8c8a])
- by smtp.gmail.com with ESMTPSA id x7sm5507625pfj.200.2021.08.19.23.22.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Aug 2021 23:22:46 -0700 (PDT)
-Date: Fri, 20 Aug 2021 14:22:43 +0800
-From: Tzung-Bi Shih <tzungbi@google.com>
-To: Rob Herring <robh+dt@kernel.org>
-Subject: Re: [PATCH 2/2] dt-bindings: sound: rt1015p: correct indentation
-Message-ID: <YR9KM5ubMr9JLLb5@google.com>
-References: <20210819101020.26368-1-krzysztof.kozlowski@canonical.com>
- <20210819101020.26368-2-krzysztof.kozlowski@canonical.com>
- <CAL_JsqK1dhwSKbmCbuaWtBWQH0e-+rdJaWkzfx5b_5vX0toAjg@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAL_JsqK1dhwSKbmCbuaWtBWQH0e-+rdJaWkzfx5b_5vX0toAjg@mail.gmail.com>
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- David Airlie <airlied@linux.ie>, Dillon Min <dillon.minfei@gmail.com>,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sam Ravnborg <sam@ravnborg.org>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="B74s/oVL"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="/CyKH/i6"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id A6AFF22161;
+ Fri, 20 Aug 2021 06:44:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1629441847; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=eHMQBmxTzie8uzeLdYBeXMT5RTr2zBhHex1sBPc+x9c=;
+ b=B74s/oVLyiD1hDdu66NO1H40nOXOGAEhwEnDQ9aD9jgkKqxbK4RiJQw7RtJrCEw845vYBM
+ RaPq8mZnyth4fpda0Vz6l5rMEwZDBrmslkOs+cLJ5SYa9eh8LoOxT+WExv73TftQZh63ik
+ yEde2CYk2wDRSqIVbRRQPTPOVZaDNVQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1629441847;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=eHMQBmxTzie8uzeLdYBeXMT5RTr2zBhHex1sBPc+x9c=;
+ b=/CyKH/i6HbxcHXOLWqdvvNcJ2UU1Uz7Q+ie2oz9QBMno+LzlPnqYl6ZQClBYRpGhdsn5+R
+ 2iYeLR9rNuFHIHAQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 9605CA3B84;
+ Fri, 20 Aug 2021 06:44:07 +0000 (UTC)
+Date: Fri, 20 Aug 2021 08:44:07 +0200
+Message-ID: <s5hfsv48vk8.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Randy Dunlap <rdunlap@infradead.org>
+Subject: Re: HDA codec problem
+In-Reply-To: <12bbf54b-3ef6-8fa8-37fc-5f1e8d134bba@infradead.org>
+References: <12bbf54b-3ef6-8fa8-37fc-5f1e8d134bba@infradead.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, LKML <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,13 +92,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Aug 19, 2021 at 04:52:38PM -0500, Rob Herring wrote:
-> On Thu, Aug 19, 2021 at 5:12 AM Krzysztof Kozlowski
-> <krzysztof.kozlowski@canonical.com> wrote:
-> >
-> > Use common enum instead of oneOf and correct indentation warning:
-> >   realtek,rt1015p.yaml:18:7: [warning] wrong indentation: expected 4 but found 6 (indentation)
-> >
-> > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-> Acked-by: Rob Herring <robh@kernel.org>
-Acked-by: Tzung-Bi Shih <tzungbi@google.com>
+On Fri, 20 Aug 2021 07:08:34 +0200,
+Randy Dunlap wrote:
+> 
+> Hi,
+> 
+> I am having problems getting audio working on my computer:
+> 
+> 00:1f.3 Audio device: Intel Corporation Device f1c8
+> 
+> I did an internet search that said that I would need 5.13 or later to
+> have support for this device.
+
+The above is Cometlake-H, and it pretty much depends on the machine
+configuration.
+
+> openSUSE 15.3 kernel 5.3.18-59.19-default says:
+> 
+> snd_hda_codec_realtek hdaudioC0D0: autoconfig for ALC233: line_outs=1 (0x1b/0x0/0x0/0x0/0x0) type:line
+> snd_hda_codec_realtek hdaudioC0D0:    speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
+> snd_hda_codec_realtek hdaudioC0D0:    hp_outs=1 (0x21/0x0/0x0/0x0/0x0)
+> snd_hda_codec_realtek hdaudioC0D0:    mono: mono_out=0x0
+> snd_hda_codec_realtek hdaudioC0D0:    inputs:
+> snd_hda_codec_realtek hdaudioC0D0:      Mic=0x1a
+> snd_hda_codec_realtek hdaudioC0D0:      Mic=0x19
+> 
+> but produces no sound output.
+
+FWIW, openSUSE Leap 15.3 kernel is based on 5.3 but got tons of
+backports, hence its HD-audio part is almost equivalent with 5.13 or
+later kernel (except for the recently changed mute-LED handling --
+which must be irrelevant with your problem).
+
+The above indicates that the codec is detected and set up.  The rest
+part is often some vendor-specific quirks.  For that, details are
+missing completely.  At best please give alsa-info.sh output (run the
+script with --no-upload and attach the output).
+
+
+> Kernel 5.13.10 or 5.14-rc6 say:
+> 
+> calling  azx_driver_init+0x0/0x20 @ 1
+> snd_hda_intel 0000:00:1f.3: enabling device (0000 -> 0002)
+> snd_hda_intel 0000:00:1f.3: bound 0000:00:02.0 (ops i915_audio_component_bind_ops)
+> snd_hda_intel 0000:00:1f.3: azx_get_response timeout, switching to polling mode: last cmd=0x200f0000
+> snd_hda_intel 0000:00:1f.3: No response from codec, disabling MSI: last cmd=0x200f0000
+> snd_hda_intel 0000:00:1f.3: Codec #2 probe error; disabling it...
+> snd_hda_intel 0000:00:1f.3: azx_get_response timeout, switching to single_cmd mode: last cmd=0x000f0001
+> hdaudio hdaudioC0D0: no AFG or MFG node found
+> snd_hda_intel 0000:00:1f.3: no codecs initialized
+
+If it's the result from the more-or-less similar configuration like
+the previous Leap kernel (regarding the audio), this must come from
+another part than the sound driver, likely either PCI or arch/x86.
+You might need to bisect for that...
+
+
+thanks,
+
+Takashi

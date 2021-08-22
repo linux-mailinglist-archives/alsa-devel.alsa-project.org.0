@@ -2,50 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 381743F408E
-	for <lists+alsa-devel@lfdr.de>; Sun, 22 Aug 2021 18:42:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D556B3F408F
+	for <lists+alsa-devel@lfdr.de>; Sun, 22 Aug 2021 18:43:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE56586F;
-	Sun, 22 Aug 2021 18:41:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE56586F
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB3BA1612;
+	Sun, 22 Aug 2021 18:42:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB3BA1612
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629650553;
-	bh=JP2nuIEjLa95WZbXw9SMQMhnWiLSfMqsYYj6uOFWdWE=;
+	s=default; t=1629650577;
+	bh=BuFRgHvjYv4CnFosqsn7fKGixbaYyQH7SUD1sKbP9EM=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PeIUYhOYGpNWHR8kF093qAyxu5Jfa1XXwrT8MBtBa1GG5arO6aBi81/trwAStBTyy
-	 v8tJti9elWUFtoo0DA07yQASqTwePCHK530LUl+DfVtRPuy+snBR1hlXgITTFvrjpj
-	 k7rBge2XYo2thWS+PF74iULgVrmQsA1QMmo8Q2Mo=
+	b=dcins4wL01KzOO9OGOu1JEh5itvqlEdzdkEUOiOSdvwhEIZru6JCdG50CSJ5JrCew
+	 f28SVGyysdn7Dau0IFBC648sEhlr7+4bL9cxryD2H8tsnv8XlhGTidp5Cv9eJWyno+
+	 Aj8VwrTdZ7wYpXoW362d4k6lVzcV49grUEBm3jrc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0CA75F80224;
-	Sun, 22 Aug 2021 18:41:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 366E3F804E2;
+	Sun, 22 Aug 2021 18:41:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B8190F801D5; Sun, 22 Aug 2021 18:41:13 +0200 (CEST)
+ id 979A7F804E1; Sun, 22 Aug 2021 18:41:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 6A2DEF800EC
- for <alsa-devel@alsa-project.org>; Sun, 22 Aug 2021 18:41:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A2DEF800EC
+ by alsa1.perex.cz (Postfix) with ESMTP id 0689CF800EC
+ for <alsa-devel@alsa-project.org>; Sun, 22 Aug 2021 18:41:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0689CF800EC
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1629650464306662083-webhooks-bot@alsa-project.org>
-References: <1629650464306662083-webhooks-bot@alsa-project.org>
-Subject: OpenAL fails to build with
- https://github.com/alsa-project/alsa-lib/commit/95eb312fade1908a2c944e9de4626c0ff60b2203
- commit
-Message-Id: <20210822164113.B8190F801D5@alsa1.perex.cz>
-Date: Sun, 22 Aug 2021 18:41:13 +0200 (CEST)
+In-Reply-To: <1629650501782280922-webhooks-bot@alsa-project.org>
+References: <1629650501782280922-webhooks-bot@alsa-project.org>
+Subject: OpenAL fails to build with recent "rawmidi" commit
+Message-Id: <20210822164144.979A7F804E1@alsa1.perex.cz>
+Date: Sun, 22 Aug 2021 18:41:44 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,7 +59,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #172 was opened from shoober420:
+alsa-project/alsa-lib issue #172 was edited from shoober420:
 
 The recent alsa-lib commit https://github.com/alsa-project/alsa-lib/commit/95eb312fade1908a2c944e9de4626c0ff60b2203 borks OpenAL from building. I thought it was an issue with OpenAL, but he mentions that its an issue with alsa-lib (https://github.com/kcat/openal-soft/issues/592#issuecomment-903211857). Here is the OpenAL build log just in case and a snippet of the OpenAL build error.
 

@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 038E43F49E9
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Aug 2021 13:36:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 697B13F49ED
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Aug 2021 13:38:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7DC7C84A;
-	Mon, 23 Aug 2021 13:36:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DC7C84A
+	by alsa0.perex.cz (Postfix) with ESMTPS id E884715DC;
+	Mon, 23 Aug 2021 13:37:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E884715DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629718613;
-	bh=cdeESgKNzmb+McgfJPH+U08M9GYibUmlrM+nkUemB2A=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=FW8d3cIhDBTmjakw+W4HNUbVFI7bQfck69Z38UxvopUnQ5BE5LLeHubTi+PXKDunk
-	 QUZ5yAtVjsjdNTP4K1Gi+rCgVG5xRLuoZxJ9W8P6L64dXLI0lFmCEj3WNxayvxjhWF
-	 SVcB6mveV/FlpQUPVK7qfjpAlQ4nhcNgvgZpfoHk=
+	s=default; t=1629718721;
+	bh=QwJUe055bmez2mjY9fO4CR1iyfVsbjCZsTBgQs4g8f0=;
+	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=kZQJfs2QbxO3tWCGspP1qCDs8jr3jUhG1AEmgV4+Yx7gfe3Ak/OFW9VeE8QED9fIa
+	 2xqMP4kLROZbQbMtJ1aLVa2WQt1ISQ2MFJL+fa7Pr2DkT4pH9iOB6PPl61N8J0GyJA
+	 KMzUibbTtZrA12/ayoaSbYtlBt4gJ4xWIVP87AOc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E2F95F800B6;
-	Mon, 23 Aug 2021 13:35:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6055AF800B6;
+	Mon, 23 Aug 2021 13:37:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 072D8F80217; Mon, 23 Aug 2021 13:35:33 +0200 (CEST)
+ id EA371F80229; Mon, 23 Aug 2021 13:37:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,42 +34,49 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6A247F8016E
- for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 13:35:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A247F8016E
+ by alsa1.perex.cz (Postfix) with ESMTPS id DDC20F8016E
+ for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 13:37:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDC20F8016E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="P14dz1QL"; 
+ header.b="x78iCjF/"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="5jcuor3M"
+ header.b="rJ6a92OK"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 8400521F76
- for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 11:35:19 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 0176221F76
+ for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 11:37:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1629718519; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=IkoMaDLPDkJ1s5a9SnemkjhE0hddmYiStim0O0HgEK0=;
- b=P14dz1QLdOm/MMJN5Cz7ytcs1PAfMOdJ2Sc2PiMW5EeVpg647yp1Y5Z6/nuriHoOnhDj+e
- wPI7H3Hjw+QrvtmO2PAZq8CTitsClSLngsxFXLJ5/x9+AZ1jABB2HW54nOlQfFocC9dLPp
- +PhNGUf4Sefrqxr2lCku/4QFW5cAZ/o=
+ t=1629718630; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=frcZOIB20bmQ8jHKYz0ziTYC2AM1wUT79KESPa7brb8=;
+ b=x78iCjF/XfU7q6yTzEwC+o3ZlHdwdVLsv9cR/kayzzSBnt92hMsG3lDxPdSuk2AjllNsD1
+ smF2jGuZTWX5w6s/A8qudBoYEy2Z5KcqfPEvbDxhCtpnY5EhFoepErZc8+JfwbZ+FOeaaA
+ tOEUWBRKGGSzzHZege6Zf9hQ7Qt94M0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1629718519;
+ s=susede2_ed25519; t=1629718630;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=IkoMaDLPDkJ1s5a9SnemkjhE0hddmYiStim0O0HgEK0=;
- b=5jcuor3Mi/WfhAmTV/8aiwdig7oCSrPRRTBg9j+1uF/ssdVSBgRng/Ysy4Ol4p2Fu8+q0y
- o9R44LxEHd+aomBg==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 73E5CA3BB2;
- Mon, 23 Aug 2021 11:35:19 +0000 (UTC)
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=frcZOIB20bmQ8jHKYz0ziTYC2AM1wUT79KESPa7brb8=;
+ b=rJ6a92OKXQN3lDqK6RHlHu6d81m/5qVSe2ToXRo1LLI6xOMNEsexq91i8Fow8XqcW0NH1X
+ 8EjD/IhE4mi3cMCg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id E60E7A3BBE
+ for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 11:37:09 +0000 (UTC)
+Date: Mon, 23 Aug 2021 13:37:09 +0200
+Message-ID: <s5hmtp84cka.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: doc: Fix indentation warning
-Date: Mon, 23 Aug 2021 13:35:18 +0200
-Message-Id: <20210823113518.30134-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH for-5.15] ASoC: intel: atom: Revert PCM buffer address
+ setup workaround again
+In-Reply-To: <20210822072127.9786-1-tiwai@suse.de>
+References: <20210822072127.9786-1-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,28 +92,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix a trivial warning for the indentation by putting an empty line:
-  Documentation/sound/alsa-configuration.rst:2258: WARNING: Unexpected indentation.
+On Sun, 22 Aug 2021 09:21:27 +0200,
+Takashi Iwai wrote:
+> 
+> We worked around the breakage of PCM buffer setup by the commit
+> 65ca89c2b12c ("ASoC: intel: atom: Fix breakage for PCM buffer address
+> setup"), but this isn't necessary since the CONTINUOUS buffer type
+> also sets runtime->dma_addr since commit f84ba106a018 ("ALSA:
+> memalloc: Store snd_dma_buffer.addr for continuous pages, too").
+> Let's revert the change again.
+> 
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+> 
+> The patch is to be applied on my for-next branch once after merging
+> for-linus branch.
 
-Fixes: a39978ed6df1 ("ALSA: doc: Add the description of quirk_flags option for snd-usb-audio")
-Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- Documentation/sound/alsa-configuration.rst | 1 +
- 1 file changed, 1 insertion(+)
+Now merged to for-next branch.
 
-diff --git a/Documentation/sound/alsa-configuration.rst b/Documentation/sound/alsa-configuration.rst
-index e61edd1295fc..e3c33b8d6d78 100644
---- a/Documentation/sound/alsa-configuration.rst
-+++ b/Documentation/sound/alsa-configuration.rst
-@@ -2261,6 +2261,7 @@ delayed_register
- quirk_flags
-     Contains the bit flags for various device specific workarounds.
-     Applied to the corresponding card index.
-+
-         * bit 0: Skip reading sample rate for devices
-         * bit 1: Create Media Controller API entries
-         * bit 2: Allow alignment on audio sub-slot at transfer
--- 
-2.31.1
 
+Takashi

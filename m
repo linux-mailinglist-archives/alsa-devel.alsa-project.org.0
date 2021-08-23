@@ -2,94 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 725B63F4A0B
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Aug 2021 13:48:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 712453F4A0F
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Aug 2021 13:50:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B7A815E2;
-	Mon, 23 Aug 2021 13:47:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B7A815E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id E500115E5;
+	Mon, 23 Aug 2021 13:49:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E500115E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629719321;
-	bh=qIuW1Uuh0a6xNvnDk9JdNAl5zC0Ud00mjRfN5j4LMno=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=heGEh00vZnzdxw/gfZQGvXklsx2J7+IAk1Tsj+EyUyt+ZVyXUzZEvDZTy8sRIRl2K
-	 BtdYlTiUpSE0FUT6DawPv8t8JsxoX+YswlqFg4p6xXKLv4xiUq21hVUvpLhLlMFJd5
-	 RWZz7nXEV5ALOIFbRCsOGKrVglui8fmbmXzH+reU=
+	s=default; t=1629719415;
+	bh=rvKEHG+V5P5958Idt0zT0SZsTZxU/6CjLe7f+MZLLSc=;
+	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ARVAnuMxlnWNjBxcNLivFXxHkG4+m0NfvmC/qnotGo0/Ek15aGmZ8RyMW5/R2fG1g
+	 dTW/aPBikAcLvyrrYLYe5Mw2SyiC7nC6GKaA4qw8C/SEcK7vVRq7kPVElUN9ZSe44Y
+	 Ho4WeEjh8lPnlsZEsXg7KNWiE9WVeCRschTAwcrE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 549F3F80240;
-	Mon, 23 Aug 2021 13:47:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 582BBF800E7;
+	Mon, 23 Aug 2021 13:48:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0EE02F80240; Mon, 23 Aug 2021 13:47:49 +0200 (CEST)
+ id 1FCFAF80217; Mon, 23 Aug 2021 13:48:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-io1-xd30.google.com (mail-io1-xd30.google.com
+ [IPv6:2607:f8b0:4864:20::d30])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 12736F8016E
- for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 13:47:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12736F8016E
+ by alsa1.perex.cz (Postfix) with ESMTPS id B57D4F800E7
+ for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 13:48:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B57D4F800E7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ma5wPmkW"
-Received: by mail-ej1-x635.google.com with SMTP id h9so36430401ejs.4
- for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 04:47:41 -0700 (PDT)
+ header.b="Z3nam39b"
+Received: by mail-io1-xd30.google.com with SMTP id g9so21372059ioq.11
+ for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 04:48:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=Ezqz/YZ4v8agvdP2PNXV+lxyv+cSGxnn3vahduKVN5I=;
- b=ma5wPmkW+UOi21JMekl171tsI69re5OcW3KT0PqfQX8VI1chCRdA1a4PevkFQiOEov
- km6dvOezAaD0VIx64Qn/zfzCONvOWdn2WCkxWRT418HmV2yrrlGuo2E3Wdk91etXrafY
- mULXlswPb3tej3kLGdsahRbj5pBckifBiOa+86nHlEfvKOUln1A+JNEGlnW0N1FOL92B
- t6Stz97hGL3OQc8rtU0aeZVP305/D1WyUwQodDu3Xy/pFVDVXM5feA5ZevqUUGId/Fdk
- vI6gSl22db0PbWLwrKSViOG7yKfutx3Vzu2CET5aBOKUc0yTI8pG/1qplhTJE8y1k//z
- jbYg==
+ h=mime-version:from:date:message-id:subject:to;
+ bh=DGeOtwniKjgHeFEXcTnWIoKjqVAsKHeKtt5KDw99aRM=;
+ b=Z3nam39bXXNw4zj0cv1glfRbHWY8kPk3JWIaJoBihTUY8yAfdI+jugW2xDYdujbvw+
+ OLv4JaBCpt/YA5o++DX/hS6yWwfsifECJ+o/ykEuP23vEFkm89CSsAX/DnHKxX8lGway
+ eh/ziuO/NSB1brxBMwwi5TRqewN/NNtvzg2dGlwUjlMvTKhg1DHCVlH1GUPPbwNruCvX
+ SZdf4CYNM+DHPdLGSGNLiDBUk9ZaM5gH4hrFQcDLAolIXxDeUi5q3kfsiIDfiEdsBmsj
+ AxfWx70Vht22DSDdrBdLr8TbwE5zaeQSA2ftJlZr//iBt3rWihYJfLQ6x1pboJkdUbTR
+ TsTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=Ezqz/YZ4v8agvdP2PNXV+lxyv+cSGxnn3vahduKVN5I=;
- b=EDvvDpfyluB6jupqe4/REaW7GhT+6sJr/UMc1x9CqUhOZt33GfZOXn6rC8+X9cGhto
- VBnixge8WLCKaW+VCUl1CYN4xMeFrrUkS/IHNhjXSVnjk2Uce0medcwtf0EA1Rg0WLt0
- cOPx8hLba2+8nmrnlJUHzN24WXAYH+qHOTDreThfYJNMINe06qcHRuX1UbiKI7bJSjTn
- HJ7e7pCHpNqnjYDkJnoMpJgJrAds/XiTUm1FjAHnBThe8LGXa0jI0AUrU08Sw3p3XZC5
- QrxLtDKPQpqcZjEgCLN9chd3W3WVwsntR6N/ZUskx3d7wlxMfAI6CPVBiTNdPyZ6TqlF
- /Rxw==
-X-Gm-Message-State: AOAM533QN9FiOUe3nZPkngMWWQWCjFw5MC0z2+fVjZVBZ8k5VBjuP2KL
- ca3KpT6vf8gdXGc6C7xdcVJy+LFYJMl0Gg==
-X-Google-Smtp-Source: ABdhPJx+r7o0HYhdpeTJUZ2wMD3P2agjqveaY94HicMnPc+KFZZP53o3fcYc0CwMCu4H/H/WE7gxXw==
-X-Received: by 2002:a17:906:3fd7:: with SMTP id
- k23mr35128685ejj.176.1629719259693; 
- Mon, 23 Aug 2021 04:47:39 -0700 (PDT)
-Received: from archbook.localnet (84-72-105-84.dclient.hispeed.ch.
- [84.72.105.84])
- by smtp.gmail.com with ESMTPSA id cb4sm7192143ejb.72.2021.08.23.04.47.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Aug 2021 04:47:39 -0700 (PDT)
-From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
-To: broonie@kernel.org, heiko@sntech.de, linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH 14/15] ASoC: rockchip: i2s: Add support for 'rockchip,
- clk-trcm' property
-Date: Mon, 23 Aug 2021 13:47:28 +0200
-Message-ID: <5017702.Vq9jUBFu5T@archbook>
-In-Reply-To: <1629716076-21465-5-git-send-email-sugar.zhang@rock-chips.com>
-References: <1629715710-21137-1-git-send-email-sugar.zhang@rock-chips.com>
- <1629716076-21465-5-git-send-email-sugar.zhang@rock-chips.com>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=DGeOtwniKjgHeFEXcTnWIoKjqVAsKHeKtt5KDw99aRM=;
+ b=Z6Lyyn9vG2YEhrHcSMIyfPoWOYnpeGGaU3ctr6pMQIdx2V4Aa2hOemiTNQBX8gdbtc
+ syDrg6tMP5ss80tYCi+J0lu8eP/uN6xOuftqzZ5EX/fTt4ZAS5NxCJrS07wxBR1ItZpm
+ NRLdst7d2zOov/f1TFPWnrg2TlKrek3KU67WXbYToDA9gq1jUvoWbCCVnJYOU5FEnlBk
+ 7c4VAKx7YP1WZaDbMP2fI69xqcWVDMxivkIBpggOER2kAWUWcJ07XK78oJGT0Lsy2e6S
+ 4JwmYmV2vR2tZzomIy46nD5sHXK26WhhpECxPpwILmYqqrrCuxWeqc8hTob/dpxCWB4Y
+ LbFA==
+X-Gm-Message-State: AOAM5327xGv6Clr5zar+tuvn7dHOqL/OjOHFxGBNvsyKYyIe0mBiAjMv
+ vbJ6Qzku02gTs8UsmmCLd54xxniVONgw6OXx7Wx/f21FM+I=
+X-Google-Smtp-Source: ABdhPJwzsWhJYjmqNW7lzETuKOb9ghbo1NbwHdvPBLdczBp10mRkvpK3SepcVJmfyzyPy8fIJKIHKk4MUl8qCfl3cTE=
+X-Received: by 2002:a5e:990e:: with SMTP id t14mr26675403ioj.75.1629719329851; 
+ Mon, 23 Aug 2021 04:48:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: Sugar Zhang <sugar.zhang@rock-chips.com>,
- linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
- Xing Zheng <zhengxing@rock-chips.com>, devicetree@vger.kernel.org
+From: Arkadiusz Bokowy <arkadiusz.bokowy@gmail.com>
+Date: Mon, 23 Aug 2021 13:48:38 +0200
+Message-ID: <CAGFh025WJ3uCfiE=2vYYd=gzwY690iokjvTD1GQ_G+e2aT4X6g@mail.gmail.com>
+Subject: [PATCH 2/2] plugio: Check for pointer callback error codes
+To: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,124 +88,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Montag, 23. August 2021 12:54:35 CEST Sugar Zhang wrote:
-> From: Xing Zheng <zhengxing@rock-chips.com>
-> 
-> If there is only one lrck (tx or rx) by hardware, we need to
-> use 'rockchip,clk-trcm' to specify which lrck can be used.
-> 
-> Change-Id: I3bf8d87a6bc8c45e183040012d87d8be21a4c133
-> Signed-off-by: Xing Zheng <zhengxing@rock-chips.com>
-> Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
-> ---
->  sound/soc/rockchip/rockchip_i2s.c | 22 +++++++++++++---------
->  1 file changed, 13 insertions(+), 9 deletions(-)
-> 
-> diff --git a/sound/soc/rockchip/rockchip_i2s.c
-> b/sound/soc/rockchip/rockchip_i2s.c index 6ccb62e..b9d9c88 100644
-> --- a/sound/soc/rockchip/rockchip_i2s.c
-> +++ b/sound/soc/rockchip/rockchip_i2s.c
-> @@ -54,6 +54,7 @@ struct rk_i2s_dev {
->  	bool is_master_mode;
->  	const struct rk_i2s_pins *pins;
->  	unsigned int bclk_ratio;
-> +	unsigned int clk_trcm;
->  };
-> 
->  /* tx/rx ctrl lock */
-> @@ -321,7 +322,6 @@ static int rockchip_i2s_hw_params(struct
-> snd_pcm_substream *substream, struct snd_soc_dai *dai)
->  {
->  	struct rk_i2s_dev *i2s = to_info(dai);
-> -	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
->  	unsigned int val = 0;
->  	unsigned int mclk_rate, bclk_rate, div_bclk, div_lrck;
-> 
-> @@ -421,13 +421,6 @@ static int rockchip_i2s_hw_params(struct
-> snd_pcm_substream *substream, regmap_update_bits(i2s->regmap, I2S_DMACR,
-> I2S_DMACR_RDL_MASK,
->  			   I2S_DMACR_RDL(16));
-> 
-> -	val = I2S_CKR_TRCM_TXRX;
-> -	if (dai->driver->symmetric_rate && rtd->dai_link->symmetric_rate)
-> -		val = I2S_CKR_TRCM_TXONLY;
-> -
-> -	regmap_update_bits(i2s->regmap, I2S_CKR,
-> -			   I2S_CKR_TRCM_MASK,
-> -			   val);
->  	return 0;
->  }
-> 
-> @@ -531,7 +524,6 @@ static struct snd_soc_dai_driver rockchip_i2s_dai = {
->  			    SNDRV_PCM_FMTBIT_S32_LE),
->  	},
->  	.ops = &rockchip_i2s_dai_ops,
-> -	.symmetric_rate = 1,
->  };
-> 
->  static const struct snd_soc_component_driver rockchip_i2s_component = {
-> @@ -750,6 +742,18 @@ static int rockchip_i2s_probe(struct platform_device
-> *pdev) else if (of_property_read_bool(node, "rockchip,capture-only"))
->  		soc_dai->playback.channels_min = 0;
-> 
-> +	i2s->clk_trcm = I2S_CKR_TRCM_TXRX;
-> +	if (!of_property_read_u32(node, "rockchip,clk-trcm", &val)) {
-> +		if (val >= 0 && val <= 2) {
-> +			i2s->clk_trcm = val << I2S_CKR_TRCM_SHIFT;
-> +			if (i2s->clk_trcm)
-> +				soc_dai->symmetric_rate = 1;
-> +		}
-> +	}
-> +
-> +	regmap_update_bits(i2s->regmap, I2S_CKR,
-> +			   I2S_CKR_TRCM_MASK, i2s->clk_trcm);
-> +
->  	ret = devm_snd_soc_register_component(&pdev->dev,
->  					      &rockchip_i2s_component,
->  					      soc_dai, 1);
+By checking error code returned by the pointer callback, we can
+determine more precisely PCM state. Previous implementation assumed,
+that a software PCM can only produce overrun or underrun. It was
+impossible to mark software PCM as disconnected.
 
-Hello,
+Signed-off-by: Arkadiusz Bokowy <arkadiusz.bokowy@gmail.com>
+---
+ src/pcm/pcm_ioplug.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-I recommend doing the same thing with clk-trcm that I'm going to do in v3 of 
-my i2s-tdm driver, as per Robin Murphy's suggestion:
-
-Have tx-only and rx-only be two boolean properties. I named them
-rockchip,trcm-sync-tx-only and rockchip,trcm-sync-rx-only.
-
-I also recommend only shifting the value when writing it to registers, and
-storing it in its unshifted state for debug reasons.
-
-My probe function looks like this:
-
-	i2s_tdm->clk_trcm = TRCM_TXRX;
-	if (of_property_read_bool(node, "rockchip,trcm-sync-tx-only"))
-		i2s_tdm->clk_trcm = TRCM_TX;
-	if (of_property_read_bool(node, "rockchip,trcm-sync-rx-only")) {
-		if (i2s_tdm->clk_trcm) {
-			dev_err(i2s_tdm->dev, "invalid trcm-sync 
-configuration\n");
-			return -EINVAL;
-		}
-		i2s_tdm->clk_trcm = TRCM_RX;
-	}
-	if (i2s_tdm->clk_trcm != TRCM_TXRX)
-		i2s_tdm_dai.symmetric_rate = 1;
-
-When writing clk_trcm to a register, I then just do:
-
-	regmap_update_bits(i2s_tdm->regmap, I2S_CKR, I2S_CKR_TRCM_MASK,
-			   i2s_tdm->clk_trcm << I2S_CKR_TRCM_SHIFT);
-
-This way if I need to add an error message or debug print somewhere, then 
-clk_trcm is still either 0, 1 or 2.
-
-In general, we should look into supporting both i2s and i2s-tdm controllers in 
-the same driver if possible. This way we don't need to duplicate work like 
-this. Do you think this is feasible to do? When I looked at the register maps 
-I saw that the bits I2S/TDM uses were reserved in the I2S version of the 
-controller, so I think it should work.
-
-Regards,
-Nicolas Frattaroli
-
-
+diff --git a/src/pcm/pcm_ioplug.c b/src/pcm/pcm_ioplug.c
+index c96104e9..0e27e121 100644
+--- a/src/pcm/pcm_ioplug.c
++++ b/src/pcm/pcm_ioplug.c
+@@ -81,11 +81,21 @@ static int snd_pcm_ioplug_hw_ptr_update(snd_pcm_t *pcm)
+  }
+  io->last_hw = (snd_pcm_uframes_t)hw;
+  } else {
++ switch (hw) {
++ case -ESTRPIPE:
++ io->data->state = SND_PCM_STATE_SUSPENDED;
++ break;
++ case -ENODEV:
++ io->data->state = SND_PCM_STATE_DISCONNECTED;
++ break;
++ default:
++ io->data->state = SND_PCM_STATE_XRUN;
++ }
+  if (io->data->state == SND_PCM_STATE_DRAINING)
+  snd_pcm_ioplug_drop(pcm);
+  else
+  io->data->state = SNDRV_PCM_STATE_XRUN;
+- return -EPIPE;
++ return hw;
+  }
+  return 0;
+ }
+-- 
+2.31.1

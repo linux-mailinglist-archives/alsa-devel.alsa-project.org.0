@@ -2,83 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C9F73F4D95
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Aug 2021 17:35:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 959233F4DF9
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Aug 2021 18:05:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6B1485D;
-	Mon, 23 Aug 2021 17:34:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6B1485D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A56C7850;
+	Mon, 23 Aug 2021 18:04:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A56C7850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629732909;
-	bh=v3SzclK+EYZvFw1BtvjESjaoVKj3ZoqLrr0Uz9doJSY=;
-	h=Date:Subject:From:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=IqCatKUdnXr44JxgI5HlSHYPtKZLpLrumnzKsIAdiP8IfjS+Mu+ySWm5RaeQ8LMB9
-	 FE0yhNtkMhxmFPwxWC8CKk06kJIm37iDRiPod99K/4tZjtTbiBTb6fmyq+3eOtE9sv
-	 q1OaJgMWgCeTa+XJPEVOhlRi3ttdXpb5GQIQBSmU=
+	s=default; t=1629734707;
+	bh=O2aoNEZzMeNN3YBJlyUck0a0Bp31uI+Ql47WbvuJlSc=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=hX+jD6n9iRyyPkCSRUxBVPBWqDPkU8ytWP6ZW47b9jQpRp0bkIMd0l6wyBC4skfC6
+	 H2je180aTaFsR9P5ogkrHDFMNcaLfHJgOoRTR9gTs050CINo9ADTv1gdofIjzNqPUW
+	 YhZm8UCM/QgIkBSSUeVNlkFdJge/j8XF0e2h3wZQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B908F80229;
-	Mon, 23 Aug 2021 17:33:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E06CF800E7;
+	Mon, 23 Aug 2021 18:03:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C2DCEF80217; Mon, 23 Aug 2021 17:33:49 +0200 (CEST)
+ id 38F7CF80217; Mon, 23 Aug 2021 18:03:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
- [IPv6:2607:f8b0:4864:20::b49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B725DF800E7
- for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 17:33:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B725DF800E7
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="C+sYgc/4"
-Received: by mail-yb1-xb49.google.com with SMTP id
- v126-20020a254884000000b005991fd2f912so4208027yba.20
- for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 08:33:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=X8PTnqCigPxWnZk7NuEkGVC1gFezr8oq/bSFX+EkVvk=;
- b=C+sYgc/491qed9/GlLLX8KHvWCNTJaNlUkGom9nQQ9SATq82myiS7UAwdsxVL6T4id
- qGGbyCgZeB4vxjXw//ys9LUaP1JMrAbLLAgixsBj0j0JEGVwkeCMyUpJc9X2TmE/iuSA
- yBgTjwZKZklowohQMMMi+XLkFKsFULqpqakoQ9L4i5oFrggIfxzTfBymikv/p1jXZoQu
- 0EnoCFS4MF6oqCMDnIDEn3Xcbh9fW4j6nqaf63CJlPFiVsZpsljXnPc1jv879ww+xEBI
- oEctTKl29NFcWsF2HGUGh3Om9KGsOR6kkLSvGKuLpxqvwO/no+AMkAuk4imJkx5fCuhP
- 5n9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=X8PTnqCigPxWnZk7NuEkGVC1gFezr8oq/bSFX+EkVvk=;
- b=jiAvkQx5wwj3mL4pSR1pcPhko1bKn99E0wXjNLWWTMBiPBqb048Z5+vJbX9ahrtOla
- wXMvP2HN0Ti9dnNyhjUA4FLJ6UkWe/bX9M7+Ynutw009aP8jT25K46IZXOCHfYxedWO+
- l0WusvHeIgxW+t4VpWAsk/rLUX8TZ57IUjHoUKqnmTy7efQbqNmYtvmAFIaF4QmQXILx
- LuI7yf7dszdFTKZawT5nTQHoXFtvtPhZEBh5eZwDFzMl96oEhmnldgbtOJNe0Dnt8vLb
- 5pUyKimbzjeAdGL3shPatqtcBe5g+li9sVl9iSt2wpzyfN9z+48ROwC6w1eyWFHFCWLa
- jJtA==
-X-Gm-Message-State: AOAM531ZD83kfRye0KjMhl484cGYbvh8A5MMDRP3zUJtoP2KkwyLRuTn
- y6xCF7+d3FUiIx+ZS8pGUtdXrCshWNbk
-X-Google-Smtp-Source: ABdhPJyUoCrNoh0OpUfCiMoJu48HBqNxOtaX6q8bq8y02y/36i3bUZ2RC1RE534ICXx4N3r6JWpcUnzoXp/M
-X-Received: from tzungbi-z840.tpe.corp.google.com
- ([2401:fa00:1:10:bc5a:af6a:3f08:a084])
- (user=tzungbi job=sendgmr) by 2002:a25:c5d2:: with SMTP id
- v201mr45663214ybe.409.1629732815462; Mon, 23 Aug 2021 08:33:35 -0700 (PDT)
-Date: Mon, 23 Aug 2021 23:33:23 +0800
-Message-Id: <20210823153323.1297723-1-tzungbi@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.33.0.rc2.250.ged5fa647cd-goog
-Subject: [PATCH] ASoC: rt1015: remove possible unused variable `bclk_ms'
-From: Tzung-Bi Shih <tzungbi@google.com>
-To: broonie@kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id D1FF1F8016E
+ for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 18:03:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1FF1F8016E
+Received: from lupine.hi.pengutronix.de
+ ([2001:67c:670:100:3ad5:47ff:feaf:1a17] helo=lupine)
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <p.zabel@pengutronix.de>)
+ id 1mICQ9-0007C2-Dr; Mon, 23 Aug 2021 18:03:33 +0200
+Received: from pza by lupine with local (Exim 4.92)
+ (envelope-from <p.zabel@pengutronix.de>)
+ id 1mICQ7-0002Gk-Rt; Mon, 23 Aug 2021 18:03:31 +0200
+Message-ID: <b596373b280dfe23a7e932b84ce31a2dbb806912.camel@pengutronix.de>
+Subject: Re: [PATCH v2 1/4] ASoC: rockchip: add support for i2s-tdm controller
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Heiko Stuebner
+ <heiko@sntech.de>
+Date: Mon, 23 Aug 2021 18:03:31 +0200
+In-Reply-To: <9368735.gdWEK3B62L@archbook>
+References: <20210820182731.29370-1-frattaroli.nicolas@gmail.com>
+ <20210820182731.29370-2-frattaroli.nicolas@gmail.com>
+ <6bc6330215980f10853a2dac69f0bdfd9c8fb303.camel@pengutronix.de>
+ <9368735.gdWEK3B62L@archbook>
 Content-Type: text/plain; charset="UTF-8"
-Cc: tzungbi@google.com, alsa-devel@alsa-project.org,
- kernel test robot <lkp@intel.com>
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.30.5-1.1 
+MIME-Version: 1.0
+X-SA-Exim-Connect-IP: 2001:67c:670:100:3ad5:47ff:feaf:1a17
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,55 +85,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-bclk_ms is possible unused by using the given config (see [1]).
+Hi Nicolas,
 
-sound/soc/codecs/rt1015.c:724:2: warning: Value stored to 'bclk_ms' is
-never read [clang-analyzer-deadcode.DeadStores]
-           bclk_ms = frame_size > 32;
-           ^         ~~~~~~~~~~~~~~~
+On Mon, 2021-08-23 at 16:35 +0200, Nicolas Frattaroli wrote:
+[...]
+> > I'm not too fond of reimplementing half a reset controller in here.
+> > The reset framework does not support synchronized (de)assertion of
+> > multiple reset controls, I wonder if this would be useful to add.
+> > Without having thought about this too hard, I could imagine this as an
+> > extension to the bulk API, or possibly a call to join multiple reset
+> > controls into a reset control array.
+>=20
+> I agree, the code required for synchronised reset seems to be a good
+> candidate for a generalised solution elsewhere.
+> However, I'm not sure if I'm the right candidate to design this API
+> as my first kernel contribution when the board I'm currently testing
+> this with doesn't even utilise the synchronized reset.
+>=20
+> If I come across an opportunity to test synchronised resets, I'll
+> definitely look into refactoring this. I'd also be happy to hear of
+> any other driver which is currently implementing its own synchronised
+> reset.
+[...]=20
+> > What is the reason for the different delays in
+> > rockchip_snd_xfer_sync_reset() and rockchip_snd_reset()?
+> >=20
+>=20
+> Simply put: I have no idea. This is what downstream does, and it
+> appears to work for me. The git history of the downstream kernel
+> also doesn't tell me anything about why the sync reset is 150
+> and this one is 1.
+>=20
+> I've got no device to test the sync reset with at the moment so
+> I'm wary of playing with the delay value.
 
-In addition, bclk_ms is meaningless and confusing after applying commit
-a5db2ca51367 ("ASoC: rt1015: remove unneeded variables in rt1015_priv").
-The "> 32" in the expression looks like a typo but it was not.
+Fair points. You could remove the untested synchronized reset support
+for now; that would allow to get rid of the rockchip,cru device tree
+property, which is only required to let this driver access the CRU
+registers behind the clock/reset controller driver's back.
 
-Let's remove the confusing variable bclk_ms.
+[...]
+> > > +	if (i2s_tdm->clk_trcm !=3D TRCM_TXRX) {
+> > > +		cru_node =3D of_parse_phandle(node, "rockchip,cru", 0);
+> > > +		i2s_tdm->cru_base =3D of_iomap(cru_node, 0);
+> >=20
+> > This is a bit ugly if there is another driver sitting on the
+> > rockchip,cru compatible node. Which reset controller driver is backing
+> > the reset controls below?
+>=20
+> I'm not sure if I understand the question (I only just today learned that
+> reset controls have drivers) but I think the reset it is using in the
+> Quartz64 dts is backed by rk3568-cru. Let me know if I misunderstood you.
 
-[1]: https://lkml.org/lkml/2021/8/23/305
+That's the one, thanks.
 
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
----
-For the other two reported files: tas2770.c and wm8731.c, it seems
-there is no straightforward way to fix the warning. 
+The devm_reset_control_get() calls below follow the "reset-names"
+and "resets" device tree properties. Those point (&cru) to a
+clock-controller node with compatible =3D "rockchip,rk3568-cru".
 
- sound/soc/codecs/rt1015.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+The corresponding driver is drivers/clk/rockchip/clk-rk3568.c,
+so the reset controller is provided by the reset_controller_register()
+call in drivers/clk/rockchip/softrst.c.
 
-diff --git a/sound/soc/codecs/rt1015.c b/sound/soc/codecs/rt1015.c
-index b3e69bf245dd..c0c5952cdff7 100644
---- a/sound/soc/codecs/rt1015.c
-+++ b/sound/soc/codecs/rt1015.c
-@@ -689,7 +689,7 @@ static int rt1015_hw_params(struct snd_pcm_substream *substream,
- {
- 	struct snd_soc_component *component = dai->component;
- 	struct rt1015_priv *rt1015 = snd_soc_component_get_drvdata(component);
--	int pre_div, bclk_ms, frame_size, lrck;
-+	int pre_div, frame_size, lrck;
- 	unsigned int val_len = 0;
- 
- 	lrck = params_rate(params);
-@@ -706,10 +706,7 @@ static int rt1015_hw_params(struct snd_pcm_substream *substream,
- 		return -EINVAL;
- 	}
- 
--	bclk_ms = frame_size > 32;
--
--	dev_dbg(component->dev, "bclk_ms is %d and pre_div is %d for iis %d\n",
--				bclk_ms, pre_div, dai->id);
-+	dev_dbg(component->dev, "pre_div is %d for iis %d\n", pre_div, dai->id);
- 
- 	dev_dbg(component->dev, "lrck is %dHz and pre_div is %d for iis %d\n",
- 				lrck, pre_div, dai->id);
--- 
-2.33.0.rc2.250.ged5fa647cd-goog
-
+regards
+Philipp

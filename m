@@ -2,82 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A5883F4F9A
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Aug 2021 19:37:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E6FB3F4FB0
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Aug 2021 19:40:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D46F585D;
-	Mon, 23 Aug 2021 19:36:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D46F585D
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB51615F2;
+	Mon, 23 Aug 2021 19:39:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB51615F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629740266;
-	bh=ayG/k7F918HELQvXsaI7p8lKf39mbTqSCuwoPf/Or4Q=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1629740397;
+	bh=sxg7/ON9fREqr6ugaTKv0kvU3rtpA1F8NirUtneOkwc=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E5XgI49fvUMtu5WqxenwETozKrJ/dSpY5txss4WudnjJR+D32oI7MbcNYY+PjQyYA
-	 x62rOxNfJvNvB1QmH331iG+vo8kq94iDH14iHEcl3IEbxFZJb9ZBU8CvbVWyfF6p8k
-	 s/Ez8d54Et9wCudYRYmzW8N0Gxf9O9ggb8auoTRo=
+	b=FORWBNcm1nHZfeOncVoG+dQwOm424oPSox7yhOxtiUh2xC44Hn48sh41FrqmE+9OJ
+	 7D667q2wavPV+Jx1SMIStF1fZzIBsls9+SQGZFLjIp1up3RoYboL5RQKIA4m9gsToO
+	 bZY3Az9BWRCBbZ3LqlSLyOIMk8nn/hfsd1ZXNiNE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3BB1DF8016E;
-	Mon, 23 Aug 2021 19:36:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22EC4F8020D;
+	Mon, 23 Aug 2021 19:38:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94E6AF8020C; Mon, 23 Aug 2021 19:36:27 +0200 (CEST)
+ id E13DFF80217; Mon, 23 Aug 2021 19:38:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
- [209.85.210.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66980F800B6
- for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 19:36:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66980F800B6
-Received: by mail-ot1-f41.google.com with SMTP id
- o16-20020a9d2210000000b0051b1e56c98fso23562345ota.8
- for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 10:36:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=0uu/qRmiaveg5OXmKGJu7wUbjS4DkO9J3oLG/+RhLjo=;
- b=MDw+W9x+AD+4O3lxi7cAfLbc06LLhy0Qu/UmXtdpgZ269iv37Ie5bCP1Dvom5BATiR
- 4YhjSJ1MNaCcDnUtEwB477jXRIzmoJ8CGwwbImqTVZkjcgMZbfjUeolvxDz1230fNPBM
- wlo7nN2+BlkCOu7AhaFIQ3MlQvwDtxNnJXstGcc1nMqu/xysn9/VKIZyCZommbudzl+E
- hBHZHhB4PeZN745gETCi4OONVdrljtP4jeYBMcIIFgZKiTJn7swO1E0mLCZiIWBw7eZc
- hHFwwyYciWFSJtbBEwggrZ1BJPZMZ1Hh91n8l2B5CUrto5OmTGoFtNw2KchIEbubkmjk
- 1tXQ==
-X-Gm-Message-State: AOAM530XhEdcx4jL8LE2+m8zRv2hAWb3VQwQ8i75kZznXJHmoAomj0Or
- 6QEMkBkQkA/D0L129Myd4A==
-X-Google-Smtp-Source: ABdhPJzxNu7vQjCCQQ+lFTIt44LyottIgRBnx8/87Z4bi0rH3Du9CTiqIdTchQRYLX9R+i2P7dkMCw==
-X-Received: by 2002:a9d:7dd4:: with SMTP id k20mr27971832otn.68.1629740178875; 
- Mon, 23 Aug 2021 10:36:18 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id i9sm3895014otp.18.2021.08.23.10.36.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Aug 2021 10:36:18 -0700 (PDT)
-Received: (nullmailer pid 2390403 invoked by uid 1000);
- Mon, 23 Aug 2021 17:36:17 -0000
-Date: Mon, 23 Aug 2021 12:36:17 -0500
-From: Rob Herring <robh@kernel.org>
-To: Sugar Zhang <sugar.zhang@rock-chips.com>
-Subject: Re: [PATCH 15/15] ASoC: dt-bindings: rockchip: i2s: Document
- property 'clk-trcm'
-Message-ID: <YSPckWacS4kk270r@robh.at.kernel.org>
-References: <1629715710-21137-1-git-send-email-sugar.zhang@rock-chips.com>
- <1629716132-21544-1-git-send-email-sugar.zhang@rock-chips.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D5D7F800AE
+ for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 19:38:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D5D7F800AE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="AnNnSWxm"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6E4FE610C7;
+ Mon, 23 Aug 2021 17:38:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1629740308;
+ bh=sxg7/ON9fREqr6ugaTKv0kvU3rtpA1F8NirUtneOkwc=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=AnNnSWxmK2XJ0cHNh+/S8DN8QVXujAcgAbA1M5XFMxoBs0/Y+hYKdvls3kKACj8ky
+ 2ZH5wUFcsb0yq/2JU3JLNcFHAMKMYHwtPzIjeB1/5Py2PzTzrrcwButNHwLkyPaart
+ TsqopvJgo1elPZ6D598D4hk0UsEczBy2DnH4BnqpuKl8CY1gtCcWEapzEKbUVjz6c2
+ r/LfhxFBvkM/SjihFrA0KqFxBio5yn9xtgKqLjIQ6unG+s1s0+7cBFFlgyio2mAWEm
+ mWrJLc9SZhfaBbAwlbFuDZAnE4mfKbuwRc7RHYfOMnJOd5gFMO498NbCcyL3cLUmWi
+ GXTvy+hQPA+0Q==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, Angelo Dureghello <angelo.dureghello@timesys.com>,
+ alsa-devel@alsa-project.org
+Subject: Re: [RESEND 1/3] ASoC: ics43432: add CMM-4030D-261 support
+Date: Mon, 23 Aug 2021 18:37:52 +0100
+Message-Id: <162973996481.3102.603346515916215049.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210821082658.4147595-1-angelo.dureghello@timesys.com>
+References: <20210821082658.4147595-1-angelo.dureghello@timesys.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1629716132-21544-1-git-send-email-sugar.zhang@rock-chips.com>
-Cc: linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
- broonie@kernel.org, heiko@sntech.de, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: Mark Brown <broonie@kernel.org>, ricard.wanderlof@axis.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,45 +79,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Aug 23, 2021 at 06:55:32PM +0800, Sugar Zhang wrote:
-> This patch documents property 'rockchip,clk-trcm' which is used
-> to specify the lrck.
+On Sat, 21 Aug 2021 10:26:56 +0200, Angelo Dureghello wrote:
+> Despite minimal datasheet differences, the driver seems
+> perfectly compatible with CMM-4030D-261.
 > 
-> Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
-> Change-Id: I648142c57c568bbed209f2b9188b1f539a3285b2
+> Tested CMM-4030D-261 to work with this changes:
+> 
+> / {
+>         cmm4030d: cmm4030d {
+>                 #sound-dai-cells = <0>;
+>                 compatible = "cui,cmm-4030d-261";
+>         };
+> 
+> [...]
 
-Drop this.
+Applied to
 
-> ---
->  Documentation/devicetree/bindings/sound/rockchip-i2s.yaml | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml b/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
-> index 11e911a..8d9dfed 100644
-> --- a/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
-> +++ b/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
-> @@ -72,6 +72,15 @@ properties:
->    resets:
->      maxItems: 2
->  
-> +  rockchip,clk-trcm:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    default: 0
-> +    description:
-> +      tx and rx lrck/bclk common use.
-> +      0: both tx_lrck/bclk and rx_lrck/bclk are used
-> +      1: only tx_lrck/bclk is used
-> +      2: only rx_lrck/bclk is used
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Sounds like constraints. Make a schema.
+Thanks!
 
-> +
->    rockchip,capture-channels:
->      $ref: /schemas/types.yaml#/definitions/uint32
->      default: 2
-> -- 
-> 2.7.4
-> 
-> 
-> 
-> 
+[1/3] ASoC: ics43432: add CMM-4030D-261 support
+      commit: 43d2c4982fcc6ed0adfea1275bc6df28bc48c1ea
+[2/3] dt-bindings: add compatible vendor prefix for CUI Devices
+      commit: 0f28b69e4b5959ee4ae1363b5f6d5dfe76faf36e
+[3/3] ASoC: ics43432: add compatible for CUI Devices
+      commit: c7bd58940bcb38fc506786fccdf51abeac40383e
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

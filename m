@@ -2,80 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BA703F4D1A
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Aug 2021 17:13:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C9F73F4D95
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Aug 2021 17:35:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0072F3E;
-	Mon, 23 Aug 2021 17:13:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0072F3E
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6B1485D;
+	Mon, 23 Aug 2021 17:34:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6B1485D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629731635;
-	bh=OEqHqilFKmP1WfKp4oVJiZRSB2Ln5go87Ttzlxi6DzU=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=NJ9Qkisb6U41TKBQvbX2MPmULucBz++mK1/5Of4AbrI6BQc/+LJbFaykNAB8Mr87L
-	 nnwd4WO6hTuhTqtYWAwyCTBCfUsEc6LwOUHtF4G2/DVBhWVqN8COK2C5GcsRsPIHTa
-	 cdFLRMdJFmmQQxZmLhxX4J+dBemxZGSdaRbnOv3I=
+	s=default; t=1629732909;
+	bh=v3SzclK+EYZvFw1BtvjESjaoVKj3ZoqLrr0Uz9doJSY=;
+	h=Date:Subject:From:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=IqCatKUdnXr44JxgI5HlSHYPtKZLpLrumnzKsIAdiP8IfjS+Mu+ySWm5RaeQ8LMB9
+	 FE0yhNtkMhxmFPwxWC8CKk06kJIm37iDRiPod99K/4tZjtTbiBTb6fmyq+3eOtE9sv
+	 q1OaJgMWgCeTa+XJPEVOhlRi3ttdXpb5GQIQBSmU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 51DE0F800B6;
-	Mon, 23 Aug 2021 17:12:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B908F80229;
+	Mon, 23 Aug 2021 17:33:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 57C2FF80217; Mon, 23 Aug 2021 17:12:35 +0200 (CEST)
+ id C2DCEF80217; Mon, 23 Aug 2021 17:33:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL
+ autolearn=disabled version=3.4.0
+Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
+ [IPv6:2607:f8b0:4864:20::b49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2B140F800B6
- for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 17:12:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B140F800B6
+ by alsa1.perex.cz (Postfix) with ESMTPS id B725DF800E7
+ for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 17:33:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B725DF800E7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="JOtE7jUJ"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="FZOk4f1A"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id EB75621FED;
- Mon, 23 Aug 2021 15:12:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1629731552; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=cQyJYIHM+6xNxqcdWrdNvPV7A52Gvpi9djJtBrli4c4=;
- b=JOtE7jUJEaWPdqS3bB1VCCgGOxZ8jeFIoxHHQNcxj3Jsmu1i+jvlpuZign6mhf+snYUDQP
- A22VbZUcugEaEBev6qoguJfGbnHZ4aIjIqqtwYIxWihxB48QeWbIZu+MmAr/8KorGGO/Zf
- mCvtl9ngljp2i/UyMSgshXq3uKUaW7M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1629731552;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=cQyJYIHM+6xNxqcdWrdNvPV7A52Gvpi9djJtBrli4c4=;
- b=FZOk4f1AqRuYbtPrKDUZXw54JPpsyGgJS6crRHwfgSkKZe/s3RxKDrR84nMJvJT+OloOms
- 1SmxRD/sXo21pOAg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id E6C70A3BC4;
- Mon, 23 Aug 2021 15:12:32 +0000 (UTC)
-Date: Mon, 23 Aug 2021 17:12:32 +0200
-Message-ID: <s5htujg2o0v.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Arkadiusz Bokowy <arkadiusz.bokowy@gmail.com>
-Subject: Re: [PATCH 2/2] plugio: Check for pointer callback error codes
-In-Reply-To: <CAGFh025WJ3uCfiE=2vYYd=gzwY690iokjvTD1GQ_G+e2aT4X6g@mail.gmail.com>
-References: <CAGFh025WJ3uCfiE=2vYYd=gzwY690iokjvTD1GQ_G+e2aT4X6g@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="C+sYgc/4"
+Received: by mail-yb1-xb49.google.com with SMTP id
+ v126-20020a254884000000b005991fd2f912so4208027yba.20
+ for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 08:33:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=date:message-id:mime-version:subject:from:to:cc;
+ bh=X8PTnqCigPxWnZk7NuEkGVC1gFezr8oq/bSFX+EkVvk=;
+ b=C+sYgc/491qed9/GlLLX8KHvWCNTJaNlUkGom9nQQ9SATq82myiS7UAwdsxVL6T4id
+ qGGbyCgZeB4vxjXw//ys9LUaP1JMrAbLLAgixsBj0j0JEGVwkeCMyUpJc9X2TmE/iuSA
+ yBgTjwZKZklowohQMMMi+XLkFKsFULqpqakoQ9L4i5oFrggIfxzTfBymikv/p1jXZoQu
+ 0EnoCFS4MF6oqCMDnIDEn3Xcbh9fW4j6nqaf63CJlPFiVsZpsljXnPc1jv879ww+xEBI
+ oEctTKl29NFcWsF2HGUGh3Om9KGsOR6kkLSvGKuLpxqvwO/no+AMkAuk4imJkx5fCuhP
+ 5n9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
+ bh=X8PTnqCigPxWnZk7NuEkGVC1gFezr8oq/bSFX+EkVvk=;
+ b=jiAvkQx5wwj3mL4pSR1pcPhko1bKn99E0wXjNLWWTMBiPBqb048Z5+vJbX9ahrtOla
+ wXMvP2HN0Ti9dnNyhjUA4FLJ6UkWe/bX9M7+Ynutw009aP8jT25K46IZXOCHfYxedWO+
+ l0WusvHeIgxW+t4VpWAsk/rLUX8TZ57IUjHoUKqnmTy7efQbqNmYtvmAFIaF4QmQXILx
+ LuI7yf7dszdFTKZawT5nTQHoXFtvtPhZEBh5eZwDFzMl96oEhmnldgbtOJNe0Dnt8vLb
+ 5pUyKimbzjeAdGL3shPatqtcBe5g+li9sVl9iSt2wpzyfN9z+48ROwC6w1eyWFHFCWLa
+ jJtA==
+X-Gm-Message-State: AOAM531ZD83kfRye0KjMhl484cGYbvh8A5MMDRP3zUJtoP2KkwyLRuTn
+ y6xCF7+d3FUiIx+ZS8pGUtdXrCshWNbk
+X-Google-Smtp-Source: ABdhPJyUoCrNoh0OpUfCiMoJu48HBqNxOtaX6q8bq8y02y/36i3bUZ2RC1RE534ICXx4N3r6JWpcUnzoXp/M
+X-Received: from tzungbi-z840.tpe.corp.google.com
+ ([2401:fa00:1:10:bc5a:af6a:3f08:a084])
+ (user=tzungbi job=sendgmr) by 2002:a25:c5d2:: with SMTP id
+ v201mr45663214ybe.409.1629732815462; Mon, 23 Aug 2021 08:33:35 -0700 (PDT)
+Date: Mon, 23 Aug 2021 23:33:23 +0800
+Message-Id: <20210823153323.1297723-1-tzungbi@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.33.0.rc2.250.ged5fa647cd-goog
+Subject: [PATCH] ASoC: rt1015: remove possible unused variable `bclk_ms'
+From: Tzung-Bi Shih <tzungbi@google.com>
+To: broonie@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Cc: tzungbi@google.com, alsa-devel@alsa-project.org,
+ kernel test robot <lkp@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,52 +94,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 23 Aug 2021 13:48:38 +0200,
-Arkadiusz Bokowy wrote:
-> 
-> By checking error code returned by the pointer callback, we can
-> determine more precisely PCM state. Previous implementation assumed,
-> that a software PCM can only produce overrun or underrun. It was
-> impossible to mark software PCM as disconnected.
-> 
-> Signed-off-by: Arkadiusz Bokowy <arkadiusz.bokowy@gmail.com>
+bclk_ms is possible unused by using the given config (see [1]).
 
-Please fix MUA setup.
+sound/soc/codecs/rt1015.c:724:2: warning: Value stored to 'bclk_ms' is
+never read [clang-analyzer-deadcode.DeadStores]
+           bclk_ms = frame_size > 32;
+           ^         ~~~~~~~~~~~~~~~
 
-Also...
+In addition, bclk_ms is meaningless and confusing after applying commit
+a5db2ca51367 ("ASoC: rt1015: remove unneeded variables in rt1015_priv").
+The "> 32" in the expression looks like a typo but it was not.
 
-> ---
->  src/pcm/pcm_ioplug.c | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
-> 
-> diff --git a/src/pcm/pcm_ioplug.c b/src/pcm/pcm_ioplug.c
-> index c96104e9..0e27e121 100644
-> --- a/src/pcm/pcm_ioplug.c
-> +++ b/src/pcm/pcm_ioplug.c
-> @@ -81,11 +81,21 @@ static int snd_pcm_ioplug_hw_ptr_update(snd_pcm_t *pcm)
->   }
->   io->last_hw = (snd_pcm_uframes_t)hw;
->   } else {
-> + switch (hw) {
-> + case -ESTRPIPE:
-> + io->data->state = SND_PCM_STATE_SUSPENDED;
-> + break;
-> + case -ENODEV:
-> + io->data->state = SND_PCM_STATE_DISCONNECTED;
-> + break;
-> + default:
-> + io->data->state = SND_PCM_STATE_XRUN;
-> + }
->   if (io->data->state == SND_PCM_STATE_DRAINING)
->   snd_pcm_ioplug_drop(pcm);
->   else
->   io->data->state = SNDRV_PCM_STATE_XRUN;
-> - return -EPIPE;
-> + return hw;
+Let's remove the confusing variable bclk_ms.
 
-Be careful about the handling of the draining case.
+[1]: https://lkml.org/lkml/2021/8/23/305
 
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
+---
+For the other two reported files: tas2770.c and wm8731.c, it seems
+there is no straightforward way to fix the warning. 
 
-thanks,
+ sound/soc/codecs/rt1015.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-Takashi
+diff --git a/sound/soc/codecs/rt1015.c b/sound/soc/codecs/rt1015.c
+index b3e69bf245dd..c0c5952cdff7 100644
+--- a/sound/soc/codecs/rt1015.c
++++ b/sound/soc/codecs/rt1015.c
+@@ -689,7 +689,7 @@ static int rt1015_hw_params(struct snd_pcm_substream *substream,
+ {
+ 	struct snd_soc_component *component = dai->component;
+ 	struct rt1015_priv *rt1015 = snd_soc_component_get_drvdata(component);
+-	int pre_div, bclk_ms, frame_size, lrck;
++	int pre_div, frame_size, lrck;
+ 	unsigned int val_len = 0;
+ 
+ 	lrck = params_rate(params);
+@@ -706,10 +706,7 @@ static int rt1015_hw_params(struct snd_pcm_substream *substream,
+ 		return -EINVAL;
+ 	}
+ 
+-	bclk_ms = frame_size > 32;
+-
+-	dev_dbg(component->dev, "bclk_ms is %d and pre_div is %d for iis %d\n",
+-				bclk_ms, pre_div, dai->id);
++	dev_dbg(component->dev, "pre_div is %d for iis %d\n", pre_div, dai->id);
+ 
+ 	dev_dbg(component->dev, "lrck is %dHz and pre_div is %d for iis %d\n",
+ 				lrck, pre_div, dai->id);
+-- 
+2.33.0.rc2.250.ged5fa647cd-goog
+

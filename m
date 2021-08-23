@@ -2,81 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E706C3F470F
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Aug 2021 11:01:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A65A3F48F7
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Aug 2021 12:50:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2CD4A820;
-	Mon, 23 Aug 2021 11:00:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CD4A820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0274086F;
+	Mon, 23 Aug 2021 12:50:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0274086F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629709303;
-	bh=bl5zW5qeiUyw8C1E0a8RkzYe1PgevqIGzeHxz46akao=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ovTImJTaHpo4wO7ny7Ir+UTZXRrHwr63HcjUhP7Hga+5IcBcaRdsYCJnCW22IyUUu
-	 9EzSprfjxUWODi7eLW29uQdyq8yD1ouxgwmsLZG2gVrZQ3leZImf7ptV87LDplc1B9
-	 1o8TBlAJr9pKUqpQC4c8RuKgpJXvKrN0Xy9QDwK8=
+	s=default; t=1629715856;
+	bh=JnfbaiopnZFMUK809MtZmBydeSMbeYZZSR5cZVkjn6A=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=fTCpNOQiRDF24w5MV1/JHGPuRPEhrXG06Oky74icy83EKvwjAOTHuM8wVO2S2K18U
+	 Wq6Fer9C46KRmUohAlwhvSizXWfeYPUrIOWGaCw778Z2u8eeMYWBDES5ryFaVzDpBt
+	 YlqfL5tBvcWgJ0R5lD99aAL0Smu252+rdF5YC4zY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AC12CF80229;
-	Mon, 23 Aug 2021 11:00:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 982FFF8016E;
+	Mon, 23 Aug 2021 12:49:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35527F80217; Mon, 23 Aug 2021 11:00:20 +0200 (CEST)
+ id 731F1F80240; Mon, 23 Aug 2021 12:49:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from lucky1.263xmail.com (lucky1.263xmail.com [211.157.147.132])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 18344F8016E
- for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 11:00:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18344F8016E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="cHzj1xTi"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="dEpPs3wL"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 4E4C41FF94;
- Mon, 23 Aug 2021 09:00:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1629709211; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=8yaT8uFL7VIH8wmy63WPxo8a7ugAjLLxSt/YtIyJ22Q=;
- b=cHzj1xTiswp+53ewpS34ya8tk2IfqUI5Jcc2yjTOZ2KJsTFMMjh4jImCY9ARrL2UFjXPRJ
- CyCNqXGtIlFGd7hMqD6KvXs7myBDt25MtE1GE7zBWa9+zGEJp9KJo2B2wazvawfO1KRtCR
- wWvfC94OmSim/ZpTzCyixfae0J1u9M8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1629709211;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=8yaT8uFL7VIH8wmy63WPxo8a7ugAjLLxSt/YtIyJ22Q=;
- b=dEpPs3wLIEEUMumy/xvmfXLk7jJ7fBmK/iuOETYMpj2fCE7Io+P7jmyPvhZotD44AeZrUD
- YwcOy9gzZ1KJ31Cg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 43596A3B85;
- Mon, 23 Aug 2021 09:00:11 +0000 (UTC)
-Date: Mon, 23 Aug 2021 11:00:11 +0200
-Message-ID: <s5hy28s4jtw.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH] ALSA: firewire-motu: add support for MOTU 896HD
-In-Reply-To: <20210823085741.33864-1-o-takashi@sakamocchi.jp>
-References: <20210823085741.33864-1-o-takashi@sakamocchi.jp>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+ by alsa1.perex.cz (Postfix) with ESMTPS id 71ADAF800B6
+ for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 12:49:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71ADAF800B6
+Received: from localhost (unknown [192.168.167.235])
+ by lucky1.263xmail.com (Postfix) with ESMTP id 7FFB1FB572;
+ Mon, 23 Aug 2021 18:49:23 +0800 (CST)
+X-MAIL-GRAY: 0
+X-MAIL-DELIVERY: 1
+X-ADDR-CHECKED4: 1
+X-SKE-CHECKED: 1
+X-ANTISPAM-LEVEL: 2
+Received: from localhost.localdomain (unknown [58.22.7.114])
+ by smtp.263.net (postfix) whith ESMTP id
+ P32763T139760957703936S1629715760494266_; 
+ Mon, 23 Aug 2021 18:49:23 +0800 (CST)
+X-IP-DOMAINF: 1
+X-UNIQUE-TAG: <11c0895db331193aa5b55d5be999c912>
+X-RL-SENDER: sugar.zhang@rock-chips.com
+X-SENDER: zxg@rock-chips.com
+X-LOGIN-NAME: sugar.zhang@rock-chips.com
+X-FST-TO: broonie@kernel.org
+X-RCPT-COUNT: 13
+X-SENDER-IP: 58.22.7.114
+X-ATTACHMENT-NUM: 0
+X-System-Flag: 0
+From: Sugar Zhang <sugar.zhang@rock-chips.com>
+To: broonie@kernel.org,
+	heiko@sntech.de
+Subject: [PATCH v1 0/15] Patches to update for rockchip i2s
+Date: Mon, 23 Aug 2021 18:48:14 +0800
+Message-Id: <1629715710-21137-1-git-send-email-sugar.zhang@rock-chips.com>
+X-Mailer: git-send-email 2.7.4
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Sugar Zhang <sugar.zhang@rock-chips.com>,
+ linux-rockchip@lists.infradead.org, Rob Herring <robh+dt@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,57 +84,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 23 Aug 2021 10:57:41 +0200,
-Takashi Sakamoto wrote:
-> 
-> Mark of the Unicorn (MOTU) shipped 896HD 2003 as one of models in second
-> generation of its FireWire series, and already discontinued it. The model
-> consists of below ICs:
-> 
->  * Texas Instruments TSB41AB2
->  * Phillips Semiconductors PDI1394L40
->  * Altera cyclone EP1C3
->  * Texas Instruments TMS320VC5402
-> 
-> It supports sampling transmission frequency up to 192.0 kHz. The packet
-> format differs depending on both of sampling transfer frequency and enabling
-> ADAT channels. The model doesn't support MIDI message transmission.
-> 
-> This commit adds support for it.
-> 
-> $ python3 crpp < /sys/bus/firewire/devices/fw1/config_rom
->                ROM header and bus information block
->                -----------------------------------------------------------------
-> 400  04101b66  bus_info_length 4, crc_length 16, crc 7014
-> 404  31333934  bus_name "1394"
-> 408  20001000  irmc 0, cmc 0, isc 1, bmc 0, cyc_clk_acc 0, max_rec 1 (4)
-> 40c  0001f200  company_id 0001f2     |
-> 410  0001dbce  device_id 000001dbce  | EUI-64 0001f2000001dbce
-> 
->                root directory
->                -----------------------------------------------------------------
-> 414  0004c65c  directory_length 4, crc 50780
-> 418  030001f2  vendor
-> 41c  0c0083c0  node capabilities per IEEE 1394
-> 420  8d000006  --> eui-64 leaf at 438
-> 424  d1000001  --> unit directory at 428
-> 
->                unit directory at 428
->                -----------------------------------------------------------------
-> 428  0003dcc1  directory_length 3, crc 56513
-> 42c  120001f2  specifier id
-> 430  13000005  version
-> 434  17102800  model
-> 
->                eui-64 leaf at 438
->                -----------------------------------------------------------------
-> 438  000264f2  leaf_length 2, crc 25842
-> 43c  0001f200  company_id 0001f2     |
-> 440  0001dbce  device_id 000001dbce  | EUI-64 0001f2000001dbce
-> 
-> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-
-Thanks, applied.
+These patches fixup or update for rockchip i2s.
 
 
-Takashi
+Sugar Zhang (13):
+  ASoC: rockchip: i2s: Add support for set bclk ratio
+  ASoC: rockchip: i2s: Fixup clk div error
+  ASoC: rockchip: i2s: Improve dma data transfer efficiency
+  ASoC: rockchip: i2s: Fix regmap_ops hang
+  ASoC: rockchip: i2s: Fix concurrency between tx/rx
+  ASoC: rockchip: i2s: Reset the controller if soft reset failed
+  ASoC: dt-bindings: rockchip: Document reset property for i2s
+  ASoC: rockchip: i2s: Add property to specify play/cap capability
+  ASoC: dt-bindings: rockchip: i2s: Document property for
+    playback/capture
+  ASoC: rockchip: i2s: Add compatible for more SoCs
+  ASoC: dt-bindings: rockchip: Add compatible strings for more SoCs
+  ASoC: rockchip: i2s: Add support for frame inversion
+  ASoC: dt-bindings: rockchip: i2s: Document property 'clk-trcm'
+
+Xiaotan Luo (1):
+  ASoC: rockchip: i2s: Fixup config for DAIFMT_DSP_A/B
+
+Xing Zheng (1):
+  ASoC: rockchip: i2s: Add support for 'rockchip,clk-trcm' property
+
+ .../devicetree/bindings/sound/rockchip-i2s.yaml    |  30 ++++
+ sound/soc/rockchip/rockchip_i2s.c                  | 153 ++++++++++++++++-----
+ sound/soc/rockchip/rockchip_i2s.h                  |  10 +-
+ 3 files changed, 157 insertions(+), 36 deletions(-)
+
+-- 
+2.7.4
+
+
+

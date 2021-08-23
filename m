@@ -2,73 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A65A3F48F7
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Aug 2021 12:50:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D17AC3F4900
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Aug 2021 12:52:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0274086F;
-	Mon, 23 Aug 2021 12:50:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0274086F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CC95823;
+	Mon, 23 Aug 2021 12:51:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CC95823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629715856;
-	bh=JnfbaiopnZFMUK809MtZmBydeSMbeYZZSR5cZVkjn6A=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=fTCpNOQiRDF24w5MV1/JHGPuRPEhrXG06Oky74icy83EKvwjAOTHuM8wVO2S2K18U
-	 Wq6Fer9C46KRmUohAlwhvSizXWfeYPUrIOWGaCw778Z2u8eeMYWBDES5ryFaVzDpBt
-	 YlqfL5tBvcWgJ0R5lD99aAL0Smu252+rdF5YC4zY=
+	s=default; t=1629715932;
+	bh=zUm1EOg0MxY2uJi9psofE35YET9r8M+vKNX3XtaBhCE=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=UXpctZHRKioffNOlMg3bz4p3/79k3UUeKbw/NcKaK5WyixOsRfp9hbmOqTwjaidsy
+	 5JV3aERWoxat61dXDySQGXsMLi1MblmmI9kFcF0I+5zSNy2vy1ZaAR5qo+xTF1yisH
+	 sIq5Hcqp3F/3i8M/WTkj/62iywpFnQxTCSVWgha0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 982FFF8016E;
-	Mon, 23 Aug 2021 12:49:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70448F804FA;
+	Mon, 23 Aug 2021 12:49:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 731F1F80240; Mon, 23 Aug 2021 12:49:34 +0200 (CEST)
+ id 34CB7F804EC; Mon, 23 Aug 2021 12:49:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from lucky1.263xmail.com (lucky1.263xmail.com [211.157.147.132])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71ADAF800B6
- for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 12:49:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71ADAF800B6
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8AA3F80430
+ for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 12:49:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8AA3F80430
 Received: from localhost (unknown [192.168.167.235])
- by lucky1.263xmail.com (Postfix) with ESMTP id 7FFB1FB572;
- Mon, 23 Aug 2021 18:49:23 +0800 (CST)
+ by lucky1.263xmail.com (Postfix) with ESMTP id ED1D8FB5D6;
+ Mon, 23 Aug 2021 18:49:33 +0800 (CST)
 X-MAIL-GRAY: 0
 X-MAIL-DELIVERY: 1
 X-ADDR-CHECKED4: 1
-X-SKE-CHECKED: 1
 X-ANTISPAM-LEVEL: 2
 Received: from localhost.localdomain (unknown [58.22.7.114])
  by smtp.263.net (postfix) whith ESMTP id
  P32763T139760957703936S1629715760494266_; 
- Mon, 23 Aug 2021 18:49:23 +0800 (CST)
+ Mon, 23 Aug 2021 18:49:24 +0800 (CST)
 X-IP-DOMAINF: 1
-X-UNIQUE-TAG: <11c0895db331193aa5b55d5be999c912>
+X-UNIQUE-TAG: <b1f5bd6aea80e45f51986b9e794aa7a3>
 X-RL-SENDER: sugar.zhang@rock-chips.com
 X-SENDER: zxg@rock-chips.com
 X-LOGIN-NAME: sugar.zhang@rock-chips.com
 X-FST-TO: broonie@kernel.org
-X-RCPT-COUNT: 13
+X-RCPT-COUNT: 10
 X-SENDER-IP: 58.22.7.114
 X-ATTACHMENT-NUM: 0
 X-System-Flag: 0
 From: Sugar Zhang <sugar.zhang@rock-chips.com>
 To: broonie@kernel.org,
 	heiko@sntech.de
-Subject: [PATCH v1 0/15] Patches to update for rockchip i2s
-Date: Mon, 23 Aug 2021 18:48:14 +0800
-Message-Id: <1629715710-21137-1-git-send-email-sugar.zhang@rock-chips.com>
+Subject: [PATCH v1 01/15] ASoC: rockchip: i2s: Add support for set bclk ratio
+Date: Mon, 23 Aug 2021 18:48:15 +0800
+Message-Id: <1629715710-21137-2-git-send-email-sugar.zhang@rock-chips.com>
 X-Mailer: git-send-email 2.7.4
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, Sugar Zhang <sugar.zhang@rock-chips.com>,
- linux-rockchip@lists.infradead.org, Rob Herring <robh+dt@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-kernel@lists.infradead.org
+In-Reply-To: <1629715710-21137-1-git-send-email-sugar.zhang@rock-chips.com>
+References: <1629715710-21137-1-git-send-email-sugar.zhang@rock-chips.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Sugar Zhang <sugar.zhang@rock-chips.com>, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,36 +85,69 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-These patches fixup or update for rockchip i2s.
+This patch adds support for set bclk ratio from machine driver.
 
+Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
+---
 
-Sugar Zhang (13):
-  ASoC: rockchip: i2s: Add support for set bclk ratio
-  ASoC: rockchip: i2s: Fixup clk div error
-  ASoC: rockchip: i2s: Improve dma data transfer efficiency
-  ASoC: rockchip: i2s: Fix regmap_ops hang
-  ASoC: rockchip: i2s: Fix concurrency between tx/rx
-  ASoC: rockchip: i2s: Reset the controller if soft reset failed
-  ASoC: dt-bindings: rockchip: Document reset property for i2s
-  ASoC: rockchip: i2s: Add property to specify play/cap capability
-  ASoC: dt-bindings: rockchip: i2s: Document property for
-    playback/capture
-  ASoC: rockchip: i2s: Add compatible for more SoCs
-  ASoC: dt-bindings: rockchip: Add compatible strings for more SoCs
-  ASoC: rockchip: i2s: Add support for frame inversion
-  ASoC: dt-bindings: rockchip: i2s: Document property 'clk-trcm'
+ sound/soc/rockchip/rockchip_i2s.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
-Xiaotan Luo (1):
-  ASoC: rockchip: i2s: Fixup config for DAIFMT_DSP_A/B
-
-Xing Zheng (1):
-  ASoC: rockchip: i2s: Add support for 'rockchip,clk-trcm' property
-
- .../devicetree/bindings/sound/rockchip-i2s.yaml    |  30 ++++
- sound/soc/rockchip/rockchip_i2s.c                  | 153 ++++++++++++++++-----
- sound/soc/rockchip/rockchip_i2s.h                  |  10 +-
- 3 files changed, 157 insertions(+), 36 deletions(-)
-
+diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
+index c7dc350..c9d5c52 100644
+--- a/sound/soc/rockchip/rockchip_i2s.c
++++ b/sound/soc/rockchip/rockchip_i2s.c
+@@ -49,6 +49,7 @@ struct rk_i2s_dev {
+ 	bool rx_start;
+ 	bool is_master_mode;
+ 	const struct rk_i2s_pins *pins;
++	unsigned int bclk_ratio;
+ };
+ 
+ static int i2s_runtime_suspend(struct device *dev)
+@@ -278,7 +279,7 @@ static int rockchip_i2s_hw_params(struct snd_pcm_substream *substream,
+ 
+ 	if (i2s->is_master_mode) {
+ 		mclk_rate = clk_get_rate(i2s->mclk);
+-		bclk_rate = 2 * 32 * params_rate(params);
++		bclk_rate = i2s->bclk_ratio * params_rate(params);
+ 		if (bclk_rate == 0 || mclk_rate % bclk_rate)
+ 			return -EINVAL;
+ 
+@@ -413,6 +414,16 @@ static int rockchip_i2s_trigger(struct snd_pcm_substream *substream,
+ 	return ret;
+ }
+ 
++static int rockchip_i2s_set_bclk_ratio(struct snd_soc_dai *dai,
++				       unsigned int ratio)
++{
++	struct rk_i2s_dev *i2s = to_info(dai);
++
++	i2s->bclk_ratio = ratio;
++
++	return 0;
++}
++
+ static int rockchip_i2s_set_sysclk(struct snd_soc_dai *cpu_dai, int clk_id,
+ 				   unsigned int freq, int dir)
+ {
+@@ -441,6 +452,7 @@ static int rockchip_i2s_dai_probe(struct snd_soc_dai *dai)
+ 
+ static const struct snd_soc_dai_ops rockchip_i2s_dai_ops = {
+ 	.hw_params = rockchip_i2s_hw_params,
++	.set_bclk_ratio	= rockchip_i2s_set_bclk_ratio,
+ 	.set_sysclk = rockchip_i2s_set_sysclk,
+ 	.set_fmt = rockchip_i2s_set_fmt,
+ 	.trigger = rockchip_i2s_trigger,
+@@ -638,6 +650,8 @@ static int rockchip_i2s_probe(struct platform_device *pdev)
+ 	i2s->capture_dma_data.addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
+ 	i2s->capture_dma_data.maxburst = 4;
+ 
++	i2s->bclk_ratio = 64;
++
+ 	dev_set_drvdata(&pdev->dev, i2s);
+ 
+ 	pm_runtime_enable(&pdev->dev);
 -- 
 2.7.4
 

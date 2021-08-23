@@ -2,77 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD3D23F4EF6
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Aug 2021 19:05:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A5883F4F9A
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Aug 2021 19:37:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 47FFB85D;
-	Mon, 23 Aug 2021 19:04:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47FFB85D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D46F585D;
+	Mon, 23 Aug 2021 19:36:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D46F585D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629738310;
-	bh=podLZavGuPLjdyUUzf8zXd3j+Wtud9rZJCmaTVVDG2U=;
+	s=default; t=1629740266;
+	bh=ayG/k7F918HELQvXsaI7p8lKf39mbTqSCuwoPf/Or4Q=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LKnByyfqrnOBMi8h8qMtBjObuOkfJNyLP8f2r/MbREmcOjOvO6b3zQb0VB5r54NxC
-	 oVI/LfnLyw3gAB52R4cj6F6eLlcyv2RMbURVWV7LGXmQfJFCpdzR8JPsFmPnuSfV3M
-	 Za6EvSQRmntWNTaiwSrrMvPzQgfnDhnP8x0H5gCM=
+	b=E5XgI49fvUMtu5WqxenwETozKrJ/dSpY5txss4WudnjJR+D32oI7MbcNYY+PjQyYA
+	 x62rOxNfJvNvB1QmH331iG+vo8kq94iDH14iHEcl3IEbxFZJb9ZBU8CvbVWyfF6p8k
+	 s/Ez8d54Et9wCudYRYmzW8N0Gxf9O9ggb8auoTRo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 846E8F8020D;
-	Mon, 23 Aug 2021 19:03:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3BB1DF8016E;
+	Mon, 23 Aug 2021 19:36:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 46A09F800AE; Mon, 23 Aug 2021 19:03:50 +0200 (CEST)
+ id 94E6AF8020C; Mon, 23 Aug 2021 19:36:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from lb1-smtp-cloud8.xs4all.net (lb1-smtp-cloud8.xs4all.net
- [194.109.24.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
+ [209.85.210.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 261FCF800AE
- for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 19:03:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 261FCF800AE
-Received: from cust-b66e5d83 ([IPv6:fc0c:c157:b88d:62c6:5e3c:5f07:82d0:1b4])
- by smtp-cloud8.xs4all.net with ESMTPA
- id IDMImbs1ZUWyVIDMJmw8Rh; Mon, 23 Aug 2021 19:03:40 +0200
-Received: from localhost (localhost [127.0.0.1])
- by keetweej.vanheusden.com (Postfix) with ESMTP id C66D7161E7C;
- Mon, 23 Aug 2021 19:03:38 +0200 (CEST)
-Received: from keetweej.vanheusden.com ([127.0.0.1])
- by localhost (mauer.intranet.vanheusden.com [127.0.0.1]) (amavisd-new,
- port 10024)
- with ESMTP id C5LbdOb66xyj; Mon, 23 Aug 2021 19:03:32 +0200 (CEST)
-Received: from belle.intranet.vanheusden.com (belle.intranet.vanheusden.com
- [192.168.64.100])
- by keetweej.vanheusden.com (Postfix) with ESMTP id 4CE04161E77;
- Mon, 23 Aug 2021 19:03:32 +0200 (CEST)
-Received: by belle.intranet.vanheusden.com (Postfix, from userid 1000)
- id 3D744162DC6; Mon, 23 Aug 2021 19:03:32 +0200 (CEST)
-Date: Mon, 23 Aug 2021 19:03:32 +0200
-From: folkert <folkert@vanheusden.com>
-To: sujith kumar reddy <sujithreddy6192@gmail.com>
-Subject: Re: arecord is failing with -V stereo
-Message-ID: <20210823170332.GD890690@belle.intranet.vanheusden.com>
-References: <CAAd2w=btf3DZLbPuovAC9xo3rizmFeT4iAxJs6zNZwKxOnKT6A@mail.gmail.com>
- <20210819183450.GV890690@belle.intranet.vanheusden.com>
- <CAAd2w=YFhiJJ=4nqo7JfbrqdNWVxvSp06E=1XiHOXV8Kp2sgaQ@mail.gmail.com>
- <20210819190634.GW890690@belle.intranet.vanheusden.com>
- <CAAd2w=Z4rG1UwA6ELzqwr_0TXjQmD0T1izonAJk9-32TSzGchQ@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 66980F800B6
+ for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 19:36:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66980F800B6
+Received: by mail-ot1-f41.google.com with SMTP id
+ o16-20020a9d2210000000b0051b1e56c98fso23562345ota.8
+ for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 10:36:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=0uu/qRmiaveg5OXmKGJu7wUbjS4DkO9J3oLG/+RhLjo=;
+ b=MDw+W9x+AD+4O3lxi7cAfLbc06LLhy0Qu/UmXtdpgZ269iv37Ie5bCP1Dvom5BATiR
+ 4YhjSJ1MNaCcDnUtEwB477jXRIzmoJ8CGwwbImqTVZkjcgMZbfjUeolvxDz1230fNPBM
+ wlo7nN2+BlkCOu7AhaFIQ3MlQvwDtxNnJXstGcc1nMqu/xysn9/VKIZyCZommbudzl+E
+ hBHZHhB4PeZN745gETCi4OONVdrljtP4jeYBMcIIFgZKiTJn7swO1E0mLCZiIWBw7eZc
+ hHFwwyYciWFSJtbBEwggrZ1BJPZMZ1Hh91n8l2B5CUrto5OmTGoFtNw2KchIEbubkmjk
+ 1tXQ==
+X-Gm-Message-State: AOAM530XhEdcx4jL8LE2+m8zRv2hAWb3VQwQ8i75kZznXJHmoAomj0Or
+ 6QEMkBkQkA/D0L129Myd4A==
+X-Google-Smtp-Source: ABdhPJzxNu7vQjCCQQ+lFTIt44LyottIgRBnx8/87Z4bi0rH3Du9CTiqIdTchQRYLX9R+i2P7dkMCw==
+X-Received: by 2002:a9d:7dd4:: with SMTP id k20mr27971832otn.68.1629740178875; 
+ Mon, 23 Aug 2021 10:36:18 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id i9sm3895014otp.18.2021.08.23.10.36.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Aug 2021 10:36:18 -0700 (PDT)
+Received: (nullmailer pid 2390403 invoked by uid 1000);
+ Mon, 23 Aug 2021 17:36:17 -0000
+Date: Mon, 23 Aug 2021 12:36:17 -0500
+From: Rob Herring <robh@kernel.org>
+To: Sugar Zhang <sugar.zhang@rock-chips.com>
+Subject: Re: [PATCH 15/15] ASoC: dt-bindings: rockchip: i2s: Document
+ property 'clk-trcm'
+Message-ID: <YSPckWacS4kk270r@robh.at.kernel.org>
+References: <1629715710-21137-1-git-send-email-sugar.zhang@rock-chips.com>
+ <1629716132-21544-1-git-send-email-sugar.zhang@rock-chips.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAAd2w=Z4rG1UwA6ELzqwr_0TXjQmD0T1izonAJk9-32TSzGchQ@mail.gmail.com>
-Reply-By: Fri 16 Jul 2021 08:34:34 AM CEST
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-CMAE-Envelope: MS4xfOdb6bO78RDAJIeIQohZ4BQBV5OBPT5iZ6PmJ+nry0Fmbwedi4qtfKKaz7fqrRhv5NSbFLT6vvQHAPj1/W2IcOqgP2MeLJmghwghlVSR/FMQOdqJoMYW
- 9H1SOvtexRy989HfKeKVm8oWsnLcYcUTQVfxqGxCNz1kRABLBxXNZZHUwA9L8Rab6LnIpiqdh/aL3Fr8l6yMC21sCpM/vWthXaMOBhw0JwtlY/D0Z/tdP8aj
- w080tA2UJSzGrPjVz61Kaa7KPLbWRzri/yvDmfPYZgU=
-Cc: alsa-devel@alsa-project.org
+In-Reply-To: <1629716132-21544-1-git-send-email-sugar.zhang@rock-chips.com>
+Cc: linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
+ broonie@kernel.org, heiko@sntech.de, devicetree@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,40 +93,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
->         const int bar_length = 35;
->         char line[80];
-...
->                 if (p > bar_length)
->                         p = bar_length;
->                 if (c)
->                         memset(line + bar_length + 6 + 1, '#', p);
-> ----------------//this is the line where it is crashing.here p value is
-> becoming negative at c=1.As we see if we change the p value to bar_length
-> it works fine ..As it is a player issue not a driver issue.
+On Mon, Aug 23, 2021 at 06:55:32PM +0800, Sugar Zhang wrote:
+> This patch documents property 'rockchip,clk-trcm' which is used
+> to specify the lrck.
+> 
+> Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
+> Change-Id: I648142c57c568bbed209f2b9188b1f539a3285b2
 
-This is puzzling.
-bar_length + 6 + 1 + p and thus 35 + 6 + 1 + 35 is max 77, that fits
-easlity in 80.
+Drop this.
 
-But wait:
+> ---
+>  Documentation/devicetree/bindings/sound/rockchip-i2s.yaml | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml b/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
+> index 11e911a..8d9dfed 100644
+> --- a/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
+> +++ b/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
+> @@ -72,6 +72,15 @@ properties:
+>    resets:
+>      maxItems: 2
+>  
+> +  rockchip,clk-trcm:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    default: 0
+> +    description:
+> +      tx and rx lrck/bclk common use.
+> +      0: both tx_lrck/bclk and rx_lrck/bclk are used
+> +      1: only tx_lrck/bclk is used
+> +      2: only rx_lrck/bclk is used
 
-                        line[bar_length - p - 1] = '+';
+Sounds like constraints. Make a schema.
 
-p is max bar_length, so we would end up putting '+' in line[-1]
-
-Can you try this?
-
-
-diff --git a/aplay/aplay.c b/aplay/aplay.c
-index cc51dcb..9cfd52c 100644
---- a/aplay/aplay.c
-+++ b/aplay/aplay.c
-@@ -1764,7 +1764,7 @@ static void print_vu_meter_stereo(int *perc, int *maxperc)
- 			p = bar_length;
- 		if (c)
- 			line[bar_length + 6 + 1 + p] = '+';
--		else
-+		else if (p < bar_length)
- 			line[bar_length - p - 1] = '+';
- 		if (ABS(maxperc[c]) > 99)
- 			sprintf(tmp, "MAX");
+> +
+>    rockchip,capture-channels:
+>      $ref: /schemas/types.yaml#/definitions/uint32
+>      default: 2
+> -- 
+> 2.7.4
+> 
+> 
+> 
+> 

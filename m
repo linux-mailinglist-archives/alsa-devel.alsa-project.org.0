@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 824843F4D11
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Aug 2021 17:11:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BA703F4D1A
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Aug 2021 17:13:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 080CC85D;
-	Mon, 23 Aug 2021 17:10:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 080CC85D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0072F3E;
+	Mon, 23 Aug 2021 17:13:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0072F3E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629731482;
-	bh=sdkNk2I22gKBzNjuvwoCkutAuqVveLVFi5DTr4G7uco=;
+	s=default; t=1629731635;
+	bh=OEqHqilFKmP1WfKp4oVJiZRSB2Ln5go87Ttzlxi6DzU=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IFny0cocwSusOZVEH3tcfUGslrN8ezgGou8Prfi64vQl6yWTmLGEHdvNMLta6qsfW
-	 uRYjRb9mjXEZPpMnRCvS0EhtAHAygMnF40pXMMB3S0cgl2hk44iTiN3M2fzJ1yMCmq
-	 d6GbXqeWDh7YwKNrCaEWe7dtWfPzLbtpx96FJ7U0=
+	b=NJ9Qkisb6U41TKBQvbX2MPmULucBz++mK1/5Of4AbrI6BQc/+LJbFaykNAB8Mr87L
+	 nnwd4WO6hTuhTqtYWAwyCTBCfUsEc6LwOUHtF4G2/DVBhWVqN8COK2C5GcsRsPIHTa
+	 cdFLRMdJFmmQQxZmLhxX4J+dBemxZGSdaRbnOv3I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7FFA7F80229;
-	Mon, 23 Aug 2021 17:10:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51DE0F800B6;
+	Mon, 23 Aug 2021 17:12:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 66E9AF80217; Mon, 23 Aug 2021 17:10:03 +0200 (CEST)
+ id 57C2FF80217; Mon, 23 Aug 2021 17:12:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,43 +33,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8EF47F800B6
- for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 17:09:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EF47F800B6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B140F800B6
+ for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 17:12:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B140F800B6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ZEaXbVme"; 
+ header.b="JOtE7jUJ"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="yg+Unskw"
+ header.b="FZOk4f1A"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 57EE421FDD;
- Mon, 23 Aug 2021 15:09:57 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id EB75621FED;
+ Mon, 23 Aug 2021 15:12:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1629731397; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1629731552; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Mpy1bPGm7Om0XnL2MVVKkav++RYc30ZI6yh6qqRy0jU=;
- b=ZEaXbVme0Y+lfuDYuvDZ9DSw3gWE4Q4kKQbD2LOOE2WCciV26ebKpDql+GApiL12oK2N4Y
- h0y8GiAoMQUggZ2b+Y8AzvW0DSK5fLAXBRAvn8pRlVD9O8qfzdGK1B9l/QWR19bk0N7sL6
- hHTfIrDDfQSrRVg2VNxhrkajH+gDXXM=
+ bh=cQyJYIHM+6xNxqcdWrdNvPV7A52Gvpi9djJtBrli4c4=;
+ b=JOtE7jUJEaWPdqS3bB1VCCgGOxZ8jeFIoxHHQNcxj3Jsmu1i+jvlpuZign6mhf+snYUDQP
+ A22VbZUcugEaEBev6qoguJfGbnHZ4aIjIqqtwYIxWihxB48QeWbIZu+MmAr/8KorGGO/Zf
+ mCvtl9ngljp2i/UyMSgshXq3uKUaW7M=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1629731397;
+ s=susede2_ed25519; t=1629731552;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Mpy1bPGm7Om0XnL2MVVKkav++RYc30ZI6yh6qqRy0jU=;
- b=yg+UnskwoR6hEZm21cyN34O1uAMuQxtmJDKfOAoRNxu9NCzJH4tzzy2gFgwP3oZzU3N0wg
- 14D9les8+59NkEDQ==
+ bh=cQyJYIHM+6xNxqcdWrdNvPV7A52Gvpi9djJtBrli4c4=;
+ b=FZOk4f1AqRuYbtPrKDUZXw54JPpsyGgJS6crRHwfgSkKZe/s3RxKDrR84nMJvJT+OloOms
+ 1SmxRD/sXo21pOAg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 52752A3BB8;
- Mon, 23 Aug 2021 15:09:57 +0000 (UTC)
-Date: Mon, 23 Aug 2021 17:09:57 +0200
-Message-ID: <s5hv93w2o56.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id E6C70A3BC4;
+ Mon, 23 Aug 2021 15:12:32 +0000 (UTC)
+Date: Mon, 23 Aug 2021 17:12:32 +0200
+Message-ID: <s5htujg2o0v.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Arkadiusz Bokowy <arkadiusz.bokowy@gmail.com>
-Subject: Re: [PATCH 1/2] ioplug: Check for callback error codes
-In-Reply-To: <CAGFh027Yf8wQxsxNkMDcN8cSZGu38CviYN=KSLZWabrZsOaV6g@mail.gmail.com>
-References: <CAGFh027Yf8wQxsxNkMDcN8cSZGu38CviYN=KSLZWabrZsOaV6g@mail.gmail.com>
+Subject: Re: [PATCH 2/2] plugio: Check for pointer callback error codes
+In-Reply-To: <CAGFh025WJ3uCfiE=2vYYd=gzwY690iokjvTD1GQ_G+e2aT4X6g@mail.gmail.com>
+References: <CAGFh025WJ3uCfiE=2vYYd=gzwY690iokjvTD1GQ_G+e2aT4X6g@mail.gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -91,57 +91,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 23 Aug 2021 13:46:37 +0200,
+On Mon, 23 Aug 2021 13:48:38 +0200,
 Arkadiusz Bokowy wrote:
+> 
+> By checking error code returned by the pointer callback, we can
+> determine more precisely PCM state. Previous implementation assumed,
+> that a software PCM can only produce overrun or underrun. It was
+> impossible to mark software PCM as disconnected.
 > 
 > Signed-off-by: Arkadiusz Bokowy <arkadiusz.bokowy@gmail.com>
 
-The lack of the patch description is always a sign of a bad patch.
-Please put more information here, especially why this change is
-required.
+Please fix MUA setup.
 
-And the whole patch seems malformed and can't be applied.  Please fix
-your mailer setup.
+Also...
 
-About the code change:
->  /* update the hw pointer */
->  /* called in lock */
-> -static void snd_pcm_ioplug_hw_ptr_update(snd_pcm_t *pcm)
-> +static int snd_pcm_ioplug_hw_ptr_update(snd_pcm_t *pcm)
->  {
->   ioplug_priv_t *io = pcm->private_data;
->   snd_pcm_sframes_t hw;
-> @@ -85,7 +85,9 @@ static void snd_pcm_ioplug_hw_ptr_update(snd_pcm_t *pcm)
+> ---
+>  src/pcm/pcm_ioplug.c | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
+> 
+> diff --git a/src/pcm/pcm_ioplug.c b/src/pcm/pcm_ioplug.c
+> index c96104e9..0e27e121 100644
+> --- a/src/pcm/pcm_ioplug.c
+> +++ b/src/pcm/pcm_ioplug.c
+> @@ -81,11 +81,21 @@ static int snd_pcm_ioplug_hw_ptr_update(snd_pcm_t *pcm)
+>   }
+>   io->last_hw = (snd_pcm_uframes_t)hw;
+>   } else {
+> + switch (hw) {
+> + case -ESTRPIPE:
+> + io->data->state = SND_PCM_STATE_SUSPENDED;
+> + break;
+> + case -ENODEV:
+> + io->data->state = SND_PCM_STATE_DISCONNECTED;
+> + break;
+> + default:
+> + io->data->state = SND_PCM_STATE_XRUN;
+> + }
+>   if (io->data->state == SND_PCM_STATE_DRAINING)
 >   snd_pcm_ioplug_drop(pcm);
 >   else
 >   io->data->state = SNDRV_PCM_STATE_XRUN;
-> + return -EPIPE;
+> - return -EPIPE;
+> + return hw;
 
-If xrun happens during the draining, it's rather handled as
-successfully drained, hence better to return 0 there.
-
-> @@ -898,13 +906,14 @@ static void clear_io_params(ioplug_priv_t *io)
->  static int snd_pcm_ioplug_close(snd_pcm_t *pcm)
->  {
->   ioplug_priv_t *io = pcm->private_data;
-> + int err = 0;
-> 
->   clear_io_params(io);
->   if (io->data->callback->close)
-> - io->data->callback->close(io->data);
-> + err = io->data->callback->close(io->data);
->   free(io);
-> 
-> - return 0;
-> + return err;
-
-This is dangerous.  It may leave a error state while the resources
-have been already released.  Then application cannot do anything after
-that.
-
-If we really want to check the return value, the resource releases
-should be done after that point, so that application may call the
-close again.
+Be careful about the handling of the draining case.
 
 
 thanks,

@@ -2,81 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA2663F5B53
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Aug 2021 11:51:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D98E3F5B54
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Aug 2021 11:51:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C8C184C;
-	Tue, 24 Aug 2021 11:50:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C8C184C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 06178166A;
+	Tue, 24 Aug 2021 11:50:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06178166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629798671;
-	bh=9GwZ0mnoGOTlHyv2qonH8DOi2yUrWuKy441bw5OWFZM=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1629798698;
+	bh=apx2Fa3T8UrQS7ghJ47hd0ZP0KThGl01D79MiE4pNAw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gd0lHgf5sTattJQhf/pTbKgMCMFsyEUFgYjguQkd1ZdPoxWkoPAeXwVySWoe0hEyB
-	 PwxXxBv8lubpuIWJGeX0QllD8Z2bBQCS2n0KjCrLmPgs/RHk3r/DhGeja8ueAXRMf9
-	 x5ILTsMy7ZpIv9kV55zrEHARvi3kAwPlKrFkDVJ4=
+	b=nyhQcseB/yEuivfu1cY9ZO4uJgVYZbkrYI5z3Ut3djiay77UJd71XANz5Tum7UZD2
+	 q+0JlDQ6AVpg2gpf/AuU0ZBOg9ZKHY2QVizXRQ432MOWx9YJMDODl3zQCGwjJQe1MX
+	 eJH7pC4gBflyqXGJBVu3f00S0THw5kEpwZXTF4R0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9845F804FF;
-	Tue, 24 Aug 2021 11:48:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94E03F80171;
+	Tue, 24 Aug 2021 11:50:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 13BDFF804FD; Tue, 24 Aug 2021 11:48:15 +0200 (CEST)
+ id 402F3F801D8; Tue, 24 Aug 2021 11:50:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_25,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E9DCAF80430
- for <alsa-devel@alsa-project.org>; Tue, 24 Aug 2021 11:48:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9DCAF80430
+ by alsa1.perex.cz (Postfix) with ESMTPS id 45E1AF80087
+ for <alsa-devel@alsa-project.org>; Tue, 24 Aug 2021 11:50:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45E1AF80087
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="v4Cd9m1u"; 
+ header.b="dmGnxtda"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="E6aDgWOR"
+ header.b="s3RxFW3d"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id A3BB1220E6
- for <alsa-devel@alsa-project.org>; Tue, 24 Aug 2021 09:47:57 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 19F07220CD;
+ Tue, 24 Aug 2021 09:50:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1629798477; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1629798642; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=+fg/W80wM02FV81zqY8zIqz3dFIExfCosUOIN3WBP4w=;
- b=v4Cd9m1uyljPnbBBvvP9bX7AaazBoRWqrhggILIRXZHrnSTAA1Lm6ewfuhxWgCpi++JSgx
- hyADhQNHz39NWiqNt6o51kURMrffzIWo9FyzatFq+TAw/AHV036FTcHQ5s2VzSdLZpmg+V
- iz3oSA7cWtFKnOEjFNPtdFKfsjYgX2s=
+ bh=DDyzcaYbWUJWhdO6lr1mnzZ8oMkqPKz/d7Q23APMcL8=;
+ b=dmGnxtdauPqAuzrSbu8Aq+WCSa+FodL+R2DqthPg8gr0bUU/riRd/nA2vu5OZW1bVx7O/6
+ FJy7euov502b4qTBCQJSsXMFQwFm2Hwed2QW1pzwCCHVrwlHaVKVEaM1pGQ4Dceuex13VB
+ MGObIySzc7r4AamyKBRD0eekhPQwVpU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1629798477;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ s=susede2_ed25519; t=1629798642;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=+fg/W80wM02FV81zqY8zIqz3dFIExfCosUOIN3WBP4w=;
- b=E6aDgWORjYgkVntZ/+NSqNN9NUjR7oxyoYAXpOQaMdO6HAnfHLLRgHOm0F8kb6JzeWzXk8
- n56wfWuhz+IHGJBg==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 94307A3BBA;
- Tue, 24 Aug 2021 09:47:57 +0000 (UTC)
+ bh=DDyzcaYbWUJWhdO6lr1mnzZ8oMkqPKz/d7Q23APMcL8=;
+ b=s3RxFW3d1WMiUdqhWNLXzGN6onJezJOjmzehPQIW9t5SwOjsy7ODDpp//M3TV9V82SiNuB
+ ZfwfqIVpKIacx1Cw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 110E1A3BC0;
+ Tue, 24 Aug 2021 09:50:42 +0000 (UTC)
+Date: Tue, 24 Aug 2021 11:50:42 +0200
+Message-ID: <s5hzgt71899.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH alsa-utils 5/5] aplay: Fix out-of-bound access in stereo VU
- meter drawing
-Date: Tue, 24 Aug 2021 11:47:56 +0200
-Message-Id: <20210824094756.12540-6-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210824094756.12540-1-tiwai@suse.de>
-References: <20210824094756.12540-1-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+To: sujith kumar reddy <sujithreddy6192@gmail.com>
+Subject: Re: arecord is failing with -V stereo
+In-Reply-To: <CAAd2w=ZEFrnwC0fdMKUUpaU1XhYztZD-RHECf88+u+H+MNU=hQ@mail.gmail.com>
+References: <CAAd2w=btf3DZLbPuovAC9xo3rizmFeT4iAxJs6zNZwKxOnKT6A@mail.gmail.com>
+ <20210819183450.GV890690@belle.intranet.vanheusden.com>
+ <CAAd2w=YFhiJJ=4nqo7JfbrqdNWVxvSp06E=1XiHOXV8Kp2sgaQ@mail.gmail.com>
+ <20210819190634.GW890690@belle.intranet.vanheusden.com>
+ <CAAd2w=Z4rG1UwA6ELzqwr_0TXjQmD0T1izonAJk9-32TSzGchQ@mail.gmail.com>
+ <20210823170332.GD890690@belle.intranet.vanheusden.com>
+ <CAAd2w=ag-Hk6COSJt5rg-+faz8FKYxTPig9AGhFWUFzGw1Ynvw@mail.gmail.com>
+ <20210823184727.GE890690@belle.intranet.vanheusden.com>
+ <CAAd2w=adJ3+Rw16ZVbkq72O7D0Dgo1ukHF1DLK6aaN3sGKu3DQ@mail.gmail.com>
+ <s5heeaj2rcr.wl-tiwai@suse.de>
+ <CAAd2w=ZEFrnwC0fdMKUUpaU1XhYztZD-RHECf88+u+H+MNU=hQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, folkert <folkert@vanheusden.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,35 +101,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The left channel drawing of a stereo VU meter has a bug where it may
-access a negative array index.
+On Tue, 24 Aug 2021 11:19:46 +0200,
+sujith kumar reddy wrote:
+> 
+> Hi Takashi,
+> 
+> With the above patches -V stereo is working fine.
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- aplay/aplay.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+Good to hear.  The patches have been submitted and merged now.
 
-diff --git a/aplay/aplay.c b/aplay/aplay.c
-index a51a37ba34bd..63a4e3437fd9 100644
---- a/aplay/aplay.c
-+++ b/aplay/aplay.c
-@@ -1758,10 +1758,12 @@ static void print_vu_meter_stereo(int *perc, int *maxperc)
- 		if (c)
- 			memset(line + bar_length + 6 + 1, '#', p);
- 		else
--			memset(line + bar_length - p - 1, '#', p);
--		p = maxperc[c] * bar_length / 100;
--		if (p > bar_length)
--			p = bar_length;
-+			memset(line + bar_length - p, '#', p);
-+		p = maxperc[c] * bar_length / 100 - 1;
-+		if (p < 0)
-+			p = 0;
-+		else if (p >= bar_length)
-+			p = bar_length - 1;
- 		if (c)
- 			line[bar_length + 6 + 1 + p] = '+';
- 		else
--- 
-2.26.2
 
+thanks,
+
+Takashi

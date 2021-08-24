@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 861073F5659
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Aug 2021 05:01:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11A8D3F5655
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Aug 2021 05:01:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 304501657;
-	Tue, 24 Aug 2021 05:01:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 304501657
+	by alsa0.perex.cz (Postfix) with ESMTPS id A15631612;
+	Tue, 24 Aug 2021 05:00:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A15631612
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629774111;
-	bh=05AyD2HAw57NY/tXoMn13DkLFf/ETc4tRXyQKjBHmQY=;
+	s=default; t=1629774093;
+	bh=0pdeSwwkiZ4WJCfs3mv9Uw92KueRPAR/SaYWYDY+Avg=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=BiRREnea+zcnVVFEpNWg1yksHfd39X6AfRuy0Y1oTmjPQV/1Q1ZpbFGmP5du49BYp
-	 J57qb0/PUWoa21xdUZPMxQ9lpwB0IHnJVT3v5sdUOhQXrYiRlzYkfJILGPN/0Q38zR
-	 EcCk85WC+t64ejuNWw3pwHknakrWtst89WMtLVMc=
+	b=HuLReWmA6b9yWlknVzrBJYPjLNS0ndhXWFMpsa1EWNRUj8G7VgRsrZBLhzXSm80CL
+	 ZLn7HR3jzPh7xyFURHbhRRwaiUIYWi+2QEIH6NTaqNRvRSSNN1LfkpVE3K3Hy3IenO
+	 CiFTLRFVAZ2IsyAPBeRkjXqOSJkHZQEvMGolVwIA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31339F80516;
-	Tue, 24 Aug 2021 04:58:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 005F9F8050F;
+	Tue, 24 Aug 2021 04:58:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5292FF804FE; Tue, 24 Aug 2021 04:58:34 +0200 (CEST)
+ id 406DBF8050F; Tue, 24 Aug 2021 04:58:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -32,31 +32,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1CFE8F80430
- for <alsa-devel@alsa-project.org>; Tue, 24 Aug 2021 04:58:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CFE8F80430
+ by alsa1.perex.cz (Postfix) with ESMTPS id A9A06F804FE
+ for <alsa-devel@alsa-project.org>; Tue, 24 Aug 2021 04:58:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9A06F804FE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="UpwaYs+E"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B7A60611EF;
- Tue, 24 Aug 2021 02:58:23 +0000 (UTC)
+ header.b="EXZWr0NN"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C3FA4611F0;
+ Tue, 24 Aug 2021 02:58:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1629773904;
- bh=05AyD2HAw57NY/tXoMn13DkLFf/ETc4tRXyQKjBHmQY=;
+ s=k20201202; t=1629773909;
+ bh=0pdeSwwkiZ4WJCfs3mv9Uw92KueRPAR/SaYWYDY+Avg=;
  h=From:To:Cc:Subject:Date:From;
- b=UpwaYs+Em0sQvSOY9qsSQb05ensQBg7n8F+pcAHPBZQVmuuuzPpk0rcKV0DKFLF8T
- t78ZYZDdciwwh1Udb7a6bLfdUOc/pcL1wjfrqqlTKIGEF6Y9qAfjYL7T/WFmGNS0CR
- 1OC61WbfmL5sig8ifBXqf9jeuhV5iRLrzr42hU5g/vSOLf+/CpODgipGpjV9QDVHYj
- QZ0OLRDdCMh2cx8gZyZzRxbbETWqyfvWAhHjKR6FTdjIAKdcqGVpwvC900oKWtvZsd
- zojSePTQiIw+hlqUEfBS5+qNc5QK4AljYTTZCX6PQEeEaJkl9FI+2XIesFJt2MyPYs
- uT1sWCoNuhnvw==
+ b=EXZWr0NNk9hcQaRKGAJw4UmBYpS1uFaDi0p0dFCxVfwUX7ZcmDSHDKe2Y5GcYw6F0
+ in1TNZRrVjdcDC9tpJbktYmIFyqOZb+dCZ+lBVoa5fOQtxud2vpGRYXHhHQ2oVLntN
+ qVxsX0rC6WjMhjkdXM+SNptZJGTJjYpHLc4E7w9cZSjhpILFAUnWTFouO+hfjNHmIN
+ 3ngMAkd1BXgdn89irBvdLzHd4I0UUJDTIoFq8upG5H6x6VXI46aK2oIddilgzB+O96
+ fOjHWm78URRLKW3UV0tE5F7b+Pt+x7AiNFb9LNCgaTX5QRlOJbm0gw3w35UgyWEfyW
+ 9NbF96L0JugqQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	kai.heng.feng@canonical.com
-Subject: FAILED: Patch "ALSA: hda/realtek: Limit mic boost on HP ProBook 445
- G8" failed to apply to 4.19-stable tree
-Date: Mon, 23 Aug 2021 22:58:22 -0400
-Message-Id: <20210824025822.659194-1-sashal@kernel.org>
+	kristin@tombom.co.uk
+Subject: FAILED: Patch "ALSA: hda/realtek: Enable 4-speaker output for Dell
+ XPS 15 9510 laptop" failed to apply to 4.14-stable tree
+Date: Mon, 23 Aug 2021 22:58:27 -0400
+Message-Id: <20210824025827.659336-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
@@ -79,7 +79,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch below does not apply to the 4.19-stable tree.
+The patch below does not apply to the 4.14-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
@@ -89,58 +89,36 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8903376dc69949199301b290cc22dc64ae5d8a6d Mon Sep 17 00:00:00 2001
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Date: Wed, 18 Aug 2021 22:41:18 +0800
-Subject: [PATCH] ALSA: hda/realtek: Limit mic boost on HP ProBook 445 G8
+From da94692001ea45ffa1f5e9f17ecdef7aecd90c27 Mon Sep 17 00:00:00 2001
+From: Kristin Paget <kristin@tombom.co.uk>
+Date: Sat, 14 Aug 2021 15:46:05 -0700
+Subject: [PATCH] ALSA: hda/realtek: Enable 4-speaker output for Dell XPS 15
+ 9510 laptop
 
-The mic has lots of noises if mic boost is enabled. So disable mic boost
-to get crystal clear audio capture.
+The 2021-model XPS 15 appears to use the same 4-speakers-on-ALC289 audio
+setup as the Precision models, so requires the same quirk to enable woofer
+output. Tested on my own 9510.
 
-Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Signed-off-by: Kristin Paget <kristin@tombom.co.uk>
 Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/20210818144119.121738-1-kai.heng.feng@canonical.com
+Link: https://lore.kernel.org/r/e1fc95c5-c10a-1f98-a5c2-dd6e336157e1@tombom.co.uk
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/hda/patch_realtek.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 96f32eaa24df..7ad689f991e7 100644
+index a065260d0d20..96f32eaa24df 100644
 --- a/sound/pci/hda/patch_realtek.c
 +++ b/sound/pci/hda/patch_realtek.c
-@@ -6658,6 +6658,7 @@ enum {
- 	ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP,
- 	ALC623_FIXUP_LENOVO_THINKSTATION_P340,
- 	ALC255_FIXUP_ACER_HEADPHONE_AND_MIC,
-+	ALC236_FIXUP_HP_LIMIT_INT_MIC_BOOST,
- };
- 
- static const struct hda_fixup alc269_fixups[] = {
-@@ -8242,6 +8243,12 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC255_FIXUP_XIAOMI_HEADSET_MIC
- 	},
-+	[ALC236_FIXUP_HP_LIMIT_INT_MIC_BOOST] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc269_fixup_limit_int_mic_boost,
-+		.chained = true,
-+		.chain_id = ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF,
-+	},
- };
- 
- static const struct snd_pci_quirk alc269_fixup_tbl[] = {
-@@ -8438,8 +8445,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x8847, "HP EliteBook x360 830 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x884b, "HP EliteBook 840 Aero G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x884c, "HP EliteBook 840 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
--	SND_PCI_QUIRK(0x103c, 0x8862, "HP ProBook 445 G8 Notebook PC", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
--	SND_PCI_QUIRK(0x103c, 0x8863, "HP ProBook 445 G8 Notebook PC", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
-+	SND_PCI_QUIRK(0x103c, 0x8862, "HP ProBook 445 G8 Notebook PC", ALC236_FIXUP_HP_LIMIT_INT_MIC_BOOST),
-+	SND_PCI_QUIRK(0x103c, 0x8863, "HP ProBook 445 G8 Notebook PC", ALC236_FIXUP_HP_LIMIT_INT_MIC_BOOST),
- 	SND_PCI_QUIRK(0x103c, 0x886d, "HP ZBook Fury 17.3 Inch G8 Mobile Workstation PC", ALC285_FIXUP_HP_GPIO_AMP_INIT),
- 	SND_PCI_QUIRK(0x103c, 0x8870, "HP ZBook Fury 15.6 Inch G8 Mobile Workstation PC", ALC285_FIXUP_HP_GPIO_AMP_INIT),
- 	SND_PCI_QUIRK(0x103c, 0x8873, "HP ZBook Studio 15.6 Inch G8 Mobile Workstation PC", ALC285_FIXUP_HP_GPIO_AMP_INIT),
+@@ -8332,6 +8332,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1028, 0x0a2e, "Dell", ALC236_FIXUP_DELL_AIO_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1028, 0x0a30, "Dell", ALC236_FIXUP_DELL_AIO_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1028, 0x0a58, "Dell", ALC255_FIXUP_DELL_HEADSET_MIC),
++	SND_PCI_QUIRK(0x1028, 0x0a61, "Dell XPS 15 9510", ALC289_FIXUP_DUAL_SPK),
+ 	SND_PCI_QUIRK(0x1028, 0x164a, "Dell", ALC293_FIXUP_DELL1_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1028, 0x164b, "Dell", ALC293_FIXUP_DELL1_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x103c, 0x1586, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC2),
 -- 
 2.30.2
 

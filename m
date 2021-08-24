@@ -2,90 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D98E3F5B54
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Aug 2021 11:51:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BCDD3F5B59
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Aug 2021 11:51:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 06178166A;
-	Tue, 24 Aug 2021 11:50:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06178166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id B59CA1677;
+	Tue, 24 Aug 2021 11:51:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B59CA1677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629798698;
-	bh=apx2Fa3T8UrQS7ghJ47hd0ZP0KThGl01D79MiE4pNAw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1629798713;
+	bh=EaYSRKh2tHN1kEXKcJq3BMetCuHyxR5zXHLcOOKbpuI=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nyhQcseB/yEuivfu1cY9ZO4uJgVYZbkrYI5z3Ut3djiay77UJd71XANz5Tum7UZD2
-	 q+0JlDQ6AVpg2gpf/AuU0ZBOg9ZKHY2QVizXRQ432MOWx9YJMDODl3zQCGwjJQe1MX
-	 eJH7pC4gBflyqXGJBVu3f00S0THw5kEpwZXTF4R0=
+	b=O0hzhtp1Am0fBo5u8NqBJ8Hk5uJiyZAvSsvyXVtJ2qhPua9aJ7OvqbfVoGlJIGQd2
+	 jarLKZD4Pn78Wzdt2qj+76TclzfOUA5qcZNR3d+WNcQYFlnaUjotWpGvzESB2GmcTJ
+	 epHi25kXxciRf3v6owY2Q8sopSn40Tw6la26fRbw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94E03F80171;
-	Tue, 24 Aug 2021 11:50:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E625F80424;
+	Tue, 24 Aug 2021 11:51:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 402F3F801D8; Tue, 24 Aug 2021 11:50:46 +0200 (CEST)
+ id 0CFAFF8032D; Tue, 24 Aug 2021 11:51:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 45E1AF80087
- for <alsa-devel@alsa-project.org>; Tue, 24 Aug 2021 11:50:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45E1AF80087
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="dmGnxtda"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="s3RxFW3d"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 19F07220CD;
- Tue, 24 Aug 2021 09:50:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1629798642; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=DDyzcaYbWUJWhdO6lr1mnzZ8oMkqPKz/d7Q23APMcL8=;
- b=dmGnxtdauPqAuzrSbu8Aq+WCSa+FodL+R2DqthPg8gr0bUU/riRd/nA2vu5OZW1bVx7O/6
- FJy7euov502b4qTBCQJSsXMFQwFm2Hwed2QW1pzwCCHVrwlHaVKVEaM1pGQ4Dceuex13VB
- MGObIySzc7r4AamyKBRD0eekhPQwVpU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1629798642;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=DDyzcaYbWUJWhdO6lr1mnzZ8oMkqPKz/d7Q23APMcL8=;
- b=s3RxFW3d1WMiUdqhWNLXzGN6onJezJOjmzehPQIW9t5SwOjsy7ODDpp//M3TV9V82SiNuB
- ZfwfqIVpKIacx1Cw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 110E1A3BC0;
- Tue, 24 Aug 2021 09:50:42 +0000 (UTC)
-Date: Tue, 24 Aug 2021 11:50:42 +0200
-Message-ID: <s5hzgt71899.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: sujith kumar reddy <sujithreddy6192@gmail.com>
-Subject: Re: arecord is failing with -V stereo
-In-Reply-To: <CAAd2w=ZEFrnwC0fdMKUUpaU1XhYztZD-RHECf88+u+H+MNU=hQ@mail.gmail.com>
-References: <CAAd2w=btf3DZLbPuovAC9xo3rizmFeT4iAxJs6zNZwKxOnKT6A@mail.gmail.com>
- <20210819183450.GV890690@belle.intranet.vanheusden.com>
- <CAAd2w=YFhiJJ=4nqo7JfbrqdNWVxvSp06E=1XiHOXV8Kp2sgaQ@mail.gmail.com>
- <20210819190634.GW890690@belle.intranet.vanheusden.com>
- <CAAd2w=Z4rG1UwA6ELzqwr_0TXjQmD0T1izonAJk9-32TSzGchQ@mail.gmail.com>
- <20210823170332.GD890690@belle.intranet.vanheusden.com>
- <CAAd2w=ag-Hk6COSJt5rg-+faz8FKYxTPig9AGhFWUFzGw1Ynvw@mail.gmail.com>
- <20210823184727.GE890690@belle.intranet.vanheusden.com>
- <CAAd2w=adJ3+Rw16ZVbkq72O7D0Dgo1ukHF1DLK6aaN3sGKu3DQ@mail.gmail.com>
- <s5heeaj2rcr.wl-tiwai@suse.de>
- <CAAd2w=ZEFrnwC0fdMKUUpaU1XhYztZD-RHECf88+u+H+MNU=hQ@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, folkert <folkert@vanheusden.com>
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 20713F80087
+ for <alsa-devel@alsa-project.org>; Tue, 24 Aug 2021 11:50:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20713F80087
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1629798654458581924-webhooks-bot@alsa-project.org>
+References: <1629798654458581924-webhooks-bot@alsa-project.org>
+Subject: Timestamp
+Message-Id: <20210824095101.0CFAFF8032D@alsa1.perex.cz>
+Date: Tue, 24 Aug 2021 11:51:01 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,16 +59,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 24 Aug 2021 11:19:46 +0200,
-sujith kumar reddy wrote:
-> 
-> Hi Takashi,
-> 
-> With the above patches -V stereo is working fine.
+alsa-project/alsa-utils pull request #108 was opened from folkertvanheusden:
 
-Good to hear.  The patches have been submitted and merged now.
+Added -T / --timestamp (with parameter "realtime", "monotonic" or "raw")
+    which adds a timestamp before each received message when using --dump.
 
-
-thanks,
-
-Takashi
+Request URL   : https://github.com/alsa-project/alsa-utils/pull/108
+Patch URL     : https://github.com/alsa-project/alsa-utils/pull/108.patch
+Repository URL: https://github.com/alsa-project/alsa-utils

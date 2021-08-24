@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E51E53F564A
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Aug 2021 04:59:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 837A93F564B
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Aug 2021 05:00:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 83F1B15E2;
-	Tue, 24 Aug 2021 04:58:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83F1B15E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id B832D15F2;
+	Tue, 24 Aug 2021 04:59:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B832D15F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629773989;
-	bh=wIcB2ez8VGZy9U25t34S3ecaBGQGmJnMWr9rUr4K4nA=;
+	s=default; t=1629774002;
+	bh=488II47UZumJWOtyj4EvUcbvyJ7tQiCamOi78w36Fwc=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ohVTYnsN26CFR4GuRGAOZqSpfaV1HJQaUX4fZh4TjvsyPyUZIkuAgX/w1z5GbdW2/
-	 LKUACr0Y9KOm45dEUFzssVNkvF+IT67vRQNJKZAtRLR057i7YxoCViPpXLvr+fLiTd
-	 xHthhyA5B2/PM1c83Mt1U0G/ngrht1Tq1Y+T+Aco=
+	b=f3v3805XeuqeeLoq63nQYfgyGnGp7//Lb07DIciSlT+U4ab2Yp3y9QxxVNquBZkQc
+	 hcs3D39aYXIxAw6LlTMC0c6AY11f6NpxBEKcdGAGzhNEqxmr6AQFW1t1e1TYojCguL
+	 2dBRfWnPoZaCT+XpkJtpXiAQVsGAZ7U468a1HQq0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74896F800AE;
-	Tue, 24 Aug 2021 04:58:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1FD2AF804E1;
+	Tue, 24 Aug 2021 04:58:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F1EB7F8025C; Tue, 24 Aug 2021 04:58:06 +0200 (CEST)
+ id 63F24F804B4; Tue, 24 Aug 2021 04:58:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -32,39 +32,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2EB5F800AE
- for <alsa-devel@alsa-project.org>; Tue, 24 Aug 2021 04:58:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2EB5F800AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 29EFBF80087
+ for <alsa-devel@alsa-project.org>; Tue, 24 Aug 2021 04:58:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29EFBF80087
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="MjsEyase"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9C0DB61178;
- Tue, 24 Aug 2021 02:57:58 +0000 (UTC)
+ header.b="GyBIp9ke"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2D7A761181;
+ Tue, 24 Aug 2021 02:58:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1629773879;
- bh=wIcB2ez8VGZy9U25t34S3ecaBGQGmJnMWr9rUr4K4nA=;
+ s=k20201202; t=1629773881;
+ bh=488II47UZumJWOtyj4EvUcbvyJ7tQiCamOi78w36Fwc=;
  h=From:To:Cc:Subject:Date:From;
- b=MjsEyaseETmZFLJHObEwkXaS2rXbFX+XFmVsA7JAUiCj9frm0Rq4QsZY5Aw9ngtte
- bCpZX6L3A3G/eHVRCA2HYk9xvdn3QYQ0izte7BS40JXRhujxpA7BPxx/mpSzA7sae8
- 7dMR3CTWF4JkwUD98nqE0jmebU4ge+qzBkkxYV/l4un9TyQ+p/EJfTWcOusZEhsoOg
- iIi8iZs3LtKRZ8ATVZRkTJ1sNYkbhjKR2KsTVPax9vN4Z9ob/pvkqu4pYktCOimr1j
- NQupBM5gi6iFqwDqCEp6yKifnKMmcH+SWRrUG0V98d3nG+UqM9VfQF7VtGJhHoV1AR
- egkIbkanw8o8g==
+ b=GyBIp9keWfIg+0Ogr66MaefH31DfMefY0jUJ16YZRokaQHEA3YTLrAq1TkLf5QEpj
+ htDNvP94LuDRFVswNST/nP2KzAEsFaewGPlzV5RTIiAXrmQBURQU/1UMaD5ve7eWR8
+ Dy6fVR4ZG4lMd4oBTxMv/pz2tipmOwNiGUfp+P3FrUq+07umxKl2uRIGTS0e6cpVu3
+ tCJF4Lvkn1lVXNeu4ZpjqQu8A4n+lbZF7aHsGBSIQF00SpUet3BpwyJVR6v6PxSAyJ
+ wuZqSQbtqMpKweBUjl+BYA5UAhy1Q6ie78y9w2gj2TFDwuksmXhhQbOE652LZo1bI4
+ dcloxD+R8FZ1w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	srinivas.kandagatla@linaro.org
-Subject: FAILED: Patch "slimbus: ngd: set correct device for pm" failed to
- apply to 5.4-stable tree
-Date: Mon, 23 Aug 2021 22:57:57 -0400
-Message-Id: <20210824025757.658465-1-sashal@kernel.org>
+	kristin@tombom.co.uk
+Subject: FAILED: Patch "ALSA: hda/realtek: Enable 4-speaker output for Dell
+ XPS 15 9510 laptop" failed to apply to 5.4-stable tree
+Date: Mon, 23 Aug 2021 22:57:59 -0400
+Message-Id: <20210824025800.658538-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
 X-stable: review
 Content-Transfer-Encoding: 8bit
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
+Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,66 +89,36 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c0e38eaa8d5102c138e4f16658ea762417d42a8f Mon Sep 17 00:00:00 2001
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Date: Mon, 9 Aug 2021 09:24:27 +0100
-Subject: [PATCH] slimbus: ngd: set correct device for pm
+From da94692001ea45ffa1f5e9f17ecdef7aecd90c27 Mon Sep 17 00:00:00 2001
+From: Kristin Paget <kristin@tombom.co.uk>
+Date: Sat, 14 Aug 2021 15:46:05 -0700
+Subject: [PATCH] ALSA: hda/realtek: Enable 4-speaker output for Dell XPS 15
+ 9510 laptop
 
-For some reason we ended up using wrong device in some places for pm_runtime calls.
-Fix this so that NGG driver can do runtime pm correctly.
+The 2021-model XPS 15 appears to use the same 4-speakers-on-ALC289 audio
+setup as the Precision models, so requires the same quirk to enable woofer
+output. Tested on my own 9510.
 
-Fixes: 917809e2280b ("slimbus: ngd: Add qcom SLIMBus NGD driver")
+Signed-off-by: Kristin Paget <kristin@tombom.co.uk>
 Cc: <stable@vger.kernel.org>
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Link: https://lore.kernel.org/r/20210809082428.11236-4-srinivas.kandagatla@linaro.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Link: https://lore.kernel.org/r/e1fc95c5-c10a-1f98-a5c2-dd6e336157e1@tombom.co.uk
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- drivers/slimbus/qcom-ngd-ctrl.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-index c054e83ab636..f3ee8e036372 100644
---- a/drivers/slimbus/qcom-ngd-ctrl.c
-+++ b/drivers/slimbus/qcom-ngd-ctrl.c
-@@ -618,7 +618,7 @@ static void qcom_slim_ngd_rx(struct qcom_slim_ngd_ctrl *ctrl, u8 *buf)
- 		(mc == SLIM_USR_MC_GENERIC_ACK &&
- 		 mt == SLIM_MSG_MT_SRC_REFERRED_USER)) {
- 		slim_msg_response(&ctrl->ctrl, &buf[4], buf[3], len - 4);
--		pm_runtime_mark_last_busy(ctrl->dev);
-+		pm_runtime_mark_last_busy(ctrl->ctrl.dev);
- 	}
- }
- 
-@@ -1257,13 +1257,14 @@ static int qcom_slim_ngd_enable(struct qcom_slim_ngd_ctrl *ctrl, bool enable)
- 		}
- 		/* controller state should be in sync with framework state */
- 		complete(&ctrl->qmi.qmi_comp);
--		if (!pm_runtime_enabled(ctrl->dev) ||
--				!pm_runtime_suspended(ctrl->dev))
--			qcom_slim_ngd_runtime_resume(ctrl->dev);
-+		if (!pm_runtime_enabled(ctrl->ctrl.dev) ||
-+			 !pm_runtime_suspended(ctrl->ctrl.dev))
-+			qcom_slim_ngd_runtime_resume(ctrl->ctrl.dev);
- 		else
--			pm_runtime_resume(ctrl->dev);
--		pm_runtime_mark_last_busy(ctrl->dev);
--		pm_runtime_put(ctrl->dev);
-+			pm_runtime_resume(ctrl->ctrl.dev);
-+
-+		pm_runtime_mark_last_busy(ctrl->ctrl.dev);
-+		pm_runtime_put(ctrl->ctrl.dev);
- 
- 		ret = slim_register_controller(&ctrl->ctrl);
- 		if (ret) {
-@@ -1389,7 +1390,7 @@ static int qcom_slim_ngd_ssr_pdr_notify(struct qcom_slim_ngd_ctrl *ctrl,
- 		/* Make sure the last dma xfer is finished */
- 		mutex_lock(&ctrl->tx_lock);
- 		if (ctrl->state != QCOM_SLIM_NGD_CTRL_DOWN) {
--			pm_runtime_get_noresume(ctrl->dev);
-+			pm_runtime_get_noresume(ctrl->ctrl.dev);
- 			ctrl->state = QCOM_SLIM_NGD_CTRL_DOWN;
- 			qcom_slim_ngd_down(ctrl);
- 			qcom_slim_ngd_exit_dma(ctrl);
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index a065260d0d20..96f32eaa24df 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -8332,6 +8332,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1028, 0x0a2e, "Dell", ALC236_FIXUP_DELL_AIO_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1028, 0x0a30, "Dell", ALC236_FIXUP_DELL_AIO_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1028, 0x0a58, "Dell", ALC255_FIXUP_DELL_HEADSET_MIC),
++	SND_PCI_QUIRK(0x1028, 0x0a61, "Dell XPS 15 9510", ALC289_FIXUP_DUAL_SPK),
+ 	SND_PCI_QUIRK(0x1028, 0x164a, "Dell", ALC293_FIXUP_DELL1_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1028, 0x164b, "Dell", ALC293_FIXUP_DELL1_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x103c, 0x1586, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC2),
 -- 
 2.30.2
 

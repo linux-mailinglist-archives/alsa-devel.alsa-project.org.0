@@ -2,73 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAAAF3F57C9
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Aug 2021 07:58:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF2B73F57FA
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Aug 2021 08:12:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A92F86F;
-	Tue, 24 Aug 2021 07:57:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A92F86F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C4C6851;
+	Tue, 24 Aug 2021 08:12:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C4C6851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629784729;
-	bh=qLMOO1jMMBRdK55C26eSkIyPe219ArWnXtKBobVppOA=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=YaTeOLsOHZdF3cxQgEaqSSv02BcHoPoSI9gz+YqNCu/T7wAfJfy9rignTUyZGrCkQ
-	 mwsn6aqRjN9ArhkRviHvEeCUKgoCzpzqK6XcDMdJAQcm07rf8o5FxcNwWjV0z3Q+Z5
-	 hh6okF1jOc/vt4pj1npGzdkC+LGYXlUOjafb1hFI=
+	s=default; t=1629785578;
+	bh=5qRR8gTe18uuarB0skk8Ku2YBTzAKCpKV2WKFIdFYYM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=A25OtP2k2N+5xdWSnhgwE7gm4Elj5gNnLDTTuhv15DF37FM19b1/YT0sjfD3yzOVA
+	 FxdF+1mPc9My6wWWP5w96qEej7nYQEf3+H5h0MOanW4PNyTFpF+/awT2dg18ZeooG9
+	 atIYdYKHvPnAbWs1vbro3soCrtrdnr+b5zGeOjbg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75117F80087;
-	Tue, 24 Aug 2021 07:57:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A34FDF80171;
+	Tue, 24 Aug 2021 08:11:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 79526F801D8; Tue, 24 Aug 2021 07:57:29 +0200 (CEST)
+ id 1691EF801D5; Tue, 24 Aug 2021 08:11:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,HTML_MESSAGE,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3F82F80171
- for <alsa-devel@alsa-project.org>; Tue, 24 Aug 2021 07:57:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3F82F80171
+ by alsa1.perex.cz (Postfix) with ESMTPS id DF5DBF80171
+ for <alsa-devel@alsa-project.org>; Tue, 24 Aug 2021 08:11:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF5DBF80171
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="t7FHZ7BY"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="FI3lB8w4"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 3307A21FFD
- for <alsa-devel@alsa-project.org>; Tue, 24 Aug 2021 05:57:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1629784641; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=L580n69deo1opaNjUQcKX8H6/UDjpmXf2hUfYt/uOqo=;
- b=t7FHZ7BY/ZqTlOqLF87V/F4aTPBlt43BCcFYiKmcJ72sq82LpdsEFiv8UySirzyRk/l8eE
- fl7qAqG27qV8TX3Oh7Y4hGavDRKJIJQ+kWexT8eCKBc+QcQchXl2L6nhaSx/MVlpGtiWaC
- Aw5eH24Z4igpfdlm+oB3z4W6xEhsihc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1629784641;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=L580n69deo1opaNjUQcKX8H6/UDjpmXf2hUfYt/uOqo=;
- b=FI3lB8w4u9Lvzp5qOGOmkHZnFqg2Y9hzUzi4nA0RaWWpWLNiUJL34qkhQdB+w+szE+c5Uf
- JkERNK8+HaybmKBg==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 1DB6DA3B87;
- Tue, 24 Aug 2021 05:57:21 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH for-5.15] ALSA: usb-audio: Move set-interface-first workaround
- into common quirk
-Date: Tue, 24 Aug 2021 07:57:20 +0200
-Message-Id: <20210824055720.9240-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="aZWQE88w"
+Received: by mail-lf1-x12a.google.com with SMTP id r9so43086123lfn.3
+ for <alsa-devel@alsa-project.org>; Mon, 23 Aug 2021 23:11:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Z2RDDCH6+2HODtOE6diP60eLSIEZPIZ3uXM8lT1PrOM=;
+ b=aZWQE88wVjjh/y05EZTAKuNErT4uZ8RaEdqQmhcPSZl8KF59Z8pTj4JVOL49qYwRE6
+ N7a2eXAPsFZdrpiCDTxJ6kJlgGz6Z64YRVSKuQWPG4SZ2yi2y8GFuy8UIy4Ky9U9Pmvw
+ uWZF595wDEvqSwRuijE6nDn5NnmQpXdd14vi/1zWZn5TGNoi06Z7UltN3GZHHa+B+uev
+ QNXsrtZc8sYsVKedEd80PZ/7xHY0dXB/r2SZykdhZ/1++VDh2F2MNxSbAC8y0jm6xuPx
+ n3mp/JqcqyhsOMK9IgkEDFfk/fcup0Z6f5mq/F+85VA4uuwdkOdzdNaCv+FUfZNM20Ao
+ ar/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Z2RDDCH6+2HODtOE6diP60eLSIEZPIZ3uXM8lT1PrOM=;
+ b=HN4+MhrhYv55fFlmg4y7Ex/oPcdF5k2TE0bJS+KCHKDIIexgpjnqW35uVqOFJpqI3P
+ EZLta64BtU6HnMxq5TCXCUd21HUg4/JGJdAmywfx7WAcDPoFTFYNQrlhoa8H172zaBO1
+ 1UjHPYpimyIL6IP0QnZfjMmgWQfZ0qv5EeqbTJSHOhCEfg92tKi+r3Yo/u8yDXmGm7V+
+ 8rFvmJzZsyTO8w1hti5ZcyfXLU188zyKjxpFwWh+pfTyW8bfqVjfkHKF4mWw6caqzTEW
+ AFgVZ5V82qcAO2a4LYt+ixLANaoEJM1NJMQ5XWQh2RyDFUchSg/2vX+rVco98WOfIyG3
+ c/Yw==
+X-Gm-Message-State: AOAM533RToV/wGiEB+7X4v2yfQPIf0o/q8oUuNtzKWArglTxEZYXaVsy
+ ZiM8UgwJYyDgOK27xg8TD1XplczBrg+00JjPDMs=
+X-Google-Smtp-Source: ABdhPJy2QMIRJhOH/NxkPQcmuob+hB5dkLVMqn1g+v8i+4HoJ/YlgO9TdnOtqvafXgr+Z+E5xuEIzWytSrLvixUaPXY=
+X-Received: by 2002:ac2:5470:: with SMTP id e16mr27766077lfn.399.1629785485187; 
+ Mon, 23 Aug 2021 23:11:25 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20210819183450.GV890690@belle.intranet.vanheusden.com>
+ <CAAd2w=YFhiJJ=4nqo7JfbrqdNWVxvSp06E=1XiHOXV8Kp2sgaQ@mail.gmail.com>
+ <20210819190634.GW890690@belle.intranet.vanheusden.com>
+ <CAAd2w=Z4rG1UwA6ELzqwr_0TXjQmD0T1izonAJk9-32TSzGchQ@mail.gmail.com>
+ <20210823170332.GD890690@belle.intranet.vanheusden.com>
+ <CAAd2w=ag-Hk6COSJt5rg-+faz8FKYxTPig9AGhFWUFzGw1Ynvw@mail.gmail.com>
+ <20210823184727.GE890690@belle.intranet.vanheusden.com>
+ <CAAd2w=adJ3+Rw16ZVbkq72O7D0Dgo1ukHF1DLK6aaN3sGKu3DQ@mail.gmail.com>
+ <20210823190853.GF890690@belle.intranet.vanheusden.com>
+ <CAAd2w=YDc9O7keXFSo++_B51TKbiBABVDbbCW=Mst8-W1FcCqg@mail.gmail.com>
+ <20210823201640.GG890690@belle.intranet.vanheusden.com>
+ <CAAd2w=afs7GtaVNNT_PbP6j7feGD=0e0o+8=eC-AUNmJASFoHA@mail.gmail.com>
+In-Reply-To: <CAAd2w=afs7GtaVNNT_PbP6j7feGD=0e0o+8=eC-AUNmJASFoHA@mail.gmail.com>
+From: sujith kumar reddy <sujithreddy6192@gmail.com>
+Date: Tue, 24 Aug 2021 11:41:13 +0530
+Message-ID: <CAAd2w=YcOAj++17hza+mRp25s2WioUSM5-6g+9HnidCpsJ-rXg@mail.gmail.com>
+Subject: Re: arecord is failing with -V stereo
+To: folkert <folkert@vanheusden.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,82 +106,243 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The recent quirk for WALKMAN (commit 7af5a14371c1: "ALSA: usb-audio:
-Fix regression on Sony WALKMAN NW-A45 DAC") may be required for other
-devices and is worth to be put into the common quirk flags.
-This patch adds a new quirk flag bit QUIRK_FLAG_SET_IFACE_FIRST and a
-quirk table entry for the device.
+Hi folkert,
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- Documentation/sound/alsa-configuration.rst | 1 +
- sound/usb/endpoint.c                       | 6 ++----
- sound/usb/quirks.c                         | 2 ++
- sound/usb/usbaudio.h                       | 3 +++
- 4 files changed, 8 insertions(+), 4 deletions(-)
+Are you going to submit the fix  .
 
-diff --git a/Documentation/sound/alsa-configuration.rst b/Documentation/sound/alsa-configuration.rst
-index e3c33b8d6d78..65f61695f561 100644
---- a/Documentation/sound/alsa-configuration.rst
-+++ b/Documentation/sound/alsa-configuration.rst
-@@ -2278,6 +2278,7 @@ quirk_flags
-         * bit 13: Disable runtime PM autosuspend
-         * bit 14: Ignore errors for mixer access
-         * bit 15: Support generic DSD raw U32_BE format
-+        * bit 16: Set up the interface at first like UAC1
- 
- This module supports multiple devices, autoprobe and hotplugging.
- 
-diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
-index e6d58d7674a0..79a8c569c62b 100644
---- a/sound/usb/endpoint.c
-+++ b/sound/usb/endpoint.c
-@@ -1293,10 +1293,8 @@ int snd_usb_endpoint_configure(struct snd_usb_audio *chip,
- 	 * to be set up before parameter setups
- 	 */
- 	iface_first = ep->cur_audiofmt->protocol == UAC_VERSION_1;
--	/* Workaround for Sony WALKMAN NW-A45 DAC;
--	 * it requires the interface setup at first like UAC1
--	 */
--	if (chip->usb_id == USB_ID(0x054c, 0x0b8c))
-+	/* Workaround for devices that require the interface setup at first like UAC1 */
-+	if (chip->quirk_flags & QUIRK_FLAG_SET_IFACE_FIRST)
- 		iface_first = true;
- 	if (iface_first) {
- 		err = endpoint_set_interface(chip, ep, true);
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 670abc6318f2..4479a590194f 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -1790,6 +1790,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
- 		   QUIRK_FLAG_GET_SAMPLE_RATE),
- 	DEVICE_FLG(0x04e8, 0xa051, /* Samsung USBC Headset (AKG) */
- 		   QUIRK_FLAG_SKIP_CLOCK_SELECTOR | QUIRK_FLAG_CTL_MSG_DELAY_5M),
-+	DEVICE_FLG(0x054c, 0x0b8c, /* Sony WALKMAN NW-A45 DAC */
-+		   QUIRK_FLAG_SET_IFACE_FIRST),
- 	DEVICE_FLG(0x0556, 0x0014, /* Phoenix Audio TMX320VC */
- 		   QUIRK_FLAG_GET_SAMPLE_RATE),
- 	DEVICE_FLG(0x05a3, 0x9420, /* ELP HD USB Camera */
-diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
-index 4e93668a2a48..94261d19cceb 100644
---- a/sound/usb/usbaudio.h
-+++ b/sound/usb/usbaudio.h
-@@ -161,6 +161,8 @@ extern bool snd_usb_skip_validation;
-  *  Ignore errors for mixer access
-  * QUIRK_FLAG_DSD_RAW:
-  *  Support generic DSD raw U32_BE format
-+ * QUIRK_FLAG_SET_IFACE_FIRST:
-+ *  Set up the interface at first like UAC1
-  */
- 
- #define QUIRK_FLAG_GET_SAMPLE_RATE	(1U << 0)
-@@ -179,5 +181,6 @@ extern bool snd_usb_skip_validation;
- #define QUIRK_FLAG_DISABLE_AUTOSUSPEND	(1U << 13)
- #define QUIRK_FLAG_IGNORE_CTL_ERROR	(1U << 14)
- #define QUIRK_FLAG_DSD_RAW		(1U << 15)
-+#define QUIRK_FLAG_SET_IFACE_FIRST	(1U << 16)
- 
- #endif /* __USBAUDIO_H */
--- 
-2.31.1
+Thanks
+Sujith
 
+On Tue, Aug 24, 2021 at 6:45 AM sujith kumar reddy <
+sujithreddy6192@gmail.com> wrote:
+
+> Ok thank you folkert .
+>
+>
+>
+> On Tue, 24 Aug, 2021, 1:46 AM folkert, <folkert@vanheusden.com> wrote:
+>
+>> p=3D0 is more correct I think
+>>
+>> this is application only
+>>
+>> On Tue, Aug 24, 2021 at 01:03:27AM +0530, sujith kumar reddy wrote:
+>> > Hi folkert,
+>> >
+>> > The above you suggested p=3D0 is  working .
+>> > i tried like
+>> >  if (p > bar_length || p < 0)
+>> >        p =3D bar_length;
+>> > This is also working.
+>> >
+>> > Which is the perfect one we can use?
+>> > Is there any impact of p with driver data or this is just a
+>> > application calculated value.
+>> >
+>> > Thanks
+>> > Sujith
+>> >
+>> >
+>> > On Tue, Aug 24, 2021 at 12:39 AM folkert <folkert@vanheusden.com>
+>> wrote:
+>> >
+>> > > :-)
+>> > >
+>> > > If this also doesn't work, then I give up.
+>> > >
+>> > > diff --git a/aplay/aplay.c b/aplay/aplay.c
+>> > > index cc51dcb..03a4f73 100644
+>> > > --- a/aplay/aplay.c
+>> > > +++ b/aplay/aplay.c
+>> > > @@ -1753,8 +1753,10 @@ static void print_vu_meter_stereo(int *perc,
+>> int
+>> > > *maxperc)
+>> > >         for (c =3D 0; c < 2; c++) {
+>> > >                 int p =3D perc[c] * bar_length / 100;
+>> > >                 char tmp[4];
+>> > > -               if (p > bar_length)
+>> > > -                       p =3D bar_length;
+>> > > +               if (p >=3D bar_length)
+>> > > +                       p =3D bar_length - 1;
+>> > > +               if (p < 0)
+>> > > +                       p =3D 0;
+>> > >                 if (c)
+>> > >                         memset(line + bar_length + 6 + 1, '#', p);
+>> > >                 else
+>> > >
+>> > > On Tue, Aug 24, 2021 at 12:36:05AM +0530, sujith kumar reddy wrote:
+>> > > > Hi Folkert,
+>> > > >
+>> > > > Tried with the above code.This is also getting p value negative.
+>> > > >
+>> > > > My point is p is negative it doesn't go to
+>> > > >
+>> > > > if (p >=3D bar_length)
+>> > > >              p =3D bar_length - 1;
+>> > > > it is going to memset second argument p,that is negative so
+>> crashing.
+>> > > >
+>> > > >
+>> > > > logs:
+>> > > > localhost ~ # ./sujith/arecord -D hw:1,2 -f S32_LE -r 48000 -c 2
+>> 1.wav
+>> > > -V s
+>> > > > Sujith entry: main
+>> > > > Recording WAVE '1.wav' : Signed 32 bit Little Endian, Rate 48000 H=
+z,
+>> > > Stereo
+>> > > >
+>> > > >  print_vu_meter_stereo sujith 35  ////////////////////////// c=3D0
+>> case
+>> > > >  print_vu_meter_stereo sujith* -9227433* /////////////////////c=3D=
+1
+>> case p
+>> > > > value negative which is going to memset second argument.
+>> > > >
+>> > > > Thanks
+>> > > > Sujith
+>> > > >
+>> > > >
+>> > > >
+>> > > > On Tue, Aug 24, 2021 at 12:17 AM folkert <folkert@vanheusden.com>
+>> wrote:
+>> > > >
+>> > > > > Ah same bug.
+>> > > > > Please try this.
+>> > > > > The idea is that in both cases the extra '-1' breaks it.
+>> > > > >
+>> > > > > diff --git a/aplay/aplay.c b/aplay/aplay.c
+>> > > > > index cc51dcb..47db7e7 100644
+>> > > > > --- a/aplay/aplay.c
+>> > > > > +++ b/aplay/aplay.c
+>> > > > > @@ -1753,8 +1753,8 @@ static void print_vu_meter_stereo(int
+>> *perc, int
+>> > > > > *maxperc)
+>> > > > >         for (c =3D 0; c < 2; c++) {
+>> > > > >                 int p =3D perc[c] * bar_length / 100;
+>> > > > >                 char tmp[4];
+>> > > > > -               if (p > bar_length)
+>> > > > > -                       p =3D bar_length;
+>> > > > > +               if (p >=3D bar_length)
+>> > > > > +                       p =3D bar_length - 1;
+>> > > > >                 if (c)
+>> > > > >                         memset(line + bar_length + 6 + 1, '#', p=
+);
+>> > > > >                 else
+>> > > > >
+>> > > > >
+>> > > > > On Tue, Aug 24, 2021 at 12:14:00AM +0530, sujith kumar reddy
+>> wrote:
+>> > > > > > Tried with the above code.This is also getting p value negativ=
+e.
+>> > > > > >
+>> > > > > > snippet code:
+>> > > > > >
+>> > > > > >    fprintf(stderr, _(" %s sujith %d \n"), __func__,p);
+>> > > > > >                 if (p > bar_length)
+>> > > > > >                         p =3D bar_length;
+>> > > > > >                 if (c)
+>> > > > > >                         memset(line + bar_length + 6 + 1, '#',
+>> p);
+>> > > > > >                 else
+>> > > > > >                         memset(line + bar_length - p - 1, '#',
+>> p);
+>> > > > > >
+>> > > > > >
+>> > > > > > logs....
+>> > > > > > //  c=3D0 case
+>> > > > > >
+>> > > > > > print_vu_meter_stereo sujith 35  ///value of p is 35
+>> > > > > > c =3D1 case
+>> > > > > >
+>> > > > > >  print_vu_meter_stereo sujith -9227433 ///value is negative//
+>> > > > > >
+>> > > > > > On Mon, Aug 23, 2021 at 10:33 PM folkert <
+>> folkert@vanheusden.com>
+>> > > wrote:
+>> > > > > >
+>> > > > > > > >         const int bar_length =3D 35;
+>> > > > > > > >         char line[80];
+>> > > > > > > ...
+>> > > > > > > >                 if (p > bar_length)
+>> > > > > > > >                         p =3D bar_length;
+>> > > > > > > >                 if (c)
+>> > > > > > > >                         memset(line + bar_length + 6 + 1,
+>> '#',
+>> > > p);
+>> > > > > > > > ----------------//this is the line where it is
+>> crashing.here p
+>> > > value
+>> > > > > is
+>> > > > > > > > becoming negative at c=3D1.As we see if we change the p va=
+lue
+>> to
+>> > > > > bar_length
+>> > > > > > > > it works fine ..As it is a player issue not a driver issue=
+.
+>> > > > > > >
+>> > > > > > > This is puzzling.
+>> > > > > > > bar_length + 6 + 1 + p and thus 35 + 6 + 1 + 35 is max 77,
+>> that
+>> > > fits
+>> > > > > > > easlity in 80.
+>> > > > > > >
+>> > > > > > > But wait:
+>> > > > > > >
+>> > > > > > >                         line[bar_length - p - 1] =3D '+';
+>> > > > > > >
+>> > > > > > > p is max bar_length, so we would end up putting '+' in
+>> line[-1]
+>> > > > > > >
+>> > > > > > > Can you try this?
+>> > > > > > >
+>> > > > > > >
+>> > > > > > > diff --git a/aplay/aplay.c b/aplay/aplay.c
+>> > > > > > > index cc51dcb..9cfd52c 100644
+>> > > > > > > --- a/aplay/aplay.c
+>> > > > > > > +++ b/aplay/aplay.c
+>> > > > > > > @@ -1764,7 +1764,7 @@ static void print_vu_meter_stereo(int
+>> *perc,
+>> > > int
+>> > > > > > > *maxperc)
+>> > > > > > >                         p =3D bar_length;
+>> > > > > > >                 if (c)
+>> > > > > > >                         line[bar_length + 6 + 1 + p] =3D '+'=
+;
+>> > > > > > > -               else
+>> > > > > > > +               else if (p < bar_length)
+>> > > > > > >                         line[bar_length - p - 1] =3D '+';
+>> > > > > > >                 if (ABS(maxperc[c]) > 99)
+>> > > > > > >                         sprintf(tmp, "MAX");
+>> > > > > > >
+>> > > > >
+>> > >
+>> > >
+>> > > Folkert van Heusden
+>> > >
+>> > > --
+>> > > Multitail es una herramienta flexible que permite visualizar los "lo=
+g
+>> > > file" y seguir la ejecuci=C3=B3n de comandos. Permite filtrar, a=C3=
+=B1adir
+>> > > colores, combinar archivos, la visualizaci=C3=B3n de diferencias (di=
+ff-
+>> > > view), etc.  http://www.vanheusden.com/multitail/
+>> > > --------------------------------------------------------------------=
+--
+>> > > Phone: +31-6-41278122, PGP-key: 1F28D8AE, www.vanheusden.com
+>> > >
+>>
+>>
+>> Folkert van Heusden
+>>
+>> --
+>> Multitail es una herramienta flexible que permite visualizar los "log
+>> file" y seguir la ejecuci=C3=B3n de comandos. Permite filtrar, a=C3=B1ad=
+ir
+>> colores, combinar archivos, la visualizaci=C3=B3n de diferencias (diff-
+>> view), etc.  http://www.vanheusden.com/multitail/
+>> ----------------------------------------------------------------------
+>> Phone: +31-6-41278122, PGP-key: 1F28D8AE, www.vanheusden.com
+>>
+>

@@ -2,75 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBC893F5980
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Aug 2021 09:56:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CAE53F59BA
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Aug 2021 10:14:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4FF1084A;
-	Tue, 24 Aug 2021 09:55:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FF1084A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A05586F;
+	Tue, 24 Aug 2021 10:13:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A05586F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629791764;
-	bh=JSHuNWGMfkaqkZtpuoO02ACavIklAapSo3HK9o4D9v4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1629792858;
+	bh=/jTQiM15hGHds78+T+SjbreWiGpjU6SYo9CZn+6oAm8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=C9UjoxgZ3r8WHOaTM2Y9OWcPmyLfCi1cDOwauCQp3vcO/7WBH0fG/bP2PKNvHoYZa
-	 7Pg5CMzfmnczyyOADHP14z8LWKlEQqlUu4qy15yQLnM20hkleBwqwgE0bOrGqq/HN9
-	 USRMj6RkoxaI1XH2vi8A7u4goiWhaUht5gOsl6Dg=
+	b=XtFwdnIQTpcrIF3CN4E3Vz7GIMO1EdmzzIGLiUU7OimmsOHlS5/kPTpHImski0/aH
+	 ve5M6iskmIeeDBvO/cybtd91mzjMQWaR59dWlgD0TBCV3vJ2far8WKIe0MZAx3Eb8r
+	 cA3EIEdDdbrUXTARy+XPQBrho5ianu6xD69mpuPo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2BBBEF80424;
-	Tue, 24 Aug 2021 09:54:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3BBAF80171;
+	Tue, 24 Aug 2021 10:13:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BE7B9F8032D; Tue, 24 Aug 2021 09:54:35 +0200 (CEST)
+ id B14B2F801D8; Tue, 24 Aug 2021 10:12:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from lucky1.263xmail.com (lucky1.263xmail.com [211.157.147.131])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: **
+X-Spam-Status: No, score=2.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_APP_ATTACH,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3EA6F80171
- for <alsa-devel@alsa-project.org>; Tue, 24 Aug 2021 09:54:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3EA6F80171
-Received: from localhost (unknown [192.168.167.70])
- by lucky1.263xmail.com (Postfix) with ESMTP id 4C356C2AC7;
- Tue, 24 Aug 2021 15:54:22 +0800 (CST)
-X-MAIL-GRAY: 0
-X-MAIL-DELIVERY: 1
-X-ADDR-CHECKED4: 1
-X-SKE-CHECKED: 1
-X-ANTISPAM-LEVEL: 2
-Received: from localhost.localdomain (unknown [58.22.7.114])
- by smtp.263.net (postfix) whith ESMTP id
- P22778T140142459205376S1629791658930605_; 
- Tue, 24 Aug 2021 15:54:21 +0800 (CST)
-X-IP-DOMAINF: 1
-X-UNIQUE-TAG: <a8e91a1fa888746d1ed6c86e2633ae26>
-X-RL-SENDER: sugar.zhang@rock-chips.com
-X-SENDER: zxg@rock-chips.com
-X-LOGIN-NAME: sugar.zhang@rock-chips.com
-X-FST-TO: broonie@kernel.org
-X-RCPT-COUNT: 6
-X-SENDER-IP: 58.22.7.114
-X-ATTACHMENT-NUM: 0
-X-System-Flag: 0
-From: Sugar Zhang <sugar.zhang@rock-chips.com>
-To: broonie@kernel.org,
-	heiko@sntech.de
-Subject: [PATCH v1 7/7] ASoC: dt-bindings: rockchip: Convert pdm bindings to
- yaml
-Date: Tue, 24 Aug 2021 15:54:16 +0800
-Message-Id: <1629791656-13698-2-git-send-email-sugar.zhang@rock-chips.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1629791446-13528-1-git-send-email-sugar.zhang@rock-chips.com>
-References: <1629791446-13528-1-git-send-email-sugar.zhang@rock-chips.com>
-Cc: Sugar Zhang <sugar.zhang@rock-chips.com>,
- linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 594E3F800AE
+ for <alsa-devel@alsa-project.org>; Tue, 24 Aug 2021 10:12:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 594E3F800AE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="wmc6LN5M"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="EaAmUVec"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 3E65120048;
+ Tue, 24 Aug 2021 08:12:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1629792772; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=p9sZP1YVMTWDd+QkGlDT4t5DlwUwdDbgOZUeMJpE1Y4=;
+ b=wmc6LN5MBBhpH4fdhTv5oY/p8aPyh1zxXWXXFocOz0cLDADQWpTWW7yfRGHbGkYZMhQNHZ
+ I642G0DRQ1mrDAIpDdIsMPTQOxsqkfih0e8zNRmmFVecAjq7aJrKU6v2DAOuy6dwS0ustx
+ UMrT6enTVvz7ye1bVDHWXWqxJjZBTpw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1629792772;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=p9sZP1YVMTWDd+QkGlDT4t5DlwUwdDbgOZUeMJpE1Y4=;
+ b=EaAmUVecqGDVZBDshHvFFyo8MPRoPQp1UtY4FXtKUtWwEdbGNrfias4MKKgI3h4kl74qYs
+ 7FIDpMzqx3GcCEDg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 3207DA3BBA;
+ Tue, 24 Aug 2021 08:12:52 +0000 (UTC)
+Date: Tue, 24 Aug 2021 10:12:52 +0200
+Message-ID: <s5heeaj2rcr.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: sujith kumar reddy <sujithreddy6192@gmail.com>
+Subject: Re: arecord is failing with -V stereo
+In-Reply-To: <CAAd2w=adJ3+Rw16ZVbkq72O7D0Dgo1ukHF1DLK6aaN3sGKu3DQ@mail.gmail.com>
+References: <CAAd2w=btf3DZLbPuovAC9xo3rizmFeT4iAxJs6zNZwKxOnKT6A@mail.gmail.com>
+ <20210819183450.GV890690@belle.intranet.vanheusden.com>
+ <CAAd2w=YFhiJJ=4nqo7JfbrqdNWVxvSp06E=1XiHOXV8Kp2sgaQ@mail.gmail.com>
+ <20210819190634.GW890690@belle.intranet.vanheusden.com>
+ <CAAd2w=Z4rG1UwA6ELzqwr_0TXjQmD0T1izonAJk9-32TSzGchQ@mail.gmail.com>
+ <20210823170332.GD890690@belle.intranet.vanheusden.com>
+ <CAAd2w=ag-Hk6COSJt5rg-+faz8FKYxTPig9AGhFWUFzGw1Ynvw@mail.gmail.com>
+ <20210823184727.GE890690@belle.intranet.vanheusden.com>
+ <CAAd2w=adJ3+Rw16ZVbkq72O7D0Dgo1ukHF1DLK6aaN3sGKu3DQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: multipart/mixed; boundary="Multipart_Tue_Aug_24_10:12:52_2021-1"
+Cc: alsa-devel@alsa-project.org, folkert <folkert@vanheusden.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,209 +100,251 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch converts pdm bindings to yaml.
+--Multipart_Tue_Aug_24_10:12:52_2021-1
+Content-Type: text/plain; charset=US-ASCII
 
-Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
+On Mon, 23 Aug 2021 21:06:05 +0200,
+sujith kumar reddy wrote:
+> 
+> Hi Folkert,
+> 
+> Tried with the above code.This is also getting p value negative.
+> 
+> My point is p is negative it doesn't go to
+> 
+> if (p >= bar_length)
+>              p = bar_length - 1;
+> it is going to memset second argument p,that is negative so crashing.
+
+Gah, the code there contains lots of craps.  A negative value must not
+have been passed there.
+
+Below is a series of fixes.  Please give it a try.
+
+
+thanks,
+
+Takashi
+
+--Multipart_Tue_Aug_24_10:12:52_2021-1
+Content-Type: application/octet-stream; type=patch
+Content-Disposition: attachment; filename="0001-aplay-Fix-conversion-of-unsigned-samples-in-peak-cal.patch"
+Content-Transfer-Encoding: 7bit
+
+From 0ea7bfea83d97fefd18845948350322017a865c2 Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Tue, 24 Aug 2021 09:00:40 +0200
+Subject: [PATCH 1/5] aplay: Fix conversion of unsigned samples in peak
+ calculation
+
+The XOR with the mask has to be applied before calculating abs value.
+
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
+ aplay/aplay.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
- .../devicetree/bindings/sound/rockchip,pdm.txt     |  64 ------------
- .../devicetree/bindings/sound/rockchip,pdm.yaml    | 114 +++++++++++++++++++++
- 2 files changed, 114 insertions(+), 64 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/rockchip,pdm.txt
- create mode 100644 Documentation/devicetree/bindings/sound/rockchip,pdm.yaml
-
-diff --git a/Documentation/devicetree/bindings/sound/rockchip,pdm.txt b/Documentation/devicetree/bindings/sound/rockchip,pdm.txt
-deleted file mode 100644
-index b2d7e47..0000000
---- a/Documentation/devicetree/bindings/sound/rockchip,pdm.txt
-+++ /dev/null
-@@ -1,64 +0,0 @@
--* Rockchip PDM controller
--
--Required properties:
--
--- compatible: "rockchip,pdm"
--  - "rockchip,px30-pdm"
--  - "rockchip,rk1808-pdm"
--  - "rockchip,rk3308-pdm"
--  - "rockchip,rk3568-pdm"
--  - "rockchip,rv1126-pdm"
--- reg: physical base address of the controller and length of memory mapped
--  region.
--- dmas: DMA specifiers for rx dma. See the DMA client binding,
--	Documentation/devicetree/bindings/dma/dma.txt
--- dma-names: should include "rx".
--- clocks: a list of phandle + clock-specifer pairs, one for each entry in clock-names.
--- clock-names: should contain following:
--   - "pdm_hclk": clock for PDM BUS
--   - "pdm_clk" : clock for PDM controller
--- resets: a list of phandle + reset-specifer paris, one for each entry in reset-names.
--- reset-names: reset names, should include "pdm-m".
--- pinctrl-names: Must contain a "default" entry.
--- pinctrl-N: One property must exist for each entry in
--	     pinctrl-names. See ../pinctrl/pinctrl-bindings.txt
--	     for details of the property values.
--
--Optional properties:
--- rockchip,path-map: This is a variable length array, that shows the mapping
--  of SDIx to PATHx. By default, they are one-to-one mapping as follows:
--
--   path0 <-- sdi0
--   path1 <-- sdi1
--   path2 <-- sdi2
--   path3 <-- sdi3
--
--  e.g. "rockchip,path-map = <3 2 1 0>" means the mapping as follows:
--
--   path0 <-- sdi3
--   path1 <-- sdi2
--   path2 <-- sdi1
--   path3 <-- sdi0
--
--Example for rk3328 PDM controller:
--
--pdm: pdm@ff040000 {
--	compatible = "rockchip,pdm";
--	reg = <0x0 0xff040000 0x0 0x1000>;
--	clocks = <&clk_pdm>, <&clk_gates28 0>;
--	clock-names = "pdm_clk", "pdm_hclk";
--	dmas = <&pdma 16>;
--	#dma-cells = <1>;
--	dma-names = "rx";
--	pinctrl-names = "default", "sleep";
--	pinctrl-0 = <&pdmm0_clk
--		     &pdmm0_sdi0
--		     &pdmm0_sdi1
--		     &pdmm0_sdi2
--		     &pdmm0_sdi3>;
--	pinctrl-1 = <&pdmm0_clk_sleep
--		     &pdmm0_sdi0_sleep
--		     &pdmm0_sdi1_sleep
--		     &pdmm0_sdi2_sleep
--		     &pdmm0_sdi3_sleep>;
--};
-diff --git a/Documentation/devicetree/bindings/sound/rockchip,pdm.yaml b/Documentation/devicetree/bindings/sound/rockchip,pdm.yaml
-new file mode 100644
-index 0000000..6615717
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/rockchip,pdm.yaml
-@@ -0,0 +1,114 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/rockchip,pdm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Rockchip PDM controller
-+
-+description:
-+  The Pulse Density Modulation Interface Controller (PDMC) is
-+  a PDM interface controller and decoder that support PDM format.
-+  It integrates a clock generator driving the PDM microphone
-+  and embeds filters which decimate the incoming bit stream to
-+  obtain most common audio rates.
-+
-+maintainers:
-+  - Heiko Stuebner <heiko@sntech.de>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - rockchip,pdm
-+      - rockchip,px30-pdm
-+      - rockchip,rk1808-pdm
-+      - rockchip,rk3308-pdm
-+      - rockchip,rk3568-pdm
-+      - rockchip,rv1126-pdm
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: clock for PDM controller
-+      - description: clock for PDM BUS
-+
-+  clock-names:
-+    items:
-+      - const: pdm_clk
-+      - const: pdm_hclk
-+
-+  dmas:
-+    maxItems: 1
-+
-+  dma-names:
-+    items:
-+      - const: rx
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  resets:
-+    items:
-+      - description: reset for PDM controller
-+
-+  reset-names:
-+    items:
-+      - const: pdm-m
-+
-+  rockchip,path-map:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description:
-+      Defines the mapping of PDM SDIx to PDM PATHx.
-+      By default, they are mapped one-to-one.
-+    items:
-+      - description: which sdi to connect to path 0
-+      - description: which sdi to connect to path 1
-+      - description: which sdi to connect to path 2
-+      - description: which sdi to connect to path 3
-+
-+  "#sound-dai-cells":
-+    const: 0
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - dmas
-+  - dma-names
-+  - "#sound-dai-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/rk3328-cru.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/pinctrl/rockchip.h>
-+    pdm: pdm@ff040000 {
-+      compatible = "rockchip,pdm";
-+      reg = <0x0 0xff040000 0x0 0x1000>;
-+      clocks = <&cru SCLK_PDM>, <&cru HCLK_PDM>;
-+      clock-names = "pdm_clk", "pdm_hclk";
-+      dmas = <&dmac 16>;
-+      dma-names = "rx";
-+      #sound-dai-cells = <0>;
-+      pinctrl-names = "default", "sleep";
-+      pinctrl-0 = <&pdmm0_clk
-+                   &pdmm0_sdi0
-+                   &pdmm0_sdi1
-+                   &pdmm0_sdi2
-+                   &pdmm0_sdi3>;
-+      pinctrl-1 = <&pdmm0_clk_sleep
-+                   &pdmm0_sdi0_sleep
-+                   &pdmm0_sdi1_sleep
-+                   &pdmm0_sdi2_sleep
-+                   &pdmm0_sdi3_sleep>;
-+    };
+diff --git a/aplay/aplay.c b/aplay/aplay.c
+index cc51dcb48bba..91af244edb60 100644
+--- a/aplay/aplay.c
++++ b/aplay/aplay.c
+@@ -1828,7 +1828,8 @@ static void compute_max_peak(u_char *data, size_t samples)
+ 				sval = le16toh(*valp);
+ 			else
+ 				sval = be16toh(*valp);
+-			sval = abs(sval) ^ mask;
++			sval ^= mask;
++			sval = abs(sval);
+ 			if (max_peak[c] < sval)
+ 				max_peak[c] = sval;
+ 			valp++;
+@@ -1848,11 +1849,12 @@ static void compute_max_peak(u_char *data, size_t samples)
+ 			} else {
+ 				val = (valp[0]<<16) | (valp[1]<<8) | valp[2];
+ 			}
++			val ^= mask;
+ 			/* Correct signed bit in 32-bit value */
+ 			if (val & (1<<(bits_per_sample-1))) {
+ 				val |= 0xff<<24;	/* Negate upper bits too */
+ 			}
+-			val = abs(val) ^ mask;
++			val = abs(val);
+ 			if (max_peak[c] < val)
+ 				max_peak[c] = val;
+ 			valp += 3;
+@@ -1871,7 +1873,8 @@ static void compute_max_peak(u_char *data, size_t samples)
+ 				val = le32toh(*valp);
+ 			else
+ 				val = be32toh(*valp);
+-			val = abs(val) ^ mask;
++			val ^= mask;
++			val = abs(val);
+ 			if (max_peak[c] < val)
+ 				max_peak[c] = val;
+ 			valp++;
 -- 
-2.7.4
+2.26.2
 
 
+--Multipart_Tue_Aug_24_10:12:52_2021-1
+Content-Type: application/octet-stream; type=patch
+Content-Disposition: attachment; filename="0002-aplay-Handle-16bit-sample-negative-overflow-in-peak-.patch"
+Content-Transfer-Encoding: 7bit
 
+From 5c4bf63a94ed0c20aca5bafb94ecd05893a45ec1 Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Tue, 24 Aug 2021 09:36:33 +0200
+Subject: [PATCH 2/5] aplay: Handle 16bit sample negative overflow in peak
+ calculations
+
+The handling of 16bit samples in the peak calculations has a bug when
+a sample with 0x8000 is passed.  As abs() treats 32bit int, it returns
+0x8000.  And yet the code stores back into 16bit value again.
+
+To fix that overflow, use 32bit value (i.e. val instead of sval) for
+the further calculations.
+
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ aplay/aplay.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/aplay/aplay.c b/aplay/aplay.c
+index 91af244edb60..c884346c9f25 100644
+--- a/aplay/aplay.c
++++ b/aplay/aplay.c
+@@ -1829,9 +1829,9 @@ static void compute_max_peak(u_char *data, size_t samples)
+ 			else
+ 				sval = be16toh(*valp);
+ 			sval ^= mask;
+-			sval = abs(sval);
+-			if (max_peak[c] < sval)
+-				max_peak[c] = sval;
++			val = abs(sval);
++			if (max_peak[c] < val)
++				max_peak[c] = val;
+ 			valp++;
+ 			if (vumeter == VUMETER_STEREO)
+ 				c = !c;
+-- 
+2.26.2
+
+
+--Multipart_Tue_Aug_24_10:12:52_2021-1
+Content-Type: application/octet-stream; type=patch
+Content-Disposition: attachment; filename="0003-aplay-Don-t-pass-most-negative-integer-to-abs-in-pea.patch"
+Content-Transfer-Encoding: 7bit
+
+From d9b31338153591944d72e62523bad7850b407c63 Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Tue, 24 Aug 2021 09:58:29 +0200
+Subject: [PATCH 3/5] aplay: Don't pass most negative integer to abs() in peak
+ calculations
+
+The return value from abs() for the most negative integer is
+undefined.  Cap it properly for the 32bit sample handling.
+
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ aplay/aplay.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/aplay/aplay.c b/aplay/aplay.c
+index c884346c9f25..2543de5b6cd8 100644
+--- a/aplay/aplay.c
++++ b/aplay/aplay.c
+@@ -1874,7 +1874,10 @@ static void compute_max_peak(u_char *data, size_t samples)
+ 			else
+ 				val = be32toh(*valp);
+ 			val ^= mask;
+-			val = abs(val);
++			if (val == 0x80000000U)
++				val = 0x7fffffff;
++			else
++				val = abs(val);
+ 			if (max_peak[c] < val)
+ 				max_peak[c] = val;
+ 			valp++;
+-- 
+2.26.2
+
+
+--Multipart_Tue_Aug_24_10:12:52_2021-1
+Content-Type: application/octet-stream; type=patch
+Content-Disposition: attachment; filename="0004-aplay-Handle-upper-bound-in-peak-calculations.patch"
+Content-Transfer-Encoding: 7bit
+
+From 2efe124c31360cf0156dd0e5e7cdd52d1346a5c0 Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Tue, 24 Aug 2021 10:00:26 +0200
+Subject: [PATCH 4/5] aplay: Handle upper bound in peak calculations
+
+Make sure that the calculated max_peak[] won't go beyond the sample
+max resolution.
+
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ aplay/aplay.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/aplay/aplay.c b/aplay/aplay.c
+index 2543de5b6cd8..a51a37ba34bd 100644
+--- a/aplay/aplay.c
++++ b/aplay/aplay.c
+@@ -1898,6 +1898,8 @@ static void compute_max_peak(u_char *data, size_t samples)
+ 		max = 0x7fffffff;
+ 
+ 	for (c = 0; c < ichans; c++) {
++		if (max_peak[c] > max)
++			max_peak[c] = max;
+ 		if (bits_per_sample > 16)
+ 			perc[c] = max_peak[c] / (max / 100);
+ 		else
+-- 
+2.26.2
+
+
+--Multipart_Tue_Aug_24_10:12:52_2021-1
+Content-Type: application/octet-stream; type=patch
+Content-Disposition: attachment; filename="0005-aplay-Fix-out-of-bound-access-in-stereo-VU-meter-dra.patch"
+Content-Transfer-Encoding: 7bit
+
+From dea51861a8626694c6e80121c17a0a38efc2e33c Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Tue, 24 Aug 2021 10:06:05 +0200
+Subject: [PATCH 5/5] aplay: Fix out-of-bound access in stereo VU meter drawing
+
+The left channel drawing of a stereo VU meter has a bug where it may
+access a negative array index.
+
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ aplay/aplay.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/aplay/aplay.c b/aplay/aplay.c
+index a51a37ba34bd..63a4e3437fd9 100644
+--- a/aplay/aplay.c
++++ b/aplay/aplay.c
+@@ -1758,10 +1758,12 @@ static void print_vu_meter_stereo(int *perc, int *maxperc)
+ 		if (c)
+ 			memset(line + bar_length + 6 + 1, '#', p);
+ 		else
+-			memset(line + bar_length - p - 1, '#', p);
+-		p = maxperc[c] * bar_length / 100;
+-		if (p > bar_length)
+-			p = bar_length;
++			memset(line + bar_length - p, '#', p);
++		p = maxperc[c] * bar_length / 100 - 1;
++		if (p < 0)
++			p = 0;
++		else if (p >= bar_length)
++			p = bar_length - 1;
+ 		if (c)
+ 			line[bar_length + 6 + 1 + p] = '+';
+ 		else
+-- 
+2.26.2
+
+
+--Multipart_Tue_Aug_24_10:12:52_2021-1--

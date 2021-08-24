@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63FA33F563E
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Aug 2021 04:59:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E51E53F564A
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Aug 2021 04:59:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 141BC15E5;
-	Tue, 24 Aug 2021 04:58:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 141BC15E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 83F1B15E2;
+	Tue, 24 Aug 2021 04:58:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83F1B15E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629773965;
-	bh=RdpriOT0bHKBfBi0jxPWhLF1oDTM1KCqsitxNV2732U=;
+	s=default; t=1629773989;
+	bh=wIcB2ez8VGZy9U25t34S3ecaBGQGmJnMWr9rUr4K4nA=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=mNZQQ1T16Rs0HocySO5FSxFcLF/ctKY/W9Z9U7FItJTQZ0FGSYSGJ4zq6/MVhJCXD
-	 MgI5qsVmz84rl8r4dIQpMRA/zhR+6obePYUK3FnQ81z/oJ9HXYieuYKGMEVT0XrOkT
-	 rINOuU6qVvhhoraAsa/N1z62MYVKLgy1uyWKwdW0=
+	b=ohVTYnsN26CFR4GuRGAOZqSpfaV1HJQaUX4fZh4TjvsyPyUZIkuAgX/w1z5GbdW2/
+	 LKUACr0Y9KOm45dEUFzssVNkvF+IT67vRQNJKZAtRLR057i7YxoCViPpXLvr+fLiTd
+	 xHthhyA5B2/PM1c83Mt1U0G/ngrht1Tq1Y+T+Aco=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A32CF801D5;
-	Tue, 24 Aug 2021 04:58:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74896F800AE;
+	Tue, 24 Aug 2021 04:58:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 389F9F801D8; Tue, 24 Aug 2021 04:58:01 +0200 (CEST)
+ id F1EB7F8025C; Tue, 24 Aug 2021 04:58:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -32,31 +32,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7CA90F80087
- for <alsa-devel@alsa-project.org>; Tue, 24 Aug 2021 04:57:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CA90F80087
+ by alsa1.perex.cz (Postfix) with ESMTPS id C2EB5F800AE
+ for <alsa-devel@alsa-project.org>; Tue, 24 Aug 2021 04:58:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2EB5F800AE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="O/uvBXNm"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 81D4261178;
- Tue, 24 Aug 2021 02:57:46 +0000 (UTC)
+ header.b="MjsEyase"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9C0DB61178;
+ Tue, 24 Aug 2021 02:57:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1629773867;
- bh=RdpriOT0bHKBfBi0jxPWhLF1oDTM1KCqsitxNV2732U=;
+ s=k20201202; t=1629773879;
+ bh=wIcB2ez8VGZy9U25t34S3ecaBGQGmJnMWr9rUr4K4nA=;
  h=From:To:Cc:Subject:Date:From;
- b=O/uvBXNmqujv3A3iwjxn+NeIYV2fRbgfWMzDEgaqeoKyTxv3X2vakZaBAiPRjlSOA
- vwCUB/E9L0Ykzy1Wmvddo0orhh8iNHcRvLXbnKkO71+NUoWXb3L2sxj01Gge51yIbK
- 6ZUvaHRzkYkCHJxncAkydeDgsGVzY83yWrcgGuXlMWg878v5VYkuQl/szX+xRHRoYN
- z/YyMbaI/kGvApOOUDgsaZM3OclKiDERrMr5OjNzA4KmNqj0K/cdQ0i6uL39e6csSX
- sZz9RZv9I1x5+RllRBpqPk9/6n+hIfSGL9FV0W4ai/vaz+ih4wBrjyZKATH3q6IgEM
- 6S0QjvSgI82kw==
+ b=MjsEyaseETmZFLJHObEwkXaS2rXbFX+XFmVsA7JAUiCj9frm0Rq4QsZY5Aw9ngtte
+ bCpZX6L3A3G/eHVRCA2HYk9xvdn3QYQ0izte7BS40JXRhujxpA7BPxx/mpSzA7sae8
+ 7dMR3CTWF4JkwUD98nqE0jmebU4ge+qzBkkxYV/l4un9TyQ+p/EJfTWcOusZEhsoOg
+ iIi8iZs3LtKRZ8ATVZRkTJ1sNYkbhjKR2KsTVPax9vN4Z9ob/pvkqu4pYktCOimr1j
+ NQupBM5gi6iFqwDqCEp6yKifnKMmcH+SWRrUG0V98d3nG+UqM9VfQF7VtGJhHoV1AR
+ egkIbkanw8o8g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
 	srinivas.kandagatla@linaro.org
 Subject: FAILED: Patch "slimbus: ngd: set correct device for pm" failed to
- apply to 5.10-stable tree
-Date: Mon, 23 Aug 2021 22:57:45 -0400
-Message-Id: <20210824025745.658101-1-sashal@kernel.org>
+ apply to 5.4-stable tree
+Date: Mon, 23 Aug 2021 22:57:57 -0400
+Message-Id: <20210824025757.658465-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
@@ -80,7 +80,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.4-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.

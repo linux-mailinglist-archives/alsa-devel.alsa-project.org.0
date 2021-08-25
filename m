@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 248D03F72F3
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Aug 2021 12:25:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53C513F7346
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Aug 2021 12:28:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 413531683;
-	Wed, 25 Aug 2021 12:24:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 413531683
+	by alsa0.perex.cz (Postfix) with ESMTPS id CD160167B;
+	Wed, 25 Aug 2021 12:28:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD160167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629887107;
-	bh=I3aEAX98L/tGiOUO8s6Zg+dynK3AS2ijINI9SuNintQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1629887336;
+	bh=/dGcdnDJQSuikSxYpLybghGo6DeDQ9TcuR3g7ByXcx8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PiAZoP+44wDQN1Jkw9cNr+o5zq3N9UbQ5/h/V0U+eP9dMWMwjOfuKSTx3PPbH2/Fj
-	 KzcBtEPtu4hcRdyaYwaLDvwSLVgae6GVMwKuVXNsyMiaIC9qMdF4Z8M0yhxWlUv/eY
-	 oFcRV1rJ6XtmPuZRNHxDULp1+b3veTGk6r3XYbKk=
+	b=mHQt5AXzhYKEypopPGL9unZPsZn3v1ELpx0Qo6N9lTOcHEHRs6EBC4N+G+pD3t9mK
+	 x2mkI3BtJYolL5OxxhdcWA6MK4GQGBs+FnsV2BCYNvjBPb1qrFvDXWtzbhmwv7Gt7g
+	 dJymt1Hml2YlCYLgbKwxwJz5Fc7I1z855LlnDj+Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3838EF802D2;
-	Wed, 25 Aug 2021 12:23:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04CE1F80171;
+	Wed, 25 Aug 2021 12:27:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 77F49F8020D; Wed, 25 Aug 2021 12:23:26 +0200 (CEST)
+ id BA135F8020C; Wed, 25 Aug 2021 12:27:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,51 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F31F3F80217
- for <alsa-devel@alsa-project.org>; Wed, 25 Aug 2021 12:23:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F31F3F80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id 64BBAF8003C
+ for <alsa-devel@alsa-project.org>; Wed, 25 Aug 2021 12:27:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64BBAF8003C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jlRFb+te"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5B69F61212;
- Wed, 25 Aug 2021 10:23:18 +0000 (UTC)
+ header.b="YzQfIITY"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 14E3161212;
+ Wed, 25 Aug 2021 10:27:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1629886998;
- bh=I3aEAX98L/tGiOUO8s6Zg+dynK3AS2ijINI9SuNintQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jlRFb+te1emOp3ybRDCDHoXOaIwF7g7tpYw+8XtjswRNTqehbpJATOlfzLi/BRyQJ
- 4G/wwBmqqOADbmf49OkzY8Dz41iBd1MmVdCxM8en/fl33WFEzDCZG5S9rbjo4xMcj0
- BAi6L2atph0vZGDqLNv5D7VQl6ZX20RdwvOD9qLiW/9qS83k2hc42ZGeXLrbZiYzQi
- j82Sid8qnlNSZDVmCaLg1GP0XEQv25oinPoNvZ87weiWh/kSqO434Rs1NJL4CHRh5C
- 9Wy4BfwGPMWAq0eTno2v4c19KdC9u+/rwDiohy7lBp8M1H0WzbPKY21v73Rv0oPbKW
- 6EmJ5zNBb05lA==
+ s=k20201202; t=1629887249;
+ bh=/dGcdnDJQSuikSxYpLybghGo6DeDQ9TcuR3g7ByXcx8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=YzQfIITYt+EvmJkw15OcJ5ISgWzmfAAa9l1OY26UMXJYFyuibz1c+h+8Mk1FZCuHQ
+ kAJTQSl0ONbTNT/9lrv6hzN6QhLVWUwE815h7VOrCdY8YvCWgS3u1bctTLujiM8iyu
+ M2sRBLq78Vru85NB9m3LEF3gSubrENg5UHN8Qhq244f/WJpBeL5APGDRjTizsqga+P
+ R+am+zkLRFhNBWRZjsjF1VkOahqzMZZHXYrgTUgbynHQ0MUTdn3jtNfP6dJ5fNKPOR
+ 2OS8+sxjO8jOeELe4bpM0maGGU4KaC22/bulQY5Ka345TX0/+psJIL/4XIVTsRsbp1
+ lpZrdGca7ZZAQ==
+Date: Wed, 25 Aug 2021 11:27:01 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: wm_adsp: Put debugfs_remove_recursive back in
-Date: Wed, 25 Aug 2021 11:22:40 +0100
-Message-Id: <162988521424.7213.9451728533872560143.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210824101552.1119-1-ckeepax@opensource.cirrus.com>
-References: <20210824101552.1119-1-ckeepax@opensource.cirrus.com>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: Use 'enum' instead of 'oneOf' plus 'const'
+ entries
+Message-ID: <20210825102701.GB5186@sirena.org.uk>
+References: <20210824202014.978922-1-robh@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, lgirdwood@gmail.com,
- tanureal@opensource.cirrus.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="7ZAtKRhVyVSsbBD2"
+Content-Disposition: inline
+In-Reply-To: <20210824202014.978922-1-robh@kernel.org>
+X-Cookie: MY income is ALL disposable!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Vignesh R <vigneshr@ti.com>,
+ linux-pci@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-phy@lists.infradead.org, Lee Jones <lee.jones@linaro.org>,
+ Marc Zyngier <maz@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Kishon Vijay Abraham I <kishon@ti.com>, linux-serial@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, dmaengine@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,40 +93,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 24 Aug 2021 11:15:52 +0100, Charles Keepax wrote:
-> This patch reverts commit acbf58e53041 ("ASoC: wm_adsp: Let
-> soc_cleanup_component_debugfs remove debugfs"), and adds an
-> alternate solution to the issue. That patch removes the call to
-> debugfs_remove_recursive, which cleans up the DSPs debugfs. The
-> intention was to avoid an unbinding issue on an out of tree
-> driver/platform.
-> 
-> [...]
 
-Applied to
+--7ZAtKRhVyVSsbBD2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Tue, Aug 24, 2021 at 03:20:14PM -0500, Rob Herring wrote:
 
-Thanks!
+> 'enum' is equivalent to 'oneOf' with a list of 'const' entries, but 'enum'
+> is more concise and yields better error messages.
 
-[1/1] ASoC: wm_adsp: Put debugfs_remove_recursive back in
-      commit: e6d0b92ac00b53121a35b2a1ce8d393dc9179fdf
+Acked-by: Mark Brown <broonie@kernel.org>
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+--7ZAtKRhVyVSsbBD2
+Content-Type: application/pgp-signature; name="signature.asc"
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+-----BEGIN PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEmGvUACgkQJNaLcl1U
+h9AfCwf/TPAwmd3i8vLyV5kU4MWAOn8zovhbZ+gXG2hJek5nLRjdW7eTl2yXz1gx
+xdOp2MMA5ldnXUjncRKHMJYykdL7ZtEsOUWT44WgHT0h1WEQzTHSnoVgkt/DDbsP
+tuovH5NV986VPCJXIC+mBkt5a4MPzdD1nYVmPss+8R+HXfTRZauTlZefXvwCzNDT
+Md/IxPvIbcqw5Ks12P4kdojbEGB92MONTO3vRYkzCeY1toRL9fOY3DJE30Kd6o3+
+hzCYzeRkTgoibpK8oG+ZqMOJ38/shj8Wiyfovdhd7LOj9orgkbGdGRi10R1997IR
+tDWFSsOVWZ8p+r2ZuI06T7GlVjygag==
+=GpUP
+-----END PGP SIGNATURE-----
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+--7ZAtKRhVyVSsbBD2--

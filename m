@@ -2,103 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60DDF3F6E13
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Aug 2021 06:05:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 837E63F6E31
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Aug 2021 06:18:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA314167E;
-	Wed, 25 Aug 2021 06:04:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA314167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id E76251671;
+	Wed, 25 Aug 2021 06:17:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E76251671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629864349;
-	bh=YPyz+drH9RsVD/EneruHxA/oDILVzuj1rhlWL9VYpUA=;
+	s=default; t=1629865109;
+	bh=H5xOl95ySJHvMRAxssWq1+b00P/3mPpiqTKOHJn+07g=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=acRiRMGF7LUWpCaR3G7MtGQVFjAoo9OY3nai+e6b9r1J2cdr2hVFPh7TCdHlrQQiB
-	 x/02CA3hEC7Vpm+M/HOcuxuORNHUAz5YMcAALJ0erGOEnrp5gHe8r3N6gpbnLqtC4g
-	 9ZQ3xHiIQdBxbsqYQlreKrBzVMf7EK+RHXUnE18U=
+	b=crBz84iMgmgfhrZGGc+XnN8UehumqU+IrinFLZjdIxvRvzfib6WHw/+YDbVNiX7hx
+	 r77pBP9A874iPN8VJgOUG18yP3r3fX/75/6KrLhZx0WPgY7hfgGxdrbefqcCPUXH8+
+	 PZvaqxIC2tprPYRTS3PyO6CFOb6KPfKkYMFDkkpk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1C894F8020D;
-	Wed, 25 Aug 2021 06:04:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 502C7F8020D;
+	Wed, 25 Aug 2021 06:17:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72522F8020C; Wed, 25 Aug 2021 06:04:29 +0200 (CEST)
+ id 63346F8020C; Wed, 25 Aug 2021 06:17:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from conuserg-11.nifty.com (conuserg-11.nifty.com [210.131.2.78])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3BB05F800B6
- for <alsa-devel@alsa-project.org>; Wed, 25 Aug 2021 06:04:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BB05F800B6
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 17P441uB4021123,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36501.realtek.com.tw[172.21.6.27])
- by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 17P441uB4021123
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 25 Aug 2021 12:04:01 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXH36501.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Wed, 25 Aug 2021 12:04:00 +0800
-Received: from derek-PORTEGE-R930.realtek.com.tw (172.22.102.119) by
- RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Wed, 25 Aug 2021 12:03:59 +0800
-From: <derek.fang@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH v2] ASoC: rt5682: Fix the vol+ button detection issue
-Date: Wed, 25 Aug 2021 12:03:46 +0800
-Message-ID: <20210825040346.28346-1-derek.fang@realtek.com>
-X-Mailer: git-send-email 2.17.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id EE7DAF800AE
+ for <alsa-devel@alsa-project.org>; Wed, 25 Aug 2021 06:17:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE7DAF800AE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=nifty.com header.i=@nifty.com
+ header.b="G/4OiGhx"
+Received: from localhost.localdomain (133-32-232-101.west.xps.vectant.ne.jp
+ [133.32.232.101]) (authenticated)
+ by conuserg-11.nifty.com with ESMTP id 17P4GiCL020114;
+ Wed, 25 Aug 2021 13:16:45 +0900
+DKIM-Filter: OpenDKIM Filter v2.10.3 conuserg-11.nifty.com 17P4GiCL020114
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nifty.com;
+ s=dec2015msa; t=1629865005;
+ bh=1wLIpiebg99hItGHemsWx98J3K7UeOaCPEUf3e672lI=;
+ h=From:To:Cc:Subject:Date:From;
+ b=G/4OiGhxHia4g/8G5CnboXu0wY5xACRJsnoAdK2dTPl34riwfFplzi3VHlywh+MAJ
+ hKNh+ZS2zIOBG7qOMstqDjKNEO9c3XjkvH0IMPPvag3ZrM1U3F5eYNO1MCNWXhdlL4
+ edVaM5S1Bg8xr4Pdi004/VBEYRhOx8xWeGU3Js2RQ8XvsET7Z5J5UhYhVHdCWMwVl7
+ WTwU1l/W2ASLag6PijSV2aOgjDUGJ9v/4mqptuNV05Kq57wG60quq4Q+5wpmH505k/
+ 3F64jEe2OWzEqHuF33ACLjKt619ZKTFyaeQpGJkXFYEM2iirw/M7KzFHdpr9a2HTyf
+ 2i0P+Md1pa3Pw==
+X-Nifty-SrcIP: [133.32.232.101]
+From: Masahiro Yamada <masahiroy@kernel.org>
+To: linux-kbuild@vger.kernel.org
+Subject: [PATCH] kconfig: forbid symbols that end with '_MODULE'
+Date: Wed, 25 Aug 2021 13:16:37 +0900
+Message-Id: <20210825041637.365171-1-masahiroy@kernel.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [172.22.102.119]
-X-ClientProxiedBy: RTEXH36503.realtek.com.tw (172.21.6.25) To
- RTEXMBS01.realtek.com.tw (172.21.6.94)
-X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: trusted connection
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Deterministic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 08/25/2021 03:44:00
-X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
- rules found
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIxLzgvMjUgpFekyCAwMToyODowMA==?=
-X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
-X-KSE-ServerInfo: RTEXH36501.realtek.com.tw, 9
-X-KSE-Attachment-Filter-Triggered-Rules: Clean
-X-KSE-Attachment-Filter-Triggered-Filters: Clean
-X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
-X-KSE-AntiSpam-Outbound-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 08/25/2021 03:41:13
-X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
-X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 0
-X-KSE-AntiSpam-Info: Lua profiles 165774 [Aug 24 2021]
-X-KSE-AntiSpam-Info: Version: 5.9.20.0
-X-KSE-AntiSpam-Info: Envelope from: derek.fang@realtek.com
-X-KSE-AntiSpam-Info: LuaCore: 457 457 f9912fc467375383fbac52a53ade5bbe1c769e2a
-X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info: realtek.com:7.1.1;
- d41d8cd98f00b204e9800998ecf8427e.com:7.1.1; 127.0.0.199:7.1.2
-X-KSE-AntiSpam-Info: Rate: 0
-X-KSE-AntiSpam-Info: Status: not_detected
-X-KSE-AntiSpam-Info: Method: none
-X-KSE-AntiSpam-Info: Auth:dkim=none
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Heuristic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 08/25/2021 03:44:00
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, albertchen@realtek.com, Derek Fang <derek.fang@realtek.com>,
- shumingf@realtek.com, flove@realtek.com
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Masahiro Yamada <masahiroy@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ linux-wireless@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Luca Coelho <luciano.coelho@intel.com>,
+ netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Kalle Valo <kvalo@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,69 +84,141 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Derek Fang <derek.fang@realtek.com>
+Kconfig (syncconfig) generates include/generated/autoconf.h to make
+CONFIG options available to the pre-processor.
 
-Fix the wrong button vol+ detection issue with some brand headsets
-by fine tuning the threshold of button vol+ and SAR ADC button accuracy.
+The macros are suffixed with '_MODULE' for symbols with the value 'm'.
 
-Signed-off-by: Derek Fang <derek.fang@realtek.com>
+Here is a conflict; CONFIG_FOO=m results in '#define CONFIG_FOO_MODULE 1',
+but CONFIG_FOO_MODULE=y also results in the same define.
+
+fixdep always assumes CONFIG_FOO_MODULE comes from CONFIG_FOO=m, so the
+dependency is not properly tracked for symbols that end with '_MODULE'.
+
+This commit makes Kconfig error out if it finds a symbol suffixed with
+'_MODULE'. This restriction does not exist if the module feature is not
+supported (at least from the Kconfig perspective).
+
+It detected one error:
+  error: SND_SOC_DM365_VOICE_CODEC_MODULE: symbol name must not end with '_MODULE'
+
+Rename it to SND_SOC_DM365_VOICE_CODEC_MODULAR. Commit 147162f57515
+("ASoC: ti: fix SND_SOC_DM365_VOICE_CODEC dependencies") added it for
+internal use. So, this renaming has no impact on users.
+
+Remove a comment from drivers/net/wireless/intel/iwlwifi/Kconfig since
+this is a hard error now.
+
+Add a comment to include/linux/kconfig.h in order not to worry observant
+developers.
+
+Signed-off-by: Masahiro Yamada <masahiroy@kernel.org>
 ---
- sound/soc/codecs/rt5682.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-index fcf442b8a732..e822fa1b9d4b 100644
---- a/sound/soc/codecs/rt5682.c
-+++ b/sound/soc/codecs/rt5682.c
-@@ -43,7 +43,9 @@ static const struct reg_sequence patch_list[] = {
- 	{RT5682_DAC_ADC_DIG_VOL1, 0xa020},
- 	{RT5682_I2C_CTRL, 0x000f},
- 	{RT5682_PLL2_INTERNAL, 0x8266},
--	{RT5682_SAR_IL_CMD_3, 0x8365},
-+	{RT5682_SAR_IL_CMD_1, 0x22b7},
-+	{RT5682_SAR_IL_CMD_3, 0x0365},
-+	{RT5682_SAR_IL_CMD_6, 0x0110},
- };
+ drivers/net/wireless/intel/iwlwifi/Kconfig |  1 -
+ include/linux/kconfig.h                    |  3 ++
+ scripts/kconfig/parser.y                   | 40 +++++++++++++++++++++-
+ sound/soc/ti/Kconfig                       |  2 +-
+ 4 files changed, 43 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/wireless/intel/iwlwifi/Kconfig b/drivers/net/wireless/intel/iwlwifi/Kconfig
+index 1085afbefba8..5b238243617c 100644
+--- a/drivers/net/wireless/intel/iwlwifi/Kconfig
++++ b/drivers/net/wireless/intel/iwlwifi/Kconfig
+@@ -70,7 +70,6 @@ config IWLMVM
+ 	  of the devices that use this firmware is available here:
+ 	  https://wireless.wiki.kernel.org/en/users/drivers/iwlwifi#firmware
  
- void rt5682_apply_patch_list(struct rt5682_priv *rt5682, struct device *dev)
-@@ -1726,8 +1728,6 @@ static const struct snd_soc_dapm_widget rt5682_dapm_widgets[] = {
- 	SND_SOC_DAPM_MIXER("Stereo1 ADC MIXR", RT5682_STO1_ADC_DIG_VOL,
- 		RT5682_R_MUTE_SFT, 1, rt5682_sto1_adc_r_mix,
- 		ARRAY_SIZE(rt5682_sto1_adc_r_mix)),
--	SND_SOC_DAPM_SUPPLY("BTN Detection Mode", RT5682_SAR_IL_CMD_1,
--		14, 1, NULL, 0),
+-# don't call it _MODULE -- will confuse Kconfig/fixdep/...
+ config IWLWIFI_OPMODE_MODULAR
+ 	bool
+ 	default y if IWLDVM=m
+diff --git a/include/linux/kconfig.h b/include/linux/kconfig.h
+index 20d1079e92b4..54f677e742fe 100644
+--- a/include/linux/kconfig.h
++++ b/include/linux/kconfig.h
+@@ -53,6 +53,9 @@
+  * IS_MODULE(CONFIG_FOO) evaluates to 1 if CONFIG_FOO is set to 'm', 0
+  * otherwise.  CONFIG_FOO=m results in "#define CONFIG_FOO_MODULE 1" in
+  * autoconf.h.
++ * CONFIG_FOO_MODULE=y would also result in "#define CONFIG_FOO_MODULE 1",
++ * but Kconfig forbids symbol names that end with '_MODULE', so that would
++ * not happen.
+  */
+ #define IS_MODULE(option) __is_defined(option##_MODULE)
  
- 	/* ADC PGA */
- 	SND_SOC_DAPM_PGA("Stereo1 ADC MIX", SND_SOC_NOPM, 0, 0, NULL, 0),
-@@ -1898,8 +1898,6 @@ static const struct snd_soc_dapm_route rt5682_dapm_routes[] = {
- 	{"Stereo1 ADC MIXR", "ADC2 Switch", "Stereo1 ADC R2 Mux"},
- 	{"Stereo1 ADC MIXR", NULL, "ADC Stereo1 Filter"},
+diff --git a/scripts/kconfig/parser.y b/scripts/kconfig/parser.y
+index 2af7ce4e1531..b0f73f74ccd3 100644
+--- a/scripts/kconfig/parser.y
++++ b/scripts/kconfig/parser.y
+@@ -475,6 +475,37 @@ assign_val:
  
--	{"ADC Stereo1 Filter", NULL, "BTN Detection Mode"},
--
- 	{"Stereo1 ADC MIX", NULL, "Stereo1 ADC MIXL"},
- 	{"Stereo1 ADC MIX", NULL, "Stereo1 ADC MIXR"},
+ %%
  
-@@ -2949,7 +2947,8 @@ static int rt5682_suspend(struct snd_soc_component *component)
++/*
++ * Symbols suffixed with '_MODULE' would cause a macro conflict in autoconf.h,
++ * and also confuse the interaction between syncconfig and fixdep.
++ * Error out if a symbol with the '_MODULE' suffix is found.
++ */
++static int sym_check_name(struct symbol *sym)
++{
++	static const char *suffix = "_MODULE";
++	static const size_t suffix_len = strlen("_MODULE");
++	char *name;
++	size_t len;
++
++	name = sym->name;
++
++	if (!name)
++		return 0;
++
++	len = strlen(name);
++
++	if (len < suffix_len)
++		return 0;
++
++	if (strcmp(name + len - suffix_len, suffix))
++		return 0;
++
++	fprintf(stderr, "error: %s: symbol name must not end with '%s'\n",
++		name, suffix);
++
++	return -1;
++}
++
+ void conf_parse(const char *name)
+ {
+ 	struct symbol *sym;
+@@ -493,8 +524,15 @@ void conf_parse(const char *name)
  
- 		/* enter SAR ADC power saving mode */
- 		snd_soc_component_update_bits(component, RT5682_SAR_IL_CMD_1,
--			RT5682_SAR_BUTT_DET_MASK | RT5682_SAR_BUTDET_MODE_MASK | RT5682_SAR_BUTDET_RST_MASK, 0);
-+			RT5682_SAR_BUTT_DET_MASK | RT5682_SAR_BUTDET_MODE_MASK |
-+			RT5682_SAR_BUTDET_RST_MASK | RT5682_SAR_SEL_MB1_MB2_MASK, 0);
- 		snd_soc_component_update_bits(component, RT5682_SAR_IL_CMD_1,
- 			RT5682_SAR_BUTT_DET_MASK | RT5682_SAR_BUTDET_MODE_MASK | RT5682_SAR_BUTDET_RST_MASK,
- 			RT5682_SAR_BUTT_DET_EN | RT5682_SAR_BUTDET_POW_SAV | RT5682_SAR_BUTDET_RST_NORMAL);
-@@ -2971,6 +2970,9 @@ static int rt5682_resume(struct snd_soc_component *component)
- 	regcache_sync(rt5682->regmap);
+ 	if (yynerrs)
+ 		exit(1);
+-	if (!modules_sym)
++
++	if (modules_sym) {
++		for_all_symbols(i, sym) {
++			if (sym_check_name(sym))
++				yynerrs++;
++		}
++	} else {
+ 		modules_sym = sym_find( "n" );
++	}
  
- 	if (rt5682->hs_jack && rt5682->jack_type == SND_JACK_HEADSET) {
-+		snd_soc_component_update_bits(component, RT5682_SAR_IL_CMD_1,
-+			RT5682_SAR_BUTDET_MODE_MASK | RT5682_SAR_SEL_MB1_MB2_MASK,
-+			RT5682_SAR_BUTDET_POW_NORM | RT5682_SAR_SEL_MB1_MB2_AUTO);
- 		snd_soc_component_update_bits(component, RT5682_CBJ_CTRL_1,
- 			RT5682_MB1_PATH_MASK | RT5682_MB2_PATH_MASK,
- 			RT5682_CTRL_MB1_FSM | RT5682_CTRL_MB2_FSM);
+ 	if (!menu_has_prompt(&rootmenu)) {
+ 		current_entry = &rootmenu;
+diff --git a/sound/soc/ti/Kconfig b/sound/soc/ti/Kconfig
+index 698d7bc84dcf..c56a5789056f 100644
+--- a/sound/soc/ti/Kconfig
++++ b/sound/soc/ti/Kconfig
+@@ -211,7 +211,7 @@ config SND_SOC_DM365_VOICE_CODEC
+ 	  Say Y if you want to add support for SoC On-chip voice codec
+ endchoice
+ 
+-config SND_SOC_DM365_VOICE_CODEC_MODULE
++config SND_SOC_DM365_VOICE_CODEC_MODULAR
+ 	def_tristate y
+ 	depends on SND_SOC_DM365_VOICE_CODEC && SND_SOC
+ 	select MFD_DAVINCI_VOICECODEC
 -- 
-2.17.1
+2.30.2
 

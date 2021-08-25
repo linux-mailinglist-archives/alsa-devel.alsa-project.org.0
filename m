@@ -2,76 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C84C3F72F4
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Aug 2021 12:25:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FD583F72ED
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Aug 2021 12:24:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6BD4167C;
-	Wed, 25 Aug 2021 12:24:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6BD4167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9DAC0167D;
+	Wed, 25 Aug 2021 12:23:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DAC0167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629887118;
-	bh=tL7vzePFTdLCCmodujY/NanR9r8e1EVRA9OUWU++xVs=;
+	s=default; t=1629887082;
+	bh=aSw0cYg8pm1YpmSlIfShp0oFUe+o66pjQZD/ue8nx7U=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CaJWOPO8Jqd1Wce1/ydby3kTv04FzYOIfYPo3KSqw/yfezKq33Cn83/tbhm3HLQPF
-	 5I89EHpIt1Y7qfcxfdHu75YqIFMy59B3Pm/GFoal0dRP37IQK8goHqj3r96CI2vCLF
-	 M4RSlzmruuQAWxB+EaZLUk/gze2Q0yyLxQvVjXH8=
+	b=oBUuvAXVWPfL03BhxkaD6YFcX04hQKnwk7dYheSXZ4DK5TUrH7CfKaaroovK7qo7W
+	 xIPc1w7J6FW520gRm3NNDTfNnkC3jUuawPqfqhalPWb5nE/G7/BQ1Q4f6mutQlITe8
+	 dcKm0WYBh336/co3TJOAYIHhxG2F7K4HcsApEApk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6BD12F804E3;
-	Wed, 25 Aug 2021 12:23:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 11E72F80240;
+	Wed, 25 Aug 2021 12:23:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4C473F802D2; Wed, 25 Aug 2021 12:23:26 +0200 (CEST)
+ id 0E015F8020D; Wed, 25 Aug 2021 12:23:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B196CF8003C;
- Wed, 25 Aug 2021 12:23:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B196CF8003C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8405CF80171
+ for <alsa-devel@alsa-project.org>; Wed, 25 Aug 2021 12:23:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8405CF80171
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="DkMlb3x1"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C07EB60F58;
- Wed, 25 Aug 2021 10:23:12 +0000 (UTC)
+ header.b="a6pCHwq+"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 988186120A;
+ Wed, 25 Aug 2021 10:23:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1629886993;
- bh=tL7vzePFTdLCCmodujY/NanR9r8e1EVRA9OUWU++xVs=;
+ s=k20201202; t=1629886996;
+ bh=aSw0cYg8pm1YpmSlIfShp0oFUe+o66pjQZD/ue8nx7U=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DkMlb3x15kaHAS5yBC0QcWkok6jr2m8aKitWs2fJ1cynennGpTOdO2D9WyftZpOjN
- 6DhBQhwiwnZ7PJ0Rul1S8KYYHiUaut07duUFPBxRn1BWZPaWmkXMoF2suZAO51jY+i
- uM8I4cC1Vszj4WcPGx4NdzD7L7UTEbNxxcqEYMwd5HiNJv5ZbhljOkfMtcYDTwGFYe
- e8jKZNZ5shMo9ntlEj/sfnJmTKI5C/wKo5tN6QNOqW3+GpNeOrvfLIFKLN7gNgzTBR
- K1QwO6PVbIuD0H3nbOULPakzQ/q39tutsO3upYERzs6rj5c99dTczFtAJrHAQni8jt
- xXZKJvSkRRxMw==
+ b=a6pCHwq+W37Vca+6PO7MFagSCJAHN1FyCXp2CbRoMMSY2CFXOwiPxIPsXTiPXKXpC
+ 9qTnfQ6cknl3Sn4UfcAeMTCwEvzkwrWMDQ/QKCCUzoc56NIzdJghGyfUzxSXEy5NMv
+ JZ1G/81gDBZfh5MKewFvY82vbD1on2dOeBfAxwawW3GbpI68GRUCPhgi2WRqaCo4O9
+ XUpOkT+rFAOKA1ja7mMji9/vtQQsT8WvkbPI1Jk5yFzCfLpeyXmOPbcl9AH+sny/pH
+ WdvjU1HHWi/loFwSoxwPZGaxdd3oTCr4ErPGsKeR08YxfEt7jb8REj7Kw0pBPjnEct
+ sqFBCsg7K6i1g==
 From: Mark Brown <broonie@kernel.org>
-To: CGEL <cgel.zte@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH linux-next] ASoC: SOF: intel: remove duplicate include
-Date: Wed, 25 Aug 2021 11:22:38 +0100
-Message-Id: <162988521424.7213.4488311947948918308.b4-ty@kernel.org>
+To: tiwai@suse.com, matthias.bgg@gmail.com, Trevor Wu <trevor.wu@mediatek.com>,
+ robh+dt@kernel.org, lgirdwood@gmail.com
+Subject: Re: [PATCH v5 00/11] ASoC: mediatek: Add support for MT8195 SoC
+Date: Wed, 25 Aug 2021 11:22:39 +0100
+Message-Id: <162988521424.7213.9083414971201440076.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210824030015.57267-1-deng.changcheng@zte.com.cn>
-References: <20210824030015.57267-1-deng.changcheng@zte.com.cn>
+In-Reply-To: <20210819084144.18483-1-trevor.wu@mediatek.com>
+References: <20210819084144.18483-1-trevor.wu@mediatek.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Zeal Robot <zealci@zte.com.cn>, Takashi Iwai <tiwai@suse.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Changcheng Deng <deng.changcheng@zte.com.cn>,
- Daniel Baluta <daniel.baluta@nxp.com>, Bard Liao <bard.liao@intel.com>,
- sound-open-firmware@alsa-project.org
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ cychiang@google.com, bicycle.tsai@mediatek.com, linux-kernel@vger.kernel.org,
+ jiaxin.yu@mediatek.com, Mark Brown <broonie@kernel.org>,
+ linux-mediatek@lists.infradead.org, wenst@chromium.org, aaronyu@google.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,14 +83,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 23 Aug 2021 20:00:15 -0700, CGEL wrote:
-> From: Changcheng Deng <deng.changcheng@zte.com.cn>
+On Thu, 19 Aug 2021 16:41:33 +0800, Trevor Wu wrote:
+> This series of patches adds support for Mediatek AFE of MT8195 SoC.
+> Patches are based on broonie tree "for-next" branch.
 > 
-> Clean up the following includecheck warning:
+> Changes since v4:
+>   - removed sof related code
 > 
-> ./sound/soc/sof/intel/pci-tng.c: shim.h is included more than once.
-> 
-> No functional change.
+> Changes since v3:
+>   - fixed warnings found by kernel test robot
+>   - removed unused critical section
+>   - corrected the lock protected sections on etdm driver
+>   - added DPTX and HDMITX audio support
 > 
 > [...]
 
@@ -104,8 +104,28 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: intel: remove duplicate include
-      commit: 0be10d7122ceb8f322086283420a59ee89c1947f
+[01/11] ASoC: mediatek: mt8195: update mediatek common driver
+        commit: cab2b9e5fc0e868ed8453ef4f433c795bda8bf84
+[02/11] ASoC: mediatek: mt8195: support audsys clock control
+        commit: d62ad762f67585acfb5e03f71b28a52dc4604cf2
+[03/11] ASoC: mediatek: mt8195: support etdm in platform driver
+        commit: 1de9a54acafba2f0e3ea2856ad0b22556d59ec45
+[04/11] ASoC: mediatek: mt8195: support adda in platform driver
+        commit: 3de3eba588bb7f6c39bf12de5761ff75c53b9961
+[05/11] ASoC: mediatek: mt8195: support pcm in platform driver
+        commit: 1f95c019115cc503c4c47fd7108675a56cdb29b4
+[06/11] ASoC: mediatek: mt8195: add platform driver
+        commit: 6746cc858259985a945a07075a19ec4d24352407
+[07/11] dt-bindings: mediatek: mt8195: add audio afe document
+        commit: b5bac34fcfb444e33f532e291ad1394ca05887e8
+[08/11] ASoC: mediatek: mt8195: add machine driver with mt6359, rt1019 and rt5682
+        commit: 40d605df0a7bf7723ed690f502f364c5320de440
+[09/11] ASoC: mediatek: mt8195: add DPTX audio support
+        commit: e581e3014cc4acee9025aa5704cf85a36a572b95
+[10/11] ASoC: mediatek: mt8195: add HDMITX audio support
+        commit: ef46cd42ecf00f0468df3ad1bf0f30db9634a04a
+[11/11] dt-bindings: mediatek: mt8195: add mt8195-mt6359-rt1019-rt5682 document
+        commit: 5f8c991e8950971cd1f81b61f79c83a511ad9fc8
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

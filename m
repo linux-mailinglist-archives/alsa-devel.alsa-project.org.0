@@ -2,97 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 522103F7C45
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Aug 2021 20:35:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DA273F7D6C
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Aug 2021 22:57:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C6BC1166E;
-	Wed, 25 Aug 2021 20:35:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6BC1166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 89E2D1681;
+	Wed, 25 Aug 2021 22:56:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89E2D1681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629916551;
-	bh=IKkkPN/ZRnDRlxbIPSHVCrNeRzlOdrQgAAEYgrgcoAg=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1629925019;
+	bh=gjZeZMGJIoheKp31xKi7pLwU9TfiEyPpquQWCgvZtE4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CH9DCvQOL1LAAHR8JhoVWBAsVPDnQ20+u/Zjhlgy3rVcPUBDbDPQLTKmpQkdVo0/z
-	 YNZjz+4A1PLP1ahzdVPDsfHWsliOJLsOduMvVYSIT5RkyVRj4vj2vxyIlKZoOsz0n0
-	 DRAGL28Wh5cHQYY72oi9zHbSkq5EH+Aht9V8amdI=
+	b=rix1uwU0TklBmPSpji2Psy/0HX3IgA/w+4unXw5ECCCOiD01w/OCnzUuHycK4+fgV
+	 4XX1f67pCxS08f6886RQ0BpBTpl08r2RAlfK4gB/UOvIIaXHztIhzzC0OJmj3lHOQn
+	 7zjbQ/6m/qchFO5BSZnPfzkAY0pGpq6eUHvKtU6s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31573F8003C;
-	Wed, 25 Aug 2021 20:34:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DEFDEF800AE;
+	Wed, 25 Aug 2021 22:55:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 26E0EF8020C; Wed, 25 Aug 2021 20:34:31 +0200 (CEST)
+ id A34E8F8020C; Wed, 25 Aug 2021 22:55:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 916EAF800AE
- for <alsa-devel@alsa-project.org>; Wed, 25 Aug 2021 20:34:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 916EAF800AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 600FCF800C9
+ for <alsa-devel@alsa-project.org>; Wed, 25 Aug 2021 22:55:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 600FCF800C9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="Q35Zf+Hh"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 17PEu41q018363; 
- Wed, 25 Aug 2021 13:34:19 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type; s=PODMain02222019;
- bh=tMFuP5qPU2NBg+yul2x1jPMb7f2OziontOI+BTc0520=;
- b=Q35Zf+Hhf70bPuHqwZkNHrvyYA4MjLe5wOIvI5S7ZkujN/BKQzXV6eF3HmZOcPldX4Ye
- qI/nCwkAbD9Zuo3TmaVc4ozKnq6QyQfH6Vo5eODhcmbYZzRBPqODeFVBByAh+J3WTQvM
- UMG7W0nMgkl/LhjkY+8h8PVBknQFzqqW2hvPZl0v0sjhtG33VX0LGAQtBfuX/lNlAHzv
- D+3hp45iexnvQAEDXIHyAitDGSwbIivCd8p3u07kDOJJlg+zCRh6haG0Q8GwG2LKld7H
- Qu7bzgb99fSO6XfdrdV1Njh7fIAZCNtgXrCr0jEcJqbEK26RulOLH8w9fIAErpcTDYB7 MA== 
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 3anr2erad9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 25 Aug 2021 13:34:19 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Wed, 25 Aug
- 2021 19:04:12 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.12 via
- Frontend Transport; Wed, 25 Aug 2021 19:04:12 +0100
-Received: from [198.90.238.186] (unknown [198.90.238.186])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3838B2A9;
- Wed, 25 Aug 2021 18:04:11 +0000 (UTC)
-Subject: Re: [PATCH 2/2] ALSA: hda/cs8409: Prevent pops and clicks during
- reboot
-To: Takashi Iwai <tiwai@suse.de>
-References: <20210812183433.6330-1-vitalyr@opensource.cirrus.com>
- <20210812183433.6330-2-vitalyr@opensource.cirrus.com>
- <s5h1r6xlvrs.wl-tiwai@suse.de> <s5hczqgil3v.wl-tiwai@suse.de>
- <6595e87d-1dae-b536-c17b-eafa07d04bbe@opensource.cirrus.com>
- <s5hpmuce05m.wl-tiwai@suse.de>
-From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Message-ID: <e3df5f97-bf43-7eb8-e15d-4ab11dbae7ef@opensource.cirrus.com>
-Date: Wed, 25 Aug 2021 19:04:05 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Y9boM9pg"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 221C76108E;
+ Wed, 25 Aug 2021 20:55:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1629924926;
+ bh=gjZeZMGJIoheKp31xKi7pLwU9TfiEyPpquQWCgvZtE4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Y9boM9pg89jRKmwouT/QTKTfP6cnbbCCCS7xmR/j11WJTKQOoI8xp/F9tCG875w14
+ t6ZHgrFxWueYM1Y92Rl7sM+t1APG8oB3pawMogJMmlk55scB1wpiiS9VEVKHn2TSfQ
+ v6b9DHSD8GG1ExHf6HWDK/0ILsqf5kdC4LZvW8txDVi7va9/vzSeyJvT19soF4LTaO
+ UhE+SSACe6K2tgwjuD324QiY1xyoXVmyl0z/7jdZ80aCjvvWDXLZHJ4EY3w0hYaMuh
+ LCtCQKRsN60dvSDuUXJopL0P8Y23dbW9YmOT36artHj8pWjc7htojIylo/VltN2sRE
+ hShhViV80NumQ==
+Date: Wed, 25 Aug 2021 22:55:21 +0200
+From: Wolfram Sang <wsa@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: Use 'enum' instead of 'oneOf' plus 'const'
+ entries
+Message-ID: <YSauOeE4lBfeDiGw@kunai>
+Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
+ Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Vignesh R <vigneshr@ti.com>,
+ Marc Zyngier <maz@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Lee Jones <lee.jones@linaro.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Kishon Vijay Abraham I <kishon@ti.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Mark Brown <broonie@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ dmaengine@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-serial@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-spi@vger.kernel.org
+References: <20210824202014.978922-1-robh@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <s5hpmuce05m.wl-tiwai@suse.de>
-Content-Language: en-US
-X-Proofpoint-GUID: SCiNZZHWgBQ8YJMzkt_f3_6P_z4duHnP
-X-Proofpoint-ORIG-GUID: SCiNZZHWgBQ8YJMzkt_f3_6P_z4duHnP
-X-Proofpoint-Spam-Reason: safe
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Stefan Binding <sbinding@opensource.cirrus.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="l25l+0aqVZr4EHUF"
+Content-Disposition: inline
+In-Reply-To: <20210824202014.978922-1-robh@kernel.org>
+Cc: alsa-devel@alsa-project.org, Vignesh R <vigneshr@ti.com>,
+ linux-pci@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-phy@lists.infradead.org, Lee Jones <lee.jones@linaro.org>,
+ Marc Zyngier <maz@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Kishon Vijay Abraham I <kishon@ti.com>, linux-serial@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, netdev@vger.kernel.org,
+ dmaengine@vger.kernel.org, "David S. Miller" <davem@davemloft.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,81 +112,64 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 17/08/2021 1:16 pm, Takashi Iwai wrote:
-> On Tue, 17 Aug 2021 13:28:21 +0200,
-> Vitaly Rodionov wrote:
->> On 14/08/2021 7:41 am, Takashi Iwai wrote:
->>> On Fri, 13 Aug 2021 08:10:47 +0200,
->>> Takashi Iwai wrote:
->>>> On Thu, 12 Aug 2021 20:34:33 +0200,
->>>> Vitaly Rodionov wrote:
->>>>> From: Stefan Binding <sbinding@opensource.cirrus.com>
->>>>>
->>>>> During reboot, when the CS42L42 powers down, pops and clicks
->>>>> may occur due to the codec not being shutdown gracefully.
->>>>> This can be fixed by going through the suspend sequence,
->>>>> which shuts down the codec cleanly inside the reboot_notify
->>>>> hook, which is called on reboot.
->>>>>
->>>>> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
->>>>> Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
->>>> I hold this one for now, as there is a fix series that deprecates the
->>>> reboot_notify callback of HD-audio by forcibly doing runtime-suspend
->>>> at shutdown.  Please check the three patches in
->>>>     https://bugzilla.kernel.org/show_bug.cgi?id=214045
->>>>
->>>> I'm going to submit those soon in anyway.
->> Hi Takashi,
->>
->> Thanks for letting us know. We have tested against for-next branch and
->> we have an issue.
->>
->> Loud pops on reboot. It looks like suspend have never been called on
->> reboot or shutdown for us.
-> OK, we need to track down the cause.
->
-> Does the noise persist if the codec has been runtime-suspended
-> beforehand?  You can check the status in sysfs.
 
-Hi Takashi,
+--l25l+0aqVZr4EHUF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Sorry for the delay. We just wanted to get as much information as 
-possible. Now we can see what causing pops on reboot.
+On Tue, Aug 24, 2021 at 03:20:14PM -0500, Rob Herring wrote:
+> 'enum' is equivalent to 'oneOf' with a list of 'const' entries, but 'enum'
+> is more concise and yields better error messages.
+>=20
+> Cc: Vinod Koul <vkoul@kernel.org>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Vignesh R <vigneshr@ti.com>
+> Cc: Marc Zyngier <maz@kernel.org>
+> Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
+> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+> Cc: Lee Jones <lee.jones@linaro.org>
+> Cc: "David S. Miller" <davem@davemloft.net>
+> Cc: Jakub Kicinski <kuba@kernel.org>
+> Cc: Bjorn Helgaas <bhelgaas@google.com>
+> Cc: Kishon Vijay Abraham I <kishon@ti.com>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: Daniel Lezcano <daniel.lezcano@linaro.org>
+> Cc: dmaengine@vger.kernel.org
+> Cc: linux-i2c@vger.kernel.org
+> Cc: linux-media@vger.kernel.org
+> Cc: netdev@vger.kernel.org
+> Cc: linux-pci@vger.kernel.org
+> Cc: linux-phy@lists.infradead.org
+> Cc: linux-serial@vger.kernel.org
+> Cc: alsa-devel@alsa-project.org
+> Cc: linux-spi@vger.kernel.org
+> Signed-off-by: Rob Herring <robh@kernel.org>
 
-Actually when codec is suspended and we do reboot from UI, then 
-sometimes we see suspend() calls in kernel log and no pops, but sometimes
+Acked-by: Wolfram Sang <wsa@kernel.org> # for I2C
 
-we still have no suspend() on reboot and we hear pops. But when we do 
-reboot from command line: > sudo reboot  then we always have pops and no 
-suspend() called.
+Thanks!
 
-Then we have added extra logging and we can see that on reboot codec 
-somehow getting resume() call and we run jack detect on resume that 
-causing pops.
 
-We were thinking about possible solution for that and we would propose 
-some changes in generic code hda_bind.c:
+--l25l+0aqVZr4EHUF
+Content-Type: application/pgp-signature; name="signature.asc"
 
-static void hda_codec_driver_shutdown(struct device *dev) { +   if 
-(codec->patch_ops.suspend) +      codec->patch_ops.suspend(codec);    
-snd_hda_codec_shutdown(dev_to_hda_codec(dev)); +  
-hda_codec_driver_remove(dev_to_hda_codec(dev)); }
+-----BEGIN PGP SIGNATURE-----
 
-This have been tested on all our platforms without regression and it 
-fixes pops issue on dolphin HW
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmEmrjQACgkQFA3kzBSg
+KbZM6Q//Y9REdiq/zJ83ZpDra3byCGjog62qLvRAGT4bIWJksXDHZQIAI+VT4f6T
+bcW/EdAoYI1thOwyeO0PFXFAocKX3YZqx8y3bUw/vQXhQmDi3lhbeA3nmGlGl5zF
+DJoaMXH/hK7uuwmdyeoHFpedIP5M+gHnvDyC4ZarCzeWuZBWMf4fwFyOgVS4PtHw
+nRqm4E9bfQNCveZ/YxIQdbJFg8x419pJ49q3xqnLPweEAPs0h27mIG45IrPwHw8A
+aVOGhHDvGqA3HduEiFmcLZWL7Ud3ariS19SSiHwdcdTPXtYBI+JPJh+arDDaJ2JF
+8sgn/OSkymL9JZa0mg5Y3O9+FczVUlHALdrC+eSxkOlfXNR3xOJzetBC12vBlH44
+6gBxucO3QoyujUTd7gsfaVIn5XqssAsWn2BYD9iM5j0D74Quyb2t1m10e6wMRWVv
+/wSiWLnsC6dSO2jpulphC/G/Fyw+YcPfmvm402PlgOY5tzsY6sVS6eqyegvMReUP
+oc26QyGtdxBy9Ksr54/s3N8WV14vcJm/mjCLH3ejKPrtBvOyu9sXEFmyV6lhB9r2
+pEr0igI5TSC1J9EHQyvT10B56KbKlz4ZLB44daIOAYCvAIrlVRd+Yn/Nnmvk0mbs
+7bnP+mB18KKgKC6GdNtfMyyZFCetGmhPLp1n1JUeoTlACwJF++Q=
+=9C1H
+-----END PGP SIGNATURE-----
 
-as well for reboot from UI and > sudo reboot. We always getting 
-suspend() calls
-
-on reboot.
-
-Thanks,
-
-Vitaly
-
->
->
-> thanks,
->
-> Takashi
-
+--l25l+0aqVZr4EHUF--

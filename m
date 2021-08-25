@@ -2,101 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DA273F7D6C
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Aug 2021 22:57:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28F963F7EC6
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Aug 2021 00:50:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 89E2D1681;
-	Wed, 25 Aug 2021 22:56:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89E2D1681
+	by alsa0.perex.cz (Postfix) with ESMTPS id A3094167D;
+	Thu, 26 Aug 2021 00:49:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3094167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629925019;
-	bh=gjZeZMGJIoheKp31xKi7pLwU9TfiEyPpquQWCgvZtE4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1629931819;
+	bh=auobxHqgdM6CXOJpZfnfzPR3VAbbeS8/jtJHGLQA+o8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rix1uwU0TklBmPSpji2Psy/0HX3IgA/w+4unXw5ECCCOiD01w/OCnzUuHycK4+fgV
-	 4XX1f67pCxS08f6886RQ0BpBTpl08r2RAlfK4gB/UOvIIaXHztIhzzC0OJmj3lHOQn
-	 7zjbQ/6m/qchFO5BSZnPfzkAY0pGpq6eUHvKtU6s=
+	b=vD3DSuRPx52WjTM6HwUszYp9S/kX8H/tcuWf/vUq1R7nFkQckwLU6FcHAfCgtfW2U
+	 Or2Y/qbYqYtEln62pwwaY3dc579fffih1WCcWTzXVWGqWlCeSXK6GjsF8pjfYk3kcM
+	 9qLv9p1pRtlZa620KKFANJZQmjNc2IwmBfl8TXjE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DEFDEF800AE;
-	Wed, 25 Aug 2021 22:55:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 057BBF800AE;
+	Thu, 26 Aug 2021 00:49:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A34E8F8020C; Wed, 25 Aug 2021 22:55:38 +0200 (CEST)
+ id EBA79F8020C; Thu, 26 Aug 2021 00:48:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 600FCF800C9
- for <alsa-devel@alsa-project.org>; Wed, 25 Aug 2021 22:55:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 600FCF800C9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Y9boM9pg"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 221C76108E;
- Wed, 25 Aug 2021 20:55:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1629924926;
- bh=gjZeZMGJIoheKp31xKi7pLwU9TfiEyPpquQWCgvZtE4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Y9boM9pg89jRKmwouT/QTKTfP6cnbbCCCS7xmR/j11WJTKQOoI8xp/F9tCG875w14
- t6ZHgrFxWueYM1Y92Rl7sM+t1APG8oB3pawMogJMmlk55scB1wpiiS9VEVKHn2TSfQ
- v6b9DHSD8GG1ExHf6HWDK/0ILsqf5kdC4LZvW8txDVi7va9/vzSeyJvT19soF4LTaO
- UhE+SSACe6K2tgwjuD324QiY1xyoXVmyl0z/7jdZ80aCjvvWDXLZHJ4EY3w0hYaMuh
- LCtCQKRsN60dvSDuUXJopL0P8Y23dbW9YmOT36artHj8pWjc7htojIylo/VltN2sRE
- hShhViV80NumQ==
-Date: Wed, 25 Aug 2021 22:55:21 +0200
-From: Wolfram Sang <wsa@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH] dt-bindings: Use 'enum' instead of 'oneOf' plus 'const'
- entries
-Message-ID: <YSauOeE4lBfeDiGw@kunai>
-Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
- Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Vignesh R <vigneshr@ti.com>,
- Marc Zyngier <maz@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Lee Jones <lee.jones@linaro.org>,
- "David S. Miller" <davem@davemloft.net>,
- Jakub Kicinski <kuba@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Kishon Vijay Abraham I <kishon@ti.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Mark Brown <broonie@kernel.org>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- dmaengine@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-serial@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-spi@vger.kernel.org
-References: <20210824202014.978922-1-robh@kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="l25l+0aqVZr4EHUF"
-Content-Disposition: inline
-In-Reply-To: <20210824202014.978922-1-robh@kernel.org>
-Cc: alsa-devel@alsa-project.org, Vignesh R <vigneshr@ti.com>,
- linux-pci@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-phy@lists.infradead.org, Lee Jones <lee.jones@linaro.org>,
- Marc Zyngier <maz@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>,
- Kishon Vijay Abraham I <kishon@ti.com>, linux-serial@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- Mark Brown <broonie@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, netdev@vger.kernel.org,
- dmaengine@vger.kernel.org, "David S. Miller" <davem@davemloft.net>
+X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 9A5D9F800AE
+ for <alsa-devel@alsa-project.org>; Thu, 26 Aug 2021 00:48:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A5D9F800AE
+Date: 26 Aug 2021 07:48:40 +0900
+X-IronPort-AV: E=Sophos;i="5.84,351,1620658800"; d="scan'208";a="91784188"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 26 Aug 2021 07:48:40 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id DA22E4125BE4;
+ Thu, 26 Aug 2021 07:48:40 +0900 (JST)
+Message-ID: <87k0k916pj.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Olivier MOYSAN <olivier.moysan@foss.st.com>
+Subject: Re: [PATCH 6/6] ASoC: audio-graph: remove Platform support
+In-Reply-To: <bc95a045-b370-8d7f-1167-34bd68e39165@foss.st.com>
+References: <871rb758x7.wl-kuninori.morimoto.gx@renesas.com>
+ <87sg3n3ubg.wl-kuninori.morimoto.gx@renesas.com>
+ <bc95a045-b370-8d7f-1167-34bd68e39165@foss.st.com>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,63 +70,42 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---l25l+0aqVZr4EHUF
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Olivier
 
-On Tue, Aug 24, 2021 at 03:20:14PM -0500, Rob Herring wrote:
-> 'enum' is equivalent to 'oneOf' with a list of 'const' entries, but 'enum'
-> is more concise and yields better error messages.
->=20
-> Cc: Vinod Koul <vkoul@kernel.org>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Vignesh R <vigneshr@ti.com>
-> Cc: Marc Zyngier <maz@kernel.org>
-> Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
-> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-> Cc: Lee Jones <lee.jones@linaro.org>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Kishon Vijay Abraham I <kishon@ti.com>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Daniel Lezcano <daniel.lezcano@linaro.org>
-> Cc: dmaengine@vger.kernel.org
-> Cc: linux-i2c@vger.kernel.org
-> Cc: linux-media@vger.kernel.org
-> Cc: netdev@vger.kernel.org
-> Cc: linux-pci@vger.kernel.org
-> Cc: linux-phy@lists.infradead.org
-> Cc: linux-serial@vger.kernel.org
-> Cc: alsa-devel@alsa-project.org
-> Cc: linux-spi@vger.kernel.org
-> Signed-off-by: Rob Herring <robh@kernel.org>
+Thank you for conntacting me
 
-Acked-by: Wolfram Sang <wsa@kernel.org> # for I2C
+> I have seen that the STM32MP15 audio sound card is no more functional
+> with recent kernels (5.13 or 5.14)
+> The sound card is registered, but the all devices are issuing an error
+> at runtime. These devices are using stm32_sai.c or stm32_i2s.c
+> drivers.
+> 
+> I found that the regression is linked to the commit
+> 63f2f9cceb09f8e5f668e36c1cf764eea468ebed "ASoC: audio-graph: remove
+> Platform support", as reverting this commit fixes the issue.
+> 
+> When the platform component is missing the pcm_construct ops in the
+> pcm dmaengine, is never called, resulting in an incomplete
+> initialization of the sound card.
+> I can't figure out what is the right way to handle this change, however.
+> Do I need to update the CPU drivers to work without a platform component
+> or does the audio-graph card has to be changed in some way ?
 
-Thanks!
+Ahh, OK, I see.
+Indeed the dev which is used for CPU is used at soc-generic-dmaengine as Platform,
+without indicating it at DT (= simple-card has "plat" support for platform at DT,
+but audio-graph doesn't ).
 
+I think key funciton is asoc_simple_canonicalize_platform().
 
---l25l+0aqVZr4EHUF
-Content-Type: application/pgp-signature; name="signature.asc"
+> What do you mean "We can respawn it when we need it", in the commit
+> message ?
 
------BEGIN PGP SIGNATURE-----
+This means we can revert this patch if needed, and yes it is needed :)
+Could you please respawn the feature ? or I can do it if you want.
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmEmrjQACgkQFA3kzBSg
-KbZM6Q//Y9REdiq/zJ83ZpDra3byCGjog62qLvRAGT4bIWJksXDHZQIAI+VT4f6T
-bcW/EdAoYI1thOwyeO0PFXFAocKX3YZqx8y3bUw/vQXhQmDi3lhbeA3nmGlGl5zF
-DJoaMXH/hK7uuwmdyeoHFpedIP5M+gHnvDyC4ZarCzeWuZBWMf4fwFyOgVS4PtHw
-nRqm4E9bfQNCveZ/YxIQdbJFg8x419pJ49q3xqnLPweEAPs0h27mIG45IrPwHw8A
-aVOGhHDvGqA3HduEiFmcLZWL7Ud3ariS19SSiHwdcdTPXtYBI+JPJh+arDDaJ2JF
-8sgn/OSkymL9JZa0mg5Y3O9+FczVUlHALdrC+eSxkOlfXNR3xOJzetBC12vBlH44
-6gBxucO3QoyujUTd7gsfaVIn5XqssAsWn2BYD9iM5j0D74Quyb2t1m10e6wMRWVv
-/wSiWLnsC6dSO2jpulphC/G/Fyw+YcPfmvm402PlgOY5tzsY6sVS6eqyegvMReUP
-oc26QyGtdxBy9Ksr54/s3N8WV14vcJm/mjCLH3ejKPrtBvOyu9sXEFmyV6lhB9r2
-pEr0igI5TSC1J9EHQyvT10B56KbKlz4ZLB44daIOAYCvAIrlVRd+Yn/Nnmvk0mbs
-7bnP+mB18KKgKC6GdNtfMyyZFCetGmhPLp1n1JUeoTlACwJF++Q=
-=9C1H
------END PGP SIGNATURE-----
+Thank you for your help !!
 
---l25l+0aqVZr4EHUF--
+Best regards
+---
+Kuninori Morimoto

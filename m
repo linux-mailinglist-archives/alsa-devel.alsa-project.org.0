@@ -2,70 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FC583F7852
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Aug 2021 17:29:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 431603F7805
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Aug 2021 17:08:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 77BDC1680;
-	Wed, 25 Aug 2021 17:28:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77BDC1680
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB00F167B;
+	Wed, 25 Aug 2021 17:08:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB00F167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629905354;
-	bh=U+R7x0zG7wZDOCbY4AVx/G8Mgmce8xvj5JapM9MDqZA=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1629904131;
+	bh=VvN3p1x82sJN6ciE2MVAz2pR9UcPovK7pzX6wQ32G3o=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qxJ8T5CenesKc1Zejgqs3TeEmE5/6F5eRRmo734Gpc2GBsa1o/iOSp5jkT271MqJX
-	 NDZQ9plNMf4ceJdbjV1YARgjYjk/U73E77x1yiGcgROa35Z3l7OUR8ve1BxhCcXlAE
-	 seq3LiDmUCpu8qTXwwfX6UVCkKyPR5mq62cpMV5g=
+	b=Wo/XedIxgk0JOuChSWSs4JhVmq5pwoo+8W43fwL+RW/fLAfZMk6RNyxhfH+1ts8BS
+	 UUSa4N7Y5mNzlbPyDSrehM3/PyN9MLxpuvNNp02/Pg2f5h4WPV85c6F87SaYpLaW5I
+	 iD1RGWbMGArzwkAchBSdG4smzsQRR8S2WGf/c3is=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C103FF804B4;
-	Wed, 25 Aug 2021 17:27:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0FD27F8020D;
+	Wed, 25 Aug 2021 17:07:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3BE25F8020C; Wed, 25 Aug 2021 17:27:32 +0200 (CEST)
+ id 6EBC4F8020C; Wed, 25 Aug 2021 17:07:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BB3E8F800C9
- for <alsa-devel@alsa-project.org>; Wed, 25 Aug 2021 17:27:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB3E8F800C9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 987FBF800AE
+ for <alsa-devel@alsa-project.org>; Wed, 25 Aug 2021 17:07:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 987FBF800AE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="DDkbo11K"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 05210610FC;
- Wed, 25 Aug 2021 15:27:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1629905246;
- bh=U+R7x0zG7wZDOCbY4AVx/G8Mgmce8xvj5JapM9MDqZA=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=DDkbo11KFipYgEKtIb83QOW5eT1/FJBuX92jSHGUSc1s3oYe1eErLjQ1w0t6+JQmy
- SbhdnytnuSwmbOlutJzqBdR5jRPtb9CbX2F/0dkiEFAHhsZzGurR1vfpWd8JTqBV6S
- oSp7CBgD3GfNZ0fNDPgtmrsGCXEiUYtG36LZdBGJfEy63/2nfxWk6/fca9+OPvUcj8
- PzCPwVh4k6WILL5dy+ii88XqfVH7RsM3yg69dYG9eobTlaZk29vZF3yMLudUBbIASp
- 4mwn9uhcyAr2BNjbzUMVPqzF395PLyqAzT0CLBK9rmn24EhkIRyzn4Znohr39wQxdz
- c+zFx5vDAusiA==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, derek.fang@realtek.com
-In-Reply-To: <15a267e360f64618b82356b925b002f2@realtek.com>
-References: <15a267e360f64618b82356b925b002f2@realtek.com>
-Subject: Re: [PATCH RESEND] ASoC: rt5682: Fix the vol+ button detection issue
-Message-Id: <162990401496.56501.5907742251809678319.b4-ty@kernel.org>
-Date: Wed, 25 Aug 2021 16:06:54 +0100
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="h0+/DrrI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1629904038;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=h/3CbWOgv+EOmqelt7GVpuaqByU3P7F9xcIdRy7aexI=;
+ b=h0+/DrrIggvK41cbylofRrD5Wf4Uy4peTgPY4GgeihwSOC4G6jgTcHS7yGqS5Cd+KVgFpX
+ OC2fFG1RUoDB8ap8MUtdYzi3Ozvr5xzRFuyGpe28hhS9a0qCP75v2wWhi0C7QHwc10NQHq
+ ZjCu97GrVqtPehzhAVExPtgRBY/bDek=
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
+ [209.85.208.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-554-ws8aFALQPdWPndkj_5GW9g-1; Wed, 25 Aug 2021 11:07:17 -0400
+X-MC-Unique: ws8aFALQPdWPndkj_5GW9g-1
+Received: by mail-ed1-f72.google.com with SMTP id
+ e18-20020a0564020892b02903be9702d63eso3791036edy.17
+ for <alsa-devel@alsa-project.org>; Wed, 25 Aug 2021 08:07:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=h/3CbWOgv+EOmqelt7GVpuaqByU3P7F9xcIdRy7aexI=;
+ b=h44qnLnBlWIszD35F5aU858TFSPC2JSkLhuA2wlRJPfDE8WCfVa4d3WoWvB/o/RYX8
+ x2DhZUANIbnQU7qcppPLHOs/KBjMzMWBDk+STxPdVb7SwAjqOXcHJEe4ARZa4LCO+PjG
+ Oq1lD50lXjmZcgGDVJFTis2G+SUkDt/L7pShXQysxF4qZJCNWd9o/+SNT2MH3pwzvoxZ
+ qTyCvOet+QfiA6BnJ+azFtdTy+m1tDehHXAf6E9s4aLxjCae/idCEUJU2t34yu7aBggv
+ +UDrAK9Sw+0fnzyAfocNNKdgMNHBRI7muylaTfhAXWnLZMCnx0jROifBdYMDBAPDiqjl
+ 73Sg==
+X-Gm-Message-State: AOAM531XSD8cnISPhFf1d2Qq+xxdjFV1LItdRrbTEg0R3E1hjRKEfLE4
+ szYp68Q/szBVfTK/zOEBf8P5cuS7Qpc1PQ+lKbVu4D4XnkZvTbjuxHjKSvXEo0t/0v0KY46Z9y0
+ BB/DRn6/XQyrHOKZj107oF1AZIfTx/TemNb0G6TK/mcddf3BCn/k07vXzw3vXRvKSRNPj4JkfNX
+ M=
+X-Received: by 2002:a17:906:7256:: with SMTP id
+ n22mr46189740ejk.173.1629904035738; 
+ Wed, 25 Aug 2021 08:07:15 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwVJZK3i4o59VL4FzCFM7dzTwa/sf94V18PHOecBZloflumQ65W0d2j/3rnNxwkd1Rrjb/0jg==
+X-Received: by 2002:a17:906:7256:: with SMTP id
+ n22mr46189707ejk.173.1629904035334; 
+ Wed, 25 Aug 2021 08:07:15 -0700 (PDT)
+Received: from x1.localdomain
+ (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
+ by smtp.gmail.com with ESMTPSA id f26sm139123eds.90.2021.08.25.08.07.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 25 Aug 2021 08:07:14 -0700 (PDT)
+Subject: Re: [PATCH] ASoC: Intel: bytcr_rt5640: Make
+ rt5640_jack_gpio/rt5640_jack2_gpio static
+To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, broonie@kernel.org,
+ liam.r.girdwood@linux.intel.com, cezary.rojewski@intel.com,
+ pierre-louis.bossart@linux.intel.com, yang.jie@linux.intel.com
+References: <20210825122519.3364-1-peter.ujfalusi@linux.intel.com>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <63e4f111-cf7a-ebee-52e1-d8c9f23d097d@redhat.com>
+Date: Wed, 25 Aug 2021 17:07:14 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: Oder Chiou <oder_chiou@realtek.com>,
-	Jack Yu <jack.yu@realtek.com>, alsa-devel@alsa-project.org,
-	lars@metafoo.de, , Albert Chen <albertchen@realtek.com>,
-	Shuming@alsa-project.org, shumingf@realtek.com,
-	范書銘@alsa-project.org, "Flove(HsinFu)" <flove@realtek.com>
+In-Reply-To: <20210825122519.3364-1-peter.ujfalusi@linux.intel.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,38 +123,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 16 Aug 2021 10:36:22 +0000, Derek wrote:
-> Fix the wrong button vol+ detection issue with some brand headsets
-> by fine tuning the threshold of button vol+ and SAR ADC button accuracy.
+Hi,
+
+On 8/25/21 2:25 PM, Peter Ujfalusi wrote:
+> Marking the two jack gpio as static fixes the following Sparse errors:
+> sound/soc/intel/boards/bytcr_rt5640.c:468:26: error: symbol 'rt5640_jack_gpio' was not declared. Should it be static?
+> sound/soc/intel/boards/bytcr_rt5640.c:475:26: error: symbol 'rt5640_jack2_gpio' was not declared. Should it be static?
 > 
+> Fixes: 9ba00856686ad ("ASoC: Intel: bytcr_rt5640: Add support for HP Elite Pad 1000G2 jack-detect")
+> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+
+Thanks, patch looks good to me:
+
+Reviewed-by: Hans de Goede <hdegoede@redhat.com>
+
+Regards,
+
+Hans
+
+
+
+> ---
+>  sound/soc/intel/boards/bytcr_rt5640.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
+> diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+> index 05667a33d919..a6e837290c7d 100644
+> --- a/sound/soc/intel/boards/bytcr_rt5640.c
+> +++ b/sound/soc/intel/boards/bytcr_rt5640.c
+> @@ -465,14 +465,14 @@ static struct snd_soc_jack_pin rt5640_pins2[] = {
+>  	},
+>  };
+>  
+> -struct snd_soc_jack_gpio rt5640_jack_gpio = {
+> +static struct snd_soc_jack_gpio rt5640_jack_gpio = {
+>  	.name = "hp-detect",
+>  	.report = SND_JACK_HEADSET,
+>  	.invert = true,
+>  	.debounce_time = 200,
+>  };
+>  
+> -struct snd_soc_jack_gpio rt5640_jack2_gpio = {
+> +static struct snd_soc_jack_gpio rt5640_jack2_gpio = {
+>  	.name = "hp2-detect",
+>  	.report = SND_JACK_HEADSET,
+>  	.invert = true,
 > 
-> 
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: rt5682: Fix the vol+ button detection issue
-      commit: 8d3019b63b3d92c9b5f1548f600485d39262bbe1
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

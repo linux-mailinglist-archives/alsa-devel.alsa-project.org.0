@@ -2,69 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E356A3F7854
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Aug 2021 17:29:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6B933F785F
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Aug 2021 17:30:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 77ADE1678;
-	Wed, 25 Aug 2021 17:28:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77ADE1678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40EEC1689;
+	Wed, 25 Aug 2021 17:29:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40EEC1689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629905372;
-	bh=m7p6daCSPgaKes4En6UWW7yVDDqC2Pu4GbLK9AYNzPA=;
+	s=default; t=1629905404;
+	bh=ZlLQ2rNAFM5JfZGXLEck7tFHfMAbQvECPZqlGrmWsJY=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GySuDxdBS1h4qzKSkRorSdz0pc9qjSFDdpUsTYSEMV2Hue6E+r4T2XXah/q7pQh7H
-	 lfiSC8IWj8G7AdDuwnkcE5VI/OO8tQVUPK8VO6s+me8P2ddWg7CWOHPzNimdkmIvjM
-	 9uTc9nztbcYdBQ0qLn1Y4YzxQ78XJOXjtVS4wHoM=
+	b=uI8wZwku5HTTG2y5d7yrNfzzzvQlcvTkUauORl4b3zQtc5Y3y+So/1qaSMHAWt41m
+	 I+BH3MwwHUQiZPsU87HKDRwgfcC2+HKyYUXWOOiC815kYROib0vwmZLV7QmgUZAOoi
+	 AUlsfhWtUOuRYACOq94VXr9b92ib6M/N/s8YfgzY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24396F804E7;
+	by alsa1.perex.cz (Postfix) with ESMTP id EEB09F804EC;
 	Wed, 25 Aug 2021 17:27:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 574ABF804D0; Wed, 25 Aug 2021 17:27:37 +0200 (CEST)
+ id 3D283F804D0; Wed, 25 Aug 2021 17:27:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BC349F800AE
- for <alsa-devel@alsa-project.org>; Wed, 25 Aug 2021 17:27:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC349F800AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5A80F8020D
+ for <alsa-devel@alsa-project.org>; Wed, 25 Aug 2021 17:27:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5A80F8020D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="pwqs1G+F"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 07C24610FD;
- Wed, 25 Aug 2021 15:27:31 +0000 (UTC)
+ header.b="q8+lVqwf"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C06AC61027;
+ Wed, 25 Aug 2021 15:27:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1629905252;
- bh=m7p6daCSPgaKes4En6UWW7yVDDqC2Pu4GbLK9AYNzPA=;
+ s=k20201202; t=1629905249;
+ bh=ZlLQ2rNAFM5JfZGXLEck7tFHfMAbQvECPZqlGrmWsJY=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=pwqs1G+F8QgIMdzNMMHzE0kJbxkJNt+b1ROTl740x1V4KaRL8HKLsoRgtYHCuOq8B
- NSMyx+YhZ4l1jYSxxc2S3/u8PWayvsRd9sr9AsTZOEbk0oJ6qrTJZRXEFA/G+a1+XZ
- A1bUiridukYUIdmppaUUNtYamjRmRwJVZlp+Zdb6VO4nWeikhSJKSEjZzJJd0wG4ty
- HloV2VjYfH8l8063pC3RT7AEB4QYNxMIYYYnlk5PrkQRE1GkZzTT6lGB35Ov+I1C2M
- 5/967vfvf2+L2ReL6C8bXjyOqX/1NacOO4v6+4FiB/94v4GXQ9n5yoeiH0kb9Xh4hA
- CXg394utPd6Ng==
+ b=q8+lVqwfQwAlYidEczh9LNURnTcIKk1VvrA5FR70mDZ16vvYy+a4XDj86CpfnDFJv
+ 6UGf0AXEYPXX67tuxXlwj6wDKE25+RQvKTut4oKC8suAzp9K9YXDFpLSAel+lB+BLv
+ BCvKmQamMtLmkXQQASymsZ3eb1XqcAetWavJAx+4tHnXhq33527QNdRxCXWHLN561K
+ sGaFSG3mKqvnGDmL7GbCsLGo0nFBP2u3C4yfthVQTAoxGD5hdDQAFWH3sDKioP10M0
+ 8nmlwMRLrIf+jajB0qVbQ4RIP+8K3+eiQjULbNMur9W5fTkIXegzP8ngxLPnrgoA+V
+ 5PwZTVfWU/NBQ==
 From: Mark Brown <broonie@kernel.org>
-To: nicoleotsuka@gmail.com, festevam@gmail.com, tiwai@suse.com,
- Xiubo.Lee@gmail.com, timur@kernel.org, alsa-devel@alsa-project.org,
- Shengjiu Wang <shengjiu.wang@nxp.com>, perex@perex.cz
-In-Reply-To: <1629875681-16373-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1629875681-16373-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH] ASoC: imx-rpmsg: change dev_err to dev_err_probe for
- -EPROBE_DEFER
-Message-Id: <162990401497.56501.6446443015923932557.b4-ty@kernel.org>
+To: derek.fang@realtek.com, lgirdwood@gmail.com
+In-Reply-To: <20210825040346.28346-1-derek.fang@realtek.com>
+References: <20210825040346.28346-1-derek.fang@realtek.com>
+Subject: Re: [PATCH v2] ASoC: rt5682: Fix the vol+ button detection issue
+Message-Id: <162990401497.56501.13651116295284237595.b4-ty@kernel.org>
 Date: Wed, 25 Aug 2021 16:06:54 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, albertchen@realtek.com, shumingf@realtek.com,
+ flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,13 +80,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 25 Aug 2021 15:14:41 +0800, Shengjiu Wang wrote:
-> Change dev_err to dev_err_probe for no need print error message
-> when defer probe happens.
+On Wed, 25 Aug 2021 12:03:46 +0800, derek.fang@realtek.com wrote:
+> From: Derek Fang <derek.fang@realtek.com>
+> 
+> Fix the wrong button vol+ detection issue with some brand headsets
+> by fine tuning the threshold of button vol+ and SAR ADC button accuracy.
 > 
 > 
 > 
-> 
+> [...]
 
 Applied to
 
@@ -94,8 +96,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: imx-rpmsg: change dev_err to dev_err_probe for -EPROBE_DEFER
-      commit: a8946f032eeace6eeb4e51e518275010e5528660
+[1/1] ASoC: rt5682: Fix the vol+ button detection issue
+      commit: 8d3019b63b3d92c9b5f1548f600485d39262bbe1
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,80 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9662E3F76D1
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Aug 2021 16:04:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E356A3F7854
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Aug 2021 17:29:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0CA1E1679;
-	Wed, 25 Aug 2021 16:03:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0CA1E1679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 77ADE1678;
+	Wed, 25 Aug 2021 17:28:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77ADE1678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629900276;
-	bh=VIKzuu4xITV3ArU39CmlrxTodlTpUkcESqyApfVLu5M=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1629905372;
+	bh=m7p6daCSPgaKes4En6UWW7yVDDqC2Pu4GbLK9AYNzPA=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sMapJx+Lta6LUtZvbxe4USv1qrfDPQbkaT3pGcRQZdojW10QBvth2xddeua/UA4Ki
-	 TglqyQrMAqKTQDASGrNjFvcPLg3i6qfW8K1OYDZpRneOdk7pIGFL/bo0KuF0kqorJ6
-	 JeEuYnsx1uKbKYnwrKmF8+RRr3uC6feL2LEWk3Sw=
+	b=GySuDxdBS1h4qzKSkRorSdz0pc9qjSFDdpUsTYSEMV2Hue6E+r4T2XXah/q7pQh7H
+	 lfiSC8IWj8G7AdDuwnkcE5VI/OO8tQVUPK8VO6s+me8P2ddWg7CWOHPzNimdkmIvjM
+	 9uTc9nztbcYdBQ0qLn1Y4YzxQ78XJOXjtVS4wHoM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62895F80171;
-	Wed, 25 Aug 2021 16:03:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24396F804E7;
+	Wed, 25 Aug 2021 17:27:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B3FA3F8020C; Wed, 25 Aug 2021 16:03:13 +0200 (CEST)
+ id 574ABF804D0; Wed, 25 Aug 2021 17:27:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 978A3F800C9
- for <alsa-devel@alsa-project.org>; Wed, 25 Aug 2021 16:03:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 978A3F800C9
+ by alsa1.perex.cz (Postfix) with ESMTPS id BC349F800AE
+ for <alsa-devel@alsa-project.org>; Wed, 25 Aug 2021 17:27:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC349F800AE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="S6IcAU40"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4EAD3610E8;
- Wed, 25 Aug 2021 14:03:02 +0000 (UTC)
+ header.b="pwqs1G+F"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 07C24610FD;
+ Wed, 25 Aug 2021 15:27:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1629900183;
- bh=VIKzuu4xITV3ArU39CmlrxTodlTpUkcESqyApfVLu5M=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=S6IcAU40+PaPQ2D87Qd98+EZIeLzzUAAWLP18PQncTxxr6pP3IOBE5NvGSjXKp3wW
- xM549Yu7GnkDY9biqpYioK00x+/YRrZatY0Mw2Kne8U2aFI05scDlhzK+oGWiodchd
- h6YDS5n/VUbgMYq0mMeMOM8FQ+CnBaFYkpTxmlaInAK4A3//oK9BZzBe3JYf33JvE0
- 4iR5qK+AeTTnZBenFytofhzVZMZUpwplE2qzBcqjhjogL3jY6pvqa67a/2EWGC026G
- Iamm8x94qggZ/NABpea/6X50nyqAT4g37NHna7CBnllMy7vncNVwrvRoMQoYOyI363
- uTzIRM1m3J+lQ==
-Date: Wed, 25 Aug 2021 19:32:58 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH] dt-bindings: Use 'enum' instead of 'oneOf' plus 'const'
- entries
-Message-ID: <YSZNkraWdMGXsjbf@matsya>
-References: <20210824202014.978922-1-robh@kernel.org>
+ s=k20201202; t=1629905252;
+ bh=m7p6daCSPgaKes4En6UWW7yVDDqC2Pu4GbLK9AYNzPA=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=pwqs1G+F8QgIMdzNMMHzE0kJbxkJNt+b1ROTl740x1V4KaRL8HKLsoRgtYHCuOq8B
+ NSMyx+YhZ4l1jYSxxc2S3/u8PWayvsRd9sr9AsTZOEbk0oJ6qrTJZRXEFA/G+a1+XZ
+ A1bUiridukYUIdmppaUUNtYamjRmRwJVZlp+Zdb6VO4nWeikhSJKSEjZzJJd0wG4ty
+ HloV2VjYfH8l8063pC3RT7AEB4QYNxMIYYYnlk5PrkQRE1GkZzTT6lGB35Ov+I1C2M
+ 5/967vfvf2+L2ReL6C8bXjyOqX/1NacOO4v6+4FiB/94v4GXQ9n5yoeiH0kb9Xh4hA
+ CXg394utPd6Ng==
+From: Mark Brown <broonie@kernel.org>
+To: nicoleotsuka@gmail.com, festevam@gmail.com, tiwai@suse.com,
+ Xiubo.Lee@gmail.com, timur@kernel.org, alsa-devel@alsa-project.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, perex@perex.cz
+In-Reply-To: <1629875681-16373-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1629875681-16373-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: imx-rpmsg: change dev_err to dev_err_probe for
+ -EPROBE_DEFER
+Message-Id: <162990401497.56501.6446443015923932557.b4-ty@kernel.org>
+Date: Wed, 25 Aug 2021 16:06:54 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210824202014.978922-1-robh@kernel.org>
-Cc: alsa-devel@alsa-project.org, Vignesh R <vigneshr@ti.com>,
- linux-pci@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-phy@lists.infradead.org, Lee Jones <lee.jones@linaro.org>,
- Marc Zyngier <maz@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>,
- Kishon Vijay Abraham I <kishon@ti.com>, linux-serial@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- Mark Brown <broonie@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, Sakari Ailus <sakari.ailus@linux.intel.com>,
- netdev@vger.kernel.org, dmaengine@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,45 +80,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 24-08-21, 15:20, Rob Herring wrote:
-> 'enum' is equivalent to 'oneOf' with a list of 'const' entries, but 'enum'
-> is more concise and yields better error messages.
+On Wed, 25 Aug 2021 15:14:41 +0800, Shengjiu Wang wrote:
+> Change dev_err to dev_err_probe for no need print error message
+> when defer probe happens.
 > 
-> Cc: Vinod Koul <vkoul@kernel.org>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Vignesh R <vigneshr@ti.com>
-> Cc: Marc Zyngier <maz@kernel.org>
-> Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
-> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-> Cc: Lee Jones <lee.jones@linaro.org>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Kishon Vijay Abraham I <kishon@ti.com>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Daniel Lezcano <daniel.lezcano@linaro.org>
-> Cc: dmaengine@vger.kernel.org
-> Cc: linux-i2c@vger.kernel.org
-> Cc: linux-media@vger.kernel.org
-> Cc: netdev@vger.kernel.org
-> Cc: linux-pci@vger.kernel.org
-> Cc: linux-phy@lists.infradead.org
-> Cc: linux-serial@vger.kernel.org
-> Cc: alsa-devel@alsa-project.org
-> Cc: linux-spi@vger.kernel.org
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
->  .../bindings/display/msm/dsi-phy-10nm.yaml           |  6 +++---
->  .../bindings/display/msm/dsi-phy-14nm.yaml           |  6 +++---
->  .../bindings/display/msm/dsi-phy-28nm.yaml           |  8 ++++----
+> 
+> 
+> 
 
-Reviewed-by: Vinod Koul <vkoul@kernel.org>
+Applied to
 
->  .../bindings/dma/allwinner,sun6i-a31-dma.yaml        | 12 ++++++------
->  .../devicetree/bindings/phy/intel,lgm-emmc-phy.yaml  |  6 +++---
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Acked-By: Vinod Koul <vkoul@kernel.org>
+Thanks!
 
--- 
-~Vinod
+[1/1] ASoC: imx-rpmsg: change dev_err to dev_err_probe for -EPROBE_DEFER
+      commit: a8946f032eeace6eeb4e51e518275010e5528660
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

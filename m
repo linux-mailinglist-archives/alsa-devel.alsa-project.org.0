@@ -2,75 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E765C3F8175
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Aug 2021 06:05:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DECE3F8238
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Aug 2021 08:05:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7587C1683;
-	Thu, 26 Aug 2021 06:04:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7587C1683
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FFFC167C;
+	Thu, 26 Aug 2021 08:04:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FFFC167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629950723;
-	bh=3OOIIxmHS3/HvqmjAn2LiD1TA4NnM0TCCHB0OubqxoE=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1629957914;
+	bh=NiTNDOZVy0ptnDbagM5FaD9GXF/022F1KUWhAC2sg+g=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jQumLd0aj5kIdWgUqB9XcdLuHoFRYlQcfMNTs0XNEXtmvL6+h5qTsphUeSxxqZvMC
-	 wk2y/cR39TYeax1ZSN9A/7HDEdko3w1FE+SSTe7FqqhTY2aJtWFfJPiLrQ307p5PNY
-	 jtY5P+xsAbUOlp0MYWVoEtQl+NsYg3EejCIJ0P7A=
+	b=OcbDk/x6jNDiQ4dDQQxizpzv4H8dZ4aBO9Vv3c9hQuxuRAfDlXu6MuAhdJU/YJIJe
+	 QR26sVPdklKEjlomQO6u1D1Z+Qzmdyen4vs1piE5mwiOA09MuLOsYDowXy1EnymRLB
+	 23peZWWHKd0lmrvLceVlcOFuAkRcww6Thxxc7usg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21069F801D5;
-	Thu, 26 Aug 2021 06:03:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CFC80F801D5;
+	Thu, 26 Aug 2021 08:03:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F08DDF804E7; Thu, 26 Aug 2021 06:03:27 +0200 (CEST)
+ id C6881F801D8; Thu, 26 Aug 2021 08:03:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from lucky1.263xmail.com (lucky1.263xmail.com [211.157.147.134])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 93EEAF801D5
- for <alsa-devel@alsa-project.org>; Thu, 26 Aug 2021 06:03:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93EEAF801D5
-Received: from localhost (unknown [192.168.167.235])
- by lucky1.263xmail.com (Postfix) with ESMTP id 6F8C7CFCFB;
- Thu, 26 Aug 2021 12:03:18 +0800 (CST)
-X-MAIL-GRAY: 0
-X-MAIL-DELIVERY: 1
-X-ADDR-CHECKED4: 1
-X-SKE-CHECKED: 1
-X-ANTISPAM-LEVEL: 2
-Received: from localhost.localdomain (unknown [58.22.7.114])
- by smtp.263.net (postfix) whith ESMTP id
- P32763T139760853055232S1629950596113927_; 
- Thu, 26 Aug 2021 12:03:18 +0800 (CST)
-X-IP-DOMAINF: 1
-X-UNIQUE-TAG: <a43c9b1542bb633791a964ed3d21f9cf>
-X-RL-SENDER: sugar.zhang@rock-chips.com
-X-SENDER: zxg@rock-chips.com
-X-LOGIN-NAME: sugar.zhang@rock-chips.com
-X-FST-TO: broonie@kernel.org
-X-RCPT-COUNT: 6
-X-SENDER-IP: 58.22.7.114
-X-ATTACHMENT-NUM: 0
-X-System-Flag: 0
-From: Sugar Zhang <sugar.zhang@rock-chips.com>
-To: broonie@kernel.org,
-	heiko@sntech.de
-Subject: [PATCH v3 14/14] ASoC: dt-bindings: rockchip: i2s: Document property
- TRCM
-Date: Thu, 26 Aug 2021 12:03:14 +0800
-Message-Id: <1629950594-14345-4-git-send-email-sugar.zhang@rock-chips.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1629950441-14118-1-git-send-email-sugar.zhang@rock-chips.com>
-References: <1629950441-14118-1-git-send-email-sugar.zhang@rock-chips.com>
-Cc: Sugar Zhang <sugar.zhang@rock-chips.com>,
- linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id CECA6F8013F
+ for <alsa-devel@alsa-project.org>; Thu, 26 Aug 2021 08:03:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CECA6F8013F
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="cu4eirSW"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="fm3uV55Q"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 36B7122275;
+ Thu, 26 Aug 2021 06:03:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1629957825; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=SNpBB1riqWMDgTE3zjGmFc2HQ/tL4Dep2J1e5XaBy04=;
+ b=cu4eirSW+5hHB/QGrqiL+5zPRaYHWNOMwV7XFP2NmbGdXIDu53pBC/7mSqABuvrPFRGQcd
+ ZRVpyRmtVKjx2P49Z7tasFLO9zoMCIc3+hADXSR+Zk3qmYnntAJrp6lxNb5vhs+5AbQ8qo
+ gv/Kk/IwqK3c1GIMa/EK6Dl73w34Yy0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1629957825;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=SNpBB1riqWMDgTE3zjGmFc2HQ/tL4Dep2J1e5XaBy04=;
+ b=fm3uV55QwT9JRwtq/R5RU6dPv33n4R+zjz9hNhqOzhymo8Ud1e0Ujta/UJ8Y/Wl6l78pQ/
+ 2V7uwIyOmXfCClDA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 2C0D6A3B89;
+ Thu, 26 Aug 2021 06:03:45 +0000 (UTC)
+Date: Thu, 26 Aug 2021 08:03:45 +0200
+Message-ID: <s5hczq0yc72.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+Subject: Re: [PATCH 2/2] ALSA: hda/cs8409: Prevent pops and clicks during
+ reboot
+In-Reply-To: <e3df5f97-bf43-7eb8-e15d-4ab11dbae7ef@opensource.cirrus.com>
+References: <20210812183433.6330-1-vitalyr@opensource.cirrus.com>
+ <20210812183433.6330-2-vitalyr@opensource.cirrus.com>
+ <s5h1r6xlvrs.wl-tiwai@suse.de> <s5hczqgil3v.wl-tiwai@suse.de>
+ <6595e87d-1dae-b536-c17b-eafa07d04bbe@opensource.cirrus.com>
+ <s5hpmuce05m.wl-tiwai@suse.de>
+ <e3df5f97-bf43-7eb8-e15d-4ab11dbae7ef@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Stefan Binding <sbinding@opensource.cirrus.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,43 +102,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch documents property 'rockchip,trcm-sync-tx-only/rx-only'
-which is used to specify the lrck.
+On Wed, 25 Aug 2021 20:04:05 +0200,
+Vitaly Rodionov wrote:
+> Actually when codec is suspended and we do reboot from UI, then sometimes we
+> see suspend() calls in kernel log and no pops, but sometimes
+> 
+> we still have no suspend() on reboot and we hear pops. But when we do reboot
+> from command line: > sudo reboot  then we always have pops and no suspend()
+> called.
+> 
+> Then we have added extra logging and we can see that on reboot codec somehow
+> getting resume() call and we run jack detect on resume that causing pops.
 
-Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
-Reviewed-by: Rob Herring <robh@kernel.org>
----
+Hm, it's interesting who triggers the runtime resume.
 
-Changes in v3: None
-Changes in v2:
-- split property trcm into single 'trcm-sync-tx-only' and
-  'trcm-sync-rx-only' suggested by Nicolas.
-- drop change-id
+> We were thinking about possible solution for that and we would propose some
+> changes in generic code hda_bind.c:
+> 
+> static void hda_codec_driver_shutdown(struct device *dev) { +   if (codec->
+> patch_ops.suspend) +      codec->patch_ops.suspend(codec);   
+> snd_hda_codec_shutdown(dev_to_hda_codec(dev)); +  hda_codec_driver_remove
+> (dev_to_hda_codec(dev)); }
 
- Documentation/devicetree/bindings/sound/rockchip-i2s.yaml | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Sorry, it's no-no.  The suspend can't be called unconditionally, and
+the driver unbind must not be called in the callback itself.
 
-diff --git a/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml b/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
-index 5ea16b8..a2f8244 100644
---- a/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
-+++ b/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml
-@@ -91,6 +91,14 @@ properties:
-       Required property for controllers which support multi channel
-       playback/capture.
+Does the patch below work instead?
+
+
+thanks,
+
+Takashi
+
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -2356,8 +2356,11 @@ static void azx_shutdown(struct pci_dev *pci)
+ 	if (!card)
+ 		return;
+ 	chip = card->private_data;
+-	if (chip && chip->running)
++	if (chip && chip->running) {
++		chip->bus.shutdown = 1;
++		cancel_work_sync(&bus->unsol_work);
+ 		azx_shutdown_chip(chip);
++	}
+ }
  
-+  rockchip,trcm-sync-tx-only:
-+    type: boolean
-+    description: Use TX LRCK for both TX and RX.
-+
-+  rockchip,trcm-sync-rx-only:
-+    type: boolean
-+    description: Use RX LRCK for both TX and RX.
-+
-   "#sound-dai-cells":
-     const: 0
- 
--- 
-2.7.4
-
-
-
+ /* PCI IDs */

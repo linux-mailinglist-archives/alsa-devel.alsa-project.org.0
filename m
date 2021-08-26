@@ -2,91 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DECE3F8238
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Aug 2021 08:05:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C4533F823D
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Aug 2021 08:09:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6FFFC167C;
-	Thu, 26 Aug 2021 08:04:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FFFC167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8F47167D;
+	Thu, 26 Aug 2021 08:08:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8F47167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629957914;
-	bh=NiTNDOZVy0ptnDbagM5FaD9GXF/022F1KUWhAC2sg+g=;
+	s=default; t=1629958189;
+	bh=EnkgpA4rp+5W4c9Ac4sdRC0Be1fVvF12IMKPLIB/Fb0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OcbDk/x6jNDiQ4dDQQxizpzv4H8dZ4aBO9Vv3c9hQuxuRAfDlXu6MuAhdJU/YJIJe
-	 QR26sVPdklKEjlomQO6u1D1Z+Qzmdyen4vs1piE5mwiOA09MuLOsYDowXy1EnymRLB
-	 23peZWWHKd0lmrvLceVlcOFuAkRcww6Thxxc7usg=
+	b=kd88kqNvAK5lQMWVKcuB96OhDIQ+wj1KtB82080X1b1HwOGCmiykLnG4HCkN9SLK+
+	 2sC80KVMh+0bqlIARX40KNZR1Hp3b1TXsDCdJdmq5VKber/TJp7P0mXcv/djhXj7+g
+	 FnGNuJd/VoiJ/mgWkZTEIbPZrUpV+kCRSPq1xgkU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CFC80F801D5;
-	Thu, 26 Aug 2021 08:03:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24045F801D5;
+	Thu, 26 Aug 2021 08:08:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C6881F801D8; Thu, 26 Aug 2021 08:03:54 +0200 (CEST)
+ id 39130F80224; Thu, 26 Aug 2021 08:08:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CECA6F8013F
- for <alsa-devel@alsa-project.org>; Thu, 26 Aug 2021 08:03:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CECA6F8013F
+ by alsa1.perex.cz (Postfix) with ESMTPS id C942AF800FD
+ for <alsa-devel@alsa-project.org>; Thu, 26 Aug 2021 08:08:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C942AF800FD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="cu4eirSW"; 
+ header.b="YwCcb8w0"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="fm3uV55Q"
+ header.b="G5hTYS9f"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 36B7122275;
- Thu, 26 Aug 2021 06:03:45 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 4E74420167;
+ Thu, 26 Aug 2021 06:08:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1629957825; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1629958101; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=SNpBB1riqWMDgTE3zjGmFc2HQ/tL4Dep2J1e5XaBy04=;
- b=cu4eirSW+5hHB/QGrqiL+5zPRaYHWNOMwV7XFP2NmbGdXIDu53pBC/7mSqABuvrPFRGQcd
- ZRVpyRmtVKjx2P49Z7tasFLO9zoMCIc3+hADXSR+Zk3qmYnntAJrp6lxNb5vhs+5AbQ8qo
- gv/Kk/IwqK3c1GIMa/EK6Dl73w34Yy0=
+ bh=CzEYt05rk/qVLIT59VeDbT371fqbaUY2F6MlkZ/3ANE=;
+ b=YwCcb8w072xMQFoTqny5CzLk8Fo2BfnIw1YVasbDDWEGD0Ey6huRgKv+wLfvZyECV9tR84
+ 5CH4WF8WZ1dgvWA6eIWOn9ez3vR0MwoeP8KP3375PCI1Nq001lw7XIwxiK5YvELZlAem2U
+ xKkiCfVVeyxeHiDjtsgYphxLn4Qbyo4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1629957825;
+ s=susede2_ed25519; t=1629958101;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=SNpBB1riqWMDgTE3zjGmFc2HQ/tL4Dep2J1e5XaBy04=;
- b=fm3uV55QwT9JRwtq/R5RU6dPv33n4R+zjz9hNhqOzhymo8Ud1e0Ujta/UJ8Y/Wl6l78pQ/
- 2V7uwIyOmXfCClDA==
+ bh=CzEYt05rk/qVLIT59VeDbT371fqbaUY2F6MlkZ/3ANE=;
+ b=G5hTYS9fLSDyViPxRX162OVuOFCsOFRzia/+mvejuK0aF1VFw23VAMRiVtEhwMk3SCzR1c
+ 6S/qFjUFFUWBT/CA==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 2C0D6A3B89;
- Thu, 26 Aug 2021 06:03:45 +0000 (UTC)
-Date: Thu, 26 Aug 2021 08:03:45 +0200
-Message-ID: <s5hczq0yc72.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 36457A3B8B;
+ Thu, 26 Aug 2021 06:08:21 +0000 (UTC)
+Date: Thu, 26 Aug 2021 08:08:21 +0200
+Message-ID: <s5hbl5kybze.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Subject: Re: [PATCH 2/2] ALSA: hda/cs8409: Prevent pops and clicks during
- reboot
-In-Reply-To: <e3df5f97-bf43-7eb8-e15d-4ab11dbae7ef@opensource.cirrus.com>
-References: <20210812183433.6330-1-vitalyr@opensource.cirrus.com>
- <20210812183433.6330-2-vitalyr@opensource.cirrus.com>
- <s5h1r6xlvrs.wl-tiwai@suse.de> <s5hczqgil3v.wl-tiwai@suse.de>
- <6595e87d-1dae-b536-c17b-eafa07d04bbe@opensource.cirrus.com>
- <s5hpmuce05m.wl-tiwai@suse.de>
- <e3df5f97-bf43-7eb8-e15d-4ab11dbae7ef@opensource.cirrus.com>
+To: Jens Axboe <axboe@kernel.dk>
+Subject: Re: azx_get_pos_skl() induced system slowness
+In-Reply-To: <e82c04e5-45c7-cb88-a130-33c2043d3f4a@kernel.dk>
+References: <402d5952-3bf6-5c0d-5276-8367bfe1542a@kernel.dk>
+ <s5h7dga1267.wl-tiwai@suse.de>
+ <e82c04e5-45c7-cb88-a130-33c2043d3f4a@kernel.dk>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Stefan Binding <sbinding@opensource.cirrus.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,50 +93,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 25 Aug 2021 20:04:05 +0200,
-Vitaly Rodionov wrote:
-> Actually when codec is suspended and we do reboot from UI, then sometimes we
-> see suspend() calls in kernel log and no pops, but sometimes
+On Wed, 25 Aug 2021 14:33:30 +0200,
+Jens Axboe wrote:
 > 
-> we still have no suspend() on reboot and we hear pops. But when we do reboot
-> from command line: > sudo reboot  then we always have pops and no suspend()
-> called.
+> On 8/25/21 12:14 AM, Takashi Iwai wrote:
+> > On Tue, 24 Aug 2021 19:38:08 +0200,
+> > Jens Axboe wrote:
+> >>
+> >> Hi,
+> >>
+> >> Got a new notebook recently, it's a Lenovo X1 Carbon 9th gen. Sound
+> >> works fine, but sometimes I get really stuttering playback from nestopia
+> >> and I finally decided to look into it. When this happens,
+> >> azx_get_pos_skl() is seemingly called a lot, at least it uses a ton of
+> >> CPU cycles. This comes and goes, sometimes 1 minute in between,
+> >> sometimes 2, and sometimes 30 seconds.
+> >>
+> >> If I comment out the udelay() in that function it does seems to be
+> >> noticeably better, though it's not a complete fix. I guess it just
+> >> reduces the pain of calling it so many times?
+> >>
+> >> This is running 5.14-rc7, but it's not a recent regression.
+> >>
+> >> Any clues as to what this might be?
+> > 
+> > Are you using PulseAudio?  Or pipewire?  The former might cause lots
+> > of position update calls when the device doesn't give back the stable
+> > (or consistent) position report.
 > 
-> Then we have added extra logging and we can see that on reboot codec somehow
-> getting resume() call and we run jack detect on resume that causing pops.
-
-Hm, it's interesting who triggers the runtime resume.
-
-> We were thinking about possible solution for that and we would propose some
-> changes in generic code hda_bind.c:
+> I'm using the default (mint) which is pulseaudio. But after reading your
+> reply, I switched to pipewire - hopefully that'll work better!
 > 
-> static void hda_codec_driver_shutdown(struct device *dev) { +   if (codec->
-> patch_ops.suspend) +      codec->patch_ops.suspend(codec);   
-> snd_hda_codec_shutdown(dev_to_hda_codec(dev)); +  hda_codec_driver_remove
-> (dev_to_hda_codec(dev)); }
+> > The code there was borrowed from the ASoC Intel Skylake driver
+> > (sound/soc/intel/skylake/skl-pcm.c), and the same is also carried to
+> > the recent ASoC SOF HDA driver, too.
+> > As far as I understand from the comment, the udelay() itself could be
+> > reduced only for the case right after the interrupt wakeup.  That is,
+> > a hackish patch like below might help.
+> > 
+> > But, as far as I see with PulseAudio, it still results in a lot of
+> > register read -- so PA seems repeatedly reading the position.
+> > 
+> > A better result (only from the CPU usage POV) could be gained on my
+> > machine by just switching to another position inquiry; namely, pass
+> > position_fix=1 option to snd-hda-intel module.  But I checked this
+> > only for a short period, so am not sure about the long run.
+> 
+> Let me know if you want to test the patch or using that option, for now
+> I just went with pipewire and will see if that works any better.
 
-Sorry, it's no-no.  The suspend can't be called unconditionally, and
-the driver unbind must not be called in the callback itself.
+Well, I'm interested in whether pipewire really works better in this
+regard, so please let me know your experience with PW, too ;)
 
-Does the patch below work instead?
+I'm going to check this issue on my machine, and will ask you if any
+test patch is ready.
 
 
 thanks,
 
 Takashi
-
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -2356,8 +2356,11 @@ static void azx_shutdown(struct pci_dev *pci)
- 	if (!card)
- 		return;
- 	chip = card->private_data;
--	if (chip && chip->running)
-+	if (chip && chip->running) {
-+		chip->bus.shutdown = 1;
-+		cancel_work_sync(&bus->unsol_work);
- 		azx_shutdown_chip(chip);
-+	}
- }
- 
- /* PCI IDs */

@@ -2,77 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D13943F8AE4
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Aug 2021 17:20:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01DED3F8ACE
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Aug 2021 17:16:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6515016C9;
-	Thu, 26 Aug 2021 17:19:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6515016C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8AAD216B3;
+	Thu, 26 Aug 2021 17:15:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AAD216B3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629991233;
-	bh=a2jZzUEbjZVXbA+cy+TfRCKZHYIX3mbus8lC77FvA9I=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1629990967;
+	bh=HOcroo47LdDHnD1EdSCpd2iVc5g53Rd5oio17UaRt60=;
+	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dKmmPF5xN5A5hvPav5WwkjKfzgp4pMxsy0FvJlpVtORXHhEaAGhJJd+cihs4VUml+
-	 oFDDQU63r5Rj88WjkoH0bs4qoJjGxKNnLWE2ZdFyMwkfr/ooqISHeTgu3cCVMMz3JF
-	 Owi+TjUh4/uwsPRMBYj/7/tG8Q5deRVNQEChH+Go=
+	b=OBaZnYokins1oH9J1gPLD3blt0wPQKrhrFdiWGSUn5Y1nnaksBIL1IHbHp7K887ey
+	 qjCEflQmmQKwLZWQpAKTAuK70eMAhof5PYw4yKCpWBSin9CYK2RPuIHAirHKozrefo
+	 BDvBls/pelqZ740NZghPTl+iyIYSYDGKlrcNshS8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5048F800FD;
-	Thu, 26 Aug 2021 17:19:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBDABF80224;
+	Thu, 26 Aug 2021 17:14:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8A35EF801D8; Thu, 26 Aug 2021 17:19:14 +0200 (CEST)
+ id 978EBF801D8; Thu, 26 Aug 2021 17:14:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C502F8013F
- for <alsa-devel@alsa-project.org>; Thu, 26 Aug 2021 17:19:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C502F8013F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 96730F800FD
+ for <alsa-devel@alsa-project.org>; Thu, 26 Aug 2021 17:14:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96730F800FD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="bMHA0Yhv"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=F3wLWK2f3zgkMtabw1PHf88uoy84ssAIxzwxp7+SL9Q=; b=bMHA0YhvUdYc5qzCUodAFUpkuG
- NY+rLvmCRbwyetqIvYaDoRRu3ODU12KqVQxxUORLc0xrfolFUCflYGP6IFElfdKK49C6UhKZ34k7z
- QkbTliMagbxVL7i/7lVwve3q3z7DZmapaRPi1L6R8rpmYl0gcjaCPFTMGe4t2/b8TW6w=;
-Received: from 94.196.67.80.threembb.co.uk ([94.196.67.80]
- helo=fitzroy.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <broonie@sirena.org.uk>)
- id 1mJH9q-00FTj4-2L; Thu, 26 Aug 2021 15:19:10 +0000
-Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id BA531D078FD; Thu, 26 Aug 2021 16:11:22 +0100 (BST)
-Date: Thu, 26 Aug 2021 16:11:22 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-Subject: Re: [PATCH] ASoC: dt-bindings: mediatek: mt8192: re-add audio afe
- document
-Message-ID: <YSevGntb3mmYlZGE@sirena.org.uk>
-References: <20210826141314.3720975-1-tzungbi@google.com>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="M9UntuP9"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 17Q9lTLf019959; 
+ Thu, 26 Aug 2021 10:14:39 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=subject : from : to :
+ cc : references : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=f+lH5uZ4GdgyMdfvHG0mWNt2O1cJvtyl5N/yEOJe5Jw=;
+ b=M9UntuP9FE6KHJmJnODYZNL2m4nsnJGmT6bhqEh1xJ7lJ4AxUtpH73XYYeM41wDIUMWn
+ zBBz7itzL5uj8P4eFxtJEFFfROsmdiX/Sm/tJx81yMhMuA8M2S/4fsAlzn9qMQINOrCF
+ vzVOveqYDtHFGLgloy0LkMjs3VeurKGMqtLQu92cQMCD9O4aTr4kfCB3xpYO7rV8hof0
+ 6FHeSBjbONLpKSP+yfZ0jiYpPdPuahobiiwkrDQOPvIUxAzgMtRf202yQRzOW8HFaSgc
+ +N3Rd2CIvaIh60P1SNuu0TLJY1yZtYMwSNDQNak3Zv68mYSGwC44ihFrHW4I7RwoN3g/ Jg== 
+Received: from ediex02.ad.cirrus.com ([87.246.76.36])
+ by mx0b-001ae601.pphosted.com with ESMTP id 3ap4bnrqmn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 26 Aug 2021 10:14:39 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 26 Aug
+ 2021 16:14:37 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.12 via
+ Frontend Transport; Thu, 26 Aug 2021 16:14:37 +0100
+Received: from [198.90.238.186] (unknown [198.90.238.186])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 867F22BA;
+ Thu, 26 Aug 2021 15:14:37 +0000 (UTC)
+Subject: Re: [PATCH 2/2] ALSA: hda/cs8409: Prevent pops and clicks during
+ reboot
+From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+To: Takashi Iwai <tiwai@suse.de>
+References: <20210812183433.6330-1-vitalyr@opensource.cirrus.com>
+ <20210812183433.6330-2-vitalyr@opensource.cirrus.com>
+ <s5h1r6xlvrs.wl-tiwai@suse.de> <s5hczqgil3v.wl-tiwai@suse.de>
+ <6595e87d-1dae-b536-c17b-eafa07d04bbe@opensource.cirrus.com>
+ <s5hpmuce05m.wl-tiwai@suse.de>
+ <e3df5f97-bf43-7eb8-e15d-4ab11dbae7ef@opensource.cirrus.com>
+ <s5hczq0yc72.wl-tiwai@suse.de> <s5hfsuwwkew.wl-tiwai@suse.de>
+ <9a3c2f9e-e2a5-702f-bd3f-7348097a0500@opensource.cirrus.com>
+ <s5h5yvswg6h.wl-tiwai@suse.de>
+ <b6eec544-d4df-b951-362a-203ed2e049e1@opensource.cirrus.com>
+Message-ID: <3c2cee1d-8147-9521-99ba-6a8ade422529@opensource.cirrus.com>
+Date: Thu, 26 Aug 2021 16:14:31 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="4q4ccqmi5+se8Jc4"
-Content-Disposition: inline
-In-Reply-To: <20210826141314.3720975-1-tzungbi@google.com>
-X-Cookie: I can relate to that.
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, robh+dt@kernel.org,
- jiaxin.yu@mediatek.com
+In-Reply-To: <b6eec544-d4df-b951-362a-203ed2e049e1@opensource.cirrus.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-Proofpoint-GUID: jiDBwtsryeRPhj1M05AqCLvvVOFh4mGH
+X-Proofpoint-ORIG-GUID: jiDBwtsryeRPhj1M05AqCLvvVOFh4mGH
+X-Proofpoint-Spam-Reason: safe
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,30 +109,139 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 26/08/2021 2:00 pm, Vitaly Rodionov wrote:
+> On 26/08/2021 1:20 pm, Takashi Iwai wrote:
+>> On Thu, 26 Aug 2021 13:49:32 +0200,
+>> Vitaly Rodionov wrote:
+>>> On 26/08/2021 11:49 am, Takashi Iwai wrote:
+>>>> On Thu, 26 Aug 2021 08:03:45 +0200,
+>>>> Takashi Iwai wrote:
+>>>>> On Wed, 25 Aug 2021 20:04:05 +0200,
+>>>>> Vitaly Rodionov wrote:
+>>>>>> Actually when codec is suspended and we do reboot from UI, then 
+>>>>>> sometimes we
+>>>>>> see suspend() calls in kernel log and no pops, but sometimes
+>>>>>>
+>>>>>> we still have no suspend() on reboot and we hear pops. But when 
+>>>>>> we do reboot
+>>>>>> from command line: > sudo reboot  then we always have pops and no 
+>>>>>> suspend()
+>>>>>> called.
+>>>>>>
+>>>>>> Then we have added extra logging and we can see that on reboot 
+>>>>>> codec somehow
+>>>>>> getting resume() call and we run jack detect on resume that 
+>>>>>> causing pops.
+>>>>> Hm, it's interesting who triggers the runtime resume.
+>>>>>
+>>>>>> We were thinking about possible solution for that and we would 
+>>>>>> propose some
+>>>>>> changes in generic code hda_bind.c:
+>>>>>>
+>>>>>> static void hda_codec_driver_shutdown(struct device *dev) { +   
+>>>>>> if (codec->
+>>>>>> patch_ops.suspend) + codec->patch_ops.suspend(codec);
+>>>>>> snd_hda_codec_shutdown(dev_to_hda_codec(dev)); + 
+>>>>>> hda_codec_driver_remove
+>>>>>> (dev_to_hda_codec(dev)); }
+>>>>> Sorry, it's no-no.  The suspend can't be called unconditionally, and
+>>>>> the driver unbind must not be called in the callback itself.
+>>>>>
+>>>>> Does the patch below work instead?
+>>>> Sorry there was a typo.  A bit more revised patch is below.
+>>>>
+>>>>
+>>>> Takashi
+>>>>
+>>>> --- a/sound/pci/hda/hda_intel.c
+>>>> +++ b/sound/pci/hda/hda_intel.c
+>>>> @@ -1383,14 +1383,17 @@ static void azx_free(struct azx *chip)
+>>>>        hda->freed = 1;
+>>>>    }
+>>>>    -static int azx_dev_disconnect(struct snd_device *device)
+>>>> +static void __azx_disconnect(struct azx *chip)
+>>>>    {
+>>>> -    struct azx *chip = device->device_data;
+>>>>        struct hdac_bus *bus = azx_bus(chip);
+>>>>          chip->bus.shutdown = 1;
+>>>>        cancel_work_sync(&bus->unsol_work);
+>>>> +}
+>>>>    +static int azx_dev_disconnect(struct snd_device *device)
+>>>> +{
+>>>> +    __azx_disconnect(device->device_data);
+>>>>        return 0;
+>>>>    }
+>>>>    @@ -2356,8 +2359,10 @@ static void azx_shutdown(struct pci_dev
+>>>> *pci)
+>>>>        if (!card)
+>>>>            return;
+>>>>        chip = card->private_data;
+>>>> -    if (chip && chip->running)
+>>>> +    if (chip && chip->running) {
+>>>> +        __azx_disconnect(chip);
+>>>>            azx_shutdown_chip(chip);
+>>>> +    }
+>>>>    }
+>>>>      /* PCI IDs */
+>>> Hi Takashi,
+>>>
+>>> Applied fix and tested on dolphin HW. Issue still there, here is
+>>> captured screen on reboot from command line:
+>>>
+>>> reboot capture
+>>>
+>>> Reboot from UI works differently, no resume() call in this case.
+>> Thanks for quick testing.
+>>
+>> After reconsideration, I believe we can even take a simpler path.
+>> Use pm_runtime_force_suspend(), and keep suspended by
+>> pm_runtime_disable() call afterwards.
+>>
+>> Below is another test patch.  Could you check whether this works
+>> better?
+>>
+>>
+>> Takashi
+>>
+>> --- a/sound/pci/hda/hda_codec.c
+>> +++ b/sound/pci/hda/hda_codec.c
+>> @@ -2986,13 +2986,11 @@ void snd_hda_codec_shutdown(struct hda_codec 
+>> *codec)
+>>   {
+>>       struct hda_pcm *cpcm;
+>>   -    if (pm_runtime_suspended(hda_codec_dev(codec)))
+>> -        return;
+>> -
+>>       list_for_each_entry(cpcm, &codec->pcm_list_head, list)
+>>           snd_pcm_suspend_all(cpcm->pcm);
+>>   -    pm_runtime_suspend(hda_codec_dev(codec));
+>> +    pm_runtime_force_suspend(hda_codec_dev(codec));
+>> +    pm_runtime_disable(hda_codec_dev(codec));
+>>   }
+>>     /*
+>
+> Hi Takashi,
+>
+> Thank you very much! Yes, that works fine.  suspend() has been called 
+> on reboot and no pops.
+>
+> I still have previous patch in the code, so let me remove it and test 
+> it again with only snd_hda_codec_shutdown() changes.
+>
+> Thanks,
+>
+> Vitaly
+>
+>
+Hi Takashi,
 
---4q4ccqmi5+se8Jc4
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I have finished regression tests on all our platforms and results are 
+positive, latest patch has fixed an issue with pops on reboot and no
 
-On Thu, Aug 26, 2021 at 10:13:14PM +0800, Tzung-Bi Shih wrote:
+regression on other platforms as well.
 
-> The dependency has merged.  Re-adds back the document.
+Thanks,
 
-What is the dependency and where wsa it merged?
+Vitaly
 
---4q4ccqmi5+se8Jc4
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEnrwcACgkQJNaLcl1U
-h9AB7wgAge6zpGbqQxVERgYA6jszHXVf8Sr9SWJ3vANiDFbGS0fASDH5sndrryv7
-7/U+kLHaDkNfweo56uQnoVgh05ijmJCI1+1aatDkXJrAjoZtTJYGgsemxJlz05sM
-yj0fMCyNXvCpUHyfLlWx/At7xwm7IvVKeH2qz+wMFOTmJDVBHhSEaFa/ENNLyoyd
-+frEUkd6QfNqGPz7pISRMmSDCZ47pDzHqd9EWIDOblvwm3/RzvvHUrFZMxQehQEF
-+aJEfE8ZgOCMgFrS+KdcaKFPCUEdxWqH6lZkSTvyOdXGd53nrnB8b9x9BeQ4ypHU
-vioPVwZPouihI4sxnomLQ5gzbjjmLQ==
-=RMeP
------END PGP SIGNATURE-----
-
---4q4ccqmi5+se8Jc4--

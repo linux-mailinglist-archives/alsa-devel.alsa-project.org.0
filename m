@@ -2,91 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB9A33F855C
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Aug 2021 12:32:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAE0E3F85D4
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Aug 2021 12:50:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6ED95167A;
-	Thu, 26 Aug 2021 12:31:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6ED95167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 437561689;
+	Thu, 26 Aug 2021 12:49:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 437561689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629973929;
-	bh=CBf3fAl5S40MZx3oai86pxTQIQmfTpB81K4xkc9Dyoo=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=g2v/WHwEoxkpmMxN7Y6AArM0t7PZQWbiOoVDKvpwllX229xnFFj4avLrhN0yqRo34
-	 IRNwQKpvlvWEEryKYegGFfzJE76M+z0ceXcc+AXAJqno0YrdJnTjkwFhCf3zw3fPjE
-	 uU8kYbLoKSOfKJUdw3NMDhsusHNtVZOw5TFAQUJk=
+	s=default; t=1629975034;
+	bh=lZVFSNKLs6u5vO9UNu9zTk1dp6GeyKwkksWw09bph8E=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=XOM5QIZchRq0CnUW96sWvXqbq1ulVWbmn0zPUaBW6uf1q7OJ2C1AE9RAD1lu5dCnI
+	 wI/mnkhhJ4KhSODk909RaMYReCoed+GSjbNlEpMwHjBwT/r8mDIy0k7SCaCZ1Oi7p9
+	 30NcneJo+uMOFyr9ynnrZcrRfI9YQi1yYg/y3zZA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D556FF800FD;
-	Thu, 26 Aug 2021 12:30:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A21D7F8013F;
+	Thu, 26 Aug 2021 12:49:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AF34AF801D8; Thu, 26 Aug 2021 12:30:47 +0200 (CEST)
+ id 284CAF801D8; Thu, 26 Aug 2021 12:49:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
- [IPv6:2607:f8b0:4864:20::102b])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9345EF800FD
- for <alsa-devel@alsa-project.org>; Thu, 26 Aug 2021 12:30:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9345EF800FD
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key)
- header.d=wistron-corp-partner-google-com.20150623.gappssmtp.com
- header.i=@wistron-corp-partner-google-com.20150623.gappssmtp.com
- header.b="cuCWlSZB"
-Received: by mail-pj1-x102b.google.com with SMTP id
- z24-20020a17090acb1800b0018e87a24300so2064039pjt.0
- for <alsa-devel@alsa-project.org>; Thu, 26 Aug 2021 03:30:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=wistron-corp-partner-google-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id;
- bh=R46KQaoRhoySr/QCZoVFBB2v3/jLI+gAMe2pWhrPiSU=;
- b=cuCWlSZB6CvjkcDVMpaAweDhB5A7DagH6QNyd3O7k5PiCS2t7qVowfDgGm6OLmDB5E
- +MTM4b3MA88D3lOSWzp3LokoEV7GiI8u/nuZazUYQZVHrfOSJVMQjZupuc9XL/1onI3k
- +zGQP1p4K5M31sn7Y+7NF/McVcdrpctPaa06hGNop0tBpk2u17mAf4BneIVvAm8vDA4r
- 2ghtxQAk04VDBmclmPBUDETDyXd6BaJeDvf6yTKoFGe36o5El9MzSGLAh7dITuysWH7r
- j4kxwiZVHgelDsUlpzaPoVI2bOVReFz6eGT44C79c7jmEJx1XP7UYlWcOaH6E1gKYxXQ
- 6yNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=R46KQaoRhoySr/QCZoVFBB2v3/jLI+gAMe2pWhrPiSU=;
- b=BwZOSXx8anMAv2XrIPSiMsi4qV+VMqFDJfLtwZs2nks0+pi/ZXNdTM0zN68kmNYeV5
- 5AEmlYc3X55dAtt+5v5S4psNdL0kyMuh3eqnHolW4p5cJorAdMuh3to3k/gCVhejAJg3
- 0/FaSg7xWiJm2O9w0smPNTWagHgwjGUtSyuaeMpy1PrIv+kb2+7lR41ZnK3Hv+yBJd4H
- dtc28zx/4h484o6+SIWeX4zFzJzVGbTVNZcX6GhPTZCc5nM7o+FdifNGAu4gqptdfbg0
- aTbKnPY1dOqO/z6mmg4F2tBg8YDbpkytkpWWFuqdEqXw7/sKadkCXWHBGhngC78+gl6f
- doZA==
-X-Gm-Message-State: AOAM530+N+gQc9DoPkSlnjq7ekL3L08uFPI1TMoEFbO7wiwtiDARUp3j
- QcW+vUPAeRik48WF4E5niFMRvAr4EXIqHw==
-X-Google-Smtp-Source: ABdhPJzejGt/VwnBsE6JC2pLXmkgr6xhsI51Cwzy0M7Q9vko++e8QiLXGqW/wUvWypwKwINJ6xe3pA==
-X-Received: by 2002:a17:90a:940d:: with SMTP id
- r13mr16396951pjo.124.1629973839710; 
- Thu, 26 Aug 2021 03:30:39 -0700 (PDT)
-Received: from localhost.localdomain (61-220-206-157.HINET-IP.hinet.net.
- [61.220.206.157])
- by smtp.gmail.com with ESMTPSA id u17sm2516360pfh.184.2021.08.26.03.30.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Aug 2021 03:30:39 -0700 (PDT)
-From: Mark Hsieh <mark_hsieh@wistron.corp-partner.google.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] [v3] ASoC: Intel: sof_rt5682: Add support for max98390
- speaker amp
-Date: Thu, 26 Aug 2021 18:30:32 +0800
-Message-Id: <20210826103032.22262-1-mark_hsieh@wistron.corp-partner.google.com>
-X-Mailer: git-send-email 2.17.1
-Cc: lance.hou@intel.com, cezary.rojewski@intel.com, mark_hsieh@wistron.com,
- kai.vehmanen@linux.intel.com, linux-kernel@vger.kernel.org,
- yang.jie@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- Mark Hsieh <mark_hsieh@wistron.corp-partner.google.com>,
- liam.r.girdwood@linux.intel.com, mac.chiang@intel.com, broonie@kernel.org,
- brent.lu@intel.com, bard.liao@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id D6038F800FD
+ for <alsa-devel@alsa-project.org>; Thu, 26 Aug 2021 12:49:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6038F800FD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="vsU3XcOW"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="r7Tm31Vu"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id D23FB222CD;
+ Thu, 26 Aug 2021 10:49:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1629974951; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=7NVS9OI1fs2Z7OHaLZdCp7jkiVKSbEuKJi+PNLYoQ1g=;
+ b=vsU3XcOWyDOGYYEN/rXXvMulewcmea+bKA/sNOE+4PxiaIGl2ULn7rYLtHHXZ3lAirlpRA
+ ZV56kj+E+FIAWBdeWFv2pRJMdjb/nmTCz6XMP+06bH6wmPUmCM/nMQn1ARPtsFGRmItv2E
+ 8CAMooWwjrk4AUBiAz+0Oj7mQDdVoHA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1629974951;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=7NVS9OI1fs2Z7OHaLZdCp7jkiVKSbEuKJi+PNLYoQ1g=;
+ b=r7Tm31Vu8fm9bKxXUQ2YtnPsiWmai90h8vm8KmRVtY6e/4tZIDTvQxM5hQw0UnLg6y2jS1
+ NNq13BiL2RqbeKBw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id C0CD6A3B95;
+ Thu, 26 Aug 2021 10:49:11 +0000 (UTC)
+Date: Thu, 26 Aug 2021 12:49:11 +0200
+Message-ID: <s5hfsuwwkew.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+Subject: Re: [PATCH 2/2] ALSA: hda/cs8409: Prevent pops and clicks during
+ reboot
+In-Reply-To: <s5hczq0yc72.wl-tiwai@suse.de>
+References: <20210812183433.6330-1-vitalyr@opensource.cirrus.com>
+ <20210812183433.6330-2-vitalyr@opensource.cirrus.com>
+ <s5h1r6xlvrs.wl-tiwai@suse.de> <s5hczqgil3v.wl-tiwai@suse.de>
+ <6595e87d-1dae-b536-c17b-eafa07d04bbe@opensource.cirrus.com>
+ <s5hpmuce05m.wl-tiwai@suse.de>
+ <e3df5f97-bf43-7eb8-e15d-4ab11dbae7ef@opensource.cirrus.com>
+ <s5hczq0yc72.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Stefan Binding <sbinding@opensource.cirrus.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,203 +103,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Configure adl_max98390_rt5682 to support the rt5682 headset codec
-and max98390 speaker.
+On Thu, 26 Aug 2021 08:03:45 +0200,
+Takashi Iwai wrote:
+> 
+> On Wed, 25 Aug 2021 20:04:05 +0200,
+> Vitaly Rodionov wrote:
+> > Actually when codec is suspended and we do reboot from UI, then sometimes we
+> > see suspend() calls in kernel log and no pops, but sometimes
+> > 
+> > we still have no suspend() on reboot and we hear pops. But when we do reboot
+> > from command line: > sudo reboot  then we always have pops and no suspend()
+> > called.
+> > 
+> > Then we have added extra logging and we can see that on reboot codec somehow
+> > getting resume() call and we run jack detect on resume that causing pops.
+> 
+> Hm, it's interesting who triggers the runtime resume.
+> 
+> > We were thinking about possible solution for that and we would propose some
+> > changes in generic code hda_bind.c:
+> > 
+> > static void hda_codec_driver_shutdown(struct device *dev) { +   if (codec->
+> > patch_ops.suspend) +      codec->patch_ops.suspend(codec);   
+> > snd_hda_codec_shutdown(dev_to_hda_codec(dev)); +  hda_codec_driver_remove
+> > (dev_to_hda_codec(dev)); }
+> 
+> Sorry, it's no-no.  The suspend can't be called unconditionally, and
+> the driver unbind must not be called in the callback itself.
+> 
+> Does the patch below work instead?
 
-Signed-off-by: Mark Hsieh <mark_hsieh@wistron.corp-partner.google.com>
----
- sound/soc/intel/boards/Kconfig                |  1 +
- sound/soc/intel/boards/sof_maxim_common.c     | 57 +++++++++++++++++++
- sound/soc/intel/boards/sof_maxim_common.h     | 12 ++++
- sound/soc/intel/boards/sof_rt5682.c           | 19 +++++++
- .../intel/common/soc-acpi-intel-adl-match.c   | 13 +++++
- 5 files changed, 102 insertions(+)
+Sorry there was a typo.  A bit more revised patch is below.
 
-diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index 7e29b0d911e2..0017c08c5a62 100644
---- a/sound/soc/intel/boards/Kconfig
-+++ b/sound/soc/intel/boards/Kconfig
-@@ -470,6 +470,7 @@ config SND_SOC_INTEL_SOF_RT5682_MACH
- 	select SND_SOC_RT1015
- 	select SND_SOC_RT1015P
- 	select SND_SOC_RT5682_I2C
-+	select SND_SOC_MAX98390
- 	select SND_SOC_DMIC
- 	select SND_SOC_HDAC_HDMI
- 	select SND_SOC_INTEL_HDA_DSP_COMMON
-diff --git a/sound/soc/intel/boards/sof_maxim_common.c b/sound/soc/intel/boards/sof_maxim_common.c
-index e9c52f8b6428..a6fcf6e08996 100644
---- a/sound/soc/intel/boards/sof_maxim_common.c
-+++ b/sound/soc/intel/boards/sof_maxim_common.c
-@@ -133,6 +133,63 @@ void max_98373_set_codec_conf(struct snd_soc_card *card)
+
+Takashi
+
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -1383,14 +1383,17 @@ static void azx_free(struct azx *chip)
+ 	hda->freed = 1;
  }
- EXPORT_SYMBOL_NS(max_98373_set_codec_conf, SND_SOC_INTEL_SOF_MAXIM_COMMON);
  
-+/*
-+ * Maxim MAX98390
-+ */
-+
-+static struct snd_soc_codec_conf max_98390_codec_conf[] = {
-+	{
-+		.dlc = COMP_CODEC_CONF(MAX_98390_DEV0_NAME),
-+		.name_prefix = "Right",
-+	},
-+	{
-+		.dlc = COMP_CODEC_CONF(MAX_98390_DEV1_NAME),
-+		.name_prefix = "Left",
-+	},
-+};
-+
-+struct snd_soc_dai_link_component max_98390_components[] = {
-+	{  /* For Right */
-+		.name = MAX_98390_DEV0_NAME,
-+		.dai_name = MAX_98390_CODEC_DAI,
-+	},
-+	{  /* For Left */
-+		.name = MAX_98390_DEV1_NAME,
-+		.dai_name = MAX_98390_CODEC_DAI,
-+	},
-+};
-+EXPORT_SYMBOL_NS(max_98390_components, SND_SOC_INTEL_SOF_MAXIM_COMMON);
-+
-+static int max_98390_hw_params(struct snd_pcm_substream *substream,
-+			       struct snd_pcm_hw_params *params)
+-static int azx_dev_disconnect(struct snd_device *device)
++static void __azx_disconnect(struct azx *chip)
+ {
+-	struct azx *chip = device->device_data;
+ 	struct hdac_bus *bus = azx_bus(chip);
+ 
+ 	chip->bus.shutdown = 1;
+ 	cancel_work_sync(&bus->unsol_work);
++}
+ 
++static int azx_dev_disconnect(struct snd_device *device)
 +{
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	struct snd_soc_dai *codec_dai;
-+	int i;
-+
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
-+		/* DEV0 tdm slot configuration */
-+		if (!strcmp(codec_dai->component->name, MAX_98390_DEV0_NAME))
-+			snd_soc_dai_set_tdm_slot(codec_dai, 0x03, 3, 2, 16);
-+		/* DEV1 tdm slot configuration */
-+		if (!strcmp(codec_dai->component->name, MAX_98390_DEV1_NAME))
-+			snd_soc_dai_set_tdm_slot(codec_dai, 0x0C, 3, 2, 16);
++	__azx_disconnect(device->device_data);
+ 	return 0;
+ }
+ 
+@@ -2356,8 +2359,10 @@ static void azx_shutdown(struct pci_dev *pci)
+ 	if (!card)
+ 		return;
+ 	chip = card->private_data;
+-	if (chip && chip->running)
++	if (chip && chip->running) {
++		__azx_disconnect(chip);
+ 		azx_shutdown_chip(chip);
 +	}
-+	return 0;
-+}
-+
-+const struct snd_soc_ops max_98390_ops = {
-+	.hw_params = max_98390_hw_params,
-+};
-+EXPORT_SYMBOL_NS(max_98390_ops, SND_SOC_INTEL_SOF_MAXIM_COMMON);
-+
-+void max_98390_set_codec_conf(struct snd_soc_card *card)
-+{
-+	card->codec_conf = max_98390_codec_conf;
-+	card->num_configs = ARRAY_SIZE(max_98390_codec_conf);
-+}
-+EXPORT_SYMBOL_NS(max_98390_set_codec_conf, SND_SOC_INTEL_SOF_MAXIM_COMMON);
-+
- /*
-  * Maxim MAX98357A
-  */
-diff --git a/sound/soc/intel/boards/sof_maxim_common.h b/sound/soc/intel/boards/sof_maxim_common.h
-index 2674f1e373ef..bad7b5303280 100644
---- a/sound/soc/intel/boards/sof_maxim_common.h
-+++ b/sound/soc/intel/boards/sof_maxim_common.h
-@@ -24,6 +24,18 @@ int max_98373_spk_codec_init(struct snd_soc_pcm_runtime *rtd);
- void max_98373_set_codec_conf(struct snd_soc_card *card);
- int max_98373_trigger(struct snd_pcm_substream *substream, int cmd);
+ }
  
-+/*
-+ * Maxim MAX98390
-+ */
-+#define MAX_98390_CODEC_DAI	"max98390-aif1"
-+#define MAX_98390_DEV0_NAME	"i2c-MX98390:00"
-+#define MAX_98390_DEV1_NAME	"i2c-MX98390:01"
-+
-+extern struct snd_soc_dai_link_component max_98390_components[2];
-+extern const struct snd_soc_ops max_98390_ops;
-+
-+void max_98390_set_codec_conf(struct snd_soc_card *card);
-+
- /*
-  * Maxim MAX98357A
-  */
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 39217223d50c..18b6ef311462 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -49,6 +49,7 @@
- #define SOF_RT1015P_SPEAKER_AMP_PRESENT		BIT(16)
- #define SOF_MAX98373_SPEAKER_AMP_PRESENT	BIT(17)
- #define SOF_MAX98360A_SPEAKER_AMP_PRESENT	BIT(18)
-+#define SOF_MAX98390_SPEAKER_AMP_PRESENT	BIT(23)
- 
- /* BT audio offload: reserve 3 bits for future */
- #define SOF_BT_OFFLOAD_SSP_SHIFT		19
-@@ -781,6 +782,13 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 		} else if (sof_rt5682_quirk &
- 				SOF_RT1011_SPEAKER_AMP_PRESENT) {
- 			sof_rt1011_dai_link(&links[id]);
-+		} else if (sof_rt5682_quirk &
-+				SOF_MAX98390_SPEAKER_AMP_PRESENT) {
-+			links[id].codecs = max_98390_components;
-+			links[id].num_codecs = ARRAY_SIZE(max_98390_components);
-+			links[id].init = max_98373_spk_codec_init;
-+			links[id].ops = &max_98390_ops;
-+			links[id].dpcm_capture = 1;
- 		} else {
- 			max_98357a_dai_link(&links[id]);
- 		}
-@@ -917,6 +925,8 @@ static int sof_audio_probe(struct platform_device *pdev)
- 		sof_rt1011_codec_conf(&sof_audio_card_rt5682);
- 	else if (sof_rt5682_quirk & SOF_RT1015P_SPEAKER_AMP_PRESENT)
- 		sof_rt1015p_codec_conf(&sof_audio_card_rt5682);
-+	else if (sof_rt5682_quirk & SOF_MAX98390_SPEAKER_AMP_PRESENT)
-+		max_98390_set_codec_conf(&sof_audio_card_rt5682);
- 
- 	if (sof_rt5682_quirk & SOF_SSP_BT_OFFLOAD_PRESENT)
- 		sof_audio_card_rt5682.num_links++;
-@@ -1043,6 +1053,15 @@ static const struct platform_device_id board_ids[] = {
- 					SOF_RT5682_SSP_AMP(2) |
- 					SOF_RT5682_NUM_HDMIDEV(4)),
- 	},
-+	{
-+		.name = "adl_max98390_rt5682",
-+		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
-+					SOF_RT5682_SSP_CODEC(0) |
-+					SOF_SPEAKER_AMP_PRESENT |
-+					SOF_MAX98390_SPEAKER_AMP_PRESENT |
-+					SOF_RT5682_SSP_AMP(2) |
-+					SOF_RT5682_NUM_HDMIDEV(4)),
-+	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(platform, board_ids);
-diff --git a/sound/soc/intel/common/soc-acpi-intel-adl-match.c b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-index a0f6a69c7038..2db152998e4a 100644
---- a/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-@@ -280,6 +280,11 @@ static const struct snd_soc_acpi_codecs adl_max98357a_amp = {
- 	.codecs = {"MX98357A"}
- };
- 
-+static const struct snd_soc_acpi_codecs adl_max98390_amp = {
-+	.num_codecs = 1,
-+	.codecs = {"MX98390"}
-+};
-+
- struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
- 	{
- 		.id = "10EC5682",
-@@ -297,6 +302,14 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
- 		.sof_fw_filename = "sof-adl.ri",
- 		.sof_tplg_filename = "sof-adl-max98357a-rt5682.tplg",
- 	},
-+	{
-+		.id = "10EC5682",
-+		.drv_name = "adl_max98390_rt5682",
-+		.machine_quirk = snd_soc_acpi_codec_list,
-+		.quirk_data = &adl_max98390_amp,
-+		.sof_fw_filename = "sof-adl.ri",
-+		.sof_tplg_filename = "sof-adl-max98390-rt5682.tplg",
-+	},
- 	{},
- };
- EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_adl_machines);
--- 
-2.17.1
-
+ /* PCI IDs */

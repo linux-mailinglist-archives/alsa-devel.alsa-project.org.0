@@ -2,79 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 557CA3F8B6D
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Aug 2021 18:00:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 308F63F8C4A
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Aug 2021 18:35:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB6DF16C8;
-	Thu, 26 Aug 2021 18:00:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB6DF16C8
+	by alsa0.perex.cz (Postfix) with ESMTPS id B4A0E16C7;
+	Thu, 26 Aug 2021 18:34:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4A0E16C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629993654;
-	bh=5YWA4OfG8tuW7o1qbDSk+JhOTMQXuWG/jOgz29qp418=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=FC/yMevgENattRedg7IdlCB0bo9aeSvZx5GQjhcyU1aaNjNlhOxXvpkpXO+f3DK1E
-	 Z+7Ced6b4KKahZN1ux6qjSwziMlERqHVfQIT8oPiQpedlfBLrJcQErwQKgamPgTBpd
-	 nL0GYXNvdf1wRaj0eS7ebGVkua+VYPbwKv/XJKCY=
+	s=default; t=1629995712;
+	bh=IBrkcc5moenIKRVt7UfM/k9gJibNBsuRYSv+QEgfKQY=;
+	h=Date:Subject:From:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KQuEVBYcm3FH3g8eTDWWvPdbXuYgJs5LPWcLkRDxuDieIkfiBIV9sxCox89a7DMkf
+	 ofdT+G6Z4NH1D64EqqEXdTOE1bx8bLXpNCPQH4bvGBAkT3gY3jrIvWOxfTHh6BYwg3
+	 sGem7rFmAgpnSek4SzuGmx3PIGL2rdS/NWTJrYmk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52155F80224;
-	Thu, 26 Aug 2021 17:59:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2011EF80224;
+	Thu, 26 Aug 2021 18:33:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B3C92F801D8; Thu, 26 Aug 2021 17:59:34 +0200 (CEST)
+ id 5AC65F801D8; Thu, 26 Aug 2021 18:33:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL
+ autolearn=disabled version=3.4.0
+Received: from mail-pf1-x44a.google.com (mail-pf1-x44a.google.com
+ [IPv6:2607:f8b0:4864:20::44a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 504A0F800FD
- for <alsa-devel@alsa-project.org>; Thu, 26 Aug 2021 17:59:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 504A0F800FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id B5D74F8013F
+ for <alsa-devel@alsa-project.org>; Thu, 26 Aug 2021 18:33:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5D74F8013F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="F9ngiYuF"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=uL5vfEwr2WigDObDrhULFOFtOV6tp1kXQN1wFhcEZS8=; b=F9ngiYuFosmnUoQseSs+POC1wl
- 7/p4Z+ARUpFaN38TNLdW/PSlg6NIK7QgJdij8xumYvUdqtAaYf1iJ48psnbI5ECmDDeBA8afnMNP+
- iDH6HCzhfGy5+uiaeXLBhLtx7MxxJT+VJqKN+rmQ42RIyRxtue8sgaOOMi1fHCzGC4p0=;
-Received: from 94.196.67.80.threembb.co.uk ([94.196.67.80]
- helo=fitzroy.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <broonie@sirena.org.uk>)
- id 1mJHmq-00FUer-5h; Thu, 26 Aug 2021 15:59:28 +0000
-Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 25A79D01AC2; Thu, 26 Aug 2021 16:48:53 +0100 (BST)
-Date: Thu, 26 Aug 2021 16:48:53 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-Subject: Re: [PATCH] ASoC: dt-bindings: mediatek: mt8192: re-add audio afe
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="GzIEp3/6"
+Received: by mail-pf1-x44a.google.com with SMTP id
+ g17-20020a056a00079100b003e1010a1ad4so778517pfu.5
+ for <alsa-devel@alsa-project.org>; Thu, 26 Aug 2021 09:33:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=date:message-id:mime-version:subject:from:to:cc;
+ bh=H30b6LzNg0OHS6v2pMLtjQ9Qa3GaaOYpmdNMxAiioqM=;
+ b=GzIEp3/6sSrIXD4uBUq8GTvlkveyNjCr2sam5+z8FAnP5prWE0Kh8V/mnFZmmF8X4J
+ b/9tnc8wjxo2rVYcYRnZr8djt/UyW5Z52hqZY3pfSq8dbd6iS74aJI8sKfOZHRy266UZ
+ rHA4KRUwGO9aSDCaJK1tS3pWFG8WPgH92Fkl8+/dCj9z6FVeOBnuzfzK8nY0palLbMPE
+ kN9CNbniqiWEOkaPbjUX1d/ebIP0WMP+4O6S572hqFg8F1jxrTlCBHxRs1dSeNd9uHjX
+ QOm3t5i2ulg95R0TnHycmCtNSXC3b0CVHsHIOwhlkwt4Au4SNTgrlUwm8CQ1myTw0/Rq
+ cqrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
+ bh=H30b6LzNg0OHS6v2pMLtjQ9Qa3GaaOYpmdNMxAiioqM=;
+ b=W73tY1dcgJK5beYiuSu9zYHCqzKQLm5Q69Xyfa5Jp8FRSObEG1omptoUC8DFS8bzD5
+ a0TylvOc4fONTVsT/anK0+Tk7IMTMximIR8IQa7U6lhQ/NDYpLA47pK3gKPje8oEMjyp
+ ZeKAMy96Nr2SyiC4Fx6YIVwU3kPTanVmBms3PTTs2peOaDiTMesUy5NVpLKUBHTg+ySJ
+ TAZ/1rvRYsjGZAD8VeZBQvpVZ+KLcQXsuOG94N0xRKs1LrBi1J6KSiVFGvBVA0PGedtl
+ AAndlqzDhpVweypXFTq9Tn/KCO6kNpZoXJpPAxz4kn14e8xwX+6FhKzJnJuhKA//HBCu
+ 9Aug==
+X-Gm-Message-State: AOAM5329H2biG/H/VDxNYPMCf8uv8gky75SpXj5UGy9a6QTqQq5noeKw
+ 64q5ywBBCkUt2uUbzqk/2dSUXLZGMA47
+X-Google-Smtp-Source: ABdhPJxJI2a1EQZQHU97ZvLgn3AQXTSRHyn8TOb8KHqA4uBo7gJv/2Dss8k64w25x+X8yw367ZxWtM9GHZ+E
+X-Received: from tzungbi-z840.tpe.corp.google.com
+ ([2401:fa00:1:10:2061:3627:c077:944c])
+ (user=tzungbi job=sendgmr) by 2002:a17:90b:ed7:: with SMTP id
+ gz23mr85887pjb.1.1629995618409; Thu, 26 Aug 2021 09:33:38 -0700 (PDT)
+Date: Fri, 27 Aug 2021 00:33:29 +0800
+Message-Id: <20210826163329.3903340-1-tzungbi@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.33.0.rc2.250.ged5fa647cd-goog
+Subject: [PATCH v2] ASoC: dt-bindings: mediatek: mt8192: re-add audio afe
  document
-Message-ID: <YSe35dOicFFDiXAy@sirena.org.uk>
-References: <20210826141314.3720975-1-tzungbi@google.com>
- <YSevGntb3mmYlZGE@sirena.org.uk>
- <CA+Px+wWr99PxEz6qROhj7H8LXFiRZ1sxrn-BcB7ZODJA1Suh+A@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="YzpHw64aXvjaQKnF"
-Content-Disposition: inline
-In-Reply-To: <CA+Px+wWr99PxEz6qROhj7H8LXFiRZ1sxrn-BcB7ZODJA1Suh+A@mail.gmail.com>
-X-Cookie: I can relate to that.
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, robh+dt@kernel.org,
- Jiaxin.Yu@mediatek.com
+From: Tzung-Bi Shih <tzungbi@google.com>
+To: broonie@kernel.org, robh+dt@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Cc: tzungbi@google.com, alsa-devel@alsa-project.org, jiaxin.yu@mediatek.com,
+ devicetree@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,45 +95,140 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The document was sent in [1] and merged to ASoC for-next branch as
+commit 1afc60e00de3 ("dt-bindings: mediatek: mt8192: add audio afe
+document").
 
---YzpHw64aXvjaQKnF
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+However, [2] revealed that the commit 1afc60e00de3 breaks
+dt_binding_check in linux-next due to dt-bindings/clock/mt8192-clk.h
+doesn't exist.
 
-On Thu, Aug 26, 2021 at 11:28:15PM +0800, Tzung-Bi Shih wrote:
-> On Thu, Aug 26, 2021 at 11:19 PM Mark Brown <broonie@kernel.org> wrote:
+[3] reverted the commit 1afc60e00de3 and merged as commit
+7d94ca3c8acd ("ASoC: mt8192: revert add audio afe document").
 
-> > > The dependency has merged.  Re-adds back the document.
+dt-bindings/clock/mt8192-clk.h now can be found in linux-next per [4],
+re-adds the document back.
 
-> > What is the dependency and where wsa it merged?
+[1]: https://mailman.alsa-project.org/pipermail/alsa-devel/2020-November/176577.html
+[2]: https://mailman.alsa-project.org/pipermail/alsa-devel/2020-November/176873.html
+[3]: https://mailman.alsa-project.org/pipermail/alsa-devel/2020-November/176897.html
+[4]: https://git.kernel.org/pub/scm/linux/kernel/git/clk/linux.git/commit/?h=clk-next&id=f35f1a23e0e12e3173e9e9dedbc150d139027189
 
-> The context is in the original email after "---".  Do you think it
-> needs to be part of the commit message?
+Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
+---
+Changes from v1 (https://patchwork.kernel.org/project/alsa-devel/list/?series=537817):
+- Add more context to the commit message.
 
-I was looking for a description of what these things are and
-where things are in words - I'm on a train with spotty network
-access which makes them not as useful as they might be.
+ .../bindings/sound/mt8192-afe-pcm.yaml        | 100 ++++++++++++++++++
+ 1 file changed, 100 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
 
-Please include human readable descriptions of things like commits and
-issues being discussed in e-mail in your mails, this makes them much
-easier for humans to read especially when they have no internet access.
-I do frequently catch up on my mail on flights or while otherwise
-travelling so this is even more pressing for me than just being about
-making things a bit easier to read.
+diff --git a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
+new file mode 100644
+index 000000000000..0170c93802d2
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
+@@ -0,0 +1,100 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/mt8192-afe-pcm.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Mediatek AFE PCM controller for mt8192
++
++maintainers:
++   - Jiaxin Yu <jiaxin.yu@mediatek.com>
++   - Shane Chien <shane.chien@mediatek.com>
++
++properties:
++  compatible:
++      const: mediatek,mt8192-audio
++
++  interrupts:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  reset-names:
++    const: audiosys
++
++  mediatek,apmixedsys:
++    $ref: "/schemas/types.yaml#/definitions/phandle"
++    description: The phandle of the mediatek apmixedsys controller
++
++  mediatek,infracfg:
++    $ref: "/schemas/types.yaml#/definitions/phandle"
++    description: The phandle of the mediatek infracfg controller
++
++  mediatek,topckgen:
++    $ref: "/schemas/types.yaml#/definitions/phandle"
++    description: The phandle of the mediatek topckgen controller
++
++  power-domains:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: AFE clock
++      - description: ADDA DAC clock
++      - description: ADDA DAC pre-distortion clock
++      - description: audio infra sys clock
++      - description: audio infra 26M clock
++
++  clock-names:
++    items:
++      - const: aud_afe_clk
++      - const: aud_dac_clk
++      - const: aud_dac_predis_clk
++      - const: aud_infra_clk
++      - const: aud_infra_26m_clk
++
++required:
++  - compatible
++  - interrupts
++  - resets
++  - reset-names
++  - mediatek,apmixedsys
++  - mediatek,infracfg
++  - mediatek,topckgen
++  - power-domains
++  - clocks
++  - clock-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/mt8192-clk.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/power/mt8192-power.h>
++    #include <dt-bindings/reset-controller/mt8192-resets.h>
++
++    afe: mt8192-afe-pcm {
++        compatible = "mediatek,mt8192-audio";
++        interrupts = <GIC_SPI 202 IRQ_TYPE_LEVEL_HIGH>;
++        resets = <&watchdog MT8192_TOPRGU_AUDIO_SW_RST>;
++        reset-names = "audiosys";
++        mediatek,apmixedsys = <&apmixedsys>;
++        mediatek,infracfg = <&infracfg>;
++        mediatek,topckgen = <&topckgen>;
++        power-domains = <&scpsys MT8192_POWER_DOMAIN_AUDIO>;
++        clocks = <&audsys CLK_AUD_AFE>,
++                 <&audsys CLK_AUD_DAC>,
++                 <&audsys CLK_AUD_DAC_PREDIS>,
++                 <&infracfg CLK_INFRA_AUDIO>,
++                 <&infracfg CLK_INFRA_AUDIO_26M_B>;
++        clock-names = "aud_afe_clk",
++                      "aud_dac_clk",
++                      "aud_dac_predis_clk",
++                      "aud_infra_clk",
++                      "aud_infra_26m_clk";
++    };
++
++...
+-- 
+2.33.0.rc2.250.ged5fa647cd-goog
 
---YzpHw64aXvjaQKnF
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEnt+QACgkQJNaLcl1U
-h9CBVwf5AXb06SsToU0IxExtwACFaktJrMHHAkc+VOtxnyEJqt5jGgQvpG6THAUA
-NJDsJ0NpxR119GPqMA3sOwxC/tbpIR6nUXl4c+UQHlp2+IfQVUzXPWMnR8fhX3Kt
-y5VFZsz2muIbSRvRoBHH6iIlzJVceVwOrJGTd5BvMB2O4rErcjTWiUruGp6Yf8AX
-v9wcffXQB6Ofgvew+3TXlma7dK3C5CQHl2Dd0BfsI/fPGYq4j/oqnWCUqVTDKnN9
-U40OpstBsZ2xUxoxQ/XgxdyOdtp8Xe1CmbJquYGO8o8nf0Sl3YVMcC3U9hcG9YUW
-QYl9jn3BDEAnKY0uBHKimmdQUUJ7Uw==
-=91jm
------END PGP SIGNATURE-----
-
---YzpHw64aXvjaQKnF--

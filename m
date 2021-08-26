@@ -2,91 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 668343F874A
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Aug 2021 14:22:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 041AA3F8812
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Aug 2021 14:53:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B88AA16A9;
-	Thu, 26 Aug 2021 14:21:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B88AA16A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BE2916A8;
+	Thu, 26 Aug 2021 14:52:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BE2916A8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1629980521;
-	bh=1cr0w41CJu52E1ie6cflD+4j8OOHodgsnWNrBhxoTg8=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1629982395;
+	bh=VBPfc2RDjlOwkjJSe36MD49TIeYbo9Zp0QSp+FSIjTA=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dxLxpGUHAFqyOhO6ruBY2FI2TeHndIk6XUgInYma2LyBnC0bdMBlka4RXvAkR7e92
-	 DN96yVsQLVI4esRD5NjXGbFN/kUjwmB8WpuPEzWpYG5dv5My14OV8dc76kYB+6Pwda
-	 vMplB9kiuMLakeJ8hXXVAg8w50IVMeN+KKnoNbk8=
+	b=Ha92FBac2wYAHYUfcm0JaFL4QA/j2skgVbzDVluXau9dKB+NnabWzPmHj8mqVuTPB
+	 QuXSzw1QIVv4L9JakzNqQOwnbeoDBgSRwNj2ZauPcOxbPbFTGa0NqNrXCTp8u5rBFu
+	 JT39YCLVH9fkDWEBojAm76YtN4wtEqpsohipLsS4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49572F80224;
-	Thu, 26 Aug 2021 14:20:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3661F80054;
+	Thu, 26 Aug 2021 14:51:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B3100F801D8; Thu, 26 Aug 2021 14:20:41 +0200 (CEST)
+ id BBDA8F801D8; Thu, 26 Aug 2021 14:51:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5403CF80054
- for <alsa-devel@alsa-project.org>; Thu, 26 Aug 2021 14:20:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5403CF80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2CFB1F80054
+ for <alsa-devel@alsa-project.org>; Thu, 26 Aug 2021 14:51:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CFB1F80054
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="EKOZ98x9"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Q404s3oX"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id AB4A7222E5;
- Thu, 26 Aug 2021 12:20:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1629980438; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=MDRXNlL41nO6+FwXs/afEPF55SERpW/2IDkfg5/s+Pc=;
- b=EKOZ98x90Og1woktvxze5VMXiVN0fJ7X1RBsgoYih2nwn9Zwjw4uldQq6lc3NcG0NkFPod
- MXKJfCiDVZ7hM3G6F3Y6UIrHbtDJh1HG2mEvnq8kNd7sF+gHDGydN1SPinBRhay336c9vx
- WSjHFotRIRQ5wrQlun2ESXPI8MHWNMs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1629980438;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=MDRXNlL41nO6+FwXs/afEPF55SERpW/2IDkfg5/s+Pc=;
- b=Q404s3oXNOWUAXtuyh10aIga4jrfHQmnowGvJC0Fz/COglAHU/4jQSDUddDSWRv1tgkdjr
- H0iQtcZUDGfupsBw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id A5CC3A3B89;
- Thu, 26 Aug 2021 12:20:38 +0000 (UTC)
-Date: Thu, 26 Aug 2021 14:20:38 +0200
-Message-ID: <s5h5yvswg6h.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Subject: Re: [PATCH 2/2] ALSA: hda/cs8409: Prevent pops and clicks during
- reboot
-In-Reply-To: <9a3c2f9e-e2a5-702f-bd3f-7348097a0500@opensource.cirrus.com>
-References: <20210812183433.6330-1-vitalyr@opensource.cirrus.com>
- <20210812183433.6330-2-vitalyr@opensource.cirrus.com>
- <s5h1r6xlvrs.wl-tiwai@suse.de> <s5hczqgil3v.wl-tiwai@suse.de>
- <6595e87d-1dae-b536-c17b-eafa07d04bbe@opensource.cirrus.com>
- <s5hpmuce05m.wl-tiwai@suse.de>
- <e3df5f97-bf43-7eb8-e15d-4ab11dbae7ef@opensource.cirrus.com>
- <s5hczq0yc72.wl-tiwai@suse.de> <s5hfsuwwkew.wl-tiwai@suse.de>
- <9a3c2f9e-e2a5-702f-bd3f-7348097a0500@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Bmr+ugHD"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5752A60184;
+ Thu, 26 Aug 2021 12:51:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1629982307;
+ bh=VBPfc2RDjlOwkjJSe36MD49TIeYbo9Zp0QSp+FSIjTA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Bmr+ugHDbTZG0ASGgPyRtOStFm5RZWDjXWIsESIPJFXGsK/cNFmIkJyAB4cKXrQT7
+ S2KFvEZKP6ZMQYPFW3yjVI2QNXecHzG52TITcMBFFZJ3H90O8aoNoW+Hjh81vvqJjF
+ MczwVftp+HpTtoKsDntNgIUpBLPLn2fuq5zVedmOByvwfGUkJuKxChP15RBM2fFg1D
+ WTM61UHIgeFFFWsC4CNQ47VJlM8QJDftQoK1Ray+l0ZuJSJK8z+SRBwobewnzGQdvg
+ uwQhnjt0YRi39JK1Dw4wUff1soOB+1ZQtBjxxlReWSpdeQN2lqEOTkpofmgI92o87N
+ k7NVWGvbdQQ/Q==
+From: Mark Brown <broonie@kernel.org>
+To: Robin Murphy <robin.murphy@arm.com>,
+	lgirdwood@gmail.com
+Subject: Re: [PATCH] ASoC: dwc: Get IRQ optionally
+Date: Thu, 26 Aug 2021 13:51:10 +0100
+Message-Id: <162998203955.33400.11543058130859225898.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <c857f334e3c9e651e088b675b3938cb5f798b133.1629906123.git.robin.murphy@arm.com>
+References: <c857f334e3c9e651e088b675b3938cb5f798b133.1629906123.git.robin.murphy@arm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,108 +80,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 26 Aug 2021 13:49:32 +0200,
-Vitaly Rodionov wrote:
+On Wed, 25 Aug 2021 16:42:03 +0100, Robin Murphy wrote:
+> The IRQ is explicitly optional, so use platform_get_irq_optional() and
+> avoid platform_get_irq() logging a spurious error when trying to use the
+> thing in DMA mode.
 > 
-> On 26/08/2021 11:49 am, Takashi Iwai wrote:
-> > On Thu, 26 Aug 2021 08:03:45 +0200,
-> > Takashi Iwai wrote:
-> >> On Wed, 25 Aug 2021 20:04:05 +0200,
-> >> Vitaly Rodionov wrote:
-> >>> Actually when codec is suspended and we do reboot from UI, then sometimes we
-> >>> see suspend() calls in kernel log and no pops, but sometimes
-> >>>
-> >>> we still have no suspend() on reboot and we hear pops. But when we do reboot
-> >>> from command line: > sudo reboot  then we always have pops and no suspend()
-> >>> called.
-> >>>
-> >>> Then we have added extra logging and we can see that on reboot codec somehow
-> >>> getting resume() call and we run jack detect on resume that causing pops.
-> >> Hm, it's interesting who triggers the runtime resume.
-> >>
-> >>> We were thinking about possible solution for that and we would propose some
-> >>> changes in generic code hda_bind.c:
-> >>>
-> >>> static void hda_codec_driver_shutdown(struct device *dev) { +   if (codec->
-> >>> patch_ops.suspend) +      codec->patch_ops.suspend(codec);
-> >>> snd_hda_codec_shutdown(dev_to_hda_codec(dev)); +  hda_codec_driver_remove
-> >>> (dev_to_hda_codec(dev)); }
-> >> Sorry, it's no-no.  The suspend can't be called unconditionally, and
-> >> the driver unbind must not be called in the callback itself.
-> >>
-> >> Does the patch below work instead?
-> > Sorry there was a typo.  A bit more revised patch is below.
-> >
-> >
-> > Takashi
-> >
-> > --- a/sound/pci/hda/hda_intel.c
-> > +++ b/sound/pci/hda/hda_intel.c
-> > @@ -1383,14 +1383,17 @@ static void azx_free(struct azx *chip)
-> >   	hda->freed = 1;
-> >   }
-> >   -static int azx_dev_disconnect(struct snd_device *device)
-> > +static void __azx_disconnect(struct azx *chip)
-> >   {
-> > -	struct azx *chip = device->device_data;
-> >   	struct hdac_bus *bus = azx_bus(chip);
-> >     	chip->bus.shutdown = 1;
-> >   	cancel_work_sync(&bus->unsol_work);
-> > +}
-> >   +static int azx_dev_disconnect(struct snd_device *device)
-> > +{
-> > +	__azx_disconnect(device->device_data);
-> >   	return 0;
-> >   }
-> >   @@ -2356,8 +2359,10 @@ static void azx_shutdown(struct pci_dev
-> > *pci)
-> >   	if (!card)
-> >   		return;
-> >   	chip = card->private_data;
-> > -	if (chip && chip->running)
-> > +	if (chip && chip->running) {
-> > +		__azx_disconnect(chip);
-> >   		azx_shutdown_chip(chip);
-> > +	}
-> >   }
-> >     /* PCI IDs */
 > 
-> Hi Takashi,
 > 
-> Applied fix and tested on dolphin HW. Issue still there, here is
-> captured screen on reboot from command line:
 > 
-> reboot capture
-> 
-> Reboot from UI works differently, no resume() call in this case.
+> [...]
 
-Thanks for quick testing.
+Applied to
 
-After reconsideration, I believe we can even take a simpler path.
-Use pm_runtime_force_suspend(), and keep suspended by
-pm_runtime_disable() call afterwards.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Below is another test patch.  Could you check whether this works
-better?
+Thanks!
 
+[1/1] ASoC: dwc: Get IRQ optionally
+      commit: 2fd276c3ee4bd42eb034f8954964a5ae74187c6b
 
-Takashi
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
---- a/sound/pci/hda/hda_codec.c
-+++ b/sound/pci/hda/hda_codec.c
-@@ -2986,13 +2986,11 @@ void snd_hda_codec_shutdown(struct hda_codec *codec)
- {
- 	struct hda_pcm *cpcm;
- 
--	if (pm_runtime_suspended(hda_codec_dev(codec)))
--		return;
--
- 	list_for_each_entry(cpcm, &codec->pcm_list_head, list)
- 		snd_pcm_suspend_all(cpcm->pcm);
- 
--	pm_runtime_suspend(hda_codec_dev(codec));
-+	pm_runtime_force_suspend(hda_codec_dev(codec));
-+	pm_runtime_disable(hda_codec_dev(codec));
- }
- 
- /*
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

@@ -2,87 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FFAA3F943A
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Aug 2021 08:16:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 739403F95CC
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Aug 2021 10:10:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3307F16D5;
-	Fri, 27 Aug 2021 08:15:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3307F16D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA43116CC;
+	Fri, 27 Aug 2021 10:09:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA43116CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630044976;
-	bh=06U7WlKDfLudC8lliZ4jcC1t5yh0ujLxtLLI7dU4Pes=;
+	s=default; t=1630051849;
+	bh=PbRczYOvHYAKmKMe7eRWCaQ3JbC8XwQXcY9W5elx3EQ=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=l/iK5YNtqCDUe86hs+0aNDrdudeoM8rB71BITtM4V9nN/k8UTHUGNjxgtiEB2hTZy
-	 dtfm5ilx+EVyvJ2O5UFypRQjQKOZVhuEtPDoCmsy9S22WZropFkTt1pa78DjdCLBBA
-	 e//QxNFiWql7fKO1NVL8kYLL7RExDK74Yr+cgyBM=
+	b=AKstURP39OEEtStfdDaW88YI6dwofyzElKpGFdzfvZQTRUBBtD4DuhnVvenUviJ2o
+	 toSSl6gPXeP+ZADpO24WYlZjJpsBH0yd4ccvSzsYYkVhAeBEbRluoGUtd3JVvpsLCT
+	 bMwt3lVv4wNHHyHRpt69oV+JtGfYpI5jLFaNIHBs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CDE31F80129;
-	Fri, 27 Aug 2021 08:14:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D182F801D5;
+	Fri, 27 Aug 2021 10:09:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C4ECBF80129; Fri, 27 Aug 2021 08:14:53 +0200 (CEST)
+ id 49B69F80054; Fri, 27 Aug 2021 10:09:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
- [IPv6:2607:f8b0:4864:20::831])
+Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
+ [IPv6:2607:f8b0:4864:20::42b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 12A20F800EE
- for <alsa-devel@alsa-project.org>; Fri, 27 Aug 2021 08:14:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12A20F800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id C7EFDF80054
+ for <alsa-devel@alsa-project.org>; Fri, 27 Aug 2021 10:09:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7EFDF80054
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="NHZ1G+5i"
-Received: by mail-qt1-x831.google.com with SMTP id s32so4540869qtc.12
- for <alsa-devel@alsa-project.org>; Thu, 26 Aug 2021 23:14:44 -0700 (PDT)
+ header.b="SudM1diP"
+Received: by mail-pf1-x42b.google.com with SMTP id m26so5065205pff.3
+ for <alsa-devel@alsa-project.org>; Fri, 27 Aug 2021 01:09:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=J6wH6VQ81UagFZrBDuQfg5acAy2kFwSXlQ1BsRDUlyk=;
- b=NHZ1G+5iMYP+XgOXH5UWH9rl5MgrCTsw24zUz0jzVVBz+Xmrufgkm+tVgv6ucD2UWG
- S74VU3T8byNcrBZ2G9VlqPDsKNIlVcW/r7j+CkdQxc+++4BXjItHwYo0t3ILCKB/wnAp
- CEKmr9AqAKKl9+MtHquG8IriOb8ywV+JJXsBmM4iUSnhM+hUfB9rj8osl8FsghWTCPB0
- Ed0v7eB71ig5k51ZQTX8nfHtVuy+Qq6tE+lYQcDGYTg2vpU35rphOC1jKOIDR2H4eiDT
- x2wJV28v4xylCa/M7SwI2380goxX5k+D7RH3VvD14mxt3AKl2gBkdxxTn6eiGYI3K//B
- 0PEw==
+ :cc; bh=KnZ771ayVYug9bm/elMLHVvvuIW6MW3AL+IJic34BwE=;
+ b=SudM1diPRRY31Q9YnYRHFhjU3SgL8fYD+iwkN7o3OIV7wt//stVVcnQvZME5kHWYh2
+ 4/rI3PJfRhPi+X5K8ZTW5iJ9AvJJ9OrSbcs8SmOcQQ6n0qQPvil8So4fOj6wYanwLMhp
+ b3MMwAvob9r3HiqJdBBrZkHg2jM8X5QLIF6RtaGb9fbQR/a2AO3t0EkNaam3YrBWNbDz
+ FB7DbGO0Vyu0XiqZ8W0nCza0JJixi00AJh7TM9VVTL5se452F2ZU5V7/ibrrEscJErFb
+ Lg39mCopIT97Lujp6jGykqqNdXzV7AzAnL9gBkOCHoxHF2SywHvmK6N1MOn3PBVT2kLy
+ I8uA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=J6wH6VQ81UagFZrBDuQfg5acAy2kFwSXlQ1BsRDUlyk=;
- b=rd4gvOglQwZ5kveTP08xC2LsGlb130PSNmKhpv/kqJH3pMgNwnRFm6fahFGEeXRY/A
- TZAC1eRSBZoQYOB1iuLBQqptUdp8K9GKsQo3/QI1rhGxVvPGL9CFlGTf3aYXOy1VWUv8
- MmPHlgWvozP+LIC/EprVUwY7O4AtqRwGixUsL1rfFa1+qtW/0nDO4SetdRhZ9isF5VjT
- PU+Mtr3IN1xaeOsHJqlwc0e+RgHn237m5HmCSI9b2ToByoZwJuHzK/ExUarXXX1xwHn/
- +ZKAxkiNze84wsfkhXKAGnGhnuG+wzCFbmnzCHWjPKM/wkr8ILCSyfd5HG7sWx7tINX4
- a3Gw==
-X-Gm-Message-State: AOAM530d3rfJH9wELtZAHDT4bBuoviE7g1OysEd4digORRkXxeHa+isL
- bWx1VGob/T/GmWHW2tnR51JRUGktm1p3yw+eZkg=
-X-Google-Smtp-Source: ABdhPJyrAdL7K8XPjqcwtnfWW1RsdpvIxn2uSbruNkxA69ge/iKoWUvnFJynkt+EtCBZhj7XUF4HWM80qKarwD1AKt8=
-X-Received: by 2002:ac8:5805:: with SMTP id g5mr6951210qtg.360.1630044880150; 
- Thu, 26 Aug 2021 23:14:40 -0700 (PDT)
+ bh=KnZ771ayVYug9bm/elMLHVvvuIW6MW3AL+IJic34BwE=;
+ b=Go9F3zHvqFfBXXzvpj4StL9OFy+ZdZ+mLc0NXmgJf6H68LGW9LRtainA1gVzJzwouP
+ 3WbTGwUCWQqvsZl0gCCLq1OZiDbetZ2PS36MNTOVfWcG3DNsoV/2cHIm4ID/6Amvb+Np
+ LGYfJmy6XFlbIHY+Rau9RAE9xGEWwxNZ7SuFFAm+/edSKRn1LSPLNMy/jA7BdHgRzW5w
+ 5EKkN5HrcZG0eHKazPj1vDBltPXyr9IkdR1zf3oPzDaTh+hQiVXQqPMw20a/VxGaBPrq
+ ppYgsIOddGMns8wu0LId7bMxTiOSqMAO9/orcWLU/T2QNdvSWixqWG6njViKi/mfbcJt
+ 30Zw==
+X-Gm-Message-State: AOAM533ULU8jBpSBeSxunajufJapy2FuoriwmoF9JsnsgBYKEkoxiRj1
+ bp0LxQ4wsGxVrRtGzDer/SSEDvr3F0WZVCGc4rw=
+X-Google-Smtp-Source: ABdhPJyuozem33uKrywaxg5pMh/3wNwFSdzH9Id5YqkBidB1EZrDvDNU1pc2Ckotx4qwYOtkq8XtpRxlckvXA8g52cQ=
+X-Received: by 2002:a65:45c3:: with SMTP id m3mr6873837pgr.203.1630051758158; 
+ Fri, 27 Aug 2021 01:09:18 -0700 (PDT)
 MIME-Version: 1.0
-References: <1629975460-17990-1-git-send-email-shengjiu.wang@nxp.com>
- <CAOMZO5BCsTMjJJPtLN6_seVcWb24A2ms11FP3HzR0i7t3GLSuA@mail.gmail.com>
-In-Reply-To: <CAOMZO5BCsTMjJJPtLN6_seVcWb24A2ms11FP3HzR0i7t3GLSuA@mail.gmail.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Fri, 27 Aug 2021 14:14:29 +0800
-Message-ID: <CAA+D8AOTAL9H8mr819v9VTQmJvNyKjnRNGPOX64LekjvXXGEcg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] ASoC: fsl_rpmsg: add soc specific data structure
-To: Fabio Estevam <festevam@gmail.com>
+References: <c857f334e3c9e651e088b675b3938cb5f798b133.1629906123.git.robin.murphy@arm.com>
+In-Reply-To: <c857f334e3c9e651e088b675b3938cb5f798b133.1629906123.git.robin.murphy@arm.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Fri, 27 Aug 2021 11:08:38 +0300
+Message-ID: <CAHp75VejabzoA8xBYFH1X-9vwS4U8SsivnS4be+H7vUTGH8fKQ@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: dwc: Get IRQ optionally
+To: Robin Murphy <robin.murphy@arm.com>
 Content-Type: text/plain; charset="UTF-8"
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
- linux-kernel <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,22 +95,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Aug 26, 2021 at 7:54 PM Fabio Estevam <festevam@gmail.com> wrote:
+On Wed, Aug 25, 2021 at 7:04 PM Robin Murphy <robin.murphy@arm.com> wrote:
 >
-> Hi Shengjiu,
->
-> On Thu, Aug 26, 2021 at 8:19 AM Shengjiu Wang <shengjiu.wang@nxp.com> wrote:
->
-> > +       rpmsg->soc_data = of_device_get_match_data(&pdev->dev);
-> > +       if (rpmsg->soc_data) {
->
-> This check is not necessary, because rpmsg->soc_data is always non-NULL.
->
-> Other than that:
->
-> Reviewed-by: Fabio Estevam <festevam@gmail.com>
+> The IRQ is explicitly optional, so use platform_get_irq_optional() and
+> avoid platform_get_irq() logging a spurious error when trying to use the
+> thing in DMA mode.
 
-Thanks, I will update in v2.
+...
 
-Best regards
-wang shengjiu
+> -       irq = platform_get_irq(pdev, 0);
+> +       irq = platform_get_irq_optional(pdev, 0);
+
+>         if (irq >= 0) {
+
+It has to be changed to if (irq > 0).
+But since it's already applied, I think it will be another patch.
+
+>                 ret = devm_request_irq(&pdev->dev, irq, i2s_irq_handler, 0,
+>                                 pdev->name, dev);
+
+-- 
+With Best Regards,
+Andy Shevchenko

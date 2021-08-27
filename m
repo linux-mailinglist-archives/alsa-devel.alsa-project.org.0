@@ -2,97 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 574FA3F9765
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Aug 2021 11:44:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A0533F9771
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Aug 2021 11:44:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E2A651706;
-	Fri, 27 Aug 2021 11:43:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2A651706
+	by alsa0.perex.cz (Postfix) with ESMTPS id D696B1701;
+	Fri, 27 Aug 2021 11:43:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D696B1701
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630057455;
-	bh=Vp+hsVfyJnIwuKqZ8RB26haWl7Dpjw8jJN7t8U3xILw=;
+	s=default; t=1630057477;
+	bh=9hQV9wgh+7i+ImlxStZNduDNpYAWx6Y2VGobwwQ1PII=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YOZao3s7z6mBiNGpzFG0bsFfntaVgjdINGv/Ib2oWS+cUt3yZ98MSt6X01apJ2HxV
-	 +fnbPZDNRUakSKUTDkRgqpWHVoJMco+OyVMdV9Hzt0g6GLbep1wNBMjTZZ2AAZ/W0g
-	 sftPK9p/tYQnNL/QNCKu+CIHh/cNdKmD///wnC64=
+	b=RnxWDqPIyuVL8BLGEv/PAc5ooThrb5xc0Pu5n4jKsW9pcJPNTLVigZK2IxyKwMN3N
+	 VPAlyr07tgD/5J0LkeCfEmgZ1R3uFhw4+lKwwODsv6Azn42aoloqhzNVPknk6zhHrx
+	 HVGxCe4mBdb9cb6saXxg9UYB8zW1uMO7vrn9mnWk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F3DFF8055B;
-	Fri, 27 Aug 2021 11:39:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89219F80217;
+	Fri, 27 Aug 2021 11:39:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BDDCDF80552; Fri, 27 Aug 2021 11:39:11 +0200 (CEST)
+ id 81311F802D2; Fri, 27 Aug 2021 11:39:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
 Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2084.outbound.protection.outlook.com [40.107.95.84])
+ (mail-dm3nam07on2083.outbound.protection.outlook.com [40.107.95.83])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 681E9F8053A
- for <alsa-devel@alsa-project.org>; Fri, 27 Aug 2021 11:39:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 681E9F8053A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A0B2F8053A
+ for <alsa-devel@alsa-project.org>; Fri, 27 Aug 2021 11:39:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A0B2F8053A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
- header.b="rN8ukbbU"
+ header.b="busSRx21"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Np3NAnXoFZSI4MI8kLJ3PFwlljEqpfGIuVPe6tsNKbEb6f2jlmLzrG3+Ktp6AZmOglToKeqMzMyRNM79OV13CFgF1WpmG6CO/txXAU/PzQdQpDWMXuzT0SPUeUYgQgCfRFPHz1ck4icbm069/Yz9ee3p0t4ZoS8Ptgq2IYpGRMtDVors4G5Ozl5cg3e9+w2cjuy+u+ihWcBcqcMygK1oVwdoYw7VwgbTBohwWTxmVuCXaEavqGKpw6036yqz8hnXuZvy0AkcTYaBa94bxGiczX5pslqqnm379KgVjieicpEkaOU2Q2bRH4TVSKT9LmCSqwV0kVsu9BDgDsedzfO1dg==
+ b=MA8+Yhko56jnbLVnGwKZTKTmWETd45ciF1XNX01gjyc/AXiY7imncAKH/vsY+l74X6KC+eIe89ye51GttzcBLmCfstphKlcJIEjpXwNuYSqW1HMVtaBiRYY5DT+LEAI56CZGCEm5ggrqvipcUCsfd/4hgnno+/C0x4REgsCfzO8feZc1t4dlWRz62tw0qAYbiRKJKTLtsafkL+k0jUjmNWCMblR0wphxj3gcTovMr/ji4W5bkQalZdT8TL5hXGtseybu4WFE7vxzidBlahwHkddROsQmjnZfr0YY5niVCeT62K8RpK4bZuuBaWZtGCkROUnzTMmAhfQ0uvBiSYtuxw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XYCaXMTv0jG/SdPf7WU99ndTBCyajEY7L027r2+VVuc=;
- b=V6t7iUOCrlOq6Eee8l1Pv8L9y5IxVSGp7Z4S/SK/pGeD4kc2HeKfwtogrs+e1Plef7dyhIxLJ6ZGwPKMS159d4INPvzrBtBpe0Lif6kU5vFX/+ZGckvJqT3gzv74w5I0QaXQvfmt3RqjiIbsCpmy13fMJ4t+mvJMaUCHykP0F1NjOBz5ANeHhvEqc+4Ua3wcTQFUXq+F+s9HQzC0bw7dRPG1bPyv43x4TIAq0X+kEiuU0VeF5LeQhxp5TU80/XhDiOwfShn75L7LgIWXFA76swfgU0hEkLwSqezSMmGjq0S2k/2H4mhgR45iK70z6hs9u5LlFvMYiwH6N1kLN55nEw==
+ bh=5Sv49BjwBAc/XG2MQL1IUO4PQWmyH0R7fIh9dsZcEmY=;
+ b=ZbFYdOGAabPiJYcWyELNgR5SXdbr7qt2lvDU6veddqc0spM34YR6ENH+orNhEjWgh7G1jaqc/APhT5DHN94v1b/nAgxujL4xtAJjMRCbKcm2SEvHrk5jyC5QJZB3/vzeDO0JIYKCo0NQfrhUEc7UJauJ10nKyx8XfDoq70eu9uQ2JcqgC21fBiccYNenWa2uuSi6UV0gRGPZVKHGkWHedsdgtWUorEOiU6OUff7z6fuX4WaTtb5bdlTQVs3En26RynTqnH2WQjqumOlUykdaG3/ZL5NphYP15A11kcPLxs3eyYA6Lr1tWoUotccMStllamjzghB9aPT9NYPwHZdj+A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.112.35) smtp.rcpttodomain=alsa-project.org smtp.mailfrom=nvidia.com;
+ 216.228.112.36) smtp.rcpttodomain=alsa-project.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=nvidia.com; 
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XYCaXMTv0jG/SdPf7WU99ndTBCyajEY7L027r2+VVuc=;
- b=rN8ukbbUrmcqWQT6vmOqDY9gYdJAy6ufm+jTJaEmVyM2xz5VVjn970san45JiTvzdQ2A55Ia4Ec97pLSreSXHriqMaVG216ZAtxPG4vvoLUilCH3tvJ4Ct9AkJuBh0DAgtNphtM7S0avxoCN+L03Qw0V+r5WynPOHjjzxHf1J2P5CluWVxxcbtt+lMoQT3ohSXwpHZ/lAkjJWR81ExpG0BkvGRrVGXAY5pDfRdXUZs1MznzC/G5R7n6TcRmmu1B9e8KZQEMLdQOFR9iv7UaIQkHSZkezmua3WJdt6HZ4VWY+wj8W0tZnHAJYvNSQ2dPHJDe/sLMayZPy7TMg/2F3sA==
-Received: from DM5PR08CA0044.namprd08.prod.outlook.com (2603:10b6:4:60::33) by
- MWHPR1201MB0109.namprd12.prod.outlook.com (2603:10b6:301:52::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Fri, 27 Aug
- 2021 09:38:58 +0000
-Received: from DM6NAM11FT003.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:60:cafe::bf) by DM5PR08CA0044.outlook.office365.com
- (2603:10b6:4:60::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.20 via Frontend
- Transport; Fri, 27 Aug 2021 09:38:58 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.35)
+ bh=5Sv49BjwBAc/XG2MQL1IUO4PQWmyH0R7fIh9dsZcEmY=;
+ b=busSRx21zDV2FcqzFp5jnTDM0uqypm0QDqUi2U3GOXke2eSWpDuSBlQJfag4XIZwIwputMQj/u9hvXmZX8GrzAT+5AmFj8dLJeCgQXasxOJx9EWC4l8uVXE4XO9EGnn2R9v+pqSM9TPfHbO0KzX3Or6DbEPuu+0KYYSxv5bVtASBW/qNS7r98ZC2pIXyRws2adeE0EY3JGEAiHgEKiiZCIwy3ls3cUCd2x2y6l46y/hWgcSpvq6Z909UGpg4W+ewzQ7aCM5lJ36ClfOFrDcCWuB8UjId+9kNg7EVawDYPkZAk9+QQAs8di76HD8AbKvM9HCFgmgWZpy+aBmEoyGRdA==
+Received: from DM6PR03CA0032.namprd03.prod.outlook.com (2603:10b6:5:40::45) by
+ DM5PR12MB2471.namprd12.prod.outlook.com (2603:10b6:4:b5::10) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4436.22; Fri, 27 Aug 2021 09:39:02 +0000
+Received: from DM6NAM11FT031.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:40:cafe::ed) by DM6PR03CA0032.outlook.office365.com
+ (2603:10b6:5:40::45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.17 via Frontend
+ Transport; Fri, 27 Aug 2021 09:39:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.36)
  smtp.mailfrom=nvidia.com; alsa-project.org; dkim=none (message not signed)
  header.d=none;alsa-project.org; dmarc=pass action=none
  header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.112.35 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.112.35; helo=mail.nvidia.com;
-Received: from mail.nvidia.com (216.228.112.35) by
- DM6NAM11FT003.mail.protection.outlook.com (10.13.173.162) with Microsoft SMTP
+ 216.228.112.36 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.112.36; helo=mail.nvidia.com;
+Received: from mail.nvidia.com (216.228.112.36) by
+ DM6NAM11FT031.mail.protection.outlook.com (10.13.172.203) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.4457.17 via Frontend Transport; Fri, 27 Aug 2021 09:38:57 +0000
-Received: from HQMAIL101.nvidia.com (172.20.187.10) by HQMAIL111.nvidia.com
- (172.20.187.18) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 27 Aug
- 2021 09:38:56 +0000
+ 15.20.4457.17 via Frontend Transport; Fri, 27 Aug 2021 09:39:02 +0000
+Received: from HQMAIL101.nvidia.com (172.20.187.10) by HQMAIL101.nvidia.com
+ (172.20.187.10) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 27 Aug
+ 2021 09:39:00 +0000
 Received: from audio.nvidia.com (172.20.187.5) by mail.nvidia.com
  (172.20.187.10) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Fri, 27 Aug 2021 09:38:52 +0000
+ Transport; Fri, 27 Aug 2021 09:38:56 +0000
 From: Sameer Pujar <spujar@nvidia.com>
 To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <robh+dt@kernel.org>,
  <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
  <catalin.marinas@arm.com>, <will@kernel.org>, <perex@perex.cz>,
  <tiwai@suse.com>, <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 12/13] arm64: tegra: Add few AHUB devices for Tegra210 and
- later
-Date: Fri, 27 Aug 2021 15:03:58 +0530
-Message-ID: <1630056839-6562-13-git-send-email-spujar@nvidia.com>
+Subject: [PATCH 13/13] arm64: tegra: Extend APE audio support on Jetson
+ platforms
+Date: Fri, 27 Aug 2021 15:03:59 +0530
+Message-ID: <1630056839-6562-14-git-send-email-spujar@nvidia.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1630056839-6562-1-git-send-email-spujar@nvidia.com>
 References: <1630056839-6562-1-git-send-email-spujar@nvidia.com>
@@ -100,28 +100,28 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 80c5b3bd-c27e-4a11-708d-08d9693e7e12
-X-MS-TrafficTypeDiagnostic: MWHPR1201MB0109:
-X-Microsoft-Antispam-PRVS: <MWHPR1201MB0109041FD029725C46E66966A7C89@MWHPR1201MB0109.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:660;
+X-MS-Office365-Filtering-Correlation-Id: d2d94aa2-ce63-4b38-46fb-08d9693e80fe
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2471:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB2471D2BA0699A9900B85AF2BA7C89@DM5PR12MB2471.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QA+djK7+ov+UrwFB3XYYVa/hDpHry3jSfSfscZEFsNBFbjRntuo4jMra87LtS9R8Nl9kpb6voVEkAeE94j9GkOlE2e7rQcWpkql098sMqU76yGCx+LBbISdWlZm91nwqx+ebUD7kp1Ah2C49DHOe35Zf+2OoafvZn8WR8nFDm37GnbJyi63+whqPsG31ta0BGC4YZsanxeYaCp51S7+/fxqwZ0TZzaRARzGk926YHyktrv9zJE518QtC7qTy3rggSeJOYBu1nx4sg2opNUJrtcn27Eyud2qgwmgkFwIz90l+V/oEnldD9XMlUGDFoWOjbQ/4+bMQV6aC32sqoxPrcY6m9ODhq7YrA7stOZCKNnBSWusfSK3Bbiwe55/4b67cfErycShwSp61pnhtK6PExS3I9t/5HtfBH6Y23k9gd7wObtG/3X11psaureLztz0DNFzQZ0DNdHQJ5bGhQayKgkzQ0t+1WMhEOiG/sTjBJnb23Zb0t1ZL0n9CeyfuTeoL0OA+EcEn1uolQJ3ZMMKJNfURWPY4VBUqgwWmuOu4fmsUSnJktE/YprEBFvarGOnKreTz5XRtUvJ0yH7pLEuUEhBdEI2bbJYNfDWm6F4qirwz7JixoTtLB1uOz94rhnQw7sR2F74zorEc311XJZerlOl8Oxt4rGGXvuaOUn5CcY2WY2eqeyMYYc/kqEHz2TNMVvaOswepaqvLSd4c45B8vngqpe5K28DObSaIqZb18qQ=
-X-Forefront-Antispam-Report: CIP:216.228.112.35; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid02.nvidia.com; CAT:NONE;
- SFS:(4636009)(396003)(376002)(136003)(346002)(39860400002)(46966006)(36840700001)(356005)(47076005)(36860700001)(8936002)(316002)(83380400001)(7636003)(478600001)(82740400003)(2616005)(921005)(7416002)(4326008)(82310400003)(5660300002)(36756003)(426003)(8676002)(7696005)(186003)(36906005)(54906003)(110136005)(2906002)(70586007)(86362001)(107886003)(336012)(26005)(70206006);
+X-Microsoft-Antispam-Message-Info: DPyYdAYyrbbq+BQJHCVUV8QD0/EHIHR1AmF5Dso9De/csgpp41JgEIAhb3mt84nGmldaLeYDXbGuUSHZ+ECs+eUhhBJ70WCqnV0HtwY09RRm49tWCy9KEoTWtrr1DXWOysqW9MPP9rDTAPeG+OAzJGlGln4Rp0SsLCeHR65CYluXAt8U/hROGeJoFooH8l6SWrRIuwMocjwleNaBvbj/sjGsvHReX3EUkgR4Jw58JcqlVGwsUHNWqiP4d6HHArYIMJNUgud+phf7wujanzxOt+qs/EKXt1+LbGLuXDSJBaBvFdX/MAKobjcgeeHf6GjpdCqSEt35zFDIQTgR1iPqwKlpWHw8VmS0SS8OfgyO9BFFi61ItXE5vnvGwG2kQ4bTxvlD4fLwZl44ZqFIgm73oXqo2FAJwG/xfzkJHEEeUgXYJL8H/rcxFlMW4xFVvdGYMUFd9GEcpV8j/CcP5xyL6zYIBMjN+c+QGPRWHDI0871DLwtECbZ6snJVRYinTLBYHjekDKPrcXGvSyisQR9Bl4ULFTISl91/+8sNSlgvDj7w4hPqx3jO3qFETqKv8oHD8ql/ahGLCtNnIFjnzAmyvxLjp4HwSbLtgdX6/PLCWvkvBM/ILydEqMgQWcr5F7KAx10bUU5xVqlP1a8DevxizmlDH2Dz9lbUFW8M+dquRpyttS3VlWHjozbv/GGbbM0qQE2J9+GzjwQTLJW5RUnuk8v57lETyn7fmMcNWg6YNDdGoZzlR28pIzpKAZgkFFZJ
+X-Forefront-Antispam-Report: CIP:216.228.112.36; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid05.nvidia.com; CAT:NONE;
+ SFS:(4636009)(136003)(396003)(39860400002)(346002)(376002)(36840700001)(46966006)(4326008)(478600001)(921005)(70586007)(54906003)(7696005)(186003)(107886003)(36906005)(7416002)(86362001)(8936002)(47076005)(36756003)(316002)(66574015)(83380400001)(26005)(70206006)(356005)(2906002)(2616005)(110136005)(336012)(30864003)(5660300002)(82740400003)(7636003)(82310400003)(36860700001)(426003)(8676002)(21314003)(559001)(579004);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2021 09:38:57.2143 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80c5b3bd-c27e-4a11-708d-08d9693e7e12
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2021 09:39:02.1093 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2d94aa2-ce63-4b38-46fb-08d9693e80fe
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.35];
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.36];
  Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT003.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT031.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0109
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2471
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Sameer Pujar <spujar@nvidia.com>, linux-kernel@vger.kernel.org,
  linux-tegra@vger.kernel.org, sharadg@nvidia.com,
@@ -141,369 +141,7088 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add DT nodes for following AHUB devices:
- * SFC (Sampling Frequency Converter)
- * MVC (Master Volume Control)
- * AMX (Audio Multiplexer)
- * ADX (Audio Demultiplexer)
- * Mixer
+Extend APE audio support by adding more audio components such as SFC,
+MVC, AMX, ADX and Mixer. These components can be plugged into an audio
+path and required processing can be done. ASoC audio-graph based sound
+driver is used to facilitate this and thus extend sound bindings as
+well.
 
-Above devices are added for Tegra210, Tegra186 and Tegra194 generations
-of Tegra SoC.
+The components in the path may require different PCM parameters (such
+as sample rate, channels or sample size). Depending on the pre-defined
+audio paths, these can be statically configured with "convert-xxx" DT
+properties in endpoint subnode. The support for the rate and channel
+conversion is already available in generic audio-graph driver. Sample
+size conversion support can be added based on the need in future.
+
+The support is extended for following platforms:
+ * Jertson TX1
+ * Jetson Nano
+ * Jetson TX2
+ * Jetson AGX Xavier
+ * Jetson Xavier NX
 
 Signed-off-by: Sameer Pujar <spujar@nvidia.com>
 ---
- arch/arm64/boot/dts/nvidia/tegra186.dtsi | 120 +++++++++++++++++++++++++++++++
- arch/arm64/boot/dts/nvidia/tegra194.dtsi | 116 ++++++++++++++++++++++++++++++
- arch/arm64/boot/dts/nvidia/tegra210.dtsi |  77 ++++++++++++++++++++
- 3 files changed, 313 insertions(+)
+ arch/arm64/boot/dts/nvidia/tegra186-p2771-0000.dts | 1554 ++++++++++++++++++--
+ arch/arm64/boot/dts/nvidia/tegra194-p2972-0000.dts | 1493 +++++++++++++++++--
+ .../arm64/boot/dts/nvidia/tegra194-p3509-0000.dtsi | 1520 +++++++++++++++++--
+ arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts |  876 +++++++++++
+ arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts |  876 +++++++++++
+ 5 files changed, 5900 insertions(+), 419 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra186.dtsi b/arch/arm64/boot/dts/nvidia/tegra186.dtsi
-index e94f8ad..0d0ada5 100644
---- a/arch/arm64/boot/dts/nvidia/tegra186.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra186.dtsi
-@@ -354,6 +354,126 @@
- 				sound-name-prefix = "DSPK2";
- 				status = "disabled";
- 			};
-+
-+			tegra_sfc1: sfc@2902000 {
-+				compatible = "nvidia,tegra186-sfc",
-+					     "nvidia,tegra210-sfc";
-+				reg = <0x2902000 0x200>;
-+				sound-name-prefix = "SFC1";
-+				status = "disabled";
-+			};
-+
-+			tegra_sfc2: sfc@2902200 {
-+				compatible = "nvidia,tegra186-sfc",
-+					     "nvidia,tegra210-sfc";
-+				reg = <0x2902200 0x200>;
-+				sound-name-prefix = "SFC2";
-+				status = "disabled";
-+			};
-+
-+			tegra_sfc3: sfc@2902400 {
-+				compatible = "nvidia,tegra186-sfc",
-+					     "nvidia,tegra210-sfc";
-+				reg = <0x2902400 0x200>;
-+				sound-name-prefix = "SFC3";
-+				status = "disabled";
-+			};
-+
-+			tegra_sfc4: sfc@2902600 {
-+				compatible = "nvidia,tegra186-sfc",
-+					     "nvidia,tegra210-sfc";
-+				reg = <0x2902600 0x200>;
-+				sound-name-prefix = "SFC4";
-+				status = "disabled";
-+			};
-+
-+			tegra_mvc1: mvc@290a000 {
-+				compatible = "nvidia,tegra186-mvc",
-+					     "nvidia,tegra210-mvc";
-+				reg = <0x290a000 0x200>;
-+				sound-name-prefix = "MVC1";
-+				status = "disabled";
-+			};
-+
-+			tegra_mvc2: mvc@290a200 {
-+				compatible = "nvidia,tegra186-mvc",
-+					     "nvidia,tegra210-mvc";
-+				reg = <0x290a200 0x200>;
-+				sound-name-prefix = "MVC2";
-+				status = "disabled";
-+			};
-+
-+			tegra_amx1: amx@2903000 {
-+				compatible = "nvidia,tegra186-amx",
-+					     "nvidia,tegra210-amx";
-+				reg = <0x2903000 0x100>;
-+				sound-name-prefix = "AMX1";
-+				status = "disabled";
-+			};
-+
-+			tegra_amx2: amx@2903100 {
-+				compatible = "nvidia,tegra186-amx",
-+					     "nvidia,tegra210-amx";
-+				reg = <0x2903100 0x100>;
-+				sound-name-prefix = "AMX2";
-+				status = "disabled";
-+			};
-+
-+			tegra_amx3: amx@2903200 {
-+				compatible = "nvidia,tegra186-amx",
-+					     "nvidia,tegra210-amx";
-+				reg = <0x2903200 0x100>;
-+				sound-name-prefix = "AMX3";
-+				status = "disabled";
-+			};
-+
-+			tegra_amx4: amx@2903300 {
-+				compatible = "nvidia,tegra186-amx",
-+					     "nvidia,tegra210-amx";
-+				reg = <0x2903300 0x100>;
-+				sound-name-prefix = "AMX4";
-+				status = "disabled";
-+			};
-+
-+			tegra_adx1: adx@2903800 {
-+				compatible = "nvidia,tegra186-adx",
-+					     "nvidia,tegra210-adx";
-+				reg = <0x2903800 0x100>;
-+				sound-name-prefix = "ADX1";
-+				status = "disabled";
-+			};
-+
-+			tegra_adx2: adx@2903900 {
-+				compatible = "nvidia,tegra186-adx",
-+					     "nvidia,tegra210-adx";
-+				reg = <0x2903900 0x100>;
-+				sound-name-prefix = "ADX2";
-+				status = "disabled";
-+			};
-+
-+			tegra_adx3: adx@2903a00 {
-+				compatible = "nvidia,tegra186-adx",
-+					     "nvidia,tegra210-adx";
-+				reg = <0x2903a00 0x100>;
-+				sound-name-prefix = "ADX3";
-+				status = "disabled";
-+			};
-+
-+			tegra_adx4: adx@2903b00 {
-+				compatible = "nvidia,tegra186-adx",
-+					     "nvidia,tegra210-adx";
-+				reg = <0x2903b00 0x100>;
-+				sound-name-prefix = "ADX4";
-+				status = "disabled";
-+			};
-+
-+			tegra_amixer: amixer@290bb00 {
-+				compatible = "nvidia,tegra186-amixer",
-+					     "nvidia,tegra210-amixer";
-+				reg = <0x290bb00 0x800>;
-+				sound-name-prefix = "MIXER";
-+				status = "disabled";
-+			};
- 		};
- 	};
- 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra194.dtsi b/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-index c8250a3..6027d84 100644
---- a/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-@@ -363,6 +363,122 @@
- 					sound-name-prefix = "DSPK2";
- 					status = "disabled";
+diff --git a/arch/arm64/boot/dts/nvidia/tegra186-p2771-0000.dts b/arch/arm64/boot/dts/nvidia/tegra186-p2771-0000.dts
+index 74c1a5d..52fa258 100644
+--- a/arch/arm64/boot/dts/nvidia/tegra186-p2771-0000.dts
++++ b/arch/arm64/boot/dts/nvidia/tegra186-p2771-0000.dts
+@@ -275,178 +275,1097 @@
+ 						remote-endpoint = <&dspk2_cif_ep>;
+ 					};
  				};
 +
-+				tegra_sfc1: sfc@2902000 {
-+					compatible = "nvidia,tegra194-sfc",
-+						     "nvidia,tegra210-sfc";
-+					reg = <0x2902000 0x200>;
-+					sound-name-prefix = "SFC1";
-+					status = "disabled";
++				xbar_sfc1_in_port: port@20 {
++					reg = <0x20>;
++
++					xbar_sfc1_in_ep: endpoint {
++						remote-endpoint = <&sfc1_cif_in_ep>;
++					};
 +				};
 +
-+				tegra_sfc2: sfc@2902200 {
-+					compatible = "nvidia,tegra194-sfc",
-+						     "nvidia,tegra210-sfc";
-+					reg = <0x2902200 0x200>;
-+					sound-name-prefix = "SFC2";
-+					status = "disabled";
++				port@21 {
++					reg = <0x21>;
++
++					xbar_sfc1_out_ep: endpoint {
++						remote-endpoint = <&sfc1_cif_out_ep>;
++					};
 +				};
 +
-+				tegra_sfc3: sfc@2902400 {
-+					compatible = "nvidia,tegra194-sfc",
-+						     "nvidia,tegra210-sfc";
-+					reg = <0x2902400 0x200>;
-+					sound-name-prefix = "SFC3";
-+					status = "disabled";
++				xbar_sfc2_in_port: port@22 {
++					reg = <0x22>;
++
++					xbar_sfc2_in_ep: endpoint {
++						remote-endpoint = <&sfc2_cif_in_ep>;
++					};
 +				};
 +
-+				tegra_sfc4: sfc@2902600 {
-+					compatible = "nvidia,tegra194-sfc",
-+						     "nvidia,tegra210-sfc";
-+					reg = <0x2902600 0x200>;
-+					sound-name-prefix = "SFC4";
-+					status = "disabled";
++				port@23 {
++					reg = <0x23>;
++
++					xbar_sfc2_out_ep: endpoint {
++						remote-endpoint = <&sfc2_cif_out_ep>;
++					};
 +				};
 +
-+				tegra_mvc1: mvc@290a000 {
-+					compatible = "nvidia,tegra194-mvc",
-+						     "nvidia,tegra210-mvc";
-+					reg = <0x290a000 0x200>;
-+					sound-name-prefix = "MVC1";
-+					status = "disabled";
++				xbar_sfc3_in_port: port@24 {
++					reg = <0x24>;
++
++					xbar_sfc3_in_ep: endpoint {
++						remote-endpoint = <&sfc3_cif_in_ep>;
++					};
 +				};
 +
-+				tegra_mvc2: mvc@290a200 {
-+					compatible = "nvidia,tegra194-mvc",
-+						     "nvidia,tegra210-mvc";
-+					reg = <0x290a200 0x200>;
-+					sound-name-prefix = "MVC2";
-+					status = "disabled";
++				port@25 {
++					reg = <0x25>;
++
++					xbar_sfc3_out_ep: endpoint {
++						remote-endpoint = <&sfc3_cif_out_ep>;
++					};
 +				};
 +
-+				tegra_amx1: amx@2903000 {
-+					compatible = "nvidia,tegra194-amx";
-+					reg = <0x2903000 0x100>;
-+					sound-name-prefix = "AMX1";
-+					status = "disabled";
++				xbar_sfc4_in_port: port@26 {
++					reg = <0x26>;
++
++					xbar_sfc4_in_ep: endpoint {
++						remote-endpoint = <&sfc4_cif_in_ep>;
++					};
 +				};
 +
-+				tegra_amx2: amx@2903100 {
-+					compatible = "nvidia,tegra194-amx";
-+					reg = <0x2903100 0x100>;
-+					sound-name-prefix = "AMX2";
-+					status = "disabled";
++				port@27 {
++					reg = <0x27>;
++
++					xbar_sfc4_out_ep: endpoint {
++						remote-endpoint = <&sfc4_cif_out_ep>;
++					};
 +				};
 +
-+				tegra_amx3: amx@2903200 {
-+					compatible = "nvidia,tegra194-amx";
-+					reg = <0x2903200 0x100>;
-+					sound-name-prefix = "AMX3";
-+					status = "disabled";
++				xbar_mvc1_in_port: port@28 {
++					reg = <0x28>;
++
++					xbar_mvc1_in_ep: endpoint {
++						remote-endpoint = <&mvc1_cif_in_ep>;
++					};
 +				};
 +
-+				tegra_amx4: amx@2903300 {
-+					compatible = "nvidia,tegra194-amx";
-+					reg = <0x2903300 0x100>;
-+					sound-name-prefix = "AMX4";
-+					status = "disabled";
++				port@29 {
++					reg = <0x29>;
++
++					xbar_mvc1_out_ep: endpoint {
++						remote-endpoint = <&mvc1_cif_out_ep>;
++					};
 +				};
 +
-+				tegra_adx1: adx@2903800 {
-+					compatible = "nvidia,tegra194-adx",
-+						     "nvidia,tegra210-adx";
-+					reg = <0x2903800 0x100>;
-+					sound-name-prefix = "ADX1";
-+					status = "disabled";
++				xbar_mvc2_in_port: port@2a {
++					reg = <0x2a>;
++
++					xbar_mvc2_in_ep: endpoint {
++						remote-endpoint = <&mvc2_cif_in_ep>;
++					};
 +				};
 +
-+				tegra_adx2: adx@2903900 {
-+					compatible = "nvidia,tegra194-adx",
-+						     "nvidia,tegra210-adx";
-+					reg = <0x2903900 0x100>;
-+					sound-name-prefix = "ADX2";
-+					status = "disabled";
++				port@2b {
++					reg = <0x2b>;
++
++					xbar_mvc2_out_ep: endpoint {
++						remote-endpoint = <&mvc2_cif_out_ep>;
++					};
 +				};
 +
-+				tegra_adx3: adx@2903a00 {
-+					compatible = "nvidia,tegra194-adx",
-+						     "nvidia,tegra210-adx";
-+					reg = <0x2903a00 0x100>;
-+					sound-name-prefix = "ADX3";
-+					status = "disabled";
++				xbar_amx1_in1_port: port@2c {
++					reg = <0x2c>;
++
++					xbar_amx1_in1_ep: endpoint {
++						remote-endpoint = <&amx1_in1_ep>;
++					};
 +				};
 +
-+				tegra_adx4: adx@2903b00 {
-+					compatible = "nvidia,tegra194-adx",
-+						     "nvidia,tegra210-adx";
-+					reg = <0x2903b00 0x100>;
-+					sound-name-prefix = "ADX4";
-+					status = "disabled";
++				xbar_amx1_in2_port: port@2d {
++					reg = <0x2d>;
++
++					xbar_amx1_in2_ep: endpoint {
++						remote-endpoint = <&amx1_in2_ep>;
++					};
 +				};
 +
-+				tegra_amixer: amixer@290bb00 {
-+					compatible = "nvidia,tegra194-amixer",
-+						     "nvidia,tegra210-amixer";
-+					reg = <0x290bb00 0x800>;
-+					sound-name-prefix = "MIXER";
-+					status = "disabled";
++				xbar_amx1_in3_port: port@2e {
++					reg = <0x2e>;
++
++					xbar_amx1_in3_ep: endpoint {
++						remote-endpoint = <&amx1_in3_ep>;
++					};
++				};
++
++				xbar_amx1_in4_port: port@2f {
++					reg = <0x2f>;
++
++					xbar_amx1_in4_ep: endpoint {
++						remote-endpoint = <&amx1_in4_ep>;
++					};
++				};
++
++				port@30 {
++					reg = <0x30>;
++
++					xbar_amx1_out_ep: endpoint {
++						remote-endpoint = <&amx1_out_ep>;
++					};
++				};
++
++				xbar_amx2_in1_port: port@31 {
++					reg = <0x31>;
++
++					xbar_amx2_in1_ep: endpoint {
++						remote-endpoint = <&amx2_in1_ep>;
++					};
++				};
++
++				xbar_amx2_in2_port: port@32 {
++					reg = <0x32>;
++
++					xbar_amx2_in2_ep: endpoint {
++						remote-endpoint = <&amx2_in2_ep>;
++					};
++				};
++
++				xbar_amx2_in3_port: port@33 {
++					reg = <0x33>;
++
++					xbar_amx2_in3_ep: endpoint {
++						remote-endpoint = <&amx2_in3_ep>;
++					};
++				};
++
++				xbar_amx2_in4_port: port@34 {
++					reg = <0x34>;
++
++					xbar_amx2_in4_ep: endpoint {
++						remote-endpoint = <&amx2_in4_ep>;
++					};
++				};
++
++				port@35 {
++					reg = <0x35>;
++
++					xbar_amx2_out_ep: endpoint {
++						remote-endpoint = <&amx2_out_ep>;
++					};
++				};
++
++				xbar_amx3_in1_port: port@36 {
++					reg = <0x36>;
++
++					xbar_amx3_in1_ep: endpoint {
++						remote-endpoint = <&amx3_in1_ep>;
++					};
++				};
++
++				xbar_amx3_in2_port: port@37 {
++					reg = <0x37>;
++
++					xbar_amx3_in2_ep: endpoint {
++						remote-endpoint = <&amx3_in2_ep>;
++					};
++				};
++
++				xbar_amx3_in3_port: port@38 {
++					reg = <0x38>;
++
++					xbar_amx3_in3_ep: endpoint {
++						remote-endpoint = <&amx3_in3_ep>;
++					};
++				};
++
++				xbar_amx3_in4_port: port@39 {
++					reg = <0x39>;
++
++					xbar_amx3_in4_ep: endpoint {
++						remote-endpoint = <&amx3_in4_ep>;
++					};
++				};
++
++				port@3a {
++					reg = <0x3a>;
++
++					xbar_amx3_out_ep: endpoint {
++						remote-endpoint = <&amx3_out_ep>;
++					};
++				};
++
++				xbar_amx4_in1_port: port@3b {
++					reg = <0x3b>;
++
++					xbar_amx4_in1_ep: endpoint {
++						remote-endpoint = <&amx4_in1_ep>;
++					};
++				};
++
++				xbar_amx4_in2_port: port@3c {
++					reg = <0x3c>;
++
++					xbar_amx4_in2_ep: endpoint {
++						remote-endpoint = <&amx4_in2_ep>;
++					};
++				};
++
++				xbar_amx4_in3_port: port@3d {
++					reg = <0x3d>;
++
++					xbar_amx4_in3_ep: endpoint {
++						remote-endpoint = <&amx4_in3_ep>;
++					};
++				};
++
++				xbar_amx4_in4_port: port@3e {
++					reg = <0x3e>;
++
++					xbar_amx4_in4_ep: endpoint {
++						remote-endpoint = <&amx4_in4_ep>;
++					};
++				};
++
++				port@3f {
++					reg = <0x3f>;
++
++					xbar_amx4_out_ep: endpoint {
++						remote-endpoint = <&amx4_out_ep>;
++					};
++				};
++
++				xbar_adx1_in_port: port@40 {
++					reg = <0x40>;
++
++					xbar_adx1_in_ep: endpoint {
++						remote-endpoint = <&adx1_in_ep>;
++					};
++				};
++
++				port@41 {
++					reg = <0x41>;
++
++					xbar_adx1_out1_ep: endpoint {
++						remote-endpoint = <&adx1_out1_ep>;
++					};
++				};
++
++				port@42 {
++					reg = <0x42>;
++
++					xbar_adx1_out2_ep: endpoint {
++						remote-endpoint = <&adx1_out2_ep>;
++					};
++				};
++
++				port@43 {
++					reg = <0x43>;
++
++					xbar_adx1_out3_ep: endpoint {
++						remote-endpoint = <&adx1_out3_ep>;
++					};
++				};
++
++				port@44 {
++					reg = <0x44>;
++
++					xbar_adx1_out4_ep: endpoint {
++						remote-endpoint = <&adx1_out4_ep>;
++					};
++				};
++
++				xbar_adx2_in_port: port@45 {
++					reg = <0x45>;
++
++					xbar_adx2_in_ep: endpoint {
++						remote-endpoint = <&adx2_in_ep>;
++					};
++				};
++
++				port@46 {
++					reg = <0x46>;
++
++					xbar_adx2_out1_ep: endpoint {
++						remote-endpoint = <&adx2_out1_ep>;
++					};
++				};
++
++				port@47 {
++					reg = <0x47>;
++
++					xbar_adx2_out2_ep: endpoint {
++						remote-endpoint = <&adx2_out2_ep>;
++					};
++				};
++
++				port@48 {
++					reg = <0x48>;
++
++					xbar_adx2_out3_ep: endpoint {
++						remote-endpoint = <&adx2_out3_ep>;
++					};
++				};
++
++				port@49 {
++					reg = <0x49>;
++
++					xbar_adx2_out4_ep: endpoint {
++						remote-endpoint = <&adx2_out4_ep>;
++					};
++				};
++
++				xbar_adx3_in_port: port@4a {
++					reg = <0x4a>;
++
++					xbar_adx3_in_ep: endpoint {
++						remote-endpoint = <&adx3_in_ep>;
++					};
++				};
++
++				port@4b {
++					reg = <0x4b>;
++
++					xbar_adx3_out1_ep: endpoint {
++						remote-endpoint = <&adx3_out1_ep>;
++					};
++				};
++
++				port@4c {
++					reg = <0x4c>;
++
++					xbar_adx3_out2_ep: endpoint {
++						remote-endpoint = <&adx3_out2_ep>;
++					};
++				};
++
++				port@4d {
++					reg = <0x4d>;
++
++					xbar_adx3_out3_ep: endpoint {
++						remote-endpoint = <&adx3_out3_ep>;
++					};
++				};
++
++				port@4e {
++					reg = <0x4e>;
++
++					xbar_adx3_out4_ep: endpoint {
++						remote-endpoint = <&adx3_out4_ep>;
++					};
++				};
++
++				xbar_adx4_in_port: port@4f {
++					reg = <0x4f>;
++
++					xbar_adx4_in_ep: endpoint {
++						remote-endpoint = <&adx4_in_ep>;
++					};
++				};
++
++				port@50 {
++					reg = <0x50>;
++
++					xbar_adx4_out1_ep: endpoint {
++						remote-endpoint = <&adx4_out1_ep>;
++					};
++				};
++
++				port@51 {
++					reg = <0x51>;
++
++					xbar_adx4_out2_ep: endpoint {
++						remote-endpoint = <&adx4_out2_ep>;
++					};
++				};
++
++				port@52 {
++					reg = <0x52>;
++
++					xbar_adx4_out3_ep: endpoint {
++						remote-endpoint = <&adx4_out3_ep>;
++					};
++				};
++
++				port@53 {
++					reg = <0x53>;
++
++					xbar_adx4_out4_ep: endpoint {
++						remote-endpoint = <&adx4_out4_ep>;
++					};
++				};
++
++				xbar_mixer_in1_port: port@54 {
++					reg = <0x54>;
++
++					xbar_mixer_in1_ep: endpoint {
++						remote-endpoint = <&mixer_in1_ep>;
++					};
++				};
++
++				xbar_mixer_in2_port: port@55 {
++					reg = <0x55>;
++
++					xbar_mixer_in2_ep: endpoint {
++						remote-endpoint = <&mixer_in2_ep>;
++					};
++				};
++
++				xbar_mixer_in3_port: port@56 {
++					reg = <0x56>;
++
++					xbar_mixer_in3_ep: endpoint {
++						remote-endpoint = <&mixer_in3_ep>;
++					};
++				};
++
++				xbar_mixer_in4_port: port@57 {
++					reg = <0x57>;
++
++					xbar_mixer_in4_ep: endpoint {
++						remote-endpoint = <&mixer_in4_ep>;
++					};
++				};
++
++				xbar_mixer_in5_port: port@58 {
++					reg = <0x58>;
++
++					xbar_mixer_in5_ep: endpoint {
++						remote-endpoint = <&mixer_in5_ep>;
++					};
++				};
++
++				xbar_mixer_in6_port: port@59 {
++					reg = <0x59>;
++
++					xbar_mixer_in6_ep: endpoint {
++						remote-endpoint = <&mixer_in6_ep>;
++					};
++				};
++
++				xbar_mixer_in7_port: port@5a {
++					reg = <0x5a>;
++
++					xbar_mixer_in7_ep: endpoint {
++						remote-endpoint = <&mixer_in7_ep>;
++					};
++				};
++
++				xbar_mixer_in8_port: port@5b {
++					reg = <0x5b>;
++
++					xbar_mixer_in8_ep: endpoint {
++						remote-endpoint = <&mixer_in8_ep>;
++					};
++				};
++
++				xbar_mixer_in9_port: port@5c {
++					reg = <0x5c>;
++
++					xbar_mixer_in9_ep: endpoint {
++						remote-endpoint = <&mixer_in9_ep>;
++					};
++				};
++
++				xbar_mixer_in10_port: port@5d {
++					reg = <0x5d>;
++
++					xbar_mixer_in10_ep: endpoint {
++						remote-endpoint = <&mixer_in10_ep>;
++					};
++				};
++
++				port@5e {
++					reg = <0x5e>;
++
++					xbar_mixer_out1_ep: endpoint {
++						remote-endpoint = <&mixer_out1_ep>;
++					};
++				};
++
++				port@5f {
++					reg = <0x5f>;
++
++					xbar_mixer_out2_ep: endpoint {
++						remote-endpoint = <&mixer_out2_ep>;
++					};
++				};
++
++				port@60 {
++					reg = <0x60>;
++
++					xbar_mixer_out3_ep: endpoint {
++						remote-endpoint = <&mixer_out3_ep>;
++					};
++				};
++
++				port@61 {
++					reg = <0x61>;
++
++					xbar_mixer_out4_ep: endpoint {
++						remote-endpoint = <&mixer_out4_ep>;
++					};
++				};
++
++				port@62 {
++					reg = <0x62>;
++
++					xbar_mixer_out5_ep: endpoint {
++						remote-endpoint = <&mixer_out5_ep>;
++					};
++				};
++			};
++
++			admaif@290f000 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					admaif0_port: port@0 {
++						reg = <0x0>;
++
++						admaif0_ep: endpoint {
++							remote-endpoint = <&xbar_admaif0_ep>;
++						};
++					};
++
++					admaif1_port: port@1 {
++						reg = <0x1>;
++
++						admaif1_ep: endpoint {
++							remote-endpoint = <&xbar_admaif1_ep>;
++						};
++					};
++
++					admaif2_port: port@2 {
++						reg = <0x2>;
++
++						admaif2_ep: endpoint {
++							remote-endpoint = <&xbar_admaif2_ep>;
++						};
++					};
++
++					admaif3_port: port@3 {
++						reg = <0x3>;
++
++						admaif3_ep: endpoint {
++							remote-endpoint = <&xbar_admaif3_ep>;
++						};
++					};
++
++					admaif4_port: port@4 {
++						reg = <0x4>;
++
++						admaif4_ep: endpoint {
++							remote-endpoint = <&xbar_admaif4_ep>;
++						};
++					};
++
++					admaif5_port: port@5 {
++						reg = <0x5>;
++
++						admaif5_ep: endpoint {
++							remote-endpoint = <&xbar_admaif5_ep>;
++						};
++					};
++
++					admaif6_port: port@6 {
++						reg = <0x6>;
++
++						admaif6_ep: endpoint {
++							remote-endpoint = <&xbar_admaif6_ep>;
++						};
++					};
++
++					admaif7_port: port@7 {
++						reg = <0x7>;
++
++						admaif7_ep: endpoint {
++							remote-endpoint = <&xbar_admaif7_ep>;
++						};
++					};
++
++					admaif8_port: port@8 {
++						reg = <0x8>;
++
++						admaif8_ep: endpoint {
++							remote-endpoint = <&xbar_admaif8_ep>;
++						};
++					};
++
++					admaif9_port: port@9 {
++						reg = <0x9>;
++
++						admaif9_ep: endpoint {
++							remote-endpoint = <&xbar_admaif9_ep>;
++						};
++					};
++
++					admaif10_port: port@a {
++						reg = <0xa>;
++
++						admaif10_ep: endpoint {
++							remote-endpoint = <&xbar_admaif10_ep>;
++						};
++					};
++
++					admaif11_port: port@b {
++						reg = <0xb>;
++
++						admaif11_ep: endpoint {
++							remote-endpoint = <&xbar_admaif11_ep>;
++						};
++					};
++
++					admaif12_port: port@c {
++						reg = <0xc>;
++
++						admaif12_ep: endpoint {
++							remote-endpoint = <&xbar_admaif12_ep>;
++						};
++					};
++
++					admaif13_port: port@d {
++						reg = <0xd>;
++
++						admaif13_ep: endpoint {
++							remote-endpoint = <&xbar_admaif13_ep>;
++						};
++					};
++
++					admaif14_port: port@e {
++						reg = <0xe>;
++
++						admaif14_ep: endpoint {
++							remote-endpoint = <&xbar_admaif14_ep>;
++						};
++					};
++
++					admaif15_port: port@f {
++						reg = <0xf>;
++
++						admaif15_ep: endpoint {
++							remote-endpoint = <&xbar_admaif15_ep>;
++						};
++					};
++
++					admaif16_port: port@10 {
++						reg = <0x10>;
++
++						admaif16_ep: endpoint {
++							remote-endpoint = <&xbar_admaif16_ep>;
++						};
++					};
++
++					admaif17_port: port@11 {
++						reg = <0x11>;
++
++						admaif17_ep: endpoint {
++							remote-endpoint = <&xbar_admaif17_ep>;
++						};
++					};
++
++					admaif18_port: port@12 {
++						reg = <0x12>;
++
++						admaif18_ep: endpoint {
++							remote-endpoint = <&xbar_admaif18_ep>;
++						};
++					};
++
++					admaif19_port: port@13 {
++						reg = <0x13>;
++
++						admaif19_ep: endpoint {
++							remote-endpoint = <&xbar_admaif19_ep>;
++						};
++					};
++				};
++			};
++
++			i2s@2901000 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						i2s1_cif_ep: endpoint {
++							remote-endpoint = <&xbar_i2s1_ep>;
++						};
++					};
++
++					i2s1_port: port@1 {
++						reg = <1>;
++
++						i2s1_dap_ep: endpoint {
++							dai-format = "i2s";
++							/* Placeholder for external Codec */
++						};
++					};
++				};
++			};
++
++			i2s@2901100 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						i2s2_cif_ep: endpoint {
++							remote-endpoint = <&xbar_i2s2_ep>;
++						};
++					};
++
++					i2s2_port: port@1 {
++						reg = <1>;
++
++						i2s2_dap_ep: endpoint {
++							dai-format = "i2s";
++							/* Placeholder for external Codec */
++						};
++					};
++				};
++			};
++
++			i2s@2901200 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						i2s3_cif_ep: endpoint {
++							remote-endpoint = <&xbar_i2s3_ep>;
++						};
++					};
++
++					i2s3_port: port@1 {
++						reg = <1>;
++
++						i2s3_dap_ep: endpoint {
++							dai-format = "i2s";
++							/* Placeholder for external Codec */
++						};
++					};
 +				};
  			};
- 		};
  
-diff --git a/arch/arm64/boot/dts/nvidia/tegra210.dtsi b/arch/arm64/boot/dts/nvidia/tegra210.dtsi
-index 26b3f98a..b84c963 100644
---- a/arch/arm64/boot/dts/nvidia/tegra210.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra210.dtsi
-@@ -1641,6 +1641,83 @@
- 				status = "disabled";
+-			admaif@290f000 {
++			i2s@2901300 {
+ 				status = "okay";
+ 
+ 				ports {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
+ 
+-					admaif0_port: port@0 {
+-						reg = <0x0>;
++					port@0 {
++						reg = <0>;
+ 
+-						admaif0_ep: endpoint {
+-							remote-endpoint = <&xbar_admaif0_ep>;
++						i2s4_cif_ep: endpoint {
++							remote-endpoint = <&xbar_i2s4_ep>;
+ 						};
+ 					};
+ 
+-					admaif1_port: port@1 {
+-						reg = <0x1>;
++					i2s4_port: port@1 {
++						reg = <1>;
+ 
+-						admaif1_ep: endpoint {
+-							remote-endpoint = <&xbar_admaif1_ep>;
++						i2s4_dap_ep: endpoint {
++							dai-format = "i2s";
++							/* Placeholder for external Codec */
+ 						};
+ 					};
++				};
++			};
+ 
+-					admaif2_port: port@2 {
+-						reg = <0x2>;
++			i2s@2901400 {
++				status = "okay";
+ 
+-						admaif2_ep: endpoint {
+-							remote-endpoint = <&xbar_admaif2_ep>;
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						i2s5_cif_ep: endpoint {
++							remote-endpoint = <&xbar_i2s5_ep>;
+ 						};
+ 					};
+ 
+-					admaif3_port: port@3 {
+-						reg = <0x3>;
++					i2s5_port: port@1 {
++						reg = <1>;
+ 
+-						admaif3_ep: endpoint {
+-							remote-endpoint = <&xbar_admaif3_ep>;
++						i2s5_dap_ep: endpoint {
++							dai-format = "i2s";
++							/* Placeholder for external Codec */
+ 						};
+ 					};
++				};
++			};
+ 
+-					admaif4_port: port@4 {
+-						reg = <0x4>;
++			i2s@2901500 {
++				status = "okay";
+ 
+-						admaif4_ep: endpoint {
+-							remote-endpoint = <&xbar_admaif4_ep>;
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						i2s6_cif_ep: endpoint {
++							remote-endpoint = <&xbar_i2s6_ep>;
+ 						};
+ 					};
+ 
+-					admaif5_port: port@5 {
+-						reg = <0x5>;
++					i2s6_port: port@1 {
++						reg = <1>;
+ 
+-						admaif5_ep: endpoint {
+-							remote-endpoint = <&xbar_admaif5_ep>;
++						i2s6_dap_ep: endpoint {
++							dai-format = "i2s";
++							/* Placeholder for external Codec */
+ 						};
+ 					};
++				};
++			};
+ 
+-					admaif6_port: port@6 {
+-						reg = <0x6>;
++			dmic@2904000 {
++				status = "okay";
+ 
+-						admaif6_ep: endpoint {
+-							remote-endpoint = <&xbar_admaif6_ep>;
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						dmic1_cif_ep: endpoint {
++							remote-endpoint = <&xbar_dmic1_ep>;
+ 						};
+ 					};
+ 
+-					admaif7_port: port@7 {
+-						reg = <0x7>;
++					dmic1_port: port@1 {
++						reg = <1>;
+ 
+-						admaif7_ep: endpoint {
+-							remote-endpoint = <&xbar_admaif7_ep>;
++						dmic1_dap_ep: endpoint {
++							/* Place holder for external Codec */
+ 						};
+ 					};
++				};
++			};
+ 
+-					admaif8_port: port@8 {
+-						reg = <0x8>;
++			dmic@2904100 {
++				status = "okay";
+ 
+-						admaif8_ep: endpoint {
+-							remote-endpoint = <&xbar_admaif8_ep>;
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						dmic2_cif_ep: endpoint {
++							remote-endpoint = <&xbar_dmic2_ep>;
+ 						};
+ 					};
+ 
+-					admaif9_port: port@9 {
+-						reg = <0x9>;
++					dmic2_port: port@1 {
++						reg = <1>;
+ 
+-						admaif9_ep: endpoint {
+-							remote-endpoint = <&xbar_admaif9_ep>;
++						dmic2_dap_ep: endpoint {
++							/* Place holder for external Codec */
+ 						};
+ 					};
++				};
++			};
+ 
+-					admaif10_port: port@a {
+-						reg = <0xa>;
++			dmic@2904200 {
++				status = "okay";
+ 
+-						admaif10_ep: endpoint {
+-							remote-endpoint = <&xbar_admaif10_ep>;
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						dmic3_cif_ep: endpoint {
++							remote-endpoint = <&xbar_dmic3_ep>;
+ 						};
+ 					};
+ 
+-					admaif11_port: port@b {
+-						reg = <0xb>;
++					dmic3_port: port@1 {
++						reg = <1>;
+ 
+-						admaif11_ep: endpoint {
+-							remote-endpoint = <&xbar_admaif11_ep>;
++						dmic3_dap_ep: endpoint {
++							/* Place holder for external Codec */
+ 						};
+ 					};
++				};
++			};
+ 
+-					admaif12_port: port@c {
+-						reg = <0xc>;
++			dspk@2905000 {
++				status = "okay";
+ 
+-						admaif12_ep: endpoint {
+-							remote-endpoint = <&xbar_admaif12_ep>;
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						dspk1_cif_ep: endpoint {
++							remote-endpoint = <&xbar_dspk1_ep>;
+ 						};
+ 					};
+ 
+-					admaif13_port: port@d {
+-						reg = <0xd>;
++					dspk1_port: port@1 {
++						reg = <1>;
+ 
+-						admaif13_ep: endpoint {
+-							remote-endpoint = <&xbar_admaif13_ep>;
++						dspk1_dap_ep: endpoint {
++							/* Place holder for external Codec */
+ 						};
+ 					};
++				};
++			};
+ 
+-					admaif14_port: port@e {
+-						reg = <0xe>;
++			dspk@2905100 {
++				status = "okay";
+ 
+-						admaif14_ep: endpoint {
+-							remote-endpoint = <&xbar_admaif14_ep>;
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						dspk2_cif_ep: endpoint {
++							remote-endpoint = <&xbar_dspk2_ep>;
+ 						};
+ 					};
+ 
+-					admaif15_port: port@f {
+-						reg = <0xf>;
++					dspk2_port: port@1 {
++						reg = <1>;
+ 
+-						admaif15_ep: endpoint {
+-							remote-endpoint = <&xbar_admaif15_ep>;
++						dspk2_dap_ep: endpoint {
++							/* Place holder for external Codec */
+ 						};
+ 					};
++				};
++			};
+ 
+-					admaif16_port: port@10 {
+-						reg = <0x10>;
++			sfc@2902000 {
++				status = "okay";
+ 
+-						admaif16_ep: endpoint {
+-							remote-endpoint = <&xbar_admaif16_ep>;
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						sfc1_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_sfc1_in_ep>;
++							convert-rate = <44100>;
+ 						};
+ 					};
+ 
+-					admaif17_port: port@11 {
+-						reg = <0x11>;
++					sfc1_out_port: port@1 {
++						reg = <1>;
+ 
+-						admaif17_ep: endpoint {
+-							remote-endpoint = <&xbar_admaif17_ep>;
++						sfc1_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_sfc1_out_ep>;
++							convert-rate = <48000>;
++						};
++					};
++				};
++			};
++
++			sfc@2902200 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						sfc2_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_sfc2_in_ep>;
++						};
++					};
++
++					sfc2_out_port: port@1 {
++						reg = <1>;
++
++						sfc2_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_sfc2_out_ep>;
++						};
++					};
++				};
++			};
++
++			sfc@2902400 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						sfc3_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_sfc3_in_ep>;
++						};
++					};
++
++					sfc3_out_port: port@1 {
++						reg = <1>;
++
++						sfc3_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_sfc3_out_ep>;
+ 						};
+ 					};
++				};
++			};
+ 
+-					admaif18_port: port@12 {
+-						reg = <0x12>;
++			sfc@2902600 {
++				status = "okay";
+ 
+-						admaif18_ep: endpoint {
+-							remote-endpoint = <&xbar_admaif18_ep>;
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						sfc4_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_sfc4_in_ep>;
+ 						};
+ 					};
+ 
+-					admaif19_port: port@13 {
+-						reg = <0x13>;
++					sfc4_out_port: port@1 {
++						reg = <1>;
+ 
+-						admaif19_ep: endpoint {
+-							remote-endpoint = <&xbar_admaif19_ep>;
++						sfc4_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_sfc4_out_ep>;
+ 						};
+ 					};
+ 				};
  			};
  
-+			tegra_sfc1: sfc@702d2000 {
-+				compatible = "nvidia,tegra210-sfc";
-+				reg = <0x702d2000 0x200>;
-+				sound-name-prefix = "SFC1";
-+				status = "disabled";
+-			i2s@2901000 {
++			mvc@290a000 {
+ 				status = "okay";
+ 
+ 				ports {
+@@ -456,23 +1375,22 @@
+ 					port@0 {
+ 						reg = <0>;
+ 
+-						i2s1_cif_ep: endpoint {
+-							remote-endpoint = <&xbar_i2s1_ep>;
++						mvc1_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_mvc1_in_ep>;
+ 						};
+ 					};
+ 
+-					i2s1_port: port@1 {
++					mvc1_out_port: port@1 {
+ 						reg = <1>;
+ 
+-						i2s1_dap_ep: endpoint {
+-							dai-format = "i2s";
+-							/* Placeholder for external Codec */
++						mvc1_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_mvc1_out_ep>;
+ 						};
+ 					};
+ 				};
+ 			};
+ 
+-			i2s@2901100 {
++			mvc@290a200 {
+ 				status = "okay";
+ 
+ 				ports {
+@@ -482,23 +1400,22 @@
+ 					port@0 {
+ 						reg = <0>;
+ 
+-						i2s2_cif_ep: endpoint {
+-							remote-endpoint = <&xbar_i2s2_ep>;
++						mvc2_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_mvc2_in_ep>;
+ 						};
+ 					};
+ 
+-					i2s2_port: port@1 {
++					mvc2_out_port: port@1 {
+ 						reg = <1>;
+ 
+-						i2s2_dap_ep: endpoint {
+-							dai-format = "i2s";
+-							/* Placeholder for external Codec */
++						mvc2_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_mvc2_out_ep>;
+ 						};
+ 					};
+ 				};
+ 			};
+ 
+-			i2s@2901200 {
++			amx@2903000 {
+ 				status = "okay";
+ 
+ 				ports {
+@@ -508,23 +1425,46 @@
+ 					port@0 {
+ 						reg = <0>;
+ 
+-						i2s3_cif_ep: endpoint {
+-							remote-endpoint = <&xbar_i2s3_ep>;
++						amx1_in1_ep: endpoint {
++							remote-endpoint = <&xbar_amx1_in1_ep>;
+ 						};
+ 					};
+ 
+-					i2s3_port: port@1 {
++					port@1 {
+ 						reg = <1>;
+ 
+-						i2s3_dap_ep: endpoint {
+-							dai-format = "i2s";
+-							/* Placeholder for external Codec */
++						amx1_in2_ep: endpoint {
++							remote-endpoint = <&xbar_amx1_in2_ep>;
++						};
++					};
++
++					port@2 {
++						reg = <2>;
++
++						amx1_in3_ep: endpoint {
++							remote-endpoint = <&xbar_amx1_in3_ep>;
++						};
++					};
++
++					port@3 {
++						reg = <3>;
++
++						amx1_in4_ep: endpoint {
++							remote-endpoint = <&xbar_amx1_in4_ep>;
++						};
++					};
++
++					amx1_out_port: port@4 {
++						reg = <4>;
++
++						amx1_out_ep: endpoint {
++							remote-endpoint = <&xbar_amx1_out_ep>;
+ 						};
+ 					};
+ 				};
+ 			};
+ 
+-			i2s@2901300 {
++			amx@2903100 {
+ 				status = "okay";
+ 
+ 				ports {
+@@ -534,23 +1474,46 @@
+ 					port@0 {
+ 						reg = <0>;
+ 
+-						i2s4_cif_ep: endpoint {
+-							remote-endpoint = <&xbar_i2s4_ep>;
++						amx2_in1_ep: endpoint {
++							remote-endpoint = <&xbar_amx2_in1_ep>;
+ 						};
+ 					};
+ 
+-					i2s4_port: port@1 {
++					port@1 {
+ 						reg = <1>;
+ 
+-						i2s4_dap_ep: endpoint {
+-							dai-format = "i2s";
+-							/* Placeholder for external Codec */
++						amx2_in2_ep: endpoint {
++							remote-endpoint = <&xbar_amx2_in2_ep>;
++						};
++					};
++
++					amx2_in3_port: port@2 {
++						reg = <2>;
++
++						amx2_in3_ep: endpoint {
++							remote-endpoint = <&xbar_amx2_in3_ep>;
++						};
++					};
++
++					amx2_in4_port: port@3 {
++						reg = <3>;
++
++						amx2_in4_ep: endpoint {
++							remote-endpoint = <&xbar_amx2_in4_ep>;
++						};
++					};
++
++					amx2_out_port: port@4 {
++						reg = <4>;
++
++						amx2_out_ep: endpoint {
++							remote-endpoint = <&xbar_amx2_out_ep>;
+ 						};
+ 					};
+ 				};
+ 			};
+ 
+-			i2s@2901400 {
++			amx@2903200 {
+ 				status = "okay";
+ 
+ 				ports {
+@@ -560,23 +1523,46 @@
+ 					port@0 {
+ 						reg = <0>;
+ 
+-						i2s5_cif_ep: endpoint {
+-							remote-endpoint = <&xbar_i2s5_ep>;
++						amx3_in1_ep: endpoint {
++							remote-endpoint = <&xbar_amx3_in1_ep>;
+ 						};
+ 					};
+ 
+-					i2s5_port: port@1 {
++					port@1 {
+ 						reg = <1>;
+ 
+-						i2s5_dap_ep: endpoint {
+-							dai-format = "i2s";
+-							/* Placeholder for external Codec */
++						amx3_in2_ep: endpoint {
++							remote-endpoint = <&xbar_amx3_in2_ep>;
++						};
++					};
++
++					port@2 {
++						reg = <2>;
++
++						amx3_in3_ep: endpoint {
++							remote-endpoint = <&xbar_amx3_in3_ep>;
++						};
++					};
++
++					port@3 {
++						reg = <3>;
++
++						amx3_in4_ep: endpoint {
++							remote-endpoint = <&xbar_amx3_in4_ep>;
++						};
++					};
++
++					amx3_out_port: port@4 {
++						reg = <4>;
++
++						amx3_out_ep: endpoint {
++							remote-endpoint = <&xbar_amx3_out_ep>;
+ 						};
+ 					};
+ 				};
+ 			};
+ 
+-			i2s@2901500 {
++			amx@2903300 {
+ 				status = "okay";
+ 
+ 				ports {
+@@ -586,23 +1572,46 @@
+ 					port@0 {
+ 						reg = <0>;
+ 
+-						i2s6_cif_ep: endpoint {
+-							remote-endpoint = <&xbar_i2s6_ep>;
++						amx4_in1_ep: endpoint {
++							remote-endpoint = <&xbar_amx4_in1_ep>;
+ 						};
+ 					};
+ 
+-					i2s6_port: port@1 {
++					port@1 {
+ 						reg = <1>;
+ 
+-						i2s6_dap_ep: endpoint {
+-							dai-format = "i2s";
+-							/* Placeholder for external Codec */
++						amx4_in2_ep: endpoint {
++							remote-endpoint = <&xbar_amx4_in2_ep>;
++						};
++					};
++
++					port@2 {
++						reg = <2>;
++
++						amx4_in3_ep: endpoint {
++							remote-endpoint = <&xbar_amx4_in3_ep>;
++						};
++					};
++
++					port@3 {
++						reg = <3>;
++
++						amx4_in4_ep: endpoint {
++							remote-endpoint = <&xbar_amx4_in4_ep>;
++						};
++					};
++
++					amx4_out_port: port@4 {
++						reg = <4>;
++
++						amx4_out_ep: endpoint {
++							remote-endpoint = <&xbar_amx4_out_ep>;
+ 						};
+ 					};
+ 				};
+ 			};
+ 
+-			dmic@2904000 {
++			adx@2903800 {
+ 				status = "okay";
+ 
+ 				ports {
+@@ -612,22 +1621,46 @@
+ 					port@0 {
+ 						reg = <0>;
+ 
+-						dmic1_cif_ep: endpoint {
+-							remote-endpoint = <&xbar_dmic1_ep>;
++						adx1_in_ep: endpoint {
++							remote-endpoint = <&xbar_adx1_in_ep>;
+ 						};
+ 					};
+ 
+-					dmic1_port: port@1 {
++					adx1_out1_port: port@1 {
+ 						reg = <1>;
+ 
+-						dmic1_dap_ep: endpoint {
+-							/* Place holder for external Codec */
++						adx1_out1_ep: endpoint {
++							remote-endpoint = <&xbar_adx1_out1_ep>;
++						};
++					};
++
++					adx1_out2_port: port@2 {
++						reg = <2>;
++
++						adx1_out2_ep: endpoint {
++							remote-endpoint = <&xbar_adx1_out2_ep>;
++						};
++					};
++
++					adx1_out3_port: port@3 {
++						reg = <3>;
++
++						adx1_out3_ep: endpoint {
++							remote-endpoint = <&xbar_adx1_out3_ep>;
++						};
++					};
++
++					adx1_out4_port: port@4 {
++						reg = <4>;
++
++						adx1_out4_ep: endpoint {
++							remote-endpoint = <&xbar_adx1_out4_ep>;
+ 						};
+ 					};
+ 				};
+ 			};
+ 
+-			dmic@2904100 {
++			adx@2903900 {
+ 				status = "okay";
+ 
+ 				ports {
+@@ -637,22 +1670,46 @@
+ 					port@0 {
+ 						reg = <0>;
+ 
+-						dmic2_cif_ep: endpoint {
+-							remote-endpoint = <&xbar_dmic2_ep>;
++						adx2_in_ep: endpoint {
++							remote-endpoint = <&xbar_adx2_in_ep>;
+ 						};
+ 					};
+ 
+-					dmic2_port: port@1 {
++					adx2_out1_port: port@1 {
+ 						reg = <1>;
+ 
+-						dmic2_dap_ep: endpoint {
+-							/* Place holder for external Codec */
++						adx2_out1_ep: endpoint {
++							remote-endpoint = <&xbar_adx2_out1_ep>;
++						};
++					};
++
++					adx2_out2_port: port@2 {
++						reg = <2>;
++
++						adx2_out2_ep: endpoint {
++							remote-endpoint = <&xbar_adx2_out2_ep>;
++						};
++					};
++
++					adx2_out3_port: port@3 {
++						reg = <3>;
++
++						adx2_out3_ep: endpoint {
++							remote-endpoint = <&xbar_adx2_out3_ep>;
++						};
++					};
++
++					adx2_out4_port: port@4 {
++						reg = <4>;
++
++						adx2_out4_ep: endpoint {
++							remote-endpoint = <&xbar_adx2_out4_ep>;
+ 						};
+ 					};
+ 				};
+ 			};
+ 
+-			dmic@2904200 {
++			adx@2903a00 {
+ 				status = "okay";
+ 
+ 				ports {
+@@ -662,22 +1719,46 @@
+ 					port@0 {
+ 						reg = <0>;
+ 
+-						dmic3_cif_ep: endpoint {
+-							remote-endpoint = <&xbar_dmic3_ep>;
++						adx3_in_ep: endpoint {
++							remote-endpoint = <&xbar_adx3_in_ep>;
+ 						};
+ 					};
+ 
+-					dmic3_port: port@1 {
++					adx3_out1_port: port@1 {
+ 						reg = <1>;
+ 
+-						dmic3_dap_ep: endpoint {
+-							/* Place holder for external Codec */
++						adx3_out1_ep: endpoint {
++							remote-endpoint = <&xbar_adx3_out1_ep>;
++						};
++					};
++
++					adx3_out2_port: port@2 {
++						reg = <2>;
++
++						adx3_out2_ep: endpoint {
++							remote-endpoint = <&xbar_adx3_out2_ep>;
++						};
++					};
++
++					adx3_out3_port: port@3 {
++						reg = <3>;
++
++						adx3_out3_ep: endpoint {
++							remote-endpoint = <&xbar_adx3_out3_ep>;
++						};
++					};
++
++					adx3_out4_port: port@4 {
++						reg = <4>;
++
++						adx3_out4_ep: endpoint {
++							remote-endpoint = <&xbar_adx3_out4_ep>;
+ 						};
+ 					};
+ 				};
+ 			};
+ 
+-			dspk@2905000 {
++			adx@2903b00 {
+ 				status = "okay";
+ 
+ 				ports {
+@@ -687,22 +1768,46 @@
+ 					port@0 {
+ 						reg = <0>;
+ 
+-						dspk1_cif_ep: endpoint {
+-							remote-endpoint = <&xbar_dspk1_ep>;
++						adx4_in_ep: endpoint {
++							remote-endpoint = <&xbar_adx4_in_ep>;
+ 						};
+ 					};
+ 
+-					dspk1_port: port@1 {
++					adx4_out1_port: port@1 {
+ 						reg = <1>;
+ 
+-						dspk1_dap_ep: endpoint {
+-							/* Place holder for external Codec */
++						adx4_out1_ep: endpoint {
++							remote-endpoint = <&xbar_adx4_out1_ep>;
++						};
++					};
++
++					adx4_out2_port: port@2 {
++						reg = <2>;
++
++						adx4_out2_ep: endpoint {
++							remote-endpoint = <&xbar_adx4_out2_ep>;
++						};
++					};
++
++					adx4_out3_port: port@3 {
++						reg = <3>;
++
++						adx4_out3_ep: endpoint {
++							remote-endpoint = <&xbar_adx4_out3_ep>;
++						};
++					};
++
++					adx4_out4_port: port@4 {
++						reg = <4>;
++
++						adx4_out4_ep: endpoint {
++							remote-endpoint = <&xbar_adx4_out4_ep>;
+ 						};
+ 					};
+ 				};
+ 			};
+ 
+-			dspk@2905100 {
++			amixer@290bb00 {
+ 				status = "okay";
+ 
+ 				ports {
+@@ -710,18 +1815,122 @@
+ 					#size-cells = <0>;
+ 
+ 					port@0 {
+-						reg = <0>;
++						reg = <0x0>;
+ 
+-						dspk2_cif_ep: endpoint {
+-							remote-endpoint = <&xbar_dspk2_ep>;
++						mixer_in1_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in1_ep>;
+ 						};
+ 					};
+ 
+-					dspk2_port: port@1 {
+-						reg = <1>;
++					port@1 {
++						reg = <0x1>;
+ 
+-						dspk2_dap_ep: endpoint {
+-							/* Place holder for external Codec */
++						mixer_in2_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in2_ep>;
++						};
++					};
++
++					port@2 {
++						reg = <0x2>;
++
++						mixer_in3_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in3_ep>;
++						};
++					};
++
++					port@3 {
++						reg = <0x3>;
++
++						mixer_in4_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in4_ep>;
++						};
++					};
++
++					port@4 {
++						reg = <0x4>;
++
++						mixer_in5_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in5_ep>;
++						};
++					};
++
++					port@5 {
++						reg = <0x5>;
++
++						mixer_in6_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in6_ep>;
++						};
++					};
++
++					port@6 {
++						reg = <0x6>;
++
++						mixer_in7_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in7_ep>;
++						};
++					};
++
++					port@7 {
++						reg = <0x7>;
++
++						mixer_in8_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in8_ep>;
++						};
++					};
++
++					port@8 {
++						reg = <0x8>;
++
++						mixer_in9_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in9_ep>;
++						};
++					};
++
++					port@9 {
++						reg = <0x9>;
++
++						mixer_in10_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in10_ep>;
++						};
++					};
++
++					mixer_out1_port: port@a {
++						reg = <0xa>;
++
++						mixer_out1_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_out1_ep>;
++						};
++					};
++
++					mixer_out2_port: port@b {
++						reg = <0xb>;
++
++						mixer_out2_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_out2_ep>;
++						};
++					};
++
++					mixer_out3_port: port@c {
++						reg = <0xc>;
++
++						mixer_out3_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_out3_ep>;
++						};
++					};
++
++					mixer_out4_port: port@d {
++						reg = <0xd>;
++
++						mixer_out4_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_out4_ep>;
++						};
++					};
++
++					mixer_out5_port: port@e {
++						reg = <0xe>;
++
++						mixer_out5_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_out5_ep>;
+ 						};
+ 					};
+ 				};
+@@ -1104,6 +2313,41 @@
+ 		       <&xbar_i2s4_port>, <&xbar_i2s5_port>, <&xbar_i2s6_port>,
+ 		       <&xbar_dmic1_port>, <&xbar_dmic2_port>, <&xbar_dmic3_port>,
+ 		       <&xbar_dspk1_port>, <&xbar_dspk2_port>,
++		       <&xbar_sfc1_in_port>, <&xbar_sfc2_in_port>,
++		       <&xbar_sfc3_in_port>, <&xbar_sfc4_in_port>,
++		       <&xbar_mvc1_in_port>, <&xbar_mvc2_in_port>,
++		       <&xbar_amx1_in1_port>, <&xbar_amx1_in2_port>,
++		       <&xbar_amx1_in3_port>, <&xbar_amx1_in4_port>,
++		       <&xbar_amx2_in1_port>, <&xbar_amx2_in2_port>,
++		       <&xbar_amx2_in3_port>, <&xbar_amx2_in4_port>,
++		       <&xbar_amx3_in1_port>, <&xbar_amx3_in2_port>,
++		       <&xbar_amx3_in3_port>, <&xbar_amx3_in4_port>,
++		       <&xbar_amx4_in1_port>, <&xbar_amx4_in2_port>,
++		       <&xbar_amx4_in3_port>, <&xbar_amx4_in4_port>,
++		       <&xbar_adx1_in_port>, <&xbar_adx2_in_port>,
++		       <&xbar_adx3_in_port>, <&xbar_adx4_in_port>,
++		       <&xbar_mixer_in1_port>, <&xbar_mixer_in2_port>,
++		       <&xbar_mixer_in3_port>, <&xbar_mixer_in4_port>,
++		       <&xbar_mixer_in5_port>, <&xbar_mixer_in6_port>,
++		       <&xbar_mixer_in7_port>, <&xbar_mixer_in8_port>,
++		       <&xbar_mixer_in9_port>, <&xbar_mixer_in10_port>,
++		       /* HW accelerators */
++		       <&sfc1_out_port>, <&sfc2_out_port>,
++		       <&sfc3_out_port>, <&sfc4_out_port>,
++		       <&mvc1_out_port>, <&mvc2_out_port>,
++		       <&amx1_out_port>, <&amx2_out_port>,
++		       <&amx3_out_port>, <&amx4_out_port>,
++		       <&adx1_out1_port>, <&adx1_out2_port>,
++		       <&adx1_out3_port>, <&adx1_out4_port>,
++		       <&adx2_out1_port>, <&adx2_out2_port>,
++		       <&adx2_out3_port>, <&adx2_out4_port>,
++		       <&adx3_out1_port>, <&adx3_out2_port>,
++		       <&adx3_out3_port>, <&adx3_out4_port>,
++		       <&adx4_out1_port>, <&adx4_out2_port>,
++		       <&adx4_out3_port>, <&adx4_out4_port>,
++		       <&mixer_out1_port>, <&mixer_out2_port>,
++		       <&mixer_out3_port>, <&mixer_out4_port>,
++		       <&mixer_out5_port>,
+ 		       /* I/O */
+ 		       <&i2s1_port>, <&i2s2_port>, <&i2s3_port>, <&i2s4_port>,
+ 		       <&i2s5_port>, <&i2s6_port>, <&dmic1_port>, <&dmic2_port>,
+diff --git a/arch/arm64/boot/dts/nvidia/tegra194-p2972-0000.dts b/arch/arm64/boot/dts/nvidia/tegra194-p2972-0000.dts
+index 96bd01c..fab34d6 100644
+--- a/arch/arm64/boot/dts/nvidia/tegra194-p2972-0000.dts
++++ b/arch/arm64/boot/dts/nvidia/tegra194-p2972-0000.dts
+@@ -228,178 +228,1238 @@
+ 							remote-endpoint = <&dmic3_cif_ep>;
+ 						};
+ 					};
++
++					xbar_sfc1_in_port: port@20 {
++						reg = <0x20>;
++
++						xbar_sfc1_in_ep: endpoint {
++							remote-endpoint = <&sfc1_cif_in_ep>;
++						};
++					};
++
++					port@21 {
++						reg = <0x21>;
++
++						xbar_sfc1_out_ep: endpoint {
++							remote-endpoint = <&sfc1_cif_out_ep>;
++						};
++					};
++
++					xbar_sfc2_in_port: port@22 {
++						reg = <0x22>;
++
++						xbar_sfc2_in_ep: endpoint {
++							remote-endpoint = <&sfc2_cif_in_ep>;
++						};
++					};
++
++					port@23 {
++						reg = <0x23>;
++
++						xbar_sfc2_out_ep: endpoint {
++							remote-endpoint = <&sfc2_cif_out_ep>;
++						};
++					};
++
++					xbar_sfc3_in_port: port@24 {
++						reg = <0x24>;
++
++						xbar_sfc3_in_ep: endpoint {
++							remote-endpoint = <&sfc3_cif_in_ep>;
++						};
++					};
++
++					port@25 {
++						reg = <0x25>;
++
++						xbar_sfc3_out_ep: endpoint {
++							remote-endpoint = <&sfc3_cif_out_ep>;
++						};
++					};
++
++					xbar_sfc4_in_port: port@26 {
++						reg = <0x26>;
++
++						xbar_sfc4_in_ep: endpoint {
++							remote-endpoint = <&sfc4_cif_in_ep>;
++						};
++					};
++
++					port@27 {
++						reg = <0x27>;
++
++						xbar_sfc4_out_ep: endpoint {
++							remote-endpoint = <&sfc4_cif_out_ep>;
++						};
++					};
++
++					xbar_mvc1_in_port: port@28 {
++						reg = <0x28>;
++
++						xbar_mvc1_in_ep: endpoint {
++							remote-endpoint = <&mvc1_cif_in_ep>;
++						};
++					};
++
++					port@29 {
++						reg = <0x29>;
++
++						xbar_mvc1_out_ep: endpoint {
++							remote-endpoint = <&mvc1_cif_out_ep>;
++						};
++					};
++
++					xbar_mvc2_in_port: port@2a {
++						reg = <0x2a>;
++
++						xbar_mvc2_in_ep: endpoint {
++							remote-endpoint = <&mvc2_cif_in_ep>;
++						};
++					};
++
++					port@2b {
++						reg = <0x2b>;
++
++						xbar_mvc2_out_ep: endpoint {
++							remote-endpoint = <&mvc2_cif_out_ep>;
++						};
++					};
++
++					xbar_amx1_in1_port: port@2c {
++						reg = <0x2c>;
++
++						xbar_amx1_in1_ep: endpoint {
++							remote-endpoint = <&amx1_in1_ep>;
++						};
++					};
++
++					xbar_amx1_in2_port: port@2d {
++						reg = <0x2d>;
++
++						xbar_amx1_in2_ep: endpoint {
++							remote-endpoint = <&amx1_in2_ep>;
++						};
++					};
++
++					xbar_amx1_in3_port: port@2e {
++						reg = <0x2e>;
++
++						xbar_amx1_in3_ep: endpoint {
++							remote-endpoint = <&amx1_in3_ep>;
++						};
++					};
++
++					xbar_amx1_in4_port: port@2f {
++						reg = <0x2f>;
++
++						xbar_amx1_in4_ep: endpoint {
++							remote-endpoint = <&amx1_in4_ep>;
++						};
++					};
++
++					port@30 {
++						reg = <0x30>;
++
++						xbar_amx1_out_ep: endpoint {
++							remote-endpoint = <&amx1_out_ep>;
++						};
++					};
++
++					xbar_amx2_in1_port: port@31 {
++						reg = <0x31>;
++
++						xbar_amx2_in1_ep: endpoint {
++							remote-endpoint = <&amx2_in1_ep>;
++						};
++					};
++
++					xbar_amx2_in2_port: port@32 {
++						reg = <0x32>;
++
++						xbar_amx2_in2_ep: endpoint {
++							remote-endpoint = <&amx2_in2_ep>;
++						};
++					};
++
++					xbar_amx2_in3_port: port@33 {
++						reg = <0x33>;
++
++						xbar_amx2_in3_ep: endpoint {
++							remote-endpoint = <&amx2_in3_ep>;
++						};
++					};
++
++					xbar_amx2_in4_port: port@34 {
++						reg = <0x34>;
++
++						xbar_amx2_in4_ep: endpoint {
++							remote-endpoint = <&amx2_in4_ep>;
++						};
++					};
++
++					port@35 {
++						reg = <0x35>;
++
++						xbar_amx2_out_ep: endpoint {
++							remote-endpoint = <&amx2_out_ep>;
++						};
++					};
++
++					xbar_amx3_in1_port: port@36 {
++						reg = <0x36>;
++
++						xbar_amx3_in1_ep: endpoint {
++							remote-endpoint = <&amx3_in1_ep>;
++						};
++					};
++
++					xbar_amx3_in2_port: port@37 {
++						reg = <0x37>;
++
++						xbar_amx3_in2_ep: endpoint {
++							remote-endpoint = <&amx3_in2_ep>;
++						};
++					};
++
++					xbar_amx3_in3_port: port@38 {
++						reg = <0x38>;
++
++						xbar_amx3_in3_ep: endpoint {
++							remote-endpoint = <&amx3_in3_ep>;
++						};
++					};
++
++					xbar_amx3_in4_port: port@39 {
++						reg = <0x39>;
++
++						xbar_amx3_in4_ep: endpoint {
++							remote-endpoint = <&amx3_in4_ep>;
++						};
++					};
++
++					port@3a {
++						reg = <0x3a>;
++
++						xbar_amx3_out_ep: endpoint {
++							remote-endpoint = <&amx3_out_ep>;
++						};
++					};
++
++					xbar_amx4_in1_port: port@3b {
++						reg = <0x3b>;
++
++						xbar_amx4_in1_ep: endpoint {
++							remote-endpoint = <&amx4_in1_ep>;
++						};
++					};
++
++					xbar_amx4_in2_port: port@3c {
++						reg = <0x3c>;
++
++						xbar_amx4_in2_ep: endpoint {
++							remote-endpoint = <&amx4_in2_ep>;
++						};
++					};
++
++					xbar_amx4_in3_port: port@3d {
++						reg = <0x3d>;
++
++						xbar_amx4_in3_ep: endpoint {
++							remote-endpoint = <&amx4_in3_ep>;
++						};
++					};
++
++					xbar_amx4_in4_port: port@3e {
++						reg = <0x3e>;
++
++						xbar_amx4_in4_ep: endpoint {
++							remote-endpoint = <&amx4_in4_ep>;
++						};
++					};
++
++					port@3f {
++						reg = <0x3f>;
++
++						xbar_amx4_out_ep: endpoint {
++							remote-endpoint = <&amx4_out_ep>;
++						};
++					};
++
++					xbar_adx1_in_port: port@40 {
++						reg = <0x40>;
++
++						xbar_adx1_in_ep: endpoint {
++							remote-endpoint = <&adx1_in_ep>;
++						};
++					};
++
++					port@41 {
++						reg = <0x41>;
++
++						xbar_adx1_out1_ep: endpoint {
++							remote-endpoint = <&adx1_out1_ep>;
++						};
++					};
++
++					port@42 {
++						reg = <0x42>;
++
++						xbar_adx1_out2_ep: endpoint {
++							remote-endpoint = <&adx1_out2_ep>;
++						};
++					};
++
++					port@43 {
++						reg = <0x43>;
++
++						xbar_adx1_out3_ep: endpoint {
++							remote-endpoint = <&adx1_out3_ep>;
++						};
++					};
++
++					port@44 {
++						reg = <0x44>;
++
++						xbar_adx1_out4_ep: endpoint {
++							remote-endpoint = <&adx1_out4_ep>;
++						};
++					};
++
++					xbar_adx2_in_port: port@45 {
++						reg = <0x45>;
++
++						xbar_adx2_in_ep: endpoint {
++							remote-endpoint = <&adx2_in_ep>;
++						};
++					};
++
++					port@46 {
++						reg = <0x46>;
++
++						xbar_adx2_out1_ep: endpoint {
++							remote-endpoint = <&adx2_out1_ep>;
++						};
++					};
++
++					port@47 {
++						reg = <0x47>;
++
++						xbar_adx2_out2_ep: endpoint {
++							remote-endpoint = <&adx2_out2_ep>;
++						};
++					};
++
++					port@48 {
++						reg = <0x48>;
++
++						xbar_adx2_out3_ep: endpoint {
++							remote-endpoint = <&adx2_out3_ep>;
++						};
++					};
++
++					port@49 {
++						reg = <0x49>;
++
++						xbar_adx2_out4_ep: endpoint {
++							remote-endpoint = <&adx2_out4_ep>;
++						};
++					};
++
++					xbar_adx3_in_port: port@4a {
++						reg = <0x4a>;
++
++						xbar_adx3_in_ep: endpoint {
++							remote-endpoint = <&adx3_in_ep>;
++						};
++					};
++
++					port@4b {
++						reg = <0x4b>;
++
++						xbar_adx3_out1_ep: endpoint {
++							remote-endpoint = <&adx3_out1_ep>;
++						};
++					};
++
++					port@4c {
++						reg = <0x4c>;
++
++						xbar_adx3_out2_ep: endpoint {
++							remote-endpoint = <&adx3_out2_ep>;
++						};
++					};
++
++					port@4d {
++						reg = <0x4d>;
++
++						xbar_adx3_out3_ep: endpoint {
++							remote-endpoint = <&adx3_out3_ep>;
++						};
++					};
++
++					port@4e {
++						reg = <0x4e>;
++
++						xbar_adx3_out4_ep: endpoint {
++							remote-endpoint = <&adx3_out4_ep>;
++						};
++					};
++
++					xbar_adx4_in_port: port@4f {
++						reg = <0x4f>;
++
++						xbar_adx4_in_ep: endpoint {
++							remote-endpoint = <&adx4_in_ep>;
++						};
++					};
++
++					port@50 {
++						reg = <0x50>;
++
++						xbar_adx4_out1_ep: endpoint {
++							remote-endpoint = <&adx4_out1_ep>;
++						};
++					};
++
++					port@51 {
++						reg = <0x51>;
++
++						xbar_adx4_out2_ep: endpoint {
++							remote-endpoint = <&adx4_out2_ep>;
++						};
++					};
++
++					port@52 {
++						reg = <0x52>;
++
++						xbar_adx4_out3_ep: endpoint {
++							remote-endpoint = <&adx4_out3_ep>;
++						};
++					};
++
++					port@53 {
++						reg = <0x53>;
++
++						xbar_adx4_out4_ep: endpoint {
++							remote-endpoint = <&adx4_out4_ep>;
++						};
++					};
++
++					xbar_mixer_in1_port: port@54 {
++						reg = <0x54>;
++
++						xbar_mixer_in1_ep: endpoint {
++							remote-endpoint = <&mixer_in1_ep>;
++						};
++					};
++
++					xbar_mixer_in2_port: port@55 {
++						reg = <0x55>;
++
++						xbar_mixer_in2_ep: endpoint {
++							remote-endpoint = <&mixer_in2_ep>;
++						};
++					};
++
++					xbar_mixer_in3_port: port@56 {
++						reg = <0x56>;
++
++						xbar_mixer_in3_ep: endpoint {
++							remote-endpoint = <&mixer_in3_ep>;
++						};
++					};
++
++					xbar_mixer_in4_port: port@57 {
++						reg = <0x57>;
++
++						xbar_mixer_in4_ep: endpoint {
++							remote-endpoint = <&mixer_in4_ep>;
++						};
++					};
++
++					xbar_mixer_in5_port: port@58 {
++						reg = <0x58>;
++
++						xbar_mixer_in5_ep: endpoint {
++							remote-endpoint = <&mixer_in5_ep>;
++						};
++					};
++
++					xbar_mixer_in6_port: port@59 {
++						reg = <0x59>;
++
++						xbar_mixer_in6_ep: endpoint {
++							remote-endpoint = <&mixer_in6_ep>;
++						};
++					};
++
++					xbar_mixer_in7_port: port@5a {
++						reg = <0x5a>;
++
++						xbar_mixer_in7_ep: endpoint {
++							remote-endpoint = <&mixer_in7_ep>;
++						};
++					};
++
++					xbar_mixer_in8_port: port@5b {
++						reg = <0x5b>;
++
++						xbar_mixer_in8_ep: endpoint {
++							remote-endpoint = <&mixer_in8_ep>;
++						};
++					};
++
++					xbar_mixer_in9_port: port@5c {
++						reg = <0x5c>;
++
++						xbar_mixer_in9_ep: endpoint {
++							remote-endpoint = <&mixer_in9_ep>;
++						};
++					};
++
++					xbar_mixer_in10_port: port@5d {
++						reg = <0x5d>;
++
++						xbar_mixer_in10_ep: endpoint {
++							remote-endpoint = <&mixer_in10_ep>;
++						};
++					};
++
++					port@5e {
++						reg = <0x5e>;
++
++						xbar_mixer_out1_ep: endpoint {
++							remote-endpoint = <&mixer_out1_ep>;
++						};
++					};
++
++					port@5f {
++						reg = <0x5f>;
++
++						xbar_mixer_out2_ep: endpoint {
++							remote-endpoint = <&mixer_out2_ep>;
++						};
++					};
++
++					port@60 {
++						reg = <0x60>;
++
++						xbar_mixer_out3_ep: endpoint {
++							remote-endpoint = <&mixer_out3_ep>;
++						};
++					};
++
++					port@61 {
++						reg = <0x61>;
++
++						xbar_mixer_out4_ep: endpoint {
++							remote-endpoint = <&mixer_out4_ep>;
++						};
++					};
++
++					port@62 {
++						reg = <0x62>;
++
++						xbar_mixer_out5_ep: endpoint {
++							remote-endpoint = <&mixer_out5_ep>;
++						};
++					};
++				};
++
++				admaif@290f000 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						admaif0_port: port@0 {
++							reg = <0x0>;
++
++							admaif0_ep: endpoint {
++								remote-endpoint = <&xbar_admaif0_ep>;
++							};
++						};
++
++						admaif1_port: port@1 {
++							reg = <0x1>;
++
++							admaif1_ep: endpoint {
++								remote-endpoint = <&xbar_admaif1_ep>;
++							};
++						};
++
++						admaif2_port: port@2 {
++							reg = <0x2>;
++
++							admaif2_ep: endpoint {
++								remote-endpoint = <&xbar_admaif2_ep>;
++							};
++						};
++
++						admaif3_port: port@3 {
++							reg = <0x3>;
++
++							admaif3_ep: endpoint {
++								remote-endpoint = <&xbar_admaif3_ep>;
++							};
++						};
++
++						admaif4_port: port@4 {
++							reg = <0x4>;
++
++							admaif4_ep: endpoint {
++								remote-endpoint = <&xbar_admaif4_ep>;
++							};
++						};
++
++						admaif5_port: port@5 {
++							reg = <0x5>;
++
++							admaif5_ep: endpoint {
++								remote-endpoint = <&xbar_admaif5_ep>;
++							};
++						};
++
++						admaif6_port: port@6 {
++							reg = <0x6>;
++
++							admaif6_ep: endpoint {
++								remote-endpoint = <&xbar_admaif6_ep>;
++							};
++						};
++
++						admaif7_port: port@7 {
++							reg = <0x7>;
++
++							admaif7_ep: endpoint {
++								remote-endpoint = <&xbar_admaif7_ep>;
++							};
++						};
++
++						admaif8_port: port@8 {
++							reg = <0x8>;
++
++							admaif8_ep: endpoint {
++								remote-endpoint = <&xbar_admaif8_ep>;
++							};
++						};
++
++						admaif9_port: port@9 {
++							reg = <0x9>;
++
++							admaif9_ep: endpoint {
++								remote-endpoint = <&xbar_admaif9_ep>;
++							};
++						};
++
++						admaif10_port: port@a {
++							reg = <0xa>;
++
++							admaif10_ep: endpoint {
++								remote-endpoint = <&xbar_admaif10_ep>;
++							};
++						};
++
++						admaif11_port: port@b {
++							reg = <0xb>;
++
++							admaif11_ep: endpoint {
++								remote-endpoint = <&xbar_admaif11_ep>;
++							};
++						};
++
++						admaif12_port: port@c {
++							reg = <0xc>;
++
++							admaif12_ep: endpoint {
++								remote-endpoint = <&xbar_admaif12_ep>;
++							};
++						};
++
++						admaif13_port: port@d {
++							reg = <0xd>;
++
++							admaif13_ep: endpoint {
++								remote-endpoint = <&xbar_admaif13_ep>;
++							};
++						};
++
++						admaif14_port: port@e {
++							reg = <0xe>;
++
++							admaif14_ep: endpoint {
++								remote-endpoint = <&xbar_admaif14_ep>;
++							};
++						};
++
++						admaif15_port: port@f {
++							reg = <0xf>;
++
++							admaif15_ep: endpoint {
++								remote-endpoint = <&xbar_admaif15_ep>;
++							};
++						};
++
++						admaif16_port: port@10 {
++							reg = <0x10>;
++
++							admaif16_ep: endpoint {
++								remote-endpoint = <&xbar_admaif16_ep>;
++							};
++						};
++
++						admaif17_port: port@11 {
++							reg = <0x11>;
++
++							admaif17_ep: endpoint {
++								remote-endpoint = <&xbar_admaif17_ep>;
++							};
++						};
++
++						admaif18_port: port@12 {
++							reg = <0x12>;
++
++							admaif18_ep: endpoint {
++								remote-endpoint = <&xbar_admaif18_ep>;
++							};
++						};
++
++						admaif19_port: port@13 {
++							reg = <0x13>;
++
++							admaif19_ep: endpoint {
++								remote-endpoint = <&xbar_admaif19_ep>;
++							};
++						};
++					};
++				};
++
++				i2s@2901000 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							i2s1_cif_ep: endpoint {
++								remote-endpoint = <&xbar_i2s1_ep>;
++							};
++						};
++
++						i2s1_port: port@1 {
++							reg = <1>;
++
++							i2s1_dap_ep: endpoint {
++								dai-format = "i2s";
++								remote-endpoint = <&rt5658_ep>;
++							};
++						};
++					};
++				};
++
++				i2s@2901100 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							i2s2_cif_ep: endpoint {
++								remote-endpoint = <&xbar_i2s2_ep>;
++							};
++						};
++
++						i2s2_port: port@1 {
++							reg = <1>;
++
++							i2s2_dap_ep: endpoint {
++								dai-format = "i2s";
++								/* Place holder for external Codec */
++							};
++						};
++					};
++				};
++
++				i2s@2901300 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							i2s4_cif_ep: endpoint {
++								remote-endpoint = <&xbar_i2s4_ep>;
++							};
++						};
++
++						i2s4_port: port@1 {
++							reg = <1>;
++
++							i2s4_dap_ep: endpoint {
++								dai-format = "i2s";
++								/* Place holder for external Codec */
++							};
++						};
++					};
++				};
++
++				i2s@2901500 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							i2s6_cif_ep: endpoint {
++								remote-endpoint = <&xbar_i2s6_ep>;
++							};
++						};
++
++						i2s6_port: port@1 {
++							reg = <1>;
++
++							i2s6_dap_ep: endpoint@0 {
++								dai-format = "i2s";
++								/* Place holder for external Codec */
++							};
++						};
++					};
++				};
++
++				dmic@2904200 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							dmic3_cif_ep: endpoint {
++								remote-endpoint = <&xbar_dmic3_ep>;
++							};
++						};
++
++						dmic3_port: port@1 {
++							reg = <1>;
++
++							dmic3_dap_ep: endpoint {
++								/* Place holder for external Codec */
++							};
++						};
++					};
++				};
++
++				sfc@2902000 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							sfc1_cif_in_ep: endpoint {
++								remote-endpoint = <&xbar_sfc1_in_ep>;
++							};
++						};
++
++						sfc1_out_port: port@1 {
++							reg = <1>;
++
++							sfc1_cif_out_ep: endpoint {
++								remote-endpoint = <&xbar_sfc1_out_ep>;
++							};
++						};
++					};
++				};
++
++				sfc@2902200 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							sfc2_cif_in_ep: endpoint {
++								remote-endpoint = <&xbar_sfc2_in_ep>;
++							};
++						};
++
++						sfc2_out_port: port@1 {
++							reg = <1>;
++
++							sfc2_cif_out_ep: endpoint {
++								remote-endpoint = <&xbar_sfc2_out_ep>;
++							};
++						};
++					};
++				};
++
++				sfc@2902400 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							sfc3_cif_in_ep: endpoint {
++								remote-endpoint = <&xbar_sfc3_in_ep>;
++							};
++						};
++
++						sfc3_out_port: port@1 {
++							reg = <1>;
++
++							sfc3_cif_out_ep: endpoint {
++								remote-endpoint = <&xbar_sfc3_out_ep>;
++							};
++						};
++					};
++				};
++
++				sfc@2902600 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							sfc4_cif_in_ep: endpoint {
++								remote-endpoint = <&xbar_sfc4_in_ep>;
++							};
++						};
++
++						sfc4_out_port: port@1 {
++							reg = <1>;
++
++							sfc4_cif_out_ep: endpoint {
++								remote-endpoint = <&xbar_sfc4_out_ep>;
++							};
++						};
++					};
++				};
++
++				mvc@290a000 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							mvc1_cif_in_ep: endpoint {
++								remote-endpoint = <&xbar_mvc1_in_ep>;
++							};
++						};
++
++						mvc1_out_port: port@1 {
++							reg = <1>;
++
++							mvc1_cif_out_ep: endpoint {
++								remote-endpoint = <&xbar_mvc1_out_ep>;
++							};
++						};
++					};
++				};
++
++				mvc@290a200 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							mvc2_cif_in_ep: endpoint {
++								remote-endpoint = <&xbar_mvc2_in_ep>;
++							};
++						};
++
++						mvc2_out_port: port@1 {
++							reg = <1>;
++
++							mvc2_cif_out_ep: endpoint {
++								remote-endpoint = <&xbar_mvc2_out_ep>;
++							};
++						};
++					};
++				};
++
++				amx@2903000 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							amx1_in1_ep: endpoint {
++								remote-endpoint = <&xbar_amx1_in1_ep>;
++							};
++						};
++
++						port@1 {
++							reg = <1>;
++
++							amx1_in2_ep: endpoint {
++								remote-endpoint = <&xbar_amx1_in2_ep>;
++							};
++						};
++
++						port@2 {
++							reg = <2>;
++
++							amx1_in3_ep: endpoint {
++								remote-endpoint = <&xbar_amx1_in3_ep>;
++							};
++						};
++
++						port@3 {
++							reg = <3>;
++
++							amx1_in4_ep: endpoint {
++								remote-endpoint = <&xbar_amx1_in4_ep>;
++							};
++						};
++
++						amx1_out_port: port@4 {
++							reg = <4>;
++
++							amx1_out_ep: endpoint {
++								remote-endpoint = <&xbar_amx1_out_ep>;
++							};
++						};
++					};
+ 				};
+ 
+-				admaif@290f000 {
++				amx@2903100 {
+ 					status = "okay";
+ 
+ 					ports {
+ 						#address-cells = <1>;
+ 						#size-cells = <0>;
+ 
+-						admaif0_port: port@0 {
+-							reg = <0x0>;
++						port@0 {
++							reg = <0>;
+ 
+-							admaif0_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif0_ep>;
++							amx2_in1_ep: endpoint {
++								remote-endpoint = <&xbar_amx2_in1_ep>;
+ 							};
+ 						};
+ 
+-						admaif1_port: port@1 {
+-							reg = <0x1>;
++						port@1 {
++							reg = <1>;
+ 
+-							admaif1_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif1_ep>;
++							amx2_in2_ep: endpoint {
++								remote-endpoint = <&xbar_amx2_in2_ep>;
+ 							};
+ 						};
+ 
+-						admaif2_port: port@2 {
+-							reg = <0x2>;
++						amx2_in3_port: port@2 {
++							reg = <2>;
+ 
+-							admaif2_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif2_ep>;
++							amx2_in3_ep: endpoint {
++								remote-endpoint = <&xbar_amx2_in3_ep>;
+ 							};
+ 						};
+ 
+-						admaif3_port: port@3 {
+-							reg = <0x3>;
++						amx2_in4_port: port@3 {
++							reg = <3>;
+ 
+-							admaif3_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif3_ep>;
++							amx2_in4_ep: endpoint {
++								remote-endpoint = <&xbar_amx2_in4_ep>;
+ 							};
+ 						};
+ 
+-						admaif4_port: port@4 {
+-							reg = <0x4>;
++						amx2_out_port: port@4 {
++							reg = <4>;
+ 
+-							admaif4_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif4_ep>;
++							amx2_out_ep: endpoint {
++								remote-endpoint = <&xbar_amx2_out_ep>;
+ 							};
+ 						};
++					};
++				};
+ 
+-						admaif5_port: port@5 {
+-							reg = <0x5>;
++				amx@2903200 {
++					status = "okay";
+ 
+-							admaif5_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif5_ep>;
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							amx3_in1_ep: endpoint {
++								remote-endpoint = <&xbar_amx3_in1_ep>;
+ 							};
+ 						};
+ 
+-						admaif6_port: port@6 {
+-							reg = <0x6>;
++						port@1 {
++							reg = <1>;
+ 
+-							admaif6_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif6_ep>;
++							amx3_in2_ep: endpoint {
++								remote-endpoint = <&xbar_amx3_in2_ep>;
+ 							};
+ 						};
+ 
+-						admaif7_port: port@7 {
+-							reg = <0x7>;
++						port@2 {
++							reg = <2>;
+ 
+-							admaif7_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif7_ep>;
++							amx3_in3_ep: endpoint {
++								remote-endpoint = <&xbar_amx3_in3_ep>;
+ 							};
+ 						};
+ 
+-						admaif8_port: port@8 {
+-							reg = <0x8>;
++						port@3 {
++							reg = <3>;
+ 
+-							admaif8_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif8_ep>;
++							amx3_in4_ep: endpoint {
++								remote-endpoint = <&xbar_amx3_in4_ep>;
+ 							};
+ 						};
+ 
+-						admaif9_port: port@9 {
+-							reg = <0x9>;
++						amx3_out_port: port@4 {
++							reg = <4>;
+ 
+-							admaif9_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif9_ep>;
++							amx3_out_ep: endpoint {
++								remote-endpoint = <&xbar_amx3_out_ep>;
+ 							};
+ 						};
++					};
++				};
+ 
+-						admaif10_port: port@a {
+-							reg = <0xa>;
++				amx@2903300 {
++					status = "okay";
+ 
+-							admaif10_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif10_ep>;
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							amx4_in1_ep: endpoint {
++								remote-endpoint = <&xbar_amx4_in1_ep>;
+ 							};
+ 						};
+ 
+-						admaif11_port: port@b {
+-							reg = <0xb>;
++						port@1 {
++							reg = <1>;
+ 
+-							admaif11_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif11_ep>;
++							amx4_in2_ep: endpoint {
++								remote-endpoint = <&xbar_amx4_in2_ep>;
+ 							};
+ 						};
+ 
+-						admaif12_port: port@c {
+-							reg = <0xc>;
++						port@2 {
++							reg = <2>;
+ 
+-							admaif12_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif12_ep>;
++							amx4_in3_ep: endpoint {
++								remote-endpoint = <&xbar_amx4_in3_ep>;
+ 							};
+ 						};
+ 
+-						admaif13_port: port@d {
+-							reg = <0xd>;
++						port@3 {
++							reg = <3>;
+ 
+-							admaif13_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif13_ep>;
++							amx4_in4_ep: endpoint {
++								remote-endpoint = <&xbar_amx4_in4_ep>;
+ 							};
+ 						};
+ 
+-						admaif14_port: port@e {
+-							reg = <0xe>;
++						amx4_out_port: port@4 {
++							reg = <4>;
+ 
+-							admaif14_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif14_ep>;
++							amx4_out_ep: endpoint {
++								remote-endpoint = <&xbar_amx4_out_ep>;
+ 							};
+ 						};
++					};
++				};
+ 
+-						admaif15_port: port@f {
+-							reg = <0xf>;
++				adx@2903800 {
++					status = "okay";
+ 
+-							admaif15_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif15_ep>;
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							adx1_in_ep: endpoint {
++								remote-endpoint = <&xbar_adx1_in_ep>;
+ 							};
+ 						};
+ 
+-						admaif16_port: port@10 {
+-							reg = <0x10>;
++						adx1_out1_port: port@1 {
++							reg = <1>;
+ 
+-							admaif16_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif16_ep>;
++							adx1_out1_ep: endpoint {
++								remote-endpoint = <&xbar_adx1_out1_ep>;
+ 							};
+ 						};
+ 
+-						admaif17_port: port@11 {
+-							reg = <0x11>;
++						adx1_out2_port: port@2 {
++							reg = <2>;
+ 
+-							admaif17_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif17_ep>;
++							adx1_out2_ep: endpoint {
++								remote-endpoint = <&xbar_adx1_out2_ep>;
+ 							};
+ 						};
+ 
+-						admaif18_port: port@12 {
+-							reg = <0x12>;
++						adx1_out3_port: port@3 {
++							reg = <3>;
+ 
+-							admaif18_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif18_ep>;
++							adx1_out3_ep: endpoint {
++								remote-endpoint = <&xbar_adx1_out3_ep>;
+ 							};
+ 						};
+ 
+-						admaif19_port: port@13 {
+-							reg = <0x13>;
++						adx1_out4_port: port@4 {
++							reg = <4>;
+ 
+-							admaif19_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif19_ep>;
++							adx1_out4_ep: endpoint {
++								remote-endpoint = <&xbar_adx1_out4_ep>;
+ 							};
+ 						};
+ 					};
+ 				};
+ 
+-				i2s@2901000 {
++				adx@2903900 {
+ 					status = "okay";
+ 
+ 					ports {
+@@ -409,49 +1469,46 @@
+ 						port@0 {
+ 							reg = <0>;
+ 
+-							i2s1_cif_ep: endpoint {
+-								remote-endpoint = <&xbar_i2s1_ep>;
++							adx2_in_ep: endpoint {
++								remote-endpoint = <&xbar_adx2_in_ep>;
+ 							};
+ 						};
+ 
+-						i2s1_port: port@1 {
++						adx2_out1_port: port@1 {
+ 							reg = <1>;
+ 
+-							i2s1_dap_ep: endpoint {
+-								dai-format = "i2s";
+-								remote-endpoint = <&rt5658_ep>;
++							adx2_out1_ep: endpoint {
++								remote-endpoint = <&xbar_adx2_out1_ep>;
+ 							};
+ 						};
+-					};
+-				};
+ 
+-				i2s@2901100 {
+-					status = "okay";
++						adx2_out2_port: port@2 {
++							reg = <2>;
+ 
+-					ports {
+-						#address-cells = <1>;
+-						#size-cells = <0>;
++							adx2_out2_ep: endpoint {
++								remote-endpoint = <&xbar_adx2_out2_ep>;
++							};
++						};
+ 
+-						port@0 {
+-							reg = <0>;
++						adx2_out3_port: port@3 {
++							reg = <3>;
+ 
+-							i2s2_cif_ep: endpoint {
+-								remote-endpoint = <&xbar_i2s2_ep>;
++							adx2_out3_ep: endpoint {
++								remote-endpoint = <&xbar_adx2_out3_ep>;
+ 							};
+ 						};
+ 
+-						i2s2_port: port@1 {
+-							reg = <1>;
++						adx2_out4_port: port@4 {
++							reg = <4>;
+ 
+-							i2s2_dap_ep: endpoint {
+-								dai-format = "i2s";
+-								/* Place holder for external Codec */
++							adx2_out4_ep: endpoint {
++								remote-endpoint = <&xbar_adx2_out4_ep>;
+ 							};
+ 						};
+ 					};
+ 				};
+ 
+-				i2s@2901300 {
++				adx@2903a00 {
+ 					status = "okay";
+ 
+ 					ports {
+@@ -461,23 +1518,46 @@
+ 						port@0 {
+ 							reg = <0>;
+ 
+-							i2s4_cif_ep: endpoint {
+-								remote-endpoint = <&xbar_i2s4_ep>;
++							adx3_in_ep: endpoint {
++								remote-endpoint = <&xbar_adx3_in_ep>;
+ 							};
+ 						};
+ 
+-						i2s4_port: port@1 {
++						adx3_out1_port: port@1 {
+ 							reg = <1>;
+ 
+-							i2s4_dap_ep: endpoint {
+-								dai-format = "i2s";
+-								/* Place holder for external Codec */
++							adx3_out1_ep: endpoint {
++								remote-endpoint = <&xbar_adx3_out1_ep>;
++							};
++						};
++
++						adx3_out2_port: port@2 {
++							reg = <2>;
++
++							adx3_out2_ep: endpoint {
++								remote-endpoint = <&xbar_adx3_out2_ep>;
++							};
++						};
++
++						adx3_out3_port: port@3 {
++							reg = <3>;
++
++							adx3_out3_ep: endpoint {
++								remote-endpoint = <&xbar_adx3_out3_ep>;
++							};
++						};
++
++						adx3_out4_port: port@4 {
++							reg = <4>;
++
++							adx3_out4_ep: endpoint {
++								remote-endpoint = <&xbar_adx3_out4_ep>;
+ 							};
+ 						};
+ 					};
+ 				};
+ 
+-				i2s@2901500 {
++				adx@2903b00 {
+ 					status = "okay";
+ 
+ 					ports {
+@@ -487,23 +1567,46 @@
+ 						port@0 {
+ 							reg = <0>;
+ 
+-							i2s6_cif_ep: endpoint {
+-								remote-endpoint = <&xbar_i2s6_ep>;
++							adx4_in_ep: endpoint {
++								remote-endpoint = <&xbar_adx4_in_ep>;
+ 							};
+ 						};
+ 
+-						i2s6_port: port@1 {
++						adx4_out1_port: port@1 {
+ 							reg = <1>;
+ 
+-							i2s6_dap_ep: endpoint@0 {
+-								dai-format = "i2s";
+-								/* Place holder for external Codec */
++							adx4_out1_ep: endpoint {
++								remote-endpoint = <&xbar_adx4_out1_ep>;
++							};
++						};
++
++						adx4_out2_port: port@2 {
++							reg = <2>;
++
++							adx4_out2_ep: endpoint {
++								remote-endpoint = <&xbar_adx4_out2_ep>;
++							};
++						};
++
++						adx4_out3_port: port@3 {
++							reg = <3>;
++
++							adx4_out3_ep: endpoint {
++								remote-endpoint = <&xbar_adx4_out3_ep>;
++							};
++						};
++
++						adx4_out4_port: port@4 {
++							reg = <4>;
++
++							adx4_out4_ep: endpoint {
++								remote-endpoint = <&xbar_adx4_out4_ep>;
+ 							};
+ 						};
+ 					};
+ 				};
+ 
+-				dmic@2904200 {
++				amixer@290bb00 {
+ 					status = "okay";
+ 
+ 					ports {
+@@ -511,18 +1614,122 @@
+ 						#size-cells = <0>;
+ 
+ 						port@0 {
+-							reg = <0>;
++							reg = <0x0>;
+ 
+-							dmic3_cif_ep: endpoint {
+-								remote-endpoint = <&xbar_dmic3_ep>;
++							mixer_in1_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_in1_ep>;
+ 							};
+ 						};
+ 
+-						dmic3_port: port@1 {
+-							reg = <1>;
++						port@1 {
++							reg = <0x1>;
+ 
+-							dmic3_dap_ep: endpoint {
+-								/* Place holder for external Codec */
++							mixer_in2_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_in2_ep>;
++							};
++						};
++
++						port@2 {
++							reg = <0x2>;
++
++							mixer_in3_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_in3_ep>;
++							};
++						};
++
++						port@3 {
++							reg = <0x3>;
++
++							mixer_in4_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_in4_ep>;
++							};
++						};
++
++						port@4 {
++							reg = <0x4>;
++
++							mixer_in5_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_in5_ep>;
++							};
++						};
++
++						port@5 {
++							reg = <0x5>;
++
++							mixer_in6_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_in6_ep>;
++							};
++						};
++
++						port@6 {
++							reg = <0x6>;
++
++							mixer_in7_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_in7_ep>;
++							};
++						};
++
++						port@7 {
++							reg = <0x7>;
++
++							mixer_in8_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_in8_ep>;
++							};
++						};
++
++						port@8 {
++							reg = <0x8>;
++
++							mixer_in9_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_in9_ep>;
++							};
++						};
++
++						port@9 {
++							reg = <0x9>;
++
++							mixer_in10_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_in10_ep>;
++							};
++						};
++
++						mixer_out1_port: port@a {
++							reg = <0xa>;
++
++							mixer_out1_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_out1_ep>;
++							};
++						};
++
++						mixer_out2_port: port@b {
++							reg = <0xb>;
++
++							mixer_out2_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_out2_ep>;
++							};
++						};
++
++						mixer_out3_port: port@c {
++							reg = <0xc>;
++
++							mixer_out3_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_out3_ep>;
++							};
++						};
++
++						mixer_out4_port: port@d {
++							reg = <0xd>;
++
++							mixer_out4_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_out4_ep>;
++							};
++						};
++
++						mixer_out5_port: port@e {
++							reg = <0xe>;
++
++							mixer_out5_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_out5_ep>;
+ 							};
+ 						};
+ 					};
+@@ -827,6 +2034,40 @@
+ 		       /* XBAR Ports */
+ 		       <&xbar_i2s1_port>, <&xbar_i2s2_port>, <&xbar_i2s4_port>,
+ 		       <&xbar_i2s6_port>, <&xbar_dmic3_port>,
++		       <&xbar_sfc1_in_port>, <&xbar_sfc2_in_port>,
++		       <&xbar_sfc3_in_port>, <&xbar_sfc4_in_port>,
++		       <&xbar_mvc1_in_port>, <&xbar_mvc2_in_port>,
++		       <&xbar_amx1_in1_port>, <&xbar_amx1_in2_port>,
++		       <&xbar_amx1_in3_port>, <&xbar_amx1_in4_port>,
++		       <&xbar_amx2_in1_port>, <&xbar_amx2_in2_port>,
++		       <&xbar_amx2_in3_port>, <&xbar_amx2_in4_port>,
++		       <&xbar_amx3_in1_port>, <&xbar_amx3_in2_port>,
++		       <&xbar_amx3_in3_port>, <&xbar_amx3_in4_port>,
++		       <&xbar_amx4_in1_port>, <&xbar_amx4_in2_port>,
++		       <&xbar_amx4_in3_port>, <&xbar_amx4_in4_port>,
++		       <&xbar_adx1_in_port>, <&xbar_adx2_in_port>,
++		       <&xbar_adx3_in_port>, <&xbar_adx4_in_port>,
++		       <&xbar_mixer_in1_port>, <&xbar_mixer_in2_port>,
++		       <&xbar_mixer_in3_port>, <&xbar_mixer_in4_port>,
++		       <&xbar_mixer_in5_port>, <&xbar_mixer_in6_port>,
++		       <&xbar_mixer_in7_port>, <&xbar_mixer_in8_port>,
++		       <&xbar_mixer_in9_port>, <&xbar_mixer_in10_port>,
++		       /* HW accelerators */
++		       <&sfc1_out_port>, <&sfc2_out_port>,
++		       <&sfc3_out_port>, <&sfc4_out_port>,
++		       <&mvc1_out_port>, <&mvc2_out_port>,
++		       <&amx1_out_port>, <&amx2_out_port>,
++		       <&amx3_out_port>, <&amx4_out_port>,
++		       <&adx1_out1_port>, <&adx1_out2_port>,
++		       <&adx1_out3_port>, <&adx1_out4_port>,
++		       <&adx2_out1_port>, <&adx2_out2_port>,
++		       <&adx2_out3_port>, <&adx2_out4_port>,
++		       <&adx3_out1_port>, <&adx3_out2_port>,
++		       <&adx3_out3_port>, <&adx3_out4_port>,
++		       <&adx4_out1_port>, <&adx4_out2_port>,
++		       <&adx4_out3_port>, <&adx4_out4_port>,
++		       <&mixer_out1_port>, <&mixer_out2_port>, <&mixer_out3_port>,
++		       <&mixer_out4_port>, <&mixer_out5_port>,
+ 		       /* BE I/O Ports */
+ 		       <&i2s1_port>, <&i2s2_port>, <&i2s4_port>, <&i2s6_port>,
+ 		       <&dmic3_port>;
+diff --git a/arch/arm64/boot/dts/nvidia/tegra194-p3509-0000.dtsi b/arch/arm64/boot/dts/nvidia/tegra194-p3509-0000.dtsi
+index 836a7e0..48fc9cf 100644
+--- a/arch/arm64/boot/dts/nvidia/tegra194-p3509-0000.dtsi
++++ b/arch/arm64/boot/dts/nvidia/tegra194-p3509-0000.dtsi
+@@ -238,178 +238,1190 @@
+ 							remote-endpoint = <&dspk2_cif_ep>;
+ 						};
+ 					};
++
++					xbar_sfc1_in_port: port@20 {
++						reg = <0x20>;
++
++						xbar_sfc1_in_ep: endpoint {
++							remote-endpoint = <&sfc1_cif_in_ep>;
++						};
++					};
++
++					port@21 {
++						reg = <0x21>;
++
++						xbar_sfc1_out_ep: endpoint {
++							remote-endpoint = <&sfc1_cif_out_ep>;
++						};
++					};
++
++					xbar_sfc2_in_port: port@22 {
++						reg = <0x22>;
++
++						xbar_sfc2_in_ep: endpoint {
++							remote-endpoint = <&sfc2_cif_in_ep>;
++						};
++					};
++
++					port@23 {
++						reg = <0x23>;
++
++						xbar_sfc2_out_ep: endpoint {
++							remote-endpoint = <&sfc2_cif_out_ep>;
++						};
++					};
++
++					xbar_sfc3_in_port: port@24 {
++						reg = <0x24>;
++
++						xbar_sfc3_in_ep: endpoint {
++							remote-endpoint = <&sfc3_cif_in_ep>;
++						};
++					};
++
++					port@25 {
++						reg = <0x25>;
++
++						xbar_sfc3_out_ep: endpoint {
++							remote-endpoint = <&sfc3_cif_out_ep>;
++						};
++					};
++
++					xbar_sfc4_in_port: port@26 {
++						reg = <0x26>;
++
++						xbar_sfc4_in_ep: endpoint {
++							remote-endpoint = <&sfc4_cif_in_ep>;
++						};
++					};
++
++					port@27 {
++						reg = <0x27>;
++
++						xbar_sfc4_out_ep: endpoint {
++							remote-endpoint = <&sfc4_cif_out_ep>;
++						};
++					};
++
++					xbar_mvc1_in_port: port@28 {
++						reg = <0x28>;
++
++						xbar_mvc1_in_ep: endpoint {
++							remote-endpoint = <&mvc1_cif_in_ep>;
++						};
++					};
++
++					port@29 {
++						reg = <0x29>;
++
++						xbar_mvc1_out_ep: endpoint {
++							remote-endpoint = <&mvc1_cif_out_ep>;
++						};
++					};
++
++					xbar_mvc2_in_port: port@2a {
++						reg = <0x2a>;
++
++						xbar_mvc2_in_ep: endpoint {
++							remote-endpoint = <&mvc2_cif_in_ep>;
++						};
++					};
++
++					port@2b {
++						reg = <0x2b>;
++
++						xbar_mvc2_out_ep: endpoint {
++							remote-endpoint = <&mvc2_cif_out_ep>;
++						};
++					};
++
++					xbar_amx1_in1_port: port@2c {
++						reg = <0x2c>;
++
++						xbar_amx1_in1_ep: endpoint {
++							remote-endpoint = <&amx1_in1_ep>;
++						};
++					};
++
++					xbar_amx1_in2_port: port@2d {
++						reg = <0x2d>;
++
++						xbar_amx1_in2_ep: endpoint {
++							remote-endpoint = <&amx1_in2_ep>;
++						};
++					};
++
++					xbar_amx1_in3_port: port@2e {
++						reg = <0x2e>;
++
++						xbar_amx1_in3_ep: endpoint {
++							remote-endpoint = <&amx1_in3_ep>;
++						};
++					};
++
++					xbar_amx1_in4_port: port@2f {
++						reg = <0x2f>;
++
++						xbar_amx1_in4_ep: endpoint {
++							remote-endpoint = <&amx1_in4_ep>;
++						};
++					};
++
++					port@30 {
++						reg = <0x30>;
++
++						xbar_amx1_out_ep: endpoint {
++							remote-endpoint = <&amx1_out_ep>;
++						};
++					};
++
++					xbar_amx2_in1_port: port@31 {
++						reg = <0x31>;
++
++						xbar_amx2_in1_ep: endpoint {
++							remote-endpoint = <&amx2_in1_ep>;
++						};
++					};
++
++					xbar_amx2_in2_port: port@32 {
++						reg = <0x32>;
++
++						xbar_amx2_in2_ep: endpoint {
++							remote-endpoint = <&amx2_in2_ep>;
++						};
++					};
++
++					xbar_amx2_in3_port: port@33 {
++						reg = <0x33>;
++
++						xbar_amx2_in3_ep: endpoint {
++							remote-endpoint = <&amx2_in3_ep>;
++						};
++					};
++
++					xbar_amx2_in4_port: port@34 {
++						reg = <0x34>;
++
++						xbar_amx2_in4_ep: endpoint {
++							remote-endpoint = <&amx2_in4_ep>;
++						};
++					};
++
++					port@35 {
++						reg = <0x35>;
++
++						xbar_amx2_out_ep: endpoint {
++							remote-endpoint = <&amx2_out_ep>;
++						};
++					};
++
++					xbar_amx3_in1_port: port@36 {
++						reg = <0x36>;
++
++						xbar_amx3_in1_ep: endpoint {
++							remote-endpoint = <&amx3_in1_ep>;
++						};
++					};
++
++					xbar_amx3_in2_port: port@37 {
++						reg = <0x37>;
++
++						xbar_amx3_in2_ep: endpoint {
++							remote-endpoint = <&amx3_in2_ep>;
++						};
++					};
++
++					xbar_amx3_in3_port: port@38 {
++						reg = <0x38>;
++
++						xbar_amx3_in3_ep: endpoint {
++							remote-endpoint = <&amx3_in3_ep>;
++						};
++					};
++
++					xbar_amx3_in4_port: port@39 {
++						reg = <0x39>;
++
++						xbar_amx3_in4_ep: endpoint {
++							remote-endpoint = <&amx3_in4_ep>;
++						};
++					};
++
++					port@3a {
++						reg = <0x3a>;
++
++						xbar_amx3_out_ep: endpoint {
++							remote-endpoint = <&amx3_out_ep>;
++						};
++					};
++
++					xbar_amx4_in1_port: port@3b {
++						reg = <0x3b>;
++
++						xbar_amx4_in1_ep: endpoint {
++							remote-endpoint = <&amx4_in1_ep>;
++						};
++					};
++
++					xbar_amx4_in2_port: port@3c {
++						reg = <0x3c>;
++
++						xbar_amx4_in2_ep: endpoint {
++							remote-endpoint = <&amx4_in2_ep>;
++						};
++					};
++
++					xbar_amx4_in3_port: port@3d {
++						reg = <0x3d>;
++
++						xbar_amx4_in3_ep: endpoint {
++							remote-endpoint = <&amx4_in3_ep>;
++						};
++					};
++
++					xbar_amx4_in4_port: port@3e {
++						reg = <0x3e>;
++
++						xbar_amx4_in4_ep: endpoint {
++							remote-endpoint = <&amx4_in4_ep>;
++						};
++					};
++
++					port@3f {
++						reg = <0x3f>;
++
++						xbar_amx4_out_ep: endpoint {
++							remote-endpoint = <&amx4_out_ep>;
++						};
++					};
++
++					xbar_adx1_in_port: port@40 {
++						reg = <0x40>;
++
++						xbar_adx1_in_ep: endpoint {
++							remote-endpoint = <&adx1_in_ep>;
++						};
++					};
++
++					port@41 {
++						reg = <0x41>;
++
++						xbar_adx1_out1_ep: endpoint {
++							remote-endpoint = <&adx1_out1_ep>;
++						};
++					};
++
++					port@42 {
++						reg = <0x42>;
++
++						xbar_adx1_out2_ep: endpoint {
++							remote-endpoint = <&adx1_out2_ep>;
++						};
++					};
++
++					port@43 {
++						reg = <0x43>;
++
++						xbar_adx1_out3_ep: endpoint {
++							remote-endpoint = <&adx1_out3_ep>;
++						};
++					};
++
++					port@44 {
++						reg = <0x44>;
++
++						xbar_adx1_out4_ep: endpoint {
++							remote-endpoint = <&adx1_out4_ep>;
++						};
++					};
++
++					xbar_adx2_in_port: port@45 {
++						reg = <0x45>;
++
++						xbar_adx2_in_ep: endpoint {
++							remote-endpoint = <&adx2_in_ep>;
++						};
++					};
++
++					port@46 {
++						reg = <0x46>;
++
++						xbar_adx2_out1_ep: endpoint {
++							remote-endpoint = <&adx2_out1_ep>;
++						};
++					};
++
++					port@47 {
++						reg = <0x47>;
++
++						xbar_adx2_out2_ep: endpoint {
++							remote-endpoint = <&adx2_out2_ep>;
++						};
++					};
++
++					port@48 {
++						reg = <0x48>;
++
++						xbar_adx2_out3_ep: endpoint {
++							remote-endpoint = <&adx2_out3_ep>;
++						};
++					};
++
++					port@49 {
++						reg = <0x49>;
++
++						xbar_adx2_out4_ep: endpoint {
++							remote-endpoint = <&adx2_out4_ep>;
++						};
++					};
++
++					xbar_adx3_in_port: port@4a {
++						reg = <0x4a>;
++
++						xbar_adx3_in_ep: endpoint {
++							remote-endpoint = <&adx3_in_ep>;
++						};
++					};
++
++					port@4b {
++						reg = <0x4b>;
++
++						xbar_adx3_out1_ep: endpoint {
++							remote-endpoint = <&adx3_out1_ep>;
++						};
++					};
++
++					port@4c {
++						reg = <0x4c>;
++
++						xbar_adx3_out2_ep: endpoint {
++							remote-endpoint = <&adx3_out2_ep>;
++						};
++					};
++
++					port@4d {
++						reg = <0x4d>;
++
++						xbar_adx3_out3_ep: endpoint {
++							remote-endpoint = <&adx3_out3_ep>;
++						};
++					};
++
++					port@4e {
++						reg = <0x4e>;
++
++						xbar_adx3_out4_ep: endpoint {
++							remote-endpoint = <&adx3_out4_ep>;
++						};
++					};
++
++					xbar_adx4_in_port: port@4f {
++						reg = <0x4f>;
++
++						xbar_adx4_in_ep: endpoint {
++							remote-endpoint = <&adx4_in_ep>;
++						};
++					};
++
++					port@50 {
++						reg = <0x50>;
++
++						xbar_adx4_out1_ep: endpoint {
++							remote-endpoint = <&adx4_out1_ep>;
++						};
++					};
++
++					port@51 {
++						reg = <0x51>;
++
++						xbar_adx4_out2_ep: endpoint {
++							remote-endpoint = <&adx4_out2_ep>;
++						};
++					};
++
++					port@52 {
++						reg = <0x52>;
++
++						xbar_adx4_out3_ep: endpoint {
++							remote-endpoint = <&adx4_out3_ep>;
++						};
++					};
++
++					port@53 {
++						reg = <0x53>;
++
++						xbar_adx4_out4_ep: endpoint {
++							remote-endpoint = <&adx4_out4_ep>;
++						};
++					};
++
++					xbar_mixer_in1_port: port@54 {
++						reg = <0x54>;
++
++						xbar_mixer_in1_ep: endpoint {
++							remote-endpoint = <&mixer_in1_ep>;
++						};
++					};
++
++					xbar_mixer_in2_port: port@55 {
++						reg = <0x55>;
++
++						xbar_mixer_in2_ep: endpoint {
++							remote-endpoint = <&mixer_in2_ep>;
++						};
++					};
++
++					xbar_mixer_in3_port: port@56 {
++						reg = <0x56>;
++
++						xbar_mixer_in3_ep: endpoint {
++							remote-endpoint = <&mixer_in3_ep>;
++						};
++					};
++
++					xbar_mixer_in4_port: port@57 {
++						reg = <0x57>;
++
++						xbar_mixer_in4_ep: endpoint {
++							remote-endpoint = <&mixer_in4_ep>;
++						};
++					};
++
++					xbar_mixer_in5_port: port@58 {
++						reg = <0x58>;
++
++						xbar_mixer_in5_ep: endpoint {
++							remote-endpoint = <&mixer_in5_ep>;
++						};
++					};
++
++					xbar_mixer_in6_port: port@59 {
++						reg = <0x59>;
++
++						xbar_mixer_in6_ep: endpoint {
++							remote-endpoint = <&mixer_in6_ep>;
++						};
++					};
++
++					xbar_mixer_in7_port: port@5a {
++						reg = <0x5a>;
++
++						xbar_mixer_in7_ep: endpoint {
++							remote-endpoint = <&mixer_in7_ep>;
++						};
++					};
++
++					xbar_mixer_in8_port: port@5b {
++						reg = <0x5b>;
++
++						xbar_mixer_in8_ep: endpoint {
++							remote-endpoint = <&mixer_in8_ep>;
++						};
++					};
++
++					xbar_mixer_in9_port: port@5c {
++						reg = <0x5c>;
++
++						xbar_mixer_in9_ep: endpoint {
++							remote-endpoint = <&mixer_in9_ep>;
++						};
++					};
++
++					xbar_mixer_in10_port: port@5d {
++						reg = <0x5d>;
++
++						xbar_mixer_in10_ep: endpoint {
++							remote-endpoint = <&mixer_in10_ep>;
++						};
++					};
++
++					port@5e {
++						reg = <0x5e>;
++
++						xbar_mixer_out1_ep: endpoint {
++							remote-endpoint = <&mixer_out1_ep>;
++						};
++					};
++
++					port@5f {
++						reg = <0x5f>;
++
++						xbar_mixer_out2_ep: endpoint {
++							remote-endpoint = <&mixer_out2_ep>;
++						};
++					};
++
++					port@60 {
++						reg = <0x60>;
++
++						xbar_mixer_out3_ep: endpoint {
++							remote-endpoint = <&mixer_out3_ep>;
++						};
++					};
++
++					port@61 {
++						reg = <0x61>;
++
++						xbar_mixer_out4_ep: endpoint {
++							remote-endpoint = <&mixer_out4_ep>;
++						};
++					};
++
++					port@62 {
++						reg = <0x62>;
++
++						xbar_mixer_out5_ep: endpoint {
++							remote-endpoint = <&mixer_out5_ep>;
++						};
++					};
++				};
++
++				admaif@290f000 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						admaif0_port: port@0 {
++							reg = <0x0>;
++
++							admaif0_ep: endpoint {
++								remote-endpoint = <&xbar_admaif0_ep>;
++							};
++						};
++
++						admaif1_port: port@1 {
++							reg = <0x1>;
++
++							admaif1_ep: endpoint {
++								remote-endpoint = <&xbar_admaif1_ep>;
++							};
++						};
++
++						admaif2_port: port@2 {
++							reg = <0x2>;
++
++							admaif2_ep: endpoint {
++								remote-endpoint = <&xbar_admaif2_ep>;
++							};
++						};
++
++						admaif3_port: port@3 {
++							reg = <0x3>;
++
++							admaif3_ep: endpoint {
++								remote-endpoint = <&xbar_admaif3_ep>;
++							};
++						};
++
++						admaif4_port: port@4 {
++							reg = <0x4>;
++
++							admaif4_ep: endpoint {
++								remote-endpoint = <&xbar_admaif4_ep>;
++							};
++						};
++
++						admaif5_port: port@5 {
++							reg = <0x5>;
++
++							admaif5_ep: endpoint {
++								remote-endpoint = <&xbar_admaif5_ep>;
++							};
++						};
++
++						admaif6_port: port@6 {
++							reg = <0x6>;
++
++							admaif6_ep: endpoint {
++								remote-endpoint = <&xbar_admaif6_ep>;
++							};
++						};
++
++						admaif7_port: port@7 {
++							reg = <0x7>;
++
++							admaif7_ep: endpoint {
++								remote-endpoint = <&xbar_admaif7_ep>;
++							};
++						};
++
++						admaif8_port: port@8 {
++							reg = <0x8>;
++
++							admaif8_ep: endpoint {
++								remote-endpoint = <&xbar_admaif8_ep>;
++							};
++						};
++
++						admaif9_port: port@9 {
++							reg = <0x9>;
++
++							admaif9_ep: endpoint {
++								remote-endpoint = <&xbar_admaif9_ep>;
++							};
++						};
++
++						admaif10_port: port@a {
++							reg = <0xa>;
++
++							admaif10_ep: endpoint {
++								remote-endpoint = <&xbar_admaif10_ep>;
++							};
++						};
++
++						admaif11_port: port@b {
++							reg = <0xb>;
++
++							admaif11_ep: endpoint {
++								remote-endpoint = <&xbar_admaif11_ep>;
++							};
++						};
++
++						admaif12_port: port@c {
++							reg = <0xc>;
++
++							admaif12_ep: endpoint {
++								remote-endpoint = <&xbar_admaif12_ep>;
++							};
++						};
++
++						admaif13_port: port@d {
++							reg = <0xd>;
++
++							admaif13_ep: endpoint {
++								remote-endpoint = <&xbar_admaif13_ep>;
++							};
++						};
++
++						admaif14_port: port@e {
++							reg = <0xe>;
++
++							admaif14_ep: endpoint {
++								remote-endpoint = <&xbar_admaif14_ep>;
++							};
++						};
++
++						admaif15_port: port@f {
++							reg = <0xf>;
++
++							admaif15_ep: endpoint {
++								remote-endpoint = <&xbar_admaif15_ep>;
++							};
++						};
++
++						admaif16_port: port@10 {
++							reg = <0x10>;
++
++							admaif16_ep: endpoint {
++								remote-endpoint = <&xbar_admaif16_ep>;
++							};
++						};
++
++						admaif17_port: port@11 {
++							reg = <0x11>;
++
++							admaif17_ep: endpoint {
++								remote-endpoint = <&xbar_admaif17_ep>;
++							};
++						};
++
++						admaif18_port: port@12 {
++							reg = <0x12>;
++
++							admaif18_ep: endpoint {
++								remote-endpoint = <&xbar_admaif18_ep>;
++							};
++						};
++
++						admaif19_port: port@13 {
++							reg = <0x13>;
++
++							admaif19_ep: endpoint {
++								remote-endpoint = <&xbar_admaif19_ep>;
++							};
++						};
++					};
++				};
++
++				i2s@2901200 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							i2s3_cif_ep: endpoint {
++								remote-endpoint = <&xbar_i2s3_ep>;
++							};
++						};
++
++						i2s3_port: port@1 {
++							reg = <1>;
++
++							i2s3_dap_ep: endpoint {
++								dai-format = "i2s";
++								/* Place holder for external Codec */
++							};
++						};
++					};
++				};
++
++				i2s@2901400 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							i2s5_cif_ep: endpoint {
++								remote-endpoint = <&xbar_i2s5_ep>;
++							};
++						};
++
++						i2s5_port: port@1 {
++							reg = <1>;
++
++							i2s5_dap_ep: endpoint@0 {
++								dai-format = "i2s";
++								/* Place holder for external Codec */
++							};
++						};
++					};
+ 				};
+ 
+-				admaif@290f000 {
++				dmic@2904000 {
+ 					status = "okay";
+ 
+ 					ports {
+ 						#address-cells = <1>;
+ 						#size-cells = <0>;
+ 
+-						admaif0_port: port@0 {
+-							reg = <0x0>;
++						port@0 {
++							reg = <0>;
+ 
+-							admaif0_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif0_ep>;
++							dmic1_cif_ep: endpoint {
++								remote-endpoint = <&xbar_dmic1_ep>;
+ 							};
+ 						};
+ 
+-						admaif1_port: port@1 {
+-							reg = <0x1>;
++						dmic1_port: port@1 {
++							reg = <1>;
+ 
+-							admaif1_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif1_ep>;
++							dmic1_dap_ep: endpoint {
++								/* Place holder for external Codec */
+ 							};
+ 						};
++					};
++				};
+ 
+-						admaif2_port: port@2 {
+-							reg = <0x2>;
++				dmic@2904100 {
++					status = "okay";
+ 
+-							admaif2_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif2_ep>;
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							dmic2_cif_ep: endpoint {
++								remote-endpoint = <&xbar_dmic2_ep>;
+ 							};
+ 						};
+ 
+-						admaif3_port: port@3 {
+-							reg = <0x3>;
++						dmic2_port: port@1 {
++							reg = <1>;
+ 
+-							admaif3_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif3_ep>;
++							dmic2_dap_ep: endpoint {
++								/* Place holder for external Codec */
+ 							};
+ 						};
++					};
++				};
+ 
+-						admaif4_port: port@4 {
+-							reg = <0x4>;
++				dmic@2904300 {
++					status = "okay";
+ 
+-							admaif4_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif4_ep>;
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							dmic4_cif_ep: endpoint {
++								remote-endpoint = <&xbar_dmic4_ep>;
++							};
++						};
++
++						dmic4_port: port@1 {
++							reg = <1>;
++
++							dmic4_dap_ep: endpoint {
++								/* Place holder for external Codec */
++							};
++						};
++					};
++				};
++
++				dspk@2905000 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							dspk1_cif_ep: endpoint {
++								remote-endpoint = <&xbar_dspk1_ep>;
++							};
++						};
++
++						dspk1_port: port@1 {
++							reg = <1>;
++
++							dspk1_dap_ep: endpoint {
++								/* Place holder for external Codec */
++							};
++						};
++					};
++				};
++
++				dspk@2905100 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							dspk2_cif_ep: endpoint {
++								remote-endpoint = <&xbar_dspk2_ep>;
++							};
++						};
++
++						dspk2_port: port@1 {
++							reg = <1>;
++
++							dspk2_dap_ep: endpoint {
++								/* Place holder for external Codec */
++							};
++						};
++					};
++				};
++
++				sfc@2902000 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							sfc1_cif_in_ep: endpoint {
++								remote-endpoint = <&xbar_sfc1_in_ep>;
++								convert-rate = <44100>;
++							};
++						};
++
++						sfc1_out_port: port@1 {
++							reg = <1>;
++
++							sfc1_cif_out_ep: endpoint {
++								remote-endpoint = <&xbar_sfc1_out_ep>;
++								convert-rate = <48000>;
++							};
++						};
++					};
++				};
++
++				sfc@2902200 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							sfc2_cif_in_ep: endpoint {
++								remote-endpoint = <&xbar_sfc2_in_ep>;
++							};
++						};
++
++						sfc2_out_port: port@1 {
++							reg = <1>;
++
++							sfc2_cif_out_ep: endpoint {
++								remote-endpoint = <&xbar_sfc2_out_ep>;
++							};
++						};
++					};
++				};
++
++				sfc@2902400 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							sfc3_cif_in_ep: endpoint {
++								remote-endpoint = <&xbar_sfc3_in_ep>;
++							};
++						};
++
++						sfc3_out_port: port@1 {
++							reg = <1>;
++
++							sfc3_cif_out_ep: endpoint {
++								remote-endpoint = <&xbar_sfc3_out_ep>;
++							};
++						};
++					};
++				};
++
++				sfc@2902600 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							sfc4_cif_in_ep: endpoint {
++								remote-endpoint = <&xbar_sfc4_in_ep>;
++							};
++						};
++
++						sfc4_out_port: port@1 {
++							reg = <1>;
++
++							sfc4_cif_out_ep: endpoint {
++								remote-endpoint = <&xbar_sfc4_out_ep>;
++							};
++						};
++					};
++				};
++
++				mvc@290a000 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							mvc1_cif_in_ep: endpoint {
++								remote-endpoint = <&xbar_mvc1_in_ep>;
++							};
++						};
++
++						mvc1_out_port: port@1 {
++							reg = <1>;
++
++							mvc1_cif_out_ep: endpoint {
++								remote-endpoint = <&xbar_mvc1_out_ep>;
++							};
++						};
++					};
++				};
++
++				mvc@290a200 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							mvc2_cif_in_ep: endpoint {
++								remote-endpoint = <&xbar_mvc2_in_ep>;
++							};
++						};
++
++						mvc2_out_port: port@1 {
++							reg = <1>;
++
++							mvc2_cif_out_ep: endpoint {
++								remote-endpoint = <&xbar_mvc2_out_ep>;
++							};
++						};
++					};
++				};
++
++				amx@2903000 {
++					status = "okay";
++
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							amx1_in1_ep: endpoint {
++								remote-endpoint = <&xbar_amx1_in1_ep>;
+ 							};
+ 						};
+ 
+-						admaif5_port: port@5 {
+-							reg = <0x5>;
++						port@1 {
++							reg = <1>;
+ 
+-							admaif5_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif5_ep>;
++							amx1_in2_ep: endpoint {
++								remote-endpoint = <&xbar_amx1_in2_ep>;
+ 							};
+ 						};
+ 
+-						admaif6_port: port@6 {
+-							reg = <0x6>;
++						port@2 {
++							reg = <2>;
+ 
+-							admaif6_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif6_ep>;
++							amx1_in3_ep: endpoint {
++								remote-endpoint = <&xbar_amx1_in3_ep>;
+ 							};
+ 						};
+ 
+-						admaif7_port: port@7 {
+-							reg = <0x7>;
++						port@3 {
++							reg = <3>;
+ 
+-							admaif7_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif7_ep>;
++							amx1_in4_ep: endpoint {
++								remote-endpoint = <&xbar_amx1_in4_ep>;
+ 							};
+ 						};
+ 
+-						admaif8_port: port@8 {
+-							reg = <0x8>;
++						amx1_out_port: port@4 {
++							reg = <4>;
+ 
+-							admaif8_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif8_ep>;
++							amx1_out_ep: endpoint {
++								remote-endpoint = <&xbar_amx1_out_ep>;
+ 							};
+ 						};
++					};
++				};
+ 
+-						admaif9_port: port@9 {
+-							reg = <0x9>;
++				amx@2903100 {
++					status = "okay";
+ 
+-							admaif9_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif9_ep>;
+-							};
+-						};
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
+ 
+-						admaif10_port: port@a {
+-							reg = <0xa>;
++						port@0 {
++							reg = <0>;
+ 
+-							admaif10_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif10_ep>;
++							amx2_in1_ep: endpoint {
++								remote-endpoint = <&xbar_amx2_in1_ep>;
+ 							};
+ 						};
+ 
+-						admaif11_port: port@b {
+-							reg = <0xb>;
++						port@1 {
++							reg = <1>;
+ 
+-							admaif11_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif11_ep>;
++							amx2_in2_ep: endpoint {
++								remote-endpoint = <&xbar_amx2_in2_ep>;
+ 							};
+ 						};
+ 
+-						admaif12_port: port@c {
+-							reg = <0xc>;
++						amx2_in3_port: port@2 {
++							reg = <2>;
+ 
+-							admaif12_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif12_ep>;
++							amx2_in3_ep: endpoint {
++								remote-endpoint = <&xbar_amx2_in3_ep>;
+ 							};
+ 						};
+ 
+-						admaif13_port: port@d {
+-							reg = <0xd>;
++						amx2_in4_port: port@3 {
++							reg = <3>;
+ 
+-							admaif13_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif13_ep>;
++							amx2_in4_ep: endpoint {
++								remote-endpoint = <&xbar_amx2_in4_ep>;
+ 							};
+ 						};
+ 
+-						admaif14_port: port@e {
+-							reg = <0xe>;
++						amx2_out_port: port@4 {
++							reg = <4>;
+ 
+-							admaif14_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif14_ep>;
++							amx2_out_ep: endpoint {
++								remote-endpoint = <&xbar_amx2_out_ep>;
+ 							};
+ 						};
++					};
++				};
+ 
+-						admaif15_port: port@f {
+-							reg = <0xf>;
++				amx@2903200 {
++					status = "okay";
+ 
+-							admaif15_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif15_ep>;
++					ports {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						port@0 {
++							reg = <0>;
++
++							amx3_in1_ep: endpoint {
++								remote-endpoint = <&xbar_amx3_in1_ep>;
+ 							};
+ 						};
+ 
+-						admaif16_port: port@10 {
+-							reg = <0x10>;
++						port@1 {
++							reg = <1>;
+ 
+-							admaif16_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif16_ep>;
++							amx3_in2_ep: endpoint {
++								remote-endpoint = <&xbar_amx3_in2_ep>;
+ 							};
+ 						};
+ 
+-						admaif17_port: port@11 {
+-							reg = <0x11>;
++						port@2 {
++							reg = <2>;
+ 
+-							admaif17_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif17_ep>;
++							amx3_in3_ep: endpoint {
++								remote-endpoint = <&xbar_amx3_in3_ep>;
+ 							};
+ 						};
+ 
+-						admaif18_port: port@12 {
+-							reg = <0x12>;
++						port@3 {
++							reg = <3>;
+ 
+-							admaif18_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif18_ep>;
++							amx3_in4_ep: endpoint {
++								remote-endpoint = <&xbar_amx3_in4_ep>;
+ 							};
+ 						};
+ 
+-						admaif19_port: port@13 {
+-							reg = <0x13>;
++						amx3_out_port: port@4 {
++							reg = <4>;
+ 
+-							admaif19_ep: endpoint {
+-								remote-endpoint = <&xbar_admaif19_ep>;
++							amx3_out_ep: endpoint {
++								remote-endpoint = <&xbar_amx3_out_ep>;
+ 							};
+ 						};
+ 					};
+ 				};
+ 
+-				i2s@2901200 {
++				amx@2903300 {
+ 					status = "okay";
+ 
+ 					ports {
+@@ -419,49 +1431,46 @@
+ 						port@0 {
+ 							reg = <0>;
+ 
+-							i2s3_cif_ep: endpoint {
+-								remote-endpoint = <&xbar_i2s3_ep>;
++							amx4_in1_ep: endpoint {
++								remote-endpoint = <&xbar_amx4_in1_ep>;
+ 							};
+ 						};
+ 
+-						i2s3_port: port@1 {
++						port@1 {
+ 							reg = <1>;
+ 
+-							i2s3_dap_ep: endpoint {
+-								dai-format = "i2s";
+-								/* Place holder for external Codec */
++							amx4_in2_ep: endpoint {
++								remote-endpoint = <&xbar_amx4_in2_ep>;
+ 							};
+ 						};
+-					};
+-				};
+ 
+-				i2s@2901400 {
+-					status = "okay";
++						port@2 {
++							reg = <2>;
+ 
+-					ports {
+-						#address-cells = <1>;
+-						#size-cells = <0>;
++							amx4_in3_ep: endpoint {
++								remote-endpoint = <&xbar_amx4_in3_ep>;
++							};
++						};
+ 
+-						port@0 {
+-							reg = <0>;
++						port@3 {
++							reg = <3>;
+ 
+-							i2s5_cif_ep: endpoint {
+-								remote-endpoint = <&xbar_i2s5_ep>;
++							amx4_in4_ep: endpoint {
++								remote-endpoint = <&xbar_amx4_in4_ep>;
+ 							};
+ 						};
+ 
+-						i2s5_port: port@1 {
+-							reg = <1>;
++						amx4_out_port: port@4 {
++							reg = <4>;
+ 
+-							i2s5_dap_ep: endpoint@0 {
+-								dai-format = "i2s";
+-								/* Place holder for external Codec */
++							amx4_out_ep: endpoint {
++								remote-endpoint = <&xbar_amx4_out_ep>;
+ 							};
+ 						};
+ 					};
+ 				};
+ 
+-				dmic@2904000 {
++				adx@2903800 {
+ 					status = "okay";
+ 
+ 					ports {
+@@ -471,22 +1480,46 @@
+ 						port@0 {
+ 							reg = <0>;
+ 
+-							dmic1_cif_ep: endpoint {
+-								remote-endpoint = <&xbar_dmic1_ep>;
++							adx1_in_ep: endpoint {
++								remote-endpoint = <&xbar_adx1_in_ep>;
+ 							};
+ 						};
+ 
+-						dmic1_port: port@1 {
++						adx1_out1_port: port@1 {
+ 							reg = <1>;
+ 
+-							dmic1_dap_ep: endpoint {
+-								/* Place holder for external Codec */
++							adx1_out1_ep: endpoint {
++								remote-endpoint = <&xbar_adx1_out1_ep>;
++							};
++						};
++
++						adx1_out2_port: port@2 {
++							reg = <2>;
++
++							adx1_out2_ep: endpoint {
++								remote-endpoint = <&xbar_adx1_out2_ep>;
++							};
++						};
++
++						adx1_out3_port: port@3 {
++							reg = <3>;
++
++							adx1_out3_ep: endpoint {
++								remote-endpoint = <&xbar_adx1_out3_ep>;
++							};
++						};
++
++						adx1_out4_port: port@4 {
++							reg = <4>;
++
++							adx1_out4_ep: endpoint {
++								remote-endpoint = <&xbar_adx1_out4_ep>;
+ 							};
+ 						};
+ 					};
+ 				};
+ 
+-				dmic@2904100 {
++				adx@2903900 {
+ 					status = "okay";
+ 
+ 					ports {
+@@ -496,22 +1529,46 @@
+ 						port@0 {
+ 							reg = <0>;
+ 
+-							dmic2_cif_ep: endpoint {
+-								remote-endpoint = <&xbar_dmic2_ep>;
++							adx2_in_ep: endpoint {
++								remote-endpoint = <&xbar_adx2_in_ep>;
+ 							};
+ 						};
+ 
+-						dmic2_port: port@1 {
++						adx2_out1_port: port@1 {
+ 							reg = <1>;
+ 
+-							dmic2_dap_ep: endpoint {
+-								/* Place holder for external Codec */
++							adx2_out1_ep: endpoint {
++								remote-endpoint = <&xbar_adx2_out1_ep>;
++							};
++						};
++
++						adx2_out2_port: port@2 {
++							reg = <2>;
++
++							adx2_out2_ep: endpoint {
++								remote-endpoint = <&xbar_adx2_out2_ep>;
++							};
++						};
++
++						adx2_out3_port: port@3 {
++							reg = <3>;
++
++							adx2_out3_ep: endpoint {
++								remote-endpoint = <&xbar_adx2_out3_ep>;
++							};
++						};
++
++						adx2_out4_port: port@4 {
++							reg = <4>;
++
++							adx2_out4_ep: endpoint {
++								remote-endpoint = <&xbar_adx2_out4_ep>;
+ 							};
+ 						};
+ 					};
+ 				};
+ 
+-				dmic@2904300 {
++				adx@2903a00 {
+ 					status = "okay";
+ 
+ 					ports {
+@@ -521,22 +1578,46 @@
+ 						port@0 {
+ 							reg = <0>;
+ 
+-							dmic4_cif_ep: endpoint {
+-								remote-endpoint = <&xbar_dmic4_ep>;
++							adx3_in_ep: endpoint {
++								remote-endpoint = <&xbar_adx3_in_ep>;
+ 							};
+ 						};
+ 
+-						dmic4_port: port@1 {
++						adx3_out1_port: port@1 {
+ 							reg = <1>;
+ 
+-							dmic4_dap_ep: endpoint {
+-								/* Place holder for external Codec */
++							adx3_out1_ep: endpoint {
++								remote-endpoint = <&xbar_adx3_out1_ep>;
++							};
++						};
++
++						adx3_out2_port: port@2 {
++							reg = <2>;
++
++							adx3_out2_ep: endpoint {
++								remote-endpoint = <&xbar_adx3_out2_ep>;
++							};
++						};
++
++						adx3_out3_port: port@3 {
++							reg = <3>;
++
++							adx3_out3_ep: endpoint {
++								remote-endpoint = <&xbar_adx3_out3_ep>;
++							};
++						};
++
++						adx3_out4_port: port@4 {
++							reg = <4>;
++
++							adx3_out4_ep: endpoint {
++								remote-endpoint = <&xbar_adx3_out4_ep>;
+ 							};
+ 						};
+ 					};
+ 				};
+ 
+-				dspk@2905000 {
++				adx@2903b00 {
+ 					status = "okay";
+ 
+ 					ports {
+@@ -546,22 +1627,46 @@
+ 						port@0 {
+ 							reg = <0>;
+ 
+-							dspk1_cif_ep: endpoint {
+-								remote-endpoint = <&xbar_dspk1_ep>;
++							adx4_in_ep: endpoint {
++								remote-endpoint = <&xbar_adx4_in_ep>;
+ 							};
+ 						};
+ 
+-						dspk1_port: port@1 {
++						adx4_out1_port: port@1 {
+ 							reg = <1>;
+ 
+-							dspk1_dap_ep: endpoint {
+-								/* Place holder for external Codec */
++							adx4_out1_ep: endpoint {
++								remote-endpoint = <&xbar_adx4_out1_ep>;
++							};
++						};
++
++						adx4_out2_port: port@2 {
++							reg = <2>;
++
++							adx4_out2_ep: endpoint {
++								remote-endpoint = <&xbar_adx4_out2_ep>;
++							};
++						};
++
++						adx4_out3_port: port@3 {
++							reg = <3>;
++
++							adx4_out3_ep: endpoint {
++								remote-endpoint = <&xbar_adx4_out3_ep>;
++							};
++						};
++
++						adx4_out4_port: port@4 {
++							reg = <4>;
++
++							adx4_out4_ep: endpoint {
++								remote-endpoint = <&xbar_adx4_out4_ep>;
+ 							};
+ 						};
+ 					};
+ 				};
+ 
+-				dspk@2905100 {
++				amixer@290bb00 {
+ 					status = "okay";
+ 
+ 					ports {
+@@ -569,18 +1674,122 @@
+ 						#size-cells = <0>;
+ 
+ 						port@0 {
+-							reg = <0>;
++							reg = <0x0>;
+ 
+-							dspk2_cif_ep: endpoint {
+-								remote-endpoint = <&xbar_dspk2_ep>;
++							mixer_in1_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_in1_ep>;
+ 							};
+ 						};
+ 
+-						dspk2_port: port@1 {
+-							reg = <1>;
++						port@1 {
++							reg = <0x1>;
+ 
+-							dspk2_dap_ep: endpoint {
+-								/* Place holder for external Codec */
++							mixer_in2_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_in2_ep>;
++							};
++						};
++
++						port@2 {
++							reg = <0x2>;
++
++							mixer_in3_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_in3_ep>;
++							};
++						};
++
++						port@3 {
++							reg = <0x3>;
++
++							mixer_in4_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_in4_ep>;
++							};
++						};
++
++						port@4 {
++							reg = <0x4>;
++
++							mixer_in5_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_in5_ep>;
++							};
++						};
++
++						port@5 {
++							reg = <0x5>;
++
++							mixer_in6_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_in6_ep>;
++							};
++						};
++
++						port@6 {
++							reg = <0x6>;
++
++							mixer_in7_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_in7_ep>;
++							};
++						};
++
++						port@7 {
++							reg = <0x7>;
++
++							mixer_in8_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_in8_ep>;
++							};
++						};
++
++						port@8 {
++							reg = <0x8>;
++
++							mixer_in9_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_in9_ep>;
++							};
++						};
++
++						port@9 {
++							reg = <0x9>;
++
++							mixer_in10_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_in10_ep>;
++							};
++						};
++
++						mixer_out1_port: port@a {
++							reg = <0xa>;
++
++							mixer_out1_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_out1_ep>;
++							};
++						};
++
++						mixer_out2_port: port@b {
++							reg = <0xb>;
++
++							mixer_out2_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_out2_ep>;
++							};
++						};
++
++						mixer_out3_port: port@c {
++							reg = <0xc>;
++
++							mixer_out3_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_out3_ep>;
++							};
++						};
++
++						mixer_out4_port: port@d {
++							reg = <0xd>;
++
++							mixer_out4_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_out4_ep>;
++							};
++						};
++
++						mixer_out5_port: port@e {
++							reg = <0xe>;
++
++							mixer_out5_ep: endpoint {
++								remote-endpoint = <&xbar_mixer_out5_ep>;
+ 							};
+ 						};
+ 					};
+@@ -850,6 +2059,41 @@
+ 		       <&xbar_i2s3_port>, <&xbar_i2s5_port>,
+ 		       <&xbar_dmic1_port>, <&xbar_dmic2_port>, <&xbar_dmic4_port>,
+ 		       <&xbar_dspk1_port>, <&xbar_dspk2_port>,
++		       <&xbar_sfc1_in_port>, <&xbar_sfc2_in_port>,
++		       <&xbar_sfc3_in_port>, <&xbar_sfc4_in_port>,
++		       <&xbar_mvc1_in_port>, <&xbar_mvc2_in_port>,
++		       <&xbar_amx1_in1_port>, <&xbar_amx1_in2_port>,
++		       <&xbar_amx1_in3_port>, <&xbar_amx1_in4_port>,
++		       <&xbar_amx2_in1_port>, <&xbar_amx2_in2_port>,
++		       <&xbar_amx2_in3_port>, <&xbar_amx2_in4_port>,
++		       <&xbar_amx3_in1_port>, <&xbar_amx3_in2_port>,
++		       <&xbar_amx3_in3_port>, <&xbar_amx3_in4_port>,
++		       <&xbar_amx4_in1_port>, <&xbar_amx4_in2_port>,
++		       <&xbar_amx4_in3_port>, <&xbar_amx4_in4_port>,
++		       <&xbar_adx1_in_port>, <&xbar_adx2_in_port>,
++		       <&xbar_adx3_in_port>, <&xbar_adx4_in_port>,
++		       <&xbar_mixer_in1_port>, <&xbar_mixer_in2_port>,
++		       <&xbar_mixer_in3_port>, <&xbar_mixer_in4_port>,
++		       <&xbar_mixer_in5_port>, <&xbar_mixer_in6_port>,
++		       <&xbar_mixer_in7_port>, <&xbar_mixer_in8_port>,
++		       <&xbar_mixer_in9_port>, <&xbar_mixer_in10_port>,
++		       /* HW accelerators */
++		       <&sfc1_out_port>, <&sfc2_out_port>,
++		       <&sfc3_out_port>, <&sfc4_out_port>,
++		       <&mvc1_out_port>, <&mvc2_out_port>,
++		       <&amx1_out_port>, <&amx2_out_port>,
++		       <&amx3_out_port>, <&amx4_out_port>,
++		       <&adx1_out1_port>, <&adx1_out2_port>,
++		       <&adx1_out3_port>, <&adx1_out4_port>,
++		       <&adx2_out1_port>, <&adx2_out2_port>,
++		       <&adx2_out3_port>, <&adx2_out4_port>,
++		       <&adx3_out1_port>, <&adx3_out2_port>,
++		       <&adx3_out3_port>, <&adx3_out4_port>,
++		       <&adx4_out1_port>, <&adx4_out2_port>,
++		       <&adx4_out3_port>, <&adx4_out4_port>,
++		       <&mixer_out1_port>, <&mixer_out2_port>,
++		       <&mixer_out3_port>, <&mixer_out4_port>,
++		       <&mixer_out5_port>,
+ 		       /* BE I/O Ports */
+ 		       <&i2s3_port>, <&i2s5_port>,
+ 		       <&dmic1_port>, <&dmic2_port>, <&dmic4_port>,
+diff --git a/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts b/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts
+index 7d3e363..2e17df6 100644
+--- a/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts
++++ b/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts
+@@ -339,6 +339,481 @@
+ 				};
+ 			};
+ 
++			sfc@702d2000 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						sfc1_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_sfc1_in_ep>;
++						};
++					};
++
++					sfc1_out_port: port@1 {
++						reg = <1>;
++
++						sfc1_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_sfc1_out_ep>;
++						};
++					};
++				};
 +			};
 +
-+			tegra_sfc2: sfc@702d2200 {
-+				compatible = "nvidia,tegra210-sfc";
-+				reg = <0x702d2200 0x200>;
-+				sound-name-prefix = "SFC2";
-+				status = "disabled";
++			sfc@702d2200 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						sfc2_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_sfc2_in_ep>;
++						};
++					};
++
++					sfc2_out_port: port@1 {
++						reg = <1>;
++
++						sfc2_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_sfc2_out_ep>;
++						};
++					};
++				};
 +			};
 +
-+			tegra_sfc3: sfc@702d2400 {
-+				compatible = "nvidia,tegra210-sfc";
-+				reg = <0x702d2400 0x200>;
-+				sound-name-prefix = "SFC3";
-+				status = "disabled";
++			sfc@702d2400 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						sfc3_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_sfc3_in_ep>;
++						};
++					};
++
++					sfc3_out_port: port@1 {
++						reg = <1>;
++
++						sfc3_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_sfc3_out_ep>;
++						};
++					};
++				};
 +			};
 +
-+			tegra_sfc4: sfc@702d2600 {
-+				compatible = "nvidia,tegra210-sfc";
-+				reg = <0x702d2600 0x200>;
-+				sound-name-prefix = "SFC4";
-+				status = "disabled";
++			sfc@702d2600 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						sfc4_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_sfc4_in_ep>;
++						};
++					};
++
++					sfc4_out_port: port@1 {
++						reg = <1>;
++
++						sfc4_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_sfc4_out_ep>;
++						};
++					};
++				};
 +			};
 +
-+			tegra_mvc1: mvc@702da000 {
-+				compatible = "nvidia,tegra210-mvc";
-+				reg = <0x702da000 0x200>;
-+				sound-name-prefix = "MVC1";
-+				status = "disabled";
++			mvc@702da000 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						mvc1_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_mvc1_in_ep>;
++						};
++					};
++
++					mvc1_out_port: port@1 {
++						reg = <1>;
++
++						mvc1_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_mvc1_out_ep>;
++						};
++					};
++				};
 +			};
 +
-+			tegra_mvc2: mvc@702da200 {
-+				compatible = "nvidia,tegra210-mvc";
-+				reg = <0x702da200 0x200>;
-+				sound-name-prefix = "MVC2";
-+				status = "disabled";
++			mvc@702da200 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						mvc2_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_mvc2_in_ep>;
++						};
++					};
++
++					mvc2_out_port: port@1 {
++						reg = <1>;
++
++						mvc2_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_mvc2_out_ep>;
++						};
++					};
++				};
 +			};
 +
-+			tegra_amx1: amx@702d3000 {
-+				compatible = "nvidia,tegra210-amx";
-+				reg = <0x702d3000 0x100>;
-+				sound-name-prefix = "AMX1";
-+				status = "disabled";
++			amx@702d3000 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						amx1_in1_ep: endpoint {
++							remote-endpoint = <&xbar_amx1_in1_ep>;
++						};
++					};
++
++					port@1 {
++						reg = <1>;
++
++						amx1_in2_ep: endpoint {
++							remote-endpoint = <&xbar_amx1_in2_ep>;
++						};
++					};
++
++					port@2 {
++						reg = <2>;
++
++						amx1_in3_ep: endpoint {
++							remote-endpoint = <&xbar_amx1_in3_ep>;
++						};
++					};
++
++					port@3 {
++						reg = <3>;
++
++						amx1_in4_ep: endpoint {
++							remote-endpoint = <&xbar_amx1_in4_ep>;
++						};
++					};
++
++					amx1_out_port: port@4 {
++						reg = <4>;
++
++						amx1_out_ep: endpoint {
++							remote-endpoint = <&xbar_amx1_out_ep>;
++						};
++					};
++				};
 +			};
 +
-+			tegra_amx2: amx@702d3100 {
-+				compatible = "nvidia,tegra210-amx";
-+				reg = <0x702d3100 0x100>;
-+				sound-name-prefix = "AMX2";
-+				status = "disabled";
++			amx@702d3100 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						amx2_in1_ep: endpoint {
++							remote-endpoint = <&xbar_amx2_in1_ep>;
++						};
++					};
++
++					port@1 {
++						reg = <1>;
++
++						amx2_in2_ep: endpoint {
++							remote-endpoint = <&xbar_amx2_in2_ep>;
++						};
++					};
++
++					amx2_in3_port: port@2 {
++						reg = <2>;
++
++						amx2_in3_ep: endpoint {
++							remote-endpoint = <&xbar_amx2_in3_ep>;
++						};
++					};
++
++					amx2_in4_port: port@3 {
++						reg = <3>;
++
++						amx2_in4_ep: endpoint {
++							remote-endpoint = <&xbar_amx2_in4_ep>;
++						};
++					};
++
++					amx2_out_port: port@4 {
++						reg = <4>;
++
++						amx2_out_ep: endpoint {
++							remote-endpoint = <&xbar_amx2_out_ep>;
++						};
++					};
++				};
 +			};
 +
-+			tegra_adx1: adx@702d3800 {
-+				compatible = "nvidia,tegra210-adx";
-+				reg = <0x702d3800 0x100>;
-+				sound-name-prefix = "ADX1";
-+				status = "disabled";
++			adx@702d3800 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						adx1_in_ep: endpoint {
++							remote-endpoint = <&xbar_adx1_in_ep>;
++						};
++					};
++
++					adx1_out1_port: port@1 {
++						reg = <1>;
++
++						adx1_out1_ep: endpoint {
++							remote-endpoint = <&xbar_adx1_out1_ep>;
++						};
++					};
++
++					adx1_out2_port: port@2 {
++						reg = <2>;
++
++						adx1_out2_ep: endpoint {
++							remote-endpoint = <&xbar_adx1_out2_ep>;
++						};
++					};
++
++					adx1_out3_port: port@3 {
++						reg = <3>;
++
++						adx1_out3_ep: endpoint {
++							remote-endpoint = <&xbar_adx1_out3_ep>;
++						};
++					};
++
++					adx1_out4_port: port@4 {
++						reg = <4>;
++
++						adx1_out4_ep: endpoint {
++							remote-endpoint = <&xbar_adx1_out4_ep>;
++						};
++					};
++				};
 +			};
 +
-+			tegra_adx2: adx@702d3900 {
-+				compatible = "nvidia,tegra210-adx";
-+				reg = <0x702d3900 0x100>;
-+				sound-name-prefix = "ADX2";
-+				status = "disabled";
++			adx@702d3900 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						adx2_in_ep: endpoint {
++							remote-endpoint = <&xbar_adx2_in_ep>;
++						};
++					};
++
++					adx2_out1_port: port@1 {
++						reg = <1>;
++
++						adx2_out1_ep: endpoint {
++							remote-endpoint = <&xbar_adx2_out1_ep>;
++						};
++					};
++
++					adx2_out2_port: port@2 {
++						reg = <2>;
++
++						adx2_out2_ep: endpoint {
++							remote-endpoint = <&xbar_adx2_out2_ep>;
++						};
++					};
++
++					adx2_out3_port: port@3 {
++						reg = <3>;
++
++						adx2_out3_ep: endpoint {
++							remote-endpoint = <&xbar_adx2_out3_ep>;
++						};
++					};
++
++					adx2_out4_port: port@4 {
++						reg = <4>;
++
++						adx2_out4_ep: endpoint {
++							remote-endpoint = <&xbar_adx2_out4_ep>;
++						};
++					};
++				};
 +			};
 +
-+			tegra_amixer: amixer@702dbb00 {
-+				compatible = "nvidia,tegra210-amixer";
-+				reg = <0x702dbb00 0x800>;
-+				sound-name-prefix = "MIXER";
-+				status = "disabled";
++			amixer@702dbb00 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0x0>;
++
++						mixer_in1_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in1_ep>;
++						};
++					};
++
++					port@1 {
++						reg = <0x1>;
++
++						mixer_in2_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in2_ep>;
++						};
++					};
++
++					port@2 {
++						reg = <0x2>;
++
++						mixer_in3_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in3_ep>;
++						};
++					};
++
++					port@3 {
++						reg = <0x3>;
++
++						mixer_in4_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in4_ep>;
++						};
++					};
++
++					port@4 {
++						reg = <0x4>;
++
++						mixer_in5_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in5_ep>;
++						};
++					};
++
++					port@5 {
++						reg = <0x5>;
++
++						mixer_in6_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in6_ep>;
++						};
++					};
++
++					port@6 {
++						reg = <0x6>;
++
++						mixer_in7_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in7_ep>;
++						};
++					};
++
++					port@7 {
++						reg = <0x7>;
++
++						mixer_in8_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in8_ep>;
++						};
++					};
++
++					port@8 {
++						reg = <0x8>;
++
++						mixer_in9_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in9_ep>;
++						};
++					};
++
++					port@9 {
++						reg = <0x9>;
++
++						mixer_in10_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in10_ep>;
++						};
++					};
++
++					mixer_out1_port: port@a {
++						reg = <0xa>;
++
++						mixer_out1_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_out1_ep>;
++						};
++					};
++
++					mixer_out2_port: port@b {
++						reg = <0xb>;
++
++						mixer_out2_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_out2_ep>;
++						};
++					};
++
++					mixer_out3_port: port@c {
++						reg = <0xc>;
++
++						mixer_out3_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_out3_ep>;
++						};
++					};
++
++					mixer_out4_port: port@d {
++						reg = <0xd>;
++
++						mixer_out4_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_out4_ep>;
++						};
++					};
++
++					mixer_out5_port: port@e {
++						reg = <0xe>;
++
++						mixer_out5_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_out5_ep>;
++						};
++					};
++				};
 +			};
 +
  			ports {
- 				#address-cells = <1>;
- 				#size-cells = <0>;
+ 				xbar_i2s1_port: port@a {
+ 					reg = <0xa>;
+@@ -403,6 +878,382 @@
+ 						remote-endpoint = <&dmic3_cif_ep>;
+ 					};
+ 				};
++
++				xbar_sfc1_in_port: port@12 {
++					reg = <0x12>;
++
++					xbar_sfc1_in_ep: endpoint {
++						remote-endpoint = <&sfc1_cif_in_ep>;
++					};
++				};
++
++				port@13 {
++					reg = <0x13>;
++
++					xbar_sfc1_out_ep: endpoint {
++						remote-endpoint = <&sfc1_cif_out_ep>;
++					};
++				};
++
++				xbar_sfc2_in_port: port@14 {
++					reg = <0x14>;
++
++					xbar_sfc2_in_ep: endpoint {
++						remote-endpoint = <&sfc2_cif_in_ep>;
++					};
++				};
++
++				port@15 {
++					reg = <0x15>;
++
++					xbar_sfc2_out_ep: endpoint {
++						remote-endpoint = <&sfc2_cif_out_ep>;
++					};
++				};
++
++				xbar_sfc3_in_port: port@16 {
++					reg = <0x16>;
++
++					xbar_sfc3_in_ep: endpoint {
++						remote-endpoint = <&sfc3_cif_in_ep>;
++					};
++				};
++
++				port@17 {
++					reg = <0x17>;
++
++					xbar_sfc3_out_ep: endpoint {
++						remote-endpoint = <&sfc3_cif_out_ep>;
++					};
++				};
++
++				xbar_sfc4_in_port: port@18 {
++					reg = <0x18>;
++
++					xbar_sfc4_in_ep: endpoint {
++						remote-endpoint = <&sfc4_cif_in_ep>;
++					};
++				};
++
++				port@19 {
++					reg = <0x19>;
++
++					xbar_sfc4_out_ep: endpoint {
++						remote-endpoint = <&sfc4_cif_out_ep>;
++					};
++				};
++
++				xbar_mvc1_in_port: port@1a {
++					reg = <0x1a>;
++
++					xbar_mvc1_in_ep: endpoint {
++						remote-endpoint = <&mvc1_cif_in_ep>;
++					};
++				};
++
++				port@1b {
++					reg = <0x1b>;
++
++					xbar_mvc1_out_ep: endpoint {
++						remote-endpoint = <&mvc1_cif_out_ep>;
++					};
++				};
++
++				xbar_mvc2_in_port: port@1c {
++					reg = <0x1c>;
++
++					xbar_mvc2_in_ep: endpoint {
++						remote-endpoint = <&mvc2_cif_in_ep>;
++					};
++				};
++
++				port@1d {
++					reg = <0x1d>;
++
++					xbar_mvc2_out_ep: endpoint {
++						remote-endpoint = <&mvc2_cif_out_ep>;
++					};
++				};
++
++				xbar_amx1_in1_port: port@1e {
++					reg = <0x1e>;
++
++					xbar_amx1_in1_ep: endpoint {
++						remote-endpoint = <&amx1_in1_ep>;
++					};
++				};
++
++				xbar_amx1_in2_port: port@1f {
++					reg = <0x1f>;
++
++					xbar_amx1_in2_ep: endpoint {
++						remote-endpoint = <&amx1_in2_ep>;
++					};
++				};
++
++				xbar_amx1_in3_port: port@20 {
++					reg = <0x20>;
++
++					xbar_amx1_in3_ep: endpoint {
++						remote-endpoint = <&amx1_in3_ep>;
++					};
++				};
++
++				xbar_amx1_in4_port: port@21 {
++					reg = <0x21>;
++
++					xbar_amx1_in4_ep: endpoint {
++						remote-endpoint = <&amx1_in4_ep>;
++					};
++				};
++
++				port@22 {
++					reg = <0x22>;
++
++					xbar_amx1_out_ep: endpoint {
++						remote-endpoint = <&amx1_out_ep>;
++					};
++				};
++
++				xbar_amx2_in1_port: port@23 {
++					reg = <0x23>;
++
++					xbar_amx2_in1_ep: endpoint {
++						remote-endpoint = <&amx2_in1_ep>;
++					};
++				};
++
++				xbar_amx2_in2_port: port@24 {
++					reg = <0x24>;
++
++					xbar_amx2_in2_ep: endpoint {
++						remote-endpoint = <&amx2_in2_ep>;
++					};
++				};
++
++				xbar_amx2_in3_port: port@25 {
++					reg = <0x25>;
++
++					xbar_amx2_in3_ep: endpoint {
++						remote-endpoint = <&amx2_in3_ep>;
++					};
++				};
++
++				xbar_amx2_in4_port: port@26 {
++					reg = <0x26>;
++
++					xbar_amx2_in4_ep: endpoint {
++						remote-endpoint = <&amx2_in4_ep>;
++					};
++				};
++
++				port@27 {
++					reg = <0x27>;
++
++					xbar_amx2_out_ep: endpoint {
++						remote-endpoint = <&amx2_out_ep>;
++					};
++				};
++
++				xbar_adx1_in_port: port@28 {
++					reg = <0x28>;
++
++					xbar_adx1_in_ep: endpoint {
++						remote-endpoint = <&adx1_in_ep>;
++					};
++				};
++
++				port@29 {
++					reg = <0x29>;
++
++					xbar_adx1_out1_ep: endpoint {
++						remote-endpoint = <&adx1_out1_ep>;
++					};
++				};
++
++				port@2a {
++					reg = <0x2a>;
++
++					xbar_adx1_out2_ep: endpoint {
++						remote-endpoint = <&adx1_out2_ep>;
++					};
++				};
++
++				port@2b {
++					reg = <0x2b>;
++
++					xbar_adx1_out3_ep: endpoint {
++						remote-endpoint = <&adx1_out3_ep>;
++					};
++				};
++
++				port@2c {
++					reg = <0x2c>;
++
++					xbar_adx1_out4_ep: endpoint {
++						remote-endpoint = <&adx1_out4_ep>;
++					};
++				};
++
++				xbar_adx2_in_port: port@2d {
++					reg = <0x2d>;
++
++					xbar_adx2_in_ep: endpoint {
++						remote-endpoint = <&adx2_in_ep>;
++					};
++				};
++
++				port@2e {
++					reg = <0x2e>;
++
++					xbar_adx2_out1_ep: endpoint {
++						remote-endpoint = <&adx2_out1_ep>;
++					};
++				};
++
++				port@2f {
++					reg = <0x2f>;
++
++					xbar_adx2_out2_ep: endpoint {
++						remote-endpoint = <&adx2_out2_ep>;
++					};
++				};
++
++				port@30 {
++					reg = <0x30>;
++
++					xbar_adx2_out3_ep: endpoint {
++						remote-endpoint = <&adx2_out3_ep>;
++					};
++				};
++
++				port@31 {
++					reg = <0x31>;
++
++					xbar_adx2_out4_ep: endpoint {
++						remote-endpoint = <&adx2_out4_ep>;
++					};
++				};
++
++				xbar_mixer_in1_port: port@32 {
++					reg = <0x32>;
++
++					xbar_mixer_in1_ep: endpoint {
++						remote-endpoint = <&mixer_in1_ep>;
++					};
++				};
++
++				xbar_mixer_in2_port: port@33 {
++					reg = <0x33>;
++
++					xbar_mixer_in2_ep: endpoint {
++						remote-endpoint = <&mixer_in2_ep>;
++					};
++				};
++
++				xbar_mixer_in3_port: port@34 {
++					reg = <0x34>;
++
++					xbar_mixer_in3_ep: endpoint {
++						remote-endpoint = <&mixer_in3_ep>;
++					};
++				};
++
++				xbar_mixer_in4_port: port@35 {
++					reg = <0x35>;
++
++					xbar_mixer_in4_ep: endpoint {
++						remote-endpoint = <&mixer_in4_ep>;
++					};
++				};
++
++				xbar_mixer_in5_port: port@36 {
++					reg = <0x36>;
++
++					xbar_mixer_in5_ep: endpoint {
++						remote-endpoint = <&mixer_in5_ep>;
++					};
++				};
++
++				xbar_mixer_in6_port: port@37 {
++					reg = <0x37>;
++
++					xbar_mixer_in6_ep: endpoint {
++						remote-endpoint = <&mixer_in6_ep>;
++					};
++				};
++
++				xbar_mixer_in7_port: port@38 {
++					reg = <0x38>;
++
++					xbar_mixer_in7_ep: endpoint {
++						remote-endpoint = <&mixer_in7_ep>;
++					};
++				};
++
++				xbar_mixer_in8_port: port@39 {
++					reg = <0x39>;
++
++					xbar_mixer_in8_ep: endpoint {
++						remote-endpoint = <&mixer_in8_ep>;
++					};
++				};
++
++				xbar_mixer_in9_port: port@3a {
++					reg = <0x3a>;
++
++					xbar_mixer_in9_ep: endpoint {
++						remote-endpoint = <&mixer_in9_ep>;
++					};
++				};
++
++				xbar_mixer_in10_port: port@3b {
++					reg = <0x3b>;
++
++					xbar_mixer_in10_ep: endpoint {
++						remote-endpoint = <&mixer_in10_ep>;
++					};
++				};
++
++				port@3c {
++					reg = <0x3c>;
++
++					xbar_mixer_out1_ep: endpoint {
++						remote-endpoint = <&mixer_out1_ep>;
++					};
++				};
++
++				port@3d {
++					reg = <0x3d>;
++
++					xbar_mixer_out2_ep: endpoint {
++						remote-endpoint = <&mixer_out2_ep>;
++					};
++				};
++
++				port@3e {
++					reg = <0x3e>;
++
++					xbar_mixer_out3_ep: endpoint {
++						remote-endpoint = <&mixer_out3_ep>;
++					};
++				};
++
++				port@3f {
++					reg = <0x3f>;
++
++					xbar_mixer_out4_ep: endpoint {
++						remote-endpoint = <&mixer_out4_ep>;
++					};
++				};
++
++				port@40 {
++					reg = <0x40>;
++
++					xbar_mixer_out5_ep: endpoint {
++						remote-endpoint = <&mixer_out5_ep>;
++					};
++				};
+ 			};
+ 		};
+ 	};
+@@ -420,6 +1271,31 @@
+ 		       <&xbar_i2s1_port>, <&xbar_i2s2_port>, <&xbar_i2s3_port>,
+ 		       <&xbar_i2s4_port>, <&xbar_i2s5_port>, <&xbar_dmic1_port>,
+ 		       <&xbar_dmic2_port>, <&xbar_dmic3_port>,
++		       <&xbar_sfc1_in_port>, <&xbar_sfc2_in_port>,
++		       <&xbar_sfc3_in_port>, <&xbar_sfc4_in_port>,
++		       <&xbar_mvc1_in_port>, <&xbar_mvc2_in_port>,
++		       <&xbar_amx1_in1_port>, <&xbar_amx1_in2_port>,
++		       <&xbar_amx1_in3_port>, <&xbar_amx1_in4_port>,
++		       <&xbar_amx2_in1_port>, <&xbar_amx2_in2_port>,
++		       <&xbar_amx2_in3_port>, <&xbar_amx2_in4_port>,
++		       <&xbar_adx1_in_port>, <&xbar_adx2_in_port>,
++		       <&xbar_mixer_in1_port>, <&xbar_mixer_in2_port>,
++		       <&xbar_mixer_in3_port>, <&xbar_mixer_in4_port>,
++		       <&xbar_mixer_in5_port>, <&xbar_mixer_in6_port>,
++		       <&xbar_mixer_in7_port>, <&xbar_mixer_in8_port>,
++		       <&xbar_mixer_in9_port>, <&xbar_mixer_in10_port>,
++		       /* HW accelerators */
++		       <&sfc1_out_port>, <&sfc2_out_port>,
++		       <&sfc3_out_port>, <&sfc4_out_port>,
++		       <&mvc1_out_port>, <&mvc2_out_port>,
++		       <&amx1_out_port>, <&amx2_out_port>,
++		       <&adx1_out1_port>, <&adx1_out2_port>,
++		       <&adx1_out3_port>, <&adx1_out4_port>,
++		       <&adx2_out1_port>, <&adx2_out2_port>,
++		       <&adx2_out3_port>, <&adx2_out4_port>,
++		       <&mixer_out1_port>, <&mixer_out2_port>,
++		       <&mixer_out3_port>, <&mixer_out4_port>,
++		       <&mixer_out5_port>,
+ 		       /* I/O DAP Ports */
+ 		       <&i2s1_port>, <&i2s2_port>, <&i2s3_port>, <&i2s4_port>,
+ 		       <&i2s5_port>, <&dmic1_port>, <&dmic2_port>, <&dmic3_port>;
+diff --git a/arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts b/arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts
+index 7dbb13f..030f264 100644
+--- a/arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts
++++ b/arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts
+@@ -746,6 +746,481 @@
+ 				};
+ 			};
+ 
++			sfc@702d2000 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						sfc1_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_sfc1_in_ep>;
++						};
++					};
++
++					sfc1_out_port: port@1 {
++						reg = <1>;
++
++						sfc1_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_sfc1_out_ep>;
++						};
++					};
++				};
++			};
++
++			sfc@702d2200 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						sfc2_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_sfc2_in_ep>;
++						};
++					};
++
++					sfc2_out_port: port@1 {
++						reg = <1>;
++
++						sfc2_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_sfc2_out_ep>;
++						};
++					};
++				};
++			};
++
++			sfc@702d2400 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						sfc3_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_sfc3_in_ep>;
++						};
++					};
++
++					sfc3_out_port: port@1 {
++						reg = <1>;
++
++						sfc3_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_sfc3_out_ep>;
++						};
++					};
++				};
++			};
++
++			sfc@702d2600 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						sfc4_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_sfc4_in_ep>;
++						};
++					};
++
++					sfc4_out_port: port@1 {
++						reg = <1>;
++
++						sfc4_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_sfc4_out_ep>;
++						};
++					};
++				};
++			};
++
++			mvc@702da000 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						mvc1_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_mvc1_in_ep>;
++						};
++					};
++
++					mvc1_out_port: port@1 {
++						reg = <1>;
++
++						mvc1_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_mvc1_out_ep>;
++						};
++					};
++				};
++			};
++
++			mvc@702da200 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						mvc2_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_mvc2_in_ep>;
++						};
++					};
++
++					mvc2_out_port: port@1 {
++						reg = <1>;
++
++						mvc2_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_mvc2_out_ep>;
++						};
++					};
++				};
++			};
++
++			amx@702d3000 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						amx1_in1_ep: endpoint {
++							remote-endpoint = <&xbar_amx1_in1_ep>;
++						};
++					};
++
++					port@1 {
++						reg = <1>;
++
++						amx1_in2_ep: endpoint {
++							remote-endpoint = <&xbar_amx1_in2_ep>;
++						};
++					};
++
++					port@2 {
++						reg = <2>;
++
++						amx1_in3_ep: endpoint {
++							remote-endpoint = <&xbar_amx1_in3_ep>;
++						};
++					};
++
++					port@3 {
++						reg = <3>;
++
++						amx1_in4_ep: endpoint {
++							remote-endpoint = <&xbar_amx1_in4_ep>;
++						};
++					};
++
++					amx1_out_port: port@4 {
++						reg = <4>;
++
++						amx1_out_ep: endpoint {
++							remote-endpoint = <&xbar_amx1_out_ep>;
++						};
++					};
++				};
++			};
++
++			amx@702d3100 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						amx2_in1_ep: endpoint {
++							remote-endpoint = <&xbar_amx2_in1_ep>;
++						};
++					};
++
++					port@1 {
++						reg = <1>;
++
++						amx2_in2_ep: endpoint {
++							remote-endpoint = <&xbar_amx2_in2_ep>;
++						};
++					};
++
++					amx2_in3_port: port@2 {
++						reg = <2>;
++
++						amx2_in3_ep: endpoint {
++							remote-endpoint = <&xbar_amx2_in3_ep>;
++						};
++					};
++
++					amx2_in4_port: port@3 {
++						reg = <3>;
++
++						amx2_in4_ep: endpoint {
++							remote-endpoint = <&xbar_amx2_in4_ep>;
++						};
++					};
++
++					amx2_out_port: port@4 {
++						reg = <4>;
++
++						amx2_out_ep: endpoint {
++							remote-endpoint = <&xbar_amx2_out_ep>;
++						};
++					};
++				};
++			};
++
++			adx@702d3800 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						adx1_in_ep: endpoint {
++							remote-endpoint = <&xbar_adx1_in_ep>;
++						};
++					};
++
++					adx1_out1_port: port@1 {
++						reg = <1>;
++
++						adx1_out1_ep: endpoint {
++							remote-endpoint = <&xbar_adx1_out1_ep>;
++						};
++					};
++
++					adx1_out2_port: port@2 {
++						reg = <2>;
++
++						adx1_out2_ep: endpoint {
++							remote-endpoint = <&xbar_adx1_out2_ep>;
++						};
++					};
++
++					adx1_out3_port: port@3 {
++						reg = <3>;
++
++						adx1_out3_ep: endpoint {
++							remote-endpoint = <&xbar_adx1_out3_ep>;
++						};
++					};
++
++					adx1_out4_port: port@4 {
++						reg = <4>;
++
++						adx1_out4_ep: endpoint {
++							remote-endpoint = <&xbar_adx1_out4_ep>;
++						};
++					};
++				};
++			};
++
++			adx@702d3900 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						adx2_in_ep: endpoint {
++							remote-endpoint = <&xbar_adx2_in_ep>;
++						};
++					};
++
++					adx2_out1_port: port@1 {
++						reg = <1>;
++
++						adx2_out1_ep: endpoint {
++							remote-endpoint = <&xbar_adx2_out1_ep>;
++						};
++					};
++
++					adx2_out2_port: port@2 {
++						reg = <2>;
++
++						adx2_out2_ep: endpoint {
++							remote-endpoint = <&xbar_adx2_out2_ep>;
++						};
++					};
++
++					adx2_out3_port: port@3 {
++						reg = <3>;
++
++						adx2_out3_ep: endpoint {
++							remote-endpoint = <&xbar_adx2_out3_ep>;
++						};
++					};
++
++					adx2_out4_port: port@4 {
++						reg = <4>;
++
++						adx2_out4_ep: endpoint {
++							remote-endpoint = <&xbar_adx2_out4_ep>;
++						};
++					};
++				};
++			};
++
++			amixer@702dbb00 {
++				status = "okay";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0x0>;
++
++						mixer_in1_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in1_ep>;
++						};
++					};
++
++					port@1 {
++						reg = <0x1>;
++
++						mixer_in2_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in2_ep>;
++						};
++					};
++
++					port@2 {
++						reg = <0x2>;
++
++						mixer_in3_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in3_ep>;
++						};
++					};
++
++					port@3 {
++						reg = <0x3>;
++
++						mixer_in4_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in4_ep>;
++						};
++					};
++
++					port@4 {
++						reg = <0x4>;
++
++						mixer_in5_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in5_ep>;
++						};
++					};
++
++					port@5 {
++						reg = <0x5>;
++
++						mixer_in6_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in6_ep>;
++						};
++					};
++
++					port@6 {
++						reg = <0x6>;
++
++						mixer_in7_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in7_ep>;
++						};
++					};
++
++					port@7 {
++						reg = <0x7>;
++
++						mixer_in8_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in8_ep>;
++						};
++					};
++
++					port@8 {
++						reg = <0x8>;
++
++						mixer_in9_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in9_ep>;
++						};
++					};
++
++					port@9 {
++						reg = <0x9>;
++
++						mixer_in10_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in10_ep>;
++						};
++					};
++
++					mixer_out1_port: port@a {
++						reg = <0xa>;
++
++						mixer_out1_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_out1_ep>;
++						};
++					};
++
++					mixer_out2_port: port@b {
++						reg = <0xb>;
++
++						mixer_out2_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_out2_ep>;
++						};
++					};
++
++					mixer_out3_port: port@c {
++						reg = <0xc>;
++
++						mixer_out3_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_out3_ep>;
++						};
++					};
++
++					mixer_out4_port: port@d {
++						reg = <0xd>;
++
++						mixer_out4_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_out4_ep>;
++						};
++					};
++
++					mixer_out5_port: port@e {
++						reg = <0xe>;
++
++						mixer_out5_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_out5_ep>;
++						};
++					};
++				};
++			};
++
+ 			ports {
+ 				xbar_i2s3_port: port@c {
+ 					reg = <0xc>;
+@@ -778,6 +1253,382 @@
+ 						remote-endpoint = <&dmic2_cif_ep>;
+ 					};
+ 				};
++
++				xbar_sfc1_in_port: port@12 {
++					reg = <0x12>;
++
++					xbar_sfc1_in_ep: endpoint {
++						remote-endpoint = <&sfc1_cif_in_ep>;
++					};
++				};
++
++				port@13 {
++					reg = <0x13>;
++
++					xbar_sfc1_out_ep: endpoint {
++						remote-endpoint = <&sfc1_cif_out_ep>;
++					};
++				};
++
++				xbar_sfc2_in_port: port@14 {
++					reg = <0x14>;
++
++					xbar_sfc2_in_ep: endpoint {
++						remote-endpoint = <&sfc2_cif_in_ep>;
++					};
++				};
++
++				port@15 {
++					reg = <0x15>;
++
++					xbar_sfc2_out_ep: endpoint {
++						remote-endpoint = <&sfc2_cif_out_ep>;
++					};
++				};
++
++				xbar_sfc3_in_port: port@16 {
++					reg = <0x16>;
++
++					xbar_sfc3_in_ep: endpoint {
++						remote-endpoint = <&sfc3_cif_in_ep>;
++					};
++				};
++
++				port@17 {
++					reg = <0x17>;
++
++					xbar_sfc3_out_ep: endpoint {
++						remote-endpoint = <&sfc3_cif_out_ep>;
++					};
++				};
++
++				xbar_sfc4_in_port: port@18 {
++					reg = <0x18>;
++
++					xbar_sfc4_in_ep: endpoint {
++						remote-endpoint = <&sfc4_cif_in_ep>;
++					};
++				};
++
++				port@19 {
++					reg = <0x19>;
++
++					xbar_sfc4_out_ep: endpoint {
++						remote-endpoint = <&sfc4_cif_out_ep>;
++					};
++				};
++
++				xbar_mvc1_in_port: port@1a {
++					reg = <0x1a>;
++
++					xbar_mvc1_in_ep: endpoint {
++						remote-endpoint = <&mvc1_cif_in_ep>;
++					};
++				};
++
++				port@1b {
++					reg = <0x1b>;
++
++					xbar_mvc1_out_ep: endpoint {
++						remote-endpoint = <&mvc1_cif_out_ep>;
++					};
++				};
++
++				xbar_mvc2_in_port: port@1c {
++					reg = <0x1c>;
++
++					xbar_mvc2_in_ep: endpoint {
++						remote-endpoint = <&mvc2_cif_in_ep>;
++					};
++				};
++
++				port@1d {
++					reg = <0x1d>;
++
++					xbar_mvc2_out_ep: endpoint {
++						remote-endpoint = <&mvc2_cif_out_ep>;
++					};
++				};
++
++				xbar_amx1_in1_port: port@1e {
++					reg = <0x1e>;
++
++					xbar_amx1_in1_ep: endpoint {
++						remote-endpoint = <&amx1_in1_ep>;
++					};
++				};
++
++				xbar_amx1_in2_port: port@1f {
++					reg = <0x1f>;
++
++					xbar_amx1_in2_ep: endpoint {
++						remote-endpoint = <&amx1_in2_ep>;
++					};
++				};
++
++				xbar_amx1_in3_port: port@20 {
++					reg = <0x20>;
++
++					xbar_amx1_in3_ep: endpoint {
++						remote-endpoint = <&amx1_in3_ep>;
++					};
++				};
++
++				xbar_amx1_in4_port: port@21 {
++					reg = <0x21>;
++
++					xbar_amx1_in4_ep: endpoint {
++						remote-endpoint = <&amx1_in4_ep>;
++					};
++				};
++
++				port@22 {
++					reg = <0x22>;
++
++					xbar_amx1_out_ep: endpoint {
++						remote-endpoint = <&amx1_out_ep>;
++					};
++				};
++
++				xbar_amx2_in1_port: port@23 {
++					reg = <0x23>;
++
++					xbar_amx2_in1_ep: endpoint {
++						remote-endpoint = <&amx2_in1_ep>;
++					};
++				};
++
++				xbar_amx2_in2_port: port@24 {
++					reg = <0x24>;
++
++					xbar_amx2_in2_ep: endpoint {
++						remote-endpoint = <&amx2_in2_ep>;
++					};
++				};
++
++				xbar_amx2_in3_port: port@25 {
++					reg = <0x25>;
++
++					xbar_amx2_in3_ep: endpoint {
++						remote-endpoint = <&amx2_in3_ep>;
++					};
++				};
++
++				xbar_amx2_in4_port: port@26 {
++					reg = <0x26>;
++
++					xbar_amx2_in4_ep: endpoint {
++						remote-endpoint = <&amx2_in4_ep>;
++					};
++				};
++
++				port@27 {
++					reg = <0x27>;
++
++					xbar_amx2_out_ep: endpoint {
++						remote-endpoint = <&amx2_out_ep>;
++					};
++				};
++
++				xbar_adx1_in_port: port@28 {
++					reg = <0x28>;
++
++					xbar_adx1_in_ep: endpoint {
++						remote-endpoint = <&adx1_in_ep>;
++					};
++				};
++
++				port@29 {
++					reg = <0x29>;
++
++					xbar_adx1_out1_ep: endpoint {
++						remote-endpoint = <&adx1_out1_ep>;
++					};
++				};
++
++				port@2a {
++					reg = <0x2a>;
++
++					xbar_adx1_out2_ep: endpoint {
++						remote-endpoint = <&adx1_out2_ep>;
++					};
++				};
++
++				port@2b {
++					reg = <0x2b>;
++
++					xbar_adx1_out3_ep: endpoint {
++						remote-endpoint = <&adx1_out3_ep>;
++					};
++				};
++
++				port@2c {
++					reg = <0x2c>;
++
++					xbar_adx1_out4_ep: endpoint {
++						remote-endpoint = <&adx1_out4_ep>;
++					};
++				};
++
++				xbar_adx2_in_port: port@2d {
++					reg = <0x2d>;
++
++					xbar_adx2_in_ep: endpoint {
++						remote-endpoint = <&adx2_in_ep>;
++					};
++				};
++
++				port@2e {
++					reg = <0x2e>;
++
++					xbar_adx2_out1_ep: endpoint {
++						remote-endpoint = <&adx2_out1_ep>;
++					};
++				};
++
++				port@2f {
++					reg = <0x2f>;
++
++					xbar_adx2_out2_ep: endpoint {
++						remote-endpoint = <&adx2_out2_ep>;
++					};
++				};
++
++				port@30 {
++					reg = <0x30>;
++
++					xbar_adx2_out3_ep: endpoint {
++						remote-endpoint = <&adx2_out3_ep>;
++					};
++				};
++
++				port@31 {
++					reg = <0x31>;
++
++					xbar_adx2_out4_ep: endpoint {
++						remote-endpoint = <&adx2_out4_ep>;
++					};
++				};
++
++				xbar_mixer_in1_port: port@32 {
++					reg = <0x32>;
++
++					xbar_mixer_in1_ep: endpoint {
++						remote-endpoint = <&mixer_in1_ep>;
++					};
++				};
++
++				xbar_mixer_in2_port: port@33 {
++					reg = <0x33>;
++
++					xbar_mixer_in2_ep: endpoint {
++						remote-endpoint = <&mixer_in2_ep>;
++					};
++				};
++
++				xbar_mixer_in3_port: port@34 {
++					reg = <0x34>;
++
++					xbar_mixer_in3_ep: endpoint {
++						remote-endpoint = <&mixer_in3_ep>;
++					};
++				};
++
++				xbar_mixer_in4_port: port@35 {
++					reg = <0x35>;
++
++					xbar_mixer_in4_ep: endpoint {
++						remote-endpoint = <&mixer_in4_ep>;
++					};
++				};
++
++				xbar_mixer_in5_port: port@36 {
++					reg = <0x36>;
++
++					xbar_mixer_in5_ep: endpoint {
++						remote-endpoint = <&mixer_in5_ep>;
++					};
++				};
++
++				xbar_mixer_in6_port: port@37 {
++					reg = <0x37>;
++
++					xbar_mixer_in6_ep: endpoint {
++						remote-endpoint = <&mixer_in6_ep>;
++					};
++				};
++
++				xbar_mixer_in7_port: port@38 {
++					reg = <0x38>;
++
++					xbar_mixer_in7_ep: endpoint {
++						remote-endpoint = <&mixer_in7_ep>;
++					};
++				};
++
++				xbar_mixer_in8_port: port@39 {
++					reg = <0x39>;
++
++					xbar_mixer_in8_ep: endpoint {
++						remote-endpoint = <&mixer_in8_ep>;
++					};
++				};
++
++				xbar_mixer_in9_port: port@3a {
++					reg = <0x3a>;
++
++					xbar_mixer_in9_ep: endpoint {
++						remote-endpoint = <&mixer_in9_ep>;
++					};
++				};
++
++				xbar_mixer_in10_port: port@3b {
++					reg = <0x3b>;
++
++					xbar_mixer_in10_ep: endpoint {
++						remote-endpoint = <&mixer_in10_ep>;
++					};
++				};
++
++				port@3c {
++					reg = <0x3c>;
++
++					xbar_mixer_out1_ep: endpoint {
++						remote-endpoint = <&mixer_out1_ep>;
++					};
++				};
++
++				port@3d {
++					reg = <0x3d>;
++
++					xbar_mixer_out2_ep: endpoint {
++						remote-endpoint = <&mixer_out2_ep>;
++					};
++				};
++
++				port@3e {
++					reg = <0x3e>;
++
++					xbar_mixer_out3_ep: endpoint {
++						remote-endpoint = <&mixer_out3_ep>;
++					};
++				};
++
++				port@3f {
++					reg = <0x3f>;
++
++					xbar_mixer_out4_ep: endpoint {
++						remote-endpoint = <&mixer_out4_ep>;
++					};
++				};
++
++				port@40 {
++					reg = <0x40>;
++
++					xbar_mixer_out5_ep: endpoint {
++						remote-endpoint = <&mixer_out5_ep>;
++					};
++				};
+ 			};
+ 		};
+ 	};
+@@ -1039,6 +1890,31 @@
+ 		       /* Router */
+ 		       <&xbar_i2s3_port>, <&xbar_i2s4_port>,
+ 		       <&xbar_dmic1_port>, <&xbar_dmic2_port>,
++		       <&xbar_sfc1_in_port>, <&xbar_sfc2_in_port>,
++		       <&xbar_sfc3_in_port>, <&xbar_sfc4_in_port>,
++		       <&xbar_mvc1_in_port>, <&xbar_mvc2_in_port>,
++		       <&xbar_amx1_in1_port>, <&xbar_amx1_in2_port>,
++		       <&xbar_amx1_in3_port>, <&xbar_amx1_in4_port>,
++		       <&xbar_amx2_in1_port>, <&xbar_amx2_in2_port>,
++		       <&xbar_amx2_in3_port>, <&xbar_amx2_in4_port>,
++		       <&xbar_adx1_in_port>, <&xbar_adx2_in_port>,
++		       <&xbar_mixer_in1_port>, <&xbar_mixer_in2_port>,
++		       <&xbar_mixer_in3_port>, <&xbar_mixer_in4_port>,
++		       <&xbar_mixer_in5_port>, <&xbar_mixer_in6_port>,
++		       <&xbar_mixer_in7_port>, <&xbar_mixer_in8_port>,
++		       <&xbar_mixer_in9_port>, <&xbar_mixer_in10_port>,
++		       /* HW accelerators */
++		       <&sfc1_out_port>, <&sfc2_out_port>,
++		       <&sfc3_out_port>, <&sfc4_out_port>,
++		       <&mvc1_out_port>, <&mvc2_out_port>,
++		       <&amx1_out_port>, <&amx2_out_port>,
++		       <&adx1_out1_port>, <&adx1_out2_port>,
++		       <&adx1_out3_port>, <&adx1_out4_port>,
++		       <&adx2_out1_port>, <&adx2_out2_port>,
++		       <&adx2_out3_port>, <&adx2_out4_port>,
++		       <&mixer_out1_port>, <&mixer_out2_port>,
++		       <&mixer_out3_port>, <&mixer_out4_port>,
++		       <&mixer_out5_port>,
+ 		       /* I/O DAP Ports */
+ 		       <&i2s3_port>, <&i2s4_port>,
+ 		       <&dmic1_port>, <&dmic2_port>;
 -- 
 2.7.4
 

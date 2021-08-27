@@ -2,94 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FBB63F9BB9
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Aug 2021 17:30:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0EEE3F9BCE
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Aug 2021 17:39:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D10751711;
-	Fri, 27 Aug 2021 17:29:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D10751711
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2BD4B1709;
+	Fri, 27 Aug 2021 17:38:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BD4B1709
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630078237;
-	bh=Z9YCxM19NTbHNIIyx/VhdPDuBCm5n/qvojvZGsNabQs=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=lwTUTSPw9rZFYGVnmPKcoIofQfaeI/GxemfE3brKybixxmNkDEFv6sSoF7tfllccr
-	 yFbGdFgrlNtm6lo4KGAC6STLcI8ohyaTE3ZqDix5J4D0MU6To+n0SCwjshcfYpfRYk
-	 buhZyAzO+SpzwRGgGm25bhuz05oDCArry/F0BSyM=
+	s=default; t=1630078763;
+	bh=WUqfD2pC6BWf112dl5CNJKTfdSh2hWR/AjSeTkNFVzw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=OCeePzTLyWkbYbqm3vEoEvqlmsgXYNm10WaY88BIj1lcHGjFTWB+qljW2gPtP1roe
+	 OdPsJnAeKLsCuLN9qiv2yE0YWBzaY/6xcmVTTGzOzDmCcBqhKxnz6U2Dg/qoApT/Tb
+	 VMTVOw9pMk+FDl5ipCvVby4PyThdhbsfYTsTMtww=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C2C6CF801D5;
-	Fri, 27 Aug 2021 17:29:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8F0A5F801D5;
+	Fri, 27 Aug 2021 17:38:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47CCAF80129; Fri, 27 Aug 2021 17:28:51 +0200 (CEST)
+ id 4EE02F80129; Fri, 27 Aug 2021 17:38:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
+ [IPv6:2607:f8b0:4864:20::535])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 74096F80054
- for <alsa-devel@alsa-project.org>; Fri, 27 Aug 2021 17:28:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74096F80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id DC05AF80054
+ for <alsa-devel@alsa-project.org>; Fri, 27 Aug 2021 17:37:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC05AF80054
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com
- header.b="yxixc4aH"
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.0.43) with SMTP id 17RAUIpe002666;
- Fri, 27 Aug 2021 17:28:36 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=LQt026cMUPGEhdGgKRHOAiE5md4Umql7XViI6VQ6s/U=;
- b=yxixc4aHPR4KoPUgPgfq8E6GkwcF32s8WK12A/Wt6wqr+9JjnKBftH/ukdFYEYmHyWWX
- hNUXNa8wbKgmKYVhNQKRGLNGFBb6WyAkpiNjqbKQzaGzCu6F8sVQsAf+PbkXQ1xhiYjc
- nPV3dG39tcLIaJPxMDVB2fiPo0SgYfmYQM3fp78gGuxhJe5aoboq/Rgot0ijMkA7dVFZ
- rUvgmY3BgQ21/4luLthdZkV1i1ai9kQnBUodZENHM2j8fhapHvmBcI7PKUYoj89tD5sj
- 38LLhPDObUIH5NWi2jNYO+yK/K+EY76+XplSLiv25fe0VYmXK/MTU50V8XFfefOSpToC BA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3apqmkv1nw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 27 Aug 2021 17:28:36 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AB17110002A;
- Fri, 27 Aug 2021 17:28:35 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 818CC239D64;
- Fri, 27 Aug 2021 17:28:35 +0200 (CEST)
-Received: from lmecxl0577.lme.st.com (10.75.127.49) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 27 Aug
- 2021 17:28:35 +0200
-Subject: Re: [PATCH 6/6] ASoC: audio-graph: remove Platform support
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-References: <871rb758x7.wl-kuninori.morimoto.gx@renesas.com>
- <87sg3n3ubg.wl-kuninori.morimoto.gx@renesas.com>
- <bc95a045-b370-8d7f-1167-34bd68e39165@foss.st.com>
- <87k0k916pj.wl-kuninori.morimoto.gx@renesas.com>
-From: Olivier MOYSAN <olivier.moysan@foss.st.com>
-Message-ID: <e6987f60-5d1c-7e53-bd39-600e2e16aa15@foss.st.com>
-Date: Fri, 27 Aug 2021 17:28:34 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="GjTnPpvK"
+Received: by mail-pg1-x535.google.com with SMTP id e7so6290281pgk.2
+ for <alsa-devel@alsa-project.org>; Fri, 27 Aug 2021 08:37:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=5fGpvFFSR6Z2EYtwBS3YhrtThiDvO4JMN2bAX/nLtf8=;
+ b=GjTnPpvKfExL0s9AksCZOm8pMb4kSmBZ9mH6ETTF8jNgP/Lle/6S4y1PDFxKgx7G39
+ bqx7wU0vDC1ic4bPsOJlWUpfc2IU2spHNl1HFc+XSVhimaU8mVrrTpPvGFd1ueZc69M3
+ sV9Peykj+t4iFVDqIr2rmjFgGwC+srymNI3xE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=5fGpvFFSR6Z2EYtwBS3YhrtThiDvO4JMN2bAX/nLtf8=;
+ b=nTxi4Y7aI3aqQEdyYGDRrHd1eDXfQ+4b+CzPi+YHE9/XwlBj7T7JyNTgoxMUjvEWGE
+ r66DleC4EKbaUmGgm7KpJYvHsIz59AEhiC2Uc9LpRyJw6HzWD6xS8GlnusMJAFgEJXJG
+ /Snlk8LZ9aQtSiteKawYtNB+JHavaehaDNeXXJcyojUSsnpcGwnDAS6A0vt8ZNNw2SGR
+ P2CrJILvsJnhF+TV6i1ibZGbp/QqPnUdax7V3boKZnF2uYv+izX4zd1POcCwAbGHS4Sd
+ 76D5jJ3x0qmyKaEed4kIr0hE4pE8ZHQRBChtm1qUALW0ByAzUWTLRd2stX6Q4qJS3+WT
+ fDPw==
+X-Gm-Message-State: AOAM530QQV7u2XMRtiydDQWtE0ZD9n4lW6tyTgExjj3s+Q+cwQFUHM25
+ CNLGOCraDUOMIMhW3S++8JF6ps/K0U0MUQ==
+X-Google-Smtp-Source: ABdhPJxMmXVJPN9uHneFkD4brsiADZYIke5VCr4D+/Nm0219HJQrONu/1yu1Lbt+Gm6erBlgJ4Rkrw==
+X-Received: by 2002:a63:cf41:: with SMTP id b1mr8387515pgj.407.1630078669693; 
+ Fri, 27 Aug 2021 08:37:49 -0700 (PDT)
+Received: from zsm-linux.mtv.corp.google.com
+ ([2620:15c:202:201:48c6:7176:3bae:a573])
+ by smtp.googlemail.com with ESMTPSA id y21sm6580263pfm.52.2021.08.27.08.37.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 27 Aug 2021 08:37:49 -0700 (PDT)
+From: Zubin Mithra <zsm@chromium.org>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2] ALSA: pcm: fix divide error in snd_pcm_lib_ioctl
+Date: Fri, 27 Aug 2021 08:37:35 -0700
+Message-Id: <20210827153735.789452-1-zsm@chromium.org>
+X-Mailer: git-send-email 2.33.0.259.gc128427fd7-goog
 MIME-Version: 1.0
-In-Reply-To: <87k0k916pj.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
- definitions=2021-08-27_04,2021-08-26_02,2020-04-07_01
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Content-Transfer-Encoding: 8bit
+Cc: groeck@chromium.org, tiwai@suse.com, Zubin Mithra <zsm@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,62 +94,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Kuninori,
+Syzkaller reported a divide error in snd_pcm_lib_ioctl. fifo_size
+is of type snd_pcm_uframes_t(unsigned long). If frame_size
+is 0x100000000, the error occurs.
 
-Thanks for your feedback
+Fixes: a9960e6a293e ("ALSA: pcm: fix fifo_size frame calculation")
+Signed-off-by: Zubin Mithra <zsm@chromium.org>
+---
+ sound/core/pcm_lib.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On 8/26/21 12:48 AM, Kuninori Morimoto wrote:
-> 
-> Hi Olivier
-> 
-> Thank you for conntacting me
-> 
->> I have seen that the STM32MP15 audio sound card is no more functional
->> with recent kernels (5.13 or 5.14)
->> The sound card is registered, but the all devices are issuing an error
->> at runtime. These devices are using stm32_sai.c or stm32_i2s.c
->> drivers.
->>
->> I found that the regression is linked to the commit
->> 63f2f9cceb09f8e5f668e36c1cf764eea468ebed "ASoC: audio-graph: remove
->> Platform support", as reverting this commit fixes the issue.
->>
->> When the platform component is missing the pcm_construct ops in the
->> pcm dmaengine, is never called, resulting in an incomplete
->> initialization of the sound card.
->> I can't figure out what is the right way to handle this change, however.
->> Do I need to update the CPU drivers to work without a platform component
->> or does the audio-graph card has to be changed in some way ?
-> 
-> Ahh, OK, I see.
-> Indeed the dev which is used for CPU is used at soc-generic-dmaengine as Platform,
-> without indicating it at DT (= simple-card has "plat" support for platform at DT,
-> but audio-graph doesn't ).
-> 
+diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+index 7d5883432085..a144a3f68e9e 100644
+--- a/sound/core/pcm_lib.c
++++ b/sound/core/pcm_lib.c
+@@ -1746,7 +1746,7 @@ static int snd_pcm_lib_ioctl_fifo_size(struct snd_pcm_substream *substream,
+ 		channels = params_channels(params);
+ 		frame_size = snd_pcm_format_size(format, channels);
+ 		if (frame_size > 0)
+-			params->fifo_size /= (unsigned)frame_size;
++			params->fifo_size /= frame_size;
+ 	}
+ 	return 0;
+ }
+-- 
+2.33.0.259.gc128427fd7-goog
 
-Yes, it seems that there is no way to force CPU to be used as platform 
-with audio-graph. so, asoc_simple_canonicalize_platform() is necessary 
-to do the job in this case.
-
-> I think key funciton is asoc_simple_canonicalize_platform().
-> 
->> What do you mean "We can respawn it when we need it", in the commit
->> message ?
-> 
-> This means we can revert this patch if needed, and yes it is needed :)
-> Could you please respawn the feature ? or I can do it if you want.
-> 
-
-I feel more confortable if you revert the commit, as you are the author 
-of the patch.
-Thanks.
-
-BRs
-Olivier
-
-> Thank you for your help !!
-> 
-> Best regards
-> ---
-> Kuninori Morimoto
-> 

@@ -2,83 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD3393F9169
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Aug 2021 02:50:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 051C33F91EC
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Aug 2021 03:32:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62FA716D0;
-	Fri, 27 Aug 2021 02:49:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62FA716D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8068D16CF;
+	Fri, 27 Aug 2021 03:31:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8068D16CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630025409;
-	bh=jJhO5xr4jD4L5Fq2yS4IKTWH9i1/r3XD/SgbtwKuSp4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ldVw2yFibUMc3lRvGg3H5XcPemlbYzlOFdYmUJmpz1gFQybRDjogIcSfW3ujaXjM/
-	 LB10bpegTbKKOkSK1bi6XoSTMaYOkgZlwXyIlS63zHzYPbBYacl9K2SSwfWQkLhedG
-	 wcVvU2MtZN0PWRCM9/RYLMeKxfoC9RIblED/4ABg=
+	s=default; t=1630027958;
+	bh=9+cWWN5dHvZDgAz4GjREADswXj9lIjA9Se0LARzVnSs=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=mbSof3BJtsuIAes3S52J+hd8ActOHeCiKPD8wKmGNG645PjygmJnDfnGs1uGwe18b
+	 EPmSt6VGBMjcmwEbGrgTNxEvONfgwlbAg7XFsg2YMo1v4lDD+MqCgKaHo0gnCKJZG8
+	 tqbq0RYQzdrGvMYVYSvzbcJbTN1yHgb0NzNXveW0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BAA94F80224;
-	Fri, 27 Aug 2021 02:48:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9673F80054;
+	Fri, 27 Aug 2021 03:31:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD525F801D8; Fri, 27 Aug 2021 02:48:49 +0200 (CEST)
+ id D2044F801D8; Fri, 27 Aug 2021 03:31:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com
- [IPv6:2607:f8b0:4864:20::42a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from regular1.263xmail.com (regular1.263xmail.com [211.150.70.206])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B84D1F8013F
- for <alsa-devel@alsa-project.org>; Fri, 27 Aug 2021 02:48:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B84D1F8013F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="hcGRC258"
-Received: by mail-pf1-x42a.google.com with SMTP id m26so4240654pff.3
- for <alsa-devel@alsa-project.org>; Thu, 26 Aug 2021 17:48:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=7P3yGvpBJYZTbfVO9vdp7nhv6sGS5hNUXHv3tavShLs=;
- b=hcGRC258WWXv0Zn4leDw7HcTNFc/KUywLUZ6oOmkTHSjxWGvNQsVNZ40qm3oz5nKdZ
- H3oJ7CUGndGqsx25Wvm1oAl2OHaPY5i1fiM20y8xbvqjrwW3Nctvj46OTIolvowrXWsq
- RLHLgyqgWZP1hg88ur/aVfksvAnaGxjvBzcSo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=7P3yGvpBJYZTbfVO9vdp7nhv6sGS5hNUXHv3tavShLs=;
- b=UR2PJ6+VDYEIH+4gIA/taaHJ+PYm0+kXGJ9oPrEHnbvxcWYCWhqchW1nKdx/Z06sWB
- +UBjDlo3JXHS/e9uqVZgAvg29qbwhyG4hG1I7POTtO2Y8YePsPHwSePjTcZkhY8/8vFZ
- lTUDemy4QzYLTg8DFpXVcTAyH5jXQ7e5j+IH0oeBLxCoLicGRGCGJrDmT8A63cyKIJX5
- Nrmvlag43g79c2D8L9X5JBa6mc3iR56rGloBvJuQO62R7hSPopS9Fs99QQ074mqPDNDd
- 0+V5tb8cIwxipaGCNZLXi7sFmQvlwQVXQ6uJ0J+bym/0N/nw7lEYNhPTKuQ4JbTrCl7g
- GQGQ==
-X-Gm-Message-State: AOAM532PujqAvPNG8xBAnHZ8W7U1ofwMCy0eKbzOG01cQcQ6DJBrE8jG
- 0fB7xeoTpf19bnGr1W/fy0NUAI64OE9sJA==
-X-Google-Smtp-Source: ABdhPJxQszY5/eViak38osQUCzxe1jUoCt4XOlaIPpdd6q63dJ1N2so1JtYxngv0wJ4+ptNmOovZvg==
-X-Received: by 2002:a63:d001:: with SMTP id z1mr5745239pgf.368.1630025316929; 
- Thu, 26 Aug 2021 17:48:36 -0700 (PDT)
-Received: from zsm-linux.mtv.corp.google.com
- ([2620:15c:202:201:515e:ea9f:fb49:198d])
- by smtp.googlemail.com with ESMTPSA id z1sm8979258pjr.0.2021.08.26.17.48.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Aug 2021 17:48:36 -0700 (PDT)
-From: Zubin Mithra <zsm@chromium.org>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: pcm: fix divide error in snd_pcm_lib_ioctl
-Date: Thu, 26 Aug 2021 17:48:21 -0700
-Message-Id: <20210827004821.3658015-1-zsm@chromium.org>
-X-Mailer: git-send-email 2.33.0.259.gc128427fd7-goog
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3B07F80054
+ for <alsa-devel@alsa-project.org>; Fri, 27 Aug 2021 03:31:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3B07F80054
+Received: from localhost (unknown [192.168.167.16])
+ by regular1.263xmail.com (Postfix) with ESMTP id 226A11B6D;
+ Fri, 27 Aug 2021 09:30:56 +0800 (CST)
+X-MAIL-GRAY: 0
+X-MAIL-DELIVERY: 1
+X-ADDR-CHECKED4: 1
+X-SKE-CHECKED: 1
+X-ABS-CHECKED: 1
+X-ANTISPAM-LEVEL: 2
+Received: from [172.16.12.19] (unknown [58.22.7.114])
+ by smtp.263.net (postfix) whith ESMTP id
+ P702T139881204397824S1630027855737448_; 
+ Fri, 27 Aug 2021 09:30:56 +0800 (CST)
+X-IP-DOMAINF: 1
+X-UNIQUE-TAG: <5a3fa2c24523a228756e99ae0148fe0c>
+X-RL-SENDER: sugar.zhang@rock-chips.com
+X-SENDER: zxg@rock-chips.com
+X-LOGIN-NAME: sugar.zhang@rock-chips.com
+X-FST-TO: alsa-devel@alsa-project.org
+X-RCPT-COUNT: 6
+X-SENDER-IP: 58.22.7.114
+X-ATTACHMENT-NUM: 0
+X-System-Flag: 0
+Subject: =?UTF-8?Q?Re=3a_=5bPATCH_v1_6/7=5d_ASoC=3a_dt-bindings=3a_rockchip?=
+ =?UTF-8?B?OiBwZG06IERvY3VtZW50IHByb3BlcnR5ICdyb2NrY2hpcCxwYXRoLW1hcCfjgJA=?=
+ =?UTF-8?B?6K+35rOo5oSP77yM6YKu5Lu255Sxcm9iaGVycmluZzJAZ21haWwuY29t5Luj5Y+R?=
+ =?UTF-8?B?44CR?=
+To: Rob Herring <robh@kernel.org>
+References: <1629791446-13528-1-git-send-email-sugar.zhang@rock-chips.com>
+ <1629791656-13698-1-git-send-email-sugar.zhang@rock-chips.com>
+ <YSUlPU+yxepPrcvL@robh.at.kernel.org>
+From: sugar zhang <sugar.zhang@rock-chips.com>
+Message-ID: <8b702562-e0b0-fb4e-14f5-8b5419036a0a@rock-chips.com>
+Date: Fri, 27 Aug 2021 09:30:54 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
+In-Reply-To: <YSUlPU+yxepPrcvL@robh.at.kernel.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Cc: groeck@chromium.org, tiwai@suse.com, Zubin Mithra <zsm@chromium.org>
+Cc: linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
+ broonie@kernel.org, heiko@sntech.de, devicetree@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,29 +93,69 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Syzkaller reported a divide error in snd_pcm_lib_ioctl. fifo_size
-is of type snd_pcm_uframes_t(unsigned long). If frame_size
-is 0x100000000, the error occurs.
+Hi Rob,
 
-Fixes: a9960e6a293e ("ALSA: pcm: fix fifo_size frame calculation")
-Signed-off-by: Zubin Mithra <zsm@chromium.org>
----
- sound/core/pcm_lib.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 2021/8/25 0:58, Rob Herring wrote:
+> On Tue, Aug 24, 2021 at 03:54:15PM +0800, Sugar Zhang wrote:
+>> This is an optional property to describe data path mapping.
+>>
+>> Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
+>> ---
+>>
+>>   Documentation/devicetree/bindings/sound/rockchip,pdm.txt | 16 ++++++++++++++++
+>>   1 file changed, 16 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/sound/rockchip,pdm.txt b/Documentation/devicetree/bindings/sound/rockchip,pdm.txt
+>> index 54d94438..b2d7e47 100644
+>> --- a/Documentation/devicetree/bindings/sound/rockchip,pdm.txt
+>> +++ b/Documentation/devicetree/bindings/sound/rockchip,pdm.txt
+>> @@ -24,6 +24,22 @@ Required properties:
+>>   	     pinctrl-names. See ../pinctrl/pinctrl-bindings.txt
+>>   	     for details of the property values.
+>>   
+>> +Optional properties:
+>> +- rockchip,path-map: This is a variable length array, that shows the mapping
+> The schema says this is a fixed length array.
 
-diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
-index 7d5883432085..e41b4e01aa37 100644
---- a/sound/core/pcm_lib.c
-+++ b/sound/core/pcm_lib.c
-@@ -1746,7 +1746,7 @@ static int snd_pcm_lib_ioctl_fifo_size(struct snd_pcm_substream *substream,
- 		channels = params_channels(params);
- 		frame_size = snd_pcm_format_size(format, channels);
- 		if (frame_size > 0)
--			params->fifo_size /= (unsigned)frame_size;
-+			params->fifo_size /= (unsigned long)frame_size;
- 	}
- 	return 0;
- }
+Actually, it varies depends on different controller or application. 
+considering the situation:
+
+for 4 channel, we use path0/1, and hw wired to sdi1/3. we can map them 
+to path0/1 as follows:
+
+rockchip,path-map = <1 3>;
+
+>
+>> +  of SDIx to PATHx. By default, they are one-to-one mapping as follows:
+>> +
+>> +   path0 <-- sdi0
+>> +   path1 <-- sdi1
+>> +   path2 <-- sdi2
+>> +   path3 <-- sdi3
+>> +
+>> +  e.g. "rockchip,path-map = <3 2 1 0>" means the mapping as follows:
+>> +
+>> +   path0 <-- sdi3
+>> +   path1 <-- sdi2
+>> +   path2 <-- sdi1
+>> +   path3 <-- sdi0
+>> +
+>>   Example for rk3328 PDM controller:
+>>   
+>>   pdm: pdm@ff040000 {
+>> -- 
+>> 2.7.4
+>>
+>>
+>>
+>>
+>
+>
 -- 
-2.33.0.259.gc128427fd7-goog
+Best Regards!
+张学广/Sugar
+瑞芯微电子股份有限公司
+Rockchip Electronics Co., Ltd.
+
+
 

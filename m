@@ -2,60 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 630093F945E
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Aug 2021 08:24:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37C9C3F942F
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Aug 2021 08:06:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD66516D6;
-	Fri, 27 Aug 2021 08:23:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD66516D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2BC716D2;
+	Fri, 27 Aug 2021 08:05:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2BC716D2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630045472;
-	bh=NRLilQBX6upR7K9xd0F+U7yhfyJVIDa1sBPbqFPBU4o=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ENH309qP/O4bTlJlsSMJOIm1S4+v9MtW+KnTSayI39hIuMpc7ouywoWn4LYid433o
-	 QLvbvSyVgbOzNaSCDmnsDgNshMzvFkpyjVCHy3L55VBNFOlw9gfnw1aXUlOuirMM6f
-	 WQOH/hwDoUo6pFmKEvq9944E11+fFm8b4HWwFg3w=
+	s=default; t=1630044394;
+	bh=eAnsG5V5paWxdYVBkztLRRsCmWTErEPPWuFl4t8EGG0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=kyEvR+u//sWbXLj/UGVr71hXbfDaTHrYdhbc+dq8oj2SVkYyjfRpUVvMAeJ0A8avd
+	 1sBq/qIGsFPQiKktazFWvB3QTYZkecvOE0FaUtjLY+OTJLjEr2+FXCgqJQCq9tH8fo
+	 d5Ds1tffMVSCPyvWfXdXZNLhTO0vX6bqTp/zM43s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A55DF80054;
-	Fri, 27 Aug 2021 08:23:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA778F801D5;
+	Fri, 27 Aug 2021 08:05:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9C27F80129; Fri, 27 Aug 2021 08:23:12 +0200 (CEST)
+ id 008D4F80107; Fri, 27 Aug 2021 08:05:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 60255F800EE
- for <alsa-devel@alsa-project.org>; Fri, 27 Aug 2021 08:23:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60255F800EE
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 55FD1200FE7;
- Fri, 27 Aug 2021 08:23:04 +0200 (CEST)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com
- (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id DBF18200E4B;
- Fri, 27 Aug 2021 08:23:03 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 6E4D8183AC8B;
- Fri, 27 Aug 2021 14:23:02 +0800 (+08)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org
-Subject: [PATCH v2] ASoC: fsl_rpmsg: add soc specific data structure
-Date: Fri, 27 Aug 2021 14:00:38 +0800
-Message-Id: <1630044038-19036-1-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id AFCD9F80054
+ for <alsa-devel@alsa-project.org>; Fri, 27 Aug 2021 08:05:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFCD9F80054
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="dEvuJrPY"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="cxDBAEAh"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 4CCFD22351;
+ Fri, 27 Aug 2021 06:05:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1630044300; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=GE7H1BebSgn36A66RQiYSkTdcbYRyfuC4hjsDPB8wrg=;
+ b=dEvuJrPYjq51q43BHkpavIg70fEjMC7SSrcgBSlbwfXcDcqOhReynq/PipEhG4va6Jz5u4
+ hF09IRCxWLAzdlZOLXoaBXcgaX/MvlDYUZs+MQWn06RbiVnPBajn+p78Az7kuWcx9tOsMB
+ qT0rkQiEu/ohy2P+ZkQJiq/tiRxnwZw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1630044300;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=GE7H1BebSgn36A66RQiYSkTdcbYRyfuC4hjsDPB8wrg=;
+ b=cxDBAEAhtz4fhxy+GieOHUkPfxPOc1fteDhFabYWINBSO5XNnLAp0WXxHxEKrxOm+dPFhO
+ wpjOHBDx1iz6xnCg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 45AF0A3B91;
+ Fri, 27 Aug 2021 06:05:00 +0000 (UTC)
+Date: Fri, 27 Aug 2021 08:05:00 +0200
+Message-ID: <s5hk0k7toc3.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Zubin Mithra <zsm@chromium.org>
+Subject: Re: [PATCH] ALSA: pcm: fix divide error in snd_pcm_lib_ioctl
+In-Reply-To: <20210827004821.3658015-1-zsm@chromium.org>
+References: <20210827004821.3658015-1-zsm@chromium.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: groeck@chromium.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,123 +92,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Each platform has different supported rates and
-formats, so add soc specific data for each platform.
-This soc specific data is attached with compatible string.
+On Fri, 27 Aug 2021 02:48:21 +0200,
+Zubin Mithra wrote:
+> 
+> Syzkaller reported a divide error in snd_pcm_lib_ioctl. fifo_size
+> is of type snd_pcm_uframes_t(unsigned long). If frame_size
+> is 0x100000000, the error occurs.
+> 
+> Fixes: a9960e6a293e ("ALSA: pcm: fix fifo_size frame calculation")
+> Signed-off-by: Zubin Mithra <zsm@chromium.org>
+> ---
+>  sound/core/pcm_lib.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+> index 7d5883432085..e41b4e01aa37 100644
+> --- a/sound/core/pcm_lib.c
+> +++ b/sound/core/pcm_lib.c
+> @@ -1746,7 +1746,7 @@ static int snd_pcm_lib_ioctl_fifo_size(struct snd_pcm_substream *substream,
+>  		channels = params_channels(params);
+>  		frame_size = snd_pcm_format_size(format, channels);
+>  		if (frame_size > 0)
+> -			params->fifo_size /= (unsigned)frame_size;
+> +			params->fifo_size /= (unsigned long)frame_size;
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-Reviewed-by: Fabio Estevam <festevam@gmail.com>
----
-changes in v2:
-- remove checking rpmsg->soc_data is NULL
-- add Reviewed-by Fabio
+I guess we can drop the cast completely, instead?
+It'd be less ugliness.
 
- sound/soc/fsl/fsl_rpmsg.c | 46 +++++++++++++++++++++++++++++++++++----
- sound/soc/fsl/fsl_rpmsg.h | 12 ++++++++++
- 2 files changed, 54 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_rpmsg.c b/sound/soc/fsl/fsl_rpmsg.c
-index d60f4dac6c1b..07abad7fe372 100644
---- a/sound/soc/fsl/fsl_rpmsg.c
-+++ b/sound/soc/fsl/fsl_rpmsg.c
-@@ -138,11 +138,42 @@ static const struct snd_soc_component_driver fsl_component = {
- 	.name           = "fsl-rpmsg",
- };
- 
-+static const struct fsl_rpmsg_soc_data imx7ulp_data = {
-+	.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |
-+		 SNDRV_PCM_RATE_48000,
-+	.formats = SNDRV_PCM_FMTBIT_S16_LE,
-+};
-+
-+static const struct fsl_rpmsg_soc_data imx8mm_data = {
-+	.rates = SNDRV_PCM_RATE_KNOT,
-+	.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |
-+		   SNDRV_PCM_FMTBIT_S32_LE | SNDRV_PCM_FMTBIT_DSD_U8 |
-+		   SNDRV_PCM_FMTBIT_DSD_U16_LE | SNDRV_PCM_FMTBIT_DSD_U32_LE,
-+};
-+
-+static const struct fsl_rpmsg_soc_data imx8mn_data = {
-+	.rates = SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 |
-+		 SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_88200 |
-+		 SNDRV_PCM_RATE_96000 | SNDRV_PCM_RATE_176400 |
-+		 SNDRV_PCM_RATE_192000,
-+	.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |
-+		   SNDRV_PCM_FMTBIT_S32_LE,
-+};
-+
-+static const struct fsl_rpmsg_soc_data imx8mp_data = {
-+	.rates = SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 |
-+		 SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_88200 |
-+		 SNDRV_PCM_RATE_96000 | SNDRV_PCM_RATE_176400 |
-+		 SNDRV_PCM_RATE_192000,
-+	.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |
-+		   SNDRV_PCM_FMTBIT_S32_LE,
-+};
-+
- static const struct of_device_id fsl_rpmsg_ids[] = {
--	{ .compatible = "fsl,imx7ulp-rpmsg-audio"},
--	{ .compatible = "fsl,imx8mm-rpmsg-audio"},
--	{ .compatible = "fsl,imx8mn-rpmsg-audio"},
--	{ .compatible = "fsl,imx8mp-rpmsg-audio"},
-+	{ .compatible = "fsl,imx7ulp-rpmsg-audio", .data = &imx7ulp_data},
-+	{ .compatible = "fsl,imx8mm-rpmsg-audio", .data = &imx8mm_data},
-+	{ .compatible = "fsl,imx8mn-rpmsg-audio", .data = &imx8mn_data},
-+	{ .compatible = "fsl,imx8mp-rpmsg-audio", .data = &imx8mp_data},
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, fsl_rpmsg_ids);
-@@ -157,6 +188,13 @@ static int fsl_rpmsg_probe(struct platform_device *pdev)
- 	if (!rpmsg)
- 		return -ENOMEM;
- 
-+	rpmsg->soc_data = of_device_get_match_data(&pdev->dev);
-+
-+	fsl_rpmsg_dai.playback.rates = rpmsg->soc_data->rates;
-+	fsl_rpmsg_dai.capture.rates = rpmsg->soc_data->rates;
-+	fsl_rpmsg_dai.playback.formats = rpmsg->soc_data->formats;
-+	fsl_rpmsg_dai.capture.formats = rpmsg->soc_data->formats;
-+
- 	if (of_property_read_bool(np, "fsl,enable-lpa")) {
- 		rpmsg->enable_lpa = 1;
- 		rpmsg->buffer_size = LPA_LARGE_BUFFER_SIZE;
-diff --git a/sound/soc/fsl/fsl_rpmsg.h b/sound/soc/fsl/fsl_rpmsg.h
-index 4f5b49eb18d8..b04086fbf828 100644
---- a/sound/soc/fsl/fsl_rpmsg.h
-+++ b/sound/soc/fsl/fsl_rpmsg.h
-@@ -6,6 +6,16 @@
- #ifndef __FSL_RPMSG_H
- #define __FSL_RPMSG_H
- 
-+/*
-+ * struct fsl_rpmsg_soc_data
-+ * @rates: supported rates
-+ * @formats: supported formats
-+ */
-+struct fsl_rpmsg_soc_data {
-+	int rates;
-+	u64 formats;
-+};
-+
- /*
-  * struct fsl_rpmsg - rpmsg private data
-  *
-@@ -15,6 +25,7 @@
-  * @pll8k: parent clock for multiple of 8kHz frequency
-  * @pll11k: parent clock for multiple of 11kHz frequency
-  * @card_pdev: Platform_device pointer to register a sound card
-+ * @soc_data: soc specific data
-  * @mclk_streams: Active streams that are using baudclk
-  * @force_lpa: force enable low power audio routine if condition satisfy
-  * @enable_lpa: enable low power audio routine according to dts setting
-@@ -27,6 +38,7 @@ struct fsl_rpmsg {
- 	struct clk *pll8k;
- 	struct clk *pll11k;
- 	struct platform_device *card_pdev;
-+	const struct fsl_rpmsg_soc_data *soc_data;
- 	unsigned int mclk_streams;
- 	int force_lpa;
- 	int enable_lpa;
--- 
-2.17.1
+Thanks!
 
+Takashi

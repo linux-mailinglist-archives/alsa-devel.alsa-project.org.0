@@ -2,122 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EA8E3F9726
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Aug 2021 11:39:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71CAA3F9727
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Aug 2021 11:40:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A9F6016D0;
-	Fri, 27 Aug 2021 11:38:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9F6016D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0394616E4;
+	Fri, 27 Aug 2021 11:39:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0394616E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630057180;
-	bh=iBpPzbqc4JtuCGLn3kDyuMCjPxanvFIKMO8fGnSYLQs=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=qWlanAkYtp7GSwRysLU6OvXmUVDcdnXm+ByC8wpvR2Ap9FuFVHj1h+WqZg8jWHNyQ
-	 PIcQLVOMbR1JCRjOgNx82cZjZ496mpuhrKdVj/CYv+fJh6/umIBpCxE67MvJhL0DsH
-	 PP0VXq1cHWiVrciGVmK9pGXIDhDILA7otxWHi1sY=
+	s=default; t=1630057204;
+	bh=Ol3w9he3LwwCt4LZ9fWGWS1i6g3jY5hLeW767u+7+7w=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=aByD9qMchT37O6tW8lO/xS+8/HKCpKmUnQOBd2KV86WEqIEDOdKKHYbAnDuGLFghv
+	 BF7iXHSkTklqVhd/C5aGhSet8Y+uEmSTcJNlyjkqG7J5mECTpyIEB7MIpnpmkE1RRc
+	 u189gQZFs5vZKDEGR+CI5n6F99Z1q1VfVGrhB6j0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2F88F800FD;
-	Fri, 27 Aug 2021 11:38:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE1D3F804E5;
+	Fri, 27 Aug 2021 11:38:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 971F2F801D5; Fri, 27 Aug 2021 11:38:19 +0200 (CEST)
+ id B6AFDF800FD; Fri, 27 Aug 2021 11:38:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2051.outbound.protection.outlook.com [40.107.95.51])
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2067.outbound.protection.outlook.com [40.107.92.67])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B4230F800EE
- for <alsa-devel@alsa-project.org>; Fri, 27 Aug 2021 11:38:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4230F800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6FB63F800FD
+ for <alsa-devel@alsa-project.org>; Fri, 27 Aug 2021 11:38:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FB63F800FD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
- header.b="gFcYzlKl"
+ header.b="c8KD5QbO"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SiUzxqGT6p6UC0xY0vwlGQfh9+GbEw0XiCLk7QfRhLqKNauasBkrFslhoPp7hFpHinEUtlX/YLBYZc1QVdHP44feR4doaTxTTWnCtVqjSNyFd1S3Ysrpr++ttNQ085IfLpRVWyAJE8C30gqnwLcppV/JyrmU7lpji80VN8hOyzLbEPNc6NRW+eNuqd+6iUGUAddHsIbtz0Ge32lHzaaB3leITDP5CQyM1d//uLF/vmeH1SoJo+jf3ZRPIYbz0Dvtu6ZxNAORHTRfDCeTmcX3KkojfDMOJuQd23+Lv9o4G+2i/47y7tO8+Y/EU8qrqzE7tAvn/sjqSJ1MJlvom6S5RA==
+ b=IfkHCyFWrVQrZuAHLZ2kOjx9u/s+aGr7/KEX9FPON15DRSzwn/fkSUPJnGtbskJYhYSfhk63eblohIF0wdwY729hdvQKEYlOosmIMV5cH3840KOVzAur1IiIqTuGx0TDYKhawWVShyTwZI4rlI6+QroyX26T4Pdi6Bz+/NKO8GDzG4oXRx3GNVxMqxYlWHVAvOhgpaNnrgdApLytLAHA08kXzh+KeQSfeR99nllIopX+jxLC3k/QWx+3mHxVIRpPWU7E2RILuWsEhiURSc0WXXSXz0MiyXeFP08gjQ5+k2yGT570WPLOjQLpiJEEe4gPXG6EtLURVzCv1ZTEHmM61w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gjhy7U70NKjTDqJznE+Jnz0hAzb4F9IvniTmN1Zt5CQ=;
- b=ItAH45A/bo0ru6AJ/f+l8kDttg0JNCdIEnc51tSw/EE9gmjenPFU6Wusmo73F4ulB9wDni5V0FARnJYGNS4AAfknZSMcyhqLOxvl9QGNUPNunsDeFFUvFMEVhhZYtcRMu9tC/9u8aHxbNrEq8gbRGyPT6mhRz8MxDhwYW2fU8JIfhC7VLB9xR0p12R4tqV115ADwiNGhnrgovUyAK2T14yn8CmoRcVU06w1Y8rTf+KZ50ZwrjO+pmHeHLEvge9NB/TNhhk7IVsUcDeoLxyYUp0jOm/5uFFiYD7+HDEH5kAUJVZNfykEghtqCo9/VUcUHVslr3Af92Cmn8IHSeFwmGg==
+ bh=iFTbsDkuVYP2/LwOBrQPr7RlWjy5g8Fmm212SeVfETo=;
+ b=PqBsE1Hdng6ugVIEz40jpeaE8KeJxsT0rKjgLqvi9/Ca7MD1z08Ki/zXDiwN94dDaxbh0szGCvgn1pBFD5cMsHpw5vsWvCDGewv5Ifbv+fNOCd0/Ti2pc8mYE+77jUQ1GL3P78b6SRvZHzQpquAI+JoAZQpqwzs9qX4iXGUDouNuUeTBulUkCJOPS9Oau5zf47iYtQZQl4HC3uvefO+Gg3Dwz57tDp5rUqTIqfis4HIU7lj2WjDiIMqXGY1niItWjiPwNcNkgA3V0nqdRhTj5z3KQxm2207cWllLFEcn+Z0XtNmd2StKKfsiR1S2+BT5vpbORFoj2gAGctjsnlkK0A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.112.32) smtp.rcpttodomain=alsa-project.org smtp.mailfrom=nvidia.com;
+ 216.228.112.36) smtp.rcpttodomain=alsa-project.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=nvidia.com; 
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gjhy7U70NKjTDqJznE+Jnz0hAzb4F9IvniTmN1Zt5CQ=;
- b=gFcYzlKlD6btZ7J2ikBD9tRKU7EHAbtXQ0bNqGyoGadHZ/1CBZKaXxJQPKSvBpaDIusY5Qn9aptNjB0/4Vzj1GAKygNekeuJVjvajOdu3awUNWD4b1GHNPU063be6XiwuAODn7zasXfxQwLVOFT4pu9CAtIsRQ+nrT/C/UJUE/KcXLno7GoDbBhMFXNb43Wl/RjZBmEb4aWQhG9bbcZdwkR3aOiu58Xbp7AB23ZgImYgapmYi/zpyJddaGaYcFIYi+2SMq3N6Dh7iKdbvQZLNT3+Ks8Sz/9+MSS1gu8Ebdle1uoIMAseg/ku7twpND+I7fxWCgyErLAKHia2LNVWFw==
-Received: from DM6PR02CA0160.namprd02.prod.outlook.com (2603:10b6:5:332::27)
- by DM5PR1201MB0156.namprd12.prod.outlook.com (2603:10b6:4:59::9) with
+ bh=iFTbsDkuVYP2/LwOBrQPr7RlWjy5g8Fmm212SeVfETo=;
+ b=c8KD5QbOa/lyrsGia2axLeaEINR40F7EIHhXZBvbXWZVYSF7o/7sZ6xF0t26ftQmgl1cmv0AFcwYWlTOO9a2gJ7kRiKuGHRCsrUTM+PmxbekujgMpCfhfK2geev6OnkmZGo0QNPG0Gc1Ew2ztQ5RyEBx3e1+frXxpIS/cAjd6Fd2VBOfwOVk5b/KJ0UWWU9EBGAuOPHTwzuHjOUthU4caOh8G6tLtPh13z6AfvjavoTgztV+PxRKQjrgxjrcN9nICDaqbkUr5r6o40o08xdjz+jfEPEdMANDGaC7UoAlWYBbZ5biT0SKfPOEFCqNCJEMyBgpwPyWGg2H3P6JPPMQrw==
+Received: from DM6PR07CA0102.namprd07.prod.outlook.com (2603:10b6:5:337::35)
+ by DM6PR12MB4635.namprd12.prod.outlook.com (2603:10b6:5:16b::33) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.18; Fri, 27 Aug
- 2021 09:38:05 +0000
-Received: from DM6NAM11FT027.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:332:cafe::96) by DM6PR02CA0160.outlook.office365.com
- (2603:10b6:5:332::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.17 via Frontend
- Transport; Fri, 27 Aug 2021 09:38:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.32)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.21; Fri, 27 Aug
+ 2021 09:38:10 +0000
+Received: from DM6NAM11FT008.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:337:cafe::d8) by DM6PR07CA0102.outlook.office365.com
+ (2603:10b6:5:337::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.20 via Frontend
+ Transport; Fri, 27 Aug 2021 09:38:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.36)
  smtp.mailfrom=nvidia.com; alsa-project.org; dkim=none (message not signed)
  header.d=none;alsa-project.org; dmarc=pass action=none
  header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.112.32 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.112.32; helo=mail.nvidia.com;
-Received: from mail.nvidia.com (216.228.112.32) by
- DM6NAM11FT027.mail.protection.outlook.com (10.13.172.205) with Microsoft SMTP
+ 216.228.112.36 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.112.36; helo=mail.nvidia.com;
+Received: from mail.nvidia.com (216.228.112.36) by
+ DM6NAM11FT008.mail.protection.outlook.com (10.13.172.85) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.4457.17 via Frontend Transport; Fri, 27 Aug 2021 09:38:04 +0000
-Received: from HQMAIL101.nvidia.com (172.20.187.10) by HQMAIL109.nvidia.com
- (172.20.187.15) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 27 Aug
- 2021 02:38:03 -0700
+ 15.20.4457.17 via Frontend Transport; Fri, 27 Aug 2021 09:38:08 +0000
+Received: from HQMAIL101.nvidia.com (172.20.187.10) by HQMAIL101.nvidia.com
+ (172.20.187.10) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 27 Aug
+ 2021 09:38:07 +0000
 Received: from audio.nvidia.com (172.20.187.5) by mail.nvidia.com
  (172.20.187.10) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Fri, 27 Aug 2021 09:37:59 +0000
+ Transport; Fri, 27 Aug 2021 09:38:03 +0000
 From: Sameer Pujar <spujar@nvidia.com>
 To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <robh+dt@kernel.org>,
  <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
  <catalin.marinas@arm.com>, <will@kernel.org>, <perex@perex.cz>,
  <tiwai@suse.com>, <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 00/13] Extend AHUB audio support for Tegra210 and later
-Date: Fri, 27 Aug 2021 15:03:46 +0530
-Message-ID: <1630056839-6562-1-git-send-email-spujar@nvidia.com>
+Subject: [PATCH 01/13] ASoC: soc-pcm: Don't reconnect an already active BE
+Date: Fri, 27 Aug 2021 15:03:47 +0530
+Message-ID: <1630056839-6562-2-git-send-email-spujar@nvidia.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1630056839-6562-1-git-send-email-spujar@nvidia.com>
+References: <1630056839-6562-1-git-send-email-spujar@nvidia.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c21b12bd-903c-4f53-d2e7-08d9693e5e80
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB0156:
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB0156B87FC26A504308E92A4FA7C89@DM5PR1201MB0156.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Office365-Filtering-Correlation-Id: 1fe96020-f280-42c2-46c4-08d9693e6110
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4635:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4635E10E17370D024073E076A7C89@DM6PR12MB4635.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FPW+pUo/pd+ylTpYtp9uji67OXgPscy28fqAMMdhGojLkHWI5HKi09UdE+hGt41vg+T5RPB+exmb3KyzfL5caJSnbk9+VMz1h2MFmMPdiP4Cmhlo+DG7pYdKr/BjjBXsktUANqfVC0p0riB7estLeGxazvvzXoG0aXtrTok34qU+GsXIBB4uGx/YwyGcdKN4eEbjf6bmwU8hZUteOOWwng2Lbgl+kY36+N3Rk18qZ1erZicm22igYTF7b65XZaqs7DqMZqBS6CuHnFvhrVR1YNqa5vwBx5ibUunC+p3gIhmLRan2LsAOtXsB3LF62/K87SE5sA7VGuxAo7AawBANAg5Wa39dYbG6UqUW4XlfS/AtW+xUFMYz6efjirifaJs+pF/kPNTwzEWSqjAufjNgBh84mNhXKm96ivBrnQyfyxPjSXnIBuGfWUvKd+vv3P9IUgLEE7F7IDgB0PSzuAgbkdX++s6xnNodGv7UpifRQYHJFVJyUvioKD2mSCI6j3VBpPOYRCsEMuY3eoUJhXYscphJ+suGsUjDvE5c5pAvY4wynOX3IOkZdfF6yr3MqtONVPSywpmGJaThmdvm/4Nqk+4pVqpDXpWlPys4MxZj6/lwTsgXFeVpiJIhEew5wcEZqoYJB0Qwt2jGH254b4YsdlI7pLMfjixHeN9ryMJQ1PGsxPvU7hFI5N/VsE6zdDQNfah+V+E/1eyFtBMqPLW3b+tQtUAOV2xOXN02XjiWYW12VYnhp/LbiUF/iZfUJC8wDVfrQRF/UttdQVPRMENHamMInarYYmpKLqA8bQcOVkugNCQuF+YT+F64+B67zNRGCkKQwGngckts9CefM3Bdeg==
-X-Forefront-Antispam-Report: CIP:216.228.112.32; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid01.nvidia.com; CAT:NONE;
- SFS:(4636009)(136003)(396003)(346002)(39860400002)(376002)(36840700001)(46966006)(2616005)(7696005)(7636003)(36860700001)(186003)(70586007)(82740400003)(6666004)(426003)(7416002)(5660300002)(26005)(336012)(107886003)(110136005)(47076005)(54906003)(316002)(4326008)(478600001)(966005)(8936002)(36756003)(356005)(82310400003)(921005)(2906002)(86362001)(8676002)(70206006)(83380400001)(21314003);
+X-Microsoft-Antispam-Message-Info: dihKgpca86wLb1lSb3VhG+CizXFCKD4tabpiDXHzXs7UT82YMpIDQNnoI2LirZr4ytp28iFlUsDiu//Y4+AkWstqUcY8/nr9ibOvTyxOVRBQ8iiOt3wQ6m5nsk4fh8N/28trDeBCW9ACCmigfS2IRBfMovXawIHHqN2Hh3zLIxAETDcN6lOsjAU+YFpZqdwHT7OQ1cFZpFYzEIolKDRNkGMJc9cGWaPUV0QjBvKekpP48uvZ9ABrN1BliJk2n0+YFUc0s4EX2/LIaSJTtiGHiHLoJQRsC6srV/CBTa7/gcksr25Y/t1vN7XsD8qukK1dhepal6rFaKrNHGYFmkOexMfd//pZr/hciAGc5pUh43EfYSlnwIrYxJlSL0wjJ3yyLEIKVkiaoDS/iZscYWDPT06ERBWkXCXPtKgqTGh1RLHvBZGEI1lnk33/pytdb0i6Z042hHm3IXu4EA+cyppJ8HCpJ+qkChjKiwEybaaK7FwObLhIl8QNcNisAvpJxSFeBRmm4u6rjasXnm9XEilzZe58NmqTYR7eTp53gYUxwFhzS2HgmmaaicJYThCj1AajqgJkEDEKnTnUJXyMdZ2oEqa3raEEvevdPhJKi/QlXoKsusNhSs7S588d3vRsbGSZ9tCKgS/wGmMPMRr8QI4Lbccvv5yVE5Z7+7guf44Gyw7OsiWaJHrcE8JXjxFyEkg9LpNEf38IodCtgUwr7eNyJrVfEs84feBifRZEdl80a2A=
+X-Forefront-Antispam-Report: CIP:216.228.112.36; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid05.nvidia.com; CAT:NONE;
+ SFS:(4636009)(136003)(376002)(346002)(396003)(39860400002)(46966006)(36840700001)(70586007)(26005)(107886003)(336012)(2616005)(70206006)(54906003)(4326008)(7416002)(7636003)(356005)(8936002)(82740400003)(8676002)(86362001)(426003)(36860700001)(921005)(36906005)(83380400001)(110136005)(82310400003)(316002)(7696005)(47076005)(478600001)(36756003)(6666004)(186003)(5660300002)(2906002);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2021 09:38:04.2026 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c21b12bd-903c-4f53-d2e7-08d9693e5e80
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2021 09:38:08.5851 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1fe96020-f280-42c2-46c4-08d9693e6110
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.32];
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.36];
  Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT027.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT008.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0156
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4635
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Sameer Pujar <spujar@nvidia.com>, linux-kernel@vger.kernel.org,
  linux-tegra@vger.kernel.org, sharadg@nvidia.com,
@@ -137,104 +140,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Earlier as part of series [0], support for ADMAIF and I/O modules (such
-as I2S, DMIC and DSPK) was added. This series aims at exposing some of
-the AHUB internal modules (listed below), which can be used for audio
-pre or post processing.
+In some cases, multiple FE components have the same BE component in their
+respective DPCM paths. One such example would be a mixer component, which
+can receive two or more inputs and sends a mixed output. In such cases,
+to avoid reconfiguration of already active DAI (mixer output DAI in this
+case), check the BE stream state to filter out the redundancy.
 
-  * SFC (Sampling Frequency Converter)
-  * MVC (Master Volume Control)
-  * AMX (Audio Multiplexer)
-  * ADX (Audio Demultiplexer)
-  * Mixer
+In summary, allow connection of BE if the respective current stream state
+is either NEW or CLOSED.
 
-These modules can be plugged into audio paths and relevant processing
-can be done. The MUX routes are extended to allow add or remove above
-modules in the path via mixer controls. This is similar to how specific
-ADMAIF channels are connected to relevant I/O module instances at the
-moment.
+Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+---
+ sound/soc/soc-pcm.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Some of these modules can alter PCM parameters. Consider example of
-resampler (44.1 -> 48 kHz) in the path.
-
-  aplay(44.1 kHz) -> ADMAIF -> SFC -> (48 kHz) I2S -> (48kHz) Codec
-
-The modules following SFC should be using converted sample rate and DAIs
-need to be configured accordingly. The audio-graph driver provides a
-mechanism to fixup the new parameters which can be specified in DT for a
-given DAI. Then core uses these new values via fixup callback and then
-pass it to respective DAIs hw_param() callback. The "convert-rate",
-described in [1], property can be used when there is rate conversion in
-the audio path. Similarly "convert-channels" can be used when there is
-channel conversion in the path. There is no "convert-xxx" property for
-sample size conversions. It can be added if necessary.
-
-[0] https://www.lkml.org/lkml/2020/7/21/1357
-[1] Documentation/devicetree/bindings/sound/audio-graph-port.yaml 
-
-Sameer Pujar (13):
-  ASoC: soc-pcm: Don't reconnect an already active BE
-  ASoC: simple-card-utils: Increase maximum DAI links limit to 512
-  ASoC: audio-graph: Fixup CPU endpoint hw_params in a BE<->BE link
-  ASoC: dt-bindings: tegra: Few more Tegra210 AHUB modules
-  ASoC: tegra: Add routes for few AHUB modules
-  ASoC: tegra: Add Tegra210 based MVC driver
-  ASoC: tegra: Add Tegra210 based SFC driver
-  ASoC: tegra: Add Tegra210 based AMX driver
-  ASoC: tegra: Add Tegra210 based ADX driver
-  ASoC: tegra: Add Tegra210 based Mixer driver
-  arm64: defconfig: Enable few Tegra210 based AHUB drivers
-  arm64: tegra: Add few AHUB devices for Tegra210 and later
-  arm64: tegra: Extend APE audio support on Jetson platforms
-
- .../bindings/sound/nvidia,tegra210-adx.yaml        |   74 +
- .../bindings/sound/nvidia,tegra210-ahub.yaml       |   20 +
- .../bindings/sound/nvidia,tegra210-amx.yaml        |   72 +
- .../bindings/sound/nvidia,tegra210-mixer.yaml      |   67 +
- .../bindings/sound/nvidia,tegra210-mvc.yaml        |   79 +
- .../bindings/sound/nvidia,tegra210-sfc.yaml        |   76 +
- arch/arm64/boot/dts/nvidia/tegra186-p2771-0000.dts | 1554 ++++++++-
- arch/arm64/boot/dts/nvidia/tegra186.dtsi           |  120 +
- arch/arm64/boot/dts/nvidia/tegra194-p2972-0000.dts | 1493 ++++++++-
- .../arm64/boot/dts/nvidia/tegra194-p3509-0000.dtsi | 1520 ++++++++-
- arch/arm64/boot/dts/nvidia/tegra194.dtsi           |  116 +
- arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts |  876 +++++
- arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts |  876 +++++
- arch/arm64/boot/dts/nvidia/tegra210.dtsi           |   77 +
- arch/arm64/configs/defconfig                       |    5 +
- include/sound/simple_card_utils.h                  |    2 +-
- sound/soc/generic/audio-graph-card.c               |    4 +-
- sound/soc/soc-pcm.c                                |    4 +
- sound/soc/tegra/Kconfig                            |   48 +
- sound/soc/tegra/Makefile                           |   10 +
- sound/soc/tegra/tegra210_adx.c                     |  527 +++
- sound/soc/tegra/tegra210_adx.h                     |   72 +
- sound/soc/tegra/tegra210_ahub.c                    |  511 ++-
- sound/soc/tegra/tegra210_amx.c                     |  595 ++++
- sound/soc/tegra/tegra210_amx.h                     |   93 +
- sound/soc/tegra/tegra210_mixer.c                   |  667 ++++
- sound/soc/tegra/tegra210_mixer.h                   |  100 +
- sound/soc/tegra/tegra210_mvc.c                     |  629 ++++
- sound/soc/tegra/tegra210_mvc.h                     |  117 +
- sound/soc/tegra/tegra210_sfc.c                     | 3542 ++++++++++++++++++++
- sound/soc/tegra/tegra210_sfc.h                     |   78 +
- 31 files changed, 13601 insertions(+), 423 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-adx.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-amx.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-mixer.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-mvc.yaml
- create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-sfc.yaml
- create mode 100644 sound/soc/tegra/tegra210_adx.c
- create mode 100644 sound/soc/tegra/tegra210_adx.h
- create mode 100644 sound/soc/tegra/tegra210_amx.c
- create mode 100644 sound/soc/tegra/tegra210_amx.h
- create mode 100644 sound/soc/tegra/tegra210_mixer.c
- create mode 100644 sound/soc/tegra/tegra210_mixer.h
- create mode 100644 sound/soc/tegra/tegra210_mvc.c
- create mode 100644 sound/soc/tegra/tegra210_mvc.h
- create mode 100644 sound/soc/tegra/tegra210_sfc.c
- create mode 100644 sound/soc/tegra/tegra210_sfc.h
-
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 48f71bb..e30cb5a 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -1395,6 +1395,10 @@ static int dpcm_add_paths(struct snd_soc_pcm_runtime *fe, int stream,
+ 		if (!fe->dpcm[stream].runtime && !fe->fe_compr)
+ 			continue;
+ 
++		if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_NEW) &&
++		    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_CLOSE))
++			continue;
++
+ 		/* newly connected FE and BE */
+ 		err = dpcm_be_connect(fe, be, stream);
+ 		if (err < 0) {
 -- 
 2.7.4
 

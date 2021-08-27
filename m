@@ -2,97 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57F923F9756
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Aug 2021 11:40:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C071B3F9755
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Aug 2021 11:40:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E620716D7;
-	Fri, 27 Aug 2021 11:40:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E620716D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E61916C1;
+	Fri, 27 Aug 2021 11:39:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E61916C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630057253;
-	bh=a0bQyLhXUgl9kC3iQf+uATVY5s/R39NaJff6/UWVEV0=;
+	s=default; t=1630057225;
+	bh=Gt4bjy6Fqucv33LAOisb7CrnmMiRNmBhs0CeetFGGRk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OtS3hfkznxNrW7OO44AfpiWYNmyPu9kI8lBff/Q80Jx0GgL14ZPzoRQd8S0uGkTln
-	 SKKCu1b/itt9Ww0rk1y5kRzeIok/Xx+If5qwj9KimXav6ehU/D/Ogk8PKUrsVibBlx
-	 Jcsk2fmwqEL445OMl3fl7BRbP9DDvmes/DA2+nlI=
+	b=sJ3UJrf4sqpzZ4mu3T2WztBKnShzHkOu9zWoIiTfvYl515S/iIHvcUFlJCo/5Owvt
+	 esW0sE92tUtcf+Mz0N1JmC2fHwYmds3ADz4DBjpUEUWTv9Q5QlYx7d51/6HGqmvCr/
+	 6f0ySVyCPSy27w3Dp0uvD8fKIeZK+NiLm6f2jlPI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10D16F804E2;
-	Fri, 27 Aug 2021 11:38:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6665FF804EB;
+	Fri, 27 Aug 2021 11:38:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CDE86F804E2; Fri, 27 Aug 2021 11:38:25 +0200 (CEST)
+ id 82780F804E7; Fri, 27 Aug 2021 11:38:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2088.outbound.protection.outlook.com [40.107.92.88])
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2086.outbound.protection.outlook.com [40.107.223.86])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BE1D7F80107
- for <alsa-devel@alsa-project.org>; Fri, 27 Aug 2021 11:38:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE1D7F80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id 89B64F80217
+ for <alsa-devel@alsa-project.org>; Fri, 27 Aug 2021 11:38:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89B64F80217
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
- header.b="rL1vj7uz"
+ header.b="FTL5NfxY"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YuW/trfpKMD5K5h8E+xbpAQ2ILtXTum4d6zmrBJOSvqWG7iGICr6a2fOocKsEQNRrkwAhV3d95/yYQBsZKB2GT/8yPT8QVL9DTcdddDDpeUEH/8s8tit5nyT3ngOj7iRaLgruPtxGtTNONqHMMOPaT5qVbkZHB7lrgxMOYnZumwgJkbE1r19/sdiraO2PXwWJUdyToC22Hrh5Jdc9cp652mIP1lO7/jJ5uZIxoOlGdVttVNijAPql9e4pOJ4xQE1AB+qT6TWc90MiA1th8e9UvWGFro/RMJpAMUC6KIwQPwHfW/86ucwe7J8lZu4Rsq9yEvPLUCnc51sPVAT2WmKWA==
+ b=Spx2zxdTYI26rFnQE+hxYwxOkqMjhDD59jklm94ur7k1zzYHlwWKgTMcFMfTJzI5RyO8pjrLhiekronZMO26xbqGuwy21/2BJwbDYI8w1Y9doIqkdXKqfpUZ7ESqYBv9Wh20KMobUvfl06bEPML6m7I5WdBhsyz072C0utGpwqI8xVkOhW/otdhBwbUhvMTrLLloVaKKY0/prae1ayGzo3MjrHJBsVbktOzD7kxRMxRqmobapR/UY57ulC5rgSpokoEKyiUuoI+Y1Bea3WJTP5d/xaD0PRvJXEJnuVOO/lo3mpYhwoAy/5Nfa78OuFYvNWG/mwZ4BjBNtK2BcEC7qw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OrSZKOWs4rdh5mBwsUT+O1TBA0O0LBuknJBdn/YJ/u0=;
- b=QChjLVSTVI+v+cwUpC0AyLoc3cNeIn2EB9cG3m+NugYAVVn7REXdjTZZ1FsOD6zN3RSxmsEUFVPyrWoUOgFvFNRQeVxCt/boj7ebZI2o20unnrXGU/sqTY9y5PbFzMIeofjh82/YBZ+nffOitmAv+y8ivIs7RprXxxYjCyJcTWZhWXMVuQp9gj7T9fUF1CquH41D3jq0257V4zWcUb5dxmnmcjP8VbtTGnjYjDMvyK2KM6jk36Bxu2fPqzwJNCyuWrRzZpc/nInnWFAGac9jqnPG/Dal6WPVUv6GA4spVK4Eumu4AC02pG/N9iZqWpwsL6EqtClm9aB51GfAnkY86g==
+ bh=KGpzHu6VB1AcJHhdAsrBBxAa7ZoscF3N3XqyzlrjMVc=;
+ b=Ft1sBXpynEHk0iuiEln1hpIW2Lr9RioqeFbiBjp2lailSnIq3s3D8Pbj7umrdvsblKd8o2nX7J03gFCV9Yk8M+3wVfPCJVpDsvC2n42v659onaBdzai2QRSc7K5R0XX5sSmBaTq2GTwXadvNGZ06B+hka4prIztO0yPkAitLJn3+XE2zZ6a/yooGDgGKotkR5ylPdxVOlKlRCHIdPNkA1/etI/yQY9wfL7fzvSNPTHvLDx4uD1hd9rIsKzQJOkrRRakJtGb67J8A7gRkL1fN8c+3s7tvoA+dUFfq9n2uo/u4BvC0F/5WfthwO2HdfZ3eRJ9wu+ThyNI0O4OxSMWXjg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.112.35) smtp.rcpttodomain=alsa-project.org smtp.mailfrom=nvidia.com;
+ 216.228.112.32) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=nvidia.com; 
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OrSZKOWs4rdh5mBwsUT+O1TBA0O0LBuknJBdn/YJ/u0=;
- b=rL1vj7uzB5MH3SAKIQMABtM5ghwft8I+9tJHVzrABfPajdhtsjrSyrdCwMTUwZ1fNhnz2qS/WQJGzGrRkMr5Suku4jokMrO4XZY8REnZU+d1bFbQnXMmZVXtK9lABr1si9KG1edf8p0cSY8jSDhZVREQUqIrBrdaGyca6+PK/4atPj1S3f96tK2LCM2qSF0dlUfiv+vSOWyRtnDFPk7gj++AEgM5NcRV3r30OTMJretvPeGMOG/h302Y0gKQwRfy5Zm3dQAiHMSjZckfdZbsC7np7G0tTjDDhbrWnOmq7QwBU9Ct1bhavvAi87ZcSWXCtEQobERKIKo53V5Jz/CZ3w==
-Received: from DM6PR06CA0003.namprd06.prod.outlook.com (2603:10b6:5:120::16)
- by BL1PR12MB5062.namprd12.prod.outlook.com (2603:10b6:208:313::6) with
+ bh=KGpzHu6VB1AcJHhdAsrBBxAa7ZoscF3N3XqyzlrjMVc=;
+ b=FTL5NfxY88l53JtKhTeXnLz6KqIOArK7XnUA80DeIJj/nX/YU64FC1S0pEHoZqz6dbIqzK3bdK2NK9/VnHxO+AZnyVjnGmGp/bLhgA2OyXhOQz6ojncJOI2vzE5F9w1QWWNP3hMxz4Yi2lOBTcy8yKk1nV6SmGhX8ThDx4MyTAX4PpQvnVTeVKgRRBloZ4Qtt2m2wHPJmyhsxH6bvsGxir/XymF8L82EKfcWIlkOmpY9RA5Ikrwy591LMLneVu6wCuoei61HdoHgn3wieAA/Q/6M7dhOOlBsUZr5TjExAN0JuK2ZIXn5AbxrPsG5jPoMReUfJNPwp9irVVm6oNixJg==
+Received: from DM6PR13CA0054.namprd13.prod.outlook.com (2603:10b6:5:134::31)
+ by DM6PR12MB4497.namprd12.prod.outlook.com (2603:10b6:5:2a5::24) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.20; Fri, 27 Aug
- 2021 09:38:15 +0000
-Received: from DM6NAM11FT029.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:120:cafe::15) by DM6PR06CA0003.outlook.office365.com
- (2603:10b6:5:120::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.18 via Frontend
- Transport; Fri, 27 Aug 2021 09:38:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.35)
- smtp.mailfrom=nvidia.com; alsa-project.org; dkim=none (message not signed)
- header.d=none;alsa-project.org; dmarc=pass action=none
- header.from=nvidia.com;
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Fri, 27 Aug
+ 2021 09:38:18 +0000
+Received: from DM6NAM11FT034.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:134:cafe::18) by DM6PR13CA0054.outlook.office365.com
+ (2603:10b6:5:134::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.6 via Frontend
+ Transport; Fri, 27 Aug 2021 09:38:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.32)
+ smtp.mailfrom=nvidia.com; kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.112.35 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.112.35; helo=mail.nvidia.com;
-Received: from mail.nvidia.com (216.228.112.35) by
- DM6NAM11FT029.mail.protection.outlook.com (10.13.173.23) with Microsoft SMTP
+ 216.228.112.32 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.112.32; helo=mail.nvidia.com;
+Received: from mail.nvidia.com (216.228.112.32) by
+ DM6NAM11FT034.mail.protection.outlook.com (10.13.173.47) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.4457.17 via Frontend Transport; Fri, 27 Aug 2021 09:38:13 +0000
-Received: from HQMAIL101.nvidia.com (172.20.187.10) by HQMAIL111.nvidia.com
- (172.20.187.18) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 27 Aug
- 2021 09:38:12 +0000
+ 15.20.4457.17 via Frontend Transport; Fri, 27 Aug 2021 09:38:17 +0000
+Received: from HQMAIL105.nvidia.com (172.20.187.12) by HQMAIL109.nvidia.com
+ (172.20.187.15) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 27 Aug
+ 2021 02:38:17 -0700
+Received: from HQMAIL101.nvidia.com (172.20.187.10) by HQMAIL105.nvidia.com
+ (172.20.187.12) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 27 Aug
+ 2021 09:38:16 +0000
 Received: from audio.nvidia.com (172.20.187.5) by mail.nvidia.com
  (172.20.187.10) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Fri, 27 Aug 2021 09:38:08 +0000
+ Transport; Fri, 27 Aug 2021 09:38:12 +0000
 From: Sameer Pujar <spujar@nvidia.com>
 To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <robh+dt@kernel.org>,
  <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
  <catalin.marinas@arm.com>, <will@kernel.org>, <perex@perex.cz>,
  <tiwai@suse.com>, <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 02/13] ASoC: simple-card-utils: Increase maximum DAI links
- limit to 512
-Date: Fri, 27 Aug 2021 15:03:48 +0530
-Message-ID: <1630056839-6562-3-git-send-email-spujar@nvidia.com>
+Subject: [PATCH 03/13] ASoC: audio-graph: Fixup CPU endpoint hw_params in a
+ BE<->BE link
+Date: Fri, 27 Aug 2021 15:03:49 +0530
+Message-ID: <1630056839-6562-4-git-send-email-spujar@nvidia.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1630056839-6562-1-git-send-email-spujar@nvidia.com>
 References: <1630056839-6562-1-git-send-email-spujar@nvidia.com>
@@ -100,28 +102,28 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9e6c08b2-0c81-4f43-1f7f-08d9693e6402
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5062:
-X-Microsoft-Antispam-PRVS: <BL1PR12MB50625591FBAD5522BDE31D50A7C89@BL1PR12MB5062.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
+X-MS-Office365-Filtering-Correlation-Id: c1c775c8-bcfd-40e1-c488-08d9693e66a5
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4497:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB44976AD43072FA59B75E6ECFA7C89@DM6PR12MB4497.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1824;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xJiTrVvMPiCqrKXqrPwl5lk+0wiAzFLgXmHJvqSDmAiLPa9EUi//TcPTGMLE1KuVxn3dhY2gv5NmGzYA34XI8I0pfVDVDpa0qnXCv36APb/u1u0XPd1YBB3nBUhKDlQ/9g8HKZWwhxzIGDJTjYoGPpnr0KUylThyanxHbx7At6vZp1fsy39CHfQwA8nP7B3lMPxRZiIoJ9/ZGDmopxu42SW1XgrbIMl5xjdRwyR1dx2y0FrwgtsS6wqCtMyEQ+qZAYEHA0g8qc8AaPVAGlGPp+4g7KqEJR36xCLU3+L8vs4W7ne79zCBuA+O/VExgBERb19Wn1gCEz7LTlyTsYnxDgfJEg1C7OgsMpSYRLPyn1RF5r1v6mo9Di9MO9s2gdAfHcjhTi/mlp2+LqrXbG4h6lAZw/XnqV6LBu1anAkrVCzAORlItsgJnydiFBUW5PikBO2Hnc7aJTrmKhDszPTyshAAd1bg3wTSacL6Ljetl+oFh+TQYNzsy8WaooUmSpv8F/3xD9HOQJKu2OvEYCXo4bS4UXU/ryXMNU9lvDLoK8AoLSenYC6nsHtxQex3HLKiuYiRHueLXRkzuvRYqPUU6XJjOeS7bAoJZNS70929/8IchAru+adx988lxhUM3gTZQmxruZL+HVgRuT9kbLhCH2DuyBQahWGwRi/vjTI6RTw8ZLrozm3RuzZGMc9LsjnEEhvAiZNDgBwvy9f/iJPdq5iuu7kZIqJeJiDESPKyA9s=
-X-Forefront-Antispam-Report: CIP:216.228.112.35; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid04.nvidia.com; CAT:NONE;
- SFS:(4636009)(346002)(376002)(396003)(136003)(39860400002)(36840700001)(46966006)(36860700001)(110136005)(54906003)(107886003)(86362001)(82740400003)(2616005)(4326008)(2906002)(36906005)(921005)(7416002)(316002)(36756003)(426003)(26005)(83380400001)(336012)(478600001)(6666004)(7696005)(5660300002)(8936002)(356005)(186003)(82310400003)(47076005)(8676002)(70206006)(70586007)(7636003);
+X-Microsoft-Antispam-Message-Info: mkMHpLu75YDNx77V2jFrfhbYhTKW2m9p8IMVT9b4FAuy7tfW3ueO6yq1H1nKEYJNNgWWqj5rpL4hKc2q/GGkDmJy5k/WHegObuPgXyaXjOARufO5Ii796mOCrdEeRGoY1E+o9jy5FBPVrMwLwygvlPYPIIQWzdH0VOe6rK25WEvdZfIljAxlqEhDpu3h7B7NA/Icp/AFNa0OMZZsrOQwPdmUkLyUZi0XKDYlZfPX5/8SvDzPld5W1+FuQ+2Uiykx7JhmzTkr5lFjV/QXfvyMbPK1KIee3MbchbDlJi1qu+zwM+jRh2L9S/nR9dj08bEfLAvTlsrcCIBFFiXDjI1wD3lTSmLAbqP1EF5Zi9xrQA1SW/6obilIQnL9xvhdzKR8mDoYHezGDfMU0Uz5Tx9Jtmrzg0Nx8kj+28C9CAWHd+3W1s2l4skSYQrgIjlNMbPVbrgp7BKaVlih4hbWslItgeILhzdO0WGSTqVG8FyFlkbvzMB1g7Tad2wroosKk5S0cZ25OvEm+VG2+klbL7zZTtGq2xwv+SFFMFehP1AFBMjw9HBEuTh0ugV8t93sgk9T77yf1yYkXXbK3sboauLW3Xj+d87joywetwLfz8fZigvsouIFvfDS7tAR6Y2+mbh9PkVuJxDq0uswoAO6M5c7ETuACg9DhuhMTlXG56+mive3ImZfVJFBtWjxf1ngnJ6jAEWAMXZH483ggyhF1qqBnOaW03CX110Z9fNvmMb2WZk=
+X-Forefront-Antispam-Report: CIP:216.228.112.32; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid01.nvidia.com; CAT:NONE;
+ SFS:(4636009)(376002)(39860400002)(136003)(346002)(396003)(36840700001)(46966006)(70586007)(86362001)(83380400001)(356005)(47076005)(82740400003)(7636003)(478600001)(316002)(110136005)(336012)(426003)(82310400003)(186003)(36756003)(6666004)(26005)(7696005)(4326008)(107886003)(8676002)(7416002)(36860700001)(54906003)(921005)(8936002)(2616005)(5660300002)(70206006)(2906002);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2021 09:38:13.5116 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e6c08b2-0c81-4f43-1f7f-08d9693e6402
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2021 09:38:17.9595 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1c775c8-bcfd-40e1-c488-08d9693e66a5
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.35];
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.32];
  Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT029.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT034.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5062
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4497
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Sameer Pujar <spujar@nvidia.com>, linux-kernel@vger.kernel.org,
  linux-tegra@vger.kernel.org, sharadg@nvidia.com,
@@ -141,35 +143,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The current limit of 128 is not sufficient when more components are
-added to the audio map on Tegra210 and later platforms. Thus it is
-resulting in probe failure.
+When multiple components are connected back to back in an audio path,
+hw_param fixup may be required for CPU or Codec endpoint of BE<->BE
+DAI links. Currently fixup support is available for Codec and this
+commit adds similar feature for CPU endpoint of a BE<->BE link.
 
-The requirement is of nearly ~200 DAI links. To give sufficient room
-for future additions the maximum limit is increased to 512 DAI links.
-This is a preparatory patch to add more components like resampler,
-mixer, multiplexers, demultiplexers and volume controllers to Tegra210
-and later platforms.
+For example a resampler component can be plugged into an audio path.
+  [ FE -> BE1 -> ... -> resampler -> ... BEn ]
+
+The resampler DAI links can be:
+  BEx (CPU)              -> resampler input (Codec)
+  resampler output (CPU) -> BEy (Codec)
+
+Thus input and output sample rate parameters for resampler can be
+fixed up as per the resample requirement.
 
 Signed-off-by: Sameer Pujar <spujar@nvidia.com>
 Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/simple_card_utils.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/generic/audio-graph-card.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/include/sound/simple_card_utils.h b/include/sound/simple_card_utils.h
-index 51b3b48..6b78034 100644
---- a/include/sound/simple_card_utils.h
-+++ b/include/sound/simple_card_utils.h
-@@ -115,7 +115,7 @@ struct asoc_simple_priv {
- 		     ((codec) = simple_props_to_dai_codec(props, i));	\
- 	     (i)++)
+diff --git a/sound/soc/generic/audio-graph-card.c b/sound/soc/generic/audio-graph-card.c
+index 5e71382..7439122 100644
+--- a/sound/soc/generic/audio-graph-card.c
++++ b/sound/soc/generic/audio-graph-card.c
+@@ -309,8 +309,10 @@ static int graph_dai_link_of_dpcm(struct asoc_simple_priv *priv,
+ 		 * For example: FE <-> BE1 <-> BE2 <-> ... <-> BEn where
+ 		 * there are 'n' BE components in the path.
+ 		 */
+-		if (card->component_chaining && !soc_component_is_pcm(cpus))
++		if (card->component_chaining && !soc_component_is_pcm(cpus)) {
+ 			dai_link->no_pcm = 1;
++			dai_link->be_hw_params_fixup = asoc_simple_be_hw_params_fixup;
++		}
  
--#define SNDRV_MAX_LINKS 128
-+#define SNDRV_MAX_LINKS 512
- 
- struct link_info {
- 	int link; /* number of link */
+ 		asoc_simple_canonicalize_cpu(cpus, is_single_links);
+ 	} else {
 -- 
 2.7.4
 

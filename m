@@ -2,82 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAA2C3FD98A
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Sep 2021 14:27:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 563CA3FDE4A
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Sep 2021 17:13:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 608061687;
-	Wed,  1 Sep 2021 14:26:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 608061687
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC2CC174E;
+	Wed,  1 Sep 2021 17:13:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC2CC174E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630499262;
-	bh=3C7HE0Njru7uoQVblWzu6YmFO0Wwvbh4ekqLadoQUx8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=M6dRho3+AXpC9nQeoj8eSd3pffE2CysXKHTRdgrj9MU3+5JFmqMdb+Z/KZFU8U603
-	 qGGzYt/K/7O9PMzg4BubBKN8RcfXzVHHYKt7NAkAETu/dEVdlxlao4+2h7AqDfrBkz
-	 MbUtutBq2+lsYlDGJXibSwj4Lz76OMMmvyHqD70g=
+	s=default; t=1630509232;
+	bh=K7WOQRGdrSf+PbNjqY1YtmWTU3lNTVPtvBKbaWcq284=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=M6BIO/uhYraVRz3mBgm7EGaRx/rVw3QJXBsA8sdmGhfM1tRmAPbW6Cfv2Ih/NS5c8
+	 1scAqfiOxjd71wL8Eee+NUhGOA7KTskznmpDBLKFUaz75mbgm0rj7+k9KgCgFsUlTX
+	 A3HEQN3lstBxSNJYDEUX4MSjPKeIZmdk0EcjVtf4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E8B5F804E3;
-	Wed,  1 Sep 2021 14:26:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4D132F80227;
+	Wed,  1 Sep 2021 17:12:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 340CDF804D9; Wed,  1 Sep 2021 14:26:31 +0200 (CEST)
+ id 70ACDF8025B; Sun, 29 Aug 2021 17:50:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com
- [209.85.210.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from dnyon.com (dnyon.com [82.223.165.189])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CABB3F80218
- for <alsa-devel@alsa-project.org>; Wed,  1 Sep 2021 14:26:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CABB3F80218
-Received: by mail-ot1-f51.google.com with SMTP id
- l7-20020a0568302b0700b0051c0181deebso3157797otv.12
- for <alsa-devel@alsa-project.org>; Wed, 01 Sep 2021 05:26:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=L89W6KN905uzz2b8RDSBDwMiSN6z+FJPmQF6g2PVDTA=;
- b=QuSUKk4SoJFkKcFD2DTtmVhtN2Z/ck3CHKNtUBROKp7nqQKhqOajI5c8VkuWtizBdY
- UI6NtSEeCG7RCgpIVilQ3fWJyL3qqIJBHpH9IDGjClc0BKsueN+6BclhBZamrxtJxPH5
- KQihmuXYbmd9Pz8zAjrnDyAjsbxoZ90bgXKLsw370Vv8VFOJVl7JZeNf+MghQPLbDw1b
- wjQSArdxX/+H1X0zbF+E1g/0mpuCQZV+qiINjlv7IjRhP01Y6pr86VcBSgKybwRYqmAW
- m0G6Mm18u5t4nnsGWMlMOiBS7ah+yOR9siQQegGIxLrrM3eexIkFf7oyvPDTvXxLeLZS
- RBqA==
-X-Gm-Message-State: AOAM531QqA35ToMA5qrWqA8rtjiBMstfIXW5FAYSALX726LEPgErDYl8
- kj9karoIPInfkXYOJQMrjA==
-X-Google-Smtp-Source: ABdhPJx0CXfS8DC+222kUyjWme9cZzPaq6kS6t7YMfxn9z0mNz0nwgmlnC/Q96XBYqx3b7I5mb8U9w==
-X-Received: by 2002:a9d:6c08:: with SMTP id f8mr27993005otq.368.1630499180322; 
- Wed, 01 Sep 2021 05:26:20 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id l21sm3684049oop.22.2021.09.01.05.26.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Sep 2021 05:26:19 -0700 (PDT)
-Received: (nullmailer pid 1941367 invoked by uid 1000);
- Wed, 01 Sep 2021 12:26:19 -0000
-Date: Wed, 1 Sep 2021 07:26:19 -0500
-From: Rob Herring <robh@kernel.org>
-To: Sugar Zhang <sugar.zhang@rock-chips.com>
-Subject: Re: [PATCH v3 7/7] ASoC: dt-bindings: rockchip: Convert pdm bindings
- to yaml
-Message-ID: <YS9xawhnJ/4xR2vg@robh.at.kernel.org>
-References: <1630468039-7186-1-git-send-email-sugar.zhang@rock-chips.com>
- <1630468118-7321-2-git-send-email-sugar.zhang@rock-chips.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8861EF80143
+ for <alsa-devel@alsa-project.org>; Sun, 29 Aug 2021 17:49:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8861EF80143
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=dnyon.com header.i=@dnyon.com
+ header.b="YomUul1y"
+Received: from dnyon.com (45.74.222.87.dynamic.jazztel.es [87.222.74.45])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by dnyon.com (Postfix) with ESMTPSA id A336040442;
+ Sun, 29 Aug 2021 15:49:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=dnyon.com; s=mail;
+ t=1630252195; bh=K7WOQRGdrSf+PbNjqY1YtmWTU3lNTVPtvBKbaWcq284=;
+ h=From:To:Cc:Subject:Date:From;
+ b=YomUul1yURUkZT7vFN/EK4seETy+lbrdMjRM5XfjLve9o4BKbNKAOF4cGR27klIgv
+ 57uMLgbQPC9pRHImkHtpjvtgtajEg1Hl4S6b9VorG0w/opcJyirfUVlE9OzI7DJKFw
+ WyKnWDjackbOgKu5GaOsK38orAC8g1nHjBvQGbRxiFY5hW/fzOUFkWadBmkuKGmqhx
+ uJQ54ZV32NMNlPtNFMOIOIudQE4z08729sJRDoGSxzKyeLoYa71r5Wsam1us58ezzr
+ 7VxnfeW9/S42vguVYF0+p6BHQqr1GqQumyvAsE/mZU8K8BEwzlHSGf+mYEvmsXVenV
+ w6eR50DZYwfoQ==
+From: Alejandro Tafalla <atafalla@dnyon.com>
+To: 
+Subject: [PATCH 0/2] Add reset-gpios handling for max98927
+Date: Sun, 29 Aug 2021 17:45:42 +0200
+Message-Id: <20210829154545.383119-1-atafalla@dnyon.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1630468118-7321-2-git-send-email-sugar.zhang@rock-chips.com>
-Cc: linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
- broonie@kernel.org, heiko@sntech.de, devicetree@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 01 Sep 2021 17:12:33 +0200
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Alejandro Tafalla <atafalla@dnyon.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,23 +81,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 01 Sep 2021 11:48:38 +0800, Sugar Zhang wrote:
-> This patch converts pdm bindings to yaml.
-> 
-> Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
-> ---
-> 
-> Changes in v3:
-> - Fix property 'path-map' suggested by Rob Herring.
-> 
-> Changes in v2:
-> - Fix yamllint errors.
-> 
->  .../devicetree/bindings/sound/rockchip,pdm.txt     |  64 -----------
->  .../devicetree/bindings/sound/rockchip,pdm.yaml    | 120 +++++++++++++++++++++
->  2 files changed, 120 insertions(+), 64 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/rockchip,pdm.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/rockchip,pdm.yaml
-> 
+The max98927 codec on some devices (i.e. Xiaomi Mi A2 Lite phone) require
+hardware-resetting the codec by driving a reset-gpio. This series add
+support for it through an optional reset-gpios property.
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Alejandro Tafalla (2):
+  ASoC: max98927: Handle reset gpio when probing i2c
+  dt-bindings: sound: max98927: Add reset-gpios optional property
+
+ .../devicetree/bindings/sound/max9892x.txt       |  3 +++
+ sound/soc/codecs/max98927.c                      | 16 ++++++++++++++++
+ sound/soc/codecs/max98927.h                      |  1 +
+ 3 files changed, 20 insertions(+)
+
+-- 
+2.32.0
+

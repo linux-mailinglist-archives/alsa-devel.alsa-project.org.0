@@ -2,93 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2677E3FA62F
-	for <lists+alsa-devel@lfdr.de>; Sat, 28 Aug 2021 16:04:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDC243FAA00
+	for <lists+alsa-devel@lfdr.de>; Sun, 29 Aug 2021 09:40:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C5AFE1707;
-	Sat, 28 Aug 2021 16:03:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5AFE1707
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A80916E9;
+	Sun, 29 Aug 2021 09:39:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A80916E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630159458;
-	bh=zxp4ub2TI4T1UZ56E2T4+ZpQFvZxxvYVfCIeYaCQDSo=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=VDM2CKKrr3fIiTXmpKpC06XvJeBuyq+203PKMTInou81PzJjDfAA82b7HCHF4N/qO
-	 gIDYN7JcDiWKibtDTczVNKtPY+vggdvzl1gLf82SLwBFHZm97IL9o6Q9lQSmve8JPK
-	 zkznM9Gk08ReGUfUpCkixhGcrAT3pcd9r3oQnhaw=
+	s=default; t=1630222800;
+	bh=l4sg+EX162g+G17NTuSeDjjVxwMB1E3hykgEz6hzqq8=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Xil+JpNU5p0zNV9Q87mHK1o7KgIHRXUhztS1F6irTfuspie5+QpOvrzwLQddETvaM
+	 3jkuYrJNHrCBz5LSBHHTdIh/tSaLzN53GGZ9ydoGaec1XLi/2SiApsr7J+188knowB
+	 +oe9KccS+uy6a3oON37k0VTug9GcQWc6mrsdCzEQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65DC5F804D6;
-	Sat, 28 Aug 2021 16:02:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8DAD3F80269;
+	Sun, 29 Aug 2021 09:38:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D09ABF804E6; Sat, 28 Aug 2021 16:02:45 +0200 (CEST)
+ id 042CAF80246; Sun, 29 Aug 2021 09:38:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 027B8F804D6
- for <alsa-devel@alsa-project.org>; Sat, 28 Aug 2021 16:02:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 027B8F804D6
+ by alsa1.perex.cz (Postfix) with ESMTPS id D08D2F80246
+ for <alsa-devel@alsa-project.org>; Sun, 29 Aug 2021 09:38:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D08D2F80246
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="LiBbEEI4"
-Received: by mail-ed1-x534.google.com with SMTP id s25so14350729edw.0
- for <alsa-devel@alsa-project.org>; Sat, 28 Aug 2021 07:02:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=/HwvasmqWTeaBN7HIdpoZgoqAcwnUTfnLYi+w6FCWyc=;
- b=LiBbEEI49LqvFweuIGCWs+mxPZLxlpGk4gcL0Lt0mj4+xLGCzNBhqO90Mn2sp8O8dE
- B3562wA0y0ddaoqc7nLkEVE3g0xTz144MhYgfApp6QIJf9Nm8rjEe75W1YsFgNoOfhKm
- ti85tkUk6+1C6ADu1F19urVsrUm11rV6B0gXy54XtW5MSnsgXaXPVaycRMv+WO4hU4I7
- d3UzCpcKbYZ3jXiMWUlzijoA7r0UYOki8CVX+4VOqZnBRwlPvYoSvUksNCejfVvavAKP
- +XpdeTSSPXDOZxJ59kvNoUSWsh/SfKemLX0VixN10GKYzhitxU+jbXlWvPrYo5B2pX73
- hZUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=/HwvasmqWTeaBN7HIdpoZgoqAcwnUTfnLYi+w6FCWyc=;
- b=W1962qa2e1Z3d5r64eKFODs1Hr7qpwDB1z62bCsMHKVBdtjZGfq1XhO0JON/Lgpnha
- /r2SJEiSYrHcy896n/2HebQmkBYOtTX2c7csjxP/+UTG1bylIstVGIVV2pE5YJ3jGJHK
- fdUfILc7uDpjuTmrLGb4PEcwixjaLUZJFHOfN44Pluh950RfjHeuhSTqLHi66Unv2Apm
- 3dUHNKEUXZRRYpbsB5Kd7stOBGfDpaGRUh3eSPOa7ozmCy8hEkozyGygGxKVghUjLtX6
- gihIffs1dOy+zx+JoggF/de33aVzzuYCaL4tD6geamGwrsdt7OfFhwfbdI6moQB2V6uq
- RA2w==
-X-Gm-Message-State: AOAM530/9YRqHSgQByCzQqdEmKotCDq4w2XkO7U8dcGXIWV5JPYzBtbC
- fxNY55/JdMyqZ9ejg3mbKZH688YGLozEEXzs
-X-Google-Smtp-Source: ABdhPJzH3S+Y3NHfuXZM5Ir87DyKg2zfCCWNg5KaxMNUIgRuMqbXx3RlYDhall/te3ioSxFZCUUVSQ==
-X-Received: by 2002:a50:eb95:: with SMTP id y21mr3138318edr.139.1630159352639; 
- Sat, 28 Aug 2021 07:02:32 -0700 (PDT)
-Received: from localhost.localdomain (84-72-105-84.dclient.hispeed.ch.
- [84.72.105.84])
- by smtp.gmail.com with ESMTPSA id cn16sm4953982edb.87.2021.08.28.07.02.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 28 Aug 2021 07:02:32 -0700 (PDT)
-From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
-To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Subject: [PATCH v3 2/4] dt-bindings: sound: add rockchip i2s-tdm binding
-Date: Sat, 28 Aug 2021 16:02:02 +0200
-Message-Id: <20210828140205.21973-3-frattaroli.nicolas@gmail.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20210828140205.21973-1-frattaroli.nicolas@gmail.com>
-References: <20210828140205.21973-1-frattaroli.nicolas@gmail.com>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="wOACkx1J"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="+rwjxefG"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id E46092001C
+ for <alsa-devel@alsa-project.org>; Sun, 29 Aug 2021 07:38:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1630222711; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=B4m7d64wSkv2qhxccKKnqdD60GrFcTiRsUvMa6tlCZo=;
+ b=wOACkx1Jdln1GwiDiXb1YUVtFbsi7VHjIoXRKgIjCwdSHkix+I/ZO9rlYvGLi8VJDWBYL+
+ 53uEaQQOxcJ3HosO/EIF0TTIp3qPbrwxmj+mnB0V/r9k2WuYGiJSH3G2iZlxBydvvvge8c
+ DmcmC5jlhqWq0hHtkpflRUSj1PxAbY8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1630222711;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=B4m7d64wSkv2qhxccKKnqdD60GrFcTiRsUvMa6tlCZo=;
+ b=+rwjxefG8oGC5E5x4P3JOahIM0PtQiAmaw2aN7owxrY++ZDQuYYw1KRVBIWRKkNqpdM5wT
+ nCmH45nP5ooCipDw==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id D0C51A3B81;
+ Sun, 29 Aug 2021 07:38:31 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: usb-audio: Add lowlatency module option
+Date: Sun, 29 Aug 2021 09:38:30 +0200
+Message-Id: <20210829073830.22686-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,251 +84,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This adds the YAML bindings for the Rockchip I2S/TDM audio driver.
+For making user to switch back to the old playback mode, this patch
+adds a new module option 'lowlatency' to snd-usb-audio driver.
+When user face a regression due to the recent low-latency playback
+support, they can test easily by passing lowlatency=0 option without
+rebuilding the kernel.
 
-Signed-off-by: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+Fixes: 307cc9baac5c ("ALSA: usb-audio: Reduce latency at playback start, take#2")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- .../bindings/sound/rockchip,i2s-tdm.yaml      | 218 ++++++++++++++++++
- MAINTAINERS                                   |   1 +
- 2 files changed, 219 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+ sound/usb/card.c     | 4 ++++
+ sound/usb/pcm.c      | 3 ++-
+ sound/usb/usbaudio.h | 1 +
+ 3 files changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml b/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
-new file mode 100644
-index 000000000000..ab8731779805
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
-@@ -0,0 +1,218 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/rockchip,i2s-tdm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Rockchip I2S/TDM Controller
-+
-+description:
-+  The Rockchip I2S/TDM Controller is a Time Division Multiplexed
-+  audio interface found in various Rockchip SoCs, allowing up
-+  to 8 channels of audio over a serial interface.
-+
-+maintainers:
-+  - Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - rockchip,px30-i2s-tdm
-+      - rockchip,rk1808-i2s-tdm
-+      - rockchip,rk3308-i2s-tdm
-+      - rockchip,rk3568-i2s-tdm
-+      - rockchip,rv1126-i2s-tdm
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  dmas:
-+    minItems: 1
-+    maxItems: 2
-+
-+  dma-names:
-+    minItems: 1
-+    maxItems: 2
-+    items:
-+      enum:
-+        - rx
-+        - tx
-+
-+  clocks:
-+    minItems: 3
-+    items:
-+      - description: clock for TX
-+      - description: clock for RX
-+      - description: AHB clock driving the interface
-+      - description:
-+          Parent clock for mclk_tx (only required when using mclk-calibrate)
-+      - description:
-+          Parent clock for mclk_rx (only required when using mclk-calibrate)
-+      - description:
-+          Clock for sample rates that are an integer multiple of 8000
-+          (only required when using mclk-calibrate)
-+      - description:
-+          Clock for sample rates that are an integer multiple of 11025
-+          (only required when using mclk-calibrate)
-+
-+  clock-names:
-+    minItems: 3
-+    items:
-+      - const: mclk_tx
-+      - const: mclk_rx
-+      - const: hclk
-+      - const: mclk_tx_src
-+      - const: mclk_rx_src
-+      - const: mclk_root0
-+      - const: mclk_root1
-+
-+  rockchip,frame-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    default: 64
-+    minimum: 32
-+    maximum: 512
-+    description:
-+      Width of a frame, usually slot width multiplied by number of slots.
-+      Must be even.
-+
-+  resets:
-+    items:
-+      - description: reset for TX
-+      - description: reset for RX
-+
-+  reset-names:
-+    items:
-+      - const: tx-m
-+      - const: rx-m
-+
-+  rockchip,cru:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      The phandle of the cru.
-+      Required if neither trcm-sync-tx-only nor trcm-sync-rx-only are specified.
-+
-+  rockchip,grf:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      The phandle of the syscon node for the GRF register.
-+
-+  rockchip,mclk-calibrate:
-+    description:
-+      Switch between two root clocks depending on the audio sample rate.
-+      For integer multiples of 8000 (e.g. 48000 Hz), mclk_root0 is used.
-+      For integer multiples of 11025 (e.g. 44100 Hz), mclk_root1 is used.
-+    type: boolean
-+
-+  rockchip,trcm-sync-tx-only:
-+    type: boolean
-+    description: Use TX BCLK/LRCK for both TX and RX.
-+
-+  rockchip,trcm-sync-rx-only:
-+    type: boolean
-+    description: Use RX BCLK/LRCK for both TX and RX.
-+
-+  "#sound-dai-cells":
-+    const: 0
-+
-+  rockchip,i2s-rx-route:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description:
-+      Defines the mapping of I2S RX sdis to I2S data bus lines.
-+      By default, they are mapped one-to-one.
-+    items:
-+      - description: which sdi to connect to data line 0
-+      - description: which sdi to connect to data line 1
-+      - description: which sdi to connect to data line 2
-+      - description: which sdi to connect to data line 3
-+
-+  rockchip,i2s-tx-route:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description:
-+      Defines the mapping of I2S TX sdos to I2S data bus lines.
-+      By default, they are mapped one-to-one.
-+    items:
-+      - description: which sdo to connect to data line 0
-+      - description: which sdo to connect to data line 1
-+      - description: which sdo to connect to data line 2
-+      - description: which sdo to connect to data line 3
-+
-+  rockchip,tdm-fsync-half-frame:
-+    description: Whether to use half frame fsync.
-+    type: boolean
-+
-+  rockchip,io-multiplex:
-+    description:
-+      Specify that the GPIO lines on the I2S bus are multiplexed such that
-+      the direction (input/output) needs to be dynamically adjusted.
-+    type: boolean
-+
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - dmas
-+  - dma-names
-+  - clocks
-+  - clock-names
-+  - resets
-+  - reset-names
-+  - rockchip,grf
-+  - "#sound-dai-cells"
-+
-+allOf:
-+  - if:
-+      properties:
-+        rockchip,trcm-sync-tx-only: false
-+        rockchip,trcm-sync-rx-only: false
-+    then:
-+      required:
-+        - rockchip,cru
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/rk3568-cru.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/pinctrl/rockchip.h>
-+
-+    foo {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+        i2s@fe410000 {
-+            compatible = "rockchip,rk3568-i2s-tdm";
-+            reg = <0x0 0xfe410000 0x0 0x1000>;
-+            interrupts = <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>;
-+            clocks = <&cru MCLK_I2S1_8CH_TX>, <&cru MCLK_I2S1_8CH_RX>,
-+                     <&cru HCLK_I2S1_8CH>;
-+            clock-names = "mclk_tx", "mclk_rx", "hclk";
-+            dmas = <&dmac1 3>, <&dmac1 2>;
-+            dma-names = "rx", "tx";
-+            resets = <&cru SRST_M_I2S1_8CH_TX>, <&cru SRST_M_I2S1_8CH_RX>;
-+            reset-names = "tx-m", "rx-m";
-+            rockchip,trcm-sync-tx-only;
-+            rockchip,cru = <&cru>;
-+            rockchip,grf = <&grf>;
-+            #sound-dai-cells = <0>;
-+            pinctrl-names = "default";
-+            pinctrl-0 =
-+                <&i2s1m0_sclktx
-+                &i2s1m0_sclkrx
-+                &i2s1m0_lrcktx
-+                &i2s1m0_lrckrx
-+                &i2s1m0_sdi0
-+                &i2s1m0_sdi1
-+                &i2s1m0_sdi2
-+                &i2s1m0_sdi3
-+                &i2s1m0_sdo0
-+                &i2s1m0_sdo1
-+                &i2s1m0_sdo2
-+                &i2s1m0_sdo3>;
-+            status = "okay";
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5d459d42672c..d2be16a85009 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -16053,6 +16053,7 @@ ROCKCHIP I2S TDM DRIVER
- M:	Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
- L:	linux-rockchip@lists.infradead.org
- S:	Maintained
-+F:	Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
- F:	sound/soc/rockchip/rockchip_i2s_tdm.*
+diff --git a/sound/usb/card.c b/sound/usb/card.c
+index cf8f3953f78f..fd570a42f043 100644
+--- a/sound/usb/card.c
++++ b/sound/usb/card.c
+@@ -68,6 +68,7 @@ static int pid[SNDRV_CARDS] = { [0 ... (SNDRV_CARDS-1)] = -1 };
+ static int device_setup[SNDRV_CARDS]; /* device parameter for this card */
+ static bool ignore_ctl_error;
+ static bool autoclock = true;
++static bool lowlatency = true;
+ static char *quirk_alias[SNDRV_CARDS];
+ static char *delayed_register[SNDRV_CARDS];
+ static bool implicit_fb[SNDRV_CARDS];
+@@ -93,6 +94,8 @@ MODULE_PARM_DESC(ignore_ctl_error,
+ 		 "Ignore errors from USB controller for mixer interfaces.");
+ module_param(autoclock, bool, 0444);
+ MODULE_PARM_DESC(autoclock, "Enable auto-clock selection for UAC2 devices (default: yes).");
++module_param(lowlatency, bool, 0444);
++MODULE_PARM_DESC(lowlatency, "Enable low latency playback (default: yes).");
+ module_param_array(quirk_alias, charp, NULL, 0444);
+ MODULE_PARM_DESC(quirk_alias, "Quirk aliases, e.g. 0123abcd:5678beef.");
+ module_param_array(delayed_register, charp, NULL, 0444);
+@@ -623,6 +626,7 @@ static int snd_usb_audio_create(struct usb_interface *intf,
+ 	chip->setup = device_setup[idx];
+ 	chip->generic_implicit_fb = implicit_fb[idx];
+ 	chip->autoclock = autoclock;
++	chip->lowlatency = lowlatency;
+ 	atomic_set(&chip->active, 1); /* avoid autopm during probing */
+ 	atomic_set(&chip->usage_count, 0);
+ 	atomic_set(&chip->shutdown, 0);
+diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+index f5cbf61ac366..5dc9266180e3 100644
+--- a/sound/usb/pcm.c
++++ b/sound/usb/pcm.c
+@@ -617,7 +617,8 @@ static int snd_usb_pcm_prepare(struct snd_pcm_substream *substream)
+ 	/* check whether early start is needed for playback stream */
+ 	subs->early_playback_start =
+ 		subs->direction == SNDRV_PCM_STREAM_PLAYBACK &&
+-		subs->data_endpoint->nominal_queue_size >= subs->buffer_bytes;
++		(!chip->lowlatency ||
++		 (subs->data_endpoint->nominal_queue_size >= subs->buffer_bytes));
  
- ROCKCHIP ISP V1 DRIVER
+ 	if (subs->early_playback_start)
+ 		ret = start_endpoints(subs);
+diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
+index 94261d19cceb..167834133b9b 100644
+--- a/sound/usb/usbaudio.h
++++ b/sound/usb/usbaudio.h
+@@ -55,6 +55,7 @@ struct snd_usb_audio {
+ 	bool generic_implicit_fb;	/* from the 'implicit_fb' module param */
+ 	bool autoclock;			/* from the 'autoclock' module param */
+ 
++	bool lowlatency;		/* from the 'lowlatency' module param */
+ 	struct usb_host_interface *ctrl_intf;	/* the audio control interface */
+ 	struct media_device *media_dev;
+ 	struct media_intf_devnode *ctl_intf_media_devnode;
 -- 
-2.33.0
+2.26.2
 

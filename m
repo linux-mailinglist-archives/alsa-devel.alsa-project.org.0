@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35C103FB5FB
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Aug 2021 14:28:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7935B3FB62E
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Aug 2021 14:37:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A19D3172A;
-	Mon, 30 Aug 2021 14:27:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A19D3172A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 05EB616B8;
+	Mon, 30 Aug 2021 14:36:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05EB616B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630326506;
-	bh=8rxzpDDvLETpRjSW5EG7EPps6YmGomM3Beiqdp8hL8s=;
+	s=default; t=1630327056;
+	bh=VSnG7ci/z6It+oL6KcTBEhuTf8u1sv3TMd5qXRIvpQw=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VQ38iPwd3+5qk7wM9Lp1A+EPZdgkMV7psOAOa4ChAEfuhQeClm2SE2pXPX1lRPAgT
-	 DRsNA7plc7tVzo0slCeYNSEZdIRmunqSEzynZQPQTI/qfUUfU9mu4cVwbf1p7/6AwC
-	 PwRqqTYRV/SWBadBJFAflZ66Ez/ucUOKujLr/dio=
+	b=keGZ6Y+wZUHLCo1hJt6VYtzO9ZQpvWJ3aUkPjar90n4amGsJJLWKYX9bwrWrvADvO
+	 gJn5Dslan+JCWGrPkzXJyo/PhCaxeHzVtEzcW38jncuWS5omFgQ/lxGwt5VMXv4d89
+	 sZB/X+03ggFO0lbEelVqa2l5dv4PkkWtL6BtwaYQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E12F8F8016E;
-	Mon, 30 Aug 2021 14:27:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E00EF80227;
+	Mon, 30 Aug 2021 14:36:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 80C22F80218; Mon, 30 Aug 2021 14:27:06 +0200 (CEST)
+ id DCDDAF80218; Mon, 30 Aug 2021 14:36:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,50 +34,54 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 97849F8016E
- for <alsa-devel@alsa-project.org>; Mon, 30 Aug 2021 14:26:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97849F8016E
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0557F80171
+ for <alsa-devel@alsa-project.org>; Mon, 30 Aug 2021 14:36:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0557F80171
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="bFtCjuVn"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 16BE861163
- for <alsa-devel@alsa-project.org>; Mon, 30 Aug 2021 12:26:56 +0000 (UTC)
+ header.b="Z9VrAPSY"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 92F946103A
+ for <alsa-devel@alsa-project.org>; Mon, 30 Aug 2021 12:36:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1630326416;
- bh=8rxzpDDvLETpRjSW5EG7EPps6YmGomM3Beiqdp8hL8s=;
+ s=k20201202; t=1630326964;
+ bh=VSnG7ci/z6It+oL6KcTBEhuTf8u1sv3TMd5qXRIvpQw=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=bFtCjuVnW9yirgFzqcJWAnYSkM1Lhlg9QSRerffQp7Rk4/9vUDaLoDmkVe7AD5/W2
- bUICCo62D5Pr4nmPIOB12Kmdblx7xGuPR9EyAR719YykrxzWmMTVUtL3BARQxyxd68
- pqfOOcBdthaH8nG6Qeq8fBIkIG9r9C6B5P0tksWUIiGBVPsfbYrqWMJvt/BbOl688Q
- jGWUe4sLgO8TDeU//cLdVn/HaBI468J5mhJ/HzVNBUp/flXHaJMgJKSdqhSzrATgFs
- PcTmfJXAePBo45Rrp5sLr3KVRv7A6gZ0H5CqJtwxeJVBI+z2uUnuKSiHSfWbrqPpCH
- bACB2rQFuPRFw==
-Received: by mail-ed1-f43.google.com with SMTP id i6so21369935edu.1
- for <alsa-devel@alsa-project.org>; Mon, 30 Aug 2021 05:26:55 -0700 (PDT)
-X-Gm-Message-State: AOAM530SWUXmoArU2DJ+KvM1842wJpDGSNGC54OhYxQEbsrUbMdXwENr
- zE21dkgUgO9EzBpGIBdcrl7K29pBN9yz0nco+Q==
-X-Google-Smtp-Source: ABdhPJxmILhJYcc+mYeJ+zf9N2F64SRnxQUQWPiG90l8vhjyNKaMHpm3/aiXGIjG5vOQD6D9of/DicoxU1EewIR4qsE=
-X-Received: by 2002:a50:eb8a:: with SMTP id y10mr24087615edr.137.1630326414617; 
- Mon, 30 Aug 2021 05:26:54 -0700 (PDT)
+ b=Z9VrAPSYu3o1kLTK5GooxotaEz5m+jtqVGPk8x4/xsNs4xSvwITYKkramNk5d/Ds0
+ Teze/fJvUS5JD3p4PamiFqb8HZjoQyXqOhTqZWPGvRcsAursOrRZnb9c31yWhB6kP1
+ z7J2AvmUKIV07RunGf8O9elvEyIotC5c1kW9YeGN8AstPmq2X97tMbSCFduB4B7put
+ Gjvg/TCjEPgvqzH+1XqWBuZcnDX3l3ZBslHmIwBQ4ginqBAmsCLQGEUmFYThNrvgKJ
+ M0cHM01VOqLFW+6ei0XINX0sckimNyiqcvkXgF7RoCI43TdCyB0U20iL6wW7xeU/LQ
+ mw9nffcTzgXBA==
+Received: by mail-ed1-f52.google.com with SMTP id q3so21341795edt.5
+ for <alsa-devel@alsa-project.org>; Mon, 30 Aug 2021 05:36:04 -0700 (PDT)
+X-Gm-Message-State: AOAM531nf188NM6jzPjUCiUz28U8wrmL8525yE8Mp/1s48LCnzdypr5y
+ 0WFymIcjI49xAFwq8dLi0zz23HXxvvBdRw8lLQ==
+X-Google-Smtp-Source: ABdhPJzKe9hTkHckfNaR1ucxYim8h6wVK9o1P5JmQEu+WRbO6Yl0Gq0AZ2KqnNnrX8JgVC8B7aRTlLvuFbVruyQ61UA=
+X-Received: by 2002:a05:6402:70c:: with SMTP id
+ w12mr24307350edx.289.1630326963208; 
+ Mon, 30 Aug 2021 05:36:03 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210819101020.26368-1-krzysztof.kozlowski@canonical.com>
- <YSQA/iR6D/Ej1kWx@ravnborg.org>
-In-Reply-To: <YSQA/iR6D/Ej1kWx@ravnborg.org>
+References: <20210819084144.18483-1-trevor.wu@mediatek.com>
+ <20210819084144.18483-8-trevor.wu@mediatek.com>
+In-Reply-To: <20210819084144.18483-8-trevor.wu@mediatek.com>
 From: Rob Herring <robh+dt@kernel.org>
-Date: Mon, 30 Aug 2021 07:26:43 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqKaUTXda_E0FLsHSt523=Tib6z5AgyOpoZA6iBNCht2-A@mail.gmail.com>
-Message-ID: <CAL_JsqKaUTXda_E0FLsHSt523=Tib6z5AgyOpoZA6iBNCht2-A@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: panel: ili9341: correct indentation
-To: Sam Ravnborg <sam@ravnborg.org>
+Date: Mon, 30 Aug 2021 07:35:51 -0500
+X-Gmail-Original-Message-ID: <CAL_Jsq+bLVLqqVKfYuXDVYexMojMgZ5p34Pcx7_7LwU40b-2dA@mail.gmail.com>
+Message-ID: <CAL_Jsq+bLVLqqVKfYuXDVYexMojMgZ5p34Pcx7_7LwU40b-2dA@mail.gmail.com>
+Subject: Re: [PATCH v5 07/11] dt-bindings: mediatek: mt8195: add audio afe
+ document
+To: Trevor Wu <trevor.wu@mediatek.com>, Mark Brown <broonie@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- David Airlie <airlied@linux.ie>, Liam Girdwood <lgirdwood@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
+ Jimmy Cheng-Yi Chiang <cychiang@google.com>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Tzung-Bi Shih <tzungbi@google.com>, Mark Brown <broonie@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dillon Min <dillon.minfei@gmail.com>
+ bicycle.tsai@mediatek.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, Takashi Iwai <tiwai@suse.com>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ Chen-Yu Tsai <wenst@chromium.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Li-Yu Yu <aaronyu@google.com>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,19 +97,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Aug 23, 2021 at 3:11 PM Sam Ravnborg <sam@ravnborg.org> wrote:
+On Thu, Aug 19, 2021 at 3:43 AM Trevor Wu <trevor.wu@mediatek.com> wrote:
 >
-> On Thu, Aug 19, 2021 at 12:10:19PM +0200, Krzysztof Kozlowski wrote:
-> > Correct indentation warning:
-> >   ilitek,ili9341.yaml:25:9: [warning] wrong indentation: expected 10 but found 8 (indentation)
-> >
-> > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+> This patch adds mt8195 audio afe document.
 >
-> Thanks, applied to drm-misc-next, and the patch will show up in -next in
-> one to two weeks.
+> In order to support dynamic clock reparenting for ADDA and ETDM, PLL
+> and MUX clocks are requested even though they are not consumed by afe
+> directly.
+>
+> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
+> ---
+> This patch depends on the following series that have not been accepted.
+>
+> [1] Mediatek MT8195 clock support
+> https://patchwork.kernel.org/project/linux-mediatek/list/?series=501923
+> (dt-bindings/clock/mt8195-clk.h is included)
 
-This needs to go in fixes as it looks like commit 7dbdce806268
-("dt-bindings: display: panel: Add ilitek ili9341 panel bindings") is
-queued for 5.15.
+This dependency is still not applied, so the example fails. One of the
+following needs to happen: the dependency needs to be applied, this
+patch reverted, or drop the use of the defines in the example.
 
 Rob

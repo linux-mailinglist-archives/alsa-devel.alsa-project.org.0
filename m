@@ -2,78 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7EBF3FB4D1
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Aug 2021 13:50:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35C103FB5FB
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Aug 2021 14:28:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 486C216A9;
-	Mon, 30 Aug 2021 13:49:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 486C216A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id A19D3172A;
+	Mon, 30 Aug 2021 14:27:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A19D3172A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630324244;
-	bh=Vdhx1qYkCydHotzV/G7cGTCKO958pP29I3Bua4L+D/4=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1630326506;
+	bh=8rxzpDDvLETpRjSW5EG7EPps6YmGomM3Beiqdp8hL8s=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CUb20uzYlML/Il09UZSR+pJhpESXQEMlcNh7kfFUrkOoLTFRWVrKsPCZkYKrsNCY/
-	 /UJEEIlsea5wWke19+gsM3F5cakxVz1yrOm/B0Pu2/zAMRFt+hHVP7i58nul6lhQyB
-	 WTxIHQe2hDbJaLVFID9Gg9qhbfBV5cP4oadUcPrs=
+	b=VQ38iPwd3+5qk7wM9Lp1A+EPZdgkMV7psOAOa4ChAEfuhQeClm2SE2pXPX1lRPAgT
+	 DRsNA7plc7tVzo0slCeYNSEZdIRmunqSEzynZQPQTI/qfUUfU9mu4cVwbf1p7/6AwC
+	 PwRqqTYRV/SWBadBJFAflZ66Ez/ucUOKujLr/dio=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD159F80227;
-	Mon, 30 Aug 2021 13:49:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E12F8F8016E;
+	Mon, 30 Aug 2021 14:27:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 78DDFF80218; Mon, 30 Aug 2021 13:49:24 +0200 (CEST)
+ id 80C22F80218; Mon, 30 Aug 2021 14:27:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
- [209.85.167.182])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 95492F80169
- for <alsa-devel@alsa-project.org>; Mon, 30 Aug 2021 13:49:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95492F80169
-Received: by mail-oi1-f182.google.com with SMTP id o185so19338181oih.13
- for <alsa-devel@alsa-project.org>; Mon, 30 Aug 2021 04:49:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
- :message-id;
- bh=JTWNeOzPya3nNu0WFhWPDsxrKp/zSguxB/tKydwWrag=;
- b=MpjEhq1LZ3lYaiOeyzMdwrx9QABVDy7+dDZOBP/V9CHKDtlN4aWguCUmDNWg3K6sY5
- l8ajDxyjnxRTk5V17cG5+E6mHELCnxxhFtkbihVjbF3BkbAnu57JoJBuu2sBNQSqIcek
- pWI0ZMjy8/XOQC+S+BskmXKjl8HzKB8N1v3Si28yUfiOA8o5dN+PbEtt1OdXqb1vZYTT
- LHRSReeJgS99I6aFFRguyc8cpq3DlVN3elMNZrlB2saAJkI6DBl7+Rznkz6AN7Un6eKx
- 1lWVGMVPRmbGvqXRo1SgRlMWvAg9nLTE6C11uPUWJW9a3kVWZeQKVtSuE96FaUlBuwRw
- CgdQ==
-X-Gm-Message-State: AOAM530WjLR460D2Hn5/SKc4kXlvCbtJDpgK8a5PVbiEegDOvzfUzvhK
- Lm8SeJzpiJs0o3bSlye3uw==
-X-Google-Smtp-Source: ABdhPJwwEkgsS1GB6OQSTyCZgYSxrcjUoCWW5L8KMurAZMwyuCTgAYQQ+h3D86cTz7mDgrBVz2E8uQ==
-X-Received: by 2002:aca:6541:: with SMTP id j1mr14958919oiw.146.1630324153939; 
- Mon, 30 Aug 2021 04:49:13 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id 97sm3214312otv.26.2021.08.30.04.49.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Aug 2021 04:49:13 -0700 (PDT)
-Received: (nullmailer pid 1731755 invoked by uid 1000);
- Mon, 30 Aug 2021 11:49:10 -0000
-From: Rob Herring <robh@kernel.org>
-To: Sugar Zhang <sugar.zhang@rock-chips.com>
-In-Reply-To: <1630285861-28147-2-git-send-email-sugar.zhang@rock-chips.com>
-References: <1630285788-28002-1-git-send-email-sugar.zhang@rock-chips.com>
- <1630285861-28147-2-git-send-email-sugar.zhang@rock-chips.com>
-Subject: Re: [PATCH v2 7/7] ASoC: dt-bindings: rockchip: Convert pdm bindings
- to yaml
-Date: Mon, 30 Aug 2021 06:49:10 -0500
-Message-Id: <1630324150.931479.1731754.nullmailer@robh.at.kernel.org>
-Cc: linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
- broonie@kernel.org, heiko@sntech.de, devicetree@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 97849F8016E
+ for <alsa-devel@alsa-project.org>; Mon, 30 Aug 2021 14:26:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97849F8016E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="bFtCjuVn"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 16BE861163
+ for <alsa-devel@alsa-project.org>; Mon, 30 Aug 2021 12:26:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1630326416;
+ bh=8rxzpDDvLETpRjSW5EG7EPps6YmGomM3Beiqdp8hL8s=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=bFtCjuVnW9yirgFzqcJWAnYSkM1Lhlg9QSRerffQp7Rk4/9vUDaLoDmkVe7AD5/W2
+ bUICCo62D5Pr4nmPIOB12Kmdblx7xGuPR9EyAR719YykrxzWmMTVUtL3BARQxyxd68
+ pqfOOcBdthaH8nG6Qeq8fBIkIG9r9C6B5P0tksWUIiGBVPsfbYrqWMJvt/BbOl688Q
+ jGWUe4sLgO8TDeU//cLdVn/HaBI468J5mhJ/HzVNBUp/flXHaJMgJKSdqhSzrATgFs
+ PcTmfJXAePBo45Rrp5sLr3KVRv7A6gZ0H5CqJtwxeJVBI+z2uUnuKSiHSfWbrqPpCH
+ bACB2rQFuPRFw==
+Received: by mail-ed1-f43.google.com with SMTP id i6so21369935edu.1
+ for <alsa-devel@alsa-project.org>; Mon, 30 Aug 2021 05:26:55 -0700 (PDT)
+X-Gm-Message-State: AOAM530SWUXmoArU2DJ+KvM1842wJpDGSNGC54OhYxQEbsrUbMdXwENr
+ zE21dkgUgO9EzBpGIBdcrl7K29pBN9yz0nco+Q==
+X-Google-Smtp-Source: ABdhPJxmILhJYcc+mYeJ+zf9N2F64SRnxQUQWPiG90l8vhjyNKaMHpm3/aiXGIjG5vOQD6D9of/DicoxU1EewIR4qsE=
+X-Received: by 2002:a50:eb8a:: with SMTP id y10mr24087615edr.137.1630326414617; 
+ Mon, 30 Aug 2021 05:26:54 -0700 (PDT)
+MIME-Version: 1.0
+References: <20210819101020.26368-1-krzysztof.kozlowski@canonical.com>
+ <YSQA/iR6D/Ej1kWx@ravnborg.org>
+In-Reply-To: <YSQA/iR6D/Ej1kWx@ravnborg.org>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Mon, 30 Aug 2021 07:26:43 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqKaUTXda_E0FLsHSt523=Tib6z5AgyOpoZA6iBNCht2-A@mail.gmail.com>
+Message-ID: <CAL_JsqKaUTXda_E0FLsHSt523=Tib6z5AgyOpoZA6iBNCht2-A@mail.gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: panel: ili9341: correct indentation
+To: Sam Ravnborg <sam@ravnborg.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ David Airlie <airlied@linux.ie>, Liam Girdwood <lgirdwood@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Tzung-Bi Shih <tzungbi@google.com>, Mark Brown <broonie@kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dillon Min <dillon.minfei@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,43 +93,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 30 Aug 2021 09:11:01 +0800, Sugar Zhang wrote:
-> This patch converts pdm bindings to yaml.
-> 
-> Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
-> ---
-> 
-> Changes in v2:
-> - Fix yamllint errors.
-> 
->  .../devicetree/bindings/sound/rockchip,pdm.txt     |  64 ------------
->  .../devicetree/bindings/sound/rockchip,pdm.yaml    | 115 +++++++++++++++++++++
->  2 files changed, 115 insertions(+), 64 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/rockchip,pdm.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/rockchip,pdm.yaml
-> 
+On Mon, Aug 23, 2021 at 3:11 PM Sam Ravnborg <sam@ravnborg.org> wrote:
+>
+> On Thu, Aug 19, 2021 at 12:10:19PM +0200, Krzysztof Kozlowski wrote:
+> > Correct indentation warning:
+> >   ilitek,ili9341.yaml:25:9: [warning] wrong indentation: expected 10 but found 8 (indentation)
+> >
+> > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+>
+> Thanks, applied to drm-misc-next, and the patch will show up in -next in
+> one to two weeks.
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+This needs to go in fixes as it looks like commit 7dbdce806268
+("dt-bindings: display: panel: Add ilitek ili9341 panel bindings") is
+queued for 5.15.
 
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/rockchip,pdm.example.dt.yaml: example-0: pdm@ff040000:reg:0: [0, 4278452224, 0, 4096] is too long
-	From schema: /usr/local/lib/python3.8/dist-packages/dtschema/schemas/reg.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/patch/1522032
-
-This check can fail if there are any dependencies. The base for a patch
-series is generally the most recent rc1.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit.
-
+Rob

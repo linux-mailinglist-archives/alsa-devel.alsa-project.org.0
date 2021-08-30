@@ -2,75 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FC513FAF74
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Aug 2021 03:13:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29A693FAFA6
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Aug 2021 04:02:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 34D7B16E8;
-	Mon, 30 Aug 2021 03:12:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34D7B16E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 300061703;
+	Mon, 30 Aug 2021 04:01:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 300061703
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630286016;
-	bh=gbgYZZG8wXi6T87zmlE6EE6SWi76Na3/j237J+43Gwc=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1630288959;
+	bh=Qyat5x/fiJC8kmOPCW3EzEYS2O3hrzOq+rV6SCzvXHk=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=W2V8ygBT5Ojxpax7fjkOhoOpBc5qgngE3NxeoyMwA5RyE2gDo6do53hvcTKYP9GC8
-	 Uag4AcjEumAHr0XHvjKLj4cLXs6Pt9hDEJ4k+usaxFm98cFLVvqFXX0+5ZMXLWxGor
-	 3zASoKZbY+ptkerC30GDwy8KCUvYpfPma2jsmkw8=
+	b=Kc0/4Wmbbh4A9Q3oHQIm6ZckFAhqPa8d4mNFnRzAEq5m6mQ4Y50YhE/kSGJeLlh5U
+	 IWj5zsH5WqkUNi6/VT9Ub067WN8P3cIRaz8VAPZHvDTQxnp0HGjvlt+gwiq+sQCm9I
+	 mtl6sxq+S4paBxUNFqXmXQSwJxQdMCiqRdKhAEj0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5CB2BF80507;
-	Mon, 30 Aug 2021 03:11:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C9F2FF80171;
+	Mon, 30 Aug 2021 04:01:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A0BA1F80506; Mon, 30 Aug 2021 03:11:16 +0200 (CEST)
+ id 21E6AF80218; Mon, 30 Aug 2021 04:01:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from lucky1.263xmail.com (lucky1.263xmail.com [211.157.147.132])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8004EF804F3
- for <alsa-devel@alsa-project.org>; Mon, 30 Aug 2021 03:11:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8004EF804F3
-Received: from localhost (unknown [192.168.167.16])
- by lucky1.263xmail.com (Postfix) with ESMTP id 66A86FB549;
- Mon, 30 Aug 2021 09:11:05 +0800 (CST)
-X-MAIL-GRAY: 0
-X-MAIL-DELIVERY: 1
-X-ADDR-CHECKED4: 1
-X-SKE-CHECKED: 1
-X-ANTISPAM-LEVEL: 2
-Received: from localhost.localdomain (unknown [58.22.7.114])
- by smtp.263.net (postfix) whith ESMTP id
- P704T139881204397824S1630285862688994_; 
- Mon, 30 Aug 2021 09:11:04 +0800 (CST)
-X-IP-DOMAINF: 1
-X-UNIQUE-TAG: <d329ba220c027a2059635177b3f55521>
-X-RL-SENDER: sugar.zhang@rock-chips.com
-X-SENDER: zxg@rock-chips.com
-X-LOGIN-NAME: sugar.zhang@rock-chips.com
-X-FST-TO: broonie@kernel.org
-X-RCPT-COUNT: 6
-X-SENDER-IP: 58.22.7.114
-X-ATTACHMENT-NUM: 0
-X-System-Flag: 0
-From: Sugar Zhang <sugar.zhang@rock-chips.com>
-To: broonie@kernel.org,
-	heiko@sntech.de
-Subject: [PATCH v2 7/7] ASoC: dt-bindings: rockchip: Convert pdm bindings to
- yaml
-Date: Mon, 30 Aug 2021 09:11:01 +0800
-Message-Id: <1630285861-28147-2-git-send-email-sugar.zhang@rock-chips.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1630285788-28002-1-git-send-email-sugar.zhang@rock-chips.com>
-References: <1630285788-28002-1-git-send-email-sugar.zhang@rock-chips.com>
-Cc: Sugar Zhang <sugar.zhang@rock-chips.com>,
- linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id E8CA2F80171
+ for <alsa-devel@alsa-project.org>; Mon, 30 Aug 2021 04:01:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8CA2F80171
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="ZYnQFQD1"
+X-UUID: bf59ae2cd0f3408f9c60b258a15e654b-20210830
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=Qyat5x/fiJC8kmOPCW3EzEYS2O3hrzOq+rV6SCzvXHk=; 
+ b=ZYnQFQD1W2v+dXcpuDD/op5QT1X8z+2GzwyFFgNz2l8hUhMYcei63/D+FLkONW/yDjNFAZ7JHQkcS7vTEL96eFTQtr0FzQmXazyXWM6ZdVlS8SoPitLdwRj1gkiI6Y/1MJ+IhFFa4xWdQ4YIVxjP0hKsPlmKDSMH1605kdy4v0M=;
+X-UUID: bf59ae2cd0f3408f9c60b258a15e654b-20210830
+Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
+ mailgw02.mediatek.com (envelope-from <trevor.wu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 1432520261; Mon, 30 Aug 2021 10:00:57 +0800
+Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
+ mtkmbs05n2.mediatek.inc (172.21.101.140) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Mon, 30 Aug 2021 10:00:56 +0800
+Received: from mtkcas07.mediatek.inc (172.21.101.84) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
+ Mon, 30 Aug 2021 10:00:56 +0800
+Received: from mtksdccf07 (172.21.84.99) by mtkcas07.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Mon, 30 Aug 2021 10:00:55 +0800
+Message-ID: <2310d7eebf0063eafa86657879238d1d07f180dd.camel@mediatek.com>
+Subject: Re: linux-next: Tree for Aug 27 (sound/soc/mediatek: Kconfig)
+From: Trevor Wu <trevor.wu@mediatek.com>
+To: Randy Dunlap <rdunlap@infradead.org>, Stephen Rothwell
+ <sfr@canb.auug.org.au>, Linux Next Mailing List <linux-next@vger.kernel.org>, 
+ Mark Brown <broonie@kernel.org>
+Date: Mon, 30 Aug 2021 10:00:55 +0800
+In-Reply-To: <f0fcbb1e-bf15-5ad2-6ff5-55b7c2acb29c@infradead.org>
+References: <20210827212415.48ac8b64@canb.auug.org.au>
+ <f0fcbb1e-bf15-5ad2-6ff5-55b7c2acb29c@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+MIME-Version: 1.0
+X-MTK: N
+Content-Transfer-Encoding: base64
+Cc: alsa-devel@alsa-project.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,213 +93,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch converts pdm bindings to yaml.
-
-Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
----
-
-Changes in v2:
-- Fix yamllint errors.
-
- .../devicetree/bindings/sound/rockchip,pdm.txt     |  64 ------------
- .../devicetree/bindings/sound/rockchip,pdm.yaml    | 115 +++++++++++++++++++++
- 2 files changed, 115 insertions(+), 64 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/rockchip,pdm.txt
- create mode 100644 Documentation/devicetree/bindings/sound/rockchip,pdm.yaml
-
-diff --git a/Documentation/devicetree/bindings/sound/rockchip,pdm.txt b/Documentation/devicetree/bindings/sound/rockchip,pdm.txt
-deleted file mode 100644
-index b2d7e47..0000000
---- a/Documentation/devicetree/bindings/sound/rockchip,pdm.txt
-+++ /dev/null
-@@ -1,64 +0,0 @@
--* Rockchip PDM controller
--
--Required properties:
--
--- compatible: "rockchip,pdm"
--  - "rockchip,px30-pdm"
--  - "rockchip,rk1808-pdm"
--  - "rockchip,rk3308-pdm"
--  - "rockchip,rk3568-pdm"
--  - "rockchip,rv1126-pdm"
--- reg: physical base address of the controller and length of memory mapped
--  region.
--- dmas: DMA specifiers for rx dma. See the DMA client binding,
--	Documentation/devicetree/bindings/dma/dma.txt
--- dma-names: should include "rx".
--- clocks: a list of phandle + clock-specifer pairs, one for each entry in clock-names.
--- clock-names: should contain following:
--   - "pdm_hclk": clock for PDM BUS
--   - "pdm_clk" : clock for PDM controller
--- resets: a list of phandle + reset-specifer paris, one for each entry in reset-names.
--- reset-names: reset names, should include "pdm-m".
--- pinctrl-names: Must contain a "default" entry.
--- pinctrl-N: One property must exist for each entry in
--	     pinctrl-names. See ../pinctrl/pinctrl-bindings.txt
--	     for details of the property values.
--
--Optional properties:
--- rockchip,path-map: This is a variable length array, that shows the mapping
--  of SDIx to PATHx. By default, they are one-to-one mapping as follows:
--
--   path0 <-- sdi0
--   path1 <-- sdi1
--   path2 <-- sdi2
--   path3 <-- sdi3
--
--  e.g. "rockchip,path-map = <3 2 1 0>" means the mapping as follows:
--
--   path0 <-- sdi3
--   path1 <-- sdi2
--   path2 <-- sdi1
--   path3 <-- sdi0
--
--Example for rk3328 PDM controller:
--
--pdm: pdm@ff040000 {
--	compatible = "rockchip,pdm";
--	reg = <0x0 0xff040000 0x0 0x1000>;
--	clocks = <&clk_pdm>, <&clk_gates28 0>;
--	clock-names = "pdm_clk", "pdm_hclk";
--	dmas = <&pdma 16>;
--	#dma-cells = <1>;
--	dma-names = "rx";
--	pinctrl-names = "default", "sleep";
--	pinctrl-0 = <&pdmm0_clk
--		     &pdmm0_sdi0
--		     &pdmm0_sdi1
--		     &pdmm0_sdi2
--		     &pdmm0_sdi3>;
--	pinctrl-1 = <&pdmm0_clk_sleep
--		     &pdmm0_sdi0_sleep
--		     &pdmm0_sdi1_sleep
--		     &pdmm0_sdi2_sleep
--		     &pdmm0_sdi3_sleep>;
--};
-diff --git a/Documentation/devicetree/bindings/sound/rockchip,pdm.yaml b/Documentation/devicetree/bindings/sound/rockchip,pdm.yaml
-new file mode 100644
-index 0000000..fa24ddf
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/rockchip,pdm.yaml
-@@ -0,0 +1,115 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/rockchip,pdm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Rockchip PDM controller
-+
-+description:
-+  The Pulse Density Modulation Interface Controller (PDMC) is
-+  a PDM interface controller and decoder that support PDM format.
-+  It integrates a clock generator driving the PDM microphone
-+  and embeds filters which decimate the incoming bit stream to
-+  obtain most common audio rates.
-+
-+maintainers:
-+  - Heiko Stuebner <heiko@sntech.de>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - rockchip,pdm
-+      - rockchip,px30-pdm
-+      - rockchip,rk1808-pdm
-+      - rockchip,rk3308-pdm
-+      - rockchip,rk3568-pdm
-+      - rockchip,rv1126-pdm
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: clock for PDM controller
-+      - description: clock for PDM BUS
-+
-+  clock-names:
-+    items:
-+      - const: pdm_clk
-+      - const: pdm_hclk
-+
-+  dmas:
-+    maxItems: 1
-+
-+  dma-names:
-+    items:
-+      - const: rx
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  resets:
-+    items:
-+      - description: reset for PDM controller
-+
-+  reset-names:
-+    items:
-+      - const: pdm-m
-+
-+  rockchip,path-map:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description:
-+      Defines the mapping of PDM SDIx to PDM PATHx.
-+      By default, they are mapped one-to-one.
-+    items:
-+      - description: which sdi to connect to path 0
-+      - description: which sdi to connect to path 1
-+      - description: which sdi to connect to path 2
-+      - description: which sdi to connect to path 3
-+
-+  "#sound-dai-cells":
-+    const: 0
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - dmas
-+  - dma-names
-+  - "#sound-dai-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/rk3328-cru.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/pinctrl/rockchip.h>
-+    pdm@ff040000 {
-+      compatible = "rockchip,pdm";
-+      reg = <0x0 0xff040000 0x0 0x1000>;
-+      interrupts = <GIC_SPI 82 IRQ_TYPE_LEVEL_HIGH>;
-+      clocks = <&cru SCLK_PDM>, <&cru HCLK_PDM>;
-+      clock-names = "pdm_clk", "pdm_hclk";
-+      dmas = <&dmac 16>;
-+      dma-names = "rx";
-+      #sound-dai-cells = <0>;
-+      pinctrl-names = "default", "sleep";
-+      pinctrl-0 = <&pdmm0_clk
-+                   &pdmm0_sdi0
-+                   &pdmm0_sdi1
-+                   &pdmm0_sdi2
-+                   &pdmm0_sdi3>;
-+      pinctrl-1 = <&pdmm0_clk_sleep
-+                   &pdmm0_sdi0_sleep
-+                   &pdmm0_sdi1_sleep
-+                   &pdmm0_sdi2_sleep
-+                   &pdmm0_sdi3_sleep>;
-+    };
--- 
-2.7.4
-
-
+T24gRnJpLCAyMDIxLTA4LTI3IGF0IDExOjM5IC0wNzAwLCBSYW5keSBEdW5sYXAgd3JvdGU6DQo+
+IE9uIDgvMjcvMjEgNDoyNCBBTSwgU3RlcGhlbiBSb3Rod2VsbCB3cm90ZToNCj4gPiBIaSBhbGws
+DQo+ID4gDQo+ID4gQ2hhbmdlcyBzaW5jZSAyMDIxMDgyNjoNCj4gPiANCj4gPiBUaGUga2J1aWxk
+IHRyZWUgc3RpbGwgaGFkIGl0cyBidWlsZCBmYWlsdXJlIGZvciB3aGljaCBJIHJldmVydGVkIGEN
+Cj4gPiBjb21taXQuDQo+ID4gDQo+ID4gVGhlIHVtbCB0cmVlIGdhaW5lZCBhIGNvbmZsaWN0IGFn
+YWluc3QgdGhlIGFzbS1nZW5lcmljIHRyZWUuDQo+ID4gDQo+ID4gVGhlIG5ldC1uZXh0IHRyZWUg
+c3RpbGwgaGFkIGl0cyBidWlsZCBmYWlsdXJlIGZvciB3aGljaCBJIGFwcGxpZWQgYQ0KPiA+IHBh
+dGNoIGFuZCBpdCBhbHNvIGdhaW5lZCBhIHNlbWFudGljIGNvbmZsaWN0IGFnYWluc3QgTGludXMn
+IHRyZWUuDQo+ID4gDQo+ID4gVGhlIGJwZi1uZXh0IHRyZWUgbG9zdCBpdHMgYnVpbGQgZmFpbHVy
+ZS4NCj4gPiANCj4gPiBUaGUgdGlwIHRyZWUgZ2FpbmVkIGNvbmZsaWN0cyBhZ2FpbnN0IHRoZSBh
+cm02NCB0cmVlLg0KPiA+IA0KPiA+IFRoZSBmdHJhY2UgdHJlZSBnYWluZWQgYSBjb25mbGljdCBh
+Z2FpbnN0IHRoZSB1bWwgdHJlZS4NCj4gPiANCj4gPiBUaGUgdmZpbyB0cmVlIGdhaW5lZCBjb25m
+bGljdHMgYWdhaW5zdCB0aGUgZHJtIHRyZWUuDQo+ID4gDQo+ID4gVGhlIGtzcHAgdHJlZSBzdGls
+bCBoYWQgaXRzIGJ1aWxkIGZhaWx1cmUgc28gSSB1c2VkIHRoZSB2ZXJzaW9uDQo+ID4gZnJvbQ0K
+PiA+IG5leHQtMjAyMTA4MjUuDQo+ID4gDQo+ID4gTm9uLW1lcmdlIGNvbW1pdHMgKHJlbGF0aXZl
+IHRvIExpbnVzJyB0cmVlKTogOTg2Nw0KPiA+ICAgOTUyOCBmaWxlcyBjaGFuZ2VkLCA1NTI1MDcg
+aW5zZXJ0aW9ucygrKSwgMjI3MDU0IGRlbGV0aW9ucygtKQ0KPiA+IA0KPiA+IC0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQo+
+ID4gLS0tLS0tLS0tLS0NCj4gPiANCj4gPiBJIGhhdmUgY3JlYXRlZCB0b2RheSdzIGxpbnV4LW5l
+eHQgdHJlZSBhdA0KPiA+IGdpdDovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20vbGludXgva2VybmVs
+L2dpdC9uZXh0L2xpbnV4LW5leHQuZ2l0DQo+ID4gKHBhdGNoZXMgYXQgDQo+ID4gaHR0cHM6Ly91
+cmxkZWZlbnNlLmNvbS92My9fX2h0dHA6Ly93d3cua2VybmVsLm9yZy9wdWIvbGludXgva2VybmVs
+L25leHQvX187ISFDVFJOS0E5d01nMEFSYnchMUVscmQzQzdWc00zdmVINTNjVWJRTDZhSlotd3Z4
+WEZRUGZ2NDl5NGprQmFDX05Zb3o2NUZkMVhEV1VZTnVVZW1nJA0KPiA+ICAgKS4gIElmIHlvdQ0K
+PiA+IGFyZSB0cmFja2luZyB0aGUgbGludXgtbmV4dCB0cmVlIHVzaW5nIGdpdCwgeW91IHNob3Vs
+ZCBub3QgdXNlICJnaXQNCj4gPiBwdWxsIg0KPiA+IHRvIGRvIHNvIGFzIHRoYXQgd2lsbCB0cnkg
+dG8gbWVyZ2UgdGhlIG5ldyBsaW51eC1uZXh0IHJlbGVhc2Ugd2l0aA0KPiA+IHRoZQ0KPiA+IG9s
+ZCBvbmUuICBZb3Ugc2hvdWxkIHVzZSAiZ2l0IGZldGNoIiBhbmQgY2hlY2tvdXQgb3IgcmVzZXQg
+dG8gdGhlDQo+ID4gbmV3DQo+ID4gbWFzdGVyLg0KPiA+IA0KPiA+IFlvdSBjYW4gc2VlIHdoaWNo
+IHRyZWVzIGhhdmUgYmVlbiBpbmNsdWRlZCBieSBsb29raW5nIGluIHRoZQ0KPiA+IE5leHQvVHJl
+ZXMNCj4gPiBmaWxlIGluIHRoZSBzb3VyY2UuICBUaGVyZSBhcmUgYWxzbyBxdWlsdC1pbXBvcnQu
+bG9nIGFuZCBtZXJnZS5sb2cNCj4gPiBmaWxlcyBpbiB0aGUgTmV4dCBkaXJlY3RvcnkuICBCZXR3
+ZWVuIGVhY2ggbWVyZ2UsIHRoZSB0cmVlIHdhcw0KPiA+IGJ1aWx0DQo+ID4gd2l0aCBhIHBwYzY0
+X2RlZmNvbmZpZyBmb3IgcG93ZXJwYywgYW4gYWxsbW9kY29uZmlnIGZvciB4ODZfNjQsIGENCj4g
+PiBtdWx0aV92N19kZWZjb25maWcgZm9yIGFybSBhbmQgYSBuYXRpdmUgYnVpbGQgb2YgdG9vbHMv
+cGVyZi4gQWZ0ZXINCj4gPiB0aGUgZmluYWwgZml4dXBzIChpZiBhbnkpLCBJIGRvIGFuIHg4Nl82
+NCBtb2R1bGVzX2luc3RhbGwgZm9sbG93ZWQNCj4gPiBieQ0KPiA+IGJ1aWxkcyBmb3IgeDg2XzY0
+IGFsbG5vY29uZmlnLCBwb3dlcnBjIGFsbG5vY29uZmlnICgzMiBhbmQgNjQgYml0KSwNCj4gPiBw
+cGM0NHhfZGVmY29uZmlnLCBhbGx5ZXNjb25maWcgYW5kIHBzZXJpZXNfbGVfZGVmY29uZmlnIGFu
+ZCBpMzg2LA0KPiA+IHNwYXJjDQo+ID4gYW5kIHNwYXJjNjQgZGVmY29uZmlnIGFuZCBodG1sZG9j
+cy4gQW5kIGZpbmFsbHksIGEgc2ltcGxlIGJvb3QgdGVzdA0KPiA+IG9mIHRoZSBwb3dlcnBjIHBz
+ZXJpZXNfbGVfZGVmY29uZmlnIGtlcm5lbCBpbiBxZW11ICh3aXRoIGFuZA0KPiA+IHdpdGhvdXQN
+Cj4gPiBrdm0gZW5hYmxlZCkuDQo+ID4gDQo+ID4gQmVsb3cgaXMgYSBzdW1tYXJ5IG9mIHRoZSBz
+dGF0ZSBvZiB0aGUgbWVyZ2UuDQo+ID4gDQo+ID4gSSBhbSBjdXJyZW50bHkgbWVyZ2luZyAzMzQg
+dHJlZXMgKGNvdW50aW5nIExpbnVzJyBhbmQgOTAgdHJlZXMgb2YNCj4gPiBidWcNCj4gPiBmaXgg
+cGF0Y2hlcyBwZW5kaW5nIGZvciB0aGUgY3VycmVudCBtZXJnZSByZWxlYXNlKS4NCj4gPiANCj4g
+PiBTdGF0cyBhYm91dCB0aGUgc2l6ZSBvZiB0aGUgdHJlZSBvdmVyIHRpbWUgY2FuIGJlIHNlZW4g
+YXQNCj4gPiANCmh0dHBzOi8vdXJsZGVmZW5zZS5jb20vdjMvX19odHRwOi8vbmV1bGluZy5vcmcv
+bGludXgtbmV4dC1zaXplLmh0bWxfXzshIUNUUk5LQTl3TWcwQVJidyExRWxyZDNDN1ZzTTN2ZUg1
+M2NVYlFMNmFKWi13dnhYRlFQZnY0OXk0amtCYUNfTllvejY1RmQxWERXVU1JRWszS0EkDQo+ID4g
+QSQgIC4NCj4gPiANCj4gPiBTdGF0dXMgb2YgbXkgbG9jYWwgYnVpbGQgdGVzdHMgd2lsbCBiZSBh
+dA0KPiA+IA0KaHR0cHM6Ly91cmxkZWZlbnNlLmNvbS92My9fX2h0dHA6Ly9raXNza2IuZWxsZXJt
+YW4uaWQuYXUvbGludXgtbmV4dF9fOyEhQ1RSTktBOXdNZzBBUmJ3ITFFbHJkM0M3VnNNM3ZlSDUz
+Y1ViUUw2YUpaLXd2eFhGUVBmdjQ5eTRqa0JhQ19OWW96NjVGZDFYRFdXVGxNMFp6QSQNCj4gPiAg
+IC4gIElmIG1haW50YWluZXJzIHdhbnQgdG8gZ2l2ZQ0KPiA+IGFkdmljZSBhYm91dCBjcm9zcyBj
+b21waWxlcnMvY29uZmlncyB0aGF0IHdvcmssIHdlIGFyZSBhbHdheXMgb3Blbg0KPiA+IHRvIGFk
+ZA0KPiA+IG1vcmUgYnVpbGRzLg0KPiA+IA0KPiA+IFRoYW5rcyB0byBSYW5keSBEdW5sYXAgZm9y
+IGRvaW5nIG1hbnkgcmFuZGNvbmZpZyBidWlsZHMuICBBbmQgdG8NCj4gPiBQYXVsDQo+ID4gR29y
+dG1ha2VyIGZvciB0cmlhZ2UgYW5kIGJ1ZyBmaXhlcy4NCj4gPiANCj4gDQo+IG9uIGkzODY6DQo+
+IA0KPiBXQVJOSU5HOiB1bm1ldCBkaXJlY3QgZGVwZW5kZW5jaWVzIGRldGVjdGVkIGZvciBTTkRf
+U09DX01UNjM1OQ0KPiAgICBEZXBlbmRzIG9uIFtuXTogU09VTkQgWz15XSAmJiAhVU1MICYmIFNO
+RCBbPXldICYmIFNORF9TT0MgWz15XSAmJg0KPiBNVEtfUE1JQ19XUkFQIFs9bl0NCj4gICAgU2Vs
+ZWN0ZWQgYnkgW3ldOg0KPiAgICAtIFNORF9TT0NfTVQ4MTk1X01UNjM1OV9SVDEwMTlfUlQ1Njgy
+IFs9eV0gJiYgU09VTkQgWz15XSAmJiAhVU1MDQo+ICYmIFNORCBbPXldICYmIFNORF9TT0MgWz15
+XSAmJiBJMkMgWz15XSAmJiBTTkRfU09DX01UODE5NSBbPXldDQo+IA0KPiANCj4gY2F1c2VkIGJ5
+IDQwZDYwNWRmMGE3YjogQVNvQzogbWVkaWF0ZWs6IG10ODE5NTogYWRkIG1hY2hpbmUgZHJpdmVy
+DQo+IHdpdGggbXQ2MzU5LCBydDEwMTkgYW5kIHJ0NTY4Mg0KPiANCj4gRnVsbCByYW5kY29uZmln
+IGZpbGUgaXMgYXR0YWNoZWQuDQo+IA0KDQoNCkhpIFJhbmR5LA0KDQpJIHdpbGwgYWRkIGEgZGVw
+ZW5kZW5jeSB0byBhdm9pZCB0aGF0Lg0KDQpUaGFua3MsDQpUcmV2b3INCg0KDQoNCg==
 

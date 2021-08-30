@@ -2,86 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7935B3FB62E
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Aug 2021 14:37:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5186F3FB66E
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Aug 2021 14:50:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05EB616B8;
-	Mon, 30 Aug 2021 14:36:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05EB616B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id BADCA1728;
+	Mon, 30 Aug 2021 14:50:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BADCA1728
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630327056;
-	bh=VSnG7ci/z6It+oL6KcTBEhuTf8u1sv3TMd5qXRIvpQw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1630327854;
+	bh=enzFmMLYdaHFy4skvzq849/SMBJr8HO7zCGUPuCRhFs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=keGZ6Y+wZUHLCo1hJt6VYtzO9ZQpvWJ3aUkPjar90n4amGsJJLWKYX9bwrWrvADvO
-	 gJn5Dslan+JCWGrPkzXJyo/PhCaxeHzVtEzcW38jncuWS5omFgQ/lxGwt5VMXv4d89
-	 sZB/X+03ggFO0lbEelVqa2l5dv4PkkWtL6BtwaYQ=
+	b=CVxFlw+FUZFv6o71ppf0O/qAHPtf0Rptu4Ww0ZzMJAuWAx5o+pT/9QMSLt6Kd2Xcw
+	 jrHf2C5PCWWdu97c3dLC89+vZHhtf3UTbFYhSVegGIzvhFEmGG+XTwpw4sPuNxdtQn
+	 72cP0s/anfyf85azX3xVcWfTtDFx9d309kM8ZUQg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E00EF80227;
-	Mon, 30 Aug 2021 14:36:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EEA3EF8020D;
+	Mon, 30 Aug 2021 14:49:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DCDDAF80218; Mon, 30 Aug 2021 14:36:16 +0200 (CEST)
+ id DF397F80171; Mon, 30 Aug 2021 14:49:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D0557F80171
- for <alsa-devel@alsa-project.org>; Mon, 30 Aug 2021 14:36:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0557F80171
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Z9VrAPSY"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 92F946103A
- for <alsa-devel@alsa-project.org>; Mon, 30 Aug 2021 12:36:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1630326964;
- bh=VSnG7ci/z6It+oL6KcTBEhuTf8u1sv3TMd5qXRIvpQw=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=Z9VrAPSYu3o1kLTK5GooxotaEz5m+jtqVGPk8x4/xsNs4xSvwITYKkramNk5d/Ds0
- Teze/fJvUS5JD3p4PamiFqb8HZjoQyXqOhTqZWPGvRcsAursOrRZnb9c31yWhB6kP1
- z7J2AvmUKIV07RunGf8O9elvEyIotC5c1kW9YeGN8AstPmq2X97tMbSCFduB4B7put
- Gjvg/TCjEPgvqzH+1XqWBuZcnDX3l3ZBslHmIwBQ4ginqBAmsCLQGEUmFYThNrvgKJ
- M0cHM01VOqLFW+6ei0XINX0sckimNyiqcvkXgF7RoCI43TdCyB0U20iL6wW7xeU/LQ
- mw9nffcTzgXBA==
-Received: by mail-ed1-f52.google.com with SMTP id q3so21341795edt.5
- for <alsa-devel@alsa-project.org>; Mon, 30 Aug 2021 05:36:04 -0700 (PDT)
-X-Gm-Message-State: AOAM531nf188NM6jzPjUCiUz28U8wrmL8525yE8Mp/1s48LCnzdypr5y
- 0WFymIcjI49xAFwq8dLi0zz23HXxvvBdRw8lLQ==
-X-Google-Smtp-Source: ABdhPJzKe9hTkHckfNaR1ucxYim8h6wVK9o1P5JmQEu+WRbO6Yl0Gq0AZ2KqnNnrX8JgVC8B7aRTlLvuFbVruyQ61UA=
-X-Received: by 2002:a05:6402:70c:: with SMTP id
- w12mr24307350edx.289.1630326963208; 
- Mon, 30 Aug 2021 05:36:03 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 87EF4F80171
+ for <alsa-devel@alsa-project.org>; Mon, 30 Aug 2021 14:49:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87EF4F80171
+Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
+ id BE6181C0B76; Mon, 30 Aug 2021 14:49:27 +0200 (CEST)
+Date: Mon, 30 Aug 2021 14:49:27 +0200
+From: Pavel Machek <pavel@denx.de>
+To: Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH AUTOSEL 5.13 02/12] ASoC: component: Remove misplaced
+ prefix handling in pin control functions
+Message-ID: <20210830124924.GA22096@duo.ucw.cz>
+References: <20210817003536.83063-1-sashal@kernel.org>
+ <20210817003536.83063-2-sashal@kernel.org>
 MIME-Version: 1.0
-References: <20210819084144.18483-1-trevor.wu@mediatek.com>
- <20210819084144.18483-8-trevor.wu@mediatek.com>
-In-Reply-To: <20210819084144.18483-8-trevor.wu@mediatek.com>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Mon, 30 Aug 2021 07:35:51 -0500
-X-Gmail-Original-Message-ID: <CAL_Jsq+bLVLqqVKfYuXDVYexMojMgZ5p34Pcx7_7LwU40b-2dA@mail.gmail.com>
-Message-ID: <CAL_Jsq+bLVLqqVKfYuXDVYexMojMgZ5p34Pcx7_7LwU40b-2dA@mail.gmail.com>
-Subject: Re: [PATCH v5 07/11] dt-bindings: mediatek: mt8195: add audio afe
- document
-To: Trevor Wu <trevor.wu@mediatek.com>, Mark Brown <broonie@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- Jimmy Cheng-Yi Chiang <cychiang@google.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- bicycle.tsai@mediatek.com, Liam Girdwood <lgirdwood@gmail.com>,
- Jiaxin Yu <jiaxin.yu@mediatek.com>, Takashi Iwai <tiwai@suse.com>,
- "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
- Chen-Yu Tsai <wenst@chromium.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Li-Yu Yu <aaronyu@google.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature"; boundary="/WwmFnJnmDyWGHa4"
+Content-Disposition: inline
+In-Reply-To: <20210817003536.83063-2-sashal@kernel.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Lucas Tanure <tanureal@opensource.cirrus.com>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,24 +70,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Aug 19, 2021 at 3:43 AM Trevor Wu <trevor.wu@mediatek.com> wrote:
->
-> This patch adds mt8195 audio afe document.
->
-> In order to support dynamic clock reparenting for ADDA and ETDM, PLL
-> and MUX clocks are requested even though they are not consumed by afe
-> directly.
->
-> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
-> ---
-> This patch depends on the following series that have not been accepted.
->
-> [1] Mediatek MT8195 clock support
-> https://patchwork.kernel.org/project/linux-mediatek/list/?series=501923
-> (dt-bindings/clock/mt8195-clk.h is included)
 
-This dependency is still not applied, so the example fails. One of the
-following needs to happen: the dependency needs to be applied, this
-patch reverted, or drop the use of the defines in the example.
+--/WwmFnJnmDyWGHa4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Rob
+Hi!
+
+> When the component level pin control functions were added they for some
+> no longer obvious reason handled adding prefixing of widget names. This
+> meant that when the lack of prefix handling in the DAPM level pin
+> operations was fixed by ae4fc532244b3bb4d (ASoC: dapm: use component
+> prefix when checking widget names) the one device using the component
+> level API ended up with the prefix being applied twice, causing all
+> lookups to fail.
+
+AFAICT ae4fc532244b3bb4d (ASoC: dapm: use component...) is not in
+5.10-stable, so this one should not go into 5.10-stable, either?
+
+(Or alternatively, both can go in).
+
+I hope I understand it right.
+
+Best regards,
+								Pavel
+--=20
+DENX Software Engineering GmbH,      Managing Director: Wolfgang Denk
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+
+--/WwmFnJnmDyWGHa4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCYSzT1wAKCRAw5/Bqldv6
+8tYvAJ9Mqv1udqvt/eQ59aUzDFbILly8+ACgqgjWJPcLX9pQWvIxE2q6Eo9VWX8=
+=xi1K
+-----END PGP SIGNATURE-----
+
+--/WwmFnJnmDyWGHa4--

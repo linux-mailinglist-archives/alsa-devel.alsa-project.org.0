@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EDA93FCCD6
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 Aug 2021 20:17:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B56B3FCCEC
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 Aug 2021 20:20:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8DE7C1710;
-	Tue, 31 Aug 2021 20:16:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DE7C1710
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC97016E3;
+	Tue, 31 Aug 2021 20:19:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC97016E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630433825;
-	bh=boKWFl8yXSI0mbiu6CqTmbzn7sZj4Qi6EakqOBgIWJs=;
+	s=default; t=1630434016;
+	bh=4Jsu7rrLk+5aC0lbz+W9L7qrwwMV5M4zJS6ATMlWpBg=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eQ9OwZF1lqX1m+vN9eLDRZo4AT5VPbzuwX2gTVS4lTRZ9PyjZ1lKYkIrGT0R1dpnr
-	 FbHoyaHyVcp/u7FC1tpoZIrTzGX0KT2rsuhrSMs1h/LhOBhnc+Xib3ebEDvBq5cYZ6
-	 VMN/GVNZBdDEH3HKbCkU4f38j/LrbO2rtIGYLkdY=
+	b=Wvj7/PlwTOsvWzB9GzKKI7+8R+VWrsvn/SoAVgblJKVyVLXtDJN7ZI8GbiVw8vqY5
+	 eWA+qEjBnIbAEk5MimdXMHb4y6691zSIyk5oAAi5ySbs1arewiaTeXIqdVZYD13U63
+	 mA3QD1EHmcQQLu55Jb2hZE1sFYa0PDTS6ZaJFn1A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DDF3DF80127;
-	Tue, 31 Aug 2021 20:15:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4436DF800BE;
+	Tue, 31 Aug 2021 20:18:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41645F8025B; Tue, 31 Aug 2021 20:15:46 +0200 (CEST)
+ id 52231F8025B; Tue, 31 Aug 2021 20:18:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 5918AF800BE
- for <alsa-devel@alsa-project.org>; Tue, 31 Aug 2021 20:15:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5918AF800BE
+ by alsa1.perex.cz (Postfix) with ESMTP id CFA52F80127
+ for <alsa-devel@alsa-project.org>; Tue, 31 Aug 2021 20:18:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFA52F80127
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1630433736196546078-webhooks-bot@alsa-project.org>
-References: <1630433736196546078-webhooks-bot@alsa-project.org>
+In-Reply-To: <1630433929608411074-webhooks-bot@alsa-project.org>
+References: <1630433929608411074-webhooks-bot@alsa-project.org>
 Subject: Sample rate issues with M-Audio M-Track 2x2M
-Message-Id: <20210831181546.41645F8025B@alsa1.perex.cz>
-Date: Tue, 31 Aug 2021 20:15:46 +0200 (CEST)
+Message-Id: <20210831181857.52231F8025B@alsa1.perex.cz>
+Date: Tue, 31 Aug 2021 20:18:57 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,7 +59,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #176 was opened from powerjungle:
+alsa-project/alsa-lib issue #176 was edited from powerjungle:
 
 At random points the sample rate changes, but the applications continue to use the previous rate. This results in sound being lower/higher pitch then normal. My own voice when using the application [Mumble](https://github.com/mumble-voip/mumble) consistently becomes higher pitch and sounds pretty funny, friends had a good laugh. I have some diffs of ALSA dumps.
 
@@ -138,6 +138,8 @@ Afterwards at a random point the output gets fixed, but the sample rate that get
 > 		value.0 0
 > 		value.1 0
 ```
+
+Also sometimes when listening to music in Youtube using Firefox, the sound becomes higher pitch, but I cannot reproduce it, can't find the cause.
 
 I'm running OpenSUSE Tumbleweed 5.13.13-1-default.
 

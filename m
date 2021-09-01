@@ -2,59 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B835A3FDFCC
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Sep 2021 18:24:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 603EA3FDFF9
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Sep 2021 18:33:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 55DB716E4;
-	Wed,  1 Sep 2021 18:23:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55DB716E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id EEF34177F;
+	Wed,  1 Sep 2021 18:32:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEF34177F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630513470;
-	bh=+HexKu43nAm+AppvQsa4VMNmV+utX1+/8CPtDBoi/Bo=;
-	h=Date:To:From:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Reply-To:From;
-	b=nFydKwL171XbXUW8t3cuECnpv72zMiSKGMzbf0vxMuz+VoGzge0/qUjvt1WLDSN0P
-	 7SfTbQXvPlnjhIjgZl4jg1eW2bXilyNBtKz97UTate8b6yJieBVLBbe41IdO3tRGKb
-	 t22rXZY41LgxHN+9fXdNSVBS3aiUBSRdIkSBFYgA=
+	s=default; t=1630513996;
+	bh=y1c/D5zmMC7JOawbBXs6fSznzulN2NVBOiAlLNEuXjQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=eWYMhLMh6tIpK0Oga8/IAR2ZgyzrHL5SqjvbVg/Qd6g0BWqRznZget6gaRMYftsVL
+	 e+zO/OUxvbwI7zfWv4Zzh2phlfltUoQi+fA1/WDsxF+3g74iJPVtmHJelh+/oso8Wp
+	 WF7pPo87G5QbDJhXtpwtoaFjB4wu3L7K4dPu1jD8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0597F80256;
-	Wed,  1 Sep 2021 18:23:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C7E2F80256;
+	Wed,  1 Sep 2021 18:31:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3D9EEF80254; Wed,  1 Sep 2021 18:23:11 +0200 (CEST)
+ id D9EA0F80254; Wed,  1 Sep 2021 18:31:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-4325.protonmail.ch (mail-4325.protonmail.ch [185.70.43.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CE430F8020D
- for <alsa-devel@alsa-project.org>; Wed,  1 Sep 2021 18:23:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE430F8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6B881F8020D
+ for <alsa-devel@alsa-project.org>; Wed,  1 Sep 2021 18:31:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B881F8020D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=protonmail.com header.i=@protonmail.com
- header.b="M0a+iHAx"
-Date: Wed, 01 Sep 2021 16:23:03 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail; t=1630513385;
- bh=RIIfgFukHkv4b48POTrwHUvDt3mMjGYypmeQ5sq7whg=;
- h=Date:To:From:Reply-To:Subject:From;
- b=M0a+iHAx1IvCwu1lCm90uGqy1Pxl2N5mdfOhkZ7UhhjV5UY+K6YYWyl9zqdIKtXyb
- Eyv8fZbcGD76h+kf+SFzKNSp6aFpHeeTMrA8vFmXMpc0O6/gSUt+77ZU333CIf4WXO
- AEwCn6EZW4LsLhT0ufuEIuoPADEiomx5Wxj28snc=
-To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-From: smesgr <smesgr@protonmail.com>
-Subject: Asus Xonar SE front-panel audio support quirks snd_usb_audio
-Message-ID: <AocgHmB2Ef4GBJ23rjESzap7qD-DEoZebCYfPBi6khX9i8EdCi2r2Grku-4IY3YBSOD2Bc1HeZFxI-lujMMGKlgW88wh1uwjLbdlXpfd96U=@protonmail.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="nJfILASU"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 64B0E61058;
+ Wed,  1 Sep 2021 16:31:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1630513911;
+ bh=y1c/D5zmMC7JOawbBXs6fSznzulN2NVBOiAlLNEuXjQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=nJfILASUEEvPpkbVT3jXOHbnpOLmaCtRY+zj8Hkk/381At+HqeYDbjdk6jg4zpBGf
+ oisPk9SEFbfgBc/f34pmOy0jFLgSzl2B5C5jmLA/UTGh7QrocNq0PV8gw7dge9B39S
+ XMahVwAjFGVzfAnoOO5FMROUS+hpQLG4cKmPOED4hCsV0/Cwq72QeCYp4gKm8lXsbE
+ R1nb2xuERJUBkpc0trcENT9pTJi5KsKV9MTLMPogur073v23ZFW72HnxQw8csxlE6I
+ Ni19M9xpCn/tlBM6UL+6+P5xdiO8D39XPgLo5beT2/rjM92oiEo3VQy+SQbJjz/xNV
+ 10AFAhYiDS3QQ==
+Date: Wed, 1 Sep 2021 17:31:19 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sugar Zhang <sugar.zhang@rock-chips.com>
+Subject: Re: [PATCH v2] ASoC: rockchip: i2s: Fix concurrency between tx/rx
+Message-ID: <20210901163119.GA39417@sirena.org.uk>
+References: <1630305525-65759-1-git-send-email-sugar.zhang@rock-chips.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: base64
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="cWoXeonUoKmBZSoM"
+Content-Disposition: inline
+In-Reply-To: <1630305525-65759-1-git-send-email-sugar.zhang@rock-chips.com>
+X-Cookie: Walk softly and carry a BFG-9000.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, heiko@sntech.de,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,35 +80,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Reply-To: smesgr <smesgr@protonmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-R3JlZXRpbmdzLAoKSSBoYXZlIGJvdXJnaHQgYSBBc3VzIFhvbmFyIFNFICg5MFlBMDBUMC1NMFVB
-MDApIHdoaWNoIGlzIG9ubHkgd29ya2luZyBwYXJ0aWFsbHkuIFdoaWxlIHRoZSByZWFyIGNvbm5l
-Y3RvcnMgc2VlbXMgdG8gd29yayB0aGUgZnJvbnQgaGVhZGVyIGlzIG5vdC4gSSBmb3VuZCBzb21l
-IHJlcG9ydHMgc2NhdHRlcmVkIGFyb3VuZCB0aGUgaW50ZXJuZXQgd2l0aCB0aGUgc2FtZSBpc3N1
-ZSBidXQgd2l0aG91dCBhIHNvbHV0aW9uLgoKSXQgaXMgYSBQQ0llIGNhcmQgd2l0aCBhbiBwY2ll
-LXRvLXVzYiBpbnRlcmZhY2UuIFRodXMgdGhlIGNhcmQgaXMgcmVwb3J0ZWQgYXMgYSB1c2IgZGV2
-aWNlOgpJRCAwYjA1OjE4OWQgQVNVU1RlayBDb21wdXRlciwgSW5jLiBYb25hciBTb3VuZENhcmQK
-ClRoZSBjYXJkIGhhcyBzZXZlcmFsIGF1ZGlvIEVuZHBvaW50cyBFUCA1IHRvIEVQIDkgYW5kIGFu
-IGFkZGl0b25hbCBISUQgRVAgNC4gQWxsIHRoZSByZWFyIGNvbm5lY3RvcnMgc2VlbXMgdG8gd29y
-ay4gQ2FuJ3QgdGVzdCB0aGUgU1BESUYgYnV0IGZvdW5kIGEgU0Ugc3BlY2ZpYyBxdWlyayBpbiB0
-aGUgYWxzYSBVU0IgY29uZmlndXJhdGlvbiBmb3IgdGhlIFNEUElGIFBDTSB0aHVzIGFzc3VtZSB0
-aGlzIGlzc3VlIHdhcyBhbHJlYWR5IGZpeGVkLgpFUCA1IC0+IEF1ZGlvIE91dApFUCA2IC0+IFNE
-UElGCkVQIDggLT4gTGluZSBJbgpUaGUgcmVhciBjb25uZWN0b3IgZG9uJ3QgaGF2ZSBhIHBsdWct
-aW4tZGV0ZWN0b3IsIHRoZSBmcm9udC1wYW5lbCBoYXMgYW5kIGlzIHdvcmtpbmc6Cm5vZGUgaHc6
-MSwgIzE2ICgwLDAsMCxIZWFkcGhvbmUgLSBPdXRwdXQgSmFjaywwKSBWQUxVRQpub2RlIGh3OjEs
-ICMzMSAoMCwwLDAsTWljIC0gSW5wdXQgSmFjaywxKSBWQUxVRQoKSW4gc3RlcmVvIGNvbmZpZ3Vy
-YXRpb24gdGhlIGNhcmQgaGFzICJoZWFkcGhvbmVzIiBhbmQgInNwZWFrZXIiLiBUaGUgRnJvbnQg
-UGFuZWwgaW5wdXQgbm9yIG91dHB1dCBpcyB3b3JraW5nLiBJZiBoZWFkcGhvbmVzIGlzIHNlbGVj
-dGVkIHRoZSByZWFyIGlzIGRpc2FibGVkIGJ1dCB0aGUgZnJvbnQgaGVhZGVyIGlzIG5vdCB3b3Jr
-aW5nLiBTaWRlIG5vdGUgdGhlIGRlZmF1bHQgTWljcm9zb2Z0IGRyaXZlciBoYXMgdGhlIHNhbWUg
-aXNzdWUgc28gSSBhc3N1bWUgdGhlIGNhcmQgdXNiIGNvbmZpZ3VyYXRpb24gaXMgZmF1bHR5LgpJ
-IGluc3RhbGxlZCB0aGUgQVNVUyBkcml2ZXIgYW5kIHRyYWNrZWQgdGhlIFVTQiBtZXNzYWdlcyB3
-aXRoIHdpcmVzaGFyayBpbiBhIFdpbmRvd3MgVk0uIEkgbm90aWNlZCB0aGUgQXN1cyBkcml2ZXIg
-dXNlcyB0aG9zZSBhZGRpdGlvbmFsIHBvc3RzCkVQIDcgLT4gRnJvbnQgQXVkaW8gT3V0CkVQIDkg
-LT4gRnJvbnQgQXVkaW8gSW4KCk5laXRoZXIgdGhlIGRlZmF1bHQgV2luZG93cywgbm9yIGFsc2Eg
-dXNlIHRob3NlIEVQLiBJcyB0aGVyZSBhIHdheSB0byBmb3JjZSB0aGUgYWxzYSBkcml2ZXIgdG8g
-dXNlIEVQNy85IHRvIGZ1cnRoZXIgYW5hbHlzZSB0aGlzIGlzc3VlPwoKQmVzdCBSZWdhcmRzClNt
-ZXNncgoKU2VudCB3aXRoIFByb3Rvbk1haWwgU2VjdXJlIEVtYWlsLg==
+
+--cWoXeonUoKmBZSoM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Mon, Aug 30, 2021 at 02:38:45PM +0800, Sugar Zhang wrote:
+> This patch adds lock to fix comcurrency between tx/rx
+> to fix 'rockchip-i2s ff070000.i2s; fail to clear'
+
+This doesn't apply against current code, please check and resend.
+
+--cWoXeonUoKmBZSoM
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEvqtYACgkQJNaLcl1U
+h9BxBgf/RAh8wv4l2S8GAWfb2mR6GABSQYH7DftN+pPbe66GT0X+/FYi45mTxL/D
+9i3Ya1ynoYCArBhICLM6UCKgYLLRE2pgT6EYyGK8u6aBrpT6XzHDx/cB1oBsZY18
+avB/Jl7c6nbNRcF3njxkB2WmefKJ9HW3aNh6QyDxz2s0u78vzj8yWzkjBsAKETHC
+kHD8dEAI9pTx6lX35vqzUv0chFU1xgBa4BrWjZRAiMu1W7HCrJeIIoe+K5LbZh6/
+Wo2x+YRGdtbaq6vQ0pZCGcPFL25u+JSnEI0o5aMyhNtUh4n8IFnuhI0fzMSpDkFK
+JA35vTg1ULgBhuAvLtJW28lVK1J0Iw==
+=4hGe
+-----END PGP SIGNATURE-----
+
+--cWoXeonUoKmBZSoM--

@@ -2,81 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B4573FDE57
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Sep 2021 17:15:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E1943FDE59
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Sep 2021 17:15:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 926801788;
-	Wed,  1 Sep 2021 17:14:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 926801788
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E51A175A;
+	Wed,  1 Sep 2021 17:15:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E51A175A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630509335;
-	bh=DrTxAjlrtVBnAqqikx7DtMqazIHOhxnIXobwTFS8Aqw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1630509358;
+	bh=LOO9+RX8eqs1nK3MU3ca3qBJhWp8MXc08T+uyQ5GUDU=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hEJbjFoACwoZ33e/Zqa8O3zy7//Beh2/mKzSb/ibr+pkWVyP3e50C2uAfot8LRZwa
-	 rc1lPTLODK/gPr2cR1zmpG+l1hJWdi4g57fCNDxWXhcGBtvOWfuf3oJj8kfAMVy6zK
-	 9HfKwr7od1AjZmBYNkCxrqGRIyQgeppwiAaMzO4k=
+	b=sIZkfwQTzMoz2lsOsMT0VY/MoMQ+22LzNQujaQP0J+dVCdOV7RtQ6/f1x4WAJHlNi
+	 H0QRKhRlbSppLWCTjGyYgmvpj97ugZr+SFhX6FjC/jKsvinE4V6Hmne0tTjltNIiII
+	 si2jE/6xpgRPRZpFHI5hxWiqoB91q0z9qLa+ngBE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6CA7F804FB;
-	Wed,  1 Sep 2021 17:12:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0973F804FF;
+	Wed,  1 Sep 2021 17:12:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5D0DDF80254; Wed,  1 Sep 2021 05:05:51 +0200 (CEST)
-Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
- [IPv6:2607:f8b0:4864:20::c36])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ id 9C060F80254; Wed,  1 Sep 2021 08:41:10 +0200 (CEST)
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9C9CEF80218
- for <alsa-devel@alsa-project.org>; Wed,  1 Sep 2021 05:05:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C9CEF80218
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="NvBdiLnq"
-Received: by mail-oo1-xc36.google.com with SMTP id
- j11-20020a4a92cb000000b002902ae8cb10so404368ooh.7
- for <alsa-devel@alsa-project.org>; Tue, 31 Aug 2021 20:05:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=QQmSXhqgV2SUazoZhupBUmxy2/ClNoqn2IGEBgsinBg=;
- b=NvBdiLnqlNZu9qh3RatzEnMB6FJyn53i8cqSalruI3Y4Mu3fWieSyoXQ9Zlh6187bH
- JMka2c5HoXGT8LnIT1sawYl95SkZoDdlv4Hj/wlfk7yIDmViImQwIdUP86foocLbOJ5V
- KAn5N+1SsI1Ml9q3UKL2Hulyu+BW1X7OD7y1o8Vzzf5TyKbcCHFh8f9BfBQkyk+QyTaI
- AYsR3K2lh7WpS2sFl1nH/7+/mAMGpMGhvlOfqqlZAgslFSMTGX3UXj1GtSqTAhwklx40
- hOGY+DhTq+tZVEAkMb/K0NhklYTgeTKdTd9thJORmq6Jd6nfg/KnFQ7rCdctz5Hb6HTV
- ih/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=QQmSXhqgV2SUazoZhupBUmxy2/ClNoqn2IGEBgsinBg=;
- b=bbc1HyU+VH5AnQvcTv2nhjjBNIEWWjBJUsJa8mzND1RgpFIIlGCB4Xcfpt2iPePkZt
- IObVquO6MOsBhauX1cEgUo1RWaKOIEnhN91uke9EOzgStcJxDraQpjRTMaZmusINhZ16
- z1y9lkdqqG0KBmetq4qZx2ABL+naDxxWjJ12FcG3uTf2OrSF8jcoblABc6Lzci6wNV55
- 7iDTioiPnnxCMtCCIgCMHqGA+xTzH4rUjmTqrNtjFQOT6zqChyuS0kTPx8EhiRYEH0k2
- Zgn0UCfyiGfAWW83WAuTtnBp6j07+ruFnrgVL1758aTf05d1X1Vc4nSaui2pEjGoBNXB
- DQ/Q==
-X-Gm-Message-State: AOAM530pDKAOk5LyXgdzS6A1n34Kv0UdgA6M1lH0nuuP/cKENbXXOyBG
- uyK696Skz+VFlExxI8TVxHBgffu3+q+g92vimcDBDQ==
-X-Google-Smtp-Source: ABdhPJwk3BlnnHi9LFZwJe7PoQaDx+yF/m6exYQB1MehkCxtD8eOhPqLEPsqAgyBgXYCUerXXZmTyAc4kcwgzqPWIpc=
-X-Received: by 2002:a4a:a9ce:: with SMTP id h14mr13498161oon.89.1630465544599; 
- Tue, 31 Aug 2021 20:05:44 -0700 (PDT)
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id DBAFBF8020D
+ for <alsa-devel@alsa-project.org>; Wed,  1 Sep 2021 08:40:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBAFBF8020D
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 1816eiMD3030818,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36503.realtek.com.tw[172.21.6.25])
+ by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 1816eiMD3030818
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 1 Sep 2021 14:40:44 +0800
+Received: from RTEXMBS05.realtek.com.tw (172.21.6.98) by
+ RTEXH36503.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.14; Wed, 1 Sep 2021 14:40:43 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS05.realtek.com.tw (172.21.6.98) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Wed, 1 Sep 2021 14:40:41 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::ddc7:f5b1:d3ae:8354]) by
+ RTEXMBS01.realtek.com.tw ([fe80::ddc7:f5b1:d3ae:8354%5]) with mapi id
+ 15.01.2106.013; Wed, 1 Sep 2021 14:40:41 +0800
+From: =?utf-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>
+To: Yu-hsuan Hsu <yuhsuan@google.com>, Mingjane Hsieh
+ <mingjanehsieh@google.com>
+Subject: RE: [PATCH v2 1/2] ASoC: rt5682s: Add driver for ALC5682I-VS codec
+Thread-Topic: [PATCH v2 1/2] ASoC: rt5682s: Add driver for ALC5682I-VS codec
+Thread-Index: AQHXnmiJ8qC2msHakE+48pMt6NeIiquN8FGAgAAHugCAAAF6gIAAwb7A
+Date: Wed, 1 Sep 2021 06:40:41 +0000
+Message-ID: <18b688bf0eda4a24ae9897a9b7420530@realtek.com>
 References: <20210831130258.19286-1-derek.fang@realtek.com>
  <ee3ba91ee5c24dda9db9d05622d1dfaf@realtek.com>
  <CAOCJVXxPFM4CZ88LPTRp10ExiB1YTvkGYU37aYPBUXcxD2=uyw@mail.gmail.com>
-In-Reply-To: <CAOCJVXxPFM4CZ88LPTRp10ExiB1YTvkGYU37aYPBUXcxD2=uyw@mail.gmail.com>
-From: Yu-hsuan Hsu <yuhsuan@google.com>
-Date: Wed, 1 Sep 2021 11:05:31 +0800
-Message-ID: <CAEy1m_CatKECNf=3-7qZD9OCECfAjaynZ4aoWrfzV518szTL=g@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] ASoC: rt5682s: Add driver for ALC5682I-VS codec
-To: Mingjane Hsieh <mingjanehsieh@google.com>
-X-Mailman-Approved-At: Wed, 01 Sep 2021 17:12:32 +0200
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ <CAEy1m_CatKECNf=3-7qZD9OCECfAjaynZ4aoWrfzV518szTL=g@mail.gmail.com>
+In-Reply-To: <CAEy1m_CatKECNf=3-7qZD9OCECfAjaynZ4aoWrfzV518szTL=g@mail.gmail.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.102.142]
+x-kse-serverinfo: RTEXMBS05.realtek.com.tw, 9
+x-kse-attachmentfiltering-interceptor-info: no applicable attachment filtering
+ rules found
+x-kse-antivirus-interceptor-info: scan successful
+x-kse-antivirus-info: =?utf-8?B?Q2xlYW4sIGJhc2VzOiAyMDIxLzkvMSDkuIrljYggMDY6MDA6MDA=?=
+x-kse-bulkmessagesfiltering-scan-result: protection disabled
+MIME-Version: 1.0
+X-KSE-ServerInfo: RTEXH36503.realtek.com.tw, 9
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
+X-KSE-AntiSpam-Outbound-Interceptor-Info: scan successful
+X-KSE-AntiSpam-Version: 0.0, Database issued on: 01/01/1970 00:00:00
+X-KSE-AntiSpam-Status: KAS_STATUS_TRUSTED
+X-KSE-AntiSpam-Method: MessageSizeExceeded
+X-KSE-AntiSpam-Rate: 0
+X-KSE-AntiSpam-Interceptor-Info: size exceeded
+X-Mailman-Approved-At: Wed, 01 Sep 2021 17:12:33 +0200
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
  "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
@@ -84,8 +95,7 @@ Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
  "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
  Albert Chen <albertchen@realtek.com>,
  "broonie@kernel.org" <broonie@kernel.org>,
- =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
- =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
+ =?utf-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
  Albert Wang <albertwang@realtek.com>, "Flove\(HsinFu\)" <flove@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -102,10852 +112,4496 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Albert,
-
-Normally, the reviewers will reply in a week. If it's urgent, I think it's
-okay to merge as a FROMLIST CL first. And reland it after upstream.
-
-On Wed, Sep 1, 2021 at 11:00 AM Mingjane Hsieh <mingjanehsieh@google.com>
-wrote:
-
-> Copy Yuhsuan in the loop.
->
-> Hi Albert,
->
-> As I checked, the review usually takes a week.
-> If it's urgent, Yuhsuan may provide some information about what you can d=
-o
-> now.
->
-> @Yu-hsuan Hsu <yuhsuan@google.com>
-> Please provide more context.
-> Appreciated a lot for your help.
->
-> best regards
-> mingjane
->
->
-> On Wed, Sep 1, 2021 at 10:33 AM Albert Wang <albertwang@realtek.com>
-> wrote:
->
->> <<copy Google audio champion MJ for help>>
->>
->>
->>
->> Hi MJ,
->>
->> Please you help us to cross check with Linux team for initial codec
->> driver of Realtek ALC5682I-VS. Thank you.
->>
->>
->>
->> Regards,
->>
->> Albert Wang
->>
->> Realtek PC4 CE PM
->>
->>
->>
->> -----Original Message-----
->> From: Derek [=E6=96=B9=E5=BE=B7=E7=BE=A9] <derek.fang@realtek.com>
->> Sent: Tuesday, August 31, 2021 9:03 PM
->> To: broonie@kernel.org; lgirdwood@gmail.com
->> Cc: alsa-devel@alsa-project.org; lars@metafoo.de; Flove(HsinFu) <
->> flove@realtek.com>; Oder Chiou <oder_chiou@realtek.com>; Jack Yu <
->> jack.yu@realtek.com>; Shuming [=E8=8C=83=E6=9B=B8=E9=8A=98] <shumingf@re=
-altek.com>; Albert Chen <
->> albertchen@realtek.com>; Albert Wang <albertwang@realtek.com>; Derek [=
-=E6=96=B9=E5=BE=B7=E7=BE=A9]
->> <derek.fang@realtek.com>
->> Subject: [PATCH v2 1/2] ASoC: rt5682s: Add driver for ALC5682I-VS codec
->>
->>
->>
->> From: Derek Fang <derek.fang@realtek.com>
->>
->>
->>
->> This is an initial codec driver for Realtek ALC5682I-VS codec.
->>
->>
->>
->> Signed-off-by: Derek Fang <derek.fang@realtek.com>
->>
->> ---
->>
->> include/sound/rt5682s.h    |   48 +
->>
->> sound/soc/codecs/Kconfig   |    5 +
->>
->> sound/soc/codecs/Makefile  |    2 +
->>
->> sound/soc/codecs/rt5682s.c | 3188 ++++++++++++++++++++++++++++++++++++
->>
->> sound/soc/codecs/rt5682s.h | 1455 ++++++++++++++++
->>
->> 5 files changed, 4698 insertions(+)
->>
->> create mode 100644 include/sound/rt5682s.h
->>
->> create mode 100644 sound/soc/codecs/rt5682s.c
->>
->> create mode 100644 sound/soc/codecs/rt5682s.h
->>
->>
->>
->> diff --git a/include/sound/rt5682s.h b/include/sound/rt5682s.h
->>
->> new file mode 100644
->>
->> index 000000000000..accfbc2dcdd2
->>
->> --- /dev/null
->>
->> +++ b/include/sound/rt5682s.h
->>
->> @@ -0,0 +1,48 @@
->>
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->>
->> +/*
->>
->> + * linux/sound/rt5682s.h -- Platform data for RT5682I-VS
->>
->> + *
->>
->> + * Copyright 2021 Realtek Microelectronics
->>
->> + */
->>
->> +
->>
->> +#ifndef __LINUX_SND_RT5682S_H
->>
->> +#define __LINUX_SND_RT5682S_H
->>
->> +
->>
->> +enum rt5682s_dmic1_data_pin {
->>
->> +            RT5682S_DMIC1_DATA_NULL,
->>
->> +            RT5682S_DMIC1_DATA_GPIO2,
->>
->> +            RT5682S_DMIC1_DATA_GPIO5,
->>
->> +};
->>
->> +
->>
->> +enum rt5682s_dmic1_clk_pin {
->>
->> +            RT5682S_DMIC1_CLK_NULL,
->>
->> +            RT5682S_DMIC1_CLK_GPIO1,
->>
->> +            RT5682S_DMIC1_CLK_GPIO3,
->>
->> +};
->>
->> +
->>
->> +enum rt5682s_jd_src {
->>
->> +            RT5682S_JD_NULL,
->>
->> +            RT5682S_JD1,
->>
->> +};
->>
->> +
->>
->> +enum rt5682s_dai_clks {
->>
->> +            RT5682S_DAI_WCLK_IDX,
->>
->> +            RT5682S_DAI_BCLK_IDX,
->>
->> +            RT5682S_DAI_NUM_CLKS,
->>
->> +};
->>
->> +
->>
->> +struct rt5682s_platform_data {
->>
->> +
->>
->> +            int ldo1_en; /* GPIO for LDO1_EN */
->>
->> +
->>
->> +            enum rt5682s_dmic1_data_pin dmic1_data_pin;
->>
->> +            enum rt5682s_dmic1_clk_pin dmic1_clk_pin;
->>
->> +            enum rt5682s_jd_src jd_src;
->>
->> +            unsigned int dmic_clk_rate;
->>
->> +            unsigned int dmic_delay;
->>
->> +            bool dmic_clk_driving_high;
->>
->> +
->>
->> +            const char *dai_clk_names[RT5682S_DAI_NUM_CLKS];
->>
->> +};
->>
->> +
->>
->> +#endif
->>
->> diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
->>
->> index 82ee233a269d..6b3c2cf153db 100644
->>
->> --- a/sound/soc/codecs/Kconfig
->>
->> +++ b/sound/soc/codecs/Kconfig
->>
->> @@ -180,6 +180,7 @@ config SND_SOC_ALL_CODECS
->>
->>              imply SND_SOC_RT5677
->>
->>              imply SND_SOC_RT5682_I2C
->>
->>              imply SND_SOC_RT5682_SDW
->>
->> +            imply SND_SOC_RT5682S
->>
->>              imply SND_SOC_RT700_SDW
->>
->>              imply SND_SOC_RT711_SDW
->>
->>              imply SND_SOC_RT711_SDCA_SDW
->>
->> @@ -1249,6 +1250,10 @@ config SND_SOC_RT5682_SDW
->>
->>              select SND_SOC_RT5682
->>
->>              select REGMAP_SOUNDWIRE
->>
->> +config SND_SOC_RT5682S
->>
->> +            tristate
->>
->> +            depends on I2C
->>
->> +
->>
->> config SND_SOC_RT700
->>
->>              tristate
->>
->> diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
->>
->> index 8dcea2c4604a..42d00aa4ee46 100644
->>
->> --- a/sound/soc/codecs/Makefile
->>
->> +++ b/sound/soc/codecs/Makefile
->>
->> @@ -198,6 +198,7 @@ snd-soc-rt5677-spi-objs :=3D rt5677-spi.o
->>
->> snd-soc-rt5682-objs :=3D rt5682.o
->>
->> snd-soc-rt5682-sdw-objs :=3D rt5682-sdw.o
->>
->> snd-soc-rt5682-i2c-objs :=3D rt5682-i2c.o
->>
->> +snd-soc-rt5682s-objs :=3D rt5682s.o
->>
->> snd-soc-rt700-objs :=3D rt700.o rt700-sdw.o
->>
->> snd-soc-rt711-objs :=3D rt711.o rt711-sdw.o
->>
->> snd-soc-rt711-sdca-objs :=3D rt711-sdca.o rt711-sdca-sdw.o
->>
->> @@ -526,6 +527,7 @@ obj-$(CONFIG_SND_SOC_RT5677_SPI)   +=3D
->> snd-soc-rt5677-spi.o
->>
->> obj-$(CONFIG_SND_SOC_RT5682)          +=3D snd-soc-rt5682.o
->>
->> obj-$(CONFIG_SND_SOC_RT5682_I2C)  +=3D snd-soc-rt5682-i2c.o
->>
->> obj-$(CONFIG_SND_SOC_RT5682_SDW)             +=3D snd-soc-rt5682-sdw.o
->>
->> +obj-$(CONFIG_SND_SOC_RT5682S)      +=3D snd-soc-rt5682s.o
->>
->> obj-$(CONFIG_SND_SOC_RT700)     +=3D snd-soc-rt700.o
->>
->> obj-$(CONFIG_SND_SOC_RT711)     +=3D snd-soc-rt711.o
->>
->> obj-$(CONFIG_SND_SOC_RT711_SDCA_SDW)     +=3D snd-soc-rt711-sdca.o
->>
->> diff --git a/sound/soc/codecs/rt5682s.c b/sound/soc/codecs/rt5682s.c
->>
->> new file mode 100644
->>
->> index 000000000000..d878a20527f1
->>
->> --- /dev/null
->>
->> +++ b/sound/soc/codecs/rt5682s.c
->>
->> @@ -0,0 +1,3188 @@
->>
->> +// SPDX-License-Identifier: GPL-2.0-only
->>
->> +//
->>
->> +// rt5682s.c  --  RT5682I-VS ALSA SoC audio component driver
->>
->> +//
->>
->> +// Copyright 2021 Realtek Semiconductor Corp.
->>
->> +// Author: Derek Fang <derek.fang@realtek.com>
->>
->> +//
->>
->> +
->>
->> +#include <linux/module.h>
->>
->> +#include <linux/moduleparam.h>
->>
->> +#include <linux/init.h>
->>
->> +#include <linux/delay.h>
->>
->> +#include <linux/pm.h>
->>
->> +#include <linux/pm_runtime.h>
->>
->> +#include <linux/i2c.h>
->>
->> +#include <linux/platform_device.h>
->>
->> +#include <linux/spi/spi.h>
->>
->> +#include <linux/acpi.h>
->>
->> +#include <linux/gpio.h>
->>
->> +#include <linux/of_gpio.h>
->>
->> +#include <linux/mutex.h>
->>
->> +#include <sound/core.h>
->>
->> +#include <sound/pcm.h>
->>
->> +#include <sound/pcm_params.h>
->>
->> +#include <sound/jack.h>
->>
->> +#include <sound/soc.h>
->>
->> +#include <sound/soc-dapm.h>
->>
->> +#include <sound/initval.h>
->>
->> +#include <sound/tlv.h>
->>
->> +#include <sound/rt5682s.h>
->>
->> +
->>
->> +#include "rt5682s.h"
->>
->> +
->>
->> +#define DEVICE_ID 0x6749
->>
->> +
->>
->> +static const struct rt5682s_platform_data i2s_default_platform_data =3D=
- {
->>
->> +            .dmic1_data_pin =3D RT5682S_DMIC1_DATA_GPIO2,
->>
->> +            .dmic1_clk_pin =3D RT5682S_DMIC1_CLK_GPIO3,
->>
->> +            .jd_src =3D RT5682S_JD1,
->>
->> +            .dai_clk_names[RT5682S_DAI_WCLK_IDX] =3D "rt5682-dai-wclk",
->>
->> +            .dai_clk_names[RT5682S_DAI_BCLK_IDX] =3D "rt5682-dai-bclk",
->>
->> +};
->>
->> +
->>
->> +const char *rt5682s_supply_names[RT5682S_NUM_SUPPLIES] =3D {
->>
->> +            "AVDD",
->>
->> +            "MICVDD",
->>
->> +};
->>
->> +
->>
->> +static const struct reg_sequence patch_list[] =3D {
->>
->> +            {RT5682S_I2C_CTRL,                                   0x0007=
-},
->>
->> +            {RT5682S_DIG_IN_CTRL_1,
->> 0x0000},
->>
->> +            {RT5682S_CHOP_DAC_2,
->> 0x2020},
->>
->> +            {RT5682S_VREF_REC_OP_FB_CAP_CTRL_2,         0x0101},
->>
->> +            {RT5682S_VREF_REC_OP_FB_CAP_CTRL_1,         0x80c0},
->>
->> +            {RT5682S_HP_CALIB_CTRL_9,                   0x0002},
->>
->> +            {RT5682S_DEPOP_1,                                   0x0000}=
-,
->>
->> +            {RT5682S_HP_CHARGE_PUMP_2,                          0x3c15}=
-,
->>
->> +            {RT5682S_DAC1_DIG_VOL,
->> 0xfefe},
->>
->> +            {RT5682S_SAR_IL_CMD_2,
->> 0xac00},
->>
->> +            {RT5682S_SAR_IL_CMD_3,
->> 0x024c},
->>
->> +            {RT5682S_CBJ_CTRL_6,                              0x0804},
->>
->> +};
->>
->> +
->>
->> +static void rt5682s_apply_patch_list(struct rt5682s_priv *rt5682s,
->>
->> +                           struct device *dev)
->>
->> +{
->>
->> +            int ret;
->>
->> +
->>
->> +            ret =3D regmap_multi_reg_write(rt5682s->regmap, patch_list,
->> ARRAY_SIZE(patch_list));
->>
->> +            if (ret)
->>
->> +                           dev_warn(dev, "Failed to apply regmap patch:
->> %d\n", ret);
->>
->> +}
->>
->> +
->>
->> +const struct reg_default rt5682s_reg[] =3D {
->>
->> +            {0x0000, 0x0001},
->>
->> +            {0x0002, 0x8080},
->>
->> +            {0x0003, 0x0001},
->>
->> +            {0x0005, 0x0000},
->>
->> +            {0x0006, 0x0000},
->>
->> +            {0x0008, 0x8007},
->>
->> +            {0x000b, 0x0000},
->>
->> +            {0x000f, 0x4000},
->>
->> +            {0x0010, 0x4040},
->>
->> +            {0x0011, 0x0000},
->>
->> +            {0x0012, 0x0000},
->>
->> +            {0x0013, 0x1200},
->>
->> +            {0x0014, 0x200a},
->>
->> +            {0x0015, 0x0404},
->>
->> +            {0x0016, 0x0404},
->>
->> +            {0x0017, 0x05a4},
->>
->> +            {0x0019, 0xffff},
->>
->> +            {0x001c, 0x2f2f},
->>
->> +            {0x001f, 0x0000},
->>
->> +            {0x0022, 0x5757},
->>
->> +            {0x0023, 0x0039},
->>
->> +            {0x0024, 0x000b},
->>
->> +            {0x0026, 0xc0c4},
->>
->> +            {0x0029, 0x8080},
->>
->> +            {0x002a, 0xa0a0},
->>
->> +            {0x002b, 0x0300},
->>
->> +            {0x0030, 0x0000},
->>
->> +            {0x003c, 0x08c0},
->>
->> +            {0x0044, 0x1818},
->>
->> +            {0x004b, 0x00c0},
->>
->> +            {0x004c, 0x0000},
->>
->> +            {0x004d, 0x0000},
->>
->> +            {0x0061, 0x00c0},
->>
->> +            {0x0062, 0x008a},
->>
->> +            {0x0063, 0x0800},
->>
->> +            {0x0064, 0x0000},
->>
->> +            {0x0065, 0x0000},
->>
->> +            {0x0066, 0x0030},
->>
->> +            {0x0067, 0x000c},
->>
->> +            {0x0068, 0x0000},
->>
->> +            {0x0069, 0x0000},
->>
->> +            {0x006a, 0x0000},
->>
->> +            {0x006b, 0x0000},
->>
->> +            {0x006c, 0x0000},
->>
->> +            {0x006d, 0x2200},
->>
->> +            {0x006e, 0x0810},
->>
->> +            {0x006f, 0xe4de},
->>
->> +            {0x0070, 0x3320},
->>
->> +            {0x0071, 0x0000},
->>
->> +            {0x0073, 0x0000},
->>
->> +            {0x0074, 0x0000},
->>
->> +            {0x0075, 0x0002},
->>
->> +            {0x0076, 0x0001},
->>
->> +            {0x0079, 0x0000},
->>
->> +            {0x007a, 0x0000},
->>
->> +            {0x007b, 0x0000},
->>
->> +            {0x007c, 0x0100},
->>
->> +            {0x007e, 0x0000},
->>
->> +            {0x007f, 0x0000},
->>
->> +            {0x0080, 0x0000},
->>
->> +            {0x0083, 0x0000},
->>
->> +            {0x0084, 0x0000},
->>
->> +            {0x0085, 0x0000},
->>
->> +            {0x0086, 0x0005},
->>
->> +            {0x0087, 0x0000},
->>
->> +            {0x0088, 0x0000},
->>
->> +            {0x008c, 0x0003},
->>
->> +            {0x008e, 0x0060},
->>
->> +            {0x008f, 0x4da1},
->>
->> +            {0x0091, 0x1c15},
->>
->> +            {0x0092, 0x0425},
->>
->> +            {0x0093, 0x0000},
->>
->> +            {0x0094, 0x0080},
->>
->> +            {0x0095, 0x008f},
->>
->> +            {0x0096, 0x0000},
->>
->> +            {0x0097, 0x0000},
->>
->> +            {0x0098, 0x0000},
->>
->> +            {0x0099, 0x0000},
->>
->> +            {0x009a, 0x0000},
->>
->> +            {0x009b, 0x0000},
->>
->> +            {0x009c, 0x0000},
->>
->> +            {0x009d, 0x0000},
->>
->> +            {0x009e, 0x0000},
->>
->> +            {0x009f, 0x0009},
->>
->> +            {0x00a0, 0x0000},
->>
->> +            {0x00a3, 0x0002},
->>
->> +            {0x00a4, 0x0001},
->>
->> +            {0x00b6, 0x0000},
->>
->> +            {0x00b7, 0x0000},
->>
->> +            {0x00b8, 0x0000},
->>
->> +            {0x00b9, 0x0002},
->>
->> +            {0x00be, 0x0000},
->>
->> +            {0x00c0, 0x0160},
->>
->> +            {0x00c1, 0x82a0},
->>
->> +            {0x00c2, 0x0000},
->>
->> +            {0x00d0, 0x0000},
->>
->> +            {0x00d2, 0x3300},
->>
->> +            {0x00d3, 0x2200},
->>
->> +            {0x00d4, 0x0000},
->>
->> +            {0x00d9, 0x0000},
->>
->> +            {0x00da, 0x0000},
->>
->> +            {0x00db, 0x0000},
->>
->> +            {0x00dc, 0x00c0},
->>
->> +            {0x00dd, 0x2220},
->>
->> +            {0x00de, 0x3131},
->>
->> +            {0x00df, 0x3131},
->>
->> +            {0x00e0, 0x3131},
->>
->> +            {0x00e2, 0x0000},
->>
->> +            {0x00e3, 0x4000},
->>
->> +            {0x00e4, 0x0aa0},
->>
->> +            {0x00e5, 0x3131},
->>
->> +            {0x00e6, 0x3131},
->>
->> +            {0x00e7, 0x3131},
->>
->> +            {0x00e8, 0x3131},
->>
->> +            {0x00ea, 0xb320},
->>
->> +            {0x00eb, 0x0000},
->>
->> +            {0x00f0, 0x0000},
->>
->> +            {0x00f6, 0x0000},
->>
->> +            {0x00fa, 0x0000},
->>
->> +            {0x00fb, 0x0000},
->>
->> +            {0x00fc, 0x0000},
->>
->> +            {0x00fd, 0x0000},
->>
->> +            {0x00fe, 0x10ec},
->>
->> +            {0x00ff, 0x6749},
->>
->> +            {0x0100, 0xa000},
->>
->> +            {0x010b, 0x0066},
->>
->> +            {0x010c, 0x6666},
->>
->> +            {0x010d, 0x2202},
->>
->> +            {0x010e, 0x6666},
->>
->> +            {0x010f, 0xa800},
->>
->> +            {0x0110, 0x0006},
->>
->> +            {0x0111, 0x0460},
->>
->> +            {0x0112, 0x2000},
->>
->> +            {0x0113, 0x0200},
->>
->> +            {0x0117, 0x8000},
->>
->> +            {0x0118, 0x0303},
->>
->> +            {0x0125, 0x0020},
->>
->> +            {0x0132, 0x5026},
->>
->> +            {0x0136, 0x8000},
->>
->> +            {0x0139, 0x0005},
->>
->> +            {0x013a, 0x3030},
->>
->> +            {0x013b, 0xa000},
->>
->> +            {0x013c, 0x4110},
->>
->> +            {0x013f, 0x0000},
->>
->> +            {0x0145, 0x0022},
->>
->> +            {0x0146, 0x0000},
->>
->> +            {0x0147, 0x0000},
->>
->> +            {0x0148, 0x0000},
->>
->> +            {0x0156, 0x0022},
->>
->> +            {0x0157, 0x0303},
->>
->> +            {0x0158, 0x2222},
->>
->> +            {0x0159, 0x0000},
->>
->> +            {0x0160, 0x4ec0},
->>
->> +            {0x0161, 0x0080},
->>
->> +            {0x0162, 0x0200},
->>
->> +            {0x0163, 0x0800},
->>
->> +            {0x0164, 0x0000},
->>
->> +            {0x0165, 0x0000},
->>
->> +            {0x0166, 0x0000},
->>
->> +            {0x0167, 0x000f},
->>
->> +            {0x0168, 0x000f},
->>
->> +            {0x0169, 0x0001},
->>
->> +            {0x0190, 0x4131},
->>
->> +            {0x0194, 0x0000},
->>
->> +            {0x0195, 0x0000},
->>
->> +            {0x0197, 0x0022},
->>
->> +            {0x0198, 0x0000},
->>
->> +            {0x0199, 0x0000},
->>
->> +            {0x01ac, 0x0000},
->>
->> +            {0x01ad, 0x0000},
->>
->> +            {0x01ae, 0x0000},
->>
->> +            {0x01af, 0x2000},
->>
->> +            {0x01b0, 0x0000},
->>
->> +            {0x01b1, 0x0000},
->>
->> +            {0x01b2, 0x0000},
->>
->> +            {0x01b3, 0x0017},
->>
->> +            {0x01b4, 0x004b},
->>
->> +            {0x01b5, 0x0000},
->>
->> +            {0x01b6, 0x03e8},
->>
->> +            {0x01b7, 0x0000},
->>
->> +            {0x01b8, 0x0000},
->>
->> +            {0x01b9, 0x0400},
->>
->> +            {0x01ba, 0xb5b6},
->>
->> +            {0x01bb, 0x9124},
->>
->> +            {0x01bc, 0x4924},
->>
->> +            {0x01bd, 0x0009},
->>
->> +            {0x01be, 0x0018},
->>
->> +            {0x01bf, 0x002a},
->>
->> +            {0x01c0, 0x004c},
->>
->> +            {0x01c1, 0x0097},
->>
->> +            {0x01c2, 0x01c3},
->>
->> +            {0x01c3, 0x03e9},
->>
->> +            {0x01c4, 0x1389},
->>
->> +            {0x01c5, 0xc351},
->>
->> +            {0x01c6, 0x02a0},
->>
->> +            {0x01c7, 0x0b0f},
->>
->> +            {0x01c8, 0x402f},
->>
->> +            {0x01c9, 0x0702},
->>
->> +            {0x01ca, 0x0000},
->>
->> +            {0x01cb, 0x0000},
->>
->> +            {0x01cc, 0x5757},
->>
->> +            {0x01cd, 0x5757},
->>
->> +            {0x01ce, 0x5757},
->>
->> +            {0x01cf, 0x5757},
->>
->> +            {0x01d0, 0x5757},
->>
->> +            {0x01d1, 0x5757},
->>
->> +            {0x01d2, 0x5757},
->>
->> +            {0x01d3, 0x5757},
->>
->> +            {0x01d4, 0x5757},
->>
->> +            {0x01d5, 0x5757},
->>
->> +            {0x01d6, 0x0000},
->>
->> +            {0x01d7, 0x0000},
->>
->> +            {0x01d8, 0x0162},
->>
->> +            {0x01d9, 0x0007},
->>
->> +            {0x01da, 0x0000},
->>
->> +            {0x01db, 0x0004},
->>
->> +            {0x01dc, 0x0000},
->>
->> +            {0x01de, 0x7c00},
->>
->> +            {0x01df, 0x0020},
->>
->> +            {0x01e0, 0x04c1},
->>
->> +            {0x01e1, 0x0000},
->>
->> +            {0x01e2, 0x0000},
->>
->> +            {0x01e3, 0x0000},
->>
->> +            {0x01e4, 0x0000},
->>
->> +            {0x01e5, 0x0000},
->>
->> +            {0x01e6, 0x0001},
->>
->> +            {0x01e7, 0x0000},
->>
->> +            {0x01e8, 0x0000},
->>
->> +            {0x01eb, 0x0000},
->>
->> +            {0x01ec, 0x0000},
->>
->> +            {0x01ed, 0x0000},
->>
->> +            {0x01ee, 0x0000},
->>
->> +            {0x01ef, 0x0000},
->>
->> +            {0x01f0, 0x0000},
->>
->> +            {0x01f1, 0x0000},
->>
->> +            {0x01f2, 0x0000},
->>
->> +            {0x01f3, 0x0000},
->>
->> +            {0x01f4, 0x0000},
->>
->> +            {0x0210, 0x6297},
->>
->> +            {0x0211, 0xa004},
->>
->> +            {0x0212, 0x0365},
->>
->> +            {0x0213, 0xf7ff},
->>
->> +            {0x0214, 0xf24c},
->>
->> +            {0x0215, 0x0102},
->>
->> +            {0x0216, 0x00a3},
->>
->> +            {0x0217, 0x0048},
->>
->> +            {0x0218, 0xa2c0},
->>
->> +            {0x0219, 0x0400},
->>
->> +            {0x021a, 0x00c8},
->>
->> +            {0x021b, 0x00c0},
->>
->> +            {0x021c, 0x0000},
->>
->> +            {0x021d, 0x024c},
->>
->> +            {0x02fa, 0x0000},
->>
->> +            {0x02fb, 0x0000},
->>
->> +            {0x02fc, 0x0000},
->>
->> +            {0x03fe, 0x0000},
->>
->> +            {0x03ff, 0x0000},
->>
->> +            {0x0500, 0x0000},
->>
->> +            {0x0600, 0x0000},
->>
->> +            {0x0610, 0x6666},
->>
->> +            {0x0611, 0xa9aa},
->>
->> +            {0x0620, 0x6666},
->>
->> +            {0x0621, 0xa9aa},
->>
->> +            {0x0630, 0x6666},
->>
->> +            {0x0631, 0xa9aa},
->>
->> +            {0x0640, 0x6666},
->>
->> +            {0x0641, 0xa9aa},
->>
->> +            {0x07fa, 0x0000},
->>
->> +            {0x08fa, 0x0000},
->>
->> +            {0x08fb, 0x0000},
->>
->> +            {0x0d00, 0x0000},
->>
->> +            {0x1100, 0x0000},
->>
->> +            {0x1101, 0x0000},
->>
->> +            {0x1102, 0x0000},
->>
->> +            {0x1103, 0x0000},
->>
->> +            {0x1104, 0x0000},
->>
->> +            {0x1105, 0x0000},
->>
->> +            {0x1106, 0x0000},
->>
->> +            {0x1107, 0x0000},
->>
->> +            {0x1108, 0x0000},
->>
->> +            {0x1109, 0x0000},
->>
->> +            {0x110a, 0x0000},
->>
->> +            {0x110b, 0x0000},
->>
->> +            {0x110c, 0x0000},
->>
->> +            {0x1111, 0x0000},
->>
->> +            {0x1112, 0x0000},
->>
->> +            {0x1113, 0x0000},
->>
->> +            {0x1114, 0x0000},
->>
->> +            {0x1115, 0x0000},
->>
->> +            {0x1116, 0x0000},
->>
->> +            {0x1117, 0x0000},
->>
->> +            {0x1118, 0x0000},
->>
->> +            {0x1119, 0x0000},
->>
->> +            {0x111a, 0x0000},
->>
->> +            {0x111b, 0x0000},
->>
->> +            {0x111c, 0x0000},
->>
->> +            {0x1401, 0x0404},
->>
->> +            {0x1402, 0x0007},
->>
->> +            {0x1403, 0x0365},
->>
->> +            {0x1404, 0x0210},
->>
->> +            {0x1405, 0x0365},
->>
->> +            {0x1406, 0x0210},
->>
->> +            {0x1407, 0x0000},
->>
->> +            {0x1408, 0x0000},
->>
->> +            {0x1409, 0x0000},
->>
->> +            {0x140a, 0x0000},
->>
->> +            {0x140b, 0x0000},
->>
->> +            {0x140c, 0x0000},
->>
->> +            {0x140d, 0x0000},
->>
->> +            {0x140e, 0x0000},
->>
->> +            {0x140f, 0x0000},
->>
->> +            {0x1410, 0x0000},
->>
->> +            {0x1411, 0x0000},
->>
->> +            {0x1801, 0x0004},
->>
->> +            {0x1802, 0x0000},
->>
->> +            {0x1803, 0x0000},
->>
->> +            {0x1804, 0x0000},
->>
->> +            {0x1805, 0x00ff},
->>
->> +            {0x2c00, 0x0000},
->>
->> +            {0x3400, 0x0200},
->>
->> +            {0x3404, 0x0000},
->>
->> +            {0x3405, 0x0000},
->>
->> +            {0x3406, 0x0000},
->>
->> +            {0x3407, 0x0000},
->>
->> +            {0x3408, 0x0000},
->>
->> +            {0x3409, 0x0000},
->>
->> +            {0x340a, 0x0000},
->>
->> +            {0x340b, 0x0000},
->>
->> +            {0x340c, 0x0000},
->>
->> +            {0x340d, 0x0000},
->>
->> +            {0x340e, 0x0000},
->>
->> +            {0x340f, 0x0000},
->>
->> +            {0x3410, 0x0000},
->>
->> +            {0x3411, 0x0000},
->>
->> +            {0x3412, 0x0000},
->>
->> +            {0x3413, 0x0000},
->>
->> +            {0x3414, 0x0000},
->>
->> +            {0x3415, 0x0000},
->>
->> +            {0x3424, 0x0000},
->>
->> +            {0x3425, 0x0000},
->>
->> +            {0x3426, 0x0000},
->>
->> +            {0x3427, 0x0000},
->>
->> +            {0x3428, 0x0000},
->>
->> +            {0x3429, 0x0000},
->>
->> +            {0x342a, 0x0000},
->>
->> +            {0x342b, 0x0000},
->>
->> +            {0x342c, 0x0000},
->>
->> +            {0x342d, 0x0000},
->>
->> +            {0x342e, 0x0000},
->>
->> +            {0x342f, 0x0000},
->>
->> +            {0x3430, 0x0000},
->>
->> +            {0x3431, 0x0000},
->>
->> +            {0x3432, 0x0000},
->>
->> +            {0x3433, 0x0000},
->>
->> +            {0x3434, 0x0000},
->>
->> +            {0x3435, 0x0000},
->>
->> +            {0x3440, 0x6319},
->>
->> +            {0x3441, 0x3771},
->>
->> +            {0x3500, 0x0002},
->>
->> +            {0x3501, 0x5728},
->>
->> +            {0x3b00, 0x3010},
->>
->> +            {0x3b01, 0x3300},
->>
->> +            {0x3b02, 0x2200},
->>
->> +            {0x3b03, 0x0100},
->>
->> +};
->>
->> +
->>
->> +static bool rt5682s_volatile_register(struct device *dev, unsigned int
->> reg)
->>
->> +{
->>
->> +            switch (reg) {
->>
->> +            case RT5682S_RESET:
->>
->> +            case RT5682S_CBJ_CTRL_2:
->>
->> +            case RT5682S_I2S1_F_DIV_CTRL_2:
->>
->> +            case RT5682S_I2S2_F_DIV_CTRL_2:
->>
->> +            case RT5682S_INT_ST_1:
->>
->> +            case RT5682S_GPIO_ST:
->>
->> +            case RT5682S_IL_CMD_1:
->>
->> +            case RT5682S_4BTN_IL_CMD_1:
->>
->> +            case RT5682S_AJD1_CTRL:
->>
->> +            case RT5682S_VERSION_ID...RT5682S_DEVICE_ID:
->>
->> +            case RT5682S_STO_NG2_CTRL_1:
->>
->> +            case RT5682S_STO_NG2_CTRL_5...RT5682S_STO_NG2_CTRL_7:
->>
->> +            case RT5682S_STO1_DAC_SIL_DET:
->>
->> +            case RT5682S_HP_IMP_SENS_CTRL_1...RT5682S_HP_IMP_SENS_CTRL_=
-4:
->>
->> +            case RT5682S_HP_IMP_SENS_CTRL_13:
->>
->> +            case RT5682S_HP_IMP_SENS_CTRL_14:
->>
->> +            case
->> RT5682S_HP_IMP_SENS_CTRL_43...RT5682S_HP_IMP_SENS_CTRL_46:
->>
->> +            case RT5682S_HP_CALIB_CTRL_1:
->>
->> +            case RT5682S_HP_CALIB_CTRL_10:
->>
->> +            case RT5682S_HP_CALIB_ST_1...RT5682S_HP_CALIB_ST_11:
->>
->> +            case RT5682S_SAR_IL_CMD_2...RT5682S_SAR_IL_CMD_5:
->>
->> +            case RT5682S_SAR_IL_CMD_10:
->>
->> +            case RT5682S_SAR_IL_CMD_11:
->>
->> +            case RT5682S_VERSION_ID_HIDE:
->>
->> +            case RT5682S_VERSION_ID_CUS:
->>
->> +            case RT5682S_I2C_TRANS_CTRL:
->>
->> +            case RT5682S_DMIC_FLOAT_DET:
->>
->> +            case RT5682S_HA_CMP_OP_1:
->>
->> +            case RT5682S_NEW_CBJ_DET_CTL_10...RT5682S_NEW_CBJ_DET_CTL_1=
-6:
->>
->> +            case RT5682S_CLK_SW_TEST_1:
->>
->> +            case RT5682S_CLK_SW_TEST_2:
->>
->> +            case RT5682S_EFUSE_READ_1...RT5682S_EFUSE_READ_18:
->>
->> +            case RT5682S_PILOT_DIG_CTL_1:
->>
->> +                           return true;
->>
->> +            default:
->>
->> +                           return false;
->>
->> +            }
->>
->> +}
->>
->> +
->>
->> +static bool rt5682s_readable_register(struct device *dev, unsigned int
->> reg)
->>
->> +{
->>
->> +            switch (reg) {
->>
->> +            case RT5682S_RESET:
->>
->> +            case RT5682S_VERSION_ID:
->>
->> +            case RT5682S_VENDOR_ID:
->>
->> +            case RT5682S_DEVICE_ID:
->>
->> +            case RT5682S_HP_CTRL_1:
->>
->> +            case RT5682S_HP_CTRL_2:
->>
->> +            case RT5682S_HPL_GAIN:
->>
->> +            case RT5682S_HPR_GAIN:
->>
->> +            case RT5682S_I2C_CTRL:
->>
->> +            case RT5682S_CBJ_BST_CTRL:
->>
->> +            case RT5682S_CBJ_DET_CTRL:
->>
->> +            case RT5682S_CBJ_CTRL_1...RT5682S_CBJ_CTRL_8:
->>
->> +            case RT5682S_DAC1_DIG_VOL:
->>
->> +            case RT5682S_STO1_ADC_DIG_VOL:
->>
->> +            case RT5682S_STO1_ADC_BOOST:
->>
->> +            case RT5682S_HP_IMP_GAIN_1:
->>
->> +            case RT5682S_HP_IMP_GAIN_2:
->>
->> +            case RT5682S_SIDETONE_CTRL:
->>
->> +            case RT5682S_STO1_ADC_MIXER:
->>
->> +            case RT5682S_AD_DA_MIXER:
->>
->> +            case RT5682S_STO1_DAC_MIXER:
->>
->> +            case RT5682S_A_DAC1_MUX:
->>
->> +            case RT5682S_DIG_INF2_DATA:
->>
->> +            case RT5682S_REC_MIXER:
->>
->> +            case RT5682S_CAL_REC:
->>
->> +            case RT5682S_HP_ANA_OST_CTRL_1...RT5682S_HP_ANA_OST_CTRL_3:
->>
->> +            case RT5682S_PWR_DIG_1...RT5682S_PWR_MIXER:
->>
->> +            case RT5682S_MB_CTRL:
->>
->> +            case RT5682S_CLK_GATE_TCON_1...RT5682S_CLK_GATE_TCON_3:
->>
->> +            case RT5682S_CLK_DET...RT5682S_LPF_AD_DMIC:
->>
->> +            case RT5682S_I2S1_SDP:
->>
->> +            case RT5682S_I2S2_SDP:
->>
->> +            case RT5682S_ADDA_CLK_1:
->>
->> +            case RT5682S_ADDA_CLK_2:
->>
->> +            case RT5682S_I2S1_F_DIV_CTRL_1:
->>
->> +            case RT5682S_I2S1_F_DIV_CTRL_2:
->>
->> +            case RT5682S_TDM_CTRL:
->>
->> +            case RT5682S_TDM_ADDA_CTRL_1:
->>
->> +            case RT5682S_TDM_ADDA_CTRL_2:
->>
->> +            case RT5682S_DATA_SEL_CTRL_1:
->>
->> +            case RT5682S_TDM_TCON_CTRL_1:
->>
->> +            case RT5682S_TDM_TCON_CTRL_2:
->>
->> +            case RT5682S_GLB_CLK:
->>
->> +            case RT5682S_PLL_TRACK_1...RT5682S_PLL_TRACK_6:
->>
->> +            case RT5682S_PLL_TRACK_11:
->>
->> +            case RT5682S_DEPOP_1:
->>
->> +            case RT5682S_HP_CHARGE_PUMP_1:
->>
->> +            case RT5682S_HP_CHARGE_PUMP_2:
->>
->> +            case RT5682S_HP_CHARGE_PUMP_3:
->>
->> +            case RT5682S_MICBIAS_1...RT5682S_MICBIAS_3:
->>
->> +            case RT5682S_PLL_TRACK_12...RT5682S_PLL_CTRL_7:
->>
->> +            case RT5682S_RC_CLK_CTRL:
->>
->> +            case RT5682S_I2S2_M_CLK_CTRL_1:
->>
->> +            case RT5682S_I2S2_F_DIV_CTRL_1:
->>
->> +            case RT5682S_I2S2_F_DIV_CTRL_2:
->>
->> +            case RT5682S_IRQ_CTRL_1...RT5682S_IRQ_CTRL_4:
->>
->> +            case RT5682S_INT_ST_1:
->>
->> +            case RT5682S_GPIO_CTRL_1:
->>
->> +            case RT5682S_GPIO_CTRL_2:
->>
->> +            case RT5682S_GPIO_ST:
->>
->> +            case RT5682S_HP_AMP_DET_CTRL_1:
->>
->> +            case RT5682S_MID_HP_AMP_DET:
->>
->> +            case RT5682S_LOW_HP_AMP_DET:
->>
->> +            case RT5682S_DELAY_BUF_CTRL:
->>
->> +            case RT5682S_SV_ZCD_1:
->>
->> +            case RT5682S_SV_ZCD_2:
->>
->> +            case RT5682S_IL_CMD_1...RT5682S_IL_CMD_6:
->>
->> +            case RT5682S_4BTN_IL_CMD_1...RT5682S_4BTN_IL_CMD_7:
->>
->> +            case RT5682S_ADC_STO1_HP_CTRL_1:
->>
->> +            case RT5682S_ADC_STO1_HP_CTRL_2:
->>
->> +            case RT5682S_AJD1_CTRL:
->>
->> +            case RT5682S_JD_CTRL_1:
->>
->> +            case RT5682S_DUMMY_1...RT5682S_DUMMY_3:
->>
->> +            case RT5682S_DAC_ADC_DIG_VOL1:
->>
->> +            case RT5682S_BIAS_CUR_CTRL_2...RT5682S_BIAS_CUR_CTRL_10:
->>
->> +            case RT5682S_VREF_REC_OP_FB_CAP_CTRL_1:
->>
->> +            case RT5682S_VREF_REC_OP_FB_CAP_CTRL_2:
->>
->> +            case RT5682S_CHARGE_PUMP_1:
->>
->> +            case RT5682S_DIG_IN_CTRL_1:
->>
->> +            case RT5682S_PAD_DRIVING_CTRL:
->>
->> +            case RT5682S_CHOP_DAC_1:
->>
->> +            case RT5682S_CHOP_DAC_2:
->>
->> +            case RT5682S_CHOP_ADC:
->>
->> +            case RT5682S_CALIB_ADC_CTRL:
->>
->> +            case RT5682S_VOL_TEST:
->>
->> +            case RT5682S_SPKVDD_DET_ST:
->>
->> +            case RT5682S_TEST_MODE_CTRL_1...RT5682S_TEST_MODE_CTRL_4:
->>
->> +            case RT5682S_PLL_INTERNAL_1...RT5682S_PLL_INTERNAL_4:
->>
->> +            case RT5682S_STO_NG2_CTRL_1...RT5682S_STO_NG2_CTRL_10:
->>
->> +            case RT5682S_STO1_DAC_SIL_DET:
->>
->> +            case RT5682S_SIL_PSV_CTRL1:
->>
->> +            case RT5682S_SIL_PSV_CTRL2:
->>
->> +            case RT5682S_SIL_PSV_CTRL3:
->>
->> +            case RT5682S_SIL_PSV_CTRL4:
->>
->> +            case RT5682S_SIL_PSV_CTRL5:
->>
->> +            case
->> RT5682S_HP_IMP_SENS_CTRL_1...RT5682S_HP_IMP_SENS_CTRL_46:
->>
->> +            case RT5682S_HP_LOGIC_CTRL_1...RT5682S_HP_LOGIC_CTRL_3:
->>
->> +            case RT5682S_HP_CALIB_CTRL_1...RT5682S_HP_CALIB_CTRL_11:
->>
->> +            case RT5682S_HP_CALIB_ST_1...RT5682S_HP_CALIB_ST_11:
->>
->> +            case RT5682S_SAR_IL_CMD_1...RT5682S_SAR_IL_CMD_14:
->>
->> +            case RT5682S_DUMMY_4...RT5682S_DUMMY_6:
->>
->> +            case RT5682S_VERSION_ID_HIDE:
->>
->> +            case RT5682S_VERSION_ID_CUS:
->>
->> +            case RT5682S_SCAN_CTL:
->>
->> +            case RT5682S_HP_AMP_DET:
->>
->> +            case RT5682S_BIAS_CUR_CTRL_11:
->>
->> +            case RT5682S_BIAS_CUR_CTRL_12:
->>
->> +            case RT5682S_BIAS_CUR_CTRL_13:
->>
->> +            case RT5682S_BIAS_CUR_CTRL_14:
->>
->> +            case RT5682S_BIAS_CUR_CTRL_15:
->>
->> +            case RT5682S_BIAS_CUR_CTRL_16:
->>
->> +            case RT5682S_BIAS_CUR_CTRL_17:
->>
->> +            case RT5682S_BIAS_CUR_CTRL_18:
->>
->> +            case RT5682S_I2C_TRANS_CTRL:
->>
->> +            case RT5682S_DUMMY_7:
->>
->> +            case RT5682S_DUMMY_8:
->>
->> +            case RT5682S_DMIC_FLOAT_DET:
->>
->> +            case RT5682S_HA_CMP_OP_1...RT5682S_HA_CMP_OP_13:
->>
->> +            case RT5682S_HA_CMP_OP_14...RT5682S_HA_CMP_OP_25:
->>
->> +            case RT5682S_NEW_CBJ_DET_CTL_1...RT5682S_NEW_CBJ_DET_CTL_16=
-:
->>
->> +            case RT5682S_DA_FILTER_1...RT5682S_DA_FILTER_5:
->>
->> +            case RT5682S_CLK_SW_TEST_1:
->>
->> +            case RT5682S_CLK_SW_TEST_2:
->>
->> +            case RT5682S_CLK_SW_TEST_3...RT5682S_CLK_SW_TEST_14:
->>
->> +            case RT5682S_EFUSE_MANU_WRITE_1...RT5682S_EFUSE_MANU_WRITE_=
-6:
->>
->> +            case RT5682S_EFUSE_READ_1...RT5682S_EFUSE_READ_18:
->>
->> +            case RT5682S_EFUSE_TIMING_CTL_1:
->>
->> +            case RT5682S_EFUSE_TIMING_CTL_2:
->>
->> +            case RT5682S_PILOT_DIG_CTL_1:
->>
->> +            case RT5682S_PILOT_DIG_CTL_2:
->>
->> +            case RT5682S_HP_AMP_DET_CTL_1...RT5682S_HP_AMP_DET_CTL_4:
->>
->> +                           return true;
->>
->> +            default:
->>
->> +                           return false;
->>
->> +            }
->>
->> +}
->>
->> +
->>
->> +static void rt5682s_reset(struct rt5682s_priv *rt5682s)
->>
->> +{
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_RESET, 0);
->>
->> +}
->>
->> +
->>
->> +static int rt5682s_button_detect(struct snd_soc_component *component)
->>
->> +{
->>
->> +            int btn_type, val;
->>
->> +
->>
->> +            val =3D snd_soc_component_read(component,
->> RT5682S_4BTN_IL_CMD_1);
->>
->> +            btn_type =3D val & 0xfff0;
->>
->> +            snd_soc_component_write(component, RT5682S_4BTN_IL_CMD_1,
->> val);
->>
->> +            dev_dbg(component->dev, "%s btn_type=3D%x\n", __func__,
->> btn_type);
->>
->> +            snd_soc_component_update_bits(component,
->> RT5682S_SAR_IL_CMD_2,
->>
->> +                           RT5682S_SAR_ADC_PSV_MASK,
->> RT5682S_SAR_ADC_PSV_ENTRY);
->>
->> +
->>
->> +            return btn_type;
->>
->> +}
->>
->> +
->>
->> +enum {
->>
->> +            SAR_PWR_OFF,
->>
->> +            SAR_PWR_NORMAL,
->>
->> +            SAR_PWR_SAVING,
->>
->> +};
->>
->> +
->>
->> +static void rt5682s_sar_power_mode(struct snd_soc_component *component,
->>
->> +                                                       int mode, int
->> jd_step)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +
->>
->> +            mutex_lock(&rt5682s->sar_mutex);
->>
->> +
->>
->> +            switch (mode) {
->>
->> +            case SAR_PWR_SAVING:
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_CBJ_CTRL_3,
->>
->> +                                         RT5682S_CBJ_IN_BUF_MASK,
->> RT5682S_CBJ_IN_BUF_DIS);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_CBJ_CTRL_1,
->>
->> +                                         RT5682S_MB1_PATH_MASK |
->> RT5682S_MB2_PATH_MASK,
->>
->> +                                         RT5682S_CTRL_MB1_REG |
->> RT5682S_CTRL_MB2_REG);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_SAR_IL_CMD_1,
->>
->> +                                         RT5682S_SAR_BUTDET_MASK |
->> RT5682S_SAR_BUTDET_POW_MASK |
->>
->> +                                         RT5682S_SAR_SEL_MB1_2_CTL_MASK=
-,
->> RT5682S_SAR_BUTDET_DIS |
->>
->> +                                         RT5682S_SAR_BUTDET_POW_SAV |
->> RT5682S_SAR_SEL_MB1_2_MANU);
->>
->> +                           usleep_range(5000, 5500);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_SAR_IL_CMD_1,
->>
->> +                                         RT5682S_SAR_BUTDET_MASK,
->> RT5682S_SAR_BUTDET_EN);
->>
->> +                           usleep_range(5000, 5500);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_SAR_IL_CMD_2,
->>
->> +                                         RT5682S_SAR_ADC_PSV_MASK,
->> RT5682S_SAR_ADC_PSV_ENTRY);
->>
->> +                           break;
->>
->> +            case SAR_PWR_NORMAL:
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_CBJ_CTRL_3,
->>
->> +                                         RT5682S_CBJ_IN_BUF_MASK,
->> RT5682S_CBJ_IN_BUF_EN);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_CBJ_CTRL_1,
->>
->> +                                         RT5682S_MB1_PATH_MASK |
->> RT5682S_MB2_PATH_MASK,
->>
->> +                                         RT5682S_CTRL_MB1_FSM |
->> RT5682S_CTRL_MB2_FSM);
->>
->> +                           if (!jd_step) {
->>
->> +
->> snd_soc_component_update_bits(component, RT5682S_SAR_IL_CMD_1,
->>
->> +
->> RT5682S_SAR_SEL_MB1_2_CTL_MASK, RT5682S_SAR_SEL_MB1_2_AUTO);
->>
->> +                                         usleep_range(5000, 5500);
->>
->> +
->> snd_soc_component_update_bits(component, RT5682S_SAR_IL_CMD_1,
->>
->> +
->> RT5682S_SAR_BUTDET_MASK | RT5682S_SAR_BUTDET_POW_MASK,
->>
->> +
->> RT5682S_SAR_BUTDET_EN | RT5682S_SAR_BUTDET_POW_NORM);
->>
->> +                           }
->>
->> +                           break;
->>
->> +            case SAR_PWR_OFF:
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_SAR_IL_CMD_1,
->>
->> +                                         RT5682S_SAR_BUTDET_MASK |
->> RT5682S_SAR_BUTDET_POW_MASK |
->>
->> +                                         RT5682S_SAR_SEL_MB1_2_CTL_MASK=
-,
->> RT5682S_SAR_BUTDET_DIS |
->>
->> +                                         RT5682S_SAR_BUTDET_POW_SAV |
->> RT5682S_SAR_SEL_MB1_2_MANU);
->>
->> +                           break;
->>
->> +            default:
->>
->> +                           dev_err(component->dev, "Invalid SAR Power
->> mode: %d\n", mode);
->>
->> +                           break;
->>
->> +            }
->>
->> +
->>
->> +            mutex_unlock(&rt5682s->sar_mutex);
->>
->> +}
->>
->> +
->>
->> +static void rt5682s_enable_push_button_irq(struct snd_soc_component
->> *component)
->>
->> +{
->>
->> +            snd_soc_component_update_bits(component,
->> RT5682S_SAR_IL_CMD_13,
->>
->> +                           RT5682S_SAR_SOUR_MASK, RT5682S_SAR_SOUR_BTN)=
-;
->>
->> +            snd_soc_component_write(component, RT5682S_IL_CMD_1, 0x0040=
-);
->>
->> +            snd_soc_component_update_bits(component,
->> RT5682S_4BTN_IL_CMD_2,
->>
->> +                           RT5682S_4BTN_IL_MASK |
->> RT5682S_4BTN_IL_RST_MASK,
->>
->> +                           RT5682S_4BTN_IL_EN | RT5682S_4BTN_IL_NOR);
->>
->> +            snd_soc_component_update_bits(component, RT5682S_IRQ_CTRL_3=
-,
->>
->> +                           RT5682S_IL_IRQ_MASK, RT5682S_IL_IRQ_EN);
->>
->> +}
->>
->> +
->>
->> +static void rt5682s_disable_push_button_irq(struct snd_soc_component
->> *component)
->>
->> +{
->>
->> +            snd_soc_component_update_bits(component, RT5682S_IRQ_CTRL_3=
-,
->>
->> +                           RT5682S_IL_IRQ_MASK, RT5682S_IL_IRQ_DIS);
->>
->> +            snd_soc_component_update_bits(component,
->> RT5682S_4BTN_IL_CMD_2,
->>
->> +                           RT5682S_4BTN_IL_MASK, RT5682S_4BTN_IL_DIS);
->>
->> +            snd_soc_component_update_bits(component,
->> RT5682S_SAR_IL_CMD_13,
->>
->> +                           RT5682S_SAR_SOUR_MASK, RT5682S_SAR_SOUR_TYPE=
-);
->>
->> +}
->>
->> +
->>
->> +/**
->>
->> + * rt5682s_headset_detect - Detect headset.
->>
->> + * @component: SoC audio component device.
->>
->> + * @jack_insert: Jack insert or not.
->>
->> + *
->>
->> + * Detect whether is headset or not when jack inserted.
->>
->> + *
->>
->> + * Returns detect status.
->>
->> + */
->>
->> +static int rt5682s_headset_detect(struct snd_soc_component *component,
->> int jack_insert)
->>
->> +{
->>
->> +            unsigned int val, count;
->>
->> +            int jack_type =3D 0;
->>
->> +
->>
->> +            if (jack_insert) {
->>
->> +                           rt5682s_disable_push_button_irq(component);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_PWR_ANLG_1,
->>
->> +                                         RT5682S_PWR_VREF1 |
->> RT5682S_PWR_VREF2 | RT5682S_PWR_MB,
->>
->> +                                         RT5682S_PWR_VREF1 |
->> RT5682S_PWR_VREF2 | RT5682S_PWR_MB);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_PWR_ANLG_1,
->>
->> +                                         RT5682S_PWR_FV1 |
->> RT5682S_PWR_FV2, 0);
->>
->> +                           usleep_range(15000, 20000);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_PWR_ANLG_1,
->>
->> +                                         RT5682S_PWR_FV1 |
->> RT5682S_PWR_FV2,
->>
->> +                                         RT5682S_PWR_FV1 |
->> RT5682S_PWR_FV2);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_PWR_ANLG_3,
->>
->> +                                         RT5682S_PWR_CBJ,
->> RT5682S_PWR_CBJ);
->>
->> +                           snd_soc_component_write(component,
->> RT5682S_SAR_IL_CMD_3, 0x0365);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_HP_CHARGE_PUMP_2,
->>
->> +                                         RT5682S_OSW_L_MASK |
->> RT5682S_OSW_R_MASK,
->>
->> +                                         RT5682S_OSW_L_DIS |
->> RT5682S_OSW_R_DIS);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_SAR_IL_CMD_13,
->>
->> +                                         RT5682S_SAR_SOUR_MASK,
->> RT5682S_SAR_SOUR_TYPE);
->>
->> +                           rt5682s_sar_power_mode(component,
->> SAR_PWR_NORMAL, 1);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_CBJ_CTRL_1,
->>
->> +                                         RT5682S_TRIG_JD_MASK,
->> RT5682S_TRIG_JD_LOW);
->>
->> +                           usleep_range(45000, 50000);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_CBJ_CTRL_1,
->>
->> +                                         RT5682S_TRIG_JD_MASK,
->> RT5682S_TRIG_JD_HIGH);
->>
->> +
->>
->> +                           count =3D 0;
->>
->> +                           do {
->>
->> +                                         usleep_range(10000, 15000);
->>
->> +                                         val =3D
->> snd_soc_component_read(component, RT5682S_CBJ_CTRL_2)
->>
->> +                                                       &
->> RT5682S_JACK_TYPE_MASK;
->>
->> +                                         count++;
->>
->> +                           } while (val =3D=3D 0 && count < 50);
->>
->> +
->>
->> +                           pr_debug("%s, val=3D%d, count=3D%d\n", __fun=
-c__,
->> val, count);
->>
->> +
->>
->> +                           switch (val) {
->>
->> +                           case 0x1:
->>
->> +                           case 0x2:
->>
->> +                                         jack_type =3D SND_JACK_HEADSET=
-;
->>
->> +
->> snd_soc_component_write(component, RT5682S_SAR_IL_CMD_3, 0x024c);
->>
->> +
->> snd_soc_component_update_bits(component, RT5682S_CBJ_CTRL_1,
->>
->> +
->> RT5682S_FAST_OFF_MASK, RT5682S_FAST_OFF_EN);
->>
->> +
->> snd_soc_component_update_bits(component, RT5682S_SAR_IL_CMD_1,
->>
->> +
->> RT5682S_SAR_SEL_MB1_2_MASK, val << RT5682S_SAR_SEL_MB1_2_SFT);
->>
->> +
->> rt5682s_sar_power_mode(component, SAR_PWR_SAVING, 1);
->>
->> +
->> rt5682s_enable_push_button_irq(component);
->>
->> +                                         break;
->>
->> +                           default:
->>
->> +                                         jack_type =3D SND_JACK_HEADPHO=
-NE;
->>
->> +                                         break;
->>
->> +                           }
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_HP_CHARGE_PUMP_2,
->>
->> +                                         RT5682S_OSW_L_MASK |
->> RT5682S_OSW_R_MASK,
->>
->> +                                         RT5682S_OSW_L_EN |
->> RT5682S_OSW_R_EN);
->>
->> +            } else {
->>
->> +                           rt5682s_sar_power_mode(component,
->> SAR_PWR_OFF, 1);
->>
->> +                           rt5682s_disable_push_button_irq(component);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_CBJ_CTRL_1,
->>
->> +                                         RT5682S_TRIG_JD_MASK,
->> RT5682S_TRIG_JD_LOW);
->>
->> +
->>
->> +                           if
->> (!snd_soc_dapm_get_pin_status(&component->dapm, "MICBIAS"))
->>
->> +
->> snd_soc_component_update_bits(component,
->>
->> +
->> RT5682S_PWR_ANLG_1, RT5682S_PWR_MB, 0);
->>
->> +                           if
->> (!snd_soc_dapm_get_pin_status(&component->dapm, "Vref2"))
->>
->> +
->> snd_soc_component_update_bits(component,
->>
->> +
->> RT5682S_PWR_ANLG_1, RT5682S_PWR_VREF2, 0);
->>
->> +
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_PWR_ANLG_3,
->>
->> +                                         RT5682S_PWR_CBJ, 0);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_CBJ_CTRL_1,
->>
->> +                                         RT5682S_FAST_OFF_MASK,
->> RT5682S_FAST_OFF_DIS);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_CBJ_CTRL_3,
->>
->> +                                         RT5682S_CBJ_IN_BUF_MASK,
->> RT5682S_CBJ_IN_BUF_DIS);
->>
->> +                           jack_type =3D 0;
->>
->> +            }
->>
->> +
->>
->> +            dev_dbg(component->dev, "jack_type =3D %d\n", jack_type);
->>
->> +
->>
->> +            return jack_type;
->>
->> +}
->>
->> +
->>
->> +static void rt5682s_jack_detect_handler(struct work_struct *work)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D
->>
->> +                           container_of(work, struct rt5682s_priv,
->> jack_detect_work.work);
->>
->> +            int val, btn_type;
->>
->> +
->>
->> +            while (!rt5682s->component)
->>
->> +                           usleep_range(10000, 15000);
->>
->> +
->>
->> +            while (!rt5682s->component->card->instantiated)
->>
->> +                           usleep_range(10000, 15000);
->>
->> +
->>
->> +            mutex_lock(&rt5682s->calibrate_mutex);
->>
->> +
->>
->> +            val =3D snd_soc_component_read(rt5682s->component,
->> RT5682S_AJD1_CTRL)
->>
->> +                           & RT5682S_JDH_RS_MASK;
->>
->> +            if (!val) {
->>
->> +                           /* jack in */
->>
->> +                           if (rt5682s->jack_type =3D=3D 0) {
->>
->> +                                         /* jack was out, report jack
->> type */
->>
->> +                                         rt5682s->jack_type =3D
->> rt5682s_headset_detect(rt5682s->component, 1);
->>
->> +                                         rt5682s->irq_work_delay_time =
-=3D
->> 0;
->>
->> +                           } else if ((rt5682s->jack_type &
->> SND_JACK_HEADSET) =3D=3D SND_JACK_HEADSET) {
->>
->> +                                         /* jack is already in, report
->> button event */
->>
->> +                                         rt5682s->jack_type =3D
->> SND_JACK_HEADSET;
->>
->> +                                         btn_type =3D
->> rt5682s_button_detect(rt5682s->component);
->>
->> +                                         /**
->>
->> +                                         * rt5682s can report three
->> kinds of button behavior,
->>
->> +                                         * one click, double click and
->> hold. However,
->>
->> +                                         * currently we will report
->> button pressed/released
->>
->> +                                         * event. So all the three
->> button behaviors are
->>
->> +                                         * treated as button pressed.
->>
->> +                                         */
->>
->> +                                         switch (btn_type) {
->>
->> +                                         case 0x8000:
->>
->> +                                         case 0x4000:
->>
->> +                                         case 0x2000:
->>
->> +
->> rt5682s->jack_type |=3D SND_JACK_BTN_0;
->>
->> +                                                       break;
->>
->> +                                         case 0x1000:
->>
->> +                                         case 0x0800:
->>
->> +                                         case 0x0400:
->>
->> +
->> rt5682s->jack_type |=3D SND_JACK_BTN_1;
->>
->> +                                                       break;
->>
->> +                                         case 0x0200:
->>
->> +                                         case 0x0100:
->>
->> +                                         case 0x0080:
->>
->> +
->> rt5682s->jack_type |=3D SND_JACK_BTN_2;
->>
->> +                                                       break;
->>
->> +                                         case 0x0040:
->>
->> +                                         case 0x0020:
->>
->> +                                         case 0x0010:
->>
->> +
->> rt5682s->jack_type |=3D SND_JACK_BTN_3;
->>
->> +                                                       break;
->>
->> +                                         case 0x0000: /* unpressed */
->>
->> +                                                       break;
->>
->> +                                         default:
->>
->> +
->> dev_err(rt5682s->component->dev,
->>
->> +
->> "Unexpected button code 0x%04x\n", btn_type);
->>
->> +                                                       break;
->>
->> +                                         }
->>
->> +                           }
->>
->> +            } else {
->>
->> +                          /* jack out */
->>
->> +                           rt5682s->jack_type =3D
->> rt5682s_headset_detect(rt5682s->component, 0);
->>
->> +                           rt5682s->irq_work_delay_time =3D 50;
->>
->> +            }
->>
->> +
->>
->> +            snd_soc_jack_report(rt5682s->hs_jack, rt5682s->jack_type,
->>
->> +                           SND_JACK_HEADSET | SND_JACK_BTN_0 |
->> SND_JACK_BTN_1 |
->>
->> +                           SND_JACK_BTN_2 | SND_JACK_BTN_3);
->>
->> +
->>
->> +            if (rt5682s->jack_type & (SND_JACK_BTN_0 | SND_JACK_BTN_1 |
->>
->> +                           SND_JACK_BTN_2 | SND_JACK_BTN_3))
->>
->> +
->> schedule_delayed_work(&rt5682s->jd_check_work, 0);
->>
->> +            else
->>
->> +
->> cancel_delayed_work_sync(&rt5682s->jd_check_work);
->>
->> +
->>
->> +            mutex_unlock(&rt5682s->calibrate_mutex);
->>
->> +}
->>
->> +
->>
->> +static void rt5682s_jd_check_handler(struct work_struct *work)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D
->>
->> +                           container_of(work, struct rt5682s_priv,
->> jd_check_work.work);
->>
->> +
->>
->> +            if (snd_soc_component_read(rt5682s->component,
->> RT5682S_AJD1_CTRL)
->>
->> +                           & RT5682S_JDH_RS_MASK) {
->>
->> +                           /* jack out */
->>
->> +                           rt5682s->jack_type =3D
->> rt5682s_headset_detect(rt5682s->component, 0);
->>
->> +
->>
->> +                           snd_soc_jack_report(rt5682s->hs_jack,
->> rt5682s->jack_type,
->>
->> +                                         SND_JACK_HEADSET |
->> SND_JACK_BTN_0 | SND_JACK_BTN_1 |
->>
->> +                                         SND_JACK_BTN_2 |
->> SND_JACK_BTN_3);
->>
->> +            } else {
->>
->> +
->> schedule_delayed_work(&rt5682s->jd_check_work, 500);
->>
->> +            }
->>
->> +}
->>
->> +
->>
->> +static irqreturn_t rt5682s_irq(int irq, void *data)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D data;
->>
->> +
->>
->> +            mod_delayed_work(system_power_efficient_wq,
->> &rt5682s->jack_detect_work,
->>
->> +
->> msecs_to_jiffies(rt5682s->irq_work_delay_time));
->>
->> +
->>
->> +            return IRQ_HANDLED;
->>
->> +}
->>
->> +
->>
->> +static int rt5682s_set_jack_detect(struct snd_soc_component *component,
->>
->> +                           struct snd_soc_jack *hs_jack, void *data)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +            int btndet_delay =3D 16;
->>
->> +
->>
->> +            rt5682s->hs_jack =3D hs_jack;
->>
->> +
->>
->> +            if (!hs_jack) {
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_IRQ_CTRL_2,
->>
->> +                                         RT5682S_JD1_EN_MASK,
->> RT5682S_JD1_DIS);
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_RC_CLK_CTRL,
->>
->> +                                         RT5682S_POW_JDH, 0);
->>
->> +
->> cancel_delayed_work_sync(&rt5682s->jack_detect_work);
->>
->> +
->>
->> +                           return 0;
->>
->> +            }
->>
->> +
->>
->> +            switch (rt5682s->pdata.jd_src) {
->>
->> +            case RT5682S_JD1:
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_CBJ_CTRL_5,
->>
->> +                                         RT5682S_JD_FAST_OFF_SRC_MASK,
->> RT5682S_JD_FAST_OFF_SRC_JDH);
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_CBJ_CTRL_2,
->>
->> +                                         RT5682S_EXT_JD_SRC,
->> RT5682S_EXT_JD_SRC_MANUAL);
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_CBJ_CTRL_1,
->>
->> +                                         RT5682S_EMB_JD_MASK |
->> RT5682S_DET_TYPE |
->>
->> +                                         RT5682S_POL_FAST_OFF_MASK |
->> RT5682S_MIC_CAP_MASK,
->>
->> +                                         RT5682S_EMB_JD_EN |
->> RT5682S_DET_TYPE |
->>
->> +                                         RT5682S_POL_FAST_OFF_HIGH |
->> RT5682S_MIC_CAP_HS);
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_SAR_IL_CMD_1,
->>
->> +                                         RT5682S_SAR_POW_MASK,
->> RT5682S_SAR_POW_EN);
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_GPIO_CTRL_1,
->>
->> +                                         RT5682S_GP1_PIN_MASK,
->> RT5682S_GP1_PIN_IRQ);
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_PWR_ANLG_3,
->>
->> +                                         RT5682S_PWR_BGLDO,
->> RT5682S_PWR_BGLDO);
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_PWR_ANLG_2,
->>
->> +                                         RT5682S_PWR_JD_MASK,
->> RT5682S_PWR_JD_ENABLE);
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_RC_CLK_CTRL,
->>
->> +                                         RT5682S_POW_IRQ |
->> RT5682S_POW_JDH, RT5682S_POW_IRQ | RT5682S_POW_JDH);
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_IRQ_CTRL_2,
->>
->> +                                         RT5682S_JD1_EN_MASK |
->> RT5682S_JD1_POL_MASK,
->>
->> +                                         RT5682S_JD1_EN |
->> RT5682S_JD1_POL_NOR);
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_4BTN_IL_CMD_4,
->>
->> +                                         RT5682S_4BTN_IL_HOLD_WIN_MASK =
-|
->> RT5682S_4BTN_IL_CLICK_WIN_MASK,
->>
->> +                                         (btndet_delay <<
->> RT5682S_4BTN_IL_HOLD_WIN_SFT | btndet_delay));
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_4BTN_IL_CMD_5,
->>
->> +                                         RT5682S_4BTN_IL_HOLD_WIN_MASK =
-|
->> RT5682S_4BTN_IL_CLICK_WIN_MASK,
->>
->> +                                         (btndet_delay <<
->> RT5682S_4BTN_IL_HOLD_WIN_SFT | btndet_delay));
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_4BTN_IL_CMD_6,
->>
->> +                                         RT5682S_4BTN_IL_HOLD_WIN_MASK =
-|
->> RT5682S_4BTN_IL_CLICK_WIN_MASK,
->>
->> +                                         (btndet_delay <<
->> RT5682S_4BTN_IL_HOLD_WIN_SFT | btndet_delay));
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_4BTN_IL_CMD_7,
->>
->> +                                         RT5682S_4BTN_IL_HOLD_WIN_MASK =
-|
->> RT5682S_4BTN_IL_CLICK_WIN_MASK,
->>
->> +                                         (btndet_delay <<
->> RT5682S_4BTN_IL_HOLD_WIN_SFT | btndet_delay));
->>
->> +
->>
->> +                           mod_delayed_work(system_power_efficient_wq,
->>
->> +                                         &rt5682s->jack_detect_work,
->> msecs_to_jiffies(250));
->>
->> +                           break;
->>
->> +
->>
->> +            case RT5682S_JD_NULL:
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_IRQ_CTRL_2,
->>
->> +                                         RT5682S_JD1_EN_MASK,
->> RT5682S_JD1_DIS);
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_RC_CLK_CTRL,
->>
->> +                                         RT5682S_POW_JDH, 0);
->>
->> +                           break;
->>
->> +
->>
->> +            default:
->>
->> +                           dev_warn(component->dev, "Wrong JD source\n"=
-);
->>
->> +                           break;
->>
->> +            }
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static const DECLARE_TLV_DB_SCALE(dac_vol_tlv, -9450, 150, 0);
->>
->> +static const DECLARE_TLV_DB_SCALE(adc_vol_tlv, -1725, 75, 0);
->>
->> +static const DECLARE_TLV_DB_SCALE(adc_bst_tlv, 0, 1200, 0);
->>
->> +static const DECLARE_TLV_DB_SCALE(cbj_bst_tlv, -1200, 150, 0);
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_snd_controls[] =3D {
->>
->> +            /* DAC Digital Volume */
->>
->> +            SOC_DOUBLE_TLV("DAC1 Playback Volume", RT5682S_DAC1_DIG_VOL=
-,
->>
->> +                           RT5682S_L_VOL_SFT + 2, RT5682S_R_VOL_SFT + 2=
-,
->> 63, 0, dac_vol_tlv),
->>
->> +
->>
->> +            /* CBJ Boost Volume */
->>
->> +            SOC_SINGLE_TLV("CBJ Boost Volume", RT5682S_REC_MIXER,
->>
->> +                           RT5682S_BST_CBJ_SFT, 35, 0,  cbj_bst_tlv),
->>
->> +
->>
->> +            /* ADC Digital Volume Control */
->>
->> +            SOC_DOUBLE("STO1 ADC Capture Switch",
->> RT5682S_STO1_ADC_DIG_VOL,
->>
->> +                           RT5682S_L_MUTE_SFT, RT5682S_R_MUTE_SFT, 1, 1=
-),
->>
->> +            SOC_DOUBLE_TLV("STO1 ADC Capture Volume",
->> RT5682S_STO1_ADC_DIG_VOL,
->>
->> +                           RT5682S_L_VOL_SFT + 1, RT5682S_R_VOL_SFT + 1=
-,
->> 63, 0, adc_vol_tlv),
->>
->> +
->>
->> +            /* ADC Boost Volume Control */
->>
->> +            SOC_DOUBLE_TLV("STO1 ADC Boost Gain Volume",
->> RT5682S_STO1_ADC_BOOST,
->>
->> +                           RT5682S_STO1_ADC_L_BST_SFT,
->> RT5682S_STO1_ADC_R_BST_SFT, 3, 0, adc_bst_tlv),
->>
->> +};
->>
->> +
->>
->> +/**
->>
->> + * rt5682s_sel_asrc_clk_src - select ASRC clock source for a set of
->> filters
->>
->> + * @component: SoC audio component device.
->>
->> + * @filter_mask: mask of filters.
->>
->> + * @clk_src: clock source
->>
->> + *
->>
->> + * The ASRC function is for asynchronous MCLK and LRCK. Also, since
->> RT5682S can
->>
->> + * only support standard 32fs or 64fs i2s format, ASRC should be enable=
-d
->> to
->>
->> + * support special i2s clock format such as Intel's 100fs(100 * samplin=
-g
->> rate).
->>
->> + * ASRC function will track i2s clock and generate a corresponding
->> system clock
->>
->> + * for codec. This function provides an API to select the clock source
->> for a
->>
->> + * set of filters specified by the mask. And the component driver will
->> turn on
->>
->> + * ASRC for these filters if ASRC is selected as their clock source.
->>
->> + */
->>
->> +int rt5682s_sel_asrc_clk_src(struct snd_soc_component *component,
->>
->> +                           unsigned int filter_mask, unsigned int
->> clk_src)
->>
->> +{
->>
->> +            switch (clk_src) {
->>
->> +            case RT5682S_CLK_SEL_SYS:
->>
->> +            case RT5682S_CLK_SEL_I2S1_ASRC:
->>
->> +            case RT5682S_CLK_SEL_I2S2_ASRC:
->>
->> +                           break;
->>
->> +
->>
->> +            default:
->>
->> +                           return -EINVAL;
->>
->> +            }
->>
->> +
->>
->> +            if (filter_mask & RT5682S_DA_STEREO1_FILTER) {
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_PLL_TRACK_2,
->>
->> +                                         RT5682S_FILTER_CLK_SEL_MASK,
->> clk_src << RT5682S_FILTER_CLK_SEL_SFT);
->>
->> +            }
->>
->> +
->>
->> +            if (filter_mask & RT5682S_AD_STEREO1_FILTER) {
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_PLL_TRACK_3,
->>
->> +                                         RT5682S_FILTER_CLK_SEL_MASK,
->> clk_src << RT5682S_FILTER_CLK_SEL_SFT);
->>
->> +            }
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +EXPORT_SYMBOL_GPL(rt5682s_sel_asrc_clk_src);
->>
->> +
->>
->> +static int rt5682s_div_sel(struct rt5682s_priv *rt5682s,
->>
->> +                           int target, const int div[], int size)
->>
->> +{
->>
->> +            int i;
->>
->> +
->>
->> +            if (rt5682s->sysclk < target) {
->>
->> +                           dev_err(rt5682s->component->dev,
->>
->> +                                         "sysclk rate %d is too low\n",
->> rt5682s->sysclk);
->>
->> +                           return 0;
->>
->> +            }
->>
->> +
->>
->> +            for (i =3D 0; i < size - 1; i++) {
->>
->> +                           dev_dbg(rt5682s->component->dev,
->> "div[%d]=3D%d\n", i, div[i]);
->>
->> +                           if (target * div[i] =3D=3D rt5682s->sysclk)
->>
->> +                                         return i;
->>
->> +                           if (target * div[i + 1] > rt5682s->sysclk) {
->>
->> +                                         dev_dbg(rt5682s->component->de=
-v,
->>
->> +                                                       "can't find div
->> for sysclk %d\n", rt5682s->sysclk);
->>
->> +                                         return i;
->>
->> +                          }
->>
->> +            }
->>
->> +
->>
->> +            if (target * div[i] < rt5682s->sysclk)
->>
->> +                           dev_err(rt5682s->component->dev,
->>
->> +                                         "sysclk rate %d is too high\n"=
-,
->> rt5682s->sysclk);
->>
->> +
->>
->> +            return size - 1;
->>
->> +}
->>
->> +
->>
->> +static int get_clk_info(int sclk, int rate)
->>
->> +{
->>
->> +            int i;
->>
->> +            static const int pd[] =3D {1, 2, 3, 4, 6, 8, 12, 16, 24, 32=
-,
->> 48};
->>
->> +
->>
->> +            if (sclk <=3D 0 || rate <=3D 0)
->>
->> +                           return -EINVAL;
->>
->> +
->>
->> +            rate =3D rate << 8;
->>
->> +            for (i =3D 0; i < ARRAY_SIZE(pd); i++)
->>
->> +                           if (sclk =3D=3D rate * pd[i])
->>
->> +                                         return i;
->>
->> +
->>
->> +            return -EINVAL;
->>
->> +}
->>
->> +
->>
->> +/**
->>
->> + * set_dmic_clk - Set parameter of dmic.
->>
->> + *
->>
->> + * @w: DAPM widget.
->>
->> + * @kcontrol: The kcontrol of this widget.
->>
->> + * @event: Event id.
->>
->> + *
->>
->> + * Choose dmic clock between 1MHz and 3MHz.
->>
->> + * It is better for clock to approximate 3MHz.
->>
->> + */
->>
->> +static int set_dmic_clk(struct snd_soc_dapm_widget *w,
->>
->> +                           struct snd_kcontrol *kcontrol, int event)
->>
->> +{
->>
->> +            struct snd_soc_component *component =3D
->> snd_soc_dapm_to_component(w->dapm);
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +            int idx, dmic_clk_rate =3D 3072000;
->>
->> +            static const int div[] =3D {2, 4, 6, 8, 12, 16, 24, 32, 48,
->> 64, 96, 128};
->>
->> +
->>
->> +            if (rt5682s->pdata.dmic_clk_rate)
->>
->> +                           dmic_clk_rate =3D rt5682s->pdata.dmic_clk_ra=
-te;
->>
->> +
->>
->> +            idx =3D rt5682s_div_sel(rt5682s, dmic_clk_rate, div,
->> ARRAY_SIZE(div));
->>
->> +
->>
->> +            snd_soc_component_update_bits(component, RT5682S_DMIC_CTRL_=
-1,
->>
->> +                           RT5682S_DMIC_CLK_MASK, idx <<
->> RT5682S_DMIC_CLK_SFT);
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static int set_filter_clk(struct snd_soc_dapm_widget *w,
->>
->> +                           struct snd_kcontrol *kcontrol, int event)
->>
->> +{
->>
->> +            struct snd_soc_component *component =3D
->> snd_soc_dapm_to_component(w->dapm);
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +            int ref, val, reg, idx;
->>
->> +            static const int div_f[] =3D {1, 2, 3, 4, 6, 8, 12, 16, 24,
->> 32, 48};
->>
->> +            static const int div_o[] =3D {1, 2, 4, 6, 8, 12, 16, 24, 32=
-,
->> 48};
->>
->> +
->>
->> +            val =3D snd_soc_component_read(component, RT5682S_GPIO_CTRL=
-_1)
->>
->> +                                         & RT5682S_GP4_PIN_MASK;
->>
->> +
->>
->> +            if (w->shift =3D=3D RT5682S_PWR_ADC_S1F_BIT && val =3D=3D
->> RT5682S_GP4_PIN_ADCDAT2)
->>
->> +                           ref =3D 256 * rt5682s->lrck[RT5682S_AIF2];
->>
->> +            else
->>
->> +                           ref =3D 256 * rt5682s->lrck[RT5682S_AIF1];
->>
->> +
->>
->> +            idx =3D rt5682s_div_sel(rt5682s, ref, div_f,
->> ARRAY_SIZE(div_f));
->>
->> +
->>
->> +            if (w->shift =3D=3D RT5682S_PWR_ADC_S1F_BIT)
->>
->> +                           reg =3D RT5682S_PLL_TRACK_3;
->>
->> +            else
->>
->> +                           reg =3D RT5682S_PLL_TRACK_2;
->>
->> +
->>
->> +            snd_soc_component_update_bits(component, reg,
->>
->> +                           RT5682S_FILTER_CLK_DIV_MASK, idx <<
->> RT5682S_FILTER_CLK_DIV_SFT);
->>
->> +
->>
->> +            /* select over sample rate */
->>
->> +            for (idx =3D 0; idx < ARRAY_SIZE(div_o); idx++) {
->>
->> +                           if (rt5682s->sysclk <=3D 12288000 * div_o[id=
-x])
->>
->> +                                         break;
->>
->> +            }
->>
->> +
->>
->> +            snd_soc_component_update_bits(component, RT5682S_ADDA_CLK_1=
-,
->>
->> +                           RT5682S_ADC_OSR_MASK | RT5682S_DAC_OSR_MASK,
->>
->> +                           (idx << RT5682S_ADC_OSR_SFT) | (idx <<
->> RT5682S_DAC_OSR_SFT));
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static int set_dmic_power(struct snd_soc_dapm_widget *w,
->>
->> +                           struct snd_kcontrol *kcontrol, int event)
->>
->> +{
->>
->> +            struct snd_soc_component *component =3D
->> snd_soc_dapm_to_component(w->dapm);
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +            unsigned int delay =3D 50, val;
->>
->> +
->>
->> +            if (rt5682s->pdata.dmic_delay)
->>
->> +                           delay =3D rt5682s->pdata.dmic_delay;
->>
->> +
->>
->> +            switch (event) {
->>
->> +            case SND_SOC_DAPM_POST_PMU:
->>
->> +                           val =3D (snd_soc_component_read(component,
->> RT5682S_GLB_CLK)
->>
->> +                                         & RT5682S_SCLK_SRC_MASK) >>
->> RT5682S_SCLK_SRC_SFT;
->>
->> +                           if (val =3D=3D RT5682S_CLK_SRC_PLL1 || val =
-=3D=3D
->> RT5682S_CLK_SRC_PLL2)
->>
->> +
->> snd_soc_component_update_bits(component, RT5682S_PWR_ANLG_1,
->>
->> +                                                       RT5682S_PWR_VREF=
-2
->> | RT5682S_PWR_MB,
->>
->> +                                                       RT5682S_PWR_VREF=
-2
->> | RT5682S_PWR_MB);
->>
->> +
->>
->> +                           /*Add delay to avoid pop noise*/
->>
->> +                           msleep(delay);
->>
->> +                           break;
->>
->> +
->>
->> +            case SND_SOC_DAPM_POST_PMD:
->>
->> +                           if (!rt5682s->jack_type) {
->>
->> +                                         if
->> (!snd_soc_dapm_get_pin_status(w->dapm, "MICBIAS"))
->>
->> +
->> snd_soc_component_update_bits(component,
->>
->> +
->> RT5682S_PWR_ANLG_1, RT5682S_PWR_MB, 0);
->>
->> +                                         if
->> (!snd_soc_dapm_get_pin_status(w->dapm, "Vref2"))
->>
->> +
->> snd_soc_component_update_bits(component,
->>
->> +
->> RT5682S_PWR_ANLG_1, RT5682S_PWR_VREF2, 0);
->>
->> +                           }
->>
->> +                           break;
->>
->> +            }
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static int set_i2s_clk(struct snd_soc_dapm_widget *w,
->>
->> +                           struct snd_kcontrol *kcontrol, int event)
->>
->> +{
->>
->> +            struct snd_soc_component *component =3D
->> snd_soc_dapm_to_component(w->dapm);
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +            int pre_div, id;
->>
->> +            unsigned int reg, mask, sft;
->>
->> +
->>
->> +            if (event !=3D SND_SOC_DAPM_PRE_PMU)
->>
->> +                           return 0;
->>
->> +
->>
->> +            if (w->shift =3D=3D RT5682S_PWR_I2S2_BIT) {
->>
->> +                           id =3D RT5682S_AIF2;
->>
->> +                           reg =3D RT5682S_I2S2_M_CLK_CTRL_1;
->>
->> +                           mask =3D RT5682S_I2S2_M_D_MASK;
->>
->> +                           sft =3D RT5682S_I2S2_M_D_SFT;
->>
->> +            } else {
->>
->> +                           id =3D RT5682S_AIF1;
->>
->> +                           reg =3D RT5682S_ADDA_CLK_1;
->>
->> +                           mask =3D RT5682S_I2S_M_D_MASK;
->>
->> +                           sft =3D RT5682S_I2S_M_D_SFT;
->>
->> +            }
->>
->> +
->>
->> +            if (!rt5682s->master[id])
->>
->> +                           return 0;
->>
->> +
->>
->> +            pre_div =3D get_clk_info(rt5682s->sysclk, rt5682s->lrck[id]=
-);
->>
->> +            if (pre_div < 0) {
->>
->> +                           dev_err(component->dev, "get pre_div
->> failed\n");
->>
->> +                           return -EINVAL;
->>
->> +            }
->>
->> +
->>
->> +            dev_dbg(component->dev, "lrck is %dHz and pre_div is %d for
->> iis %d master\n",
->>
->> +                           rt5682s->lrck[id], pre_div, id);
->>
->> +            snd_soc_component_update_bits(component, reg, mask, pre_div
->> << sft);
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static int is_sys_clk_from_plla(struct snd_soc_dapm_widget *w,
->>
->> +                           struct snd_soc_dapm_widget *sink)
->>
->> +{
->>
->> +            struct snd_soc_component *component =3D
->> snd_soc_dapm_to_component(w->dapm);
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +
->>
->> +            if ((rt5682s->sysclk_src =3D=3D RT5682S_CLK_SRC_PLL1) ||
->>
->> +                (rt5682s->sysclk_src =3D=3D RT5682S_CLK_SRC_PLL2 &&
->> rt5682s->pll_comb =3D=3D USE_PLLAB))
->>
->> +                           return 1;
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static int is_sys_clk_from_pllb(struct snd_soc_dapm_widget *w,
->>
->> +                           struct snd_soc_dapm_widget *sink)
->>
->> +{
->>
->> +            struct snd_soc_component *component =3D
->> snd_soc_dapm_to_component(w->dapm);
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +
->>
->> +            if (rt5682s->sysclk_src =3D=3D RT5682S_CLK_SRC_PLL2)
->>
->> +                           return 1;
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static int is_using_asrc(struct snd_soc_dapm_widget *w,
->>
->> +                           struct snd_soc_dapm_widget *sink)
->>
->> +{
->>
->> +            unsigned int reg, sft, val;
->>
->> +            struct snd_soc_component *component =3D
->> snd_soc_dapm_to_component(w->dapm);
->>
->> +
->>
->> +            switch (w->shift) {
->>
->> +            case RT5682S_ADC_STO1_ASRC_SFT:
->>
->> +                           reg =3D RT5682S_PLL_TRACK_3;
->>
->> +                           sft =3D RT5682S_FILTER_CLK_SEL_SFT;
->>
->> +                           break;
->>
->> +            case RT5682S_DAC_STO1_ASRC_SFT:
->>
->> +                           reg =3D RT5682S_PLL_TRACK_2;
->>
->> +                           sft =3D RT5682S_FILTER_CLK_SEL_SFT;
->>
->> +                           break;
->>
->> +            default:
->>
->> +                           return 0;
->>
->> +            }
->>
->> +
->>
->> +            val =3D (snd_soc_component_read(component, reg) >> sft) & 0=
-xf;
->>
->> +            switch (val) {
->>
->> +            case RT5682S_CLK_SEL_I2S1_ASRC:
->>
->> +            case RT5682S_CLK_SEL_I2S2_ASRC:
->>
->> +                           return 1;
->>
->> +            default:
->>
->> +                           return 0;
->>
->> +            }
->>
->> +}
->>
->> +
->>
->> +static int is_headset_type(struct snd_soc_dapm_widget *w,
->>
->> +                           struct snd_soc_dapm_widget *sink)
->>
->> +{
->>
->> +            struct snd_soc_component *component =3D
->> snd_soc_dapm_to_component(w->dapm);
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +
->>
->> +            if ((rt5682s->jack_type & SND_JACK_HEADSET) =3D=3D
->> SND_JACK_HEADSET)
->>
->> +                           return 1;
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static int rt5682s_hp_amp_event(struct snd_soc_dapm_widget *w,
->>
->> +                           struct snd_kcontrol *kcontrol, int event)
->>
->> +{
->>
->> +            struct snd_soc_component *component =3D
->> snd_soc_dapm_to_component(w->dapm);
->>
->> +
->>
->> +            switch (event) {
->>
->> +            case SND_SOC_DAPM_PRE_PMU:
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_DEPOP_1,
->>
->> +                                         RT5682S_OUT_HP_L_EN |
->> RT5682S_OUT_HP_R_EN,
->>
->> +                                         RT5682S_OUT_HP_L_EN |
->> RT5682S_OUT_HP_R_EN);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_DEPOP_1,
->>
->> +                                         RT5682S_LDO_PUMP_EN |
->> RT5682S_PUMP_EN |
->>
->> +                                         RT5682S_CAPLESS_L_EN |
->> RT5682S_CAPLESS_R_EN,
->>
->> +                                         RT5682S_LDO_PUMP_EN |
->> RT5682S_PUMP_EN |
->>
->> +                                         RT5682S_CAPLESS_L_EN |
->> RT5682S_CAPLESS_R_EN);
->>
->> +                           break;
->>
->> +
->>
->> +            case SND_SOC_DAPM_POST_PMU:
->>
->> +                           usleep_range(30000, 35000);
->>
->> +                           snd_soc_component_write(component,
->> RT5682S_BIAS_CUR_CTRL_11, 0x6666);
->>
->> +                           snd_soc_component_write(component,
->> RT5682S_BIAS_CUR_CTRL_12, 0xa82a);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_HP_CTRL_2,
->>
->> +                                         RT5682S_HPO_L_PATH_MASK |
->> RT5682S_HPO_R_PATH_MASK |
->>
->> +                                         RT5682S_HPO_SEL_IP_EN_SW,
->> RT5682S_HPO_L_PATH_EN |
->>
->> +                                         RT5682S_HPO_R_PATH_EN |
->> RT5682S_HPO_IP_EN_GATING);
->>
->> +                           snd_soc_component_write(component,
->> RT5682S_HP_AMP_DET_CTL_1, 0x3050);
->>
->> +                           break;
->>
->> +
->>
->> +            case SND_SOC_DAPM_POST_PMD:
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_HP_CTRL_2,
->>
->> +                                         RT5682S_HPO_L_PATH_MASK |
->> RT5682S_HPO_R_PATH_MASK |
->>
->> +                                         RT5682S_HPO_SEL_IP_EN_SW, 0);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_DEPOP_1,
->>
->> +                                         RT5682S_LDO_PUMP_EN |
->> RT5682S_PUMP_EN |
->>
->> +                                         RT5682S_CAPLESS_L_EN |
->> RT5682S_CAPLESS_R_EN, 0);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_DEPOP_1,
->>
->> +                                         RT5682S_OUT_HP_L_EN |
->> RT5682S_OUT_HP_R_EN, 0);
->>
->> +                           break;
->>
->> +            }
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static int sar_power_event(struct snd_soc_dapm_widget *w,
->>
->> +                           struct snd_kcontrol *kcontrol, int event)
->>
->> +{
->>
->> +            struct snd_soc_component *component =3D
->> snd_soc_dapm_to_component(w->dapm);
->>
->> +
->>
->> +            switch (event) {
->>
->> +            case SND_SOC_DAPM_PRE_PMU:
->>
->> +                           rt5682s_sar_power_mode(component,
->> SAR_PWR_NORMAL, 0);
->>
->> +                           break;
->>
->> +            case SND_SOC_DAPM_POST_PMD:
->>
->> +                           rt5682s_sar_power_mode(component,
->> SAR_PWR_SAVING, 0);
->>
->> +                           break;
->>
->> +            }
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +/* Interface data select */
->>
->> +static const char * const rt5682s_data_select[] =3D {
->>
->> +            "L/R", "R/L", "L/L", "R/R"
->>
->> +};
->>
->> +
->>
->> +static SOC_ENUM_SINGLE_DECL(rt5682s_if2_adc_enum, RT5682S_DIG_INF2_DATA=
-,
->>
->> +            RT5682S_IF2_ADC_SEL_SFT, rt5682s_data_select);
->>
->> +
->>
->> +static SOC_ENUM_SINGLE_DECL(rt5682s_if1_01_adc_enum,
->> RT5682S_TDM_ADDA_CTRL_1,
->>
->> +            RT5682S_IF1_ADC1_SEL_SFT, rt5682s_data_select);
->>
->> +
->>
->> +static SOC_ENUM_SINGLE_DECL(rt5682s_if1_23_adc_enum,
->> RT5682S_TDM_ADDA_CTRL_1,
->>
->> +            RT5682S_IF1_ADC2_SEL_SFT, rt5682s_data_select);
->>
->> +
->>
->> +static SOC_ENUM_SINGLE_DECL(rt5682s_if1_45_adc_enum,
->> RT5682S_TDM_ADDA_CTRL_1,
->>
->> +            RT5682S_IF1_ADC3_SEL_SFT, rt5682s_data_select);
->>
->> +
->>
->> +static SOC_ENUM_SINGLE_DECL(rt5682s_if1_67_adc_enum,
->> RT5682S_TDM_ADDA_CTRL_1,
->>
->> +            RT5682S_IF1_ADC4_SEL_SFT, rt5682s_data_select);
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_if2_adc_swap_mux =3D
->>
->> +            SOC_DAPM_ENUM("IF2 ADC Swap Mux", rt5682s_if2_adc_enum);
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_if1_01_adc_swap_mux =3D
->>
->> +            SOC_DAPM_ENUM("IF1 01 ADC Swap Mux",
->> rt5682s_if1_01_adc_enum);
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_if1_23_adc_swap_mux =3D
->>
->> +            SOC_DAPM_ENUM("IF1 23 ADC Swap Mux",
->> rt5682s_if1_23_adc_enum);
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_if1_45_adc_swap_mux =3D
->>
->> +            SOC_DAPM_ENUM("IF1 45 ADC Swap Mux",
->> rt5682s_if1_45_adc_enum);
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_if1_67_adc_swap_mux =3D
->>
->> +            SOC_DAPM_ENUM("IF1 67 ADC Swap Mux",
->> rt5682s_if1_67_adc_enum);
->>
->> +
->>
->> +/* Digital Mixer */
->>
->> +static const struct snd_kcontrol_new rt5682s_sto1_adc_l_mix[] =3D {
->>
->> +            SOC_DAPM_SINGLE("ADC1 Switch", RT5682S_STO1_ADC_MIXER,
->>
->> +                                         RT5682S_M_STO1_ADC_L1_SFT, 1,
->> 1),
->>
->> +            SOC_DAPM_SINGLE("ADC2 Switch", RT5682S_STO1_ADC_MIXER,
->>
->> +                                         RT5682S_M_STO1_ADC_L2_SFT, 1,
->> 1),
->>
->> +};
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_sto1_adc_r_mix[] =3D {
->>
->> +            SOC_DAPM_SINGLE("ADC1 Switch", RT5682S_STO1_ADC_MIXER,
->>
->> +                                         RT5682S_M_STO1_ADC_R1_SFT, 1,
->> 1),
->>
->> +            SOC_DAPM_SINGLE("ADC2 Switch", RT5682S_STO1_ADC_MIXER,
->>
->> +                                         RT5682S_M_STO1_ADC_R2_SFT, 1,
->> 1),
->>
->> +};
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_dac_l_mix[] =3D {
->>
->> +            SOC_DAPM_SINGLE("Stereo ADC Switch", RT5682S_AD_DA_MIXER,
->>
->> +                                         RT5682S_M_ADCMIX_L_SFT, 1, 1),
->>
->> +            SOC_DAPM_SINGLE("DAC1 Switch", RT5682S_AD_DA_MIXER,
->>
->> +                                         RT5682S_M_DAC1_L_SFT, 1, 1),
->>
->> +};
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_dac_r_mix[] =3D {
->>
->> +            SOC_DAPM_SINGLE("Stereo ADC Switch", RT5682S_AD_DA_MIXER,
->>
->> +                                         RT5682S_M_ADCMIX_R_SFT, 1, 1),
->>
->> +            SOC_DAPM_SINGLE("DAC1 Switch", RT5682S_AD_DA_MIXER,
->>
->> +                                         RT5682S_M_DAC1_R_SFT, 1, 1),
->>
->> +};
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_sto1_dac_l_mix[] =3D {
->>
->> +            SOC_DAPM_SINGLE("DAC L1 Switch", RT5682S_STO1_DAC_MIXER,
->>
->> +                                         RT5682S_M_DAC_L1_STO_L_SFT, 1,
->> 1),
->>
->> +            SOC_DAPM_SINGLE("DAC R1 Switch", RT5682S_STO1_DAC_MIXER,
->>
->> +                                         RT5682S_M_DAC_R1_STO_L_SFT, 1,
->> 1),
->>
->> +};
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_sto1_dac_r_mix[] =3D {
->>
->> +            SOC_DAPM_SINGLE("DAC L1 Switch", RT5682S_STO1_DAC_MIXER,
->>
->> +                                         RT5682S_M_DAC_L1_STO_R_SFT, 1,
->> 1),
->>
->> +            SOC_DAPM_SINGLE("DAC R1 Switch", RT5682S_STO1_DAC_MIXER,
->>
->> +                                         RT5682S_M_DAC_R1_STO_R_SFT, 1,
->> 1),
->>
->> +};
->>
->> +
->>
->> +/* Analog Input Mixer */
->>
->> +static const struct snd_kcontrol_new rt5682s_rec1_l_mix[] =3D {
->>
->> +            SOC_DAPM_SINGLE("CBJ Switch", RT5682S_REC_MIXER,
->>
->> +                                         RT5682S_M_CBJ_RM1_L_SFT, 1, 1)=
-,
->>
->> +};
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_rec1_r_mix[] =3D {
->>
->> +            SOC_DAPM_SINGLE("CBJ Switch", RT5682S_REC_MIXER,
->>
->> +                                         RT5682S_M_CBJ_RM1_R_SFT, 1, 1)=
-,
->>
->> +};
->>
->> +
->>
->> +/* STO1 ADC1 Source */
->>
->> +/* MX-26 [13] [5] */
->>
->> +static const char * const rt5682s_sto1_adc1_src[] =3D {
->>
->> +            "DAC MIX", "ADC"
->>
->> +};
->>
->> +
->>
->> +static SOC_ENUM_SINGLE_DECL(rt5682s_sto1_adc1l_enum,
->> RT5682S_STO1_ADC_MIXER,
->>
->> +            RT5682S_STO1_ADC1L_SRC_SFT, rt5682s_sto1_adc1_src);
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_sto1_adc1l_mux =3D
->>
->> +            SOC_DAPM_ENUM("Stereo1 ADC1L Source",
->> rt5682s_sto1_adc1l_enum);
->>
->> +
->>
->> +static SOC_ENUM_SINGLE_DECL(rt5682s_sto1_adc1r_enum,
->> RT5682S_STO1_ADC_MIXER,
->>
->> +            RT5682S_STO1_ADC1R_SRC_SFT, rt5682s_sto1_adc1_src);
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_sto1_adc1r_mux =3D
->>
->> +            SOC_DAPM_ENUM("Stereo1 ADC1L Source",
->> rt5682s_sto1_adc1r_enum);
->>
->> +
->>
->> +/* STO1 ADC Source */
->>
->> +/* MX-26 [11:10] [3:2] */
->>
->> +static const char * const rt5682s_sto1_adc_src[] =3D {
->>
->> +            "ADC1 L", "ADC1 R"
->>
->> +};
->>
->> +
->>
->> +static SOC_ENUM_SINGLE_DECL(rt5682s_sto1_adcl_enum,
->> RT5682S_STO1_ADC_MIXER,
->>
->> +            RT5682S_STO1_ADCL_SRC_SFT, rt5682s_sto1_adc_src);
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_sto1_adcl_mux =3D
->>
->> +            SOC_DAPM_ENUM("Stereo1 ADCL Source", rt5682s_sto1_adcl_enum=
-);
->>
->> +
->>
->> +static SOC_ENUM_SINGLE_DECL(rt5682s_sto1_adcr_enum,
->> RT5682S_STO1_ADC_MIXER,
->>
->> +            RT5682S_STO1_ADCR_SRC_SFT, rt5682s_sto1_adc_src);
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_sto1_adcr_mux =3D
->>
->> +            SOC_DAPM_ENUM("Stereo1 ADCR Source", rt5682s_sto1_adcr_enum=
-);
->>
->> +
->>
->> +/* STO1 ADC2 Source */
->>
->> +/* MX-26 [12] [4] */
->>
->> +static const char * const rt5682s_sto1_adc2_src[] =3D {
->>
->> +            "DAC MIX", "DMIC"
->>
->> +};
->>
->> +
->>
->> +static SOC_ENUM_SINGLE_DECL(rt5682s_sto1_adc2l_enum,
->> RT5682S_STO1_ADC_MIXER,
->>
->> +            RT5682S_STO1_ADC2L_SRC_SFT, rt5682s_sto1_adc2_src);
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_sto1_adc2l_mux =3D
->>
->> +            SOC_DAPM_ENUM("Stereo1 ADC2L Source",
->> rt5682s_sto1_adc2l_enum);
->>
->> +
->>
->> +static SOC_ENUM_SINGLE_DECL(rt5682s_sto1_adc2r_enum,
->> RT5682S_STO1_ADC_MIXER,
->>
->> +            RT5682S_STO1_ADC2R_SRC_SFT, rt5682s_sto1_adc2_src);
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_sto1_adc2r_mux =3D
->>
->> +            SOC_DAPM_ENUM("Stereo1 ADC2R Source",
->> rt5682s_sto1_adc2r_enum);
->>
->> +
->>
->> +/* MX-79 [6:4] I2S1 ADC data location */
->>
->> +static const unsigned int rt5682s_if1_adc_slot_values[] =3D {
->>
->> +            0, 2, 4, 6,
->>
->> +};
->>
->> +
->>
->> +static const char * const rt5682s_if1_adc_slot_src[] =3D {
->>
->> +            "Slot 0", "Slot 2", "Slot 4", "Slot 6"
->>
->> +};
->>
->> +
->>
->> +static SOC_VALUE_ENUM_SINGLE_DECL(rt5682s_if1_adc_slot_enum,
->>
->> +            RT5682S_TDM_CTRL, RT5682S_TDM_ADC_LCA_SFT,
->> RT5682S_TDM_ADC_LCA_MASK,
->>
->> +            rt5682s_if1_adc_slot_src, rt5682s_if1_adc_slot_values);
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_if1_adc_slot_mux =3D
->>
->> +            SOC_DAPM_ENUM("IF1 ADC Slot location",
->> rt5682s_if1_adc_slot_enum);
->>
->> +
->>
->> +/* Analog DAC L1 Source, Analog DAC R1 Source*/
->>
->> +/* MX-2B [4], MX-2B [0]*/
->>
->> +static const char * const rt5682s_alg_dac1_src[] =3D {
->>
->> +            "Stereo1 DAC Mixer", "DAC1"
->>
->> +};
->>
->> +
->>
->> +static SOC_ENUM_SINGLE_DECL(rt5682s_alg_dac_l1_enum, RT5682S_A_DAC1_MUX=
-,
->>
->> +            RT5682S_A_DACL1_SFT, rt5682s_alg_dac1_src);
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_alg_dac_l1_mux =3D
->>
->> +            SOC_DAPM_ENUM("Analog DAC L1 Source",
->> rt5682s_alg_dac_l1_enum);
->>
->> +
->>
->> +static SOC_ENUM_SINGLE_DECL(rt5682s_alg_dac_r1_enum, RT5682S_A_DAC1_MUX=
-,
->>
->> +            RT5682S_A_DACR1_SFT, rt5682s_alg_dac1_src);
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_alg_dac_r1_mux =3D
->>
->> +            SOC_DAPM_ENUM("Analog DAC R1 Source",
->> rt5682s_alg_dac_r1_enum);
->>
->> +
->>
->> +static const unsigned int rt5682s_adcdat_pin_values[] =3D {
->>
->> +            1, 3,
->>
->> +};
->>
->> +
->>
->> +static const char * const rt5682s_adcdat_pin_select[] =3D {
->>
->> +            "ADCDAT1", "ADCDAT2",
->>
->> +};
->>
->> +
->>
->> +static SOC_VALUE_ENUM_SINGLE_DECL(rt5682s_adcdat_pin_enum,
->>
->> +            RT5682S_GPIO_CTRL_1, RT5682S_GP4_PIN_SFT,
->> RT5682S_GP4_PIN_MASK,
->>
->> +            rt5682s_adcdat_pin_select, rt5682s_adcdat_pin_values);
->>
->> +
->>
->> +static const struct snd_kcontrol_new rt5682s_adcdat_pin_ctrl =3D
->>
->> +            SOC_DAPM_ENUM("ADCDAT", rt5682s_adcdat_pin_enum);
->>
->> +
->>
->> +static const struct snd_soc_dapm_widget rt5682s_dapm_widgets[] =3D {
->>
->> +            SND_SOC_DAPM_SUPPLY("LDO MB1", RT5682S_PWR_ANLG_3,
->>
->> +                           RT5682S_PWR_LDO_MB1_BIT, 0, NULL, 0),
->>
->> +            SND_SOC_DAPM_SUPPLY("LDO MB2", RT5682S_PWR_ANLG_3,
->>
->> +                           RT5682S_PWR_LDO_MB2_BIT, 0, NULL, 0),
->>
->> +            SND_SOC_DAPM_SUPPLY("LDO", RT5682S_PWR_ANLG_3,
->>
->> +                           RT5682S_PWR_LDO_BIT, 0, NULL, 0),
->>
->> +            SND_SOC_DAPM_SUPPLY("Vref2", SND_SOC_NOPM, 0, 0, NULL, 0),
->>
->> +            SND_SOC_DAPM_SUPPLY("MICBIAS", SND_SOC_NOPM, 0, 0, NULL, 0)=
-,
->>
->> +
->>
->> +            /* PLL Powers */
->>
->> +            SND_SOC_DAPM_SUPPLY_S("PLLA_LDO", 0, RT5682S_PWR_ANLG_3,
->>
->> +                           RT5682S_PWR_LDO_PLLA_BIT, 0, NULL, 0),
->>
->> +            SND_SOC_DAPM_SUPPLY_S("PLLB_LDO", 0, RT5682S_PWR_ANLG_3,
->>
->> +                           RT5682S_PWR_LDO_PLLB_BIT, 0, NULL, 0),
->>
->> +            SND_SOC_DAPM_SUPPLY_S("PLLA_BIAS", 0, RT5682S_PWR_ANLG_3,
->>
->> +                           RT5682S_PWR_BIAS_PLLA_BIT, 0, NULL, 0),
->>
->> +            SND_SOC_DAPM_SUPPLY_S("PLLB_BIAS", 0, RT5682S_PWR_ANLG_3,
->>
->> +                          RT5682S_PWR_BIAS_PLLB_BIT, 0, NULL, 0),
->>
->> +            SND_SOC_DAPM_SUPPLY_S("PLLA", 0, RT5682S_PWR_ANLG_3,
->>
->> +                           RT5682S_PWR_PLLA_BIT, 0, NULL, 0),
->>
->> +            SND_SOC_DAPM_SUPPLY_S("PLLB", 0, RT5682S_PWR_ANLG_3,
->>
->> +                           RT5682S_PWR_PLLB_BIT, 0, set_filter_clk,
->> SND_SOC_DAPM_PRE_PMU),
->>
->> +            SND_SOC_DAPM_SUPPLY_S("PLLA_RST", 1, RT5682S_PWR_ANLG_3,
->>
->> +                           RT5682S_RSTB_PLLA_BIT, 0, NULL, 0),
->>
->> +            SND_SOC_DAPM_SUPPLY_S("PLLB_RST", 1, RT5682S_PWR_ANLG_3,
->>
->> +                           RT5682S_RSTB_PLLB_BIT, 0, NULL, 0),
->>
->> +
->>
->> +            /* ASRC */
->>
->> +            SND_SOC_DAPM_SUPPLY_S("DAC STO1 ASRC", 1,
->> RT5682S_PLL_TRACK_1,
->>
->> +                           RT5682S_DAC_STO1_ASRC_SFT, 0, NULL, 0),
->>
->> +            SND_SOC_DAPM_SUPPLY_S("ADC STO1 ASRC", 1,
->> RT5682S_PLL_TRACK_1,
->>
->> +                           RT5682S_ADC_STO1_ASRC_SFT, 0, NULL, 0),
->>
->> +            SND_SOC_DAPM_SUPPLY_S("AD ASRC", 1, RT5682S_PLL_TRACK_1,
->>
->> +                           RT5682S_AD_ASRC_SFT, 0, NULL, 0),
->>
->> +            SND_SOC_DAPM_SUPPLY_S("DA ASRC", 1, RT5682S_PLL_TRACK_1,
->>
->> +                           RT5682S_DA_ASRC_SFT, 0, NULL, 0),
->>
->> +            SND_SOC_DAPM_SUPPLY_S("DMIC ASRC", 1, RT5682S_PLL_TRACK_1,
->>
->> +                           RT5682S_DMIC_ASRC_SFT, 0, NULL, 0),
->>
->> +
->>
->> +            /* Input Side */
->>
->> +            SND_SOC_DAPM_SUPPLY("MICBIAS1", RT5682S_PWR_ANLG_2,
->>
->> +                           RT5682S_PWR_MB1_BIT, 0, NULL, 0),
->>
->> +            SND_SOC_DAPM_SUPPLY("MICBIAS2", RT5682S_PWR_ANLG_2,
->>
->> +                           RT5682S_PWR_MB2_BIT, 0, NULL, 0),
->>
->> +
->>
->> +            /* Input Lines */
->>
->> +            SND_SOC_DAPM_INPUT("DMIC L1"),
->>
->> +            SND_SOC_DAPM_INPUT("DMIC R1"),
->>
->> +
->>
->> +            SND_SOC_DAPM_INPUT("IN1P"),
->>
->> +
->>
->> +            SND_SOC_DAPM_SUPPLY("DMIC CLK", SND_SOC_NOPM, 0, 0,
->>
->> +                           set_dmic_clk, SND_SOC_DAPM_PRE_PMU),
->>
->> +            SND_SOC_DAPM_SUPPLY("DMIC1 Power", RT5682S_DMIC_CTRL_1,
->> RT5682S_DMIC_1_EN_SFT, 0,
->>
->> +                           set_dmic_power, SND_SOC_DAPM_POST_PMU |
->> SND_SOC_DAPM_POST_PMD),
->>
->> +
->>
->> +            /* Boost */
->>
->> +            SND_SOC_DAPM_PGA("BST1 CBJ", SND_SOC_NOPM, 0, 0, NULL, 0),
->>
->> +
->>
->> +            /* REC Mixer */
->>
->> +            SND_SOC_DAPM_MIXER("RECMIX1L", SND_SOC_NOPM, 0, 0,
->> rt5682s_rec1_l_mix,
->>
->> +                           ARRAY_SIZE(rt5682s_rec1_l_mix)),
->>
->> +            SND_SOC_DAPM_MIXER("RECMIX1R", SND_SOC_NOPM, 0, 0,
->> rt5682s_rec1_r_mix,
->>
->> +                           ARRAY_SIZE(rt5682s_rec1_r_mix)),
->>
->> +            SND_SOC_DAPM_SUPPLY("RECMIX1L Power", RT5682S_CAL_REC,
->>
->> +                           RT5682S_PWR_RM1_L_BIT, 0, NULL, 0),
->>
->> +            SND_SOC_DAPM_SUPPLY("RECMIX1R Power", RT5682S_CAL_REC,
->>
->> +                           RT5682S_PWR_RM1_R_BIT, 0, NULL, 0),
->>
->> +
->>
->> +            /* ADCs */
->>
->> +            SND_SOC_DAPM_ADC("ADC1 L", NULL, SND_SOC_NOPM, 0, 0),
->>
->> +            SND_SOC_DAPM_ADC("ADC1 R", NULL, SND_SOC_NOPM, 0, 0),
->>
->> +
->>
->> +            SND_SOC_DAPM_SUPPLY("ADC1 L Power", RT5682S_PWR_DIG_1,
->>
->> +                           RT5682S_PWR_ADC_L1_BIT, 0, NULL, 0),
->>
->> +            SND_SOC_DAPM_SUPPLY("ADC1 R Power", RT5682S_PWR_DIG_1,
->>
->> +                           RT5682S_PWR_ADC_R1_BIT, 0, NULL, 0),
->>
->> +            SND_SOC_DAPM_SUPPLY("ADC1 clock", RT5682S_CHOP_ADC,
->>
->> +                           RT5682S_CKGEN_ADC1_SFT, 0, NULL, 0),
->>
->> +
->>
->> +            /* ADC Mux */
->>
->> +            SND_SOC_DAPM_MUX("Stereo1 ADC L1 Mux", SND_SOC_NOPM, 0, 0,
->>
->> +                           &rt5682s_sto1_adc1l_mux),
->>
->> +            SND_SOC_DAPM_MUX("Stereo1 ADC R1 Mux", SND_SOC_NOPM, 0, 0,
->>
->> +                           &rt5682s_sto1_adc1r_mux),
->>
->> +            SND_SOC_DAPM_MUX("Stereo1 ADC L2 Mux", SND_SOC_NOPM, 0, 0,
->>
->> +                           &rt5682s_sto1_adc2l_mux),
->>
->> +            SND_SOC_DAPM_MUX("Stereo1 ADC R2 Mux", SND_SOC_NOPM, 0, 0,
->>
->> +                           &rt5682s_sto1_adc2r_mux),
->>
->> +            SND_SOC_DAPM_MUX("Stereo1 ADC L Mux", SND_SOC_NOPM, 0, 0,
->>
->> +                           &rt5682s_sto1_adcl_mux),
->>
->> +            SND_SOC_DAPM_MUX("Stereo1 ADC R Mux", SND_SOC_NOPM, 0, 0,
->>
->> +                           &rt5682s_sto1_adcr_mux),
->>
->> +            SND_SOC_DAPM_MUX("IF1_ADC Mux", SND_SOC_NOPM, 0, 0,
->>
->> +                           &rt5682s_if1_adc_slot_mux),
->>
->> +
->>
->> +            /* ADC Mixer */
->>
->> +            SND_SOC_DAPM_SUPPLY("ADC Stereo1 Filter", RT5682S_PWR_DIG_2=
-,
->>
->> +                           RT5682S_PWR_ADC_S1F_BIT, 0, set_filter_clk,
->> SND_SOC_DAPM_PRE_PMU),
->>
->> +            SND_SOC_DAPM_MIXER("Stereo1 ADC MIXL",
->> RT5682S_STO1_ADC_DIG_VOL,
->>
->> +                           RT5682S_L_MUTE_SFT, 1, rt5682s_sto1_adc_l_mi=
-x,
->>
->> +                           ARRAY_SIZE(rt5682s_sto1_adc_l_mix)),
->>
->> +            SND_SOC_DAPM_MIXER("Stereo1 ADC MIXR",
->> RT5682S_STO1_ADC_DIG_VOL,
->>
->> +                           RT5682S_R_MUTE_SFT, 1, rt5682s_sto1_adc_r_mi=
-x,
->>
->> +                           ARRAY_SIZE(rt5682s_sto1_adc_r_mix)),
->>
->> +
->>
->> +            /* ADC PGA */
->>
->> +            SND_SOC_DAPM_PGA("Stereo1 ADC MIX", SND_SOC_NOPM, 0, 0,
->> NULL, 0),
->>
->> +
->>
->> +            /* Digital Interface */
->>
->> +            SND_SOC_DAPM_SUPPLY("I2S1", RT5682S_PWR_DIG_1,
->> RT5682S_PWR_I2S1_BIT,
->>
->> +                           0, set_i2s_clk, SND_SOC_DAPM_PRE_PMU),
->>
->> +            SND_SOC_DAPM_SUPPLY("I2S2", RT5682S_PWR_DIG_1,
->> RT5682S_PWR_I2S2_BIT,
->>
->> +                           0, set_i2s_clk, SND_SOC_DAPM_PRE_PMU),
->>
->> +            SND_SOC_DAPM_PGA("IF1 DAC1 L", SND_SOC_NOPM, 0, 0, NULL, 0)=
-,
->>
->> +            SND_SOC_DAPM_PGA("IF1 DAC1 R", SND_SOC_NOPM, 0, 0, NULL, 0)=
-,
->>
->> +
->>
->> +            /* Digital Interface Select */
->>
->> +            SND_SOC_DAPM_MUX("IF1 01 ADC Swap Mux", SND_SOC_NOPM, 0, 0,
->>
->> +                           &rt5682s_if1_01_adc_swap_mux),
->>
->> +            SND_SOC_DAPM_MUX("IF1 23 ADC Swap Mux", SND_SOC_NOPM, 0, 0,
->>
->> +                           &rt5682s_if1_23_adc_swap_mux),
->>
->> +            SND_SOC_DAPM_MUX("IF1 45 ADC Swap Mux", SND_SOC_NOPM, 0, 0,
->>
->> +                           &rt5682s_if1_45_adc_swap_mux),
->>
->> +            SND_SOC_DAPM_MUX("IF1 67 ADC Swap Mux", SND_SOC_NOPM, 0, 0,
->>
->> +                           &rt5682s_if1_67_adc_swap_mux),
->>
->> +            SND_SOC_DAPM_MUX("IF2 ADC Swap Mux", SND_SOC_NOPM, 0, 0,
->>
->> +                           &rt5682s_if2_adc_swap_mux),
->>
->> +
->>
->> +            SND_SOC_DAPM_MUX("ADCDAT Mux", SND_SOC_NOPM, 0, 0,
->> &rt5682s_adcdat_pin_ctrl),
->>
->> +
->>
->> +            /* Audio Interface */
->>
->> +            SND_SOC_DAPM_AIF_OUT("AIF1TX", "AIF1 Capture", 0,
->> RT5682S_I2S1_SDP,
->>
->> +                           RT5682S_SEL_ADCDAT_SFT, 1),
->>
->> +            SND_SOC_DAPM_AIF_OUT("AIF2TX", "AIF2 Capture", 0,
->> RT5682S_I2S2_SDP,
->>
->> +                           RT5682S_I2S2_PIN_CFG_SFT, 1),
->>
->> +            SND_SOC_DAPM_AIF_IN("AIF1RX", "AIF1 Playback", 0,
->> SND_SOC_NOPM, 0, 0),
->>
->> +
->>
->> +            /* Output Side */
->>
->> +            /* DAC mixer before sound effect  */
->>
->> +            SND_SOC_DAPM_MIXER("DAC1 MIXL", SND_SOC_NOPM, 0, 0,
->>
->> +                           rt5682s_dac_l_mix,
->> ARRAY_SIZE(rt5682s_dac_l_mix)),
->>
->> +            SND_SOC_DAPM_MIXER("DAC1 MIXR", SND_SOC_NOPM, 0, 0,
->>
->> +                           rt5682s_dac_r_mix,
->> ARRAY_SIZE(rt5682s_dac_r_mix)),
->>
->> +
->>
->> +            /* DAC channel Mux */
->>
->> +            SND_SOC_DAPM_MUX("DAC L1 Source", SND_SOC_NOPM, 0, 0,
->> &rt5682s_alg_dac_l1_mux),
->>
->> +            SND_SOC_DAPM_MUX("DAC R1 Source", SND_SOC_NOPM, 0, 0,
->> &rt5682s_alg_dac_r1_mux),
->>
->> +
->>
->> +            /* DAC Mixer */
->>
->> +            SND_SOC_DAPM_SUPPLY("DAC Stereo1 Filter", RT5682S_PWR_DIG_2=
-,
->>
->> +                           RT5682S_PWR_DAC_S1F_BIT, 0, set_filter_clk,
->> SND_SOC_DAPM_PRE_PMU),
->>
->> +            SND_SOC_DAPM_MIXER("Stereo1 DAC MIXL", SND_SOC_NOPM, 0, 0,
->>
->> +                           rt5682s_sto1_dac_l_mix,
->> ARRAY_SIZE(rt5682s_sto1_dac_l_mix)),
->>
->> +            SND_SOC_DAPM_MIXER("Stereo1 DAC MIXR", SND_SOC_NOPM, 0, 0,
->>
->> +                           rt5682s_sto1_dac_r_mix,
->> ARRAY_SIZE(rt5682s_sto1_dac_r_mix)),
->>
->> +
->>
->> +            /* DACs */
->>
->> +            SND_SOC_DAPM_DAC("DAC L1", NULL, RT5682S_PWR_DIG_1,
->> RT5682S_PWR_DAC_L1_BIT, 0),
->>
->> +            SND_SOC_DAPM_DAC("DAC R1", NULL, RT5682S_PWR_DIG_1,
->> RT5682S_PWR_DAC_R1_BIT, 0),
->>
->> +
->>
->> +            /* HPO */
->>
->> +            SND_SOC_DAPM_PGA_S("HP Amp", 1, SND_SOC_NOPM, 0, 0,
->> rt5682s_hp_amp_event,
->>
->> +                           SND_SOC_DAPM_POST_PMD | SND_SOC_DAPM_PRE_PMU
->> | SND_SOC_DAPM_POST_PMU),
->>
->> +
->>
->> +            /* CLK DET */
->>
->> +            SND_SOC_DAPM_SUPPLY("CLKDET SYS", RT5682S_CLK_DET,
->>
->> +                           RT5682S_SYS_CLK_DET_SFT, 0, NULL, 0),
->>
->> +            SND_SOC_DAPM_SUPPLY("CLKDET PLL1", RT5682S_CLK_DET,
->>
->> +                           RT5682S_PLL1_CLK_DET_SFT, 0, NULL, 0),
->>
->> +            SND_SOC_DAPM_SUPPLY("MCLK0 DET PWR", RT5682S_PWR_ANLG_2,
->>
->> +                           RT5682S_PWR_MCLK0_WD_BIT, 0, NULL, 0),
->>
->> +
->>
->> +            /* SAR */
->>
->> +            SND_SOC_DAPM_SUPPLY("SAR", SND_SOC_NOPM, 0, 0,
->> sar_power_event,
->>
->> +                           SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD=
-),
->>
->> +
->>
->> +            /* Output Lines */
->>
->> +            SND_SOC_DAPM_OUTPUT("HPOL"),
->>
->> +            SND_SOC_DAPM_OUTPUT("HPOR"),
->>
->> +};
->>
->> +
->>
->> +static const struct snd_soc_dapm_route rt5682s_dapm_routes[] =3D {
->>
->> +            /*PLL*/
->>
->> +            {"ADC Stereo1 Filter", NULL, "PLLA", is_sys_clk_from_plla},
->>
->> +            {"ADC Stereo1 Filter", NULL, "PLLB", is_sys_clk_from_pllb},
->>
->> +            {"DAC Stereo1 Filter", NULL, "PLLA", is_sys_clk_from_plla},
->>
->> +            {"DAC Stereo1 Filter", NULL, "PLLB", is_sys_clk_from_pllb},
->>
->> +            {"PLLA", NULL, "PLLA_LDO"},
->>
->> +            {"PLLA", NULL, "PLLA_BIAS"},
->>
->> +            {"PLLA", NULL, "PLLA_RST"},
->>
->> +            {"PLLB", NULL, "PLLB_LDO"},
->>
->> +            {"PLLB", NULL, "PLLB_BIAS"},
->>
->> +            {"PLLB", NULL, "PLLB_RST"},
->>
->> +
->>
->> +            /*ASRC*/
->>
->> +            {"ADC Stereo1 Filter", NULL, "ADC STO1 ASRC", is_using_asrc=
-},
->>
->> +            {"DAC Stereo1 Filter", NULL, "DAC STO1 ASRC", is_using_asrc=
-},
->>
->> +            {"ADC STO1 ASRC", NULL, "AD ASRC"},
->>
->> +            {"ADC STO1 ASRC", NULL, "DA ASRC"},
->>
->> +            {"DAC STO1 ASRC", NULL, "AD ASRC"},
->>
->> +            {"DAC STO1 ASRC", NULL, "DA ASRC"},
->>
->> +
->>
->> +            {"CLKDET SYS", NULL, "MCLK0 DET PWR"},
->>
->> +
->>
->> +            {"BST1 CBJ", NULL, "IN1P"},
->>
->> +            {"BST1 CBJ", NULL, "SAR", is_headset_type},
->>
->> +
->>
->> +            {"RECMIX1L", "CBJ Switch", "BST1 CBJ"},
->>
->> +            {"RECMIX1L", NULL, "RECMIX1L Power"},
->>
->> +            {"RECMIX1R", "CBJ Switch", "BST1 CBJ"},
->>
->> +            {"RECMIX1R", NULL, "RECMIX1R Power"},
->>
->> +
->>
->> +            {"ADC1 L", NULL, "RECMIX1L"},
->>
->> +            {"ADC1 L", NULL, "ADC1 L Power"},
->>
->> +            {"ADC1 L", NULL, "ADC1 clock"},
->>
->> +            {"ADC1 R", NULL, "RECMIX1R"},
->>
->> +            {"ADC1 R", NULL, "ADC1 R Power"},
->>
->> +            {"ADC1 R", NULL, "ADC1 clock"},
->>
->> +
->>
->> +            {"DMIC L1", NULL, "DMIC CLK"},
->>
->> +            {"DMIC L1", NULL, "DMIC1 Power"},
->>
->> +            {"DMIC R1", NULL, "DMIC CLK"},
->>
->> +            {"DMIC R1", NULL, "DMIC1 Power"},
->>
->> +            {"DMIC CLK", NULL, "DMIC ASRC"},
->>
->> +
->>
->> +            {"Stereo1 ADC L Mux", "ADC1 L", "ADC1 L"},
->>
->> +            {"Stereo1 ADC L Mux", "ADC1 R", "ADC1 R"},
->>
->> +            {"Stereo1 ADC R Mux", "ADC1 L", "ADC1 L"},
->>
->> +            {"Stereo1 ADC R Mux", "ADC1 R", "ADC1 R"},
->>
->> +
->>
->> +            {"Stereo1 ADC L1 Mux", "ADC", "Stereo1 ADC L Mux"},
->>
->> +            {"Stereo1 ADC L1 Mux", "DAC MIX", "Stereo1 DAC MIXL"},
->>
->> +            {"Stereo1 ADC L2 Mux", "DMIC", "DMIC L1"},
->>
->> +            {"Stereo1 ADC L2 Mux", "DAC MIX", "Stereo1 DAC MIXL"},
->>
->> +
->>
->> +            {"Stereo1 ADC R1 Mux", "ADC", "Stereo1 ADC R Mux"},
->>
->> +            {"Stereo1 ADC R1 Mux", "DAC MIX", "Stereo1 DAC MIXR"},
->>
->> +            {"Stereo1 ADC R2 Mux", "DMIC", "DMIC R1"},
->>
->> +            {"Stereo1 ADC R2 Mux", "DAC MIX", "Stereo1 DAC MIXR"},
->>
->> +
->>
->> +            {"Stereo1 ADC MIXL", "ADC1 Switch", "Stereo1 ADC L1 Mux"},
->>
->> +            {"Stereo1 ADC MIXL", "ADC2 Switch", "Stereo1 ADC L2 Mux"},
->>
->> +            {"Stereo1 ADC MIXL", NULL, "ADC Stereo1 Filter"},
->>
->> +
->>
->> +            {"Stereo1 ADC MIXR", "ADC1 Switch", "Stereo1 ADC R1 Mux"},
->>
->> +            {"Stereo1 ADC MIXR", "ADC2 Switch", "Stereo1 ADC R2 Mux"},
->>
->> +            {"Stereo1 ADC MIXR", NULL, "ADC Stereo1 Filter"},
->>
->> +
->>
->> +            {"Stereo1 ADC MIX", NULL, "Stereo1 ADC MIXL"},
->>
->> +            {"Stereo1 ADC MIX", NULL, "Stereo1 ADC MIXR"},
->>
->> +
->>
->> +            {"IF1 01 ADC Swap Mux", "L/R", "Stereo1 ADC MIX"},
->>
->> +            {"IF1 01 ADC Swap Mux", "L/L", "Stereo1 ADC MIX"},
->>
->> +            {"IF1 01 ADC Swap Mux", "R/L", "Stereo1 ADC MIX"},
->>
->> +            {"IF1 01 ADC Swap Mux", "R/R", "Stereo1 ADC MIX"},
->>
->> +            {"IF1 23 ADC Swap Mux", "L/R", "Stereo1 ADC MIX"},
->>
->> +            {"IF1 23 ADC Swap Mux", "R/L", "Stereo1 ADC MIX"},
->>
->> +            {"IF1 23 ADC Swap Mux", "L/L", "Stereo1 ADC MIX"},
->>
->> +            {"IF1 23 ADC Swap Mux", "R/R", "Stereo1 ADC MIX"},
->>
->> +            {"IF1 45 ADC Swap Mux", "L/R", "Stereo1 ADC MIX"},
->>
->> +            {"IF1 45 ADC Swap Mux", "R/L", "Stereo1 ADC MIX"},
->>
->> +            {"IF1 45 ADC Swap Mux", "L/L", "Stereo1 ADC MIX"},
->>
->> +            {"IF1 45 ADC Swap Mux", "R/R", "Stereo1 ADC MIX"},
->>
->> +            {"IF1 67 ADC Swap Mux", "L/R", "Stereo1 ADC MIX"},
->>
->> +            {"IF1 67 ADC Swap Mux", "R/L", "Stereo1 ADC MIX"},
->>
->> +            {"IF1 67 ADC Swap Mux", "L/L", "Stereo1 ADC MIX"},
->>
->> +            {"IF1 67 ADC Swap Mux", "R/R", "Stereo1 ADC MIX"},
->>
->> +
->>
->> +            {"IF1_ADC Mux", "Slot 0", "IF1 01 ADC Swap Mux"},
->>
->> +            {"IF1_ADC Mux", "Slot 2", "IF1 23 ADC Swap Mux"},
->>
->> +            {"IF1_ADC Mux", "Slot 4", "IF1 45 ADC Swap Mux"},
->>
->> +            {"IF1_ADC Mux", "Slot 6", "IF1 67 ADC Swap Mux"},
->>
->> +            {"ADCDAT Mux", "ADCDAT1", "IF1_ADC Mux"},
->>
->> +            {"AIF1TX", NULL, "I2S1"},
->>
->> +            {"AIF1TX", NULL, "ADCDAT Mux"},
->>
->> +            {"IF2 ADC Swap Mux", "L/R", "Stereo1 ADC MIX"},
->>
->> +            {"IF2 ADC Swap Mux", "R/L", "Stereo1 ADC MIX"},
->>
->> +            {"IF2 ADC Swap Mux", "L/L", "Stereo1 ADC MIX"},
->>
->> +            {"IF2 ADC Swap Mux", "R/R", "Stereo1 ADC MIX"},
->>
->> +            {"ADCDAT Mux", "ADCDAT2", "IF2 ADC Swap Mux"},
->>
->> +            {"AIF2TX", NULL, "ADCDAT Mux"},
->>
->> +
->>
->> +            {"IF1 DAC1 L", NULL, "AIF1RX"},
->>
->> +            {"IF1 DAC1 L", NULL, "I2S1"},
->>
->> +            {"IF1 DAC1 L", NULL, "DAC Stereo1 Filter"},
->>
->> +            {"IF1 DAC1 R", NULL, "AIF1RX"},
->>
->> +            {"IF1 DAC1 R", NULL, "I2S1"},
->>
->> +            {"IF1 DAC1 R", NULL, "DAC Stereo1 Filter"},
->>
->> +
->>
->> +            {"DAC1 MIXL", "Stereo ADC Switch", "Stereo1 ADC MIXL"},
->>
->> +            {"DAC1 MIXL", "DAC1 Switch", "IF1 DAC1 L"},
->>
->> +            {"DAC1 MIXR", "Stereo ADC Switch", "Stereo1 ADC MIXR"},
->>
->> +            {"DAC1 MIXR", "DAC1 Switch", "IF1 DAC1 R"},
->>
->> +
->>
->> +            {"Stereo1 DAC MIXL", "DAC L1 Switch", "DAC1 MIXL"},
->>
->> +            {"Stereo1 DAC MIXL", "DAC R1 Switch", "DAC1 MIXR"},
->>
->> +
->>
->> +            {"Stereo1 DAC MIXR", "DAC R1 Switch", "DAC1 MIXR"},
->>
->> +            {"Stereo1 DAC MIXR", "DAC L1 Switch", "DAC1 MIXL"},
->>
->> +
->>
->> +            {"DAC L1 Source", "DAC1", "DAC1 MIXL"},
->>
->> +            {"DAC L1 Source", "Stereo1 DAC Mixer", "Stereo1 DAC MIXL"},
->>
->> +            {"DAC R1 Source", "DAC1", "DAC1 MIXR"},
->>
->> +            {"DAC R1 Source", "Stereo1 DAC Mixer", "Stereo1 DAC MIXR"},
->>
->> +
->>
->> +            {"DAC L1", NULL, "DAC L1 Source"},
->>
->> +            {"DAC R1", NULL, "DAC R1 Source"},
->>
->> +
->>
->> +            {"HP Amp", NULL, "DAC L1"},
->>
->> +            {"HP Amp", NULL, "DAC R1"},
->>
->> +            {"HP Amp", NULL, "CLKDET SYS"},
->>
->> +            {"HP Amp", NULL, "SAR", is_headset_type},
->>
->> +
->>
->> +            {"HPOL", NULL, "HP Amp"},
->>
->> +            {"HPOR", NULL, "HP Amp"},
->>
->> +};
->>
->> +
->>
->> +static int rt5682s_set_tdm_slot(struct snd_soc_dai *dai, unsigned int
->> tx_mask,
->>
->> +                           unsigned int rx_mask, int slots, int
->> slot_width)
->>
->> +{
->>
->> +            struct snd_soc_component *component =3D dai->component;
->>
->> +            unsigned int cl, val =3D 0;
->>
->> +
->>
->> +            if (tx_mask || rx_mask)
->>
->> +                           snd_soc_component_update_bits(component,
->>
->> +                                         RT5682S_TDM_ADDA_CTRL_2,
->> RT5682S_TDM_EN, RT5682S_TDM_EN);
->>
->> +            else
->>
->> +                           snd_soc_component_update_bits(component,
->>
->> +                                         RT5682S_TDM_ADDA_CTRL_2,
->> RT5682S_TDM_EN, 0);
->>
->> +
->>
->> +            switch (slots) {
->>
->> +            case 4:
->>
->> +                           val |=3D RT5682S_TDM_TX_CH_4;
->>
->> +                           val |=3D RT5682S_TDM_RX_CH_4;
->>
->> +                           break;
->>
->> +            case 6:
->>
->> +                           val |=3D RT5682S_TDM_TX_CH_6;
->>
->> +                           val |=3D RT5682S_TDM_RX_CH_6;
->>
->> +                           break;
->>
->> +            case 8:
->>
->> +                           val |=3D RT5682S_TDM_TX_CH_8;
->>
->> +                           val |=3D RT5682S_TDM_RX_CH_8;
->>
->> +                           break;
->>
->> +            case 2:
->>
->> +                           break;
->>
->> +            default:
->>
->> +                           return -EINVAL;
->>
->> +            }
->>
->> +
->>
->> +            snd_soc_component_update_bits(component, RT5682S_TDM_CTRL,
->>
->> +                           RT5682S_TDM_TX_CH_MASK |
->> RT5682S_TDM_RX_CH_MASK, val);
->>
->> +
->>
->> +            switch (slot_width) {
->>
->> +            case 8:
->>
->> +                           if (tx_mask || rx_mask)
->>
->> +                                         return -EINVAL;
->>
->> +                           cl =3D RT5682S_I2S1_TX_CHL_8 |
->> RT5682S_I2S1_RX_CHL_8;
->>
->> +                           break;
->>
->> +            case 16:
->>
->> +                           val =3D RT5682S_TDM_CL_16;
->>
->> +                           cl =3D RT5682S_I2S1_TX_CHL_16 |
->> RT5682S_I2S1_RX_CHL_16;
->>
->> +                           break;
->>
->> +            case 20:
->>
->> +                           val =3D RT5682S_TDM_CL_20;
->>
->> +                           cl =3D RT5682S_I2S1_TX_CHL_20 |
->> RT5682S_I2S1_RX_CHL_20;
->>
->> +                           break;
->>
->> +            case 24:
->>
->> +                           val =3D RT5682S_TDM_CL_24;
->>
->> +                           cl =3D RT5682S_I2S1_TX_CHL_24 |
->> RT5682S_I2S1_RX_CHL_24;
->>
->> +                           break;
->>
->> +            case 32:
->>
->> +                           val =3D RT5682S_TDM_CL_32;
->>
->> +                           cl =3D RT5682S_I2S1_TX_CHL_32 |
->> RT5682S_I2S1_RX_CHL_32;
->>
->> +                           break;
->>
->> +            default:
->>
->> +                           return -EINVAL;
->>
->> +            }
->>
->> +
->>
->> +            snd_soc_component_update_bits(component,
->> RT5682S_TDM_TCON_CTRL_1,
->>
->> +                           RT5682S_TDM_CL_MASK, val);
->>
->> +            snd_soc_component_update_bits(component, RT5682S_I2S1_SDP,
->>
->> +                           RT5682S_I2S1_TX_CHL_MASK |
->> RT5682S_I2S1_RX_CHL_MASK, cl);
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static int rt5682s_hw_params(struct snd_pcm_substream *substream,
->>
->> +                           struct snd_pcm_hw_params *params, struct
->> snd_soc_dai *dai)
->>
->> +{
->>
->> +            struct snd_soc_component *component =3D dai->component;
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +            unsigned int len_1 =3D 0, len_2 =3D 0;
->>
->> +            int frame_size;
->>
->> +
->>
->> +            rt5682s->lrck[dai->id] =3D params_rate(params);
->>
->> +
->>
->> +            frame_size =3D snd_soc_params_to_frame_size(params);
->>
->> +            if (frame_size < 0) {
->>
->> +                           dev_err(component->dev, "Unsupported frame
->> size: %d\n", frame_size);
->>
->> +                           return -EINVAL;
->>
->> +            }
->>
->> +
->>
->> +            switch (params_width(params)) {
->>
->> +            case 16:
->>
->> +                           break;
->>
->> +            case 20:
->>
->> +                           len_1 |=3D RT5682S_I2S1_DL_20;
->>
->> +                           len_2 |=3D RT5682S_I2S2_DL_20;
->>
->> +                           break;
->>
->> +            case 24:
->>
->> +                           len_1 |=3D RT5682S_I2S1_DL_24;
->>
->> +                           len_2 |=3D RT5682S_I2S2_DL_24;
->>
->> +                           break;
->>
->> +            case 32:
->>
->> +                           len_1 |=3D RT5682S_I2S1_DL_32;
->>
->> +                           len_2 |=3D RT5682S_I2S2_DL_24;
->>
->> +                           break;
->>
->> +            case 8:
->>
->> +                           len_1 |=3D RT5682S_I2S2_DL_8;
->>
->> +                           len_2 |=3D RT5682S_I2S2_DL_8;
->>
->> +                           break;
->>
->> +            default:
->>
->> +                           return -EINVAL;
->>
->> +            }
->>
->> +
->>
->> +            switch (dai->id) {
->>
->> +            case RT5682S_AIF1:
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_I2S1_SDP,
->>
->> +                                         RT5682S_I2S1_DL_MASK, len_1);
->>
->> +                           if (params_channels(params) =3D=3D 1) /* mon=
-o
->> mode */
->>
->> +
->> snd_soc_component_update_bits(component, RT5682S_I2S1_SDP,
->>
->> +
->> RT5682S_I2S1_MONO_MASK, RT5682S_I2S1_MONO_EN);
->>
->> +                           else
->>
->> +
->> snd_soc_component_update_bits(component, RT5682S_I2S1_SDP,
->>
->> +
->> RT5682S_I2S1_MONO_MASK, RT5682S_I2S1_MONO_DIS);
->>
->> +                           break;
->>
->> +            case RT5682S_AIF2:
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_I2S2_SDP,
->>
->> +                                         RT5682S_I2S2_DL_MASK, len_2);
->>
->> +                           if (params_channels(params) =3D=3D 1) /* mon=
-o
->> mode */
->>
->> +
->> snd_soc_component_update_bits(component, RT5682S_I2S2_SDP,
->>
->> +
->> RT5682S_I2S2_MONO_MASK, RT5682S_I2S2_MONO_EN);
->>
->> +                           else
->>
->> +
->> snd_soc_component_update_bits(component, RT5682S_I2S2_SDP,
->>
->> +
->> RT5682S_I2S2_MONO_MASK, RT5682S_I2S2_MONO_DIS);
->>
->> +                           break;
->>
->> +            default:
->>
->> +                           dev_err(component->dev, "Invalid dai->id:
->> %d\n", dai->id);
->>
->> +                           return -EINVAL;
->>
->> +            }
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static int rt5682s_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fm=
-t)
->>
->> +{
->>
->> +            struct snd_soc_component *component =3D dai->component;
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +            unsigned int reg_val =3D 0, tdm_ctrl =3D 0;
->>
->> +
->>
->> +            switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
->>
->> +            case SND_SOC_DAIFMT_CBM_CFM:
->>
->> +                           rt5682s->master[dai->id] =3D 1;
->>
->> +                           break;
->>
->> +            case SND_SOC_DAIFMT_CBS_CFS:
->>
->> +                           rt5682s->master[dai->id] =3D 0;
->>
->> +                           break;
->>
->> +            default:
->>
->> +                           return -EINVAL;
->>
->> +            }
->>
->> +
->>
->> +            switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
->>
->> +            case SND_SOC_DAIFMT_NB_NF:
->>
->> +                           break;
->>
->> +            case SND_SOC_DAIFMT_IB_NF:
->>
->> +                           reg_val |=3D RT5682S_I2S_BP_INV;
->>
->> +                           tdm_ctrl |=3D RT5682S_TDM_S_BP_INV;
->>
->> +                           break;
->>
->> +            case SND_SOC_DAIFMT_NB_IF:
->>
->> +                           if (dai->id =3D=3D RT5682S_AIF1)
->>
->> +                                         tdm_ctrl |=3D
->> RT5682S_TDM_S_LP_INV | RT5682S_TDM_M_BP_INV;
->>
->> +                           else
->>
->> +                                         return -EINVAL;
->>
->> +                           break;
->>
->> +            case SND_SOC_DAIFMT_IB_IF:
->>
->> +                           if (dai->id =3D=3D RT5682S_AIF1)
->>
->> +                                         tdm_ctrl |=3D
->> RT5682S_TDM_S_BP_INV | RT5682S_TDM_S_LP_INV |
->>
->> +
->> RT5682S_TDM_M_BP_INV | RT5682S_TDM_M_LP_INV;
->>
->> +                           else
->>
->> +                                         return -EINVAL;
->>
->> +                           break;
->>
->> +            default:
->>
->> +                           return -EINVAL;
->>
->> +            }
->>
->> +
->>
->> +            switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
->>
->> +            case SND_SOC_DAIFMT_I2S:
->>
->> +                           break;
->>
->> +            case SND_SOC_DAIFMT_LEFT_J:
->>
->> +                           reg_val |=3D RT5682S_I2S_DF_LEFT;
->>
->> +                           tdm_ctrl |=3D RT5682S_TDM_DF_LEFT;
->>
->> +                           break;
->>
->> +            case SND_SOC_DAIFMT_DSP_A:
->>
->> +                           reg_val |=3D RT5682S_I2S_DF_PCM_A;
->>
->> +                           tdm_ctrl |=3D RT5682S_TDM_DF_PCM_A;
->>
->> +                           break;
->>
->> +            case SND_SOC_DAIFMT_DSP_B:
->>
->> +                           reg_val |=3D RT5682S_I2S_DF_PCM_B;
->>
->> +                           tdm_ctrl |=3D RT5682S_TDM_DF_PCM_B;
->>
->> +                           break;
->>
->> +            default:
->>
->> +                           return -EINVAL;
->>
->> +            }
->>
->> +
->>
->> +            switch (dai->id) {
->>
->> +            case RT5682S_AIF1:
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_I2S1_SDP,
->>
->> +                                         RT5682S_I2S_DF_MASK, reg_val);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_TDM_TCON_CTRL_1,
->>
->> +                                         RT5682S_TDM_MS_MASK |
->> RT5682S_TDM_S_BP_MASK |
->>
->> +                                         RT5682S_TDM_DF_MASK |
->> RT5682S_TDM_M_BP_MASK |
->>
->> +                                         RT5682S_TDM_M_LP_MASK |
->> RT5682S_TDM_S_LP_MASK,
->>
->> +                                         tdm_ctrl |
->> rt5682s->master[dai->id]);
->>
->> +                           break;
->>
->> +            case RT5682S_AIF2:
->>
->> +                           if (rt5682s->master[dai->id] =3D=3D 0)
->>
->> +                                         reg_val |=3D RT5682S_I2S2_MS_S=
-;
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_I2S2_SDP,
->>
->> +                                         RT5682S_I2S2_MS_MASK |
->> RT5682S_I2S_BP_MASK |
->>
->> +                                         RT5682S_I2S_DF_MASK, reg_val);
->>
->> +                           break;
->>
->> +            default:
->>
->> +                           dev_err(component->dev, "Invalid dai->id:
->> %d\n", dai->id);
->>
->> +                           return -EINVAL;
->>
->> +            }
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static int rt5682s_set_component_sysclk(struct snd_soc_component
->> *component,
->>
->> +                           int clk_id, int source, unsigned int freq,
->> int dir)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +            unsigned int src =3D 0;
->>
->> +
->>
->> +            if (freq =3D=3D rt5682s->sysclk && clk_id =3D=3D rt5682s->s=
-ysclk_src)
->>
->> +                           return 0;
->>
->> +
->>
->> +            switch (clk_id) {
->>
->> +            case RT5682S_SCLK_S_MCLK:
->>
->> +                           src =3D RT5682S_CLK_SRC_MCLK;
->>
->> +                           break;
->>
->> +            case RT5682S_SCLK_S_PLL1:
->>
->> +                           src =3D RT5682S_CLK_SRC_PLL1;
->>
->> +                           break;
->>
->> +            case RT5682S_SCLK_S_PLL2:
->>
->> +                           src =3D RT5682S_CLK_SRC_PLL2;
->>
->> +                           break;
->>
->> +            case RT5682S_SCLK_S_RCCLK:
->>
->> +                           src =3D RT5682S_CLK_SRC_RCCLK;
->>
->> +                           break;
->>
->> +            default:
->>
->> +                           dev_err(component->dev, "Invalid clock id
->> (%d)\n", clk_id);
->>
->> +                           return -EINVAL;
->>
->> +            }
->>
->> +
->>
->> +            snd_soc_component_update_bits(component, RT5682S_GLB_CLK,
->>
->> +                           RT5682S_SCLK_SRC_MASK, src <<
->> RT5682S_SCLK_SRC_SFT);
->>
->> +            snd_soc_component_update_bits(component, RT5682S_ADDA_CLK_1=
-,
->>
->> +                           RT5682S_I2S_M_CLK_SRC_MASK, src <<
->> RT5682S_I2S_M_CLK_SRC_SFT);
->>
->> +            snd_soc_component_update_bits(component,
->> RT5682S_I2S2_M_CLK_CTRL_1,
->>
->> +                           RT5682S_I2S2_M_CLK_SRC_MASK, src <<
->> RT5682S_I2S2_M_CLK_SRC_SFT);
->>
->> +
->>
->> +            rt5682s->sysclk =3D freq;
->>
->> +            rt5682s->sysclk_src =3D clk_id;
->>
->> +
->>
->> +            dev_dbg(component->dev, "Sysclk is %dHz and clock id is
->> %d\n",
->>
->> +                          freq, clk_id);
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static const struct pll_calc_map plla_table[] =3D {
->>
->> +            {2048000, 24576000, 0, 46, 2, true, false, false, false},
->>
->> +            {256000, 24576000, 0, 382, 2, true, false, false, false},
->>
->> +            {512000, 24576000, 0, 190, 2, true, false, false, false},
->>
->> +            {4096000, 24576000, 0, 22, 2, true, false, false, false},
->>
->> +            {1024000, 24576000, 0, 94, 2, true, false, false, false},
->>
->> +            {11289600, 22579200, 1, 22, 2, false, false, false, false},
->>
->> +            {1411200, 22579200, 0, 62, 2, true, false, false, false},
->>
->> +            {2822400, 22579200, 0, 30, 2, true, false, false, false},
->>
->> +            {12288000, 24576000, 1, 22, 2, false, false, false, false},
->>
->> +            {1536000, 24576000, 0, 62, 2, true, false, false, false},
->>
->> +            {3072000, 24576000, 0, 30, 2, true, false, false, false},
->>
->> +            {24576000, 49152000, 4, 22, 0, false, false, false, false},
->>
->> +            {3072000, 49152000, 0, 30, 0, true, false, false, false},
->>
->> +            {6144000, 49152000, 0, 30, 0, false, false, false, false},
->>
->> +            {49152000, 98304000, 10, 22, 0, false, true, false, false},
->>
->> +            {6144000, 98304000, 0, 30, 0, false, true, false, false},
->>
->> +            {12288000, 98304000, 1, 22, 0, false, true, false, false},
->>
->> +            {48000000, 3840000, 10, 22, 23, false, false, false, false}=
-,
->>
->> +            {24000000, 3840000, 4, 22, 23, false, false, false, false},
->>
->> +            {19200000, 3840000, 3, 23, 23, false, false, false, false},
->>
->> +            {38400000, 3840000, 8, 23, 23, false, false, false, false},
->>
->> +};
->>
->> +
->>
->> +static const struct pll_calc_map pllb_table[] =3D {
->>
->> +            {48000000, 24576000, 8, 6, 3, false, false, false, false},
->>
->> +            {48000000, 22579200, 23, 12, 3, false, false, false, true},
->>
->> +            {24000000, 24576000, 3, 6, 3, false, false, false, false},
->>
->> +            {24000000, 22579200, 23, 26, 3, false, false, false, true},
->>
->> +            {19200000, 24576000, 2, 6, 3, false, false, false, false},
->>
->> +            {19200000, 22579200, 3, 5, 3, false, false, false, true},
->>
->> +            {38400000, 24576000, 6, 6, 3, false, false, false, false},
->>
->> +            {38400000, 22579200, 8, 5, 3, false, false, false, true},
->>
->> +            {3840000, 49152000, 0, 6, 0, true, false, false, false},
->>
->> +};
->>
->> +
->>
->> +static int find_pll_inter_combination(unsigned int f_in, unsigned int
->> f_out,
->>
->> +                           struct pll_calc_map *a, struct pll_calc_map
->> *b)
->>
->> +{
->>
->> +            int i, j;
->>
->> +
->>
->> +            /* Look at PLLA table */
->>
->> +            for (i =3D 0; i < ARRAY_SIZE(plla_table); i++) {
->>
->> +                           if (plla_table[i].freq_in =3D=3D f_in &&
->> plla_table[i].freq_out =3D=3D f_out) {
->>
->> +                                         memcpy(a, plla_table + i,
->> sizeof(*a));
->>
->> +                                         return USE_PLLA;
->>
->> +                           }
->>
->> +            }
->>
->> +
->>
->> +            /* Look at PLLB table */
->>
->> +            for (i =3D 0; i < ARRAY_SIZE(pllb_table); i++) {
->>
->> +                           if (pllb_table[i].freq_in =3D=3D f_in &&
->> pllb_table[i].freq_out =3D=3D f_out) {
->>
->> +                                         memcpy(b, pllb_table + i,
->> sizeof(*b));
->>
->> +                                         return USE_PLLB;
->>
->> +                           }
->>
->> +            }
->>
->> +
->>
->> +            /* Find a combination of PLLA & PLLB */
->>
->> +            for (i =3D ARRAY_SIZE(plla_table) - 1; i >=3D 0; i--) {
->>
->> +                           if (plla_table[i].freq_in =3D=3D f_in &&
->> plla_table[i].freq_out =3D=3D 3840000) {
->>
->> +                                         for (j =3D ARRAY_SIZE(pllb_tab=
-le)
->> - 1; j >=3D 0; j--) {
->>
->> +                                                       if
->> (pllb_table[j].freq_in =3D=3D 3840000 &&
->>
->> +
->> pllb_table[j].freq_out =3D=3D f_out) {
->>
->> +
->> memcpy(a, plla_table + i, sizeof(*a));
->>
->> +
->> memcpy(b, pllb_table + j, sizeof(*b));
->>
->> +
->> return USE_PLLAB;
->>
->> +                                                       }
->>
->> +                                         }
->>
->> +                           }
->>
->> +            }
->>
->> +
->>
->> +            return -EINVAL;
->>
->> +}
->>
->> +
->>
->> +static int rt5682s_set_component_pll(struct snd_soc_component *componen=
-t,
->>
->> +                           int pll_id, int source, unsigned int freq_in=
-,
->>
->> +                           unsigned int freq_out)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +            struct pll_calc_map a_map, b_map;
->>
->> +
->>
->> +            if (source =3D=3D rt5682s->pll_src[pll_id] && freq_in =3D=
-=3D
->> rt5682s->pll_in[pll_id] &&
->>
->> +                freq_out =3D=3D rt5682s->pll_out[pll_id])
->>
->> +                           return 0;
->>
->> +
->>
->> +            if (!freq_in || !freq_out) {
->>
->> +                           dev_dbg(component->dev, "PLL disabled\n");
->>
->> +                           rt5682s->pll_in[pll_id] =3D 0;
->>
->> +                           rt5682s->pll_out[pll_id] =3D 0;
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_GLB_CLK,
->>
->> +                                         RT5682S_SCLK_SRC_MASK,
->> RT5682S_CLK_SRC_MCLK << RT5682S_SCLK_SRC_SFT);
->>
->> +                           return 0;
->>
->> +            }
->>
->> +
->>
->> +            switch (source) {
->>
->> +            case RT5682S_PLL_S_MCLK:
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_GLB_CLK,
->>
->> +                                         RT5682S_PLL_SRC_MASK,
->> RT5682S_PLL_SRC_MCLK);
->>
->> +                           break;
->>
->> +            case RT5682S_PLL_S_BCLK1:
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_GLB_CLK,
->>
->> +                                         RT5682S_PLL_SRC_MASK,
->> RT5682S_PLL_SRC_BCLK1);
->>
->> +                           break;
->>
->> +            default:
->>
->> +                           dev_err(component->dev, "Unknown PLL Source
->> %d\n", source);
->>
->> +                           return -EINVAL;
->>
->> +            }
->>
->> +
->>
->> +            rt5682s->pll_comb =3D find_pll_inter_combination(freq_in,
->> freq_out,
->>
->> +
->> &a_map, &b_map);
->>
->> +
->>
->> +            if ((pll_id =3D=3D RT5682S_PLL1 && rt5682s->pll_comb =3D=3D
->> USE_PLLA) ||
->>
->> +                (pll_id =3D=3D RT5682S_PLL2 && (rt5682s->pll_comb =3D=
-=3D
->> USE_PLLB ||
->>
->> +
->> rt5682s->pll_comb =3D=3D USE_PLLAB))) {
->>
->> +                           dev_dbg(component->dev,
->>
->> +                                         "Supported freq conversion for
->> PLL%d:(%d->%d): %d\n",
->>
->> +                                         pll_id + 1, freq_in, freq_out,
->> rt5682s->pll_comb);
->>
->> +            } else {
->>
->> +                           dev_err(component->dev,
->>
->> +                                         "Unsupported freq conversion
->> for PLL%d:(%d->%d): %d\n",
->>
->> +                                         pll_id + 1, freq_in, freq_out,
->> rt5682s->pll_comb);
->>
->> +                           return -EINVAL;
->>
->> +            }
->>
->> +
->>
->> +            if (rt5682s->pll_comb =3D=3D USE_PLLA || rt5682s->pll_comb =
-=3D=3D
->> USE_PLLAB) {
->>
->> +                           dev_dbg(component->dev,
->>
->> +                                         "PLLA: fin=3D%d fout=3D%d m_bp=
-=3D%d
->> k_bp=3D%d m=3D%d n=3D%d k=3D%d\n",
->>
->> +                                         a_map.freq_in, a_map.freq_out,
->> a_map.m_bp, a_map.k_bp,
->>
->> +                                         (a_map.m_bp ? 0 : a_map.m),
->> a_map.n, (a_map.k_bp ? 0 : a_map.k));
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_PLL_CTRL_1,
->>
->> +                                         RT5682S_PLLA_N_MASK, a_map.n);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_PLL_CTRL_2,
->>
->> +                                         RT5682S_PLLA_M_MASK |
->> RT5682S_PLLA_K_MASK,
->>
->> +                                         a_map.m << RT5682S_PLLA_M_SFT =
-|
->> a_map.k);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_PLL_CTRL_6,
->>
->> +                                         RT5682S_PLLA_M_BP_MASK |
->> RT5682S_PLLA_K_BP_MASK,
->>
->> +                                         a_map.m_bp <<
->> RT5682S_PLLA_M_BP_SFT |
->>
->> +                                         a_map.k_bp <<
->> RT5682S_PLLA_K_BP_SFT);
->>
->> +            }
->>
->> +
->>
->> +            if (rt5682s->pll_comb =3D=3D USE_PLLB || rt5682s->pll_comb =
-=3D=3D
->> USE_PLLAB) {
->>
->> +                           dev_dbg(component->dev,
->>
->> +                                         "PLLB: fin=3D%d fout=3D%d m_bp=
-=3D%d
->> k_bp=3D%d m=3D%d n=3D%d k=3D%d byp_ps=3D%d sel_ps=3D%d\n",
->>
->> +                                         b_map.freq_in, b_map.freq_out,
->> b_map.m_bp, b_map.k_bp,
->>
->> +                                         (b_map.m_bp ? 0 : b_map.m),
->> b_map.n, (b_map.k_bp ? 0 : b_map.k),
->>
->> +                                         b_map.byp_ps, b_map.sel_ps);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_PLL_CTRL_3,
->>
->> +                                         RT5682S_PLLB_N_MASK, b_map.n);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_PLL_CTRL_4,
->>
->> +                                         RT5682S_PLLB_M_MASK |
->> RT5682S_PLLB_K_MASK,
->>
->> +                                         b_map.m << RT5682S_PLLB_M_SFT =
-|
->> b_map.k);
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_PLL_CTRL_6,
->>
->> +                                         RT5682S_PLLB_SEL_PS_MASK |
->> RT5682S_PLLB_BYP_PS_MASK |
->>
->> +                                         RT5682S_PLLB_M_BP_MASK |
->> RT5682S_PLLB_K_BP_MASK,
->>
->> +                                         b_map.sel_ps <<
->> RT5682S_PLLB_SEL_PS_SFT |
->>
->> +                                         b_map.byp_ps <<
->> RT5682S_PLLB_BYP_PS_SFT |
->>
->> +                                         b_map.m_bp <<
->> RT5682S_PLLB_M_BP_SFT |
->>
->> +                                         b_map.k_bp <<
->> RT5682S_PLLB_K_BP_SFT);
->>
->> +            }
->>
->> +
->>
->> +            if (rt5682s->pll_comb =3D=3D USE_PLLB)
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_PLL_CTRL_7,
->>
->> +                                         RT5682S_PLLB_SRC_MASK,
->> RT5682S_PLLB_SRC_DFIN);
->>
->> +
->>
->> +            rt5682s->pll_in[pll_id] =3D freq_in;
->>
->> +            rt5682s->pll_out[pll_id] =3D freq_out;
->>
->> +            rt5682s->pll_src[pll_id] =3D source;
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static int rt5682s_set_bclk1_ratio(struct snd_soc_dai *dai,
->>
->> +                           unsigned int ratio)
->>
->> +{
->>
->> +            struct snd_soc_component *component =3D dai->component;
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +
->>
->> +            rt5682s->bclk[dai->id] =3D ratio;
->>
->> +
->>
->> +            switch (ratio) {
->>
->> +            case 256:
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_TDM_TCON_CTRL_1,
->>
->> +                                         RT5682S_TDM_BCLK_MS1_MASK,
->> RT5682S_TDM_BCLK_MS1_256);
->>
->> +                           break;
->>
->> +            case 128:
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_TDM_TCON_CTRL_1,
->>
->> +                                         RT5682S_TDM_BCLK_MS1_MASK,
->> RT5682S_TDM_BCLK_MS1_128);
->>
->> +                           break;
->>
->> +            case 64:
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_TDM_TCON_CTRL_1,
->>
->> +                                         RT5682S_TDM_BCLK_MS1_MASK,
->> RT5682S_TDM_BCLK_MS1_64);
->>
->> +                           break;
->>
->> +            case 32:
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_TDM_TCON_CTRL_1,
->>
->> +                                         RT5682S_TDM_BCLK_MS1_MASK,
->> RT5682S_TDM_BCLK_MS1_32);
->>
->> +                           break;
->>
->> +            default:
->>
->> +                           dev_err(dai->dev, "Invalid bclk1 ratio %d\n"=
-,
->> ratio);
->>
->> +                           return -EINVAL;
->>
->> +            }
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static int rt5682s_set_bclk2_ratio(struct snd_soc_dai *dai, unsigned in=
-t
->> ratio)
->>
->> +{
->>
->> +            struct snd_soc_component *component =3D dai->component;
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +
->>
->> +            rt5682s->bclk[dai->id] =3D ratio;
->>
->> +
->>
->> +            switch (ratio) {
->>
->> +            case 64:
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_ADDA_CLK_2,
->>
->> +                                         RT5682S_I2S2_BCLK_MS2_MASK,
->> RT5682S_I2S2_BCLK_MS2_64);
->>
->> +                           break;
->>
->> +            case 32:
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_ADDA_CLK_2,
->>
->> +                                         RT5682S_I2S2_BCLK_MS2_MASK,
->> RT5682S_I2S2_BCLK_MS2_32);
->>
->> +                           break;
->>
->> +            default:
->>
->> +                           dev_err(dai->dev, "Invalid bclk2 ratio %d\n"=
-,
->> ratio);
->>
->> +                           return -EINVAL;
->>
->> +            }
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static int rt5682s_set_bias_level(struct snd_soc_component *component,
->>
->> +                           enum snd_soc_bias_level level)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +
->>
->> +            switch (level) {
->>
->> +            case SND_SOC_BIAS_PREPARE:
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_PWR_DIG_1,
->>
->> +                                         RT5682S_PWR_LDO,
->> RT5682S_PWR_LDO);
->>
->> +                           break;
->>
->> +            case SND_SOC_BIAS_STANDBY:
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_PWR_DIG_1,
->>
->> +                                         RT5682S_DIG_GATE_CTRL,
->> RT5682S_DIG_GATE_CTRL);
->>
->> +                           break;
->>
->> +            case SND_SOC_BIAS_OFF:
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_PWR_DIG_1,
->>
->> +                                         RT5682S_DIG_GATE_CTRL |
->> RT5682S_PWR_LDO, 0);
->>
->> +                           break;
->>
->> +            case SND_SOC_BIAS_ON:
->>
->> +                           break;
->>
->> +            }
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +#ifdef CONFIG_COMMON_CLK
->>
->> +#define CLK_PLL2_FIN 48000000
->>
->> +#define CLK_48 48000
->>
->> +#define CLK_44 44100
->>
->> +
->>
->> +static bool rt5682s_clk_check(struct rt5682s_priv *rt5682s)
->>
->> +{
->>
->> +            if (!rt5682s->master[RT5682S_AIF1]) {
->>
->> +                           dev_dbg(rt5682s->component->dev, "dai clk fm=
-t
->> not set correctly\n");
->>
->> +                           return false;
->>
->> +            }
->>
->> +            return true;
->>
->> +}
->>
->> +
->>
->> +static int rt5682s_wclk_prepare(struct clk_hw *hw)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D
->>
->> +                           container_of(hw, struct rt5682s_priv,
->> dai_clks_hw[RT5682S_DAI_WCLK_IDX]);
->>
->> +            struct snd_soc_component *component =3D rt5682s->component;
->>
->> +            struct snd_soc_dapm_context *dapm =3D
->> snd_soc_component_get_dapm(component);
->>
->> +
->>
->> +            if (!rt5682s_clk_check(rt5682s))
->>
->> +                           return -EINVAL;
->>
->> +
->>
->> +            snd_soc_dapm_mutex_lock(dapm);
->>
->> +
->>
->> +            snd_soc_dapm_force_enable_pin_unlocked(dapm, "MICBIAS");
->>
->> +            snd_soc_component_update_bits(component, RT5682S_PWR_ANLG_1=
-,
->>
->> +                           RT5682S_PWR_MB, RT5682S_PWR_MB);
->>
->> +
->>
->> +            snd_soc_dapm_force_enable_pin_unlocked(dapm, "Vref2");
->>
->> +            snd_soc_component_update_bits(component, RT5682S_PWR_ANLG_1=
-,
->>
->> +                           RT5682S_PWR_VREF2 | RT5682S_PWR_FV2,
->> RT5682S_PWR_VREF2);
->>
->> +            usleep_range(15000, 20000);
->>
->> +            snd_soc_component_update_bits(component, RT5682S_PWR_ANLG_1=
-,
->>
->> +                           RT5682S_PWR_FV2, RT5682S_PWR_FV2);
->>
->> +
->>
->> +            snd_soc_dapm_force_enable_pin_unlocked(dapm, "I2S1");
->>
->> +            /* Only need to power PLLB due to the rate set restriction =
-*/
->>
->> +            snd_soc_dapm_force_enable_pin_unlocked(dapm, "PLLB");
->>
->> +            snd_soc_dapm_sync_unlocked(dapm);
->>
->> +
->>
->> +            snd_soc_dapm_mutex_unlock(dapm);
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static void rt5682s_wclk_unprepare(struct clk_hw *hw)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D
->>
->> +                           container_of(hw, struct rt5682s_priv,
->> dai_clks_hw[RT5682S_DAI_WCLK_IDX]);
->>
->> +            struct snd_soc_component *component =3D rt5682s->component;
->>
->> +            struct snd_soc_dapm_context *dapm =3D
->> snd_soc_component_get_dapm(component);
->>
->> +
->>
->> +            if (!rt5682s_clk_check(rt5682s))
->>
->> +                           return;
->>
->> +
->>
->> +            snd_soc_dapm_mutex_lock(dapm);
->>
->> +
->>
->> +            snd_soc_dapm_disable_pin_unlocked(dapm, "MICBIAS");
->>
->> +            snd_soc_dapm_disable_pin_unlocked(dapm, "Vref2");
->>
->> +            if (!rt5682s->jack_type)
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_PWR_ANLG_1,
->>
->> +                                         RT5682S_PWR_VREF2 |
->> RT5682S_PWR_FV2 | RT5682S_PWR_MB, 0);
->>
->> +
->>
->> +            snd_soc_dapm_disable_pin_unlocked(dapm, "I2S1");
->>
->> +            snd_soc_dapm_disable_pin_unlocked(dapm, "PLLB");
->>
->> +            snd_soc_dapm_sync_unlocked(dapm);
->>
->> +
->>
->> +            snd_soc_dapm_mutex_unlock(dapm);
->>
->> +}
->>
->> +
->>
->> +static unsigned long rt5682s_wclk_recalc_rate(struct clk_hw *hw,
->>
->> +
->>      unsigned long parent_rate)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D
->>
->> +                           container_of(hw, struct rt5682s_priv,
->> dai_clks_hw[RT5682S_DAI_WCLK_IDX]);
->>
->> +            struct snd_soc_component *component =3D rt5682s->component;
->>
->> +            const char * const clk_name =3D clk_hw_get_name(hw);
->>
->> +
->>
->> +            if (!rt5682s_clk_check(rt5682s))
->>
->> +                           return 0;
->>
->> +            /*
->>
->> +            * Only accept to set wclk rate to 44.1k or 48kHz.
->>
->> +            */
->>
->> +            if (rt5682s->lrck[RT5682S_AIF1] !=3D CLK_48 &&
->>
->> +                rt5682s->lrck[RT5682S_AIF1] !=3D CLK_44) {
->>
->> +                           dev_warn(component->dev, "%s: clk %s only
->> support %d or %d Hz output\n",
->>
->> +                                         __func__, clk_name, CLK_44,
->> CLK_48);
->>
->> +                           return 0;
->>
->> +            }
->>
->> +
->>
->> +            return rt5682s->lrck[RT5682S_AIF1];
->>
->> +}
->>
->> +
->>
->> +static long rt5682s_wclk_round_rate(struct clk_hw *hw, unsigned long
->> rate,
->>
->> +                                                          unsigned long
->> *parent_rate)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D
->>
->> +                           container_of(hw, struct rt5682s_priv,
->> dai_clks_hw[RT5682S_DAI_WCLK_IDX]);
->>
->> +            struct snd_soc_component *component =3D rt5682s->component;
->>
->> +            const char * const clk_name =3D clk_hw_get_name(hw);
->>
->> +
->>
->> +            if (!rt5682s_clk_check(rt5682s))
->>
->> +                           return -EINVAL;
->>
->> +            /*
->>
->> +            * Only accept to set wclk rate to 44.1k or 48kHz.
->>
->> +            * It will force to 48kHz if not both.
->>
->> +            */
->>
->> +            if (rate !=3D CLK_48 && rate !=3D CLK_44) {
->>
->> +                           dev_warn(component->dev, "%s: clk %s only
->> support %d or %d Hz output\n",
->>
->> +                                         __func__, clk_name, CLK_44,
->> CLK_48);
->>
->> +                          rate =3D CLK_48;
->>
->> +            }
->>
->> +
->>
->> +            return rate;
->>
->> +}
->>
->> +
->>
->> +static int rt5682s_wclk_set_rate(struct clk_hw *hw, unsigned long rate,
->>
->> +                                                       unsigned long
->> parent_rate)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D
->>
->> +                           container_of(hw, struct rt5682s_priv,
->> dai_clks_hw[RT5682S_DAI_WCLK_IDX]);
->>
->> +            struct snd_soc_component *component =3D rt5682s->component;
->>
->> +            struct clk *parent_clk;
->>
->> +            const char * const clk_name =3D clk_hw_get_name(hw);
->>
->> +            unsigned int clk_pll2_fout;
->>
->> +
->>
->> +            if (!rt5682s_clk_check(rt5682s))
->>
->> +                           return -EINVAL;
->>
->> +
->>
->> +            /*
->>
->> +            * Whether the wclk's parent clk (mclk) exists or not, pleas=
-e
->> ensure
->>
->> +            * it is fixed or set to 48MHz before setting wclk rate. It'=
-s
->> a
->>
->> +            * temporary limitation. Only accept 48MHz clk as the clk
->> provider.
->>
->> +            *
->>
->> +            * It will set the codec anyway by assuming mclk is 48MHz.
->>
->> +            */
->>
->> +            parent_clk =3D clk_get_parent(hw->clk);
->>
->> +            if (!parent_clk)
->>
->> +                           dev_warn(component->dev,
->>
->> +                                         "Parent mclk of wclk not
->> acquired in driver. Please ensure mclk was provided as %d Hz.\n",
->>
->> +                                         CLK_PLL2_FIN);
->>
->> +
->>
->> +            if (parent_rate !=3D CLK_PLL2_FIN)
->>
->> +                           dev_warn(component->dev, "clk %s only suppor=
-t
->> %d Hz input\n",
->>
->> +                                         clk_name, CLK_PLL2_FIN);
->>
->> +
->>
->> +            /*
->>
->> +            * To achieve the rate conversion from 48MHz to 44.1k or
->> 48kHz,
->>
->> +            * PLL2 is needed.
->>
->> +            */
->>
->> +            clk_pll2_fout =3D rate * 512;
->>
->> +            rt5682s_set_component_pll(component, RT5682S_PLL2,
->> RT5682S_PLL_S_MCLK,
->>
->> +                           CLK_PLL2_FIN, clk_pll2_fout);
->>
->> +
->>
->> +            rt5682s_set_component_sysclk(component, RT5682S_SCLK_S_PLL2=
-,
->> 0,
->>
->> +                           clk_pll2_fout, SND_SOC_CLOCK_IN);
->>
->> +
->>
->> +            rt5682s->lrck[RT5682S_AIF1] =3D rate;
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static unsigned long rt5682s_bclk_recalc_rate(struct clk_hw *hw,
->>
->> +
->>      unsigned long parent_rate)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D
->>
->> +                           container_of(hw, struct rt5682s_priv,
->> dai_clks_hw[RT5682S_DAI_BCLK_IDX]);
->>
->> +            struct snd_soc_component *component =3D rt5682s->component;
->>
->> +            unsigned int bclks_per_wclk;
->>
->> +
->>
->> +            bclks_per_wclk =3D snd_soc_component_read(component,
->> RT5682S_TDM_TCON_CTRL_1);
->>
->> +
->>
->> +            switch (bclks_per_wclk & RT5682S_TDM_BCLK_MS1_MASK) {
->>
->> +            case RT5682S_TDM_BCLK_MS1_256:
->>
->> +                           return parent_rate * 256;
->>
->> +            case RT5682S_TDM_BCLK_MS1_128:
->>
->> +                           return parent_rate * 128;
->>
->> +            case RT5682S_TDM_BCLK_MS1_64:
->>
->> +                           return parent_rate * 64;
->>
->> +            case RT5682S_TDM_BCLK_MS1_32:
->>
->> +                           return parent_rate * 32;
->>
->> +            default:
->>
->> +                           return 0;
->>
->> +            }
->>
->> +}
->>
->> +
->>
->> +static unsigned long rt5682s_bclk_get_factor(unsigned long rate,
->>
->> +
->>     unsigned long parent_rate)
->>
->> +{
->>
->> +            unsigned long factor;
->>
->> +
->>
->> +            factor =3D rate / parent_rate;
->>
->> +            if (factor < 64)
->>
->> +                           return 32;
->>
->> +            else if (factor < 128)
->>
->> +                           return 64;
->>
->> +            else if (factor < 256)
->>
->> +                           return 128;
->>
->> +            else
->>
->> +                           return 256;
->>
->> +}
->>
->> +
->>
->> +static long rt5682s_bclk_round_rate(struct clk_hw *hw, unsigned long
->> rate,
->>
->> +                                                          unsigned long
->> *parent_rate)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D
->>
->> +                           container_of(hw, struct rt5682s_priv,
->> dai_clks_hw[RT5682S_DAI_BCLK_IDX]);
->>
->> +            unsigned long factor;
->>
->> +
->>
->> +            if (!*parent_rate || !rt5682s_clk_check(rt5682s))
->>
->> +                           return -EINVAL;
->>
->> +
->>
->> +            /*
->>
->> +            * BCLK rates are set as a multiplier of WCLK in HW.
->>
->> +            * We don't allow changing the parent WCLK. We just do
->>
->> +            * some rounding down based on the parent WCLK rate
->>
->> +            * and find the appropriate multiplier of BCLK to
->>
->> +            * get the rounded down BCLK value.
->>
->> +            */
->>
->> +            factor =3D rt5682s_bclk_get_factor(rate, *parent_rate);
->>
->> +
->>
->> +            return *parent_rate * factor;
->>
->> +}
->>
->> +
->>
->> +static int rt5682s_bclk_set_rate(struct clk_hw *hw, unsigned long rate,
->>
->> +                                                       unsigned long
->> parent_rate)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D
->>
->> +                           container_of(hw, struct rt5682s_priv,
->> dai_clks_hw[RT5682S_DAI_BCLK_IDX]);
->>
->> +            struct snd_soc_component *component =3D rt5682s->component;
->>
->> +            struct snd_soc_dai *dai;
->>
->> +            unsigned long factor;
->>
->> +
->>
->> +            if (!rt5682s_clk_check(rt5682s))
->>
->> +                           return -EINVAL;
->>
->> +
->>
->> +            factor =3D rt5682s_bclk_get_factor(rate, parent_rate);
->>
->> +
->>
->> +            for_each_component_dais(component, dai)
->>
->> +                           if (dai->id =3D=3D RT5682S_AIF1)
->>
->> +                                         break;
->>
->> +            if (!dai) {
->>
->> +                           dev_err(component->dev, "dai %d not found in
->> component\n",
->>
->> +                                         RT5682S_AIF1);
->>
->> +                           return -ENODEV;
->>
->> +            }
->>
->> +
->>
->> +            return rt5682s_set_bclk1_ratio(dai, factor);
->>
->> +}
->>
->> +
->>
->> +static const struct clk_ops rt5682s_dai_clk_ops[RT5682S_DAI_NUM_CLKS] =
-=3D {
->>
->> +            [RT5682S_DAI_WCLK_IDX] =3D {
->>
->> +                           .prepare =3D rt5682s_wclk_prepare,
->>
->> +                           .unprepare =3D rt5682s_wclk_unprepare,
->>
->> +                           .recalc_rate =3D rt5682s_wclk_recalc_rate,
->>
->> +                           .round_rate =3D rt5682s_wclk_round_rate,
->>
->> +                           .set_rate =3D rt5682s_wclk_set_rate,
->>
->> +            },
->>
->> +            [RT5682S_DAI_BCLK_IDX] =3D {
->>
->> +                           .recalc_rate =3D rt5682s_bclk_recalc_rate,
->>
->> +                           .round_rate =3D rt5682s_bclk_round_rate,
->>
->> +                           .set_rate =3D rt5682s_bclk_set_rate,
->>
->> +            },
->>
->> +};
->>
->> +
->>
->> +static int rt5682s_register_dai_clks(struct snd_soc_component *componen=
-t)
->>
->> +{
->>
->> +            struct device *dev =3D component->dev;
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +            struct rt5682s_platform_data *pdata =3D &rt5682s->pdata;
->>
->> +            struct clk_hw *dai_clk_hw;
->>
->> +            int i, ret;
->>
->> +
->>
->> +            for (i =3D 0; i < RT5682S_DAI_NUM_CLKS; ++i) {
->>
->> +                           struct clk_init_data init =3D { };
->>
->> +
->>
->> +                           dai_clk_hw =3D &rt5682s->dai_clks_hw[i];
->>
->> +
->>
->> +                           switch (i) {
->>
->> +                           case RT5682S_DAI_WCLK_IDX:
->>
->> +                                         /* Make MCLK the parent of WCL=
-K
->> */
->>
->> +                                         if (rt5682s->mclk) {
->>
->> +                                                       init.parent_data
->> =3D &(struct clk_parent_data){
->>
->> +
->> .fw_name =3D "mclk",
->>
->> +                                                       };
->>
->> +                                                       init.num_parents
->> =3D 1;
->>
->> +                                         }
->>
->> +                                         break;
->>
->> +                           case RT5682S_DAI_BCLK_IDX:
->>
->> +                                         /* Make WCLK the parent of BCL=
-K
->> */
->>
->> +                                         init.parent_hws =3D &(const
->> struct clk_hw *){
->>
->> +
->> &rt5682s->dai_clks_hw[RT5682S_DAI_WCLK_IDX]
->>
->> +                                         };
->>
->> +                                         init.num_parents =3D 1;
->>
->> +                                         break;
->>
->> +                           default:
->>
->> +                                         dev_err(dev, "Invalid clock
->> index\n");
->>
->> +                                         return -EINVAL;
->>
->> +                           }
->>
->> +
->>
->> +                           init.name =3D pdata->dai_clk_names[i];
->>
->> +                           init.ops =3D &rt5682s_dai_clk_ops[i];
->>
->> +                           init.flags =3D CLK_GET_RATE_NOCACHE |
->> CLK_SET_RATE_GATE;
->>
->> +                           dai_clk_hw->init =3D &init;
->>
->> +
->>
->> +                           ret =3D devm_clk_hw_register(dev, dai_clk_hw=
-);
->>
->> +                           if (ret) {
->>
->> +                                         dev_warn(dev, "Failed to
->> register %s: %d\n", init.name, ret);
->>
->> +                                         return ret;
->>
->> +                           }
->>
->> +
->>
->> +                           if (dev->of_node) {
->>
->> +
->> devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get, dai_clk_hw);
->>
->> +                           } else {
->>
->> +                                         ret =3D
->> devm_clk_hw_register_clkdev(dev, dai_clk_hw,
->>
->> +
->>   init.name, dev_name(dev));
->>
->> +                                         if (ret)
->>
->> +                                                       return ret;
->>
->> +                           }
->>
->> +            }
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static int rt5682s_dai_probe_clks(struct snd_soc_component *component)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +            int ret;
->>
->> +
->>
->> +            /* Check if MCLK provided */
->>
->> +            rt5682s->mclk =3D devm_clk_get(component->dev, "mclk");
->>
->> +            if (IS_ERR(rt5682s->mclk)) {
->>
->> +                           if (PTR_ERR(rt5682s->mclk) !=3D -ENOENT) {
->>
->> +                                         ret =3D PTR_ERR(rt5682s->mclk)=
-;
->>
->> +                                         return ret;
->>
->> +                           }
->>
->> +                           rt5682s->mclk =3D NULL;
->>
->> +            }
->>
->> +
->>
->> +            /* Register CCF DAI clock control */
->>
->> +            ret =3D rt5682s_register_dai_clks(component);
->>
->> +            if (ret)
->>
->> +                           return ret;
->>
->> +
->>
->> +            /* Initial setup for CCF */
->>
->> +            rt5682s->lrck[RT5682S_AIF1] =3D CLK_48;
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +#else
->>
->> +static inline int rt5682s_dai_probe_clks(struct snd_soc_component
->> *component)
->>
->> +{
->>
->> +            return 0;
->>
->> +}
->>
->> +#endif /* CONFIG_COMMON_CLK */
->>
->> +
->>
->> +static int rt5682s_probe(struct snd_soc_component *component)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +            struct snd_soc_dapm_context *dapm =3D &component->dapm;
->>
->> +            int ret;
->>
->> +
->>
->> +            rt5682s->component =3D component;
->>
->> +
->>
->> +            ret =3D rt5682s_dai_probe_clks(component);
->>
->> +            if (ret)
->>
->> +                           return ret;
->>
->> +
->>
->> +            snd_soc_dapm_disable_pin(dapm, "MICBIAS");
->>
->> +            snd_soc_dapm_disable_pin(dapm, "Vref2");
->>
->> +            snd_soc_dapm_sync(dapm);
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static void rt5682s_remove(struct snd_soc_component *component)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +
->>
->> +            rt5682s_reset(rt5682s);
->>
->> +}
->>
->> +
->>
->> +#ifdef CONFIG_PM
->>
->> +static int rt5682s_suspend(struct snd_soc_component *component)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +
->>
->> +            cancel_delayed_work_sync(&rt5682s->jack_detect_work);
->>
->> +            cancel_delayed_work_sync(&rt5682s->jd_check_work);
->>
->> +
->>
->> +            if (rt5682s->hs_jack && rt5682s->jack_type =3D=3D
->> SND_JACK_HEADSET)
->>
->> +                           snd_soc_component_update_bits(component,
->> RT5682S_4BTN_IL_CMD_2,
->>
->> +                                         RT5682S_4BTN_IL_MASK,
->> RT5682S_4BTN_IL_DIS);
->>
->> +
->>
->> +            regcache_cache_only(rt5682s->regmap, true);
->>
->> +            regcache_mark_dirty(rt5682s->regmap);
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static int rt5682s_resume(struct snd_soc_component *component)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D
->> snd_soc_component_get_drvdata(component);
->>
->> +
->>
->> +            regcache_cache_only(rt5682s->regmap, false);
->>
->> +            regcache_sync(rt5682s->regmap);
->>
->> +
->>
->> +            if (rt5682s->hs_jack) {
->>
->> +                           rt5682s->jack_type =3D 0;
->>
->> +                           mod_delayed_work(system_power_efficient_wq,
->>
->> +                                         &rt5682s->jack_detect_work,
->> msecs_to_jiffies(250));
->>
->> +            }
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +#else
->>
->> +#define rt5682s_suspend NULL
->>
->> +#define rt5682s_resume NULL
->>
->> +#endif
->>
->> +
->>
->> +const struct snd_soc_dai_ops rt5682s_aif1_dai_ops =3D {
->>
->> +            .hw_params =3D rt5682s_hw_params,
->>
->> +            .set_fmt =3D rt5682s_set_dai_fmt,
->>
->> +            .set_tdm_slot =3D rt5682s_set_tdm_slot,
->>
->> +            .set_bclk_ratio =3D rt5682s_set_bclk1_ratio,
->>
->> +};
->>
->> +
->>
->> +const struct snd_soc_dai_ops rt5682s_aif2_dai_ops =3D {
->>
->> +            .hw_params =3D rt5682s_hw_params,
->>
->> +            .set_fmt =3D rt5682s_set_dai_fmt,
->>
->> +            .set_bclk_ratio =3D rt5682s_set_bclk2_ratio,
->>
->> +};
->>
->> +
->>
->> +const struct snd_soc_component_driver rt5682s_soc_component_dev =3D {
->>
->> +            .probe =3D rt5682s_probe,
->>
->> +            .remove =3D rt5682s_remove,
->>
->> +            .suspend =3D rt5682s_suspend,
->>
->> +            .resume =3D rt5682s_resume,
->>
->> +            .set_bias_level =3D rt5682s_set_bias_level,
->>
->> +            .controls =3D rt5682s_snd_controls,
->>
->> +            .num_controls =3D ARRAY_SIZE(rt5682s_snd_controls),
->>
->> +            .dapm_widgets =3D rt5682s_dapm_widgets,
->>
->> +            .num_dapm_widgets =3D ARRAY_SIZE(rt5682s_dapm_widgets),
->>
->> +            .dapm_routes =3D rt5682s_dapm_routes,
->>
->> +            .num_dapm_routes =3D ARRAY_SIZE(rt5682s_dapm_routes),
->>
->> +            .set_sysclk =3D rt5682s_set_component_sysclk,
->>
->> +            .set_pll =3D rt5682s_set_component_pll,
->>
->> +            .set_jack =3D rt5682s_set_jack_detect,
->>
->> +            .use_pmdown_time       =3D 1,
->>
->> +            .endianness                     =3D 1,
->>
->> +            .non_legacy_dai_naming            =3D 1,
->>
->> +};
->>
->> +
->>
->> +static int rt5682s_parse_dt(struct rt5682s_priv *rt5682s, struct device
->> *dev)
->>
->> +{
->>
->> +            device_property_read_u32(dev, "realtek,dmic1-data-pin",
->>
->> +                           &rt5682s->pdata.dmic1_data_pin);
->>
->> +            device_property_read_u32(dev, "realtek,dmic1-clk-pin",
->>
->> +                           &rt5682s->pdata.dmic1_clk_pin);
->>
->> +            device_property_read_u32(dev, "realtek,jd-src",
->>
->> +                           &rt5682s->pdata.jd_src);
->>
->> +            device_property_read_u32(dev, "realtek,dmic-clk-rate-hz",
->>
->> +                           &rt5682s->pdata.dmic_clk_rate);
->>
->> +            device_property_read_u32(dev, "realtek,dmic-delay-ms",
->>
->> +                           &rt5682s->pdata.dmic_delay);
->>
->> +
->>
->> +            rt5682s->pdata.ldo1_en =3D of_get_named_gpio(dev->of_node,
->>
->> +                           "realtek,ldo1-en-gpios", 0);
->>
->> +
->>
->> +            if (device_property_read_string_array(dev,
->> "clock-output-names",
->>
->> +
->>       rt5682s->pdata.dai_clk_names,
->>
->> +
->>       RT5682S_DAI_NUM_CLKS) < 0)
->>
->> +                           dev_warn(dev, "Using default DAI clk names:
->> %s, %s\n",
->>
->> +
->> rt5682s->pdata.dai_clk_names[RT5682S_DAI_WCLK_IDX],
->>
->> +
->> rt5682s->pdata.dai_clk_names[RT5682S_DAI_BCLK_IDX]);
->>
->> +
->>
->> +            rt5682s->pdata.dmic_clk_driving_high =3D
->> device_property_read_bool(dev,
->>
->> +                           "realtek,dmic-clk-driving-high");
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static void rt5682s_calibrate(struct rt5682s_priv *rt5682s)
->>
->> +{
->>
->> +            unsigned int count, value;
->>
->> +
->>
->> +            mutex_lock(&rt5682s->calibrate_mutex);
->>
->> +
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_PWR_ANLG_1, 0xaa80);
->>
->> +            usleep_range(15000, 20000);
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_PWR_ANLG_1, 0xfa80);
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_PWR_DIG_1, 0x01c0);
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_MICBIAS_2, 0x0380);
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_GLB_CLK, 0x8000);
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_ADDA_CLK_1, 0x1001);
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_CHOP_DAC_2, 0x3030);
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_CHOP_ADC, 0xb000);
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_STO1_ADC_MIXER,
->> 0x686c);
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_CAL_REC, 0x5151);
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_HP_CALIB_CTRL_2,
->> 0x0321);
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_HP_LOGIC_CTRL_2,
->> 0x0004);
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_HP_CALIB_CTRL_1,
->> 0x7c00);
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_HP_CALIB_CTRL_1,
->> 0xfc00);
->>
->> +
->>
->> +            for (count =3D 0; count < 60; count++) {
->>
->> +                           regmap_read(rt5682s->regmap,
->> RT5682S_HP_CALIB_ST_1, &value);
->>
->> +                           if (!(value & 0x8000))
->>
->> +                                         break;
->>
->> +
->>
->> +                           usleep_range(10000, 10005);
->>
->> +            }
->>
->> +
->>
->> +            if (count >=3D 60)
->>
->> +                           dev_err(rt5682s->component->dev, "HP
->> Calibration Failure\n");
->>
->> +
->>
->> +            /* restore settings */
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_MICBIAS_2, 0x0180);
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_CAL_REC, 0x5858);
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_STO1_ADC_MIXER,
->> 0xc0c4);
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_HP_CALIB_CTRL_2,
->> 0x0320);
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_PWR_DIG_1, 0x00c0);
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_PWR_ANLG_1, 0x0800);
->>
->> +            regmap_write(rt5682s->regmap, RT5682S_GLB_CLK, 0x0000);
->>
->> +
->>
->> +            mutex_unlock(&rt5682s->calibrate_mutex);
->>
->> +}
->>
->> +
->>
->> +static const struct regmap_config rt5682s_regmap =3D {
->>
->> +            .reg_bits =3D 16,
->>
->> +            .val_bits =3D 16,
->>
->> +            .max_register =3D RT5682S_MAX_REG,
->>
->> +            .volatile_reg =3D rt5682s_volatile_register,
->>
->> +            .readable_reg =3D rt5682s_readable_register,
->>
->> +            .cache_type =3D REGCACHE_RBTREE,
->>
->> +            .reg_defaults =3D rt5682s_reg,
->>
->> +            .num_reg_defaults =3D ARRAY_SIZE(rt5682s_reg),
->>
->> +            .use_single_read =3D true,
->>
->> +            .use_single_write =3D true,
->>
->> +};
->>
->> +
->>
->> +static struct snd_soc_dai_driver rt5682s_dai[] =3D {
->>
->> +            {
->>
->> +                           .name =3D "rt5682s-aif1",
->>
->> +                           .id =3D RT5682S_AIF1,
->>
->> +                           .playback =3D {
->>
->> +                                         .stream_name =3D "AIF1 Playbac=
-k",
->>
->> +                                         .channels_min =3D 1,
->>
->> +                                         .channels_max =3D 2,
->>
->> +                                         .rates =3D RT5682S_STEREO_RATE=
-S,
->>
->> +                                         .formats =3D RT5682S_FORMATS,
->>
->> +                           },
->>
->> +                           .capture =3D {
->>
->> +                                         .stream_name =3D "AIF1 Capture=
-",
->>
->> +                                         .channels_min =3D 1,
->>
->> +                                         .channels_max =3D 2,
->>
->> +                                         .rates =3D RT5682S_STEREO_RATE=
-S,
->>
->> +                                         .formats =3D RT5682S_FORMATS,
->>
->> +                           },
->>
->> +                           .ops =3D &rt5682s_aif1_dai_ops,
->>
->> +            },
->>
->> +            {
->>
->> +                           .name =3D "rt5682s-aif2",
->>
->> +                           .id =3D RT5682S_AIF2,
->>
->> +                           .capture =3D {
->>
->> +                                         .stream_name =3D "AIF2 Capture=
-",
->>
->> +                                         .channels_min =3D 1,
->>
->> +                                         .channels_max =3D 2,
->>
->> +                                         .rates =3D RT5682S_STEREO_RATE=
-S,
->>
->> +                                         .formats =3D RT5682S_FORMATS,
->>
->> +                           },
->>
->> +                           .ops =3D &rt5682s_aif2_dai_ops,
->>
->> +            },
->>
->> +};
->>
->> +
->>
->> +static void rt5682s_i2c_disable_regulators(void *data)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D data;
->>
->> +
->>
->> +            regulator_bulk_disable(ARRAY_SIZE(rt5682s->supplies),
->> rt5682s->supplies);
->>
->> +}
->>
->> +
->>
->> +static int rt5682s_i2c_probe(struct i2c_client *i2c,
->>
->> +                           const struct i2c_device_id *id)
->>
->> +{
->>
->> +            struct rt5682s_platform_data *pdata =3D
->> dev_get_platdata(&i2c->dev);
->>
->> +            struct rt5682s_priv *rt5682s;
->>
->> +            int i, ret;
->>
->> +            unsigned int val;
->>
->> +
->>
->> +            rt5682s =3D devm_kzalloc(&i2c->dev, sizeof(struct
->> rt5682s_priv), GFP_KERNEL);
->>
->> +            if (!rt5682s)
->>
->> +                           return -ENOMEM;
->>
->> +
->>
->> +            i2c_set_clientdata(i2c, rt5682s);
->>
->> +
->>
->> +            rt5682s->pdata =3D i2s_default_platform_data;
->>
->> +
->>
->> +            if (pdata)
->>
->> +                           rt5682s->pdata =3D *pdata;
->>
->> +            else
->>
->> +                           rt5682s_parse_dt(rt5682s, &i2c->dev);
->>
->> +
->>
->> +            rt5682s->regmap =3D devm_regmap_init_i2c(i2c, &rt5682s_regm=
-ap);
->>
->> +            if (IS_ERR(rt5682s->regmap)) {
->>
->> +                           ret =3D PTR_ERR(rt5682s->regmap);
->>
->> +                           dev_err(&i2c->dev, "Failed to allocate
->> register map: %d\n", ret);
->>
->> +                           return ret;
->>
->> +            }
->>
->> +
->>
->> +            for (i =3D 0; i < ARRAY_SIZE(rt5682s->supplies); i++)
->>
->> +                           rt5682s->supplies[i].supply =3D
->> rt5682s_supply_names[i];
->>
->> +
->>
->> +            ret =3D devm_regulator_bulk_get(&i2c->dev,
->>
->> +                                         ARRAY_SIZE(rt5682s->supplies),
->> rt5682s->supplies);
->>
->> +            if (ret) {
->>
->> +                           dev_err(&i2c->dev, "Failed to request
->> supplies: %d\n", ret);
->>
->> +                           return ret;
->>
->> +            }
->>
->> +
->>
->> +            ret =3D devm_add_action_or_reset(&i2c->dev,
->> rt5682s_i2c_disable_regulators, rt5682s);
->>
->> +            if (ret)
->>
->> +                           return ret;
->>
->> +
->>
->> +            ret =3D regulator_bulk_enable(ARRAY_SIZE(rt5682s->supplies)=
-,
->> rt5682s->supplies);
->>
->> +            if (ret) {
->>
->> +                           dev_err(&i2c->dev, "Failed to enable
->> supplies: %d\n", ret);
->>
->> +                           return ret;
->>
->> +            }
->>
->> +
->>
->> +            if (gpio_is_valid(rt5682s->pdata.ldo1_en)) {
->>
->> +                           if (devm_gpio_request_one(&i2c->dev,
->> rt5682s->pdata.ldo1_en,
->>
->> +
->> GPIOF_OUT_INIT_HIGH, "rt5682s"))
->>
->> +                                         dev_err(&i2c->dev, "Fail
->> gpio_request gpio_ldo\n");
->>
->> +            }
->>
->> +
->>
->> +            /* Sleep for 50 ms minimum */
->>
->> +            usleep_range(50000, 55000);
->>
->> +
->>
->> +            regmap_read(rt5682s->regmap, RT5682S_DEVICE_ID, &val);
->>
->> +            if (val !=3D DEVICE_ID) {
->>
->> +                           dev_err(&i2c->dev, "Device with ID register
->> %x is not rt5682s\n", val);
->>
->> +                           return -ENODEV;
->>
->> +            }
->>
->> +
->>
->> +            rt5682s_reset(rt5682s);
->>
->> +            rt5682s_apply_patch_list(rt5682s, &i2c->dev);
->>
->> +
->>
->> +            regmap_update_bits(rt5682s->regmap, RT5682S_PWR_DIG_2,
->>
->> +                           RT5682S_DLDO_I_LIMIT_MASK,
->> RT5682S_DLDO_I_LIMIT_DIS);
->>
->> +            usleep_range(20000, 25000);
->>
->> +
->>
->> +            mutex_init(&rt5682s->calibrate_mutex);
->>
->> +            mutex_init(&rt5682s->sar_mutex);
->>
->> +            rt5682s_calibrate(rt5682s);
->>
->> +
->>
->> +            regmap_update_bits(rt5682s->regmap, RT5682S_MICBIAS_2,
->>
->> +                           RT5682S_PWR_CLK25M_MASK |
->> RT5682S_PWR_CLK1M_MASK,
->>
->> +                           RT5682S_PWR_CLK25M_PD | RT5682S_PWR_CLK1M_PU=
-);
->>
->> +            regmap_update_bits(rt5682s->regmap, RT5682S_PWR_ANLG_1,
->>
->> +                           RT5682S_PWR_BG, RT5682S_PWR_BG);
->>
->> +            regmap_update_bits(rt5682s->regmap, RT5682S_HP_LOGIC_CTRL_2=
-,
->>
->> +                           RT5682S_HP_SIG_SRC_MASK,
->> RT5682S_HP_SIG_SRC_1BIT_CTL);
->>
->> +            regmap_update_bits(rt5682s->regmap, RT5682S_HP_CHARGE_PUMP_=
-2,
->>
->> +                           RT5682S_PM_HP_MASK, RT5682S_PM_HP_HV);
->>
->> +
->>
->> +            /* DMIC data pin */
->>
->> +            switch (rt5682s->pdata.dmic1_data_pin) {
->>
->> +            case RT5682S_DMIC1_DATA_NULL:
->>
->> +                           break;
->>
->> +            case RT5682S_DMIC1_DATA_GPIO2: /* share with LRCK2 */
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_DMIC_CTRL_1,
->>
->> +                                         RT5682S_DMIC_1_DP_MASK,
->> RT5682S_DMIC_1_DP_GPIO2);
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_GPIO_CTRL_1,
->>
->> +                                         RT5682S_GP2_PIN_MASK,
->> RT5682S_GP2_PIN_DMIC_SDA);
->>
->> +                           break;
->>
->> +            case RT5682S_DMIC1_DATA_GPIO5: /* share with DACDAT1 */
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_DMIC_CTRL_1,
->>
->> +                                         RT5682S_DMIC_1_DP_MASK,
->> RT5682S_DMIC_1_DP_GPIO5);
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_GPIO_CTRL_1,
->>
->> +                                         RT5682S_GP5_PIN_MASK,
->> RT5682S_GP5_PIN_DMIC_SDA);
->>
->> +                           break;
->>
->> +            default:
->>
->> +                           dev_warn(&i2c->dev, "invalid DMIC_DAT pin\n"=
-);
->>
->> +                           break;
->>
->> +            }
->>
->> +
->>
->> +            /* DMIC clk pin */
->>
->> +            switch (rt5682s->pdata.dmic1_clk_pin) {
->>
->> +            case RT5682S_DMIC1_CLK_NULL:
->>
->> +                           break;
->>
->> +            case RT5682S_DMIC1_CLK_GPIO1: /* share with IRQ */
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_GPIO_CTRL_1,
->>
->> +                                         RT5682S_GP1_PIN_MASK,
->> RT5682S_GP1_PIN_DMIC_CLK);
->>
->> +                           break;
->>
->> +            case RT5682S_DMIC1_CLK_GPIO3: /* share with BCLK2 */
->>
->> +                           regmap_update_bits(rt5682s->regmap,
->> RT5682S_GPIO_CTRL_1,
->>
->> +                                         RT5682S_GP3_PIN_MASK,
->> RT5682S_GP3_PIN_DMIC_CLK);
->>
->> +                           if (rt5682s->pdata.dmic_clk_driving_high)
->>
->> +
->> regmap_update_bits(rt5682s->regmap, RT5682S_PAD_DRIVING_CTRL,
->>
->> +
->> RT5682S_PAD_DRV_GP3_MASK, RT5682S_PAD_DRV_GP3_HIGH);
->>
->> +                           break;
->>
->> +            default:
->>
->> +                           dev_warn(&i2c->dev, "invalid DMIC_CLK pin\n"=
-);
->>
->> +                           break;
->>
->> +            }
->>
->> +
->>
->> +            INIT_DELAYED_WORK(&rt5682s->jack_detect_work,
->> rt5682s_jack_detect_handler);
->>
->> +            INIT_DELAYED_WORK(&rt5682s->jd_check_work,
->> rt5682s_jd_check_handler);
->>
->> +
->>
->> +            if (i2c->irq) {
->>
->> +                           ret =3D devm_request_threaded_irq(&i2c->dev,
->> i2c->irq, NULL, rt5682s_irq,
->>
->> +                                         IRQF_TRIGGER_RISING |
->> IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
->>
->> +                                         "rt5682s", rt5682s);
->>
->> +                           if (ret)
->>
->> +                                         dev_err(&i2c->dev, "Failed to
->> reguest IRQ: %d\n", ret);
->>
->> +            }
->>
->> +
->>
->> +            return devm_snd_soc_register_component(&i2c->dev,
->> &rt5682s_soc_component_dev,
->>
->> +                                         rt5682s_dai,
->> ARRAY_SIZE(rt5682s_dai));
->>
->> +}
->>
->> +
->>
->> +static void rt5682s_i2c_shutdown(struct i2c_client *client)
->>
->> +{
->>
->> +            struct rt5682s_priv *rt5682s =3D i2c_get_clientdata(client)=
-;
->>
->> +
->>
->> +            disable_irq(client->irq);
->>
->> +            cancel_delayed_work_sync(&rt5682s->jack_detect_work);
->>
->> +            cancel_delayed_work_sync(&rt5682s->jd_check_work);
->>
->> +
->>
->> +            rt5682s_reset(rt5682s);
->>
->> +}
->>
->> +
->>
->> +static int rt5682s_i2c_remove(struct i2c_client *client)
->>
->> +{
->>
->> +            rt5682s_i2c_shutdown(client);
->>
->> +
->>
->> +            return 0;
->>
->> +}
->>
->> +
->>
->> +static const struct of_device_id rt5682s_of_match[] =3D {
->>
->> +            {.compatible =3D "realtek,rt5682s"},
->>
->> +            {},
->>
->> +};
->>
->> +MODULE_DEVICE_TABLE(of, rt5682s_of_match);
->>
->> +
->>
->> +static const struct acpi_device_id rt5682s_acpi_match[] =3D {
->>
->> +            {"RTL5682", 0,},
->>
->> +            {},
->>
->> +};
->>
->> +MODULE_DEVICE_TABLE(acpi, rt5682s_acpi_match);
->>
->> +
->>
->> +static const struct i2c_device_id rt5682s_i2c_id[] =3D {
->>
->> +            {"rt5682s", 0},
->>
->> +            {}
->>
->> +};
->>
->> +MODULE_DEVICE_TABLE(i2c, rt5682s_i2c_id);
->>
->> +
->>
->> +static struct i2c_driver rt5682s_i2c_driver =3D {
->>
->> +            .driver =3D {
->>
->> +                           .name =3D "rt5682s",
->>
->> +                           .of_match_table =3D rt5682s_of_match,
->>
->> +                           .acpi_match_table =3D rt5682s_acpi_match,
->>
->> +                           .probe_type =3D PROBE_PREFER_ASYNCHRONOUS,
->>
->> +            },
->>
->> +            .probe =3D rt5682s_i2c_probe,
->>
->> +            .remove =3D rt5682s_i2c_remove,
->>
->> +            .shutdown =3D rt5682s_i2c_shutdown,
->>
->> +            .id_table =3D rt5682s_i2c_id,
->>
->> +};
->>
->> +module_i2c_driver(rt5682s_i2c_driver);
->>
->> +
->>
->> +MODULE_DESCRIPTION("ASoC RT5682I-VS driver");
->>
->> +MODULE_AUTHOR("Derek Fang <derek.fang@realtek.com>");
->>
->> +MODULE_LICENSE("GPL v2");
->>
->> diff --git a/sound/soc/codecs/rt5682s.h b/sound/soc/codecs/rt5682s.h
->>
->> new file mode 100644
->>
->> index 000000000000..7c755e5efb81
->>
->> --- /dev/null
->>
->> +++ b/sound/soc/codecs/rt5682s.h
->>
->> @@ -0,0 +1,1455 @@
->>
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->>
->> +/*
->>
->> + * rt5682s.h  --  RT5682I-VS ALSA SoC audio driver
->>
->> + *
->>
->> + * Copyright 2021 Realtek Microelectronics
->>
->> + * Author: Derek Fang <derek.fang@realtek.com>
->>
->> + */
->>
->> +
->>
->> +#ifndef __RT5682S_H__
->>
->> +#define __RT5682S_H__
->>
->> +
->>
->> +#include <sound/rt5682s.h>
->>
->> +#include <linux/regulator/consumer.h>
->>
->> +#include <linux/clk.h>
->>
->> +#include <linux/clkdev.h>
->>
->> +#include <linux/clk-provider.h>
->>
->> +
->>
->> +
->>
->> +/* Info */
->>
->> +#define
->> RT5682S_RESET                                                       0x00=
-00
->>
->> +#define RT5682S_VERSION_ID                              0x00fd
->>
->> +#define RT5682S_VENDOR_ID                              0x00fe
->>
->> +#define RT5682S_DEVICE_ID                                0x00ff
->>
->> +/*  I/O - Output */
->>
->> +#define RT5682S_HP_CTRL_1                                0x0002
->>
->> +#define RT5682S_HP_CTRL_2                                0x0003
->>
->> +#define RT5682S_HPL_GAIN                                  0x0005
->>
->> +#define RT5682S_HPR_GAIN                                 0x0006
->>
->> +
->>
->> +#define RT5682S_I2C_CTRL                                   0x0008
->>
->> +
->>
->> +/* I/O - Input */
->>
->> +#define RT5682S_CBJ_BST_CTRL
->> 0x000b
->>
->> +#define RT5682S_CBJ_DET_CTRL
->> 0x000f
->>
->> +#define RT5682S_CBJ_CTRL_1                              0x0010
->>
->> +#define RT5682S_CBJ_CTRL_2                              0x0011
->>
->> +#define RT5682S_CBJ_CTRL_3                              0x0012
->>
->> +#define RT5682S_CBJ_CTRL_4                              0x0013
->>
->> +#define RT5682S_CBJ_CTRL_5                              0x0014
->>
->> +#define RT5682S_CBJ_CTRL_6                              0x0015
->>
->> +#define RT5682S_CBJ_CTRL_7                              0x0016
->>
->> +#define RT5682S_CBJ_CTRL_8                              0x0017
->>
->> +/* I/O - ADC/DAC/DMIC */
->>
->> +#define RT5682S_DAC1_DIG_VOL                                      0x001=
-9
->>
->> +#define RT5682S_STO1_ADC_DIG_VOL              0x001c
->>
->> +#define RT5682S_STO1_ADC_BOOST                                0x001f
->>
->> +#define RT5682S_HP_IMP_GAIN_1                                    0x0022
->>
->> +#define RT5682S_HP_IMP_GAIN_2                                    0x0023
->>
->> +/* Mixer - D-D */
->>
->> +#define RT5682S_SIDETONE_CTRL                                     0x002=
-4
->>
->> +#define RT5682S_STO1_ADC_MIXER                                 0x0026
->>
->> +#define RT5682S_AD_DA_MIXER                                       0x002=
-9
->>
->> +#define RT5682S_STO1_DAC_MIXER                                 0x002a
->>
->> +#define RT5682S_A_DAC1_MUX                                         0x00=
-2b
->>
->> +#define RT5682S_DIG_INF2_DATA                                     0x003=
-0
->>
->> +/* Mixer - ADC */
->>
->> +#define RT5682S_REC_MIXER                               0x003c
->>
->> +#define RT5682S_CAL_REC
->> 0x0044
->>
->> +/* HP Analog Offset Control */
->>
->> +#define RT5682S_HP_ANA_OST_CTRL_1                          0x004b
->>
->> +#define RT5682S_HP_ANA_OST_CTRL_2                          0x004c
->>
->> +#define RT5682S_HP_ANA_OST_CTRL_3                          0x004d
->>
->> +/* Power */
->>
->> +#define RT5682S_PWR_DIG_1                              0x0061
->>
->> +#define RT5682S_PWR_DIG_2                              0x0062
->>
->> +#define RT5682S_PWR_ANLG_1                                         0x00=
-63
->>
->> +#define RT5682S_PWR_ANLG_2                                         0x00=
-64
->>
->> +#define RT5682S_PWR_ANLG_3                                         0x00=
-65
->>
->> +#define RT5682S_PWR_MIXER                             0x0066
->>
->> +
->>
->> +#define RT5682S_MB_CTRL
->> 0x0067
->>
->> +#define RT5682S_CLK_GATE_TCON_1                               0x0068
->>
->> +#define RT5682S_CLK_GATE_TCON_2                               0x0069
->>
->> +#define RT5682S_CLK_GATE_TCON_3                               0x006a
->>
->> +/* Clock Detect */
->>
->> +#define
->> RT5682S_CLK_DET                                                   0x006b
->>
->> +/* Filter Auto Reset */
->>
->> +#define RT5682S_RESET_LPF_CTRL                                    0x006=
-c
->>
->> +#define RT5682S_RESET_HPF_CTRL                                   0x006d
->>
->> +/* DMIC */
->>
->> +#define RT5682S_DMIC_CTRL_1
->> 0x006e
->>
->> +#define RT5682S_LPF_AD_DMIC                                        0x00=
-6f
->>
->> +/* Format - ADC/DAC */
->>
->> +#define RT5682S_I2S1_SDP                                   0x0070
->>
->> +#define RT5682S_I2S2_SDP                                   0x0071
->>
->> +#define RT5682S_ADDA_CLK_1
->> 0x0073
->>
->> +#define RT5682S_ADDA_CLK_2
->> 0x0074
->>
->> +#define RT5682S_I2S1_F_DIV_CTRL_1                0x0075
->>
->> +#define RT5682S_I2S1_F_DIV_CTRL_2                0x0076
->>
->> +/* Format - TDM Control */
->>
->> +#define RT5682S_TDM_CTRL                                0x0079
->>
->> +#define RT5682S_TDM_ADDA_CTRL_1                             0x007a
->>
->> +#define RT5682S_TDM_ADDA_CTRL_2                             0x007b
->>
->> +#define RT5682S_DATA_SEL_CTRL_1                                 0x007c
->>
->> +#define RT5682S_TDM_TCON_CTRL_1                              0x007e
->>
->> +#define RT5682S_TDM_TCON_CTRL_2                              0x007f
->>
->> +/* Function - Analog */
->>
->> +#define
->> RT5682S_GLB_CLK                                                   0x0080
->>
->> +#define RT5682S_PLL_TRACK_1
->> 0x0083
->>
->> +#define RT5682S_PLL_TRACK_2
->> 0x0084
->>
->> +#define RT5682S_PLL_TRACK_3
->> 0x0085
->>
->> +#define RT5682S_PLL_TRACK_4
->> 0x0086
->>
->> +#define RT5682S_PLL_TRACK_5
->> 0x0087
->>
->> +#define RT5682S_PLL_TRACK_6
->> 0x0088
->>
->> +#define RT5682S_PLL_TRACK_11
->> 0x008c
->>
->> +#define RT5682S_DEPOP_1
->> 0x008e
->>
->> +#define RT5682S_HP_CHARGE_PUMP_1                          0x008f
->>
->> +#define RT5682S_HP_CHARGE_PUMP_2                          0x0091
->>
->> +#define RT5682S_HP_CHARGE_PUMP_3                          0x0092
->>
->> +#define RT5682S_MICBIAS_1                                0x0093
->>
->> +#define RT5682S_MICBIAS_2                                0x0094
->>
->> +#define RT5682S_MICBIAS_3                                0x0095
->>
->> +
->>
->> +#define RT5682S_PLL_TRACK_12
->> 0x0096
->>
->> +#define RT5682S_PLL_TRACK_14
->> 0x0097
->>
->> +#define RT5682S_PLL_CTRL_1                               0x0098
->>
->> +#define RT5682S_PLL_CTRL_2                               0x0099
->>
->> +#define RT5682S_PLL_CTRL_3                               0x009a
->>
->> +#define RT5682S_PLL_CTRL_4                               0x009b
->>
->> +#define RT5682S_PLL_CTRL_5                               0x009c
->>
->> +#define RT5682S_PLL_CTRL_6                               0x009d
->>
->> +#define RT5682S_PLL_CTRL_7                               0x009e
->>
->> +
->>
->> +#define RT5682S_RC_CLK_CTRL
->> 0x009f
->>
->> +#define RT5682S_I2S2_M_CLK_CTRL_1                             0x00a0
->>
->> +#define RT5682S_I2S2_F_DIV_CTRL_1                0x00a3
->>
->> +#define RT5682S_I2S2_F_DIV_CTRL_2                0x00a4
->>
->> +
->>
->> +#define RT5682S_IRQ_CTRL_1                              0x00b6
->>
->> +#define RT5682S_IRQ_CTRL_2                              0x00b7
->>
->> +#define RT5682S_IRQ_CTRL_3                              0x00b8
->>
->> +#define RT5682S_IRQ_CTRL_4                              0x00b9
->>
->> +#define RT5682S_INT_ST_1                                   0x00be
->>
->> +#define RT5682S_GPIO_CTRL_1
->> 0x00c0
->>
->> +#define RT5682S_GPIO_CTRL_2
->> 0x00c1
->>
->> +#define
->> RT5682S_GPIO_ST                                                   0x00c2
->>
->> +#define RT5682S_HP_AMP_DET_CTRL_1                          0x00d0
->>
->> +#define RT5682S_MID_HP_AMP_DET                               0x00d2
->>
->> +#define RT5682S_LOW_HP_AMP_DET                              0x00d3
->>
->> +#define RT5682S_DELAY_BUF_CTRL                                  0x00d4
->>
->> +#define RT5682S_SV_ZCD_1                                  0x00d9
->>
->> +#define RT5682S_SV_ZCD_2                                  0x00da
->>
->> +#define RT5682S_IL_CMD_1                                 0x00db
->>
->> +#define RT5682S_IL_CMD_2                                 0x00dc
->>
->> +#define RT5682S_IL_CMD_3                                 0x00dd
->>
->> +#define RT5682S_IL_CMD_4                                 0x00de
->>
->> +#define RT5682S_IL_CMD_5                                 0x00df
->>
->> +#define RT5682S_IL_CMD_6                                 0x00e0
->>
->> +#define RT5682S_4BTN_IL_CMD_1                                    0x00e2
->>
->> +#define RT5682S_4BTN_IL_CMD_2                                    0x00e3
->>
->> +#define RT5682S_4BTN_IL_CMD_3                                    0x00e4
->>
->> +#define RT5682S_4BTN_IL_CMD_4                                    0x00e5
->>
->> +#define RT5682S_4BTN_IL_CMD_5                                    0x00e6
->>
->> +#define RT5682S_4BTN_IL_CMD_6                                    0x00e7
->>
->> +#define RT5682S_4BTN_IL_CMD_7                                    0x00e8
->>
->> +
->>
->> +#define RT5682S_ADC_STO1_HP_CTRL_1                        0x00ea
->>
->> +#define RT5682S_ADC_STO1_HP_CTRL_2                        0x00eb
->>
->> +#define RT5682S_AJD1_CTRL                                0x00f0
->>
->> +#define RT5682S_JD_CTRL_1                                0x00f6
->>
->> +/* General Control */
->>
->> +#define RT5682S_DUMMY_1
->> 0x00fa
->>
->> +#define RT5682S_DUMMY_2
->> 0x00fb
->>
->> +#define RT5682S_DUMMY_3
->> 0x00fc
->>
->> +
->>
->> +#define RT5682S_DAC_ADC_DIG_VOL1                            0x0100
->>
->> +#define RT5682S_BIAS_CUR_CTRL_2                                 0x010b
->>
->> +#define RT5682S_BIAS_CUR_CTRL_3                                 0x010c
->>
->> +#define RT5682S_BIAS_CUR_CTRL_4                                 0x010d
->>
->> +#define RT5682S_BIAS_CUR_CTRL_5                                 0x010e
->>
->> +#define RT5682S_BIAS_CUR_CTRL_6                                 0x010f
->>
->> +#define RT5682S_BIAS_CUR_CTRL_7                                 0x0110
->>
->> +#define RT5682S_BIAS_CUR_CTRL_8                                 0x0111
->>
->> +#define RT5682S_BIAS_CUR_CTRL_9                                 0x0112
->>
->> +#define RT5682S_BIAS_CUR_CTRL_10                0x0113
->>
->> +#define RT5682S_VREF_REC_OP_FB_CAP_CTRL_1         0x0117
->>
->> +#define RT5682S_VREF_REC_OP_FB_CAP_CTRL_2         0x0118
->>
->> +#define RT5682S_CHARGE_PUMP_1                                  0x0125
->>
->> +#define RT5682S_DIG_IN_CTRL_1                                      0x01=
-32
->>
->> +#define RT5682S_PAD_DRIVING_CTRL               0x0136
->>
->> +#define RT5682S_CHOP_DAC_1
->> 0x0139
->>
->> +#define RT5682S_CHOP_DAC_2
->> 0x013a
->>
->> +#define RT5682S_CHOP_ADC                                0x013b
->>
->> +#define RT5682S_CALIB_ADC_CTRL                                   0x013c
->>
->> +#define RT5682S_VOL_TEST                                  0x013f
->>
->> +#define RT5682S_SPKVDD_DET_ST                                    0x0142
->>
->> +#define RT5682S_TEST_MODE_CTRL_1                            0x0145
->>
->> +#define RT5682S_TEST_MODE_CTRL_2                            0x0146
->>
->> +#define RT5682S_TEST_MODE_CTRL_3                            0x0147
->>
->> +#define RT5682S_TEST_MODE_CTRL_4                            0x0148
->>
->> +#define RT5682S_PLL_INTERNAL_1                                    0x015=
-6
->>
->> +#define RT5682S_PLL_INTERNAL_2                                    0x015=
-7
->>
->> +#define RT5682S_PLL_INTERNAL_3                                    0x015=
-8
->>
->> +#define RT5682S_PLL_INTERNAL_4                                    0x015=
-9
->>
->> +#define RT5682S_STO_NG2_CTRL_1                                  0x0160
->>
->> +#define RT5682S_STO_NG2_CTRL_2                                  0x0161
->>
->> +#define RT5682S_STO_NG2_CTRL_3                                  0x0162
->>
->> +#define RT5682S_STO_NG2_CTRL_4                                  0x0163
->>
->> +#define RT5682S_STO_NG2_CTRL_5                                  0x0164
->>
->> +#define RT5682S_STO_NG2_CTRL_6                                  0x0165
->>
->> +#define RT5682S_STO_NG2_CTRL_7                                  0x0166
->>
->> +#define RT5682S_STO_NG2_CTRL_8                                  0x0167
->>
->> +#define RT5682S_STO_NG2_CTRL_9                                  0x0168
->>
->> +#define RT5682S_STO_NG2_CTRL_10                                0x0169
->>
->> +#define RT5682S_STO1_DAC_SIL_DET                0x0190
->>
->> +#define RT5682S_SIL_PSV_CTRL1
->> 0x0194
->>
->> +#define RT5682S_SIL_PSV_CTRL2
->> 0x0195
->>
->> +#define RT5682S_SIL_PSV_CTRL3
->> 0x0197
->>
->> +#define RT5682S_SIL_PSV_CTRL4
->> 0x0198
->>
->> +#define RT5682S_SIL_PSV_CTRL5
->> 0x0199
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_1                         0x01ac
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_2                         0x01ad
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_3                         0x01ae
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_4                         0x01af
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_5                         0x01b0
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_6                         0x01b1
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_7                         0x01b2
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_8                         0x01b3
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_9                         0x01b4
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_10                       0x01b5
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_11                       0x01b6
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_12                       0x01b7
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_13                       0x01b8
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_14                       0x01b9
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_15                       0x01ba
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_16                       0x01bb
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_17                       0x01bc
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_18                       0x01bd
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_19                       0x01be
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_20                       0x01bf
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_21                       0x01c0
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_22                       0x01c1
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_23                       0x01c2
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_24                       0x01c3
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_25                       0x01c4
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_26                       0x01c5
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_27                       0x01c6
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_28                       0x01c7
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_29                       0x01c8
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_30                       0x01c9
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_31                       0x01ca
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_32                       0x01cb
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_33                       0x01cc
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_34                       0x01cd
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_35                       0x01ce
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_36                       0x01cf
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_37                       0x01d0
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_38                       0x01d1
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_39                       0x01d2
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_40                       0x01d3
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_41                       0x01d4
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_42                       0x01d5
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_43                       0x01d6
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_44                       0x01d7
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_45                       0x01d8
->>
->> +#define RT5682S_HP_IMP_SENS_CTRL_46                       0x01d9
->>
->> +#define RT5682S_HP_LOGIC_CTRL_1                                 0x01da
->>
->> +#define RT5682S_HP_LOGIC_CTRL_2                                 0x01db
->>
->> +#define RT5682S_HP_LOGIC_CTRL_3                                 0x01dc
->>
->> +#define RT5682S_HP_CALIB_CTRL_1                                 0x01de
->>
->> +#define RT5682S_HP_CALIB_CTRL_2                                 0x01df
->>
->> +#define RT5682S_HP_CALIB_CTRL_3                                 0x01e0
->>
->> +#define RT5682S_HP_CALIB_CTRL_4                                 0x01e1
->>
->> +#define RT5682S_HP_CALIB_CTRL_5                                 0x01e2
->>
->> +#define RT5682S_HP_CALIB_CTRL_6                                 0x01e3
->>
->> +#define RT5682S_HP_CALIB_CTRL_7                                 0x01e4
->>
->> +#define RT5682S_HP_CALIB_CTRL_8                                 0x01e5
->>
->> +#define RT5682S_HP_CALIB_CTRL_9                                 0x01e6
->>
->> +#define RT5682S_HP_CALIB_CTRL_10                 0x01e7
->>
->> +#define RT5682S_HP_CALIB_CTRL_11                 0x01e8
->>
->> +#define RT5682S_HP_CALIB_ST_1                                      0x01=
-ea
->>
->> +#define RT5682S_HP_CALIB_ST_2                                      0x01=
-eb
->>
->> +#define RT5682S_HP_CALIB_ST_3                                      0x01=
-ec
->>
->> +#define RT5682S_HP_CALIB_ST_4                                      0x01=
-ed
->>
->> +#define RT5682S_HP_CALIB_ST_5                                      0x01=
-ee
->>
->> +#define RT5682S_HP_CALIB_ST_6                                      0x01=
-ef
->>
->> +#define RT5682S_HP_CALIB_ST_7                                      0x01=
-f0
->>
->> +#define RT5682S_HP_CALIB_ST_8                                      0x01=
-f1
->>
->> +#define RT5682S_HP_CALIB_ST_9                                      0x01=
-f2
->>
->> +#define RT5682S_HP_CALIB_ST_10                                    0x01f=
-3
->>
->> +#define RT5682S_HP_CALIB_ST_11                                    0x01f=
-4
->>
->> +#define RT5682S_SAR_IL_CMD_1                                       0x02=
-10
->>
->> +#define RT5682S_SAR_IL_CMD_2                                       0x02=
-11
->>
->> +#define RT5682S_SAR_IL_CMD_3                                       0x02=
-12
->>
->> +#define RT5682S_SAR_IL_CMD_4                                       0x02=
-13
->>
->> +#define RT5682S_SAR_IL_CMD_5                                       0x02=
-14
->>
->> +#define RT5682S_SAR_IL_CMD_6                                       0x02=
-15
->>
->> +#define RT5682S_SAR_IL_CMD_7                                       0x02=
-16
->>
->> +#define RT5682S_SAR_IL_CMD_8                                       0x02=
-17
->>
->> +#define RT5682S_SAR_IL_CMD_9                                       0x02=
-18
->>
->> +#define RT5682S_SAR_IL_CMD_10                                    0x0219
->>
->> +#define RT5682S_SAR_IL_CMD_11                                    0x021a
->>
->> +#define RT5682S_SAR_IL_CMD_12                                    0x021b
->>
->> +#define RT5682S_SAR_IL_CMD_13                                    0x021c
->>
->> +#define RT5682S_SAR_IL_CMD_14                                    0x021d
->>
->> +#define RT5682S_DUMMY_4
->> 0x02fa
->>
->> +#define RT5682S_DUMMY_5
->> 0x02fb
->>
->> +#define RT5682S_DUMMY_6
->> 0x02fc
->>
->> +#define RT5682S_VERSION_ID_HIDE                                 0x03fe
->>
->> +#define RT5682S_VERSION_ID_CUS                                   0x03ff
->>
->> +#define RT5682S_SCAN_CTL                                  0x0500
->>
->> +#define RT5682S_HP_AMP_DET                                         0x06=
-00
->>
->> +#define RT5682S_BIAS_CUR_CTRL_11                0x0610
->>
->> +#define RT5682S_BIAS_CUR_CTRL_12                0x0611
->>
->> +#define RT5682S_BIAS_CUR_CTRL_13                0x0620
->>
->> +#define RT5682S_BIAS_CUR_CTRL_14                0x0621
->>
->> +#define RT5682S_BIAS_CUR_CTRL_15                0x0630
->>
->> +#define RT5682S_BIAS_CUR_CTRL_16                0x0631
->>
->> +#define RT5682S_BIAS_CUR_CTRL_17                0x0640
->>
->> +#define RT5682S_BIAS_CUR_CTRL_18                0x0641
->>
->> +#define RT5682S_I2C_TRANS_CTRL                                   0x07fa
->>
->> +#define RT5682S_DUMMY_7
->> 0x08fa
->>
->> +#define RT5682S_DUMMY_8
->> 0x08fb
->>
->> +#define RT5682S_DMIC_FLOAT_DET                                 0x0d00
->>
->> +#define RT5682S_HA_CMP_OP_1                                       0x110=
-0
->>
->> +#define RT5682S_HA_CMP_OP_2                                       0x110=
-1
->>
->> +#define RT5682S_HA_CMP_OP_3                                       0x110=
-2
->>
->> +#define RT5682S_HA_CMP_OP_4                                       0x110=
-3
->>
->> +#define RT5682S_HA_CMP_OP_5                                       0x110=
-4
->>
->> +#define RT5682S_HA_CMP_OP_6                                       0x110=
-5
->>
->> +#define RT5682S_HA_CMP_OP_7                                       0x110=
-6
->>
->> +#define RT5682S_HA_CMP_OP_8                                       0x110=
-7
->>
->> +#define RT5682S_HA_CMP_OP_9                                       0x110=
-8
->>
->> +#define RT5682S_HA_CMP_OP_10                                    0x1109
->>
->> +#define RT5682S_HA_CMP_OP_11                                    0x110a
->>
->> +#define RT5682S_HA_CMP_OP_12                                    0x110b
->>
->> +#define RT5682S_HA_CMP_OP_13                                    0x110c
->>
->> +#define RT5682S_HA_CMP_OP_14                                    0x1111
->>
->> +#define RT5682S_HA_CMP_OP_15                                    0x1112
->>
->> +#define RT5682S_HA_CMP_OP_16                                    0x1113
->>
->> +#define RT5682S_HA_CMP_OP_17                                    0x1114
->>
->> +#define RT5682S_HA_CMP_OP_18                                    0x1115
->>
->> +#define RT5682S_HA_CMP_OP_19                                    0x1116
->>
->> +#define RT5682S_HA_CMP_OP_20                                    0x1117
->>
->> +#define RT5682S_HA_CMP_OP_21                                    0x1118
->>
->> +#define RT5682S_HA_CMP_OP_22                                    0x1119
->>
->> +#define RT5682S_HA_CMP_OP_23                                    0x111a
->>
->> +#define RT5682S_HA_CMP_OP_24                                    0x111b
->>
->> +#define RT5682S_HA_CMP_OP_25                                    0x111c
->>
->> +#define RT5682S_NEW_CBJ_DET_CTL_1                           0x1401
->>
->> +#define RT5682S_NEW_CBJ_DET_CTL_2                           0x1402
->>
->> +#define RT5682S_NEW_CBJ_DET_CTL_3                           0x1403
->>
->> +#define RT5682S_NEW_CBJ_DET_CTL_4                           0x1404
->>
->> +#define RT5682S_NEW_CBJ_DET_CTL_5                           0x1406
->>
->> +#define RT5682S_NEW_CBJ_DET_CTL_6                           0x1407
->>
->> +#define RT5682S_NEW_CBJ_DET_CTL_7                           0x1408
->>
->> +#define RT5682S_NEW_CBJ_DET_CTL_8                           0x1409
->>
->> +#define RT5682S_NEW_CBJ_DET_CTL_9                           0x140a
->>
->> +#define RT5682S_NEW_CBJ_DET_CTL_10                        0x140b
->>
->> +#define RT5682S_NEW_CBJ_DET_CTL_11                        0x140c
->>
->> +#define RT5682S_NEW_CBJ_DET_CTL_12                        0x140d
->>
->> +#define RT5682S_NEW_CBJ_DET_CTL_13                        0x140e
->>
->> +#define RT5682S_NEW_CBJ_DET_CTL_14                        0x140f
->>
->> +#define RT5682S_NEW_CBJ_DET_CTL_15                        0x1410
->>
->> +#define RT5682S_NEW_CBJ_DET_CTL_16                        0x1411
->>
->> +#define RT5682S_DA_FILTER_1
->> 0x1801
->>
->> +#define RT5682S_DA_FILTER_2
->> 0x1802
->>
->> +#define RT5682S_DA_FILTER_3
->> 0x1803
->>
->> +#define RT5682S_DA_FILTER_4
->> 0x1804
->>
->> +#define RT5682S_DA_FILTER_5
->> 0x1805
->>
->> +#define RT5682S_CLK_SW_TEST_1                                     0x2c0=
-0
->>
->> +#define RT5682S_CLK_SW_TEST_2                                     0x340=
-0
->>
->> +#define RT5682S_CLK_SW_TEST_3                                     0x340=
-4
->>
->> +#define RT5682S_CLK_SW_TEST_4                                     0x340=
-5
->>
->> +#define RT5682S_CLK_SW_TEST_5                                     0x340=
-6
->>
->> +#define RT5682S_CLK_SW_TEST_6                                     0x340=
-7
->>
->> +#define RT5682S_CLK_SW_TEST_7                                     0x340=
-8
->>
->> +#define RT5682S_CLK_SW_TEST_8                                     0x340=
-9
->>
->> +#define RT5682S_CLK_SW_TEST_9                                     0x340=
-a
->>
->> +#define RT5682S_CLK_SW_TEST_10                                  0x340b
->>
->> +#define RT5682S_CLK_SW_TEST_11                                  0x340c
->>
->> +#define RT5682S_CLK_SW_TEST_12                                  0x340d
->>
->> +#define RT5682S_CLK_SW_TEST_13                                  0x340e
->>
->> +#define RT5682S_CLK_SW_TEST_14                                  0x340f
->>
->> +#define RT5682S_EFUSE_MANU_WRITE_1                      0x3410
->>
->> +#define RT5682S_EFUSE_MANU_WRITE_2                      0x3411
->>
->> +#define RT5682S_EFUSE_MANU_WRITE_3                      0x3412
->>
->> +#define RT5682S_EFUSE_MANU_WRITE_4                      0x3413
->>
->> +#define RT5682S_EFUSE_MANU_WRITE_5                      0x3414
->>
->> +#define RT5682S_EFUSE_MANU_WRITE_6                      0x3415
->>
->> +#define RT5682S_EFUSE_READ_1                                       0x34=
-24
->>
->> +#define RT5682S_EFUSE_READ_2                                       0x34=
-25
->>
->> +#define RT5682S_EFUSE_READ_3                                       0x34=
-26
->>
->> +#define RT5682S_EFUSE_READ_4                                       0x34=
-27
->>
->> +#define RT5682S_EFUSE_READ_5                                       0x34=
-28
->>
->> +#define RT5682S_EFUSE_READ_6                                       0x34=
-29
->>
->> +#define RT5682S_EFUSE_READ_7                                       0x34=
-2a
->>
->> +#define RT5682S_EFUSE_READ_8                                       0x34=
-2b
->>
->> +#define RT5682S_EFUSE_READ_9                                       0x34=
-2c
->>
->> +#define RT5682S_EFUSE_READ_10                                    0x342d
->>
->> +#define RT5682S_EFUSE_READ_11                                    0x342e
->>
->> +#define RT5682S_EFUSE_READ_12                                    0x342f
->>
->> +#define RT5682S_EFUSE_READ_13                                    0x3430
->>
->> +#define RT5682S_EFUSE_READ_14                                    0x3431
->>
->> +#define RT5682S_EFUSE_READ_15                                    0x3432
->>
->> +#define RT5682S_EFUSE_READ_16                                    0x3433
->>
->> +#define RT5682S_EFUSE_READ_17                                    0x3434
->>
->> +#define RT5682S_EFUSE_READ_18                                    0x3435
->>
->> +#define RT5682S_EFUSE_TIMING_CTL_1                          0x3440
->>
->> +#define RT5682S_EFUSE_TIMING_CTL_2                          0x3441
->>
->> +#define RT5682S_PILOT_DIG_CTL_1                                  0x3500
->>
->> +#define RT5682S_PILOT_DIG_CTL_2                                  0x3501
->>
->> +#define RT5682S_HP_AMP_DET_CTL_1                            0x3b00
->>
->> +#define RT5682S_HP_AMP_DET_CTL_2                            0x3b01
->>
->> +#define RT5682S_HP_AMP_DET_CTL_3                            0x3b02
->>
->> +#define RT5682S_HP_AMP_DET_CTL_4                            0x3b03
->>
->> +
->>
->> +#define RT5682S_MAX_REG
->> (RT5682S_HP_AMP_DET_CTL_4)
->>
->> +
->>
->> +/* global definition */
->>
->> +#define RT5682S_L_MUTE
->> (0x1 << 15)
->>
->> +#define RT5682S_L_MUTE_SFT                                           15
->>
->> +#define RT5682S_R_MUTE
->> (0x1 << 7)
->>
->> +#define RT5682S_R_MUTE_SFT                                          7
->>
->> +#define RT5682S_L_VOL_SFT                                8
->>
->> +#define RT5682S_R_VOL_SFT                                0
->>
->> +#define RT5682S_CLK_SRC_MCLK                                       (0x0=
-)
->>
->> +#define RT5682S_CLK_SRC_PLL1
->> (0x1)
->>
->> +#define RT5682S_CLK_SRC_PLL2
->> (0x2)
->>
->> +#define RT5682S_CLK_SRC_RCCLK                                      (0x4=
-)
->> /* 25M */
->>
->> +
->>
->> +
->>
->> +/* Headphone Amp Control 2 (0x0003) */
->>
->> +#define RT5682S_HPO_L_PATH_MASK                              (0x1 << 14=
-)
->>
->> +#define RT5682S_HPO_L_PATH_EN                                   (0x1 <<
->> 14)
->>
->> +#define RT5682S_HPO_L_PATH_DIS                                  (0x0 <<
->> 14)
->>
->> +#define RT5682S_HPO_R_PATH_MASK                             (0x1 << 13)
->>
->> +#define RT5682S_HPO_R_PATH_EN                                   (0x1 <<
->> 13)
->>
->> +#define RT5682S_HPO_R_PATH_DIS                                  (0x0 <<
->> 13)
->>
->> +#define RT5682S_HPO_SEL_IP_EN_SW               (0x1)
->>
->> +#define RT5682S_HPO_IP_EN_GATING               (0x1)
->>
->> +#define RT5682S_HPO_IP_NO_GATING                            (0x0)
->>
->> +
->>
->> +/*Headphone Amp L/R Analog Gain and Digital NG2 Gain Control (0x0005
->> 0x0006)*/
->>
->> +#define
->> RT5682S_G_HP                                                        (0xf=
- <<
->> 8)
->>
->> +#define RT5682S_G_HP_SFT                                  8
->>
->> +#define RT5682S_G_STO_DA_DMIX                                  (0xf)
->>
->> +#define RT5682S_G_STO_DA_SFT                                      0
->>
->> +
->>
->> +/* Embeeded Jack and Type Detection Control 2 (0x0010) */
->>
->> +#define RT5682S_EMB_JD_MASK                                       (0x1
->> << 15)
->>
->> +#define RT5682S_EMB_JD_EN                              (0x1 << 15)
->>
->> +#define RT5682S_EMB_JD_EN_SFT                                    15
->>
->> +#define RT5682S_EMB_JD_RST
->> (0x1 << 14)
->>
->> +#define RT5682S_JD_MODE
->> (0x1 << 13)
->>
->> +#define RT5682S_JD_MODE_SFT                                        13
->>
->> +#define RT5682S_DET_TYPE                                  (0x1 << 12)
->>
->> +#define RT5682S_DET_TYPE_SFT                                        12
->>
->> +#define RT5682S_POLA_EXT_JD_MASK              (0x1 << 11)
->>
->> +#define RT5682S_POLA_EXT_JD_LOW                               (0x1 << 1=
-1)
->>
->> +#define RT5682S_POLA_EXT_JD_HIGH               (0x0 << 11)
->>
->> +#define RT5682S_SEL_FAST_OFF_MASK                           (0x3 << 9)
->>
->> +#define RT5682S_SEL_FAST_OFF_SFT                 9
->>
->> +#define RT5682S_POL_FAST_OFF_MASK                          (0x1 << 8)
->>
->> +#define RT5682S_POL_FAST_OFF_HIGH                           (0x1 << 8)
->>
->> +#define RT5682S_POL_FAST_OFF_LOW                            (0x0 << 8)
->>
->> +#define RT5682S_FAST_OFF_MASK                                   (0x1 <<
->> 7)
->>
->> +#define RT5682S_FAST_OFF_EN                                         (0x=
-1
->> << 7)
->>
->> +#define RT5682S_FAST_OFF_DIS                                        (0x=
-0
->> << 7)
->>
->> +#define RT5682S_VREF_POW_MASK                                 (0x1 << 6=
-)
->>
->> +#define RT5682S_VREF_POW_FSM                                    (0x0 <<
->> 6)
->>
->> +#define RT5682S_VREF_POW_REG                                    (0x1 <<
->> 6)
->>
->> +#define RT5682S_MB1_PATH_BIT                                      5
->>
->> +#define RT5682S_MB1_PATH_MASK                                 (0x1 << 5=
-)
->>
->> +#define RT5682S_CTRL_MB1_REG                                     (0x1 <=
-<
->> 5)
->>
->> +#define RT5682S_CTRL_MB1_FSM                                     (0x0 <=
-<
->> 5)
->>
->> +#define RT5682S_MB2_PATH_BIT                                      4
->>
->> +#define RT5682S_MB2_PATH_MASK                                 (0x1 << 4=
-)
->>
->> +#define RT5682S_CTRL_MB2_REG                                     (0x1 <=
-<
->> 4)
->>
->> +#define RT5682S_CTRL_MB2_FSM                                     (0x0 <=
-<
->> 4)
->>
->> +#define RT5682S_TRIG_JD_MASK                                       (0x1
->> << 3)
->>
->> +#define RT5682S_TRIG_JD_HIGH                                        (0x=
-1
->> << 3)
->>
->> +#define RT5682S_TRIG_JD_LOW                                        (0x0
->> << 3)
->>
->> +#define RT5682S_MIC_CAP_MASK                                     (0x1 <=
-<
->> 1)
->>
->> +#define RT5682S_MIC_CAP_HS
->> (0x1 << 1)
->>
->> +#define RT5682S_MIC_CAP_HP                                          (0x=
-0
->> << 1)
->>
->> +#define RT5682S_MIC_CAP_SRC_MASK                            (0x1)
->>
->> +#define RT5682S_MIC_CAP_SRC_REG                               (0x1)
->>
->> +#define RT5682S_MIC_CAP_SRC_ANA                              (0x0)
->>
->> +
->>
->> +/* Embeeded Jack and Type Detection Control 3 (0x0011) */
->>
->> +#define RT5682S_SEL_CBJ_TYPE_SLOW                            (0x1 << 15=
-)
->>
->> +#define RT5682S_SEL_CBJ_TYPE_NORM                           (0x0 << 15)
->>
->> +#define RT5682S_SEL_CBJ_TYPE_MASK                            (0x1 << 15=
-)
->>
->> +#define RT5682S_POW_BG_MB1_MASK
->> (0x1 << 13)
->>
->> +#define RT5682S_POW_BG_MB1_REG                              (0x1 << 13)
->>
->> +#define RT5682S_POW_BG_MB1_FSM                             (0x0 << 13)
->>
->> +#define RT5682S_POW_BG_MB2_MASK
->> (0x1 << 12)
->>
->> +#define RT5682S_POW_BG_MB2_REG                              (0x1 << 12)
->>
->> +#define RT5682S_POW_BG_MB2_FSM                             (0x0 << 12)
->>
->> +#define RT5682S_EXT_JD_SRC                              (0x7 << 4)
->>
->> +#define RT5682S_EXT_JD_SRC_SFT                                    4
->>
->> +#define RT5682S_EXT_JD_SRC_GPIO_JD1                        (0x0 << 4)
->>
->> +#define RT5682S_EXT_JD_SRC_GPIO_JD2                        (0x1 << 4)
->>
->> +#define RT5682S_EXT_JD_SRC_JDH                                   (0x2 <=
-<
->> 4)
->>
->> +#define RT5682S_EXT_JD_SRC_JDL                                    (0x3
->> << 4)
->>
->> +#define RT5682S_EXT_JD_SRC_MANUAL                          (0x4 << 4)
->>
->> +#define RT5682S_JACK_TYPE_MASK                                  (0x3)
->>
->> +
->>
->> +/* Combo Jack and Type Detection Control 4 (0x0012) */
->>
->> +#define RT5682S_CBJ_IN_BUF_MASK                                (0x1 << =
-7)
->>
->> +#define RT5682S_CBJ_IN_BUF_EN                                     (0x1
->> << 7)
->>
->> +#define RT5682S_CBJ_IN_BUF_DIS                                    (0x0
->> << 7)
->>
->> +#define RT5682S_CBJ_IN_BUF_BIT                                     7
->>
->> +
->>
->> +/* Combo Jack and Type Detection Control 5 (0x0013) */
->>
->> +#define RT5682S_SEL_SHT_MID_TON_MASK                  (0x3 << 12)
->>
->> +#define RT5682S_SEL_SHT_MID_TON_2                           (0x0 << 12)
->>
->> +#define RT5682S_SEL_SHT_MID_TON_3                           (0x1 << 12)
->>
->> +#define RT5682S_CBJ_JD_TEST_MASK                (0x1 << 6)
->>
->> +#define RT5682S_CBJ_JD_TEST_NORM              (0x0 << 6)
->>
->> +#define RT5682S_CBJ_JD_TEST_MODE               (0x1 << 6)
->>
->> +
->>
->> +/* Combo Jack and Type Detection Control 6 (0x0014) */
->>
->> +#define RT5682S_JD_FAST_OFF_SRC_MASK                    (0x7 << 8)
->>
->> +#define RT5682S_JD_FAST_OFF_SRC_JDH                        (0x6 << 8)
->>
->> +#define RT5682S_JD_FAST_OFF_SRC_GPIO6                   (0x5 << 8)
->>
->> +#define RT5682S_JD_FAST_OFF_SRC_GPIO5                   (0x4 << 8)
->>
->> +#define RT5682S_JD_FAST_OFF_SRC_GPIO4                   (0x3 << 8)
->>
->> +#define RT5682S_JD_FAST_OFF_SRC_GPIO3                   (0x2 << 8)
->>
->> +#define RT5682S_JD_FAST_OFF_SRC_GPIO2                   (0x1 << 8)
->>
->> +#define RT5682S_JD_FAST_OFF_SRC_GPIO1                   (0x0 << 8)
->>
->> +
->>
->> +/* DAC1 Digital Volume (0x0019) */
->>
->> +#define RT5682S_DAC_L1_VOL_MASK                              (0xff << 8=
-)
->>
->> +#define RT5682S_DAC_L1_VOL_SFT                                  8
->>
->> +#define RT5682S_DAC_R1_VOL_MASK                             (0xff)
->>
->> +#define RT5682S_DAC_R1_VOL_SFT                                  0
->>
->> +
->>
->> +/* ADC Digital Volume Control (0x001c) */
->>
->> +#define RT5682S_ADC_L_VOL_MASK                                (0x7f << =
-8)
->>
->> +#define RT5682S_ADC_L_VOL_SFT                                     8
->>
->> +#define RT5682S_ADC_R_VOL_MASK                                (0x7f)
->>
->> +#define RT5682S_ADC_R_VOL_SFT                                    0
->>
->> +
->>
->> +/* Stereo1 ADC Boost Gain Control (0x001f) */
->>
->> +#define RT5682S_STO1_ADC_L_BST_MASK                     (0x3 << 14)
->>
->> +#define RT5682S_STO1_ADC_L_BST_SFT                          14
->>
->> +#define RT5682S_STO1_ADC_R_BST_MASK                     (0x3 << 12)
->>
->> +#define RT5682S_STO1_ADC_R_BST_SFT                         12
->>
->> +
->>
->> +/* Sidetone Control (0x0024) */
->>
->> +#define RT5682S_ST_SRC_SEL                               (0x1 << 8)
->>
->> +#define RT5682S_ST_SRC_SFT                              8
->>
->> +#define RT5682S_ST_EN_MASK                                          (0x=
-1
->> << 6)
->>
->> +#define
->> RT5682S_ST_DIS                                                      (0x0=
- <<
->> 6)
->>
->> +#define
->> RT5682S_ST_EN                                                       (0x1=
- <<
->> 6)
->>
->> +#define RT5682S_ST_EN_SFT                                6
->>
->> +
->>
->> +/* Stereo1 ADC Mixer Control (0x0026) */
->>
->> +#define RT5682S_M_STO1_ADC_L1                                   (0x1 <<
->> 15)
->>
->> +#define RT5682S_M_STO1_ADC_L1_SFT                          15
->>
->> +#define RT5682S_M_STO1_ADC_L2                                   (0x1 <<
->> 14)
->>
->> +#define RT5682S_M_STO1_ADC_L2_SFT                          14
->>
->> +#define RT5682S_STO1_ADC1L_SRC_MASK                     (0x1 << 13)
->>
->> +#define RT5682S_STO1_ADC1L_SRC_SFT                          13
->>
->> +#define RT5682S_STO1_ADC1_SRC_ADC                          (0x1 << 13)
->>
->> +#define RT5682S_STO1_ADC1_SRC_DACMIX                   (0x0 << 13)
->>
->> +#define RT5682S_STO1_ADC2L_SRC_MASK                     (0x1 << 12)
->>
->> +#define RT5682S_STO1_ADC2L_SRC_SFT                          12
->>
->> +#define RT5682S_STO1_ADCL_SRC_MASK                       (0x3 << 10)
->>
->> +#define RT5682S_STO1_ADCL_SRC_SFT                            10
->>
->> +#define RT5682S_M_STO1_ADC_R1                                  (0x1 << =
-7)
->>
->> +#define RT5682S_M_STO1_ADC_R1_SFT                          7
->>
->> +#define RT5682S_M_STO1_ADC_R2                                  (0x1 << =
-6)
->>
->> +#define RT5682S_M_STO1_ADC_R2_SFT                          6
->>
->> +#define RT5682S_STO1_ADC1R_SRC_MASK                     (0x1 << 5)
->>
->> +#define RT5682S_STO1_ADC1R_SRC_SFT                         5
->>
->> +#define RT5682S_STO1_ADC2R_SRC_MASK                     (0x1 << 4)
->>
->> +#define RT5682S_STO1_ADC2R_SRC_SFT                         4
->>
->> +#define RT5682S_STO1_ADCR_SRC_MASK                       (0x3 << 2)
->>
->> +#define RT5682S_STO1_ADCR_SRC_SFT                           2
->>
->> +
->>
->> +/* ADC Mixer to DAC Mixer Control (0x0029) */
->>
->> +#define RT5682S_M_ADCMIX_L                                         (0x1
->> << 15)
->>
->> +#define RT5682S_M_ADCMIX_L_SFT                                 15
->>
->> +#define RT5682S_M_DAC1_L                                (0x1 << 14)
->>
->> +#define RT5682S_M_DAC1_L_SFT                                      14
->>
->> +#define RT5682S_M_ADCMIX_R                                         (0x1
->> << 7)
->>
->> +#define RT5682S_M_ADCMIX_R_SFT                                7
->>
->> +#define RT5682S_M_DAC1_R                               (0x1 << 6)
->>
->> +#define RT5682S_M_DAC1_R_SFT                                     6
->>
->> +
->>
->> +/* Stereo1 DAC Mixer Control (0x002a) */
->>
->> +#define RT5682S_M_DAC_L1_STO_L                                 (0x1 <<
->> 15)
->>
->> +#define RT5682S_M_DAC_L1_STO_L_SFT                         15
->>
->> +#define RT5682S_G_DAC_L1_STO_L_MASK                     (0x1 << 14)
->>
->> +#define RT5682S_G_DAC_L1_STO_L_SFT                          14
->>
->> +#define RT5682S_M_DAC_R1_STO_L                                (0x1 << 1=
-3)
->>
->> +#define RT5682S_M_DAC_R1_STO_L_SFT                        13
->>
->> +#define RT5682S_G_DAC_R1_STO_L_MASK                     (0x1 << 12)
->>
->> +#define RT5682S_G_DAC_R1_STO_L_SFT                         12
->>
->> +#define RT5682S_M_DAC_L1_STO_R                                (0x1 << 7=
-)
->>
->> +#define RT5682S_M_DAC_L1_STO_R_SFT                        7
->>
->> +#define RT5682S_G_DAC_L1_STO_R_MASK                     (0x1 << 6)
->>
->> +#define RT5682S_G_DAC_L1_STO_R_SFT                         6
->>
->> +#define RT5682S_M_DAC_R1_STO_R                                (0x1 << 5=
-)
->>
->> +#define RT5682S_M_DAC_R1_STO_R_SFT                       5
->>
->> +#define RT5682S_G_DAC_R1_STO_R_MASK                    (0x1 << 4)
->>
->> +#define RT5682S_G_DAC_R1_STO_R_SFT                        4
->>
->> +
->>
->> +/* Analog DAC1 Input Source Control (0x002b) */
->>
->> +#define RT5682S_M_ST_STO_L
->> (0x1 << 9)
->>
->> +#define RT5682S_M_ST_STO_L_SFT                                  9
->>
->> +#define RT5682S_M_ST_STO_R                                          (0x=
-1
->> << 8)
->>
->> +#define RT5682S_M_ST_STO_R_SFT                                  8
->>
->> +#define RT5682S_DAC_L1_SRC_MASK                               (0x1 << 4=
-)
->>
->> +#define RT5682S_A_DACL1_SFT                                         4
->>
->> +#define RT5682S_DAC_R1_SRC_MASK                              (0x1)
->>
->> +#define RT5682S_A_DACR1_SFT                                         0
->>
->> +
->>
->> +/* Digital Interface Data Control (0x0030) */
->>
->> +#define RT5682S_IF2_DAC_SEL_MASK                (0x3 << 2)
->>
->> +#define RT5682S_IF2_DAC_SEL_SFT                                  2
->>
->> +#define RT5682S_IF2_ADC_SEL_MASK                (0x3 << 0)
->>
->> +#define RT5682S_IF2_ADC_SEL_SFT                                  0
->>
->> +
->>
->> +/* REC Left/Right Mixer Control 2 (0x003c) */
->>
->> +#define RT5682S_BST_CBJ_MASK                                       (0x3=
-f
->> << 8)
->>
->> +#define RT5682S_BST_CBJ_SFT                                           8
->>
->> +#define RT5682S_M_CBJ_RM1_L                                        (0x1
->> << 7)
->>
->> +#define RT5682S_M_CBJ_RM1_L_SFT                               7
->>
->> +#define RT5682S_M_CBJ_RM1_R                                       (0x1
->> << 6)
->>
->> +#define RT5682S_M_CBJ_RM1_R_SFT                               6
->>
->> +
->>
->> +/* REC Left/Right Mixer Calibration Control(0x0044) */
->>
->> +#define RT5682S_PWR_RM1_R_BIT                                   8
->>
->> +#define RT5682S_PWR_RM1_L_BIT                                   0
->>
->> +
->>
->> +/* Power Management for Digital 1 (0x0061) */
->>
->> +#define RT5682S_PWR_I2S1                                  (0x1 << 15)
->>
->> +#define RT5682S_PWR_I2S1_BIT                                        15
->>
->> +#define RT5682S_PWR_I2S2                                  (0x1 << 14)
->>
->> +#define RT5682S_PWR_I2S2_BIT                                        14
->>
->> +#define RT5682S_PRE_CHR_DAC_L1                                  (0x1 <<
->> 13)
->>
->> +#define RT5682S_PRE_CHR_DAC_L1_BIT                          13
->>
->> +#define RT5682S_PRE_CHR_DAC_R1                                 (0x1 <<
->> 12)
->>
->> +#define RT5682S_PRE_CHR_DAC_R1_BIT                         12
->>
->> +#define RT5682S_PWR_DAC_L1                                          (0x=
-1
->> << 11)
->>
->> +#define RT5682S_PWR_DAC_L1_BIT                                  11
->>
->> +#define RT5682S_PWR_DAC_R1                                         (0x1
->> << 10)
->>
->> +#define RT5682S_PWR_DAC_R1_BIT                                 10
->>
->> +#define RT5682S_PWR_LDO
->> (0x1 << 8)
->>
->> +#define RT5682S_PWR_LDO_BIT                                        8
->>
->> +#define RT5682S_PWR_D2S_L                              (0x1 << 7)
->>
->> +#define RT5682S_PWR_D2S_L_BIT                                     7
->>
->> +#define RT5682S_PWR_D2S_R                              (0x1 << 6)
->>
->> +#define RT5682S_PWR_D2S_R_BIT                                    6
->>
->> +#define RT5682S_PWR_ADC_L1                                          (0x=
-1
->> << 4)
->>
->> +#define RT5682S_PWR_ADC_L1_BIT                                  4
->>
->> +#define RT5682S_PWR_ADC_R1                                         (0x1
->> << 3)
->>
->> +#define RT5682S_PWR_ADC_R1_BIT                                 3
->>
->> +#define RT5682S_EFUSE_SW_EN                                        (0x1
->> << 2)
->>
->> +#define RT5682S_EFUSE_SW_DIS                                       (0x0
->> << 2)
->>
->> +#define RT5682S_PWR_EFUSE                              (0x1 << 1)
->>
->> +#define RT5682S_PWR_EFUSE_BIT                                    1
->>
->> +#define RT5682S_DIG_GATE_CTRL                                     (0x1
->> << 0)
->>
->> +#define RT5682S_DIG_GATE_CTRL_SFT                            0
->>
->> +
->>
->> +/* Power Management for Digital 2 (0x0062) */
->>
->> +#define RT5682S_PWR_ADC_S1F                                       (0x1
->> << 15)
->>
->> +#define RT5682S_PWR_ADC_S1F_BIT                               15
->>
->> +#define RT5682S_PWR_DAC_S1F                                       (0x1
->> << 10)
->>
->> +#define RT5682S_PWR_DAC_S1F_BIT                               10
->>
->> +#define RT5682S_DLDO_I_LIMIT_MASK                           (0x1 << 7)
->>
->> +#define RT5682S_DLDO_I_LIMIT_EN                                 (0x1 <<
->> 7)
->>
->> +#define RT5682S_DLDO_I_LIMIT_DIS                  (0x0 << 7)
->>
->> +#define RT5682S_DLDO_I_BIAS_SEL_4               (0x1 << 6)
->>
->> +#define RT5682S_DLDO_I_BIAS_SEL_0               (0x0 << 6)
->>
->> +#define RT5682S_DLDO_REG_TEST_1                               (0x1 << 5=
-)
->>
->> +#define RT5682S_DLDO_REG_TEST_0                               (0x0 << 5=
-)
->>
->> +#define RT5682S_DLDO_SRC_REG                                     (0x1 <=
-<
->> 4)
->>
->> +#define RT5682S_DLDO_SRC_EFUSE                                  (0x0 <<
->> 4)
->>
->> +
->>
->> +/* Power Management for Analog 1 (0x0063) */
->>
->> +#define RT5682S_PWR_VREF1                              (0x1 << 15)
->>
->> +#define RT5682S_PWR_VREF1_BIT                                    15
->>
->> +#define RT5682S_PWR_FV1
->> (0x1 << 14)
->>
->> +#define RT5682S_PWR_FV1_BIT                                         14
->>
->> +#define RT5682S_PWR_VREF2                              (0x1 << 13)
->>
->> +#define RT5682S_PWR_VREF2_BIT                                    13
->>
->> +#define RT5682S_PWR_FV2
->> (0x1 << 12)
->>
->> +#define RT5682S_PWR_FV2_BIT                                         12
->>
->> +#define RT5682S_LDO1_DBG_MASK                                  (0x3 <<
->> 10)
->>
->> +#define RT5682S_PWR_MB
->> (0x1 << 9)
->>
->> +#define RT5682S_PWR_MB_BIT                                         9
->>
->> +#define RT5682S_PWR_BG
->> (0x1 << 7)
->>
->> +#define RT5682S_PWR_BG_BIT                                          7
->>
->> +#define RT5682S_LDO1_BYPASS_MASK                            (0x1 << 6)
->>
->> +#define RT5682S_LDO1_BYPASS                                         (0x=
-1
->> << 6)
->>
->> +#define RT5682S_LDO1_NOT_BYPASS                               (0x0 << 6=
-)
->>
->> +
->>
->> +/* Power Management for Analog 2 (0x0064) */
->>
->> +#define RT5682S_PWR_MCLK0_WD                                  (0x1 << 1=
-5)
->>
->> +#define RT5682S_PWR_MCLK0_WD_BIT                          15
->>
->> +#define RT5682S_PWR_MCLK1_WD                                  (0x1 << 1=
-4)
->>
->> +#define RT5682S_PWR_MCLK1_WD_BIT                          14
->>
->> +#define RT5682S_RST_MCLK0                               (0x1 << 13)
->>
->> +#define RT5682S_RST_MCLK0_BIT                                     13
->>
->> +#define RT5682S_RST_MCLK1                               (0x1 << 12)
->>
->> +#define RT5682S_RST_MCLK1_BIT                                     12
->>
->> +#define RT5682S_PWR_MB1
->> (0x1 << 11)
->>
->> +#define RT5682S_PWR_MB1_PWR_DOWN                      (0x0 << 11)
->>
->> +#define RT5682S_PWR_MB1_BIT                                       11
->>
->> +#define RT5682S_PWR_MB2
->> (0x1 << 10)
->>
->> +#define RT5682S_PWR_MB2_PWR_DOWN                      (0x0 << 10)
->>
->> +#define RT5682S_PWR_MB2_BIT                                       10
->>
->> +#define RT5682S_PWR_JD_MASK                                       (0x1
->> << 0)
->>
->> +#define RT5682S_PWR_JD_ENABLE                                   (0x1 <<
->> 0)
->>
->> +#define RT5682S_PWR_JD_DISABLE                                  (0x0 <<
->> 0)
->>
->> +
->>
->> +/* Power Management for Analog 3 (0x0065) */
->>
->> +#define RT5682S_PWR_LDO_PLLA                                     (0x1 <=
-<
->> 15)
->>
->> +#define RT5682S_PWR_LDO_PLLA_BIT               15
->>
->> +#define RT5682S_PWR_LDO_PLLB                                      (0x1
->> << 14)
->>
->> +#define RT5682S_PWR_LDO_PLLB_BIT               14
->>
->> +#define RT5682S_PWR_BIAS_PLLA                                     (0x1
->> << 13)
->>
->> +#define RT5682S_PWR_BIAS_PLLA_BIT              13
->>
->> +#define RT5682S_PWR_BIAS_PLLB                                     (0x1
->> << 12)
->>
->> +#define RT5682S_PWR_BIAS_PLLB_BIT               12
->>
->> +#define RT5682S_PWR_CBJ
->> (0x1 << 9)
->>
->> +#define RT5682S_PWR_CBJ_BIT                                         9
->>
->> +#define RT5682S_RSTB_PLLB                                 (0x1 << 7)
->>
->> +#define RT5682S_RSTB_PLLB_BIT                                       7
->>
->> +#define RT5682S_RSTB_PLLA                                (0x1 << 6)
->>
->> +#define RT5682S_RSTB_PLLA_BIT                                       6
->>
->> +#define RT5682S_PWR_PLLB                                 (0x1 << 5)
->>
->> +#define RT5682S_PWR_PLLB_BIT                                       5
->>
->> +#define RT5682S_PWR_PLLA                                 (0x1 << 4)
->>
->> +#define RT5682S_PWR_PLLA_BIT                                       4
->>
->> +#define RT5682S_PWR_LDO_MB2                                     (0x1 <<
->> 2)
->>
->> +#define RT5682S_PWR_LDO_MB2_BIT                             2
->>
->> +#define RT5682S_PWR_LDO_MB1                                     (0x1 <<
->> 1)
->>
->> +#define RT5682S_PWR_LDO_MB1_BIT                             1
->>
->> +#define RT5682S_PWR_BGLDO                                           (0x=
-1
->> << 0)
->>
->> +#define RT5682S_PWR_BGLDO_BIT                                   0
->>
->> +
->>
->> +/* Power Management for Mixer (0x0066) */
->>
->> +#define RT5682S_PWR_CLK_COMP_8FS                           (0x1 << 15)
->>
->> +#define RT5682S_PWR_CLK_COMP_8FS_BIT                   15
->>
->> +#define RT5682S_DBG_BGLDO_MASK                               (0x3 << 12=
-)
->>
->> +#define RT5682S_DBG_BGLDO_SFT                                   12
->>
->> +#define RT5682S_DBG_BGLDO_MB1_MASK                    (0x3 << 10)
->>
->> +#define RT5682S_DBG_BGLDO_MB1_SFT                        10
->>
->> +#define RT5682S_DBG_BGLDO_MB2_MASK                    (0x3 << 8)
->>
->> +#define RT5682S_DBG_BGLDO_MB2_SFT                        8
->>
->> +#define
->> RT5682S_DLDO_BGLDO_MASK                                           (0x3 <=
-< 6)
->>
->> +#define RT5682S_DLDO_BGLDO_MB2_SFT                      6
->>
->> +#define RT5682S_PWR_STO1_DAC_L                                (0x1 << 5=
-)
->>
->> +#define RT5682S_PWR_STO1_DAC_L_BIT                        5
->>
->> +#define RT5682S_PWR_STO1_DAC_R                                (0x1 << 4=
-)
->>
->> +#define RT5682S_PWR_STO1_DAC_R_BIT                        4
->>
->> +#define RT5682S_DVO_BGLDO_MB1_MASK                    (0x3 << 2)
->>
->> +#define RT5682S_DVO_BGLDO_MB1_SFT                        2
->>
->> +#define RT5682S_DVO_BGLDO_MB2_MASK                    (0x3 << 0)
->>
->> +
->>
->> +/* MCLK and System Clock Detection Control (0x006b) */
->>
->> +#define RT5682S_SYS_CLK_DET
->> (0x1 << 15)
->>
->> +#define RT5682S_SYS_CLK_DET_SFT                                  15
->>
->> +#define RT5682S_PLL1_CLK_DET                                        (0x=
-1
->> << 14)
->>
->> +#define RT5682S_PLL1_CLK_DET_SFT                  14
->>
->> +
->>
->> +/* Digital Microphone Control 1 (0x006e) */
->>
->> +#define RT5682S_DMIC_1_EN_MASK                                (0x1 << 1=
-5)
->>
->> +#define RT5682S_DMIC_1_EN_SFT                                    15
->>
->> +#define RT5682S_DMIC_1_DIS                             (0x0 << 15)
->>
->> +#define RT5682S_DMIC_1_EN                              (0x1 << 15)
->>
->> +#define RT5682S_FIFO_CLK_DIV_MASK                            (0x7 << 12=
-)
->>
->> +#define RT5682S_FIFO_CLK_DIV_2                                    (0x1
->> << 12)
->>
->> +#define RT5682S_DMIC_1_DP_MASK                                (0x3 << 4=
-)
->>
->> +#define RT5682S_DMIC_1_DP_SFT                                    4
->>
->> +#define RT5682S_DMIC_1_DP_GPIO2                               (0x0 << 4=
-)
->>
->> +#define RT5682S_DMIC_1_DP_GPIO5                               (0x1 << 4=
-)
->>
->> +#define RT5682S_DMIC_CLK_MASK                                   (0xf <<
->> 0)
->>
->> +#define RT5682S_DMIC_CLK_SFT                                       0
->>
->> +
->>
->> +/* I2S1 Audio Serial Data Port Control (0x0070) */
->>
->> +#define RT5682S_SEL_ADCDAT_MASK                              (0x1 << 15=
-)
->>
->> +#define RT5682S_SEL_ADCDAT_OUT                                 (0x0 <<
->> 15)
->>
->> +#define RT5682S_SEL_ADCDAT_IN                                     (0x1
->> << 15)
->>
->> +#define RT5682S_SEL_ADCDAT_SFT                                  15
->>
->> +#define RT5682S_I2S1_TX_CHL_MASK                (0x7 << 12)
->>
->> +#define RT5682S_I2S1_TX_CHL_SFT                                   12
->>
->> +#define RT5682S_I2S1_TX_CHL_16                                    (0x0
->> << 12)
->>
->> +#define RT5682S_I2S1_TX_CHL_20                                    (0x1
->> << 12)
->>
->> +#define RT5682S_I2S1_TX_CHL_24                                    (0x2
->> << 12)
->>
->> +#define RT5682S_I2S1_TX_CHL_32                                    (0x3
->> << 12)
->>
->> +#define RT5682S_I2S1_TX_CHL_8                                       (0x=
-4
->> << 12)
->>
->> +#define RT5682S_I2S1_RX_CHL_MASK                (0x7 << 8)
->>
->> +#define RT5682S_I2S1_RX_CHL_SFT                                  8
->>
->> +#define RT5682S_I2S1_RX_CHL_16                                    (0x0
->> << 8)
->>
->> +#define RT5682S_I2S1_RX_CHL_20                                    (0x1
->> << 8)
->>
->> +#define RT5682S_I2S1_RX_CHL_24                                    (0x2
->> << 8)
->>
->> +#define RT5682S_I2S1_RX_CHL_32                                    (0x3
->> << 8)
->>
->> +#define RT5682S_I2S1_RX_CHL_8                                      (0x4
->> << 8)
->>
->> +#define RT5682S_I2S1_MONO_MASK                               (0x1 << 7)
->>
->> +#define RT5682S_I2S1_MONO_EN                                     (0x1 <=
-<
->> 7)
->>
->> +#define RT5682S_I2S1_MONO_DIS                                    (0x0 <=
-<
->> 7)
->>
->> +#define RT5682S_I2S1_DL_MASK                                       (0x7
->> << 4)
->>
->> +#define RT5682S_I2S1_DL_SFT                             4
->>
->> +#define RT5682S_I2S1_DL_16                               (0x0 << 4)
->>
->> +#define RT5682S_I2S1_DL_20                               (0x1 << 4)
->>
->> +#define RT5682S_I2S1_DL_24                               (0x2 << 4)
->>
->> +#define RT5682S_I2S1_DL_32                               (0x3 << 4)
->>
->> +#define RT5682S_I2S1_DL_8                                 (0x4 << 4)
->>
->> +
->>
->> +/* I2S1/2 Audio Serial Data Port Control (0x0071) */
->>
->> +#define RT5682S_I2S2_MS_MASK                                      (0x1
->> << 15)
->>
->> +#define RT5682S_I2S2_MS_SFT                                          15
->>
->> +#define RT5682S_I2S2_MS_M                              (0x0 << 15)
->>
->> +#define RT5682S_I2S2_MS_S                                (0x1 << 15)
->>
->> +#define RT5682S_I2S2_PIN_CFG_MASK                            (0x1 << 14=
-)
->>
->> +#define RT5682S_I2S2_PIN_CFG_SFT                  14
->>
->> +#define RT5682S_I2S2_OUT_MASK                                    (0x1 <=
-<
->> 9)
->>
->> +#define RT5682S_I2S2_OUT_SFT                                        9
->>
->> +#define RT5682S_I2S2_OUT_UM                                        (0x0
->> << 9)
->>
->> +#define RT5682S_I2S2_OUT_M
->> (0x1 << 9)
->>
->> +#define RT5682S_I2S_BP_MASK                                         (0x=
-1
->> << 8)
->>
->> +#define RT5682S_I2S_BP_SFT                               8
->>
->> +#define RT5682S_I2S_BP_NOR                             (0x0 << 8)
->>
->> +#define RT5682S_I2S_BP_INV                               (0x1 << 8)
->>
->> +#define RT5682S_I2S2_MONO_MASK                               (0x1 << 7)
->>
->> +#define RT5682S_I2S2_MONO_EN                                     (0x1 <=
-<
->> 7)
->>
->> +#define RT5682S_I2S2_MONO_DIS                                    (0x0 <=
-<
->> 7)
->>
->> +#define RT5682S_I2S2_DL_MASK                                       (0x7
->> << 4)
->>
->> +#define RT5682S_I2S2_DL_SFT                             4
->>
->> +#define RT5682S_I2S2_DL_8                                 (0x0 << 4)
->>
->> +#define RT5682S_I2S2_DL_16                               (0x1 << 4)
->>
->> +#define RT5682S_I2S2_DL_20                               (0x2 << 4)
->>
->> +#define RT5682S_I2S2_DL_24                               (0x3 << 4)
->>
->> +#define RT5682S_I2S2_DL_32                               (0x4 << 4)
->>
->> +#define RT5682S_I2S_DF_MASK                                         (0x=
-7)
->>
->> +#define RT5682S_I2S_DF_SFT                               0
->>
->> +#define RT5682S_I2S_DF_I2S                                (0x0)
->>
->> +#define RT5682S_I2S_DF_LEFT                             (0x1)
->>
->> +#define RT5682S_I2S_DF_PCM_A                                       (0x2=
-)
->>
->> +#define RT5682S_I2S_DF_PCM_B                                       (0x3=
-)
->>
->> +#define RT5682S_I2S_DF_PCM_A_N                                  (0x6)
->>
->> +#define RT5682S_I2S_DF_PCM_B_N                                  (0x7)
->>
->> +
->>
->> +/* ADC/DAC Clock Control 1 (0x0073) */
->>
->> +#define RT5682S_ADC_OSR_MASK                                    (0xf <<
->> 12)
->>
->> +#define RT5682S_ADC_OSR_SFT                                         12
->>
->> +#define RT5682S_ADC_OSR_D_1                                        (0x0
->> << 12)
->>
->> +#define RT5682S_ADC_OSR_D_2                                        (0x1
->> << 12)
->>
->> +#define RT5682S_ADC_OSR_D_4                                        (0x2
->> << 12)
->>
->> +#define RT5682S_ADC_OSR_D_6                                        (0x3
->> << 12)
->>
->> +#define RT5682S_ADC_OSR_D_8                                        (0x4
->> << 12)
->>
->> +#define RT5682S_ADC_OSR_D_12                                     (0x5 <=
-<
->> 12)
->>
->> +#define RT5682S_ADC_OSR_D_16                                     (0x6 <=
-<
->> 12)
->>
->> +#define RT5682S_ADC_OSR_D_24                                     (0x7 <=
-<
->> 12)
->>
->> +#define RT5682S_ADC_OSR_D_32                                     (0x8 <=
-<
->> 12)
->>
->> +#define RT5682S_ADC_OSR_D_48                                     (0x9 <=
-<
->> 12)
->>
->> +#define RT5682S_I2S_M_D_MASK                                     (0xf <=
-<
->> 8)
->>
->> +#define RT5682S_I2S_M_D_SFT                                          8
->>
->> +#define RT5682S_I2S_M_D_1                               (0x0 << 8)
->>
->> +#define RT5682S_I2S_M_D_2                               (0x1 << 8)
->>
->> +#define RT5682S_I2S_M_D_3                               (0x2 << 8)
->>
->> +#define RT5682S_I2S_M_D_4                               (0x3 << 8)
->>
->> +#define RT5682S_I2S_M_D_6                               (0x4 << 8)
->>
->> +#define RT5682S_I2S_M_D_8                               (0x5 << 8)
->>
->> +#define RT5682S_I2S_M_D_12                             (0x6 << 8)
->>
->> +#define RT5682S_I2S_M_D_16                             (0x7 << 8)
->>
->> +#define RT5682S_I2S_M_D_24                             (0x8 << 8)
->>
->> +#define RT5682S_I2S_M_D_32                             (0x9 << 8)
->>
->> +#define RT5682S_I2S_M_D_48                             (0x10 << 8)
->>
->> +#define RT5682S_I2S_M_CLK_SRC_MASK                         (0x7 << 4)
->>
->> +#define RT5682S_I2S_M_CLK_SRC_SFT               4
->>
->> +#define RT5682S_DAC_OSR_MASK                                    (0xf <<
->> 0)
->>
->> +#define RT5682S_DAC_OSR_SFT                                         0
->>
->> +#define RT5682S_DAC_OSR_D_1                                        (0x0
->> << 0)
->>
->> +#define RT5682S_DAC_OSR_D_2                                        (0x1
->> << 0)
->>
->> +#define RT5682S_DAC_OSR_D_4                                        (0x2
->> << 0)
->>
->> +#define RT5682S_DAC_OSR_D_6                                        (0x3
->> << 0)
->>
->> +#define RT5682S_DAC_OSR_D_8                                        (0x4
->> << 0)
->>
->> +#define RT5682S_DAC_OSR_D_12                                      (0x5
->> << 0)
->>
->> +#define RT5682S_DAC_OSR_D_16                                     (0x6 <=
-<
->> 0)
->>
->> +#define RT5682S_DAC_OSR_D_24                                     (0x7 <=
-<
->> 0)
->>
->> +#define RT5682S_DAC_OSR_D_32                                     (0x8 <=
-<
->> 0)
->>
->> +#define RT5682S_DAC_OSR_D_48                                     (0x9 <=
-<
->> 0)
->>
->> +
->>
->> +/* ADC/DAC Clock Control 2 (0x0074) */
->>
->> +#define RT5682S_I2S2_BCLK_MS2_MASK                         (0x1 << 11)
->>
->> +#define RT5682S_I2S2_BCLK_MS2_SFT               11
->>
->> +#define RT5682S_I2S2_BCLK_MS2_32                 (0x0 << 11)
->>
->> +#define RT5682S_I2S2_BCLK_MS2_64                 (0x1 << 11)
->>
->> +
->>
->> +
->>
->> +/* TDM control 1 (0x0079) */
->>
->> +#define RT5682S_TDM_TX_CH_MASK                               (0x3 << 12=
-)
->>
->> +#define RT5682S_TDM_TX_CH_2                                       (0x0
->> << 12)
->>
->> +#define RT5682S_TDM_TX_CH_4                                       (0x1
->> << 12)
->>
->> +#define RT5682S_TDM_TX_CH_6                                       (0x2
->> << 12)
->>
->> +#define RT5682S_TDM_TX_CH_8                                       (0x3
->> << 12)
->>
->> +#define RT5682S_TDM_RX_CH_MASK                               (0x3 << 8)
->>
->> +#define RT5682S_TDM_RX_CH_2                                       (0x0
->> << 8)
->>
->> +#define RT5682S_TDM_RX_CH_4                                       (0x1
->> << 8)
->>
->> +#define RT5682S_TDM_RX_CH_6                                       (0x2
->> << 8)
->>
->> +#define RT5682S_TDM_RX_CH_8                                       (0x3
->> << 8)
->>
->> +#define RT5682S_TDM_ADC_LCA_MASK                          (0x7 << 4)
->>
->> +#define RT5682S_TDM_ADC_LCA_SFT                              4
->>
->> +#define RT5682S_TDM_ADC_DL_SFT                                0
->>
->> +
->>
->> +/* TDM control 2 (0x007a) */
->>
->> +#define RT5682S_IF1_ADC1_SEL_SFT                  14
->>
->> +#define RT5682S_IF1_ADC2_SEL_SFT                  12
->>
->> +#define RT5682S_IF1_ADC3_SEL_SFT                  10
->>
->> +#define RT5682S_IF1_ADC4_SEL_SFT                  8
->>
->> +#define RT5682S_TDM_ADC_SEL_SFT                               3
->>
->> +
->>
->> +/* TDM control 3 (0x007b) */
->>
->> +#define RT5682S_TDM_EN
->> (0x1 << 7)
->>
->> +
->>
->> +/* TDM/I2S control (0x007e) */
->>
->> +#define RT5682S_TDM_S_BP_MASK                                  (0x1 <<
->> 15)
->>
->> +#define RT5682S_TDM_S_BP_SFT                                      15
->>
->> +#define RT5682S_TDM_S_BP_NOR                                    (0x0 <<
->> 15)
->>
->> +#define RT5682S_TDM_S_BP_INV                                      (0x1
->> << 15)
->>
->> +#define RT5682S_TDM_S_LP_MASK                                  (0x1 <<
->> 14)
->>
->> +#define RT5682S_TDM_S_LP_SFT                                       14
->>
->> +#define RT5682S_TDM_S_LP_NOR                                     (0x0 <=
-<
->> 14)
->>
->> +#define RT5682S_TDM_S_LP_INV                                      (0x1
->> << 14)
->>
->> +#define RT5682S_TDM_DF_MASK                                      (0x7 <=
-<
->> 11)
->>
->> +#define RT5682S_TDM_DF_SFT                                          11
->>
->> +#define RT5682S_TDM_DF_I2S                             (0x0 << 11)
->>
->> +#define RT5682S_TDM_DF_LEFT                                        (0x1
->> << 11)
->>
->> +#define RT5682S_TDM_DF_PCM_A                                   (0x2 <<
->> 11)
->>
->> +#define RT5682S_TDM_DF_PCM_B                                   (0x3 <<
->> 11)
->>
->> +#define RT5682S_TDM_DF_PCM_A_N                              (0x6 << 11)
->>
->> +#define RT5682S_TDM_DF_PCM_B_N                              (0x7 << 11)
->>
->> +#define RT5682S_TDM_BCLK_MS1_MASK                        (0x3 << 8)
->>
->> +#define RT5682S_TDM_BCLK_MS1_SFT                            8
->>
->> +#define RT5682S_TDM_BCLK_MS1_32                              (0x0 << 8)
->>
->> +#define RT5682S_TDM_BCLK_MS1_64                              (0x1 << 8)
->>
->> +#define RT5682S_TDM_BCLK_MS1_128                            (0x2 << 8)
->>
->> +#define RT5682S_TDM_BCLK_MS1_256                            (0x3 << 8)
->>
->> +#define RT5682S_TDM_BCLK_MS1_16                              (0x4 << 8)
->>
->> +#define RT5682S_TDM_CL_MASK                                      (0x3 <=
-<
->> 4)
->>
->> +#define RT5682S_TDM_CL_16                              (0x0 << 4)
->>
->> +#define RT5682S_TDM_CL_20                              (0x1 << 4)
->>
->> +#define RT5682S_TDM_CL_24                              (0x2 << 4)
->>
->> +#define RT5682S_TDM_CL_32                              (0x3 << 4)
->>
->> +#define RT5682S_TDM_M_BP_MASK                                (0x1 << 2)
->>
->> +#define RT5682S_TDM_M_BP_SFT                                    2
->>
->> +#define RT5682S_TDM_M_BP_NOR                                  (0x0 << 2=
-)
->>
->> +#define RT5682S_TDM_M_BP_INV                                    (0x1 <<
->> 2)
->>
->> +#define RT5682S_TDM_M_LP_MASK                                 (0x1 << 1=
-)
->>
->> +#define RT5682S_TDM_M_LP_SFT                                     1
->>
->> +#define RT5682S_TDM_M_LP_NOR                                   (0x0 << =
-1)
->>
->> +#define RT5682S_TDM_M_LP_INV                                     (0x1 <=
-<
->> 1)
->>
->> +#define RT5682S_TDM_MS_MASK                                     (0x1 <<
->> 0)
->>
->> +#define RT5682S_TDM_MS_SFT                                         0
->>
->> +#define RT5682S_TDM_MS_S                               (0x0 << 0)
->>
->> +#define RT5682S_TDM_MS_M                             (0x1 << 0)
->>
->> +
->>
->> +/* Global Clock Control (0x0080) */
->>
->> +#define RT5682S_SCLK_SRC_MASK                                    (0x7 <=
-<
->> 13)
->>
->> +#define RT5682S_SCLK_SRC_SFT                                         13
->>
->> +#define RT5682S_PLL_SRC_MASK                                       (0x3
->> << 8)
->>
->> +#define RT5682S_PLL_SRC_SFT                                           8
->>
->> +#define RT5682S_PLL_SRC_MCLK                                       (0x0
->> << 8)
->>
->> +#define RT5682S_PLL_SRC_BCLK1                                      (0x1
->> << 8)
->>
->> +#define RT5682S_PLL_SRC_RC                              (0x3 << 8)
->>
->> +
->>
->> +/* PLL tracking mode 1 (0x0083) */
->>
->> +#define RT5682S_DA_ASRC_MASK                                     (0x1 <=
-<
->> 13)
->>
->> +#define RT5682S_DA_ASRC_SFT                                         13
->>
->> +#define RT5682S_DAC_STO1_ASRC_MASK                       (0x1 << 12)
->>
->> +#define RT5682S_DAC_STO1_ASRC_SFT                           12
->>
->> +#define RT5682S_AD_ASRC_MASK                                     (0x1 <=
-<
->> 8)
->>
->> +#define RT5682S_AD_ASRC_SFT                                         8
->>
->> +#define RT5682S_AD_ASRC_SEL_MASK                            (0x1 << 4)
->>
->> +#define RT5682S_AD_ASRC_SEL_SFT                                 4
->>
->> +#define RT5682S_DMIC_ASRC_MASK                                (0x1 << 3=
-)
->>
->> +#define RT5682S_DMIC_ASRC_SFT                                    3
->>
->> +#define RT5682S_ADC_STO1_ASRC_MASK                       (0x1 << 2)
->>
->> +#define RT5682S_ADC_STO1_ASRC_SFT                           2
->>
->> +#define RT5682S_DA_ASRC_SEL_MASK                            (0x1 << 0)
->>
->> +#define RT5682S_DA_ASRC_SEL_SFT                                 0
->>
->> +
->>
->> +/* PLL tracking mode 2 3 (0x0084)(0x0085)*/
->>
->> +#define RT5682S_FILTER_CLK_SEL_MASK                         (0x7 << 12)
->>
->> +#define RT5682S_FILTER_CLK_SEL_SFT               12
->>
->> +#define RT5682S_FILTER_CLK_DIV_MASK                        (0xf << 8)
->>
->> +#define RT5682S_FILTER_CLK_DIV_SFT              8
->>
->> +
->>
->> +/* ASRC Control 4 (0x0086) */
->>
->> +#define RT5682S_ASRCIN_FTK_N1_MASK                        (0x3 << 14)
->>
->> +#define RT5682S_ASRCIN_FTK_N1_SFT                             14
->>
->> +#define RT5682S_ASRCIN_FTK_N2_MASK                        (0x3 << 12)
->>
->> +#define RT5682S_ASRCIN_FTK_N2_SFT                             12
->>
->> +#define RT5682S_ASRCIN_FTK_M1_MASK                       (0x7 << 8)
->>
->> +#define RT5682S_ASRCIN_FTK_M1_SFT                            8
->>
->> +#define RT5682S_ASRCIN_FTK_M2_MASK                       (0x7 << 4)
->>
->> +#define RT5682S_ASRCIN_FTK_M2_SFT                            4
->>
->> +
->>
->> +/* Depop Mode Control 1 (0x008e) */
->>
->> +#define RT5682S_OUT_HP_L_EN                                        (0x1
->> << 6)
->>
->> +#define RT5682S_OUT_HP_R_EN                                       (0x1
->> << 5)
->>
->> +#define RT5682S_LDO_PUMP_EN                                      (0x1 <=
-<
->> 4)
->>
->> +#define RT5682S_LDO_PUMP_EN_SFT                              4
->>
->> +#define RT5682S_PUMP_EN
->> (0x1 << 3)
->>
->> +#define RT5682S_PUMP_EN_SFT                                        3
->>
->> +#define RT5682S_CAPLESS_L_EN                                        (0x=
-1
->> << 1)
->>
->> +#define RT5682S_CAPLESS_L_EN_SFT                 1
->>
->> +#define RT5682S_CAPLESS_R_EN                                       (0x1
->> << 0)
->>
->> +#define RT5682S_CAPLESS_R_EN_SFT                 0
->>
->> +
->>
->> +/* Depop Mode Control 2 (0x8f) */
->>
->> +#define RT5682S_RAMP_MASK                                           (0x=
-1
->> << 12)
->>
->> +#define RT5682S_RAMP_SFT                                 12
->>
->> +#define RT5682S_RAMP_DIS                                 (0x0 << 12)
->>
->> +#define RT5682S_RAMP_EN
->> (0x1 << 12)
->>
->> +#define RT5682S_BPS_MASK                                 (0x1 << 11)
->>
->> +#define
->> RT5682S_BPS_SFT                                                   11
->>
->> +#define
->> RT5682S_BPS_DIS                                                    (0x0 =
-<<
->> 11)
->>
->> +#define
->> RT5682S_BPS_EN                                                     (0x1 =
-<<
->> 11)
->>
->> +#define RT5682S_FAST_UPDN_MASK                                (0x1 << 1=
-0)
->>
->> +#define RT5682S_FAST_UPDN_SFT                                    10
->>
->> +#define RT5682S_FAST_UPDN_DIS                                     (0x0
->> << 10)
->>
->> +#define RT5682S_FAST_UPDN_EN                                      (0x1
->> << 10)
->>
->> +#define RT5682S_VLO_MASK                                (0x1 << 7)
->>
->> +#define RT5682S_VLO_SFT
->>                              7
->>
->> +#define
->> RT5682S_VLO_3V                                                    (0x0 <=
-< 7)
->>
->> +#define RT5682S_VLO_33V
->> (0x1 << 7)
->>
->> +
->>
->> +/* HPOUT charge pump 1 (0x0091) */
->>
->> +#define RT5682S_OSW_L_MASK                                         (0x1
->> << 11)
->>
->> +#define RT5682S_OSW_L_SFT                               11
->>
->> +#define RT5682S_OSW_L_DIS                               (0x0 << 11)
->>
->> +#define RT5682S_OSW_L_EN                                (0x1 << 11)
->>
->> +#define RT5682S_OSW_R_MASK                                        (0x1
->> << 10)
->>
->> +#define RT5682S_OSW_R_SFT                              10
->>
->> +#define RT5682S_OSW_R_DIS                              (0x0 << 10)
->>
->> +#define RT5682S_OSW_R_EN                               (0x1 << 10)
->>
->> +#define RT5682S_PM_HP_MASK                                        (0x3
->> << 8)
->>
->> +#define RT5682S_PM_HP_SFT                              8
->>
->> +#define RT5682S_PM_HP_LV                                (0x0 << 8)
->>
->> +#define RT5682S_PM_HP_MV                              (0x1 << 8)
->>
->> +#define RT5682S_PM_HP_HV                               (0x2 << 8)
->>
->> +
->>
->> +/* Micbias Control1 (0x93) */
->>
->> +#define RT5682S_MIC1_OV_MASK                                    (0x3 <<
->> 14)
->>
->> +#define RT5682S_MIC1_OV_SFT                                         14
->>
->> +#define RT5682S_MIC1_OV_2V7                                        (0x0
->> << 14)
->>
->> +#define RT5682S_MIC1_OV_2V4                                        (0x1
->> << 14)
->>
->> +#define RT5682S_MIC1_OV_2V25                                      (0x3
->> << 14)
->>
->> +#define RT5682S_MIC1_OV_1V8                                        (0x4
->> << 14)
->>
->> +#define RT5682S_MIC2_OV_MASK                                    (0x3 <<
->> 8)
->>
->> +#define RT5682S_MIC2_OV_SFT                                         8
->>
->> +#define RT5682S_MIC2_OV_2V7                                        (0x0
->> << 8)
->>
->> +#define RT5682S_MIC2_OV_2V4                                        (0x1
->> << 8)
->>
->> +#define RT5682S_MIC2_OV_2V25                                      (0x3
->> << 8)
->>
->> +#define RT5682S_MIC2_OV_1V8                                        (0x4
->> << 8)
->>
->> +
->>
->> +/* Micbias Control2 (0x0094) */
->>
->> +#define
->> RT5682S_PWR_CLK25M_MASK                                           (0x1 <=
-< 9)
->>
->> +#define RT5682S_PWR_CLK25M_SFT                                 9
->>
->> +#define RT5682S_PWR_CLK25M_PD                                  (0x0 << =
-9)
->>
->> +#define RT5682S_PWR_CLK25M_PU                                  (0x1 << =
-9)
->>
->> +#define RT5682S_PWR_CLK1M_MASK                              (0x1 << 8)
->>
->> +#define RT5682S_PWR_CLK1M_SFT                                   8
->>
->> +#define RT5682S_PWR_CLK1M_PD                                    (0x0 <<
->> 8)
->>
->> +#define RT5682S_PWR_CLK1M_PU                                    (0x1 <<
->> 8)
->>
->> +
->>
->> +/* PLL M/N/K Code Control 1 (0x0098) */
->>
->> +#define RT5682S_PLLA_N_MASK
->> (0x1ff << 0)
->>
->> +
->>
->> +/* PLL M/N/K Code Control 2 (0x0099) */
->>
->> +#define RT5682S_PLLA_M_MASK                                       (0x1f
->> << 8)
->>
->> +#define RT5682S_PLLA_M_SFT                             8
->>
->> +#define RT5682S_PLLA_K_MASK
->> (0x1f << 0)
->>
->> +
->>
->> +/* PLL M/N/K Code Control 3 (0x009a) */
->>
->> +#define RT5682S_PLLB_N_MASK
->> (0x3ff << 0)
->>
->> +
->>
->> +/* PLL M/N/K Code Control 4 (0x009b) */
->>
->> +#define RT5682S_PLLB_M_MASK                                       (0x1f
->> << 8)
->>
->> +#define RT5682S_PLLB_M_SFT                             8
->>
->> +#define RT5682S_PLLB_K_MASK
->> (0x1f << 0)
->>
->> +
->>
->> +/* PLL M/N/K Code Control 6 (0x009d) */
->>
->> +#define RT5682S_PLLB_SEL_PS_MASK                (0x1 << 13)
->>
->> +#define RT5682S_PLLB_SEL_PS_SFT                                   13
->>
->> +#define RT5682S_PLLB_BYP_PS_MASK                (0x1 << 12)
->>
->> +#define RT5682S_PLLB_BYP_PS_SFT                                  12
->>
->> +#define RT5682S_PLLB_M_BP_MASK                                 (0x1 <<
->> 11)
->>
->> +#define RT5682S_PLLB_M_BP_SFT                                     11
->>
->> +#define RT5682S_PLLB_K_BP_MASK                                  (0x1 <<
->> 10)
->>
->> +#define RT5682S_PLLB_K_BP_SFT                                       10
->>
->> +#define RT5682S_PLLA_M_BP_MASK                                (0x1 << 7=
-)
->>
->> +#define RT5682S_PLLA_M_BP_SFT                                     7
->>
->> +#define RT5682S_PLLA_K_BP_MASK                                  (0x1 <<
->> 6)
->>
->> +#define RT5682S_PLLA_K_BP_SFT                                      6
->>
->> +
->>
->> +/* PLL M/N/K Code Control 7 (0x009e) */
->>
->> +#define RT5682S_PLLB_SRC_MASK                                    (0x3 <=
-<
->> 0)
->>
->> +#define RT5682S_PLLB_SRC_DFIN                                      (0x1=
-)
->>
->> +#define RT5682S_PLLB_SRC_PLLA                                       (0x=
-0)
->>
->> +
->>
->> +/* RC Clock Control (0x009f) */
->>
->> +#define RT5682S_POW_IRQ
->> (0x1 << 15)
->>
->> +#define RT5682S_POW_JDH
->> (0x1 << 14)
->>
->> +
->>
->> +/* I2S2 Master Mode Clock Control 1 (0x00a0) */
->>
->> +#define RT5682S_I2S2_M_CLK_SRC_MASK                      (0x7 << 4)
->>
->> +#define RT5682S_I2S2_M_CLK_SRC_SFT                           4
->>
->> +#define RT5682S_I2S2_M_D_MASK                                   (0xf <<
->> 0)
->>
->> +#define RT5682S_I2S2_M_D_1                             (0x0)
->>
->> +#define RT5682S_I2S2_M_D_2                             (0x1)
->>
->> +#define RT5682S_I2S2_M_D_3                             (0x2)
->>
->> +#define RT5682S_I2S2_M_D_4                             (0x3)
->>
->> +#define RT5682S_I2S2_M_D_6                             (0x4)
->>
->> +#define RT5682S_I2S2_M_D_8                             (0x5)
->>
->> +#define RT5682S_I2S2_M_D_12                                         (0x=
-6)
->>
->> +#define RT5682S_I2S2_M_D_16                                         (0x=
-7)
->>
->> +#define RT5682S_I2S2_M_D_24                                         (0x=
-8)
->>
->> +#define RT5682S_I2S2_M_D_32                                         (0x=
-9)
->>
->> +#define RT5682S_I2S2_M_D_48                                         (0x=
-a)
->>
->> +#define RT5682S_I2S2_M_D_SFT                                       0
->>
->> +
->>
->> +/* IRQ Control 1 (0x00b6) */
->>
->> +#define RT5682S_JD1_PULSE_EN_MASK                           (0x1 << 10)
->>
->> +#define RT5682S_JD1_PULSE_EN_SFT                 10
->>
->> +#define RT5682S_JD1_PULSE_DIS                                       (0x=
-0
->> << 10)
->>
->> +#define RT5682S_JD1_PULSE_EN                                        (0x=
-1
->> << 10)
->>
->> +
->>
->> +/* IRQ Control 2 (0x00b7) */
->>
->> +#define RT5682S_JD1_EN_MASK                                        (0x1
->> << 15)
->>
->> +#define RT5682S_JD1_EN_SFT                              15
->>
->> +#define
->> RT5682S_JD1_DIS                                                    (0x0 =
-<<
->> 15)
->>
->> +#define
->> RT5682S_JD1_EN                                                     (0x1 =
-<<
->> 15)
->>
->> +#define RT5682S_JD1_POL_MASK                                      (0x1
->> << 13)
->>
->> +#define RT5682S_JD1_POL_NOR                                        (0x0
->> << 13)
->>
->> +#define RT5682S_JD1_POL_INV
->> (0x1 << 13)
->>
->> +#define RT5682S_JD1_IRQ_MASK                                      (0x1
->> << 10)
->>
->> +#define RT5682S_JD1_IRQ_LEV
->> (0x0 << 10)
->>
->> +#define RT5682S_JD1_IRQ_PUL
->> (0x1 << 10)
->>
->> +
->>
->> +/* IRQ Control 3 (0x00b8) */
->>
->> +#define RT5682S_IL_IRQ_MASK
->> (0x1 << 7)
->>
->> +#define RT5682S_IL_IRQ_DIS                                (0x0 << 7)
->>
->> +#define RT5682S_IL_IRQ_EN                                 (0x1 << 7)
->>
->> +#define RT5682S_IL_IRQ_TYPE_MASK                (0x1 << 4)
->>
->> +#define RT5682S_IL_IRQ_LEV                               (0x0 << 4)
->>
->> +#define RT5682S_IL_IRQ_PUL                               (0x1 << 4)
->>
->> +
->>
->> +/* GPIO Control 1 (0x00c0) */
->>
->> +#define RT5682S_GP1_PIN_MASK                                      (0x3
->> << 14)
->>
->> +#define RT5682S_GP1_PIN_SFT                                          14
->>
->> +#define RT5682S_GP1_PIN_GPIO1                                     (0x0
->> << 14)
->>
->> +#define RT5682S_GP1_PIN_IRQ
->> (0x1 << 14)
->>
->> +#define RT5682S_GP1_PIN_DMIC_CLK               (0x2 << 14)
->>
->> +#define RT5682S_GP2_PIN_MASK                                      (0x3
->> << 12)
->>
->> +#define RT5682S_GP2_PIN_SFT                                          12
->>
->> +#define RT5682S_GP2_PIN_GPIO2                                     (0x0
->> << 12)
->>
->> +#define RT5682S_GP2_PIN_LRCK2                                      (0x1
->> << 12)
->>
->> +#define RT5682S_GP2_PIN_DMIC_SDA              (0x2 << 12)
->>
->> +#define RT5682S_GP3_PIN_MASK                                      (0x3
->> << 10)
->>
->> +#define RT5682S_GP3_PIN_SFT                                          10
->>
->> +#define RT5682S_GP3_PIN_GPIO3                                     (0x0
->> << 10)
->>
->> +#define RT5682S_GP3_PIN_BCLK2                                      (0x1
->> << 10)
->>
->> +#define RT5682S_GP3_PIN_DMIC_CLK               (0x2 << 10)
->>
->> +#define RT5682S_GP4_PIN_MASK                                      (0x3
->> << 8)
->>
->> +#define RT5682S_GP4_PIN_SFT                                          8
->>
->> +#define RT5682S_GP4_PIN_GPIO4                                     (0x0
->> << 8)
->>
->> +#define RT5682S_GP4_PIN_ADCDAT1                               (0x1 << 8=
-)
->>
->> +#define RT5682S_GP4_PIN_DMIC_CLK               (0x2 << 8)
->>
->> +#define RT5682S_GP4_PIN_ADCDAT2                               (0x3 << 8=
-)
->>
->> +#define RT5682S_GP5_PIN_MASK                                      (0x3
->> << 6)
->>
->> +#define RT5682S_GP5_PIN_SFT                                          6
->>
->> +#define RT5682S_GP5_PIN_GPIO5                                     (0x0
->> << 6)
->>
->> +#define RT5682S_GP5_PIN_DACDAT1                               (0x1 << 6=
-)
->>
->> +#define RT5682S_GP5_PIN_DMIC_SDA              (0x2 << 6)
->>
->> +#define RT5682S_GP6_PIN_MASK                                      (0x1
->> << 5)
->>
->> +#define RT5682S_GP6_PIN_SFT                                          5
->>
->> +#define RT5682S_GP6_PIN_GPIO6                                     (0x0
->> << 5)
->>
->> +#define RT5682S_GP6_PIN_LRCK1                                      (0x1
->> << 5)
->>
->> +
->>
->> +/* GPIO Control 2 (0x00c1)*/
->>
->> +#define RT5682S_GP1_PF_MASK                                        (0x1
->> << 15)
->>
->> +#define RT5682S_GP1_PF_IN                                (0x0 << 15)
->>
->> +#define RT5682S_GP1_PF_OUT
->> (0x1 << 15)
->>
->> +#define RT5682S_GP1_OUT_MASK                                    (0x1 <<
->> 14)
->>
->> +#define RT5682S_GP1_OUT_L                               (0x0 << 14)
->>
->> +#define RT5682S_GP1_OUT_H                              (0x1 << 14)
->>
->> +#define RT5682S_GP2_PF_MASK                                        (0x1
->> << 13)
->>
->> +#define RT5682S_GP2_PF_IN                                (0x0 << 13)
->>
->> +#define RT5682S_GP2_PF_OUT
->> (0x1 << 13)
->>
->> +#define RT5682S_GP2_OUT_MASK                                    (0x1 <<
->> 12)
->>
->> +#define RT5682S_GP2_OUT_L                               (0x0 << 12)
->>
->> +#define RT5682S_GP2_OUT_H                              (0x1 << 12)
->>
->> +#define RT5682S_GP3_PF_MASK                                        (0x1
->> << 11)
->>
->> +#define RT5682S_GP3_PF_IN                                (0x0 << 11)
->>
->> +#define RT5682S_GP3_PF_OUT
->> (0x1 << 11)
->>
->> +#define RT5682S_GP3_OUT_MASK                                    (0x1 <<
->> 10)
->>
->> +#define RT5682S_GP3_OUT_L                               (0x0 << 10)
->>
->> +#define RT5682S_GP3_OUT_H                              (0x1 << 10)
->>
->> +#define RT5682S_GP4_PF_MASK                                        (0x1
->> << 9)
->>
->> +#define RT5682S_GP4_PF_IN                                (0x0 << 9)
->>
->> +#define RT5682S_GP4_PF_OUT
->> (0x1 << 9)
->>
->> +#define RT5682S_GP4_OUT_MASK                                    (0x1 <<
->> 8)
->>
->> +#define RT5682S_GP4_OUT_L                               (0x0 << 8)
->>
->> +#define RT5682S_GP4_OUT_H                              (0x1 << 8)
->>
->> +#define RT5682S_GP5_PF_MASK                                        (0x1
->> << 7)
->>
->> +#define RT5682S_GP5_PF_IN                                (0x0 << 7)
->>
->> +#define RT5682S_GP5_PF_OUT
->> (0x1 << 7)
->>
->> +#define RT5682S_GP5_OUT_MASK                                    (0x1 <<
->> 6)
->>
->> +#define RT5682S_GP5_OUT_L                               (0x0 << 6)
->>
->> +#define RT5682S_GP5_OUT_H                              (0x1 << 6)
->>
->> +#define RT5682S_GP6_PF_MASK                                        (0x1
->> << 5)
->>
->> +#define RT5682S_GP6_PF_IN                                (0x0 << 5)
->>
->> +#define RT5682S_GP6_PF_OUT
->> (0x1 << 5)
->>
->> +#define RT5682S_GP6_OUT_MASK                                    (0x1 <<
->> 4)
->>
->> +#define RT5682S_GP6_OUT_L                               (0x0 << 4)
->>
->> +#define RT5682S_GP6_OUT_H                              (0x1 << 4)
->>
->> +
->>
->> +/* GPIO Status (0x00c2) */
->>
->> +#define
->> RT5682S_GP6_ST                                                     (0x1 =
-<<
->> 6)
->>
->> +#define
->> RT5682S_GP5_ST                                                     (0x1 =
-<<
->> 5)
->>
->> +#define
->> RT5682S_GP4_ST                                                     (0x1 =
-<<
->> 4)
->>
->> +#define
->> RT5682S_GP3_ST                                                     (0x1 =
-<<
->> 3)
->>
->> +#define
->> RT5682S_GP2_ST                                                     (0x1 =
-<<
->> 2)
->>
->> +#define
->> RT5682S_GP1_ST                                                     (0x1 =
-<<
->> 1)
->>
->> +
->>
->> +/* Soft volume and zero cross control 1 (0x00d9) */
->>
->> +#define RT5682S_ZCD_MASK                                (0x1 << 10)
->>
->> +#define
->> RT5682S_ZCD_SFT                                                   10
->>
->> +#define
->> RT5682S_ZCD_PD                                                    (0x0 <=
-<
->> 10)
->>
->> +#define
->> RT5682S_ZCD_PU                                                    (0x1 <=
-<
->> 10)
->>
->> +
->>
->> +/* 4 Button Inline Command Control 2 (0x00e3) */
->>
->> +#define RT5682S_4BTN_IL_MASK                                       (0x1
->> << 15)
->>
->> +#define RT5682S_4BTN_IL_EN                              (0x1 << 15)
->>
->> +#define RT5682S_4BTN_IL_DIS                             (0x0 << 15)
->>
->> +#define RT5682S_4BTN_IL_RST_MASK                (0x1 << 14)
->>
->> +#define RT5682S_4BTN_IL_NOR                                         (0x=
-1
->> << 14)
->>
->> +#define RT5682S_4BTN_IL_RST
->> (0x0 << 14)
->>
->> +
->>
->> +/* 4 Button Inline Command Control 3~6 (0x00e5~0x00e8) */
->>
->> +#define RT5682S_4BTN_IL_HOLD_WIN_MASK                (0x7f << 8)
->>
->> +#define RT5682S_4BTN_IL_HOLD_WIN_SFT                    8
->>
->> +#define RT5682S_4BTN_IL_CLICK_WIN_MASK                (0x7f)
->>
->> +#define RT5682S_4BTN_IL_CLICK_WIN_SFT                     0
->>
->> +
->>
->> +/* Analog JD Control (0x00f0) */
->>
->> +#define RT5682S_JDH_RS_MASK                                        (0x1
->> << 4)
->>
->> +#define RT5682S_JDH_NO_PLUG                                        (0x1
->> << 4)
->>
->> +#define RT5682S_JDH_PLUG                                 (0x0 << 4)
->>
->> +
->>
->> +/* Charge Pump Internal Register1 (0x0125) */
->>
->> +#define RT5682S_CP_CLK_HP_MASK                                 (0x3 << =
-4)
->>
->> +#define RT5682S_CP_CLK_HP_100KHZ                (0x0 << 4)
->>
->> +#define RT5682S_CP_CLK_HP_200KHZ                (0x1 << 4)
->>
->> +#define RT5682S_CP_CLK_HP_300KHZ                (0x2 << 4)
->>
->> +#define RT5682S_CP_CLK_HP_600KHZ                (0x3 << 4)
->>
->> +
->>
->> +/* Pad Driving Control (0x0136) */
->>
->> +#define RT5682S_PAD_DRV_GP1_MASK                           (0x1 << 14)
->>
->> +#define RT5682S_PAD_DRV_GP1_HIGH                            (0x1 << 14)
->>
->> +#define
->> RT5682S_PAD_DRV_GP1_LOW                                           (0x0 <=
-<
->> 14)
->>
->> +#define RT5682S_PAD_DRV_GP2_MASK                           (0x1 << 12)
->>
->> +#define RT5682S_PAD_DRV_GP2_HIGH                            (0x1 << 12)
->>
->> +#define
->> RT5682S_PAD_DRV_GP2_LOW                                           (0x0 <=
-<
->> 12)
->>
->> +#define RT5682S_PAD_DRV_GP3_MASK                           (0x1 << 10)
->>
->> +#define RT5682S_PAD_DRV_GP3_HIGH                            (0x1 << 10)
->>
->> +#define
->> RT5682S_PAD_DRV_GP3_LOW                                           (0x0 <=
-<
->> 10)
->>
->> +#define RT5682S_PAD_DRV_GP4_MASK                           (0x1 << 8)
->>
->> +#define RT5682S_PAD_DRV_GP4_HIGH                            (0x1 << 8)
->>
->> +#define
->> RT5682S_PAD_DRV_GP4_LOW                                           (0x0 <=
-< 8)
->>
->> +#define RT5682S_PAD_DRV_GP5_MASK                           (0x1 << 6)
->>
->> +#define RT5682S_PAD_DRV_GP5_HIGH                            (0x1 << 6)
->>
->> +#define
->> RT5682S_PAD_DRV_GP5_LOW                                           (0x0 <=
-< 6)
->>
->> +#define RT5682S_PAD_DRV_GP6_MASK                           (0x1 << 4)
->>
->> +#define RT5682S_PAD_DRV_GP6_HIGH                            (0x1 << 4)
->>
->> +#define
->> RT5682S_PAD_DRV_GP6_LOW                                           (0x0 <=
-< 4)
->>
->> +
->>
->> +/* Chopper and Clock control for DAC (0x013a)*/
->>
->> +#define RT5682S_CKXEN_DAC1_MASK                              (0x1 << 13=
-)
->>
->> +#define RT5682S_CKXEN_DAC1_SFT                                  13
->>
->> +#define RT5682S_CKGEN_DAC1_MASK                             (0x1 << 12)
->>
->> +#define RT5682S_CKGEN_DAC1_SFT                                 12
->>
->> +
->>
->> +/* Chopper and Clock control for ADC (0x013b)*/
->>
->> +#define RT5682S_CKXEN_ADC1_MASK                              (0x1 << 13=
-)
->>
->> +#define RT5682S_CKXEN_ADC1_SFT                                  13
->>
->> +#define RT5682S_CKGEN_ADC1_MASK                             (0x1 << 12)
->>
->> +#define RT5682S_CKGEN_ADC1_SFT                                 12
->>
->> +
->>
->> +/* Volume test (0x013f)*/
->>
->> +#define RT5682S_SEL_CLK_VOL_MASK               (0x1 << 15)
->>
->> +#define RT5682S_SEL_CLK_VOL_EN                                   (0x1 <=
-<
->> 15)
->>
->> +#define RT5682S_SEL_CLK_VOL_DIS                                  (0x0 <=
-<
->> 15)
->>
->> +
->>
->> +/* Test Mode Control 1 (0x0145) */
->>
->> +#define RT5682S_AD2DA_LB_MASK                                  (0x1 <<
->> 10)
->>
->> +#define RT5682S_AD2DA_LB_SFT                                       10
->>
->> +
->>
->> +/* Stereo Noise Gate Control 1 (0x0160) */
->>
->> +#define RT5682S_NG2_EN_MASK                                       (0x1
->> << 15)
->>
->> +#define RT5682S_NG2_EN
->> (0x1 << 15)
->>
->> +#define RT5682S_NG2_DIS
->> (0x0 << 15)
->>
->> +
->>
->> +/* Stereo1 DAC Silence Detection Control (0x0190) */
->>
->> +#define RT5682S_DEB_STO_DAC_MASK                           (0x7 << 4)
->>
->> +#define RT5682S_DEB_80_MS                              (0x0 << 4)
->>
->> +
->>
->> +/* HP Behavior Logic Control 2 (0x01db) */
->>
->> +#define RT5682S_HP_SIG_SRC_MASK                               (0x3)
->>
->> +#define RT5682S_HP_SIG_SRC_1BIT_CTL                         (0x3)
->>
->> +#define RT5682S_HP_SIG_SRC_REG                                   (0x2)
->>
->> +#define RT5682S_HP_SIG_SRC_IMPE_REG                       (0x1)
->>
->> +#define RT5682S_HP_SIG_SRC_DC_CALI                           (0x0)
->>
->> +
->>
->> +/* SAR ADC Inline Command Control 1 (0x0210) */
->>
->> +#define RT5682S_SAR_BUTDET_MASK                              (0x1 << 15=
-)
->>
->> +#define RT5682S_SAR_BUTDET_EN                                   (0x1 <<
->> 15)
->>
->> +#define RT5682S_SAR_BUTDET_DIS                                  (0x0 <<
->> 15)
->>
->> +#define RT5682S_SAR_BUTDET_POW_MASK                  (0x1 << 14)
->>
->> +#define RT5682S_SAR_BUTDET_POW_SAV                      (0x1 << 14)
->>
->> +#define RT5682S_SAR_BUTDET_POW_NORM                 (0x0 << 14)
->>
->> +#define RT5682S_SAR_BUTDET_RST_MASK                     (0x1 << 13)
->>
->> +#define RT5682S_SAR_BUTDET_RST_NORM                    (0x1 << 13)
->>
->> +#define RT5682S_SAR_BUTDET_RST                                  (0x0 <<
->> 13)
->>
->> +#define RT5682S_SAR_POW_MASK                                   (0x1 <<
->> 12)
->>
->> +#define RT5682S_SAR_POW_EN                                         (0x1
->> << 12)
->>
->> +#define RT5682S_SAR_POW_DIS                                        (0x0
->> << 12)
->>
->> +#define RT5682S_SAR_RST_MASK                                      (0x1
->> << 11)
->>
->> +#define RT5682S_SAR_RST_NORMAL                                (0x1 << 1=
-1)
->>
->> +#define
->> RT5682S_SAR_RST                                                   (0x0 <=
-<
->> 11)
->>
->> +#define RT5682S_SAR_BYPASS_MASK                               (0x1 << 1=
-0)
->>
->> +#define RT5682S_SAR_BYPASS_EN                                     (0x1
->> << 10)
->>
->> +#define RT5682S_SAR_BYPASS_DIS                                    (0x0
->> << 10)
->>
->> +#define RT5682S_SAR_SEL_MB1_2_MASK                       (0x3 << 8)
->>
->> +#define RT5682S_SAR_SEL_MB1_2_SFT                            8
->>
->> +#define RT5682S_SAR_SEL_MODE_MASK                        (0x1 << 7)
->>
->> +#define RT5682S_SAR_SEL_MODE_CMP                           (0x1 << 7)
->>
->> +#define RT5682S_SAR_SEL_MODE_ADC                           (0x0 << 7)
->>
->> +#define RT5682S_SAR_SEL_MB1_2_CTL_MASK               (0x1 << 5)
->>
->> +#define RT5682S_SAR_SEL_MB1_2_AUTO                       (0x1 << 5)
->>
->> +#define RT5682S_SAR_SEL_MB1_2_MANU                      (0x0 << 5)
->>
->> +#define RT5682S_SAR_SEL_SIGNAL_MASK                       (0x1 << 4)
->>
->> +#define RT5682S_SAR_SEL_SIGNAL_AUTO                       (0x1 << 4)
->>
->> +#define RT5682S_SAR_SEL_SIGNAL_MANU                      (0x0 << 4)
->>
->> +
->>
->> +/* SAR ADC Inline Command Control 2 (0x0211) */
->>
->> +#define RT5682S_SAR_ADC_PSV_MASK                            (0x1 << 4)
->>
->> +#define RT5682S_SAR_ADC_PSV_ENTRY                          (0x1 << 4)
->>
->> +
->>
->> +
->>
->> +/* SAR ADC Inline Command Control 13 (0x021c) */
->>
->> +#define RT5682S_SAR_SOUR_MASK                                  (0x3f)
->>
->> +#define RT5682S_SAR_SOUR_BTN                                     (0x3f)
->>
->> +#define RT5682S_SAR_SOUR_TYPE                                    (0x0)
->>
->> +
->>
->> +
->>
->> +#define RT5682S_STEREO_RATES SNDRV_PCM_RATE_8000_192000
->>
->> +#define RT5682S_FORMATS (SNDRV_PCM_FMTBIT_S16_LE |
->> SNDRV_PCM_FMTBIT_S20_3LE | \
->>
->> +                           SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S=
-8)
->>
->> +
->>
->> +/* System Clock Source */
->>
->> +enum {
->>
->> +            RT5682S_SCLK_S_MCLK,
->>
->> +            RT5682S_SCLK_S_PLL1,
->>
->> +            RT5682S_SCLK_S_PLL2,
->>
->> +            RT5682S_SCLK_S_RCCLK,
->>
->> +};
->>
->> +
->>
->> +/* PLL Source */
->>
->> +enum {
->>
->> +            RT5682S_PLL_S_MCLK,
->>
->> +            RT5682S_PLL_S_BCLK1,
->>
->> +            RT5682S_PLL_S_BCLK2,
->>
->> +            RT5682S_PLL_S_RCCLK,
->>
->> +};
->>
->> +
->>
->> +enum {
->>
->> +            RT5682S_PLL1,
->>
->> +            RT5682S_PLL2,
->>
->> +            RT5682S_PLLS,
->>
->> +};
->>
->> +
->>
->> +enum {
->>
->> +            RT5682S_AIF1,
->>
->> +            RT5682S_AIF2,
->>
->> +            RT5682S_AIFS
->>
->> +};
->>
->> +
->>
->> +/* filter mask */
->>
->> +enum {
->>
->> +            RT5682S_DA_STEREO1_FILTER =3D 0x1,
->>
->> +            RT5682S_AD_STEREO1_FILTER =3D (0x1 << 1),
->>
->> +};
->>
->> +
->>
->> +enum {
->>
->> +            RT5682S_CLK_SEL_SYS,
->>
->> +            RT5682S_CLK_SEL_I2S1_ASRC,
->>
->> +            RT5682S_CLK_SEL_I2S2_ASRC,
->>
->> +};
->>
->> +
->>
->> +enum {
->>
->> +            USE_PLLA,
->>
->> +            USE_PLLB,
->>
->> +            USE_PLLAB,
->>
->> +};
->>
->> +
->>
->> +struct pll_calc_map {
->>
->> +            unsigned int freq_in;
->>
->> +            unsigned int freq_out;
->>
->> +            int m;
->>
->> +            int n;
->>
->> +            int k;
->>
->> +            bool m_bp;
->>
->> +            bool k_bp;
->>
->> +            bool byp_ps;
->>
->> +            bool sel_ps;
->>
->> +};
->>
->> +
->>
->> +#define RT5682S_NUM_SUPPLIES 2
->>
->> +
->>
->> +struct rt5682s_priv {
->>
->> +            struct snd_soc_component *component;
->>
->> +            struct rt5682s_platform_data pdata;
->>
->> +            struct regmap *regmap;
->>
->> +            struct snd_soc_jack *hs_jack;
->>
->> +            struct regulator_bulk_data supplies[RT5682S_NUM_SUPPLIES];
->>
->> +            struct delayed_work jack_detect_work;
->>
->> +            struct delayed_work jd_check_work;
->>
->> +            struct mutex calibrate_mutex;
->>
->> +            struct mutex sar_mutex;
->>
->> +
->>
->> +#ifdef CONFIG_COMMON_CLK
->>
->> +            struct clk_hw dai_clks_hw[RT5682S_DAI_NUM_CLKS];
->>
->> +            struct clk *mclk;
->>
->> +#endif
->>
->> +
->>
->> +            int sysclk;
->>
->> +            int sysclk_src;
->>
->> +            int lrck[RT5682S_AIFS];
->>
->> +            int bclk[RT5682S_AIFS];
->>
->> +            int master[RT5682S_AIFS];
->>
->> +
->>
->> +            int pll_src[RT5682S_PLLS];
->>
->> +            int pll_in[RT5682S_PLLS];
->>
->> +            int pll_out[RT5682S_PLLS];
->>
->> +            int pll_comb;
->>
->> +
->>
->> +            int jack_type;
->>
->> +            int irq_work_delay_time;
->>
->> +};
->>
->> +
->>
->> +int rt5682s_sel_asrc_clk_src(struct snd_soc_component *component,
->>
->> +                           unsigned int filter_mask, unsigned int
->> clk_src);
->>
->> +
->>
->> +#endif /* __RT5682S_H__ */
->>
->> --
->>
->> 2.17.1
->>
->>
->>
->
+SGkgWXUtaHN1YW4sDQoNCkhhcyB1cGxvYWRlZCB0aGUgQ0wuIFBsZWFzZSBoZWxwIHRvIGNoZWNr
+Lg0KaHR0cHM6Ly9jaHJvbWl1bS1yZXZpZXcuZ29vZ2xlc291cmNlLmNvbS9jL2Nocm9taXVtb3Mv
+dGhpcmRfcGFydHkva2VybmVsLysvMzEzNTA1Mw0KDQpUaGFua3MsDQpEZXJlaw0KDQpGcm9tOiBZ
+dS1oc3VhbiBIc3UgPHl1aHN1YW5AZ29vZ2xlLmNvbT4NClNlbnQ6IFdlZG5lc2RheSwgU2VwdGVt
+YmVyIDEsIDIwMjEgMTE6MDYgQU0NClRvOiBNaW5namFuZSBIc2llaCA8bWluZ2phbmVoc2llaEBn
+b29nbGUuY29tPg0KQ2M6IEFsYmVydCBXYW5nIDxhbGJlcnR3YW5nQHJlYWx0ZWsuY29tPjsgYWxz
+YS1kZXZlbEBhbHNhLXByb2plY3Qub3JnOyBsYXJzQG1ldGFmb28uZGU7IEZsb3ZlKEhzaW5GdSkg
+PGZsb3ZlQHJlYWx0ZWsuY29tPjsgT2RlciBDaGlvdSA8b2Rlcl9jaGlvdUByZWFsdGVrLmNvbT47
+IEphY2sgWXUgPGphY2sueXVAcmVhbHRlay5jb20+OyBTaHVtaW5nIFvojIPmm7jpiphdIDxzaHVt
+aW5nZkByZWFsdGVrLmNvbT47IEFsYmVydCBDaGVuIDxhbGJlcnRjaGVuQHJlYWx0ZWsuY29tPjsg
+RGVyZWsgW+aWueW+t+e+qV0gPGRlcmVrLmZhbmdAcmVhbHRlay5jb20+OyBicm9vbmllQGtlcm5l
+bC5vcmc7IGxnaXJkd29vZEBnbWFpbC5jb20NClN1YmplY3Q6IFJlOiBbUEFUQ0ggdjIgMS8yXSBB
+U29DOiBydDU2ODJzOiBBZGQgZHJpdmVyIGZvciBBTEM1NjgySS1WUyBjb2RlYw0KDQpIaSBBbGJl
+cnQsDQoNCk5vcm1hbGx5LCB0aGUgcmV2aWV3ZXJzIHdpbGwgcmVwbHkgaW4gYSB3ZWVrLiBJZiBp
+dCdzIHVyZ2VudCwgSSB0aGluayBpdCdzIG9rYXkgdG8gbWVyZ2UgYXMgYSBGUk9NTElTVCBDTCBm
+aXJzdC4gQW5kIHJlbGFuZCBpdCBhZnRlciB1cHN0cmVhbS4NCg0KT24gV2VkLCBTZXAgMSwgMjAy
+MSBhdCAxMTowMCBBTSBNaW5namFuZSBIc2llaCA8bWluZ2phbmVoc2llaEBnb29nbGUuY29tPG1h
+aWx0bzptaW5namFuZWhzaWVoQGdvb2dsZS5jb20+PiB3cm90ZToNCkNvcHkgWXVoc3VhbiBpbiB0
+aGUgbG9vcC4NCg0KSGkgQWxiZXJ0LA0KDQpBcyBJIGNoZWNrZWQsIHRoZSByZXZpZXcgdXN1YWxs
+eSB0YWtlcyBhIHdlZWsuDQpJZiBpdCdzIHVyZ2VudCwgWXVoc3VhbiBtYXkgcHJvdmlkZSBzb21l
+IGluZm9ybWF0aW9uIGFib3V0IHdoYXQgeW91IGNhbiBkbyBub3cuDQoNCkBZdS1oc3VhbiBIc3U8
+bWFpbHRvOnl1aHN1YW5AZ29vZ2xlLmNvbT4NClBsZWFzZSBwcm92aWRlIG1vcmUgY29udGV4dC4N
+CkFwcHJlY2lhdGVkIGEgbG90IGZvciB5b3VyIGhlbHAuDQoNCmJlc3QgcmVnYXJkcw0KbWluZ2ph
+bmUNCg0KDQpPbiBXZWQsIFNlcCAxLCAyMDIxIGF0IDEwOjMzIEFNIEFsYmVydCBXYW5nIDxhbGJl
+cnR3YW5nQHJlYWx0ZWsuY29tPG1haWx0bzphbGJlcnR3YW5nQHJlYWx0ZWsuY29tPj4gd3JvdGU6
+DQoNCjw8Y29weSBHb29nbGUgYXVkaW8gY2hhbXBpb24gTUogZm9yIGhlbHA+Pg0KDQoNCg0KSGkg
+TUosDQoNClBsZWFzZSB5b3UgaGVscCB1cyB0byBjcm9zcyBjaGVjayB3aXRoIExpbnV4IHRlYW0g
+Zm9yIGluaXRpYWwgY29kZWMgZHJpdmVyIG9mIFJlYWx0ZWsgQUxDNTY4MkktVlMuIFRoYW5rIHlv
+dS4NCg0KDQoNClJlZ2FyZHMsDQoNCkFsYmVydCBXYW5nDQoNClJlYWx0ZWsgUEM0IENFIFBNDQoN
+Cg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogRGVyZWsgW+aWueW+t+e+qV0g
+PGRlcmVrLmZhbmdAcmVhbHRlay5jb208bWFpbHRvOmRlcmVrLmZhbmdAcmVhbHRlay5jb20+Pg0K
+U2VudDogVHVlc2RheSwgQXVndXN0IDMxLCAyMDIxIDk6MDMgUE0NClRvOiBicm9vbmllQGtlcm5l
+bC5vcmc8bWFpbHRvOmJyb29uaWVAa2VybmVsLm9yZz47IGxnaXJkd29vZEBnbWFpbC5jb208bWFp
+bHRvOmxnaXJkd29vZEBnbWFpbC5jb20+DQpDYzogYWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3Jn
+PG1haWx0bzphbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmc+OyBsYXJzQG1ldGFmb28uZGU8bWFp
+bHRvOmxhcnNAbWV0YWZvby5kZT47IEZsb3ZlKEhzaW5GdSkgPGZsb3ZlQHJlYWx0ZWsuY29tPG1h
+aWx0bzpmbG92ZUByZWFsdGVrLmNvbT4+OyBPZGVyIENoaW91IDxvZGVyX2NoaW91QHJlYWx0ZWsu
+Y29tPG1haWx0bzpvZGVyX2NoaW91QHJlYWx0ZWsuY29tPj47IEphY2sgWXUgPGphY2sueXVAcmVh
+bHRlay5jb208bWFpbHRvOmphY2sueXVAcmVhbHRlay5jb20+PjsgU2h1bWluZyBb6IyD5pu46YqY
+XSA8c2h1bWluZ2ZAcmVhbHRlay5jb208bWFpbHRvOnNodW1pbmdmQHJlYWx0ZWsuY29tPj47IEFs
+YmVydCBDaGVuIDxhbGJlcnRjaGVuQHJlYWx0ZWsuY29tPG1haWx0bzphbGJlcnRjaGVuQHJlYWx0
+ZWsuY29tPj47IEFsYmVydCBXYW5nIDxhbGJlcnR3YW5nQHJlYWx0ZWsuY29tPG1haWx0bzphbGJl
+cnR3YW5nQHJlYWx0ZWsuY29tPj47IERlcmVrIFvmlrnlvrfnvqldIDxkZXJlay5mYW5nQHJlYWx0
+ZWsuY29tPG1haWx0bzpkZXJlay5mYW5nQHJlYWx0ZWsuY29tPj4NClN1YmplY3Q6IFtQQVRDSCB2
+MiAxLzJdIEFTb0M6IHJ0NTY4MnM6IEFkZCBkcml2ZXIgZm9yIEFMQzU2ODJJLVZTIGNvZGVjDQoN
+Cg0KDQpGcm9tOiBEZXJlayBGYW5nIDxkZXJlay5mYW5nQHJlYWx0ZWsuY29tPG1haWx0bzpkZXJl
+ay5mYW5nQHJlYWx0ZWsuY29tPj4NCg0KDQoNClRoaXMgaXMgYW4gaW5pdGlhbCBjb2RlYyBkcml2
+ZXIgZm9yIFJlYWx0ZWsgQUxDNTY4MkktVlMgY29kZWMuDQoNCg0KDQpTaWduZWQtb2ZmLWJ5OiBE
+ZXJlayBGYW5nIDxkZXJlay5mYW5nQHJlYWx0ZWsuY29tPG1haWx0bzpkZXJlay5mYW5nQHJlYWx0
+ZWsuY29tPj4NCg0KLS0tDQoNCmluY2x1ZGUvc291bmQvcnQ1Njgycy5oICAgIHwgICA0OCArDQoN
+CnNvdW5kL3NvYy9jb2RlY3MvS2NvbmZpZyAgIHwgICAgNSArDQoNCnNvdW5kL3NvYy9jb2RlY3Mv
+TWFrZWZpbGUgIHwgICAgMiArDQoNCnNvdW5kL3NvYy9jb2RlY3MvcnQ1Njgycy5jIHwgMzE4OCAr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysNCg0Kc291bmQvc29jL2NvZGVjcy9y
+dDU2ODJzLmggfCAxNDU1ICsrKysrKysrKysrKysrKysNCg0KNSBmaWxlcyBjaGFuZ2VkLCA0Njk4
+IGluc2VydGlvbnMoKykNCg0KY3JlYXRlIG1vZGUgMTAwNjQ0IGluY2x1ZGUvc291bmQvcnQ1Njgy
+cy5oDQoNCmNyZWF0ZSBtb2RlIDEwMDY0NCBzb3VuZC9zb2MvY29kZWNzL3J0NTY4MnMuYw0KDQpj
+cmVhdGUgbW9kZSAxMDA2NDQgc291bmQvc29jL2NvZGVjcy9ydDU2ODJzLmgNCg0KDQoNCmRpZmYg
+LS1naXQgYS9pbmNsdWRlL3NvdW5kL3J0NTY4MnMuaCBiL2luY2x1ZGUvc291bmQvcnQ1Njgycy5o
+DQoNCm5ldyBmaWxlIG1vZGUgMTAwNjQ0DQoNCmluZGV4IDAwMDAwMDAwMDAwMC4uYWNjZmJjMmRj
+ZGQyDQoNCi0tLSAvZGV2L251bGwNCg0KKysrIGIvaW5jbHVkZS9zb3VuZC9ydDU2ODJzLmgNCg0K
+QEAgLTAsMCArMSw0OCBAQA0KDQorLyogU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAt
+b25seSAqLw0KDQorLyoNCg0KKyAqIGxpbnV4L3NvdW5kL3J0NTY4MnMuaCAtLSBQbGF0Zm9ybSBk
+YXRhIGZvciBSVDU2ODJJLVZTDQoNCisgKg0KDQorICogQ29weXJpZ2h0IDIwMjEgUmVhbHRlayBN
+aWNyb2VsZWN0cm9uaWNzDQoNCisgKi8NCg0KKw0KDQorI2lmbmRlZiBfX0xJTlVYX1NORF9SVDU2
+ODJTX0gNCg0KKyNkZWZpbmUgX19MSU5VWF9TTkRfUlQ1NjgyU19IDQoNCisNCg0KK2VudW0gcnQ1
+Njgyc19kbWljMV9kYXRhX3BpbiB7DQoNCisgICAgICAgICAgICBSVDU2ODJTX0RNSUMxX0RBVEFf
+TlVMTCwNCg0KKyAgICAgICAgICAgIFJUNTY4MlNfRE1JQzFfREFUQV9HUElPMiwNCg0KKyAgICAg
+ICAgICAgIFJUNTY4MlNfRE1JQzFfREFUQV9HUElPNSwNCg0KK307DQoNCisNCg0KK2VudW0gcnQ1
+Njgyc19kbWljMV9jbGtfcGluIHsNCg0KKyAgICAgICAgICAgIFJUNTY4MlNfRE1JQzFfQ0xLX05V
+TEwsDQoNCisgICAgICAgICAgICBSVDU2ODJTX0RNSUMxX0NMS19HUElPMSwNCg0KKyAgICAgICAg
+ICAgIFJUNTY4MlNfRE1JQzFfQ0xLX0dQSU8zLA0KDQorfTsNCg0KKw0KDQorZW51bSBydDU2ODJz
+X2pkX3NyYyB7DQoNCisgICAgICAgICAgICBSVDU2ODJTX0pEX05VTEwsDQoNCisgICAgICAgICAg
+ICBSVDU2ODJTX0pEMSwNCg0KK307DQoNCisNCg0KK2VudW0gcnQ1Njgyc19kYWlfY2xrcyB7DQoN
+CisgICAgICAgICAgICBSVDU2ODJTX0RBSV9XQ0xLX0lEWCwNCg0KKyAgICAgICAgICAgIFJUNTY4
+MlNfREFJX0JDTEtfSURYLA0KDQorICAgICAgICAgICAgUlQ1NjgyU19EQUlfTlVNX0NMS1MsDQoN
+Cit9Ow0KDQorDQoNCitzdHJ1Y3QgcnQ1Njgyc19wbGF0Zm9ybV9kYXRhIHsNCg0KKw0KDQorICAg
+ICAgICAgICAgaW50IGxkbzFfZW47IC8qIEdQSU8gZm9yIExETzFfRU4gKi8NCg0KKw0KDQorICAg
+ICAgICAgICAgZW51bSBydDU2ODJzX2RtaWMxX2RhdGFfcGluIGRtaWMxX2RhdGFfcGluOw0KDQor
+ICAgICAgICAgICAgZW51bSBydDU2ODJzX2RtaWMxX2Nsa19waW4gZG1pYzFfY2xrX3BpbjsNCg0K
+KyAgICAgICAgICAgIGVudW0gcnQ1Njgyc19qZF9zcmMgamRfc3JjOw0KDQorICAgICAgICAgICAg
+dW5zaWduZWQgaW50IGRtaWNfY2xrX3JhdGU7DQoNCisgICAgICAgICAgICB1bnNpZ25lZCBpbnQg
+ZG1pY19kZWxheTsNCg0KKyAgICAgICAgICAgIGJvb2wgZG1pY19jbGtfZHJpdmluZ19oaWdoOw0K
+DQorDQoNCisgICAgICAgICAgICBjb25zdCBjaGFyICpkYWlfY2xrX25hbWVzW1JUNTY4MlNfREFJ
+X05VTV9DTEtTXTsNCg0KK307DQoNCisNCg0KKyNlbmRpZg0KDQpkaWZmIC0tZ2l0IGEvc291bmQv
+c29jL2NvZGVjcy9LY29uZmlnIGIvc291bmQvc29jL2NvZGVjcy9LY29uZmlnDQoNCmluZGV4IDgy
+ZWUyMzNhMjY5ZC4uNmIzYzJjZjE1M2RiIDEwMDY0NA0KDQotLS0gYS9zb3VuZC9zb2MvY29kZWNz
+L0tjb25maWcNCg0KKysrIGIvc291bmQvc29jL2NvZGVjcy9LY29uZmlnDQoNCkBAIC0xODAsNiAr
+MTgwLDcgQEAgY29uZmlnIFNORF9TT0NfQUxMX0NPREVDUw0KDQogICAgICAgICAgICAgaW1wbHkg
+U05EX1NPQ19SVDU2NzcNCg0KICAgICAgICAgICAgIGltcGx5IFNORF9TT0NfUlQ1NjgyX0kyQw0K
+DQogICAgICAgICAgICAgaW1wbHkgU05EX1NPQ19SVDU2ODJfU0RXDQoNCisgICAgICAgICAgICBp
+bXBseSBTTkRfU09DX1JUNTY4MlMNCg0KICAgICAgICAgICAgIGltcGx5IFNORF9TT0NfUlQ3MDBf
+U0RXDQoNCiAgICAgICAgICAgICBpbXBseSBTTkRfU09DX1JUNzExX1NEVw0KDQogICAgICAgICAg
+ICAgaW1wbHkgU05EX1NPQ19SVDcxMV9TRENBX1NEVw0KDQpAQCAtMTI0OSw2ICsxMjUwLDEwIEBA
+IGNvbmZpZyBTTkRfU09DX1JUNTY4Ml9TRFcNCg0KICAgICAgICAgICAgIHNlbGVjdCBTTkRfU09D
+X1JUNTY4Mg0KDQogICAgICAgICAgICAgc2VsZWN0IFJFR01BUF9TT1VORFdJUkUNCg0KK2NvbmZp
+ZyBTTkRfU09DX1JUNTY4MlMNCg0KKyAgICAgICAgICAgIHRyaXN0YXRlDQoNCisgICAgICAgICAg
+ICBkZXBlbmRzIG9uIEkyQw0KDQorDQoNCmNvbmZpZyBTTkRfU09DX1JUNzAwDQoNCiAgICAgICAg
+ICAgICB0cmlzdGF0ZQ0KDQpkaWZmIC0tZ2l0IGEvc291bmQvc29jL2NvZGVjcy9NYWtlZmlsZSBi
+L3NvdW5kL3NvYy9jb2RlY3MvTWFrZWZpbGUNCg0KaW5kZXggOGRjZWEyYzQ2MDRhLi40MmQwMGFh
+NGVlNDYgMTAwNjQ0DQoNCi0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvTWFrZWZpbGUNCg0KKysrIGIv
+c291bmQvc29jL2NvZGVjcy9NYWtlZmlsZQ0KDQpAQCAtMTk4LDYgKzE5OCw3IEBAIHNuZC1zb2Mt
+cnQ1Njc3LXNwaS1vYmpzIDo9IHJ0NTY3Ny1zcGkubw0KDQpzbmQtc29jLXJ0NTY4Mi1vYmpzIDo9
+IHJ0NTY4Mi5vDQoNCnNuZC1zb2MtcnQ1NjgyLXNkdy1vYmpzIDo9IHJ0NTY4Mi1zZHcubw0KDQpz
+bmQtc29jLXJ0NTY4Mi1pMmMtb2JqcyA6PSBydDU2ODItaTJjLm8NCg0KK3NuZC1zb2MtcnQ1Njgy
+cy1vYmpzIDo9IHJ0NTY4MnMubw0KDQpzbmQtc29jLXJ0NzAwLW9ianMgOj0gcnQ3MDAubyBydDcw
+MC1zZHcubw0KDQpzbmQtc29jLXJ0NzExLW9ianMgOj0gcnQ3MTEubyBydDcxMS1zZHcubw0KDQpz
+bmQtc29jLXJ0NzExLXNkY2Etb2JqcyA6PSBydDcxMS1zZGNhLm8gcnQ3MTEtc2RjYS1zZHcubw0K
+DQpAQCAtNTI2LDYgKzUyNyw3IEBAIG9iai0kKENPTkZJR19TTkRfU09DX1JUNTY3N19TUEkpICAg
+Kz0gc25kLXNvYy1ydDU2Nzctc3BpLm8NCg0Kb2JqLSQoQ09ORklHX1NORF9TT0NfUlQ1NjgyKSAg
+ICAgICAgICArPSBzbmQtc29jLXJ0NTY4Mi5vDQoNCm9iai0kKENPTkZJR19TTkRfU09DX1JUNTY4
+Ml9JMkMpICArPSBzbmQtc29jLXJ0NTY4Mi1pMmMubw0KDQpvYmotJChDT05GSUdfU05EX1NPQ19S
+VDU2ODJfU0RXKSAgICAgICAgICAgICArPSBzbmQtc29jLXJ0NTY4Mi1zZHcubw0KDQorb2JqLSQo
+Q09ORklHX1NORF9TT0NfUlQ1NjgyUykgICAgICArPSBzbmQtc29jLXJ0NTY4MnMubw0KDQpvYmot
+JChDT05GSUdfU05EX1NPQ19SVDcwMCkgICAgICs9IHNuZC1zb2MtcnQ3MDAubw0KDQpvYmotJChD
+T05GSUdfU05EX1NPQ19SVDcxMSkgICAgICs9IHNuZC1zb2MtcnQ3MTEubw0KDQpvYmotJChDT05G
+SUdfU05EX1NPQ19SVDcxMV9TRENBX1NEVykgICAgICs9IHNuZC1zb2MtcnQ3MTEtc2RjYS5vDQoN
+CmRpZmYgLS1naXQgYS9zb3VuZC9zb2MvY29kZWNzL3J0NTY4MnMuYyBiL3NvdW5kL3NvYy9jb2Rl
+Y3MvcnQ1Njgycy5jDQoNCm5ldyBmaWxlIG1vZGUgMTAwNjQ0DQoNCmluZGV4IDAwMDAwMDAwMDAw
+MC4uZDg3OGEyMDUyN2YxDQoNCi0tLSAvZGV2L251bGwNCg0KKysrIGIvc291bmQvc29jL2NvZGVj
+cy9ydDU2ODJzLmMNCg0KQEAgLTAsMCArMSwzMTg4IEBADQoNCisvLyBTUERYLUxpY2Vuc2UtSWRl
+bnRpZmllcjogR1BMLTIuMC1vbmx5DQoNCisvLw0KDQorLy8gcnQ1Njgycy5jICAtLSAgUlQ1Njgy
+SS1WUyBBTFNBIFNvQyBhdWRpbyBjb21wb25lbnQgZHJpdmVyDQoNCisvLw0KDQorLy8gQ29weXJp
+Z2h0IDIwMjEgUmVhbHRlayBTZW1pY29uZHVjdG9yIENvcnAuDQoNCisvLyBBdXRob3I6IERlcmVr
+IEZhbmcgPGRlcmVrLmZhbmdAcmVhbHRlay5jb208bWFpbHRvOmRlcmVrLmZhbmdAcmVhbHRlay5j
+b20+Pg0KDQorLy8NCg0KKw0KDQorI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPg0KDQorI2luY2x1
+ZGUgPGxpbnV4L21vZHVsZXBhcmFtLmg+DQoNCisjaW5jbHVkZSA8bGludXgvaW5pdC5oPg0KDQor
+I2luY2x1ZGUgPGxpbnV4L2RlbGF5Lmg+DQoNCisjaW5jbHVkZSA8bGludXgvcG0uaD4NCg0KKyNp
+bmNsdWRlIDxsaW51eC9wbV9ydW50aW1lLmg+DQoNCisjaW5jbHVkZSA8bGludXgvaTJjLmg+DQoN
+CisjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+DQoNCisjaW5jbHVkZSA8bGludXgv
+c3BpL3NwaS5oPg0KDQorI2luY2x1ZGUgPGxpbnV4L2FjcGkuaD4NCg0KKyNpbmNsdWRlIDxsaW51
+eC9ncGlvLmg+DQoNCisjaW5jbHVkZSA8bGludXgvb2ZfZ3Bpby5oPg0KDQorI2luY2x1ZGUgPGxp
+bnV4L211dGV4Lmg+DQoNCisjaW5jbHVkZSA8c291bmQvY29yZS5oPg0KDQorI2luY2x1ZGUgPHNv
+dW5kL3BjbS5oPg0KDQorI2luY2x1ZGUgPHNvdW5kL3BjbV9wYXJhbXMuaD4NCg0KKyNpbmNsdWRl
+IDxzb3VuZC9qYWNrLmg+DQoNCisjaW5jbHVkZSA8c291bmQvc29jLmg+DQoNCisjaW5jbHVkZSA8
+c291bmQvc29jLWRhcG0uaD4NCg0KKyNpbmNsdWRlIDxzb3VuZC9pbml0dmFsLmg+DQoNCisjaW5j
+bHVkZSA8c291bmQvdGx2Lmg+DQoNCisjaW5jbHVkZSA8c291bmQvcnQ1Njgycy5oPg0KDQorDQoN
+CisjaW5jbHVkZSAicnQ1Njgycy5oIg0KDQorDQoNCisjZGVmaW5lIERFVklDRV9JRCAweDY3NDkN
+Cg0KKw0KDQorc3RhdGljIGNvbnN0IHN0cnVjdCBydDU2ODJzX3BsYXRmb3JtX2RhdGEgaTJzX2Rl
+ZmF1bHRfcGxhdGZvcm1fZGF0YSA9IHsNCg0KKyAgICAgICAgICAgIC5kbWljMV9kYXRhX3BpbiA9
+IFJUNTY4MlNfRE1JQzFfREFUQV9HUElPMiwNCg0KKyAgICAgICAgICAgIC5kbWljMV9jbGtfcGlu
+ID0gUlQ1NjgyU19ETUlDMV9DTEtfR1BJTzMsDQoNCisgICAgICAgICAgICAuamRfc3JjID0gUlQ1
+NjgyU19KRDEsDQoNCisgICAgICAgICAgICAuZGFpX2Nsa19uYW1lc1tSVDU2ODJTX0RBSV9XQ0xL
+X0lEWF0gPSAicnQ1NjgyLWRhaS13Y2xrIiwNCg0KKyAgICAgICAgICAgIC5kYWlfY2xrX25hbWVz
+W1JUNTY4MlNfREFJX0JDTEtfSURYXSA9ICJydDU2ODItZGFpLWJjbGsiLA0KDQorfTsNCg0KKw0K
+DQorY29uc3QgY2hhciAqcnQ1Njgyc19zdXBwbHlfbmFtZXNbUlQ1NjgyU19OVU1fU1VQUExJRVNd
+ID0gew0KDQorICAgICAgICAgICAgIkFWREQiLA0KDQorICAgICAgICAgICAgIk1JQ1ZERCIsDQoN
+Cit9Ow0KDQorDQoNCitzdGF0aWMgY29uc3Qgc3RydWN0IHJlZ19zZXF1ZW5jZSBwYXRjaF9saXN0
+W10gPSB7DQoNCisgICAgICAgICAgICB7UlQ1NjgyU19JMkNfQ1RSTCwgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIDB4MDAwN30sDQoNCisgICAgICAgICAgICB7UlQ1NjgyU19ESUdf
+SU5fQ1RSTF8xLCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDAwfSwN
+Cg0KKyAgICAgICAgICAgIHtSVDU2ODJTX0NIT1BfREFDXzIsICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAweDIwMjB9LA0KDQorICAgICAgICAgICAge1JUNTY4MlNfVlJF
+Rl9SRUNfT1BfRkJfQ0FQX0NUUkxfMiwgICAgICAgICAweDAxMDF9LA0KDQorICAgICAgICAgICAg
+e1JUNTY4MlNfVlJFRl9SRUNfT1BfRkJfQ0FQX0NUUkxfMSwgICAgICAgICAweDgwYzB9LA0KDQor
+ICAgICAgICAgICAge1JUNTY4MlNfSFBfQ0FMSUJfQ1RSTF85LCAgICAgICAgICAgICAgICAgICAw
+eDAwMDJ9LA0KDQorICAgICAgICAgICAge1JUNTY4MlNfREVQT1BfMSwgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7UlQ1NjgyU19IUF9D
+SEFSR0VfUFVNUF8yLCAgICAgICAgICAgICAgICAgICAgICAgICAgMHgzYzE1fSwNCg0KKyAgICAg
+ICAgICAgIHtSVDU2ODJTX0RBQzFfRElHX1ZPTCwgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIDB4ZmVmZX0sDQoNCisgICAgICAgICAgICB7UlQ1NjgyU19TQVJfSUxfQ01EXzIs
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweGFjMDB9LA0KDQorICAgICAg
+ICAgICAge1JUNTY4MlNfU0FSX0lMX0NNRF8zLCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgMHgwMjRjfSwNCg0KKyAgICAgICAgICAgIHtSVDU2ODJTX0NCSl9DVFJMXzYsICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwODA0fSwNCg0KK307DQoNCisNCg0KK3N0YXRp
+YyB2b2lkIHJ0NTY4MnNfYXBwbHlfcGF0Y2hfbGlzdChzdHJ1Y3QgcnQ1Njgyc19wcml2ICpydDU2
+ODJzLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGRldmljZSAqZGV2KQ0K
+DQorew0KDQorICAgICAgICAgICAgaW50IHJldDsNCg0KKw0KDQorICAgICAgICAgICAgcmV0ID0g
+cmVnbWFwX211bHRpX3JlZ193cml0ZShydDU2ODJzLT5yZWdtYXAsIHBhdGNoX2xpc3QsIEFSUkFZ
+X1NJWkUocGF0Y2hfbGlzdCkpOw0KDQorICAgICAgICAgICAgaWYgKHJldCkNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIGRldl93YXJuKGRldiwgIkZhaWxlZCB0byBhcHBseSByZWdtYXAg
+cGF0Y2g6ICVkXG4iLCByZXQpOw0KDQorfQ0KDQorDQoNCitjb25zdCBzdHJ1Y3QgcmVnX2RlZmF1
+bHQgcnQ1Njgyc19yZWdbXSA9IHsNCg0KKyAgICAgICAgICAgIHsweDAwMDAsIDB4MDAwMX0sDQoN
+CisgICAgICAgICAgICB7MHgwMDAyLCAweDgwODB9LA0KDQorICAgICAgICAgICAgezB4MDAwMywg
+MHgwMDAxfSwNCg0KKyAgICAgICAgICAgIHsweDAwMDUsIDB4MDAwMH0sDQoNCisgICAgICAgICAg
+ICB7MHgwMDA2LCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDAwOCwgMHg4MDA3fSwNCg0K
+KyAgICAgICAgICAgIHsweDAwMGIsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgwMDBmLCAw
+eDQwMDB9LA0KDQorICAgICAgICAgICAgezB4MDAxMCwgMHg0MDQwfSwNCg0KKyAgICAgICAgICAg
+IHsweDAwMTEsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgwMDEyLCAweDAwMDB9LA0KDQor
+ICAgICAgICAgICAgezB4MDAxMywgMHgxMjAwfSwNCg0KKyAgICAgICAgICAgIHsweDAwMTQsIDB4
+MjAwYX0sDQoNCisgICAgICAgICAgICB7MHgwMDE1LCAweDA0MDR9LA0KDQorICAgICAgICAgICAg
+ezB4MDAxNiwgMHgwNDA0fSwNCg0KKyAgICAgICAgICAgIHsweDAwMTcsIDB4MDVhNH0sDQoNCisg
+ICAgICAgICAgICB7MHgwMDE5LCAweGZmZmZ9LA0KDQorICAgICAgICAgICAgezB4MDAxYywgMHgy
+ZjJmfSwNCg0KKyAgICAgICAgICAgIHsweDAwMWYsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7
+MHgwMDIyLCAweDU3NTd9LA0KDQorICAgICAgICAgICAgezB4MDAyMywgMHgwMDM5fSwNCg0KKyAg
+ICAgICAgICAgIHsweDAwMjQsIDB4MDAwYn0sDQoNCisgICAgICAgICAgICB7MHgwMDI2LCAweGMw
+YzR9LA0KDQorICAgICAgICAgICAgezB4MDAyOSwgMHg4MDgwfSwNCg0KKyAgICAgICAgICAgIHsw
+eDAwMmEsIDB4YTBhMH0sDQoNCisgICAgICAgICAgICB7MHgwMDJiLCAweDAzMDB9LA0KDQorICAg
+ICAgICAgICAgezB4MDAzMCwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDAwM2MsIDB4MDhj
+MH0sDQoNCisgICAgICAgICAgICB7MHgwMDQ0LCAweDE4MTh9LA0KDQorICAgICAgICAgICAgezB4
+MDA0YiwgMHgwMGMwfSwNCg0KKyAgICAgICAgICAgIHsweDAwNGMsIDB4MDAwMH0sDQoNCisgICAg
+ICAgICAgICB7MHgwMDRkLCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDA2MSwgMHgwMGMw
+fSwNCg0KKyAgICAgICAgICAgIHsweDAwNjIsIDB4MDA4YX0sDQoNCisgICAgICAgICAgICB7MHgw
+MDYzLCAweDA4MDB9LA0KDQorICAgICAgICAgICAgezB4MDA2NCwgMHgwMDAwfSwNCg0KKyAgICAg
+ICAgICAgIHsweDAwNjUsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgwMDY2LCAweDAwMzB9
+LA0KDQorICAgICAgICAgICAgezB4MDA2NywgMHgwMDBjfSwNCg0KKyAgICAgICAgICAgIHsweDAw
+NjgsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgwMDY5LCAweDAwMDB9LA0KDQorICAgICAg
+ICAgICAgezB4MDA2YSwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDAwNmIsIDB4MDAwMH0s
+DQoNCisgICAgICAgICAgICB7MHgwMDZjLCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDA2
+ZCwgMHgyMjAwfSwNCg0KKyAgICAgICAgICAgIHsweDAwNmUsIDB4MDgxMH0sDQoNCisgICAgICAg
+ICAgICB7MHgwMDZmLCAweGU0ZGV9LA0KDQorICAgICAgICAgICAgezB4MDA3MCwgMHgzMzIwfSwN
+Cg0KKyAgICAgICAgICAgIHsweDAwNzEsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgwMDcz
+LCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDA3NCwgMHgwMDAwfSwNCg0KKyAgICAgICAg
+ICAgIHsweDAwNzUsIDB4MDAwMn0sDQoNCisgICAgICAgICAgICB7MHgwMDc2LCAweDAwMDF9LA0K
+DQorICAgICAgICAgICAgezB4MDA3OSwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDAwN2Es
+IDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgwMDdiLCAweDAwMDB9LA0KDQorICAgICAgICAg
+ICAgezB4MDA3YywgMHgwMTAwfSwNCg0KKyAgICAgICAgICAgIHsweDAwN2UsIDB4MDAwMH0sDQoN
+CisgICAgICAgICAgICB7MHgwMDdmLCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDA4MCwg
+MHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDAwODMsIDB4MDAwMH0sDQoNCisgICAgICAgICAg
+ICB7MHgwMDg0LCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDA4NSwgMHgwMDAwfSwNCg0K
+KyAgICAgICAgICAgIHsweDAwODYsIDB4MDAwNX0sDQoNCisgICAgICAgICAgICB7MHgwMDg3LCAw
+eDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDA4OCwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAg
+IHsweDAwOGMsIDB4MDAwM30sDQoNCisgICAgICAgICAgICB7MHgwMDhlLCAweDAwNjB9LA0KDQor
+ICAgICAgICAgICAgezB4MDA4ZiwgMHg0ZGExfSwNCg0KKyAgICAgICAgICAgIHsweDAwOTEsIDB4
+MWMxNX0sDQoNCisgICAgICAgICAgICB7MHgwMDkyLCAweDA0MjV9LA0KDQorICAgICAgICAgICAg
+ezB4MDA5MywgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDAwOTQsIDB4MDA4MH0sDQoNCisg
+ICAgICAgICAgICB7MHgwMDk1LCAweDAwOGZ9LA0KDQorICAgICAgICAgICAgezB4MDA5NiwgMHgw
+MDAwfSwNCg0KKyAgICAgICAgICAgIHsweDAwOTcsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7
+MHgwMDk4LCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDA5OSwgMHgwMDAwfSwNCg0KKyAg
+ICAgICAgICAgIHsweDAwOWEsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgwMDliLCAweDAw
+MDB9LA0KDQorICAgICAgICAgICAgezB4MDA5YywgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsw
+eDAwOWQsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgwMDllLCAweDAwMDB9LA0KDQorICAg
+ICAgICAgICAgezB4MDA5ZiwgMHgwMDA5fSwNCg0KKyAgICAgICAgICAgIHsweDAwYTAsIDB4MDAw
+MH0sDQoNCisgICAgICAgICAgICB7MHgwMGEzLCAweDAwMDJ9LA0KDQorICAgICAgICAgICAgezB4
+MDBhNCwgMHgwMDAxfSwNCg0KKyAgICAgICAgICAgIHsweDAwYjYsIDB4MDAwMH0sDQoNCisgICAg
+ICAgICAgICB7MHgwMGI3LCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDBiOCwgMHgwMDAw
+fSwNCg0KKyAgICAgICAgICAgIHsweDAwYjksIDB4MDAwMn0sDQoNCisgICAgICAgICAgICB7MHgw
+MGJlLCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDBjMCwgMHgwMTYwfSwNCg0KKyAgICAg
+ICAgICAgIHsweDAwYzEsIDB4ODJhMH0sDQoNCisgICAgICAgICAgICB7MHgwMGMyLCAweDAwMDB9
+LA0KDQorICAgICAgICAgICAgezB4MDBkMCwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDAw
+ZDIsIDB4MzMwMH0sDQoNCisgICAgICAgICAgICB7MHgwMGQzLCAweDIyMDB9LA0KDQorICAgICAg
+ICAgICAgezB4MDBkNCwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDAwZDksIDB4MDAwMH0s
+DQoNCisgICAgICAgICAgICB7MHgwMGRhLCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDBk
+YiwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDAwZGMsIDB4MDBjMH0sDQoNCisgICAgICAg
+ICAgICB7MHgwMGRkLCAweDIyMjB9LA0KDQorICAgICAgICAgICAgezB4MDBkZSwgMHgzMTMxfSwN
+Cg0KKyAgICAgICAgICAgIHsweDAwZGYsIDB4MzEzMX0sDQoNCisgICAgICAgICAgICB7MHgwMGUw
+LCAweDMxMzF9LA0KDQorICAgICAgICAgICAgezB4MDBlMiwgMHgwMDAwfSwNCg0KKyAgICAgICAg
+ICAgIHsweDAwZTMsIDB4NDAwMH0sDQoNCisgICAgICAgICAgICB7MHgwMGU0LCAweDBhYTB9LA0K
+DQorICAgICAgICAgICAgezB4MDBlNSwgMHgzMTMxfSwNCg0KKyAgICAgICAgICAgIHsweDAwZTYs
+IDB4MzEzMX0sDQoNCisgICAgICAgICAgICB7MHgwMGU3LCAweDMxMzF9LA0KDQorICAgICAgICAg
+ICAgezB4MDBlOCwgMHgzMTMxfSwNCg0KKyAgICAgICAgICAgIHsweDAwZWEsIDB4YjMyMH0sDQoN
+CisgICAgICAgICAgICB7MHgwMGViLCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDBmMCwg
+MHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDAwZjYsIDB4MDAwMH0sDQoNCisgICAgICAgICAg
+ICB7MHgwMGZhLCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDBmYiwgMHgwMDAwfSwNCg0K
+KyAgICAgICAgICAgIHsweDAwZmMsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgwMGZkLCAw
+eDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDBmZSwgMHgxMGVjfSwNCg0KKyAgICAgICAgICAg
+IHsweDAwZmYsIDB4Njc0OX0sDQoNCisgICAgICAgICAgICB7MHgwMTAwLCAweGEwMDB9LA0KDQor
+ICAgICAgICAgICAgezB4MDEwYiwgMHgwMDY2fSwNCg0KKyAgICAgICAgICAgIHsweDAxMGMsIDB4
+NjY2Nn0sDQoNCisgICAgICAgICAgICB7MHgwMTBkLCAweDIyMDJ9LA0KDQorICAgICAgICAgICAg
+ezB4MDEwZSwgMHg2NjY2fSwNCg0KKyAgICAgICAgICAgIHsweDAxMGYsIDB4YTgwMH0sDQoNCisg
+ICAgICAgICAgICB7MHgwMTEwLCAweDAwMDZ9LA0KDQorICAgICAgICAgICAgezB4MDExMSwgMHgw
+NDYwfSwNCg0KKyAgICAgICAgICAgIHsweDAxMTIsIDB4MjAwMH0sDQoNCisgICAgICAgICAgICB7
+MHgwMTEzLCAweDAyMDB9LA0KDQorICAgICAgICAgICAgezB4MDExNywgMHg4MDAwfSwNCg0KKyAg
+ICAgICAgICAgIHsweDAxMTgsIDB4MDMwM30sDQoNCisgICAgICAgICAgICB7MHgwMTI1LCAweDAw
+MjB9LA0KDQorICAgICAgICAgICAgezB4MDEzMiwgMHg1MDI2fSwNCg0KKyAgICAgICAgICAgIHsw
+eDAxMzYsIDB4ODAwMH0sDQoNCisgICAgICAgICAgICB7MHgwMTM5LCAweDAwMDV9LA0KDQorICAg
+ICAgICAgICAgezB4MDEzYSwgMHgzMDMwfSwNCg0KKyAgICAgICAgICAgIHsweDAxM2IsIDB4YTAw
+MH0sDQoNCisgICAgICAgICAgICB7MHgwMTNjLCAweDQxMTB9LA0KDQorICAgICAgICAgICAgezB4
+MDEzZiwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDAxNDUsIDB4MDAyMn0sDQoNCisgICAg
+ICAgICAgICB7MHgwMTQ2LCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDE0NywgMHgwMDAw
+fSwNCg0KKyAgICAgICAgICAgIHsweDAxNDgsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgw
+MTU2LCAweDAwMjJ9LA0KDQorICAgICAgICAgICAgezB4MDE1NywgMHgwMzAzfSwNCg0KKyAgICAg
+ICAgICAgIHsweDAxNTgsIDB4MjIyMn0sDQoNCisgICAgICAgICAgICB7MHgwMTU5LCAweDAwMDB9
+LA0KDQorICAgICAgICAgICAgezB4MDE2MCwgMHg0ZWMwfSwNCg0KKyAgICAgICAgICAgIHsweDAx
+NjEsIDB4MDA4MH0sDQoNCisgICAgICAgICAgICB7MHgwMTYyLCAweDAyMDB9LA0KDQorICAgICAg
+ICAgICAgezB4MDE2MywgMHgwODAwfSwNCg0KKyAgICAgICAgICAgIHsweDAxNjQsIDB4MDAwMH0s
+DQoNCisgICAgICAgICAgICB7MHgwMTY1LCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDE2
+NiwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDAxNjcsIDB4MDAwZn0sDQoNCisgICAgICAg
+ICAgICB7MHgwMTY4LCAweDAwMGZ9LA0KDQorICAgICAgICAgICAgezB4MDE2OSwgMHgwMDAxfSwN
+Cg0KKyAgICAgICAgICAgIHsweDAxOTAsIDB4NDEzMX0sDQoNCisgICAgICAgICAgICB7MHgwMTk0
+LCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDE5NSwgMHgwMDAwfSwNCg0KKyAgICAgICAg
+ICAgIHsweDAxOTcsIDB4MDAyMn0sDQoNCisgICAgICAgICAgICB7MHgwMTk4LCAweDAwMDB9LA0K
+DQorICAgICAgICAgICAgezB4MDE5OSwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDAxYWMs
+IDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgwMWFkLCAweDAwMDB9LA0KDQorICAgICAgICAg
+ICAgezB4MDFhZSwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDAxYWYsIDB4MjAwMH0sDQoN
+CisgICAgICAgICAgICB7MHgwMWIwLCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDFiMSwg
+MHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDAxYjIsIDB4MDAwMH0sDQoNCisgICAgICAgICAg
+ICB7MHgwMWIzLCAweDAwMTd9LA0KDQorICAgICAgICAgICAgezB4MDFiNCwgMHgwMDRifSwNCg0K
+KyAgICAgICAgICAgIHsweDAxYjUsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgwMWI2LCAw
+eDAzZTh9LA0KDQorICAgICAgICAgICAgezB4MDFiNywgMHgwMDAwfSwNCg0KKyAgICAgICAgICAg
+IHsweDAxYjgsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgwMWI5LCAweDA0MDB9LA0KDQor
+ICAgICAgICAgICAgezB4MDFiYSwgMHhiNWI2fSwNCg0KKyAgICAgICAgICAgIHsweDAxYmIsIDB4
+OTEyNH0sDQoNCisgICAgICAgICAgICB7MHgwMWJjLCAweDQ5MjR9LA0KDQorICAgICAgICAgICAg
+ezB4MDFiZCwgMHgwMDA5fSwNCg0KKyAgICAgICAgICAgIHsweDAxYmUsIDB4MDAxOH0sDQoNCisg
+ICAgICAgICAgICB7MHgwMWJmLCAweDAwMmF9LA0KDQorICAgICAgICAgICAgezB4MDFjMCwgMHgw
+MDRjfSwNCg0KKyAgICAgICAgICAgIHsweDAxYzEsIDB4MDA5N30sDQoNCisgICAgICAgICAgICB7
+MHgwMWMyLCAweDAxYzN9LA0KDQorICAgICAgICAgICAgezB4MDFjMywgMHgwM2U5fSwNCg0KKyAg
+ICAgICAgICAgIHsweDAxYzQsIDB4MTM4OX0sDQoNCisgICAgICAgICAgICB7MHgwMWM1LCAweGMz
+NTF9LA0KDQorICAgICAgICAgICAgezB4MDFjNiwgMHgwMmEwfSwNCg0KKyAgICAgICAgICAgIHsw
+eDAxYzcsIDB4MGIwZn0sDQoNCisgICAgICAgICAgICB7MHgwMWM4LCAweDQwMmZ9LA0KDQorICAg
+ICAgICAgICAgezB4MDFjOSwgMHgwNzAyfSwNCg0KKyAgICAgICAgICAgIHsweDAxY2EsIDB4MDAw
+MH0sDQoNCisgICAgICAgICAgICB7MHgwMWNiLCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4
+MDFjYywgMHg1NzU3fSwNCg0KKyAgICAgICAgICAgIHsweDAxY2QsIDB4NTc1N30sDQoNCisgICAg
+ICAgICAgICB7MHgwMWNlLCAweDU3NTd9LA0KDQorICAgICAgICAgICAgezB4MDFjZiwgMHg1NzU3
+fSwNCg0KKyAgICAgICAgICAgIHsweDAxZDAsIDB4NTc1N30sDQoNCisgICAgICAgICAgICB7MHgw
+MWQxLCAweDU3NTd9LA0KDQorICAgICAgICAgICAgezB4MDFkMiwgMHg1NzU3fSwNCg0KKyAgICAg
+ICAgICAgIHsweDAxZDMsIDB4NTc1N30sDQoNCisgICAgICAgICAgICB7MHgwMWQ0LCAweDU3NTd9
+LA0KDQorICAgICAgICAgICAgezB4MDFkNSwgMHg1NzU3fSwNCg0KKyAgICAgICAgICAgIHsweDAx
+ZDYsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgwMWQ3LCAweDAwMDB9LA0KDQorICAgICAg
+ICAgICAgezB4MDFkOCwgMHgwMTYyfSwNCg0KKyAgICAgICAgICAgIHsweDAxZDksIDB4MDAwN30s
+DQoNCisgICAgICAgICAgICB7MHgwMWRhLCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDFk
+YiwgMHgwMDA0fSwNCg0KKyAgICAgICAgICAgIHsweDAxZGMsIDB4MDAwMH0sDQoNCisgICAgICAg
+ICAgICB7MHgwMWRlLCAweDdjMDB9LA0KDQorICAgICAgICAgICAgezB4MDFkZiwgMHgwMDIwfSwN
+Cg0KKyAgICAgICAgICAgIHsweDAxZTAsIDB4MDRjMX0sDQoNCisgICAgICAgICAgICB7MHgwMWUx
+LCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDFlMiwgMHgwMDAwfSwNCg0KKyAgICAgICAg
+ICAgIHsweDAxZTMsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgwMWU0LCAweDAwMDB9LA0K
+DQorICAgICAgICAgICAgezB4MDFlNSwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDAxZTYs
+IDB4MDAwMX0sDQoNCisgICAgICAgICAgICB7MHgwMWU3LCAweDAwMDB9LA0KDQorICAgICAgICAg
+ICAgezB4MDFlOCwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDAxZWIsIDB4MDAwMH0sDQoN
+CisgICAgICAgICAgICB7MHgwMWVjLCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDFlZCwg
+MHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDAxZWUsIDB4MDAwMH0sDQoNCisgICAgICAgICAg
+ICB7MHgwMWVmLCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDFmMCwgMHgwMDAwfSwNCg0K
+KyAgICAgICAgICAgIHsweDAxZjEsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgwMWYyLCAw
+eDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MDFmMywgMHgwMDAwfSwNCg0KKyAgICAgICAgICAg
+IHsweDAxZjQsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgwMjEwLCAweDYyOTd9LA0KDQor
+ICAgICAgICAgICAgezB4MDIxMSwgMHhhMDA0fSwNCg0KKyAgICAgICAgICAgIHsweDAyMTIsIDB4
+MDM2NX0sDQoNCisgICAgICAgICAgICB7MHgwMjEzLCAweGY3ZmZ9LA0KDQorICAgICAgICAgICAg
+ezB4MDIxNCwgMHhmMjRjfSwNCg0KKyAgICAgICAgICAgIHsweDAyMTUsIDB4MDEwMn0sDQoNCisg
+ICAgICAgICAgICB7MHgwMjE2LCAweDAwYTN9LA0KDQorICAgICAgICAgICAgezB4MDIxNywgMHgw
+MDQ4fSwNCg0KKyAgICAgICAgICAgIHsweDAyMTgsIDB4YTJjMH0sDQoNCisgICAgICAgICAgICB7
+MHgwMjE5LCAweDA0MDB9LA0KDQorICAgICAgICAgICAgezB4MDIxYSwgMHgwMGM4fSwNCg0KKyAg
+ICAgICAgICAgIHsweDAyMWIsIDB4MDBjMH0sDQoNCisgICAgICAgICAgICB7MHgwMjFjLCAweDAw
+MDB9LA0KDQorICAgICAgICAgICAgezB4MDIxZCwgMHgwMjRjfSwNCg0KKyAgICAgICAgICAgIHsw
+eDAyZmEsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgwMmZiLCAweDAwMDB9LA0KDQorICAg
+ICAgICAgICAgezB4MDJmYywgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDAzZmUsIDB4MDAw
+MH0sDQoNCisgICAgICAgICAgICB7MHgwM2ZmLCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4
+MDUwMCwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDA2MDAsIDB4MDAwMH0sDQoNCisgICAg
+ICAgICAgICB7MHgwNjEwLCAweDY2NjZ9LA0KDQorICAgICAgICAgICAgezB4MDYxMSwgMHhhOWFh
+fSwNCg0KKyAgICAgICAgICAgIHsweDA2MjAsIDB4NjY2Nn0sDQoNCisgICAgICAgICAgICB7MHgw
+NjIxLCAweGE5YWF9LA0KDQorICAgICAgICAgICAgezB4MDYzMCwgMHg2NjY2fSwNCg0KKyAgICAg
+ICAgICAgIHsweDA2MzEsIDB4YTlhYX0sDQoNCisgICAgICAgICAgICB7MHgwNjQwLCAweDY2NjZ9
+LA0KDQorICAgICAgICAgICAgezB4MDY0MSwgMHhhOWFhfSwNCg0KKyAgICAgICAgICAgIHsweDA3
+ZmEsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgwOGZhLCAweDAwMDB9LA0KDQorICAgICAg
+ICAgICAgezB4MDhmYiwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDBkMDAsIDB4MDAwMH0s
+DQoNCisgICAgICAgICAgICB7MHgxMTAwLCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MTEw
+MSwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDExMDIsIDB4MDAwMH0sDQoNCisgICAgICAg
+ICAgICB7MHgxMTAzLCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MTEwNCwgMHgwMDAwfSwN
+Cg0KKyAgICAgICAgICAgIHsweDExMDUsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgxMTA2
+LCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MTEwNywgMHgwMDAwfSwNCg0KKyAgICAgICAg
+ICAgIHsweDExMDgsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgxMTA5LCAweDAwMDB9LA0K
+DQorICAgICAgICAgICAgezB4MTEwYSwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDExMGIs
+IDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgxMTBjLCAweDAwMDB9LA0KDQorICAgICAgICAg
+ICAgezB4MTExMSwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDExMTIsIDB4MDAwMH0sDQoN
+CisgICAgICAgICAgICB7MHgxMTEzLCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MTExNCwg
+MHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDExMTUsIDB4MDAwMH0sDQoNCisgICAgICAgICAg
+ICB7MHgxMTE2LCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MTExNywgMHgwMDAwfSwNCg0K
+KyAgICAgICAgICAgIHsweDExMTgsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgxMTE5LCAw
+eDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MTExYSwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAg
+IHsweDExMWIsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgxMTFjLCAweDAwMDB9LA0KDQor
+ICAgICAgICAgICAgezB4MTQwMSwgMHgwNDA0fSwNCg0KKyAgICAgICAgICAgIHsweDE0MDIsIDB4
+MDAwN30sDQoNCisgICAgICAgICAgICB7MHgxNDAzLCAweDAzNjV9LA0KDQorICAgICAgICAgICAg
+ezB4MTQwNCwgMHgwMjEwfSwNCg0KKyAgICAgICAgICAgIHsweDE0MDUsIDB4MDM2NX0sDQoNCisg
+ICAgICAgICAgICB7MHgxNDA2LCAweDAyMTB9LA0KDQorICAgICAgICAgICAgezB4MTQwNywgMHgw
+MDAwfSwNCg0KKyAgICAgICAgICAgIHsweDE0MDgsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7
+MHgxNDA5LCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MTQwYSwgMHgwMDAwfSwNCg0KKyAg
+ICAgICAgICAgIHsweDE0MGIsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgxNDBjLCAweDAw
+MDB9LA0KDQorICAgICAgICAgICAgezB4MTQwZCwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsw
+eDE0MGUsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgxNDBmLCAweDAwMDB9LA0KDQorICAg
+ICAgICAgICAgezB4MTQxMCwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDE0MTEsIDB4MDAw
+MH0sDQoNCisgICAgICAgICAgICB7MHgxODAxLCAweDAwMDR9LA0KDQorICAgICAgICAgICAgezB4
+MTgwMiwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDE4MDMsIDB4MDAwMH0sDQoNCisgICAg
+ICAgICAgICB7MHgxODA0LCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MTgwNSwgMHgwMGZm
+fSwNCg0KKyAgICAgICAgICAgIHsweDJjMDAsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgz
+NDAwLCAweDAyMDB9LA0KDQorICAgICAgICAgICAgezB4MzQwNCwgMHgwMDAwfSwNCg0KKyAgICAg
+ICAgICAgIHsweDM0MDUsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgzNDA2LCAweDAwMDB9
+LA0KDQorICAgICAgICAgICAgezB4MzQwNywgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDM0
+MDgsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgzNDA5LCAweDAwMDB9LA0KDQorICAgICAg
+ICAgICAgezB4MzQwYSwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDM0MGIsIDB4MDAwMH0s
+DQoNCisgICAgICAgICAgICB7MHgzNDBjLCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MzQw
+ZCwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDM0MGUsIDB4MDAwMH0sDQoNCisgICAgICAg
+ICAgICB7MHgzNDBmLCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MzQxMCwgMHgwMDAwfSwN
+Cg0KKyAgICAgICAgICAgIHsweDM0MTEsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgzNDEy
+LCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MzQxMywgMHgwMDAwfSwNCg0KKyAgICAgICAg
+ICAgIHsweDM0MTQsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgzNDE1LCAweDAwMDB9LA0K
+DQorICAgICAgICAgICAgezB4MzQyNCwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDM0MjUs
+IDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgzNDI2LCAweDAwMDB9LA0KDQorICAgICAgICAg
+ICAgezB4MzQyNywgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDM0MjgsIDB4MDAwMH0sDQoN
+CisgICAgICAgICAgICB7MHgzNDI5LCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MzQyYSwg
+MHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDM0MmIsIDB4MDAwMH0sDQoNCisgICAgICAgICAg
+ICB7MHgzNDJjLCAweDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MzQyZCwgMHgwMDAwfSwNCg0K
+KyAgICAgICAgICAgIHsweDM0MmUsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgzNDJmLCAw
+eDAwMDB9LA0KDQorICAgICAgICAgICAgezB4MzQzMCwgMHgwMDAwfSwNCg0KKyAgICAgICAgICAg
+IHsweDM0MzEsIDB4MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgzNDMyLCAweDAwMDB9LA0KDQor
+ICAgICAgICAgICAgezB4MzQzMywgMHgwMDAwfSwNCg0KKyAgICAgICAgICAgIHsweDM0MzQsIDB4
+MDAwMH0sDQoNCisgICAgICAgICAgICB7MHgzNDM1LCAweDAwMDB9LA0KDQorICAgICAgICAgICAg
+ezB4MzQ0MCwgMHg2MzE5fSwNCg0KKyAgICAgICAgICAgIHsweDM0NDEsIDB4Mzc3MX0sDQoNCisg
+ICAgICAgICAgICB7MHgzNTAwLCAweDAwMDJ9LA0KDQorICAgICAgICAgICAgezB4MzUwMSwgMHg1
+NzI4fSwNCg0KKyAgICAgICAgICAgIHsweDNiMDAsIDB4MzAxMH0sDQoNCisgICAgICAgICAgICB7
+MHgzYjAxLCAweDMzMDB9LA0KDQorICAgICAgICAgICAgezB4M2IwMiwgMHgyMjAwfSwNCg0KKyAg
+ICAgICAgICAgIHsweDNiMDMsIDB4MDEwMH0sDQoNCit9Ow0KDQorDQoNCitzdGF0aWMgYm9vbCBy
+dDU2ODJzX3ZvbGF0aWxlX3JlZ2lzdGVyKHN0cnVjdCBkZXZpY2UgKmRldiwgdW5zaWduZWQgaW50
+IHJlZykNCg0KK3sNCg0KKyAgICAgICAgICAgIHN3aXRjaCAocmVnKSB7DQoNCisgICAgICAgICAg
+ICBjYXNlIFJUNTY4MlNfUkVTRVQ6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfQ0JKX0NU
+UkxfMjoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19JMlMxX0ZfRElWX0NUUkxfMjoNCg0K
+KyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19JMlMyX0ZfRElWX0NUUkxfMjoNCg0KKyAgICAgICAg
+ICAgIGNhc2UgUlQ1NjgyU19JTlRfU1RfMToNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19H
+UElPX1NUOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0lMX0NNRF8xOg0KDQorICAgICAg
+ICAgICAgY2FzZSBSVDU2ODJTXzRCVE5fSUxfQ01EXzE6DQoNCisgICAgICAgICAgICBjYXNlIFJU
+NTY4MlNfQUpEMV9DVFJMOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX1ZFUlNJT05fSUQu
+Li5SVDU2ODJTX0RFVklDRV9JRDoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19TVE9fTkcy
+X0NUUkxfMToNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19TVE9fTkcyX0NUUkxfNS4uLlJU
+NTY4MlNfU1RPX05HMl9DVFJMXzc6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfU1RPMV9E
+QUNfU0lMX0RFVDoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19IUF9JTVBfU0VOU19DVFJM
+XzEuLi5SVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfNDoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1
+NjgyU19IUF9JTVBfU0VOU19DVFJMXzEzOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0hQ
+X0lNUF9TRU5TX0NUUkxfMTQ6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfSFBfSU1QX1NF
+TlNfQ1RSTF80My4uLlJUNTY4MlNfSFBfSU1QX1NFTlNfQ1RSTF80NjoNCg0KKyAgICAgICAgICAg
+IGNhc2UgUlQ1NjgyU19IUF9DQUxJQl9DVFJMXzE6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4
+MlNfSFBfQ0FMSUJfQ1RSTF8xMDoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19IUF9DQUxJ
+Ql9TVF8xLi4uUlQ1NjgyU19IUF9DQUxJQl9TVF8xMToNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1
+NjgyU19TQVJfSUxfQ01EXzIuLi5SVDU2ODJTX1NBUl9JTF9DTURfNToNCg0KKyAgICAgICAgICAg
+IGNhc2UgUlQ1NjgyU19TQVJfSUxfQ01EXzEwOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJT
+X1NBUl9JTF9DTURfMTE6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfVkVSU0lPTl9JRF9I
+SURFOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX1ZFUlNJT05fSURfQ1VTOg0KDQorICAg
+ICAgICAgICAgY2FzZSBSVDU2ODJTX0kyQ19UUkFOU19DVFJMOg0KDQorICAgICAgICAgICAgY2Fz
+ZSBSVDU2ODJTX0RNSUNfRkxPQVRfREVUOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0hB
+X0NNUF9PUF8xOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX05FV19DQkpfREVUX0NUTF8x
+MC4uLlJUNTY4MlNfTkVXX0NCSl9ERVRfQ1RMXzE2Og0KDQorICAgICAgICAgICAgY2FzZSBSVDU2
+ODJTX0NMS19TV19URVNUXzE6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfQ0xLX1NXX1RF
+U1RfMjoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19FRlVTRV9SRUFEXzEuLi5SVDU2ODJT
+X0VGVVNFX1JFQURfMTg6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfUElMT1RfRElHX0NU
+TF8xOg0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHRydWU7DQoNCisgICAg
+ICAgICAgICBkZWZhdWx0Og0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIGZh
+bHNlOw0KDQorICAgICAgICAgICAgfQ0KDQorfQ0KDQorDQoNCitzdGF0aWMgYm9vbCBydDU2ODJz
+X3JlYWRhYmxlX3JlZ2lzdGVyKHN0cnVjdCBkZXZpY2UgKmRldiwgdW5zaWduZWQgaW50IHJlZykN
+Cg0KK3sNCg0KKyAgICAgICAgICAgIHN3aXRjaCAocmVnKSB7DQoNCisgICAgICAgICAgICBjYXNl
+IFJUNTY4MlNfUkVTRVQ6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfVkVSU0lPTl9JRDoN
+Cg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19WRU5ET1JfSUQ6DQoNCisgICAgICAgICAgICBj
+YXNlIFJUNTY4MlNfREVWSUNFX0lEOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0hQX0NU
+UkxfMToNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19IUF9DVFJMXzI6DQoNCisgICAgICAg
+ICAgICBjYXNlIFJUNTY4MlNfSFBMX0dBSU46DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNf
+SFBSX0dBSU46DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfSTJDX0NUUkw6DQoNCisgICAg
+ICAgICAgICBjYXNlIFJUNTY4MlNfQ0JKX0JTVF9DVFJMOg0KDQorICAgICAgICAgICAgY2FzZSBS
+VDU2ODJTX0NCSl9ERVRfQ1RSTDoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19DQkpfQ1RS
+TF8xLi4uUlQ1NjgyU19DQkpfQ1RSTF84Og0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0RB
+QzFfRElHX1ZPTDoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19TVE8xX0FEQ19ESUdfVk9M
+Og0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX1NUTzFfQURDX0JPT1NUOg0KDQorICAgICAg
+ICAgICAgY2FzZSBSVDU2ODJTX0hQX0lNUF9HQUlOXzE6DQoNCisgICAgICAgICAgICBjYXNlIFJU
+NTY4MlNfSFBfSU1QX0dBSU5fMjoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19TSURFVE9O
+RV9DVFJMOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX1NUTzFfQURDX01JWEVSOg0KDQor
+ICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0FEX0RBX01JWEVSOg0KDQorICAgICAgICAgICAgY2Fz
+ZSBSVDU2ODJTX1NUTzFfREFDX01JWEVSOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0Ff
+REFDMV9NVVg6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfRElHX0lORjJfREFUQToNCg0K
+KyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19SRUNfTUlYRVI6DQoNCisgICAgICAgICAgICBjYXNl
+IFJUNTY4MlNfQ0FMX1JFQzoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19IUF9BTkFfT1NU
+X0NUUkxfMS4uLlJUNTY4MlNfSFBfQU5BX09TVF9DVFJMXzM6DQoNCisgICAgICAgICAgICBjYXNl
+IFJUNTY4MlNfUFdSX0RJR18xLi4uUlQ1NjgyU19QV1JfTUlYRVI6DQoNCisgICAgICAgICAgICBj
+YXNlIFJUNTY4MlNfTUJfQ1RSTDoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19DTEtfR0FU
+RV9UQ09OXzEuLi5SVDU2ODJTX0NMS19HQVRFX1RDT05fMzoNCg0KKyAgICAgICAgICAgIGNhc2Ug
+UlQ1NjgyU19DTEtfREVULi4uUlQ1NjgyU19MUEZfQURfRE1JQzoNCg0KKyAgICAgICAgICAgIGNh
+c2UgUlQ1NjgyU19JMlMxX1NEUDoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19JMlMyX1NE
+UDoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19BRERBX0NMS18xOg0KDQorICAgICAgICAg
+ICAgY2FzZSBSVDU2ODJTX0FEREFfQ0xLXzI6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNf
+STJTMV9GX0RJVl9DVFJMXzE6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfSTJTMV9GX0RJ
+Vl9DVFJMXzI6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfVERNX0NUUkw6DQoNCisgICAg
+ICAgICAgICBjYXNlIFJUNTY4MlNfVERNX0FEREFfQ1RSTF8xOg0KDQorICAgICAgICAgICAgY2Fz
+ZSBSVDU2ODJTX1RETV9BRERBX0NUUkxfMjoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19E
+QVRBX1NFTF9DVFJMXzE6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfVERNX1RDT05fQ1RS
+TF8xOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX1RETV9UQ09OX0NUUkxfMjoNCg0KKyAg
+ICAgICAgICAgIGNhc2UgUlQ1NjgyU19HTEJfQ0xLOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2
+ODJTX1BMTF9UUkFDS18xLi4uUlQ1NjgyU19QTExfVFJBQ0tfNjoNCg0KKyAgICAgICAgICAgIGNh
+c2UgUlQ1NjgyU19QTExfVFJBQ0tfMTE6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfREVQ
+T1BfMToNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19IUF9DSEFSR0VfUFVNUF8xOg0KDQor
+ICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0hQX0NIQVJHRV9QVU1QXzI6DQoNCisgICAgICAgICAg
+ICBjYXNlIFJUNTY4MlNfSFBfQ0hBUkdFX1BVTVBfMzoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1
+NjgyU19NSUNCSUFTXzEuLi5SVDU2ODJTX01JQ0JJQVNfMzoNCg0KKyAgICAgICAgICAgIGNhc2Ug
+UlQ1NjgyU19QTExfVFJBQ0tfMTIuLi5SVDU2ODJTX1BMTF9DVFJMXzc6DQoNCisgICAgICAgICAg
+ICBjYXNlIFJUNTY4MlNfUkNfQ0xLX0NUUkw6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNf
+STJTMl9NX0NMS19DVFJMXzE6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfSTJTMl9GX0RJ
+Vl9DVFJMXzE6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfSTJTMl9GX0RJVl9DVFJMXzI6
+DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfSVJRX0NUUkxfMS4uLlJUNTY4MlNfSVJRX0NU
+UkxfNDoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19JTlRfU1RfMToNCg0KKyAgICAgICAg
+ICAgIGNhc2UgUlQ1NjgyU19HUElPX0NUUkxfMToNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1Njgy
+U19HUElPX0NUUkxfMjoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19HUElPX1NUOg0KDQor
+ICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0hQX0FNUF9ERVRfQ1RSTF8xOg0KDQorICAgICAgICAg
+ICAgY2FzZSBSVDU2ODJTX01JRF9IUF9BTVBfREVUOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2
+ODJTX0xPV19IUF9BTVBfREVUOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0RFTEFZX0JV
+Rl9DVFJMOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX1NWX1pDRF8xOg0KDQorICAgICAg
+ICAgICAgY2FzZSBSVDU2ODJTX1NWX1pDRF8yOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJT
+X0lMX0NNRF8xLi4uUlQ1NjgyU19JTF9DTURfNjoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1Njgy
+U180QlROX0lMX0NNRF8xLi4uUlQ1NjgyU180QlROX0lMX0NNRF83Og0KDQorICAgICAgICAgICAg
+Y2FzZSBSVDU2ODJTX0FEQ19TVE8xX0hQX0NUUkxfMToNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1
+NjgyU19BRENfU1RPMV9IUF9DVFJMXzI6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfQUpE
+MV9DVFJMOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0pEX0NUUkxfMToNCg0KKyAgICAg
+ICAgICAgIGNhc2UgUlQ1NjgyU19EVU1NWV8xLi4uUlQ1NjgyU19EVU1NWV8zOg0KDQorICAgICAg
+ICAgICAgY2FzZSBSVDU2ODJTX0RBQ19BRENfRElHX1ZPTDE6DQoNCisgICAgICAgICAgICBjYXNl
+IFJUNTY4MlNfQklBU19DVVJfQ1RSTF8yLi4uUlQ1NjgyU19CSUFTX0NVUl9DVFJMXzEwOg0KDQor
+ICAgICAgICAgICAgY2FzZSBSVDU2ODJTX1ZSRUZfUkVDX09QX0ZCX0NBUF9DVFJMXzE6DQoNCisg
+ICAgICAgICAgICBjYXNlIFJUNTY4MlNfVlJFRl9SRUNfT1BfRkJfQ0FQX0NUUkxfMjoNCg0KKyAg
+ICAgICAgICAgIGNhc2UgUlQ1NjgyU19DSEFSR0VfUFVNUF8xOg0KDQorICAgICAgICAgICAgY2Fz
+ZSBSVDU2ODJTX0RJR19JTl9DVFJMXzE6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfUEFE
+X0RSSVZJTkdfQ1RSTDoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19DSE9QX0RBQ18xOg0K
+DQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0NIT1BfREFDXzI6DQoNCisgICAgICAgICAgICBj
+YXNlIFJUNTY4MlNfQ0hPUF9BREM6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfQ0FMSUJf
+QURDX0NUUkw6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfVk9MX1RFU1Q6DQoNCisgICAg
+ICAgICAgICBjYXNlIFJUNTY4MlNfU1BLVkREX0RFVF9TVDoNCg0KKyAgICAgICAgICAgIGNhc2Ug
+UlQ1NjgyU19URVNUX01PREVfQ1RSTF8xLi4uUlQ1NjgyU19URVNUX01PREVfQ1RSTF80Og0KDQor
+ICAgICAgICAgICAgY2FzZSBSVDU2ODJTX1BMTF9JTlRFUk5BTF8xLi4uUlQ1NjgyU19QTExfSU5U
+RVJOQUxfNDoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19TVE9fTkcyX0NUUkxfMS4uLlJU
+NTY4MlNfU1RPX05HMl9DVFJMXzEwOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX1NUTzFf
+REFDX1NJTF9ERVQ6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfU0lMX1BTVl9DVFJMMToN
+Cg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19TSUxfUFNWX0NUUkwyOg0KDQorICAgICAgICAg
+ICAgY2FzZSBSVDU2ODJTX1NJTF9QU1ZfQ1RSTDM6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4
+MlNfU0lMX1BTVl9DVFJMNDoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19TSUxfUFNWX0NU
+Ukw1Og0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfMS4uLlJU
+NTY4MlNfSFBfSU1QX1NFTlNfQ1RSTF80NjoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19I
+UF9MT0dJQ19DVFJMXzEuLi5SVDU2ODJTX0hQX0xPR0lDX0NUUkxfMzoNCg0KKyAgICAgICAgICAg
+IGNhc2UgUlQ1NjgyU19IUF9DQUxJQl9DVFJMXzEuLi5SVDU2ODJTX0hQX0NBTElCX0NUUkxfMTE6
+DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfSFBfQ0FMSUJfU1RfMS4uLlJUNTY4MlNfSFBf
+Q0FMSUJfU1RfMTE6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfU0FSX0lMX0NNRF8xLi4u
+UlQ1NjgyU19TQVJfSUxfQ01EXzE0Og0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0RVTU1Z
+XzQuLi5SVDU2ODJTX0RVTU1ZXzY6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfVkVSU0lP
+Tl9JRF9ISURFOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX1ZFUlNJT05fSURfQ1VTOg0K
+DQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX1NDQU5fQ1RMOg0KDQorICAgICAgICAgICAgY2Fz
+ZSBSVDU2ODJTX0hQX0FNUF9ERVQ6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfQklBU19D
+VVJfQ1RSTF8xMToNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19CSUFTX0NVUl9DVFJMXzEy
+Og0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0JJQVNfQ1VSX0NUUkxfMTM6DQoNCisgICAg
+ICAgICAgICBjYXNlIFJUNTY4MlNfQklBU19DVVJfQ1RSTF8xNDoNCg0KKyAgICAgICAgICAgIGNh
+c2UgUlQ1NjgyU19CSUFTX0NVUl9DVFJMXzE1Og0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJT
+X0JJQVNfQ1VSX0NUUkxfMTY6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfQklBU19DVVJf
+Q1RSTF8xNzoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19CSUFTX0NVUl9DVFJMXzE4Og0K
+DQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0kyQ19UUkFOU19DVFJMOg0KDQorICAgICAgICAg
+ICAgY2FzZSBSVDU2ODJTX0RVTU1ZXzc6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfRFVN
+TVlfODoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19ETUlDX0ZMT0FUX0RFVDoNCg0KKyAg
+ICAgICAgICAgIGNhc2UgUlQ1NjgyU19IQV9DTVBfT1BfMS4uLlJUNTY4MlNfSEFfQ01QX09QXzEz
+Og0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0hBX0NNUF9PUF8xNC4uLlJUNTY4MlNfSEFf
+Q01QX09QXzI1Og0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX05FV19DQkpfREVUX0NUTF8x
+Li4uUlQ1NjgyU19ORVdfQ0JKX0RFVF9DVExfMTY6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4
+MlNfREFfRklMVEVSXzEuLi5SVDU2ODJTX0RBX0ZJTFRFUl81Og0KDQorICAgICAgICAgICAgY2Fz
+ZSBSVDU2ODJTX0NMS19TV19URVNUXzE6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfQ0xL
+X1NXX1RFU1RfMjoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19DTEtfU1dfVEVTVF8zLi4u
+UlQ1NjgyU19DTEtfU1dfVEVTVF8xNDoNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19FRlVT
+RV9NQU5VX1dSSVRFXzEuLi5SVDU2ODJTX0VGVVNFX01BTlVfV1JJVEVfNjoNCg0KKyAgICAgICAg
+ICAgIGNhc2UgUlQ1NjgyU19FRlVTRV9SRUFEXzEuLi5SVDU2ODJTX0VGVVNFX1JFQURfMTg6DQoN
+CisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfRUZVU0VfVElNSU5HX0NUTF8xOg0KDQorICAgICAg
+ICAgICAgY2FzZSBSVDU2ODJTX0VGVVNFX1RJTUlOR19DVExfMjoNCg0KKyAgICAgICAgICAgIGNh
+c2UgUlQ1NjgyU19QSUxPVF9ESUdfQ1RMXzE6DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNf
+UElMT1RfRElHX0NUTF8yOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0hQX0FNUF9ERVRf
+Q1RMXzEuLi5SVDU2ODJTX0hQX0FNUF9ERVRfQ1RMXzQ6DQoNCisgICAgICAgICAgICAgICAgICAg
+ICAgICAgICByZXR1cm4gdHJ1ZTsNCg0KKyAgICAgICAgICAgIGRlZmF1bHQ6DQoNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICByZXR1cm4gZmFsc2U7DQoNCisgICAgICAgICAgICB9DQoNCit9
+DQoNCisNCg0KK3N0YXRpYyB2b2lkIHJ0NTY4MnNfcmVzZXQoc3RydWN0IHJ0NTY4MnNfcHJpdiAq
+cnQ1NjgycykNCg0KK3sNCg0KKyAgICAgICAgICAgIHJlZ21hcF93cml0ZShydDU2ODJzLT5yZWdt
+YXAsIFJUNTY4MlNfUkVTRVQsIDApOw0KDQorfQ0KDQorDQoNCitzdGF0aWMgaW50IHJ0NTY4MnNf
+YnV0dG9uX2RldGVjdChzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKmNvbXBvbmVudCkNCg0KK3sN
+Cg0KKyAgICAgICAgICAgIGludCBidG5fdHlwZSwgdmFsOw0KDQorDQoNCisgICAgICAgICAgICB2
+YWwgPSBzbmRfc29jX2NvbXBvbmVudF9yZWFkKGNvbXBvbmVudCwgUlQ1NjgyU180QlROX0lMX0NN
+RF8xKTsNCg0KKyAgICAgICAgICAgIGJ0bl90eXBlID0gdmFsICYgMHhmZmYwOw0KDQorICAgICAg
+ICAgICAgc25kX3NvY19jb21wb25lbnRfd3JpdGUoY29tcG9uZW50LCBSVDU2ODJTXzRCVE5fSUxf
+Q01EXzEsIHZhbCk7DQoNCisgICAgICAgICAgICBkZXZfZGJnKGNvbXBvbmVudC0+ZGV2LCAiJXMg
+YnRuX3R5cGU9JXhcbiIsIF9fZnVuY19fLCBidG5fdHlwZSk7DQoNCisgICAgICAgICAgICBzbmRf
+c29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfU0FSX0lMX0NNRF8y
+LA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19TQVJfQURDX1BTVl9NQVNL
+LCBSVDU2ODJTX1NBUl9BRENfUFNWX0VOVFJZKTsNCg0KKw0KDQorICAgICAgICAgICAgcmV0dXJu
+IGJ0bl90eXBlOw0KDQorfQ0KDQorDQoNCitlbnVtIHsNCg0KKyAgICAgICAgICAgIFNBUl9QV1Jf
+T0ZGLA0KDQorICAgICAgICAgICAgU0FSX1BXUl9OT1JNQUwsDQoNCisgICAgICAgICAgICBTQVJf
+UFdSX1NBVklORywNCg0KK307DQoNCisNCg0KK3N0YXRpYyB2b2lkIHJ0NTY4MnNfc2FyX3Bvd2Vy
+X21vZGUoc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQsDQoNCisgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaW50IG1vZGUsIGlu
+dCBqZF9zdGVwKQ0KDQorew0KDQorICAgICAgICAgICAgc3RydWN0IHJ0NTY4MnNfcHJpdiAqcnQ1
+NjgycyA9IHNuZF9zb2NfY29tcG9uZW50X2dldF9kcnZkYXRhKGNvbXBvbmVudCk7DQoNCisNCg0K
+KyAgICAgICAgICAgIG11dGV4X2xvY2soJnJ0NTY4MnMtPnNhcl9tdXRleCk7DQoNCisNCg0KKyAg
+ICAgICAgICAgIHN3aXRjaCAobW9kZSkgew0KDQorICAgICAgICAgICAgY2FzZSBTQVJfUFdSX1NB
+VklORzoNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHNuZF9zb2NfY29tcG9uZW50X3Vw
+ZGF0ZV9iaXRzKGNvbXBvbmVudCwgUlQ1NjgyU19DQkpfQ1RSTF8zLA0KDQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX0NCSl9JTl9CVUZfTUFTSywgUlQ1
+NjgyU19DQkpfSU5fQlVGX0RJUyk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRf
+c29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfQ0JKX0NUUkxfMSwN
+Cg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19NQjFf
+UEFUSF9NQVNLIHwgUlQ1NjgyU19NQjJfUEFUSF9NQVNLLA0KDQorICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX0NUUkxfTUIxX1JFRyB8IFJUNTY4MlNfQ1RS
+TF9NQjJfUkVHKTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHNuZF9zb2NfY29tcG9u
+ZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwgUlQ1NjgyU19TQVJfSUxfQ01EXzEsDQoNCisgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfU0FSX0JVVERFVF9N
+QVNLIHwgUlQ1NjgyU19TQVJfQlVUREVUX1BPV19NQVNLIHwNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19TQVJfU0VMX01CMV8yX0NUTF9NQVNLLCBS
+VDU2ODJTX1NBUl9CVVRERVRfRElTIHwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgUlQ1NjgyU19TQVJfQlVUREVUX1BPV19TQVYgfCBSVDU2ODJTX1NBUl9TRUxf
+TUIxXzJfTUFOVSk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICB1c2xlZXBfcmFuZ2Uo
+NTAwMCwgNTUwMCk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRfc29jX2NvbXBv
+bmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfU0FSX0lMX0NNRF8xLA0KDQorICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX1NBUl9CVVRERVRf
+TUFTSywgUlQ1NjgyU19TQVJfQlVUREVUX0VOKTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHVzbGVlcF9yYW5nZSg1MDAwLCA1NTAwKTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwgUlQ1NjgyU19TQVJf
+SUxfQ01EXzIsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJU
+NTY4MlNfU0FSX0FEQ19QU1ZfTUFTSywgUlQ1NjgyU19TQVJfQURDX1BTVl9FTlRSWSk7DQoNCisg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsNCg0KKyAgICAgICAgICAgIGNhc2UgU0FS
+X1BXUl9OT1JNQUw6DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRfc29jX2NvbXBv
+bmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfQ0JKX0NUUkxfMywNCg0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19DQkpfSU5fQlVGX01B
+U0ssIFJUNTY4MlNfQ0JKX0lOX0JVRl9FTik7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBzbmRfc29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfQ0JKX0NU
+UkxfMSwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1Njgy
+U19NQjFfUEFUSF9NQVNLIHwgUlQ1NjgyU19NQjJfUEFUSF9NQVNLLA0KDQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX0NUUkxfTUIxX0ZTTSB8IFJUNTY4
+MlNfQ1RSTF9NQjJfRlNNKTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmICghamRf
+c3RlcCkgew0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRf
+c29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfU0FSX0lMX0NNRF8x
+LA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIFJUNTY4MlNfU0FSX1NFTF9NQjFfMl9DVExfTUFTSywgUlQ1NjgyU19TQVJfU0VMX01CMV8y
+X0FVVE8pOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB1c2xl
+ZXBfcmFuZ2UoNTAwMCwgNTUwMCk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwgUlQ1Njgy
+U19TQVJfSUxfQ01EXzEsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgUlQ1NjgyU19TQVJfQlVUREVUX01BU0sgfCBSVDU2ODJTX1NBUl9C
+VVRERVRfUE9XX01BU0ssDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgUlQ1NjgyU19TQVJfQlVUREVUX0VOIHwgUlQ1NjgyU19TQVJfQlVU
+REVUX1BPV19OT1JNKTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIH0NCg0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOw0KDQorICAgICAgICAgICAgY2FzZSBTQVJfUFdS
+X09GRjoNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHNuZF9zb2NfY29tcG9uZW50X3Vw
+ZGF0ZV9iaXRzKGNvbXBvbmVudCwgUlQ1NjgyU19TQVJfSUxfQ01EXzEsDQoNCisgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfU0FSX0JVVERFVF9NQVNLIHwg
+UlQ1NjgyU19TQVJfQlVUREVUX1BPV19NQVNLIHwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgUlQ1NjgyU19TQVJfU0VMX01CMV8yX0NUTF9NQVNLLCBSVDU2ODJT
+X1NBUl9CVVRERVRfRElTIHwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgUlQ1NjgyU19TQVJfQlVUREVUX1BPV19TQVYgfCBSVDU2ODJTX1NBUl9TRUxfTUIxXzJf
+TUFOVSk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsNCg0KKyAgICAgICAg
+ICAgIGRlZmF1bHQ6DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBkZXZfZXJyKGNvbXBv
+bmVudC0+ZGV2LCAiSW52YWxpZCBTQVIgUG93ZXIgbW9kZTogJWRcbiIsIG1vZGUpOw0KDQorICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQoNCisgICAgICAgICAgICB9DQoNCisNCg0K
+KyAgICAgICAgICAgIG11dGV4X3VubG9jaygmcnQ1Njgycy0+c2FyX211dGV4KTsNCg0KK30NCg0K
+Kw0KDQorc3RhdGljIHZvaWQgcnQ1Njgyc19lbmFibGVfcHVzaF9idXR0b25faXJxKHN0cnVjdCBz
+bmRfc29jX2NvbXBvbmVudCAqY29tcG9uZW50KQ0KDQorew0KDQorICAgICAgICAgICAgc25kX3Nv
+Y19jb21wb25lbnRfdXBkYXRlX2JpdHMoY29tcG9uZW50LCBSVDU2ODJTX1NBUl9JTF9DTURfMTMs
+DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX1NBUl9TT1VSX01BU0ssIFJU
+NTY4MlNfU0FSX1NPVVJfQlROKTsNCg0KKyAgICAgICAgICAgIHNuZF9zb2NfY29tcG9uZW50X3dy
+aXRlKGNvbXBvbmVudCwgUlQ1NjgyU19JTF9DTURfMSwgMHgwMDQwKTsNCg0KKyAgICAgICAgICAg
+IHNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwgUlQ1NjgyU180QlROX0lM
+X0NNRF8yLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU180QlROX0lMX01B
+U0sgfCBSVDU2ODJTXzRCVE5fSUxfUlNUX01BU0ssDQoNCisgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBSVDU2ODJTXzRCVE5fSUxfRU4gfCBSVDU2ODJTXzRCVE5fSUxfTk9SKTsNCg0KKyAgICAg
+ICAgICAgIHNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwgUlQ1NjgyU19J
+UlFfQ1RSTF8zLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19JTF9JUlFf
+TUFTSywgUlQ1NjgyU19JTF9JUlFfRU4pOw0KDQorfQ0KDQorDQoNCitzdGF0aWMgdm9pZCBydDU2
+ODJzX2Rpc2FibGVfcHVzaF9idXR0b25faXJxKHN0cnVjdCBzbmRfc29jX2NvbXBvbmVudCAqY29t
+cG9uZW50KQ0KDQorew0KDQorICAgICAgICAgICAgc25kX3NvY19jb21wb25lbnRfdXBkYXRlX2Jp
+dHMoY29tcG9uZW50LCBSVDU2ODJTX0lSUV9DVFJMXzMsDQoNCisgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBSVDU2ODJTX0lMX0lSUV9NQVNLLCBSVDU2ODJTX0lMX0lSUV9ESVMpOw0KDQorICAg
+ICAgICAgICAgc25kX3NvY19jb21wb25lbnRfdXBkYXRlX2JpdHMoY29tcG9uZW50LCBSVDU2ODJT
+XzRCVE5fSUxfQ01EXzIsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTXzRC
+VE5fSUxfTUFTSywgUlQ1NjgyU180QlROX0lMX0RJUyk7DQoNCisgICAgICAgICAgICBzbmRfc29j
+X2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfU0FSX0lMX0NNRF8xMywN
+Cg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfU0FSX1NPVVJfTUFTSywgUlQ1
+NjgyU19TQVJfU09VUl9UWVBFKTsNCg0KK30NCg0KKw0KDQorLyoqDQoNCisgKiBydDU2ODJzX2hl
+YWRzZXRfZGV0ZWN0IC0gRGV0ZWN0IGhlYWRzZXQuDQoNCisgKiBAY29tcG9uZW50OiBTb0MgYXVk
+aW8gY29tcG9uZW50IGRldmljZS4NCg0KKyAqIEBqYWNrX2luc2VydDogSmFjayBpbnNlcnQgb3Ig
+bm90Lg0KDQorICoNCg0KKyAqIERldGVjdCB3aGV0aGVyIGlzIGhlYWRzZXQgb3Igbm90IHdoZW4g
+amFjayBpbnNlcnRlZC4NCg0KKyAqDQoNCisgKiBSZXR1cm5zIGRldGVjdCBzdGF0dXMuDQoNCisg
+Ki8NCg0KK3N0YXRpYyBpbnQgcnQ1Njgyc19oZWFkc2V0X2RldGVjdChzdHJ1Y3Qgc25kX3NvY19j
+b21wb25lbnQgKmNvbXBvbmVudCwgaW50IGphY2tfaW5zZXJ0KQ0KDQorew0KDQorICAgICAgICAg
+ICAgdW5zaWduZWQgaW50IHZhbCwgY291bnQ7DQoNCisgICAgICAgICAgICBpbnQgamFja190eXBl
+ID0gMDsNCg0KKw0KDQorICAgICAgICAgICAgaWYgKGphY2tfaW5zZXJ0KSB7DQoNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBydDU2ODJzX2Rpc2FibGVfcHVzaF9idXR0b25faXJxKGNvbXBv
+bmVudCk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRfc29jX2NvbXBvbmVudF91
+cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfUFdSX0FOTEdfMSwNCg0KKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19QV1JfVlJFRjEgfCBSVDU2ODJT
+X1BXUl9WUkVGMiB8IFJUNTY4MlNfUFdSX01CLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBSVDU2ODJTX1BXUl9WUkVGMSB8IFJUNTY4MlNfUFdSX1ZSRUYyIHwg
+UlQ1NjgyU19QV1JfTUIpOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgc25kX3NvY19j
+b21wb25lbnRfdXBkYXRlX2JpdHMoY29tcG9uZW50LCBSVDU2ODJTX1BXUl9BTkxHXzEsDQoNCisg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfUFdSX0ZWMSB8
+IFJUNTY4MlNfUFdSX0ZWMiwgMCk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICB1c2xl
+ZXBfcmFuZ2UoMTUwMDAsIDIwMDAwKTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHNu
+ZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwgUlQ1NjgyU19QV1JfQU5MR18x
+LA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX1BX
+Ul9GVjEgfCBSVDU2ODJTX1BXUl9GVjIsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIFJUNTY4MlNfUFdSX0ZWMSB8IFJUNTY4MlNfUFdSX0ZWMik7DQoNCisgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBzbmRfc29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21w
+b25lbnQsIFJUNTY4MlNfUFdSX0FOTEdfMywNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgUlQ1NjgyU19QV1JfQ0JKLCBSVDU2ODJTX1BXUl9DQkopOw0KDQorICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgc25kX3NvY19jb21wb25lbnRfd3JpdGUoY29tcG9uZW50
+LCBSVDU2ODJTX1NBUl9JTF9DTURfMywgMHgwMzY1KTsNCg0KKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwgUlQ1NjgyU19I
+UF9DSEFSR0VfUFVNUF8yLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBSVDU2ODJTX09TV19MX01BU0sgfCBSVDU2ODJTX09TV19SX01BU0ssDQoNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfT1NXX0xfRElTIHwgUlQ1
+NjgyU19PU1dfUl9ESVMpOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgc25kX3NvY19j
+b21wb25lbnRfdXBkYXRlX2JpdHMoY29tcG9uZW50LCBSVDU2ODJTX1NBUl9JTF9DTURfMTMsDQoN
+CisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfU0FSX1NP
+VVJfTUFTSywgUlQ1NjgyU19TQVJfU09VUl9UWVBFKTsNCg0KKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHJ0NTY4MnNfc2FyX3Bvd2VyX21vZGUoY29tcG9uZW50LCBTQVJfUFdSX05PUk1BTCwg
+MSk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRfc29jX2NvbXBvbmVudF91cGRh
+dGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfQ0JKX0NUUkxfMSwNCg0KKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19UUklHX0pEX01BU0ssIFJUNTY4MlNf
+VFJJR19KRF9MT1cpOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgdXNsZWVwX3Jhbmdl
+KDQ1MDAwLCA1MDAwMCk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRfc29jX2Nv
+bXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfQ0JKX0NUUkxfMSwNCg0KKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19UUklHX0pEX01B
+U0ssIFJUNTY4MlNfVFJJR19KRF9ISUdIKTsNCg0KKw0KDQorICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgY291bnQgPSAwOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgZG8gew0KDQor
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB1c2xlZXBfcmFuZ2UoMTAw
+MDAsIDE1MDAwKTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+dmFsID0gc25kX3NvY19jb21wb25lbnRfcmVhZChjb21wb25lbnQsIFJUNTY4MlNfQ0JKX0NUUkxf
+MikNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAmIFJUNTY4MlNfSkFDS19UWVBFX01BU0s7DQoNCisgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIGNvdW50Kys7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAg
+ICB9IHdoaWxlICh2YWwgPT0gMCAmJiBjb3VudCA8IDUwKTsNCg0KKw0KDQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcHJfZGVidWcoIiVzLCB2YWw9JWQsIGNvdW50PSVkXG4iLCBfX2Z1bmNf
+XywgdmFsLCBjb3VudCk7DQoNCisNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHN3aXRj
+aCAodmFsKSB7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBjYXNlIDB4MToNCg0KKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIGNhc2UgMHgyOg0KDQorICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBqYWNrX3R5cGUgPSBTTkRfSkFDS19IRUFEU0VUOw0KDQor
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRfc29jX2NvbXBvbmVu
+dF93cml0ZShjb21wb25lbnQsIFJUNTY4MlNfU0FSX0lMX0NNRF8zLCAweDAyNGMpOw0KDQorICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRfc29jX2NvbXBvbmVudF91
+cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfQ0JKX0NUUkxfMSwNCg0KKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX0ZBU1Rf
+T0ZGX01BU0ssIFJUNTY4MlNfRkFTVF9PRkZfRU4pOw0KDQorICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBzbmRfc29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25l
+bnQsIFJUNTY4MlNfU0FSX0lMX0NNRF8xLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfU0FSX1NFTF9NQjFfMl9NQVNLLCB2
+YWwgPDwgUlQ1NjgyU19TQVJfU0VMX01CMV8yX1NGVCk7DQoNCisgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHJ0NTY4MnNfc2FyX3Bvd2VyX21vZGUoY29tcG9uZW50LCBT
+QVJfUFdSX1NBVklORywgMSk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHJ0NTY4MnNfZW5hYmxlX3B1c2hfYnV0dG9uX2lycShjb21wb25lbnQpOw0KDQorICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIGRlZmF1bHQ6DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIGphY2tfdHlwZSA9IFNORF9KQUNLX0hFQURQSE9ORTsNCg0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQoNCisgICAgICAgICAg
+ICAgICAgICAgICAgICAgICB9DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRfc29j
+X2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfSFBfQ0hBUkdFX1BVTVBf
+MiwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19P
+U1dfTF9NQVNLIHwgUlQ1NjgyU19PU1dfUl9NQVNLLA0KDQorICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX09TV19MX0VOIHwgUlQ1NjgyU19PU1dfUl9FTik7
+DQoNCisgICAgICAgICAgICB9IGVsc2Ugew0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
+cnQ1Njgyc19zYXJfcG93ZXJfbW9kZShjb21wb25lbnQsIFNBUl9QV1JfT0ZGLCAxKTsNCg0KKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHJ0NTY4MnNfZGlzYWJsZV9wdXNoX2J1dHRvbl9pcnEo
+Y29tcG9uZW50KTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHNuZF9zb2NfY29tcG9u
+ZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwgUlQ1NjgyU19DQkpfQ1RSTF8xLA0KDQorICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX1RSSUdfSkRfTUFTSywg
+UlQ1NjgyU19UUklHX0pEX0xPVyk7DQoNCisNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+IGlmICghc25kX3NvY19kYXBtX2dldF9waW5fc3RhdHVzKCZjb21wb25lbnQtPmRhcG0sICJNSUNC
+SUFTIikpDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNuZF9z
+b2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX1BXUl9BTkxHXzEs
+IFJUNTY4MlNfUFdSX01CLCAwKTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmICgh
+c25kX3NvY19kYXBtX2dldF9waW5fc3RhdHVzKCZjb21wb25lbnQtPmRhcG0sICJWcmVmMiIpKQ0K
+DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRfc29jX2NvbXBv
+bmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19QV1JfQU5MR18xLCBSVDU2ODJT
+X1BXUl9WUkVGMiwgMCk7DQoNCisNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHNuZF9z
+b2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwgUlQ1NjgyU19QV1JfQU5MR18zLA0K
+DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX1BXUl9D
+QkosIDApOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgc25kX3NvY19jb21wb25lbnRf
+dXBkYXRlX2JpdHMoY29tcG9uZW50LCBSVDU2ODJTX0NCSl9DVFJMXzEsDQoNCisgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfRkFTVF9PRkZfTUFTSywgUlQ1
+NjgyU19GQVNUX09GRl9ESVMpOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgc25kX3Nv
+Y19jb21wb25lbnRfdXBkYXRlX2JpdHMoY29tcG9uZW50LCBSVDU2ODJTX0NCSl9DVFJMXzMsDQoN
+CisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfQ0JKX0lO
+X0JVRl9NQVNLLCBSVDU2ODJTX0NCSl9JTl9CVUZfRElTKTsNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGphY2tfdHlwZSA9IDA7DQoNCisgICAgICAgICAgICB9DQoNCisNCg0KKyAgICAg
+ICAgICAgIGRldl9kYmcoY29tcG9uZW50LT5kZXYsICJqYWNrX3R5cGUgPSAlZFxuIiwgamFja190
+eXBlKTsNCg0KKw0KDQorICAgICAgICAgICAgcmV0dXJuIGphY2tfdHlwZTsNCg0KK30NCg0KKw0K
+DQorc3RhdGljIHZvaWQgcnQ1Njgyc19qYWNrX2RldGVjdF9oYW5kbGVyKHN0cnVjdCB3b3JrX3N0
+cnVjdCAqd29yaykNCg0KK3sNCg0KKyAgICAgICAgICAgIHN0cnVjdCBydDU2ODJzX3ByaXYgKnJ0
+NTY4MnMgPQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgY29udGFpbmVyX29mKHdvcmss
+IHN0cnVjdCBydDU2ODJzX3ByaXYsIGphY2tfZGV0ZWN0X3dvcmsud29yazxodHRwOi8vamFja19k
+ZXRlY3Rfd29yay53b3JrPik7DQoNCisgICAgICAgICAgICBpbnQgdmFsLCBidG5fdHlwZTsNCg0K
+Kw0KDQorICAgICAgICAgICAgd2hpbGUgKCFydDU2ODJzLT5jb21wb25lbnQpDQoNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICB1c2xlZXBfcmFuZ2UoMTAwMDAsIDE1MDAwKTsNCg0KKw0KDQor
+ICAgICAgICAgICAgd2hpbGUgKCFydDU2ODJzLT5jb21wb25lbnQtPmNhcmQtPmluc3RhbnRpYXRl
+ZCkNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHVzbGVlcF9yYW5nZSgxMDAwMCwgMTUw
+MDApOw0KDQorDQoNCisgICAgICAgICAgICBtdXRleF9sb2NrKCZydDU2ODJzLT5jYWxpYnJhdGVf
+bXV0ZXgpOw0KDQorDQoNCisgICAgICAgICAgICB2YWwgPSBzbmRfc29jX2NvbXBvbmVudF9yZWFk
+KHJ0NTY4MnMtPmNvbXBvbmVudCwgUlQ1NjgyU19BSkQxX0NUUkwpDQoNCisgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAmIFJUNTY4MlNfSkRIX1JTX01BU0s7DQoNCisgICAgICAgICAgICBpZiAo
+IXZhbCkgew0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgLyogamFjayBpbiAqLw0KDQor
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKHJ0NTY4MnMtPmphY2tfdHlwZSA9PSAwKSB7
+DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC8qIGphY2sgd2Fz
+IG91dCwgcmVwb3J0IGphY2sgdHlwZSAqLw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBydDU2ODJzLT5qYWNrX3R5cGUgPSBydDU2ODJzX2hlYWRzZXRfZGV0ZWN0
+KHJ0NTY4MnMtPmNvbXBvbmVudCwgMSk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHJ0NTY4MnMtPmlycV93b3JrX2RlbGF5X3RpbWUgPSAwOw0KDQorICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgfSBlbHNlIGlmICgocnQ1Njgycy0+amFja190eXBlICYgU05E
+X0pBQ0tfSEVBRFNFVCkgPT0gU05EX0pBQ0tfSEVBRFNFVCkgew0KDQorICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAvKiBqYWNrIGlzIGFscmVhZHkgaW4sIHJlcG9ydCBi
+dXR0b24gZXZlbnQgKi8NCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgcnQ1Njgycy0+amFja190eXBlID0gU05EX0pBQ0tfSEVBRFNFVDsNCg0KKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYnRuX3R5cGUgPSBydDU2ODJzX2J1dHRvbl9k
+ZXRlY3QocnQ1Njgycy0+Y29tcG9uZW50KTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgLyoqDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICogcnQ1NjgycyBjYW4gcmVwb3J0IHRocmVlIGtpbmRzIG9mIGJ1dHRvbiBiZWhhdmlv
+ciwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKiBvbmUgY2xp
+Y2ssIGRvdWJsZSBjbGljayBhbmQgaG9sZC4gSG93ZXZlciwNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgKiBjdXJyZW50bHkgd2Ugd2lsbCByZXBvcnQgYnV0dG9u
+IHByZXNzZWQvcmVsZWFzZWQNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgKiBldmVudC4gU28gYWxsIHRoZSB0aHJlZSBidXR0b24gYmVoYXZpb3JzIGFyZQ0KDQor
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAqIHRyZWF0ZWQgYXMgYnV0
+dG9uIHByZXNzZWQuDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICovDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN3aXRjaCAo
+YnRuX3R5cGUpIHsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+Y2FzZSAweDgwMDA6DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IGNhc2UgMHg0MDAwOg0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBjYXNlIDB4MjAwMDoNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBydDU2ODJzLT5qYWNrX3R5cGUgfD0gU05EX0pBQ0tfQlROXzA7DQoN
+CisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+YnJlYWs7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNhc2Ug
+MHgxMDAwOg0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjYXNl
+IDB4MDgwMDoNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY2Fz
+ZSAweDA0MDA6DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgcnQ1Njgycy0+amFja190eXBlIHw9IFNORF9KQUNLX0JUTl8xOw0KDQorICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFr
+Ow0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjYXNlIDB4MDIw
+MDoNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY2FzZSAweDAx
+MDA6DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNhc2UgMHgw
+MDgwOg0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHJ0NTY4MnMtPmphY2tfdHlwZSB8PSBTTkRfSkFDS19CVE5fMjsNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsNCg0K
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY2FzZSAweDAwNDA6DQoN
+CisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNhc2UgMHgwMDIwOg0K
+DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjYXNlIDB4MDAxMDoN
+Cg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBydDU2ODJzLT5qYWNrX3R5cGUgfD0gU05EX0pBQ0tfQlROXzM7DQoNCisgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQoNCisgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNhc2UgMHgwMDAwOiAvKiB1bnBy
+ZXNzZWQgKi8NCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBicmVhazsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgZGVmYXVsdDoNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBkZXZfZXJyKHJ0NTY4MnMtPmNvbXBvbmVudC0+ZGV2LA0KDQorICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICJVbmV4cGVjdGVkIGJ1dHRvbiBjb2RlIDB4JTA0eFxuIiwgYnRuX3R5cGUpOw0K
+DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IGJyZWFrOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9DQoN
+CisgICAgICAgICAgICAgICAgICAgICAgICAgICB9DQoNCisgICAgICAgICAgICB9IGVsc2Ugew0K
+DQorICAgICAgICAgICAgICAgICAgICAgICAgICAvKiBqYWNrIG91dCAqLw0KDQorICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgcnQ1Njgycy0+amFja190eXBlID0gcnQ1Njgyc19oZWFkc2V0X2Rl
+dGVjdChydDU2ODJzLT5jb21wb25lbnQsIDApOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgcnQ1Njgycy0+aXJxX3dvcmtfZGVsYXlfdGltZSA9IDUwOw0KDQorICAgICAgICAgICAgfQ0K
+DQorDQoNCisgICAgICAgICAgICBzbmRfc29jX2phY2tfcmVwb3J0KHJ0NTY4MnMtPmhzX2phY2ss
+IHJ0NTY4MnMtPmphY2tfdHlwZSwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIFNORF9K
+QUNLX0hFQURTRVQgfCBTTkRfSkFDS19CVE5fMCB8IFNORF9KQUNLX0JUTl8xIHwNCg0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIFNORF9KQUNLX0JUTl8yIHwgU05EX0pBQ0tfQlROXzMpOw0K
+DQorDQoNCisgICAgICAgICAgICBpZiAocnQ1Njgycy0+amFja190eXBlICYgKFNORF9KQUNLX0JU
+Tl8wIHwgU05EX0pBQ0tfQlROXzEgfA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgU05E
+X0pBQ0tfQlROXzIgfCBTTkRfSkFDS19CVE5fMykpDQoNCisgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBzY2hlZHVsZV9kZWxheWVkX3dvcmsoJnJ0NTY4MnMtPmpkX2NoZWNrX3dvcmssIDApOw0K
+DQorICAgICAgICAgICAgZWxzZQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgY2FuY2Vs
+X2RlbGF5ZWRfd29ya19zeW5jKCZydDU2ODJzLT5qZF9jaGVja193b3JrKTsNCg0KKw0KDQorICAg
+ICAgICAgICAgbXV0ZXhfdW5sb2NrKCZydDU2ODJzLT5jYWxpYnJhdGVfbXV0ZXgpOw0KDQorfQ0K
+DQorDQoNCitzdGF0aWMgdm9pZCBydDU2ODJzX2pkX2NoZWNrX2hhbmRsZXIoc3RydWN0IHdvcmtf
+c3RydWN0ICp3b3JrKQ0KDQorew0KDQorICAgICAgICAgICAgc3RydWN0IHJ0NTY4MnNfcHJpdiAq
+cnQ1NjgycyA9DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBjb250YWluZXJfb2Yod29y
+aywgc3RydWN0IHJ0NTY4MnNfcHJpdiwgamRfY2hlY2tfd29yay53b3JrPGh0dHA6Ly9qZF9jaGVj
+a193b3JrLndvcms+KTsNCg0KKw0KDQorICAgICAgICAgICAgaWYgKHNuZF9zb2NfY29tcG9uZW50
+X3JlYWQocnQ1Njgycy0+Y29tcG9uZW50LCBSVDU2ODJTX0FKRDFfQ1RSTCkNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICYgUlQ1NjgyU19KREhfUlNfTUFTSykgew0KDQorICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgLyogamFjayBvdXQgKi8NCg0KKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHJ0NTY4MnMtPmphY2tfdHlwZSA9IHJ0NTY4MnNfaGVhZHNldF9kZXRlY3QocnQ1Njgy
+cy0+Y29tcG9uZW50LCAwKTsNCg0KKw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgc25k
+X3NvY19qYWNrX3JlcG9ydChydDU2ODJzLT5oc19qYWNrLCBydDU2ODJzLT5qYWNrX3R5cGUsDQoN
+CisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFNORF9KQUNLX0hFQURT
+RVQgfCBTTkRfSkFDS19CVE5fMCB8IFNORF9KQUNLX0JUTl8xIHwNCg0KKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgU05EX0pBQ0tfQlROXzIgfCBTTkRfSkFDS19CVE5f
+Myk7DQoNCisgICAgICAgICAgICB9IGVsc2Ugew0KDQorICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgc2NoZWR1bGVfZGVsYXllZF93b3JrKCZydDU2ODJzLT5qZF9jaGVja193b3JrLCA1MDApOw0K
+DQorICAgICAgICAgICAgfQ0KDQorfQ0KDQorDQoNCitzdGF0aWMgaXJxcmV0dXJuX3QgcnQ1Njgy
+c19pcnEoaW50IGlycSwgdm9pZCAqZGF0YSkNCg0KK3sNCg0KKyAgICAgICAgICAgIHN0cnVjdCBy
+dDU2ODJzX3ByaXYgKnJ0NTY4MnMgPSBkYXRhOw0KDQorDQoNCisgICAgICAgICAgICBtb2RfZGVs
+YXllZF93b3JrKHN5c3RlbV9wb3dlcl9lZmZpY2llbnRfd3EsICZydDU2ODJzLT5qYWNrX2RldGVj
+dF93b3JrLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgbXNlY3NfdG9famlmZmllcyhy
+dDU2ODJzLT5pcnFfd29ya19kZWxheV90aW1lKSk7DQoNCisNCg0KKyAgICAgICAgICAgIHJldHVy
+biBJUlFfSEFORExFRDsNCg0KK30NCg0KKw0KDQorc3RhdGljIGludCBydDU2ODJzX3NldF9qYWNr
+X2RldGVjdChzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKmNvbXBvbmVudCwNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHN0cnVjdCBzbmRfc29jX2phY2sgKmhzX2phY2ssIHZvaWQgKmRh
+dGEpDQoNCit7DQoNCisgICAgICAgICAgICBzdHJ1Y3QgcnQ1Njgyc19wcml2ICpydDU2ODJzID0g
+c25kX3NvY19jb21wb25lbnRfZ2V0X2RydmRhdGEoY29tcG9uZW50KTsNCg0KKyAgICAgICAgICAg
+IGludCBidG5kZXRfZGVsYXkgPSAxNjsNCg0KKw0KDQorICAgICAgICAgICAgcnQ1Njgycy0+aHNf
+amFjayA9IGhzX2phY2s7DQoNCisNCg0KKyAgICAgICAgICAgIGlmICghaHNfamFjaykgew0KDQor
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnbWFwX3VwZGF0ZV9iaXRzKHJ0NTY4MnMtPnJl
+Z21hcCwgUlQ1NjgyU19JUlFfQ1RSTF8yLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBSVDU2ODJTX0pEMV9FTl9NQVNLLCBSVDU2ODJTX0pEMV9ESVMpOw0KDQor
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnbWFwX3VwZGF0ZV9iaXRzKHJ0NTY4MnMtPnJl
+Z21hcCwgUlQ1NjgyU19SQ19DTEtfQ1RSTCwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgUlQ1NjgyU19QT1dfSkRILCAwKTsNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGNhbmNlbF9kZWxheWVkX3dvcmtfc3luYygmcnQ1Njgycy0+amFja19kZXRlY3Rf
+d29yayk7DQoNCisNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAwOw0KDQor
+ICAgICAgICAgICAgfQ0KDQorDQoNCisgICAgICAgICAgICBzd2l0Y2ggKHJ0NTY4MnMtPnBkYXRh
+LmpkX3NyYykgew0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0pEMToNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHJlZ21hcF91cGRhdGVfYml0cyhydDU2ODJzLT5yZWdtYXAsIFJU
+NTY4MlNfQ0JKX0NUUkxfNSwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgUlQ1NjgyU19KRF9GQVNUX09GRl9TUkNfTUFTSywgUlQ1NjgyU19KRF9GQVNUX09GRl9T
+UkNfSkRIKTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHJlZ21hcF91cGRhdGVfYml0
+cyhydDU2ODJzLT5yZWdtYXAsIFJUNTY4MlNfQ0JKX0NUUkxfMiwNCg0KKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19FWFRfSkRfU1JDLCBSVDU2ODJTX0VY
+VF9KRF9TUkNfTUFOVUFMKTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHJlZ21hcF91
+cGRhdGVfYml0cyhydDU2ODJzLT5yZWdtYXAsIFJUNTY4MlNfQ0JKX0NUUkxfMSwNCg0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19FTUJfSkRfTUFTSyB8
+IFJUNTY4MlNfREVUX1RZUEUgfA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBSVDU2ODJTX1BPTF9GQVNUX09GRl9NQVNLIHwgUlQ1NjgyU19NSUNfQ0FQX01BU0ss
+DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfRU1C
+X0pEX0VOIHwgUlQ1NjgyU19ERVRfVFlQRSB8DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIFJUNTY4MlNfUE9MX0ZBU1RfT0ZGX0hJR0ggfCBSVDU2ODJTX01JQ19D
+QVBfSFMpOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnbWFwX3VwZGF0ZV9iaXRz
+KHJ0NTY4MnMtPnJlZ21hcCwgUlQ1NjgyU19TQVJfSUxfQ01EXzEsDQoNCisgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfU0FSX1BPV19NQVNLLCBSVDU2ODJT
+X1NBUl9QT1dfRU4pOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnbWFwX3VwZGF0
+ZV9iaXRzKHJ0NTY4MnMtPnJlZ21hcCwgUlQ1NjgyU19HUElPX0NUUkxfMSwNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19HUDFfUElOX01BU0ssIFJU
+NTY4MlNfR1AxX1BJTl9JUlEpOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnbWFw
+X3VwZGF0ZV9iaXRzKHJ0NTY4MnMtPnJlZ21hcCwgUlQ1NjgyU19QV1JfQU5MR18zLA0KDQorICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX1BXUl9CR0xETywg
+UlQ1NjgyU19QV1JfQkdMRE8pOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnbWFw
+X3VwZGF0ZV9iaXRzKHJ0NTY4MnMtPnJlZ21hcCwgUlQ1NjgyU19QV1JfQU5MR18yLA0KDQorICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX1BXUl9KRF9NQVNL
+LCBSVDU2ODJTX1BXUl9KRF9FTkFCTEUpOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
+cmVnbWFwX3VwZGF0ZV9iaXRzKHJ0NTY4MnMtPnJlZ21hcCwgUlQ1NjgyU19SQ19DTEtfQ1RSTCwN
+Cg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19QT1df
+SVJRIHwgUlQ1NjgyU19QT1dfSkRILCBSVDU2ODJTX1BPV19JUlEgfCBSVDU2ODJTX1BPV19KREgp
+Ow0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnbWFwX3VwZGF0ZV9iaXRzKHJ0NTY4
+MnMtPnJlZ21hcCwgUlQ1NjgyU19JUlFfQ1RSTF8yLA0KDQorICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX0pEMV9FTl9NQVNLIHwgUlQ1NjgyU19KRDFfUE9M
+X01BU0ssDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4
+MlNfSkQxX0VOIHwgUlQ1NjgyU19KRDFfUE9MX05PUik7DQoNCisgICAgICAgICAgICAgICAgICAg
+ICAgICAgICByZWdtYXBfdXBkYXRlX2JpdHMocnQ1Njgycy0+cmVnbWFwLCBSVDU2ODJTXzRCVE5f
+SUxfQ01EXzQsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJU
+NTY4MlNfNEJUTl9JTF9IT0xEX1dJTl9NQVNLIHwgUlQ1NjgyU180QlROX0lMX0NMSUNLX1dJTl9N
+QVNLLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoYnRuZGV0
+X2RlbGF5IDw8IFJUNTY4MlNfNEJUTl9JTF9IT0xEX1dJTl9TRlQgfCBidG5kZXRfZGVsYXkpKTsN
+Cg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHJlZ21hcF91cGRhdGVfYml0cyhydDU2ODJz
+LT5yZWdtYXAsIFJUNTY4MlNfNEJUTl9JTF9DTURfNSwNCg0KKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU180QlROX0lMX0hPTERfV0lOX01BU0sgfCBSVDU2
+ODJTXzRCVE5fSUxfQ0xJQ0tfV0lOX01BU0ssDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIChidG5kZXRfZGVsYXkgPDwgUlQ1NjgyU180QlROX0lMX0hPTERfV0lO
+X1NGVCB8IGJ0bmRldF9kZWxheSkpOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVn
+bWFwX3VwZGF0ZV9iaXRzKHJ0NTY4MnMtPnJlZ21hcCwgUlQ1NjgyU180QlROX0lMX0NNRF82LA0K
+DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTXzRCVE5f
+SUxfSE9MRF9XSU5fTUFTSyB8IFJUNTY4MlNfNEJUTl9JTF9DTElDS19XSU5fTUFTSywNCg0KKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKGJ0bmRldF9kZWxheSA8PCBS
+VDU2ODJTXzRCVE5fSUxfSE9MRF9XSU5fU0ZUIHwgYnRuZGV0X2RlbGF5KSk7DQoNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICByZWdtYXBfdXBkYXRlX2JpdHMocnQ1Njgycy0+cmVnbWFwLCBS
+VDU2ODJTXzRCVE5fSUxfQ01EXzcsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIFJUNTY4MlNfNEJUTl9JTF9IT0xEX1dJTl9NQVNLIHwgUlQ1NjgyU180QlROX0lM
+X0NMSUNLX1dJTl9NQVNLLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAoYnRuZGV0X2RlbGF5IDw8IFJUNTY4MlNfNEJUTl9JTF9IT0xEX1dJTl9TRlQgfCBidG5k
+ZXRfZGVsYXkpKTsNCg0KKw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgbW9kX2RlbGF5
+ZWRfd29yayhzeXN0ZW1fcG93ZXJfZWZmaWNpZW50X3dxLA0KDQorICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAmcnQ1Njgycy0+amFja19kZXRlY3Rfd29yaywgbXNlY3Nf
+dG9famlmZmllcygyNTApKTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOw0K
+DQorDQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfSkRfTlVMTDoNCg0KKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHJlZ21hcF91cGRhdGVfYml0cyhydDU2ODJzLT5yZWdtYXAsIFJUNTY4
+MlNfSVJRX0NUUkxfMiwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgUlQ1NjgyU19KRDFfRU5fTUFTSywgUlQ1NjgyU19KRDFfRElTKTsNCg0KKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHJlZ21hcF91cGRhdGVfYml0cyhydDU2ODJzLT5yZWdtYXAsIFJUNTY4
+MlNfUkNfQ0xLX0NUUkwsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIFJUNTY4MlNfUE9XX0pESCwgMCk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBi
+cmVhazsNCg0KKw0KDQorICAgICAgICAgICAgZGVmYXVsdDoNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGRldl93YXJuKGNvbXBvbmVudC0+ZGV2LCAiV3JvbmcgSkQgc291cmNlXG4iKTsN
+Cg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOw0KDQorICAgICAgICAgICAgfQ0K
+DQorDQoNCisgICAgICAgICAgICByZXR1cm4gMDsNCg0KK30NCg0KKw0KDQorc3RhdGljIGNvbnN0
+IERFQ0xBUkVfVExWX0RCX1NDQUxFKGRhY192b2xfdGx2LCAtOTQ1MCwgMTUwLCAwKTsNCg0KK3N0
+YXRpYyBjb25zdCBERUNMQVJFX1RMVl9EQl9TQ0FMRShhZGNfdm9sX3RsdiwgLTE3MjUsIDc1LCAw
+KTsNCg0KK3N0YXRpYyBjb25zdCBERUNMQVJFX1RMVl9EQl9TQ0FMRShhZGNfYnN0X3RsdiwgMCwg
+MTIwMCwgMCk7DQoNCitzdGF0aWMgY29uc3QgREVDTEFSRV9UTFZfREJfU0NBTEUoY2JqX2JzdF90
+bHYsIC0xMjAwLCAxNTAsIDApOw0KDQorDQoNCitzdGF0aWMgY29uc3Qgc3RydWN0IHNuZF9rY29u
+dHJvbF9uZXcgcnQ1Njgyc19zbmRfY29udHJvbHNbXSA9IHsNCg0KKyAgICAgICAgICAgIC8qIERB
+QyBEaWdpdGFsIFZvbHVtZSAqLw0KDQorICAgICAgICAgICAgU09DX0RPVUJMRV9UTFYoIkRBQzEg
+UGxheWJhY2sgVm9sdW1lIiwgUlQ1NjgyU19EQUMxX0RJR19WT0wsDQoNCisgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBSVDU2ODJTX0xfVk9MX1NGVCArIDIsIFJUNTY4MlNfUl9WT0xfU0ZUICsg
+MiwgNjMsIDAsIGRhY192b2xfdGx2KSwNCg0KKw0KDQorICAgICAgICAgICAgLyogQ0JKIEJvb3N0
+IFZvbHVtZSAqLw0KDQorICAgICAgICAgICAgU09DX1NJTkdMRV9UTFYoIkNCSiBCb29zdCBWb2x1
+bWUiLCBSVDU2ODJTX1JFQ19NSVhFUiwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIFJU
+NTY4MlNfQlNUX0NCSl9TRlQsIDM1LCAwLCAgY2JqX2JzdF90bHYpLA0KDQorDQoNCisgICAgICAg
+ICAgICAvKiBBREMgRGlnaXRhbCBWb2x1bWUgQ29udHJvbCAqLw0KDQorICAgICAgICAgICAgU09D
+X0RPVUJMRSgiU1RPMSBBREMgQ2FwdHVyZSBTd2l0Y2giLCBSVDU2ODJTX1NUTzFfQURDX0RJR19W
+T0wsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX0xfTVVURV9TRlQsIFJU
+NTY4MlNfUl9NVVRFX1NGVCwgMSwgMSksDQoNCisgICAgICAgICAgICBTT0NfRE9VQkxFX1RMVigi
+U1RPMSBBREMgQ2FwdHVyZSBWb2x1bWUiLCBSVDU2ODJTX1NUTzFfQURDX0RJR19WT0wsDQoNCisg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX0xfVk9MX1NGVCArIDEsIFJUNTY4MlNf
+Ul9WT0xfU0ZUICsgMSwgNjMsIDAsIGFkY192b2xfdGx2KSwNCg0KKw0KDQorICAgICAgICAgICAg
+LyogQURDIEJvb3N0IFZvbHVtZSBDb250cm9sICovDQoNCisgICAgICAgICAgICBTT0NfRE9VQkxF
+X1RMVigiU1RPMSBBREMgQm9vc3QgR2FpbiBWb2x1bWUiLCBSVDU2ODJTX1NUTzFfQURDX0JPT1NU
+LA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19TVE8xX0FEQ19MX0JTVF9T
+RlQsIFJUNTY4MlNfU1RPMV9BRENfUl9CU1RfU0ZULCAzLCAwLCBhZGNfYnN0X3RsdiksDQoNCit9
+Ow0KDQorDQoNCisvKioNCg0KKyAqIHJ0NTY4MnNfc2VsX2FzcmNfY2xrX3NyYyAtIHNlbGVjdCBB
+U1JDIGNsb2NrIHNvdXJjZSBmb3IgYSBzZXQgb2YgZmlsdGVycw0KDQorICogQGNvbXBvbmVudDog
+U29DIGF1ZGlvIGNvbXBvbmVudCBkZXZpY2UuDQoNCisgKiBAZmlsdGVyX21hc2s6IG1hc2sgb2Yg
+ZmlsdGVycy4NCg0KKyAqIEBjbGtfc3JjOiBjbG9jayBzb3VyY2UNCg0KKyAqDQoNCisgKiBUaGUg
+QVNSQyBmdW5jdGlvbiBpcyBmb3IgYXN5bmNocm9ub3VzIE1DTEsgYW5kIExSQ0suIEFsc28sIHNp
+bmNlIFJUNTY4MlMgY2FuDQoNCisgKiBvbmx5IHN1cHBvcnQgc3RhbmRhcmQgMzJmcyBvciA2NGZz
+IGkycyBmb3JtYXQsIEFTUkMgc2hvdWxkIGJlIGVuYWJsZWQgdG8NCg0KKyAqIHN1cHBvcnQgc3Bl
+Y2lhbCBpMnMgY2xvY2sgZm9ybWF0IHN1Y2ggYXMgSW50ZWwncyAxMDBmcygxMDAgKiBzYW1wbGlu
+ZyByYXRlKS4NCg0KKyAqIEFTUkMgZnVuY3Rpb24gd2lsbCB0cmFjayBpMnMgY2xvY2sgYW5kIGdl
+bmVyYXRlIGEgY29ycmVzcG9uZGluZyBzeXN0ZW0gY2xvY2sNCg0KKyAqIGZvciBjb2RlYy4gVGhp
+cyBmdW5jdGlvbiBwcm92aWRlcyBhbiBBUEkgdG8gc2VsZWN0IHRoZSBjbG9jayBzb3VyY2UgZm9y
+IGENCg0KKyAqIHNldCBvZiBmaWx0ZXJzIHNwZWNpZmllZCBieSB0aGUgbWFzay4gQW5kIHRoZSBj
+b21wb25lbnQgZHJpdmVyIHdpbGwgdHVybiBvbg0KDQorICogQVNSQyBmb3IgdGhlc2UgZmlsdGVy
+cyBpZiBBU1JDIGlzIHNlbGVjdGVkIGFzIHRoZWlyIGNsb2NrIHNvdXJjZS4NCg0KKyAqLw0KDQor
+aW50IHJ0NTY4MnNfc2VsX2FzcmNfY2xrX3NyYyhzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKmNv
+bXBvbmVudCwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHVuc2lnbmVkIGludCBmaWx0
+ZXJfbWFzaywgdW5zaWduZWQgaW50IGNsa19zcmMpDQoNCit7DQoNCisgICAgICAgICAgICBzd2l0
+Y2ggKGNsa19zcmMpIHsNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19DTEtfU0VMX1NZUzoN
+Cg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19DTEtfU0VMX0kyUzFfQVNSQzoNCg0KKyAgICAg
+ICAgICAgIGNhc2UgUlQ1NjgyU19DTEtfU0VMX0kyUzJfQVNSQzoNCg0KKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIGJyZWFrOw0KDQorDQoNCisgICAgICAgICAgICBkZWZhdWx0Og0KDQorICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQoNCisgICAgICAgICAgICB9
+DQoNCisNCg0KKyAgICAgICAgICAgIGlmIChmaWx0ZXJfbWFzayAmIFJUNTY4MlNfREFfU1RFUkVP
+MV9GSUxURVIpIHsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHNuZF9zb2NfY29tcG9u
+ZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwgUlQ1NjgyU19QTExfVFJBQ0tfMiwNCg0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19GSUxURVJfQ0xLX1NF
+TF9NQVNLLCBjbGtfc3JjIDw8IFJUNTY4MlNfRklMVEVSX0NMS19TRUxfU0ZUKTsNCg0KKyAgICAg
+ICAgICAgIH0NCg0KKw0KDQorICAgICAgICAgICAgaWYgKGZpbHRlcl9tYXNrICYgUlQ1NjgyU19B
+RF9TVEVSRU8xX0ZJTFRFUikgew0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgc25kX3Nv
+Y19jb21wb25lbnRfdXBkYXRlX2JpdHMoY29tcG9uZW50LCBSVDU2ODJTX1BMTF9UUkFDS18zLA0K
+DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX0ZJTFRF
+Ul9DTEtfU0VMX01BU0ssIGNsa19zcmMgPDwgUlQ1NjgyU19GSUxURVJfQ0xLX1NFTF9TRlQpOw0K
+DQorICAgICAgICAgICAgfQ0KDQorDQoNCisgICAgICAgICAgICByZXR1cm4gMDsNCg0KK30NCg0K
+K0VYUE9SVF9TWU1CT0xfR1BMKHJ0NTY4MnNfc2VsX2FzcmNfY2xrX3NyYyk7DQoNCisNCg0KK3N0
+YXRpYyBpbnQgcnQ1Njgyc19kaXZfc2VsKHN0cnVjdCBydDU2ODJzX3ByaXYgKnJ0NTY4MnMsDQoN
+CisgICAgICAgICAgICAgICAgICAgICAgICAgICBpbnQgdGFyZ2V0LCBjb25zdCBpbnQgZGl2W10s
+IGludCBzaXplKQ0KDQorew0KDQorICAgICAgICAgICAgaW50IGk7DQoNCisNCg0KKyAgICAgICAg
+ICAgIGlmIChydDU2ODJzLT5zeXNjbGsgPCB0YXJnZXQpIHsNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGRldl9lcnIocnQ1Njgycy0+Y29tcG9uZW50LT5kZXYsDQoNCisgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJzeXNjbGsgcmF0ZSAlZCBpcyB0b28gbG93
+XG4iLCBydDU2ODJzLT5zeXNjbGspOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0
+dXJuIDA7DQoNCisgICAgICAgICAgICB9DQoNCisNCg0KKyAgICAgICAgICAgIGZvciAoaSA9IDA7
+IGkgPCBzaXplIC0gMTsgaSsrKSB7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBkZXZf
+ZGJnKHJ0NTY4MnMtPmNvbXBvbmVudC0+ZGV2LCAiZGl2WyVkXT0lZFxuIiwgaSwgZGl2W2ldKTsN
+Cg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmICh0YXJnZXQgKiBkaXZbaV0gPT0gcnQ1
+Njgycy0+c3lzY2xrKQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICByZXR1cm4gaTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmICh0YXJnZXQgKiBk
+aXZbaSArIDFdID4gcnQ1Njgycy0+c3lzY2xrKSB7DQoNCisgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIGRldl9kYmcocnQ1Njgycy0+Y29tcG9uZW50LT5kZXYsDQoNCisg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgImNh
+bid0IGZpbmQgZGl2IGZvciBzeXNjbGsgJWRcbiIsIHJ0NTY4MnMtPnN5c2Nsayk7DQoNCisgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiBpOw0KDQorICAgICAg
+ICAgICAgICAgICAgICAgICAgICB9DQoNCisgICAgICAgICAgICB9DQoNCisNCg0KKyAgICAgICAg
+ICAgIGlmICh0YXJnZXQgKiBkaXZbaV0gPCBydDU2ODJzLT5zeXNjbGspDQoNCisgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBkZXZfZXJyKHJ0NTY4MnMtPmNvbXBvbmVudC0+ZGV2LA0KDQorICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAic3lzY2xrIHJhdGUgJWQgaXMg
+dG9vIGhpZ2hcbiIsIHJ0NTY4MnMtPnN5c2Nsayk7DQoNCisNCg0KKyAgICAgICAgICAgIHJldHVy
+biBzaXplIC0gMTsNCg0KK30NCg0KKw0KDQorc3RhdGljIGludCBnZXRfY2xrX2luZm8oaW50IHNj
+bGssIGludCByYXRlKQ0KDQorew0KDQorICAgICAgICAgICAgaW50IGk7DQoNCisgICAgICAgICAg
+ICBzdGF0aWMgY29uc3QgaW50IHBkW10gPSB7MSwgMiwgMywgNCwgNiwgOCwgMTIsIDE2LCAyNCwg
+MzIsIDQ4fTsNCg0KKw0KDQorICAgICAgICAgICAgaWYgKHNjbGsgPD0gMCB8fCByYXRlIDw9IDAp
+DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsNCg0KKw0KDQor
+ICAgICAgICAgICAgcmF0ZSA9IHJhdGUgPDwgODsNCg0KKyAgICAgICAgICAgIGZvciAoaSA9IDA7
+IGkgPCBBUlJBWV9TSVpFKHBkKTsgaSsrKQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
+aWYgKHNjbGsgPT0gcmF0ZSAqIHBkW2ldKQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICByZXR1cm4gaTsNCg0KKw0KDQorICAgICAgICAgICAgcmV0dXJuIC1FSU5W
+QUw7DQoNCit9DQoNCisNCg0KKy8qKg0KDQorICogc2V0X2RtaWNfY2xrIC0gU2V0IHBhcmFtZXRl
+ciBvZiBkbWljLg0KDQorICoNCg0KKyAqIEB3OiBEQVBNIHdpZGdldC4NCg0KKyAqIEBrY29udHJv
+bDogVGhlIGtjb250cm9sIG9mIHRoaXMgd2lkZ2V0Lg0KDQorICogQGV2ZW50OiBFdmVudCBpZC4N
+Cg0KKyAqDQoNCisgKiBDaG9vc2UgZG1pYyBjbG9jayBiZXR3ZWVuIDFNSHogYW5kIDNNSHouDQoN
+CisgKiBJdCBpcyBiZXR0ZXIgZm9yIGNsb2NrIHRvIGFwcHJveGltYXRlIDNNSHouDQoNCisgKi8N
+Cg0KK3N0YXRpYyBpbnQgc2V0X2RtaWNfY2xrKHN0cnVjdCBzbmRfc29jX2RhcG1fd2lkZ2V0ICp3
+LA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IHNuZF9rY29udHJvbCAqa2Nv
+bnRyb2wsIGludCBldmVudCkNCg0KK3sNCg0KKyAgICAgICAgICAgIHN0cnVjdCBzbmRfc29jX2Nv
+bXBvbmVudCAqY29tcG9uZW50ID0gc25kX3NvY19kYXBtX3RvX2NvbXBvbmVudCh3LT5kYXBtKTsN
+Cg0KKyAgICAgICAgICAgIHN0cnVjdCBydDU2ODJzX3ByaXYgKnJ0NTY4MnMgPSBzbmRfc29jX2Nv
+bXBvbmVudF9nZXRfZHJ2ZGF0YShjb21wb25lbnQpOw0KDQorICAgICAgICAgICAgaW50IGlkeCwg
+ZG1pY19jbGtfcmF0ZSA9IDMwNzIwMDA7DQoNCisgICAgICAgICAgICBzdGF0aWMgY29uc3QgaW50
+IGRpdltdID0gezIsIDQsIDYsIDgsIDEyLCAxNiwgMjQsIDMyLCA0OCwgNjQsIDk2LCAxMjh9Ow0K
+DQorDQoNCisgICAgICAgICAgICBpZiAocnQ1Njgycy0+cGRhdGEuZG1pY19jbGtfcmF0ZSkNCg0K
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgIGRtaWNfY2xrX3JhdGUgPSBydDU2ODJzLT5wZGF0
+YS5kbWljX2Nsa19yYXRlOw0KDQorDQoNCisgICAgICAgICAgICBpZHggPSBydDU2ODJzX2Rpdl9z
+ZWwocnQ1NjgycywgZG1pY19jbGtfcmF0ZSwgZGl2LCBBUlJBWV9TSVpFKGRpdikpOw0KDQorDQoN
+CisgICAgICAgICAgICBzbmRfc29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJU
+NTY4MlNfRE1JQ19DVFJMXzEsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJT
+X0RNSUNfQ0xLX01BU0ssIGlkeCA8PCBSVDU2ODJTX0RNSUNfQ0xLX1NGVCk7DQoNCisNCg0KKyAg
+ICAgICAgICAgIHJldHVybiAwOw0KDQorfQ0KDQorDQoNCitzdGF0aWMgaW50IHNldF9maWx0ZXJf
+Y2xrKHN0cnVjdCBzbmRfc29jX2RhcG1fd2lkZ2V0ICp3LA0KDQorICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgc3RydWN0IHNuZF9rY29udHJvbCAqa2NvbnRyb2wsIGludCBldmVudCkNCg0KK3sN
+Cg0KKyAgICAgICAgICAgIHN0cnVjdCBzbmRfc29jX2NvbXBvbmVudCAqY29tcG9uZW50ID0gc25k
+X3NvY19kYXBtX3RvX2NvbXBvbmVudCh3LT5kYXBtKTsNCg0KKyAgICAgICAgICAgIHN0cnVjdCBy
+dDU2ODJzX3ByaXYgKnJ0NTY4MnMgPSBzbmRfc29jX2NvbXBvbmVudF9nZXRfZHJ2ZGF0YShjb21w
+b25lbnQpOw0KDQorICAgICAgICAgICAgaW50IHJlZiwgdmFsLCByZWcsIGlkeDsNCg0KKyAgICAg
+ICAgICAgIHN0YXRpYyBjb25zdCBpbnQgZGl2X2ZbXSA9IHsxLCAyLCAzLCA0LCA2LCA4LCAxMiwg
+MTYsIDI0LCAzMiwgNDh9Ow0KDQorICAgICAgICAgICAgc3RhdGljIGNvbnN0IGludCBkaXZfb1td
+ID0gezEsIDIsIDQsIDYsIDgsIDEyLCAxNiwgMjQsIDMyLCA0OH07DQoNCisNCg0KKyAgICAgICAg
+ICAgIHZhbCA9IHNuZF9zb2NfY29tcG9uZW50X3JlYWQoY29tcG9uZW50LCBSVDU2ODJTX0dQSU9f
+Q1RSTF8xKQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmIFJU
+NTY4MlNfR1A0X1BJTl9NQVNLOw0KDQorDQoNCisgICAgICAgICAgICBpZiAody0+c2hpZnQgPT0g
+UlQ1NjgyU19QV1JfQURDX1MxRl9CSVQgJiYgdmFsID09IFJUNTY4MlNfR1A0X1BJTl9BRENEQVQy
+KQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVmID0gMjU2ICogcnQ1Njgycy0+bHJj
+a1tSVDU2ODJTX0FJRjJdOw0KDQorICAgICAgICAgICAgZWxzZQ0KDQorICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgcmVmID0gMjU2ICogcnQ1Njgycy0+bHJja1tSVDU2ODJTX0FJRjFdOw0KDQor
+DQoNCisgICAgICAgICAgICBpZHggPSBydDU2ODJzX2Rpdl9zZWwocnQ1NjgycywgcmVmLCBkaXZf
+ZiwgQVJSQVlfU0laRShkaXZfZikpOw0KDQorDQoNCisgICAgICAgICAgICBpZiAody0+c2hpZnQg
+PT0gUlQ1NjgyU19QV1JfQURDX1MxRl9CSVQpDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAg
+ICByZWcgPSBSVDU2ODJTX1BMTF9UUkFDS18zOw0KDQorICAgICAgICAgICAgZWxzZQ0KDQorICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgcmVnID0gUlQ1NjgyU19QTExfVFJBQ0tfMjsNCg0KKw0K
+DQorICAgICAgICAgICAgc25kX3NvY19jb21wb25lbnRfdXBkYXRlX2JpdHMoY29tcG9uZW50LCBy
+ZWcsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX0ZJTFRFUl9DTEtfRElW
+X01BU0ssIGlkeCA8PCBSVDU2ODJTX0ZJTFRFUl9DTEtfRElWX1NGVCk7DQoNCisNCg0KKyAgICAg
+ICAgICAgIC8qIHNlbGVjdCBvdmVyIHNhbXBsZSByYXRlICovDQoNCisgICAgICAgICAgICBmb3Ig
+KGlkeCA9IDA7IGlkeCA8IEFSUkFZX1NJWkUoZGl2X28pOyBpZHgrKykgew0KDQorICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgaWYgKHJ0NTY4MnMtPnN5c2NsayA8PSAxMjI4ODAwMCAqIGRpdl9v
+W2lkeF0pDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFr
+Ow0KDQorICAgICAgICAgICAgfQ0KDQorDQoNCisgICAgICAgICAgICBzbmRfc29jX2NvbXBvbmVu
+dF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfQUREQV9DTEtfMSwNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfQURDX09TUl9NQVNLIHwgUlQ1NjgyU19EQUNfT1NS
+X01BU0ssDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAoaWR4IDw8IFJUNTY4MlNfQURD
+X09TUl9TRlQpIHwgKGlkeCA8PCBSVDU2ODJTX0RBQ19PU1JfU0ZUKSk7DQoNCisNCg0KKyAgICAg
+ICAgICAgIHJldHVybiAwOw0KDQorfQ0KDQorDQoNCitzdGF0aWMgaW50IHNldF9kbWljX3Bvd2Vy
+KHN0cnVjdCBzbmRfc29jX2RhcG1fd2lkZ2V0ICp3LA0KDQorICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgc3RydWN0IHNuZF9rY29udHJvbCAqa2NvbnRyb2wsIGludCBldmVudCkNCg0KK3sNCg0K
+KyAgICAgICAgICAgIHN0cnVjdCBzbmRfc29jX2NvbXBvbmVudCAqY29tcG9uZW50ID0gc25kX3Nv
+Y19kYXBtX3RvX2NvbXBvbmVudCh3LT5kYXBtKTsNCg0KKyAgICAgICAgICAgIHN0cnVjdCBydDU2
+ODJzX3ByaXYgKnJ0NTY4MnMgPSBzbmRfc29jX2NvbXBvbmVudF9nZXRfZHJ2ZGF0YShjb21wb25l
+bnQpOw0KDQorICAgICAgICAgICAgdW5zaWduZWQgaW50IGRlbGF5ID0gNTAsIHZhbDsNCg0KKw0K
+DQorICAgICAgICAgICAgaWYgKHJ0NTY4MnMtPnBkYXRhLmRtaWNfZGVsYXkpDQoNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBkZWxheSA9IHJ0NTY4MnMtPnBkYXRhLmRtaWNfZGVsYXk7DQoN
+CisNCg0KKyAgICAgICAgICAgIHN3aXRjaCAoZXZlbnQpIHsNCg0KKyAgICAgICAgICAgIGNhc2Ug
+U05EX1NPQ19EQVBNX1BPU1RfUE1VOg0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgdmFs
+ID0gKHNuZF9zb2NfY29tcG9uZW50X3JlYWQoY29tcG9uZW50LCBSVDU2ODJTX0dMQl9DTEspDQoN
+CisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICYgUlQ1NjgyU19TQ0xL
+X1NSQ19NQVNLKSA+PiBSVDU2ODJTX1NDTEtfU1JDX1NGVDsNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGlmICh2YWwgPT0gUlQ1NjgyU19DTEtfU1JDX1BMTDEgfHwgdmFsID09IFJUNTY4
+MlNfQ0xLX1NSQ19QTEwyKQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBzbmRfc29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfUFdS
+X0FOTEdfMSwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBSVDU2ODJTX1BXUl9WUkVGMiB8IFJUNTY4MlNfUFdSX01CLA0KDQorICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNf
+UFdSX1ZSRUYyIHwgUlQ1NjgyU19QV1JfTUIpOw0KDQorDQoNCisgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAvKkFkZCBkZWxheSB0byBhdm9pZCBwb3Agbm9pc2UqLw0KDQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgbXNsZWVwKGRlbGF5KTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIGJyZWFrOw0KDQorDQoNCisgICAgICAgICAgICBjYXNlIFNORF9TT0NfREFQTV9QT1NUX1BN
+RDoNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmICghcnQ1Njgycy0+amFja190eXBl
+KSB7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmICghc25k
+X3NvY19kYXBtX2dldF9waW5fc3RhdHVzKHctPmRhcG0sICJNSUNCSUFTIikpDQoNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc25kX3NvY19j
+b21wb25lbnRfdXBkYXRlX2JpdHMoY29tcG9uZW50LA0KDQorICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNf
+UFdSX0FOTEdfMSwgUlQ1NjgyU19QV1JfTUIsIDApOw0KDQorICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBpZiAoIXNuZF9zb2NfZGFwbV9nZXRfcGluX3N0YXR1cyh3LT5k
+YXBtLCAiVnJlZjIiKSkNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBzbmRfc29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQs
+DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgUlQ1NjgyU19QV1JfQU5MR18xLCBSVDU2ODJTX1BXUl9WUkVGMiwg
+MCk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICB9DQoNCisgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBicmVhazsNCg0KKyAgICAgICAgICAgIH0NCg0KKw0KDQorICAgICAgICAgICAg
+cmV0dXJuIDA7DQoNCit9DQoNCisNCg0KK3N0YXRpYyBpbnQgc2V0X2kyc19jbGsoc3RydWN0IHNu
+ZF9zb2NfZGFwbV93aWRnZXQgKncsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1
+Y3Qgc25kX2tjb250cm9sICprY29udHJvbCwgaW50IGV2ZW50KQ0KDQorew0KDQorICAgICAgICAg
+ICAgc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQgPSBzbmRfc29jX2RhcG1fdG9f
+Y29tcG9uZW50KHctPmRhcG0pOw0KDQorICAgICAgICAgICAgc3RydWN0IHJ0NTY4MnNfcHJpdiAq
+cnQ1NjgycyA9IHNuZF9zb2NfY29tcG9uZW50X2dldF9kcnZkYXRhKGNvbXBvbmVudCk7DQoNCisg
+ICAgICAgICAgICBpbnQgcHJlX2RpdiwgaWQ7DQoNCisgICAgICAgICAgICB1bnNpZ25lZCBpbnQg
+cmVnLCBtYXNrLCBzZnQ7DQoNCisNCg0KKyAgICAgICAgICAgIGlmIChldmVudCAhPSBTTkRfU09D
+X0RBUE1fUFJFX1BNVSkNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAwOw0K
+DQorDQoNCisgICAgICAgICAgICBpZiAody0+c2hpZnQgPT0gUlQ1NjgyU19QV1JfSTJTMl9CSVQp
+IHsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGlkID0gUlQ1NjgyU19BSUYyOw0KDQor
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnID0gUlQ1NjgyU19JMlMyX01fQ0xLX0NUUkxf
+MTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIG1hc2sgPSBSVDU2ODJTX0kyUzJfTV9E
+X01BU0s7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBzZnQgPSBSVDU2ODJTX0kyUzJf
+TV9EX1NGVDsNCg0KKyAgICAgICAgICAgIH0gZWxzZSB7DQoNCisgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBpZCA9IFJUNTY4MlNfQUlGMTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHJlZyA9IFJUNTY4MlNfQUREQV9DTEtfMTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+IG1hc2sgPSBSVDU2ODJTX0kyU19NX0RfTUFTSzsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHNmdCA9IFJUNTY4MlNfSTJTX01fRF9TRlQ7DQoNCisgICAgICAgICAgICB9DQoNCisNCg0K
+KyAgICAgICAgICAgIGlmICghcnQ1Njgycy0+bWFzdGVyW2lkXSkNCg0KKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHJldHVybiAwOw0KDQorDQoNCisgICAgICAgICAgICBwcmVfZGl2ID0gZ2V0
+X2Nsa19pbmZvKHJ0NTY4MnMtPnN5c2NsaywgcnQ1Njgycy0+bHJja1tpZF0pOw0KDQorICAgICAg
+ICAgICAgaWYgKHByZV9kaXYgPCAwKSB7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBk
+ZXZfZXJyKGNvbXBvbmVudC0+ZGV2LCAiZ2V0IHByZV9kaXYgZmFpbGVkXG4iKTsNCg0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KDQorICAgICAgICAgICAgfQ0K
+DQorDQoNCisgICAgICAgICAgICBkZXZfZGJnKGNvbXBvbmVudC0+ZGV2LCAibHJjayBpcyAlZEh6
+IGFuZCBwcmVfZGl2IGlzICVkIGZvciBpaXMgJWQgbWFzdGVyXG4iLA0KDQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcnQ1Njgycy0+bHJja1tpZF0sIHByZV9kaXYsIGlkKTsNCg0KKyAgICAg
+ICAgICAgIHNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwgcmVnLCBtYXNr
+LCBwcmVfZGl2IDw8IHNmdCk7DQoNCisNCg0KKyAgICAgICAgICAgIHJldHVybiAwOw0KDQorfQ0K
+DQorDQoNCitzdGF0aWMgaW50IGlzX3N5c19jbGtfZnJvbV9wbGxhKHN0cnVjdCBzbmRfc29jX2Rh
+cG1fd2lkZ2V0ICp3LA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IHNuZF9z
+b2NfZGFwbV93aWRnZXQgKnNpbmspDQoNCit7DQoNCisgICAgICAgICAgICBzdHJ1Y3Qgc25kX3Nv
+Y19jb21wb25lbnQgKmNvbXBvbmVudCA9IHNuZF9zb2NfZGFwbV90b19jb21wb25lbnQody0+ZGFw
+bSk7DQoNCisgICAgICAgICAgICBzdHJ1Y3QgcnQ1Njgyc19wcml2ICpydDU2ODJzID0gc25kX3Nv
+Y19jb21wb25lbnRfZ2V0X2RydmRhdGEoY29tcG9uZW50KTsNCg0KKw0KDQorICAgICAgICAgICAg
+aWYgKChydDU2ODJzLT5zeXNjbGtfc3JjID09IFJUNTY4MlNfQ0xLX1NSQ19QTEwxKSB8fA0KDQor
+ICAgICAgICAgICAgICAgIChydDU2ODJzLT5zeXNjbGtfc3JjID09IFJUNTY4MlNfQ0xLX1NSQ19Q
+TEwyICYmIHJ0NTY4MnMtPnBsbF9jb21iID09IFVTRV9QTExBQikpDQoNCisgICAgICAgICAgICAg
+ICAgICAgICAgICAgICByZXR1cm4gMTsNCg0KKw0KDQorICAgICAgICAgICAgcmV0dXJuIDA7DQoN
+Cit9DQoNCisNCg0KK3N0YXRpYyBpbnQgaXNfc3lzX2Nsa19mcm9tX3BsbGIoc3RydWN0IHNuZF9z
+b2NfZGFwbV93aWRnZXQgKncsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3Qg
+c25kX3NvY19kYXBtX3dpZGdldCAqc2luaykNCg0KK3sNCg0KKyAgICAgICAgICAgIHN0cnVjdCBz
+bmRfc29jX2NvbXBvbmVudCAqY29tcG9uZW50ID0gc25kX3NvY19kYXBtX3RvX2NvbXBvbmVudCh3
+LT5kYXBtKTsNCg0KKyAgICAgICAgICAgIHN0cnVjdCBydDU2ODJzX3ByaXYgKnJ0NTY4MnMgPSBz
+bmRfc29jX2NvbXBvbmVudF9nZXRfZHJ2ZGF0YShjb21wb25lbnQpOw0KDQorDQoNCisgICAgICAg
+ICAgICBpZiAocnQ1Njgycy0+c3lzY2xrX3NyYyA9PSBSVDU2ODJTX0NMS19TUkNfUExMMikNCg0K
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAxOw0KDQorDQoNCisgICAgICAgICAg
+ICByZXR1cm4gMDsNCg0KK30NCg0KKw0KDQorc3RhdGljIGludCBpc191c2luZ19hc3JjKHN0cnVj
+dCBzbmRfc29jX2RhcG1fd2lkZ2V0ICp3LA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
+c3RydWN0IHNuZF9zb2NfZGFwbV93aWRnZXQgKnNpbmspDQoNCit7DQoNCisgICAgICAgICAgICB1
+bnNpZ25lZCBpbnQgcmVnLCBzZnQsIHZhbDsNCg0KKyAgICAgICAgICAgIHN0cnVjdCBzbmRfc29j
+X2NvbXBvbmVudCAqY29tcG9uZW50ID0gc25kX3NvY19kYXBtX3RvX2NvbXBvbmVudCh3LT5kYXBt
+KTsNCg0KKw0KDQorICAgICAgICAgICAgc3dpdGNoICh3LT5zaGlmdCkgew0KDQorICAgICAgICAg
+ICAgY2FzZSBSVDU2ODJTX0FEQ19TVE8xX0FTUkNfU0ZUOg0KDQorICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgcmVnID0gUlQ1NjgyU19QTExfVFJBQ0tfMzsNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHNmdCA9IFJUNTY4MlNfRklMVEVSX0NMS19TRUxfU0ZUOw0KDQorICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgYnJlYWs7DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfREFD
+X1NUTzFfQVNSQ19TRlQ6DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICByZWcgPSBSVDU2
+ODJTX1BMTF9UUkFDS18yOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgc2Z0ID0gUlQ1
+NjgyU19GSUxURVJfQ0xLX1NFTF9TRlQ7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBi
+cmVhazsNCg0KKyAgICAgICAgICAgIGRlZmF1bHQ6DQoNCisgICAgICAgICAgICAgICAgICAgICAg
+ICAgICByZXR1cm4gMDsNCg0KKyAgICAgICAgICAgIH0NCg0KKw0KDQorICAgICAgICAgICAgdmFs
+ID0gKHNuZF9zb2NfY29tcG9uZW50X3JlYWQoY29tcG9uZW50LCByZWcpID4+IHNmdCkgJiAweGY7
+DQoNCisgICAgICAgICAgICBzd2l0Y2ggKHZhbCkgew0KDQorICAgICAgICAgICAgY2FzZSBSVDU2
+ODJTX0NMS19TRUxfSTJTMV9BU1JDOg0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0NMS19T
+RUxfSTJTMl9BU1JDOg0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIDE7DQoN
+CisgICAgICAgICAgICBkZWZhdWx0Og0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0
+dXJuIDA7DQoNCisgICAgICAgICAgICB9DQoNCit9DQoNCisNCg0KK3N0YXRpYyBpbnQgaXNfaGVh
+ZHNldF90eXBlKHN0cnVjdCBzbmRfc29jX2RhcG1fd2lkZ2V0ICp3LA0KDQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgc3RydWN0IHNuZF9zb2NfZGFwbV93aWRnZXQgKnNpbmspDQoNCit7DQoN
+CisgICAgICAgICAgICBzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKmNvbXBvbmVudCA9IHNuZF9z
+b2NfZGFwbV90b19jb21wb25lbnQody0+ZGFwbSk7DQoNCisgICAgICAgICAgICBzdHJ1Y3QgcnQ1
+Njgyc19wcml2ICpydDU2ODJzID0gc25kX3NvY19jb21wb25lbnRfZ2V0X2RydmRhdGEoY29tcG9u
+ZW50KTsNCg0KKw0KDQorICAgICAgICAgICAgaWYgKChydDU2ODJzLT5qYWNrX3R5cGUgJiBTTkRf
+SkFDS19IRUFEU0VUKSA9PSBTTkRfSkFDS19IRUFEU0VUKQ0KDQorICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgcmV0dXJuIDE7DQoNCisNCg0KKyAgICAgICAgICAgIHJldHVybiAwOw0KDQorfQ0K
+DQorDQoNCitzdGF0aWMgaW50IHJ0NTY4MnNfaHBfYW1wX2V2ZW50KHN0cnVjdCBzbmRfc29jX2Rh
+cG1fd2lkZ2V0ICp3LA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IHNuZF9r
+Y29udHJvbCAqa2NvbnRyb2wsIGludCBldmVudCkNCg0KK3sNCg0KKyAgICAgICAgICAgIHN0cnVj
+dCBzbmRfc29jX2NvbXBvbmVudCAqY29tcG9uZW50ID0gc25kX3NvY19kYXBtX3RvX2NvbXBvbmVu
+dCh3LT5kYXBtKTsNCg0KKw0KDQorICAgICAgICAgICAgc3dpdGNoIChldmVudCkgew0KDQorICAg
+ICAgICAgICAgY2FzZSBTTkRfU09DX0RBUE1fUFJFX1BNVToNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwgUlQ1Njgy
+U19ERVBPUF8xLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBS
+VDU2ODJTX09VVF9IUF9MX0VOIHwgUlQ1NjgyU19PVVRfSFBfUl9FTiwNCg0KKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19PVVRfSFBfTF9FTiB8IFJUNTY4
+MlNfT1VUX0hQX1JfRU4pOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgc25kX3NvY19j
+b21wb25lbnRfdXBkYXRlX2JpdHMoY29tcG9uZW50LCBSVDU2ODJTX0RFUE9QXzEsDQoNCisgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfTERPX1BVTVBfRU4g
+fCBSVDU2ODJTX1BVTVBfRU4gfA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBSVDU2ODJTX0NBUExFU1NfTF9FTiB8IFJUNTY4MlNfQ0FQTEVTU19SX0VOLA0KDQor
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX0xET19QVU1Q
+X0VOIHwgUlQ1NjgyU19QVU1QX0VOIHwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgUlQ1NjgyU19DQVBMRVNTX0xfRU4gfCBSVDU2ODJTX0NBUExFU1NfUl9FTik7
+DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsNCg0KKw0KDQorICAgICAgICAg
+ICAgY2FzZSBTTkRfU09DX0RBUE1fUE9TVF9QTVU6DQoNCisgICAgICAgICAgICAgICAgICAgICAg
+ICAgICB1c2xlZXBfcmFuZ2UoMzAwMDAsIDM1MDAwKTsNCg0KKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHNuZF9zb2NfY29tcG9uZW50X3dyaXRlKGNvbXBvbmVudCwgUlQ1NjgyU19CSUFTX0NV
+Ul9DVFJMXzExLCAweDY2NjYpOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgc25kX3Nv
+Y19jb21wb25lbnRfd3JpdGUoY29tcG9uZW50LCBSVDU2ODJTX0JJQVNfQ1VSX0NUUkxfMTIsIDB4
+YTgyYSk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRfc29jX2NvbXBvbmVudF91
+cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfSFBfQ1RSTF8yLA0KDQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX0hQT19MX1BBVEhfTUFTSyB8IFJU
+NTY4MlNfSFBPX1JfUEFUSF9NQVNLIHwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgUlQ1NjgyU19IUE9fU0VMX0lQX0VOX1NXLCBSVDU2ODJTX0hQT19MX1BBVEhf
+RU4gfA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJT
+X0hQT19SX1BBVEhfRU4gfCBSVDU2ODJTX0hQT19JUF9FTl9HQVRJTkcpOw0KDQorICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgc25kX3NvY19jb21wb25lbnRfd3JpdGUoY29tcG9uZW50LCBSVDU2
+ODJTX0hQX0FNUF9ERVRfQ1RMXzEsIDB4MzA1MCk7DQoNCisgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBicmVhazsNCg0KKw0KDQorICAgICAgICAgICAgY2FzZSBTTkRfU09DX0RBUE1fUE9TVF9Q
+TUQ6DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRfc29jX2NvbXBvbmVudF91cGRh
+dGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfSFBfQ1RSTF8yLA0KDQorICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX0hQT19MX1BBVEhfTUFTSyB8IFJUNTY4
+MlNfSFBPX1JfUEFUSF9NQVNLIHwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgUlQ1NjgyU19IUE9fU0VMX0lQX0VOX1NXLCAwKTsNCg0KKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwgUlQ1
+NjgyU19ERVBPUF8xLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBSVDU2ODJTX0xET19QVU1QX0VOIHwgUlQ1NjgyU19QVU1QX0VOIHwNCg0KKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19DQVBMRVNTX0xfRU4gfCBSVDU2
+ODJTX0NBUExFU1NfUl9FTiwgMCk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRf
+c29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfREVQT1BfMSwNCg0K
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19PVVRfSFBf
+TF9FTiB8IFJUNTY4MlNfT1VUX0hQX1JfRU4sIDApOw0KDQorICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgYnJlYWs7DQoNCisgICAgICAgICAgICB9DQoNCisNCg0KKyAgICAgICAgICAgIHJldHVy
+biAwOw0KDQorfQ0KDQorDQoNCitzdGF0aWMgaW50IHNhcl9wb3dlcl9ldmVudChzdHJ1Y3Qgc25k
+X3NvY19kYXBtX3dpZGdldCAqdywNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVj
+dCBzbmRfa2NvbnRyb2wgKmtjb250cm9sLCBpbnQgZXZlbnQpDQoNCit7DQoNCisgICAgICAgICAg
+ICBzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKmNvbXBvbmVudCA9IHNuZF9zb2NfZGFwbV90b19j
+b21wb25lbnQody0+ZGFwbSk7DQoNCisNCg0KKyAgICAgICAgICAgIHN3aXRjaCAoZXZlbnQpIHsN
+Cg0KKyAgICAgICAgICAgIGNhc2UgU05EX1NPQ19EQVBNX1BSRV9QTVU6DQoNCisgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBydDU2ODJzX3Nhcl9wb3dlcl9tb2RlKGNvbXBvbmVudCwgU0FSX1BX
+Ul9OT1JNQUwsIDApOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQoNCisg
+ICAgICAgICAgICBjYXNlIFNORF9TT0NfREFQTV9QT1NUX1BNRDoNCg0KKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHJ0NTY4MnNfc2FyX3Bvd2VyX21vZGUoY29tcG9uZW50LCBTQVJfUFdSX1NB
+VklORywgMCk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsNCg0KKyAgICAg
+ICAgICAgIH0NCg0KKw0KDQorICAgICAgICAgICAgcmV0dXJuIDA7DQoNCit9DQoNCisNCg0KKy8q
+IEludGVyZmFjZSBkYXRhIHNlbGVjdCAqLw0KDQorc3RhdGljIGNvbnN0IGNoYXIgKiBjb25zdCBy
+dDU2ODJzX2RhdGFfc2VsZWN0W10gPSB7DQoNCisgICAgICAgICAgICAiTC9SIiwgIlIvTCIsICJM
+L0wiLCAiUi9SIg0KDQorfTsNCg0KKw0KDQorc3RhdGljIFNPQ19FTlVNX1NJTkdMRV9ERUNMKHJ0
+NTY4MnNfaWYyX2FkY19lbnVtLCBSVDU2ODJTX0RJR19JTkYyX0RBVEEsDQoNCisgICAgICAgICAg
+ICBSVDU2ODJTX0lGMl9BRENfU0VMX1NGVCwgcnQ1Njgyc19kYXRhX3NlbGVjdCk7DQoNCisNCg0K
+K3N0YXRpYyBTT0NfRU5VTV9TSU5HTEVfREVDTChydDU2ODJzX2lmMV8wMV9hZGNfZW51bSwgUlQ1
+NjgyU19URE1fQUREQV9DVFJMXzEsDQoNCisgICAgICAgICAgICBSVDU2ODJTX0lGMV9BREMxX1NF
+TF9TRlQsIHJ0NTY4MnNfZGF0YV9zZWxlY3QpOw0KDQorDQoNCitzdGF0aWMgU09DX0VOVU1fU0lO
+R0xFX0RFQ0wocnQ1Njgyc19pZjFfMjNfYWRjX2VudW0sIFJUNTY4MlNfVERNX0FEREFfQ1RSTF8x
+LA0KDQorICAgICAgICAgICAgUlQ1NjgyU19JRjFfQURDMl9TRUxfU0ZULCBydDU2ODJzX2RhdGFf
+c2VsZWN0KTsNCg0KKw0KDQorc3RhdGljIFNPQ19FTlVNX1NJTkdMRV9ERUNMKHJ0NTY4MnNfaWYx
+XzQ1X2FkY19lbnVtLCBSVDU2ODJTX1RETV9BRERBX0NUUkxfMSwNCg0KKyAgICAgICAgICAgIFJU
+NTY4MlNfSUYxX0FEQzNfU0VMX1NGVCwgcnQ1Njgyc19kYXRhX3NlbGVjdCk7DQoNCisNCg0KK3N0
+YXRpYyBTT0NfRU5VTV9TSU5HTEVfREVDTChydDU2ODJzX2lmMV82N19hZGNfZW51bSwgUlQ1Njgy
+U19URE1fQUREQV9DVFJMXzEsDQoNCisgICAgICAgICAgICBSVDU2ODJTX0lGMV9BREM0X1NFTF9T
+RlQsIHJ0NTY4MnNfZGF0YV9zZWxlY3QpOw0KDQorDQoNCitzdGF0aWMgY29uc3Qgc3RydWN0IHNu
+ZF9rY29udHJvbF9uZXcgcnQ1Njgyc19pZjJfYWRjX3N3YXBfbXV4ID0NCg0KKyAgICAgICAgICAg
+IFNPQ19EQVBNX0VOVU0oIklGMiBBREMgU3dhcCBNdXgiLCBydDU2ODJzX2lmMl9hZGNfZW51bSk7
+DQoNCisNCg0KK3N0YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX2tjb250cm9sX25ldyBydDU2ODJzX2lm
+MV8wMV9hZGNfc3dhcF9tdXggPQ0KDQorICAgICAgICAgICAgU09DX0RBUE1fRU5VTSgiSUYxIDAx
+IEFEQyBTd2FwIE11eCIsIHJ0NTY4MnNfaWYxXzAxX2FkY19lbnVtKTsNCg0KKw0KDQorc3RhdGlj
+IGNvbnN0IHN0cnVjdCBzbmRfa2NvbnRyb2xfbmV3IHJ0NTY4MnNfaWYxXzIzX2FkY19zd2FwX211
+eCA9DQoNCisgICAgICAgICAgICBTT0NfREFQTV9FTlVNKCJJRjEgMjMgQURDIFN3YXAgTXV4Iiwg
+cnQ1Njgyc19pZjFfMjNfYWRjX2VudW0pOw0KDQorDQoNCitzdGF0aWMgY29uc3Qgc3RydWN0IHNu
+ZF9rY29udHJvbF9uZXcgcnQ1Njgyc19pZjFfNDVfYWRjX3N3YXBfbXV4ID0NCg0KKyAgICAgICAg
+ICAgIFNPQ19EQVBNX0VOVU0oIklGMSA0NSBBREMgU3dhcCBNdXgiLCBydDU2ODJzX2lmMV80NV9h
+ZGNfZW51bSk7DQoNCisNCg0KK3N0YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX2tjb250cm9sX25ldyBy
+dDU2ODJzX2lmMV82N19hZGNfc3dhcF9tdXggPQ0KDQorICAgICAgICAgICAgU09DX0RBUE1fRU5V
+TSgiSUYxIDY3IEFEQyBTd2FwIE11eCIsIHJ0NTY4MnNfaWYxXzY3X2FkY19lbnVtKTsNCg0KKw0K
+DQorLyogRGlnaXRhbCBNaXhlciAqLw0KDQorc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfa2NvbnRy
+b2xfbmV3IHJ0NTY4MnNfc3RvMV9hZGNfbF9taXhbXSA9IHsNCg0KKyAgICAgICAgICAgIFNPQ19E
+QVBNX1NJTkdMRSgiQURDMSBTd2l0Y2giLCBSVDU2ODJTX1NUTzFfQURDX01JWEVSLA0KDQorICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX01fU1RPMV9BRENf
+TDFfU0ZULCAxLCAxKSwNCg0KKyAgICAgICAgICAgIFNPQ19EQVBNX1NJTkdMRSgiQURDMiBTd2l0
+Y2giLCBSVDU2ODJTX1NUTzFfQURDX01JWEVSLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBSVDU2ODJTX01fU1RPMV9BRENfTDJfU0ZULCAxLCAxKSwNCg0KK307
+DQoNCisNCg0KK3N0YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX2tjb250cm9sX25ldyBydDU2ODJzX3N0
+bzFfYWRjX3JfbWl4W10gPSB7DQoNCisgICAgICAgICAgICBTT0NfREFQTV9TSU5HTEUoIkFEQzEg
+U3dpdGNoIiwgUlQ1NjgyU19TVE8xX0FEQ19NSVhFUiwNCg0KKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19NX1NUTzFfQURDX1IxX1NGVCwgMSwgMSksDQoN
+CisgICAgICAgICAgICBTT0NfREFQTV9TSU5HTEUoIkFEQzIgU3dpdGNoIiwgUlQ1NjgyU19TVE8x
+X0FEQ19NSVhFUiwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+UlQ1NjgyU19NX1NUTzFfQURDX1IyX1NGVCwgMSwgMSksDQoNCit9Ow0KDQorDQoNCitzdGF0aWMg
+Y29uc3Qgc3RydWN0IHNuZF9rY29udHJvbF9uZXcgcnQ1Njgyc19kYWNfbF9taXhbXSA9IHsNCg0K
+KyAgICAgICAgICAgIFNPQ19EQVBNX1NJTkdMRSgiU3RlcmVvIEFEQyBTd2l0Y2giLCBSVDU2ODJT
+X0FEX0RBX01JWEVSLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBSVDU2ODJTX01fQURDTUlYX0xfU0ZULCAxLCAxKSwNCg0KKyAgICAgICAgICAgIFNPQ19EQVBN
+X1NJTkdMRSgiREFDMSBTd2l0Y2giLCBSVDU2ODJTX0FEX0RBX01JWEVSLA0KDQorICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX01fREFDMV9MX1NGVCwgMSwg
+MSksDQoNCit9Ow0KDQorDQoNCitzdGF0aWMgY29uc3Qgc3RydWN0IHNuZF9rY29udHJvbF9uZXcg
+cnQ1Njgyc19kYWNfcl9taXhbXSA9IHsNCg0KKyAgICAgICAgICAgIFNPQ19EQVBNX1NJTkdMRSgi
+U3RlcmVvIEFEQyBTd2l0Y2giLCBSVDU2ODJTX0FEX0RBX01JWEVSLA0KDQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX01fQURDTUlYX1JfU0ZULCAxLCAx
+KSwNCg0KKyAgICAgICAgICAgIFNPQ19EQVBNX1NJTkdMRSgiREFDMSBTd2l0Y2giLCBSVDU2ODJT
+X0FEX0RBX01JWEVSLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBSVDU2ODJTX01fREFDMV9SX1NGVCwgMSwgMSksDQoNCit9Ow0KDQorDQoNCitzdGF0aWMgY29u
+c3Qgc3RydWN0IHNuZF9rY29udHJvbF9uZXcgcnQ1Njgyc19zdG8xX2RhY19sX21peFtdID0gew0K
+DQorICAgICAgICAgICAgU09DX0RBUE1fU0lOR0xFKCJEQUMgTDEgU3dpdGNoIiwgUlQ1NjgyU19T
+VE8xX0RBQ19NSVhFUiwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgUlQ1NjgyU19NX0RBQ19MMV9TVE9fTF9TRlQsIDEsIDEpLA0KDQorICAgICAgICAgICAgU09D
+X0RBUE1fU0lOR0xFKCJEQUMgUjEgU3dpdGNoIiwgUlQ1NjgyU19TVE8xX0RBQ19NSVhFUiwNCg0K
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19NX0RBQ19S
+MV9TVE9fTF9TRlQsIDEsIDEpLA0KDQorfTsNCg0KKw0KDQorc3RhdGljIGNvbnN0IHN0cnVjdCBz
+bmRfa2NvbnRyb2xfbmV3IHJ0NTY4MnNfc3RvMV9kYWNfcl9taXhbXSA9IHsNCg0KKyAgICAgICAg
+ICAgIFNPQ19EQVBNX1NJTkdMRSgiREFDIEwxIFN3aXRjaCIsIFJUNTY4MlNfU1RPMV9EQUNfTUlY
+RVIsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNf
+TV9EQUNfTDFfU1RPX1JfU0ZULCAxLCAxKSwNCg0KKyAgICAgICAgICAgIFNPQ19EQVBNX1NJTkdM
+RSgiREFDIFIxIFN3aXRjaCIsIFJUNTY4MlNfU1RPMV9EQUNfTUlYRVIsDQoNCisgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfTV9EQUNfUjFfU1RPX1JfU0ZU
+LCAxLCAxKSwNCg0KK307DQoNCisNCg0KKy8qIEFuYWxvZyBJbnB1dCBNaXhlciAqLw0KDQorc3Rh
+dGljIGNvbnN0IHN0cnVjdCBzbmRfa2NvbnRyb2xfbmV3IHJ0NTY4MnNfcmVjMV9sX21peFtdID0g
+ew0KDQorICAgICAgICAgICAgU09DX0RBUE1fU0lOR0xFKCJDQkogU3dpdGNoIiwgUlQ1NjgyU19S
+RUNfTUlYRVIsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJU
+NTY4MlNfTV9DQkpfUk0xX0xfU0ZULCAxLCAxKSwNCg0KK307DQoNCisNCg0KK3N0YXRpYyBjb25z
+dCBzdHJ1Y3Qgc25kX2tjb250cm9sX25ldyBydDU2ODJzX3JlYzFfcl9taXhbXSA9IHsNCg0KKyAg
+ICAgICAgICAgIFNPQ19EQVBNX1NJTkdMRSgiQ0JKIFN3aXRjaCIsIFJUNTY4MlNfUkVDX01JWEVS
+LA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX01f
+Q0JKX1JNMV9SX1NGVCwgMSwgMSksDQoNCit9Ow0KDQorDQoNCisvKiBTVE8xIEFEQzEgU291cmNl
+ICovDQoNCisvKiBNWC0yNiBbMTNdIFs1XSAqLw0KDQorc3RhdGljIGNvbnN0IGNoYXIgKiBjb25z
+dCBydDU2ODJzX3N0bzFfYWRjMV9zcmNbXSA9IHsNCg0KKyAgICAgICAgICAgICJEQUMgTUlYIiwg
+IkFEQyINCg0KK307DQoNCisNCg0KK3N0YXRpYyBTT0NfRU5VTV9TSU5HTEVfREVDTChydDU2ODJz
+X3N0bzFfYWRjMWxfZW51bSwgUlQ1NjgyU19TVE8xX0FEQ19NSVhFUiwNCg0KKyAgICAgICAgICAg
+IFJUNTY4MlNfU1RPMV9BREMxTF9TUkNfU0ZULCBydDU2ODJzX3N0bzFfYWRjMV9zcmMpOw0KDQor
+DQoNCitzdGF0aWMgY29uc3Qgc3RydWN0IHNuZF9rY29udHJvbF9uZXcgcnQ1Njgyc19zdG8xX2Fk
+YzFsX211eCA9DQoNCisgICAgICAgICAgICBTT0NfREFQTV9FTlVNKCJTdGVyZW8xIEFEQzFMIFNv
+dXJjZSIsIHJ0NTY4MnNfc3RvMV9hZGMxbF9lbnVtKTsNCg0KKw0KDQorc3RhdGljIFNPQ19FTlVN
+X1NJTkdMRV9ERUNMKHJ0NTY4MnNfc3RvMV9hZGMxcl9lbnVtLCBSVDU2ODJTX1NUTzFfQURDX01J
+WEVSLA0KDQorICAgICAgICAgICAgUlQ1NjgyU19TVE8xX0FEQzFSX1NSQ19TRlQsIHJ0NTY4MnNf
+c3RvMV9hZGMxX3NyYyk7DQoNCisNCg0KK3N0YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX2tjb250cm9s
+X25ldyBydDU2ODJzX3N0bzFfYWRjMXJfbXV4ID0NCg0KKyAgICAgICAgICAgIFNPQ19EQVBNX0VO
+VU0oIlN0ZXJlbzEgQURDMUwgU291cmNlIiwgcnQ1Njgyc19zdG8xX2FkYzFyX2VudW0pOw0KDQor
+DQoNCisvKiBTVE8xIEFEQyBTb3VyY2UgKi8NCg0KKy8qIE1YLTI2IFsxMToxMF0gWzM6Ml0gKi8N
+Cg0KK3N0YXRpYyBjb25zdCBjaGFyICogY29uc3QgcnQ1Njgyc19zdG8xX2FkY19zcmNbXSA9IHsN
+Cg0KKyAgICAgICAgICAgICJBREMxIEwiLCAiQURDMSBSIg0KDQorfTsNCg0KKw0KDQorc3RhdGlj
+IFNPQ19FTlVNX1NJTkdMRV9ERUNMKHJ0NTY4MnNfc3RvMV9hZGNsX2VudW0sIFJUNTY4MlNfU1RP
+MV9BRENfTUlYRVIsDQoNCisgICAgICAgICAgICBSVDU2ODJTX1NUTzFfQURDTF9TUkNfU0ZULCBy
+dDU2ODJzX3N0bzFfYWRjX3NyYyk7DQoNCisNCg0KK3N0YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX2tj
+b250cm9sX25ldyBydDU2ODJzX3N0bzFfYWRjbF9tdXggPQ0KDQorICAgICAgICAgICAgU09DX0RB
+UE1fRU5VTSgiU3RlcmVvMSBBRENMIFNvdXJjZSIsIHJ0NTY4MnNfc3RvMV9hZGNsX2VudW0pOw0K
+DQorDQoNCitzdGF0aWMgU09DX0VOVU1fU0lOR0xFX0RFQ0wocnQ1Njgyc19zdG8xX2FkY3JfZW51
+bSwgUlQ1NjgyU19TVE8xX0FEQ19NSVhFUiwNCg0KKyAgICAgICAgICAgIFJUNTY4MlNfU1RPMV9B
+RENSX1NSQ19TRlQsIHJ0NTY4MnNfc3RvMV9hZGNfc3JjKTsNCg0KKw0KDQorc3RhdGljIGNvbnN0
+IHN0cnVjdCBzbmRfa2NvbnRyb2xfbmV3IHJ0NTY4MnNfc3RvMV9hZGNyX211eCA9DQoNCisgICAg
+ICAgICAgICBTT0NfREFQTV9FTlVNKCJTdGVyZW8xIEFEQ1IgU291cmNlIiwgcnQ1Njgyc19zdG8x
+X2FkY3JfZW51bSk7DQoNCisNCg0KKy8qIFNUTzEgQURDMiBTb3VyY2UgKi8NCg0KKy8qIE1YLTI2
+IFsxMl0gWzRdICovDQoNCitzdGF0aWMgY29uc3QgY2hhciAqIGNvbnN0IHJ0NTY4MnNfc3RvMV9h
+ZGMyX3NyY1tdID0gew0KDQorICAgICAgICAgICAgIkRBQyBNSVgiLCAiRE1JQyINCg0KK307DQoN
+CisNCg0KK3N0YXRpYyBTT0NfRU5VTV9TSU5HTEVfREVDTChydDU2ODJzX3N0bzFfYWRjMmxfZW51
+bSwgUlQ1NjgyU19TVE8xX0FEQ19NSVhFUiwNCg0KKyAgICAgICAgICAgIFJUNTY4MlNfU1RPMV9B
+REMyTF9TUkNfU0ZULCBydDU2ODJzX3N0bzFfYWRjMl9zcmMpOw0KDQorDQoNCitzdGF0aWMgY29u
+c3Qgc3RydWN0IHNuZF9rY29udHJvbF9uZXcgcnQ1Njgyc19zdG8xX2FkYzJsX211eCA9DQoNCisg
+ICAgICAgICAgICBTT0NfREFQTV9FTlVNKCJTdGVyZW8xIEFEQzJMIFNvdXJjZSIsIHJ0NTY4MnNf
+c3RvMV9hZGMybF9lbnVtKTsNCg0KKw0KDQorc3RhdGljIFNPQ19FTlVNX1NJTkdMRV9ERUNMKHJ0
+NTY4MnNfc3RvMV9hZGMycl9lbnVtLCBSVDU2ODJTX1NUTzFfQURDX01JWEVSLA0KDQorICAgICAg
+ICAgICAgUlQ1NjgyU19TVE8xX0FEQzJSX1NSQ19TRlQsIHJ0NTY4MnNfc3RvMV9hZGMyX3NyYyk7
+DQoNCisNCg0KK3N0YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX2tjb250cm9sX25ldyBydDU2ODJzX3N0
+bzFfYWRjMnJfbXV4ID0NCg0KKyAgICAgICAgICAgIFNPQ19EQVBNX0VOVU0oIlN0ZXJlbzEgQURD
+MlIgU291cmNlIiwgcnQ1Njgyc19zdG8xX2FkYzJyX2VudW0pOw0KDQorDQoNCisvKiBNWC03OSBb
+Njo0XSBJMlMxIEFEQyBkYXRhIGxvY2F0aW9uICovDQoNCitzdGF0aWMgY29uc3QgdW5zaWduZWQg
+aW50IHJ0NTY4MnNfaWYxX2FkY19zbG90X3ZhbHVlc1tdID0gew0KDQorICAgICAgICAgICAgMCwg
+MiwgNCwgNiwNCg0KK307DQoNCisNCg0KK3N0YXRpYyBjb25zdCBjaGFyICogY29uc3QgcnQ1Njgy
+c19pZjFfYWRjX3Nsb3Rfc3JjW10gPSB7DQoNCisgICAgICAgICAgICAiU2xvdCAwIiwgIlNsb3Qg
+MiIsICJTbG90IDQiLCAiU2xvdCA2Ig0KDQorfTsNCg0KKw0KDQorc3RhdGljIFNPQ19WQUxVRV9F
+TlVNX1NJTkdMRV9ERUNMKHJ0NTY4MnNfaWYxX2FkY19zbG90X2VudW0sDQoNCisgICAgICAgICAg
+ICBSVDU2ODJTX1RETV9DVFJMLCBSVDU2ODJTX1RETV9BRENfTENBX1NGVCwgUlQ1NjgyU19URE1f
+QURDX0xDQV9NQVNLLA0KDQorICAgICAgICAgICAgcnQ1Njgyc19pZjFfYWRjX3Nsb3Rfc3JjLCBy
+dDU2ODJzX2lmMV9hZGNfc2xvdF92YWx1ZXMpOw0KDQorDQoNCitzdGF0aWMgY29uc3Qgc3RydWN0
+IHNuZF9rY29udHJvbF9uZXcgcnQ1Njgyc19pZjFfYWRjX3Nsb3RfbXV4ID0NCg0KKyAgICAgICAg
+ICAgIFNPQ19EQVBNX0VOVU0oIklGMSBBREMgU2xvdCBsb2NhdGlvbiIsIHJ0NTY4MnNfaWYxX2Fk
+Y19zbG90X2VudW0pOw0KDQorDQoNCisvKiBBbmFsb2cgREFDIEwxIFNvdXJjZSwgQW5hbG9nIERB
+QyBSMSBTb3VyY2UqLw0KDQorLyogTVgtMkIgWzRdLCBNWC0yQiBbMF0qLw0KDQorc3RhdGljIGNv
+bnN0IGNoYXIgKiBjb25zdCBydDU2ODJzX2FsZ19kYWMxX3NyY1tdID0gew0KDQorICAgICAgICAg
+ICAgIlN0ZXJlbzEgREFDIE1peGVyIiwgIkRBQzEiDQoNCit9Ow0KDQorDQoNCitzdGF0aWMgU09D
+X0VOVU1fU0lOR0xFX0RFQ0wocnQ1Njgyc19hbGdfZGFjX2wxX2VudW0sIFJUNTY4MlNfQV9EQUMx
+X01VWCwNCg0KKyAgICAgICAgICAgIFJUNTY4MlNfQV9EQUNMMV9TRlQsIHJ0NTY4MnNfYWxnX2Rh
+YzFfc3JjKTsNCg0KKw0KDQorc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfa2NvbnRyb2xfbmV3IHJ0
+NTY4MnNfYWxnX2RhY19sMV9tdXggPQ0KDQorICAgICAgICAgICAgU09DX0RBUE1fRU5VTSgiQW5h
+bG9nIERBQyBMMSBTb3VyY2UiLCBydDU2ODJzX2FsZ19kYWNfbDFfZW51bSk7DQoNCisNCg0KK3N0
+YXRpYyBTT0NfRU5VTV9TSU5HTEVfREVDTChydDU2ODJzX2FsZ19kYWNfcjFfZW51bSwgUlQ1Njgy
+U19BX0RBQzFfTVVYLA0KDQorICAgICAgICAgICAgUlQ1NjgyU19BX0RBQ1IxX1NGVCwgcnQ1Njgy
+c19hbGdfZGFjMV9zcmMpOw0KDQorDQoNCitzdGF0aWMgY29uc3Qgc3RydWN0IHNuZF9rY29udHJv
+bF9uZXcgcnQ1Njgyc19hbGdfZGFjX3IxX211eCA9DQoNCisgICAgICAgICAgICBTT0NfREFQTV9F
+TlVNKCJBbmFsb2cgREFDIFIxIFNvdXJjZSIsIHJ0NTY4MnNfYWxnX2RhY19yMV9lbnVtKTsNCg0K
+Kw0KDQorc3RhdGljIGNvbnN0IHVuc2lnbmVkIGludCBydDU2ODJzX2FkY2RhdF9waW5fdmFsdWVz
+W10gPSB7DQoNCisgICAgICAgICAgICAxLCAzLA0KDQorfTsNCg0KKw0KDQorc3RhdGljIGNvbnN0
+IGNoYXIgKiBjb25zdCBydDU2ODJzX2FkY2RhdF9waW5fc2VsZWN0W10gPSB7DQoNCisgICAgICAg
+ICAgICAiQURDREFUMSIsICJBRENEQVQyIiwNCg0KK307DQoNCisNCg0KK3N0YXRpYyBTT0NfVkFM
+VUVfRU5VTV9TSU5HTEVfREVDTChydDU2ODJzX2FkY2RhdF9waW5fZW51bSwNCg0KKyAgICAgICAg
+ICAgIFJUNTY4MlNfR1BJT19DVFJMXzEsIFJUNTY4MlNfR1A0X1BJTl9TRlQsIFJUNTY4MlNfR1A0
+X1BJTl9NQVNLLA0KDQorICAgICAgICAgICAgcnQ1Njgyc19hZGNkYXRfcGluX3NlbGVjdCwgcnQ1
+Njgyc19hZGNkYXRfcGluX3ZhbHVlcyk7DQoNCisNCg0KK3N0YXRpYyBjb25zdCBzdHJ1Y3Qgc25k
+X2tjb250cm9sX25ldyBydDU2ODJzX2FkY2RhdF9waW5fY3RybCA9DQoNCisgICAgICAgICAgICBT
+T0NfREFQTV9FTlVNKCJBRENEQVQiLCBydDU2ODJzX2FkY2RhdF9waW5fZW51bSk7DQoNCisNCg0K
+K3N0YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX3NvY19kYXBtX3dpZGdldCBydDU2ODJzX2RhcG1fd2lk
+Z2V0c1tdID0gew0KDQorICAgICAgICAgICAgU05EX1NPQ19EQVBNX1NVUFBMWSgiTERPIE1CMSIs
+IFJUNTY4MlNfUFdSX0FOTEdfMywNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4
+MlNfUFdSX0xET19NQjFfQklULCAwLCBOVUxMLCAwKSwNCg0KKyAgICAgICAgICAgIFNORF9TT0Nf
+REFQTV9TVVBQTFkoIkxETyBNQjIiLCBSVDU2ODJTX1BXUl9BTkxHXzMsDQoNCisgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBSVDU2ODJTX1BXUl9MRE9fTUIyX0JJVCwgMCwgTlVMTCwgMCksDQoN
+CisgICAgICAgICAgICBTTkRfU09DX0RBUE1fU1VQUExZKCJMRE8iLCBSVDU2ODJTX1BXUl9BTkxH
+XzMsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX1BXUl9MRE9fQklULCAw
+LCBOVUxMLCAwKSwNCg0KKyAgICAgICAgICAgIFNORF9TT0NfREFQTV9TVVBQTFkoIlZyZWYyIiwg
+U05EX1NPQ19OT1BNLCAwLCAwLCBOVUxMLCAwKSwNCg0KKyAgICAgICAgICAgIFNORF9TT0NfREFQ
+TV9TVVBQTFkoIk1JQ0JJQVMiLCBTTkRfU09DX05PUE0sIDAsIDAsIE5VTEwsIDApLA0KDQorDQoN
+CisgICAgICAgICAgICAvKiBQTEwgUG93ZXJzICovDQoNCisgICAgICAgICAgICBTTkRfU09DX0RB
+UE1fU1VQUExZX1MoIlBMTEFfTERPIiwgMCwgUlQ1NjgyU19QV1JfQU5MR18zLA0KDQorICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19QV1JfTERPX1BMTEFfQklULCAwLCBOVUxMLCAw
+KSwNCg0KKyAgICAgICAgICAgIFNORF9TT0NfREFQTV9TVVBQTFlfUygiUExMQl9MRE8iLCAwLCBS
+VDU2ODJTX1BXUl9BTkxHXzMsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJT
+X1BXUl9MRE9fUExMQl9CSVQsIDAsIE5VTEwsIDApLA0KDQorICAgICAgICAgICAgU05EX1NPQ19E
+QVBNX1NVUFBMWV9TKCJQTExBX0JJQVMiLCAwLCBSVDU2ODJTX1BXUl9BTkxHXzMsDQoNCisgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX1BXUl9CSUFTX1BMTEFfQklULCAwLCBOVUxM
+LCAwKSwNCg0KKyAgICAgICAgICAgIFNORF9TT0NfREFQTV9TVVBQTFlfUygiUExMQl9CSUFTIiwg
+MCwgUlQ1NjgyU19QV1JfQU5MR18zLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2
+ODJTX1BXUl9CSUFTX1BMTEJfQklULCAwLCBOVUxMLCAwKSwNCg0KKyAgICAgICAgICAgIFNORF9T
+T0NfREFQTV9TVVBQTFlfUygiUExMQSIsIDAsIFJUNTY4MlNfUFdSX0FOTEdfMywNCg0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfUFdSX1BMTEFfQklULCAwLCBOVUxMLCAwKSwN
+Cg0KKyAgICAgICAgICAgIFNORF9TT0NfREFQTV9TVVBQTFlfUygiUExMQiIsIDAsIFJUNTY4MlNf
+UFdSX0FOTEdfMywNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfUFdSX1BM
+TEJfQklULCAwLCBzZXRfZmlsdGVyX2NsaywgU05EX1NPQ19EQVBNX1BSRV9QTVUpLA0KDQorICAg
+ICAgICAgICAgU05EX1NPQ19EQVBNX1NVUFBMWV9TKCJQTExBX1JTVCIsIDEsIFJUNTY4MlNfUFdS
+X0FOTEdfMywNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfUlNUQl9QTExB
+X0JJVCwgMCwgTlVMTCwgMCksDQoNCisgICAgICAgICAgICBTTkRfU09DX0RBUE1fU1VQUExZX1Mo
+IlBMTEJfUlNUIiwgMSwgUlQ1NjgyU19QV1JfQU5MR18zLA0KDQorICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgUlQ1NjgyU19SU1RCX1BMTEJfQklULCAwLCBOVUxMLCAwKSwNCg0KKw0KDQorICAg
+ICAgICAgICAgLyogQVNSQyAqLw0KDQorICAgICAgICAgICAgU05EX1NPQ19EQVBNX1NVUFBMWV9T
+KCJEQUMgU1RPMSBBU1JDIiwgMSwgUlQ1NjgyU19QTExfVFJBQ0tfMSwNCg0KKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIFJUNTY4MlNfREFDX1NUTzFfQVNSQ19TRlQsIDAsIE5VTEwsIDApLA0K
+DQorICAgICAgICAgICAgU05EX1NPQ19EQVBNX1NVUFBMWV9TKCJBREMgU1RPMSBBU1JDIiwgMSwg
+UlQ1NjgyU19QTExfVFJBQ0tfMSwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4
+MlNfQURDX1NUTzFfQVNSQ19TRlQsIDAsIE5VTEwsIDApLA0KDQorICAgICAgICAgICAgU05EX1NP
+Q19EQVBNX1NVUFBMWV9TKCJBRCBBU1JDIiwgMSwgUlQ1NjgyU19QTExfVFJBQ0tfMSwNCg0KKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfQURfQVNSQ19TRlQsIDAsIE5VTEwsIDAp
+LA0KDQorICAgICAgICAgICAgU05EX1NPQ19EQVBNX1NVUFBMWV9TKCJEQSBBU1JDIiwgMSwgUlQ1
+NjgyU19QTExfVFJBQ0tfMSwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNf
+REFfQVNSQ19TRlQsIDAsIE5VTEwsIDApLA0KDQorICAgICAgICAgICAgU05EX1NPQ19EQVBNX1NV
+UFBMWV9TKCJETUlDIEFTUkMiLCAxLCBSVDU2ODJTX1BMTF9UUkFDS18xLA0KDQorICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgUlQ1NjgyU19ETUlDX0FTUkNfU0ZULCAwLCBOVUxMLCAwKSwNCg0K
+Kw0KDQorICAgICAgICAgICAgLyogSW5wdXQgU2lkZSAqLw0KDQorICAgICAgICAgICAgU05EX1NP
+Q19EQVBNX1NVUFBMWSgiTUlDQklBUzEiLCBSVDU2ODJTX1BXUl9BTkxHXzIsDQoNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX1BXUl9NQjFfQklULCAwLCBOVUxMLCAwKSwNCg0K
+KyAgICAgICAgICAgIFNORF9TT0NfREFQTV9TVVBQTFkoIk1JQ0JJQVMyIiwgUlQ1NjgyU19QV1Jf
+QU5MR18yLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19QV1JfTUIyX0JJ
+VCwgMCwgTlVMTCwgMCksDQoNCisNCg0KKyAgICAgICAgICAgIC8qIElucHV0IExpbmVzICovDQoN
+CisgICAgICAgICAgICBTTkRfU09DX0RBUE1fSU5QVVQoIkRNSUMgTDEiKSwNCg0KKyAgICAgICAg
+ICAgIFNORF9TT0NfREFQTV9JTlBVVCgiRE1JQyBSMSIpLA0KDQorDQoNCisgICAgICAgICAgICBT
+TkRfU09DX0RBUE1fSU5QVVQoIklOMVAiKSwNCg0KKw0KDQorICAgICAgICAgICAgU05EX1NPQ19E
+QVBNX1NVUFBMWSgiRE1JQyBDTEsiLCBTTkRfU09DX05PUE0sIDAsIDAsDQoNCisgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBzZXRfZG1pY19jbGssIFNORF9TT0NfREFQTV9QUkVfUE1VKSwNCg0K
+KyAgICAgICAgICAgIFNORF9TT0NfREFQTV9TVVBQTFkoIkRNSUMxIFBvd2VyIiwgUlQ1NjgyU19E
+TUlDX0NUUkxfMSwgUlQ1NjgyU19ETUlDXzFfRU5fU0ZULCAwLA0KDQorICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgc2V0X2RtaWNfcG93ZXIsIFNORF9TT0NfREFQTV9QT1NUX1BNVSB8IFNORF9T
+T0NfREFQTV9QT1NUX1BNRCksDQoNCisNCg0KKyAgICAgICAgICAgIC8qIEJvb3N0ICovDQoNCisg
+ICAgICAgICAgICBTTkRfU09DX0RBUE1fUEdBKCJCU1QxIENCSiIsIFNORF9TT0NfTk9QTSwgMCwg
+MCwgTlVMTCwgMCksDQoNCisNCg0KKyAgICAgICAgICAgIC8qIFJFQyBNaXhlciAqLw0KDQorICAg
+ICAgICAgICAgU05EX1NPQ19EQVBNX01JWEVSKCJSRUNNSVgxTCIsIFNORF9TT0NfTk9QTSwgMCwg
+MCwgcnQ1Njgyc19yZWMxX2xfbWl4LA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgQVJS
+QVlfU0laRShydDU2ODJzX3JlYzFfbF9taXgpKSwNCg0KKyAgICAgICAgICAgIFNORF9TT0NfREFQ
+TV9NSVhFUigiUkVDTUlYMVIiLCBTTkRfU09DX05PUE0sIDAsIDAsIHJ0NTY4MnNfcmVjMV9yX21p
+eCwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIEFSUkFZX1NJWkUocnQ1Njgyc19yZWMx
+X3JfbWl4KSksDQoNCisgICAgICAgICAgICBTTkRfU09DX0RBUE1fU1VQUExZKCJSRUNNSVgxTCBQ
+b3dlciIsIFJUNTY4MlNfQ0FMX1JFQywNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIFJU
+NTY4MlNfUFdSX1JNMV9MX0JJVCwgMCwgTlVMTCwgMCksDQoNCisgICAgICAgICAgICBTTkRfU09D
+X0RBUE1fU1VQUExZKCJSRUNNSVgxUiBQb3dlciIsIFJUNTY4MlNfQ0FMX1JFQywNCg0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfUFdSX1JNMV9SX0JJVCwgMCwgTlVMTCwgMCks
+DQoNCisNCg0KKyAgICAgICAgICAgIC8qIEFEQ3MgKi8NCg0KKyAgICAgICAgICAgIFNORF9TT0Nf
+REFQTV9BREMoIkFEQzEgTCIsIE5VTEwsIFNORF9TT0NfTk9QTSwgMCwgMCksDQoNCisgICAgICAg
+ICAgICBTTkRfU09DX0RBUE1fQURDKCJBREMxIFIiLCBOVUxMLCBTTkRfU09DX05PUE0sIDAsIDAp
+LA0KDQorDQoNCisgICAgICAgICAgICBTTkRfU09DX0RBUE1fU1VQUExZKCJBREMxIEwgUG93ZXIi
+LCBSVDU2ODJTX1BXUl9ESUdfMSwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4
+MlNfUFdSX0FEQ19MMV9CSVQsIDAsIE5VTEwsIDApLA0KDQorICAgICAgICAgICAgU05EX1NPQ19E
+QVBNX1NVUFBMWSgiQURDMSBSIFBvd2VyIiwgUlQ1NjgyU19QV1JfRElHXzEsDQoNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX1BXUl9BRENfUjFfQklULCAwLCBOVUxMLCAwKSwN
+Cg0KKyAgICAgICAgICAgIFNORF9TT0NfREFQTV9TVVBQTFkoIkFEQzEgY2xvY2siLCBSVDU2ODJT
+X0NIT1BfQURDLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19DS0dFTl9B
+REMxX1NGVCwgMCwgTlVMTCwgMCksDQoNCisNCg0KKyAgICAgICAgICAgIC8qIEFEQyBNdXggKi8N
+Cg0KKyAgICAgICAgICAgIFNORF9TT0NfREFQTV9NVVgoIlN0ZXJlbzEgQURDIEwxIE11eCIsIFNO
+RF9TT0NfTk9QTSwgMCwgMCwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICZydDU2ODJz
+X3N0bzFfYWRjMWxfbXV4KSwNCg0KKyAgICAgICAgICAgIFNORF9TT0NfREFQTV9NVVgoIlN0ZXJl
+bzEgQURDIFIxIE11eCIsIFNORF9TT0NfTk9QTSwgMCwgMCwNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICZydDU2ODJzX3N0bzFfYWRjMXJfbXV4KSwNCg0KKyAgICAgICAgICAgIFNORF9T
+T0NfREFQTV9NVVgoIlN0ZXJlbzEgQURDIEwyIE11eCIsIFNORF9TT0NfTk9QTSwgMCwgMCwNCg0K
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICZydDU2ODJzX3N0bzFfYWRjMmxfbXV4KSwNCg0K
+KyAgICAgICAgICAgIFNORF9TT0NfREFQTV9NVVgoIlN0ZXJlbzEgQURDIFIyIE11eCIsIFNORF9T
+T0NfTk9QTSwgMCwgMCwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICZydDU2ODJzX3N0
+bzFfYWRjMnJfbXV4KSwNCg0KKyAgICAgICAgICAgIFNORF9TT0NfREFQTV9NVVgoIlN0ZXJlbzEg
+QURDIEwgTXV4IiwgU05EX1NPQ19OT1BNLCAwLCAwLA0KDQorICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgJnJ0NTY4MnNfc3RvMV9hZGNsX211eCksDQoNCisgICAgICAgICAgICBTTkRfU09DX0RB
+UE1fTVVYKCJTdGVyZW8xIEFEQyBSIE11eCIsIFNORF9TT0NfTk9QTSwgMCwgMCwNCg0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICZydDU2ODJzX3N0bzFfYWRjcl9tdXgpLA0KDQorICAgICAg
+ICAgICAgU05EX1NPQ19EQVBNX01VWCgiSUYxX0FEQyBNdXgiLCBTTkRfU09DX05PUE0sIDAsIDAs
+DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAmcnQ1Njgyc19pZjFfYWRjX3Nsb3RfbXV4
+KSwNCg0KKw0KDQorICAgICAgICAgICAgLyogQURDIE1peGVyICovDQoNCisgICAgICAgICAgICBT
+TkRfU09DX0RBUE1fU1VQUExZKCJBREMgU3RlcmVvMSBGaWx0ZXIiLCBSVDU2ODJTX1BXUl9ESUdf
+MiwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfUFdSX0FEQ19TMUZfQklU
+LCAwLCBzZXRfZmlsdGVyX2NsaywgU05EX1NPQ19EQVBNX1BSRV9QTVUpLA0KDQorICAgICAgICAg
+ICAgU05EX1NPQ19EQVBNX01JWEVSKCJTdGVyZW8xIEFEQyBNSVhMIiwgUlQ1NjgyU19TVE8xX0FE
+Q19ESUdfVk9MLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19MX01VVEVf
+U0ZULCAxLCBydDU2ODJzX3N0bzFfYWRjX2xfbWl4LA0KDQorICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgQVJSQVlfU0laRShydDU2ODJzX3N0bzFfYWRjX2xfbWl4KSksDQoNCisgICAgICAgICAg
+ICBTTkRfU09DX0RBUE1fTUlYRVIoIlN0ZXJlbzEgQURDIE1JWFIiLCBSVDU2ODJTX1NUTzFfQURD
+X0RJR19WT0wsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX1JfTVVURV9T
+RlQsIDEsIHJ0NTY4MnNfc3RvMV9hZGNfcl9taXgsDQoNCisgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBBUlJBWV9TSVpFKHJ0NTY4MnNfc3RvMV9hZGNfcl9taXgpKSwNCg0KKw0KDQorICAgICAg
+ICAgICAgLyogQURDIFBHQSAqLw0KDQorICAgICAgICAgICAgU05EX1NPQ19EQVBNX1BHQSgiU3Rl
+cmVvMSBBREMgTUlYIiwgU05EX1NPQ19OT1BNLCAwLCAwLCBOVUxMLCAwKSwNCg0KKw0KDQorICAg
+ICAgICAgICAgLyogRGlnaXRhbCBJbnRlcmZhY2UgKi8NCg0KKyAgICAgICAgICAgIFNORF9TT0Nf
+REFQTV9TVVBQTFkoIkkyUzEiLCBSVDU2ODJTX1BXUl9ESUdfMSwgUlQ1NjgyU19QV1JfSTJTMV9C
+SVQsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAwLCBzZXRfaTJzX2NsaywgU05EX1NP
+Q19EQVBNX1BSRV9QTVUpLA0KDQorICAgICAgICAgICAgU05EX1NPQ19EQVBNX1NVUFBMWSgiSTJT
+MiIsIFJUNTY4MlNfUFdSX0RJR18xLCBSVDU2ODJTX1BXUl9JMlMyX0JJVCwNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIDAsIHNldF9pMnNfY2xrLCBTTkRfU09DX0RBUE1fUFJFX1BNVSks
+DQoNCisgICAgICAgICAgICBTTkRfU09DX0RBUE1fUEdBKCJJRjEgREFDMSBMIiwgU05EX1NPQ19O
+T1BNLCAwLCAwLCBOVUxMLCAwKSwNCg0KKyAgICAgICAgICAgIFNORF9TT0NfREFQTV9QR0EoIklG
+MSBEQUMxIFIiLCBTTkRfU09DX05PUE0sIDAsIDAsIE5VTEwsIDApLA0KDQorDQoNCisgICAgICAg
+ICAgICAvKiBEaWdpdGFsIEludGVyZmFjZSBTZWxlY3QgKi8NCg0KKyAgICAgICAgICAgIFNORF9T
+T0NfREFQTV9NVVgoIklGMSAwMSBBREMgU3dhcCBNdXgiLCBTTkRfU09DX05PUE0sIDAsIDAsDQoN
+CisgICAgICAgICAgICAgICAgICAgICAgICAgICAmcnQ1Njgyc19pZjFfMDFfYWRjX3N3YXBfbXV4
+KSwNCg0KKyAgICAgICAgICAgIFNORF9TT0NfREFQTV9NVVgoIklGMSAyMyBBREMgU3dhcCBNdXgi
+LCBTTkRfU09DX05PUE0sIDAsIDAsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAmcnQ1
+Njgyc19pZjFfMjNfYWRjX3N3YXBfbXV4KSwNCg0KKyAgICAgICAgICAgIFNORF9TT0NfREFQTV9N
+VVgoIklGMSA0NSBBREMgU3dhcCBNdXgiLCBTTkRfU09DX05PUE0sIDAsIDAsDQoNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAmcnQ1Njgyc19pZjFfNDVfYWRjX3N3YXBfbXV4KSwNCg0KKyAg
+ICAgICAgICAgIFNORF9TT0NfREFQTV9NVVgoIklGMSA2NyBBREMgU3dhcCBNdXgiLCBTTkRfU09D
+X05PUE0sIDAsIDAsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAmcnQ1Njgyc19pZjFf
+NjdfYWRjX3N3YXBfbXV4KSwNCg0KKyAgICAgICAgICAgIFNORF9TT0NfREFQTV9NVVgoIklGMiBB
+REMgU3dhcCBNdXgiLCBTTkRfU09DX05PUE0sIDAsIDAsDQoNCisgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAmcnQ1Njgyc19pZjJfYWRjX3N3YXBfbXV4KSwNCg0KKw0KDQorICAgICAgICAgICAg
+U05EX1NPQ19EQVBNX01VWCgiQURDREFUIE11eCIsIFNORF9TT0NfTk9QTSwgMCwgMCwgJnJ0NTY4
+MnNfYWRjZGF0X3Bpbl9jdHJsKSwNCg0KKw0KDQorICAgICAgICAgICAgLyogQXVkaW8gSW50ZXJm
+YWNlICovDQoNCisgICAgICAgICAgICBTTkRfU09DX0RBUE1fQUlGX09VVCgiQUlGMVRYIiwgIkFJ
+RjEgQ2FwdHVyZSIsIDAsIFJUNTY4MlNfSTJTMV9TRFAsDQoNCisgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBSVDU2ODJTX1NFTF9BRENEQVRfU0ZULCAxKSwNCg0KKyAgICAgICAgICAgIFNORF9T
+T0NfREFQTV9BSUZfT1VUKCJBSUYyVFgiLCAiQUlGMiBDYXB0dXJlIiwgMCwgUlQ1NjgyU19JMlMy
+X1NEUCwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfSTJTMl9QSU5fQ0ZH
+X1NGVCwgMSksDQoNCisgICAgICAgICAgICBTTkRfU09DX0RBUE1fQUlGX0lOKCJBSUYxUlgiLCAi
+QUlGMSBQbGF5YmFjayIsIDAsIFNORF9TT0NfTk9QTSwgMCwgMCksDQoNCisNCg0KKyAgICAgICAg
+ICAgIC8qIE91dHB1dCBTaWRlICovDQoNCisgICAgICAgICAgICAvKiBEQUMgbWl4ZXIgYmVmb3Jl
+IHNvdW5kIGVmZmVjdCAgKi8NCg0KKyAgICAgICAgICAgIFNORF9TT0NfREFQTV9NSVhFUigiREFD
+MSBNSVhMIiwgU05EX1NPQ19OT1BNLCAwLCAwLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgcnQ1Njgyc19kYWNfbF9taXgsIEFSUkFZX1NJWkUocnQ1Njgyc19kYWNfbF9taXgpKSwNCg0K
+KyAgICAgICAgICAgIFNORF9TT0NfREFQTV9NSVhFUigiREFDMSBNSVhSIiwgU05EX1NPQ19OT1BN
+LCAwLCAwLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcnQ1Njgyc19kYWNfcl9taXgs
+IEFSUkFZX1NJWkUocnQ1Njgyc19kYWNfcl9taXgpKSwNCg0KKw0KDQorICAgICAgICAgICAgLyog
+REFDIGNoYW5uZWwgTXV4ICovDQoNCisgICAgICAgICAgICBTTkRfU09DX0RBUE1fTVVYKCJEQUMg
+TDEgU291cmNlIiwgU05EX1NPQ19OT1BNLCAwLCAwLCAmcnQ1Njgyc19hbGdfZGFjX2wxX211eCks
+DQoNCisgICAgICAgICAgICBTTkRfU09DX0RBUE1fTVVYKCJEQUMgUjEgU291cmNlIiwgU05EX1NP
+Q19OT1BNLCAwLCAwLCAmcnQ1Njgyc19hbGdfZGFjX3IxX211eCksDQoNCisNCg0KKyAgICAgICAg
+ICAgIC8qIERBQyBNaXhlciAqLw0KDQorICAgICAgICAgICAgU05EX1NPQ19EQVBNX1NVUFBMWSgi
+REFDIFN0ZXJlbzEgRmlsdGVyIiwgUlQ1NjgyU19QV1JfRElHXzIsDQoNCisgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBSVDU2ODJTX1BXUl9EQUNfUzFGX0JJVCwgMCwgc2V0X2ZpbHRlcl9jbGss
+IFNORF9TT0NfREFQTV9QUkVfUE1VKSwNCg0KKyAgICAgICAgICAgIFNORF9TT0NfREFQTV9NSVhF
+UigiU3RlcmVvMSBEQUMgTUlYTCIsIFNORF9TT0NfTk9QTSwgMCwgMCwNCg0KKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHJ0NTY4MnNfc3RvMV9kYWNfbF9taXgsIEFSUkFZX1NJWkUocnQ1Njgy
+c19zdG8xX2RhY19sX21peCkpLA0KDQorICAgICAgICAgICAgU05EX1NPQ19EQVBNX01JWEVSKCJT
+dGVyZW8xIERBQyBNSVhSIiwgU05EX1NPQ19OT1BNLCAwLCAwLA0KDQorICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgcnQ1Njgyc19zdG8xX2RhY19yX21peCwgQVJSQVlfU0laRShydDU2ODJzX3N0
+bzFfZGFjX3JfbWl4KSksDQoNCisNCg0KKyAgICAgICAgICAgIC8qIERBQ3MgKi8NCg0KKyAgICAg
+ICAgICAgIFNORF9TT0NfREFQTV9EQUMoIkRBQyBMMSIsIE5VTEwsIFJUNTY4MlNfUFdSX0RJR18x
+LCBSVDU2ODJTX1BXUl9EQUNfTDFfQklULCAwKSwNCg0KKyAgICAgICAgICAgIFNORF9TT0NfREFQ
+TV9EQUMoIkRBQyBSMSIsIE5VTEwsIFJUNTY4MlNfUFdSX0RJR18xLCBSVDU2ODJTX1BXUl9EQUNf
+UjFfQklULCAwKSwNCg0KKw0KDQorICAgICAgICAgICAgLyogSFBPICovDQoNCisgICAgICAgICAg
+ICBTTkRfU09DX0RBUE1fUEdBX1MoIkhQIEFtcCIsIDEsIFNORF9TT0NfTk9QTSwgMCwgMCwgcnQ1
+Njgyc19ocF9hbXBfZXZlbnQsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBTTkRfU09D
+X0RBUE1fUE9TVF9QTUQgfCBTTkRfU09DX0RBUE1fUFJFX1BNVSB8IFNORF9TT0NfREFQTV9QT1NU
+X1BNVSksDQoNCisNCg0KKyAgICAgICAgICAgIC8qIENMSyBERVQgKi8NCg0KKyAgICAgICAgICAg
+IFNORF9TT0NfREFQTV9TVVBQTFkoIkNMS0RFVCBTWVMiLCBSVDU2ODJTX0NMS19ERVQsDQoNCisg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX1NZU19DTEtfREVUX1NGVCwgMCwgTlVM
+TCwgMCksDQoNCisgICAgICAgICAgICBTTkRfU09DX0RBUE1fU1VQUExZKCJDTEtERVQgUExMMSIs
+IFJUNTY4MlNfQ0xLX0RFVCwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNf
+UExMMV9DTEtfREVUX1NGVCwgMCwgTlVMTCwgMCksDQoNCisgICAgICAgICAgICBTTkRfU09DX0RB
+UE1fU1VQUExZKCJNQ0xLMCBERVQgUFdSIiwgUlQ1NjgyU19QV1JfQU5MR18yLA0KDQorICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19QV1JfTUNMSzBfV0RfQklULCAwLCBOVUxMLCAw
+KSwNCg0KKw0KDQorICAgICAgICAgICAgLyogU0FSICovDQoNCisgICAgICAgICAgICBTTkRfU09D
+X0RBUE1fU1VQUExZKCJTQVIiLCBTTkRfU09DX05PUE0sIDAsIDAsIHNhcl9wb3dlcl9ldmVudCwN
+Cg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIFNORF9TT0NfREFQTV9QUkVfUE1VIHwgU05E
+X1NPQ19EQVBNX1BPU1RfUE1EKSwNCg0KKw0KDQorICAgICAgICAgICAgLyogT3V0cHV0IExpbmVz
+ICovDQoNCisgICAgICAgICAgICBTTkRfU09DX0RBUE1fT1VUUFVUKCJIUE9MIiksDQoNCisgICAg
+ICAgICAgICBTTkRfU09DX0RBUE1fT1VUUFVUKCJIUE9SIiksDQoNCit9Ow0KDQorDQoNCitzdGF0
+aWMgY29uc3Qgc3RydWN0IHNuZF9zb2NfZGFwbV9yb3V0ZSBydDU2ODJzX2RhcG1fcm91dGVzW10g
+PSB7DQoNCisgICAgICAgICAgICAvKlBMTCovDQoNCisgICAgICAgICAgICB7IkFEQyBTdGVyZW8x
+IEZpbHRlciIsIE5VTEwsICJQTExBIiwgaXNfc3lzX2Nsa19mcm9tX3BsbGF9LA0KDQorICAgICAg
+ICAgICAgeyJBREMgU3RlcmVvMSBGaWx0ZXIiLCBOVUxMLCAiUExMQiIsIGlzX3N5c19jbGtfZnJv
+bV9wbGxifSwNCg0KKyAgICAgICAgICAgIHsiREFDIFN0ZXJlbzEgRmlsdGVyIiwgTlVMTCwgIlBM
+TEEiLCBpc19zeXNfY2xrX2Zyb21fcGxsYX0sDQoNCisgICAgICAgICAgICB7IkRBQyBTdGVyZW8x
+IEZpbHRlciIsIE5VTEwsICJQTExCIiwgaXNfc3lzX2Nsa19mcm9tX3BsbGJ9LA0KDQorICAgICAg
+ICAgICAgeyJQTExBIiwgTlVMTCwgIlBMTEFfTERPIn0sDQoNCisgICAgICAgICAgICB7IlBMTEEi
+LCBOVUxMLCAiUExMQV9CSUFTIn0sDQoNCisgICAgICAgICAgICB7IlBMTEEiLCBOVUxMLCAiUExM
+QV9SU1QifSwNCg0KKyAgICAgICAgICAgIHsiUExMQiIsIE5VTEwsICJQTExCX0xETyJ9LA0KDQor
+ICAgICAgICAgICAgeyJQTExCIiwgTlVMTCwgIlBMTEJfQklBUyJ9LA0KDQorICAgICAgICAgICAg
+eyJQTExCIiwgTlVMTCwgIlBMTEJfUlNUIn0sDQoNCisNCg0KKyAgICAgICAgICAgIC8qQVNSQyov
+DQoNCisgICAgICAgICAgICB7IkFEQyBTdGVyZW8xIEZpbHRlciIsIE5VTEwsICJBREMgU1RPMSBB
+U1JDIiwgaXNfdXNpbmdfYXNyY30sDQoNCisgICAgICAgICAgICB7IkRBQyBTdGVyZW8xIEZpbHRl
+ciIsIE5VTEwsICJEQUMgU1RPMSBBU1JDIiwgaXNfdXNpbmdfYXNyY30sDQoNCisgICAgICAgICAg
+ICB7IkFEQyBTVE8xIEFTUkMiLCBOVUxMLCAiQUQgQVNSQyJ9LA0KDQorICAgICAgICAgICAgeyJB
+REMgU1RPMSBBU1JDIiwgTlVMTCwgIkRBIEFTUkMifSwNCg0KKyAgICAgICAgICAgIHsiREFDIFNU
+TzEgQVNSQyIsIE5VTEwsICJBRCBBU1JDIn0sDQoNCisgICAgICAgICAgICB7IkRBQyBTVE8xIEFT
+UkMiLCBOVUxMLCAiREEgQVNSQyJ9LA0KDQorDQoNCisgICAgICAgICAgICB7IkNMS0RFVCBTWVMi
+LCBOVUxMLCAiTUNMSzAgREVUIFBXUiJ9LA0KDQorDQoNCisgICAgICAgICAgICB7IkJTVDEgQ0JK
+IiwgTlVMTCwgIklOMVAifSwNCg0KKyAgICAgICAgICAgIHsiQlNUMSBDQkoiLCBOVUxMLCAiU0FS
+IiwgaXNfaGVhZHNldF90eXBlfSwNCg0KKw0KDQorICAgICAgICAgICAgeyJSRUNNSVgxTCIsICJD
+QkogU3dpdGNoIiwgIkJTVDEgQ0JKIn0sDQoNCisgICAgICAgICAgICB7IlJFQ01JWDFMIiwgTlVM
+TCwgIlJFQ01JWDFMIFBvd2VyIn0sDQoNCisgICAgICAgICAgICB7IlJFQ01JWDFSIiwgIkNCSiBT
+d2l0Y2giLCAiQlNUMSBDQkoifSwNCg0KKyAgICAgICAgICAgIHsiUkVDTUlYMVIiLCBOVUxMLCAi
+UkVDTUlYMVIgUG93ZXIifSwNCg0KKw0KDQorICAgICAgICAgICAgeyJBREMxIEwiLCBOVUxMLCAi
+UkVDTUlYMUwifSwNCg0KKyAgICAgICAgICAgIHsiQURDMSBMIiwgTlVMTCwgIkFEQzEgTCBQb3dl
+ciJ9LA0KDQorICAgICAgICAgICAgeyJBREMxIEwiLCBOVUxMLCAiQURDMSBjbG9jayJ9LA0KDQor
+ICAgICAgICAgICAgeyJBREMxIFIiLCBOVUxMLCAiUkVDTUlYMVIifSwNCg0KKyAgICAgICAgICAg
+IHsiQURDMSBSIiwgTlVMTCwgIkFEQzEgUiBQb3dlciJ9LA0KDQorICAgICAgICAgICAgeyJBREMx
+IFIiLCBOVUxMLCAiQURDMSBjbG9jayJ9LA0KDQorDQoNCisgICAgICAgICAgICB7IkRNSUMgTDEi
+LCBOVUxMLCAiRE1JQyBDTEsifSwNCg0KKyAgICAgICAgICAgIHsiRE1JQyBMMSIsIE5VTEwsICJE
+TUlDMSBQb3dlciJ9LA0KDQorICAgICAgICAgICAgeyJETUlDIFIxIiwgTlVMTCwgIkRNSUMgQ0xL
+In0sDQoNCisgICAgICAgICAgICB7IkRNSUMgUjEiLCBOVUxMLCAiRE1JQzEgUG93ZXIifSwNCg0K
+KyAgICAgICAgICAgIHsiRE1JQyBDTEsiLCBOVUxMLCAiRE1JQyBBU1JDIn0sDQoNCisNCg0KKyAg
+ICAgICAgICAgIHsiU3RlcmVvMSBBREMgTCBNdXgiLCAiQURDMSBMIiwgIkFEQzEgTCJ9LA0KDQor
+ICAgICAgICAgICAgeyJTdGVyZW8xIEFEQyBMIE11eCIsICJBREMxIFIiLCAiQURDMSBSIn0sDQoN
+CisgICAgICAgICAgICB7IlN0ZXJlbzEgQURDIFIgTXV4IiwgIkFEQzEgTCIsICJBREMxIEwifSwN
+Cg0KKyAgICAgICAgICAgIHsiU3RlcmVvMSBBREMgUiBNdXgiLCAiQURDMSBSIiwgIkFEQzEgUiJ9
+LA0KDQorDQoNCisgICAgICAgICAgICB7IlN0ZXJlbzEgQURDIEwxIE11eCIsICJBREMiLCAiU3Rl
+cmVvMSBBREMgTCBNdXgifSwNCg0KKyAgICAgICAgICAgIHsiU3RlcmVvMSBBREMgTDEgTXV4Iiwg
+IkRBQyBNSVgiLCAiU3RlcmVvMSBEQUMgTUlYTCJ9LA0KDQorICAgICAgICAgICAgeyJTdGVyZW8x
+IEFEQyBMMiBNdXgiLCAiRE1JQyIsICJETUlDIEwxIn0sDQoNCisgICAgICAgICAgICB7IlN0ZXJl
+bzEgQURDIEwyIE11eCIsICJEQUMgTUlYIiwgIlN0ZXJlbzEgREFDIE1JWEwifSwNCg0KKw0KDQor
+ICAgICAgICAgICAgeyJTdGVyZW8xIEFEQyBSMSBNdXgiLCAiQURDIiwgIlN0ZXJlbzEgQURDIFIg
+TXV4In0sDQoNCisgICAgICAgICAgICB7IlN0ZXJlbzEgQURDIFIxIE11eCIsICJEQUMgTUlYIiwg
+IlN0ZXJlbzEgREFDIE1JWFIifSwNCg0KKyAgICAgICAgICAgIHsiU3RlcmVvMSBBREMgUjIgTXV4
+IiwgIkRNSUMiLCAiRE1JQyBSMSJ9LA0KDQorICAgICAgICAgICAgeyJTdGVyZW8xIEFEQyBSMiBN
+dXgiLCAiREFDIE1JWCIsICJTdGVyZW8xIERBQyBNSVhSIn0sDQoNCisNCg0KKyAgICAgICAgICAg
+IHsiU3RlcmVvMSBBREMgTUlYTCIsICJBREMxIFN3aXRjaCIsICJTdGVyZW8xIEFEQyBMMSBNdXgi
+fSwNCg0KKyAgICAgICAgICAgIHsiU3RlcmVvMSBBREMgTUlYTCIsICJBREMyIFN3aXRjaCIsICJT
+dGVyZW8xIEFEQyBMMiBNdXgifSwNCg0KKyAgICAgICAgICAgIHsiU3RlcmVvMSBBREMgTUlYTCIs
+IE5VTEwsICJBREMgU3RlcmVvMSBGaWx0ZXIifSwNCg0KKw0KDQorICAgICAgICAgICAgeyJTdGVy
+ZW8xIEFEQyBNSVhSIiwgIkFEQzEgU3dpdGNoIiwgIlN0ZXJlbzEgQURDIFIxIE11eCJ9LA0KDQor
+ICAgICAgICAgICAgeyJTdGVyZW8xIEFEQyBNSVhSIiwgIkFEQzIgU3dpdGNoIiwgIlN0ZXJlbzEg
+QURDIFIyIE11eCJ9LA0KDQorICAgICAgICAgICAgeyJTdGVyZW8xIEFEQyBNSVhSIiwgTlVMTCwg
+IkFEQyBTdGVyZW8xIEZpbHRlciJ9LA0KDQorDQoNCisgICAgICAgICAgICB7IlN0ZXJlbzEgQURD
+IE1JWCIsIE5VTEwsICJTdGVyZW8xIEFEQyBNSVhMIn0sDQoNCisgICAgICAgICAgICB7IlN0ZXJl
+bzEgQURDIE1JWCIsIE5VTEwsICJTdGVyZW8xIEFEQyBNSVhSIn0sDQoNCisNCg0KKyAgICAgICAg
+ICAgIHsiSUYxIDAxIEFEQyBTd2FwIE11eCIsICJML1IiLCAiU3RlcmVvMSBBREMgTUlYIn0sDQoN
+CisgICAgICAgICAgICB7IklGMSAwMSBBREMgU3dhcCBNdXgiLCAiTC9MIiwgIlN0ZXJlbzEgQURD
+IE1JWCJ9LA0KDQorICAgICAgICAgICAgeyJJRjEgMDEgQURDIFN3YXAgTXV4IiwgIlIvTCIsICJT
+dGVyZW8xIEFEQyBNSVgifSwNCg0KKyAgICAgICAgICAgIHsiSUYxIDAxIEFEQyBTd2FwIE11eCIs
+ICJSL1IiLCAiU3RlcmVvMSBBREMgTUlYIn0sDQoNCisgICAgICAgICAgICB7IklGMSAyMyBBREMg
+U3dhcCBNdXgiLCAiTC9SIiwgIlN0ZXJlbzEgQURDIE1JWCJ9LA0KDQorICAgICAgICAgICAgeyJJ
+RjEgMjMgQURDIFN3YXAgTXV4IiwgIlIvTCIsICJTdGVyZW8xIEFEQyBNSVgifSwNCg0KKyAgICAg
+ICAgICAgIHsiSUYxIDIzIEFEQyBTd2FwIE11eCIsICJML0wiLCAiU3RlcmVvMSBBREMgTUlYIn0s
+DQoNCisgICAgICAgICAgICB7IklGMSAyMyBBREMgU3dhcCBNdXgiLCAiUi9SIiwgIlN0ZXJlbzEg
+QURDIE1JWCJ9LA0KDQorICAgICAgICAgICAgeyJJRjEgNDUgQURDIFN3YXAgTXV4IiwgIkwvUiIs
+ICJTdGVyZW8xIEFEQyBNSVgifSwNCg0KKyAgICAgICAgICAgIHsiSUYxIDQ1IEFEQyBTd2FwIE11
+eCIsICJSL0wiLCAiU3RlcmVvMSBBREMgTUlYIn0sDQoNCisgICAgICAgICAgICB7IklGMSA0NSBB
+REMgU3dhcCBNdXgiLCAiTC9MIiwgIlN0ZXJlbzEgQURDIE1JWCJ9LA0KDQorICAgICAgICAgICAg
+eyJJRjEgNDUgQURDIFN3YXAgTXV4IiwgIlIvUiIsICJTdGVyZW8xIEFEQyBNSVgifSwNCg0KKyAg
+ICAgICAgICAgIHsiSUYxIDY3IEFEQyBTd2FwIE11eCIsICJML1IiLCAiU3RlcmVvMSBBREMgTUlY
+In0sDQoNCisgICAgICAgICAgICB7IklGMSA2NyBBREMgU3dhcCBNdXgiLCAiUi9MIiwgIlN0ZXJl
+bzEgQURDIE1JWCJ9LA0KDQorICAgICAgICAgICAgeyJJRjEgNjcgQURDIFN3YXAgTXV4IiwgIkwv
+TCIsICJTdGVyZW8xIEFEQyBNSVgifSwNCg0KKyAgICAgICAgICAgIHsiSUYxIDY3IEFEQyBTd2Fw
+IE11eCIsICJSL1IiLCAiU3RlcmVvMSBBREMgTUlYIn0sDQoNCisNCg0KKyAgICAgICAgICAgIHsi
+SUYxX0FEQyBNdXgiLCAiU2xvdCAwIiwgIklGMSAwMSBBREMgU3dhcCBNdXgifSwNCg0KKyAgICAg
+ICAgICAgIHsiSUYxX0FEQyBNdXgiLCAiU2xvdCAyIiwgIklGMSAyMyBBREMgU3dhcCBNdXgifSwN
+Cg0KKyAgICAgICAgICAgIHsiSUYxX0FEQyBNdXgiLCAiU2xvdCA0IiwgIklGMSA0NSBBREMgU3dh
+cCBNdXgifSwNCg0KKyAgICAgICAgICAgIHsiSUYxX0FEQyBNdXgiLCAiU2xvdCA2IiwgIklGMSA2
+NyBBREMgU3dhcCBNdXgifSwNCg0KKyAgICAgICAgICAgIHsiQURDREFUIE11eCIsICJBRENEQVQx
+IiwgIklGMV9BREMgTXV4In0sDQoNCisgICAgICAgICAgICB7IkFJRjFUWCIsIE5VTEwsICJJMlMx
+In0sDQoNCisgICAgICAgICAgICB7IkFJRjFUWCIsIE5VTEwsICJBRENEQVQgTXV4In0sDQoNCisg
+ICAgICAgICAgICB7IklGMiBBREMgU3dhcCBNdXgiLCAiTC9SIiwgIlN0ZXJlbzEgQURDIE1JWCJ9
+LA0KDQorICAgICAgICAgICAgeyJJRjIgQURDIFN3YXAgTXV4IiwgIlIvTCIsICJTdGVyZW8xIEFE
+QyBNSVgifSwNCg0KKyAgICAgICAgICAgIHsiSUYyIEFEQyBTd2FwIE11eCIsICJML0wiLCAiU3Rl
+cmVvMSBBREMgTUlYIn0sDQoNCisgICAgICAgICAgICB7IklGMiBBREMgU3dhcCBNdXgiLCAiUi9S
+IiwgIlN0ZXJlbzEgQURDIE1JWCJ9LA0KDQorICAgICAgICAgICAgeyJBRENEQVQgTXV4IiwgIkFE
+Q0RBVDIiLCAiSUYyIEFEQyBTd2FwIE11eCJ9LA0KDQorICAgICAgICAgICAgeyJBSUYyVFgiLCBO
+VUxMLCAiQURDREFUIE11eCJ9LA0KDQorDQoNCisgICAgICAgICAgICB7IklGMSBEQUMxIEwiLCBO
+VUxMLCAiQUlGMVJYIn0sDQoNCisgICAgICAgICAgICB7IklGMSBEQUMxIEwiLCBOVUxMLCAiSTJT
+MSJ9LA0KDQorICAgICAgICAgICAgeyJJRjEgREFDMSBMIiwgTlVMTCwgIkRBQyBTdGVyZW8xIEZp
+bHRlciJ9LA0KDQorICAgICAgICAgICAgeyJJRjEgREFDMSBSIiwgTlVMTCwgIkFJRjFSWCJ9LA0K
+DQorICAgICAgICAgICAgeyJJRjEgREFDMSBSIiwgTlVMTCwgIkkyUzEifSwNCg0KKyAgICAgICAg
+ICAgIHsiSUYxIERBQzEgUiIsIE5VTEwsICJEQUMgU3RlcmVvMSBGaWx0ZXIifSwNCg0KKw0KDQor
+ICAgICAgICAgICAgeyJEQUMxIE1JWEwiLCAiU3RlcmVvIEFEQyBTd2l0Y2giLCAiU3RlcmVvMSBB
+REMgTUlYTCJ9LA0KDQorICAgICAgICAgICAgeyJEQUMxIE1JWEwiLCAiREFDMSBTd2l0Y2giLCAi
+SUYxIERBQzEgTCJ9LA0KDQorICAgICAgICAgICAgeyJEQUMxIE1JWFIiLCAiU3RlcmVvIEFEQyBT
+d2l0Y2giLCAiU3RlcmVvMSBBREMgTUlYUiJ9LA0KDQorICAgICAgICAgICAgeyJEQUMxIE1JWFIi
+LCAiREFDMSBTd2l0Y2giLCAiSUYxIERBQzEgUiJ9LA0KDQorDQoNCisgICAgICAgICAgICB7IlN0
+ZXJlbzEgREFDIE1JWEwiLCAiREFDIEwxIFN3aXRjaCIsICJEQUMxIE1JWEwifSwNCg0KKyAgICAg
+ICAgICAgIHsiU3RlcmVvMSBEQUMgTUlYTCIsICJEQUMgUjEgU3dpdGNoIiwgIkRBQzEgTUlYUiJ9
+LA0KDQorDQoNCisgICAgICAgICAgICB7IlN0ZXJlbzEgREFDIE1JWFIiLCAiREFDIFIxIFN3aXRj
+aCIsICJEQUMxIE1JWFIifSwNCg0KKyAgICAgICAgICAgIHsiU3RlcmVvMSBEQUMgTUlYUiIsICJE
+QUMgTDEgU3dpdGNoIiwgIkRBQzEgTUlYTCJ9LA0KDQorDQoNCisgICAgICAgICAgICB7IkRBQyBM
+MSBTb3VyY2UiLCAiREFDMSIsICJEQUMxIE1JWEwifSwNCg0KKyAgICAgICAgICAgIHsiREFDIEwx
+IFNvdXJjZSIsICJTdGVyZW8xIERBQyBNaXhlciIsICJTdGVyZW8xIERBQyBNSVhMIn0sDQoNCisg
+ICAgICAgICAgICB7IkRBQyBSMSBTb3VyY2UiLCAiREFDMSIsICJEQUMxIE1JWFIifSwNCg0KKyAg
+ICAgICAgICAgIHsiREFDIFIxIFNvdXJjZSIsICJTdGVyZW8xIERBQyBNaXhlciIsICJTdGVyZW8x
+IERBQyBNSVhSIn0sDQoNCisNCg0KKyAgICAgICAgICAgIHsiREFDIEwxIiwgTlVMTCwgIkRBQyBM
+MSBTb3VyY2UifSwNCg0KKyAgICAgICAgICAgIHsiREFDIFIxIiwgTlVMTCwgIkRBQyBSMSBTb3Vy
+Y2UifSwNCg0KKw0KDQorICAgICAgICAgICAgeyJIUCBBbXAiLCBOVUxMLCAiREFDIEwxIn0sDQoN
+CisgICAgICAgICAgICB7IkhQIEFtcCIsIE5VTEwsICJEQUMgUjEifSwNCg0KKyAgICAgICAgICAg
+IHsiSFAgQW1wIiwgTlVMTCwgIkNMS0RFVCBTWVMifSwNCg0KKyAgICAgICAgICAgIHsiSFAgQW1w
+IiwgTlVMTCwgIlNBUiIsIGlzX2hlYWRzZXRfdHlwZX0sDQoNCisNCg0KKyAgICAgICAgICAgIHsi
+SFBPTCIsIE5VTEwsICJIUCBBbXAifSwNCg0KKyAgICAgICAgICAgIHsiSFBPUiIsIE5VTEwsICJI
+UCBBbXAifSwNCg0KK307DQoNCisNCg0KK3N0YXRpYyBpbnQgcnQ1Njgyc19zZXRfdGRtX3Nsb3Qo
+c3RydWN0IHNuZF9zb2NfZGFpICpkYWksIHVuc2lnbmVkIGludCB0eF9tYXNrLA0KDQorICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgdW5zaWduZWQgaW50IHJ4X21hc2ssIGludCBzbG90cywgaW50
+IHNsb3Rfd2lkdGgpDQoNCit7DQoNCisgICAgICAgICAgICBzdHJ1Y3Qgc25kX3NvY19jb21wb25l
+bnQgKmNvbXBvbmVudCA9IGRhaS0+Y29tcG9uZW50Ow0KDQorICAgICAgICAgICAgdW5zaWduZWQg
+aW50IGNsLCB2YWwgPSAwOw0KDQorDQoNCisgICAgICAgICAgICBpZiAodHhfbWFzayB8fCByeF9t
+YXNrKQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgc25kX3NvY19jb21wb25lbnRfdXBk
+YXRlX2JpdHMoY29tcG9uZW50LA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBSVDU2ODJTX1RETV9BRERBX0NUUkxfMiwgUlQ1NjgyU19URE1fRU4sIFJUNTY4MlNf
+VERNX0VOKTsNCg0KKyAgICAgICAgICAgIGVsc2UNCg0KKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19URE1fQUREQV9DVFJMXzIs
+IFJUNTY4MlNfVERNX0VOLCAwKTsNCg0KKw0KDQorICAgICAgICAgICAgc3dpdGNoIChzbG90cykg
+ew0KDQorICAgICAgICAgICAgY2FzZSA0Og0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
+dmFsIHw9IFJUNTY4MlNfVERNX1RYX0NIXzQ7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAg
+ICB2YWwgfD0gUlQ1NjgyU19URE1fUlhfQ0hfNDsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIGJyZWFrOw0KDQorICAgICAgICAgICAgY2FzZSA2Og0KDQorICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgdmFsIHw9IFJUNTY4MlNfVERNX1RYX0NIXzY7DQoNCisgICAgICAgICAgICAgICAg
+ICAgICAgICAgICB2YWwgfD0gUlQ1NjgyU19URE1fUlhfQ0hfNjsNCg0KKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIGJyZWFrOw0KDQorICAgICAgICAgICAgY2FzZSA4Og0KDQorICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgdmFsIHw9IFJUNTY4MlNfVERNX1RYX0NIXzg7DQoNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICB2YWwgfD0gUlQ1NjgyU19URE1fUlhfQ0hfODsNCg0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOw0KDQorICAgICAgICAgICAgY2FzZSAyOg0KDQor
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQoNCisgICAgICAgICAgICBkZWZhdWx0
+Og0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQoNCisgICAg
+ICAgICAgICB9DQoNCisNCg0KKyAgICAgICAgICAgIHNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9i
+aXRzKGNvbXBvbmVudCwgUlQ1NjgyU19URE1fQ1RSTCwNCg0KKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIFJUNTY4MlNfVERNX1RYX0NIX01BU0sgfCBSVDU2ODJTX1RETV9SWF9DSF9NQVNLLCB2
+YWwpOw0KDQorDQoNCisgICAgICAgICAgICBzd2l0Y2ggKHNsb3Rfd2lkdGgpIHsNCg0KKyAgICAg
+ICAgICAgIGNhc2UgODoNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmICh0eF9tYXNr
+IHx8IHJ4X21hc2spDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHJldHVybiAtRUlOVkFMOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgY2wgPSBSVDU2
+ODJTX0kyUzFfVFhfQ0hMXzggfCBSVDU2ODJTX0kyUzFfUlhfQ0hMXzg7DQoNCisgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBicmVhazsNCg0KKyAgICAgICAgICAgIGNhc2UgMTY6DQoNCisgICAg
+ICAgICAgICAgICAgICAgICAgICAgICB2YWwgPSBSVDU2ODJTX1RETV9DTF8xNjsNCg0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIGNsID0gUlQ1NjgyU19JMlMxX1RYX0NITF8xNiB8IFJUNTY4
+MlNfSTJTMV9SWF9DSExfMTY7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsN
+Cg0KKyAgICAgICAgICAgIGNhc2UgMjA6DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICB2
+YWwgPSBSVDU2ODJTX1RETV9DTF8yMDsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGNs
+ID0gUlQ1NjgyU19JMlMxX1RYX0NITF8yMCB8IFJUNTY4MlNfSTJTMV9SWF9DSExfMjA7DQoNCisg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsNCg0KKyAgICAgICAgICAgIGNhc2UgMjQ6
+DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICB2YWwgPSBSVDU2ODJTX1RETV9DTF8yNDsN
+Cg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGNsID0gUlQ1NjgyU19JMlMxX1RYX0NITF8y
+NCB8IFJUNTY4MlNfSTJTMV9SWF9DSExfMjQ7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBicmVhazsNCg0KKyAgICAgICAgICAgIGNhc2UgMzI6DQoNCisgICAgICAgICAgICAgICAgICAg
+ICAgICAgICB2YWwgPSBSVDU2ODJTX1RETV9DTF8zMjsNCg0KKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIGNsID0gUlQ1NjgyU19JMlMxX1RYX0NITF8zMiB8IFJUNTY4MlNfSTJTMV9SWF9DSExf
+MzI7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsNCg0KKyAgICAgICAgICAg
+IGRlZmF1bHQ6DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsN
+Cg0KKyAgICAgICAgICAgIH0NCg0KKw0KDQorICAgICAgICAgICAgc25kX3NvY19jb21wb25lbnRf
+dXBkYXRlX2JpdHMoY29tcG9uZW50LCBSVDU2ODJTX1RETV9UQ09OX0NUUkxfMSwNCg0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfVERNX0NMX01BU0ssIHZhbCk7DQoNCisgICAg
+ICAgICAgICBzbmRfc29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNf
+STJTMV9TRFAsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX0kyUzFfVFhf
+Q0hMX01BU0sgfCBSVDU2ODJTX0kyUzFfUlhfQ0hMX01BU0ssIGNsKTsNCg0KKw0KDQorICAgICAg
+ICAgICAgcmV0dXJuIDA7DQoNCit9DQoNCisNCg0KK3N0YXRpYyBpbnQgcnQ1Njgyc19od19wYXJh
+bXMoc3RydWN0IHNuZF9wY21fc3Vic3RyZWFtICpzdWJzdHJlYW0sDQoNCisgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBzdHJ1Y3Qgc25kX3BjbV9od19wYXJhbXMgKnBhcmFtcywgc3RydWN0IHNu
+ZF9zb2NfZGFpICpkYWkpDQoNCit7DQoNCisgICAgICAgICAgICBzdHJ1Y3Qgc25kX3NvY19jb21w
+b25lbnQgKmNvbXBvbmVudCA9IGRhaS0+Y29tcG9uZW50Ow0KDQorICAgICAgICAgICAgc3RydWN0
+IHJ0NTY4MnNfcHJpdiAqcnQ1NjgycyA9IHNuZF9zb2NfY29tcG9uZW50X2dldF9kcnZkYXRhKGNv
+bXBvbmVudCk7DQoNCisgICAgICAgICAgICB1bnNpZ25lZCBpbnQgbGVuXzEgPSAwLCBsZW5fMiA9
+IDA7DQoNCisgICAgICAgICAgICBpbnQgZnJhbWVfc2l6ZTsNCg0KKw0KDQorICAgICAgICAgICAg
+cnQ1Njgycy0+bHJja1tkYWktPmlkXSA9IHBhcmFtc19yYXRlKHBhcmFtcyk7DQoNCisNCg0KKyAg
+ICAgICAgICAgIGZyYW1lX3NpemUgPSBzbmRfc29jX3BhcmFtc190b19mcmFtZV9zaXplKHBhcmFt
+cyk7DQoNCisgICAgICAgICAgICBpZiAoZnJhbWVfc2l6ZSA8IDApIHsNCg0KKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIGRldl9lcnIoY29tcG9uZW50LT5kZXYsICJVbnN1cHBvcnRlZCBmcmFt
+ZSBzaXplOiAlZFxuIiwgZnJhbWVfc2l6ZSk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAg
+ICByZXR1cm4gLUVJTlZBTDsNCg0KKyAgICAgICAgICAgIH0NCg0KKw0KDQorICAgICAgICAgICAg
+c3dpdGNoIChwYXJhbXNfd2lkdGgocGFyYW1zKSkgew0KDQorICAgICAgICAgICAgY2FzZSAxNjoN
+Cg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOw0KDQorICAgICAgICAgICAgY2Fz
+ZSAyMDoNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGxlbl8xIHw9IFJUNTY4MlNfSTJT
+MV9ETF8yMDsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGxlbl8yIHw9IFJUNTY4MlNf
+STJTMl9ETF8yMDsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOw0KDQorICAg
+ICAgICAgICAgY2FzZSAyNDoNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGxlbl8xIHw9
+IFJUNTY4MlNfSTJTMV9ETF8yNDsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGxlbl8y
+IHw9IFJUNTY4MlNfSTJTMl9ETF8yNDsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGJy
+ZWFrOw0KDQorICAgICAgICAgICAgY2FzZSAzMjoNCg0KKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIGxlbl8xIHw9IFJUNTY4MlNfSTJTMV9ETF8zMjsNCg0KKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIGxlbl8yIHw9IFJUNTY4MlNfSTJTMl9ETF8yNDsNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGJyZWFrOw0KDQorICAgICAgICAgICAgY2FzZSA4Og0KDQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgbGVuXzEgfD0gUlQ1NjgyU19JMlMyX0RMXzg7DQoNCisgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBsZW5fMiB8PSBSVDU2ODJTX0kyUzJfRExfODsNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIGJyZWFrOw0KDQorICAgICAgICAgICAgZGVmYXVsdDoNCg0KKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KDQorICAgICAgICAgICAg
+fQ0KDQorDQoNCisgICAgICAgICAgICBzd2l0Y2ggKGRhaS0+aWQpIHsNCg0KKyAgICAgICAgICAg
+IGNhc2UgUlQ1NjgyU19BSUYxOg0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgc25kX3Nv
+Y19jb21wb25lbnRfdXBkYXRlX2JpdHMoY29tcG9uZW50LCBSVDU2ODJTX0kyUzFfU0RQLA0KDQor
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX0kyUzFfRExf
+TUFTSywgbGVuXzEpOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKHBhcmFtc19j
+aGFubmVscyhwYXJhbXMpID09IDEpIC8qIG1vbm8gbW9kZSAqLw0KDQorICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRfc29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhj
+b21wb25lbnQsIFJUNTY4MlNfSTJTMV9TRFAsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19JMlMxX01PTk9fTUFTSywgUlQ1
+NjgyU19JMlMxX01PTk9fRU4pOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgZWxzZQ0K
+DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRfc29jX2NvbXBv
+bmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfSTJTMV9TRFAsDQoNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19J
+MlMxX01PTk9fTUFTSywgUlQ1NjgyU19JMlMxX01PTk9fRElTKTsNCg0KKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIGJyZWFrOw0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0FJRjI6DQoN
+CisgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRfc29jX2NvbXBvbmVudF91cGRhdGVfYml0
+cyhjb21wb25lbnQsIFJUNTY4MlNfSTJTMl9TRFAsDQoNCisgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfSTJTMl9ETF9NQVNLLCBsZW5fMik7DQoNCisgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBpZiAocGFyYW1zX2NoYW5uZWxzKHBhcmFtcykgPT0gMSkg
+LyogbW9ubyBtb2RlICovDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwgUlQ1NjgyU19JMlMy
+X1NEUCwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBSVDU2ODJTX0kyUzJfTU9OT19NQVNLLCBSVDU2ODJTX0kyUzJfTU9OT19FTik7DQoN
+CisgICAgICAgICAgICAgICAgICAgICAgICAgICBlbHNlDQoNCisgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNvbXBv
+bmVudCwgUlQ1NjgyU19JMlMyX1NEUCwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX0kyUzJfTU9OT19NQVNLLCBSVDU2ODJT
+X0kyUzJfTU9OT19ESVMpOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQoN
+CisgICAgICAgICAgICBkZWZhdWx0Og0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgZGV2
+X2Vycihjb21wb25lbnQtPmRldiwgIkludmFsaWQgZGFpLT5pZDogJWRcbiIsIGRhaS0+aWQpOw0K
+DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQoNCisgICAgICAg
+ICAgICB9DQoNCisNCg0KKyAgICAgICAgICAgIHJldHVybiAwOw0KDQorfQ0KDQorDQoNCitzdGF0
+aWMgaW50IHJ0NTY4MnNfc2V0X2RhaV9mbXQoc3RydWN0IHNuZF9zb2NfZGFpICpkYWksIHVuc2ln
+bmVkIGludCBmbXQpDQoNCit7DQoNCisgICAgICAgICAgICBzdHJ1Y3Qgc25kX3NvY19jb21wb25l
+bnQgKmNvbXBvbmVudCA9IGRhaS0+Y29tcG9uZW50Ow0KDQorICAgICAgICAgICAgc3RydWN0IHJ0
+NTY4MnNfcHJpdiAqcnQ1NjgycyA9IHNuZF9zb2NfY29tcG9uZW50X2dldF9kcnZkYXRhKGNvbXBv
+bmVudCk7DQoNCisgICAgICAgICAgICB1bnNpZ25lZCBpbnQgcmVnX3ZhbCA9IDAsIHRkbV9jdHJs
+ID0gMDsNCg0KKw0KDQorICAgICAgICAgICAgc3dpdGNoIChmbXQgJiBTTkRfU09DX0RBSUZNVF9N
+QVNURVJfTUFTSykgew0KDQorICAgICAgICAgICAgY2FzZSBTTkRfU09DX0RBSUZNVF9DQk1fQ0ZN
+Og0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcnQ1Njgycy0+bWFzdGVyW2RhaS0+aWRd
+ID0gMTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOw0KDQorICAgICAgICAg
+ICAgY2FzZSBTTkRfU09DX0RBSUZNVF9DQlNfQ0ZTOg0KDQorICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgcnQ1Njgycy0+bWFzdGVyW2RhaS0+aWRdID0gMDsNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGJyZWFrOw0KDQorICAgICAgICAgICAgZGVmYXVsdDoNCg0KKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KDQorICAgICAgICAgICAgfQ0KDQorDQoN
+CisgICAgICAgICAgICBzd2l0Y2ggKGZtdCAmIFNORF9TT0NfREFJRk1UX0lOVl9NQVNLKSB7DQoN
+CisgICAgICAgICAgICBjYXNlIFNORF9TT0NfREFJRk1UX05CX05GOg0KDQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgYnJlYWs7DQoNCisgICAgICAgICAgICBjYXNlIFNORF9TT0NfREFJRk1U
+X0lCX05GOg0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnX3ZhbCB8PSBSVDU2ODJT
+X0kyU19CUF9JTlY7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICB0ZG1fY3RybCB8PSBS
+VDU2ODJTX1RETV9TX0JQX0lOVjsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFr
+Ow0KDQorICAgICAgICAgICAgY2FzZSBTTkRfU09DX0RBSUZNVF9OQl9JRjoNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIGlmIChkYWktPmlkID09IFJUNTY4MlNfQUlGMSkNCg0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdGRtX2N0cmwgfD0gUlQ1NjgyU19U
+RE1fU19MUF9JTlYgfCBSVDU2ODJTX1RETV9NX0JQX0lOVjsNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGVsc2UNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgcmV0dXJuIC1FSU5WQUw7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsN
+Cg0KKyAgICAgICAgICAgIGNhc2UgU05EX1NPQ19EQUlGTVRfSUJfSUY6DQoNCisgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBpZiAoZGFpLT5pZCA9PSBSVDU2ODJTX0FJRjEpDQoNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRkbV9jdHJsIHw9IFJUNTY4MlNfVERN
+X1NfQlBfSU5WIHwgUlQ1NjgyU19URE1fU19MUF9JTlYgfA0KDQorICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfVERNX01fQlBfSU5W
+IHwgUlQ1NjgyU19URE1fTV9MUF9JTlY7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBl
+bHNlDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAt
+RUlOVkFMOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQoNCisgICAgICAg
+ICAgICBkZWZhdWx0Og0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5W
+QUw7DQoNCisgICAgICAgICAgICB9DQoNCisNCg0KKyAgICAgICAgICAgIHN3aXRjaCAoZm10ICYg
+U05EX1NPQ19EQUlGTVRfRk9STUFUX01BU0spIHsNCg0KKyAgICAgICAgICAgIGNhc2UgU05EX1NP
+Q19EQUlGTVRfSTJTOg0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQoNCisg
+ICAgICAgICAgICBjYXNlIFNORF9TT0NfREFJRk1UX0xFRlRfSjoNCg0KKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHJlZ192YWwgfD0gUlQ1NjgyU19JMlNfREZfTEVGVDsNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHRkbV9jdHJsIHw9IFJUNTY4MlNfVERNX0RGX0xFRlQ7DQoNCisg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsNCg0KKyAgICAgICAgICAgIGNhc2UgU05E
+X1NPQ19EQUlGTVRfRFNQX0E6DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICByZWdfdmFs
+IHw9IFJUNTY4MlNfSTJTX0RGX1BDTV9BOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
+dGRtX2N0cmwgfD0gUlQ1NjgyU19URE1fREZfUENNX0E7DQoNCisgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBicmVhazsNCg0KKyAgICAgICAgICAgIGNhc2UgU05EX1NPQ19EQUlGTVRfRFNQX0I6
+DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICByZWdfdmFsIHw9IFJUNTY4MlNfSTJTX0RG
+X1BDTV9COw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgdGRtX2N0cmwgfD0gUlQ1Njgy
+U19URE1fREZfUENNX0I7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsNCg0K
+KyAgICAgICAgICAgIGRlZmF1bHQ6DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1
+cm4gLUVJTlZBTDsNCg0KKyAgICAgICAgICAgIH0NCg0KKw0KDQorICAgICAgICAgICAgc3dpdGNo
+IChkYWktPmlkKSB7DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfQUlGMToNCg0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNvbXBv
+bmVudCwgUlQ1NjgyU19JMlMxX1NEUCwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgUlQ1NjgyU19JMlNfREZfTUFTSywgcmVnX3ZhbCk7DQoNCisgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBzbmRfc29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQs
+IFJUNTY4MlNfVERNX1RDT05fQ1RSTF8xLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBSVDU2ODJTX1RETV9NU19NQVNLIHwgUlQ1NjgyU19URE1fU19CUF9NQVNL
+IHwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19U
+RE1fREZfTUFTSyB8IFJUNTY4MlNfVERNX01fQlBfTUFTSyB8DQoNCisgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfVERNX01fTFBfTUFTSyB8IFJUNTY4MlNf
+VERNX1NfTFBfTUFTSywNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgdGRtX2N0cmwgfCBydDU2ODJzLT5tYXN0ZXJbZGFpLT5pZF0pOw0KDQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgYnJlYWs7DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfQUlGMjoN
+Cg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmIChydDU2ODJzLT5tYXN0ZXJbZGFpLT5p
+ZF0gPT0gMCkNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVn
+X3ZhbCB8PSBSVDU2ODJTX0kyUzJfTVNfUzsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwgUlQ1NjgyU19JMlMyX1NE
+UCwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19J
+MlMyX01TX01BU0sgfCBSVDU2ODJTX0kyU19CUF9NQVNLIHwNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19JMlNfREZfTUFTSywgcmVnX3ZhbCk7DQoN
+CisgICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsNCg0KKyAgICAgICAgICAgIGRlZmF1
+bHQ6DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBkZXZfZXJyKGNvbXBvbmVudC0+ZGV2
+LCAiSW52YWxpZCBkYWktPmlkOiAlZFxuIiwgZGFpLT5pZCk7DQoNCisgICAgICAgICAgICAgICAg
+ICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsNCg0KKyAgICAgICAgICAgIH0NCg0KKyAgICAgICAg
+ICAgIHJldHVybiAwOw0KDQorfQ0KDQorDQoNCitzdGF0aWMgaW50IHJ0NTY4MnNfc2V0X2NvbXBv
+bmVudF9zeXNjbGsoc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQsDQoNCisgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBpbnQgY2xrX2lkLCBpbnQgc291cmNlLCB1bnNpZ25lZCBp
+bnQgZnJlcSwgaW50IGRpcikNCg0KK3sNCg0KKyAgICAgICAgICAgIHN0cnVjdCBydDU2ODJzX3By
+aXYgKnJ0NTY4MnMgPSBzbmRfc29jX2NvbXBvbmVudF9nZXRfZHJ2ZGF0YShjb21wb25lbnQpOw0K
+DQorICAgICAgICAgICAgdW5zaWduZWQgaW50IHNyYyA9IDA7DQoNCisNCg0KKyAgICAgICAgICAg
+IGlmIChmcmVxID09IHJ0NTY4MnMtPnN5c2NsayAmJiBjbGtfaWQgPT0gcnQ1Njgycy0+c3lzY2xr
+X3NyYykNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAwOw0KDQorDQoNCisg
+ICAgICAgICAgICBzd2l0Y2ggKGNsa19pZCkgew0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJT
+X1NDTEtfU19NQ0xLOg0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgc3JjID0gUlQ1Njgy
+U19DTEtfU1JDX01DTEs7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsNCg0K
+KyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19TQ0xLX1NfUExMMToNCg0KKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHNyYyA9IFJUNTY4MlNfQ0xLX1NSQ19QTEwxOw0KDQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgYnJlYWs7DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfU0NMS19T
+X1BMTDI6DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBzcmMgPSBSVDU2ODJTX0NMS19T
+UkNfUExMMjsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOw0KDQorICAgICAg
+ICAgICAgY2FzZSBSVDU2ODJTX1NDTEtfU19SQ0NMSzoNCg0KKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHNyYyA9IFJUNTY4MlNfQ0xLX1NSQ19SQ0NMSzsNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGJyZWFrOw0KDQorICAgICAgICAgICAgZGVmYXVsdDoNCg0KKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIGRldl9lcnIoY29tcG9uZW50LT5kZXYsICJJbnZhbGlkIGNsb2NrIGlk
+ICglZClcbiIsIGNsa19pZCk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4g
+LUVJTlZBTDsNCg0KKyAgICAgICAgICAgIH0NCg0KKw0KDQorICAgICAgICAgICAgc25kX3NvY19j
+b21wb25lbnRfdXBkYXRlX2JpdHMoY29tcG9uZW50LCBSVDU2ODJTX0dMQl9DTEssDQoNCisgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX1NDTEtfU1JDX01BU0ssIHNyYyA8PCBSVDU2
+ODJTX1NDTEtfU1JDX1NGVCk7DQoNCisgICAgICAgICAgICBzbmRfc29jX2NvbXBvbmVudF91cGRh
+dGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfQUREQV9DTEtfMSwNCg0KKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIFJUNTY4MlNfSTJTX01fQ0xLX1NSQ19NQVNLLCBzcmMgPDwgUlQ1NjgyU19J
+MlNfTV9DTEtfU1JDX1NGVCk7DQoNCisgICAgICAgICAgICBzbmRfc29jX2NvbXBvbmVudF91cGRh
+dGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfSTJTMl9NX0NMS19DVFJMXzEsDQoNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX0kyUzJfTV9DTEtfU1JDX01BU0ssIHNyYyA8PCBS
+VDU2ODJTX0kyUzJfTV9DTEtfU1JDX1NGVCk7DQoNCisNCg0KKyAgICAgICAgICAgIHJ0NTY4MnMt
+PnN5c2NsayA9IGZyZXE7DQoNCisgICAgICAgICAgICBydDU2ODJzLT5zeXNjbGtfc3JjID0gY2xr
+X2lkOw0KDQorDQoNCisgICAgICAgICAgICBkZXZfZGJnKGNvbXBvbmVudC0+ZGV2LCAiU3lzY2xr
+IGlzICVkSHogYW5kIGNsb2NrIGlkIGlzICVkXG4iLA0KDQorICAgICAgICAgICAgICAgICAgICAg
+ICAgICBmcmVxLCBjbGtfaWQpOw0KDQorDQoNCisgICAgICAgICAgICByZXR1cm4gMDsNCg0KK30N
+Cg0KKw0KDQorc3RhdGljIGNvbnN0IHN0cnVjdCBwbGxfY2FsY19tYXAgcGxsYV90YWJsZVtdID0g
+ew0KDQorICAgICAgICAgICAgezIwNDgwMDAsIDI0NTc2MDAwLCAwLCA0NiwgMiwgdHJ1ZSwgZmFs
+c2UsIGZhbHNlLCBmYWxzZX0sDQoNCisgICAgICAgICAgICB7MjU2MDAwLCAyNDU3NjAwMCwgMCwg
+MzgyLCAyLCB0cnVlLCBmYWxzZSwgZmFsc2UsIGZhbHNlfSwNCg0KKyAgICAgICAgICAgIHs1MTIw
+MDAsIDI0NTc2MDAwLCAwLCAxOTAsIDIsIHRydWUsIGZhbHNlLCBmYWxzZSwgZmFsc2V9LA0KDQor
+ICAgICAgICAgICAgezQwOTYwMDAsIDI0NTc2MDAwLCAwLCAyMiwgMiwgdHJ1ZSwgZmFsc2UsIGZh
+bHNlLCBmYWxzZX0sDQoNCisgICAgICAgICAgICB7MTAyNDAwMCwgMjQ1NzYwMDAsIDAsIDk0LCAy
+LCB0cnVlLCBmYWxzZSwgZmFsc2UsIGZhbHNlfSwNCg0KKyAgICAgICAgICAgIHsxMTI4OTYwMCwg
+MjI1NzkyMDAsIDEsIDIyLCAyLCBmYWxzZSwgZmFsc2UsIGZhbHNlLCBmYWxzZX0sDQoNCisgICAg
+ICAgICAgICB7MTQxMTIwMCwgMjI1NzkyMDAsIDAsIDYyLCAyLCB0cnVlLCBmYWxzZSwgZmFsc2Us
+IGZhbHNlfSwNCg0KKyAgICAgICAgICAgIHsyODIyNDAwLCAyMjU3OTIwMCwgMCwgMzAsIDIsIHRy
+dWUsIGZhbHNlLCBmYWxzZSwgZmFsc2V9LA0KDQorICAgICAgICAgICAgezEyMjg4MDAwLCAyNDU3
+NjAwMCwgMSwgMjIsIDIsIGZhbHNlLCBmYWxzZSwgZmFsc2UsIGZhbHNlfSwNCg0KKyAgICAgICAg
+ICAgIHsxNTM2MDAwLCAyNDU3NjAwMCwgMCwgNjIsIDIsIHRydWUsIGZhbHNlLCBmYWxzZSwgZmFs
+c2V9LA0KDQorICAgICAgICAgICAgezMwNzIwMDAsIDI0NTc2MDAwLCAwLCAzMCwgMiwgdHJ1ZSwg
+ZmFsc2UsIGZhbHNlLCBmYWxzZX0sDQoNCisgICAgICAgICAgICB7MjQ1NzYwMDAsIDQ5MTUyMDAw
+LCA0LCAyMiwgMCwgZmFsc2UsIGZhbHNlLCBmYWxzZSwgZmFsc2V9LA0KDQorICAgICAgICAgICAg
+ezMwNzIwMDAsIDQ5MTUyMDAwLCAwLCAzMCwgMCwgdHJ1ZSwgZmFsc2UsIGZhbHNlLCBmYWxzZX0s
+DQoNCisgICAgICAgICAgICB7NjE0NDAwMCwgNDkxNTIwMDAsIDAsIDMwLCAwLCBmYWxzZSwgZmFs
+c2UsIGZhbHNlLCBmYWxzZX0sDQoNCisgICAgICAgICAgICB7NDkxNTIwMDAsIDk4MzA0MDAwLCAx
+MCwgMjIsIDAsIGZhbHNlLCB0cnVlLCBmYWxzZSwgZmFsc2V9LA0KDQorICAgICAgICAgICAgezYx
+NDQwMDAsIDk4MzA0MDAwLCAwLCAzMCwgMCwgZmFsc2UsIHRydWUsIGZhbHNlLCBmYWxzZX0sDQoN
+CisgICAgICAgICAgICB7MTIyODgwMDAsIDk4MzA0MDAwLCAxLCAyMiwgMCwgZmFsc2UsIHRydWUs
+IGZhbHNlLCBmYWxzZX0sDQoNCisgICAgICAgICAgICB7NDgwMDAwMDAsIDM4NDAwMDAsIDEwLCAy
+MiwgMjMsIGZhbHNlLCBmYWxzZSwgZmFsc2UsIGZhbHNlfSwNCg0KKyAgICAgICAgICAgIHsyNDAw
+MDAwMCwgMzg0MDAwMCwgNCwgMjIsIDIzLCBmYWxzZSwgZmFsc2UsIGZhbHNlLCBmYWxzZX0sDQoN
+CisgICAgICAgICAgICB7MTkyMDAwMDAsIDM4NDAwMDAsIDMsIDIzLCAyMywgZmFsc2UsIGZhbHNl
+LCBmYWxzZSwgZmFsc2V9LA0KDQorICAgICAgICAgICAgezM4NDAwMDAwLCAzODQwMDAwLCA4LCAy
+MywgMjMsIGZhbHNlLCBmYWxzZSwgZmFsc2UsIGZhbHNlfSwNCg0KK307DQoNCisNCg0KK3N0YXRp
+YyBjb25zdCBzdHJ1Y3QgcGxsX2NhbGNfbWFwIHBsbGJfdGFibGVbXSA9IHsNCg0KKyAgICAgICAg
+ICAgIHs0ODAwMDAwMCwgMjQ1NzYwMDAsIDgsIDYsIDMsIGZhbHNlLCBmYWxzZSwgZmFsc2UsIGZh
+bHNlfSwNCg0KKyAgICAgICAgICAgIHs0ODAwMDAwMCwgMjI1NzkyMDAsIDIzLCAxMiwgMywgZmFs
+c2UsIGZhbHNlLCBmYWxzZSwgdHJ1ZX0sDQoNCisgICAgICAgICAgICB7MjQwMDAwMDAsIDI0NTc2
+MDAwLCAzLCA2LCAzLCBmYWxzZSwgZmFsc2UsIGZhbHNlLCBmYWxzZX0sDQoNCisgICAgICAgICAg
+ICB7MjQwMDAwMDAsIDIyNTc5MjAwLCAyMywgMjYsIDMsIGZhbHNlLCBmYWxzZSwgZmFsc2UsIHRy
+dWV9LA0KDQorICAgICAgICAgICAgezE5MjAwMDAwLCAyNDU3NjAwMCwgMiwgNiwgMywgZmFsc2Us
+IGZhbHNlLCBmYWxzZSwgZmFsc2V9LA0KDQorICAgICAgICAgICAgezE5MjAwMDAwLCAyMjU3OTIw
+MCwgMywgNSwgMywgZmFsc2UsIGZhbHNlLCBmYWxzZSwgdHJ1ZX0sDQoNCisgICAgICAgICAgICB7
+Mzg0MDAwMDAsIDI0NTc2MDAwLCA2LCA2LCAzLCBmYWxzZSwgZmFsc2UsIGZhbHNlLCBmYWxzZX0s
+DQoNCisgICAgICAgICAgICB7Mzg0MDAwMDAsIDIyNTc5MjAwLCA4LCA1LCAzLCBmYWxzZSwgZmFs
+c2UsIGZhbHNlLCB0cnVlfSwNCg0KKyAgICAgICAgICAgIHszODQwMDAwLCA0OTE1MjAwMCwgMCwg
+NiwgMCwgdHJ1ZSwgZmFsc2UsIGZhbHNlLCBmYWxzZX0sDQoNCit9Ow0KDQorDQoNCitzdGF0aWMg
+aW50IGZpbmRfcGxsX2ludGVyX2NvbWJpbmF0aW9uKHVuc2lnbmVkIGludCBmX2luLCB1bnNpZ25l
+ZCBpbnQgZl9vdXQsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgcGxsX2Nh
+bGNfbWFwICphLCBzdHJ1Y3QgcGxsX2NhbGNfbWFwICpiKQ0KDQorew0KDQorICAgICAgICAgICAg
+aW50IGksIGo7DQoNCisNCg0KKyAgICAgICAgICAgIC8qIExvb2sgYXQgUExMQSB0YWJsZSAqLw0K
+DQorICAgICAgICAgICAgZm9yIChpID0gMDsgaSA8IEFSUkFZX1NJWkUocGxsYV90YWJsZSk7IGkr
+Kykgew0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKHBsbGFfdGFibGVbaV0uZnJl
+cV9pbiA9PSBmX2luICYmIHBsbGFfdGFibGVbaV0uZnJlcV9vdXQgPT0gZl9vdXQpIHsNCg0KKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbWVtY3B5KGEsIHBsbGFfdGFi
+bGUgKyBpLCBzaXplb2YoKmEpKTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgcmV0dXJuIFVTRV9QTExBOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
+fQ0KDQorICAgICAgICAgICAgfQ0KDQorDQoNCisgICAgICAgICAgICAvKiBMb29rIGF0IFBMTEIg
+dGFibGUgKi8NCg0KKyAgICAgICAgICAgIGZvciAoaSA9IDA7IGkgPCBBUlJBWV9TSVpFKHBsbGJf
+dGFibGUpOyBpKyspIHsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmIChwbGxiX3Rh
+YmxlW2ldLmZyZXFfaW4gPT0gZl9pbiAmJiBwbGxiX3RhYmxlW2ldLmZyZXFfb3V0ID09IGZfb3V0
+KSB7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG1lbWNweShi
+LCBwbGxiX3RhYmxlICsgaSwgc2l6ZW9mKCpiKSk7DQoNCisgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHJldHVybiBVU0VfUExMQjsNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIH0NCg0KKyAgICAgICAgICAgIH0NCg0KKw0KDQorICAgICAgICAgICAgLyogRmlu
+ZCBhIGNvbWJpbmF0aW9uIG9mIFBMTEEgJiBQTExCICovDQoNCisgICAgICAgICAgICBmb3IgKGkg
+PSBBUlJBWV9TSVpFKHBsbGFfdGFibGUpIC0gMTsgaSA+PSAwOyBpLS0pIHsNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIGlmIChwbGxhX3RhYmxlW2ldLmZyZXFfaW4gPT0gZl9pbiAmJiBw
+bGxhX3RhYmxlW2ldLmZyZXFfb3V0ID09IDM4NDAwMDApIHsNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgZm9yIChqID0gQVJSQVlfU0laRShwbGxiX3RhYmxlKSAt
+IDE7IGogPj0gMDsgai0tKSB7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgaWYgKHBsbGJfdGFibGVbal0uZnJlcV9pbiA9PSAzODQwMDAw
+ICYmDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgcGxsYl90YWJsZVtqXS5mcmVxX291dCA9PSBmX291dCkgew0K
+DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIG1lbWNweShhLCBwbGxhX3RhYmxlICsgaSwgc2l6ZW9mKCphKSk7DQoN
+CisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgbWVtY3B5KGIsIHBsbGJfdGFibGUgKyBqLCBzaXplb2YoKmIpKTsNCg0K
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICByZXR1cm4gVVNFX1BMTEFCOw0KDQorICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0NCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgfQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
+fQ0KDQorICAgICAgICAgICAgfQ0KDQorDQoNCisgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsN
+Cg0KK30NCg0KKw0KDQorc3RhdGljIGludCBydDU2ODJzX3NldF9jb21wb25lbnRfcGxsKHN0cnVj
+dCBzbmRfc29jX2NvbXBvbmVudCAqY29tcG9uZW50LA0KDQorICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgaW50IHBsbF9pZCwgaW50IHNvdXJjZSwgdW5zaWduZWQgaW50IGZyZXFfaW4sDQoNCisg
+ICAgICAgICAgICAgICAgICAgICAgICAgICB1bnNpZ25lZCBpbnQgZnJlcV9vdXQpDQoNCit7DQoN
+CisgICAgICAgICAgICBzdHJ1Y3QgcnQ1Njgyc19wcml2ICpydDU2ODJzID0gc25kX3NvY19jb21w
+b25lbnRfZ2V0X2RydmRhdGEoY29tcG9uZW50KTsNCg0KKyAgICAgICAgICAgIHN0cnVjdCBwbGxf
+Y2FsY19tYXAgYV9tYXAsIGJfbWFwOw0KDQorDQoNCisgICAgICAgICAgICBpZiAoc291cmNlID09
+IHJ0NTY4MnMtPnBsbF9zcmNbcGxsX2lkXSAmJiBmcmVxX2luID09IHJ0NTY4MnMtPnBsbF9pbltw
+bGxfaWRdICYmDQoNCisgICAgICAgICAgICAgICAgZnJlcV9vdXQgPT0gcnQ1Njgycy0+cGxsX291
+dFtwbGxfaWRdKQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIDA7DQoNCisN
+Cg0KKyAgICAgICAgICAgIGlmICghZnJlcV9pbiB8fCAhZnJlcV9vdXQpIHsNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIGRldl9kYmcoY29tcG9uZW50LT5kZXYsICJQTEwgZGlzYWJsZWRc
+biIpOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcnQ1Njgycy0+cGxsX2luW3BsbF9p
+ZF0gPSAwOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcnQ1Njgycy0+cGxsX291dFtw
+bGxfaWRdID0gMDsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHNuZF9zb2NfY29tcG9u
+ZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwgUlQ1NjgyU19HTEJfQ0xLLA0KDQorICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX1NDTEtfU1JDX01BU0ssIFJU
+NTY4MlNfQ0xLX1NSQ19NQ0xLIDw8IFJUNTY4MlNfU0NMS19TUkNfU0ZUKTsNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHJldHVybiAwOw0KDQorICAgICAgICAgICAgfQ0KDQorDQoNCisg
+ICAgICAgICAgICBzd2l0Y2ggKHNvdXJjZSkgew0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJT
+X1BMTF9TX01DTEs6DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRfc29jX2NvbXBv
+bmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfR0xCX0NMSywNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19QTExfU1JDX01BU0ssIFJU
+NTY4MlNfUExMX1NSQ19NQ0xLKTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFr
+Ow0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX1BMTF9TX0JDTEsxOg0KDQorICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgc25kX3NvY19jb21wb25lbnRfdXBkYXRlX2JpdHMoY29tcG9uZW50
+LCBSVDU2ODJTX0dMQl9DTEssDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIFJUNTY4MlNfUExMX1NSQ19NQVNLLCBSVDU2ODJTX1BMTF9TUkNfQkNMSzEpOw0KDQor
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQoNCisgICAgICAgICAgICBkZWZhdWx0
+Og0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgZGV2X2Vycihjb21wb25lbnQtPmRldiwg
+IlVua25vd24gUExMIFNvdXJjZSAlZFxuIiwgc291cmNlKTsNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KDQorICAgICAgICAgICAgfQ0KDQorDQoNCisgICAg
+ICAgICAgICBydDU2ODJzLT5wbGxfY29tYiA9IGZpbmRfcGxsX2ludGVyX2NvbWJpbmF0aW9uKGZy
+ZXFfaW4sIGZyZXFfb3V0LA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgJmFfbWFwLCAmYl9tYXApOw0KDQorDQoNCisgICAgICAgICAgICBpZiAoKHBsbF9pZCA9
+PSBSVDU2ODJTX1BMTDEgJiYgcnQ1Njgycy0+cGxsX2NvbWIgPT0gVVNFX1BMTEEpIHx8DQoNCisg
+ICAgICAgICAgICAgICAgKHBsbF9pZCA9PSBSVDU2ODJTX1BMTDIgJiYgKHJ0NTY4MnMtPnBsbF9j
+b21iID09IFVTRV9QTExCIHx8DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcnQ1Njgycy0+cGxsX2NvbWIgPT0g
+VVNFX1BMTEFCKSkpIHsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGRldl9kYmcoY29t
+cG9uZW50LT5kZXYsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICJTdXBwb3J0ZWQgZnJlcSBjb252ZXJzaW9uIGZvciBQTEwlZDooJWQtPiVkKTogJWRcbiIsDQoN
+CisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBsbF9pZCArIDEsIGZy
+ZXFfaW4sIGZyZXFfb3V0LCBydDU2ODJzLT5wbGxfY29tYik7DQoNCisgICAgICAgICAgICB9IGVs
+c2Ugew0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgZGV2X2Vycihjb21wb25lbnQtPmRl
+diwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIlVuc3VwcG9y
+dGVkIGZyZXEgY29udmVyc2lvbiBmb3IgUExMJWQ6KCVkLT4lZCk6ICVkXG4iLA0KDQorICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwbGxfaWQgKyAxLCBmcmVxX2luLCBm
+cmVxX291dCwgcnQ1Njgycy0+cGxsX2NvbWIpOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgcmV0dXJuIC1FSU5WQUw7DQoNCisgICAgICAgICAgICB9DQoNCisNCg0KKyAgICAgICAgICAg
+IGlmIChydDU2ODJzLT5wbGxfY29tYiA9PSBVU0VfUExMQSB8fCBydDU2ODJzLT5wbGxfY29tYiA9
+PSBVU0VfUExMQUIpIHsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGRldl9kYmcoY29t
+cG9uZW50LT5kZXYsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICJQTExBOiBmaW49JWQgZm91dD0lZCBtX2JwPSVkIGtfYnA9JWQgbT0lZCBuPSVkIGs9JWRcbiIs
+DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFfbWFwLmZyZXFf
+aW4sIGFfbWFwLmZyZXFfb3V0LCBhX21hcC5tX2JwLCBhX21hcC5rX2JwLA0KDQorICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoYV9tYXAubV9icCA/IDAgOiBhX21hcC5t
+KSwgYV9tYXAubiwgKGFfbWFwLmtfYnAgPyAwIDogYV9tYXAuaykpOw0KDQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgc25kX3NvY19jb21wb25lbnRfdXBkYXRlX2JpdHMoY29tcG9uZW50LCBS
+VDU2ODJTX1BMTF9DVFJMXzEsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIFJUNTY4MlNfUExMQV9OX01BU0ssIGFfbWFwLm4pOw0KDQorICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgc25kX3NvY19jb21wb25lbnRfdXBkYXRlX2JpdHMoY29tcG9uZW50LCBSVDU2
+ODJTX1BMTF9DVFJMXzIsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIFJUNTY4MlNfUExMQV9NX01BU0sgfCBSVDU2ODJTX1BMTEFfS19NQVNLLA0KDQorICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhX21hcC5tIDw8IFJUNTY4MlNfUExM
+QV9NX1NGVCB8IGFfbWFwLmspOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgc25kX3Nv
+Y19jb21wb25lbnRfdXBkYXRlX2JpdHMoY29tcG9uZW50LCBSVDU2ODJTX1BMTF9DVFJMXzYsDQoN
+CisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfUExMQV9N
+X0JQX01BU0sgfCBSVDU2ODJTX1BMTEFfS19CUF9NQVNLLA0KDQorICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBhX21hcC5tX2JwIDw8IFJUNTY4MlNfUExMQV9NX0JQX1NG
+VCB8DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFfbWFwLmtf
+YnAgPDwgUlQ1NjgyU19QTExBX0tfQlBfU0ZUKTsNCg0KKyAgICAgICAgICAgIH0NCg0KKw0KDQor
+ICAgICAgICAgICAgaWYgKHJ0NTY4MnMtPnBsbF9jb21iID09IFVTRV9QTExCIHx8IHJ0NTY4MnMt
+PnBsbF9jb21iID09IFVTRV9QTExBQikgew0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ZGV2X2RiZyhjb21wb25lbnQtPmRldiwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIlBMTEI6IGZpbj0lZCBmb3V0PSVkIG1fYnA9JWQga19icD0lZCBtPSVkIG49
+JWQgaz0lZCBieXBfcHM9JWQgc2VsX3BzPSVkXG4iLA0KDQorICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBiX21hcC5mcmVxX2luLCBiX21hcC5mcmVxX291dCwgYl9tYXAu
+bV9icCwgYl9tYXAua19icCwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgKGJfbWFwLm1fYnAgPyAwIDogYl9tYXAubSksIGJfbWFwLm4sIChiX21hcC5rX2JwID8g
+MCA6IGJfbWFwLmspLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBiX21hcC5ieXBfcHMsIGJfbWFwLnNlbF9wcyk7DQoNCisgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBzbmRfc29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfUExM
+X0NUUkxfMywNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1
+NjgyU19QTExCX05fTUFTSywgYl9tYXAubik7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBzbmRfc29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfUExMX0NU
+UkxfNCwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1Njgy
+U19QTExCX01fTUFTSyB8IFJUNTY4MlNfUExMQl9LX01BU0ssDQoNCisgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIGJfbWFwLm0gPDwgUlQ1NjgyU19QTExCX01fU0ZUIHwg
+Yl9tYXAuayk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRfc29jX2NvbXBvbmVu
+dF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfUExMX0NUUkxfNiwNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19QTExCX1NFTF9QU19NQVNL
+IHwgUlQ1NjgyU19QTExCX0JZUF9QU19NQVNLIHwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgUlQ1NjgyU19QTExCX01fQlBfTUFTSyB8IFJUNTY4MlNfUExMQl9L
+X0JQX01BU0ssDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJf
+bWFwLnNlbF9wcyA8PCBSVDU2ODJTX1BMTEJfU0VMX1BTX1NGVCB8DQoNCisgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJfbWFwLmJ5cF9wcyA8PCBSVDU2ODJTX1BMTEJf
+QllQX1BTX1NGVCB8DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IGJfbWFwLm1fYnAgPDwgUlQ1NjgyU19QTExCX01fQlBfU0ZUIHwNCg0KKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgYl9tYXAua19icCA8PCBSVDU2ODJTX1BMTEJfS19C
+UF9TRlQpOw0KDQorICAgICAgICAgICAgfQ0KDQorDQoNCisgICAgICAgICAgICBpZiAocnQ1Njgy
+cy0+cGxsX2NvbWIgPT0gVVNFX1BMTEIpDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBz
+bmRfc29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfUExMX0NUUkxf
+NywNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19Q
+TExCX1NSQ19NQVNLLCBSVDU2ODJTX1BMTEJfU1JDX0RGSU4pOw0KDQorDQoNCisgICAgICAgICAg
+ICBydDU2ODJzLT5wbGxfaW5bcGxsX2lkXSA9IGZyZXFfaW47DQoNCisgICAgICAgICAgICBydDU2
+ODJzLT5wbGxfb3V0W3BsbF9pZF0gPSBmcmVxX291dDsNCg0KKyAgICAgICAgICAgIHJ0NTY4MnMt
+PnBsbF9zcmNbcGxsX2lkXSA9IHNvdXJjZTsNCg0KKw0KDQorICAgICAgICAgICAgcmV0dXJuIDA7
+DQoNCit9DQoNCisNCg0KK3N0YXRpYyBpbnQgcnQ1Njgyc19zZXRfYmNsazFfcmF0aW8oc3RydWN0
+IHNuZF9zb2NfZGFpICpkYWksDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICB1bnNpZ25l
+ZCBpbnQgcmF0aW8pDQoNCit7DQoNCisgICAgICAgICAgICBzdHJ1Y3Qgc25kX3NvY19jb21wb25l
+bnQgKmNvbXBvbmVudCA9IGRhaS0+Y29tcG9uZW50Ow0KDQorICAgICAgICAgICAgc3RydWN0IHJ0
+NTY4MnNfcHJpdiAqcnQ1NjgycyA9IHNuZF9zb2NfY29tcG9uZW50X2dldF9kcnZkYXRhKGNvbXBv
+bmVudCk7DQoNCisNCg0KKyAgICAgICAgICAgIHJ0NTY4MnMtPmJjbGtbZGFpLT5pZF0gPSByYXRp
+bzsNCg0KKw0KDQorICAgICAgICAgICAgc3dpdGNoIChyYXRpbykgew0KDQorICAgICAgICAgICAg
+Y2FzZSAyNTY6DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRfc29jX2NvbXBvbmVu
+dF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfVERNX1RDT05fQ1RSTF8xLA0KDQorICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX1RETV9CQ0xLX01T
+MV9NQVNLLCBSVDU2ODJTX1RETV9CQ0xLX01TMV8yNTYpOw0KDQorICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgYnJlYWs7DQoNCisgICAgICAgICAgICBjYXNlIDEyODoNCg0KKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwg
+UlQ1NjgyU19URE1fVENPTl9DVFJMXzEsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIFJUNTY4MlNfVERNX0JDTEtfTVMxX01BU0ssIFJUNTY4MlNfVERNX0JDTEtf
+TVMxXzEyOCk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsNCg0KKyAgICAg
+ICAgICAgIGNhc2UgNjQ6DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBzbmRfc29jX2Nv
+bXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsIFJUNTY4MlNfVERNX1RDT05fQ1RSTF8xLA0K
+DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX1RETV9C
+Q0xLX01TMV9NQVNLLCBSVDU2ODJTX1RETV9CQ0xLX01TMV82NCk7DQoNCisgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBicmVhazsNCg0KKyAgICAgICAgICAgIGNhc2UgMzI6DQoNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBzbmRfc29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25l
+bnQsIFJUNTY4MlNfVERNX1RDT05fQ1RSTF8xLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBSVDU2ODJTX1RETV9CQ0xLX01TMV9NQVNLLCBSVDU2ODJTX1RETV9C
+Q0xLX01TMV8zMik7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsNCg0KKyAg
+ICAgICAgICAgIGRlZmF1bHQ6DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBkZXZfZXJy
+KGRhaS0+ZGV2LCAiSW52YWxpZCBiY2xrMSByYXRpbyAlZFxuIiwgcmF0aW8pOw0KDQorICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQoNCisgICAgICAgICAgICB9DQoN
+CisNCg0KKyAgICAgICAgICAgIHJldHVybiAwOw0KDQorfQ0KDQorDQoNCitzdGF0aWMgaW50IHJ0
+NTY4MnNfc2V0X2JjbGsyX3JhdGlvKHN0cnVjdCBzbmRfc29jX2RhaSAqZGFpLCB1bnNpZ25lZCBp
+bnQgcmF0aW8pDQoNCit7DQoNCisgICAgICAgICAgICBzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQg
+KmNvbXBvbmVudCA9IGRhaS0+Y29tcG9uZW50Ow0KDQorICAgICAgICAgICAgc3RydWN0IHJ0NTY4
+MnNfcHJpdiAqcnQ1NjgycyA9IHNuZF9zb2NfY29tcG9uZW50X2dldF9kcnZkYXRhKGNvbXBvbmVu
+dCk7DQoNCisNCg0KKyAgICAgICAgICAgIHJ0NTY4MnMtPmJjbGtbZGFpLT5pZF0gPSByYXRpbzsN
+Cg0KKw0KDQorICAgICAgICAgICAgc3dpdGNoIChyYXRpbykgew0KDQorICAgICAgICAgICAgY2Fz
+ZSA2NDoNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHNuZF9zb2NfY29tcG9uZW50X3Vw
+ZGF0ZV9iaXRzKGNvbXBvbmVudCwgUlQ1NjgyU19BRERBX0NMS18yLA0KDQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX0kyUzJfQkNMS19NUzJfTUFTSywg
+UlQ1NjgyU19JMlMyX0JDTEtfTVMyXzY0KTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+IGJyZWFrOw0KDQorICAgICAgICAgICAgY2FzZSAzMjoNCg0KKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwgUlQ1NjgyU19B
+RERBX0NMS18yLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBS
+VDU2ODJTX0kyUzJfQkNMS19NUzJfTUFTSywgUlQ1NjgyU19JMlMyX0JDTEtfTVMyXzMyKTsNCg0K
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOw0KDQorICAgICAgICAgICAgZGVmYXVs
+dDoNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGRldl9lcnIoZGFpLT5kZXYsICJJbnZh
+bGlkIGJjbGsyIHJhdGlvICVkXG4iLCByYXRpbyk7DQoNCisgICAgICAgICAgICAgICAgICAgICAg
+ICAgICByZXR1cm4gLUVJTlZBTDsNCg0KKyAgICAgICAgICAgIH0NCg0KKw0KDQorICAgICAgICAg
+ICAgcmV0dXJuIDA7DQoNCit9DQoNCisNCg0KK3N0YXRpYyBpbnQgcnQ1Njgyc19zZXRfYmlhc19s
+ZXZlbChzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKmNvbXBvbmVudCwNCg0KKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIGVudW0gc25kX3NvY19iaWFzX2xldmVsIGxldmVsKQ0KDQorew0KDQor
+ICAgICAgICAgICAgc3RydWN0IHJ0NTY4MnNfcHJpdiAqcnQ1NjgycyA9IHNuZF9zb2NfY29tcG9u
+ZW50X2dldF9kcnZkYXRhKGNvbXBvbmVudCk7DQoNCisNCg0KKyAgICAgICAgICAgIHN3aXRjaCAo
+bGV2ZWwpIHsNCg0KKyAgICAgICAgICAgIGNhc2UgU05EX1NPQ19CSUFTX1BSRVBBUkU6DQoNCisg
+ICAgICAgICAgICAgICAgICAgICAgICAgICByZWdtYXBfdXBkYXRlX2JpdHMocnQ1Njgycy0+cmVn
+bWFwLCBSVDU2ODJTX1BXUl9ESUdfMSwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgUlQ1NjgyU19QV1JfTERPLCBSVDU2ODJTX1BXUl9MRE8pOw0KDQorICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQoNCisgICAgICAgICAgICBjYXNlIFNORF9TT0Nf
+QklBU19TVEFOREJZOg0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnbWFwX3VwZGF0
+ZV9iaXRzKHJ0NTY4MnMtPnJlZ21hcCwgUlQ1NjgyU19QV1JfRElHXzEsDQoNCisgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfRElHX0dBVEVfQ1RSTCwgUlQ1
+NjgyU19ESUdfR0FURV9DVFJMKTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFr
+Ow0KDQorICAgICAgICAgICAgY2FzZSBTTkRfU09DX0JJQVNfT0ZGOg0KDQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcmVnbWFwX3VwZGF0ZV9iaXRzKHJ0NTY4MnMtPnJlZ21hcCwgUlQ1Njgy
+U19QV1JfRElHXzEsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IFJUNTY4MlNfRElHX0dBVEVfQ1RSTCB8IFJUNTY4MlNfUFdSX0xETywgMCk7DQoNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBicmVhazsNCg0KKyAgICAgICAgICAgIGNhc2UgU05EX1NPQ19C
+SUFTX09OOg0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQoNCisgICAgICAg
+ICAgICB9DQoNCisNCg0KKyAgICAgICAgICAgIHJldHVybiAwOw0KDQorfQ0KDQorDQoNCisjaWZk
+ZWYgQ09ORklHX0NPTU1PTl9DTEsNCg0KKyNkZWZpbmUgQ0xLX1BMTDJfRklOIDQ4MDAwMDAwDQoN
+CisjZGVmaW5lIENMS180OCA0ODAwMA0KDQorI2RlZmluZSBDTEtfNDQgNDQxMDANCg0KKw0KDQor
+c3RhdGljIGJvb2wgcnQ1Njgyc19jbGtfY2hlY2soc3RydWN0IHJ0NTY4MnNfcHJpdiAqcnQ1Njgy
+cykNCg0KK3sNCg0KKyAgICAgICAgICAgIGlmICghcnQ1Njgycy0+bWFzdGVyW1JUNTY4MlNfQUlG
+MV0pIHsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGRldl9kYmcocnQ1Njgycy0+Y29t
+cG9uZW50LT5kZXYsICJkYWkgY2xrIGZtdCBub3Qgc2V0IGNvcnJlY3RseVxuIik7DQoNCisgICAg
+ICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gZmFsc2U7DQoNCisgICAgICAgICAgICB9DQoN
+CisgICAgICAgICAgICByZXR1cm4gdHJ1ZTsNCg0KK30NCg0KKw0KDQorc3RhdGljIGludCBydDU2
+ODJzX3djbGtfcHJlcGFyZShzdHJ1Y3QgY2xrX2h3ICpodykNCg0KK3sNCg0KKyAgICAgICAgICAg
+IHN0cnVjdCBydDU2ODJzX3ByaXYgKnJ0NTY4MnMgPQ0KDQorICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgY29udGFpbmVyX29mKGh3LCBzdHJ1Y3QgcnQ1Njgyc19wcml2LCBkYWlfY2xrc19od1tS
+VDU2ODJTX0RBSV9XQ0xLX0lEWF0pOw0KDQorICAgICAgICAgICAgc3RydWN0IHNuZF9zb2NfY29t
+cG9uZW50ICpjb21wb25lbnQgPSBydDU2ODJzLT5jb21wb25lbnQ7DQoNCisgICAgICAgICAgICBz
+dHJ1Y3Qgc25kX3NvY19kYXBtX2NvbnRleHQgKmRhcG0gPSBzbmRfc29jX2NvbXBvbmVudF9nZXRf
+ZGFwbShjb21wb25lbnQpOw0KDQorDQoNCisgICAgICAgICAgICBpZiAoIXJ0NTY4MnNfY2xrX2No
+ZWNrKHJ0NTY4MnMpKQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5W
+QUw7DQoNCisNCg0KKyAgICAgICAgICAgIHNuZF9zb2NfZGFwbV9tdXRleF9sb2NrKGRhcG0pOw0K
+DQorDQoNCisgICAgICAgICAgICBzbmRfc29jX2RhcG1fZm9yY2VfZW5hYmxlX3Bpbl91bmxvY2tl
+ZChkYXBtLCAiTUlDQklBUyIpOw0KDQorICAgICAgICAgICAgc25kX3NvY19jb21wb25lbnRfdXBk
+YXRlX2JpdHMoY29tcG9uZW50LCBSVDU2ODJTX1BXUl9BTkxHXzEsDQoNCisgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBSVDU2ODJTX1BXUl9NQiwgUlQ1NjgyU19QV1JfTUIpOw0KDQorDQoNCisg
+ICAgICAgICAgICBzbmRfc29jX2RhcG1fZm9yY2VfZW5hYmxlX3Bpbl91bmxvY2tlZChkYXBtLCAi
+VnJlZjIiKTsNCg0KKyAgICAgICAgICAgIHNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNv
+bXBvbmVudCwgUlQ1NjgyU19QV1JfQU5MR18xLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgUlQ1NjgyU19QV1JfVlJFRjIgfCBSVDU2ODJTX1BXUl9GVjIsIFJUNTY4MlNfUFdSX1ZSRUYy
+KTsNCg0KKyAgICAgICAgICAgIHVzbGVlcF9yYW5nZSgxNTAwMCwgMjAwMDApOw0KDQorICAgICAg
+ICAgICAgc25kX3NvY19jb21wb25lbnRfdXBkYXRlX2JpdHMoY29tcG9uZW50LCBSVDU2ODJTX1BX
+Ul9BTkxHXzEsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX1BXUl9GVjIs
+IFJUNTY4MlNfUFdSX0ZWMik7DQoNCisNCg0KKyAgICAgICAgICAgIHNuZF9zb2NfZGFwbV9mb3Jj
+ZV9lbmFibGVfcGluX3VubG9ja2VkKGRhcG0sICJJMlMxIik7DQoNCisgICAgICAgICAgICAvKiBP
+bmx5IG5lZWQgdG8gcG93ZXIgUExMQiBkdWUgdG8gdGhlIHJhdGUgc2V0IHJlc3RyaWN0aW9uICov
+DQoNCisgICAgICAgICAgICBzbmRfc29jX2RhcG1fZm9yY2VfZW5hYmxlX3Bpbl91bmxvY2tlZChk
+YXBtLCAiUExMQiIpOw0KDQorICAgICAgICAgICAgc25kX3NvY19kYXBtX3N5bmNfdW5sb2NrZWQo
+ZGFwbSk7DQoNCisNCg0KKyAgICAgICAgICAgIHNuZF9zb2NfZGFwbV9tdXRleF91bmxvY2soZGFw
+bSk7DQoNCisNCg0KKyAgICAgICAgICAgIHJldHVybiAwOw0KDQorfQ0KDQorDQoNCitzdGF0aWMg
+dm9pZCBydDU2ODJzX3djbGtfdW5wcmVwYXJlKHN0cnVjdCBjbGtfaHcgKmh3KQ0KDQorew0KDQor
+ICAgICAgICAgICAgc3RydWN0IHJ0NTY4MnNfcHJpdiAqcnQ1NjgycyA9DQoNCisgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBjb250YWluZXJfb2YoaHcsIHN0cnVjdCBydDU2ODJzX3ByaXYsIGRh
+aV9jbGtzX2h3W1JUNTY4MlNfREFJX1dDTEtfSURYXSk7DQoNCisgICAgICAgICAgICBzdHJ1Y3Qg
+c25kX3NvY19jb21wb25lbnQgKmNvbXBvbmVudCA9IHJ0NTY4MnMtPmNvbXBvbmVudDsNCg0KKyAg
+ICAgICAgICAgIHN0cnVjdCBzbmRfc29jX2RhcG1fY29udGV4dCAqZGFwbSA9IHNuZF9zb2NfY29t
+cG9uZW50X2dldF9kYXBtKGNvbXBvbmVudCk7DQoNCisNCg0KKyAgICAgICAgICAgIGlmICghcnQ1
+Njgyc19jbGtfY2hlY2socnQ1NjgycykpDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBy
+ZXR1cm47DQoNCisNCg0KKyAgICAgICAgICAgIHNuZF9zb2NfZGFwbV9tdXRleF9sb2NrKGRhcG0p
+Ow0KDQorDQoNCisgICAgICAgICAgICBzbmRfc29jX2RhcG1fZGlzYWJsZV9waW5fdW5sb2NrZWQo
+ZGFwbSwgIk1JQ0JJQVMiKTsNCg0KKyAgICAgICAgICAgIHNuZF9zb2NfZGFwbV9kaXNhYmxlX3Bp
+bl91bmxvY2tlZChkYXBtLCAiVnJlZjIiKTsNCg0KKyAgICAgICAgICAgIGlmICghcnQ1Njgycy0+
+amFja190eXBlKQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgc25kX3NvY19jb21wb25l
+bnRfdXBkYXRlX2JpdHMoY29tcG9uZW50LCBSVDU2ODJTX1BXUl9BTkxHXzEsDQoNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfUFdSX1ZSRUYyIHwgUlQ1
+NjgyU19QV1JfRlYyIHwgUlQ1NjgyU19QV1JfTUIsIDApOw0KDQorDQoNCisgICAgICAgICAgICBz
+bmRfc29jX2RhcG1fZGlzYWJsZV9waW5fdW5sb2NrZWQoZGFwbSwgIkkyUzEiKTsNCg0KKyAgICAg
+ICAgICAgIHNuZF9zb2NfZGFwbV9kaXNhYmxlX3Bpbl91bmxvY2tlZChkYXBtLCAiUExMQiIpOw0K
+DQorICAgICAgICAgICAgc25kX3NvY19kYXBtX3N5bmNfdW5sb2NrZWQoZGFwbSk7DQoNCisNCg0K
+KyAgICAgICAgICAgIHNuZF9zb2NfZGFwbV9tdXRleF91bmxvY2soZGFwbSk7DQoNCit9DQoNCisN
+Cg0KK3N0YXRpYyB1bnNpZ25lZCBsb25nIHJ0NTY4MnNfd2Nsa19yZWNhbGNfcmF0ZShzdHJ1Y3Qg
+Y2xrX2h3ICpodywNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVuc2lnbmVkIGxvbmcgcGFyZW50X3Jh
+dGUpDQoNCit7DQoNCisgICAgICAgICAgICBzdHJ1Y3QgcnQ1Njgyc19wcml2ICpydDU2ODJzID0N
+Cg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnRhaW5lcl9vZihodywgc3RydWN0IHJ0
+NTY4MnNfcHJpdiwgZGFpX2Nsa3NfaHdbUlQ1NjgyU19EQUlfV0NMS19JRFhdKTsNCg0KKyAgICAg
+ICAgICAgIHN0cnVjdCBzbmRfc29jX2NvbXBvbmVudCAqY29tcG9uZW50ID0gcnQ1Njgycy0+Y29t
+cG9uZW50Ow0KDQorICAgICAgICAgICAgY29uc3QgY2hhciAqIGNvbnN0IGNsa19uYW1lID0gY2xr
+X2h3X2dldF9uYW1lKGh3KTsNCg0KKw0KDQorICAgICAgICAgICAgaWYgKCFydDU2ODJzX2Nsa19j
+aGVjayhydDU2ODJzKSkNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAwOw0K
+DQorICAgICAgICAgICAgLyoNCg0KKyAgICAgICAgICAgICogT25seSBhY2NlcHQgdG8gc2V0IHdj
+bGsgcmF0ZSB0byA0NC4xayBvciA0OGtIei4NCg0KKyAgICAgICAgICAgICovDQoNCisgICAgICAg
+ICAgICBpZiAocnQ1Njgycy0+bHJja1tSVDU2ODJTX0FJRjFdICE9IENMS180OCAmJg0KDQorICAg
+ICAgICAgICAgICAgIHJ0NTY4MnMtPmxyY2tbUlQ1NjgyU19BSUYxXSAhPSBDTEtfNDQpIHsNCg0K
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgIGRldl93YXJuKGNvbXBvbmVudC0+ZGV2LCAiJXM6
+IGNsayAlcyBvbmx5IHN1cHBvcnQgJWQgb3IgJWQgSHogb3V0cHV0XG4iLA0KDQorICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfX2Z1bmNfXywgY2xrX25hbWUsIENMS180
+NCwgQ0xLXzQ4KTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAwOw0KDQor
+ICAgICAgICAgICAgfQ0KDQorDQoNCisgICAgICAgICAgICByZXR1cm4gcnQ1Njgycy0+bHJja1tS
+VDU2ODJTX0FJRjFdOw0KDQorfQ0KDQorDQoNCitzdGF0aWMgbG9uZyBydDU2ODJzX3djbGtfcm91
+bmRfcmF0ZShzdHJ1Y3QgY2xrX2h3ICpodywgdW5zaWduZWQgbG9uZyByYXRlLA0KDQorICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVuc2ln
+bmVkIGxvbmcgKnBhcmVudF9yYXRlKQ0KDQorew0KDQorICAgICAgICAgICAgc3RydWN0IHJ0NTY4
+MnNfcHJpdiAqcnQ1NjgycyA9DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBjb250YWlu
+ZXJfb2YoaHcsIHN0cnVjdCBydDU2ODJzX3ByaXYsIGRhaV9jbGtzX2h3W1JUNTY4MlNfREFJX1dD
+TEtfSURYXSk7DQoNCisgICAgICAgICAgICBzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKmNvbXBv
+bmVudCA9IHJ0NTY4MnMtPmNvbXBvbmVudDsNCg0KKyAgICAgICAgICAgIGNvbnN0IGNoYXIgKiBj
+b25zdCBjbGtfbmFtZSA9IGNsa19od19nZXRfbmFtZShodyk7DQoNCisNCg0KKyAgICAgICAgICAg
+IGlmICghcnQ1Njgyc19jbGtfY2hlY2socnQ1NjgycykpDQoNCisgICAgICAgICAgICAgICAgICAg
+ICAgICAgICByZXR1cm4gLUVJTlZBTDsNCg0KKyAgICAgICAgICAgIC8qDQoNCisgICAgICAgICAg
+ICAqIE9ubHkgYWNjZXB0IHRvIHNldCB3Y2xrIHJhdGUgdG8gNDQuMWsgb3IgNDhrSHouDQoNCisg
+ICAgICAgICAgICAqIEl0IHdpbGwgZm9yY2UgdG8gNDhrSHogaWYgbm90IGJvdGguDQoNCisgICAg
+ICAgICAgICAqLw0KDQorICAgICAgICAgICAgaWYgKHJhdGUgIT0gQ0xLXzQ4ICYmIHJhdGUgIT0g
+Q0xLXzQ0KSB7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBkZXZfd2Fybihjb21wb25l
+bnQtPmRldiwgIiVzOiBjbGsgJXMgb25seSBzdXBwb3J0ICVkIG9yICVkIEh6IG91dHB1dFxuIiwN
+Cg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX19mdW5jX18sIGNs
+a19uYW1lLCBDTEtfNDQsIENMS180OCk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgIHJh
+dGUgPSBDTEtfNDg7DQoNCisgICAgICAgICAgICB9DQoNCisNCg0KKyAgICAgICAgICAgIHJldHVy
+biByYXRlOw0KDQorfQ0KDQorDQoNCitzdGF0aWMgaW50IHJ0NTY4MnNfd2Nsa19zZXRfcmF0ZShz
+dHJ1Y3QgY2xrX2h3ICpodywgdW5zaWduZWQgbG9uZyByYXRlLA0KDQorICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVuc2lnbmVkIGxvbmcgcGFy
+ZW50X3JhdGUpDQoNCit7DQoNCisgICAgICAgICAgICBzdHJ1Y3QgcnQ1Njgyc19wcml2ICpydDU2
+ODJzID0NCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnRhaW5lcl9vZihodywgc3Ry
+dWN0IHJ0NTY4MnNfcHJpdiwgZGFpX2Nsa3NfaHdbUlQ1NjgyU19EQUlfV0NMS19JRFhdKTsNCg0K
+KyAgICAgICAgICAgIHN0cnVjdCBzbmRfc29jX2NvbXBvbmVudCAqY29tcG9uZW50ID0gcnQ1Njgy
+cy0+Y29tcG9uZW50Ow0KDQorICAgICAgICAgICAgc3RydWN0IGNsayAqcGFyZW50X2NsazsNCg0K
+KyAgICAgICAgICAgIGNvbnN0IGNoYXIgKiBjb25zdCBjbGtfbmFtZSA9IGNsa19od19nZXRfbmFt
+ZShodyk7DQoNCisgICAgICAgICAgICB1bnNpZ25lZCBpbnQgY2xrX3BsbDJfZm91dDsNCg0KKw0K
+DQorICAgICAgICAgICAgaWYgKCFydDU2ODJzX2Nsa19jaGVjayhydDU2ODJzKSkNCg0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KDQorDQoNCisgICAgICAgICAg
+ICAvKg0KDQorICAgICAgICAgICAgKiBXaGV0aGVyIHRoZSB3Y2xrJ3MgcGFyZW50IGNsayAobWNs
+aykgZXhpc3RzIG9yIG5vdCwgcGxlYXNlIGVuc3VyZQ0KDQorICAgICAgICAgICAgKiBpdCBpcyBm
+aXhlZCBvciBzZXQgdG8gNDhNSHogYmVmb3JlIHNldHRpbmcgd2NsayByYXRlLiBJdCdzIGENCg0K
+KyAgICAgICAgICAgICogdGVtcG9yYXJ5IGxpbWl0YXRpb24uIE9ubHkgYWNjZXB0IDQ4TUh6IGNs
+ayBhcyB0aGUgY2xrIHByb3ZpZGVyLg0KDQorICAgICAgICAgICAgKg0KDQorICAgICAgICAgICAg
+KiBJdCB3aWxsIHNldCB0aGUgY29kZWMgYW55d2F5IGJ5IGFzc3VtaW5nIG1jbGsgaXMgNDhNSHou
+DQoNCisgICAgICAgICAgICAqLw0KDQorICAgICAgICAgICAgcGFyZW50X2NsayA9IGNsa19nZXRf
+cGFyZW50KGh3LT5jbGspOw0KDQorICAgICAgICAgICAgaWYgKCFwYXJlbnRfY2xrKQ0KDQorICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgZGV2X3dhcm4oY29tcG9uZW50LT5kZXYsDQoNCisgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJQYXJlbnQgbWNsayBvZiB3Y2xr
+IG5vdCBhY3F1aXJlZCBpbiBkcml2ZXIuIFBsZWFzZSBlbnN1cmUgbWNsayB3YXMgcHJvdmlkZWQg
+YXMgJWQgSHouXG4iLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBDTEtfUExMMl9GSU4pOw0KDQorDQoNCisgICAgICAgICAgICBpZiAocGFyZW50X3JhdGUgIT0g
+Q0xLX1BMTDJfRklOKQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgZGV2X3dhcm4oY29t
+cG9uZW50LT5kZXYsICJjbGsgJXMgb25seSBzdXBwb3J0ICVkIEh6IGlucHV0XG4iLA0KDQorICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjbGtfbmFtZSwgQ0xLX1BMTDJf
+RklOKTsNCg0KKw0KDQorICAgICAgICAgICAgLyoNCg0KKyAgICAgICAgICAgICogVG8gYWNoaWV2
+ZSB0aGUgcmF0ZSBjb252ZXJzaW9uIGZyb20gNDhNSHogdG8gNDQuMWsgb3IgNDhrSHosDQoNCisg
+ICAgICAgICAgICAqIFBMTDIgaXMgbmVlZGVkLg0KDQorICAgICAgICAgICAgKi8NCg0KKyAgICAg
+ICAgICAgIGNsa19wbGwyX2ZvdXQgPSByYXRlICogNTEyOw0KDQorICAgICAgICAgICAgcnQ1Njgy
+c19zZXRfY29tcG9uZW50X3BsbChjb21wb25lbnQsIFJUNTY4MlNfUExMMiwgUlQ1NjgyU19QTExf
+U19NQ0xLLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgQ0xLX1BMTDJfRklOLCBjbGtf
+cGxsMl9mb3V0KTsNCg0KKw0KDQorICAgICAgICAgICAgcnQ1Njgyc19zZXRfY29tcG9uZW50X3N5
+c2Nsayhjb21wb25lbnQsIFJUNTY4MlNfU0NMS19TX1BMTDIsIDAsDQoNCisgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBjbGtfcGxsMl9mb3V0LCBTTkRfU09DX0NMT0NLX0lOKTsNCg0KKw0KDQor
+ICAgICAgICAgICAgcnQ1Njgycy0+bHJja1tSVDU2ODJTX0FJRjFdID0gcmF0ZTsNCg0KKw0KDQor
+ICAgICAgICAgICAgcmV0dXJuIDA7DQoNCit9DQoNCisNCg0KK3N0YXRpYyB1bnNpZ25lZCBsb25n
+IHJ0NTY4MnNfYmNsa19yZWNhbGNfcmF0ZShzdHJ1Y3QgY2xrX2h3ICpodywNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHVuc2lnbmVkIGxvbmcgcGFyZW50X3JhdGUpDQoNCit7DQoNCisgICAgICAgICAg
+ICBzdHJ1Y3QgcnQ1Njgyc19wcml2ICpydDU2ODJzID0NCg0KKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIGNvbnRhaW5lcl9vZihodywgc3RydWN0IHJ0NTY4MnNfcHJpdiwgZGFpX2Nsa3NfaHdb
+UlQ1NjgyU19EQUlfQkNMS19JRFhdKTsNCg0KKyAgICAgICAgICAgIHN0cnVjdCBzbmRfc29jX2Nv
+bXBvbmVudCAqY29tcG9uZW50ID0gcnQ1Njgycy0+Y29tcG9uZW50Ow0KDQorICAgICAgICAgICAg
+dW5zaWduZWQgaW50IGJjbGtzX3Blcl93Y2xrOw0KDQorDQoNCisgICAgICAgICAgICBiY2xrc19w
+ZXJfd2NsayA9IHNuZF9zb2NfY29tcG9uZW50X3JlYWQoY29tcG9uZW50LCBSVDU2ODJTX1RETV9U
+Q09OX0NUUkxfMSk7DQoNCisNCg0KKyAgICAgICAgICAgIHN3aXRjaCAoYmNsa3NfcGVyX3djbGsg
+JiBSVDU2ODJTX1RETV9CQ0xLX01TMV9NQVNLKSB7DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4
+MlNfVERNX0JDTEtfTVMxXzI1NjoNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVy
+biBwYXJlbnRfcmF0ZSAqIDI1NjsNCg0KKyAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19URE1fQkNM
+S19NUzFfMTI4Og0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHBhcmVudF9y
+YXRlICogMTI4Ow0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX1RETV9CQ0xLX01TMV82NDoN
+Cg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiBwYXJlbnRfcmF0ZSAqIDY0Ow0K
+DQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX1RETV9CQ0xLX01TMV8zMjoNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHJldHVybiBwYXJlbnRfcmF0ZSAqIDMyOw0KDQorICAgICAgICAg
+ICAgZGVmYXVsdDoNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAwOw0KDQor
+ICAgICAgICAgICAgfQ0KDQorfQ0KDQorDQoNCitzdGF0aWMgdW5zaWduZWQgbG9uZyBydDU2ODJz
+X2JjbGtfZ2V0X2ZhY3Rvcih1bnNpZ25lZCBsb25nIHJhdGUsDQoNCisgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHVuc2lnbmVkIGxvbmcgcGFyZW50X3JhdGUpDQoNCit7DQoNCisgICAgICAgICAgICB1bnNpZ25l
+ZCBsb25nIGZhY3RvcjsNCg0KKw0KDQorICAgICAgICAgICAgZmFjdG9yID0gcmF0ZSAvIHBhcmVu
+dF9yYXRlOw0KDQorICAgICAgICAgICAgaWYgKGZhY3RvciA8IDY0KQ0KDQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcmV0dXJuIDMyOw0KDQorICAgICAgICAgICAgZWxzZSBpZiAoZmFjdG9y
+IDwgMTI4KQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIDY0Ow0KDQorICAg
+ICAgICAgICAgZWxzZSBpZiAoZmFjdG9yIDwgMjU2KQ0KDQorICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgcmV0dXJuIDEyODsNCg0KKyAgICAgICAgICAgIGVsc2UNCg0KKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHJldHVybiAyNTY7DQoNCit9DQoNCisNCg0KK3N0YXRpYyBsb25nIHJ0NTY4
+MnNfYmNsa19yb3VuZF9yYXRlKHN0cnVjdCBjbGtfaHcgKmh3LCB1bnNpZ25lZCBsb25nIHJhdGUs
+DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgdW5zaWduZWQgbG9uZyAqcGFyZW50X3JhdGUpDQoNCit7DQoNCisgICAgICAgICAgICBz
+dHJ1Y3QgcnQ1Njgyc19wcml2ICpydDU2ODJzID0NCg0KKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIGNvbnRhaW5lcl9vZihodywgc3RydWN0IHJ0NTY4MnNfcHJpdiwgZGFpX2Nsa3NfaHdbUlQ1
+NjgyU19EQUlfQkNMS19JRFhdKTsNCg0KKyAgICAgICAgICAgIHVuc2lnbmVkIGxvbmcgZmFjdG9y
+Ow0KDQorDQoNCisgICAgICAgICAgICBpZiAoISpwYXJlbnRfcmF0ZSB8fCAhcnQ1Njgyc19jbGtf
+Y2hlY2socnQ1NjgycykpDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gLUVJ
+TlZBTDsNCg0KKw0KDQorICAgICAgICAgICAgLyoNCg0KKyAgICAgICAgICAgICogQkNMSyByYXRl
+cyBhcmUgc2V0IGFzIGEgbXVsdGlwbGllciBvZiBXQ0xLIGluIEhXLg0KDQorICAgICAgICAgICAg
+KiBXZSBkb24ndCBhbGxvdyBjaGFuZ2luZyB0aGUgcGFyZW50IFdDTEsuIFdlIGp1c3QgZG8NCg0K
+KyAgICAgICAgICAgICogc29tZSByb3VuZGluZyBkb3duIGJhc2VkIG9uIHRoZSBwYXJlbnQgV0NM
+SyByYXRlDQoNCisgICAgICAgICAgICAqIGFuZCBmaW5kIHRoZSBhcHByb3ByaWF0ZSBtdWx0aXBs
+aWVyIG9mIEJDTEsgdG8NCg0KKyAgICAgICAgICAgICogZ2V0IHRoZSByb3VuZGVkIGRvd24gQkNM
+SyB2YWx1ZS4NCg0KKyAgICAgICAgICAgICovDQoNCisgICAgICAgICAgICBmYWN0b3IgPSBydDU2
+ODJzX2JjbGtfZ2V0X2ZhY3RvcihyYXRlLCAqcGFyZW50X3JhdGUpOw0KDQorDQoNCisgICAgICAg
+ICAgICByZXR1cm4gKnBhcmVudF9yYXRlICogZmFjdG9yOw0KDQorfQ0KDQorDQoNCitzdGF0aWMg
+aW50IHJ0NTY4MnNfYmNsa19zZXRfcmF0ZShzdHJ1Y3QgY2xrX2h3ICpodywgdW5zaWduZWQgbG9u
+ZyByYXRlLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHVuc2lnbmVkIGxvbmcgcGFyZW50X3JhdGUpDQoNCit7DQoNCisgICAgICAgICAg
+ICBzdHJ1Y3QgcnQ1Njgyc19wcml2ICpydDU2ODJzID0NCg0KKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIGNvbnRhaW5lcl9vZihodywgc3RydWN0IHJ0NTY4MnNfcHJpdiwgZGFpX2Nsa3NfaHdb
+UlQ1NjgyU19EQUlfQkNMS19JRFhdKTsNCg0KKyAgICAgICAgICAgIHN0cnVjdCBzbmRfc29jX2Nv
+bXBvbmVudCAqY29tcG9uZW50ID0gcnQ1Njgycy0+Y29tcG9uZW50Ow0KDQorICAgICAgICAgICAg
+c3RydWN0IHNuZF9zb2NfZGFpICpkYWk7DQoNCisgICAgICAgICAgICB1bnNpZ25lZCBsb25nIGZh
+Y3RvcjsNCg0KKw0KDQorICAgICAgICAgICAgaWYgKCFydDU2ODJzX2Nsa19jaGVjayhydDU2ODJz
+KSkNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KDQorDQoN
+CisgICAgICAgICAgICBmYWN0b3IgPSBydDU2ODJzX2JjbGtfZ2V0X2ZhY3RvcihyYXRlLCBwYXJl
+bnRfcmF0ZSk7DQoNCisNCg0KKyAgICAgICAgICAgIGZvcl9lYWNoX2NvbXBvbmVudF9kYWlzKGNv
+bXBvbmVudCwgZGFpKQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKGRhaS0+aWQg
+PT0gUlQ1NjgyU19BSUYxKQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBicmVhazsNCg0KKyAgICAgICAgICAgIGlmICghZGFpKSB7DQoNCisgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBkZXZfZXJyKGNvbXBvbmVudC0+ZGV2LCAiZGFpICVkIG5vdCBmb3VuZCBp
+biBjb21wb25lbnRcbiIsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIFJUNTY4MlNfQUlGMSk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4g
+LUVOT0RFVjsNCg0KKyAgICAgICAgICAgIH0NCg0KKw0KDQorICAgICAgICAgICAgcmV0dXJuIHJ0
+NTY4MnNfc2V0X2JjbGsxX3JhdGlvKGRhaSwgZmFjdG9yKTsNCg0KK30NCg0KKw0KDQorc3RhdGlj
+IGNvbnN0IHN0cnVjdCBjbGtfb3BzIHJ0NTY4MnNfZGFpX2Nsa19vcHNbUlQ1NjgyU19EQUlfTlVN
+X0NMS1NdID0gew0KDQorICAgICAgICAgICAgW1JUNTY4MlNfREFJX1dDTEtfSURYXSA9IHsNCg0K
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgIC5wcmVwYXJlID0gcnQ1Njgyc193Y2xrX3ByZXBh
+cmUsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAudW5wcmVwYXJlID0gcnQ1Njgyc193
+Y2xrX3VucHJlcGFyZSwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIC5yZWNhbGNfcmF0
+ZSA9IHJ0NTY4MnNfd2Nsa19yZWNhbGNfcmF0ZSwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIC5yb3VuZF9yYXRlID0gcnQ1Njgyc193Y2xrX3JvdW5kX3JhdGUsDQoNCisgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAuc2V0X3JhdGUgPSBydDU2ODJzX3djbGtfc2V0X3JhdGUsDQoNCisg
+ICAgICAgICAgICB9LA0KDQorICAgICAgICAgICAgW1JUNTY4MlNfREFJX0JDTEtfSURYXSA9IHsN
+Cg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIC5yZWNhbGNfcmF0ZSA9IHJ0NTY4MnNfYmNs
+a19yZWNhbGNfcmF0ZSwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIC5yb3VuZF9yYXRl
+ID0gcnQ1Njgyc19iY2xrX3JvdW5kX3JhdGUsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAuc2V0X3JhdGUgPSBydDU2ODJzX2JjbGtfc2V0X3JhdGUsDQoNCisgICAgICAgICAgICB9LA0K
+DQorfTsNCg0KKw0KDQorc3RhdGljIGludCBydDU2ODJzX3JlZ2lzdGVyX2RhaV9jbGtzKHN0cnVj
+dCBzbmRfc29jX2NvbXBvbmVudCAqY29tcG9uZW50KQ0KDQorew0KDQorICAgICAgICAgICAgc3Ry
+dWN0IGRldmljZSAqZGV2ID0gY29tcG9uZW50LT5kZXY7DQoNCisgICAgICAgICAgICBzdHJ1Y3Qg
+cnQ1Njgyc19wcml2ICpydDU2ODJzID0gc25kX3NvY19jb21wb25lbnRfZ2V0X2RydmRhdGEoY29t
+cG9uZW50KTsNCg0KKyAgICAgICAgICAgIHN0cnVjdCBydDU2ODJzX3BsYXRmb3JtX2RhdGEgKnBk
+YXRhID0gJnJ0NTY4MnMtPnBkYXRhOw0KDQorICAgICAgICAgICAgc3RydWN0IGNsa19odyAqZGFp
+X2Nsa19odzsNCg0KKyAgICAgICAgICAgIGludCBpLCByZXQ7DQoNCisNCg0KKyAgICAgICAgICAg
+IGZvciAoaSA9IDA7IGkgPCBSVDU2ODJTX0RBSV9OVU1fQ0xLUzsgKytpKSB7DQoNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgY2xrX2luaXRfZGF0YSBpbml0ID0geyB9Ow0KDQor
+DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBkYWlfY2xrX2h3ID0gJnJ0NTY4MnMtPmRh
+aV9jbGtzX2h3W2ldOw0KDQorDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBzd2l0Y2gg
+KGkpIHsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGNhc2UgUlQ1NjgyU19EQUlfV0NM
+S19JRFg6DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC8qIE1h
+a2UgTUNMSyB0aGUgcGFyZW50IG9mIFdDTEsgKi8NCg0KKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgaWYgKHJ0NTY4MnMtPm1jbGspIHsNCg0KKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpbml0LnBhcmVudF9kYXRh
+ID0gJihzdHJ1Y3QgY2xrX3BhcmVudF9kYXRhKXsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAuZndfbmFtZSA9
+ICJtY2xrIiwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICB9Ow0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIGluaXQubnVtX3BhcmVudHMgPSAxOw0KDQorICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICB9DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIGJyZWFrOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgY2Fz
+ZSBSVDU2ODJTX0RBSV9CQ0xLX0lEWDoNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgLyogTWFrZSBXQ0xLIHRoZSBwYXJlbnQgb2YgQkNMSyAqLw0KDQorICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpbml0LnBhcmVudF9od3MgPSAmKGNv
+bnN0IHN0cnVjdCBjbGtfaHcgKil7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgJnJ0NTY4MnMtPmRhaV9jbGtzX2h3W1JUNTY4MlNfREFJ
+X1dDTEtfSURYXQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9
+Ow0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpbml0Lm51bV9w
+YXJlbnRzID0gMTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+YnJlYWs7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBkZWZhdWx0Og0KDQorICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkZXZfZXJyKGRldiwgIkludmFsaWQg
+Y2xvY2sgaW5kZXhcbiIpOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICByZXR1cm4gLUVJTlZBTDsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIH0NCg0K
+Kw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgaW5pdC5uYW1lPGh0dHA6Ly9pbml0Lm5h
+bWU+ID0gcGRhdGEtPmRhaV9jbGtfbmFtZXNbaV07DQoNCisgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBpbml0Lm9wcyA9ICZydDU2ODJzX2RhaV9jbGtfb3BzW2ldOw0KDQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgaW5pdC5mbGFncyA9IENMS19HRVRfUkFURV9OT0NBQ0hFIHwgQ0xLX1NF
+VF9SQVRFX0dBVEU7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBkYWlfY2xrX2h3LT5p
+bml0ID0gJmluaXQ7DQoNCisNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldCA9IGRl
+dm1fY2xrX2h3X3JlZ2lzdGVyKGRldiwgZGFpX2Nsa19odyk7DQoNCisgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBpZiAocmV0KSB7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGRldl93YXJuKGRldiwgIkZhaWxlZCB0byByZWdpc3RlciAlczogJWRcbiIsIGlu
+aXQubmFtZTxodHRwOi8vaW5pdC5uYW1lPiwgcmV0KTsNCg0KKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHJldDsNCg0KKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIH0NCg0KKw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKGRldi0+b2Zf
+bm9kZSkgew0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkZXZt
+X29mX2Nsa19hZGRfaHdfcHJvdmlkZXIoZGV2LCBvZl9jbGtfaHdfc2ltcGxlX2dldCwgZGFpX2Ns
+a19odyk7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICB9IGVsc2Ugew0KDQorICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXQgPSBkZXZtX2Nsa19od19yZWdp
+c3Rlcl9jbGtkZXYoZGV2LCBkYWlfY2xrX2h3LA0KDQorICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBpbml0Lm5hbWU8aHR0cDovL2luaXQubmFtZT4sIGRldl9uYW1l
+KGRldikpOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAo
+cmV0KQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHJldHVybiByZXQ7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICB9DQoNCisg
+ICAgICAgICAgICB9DQoNCisNCg0KKyAgICAgICAgICAgIHJldHVybiAwOw0KDQorfQ0KDQorDQoN
+CitzdGF0aWMgaW50IHJ0NTY4MnNfZGFpX3Byb2JlX2Nsa3Moc3RydWN0IHNuZF9zb2NfY29tcG9u
+ZW50ICpjb21wb25lbnQpDQoNCit7DQoNCisgICAgICAgICAgICBzdHJ1Y3QgcnQ1Njgyc19wcml2
+ICpydDU2ODJzID0gc25kX3NvY19jb21wb25lbnRfZ2V0X2RydmRhdGEoY29tcG9uZW50KTsNCg0K
+KyAgICAgICAgICAgIGludCByZXQ7DQoNCisNCg0KKyAgICAgICAgICAgIC8qIENoZWNrIGlmIE1D
+TEsgcHJvdmlkZWQgKi8NCg0KKyAgICAgICAgICAgIHJ0NTY4MnMtPm1jbGsgPSBkZXZtX2Nsa19n
+ZXQoY29tcG9uZW50LT5kZXYsICJtY2xrIik7DQoNCisgICAgICAgICAgICBpZiAoSVNfRVJSKHJ0
+NTY4MnMtPm1jbGspKSB7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAoUFRSX0VS
+UihydDU2ODJzLT5tY2xrKSAhPSAtRU5PRU5UKSB7DQoNCisgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHJldCA9IFBUUl9FUlIocnQ1Njgycy0+bWNsayk7DQoNCisgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiByZXQ7DQoNCisgICAg
+ICAgICAgICAgICAgICAgICAgICAgICB9DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBy
+dDU2ODJzLT5tY2xrID0gTlVMTDsNCg0KKyAgICAgICAgICAgIH0NCg0KKw0KDQorICAgICAgICAg
+ICAgLyogUmVnaXN0ZXIgQ0NGIERBSSBjbG9jayBjb250cm9sICovDQoNCisgICAgICAgICAgICBy
+ZXQgPSBydDU2ODJzX3JlZ2lzdGVyX2RhaV9jbGtzKGNvbXBvbmVudCk7DQoNCisgICAgICAgICAg
+ICBpZiAocmV0KQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHJldDsNCg0K
+Kw0KDQorICAgICAgICAgICAgLyogSW5pdGlhbCBzZXR1cCBmb3IgQ0NGICovDQoNCisgICAgICAg
+ICAgICBydDU2ODJzLT5scmNrW1JUNTY4MlNfQUlGMV0gPSBDTEtfNDg7DQoNCisNCg0KKyAgICAg
+ICAgICAgIHJldHVybiAwOw0KDQorfQ0KDQorI2Vsc2UNCg0KK3N0YXRpYyBpbmxpbmUgaW50IHJ0
+NTY4MnNfZGFpX3Byb2JlX2Nsa3Moc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQp
+DQoNCit7DQoNCisgICAgICAgICAgICByZXR1cm4gMDsNCg0KK30NCg0KKyNlbmRpZiAvKiBDT05G
+SUdfQ09NTU9OX0NMSyAqLw0KDQorDQoNCitzdGF0aWMgaW50IHJ0NTY4MnNfcHJvYmUoc3RydWN0
+IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQpDQoNCit7DQoNCisgICAgICAgICAgICBzdHJ1
+Y3QgcnQ1Njgyc19wcml2ICpydDU2ODJzID0gc25kX3NvY19jb21wb25lbnRfZ2V0X2RydmRhdGEo
+Y29tcG9uZW50KTsNCg0KKyAgICAgICAgICAgIHN0cnVjdCBzbmRfc29jX2RhcG1fY29udGV4dCAq
+ZGFwbSA9ICZjb21wb25lbnQtPmRhcG07DQoNCisgICAgICAgICAgICBpbnQgcmV0Ow0KDQorDQoN
+CisgICAgICAgICAgICBydDU2ODJzLT5jb21wb25lbnQgPSBjb21wb25lbnQ7DQoNCisNCg0KKyAg
+ICAgICAgICAgIHJldCA9IHJ0NTY4MnNfZGFpX3Byb2JlX2Nsa3MoY29tcG9uZW50KTsNCg0KKyAg
+ICAgICAgICAgIGlmIChyZXQpDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4g
+cmV0Ow0KDQorDQoNCisgICAgICAgICAgICBzbmRfc29jX2RhcG1fZGlzYWJsZV9waW4oZGFwbSwg
+Ik1JQ0JJQVMiKTsNCg0KKyAgICAgICAgICAgIHNuZF9zb2NfZGFwbV9kaXNhYmxlX3BpbihkYXBt
+LCAiVnJlZjIiKTsNCg0KKyAgICAgICAgICAgIHNuZF9zb2NfZGFwbV9zeW5jKGRhcG0pOw0KDQor
+ICAgICAgICAgICAgcmV0dXJuIDA7DQoNCit9DQoNCisNCg0KK3N0YXRpYyB2b2lkIHJ0NTY4MnNf
+cmVtb3ZlKHN0cnVjdCBzbmRfc29jX2NvbXBvbmVudCAqY29tcG9uZW50KQ0KDQorew0KDQorICAg
+ICAgICAgICAgc3RydWN0IHJ0NTY4MnNfcHJpdiAqcnQ1NjgycyA9IHNuZF9zb2NfY29tcG9uZW50
+X2dldF9kcnZkYXRhKGNvbXBvbmVudCk7DQoNCisNCg0KKyAgICAgICAgICAgIHJ0NTY4MnNfcmVz
+ZXQocnQ1Njgycyk7DQoNCit9DQoNCisNCg0KKyNpZmRlZiBDT05GSUdfUE0NCg0KK3N0YXRpYyBp
+bnQgcnQ1Njgyc19zdXNwZW5kKHN0cnVjdCBzbmRfc29jX2NvbXBvbmVudCAqY29tcG9uZW50KQ0K
+DQorew0KDQorICAgICAgICAgICAgc3RydWN0IHJ0NTY4MnNfcHJpdiAqcnQ1NjgycyA9IHNuZF9z
+b2NfY29tcG9uZW50X2dldF9kcnZkYXRhKGNvbXBvbmVudCk7DQoNCisNCg0KKyAgICAgICAgICAg
+IGNhbmNlbF9kZWxheWVkX3dvcmtfc3luYygmcnQ1Njgycy0+amFja19kZXRlY3Rfd29yayk7DQoN
+CisgICAgICAgICAgICBjYW5jZWxfZGVsYXllZF93b3JrX3N5bmMoJnJ0NTY4MnMtPmpkX2NoZWNr
+X3dvcmspOw0KDQorDQoNCisgICAgICAgICAgICBpZiAocnQ1Njgycy0+aHNfamFjayAmJiBydDU2
+ODJzLT5qYWNrX3R5cGUgPT0gU05EX0pBQ0tfSEVBRFNFVCkNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwgUlQ1Njgy
+U180QlROX0lMX0NNRF8yLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBSVDU2ODJTXzRCVE5fSUxfTUFTSywgUlQ1NjgyU180QlROX0lMX0RJUyk7DQoNCisNCg0K
+KyAgICAgICAgICAgIHJlZ2NhY2hlX2NhY2hlX29ubHkocnQ1Njgycy0+cmVnbWFwLCB0cnVlKTsN
+Cg0KKyAgICAgICAgICAgIHJlZ2NhY2hlX21hcmtfZGlydHkocnQ1Njgycy0+cmVnbWFwKTsNCg0K
+Kw0KDQorICAgICAgICAgICAgcmV0dXJuIDA7DQoNCit9DQoNCisNCg0KK3N0YXRpYyBpbnQgcnQ1
+Njgyc19yZXN1bWUoc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQpDQoNCit7DQoN
+CisgICAgICAgICAgICBzdHJ1Y3QgcnQ1Njgyc19wcml2ICpydDU2ODJzID0gc25kX3NvY19jb21w
+b25lbnRfZ2V0X2RydmRhdGEoY29tcG9uZW50KTsNCg0KKw0KDQorICAgICAgICAgICAgcmVnY2Fj
+aGVfY2FjaGVfb25seShydDU2ODJzLT5yZWdtYXAsIGZhbHNlKTsNCg0KKyAgICAgICAgICAgIHJl
+Z2NhY2hlX3N5bmMocnQ1Njgycy0+cmVnbWFwKTsNCg0KKw0KDQorICAgICAgICAgICAgaWYgKHJ0
+NTY4MnMtPmhzX2phY2spIHsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHJ0NTY4MnMt
+PmphY2tfdHlwZSA9IDA7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBtb2RfZGVsYXll
+ZF93b3JrKHN5c3RlbV9wb3dlcl9lZmZpY2llbnRfd3EsDQoNCisgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICZydDU2ODJzLT5qYWNrX2RldGVjdF93b3JrLCBtc2Vjc190
+b19qaWZmaWVzKDI1MCkpOw0KDQorICAgICAgICAgICAgfQ0KDQorDQoNCisgICAgICAgICAgICBy
+ZXR1cm4gMDsNCg0KK30NCg0KKyNlbHNlDQoNCisjZGVmaW5lIHJ0NTY4MnNfc3VzcGVuZCBOVUxM
+DQoNCisjZGVmaW5lIHJ0NTY4MnNfcmVzdW1lIE5VTEwNCg0KKyNlbmRpZg0KDQorDQoNCitjb25z
+dCBzdHJ1Y3Qgc25kX3NvY19kYWlfb3BzIHJ0NTY4MnNfYWlmMV9kYWlfb3BzID0gew0KDQorICAg
+ICAgICAgICAgLmh3X3BhcmFtcyA9IHJ0NTY4MnNfaHdfcGFyYW1zLA0KDQorICAgICAgICAgICAg
+LnNldF9mbXQgPSBydDU2ODJzX3NldF9kYWlfZm10LA0KDQorICAgICAgICAgICAgLnNldF90ZG1f
+c2xvdCA9IHJ0NTY4MnNfc2V0X3RkbV9zbG90LA0KDQorICAgICAgICAgICAgLnNldF9iY2xrX3Jh
+dGlvID0gcnQ1Njgyc19zZXRfYmNsazFfcmF0aW8sDQoNCit9Ow0KDQorDQoNCitjb25zdCBzdHJ1
+Y3Qgc25kX3NvY19kYWlfb3BzIHJ0NTY4MnNfYWlmMl9kYWlfb3BzID0gew0KDQorICAgICAgICAg
+ICAgLmh3X3BhcmFtcyA9IHJ0NTY4MnNfaHdfcGFyYW1zLA0KDQorICAgICAgICAgICAgLnNldF9m
+bXQgPSBydDU2ODJzX3NldF9kYWlfZm10LA0KDQorICAgICAgICAgICAgLnNldF9iY2xrX3JhdGlv
+ID0gcnQ1Njgyc19zZXRfYmNsazJfcmF0aW8sDQoNCit9Ow0KDQorDQoNCitjb25zdCBzdHJ1Y3Qg
+c25kX3NvY19jb21wb25lbnRfZHJpdmVyIHJ0NTY4MnNfc29jX2NvbXBvbmVudF9kZXYgPSB7DQoN
+CisgICAgICAgICAgICAucHJvYmUgPSBydDU2ODJzX3Byb2JlLA0KDQorICAgICAgICAgICAgLnJl
+bW92ZSA9IHJ0NTY4MnNfcmVtb3ZlLA0KDQorICAgICAgICAgICAgLnN1c3BlbmQgPSBydDU2ODJz
+X3N1c3BlbmQsDQoNCisgICAgICAgICAgICAucmVzdW1lID0gcnQ1Njgyc19yZXN1bWUsDQoNCisg
+ICAgICAgICAgICAuc2V0X2JpYXNfbGV2ZWwgPSBydDU2ODJzX3NldF9iaWFzX2xldmVsLA0KDQor
+ICAgICAgICAgICAgLmNvbnRyb2xzID0gcnQ1Njgyc19zbmRfY29udHJvbHMsDQoNCisgICAgICAg
+ICAgICAubnVtX2NvbnRyb2xzID0gQVJSQVlfU0laRShydDU2ODJzX3NuZF9jb250cm9scyksDQoN
+CisgICAgICAgICAgICAuZGFwbV93aWRnZXRzID0gcnQ1Njgyc19kYXBtX3dpZGdldHMsDQoNCisg
+ICAgICAgICAgICAubnVtX2RhcG1fd2lkZ2V0cyA9IEFSUkFZX1NJWkUocnQ1Njgyc19kYXBtX3dp
+ZGdldHMpLA0KDQorICAgICAgICAgICAgLmRhcG1fcm91dGVzID0gcnQ1Njgyc19kYXBtX3JvdXRl
+cywNCg0KKyAgICAgICAgICAgIC5udW1fZGFwbV9yb3V0ZXMgPSBBUlJBWV9TSVpFKHJ0NTY4MnNf
+ZGFwbV9yb3V0ZXMpLA0KDQorICAgICAgICAgICAgLnNldF9zeXNjbGsgPSBydDU2ODJzX3NldF9j
+b21wb25lbnRfc3lzY2xrLA0KDQorICAgICAgICAgICAgLnNldF9wbGwgPSBydDU2ODJzX3NldF9j
+b21wb25lbnRfcGxsLA0KDQorICAgICAgICAgICAgLnNldF9qYWNrID0gcnQ1Njgyc19zZXRfamFj
+a19kZXRlY3QsDQoNCisgICAgICAgICAgICAudXNlX3BtZG93bl90aW1lICAgICAgID0gMSwNCg0K
+KyAgICAgICAgICAgIC5lbmRpYW5uZXNzICAgICAgICAgICAgICAgICAgICAgPSAxLA0KDQorICAg
+ICAgICAgICAgLm5vbl9sZWdhY3lfZGFpX25hbWluZyAgICAgICAgICAgID0gMSwNCg0KK307DQoN
+CisNCg0KK3N0YXRpYyBpbnQgcnQ1Njgyc19wYXJzZV9kdChzdHJ1Y3QgcnQ1Njgyc19wcml2ICpy
+dDU2ODJzLCBzdHJ1Y3QgZGV2aWNlICpkZXYpDQoNCit7DQoNCisgICAgICAgICAgICBkZXZpY2Vf
+cHJvcGVydHlfcmVhZF91MzIoZGV2LCAicmVhbHRlayxkbWljMS1kYXRhLXBpbiIsDQoNCisgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAmcnQ1Njgycy0+cGRhdGEuZG1pYzFfZGF0YV9waW4pOw0K
+DQorICAgICAgICAgICAgZGV2aWNlX3Byb3BlcnR5X3JlYWRfdTMyKGRldiwgInJlYWx0ZWssZG1p
+YzEtY2xrLXBpbiIsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAmcnQ1Njgycy0+cGRh
+dGEuZG1pYzFfY2xrX3Bpbik7DQoNCisgICAgICAgICAgICBkZXZpY2VfcHJvcGVydHlfcmVhZF91
+MzIoZGV2LCAicmVhbHRlayxqZC1zcmMiLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
+JnJ0NTY4MnMtPnBkYXRhLmpkX3NyYyk7DQoNCisgICAgICAgICAgICBkZXZpY2VfcHJvcGVydHlf
+cmVhZF91MzIoZGV2LCAicmVhbHRlayxkbWljLWNsay1yYXRlLWh6IiwNCg0KKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICZydDU2ODJzLT5wZGF0YS5kbWljX2Nsa19yYXRlKTsNCg0KKyAgICAg
+ICAgICAgIGRldmljZV9wcm9wZXJ0eV9yZWFkX3UzMihkZXYsICJyZWFsdGVrLGRtaWMtZGVsYXkt
+bXMiLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgJnJ0NTY4MnMtPnBkYXRhLmRtaWNf
+ZGVsYXkpOw0KDQorDQoNCisgICAgICAgICAgICBydDU2ODJzLT5wZGF0YS5sZG8xX2VuID0gb2Zf
+Z2V0X25hbWVkX2dwaW8oZGV2LT5vZl9ub2RlLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgInJlYWx0ZWssbGRvMS1lbi1ncGlvcyIsIDApOw0KDQorDQoNCisgICAgICAgICAgICBpZiAo
+ZGV2aWNlX3Byb3BlcnR5X3JlYWRfc3RyaW5nX2FycmF5KGRldiwgImNsb2NrLW91dHB1dC1uYW1l
+cyIsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgcnQ1Njgycy0+cGRhdGEuZGFpX2Nsa19uYW1lcywN
+Cg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBSVDU2ODJTX0RBSV9OVU1fQ0xLUykgPCAwKQ0KDQorICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgZGV2X3dhcm4oZGV2LCAiVXNpbmcgZGVmYXVsdCBEQUkg
+Y2xrIG5hbWVzOiAlcywgJXNcbiIsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHJ0NTY4MnMtPnBkYXRhLmRhaV9jbGtfbmFtZXNbUlQ1NjgyU19EQUlfV0NMS19J
+RFhdLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBydDU2ODJz
+LT5wZGF0YS5kYWlfY2xrX25hbWVzW1JUNTY4MlNfREFJX0JDTEtfSURYXSk7DQoNCisNCg0KKyAg
+ICAgICAgICAgIHJ0NTY4MnMtPnBkYXRhLmRtaWNfY2xrX2RyaXZpbmdfaGlnaCA9IGRldmljZV9w
+cm9wZXJ0eV9yZWFkX2Jvb2woZGV2LA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgInJl
+YWx0ZWssZG1pYy1jbGstZHJpdmluZy1oaWdoIik7DQoNCisNCg0KKyAgICAgICAgICAgIHJldHVy
+biAwOw0KDQorfQ0KDQorDQoNCitzdGF0aWMgdm9pZCBydDU2ODJzX2NhbGlicmF0ZShzdHJ1Y3Qg
+cnQ1Njgyc19wcml2ICpydDU2ODJzKQ0KDQorew0KDQorICAgICAgICAgICAgdW5zaWduZWQgaW50
+IGNvdW50LCB2YWx1ZTsNCg0KKw0KDQorICAgICAgICAgICAgbXV0ZXhfbG9jaygmcnQ1Njgycy0+
+Y2FsaWJyYXRlX211dGV4KTsNCg0KKw0KDQorICAgICAgICAgICAgcmVnbWFwX3dyaXRlKHJ0NTY4
+MnMtPnJlZ21hcCwgUlQ1NjgyU19QV1JfQU5MR18xLCAweGFhODApOw0KDQorICAgICAgICAgICAg
+dXNsZWVwX3JhbmdlKDE1MDAwLCAyMDAwMCk7DQoNCisgICAgICAgICAgICByZWdtYXBfd3JpdGUo
+cnQ1Njgycy0+cmVnbWFwLCBSVDU2ODJTX1BXUl9BTkxHXzEsIDB4ZmE4MCk7DQoNCisgICAgICAg
+ICAgICByZWdtYXBfd3JpdGUocnQ1Njgycy0+cmVnbWFwLCBSVDU2ODJTX1BXUl9ESUdfMSwgMHgw
+MWMwKTsNCg0KKyAgICAgICAgICAgIHJlZ21hcF93cml0ZShydDU2ODJzLT5yZWdtYXAsIFJUNTY4
+MlNfTUlDQklBU18yLCAweDAzODApOw0KDQorICAgICAgICAgICAgcmVnbWFwX3dyaXRlKHJ0NTY4
+MnMtPnJlZ21hcCwgUlQ1NjgyU19HTEJfQ0xLLCAweDgwMDApOw0KDQorICAgICAgICAgICAgcmVn
+bWFwX3dyaXRlKHJ0NTY4MnMtPnJlZ21hcCwgUlQ1NjgyU19BRERBX0NMS18xLCAweDEwMDEpOw0K
+DQorICAgICAgICAgICAgcmVnbWFwX3dyaXRlKHJ0NTY4MnMtPnJlZ21hcCwgUlQ1NjgyU19DSE9Q
+X0RBQ18yLCAweDMwMzApOw0KDQorICAgICAgICAgICAgcmVnbWFwX3dyaXRlKHJ0NTY4MnMtPnJl
+Z21hcCwgUlQ1NjgyU19DSE9QX0FEQywgMHhiMDAwKTsNCg0KKyAgICAgICAgICAgIHJlZ21hcF93
+cml0ZShydDU2ODJzLT5yZWdtYXAsIFJUNTY4MlNfU1RPMV9BRENfTUlYRVIsIDB4Njg2Yyk7DQoN
+CisgICAgICAgICAgICByZWdtYXBfd3JpdGUocnQ1Njgycy0+cmVnbWFwLCBSVDU2ODJTX0NBTF9S
+RUMsIDB4NTE1MSk7DQoNCisgICAgICAgICAgICByZWdtYXBfd3JpdGUocnQ1Njgycy0+cmVnbWFw
+LCBSVDU2ODJTX0hQX0NBTElCX0NUUkxfMiwgMHgwMzIxKTsNCg0KKyAgICAgICAgICAgIHJlZ21h
+cF93cml0ZShydDU2ODJzLT5yZWdtYXAsIFJUNTY4MlNfSFBfTE9HSUNfQ1RSTF8yLCAweDAwMDQp
+Ow0KDQorICAgICAgICAgICAgcmVnbWFwX3dyaXRlKHJ0NTY4MnMtPnJlZ21hcCwgUlQ1NjgyU19I
+UF9DQUxJQl9DVFJMXzEsIDB4N2MwMCk7DQoNCisgICAgICAgICAgICByZWdtYXBfd3JpdGUocnQ1
+Njgycy0+cmVnbWFwLCBSVDU2ODJTX0hQX0NBTElCX0NUUkxfMSwgMHhmYzAwKTsNCg0KKw0KDQor
+ICAgICAgICAgICAgZm9yIChjb3VudCA9IDA7IGNvdW50IDwgNjA7IGNvdW50KyspIHsNCg0KKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHJlZ21hcF9yZWFkKHJ0NTY4MnMtPnJlZ21hcCwgUlQ1
+NjgyU19IUF9DQUxJQl9TVF8xLCAmdmFsdWUpOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgaWYgKCEodmFsdWUgJiAweDgwMDApKQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBicmVhazsNCg0KKw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
+dXNsZWVwX3JhbmdlKDEwMDAwLCAxMDAwNSk7DQoNCisgICAgICAgICAgICB9DQoNCisNCg0KKyAg
+ICAgICAgICAgIGlmIChjb3VudCA+PSA2MCkNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+IGRldl9lcnIocnQ1Njgycy0+Y29tcG9uZW50LT5kZXYsICJIUCBDYWxpYnJhdGlvbiBGYWlsdXJl
+XG4iKTsNCg0KKw0KDQorICAgICAgICAgICAgLyogcmVzdG9yZSBzZXR0aW5ncyAqLw0KDQorICAg
+ICAgICAgICAgcmVnbWFwX3dyaXRlKHJ0NTY4MnMtPnJlZ21hcCwgUlQ1NjgyU19NSUNCSUFTXzIs
+IDB4MDE4MCk7DQoNCisgICAgICAgICAgICByZWdtYXBfd3JpdGUocnQ1Njgycy0+cmVnbWFwLCBS
+VDU2ODJTX0NBTF9SRUMsIDB4NTg1OCk7DQoNCisgICAgICAgICAgICByZWdtYXBfd3JpdGUocnQ1
+Njgycy0+cmVnbWFwLCBSVDU2ODJTX1NUTzFfQURDX01JWEVSLCAweGMwYzQpOw0KDQorICAgICAg
+ICAgICAgcmVnbWFwX3dyaXRlKHJ0NTY4MnMtPnJlZ21hcCwgUlQ1NjgyU19IUF9DQUxJQl9DVFJM
+XzIsIDB4MDMyMCk7DQoNCisgICAgICAgICAgICByZWdtYXBfd3JpdGUocnQ1Njgycy0+cmVnbWFw
+LCBSVDU2ODJTX1BXUl9ESUdfMSwgMHgwMGMwKTsNCg0KKyAgICAgICAgICAgIHJlZ21hcF93cml0
+ZShydDU2ODJzLT5yZWdtYXAsIFJUNTY4MlNfUFdSX0FOTEdfMSwgMHgwODAwKTsNCg0KKyAgICAg
+ICAgICAgIHJlZ21hcF93cml0ZShydDU2ODJzLT5yZWdtYXAsIFJUNTY4MlNfR0xCX0NMSywgMHgw
+MDAwKTsNCg0KKw0KDQorICAgICAgICAgICAgbXV0ZXhfdW5sb2NrKCZydDU2ODJzLT5jYWxpYnJh
+dGVfbXV0ZXgpOw0KDQorfQ0KDQorDQoNCitzdGF0aWMgY29uc3Qgc3RydWN0IHJlZ21hcF9jb25m
+aWcgcnQ1Njgyc19yZWdtYXAgPSB7DQoNCisgICAgICAgICAgICAucmVnX2JpdHMgPSAxNiwNCg0K
+KyAgICAgICAgICAgIC52YWxfYml0cyA9IDE2LA0KDQorICAgICAgICAgICAgLm1heF9yZWdpc3Rl
+ciA9IFJUNTY4MlNfTUFYX1JFRywNCg0KKyAgICAgICAgICAgIC52b2xhdGlsZV9yZWcgPSBydDU2
+ODJzX3ZvbGF0aWxlX3JlZ2lzdGVyLA0KDQorICAgICAgICAgICAgLnJlYWRhYmxlX3JlZyA9IHJ0
+NTY4MnNfcmVhZGFibGVfcmVnaXN0ZXIsDQoNCisgICAgICAgICAgICAuY2FjaGVfdHlwZSA9IFJF
+R0NBQ0hFX1JCVFJFRSwNCg0KKyAgICAgICAgICAgIC5yZWdfZGVmYXVsdHMgPSBydDU2ODJzX3Jl
+ZywNCg0KKyAgICAgICAgICAgIC5udW1fcmVnX2RlZmF1bHRzID0gQVJSQVlfU0laRShydDU2ODJz
+X3JlZyksDQoNCisgICAgICAgICAgICAudXNlX3NpbmdsZV9yZWFkID0gdHJ1ZSwNCg0KKyAgICAg
+ICAgICAgIC51c2Vfc2luZ2xlX3dyaXRlID0gdHJ1ZSwNCg0KK307DQoNCisNCg0KK3N0YXRpYyBz
+dHJ1Y3Qgc25kX3NvY19kYWlfZHJpdmVyIHJ0NTY4MnNfZGFpW10gPSB7DQoNCisgICAgICAgICAg
+ICB7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAubmFtZSA9ICJydDU2ODJzLWFpZjEi
+LA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgLmlkID0gUlQ1NjgyU19BSUYxLA0KDQor
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgLnBsYXliYWNrID0gew0KDQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAuc3RyZWFtX25hbWUgPSAiQUlGMSBQbGF5YmFj
+ayIsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC5jaGFubmVs
+c19taW4gPSAxLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAu
+Y2hhbm5lbHNfbWF4ID0gMiwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgLnJhdGVzID0gUlQ1NjgyU19TVEVSRU9fUkFURVMsDQoNCisgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIC5mb3JtYXRzID0gUlQ1NjgyU19GT1JNQVRTLA0KDQor
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgfSwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIC5jYXB0dXJlID0gew0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAuc3RyZWFtX25hbWUgPSAiQUlGMSBDYXB0dXJlIiwNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgLmNoYW5uZWxzX21pbiA9IDEsDQoNCisgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC5jaGFubmVsc19tYXggPSAyLA0KDQorICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAucmF0ZXMgPSBSVDU2ODJTX1NU
+RVJFT19SQVRFUywNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+LmZvcm1hdHMgPSBSVDU2ODJTX0ZPUk1BVFMsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAg
+ICB9LA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgLm9wcyA9ICZydDU2ODJzX2FpZjFf
+ZGFpX29wcywNCg0KKyAgICAgICAgICAgIH0sDQoNCisgICAgICAgICAgICB7DQoNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAubmFtZSA9ICJydDU2ODJzLWFpZjIiLA0KDQorICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgLmlkID0gUlQ1NjgyU19BSUYyLA0KDQorICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgLmNhcHR1cmUgPSB7DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIC5zdHJlYW1fbmFtZSA9ICJBSUYyIENhcHR1cmUiLA0KDQorICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAuY2hhbm5lbHNfbWluID0gMSwNCg0KKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLmNoYW5uZWxzX21heCA9IDIs
+DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC5yYXRlcyA9IFJU
+NTY4MlNfU1RFUkVPX1JBVEVTLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAuZm9ybWF0cyA9IFJUNTY4MlNfRk9STUFUUywNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIH0sDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAub3BzID0gJnJ0NTY4
+MnNfYWlmMl9kYWlfb3BzLA0KDQorICAgICAgICAgICAgfSwNCg0KK307DQoNCisNCg0KK3N0YXRp
+YyB2b2lkIHJ0NTY4MnNfaTJjX2Rpc2FibGVfcmVndWxhdG9ycyh2b2lkICpkYXRhKQ0KDQorew0K
+DQorICAgICAgICAgICAgc3RydWN0IHJ0NTY4MnNfcHJpdiAqcnQ1NjgycyA9IGRhdGE7DQoNCisN
+Cg0KKyAgICAgICAgICAgIHJlZ3VsYXRvcl9idWxrX2Rpc2FibGUoQVJSQVlfU0laRShydDU2ODJz
+LT5zdXBwbGllcyksIHJ0NTY4MnMtPnN1cHBsaWVzKTsNCg0KK30NCg0KKw0KDQorc3RhdGljIGlu
+dCBydDU2ODJzX2kyY19wcm9iZShzdHJ1Y3QgaTJjX2NsaWVudCAqaTJjLA0KDQorICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgY29uc3Qgc3RydWN0IGkyY19kZXZpY2VfaWQgKmlkKQ0KDQorew0K
+DQorICAgICAgICAgICAgc3RydWN0IHJ0NTY4MnNfcGxhdGZvcm1fZGF0YSAqcGRhdGEgPSBkZXZf
+Z2V0X3BsYXRkYXRhKCZpMmMtPmRldik7DQoNCisgICAgICAgICAgICBzdHJ1Y3QgcnQ1Njgyc19w
+cml2ICpydDU2ODJzOw0KDQorICAgICAgICAgICAgaW50IGksIHJldDsNCg0KKyAgICAgICAgICAg
+IHVuc2lnbmVkIGludCB2YWw7DQoNCisNCg0KKyAgICAgICAgICAgIHJ0NTY4MnMgPSBkZXZtX2t6
+YWxsb2MoJmkyYy0+ZGV2LCBzaXplb2Yoc3RydWN0IHJ0NTY4MnNfcHJpdiksIEdGUF9LRVJORUwp
+Ow0KDQorICAgICAgICAgICAgaWYgKCFydDU2ODJzKQ0KDQorICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgcmV0dXJuIC1FTk9NRU07DQoNCisNCg0KKyAgICAgICAgICAgIGkyY19zZXRfY2xpZW50
+ZGF0YShpMmMsIHJ0NTY4MnMpOw0KDQorDQoNCisgICAgICAgICAgICBydDU2ODJzLT5wZGF0YSA9
+IGkyc19kZWZhdWx0X3BsYXRmb3JtX2RhdGE7DQoNCisNCg0KKyAgICAgICAgICAgIGlmIChwZGF0
+YSkNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHJ0NTY4MnMtPnBkYXRhID0gKnBkYXRh
+Ow0KDQorICAgICAgICAgICAgZWxzZQ0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcnQ1
+Njgyc19wYXJzZV9kdChydDU2ODJzLCAmaTJjLT5kZXYpOw0KDQorDQoNCisgICAgICAgICAgICBy
+dDU2ODJzLT5yZWdtYXAgPSBkZXZtX3JlZ21hcF9pbml0X2kyYyhpMmMsICZydDU2ODJzX3JlZ21h
+cCk7DQoNCisgICAgICAgICAgICBpZiAoSVNfRVJSKHJ0NTY4MnMtPnJlZ21hcCkpIHsNCg0KKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHJldCA9IFBUUl9FUlIocnQ1Njgycy0+cmVnbWFwKTsN
+Cg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGRldl9lcnIoJmkyYy0+ZGV2LCAiRmFpbGVk
+IHRvIGFsbG9jYXRlIHJlZ2lzdGVyIG1hcDogJWRcbiIsIHJldCk7DQoNCisgICAgICAgICAgICAg
+ICAgICAgICAgICAgICByZXR1cm4gcmV0Ow0KDQorICAgICAgICAgICAgfQ0KDQorDQoNCisgICAg
+ICAgICAgICBmb3IgKGkgPSAwOyBpIDwgQVJSQVlfU0laRShydDU2ODJzLT5zdXBwbGllcyk7IGkr
+KykNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHJ0NTY4MnMtPnN1cHBsaWVzW2ldLnN1
+cHBseSA9IHJ0NTY4MnNfc3VwcGx5X25hbWVzW2ldOw0KDQorDQoNCisgICAgICAgICAgICByZXQg
+PSBkZXZtX3JlZ3VsYXRvcl9idWxrX2dldCgmaTJjLT5kZXYsDQoNCisgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIEFSUkFZX1NJWkUocnQ1Njgycy0+c3VwcGxpZXMpLCBy
+dDU2ODJzLT5zdXBwbGllcyk7DQoNCisgICAgICAgICAgICBpZiAocmV0KSB7DQoNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBkZXZfZXJyKCZpMmMtPmRldiwgIkZhaWxlZCB0byByZXF1ZXN0
+IHN1cHBsaWVzOiAlZFxuIiwgcmV0KTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHJl
+dHVybiByZXQ7DQoNCisgICAgICAgICAgICB9DQoNCisNCg0KKyAgICAgICAgICAgIHJldCA9IGRl
+dm1fYWRkX2FjdGlvbl9vcl9yZXNldCgmaTJjLT5kZXYsIHJ0NTY4MnNfaTJjX2Rpc2FibGVfcmVn
+dWxhdG9ycywgcnQ1Njgycyk7DQoNCisgICAgICAgICAgICBpZiAocmV0KQ0KDQorICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgcmV0dXJuIHJldDsNCg0KKw0KDQorICAgICAgICAgICAgcmV0ID0g
+cmVndWxhdG9yX2J1bGtfZW5hYmxlKEFSUkFZX1NJWkUocnQ1Njgycy0+c3VwcGxpZXMpLCBydDU2
+ODJzLT5zdXBwbGllcyk7DQoNCisgICAgICAgICAgICBpZiAocmV0KSB7DQoNCisgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBkZXZfZXJyKCZpMmMtPmRldiwgIkZhaWxlZCB0byBlbmFibGUgc3Vw
+cGxpZXM6ICVkXG4iLCByZXQpOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJu
+IHJldDsNCg0KKyAgICAgICAgICAgIH0NCg0KKw0KDQorICAgICAgICAgICAgaWYgKGdwaW9faXNf
+dmFsaWQocnQ1Njgycy0+cGRhdGEubGRvMV9lbikpIHsNCg0KKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIGlmIChkZXZtX2dwaW9fcmVxdWVzdF9vbmUoJmkyYy0+ZGV2LCBydDU2ODJzLT5wZGF0
+YS5sZG8xX2VuLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgR1BJT0ZfT1VUX0lOSVRfSElHSCwgInJ0NTY4
+MnMiKSkNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGV2X2Vy
+cigmaTJjLT5kZXYsICJGYWlsIGdwaW9fcmVxdWVzdCBncGlvX2xkb1xuIik7DQoNCisgICAgICAg
+ICAgICB9DQoNCisNCg0KKyAgICAgICAgICAgIC8qIFNsZWVwIGZvciA1MCBtcyBtaW5pbXVtICov
+DQoNCisgICAgICAgICAgICB1c2xlZXBfcmFuZ2UoNTAwMDAsIDU1MDAwKTsNCg0KKw0KDQorICAg
+ICAgICAgICAgcmVnbWFwX3JlYWQocnQ1Njgycy0+cmVnbWFwLCBSVDU2ODJTX0RFVklDRV9JRCwg
+JnZhbCk7DQoNCisgICAgICAgICAgICBpZiAodmFsICE9IERFVklDRV9JRCkgew0KDQorICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgZGV2X2VycigmaTJjLT5kZXYsICJEZXZpY2Ugd2l0aCBJRCBy
+ZWdpc3RlciAleCBpcyBub3QgcnQ1Njgyc1xuIiwgdmFsKTsNCg0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHJldHVybiAtRU5PREVWOw0KDQorICAgICAgICAgICAgfQ0KDQorDQoNCisgICAg
+ICAgICAgICBydDU2ODJzX3Jlc2V0KHJ0NTY4MnMpOw0KDQorICAgICAgICAgICAgcnQ1Njgyc19h
+cHBseV9wYXRjaF9saXN0KHJ0NTY4MnMsICZpMmMtPmRldik7DQoNCisNCg0KKyAgICAgICAgICAg
+IHJlZ21hcF91cGRhdGVfYml0cyhydDU2ODJzLT5yZWdtYXAsIFJUNTY4MlNfUFdSX0RJR18yLA0K
+DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgUlQ1NjgyU19ETERPX0lfTElNSVRfTUFTSywg
+UlQ1NjgyU19ETERPX0lfTElNSVRfRElTKTsNCg0KKyAgICAgICAgICAgIHVzbGVlcF9yYW5nZSgy
+MDAwMCwgMjUwMDApOw0KDQorDQoNCisgICAgICAgICAgICBtdXRleF9pbml0KCZydDU2ODJzLT5j
+YWxpYnJhdGVfbXV0ZXgpOw0KDQorICAgICAgICAgICAgbXV0ZXhfaW5pdCgmcnQ1Njgycy0+c2Fy
+X211dGV4KTsNCg0KKyAgICAgICAgICAgIHJ0NTY4MnNfY2FsaWJyYXRlKHJ0NTY4MnMpOw0KDQor
+DQoNCisgICAgICAgICAgICByZWdtYXBfdXBkYXRlX2JpdHMocnQ1Njgycy0+cmVnbWFwLCBSVDU2
+ODJTX01JQ0JJQVNfMiwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfUFdS
+X0NMSzI1TV9NQVNLIHwgUlQ1NjgyU19QV1JfQ0xLMU1fTUFTSywNCg0KKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIFJUNTY4MlNfUFdSX0NMSzI1TV9QRCB8IFJUNTY4MlNfUFdSX0NMSzFNX1BV
+KTsNCg0KKyAgICAgICAgICAgIHJlZ21hcF91cGRhdGVfYml0cyhydDU2ODJzLT5yZWdtYXAsIFJU
+NTY4MlNfUFdSX0FOTEdfMSwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNf
+UFdSX0JHLCBSVDU2ODJTX1BXUl9CRyk7DQoNCisgICAgICAgICAgICByZWdtYXBfdXBkYXRlX2Jp
+dHMocnQ1Njgycy0+cmVnbWFwLCBSVDU2ODJTX0hQX0xPR0lDX0NUUkxfMiwNCg0KKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfSFBfU0lHX1NSQ19NQVNLLCBSVDU2ODJTX0hQX1NJ
+R19TUkNfMUJJVF9DVEwpOw0KDQorICAgICAgICAgICAgcmVnbWFwX3VwZGF0ZV9iaXRzKHJ0NTY4
+MnMtPnJlZ21hcCwgUlQ1NjgyU19IUF9DSEFSR0VfUFVNUF8yLA0KDQorICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgUlQ1NjgyU19QTV9IUF9NQVNLLCBSVDU2ODJTX1BNX0hQX0hWKTsNCg0KKw0K
+DQorICAgICAgICAgICAgLyogRE1JQyBkYXRhIHBpbiAqLw0KDQorICAgICAgICAgICAgc3dpdGNo
+IChydDU2ODJzLT5wZGF0YS5kbWljMV9kYXRhX3Bpbikgew0KDQorICAgICAgICAgICAgY2FzZSBS
+VDU2ODJTX0RNSUMxX0RBVEFfTlVMTDoNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGJy
+ZWFrOw0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0RNSUMxX0RBVEFfR1BJTzI6IC8qIHNo
+YXJlIHdpdGggTFJDSzIgKi8NCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHJlZ21hcF91
+cGRhdGVfYml0cyhydDU2ODJzLT5yZWdtYXAsIFJUNTY4MlNfRE1JQ19DVFJMXzEsDQoNCisgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNfRE1JQ18xX0RQX01B
+U0ssIFJUNTY4MlNfRE1JQ18xX0RQX0dQSU8yKTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHJlZ21hcF91cGRhdGVfYml0cyhydDU2ODJzLT5yZWdtYXAsIFJUNTY4MlNfR1BJT19DVFJM
+XzEsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUNTY4MlNf
+R1AyX1BJTl9NQVNLLCBSVDU2ODJTX0dQMl9QSU5fRE1JQ19TREEpOw0KDQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgYnJlYWs7DQoNCisgICAgICAgICAgICBjYXNlIFJUNTY4MlNfRE1JQzFf
+REFUQV9HUElPNTogLyogc2hhcmUgd2l0aCBEQUNEQVQxICovDQoNCisgICAgICAgICAgICAgICAg
+ICAgICAgICAgICByZWdtYXBfdXBkYXRlX2JpdHMocnQ1Njgycy0+cmVnbWFwLCBSVDU2ODJTX0RN
+SUNfQ1RSTF8xLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBS
+VDU2ODJTX0RNSUNfMV9EUF9NQVNLLCBSVDU2ODJTX0RNSUNfMV9EUF9HUElPNSk7DQoNCisgICAg
+ICAgICAgICAgICAgICAgICAgICAgICByZWdtYXBfdXBkYXRlX2JpdHMocnQ1Njgycy0+cmVnbWFw
+LCBSVDU2ODJTX0dQSU9fQ1RSTF8xLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBSVDU2ODJTX0dQNV9QSU5fTUFTSywgUlQ1NjgyU19HUDVfUElOX0RNSUNfU0RB
+KTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOw0KDQorICAgICAgICAgICAg
+ZGVmYXVsdDoNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGRldl93YXJuKCZpMmMtPmRl
+diwgImludmFsaWQgRE1JQ19EQVQgcGluXG4iKTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIGJyZWFrOw0KDQorICAgICAgICAgICAgfQ0KDQorDQoNCisgICAgICAgICAgICAvKiBETUlD
+IGNsayBwaW4gKi8NCg0KKyAgICAgICAgICAgIHN3aXRjaCAocnQ1Njgycy0+cGRhdGEuZG1pYzFf
+Y2xrX3Bpbikgew0KDQorICAgICAgICAgICAgY2FzZSBSVDU2ODJTX0RNSUMxX0NMS19OVUxMOg0K
+DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQoNCisgICAgICAgICAgICBjYXNl
+IFJUNTY4MlNfRE1JQzFfQ0xLX0dQSU8xOiAvKiBzaGFyZSB3aXRoIElSUSAqLw0KDQorICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgcmVnbWFwX3VwZGF0ZV9iaXRzKHJ0NTY4MnMtPnJlZ21hcCwg
+UlQ1NjgyU19HUElPX0NUUkxfMSwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgUlQ1NjgyU19HUDFfUElOX01BU0ssIFJUNTY4MlNfR1AxX1BJTl9ETUlDX0NMSyk7
+DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsNCg0KKyAgICAgICAgICAgIGNh
+c2UgUlQ1NjgyU19ETUlDMV9DTEtfR1BJTzM6IC8qIHNoYXJlIHdpdGggQkNMSzIgKi8NCg0KKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHJlZ21hcF91cGRhdGVfYml0cyhydDU2ODJzLT5yZWdt
+YXAsIFJUNTY4MlNfR1BJT19DVFJMXzEsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIFJUNTY4MlNfR1AzX1BJTl9NQVNLLCBSVDU2ODJTX0dQM19QSU5fRE1JQ19D
+TEspOw0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKHJ0NTY4MnMtPnBkYXRhLmRt
+aWNfY2xrX2RyaXZpbmdfaGlnaCkNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgcmVnbWFwX3VwZGF0ZV9iaXRzKHJ0NTY4MnMtPnJlZ21hcCwgUlQ1NjgyU19QQURf
+RFJJVklOR19DVFJMLA0KDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIFJUNTY4MlNfUEFEX0RSVl9HUDNfTUFTSywgUlQ1NjgyU19QQURfRFJW
+X0dQM19ISUdIKTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOw0KDQorICAg
+ICAgICAgICAgZGVmYXVsdDoNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGRldl93YXJu
+KCZpMmMtPmRldiwgImludmFsaWQgRE1JQ19DTEsgcGluXG4iKTsNCg0KKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIGJyZWFrOw0KDQorICAgICAgICAgICAgfQ0KDQorDQoNCisgICAgICAgICAg
+ICBJTklUX0RFTEFZRURfV09SSygmcnQ1Njgycy0+amFja19kZXRlY3Rfd29yaywgcnQ1Njgyc19q
+YWNrX2RldGVjdF9oYW5kbGVyKTsNCg0KKyAgICAgICAgICAgIElOSVRfREVMQVlFRF9XT1JLKCZy
+dDU2ODJzLT5qZF9jaGVja193b3JrLCBydDU2ODJzX2pkX2NoZWNrX2hhbmRsZXIpOw0KDQorDQoN
+CisgICAgICAgICAgICBpZiAoaTJjLT5pcnEpIHsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHJldCA9IGRldm1fcmVxdWVzdF90aHJlYWRlZF9pcnEoJmkyYy0+ZGV2LCBpMmMtPmlycSwg
+TlVMTCwgcnQ1Njgyc19pcnEsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIElSUUZfVFJJR0dFUl9SSVNJTkcgfCBJUlFGX1RSSUdHRVJfRkFMTElORyB8IElSUUZf
+T05FU0hPVCwNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgInJ0
+NTY4MnMiLCBydDU2ODJzKTsNCg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmIChyZXQp
+DQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRldl9lcnIoJmky
+Yy0+ZGV2LCAiRmFpbGVkIHRvIHJlZ3Vlc3QgSVJROiAlZFxuIiwgcmV0KTsNCg0KKyAgICAgICAg
+ICAgIH0NCg0KKw0KDQorICAgICAgICAgICAgcmV0dXJuIGRldm1fc25kX3NvY19yZWdpc3Rlcl9j
+b21wb25lbnQoJmkyYy0+ZGV2LCAmcnQ1Njgyc19zb2NfY29tcG9uZW50X2RldiwNCg0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcnQ1Njgyc19kYWksIEFSUkFZX1NJ
+WkUocnQ1Njgyc19kYWkpKTsNCg0KK30NCg0KKw0KDQorc3RhdGljIHZvaWQgcnQ1Njgyc19pMmNf
+c2h1dGRvd24oc3RydWN0IGkyY19jbGllbnQgKmNsaWVudCkNCg0KK3sNCg0KKyAgICAgICAgICAg
+IHN0cnVjdCBydDU2ODJzX3ByaXYgKnJ0NTY4MnMgPSBpMmNfZ2V0X2NsaWVudGRhdGEoY2xpZW50
+KTsNCg0KKw0KDQorICAgICAgICAgICAgZGlzYWJsZV9pcnEoY2xpZW50LT5pcnEpOw0KDQorICAg
+ICAgICAgICAgY2FuY2VsX2RlbGF5ZWRfd29ya19zeW5jKCZydDU2ODJzLT5qYWNrX2RldGVjdF93
+b3JrKTsNCg0KKyAgICAgICAgICAgIGNhbmNlbF9kZWxheWVkX3dvcmtfc3luYygmcnQ1Njgycy0+
+amRfY2hlY2tfd29yayk7DQoNCisNCg0KKyAgICAgICAgICAgIHJ0NTY4MnNfcmVzZXQocnQ1Njgy
+cyk7DQoNCit9DQoNCisNCg0KK3N0YXRpYyBpbnQgcnQ1Njgyc19pMmNfcmVtb3ZlKHN0cnVjdCBp
+MmNfY2xpZW50ICpjbGllbnQpDQoNCit7DQoNCisgICAgICAgICAgICBydDU2ODJzX2kyY19zaHV0
+ZG93bihjbGllbnQpOw0KDQorDQoNCisgICAgICAgICAgICByZXR1cm4gMDsNCg0KK30NCg0KKw0K
+DQorc3RhdGljIGNvbnN0IHN0cnVjdCBvZl9kZXZpY2VfaWQgcnQ1Njgyc19vZl9tYXRjaFtdID0g
+ew0KDQorICAgICAgICAgICAgey5jb21wYXRpYmxlID0gInJlYWx0ZWsscnQ1NjgycyJ9LA0KDQor
+ICAgICAgICAgICAge30sDQoNCit9Ow0KDQorTU9EVUxFX0RFVklDRV9UQUJMRShvZiwgcnQ1Njgy
+c19vZl9tYXRjaCk7DQoNCisNCg0KK3N0YXRpYyBjb25zdCBzdHJ1Y3QgYWNwaV9kZXZpY2VfaWQg
+cnQ1Njgyc19hY3BpX21hdGNoW10gPSB7DQoNCisgICAgICAgICAgICB7IlJUTDU2ODIiLCAwLH0s
+DQoNCisgICAgICAgICAgICB7fSwNCg0KK307DQoNCitNT0RVTEVfREVWSUNFX1RBQkxFKGFjcGks
+IHJ0NTY4MnNfYWNwaV9tYXRjaCk7DQoNCisNCg0KK3N0YXRpYyBjb25zdCBzdHJ1Y3QgaTJjX2Rl
+dmljZV9pZCBydDU2ODJzX2kyY19pZFtdID0gew0KDQorICAgICAgICAgICAgeyJydDU2ODJzIiwg
+MH0sDQoNCisgICAgICAgICAgICB7fQ0KDQorfTsNCg0KK01PRFVMRV9ERVZJQ0VfVEFCTEUoaTJj
+LCBydDU2ODJzX2kyY19pZCk7DQoNCisNCg0KK3N0YXRpYyBzdHJ1Y3QgaTJjX2RyaXZlciBydDU2
+ODJzX2kyY19kcml2ZXIgPSB7DQoNCisgICAgICAgICAgICAuZHJpdmVyID0gew0KDQorICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgLm5hbWUgPSAicnQ1NjgycyIsDQoNCisgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAub2ZfbWF0Y2hfdGFibGUgPSBydDU2ODJzX29mX21hdGNoLA0KDQorICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgLmFjcGlfbWF0Y2hfdGFibGUgPSBydDU2ODJzX2FjcGlf
+bWF0Y2gsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAucHJvYmVfdHlwZSA9IFBST0JF
+X1BSRUZFUl9BU1lOQ0hST05PVVMsDQoNCisgICAgICAgICAgICB9LA0KDQorICAgICAgICAgICAg
+LnByb2JlID0gcnQ1Njgyc19pMmNfcHJvYmUsDQoNCisgICAgICAgICAgICAucmVtb3ZlID0gcnQ1
+Njgyc19pMmNfcmVtb3ZlLA0KDQorICAgICAgICAgICAgLnNodXRkb3duID0gcnQ1Njgyc19pMmNf
+c2h1dGRvd24sDQoNCisgICAgICAgICAgICAuaWRfdGFibGUgPSBydDU2ODJzX2kyY19pZCwNCg0K
+K307DQoNCittb2R1bGVfaTJjX2RyaXZlcihydDU2ODJzX2kyY19kcml2ZXIpOw0KDQorDQoNCitN
+T0RVTEVfREVTQ1JJUFRJT04oIkFTb0MgUlQ1NjgySS1WUyBkcml2ZXIiKTsNCg0KK01PRFVMRV9B
+VVRIT1IoIkRlcmVrIEZhbmcgPGRlcmVrLmZhbmdAcmVhbHRlay5jb208bWFpbHRvOmRlcmVrLmZh
+bmdAcmVhbHRlay5jb20+PiIpOw0KDQorTU9EVUxFX0xJQ0VOU0UoIkdQTCB2MiIpOw0KDQpkaWZm
+IC0tZ2l0IGEvc291bmQvc29jL2NvZGVjcy9ydDU2ODJzLmggYi9zb3VuZC9zb2MvY29kZWNzL3J0
+NTY4MnMuaA0KDQpuZXcgZmlsZSBtb2RlIDEwMDY0NA0KDQppbmRleCAwMDAwMDAwMDAwMDAuLjdj
+NzU1ZTVlZmI4MQ0KDQotLS0gL2Rldi9udWxsDQoNCisrKyBiL3NvdW5kL3NvYy9jb2RlY3MvcnQ1
+Njgycy5oDQoNCkBAIC0wLDAgKzEsMTQ1NSBAQA0KDQorLyogU1BEWC1MaWNlbnNlLUlkZW50aWZp
+ZXI6IEdQTC0yLjAtb25seSAqLw0KDQorLyoNCg0KKyAqIHJ0NTY4MnMuaCAgLS0gIFJUNTY4Mkkt
+VlMgQUxTQSBTb0MgYXVkaW8gZHJpdmVyDQoNCisgKg0KDQorICogQ29weXJpZ2h0IDIwMjEgUmVh
+bHRlayBNaWNyb2VsZWN0cm9uaWNzDQoNCisgKiBBdXRob3I6IERlcmVrIEZhbmcgPGRlcmVrLmZh
+bmdAcmVhbHRlay5jb208bWFpbHRvOmRlcmVrLmZhbmdAcmVhbHRlay5jb20+Pg0KDQorICovDQoN
+CisNCg0KKyNpZm5kZWYgX19SVDU2ODJTX0hfXw0KDQorI2RlZmluZSBfX1JUNTY4MlNfSF9fDQoN
+CisNCg0KKyNpbmNsdWRlIDxzb3VuZC9ydDU2ODJzLmg+DQoNCisjaW5jbHVkZSA8bGludXgvcmVn
+dWxhdG9yL2NvbnN1bWVyLmg+DQoNCisjaW5jbHVkZSA8bGludXgvY2xrLmg+DQoNCisjaW5jbHVk
+ZSA8bGludXgvY2xrZGV2Lmg+DQoNCisjaW5jbHVkZSA8bGludXgvY2xrLXByb3ZpZGVyLmg+DQoN
+CisNCg0KKw0KDQorLyogSW5mbyAqLw0KDQorI2RlZmluZSBSVDU2ODJTX1JFU0VUICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMA0KDQor
+I2RlZmluZSBSVDU2ODJTX1ZFUlNJT05fSUQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAw
+eDAwZmQNCg0KKyNkZWZpbmUgUlQ1NjgyU19WRU5ET1JfSUQgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAweDAwZmUNCg0KKyNkZWZpbmUgUlQ1NjgyU19ERVZJQ0VfSUQgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIDB4MDBmZg0KDQorLyogIEkvTyAtIE91dHB1dCAqLw0KDQorI2Rl
+ZmluZSBSVDU2ODJTX0hQX0NUUkxfMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgw
+MDAyDQoNCisjZGVmaW5lIFJUNTY4MlNfSFBfQ1RSTF8yICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAweDAwMDMNCg0KKyNkZWZpbmUgUlQ1NjgyU19IUExfR0FJTiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAweDAwMDUNCg0KKyNkZWZpbmUgUlQ1NjgyU19IUFJfR0FJTiAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwNg0KDQorDQoNCisjZGVmaW5lIFJU
+NTY4MlNfSTJDX0NUUkwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwOA0K
+DQorDQoNCisvKiBJL08gLSBJbnB1dCAqLw0KDQorI2RlZmluZSBSVDU2ODJTX0NCSl9CU1RfQ1RS
+TCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwMGINCg0KKyNkZWZp
+bmUgUlQ1NjgyU19DQkpfREVUX0NUUkwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgMHgwMDBmDQoNCisjZGVmaW5lIFJUNTY4MlNfQ0JKX0NUUkxfMSAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIDB4MDAxMA0KDQorI2RlZmluZSBSVDU2ODJTX0NCSl9DVFJMXzIgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwMTENCg0KKyNkZWZpbmUgUlQ1NjgyU19DQkpf
+Q1RSTF8zICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDEyDQoNCisjZGVmaW5lIFJU
+NTY4MlNfQ0JKX0NUUkxfNCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAxMw0KDQor
+I2RlZmluZSBSVDU2ODJTX0NCSl9DVFJMXzUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAw
+eDAwMTQNCg0KKyNkZWZpbmUgUlQ1NjgyU19DQkpfQ1RSTF82ICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgMHgwMDE1DQoNCisjZGVmaW5lIFJUNTY4MlNfQ0JKX0NUUkxfNyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIDB4MDAxNg0KDQorI2RlZmluZSBSVDU2ODJTX0NCSl9DVFJMXzgg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwMTcNCg0KKy8qIEkvTyAtIEFEQy9EQUMv
+RE1JQyAqLw0KDQorI2RlZmluZSBSVDU2ODJTX0RBQzFfRElHX1ZPTCAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgMHgwMDE5DQoNCisjZGVmaW5lIFJUNTY4MlNfU1RPMV9BRENf
+RElHX1ZPTCAgICAgICAgICAgICAgMHgwMDFjDQoNCisjZGVmaW5lIFJUNTY4MlNfU1RPMV9BRENf
+Qk9PU1QgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAxZg0KDQorI2RlZmluZSBS
+VDU2ODJTX0hQX0lNUF9HQUlOXzEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAw
+eDAwMjINCg0KKyNkZWZpbmUgUlQ1NjgyU19IUF9JTVBfR0FJTl8yICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgMHgwMDIzDQoNCisvKiBNaXhlciAtIEQtRCAqLw0KDQorI2RlZmlu
+ZSBSVDU2ODJTX1NJREVUT05FX0NUUkwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgMHgwMDI0DQoNCisjZGVmaW5lIFJUNTY4MlNfU1RPMV9BRENfTUlYRVIgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAweDAwMjYNCg0KKyNkZWZpbmUgUlQ1NjgyU19BRF9EQV9NSVhF
+UiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAyOQ0KDQorI2RlZmlu
+ZSBSVDU2ODJTX1NUTzFfREFDX01JWEVSICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+MHgwMDJhDQoNCisjZGVmaW5lIFJUNTY4MlNfQV9EQUMxX01VWCAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgMHgwMDJiDQoNCisjZGVmaW5lIFJUNTY4MlNfRElHX0lORjJf
+REFUQSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwMzANCg0KKy8qIE1p
+eGVyIC0gQURDICovDQoNCisjZGVmaW5lIFJUNTY4MlNfUkVDX01JWEVSICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIDB4MDAzYw0KDQorI2RlZmluZSBSVDU2ODJTX0NBTF9SRUMgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDA0NA0KDQorLyog
+SFAgQW5hbG9nIE9mZnNldCBDb250cm9sICovDQoNCisjZGVmaW5lIFJUNTY4MlNfSFBfQU5BX09T
+VF9DVFJMXzEgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDA0Yg0KDQorI2RlZmluZSBSVDU2
+ODJTX0hQX0FOQV9PU1RfQ1RSTF8yICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwNGMNCg0K
+KyNkZWZpbmUgUlQ1NjgyU19IUF9BTkFfT1NUX0NUUkxfMyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgMHgwMDRkDQoNCisvKiBQb3dlciAqLw0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9ESUdfMSAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDA2MQ0KDQorI2RlZmluZSBSVDU2ODJTX1BX
+Ul9ESUdfMiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDA2Mg0KDQorI2RlZmluZSBS
+VDU2ODJTX1BXUl9BTkxHXzEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IDB4MDA2Mw0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9BTkxHXzIgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIDB4MDA2NA0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9BTkxH
+XzMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDA2NQ0KDQorI2Rl
+ZmluZSBSVDU2ODJTX1BXUl9NSVhFUiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDY2
+DQoNCisNCg0KKyNkZWZpbmUgUlQ1NjgyU19NQl9DVFJMICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDA2Nw0KDQorI2RlZmluZSBSVDU2ODJTX0NMS19H
+QVRFX1RDT05fMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwNjgNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19DTEtfR0FURV9UQ09OXzIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+MHgwMDY5DQoNCisjZGVmaW5lIFJUNTY4MlNfQ0xLX0dBVEVfVENPTl8zICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIDB4MDA2YQ0KDQorLyogQ2xvY2sgRGV0ZWN0ICovDQoNCisjZGVmaW5l
+IFJUNTY4MlNfQ0xLX0RFVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIDB4MDA2Yg0KDQorLyogRmlsdGVyIEF1dG8gUmVzZXQgKi8NCg0KKyNkZWZpbmUg
+UlQ1NjgyU19SRVNFVF9MUEZfQ1RSTCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IDB4MDA2Yw0KDQorI2RlZmluZSBSVDU2ODJTX1JFU0VUX0hQRl9DVFJMICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAweDAwNmQNCg0KKy8qIERNSUMgKi8NCg0KKyNkZWZpbmUgUlQ1
+NjgyU19ETUlDX0NUUkxfMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+MHgwMDZlDQoNCisjZGVmaW5lIFJUNTY4MlNfTFBGX0FEX0RNSUMgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgMHgwMDZmDQoNCisvKiBGb3JtYXQgLSBBREMvREFDICovDQoN
+CisjZGVmaW5lIFJUNTY4MlNfSTJTMV9TRFAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIDB4MDA3MA0KDQorI2RlZmluZSBSVDU2ODJTX0kyUzJfU0RQICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAweDAwNzENCg0KKyNkZWZpbmUgUlQ1NjgyU19BRERBX0NMS18xICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDA3Mw0KDQorI2RlZmlu
+ZSBSVDU2ODJTX0FEREFfQ0xLXzIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgMHgwMDc0DQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTMV9GX0RJVl9DVFJMXzEgICAgICAg
+ICAgICAgICAgMHgwMDc1DQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTMV9GX0RJVl9DVFJMXzIgICAg
+ICAgICAgICAgICAgMHgwMDc2DQoNCisvKiBGb3JtYXQgLSBURE0gQ29udHJvbCAqLw0KDQorI2Rl
+ZmluZSBSVDU2ODJTX1RETV9DVFJMICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAw
+NzkNCg0KKyNkZWZpbmUgUlQ1NjgyU19URE1fQUREQV9DVFJMXzEgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIDB4MDA3YQ0KDQorI2RlZmluZSBSVDU2ODJTX1RETV9BRERBX0NUUkxfMiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDdiDQoNCisjZGVmaW5lIFJUNTY4MlNfREFUQV9T
+RUxfQ1RSTF8xICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDdjDQoNCisjZGVm
+aW5lIFJUNTY4MlNfVERNX1RDT05fQ1RSTF8xICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+MHgwMDdlDQoNCisjZGVmaW5lIFJUNTY4MlNfVERNX1RDT05fQ1RSTF8yICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgMHgwMDdmDQoNCisvKiBGdW5jdGlvbiAtIEFuYWxvZyAqLw0KDQorI2Rl
+ZmluZSBSVDU2ODJTX0dMQl9DTEsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAweDAwODANCg0KKyNkZWZpbmUgUlQ1NjgyU19QTExfVFJBQ0tfMSAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDA4Mw0KDQorI2RlZmluZSBS
+VDU2ODJTX1BMTF9UUkFDS18yICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgMHgwMDg0DQoNCisjZGVmaW5lIFJUNTY4MlNfUExMX1RSQUNLXzMgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwODUNCg0KKyNkZWZpbmUgUlQ1NjgyU19QTExf
+VFJBQ0tfNCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDA4Ng0K
+DQorI2RlZmluZSBSVDU2ODJTX1BMTF9UUkFDS181ICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgMHgwMDg3DQoNCisjZGVmaW5lIFJUNTY4MlNfUExMX1RSQUNLXzYgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwODgNCg0KKyNkZWZpbmUg
+UlQ1NjgyU19QTExfVFJBQ0tfMTEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgMHgwMDhjDQoNCisjZGVmaW5lIFJUNTY4MlNfREVQT1BfMSAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDhlDQoNCisjZGVmaW5lIFJUNTY4MlNf
+SFBfQ0hBUkdFX1BVTVBfMSAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDhmDQoNCisjZGVm
+aW5lIFJUNTY4MlNfSFBfQ0hBUkdFX1BVTVBfMiAgICAgICAgICAgICAgICAgICAgICAgICAgMHgw
+MDkxDQoNCisjZGVmaW5lIFJUNTY4MlNfSFBfQ0hBUkdFX1BVTVBfMyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgMHgwMDkyDQoNCisjZGVmaW5lIFJUNTY4MlNfTUlDQklBU18xICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAweDAwOTMNCg0KKyNkZWZpbmUgUlQ1NjgyU19NSUNCSUFTXzIg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDA5NA0KDQorI2RlZmluZSBSVDU2ODJT
+X01JQ0JJQVNfMyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDk1DQoNCisNCg0K
+KyNkZWZpbmUgUlQ1NjgyU19QTExfVFJBQ0tfMTIgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgMHgwMDk2DQoNCisjZGVmaW5lIFJUNTY4MlNfUExMX1RSQUNLXzE0ICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDA5Nw0KDQorI2RlZmluZSBSVDU2
+ODJTX1BMTF9DVFJMXzEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDk4DQoNCisj
+ZGVmaW5lIFJUNTY4MlNfUExMX0NUUkxfMiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAw
+eDAwOTkNCg0KKyNkZWZpbmUgUlQ1NjgyU19QTExfQ1RSTF8zICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIDB4MDA5YQ0KDQorI2RlZmluZSBSVDU2ODJTX1BMTF9DVFJMXzQgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgMHgwMDliDQoNCisjZGVmaW5lIFJUNTY4MlNfUExMX0NUUkxf
+NSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwOWMNCg0KKyNkZWZpbmUgUlQ1Njgy
+U19QTExfQ1RSTF82ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDA5ZA0KDQorI2Rl
+ZmluZSBSVDU2ODJTX1BMTF9DVFJMXzcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgw
+MDllDQoNCisNCg0KKyNkZWZpbmUgUlQ1NjgyU19SQ19DTEtfQ1RSTCAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDA5Zg0KDQorI2RlZmluZSBSVDU2ODJTX0kyUzJf
+TV9DTEtfQ1RSTF8xICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwYTANCg0KKyNkZWZp
+bmUgUlQ1NjgyU19JMlMyX0ZfRElWX0NUUkxfMSAgICAgICAgICAgICAgICAweDAwYTMNCg0KKyNk
+ZWZpbmUgUlQ1NjgyU19JMlMyX0ZfRElWX0NUUkxfMiAgICAgICAgICAgICAgICAweDAwYTQNCg0K
+Kw0KDQorI2RlZmluZSBSVDU2ODJTX0lSUV9DVFJMXzEgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAweDAwYjYNCg0KKyNkZWZpbmUgUlQ1NjgyU19JUlFfQ1RSTF8yICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgMHgwMGI3DQoNCisjZGVmaW5lIFJUNTY4MlNfSVJRX0NUUkxfMyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDBiOA0KDQorI2RlZmluZSBSVDU2ODJTX0lSUV9D
+VFJMXzQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwYjkNCg0KKyNkZWZpbmUgUlQ1
+NjgyU19JTlRfU1RfMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMGJlDQoN
+CisjZGVmaW5lIFJUNTY4MlNfR1BJT19DVFJMXzEgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAweDAwYzANCg0KKyNkZWZpbmUgUlQ1NjgyU19HUElPX0NUUkxfMiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDBjMQ0KDQorI2RlZmluZSBS
+VDU2ODJTX0dQSU9fU1QgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAweDAwYzINCg0KKyNkZWZpbmUgUlQ1NjgyU19IUF9BTVBfREVUX0NUUkxfMSAgICAg
+ICAgICAgICAgICAgICAgICAgICAgMHgwMGQwDQoNCisjZGVmaW5lIFJUNTY4MlNfTUlEX0hQX0FN
+UF9ERVQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMGQyDQoNCisjZGVmaW5lIFJU
+NTY4MlNfTE9XX0hQX0FNUF9ERVQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwZDMN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19ERUxBWV9CVUZfQ1RSTCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAweDAwZDQNCg0KKyNkZWZpbmUgUlQ1NjgyU19TVl9aQ0RfMSAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAweDAwZDkNCg0KKyNkZWZpbmUgUlQ1NjgyU19TVl9aQ0Rf
+MiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwZGENCg0KKyNkZWZpbmUgUlQ1
+NjgyU19JTF9DTURfMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDBkYg0KDQor
+I2RlZmluZSBSVDU2ODJTX0lMX0NNRF8yICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+MHgwMGRjDQoNCisjZGVmaW5lIFJUNTY4MlNfSUxfQ01EXzMgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAweDAwZGQNCg0KKyNkZWZpbmUgUlQ1NjgyU19JTF9DTURfNCAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIDB4MDBkZQ0KDQorI2RlZmluZSBSVDU2ODJTX0lMX0NNRF81
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMGRmDQoNCisjZGVmaW5lIFJUNTY4
+MlNfSUxfQ01EXzYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwZTANCg0KKyNk
+ZWZpbmUgUlQ1NjgyU180QlROX0lMX0NNRF8xICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgMHgwMGUyDQoNCisjZGVmaW5lIFJUNTY4MlNfNEJUTl9JTF9DTURfMiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDBlMw0KDQorI2RlZmluZSBSVDU2ODJTXzRCVE5f
+SUxfQ01EXzMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwZTQNCg0KKyNk
+ZWZpbmUgUlQ1NjgyU180QlROX0lMX0NNRF80ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgMHgwMGU1DQoNCisjZGVmaW5lIFJUNTY4MlNfNEJUTl9JTF9DTURfNSAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDBlNg0KDQorI2RlZmluZSBSVDU2ODJTXzRCVE5f
+SUxfQ01EXzYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwZTcNCg0KKyNk
+ZWZpbmUgUlQ1NjgyU180QlROX0lMX0NNRF83ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgMHgwMGU4DQoNCisNCg0KKyNkZWZpbmUgUlQ1NjgyU19BRENfU1RPMV9IUF9DVFJMXzEg
+ICAgICAgICAgICAgICAgICAgICAgICAweDAwZWENCg0KKyNkZWZpbmUgUlQ1NjgyU19BRENfU1RP
+MV9IUF9DVFJMXzIgICAgICAgICAgICAgICAgICAgICAgICAweDAwZWINCg0KKyNkZWZpbmUgUlQ1
+NjgyU19BSkQxX0NUUkwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDBmMA0KDQor
+I2RlZmluZSBSVDU2ODJTX0pEX0NUUkxfMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+MHgwMGY2DQoNCisvKiBHZW5lcmFsIENvbnRyb2wgKi8NCg0KKyNkZWZpbmUgUlQ1NjgyU19EVU1N
+WV8xICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwZmEN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19EVU1NWV8yICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAweDAwZmINCg0KKyNkZWZpbmUgUlQ1NjgyU19EVU1NWV8zICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwZmMNCg0KKw0KDQor
+I2RlZmluZSBSVDU2ODJTX0RBQ19BRENfRElHX1ZPTDEgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgMHgwMTAwDQoNCisjZGVmaW5lIFJUNTY4MlNfQklBU19DVVJfQ1RSTF8yICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgMHgwMTBiDQoNCisjZGVmaW5lIFJUNTY4MlNfQklBU19DVVJf
+Q1RSTF8zICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMTBjDQoNCisjZGVmaW5l
+IFJUNTY4MlNfQklBU19DVVJfQ1RSTF80ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+MHgwMTBkDQoNCisjZGVmaW5lIFJUNTY4MlNfQklBU19DVVJfQ1RSTF81ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgMHgwMTBlDQoNCisjZGVmaW5lIFJUNTY4MlNfQklBU19DVVJfQ1RS
+TF82ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMTBmDQoNCisjZGVmaW5lIFJU
+NTY4MlNfQklBU19DVVJfQ1RSTF83ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgw
+MTEwDQoNCisjZGVmaW5lIFJUNTY4MlNfQklBU19DVVJfQ1RSTF84ICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgMHgwMTExDQoNCisjZGVmaW5lIFJUNTY4MlNfQklBU19DVVJfQ1RSTF85
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMTEyDQoNCisjZGVmaW5lIFJUNTY4
+MlNfQklBU19DVVJfQ1RSTF8xMCAgICAgICAgICAgICAgICAweDAxMTMNCg0KKyNkZWZpbmUgUlQ1
+NjgyU19WUkVGX1JFQ19PUF9GQl9DQVBfQ1RSTF8xICAgICAgICAgMHgwMTE3DQoNCisjZGVmaW5l
+IFJUNTY4MlNfVlJFRl9SRUNfT1BfRkJfQ0FQX0NUUkxfMiAgICAgICAgIDB4MDExOA0KDQorI2Rl
+ZmluZSBSVDU2ODJTX0NIQVJHRV9QVU1QXzEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgMHgwMTI1DQoNCisjZGVmaW5lIFJUNTY4MlNfRElHX0lOX0NUUkxfMSAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgMHgwMTMyDQoNCisjZGVmaW5lIFJUNTY4MlNfUEFEX0RS
+SVZJTkdfQ1RSTCAgICAgICAgICAgICAgIDB4MDEzNg0KDQorI2RlZmluZSBSVDU2ODJTX0NIT1Bf
+REFDXzEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAxMzkNCg0K
+KyNkZWZpbmUgUlQ1NjgyU19DSE9QX0RBQ18yICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgMHgwMTNhDQoNCisjZGVmaW5lIFJUNTY4MlNfQ0hPUF9BREMgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIDB4MDEzYg0KDQorI2RlZmluZSBSVDU2ODJTX0NBTElCX0FE
+Q19DVFJMICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAxM2MNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19WT0xfVEVTVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAx
+M2YNCg0KKyNkZWZpbmUgUlQ1NjgyU19TUEtWRERfREVUX1NUICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgMHgwMTQyDQoNCisjZGVmaW5lIFJUNTY4MlNfVEVTVF9NT0RFX0NUUkxf
+MSAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAxNDUNCg0KKyNkZWZpbmUgUlQ1NjgyU19U
+RVNUX01PREVfQ1RSTF8yICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDE0Ng0KDQorI2Rl
+ZmluZSBSVDU2ODJTX1RFU1RfTU9ERV9DVFJMXzMgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+MHgwMTQ3DQoNCisjZGVmaW5lIFJUNTY4MlNfVEVTVF9NT0RFX0NUUkxfNCAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAweDAxNDgNCg0KKyNkZWZpbmUgUlQ1NjgyU19QTExfSU5URVJOQUxfMSAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDE1Ng0KDQorI2RlZmluZSBSVDU2
+ODJTX1BMTF9JTlRFUk5BTF8yICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgw
+MTU3DQoNCisjZGVmaW5lIFJUNTY4MlNfUExMX0lOVEVSTkFMXzMgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAweDAxNTgNCg0KKyNkZWZpbmUgUlQ1NjgyU19QTExfSU5URVJOQUxf
+NCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDE1OQ0KDQorI2RlZmluZSBS
+VDU2ODJTX1NUT19ORzJfQ1RSTF8xICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4
+MDE2MA0KDQorI2RlZmluZSBSVDU2ODJTX1NUT19ORzJfQ1RSTF8yICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIDB4MDE2MQ0KDQorI2RlZmluZSBSVDU2ODJTX1NUT19ORzJfQ1RSTF8z
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDE2Mg0KDQorI2RlZmluZSBSVDU2
+ODJTX1NUT19ORzJfQ1RSTF80ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDE2
+Mw0KDQorI2RlZmluZSBSVDU2ODJTX1NUT19ORzJfQ1RSTF81ICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIDB4MDE2NA0KDQorI2RlZmluZSBSVDU2ODJTX1NUT19ORzJfQ1RSTF82ICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDE2NQ0KDQorI2RlZmluZSBSVDU2ODJT
+X1NUT19ORzJfQ1RSTF83ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDE2Ng0K
+DQorI2RlZmluZSBSVDU2ODJTX1NUT19ORzJfQ1RSTF84ICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIDB4MDE2Nw0KDQorI2RlZmluZSBSVDU2ODJTX1NUT19ORzJfQ1RSTF85ICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDE2OA0KDQorI2RlZmluZSBSVDU2ODJTX1NU
+T19ORzJfQ1RSTF8xMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMTY5DQoNCisj
+ZGVmaW5lIFJUNTY4MlNfU1RPMV9EQUNfU0lMX0RFVCAgICAgICAgICAgICAgICAweDAxOTANCg0K
+KyNkZWZpbmUgUlQ1NjgyU19TSUxfUFNWX0NUUkwxICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgMHgwMTk0DQoNCisjZGVmaW5lIFJUNTY4MlNfU0lMX1BTVl9DVFJMMiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDE5NQ0KDQorI2RlZmluZSBSVDU2
+ODJTX1NJTF9QU1ZfQ1RSTDMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAw
+eDAxOTcNCg0KKyNkZWZpbmUgUlQ1NjgyU19TSUxfUFNWX0NUUkw0ICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgMHgwMTk4DQoNCisjZGVmaW5lIFJUNTY4MlNfU0lMX1BTVl9D
+VFJMNSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDE5OQ0KDQorI2Rl
+ZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfMSAgICAgICAgICAgICAgICAgICAgICAgICAw
+eDAxYWMNCg0KKyNkZWZpbmUgUlQ1NjgyU19IUF9JTVBfU0VOU19DVFJMXzIgICAgICAgICAgICAg
+ICAgICAgICAgICAgMHgwMWFkDQoNCisjZGVmaW5lIFJUNTY4MlNfSFBfSU1QX1NFTlNfQ1RSTF8z
+ICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDFhZQ0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lN
+UF9TRU5TX0NUUkxfNCAgICAgICAgICAgICAgICAgICAgICAgICAweDAxYWYNCg0KKyNkZWZpbmUg
+UlQ1NjgyU19IUF9JTVBfU0VOU19DVFJMXzUgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMWIw
+DQoNCisjZGVmaW5lIFJUNTY4MlNfSFBfSU1QX1NFTlNfQ1RSTF82ICAgICAgICAgICAgICAgICAg
+ICAgICAgIDB4MDFiMQ0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfNyAgICAg
+ICAgICAgICAgICAgICAgICAgICAweDAxYjINCg0KKyNkZWZpbmUgUlQ1NjgyU19IUF9JTVBfU0VO
+U19DVFJMXzggICAgICAgICAgICAgICAgICAgICAgICAgMHgwMWIzDQoNCisjZGVmaW5lIFJUNTY4
+MlNfSFBfSU1QX1NFTlNfQ1RSTF85ICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDFiNA0KDQor
+I2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfMTAgICAgICAgICAgICAgICAgICAgICAg
+IDB4MDFiNQ0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfMTEgICAgICAgICAg
+ICAgICAgICAgICAgIDB4MDFiNg0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxf
+MTIgICAgICAgICAgICAgICAgICAgICAgIDB4MDFiNw0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lN
+UF9TRU5TX0NUUkxfMTMgICAgICAgICAgICAgICAgICAgICAgIDB4MDFiOA0KDQorI2RlZmluZSBS
+VDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfMTQgICAgICAgICAgICAgICAgICAgICAgIDB4MDFiOQ0K
+DQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfMTUgICAgICAgICAgICAgICAgICAg
+ICAgIDB4MDFiYQ0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfMTYgICAgICAg
+ICAgICAgICAgICAgICAgIDB4MDFiYg0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NU
+UkxfMTcgICAgICAgICAgICAgICAgICAgICAgIDB4MDFiYw0KDQorI2RlZmluZSBSVDU2ODJTX0hQ
+X0lNUF9TRU5TX0NUUkxfMTggICAgICAgICAgICAgICAgICAgICAgIDB4MDFiZA0KDQorI2RlZmlu
+ZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfMTkgICAgICAgICAgICAgICAgICAgICAgIDB4MDFi
+ZQ0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfMjAgICAgICAgICAgICAgICAg
+ICAgICAgIDB4MDFiZg0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfMjEgICAg
+ICAgICAgICAgICAgICAgICAgIDB4MDFjMA0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5T
+X0NUUkxfMjIgICAgICAgICAgICAgICAgICAgICAgIDB4MDFjMQ0KDQorI2RlZmluZSBSVDU2ODJT
+X0hQX0lNUF9TRU5TX0NUUkxfMjMgICAgICAgICAgICAgICAgICAgICAgIDB4MDFjMg0KDQorI2Rl
+ZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfMjQgICAgICAgICAgICAgICAgICAgICAgIDB4
+MDFjMw0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfMjUgICAgICAgICAgICAg
+ICAgICAgICAgIDB4MDFjNA0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfMjYg
+ICAgICAgICAgICAgICAgICAgICAgIDB4MDFjNQ0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9T
+RU5TX0NUUkxfMjcgICAgICAgICAgICAgICAgICAgICAgIDB4MDFjNg0KDQorI2RlZmluZSBSVDU2
+ODJTX0hQX0lNUF9TRU5TX0NUUkxfMjggICAgICAgICAgICAgICAgICAgICAgIDB4MDFjNw0KDQor
+I2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfMjkgICAgICAgICAgICAgICAgICAgICAg
+IDB4MDFjOA0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfMzAgICAgICAgICAg
+ICAgICAgICAgICAgIDB4MDFjOQ0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxf
+MzEgICAgICAgICAgICAgICAgICAgICAgIDB4MDFjYQ0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lN
+UF9TRU5TX0NUUkxfMzIgICAgICAgICAgICAgICAgICAgICAgIDB4MDFjYg0KDQorI2RlZmluZSBS
+VDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfMzMgICAgICAgICAgICAgICAgICAgICAgIDB4MDFjYw0K
+DQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfMzQgICAgICAgICAgICAgICAgICAg
+ICAgIDB4MDFjZA0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfMzUgICAgICAg
+ICAgICAgICAgICAgICAgIDB4MDFjZQ0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NU
+UkxfMzYgICAgICAgICAgICAgICAgICAgICAgIDB4MDFjZg0KDQorI2RlZmluZSBSVDU2ODJTX0hQ
+X0lNUF9TRU5TX0NUUkxfMzcgICAgICAgICAgICAgICAgICAgICAgIDB4MDFkMA0KDQorI2RlZmlu
+ZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfMzggICAgICAgICAgICAgICAgICAgICAgIDB4MDFk
+MQ0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfMzkgICAgICAgICAgICAgICAg
+ICAgICAgIDB4MDFkMg0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfNDAgICAg
+ICAgICAgICAgICAgICAgICAgIDB4MDFkMw0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5T
+X0NUUkxfNDEgICAgICAgICAgICAgICAgICAgICAgIDB4MDFkNA0KDQorI2RlZmluZSBSVDU2ODJT
+X0hQX0lNUF9TRU5TX0NUUkxfNDIgICAgICAgICAgICAgICAgICAgICAgIDB4MDFkNQ0KDQorI2Rl
+ZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfNDMgICAgICAgICAgICAgICAgICAgICAgIDB4
+MDFkNg0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfNDQgICAgICAgICAgICAg
+ICAgICAgICAgIDB4MDFkNw0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9TRU5TX0NUUkxfNDUg
+ICAgICAgICAgICAgICAgICAgICAgIDB4MDFkOA0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0lNUF9T
+RU5TX0NUUkxfNDYgICAgICAgICAgICAgICAgICAgICAgIDB4MDFkOQ0KDQorI2RlZmluZSBSVDU2
+ODJTX0hQX0xPR0lDX0NUUkxfMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDFk
+YQ0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0xPR0lDX0NUUkxfMiAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIDB4MDFkYg0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0xPR0lDX0NUUkxfMyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDFkYw0KDQorI2RlZmluZSBSVDU2ODJT
+X0hQX0NBTElCX0NUUkxfMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDFkZQ0K
+DQorI2RlZmluZSBSVDU2ODJTX0hQX0NBTElCX0NUUkxfMiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIDB4MDFkZg0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0NBTElCX0NUUkxfMyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDFlMA0KDQorI2RlZmluZSBSVDU2ODJTX0hQ
+X0NBTElCX0NUUkxfNCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDFlMQ0KDQor
+I2RlZmluZSBSVDU2ODJTX0hQX0NBTElCX0NUUkxfNSAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIDB4MDFlMg0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0NBTElCX0NUUkxfNiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDFlMw0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0NB
+TElCX0NUUkxfNyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDFlNA0KDQorI2Rl
+ZmluZSBSVDU2ODJTX0hQX0NBTElCX0NUUkxfOCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIDB4MDFlNQ0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0NBTElCX0NUUkxfOSAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIDB4MDFlNg0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0NBTElC
+X0NUUkxfMTAgICAgICAgICAgICAgICAgIDB4MDFlNw0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0NB
+TElCX0NUUkxfMTEgICAgICAgICAgICAgICAgIDB4MDFlOA0KDQorI2RlZmluZSBSVDU2ODJTX0hQ
+X0NBTElCX1NUXzEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDFlYQ0K
+DQorI2RlZmluZSBSVDU2ODJTX0hQX0NBTElCX1NUXzIgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIDB4MDFlYg0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0NBTElCX1NUXzMgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDFlYw0KDQorI2RlZmluZSBSVDU2
+ODJTX0hQX0NBTElCX1NUXzQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4
+MDFlZA0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0NBTElCX1NUXzUgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIDB4MDFlZQ0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0NBTElCX1NU
+XzYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDFlZg0KDQorI2RlZmlu
+ZSBSVDU2ODJTX0hQX0NBTElCX1NUXzcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIDB4MDFmMA0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0NBTElCX1NUXzggICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDFmMQ0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0NB
+TElCX1NUXzkgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDFmMg0KDQor
+I2RlZmluZSBSVDU2ODJTX0hQX0NBTElCX1NUXzEwICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgMHgwMWYzDQoNCisjZGVmaW5lIFJUNTY4MlNfSFBfQ0FMSUJfU1RfMTEgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAxZjQNCg0KKyNkZWZpbmUgUlQ1NjgyU19T
+QVJfSUxfQ01EXzEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAyMTAN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19TQVJfSUxfQ01EXzIgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAweDAyMTENCg0KKyNkZWZpbmUgUlQ1NjgyU19TQVJfSUxfQ01EXzMgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAyMTINCg0KKyNkZWZpbmUgUlQ1
+NjgyU19TQVJfSUxfQ01EXzQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAw
+eDAyMTMNCg0KKyNkZWZpbmUgUlQ1NjgyU19TQVJfSUxfQ01EXzUgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAweDAyMTQNCg0KKyNkZWZpbmUgUlQ1NjgyU19TQVJfSUxfQ01E
+XzYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAyMTUNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19TQVJfSUxfQ01EXzcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAweDAyMTYNCg0KKyNkZWZpbmUgUlQ1NjgyU19TQVJfSUxfQ01EXzggICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAweDAyMTcNCg0KKyNkZWZpbmUgUlQ1NjgyU19TQVJf
+SUxfQ01EXzkgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAyMTgNCg0K
+KyNkZWZpbmUgUlQ1NjgyU19TQVJfSUxfQ01EXzEwICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgMHgwMjE5DQoNCisjZGVmaW5lIFJUNTY4MlNfU0FSX0lMX0NNRF8xMSAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDIxYQ0KDQorI2RlZmluZSBSVDU2ODJTX1NB
+Ul9JTF9DTURfMTIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAyMWINCg0K
+KyNkZWZpbmUgUlQ1NjgyU19TQVJfSUxfQ01EXzEzICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgMHgwMjFjDQoNCisjZGVmaW5lIFJUNTY4MlNfU0FSX0lMX0NNRF8xNCAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDIxZA0KDQorI2RlZmluZSBSVDU2ODJTX0RV
+TU1ZXzQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDJm
+YQ0KDQorI2RlZmluZSBSVDU2ODJTX0RVTU1ZXzUgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIDB4MDJmYg0KDQorI2RlZmluZSBSVDU2ODJTX0RVTU1ZXzYgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMmZjDQoNCisjZGVm
+aW5lIFJUNTY4MlNfVkVSU0lPTl9JRF9ISURFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgMHgwM2ZlDQoNCisjZGVmaW5lIFJUNTY4MlNfVkVSU0lPTl9JRF9DVVMgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIDB4MDNmZg0KDQorI2RlZmluZSBSVDU2ODJTX1NDQU5fQ1RM
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDUwMA0KDQorI2RlZmluZSBSVDU2
+ODJTX0hQX0FNUF9ERVQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4
+MDYwMA0KDQorI2RlZmluZSBSVDU2ODJTX0JJQVNfQ1VSX0NUUkxfMTEgICAgICAgICAgICAgICAg
+MHgwNjEwDQoNCisjZGVmaW5lIFJUNTY4MlNfQklBU19DVVJfQ1RSTF8xMiAgICAgICAgICAgICAg
+ICAweDA2MTENCg0KKyNkZWZpbmUgUlQ1NjgyU19CSUFTX0NVUl9DVFJMXzEzICAgICAgICAgICAg
+ICAgIDB4MDYyMA0KDQorI2RlZmluZSBSVDU2ODJTX0JJQVNfQ1VSX0NUUkxfMTQgICAgICAgICAg
+ICAgICAgMHgwNjIxDQoNCisjZGVmaW5lIFJUNTY4MlNfQklBU19DVVJfQ1RSTF8xNSAgICAgICAg
+ICAgICAgICAweDA2MzANCg0KKyNkZWZpbmUgUlQ1NjgyU19CSUFTX0NVUl9DVFJMXzE2ICAgICAg
+ICAgICAgICAgIDB4MDYzMQ0KDQorI2RlZmluZSBSVDU2ODJTX0JJQVNfQ1VSX0NUUkxfMTcgICAg
+ICAgICAgICAgICAgMHgwNjQwDQoNCisjZGVmaW5lIFJUNTY4MlNfQklBU19DVVJfQ1RSTF8xOCAg
+ICAgICAgICAgICAgICAweDA2NDENCg0KKyNkZWZpbmUgUlQ1NjgyU19JMkNfVFJBTlNfQ1RSTCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwN2ZhDQoNCisjZGVmaW5lIFJUNTY4
+MlNfRFVNTVlfNyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+MHgwOGZhDQoNCisjZGVmaW5lIFJUNTY4MlNfRFVNTVlfOCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgMHgwOGZiDQoNCisjZGVmaW5lIFJUNTY4MlNfRE1JQ19G
+TE9BVF9ERVQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDBkMDANCg0KKyNkZWZp
+bmUgUlQ1NjgyU19IQV9DTVBfT1BfMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIDB4MTEwMA0KDQorI2RlZmluZSBSVDU2ODJTX0hBX0NNUF9PUF8yICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgMHgxMTAxDQoNCisjZGVmaW5lIFJUNTY4MlNfSEFfQ01Q
+X09QXzMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDExMDINCg0KKyNk
+ZWZpbmUgUlQ1NjgyU19IQV9DTVBfT1BfNCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIDB4MTEwMw0KDQorI2RlZmluZSBSVDU2ODJTX0hBX0NNUF9PUF81ICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgxMTA0DQoNCisjZGVmaW5lIFJUNTY4MlNfSEFf
+Q01QX09QXzYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDExMDUNCg0K
+KyNkZWZpbmUgUlQ1NjgyU19IQV9DTVBfT1BfNyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIDB4MTEwNg0KDQorI2RlZmluZSBSVDU2ODJTX0hBX0NNUF9PUF84ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgxMTA3DQoNCisjZGVmaW5lIFJUNTY4MlNf
+SEFfQ01QX09QXzkgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDExMDgN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19IQV9DTVBfT1BfMTAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAweDExMDkNCg0KKyNkZWZpbmUgUlQ1NjgyU19IQV9DTVBfT1BfMTEgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDExMGENCg0KKyNkZWZpbmUgUlQ1NjgyU19I
+QV9DTVBfT1BfMTIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDExMGINCg0K
+KyNkZWZpbmUgUlQ1NjgyU19IQV9DTVBfT1BfMTMgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAweDExMGMNCg0KKyNkZWZpbmUgUlQ1NjgyU19IQV9DTVBfT1BfMTQgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAweDExMTENCg0KKyNkZWZpbmUgUlQ1NjgyU19IQV9D
+TVBfT1BfMTUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDExMTINCg0KKyNk
+ZWZpbmUgUlQ1NjgyU19IQV9DTVBfT1BfMTYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAweDExMTMNCg0KKyNkZWZpbmUgUlQ1NjgyU19IQV9DTVBfT1BfMTcgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAweDExMTQNCg0KKyNkZWZpbmUgUlQ1NjgyU19IQV9DTVBf
+T1BfMTggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDExMTUNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19IQV9DTVBfT1BfMTkgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAweDExMTYNCg0KKyNkZWZpbmUgUlQ1NjgyU19IQV9DTVBfT1BfMjAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAweDExMTcNCg0KKyNkZWZpbmUgUlQ1NjgyU19IQV9DTVBfT1Bf
+MjEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDExMTgNCg0KKyNkZWZpbmUg
+UlQ1NjgyU19IQV9DTVBfT1BfMjIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAw
+eDExMTkNCg0KKyNkZWZpbmUgUlQ1NjgyU19IQV9DTVBfT1BfMjMgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAweDExMWENCg0KKyNkZWZpbmUgUlQ1NjgyU19IQV9DTVBfT1BfMjQg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDExMWINCg0KKyNkZWZpbmUgUlQ1
+NjgyU19IQV9DTVBfT1BfMjUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDEx
+MWMNCg0KKyNkZWZpbmUgUlQ1NjgyU19ORVdfQ0JKX0RFVF9DVExfMSAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIDB4MTQwMQ0KDQorI2RlZmluZSBSVDU2ODJTX05FV19DQkpfREVUX0NUTF8yICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgMHgxNDAyDQoNCisjZGVmaW5lIFJUNTY4MlNfTkVXX0NC
+Sl9ERVRfQ1RMXzMgICAgICAgICAgICAgICAgICAgICAgICAgICAweDE0MDMNCg0KKyNkZWZpbmUg
+UlQ1NjgyU19ORVdfQ0JKX0RFVF9DVExfNCAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MTQw
+NA0KDQorI2RlZmluZSBSVDU2ODJTX05FV19DQkpfREVUX0NUTF81ICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgMHgxNDA2DQoNCisjZGVmaW5lIFJUNTY4MlNfTkVXX0NCSl9ERVRfQ1RMXzYgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAweDE0MDcNCg0KKyNkZWZpbmUgUlQ1NjgyU19ORVdfQ0JK
+X0RFVF9DVExfNyAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MTQwOA0KDQorI2RlZmluZSBS
+VDU2ODJTX05FV19DQkpfREVUX0NUTF84ICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgxNDA5
+DQoNCisjZGVmaW5lIFJUNTY4MlNfTkVXX0NCSl9ERVRfQ1RMXzkgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAweDE0MGENCg0KKyNkZWZpbmUgUlQ1NjgyU19ORVdfQ0JKX0RFVF9DVExfMTAgICAg
+ICAgICAgICAgICAgICAgICAgICAweDE0MGINCg0KKyNkZWZpbmUgUlQ1NjgyU19ORVdfQ0JKX0RF
+VF9DVExfMTEgICAgICAgICAgICAgICAgICAgICAgICAweDE0MGMNCg0KKyNkZWZpbmUgUlQ1Njgy
+U19ORVdfQ0JKX0RFVF9DVExfMTIgICAgICAgICAgICAgICAgICAgICAgICAweDE0MGQNCg0KKyNk
+ZWZpbmUgUlQ1NjgyU19ORVdfQ0JKX0RFVF9DVExfMTMgICAgICAgICAgICAgICAgICAgICAgICAw
+eDE0MGUNCg0KKyNkZWZpbmUgUlQ1NjgyU19ORVdfQ0JKX0RFVF9DVExfMTQgICAgICAgICAgICAg
+ICAgICAgICAgICAweDE0MGYNCg0KKyNkZWZpbmUgUlQ1NjgyU19ORVdfQ0JKX0RFVF9DVExfMTUg
+ICAgICAgICAgICAgICAgICAgICAgICAweDE0MTANCg0KKyNkZWZpbmUgUlQ1NjgyU19ORVdfQ0JK
+X0RFVF9DVExfMTYgICAgICAgICAgICAgICAgICAgICAgICAweDE0MTENCg0KKyNkZWZpbmUgUlQ1
+NjgyU19EQV9GSUxURVJfMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAweDE4MDENCg0KKyNkZWZpbmUgUlQ1NjgyU19EQV9GSUxURVJfMiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAweDE4MDINCg0KKyNkZWZpbmUgUlQ1NjgyU19EQV9G
+SUxURVJfMyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDE4MDMN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19EQV9GSUxURVJfNCAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAweDE4MDQNCg0KKyNkZWZpbmUgUlQ1NjgyU19EQV9GSUxURVJfNSAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDE4MDUNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19DTEtfU1dfVEVTVF8xICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIDB4MmMwMA0KDQorI2RlZmluZSBSVDU2ODJTX0NMS19TV19URVNUXzIgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgMHgzNDAwDQoNCisjZGVmaW5lIFJUNTY4MlNfQ0xLX1NX
+X1RFU1RfMyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDM0MDQNCg0KKyNk
+ZWZpbmUgUlQ1NjgyU19DTEtfU1dfVEVTVF80ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIDB4MzQwNQ0KDQorI2RlZmluZSBSVDU2ODJTX0NMS19TV19URVNUXzUgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgzNDA2DQoNCisjZGVmaW5lIFJUNTY4MlNfQ0xL
+X1NXX1RFU1RfNiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDM0MDcNCg0K
+KyNkZWZpbmUgUlQ1NjgyU19DTEtfU1dfVEVTVF83ICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIDB4MzQwOA0KDQorI2RlZmluZSBSVDU2ODJTX0NMS19TV19URVNUXzggICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgzNDA5DQoNCisjZGVmaW5lIFJUNTY4MlNf
+Q0xLX1NXX1RFU1RfOSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDM0MGEN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19DTEtfU1dfVEVTVF8xMCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAweDM0MGINCg0KKyNkZWZpbmUgUlQ1NjgyU19DTEtfU1dfVEVTVF8xMSAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDM0MGMNCg0KKyNkZWZpbmUgUlQ1NjgyU19D
+TEtfU1dfVEVTVF8xMiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDM0MGQNCg0K
+KyNkZWZpbmUgUlQ1NjgyU19DTEtfU1dfVEVTVF8xMyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAweDM0MGUNCg0KKyNkZWZpbmUgUlQ1NjgyU19DTEtfU1dfVEVTVF8xNCAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAweDM0MGYNCg0KKyNkZWZpbmUgUlQ1NjgyU19FRlVT
+RV9NQU5VX1dSSVRFXzEgICAgICAgICAgICAgICAgICAgICAgMHgzNDEwDQoNCisjZGVmaW5lIFJU
+NTY4MlNfRUZVU0VfTUFOVV9XUklURV8yICAgICAgICAgICAgICAgICAgICAgIDB4MzQxMQ0KDQor
+I2RlZmluZSBSVDU2ODJTX0VGVVNFX01BTlVfV1JJVEVfMyAgICAgICAgICAgICAgICAgICAgICAw
+eDM0MTINCg0KKyNkZWZpbmUgUlQ1NjgyU19FRlVTRV9NQU5VX1dSSVRFXzQgICAgICAgICAgICAg
+ICAgICAgICAgMHgzNDEzDQoNCisjZGVmaW5lIFJUNTY4MlNfRUZVU0VfTUFOVV9XUklURV81ICAg
+ICAgICAgICAgICAgICAgICAgIDB4MzQxNA0KDQorI2RlZmluZSBSVDU2ODJTX0VGVVNFX01BTlVf
+V1JJVEVfNiAgICAgICAgICAgICAgICAgICAgICAweDM0MTUNCg0KKyNkZWZpbmUgUlQ1NjgyU19F
+RlVTRV9SRUFEXzEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDM0MjQN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19FRlVTRV9SRUFEXzIgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAweDM0MjUNCg0KKyNkZWZpbmUgUlQ1NjgyU19FRlVTRV9SRUFEXzMgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDM0MjYNCg0KKyNkZWZpbmUgUlQ1
+NjgyU19FRlVTRV9SRUFEXzQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAw
+eDM0MjcNCg0KKyNkZWZpbmUgUlQ1NjgyU19FRlVTRV9SRUFEXzUgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAweDM0MjgNCg0KKyNkZWZpbmUgUlQ1NjgyU19FRlVTRV9SRUFE
+XzYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDM0MjkNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19FRlVTRV9SRUFEXzcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAweDM0MmENCg0KKyNkZWZpbmUgUlQ1NjgyU19FRlVTRV9SRUFEXzggICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAweDM0MmINCg0KKyNkZWZpbmUgUlQ1NjgyU19FRlVT
+RV9SRUFEXzkgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDM0MmMNCg0K
+KyNkZWZpbmUgUlQ1NjgyU19FRlVTRV9SRUFEXzEwICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgMHgzNDJkDQoNCisjZGVmaW5lIFJUNTY4MlNfRUZVU0VfUkVBRF8xMSAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MzQyZQ0KDQorI2RlZmluZSBSVDU2ODJTX0VG
+VVNFX1JFQURfMTIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDM0MmYNCg0K
+KyNkZWZpbmUgUlQ1NjgyU19FRlVTRV9SRUFEXzEzICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgMHgzNDMwDQoNCisjZGVmaW5lIFJUNTY4MlNfRUZVU0VfUkVBRF8xNCAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MzQzMQ0KDQorI2RlZmluZSBSVDU2ODJTX0VG
+VVNFX1JFQURfMTUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDM0MzINCg0K
+KyNkZWZpbmUgUlQ1NjgyU19FRlVTRV9SRUFEXzE2ICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgMHgzNDMzDQoNCisjZGVmaW5lIFJUNTY4MlNfRUZVU0VfUkVBRF8xNyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MzQzNA0KDQorI2RlZmluZSBSVDU2ODJTX0VG
+VVNFX1JFQURfMTggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDM0MzUNCg0K
+KyNkZWZpbmUgUlQ1NjgyU19FRlVTRV9USU1JTkdfQ1RMXzEgICAgICAgICAgICAgICAgICAgICAg
+ICAgIDB4MzQ0MA0KDQorI2RlZmluZSBSVDU2ODJTX0VGVVNFX1RJTUlOR19DVExfMiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgMHgzNDQxDQoNCisjZGVmaW5lIFJUNTY4MlNfUElMT1RfRElHX0NU
+TF8xICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MzUwMA0KDQorI2RlZmluZSBS
+VDU2ODJTX1BJTE9UX0RJR19DVExfMiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAw
+eDM1MDENCg0KKyNkZWZpbmUgUlQ1NjgyU19IUF9BTVBfREVUX0NUTF8xICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIDB4M2IwMA0KDQorI2RlZmluZSBSVDU2ODJTX0hQX0FNUF9ERVRfQ1RMXzIg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgzYjAxDQoNCisjZGVmaW5lIFJUNTY4MlNfSFBf
+QU1QX0RFVF9DVExfMyAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDNiMDINCg0KKyNkZWZp
+bmUgUlQ1NjgyU19IUF9BTVBfREVUX0NUTF80ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4
+M2IwMw0KDQorDQoNCisjZGVmaW5lIFJUNTY4MlNfTUFYX1JFRyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIChSVDU2ODJTX0hQX0FNUF9ERVRfQ1RMXzQpDQoN
+CisNCg0KKy8qIGdsb2JhbCBkZWZpbml0aW9uICovDQoNCisjZGVmaW5lIFJUNTY4MlNfTF9NVVRF
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8
+PCAxNSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19MX01VVEVfU0ZUICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIDE1DQoNCisjZGVmaW5lIFJUNTY4MlNfUl9NVVRFICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA3KQ0K
+DQorI2RlZmluZSBSVDU2ODJTX1JfTVVURV9TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICA3DQoNCisjZGVmaW5lIFJUNTY4MlNfTF9WT0xfU0ZUICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICA4DQoNCisjZGVmaW5lIFJUNTY4MlNfUl9WT0xfU0ZUICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAwDQoNCisjZGVmaW5lIFJUNTY4MlNfQ0xLX1NSQ19N
+Q0xLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MCkNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19DTEtfU1JDX1BMTDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICgweDEpDQoNCisjZGVmaW5lIFJUNTY4MlNfQ0xLX1NSQ19QTEwyICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgyKQ0KDQorI2RlZmluZSBSVDU2ODJTX0NM
+S19TUkNfUkNDTEsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDQpIC8q
+IDI1TSAqLw0KDQorDQoNCisNCg0KKy8qIEhlYWRwaG9uZSBBbXAgQ29udHJvbCAyICgweDAwMDMp
+ICovDQoNCisjZGVmaW5lIFJUNTY4MlNfSFBPX0xfUEFUSF9NQVNLICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgKDB4MSA8PCAxNCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19IUE9fTF9QQVRIX0VO
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDE0KQ0KDQorI2RlZmlu
+ZSBSVDU2ODJTX0hQT19MX1BBVEhfRElTICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICgweDAgPDwgMTQpDQoNCisjZGVmaW5lIFJUNTY4MlNfSFBPX1JfUEFUSF9NQVNLICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDEzKQ0KDQorI2RlZmluZSBSVDU2ODJTX0hQT19S
+X1BBVEhfRU4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTMpDQoN
+CisjZGVmaW5lIFJUNTY4MlNfSFBPX1JfUEFUSF9ESVMgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgKDB4MCA8PCAxMykNCg0KKyNkZWZpbmUgUlQ1NjgyU19IUE9fU0VMX0lQX0VOX1NX
+ICAgICAgICAgICAgICAgKDB4MSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19IUE9fSVBfRU5fR0FUSU5H
+ICAgICAgICAgICAgICAgKDB4MSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19IUE9fSVBfTk9fR0FUSU5H
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDApDQoNCisNCg0KKy8qSGVhZHBob25lIEFt
+cCBML1IgQW5hbG9nIEdhaW4gYW5kIERpZ2l0YWwgTkcyIEdhaW4gQ29udHJvbCAoMHgwMDA1IDB4
+MDAwNikqLw0KDQorI2RlZmluZSBSVDU2ODJTX0dfSFAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweGYgPDwgOCkNCg0KKyNkZWZpbmUgUlQ1
+NjgyU19HX0hQX1NGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA4DQoNCisjZGVm
+aW5lIFJUNTY4MlNfR19TVE9fREFfRE1JWCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAoMHhmKQ0KDQorI2RlZmluZSBSVDU2ODJTX0dfU1RPX0RBX1NGVCAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgMA0KDQorDQoNCisvKiBFbWJlZWRlZCBKYWNrIGFuZCBUeXBl
+IERldGVjdGlvbiBDb250cm9sIDIgKDB4MDAxMCkgKi8NCg0KKyNkZWZpbmUgUlQ1NjgyU19FTUJf
+SkRfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTUp
+DQoNCisjZGVmaW5lIFJUNTY4MlNfRU1CX0pEX0VOICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgKDB4MSA8PCAxNSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19FTUJfSkRfRU5fU0ZUICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgMTUNCg0KKyNkZWZpbmUgUlQ1NjgyU19FTUJfSkRf
+UlNUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTQp
+DQoNCisjZGVmaW5lIFJUNTY4MlNfSkRfTU9ERSAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTMpDQoNCisjZGVmaW5lIFJUNTY4MlNfSkRfTU9E
+RV9TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMTMNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19ERVRfVFlQRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgx
+IDw8IDEyKQ0KDQorI2RlZmluZSBSVDU2ODJTX0RFVF9UWVBFX1NGVCAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAxMg0KDQorI2RlZmluZSBSVDU2ODJTX1BPTEFfRVhUX0pE
+X01BU0sgICAgICAgICAgICAgICgweDEgPDwgMTEpDQoNCisjZGVmaW5lIFJUNTY4MlNfUE9MQV9F
+WFRfSkRfTE9XICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTEpDQoNCisj
+ZGVmaW5lIFJUNTY4MlNfUE9MQV9FWFRfSkRfSElHSCAgICAgICAgICAgICAgICgweDAgPDwgMTEp
+DQoNCisjZGVmaW5lIFJUNTY4MlNfU0VMX0ZBU1RfT0ZGX01BU0sgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAoMHgzIDw8IDkpDQoNCisjZGVmaW5lIFJUNTY4MlNfU0VMX0ZBU1RfT0ZGX1NGVCAg
+ICAgICAgICAgICAgICAgOQ0KDQorI2RlZmluZSBSVDU2ODJTX1BPTF9GQVNUX09GRl9NQVNLICAg
+ICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDgpDQoNCisjZGVmaW5lIFJUNTY4MlNfUE9M
+X0ZBU1RfT0ZGX0hJR0ggICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDgpDQoNCisj
+ZGVmaW5lIFJUNTY4MlNfUE9MX0ZBU1RfT0ZGX0xPVyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAoMHgwIDw8IDgpDQoNCisjZGVmaW5lIFJUNTY4MlNfRkFTVF9PRkZfTUFTSyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA3KQ0KDQorI2RlZmluZSBSVDU2ODJTX0ZB
+U1RfT0ZGX0VOICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8
+IDcpDQoNCisjZGVmaW5lIFJUNTY4MlNfRkFTVF9PRkZfRElTICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICgweDAgPDwgNykNCg0KKyNkZWZpbmUgUlQ1NjgyU19WUkVGX1BP
+V19NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA2KQ0KDQorI2Rl
+ZmluZSBSVDU2ODJTX1ZSRUZfUE9XX0ZTTSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICgweDAgPDwgNikNCg0KKyNkZWZpbmUgUlQ1NjgyU19WUkVGX1BPV19SRUcgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDYpDQoNCisjZGVmaW5lIFJUNTY4MlNf
+TUIxX1BBVEhfQklUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA1DQoNCisj
+ZGVmaW5lIFJUNTY4MlNfTUIxX1BBVEhfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICgweDEgPDwgNSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19DVFJMX01CMV9SRUcgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA1KQ0KDQorI2RlZmluZSBSVDU2ODJT
+X0NUUkxfTUIxX0ZTTSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8
+IDUpDQoNCisjZGVmaW5lIFJUNTY4MlNfTUIyX1BBVEhfQklUICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICA0DQoNCisjZGVmaW5lIFJUNTY4MlNfTUIyX1BBVEhfTUFTSyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgNCkNCg0KKyNkZWZpbmUgUlQ1Njgy
+U19DVFJMX01CMl9SRUcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8
+PCA0KQ0KDQorI2RlZmluZSBSVDU2ODJTX0NUUkxfTUIyX0ZTTSAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAoMHgwIDw8IDQpDQoNCisjZGVmaW5lIFJUNTY4MlNfVFJJR19KRF9N
+QVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAzKQ0KDQor
+I2RlZmluZSBSVDU2ODJTX1RSSUdfSkRfSElHSCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAoMHgxIDw8IDMpDQoNCisjZGVmaW5lIFJUNTY4MlNfVFJJR19KRF9MT1cgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MCA8PCAzKQ0KDQorI2RlZmlu
+ZSBSVDU2ODJTX01JQ19DQVBfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAoMHgxIDw8IDEpDQoNCisjZGVmaW5lIFJUNTY4MlNfTUlDX0NBUF9IUyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDEpDQoNCisjZGVmaW5lIFJUNTY4
+MlNfTUlDX0NBUF9IUCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgw
+eDAgPDwgMSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19NSUNfQ0FQX1NSQ19NQVNLICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICgweDEpDQoNCisjZGVmaW5lIFJUNTY4MlNfTUlDX0NBUF9TUkNfUkVH
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEpDQoNCisjZGVmaW5lIFJUNTY4MlNf
+TUlDX0NBUF9TUkNfQU5BICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MCkNCg0KKw0K
+DQorLyogRW1iZWVkZWQgSmFjayBhbmQgVHlwZSBEZXRlY3Rpb24gQ29udHJvbCAzICgweDAwMTEp
+ICovDQoNCisjZGVmaW5lIFJUNTY4MlNfU0VMX0NCSl9UWVBFX1NMT1cgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgKDB4MSA8PCAxNSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19TRUxfQ0JKX1RZUEVf
+Tk9STSAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDAgPDwgMTUpDQoNCisjZGVmaW5lIFJU
+NTY4MlNfU0VMX0NCSl9UWVBFX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8
+PCAxNSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19QT1dfQkdfTUIxX01BU0sgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTMpDQoNCisjZGVmaW5lIFJUNTY4MlNf
+UE9XX0JHX01CMV9SRUcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDEzKQ0K
+DQorI2RlZmluZSBSVDU2ODJTX1BPV19CR19NQjFfRlNNICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAoMHgwIDw8IDEzKQ0KDQorI2RlZmluZSBSVDU2ODJTX1BPV19CR19NQjJfTUFTSyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAxMikNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19QT1dfQkdfTUIyX1JFRyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgw
+eDEgPDwgMTIpDQoNCisjZGVmaW5lIFJUNTY4MlNfUE9XX0JHX01CMl9GU00gICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICgweDAgPDwgMTIpDQoNCisjZGVmaW5lIFJUNTY4MlNfRVhUX0pEX1NS
+QyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDcgPDwgNCkNCg0KKyNkZWZpbmUgUlQ1
+NjgyU19FWFRfSkRfU1JDX1NGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDQN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19FWFRfSkRfU1JDX0dQSU9fSkQxICAgICAgICAgICAgICAgICAg
+ICAgICAgKDB4MCA8PCA0KQ0KDQorI2RlZmluZSBSVDU2ODJTX0VYVF9KRF9TUkNfR1BJT19KRDIg
+ICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDQpDQoNCisjZGVmaW5lIFJUNTY4MlNfRVhU
+X0pEX1NSQ19KREggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDIgPDwgNCkN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19FWFRfSkRfU1JDX0pETCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICgweDMgPDwgNCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19FWFRfSkRfU1JDX01B
+TlVBTCAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4NCA8PCA0KQ0KDQorI2RlZmluZSBSVDU2
+ODJTX0pBQ0tfVFlQRV9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDMp
+DQoNCisNCg0KKy8qIENvbWJvIEphY2sgYW5kIFR5cGUgRGV0ZWN0aW9uIENvbnRyb2wgNCAoMHgw
+MDEyKSAqLw0KDQorI2RlZmluZSBSVDU2ODJTX0NCSl9JTl9CVUZfTUFTSyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgKDB4MSA8PCA3KQ0KDQorI2RlZmluZSBSVDU2ODJTX0NCSl9JTl9C
+VUZfRU4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA3KQ0KDQor
+I2RlZmluZSBSVDU2ODJTX0NCSl9JTl9CVUZfRElTICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgKDB4MCA8PCA3KQ0KDQorI2RlZmluZSBSVDU2ODJTX0NCSl9JTl9CVUZfQklUICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDcNCg0KKw0KDQorLyogQ29tYm8gSmFj
+ayBhbmQgVHlwZSBEZXRlY3Rpb24gQ29udHJvbCA1ICgweDAwMTMpICovDQoNCisjZGVmaW5lIFJU
+NTY4MlNfU0VMX1NIVF9NSURfVE9OX01BU0sgICAgICAgICAgICAgICAgICAoMHgzIDw8IDEyKQ0K
+DQorI2RlZmluZSBSVDU2ODJTX1NFTF9TSFRfTUlEX1RPTl8yICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgKDB4MCA8PCAxMikNCg0KKyNkZWZpbmUgUlQ1NjgyU19TRUxfU0hUX01JRF9UT05fMyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTIpDQoNCisjZGVmaW5lIFJUNTY4MlNf
+Q0JKX0pEX1RFU1RfTUFTSyAgICAgICAgICAgICAgICAoMHgxIDw8IDYpDQoNCisjZGVmaW5lIFJU
+NTY4MlNfQ0JKX0pEX1RFU1RfTk9STSAgICAgICAgICAgICAgKDB4MCA8PCA2KQ0KDQorI2RlZmlu
+ZSBSVDU2ODJTX0NCSl9KRF9URVNUX01PREUgICAgICAgICAgICAgICAoMHgxIDw8IDYpDQoNCisN
+Cg0KKy8qIENvbWJvIEphY2sgYW5kIFR5cGUgRGV0ZWN0aW9uIENvbnRyb2wgNiAoMHgwMDE0KSAq
+Lw0KDQorI2RlZmluZSBSVDU2ODJTX0pEX0ZBU1RfT0ZGX1NSQ19NQVNLICAgICAgICAgICAgICAg
+ICAgICAoMHg3IDw8IDgpDQoNCisjZGVmaW5lIFJUNTY4MlNfSkRfRkFTVF9PRkZfU1JDX0pESCAg
+ICAgICAgICAgICAgICAgICAgICAgICgweDYgPDwgOCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19KRF9G
+QVNUX09GRl9TUkNfR1BJTzYgICAgICAgICAgICAgICAgICAgKDB4NSA8PCA4KQ0KDQorI2RlZmlu
+ZSBSVDU2ODJTX0pEX0ZBU1RfT0ZGX1NSQ19HUElPNSAgICAgICAgICAgICAgICAgICAoMHg0IDw8
+IDgpDQoNCisjZGVmaW5lIFJUNTY4MlNfSkRfRkFTVF9PRkZfU1JDX0dQSU80ICAgICAgICAgICAg
+ICAgICAgICgweDMgPDwgOCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19KRF9GQVNUX09GRl9TUkNfR1BJ
+TzMgICAgICAgICAgICAgICAgICAgKDB4MiA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJTX0pEX0ZB
+U1RfT0ZGX1NSQ19HUElPMiAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDgpDQoNCisjZGVmaW5l
+IFJUNTY4MlNfSkRfRkFTVF9PRkZfU1JDX0dQSU8xICAgICAgICAgICAgICAgICAgICgweDAgPDwg
+OCkNCg0KKw0KDQorLyogREFDMSBEaWdpdGFsIFZvbHVtZSAoMHgwMDE5KSAqLw0KDQorI2RlZmlu
+ZSBSVDU2ODJTX0RBQ19MMV9WT0xfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgw
+eGZmIDw8IDgpDQoNCisjZGVmaW5lIFJUNTY4MlNfREFDX0wxX1ZPTF9TRlQgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgOA0KDQorI2RlZmluZSBSVDU2ODJTX0RBQ19SMV9WT0xfTUFT
+SyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4ZmYpDQoNCisjZGVmaW5lIFJUNTY4MlNf
+REFDX1IxX1ZPTF9TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMA0KDQorDQoN
+CisvKiBBREMgRGlnaXRhbCBWb2x1bWUgQ29udHJvbCAoMHgwMDFjKSAqLw0KDQorI2RlZmluZSBS
+VDU2ODJTX0FEQ19MX1ZPTF9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHg3
+ZiA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJTX0FEQ19MX1ZPTF9TRlQgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgOA0KDQorI2RlZmluZSBSVDU2ODJTX0FEQ19SX1ZPTF9NQVNL
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHg3ZikNCg0KKyNkZWZpbmUgUlQ1Njgy
+U19BRENfUl9WT0xfU0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMA0KDQor
+DQoNCisvKiBTdGVyZW8xIEFEQyBCb29zdCBHYWluIENvbnRyb2wgKDB4MDAxZikgKi8NCg0KKyNk
+ZWZpbmUgUlQ1NjgyU19TVE8xX0FEQ19MX0JTVF9NQVNLICAgICAgICAgICAgICAgICAgICAgKDB4
+MyA8PCAxNCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19TVE8xX0FEQ19MX0JTVF9TRlQgICAgICAgICAg
+ICAgICAgICAgICAgICAgIDE0DQoNCisjZGVmaW5lIFJUNTY4MlNfU1RPMV9BRENfUl9CU1RfTUFT
+SyAgICAgICAgICAgICAgICAgICAgICgweDMgPDwgMTIpDQoNCisjZGVmaW5lIFJUNTY4MlNfU1RP
+MV9BRENfUl9CU1RfU0ZUICAgICAgICAgICAgICAgICAgICAgICAgIDEyDQoNCisNCg0KKy8qIFNp
+ZGV0b25lIENvbnRyb2wgKDB4MDAyNCkgKi8NCg0KKyNkZWZpbmUgUlQ1NjgyU19TVF9TUkNfU0VM
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgOCkNCg0KKyNkZWZpbmUgUlQ1
+NjgyU19TVF9TUkNfU0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOA0KDQorI2RlZmlu
+ZSBSVDU2ODJTX1NUX0VOX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAoMHgxIDw8IDYpDQoNCisjZGVmaW5lIFJUNTY4MlNfU1RfRElTICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MCA8PCA2KQ0KDQorI2Rl
+ZmluZSBSVDU2ODJTX1NUX0VOICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICgweDEgPDwgNikNCg0KKyNkZWZpbmUgUlQ1NjgyU19TVF9FTl9TRlQg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDYNCg0KKw0KDQorLyogU3RlcmVvMSBBREMg
+TWl4ZXIgQ29udHJvbCAoMHgwMDI2KSAqLw0KDQorI2RlZmluZSBSVDU2ODJTX01fU1RPMV9BRENf
+TDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTUpDQoNCisjZGVm
+aW5lIFJUNTY4MlNfTV9TVE8xX0FEQ19MMV9TRlQgICAgICAgICAgICAgICAgICAgICAgICAgIDE1
+DQoNCisjZGVmaW5lIFJUNTY4MlNfTV9TVE8xX0FEQ19MMiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgKDB4MSA8PCAxNCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19NX1NUTzFfQURDX0wy
+X1NGVCAgICAgICAgICAgICAgICAgICAgICAgICAgMTQNCg0KKyNkZWZpbmUgUlQ1NjgyU19TVE8x
+X0FEQzFMX1NSQ19NQVNLICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAxMykNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19TVE8xX0FEQzFMX1NSQ19TRlQgICAgICAgICAgICAgICAgICAgICAgICAgIDEz
+DQoNCisjZGVmaW5lIFJUNTY4MlNfU1RPMV9BREMxX1NSQ19BREMgICAgICAgICAgICAgICAgICAg
+ICAgICAgICgweDEgPDwgMTMpDQoNCisjZGVmaW5lIFJUNTY4MlNfU1RPMV9BREMxX1NSQ19EQUNN
+SVggICAgICAgICAgICAgICAgICAgKDB4MCA8PCAxMykNCg0KKyNkZWZpbmUgUlQ1NjgyU19TVE8x
+X0FEQzJMX1NSQ19NQVNLICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAxMikNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19TVE8xX0FEQzJMX1NSQ19TRlQgICAgICAgICAgICAgICAgICAgICAgICAgIDEy
+DQoNCisjZGVmaW5lIFJUNTY4MlNfU1RPMV9BRENMX1NSQ19NQVNLICAgICAgICAgICAgICAgICAg
+ICAgICAoMHgzIDw8IDEwKQ0KDQorI2RlZmluZSBSVDU2ODJTX1NUTzFfQURDTF9TUkNfU0ZUICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIDEwDQoNCisjZGVmaW5lIFJUNTY4MlNfTV9TVE8xX0FE
+Q19SMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDcpDQoNCisjZGVm
+aW5lIFJUNTY4MlNfTV9TVE8xX0FEQ19SMV9TRlQgICAgICAgICAgICAgICAgICAgICAgICAgIDcN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19NX1NUTzFfQURDX1IyICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICgweDEgPDwgNikNCg0KKyNkZWZpbmUgUlQ1NjgyU19NX1NUTzFfQURDX1IyX1NG
+VCAgICAgICAgICAgICAgICAgICAgICAgICAgNg0KDQorI2RlZmluZSBSVDU2ODJTX1NUTzFfQURD
+MVJfU1JDX01BU0sgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDUpDQoNCisjZGVmaW5lIFJU
+NTY4MlNfU1RPMV9BREMxUl9TUkNfU0ZUICAgICAgICAgICAgICAgICAgICAgICAgIDUNCg0KKyNk
+ZWZpbmUgUlQ1NjgyU19TVE8xX0FEQzJSX1NSQ19NQVNLICAgICAgICAgICAgICAgICAgICAgKDB4
+MSA8PCA0KQ0KDQorI2RlZmluZSBSVDU2ODJTX1NUTzFfQURDMlJfU1JDX1NGVCAgICAgICAgICAg
+ICAgICAgICAgICAgICA0DQoNCisjZGVmaW5lIFJUNTY4MlNfU1RPMV9BRENSX1NSQ19NQVNLICAg
+ICAgICAgICAgICAgICAgICAgICAoMHgzIDw8IDIpDQoNCisjZGVmaW5lIFJUNTY4MlNfU1RPMV9B
+RENSX1NSQ19TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAyDQoNCisNCg0KKy8qIEFEQyBN
+aXhlciB0byBEQUMgTWl4ZXIgQ29udHJvbCAoMHgwMDI5KSAqLw0KDQorI2RlZmluZSBSVDU2ODJT
+X01fQURDTUlYX0wgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEg
+PDwgMTUpDQoNCisjZGVmaW5lIFJUNTY4MlNfTV9BRENNSVhfTF9TRlQgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAxNQ0KDQorI2RlZmluZSBSVDU2ODJTX01fREFDMV9MICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDE0KQ0KDQorI2RlZmluZSBSVDU2ODJTX01f
+REFDMV9MX1NGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMTQNCg0KKyNk
+ZWZpbmUgUlQ1NjgyU19NX0FEQ01JWF9SICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAoMHgxIDw8IDcpDQoNCisjZGVmaW5lIFJUNTY4MlNfTV9BRENNSVhfUl9TRlQgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDcNCg0KKyNkZWZpbmUgUlQ1NjgyU19NX0RBQzFf
+UiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDYpDQoNCisjZGVmaW5lIFJU
+NTY4MlNfTV9EQUMxX1JfU0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDYN
+Cg0KKw0KDQorLyogU3RlcmVvMSBEQUMgTWl4ZXIgQ29udHJvbCAoMHgwMDJhKSAqLw0KDQorI2Rl
+ZmluZSBSVDU2ODJTX01fREFDX0wxX1NUT19MICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgKDB4MSA8PCAxNSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19NX0RBQ19MMV9TVE9fTF9TRlQgICAg
+ICAgICAgICAgICAgICAgICAgICAgMTUNCg0KKyNkZWZpbmUgUlQ1NjgyU19HX0RBQ19MMV9TVE9f
+TF9NQVNLICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAxNCkNCg0KKyNkZWZpbmUgUlQ1Njgy
+U19HX0RBQ19MMV9TVE9fTF9TRlQgICAgICAgICAgICAgICAgICAgICAgICAgIDE0DQoNCisjZGVm
+aW5lIFJUNTY4MlNfTV9EQUNfUjFfU1RPX0wgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICgweDEgPDwgMTMpDQoNCisjZGVmaW5lIFJUNTY4MlNfTV9EQUNfUjFfU1RPX0xfU0ZUICAgICAg
+ICAgICAgICAgICAgICAgICAgMTMNCg0KKyNkZWZpbmUgUlQ1NjgyU19HX0RBQ19SMV9TVE9fTF9N
+QVNLICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAxMikNCg0KKyNkZWZpbmUgUlQ1NjgyU19H
+X0RBQ19SMV9TVE9fTF9TRlQgICAgICAgICAgICAgICAgICAgICAgICAgMTINCg0KKyNkZWZpbmUg
+UlQ1NjgyU19NX0RBQ19MMV9TVE9fUiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4
+MSA8PCA3KQ0KDQorI2RlZmluZSBSVDU2ODJTX01fREFDX0wxX1NUT19SX1NGVCAgICAgICAgICAg
+ICAgICAgICAgICAgIDcNCg0KKyNkZWZpbmUgUlQ1NjgyU19HX0RBQ19MMV9TVE9fUl9NQVNLICAg
+ICAgICAgICAgICAgICAgICAgKDB4MSA8PCA2KQ0KDQorI2RlZmluZSBSVDU2ODJTX0dfREFDX0wx
+X1NUT19SX1NGVCAgICAgICAgICAgICAgICAgICAgICAgICA2DQoNCisjZGVmaW5lIFJUNTY4MlNf
+TV9EQUNfUjFfU1RPX1IgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgNSkN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19NX0RBQ19SMV9TVE9fUl9TRlQgICAgICAgICAgICAgICAgICAg
+ICAgIDUNCg0KKyNkZWZpbmUgUlQ1NjgyU19HX0RBQ19SMV9TVE9fUl9NQVNLICAgICAgICAgICAg
+ICAgICAgICAoMHgxIDw8IDQpDQoNCisjZGVmaW5lIFJUNTY4MlNfR19EQUNfUjFfU1RPX1JfU0ZU
+ICAgICAgICAgICAgICAgICAgICAgICAgNA0KDQorDQoNCisvKiBBbmFsb2cgREFDMSBJbnB1dCBT
+b3VyY2UgQ29udHJvbCAoMHgwMDJiKSAqLw0KDQorI2RlZmluZSBSVDU2ODJTX01fU1RfU1RPX0wg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA5KQ0KDQor
+I2RlZmluZSBSVDU2ODJTX01fU1RfU1RPX0xfU0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIDkNCg0KKyNkZWZpbmUgUlQ1NjgyU19NX1NUX1NUT19SICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJTX01f
+U1RfU1RPX1JfU0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDgNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19EQUNfTDFfU1JDX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+KDB4MSA8PCA0KQ0KDQorI2RlZmluZSBSVDU2ODJTX0FfREFDTDFfU0ZUICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICA0DQoNCisjZGVmaW5lIFJUNTY4MlNfREFDX1IxX1NS
+Q19NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSkNCg0KKyNkZWZpbmUgUlQ1
+NjgyU19BX0RBQ1IxX1NGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+MA0KDQorDQoNCisvKiBEaWdpdGFsIEludGVyZmFjZSBEYXRhIENvbnRyb2wgKDB4MDAzMCkgKi8N
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19JRjJfREFDX1NFTF9NQVNLICAgICAgICAgICAgICAgICgweDMg
+PDwgMikNCg0KKyNkZWZpbmUgUlQ1NjgyU19JRjJfREFDX1NFTF9TRlQgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgMg0KDQorI2RlZmluZSBSVDU2ODJTX0lGMl9BRENfU0VMX01BU0sg
+ICAgICAgICAgICAgICAgKDB4MyA8PCAwKQ0KDQorI2RlZmluZSBSVDU2ODJTX0lGMl9BRENfU0VM
+X1NGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwDQoNCisNCg0KKy8qIFJFQyBM
+ZWZ0L1JpZ2h0IE1peGVyIENvbnRyb2wgMiAoMHgwMDNjKSAqLw0KDQorI2RlZmluZSBSVDU2ODJT
+X0JTVF9DQkpfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDNm
+IDw8IDgpDQoNCisjZGVmaW5lIFJUNTY4MlNfQlNUX0NCSl9TRlQgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgOA0KDQorI2RlZmluZSBSVDU2ODJTX01fQ0JKX1JNMV9M
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgNykNCg0KKyNk
+ZWZpbmUgUlQ1NjgyU19NX0NCSl9STTFfTF9TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgNw0KDQorI2RlZmluZSBSVDU2ODJTX01fQ0JKX1JNMV9SICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgKDB4MSA8PCA2KQ0KDQorI2RlZmluZSBSVDU2ODJTX01fQ0JKX1JN
+MV9SX1NGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA2DQoNCisNCg0KKy8qIFJFQyBM
+ZWZ0L1JpZ2h0IE1peGVyIENhbGlicmF0aW9uIENvbnRyb2woMHgwMDQ0KSAqLw0KDQorI2RlZmlu
+ZSBSVDU2ODJTX1BXUl9STTFfUl9CSVQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IDgNCg0KKyNkZWZpbmUgUlQ1NjgyU19QV1JfUk0xX0xfQklUICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAwDQoNCisNCg0KKy8qIFBvd2VyIE1hbmFnZW1lbnQgZm9yIERpZ2l0YWwg
+MSAoMHgwMDYxKSAqLw0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9JMlMxICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTUpDQoNCisjZGVmaW5lIFJUNTY4MlNfUFdSX0ky
+UzFfQklUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDE1DQoNCisjZGVm
+aW5lIFJUNTY4MlNfUFdSX0kyUzIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4
+MSA8PCAxNCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19QV1JfSTJTMl9CSVQgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgMTQNCg0KKyNkZWZpbmUgUlQ1NjgyU19QUkVfQ0hSX0RB
+Q19MMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDEzKQ0KDQorI2Rl
+ZmluZSBSVDU2ODJTX1BSRV9DSFJfREFDX0wxX0JJVCAgICAgICAgICAgICAgICAgICAgICAgICAg
+MTMNCg0KKyNkZWZpbmUgUlQ1NjgyU19QUkVfQ0hSX0RBQ19SMSAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICgweDEgPDwgMTIpDQoNCisjZGVmaW5lIFJUNTY4MlNfUFJFX0NIUl9EQUNf
+UjFfQklUICAgICAgICAgICAgICAgICAgICAgICAgIDEyDQoNCisjZGVmaW5lIFJUNTY4MlNfUFdS
+X0RBQ19MMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwg
+MTEpDQoNCisjZGVmaW5lIFJUNTY4MlNfUFdSX0RBQ19MMV9CSVQgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgMTENCg0KKyNkZWZpbmUgUlQ1NjgyU19QV1JfREFDX1IxICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDEwKQ0KDQorI2RlZmluZSBS
+VDU2ODJTX1BXUl9EQUNfUjFfQklUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMTAN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19QV1JfTERPICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgKDB4MSA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9MRE9f
+QklUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDgNCg0KKyNkZWZpbmUg
+UlQ1NjgyU19QV1JfRDJTX0wgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDcp
+DQoNCisjZGVmaW5lIFJUNTY4MlNfUFdSX0QyU19MX0JJVCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICA3DQoNCisjZGVmaW5lIFJUNTY4MlNfUFdSX0QyU19SICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgKDB4MSA8PCA2KQ0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9EMlNf
+Ul9CSVQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA2DQoNCisjZGVmaW5lIFJU
+NTY4MlNfUFdSX0FEQ19MMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICgweDEgPDwgNCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19QV1JfQURDX0wxX0JJVCAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICA0DQoNCisjZGVmaW5lIFJUNTY4MlNfUFdSX0FEQ19SMSAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAzKQ0KDQorI2Rl
+ZmluZSBSVDU2ODJTX1BXUl9BRENfUjFfQklUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgMw0KDQorI2RlZmluZSBSVDU2ODJTX0VGVVNFX1NXX0VOICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICgweDEgPDwgMikNCg0KKyNkZWZpbmUgUlQ1NjgyU19FRlVTRV9T
+V19ESVMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDIpDQoN
+CisjZGVmaW5lIFJUNTY4MlNfUFdSX0VGVVNFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+KDB4MSA8PCAxKQ0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9FRlVTRV9CSVQgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAxDQoNCisjZGVmaW5lIFJUNTY4MlNfRElHX0dBVEVfQ1RS
+TCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDApDQoNCisjZGVm
+aW5lIFJUNTY4MlNfRElHX0dBVEVfQ1RSTF9TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+MA0KDQorDQoNCisvKiBQb3dlciBNYW5hZ2VtZW50IGZvciBEaWdpdGFsIDIgKDB4MDA2MikgKi8N
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19QV1JfQURDX1MxRiAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICgweDEgPDwgMTUpDQoNCisjZGVmaW5lIFJUNTY4MlNfUFdSX0FEQ19TMUZf
+QklUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDE1DQoNCisjZGVmaW5lIFJUNTY4MlNf
+UFdSX0RBQ19TMUYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8
+IDEwKQ0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9EQUNfUzFGX0JJVCAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAxMA0KDQorI2RlZmluZSBSVDU2ODJTX0RMRE9fSV9MSU1JVF9NQVNLICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA3KQ0KDQorI2RlZmluZSBSVDU2ODJTX0RM
+RE9fSV9MSU1JVF9FTiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgNykN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19ETERPX0lfTElNSVRfRElTICAgICAgICAgICAgICAgICAgKDB4
+MCA8PCA3KQ0KDQorI2RlZmluZSBSVDU2ODJTX0RMRE9fSV9CSUFTX1NFTF80ICAgICAgICAgICAg
+ICAgKDB4MSA8PCA2KQ0KDQorI2RlZmluZSBSVDU2ODJTX0RMRE9fSV9CSUFTX1NFTF8wICAgICAg
+ICAgICAgICAgKDB4MCA8PCA2KQ0KDQorI2RlZmluZSBSVDU2ODJTX0RMRE9fUkVHX1RFU1RfMSAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDUpDQoNCisjZGVmaW5lIFJUNTY4
+MlNfRExET19SRUdfVEVTVF8wICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDAgPDwg
+NSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19ETERPX1NSQ19SRUcgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgKDB4MSA8PCA0KQ0KDQorI2RlZmluZSBSVDU2ODJTX0RMRE9fU1JDX0VG
+VVNFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDAgPDwgNCkNCg0KKw0KDQor
+LyogUG93ZXIgTWFuYWdlbWVudCBmb3IgQW5hbG9nIDEgKDB4MDA2MykgKi8NCg0KKyNkZWZpbmUg
+UlQ1NjgyU19QV1JfVlJFRjEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDE1
+KQ0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9WUkVGMV9CSVQgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAxNQ0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9GVjEgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAxNCkNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19QV1JfRlYxX0JJVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgMTQNCg0KKyNkZWZpbmUgUlQ1NjgyU19QV1JfVlJFRjIgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAoMHgxIDw8IDEzKQ0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9WUkVGMl9CSVQg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxMw0KDQorI2RlZmluZSBSVDU2ODJT
+X1BXUl9GVjIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+KDB4MSA8PCAxMikNCg0KKyNkZWZpbmUgUlQ1NjgyU19QV1JfRlYyX0JJVCAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgMTINCg0KKyNkZWZpbmUgUlQ1NjgyU19MRE8xX0RC
+R19NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDMgPDwgMTApDQoNCisj
+ZGVmaW5lIFJUNTY4MlNfUFdSX01CICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICgweDEgPDwgOSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19QV1JfTUJfQklUICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA5DQoNCisjZGVmaW5lIFJUNTY4
+MlNfUFdSX0JHICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAoMHgxIDw8IDcpDQoNCisjZGVmaW5lIFJUNTY4MlNfUFdSX0JHX0JJVCAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDcNCg0KKyNkZWZpbmUgUlQ1NjgyU19MRE8xX0JZ
+UEFTU19NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgNikNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19MRE8xX0JZUEFTUyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgKDB4MSA8PCA2KQ0KDQorI2RlZmluZSBSVDU2ODJTX0xETzFfTk9UX0JZUEFTUyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDYpDQoNCisNCg0KKy8qIFBvd2VyIE1h
+bmFnZW1lbnQgZm9yIEFuYWxvZyAyICgweDAwNjQpICovDQoNCisjZGVmaW5lIFJUNTY4MlNfUFdS
+X01DTEswX1dEICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTUpDQoN
+CisjZGVmaW5lIFJUNTY4MlNfUFdSX01DTEswX1dEX0JJVCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgMTUNCg0KKyNkZWZpbmUgUlQ1NjgyU19QV1JfTUNMSzFfV0QgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgKDB4MSA8PCAxNCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19QV1JfTUNMSzFf
+V0RfQklUICAgICAgICAgICAgICAgICAgICAgICAgICAxNA0KDQorI2RlZmluZSBSVDU2ODJTX1JT
+VF9NQ0xLMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDEzKQ0KDQorI2Rl
+ZmluZSBSVDU2ODJTX1JTVF9NQ0xLMF9CSVQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgMTMNCg0KKyNkZWZpbmUgUlQ1NjgyU19SU1RfTUNMSzEgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgKDB4MSA8PCAxMikNCg0KKyNkZWZpbmUgUlQ1NjgyU19SU1RfTUNMSzFfQklU
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEyDQoNCisjZGVmaW5lIFJUNTY4
+MlNfUFdSX01CMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+KDB4MSA8PCAxMSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19QV1JfTUIxX1BXUl9ET1dOICAgICAgICAg
+ICAgICAgICAgICAgICgweDAgPDwgMTEpDQoNCisjZGVmaW5lIFJUNTY4MlNfUFdSX01CMV9CSVQg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxMQ0KDQorI2RlZmluZSBSVDU2
+ODJTX1BXUl9NQjIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICgweDEgPDwgMTApDQoNCisjZGVmaW5lIFJUNTY4MlNfUFdSX01CMl9QV1JfRE9XTiAgICAgICAg
+ICAgICAgICAgICAgICAoMHgwIDw8IDEwKQ0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9NQjJfQklU
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMTANCg0KKyNkZWZpbmUgUlQ1
+NjgyU19QV1JfSkRfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgw
+eDEgPDwgMCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19QV1JfSkRfRU5BQkxFICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDApDQoNCisjZGVmaW5lIFJUNTY4MlNfUFdSX0pE
+X0RJU0FCTEUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MCA8PCAwKQ0KDQor
+DQoNCisvKiBQb3dlciBNYW5hZ2VtZW50IGZvciBBbmFsb2cgMyAoMHgwMDY1KSAqLw0KDQorI2Rl
+ZmluZSBSVDU2ODJTX1BXUl9MRE9fUExMQSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAoMHgxIDw8IDE1KQ0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9MRE9fUExMQV9CSVQgICAg
+ICAgICAgICAgICAxNQ0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9MRE9fUExMQiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAxNCkNCg0KKyNkZWZpbmUgUlQ1Njgy
+U19QV1JfTERPX1BMTEJfQklUICAgICAgICAgICAgICAgMTQNCg0KKyNkZWZpbmUgUlQ1NjgyU19Q
+V1JfQklBU19QTExBICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwg
+MTMpDQoNCisjZGVmaW5lIFJUNTY4MlNfUFdSX0JJQVNfUExMQV9CSVQgICAgICAgICAgICAgIDEz
+DQoNCisjZGVmaW5lIFJUNTY4MlNfUFdSX0JJQVNfUExMQiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAoMHgxIDw8IDEyKQ0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9CSUFTX1BM
+TEJfQklUICAgICAgICAgICAgICAgMTINCg0KKyNkZWZpbmUgUlQ1NjgyU19QV1JfQ0JKICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgOSkNCg0K
+KyNkZWZpbmUgUlQ1NjgyU19QV1JfQ0JKX0JJVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgOQ0KDQorI2RlZmluZSBSVDU2ODJTX1JTVEJfUExMQiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICgweDEgPDwgNykNCg0KKyNkZWZpbmUgUlQ1NjgyU19SU1RCX1BM
+TEJfQklUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgNw0KDQorI2RlZmlu
+ZSBSVDU2ODJTX1JTVEJfUExMQSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8
+PCA2KQ0KDQorI2RlZmluZSBSVDU2ODJTX1JTVEJfUExMQV9CSVQgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICA2DQoNCisjZGVmaW5lIFJUNTY4MlNfUFdSX1BMTEIgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDUpDQoNCisjZGVmaW5lIFJUNTY4MlNf
+UFdSX1BMTEJfQklUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgNQ0KDQor
+I2RlZmluZSBSVDU2ODJTX1BXUl9QTExBICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+KDB4MSA8PCA0KQ0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9QTExBX0JJVCAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIDQNCg0KKyNkZWZpbmUgUlQ1NjgyU19QV1JfTERPX01C
+MiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDIpDQoNCisjZGVm
+aW5lIFJUNTY4MlNfUFdSX0xET19NQjJfQklUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAy
+DQoNCisjZGVmaW5lIFJUNTY4MlNfUFdSX0xET19NQjEgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgKDB4MSA8PCAxKQ0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9MRE9fTUIxX0JJ
+VCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMQ0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9C
+R0xETyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDAp
+DQoNCisjZGVmaW5lIFJUNTY4MlNfUFdSX0JHTERPX0JJVCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgMA0KDQorDQoNCisvKiBQb3dlciBNYW5hZ2VtZW50IGZvciBNaXhlciAoMHgw
+MDY2KSAqLw0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9DTEtfQ09NUF84RlMgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAoMHgxIDw8IDE1KQ0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9DTEtfQ09N
+UF84RlNfQklUICAgICAgICAgICAgICAgICAgIDE1DQoNCisjZGVmaW5lIFJUNTY4MlNfREJHX0JH
+TERPX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MyA8PCAxMikNCg0KKyNk
+ZWZpbmUgUlQ1NjgyU19EQkdfQkdMRE9fU0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAxMg0KDQorI2RlZmluZSBSVDU2ODJTX0RCR19CR0xET19NQjFfTUFTSyAgICAgICAgICAg
+ICAgICAgICAgKDB4MyA8PCAxMCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19EQkdfQkdMRE9fTUIxX1NG
+VCAgICAgICAgICAgICAgICAgICAgICAgIDEwDQoNCisjZGVmaW5lIFJUNTY4MlNfREJHX0JHTERP
+X01CMl9NQVNLICAgICAgICAgICAgICAgICAgICAoMHgzIDw8IDgpDQoNCisjZGVmaW5lIFJUNTY4
+MlNfREJHX0JHTERPX01CMl9TRlQgICAgICAgICAgICAgICAgICAgICAgICA4DQoNCisjZGVmaW5l
+IFJUNTY4MlNfRExET19CR0xET19NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICgweDMgPDwgNikNCg0KKyNkZWZpbmUgUlQ1NjgyU19ETERPX0JHTERPX01CMl9T
+RlQgICAgICAgICAgICAgICAgICAgICAgNg0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9TVE8xX0RB
+Q19MICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDUpDQoNCisjZGVmaW5l
+IFJUNTY4MlNfUFdSX1NUTzFfREFDX0xfQklUICAgICAgICAgICAgICAgICAgICAgICAgNQ0KDQor
+I2RlZmluZSBSVDU2ODJTX1BXUl9TVE8xX0RBQ19SICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAoMHgxIDw8IDQpDQoNCisjZGVmaW5lIFJUNTY4MlNfUFdSX1NUTzFfREFDX1JfQklUICAg
+ICAgICAgICAgICAgICAgICAgICAgNA0KDQorI2RlZmluZSBSVDU2ODJTX0RWT19CR0xET19NQjFf
+TUFTSyAgICAgICAgICAgICAgICAgICAgKDB4MyA8PCAyKQ0KDQorI2RlZmluZSBSVDU2ODJTX0RW
+T19CR0xET19NQjFfU0ZUICAgICAgICAgICAgICAgICAgICAgICAgMg0KDQorI2RlZmluZSBSVDU2
+ODJTX0RWT19CR0xET19NQjJfTUFTSyAgICAgICAgICAgICAgICAgICAgKDB4MyA8PCAwKQ0KDQor
+DQoNCisvKiBNQ0xLIGFuZCBTeXN0ZW0gQ2xvY2sgRGV0ZWN0aW9uIENvbnRyb2wgKDB4MDA2Yikg
+Ki8NCg0KKyNkZWZpbmUgUlQ1NjgyU19TWVNfQ0xLX0RFVCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTUpDQoNCisjZGVmaW5lIFJUNTY4MlNfU1lTX0NM
+S19ERVRfU0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDE1DQoNCisjZGVmaW5l
+IFJUNTY4MlNfUExMMV9DTEtfREVUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICgweDEgPDwgMTQpDQoNCisjZGVmaW5lIFJUNTY4MlNfUExMMV9DTEtfREVUX1NGVCAgICAg
+ICAgICAgICAgICAgIDE0DQoNCisNCg0KKy8qIERpZ2l0YWwgTWljcm9waG9uZSBDb250cm9sIDEg
+KDB4MDA2ZSkgKi8NCg0KKyNkZWZpbmUgUlQ1NjgyU19ETUlDXzFfRU5fTUFTSyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAxNSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19ETUlD
+XzFfRU5fU0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMTUNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19ETUlDXzFfRElTICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8
+IDE1KQ0KDQorI2RlZmluZSBSVDU2ODJTX0RNSUNfMV9FTiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICgweDEgPDwgMTUpDQoNCisjZGVmaW5lIFJUNTY4MlNfRklGT19DTEtfRElWX01BU0sg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4NyA8PCAxMikNCg0KKyNkZWZpbmUgUlQ1Njgy
+U19GSUZPX0NMS19ESVZfMiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEg
+PDwgMTIpDQoNCisjZGVmaW5lIFJUNTY4MlNfRE1JQ18xX0RQX01BU0sgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICgweDMgPDwgNCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19ETUlDXzFfRFBf
+U0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgNA0KDQorI2RlZmluZSBSVDU2
+ODJTX0RNSUNfMV9EUF9HUElPMiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8
+IDQpDQoNCisjZGVmaW5lIFJUNTY4MlNfRE1JQ18xX0RQX0dQSU81ICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICgweDEgPDwgNCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19ETUlDX0NMS19NQVNL
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHhmIDw8IDApDQoNCisjZGVmaW5l
+IFJUNTY4MlNfRE1JQ19DTEtfU0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgMA0KDQorDQoNCisvKiBJMlMxIEF1ZGlvIFNlcmlhbCBEYXRhIFBvcnQgQ29udHJvbCAoMHgw
+MDcwKSAqLw0KDQorI2RlZmluZSBSVDU2ODJTX1NFTF9BRENEQVRfTUFTSyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICgweDEgPDwgMTUpDQoNCisjZGVmaW5lIFJUNTY4MlNfU0VMX0FEQ0RB
+VF9PVVQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDE1KQ0KDQorI2Rl
+ZmluZSBSVDU2ODJTX1NFTF9BRENEQVRfSU4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgKDB4MSA8PCAxNSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19TRUxfQURDREFUX1NGVCAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxNQ0KDQorI2RlZmluZSBSVDU2ODJTX0kyUzFf
+VFhfQ0hMX01BU0sgICAgICAgICAgICAgICAgKDB4NyA8PCAxMikNCg0KKyNkZWZpbmUgUlQ1Njgy
+U19JMlMxX1RYX0NITF9TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEyDQoN
+CisjZGVmaW5lIFJUNTY4MlNfSTJTMV9UWF9DSExfMTYgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAoMHgwIDw8IDEyKQ0KDQorI2RlZmluZSBSVDU2ODJTX0kyUzFfVFhfQ0hMXzIw
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAxMikNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19JMlMxX1RYX0NITF8yNCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICgweDIgPDwgMTIpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTMV9UWF9DSExfMzIgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgzIDw8IDEyKQ0KDQorI2RlZmluZSBSVDU2
+ODJTX0kyUzFfVFhfQ0hMXzggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAo
+MHg0IDw8IDEyKQ0KDQorI2RlZmluZSBSVDU2ODJTX0kyUzFfUlhfQ0hMX01BU0sgICAgICAgICAg
+ICAgICAgKDB4NyA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJTX0kyUzFfUlhfQ0hMX1NGVCAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICA4DQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTMV9S
+WF9DSExfMTYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDgpDQoN
+CisjZGVmaW5lIFJUNTY4MlNfSTJTMV9SWF9DSExfMjAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAoMHgxIDw8IDgpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTMV9SWF9DSExfMjQg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgyIDw8IDgpDQoNCisjZGVmaW5l
+IFJUNTY4MlNfSTJTMV9SWF9DSExfMzIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAoMHgzIDw8IDgpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTMV9SWF9DSExfOCAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4NCA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJT
+X0kyUzFfTU9OT19NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgNykN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19JMlMxX01PTk9fRU4gICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgKDB4MSA8PCA3KQ0KDQorI2RlZmluZSBSVDU2ODJTX0kyUzFfTU9OT19ESVMg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDcpDQoNCisjZGVmaW5l
+IFJUNTY4MlNfSTJTMV9ETF9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgKDB4NyA8PCA0KQ0KDQorI2RlZmluZSBSVDU2ODJTX0kyUzFfRExfU0ZUICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICA0DQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTMV9ETF8xNiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDQpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJT
+MV9ETF8yMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDQpDQoNCisjZGVm
+aW5lIFJUNTY4MlNfSTJTMV9ETF8yNCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgy
+IDw8IDQpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTMV9ETF8zMiAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAoMHgzIDw8IDQpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTMV9ETF84ICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4NCA8PCA0KQ0KDQorDQoNCisvKiBJMlMxLzIg
+QXVkaW8gU2VyaWFsIERhdGEgUG9ydCBDb250cm9sICgweDAwNzEpICovDQoNCisjZGVmaW5lIFJU
+NTY4MlNfSTJTMl9NU19NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAo
+MHgxIDw8IDE1KQ0KDQorI2RlZmluZSBSVDU2ODJTX0kyUzJfTVNfU0ZUICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgMTUNCg0KKyNkZWZpbmUgUlQ1NjgyU19JMlMyX01T
+X00gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDE1KQ0KDQorI2RlZmluZSBS
+VDU2ODJTX0kyUzJfTVNfUyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAx
+NSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19JMlMyX1BJTl9DRkdfTUFTSyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAoMHgxIDw8IDE0KQ0KDQorI2RlZmluZSBSVDU2ODJTX0kyUzJfUElOX0NGR19T
+RlQgICAgICAgICAgICAgICAgICAxNA0KDQorI2RlZmluZSBSVDU2ODJTX0kyUzJfT1VUX01BU0sg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDkpDQoNCisjZGVmaW5l
+IFJUNTY4MlNfSTJTMl9PVVRfU0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIDkNCg0KKyNkZWZpbmUgUlQ1NjgyU19JMlMyX09VVF9VTSAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDkpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTMl9P
+VVRfTSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDkp
+DQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTX0JQX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICgweDEgPDwgOCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19JMlNfQlBfU0ZU
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDgNCg0KKyNkZWZpbmUgUlQ1NjgyU19JMlNf
+QlBfTk9SICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDgpDQoNCisjZGVmaW5l
+IFJUNTY4MlNfSTJTX0JQX0lOViAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8
+IDgpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTMl9NT05PX01BU0sgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgKDB4MSA8PCA3KQ0KDQorI2RlZmluZSBSVDU2ODJTX0kyUzJfTU9OT19FTiAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDcpDQoNCisjZGVmaW5l
+IFJUNTY4MlNfSTJTMl9NT05PX0RJUyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICgweDAgPDwgNykNCg0KKyNkZWZpbmUgUlQ1NjgyU19JMlMyX0RMX01BU0sgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAoMHg3IDw8IDQpDQoNCisjZGVmaW5lIFJUNTY4MlNf
+STJTMl9ETF9TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDQNCg0KKyNkZWZpbmUgUlQ1
+NjgyU19JMlMyX0RMXzggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDQp
+DQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTMl9ETF8xNiAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAoMHgxIDw8IDQpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTMl9ETF8yMCAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAoMHgyIDw8IDQpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTMl9E
+TF8yNCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgzIDw8IDQpDQoNCisjZGVmaW5l
+IFJUNTY4MlNfSTJTMl9ETF8zMiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHg0IDw8
+IDQpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTX0RGX01BU0sgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICgweDcpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTX0RGX1NGVCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTX0RG
+X0kyUyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MCkNCg0KKyNkZWZpbmUgUlQ1
+NjgyU19JMlNfREZfTEVGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSkNCg0KKyNk
+ZWZpbmUgUlQ1NjgyU19JMlNfREZfUENNX0EgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAoMHgyKQ0KDQorI2RlZmluZSBSVDU2ODJTX0kyU19ERl9QQ01fQiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDMpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJT
+X0RGX1BDTV9BX04gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4NikNCg0KKyNk
+ZWZpbmUgUlQ1NjgyU19JMlNfREZfUENNX0JfTiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAoMHg3KQ0KDQorDQoNCisvKiBBREMvREFDIENsb2NrIENvbnRyb2wgMSAoMHgwMDczKSAq
+Lw0KDQorI2RlZmluZSBSVDU2ODJTX0FEQ19PU1JfTUFTSyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICgweGYgPDwgMTIpDQoNCisjZGVmaW5lIFJUNTY4MlNfQURDX09TUl9TRlQg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEyDQoNCisjZGVmaW5lIFJU
+NTY4MlNfQURDX09TUl9EXzEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+KDB4MCA8PCAxMikNCg0KKyNkZWZpbmUgUlQ1NjgyU19BRENfT1NSX0RfMiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDEyKQ0KDQorI2RlZmluZSBSVDU2ODJT
+X0FEQ19PU1JfRF80ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDIg
+PDwgMTIpDQoNCisjZGVmaW5lIFJUNTY4MlNfQURDX09TUl9EXzYgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgKDB4MyA8PCAxMikNCg0KKyNkZWZpbmUgUlQ1NjgyU19BRENf
+T1NSX0RfOCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHg0IDw8IDEy
+KQ0KDQorI2RlZmluZSBSVDU2ODJTX0FEQ19PU1JfRF8xMiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAoMHg1IDw8IDEyKQ0KDQorI2RlZmluZSBSVDU2ODJTX0FEQ19PU1JfRF8x
+NiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHg2IDw8IDEyKQ0KDQorI2Rl
+ZmluZSBSVDU2ODJTX0FEQ19PU1JfRF8yNCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAoMHg3IDw8IDEyKQ0KDQorI2RlZmluZSBSVDU2ODJTX0FEQ19PU1JfRF8zMiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHg4IDw8IDEyKQ0KDQorI2RlZmluZSBSVDU2
+ODJTX0FEQ19PU1JfRF80OCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHg5
+IDw8IDEyKQ0KDQorI2RlZmluZSBSVDU2ODJTX0kyU19NX0RfTUFTSyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAoMHhmIDw8IDgpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTX01f
+RF9TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA4DQoNCisjZGVm
+aW5lIFJUNTY4MlNfSTJTX01fRF8xICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDAg
+PDwgOCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19JMlNfTV9EXzIgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgKDB4MSA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJTX0kyU19NX0RfMyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAoMHgyIDw8IDgpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJT
+X01fRF80ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDMgPDwgOCkNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19JMlNfTV9EXzYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4NCA8
+PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJTX0kyU19NX0RfOCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAoMHg1IDw8IDgpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTX01fRF8xMiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgKDB4NiA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJTX0kyU19N
+X0RfMTYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDcgPDwgOCkNCg0KKyNkZWZpbmUg
+UlQ1NjgyU19JMlNfTV9EXzI0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHg4IDw8IDgp
+DQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTX01fRF8zMiAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgKDB4OSA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJTX0kyU19NX0RfNDggICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICgweDEwIDw8IDgpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTX01fQ0xL
+X1NSQ19NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICgweDcgPDwgNCkNCg0KKyNkZWZpbmUg
+UlQ1NjgyU19JMlNfTV9DTEtfU1JDX1NGVCAgICAgICAgICAgICAgIDQNCg0KKyNkZWZpbmUgUlQ1
+NjgyU19EQUNfT1NSX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHhm
+IDw8IDApDQoNCisjZGVmaW5lIFJUNTY4MlNfREFDX09TUl9TRlQgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIDANCg0KKyNkZWZpbmUgUlQ1NjgyU19EQUNfT1NSX0RfMSAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDApDQoNCisjZGVm
+aW5lIFJUNTY4MlNfREFDX09TUl9EXzIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgKDB4MSA8PCAwKQ0KDQorI2RlZmluZSBSVDU2ODJTX0RBQ19PU1JfRF80ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDIgPDwgMCkNCg0KKyNkZWZpbmUgUlQ1
+NjgyU19EQUNfT1NSX0RfNiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAo
+MHgzIDw8IDApDQoNCisjZGVmaW5lIFJUNTY4MlNfREFDX09TUl9EXzggICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgKDB4NCA8PCAwKQ0KDQorI2RlZmluZSBSVDU2ODJTX0RB
+Q19PU1JfRF8xMiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4NSA8PCAw
+KQ0KDQorI2RlZmluZSBSVDU2ODJTX0RBQ19PU1JfRF8xNiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAoMHg2IDw8IDApDQoNCisjZGVmaW5lIFJUNTY4MlNfREFDX09TUl9EXzI0
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDcgPDwgMCkNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19EQUNfT1NSX0RfMzIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgKDB4OCA8PCAwKQ0KDQorI2RlZmluZSBSVDU2ODJTX0RBQ19PU1JfRF80OCAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAoMHg5IDw8IDApDQoNCisNCg0KKy8qIEFEQy9EQUMg
+Q2xvY2sgQ29udHJvbCAyICgweDAwNzQpICovDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTMl9CQ0xL
+X01TMl9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTEpDQoNCisjZGVmaW5l
+IFJUNTY4MlNfSTJTMl9CQ0xLX01TMl9TRlQgICAgICAgICAgICAgICAxMQ0KDQorI2RlZmluZSBS
+VDU2ODJTX0kyUzJfQkNMS19NUzJfMzIgICAgICAgICAgICAgICAgICgweDAgPDwgMTEpDQoNCisj
+ZGVmaW5lIFJUNTY4MlNfSTJTMl9CQ0xLX01TMl82NCAgICAgICAgICAgICAgICAgKDB4MSA8PCAx
+MSkNCg0KKw0KDQorDQoNCisvKiBURE0gY29udHJvbCAxICgweDAwNzkpICovDQoNCisjZGVmaW5l
+IFJUNTY4MlNfVERNX1RYX0NIX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4
+MyA8PCAxMikNCg0KKyNkZWZpbmUgUlQ1NjgyU19URE1fVFhfQ0hfMiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICgweDAgPDwgMTIpDQoNCisjZGVmaW5lIFJUNTY4MlNfVERN
+X1RYX0NIXzQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDEy
+KQ0KDQorI2RlZmluZSBSVDU2ODJTX1RETV9UWF9DSF82ICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgKDB4MiA8PCAxMikNCg0KKyNkZWZpbmUgUlQ1NjgyU19URE1fVFhfQ0hf
+OCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDMgPDwgMTIpDQoNCisj
+ZGVmaW5lIFJUNTY4MlNfVERNX1JYX0NIX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgKDB4MyA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJTX1RETV9SWF9DSF8yICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MCA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJT
+X1RETV9SWF9DSF80ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8
+PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJTX1RETV9SWF9DSF82ICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgKDB4MiA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJTX1RETV9SWF9D
+SF84ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MyA8PCA4KQ0KDQor
+I2RlZmluZSBSVDU2ODJTX1RETV9BRENfTENBX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAg
+ICgweDcgPDwgNCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19URE1fQURDX0xDQV9TRlQgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICA0DQoNCisjZGVmaW5lIFJUNTY4MlNfVERNX0FEQ19ETF9TRlQg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDANCg0KKw0KDQorLyogVERNIGNvbnRyb2wg
+MiAoMHgwMDdhKSAqLw0KDQorI2RlZmluZSBSVDU2ODJTX0lGMV9BREMxX1NFTF9TRlQgICAgICAg
+ICAgICAgICAgICAxNA0KDQorI2RlZmluZSBSVDU2ODJTX0lGMV9BREMyX1NFTF9TRlQgICAgICAg
+ICAgICAgICAgICAxMg0KDQorI2RlZmluZSBSVDU2ODJTX0lGMV9BREMzX1NFTF9TRlQgICAgICAg
+ICAgICAgICAgICAxMA0KDQorI2RlZmluZSBSVDU2ODJTX0lGMV9BREM0X1NFTF9TRlQgICAgICAg
+ICAgICAgICAgICA4DQoNCisjZGVmaW5lIFJUNTY4MlNfVERNX0FEQ19TRUxfU0ZUICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIDMNCg0KKw0KDQorLyogVERNIGNvbnRyb2wgMyAoMHgwMDdi
+KSAqLw0KDQorI2RlZmluZSBSVDU2ODJTX1RETV9FTiAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA3KQ0KDQorDQoNCisvKiBURE0vSTJTIGNv
+bnRyb2wgKDB4MDA3ZSkgKi8NCg0KKyNkZWZpbmUgUlQ1NjgyU19URE1fU19CUF9NQVNLICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTUpDQoNCisjZGVmaW5lIFJUNTY4
+MlNfVERNX1NfQlBfU0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxNQ0K
+DQorI2RlZmluZSBSVDU2ODJTX1RETV9TX0JQX05PUiAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICgweDAgPDwgMTUpDQoNCisjZGVmaW5lIFJUNTY4MlNfVERNX1NfQlBfSU5WICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDE1KQ0KDQorI2RlZmlu
+ZSBSVDU2ODJTX1RETV9TX0xQX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+KDB4MSA8PCAxNCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19URE1fU19MUF9TRlQgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAxNA0KDQorI2RlZmluZSBSVDU2ODJTX1RETV9TX0xQ
+X05PUiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDE0KQ0KDQor
+I2RlZmluZSBSVDU2ODJTX1RETV9TX0xQX0lOViAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgKDB4MSA8PCAxNCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19URE1fREZfTUFTSyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4NyA8PCAxMSkNCg0KKyNkZWZpbmUg
+UlQ1NjgyU19URE1fREZfU0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgMTENCg0KKyNkZWZpbmUgUlQ1NjgyU19URE1fREZfSTJTICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAoMHgwIDw8IDExKQ0KDQorI2RlZmluZSBSVDU2ODJTX1RETV9ERl9MRUZUICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTEpDQoNCisjZGVmaW5l
+IFJUNTY4MlNfVERNX0RGX1BDTV9BICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAo
+MHgyIDw8IDExKQ0KDQorI2RlZmluZSBSVDU2ODJTX1RETV9ERl9QQ01fQiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgKDB4MyA8PCAxMSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19URE1f
+REZfUENNX0FfTiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDYgPDwgMTEpDQoNCisj
+ZGVmaW5lIFJUNTY4MlNfVERNX0RGX1BDTV9CX04gICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAoMHg3IDw8IDExKQ0KDQorI2RlZmluZSBSVDU2ODJTX1RETV9CQ0xLX01TMV9NQVNLICAgICAg
+ICAgICAgICAgICAgICAgICAgKDB4MyA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJTX1RETV9CQ0xL
+X01TMV9TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgOA0KDQorI2RlZmluZSBSVDU2ODJT
+X1RETV9CQ0xLX01TMV8zMiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDAgPDwgOCkN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19URE1fQkNMS19NUzFfNjQgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAoMHgxIDw8IDgpDQoNCisjZGVmaW5lIFJUNTY4MlNfVERNX0JDTEtfTVMxXzEyOCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgyIDw8IDgpDQoNCisjZGVmaW5lIFJUNTY4MlNf
+VERNX0JDTEtfTVMxXzI1NiAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgzIDw8IDgpDQoN
+CisjZGVmaW5lIFJUNTY4MlNfVERNX0JDTEtfTVMxXzE2ICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgKDB4NCA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJTX1RETV9DTF9NQVNLICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgzIDw8IDQpDQoNCisjZGVmaW5lIFJUNTY4
+MlNfVERNX0NMXzE2ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MCA8PCA0KQ0KDQor
+I2RlZmluZSBSVDU2ODJTX1RETV9DTF8yMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgw
+eDEgPDwgNCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19URE1fQ0xfMjQgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAoMHgyIDw8IDQpDQoNCisjZGVmaW5lIFJUNTY4MlNfVERNX0NMXzMyICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgKDB4MyA8PCA0KQ0KDQorI2RlZmluZSBSVDU2ODJTX1RE
+TV9NX0JQX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMikNCg0K
+KyNkZWZpbmUgUlQ1NjgyU19URE1fTV9CUF9TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAyDQoNCisjZGVmaW5lIFJUNTY4MlNfVERNX01fQlBfTk9SICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICgweDAgPDwgMikNCg0KKyNkZWZpbmUgUlQ1NjgyU19URE1fTV9C
+UF9JTlYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDIpDQoNCisj
+ZGVmaW5lIFJUNTY4MlNfVERNX01fTFBfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICgweDEgPDwgMSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19URE1fTV9MUF9TRlQgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgMQ0KDQorI2RlZmluZSBSVDU2ODJTX1RETV9NX0xQ
+X05PUiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MCA8PCAxKQ0KDQorI2Rl
+ZmluZSBSVDU2ODJTX1RETV9NX0xQX0lOViAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAoMHgxIDw8IDEpDQoNCisjZGVmaW5lIFJUNTY4MlNfVERNX01TX01BU0sgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAwKQ0KDQorI2RlZmluZSBSVDU2ODJT
+X1RETV9NU19TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDANCg0K
+KyNkZWZpbmUgUlQ1NjgyU19URE1fTVNfUyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAo
+MHgwIDw8IDApDQoNCisjZGVmaW5lIFJUNTY4MlNfVERNX01TX00gICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICgweDEgPDwgMCkNCg0KKw0KDQorLyogR2xvYmFsIENsb2NrIENvbnRyb2wgKDB4
+MDA4MCkgKi8NCg0KKyNkZWZpbmUgUlQ1NjgyU19TQ0xLX1NSQ19NQVNLICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgKDB4NyA8PCAxMykNCg0KKyNkZWZpbmUgUlQ1NjgyU19TQ0xL
+X1NSQ19TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEzDQoNCisj
+ZGVmaW5lIFJUNTY4MlNfUExMX1NSQ19NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgKDB4MyA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJTX1BMTF9TUkNfU0ZUICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDgNCg0KKyNkZWZpbmUgUlQ1Njgy
+U19QTExfU1JDX01DTEsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgw
+IDw8IDgpDQoNCisjZGVmaW5lIFJUNTY4MlNfUExMX1NSQ19CQ0xLMSAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJTX1BMTF9T
+UkNfUkMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgzIDw8IDgpDQoNCisNCg0KKy8q
+IFBMTCB0cmFja2luZyBtb2RlIDEgKDB4MDA4MykgKi8NCg0KKyNkZWZpbmUgUlQ1NjgyU19EQV9B
+U1JDX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAxMykN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19EQV9BU1JDX1NGVCAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgMTMNCg0KKyNkZWZpbmUgUlQ1NjgyU19EQUNfU1RPMV9BU1JDX01BU0sg
+ICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTIpDQoNCisjZGVmaW5lIFJUNTY4MlNfREFD
+X1NUTzFfQVNSQ19TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAxMg0KDQorI2RlZmluZSBS
+VDU2ODJTX0FEX0FTUkNfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAo
+MHgxIDw8IDgpDQoNCisjZGVmaW5lIFJUNTY4MlNfQURfQVNSQ19TRlQgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIDgNCg0KKyNkZWZpbmUgUlQ1NjgyU19BRF9BU1JDX1NF
+TF9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgNCkNCg0KKyNkZWZpbmUg
+UlQ1NjgyU19BRF9BU1JDX1NFTF9TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA0
+DQoNCisjZGVmaW5lIFJUNTY4MlNfRE1JQ19BU1JDX01BU0sgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICgweDEgPDwgMykNCg0KKyNkZWZpbmUgUlQ1NjgyU19ETUlDX0FTUkNfU0ZUICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMw0KDQorI2RlZmluZSBSVDU2ODJTX0FE
+Q19TVE8xX0FTUkNfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAyKQ0KDQorI2Rl
+ZmluZSBSVDU2ODJTX0FEQ19TVE8xX0FTUkNfU0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAg
+Mg0KDQorI2RlZmluZSBSVDU2ODJTX0RBX0FTUkNfU0VMX01BU0sgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgKDB4MSA8PCAwKQ0KDQorI2RlZmluZSBSVDU2ODJTX0RBX0FTUkNfU0VMX1NGVCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDANCg0KKw0KDQorLyogUExMIHRyYWNraW5n
+IG1vZGUgMiAzICgweDAwODQpKDB4MDA4NSkqLw0KDQorI2RlZmluZSBSVDU2ODJTX0ZJTFRFUl9D
+TEtfU0VMX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgKDB4NyA8PCAxMikNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19GSUxURVJfQ0xLX1NFTF9TRlQgICAgICAgICAgICAgICAxMg0KDQorI2RlZmlu
+ZSBSVDU2ODJTX0ZJTFRFUl9DTEtfRElWX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAoMHhm
+IDw8IDgpDQoNCisjZGVmaW5lIFJUNTY4MlNfRklMVEVSX0NMS19ESVZfU0ZUICAgICAgICAgICAg
+ICA4DQoNCisNCg0KKy8qIEFTUkMgQ29udHJvbCA0ICgweDAwODYpICovDQoNCisjZGVmaW5lIFJU
+NTY4MlNfQVNSQ0lOX0ZUS19OMV9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgKDB4MyA8PCAx
+NCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19BU1JDSU5fRlRLX04xX1NGVCAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgMTQNCg0KKyNkZWZpbmUgUlQ1NjgyU19BU1JDSU5fRlRLX04yX01BU0sgICAg
+ICAgICAgICAgICAgICAgICAgICAoMHgzIDw8IDEyKQ0KDQorI2RlZmluZSBSVDU2ODJTX0FTUkNJ
+Tl9GVEtfTjJfU0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxMg0KDQorI2RlZmluZSBS
+VDU2ODJTX0FTUkNJTl9GVEtfTTFfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgKDB4NyA8PCA4
+KQ0KDQorI2RlZmluZSBSVDU2ODJTX0FTUkNJTl9GVEtfTTFfU0ZUICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIDgNCg0KKyNkZWZpbmUgUlQ1NjgyU19BU1JDSU5fRlRLX00yX01BU0sgICAgICAg
+ICAgICAgICAgICAgICAgICgweDcgPDwgNCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19BU1JDSU5fRlRL
+X00yX1NGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICA0DQoNCisNCg0KKy8qIERlcG9wIE1v
+ZGUgQ29udHJvbCAxICgweDAwOGUpICovDQoNCisjZGVmaW5lIFJUNTY4MlNfT1VUX0hQX0xfRU4g
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA2KQ0KDQorI2Rl
+ZmluZSBSVDU2ODJTX09VVF9IUF9SX0VOICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgKDB4MSA8PCA1KQ0KDQorI2RlZmluZSBSVDU2ODJTX0xET19QVU1QX0VOICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDQpDQoNCisjZGVmaW5lIFJUNTY4
+MlNfTERPX1BVTVBfRU5fU0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgNA0KDQorI2Rl
+ZmluZSBSVDU2ODJTX1BVTVBfRU4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAoMHgxIDw8IDMpDQoNCisjZGVmaW5lIFJUNTY4MlNfUFVNUF9FTl9TRlQgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMw0KDQorI2RlZmluZSBSVDU2ODJT
+X0NBUExFU1NfTF9FTiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgx
+IDw8IDEpDQoNCisjZGVmaW5lIFJUNTY4MlNfQ0FQTEVTU19MX0VOX1NGVCAgICAgICAgICAgICAg
+ICAgMQ0KDQorI2RlZmluZSBSVDU2ODJTX0NBUExFU1NfUl9FTiAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICgweDEgPDwgMCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19DQVBMRVNT
+X1JfRU5fU0ZUICAgICAgICAgICAgICAgICAwDQoNCisNCg0KKy8qIERlcG9wIE1vZGUgQ29udHJv
+bCAyICgweDhmKSAqLw0KDQorI2RlZmluZSBSVDU2ODJTX1JBTVBfTUFTSyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDEyKQ0KDQorI2RlZmluZSBSVDU2
+ODJTX1JBTVBfU0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMTINCg0KKyNkZWZp
+bmUgUlQ1NjgyU19SQU1QX0RJUyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDAg
+PDwgMTIpDQoNCisjZGVmaW5lIFJUNTY4MlNfUkFNUF9FTiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTIpDQoNCisjZGVmaW5lIFJUNTY4MlNf
+QlBTX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDExKQ0KDQor
+I2RlZmluZSBSVDU2ODJTX0JQU19TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAxMQ0KDQorI2RlZmluZSBSVDU2ODJTX0JQU19ESVMgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MCA8PCAxMSkNCg0K
+KyNkZWZpbmUgUlQ1NjgyU19CUFNfRU4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTEpDQoNCisjZGVmaW5lIFJUNTY4MlNfRkFTVF9V
+UEROX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTApDQoNCisj
+ZGVmaW5lIFJUNTY4MlNfRkFTVF9VUEROX1NGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIDEwDQoNCisjZGVmaW5lIFJUNTY4MlNfRkFTVF9VUEROX0RJUyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDEwKQ0KDQorI2RlZmluZSBSVDU2ODJTX0ZB
+U1RfVVBETl9FTiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAx
+MCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19WTE9fTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgKDB4MSA8PCA3KQ0KDQorI2RlZmluZSBSVDU2ODJTX1ZMT19TRlQgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA3DQoNCisjZGVmaW5lIFJUNTY4
+MlNfVkxPXzNWICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICgweDAgPDwgNykNCg0KKyNkZWZpbmUgUlQ1NjgyU19WTE9fMzNWICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDcpDQoNCisNCg0KKy8q
+IEhQT1VUIGNoYXJnZSBwdW1wIDEgKDB4MDA5MSkgKi8NCg0KKyNkZWZpbmUgUlQ1NjgyU19PU1df
+TF9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDEx
+KQ0KDQorI2RlZmluZSBSVDU2ODJTX09TV19MX1NGVCAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAxMQ0KDQorI2RlZmluZSBSVDU2ODJTX09TV19MX0RJUyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAoMHgwIDw8IDExKQ0KDQorI2RlZmluZSBSVDU2ODJTX09TV19MX0VOICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDExKQ0KDQorI2RlZmluZSBSVDU2ODJT
+X09TV19SX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8
+PCAxMCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19PU1dfUl9TRlQgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAxMA0KDQorI2RlZmluZSBSVDU2ODJTX09TV19SX0RJUyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICgweDAgPDwgMTApDQoNCisjZGVmaW5lIFJUNTY4MlNfT1NXX1JfRU4gICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAxMCkNCg0KKyNkZWZpbmUgUlQ1Njgy
+U19QTV9IUF9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDMg
+PDwgOCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19QTV9IUF9TRlQgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICA4DQoNCisjZGVmaW5lIFJUNTY4MlNfUE1fSFBfTFYgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICgweDAgPDwgOCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19QTV9IUF9NViAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgOCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19Q
+TV9IUF9IViAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgyIDw8IDgpDQoNCisNCg0K
+Ky8qIE1pY2JpYXMgQ29udHJvbDEgKDB4OTMpICovDQoNCisjZGVmaW5lIFJUNTY4MlNfTUlDMV9P
+Vl9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MyA8PCAxNCkNCg0K
+KyNkZWZpbmUgUlQ1NjgyU19NSUMxX09WX1NGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgMTQNCg0KKyNkZWZpbmUgUlQ1NjgyU19NSUMxX09WXzJWNyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDE0KQ0KDQorI2RlZmluZSBSVDU2
+ODJTX01JQzFfT1ZfMlY0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgw
+eDEgPDwgMTQpDQoNCisjZGVmaW5lIFJUNTY4MlNfTUlDMV9PVl8yVjI1ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAoMHgzIDw8IDE0KQ0KDQorI2RlZmluZSBSVDU2ODJTX01J
+QzFfT1ZfMVY4ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDQgPDwg
+MTQpDQoNCisjZGVmaW5lIFJUNTY4MlNfTUlDMl9PVl9NQVNLICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgKDB4MyA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJTX01JQzJfT1ZfU0ZU
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA4DQoNCisjZGVmaW5lIFJU
+NTY4MlNfTUlDMl9PVl8yVjcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+KDB4MCA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJTX01JQzJfT1ZfMlY0ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgOCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19N
+SUMyX09WXzJWMjUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDMgPDwg
+OCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19NSUMyX09WXzFWOCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAoMHg0IDw8IDgpDQoNCisNCg0KKy8qIE1pY2JpYXMgQ29udHJvbDIg
+KDB4MDA5NCkgKi8NCg0KKyNkZWZpbmUgUlQ1NjgyU19QV1JfQ0xLMjVNX01BU0sgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA5KQ0KDQorI2RlZmluZSBS
+VDU2ODJTX1BXUl9DTEsyNU1fU0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOQ0K
+DQorI2RlZmluZSBSVDU2ODJTX1BXUl9DTEsyNU1fUEQgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgKDB4MCA8PCA5KQ0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9DTEsyNU1fUFUgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA5KQ0KDQorI2RlZmluZSBSVDU2
+ODJTX1BXUl9DTEsxTV9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA4
+KQ0KDQorI2RlZmluZSBSVDU2ODJTX1BXUl9DTEsxTV9TRlQgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIDgNCg0KKyNkZWZpbmUgUlQ1NjgyU19QV1JfQ0xLMU1fUEQgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDgpDQoNCisjZGVmaW5lIFJUNTY4MlNf
+UFdSX0NMSzFNX1BVICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA4
+KQ0KDQorDQoNCisvKiBQTEwgTS9OL0sgQ29kZSBDb250cm9sIDEgKDB4MDA5OCkgKi8NCg0KKyNk
+ZWZpbmUgUlQ1NjgyU19QTExBX05fTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAoMHgxZmYgPDwgMCkNCg0KKw0KDQorLyogUExMIE0vTi9LIENvZGUgQ29udHJvbCAy
+ICgweDAwOTkpICovDQoNCisjZGVmaW5lIFJUNTY4MlNfUExMQV9NX01BU0sgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxZiA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJT
+X1BMTEFfTV9TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDgNCg0KKyNkZWZpbmUgUlQ1
+NjgyU19QTExBX0tfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+KDB4MWYgPDwgMCkNCg0KKw0KDQorLyogUExMIE0vTi9LIENvZGUgQ29udHJvbCAzICgweDAwOWEp
+ICovDQoNCisjZGVmaW5lIFJUNTY4MlNfUExMQl9OX01BU0sgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgKDB4M2ZmIDw8IDApDQoNCisNCg0KKy8qIFBMTCBNL04vSyBDb2Rl
+IENvbnRyb2wgNCAoMHgwMDliKSAqLw0KDQorI2RlZmluZSBSVDU2ODJTX1BMTEJfTV9NQVNLICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MWYgPDwgOCkNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19QTExCX01fU0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICA4DQoNCisj
+ZGVmaW5lIFJUNTY4MlNfUExMQl9LX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICgweDFmIDw8IDApDQoNCisNCg0KKy8qIFBMTCBNL04vSyBDb2RlIENvbnRyb2wg
+NiAoMHgwMDlkKSAqLw0KDQorI2RlZmluZSBSVDU2ODJTX1BMTEJfU0VMX1BTX01BU0sgICAgICAg
+ICAgICAgICAgKDB4MSA8PCAxMykNCg0KKyNkZWZpbmUgUlQ1NjgyU19QTExCX1NFTF9QU19TRlQg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEzDQoNCisjZGVmaW5lIFJUNTY4MlNf
+UExMQl9CWVBfUFNfTUFTSyAgICAgICAgICAgICAgICAoMHgxIDw8IDEyKQ0KDQorI2RlZmluZSBS
+VDU2ODJTX1BMTEJfQllQX1BTX1NGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAx
+Mg0KDQorI2RlZmluZSBSVDU2ODJTX1BMTEJfTV9CUF9NQVNLICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgKDB4MSA8PCAxMSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19QTExCX01fQlBfU0ZU
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDExDQoNCisjZGVmaW5lIFJUNTY4
+MlNfUExMQl9LX0JQX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8
+PCAxMCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19QTExCX0tfQlBfU0ZUICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgMTANCg0KKyNkZWZpbmUgUlQ1NjgyU19QTExBX01fQlBfTUFT
+SyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA3KQ0KDQorI2RlZmluZSBS
+VDU2ODJTX1BMTEFfTV9CUF9TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+Nw0KDQorI2RlZmluZSBSVDU2ODJTX1BMTEFfS19CUF9NQVNLICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICgweDEgPDwgNikNCg0KKyNkZWZpbmUgUlQ1NjgyU19QTExBX0tfQlBfU0ZU
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA2DQoNCisNCg0KKy8qIFBMTCBN
+L04vSyBDb2RlIENvbnRyb2wgNyAoMHgwMDllKSAqLw0KDQorI2RlZmluZSBSVDU2ODJTX1BMTEJf
+U1JDX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgzIDw8IDApDQoN
+CisjZGVmaW5lIFJUNTY4MlNfUExMQl9TUkNfREZJTiAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgKDB4MSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19QTExCX1NSQ19QTExBICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MCkNCg0KKw0KDQorLyogUkMgQ2xv
+Y2sgQ29udHJvbCAoMHgwMDlmKSAqLw0KDQorI2RlZmluZSBSVDU2ODJTX1BPV19JUlEgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDE1KQ0KDQor
+I2RlZmluZSBSVDU2ODJTX1BPV19KREggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAoMHgxIDw8IDE0KQ0KDQorDQoNCisvKiBJMlMyIE1hc3RlciBNb2RlIENs
+b2NrIENvbnRyb2wgMSAoMHgwMGEwKSAqLw0KDQorI2RlZmluZSBSVDU2ODJTX0kyUzJfTV9DTEtf
+U1JDX01BU0sgICAgICAgICAgICAgICAgICAgICAgKDB4NyA8PCA0KQ0KDQorI2RlZmluZSBSVDU2
+ODJTX0kyUzJfTV9DTEtfU1JDX1NGVCAgICAgICAgICAgICAgICAgICAgICAgICAgIDQNCg0KKyNk
+ZWZpbmUgUlQ1NjgyU19JMlMyX01fRF9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAoMHhmIDw8IDApDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTMl9NX0RfMSAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgKDB4MCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19JMlMyX01fRF8yICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxKQ0KDQorI2RlZmluZSBSVDU2ODJTX0kyUzJf
+TV9EXzMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDIpDQoNCisjZGVmaW5lIFJUNTY4
+MlNfSTJTMl9NX0RfNCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MykNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19JMlMyX01fRF82ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHg0KQ0K
+DQorI2RlZmluZSBSVDU2ODJTX0kyUzJfTV9EXzggICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICgweDUpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTMl9NX0RfMTIgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICgweDYpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTMl9NX0Rf
+MTYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDcpDQoNCisjZGVm
+aW5lIFJUNTY4MlNfSTJTMl9NX0RfMjQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICgweDgpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJTMl9NX0RfMzIgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDkpDQoNCisjZGVmaW5lIFJUNTY4MlNfSTJT
+Ml9NX0RfNDggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweGEpDQoN
+CisjZGVmaW5lIFJUNTY4MlNfSTJTMl9NX0RfU0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgMA0KDQorDQoNCisvKiBJUlEgQ29udHJvbCAxICgweDAwYjYpICovDQoNCisj
+ZGVmaW5lIFJUNTY4MlNfSkQxX1BVTFNFX0VOX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAoMHgxIDw8IDEwKQ0KDQorI2RlZmluZSBSVDU2ODJTX0pEMV9QVUxTRV9FTl9TRlQgICAgICAg
+ICAgICAgICAgIDEwDQoNCisjZGVmaW5lIFJUNTY4MlNfSkQxX1BVTFNFX0RJUyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDAgPDwgMTApDQoNCisjZGVmaW5lIFJUNTY4
+MlNfSkQxX1BVTFNFX0VOICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgw
+eDEgPDwgMTApDQoNCisNCg0KKy8qIElSUSBDb250cm9sIDIgKDB4MDBiNykgKi8NCg0KKyNkZWZp
+bmUgUlQ1NjgyU19KRDFfRU5fTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAoMHgxIDw8IDE1KQ0KDQorI2RlZmluZSBSVDU2ODJTX0pEMV9FTl9TRlQgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAxNQ0KDQorI2RlZmluZSBSVDU2ODJTX0pEMV9ESVMgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MCA8PCAxNSkN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19KRDFfRU4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTUpDQoNCisjZGVmaW5lIFJUNTY4MlNfSkQx
+X1BPTF9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDEz
+KQ0KDQorI2RlZmluZSBSVDU2ODJTX0pEMV9QT0xfTk9SICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICgweDAgPDwgMTMpDQoNCisjZGVmaW5lIFJUNTY4MlNfSkQxX1BPTF9J
+TlYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDEzKQ0K
+DQorI2RlZmluZSBSVDU2ODJTX0pEMV9JUlFfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgKDB4MSA8PCAxMCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19KRDFfSVJRX0xFViAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDAgPDwgMTApDQoNCisj
+ZGVmaW5lIFJUNTY4MlNfSkQxX0lSUV9QVUwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAoMHgxIDw8IDEwKQ0KDQorDQoNCisvKiBJUlEgQ29udHJvbCAzICgweDAwYjgp
+ICovDQoNCisjZGVmaW5lIFJUNTY4MlNfSUxfSVJRX01BU0sgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDcpDQoNCisjZGVmaW5lIFJUNTY4MlNfSUxfSVJR
+X0RJUyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MCA8PCA3KQ0KDQorI2RlZmlu
+ZSBSVDU2ODJTX0lMX0lSUV9FTiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEg
+PDwgNykNCg0KKyNkZWZpbmUgUlQ1NjgyU19JTF9JUlFfVFlQRV9NQVNLICAgICAgICAgICAgICAg
+ICgweDEgPDwgNCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19JTF9JUlFfTEVWICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICgweDAgPDwgNCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19JTF9JUlFfUFVM
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgNCkNCg0KKw0KDQorLyogR1BJ
+TyBDb250cm9sIDEgKDB4MDBjMCkgKi8NCg0KKyNkZWZpbmUgUlQ1NjgyU19HUDFfUElOX01BU0sg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDMgPDwgMTQpDQoNCisjZGVm
+aW5lIFJUNTY4MlNfR1AxX1BJTl9TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAxNA0KDQorI2RlZmluZSBSVDU2ODJTX0dQMV9QSU5fR1BJTzEgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgKDB4MCA8PCAxNCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19H
+UDFfUElOX0lSUSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEg
+PDwgMTQpDQoNCisjZGVmaW5lIFJUNTY4MlNfR1AxX1BJTl9ETUlDX0NMSyAgICAgICAgICAgICAg
+ICgweDIgPDwgMTQpDQoNCisjZGVmaW5lIFJUNTY4MlNfR1AyX1BJTl9NQVNLICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgzIDw8IDEyKQ0KDQorI2RlZmluZSBSVDU2ODJT
+X0dQMl9QSU5fU0ZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMTIN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19HUDJfUElOX0dQSU8yICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICgweDAgPDwgMTIpDQoNCisjZGVmaW5lIFJUNTY4MlNfR1AyX1BJTl9MUkNL
+MiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAxMikNCg0KKyNk
+ZWZpbmUgUlQ1NjgyU19HUDJfUElOX0RNSUNfU0RBICAgICAgICAgICAgICAoMHgyIDw8IDEyKQ0K
+DQorI2RlZmluZSBSVDU2ODJTX0dQM19QSU5fTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgKDB4MyA8PCAxMCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19HUDNfUElOX1NGVCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEwDQoNCisjZGVmaW5lIFJU
+NTY4MlNfR1AzX1BJTl9HUElPMyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAo
+MHgwIDw8IDEwKQ0KDQorI2RlZmluZSBSVDU2ODJTX0dQM19QSU5fQkNMSzIgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTApDQoNCisjZGVmaW5lIFJUNTY4MlNf
+R1AzX1BJTl9ETUlDX0NMSyAgICAgICAgICAgICAgICgweDIgPDwgMTApDQoNCisjZGVmaW5lIFJU
+NTY4MlNfR1A0X1BJTl9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAo
+MHgzIDw8IDgpDQoNCisjZGVmaW5lIFJUNTY4MlNfR1A0X1BJTl9TRlQgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICA4DQoNCisjZGVmaW5lIFJUNTY4MlNfR1A0X1BJTl9H
+UElPNCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDgpDQoNCisj
+ZGVmaW5lIFJUNTY4MlNfR1A0X1BJTl9BRENEQVQxICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICgweDEgPDwgOCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19HUDRfUElOX0RNSUNfQ0xLICAgICAg
+ICAgICAgICAgKDB4MiA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJTX0dQNF9QSU5fQURDREFUMiAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgzIDw8IDgpDQoNCisjZGVmaW5lIFJUNTY4
+MlNfR1A1X1BJTl9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgz
+IDw8IDYpDQoNCisjZGVmaW5lIFJUNTY4MlNfR1A1X1BJTl9TRlQgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICA2DQoNCisjZGVmaW5lIFJUNTY4MlNfR1A1X1BJTl9HUElP
+NSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDYpDQoNCisjZGVm
+aW5lIFJUNTY4MlNfR1A1X1BJTl9EQUNEQVQxICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICgweDEgPDwgNikNCg0KKyNkZWZpbmUgUlQ1NjgyU19HUDVfUElOX0RNSUNfU0RBICAgICAgICAg
+ICAgICAoMHgyIDw8IDYpDQoNCisjZGVmaW5lIFJUNTY4MlNfR1A2X1BJTl9NQVNLICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDUpDQoNCisjZGVmaW5lIFJUNTY4
+MlNfR1A2X1BJTl9TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA1
+DQoNCisjZGVmaW5lIFJUNTY4MlNfR1A2X1BJTl9HUElPNiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAoMHgwIDw8IDUpDQoNCisjZGVmaW5lIFJUNTY4MlNfR1A2X1BJTl9MUkNL
+MSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA1KQ0KDQorDQoN
+CisvKiBHUElPIENvbnRyb2wgMiAoMHgwMGMxKSovDQoNCisjZGVmaW5lIFJUNTY4MlNfR1AxX1BG
+X01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAxNSkN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19HUDFfUEZfSU4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICgweDAgPDwgMTUpDQoNCisjZGVmaW5lIFJUNTY4MlNfR1AxX1BGX09VVCAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDE1KQ0KDQorI2RlZmluZSBS
+VDU2ODJTX0dQMV9PVVRfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgw
+eDEgPDwgMTQpDQoNCisjZGVmaW5lIFJUNTY4MlNfR1AxX09VVF9MICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICgweDAgPDwgMTQpDQoNCisjZGVmaW5lIFJUNTY4MlNfR1AxX09VVF9IICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAxNCkNCg0KKyNkZWZpbmUgUlQ1Njgy
+U19HUDJfUEZfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgx
+IDw8IDEzKQ0KDQorI2RlZmluZSBSVDU2ODJTX0dQMl9QRl9JTiAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgKDB4MCA8PCAxMykNCg0KKyNkZWZpbmUgUlQ1NjgyU19HUDJfUEZfT1VUICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTMpDQoNCisj
+ZGVmaW5lIFJUNTY4MlNfR1AyX09VVF9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgKDB4MSA8PCAxMikNCg0KKyNkZWZpbmUgUlQ1NjgyU19HUDJfT1VUX0wgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgKDB4MCA8PCAxMikNCg0KKyNkZWZpbmUgUlQ1NjgyU19HUDJf
+T1VUX0ggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDEyKQ0KDQorI2RlZmlu
+ZSBSVDU2ODJTX0dQM19QRl9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICgweDEgPDwgMTEpDQoNCisjZGVmaW5lIFJUNTY4MlNfR1AzX1BGX0lOICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDExKQ0KDQorI2RlZmluZSBSVDU2ODJTX0dQM19Q
+Rl9PVVQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAx
+MSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19HUDNfT1VUX01BU0sgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAoMHgxIDw8IDEwKQ0KDQorI2RlZmluZSBSVDU2ODJTX0dQM19PVVRfTCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDEwKQ0KDQorI2RlZmluZSBSVDU2
+ODJTX0dQM19PVVRfSCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTApDQoN
+CisjZGVmaW5lIFJUNTY4MlNfR1A0X1BGX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgKDB4MSA8PCA5KQ0KDQorI2RlZmluZSBSVDU2ODJTX0dQNF9QRl9JTiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MCA8PCA5KQ0KDQorI2RlZmluZSBSVDU2ODJT
+X0dQNF9QRl9PVVQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4
+MSA8PCA5KQ0KDQorI2RlZmluZSBSVDU2ODJTX0dQNF9PVVRfTUFTSyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICgweDEgPDwgOCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19HUDRfT1VU
+X0wgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MCA8PCA4KQ0KDQorI2RlZmluZSBS
+VDU2ODJTX0dQNF9PVVRfSCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgOCkN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19HUDVfUEZfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAoMHgxIDw8IDcpDQoNCisjZGVmaW5lIFJUNTY4MlNfR1A1X1BGX0lOICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDcpDQoNCisjZGVmaW5lIFJUNTY4
+MlNfR1A1X1BGX09VVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAo
+MHgxIDw8IDcpDQoNCisjZGVmaW5lIFJUNTY4MlNfR1A1X09VVF9NQVNLICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA2KQ0KDQorI2RlZmluZSBSVDU2ODJTX0dQNV9P
+VVRfTCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDYpDQoNCisjZGVmaW5l
+IFJUNTY4MlNfR1A1X09VVF9IICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA2
+KQ0KDQorI2RlZmluZSBSVDU2ODJTX0dQNl9QRl9NQVNLICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICgweDEgPDwgNSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19HUDZfUEZfSU4g
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDAgPDwgNSkNCg0KKyNkZWZpbmUgUlQ1
+NjgyU19HUDZfUEZfT1VUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICgweDEgPDwgNSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19HUDZfT1VUX01BU0sgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDQpDQoNCisjZGVmaW5lIFJUNTY4MlNfR1A2
+X09VVF9MICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDAgPDwgNCkNCg0KKyNkZWZp
+bmUgUlQ1NjgyU19HUDZfT1VUX0ggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8
+IDQpDQoNCisNCg0KKy8qIEdQSU8gU3RhdHVzICgweDAwYzIpICovDQoNCisjZGVmaW5lIFJUNTY4
+MlNfR1A2X1NUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAoMHgxIDw8IDYpDQoNCisjZGVmaW5lIFJUNTY4MlNfR1A1X1NUICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDUpDQoNCisjZGVm
+aW5lIFJUNTY4MlNfR1A0X1NUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAoMHgxIDw8IDQpDQoNCisjZGVmaW5lIFJUNTY4MlNfR1AzX1NUICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDMp
+DQoNCisjZGVmaW5lIFJUNTY4MlNfR1AyX1NUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDIpDQoNCisjZGVmaW5lIFJUNTY4MlNfR1Ax
+X1NUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAo
+MHgxIDw8IDEpDQoNCisNCg0KKy8qIFNvZnQgdm9sdW1lIGFuZCB6ZXJvIGNyb3NzIGNvbnRyb2wg
+MSAoMHgwMGQ5KSAqLw0KDQorI2RlZmluZSBSVDU2ODJTX1pDRF9NQVNLICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAoMHgxIDw8IDEwKQ0KDQorI2RlZmluZSBSVDU2ODJTX1pDRF9TRlQg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxMA0KDQor
+I2RlZmluZSBSVDU2ODJTX1pDRF9QRCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAoMHgwIDw8IDEwKQ0KDQorI2RlZmluZSBSVDU2ODJTX1pDRF9QVSAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8
+IDEwKQ0KDQorDQoNCisvKiA0IEJ1dHRvbiBJbmxpbmUgQ29tbWFuZCBDb250cm9sIDIgKDB4MDBl
+MykgKi8NCg0KKyNkZWZpbmUgUlQ1NjgyU180QlROX0lMX01BU0sgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDE1KQ0KDQorI2RlZmluZSBSVDU2ODJTXzRCVE5f
+SUxfRU4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDE1KQ0KDQorI2RlZmlu
+ZSBSVDU2ODJTXzRCVE5fSUxfRElTICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8
+IDE1KQ0KDQorI2RlZmluZSBSVDU2ODJTXzRCVE5fSUxfUlNUX01BU0sgICAgICAgICAgICAgICAg
+KDB4MSA8PCAxNCkNCg0KKyNkZWZpbmUgUlQ1NjgyU180QlROX0lMX05PUiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAxNCkNCg0KKyNkZWZpbmUgUlQ1Njgy
+U180QlROX0lMX1JTVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAo
+MHgwIDw8IDE0KQ0KDQorDQoNCisvKiA0IEJ1dHRvbiBJbmxpbmUgQ29tbWFuZCBDb250cm9sIDN+
+NiAoMHgwMGU1fjB4MDBlOCkgKi8NCg0KKyNkZWZpbmUgUlQ1NjgyU180QlROX0lMX0hPTERfV0lO
+X01BU0sgICAgICAgICAgICAgICAgKDB4N2YgPDwgOCkNCg0KKyNkZWZpbmUgUlQ1NjgyU180QlRO
+X0lMX0hPTERfV0lOX1NGVCAgICAgICAgICAgICAgICAgICAgOA0KDQorI2RlZmluZSBSVDU2ODJT
+XzRCVE5fSUxfQ0xJQ0tfV0lOX01BU0sgICAgICAgICAgICAgICAgKDB4N2YpDQoNCisjZGVmaW5l
+IFJUNTY4MlNfNEJUTl9JTF9DTElDS19XSU5fU0ZUICAgICAgICAgICAgICAgICAgICAgMA0KDQor
+DQoNCisvKiBBbmFsb2cgSkQgQ29udHJvbCAoMHgwMGYwKSAqLw0KDQorI2RlZmluZSBSVDU2ODJT
+X0pESF9SU19NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEg
+PDwgNCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19KREhfTk9fUExVRyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDQpDQoNCisjZGVmaW5lIFJUNTY4MlNfSkRIX1BM
+VUcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDQpDQoNCisNCg0KKy8q
+IENoYXJnZSBQdW1wIEludGVybmFsIFJlZ2lzdGVyMSAoMHgwMTI1KSAqLw0KDQorI2RlZmluZSBS
+VDU2ODJTX0NQX0NMS19IUF9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4
+MyA8PCA0KQ0KDQorI2RlZmluZSBSVDU2ODJTX0NQX0NMS19IUF8xMDBLSFogICAgICAgICAgICAg
+ICAgKDB4MCA8PCA0KQ0KDQorI2RlZmluZSBSVDU2ODJTX0NQX0NMS19IUF8yMDBLSFogICAgICAg
+ICAgICAgICAgKDB4MSA8PCA0KQ0KDQorI2RlZmluZSBSVDU2ODJTX0NQX0NMS19IUF8zMDBLSFog
+ICAgICAgICAgICAgICAgKDB4MiA8PCA0KQ0KDQorI2RlZmluZSBSVDU2ODJTX0NQX0NMS19IUF82
+MDBLSFogICAgICAgICAgICAgICAgKDB4MyA8PCA0KQ0KDQorDQoNCisvKiBQYWQgRHJpdmluZyBD
+b250cm9sICgweDAxMzYpICovDQoNCisjZGVmaW5lIFJUNTY4MlNfUEFEX0RSVl9HUDFfTUFTSyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTQpDQoNCisjZGVmaW5lIFJUNTY4MlNf
+UEFEX0RSVl9HUDFfSElHSCAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDE0KQ0K
+DQorI2RlZmluZSBSVDU2ODJTX1BBRF9EUlZfR1AxX0xPVyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDE0KQ0KDQorI2RlZmluZSBSVDU2ODJTX1BBRF9E
+UlZfR1AyX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDEyKQ0KDQorI2Rl
+ZmluZSBSVDU2ODJTX1BBRF9EUlZfR1AyX0hJR0ggICAgICAgICAgICAgICAgICAgICAgICAgICAg
+KDB4MSA8PCAxMikNCg0KKyNkZWZpbmUgUlQ1NjgyU19QQURfRFJWX0dQMl9MT1cgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MCA8PCAxMikNCg0KKyNkZWZpbmUg
+UlQ1NjgyU19QQURfRFJWX0dQM19NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8
+PCAxMCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19QQURfRFJWX0dQM19ISUdIICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICgweDEgPDwgMTApDQoNCisjZGVmaW5lIFJUNTY4MlNfUEFEX0RSVl9HUDNf
+TE9XICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDAgPDwgMTAp
+DQoNCisjZGVmaW5lIFJUNTY4MlNfUEFEX0RSVl9HUDRfTUFTSyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICgweDEgPDwgOCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19QQURfRFJWX0dQNF9ISUdIICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgOCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19Q
+QURfRFJWX0dQNF9MT1cgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+KDB4MCA8PCA4KQ0KDQorI2RlZmluZSBSVDU2ODJTX1BBRF9EUlZfR1A1X01BU0sgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAoMHgxIDw8IDYpDQoNCisjZGVmaW5lIFJUNTY4MlNfUEFEX0RSVl9H
+UDVfSElHSCAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDYpDQoNCisjZGVmaW5l
+IFJUNTY4MlNfUEFEX0RSVl9HUDVfTE9XICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICgweDAgPDwgNikNCg0KKyNkZWZpbmUgUlQ1NjgyU19QQURfRFJWX0dQNl9NQVNL
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA0KQ0KDQorI2RlZmluZSBSVDU2ODJT
+X1BBRF9EUlZfR1A2X0hJR0ggICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA0KQ0K
+DQorI2RlZmluZSBSVDU2ODJTX1BBRF9EUlZfR1A2X0xPVyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDQpDQoNCisNCg0KKy8qIENob3BwZXIgYW5kIENs
+b2NrIGNvbnRyb2wgZm9yIERBQyAoMHgwMTNhKSovDQoNCisjZGVmaW5lIFJUNTY4MlNfQ0tYRU5f
+REFDMV9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAxMykNCg0KKyNk
+ZWZpbmUgUlQ1NjgyU19DS1hFTl9EQUMxX1NGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAxMw0KDQorI2RlZmluZSBSVDU2ODJTX0NLR0VOX0RBQzFfTUFTSyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgKDB4MSA8PCAxMikNCg0KKyNkZWZpbmUgUlQ1NjgyU19DS0dFTl9EQUMx
+X1NGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEyDQoNCisNCg0KKy8qIENob3Bw
+ZXIgYW5kIENsb2NrIGNvbnRyb2wgZm9yIEFEQyAoMHgwMTNiKSovDQoNCisjZGVmaW5lIFJUNTY4
+MlNfQ0tYRU5fQURDMV9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAx
+MykNCg0KKyNkZWZpbmUgUlQ1NjgyU19DS1hFTl9BREMxX1NGVCAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAxMw0KDQorI2RlZmluZSBSVDU2ODJTX0NLR0VOX0FEQzFfTUFTSyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAxMikNCg0KKyNkZWZpbmUgUlQ1NjgyU19D
+S0dFTl9BREMxX1NGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEyDQoNCisNCg0K
+Ky8qIFZvbHVtZSB0ZXN0ICgweDAxM2YpKi8NCg0KKyNkZWZpbmUgUlQ1NjgyU19TRUxfQ0xLX1ZP
+TF9NQVNLICAgICAgICAgICAgICAgKDB4MSA8PCAxNSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19TRUxf
+Q0xLX1ZPTF9FTiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAxNSkN
+Cg0KKyNkZWZpbmUgUlQ1NjgyU19TRUxfQ0xLX1ZPTF9ESVMgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgKDB4MCA8PCAxNSkNCg0KKw0KDQorLyogVGVzdCBNb2RlIENvbnRyb2wgMSAo
+MHgwMTQ1KSAqLw0KDQorI2RlZmluZSBSVDU2ODJTX0FEMkRBX0xCX01BU0sgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAxMCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19BRDJE
+QV9MQl9TRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxMA0KDQorDQoN
+CisvKiBTdGVyZW8gTm9pc2UgR2F0ZSBDb250cm9sIDEgKDB4MDE2MCkgKi8NCg0KKyNkZWZpbmUg
+UlQ1NjgyU19ORzJfRU5fTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICgweDEgPDwgMTUpDQoNCisjZGVmaW5lIFJUNTY4MlNfTkcyX0VOICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCAxNSkNCg0KKyNkZWZpbmUg
+UlQ1NjgyU19ORzJfRElTICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAoMHgwIDw8IDE1KQ0KDQorDQoNCisvKiBTdGVyZW8xIERBQyBTaWxlbmNlIERldGVj
+dGlvbiBDb250cm9sICgweDAxOTApICovDQoNCisjZGVmaW5lIFJUNTY4MlNfREVCX1NUT19EQUNf
+TUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDcgPDwgNCkNCg0KKyNkZWZpbmUgUlQ1
+NjgyU19ERUJfODBfTVMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgwIDw8IDQpDQoN
+CisNCg0KKy8qIEhQIEJlaGF2aW9yIExvZ2ljIENvbnRyb2wgMiAoMHgwMWRiKSAqLw0KDQorI2Rl
+ZmluZSBSVDU2ODJTX0hQX1NJR19TUkNfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAoMHgzKQ0KDQorI2RlZmluZSBSVDU2ODJTX0hQX1NJR19TUkNfMUJJVF9DVEwgICAgICAgICAg
+ICAgICAgICAgICAgICAgKDB4MykNCg0KKyNkZWZpbmUgUlQ1NjgyU19IUF9TSUdfU1JDX1JFRyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MikNCg0KKyNkZWZpbmUgUlQ1Njgy
+U19IUF9TSUdfU1JDX0lNUEVfUkVHICAgICAgICAgICAgICAgICAgICAgICAoMHgxKQ0KDQorI2Rl
+ZmluZSBSVDU2ODJTX0hQX1NJR19TUkNfRENfQ0FMSSAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICgweDApDQoNCisNCg0KKy8qIFNBUiBBREMgSW5saW5lIENvbW1hbmQgQ29udHJvbCAxICgweDAy
+MTApICovDQoNCisjZGVmaW5lIFJUNTY4MlNfU0FSX0JVVERFVF9NQVNLICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgKDB4MSA8PCAxNSkNCg0KKyNkZWZpbmUgUlQ1NjgyU19TQVJfQlVUREVU
+X0VOICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDE1KQ0KDQorI2Rl
+ZmluZSBSVDU2ODJTX1NBUl9CVVRERVRfRElTICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICgweDAgPDwgMTUpDQoNCisjZGVmaW5lIFJUNTY4MlNfU0FSX0JVVERFVF9QT1dfTUFTSyAg
+ICAgICAgICAgICAgICAgICgweDEgPDwgMTQpDQoNCisjZGVmaW5lIFJUNTY4MlNfU0FSX0JVVERF
+VF9QT1dfU0FWICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTQpDQoNCisjZGVmaW5lIFJU
+NTY4MlNfU0FSX0JVVERFVF9QT1dfTk9STSAgICAgICAgICAgICAgICAgKDB4MCA8PCAxNCkNCg0K
+KyNkZWZpbmUgUlQ1NjgyU19TQVJfQlVUREVUX1JTVF9NQVNLICAgICAgICAgICAgICAgICAgICAg
+KDB4MSA8PCAxMykNCg0KKyNkZWZpbmUgUlQ1NjgyU19TQVJfQlVUREVUX1JTVF9OT1JNICAgICAg
+ICAgICAgICAgICAgICAoMHgxIDw8IDEzKQ0KDQorI2RlZmluZSBSVDU2ODJTX1NBUl9CVVRERVRf
+UlNUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDAgPDwgMTMpDQoNCisjZGVm
+aW5lIFJUNTY4MlNfU0FSX1BPV19NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAoMHgxIDw8IDEyKQ0KDQorI2RlZmluZSBSVDU2ODJTX1NBUl9QT1dfRU4gICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTIpDQoNCisjZGVmaW5lIFJUNTY4
+MlNfU0FSX1BPV19ESVMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4
+MCA8PCAxMikNCg0KKyNkZWZpbmUgUlQ1NjgyU19TQVJfUlNUX01BU0sgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTEpDQoNCisjZGVmaW5lIFJUNTY4MlNfU0FS
+X1JTVF9OT1JNQUwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTEpDQoN
+CisjZGVmaW5lIFJUNTY4MlNfU0FSX1JTVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICgweDAgPDwgMTEpDQoNCisjZGVmaW5lIFJUNTY4MlNfU0FSX0JZ
+UEFTU19NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgMTApDQoNCisj
+ZGVmaW5lIFJUNTY4MlNfU0FSX0JZUEFTU19FTiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAoMHgxIDw8IDEwKQ0KDQorI2RlZmluZSBSVDU2ODJTX1NBUl9CWVBBU1NfRElTICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MCA8PCAxMCkNCg0KKyNkZWZpbmUg
+UlQ1NjgyU19TQVJfU0VMX01CMV8yX01BU0sgICAgICAgICAgICAgICAgICAgICAgICgweDMgPDwg
+OCkNCg0KKyNkZWZpbmUgUlQ1NjgyU19TQVJfU0VMX01CMV8yX1NGVCAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICA4DQoNCisjZGVmaW5lIFJUNTY4MlNfU0FSX1NFTF9NT0RFX01BU0sgICAgICAg
+ICAgICAgICAgICAgICAgICAoMHgxIDw8IDcpDQoNCisjZGVmaW5lIFJUNTY4MlNfU0FSX1NFTF9N
+T0RFX0NNUCAgICAgICAgICAgICAgICAgICAgICAgICAgICgweDEgPDwgNykNCg0KKyNkZWZpbmUg
+UlQ1NjgyU19TQVJfU0VMX01PREVfQURDICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MCA8
+PCA3KQ0KDQorI2RlZmluZSBSVDU2ODJTX1NBUl9TRUxfTUIxXzJfQ1RMX01BU0sgICAgICAgICAg
+ICAgICAoMHgxIDw8IDUpDQoNCisjZGVmaW5lIFJUNTY4MlNfU0FSX1NFTF9NQjFfMl9BVVRPICAg
+ICAgICAgICAgICAgICAgICAgICAoMHgxIDw8IDUpDQoNCisjZGVmaW5lIFJUNTY4MlNfU0FSX1NF
+TF9NQjFfMl9NQU5VICAgICAgICAgICAgICAgICAgICAgICgweDAgPDwgNSkNCg0KKyNkZWZpbmUg
+UlQ1NjgyU19TQVJfU0VMX1NJR05BTF9NQVNLICAgICAgICAgICAgICAgICAgICAgICAoMHgxIDw8
+IDQpDQoNCisjZGVmaW5lIFJUNTY4MlNfU0FSX1NFTF9TSUdOQUxfQVVUTyAgICAgICAgICAgICAg
+ICAgICAgICAgKDB4MSA8PCA0KQ0KDQorI2RlZmluZSBSVDU2ODJTX1NBUl9TRUxfU0lHTkFMX01B
+TlUgICAgICAgICAgICAgICAgICAgICAgKDB4MCA8PCA0KQ0KDQorDQoNCisvKiBTQVIgQURDIElu
+bGluZSBDb21tYW5kIENvbnRyb2wgMiAoMHgwMjExKSAqLw0KDQorI2RlZmluZSBSVDU2ODJTX1NB
+Ul9BRENfUFNWX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MSA8PCA0KQ0KDQor
+I2RlZmluZSBSVDU2ODJTX1NBUl9BRENfUFNWX0VOVFJZICAgICAgICAgICAgICAgICAgICAgICAg
+ICAoMHgxIDw8IDQpDQoNCisNCg0KKw0KDQorLyogU0FSIEFEQyBJbmxpbmUgQ29tbWFuZCBDb250
+cm9sIDEzICgweDAyMWMpICovDQoNCisjZGVmaW5lIFJUNTY4MlNfU0FSX1NPVVJfTUFTSyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMHgzZikNCg0KKyNkZWZpbmUgUlQ1NjgyU19T
+QVJfU09VUl9CVE4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4M2YpDQoN
+CisjZGVmaW5lIFJUNTY4MlNfU0FSX1NPVVJfVFlQRSAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICgweDApDQoNCisNCg0KKw0KDQorI2RlZmluZSBSVDU2ODJTX1NURVJFT19SQVRF
+UyBTTkRSVl9QQ01fUkFURV84MDAwXzE5MjAwMA0KDQorI2RlZmluZSBSVDU2ODJTX0ZPUk1BVFMg
+KFNORFJWX1BDTV9GTVRCSVRfUzE2X0xFIHwgU05EUlZfUENNX0ZNVEJJVF9TMjBfM0xFIHwgXA0K
+DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgU05EUlZfUENNX0ZNVEJJVF9TMjRfTEUgfCBT
+TkRSVl9QQ01fRk1UQklUX1M4KQ0KDQorDQoNCisvKiBTeXN0ZW0gQ2xvY2sgU291cmNlICovDQoN
+CitlbnVtIHsNCg0KKyAgICAgICAgICAgIFJUNTY4MlNfU0NMS19TX01DTEssDQoNCisgICAgICAg
+ICAgICBSVDU2ODJTX1NDTEtfU19QTEwxLA0KDQorICAgICAgICAgICAgUlQ1NjgyU19TQ0xLX1Nf
+UExMMiwNCg0KKyAgICAgICAgICAgIFJUNTY4MlNfU0NMS19TX1JDQ0xLLA0KDQorfTsNCg0KKw0K
+DQorLyogUExMIFNvdXJjZSAqLw0KDQorZW51bSB7DQoNCisgICAgICAgICAgICBSVDU2ODJTX1BM
+TF9TX01DTEssDQoNCisgICAgICAgICAgICBSVDU2ODJTX1BMTF9TX0JDTEsxLA0KDQorICAgICAg
+ICAgICAgUlQ1NjgyU19QTExfU19CQ0xLMiwNCg0KKyAgICAgICAgICAgIFJUNTY4MlNfUExMX1Nf
+UkNDTEssDQoNCit9Ow0KDQorDQoNCitlbnVtIHsNCg0KKyAgICAgICAgICAgIFJUNTY4MlNfUExM
+MSwNCg0KKyAgICAgICAgICAgIFJUNTY4MlNfUExMMiwNCg0KKyAgICAgICAgICAgIFJUNTY4MlNf
+UExMUywNCg0KK307DQoNCisNCg0KK2VudW0gew0KDQorICAgICAgICAgICAgUlQ1NjgyU19BSUYx
+LA0KDQorICAgICAgICAgICAgUlQ1NjgyU19BSUYyLA0KDQorICAgICAgICAgICAgUlQ1NjgyU19B
+SUZTDQoNCit9Ow0KDQorDQoNCisvKiBmaWx0ZXIgbWFzayAqLw0KDQorZW51bSB7DQoNCisgICAg
+ICAgICAgICBSVDU2ODJTX0RBX1NURVJFTzFfRklMVEVSID0gMHgxLA0KDQorICAgICAgICAgICAg
+UlQ1NjgyU19BRF9TVEVSRU8xX0ZJTFRFUiA9ICgweDEgPDwgMSksDQoNCit9Ow0KDQorDQoNCitl
+bnVtIHsNCg0KKyAgICAgICAgICAgIFJUNTY4MlNfQ0xLX1NFTF9TWVMsDQoNCisgICAgICAgICAg
+ICBSVDU2ODJTX0NMS19TRUxfSTJTMV9BU1JDLA0KDQorICAgICAgICAgICAgUlQ1NjgyU19DTEtf
+U0VMX0kyUzJfQVNSQywNCg0KK307DQoNCisNCg0KK2VudW0gew0KDQorICAgICAgICAgICAgVVNF
+X1BMTEEsDQoNCisgICAgICAgICAgICBVU0VfUExMQiwNCg0KKyAgICAgICAgICAgIFVTRV9QTExB
+QiwNCg0KK307DQoNCisNCg0KK3N0cnVjdCBwbGxfY2FsY19tYXAgew0KDQorICAgICAgICAgICAg
+dW5zaWduZWQgaW50IGZyZXFfaW47DQoNCisgICAgICAgICAgICB1bnNpZ25lZCBpbnQgZnJlcV9v
+dXQ7DQoNCisgICAgICAgICAgICBpbnQgbTsNCg0KKyAgICAgICAgICAgIGludCBuOw0KDQorICAg
+ICAgICAgICAgaW50IGs7DQoNCisgICAgICAgICAgICBib29sIG1fYnA7DQoNCisgICAgICAgICAg
+ICBib29sIGtfYnA7DQoNCisgICAgICAgICAgICBib29sIGJ5cF9wczsNCg0KKyAgICAgICAgICAg
+IGJvb2wgc2VsX3BzOw0KDQorfTsNCg0KKw0KDQorI2RlZmluZSBSVDU2ODJTX05VTV9TVVBQTElF
+UyAyDQoNCisNCg0KK3N0cnVjdCBydDU2ODJzX3ByaXYgew0KDQorICAgICAgICAgICAgc3RydWN0
+IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQ7DQoNCisgICAgICAgICAgICBzdHJ1Y3QgcnQ1
+Njgyc19wbGF0Zm9ybV9kYXRhIHBkYXRhOw0KDQorICAgICAgICAgICAgc3RydWN0IHJlZ21hcCAq
+cmVnbWFwOw0KDQorICAgICAgICAgICAgc3RydWN0IHNuZF9zb2NfamFjayAqaHNfamFjazsNCg0K
+KyAgICAgICAgICAgIHN0cnVjdCByZWd1bGF0b3JfYnVsa19kYXRhIHN1cHBsaWVzW1JUNTY4MlNf
+TlVNX1NVUFBMSUVTXTsNCg0KKyAgICAgICAgICAgIHN0cnVjdCBkZWxheWVkX3dvcmsgamFja19k
+ZXRlY3Rfd29yazsNCg0KKyAgICAgICAgICAgIHN0cnVjdCBkZWxheWVkX3dvcmsgamRfY2hlY2tf
+d29yazsNCg0KKyAgICAgICAgICAgIHN0cnVjdCBtdXRleCBjYWxpYnJhdGVfbXV0ZXg7DQoNCisg
+ICAgICAgICAgICBzdHJ1Y3QgbXV0ZXggc2FyX211dGV4Ow0KDQorDQoNCisjaWZkZWYgQ09ORklH
+X0NPTU1PTl9DTEsNCg0KKyAgICAgICAgICAgIHN0cnVjdCBjbGtfaHcgZGFpX2Nsa3NfaHdbUlQ1
+NjgyU19EQUlfTlVNX0NMS1NdOw0KDQorICAgICAgICAgICAgc3RydWN0IGNsayAqbWNsazsNCg0K
+KyNlbmRpZg0KDQorDQoNCisgICAgICAgICAgICBpbnQgc3lzY2xrOw0KDQorICAgICAgICAgICAg
+aW50IHN5c2Nsa19zcmM7DQoNCisgICAgICAgICAgICBpbnQgbHJja1tSVDU2ODJTX0FJRlNdOw0K
+DQorICAgICAgICAgICAgaW50IGJjbGtbUlQ1NjgyU19BSUZTXTsNCg0KKyAgICAgICAgICAgIGlu
+dCBtYXN0ZXJbUlQ1NjgyU19BSUZTXTsNCg0KKw0KDQorICAgICAgICAgICAgaW50IHBsbF9zcmNb
+UlQ1NjgyU19QTExTXTsNCg0KKyAgICAgICAgICAgIGludCBwbGxfaW5bUlQ1NjgyU19QTExTXTsN
+Cg0KKyAgICAgICAgICAgIGludCBwbGxfb3V0W1JUNTY4MlNfUExMU107DQoNCisgICAgICAgICAg
+ICBpbnQgcGxsX2NvbWI7DQoNCisNCg0KKyAgICAgICAgICAgIGludCBqYWNrX3R5cGU7DQoNCisg
+ICAgICAgICAgICBpbnQgaXJxX3dvcmtfZGVsYXlfdGltZTsNCg0KK307DQoNCisNCg0KK2ludCBy
+dDU2ODJzX3NlbF9hc3JjX2Nsa19zcmMoc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25l
+bnQsDQoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICB1bnNpZ25lZCBpbnQgZmlsdGVyX21h
+c2ssIHVuc2lnbmVkIGludCBjbGtfc3JjKTsNCg0KKw0KDQorI2VuZGlmIC8qIF9fUlQ1NjgyU19I
+X18gKi8NCg0KLS0NCg0KMi4xNy4xDQoNCg0KDQotLS0tLS1QbGVhc2UgY29uc2lkZXIgdGhlIGVu
+dmlyb25tZW50IGJlZm9yZSBwcmludGluZyB0aGlzIGUtbWFpbC4NCg==

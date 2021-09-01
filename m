@@ -2,69 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D20D3FE24A
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Sep 2021 20:18:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA47B3FE437
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Sep 2021 22:44:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 996A21797;
-	Wed,  1 Sep 2021 20:17:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 996A21797
+	by alsa0.perex.cz (Postfix) with ESMTPS id 54AAE1792;
+	Wed,  1 Sep 2021 22:43:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54AAE1792
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630520286;
-	bh=F3PsqF8kI1YopDkw1jrsG80A5fXXJVkd7n6uEtryW9U=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1630529064;
+	bh=JzAxz+S0/Q7aAlOaw6Y2SQo7NOhp+BeuJV4H2iuDTbU=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nnNqI9dt1Ee7lC0InUnYuGjTgZGLwhBt3StLRe/enJDFtc6/seVoYs+oEdgL8DaWA
-	 i6D/Qe37A0hbcWWgf9O54cgj+/Xk0sUoXK0yYRJsQUt7pqp3ZXvNoGdDC7BmoRxGZs
-	 2x1F1/jJKk/hUi2ZJuSheocbMb80jifvAxgafjXI=
+	b=SY8RUCb4Ub/VQJ6hxLUvyiZNuqBvNP2ia59IaxObAtpXXGKof2LVMhVMw7o2HIdNQ
+	 R6kenyAo34mxxw/Jf6kz/dG1fJC+3MMqConWNRnfoFwtBZsUbH6a87T8pcSFOIcYAh
+	 2S6vx4a9gkmoQEhqcggglozfWqIj2jn2et9v9jNU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26694F804F1;
-	Wed,  1 Sep 2021 20:15:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8547F80256;
+	Wed,  1 Sep 2021 22:43:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 15649F804E7; Wed,  1 Sep 2021 20:15:41 +0200 (CEST)
+ id 12778F80254; Wed,  1 Sep 2021 22:43:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ECE5BF804D9
- for <alsa-devel@alsa-project.org>; Wed,  1 Sep 2021 20:15:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECE5BF804D9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 04206F80218
+ for <alsa-devel@alsa-project.org>; Wed,  1 Sep 2021 22:42:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04206F80218
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="mZgKgvjQ"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 139AE610CA;
- Wed,  1 Sep 2021 18:15:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1630520135;
- bh=F3PsqF8kI1YopDkw1jrsG80A5fXXJVkd7n6uEtryW9U=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=mZgKgvjQxxELJfFRNv8ApXFEG4ksWKr9Tfr1mg9T5x3awqaB/7OTXIneqIer7IJrt
- BYg6f0CJAbffLI1fhSMN5dFH6YNjSnqrhPBetHlUjpqXls383MYDIMauBtnhMcz2YB
- V8iOEe1Tib8zZYZIvGJBTl6UYEpaKOgrB6L1dZaWFx9ukY2zz9XZOWhwP83Ygyni5x
- sLYnix6tC1keHVU/UKCj3ZZ1OWowQpbJHI+/M/RVmkGBTXGddFV+JpiMIbzP4J3kwI
- ZTgdisv9fetcQiNr39m4ZBVXn0uTTy+/LoP3LHQzwD3y9C18Tt4kCpuPvjismuEk+V
- ywQwwkHU6WOVQ==
-From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.com, matthias.bgg@gmail.com, Trevor Wu <trevor.wu@mediatek.com>
-Subject: Re: [PATCH] ASoC: mediatek: mt8195: add MTK_PMIC_WRAP dependency
-Date: Wed,  1 Sep 2021 19:14:47 +0100
-Message-Id: <163051912509.21630.1658074283329712845.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210831021303.5230-1-trevor.wu@mediatek.com>
-References: <20210831021303.5230-1-trevor.wu@mediatek.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, rdunlap@infradead.org,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="ZkSp2ekh"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="uWvKocOv"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 3CFB6202E2;
+ Wed,  1 Sep 2021 20:42:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1630528975; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=xRuJFtcp7Qi3PG0qyC6+DA8SXRN1lAvVINnbkyR1x4s=;
+ b=ZkSp2ekhBxyqNmU33Xkc06EDuEo0ICNb6HNzqLHUX3b3jQm8+k/I22DxQTsPaGmJMCxbHh
+ ZMGXcEK3P3AziTCty573lKeW3fweiZHGJiPnFhOWqaXz8igBImgaSIHAEB/4sDnV6WcfqV
+ p0Fg9llg1TE9SMGRBEt/PMlcCXObC8A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1630528975;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=xRuJFtcp7Qi3PG0qyC6+DA8SXRN1lAvVINnbkyR1x4s=;
+ b=uWvKocOvHy3KUSn7562A750n9gfBRF0zTVwbQPMrtYaLPY2xA+pv/++vLzt9gBfwOofprW
+ VhV8bslMYOtpKhBQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 1ED17A3B85;
+ Wed,  1 Sep 2021 20:42:54 +0000 (UTC)
+Date: Wed, 01 Sep 2021 22:42:54 +0200
+Message-ID: <s5h4kb4m3ht.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Alexander Tsoy <alexander@tsoy.me>
+Subject: Re: [PATCH] ALSA: usb-audio: Add registration quirk for JBL Quantum
+ 800
+In-Reply-To: <20210831002531.116957-1-alexander@tsoy.me>
+References: <20210831002531.116957-1-alexander@tsoy.me>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,40 +93,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 31 Aug 2021 10:13:03 +0800, Trevor Wu wrote:
-> randconfig builds show the warning below,
+On Tue, 31 Aug 2021 02:25:31 +0200,
+Alexander Tsoy wrote:
 > 
-> WARNING: unmet direct dependencies detected for SND_SOC_MT6359
->    Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && MTK_PMIC_WRAP [=n]
->    Selected by [y]:
->    - SND_SOC_MT8195_MT6359_RT1019_RT5682 [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && I2C [=y] && SND_SOC_MT8195 [=y]
+> Add another device ID for JBL Quantum 800. It requires the same quirk as
+> other JBL Quantum devices.
 > 
-> [...]
+> Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
 
-Applied to
+Thanks, applied.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks!
-
-[1/1] ASoC: mediatek: mt8195: add MTK_PMIC_WRAP dependency
-      commit: cd5e4efde23ad8050921672ed777ec3f7aa310ec
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Takashi

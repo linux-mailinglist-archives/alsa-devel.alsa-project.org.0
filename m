@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33A613FE246
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Sep 2021 20:17:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D92DD3FE249
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Sep 2021 20:17:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0E0F177E;
-	Wed,  1 Sep 2021 20:16:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0E0F177E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84E0B17A1;
+	Wed,  1 Sep 2021 20:17:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84E0B17A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630520252;
-	bh=3L67LVXG3RetBW0+Au0YysC6Ac0wjuq3UwkXEFY4DSo=;
+	s=default; t=1630520276;
+	bh=KlzFo2zJ7NhBhc9QV4PwhjlNPkGGI6TKBTxxQka9D2c=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=L3jR6/AybG1IRz8bQOaW12095svPwfW6ojWSAHprzUv1ciydOY78Os6EEV9/jxfnn
-	 SXFgvsmLaH3mS5Ay/FuXpBTyoS/Oh5+AHBKuZiSPpspc48dI38D3erNIPZ4BCx2EQ2
-	 Ki2MiIMkNiyrIxAaRbJ9jExOiSFUh5DZC3f2DeGQ=
+	b=g9roEtj4NCv/Qt8OFD5svHXbrmZYVCTrav40o/HejwkG3I/QYD9SFtnkywVLCW22f
+	 ijzPHCXw5l7SYe8M9FDkq9ONFY2cQy3NWElYKt3R5wUad83q3V20usaDg9mggO4iqv
+	 UcYKn/Mp4pRkdeKSmFaH7EwxMoJYTltmt+19BW7Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06339F804E6;
-	Wed,  1 Sep 2021 20:15:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0869F804EC;
+	Wed,  1 Sep 2021 20:15:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 57B92F804E3; Wed,  1 Sep 2021 20:15:38 +0200 (CEST)
+ id 5FC2FF804EB; Wed,  1 Sep 2021 20:15:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AF1FEF80254
- for <alsa-devel@alsa-project.org>; Wed,  1 Sep 2021 20:15:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF1FEF80254
+ by alsa1.perex.cz (Postfix) with ESMTPS id DAD68F8020D
+ for <alsa-devel@alsa-project.org>; Wed,  1 Sep 2021 20:15:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAD68F8020D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fWvVE/FU"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 55BA3610E8;
- Wed,  1 Sep 2021 18:15:27 +0000 (UTC)
+ header.b="td+0Ls7h"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D33B8610FF;
+ Wed,  1 Sep 2021 18:15:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1630520127;
- bh=3L67LVXG3RetBW0+Au0YysC6Ac0wjuq3UwkXEFY4DSo=;
+ s=k20201202; t=1630520130;
+ bh=KlzFo2zJ7NhBhc9QV4PwhjlNPkGGI6TKBTxxQka9D2c=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fWvVE/FUPAGe9f6U4fr7EPTzUZofW55UT/vXCXcjLEI4QnfG36ZeAvbdLkZ8Sok2X
- Es31UEQ5WSqSJ6b7L8pzJom9FQy+tQsyWS1JjzNmpeIVVACSSQLNVmUbB26KhuDn3X
- 5E76ujvdIIOqDs02/bCMVHFQGLRVLyHrQBSBoJMvWljKgtHumyrZS9slYyMg5XbO/5
- c19F7O4bA+TnCaycPGRx+M2KBjeTWWw0y2eQaqNfhVBn2GM/MEoTBB6MoXc1vemB+E
- Y4uSLSi89oXErPlWzX1SxaD9ecyZrP+6HV7hmRzY0Q71sVL9S76T+ioHcNChGYXRnV
- 64vxdd5bR1MBw==
+ b=td+0Ls7hAihHu5SrrX8RkJXcstpMehCWWuTyQ3Wi8Lru0k7YOrHRriSZyMC4iEUj9
+ j9N2U8Lg6mP5eMgaTP4/hZlSDhnzcNpIAxuSQgxJvDASZggSXhMtFRNSk9Ao3rER3W
+ zUWbGJpOk5borZ9bsvwPCJ438S7i5R041P8bcTpw+8NbWM6YEjAJIs5V+R/q7AA3sE
+ Qaxrf0sEQpi18oZMjOR13haEMp/szJQv1YMrMebUd1iTZBS1w1R5tTevRf1rK8GNJf
+ ordDqAj1bywlEtGAEkZjuVXTpiwo8FwtABY3sUys2w9ocZQaZbW09YH8SEEEUDc0VN
+ AlO+8KC1q0SAA==
 From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Colin King <colin.king@canonical.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ASoC: samsung: s3c24xx_simtec: fix spelling mistake
- "devicec" -> "device"
-Date: Wed,  1 Sep 2021 19:14:44 +0100
-Message-Id: <163051912510.21630.1337130075674390913.b4-ty@kernel.org>
+To: shumingf@realtek.com,
+	lgirdwood@gmail.com
+Subject: Re: [PATCH] ASoC: rt5682: fix headset background noise when S3 state
+Date: Wed,  1 Sep 2021 19:14:45 +0100
+Message-Id: <163051912510.21630.7840903335943166080.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210827185003.507006-1-colin.king@canonical.com>
-References: <20210827185003.507006-1-colin.king@canonical.com>
+In-Reply-To: <20210901100754.21045-1-shumingf@realtek.com>
+References: <20210901100754.21045-1-shumingf@realtek.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, albertchen@realtek.com, Mark Brown <broonie@kernel.org>,
+ derek.fang@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,10 +82,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 27 Aug 2021 19:50:03 +0100, Colin King wrote:
-> From: Colin Ian King <colin.king@canonical.com>
+On Wed, 1 Sep 2021 18:07:54 +0800, shumingf@realtek.com wrote:
+> From: Shuming Fan <shumingf@realtek.com>
 > 
-> There is a spelling mistake in a dev_err error message. Fix it.
+> Remove CBJ power off setting to avoid floating state.
 > 
 > 
 
@@ -98,8 +95,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: samsung: s3c24xx_simtec: fix spelling mistake "devicec" -> "device"
-      commit: 2a6a0a03117ee349308ab77ac0925fdca8ef32f5
+[1/1] ASoC: rt5682: fix headset background noise when S3 state
+      commit: 0866d645b76d062b7d55091fd6fb80f058d0c384
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

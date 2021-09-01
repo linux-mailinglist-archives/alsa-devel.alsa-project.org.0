@@ -2,72 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 603EA3FDFF9
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Sep 2021 18:33:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DC4E3FE01C
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Sep 2021 18:40:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EEF34177F;
-	Wed,  1 Sep 2021 18:32:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEF34177F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95B4F1785;
+	Wed,  1 Sep 2021 18:39:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95B4F1785
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630513996;
-	bh=y1c/D5zmMC7JOawbBXs6fSznzulN2NVBOiAlLNEuXjQ=;
+	s=default; t=1630514401;
+	bh=+kim1nFZJePhJG4VFojdXYu0OofkM0oqbRj11pLU5JY=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eWYMhLMh6tIpK0Oga8/IAR2ZgyzrHL5SqjvbVg/Qd6g0BWqRznZget6gaRMYftsVL
-	 e+zO/OUxvbwI7zfWv4Zzh2phlfltUoQi+fA1/WDsxF+3g74iJPVtmHJelh+/oso8Wp
-	 WF7pPo87G5QbDJhXtpwtoaFjB4wu3L7K4dPu1jD8=
+	b=fLA3xQHSmvVgyzqOoWi8mcCnFCAqseA0Q8mEfBPG9cjr35yZ2cbayXdQxuaZDgwvm
+	 V1QvbCYfdXxOFy6U+k2RPKEZPUbibp3faAeb+h0XmBlcPdh2GzwQ/t957FkIxJOK3z
+	 vzKsgNzYeJJVtlbTxWW3cgG3LCptFueT1Z73FZbE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C7E2F80256;
-	Wed,  1 Sep 2021 18:31:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07265F80256;
+	Wed,  1 Sep 2021 18:38:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9EA0F80254; Wed,  1 Sep 2021 18:31:56 +0200 (CEST)
+ id A962FF80254; Wed,  1 Sep 2021 18:38:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B881F8020D
- for <alsa-devel@alsa-project.org>; Wed,  1 Sep 2021 18:31:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B881F8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 41A7DF8020D
+ for <alsa-devel@alsa-project.org>; Wed,  1 Sep 2021 18:38:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41A7DF8020D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="nJfILASU"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 64B0E61058;
- Wed,  1 Sep 2021 16:31:51 +0000 (UTC)
+ header.b="rIR0a/H8"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4C8496108E;
+ Wed,  1 Sep 2021 16:38:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1630513911;
- bh=y1c/D5zmMC7JOawbBXs6fSznzulN2NVBOiAlLNEuXjQ=;
+ s=k20201202; t=1630514308;
+ bh=+kim1nFZJePhJG4VFojdXYu0OofkM0oqbRj11pLU5JY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=nJfILASUEEvPpkbVT3jXOHbnpOLmaCtRY+zj8Hkk/381At+HqeYDbjdk6jg4zpBGf
- oisPk9SEFbfgBc/f34pmOy0jFLgSzl2B5C5jmLA/UTGh7QrocNq0PV8gw7dge9B39S
- XMahVwAjFGVzfAnoOO5FMROUS+hpQLG4cKmPOED4hCsV0/Cwq72QeCYp4gKm8lXsbE
- R1nb2xuERJUBkpc0trcENT9pTJi5KsKV9MTLMPogur073v23ZFW72HnxQw8csxlE6I
- Ni19M9xpCn/tlBM6UL+6+P5xdiO8D39XPgLo5beT2/rjM92oiEo3VQy+SQbJjz/xNV
- 10AFAhYiDS3QQ==
-Date: Wed, 1 Sep 2021 17:31:19 +0100
+ b=rIR0a/H8v58z2ixHr4Ny9loVmOVLuwitSDpeVN25ZKm5G4vTfeIkSNOy6geW1nSML
+ XumHo85nv6niaVp/UKQQCgxqi2XWZ4vL/qw3uiHOAJMGiBElwOqkx45LerHI1th+gK
+ dxS8uZS34wLvLF9k6VPGFQLELhN2hi6yI02/dGSQ1o/LfzBxA2AHBjjt5EM0pbb0Gb
+ FvB6OHpMBx46FEPVU1Ek+HxmRERpNmdnCfm1KfKmDdGcuLtgeBXU+tjyi4PawAIu1i
+ 5NbtC0h3oVKju4taHo8iXYjZ91gIB90RnsxbJdfUeQbEiD+FF5Hm/eDMAqh69dEBJV
+ JTkqktiJL1hOw==
+Date: Wed, 1 Sep 2021 17:37:55 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Sugar Zhang <sugar.zhang@rock-chips.com>
-Subject: Re: [PATCH v2] ASoC: rockchip: i2s: Fix concurrency between tx/rx
-Message-ID: <20210901163119.GA39417@sirena.org.uk>
-References: <1630305525-65759-1-git-send-email-sugar.zhang@rock-chips.com>
+To: Derek =?utf-8?B?W+aWueW+t+e+qV0=?= <derek.fang@realtek.com>
+Subject: Re: [PATCH v2 1/2] ASoC: rt5682s: Add driver for ALC5682I-VS codec
+Message-ID: <20210901163755.GI5976@sirena.org.uk>
+References: <20210831130258.19286-1-derek.fang@realtek.com>
+ <ee3ba91ee5c24dda9db9d05622d1dfaf@realtek.com>
+ <CAOCJVXxPFM4CZ88LPTRp10ExiB1YTvkGYU37aYPBUXcxD2=uyw@mail.gmail.com>
+ <CAEy1m_CatKECNf=3-7qZD9OCECfAjaynZ4aoWrfzV518szTL=g@mail.gmail.com>
+ <18b688bf0eda4a24ae9897a9b7420530@realtek.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="cWoXeonUoKmBZSoM"
+ protocol="application/pgp-signature"; boundary="tmoQ0UElFV5VgXgH"
 Content-Disposition: inline
-In-Reply-To: <1630305525-65759-1-git-send-email-sugar.zhang@rock-chips.com>
-X-Cookie: Walk softly and carry a BFG-9000.
+In-Reply-To: <18b688bf0eda4a24ae9897a9b7420530@realtek.com>
+X-Cookie: Who was that masked man?
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, heiko@sntech.de,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
+Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>, Yu-hsuan Hsu <yuhsuan@google.com>,
+ Albert Chen <albertchen@realtek.com>,
+ Mingjane Hsieh <mingjanehsieh@google.com>,
+ Shuming =?utf-8?B?W+iMg+abuOmKmF0=?= <shumingf@realtek.com>,
+ Albert Wang <albertwang@realtek.com>, "Flove\(HsinFu\)" <flove@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,29 +93,34 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---cWoXeonUoKmBZSoM
-Content-Type: text/plain; charset=us-ascii
+--tmoQ0UElFV5VgXgH
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 30, 2021 at 02:38:45PM +0800, Sugar Zhang wrote:
-> This patch adds lock to fix comcurrency between tx/rx
-> to fix 'rockchip-i2s ff070000.i2s; fail to clear'
+On Wed, Sep 01, 2021 at 06:40:41AM +0000, Derek [=E6=96=B9=E5=BE=B7=E7=BE=
+=A9] wrote:
 
-This doesn't apply against current code, please check and resend.
+> Has uploaded the CL. Please help to check.
+> https://chromium-review.googlesource.com/c/chromiumos/third_party/kernel/=
++/3135053
 
---cWoXeonUoKmBZSoM
+I'm not sure what this discussion is but I'm not sure you wanted to copy
+in upstream here?
+
+--tmoQ0UElFV5VgXgH
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEvqtYACgkQJNaLcl1U
-h9BxBgf/RAh8wv4l2S8GAWfb2mR6GABSQYH7DftN+pPbe66GT0X+/FYi45mTxL/D
-9i3Ya1ynoYCArBhICLM6UCKgYLLRE2pgT6EYyGK8u6aBrpT6XzHDx/cB1oBsZY18
-avB/Jl7c6nbNRcF3njxkB2WmefKJ9HW3aNh6QyDxz2s0u78vzj8yWzkjBsAKETHC
-kHD8dEAI9pTx6lX35vqzUv0chFU1xgBa4BrWjZRAiMu1W7HCrJeIIoe+K5LbZh6/
-Wo2x+YRGdtbaq6vQ0pZCGcPFL25u+JSnEI0o5aMyhNtUh4n8IFnuhI0fzMSpDkFK
-JA35vTg1ULgBhuAvLtJW28lVK1J0Iw==
-=4hGe
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEvrGMACgkQJNaLcl1U
+h9B1lQf9EExTxcb5qudlQUeN+5rNv7eUkb87hKxb087/m7pa+8rNVabtt4cJbYow
+6AHV6iiMEDulgxxG4shbRmHzdc+9pZsxUGapEXZIi8eI7/hh100eTZK9zO/eUa2i
+3qO8KZaEdZMKRfZc5E2AkZSPdqy5We67JthUdqkNI8qZF6RhT1pTR5/9wCL6v2Xl
+7RJHcWv+hHGrHkThgzM0i3o+OCXn+tXv5Md9Wv51cTFVOyIYCkpTyBXpzJQMGgqI
+ET1OdLPt7gt73WWAm3nUPRc+Ycz0gR6EKSKKCU2rGOq44Be+KFdH5EU20KWkjZ1b
+CtjrOn0U8Fuqik7myv8SmcEqtwMJ3Q==
+=qbRP
 -----END PGP SIGNATURE-----
 
---cWoXeonUoKmBZSoM--
+--tmoQ0UElFV5VgXgH--

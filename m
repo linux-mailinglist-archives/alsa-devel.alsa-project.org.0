@@ -2,74 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA7943FD1F5
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Sep 2021 05:49:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 700BE3FD1F7
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Sep 2021 05:50:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5BDDE176E;
-	Wed,  1 Sep 2021 05:48:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BDDE176E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0882F1769;
+	Wed,  1 Sep 2021 05:49:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0882F1769
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630468189;
-	bh=iB7/BryZDQ4PDkrDo2s/XIoXqlwpd1WKX865IOKNVzY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1630468227;
+	bh=hGt1wc4kq8kljXgVH5HFAtVh2cBIgecvwIJfVOk/B78=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EmPPKwx9KZ06R/54BIJxJiHph9bml6ItStmiVOpKeGszi0UxTboXiBoWg3xLaUney
-	 E5WlN0npgb9WtrSQHK1+5QTzOQXiLF1xy/V6l6495h5sJ3UO5ed6f6LY3kaSIcvIRj
-	 Km9QqtBbVhVgTMt2x1kO3GOsh+z19bhWSmpTysXc=
+	b=r5/bZWyDZSNqnfRFT8GgU7F6gRtvx/lBhIqeSPYj7by3AN8KyrH7mSQOvhVde6w3c
+	 nOJqZmnv9HSFjdIjMNI8g2vQ/wYHMRPVb5mSBzNgTusMChp2QujQAT5de4gvQgXbS2
+	 HLFoNgQuCAsF8RSqZqAlQl90XCWX/lydM7+MDUF0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6DADEF80254;
-	Wed,  1 Sep 2021 05:48:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2170F804E7;
+	Wed,  1 Sep 2021 05:48:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1DAADF8032B; Wed,  1 Sep 2021 05:48:32 +0200 (CEST)
+ id 1C89DF804E5; Wed,  1 Sep 2021 05:48:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from lucky1.263xmail.com (lucky1.263xmail.com [211.157.147.131])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E1F40F8032B
- for <alsa-devel@alsa-project.org>; Wed,  1 Sep 2021 05:48:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1F40F8032B
-Received: from localhost (unknown [192.168.167.172])
- by lucky1.263xmail.com (Postfix) with ESMTP id 1F04BC2C0D;
- Wed,  1 Sep 2021 11:48:18 +0800 (CST)
-X-MAIL-GRAY: 0
-X-MAIL-DELIVERY: 1
-X-ADDR-CHECKED4: 1
-X-SKE-CHECKED: 1
-X-ANTISPAM-LEVEL: 2
-Received: from localhost.localdomain (unknown [58.22.7.114])
- by smtp.263.net (postfix) whith ESMTP id
- P6276T140523079702272S1630468091356880_; 
- Wed, 01 Sep 2021 11:48:17 +0800 (CST)
-X-IP-DOMAINF: 1
-X-UNIQUE-TAG: <486f3bb2b2333b201077128edda7fc47>
-X-RL-SENDER: sugar.zhang@rock-chips.com
-X-SENDER: zxg@rock-chips.com
-X-LOGIN-NAME: sugar.zhang@rock-chips.com
-X-FST-TO: broonie@kernel.org
-X-RCPT-COUNT: 6
-X-SENDER-IP: 58.22.7.114
-X-ATTACHMENT-NUM: 0
-X-System-Flag: 0
-From: Sugar Zhang <sugar.zhang@rock-chips.com>
-To: broonie@kernel.org,
-	heiko@sntech.de
-Subject: [PATCH v3 5/7] ASoC: rockchip: pdm: Add support for path map
-Date: Wed,  1 Sep 2021 11:48:01 +0800
-Message-Id: <1630468083-7248-5-git-send-email-sugar.zhang@rock-chips.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1630468039-7186-1-git-send-email-sugar.zhang@rock-chips.com>
-References: <1630468039-7186-1-git-send-email-sugar.zhang@rock-chips.com>
-Cc: Sugar Zhang <sugar.zhang@rock-chips.com>,
- linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id C203DF80227
+ for <alsa-devel@alsa-project.org>; Wed,  1 Sep 2021 05:48:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C203DF80227
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="XGSc1ODA"
+X-UUID: d800d3cac50c4706b9b06b80dc798561-20210901
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=hGt1wc4kq8kljXgVH5HFAtVh2cBIgecvwIJfVOk/B78=; 
+ b=XGSc1ODAjT0mV2s0iM2ZCN5ZLLFj97vqirnpITeZ4O7adYUA9512FZ4vcLrrq/5iuNcvvFZuG4v6OzeCUYPyZ/MbWvq0HK1YjUsUM32iw7cNLz2SZbKUDenOdIhQ4mLCVRgQLNcvmqgfpXdalXKXNIN/CP/0waxuPj+Z6x1gpj4=;
+X-UUID: d800d3cac50c4706b9b06b80dc798561-20210901
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
+ mailgw02.mediatek.com (envelope-from <trevor.wu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 1611709793; Wed, 01 Sep 2021 11:48:28 +0800
+Received: from MTKCAS06.mediatek.inc (172.21.101.30) by
+ mtkmbs05n1.mediatek.inc (172.21.101.15) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Wed, 1 Sep 2021 11:48:27 +0800
+Received: from mtksdccf07 (172.21.84.99) by MTKCAS06.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Wed, 1 Sep 2021 11:48:27 +0800
+Message-ID: <535478691c3a9ed31b508f59dc897be57c4213c0.camel@mediatek.com>
+Subject: Re: [PATCH] ASoC: mediatek: SND_SOC_MT8195 should depend on
+ ARCH_MEDIATEK
+From: Trevor Wu <trevor.wu@mediatek.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Date: Wed, 1 Sep 2021 11:48:27 +0800
+In-Reply-To: <7e628e359bde04ceb9ddd74a45931059b4a4623c.1630415860.git.geert+renesas@glider.be>
+References: <7e628e359bde04ceb9ddd74a45931059b4a4623c.1630415860.git.geert+renesas@glider.be>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+MIME-Version: 1.0
+X-MTK: N
+Content-Transfer-Encoding: base64
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, linux-mediatek@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,104 +90,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch adds property 'rockchip,path-map' for path mapping.
-
-e.g.
-
-"rockchip,path-map = <3 2 1 0>" means the mapping as follows:
-
-  path0 <-- sdi3
-  path1 <-- sdi2
-  path2 <-- sdi1
-  path3 <-- sdi0
-
-Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
----
-
-Changes in v3: None
-Changes in v2: None
-
- sound/soc/rockchip/rockchip_pdm.c | 34 ++++++++++++++++++++++++++++++++++
- sound/soc/rockchip/rockchip_pdm.h |  3 +++
- 2 files changed, 37 insertions(+)
-
-diff --git a/sound/soc/rockchip/rockchip_pdm.c b/sound/soc/rockchip/rockchip_pdm.c
-index f2bf023..64d9891 100644
---- a/sound/soc/rockchip/rockchip_pdm.c
-+++ b/sound/soc/rockchip/rockchip_pdm.c
-@@ -20,6 +20,7 @@
- 
- #define PDM_DMA_BURST_SIZE	(8) /* size * width: 8*4 = 32 bytes */
- #define PDM_SIGNOFF_CLK_RATE	(100000000)
-+#define PDM_PATH_MAX		(4)
- 
- enum rk_pdm_version {
- 	RK_PDM_RK3229,
-@@ -539,8 +540,36 @@ static const struct of_device_id rockchip_pdm_match[] __maybe_unused = {
- };
- MODULE_DEVICE_TABLE(of, rockchip_pdm_match);
- 
-+static int rockchip_pdm_path_parse(struct rk_pdm_dev *pdm, struct device_node *node)
-+{
-+	unsigned int path[PDM_PATH_MAX];
-+	int cnt = 0, ret = 0, i = 0, val = 0, msk = 0;
-+
-+	cnt = of_count_phandle_with_args(node, "rockchip,path-map",
-+					 NULL);
-+	if (cnt != PDM_PATH_MAX)
-+		return cnt;
-+
-+	ret = of_property_read_u32_array(node, "rockchip,path-map",
-+					 path, cnt);
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < cnt; i++) {
-+		if (path[i] >= PDM_PATH_MAX)
-+			return -EINVAL;
-+		msk |= PDM_PATH_MASK(i);
-+		val |= PDM_PATH(i, path[i]);
-+	}
-+
-+	regmap_update_bits(pdm->regmap, PDM_CLK_CTRL, msk, val);
-+
-+	return 0;
-+}
-+
- static int rockchip_pdm_probe(struct platform_device *pdev)
- {
-+	struct device_node *node = pdev->dev.of_node;
- 	const struct of_device_id *match;
- 	struct rk_pdm_dev *pdm;
- 	struct resource *res;
-@@ -606,6 +635,11 @@ static int rockchip_pdm_probe(struct platform_device *pdev)
- 	}
- 
- 	rockchip_pdm_rxctrl(pdm, 0);
-+
-+	ret = rockchip_pdm_path_parse(pdm, node);
-+	if (ret != 0 && ret != -ENOENT)
-+		goto err_suspend;
-+
- 	ret = devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
- 	if (ret) {
- 		dev_err(&pdev->dev, "could not register pcm: %d\n", ret);
-diff --git a/sound/soc/rockchip/rockchip_pdm.h b/sound/soc/rockchip/rockchip_pdm.h
-index 13bfbc2..cab9772 100644
---- a/sound/soc/rockchip/rockchip_pdm.h
-+++ b/sound/soc/rockchip/rockchip_pdm.h
-@@ -53,6 +53,9 @@
- #define PDM_FD_DENOMINATOR_MSK	GENMASK(15, 0)
- 
- /* PDM CLK CTRL */
-+#define PDM_PATH_SHIFT(x)	(8 + (x) * 2)
-+#define PDM_PATH_MASK(x)	(0x3 << PDM_PATH_SHIFT(x))
-+#define PDM_PATH(x, v)		((v) << PDM_PATH_SHIFT(x))
- #define PDM_CLK_FD_RATIO_MSK	BIT(6)
- #define PDM_CLK_FD_RATIO_40	(0X0 << 6)
- #define PDM_CLK_FD_RATIO_35	BIT(6)
--- 
-2.7.4
-
-
+T24gVHVlLCAyMDIxLTA4LTMxIGF0IDE1OjE4ICswMjAwLCBHZWVydCBVeXR0ZXJob2V2ZW4gd3Jv
+dGU6DQo+IFRoZSBNZWRpYXRlayBNVDgxOTUgc291bmQgaGFyZHdhcmUgaXMgb25seSBwcmVzZW50
+IG9uIE1lZGlhdGVrIE1UODE5NQ0KPiBTb0NzLiAgSGVuY2UgYWRkIGEgZGVwZW5kZW5jeSBvbiBB
+UkNIX01FRElBVEVLLCB0byBwcmV2ZW50IGFza2luZyB0aGUNCj4gdXNlciBhYm91dCB0aGlzIGRy
+aXZlciB3aGVuIGNvbmZpZ3VyaW5nIGEga2VybmVsIHdpdGhvdXQgTWVkaWF0ZWsgU29DDQo+IHN1
+cHBvcnQuDQo+IA0KPiBGaXhlczogNjc0NmNjODU4MjU5OTg1YSAoIkFTb0M6IG1lZGlhdGVrOiBt
+dDgxOTU6IGFkZCBwbGF0Zm9ybQ0KPiBkcml2ZXIiKQ0KPiBTaWduZWQtb2ZmLWJ5OiBHZWVydCBV
+eXR0ZXJob2V2ZW4gPGdlZXJ0K3JlbmVzYXNAZ2xpZGVyLmJlPg0KPiAtLS0NCj4gIHNvdW5kL3Nv
+Yy9tZWRpYXRlay9LY29uZmlnIHwgMSArDQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24o
+KykNCj4gDQo+IGRpZmYgLS1naXQgYS9zb3VuZC9zb2MvbWVkaWF0ZWsvS2NvbmZpZyBiL3NvdW5k
+L3NvYy9tZWRpYXRlay9LY29uZmlnDQo+IGluZGV4IGNmNTY3YTg5ZjQyMWI0YzAuLmM4YzgxNWY1
+OTlkYTkwYmYgMTAwNjQ0DQo+IC0tLSBhL3NvdW5kL3NvYy9tZWRpYXRlay9LY29uZmlnDQo+ICsr
+KyBiL3NvdW5kL3NvYy9tZWRpYXRlay9LY29uZmlnDQo+IEBAIC0xODcsNiArMTg3LDcgQEAgY29u
+ZmlnIFNORF9TT0NfTVQ4MTkyX01UNjM1OV9SVDEwMTVfUlQ1NjgyDQo+ICANCj4gIGNvbmZpZyBT
+TkRfU09DX01UODE5NQ0KPiAgCXRyaXN0YXRlICJBU29DIHN1cHBvcnQgZm9yIE1lZGlhdGVrIE1U
+ODE5NSBjaGlwIg0KPiArCWRlcGVuZHMgb24gQVJDSF9NRURJQVRFSyB8fCBDT01QSUxFX1RFU1QN
+Cj4gIAlzZWxlY3QgU05EX1NPQ19NRURJQVRFSw0KPiAgCWhlbHANCj4gIAkgIFRoaXMgYWRkcyBB
+U29DIHBsYXRmb3JtIGRyaXZlciBzdXBwb3J0IGZvciBNZWRpYXRlayBNVDgxOTUNCj4gY2hpcA0K
+DQpIaSBHZWVydCwNCg0KVGhhbmtzIGZvciB5b3VyIHBhdGNoIGZpcnN0Lg0KSSByZWFsbHkgbWlz
+c2VkIHRoZSBkZXBlbmRlbmN5IGRlY2xhcmF0aW9uLg0KQnV0IHdlIG9ubHkgdGVzdCAiZGVwZW5k
+cyBvbiBBUkNIX01FRElBVEVLIiBpbnRlcm5hbGx5LCBtYXliZSByZW1vdmluZw0KIkNPTVBJTEVf
+VEVTVCIgbGlrZSBvdGhlciBNVEsgc2VyaWVzIGlzIGJldHRlciBmb3IgdGhlIG1haW50ZW5hbmNl
+IGluDQp0aGUgZnV0dXJlLg0KDQpUaGFua3MsDQpUcmV2b3INCg==
 

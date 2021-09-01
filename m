@@ -2,119 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C17F3FDFB9
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Sep 2021 18:20:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C9EF3FDFBA
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Sep 2021 18:21:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D22051776;
-	Wed,  1 Sep 2021 18:20:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D22051776
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23A1D177D;
+	Wed,  1 Sep 2021 18:20:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23A1D177D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630513258;
-	bh=zVBVGK/H0YvPz0hUAxEpWRxzQaKD2s8ZrGRTCkJMolw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=mgmdvEdPY+1Mm/FtYAw+xwhsT+ddZYZNP/n1Iwjo8i/iO+/ty5SipZeuRrADPXBLZ
-	 JXfboeGwj8il2XvWIDVS0beE+dvAJlVaNf50VSH6esQ548QSyvxGGyxocL3r5VtEGm
-	 I44N141KA+dcGkmQtvaFTh3JH6+HUffb4H2ItEfA=
+	s=default; t=1630513283;
+	bh=W6StPBSto+d3PR2wsmHZX2ztv6DKgDuePGmPYwHIBqM=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=t1RBQsbi0G0rYdIEFD+rvBzo//vSDEANDhptm5xDmvUxRxBZEzOKORkK/T3COH0fk
+	 sEfqsB/W/fDPfRfvbzuZHG33Zl9Vmo9bq2+WC+8KmdEUkHOAlQ8hqIuJ73IdcLEvSK
+	 1GnD1qBrZd0kV9tzZcso9ajV49ud29T/sGEJvAMw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41128F802E0;
-	Wed,  1 Sep 2021 18:19:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA02DF804C2;
+	Wed,  1 Sep 2021 18:19:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3D2B4F80254; Wed,  1 Sep 2021 18:19:39 +0200 (CEST)
+ id DEA73F80423; Wed,  1 Sep 2021 18:19:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2060.outbound.protection.outlook.com [40.107.102.60])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2077.outbound.protection.outlook.com [40.107.94.77])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A21B4F80171
- for <alsa-devel@alsa-project.org>; Wed,  1 Sep 2021 18:19:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A21B4F80171
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E423F8020D
+ for <alsa-devel@alsa-project.org>; Wed,  1 Sep 2021 18:19:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E423F8020D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
- header.b="HEk63Q0V"
+ header.b="cGhGpI/k"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D3LQ4zF3c4+pMFBWLa8ea5z28ikLjUavvO6k1lc3t62TkztjyQIvSJBg5UZYSep7MEJfXy4t0NZLkoRZrLbubAgZJNaVGKopvKzdlz5J2+txmaAiZM7yoLTlXR9fD3AUDigHHWjHSJIEdVzChifG/gvDIGEHF4WLIqBD/KS/UahjE5igYf5Ufwy2v+REbuG+AqNj5ZQb1hxhHzvz8Ozt7uZs3jSeFWK1VDC9JcdvTYRBOXe+Edyot5ChShuj0iegjrv9Rick9Cd/IpDny1NkWIQyUt1vvQrRIqLIh7NoL6ti/3E1QO1pUJxNsTWdiQU/BbgbqppXyzaYJC38gPKySg==
+ b=F/LHfSogjkGy8J4ZMU6Xc2sGz/kCc/yULEPLOLQdzByGQFlwlwEoQPYqyeyoPbMkbkAr9/ZRepOTDt1jigr9sC6VLPoEWFB6wqDUYwyKYPWHjGiVNeYXSpvB+pTOdtN0JWdmtg6833lg0+7mz42CVW3BakLSm5p/kpt3Uxip1u+j8l+IQOMCLJPUQw6w1jj4RjuIc2cY4emrjY24G7MT/REtuPrnsajuwqRnBLdFPz7w/kpT6jp6ZQ6JaVaRvH0fxwUAfF4l4U6KR6xCWtyA0R4bDZ2JGbaJCuPMqqqIJPr37OIYwC0f7WtrYZf9Yn+IFb1dESVLKx2TrHEO7tsv+w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=39gy2c2raIcnF4r2Yto1C+/uXXeJYaLopbp4uHcVvHc=;
- b=mW6TmBY5y+pGNsZx1r6QjxqtgoHJvRt2rZfE/2JjElE5fzefA0i99K1kTizU9dgpt0c/jzxC3a27SSadR5k19uYKB0s4k6/h1avb9I5IkGKYJpKOoj/nc+jGEg4wPI3bu11QUN97IzhgLEtMMcavSL3mwKdi7tQVQBzCVcd57EfcgneBJaCQdUHlLDPDAiuVBVtCBVxCMTjgRsq9NAWTfu97zH5j2U0rDpo+qYKRqoVJuM50q/dXldrFFILcsST0kPzi84q9vqp7bT2hJVcMisBHsHrRGpF2+wb7aVbAwP4ZMjlWju+PrJP86S6WfTIklCkK11yD/snL7hdZPtXWxQ==
+ bh=cZKL2T4NEN7gh8HWzlk1bLUF2jptXZ5MtDrhN3ZYcc0=;
+ b=KLD4QL0rw6N9sfdGa/46TambK97Hpp3gfb2W5BALiHtIxtOf/KHbP2QRuFGVeJc203PerxPyxfEBrZQJ5URwTI3j7F1t5t2SSFofxDnxPSvNuLFIqBwyrmCxHlXZgVVQVwKCLZVbTGAXG7H39xCSje2blXHtzXu4RfZ5Hdu/J2iNU8QXkQ1ubbnLf3+wxcElF1CHg5WHczMs5QvCLlUIgwNKHmF0uceSXIsNTBwCpAsruVIu9dyEgmPVOJaQs3Xkp08MqjsTzDT+4Q2tMCemKWRsRltQP5/kmQiaq2He6Xb0zYp0IdDxwRlbRTb5blPMER03QCI6EJSriqIkgylDHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.112.34) smtp.rcpttodomain=alsa-project.org smtp.mailfrom=nvidia.com;
+ 216.228.112.36) smtp.rcpttodomain=alsa-project.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=nvidia.com; 
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=39gy2c2raIcnF4r2Yto1C+/uXXeJYaLopbp4uHcVvHc=;
- b=HEk63Q0VPbW7/wogOFRkfABRRViWa5tyWage7npJgLAZ863y5fp1hXe/zqEu6JCo2jQPt9Fh5yqwi3ID5ehgsXp9/RW1GulwAJwF3PZAjp6LJhDazhFy4sYH2d1xQUnOYr3jg28XX31yg5KRSg7LnuM/f0VoL5Y9CkfgZIqRUjQwsabAD7LPZz6euwPoyKiFF0lvuEXM1aMHACUf2l5Ql6ONyw9u+5HbV+d11SZzBF+V+rCMwyXMVtU5TG0HbuQz49qQeBjAX0k2I3vqUlaY+/MY4du4/hUZheJAA18BOFL6TNui4U2Y8EE2zrs3qwaBPnuHUi1v0+khn1R90Bpg6g==
-Received: from BN8PR04CA0052.namprd04.prod.outlook.com (2603:10b6:408:d4::26)
- by DM6PR12MB2842.namprd12.prod.outlook.com (2603:10b6:5:4c::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.24; Wed, 1 Sep
- 2021 16:19:31 +0000
-Received: from BN8NAM11FT034.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:d4:cafe::47) by BN8PR04CA0052.outlook.office365.com
- (2603:10b6:408:d4::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19 via Frontend
- Transport; Wed, 1 Sep 2021 16:19:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.34)
+ bh=cZKL2T4NEN7gh8HWzlk1bLUF2jptXZ5MtDrhN3ZYcc0=;
+ b=cGhGpI/knSEH42mBkEVFWnXYYWDNqUnUhMz8o7r5H8OgNZL1zlAHrQD27NwG0X3GZEgRslcIXWtKSCpXD/2V+jvWQfGdATicBL5EzlsqVtG6ne0D5375bFwIy9gMf1C7SK/6CYwOpCbIVJ6gyIuMZyYryT+Hs1T92JA++T4LhS47eCfscUrtFQVKDybaWiz3y1RJ3cTDBi9SGcM3HKv1V6mBZcF8yoxwG5jEChuekTyVlrLx0Afy26JSmlLGXrRzaImxe386QezHIzzdxXIOXDjXGezFY1CDjRz58oFBJtgpOIETKb1LjwbwaD40w3hh/fXBAbf/PpUJsPjTEyyL0w==
+Received: from BN9PR03CA0057.namprd03.prod.outlook.com (2603:10b6:408:fb::32)
+ by CH2PR12MB3766.namprd12.prod.outlook.com (2603:10b6:610:16::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.17; Wed, 1 Sep
+ 2021 16:19:33 +0000
+Received: from BN8NAM11FT017.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:fb:cafe::2c) by BN9PR03CA0057.outlook.office365.com
+ (2603:10b6:408:fb::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.17 via Frontend
+ Transport; Wed, 1 Sep 2021 16:19:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.36)
  smtp.mailfrom=nvidia.com; alsa-project.org; dkim=none (message not signed)
  header.d=none;alsa-project.org; dmarc=pass action=none
  header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.112.34 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.112.34; helo=mail.nvidia.com;
-Received: from mail.nvidia.com (216.228.112.34) by
- BN8NAM11FT034.mail.protection.outlook.com (10.13.176.139) with Microsoft SMTP
+ 216.228.112.36 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.112.36; helo=mail.nvidia.com;
+Received: from mail.nvidia.com (216.228.112.36) by
+ BN8NAM11FT017.mail.protection.outlook.com (10.13.177.93) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.4478.19 via Frontend Transport; Wed, 1 Sep 2021 16:19:30 +0000
-Received: from HQMAIL107.nvidia.com (172.20.187.13) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 1 Sep
- 2021 16:19:27 +0000
+ 15.20.4478.19 via Frontend Transport; Wed, 1 Sep 2021 16:19:32 +0000
+Received: from HQMAIL107.nvidia.com (172.20.187.13) by HQMAIL101.nvidia.com
+ (172.20.187.10) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 1 Sep
+ 2021 16:19:31 +0000
 Received: from audio.nvidia.com (172.20.187.6) by mail.nvidia.com
  (172.20.187.13) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Wed, 1 Sep 2021 16:19:24 +0000
+ Transport; Wed, 1 Sep 2021 16:19:28 +0000
 From: Sameer Pujar <spujar@nvidia.com>
 To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <robh+dt@kernel.org>,
  <thierry.reding@gmail.com>
-Subject: [PATCH 0/3] Convert name-prefix doc to json-schema
-Date: Wed, 1 Sep 2021 21:48:28 +0530
-Message-ID: <1630513111-18776-1-git-send-email-spujar@nvidia.com>
+Subject: [PATCH 1/3] ASoC: Add json-schema documentation for sound-name-prefix
+Date: Wed, 1 Sep 2021 21:48:29 +0530
+Message-ID: <1630513111-18776-2-git-send-email-spujar@nvidia.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1630513111-18776-1-git-send-email-spujar@nvidia.com>
+References: <1630513111-18776-1-git-send-email-spujar@nvidia.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 276c4a7a-4cce-47d3-a008-08d96d64472d
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2842:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB284293C08322CAF40FD6B78AA7CD9@DM6PR12MB2842.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2399;
+X-MS-Office365-Filtering-Correlation-Id: 403d8701-7479-415d-cdf9-08d96d644811
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3766:
+X-Microsoft-Antispam-PRVS: <CH2PR12MB37663E7A4B3AEC8EA62F4D46A7CD9@CH2PR12MB3766.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3968;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lsHWwoEmVvggnDMVhkKCac5vToZ9FMXVbHI2Mi3ryxsf9AROZHvW/KzSqUe81Mpdqy0/aAx7UdBqZNCgkFwgtA588ZSoerbmJttGOUysd1OZyUJr8cV2caHCRaGdZipvbHwC71VwWRu4MT8eJNdB0H1uSuX9fr5ccLoOsLBCfLSAtvf60Cf/GAWhgZZi2/TRRfIm+6fNfe+yFRubWOATDNAtt27PwSXgOFXW6pm7c0JG5ye+wBZJPiIxgBFOVZ9923PzQnVi2dIbiz557VKC0t2mzqAZbHFfZpjbt5LzNXhexTmBeuF2qBpekuEOsYYf0yLw12Gzsz5inSFYO8tTCOn6bePmzAHhdxLivnLb5zspr4RaGNJEM9Wqbkt506TEjcci6mHth08wE8yluCvZHziyJsI8gNZ6BxRK+TP88gAypscLSMMzPDDiFwYfYTIPu7xViNxhTs5HuAJ7Z/hQOwFY9tGG+wweF/hmzAdo5D+4hrvEDmn6LnOSozqNWAnIUMqAmm/ovSZHsrofRH44HRb6dxBiChMesBUH5NK588c79IGswz6+YFkEB6kVmeL2yLTBmIhXxF47Ze6seEKXZ6EH5KyANZ/k+qv4gAi7ZmQ0A3uTYp/iXH/ByZ8CzNwivFbtGroz+dvU1Sm3/B/Tk/AYPs/tUvzZDycYdRKpp+49ECI7VYlSObYR5yIuTaH5P4y396R/GSOq9RjF1PS0+Q==
-X-Forefront-Antispam-Report: CIP:216.228.112.34; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid03.nvidia.com; CAT:NONE;
- SFS:(4636009)(376002)(346002)(136003)(39860400002)(396003)(36840700001)(46966006)(356005)(36906005)(36860700001)(26005)(70206006)(70586007)(47076005)(8936002)(316002)(54906003)(4326008)(7416002)(110136005)(7636003)(336012)(83380400001)(107886003)(2906002)(186003)(82740400003)(5660300002)(426003)(8676002)(82310400003)(36756003)(86362001)(2616005)(7696005)(478600001);
+X-Microsoft-Antispam-Message-Info: Iqjf+JJSJS8yKNTIFJGndEnb6hFja/KvO882vGiBcYQK/chBbYmVhDHjpm4po+KypHftsVxkh8VOwZ0x+ddF7vsAl511XuQKGU0ho84LP8zxIKgkA65Mr0l5IT90/qifS3EcOCGVil7TekGv4cPoRlfyyNvBKgWObnd7hxl6GiBS7HSGtS/c85if3KLfZ2psWXrFt/gTYCe3w3l+Ke4hEiDnLzw5HLOFit1rmWZn8EBOVhoQX/aELSF8e623mMZiHiO8gKG7nfe0KBr+RT8o+FhmwywSjWwmun0sGgr1PUpI+/lEn7e6TJhYK2U3AVznsc1tzPEVVDK+8hIGiTd6VWHVKfyRaXxNL20GeCmTRuNxBoeU1n7hDKEdtwv8fQOapH3ZeeLgskgkOHhLYN141TUhiw7Em46BqGhh6CXdjuqUASzUS1b61HR/MAjnVHSIbRFIe8Qy6XiXyyMbwAEcyRcMAJvyNU9MWSyPOR6mzC7R9bp+ZpMPp0jKnHrvirMUgts4GoTUNFY0Ka9xd6lLQCmd5E/QOQsvUxE+yx8Dj1k9hDJndwRfwHBm7A+4guF4ylHWMC1hLdS4eds61GC1Mq+pf2akEPrhN50hW8OoH7UnfgYaH1Uwsdtq6n2//SyxkFjYIrsrw4D6pyDRLWoltJ48s7KcY/xSuKAyXATEO6n49pPrBUF40KIr36f2c3SI7TMC2CfhtjynYiKIEKPiwwcE/gHwSgNnb7LIdTvTewQkT61+4Dt+eCekdw59QmJEAO2RToIBF2+yt5XIkxGB/IYLH43zVMNUxMaVnOXtGm3oexbTlJLQSI4UJgo9i8Ra
+X-Forefront-Antispam-Report: CIP:216.228.112.36; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid05.nvidia.com; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(8936002)(426003)(107886003)(110136005)(54906003)(316002)(7416002)(36756003)(86362001)(7696005)(26005)(186003)(8676002)(336012)(70206006)(70586007)(36860700001)(7636003)(508600001)(356005)(5660300002)(2616005)(4326008)(82310400003)(2906002)(47076005)(36906005)(966005);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2021 16:19:30.6296 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 276c4a7a-4cce-47d3-a008-08d96d64472d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2021 16:19:32.1222 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 403d8701-7479-415d-cdf9-08d96d644811
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.34];
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.36];
  Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT034.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT017.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2842
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3766
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  stephan@gerhold.net, Sameer Pujar <spujar@nvidia.com>,
  linux-kernel@vger.kernel.org, jonathanh@nvidia.com,
@@ -135,29 +139,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Following are the changes:
-  - Add json-schema for 'sound-name-prefix' documentation under
-    'name-perfix.yaml'
-  - Use schema references wherever needed.
-  - Remove txt based doc
+The 'sound-name-prefix' is used to prepend suitable strings to a
+component widgets or controls. This is helpful when there are
+multiple instances of the same component. Add relevant json-schema
+and is inspired from sound-name-prefix.txt documentation.
 
-Sameer Pujar (3):
-  ASoC: Add json-schema documentation for sound-name-prefix
-  ASoC: Use schema reference for sound-name-prefix
-  ASoC: Remove name-prefix.txt
-
- .../devicetree/bindings/sound/name-prefix.txt      | 24 ---------------
+Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Rob Herring <robh+dt@kernel.org>
+---
  .../devicetree/bindings/sound/name-prefix.yaml     | 35 ++++++++++++++++++++++
- .../bindings/sound/nvidia,tegra186-dspk.yaml       |  7 +----
- .../bindings/sound/nvidia,tegra210-dmic.yaml       |  7 +----
- .../bindings/sound/nvidia,tegra210-i2s.yaml        |  7 +----
- .../devicetree/bindings/sound/nxp,tfa989x.yaml     |  5 +---
- Documentation/devicetree/bindings/sound/rt5659.txt |  2 +-
- .../bindings/sound/simple-audio-mux.yaml           |  5 +---
- 8 files changed, 41 insertions(+), 51 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/name-prefix.txt
+ 1 file changed, 35 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/sound/name-prefix.yaml
 
+diff --git a/Documentation/devicetree/bindings/sound/name-prefix.yaml b/Documentation/devicetree/bindings/sound/name-prefix.yaml
+new file mode 100644
+index 00000000..b58cc9e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/name-prefix.yaml
+@@ -0,0 +1,35 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/name-prefix.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Component sound name prefix
++
++maintainers:
++  - Jerome Brunet <jbrunet@baylibre.com>
++
++properties:
++  sound-name-prefix:
++    $ref: /schemas/types.yaml#/definitions/string
++    description: |
++      Card implementing the routing property define the connection between
++      audio components as list of string pair. Component using the same
++      sink/source names may use this property to prepend the name of their
++      sinks/sources with the provided string.
++
++additionalProperties: true
++
++examples:
++  - |
++    analog-amplifier@0 {
++        compatible = "simple-audio-amplifier";
++        sound-name-prefix = "FRONT";
++    };
++
++    analog-amplifier@1 {
++        compatible = "simple-audio-amplifier";
++        sound-name-prefix = "BACK";
++    };
++
++...
 -- 
 2.7.4
 

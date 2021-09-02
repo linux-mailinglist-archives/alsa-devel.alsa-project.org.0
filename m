@@ -2,61 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 434983FED36
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Sep 2021 13:54:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE1BA3FED76
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Sep 2021 14:05:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CABC3179B;
-	Thu,  2 Sep 2021 13:53:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CABC3179B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 334C717AE;
+	Thu,  2 Sep 2021 14:04:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 334C717AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630583683;
-	bh=6JyxSlFaeNRNyuWXrqfGn10IuIGUhHmsQ+HXIxelzjY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=d1Chn8M0ko//XNwZX3MxHN/ELBt+OoIt/lHhefiQw21u3rQ2tUhm+LENVLHXQYWlT
-	 qxHKJYiYqD089qbaCEAD1js5lEh3GWTQndR5T0cK6t3OrkqrwFvLZAVoepMYBivmTN
-	 rPosZmDlKY1jRWrXJ7Nl8Gl2OxucNBQ5Rorear1g=
+	s=default; t=1630584333;
+	bh=ITEJISF2iTMe1yZqMsH6G7Y9pXwbxgUbWTf1bOQZyr4=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=TgQNie2yTCF+x5jkbP2ItkOm2ULkUnnDYS1Ec8e7zsShY6/uTNlZ/QTqxiikQqQvV
+	 495xPUkHlknulipcfBNYW0/+XcLycqoCrgztCrsdtpLtfpCt31a3DGjmLHs4r8UDCO
+	 O2vEAIzPlsxhNsrnFvNRdCNexNyBPtOEMV3mlWFs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 32DC5F8028D;
-	Thu,  2 Sep 2021 13:53:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7FCC4F8028D;
+	Thu,  2 Sep 2021 14:04:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC9B2F80269; Thu,  2 Sep 2021 13:53:25 +0200 (CEST)
+ id 336ACF80269; Thu,  2 Sep 2021 14:04:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com
+ [209.85.167.179])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5B2CAF8020D
- for <alsa-devel@alsa-project.org>; Thu,  2 Sep 2021 13:53:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B2CAF8020D
-X-IronPort-AV: E=McAfee;i="6200,9189,10094"; a="199314406"
-X-IronPort-AV: E=Sophos;i="5.84,372,1620716400"; d="scan'208";a="199314406"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2021 04:53:14 -0700
-X-IronPort-AV: E=Sophos;i="5.84,372,1620716400"; d="scan'208";a="467371114"
-Received: from leeyapha-desk2.amr.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.251.212.83])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2021 04:53:11 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Subject: [PATCH] ASoC: SOF: Handle control change notification from firmware
-Date: Thu,  2 Sep 2021 14:53:28 +0300
-Message-Id: <20210902115328.28478-1-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.33.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: guennadi.liakhovetski@linux.intel.com, alsa-devel@alsa-project.org,
- seppo.ingalsuo@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- kai.vehmanen@linux.intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1D47BF800AF
+ for <alsa-devel@alsa-project.org>; Thu,  2 Sep 2021 14:04:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D47BF800AF
+Received: by mail-oi1-f179.google.com with SMTP id n27so2252204oij.0
+ for <alsa-devel@alsa-project.org>; Thu, 02 Sep 2021 05:04:07 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=1BhybqLO/xSxTonTmG4+ysFiC+EsbInsMivl7h+IPwc=;
+ b=PCV9Uw8mhAlDr6IAhq97NIF47Kh2j2K7UDtfrtNrY7d0XdpK2qG/pIdmsJKIOyBvfF
+ VF6KOe3xVAh7XZG+qT7o24+pGl1Kmthi5IyFAjrRuZQ57ESXUNX3oKqdtwE2zUIbbcvR
+ z1fKxD22yI9CpXUFCbA0HzRWqb4FApJJ8ABZcw2Rrsp/WY+5yDnv7+yOP3OcOJzSflDS
+ 0Z8nE323Wb5c4E3JlHzZZrjwx/PfW9EWOFv14lC5hKzoBru5uuoXa95U2unrxI/Y4hzY
+ kjE7RFJA4Ss6tPSS9mosMDbIE8hKYlB6Y3LfCjyRrLThIXKG5X2D+Ef3D+idWV0BeEQI
+ aGOg==
+X-Gm-Message-State: AOAM533kp7bBHHbMle8bZLjU4ArQZdLCEwYhXrQ/DxXvQV0jLKFr51M3
+ coAl3GwHUDc+0TFSOe3YPQ==
+X-Google-Smtp-Source: ABdhPJyfKcFgOUXSmVvN4L+H7e8NArWiAR7hFp+ggaReieLCcYCZmbU/u2j43rfIJCSQEG7HchJk1Q==
+X-Received: by 2002:a54:4105:: with SMTP id l5mr1856524oic.76.1630584246444;
+ Thu, 02 Sep 2021 05:04:06 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id w1sm301368ott.21.2021.09.02.05.04.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Sep 2021 05:04:05 -0700 (PDT)
+Received: (nullmailer pid 685603 invoked by uid 1000);
+ Thu, 02 Sep 2021 12:03:59 -0000
+From: Rob Herring <robh@kernel.org>
+To: Sameer Pujar <spujar@nvidia.com>
+In-Reply-To: <1630562033-13231-2-git-send-email-spujar@nvidia.com>
+References: <1630562033-13231-1-git-send-email-spujar@nvidia.com>
+ <1630562033-13231-2-git-send-email-spujar@nvidia.com>
+Subject: Re: [PATCH v2 1/3] ASoC: Add json-schema documentation for
+ sound-name-prefix
+Date: Thu, 02 Sep 2021 07:03:59 -0500
+Message-Id: <1630584239.106707.685602.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ stephan@gerhold.net, linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
+ robh+dt@kernel.org, jonathanh@nvidia.com, broonie@kernel.org,
+ thierry.reding@gmail.com, linux-tegra@vger.kernel.org, jbrunet@baylibre.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,353 +91,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If the value/data associated with a control changes in SOF it will send a
-notification (SOF_IPC_GLB_COMP_MSG with SOF_IPC_COMP_GET_VALUE/DATA).
+On Thu, 02 Sep 2021 11:23:51 +0530, Sameer Pujar wrote:
+> The 'sound-name-prefix' is used to prepend suitable strings to a
+> component widgets or controls. This is helpful when there are
+> multiple instances of the same component. Add relevant json-schema
+> and is inspired from sound-name-prefix.txt documentation.
+> 
+> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+> Cc: Jerome Brunet <jbrunet@baylibre.com>
+> Cc: Rob Herring <robh+dt@kernel.org>
+> ---
+>  .../devicetree/bindings/sound/name-prefix.yaml     | 35 ++++++++++++++++++++++
+>  1 file changed, 35 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/name-prefix.yaml
+> 
 
-We have support for binary volatile control type, but we might have
-features where enum/switch/volume changes. Re-implementing everything as
-volatile as well would be not much of a gain for several reasons:
-- volatile controls would do an IPC all the time, regardless if there is a
-  need or not.
-- We still don't have notification which forces userspace to continuously
-  poll.
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-When such notification arrives we use snd_ctl_notify_one() to signal
-userspace about the change.
+yamllint warnings/errors:
 
-The kernel is prepared for two types of notification:
-- the notification carries the new data for the control (num_elems != 0)
-The new value/data is copied to the control's local data
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/sound/name-prefix.example.dts:19.28-22.11: Warning (unit_address_vs_reg): /example-0/analog-amplifier@0: node has a unit name, but no reg or ranges property
+Documentation/devicetree/bindings/sound/name-prefix.example.dts:24.28-27.11: Warning (unit_address_vs_reg): /example-0/analog-amplifier@1: node has a unit name, but no reg or ranges property
+Documentation/devicetree/bindings/sound/name-prefix.example.dt.yaml:0:0: /example-0/analog-amplifier@0: failed to match any schema with compatible: ['simple-audio-amplifier']
+Documentation/devicetree/bindings/sound/name-prefix.example.dt.yaml:0:0: /example-0/analog-amplifier@1: failed to match any schema with compatible: ['simple-audio-amplifier']
 
-- blank message about a change
-The new flag for the scontrol (comp_data_dirty) is set and when next
-time user space reads the value via the kcontrol's get callback we will
-refresh the control's local data from the firmware.
+doc reference errors (make refcheckdocs):
 
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Tested-by: Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>
----
- sound/soc/sof/control.c   | 186 ++++++++++++++++++++++++++++++++++++++
- sound/soc/sof/ipc.c       |  35 +++++++
- sound/soc/sof/sof-audio.h |   5 +
- 3 files changed, 226 insertions(+)
+See https://patchwork.ozlabs.org/patch/1523479
 
-diff --git a/sound/soc/sof/control.c b/sound/soc/sof/control.c
-index 504500dd4d43..58bb89af4de1 100644
---- a/sound/soc/sof/control.c
-+++ b/sound/soc/sof/control.c
-@@ -65,6 +65,40 @@ static inline u32 ipc_to_mixer(u32 value, u32 *volume_map, int size)
- 	return i - 1;
- }
- 
-+static void snd_sof_refresh_control(struct snd_sof_control *scontrol)
-+{
-+	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
-+	struct snd_soc_component *scomp = scontrol->scomp;
-+	enum sof_ipc_ctrl_type ctrl_type;
-+	int ret;
-+
-+	if (!scontrol->comp_data_dirty)
-+		return;
-+
-+	if (!pm_runtime_active(scomp->dev))
-+		return;
-+
-+	if (scontrol->cmd == SOF_CTRL_CMD_BINARY)
-+		ctrl_type = SOF_IPC_COMP_GET_DATA;
-+	else
-+		ctrl_type = SOF_IPC_COMP_GET_VALUE;
-+
-+	/* set the ABI header values */
-+	cdata->data->magic = SOF_ABI_MAGIC;
-+	cdata->data->abi = SOF_ABI_VERSION;
-+
-+	/* refresh the component data from DSP */
-+	scontrol->comp_data_dirty = false;
-+	ret = snd_sof_ipc_set_get_comp_data(scontrol, ctrl_type,
-+					    SOF_CTRL_TYPE_VALUE_CHAN_GET,
-+					    scontrol->cmd, false);
-+	if (ret < 0) {
-+		dev_err(scomp->dev, "error: failed to get control data: %d\n", ret);
-+		/* Set the flag to re-try next time to get the data */
-+		scontrol->comp_data_dirty = true;
-+	}
-+}
-+
- int snd_sof_volume_get(struct snd_kcontrol *kcontrol,
- 		       struct snd_ctl_elem_value *ucontrol)
- {
-@@ -74,6 +108,8 @@ int snd_sof_volume_get(struct snd_kcontrol *kcontrol,
- 	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
- 	unsigned int i, channels = scontrol->num_channels;
- 
-+	snd_sof_refresh_control(scontrol);
-+
- 	/* read back each channel */
- 	for (i = 0; i < channels; i++)
- 		ucontrol->value.integer.value[i] =
-@@ -145,6 +181,8 @@ int snd_sof_switch_get(struct snd_kcontrol *kcontrol,
- 	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
- 	unsigned int i, channels = scontrol->num_channels;
- 
-+	snd_sof_refresh_control(scontrol);
-+
- 	/* read back each channel */
- 	for (i = 0; i < channels; i++)
- 		ucontrol->value.integer.value[i] = cdata->chanv[i].value;
-@@ -195,6 +233,8 @@ int snd_sof_enum_get(struct snd_kcontrol *kcontrol,
- 	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
- 	unsigned int i, channels = scontrol->num_channels;
- 
-+	snd_sof_refresh_control(scontrol);
-+
- 	/* read back each channel */
- 	for (i = 0; i < channels; i++)
- 		ucontrol->value.enumerated.item[i] = cdata->chanv[i].value;
-@@ -244,6 +284,8 @@ int snd_sof_bytes_get(struct snd_kcontrol *kcontrol,
- 	struct sof_abi_hdr *data = cdata->data;
- 	size_t size;
- 
-+	snd_sof_refresh_control(scontrol);
-+
- 	if (be->max > sizeof(ucontrol->value.bytes.data)) {
- 		dev_err_ratelimited(scomp->dev,
- 				    "error: data max %d exceeds ucontrol data array size\n",
-@@ -475,6 +517,8 @@ int snd_sof_bytes_ext_get(struct snd_kcontrol *kcontrol,
- 		(struct snd_ctl_tlv __user *)binary_data;
- 	size_t data_size;
- 
-+	snd_sof_refresh_control(scontrol);
-+
- 	/*
- 	 * Decrement the limit by ext bytes header size to
- 	 * ensure the user space buffer is not exceeded.
-@@ -511,3 +555,145 @@ int snd_sof_bytes_ext_get(struct snd_kcontrol *kcontrol,
- 
- 	return 0;
- }
-+
-+static void snd_sof_update_control(struct snd_sof_control *scontrol,
-+				   struct sof_ipc_ctrl_data *cdata)
-+{
-+	struct snd_soc_component *scomp = scontrol->scomp;
-+	struct sof_ipc_ctrl_data *local_cdata;
-+	int i;
-+
-+	local_cdata = scontrol->control_data;
-+
-+	if (cdata->cmd == SOF_CTRL_CMD_BINARY) {
-+		if (cdata->num_elems != local_cdata->data->size) {
-+			dev_err(scomp->dev,
-+				"error: cdata binary size mismatch %u - %u\n",
-+				cdata->num_elems, local_cdata->data->size);
-+			return;
-+		}
-+
-+		/* copy the new binary data */
-+		memcpy(local_cdata->data, cdata->data, cdata->num_elems);
-+	} else if (cdata->num_elems != scontrol->num_channels) {
-+		dev_err(scomp->dev,
-+			"error: cdata channel count mismatch %u - %d\n",
-+			cdata->num_elems, scontrol->num_channels);
-+	} else {
-+		/* copy the new values */
-+		for (i = 0; i < cdata->num_elems; i++)
-+			local_cdata->chanv[i].value = cdata->chanv[i].value;
-+	}
-+}
-+
-+void snd_sof_control_notify(struct snd_sof_dev *sdev,
-+			    struct sof_ipc_ctrl_data *cdata)
-+{
-+	struct snd_soc_dapm_widget *widget;
-+	struct snd_sof_control *scontrol;
-+	struct snd_sof_widget *swidget;
-+	struct snd_kcontrol *kc = NULL;
-+	struct soc_mixer_control *sm;
-+	struct soc_bytes_ext *be;
-+	size_t expected_size;
-+	struct soc_enum *se;
-+	bool found = false;
-+	int i, type;
-+
-+	/* Find the swidget first */
-+	list_for_each_entry(swidget, &sdev->widget_list, list) {
-+		if (swidget->comp_id == cdata->comp_id) {
-+			found = true;
-+			break;
-+		}
-+	}
-+
-+	if (!found)
-+		return;
-+
-+	/* Translate SOF cmd to TPLG type */
-+	switch (cdata->cmd) {
-+	case SOF_CTRL_CMD_VOLUME:
-+	case SOF_CTRL_CMD_SWITCH:
-+		type = SND_SOC_TPLG_TYPE_MIXER;
-+		break;
-+	case SOF_CTRL_CMD_BINARY:
-+		type = SND_SOC_TPLG_TYPE_BYTES;
-+		break;
-+	case SOF_CTRL_CMD_ENUM:
-+		type = SND_SOC_TPLG_TYPE_ENUM;
-+		break;
-+	default:
-+		dev_err(sdev->dev, "error: unknown cmd %u\n", cdata->cmd);
-+		return;
-+	}
-+
-+	widget = swidget->widget;
-+	for (i = 0; i < widget->num_kcontrols; i++) {
-+		/* skip non matching types or non matching indexes within type */
-+		if (widget->dobj.widget.kcontrol_type[i] == type &&
-+		    widget->kcontrol_news[i].index == cdata->index) {
-+			kc = widget->kcontrols[i];
-+			break;
-+		}
-+	}
-+
-+	if (!kc)
-+		return;
-+
-+	switch (cdata->cmd) {
-+	case SOF_CTRL_CMD_VOLUME:
-+	case SOF_CTRL_CMD_SWITCH:
-+		sm = (struct soc_mixer_control *)kc->private_value;
-+		scontrol = sm->dobj.private;
-+		break;
-+	case SOF_CTRL_CMD_BINARY:
-+		be = (struct soc_bytes_ext *)kc->private_value;
-+		scontrol = be->dobj.private;
-+		break;
-+	case SOF_CTRL_CMD_ENUM:
-+		se = (struct soc_enum *)kc->private_value;
-+		scontrol = se->dobj.private;
-+		break;
-+	default:
-+		return;
-+	}
-+
-+	expected_size = sizeof(struct sof_ipc_ctrl_data);
-+	switch (cdata->type) {
-+	case SOF_CTRL_TYPE_VALUE_CHAN_GET:
-+	case SOF_CTRL_TYPE_VALUE_CHAN_SET:
-+		expected_size += cdata->num_elems *
-+				 sizeof(struct sof_ipc_ctrl_value_chan);
-+		break;
-+	case SOF_CTRL_TYPE_VALUE_COMP_GET:
-+	case SOF_CTRL_TYPE_VALUE_COMP_SET:
-+		expected_size += cdata->num_elems *
-+				 sizeof(struct sof_ipc_ctrl_value_comp);
-+		break;
-+	case SOF_CTRL_TYPE_DATA_GET:
-+	case SOF_CTRL_TYPE_DATA_SET:
-+		expected_size += cdata->num_elems + sizeof(struct sof_abi_hdr);
-+		break;
-+	default:
-+		return;
-+	}
-+
-+	if (cdata->rhdr.hdr.size != expected_size) {
-+		dev_err(sdev->dev, "error: component notification size mismatch\n");
-+		return;
-+	}
-+
-+	if (cdata->num_elems)
-+		/*
-+		 * The message includes the updated value/data, update the
-+		 * control's local cache using the received notification
-+		 */
-+		snd_sof_update_control(scontrol, cdata);
-+	else
-+		/* Mark the scontrol that the value/data is changed in SOF */
-+		scontrol->comp_data_dirty = true;
-+
-+	snd_ctl_notify_one(swidget->scomp->card->snd_card,
-+			   SNDRV_CTL_EVENT_MASK_VALUE, kc, 0);
-+}
-diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
-index c2d07b783f60..6260f4ba5618 100644
---- a/sound/soc/sof/ipc.c
-+++ b/sound/soc/sof/ipc.c
-@@ -369,6 +369,39 @@ void snd_sof_ipc_reply(struct snd_sof_dev *sdev, u32 msg_id)
- }
- EXPORT_SYMBOL(snd_sof_ipc_reply);
- 
-+static void ipc_comp_notification(struct snd_sof_dev *sdev,
-+				  struct sof_ipc_cmd_hdr *hdr)
-+{
-+	u32 msg_type = hdr->cmd & SOF_CMD_TYPE_MASK;
-+	struct sof_ipc_ctrl_data *cdata;
-+	int ret;
-+
-+	switch (msg_type) {
-+	case SOF_IPC_COMP_GET_VALUE:
-+	case SOF_IPC_COMP_GET_DATA:
-+		cdata = kmalloc(hdr->size, GFP_KERNEL);
-+		if (!cdata)
-+			return;
-+
-+		/* read back full message */
-+		ret = snd_sof_ipc_msg_data(sdev, NULL, cdata, hdr->size);
-+		if (ret < 0) {
-+			dev_err(sdev->dev,
-+				"error: failed to read component event: %d\n", ret);
-+			goto err;
-+		}
-+		break;
-+	default:
-+		dev_err(sdev->dev, "error: unhandled component message %#x\n", msg_type);
-+		return;
-+	}
-+
-+	snd_sof_control_notify(sdev, cdata);
-+
-+err:
-+	kfree(cdata);
-+}
-+
- /* DSP firmware has sent host a message  */
- void snd_sof_ipc_msgs_rx(struct snd_sof_dev *sdev)
- {
-@@ -404,7 +437,9 @@ void snd_sof_ipc_msgs_rx(struct snd_sof_dev *sdev)
- 	case SOF_IPC_GLB_COMPOUND:
- 	case SOF_IPC_GLB_TPLG_MSG:
- 	case SOF_IPC_GLB_PM_MSG:
-+		break;
- 	case SOF_IPC_GLB_COMP_MSG:
-+		ipc_comp_notification(sdev, &hdr);
- 		break;
- 	case SOF_IPC_GLB_STREAM_MSG:
- 		/* need to pass msg id into the function */
-diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
-index dc274e63ed9a..9a8d005e75a0 100644
---- a/sound/soc/sof/sof-audio.h
-+++ b/sound/soc/sof/sof-audio.h
-@@ -75,6 +75,9 @@ struct snd_sof_control {
- 	struct list_head list;	/* list in sdev control list */
- 
- 	struct snd_sof_led_control led_ctl;
-+
-+	/* if true, the control's data needs to be updated from Firmware */
-+	bool comp_data_dirty;
- };
- 
- /* ASoC SOF DAPM widget */
-@@ -148,6 +151,8 @@ int snd_sof_bytes_ext_get(struct snd_kcontrol *kcontrol,
- 			  unsigned int size);
- int snd_sof_bytes_ext_volatile_get(struct snd_kcontrol *kcontrol, unsigned int __user *binary_data,
- 				   unsigned int size);
-+void snd_sof_control_notify(struct snd_sof_dev *sdev,
-+			    struct sof_ipc_ctrl_data *cdata);
- 
- /*
-  * Topology.
--- 
-2.33.0
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
 

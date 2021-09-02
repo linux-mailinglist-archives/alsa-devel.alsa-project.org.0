@@ -2,65 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03FFE3FEA8D
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Sep 2021 10:22:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B0CC3FEA94
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Sep 2021 10:24:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B405179E;
-	Thu,  2 Sep 2021 10:21:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B405179E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19B6517A3;
+	Thu,  2 Sep 2021 10:23:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19B6517A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630570969;
-	bh=vUv33uiFfFG83hVRBmEdVwHFJOymmDM17//UTz2PjoE=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=i4o1w+8GvsB6gDf6kbC3CNPzfps7+Q9NBo41j6eEwHYdBV9Hf1TFYuzWDHxDqN2cz
-	 gu+cGg18qDcgcnZZqT1v55lqwpsOgDCNp1xbhlAEYjrgvq0yWz/AXbvGb20ebFhBt4
-	 VztHxaEo5POXUNlL8huqNJr/7iIlbnRMe9/oudfc=
+	s=default; t=1630571060;
+	bh=90+X5xBqY4DmZhUUacO3zXRCXSEXaY5Y88vX5mMnzv0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=q+oNkgwRzcKODjvHarlKKn7OJVB9+Jt5NYg7zsBIWWMyR1quykT6PpTKyBRv6Yw1n
+	 5wHM0HlVX5ZUnz2vqGgfvQWoRfOBWJubkK69t+Tt25kOLFswNZlrwITY1dgjpcH2Yi
+	 LwW18s1jwOUivxHMVwHo74ffdGluQQjzHa/+FBYY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BFD41F8028D;
-	Thu,  2 Sep 2021 10:21:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C6E1F8025B;
+	Thu,  2 Sep 2021 10:23:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5DD52F80269; Thu,  2 Sep 2021 10:21:31 +0200 (CEST)
+ id 3E65EF80269; Thu,  2 Sep 2021 10:23:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com
+ [209.85.217.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 43C34F80125
- for <alsa-devel@alsa-project.org>; Thu,  2 Sep 2021 10:21:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43C34F80125
-X-UUID: a3a56026d1054594bd0b82012ed08a9d-20210902
-X-UUID: a3a56026d1054594bd0b82012ed08a9d-20210902
-Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
- mailgw01.mediatek.com (envelope-from <trevor.wu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 590595087; Thu, 02 Sep 2021 16:21:14 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs05n1.mediatek.inc (172.21.101.15) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Thu, 2 Sep 2021 16:21:12 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
- Frontend Transport; Thu, 2 Sep 2021 16:21:12 +0800
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: <broonie@kernel.org>, <tiwai@suse.com>, <matthias.bgg@gmail.com>
-Subject: [PATCH] ASoC: mediatek: common: handle NULL case in suspend/resume
- function
-Date: Thu, 2 Sep 2021 16:21:11 +0800
-Message-ID: <20210902082111.9287-1-trevor.wu@mediatek.com>
-X-Mailer: git-send-email 2.18.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2645FF800AF
+ for <alsa-devel@alsa-project.org>; Thu,  2 Sep 2021 10:22:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2645FF800AF
+Received: by mail-vs1-f43.google.com with SMTP id p14so782067vsm.2
+ for <alsa-devel@alsa-project.org>; Thu, 02 Sep 2021 01:22:53 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=HNCpdSsGpy5YO2fKUf5jrX7dkYGtMSNaPXgN/Pc9hLg=;
+ b=gEi8DzQBY3azeB8JZdTluBxc0232u3JuX03wlyUndSqbjQ7bhJzfKEPOHbVKjH8Xht
+ s1vQqEuckMBYViXdZcvIeQvUlVTzAZ58yf3aBPSIRIeTGCflRb7Lc6osu5Kmk8NsaLEB
+ jQFUf49HDbROu4Kw+l1MwiPysyNdfP76p8EOe5X+ScjRTjxKpWKZ/bhoaZ96wr5XfVGq
+ AJ85IqXfM4xoaMp9XqLiEjB/RPvLLFjyX/cGoWhzmHgtzQs+UTecSEq1atayQFDDz46w
+ GhJCX+3Bosv3k3J9Os7jJ+SI7v0DrZSW6a2BjuuIyIHW30P1NHemcVkjPp328F2qhEAd
+ kPPA==
+X-Gm-Message-State: AOAM531rl0EWPbtNNuZHx0GIZQBEEfmthaTPRSwsV3UfLzGTMsoE/5Iu
+ cjKA1lTAUMnp3lDlOQhw/jH0SimbxMP7WWiLcGE=
+X-Google-Smtp-Source: ABdhPJyNJSOdmU3np2Afm9GG+piP6Z5QWWRSIHEGOqDNKIIMn+kfSujuXQrMi+smK4QAXyICbviEls6eGdpJ4fgr8OY=
+X-Received: by 2002:a67:c789:: with SMTP id t9mr985119vsk.60.1630570972366;
+ Thu, 02 Sep 2021 01:22:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-Cc: linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
- bicycle.tsai@mediatek.com, linux-kernel@vger.kernel.org,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- dan.carpenter@oracle.com
+References: <20210901181740.3a0a69f2@canb.auug.org.au>
+ <3ee0b878-b78c-2483-1a0b-7570bda0132b@infradead.org>
+ <299c7f0a7b1dede1e2f704a0133f4045e85641b5.camel@mediatek.com>
+In-Reply-To: <299c7f0a7b1dede1e2f704a0133f4045e85641b5.camel@mediatek.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 2 Sep 2021 10:22:40 +0200
+Message-ID: <CAMuHMdXVxNfQYwP7+iMq+CbuDx3wjHgG2xsr9jP4WwL4OLLL-Q@mail.gmail.com>
+Subject: Re: linux-next: Tree for Sep 1
+ [sound/soc/mediatek/mt8195/snd-soc-mt8195-afe.ko]
+To: Trevor Wu <trevor.wu@mediatek.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Bicycle Tsai <bicycle.tsai@mediatek.com>, Randy Dunlap <rdunlap@infradead.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,55 +89,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When memory allocation for afe->reg_back_up fails, reg_back_up can't
-be used.
-Keep the suspend/resume flow but skip register backup when
-afe->reg_back_up is NULL, in case illegal memory access happens.
+Hi Trevor,
 
-Fixes: 283b612429a2 ("ASoC: mediatek: implement mediatek common structure")
-Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
----
- sound/soc/mediatek/common/mtk-afe-fe-dai.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
+On Thu, Sep 2, 2021 at 4:37 AM Trevor Wu <trevor.wu@mediatek.com> wrote:
+> On Wed, 2021-09-01 at 13:55 -0700, Randy Dunlap wrote:
+> > On 9/1/21 1:17 AM, Stephen Rothwell wrote:
+> > > Please do not add any v5.16 related code to your linux-next
+> > > included
+> > > branches until after v5.15-rc1 has been released.
+> > >
+> > > Changes since 20210831:
+> > >
+> >
+> >
+> > on x86_64:
+> >
+> > ERROR: modpost: "clkdev_add" [sound/soc/mediatek/mt8195/snd-soc-
+> > mt8195-afe.ko] undefined!
+> > ERROR: modpost: "clkdev_drop" [sound/soc/mediatek/mt8195/snd-soc-
+> > mt8195-afe.ko] undefined!
+> > ERROR: modpost: "clk_unregister_gate" [sound/soc/mediatek/mt8195/snd-
+> > soc-mt8195-afe.ko] undefined!
+> > ERROR: modpost: "clk_register_gate" [sound/soc/mediatek/mt8195/snd-
+> > soc-mt8195-afe.ko] undefined!
+> >
+> > Full randconfig file is attached.
+> >
+>
+> Hi Randy,
+>
+> The problem is caused by the dependency declaration, because it's not a
+> driver for x86_64.
+> The dependency declaration has been added in the following patch.
+>
+> https://patchwork.kernel.org/project/alsa-devel/patch/7e628e359bde04ceb9ddd74a45931059b4a4623c.1630415860.git.geert+renesas@glider.be/
 
-diff --git a/sound/soc/mediatek/common/mtk-afe-fe-dai.c b/sound/soc/mediatek/common/mtk-afe-fe-dai.c
-index baaa5881b1d4..e95c7c018e7d 100644
---- a/sound/soc/mediatek/common/mtk-afe-fe-dai.c
-+++ b/sound/soc/mediatek/common/mtk-afe-fe-dai.c
-@@ -334,9 +334,11 @@ int mtk_afe_suspend(struct snd_soc_component *component)
- 			devm_kcalloc(dev, afe->reg_back_up_list_num,
- 				     sizeof(unsigned int), GFP_KERNEL);
- 
--	for (i = 0; i < afe->reg_back_up_list_num; i++)
--		regmap_read(regmap, afe->reg_back_up_list[i],
--			    &afe->reg_back_up[i]);
-+	if (afe->reg_back_up) {
-+		for (i = 0; i < afe->reg_back_up_list_num; i++)
-+			regmap_read(regmap, afe->reg_back_up_list[i],
-+				    &afe->reg_back_up[i]);
-+	}
- 
- 	afe->suspended = true;
- 	afe->runtime_suspend(dev);
-@@ -356,12 +358,13 @@ int mtk_afe_resume(struct snd_soc_component *component)
- 
- 	afe->runtime_resume(dev);
- 
--	if (!afe->reg_back_up)
-+	if (!afe->reg_back_up) {
- 		dev_dbg(dev, "%s no reg_backup\n", __func__);
--
--	for (i = 0; i < afe->reg_back_up_list_num; i++)
--		mtk_regmap_write(regmap, afe->reg_back_up_list[i],
--				 afe->reg_back_up[i]);
-+	} else {
-+		for (i = 0; i < afe->reg_back_up_list_num; i++)
-+			mtk_regmap_write(regmap, afe->reg_back_up_list[i],
-+					 afe->reg_back_up[i]);
-+	}
- 
- 	afe->suspended = false;
- 	return 0;
+That is not sufficient, if COMPILE_TEST is enabled.
+
+Looks like it needs a dependency on COMMON_CLK, too.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
 -- 
-2.18.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

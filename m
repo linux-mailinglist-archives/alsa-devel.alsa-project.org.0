@@ -2,89 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 318653FEE1F
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Sep 2021 14:53:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AAB73FEE0F
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Sep 2021 14:51:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE5B516B4;
-	Thu,  2 Sep 2021 14:52:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE5B516B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8A1CA17B9;
+	Thu,  2 Sep 2021 14:50:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A1CA17B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630587214;
-	bh=LV06zfgFdNC9e1Y7eStlekjXKGketIdIWp4SotN5SDg=;
+	s=default; t=1630587109;
+	bh=qFjfjVpGOsKXI12iar5Zts75GgdYjA7bDPBjNZm9iWc=;
 	h=References:From:To:Subject:Date:In-reply-to:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VuSEPfO2RcU/A6w1DCMLyLh5pGA8NG5BVFdIxXIX/xevQTokNy3idf4/3XPbqv79e
-	 2oAuozbV59wb1AsuTgrUNkeqtZefWP2c4ICuFZ1IxciMg59SZ1BsovlX0sTMnJ9RYL
-	 ivFsGAEQ8/AHZVorA9Q2eVMyxdVZTNJtE2A6QH/g=
+	b=C6pNWF2scW/p754emGqB6T/KKB0eb/FIBdFH+GB99zozLL1gQ2sdnyVYIe8Fb5pqF
+	 jvLqIssAzhK9SLLT6ME2mX6PEKXUenxI0wo4IXO9312YB9BAIm1D0UjoT5GW8nq5hT
+	 qONdQV7p3NPdzNWUKQUka1zlGDJ0LF9A4yLGxSho=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3ACDFF8028D;
-	Thu,  2 Sep 2021 14:52:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F36F2F8028D;
+	Thu,  2 Sep 2021 14:50:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A3F34F80269; Thu,  2 Sep 2021 14:52:16 +0200 (CEST)
+ id D4EB8F80269; Thu,  2 Sep 2021 14:50:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 10E4BF80125
- for <alsa-devel@alsa-project.org>; Thu,  2 Sep 2021 14:52:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10E4BF80125
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5CE75F80125
+ for <alsa-devel@alsa-project.org>; Thu,  2 Sep 2021 14:50:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CE75F80125
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="QTk5hM6c"
-Received: by mail-wm1-x32f.google.com with SMTP id
- 79-20020a1c0452000000b002e6cf79e572so1363955wme.1
- for <alsa-devel@alsa-project.org>; Thu, 02 Sep 2021 05:52:09 -0700 (PDT)
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="oSqbiZE3"
+Received: by mail-wm1-x32b.google.com with SMTP id g135so1190694wme.5
+ for <alsa-devel@alsa-project.org>; Thu, 02 Sep 2021 05:50:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=baylibre-com.20150623.gappssmtp.com; s=20150623;
  h=references:user-agent:from:to:cc:subject:date:in-reply-to
  :message-id:mime-version;
- bh=XUQYJFf0VLoed4JNR3bJk8DdGmygiKizVinf3zNZhJo=;
- b=QTk5hM6cRX7Vag5fBHfIGeza7Gcb1CrOImwXRWX/tUo4pmpjLmUx9zGHyE/mC3pJPT
- NwPl+3wafeOiVJQqeXPoo/qK3fM6Xdo83WhZEVjwLWn1EK++PdfKrpWF1feAG02UOamx
- Qvxjnks2r6bbean2ZB3OiwA8WW7OKO0iO0O8MOIAuKLafEcdSNsFNIpKLCPrKrCvhfFL
- HGcA7Dg/hEBxAdqHLwQkS5DofZuFFMxF70Ikc0MHAFnfd+aIKsRlHW32pk6cSmJoYUwB
- eUoDkKJwfd0ychlZhdLxmRkOhCUNHYiebn2sBPtQbiE0KLqY21JHwDzfd9fjiCoO3P0G
- MhUA==
+ bh=a67C6dNL5nIJT92Nus3ptLY8+mQH3bjCFrhDFLwmJFM=;
+ b=oSqbiZE3H987kD4hq6o9Ds4oDd3rs+cX4AFxRA6Ef6dJ8+NceyxkAikOSVSziB+BjE
+ bunyHly9lgp52gmixcJFwTO+qIhQwz+mO5cB70pOD/wE/qSr4jQsEwviDcn29O3ZRbGm
+ 2smfKt0cLilFMBrhxz9oLoBT9Vf+T/W2Q75wTVKQbZbDjvCkdCKJnQH5Ys4+7AVVSNoY
+ qkGXeuuHloTvVyfmtruFOxY7d7s1qx8iPFbYIitgZdO6la4enQhKVkcSHd+s6l8G4p+i
+ 5YliV3McHq4EwYehkeoh6Q/2sdAJtCyNfOSG/Wt95LvbeIXPPDy0piWpYHJGc3SRdTxv
+ r1bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
  :in-reply-to:message-id:mime-version;
- bh=XUQYJFf0VLoed4JNR3bJk8DdGmygiKizVinf3zNZhJo=;
- b=P8F32D5POF9+x7+luUEPLvGeCJYFgcLfHGlzPhOYu/lFQRMa5D+lEWhJDDU11Vm5p3
- X/cKEtZyo7bVVmUooXV5Po9rmVYKnDUjQNyHgJ5lPol0QKcdKS1fm0iu3yTs5+jN8cMN
- OlNYblws8jBumQ8e2gQC/pGWm+r98oFyMUWeMBpwHKTJZWBcfCMVg4rN/CQKwGdMvPuU
- FxwDJ4Di9YEHa2wCDmQsccDzE7wgmLo0bbDEKXBz8/rluy/fObvm5DpUafJ1UsiOGGR+
- sRDFXmyXNNIPIATFau1gvop8qUmK/hl802KdDHmEJcEE6U4/OhMwZOdRoJzQKlMNkqa/
- wvrg==
-X-Gm-Message-State: AOAM530AFUMo1fVAmVYha54j+50AjeM2S9+W4ifM2uqq3KmrsPbTk9OQ
- NBZKfG+uGLSyy6SsIvvGCwJNJg==
-X-Google-Smtp-Source: ABdhPJzPz9XOAIc35pFuBE/Q9Eg6RqNF24BiJ5nOV48yKD7O45stK/C7AYYFgjow2p8m9xr050S43A==
-X-Received: by 2002:a05:600c:259:: with SMTP id
- 25mr2997861wmj.82.1630587124128; 
- Thu, 02 Sep 2021 05:52:04 -0700 (PDT)
+ bh=a67C6dNL5nIJT92Nus3ptLY8+mQH3bjCFrhDFLwmJFM=;
+ b=b5PvjVj5wzaxLwelOsRs15r7q+BuTHXSlSbCbEEOchf/juhxHr32r/hwP/iIUu8d9m
+ a5A71odTWyS6s906K/xiYuWrOv2+4t7p2W91o++rJs7swvKxDcFnoyjfSuM0w2wwm8rJ
+ 3y6HsHBQZKEWslvuxrL4QYVloK8UdVFRDhUYHfy0Yz+NjYPC1vn2e/Q9NZyGJ3jhWlTi
+ +XDJBUphRL8rKAMkdgBevL7L8mBhe6fv2J8nN+62CcuQlwqMefPqYo0YIJkVsgryYYTL
+ FB1iwfZV2H9KTY0920O8jApL7GwXxnMwYSjMTOf2OI6Pn+9nCA6iLIMiyPwi1LTjuc9/
+ ZTNA==
+X-Gm-Message-State: AOAM531tRmzhEJeJL+QNu5JVkYxvTH4OHPT3T9InaQDjg9qsywxKYRV3
+ ebWzilpfH8V5/+bCPFhcxaKJcw==
+X-Google-Smtp-Source: ABdhPJzdZJ+Ta6IS5+ARF1e91+6ra1TrvOd1v2Bx44u/bXB4BQfewSiivQ+Jp8r2eWIdUAEwOPPJMg==
+X-Received: by 2002:a1c:98d8:: with SMTP id a207mr2918351wme.16.1630587022216; 
+ Thu, 02 Sep 2021 05:50:22 -0700 (PDT)
 Received: from localhost (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr.
  [90.63.244.31])
- by smtp.gmail.com with ESMTPSA id n4sm2071215wro.81.2021.09.02.05.52.03
+ by smtp.gmail.com with ESMTPSA id q17sm1728988wrr.91.2021.09.02.05.50.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Sep 2021 05:52:03 -0700 (PDT)
+ Thu, 02 Sep 2021 05:50:21 -0700 (PDT)
 References: <1630562033-13231-1-git-send-email-spujar@nvidia.com>
+ <1630562033-13231-2-git-send-email-spujar@nvidia.com>
 User-agent: mu4e 1.6.5; emacs 27.1
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: Sameer Pujar <spujar@nvidia.com>, broonie@kernel.org,
  lgirdwood@gmail.com, robh+dt@kernel.org, thierry.reding@gmail.com
-Subject: Re: [PATCH v2 0/3] Convert name-prefix doc to json-schema
-Date: Thu, 02 Sep 2021 14:44:12 +0200
-In-reply-to: <1630562033-13231-1-git-send-email-spujar@nvidia.com>
-Message-ID: <1jilzj5edo.fsf@starbuckisacylon.baylibre.com>
+Subject: Re: [PATCH v2 1/3] ASoC: Add json-schema documentation for
+ sound-name-prefix
+Date: Thu, 02 Sep 2021 14:47:27 +0200
+In-reply-to: <1630562033-13231-2-git-send-email-spujar@nvidia.com>
+Message-ID: <1jpmtr5egi.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
@@ -108,46 +108,65 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On Thu 02 Sep 2021 at 11:23, Sameer Pujar <spujar@nvidia.com> wrote:
 
-> Following are the changes:
->   - Add json-schema for 'sound-name-prefix' documentation under
->     'name-perfix.yaml'
->   - Use schema references wherever needed.
->   - Remove txt based doc
+> The 'sound-name-prefix' is used to prepend suitable strings to a
+> component widgets or controls. This is helpful when there are
+> multiple instances of the same component. Add relevant json-schema
+> and is inspired from sound-name-prefix.txt documentation.
 >
->
-> Changelog
-> =========
->
-> v1 -> v2
-> --------
->  * Provide top reference to name-prefix.yaml as suggested by Rob
->    for patch 2/3
->  * Dropped couple of unreachable email ids from Cc list in commit
->    message of patch 2/3
->  * No changes in remaining patches
->   
->
-> Sameer Pujar (3):
->   ASoC: Add json-schema documentation for sound-name-prefix
->   ASoC: Use schema reference for sound-name-prefix
->   ASoC: Remove name-prefix.txt
-
-Thanks a lot for this Sameer.
-With the small update required by Rob's bot and the comment on patch #1
-taken care of, you may add:
-
-Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
-
->
->  .../devicetree/bindings/sound/name-prefix.txt      | 24 ---------------
+> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+> Cc: Jerome Brunet <jbrunet@baylibre.com>
+> Cc: Rob Herring <robh+dt@kernel.org>
+> ---
 >  .../devicetree/bindings/sound/name-prefix.yaml     | 35 ++++++++++++++++++++++
->  .../bindings/sound/nvidia,tegra186-dspk.yaml       |  9 ++----
->  .../bindings/sound/nvidia,tegra210-dmic.yaml       |  9 ++----
->  .../bindings/sound/nvidia,tegra210-i2s.yaml        |  9 ++----
->  .../devicetree/bindings/sound/nxp,tfa989x.yaml     |  9 ++----
->  Documentation/devicetree/bindings/sound/rt5659.txt |  2 +-
->  .../bindings/sound/simple-audio-mux.yaml           |  9 ++----
->  8 files changed, 51 insertions(+), 55 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/name-prefix.txt
+>  1 file changed, 35 insertions(+)
 >  create mode 100644 Documentation/devicetree/bindings/sound/name-prefix.yaml
+>
+> diff --git a/Documentation/devicetree/bindings/sound/name-prefix.yaml b/Documentation/devicetree/bindings/sound/name-prefix.yaml
+> new file mode 100644
+> index 00000000..b58cc9e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/name-prefix.yaml
+> @@ -0,0 +1,35 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/name-prefix.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Component sound name prefix
+> +
+> +maintainers:
+> +  - Jerome Brunet <jbrunet@baylibre.com>
+
+Since this file is referenced using "AllOf", am I going to be listed as
+maintainer of all the drivers using the property below ? I'm not sure I
+want that ... :P
+
+Maybe it would be better to drop the above ?
+
+> +
+> +properties:
+> +  sound-name-prefix:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description: |
+> +      Card implementing the routing property define the connection between
+> +      audio components as list of string pair. Component using the same
+> +      sink/source names may use this property to prepend the name of their
+> +      sinks/sources with the provided string.
+> +
+> +additionalProperties: true
+> +
+> +examples:
+> +  - |
+> +    analog-amplifier@0 {
+> +        compatible = "simple-audio-amplifier";
+> +        sound-name-prefix = "FRONT";
+> +    };
+> +
+> +    analog-amplifier@1 {
+> +        compatible = "simple-audio-amplifier";
+> +        sound-name-prefix = "BACK";
+> +    };
+> +
+> +...
 

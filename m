@@ -2,95 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53EFA3FF01C
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Sep 2021 17:24:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CD893FF023
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Sep 2021 17:26:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E475A17C6;
-	Thu,  2 Sep 2021 17:23:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E475A17C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 285881746;
+	Thu,  2 Sep 2021 17:25:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 285881746
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630596257;
-	bh=E6Wz1P4l5WGvp2F88PDrqzDok5byjhfP+LkT31ypJ2w=;
+	s=default; t=1630596375;
+	bh=5xHwpTyrJz/V1ecWOpG2oVcDhIQ65r7ovJhDHEp+hFg=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=e6js+gq0gQVQtVbEmnWN5VO/FuDYMnlhLbBEcq29MbQAxfTdtjf3KnDnpACzcw8zB
-	 DKfeaNVuK2njihLKtOnvEbD/FOJB0xyAgkwBpq2mVlmyRh+kTKT96Jf2MThdSpJ3oT
-	 i9B0diKkuOByx/Uev7eRQPko100yWHEaZrBGT0L8=
+	b=se5K9WRSmv8zOiSB5VvL8lOWlOtvpuPt14wb3YwlIAliXLZA6+dGteAUPZwnrz1oY
+	 IxpH3N85oxEiQMQm/0vHbkbfKkRcG10kQ+OJzHD44Aa8DV4ytR96umRbB9bOPfJGlt
+	 SYHE/ep9VRHtnlP3LYk0gSQygl35HjcIIClzHVjo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8B1CF804D9;
-	Thu,  2 Sep 2021 17:22:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75AACF804B3;
+	Thu,  2 Sep 2021 17:24:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E8019F80269; Thu,  2 Sep 2021 17:16:23 +0200 (CEST)
+ id B11C1F80290; Thu,  2 Sep 2021 17:24:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,HK_RANDOM_ENVFROM,
- HK_RANDOM_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A1D08F8020D
- for <alsa-devel@alsa-project.org>; Thu,  2 Sep 2021 17:16:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1D08F8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9F4F5F800AF
+ for <alsa-devel@alsa-project.org>; Thu,  2 Sep 2021 17:24:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F4F5F800AF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="qwE320N5"
-Received: by mail-ej1-x635.google.com with SMTP id i21so5224280ejd.2
- for <alsa-devel@alsa-project.org>; Thu, 02 Sep 2021 08:16:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=s4DzLI53lYMtZaqfXhMaCm/bYg8peNwO+6H09pZqkys=;
- b=qwE320N5vyznN3Gu7Q26QdV3Fw+hHr+p/bz3aAAIp7Sjpwoy2WgQ1r5xaDh+LngkfA
- NUSGe7bzzl1OUHYP5hfb0ESvxzAf01jnk9rr/OwUNc13XFwNlk/vyoB1G+fFiXT8Lw6h
- ORT6HZhxTWbywtLEsvzHRrHVX5GHazMRINqAFhWM0DgSNjt9wGz8Skz+qvwdgzNGb+9+
- D3p3h0vK1cKs8UZYdvHZbj7xY1SN4aogy48DuINBSZHWAUJrrjJ8SQxNTSbmXWCFGleF
- TCBIA8VQQyTy7ZJfU1f3gItDn9B+lsi08TfmOynN325qVsVtAL8dZpai1T5fkk1jvk36
- cJag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=s4DzLI53lYMtZaqfXhMaCm/bYg8peNwO+6H09pZqkys=;
- b=uL1GFxPyMRR5LGHpQ38o09q4Ur5zbcgZPOCmaUxQcV4Ta7XYecIKS99gWGYzEQxNY0
- PWfh6XOs2crxtB4o89PcukLcP1uLqykftNW8GBpcl9ibGXSzomosn0V72hpKkEGGtG38
- uObux6GglsOcuhn3rLgvkF0/Rqnw6n95+b7I/kZzDOSQ9zrkkfIKjy4Z2aaSh4jug1sl
- wPKEVwRc208nMRTBgdV6TMtPEwLYA4MovhxAYOreLMAn1VNZWIoZVGU9NloWKms9qs+x
- Rt9PUVmYMYXnGViNDGOr3C63cQIbf3cNw9y1a/JXjUaC7bYxNZ561eqyJSclpFe40zR2
- O7Dw==
-X-Gm-Message-State: AOAM530WfixVU20EABq51RE7tEMjpt8Ip9cGzRXhej53fsFf1939yG89
- rC+c0RlkFI/E/6D87QU8Jhg=
-X-Google-Smtp-Source: ABdhPJz1s6GNbWTftm7CobRsJqR+q3SP4zM3JUCjWymuszgjCJmWH/xfnx2WIsqZFdJ3EAR4F7ko2A==
-X-Received: by 2002:a17:906:8489:: with SMTP id
- m9mr4244252ejx.396.1630595776655; 
- Thu, 02 Sep 2021 08:16:16 -0700 (PDT)
-Received: from agape.jhs ([5.171.80.234])
- by smtp.gmail.com with ESMTPSA id n13sm1347598edq.91.2021.09.02.08.16.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Sep 2021 08:16:16 -0700 (PDT)
-Date: Thu, 2 Sep 2021 17:16:11 +0200
-From: Fabio Aiuto <fabioaiuto83@gmail.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="FUqArlOm"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3187360F4B;
+ Thu,  2 Sep 2021 15:24:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1630596284;
+ bh=5xHwpTyrJz/V1ecWOpG2oVcDhIQ65r7ovJhDHEp+hFg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=FUqArlOmcFL226oWhkLx8xHTMVV1zWf5cDzsmYYuqROLrebShV/2ogjHbCLfVspMd
+ pTzMmBb2rQMwx6StXCtSmKXbyixRiEl3izZ+FVeKV5p7cjGUDIgQIYD+lmFuXvuW8R
+ p4XSGqm/ONRbDGtZ6gZZnwsg6Nqu+H8+ywij6bYUA00H+mThqKlHKoFysbB+AVZdVN
+ 2cb0/jKB3ZhvxffGmQOp6E1B4shOEfZUTJSLwhbi4ch7h+Ct/b/mB4Hwn0UvbFn6IH
+ Vy0+yavTirOEweqG1Qkkb4aM/0r6W/O+u+X1nBMk1QE1WOXlc7NVcHwZLS22H39QNg
+ edCe0fRUj0iXw==
+Date: Thu, 2 Sep 2021 16:24:12 +0100
+From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: config issue with SoundWire mockup device support
-Message-ID: <20210902151610.GC1422@agape.jhs>
-References: <20210902143632.GA1422@agape.jhs>
- <10bb39d4-2560-4ceb-bf20-fe5a124142cb@linux.intel.com>
+Subject: Re: [PATCH v2] ASoC: Intel: boards: Fix CONFIG_SND_SOC_SDW_MOCKUP
+ select
+Message-ID: <20210902152412.GF11164@sirena.org.uk>
+References: <20210802190351.3201677-1-nathan@kernel.org>
+ <20210802212409.3207648-1-nathan@kernel.org>
+ <da246896-fbd3-be8d-355f-3c0a83e7d4eb@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="/QKKmeG/X/bPShih"
 Content-Disposition: inline
-In-Reply-To: <10bb39d4-2560-4ceb-bf20-fe5a124142cb@linux.intel.com>
+In-Reply-To: <da246896-fbd3-be8d-355f-3c0a83e7d4eb@linux.intel.com>
+X-Cookie: Famous last words:
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Thu, 02 Sep 2021 17:22:13 +0200
-Cc: alsa-devel@alsa-project.org, gregkh@linuxfoundation.org,
- linux-staging@lists.linux.dev, lgirdwood@gmail.com, tiwai@suse.com,
- Nathan Chancellor <nathan@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- broonie@kernel.org, linux-kernel@vger.kernel.org
+Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Fabio Aiuto <fabioaiuto83@gmail.com>,
+ Nathan Chancellor <nathan@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,43 +88,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Pierre,
 
-On Thu, Sep 02, 2021 at 10:02:05AM -0500, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 9/2/21 9:36 AM, Fabio Aiuto wrote:
-> > Dear Pierre and all sound developers,
-> > 
-> > I work for some tests on a Lenovo ideapad Miix 300-10IBY,
-> > with fedora 34 workstation intalled on.
-> > After having pulled the last changes from staging tree I get
-> > the following issue by typing:
-> > 
-> > $ make olddefconfig
-> > 
-> > WARNING: unmet direct dependencies detected for SND_SOC_SDW_MOCKUP
-> >   Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m]
-> > 	&& EXPERT [=n] && SOUNDWIRE [=y]
-> >   Selected by [m]:
-> >   - SND_SOC_INTEL_SOUNDWIRE_SOF_MACH [=m] && SOUND [=m] && !UML
-> > 	&& SND [=m] && SND_SOC [=m] && SND_SOC_INTEL_MACH [=y]
-> > 	&& SND_SOC_SOF_INTEL_SOUNDWIRE [=m] && I2C [=y] && ACPI [=y]
-> > 	&& GPIOLIB [=y] && (MFD_INTEL_LPSS [=y] || COMPILE_TEST [=n])
-> > 	&& (SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES [=y] || COMPILE_TEST [=n])
-> > 	&& SOUNDWIRE [=y] && SND_HDA_CODEC_HDMI [=m] && SND_SOC_SOF_HDA_AUDIO_CODEC [=y]
-> 
-> It's a known issue that was reported and fixed by Nathan Chancellor:
-> 
-> [PATCH v2] ASoC: Intel: boards: Fix CONFIG_SND_SOC_SDW_MOCKUP select
-> 
-> https://lore.kernel.org/alsa-devel/20210802212409.3207648-1-nathan@kernel.org/
-> 
-> I'll ack the missing patch, thanks for reporting this.
-> 
+--/QKKmeG/X/bPShih
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-you are welcome,
+On Thu, Sep 02, 2021 at 10:02:18AM -0500, Pierre-Louis Bossart wrote:
+> On 8/2/21 4:24 PM, Nathan Chancellor wrote:
+> > When CONFIG_SND_SOC_INTEL_SOUNDWIRE_SOF_MACH is enabled without
+> > CONFIG_EXPERT, there is a Kconfig warning about unmet dependencies:
 
-thanks for fast reply,
+> > Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 
-fabio
+> This patch was missed, maybe because I didn't provide a formal ack on my
+> own suggestion, so here goes:
+
+> Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+It looks like this was sent in reply to an old thread so got deleted
+along with the old thread.  In any case I don't have it any more...
+
+--/QKKmeG/X/bPShih
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEw7JsACgkQJNaLcl1U
+h9C2Kwf/VIq50TNTUN4NObepN1GojSmpDkg+Cd9qAYJ9R9hHuZ0m5S8MJQsnv0ws
+Jct981brHL3nh6HjM2oG6/t7oLaRvuc5TQCrH5rQKQcIooXJJ8f86WmjZreJp3SR
+ZLdchWIHuF1a5dwx+gKWXTpxVBAC7vaiBxGGQJwLjoOlhFBvkkCMi67SgWvnddk6
+ouM+jUhfmNU+L1yL2KsgCUpa1yzRuMqoCEklFgtTGvLqtkwU/q+SckMR09X3PlvM
+twzFq/8xEvsVnzzA9uhxlcXSdez1mP8HgmJwdhCpRkwsjr8Hgof0NAmRgt4uxfSi
+D5NBEI/o+aB/HoyctOXVmPRSHBd4Cw==
+=vJrj
+-----END PGP SIGNATURE-----
+
+--/QKKmeG/X/bPShih--

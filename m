@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FC8B3FEFA7
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Sep 2021 16:45:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E11C3FEFB4
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Sep 2021 16:51:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A187617AD;
-	Thu,  2 Sep 2021 16:45:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A187617AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id C2559176F;
+	Thu,  2 Sep 2021 16:50:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2559176F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630593955;
-	bh=QSkZv2N1yXVzhucXRsxaUE7H3wr+r7TSYHXNxXgC910=;
+	s=default; t=1630594269;
+	bh=74B1g330j3XFo5x7ASCrKG7fXjCkSQ81tfsxRgQUxzw=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=p2iHmPw97VnqEMbT20eFfCfnfXF5GLbsyZJcoHpSVbgj188tBIGG3LC/PZQ786+3v
-	 ezbI/9zVd32S1NfK9FQULhpLST77WaV+/fZJUNx/lxBQcVN4xIe6JZ/6KPj+mwi1Ge
-	 KbM2KYQ7UNtYFt93ewVRKDmkp8p7hhVcWfVeFnk0=
+	b=vt5sQD5pokCdw9+pYBF/+PlL4VhNIb7oweqFi+mmXJ5KQsAVmssQDlHT5HyDbirML
+	 fC5CkjI8k6f2ed76AFJzw7JQTA1cJJ1De8hb11ujySBR1NTvB/kXJARyLld9HTDoP5
+	 2QHWV0OHPXFzlm9EE516YPK34bF+yuq/CCls1s2M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0BA1AF800AF;
-	Thu,  2 Sep 2021 16:44:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15732F8028D;
+	Thu,  2 Sep 2021 16:49:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 00CBDF80269; Thu,  2 Sep 2021 16:44:35 +0200 (CEST)
+ id C7CF6F80269; Thu,  2 Sep 2021 16:49:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,46 +33,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89AEBF80125
- for <alsa-devel@alsa-project.org>; Thu,  2 Sep 2021 16:44:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89AEBF80125
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6F689F80125
+ for <alsa-devel@alsa-project.org>; Thu,  2 Sep 2021 16:49:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F689F80125
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="oDOYYkTy"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5CB33610CC;
- Thu,  2 Sep 2021 14:44:26 +0000 (UTC)
+ header.b="Dk+1RcI9"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 66B4560FDA;
+ Thu,  2 Sep 2021 14:49:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1630593866;
- bh=QSkZv2N1yXVzhucXRsxaUE7H3wr+r7TSYHXNxXgC910=;
+ s=k20201202; t=1630594185;
+ bh=74B1g330j3XFo5x7ASCrKG7fXjCkSQ81tfsxRgQUxzw=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=oDOYYkTybQvl1z6Luah3ixvfoCcvxrLI1lfGneZBWECIuC7las8tHY4sx9jFAowup
- mtthFD4gHpW2p17sYrm7Mgh85X7CvTV5On0a1IRI0cvEcJzmLbz7pvkvXoeAWswxyN
- gLaJLeqUgQ7jJqx3ynHZEPF46lNi27sb31qr1nVxWHR2xRApLthfDAGhYYTlgVaHNB
- maEoFyoOpTZfV7rpXhEPr77U+Q2vRZfu5GsC10TzD8Tvh6rKqlxzJ9Uacomw+ZmuWN
- UfQpwJeKIZb4wX6C9HQN7WrqESL+pG6RY7QBb2q4bMSbonZF6O6JJnqgzOosm9DMwq
- 7PhKumonfatXQ==
-Date: Thu, 2 Sep 2021 15:43:54 +0100
+ b=Dk+1RcI9IZWuLycsGUAXMvaiX1zWc3TIBzrflsE1irzo5FSEjc40XYEvMmtUXD6ZD
+ 7KTVJg9+PDs3ITsCcVV77WYVQs79i+HN90MNIIG+KrN3s4uTWUXPG4UhWFyu7dcYBb
+ b75dIHkCF7xuI5uoPp97CuegYyHmELwL4ewWOjrBch3v3b8A+00KXeIcG0vdBRuk+u
+ gJmWwumQkBbvcdnFn6LJPGc9kswNQsxabbJAovvewCpl0PHe7/uPljqUSapqamWENv
+ bgGedZ/GjkdjDRpBgoO806YJsMKGqVp5eZrWptPZE4ndL5aEbx0guOrEJ/s4YIy3oF
+ 9KMFJxlYTqonA==
+Date: Thu, 2 Sep 2021 15:49:13 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Alejandro Tafalla <atafalla@dnyon.com>
-Subject: Re: [PATCH RESEND 1/2] ASoC: max98927: Handle reset gpio when
- probing i2c
-Message-ID: <20210902144354.GD11164@sirena.org.uk>
-References: <20210829170019.384632-1-atafalla@dnyon.com>
- <20210829170019.384632-2-atafalla@dnyon.com>
- <CAHp75VdY9uoTWeJEroi3iChnToUSxe+Henmg7Yux+UWkK59jQg@mail.gmail.com>
- <YSwGlXEFRuUvNGZ7@dnyon.com>
+To: Daniel Baluta <daniel.baluta@oss.nxp.com>
+Subject: Re: [PATCH 1/2] ASoC: SOF: imx: Add code to manage DSP related clocks
+Message-ID: <20210902144913.GE11164@sirena.org.uk>
+References: <20210902123216.787025-1-daniel.baluta@oss.nxp.com>
+ <20210902123216.787025-2-daniel.baluta@oss.nxp.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="NtwzykIc2mflq5ck"
+ protocol="application/pgp-signature"; boundary="84ND8YJRMFlzkrP4"
 Content-Disposition: inline
-In-Reply-To: <YSwGlXEFRuUvNGZ7@dnyon.com>
+In-Reply-To: <20210902123216.787025-2-daniel.baluta@oss.nxp.com>
 X-Cookie: Famous last words:
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Rob Herring <robh+dt@kernel.org>
+Cc: Daniel Baluta <daniel.baluta@nxp.com>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com, lgirdwood@gmail.com,
+ festevam@gmail.com, peter.ujfalusi@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ robh+dt@kernel.org, linux-imx@nxp.com, kernel@pengutronix.de, s-anna@ti.com,
+ shawnguo@kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,35 +87,30 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---NtwzykIc2mflq5ck
+--84ND8YJRMFlzkrP4
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Mon, Aug 30, 2021 at 12:13:41AM +0200, Alejandro Tafalla wrote:
-> On Sun, Aug 29, 2021 at 11:22:35PM +0300, Andy Shevchenko wrote:
+On Thu, Sep 02, 2021 at 03:32:15PM +0300, Daniel Baluta wrote:
 
-> > > +       struct gpio_desc *reset_gpio;
+> +	for (i = 0; i < clks->num_dsp_clks; i++) {
+> +		clks->dsp_clks[i] = devm_clk_get(sdev->dev, clks->dsp_clks_names[i]);
 
-> > Why? Are you using it outside of ->probe()?
+Looks like this could benefit from the use of the clk_bulk_ APIs?
 
-> No, I'll delete it and use a local variable.
-
-It can be good to reassert reset when unloading the driver in order to
-ensure that the device isn't active.  It doesn't really matter though.
-
---NtwzykIc2mflq5ck
+--84ND8YJRMFlzkrP4
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEw4yoACgkQJNaLcl1U
-h9DWrAgAg56iA1Au+XNyIyNCXB0VXn2oIgAwnxeXEjv3PKrw4YE0fW7dcbvywDnr
-8Fs2PMIw09wFpzzoSzAQCNGN8Ts3OeiL8QFHnsOQeeyIzSkuOviiBrOWDtuCfx/j
-0XXcxoH4ODxf0faKlbCGHQ6LdBgvsSeQiU3ExLjqJHYusxXbXUdRJ8XxIyhDC5tI
-+7KZOK7azIuJxSJrfYJ9aIlHvMmkCS9o/OpynCwkrwZwAh47+XyNSR6mn3pgiEoS
-Q8+WJChvT1kQ/XdYHo4GigjZIVXF0hUeA0GJJUoIdbJKl7O+8YLlOH0MDh8i0isX
-iTLYJ+8bqv+F8ONYPxTXcdlw4pcYdQ==
-=IJLZ
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEw5GkACgkQJNaLcl1U
+h9D6dQf8CQ+j2eYy3OLz8n4W9uYfdEiX+7mQIfuhP8KESkfKUchq2YshYjNxgXdh
+89mN6XH8LiikrIMYk+ID0VZ84f5fEKsKSLWlRTNfCU0VV9Gk9lBzGqX0wcfKHn1r
+pNAXj7LZD2uJmqMQmXgLcRjBLVHtLgjnrc6XZPxZElzlEzewhMta37io4I/a/Yyz
+wp1+BPUxv3wIWFZE4IblYZaX4lA3WnYf2gJDNx3EJCOnuR/xHIrnGrpValgiHUVG
+PN6hkNaXcpvru8KVEb7jQR4OFDKQ/IKFdpnXPZeXN8QLw2K6Gi35RqPYwddtQog3
+rMbgSPa9NNBVUO0PeY5xBq6AjAFdeA==
+=PxVd
 -----END PGP SIGNATURE-----
 
---NtwzykIc2mflq5ck--
+--84ND8YJRMFlzkrP4--

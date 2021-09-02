@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7A683FF428
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Sep 2021 21:27:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C85B3FF431
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Sep 2021 21:28:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4633216F2;
-	Thu,  2 Sep 2021 21:26:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4633216F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id E0DDC17D3;
+	Thu,  2 Sep 2021 21:28:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0DDC17D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630610846;
-	bh=pJSx602auvYC/bfz2YYluIVyML8jpl/WTtEE8mBd/js=;
+	s=default; t=1630610934;
+	bh=LhDShVj6QOhNkUmwbmjB7Rk0b4fp/hCawCMRWlPqfZ8=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dJ3Wdq4NFUsB5ckjn1XMKjJ8fPV9mofRhe5WDbSj/eI7E/qnxokgJXR4Q320B6IKA
-	 Evv8aVDkVXocZhmIr2FAFxIfjzOxNggzzEFZ7y6ahb+Oa3yi1sQvYdOhoqlcngazKq
-	 wU3kKz+pmWnql3DGlwuqYyUGP9jghUZJi0fA+g1k=
-Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ABA59F8028D;
-	Thu,  2 Sep 2021 21:26:09 +0200 (CEST)
+	b=HzLm/Ae/PAL6F9FuccuQj92aLSVuVQXlp/OmZ2U4mI4ZTLM1Qszd75VJ2rlDy4uBK
+	 uKufdJQ99r4fFEL8CKW2RLk1bX5dQITEGo392/c4E/U4xZbIwPZcP6Nf9/OHqMfKOA
+	 f6nW6bxwT62VgO4BOT85qR2Wv9vXjABcBv5Fxb/A=
+Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 625FBF8028D;
+	Thu,  2 Sep 2021 21:27:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 484F8F80125; Thu,  2 Sep 2021 21:26:03 +0200 (CEST)
+ id 362F4F80269; Thu,  2 Sep 2021 21:27:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com
- [209.85.210.45])
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
+ [209.85.210.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61878F80125
- for <alsa-devel@alsa-project.org>; Thu,  2 Sep 2021 21:25:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61878F80125
-Received: by mail-ot1-f45.google.com with SMTP id
- i8-20020a056830402800b0051afc3e373aso3923448ots.5
- for <alsa-devel@alsa-project.org>; Thu, 02 Sep 2021 12:25:55 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 297AFF800AF
+ for <alsa-devel@alsa-project.org>; Thu,  2 Sep 2021 21:27:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 297AFF800AF
+Received: by mail-ot1-f50.google.com with SMTP id
+ q11-20020a9d4b0b000000b0051acbdb2869so3937716otf.2
+ for <alsa-devel@alsa-project.org>; Thu, 02 Sep 2021 12:27:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=WfNiJevXXznsjYSTw7sC46xy0DwFMMffCSoTuGS9Xu4=;
- b=PChlz+5MWZcdRruR2k1Ta7YJNbZWAkUxqM/jLpnLYhlHKEyK8FXJFTIunYmW/VCUz+
- UGsZEDeLAXx4eBrX0Guwo3vh0EcVNbZUDpvPDMlyUeJlK6VroC4KEdJ9ZqIm8bp+riK4
- jEjf1PSQMoAnczJ3JhYqKR0DvuZa4wm3uMCszPpy76GP8o39T5zUlid+F0+5ziDQcwVV
- MMe39qMP8PnU4feB88BJW2GFaTgjsUhqFNvdYtAAPIrRcmPOiD80Sg32Q8ekkv5INbna
- CgjyTNk60lVFzzhuoyKDlMiwMo/c0lx3B/JrCYOcFI38QtmqNzVcQ5Ud66IQzLcQFuHm
- jHrg==
-X-Gm-Message-State: AOAM5314Ifa4tHvqKGRs5CcpE1ejqFU2uf4eOleSs+zah/VlV+CjFNmd
- vSN2iW7y+Hv725zN2LLnZA==
-X-Google-Smtp-Source: ABdhPJxZqPrhAD7h+cRcMlo04U4J5xrjfGsEQCo9fP0tXbDDy09MKoV+rWy84mbFp2TJ7J0+qYSFmw==
-X-Received: by 2002:a05:6830:608:: with SMTP id
- w8mr3910518oti.73.1630610753804; 
- Thu, 02 Sep 2021 12:25:53 -0700 (PDT)
+ bh=vTEOj2Oz/vkZd9p2VPI7+5Yw+i+4KcedhEoFPxZ0RV0=;
+ b=LFWgaHLMMTK2fyoJzhvQOSsgsBJhftQ8UCgDB+qtdnpzat0gQelj776jgfVlk8XONe
+ NU1Ny58BCQN15uFsYUM0RD8w9J+mjOKcxnl9aDn4VxLUWIr5CIkFPCqEcjQVLaNcvAaj
+ HQ3/uh1LuC/zkG5qp+G6NxtlTW4KC8ifCG1aQ+ET+4uiukpY7G4kjVU8Bm0OGd+NeXmD
+ lPTHebUJytCTXeGmBgTocN+i3Bfoz2uqQuZ62T5OhrA5gQfsMEwH4Aluz+iImVbxPcpK
+ reczFEOgab+dXtOQGtTCPJnHZ9oQkhr/VlhzUFyRwPhtIrzewwYCFRI2MN8/osVYXp/S
+ 5Fzg==
+X-Gm-Message-State: AOAM530t/gsMDFBOROjppNpwYArj9YkHadV5c/z3s+2PPNcHDG+Q0t/g
+ 2Cs8iTqSHhkUocUpfHSTLA==
+X-Google-Smtp-Source: ABdhPJwDfs8TaxQM2Rdk9jCeoYg+mHv5mL1sLoQllJ2+R1ddJdVlycHR6CRdLwImN8IQHdNSQu61Zg==
+X-Received: by 2002:a05:6830:2781:: with SMTP id
+ x1mr4141031otu.334.1630610846795; 
+ Thu, 02 Sep 2021 12:27:26 -0700 (PDT)
 Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
  [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id w12sm543935oie.41.2021.09.02.12.25.52
+ by smtp.gmail.com with ESMTPSA id s10sm542189oog.14.2021.09.02.12.27.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Sep 2021 12:25:53 -0700 (PDT)
-Received: (nullmailer pid 1245839 invoked by uid 1000);
- Thu, 02 Sep 2021 19:25:52 -0000
-Date: Thu, 2 Sep 2021 14:25:52 -0500
+ Thu, 02 Sep 2021 12:27:26 -0700 (PDT)
+Received: (nullmailer pid 1247901 invoked by uid 1000);
+ Thu, 02 Sep 2021 19:27:24 -0000
+Date: Thu, 2 Sep 2021 14:27:24 -0500
 From: Rob Herring <robh@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
+To: Sameer Pujar <spujar@nvidia.com>
 Subject: Re: [PATCH v2 1/3] ASoC: Add json-schema documentation for
  sound-name-prefix
-Message-ID: <YTElQBgwF6xBFH9l@robh.at.kernel.org>
+Message-ID: <YTElnNRjM3JTnYIw@robh.at.kernel.org>
 References: <1630562033-13231-1-git-send-email-spujar@nvidia.com>
  <1630562033-13231-2-git-send-email-spujar@nvidia.com>
- <1jpmtr5egi.fsf@starbuckisacylon.baylibre.com>
+ <1630584239.106707.685602.nullmailer@robh.at.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1jpmtr5egi.fsf@starbuckisacylon.baylibre.com>
+In-Reply-To: <1630584239.106707.685602.nullmailer@robh.at.kernel.org>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- stephan@gerhold.net, linux-kernel@vger.kernel.org,
- Sameer Pujar <spujar@nvidia.com>, lgirdwood@gmail.com, jonathanh@nvidia.com,
- broonie@kernel.org, thierry.reding@gmail.com, linux-tegra@vger.kernel.org
+ stephan@gerhold.net, linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
+ jonathanh@nvidia.com, broonie@kernel.org, thierry.reding@gmail.com,
+ linux-tegra@vger.kernel.org, jbrunet@baylibre.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,15 +97,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Sep 02, 2021 at 02:47:27PM +0200, Jerome Brunet wrote:
-> 
-> On Thu 02 Sep 2021 at 11:23, Sameer Pujar <spujar@nvidia.com> wrote:
-> 
+On Thu, Sep 02, 2021 at 07:03:59AM -0500, Rob Herring wrote:
+> On Thu, 02 Sep 2021 11:23:51 +0530, Sameer Pujar wrote:
 > > The 'sound-name-prefix' is used to prepend suitable strings to a
 > > component widgets or controls. This is helpful when there are
 > > multiple instances of the same component. Add relevant json-schema
 > > and is inspired from sound-name-prefix.txt documentation.
-> >
+> > 
 > > Signed-off-by: Sameer Pujar <spujar@nvidia.com>
 > > Cc: Jerome Brunet <jbrunet@baylibre.com>
 > > Cc: Rob Herring <robh+dt@kernel.org>
@@ -113,57 +111,20 @@ On Thu, Sep 02, 2021 at 02:47:27PM +0200, Jerome Brunet wrote:
 > >  .../devicetree/bindings/sound/name-prefix.yaml     | 35 ++++++++++++++++++++++
 > >  1 file changed, 35 insertions(+)
 > >  create mode 100644 Documentation/devicetree/bindings/sound/name-prefix.yaml
-> >
-> > diff --git a/Documentation/devicetree/bindings/sound/name-prefix.yaml b/Documentation/devicetree/bindings/sound/name-prefix.yaml
-> > new file mode 100644
-> > index 00000000..b58cc9e
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/sound/name-prefix.yaml
-> > @@ -0,0 +1,35 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/sound/name-prefix.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Component sound name prefix
-> > +
-> > +maintainers:
-> > +  - Jerome Brunet <jbrunet@baylibre.com>
+> > 
 > 
-> Since this file is referenced using "AllOf", am I going to be listed as
-> maintainer of all the drivers using the property below ? I'm not sure I
-> want that ... :P
+> My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+> on your patch (DT_CHECKER_FLAGS is new in v5.13):
+> 
+> yamllint warnings/errors:
+> 
+> dtschema/dtc warnings/errors:
+> Documentation/devicetree/bindings/sound/name-prefix.example.dts:19.28-22.11: Warning (unit_address_vs_reg): /example-0/analog-amplifier@0: node has a unit name, but no reg or ranges property
+> Documentation/devicetree/bindings/sound/name-prefix.example.dts:24.28-27.11: Warning (unit_address_vs_reg): /example-0/analog-amplifier@1: node has a unit name, but no reg or ranges property
+> Documentation/devicetree/bindings/sound/name-prefix.example.dt.yaml:0:0: /example-0/analog-amplifier@0: failed to match any schema with compatible: ['simple-audio-amplifier']
+> Documentation/devicetree/bindings/sound/name-prefix.example.dt.yaml:0:0: /example-0/analog-amplifier@1: failed to match any schema with compatible: ['simple-audio-amplifier']
 
-No. That's not how it works. You're maintainer of files that list you as 
-maintainer.
+I'd suggest you just drop the example. This schema is not a complete 
+binding.
 
-> Maybe it would be better to drop the above ?
-> 
-> > +
-> > +properties:
-> > +  sound-name-prefix:
-> > +    $ref: /schemas/types.yaml#/definitions/string
-> > +    description: |
-> > +      Card implementing the routing property define the connection between
-> > +      audio components as list of string pair. Component using the same
-> > +      sink/source names may use this property to prepend the name of their
-> > +      sinks/sources with the provided string.
-> > +
-> > +additionalProperties: true
-> > +
-> > +examples:
-> > +  - |
-> > +    analog-amplifier@0 {
-> > +        compatible = "simple-audio-amplifier";
-> > +        sound-name-prefix = "FRONT";
-> > +    };
-> > +
-> > +    analog-amplifier@1 {
-> > +        compatible = "simple-audio-amplifier";
-> > +        sound-name-prefix = "BACK";
-> > +    };
-> > +
-> > +...
-> 
-> 
+Rob

@@ -2,80 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 797F63FE7BB
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Sep 2021 04:37:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07EB53FE833
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Sep 2021 05:56:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D9D61178C;
-	Thu,  2 Sep 2021 04:36:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9D61178C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74363178A;
+	Thu,  2 Sep 2021 05:55:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74363178A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630550223;
-	bh=QOTKsLIYJE11qFg8eBBPd7FPd11PtcpPDGYrw9m8oEE=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=pK8stdQ8xFxbvP9Y4nOK0BdtemL6eSoTetRzKChEbzaHOPPjQ3yg2Rf0JeliVbzmb
-	 Gb6/dBAzV5LEAXI9BE7d+Dw10Wr6I7pQnzofAHWNSFvQy0HHbxj1xRsyHN0Ha3U4S/
-	 vCsIH2vNn6fVQnl9lPrgh16YLvva3p4hFB6B9LO0=
+	s=default; t=1630554996;
+	bh=aDSUIt5YAnB5TK4GfamXQwRkIY/GOogynJEH2oJmG9E=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=hq6TT0Rz8FMcps+OmRILQO7joY24pCT9HzRJu5RK+OPSf1D4FqvMQqrHS2tpYXrYe
+	 qlka5DuUNpQ3GvQvIZwtjiSUY2gdSQAH24Kfy/v0jbTH6QohxxolmAT4RguKPkn51U
+	 El+PrfI6wceLQ/OiGBQnBkk0R3QckIEXepnBGemk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B345F8028D;
-	Thu,  2 Sep 2021 04:35:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE672F8028D;
+	Thu,  2 Sep 2021 05:55:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3307F80269; Thu,  2 Sep 2021 04:35:41 +0200 (CEST)
+ id 6C4B4F80269; Thu,  2 Sep 2021 05:55:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY
- autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0FF0EF80125
- for <alsa-devel@alsa-project.org>; Thu,  2 Sep 2021 04:35:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FF0EF80125
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="GwcTVptj"
-X-UUID: 32d966e8fe2746a49b5d40d11e4f32d7-20210902
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
- bh=QOTKsLIYJE11qFg8eBBPd7FPd11PtcpPDGYrw9m8oEE=; 
- b=GwcTVptjejg36Z/KVINTC6/shtkZ9NiWyRYC8gUw8fQr7DJJCpIcMpeCrjBbJ8aMBWiSmgVAbYm7ZaC3AmL/fgjhZXstnnX0EKqs6eQQSGVkGTpe5jXR8N59kUj6ioLucI0pCo2sGw715fYwn6tfQ6hJedXHGh6lVHdx0yDO66o=;
-X-UUID: 32d966e8fe2746a49b5d40d11e4f32d7-20210902
-Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw01.mediatek.com
- (envelope-from <trevor.wu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 2102975702; Thu, 02 Sep 2021 10:35:24 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs06n1.mediatek.inc (172.21.101.129) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Thu, 2 Sep 2021 10:35:23 +0800
-Received: from mtksdccf07 (172.21.84.99) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Thu, 2 Sep 2021 10:35:22 +0800
-Message-ID: <299c7f0a7b1dede1e2f704a0133f4045e85641b5.camel@mediatek.com>
-Subject: Re: linux-next: Tree for Sep 1
- [sound/soc/mediatek/mt8195/snd-soc-mt8195-afe.ko]
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: Randy Dunlap <rdunlap@infradead.org>, Stephen Rothwell
- <sfr@canb.auug.org.au>, Linux Next Mailing List <linux-next@vger.kernel.org>
-Date: Thu, 2 Sep 2021 10:35:22 +0800
-In-Reply-To: <3ee0b878-b78c-2483-1a0b-7570bda0132b@infradead.org>
-References: <20210901181740.3a0a69f2@canb.auug.org.au>
- <3ee0b878-b78c-2483-1a0b-7570bda0132b@infradead.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-MIME-Version: 1.0
-X-MTK: N
-Content-Transfer-Encoding: base64
-Cc: Bicycle Tsai <bicycle.tsai@mediatek.com>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 03E4FF80125
+ for <alsa-devel@alsa-project.org>; Thu,  2 Sep 2021 05:55:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03E4FF80125
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 562C3201E2D;
+ Thu,  2 Sep 2021 05:55:02 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 263BE2015C0;
+ Thu,  2 Sep 2021 05:55:00 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 8AE26183AD07;
+ Thu,  2 Sep 2021 11:54:56 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: dt-bindings: fsl_rpmsg: Add compatible string for
+ i.MX8ULP
+Date: Thu,  2 Sep 2021 11:32:05 +0800
+Message-Id: <1630553525-25655-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,24 +71,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gV2VkLCAyMDIxLTA5LTAxIGF0IDEzOjU1IC0wNzAwLCBSYW5keSBEdW5sYXAgd3JvdGU6DQo+
-IE9uIDkvMS8yMSAxOjE3IEFNLCBTdGVwaGVuIFJvdGh3ZWxsIHdyb3RlOg0KPiA+IEhpIGFsbCwN
-Cj4gPiANCj4gPiBQbGVhc2UgZG8gbm90IGFkZCBhbnkgdjUuMTYgcmVsYXRlZCBjb2RlIHRvIHlv
-dXIgbGludXgtbmV4dA0KPiA+IGluY2x1ZGVkDQo+ID4gYnJhbmNoZXMgdW50aWwgYWZ0ZXIgdjUu
-MTUtcmMxIGhhcyBiZWVuIHJlbGVhc2VkLg0KPiA+IA0KPiA+IENoYW5nZXMgc2luY2UgMjAyMTA4
-MzE6DQo+ID4gDQo+IA0KPiANCj4gb24geDg2XzY0Og0KPiANCj4gRVJST1I6IG1vZHBvc3Q6ICJj
-bGtkZXZfYWRkIiBbc291bmQvc29jL21lZGlhdGVrL210ODE5NS9zbmQtc29jLQ0KPiBtdDgxOTUt
-YWZlLmtvXSB1bmRlZmluZWQhDQo+IEVSUk9SOiBtb2Rwb3N0OiAiY2xrZGV2X2Ryb3AiIFtzb3Vu
-ZC9zb2MvbWVkaWF0ZWsvbXQ4MTk1L3NuZC1zb2MtDQo+IG10ODE5NS1hZmUua29dIHVuZGVmaW5l
-ZCENCj4gRVJST1I6IG1vZHBvc3Q6ICJjbGtfdW5yZWdpc3Rlcl9nYXRlIiBbc291bmQvc29jL21l
-ZGlhdGVrL210ODE5NS9zbmQtDQo+IHNvYy1tdDgxOTUtYWZlLmtvXSB1bmRlZmluZWQhDQo+IEVS
-Uk9SOiBtb2Rwb3N0OiAiY2xrX3JlZ2lzdGVyX2dhdGUiIFtzb3VuZC9zb2MvbWVkaWF0ZWsvbXQ4
-MTk1L3NuZC0NCj4gc29jLW10ODE5NS1hZmUua29dIHVuZGVmaW5lZCENCj4gDQo+IEZ1bGwgcmFu
-ZGNvbmZpZyBmaWxlIGlzIGF0dGFjaGVkLg0KPiANCg0KSGkgUmFuZHksDQoNClRoZSBwcm9ibGVt
-IGlzIGNhdXNlZCBieSB0aGUgZGVwZW5kZW5jeSBkZWNsYXJhdGlvbiwgYmVjYXVzZSBpdCdzIG5v
-dCBhDQpkcml2ZXIgZm9yIHg4Nl82NC4NClRoZSBkZXBlbmRlbmN5IGRlY2xhcmF0aW9uIGhhcyBi
-ZWVuIGFkZGVkIGluIHRoZSBmb2xsb3dpbmcgcGF0Y2guDQoNCg0KaHR0cHM6Ly9wYXRjaHdvcmsu
-a2VybmVsLm9yZy9wcm9qZWN0L2Fsc2EtZGV2ZWwvcGF0Y2gvN2U2MjhlMzU5YmRlMDRjZWI5ZGRk
-NzRhNDU5MzEwNTliNGE0NjIzYy4xNjMwNDE1ODYwLmdpdC5nZWVydCtyZW5lc2FzQGdsaWRlci5i
-ZS8NCg0KVGhhbmtzLA0KVHJldm9yDQoNCg0K
+Add compatible string for i.MX8ULP platform which support audio
+function through rpmsg audio channel on M core.
+
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+ Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml b/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+index 61802a11baf4..d370c98a62c7 100644
+--- a/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
++++ b/Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml
+@@ -21,6 +21,7 @@ properties:
+       - fsl,imx8mn-rpmsg-audio
+       - fsl,imx8mm-rpmsg-audio
+       - fsl,imx8mp-rpmsg-audio
++      - fsl,imx8ulp-rpmsg-audio
+ 
+   model:
+     $ref: /schemas/types.yaml#/definitions/string
+-- 
+2.17.1
 

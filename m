@@ -2,134 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1AA63FF14B
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Sep 2021 18:24:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A4433FF1C3
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Sep 2021 18:46:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E60517C8;
-	Thu,  2 Sep 2021 18:23:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E60517C8
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8FFB17CA;
+	Thu,  2 Sep 2021 18:45:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8FFB17CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630599865;
-	bh=q+jsbukc2RNGMrWOV7XIu/0ukqHZ+LgFbIRxiGYekyg=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1630601164;
+	bh=qjna8fkQ5GNF5GE8IeEq0kX00CXe3qtLbIY21PbAS44=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TPxsnHLH44Gzp2tkof5JJQ4NXz9x1wafClM0qNwO5MDX0NuuxX88jURKRhVozzo6g
-	 ylpnZY1RCOqAUvmJEzH7zxbEN2eyyhk3ovdhcHDisbbUPrUbquF2k6qqqf3K62bobf
-	 4RSRU9O6RrpTcTbkrryuUUeA0DBBYeGpDbZaszgg=
+	b=oa20IDTWql38aDWVYjDaqbx1UmQNhHJfQ1RbtI1RSldXRoDSYwCdipEQI8or8LNRa
+	 49/cetZNRSguQdrVP+Lr9GJoApnteioc7fBhDzRFxrxgiqHW1cDYAucnscgeOGxE/b
+	 hyc06TEKlreoO2UU1U1PMeyPhXv66oogQ2jlP124=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3CAEF8020D;
-	Thu,  2 Sep 2021 18:23:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51C74F8028D;
+	Thu,  2 Sep 2021 18:44:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AAC91F80269; Thu,  2 Sep 2021 18:23:06 +0200 (CEST)
+ id E4886F80269; Thu,  2 Sep 2021 18:44:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2060.outbound.protection.outlook.com [40.107.93.60])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,PRX_BODY_30,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com
+ [209.85.221.169])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35278F80125
- for <alsa-devel@alsa-project.org>; Thu,  2 Sep 2021 18:22:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35278F80125
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
- header.b="c0Yyddtw"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FGdbxjVHaKaE0fORRXBQBVTl9z83Fxii7FSFLMdiTpFISfY5S8icDajblrhDAoSp3h/yhHH7ITIw4jQmLBCyFgBK25BmEa+vFeyyQc/4+vtRiX5GCnOZLUbF5aP+kolzauqzwKEff/BCqUnJRanrjZRc/B1HV6X8ettJYsUtU9b/ug6AQPnrw2yCc3o5GgJxOzV+O1Tjm2VNcQ5PKNKdmHg4gXba/ru6vdMhjDdvPkDMB+darypqK7jfoT/a0lScA8Q6ga36jKCOyzN2tAXoDvmqTnbFM8aUJnSZ9F2/2pprX/h0Oa2MrlgNIQsoc//Ls+P9PdTdaM7F7aND7lBnRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=NEMG0WwwVwkn5m22gV7rOkq4gtv/E6Zj0CPDfFmn64g=;
- b=FSp2wJ0I0qmQzkMKM0fiHfQpSbd1pYWK/3h84c2tncDRz9ppBfAzhyTAP4Evkn3B9J4HSW/VtTai2rqON0Yf56fVDhOM1jEHbxkN46i4kG+0Nfzsow8eJvhbKBtj4CmK78JKxKPVeh9h77HjIy8vLMcEL/8n5TMCsjNHftgLkLKS+/Mp5Dqgyu57RR3VSZDZY5wSgysKcuNwKQxiVYpaDK58+KrhyEEQcnDAwqOqviduviy+fGQfoxVpsAFzbexSoxZWrLgJV5wTTEHWhaceAjbNoY4cMbSW/QNCCvjf1gg97pheu7I8zBjSutCCqUkUNS0kI4u8Cg09Kocp3OnqQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.112.34) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=nvidia.com; 
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NEMG0WwwVwkn5m22gV7rOkq4gtv/E6Zj0CPDfFmn64g=;
- b=c0YyddtwO/UtgkmcTHuBDh36j0ofAoRzkNGebS/Pdmlty57cBL9eec68JIGQ7e0agvzoyAbbADcB/VdiMQHlDXoD9i+UOTcfiC5qNavVezJCDM/R6HItG4ZX//U2jNFXL506hZ6cj5b7IR/Vx38USuPwrYkDmtkfZ6d7qVrYKaNjZisB/CRmuANEWR5tmbis8EmJW1+yJdkGD3kuHY2CDMIXdt4VjtJVup4EP1cLpU7BHd/DJ8tBqeJsZrvdqbRcvY3rTNQuhN8nJruGQxocftUhrOIpBHNc0B2MweCRcYA60rQah1qtnQ9IWgkTHR40gip7Tm2VaTmYZQibTD305Q==
-Received: from MWHPR07CA0007.namprd07.prod.outlook.com (2603:10b6:300:116::17)
- by CH2PR12MB3831.namprd12.prod.outlook.com (2603:10b6:610:29::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19; Thu, 2 Sep
- 2021 16:22:49 +0000
-Received: from CO1NAM11FT022.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:116:cafe::3e) by MWHPR07CA0007.outlook.office365.com
- (2603:10b6:300:116::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19 via Frontend
- Transport; Thu, 2 Sep 2021 16:22:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.34)
- smtp.mailfrom=nvidia.com; vger.kernel.org; dkim=none (message not signed)
- header.d=none; vger.kernel.org; dmarc=pass action=none header.from=nvidia.com; 
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.112.34 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.112.34; helo=mail.nvidia.com;
-Received: from mail.nvidia.com (216.228.112.34) by
- CO1NAM11FT022.mail.protection.outlook.com (10.13.175.199) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.4478.19 via Frontend Transport; Thu, 2 Sep 2021 16:22:48 +0000
-Received: from DRHQMAIL107.nvidia.com (10.27.9.16) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 2 Sep
- 2021 16:22:48 +0000
-Received: from [10.25.99.244] (172.20.187.5) by DRHQMAIL107.nvidia.com
- (10.27.9.16) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 2 Sep 2021
- 16:22:44 +0000
-Subject: Re: [PATCH v2 1/3] ASoC: Add json-schema documentation for
- sound-name-prefix
-To: Jerome Brunet <jbrunet@baylibre.com>, <broonie@kernel.org>,
- <lgirdwood@gmail.com>, <robh+dt@kernel.org>, <thierry.reding@gmail.com>
-References: <1630562033-13231-1-git-send-email-spujar@nvidia.com>
- <1630562033-13231-2-git-send-email-spujar@nvidia.com>
- <1jpmtr5egi.fsf@starbuckisacylon.baylibre.com>
-From: Sameer Pujar <spujar@nvidia.com>
-Message-ID: <96d847bc-bab6-2d99-66f0-1ca93e0f62a8@nvidia.com>
-Date: Thu, 2 Sep 2021 21:52:38 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6AAFCF8020D
+ for <alsa-devel@alsa-project.org>; Thu,  2 Sep 2021 18:44:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AAFCF8020D
+Received: by mail-vk1-f169.google.com with SMTP id g18so845660vkq.8
+ for <alsa-devel@alsa-project.org>; Thu, 02 Sep 2021 09:44:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=S8ciweqCSnmF0lrcF+dCm4bYbs7yF6R8RNgWL4GCGc4=;
+ b=qqrI9gN7yZU2j6SANCyRAolGXIKmTlinIKS5Qjo5g2QqbKo1LXn1Ian9RyvSTpRa6R
+ LZTm6M46Rl06ysPkZTtBHIkZ00BXxSDiW0cDYzV911+D5aCVrxikHiBHExZxllVjh76o
+ 8xspAHBaRA3ShW9TKeJoetLfPIqPcIccXnbDoPuCoHCq0n/E50kxcjMZCYDZwXJgueeW
+ t4wLPP5at3jIbnl7yTokQnPpWQzCZa0z7IyRhfmy3vBp5KRSVPRCA1jCevkWkksjrX7r
+ YcVJWshAKTrYitxcproNwxEOEE5U2w7vgBT/PIKMnkvVLQo6r4oyod8dNx1y5oG3F7NC
+ kNkw==
+X-Gm-Message-State: AOAM531gXGwNIxogahmdq+ImdJKPamP0UX3WTYtoxZskXOdElFfcYrT2
+ LJbmKgjMff009tZPlIuM1BXU8CGojlWCnZjCAE4=
+X-Google-Smtp-Source: ABdhPJxW6799mxeUzoB48DvT0FXTNwmWHONPl+cHVkxeRwWgBN0xlWUX+n978nIvNloFpd/wE8Q+PSrXa+QzmCwfVeQ=
+X-Received: by 2002:a1f:fe04:: with SMTP id l4mr2579598vki.9.1630601075662;
+ Thu, 02 Sep 2021 09:44:35 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1jpmtr5egi.fsf@starbuckisacylon.baylibre.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-Originating-IP: [172.20.187.5]
-X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
- DRHQMAIL107.nvidia.com (10.27.9.16)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 48420da7-e146-4f1d-ae46-08d96e2de7af
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3831:
-X-Microsoft-Antispam-PRVS: <CH2PR12MB38312847DAE18F613B42D914A7CE9@CH2PR12MB3831.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LK0WPGNpKxemN+csvO/nehV2turEBkPphW7y9ck1mlbOQzwW0guQ+cZWDjLurC/ogXTRev00Frc2tpNt6fg913tt+9rggpIm4zP/Z5rHga3zz9c9eFUFSy6zY/c4/BuJqcmSkrrTdNa4dQEi41TPAdt8x7KCRgawWPk4CaHviUzk4QQ27FABVU1PHEZbgy/2avyKbB31+U5gO2sAvp1Osul/y1JtWLRCR/YSE2FbKJpzxbO8tNWTuoAtHoPvvkVomKlmQvSBCTtGuzNg7KggUQcafWnxGvOJrpgSQRSxmQxdLMQJqdC+vD2xWeYTtm3OEDlfNzSUekf8M7wFj1HwwMriR3WPWGHefcgVb5RF2pFNZBE3JQ0FirBchUT6WsY1J9uXEhp7/o9pvEX8rAWa4uiKEf6PtNGLVQjk89ms/TRbHjlM/PFQznjZtHz+gSBw+RL4+f4naIzgHBOxnuJobel2HjgeFv5MbVnU1skvSraAUkYAZMcmNLuuAF9p8k8ecZ8o4nKbUyrgXhdgTamz7PXswC77V9HaFGw+Ltko0C2wQYsVo9lqEEG/Er3/wCSJoDkwI2atOdejyEQq6t90AWkz/oIjKk4ZfXe/FpumJHRSCIlBLHi2WtKPUXprmmZBpouf42D++qh5Wz0aK0qsfeHkC9O8FdhKjCPobrY7lhRlbQ0UocnjF8fGFz3Us5nL2/NJmNc5L35LdvprzQa8D3A/X01Hv+h6pEkyCkVOkzXmYXSQ/X6YGLT6exdFK/XSi5Xs1c70si1xuCvl1min4+bP/Q9H5uFS8/qx9jGKYjkPz4BsbxzZvSNAVyNIGpUc1xw9NUGLTUOPFTNPlhnCcqRZmm8v6MtA7qhC+/0THIU=
-X-Forefront-Antispam-Report: CIP:216.228.112.34; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid03.nvidia.com; CAT:NONE;
- SFS:(4636009)(136003)(376002)(396003)(39860400002)(346002)(46966006)(36840700001)(2616005)(16526019)(356005)(186003)(36860700001)(7636003)(82310400003)(966005)(47076005)(53546011)(478600001)(26005)(82740400003)(336012)(426003)(31696002)(86362001)(5660300002)(70206006)(6666004)(70586007)(4326008)(8936002)(2906002)(8676002)(36906005)(54906003)(31686004)(16576012)(316002)(110136005)(36756003)(7416002)(43740500002);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2021 16:22:48.7500 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 48420da7-e146-4f1d-ae46-08d96e2de7af
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.34];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT022.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3831
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- stephan@gerhold.net, linux-kernel@vger.kernel.org, jonathanh@nvidia.com,
- linux-tegra@vger.kernel.org
+References: <20210707214752.3831-1-rdunlap@infradead.org>
+ <fca8f952-2be0-5c57-d60d-5c4f025abc4d@microchip.com>
+ <49495ab9-5039-f332-2895-1a79c034f58d@infradead.org>
+In-Reply-To: <49495ab9-5039-f332-2895-1a79c034f58d@infradead.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 2 Sep 2021 18:44:23 +0200
+Message-ID: <CAMuHMdU=ODKZJ0OOsuCeJnTWuM3fP5DE7coSzB=fvAbxPQWDcg@mail.gmail.com>
+Subject: Re: [PATCH v3] ASoC: atmel: ATMEL drivers don't need HAS_DMA
+To: Randy Dunlap <rdunlap@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ mirq-linux@rere.qmqm.pl, Mark Brown <broonie@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@free-electrons.com>,
+ Codrin.Ciubotariu@microchip.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -145,51 +88,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Randy,
 
-
-On 9/2/2021 6:17 PM, Jerome Brunet wrote:
-> External email: Use caution opening links or attachments
+On Thu, Jul 8, 2021 at 6:51 PM Randy Dunlap <rdunlap@infradead.org> wrote:
+> On 7/8/21 1:19 AM, Codrin.Ciubotariu@microchip.com wrote:
+> > On 08.07.2021 00:47, Randy Dunlap wrote:
+> >> EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
+> >>
+> >> On a config (such as arch/sh/) which does not set HAS_DMA when MMU
+> >> is not set, several ATMEL ASoC drivers select symbols that cause
+> >> kconfig warnings. There is one "depends on HAS_DMA" which is no longer
+> >> needed. Dropping it eliminates the kconfig warnings and still builds
+> >> with no problems reported.
+> >>
+> >> Fix the following kconfig warnings:
+> >>
+> >> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_PDC
+> >>    Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && HAS_DMA [=n]
+> >>    Selected by [m]:
+> >>    - SND_ATMEL_SOC_SSC [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m]
+> >>    - SND_ATMEL_SOC_SSC_PDC [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m]
+> >>
+> >> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC_PDC
+> >>    Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m] && HAS_DMA [=n]
+> >>    Selected by [m]:
+> >>    - SND_AT91_SOC_SAM9G20_WM8731 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && SND_SOC_I2C_AND_SPI [=m]
+> >>
+> >> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC
+> >>    Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && HAS_DMA [=n]
+> >>    Selected by [m]:
+> >>    - SND_ATMEL_SOC_SSC_DMA [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m]
+> >>
+> >> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC_DMA
+> >>    Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m] && HAS_DMA [=n]
+> >>    Selected by [m]:
+> >>    - SND_ATMEL_SOC_WM8904 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && I2C [=m]
+> >>    - SND_AT91_SOC_SAM9X5_WM8731 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && SND_SOC_I2C_AND_SPI [=m]
+> >>
+> >> Fixes: 3951e4aae2ce ("ASoC: atmel-pcm: dma support based on pcm dmaengine")
+> >> Fixes: 18291410557f ("ASoC: atmel: enable SOC_SSC_PDC and SOC_SSC_DMA in Kconfig")
+> >> Fixes: 061981ff8cc8 ("ASoC: atmel: properly select dma driver state")
+> >
+> > I am not sure about these fixes tags. As Alexandre mentioned, it looks
+> > like the reason for HAS_DMA in the first place was the COMPILE_TEST with
+> > m32r arch. I dig a bit, and, if any, I think we should use:
+> > Fixes: eb17726b00b3 ("m32r: add simple dma")
+> > since this commit adds dummy DMA support for m32r and seems to fix the
+> > HAS_DMA dependency.
 >
+> Ah, I forgot to update the Fixes: tag(s).
 >
-> On Thu 02 Sep 2021 at 11:23, Sameer Pujar <spujar@nvidia.com> wrote:
->
->> The 'sound-name-prefix' is used to prepend suitable strings to a
->> component widgets or controls. This is helpful when there are
->> multiple instances of the same component. Add relevant json-schema
->> and is inspired from sound-name-prefix.txt documentation.
->>
->> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
->> Cc: Jerome Brunet <jbrunet@baylibre.com>
->> Cc: Rob Herring <robh+dt@kernel.org>
->> ---
->>   .../devicetree/bindings/sound/name-prefix.yaml     | 35 ++++++++++++++++++++++
->>   1 file changed, 35 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/sound/name-prefix.yaml
->>
->> diff --git a/Documentation/devicetree/bindings/sound/name-prefix.yaml b/Documentation/devicetree/bindings/sound/name-prefix.yaml
->> new file mode 100644
->> index 00000000..b58cc9e
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/sound/name-prefix.yaml
->> @@ -0,0 +1,35 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/sound/name-prefix.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Component sound name prefix
->> +
->> +maintainers:
->> +  - Jerome Brunet <jbrunet@baylibre.com>
-> Since this file is referenced using "AllOf", am I going to be listed as
-> maintainer of all the drivers using the property below ? I'm not sure I
-> want that ... :P
->
-> Maybe it would be better to drop the above ?
+> I won't disagree with your Fixes: suggestion (good digging) but
+> I would probably have used 8d7d11005e930:
+>   ASoC: atmel: fix build failure
+> which is the commit that added "depends on HAS_DMA".
 
-The 'maintainers' seems to be a mandatory field. To address above may be 
-drop the top level reference and refer the property directly via a 
-definition if the earlier method [in v1] was not appropriate?
+M32r was not the only platform NO_DMA, so I guess the build would
+have failed for the others, too (e.g. Sun-3).
 
+So the real fix was probably commit f29ab49b5388b2f8 ("dma-mapping:
+Convert NO_DMA get_dma_ops() into a real dummy"), or one of the
+related commits adding dummies to subsystems.
 
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

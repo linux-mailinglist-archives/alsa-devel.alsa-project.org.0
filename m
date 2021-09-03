@@ -2,87 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D57324003B9
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 18:55:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A6B9400430
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 19:31:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D0A018D6;
-	Fri,  3 Sep 2021 18:54:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D0A018D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id EA5E218C7;
+	Fri,  3 Sep 2021 19:30:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA5E218C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630688112;
-	bh=xBAI3Q+CTndg55p++4CTyyIwLjEJIdk806gG11kRCVE=;
+	s=default; t=1630690303;
+	bh=ILOKCVEg/GU2ma2vAM0rasggdXVr/bBb2evSi/xMUA8=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TXMdpITLVO0EIpzydzqQtDrZW+4G67cTB5rxOhdLDiCOQFgFihlGGxb2zF9ls7c7Q
-	 ZUGzJXJLI10I4oaXSOf/4KIuU1YXt1wID3yQWk90buuoID3wEHczFVrYcX0JCuSEUD
-	 R4RqhZW0d0lB4UsAeMl5xnw4AA7R32W2HJ8YqMqA=
-Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 983A7F80256;
-	Fri,  3 Sep 2021 18:53:55 +0200 (CEST)
+	b=RjTHtWrCfL9sGGqwwx8X5JYJoAd/l0uLCfj99KGhTWC5/rprz+pD5LFGavCutRky4
+	 JeImIh8L7Ok7DYMirAKjpxW8/V0RJNC00WkhBj6I4F031IRj5GEkZSXNz6OOCwA3sd
+	 Osrp+x0rmq4gp1ZHA2n49aHbuNzhWpztyyddcXdw=
+Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 7AACDF80227;
+	Fri,  3 Sep 2021 19:30:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9474F80254; Fri,  3 Sep 2021 18:53:53 +0200 (CEST)
+ id 00FE7F80254; Fri,  3 Sep 2021 19:30:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com
- [209.85.161.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C4E5CF800B5
- for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 18:53:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4E5CF800B5
-Received: by mail-oo1-f50.google.com with SMTP id
- m14-20020a4ad50e000000b002912a944a47so1687515oos.12
- for <alsa-devel@alsa-project.org>; Fri, 03 Sep 2021 09:53:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=enSj79vcN/Dm/uZSTTzwATzvAMHwNRMrauYA74ENvEY=;
- b=LXYgRC7XPsD65LKdE0tV1g4OvRGCNSYBMJ2knkAJnwlVx2iroIOh6MGk+P5JwG818h
- Z1pXD/kHsgMAG45zszS1ymkHL4mJ0pUQxfdUIj9nESoxXvbmcit5786E/ZVrLaIPRBj4
- 3whjrV/dX9q6kdMuJYaE3D1KGgZSeaZ5erF2CEnIzjw61gMOjaaNc+oz0EOWCJRndbU/
- pwQMyaj5SGd2sSXtkGV/6CEfrsWi6xfsW18DG/6MFm2DJLpcV6DC8LagIaZvwQqUVmo5
- GV2K5BfhgMofBcsHlMaQLuRp76uIom9Fflub1SqavRnVfk2+fY5NXPnTK/hn99NAaS0a
- RItA==
-X-Gm-Message-State: AOAM530XqTNZe1fqQvtBnIeYIL/hlkZcumSremjtz1VSDO4C9CtPTaOO
- wfc3TDVotcZ3ZVXAqOtJiA==
-X-Google-Smtp-Source: ABdhPJyRTE/hdWaUnfQdRbuMAMJswUwR6XT/DIJppmGP66ppiqdiMz1FHfSfkortQtFWdbOgrBbIUw==
-X-Received: by 2002:a05:6820:235:: with SMTP id
- j21mr3734079oob.75.1630688025383; 
- Fri, 03 Sep 2021 09:53:45 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id v186sm1148174oig.52.2021.09.03.09.53.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Sep 2021 09:53:44 -0700 (PDT)
-Received: (nullmailer pid 3085928 invoked by uid 1000);
- Fri, 03 Sep 2021 16:53:43 -0000
-Date: Fri, 3 Sep 2021 11:53:43 -0500
-From: Rob Herring <robh@kernel.org>
-To: Daniel Baluta <daniel.baluta@oss.nxp.com>
-Subject: Re: [PATCH v2 2/2] dt-bindings: dsp: fsl: Add DSP optional clocks
- documentation
-Message-ID: <YTJTF5VMOyG2iZb0@robh.at.kernel.org>
-References: <20210903145340.225511-1-daniel.baluta@oss.nxp.com>
- <20210903145340.225511-3-daniel.baluta@oss.nxp.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 28B4CF8020D
+ for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 19:30:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28B4CF8020D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="q60iLjlb"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id ADB6061100;
+ Fri,  3 Sep 2021 17:30:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1630690202;
+ bh=ILOKCVEg/GU2ma2vAM0rasggdXVr/bBb2evSi/xMUA8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=q60iLjlbUQx1P80P2nECV2eZ/FBcP00+l9l/RSIdpiM7bmGY7OjOJc1KcK7buv3nw
+ aC5EimUOv5fE5hx2VAyD5uxSVjYDSvzrAdi5nx4nfhGM4xiCKdhaJrPIsff8hPDnHG
+ ytM+cdgciop3d/X3FZeCnUqb1VMKh97uxcl3+jXuzBsdv6L6UUGpTqx6AULl6dkGpD
+ blavFlD7tF3PS3mIsuVIx6oFRmcggexhTwn6sborXFPtVFt5CWUN2JhW4mNEDYRVj+
+ ENOrOi3ROzxpdrNGIh0DlOAVXTeoo44kOc1qTShAvoPQrxk04ZDt0RFSMAi9xeTCb2
+ 488BpNwirqeRg==
+Date: Fri, 3 Sep 2021 18:29:27 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v5 14/21] ASoC: qdsp6: audioreach: add basic pkt alloc
+ support
+Message-ID: <20210903172927.GN4932@sirena.org.uk>
+References: <20210903112032.25834-1-srinivas.kandagatla@linaro.org>
+ <20210903112032.25834-15-srinivas.kandagatla@linaro.org>
+ <ddb4f36b-8a43-d1e9-0429-78d8eefc9474@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="GEn4szYucjS2InE7"
 Content-Disposition: inline
-In-Reply-To: <20210903145340.225511-3-daniel.baluta@oss.nxp.com>
-Cc: Daniel Baluta <daniel.baluta@nxp.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com, lgirdwood@gmail.com,
- festevam@gmail.com, peter.ujfalusi@linux.intel.com,
- ranjani.sridharan@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- broonie@kernel.org, linux-imx@nxp.com, kernel@pengutronix.de, s-anna@ti.com,
- shawnguo@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <ddb4f36b-8a43-d1e9-0429-78d8eefc9474@linux.intel.com>
+X-Cookie: Darth Vader sleeps with a Teddywookie.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
+ devicetree@vger.kernel.org, tiwai@suse.de, plai@codeaurora.org,
+ lgirdwood@gmail.com, bjorn.andersson@linaro.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,64 +85,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Sep 03, 2021 at 05:53:40PM +0300, Daniel Baluta wrote:
-> From: Daniel Baluta <daniel.baluta@nxp.com>
-> 
-> DSP node on the Linux kernel side must also take care of enabling
-> DAI/DMA related clocks.
-> 
-> By design we choose to manage DAI/DMA clocks from the kernel side because of
-> the architecture of some i.MX8 boards.
-> 
-> Clocks are handled by a special M4 core which runs a special firmware
-> called SCFW (System Controler firmware).
-> 
-> This communicates with A cores running Linux via a special Messaging
-> Unit and implements a custom API which is already implemented by the
-> Linux kernel i.MX clocks implementation.
-> 
-> Note that these clocks are optional. We can use the DSP without them.
-> 
-> Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
-> ---
->  .../devicetree/bindings/dsp/fsl,dsp.yaml      | 33 +++++++++++++++++++
->  1 file changed, 33 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml b/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
-> index 7afc9f2be13a..1453668c0194 100644
-> --- a/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
-> +++ b/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
-> @@ -24,16 +24,49 @@ properties:
->      maxItems: 1
->  
->    clocks:
-> +    minItems: 3
->      items:
->        - description: ipg clock
->        - description: ocram clock
->        - description: core clock
-> +      - description: esai0 core clock for accessing registers
-> +      - description: esai0 baud clock
-> +      - description: esai0 system clock
-> +      - description: esai0 spba clock required when ESAI is placed in slave mode
-> +      - description: SAI1 bus clock
-> +      - description: SAI1 master clock 0
-> +      - description: SAI1 master clock 1
-> +      - description: SAI1 master clock 2
-> +      - description: SAI1 master clock 3
-> +      - description: SAI3 bus clock
-> +      - description: SAI3 master clock 0
-> +      - description: SAI3 master clock 1
-> +      - description: SAI3 master clock 2
-> +      - description: SAI3 master clock 3
-> +      - description: SDMA3 root clock used for accessing registers
 
-Sigh, I just rejected this kind of thing for the other i.MX8 DSP 
-binding[1].
+--GEn4szYucjS2InE7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Add a reference to the h/w block and then get the clocks (and other 
-resources) from there.
+On Fri, Sep 03, 2021 at 09:23:32AM -0500, Pierre-Louis Bossart wrote:
 
-Rob
+> > +struct apm_sub_graph_params  {
+> > +	struct apm_module_param_data param_data;
+> > +	uint32_t num_sub_graphs;
+> > +	struct apm_sub_graph_data sg_cfg[0];
 
-[1] https://lore.kernel.org/linux-devicetree/YTDq%2FkWFPLHUnHMN@robh.at.kernel.org/
+> I thought the use of zero-length arrays [0] was deprecated in favor of
+> flexible arrays []?
+
+Yes.
+
+--GEn4szYucjS2InE7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEyW3YACgkQJNaLcl1U
+h9Adogf8CCIbwxTLYgzK5uMCVZ7zopHEWKyCmaLinXyxUYs4/ulpK5Hzzq4UlzN2
+pBfynj4lv4+V7x5XzxmL+ZOCdR0YTcODcfOo/dwz1mUn3CFNA9lIAO+PRMQnpFDE
+5OX0OCi5u5ADj+cAetKrQymg8X50EW6SvUGLPvsXE8t+IgiTEUZZKUAyAO/q1ogs
+lB+w1+hhY8ecX8s9rSC3SEWf6DZvVNymqqJhA/H8U/jgeHNekQk1g3dnkaTeK3Ar
+MS80AqbS1roc+3+2Z/XNL0rgo6Wvr85Gk/96LEC8FEiJmjHy5ty9yHytZBBNQusj
+vX39jAJAgEZN71YY1UxDVpYJRfFSmQ==
+=IfNE
+-----END PGP SIGNATURE-----
+
+--GEn4szYucjS2InE7--

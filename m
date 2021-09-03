@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B86D400483
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 20:06:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34A5B400485
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 20:06:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 299B218D9;
-	Fri,  3 Sep 2021 20:05:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 299B218D9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 332EF18DB;
+	Fri,  3 Sep 2021 20:05:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 332EF18DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630692377;
-	bh=1hAUx3R/bUDil8aAG0+n3xAXYLVRkV49z3VRYlAubGo=;
+	s=default; t=1630692401;
+	bh=AYCTypw36ptHgabLcJlokFD5oklyEoCNON6TkiELR0c=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dDhw77SKDIaLiWPIVmkMEni8EjoBHZvTKRXqpS3K/LRaNSbQgt1mivgOBr6KmWYlq
-	 UDLNZ5AV/B9WhvWMU4MeuF0pGRfqoW9k/glZGXlCb2Exw+ezVGdNELUSHrHLZKCQuV
-	 zrWmR1RpezX51lvImjE9mtN26s9VFUXuzbBIFq8E=
+	b=UiGWttrky8F37xvFr1gNzRQ5ciIdbIh5AiS4RE30HRQeW8nYVLpd/73hdOgX0yKEa
+	 NXzG++LJbQTwv2CkBMcVJQjjYUYxG0S1s2JshblqQcIL2CRGl3bEoYL8xRYzcKJPRK
+	 B8sr1sXDfRAFLOu7PxQSKPVfVoVGSJ5TULUCjAs4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5963BF80256;
-	Fri,  3 Sep 2021 20:05:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB68BF8032B;
+	Fri,  3 Sep 2021 20:05:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1EC77F80254; Fri,  3 Sep 2021 20:04:58 +0200 (CEST)
+ id 9C0D2F802E3; Fri,  3 Sep 2021 20:05:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,33 +33,33 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C0CF7F80088
- for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 20:04:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0CF7F80088
+ by alsa1.perex.cz (Postfix) with ESMTPS id B4860F80254
+ for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 20:04:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4860F80254
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RnGv8n/5"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B771760EBA;
- Fri,  3 Sep 2021 18:04:52 +0000 (UTC)
+ header.b="lk9RGXY9"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 54E91610A1;
+ Fri,  3 Sep 2021 18:04:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1630692293;
- bh=1hAUx3R/bUDil8aAG0+n3xAXYLVRkV49z3VRYlAubGo=;
+ s=k20201202; t=1630692295;
+ bh=AYCTypw36ptHgabLcJlokFD5oklyEoCNON6TkiELR0c=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=RnGv8n/5NW4KOC551he3pdvHYM9wgwABqJhAralXwejVa5BJMjEKqIp3IuEAyJBRj
- r0o7yQjcFGeEH4UJOHbmeoKZsJFuJnpivcPUA5DR0w4DjNf2oxdTcg6YU69W0Dz7no
- 6oNGaZzVo64R4MVPpAMMXdErQkjVnSj0B46KyVKO9fkMFoo55rhMROJQ+rzVWFpV/Q
- Iwidt7aaqR3bdFnSRl6riALORxQn1SnC0Y44Ik6yhg2LEZ5fIcTHRfUUvqZ9GK4LGm
- uS06UzgblqY6JDjAoi1sB/udZZ/nNqNLgnDLzm2ZJRz2nBd+1ijI55gacghrlEDSN0
- 2P7UeND5xu8Eg==
+ b=lk9RGXY9AVswYmZWtt1rE1/CavCQsvnNbMv2JGR71HazCSpK4RiR0+haWbqts9/D1
+ LO7x2ocAa8NFCqGVcy8WNXRs4q+vF4tB6DOzUhT7e1pPRKCnmdDhNo44WgYPyGowvA
+ md5bT1JflLrXWSLUOBJ1vGD/21QUtrd7Cc2hKdet7pTvzhT7Hu87DBjaIgFOk9YKU+
+ tslioRp3Kd/ws5LH/SvYxfcWmH2I5k6EMLDNz5YwHlVs0vn4bQelO8W5FKuKzCS/8j
+ ki7168sdJs86xPhj/sWdICaLo7VSDwqupNWXrNknBvJawC3UnXqufthq4KV6HeY73X
+ ybTNrX1qPjUZg==
 From: Mark Brown <broonie@kernel.org>
 To: Sugar Zhang <sugar.zhang@rock-chips.com>,
 	heiko@sntech.de
-Subject: Re: [PATCH v2] ASoC: rockchip: i2s: Fix concurrency between tx/rx
-Date: Fri,  3 Sep 2021 19:04:18 +0100
-Message-Id: <163069197835.35101.5282344182422395715.b4-ty@kernel.org>
+Subject: Re: [PATCH v3] ASoC: rockchip: i2s: Fix concurrency between tx/rx
+Date: Fri,  3 Sep 2021 19:04:19 +0100
+Message-Id: <163069197835.35101.4150427867250097515.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1630305525-65759-1-git-send-email-sugar.zhang@rock-chips.com>
-References: <1630305525-65759-1-git-send-email-sugar.zhang@rock-chips.com>
+In-Reply-To: <1630674434-650-1-git-send-email-sugar.zhang@rock-chips.com>
+References: <1630674434-650-1-git-send-email-sugar.zhang@rock-chips.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -82,7 +82,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 30 Aug 2021 14:38:45 +0800, Sugar Zhang wrote:
+On Fri, 3 Sep 2021 21:07:14 +0800, Sugar Zhang wrote:
 > This patch adds lock to fix comcurrency between tx/rx
 > to fix 'rockchip-i2s ff070000.i2s; fail to clear'
 > 

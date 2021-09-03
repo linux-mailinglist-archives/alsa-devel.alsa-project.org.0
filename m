@@ -2,75 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECD2F40008B
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 15:27:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1D744000E4
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 16:00:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A63517B3;
-	Fri,  3 Sep 2021 15:26:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A63517B3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 475341891;
+	Fri,  3 Sep 2021 15:59:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 475341891
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630675630;
-	bh=fIAI6oIiHtMWwnAP1UqtXa5NwakouZp1Q9h7aq/CUHM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1630677600;
+	bh=e+Wif2RGx1T6H0/qWTLnsm2hLXFSlfkltNNIUpQwrXQ=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YDbSCesQbjuDhN4zwWcTOPtM2UTdT+r1l8uyW8bkno79duHVJPv8pCBYq0q5lLYnV
-	 iHPy2k2Nb3Mh4fFjihrD4oKmpGNDLBxl2U1tvG5uGQhaS7dEhws+q6DOvi/Z6U1n7A
-	 +wiJ43QQd/HCBQ6RZuT8fTFd3w9LF1oz5eDxbFeI=
+	b=UVu84B11WIz0X+Cfrlzu0l/iZoodk6V6pRifkLzYf+1R8yElQc3cASMBGod0w1MRB
+	 9qpiqInAr5s7ePiGoC3mvnXiRjzlG8UwkdTthE/Akt5pzJeDbcsCgQDsCNiN7S4ReF
+	 Z2wTYjNOMUmnI1xSJM5hHOVjBXe3WFxD6IQ93Aa0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41C8CF80517;
-	Fri,  3 Sep 2021 15:24:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD9D6F80227;
+	Fri,  3 Sep 2021 15:58:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9952F804FC; Fri,  3 Sep 2021 15:24:10 +0200 (CEST)
+ id F1352F80254; Fri,  3 Sep 2021 15:58:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from lucky1.263xmail.com (lucky1.263xmail.com [211.157.147.133])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BA699F804FC
- for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 15:24:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA699F804FC
-Received: from localhost (unknown [192.168.167.130])
- by lucky1.263xmail.com (Postfix) with ESMTP id 62444D5FF2;
- Fri,  3 Sep 2021 21:24:01 +0800 (CST)
-X-MAIL-GRAY: 0
-X-MAIL-DELIVERY: 1
-X-ADDR-CHECKED4: 1
-X-SKE-CHECKED: 1
-X-ANTISPAM-LEVEL: 2
-Received: from localhost.localdomain (unknown [58.22.7.114])
- by smtp.263.net (postfix) whith ESMTP id
- P2016T140106318997248S1630675439696276_; 
- Fri, 03 Sep 2021 21:24:01 +0800 (CST)
-X-IP-DOMAINF: 1
-X-UNIQUE-TAG: <90c2a9e1d431cddf68b41721831c37ed>
-X-RL-SENDER: sugar.zhang@rock-chips.com
-X-SENDER: zxg@rock-chips.com
-X-LOGIN-NAME: sugar.zhang@rock-chips.com
-X-FST-TO: broonie@kernel.org
-X-RCPT-COUNT: 6
-X-SENDER-IP: 58.22.7.114
-X-ATTACHMENT-NUM: 0
-X-System-Flag: 0
-From: Sugar Zhang <sugar.zhang@rock-chips.com>
-To: broonie@kernel.org,
-	heiko@sntech.de
-Subject: [PATCH v4 7/7] ASoC: dt-bindings: rockchip: Convert pdm bindings to
- yaml
-Date: Fri,  3 Sep 2021 21:23:58 +0800
-Message-Id: <1630675438-3418-2-git-send-email-sugar.zhang@rock-chips.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1630675357-3286-1-git-send-email-sugar.zhang@rock-chips.com>
-References: <1630675357-3286-1-git-send-email-sugar.zhang@rock-chips.com>
-Cc: Sugar Zhang <sugar.zhang@rock-chips.com>,
- linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id CB3ADF80088
+ for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 15:58:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB3ADF80088
+X-IronPort-AV: E=McAfee;i="6200,9189,10095"; a="206547521"
+X-IronPort-AV: E=Sophos;i="5.85,265,1624345200"; d="scan'208";a="206547521"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Sep 2021 06:58:22 -0700
+X-IronPort-AV: E=Sophos;i="5.85,265,1624345200"; d="scan'208";a="462387673"
+Received: from seangorm-mobl.amr.corp.intel.com (HELO [10.251.136.111])
+ ([10.251.136.111])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Sep 2021 06:58:20 -0700
+Subject: Re: [PATCH v5 1/2] ASoC: cs35l41: CS35L41 Boosted Smart Amplifier
+To: David Rhodes <drhodes@opensource.cirrus.com>, broonie@kernel.org,
+ robh@kernel.org, ckeepax@opensource.cirrus.com, brian.austin@cirrus.com,
+ patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ david.rhodes@cirrus.com
+References: <20210816224310.344931-1-drhodes@opensource.cirrus.com>
+ <20210816224310.344931-2-drhodes@opensource.cirrus.com>
+ <a0be6858-0d98-7f26-9ba5-f290c9809b5c@linux.intel.com>
+ <cdabe1e9-5411-d2b6-d629-8ec87aa4c764@opensource.cirrus.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <7c38ddb4-9ccc-130d-e977-4f39b01e2c9e@linux.intel.com>
+Date: Fri, 3 Sep 2021 08:58:17 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.13.0
+MIME-Version: 1.0
+In-Reply-To: <cdabe1e9-5411-d2b6-d629-8ec87aa4c764@opensource.cirrus.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,225 +80,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch converts pdm bindings to yaml.
-
-Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
-Reviewed-by: Rob Herring <robh@kernel.org>
----
-
-Changes in v4:
-- Acked by Rob Herring
-
-Changes in v3:
-- Fix property 'path-map' suggested by Rob Herring.
-
-Changes in v2:
-- Fix yamllint errors.
-
- .../devicetree/bindings/sound/rockchip,pdm.txt     |  64 -----------
- .../devicetree/bindings/sound/rockchip,pdm.yaml    | 120 +++++++++++++++++++++
- 2 files changed, 120 insertions(+), 64 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/rockchip,pdm.txt
- create mode 100644 Documentation/devicetree/bindings/sound/rockchip,pdm.yaml
-
-diff --git a/Documentation/devicetree/bindings/sound/rockchip,pdm.txt b/Documentation/devicetree/bindings/sound/rockchip,pdm.txt
-deleted file mode 100644
-index b2d7e47..0000000
---- a/Documentation/devicetree/bindings/sound/rockchip,pdm.txt
-+++ /dev/null
-@@ -1,64 +0,0 @@
--* Rockchip PDM controller
--
--Required properties:
--
--- compatible: "rockchip,pdm"
--  - "rockchip,px30-pdm"
--  - "rockchip,rk1808-pdm"
--  - "rockchip,rk3308-pdm"
--  - "rockchip,rk3568-pdm"
--  - "rockchip,rv1126-pdm"
--- reg: physical base address of the controller and length of memory mapped
--  region.
--- dmas: DMA specifiers for rx dma. See the DMA client binding,
--	Documentation/devicetree/bindings/dma/dma.txt
--- dma-names: should include "rx".
--- clocks: a list of phandle + clock-specifer pairs, one for each entry in clock-names.
--- clock-names: should contain following:
--   - "pdm_hclk": clock for PDM BUS
--   - "pdm_clk" : clock for PDM controller
--- resets: a list of phandle + reset-specifer paris, one for each entry in reset-names.
--- reset-names: reset names, should include "pdm-m".
--- pinctrl-names: Must contain a "default" entry.
--- pinctrl-N: One property must exist for each entry in
--	     pinctrl-names. See ../pinctrl/pinctrl-bindings.txt
--	     for details of the property values.
--
--Optional properties:
--- rockchip,path-map: This is a variable length array, that shows the mapping
--  of SDIx to PATHx. By default, they are one-to-one mapping as follows:
--
--   path0 <-- sdi0
--   path1 <-- sdi1
--   path2 <-- sdi2
--   path3 <-- sdi3
--
--  e.g. "rockchip,path-map = <3 2 1 0>" means the mapping as follows:
--
--   path0 <-- sdi3
--   path1 <-- sdi2
--   path2 <-- sdi1
--   path3 <-- sdi0
--
--Example for rk3328 PDM controller:
--
--pdm: pdm@ff040000 {
--	compatible = "rockchip,pdm";
--	reg = <0x0 0xff040000 0x0 0x1000>;
--	clocks = <&clk_pdm>, <&clk_gates28 0>;
--	clock-names = "pdm_clk", "pdm_hclk";
--	dmas = <&pdma 16>;
--	#dma-cells = <1>;
--	dma-names = "rx";
--	pinctrl-names = "default", "sleep";
--	pinctrl-0 = <&pdmm0_clk
--		     &pdmm0_sdi0
--		     &pdmm0_sdi1
--		     &pdmm0_sdi2
--		     &pdmm0_sdi3>;
--	pinctrl-1 = <&pdmm0_clk_sleep
--		     &pdmm0_sdi0_sleep
--		     &pdmm0_sdi1_sleep
--		     &pdmm0_sdi2_sleep
--		     &pdmm0_sdi3_sleep>;
--};
-diff --git a/Documentation/devicetree/bindings/sound/rockchip,pdm.yaml b/Documentation/devicetree/bindings/sound/rockchip,pdm.yaml
-new file mode 100644
-index 0000000..22e1cf6
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/rockchip,pdm.yaml
-@@ -0,0 +1,120 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/rockchip,pdm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Rockchip PDM controller
-+
-+description:
-+  The Pulse Density Modulation Interface Controller (PDMC) is
-+  a PDM interface controller and decoder that support PDM format.
-+  It integrates a clock generator driving the PDM microphone
-+  and embeds filters which decimate the incoming bit stream to
-+  obtain most common audio rates.
-+
-+maintainers:
-+  - Heiko Stuebner <heiko@sntech.de>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - rockchip,pdm
-+      - rockchip,px30-pdm
-+      - rockchip,rk1808-pdm
-+      - rockchip,rk3308-pdm
-+      - rockchip,rk3568-pdm
-+      - rockchip,rv1126-pdm
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: clock for PDM controller
-+      - description: clock for PDM BUS
-+
-+  clock-names:
-+    items:
-+      - const: pdm_clk
-+      - const: pdm_hclk
-+
-+  dmas:
-+    maxItems: 1
-+
-+  dma-names:
-+    items:
-+      - const: rx
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  resets:
-+    items:
-+      - description: reset for PDM controller
-+
-+  reset-names:
-+    items:
-+      - const: pdm-m
-+
-+  rockchip,path-map:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description:
-+      Defines the mapping of PDM SDIx to PDM PATHx.
-+      By default, they are mapped one-to-one.
-+    maxItems: 4
-+    uniqueItems: true
-+    items:
-+      enum: [ 0, 1, 2, 3 ]
-+
-+  "#sound-dai-cells":
-+    const: 0
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - dmas
-+  - dma-names
-+  - "#sound-dai-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/rk3328-cru.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/pinctrl/rockchip.h>
-+
-+    bus {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        pdm@ff040000 {
-+            compatible = "rockchip,pdm";
-+            reg = <0x0 0xff040000 0x0 0x1000>;
-+            interrupts = <GIC_SPI 82 IRQ_TYPE_LEVEL_HIGH>;
-+            clocks = <&cru SCLK_PDM>, <&cru HCLK_PDM>;
-+            clock-names = "pdm_clk", "pdm_hclk";
-+            dmas = <&dmac 16>;
-+            dma-names = "rx";
-+            #sound-dai-cells = <0>;
-+            pinctrl-names = "default", "sleep";
-+            pinctrl-0 = <&pdmm0_clk
-+                         &pdmm0_sdi0
-+                         &pdmm0_sdi1
-+                         &pdmm0_sdi2
-+                         &pdmm0_sdi3>;
-+            pinctrl-1 = <&pdmm0_clk_sleep
-+                         &pdmm0_sdi0_sleep
-+                         &pdmm0_sdi1_sleep
-+                         &pdmm0_sdi2_sleep
-+                         &pdmm0_sdi3_sleep>;
-+        };
-+    };
--- 
-2.7.4
 
 
+>> Is the ACPI probe smart enough to deal with two different drivers
+>> registering for the *same* HID?
+>>
+>> I haven't seen any precedent, e.g. the RT6777 uses a different ACPI HID
+>> for its I2C and SPI modes.
+>>
+>>
+> 
+> I2C and SPI buses, when they are looking for a driver with an ID that
+> matches a device declared in ACPI, will iterate over drivers that belong
+> to the bus only (bus_for_each_drv()). It is not possible for an I2C
+> driver to be matched during SPI device enumeration or vice versa.
 
+That's good but that use of the same HID for two different solutions is
+still be problematic. On ACPI solutions, we use the HID as a key to
+identify what machine driver to load, see e.g. snd_soc_acpi_find_machine().
+By using the *same* HID, you will prevent that machine detection from
+uniquely identifying what mode is used, and force the machine detection
+to be expanded with e.g. DMI-based quirks. It's really far from ideal
+for integrators. The only case where this would work with impacts on the
+machine selection would be if the choice of the SPI and I2C modes had no
+impact on the functionality of the device, but is this really the case?

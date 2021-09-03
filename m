@@ -2,77 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F84F3FFFD1
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 14:33:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1512D40003F
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 15:08:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D768A17F5;
-	Fri,  3 Sep 2021 14:32:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D768A17F5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A2D91865;
+	Fri,  3 Sep 2021 15:08:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A2D91865
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630672383;
-	bh=hmbJgJwiNK+Qia20F9mGeaaWddLJV+HFpX0pUXYn/kY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=G4Nxufhtf/91N33ziGxfqj1HjehLgy66Dj5kcJyd3nG3/Xe/zm3Kb9Bpcsr/9wVFG
-	 tdIAXI4+0IafApjehmEVHfx1pACpjeLZ1y2VipsLCJmCX+YDgjDPvalyCCfRR96H5I
-	 sVcSoWMt/h8MZNdSlkjQoFXssumZJHNGYQHt8AEg=
+	s=default; t=1630674537;
+	bh=D5UW4oMbnwePs3sGeRCFHKOBsCunQtEPsly5q1Nan5Q=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=EckkKbpJ3PmiUvpRbjouHwuaXywLGsfgdJw3y0Mu/4XqvQY8gus+T/LFdXrUAP6Lm
+	 Tz0Ra1421p8iRj8qZHokrlB/IYJDvwTxUy9rHNvBRddwCURdxC7/j1fHg4rP4Xs3Ci
+	 lcEKgTQ787eFDLbDyn6aw+j2OPiuP3XuDEa0VxqU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29073F80256;
-	Fri,  3 Sep 2021 14:31:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7841CF800B5;
+	Fri,  3 Sep 2021 15:07:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0752F80254; Fri,  3 Sep 2021 14:31:39 +0200 (CEST)
+ id 05071F80254; Fri,  3 Sep 2021 15:07:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from lucky1.263xmail.com (lucky1.263xmail.com [211.157.147.135])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5644CF8020D
- for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 14:31:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5644CF8020D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="aSOpcQOm"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0C11A61057;
- Fri,  3 Sep 2021 12:31:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1630672291;
- bh=hmbJgJwiNK+Qia20F9mGeaaWddLJV+HFpX0pUXYn/kY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=aSOpcQOmaJEPs6yk7I0kyH4oRVQ2A2kbVhvZXSqU9Z3EuMjmAL1h5kcnZ3Fn7L0vO
- 6IVbUgHlHl6HMhrOW2HTVtqhc2xiemkjRoiN26m1VGAOdUmnRTU0Z+oF/LTnYIcKUM
- FM5imUZ2Vbm/OmeGd5BVZ4ltHtkZze7h5YfwdVViDBAqQxdaZmDj0+mgKKdSGgOn2p
- BYiwPKJfVWK0/rNSiVLh9nhtUDZ6i2HYzLfgQh4g/vvl/iYJPZ0VmxI9l5fh/bv6BS
- IDutKel1ZSqT7KJWz++LN2wpfT6t89QaoozY6pG7Ejx5WtdSE6pecV5DBT5L4drbUw
- 1MARZTEcGhuXg==
-Date: Fri, 3 Sep 2021 13:30:58 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Derek =?utf-8?B?W+aWueW+t+e+qV0=?= <derek.fang@realtek.com>
-Subject: Re: [PATCH 1/2] ASoC: rt5682s: Add driver for ALC5682I-VS codec
-Message-ID: <20210903123058.GI4932@sirena.org.uk>
-References: <20210826080938.14872-1-derek.fang@realtek.com>
- <20210826121412.GB4148@sirena.org.uk>
- <e2ad57c54ea0422d8083bbf2b116563c@realtek.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="JIpyCmsTxyPLrmrM"
-Content-Disposition: inline
-In-Reply-To: <e2ad57c54ea0422d8083bbf2b116563c@realtek.com>
-X-Cookie: Darth Vader sleeps with a Teddywookie.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- Albert Chen <albertchen@realtek.com>,
- Shuming =?utf-8?B?W+iMg+abuOmKmF0=?= <shumingf@realtek.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02ED7F8020D
+ for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 15:07:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02ED7F8020D
+Received: from localhost (unknown [192.168.167.235])
+ by lucky1.263xmail.com (Postfix) with ESMTP id 372F0B3008;
+ Fri,  3 Sep 2021 21:07:20 +0800 (CST)
+X-MAIL-GRAY: 0
+X-MAIL-DELIVERY: 1
+X-ADDR-CHECKED4: 1
+X-SKE-CHECKED: 1
+X-ANTISPAM-LEVEL: 2
+Received: from localhost.localdomain (unknown [58.22.7.114])
+ by smtp.263.net (postfix) whith ESMTP id
+ P32763T139760968193792S1630674439782258_; 
+ Fri, 03 Sep 2021 21:07:20 +0800 (CST)
+X-IP-DOMAINF: 1
+X-UNIQUE-TAG: <40f3246eea4f3cec33a301ef3fe9f8e0>
+X-RL-SENDER: sugar.zhang@rock-chips.com
+X-SENDER: zxg@rock-chips.com
+X-LOGIN-NAME: sugar.zhang@rock-chips.com
+X-FST-TO: broonie@kernel.org
+X-RCPT-COUNT: 10
+X-SENDER-IP: 58.22.7.114
+X-ATTACHMENT-NUM: 0
+X-System-Flag: 0
+From: Sugar Zhang <sugar.zhang@rock-chips.com>
+To: broonie@kernel.org,
+	heiko@sntech.de
+Subject: [PATCH v3] ASoC: rockchip: i2s: Fix concurrency between tx/rx
+Date: Fri,  3 Sep 2021 21:07:14 +0800
+Message-Id: <1630674434-650-1-git-send-email-sugar.zhang@rock-chips.com>
+X-Mailer: git-send-email 2.7.4
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Sugar Zhang <sugar.zhang@rock-chips.com>, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,40 +83,111 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This patch adds lock to fix comcurrency between tx/rx
+to fix 'rockchip-i2s ff070000.i2s; fail to clear'
 
---JIpyCmsTxyPLrmrM
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Considering the situation;
 
-On Fri, Aug 27, 2021 at 05:59:30AM +0000, Derek [=E6=96=B9=E5=BE=B7=E7=BE=
-=A9] wrote:
+       tx stream              rx stream
+           |                      |
+           |                   disable
+         enable                   |
+           |                    reset
 
-> > > +#ifdef CONFIG_COMMON_CLK
-> > > +	/* Check if MCLK provided */
-> > > +	rt5682s->mclk =3D devm_clk_get(component->dev, "mclk");
-> >=20
-> > Perhaps factor the clock init out into a _probe_clks() function and the=
-n have a
-> > stub function rather than the two ifdefs?
-> We want to factor the codes like below to reduce ifdefs.
-> Could you give any comments?
+After this patch:
 
-That looks fine.
+         lock
+           |
+       tx stream
+           |
+         enable
+           |
+        unlock
+       --------               ---------
+                                lock
+                                  |
+                              rx stream
+                                  |
+                               disable
+                                  |
+                                reset
+                                  |
+                               unlock
 
---JIpyCmsTxyPLrmrM
-Content-Type: application/pgp-signature; name="signature.asc"
+Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
+---
 
------BEGIN PGP SIGNATURE-----
+Changes in v3:
+- Rebase and fix conflicts.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEyFYEACgkQJNaLcl1U
-h9DwTAf9HHYgPfZDOSSJ6IwYCQdZLzxTTkVmR46N9gMLeapdzyNTcclDK6uNgRid
-HFBY6sCRzdNfv4YPXl9tPhwtprXHa0j7pQFIN34ekImErzxvAFbP10sJ6CKV2Rix
-wF5ETD6VNhVgYUk6MpGz/NFaJLpKIAjCcAECrHeKKBYVQS1ZRoa7tsqjyhjjwZgJ
-RTv1jCwgn/k50v9IR8w4uwqpnYssGoPHnnaHw22/6foqfskfBHZat6NV65XhUKRo
-UbgBIgTOGCDHZE1JMzxgjAxQuBB3r87ksLM0oXDuFcRxCLl6cq8hxm5yYqdVvGwy
-BAA2u/FYc3qWaWJ7mpNkfdJHtYkjgg==
-=SDOy
------END PGP SIGNATURE-----
+Changes in v2:
+- Fix compile error.
 
---JIpyCmsTxyPLrmrM--
+ sound/soc/rockchip/rockchip_i2s.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
+index 53e0b4a..7e89f5b 100644
+--- a/sound/soc/rockchip/rockchip_i2s.c
++++ b/sound/soc/rockchip/rockchip_i2s.c
+@@ -15,6 +15,7 @@
+ #include <linux/clk.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
++#include <linux/spinlock.h>
+ #include <sound/pcm_params.h>
+ #include <sound/dmaengine_pcm.h>
+ 
+@@ -53,6 +54,7 @@ struct rk_i2s_dev {
+ 	bool is_master_mode;
+ 	const struct rk_i2s_pins *pins;
+ 	unsigned int bclk_ratio;
++	spinlock_t lock; /* tx/rx lock */
+ };
+ 
+ static int i2s_runtime_suspend(struct device *dev)
+@@ -96,6 +98,7 @@ static void rockchip_snd_txctrl(struct rk_i2s_dev *i2s, int on)
+ 	unsigned int val = 0;
+ 	int retry = 10;
+ 
++	spin_lock(&i2s->lock);
+ 	if (on) {
+ 		regmap_update_bits(i2s->regmap, I2S_DMACR,
+ 				   I2S_DMACR_TDE_ENABLE, I2S_DMACR_TDE_ENABLE);
+@@ -136,6 +139,7 @@ static void rockchip_snd_txctrl(struct rk_i2s_dev *i2s, int on)
+ 			}
+ 		}
+ 	}
++	spin_unlock(&i2s->lock);
+ }
+ 
+ static void rockchip_snd_rxctrl(struct rk_i2s_dev *i2s, int on)
+@@ -143,6 +147,7 @@ static void rockchip_snd_rxctrl(struct rk_i2s_dev *i2s, int on)
+ 	unsigned int val = 0;
+ 	int retry = 10;
+ 
++	spin_lock(&i2s->lock);
+ 	if (on) {
+ 		regmap_update_bits(i2s->regmap, I2S_DMACR,
+ 				   I2S_DMACR_RDE_ENABLE, I2S_DMACR_RDE_ENABLE);
+@@ -183,6 +188,7 @@ static void rockchip_snd_rxctrl(struct rk_i2s_dev *i2s, int on)
+ 			}
+ 		}
+ 	}
++	spin_unlock(&i2s->lock);
+ }
+ 
+ static int rockchip_i2s_set_fmt(struct snd_soc_dai *cpu_dai,
+@@ -684,6 +690,7 @@ static int rockchip_i2s_probe(struct platform_device *pdev)
+ 	if (!i2s)
+ 		return -ENOMEM;
+ 
++	spin_lock_init(&i2s->lock);
+ 	i2s->dev = &pdev->dev;
+ 
+ 	i2s->grf = syscon_regmap_lookup_by_phandle(node, "rockchip,grf");
+-- 
+2.7.4
+
+
+

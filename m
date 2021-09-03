@@ -2,90 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22E45400501
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 20:42:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECE36400636
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 21:55:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F425189D;
-	Fri,  3 Sep 2021 20:41:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F425189D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6369618DE;
+	Fri,  3 Sep 2021 21:54:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6369618DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630694538;
-	bh=Qbxmgpz2YL2FVpsPcr9LR4/FZNthYuNOnyhR2cLDYEU=;
-	h=In-Reply-To:References:From:Date:Subject:To:List-Id:
+	s=default; t=1630698917;
+	bh=Wydewmg3DyrjCZnlRA+3yaughSU2kSK9Hcqz14CFD9Q=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GK1VcdnIqcDRZ2azBo1EDwa/4zGeSF1TfATtyo7ii75iH7fwg9sOMpIKjY8WAY5+W
-	 xboHywpR2BVQWl5g+FmrBcXNTwcV7RfJBFGO+V6KWQk1CKj88cbc9hFG5VpF79cTxE
-	 qOyurQszA4sKhdxH5aRHYz/6mx8/4X/yM6/UloB4=
+	b=ZWCx8d/W1dvsrm1OnHDsB3Y5mkrfLhzkGDs42PxyGEriKmXGcpJUN95yFn/WdBiQD
+	 UxTU3Fco4DkHmnGv0Jxg9xgadX+nhiwz78eP+B41r+9hZCwuXzrWAvzJ0b2DDNM1rQ
+	 0oNgVX5TvIsgDRidMndlISgdhbTISQe3AMBcYNwY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B08EF80256;
-	Fri,  3 Sep 2021 20:41:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BDE60F80256;
+	Fri,  3 Sep 2021 21:54:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 37BF5F80254; Fri,  3 Sep 2021 20:41:00 +0200 (CEST)
+ id 9F9FBF80254; Fri,  3 Sep 2021 21:53:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EC05CF8020D
- for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 20:40:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC05CF8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 697BDF800B5
+ for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 21:53:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 697BDF800B5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="S43gOar8"
-Received: by mail-ot1-x32f.google.com with SMTP id
- c42-20020a05683034aa00b0051f4b99c40cso212484otu.0
- for <alsa-devel@alsa-project.org>; Fri, 03 Sep 2021 11:40:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to; bh=g+/vVt6JhLLpX1/epBxESaopp8FQHhl77WcdHs+7WkE=;
- b=S43gOar878bmf2S/ybLy8S+qmYwiuKKN1YQkjyxZG7PrBlEr3oytcmYjl8Zvz/gTwh
- YbECImb7dEdGWbCX75zbh/ITV1FIttFEputYDhGJvuRSvPJT4vICkU9+05sCPwKXXcHa
- DPSw9qv85JWv8adTg+5LDsvHRDpraHZeLUVZ0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to;
- bh=g+/vVt6JhLLpX1/epBxESaopp8FQHhl77WcdHs+7WkE=;
- b=BwXHPFcveuUlbhiR1fnY6xaudjckIw5LNJMuUBklMz2wwnpEYsd+M5NZg/DGxm1NZn
- rkYCEK2eiSntNHVd314QY79pcPzMKhDZzN/BvgM+MsovSBxSBRe9sjJdk1Wt9P3uwwx6
- sBqj26j41Q3lpMEW5ok8G3+BnWz/JBUDmRKX1JUp6MfbYz/hEEQbjObHuPBUEjI/p2so
- uYow7z2GSBWlYXvNxQqvoIAbERkWxfujuhuX9EHkLG+oLCN1jc/TB4S0TuipWN9wIioy
- DjMEnz6rUxA52t3OkDUu4k+h/4TRYJyZuCowr3XypgEH3u3TRFz1lw3dqOpdmXk+Tkbe
- fNSQ==
-X-Gm-Message-State: AOAM533dNBPU7N8D9zSr2umuDxhJpWQQNEfF824o4c6sn8lYFEcd0h5A
- dpjv6ANczSS75vfeJVk15zC24XUSz8s13nzb8yecnw==
-X-Google-Smtp-Source: ABdhPJycPSV0nBgcq0hjBFC/o2cbbIgqzAp7Pb8hkvRUJrUsZwaG0a7ygKqi477f1CU9FYwgWjubKMEef81F9cz435c=
-X-Received: by 2002:a05:6830:719:: with SMTP id
- y25mr380633ots.77.1630694445434; 
- Fri, 03 Sep 2021 11:40:45 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 3 Sep 2021 14:40:45 -0400
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="O85JfQg3"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:
+ Subject:Sender:Reply-To:Content-ID:Content-Description;
+ bh=s9zCYO7ivn9bU2YwE2qebeEwOr+P6P9//Z0Xkx78JGc=; b=O85JfQg3VssOC2PATbgi4EahTA
+ /v9SSF1wiD5OxR9p7UNlHHzlad+YmtNR4Px0IhcKiohXUQ7OGzrVNrXHGG+v5HLJBvL6/B8qlTPG0
+ D5AvHQDfsT7jaXZe0fx7brjYHoN2nwVFE5B8hh+sMO2qvjJfKCpvhsqoDOsgEVPBWQpMY8IsnuoIj
+ tniApLqBuuKQ/pcaNtbcEvVW2fPuVO4ljrzznoIZxmGFeJX8JGdtT5ioa82Q3coEk9Aw1uZQGuqgB
+ 51E+qJeRFweWU46M3AKBkcECEStYef5xcB1LYoiSIeud8a4nQ0cEV+Il0Vmv7Ztxw1ywa+USz48XQ
+ FmMlhjAQ==;
+Received: from [2601:1c0:6280:3f0::aa0b]
+ by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1mMFFo-00CpGx-Vu; Fri, 03 Sep 2021 19:53:37 +0000
+Subject: Re: [PATCH v3] ASoC: atmel: ATMEL drivers don't need HAS_DMA
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+References: <20210707214752.3831-1-rdunlap@infradead.org>
+ <fca8f952-2be0-5c57-d60d-5c4f025abc4d@microchip.com>
+ <49495ab9-5039-f332-2895-1a79c034f58d@infradead.org>
+ <CAMuHMdU=ODKZJ0OOsuCeJnTWuM3fP5DE7coSzB=fvAbxPQWDcg@mail.gmail.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <a94c9788-0415-ffe3-9dd4-e6ed8d7ee96a@infradead.org>
+Date: Fri, 3 Sep 2021 12:53:34 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <20210903100153.9137-1-srivasam@codeaurora.org>
-References: <20210903100153.9137-1-srivasam@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Fri, 3 Sep 2021 14:40:45 -0400
-Message-ID: <CAE-0n50=vL0MHHHkc22ahrqqD3DskFXZzFU8qjU8=EY1kZ+__Q@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: qcom: lpass-platform: Reset irq clear reg post
- handling interrupts
-To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, agross@kernel.org,
- alsa-devel@alsa-project.org, 
- bgoswami@codeaurora.org, bjorn.andersson@linaro.org, broonie@kernel.org, 
- devicetree@vger.kernel.org, judyhsiao@chromium.org, lgirdwood@gmail.com, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, perex@perex.cz, 
- plai@codeaurora.org, robh+dt@kernel.org, rohitkr@codeaurora.org, 
- srinivas.kandagatla@linaro.org, tiwai@suse.com
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <CAMuHMdU=ODKZJ0OOsuCeJnTWuM3fP5DE7coSzB=fvAbxPQWDcg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ mirq-linux@rere.qmqm.pl, Mark Brown <broonie@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@free-electrons.com>,
+ Codrin.Ciubotariu@microchip.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,39 +91,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Quoting Srinivasa Rao Mandadapu (2021-09-03 03:01:53)
-> Update interrupt clear register with reset value after addressing
-> all interrupts. This is to fix playback or capture hanging issue in
-> simultaneous playback and capture usecase.
->
-> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-> ---
+On 9/2/21 9:44 AM, Geert Uytterhoeven wrote:
+> Hi Randy,
+> 
+> On Thu, Jul 8, 2021 at 6:51 PM Randy Dunlap <rdunlap@infradead.org> wrote:
+>> On 7/8/21 1:19 AM, Codrin.Ciubotariu@microchip.com wrote:
+>>> On 08.07.2021 00:47, Randy Dunlap wrote:
+>>>> EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
+>>>>
+>>>> On a config (such as arch/sh/) which does not set HAS_DMA when MMU
+>>>> is not set, several ATMEL ASoC drivers select symbols that cause
+>>>> kconfig warnings. There is one "depends on HAS_DMA" which is no longer
+>>>> needed. Dropping it eliminates the kconfig warnings and still builds
+>>>> with no problems reported.
+>>>>
+>>>> Fix the following kconfig warnings:
+>>>>
+>>>> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_PDC
+>>>>     Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && HAS_DMA [=n]
+>>>>     Selected by [m]:
+>>>>     - SND_ATMEL_SOC_SSC [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m]
+>>>>     - SND_ATMEL_SOC_SSC_PDC [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m]
+>>>>
+>>>> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC_PDC
+>>>>     Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m] && HAS_DMA [=n]
+>>>>     Selected by [m]:
+>>>>     - SND_AT91_SOC_SAM9G20_WM8731 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && SND_SOC_I2C_AND_SPI [=m]
+>>>>
+>>>> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC
+>>>>     Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && HAS_DMA [=n]
+>>>>     Selected by [m]:
+>>>>     - SND_ATMEL_SOC_SSC_DMA [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m]
+>>>>
+>>>> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC_DMA
+>>>>     Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m] && HAS_DMA [=n]
+>>>>     Selected by [m]:
+>>>>     - SND_ATMEL_SOC_WM8904 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && I2C [=m]
+>>>>     - SND_AT91_SOC_SAM9X5_WM8731 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && SND_SOC_I2C_AND_SPI [=m]
+>>>>
+>>>> Fixes: 3951e4aae2ce ("ASoC: atmel-pcm: dma support based on pcm dmaengine")
+>>>> Fixes: 18291410557f ("ASoC: atmel: enable SOC_SSC_PDC and SOC_SSC_DMA in Kconfig")
+>>>> Fixes: 061981ff8cc8 ("ASoC: atmel: properly select dma driver state")
+>>>
+>>> I am not sure about these fixes tags. As Alexandre mentioned, it looks
+>>> like the reason for HAS_DMA in the first place was the COMPILE_TEST with
+>>> m32r arch. I dig a bit, and, if any, I think we should use:
+>>> Fixes: eb17726b00b3 ("m32r: add simple dma")
+>>> since this commit adds dummy DMA support for m32r and seems to fix the
+>>> HAS_DMA dependency.
+>>
+>> Ah, I forgot to update the Fixes: tag(s).
+>>
+>> I won't disagree with your Fixes: suggestion (good digging) but
+>> I would probably have used 8d7d11005e930:
+>>    ASoC: atmel: fix build failure
+>> which is the commit that added "depends on HAS_DMA".
+> 
+> M32r was not the only platform NO_DMA, so I guess the build would
+> have failed for the others, too (e.g. Sun-3).
+> 
+> So the real fix was probably commit f29ab49b5388b2f8 ("dma-mapping:
+> Convert NO_DMA get_dma_ops() into a real dummy"), or one of the
+> related commits adding dummies to subsystems.
 
-Any Fixes tag?
+Hi Geert,
+Does this mean that some other actions are needed here?
+E.g. revert + a different kind of fix?
 
->  sound/soc/qcom/lpass-platform.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
-> index f9df76d37858..1a0a4b0b1a03 100644
-> --- a/sound/soc/qcom/lpass-platform.c
-> +++ b/sound/soc/qcom/lpass-platform.c
-> @@ -749,6 +749,12 @@ static irqreturn_t lpass_platform_lpaif_irq(int irq, void *data)
->                 }
->         }
->
-> +       rv = regmap_write(drvdata->lpaif_map, LPAIF_IRQCLEAR_REG(v, LPAIF_IRQ_PORT_HOST), 0x0);
-> +       if (rv) {
-> +               pr_err("error writing to irqstat reg: %d\n", rv);
-> +               return IRQ_NONE;
+thanks.
+-- 
+~Randy
 
-I was thinking we should return IRQ_HANDLED still, but then I guess
-failing to clear the irq be treated as a spurious irq so that if we fail
-enough times we'll shut off the irq at the irqchip. Things are going bad
-if the write fails.
-
-> +       }
-> +
->         return IRQ_HANDLED;
->  }
->

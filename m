@@ -2,86 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 884073FFF19
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 13:24:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EEBA3FFF1F
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 13:25:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 29BD4181A;
-	Fri,  3 Sep 2021 13:23:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29BD4181A
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5BDC185A;
+	Fri,  3 Sep 2021 13:24:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5BDC185A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630668263;
-	bh=Et7dVPIQrkP9JfNZBPxDiR4TDEnTwFEVrbR20Z/sdoc=;
+	s=default; t=1630668323;
+	bh=3dp5cVOmpP1WGGsBoyFyWBYN+ZcfGAe4Ik0q30epYvM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Thscj9wN7my4IHRf+jnkmwxo5LdOu9/fG9HmhQkVVk8dkXDDRAtTW5G/2nD46+O0+
-	 DDTjHzQQ7OKRLhnJSnwUib9jNyMXIBrLsCcSkgWwwSYhvYsC76Lx6r0A5KA1q6qH3l
-	 faTlJCCsHEblvt7PphiJT9q01r2cPE/kOqvBblMs=
+	b=ucuoTSw9EHEmGLydlDrCEMJFMNBtVyzn9fesbmj5lyRaOKjZ3bWXbc9IwFmW6SJKV
+	 Ip42+X6glEXiyqpvfGiAshKAi5dkGG526TpHp60eKC2VyWevGKZ8Pnxmhtis/fAZZU
+	 ji4McUDwJn2ASWOSYoQhxeSCwfvtKhO5Qfbji8xs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B752F80507;
-	Fri,  3 Sep 2021 13:21:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6CFD8F8051B;
+	Fri,  3 Sep 2021 13:21:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6A3EBF804F3; Fri,  3 Sep 2021 13:21:46 +0200 (CEST)
+ id 3CCDFF804FE; Fri,  3 Sep 2021 13:21:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AAE0AF80254
- for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 13:21:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAE0AF80254
+ by alsa1.perex.cz (Postfix) with ESMTPS id 70A57F804F1
+ for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 13:21:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70A57F804F1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="wmZS/Jpd"
-Received: by mail-wr1-x435.google.com with SMTP id u9so7709767wrg.8
- for <alsa-devel@alsa-project.org>; Fri, 03 Sep 2021 04:21:34 -0700 (PDT)
+ header.b="eRe+qJCF"
+Received: by mail-wr1-x42b.google.com with SMTP id n5so7703496wro.12
+ for <alsa-devel@alsa-project.org>; Fri, 03 Sep 2021 04:21:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=//dKqQtyVNezpAIRnDOA9TcRJZDgQ0d9R3BICS21tDc=;
- b=wmZS/JpdpDhKKOiUAcrscdLMLOUHMjFl5m+4MoOLjHpeYa7goPbKbBaCfQuPHBFdtR
- r6/+jssbulj32HuMqSQ48oFlcquv9/pzggC9xW/wPRY8wksFy7+r05H5ZdF+rNxS7kWS
- SA3Ktpm98Sm4ECMrwItZQ48B+E1BCGeVgyDNn4ylccO7YU7odqh8JwiHYtsh6ZzscUc4
- kEaTgkZtUQjB9CenCE238k0C91+c/G+3EoeNeU1ecGHxo4MTbaYqUvMMcYPurlWAo0re
- e6My8mEfexB7InlMhXzSxuJiCK/skJuvyhmDkrOlAWT3Gb3LQnjSAzocKs/b0DC8nTYj
- i3/Q==
+ bh=F17HnIrt9/nzW1yaaaZAs2cxj4cXVHJOTDX4ejIvA00=;
+ b=eRe+qJCFn4R6wQU1sP2eHSPNfVdJu6ThLpBWpSzkWhPeghXsFynP1e8KzLI5gRAd28
+ EKB/VKj/NlrYIOZDkJJSJ2i/0GqSITpdHbCOSc5MSizRyR3UGdfI80shlF48mGFuOLFv
+ KQCECVH//5BRx0P53RzjKzqEo5u4qaEGuHsRs4wHz3TLG8ijwZjwS2z0WCgVrV/Bye6i
+ RaaroPOxm7ESuQTuZd1hMjePi0qR1iO7tZTlyj+jA38Ff1xhTbe/yZKRgfqsYgxkEqxN
+ AGyVC3a3BWvrvrzk2t+3kIOsS5X/UgOnNTbFGr87WZeW0mEAp3sSZjcQebcaTVAHUK5d
+ kDaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=//dKqQtyVNezpAIRnDOA9TcRJZDgQ0d9R3BICS21tDc=;
- b=eB4q5LcnYc+ucYQ65p4obQtdTMEi/h/LzrlDsconoKiesShEmJM3aS+WuGdwjdTfrR
- p5J03VM9bXDfQLMZ+JBGjPXXF/gZtqRLyNckb48J38Un9HpOLKFspvyoUPH+JuarbTe+
- NYgCCPNEe7sHx9v7cvqAKe3lRRVjoZ58ZFONzTbcnhxPsGB5oYSXapofeEgx1W75tm/7
- 7nCSQfHEOoWJoXRtcQmHYi9xE5YZrBYrdRbvWnEdlR1eMQO6pkhSvJpdUxFHkBKzCA/o
- AujkoBC3bo9kb+u+mYexZvYgaeGKUfR9n/DFYDvEVHdErlTFVT5vvgqtRUhJVQYVD+kv
- zzbA==
-X-Gm-Message-State: AOAM530Rdpf14ePn5X+80G3/H1ocUlLLBm6EIcvxwy9iKoMmUljbCcWi
- /jtLHV0TsjiugbXlyVvRR1L1UQ==
-X-Google-Smtp-Source: ABdhPJzdx00/bR6Zmsjxe4MaeAATmKIDg/ma7PcG8N0v6jOVuazg79rcvbgd8Gbxkzg43gNAaNMmug==
-X-Received: by 2002:adf:c550:: with SMTP id s16mr3529756wrf.25.1630668094060; 
- Fri, 03 Sep 2021 04:21:34 -0700 (PDT)
+ bh=F17HnIrt9/nzW1yaaaZAs2cxj4cXVHJOTDX4ejIvA00=;
+ b=uhtj+U8jbFqSeH8QyfNH8QcToI73Osli0XKWUugXgOB99roOPj13nMKAmOft9NSpYY
+ 7udbCE6jEl7MqXhr3cemnMyLPT7pJFAnATC4lFT3FnDYfgP/vtwW03P6vKMy100ehUfF
+ Je4J6CU/KBrRKv+u5FHBETzW28kKVA5fTQHCT6As78PpsHGzfnwYD707g4sWS2s5CUSO
+ phBcRySZaKIg+uWcvzLOdF2R8b57Tc//cIMg/oCisfD/NmPpOOw/NM8g5+RYCw8q8gX3
+ 1WjESD2zt7VCdQr8kPexEkBlo2RWA/Rq8A2Xv1YBnbRZujojLKbxjAOI0iiOP3hf6k63
+ rhKQ==
+X-Gm-Message-State: AOAM533C1AuTEPY7YOtCBT/kg9OIIuZk0JXIt3Tg6rOzHCyG1guMZ3vj
+ M+CZFejc9zhuhhesZ2G0dBFiog==
+X-Google-Smtp-Source: ABdhPJzKgkXe6eQN7v43rqQQmMR4S7T7qSZLNrawBZ5N1OAETygO7cwNvPDm5e3ngoxnFOEknR4mMA==
+X-Received: by 2002:a5d:4d8c:: with SMTP id b12mr3401861wru.232.1630668095597; 
+ Fri, 03 Sep 2021 04:21:35 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id f20sm3881877wmb.32.2021.09.03.04.21.32
+ by smtp.gmail.com with ESMTPSA id f20sm3881877wmb.32.2021.09.03.04.21.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Sep 2021 04:21:33 -0700 (PDT)
+ Fri, 03 Sep 2021 04:21:35 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: bjorn.andersson@linaro.org,
 	broonie@kernel.org,
 	robh@kernel.org
-Subject: [PATCH v5 02/21] soc: dt-bindings: qcom: apr: deprecate qcom,
- apr-domain property
-Date: Fri,  3 Sep 2021 12:20:13 +0100
-Message-Id: <20210903112032.25834-3-srinivas.kandagatla@linaro.org>
+Subject: [PATCH v5 03/21] soc: qcom: apr: make code more reuseable
+Date: Fri,  3 Sep 2021 12:20:14 +0100
+Message-Id: <20210903112032.25834-4-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20210903112032.25834-1-srinivas.kandagatla@linaro.org>
 References: <20210903112032.25834-1-srinivas.kandagatla@linaro.org>
@@ -105,57 +104,402 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-replace usage of qcom,apr-domain property with qcom,domain property so
-that bindings and driver can be reused.
+APR and other packet routers like GPR are pretty much same and
+interact with other drivers in similar way.
+
+Ex: GPR ports can be considered as APR services, only difference
+is they are allocated dynamically.
+
+Other difference is packet layout, which should not matter
+with the apis abstracted. Apart from this the rest of the
+functionality is pretty much identical across APR and GPR.
+
+Make the apr code more reusable by abstracting it service level,
+rather than device level so that we do not need to write
+new drivers for other new packet routers like GPR.
+
+This patch is in preparation to add GPR support to this driver.
 
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- .../devicetree/bindings/soc/qcom/qcom,apr.yaml | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+ drivers/soc/qcom/apr.c       | 129 +++++++++++++++++++++--------------
+ include/linux/soc/qcom/apr.h |  12 +++-
+ 2 files changed, 90 insertions(+), 51 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
-index 133e9c6cd961..922c8567c134 100644
---- a/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
-+++ b/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
-@@ -31,6 +31,20 @@ properties:
-         5 = Application processor Domain
-         6 = Modem2 Domain
-         7 = Application Processor2 Domain
-+    deprecated: true
+diff --git a/drivers/soc/qcom/apr.c b/drivers/soc/qcom/apr.c
+index 7abfc8c4fdc7..16990dc96688 100644
+--- a/drivers/soc/qcom/apr.c
++++ b/drivers/soc/qcom/apr.c
+@@ -15,13 +15,18 @@
+ #include <linux/rpmsg.h>
+ #include <linux/of.h>
+ 
+-struct apr {
++enum {
++	PR_TYPE_APR = 0,
++};
 +
-+  qcom,domain:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [1, 2, 3, 4, 5, 6, 7]
-+    description:
-+      Selects the processor domain for apr
-+        1 = APR simulator
-+        2 = PC Domain
-+        3 = Modem Domain
-+        4 = ADSP Domain
-+        5 = Application processor Domain
-+        6 = Modem2 Domain
-+        7 = Application Processor2 Domain
++struct packet_router {
+ 	struct rpmsg_endpoint *ch;
+ 	struct device *dev;
+ 	spinlock_t svcs_lock;
+ 	spinlock_t rx_lock;
+ 	struct idr svcs_idr;
+ 	int dest_domain_id;
++	int type;
+ 	struct pdr_handle *pdr;
+ 	struct workqueue_struct *rxwq;
+ 	struct work_struct rx_work;
+@@ -44,21 +49,21 @@ struct apr_rx_buf {
+  */
+ int apr_send_pkt(struct apr_device *adev, struct apr_pkt *pkt)
+ {
+-	struct apr *apr = dev_get_drvdata(adev->dev.parent);
++	struct packet_router *apr = dev_get_drvdata(adev->dev.parent);
+ 	struct apr_hdr *hdr;
+ 	unsigned long flags;
+ 	int ret;
  
-   '#address-cells':
-     const: 1
-@@ -89,7 +103,7 @@ patternProperties:
+-	spin_lock_irqsave(&adev->lock, flags);
++	spin_lock_irqsave(&adev->svc.lock, flags);
  
- required:
-   - compatible
--  - qcom,apr-domain
-+  - qcom,domain
+ 	hdr = &pkt->hdr;
+ 	hdr->src_domain = APR_DOMAIN_APPS;
+-	hdr->src_svc = adev->svc_id;
++	hdr->src_svc = adev->svc.id;
+ 	hdr->dest_domain = adev->domain_id;
+-	hdr->dest_svc = adev->svc_id;
++	hdr->dest_svc = adev->svc.id;
  
- additionalProperties: false
+ 	ret = rpmsg_trysend(apr->ch, pkt, hdr->pkt_size);
+-	spin_unlock_irqrestore(&adev->lock, flags);
++	spin_unlock_irqrestore(&adev->svc.lock, flags);
  
-@@ -98,7 +112,7 @@ examples:
-     #include <dt-bindings/soc/qcom,apr.h>
-     apr {
-         compatible = "qcom,apr-v2";
--        qcom,apr-domain = <APR_DOMAIN_ADSP>;
-+        qcom,domain = <APR_DOMAIN_ADSP>;
-         #address-cells = <1>;
-         #size-cells = <0>;
+ 	return ret ? ret : hdr->pkt_size;
+ }
+@@ -74,7 +79,7 @@ static void apr_dev_release(struct device *dev)
+ static int apr_callback(struct rpmsg_device *rpdev, void *buf,
+ 				  int len, void *priv, u32 addr)
+ {
+-	struct apr *apr = dev_get_drvdata(&rpdev->dev);
++	struct packet_router *apr = dev_get_drvdata(&rpdev->dev);
+ 	struct apr_rx_buf *abuf;
+ 	unsigned long flags;
  
+@@ -100,11 +105,11 @@ static int apr_callback(struct rpmsg_device *rpdev, void *buf,
+ 	return 0;
+ }
+ 
+-
+-static int apr_do_rx_callback(struct apr *apr, struct apr_rx_buf *abuf)
++static int apr_do_rx_callback(struct packet_router *apr, struct apr_rx_buf *abuf)
+ {
+ 	uint16_t hdr_size, msg_type, ver, svc_id;
+-	struct apr_device *svc = NULL;
++	struct pkt_router_svc *svc;
++	struct apr_device *adev;
+ 	struct apr_driver *adrv = NULL;
+ 	struct apr_resp_pkt resp;
+ 	struct apr_hdr *hdr;
+@@ -145,12 +150,15 @@ static int apr_do_rx_callback(struct apr *apr, struct apr_rx_buf *abuf)
+ 	svc_id = hdr->dest_svc;
+ 	spin_lock_irqsave(&apr->svcs_lock, flags);
+ 	svc = idr_find(&apr->svcs_idr, svc_id);
+-	if (svc && svc->dev.driver)
+-		adrv = to_apr_driver(svc->dev.driver);
++	if (svc && svc->dev->driver) {
++		adev = svc_to_apr_device(svc);
++		adrv = to_apr_driver(adev->dev.driver);
++	}
+ 	spin_unlock_irqrestore(&apr->svcs_lock, flags);
+ 
+-	if (!adrv) {
+-		dev_err(apr->dev, "APR: service is not registered\n");
++	if (!adrv || !adev) {
++		dev_err(apr->dev, "APR: service is not registered (%d)\n",
++			svc_id);
+ 		return -EINVAL;
+ 	}
+ 
+@@ -164,20 +172,26 @@ static int apr_do_rx_callback(struct apr *apr, struct apr_rx_buf *abuf)
+ 	if (resp.payload_size > 0)
+ 		resp.payload = buf + hdr_size;
+ 
+-	adrv->callback(svc, &resp);
++	adrv->callback(adev, &resp);
+ 
+ 	return 0;
+ }
+ 
+ static void apr_rxwq(struct work_struct *work)
+ {
+-	struct apr *apr = container_of(work, struct apr, rx_work);
++	struct packet_router *apr = container_of(work, struct packet_router, rx_work);
+ 	struct apr_rx_buf *abuf, *b;
+ 	unsigned long flags;
+ 
+ 	if (!list_empty(&apr->rx_list)) {
+ 		list_for_each_entry_safe(abuf, b, &apr->rx_list, node) {
+-			apr_do_rx_callback(apr, abuf);
++			switch (apr->type) {
++			case PR_TYPE_APR:
++				apr_do_rx_callback(apr, abuf);
++				break;
++			default:
++				break;
++			}
+ 			spin_lock_irqsave(&apr->rx_lock, flags);
+ 			list_del(&abuf->node);
+ 			spin_unlock_irqrestore(&apr->rx_lock, flags);
+@@ -201,7 +215,7 @@ static int apr_device_match(struct device *dev, struct device_driver *drv)
+ 
+ 	while (id->domain_id != 0 || id->svc_id != 0) {
+ 		if (id->domain_id == adev->domain_id &&
+-		    id->svc_id == adev->svc_id)
++		    id->svc_id == adev->svc.id)
+ 			return 1;
+ 		id++;
+ 	}
+@@ -221,14 +235,14 @@ static int apr_device_remove(struct device *dev)
+ {
+ 	struct apr_device *adev = to_apr_device(dev);
+ 	struct apr_driver *adrv;
+-	struct apr *apr = dev_get_drvdata(adev->dev.parent);
++	struct packet_router *apr = dev_get_drvdata(adev->dev.parent);
+ 
+ 	if (dev->driver) {
+ 		adrv = to_apr_driver(dev->driver);
+ 		if (adrv->remove)
+ 			adrv->remove(adev);
+ 		spin_lock(&apr->svcs_lock);
+-		idr_remove(&apr->svcs_idr, adev->svc_id);
++		idr_remove(&apr->svcs_idr, adev->svc.id);
+ 		spin_unlock(&apr->svcs_lock);
+ 	}
+ 
+@@ -257,28 +271,39 @@ struct bus_type aprbus = {
+ EXPORT_SYMBOL_GPL(aprbus);
+ 
+ static int apr_add_device(struct device *dev, struct device_node *np,
+-			  const struct apr_device_id *id)
++			  u32 svc_id, u32 domain_id)
+ {
+-	struct apr *apr = dev_get_drvdata(dev);
++	struct packet_router *apr = dev_get_drvdata(dev);
+ 	struct apr_device *adev = NULL;
++	struct pkt_router_svc *svc;
+ 	int ret;
+ 
+ 	adev = kzalloc(sizeof(*adev), GFP_KERNEL);
+ 	if (!adev)
+ 		return -ENOMEM;
+ 
+-	spin_lock_init(&adev->lock);
++	adev->svc_id = svc_id;
++	svc = &adev->svc;
++
++	svc->id = svc_id;
++	svc->pr = apr;
++	svc->priv = adev;
++	svc->dev = dev;
++	spin_lock_init(&svc->lock);
++
++	adev->domain_id = domain_id;
+ 
+-	adev->svc_id = id->svc_id;
+-	adev->domain_id = id->domain_id;
+-	adev->version = id->svc_version;
+ 	if (np)
+ 		snprintf(adev->name, APR_NAME_SIZE, "%pOFn", np);
+-	else
+-		strscpy(adev->name, id->name, APR_NAME_SIZE);
+ 
+-	dev_set_name(&adev->dev, "aprsvc:%s:%x:%x", adev->name,
+-		     id->domain_id, id->svc_id);
++	switch (apr->type) {
++	case PR_TYPE_APR:
++		dev_set_name(&adev->dev, "aprsvc:%s:%x:%x", adev->name,
++			     domain_id, svc_id);
++		break;
++	default:
++		break;
++	}
+ 
+ 	adev->dev.bus = &aprbus;
+ 	adev->dev.parent = dev;
+@@ -287,8 +312,7 @@ static int apr_add_device(struct device *dev, struct device_node *np,
+ 	adev->dev.driver = NULL;
+ 
+ 	spin_lock(&apr->svcs_lock);
+-	idr_alloc(&apr->svcs_idr, adev, id->svc_id,
+-		  id->svc_id + 1, GFP_ATOMIC);
++	idr_alloc(&apr->svcs_idr, svc, svc_id, svc_id + 1, GFP_ATOMIC);
+ 	spin_unlock(&apr->svcs_lock);
+ 
+ 	of_property_read_string_index(np, "qcom,protection-domain",
+@@ -308,7 +332,7 @@ static int apr_add_device(struct device *dev, struct device_node *np,
+ static int of_apr_add_pd_lookups(struct device *dev)
+ {
+ 	const char *service_name, *service_path;
+-	struct apr *apr = dev_get_drvdata(dev);
++	struct packet_router *apr = dev_get_drvdata(dev);
+ 	struct device_node *node;
+ 	struct pdr_service *pds;
+ 	int ret;
+@@ -338,13 +362,14 @@ static int of_apr_add_pd_lookups(struct device *dev)
+ 
+ static void of_register_apr_devices(struct device *dev, const char *svc_path)
+ {
+-	struct apr *apr = dev_get_drvdata(dev);
++	struct packet_router *apr = dev_get_drvdata(dev);
+ 	struct device_node *node;
+ 	const char *service_path;
+ 	int ret;
+ 
+ 	for_each_child_of_node(dev->of_node, node) {
+-		struct apr_device_id id = { {0} };
++		u32 svc_id;
++		u32 domain_id;
+ 
+ 		/*
+ 		 * This function is called with svc_path NULL during
+@@ -374,13 +399,13 @@ static void of_register_apr_devices(struct device *dev, const char *svc_path)
+ 				continue;
+ 		}
+ 
+-		if (of_property_read_u32(node, "reg", &id.svc_id))
++		if (of_property_read_u32(node, "reg", &svc_id))
+ 			continue;
+ 
+-		id.domain_id = apr->dest_domain_id;
++		domain_id = apr->dest_domain_id;
+ 
+-		if (apr_add_device(dev, node, &id))
+-			dev_err(dev, "Failed to add apr %d svc\n", id.svc_id);
++		if (apr_add_device(dev, node, svc_id, domain_id))
++			dev_err(dev, "Failed to add apr %d svc\n", svc_id);
+ 	}
+ }
+ 
+@@ -400,7 +425,7 @@ static int apr_remove_device(struct device *dev, void *svc_path)
+ 
+ static void apr_pd_status(int state, char *svc_path, void *priv)
+ {
+-	struct apr *apr = (struct apr *)priv;
++	struct packet_router *apr = (struct packet_router *)priv;
+ 
+ 	switch (state) {
+ 	case SERVREG_SERVICE_STATE_UP:
+@@ -415,16 +440,20 @@ static void apr_pd_status(int state, char *svc_path, void *priv)
+ static int apr_probe(struct rpmsg_device *rpdev)
+ {
+ 	struct device *dev = &rpdev->dev;
+-	struct apr *apr;
++	struct packet_router *apr;
+ 	int ret;
+ 
+ 	apr = devm_kzalloc(dev, sizeof(*apr), GFP_KERNEL);
+ 	if (!apr)
+ 		return -ENOMEM;
+ 
+-	ret = of_property_read_u32(dev->of_node, "qcom,apr-domain", &apr->dest_domain_id);
++	ret = of_property_read_u32(dev->of_node, "qcom,domain", &apr->dest_domain_id);
++	if (ret) /* try deprecated apr-domain property */
++		ret = of_property_read_u32(dev->of_node, "qcom,apr-domain",
++					   &apr->dest_domain_id);
++	apr->type = PR_TYPE_APR;
+ 	if (ret) {
+-		dev_err(dev, "APR Domain ID not specified in DT\n");
++		dev_err(dev, "Domain ID not specified in DT\n");
+ 		return ret;
+ 	}
+ 
+@@ -467,7 +496,7 @@ static int apr_probe(struct rpmsg_device *rpdev)
+ 
+ static void apr_remove(struct rpmsg_device *rpdev)
+ {
+-	struct apr *apr = dev_get_drvdata(&rpdev->dev);
++	struct packet_router *apr = dev_get_drvdata(&rpdev->dev);
+ 
+ 	pdr_handle_release(apr->pdr);
+ 	device_for_each_child(&rpdev->dev, NULL, apr_remove_device);
+@@ -504,20 +533,20 @@ void apr_driver_unregister(struct apr_driver *drv)
+ }
+ EXPORT_SYMBOL_GPL(apr_driver_unregister);
+ 
+-static const struct of_device_id apr_of_match[] = {
++static const struct of_device_id pkt_router_of_match[] = {
+ 	{ .compatible = "qcom,apr"},
+ 	{ .compatible = "qcom,apr-v2"},
+ 	{}
+ };
+-MODULE_DEVICE_TABLE(of, apr_of_match);
++MODULE_DEVICE_TABLE(of, pkt_router_of_match);
+ 
+-static struct rpmsg_driver apr_driver = {
++static struct rpmsg_driver packet_router_driver = {
+ 	.probe = apr_probe,
+ 	.remove = apr_remove,
+ 	.callback = apr_callback,
+ 	.drv = {
+ 		.name = "qcom,apr",
+-		.of_match_table = apr_of_match,
++		.of_match_table = pkt_router_of_match,
+ 	},
+ };
+ 
+@@ -527,7 +556,7 @@ static int __init apr_init(void)
+ 
+ 	ret = bus_register(&aprbus);
+ 	if (!ret)
+-		ret = register_rpmsg_driver(&apr_driver);
++		ret = register_rpmsg_driver(&packet_router_driver);
+ 	else
+ 		bus_unregister(&aprbus);
+ 
+@@ -537,7 +566,7 @@ static int __init apr_init(void)
+ static void __exit apr_exit(void)
+ {
+ 	bus_unregister(&aprbus);
+-	unregister_rpmsg_driver(&apr_driver);
++	unregister_rpmsg_driver(&packet_router_driver);
+ }
+ 
+ subsys_initcall(apr_init);
+diff --git a/include/linux/soc/qcom/apr.h b/include/linux/soc/qcom/apr.h
+index 137f9f2ac4c3..7bca213a3f83 100644
+--- a/include/linux/soc/qcom/apr.h
++++ b/include/linux/soc/qcom/apr.h
+@@ -79,6 +79,15 @@ struct apr_resp_pkt {
+ #define APR_SVC_MAJOR_VERSION(v)	((v >> 16) & 0xFF)
+ #define APR_SVC_MINOR_VERSION(v)	(v & 0xFF)
+ 
++struct packet_router;
++struct pkt_router_svc {
++	struct device *dev;
++	struct packet_router *pr;
++	spinlock_t lock;
++	int id;
++	void *priv;
++};
++
+ struct apr_device {
+ 	struct device	dev;
+ 	uint16_t	svc_id;
+@@ -86,11 +95,12 @@ struct apr_device {
+ 	uint32_t	version;
+ 	char name[APR_NAME_SIZE];
+ 	const char *service_path;
+-	spinlock_t	lock;
++	struct pkt_router_svc svc;
+ 	struct list_head node;
+ };
+ 
+ #define to_apr_device(d) container_of(d, struct apr_device, dev)
++#define svc_to_apr_device(d) container_of(d, struct apr_device, svc)
+ 
+ struct apr_driver {
+ 	int	(*probe)(struct apr_device *sl);
 -- 
 2.21.0
 

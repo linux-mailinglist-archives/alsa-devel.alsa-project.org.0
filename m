@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DC12400195
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 16:55:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4F99400196
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 16:56:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E90A18AA;
-	Fri,  3 Sep 2021 16:54:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E90A18AA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FBDE18AF;
+	Fri,  3 Sep 2021 16:55:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FBDE18AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630680949;
-	bh=x1deROG0Ioa0ZyQdFzqlZQ3YISs1KwsaxCqV4VP7Onw=;
+	s=default; t=1630680969;
+	bh=5O+5rNVRK2yomesK3Jeos6gNcZNkGxMS6gM106SeZZo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GVdfzLypRwI4rEeHjYrPLsQNIzwf6gMYZhBDIm6B38e94fpknZbU9sBh1dUrTsiSj
-	 mdAUTI6LXSreBJAjNd0sEsYLjYCzkUccNKj4WtmYYgqzYUOz5hMMLQ1Agx8mbGFMxG
-	 0iNjlSrr0Mb3jKllDWjPeDvOKeQpAIUNRdIzysYY=
+	b=ZWiHxMD9qNaAHNMs50uvrYNdQzMrcsFn2Ywo9mucuPL27A2iLVjPepKLoWvKrkXbU
+	 TtaoH+DhZ8cn0Xiq9yDDWNYi9s8/sMeNDmo37604voyiRYbqV1y8tUDGh6/dAFo78i
+	 1G66CAV4q2yrwlHzF7uTUWzDydPff0WjR1v1pbUM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E391F80423;
-	Fri,  3 Sep 2021 16:54:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64AB2F804E6;
+	Fri,  3 Sep 2021 16:54:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2D1B8F80423; Fri,  3 Sep 2021 16:54:09 +0200 (CEST)
+ id A11CCF804E5; Fri,  3 Sep 2021 16:54:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,45 +35,46 @@ Received: from EUR01-DB5-obe.outbound.protection.outlook.com
  (mail-eopbgr150043.outbound.protection.outlook.com [40.107.15.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4E27CF80088
- for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 16:54:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E27CF80088
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9102CF80254
+ for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 16:54:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9102CF80254
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=NXP1.onmicrosoft.com
- header.i=@NXP1.onmicrosoft.com header.b="PbKZLmxN"
+ header.i=@NXP1.onmicrosoft.com header.b="TU2Ikxin"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kGgQ/eni/Chg89iOjOI4P/EW+1F1iXKcyrd9LnEVQS/qgJ37KkuWysm1gcHp9GhuEG6J0lyC3W8Grj2pPRk63594SzAwW6wjeQ4Ajw85aG7RuMOq/D2vWDhg2iGvKIkONE5/z+lsRFgLx9K4pKXrokR8DbEqCT2o5/8jExvm2HXpWmMyhalrU1CGUR4kck9IAz3lEF0Lr44fNCwBXkEBz3qFq7ExSDiP9mIx1nyhfS7nuRxc4qwCL0XD/DuOLwpkeH+aSvg20h3cTG75N7wEVCnVmu+wBQxrpk1Y5VPjwzmhYxGqzEItkVdiHjdoKMO9E76BUs3Cdf+38E7TPfuvAQ==
+ b=G6/pJMkHzmGb/mAa1Ve0zCBRmIcUmmToJ/PaatYvc02XmXsNfhN3tSDpXozUnPAH5E/Sie2eC8GdtsOvU/vG3a5ElKWVPLA1KQzDvZHiwb7EY0omd0Tg90OwF9XdEUSArWFMbQJh+j1wvo+L5+bojuhfRYqJs6jMVdpibVhM3iOinkJcSzzsCCZRH605kSqg4Zi2/t4VTK5kshztCHE6SoEMucd+VpjCD5/YsMMI2B5Q7258hDm/VOjEORXr2woIHBctUqKj8d7XxLdAGZQAoXvkd5dxhE0mBjmJkCj4D3foeAsaj4AQ3GMsmZhH0kdKVFD9Mwi+RHRBXeWku6EEhQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=lxkVM+lIDeGVZ9KQ2SdnVmjtkLWXupqDq2NlzIAS/rY=;
- b=I3dfqy+I5Ph0eBl0QxiDaD5E6WEmkITPeYqEySijZdRglhuMocI3AFsBmRlEljvkdDIwKOjBeD5pVoG6JnHB9PeFd0cqYH90GJ7ZNJvuHMRRxNsKvYpc/fnilHTP/gd5ODjh0Ax+Y+l9tr3R6Z16/3xGAi000wG3TMSn4ZV6AzjDvff+/3pxxpdx9O8TUka9U3DcSflnGWW54oabaG2uQhk5/a0z6JRkybEpfbFpGAMVtIBDxhGJRNBAgEvAcBXvCtOK3HVpjWu7zeOlIKISPZ62FVM8k3jtz2D8hYx24ZpCp3C2sfYWMY8evr/Q5f7Mq2lqhjbRxBDY8PxO1Oq8aA==
+ bh=KmqZnWedP1AJSXsFtOa8M95+jajfkJOrqyR2j0dN1Gg=;
+ b=aQUXdUdz4mwQ1MT0g1aoXsEMUNbCT5nFXRptfafpKWprDXr2arn+yYwB5XJxDdkZwZdhJ1CN5X0NP3pGkggrtqc64XEHxQCnRGEhRxVPPtg1kVDxyi9abibkorHgRrZL6k7UMNTg+XkUs9nIZzVH1U2ryVkfSOO6YgEBinpO9Nr261PRvbkghWhTdURdtmVvI+o2NfMhIIyxlwbdsXFkIB2VPJNqOJeZ2EgsuBPqAj0qaIRvjqmscElt4BtH0StF/dVFTZCxBwImBw6YL7/1aCfyA02QvsE/Py1+PZ4lZE/itefWonHXighM3TQ4yBjYph1PpF7X7sFUugfszMyA8g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
  s=selector2-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lxkVM+lIDeGVZ9KQ2SdnVmjtkLWXupqDq2NlzIAS/rY=;
- b=PbKZLmxNn/r6KW1geUoFJeagI7AHsgWPAT8+NNkf1K5FnkwAonpsTeaOaQvhhkP0XSDxDpxs0hakI+C/1bSe3OgKFH3hxzZ76YOgtJWgqA9Q3jibPpMir7I1o3bqyGyiAZjCdziwx6x8cYwWEF+bNJa+2YGizxFOM+CfM2ZyGdI=
+ bh=KmqZnWedP1AJSXsFtOa8M95+jajfkJOrqyR2j0dN1Gg=;
+ b=TU2IkxindeWmaBueZEe/s+l4uwc9NOKkSnZmU5e+D/Z9Al5FlXCcQGYY+iF401bgso+wrD5lwKbQRCVIn0hOMlyhgN+PspDyDDxy0wtKP96S1SRb31+tXpU6dlxkCjfFtbiT7beHW2lvZ1NN9JVGWMZXjEqE23HyhXdyC7BevHg=
 Authentication-Results: kernel.org; dkim=none (message not signed)
  header.d=none;kernel.org; dmarc=none action=none header.from=oss.nxp.com;
 Received: from VI1PR04MB5151.eurprd04.prod.outlook.com (2603:10a6:803:61::28)
  by VI1PR0401MB2654.eurprd04.prod.outlook.com (2603:10a6:800:58::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.21; Fri, 3 Sep
- 2021 14:53:55 +0000
+ 2021 14:53:57 +0000
 Received: from VI1PR04MB5151.eurprd04.prod.outlook.com
  ([fe80::499b:ba92:db2e:3f28]) by VI1PR04MB5151.eurprd04.prod.outlook.com
  ([fe80::499b:ba92:db2e:3f28%7]) with mapi id 15.20.4457.026; Fri, 3 Sep 2021
- 14:53:55 +0000
+ 14:53:57 +0000
 From: Daniel Baluta <daniel.baluta@oss.nxp.com>
 To: broonie@kernel.org, pierre-louis.bossart@linux.intel.com,
  lgirdwood@gmail.com, robh+dt@kernel.org, ranjani.sridharan@linux.intel.com,
  kai.vehmanen@linux.intel.com
-Subject: [PATCH v2 1/2] ASoC: SOF: imx: Add code to manage DSP related clocks
-Date: Fri,  3 Sep 2021 17:53:39 +0300
-Message-Id: <20210903145340.225511-2-daniel.baluta@oss.nxp.com>
+Subject: [PATCH v2 2/2] dt-bindings: dsp: fsl: Add DSP optional clocks
+ documentation
+Date: Fri,  3 Sep 2021 17:53:40 +0300
+Message-Id: <20210903145340.225511-3-daniel.baluta@oss.nxp.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210903145340.225511-1-daniel.baluta@oss.nxp.com>
 References: <20210903145340.225511-1-daniel.baluta@oss.nxp.com>
@@ -88,56 +89,56 @@ Received: from localhost.localdomain (2a02:2f08:5708:8600:fd8d:b9e7:97b5:dd4a)
  by VI1PR07CA0200.eurprd07.prod.outlook.com (2603:10a6:802:3f::24) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.4 via Frontend
- Transport; Fri, 3 Sep 2021 14:53:54 +0000
+ Transport; Fri, 3 Sep 2021 14:53:55 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c5272852-651b-4dad-c925-08d96eeaa71e
+X-MS-Office365-Filtering-Correlation-Id: 8abee408-5033-4f3d-aa15-08d96eeaa7e3
 X-MS-TrafficTypeDiagnostic: VI1PR0401MB2654:
 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <VI1PR0401MB2654562AA244FAF9E21C786EB8CF9@VI1PR0401MB2654.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-Microsoft-Antispam-PRVS: <VI1PR0401MB2654FA98D33B2A8BBB4880BDB8CF9@VI1PR0401MB2654.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /JcwRlRHY9A+/xyXBPbAhIbn/7JLnyjfmQGM0A+SqohBrQQHeouP9co2vg2KvRu76MBV7hwhGoK6xWH9zn114s+Dc7rAi1gCtT+t0CQKNoVtrAh6xguzOUPNutvJS0S7q0WAiuBsghTXRGzsChvOJ3JRK4o2LvVS7iX0bniktQ5Gmxqxz3PvRt2nRWPSN9M9jw7JnpPzCZ0ayAVFUxq6XRGhC/WOdAKJcYSSMDOf78UVDwRi0TytNdyO8UXrQqvQMs/gbfjtNRclfpRGQqbACY+hDLYZqeifaCRiYJPi7my4nO8AIAIYFalvZzj9Zw4+f6obinAQdEk+9HuLbyfVYlgOPUtzSvOZBVG3TNOh7SLEAcKvYE6U2iuRb6/fKf5lmdDcHEbtNAqZOeIiae48UmY3F5TCYfDHAM6gnQegE8rPbftWSwpQHXp49FNBVo2dNtbXycfVMs9mi51TK5oSJ1CTsxCbhp3gyYFzip6G1zAVIPTOyJBqt/MLvkGlBocabTJp0MInkUAWHdudL8avcOp1KFjEP8M6fZ63QxStnwqU4TVstkJT/60m6w8MhSn11J47hkmJWPdzAodNN6C15/ERDO9/MxLqiUnymCS8NHsuJpejJ/dVgZNWAKrn958QlGrpS3xUvs0zrWFjkKBWng==
+X-Microsoft-Antispam-Message-Info: 1EwvMrtVhHdmZNdLZ4B5I6XfCApnMAfBFcp84iMPH0gMfGv9pe18u4j2l1uEOrC4t3qvQhvx0aUmlG80ebC7ygdOX0Kb0t8gkFhvhC1tXTRNjE5qNXTtQBG9LNOzy/Hni7AjPeucTH4zrwIU4exjR6AEhaazZyQSgfAZMcr++vjge6HZmJ9ES98wqbDufuCZFVUYs+tzfX8za7+ns1ZbrrZ88pM/rnRI+uER1TSpND9Kfx4kQSq8vCo9tJ0ac9Zm2aljL/Q16wXCtrOO0qt2kYogeYsq6CeuMQJ6Gi56/O4xZaBVi6xviSRBqrYr9yR5oD6rL5xpCQgivTbCZlAi3uxaWbyfa9SZoJnUoi4+eZaWny6xP2D0XN9U1yQvjvWEAGEb2L9hx7lQ5FweFbieSE0Uy8eKn/LcShqlnCgIP/AFTEthRXnGHQ4YGO4K5TCYV8Jbks6jJX/b8mUmKrwl60fAnMr4cn4mboq8pekodeczX0wD8rGWcZr/3u+ZecHSFob54tut3tEjEooA0Y6tx7BgKadw7n6NBZIXWCp+XvllFJrx8M2LVzT54tPdyXV+znSFd38MaYmudWE8/BFdI2gK+Chot4pk8RrQIsFz67IvlxUc83v9zY8EZcTINRuMSoqkoTHeHkLF0JuN04I3zQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:VI1PR04MB5151.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(366004)(186003)(38100700002)(66946007)(44832011)(52116002)(6506007)(86362001)(8676002)(6666004)(5660300002)(316002)(2906002)(66556008)(4326008)(6512007)(6486002)(66476007)(508600001)(2616005)(1076003)(83380400001)(8936002)(7416002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?AWs9qUU7i44nvULr7my5KJGwO3tBjZUvcgpJX4MiQai7/+f0zy2f7GAUEwyW?=
- =?us-ascii?Q?TtIOucUWLelssUHI+OZcKwSTVAtBsPFvj4ObuNYXupKDb5GB5KCDQt+ACfg1?=
- =?us-ascii?Q?hUEHrBOwDX8se4SUEUFitxsCESk8zMuGXDHuHxogfnAiPQFNNyJJqcpZBtj7?=
- =?us-ascii?Q?Gx8Upr5fuF4IunDNcz12Y2XJmm3ro3PwSdrSahUWPofxDyWvdJWHhpmeX/VY?=
- =?us-ascii?Q?0EtsDMBydQSkE0XejpFwSZH+KmqEb/SYZQO6xCVHNESk2Hgn9VWrkocXMinK?=
- =?us-ascii?Q?xfFRJbvq8HKCKILnX/R4UIm6K1pyVOneAlFl3uKlVEWQqDqX9bQr0NlITrY4?=
- =?us-ascii?Q?GGm7eJDoRHX+iE6iZdxtYioFVo2Vs2AIzhOiRxmwcFdbhnep3+DYBCErWCB3?=
- =?us-ascii?Q?KzHksyougRpVH2zHd5P8FIJq05G2Ex4n/f7YRRQw0PBCpLbQUMWRjhpWzF0r?=
- =?us-ascii?Q?2ebgc8ycSzywZXEsGVPVX/5UK+KkhWFhB44EAINdqd8i90f2qJJFi2RSmkii?=
- =?us-ascii?Q?9N9oj9+f1XQ9H6bDn/pO9FCYL4Txnu5bzNgytiATMHPpN8+0S9o45SIeCsQe?=
- =?us-ascii?Q?yPjHfTycT8LdTjNkQr+JIiqqC0Nze3lezgjFy5ZYHmPygx+g0v2D8C7IODkX?=
- =?us-ascii?Q?9E5WcKWkQQpAL+6VQ6pA3L6xcYVkE9NSmxpI0EvT/8uq/OVomYd1MBvkbmcN?=
- =?us-ascii?Q?JCyh6PhqnkD/q39WOewjZQHZbA2F8UdSDG1T0vSPfx3xK9+RluouZN2U5lWD?=
- =?us-ascii?Q?5xzdEGGruQCJ/3m5gfyWdVvekoDJFw3Zs7mA2hdg37+PpE5oZyxKuKaUhlyB?=
- =?us-ascii?Q?HYpFfCMsARYCjyo5EhlXls2jPRlclWgyQU96fOVYn2tuveRY5a7k4TPM1/1l?=
- =?us-ascii?Q?zgmIdUS5vMDgp6qelyRO8LVwgHojtFeiWJjgOIUM1BxAwCrkMUmcQx172Dzm?=
- =?us-ascii?Q?SxPNp2k8bmBk8b3lt03+UtVhfLA3GhuwcfHegtE5ztQtxVlHZf7T1APsTqaH?=
- =?us-ascii?Q?1u4Ezz0fD1JXMuRlbFRERwmEMsZjeGApCEhzJ2hVHzU+ECOaWB6VTnwCECsA?=
- =?us-ascii?Q?m9h6T7W7/AL1th2HtPzt7hu/tOQ+GMknOjVd1tquLMkN8ybHw2QlfYvJGEbO?=
- =?us-ascii?Q?9IzoSX14EpMhYrbdhRuw9/UmnNj/zd4zNie9vwXTSQX7DEQrbUHohR6WJt/Z?=
- =?us-ascii?Q?5GvSJ6V1St8g5KvETPiH335BmjO1dR1g5Na6ShYkpX0Wo5jdsBMh6wyS/B0U?=
- =?us-ascii?Q?3rYg9XVvRSyLw5YmnFn0FNrse5OxfeRAYqo/r/v89XiUM/8sXRQ5PJUoCZdi?=
- =?us-ascii?Q?ioRb3gQ6EM3vTgwmrNXtvoXCQA8f20yY5gJfHQdDySQudFkaKjSTGMhPJI+8?=
- =?us-ascii?Q?UwKJ4spWJ93KqdCXgHscWhDkwR1N?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?8oFI3p623F6E+R0PaY+ugG0iPJwNUpJwHu39fJcgW/rMMfxfHPP2MyIpbhLM?=
+ =?us-ascii?Q?3a9ua/HFLpq0b/6A+2bgTBj0/mRwry3YN2rEuHfjZJk5IJGGQvk99586VGQz?=
+ =?us-ascii?Q?rotKw51xIugNPx709kI4VACtFY+liVw6piLEkoSozxDCcvvi8O4qQBvqXl2W?=
+ =?us-ascii?Q?UXH4G33tRQh/FYlGvkxr0AMc+PApG79n1H/V3cU0mhmflk6jYaOBPDKkrt9N?=
+ =?us-ascii?Q?HH6bCqOKl6zkdboZZq3yV46ARfefe3J0wGQ3LUMRGXkIyckFVhMD2+tr1vZp?=
+ =?us-ascii?Q?05g+JljHnuXaAZqDGtvNJ0YgP7L8GrNGaVZv0KgwW8A+yGPr21ejyghk9/PK?=
+ =?us-ascii?Q?wYzo1YzQ8kJQ1P88ZCPSpWeNf2Mwqm3JUJhMKRc2lyce+p437Gt9zlLMq0/w?=
+ =?us-ascii?Q?6VgEgqsI0bkAYCHOQlOFr26UZb0LAYYjDLDJ53r1MfcmJg2c6cSdQuxmjosR?=
+ =?us-ascii?Q?OhCA7SMZ33lsNKpr0Q6Sprpo62KUHgIuHUk++OEvLHH8dj4Gc2bT+LmKT6jk?=
+ =?us-ascii?Q?vK07mtsG5RLJEnBxsRSaXN7b4/YyQ0fypXWq1NcbPxZcw6nNa7ni7g/ksbu7?=
+ =?us-ascii?Q?FUWRjEcqnJ4qKZj9VOjaJs2YBIyRA8eUeiNenxnT89VvFYcpc1CnI9GmmYiy?=
+ =?us-ascii?Q?V9T3vcMZz8NG4FfzyZme6oCgAxGHAHvBOAnIzzo9XtJp6fh/io2dlSgwxKWz?=
+ =?us-ascii?Q?XOSlFCWAjIw3mBb3MRM6bHeHY/JlnX+8vEZPRLI4Bzq9if0kBGFOGj0HuqnL?=
+ =?us-ascii?Q?hLPsYVbhkbf+ltsN6Iv131ZvvaDLtAk2s5a2QUjRskwp1ImfsXbM0oXqxuIm?=
+ =?us-ascii?Q?KY2jRSOLd38pDU/hvWJRBY6OPAGO1DrPsybv0hnp0DN+qfufjoUDZ3h8v2Et?=
+ =?us-ascii?Q?neKnQQaobtr8ahcr4x/bVgZCOttW0eAWcWiDyv0zo3ncDWPAsgrVcs/BYZj/?=
+ =?us-ascii?Q?Gq7vGNbnbB7hIa3uIUWVyIZL292WAphfHb7N6agEUDND3pNtvC/PPcAZhOGd?=
+ =?us-ascii?Q?wVksR0j/GeaRPMGRDnKfjXgTSiXoxF/iMbMlIodxcDxDgaWgO4f165z0JxZ1?=
+ =?us-ascii?Q?/56G8/QT1QsdG06f8AbyFmJLECNjd4xgKeySqjQfFCLgv0QUb6nG38tiOrrx?=
+ =?us-ascii?Q?SZMsKGANkYu90gqVINCez9CDWaaOu3ET9qllPbN/NzIM7ofF7dlX9YtdZJuH?=
+ =?us-ascii?Q?/QEIYqh7EIXlT0gaXu6fDt0ugj7W9agm4px12yDTRBTzH+Mg38InoqDao5o2?=
+ =?us-ascii?Q?9YYOKZz15xOg/eZnSYAFBmRTAOQnIz8YliDF4ZrSXaTsiGKzi/vRK3aZ/Bih?=
+ =?us-ascii?Q?IJiKBqqua9pwgKuNy1XIa1yfhCuv7PCraAy1JqaC4zLmZy2ft4MtO5NnIFHx?=
+ =?us-ascii?Q?Msdf81v3VYU42rplbUluEJf6R1bD?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5272852-651b-4dad-c925-08d96eeaa71e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8abee408-5033-4f3d-aa15-08d96eeaa7e3
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5151.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2021 14:53:55.6750 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2021 14:53:56.9532 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ySxkXKfZG7lZOa2bZKT+zQyJA2QB7rmhgfC5OWCiKWaKxqCMPOo+6m+/4KQtE+gvcO4oJRDeHUr0Du09lTM5Yg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: YbDeJ9aPbWwd/frx9RPMbFQYa2GxfGhHi3OEVtbU4sFnxXBMfk9Iqz56iB1QdsRTMuAhRndGNYlDmHuGaeIh0w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2654
 Cc: Daniel Baluta <daniel.baluta@nxp.com>, devicetree@vger.kernel.org,
  alsa-devel@alsa-project.org, shawnguo@kernel.org,
@@ -160,263 +161,80 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Daniel Baluta <daniel.baluta@nxp.com>
 
-There are two types of clocks:
-	* DSP IP clocks
-	* DAI clocks
+DSP node on the Linux kernel side must also take care of enabling
+DAI/DMA related clocks.
 
-This clocks are necessary in order to power up DSP and DAIs.
+By design we choose to manage DAI/DMA clocks from the kernel side because of
+the architecture of some i.MX8 boards.
 
-We choose to enable DAI clocks here because of the way i.MX8/i.MX8X
-design handles resources (including clocks).
+Clocks are handled by a special M4 core which runs a special firmware
+called SCFW (System Controler firmware).
 
-All clocks are managed by a separate core (named SCU) which communicates
-with Linux managed ARM core via a well known API.
+This communicates with A cores running Linux via a special Messaging
+Unit and implements a custom API which is already implemented by the
+Linux kernel i.MX clocks implementation.
 
-We parse and enable the clocks in probe function and disable them in
-remove function.
-
-Future patches will introduce Power Management support so that we
-disable clocks while DSP is not used or system enters power save.
+Note that these clocks are optional. We can use the DSP without them.
 
 Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
 ---
- sound/soc/sof/imx/imx-common.c | 44 ++++++++++++++++++++++++++++++++++
- sound/soc/sof/imx/imx-common.h | 13 ++++++++++
- sound/soc/sof/imx/imx8.c       | 37 ++++++++++++++++++++++++++++
- sound/soc/sof/imx/imx8m.c      | 34 ++++++++++++++++++++++++++
- 4 files changed, 128 insertions(+)
+ .../devicetree/bindings/dsp/fsl,dsp.yaml      | 33 +++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/sound/soc/sof/imx/imx-common.c b/sound/soc/sof/imx/imx-common.c
-index 8826ef94f04a..f9d650ad3846 100644
---- a/sound/soc/sof/imx/imx-common.c
-+++ b/sound/soc/sof/imx/imx-common.c
-@@ -74,4 +74,48 @@ void imx8_dump(struct snd_sof_dev *sdev, u32 flags)
- }
- EXPORT_SYMBOL(imx8_dump);
+diff --git a/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml b/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
+index 7afc9f2be13a..1453668c0194 100644
+--- a/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
++++ b/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
+@@ -24,16 +24,49 @@ properties:
+     maxItems: 1
  
-+int imx8_parse_clocks(struct snd_sof_dev *sdev, struct imx_clocks *clks)
-+{
-+	int ret;
+   clocks:
++    minItems: 3
+     items:
+       - description: ipg clock
+       - description: ocram clock
+       - description: core clock
++      - description: esai0 core clock for accessing registers
++      - description: esai0 baud clock
++      - description: esai0 system clock
++      - description: esai0 spba clock required when ESAI is placed in slave mode
++      - description: SAI1 bus clock
++      - description: SAI1 master clock 0
++      - description: SAI1 master clock 1
++      - description: SAI1 master clock 2
++      - description: SAI1 master clock 3
++      - description: SAI3 bus clock
++      - description: SAI3 master clock 0
++      - description: SAI3 master clock 1
++      - description: SAI3 master clock 2
++      - description: SAI3 master clock 3
++      - description: SDMA3 root clock used for accessing registers
 +
-+	ret = devm_clk_bulk_get(sdev->dev, clks->num_dsp_clks, clks->dsp_clks);
-+	if (ret) {
-+		dev_err(sdev->dev, "Failed to request DSP clocks\n");
-+		return ret;
-+	}
-+
-+	ret = devm_clk_bulk_get_optional(sdev->dev, clks->num_dai_clks, clks->dai_clks);
-+	if (ret) {
-+		dev_err(sdev->dev, "Failed to request DAI clks\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(imx8_parse_clocks);
-+
-+int imx8_enable_clocks(struct snd_sof_dev *sdev, struct imx_clocks *clks)
-+{
-+	int ret;
-+
-+	ret = clk_bulk_prepare_enable(clks->num_dsp_clks, clks->dsp_clks);
-+	if (ret)
-+		return ret;
-+	ret = clk_bulk_prepare_enable(clks->num_dai_clks, clks->dai_clks);
-+	if (ret) {
-+		clk_bulk_disable_unprepare(clks->num_dsp_clks, clks->dsp_clks);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(imx8_enable_clocks);
-+
-+void imx8_disable_clocks(struct snd_sof_dev *sdev, struct imx_clocks *clks)
-+{
-+	clk_bulk_disable_unprepare(clks->num_dsp_clks, clks->dsp_clks);
-+	clk_bulk_disable_unprepare(clks->num_dai_clks, clks->dai_clks);
-+}
-+EXPORT_SYMBOL(imx8_disable_clocks);
-+
- MODULE_LICENSE("Dual BSD/GPL");
-diff --git a/sound/soc/sof/imx/imx-common.h b/sound/soc/sof/imx/imx-common.h
-index 1cc7d6704182..54fba9fcd861 100644
---- a/sound/soc/sof/imx/imx-common.h
-+++ b/sound/soc/sof/imx/imx-common.h
-@@ -3,6 +3,8 @@
- #ifndef __IMX_COMMON_H__
- #define __IMX_COMMON_H__
  
-+#include <linux/clk.h>
-+
- #define EXCEPT_MAX_HDR_SIZE	0x400
- #define IMX8_STACK_DUMP_SIZE 32
+   clock-names:
++    minItems: 3
+     items:
+       - const: ipg
+       - const: ocram
+       - const: core
++      - const: esai0_core
++      - const: esai0_extal
++      - const: esai0_fsys
++      - const: esai0_spba
++      - const: sai1_bus
++      - const: sai1_mclk0
++      - const: sai1_mclk1
++      - const: sai1_mclk2
++      - const: sai1_mclk3
++      - const: sai3_bus
++      - const: sai3_mclk0
++      - const: sai3_mclk1
++      - const: sai3_mclk2
++      - const: sai3_mclk3
++      - const: smda3_root
  
-@@ -13,4 +15,15 @@ void imx8_get_registers(struct snd_sof_dev *sdev,
- 
- void imx8_dump(struct snd_sof_dev *sdev, u32 flags);
- 
-+struct imx_clocks {
-+	struct clk_bulk_data *dsp_clks;
-+	int num_dsp_clks;
-+	struct clk_bulk_data *dai_clks;
-+	int num_dai_clks;
-+};
-+
-+int imx8_parse_clocks(struct snd_sof_dev *sdev, struct imx_clocks *clks);
-+int imx8_enable_clocks(struct snd_sof_dev *sdev, struct imx_clocks *clks);
-+void imx8_disable_clocks(struct snd_sof_dev *sdev, struct imx_clocks *clks);
-+
- #endif
-diff --git a/sound/soc/sof/imx/imx8.c b/sound/soc/sof/imx/imx8.c
-index fc1720c211a3..5370d34edd61 100644
---- a/sound/soc/sof/imx/imx8.c
-+++ b/sound/soc/sof/imx/imx8.c
-@@ -41,6 +41,25 @@
- #define MBOX_OFFSET	0x800000
- #define MBOX_SIZE	0x1000
- 
-+/* DSP clocks */
-+struct clk_bulk_data imx8_dsp_clks[] = {
-+	{ .id = "ipg" },
-+	{ .id = "ocram" },
-+	{ .id = "core" },
-+};
-+
-+/* DAI clocks */
-+struct clk_bulk_data imx8_dai_clks[] = {
-+	{ .id = "esai0_core" },
-+	{ .id = "esai0_extal" },
-+	{ .id = "esai0_spba" },
-+	{ .id = "sai1_bus" },
-+	{ .id = "sai1_mclk0" },
-+	{ .id = "sai1_mclk1" },
-+	{ .id = "sai1_mclk2" },
-+	{ .id = "sai1_mclk3" },
-+};
-+
- struct imx8_priv {
- 	struct device *dev;
- 	struct snd_sof_dev *sdev;
-@@ -57,6 +76,7 @@ struct imx8_priv {
- 	struct device **pd_dev;
- 	struct device_link **link;
- 
-+	struct imx_clocks *clks;
- };
- 
- static void imx8_get_reply(struct snd_sof_dev *sdev)
-@@ -223,6 +243,10 @@ static int imx8_probe(struct snd_sof_dev *sdev)
- 	if (!priv)
- 		return -ENOMEM;
- 
-+	priv->clks = devm_kzalloc(&pdev->dev, sizeof(*priv->clks), GFP_KERNEL);
-+	if (!priv->clks)
-+		return -ENOMEM;
-+
- 	sdev->num_cores = 1;
- 	sdev->pdata->hw_pdata = priv;
- 	priv->dev = sdev->dev;
-@@ -336,6 +360,18 @@ static int imx8_probe(struct snd_sof_dev *sdev)
- 	/* set default mailbox offset for FW ready message */
- 	sdev->dsp_box.offset = MBOX_OFFSET;
- 
-+	/* init clocks info */
-+	priv->clks->dsp_clks = imx8_dsp_clks;
-+	priv->clks->num_dsp_clks = ARRAY_SIZE(imx8_dsp_clks);
-+	priv->clks->dai_clks = imx8_dai_clks;
-+	priv->clks->num_dai_clks = ARRAY_SIZE(imx8_dai_clks);
-+
-+	ret = imx8_parse_clocks(sdev, priv->clks);
-+	if (ret < 0)
-+		goto exit_pdev_unregister;
-+
-+	imx8_enable_clocks(sdev, priv->clks);
-+
- 	return 0;
- 
- exit_pdev_unregister:
-@@ -354,6 +390,7 @@ static int imx8_remove(struct snd_sof_dev *sdev)
- 	struct imx8_priv *priv = sdev->pdata->hw_pdata;
- 	int i;
- 
-+	imx8_disable_clocks(sdev, priv->clks);
- 	platform_device_unregister(priv->ipc_dev);
- 
- 	for (i = 0; i < priv->num_domains; i++) {
-diff --git a/sound/soc/sof/imx/imx8m.c b/sound/soc/sof/imx/imx8m.c
-index 30624fafc632..fea1b72bebaa 100644
---- a/sound/soc/sof/imx/imx8m.c
-+++ b/sound/soc/sof/imx/imx8m.c
-@@ -23,6 +23,21 @@
- #define MBOX_OFFSET	0x800000
- #define MBOX_SIZE	0x1000
- 
-+struct clk_bulk_data imx8m_dsp_clks[] = {
-+	{ .id = "ipg" },
-+	{ .id = "ocram" },
-+	{ .id = "core" },
-+};
-+
-+struct clk_bulk_data imx8m_dai_clks[] = {
-+	{ .id = "sai3_bus" },
-+	{ .id = "sai3_mclk0" },
-+	{ .id = "sai3_mclk1" },
-+	{ .id = "sai3_mclk2" },
-+	{ .id = "sai3_mclk3" },
-+	{ .id = "sdma3_root" },
-+};
-+
- struct imx8m_priv {
- 	struct device *dev;
- 	struct snd_sof_dev *sdev;
-@@ -30,6 +45,8 @@ struct imx8m_priv {
- 	/* DSP IPC handler */
- 	struct imx_dsp_ipc *dsp_ipc;
- 	struct platform_device *ipc_dev;
-+
-+	struct imx_clocks *clks;
- };
- 
- static void imx8m_get_reply(struct snd_sof_dev *sdev)
-@@ -143,6 +160,10 @@ static int imx8m_probe(struct snd_sof_dev *sdev)
- 	if (!priv)
- 		return -ENOMEM;
- 
-+	priv->clks = devm_kzalloc(&pdev->dev, sizeof(*priv->clks), GFP_KERNEL);
-+	if (!priv->clks)
-+		return -ENOMEM;
-+
- 	sdev->num_cores = 1;
- 	sdev->pdata->hw_pdata = priv;
- 	priv->dev = sdev->dev;
-@@ -211,6 +232,18 @@ static int imx8m_probe(struct snd_sof_dev *sdev)
- 	/* set default mailbox offset for FW ready message */
- 	sdev->dsp_box.offset = MBOX_OFFSET;
- 
-+	/* init clocks info */
-+	priv->clks->dsp_clks = imx8m_dsp_clks;
-+	priv->clks->num_dsp_clks = ARRAY_SIZE(imx8m_dsp_clks);
-+	priv->clks->dai_clks = imx8m_dai_clks;
-+	priv->clks->num_dai_clks = ARRAY_SIZE(imx8m_dai_clks);
-+
-+	ret = imx8_parse_clocks(sdev, priv->clks);
-+	if (ret < 0)
-+		goto exit_pdev_unregister;
-+
-+	imx8_enable_clocks(sdev, priv->clks);
-+
- 	return 0;
- 
- exit_pdev_unregister:
-@@ -222,6 +255,7 @@ static int imx8m_remove(struct snd_sof_dev *sdev)
- {
- 	struct imx8m_priv *priv = sdev->pdata->hw_pdata;
- 
-+	imx8_disable_clocks(sdev, priv->clks);
- 	platform_device_unregister(priv->ipc_dev);
- 
- 	return 0;
+   power-domains:
+     description:
 -- 
 2.27.0
 

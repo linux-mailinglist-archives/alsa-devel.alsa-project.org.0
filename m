@@ -2,98 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 967B63FFBFC
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 10:32:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCF103FFCF9
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 11:21:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D52D1718;
-	Fri,  3 Sep 2021 10:31:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D52D1718
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6779017E1;
+	Fri,  3 Sep 2021 11:21:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6779017E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630657940;
-	bh=XyR1K2Saapwjdv+YokvOxxxjAdtyUTPdgJwf7cgvrxY=;
-	h=References:From:To:Subject:Date:In-reply-to:Cc:List-Id:
+	s=default; t=1630660917;
+	bh=BWZUZ0FRql3tvyEon3+xLbAuFdjuIIdivL4SUt/auk8=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=q5zal+9WidSjyoTeA5q1fpdPxQQQ++qEYx65G6UCiwY0oLRwyYdthFFdoWNLUN22x
-	 vaWO72qrox3lJeca54Ol6fgNl0snaDuQ5czav3xDt5NmSHZb6CdOHznte3AdO5kvq1
-	 7uxFZZFjRAb2RcPXzEKH+mMCgRjGmwZZerJYT86g=
+	b=c8nfZtGm5xipEgWYskiyGalg0vwuOy8vht9wVunE4mJUyNpIJEW2HxE4+QYI7Rw0/
+	 Fgst5tO0oUqlEgKGQi3V3rb3GTFGPsifqnDK6E3HQq4sYXJJWA3DXAQ6fnIxoWHQkJ
+	 J2/AicP3dlobMMMTH0mDntjVB0z3Gd/Ii6hiDN1g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8069CF80256;
-	Fri,  3 Sep 2021 10:31:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0D4FF80088;
+	Fri,  3 Sep 2021 11:20:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 982A2F80254; Fri,  3 Sep 2021 10:31:01 +0200 (CEST)
+ id C03E7F80088; Fri,  3 Sep 2021 11:20:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 59A65F80088
- for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 10:30:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59A65F80088
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="K4wGE5iP"
-Received: by mail-wm1-x329.google.com with SMTP id
- k5-20020a05600c1c8500b002f76c42214bso3208190wms.3
- for <alsa-devel@alsa-project.org>; Fri, 03 Sep 2021 01:30:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=references:user-agent:from:to:cc:subject:date:in-reply-to
- :message-id:mime-version;
- bh=tSBoI24rmmAo/WWLDhLND6YxNYncWnjj1r5sALynAJ4=;
- b=K4wGE5iP441yxWa+TAQZ1VZZMZnv6OfvJKWEzE+MCQj7K2oMTS8aHeDQgL7IlCV5+r
- II5rICDjfU5wlQZmioHZXxoVszg5g1wTZIPmZf+V7KOVQKYfmuoowJ602eTn6HBmdjhR
- 40Z5W0mxAnYB/D/m3H3U18iiaEtRB1XAs6OsSrvD75MTsAFVEgpJuvIWB45lquL4eZPg
- WHGJylo9CiP3ELxpw7rat1Y5lK4ARxd2H5aZyiP/QOH5s9LmA5oPmoO04VDfHoMMtTxu
- mwZcDDhHJY/GZrwjRiCTfmJmArcJ97MVfnRwjnpryjB2B5p2fewYpM6VuJPJjmAlvb6U
- L/FQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
- :in-reply-to:message-id:mime-version;
- bh=tSBoI24rmmAo/WWLDhLND6YxNYncWnjj1r5sALynAJ4=;
- b=apl86EwKphscyBdnbw5+QNaVDnlbJtsv3JT9tR6OYWkC7Vnkjm5kZWT9awDilcqqlh
- L9pl+NNXgeJ3MxWB5aeTsDbkZ07iCANKZYFgeS41VNjmsaNBVQmI8i09Z6Lxq3/GMnLi
- OrXi853+YVZVv+o+BwEEdxsCzwdYxVGBdr4sZijTigInOsI+vtaqtzDglDhUNiLZko22
- MEeWlJZuMM8ivEfR28RRVgTBHpKwqkqjoCDnKS2lnF67bmxMexzkeRXOST4t6Jh0eGDN
- KN7qoflcBu7lFCd18GBSWpXsJGvGMTF9EEOtPURlknmmu2eIvQ7Lqk1qTzbnFaEq39d5
- IFWA==
-X-Gm-Message-State: AOAM532mATlg6N6nHPV2Io8WTjjGnSYSJS2uJkYD4ohWp8lagTq1IebA
- QeP+jlFdXV6x9ZoPUCxZjZmTVg==
-X-Google-Smtp-Source: ABdhPJzIVzeO9objMjNkGGwltqZ/D3PN/vMifRhZaWUZqUx5iRpM6g1pt+vfuZhIf9TYGOJSBH5HPA==
-X-Received: by 2002:a05:600c:4ece:: with SMTP id
- g14mr2177689wmq.6.1630657843920; 
- Fri, 03 Sep 2021 01:30:43 -0700 (PDT)
-Received: from localhost (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr.
- [90.63.244.31])
- by smtp.gmail.com with ESMTPSA id r12sm4323542wrv.96.2021.09.03.01.30.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Sep 2021 01:30:43 -0700 (PDT)
-References: <1630562033-13231-1-git-send-email-spujar@nvidia.com>
- <1630562033-13231-2-git-send-email-spujar@nvidia.com>
- <1jpmtr5egi.fsf@starbuckisacylon.baylibre.com>
- <YTElQBgwF6xBFH9l@robh.at.kernel.org>
-User-agent: mu4e 1.6.5; emacs 27.1
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH v2 1/3] ASoC: Add json-schema documentation for
- sound-name-prefix
-Date: Fri, 03 Sep 2021 10:29:37 +0200
-In-reply-to: <YTElQBgwF6xBFH9l@robh.at.kernel.org>
-Message-ID: <1jk0jyt617.fsf@starbuckisacylon.baylibre.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24463F80088
+ for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 11:20:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24463F80088
+X-IronPort-AV: E=McAfee;i="6200,9189,10095"; a="304938683"
+X-IronPort-AV: E=Sophos;i="5.85,264,1624345200"; d="scan'208";a="304938683"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Sep 2021 02:20:23 -0700
+X-IronPort-AV: E=Sophos;i="5.85,264,1624345200"; d="scan'208";a="467868530"
+Received: from pstarove-mobl4.ger.corp.intel.com (HELO [10.251.212.94])
+ ([10.251.212.94])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Sep 2021 02:20:20 -0700
+Subject: Re: [PATCH v3 1/2] ASoC: max98927: Handle reset gpio when probing i2c
+To: Alejandro <atafalla@dnyon.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Andy Shevchenko <andy.shevchenko@gmail.com>
+References: <cover.1630632805.git.atafalla@dnyon.com>
+ <04a18f4115539752429da55fb857834cea0944e5.1630632805.git.atafalla@dnyon.com>
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+Message-ID: <80973391-4579-e14b-6def-ed81f367a4a5@linux.intel.com>
+Date: Fri, 3 Sep 2021 12:20:37 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: text/plain
+In-Reply-To: <04a18f4115539752429da55fb857834cea0944e5.1630632805.git.atafalla@dnyon.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- stephan@gerhold.net, linux-kernel@vger.kernel.org,
- Sameer Pujar <spujar@nvidia.com>, lgirdwood@gmail.com, jonathanh@nvidia.com,
- broonie@kernel.org, thierry.reding@gmail.com, linux-tegra@vger.kernel.org
+ Rob Herring <robh+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,80 +80,88 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-On Thu 02 Sep 2021 at 14:25, Rob Herring <robh@kernel.org> wrote:
 
-> On Thu, Sep 02, 2021 at 02:47:27PM +0200, Jerome Brunet wrote:
->> 
->> On Thu 02 Sep 2021 at 11:23, Sameer Pujar <spujar@nvidia.com> wrote:
->> 
->> > The 'sound-name-prefix' is used to prepend suitable strings to a
->> > component widgets or controls. This is helpful when there are
->> > multiple instances of the same component. Add relevant json-schema
->> > and is inspired from sound-name-prefix.txt documentation.
->> >
->> > Signed-off-by: Sameer Pujar <spujar@nvidia.com>
->> > Cc: Jerome Brunet <jbrunet@baylibre.com>
->> > Cc: Rob Herring <robh+dt@kernel.org>
->> > ---
->> >  .../devicetree/bindings/sound/name-prefix.yaml     | 35 ++++++++++++++++++++++
->> >  1 file changed, 35 insertions(+)
->> >  create mode 100644 Documentation/devicetree/bindings/sound/name-prefix.yaml
->> >
->> > diff --git a/Documentation/devicetree/bindings/sound/name-prefix.yaml b/Documentation/devicetree/bindings/sound/name-prefix.yaml
->> > new file mode 100644
->> > index 00000000..b58cc9e
->> > --- /dev/null
->> > +++ b/Documentation/devicetree/bindings/sound/name-prefix.yaml
->> > @@ -0,0 +1,35 @@
->> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> > +%YAML 1.2
->> > +---
->> > +$id: http://devicetree.org/schemas/sound/name-prefix.yaml#
->> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> > +
->> > +title: Component sound name prefix
->> > +
->> > +maintainers:
->> > +  - Jerome Brunet <jbrunet@baylibre.com>
->> 
->> Since this file is referenced using "AllOf", am I going to be listed as
->> maintainer of all the drivers using the property below ? I'm not sure I
->> want that ... :P
->
-> No. That's not how it works. You're maintainer of files that list you as 
-> maintainer.
+On 03/09/2021 04:49, Alejandro wrote:
+> From: Alejandro Tafalla <atafalla@dnyon.com>
+> 
+> Drive the reset gpio if defined in the DTS node.
+> 
+> Signed-off-by: Alejandro Tafalla <atafalla@dnyon.com>
+> ---
+>  sound/soc/codecs/max98927.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+> 
+> diff --git a/sound/soc/codecs/max98927.c b/sound/soc/codecs/max98927.c
+> index 8b206ee77709..daf06b503433 100644
+> --- a/sound/soc/codecs/max98927.c
+> +++ b/sound/soc/codecs/max98927.c
+> @@ -868,6 +868,7 @@ static int max98927_i2c_probe(struct i2c_client *i2c,
+>  	int ret = 0, value;
+>  	int reg = 0;
+>  	struct max98927_priv *max98927 = NULL;
+> +	struct gpio_desc *reset_gpio;
+>  
+>  	max98927 = devm_kzalloc(&i2c->dev,
+>  		sizeof(*max98927), GFP_KERNEL);
+> @@ -898,6 +899,19 @@ static int max98927_i2c_probe(struct i2c_client *i2c,
+>  		return ret;
+>  	}
+>  
+> +	reset_gpio
+> +		= devm_gpiod_get_optional(&i2c->dev, "reset", GPIOD_OUT_LOW);
 
-Thanks for clarifying.
-You can ignore my comment then Sameer. 
+If this is a 'reset' pin then it's ACTIVE state is when it places the
+device to _reset_.
+GPIOD_OUT_LOW == Deasserted state of the GPIO line.
 
->
->> Maybe it would be better to drop the above ?
->> 
->> > +
->> > +properties:
->> > +  sound-name-prefix:
->> > +    $ref: /schemas/types.yaml#/definitions/string
->> > +    description: |
->> > +      Card implementing the routing property define the connection between
->> > +      audio components as list of string pair. Component using the same
->> > +      sink/source names may use this property to prepend the name of their
->> > +      sinks/sources with the provided string.
->> > +
->> > +additionalProperties: true
->> > +
->> > +examples:
->> > +  - |
->> > +    analog-amplifier@0 {
->> > +        compatible = "simple-audio-amplifier";
->> > +        sound-name-prefix = "FRONT";
->> > +    };
->> > +
->> > +    analog-amplifier@1 {
->> > +        compatible = "simple-audio-amplifier";
->> > +        sound-name-prefix = "BACK";
->> > +    };
->> > +
->> > +...
->> 
->> 
+If the reset pin should be pulled low for reset (GPIO_ACTIVE_LOW) and
+you want the device initially  in reset then you need GPIOD_OUT_HIGH,
+because:
+GPIOD_OUT_HIGH == Asserted state of the GPIO line.
 
+Same goes for the gpiod_set_value_cansleep():
+0 - deasserted
+1 = asserted
+
+and this all depends on how the gpio is defined in DT
+(GPIO_ACTIVE_LOW/HIGH), which depends on how the documentation refers to
+the pin...
+
+reset pin:
+low to keep the device in reset, high to release it from reset:
+GPIO_ACTIVE_LOW
+gpiod_set_value_cansleep(0) to enable
+gpiod_set_value_cansleep(1) to disable
+
+
+enable pin:
+high to enable the part, low to disable
+GPIO_ACTIVE_HIGH
+gpiod_set_value_cansleep(1) to enable
+gpiod_set_value_cansleep(0) to disable
+
+In both cases
+electrical 0: reset/disable
+electrical 1: enable
+
+> +	if (IS_ERR(reset_gpio)) {
+> +		ret = PTR_ERR(reset_gpio);
+> +		return dev_err_probe(&i2c->dev, ret, "failed to request GPIO reset pin");
+> +	}
+> +
+> +	if (reset_gpio) {
+> +		usleep_range(8000, 10000);
+> +		gpiod_set_value_cansleep(reset_gpio, 1);
+> +		usleep_range(1000, 5000);
+> +	}
+> +
+
+You might want to put the device to reset on remove at minimum.
+
+>  	/* Check Revision ID */
+>  	ret = regmap_read(max98927->regmap,
+>  		MAX98927_R01FF_REV_ID, &reg);
+> 
+
+-- 
+Péter

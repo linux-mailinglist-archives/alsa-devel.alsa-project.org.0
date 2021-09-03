@@ -2,86 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 108CC3FFDE1
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 12:06:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 906103FFE34
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 12:29:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9FE1617E5;
-	Fri,  3 Sep 2021 12:05:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FE1617E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1B8CD17E7;
+	Fri,  3 Sep 2021 12:29:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B8CD17E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630663576;
-	bh=QfAQAB7650Hx3MlTz7854x+fURHs1+Jb8lpjUyugeY4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Wjjr9JPRsjiEDXBm/crsHnuYq9m+H2arC4g4e0PmO5fQIyAcSVm7eRfSNXsojkElz
-	 PPZrNFrGsSeTISA9xVU3MmhZiCJ3dD38yqS1GHjrNMBIAJty18r5Q5bFwE9IXpj+kM
-	 /jXVd7z3QLV5M9jT9RLEIc1DW6MZOYJKDpXotGJc=
+	s=default; t=1630664993;
+	bh=ALG3HBZ9tMQQ6qp3LSaDocNel4wVrD8EJq5572zXA88=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=JkvdtDwMwB/70foDSrApBn5l4G9mTsyGo3b+kYAoCTUOgt6lU22zdrA+tYe8szKSY
+	 XzPEYayN2dy99UBTUdRaQIEvFsT9qbbWhfveSijUQaKMBE/peooGSTummehCQCnxyl
+	 b6wnZZbVHGkk8aqRTH9UGQTRVQNUSN49YJiDpGtw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EFB08F80256;
-	Fri,  3 Sep 2021 12:05:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74E68F8020D;
+	Fri,  3 Sep 2021 12:28:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2F446F80254; Fri,  3 Sep 2021 12:04:59 +0200 (CEST)
+ id 25B94F80254; Fri,  3 Sep 2021 12:28:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0202AF80088
- for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 12:04:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0202AF80088
+ by alsa1.perex.cz (Postfix) with ESMTPS id 04926F80088
+ for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 12:28:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04926F80088
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="a1SzsVcH"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1630663494; h=Content-Transfer-Encoding: MIME-Version:
- Message-Id: Date: Subject: Cc: To: From: Sender;
- bh=bcI92IfWvkqEpmqf6n3xiJ0u7hLOLwmK0IWLJzP+5Ms=;
- b=a1SzsVcHQ+KIbawTiNu50lHfSV7E1hCv2sxl45dGKboNt0Mnan8pt6lGt3WjOf0VdtBAl1NG
- ntCbN8zPw4A9AVaXN8RU/p0EZ8+q86J6MTa6VhjMOW3no1oZK5EPrKMX5rJ1bOg5eUZz3plX
- Rd+ByZ2ZZeQZ5CicFrJV25WkiPk=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
- 6131f2b2e0fcecca190f7d40 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 03 Sep 2021 10:02:26
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id AF12EC43616; Fri,  3 Sep 2021 10:02:25 +0000 (UTC)
-Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 1BFFAC4360D;
- Fri,  3 Sep 2021 10:02:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 1BFFAC4360D
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=codeaurora.org
-From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
- bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
- srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- swboyd@chromium.org, judyhsiao@chromium.org
-Subject: [PATCH] ASoC: qcom: lpass-platform: Reset irq clear reg post handling
- interrupts
-Date: Fri,  3 Sep 2021 15:31:53 +0530
-Message-Id: <20210903100153.9137-1-srivasam@codeaurora.org>
-X-Mailer: git-send-email 2.29.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="U5uCWSMT"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D0A9F60F42;
+ Fri,  3 Sep 2021 10:28:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1630664891;
+ bh=ALG3HBZ9tMQQ6qp3LSaDocNel4wVrD8EJq5572zXA88=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=U5uCWSMTuLZKnKr3JueXqz5npeRN/+ZOf3V533ybH4gOlXF1Y0jVY8wwL//GJ8PGZ
+ ngu5lPk7yfnl7JPeIji789+vVpbLNweKtHrzJdvHpe5aFdxgwVy9Z392lUjiN3JTY+
+ /zE8YTn08AkW0YgKvPHeCI5igSRlsoxv7Padu+5pTdQRdzaJ7+f3ZK8PFfNpla43TQ
+ 3K6yO3zPfxX8fNQ186yYGmBvFsW1YwlmfPurwH3hsp9KyjR8GMtp7DLAaT/aq7XrBK
+ jVc+PL4ehUksCkuhNrI3icy0TGfATyMXcmGz62ZCtqnjM9NgBfajjWk0sdY3wPjli5
+ Hy6zeHzLFWgeQ==
+Date: Fri, 3 Sep 2021 11:27:38 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>
+Subject: Re: [PATCH for-5.15 v3] ASoC: Intel: boards: Fix
+ CONFIG_SND_SOC_SDW_MOCKUP select
+Message-ID: <20210903102738.GB4932@sirena.org.uk>
+References: <20210802212409.3207648-1-nathan@kernel.org>
+ <20210902181217.2958966-1-nathan@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="SkvwRMAIpAhPCcCJ"
+Content-Disposition: inline
+In-Reply-To: <20210902181217.2958966-1-nathan@kernel.org>
+X-Cookie: Darth Vader sleeps with a Teddywookie.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Fabio Aiuto <fabioaiuto83@gmail.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,33 +86,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Update interrupt clear register with reset value after addressing
-all interrupts. This is to fix playback or capture hanging issue in
-simultaneous playback and capture usecase.
 
-Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
----
- sound/soc/qcom/lpass-platform.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+--SkvwRMAIpAhPCcCJ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
-index f9df76d37858..1a0a4b0b1a03 100644
---- a/sound/soc/qcom/lpass-platform.c
-+++ b/sound/soc/qcom/lpass-platform.c
-@@ -749,6 +749,12 @@ static irqreturn_t lpass_platform_lpaif_irq(int irq, void *data)
- 		}
- 	}
- 
-+	rv = regmap_write(drvdata->lpaif_map, LPAIF_IRQCLEAR_REG(v, LPAIF_IRQ_PORT_HOST), 0x0);
-+	if (rv) {
-+		pr_err("error writing to irqstat reg: %d\n", rv);
-+		return IRQ_NONE;
-+	}
-+
- 	return IRQ_HANDLED;
- }
- 
--- 
-Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
-is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+On Thu, Sep 02, 2021 at 11:12:18AM -0700, Nathan Chancellor wrote:
+> When CONFIG_SND_SOC_INTEL_SOUNDWIRE_SOF_MACH is enabled without
+> CONFIG_EXPERT, there is a Kconfig warning about unmet dependencies:
 
+To repeat what I already said in this thread: the reason this will have
+got buried last time is that you sent the prior version in reply to an
+old thread.  This new version has also been sent in reply to an old
+thread which almost had the same effect.  Please stop doing that, and
+also please pay attention to feedback.
+
+Please don't send new patches in reply to old patches or serieses, this
+makes it harder for both people and tools to understand what is going
+on - it can bury things in mailboxes and make it difficult to keep track
+of what current patches are, both for the new patches and the old ones.
+
+--SkvwRMAIpAhPCcCJ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEx+JkACgkQJNaLcl1U
+h9Darwf/dMsP3sJkQI3zmuNnqYAH3Su2md52c3Q8zXiu6wWBT0JpJknJxExFVYFU
+mpeCrDO3SsDPVkp+96ou9pIsEEtFY+cFb3bjI/jw3OLfM58bhuJHa9RmK6ysgGDy
+3MM5VbZ0qKNMVEHJxSZvvPTFIWTg8ka07H77y7wzhAmByKEnRxMcRHoz/rGkp9dA
+3Bv2o9gXcNTeIV+pi/f7rPvqPOhFmcgEtDfwVfG+xroYbVA6Qc9kmuOiq0tOgr1q
+2a0g4/zmlo+iGdA/O0+vXZpvH3a+pPKBW34td9d/J5BDZjn7SFevEcJiDGfinlOb
+4KJpG9My+1VJxwp/YXclvV8JER8sAQ==
+=KVUM
+-----END PGP SIGNATURE-----
+
+--SkvwRMAIpAhPCcCJ--

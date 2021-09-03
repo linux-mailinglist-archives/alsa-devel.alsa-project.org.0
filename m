@@ -2,43 +2,43 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37663400085
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 15:26:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1FB6400087
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 15:26:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD6C318A0;
-	Fri,  3 Sep 2021 15:25:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD6C318A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FDE8187D;
+	Fri,  3 Sep 2021 15:26:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FDE8187D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630675587;
-	bh=WnkGIhaa1hI+8tVykk6F5fUG0WlTgCivmeGYsmEyyJE=;
+	s=default; t=1630675610;
+	bh=Mdbf6+DHPYwATA7hkhHyNphiIlyjZefA28Ztv3uq7lo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MV0/Ff5TpdiG2DSJ78KfPojW+4hbhXBBjY9pCm9tx0wM6o48hI8GYZLj+kDiOQIVJ
-	 C0fp4TI4LcdNGBFUD46amHU0SPw3y1ZoUVNgMUveF7D/Zmi5P0MD2RlaZFHzh19wuB
-	 gYSfEy2JUr/MQ0TsRJbY07SzzY/wlJO49ZGe6c4w=
+	b=Y3gNK0O5yZJV0HG8gIdnT6mBCv4Drlxu9opaGHgbHStpdAb3/Juxl1Ae5WdCj/Bu6
+	 fNHMKjczrR+YBKeF3Jvf51lkpeBIo5mb8kP7smOWWu+MZnZC7AY6DZHI4uz0Ggn5Iq
+	 bnp0gv0yfxeu9x6sO9KhpNPc4wLNFsIfz6peQNUU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 81194F804FB;
-	Fri,  3 Sep 2021 15:23:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D603F804FF;
+	Fri,  3 Sep 2021 15:24:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CDB24F804EB; Fri,  3 Sep 2021 15:23:55 +0200 (CEST)
+ id 52904F804FA; Fri,  3 Sep 2021 15:24:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from lucky1.263xmail.com (lucky1.263xmail.com [211.157.147.132])
+Received: from lucky1.263xmail.com (lucky1.263xmail.com [211.157.147.133])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CF92DF804EB
- for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 15:23:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF92DF804EB
-Received: from localhost (unknown [192.168.167.235])
- by lucky1.263xmail.com (Postfix) with ESMTP id 3F422FB81F;
- Fri,  3 Sep 2021 21:23:42 +0800 (CST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1FA23F804FA
+ for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 15:24:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FA23F804FA
+Received: from localhost (unknown [192.168.167.130])
+ by lucky1.263xmail.com (Postfix) with ESMTP id E42FCD63C7;
+ Fri,  3 Sep 2021 21:24:00 +0800 (CST)
 X-MAIL-GRAY: 0
 X-MAIL-DELIVERY: 1
 X-ADDR-CHECKED4: 1
@@ -46,10 +46,10 @@ X-SKE-CHECKED: 1
 X-ANTISPAM-LEVEL: 2
 Received: from localhost.localdomain (unknown [58.22.7.114])
  by smtp.263.net (postfix) whith ESMTP id
- P32763T139760603449088S1630675411965630_; 
- Fri, 03 Sep 2021 21:23:37 +0800 (CST)
+ P2016T140106318997248S1630675439696276_; 
+ Fri, 03 Sep 2021 21:24:00 +0800 (CST)
 X-IP-DOMAINF: 1
-X-UNIQUE-TAG: <7eab5e813e0b0dc291a4c443e02925cc>
+X-UNIQUE-TAG: <379dfc6c9793aa01a0158e37172fb962>
 X-RL-SENDER: sugar.zhang@rock-chips.com
 X-SENDER: zxg@rock-chips.com
 X-LOGIN-NAME: sugar.zhang@rock-chips.com
@@ -61,9 +61,10 @@ X-System-Flag: 0
 From: Sugar Zhang <sugar.zhang@rock-chips.com>
 To: broonie@kernel.org,
 	heiko@sntech.de
-Subject: [PATCH v4 5/7] ASoC: rockchip: pdm: Add support for path map
-Date: Fri,  3 Sep 2021 21:23:28 +0800
-Message-Id: <1630675410-3354-5-git-send-email-sugar.zhang@rock-chips.com>
+Subject: [PATCH v4 6/7] ASoC: dt-bindings: rockchip: pdm: Document property
+ 'rockchip, path-map'
+Date: Fri,  3 Sep 2021 21:23:57 +0800
+Message-Id: <1630675438-3418-1-git-send-email-sugar.zhang@rock-chips.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1630675357-3286-1-git-send-email-sugar.zhang@rock-chips.com>
 References: <1630675357-3286-1-git-send-email-sugar.zhang@rock-chips.com>
@@ -85,103 +86,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch adds property 'rockchip,path-map' for path mapping.
-
-e.g.
-
-"rockchip,path-map = <3 2 1 0>" means the mapping as follows:
-
-  path0 <-- sdi3
-  path1 <-- sdi2
-  path2 <-- sdi1
-  path3 <-- sdi0
+This is an optional property to describe data path mapping.
 
 Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
+Acked-by: Rob Herring <robh@kernel.org>
 ---
 
 Changes in v4: None
 Changes in v3: None
 Changes in v2: None
 
- sound/soc/rockchip/rockchip_pdm.c | 34 ++++++++++++++++++++++++++++++++++
- sound/soc/rockchip/rockchip_pdm.h |  3 +++
- 2 files changed, 37 insertions(+)
+ Documentation/devicetree/bindings/sound/rockchip,pdm.txt | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/sound/soc/rockchip/rockchip_pdm.c b/sound/soc/rockchip/rockchip_pdm.c
-index f2bf023..64d9891 100644
---- a/sound/soc/rockchip/rockchip_pdm.c
-+++ b/sound/soc/rockchip/rockchip_pdm.c
-@@ -20,6 +20,7 @@
+diff --git a/Documentation/devicetree/bindings/sound/rockchip,pdm.txt b/Documentation/devicetree/bindings/sound/rockchip,pdm.txt
+index 54d94438..b2d7e47 100644
+--- a/Documentation/devicetree/bindings/sound/rockchip,pdm.txt
++++ b/Documentation/devicetree/bindings/sound/rockchip,pdm.txt
+@@ -24,6 +24,22 @@ Required properties:
+ 	     pinctrl-names. See ../pinctrl/pinctrl-bindings.txt
+ 	     for details of the property values.
  
- #define PDM_DMA_BURST_SIZE	(8) /* size * width: 8*4 = 32 bytes */
- #define PDM_SIGNOFF_CLK_RATE	(100000000)
-+#define PDM_PATH_MAX		(4)
++Optional properties:
++- rockchip,path-map: This is a variable length array, that shows the mapping
++  of SDIx to PATHx. By default, they are one-to-one mapping as follows:
++
++   path0 <-- sdi0
++   path1 <-- sdi1
++   path2 <-- sdi2
++   path3 <-- sdi3
++
++  e.g. "rockchip,path-map = <3 2 1 0>" means the mapping as follows:
++
++   path0 <-- sdi3
++   path1 <-- sdi2
++   path2 <-- sdi1
++   path3 <-- sdi0
++
+ Example for rk3328 PDM controller:
  
- enum rk_pdm_version {
- 	RK_PDM_RK3229,
-@@ -539,8 +540,36 @@ static const struct of_device_id rockchip_pdm_match[] __maybe_unused = {
- };
- MODULE_DEVICE_TABLE(of, rockchip_pdm_match);
- 
-+static int rockchip_pdm_path_parse(struct rk_pdm_dev *pdm, struct device_node *node)
-+{
-+	unsigned int path[PDM_PATH_MAX];
-+	int cnt = 0, ret = 0, i = 0, val = 0, msk = 0;
-+
-+	cnt = of_count_phandle_with_args(node, "rockchip,path-map",
-+					 NULL);
-+	if (cnt != PDM_PATH_MAX)
-+		return cnt;
-+
-+	ret = of_property_read_u32_array(node, "rockchip,path-map",
-+					 path, cnt);
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < cnt; i++) {
-+		if (path[i] >= PDM_PATH_MAX)
-+			return -EINVAL;
-+		msk |= PDM_PATH_MASK(i);
-+		val |= PDM_PATH(i, path[i]);
-+	}
-+
-+	regmap_update_bits(pdm->regmap, PDM_CLK_CTRL, msk, val);
-+
-+	return 0;
-+}
-+
- static int rockchip_pdm_probe(struct platform_device *pdev)
- {
-+	struct device_node *node = pdev->dev.of_node;
- 	const struct of_device_id *match;
- 	struct rk_pdm_dev *pdm;
- 	struct resource *res;
-@@ -606,6 +635,11 @@ static int rockchip_pdm_probe(struct platform_device *pdev)
- 	}
- 
- 	rockchip_pdm_rxctrl(pdm, 0);
-+
-+	ret = rockchip_pdm_path_parse(pdm, node);
-+	if (ret != 0 && ret != -ENOENT)
-+		goto err_suspend;
-+
- 	ret = devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
- 	if (ret) {
- 		dev_err(&pdev->dev, "could not register pcm: %d\n", ret);
-diff --git a/sound/soc/rockchip/rockchip_pdm.h b/sound/soc/rockchip/rockchip_pdm.h
-index 13bfbc2..cab9772 100644
---- a/sound/soc/rockchip/rockchip_pdm.h
-+++ b/sound/soc/rockchip/rockchip_pdm.h
-@@ -53,6 +53,9 @@
- #define PDM_FD_DENOMINATOR_MSK	GENMASK(15, 0)
- 
- /* PDM CLK CTRL */
-+#define PDM_PATH_SHIFT(x)	(8 + (x) * 2)
-+#define PDM_PATH_MASK(x)	(0x3 << PDM_PATH_SHIFT(x))
-+#define PDM_PATH(x, v)		((v) << PDM_PATH_SHIFT(x))
- #define PDM_CLK_FD_RATIO_MSK	BIT(6)
- #define PDM_CLK_FD_RATIO_40	(0X0 << 6)
- #define PDM_CLK_FD_RATIO_35	BIT(6)
+ pdm: pdm@ff040000 {
 -- 
 2.7.4
 

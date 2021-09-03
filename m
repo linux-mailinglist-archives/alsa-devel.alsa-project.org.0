@@ -2,85 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19B9F3FFF30
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 13:29:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D5633FFF37
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 13:30:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD7A018AB;
-	Fri,  3 Sep 2021 13:28:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD7A018AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2ED3C18BE;
+	Fri,  3 Sep 2021 13:29:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2ED3C18BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630668555;
-	bh=/aT/YhAljqLOINHDktfw4b55l5fMnEgDSuuOtbwJQx0=;
+	s=default; t=1630668606;
+	bh=8gVj0u0YXiDDiLb5FNi0QasxT4qoKNdtItrO3JeknsE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QNgohGqmSWCujUQGKDF8RzaYEWLvxsLlNSj7eRgXIcICCYVY0zFc71im7InZPu2I9
-	 5emK9kICir0XwU8Cv4otVram7y/eWE+Mwida4NomK+9Xi+hbCc2JqBov5ULwhf4y9G
-	 4oaMa/5HbmT7lopVNHpC18v5UAUCOCSW62Z/6AXw=
+	b=eMULnNHgCfKmV8P+D75VCF1bJCOInu4WRhcOlNBf7A1HdIWBsX/UPzrvjU3Bmz1HD
+	 lDQ06pvLUWOOBmFR/8HEdCv5HKi/YDZwzoDnJOFwqD1Pdo48z4oC0j0ia/sBFXofHM
+	 yc+fS3yAL5CIF+aXR2YSKjQ041xbXRpVkJcsWNUw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6AD97F805AD;
-	Fri,  3 Sep 2021 13:22:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6232CF805C5;
+	Fri,  3 Sep 2021 13:22:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C64B1F8055C; Fri,  3 Sep 2021 13:22:05 +0200 (CEST)
+ id 4412BF80571; Fri,  3 Sep 2021 13:22:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7A567F80525
- for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 13:21:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A567F80525
+ by alsa1.perex.cz (Postfix) with ESMTPS id 85ADDF80533
+ for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 13:21:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85ADDF80533
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="AQZqddIa"
-Received: by mail-wr1-x434.google.com with SMTP id i6so7742337wrv.2
- for <alsa-devel@alsa-project.org>; Fri, 03 Sep 2021 04:21:56 -0700 (PDT)
+ header.b="BJaxVsBv"
+Received: by mail-wr1-x42b.google.com with SMTP id x6so7705127wrv.13
+ for <alsa-devel@alsa-project.org>; Fri, 03 Sep 2021 04:21:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=HgvzBnx/H8EJS6d9iFwurIUtcfEU4ki7XRZAyqJbBlk=;
- b=AQZqddIav+t/v9sH3FC57GramicrBq/UJ3SXZknIjvP9ZIOTSwgNvcy9DZ6HY79LKR
- b0WFeS74uqaQ0l2PjnMRK/74QBQD8wCh0dqx/OQxO39ydccVdquyjZeZ03mWT/lRVIqm
- 0hKy/MzNJeCtyXR/qKNlXZjHrQnkXwFkfKFbOknpwu5LWfz5xMskPxNH/2EMGiSr2Xqz
- M/H+4NPW+zRuZUpDky/PBFCCbtSD5bpCv32lZhP4uhpO1tKnPrgX8Ge6K9+omDSQTfGb
- joX00rk6xmHZOLsdFNRIuyKI8BBBUFZiT9p8gHOwY/KxgvLYnQFCwM31LAn6D7lgpca9
- LdKw==
+ bh=Mj5WKVcVLXFEu37rHCiplZXnki8QDcauYvEePFOTcG8=;
+ b=BJaxVsBvz7hhdG7b/KueKeIgthUpt6XCMRdiheNrd/ZAc42YmT/CImAXyV+ayO6H2m
+ g4HMHGu3RqydzJyeeDDWKPon+J+BUw6Yu9kxU2HIAWtzBTgFHE94/y3k36mEyHrxUJ6c
+ uP8vo6XGn6y2VZzNMMoMtck/h6potWX+GfIvsFwym4lT3NWsnRs8w/Zj5v+hClWP5Zzh
+ mGxa95YOjSTLlHgQTYh94OeCLH/SpcM6i3NFYHS0kQZ0OANUG7EcrNlB6xIQmVRvf5So
+ 5u1+Ocez67e0kUDjreKp9d14eSER/X6gx0uI9Ytq9YsSIOHdMrPRi6X5NvZ7gdyL27Q0
+ sTwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=HgvzBnx/H8EJS6d9iFwurIUtcfEU4ki7XRZAyqJbBlk=;
- b=T5zMfSfw3Ut1/S21aHBm/KOI7H0cPkpmlVcebEFKSvyH/+vErkLYzFY1gGAwhVCMQb
- VOdLd2apZroHzjPXEG2n1tRIcRLT6vxehWagRdn45kOyXW4c7solqqM7OajxrGJGTl/w
- qyTzZjbY6qNHBHGTTyT0fnW5vCxvvUz332p4LxGY+4kMKqPauHX9QJnO+B3yFlfkejen
- epWCFz92Mq0zl5ztTNEhrcSKswHuaU087J6+m+OuNOtn3grEaoTJKQbyQVB4HUHkaL+7
- p2fjsN/FSOVWuvTL1j4Hip699Tz9y3e4bDrYzAMGtV5NlNFNj23GogYMLa4PW9mLwQd+
- 0zCA==
-X-Gm-Message-State: AOAM531uzRccFZWnC04E03vcaXuGJDM9fTUjq7gkooI17yLeSxgTCiRb
- It/gy/RPvImcdeo9Fc9Ai9WqpQ==
-X-Google-Smtp-Source: ABdhPJwHCnxKoZxz9dP8NuKUdt7P0j0eD2SjuQm/GXER1hVhgoW9kegkGvGGaALvz0MBYcvVqZs5eQ==
-X-Received: by 2002:adf:db07:: with SMTP id s7mr3602271wri.106.1630668115837; 
- Fri, 03 Sep 2021 04:21:55 -0700 (PDT)
+ bh=Mj5WKVcVLXFEu37rHCiplZXnki8QDcauYvEePFOTcG8=;
+ b=FJHtR1u0U9JNUigsNbeKZa7f+466f0wppkkUjfFIBP7XQT+hsMuGaqbIKwfUtCG/tI
+ RXdrRyL0kF+PCF9Tj/B/xK2C11ORaYfYvOByZOI56VhuGRF0F69kqXPS/7CtjenH8zPf
+ Yfdqs6dT3cFRtvIKfT62YmIdRaueGNgFxZRNMSiCEnG7myfMYxkAO+L+qZZHxgeitxt7
+ 5Z2xrBDHWgpGYm3qs5f7vXSXsCNRKROzcZyHYO1gsUXmDkeJk1YJNXFfnIRuuIQnqnPd
+ kRJVv93V318MJP+H6pwFsACxHBvJQAKcVpnIt2fK0iDkcx+omfs1IgUiiJOyyLCJnqEl
+ Vrjw==
+X-Gm-Message-State: AOAM5314ZuMiPWXDrstkM1+gQ4IXZfIl+f8c5o8lCoImdFbiIHeb8VbF
+ q43EJpem1g+LlbaERBYGvj+GSQ==
+X-Google-Smtp-Source: ABdhPJzF5E4ZzymW//cI/LdB8LUY2Zi6kHl6iOkGEMzp50OHR45gPK+ia6rkmwYESjiz3+h9xK72Fw==
+X-Received: by 2002:a5d:6cb0:: with SMTP id a16mr3479006wra.245.1630668117220; 
+ Fri, 03 Sep 2021 04:21:57 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id f20sm3881877wmb.32.2021.09.03.04.21.54
+ by smtp.gmail.com with ESMTPSA id f20sm3881877wmb.32.2021.09.03.04.21.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Sep 2021 04:21:55 -0700 (PDT)
+ Fri, 03 Sep 2021 04:21:56 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: bjorn.andersson@linaro.org,
 	broonie@kernel.org,
 	robh@kernel.org
-Subject: [PATCH v5 18/21] ASoC: qdsp6: audioreach: add q6apm-dai support
-Date: Fri,  3 Sep 2021 12:20:29 +0100
-Message-Id: <20210903112032.25834-19-srinivas.kandagatla@linaro.org>
+Subject: [PATCH v5 19/21] ASoC: qdsp6: audioreach: add q6apm lpass dai support
+Date: Fri,  3 Sep 2021 12:20:30 +0100
+Message-Id: <20210903112032.25834-20-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20210903112032.25834-1-srinivas.kandagatla@linaro.org>
 References: <20210903112032.25834-1-srinivas.kandagatla@linaro.org>
@@ -104,550 +104,315 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Add support to Audio port dais on LPASS Audio IP using
+existing common q6dsp-lpass-ports.
+
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- sound/soc/qcom/Kconfig           |   5 +
- sound/soc/qcom/qdsp6/Makefile    |   1 +
- sound/soc/qcom/qdsp6/q6apm-dai.c | 504 +++++++++++++++++++++++++++++++
- 3 files changed, 510 insertions(+)
- create mode 100644 sound/soc/qcom/qdsp6/q6apm-dai.c
+ sound/soc/qcom/Kconfig                  |   4 +
+ sound/soc/qcom/qdsp6/Makefile           |   1 +
+ sound/soc/qcom/qdsp6/q6apm-lpass-dais.c | 266 ++++++++++++++++++++++++
+ 3 files changed, 271 insertions(+)
+ create mode 100644 sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
 
 diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-index 66d8436ab0a8..fb1921889dc4 100644
+index fb1921889dc4..51b5a173e8ed 100644
 --- a/sound/soc/qcom/Kconfig
 +++ b/sound/soc/qcom/Kconfig
-@@ -84,7 +84,12 @@ config SND_SOC_QDSP6_ASM_DAI
+@@ -88,8 +88,12 @@ config SND_SOC_QDSP6_APM_DAI
  	select SND_SOC_COMPRESS
  	tristate
  
-+config SND_SOC_QDSP6_APM_DAI
-+	select SND_SOC_COMPRESS
++config SND_SOC_QDSP6_APM_LPASS_DAI
 +	tristate
 +
  config SND_SOC_QDSP6_APM
-+	select SND_SOC_QDSP6_APM_DAI
+ 	select SND_SOC_QDSP6_APM_DAI
++	select SND_SOC_QDSP6_APM_LPASS_DAI
  	tristate
  
  config SND_SOC_QDSP6
 diff --git a/sound/soc/qcom/qdsp6/Makefile b/sound/soc/qcom/qdsp6/Makefile
-index 766b824f6597..a4ec7c4d0e48 100644
+index a4ec7c4d0e48..bdcbfdfa9bd0 100644
 --- a/sound/soc/qcom/qdsp6/Makefile
 +++ b/sound/soc/qcom/qdsp6/Makefile
-@@ -13,3 +13,4 @@ obj-$(CONFIG_SND_SOC_QDSP6_ASM) += q6asm.o
- obj-$(CONFIG_SND_SOC_QDSP6_ASM_DAI) += q6asm-dai.o
+@@ -14,3 +14,4 @@ obj-$(CONFIG_SND_SOC_QDSP6_ASM_DAI) += q6asm-dai.o
  
  obj-$(CONFIG_SND_SOC_QDSP6_APM) += snd-q6apm.o
-+obj-$(CONFIG_SND_SOC_QDSP6_APM_DAI) += q6apm-dai.o
-diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
+ obj-$(CONFIG_SND_SOC_QDSP6_APM_DAI) += q6apm-dai.o
++obj-$(CONFIG_SND_SOC_QDSP6_APM_LPASS_DAI) += q6apm-lpass-dais.o
+diff --git a/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c b/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
 new file mode 100644
-index 000000000000..be6dc6232290
+index 000000000000..25f31d425746
 --- /dev/null
-+++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
-@@ -0,0 +1,504 @@
++++ b/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
+@@ -0,0 +1,266 @@
 +// SPDX-License-Identifier: GPL-2.0
 +// Copyright (c) 2021, Linaro Limited
 +
-+#include <linux/init.h>
 +#include <linux/err.h>
++#include <linux/init.h>
 +#include <linux/module.h>
++#include <linux/device.h>
 +#include <linux/platform_device.h>
 +#include <linux/slab.h>
-+#include <sound/soc.h>
-+#include <sound/soc-dapm.h>
 +#include <sound/pcm.h>
-+#include <linux/spinlock.h>
-+#include <asm/dma.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/of_device.h>
++#include <sound/soc.h>
 +#include <sound/pcm_params.h>
++#include "q6dsp-lpass-ports.h"
++#include "audioreach.h"
 +#include "q6apm.h"
 +
-+#define DRV_NAME "q6apm-dai"
++#define AUDIOREACH_BE_PCM_BASE	16
 +
-+#define PLAYBACK_MIN_NUM_PERIODS    2
-+#define PLAYBACK_MAX_NUM_PERIODS   8
-+#define PLAYBACK_MAX_PERIOD_SIZE    65536
-+#define PLAYBACK_MIN_PERIOD_SIZE    128
-+#define CAPTURE_MIN_NUM_PERIODS     2
-+#define CAPTURE_MAX_NUM_PERIODS     8
-+#define CAPTURE_MAX_PERIOD_SIZE     4096
-+#define CAPTURE_MIN_PERIOD_SIZE     320
-+#define BUFFER_BYTES_MAX (PLAYBACK_MAX_NUM_PERIODS * PLAYBACK_MAX_PERIOD_SIZE)
-+#define BUFFER_BYTES_MIN (PLAYBACK_MIN_NUM_PERIODS * PLAYBACK_MIN_PERIOD_SIZE)
-+
-+#define SID_MASK_DEFAULT	0xF
-+
-+enum stream_state {
-+	Q6APM_STREAM_IDLE = 0,
-+	Q6APM_STREAM_STOPPED,
-+	Q6APM_STREAM_RUNNING,
++struct q6apm_lpass_dai_data {
++	struct q6apm_graph *graph[APM_PORT_MAX];
++	bool is_port_started[APM_PORT_MAX];
++	struct audioreach_module_config module_config[APM_PORT_MAX];
 +};
 +
-+struct q6apm_dai_rtd {
-+	struct snd_pcm_substream *substream;
-+	struct snd_compr_stream *cstream;
-+	struct snd_compr_params codec_param;
-+	struct snd_dma_buffer dma_buffer;
-+	spinlock_t lock;
-+	phys_addr_t phys;
-+	unsigned int pcm_size;
-+	unsigned int pcm_count;
-+	unsigned int pcm_irq_pos;       /* IRQ position */
-+	unsigned int periods;
-+	unsigned int bytes_sent;
-+	unsigned int bytes_received;
-+	unsigned int copied_total;
-+	uint16_t bits_per_sample;
-+	uint16_t source; /* Encoding source bit mask */
-+	uint16_t session_id;
-+	enum stream_state state;
-+	struct q6apm_graph *graph;
-+};
-+
-+struct q6apm_dai_data {
-+	long long sid;
-+};
-+
-+static struct snd_pcm_hardware q6apm_dai_hardware_capture = {
-+	.info =                 (SNDRV_PCM_INFO_MMAP |
-+				SNDRV_PCM_INFO_BLOCK_TRANSFER |
-+				SNDRV_PCM_INFO_MMAP_VALID |
-+				SNDRV_PCM_INFO_INTERLEAVED |
-+				SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME),
-+	.formats =              (SNDRV_PCM_FMTBIT_S16_LE |
-+				SNDRV_PCM_FMTBIT_S24_LE),
-+	.rates =                SNDRV_PCM_RATE_8000_48000,
-+	.rate_min =             8000,
-+	.rate_max =             48000,
-+	.channels_min =         2,
-+	.channels_max =         4,
-+	.buffer_bytes_max =     CAPTURE_MAX_NUM_PERIODS *
-+				CAPTURE_MAX_PERIOD_SIZE,
-+	.period_bytes_min =	CAPTURE_MIN_PERIOD_SIZE,
-+	.period_bytes_max =     CAPTURE_MAX_PERIOD_SIZE,
-+	.periods_min =          CAPTURE_MIN_NUM_PERIODS,
-+	.periods_max =          CAPTURE_MAX_NUM_PERIODS,
-+	.fifo_size =            0,
-+};
-+
-+static struct snd_pcm_hardware q6apm_dai_hardware_playback = {
-+	.info =                 (SNDRV_PCM_INFO_MMAP |
-+				SNDRV_PCM_INFO_BLOCK_TRANSFER |
-+				SNDRV_PCM_INFO_MMAP_VALID |
-+				SNDRV_PCM_INFO_INTERLEAVED |
-+				SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME),
-+	.formats =              (SNDRV_PCM_FMTBIT_S16_LE |
-+				SNDRV_PCM_FMTBIT_S24_LE),
-+	.rates =                SNDRV_PCM_RATE_8000_192000,
-+	.rate_min =             8000,
-+	.rate_max =             192000,
-+	.channels_min =         2,
-+	.channels_max =         8,
-+	.buffer_bytes_max =     (PLAYBACK_MAX_NUM_PERIODS *
-+				PLAYBACK_MAX_PERIOD_SIZE),
-+	.period_bytes_min =	PLAYBACK_MIN_PERIOD_SIZE,
-+	.period_bytes_max =     PLAYBACK_MAX_PERIOD_SIZE,
-+	.periods_min =          PLAYBACK_MIN_NUM_PERIODS,
-+	.periods_max =          PLAYBACK_MAX_NUM_PERIODS,
-+	.fifo_size =            0,
-+};
-+
-+static void event_handler(uint32_t opcode, uint32_t token,
-+			  uint32_t *payload, void *priv)
++static int q6dma_set_channel_map(struct snd_soc_dai *dai,
++				 unsigned int tx_num, unsigned int *tx_ch_mask,
++				 unsigned int rx_num, unsigned int *rx_ch_mask)
 +{
-+	struct q6apm_dai_rtd *prtd = priv;
-+	struct snd_pcm_substream *substream = prtd->substream;
 +
-+	switch (opcode) {
-+	case APM_CLIENT_EVENT_CMD_EOS_DONE:
-+		prtd->state = Q6APM_STREAM_STOPPED;
-+		break;
-+	case APM_CLIENT_EVENT_DATA_WRITE_DONE: {
-+		prtd->pcm_irq_pos += prtd->pcm_count;
-+		snd_pcm_period_elapsed(substream);
-+		if (prtd->state == Q6APM_STREAM_RUNNING) {
-+			q6apm_write_async(prtd->graph,
-+					   prtd->pcm_count, 0, 0, NO_TIMESTAMP);
++	struct q6apm_lpass_dai_data *dai_data = dev_get_drvdata(dai->dev);
++	struct audioreach_module_config *cfg = &dai_data->module_config[dai->id];
++	int ch_mask;
++	int rc = 0;
++
++	switch (dai->id) {
++	case WSA_CODEC_DMA_TX_0:
++	case WSA_CODEC_DMA_TX_1:
++	case WSA_CODEC_DMA_TX_2:
++	case VA_CODEC_DMA_TX_0:
++	case VA_CODEC_DMA_TX_1:
++	case VA_CODEC_DMA_TX_2:
++	case TX_CODEC_DMA_TX_0:
++	case TX_CODEC_DMA_TX_1:
++	case TX_CODEC_DMA_TX_2:
++	case TX_CODEC_DMA_TX_3:
++	case TX_CODEC_DMA_TX_4:
++	case TX_CODEC_DMA_TX_5:
++		if (!tx_ch_mask) {
++			dev_err(dai->dev, "tx slot not found\n");
++			return -EINVAL;
 +		}
 +
-+		break;
++		if (tx_num > PCM_MAX_NUM_CHANNEL) {
++			dev_err(dai->dev, "invalid tx num %d\n",
++				tx_num);
++			return -EINVAL;
 +		}
-+	case APM_CLIENT_EVENT_DATA_READ_DONE:
-+		prtd->pcm_irq_pos += prtd->pcm_count;
-+		snd_pcm_period_elapsed(substream);
-+		if (prtd->state == Q6APM_STREAM_RUNNING)
-+			q6apm_read(prtd->graph);
++		ch_mask = *tx_ch_mask;
++
++		break;
++	case WSA_CODEC_DMA_RX_0:
++	case WSA_CODEC_DMA_RX_1:
++	case RX_CODEC_DMA_RX_0:
++	case RX_CODEC_DMA_RX_1:
++	case RX_CODEC_DMA_RX_2:
++	case RX_CODEC_DMA_RX_3:
++	case RX_CODEC_DMA_RX_4:
++	case RX_CODEC_DMA_RX_5:
++	case RX_CODEC_DMA_RX_6:
++	case RX_CODEC_DMA_RX_7:
++		/* rx */
++		if (!rx_ch_mask) {
++			dev_err(dai->dev, "rx slot not found\n");
++			return -EINVAL;
++		}
++		if (rx_num > APM_PORT_MAX_AUDIO_CHAN_CNT) {
++			dev_err(dai->dev, "invalid rx num %d\n",
++				rx_num);
++			return -EINVAL;
++		}
++		ch_mask = *rx_ch_mask;
 +
 +		break;
 +	default:
-+		break;
-+	}
-+}
-+
-+static int q6apm_dai_prepare(struct snd_soc_component *component,
-+			     struct snd_pcm_substream *substream)
-+{
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	struct q6apm_dai_rtd *prtd = runtime->private_data;
-+	struct audioreach_module_config cfg;
-+	struct q6apm_dai_data *pdata;
-+	int ret;
-+
-+	pdata = snd_soc_component_get_drvdata(component);
-+	if (!pdata)
-+		return -EINVAL;
-+
-+	if (!prtd || !prtd->graph) {
-+		dev_err(component->dev, "%s: private data null or audio client freed\n",
-+			__func__);
++		dev_err(dai->dev, "%s: invalid dai id 0x%x\n",
++			__func__, dai->id);
 +		return -EINVAL;
 +	}
 +
-+	cfg.direction = substream->stream;
-+	cfg.sample_rate = runtime->rate;
-+	cfg.num_channels = runtime->channels;
-+	cfg.bit_width = prtd->bits_per_sample;
++	cfg->active_channels_mask = ch_mask;
 +
-+	prtd->pcm_count = snd_pcm_lib_period_bytes(substream);
-+	prtd->pcm_irq_pos = 0;
-+	/* rate and channels are sent to audio driver */
-+	ret = q6apm_graph_media_format_shmem(prtd->graph, &cfg);
-+	if (ret < 0) {
-+		dev_err(component->dev, "%s: q6apm_open_write failed\n", __func__);
-+		return ret;
-+	}
++	return rc;
++}
 +
-+	ret = q6apm_graph_media_format_pcm(prtd->graph, &cfg);
-+	if (ret < 0)
-+		pr_info("%s: CMD Format block failed\n", __func__);
++static int q6dma_hw_params(struct snd_pcm_substream *substream,
++			   struct snd_pcm_hw_params *params,
++			   struct snd_soc_dai *dai)
++{
++	struct q6apm_lpass_dai_data *dai_data = dev_get_drvdata(dai->dev);
++	struct audioreach_module_config *cfg = &dai_data->module_config[dai->id];
 +
-+	ret = q6apm_map_memory_regions(prtd->graph,
-+				       substream->stream,
-+				       prtd->phys,
-+				       (prtd->pcm_size / prtd->periods),
-+				       prtd->periods);
-+
-+	if (ret < 0) {
-+		dev_err(component->dev, "Audio Start: Buffer Allocation failed rc = %d\n",
-+							ret);
-+		return -ENOMEM;
-+	}
-+
-+	ret = q6apm_graph_prepare(prtd->graph);
-+	if (ret) {
-+		dev_err(component->dev, "Failed to prepare Graph %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = q6apm_graph_start(prtd->graph);
-+	if (ret) {
-+		dev_err(component->dev, "Failed to Start Graph %d\n", ret);
-+		return ret;
-+	}
-+
-+	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE) {
-+		int i;
-+		/* Queue the buffers */
-+		for (i = 0; i < runtime->periods; i++)
-+			q6apm_read(prtd->graph);
-+
-+	}
-+	prtd->state = Q6APM_STREAM_RUNNING;
++	cfg->bit_width = params_width(params);
++	cfg->sample_rate = params_rate(params);
++	cfg->num_channels = params_channels(params);
 +
 +	return 0;
 +}
 +
-+static int q6apm_dai_trigger(struct snd_soc_component *component,
-+			     struct snd_pcm_substream *substream, int cmd)
++static void q6apm_lpass_dai_shutdown(struct snd_pcm_substream *substream,
++				struct snd_soc_dai *dai)
 +{
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	struct q6apm_dai_rtd *prtd = runtime->private_data;
-+	int ret = 0;
-+
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_START:
-+	case SNDRV_PCM_TRIGGER_RESUME:
-+	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+			ret = q6apm_write_async(prtd->graph, prtd->pcm_count, 0, 0, NO_TIMESTAMP);
-+		break;
-+	case SNDRV_PCM_TRIGGER_STOP:
-+		prtd->state = Q6APM_STREAM_STOPPED;
-+		break;
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
-+	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static int q6apm_dai_open(struct snd_soc_component *component,
-+			  struct snd_pcm_substream *substream)
-+{
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	struct snd_soc_pcm_runtime *soc_prtd = substream->private_data;
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(soc_prtd, 0);
-+	struct q6apm_dai_rtd *prtd;
-+	struct q6apm_dai_data *pdata;
-+	struct device *dev = component->dev;
-+	int ret;
-+	int graph_id;
-+
-+	graph_id = cpu_dai->driver->id;
-+
-+	pdata = snd_soc_component_get_drvdata(component);
-+	if (!pdata) {
-+		dev_err(component->dev, "Drv data not found ..\n");
-+		return -EINVAL;
-+	}
-+
-+	prtd = kzalloc(sizeof(*prtd), GFP_KERNEL);
-+	if (prtd == NULL)
-+		return -ENOMEM;
-+
-+	prtd->substream = substream;
-+
-+	prtd->graph = q6apm_graph_open(dev, (q6apm_cb)event_handler,
-+				       prtd, graph_id);
-+	if (IS_ERR(prtd->graph)) {
-+		pr_info("%s: Could not allocate memory\n", __func__);
-+		ret = PTR_ERR(prtd->graph);
-+		kfree(prtd);
-+		return ret;
-+	}
-+
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		runtime->hw = q6apm_dai_hardware_playback;
-+	else if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
-+		runtime->hw = q6apm_dai_hardware_capture;
-+
-+	/* Ensure that buffer size is a multiple of period size */
-+	ret = snd_pcm_hw_constraint_integer(runtime,
-+					    SNDRV_PCM_HW_PARAM_PERIODS);
-+	if (ret < 0) {
-+		dev_err(dev, "snd_pcm_hw_constraint_integer failed\n");
-+		return ret;
-+	}
-+
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+		ret = snd_pcm_hw_constraint_minmax(runtime,
-+			SNDRV_PCM_HW_PARAM_BUFFER_BYTES,
-+			BUFFER_BYTES_MIN, BUFFER_BYTES_MAX);
-+		if (ret < 0) {
-+			dev_err(dev, "constraint for buffer bytes min max ret = %d\n",
-+									ret);
-+			return ret;
-+		}
-+	}
-+
-+	ret = snd_pcm_hw_constraint_step(runtime, 0,
-+					 SNDRV_PCM_HW_PARAM_PERIOD_BYTES, 32);
-+	if (ret < 0) {
-+		dev_err(dev, "constraint for period bytes step ret = %d\n",
-+								ret);
-+		return ret;
-+	}
-+	ret = snd_pcm_hw_constraint_step(runtime, 0,
-+					 SNDRV_PCM_HW_PARAM_BUFFER_BYTES, 32);
-+	if (ret < 0) {
-+		dev_err(dev, "constraint for buffer bytes step ret = %d\n",
-+								ret);
-+		return ret;
-+	}
-+
-+	runtime->private_data = prtd;
-+	runtime->dma_bytes = BUFFER_BYTES_MAX;
-+	if (pdata->sid < 0)
-+		prtd->phys = substream->dma_buffer.addr;
-+	else
-+		prtd->phys = substream->dma_buffer.addr | (pdata->sid << 32);
-+
-+	snd_pcm_set_runtime_buffer(substream, &substream->dma_buffer);
-+
-+	return 0;
-+}
-+
-+static int q6apm_dai_close(struct snd_soc_component *component,
-+			   struct snd_pcm_substream *substream)
-+{
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	struct q6apm_dai_rtd *prtd = runtime->private_data;
-+
-+	if (prtd && prtd->graph) {
-+		q6apm_graph_stop(prtd->graph);
-+
-+		q6apm_unmap_memory_regions(prtd->graph,
-+					   substream->stream);
-+		q6apm_graph_close(prtd->graph);
-+		prtd->graph = NULL;
-+		kfree(prtd);
-+		runtime->private_data = NULL;
-+	}
-+
-+	return 0;
-+}
-+
-+static snd_pcm_uframes_t q6apm_dai_pointer(struct snd_soc_component *component,
-+					   struct snd_pcm_substream *substream)
-+{
-+
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	struct q6apm_dai_rtd *prtd = runtime->private_data;
-+
-+	if (prtd->pcm_irq_pos >= prtd->pcm_size)
-+		prtd->pcm_irq_pos = 0;
-+
-+	return bytes_to_frames(runtime, (prtd->pcm_irq_pos));
-+}
-+
-+static int q6apm_dai_mmap(struct snd_soc_component *component,
-+			  struct snd_pcm_substream *substream,
-+			  struct vm_area_struct *vma)
-+{
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	struct device *dev = component->dev;
-+
-+	return dma_mmap_coherent(dev, vma,
-+			runtime->dma_area, runtime->dma_addr,
-+			runtime->dma_bytes);
-+}
-+
-+static int q6apm_dai_hw_params(struct snd_soc_component *component,
-+			       struct snd_pcm_substream *substream,
-+			       struct snd_pcm_hw_params *params)
-+{
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	struct q6apm_dai_rtd *prtd = runtime->private_data;
-+
-+	prtd->pcm_size = params_buffer_bytes(params);
-+	prtd->periods = params_periods(params);
-+
-+	switch (params_format(params)) {
-+	case SNDRV_PCM_FORMAT_S16_LE:
-+		prtd->bits_per_sample = 16;
-+		break;
-+	case SNDRV_PCM_FORMAT_S24_LE:
-+		prtd->bits_per_sample = 24;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int q6apm_dai_pcm_new(struct snd_soc_component *component,
-+			     struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_pcm_substream *psubstream, *csubstream;
-+	struct snd_pcm *pcm = rtd->pcm;
-+	struct device *dev;
-+	int size, ret;
-+
-+	dev = component->dev;
-+	size = BUFFER_BYTES_MAX;
-+	psubstream = pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream;
-+	if (psubstream) {
-+		ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, dev, size,
-+					  &psubstream->dma_buffer);
-+		if (ret) {
-+			dev_err(dev, "Cannot allocate buffer(s)\n");
-+			return ret;
-+		}
-+	}
-+
-+	csubstream = pcm->streams[SNDRV_PCM_STREAM_CAPTURE].substream;
-+	if (csubstream) {
-+		ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, dev, size,
-+					  &csubstream->dma_buffer);
-+		if (ret) {
-+			dev_err(dev, "Cannot allocate buffer(s)\n");
-+			if (psubstream)
-+				snd_dma_free_pages(&psubstream->dma_buffer);
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static void q6apm_dai_pcm_free(struct snd_soc_component *component,
-+			       struct snd_pcm *pcm)
-+{
-+	struct snd_pcm_substream *substream;
-+	int i;
-+
-+	if (!pcm->streams)
-+		return;
-+
-+	for (i = 0; i < ARRAY_SIZE(pcm->streams); i++) {
-+		substream = pcm->streams[i].substream;
-+		if (substream) {
-+			snd_dma_free_pages(&substream->dma_buffer);
-+			substream->dma_buffer.area = NULL;
-+			substream->dma_buffer.addr = 0;
-+		}
-+	}
-+}
-+
-+static const struct snd_soc_component_driver q6apm_fe_dai_component = {
-+	.name		= DRV_NAME,
-+	.open		= q6apm_dai_open,
-+	.close		= q6apm_dai_close,
-+	.prepare	= q6apm_dai_prepare,
-+	.pcm_construct	= q6apm_dai_pcm_new,
-+	.pcm_destruct	= q6apm_dai_pcm_free,
-+	.mmap		= q6apm_dai_mmap,
-+	.hw_params	= q6apm_dai_hw_params,
-+	.pointer	= q6apm_dai_pointer,
-+	.trigger	= q6apm_dai_trigger,
-+};
-+
-+static int q6apm_dai_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct device_node *node = dev->of_node;
-+	struct of_phandle_args args;
-+	struct q6apm_dai_data *pdata;
++	struct q6apm_lpass_dai_data *dai_data = dev_get_drvdata(dai->dev);
 +	int rc;
 +
-+	pdata = devm_kzalloc(dev, sizeof(*pdata), GFP_KERNEL);
-+	if (!pdata)
-+		return -ENOMEM;
-+
-+	rc = of_parse_phandle_with_fixed_args(node, "iommus", 1, 0, &args);
++	if (!dai_data->is_port_started[dai->id])
++		return;
++	rc = q6apm_graph_stop(dai_data->graph[dai->id]);
 +	if (rc < 0)
-+		pdata->sid = -1;
-+	else
-+		pdata->sid = args.args[0] & SID_MASK_DEFAULT;
++		dev_err(dai->dev, "fail to close APM port (%d)\n", rc);
 +
-+	dev_set_drvdata(dev, pdata);
++	q6apm_graph_close(dai_data->graph[dai->id]);
++	dai_data->is_port_started[dai->id] = false;
 +
-+	return devm_snd_soc_register_component(dev, &q6apm_fe_dai_component,
-+					       NULL, 0);
 +}
 +
-+static const struct of_device_id q6apm_dai_device_id[] = {
-+	{ .compatible = "qcom,q6apm-dais" },
++static int q6apm_lpass_dai_prepare(struct snd_pcm_substream *substream,
++			       struct snd_soc_dai *dai)
++{
++	struct q6apm_lpass_dai_data *dai_data = dev_get_drvdata(dai->dev);
++	struct audioreach_module_config *cfg = &dai_data->module_config[dai->id];
++	int graph_id = dai->id;
++	int rc;
++	struct q6apm_graph *graph;
++
++	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
++		graph = q6apm_graph_open(dai->dev, NULL, dai->dev, graph_id);
++		if (IS_ERR(graph)) {
++			dev_err(dai->dev, "Failed to open graph (%d)\n",
++				graph_id);
++			rc = PTR_ERR(graph);
++			return rc;
++		}
++		dai_data->graph[graph_id] = graph;
++	}
++
++	cfg->direction = substream->stream;
++	rc = q6apm_graph_media_format_pcm(dai_data->graph[dai->id], cfg);
++
++	if (rc) {
++		dev_err(dai->dev, "Failed to set media format %d\n", rc);
++		return rc;
++	}
++
++	rc = q6apm_graph_prepare(dai_data->graph[dai->id]);
++	if (rc) {
++		dev_err(dai->dev, "Failed to prepare Graph %d\n", rc);
++		return rc;
++	}
++
++	rc = q6apm_graph_start(dai_data->graph[dai->id]);
++	if (rc < 0) {
++		dev_err(dai->dev, "fail to start APM port %x\n", dai->id);
++		return rc;
++	}
++	dai_data->is_port_started[dai->id] = true;
++
++	return 0;
++}
++
++static int q6apm_lpass_dai_startup(struct snd_pcm_substream *substream,
++				struct snd_soc_dai *dai)
++{
++	struct q6apm_lpass_dai_data *dai_data = dev_get_drvdata(dai->dev);
++	int graph_id = dai->id;
++	struct q6apm_graph *graph;
++
++	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE) {
++		graph = q6apm_graph_open(dai->dev, NULL, dai->dev, graph_id);
++		if (IS_ERR(graph)) {
++			dev_err(dai->dev, "Failed to open graph (%d)\n",
++				graph_id);
++			return PTR_ERR(graph);
++		}
++		dai_data->graph[graph_id] = graph;
++	}
++
++	return 0;
++}
++
++static int q6i2s_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
++{
++	struct q6apm_lpass_dai_data *dai_data = dev_get_drvdata(dai->dev);
++	struct audioreach_module_config *cfg = &dai_data->module_config[dai->id];
++
++	cfg->fmt = fmt;
++
++	return 0;
++}
++
++static const struct snd_soc_dai_ops q6dma_ops = {
++	.prepare	= q6apm_lpass_dai_prepare,
++	.startup	= q6apm_lpass_dai_startup,
++	.shutdown	= q6apm_lpass_dai_shutdown,
++	.set_channel_map  = q6dma_set_channel_map,
++	.hw_params        = q6dma_hw_params,
++};
++
++static const struct snd_soc_dai_ops q6i2s_ops = {
++	.prepare	= q6apm_lpass_dai_prepare,
++	.startup	= q6apm_lpass_dai_startup,
++	.shutdown	= q6apm_lpass_dai_shutdown,
++	.set_channel_map  = q6dma_set_channel_map,
++	.hw_params        = q6dma_hw_params,
++	.set_fmt	= q6i2s_set_fmt,
++};
++
++static const struct snd_soc_component_driver q6apm_lpass_dai_component = {
++	.name		= "q6apm-be-dai-component",
++	.of_xlate_dai_name = q6dsp_audio_ports_of_xlate_dai_name,
++	.be_pcm_base = AUDIOREACH_BE_PCM_BASE,
++	.use_dai_pcm_id = true,
++};
++
++static int q6apm_lpass_dai_dev_probe(struct platform_device *pdev)
++{
++	struct q6dsp_audio_port_dai_driver_config cfg;
++	struct snd_soc_dai_driver *dais;
++	struct q6apm_lpass_dai_data *dai_data;
++	struct device *dev = &pdev->dev;
++	int num_dais;
++
++
++	dai_data = devm_kzalloc(dev, sizeof(*dai_data), GFP_KERNEL);
++	if (!dai_data)
++		return -ENOMEM;
++
++	dev_set_drvdata(dev, dai_data);
++
++	memset(&cfg, 0, sizeof(cfg));
++	cfg.q6i2s_ops = &q6i2s_ops;
++	cfg.q6dma_ops = &q6dma_ops;
++	dais = q6dsp_audio_ports_set_config(dev, &cfg, &num_dais);
++
++	return devm_snd_soc_register_component(dev, &q6apm_lpass_dai_component,
++					       dais, num_dais);
++}
++
++#ifdef CONFIG_OF
++static const struct of_device_id q6apm_lpass_dai_device_id[] = {
++	{ .compatible = "qcom,q6apm-lpass-dais" },
 +	{},
 +};
-+MODULE_DEVICE_TABLE(of, q6apm_dai_device_id);
++MODULE_DEVICE_TABLE(of, q6apm_lpass_dai_device_id);
++#endif
 +
-+static struct platform_driver q6apm_dai_platform_driver = {
++static struct platform_driver q6apm_lpass_dai_platform_driver = {
 +	.driver = {
-+		.name = "q6apm-dai",
-+		.of_match_table = of_match_ptr(q6apm_dai_device_id),
++		.name = "q6apm-lpass-dais",
++		.of_match_table = of_match_ptr(q6apm_lpass_dai_device_id),
 +	},
-+	.probe = q6apm_dai_probe,
++	.probe = q6apm_lpass_dai_dev_probe,
 +};
-+module_platform_driver(q6apm_dai_platform_driver);
++module_platform_driver(q6apm_lpass_dai_platform_driver);
 +
-+MODULE_DESCRIPTION("Q6APM dai driver");
-+MODULE_LICENSE("GPL v2");
++MODULE_DESCRIPTION("AUDIOREACH APM LPASS dai driver");
++MODULE_LICENSE("GPL");
 -- 
 2.21.0
 

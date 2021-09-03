@@ -2,61 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F33E83FFF53
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 13:42:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 296F63FFF70
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 13:50:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 927D91899;
-	Fri,  3 Sep 2021 13:41:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 927D91899
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9FF01868;
+	Fri,  3 Sep 2021 13:50:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9FF01868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630669323;
-	bh=Sj/ShXQU13vgndWgYYdTVP+6KLI6zA7YBtEAD5GUEiE=;
+	s=default; t=1630669855;
+	bh=3at1ibZbtPC8r/w+jSt45l3Y4Z/Il14VGIEjpIjEWvs=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=E+biP1cPq5C7hbBvLq1XFjBB/VViROhEg+unyaxO+MVKYN7KAxfmMGp+CgwUxFNCW
-	 HZShqsLDbQX/8lgQWBETZAarijWMM14yoBoWwX19ODMAGZ9Re687CxPhYqd/SRfZcm
-	 ok3yFj4IBu6vaHk9WO1pcEM5VnhJyot+XQKvZ5/o=
+	b=EQdGSnPXevC0DDtU2rdrf7tyv9qTgLlFWOxuhRmBOTGkxfzW+qyvGRiSsRJCxnBaq
+	 bRKRf/6SUNiapTvUHeV3O6mmnjs/e4SfN2RNdAOneX2sWZc+67mpNsnNb9bNg+uUvV
+	 9PSkhEMXE1NYJSJILqFu/ZG+hV/IBnXhz4mUbwtU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E308EF80088;
-	Fri,  3 Sep 2021 13:40:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23D30F80256;
+	Fri,  3 Sep 2021 13:49:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C7DFF80254; Fri,  3 Sep 2021 13:40:45 +0200 (CEST)
+ id 88739F80254; Fri,  3 Sep 2021 13:49:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-relay-canonical-0.canonical.com
+ (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9DEF3F80088
- for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 13:40:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DEF3F80088
-X-IronPort-AV: E=McAfee;i="6200,9189,10095"; a="206518665"
-X-IronPort-AV: E=Sophos;i="5.85,265,1624345200"; d="scan'208";a="206518665"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2021 04:40:04 -0700
-X-IronPort-AV: E=Sophos;i="5.85,265,1624345200"; d="scan'208";a="534004241"
-Received: from pstarove-mobl4.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.251.212.94])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2021 04:40:02 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Subject: [PATCH v2] ASoC: SOF: Handle control change notification from firmware
-Date: Fri,  3 Sep 2021 14:40:18 +0300
-Message-Id: <20210903114018.2962-1-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.33.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 49EF0F8020D
+ for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 13:49:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49EF0F8020D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="j+2I4zP+"
+Received: from localhost (1.general.cking.uk.vpn [10.172.193.212])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 9DD213F09E; 
+ Fri,  3 Sep 2021 11:49:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1630669768;
+ bh=cY308Ok8pbsAlAgAmdVbKjTzNIY9q0Cqnz5SkkmxGdk=;
+ h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type;
+ b=j+2I4zP+/n4UObG3A2xBnhb7ei1OJ24PTYqJUHMCJv22TbfMRULUIjhZVU8hPuUg1
+ 158qWcex1GrdacaaHpcPkRIsjo7u/YC4QrKcE2O4FJ5WFEyhIVVf9yITKhJIaCDxty
+ xdE2MHyxeodC1uBA9Xo6hEOMZCRo4L7Nh88oYmXi512jWw1ukgjy2sFdOYkciqeNUH
+ vP/A/qANY5AT2WitK1R/pinLDOAzw0xtFso7hn6CfBc7al1F3mJPdAujnKKBO1pEST
+ 6dWsOTWN9/VzR1+ynXuSxRxqSpFp7cU5SVkrVh5tdVTsO1NrBso5NX2/Xk7DxlLaAl
+ QfHdOAxyfKAZQ==
+From: Colin King <colin.king@canonical.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, alsa-devel@alsa-project.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Subject: [PATCH] ASoC: mediatek: mt8195: Fix unused initialization of pointer
+ etdm_data
+Date: Fri,  3 Sep 2021 12:49:28 +0100
+Message-Id: <20210903114928.11743-1-colin.king@canonical.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: guennadi.liakhovetski@linux.intel.com, alsa-devel@alsa-project.org,
- seppo.ingalsuo@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- kai.vehmanen@linux.intel.com
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,357 +85,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If the value/data associated with a control changes in SOF it will send a
-notification (SOF_IPC_GLB_COMP_MSG with SOF_IPC_COMP_GET_VALUE/DATA).
+From: Colin Ian King <colin.king@canonical.com>
 
-We have support for binary volatile control type, but we might have
-features where enum/switch/volume changes. Re-implementing everything as
-volatile as well would be not much of a gain for several reasons:
-- volatile controls would do an IPC all the time, regardless if there is a
-  need or not.
-- We still don't have notification which forces userspace to continuously
-  poll.
+The pointer etdm_data is being inintialized with a value that is never
+read, it is later being re-assigned a new value. Remove the redundant
+initialization.
 
-When such notification arrives we use snd_ctl_notify_one() to signal
-userspace about the change.
-
-The kernel is prepared for two types of notification:
-- the notification carries the new data for the control (num_elems != 0)
-The new value/data is copied to the control's local data
-
-- blank message about a change
-The new flag for the scontrol (comp_data_dirty) is set and when next
-time user space reads the value via the kcontrol's get callback we will
-refresh the control's local data from the firmware.
-
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Tested-by: Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>
+Addresses-Coverity: ("Unused value")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
 ---
-Hi,
+ sound/soc/mediatek/mt8195/mt8195-dai-etdm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes since v1:
-- Fix error reported by kernel test robot <lkp@intel.com>:
-  snd_sof_ipc_msg_data() returns void in upstream (downstream it is int)
-
-I don't know how I missed with my sparse build, sorry about that.
-
-Regards,
-Peter
-
- sound/soc/sof/control.c   | 186 ++++++++++++++++++++++++++++++++++++++
- sound/soc/sof/ipc.c       |  28 ++++++
- sound/soc/sof/sof-audio.h |   5 +
- 3 files changed, 219 insertions(+)
-
-diff --git a/sound/soc/sof/control.c b/sound/soc/sof/control.c
-index 504500dd4d43..58bb89af4de1 100644
---- a/sound/soc/sof/control.c
-+++ b/sound/soc/sof/control.c
-@@ -65,6 +65,40 @@ static inline u32 ipc_to_mixer(u32 value, u32 *volume_map, int size)
- 	return i - 1;
- }
- 
-+static void snd_sof_refresh_control(struct snd_sof_control *scontrol)
-+{
-+	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
-+	struct snd_soc_component *scomp = scontrol->scomp;
-+	enum sof_ipc_ctrl_type ctrl_type;
-+	int ret;
-+
-+	if (!scontrol->comp_data_dirty)
-+		return;
-+
-+	if (!pm_runtime_active(scomp->dev))
-+		return;
-+
-+	if (scontrol->cmd == SOF_CTRL_CMD_BINARY)
-+		ctrl_type = SOF_IPC_COMP_GET_DATA;
-+	else
-+		ctrl_type = SOF_IPC_COMP_GET_VALUE;
-+
-+	/* set the ABI header values */
-+	cdata->data->magic = SOF_ABI_MAGIC;
-+	cdata->data->abi = SOF_ABI_VERSION;
-+
-+	/* refresh the component data from DSP */
-+	scontrol->comp_data_dirty = false;
-+	ret = snd_sof_ipc_set_get_comp_data(scontrol, ctrl_type,
-+					    SOF_CTRL_TYPE_VALUE_CHAN_GET,
-+					    scontrol->cmd, false);
-+	if (ret < 0) {
-+		dev_err(scomp->dev, "error: failed to get control data: %d\n", ret);
-+		/* Set the flag to re-try next time to get the data */
-+		scontrol->comp_data_dirty = true;
-+	}
-+}
-+
- int snd_sof_volume_get(struct snd_kcontrol *kcontrol,
- 		       struct snd_ctl_elem_value *ucontrol)
+diff --git a/sound/soc/mediatek/mt8195/mt8195-dai-etdm.c b/sound/soc/mediatek/mt8195/mt8195-dai-etdm.c
+index 7378e42f2766..ac591d453e1e 100644
+--- a/sound/soc/mediatek/mt8195/mt8195-dai-etdm.c
++++ b/sound/soc/mediatek/mt8195/mt8195-dai-etdm.c
+@@ -2094,7 +2094,7 @@ static int mtk_dai_etdm_set_sysclk(struct snd_soc_dai *dai,
  {
-@@ -74,6 +108,8 @@ int snd_sof_volume_get(struct snd_kcontrol *kcontrol,
- 	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
- 	unsigned int i, channels = scontrol->num_channels;
+ 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
+ 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
+-	struct mtk_dai_etdm_priv *etdm_data = afe_priv->dai_priv[dai->id];
++	struct mtk_dai_etdm_priv *etdm_data;
+ 	int dai_id;
  
-+	snd_sof_refresh_control(scontrol);
-+
- 	/* read back each channel */
- 	for (i = 0; i < channels; i++)
- 		ucontrol->value.integer.value[i] =
-@@ -145,6 +181,8 @@ int snd_sof_switch_get(struct snd_kcontrol *kcontrol,
- 	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
- 	unsigned int i, channels = scontrol->num_channels;
- 
-+	snd_sof_refresh_control(scontrol);
-+
- 	/* read back each channel */
- 	for (i = 0; i < channels; i++)
- 		ucontrol->value.integer.value[i] = cdata->chanv[i].value;
-@@ -195,6 +233,8 @@ int snd_sof_enum_get(struct snd_kcontrol *kcontrol,
- 	struct sof_ipc_ctrl_data *cdata = scontrol->control_data;
- 	unsigned int i, channels = scontrol->num_channels;
- 
-+	snd_sof_refresh_control(scontrol);
-+
- 	/* read back each channel */
- 	for (i = 0; i < channels; i++)
- 		ucontrol->value.enumerated.item[i] = cdata->chanv[i].value;
-@@ -244,6 +284,8 @@ int snd_sof_bytes_get(struct snd_kcontrol *kcontrol,
- 	struct sof_abi_hdr *data = cdata->data;
- 	size_t size;
- 
-+	snd_sof_refresh_control(scontrol);
-+
- 	if (be->max > sizeof(ucontrol->value.bytes.data)) {
- 		dev_err_ratelimited(scomp->dev,
- 				    "error: data max %d exceeds ucontrol data array size\n",
-@@ -475,6 +517,8 @@ int snd_sof_bytes_ext_get(struct snd_kcontrol *kcontrol,
- 		(struct snd_ctl_tlv __user *)binary_data;
- 	size_t data_size;
- 
-+	snd_sof_refresh_control(scontrol);
-+
- 	/*
- 	 * Decrement the limit by ext bytes header size to
- 	 * ensure the user space buffer is not exceeded.
-@@ -511,3 +555,145 @@ int snd_sof_bytes_ext_get(struct snd_kcontrol *kcontrol,
- 
- 	return 0;
- }
-+
-+static void snd_sof_update_control(struct snd_sof_control *scontrol,
-+				   struct sof_ipc_ctrl_data *cdata)
-+{
-+	struct snd_soc_component *scomp = scontrol->scomp;
-+	struct sof_ipc_ctrl_data *local_cdata;
-+	int i;
-+
-+	local_cdata = scontrol->control_data;
-+
-+	if (cdata->cmd == SOF_CTRL_CMD_BINARY) {
-+		if (cdata->num_elems != local_cdata->data->size) {
-+			dev_err(scomp->dev,
-+				"error: cdata binary size mismatch %u - %u\n",
-+				cdata->num_elems, local_cdata->data->size);
-+			return;
-+		}
-+
-+		/* copy the new binary data */
-+		memcpy(local_cdata->data, cdata->data, cdata->num_elems);
-+	} else if (cdata->num_elems != scontrol->num_channels) {
-+		dev_err(scomp->dev,
-+			"error: cdata channel count mismatch %u - %d\n",
-+			cdata->num_elems, scontrol->num_channels);
-+	} else {
-+		/* copy the new values */
-+		for (i = 0; i < cdata->num_elems; i++)
-+			local_cdata->chanv[i].value = cdata->chanv[i].value;
-+	}
-+}
-+
-+void snd_sof_control_notify(struct snd_sof_dev *sdev,
-+			    struct sof_ipc_ctrl_data *cdata)
-+{
-+	struct snd_soc_dapm_widget *widget;
-+	struct snd_sof_control *scontrol;
-+	struct snd_sof_widget *swidget;
-+	struct snd_kcontrol *kc = NULL;
-+	struct soc_mixer_control *sm;
-+	struct soc_bytes_ext *be;
-+	size_t expected_size;
-+	struct soc_enum *se;
-+	bool found = false;
-+	int i, type;
-+
-+	/* Find the swidget first */
-+	list_for_each_entry(swidget, &sdev->widget_list, list) {
-+		if (swidget->comp_id == cdata->comp_id) {
-+			found = true;
-+			break;
-+		}
-+	}
-+
-+	if (!found)
-+		return;
-+
-+	/* Translate SOF cmd to TPLG type */
-+	switch (cdata->cmd) {
-+	case SOF_CTRL_CMD_VOLUME:
-+	case SOF_CTRL_CMD_SWITCH:
-+		type = SND_SOC_TPLG_TYPE_MIXER;
-+		break;
-+	case SOF_CTRL_CMD_BINARY:
-+		type = SND_SOC_TPLG_TYPE_BYTES;
-+		break;
-+	case SOF_CTRL_CMD_ENUM:
-+		type = SND_SOC_TPLG_TYPE_ENUM;
-+		break;
-+	default:
-+		dev_err(sdev->dev, "error: unknown cmd %u\n", cdata->cmd);
-+		return;
-+	}
-+
-+	widget = swidget->widget;
-+	for (i = 0; i < widget->num_kcontrols; i++) {
-+		/* skip non matching types or non matching indexes within type */
-+		if (widget->dobj.widget.kcontrol_type[i] == type &&
-+		    widget->kcontrol_news[i].index == cdata->index) {
-+			kc = widget->kcontrols[i];
-+			break;
-+		}
-+	}
-+
-+	if (!kc)
-+		return;
-+
-+	switch (cdata->cmd) {
-+	case SOF_CTRL_CMD_VOLUME:
-+	case SOF_CTRL_CMD_SWITCH:
-+		sm = (struct soc_mixer_control *)kc->private_value;
-+		scontrol = sm->dobj.private;
-+		break;
-+	case SOF_CTRL_CMD_BINARY:
-+		be = (struct soc_bytes_ext *)kc->private_value;
-+		scontrol = be->dobj.private;
-+		break;
-+	case SOF_CTRL_CMD_ENUM:
-+		se = (struct soc_enum *)kc->private_value;
-+		scontrol = se->dobj.private;
-+		break;
-+	default:
-+		return;
-+	}
-+
-+	expected_size = sizeof(struct sof_ipc_ctrl_data);
-+	switch (cdata->type) {
-+	case SOF_CTRL_TYPE_VALUE_CHAN_GET:
-+	case SOF_CTRL_TYPE_VALUE_CHAN_SET:
-+		expected_size += cdata->num_elems *
-+				 sizeof(struct sof_ipc_ctrl_value_chan);
-+		break;
-+	case SOF_CTRL_TYPE_VALUE_COMP_GET:
-+	case SOF_CTRL_TYPE_VALUE_COMP_SET:
-+		expected_size += cdata->num_elems *
-+				 sizeof(struct sof_ipc_ctrl_value_comp);
-+		break;
-+	case SOF_CTRL_TYPE_DATA_GET:
-+	case SOF_CTRL_TYPE_DATA_SET:
-+		expected_size += cdata->num_elems + sizeof(struct sof_abi_hdr);
-+		break;
-+	default:
-+		return;
-+	}
-+
-+	if (cdata->rhdr.hdr.size != expected_size) {
-+		dev_err(sdev->dev, "error: component notification size mismatch\n");
-+		return;
-+	}
-+
-+	if (cdata->num_elems)
-+		/*
-+		 * The message includes the updated value/data, update the
-+		 * control's local cache using the received notification
-+		 */
-+		snd_sof_update_control(scontrol, cdata);
-+	else
-+		/* Mark the scontrol that the value/data is changed in SOF */
-+		scontrol->comp_data_dirty = true;
-+
-+	snd_ctl_notify_one(swidget->scomp->card->snd_card,
-+			   SNDRV_CTL_EVENT_MASK_VALUE, kc, 0);
-+}
-diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
-index c2d07b783f60..a4fe007a0e4d 100644
---- a/sound/soc/sof/ipc.c
-+++ b/sound/soc/sof/ipc.c
-@@ -369,6 +369,32 @@ void snd_sof_ipc_reply(struct snd_sof_dev *sdev, u32 msg_id)
- }
- EXPORT_SYMBOL(snd_sof_ipc_reply);
- 
-+static void ipc_comp_notification(struct snd_sof_dev *sdev,
-+				  struct sof_ipc_cmd_hdr *hdr)
-+{
-+	u32 msg_type = hdr->cmd & SOF_CMD_TYPE_MASK;
-+	struct sof_ipc_ctrl_data *cdata;
-+
-+	switch (msg_type) {
-+	case SOF_IPC_COMP_GET_VALUE:
-+	case SOF_IPC_COMP_GET_DATA:
-+		cdata = kmalloc(hdr->size, GFP_KERNEL);
-+		if (!cdata)
-+			return;
-+
-+		/* read back full message */
-+		snd_sof_ipc_msg_data(sdev, NULL, cdata, hdr->size);
-+		break;
-+	default:
-+		dev_err(sdev->dev, "error: unhandled component message %#x\n", msg_type);
-+		return;
-+	}
-+
-+	snd_sof_control_notify(sdev, cdata);
-+
-+	kfree(cdata);
-+}
-+
- /* DSP firmware has sent host a message  */
- void snd_sof_ipc_msgs_rx(struct snd_sof_dev *sdev)
- {
-@@ -404,7 +430,9 @@ void snd_sof_ipc_msgs_rx(struct snd_sof_dev *sdev)
- 	case SOF_IPC_GLB_COMPOUND:
- 	case SOF_IPC_GLB_TPLG_MSG:
- 	case SOF_IPC_GLB_PM_MSG:
-+		break;
- 	case SOF_IPC_GLB_COMP_MSG:
-+		ipc_comp_notification(sdev, &hdr);
- 		break;
- 	case SOF_IPC_GLB_STREAM_MSG:
- 		/* need to pass msg id into the function */
-diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
-index dc274e63ed9a..9a8d005e75a0 100644
---- a/sound/soc/sof/sof-audio.h
-+++ b/sound/soc/sof/sof-audio.h
-@@ -75,6 +75,9 @@ struct snd_sof_control {
- 	struct list_head list;	/* list in sdev control list */
- 
- 	struct snd_sof_led_control led_ctl;
-+
-+	/* if true, the control's data needs to be updated from Firmware */
-+	bool comp_data_dirty;
- };
- 
- /* ASoC SOF DAPM widget */
-@@ -148,6 +151,8 @@ int snd_sof_bytes_ext_get(struct snd_kcontrol *kcontrol,
- 			  unsigned int size);
- int snd_sof_bytes_ext_volatile_get(struct snd_kcontrol *kcontrol, unsigned int __user *binary_data,
- 				   unsigned int size);
-+void snd_sof_control_notify(struct snd_sof_dev *sdev,
-+			    struct sof_ipc_ctrl_data *cdata);
- 
- /*
-  * Topology.
+ 	dev_dbg(dai->dev, "%s id %d freq %u, dir %d\n",
 -- 
-2.33.0
+2.32.0
 

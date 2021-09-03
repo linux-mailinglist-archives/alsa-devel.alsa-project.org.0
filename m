@@ -2,70 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 599ED4001F0
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 17:21:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7C544002AB
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 17:54:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68EF918B8;
-	Fri,  3 Sep 2021 17:20:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68EF918B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50DB118B3;
+	Fri,  3 Sep 2021 17:53:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50DB118B3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630682471;
-	bh=oYmN5T7sshaoWGSEc1MfWpgCjISXeg/z9xk1wh6OKJU=;
+	s=default; t=1630684460;
+	bh=N5ikRjsunM6u4Rj6jCsrMSVHxexBHAHR5BNCYYEhc5M=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DW/H/z2nLe/zVwAkI01Cx4ohcfq4wrDLezXKttulnLgAKkBpPhwZZnuavWkwA9V6z
-	 Gsex/y54HGfXEpyej3KOYGFak8moM3OWnLe32TaKyMzVY03sW5eXGFil7U9mgYhV9i
-	 1Hp6gWDkdOH1KnQA/X6w5OQ9sDxpCtX/d7QJXaEQ=
+	b=QXzDXa2IrzaFLUpvOpspnaOFhtw8hPjBGDR1kU25pxFC8wuXitD34tgvQkYyePCSo
+	 LC+7CpdnvjyIdXvh5Wh8I49pcWG7+SS70HJcuj7Ay/jatepzF2HODhz3ELdyllAv/r
+	 NJamRxz/rjsl+Oj7AJCKSDrU/WNJ5edhP28gCOZQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1C6A2F8032B;
-	Fri,  3 Sep 2021 17:19:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BAE03F80256;
+	Fri,  3 Sep 2021 17:53:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0532F80254; Fri,  3 Sep 2021 17:19:29 +0200 (CEST)
+ id 6F2C2F80254; Fri,  3 Sep 2021 17:53:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from dnyon.com (dnyon.com [82.223.165.189])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6D0BAF80088
- for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 17:19:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D0BAF80088
+ by alsa1.perex.cz (Postfix) with ESMTPS id C427BF80088
+ for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 17:52:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C427BF80088
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="UGlylsOL"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 64FD8610E6;
- Fri,  3 Sep 2021 15:19:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1630682363;
- bh=oYmN5T7sshaoWGSEc1MfWpgCjISXeg/z9xk1wh6OKJU=;
+ dkim=pass (2048-bit key) header.d=dnyon.com header.i=@dnyon.com
+ header.b="bhYZ4ZHs"
+Received: from dnyon.com (55.red-81-39-194.dynamicip.rima-tde.net
+ [81.39.194.55])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by dnyon.com (Postfix) with ESMTPSA id 04EC33FEB7;
+ Fri,  3 Sep 2021 15:52:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=dnyon.com; s=mail;
+ t=1630684371; bh=N5ikRjsunM6u4Rj6jCsrMSVHxexBHAHR5BNCYYEhc5M=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=UGlylsOLgVVOjPq+FLhiRA9ULl1yVvH89glH0h7EL/ekI34mqjOimsUgJ0We5A3rY
- W8npyG3wt0agsSjxDzmCfz/nAG+myRyVTa5pPslo3rIdePH9VXUUC8wp2ZW6gsDVSq
- Ym89RMSRrNkM6jKWi8D7b0RPaL050zDIRO7EL3fycbBuJITX7O6FRXM+qCu1ZmnaGA
- MadMpzYWWovy3HHMsr42VW5biCBKEAMsqdHqSV6R+n7qvfH73Fd7SW4KiNlM64gt4h
- NX1AhU1widThJS+yDh0c+IwnUDNE7KGmVz+E+KGa+gIimAUOK7PBGRd9C4FWUvLoNE
- zM8BDsurg013g==
-From: Mark Brown <broonie@kernel.org>
-To: matthias.bgg@gmail.com, Trevor Wu <trevor.wu@mediatek.com>, tiwai@suse.com
-Subject: Re: [PATCH] ASoC: mt8195: correct the dts parsing logic about DPTX
- and HDMITX
-Date: Fri,  3 Sep 2021 16:18:45 +0100
-Message-Id: <163068203907.50844.7644629918689811156.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210903060049.20764-1-trevor.wu@mediatek.com>
-References: <20210903060049.20764-1-trevor.wu@mediatek.com>
+ b=bhYZ4ZHs0crDvHNWVNKHa5OgtJANem0yfORE1sURs0+UvlLGMg9DI9c0AEdvttxDA
+ YiOkxygYikSY8Nr2KdyOTsKKak2bAIpRmyUYLdvzODGserD1Nm5wbvwkFSfO0WQHKL
+ ZscIYdheGAxRdtvF/PeF1J9w34KY6hrAU15GrXVTcbES05SD/FMU+ajYPEidgkIHfq
+ t75BoUzrGROloy1Dn87itkJiErZu8BLhUAYxN+WXKl5S0dns8aYKChE3paBMbIhych
+ QqD9Hs37aMskC9Md993M8U6PDKr6Nkb1Bo6G8Z8+di3ZgfyYvIO4miQ08WptNtpuJf
+ +rNje2K2hT9Rg==
+From: Alejandro Tafalla <atafalla@dnyon.com>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Subject: Re: [PATCH v3 1/2] ASoC: max98927: Handle reset gpio when probing i2c
+Date: Fri, 03 Sep 2021 17:52:29 +0200
+Message-ID: <11848098.O9o76ZdvQC@alexpc>
+In-Reply-To: <CAHp75VeD8sbxcu==BF97yY4ZGtLbNAQSiTxq2cDvBSdCpXxsyw@mail.gmail.com>
+References: <cover.1630632805.git.atafalla@dnyon.com>
+ <04a18f4115539752429da55fb857834cea0944e5.1630632805.git.atafalla@dnyon.com>
+ <CAHp75VeD8sbxcu==BF97yY4ZGtLbNAQSiTxq2cDvBSdCpXxsyw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: devicetree <devicetree@vger.kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,40 +88,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 3 Sep 2021 14:00:49 +0800, Trevor Wu wrote:
-> According to the description in dt-bindings, phandle assignment of
-> HDMI TX and DP TX are not required properties, but driver regards them
-> as required properties.
-> In real use case, it's expected that DP TX and HDMI TX are optional
-> features, so correct the behavior in driver.
+On viernes, 3 de septiembre de 2021 10:18:14 (CEST) Andy Shevchenko wrote:
+> On Fri, Sep 3, 2021 at 4:51 AM Alejandro <atafalla@dnyon.com> wrote:
+> > From: Alejandro Tafalla <atafalla@dnyon.com>
+> > 
+> > Drive the reset gpio if defined in the DTS node.
 > 
+> ...
 > 
-> [...]
+> > +       reset_gpio
+> > +               = devm_gpiod_get_optional(&i2c->dev, "reset",
+> > GPIOD_OUT_LOW); +       if (IS_ERR(reset_gpio)) {
+> > +               ret = PTR_ERR(reset_gpio);
+> > +               return dev_err_probe(&i2c->dev, ret, "failed to request
+> > GPIO reset pin");
+> Not sure why my comments have been ignored here.
+> 
+> > +       }
+> 
+> --
+> With Best Regards,
+> Andy Shevchenko
+Sorry, I misread your suggestion and didn't notice PTR_ERR was also in the 
+same line.
 
-Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks!
-
-[1/1] ASoC: mt8195: correct the dts parsing logic about DPTX and HDMITX
-      commit: 7eac1e24fbf6c56c9e3be302748ae73104bb40bd
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

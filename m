@@ -2,71 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34A5B400485
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 20:06:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C8B94004B8
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Sep 2021 20:15:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 332EF18DB;
-	Fri,  3 Sep 2021 20:05:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 332EF18DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE34018E1;
+	Fri,  3 Sep 2021 20:14:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE34018E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630692401;
-	bh=AYCTypw36ptHgabLcJlokFD5oklyEoCNON6TkiELR0c=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1630692922;
+	bh=HV5QwvXd+G5X5BE1dhVVGio0bsaKoGZQ54JzrFuQYv0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UiGWttrky8F37xvFr1gNzRQ5ciIdbIh5AiS4RE30HRQeW8nYVLpd/73hdOgX0yKEa
-	 NXzG++LJbQTwv2CkBMcVJQjjYUYxG0S1s2JshblqQcIL2CRGl3bEoYL8xRYzcKJPRK
-	 B8sr1sXDfRAFLOu7PxQSKPVfVoVGSJ5TULUCjAs4=
+	b=bG3AmmTa3tQLDL3mEZ5bC8ZO7CNUg/Kwezozi2mqq/WRqNuIipNZdlBxo7EmNIEd1
+	 FvaLxCV8JuxzrFyilR72b5xx13EPGMAHZDtD/ZHjqcJjhfICIMJwbFFbkDm4woCL0w
+	 LhJkZG3kk+V8RbUflv7+2IftuqcbuHzrLdmqdWQ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB68BF8032B;
-	Fri,  3 Sep 2021 20:05:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3CE01F80088;
+	Fri,  3 Sep 2021 20:14:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9C0D2F802E3; Fri,  3 Sep 2021 20:05:02 +0200 (CEST)
+ id 7D188F80254; Fri,  3 Sep 2021 20:14:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B4860F80254
- for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 20:04:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4860F80254
+ by alsa1.perex.cz (Postfix) with ESMTPS id 23F36F80088
+ for <alsa-devel@alsa-project.org>; Fri,  3 Sep 2021 20:14:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23F36F80088
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lk9RGXY9"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 54E91610A1;
- Fri,  3 Sep 2021 18:04:55 +0000 (UTC)
+ header.b="Lciq/IIh"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2B4C160FDC;
+ Fri,  3 Sep 2021 18:13:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1630692295;
- bh=AYCTypw36ptHgabLcJlokFD5oklyEoCNON6TkiELR0c=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lk9RGXY9AVswYmZWtt1rE1/CavCQsvnNbMv2JGR71HazCSpK4RiR0+haWbqts9/D1
- LO7x2ocAa8NFCqGVcy8WNXRs4q+vF4tB6DOzUhT7e1pPRKCnmdDhNo44WgYPyGowvA
- md5bT1JflLrXWSLUOBJ1vGD/21QUtrd7Cc2hKdet7pTvzhT7Hu87DBjaIgFOk9YKU+
- tslioRp3Kd/ws5LH/SvYxfcWmH2I5k6EMLDNz5YwHlVs0vn4bQelO8W5FKuKzCS/8j
- ki7168sdJs86xPhj/sWdICaLo7VSDwqupNWXrNknBvJawC3UnXqufthq4KV6HeY73X
- ybTNrX1qPjUZg==
+ s=k20201202; t=1630692839;
+ bh=HV5QwvXd+G5X5BE1dhVVGio0bsaKoGZQ54JzrFuQYv0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Lciq/IIhEguLoSiuOCa3XnH+5hiXq2Wu1ONakJhGocr7FJdzgxKE4kURLzk4xQ4VB
+ Y8/2+KZQSSO3t43Lp8CWIXOzwuPAEnzEp2vJVnsbgEi2aPjZVuwCd+3SZs2hPscwZa
+ XoXam/PdM0Bws8VmCfY0b8smn4vrsTBx72sfmECTcSE63UYe+gyPJmlF86RSY27gNs
+ JUvcpfmIrjM1PBLHsUOdJLZZUhdNMntp/mgpfmeIbB/OjxuPFfJox82Rk4p6LgLOsN
+ WSaPfB8bmkyKOiRk9tMp51gEu3vEPqTurOqCy2h4yWuvBCIdTJxEBp4HWECVcKIKQ4
+ MCQw79usdNxrg==
+Date: Fri, 3 Sep 2021 19:13:26 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Sugar Zhang <sugar.zhang@rock-chips.com>,
-	heiko@sntech.de
-Subject: Re: [PATCH v3] ASoC: rockchip: i2s: Fix concurrency between tx/rx
-Date: Fri,  3 Sep 2021 19:04:19 +0100
-Message-Id: <163069197835.35101.4150427867250097515.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1630674434-650-1-git-send-email-sugar.zhang@rock-chips.com>
-References: <1630674434-650-1-git-send-email-sugar.zhang@rock-chips.com>
+To: Sameer Pujar <spujar@nvidia.com>
+Subject: Re: [PATCH 06/13] ASoC: tegra: Add Tegra210 based MVC driver
+Message-ID: <20210903181326.GP4932@sirena.org.uk>
+References: <1630056839-6562-1-git-send-email-spujar@nvidia.com>
+ <1630056839-6562-7-git-send-email-spujar@nvidia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, Mark Brown <broonie@kernel.org>,
- linux-arm-kernel@lists.infradead.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="NDuspjMMC1Ui5ypn"
+Content-Disposition: inline
+In-Reply-To: <1630056839-6562-7-git-send-email-spujar@nvidia.com>
+X-Cookie: Darth Vader sleeps with a Teddywookie.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, catalin.marinas@arm.com, tiwai@suse.com,
+ lgirdwood@gmail.com, jonathanh@nvidia.com, linux-tegra@vger.kernel.org,
+ robh+dt@kernel.org, thierry.reding@gmail.com,
+ linux-arm-kernel@lists.infradead.org, sharadg@nvidia.com, will@kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,44 +87,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 3 Sep 2021 21:07:14 +0800, Sugar Zhang wrote:
-> This patch adds lock to fix comcurrency between tx/rx
-> to fix 'rockchip-i2s ff070000.i2s; fail to clear'
-> 
-> Considering the situation;
-> 
->        tx stream              rx stream
->            |                      |
->            |                   disable
->          enable                   |
->            |                    reset
-> 
-> [...]
 
-Applied to
+--NDuspjMMC1Ui5ypn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Fri, Aug 27, 2021 at 03:03:52PM +0530, Sameer Pujar wrote:
+> The Master Volume Control (MVC) provides gain or attenuation to a digital
+> signal path. It can be used in input or output signal path for per-stream
+> volume control or it can be used as master volume control. The MVC block
+> has one input and one output. The input digital stream can be mono or
+> multi-channel (up to 7.1 channels) stream. An independent mute control is
+> also included in the MVC block.
 
-Thanks!
+Looks like it's also got a little bit of other DSP in there (a simple
+EQ?).  Not that it really matters.
 
-[1/1] ASoC: rockchip: i2s: Fix concurrency between tx/rx
-      commit: fcb958ee8e832e9cdf43408535207e15f14af755
+> +	if (reg == TEGRA210_MVC_CTRL) {
+> +		u32 val;
+> +		u8 mute_mask;
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+> +	} else {
+> +		u8 chan = (reg - TEGRA210_MVC_TARGET_VOL) / REG_SIZE;
+> +		s32 val = mvc->volume[chan];
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+It's not clear to me why we're using the same callbacks for the volume
+and mute settings - there's no shared code on the read path and only a
+tiny bit on the write path.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+> +	err |= regmap_update_bits(mvc->regmap, TEGRA210_MVC_SWITCH,
+> +			TEGRA210_MVC_VOLUME_SWITCH_MASK,
+> +			TEGRA210_MVC_VOLUME_SWITCH_TRIGGER);
+> +
+> +end:
+> +	pm_runtime_put(cmpnt->dev);
+> +	return err;
+> +}
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+_put() should return 0 if there's no change or 1 for a change.
 
-Thanks,
-Mark
+> +	/* SW reset */
+> +	regmap_write(mvc->regmap, TEGRA210_MVC_SOFT_RESET, 1);
+
+What about all the cached values in the regmap, won't they get out of
+sync?  Especially things like volume and mute, it looks like the mute
+just gets written directly to the regmap and not otherwise saved.
+
+--NDuspjMMC1Ui5ypn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmEyZcUACgkQJNaLcl1U
+h9AgMggAha/hIL9322l4CAz3Clg/xsZLabDdWCuHA9GA1Ze39XOrtPyBmwNyBOyj
+Re3PVvnBfeCzpGooqKXpTcdKaxiqBnF2ewOPcTLNrG3gnuAYR8X2NDbzFHd6rr3e
+frclpdZMOypNILokwrytDJG1ssscBTapV5KC3xjwQjqSAp2ckVRGgg+5SE++B1BV
+yrZuTVHJtmK3Sk78YYcYizgOndIGAOFHX48tLa81LaiSWUlePraGXtEXa8pzmSN0
+uJkPyzGdiTK4bLBJgC75bOMuy/oI2Q+nsG/K6+grY7VjcuZaS94qsjngFJCdgz4U
+U3mbKcLaeF8Ov8lIpr4tKJn0THvJdw==
+=uPdC
+-----END PGP SIGNATURE-----
+
+--NDuspjMMC1Ui5ypn--

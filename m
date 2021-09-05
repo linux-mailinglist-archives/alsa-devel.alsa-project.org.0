@@ -2,97 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6147400BB8
-	for <lists+alsa-devel@lfdr.de>; Sat,  4 Sep 2021 16:52:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B233B400DC4
+	for <lists+alsa-devel@lfdr.de>; Sun,  5 Sep 2021 04:00:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 20260186E;
-	Sat,  4 Sep 2021 16:51:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20260186E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 10B2B1884;
+	Sun,  5 Sep 2021 04:00:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10B2B1884
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630767162;
-	bh=sD6bcvGVoUjHnglVG6laDaF/hszMdNZoj3If9mMfpUo=;
+	s=default; t=1630807256;
+	bh=1ofh712nZVEiZdjqzDwyhvUNiYgIHAyt6gvmKL6pC6Q=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DIpbOqM+M6C/JyL24uC13g+0OvwMsQeDifY+74Oz0XXhl5aY5g0rJbFcyf+zTq5hR
-	 WDS55gQkQXW2xpPvD8DX4pIkR2E72TA9DpuZegGVMFnkLlRWfju7SsUM1I+S913QUp
-	 5UeP4TxQvZg1X5IF4b5qbv6UJWz2XGqRISFtL52Y=
+	b=vWQSZFptk481k33/dVvt1SOc1qlClgsh7D5KuLXK02ftX8xjyHxbQAF3WYI4Vaz1K
+	 Nc2cU/G64Sf1KJlhWvc0+JNnpo/FQAZN8SDFRwaIa3k8SLxHKHvHyGOkOydCQvOwYu
+	 UFnpwEQRvtHTpK4TTNTaLZDcBNLSxYvNBrxFHBK0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D83CF8028D;
-	Sat,  4 Sep 2021 16:51:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C4FBF802A9;
+	Sun,  5 Sep 2021 03:59:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21D46F80269; Sat,  4 Sep 2021 16:51:21 +0200 (CEST)
+ id 5D28DF80253; Sun,  5 Sep 2021 03:59:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
+X-Spam-Level: **
+X-Spam-Status: No, score=2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, PRX_BODYSUB_1, SPF_HELO_NONE,
+ SPF_NONE, URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
+ [IPv6:2607:f8b0:4864:20::733])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F36E0F80155
- for <alsa-devel@alsa-project.org>; Sat,  4 Sep 2021 16:51:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F36E0F80155
+ by alsa1.perex.cz (Postfix) with ESMTPS id 07B7CF800D0
+ for <alsa-devel@alsa-project.org>; Sun,  5 Sep 2021 03:59:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07B7CF800D0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="hqsCaXRi"
-Received: by mail-wr1-x42e.google.com with SMTP id q14so2947973wrp.3
- for <alsa-devel@alsa-project.org>; Sat, 04 Sep 2021 07:51:14 -0700 (PDT)
+ header.b="Hegk9yka"
+Received: by mail-qk1-x733.google.com with SMTP id a10so3288015qka.12
+ for <alsa-devel@alsa-project.org>; Sat, 04 Sep 2021 18:59:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=QuAjwG4QD/tyhAwpENnTdRM0gpwUf3SSs1urtonm/5o=;
- b=hqsCaXRi5oajodRiLPHYun8CWVH9oX5HsGLIzwG5boH9DFx0dHCAMG8GRdzpQJCJ9N
- LN7EBHaMgOJwJQIj3vcDYpLC3cd5UdsyVPbss1RwMrHtbm4Ee0bqATEn5ieoxpKqBuDW
- aHulBhJ7AngFtiFDlsY5bIu7oKh+cwyUTcA7lzlNluAgL4KdXdToSPyZQNpufoFrjidV
- MzfLFmd5MWZP/cAuuBuQMFbW/4Cut0DWrq0/BSc8gbMFGwEKY2kXbe9aEC3wlgX7wGHA
- hVkkhTcqYCT5GpY0FhjPQvzQiSGSayHiuOzHqrOBfRdELfBkxyOo+ho9YM76cdM6hEOg
- CODA==
+ :cc; bh=e+GRTxSS5ezCgu2u08MIy46prTwx0A1YqGRZ74j/N0Y=;
+ b=Hegk9yka2y5G8mCvjTYbgmMmBEes09Go3W1T0S5wLXvRjZBtlmkF+m4EZWYAknaWhr
+ zthObgewFof3fqG2afsZ20QVq7rlKwqQhv0azB/M1Nb+pEI/ZxybtDnlZgHuUQtOjexl
+ wFuzRV6DYDMb1KZI5sSUyV4PogBUidE6rztEG16cg1WNkLaJXxyeULyHL1kib7Ob8WSs
+ ds9UAfzOWR4WZ88C59OIw6dUxyf7hWaJOJ6WA/KKCu5OG4wHxgbMXGxsw3wd912BInHU
+ frPco1xhUANch5xTFujjSrpV+72uYB3QtN93duhJk/I2pC4/Y5PtqJCzqX+pa4PXtyAA
+ wF4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=QuAjwG4QD/tyhAwpENnTdRM0gpwUf3SSs1urtonm/5o=;
- b=iN5XXq3EqLuSuR0vhCPUEsWDwCbpFNHYmiVPLHEmxBIkkztvVN87iDsEhcnC2qxd05
- NeaBqW50mZhnyzSJc0VqUogkZiRJ9hJMwL/h08OzaydMyRhiF3TzegRR79zcAyOfLHg+
- XRbad+zqDSStS6j803wGFi4drq+2urBlXrpBv60oCYPlKiuRJcNLFVq947JhCtkAEexN
- SRtXy2ofHugH3yWg20kjlWYR5G97vbtGgK+HpygnkSQzQTssJ24Y/EwKC0OHfJkyp1Ed
- jifo/45opDsHZ3LVX8doiCog5HqQ64DWLwv5jt4FN8KM8D65vXaYdM6Wr3TJorRUJwhj
- PuzA==
-X-Gm-Message-State: AOAM532w6biFlRsq2kNXBtOOLAxXvnT75xnTa7Gr3PWkWdq82B2tcob4
- uK7Sc+Gq53nMILU/ENiG3jrjuDLtVrchSHXjlOs=
-X-Google-Smtp-Source: ABdhPJyW2q+CbgV9QbnLTyhMWnPi5rIdh11b+hIJQvDopYZ6pkVm5dd8/GgD2piV3vD8tChZ6JIo088AsyNvTtRg83o=
-X-Received: by 2002:adf:d193:: with SMTP id v19mr4279370wrc.377.1630767068862; 
- Sat, 04 Sep 2021 07:51:08 -0700 (PDT)
+ bh=e+GRTxSS5ezCgu2u08MIy46prTwx0A1YqGRZ74j/N0Y=;
+ b=dAiI5yT2t9pV/K9wK/kL8lDfO25So1pxYs2mS34D1mWsX2Re9ldqK3MZekl4DOJRHC
+ ekAaocXkuBU7RL0HTHx02UkBD7Bu2xNPB3bum6SdbDhucfIfD4MWjKOgF6G7Qq1zxB2y
+ wCFLE9iJ6TdLKDtnkLSGemUMmJ4h6yXGF0WL8YW2Lr66Yb5qQZjFlRTHFOuRMFcjeIo9
+ BC0ZE4yMIgOLQ94qg7Cu/4vM3hoyq/vUXHGWoetboVuKD9XMffmCCy4ZoO9v8LOmNB9Z
+ lxbxAltTDTtl4U7R4qvFwwAb2eJ8kJkhrHxfQUAhN5h3raFAgi59oAj0QWrLjvQOk41D
+ 7ebg==
+X-Gm-Message-State: AOAM530XVGrNLWMGOPBsbAcOhv4r6O8k7fv+J7or7yd+3vWEdzGa62WB
+ g1/1nXfhEhpkdBUULLj65K72FhsG3WBqkA8GCew=
+X-Google-Smtp-Source: ABdhPJzkhE6SMgCbRXAaUsA4loJwz2kf1ZNIg7a818rm0/n2FU8nBF0XJbzxy1eR2RPZZkRjq3MBQy+JJy/kRx+VFQ0=
+X-Received: by 2002:a37:a3cd:: with SMTP id m196mr5349051qke.253.1630807162715; 
+ Sat, 04 Sep 2021 18:59:22 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210903145340.225511-1-daniel.baluta@oss.nxp.com>
- <20210903145340.225511-3-daniel.baluta@oss.nxp.com>
- <YTJTF5VMOyG2iZb0@robh.at.kernel.org>
-In-Reply-To: <YTJTF5VMOyG2iZb0@robh.at.kernel.org>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Sat, 4 Sep 2021 17:50:56 +0300
-Message-ID: <CAEnQRZC-GN9iEPk6-A_oKPHcCYj8_WeQC0TT_NpK_QntkmAqiQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] dt-bindings: dsp: fsl: Add DSP optional clocks
- documentation
-To: Rob Herring <robh@kernel.org>
+References: <333881630574354@mail.yandex.ru>
+ <CAEsQvcuqkff--CgGDa8j0=GWgqMAx09ooo3zRCmGK8drxXGpMA@mail.gmail.com>
+ <676251630705379@mail.yandex.ru>
+In-Reply-To: <676251630705379@mail.yandex.ru>
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+Date: Sat, 4 Sep 2021 23:03:33 -0300
+Message-ID: <CAEsQvcuJyspDVoSApUYRsfSiyXG0DHwbdJWSuj6WeEoUCxCN-A@mail.gmail.com>
+Subject: Re: No sound after kernel 5.8.15-301
+To: =?UTF-8?B?0KHRg9GA0LrQvtCyINCf0LDQstC10Ls=?= <surpaul@yandex.ru>
 Content-Type: text/plain; charset="UTF-8"
-Cc: Daniel Baluta <daniel.baluta@nxp.com>,
- Devicetree List <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Daniel Baluta <daniel.baluta@oss.nxp.com>,
- =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, dl-linux-imx <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, s-anna@ti.com,
- Shawn Guo <shawnguo@kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Content-Transfer-Encoding: quoted-printable
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,72 +97,123 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Sep 3, 2021 at 8:11 PM Rob Herring <robh@kernel.org> wrote:
+Em Sex, 3 de set de 2021 18:49, =D0=A1=D1=83=D1=80=D0=BA=D0=BE=D0=B2 =D0=9F=
+=D0=B0=D0=B2=D0=B5=D0=BB <surpaul@yandex.ru> escreveu:
+
 >
-> On Fri, Sep 03, 2021 at 05:53:40PM +0300, Daniel Baluta wrote:
-> > From: Daniel Baluta <daniel.baluta@nxp.com>
-> >
-> > DSP node on the Linux kernel side must also take care of enabling
-> > DAI/DMA related clocks.
-> >
-> > By design we choose to manage DAI/DMA clocks from the kernel side because of
-> > the architecture of some i.MX8 boards.
-> >
-> > Clocks are handled by a special M4 core which runs a special firmware
-> > called SCFW (System Controler firmware).
-> >
-> > This communicates with A cores running Linux via a special Messaging
-> > Unit and implements a custom API which is already implemented by the
-> > Linux kernel i.MX clocks implementation.
-> >
-> > Note that these clocks are optional. We can use the DSP without them.
-> >
-> > Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
-> > ---
-> >  .../devicetree/bindings/dsp/fsl,dsp.yaml      | 33 +++++++++++++++++++
-> >  1 file changed, 33 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml b/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
-> > index 7afc9f2be13a..1453668c0194 100644
-> > --- a/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
-> > +++ b/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
-> > @@ -24,16 +24,49 @@ properties:
-> >      maxItems: 1
-> >
-> >    clocks:
-> > +    minItems: 3
-> >      items:
-> >        - description: ipg clock
-> >        - description: ocram clock
-> >        - description: core clock
-> > +      - description: esai0 core clock for accessing registers
-> > +      - description: esai0 baud clock
-> > +      - description: esai0 system clock
-> > +      - description: esai0 spba clock required when ESAI is placed in slave mode
-> > +      - description: SAI1 bus clock
-> > +      - description: SAI1 master clock 0
-> > +      - description: SAI1 master clock 1
-> > +      - description: SAI1 master clock 2
-> > +      - description: SAI1 master clock 3
-> > +      - description: SAI3 bus clock
-> > +      - description: SAI3 master clock 0
-> > +      - description: SAI3 master clock 1
-> > +      - description: SAI3 master clock 2
-> > +      - description: SAI3 master clock 3
-> > +      - description: SDMA3 root clock used for accessing registers
 >
-> Sigh, I just rejected this kind of thing for the other i.MX8 DSP
-> binding[1].
+> $ aplay Enable.wav
+> Playing WAVE 'file.wav' : Signed 24 bit Little Endian in 3bytes, Rate
+> 48000 Hz, Stereo
 >
-> Add a reference to the h/w block and then get the clocks (and other
-> resources) from there.
+> $ pasuspender -- aplay Enable.wav
+> Playing WAVE 'file.wav' : Signed 24 bit Little Endian in 3bytes, Rate
+> 48000 Hz, Stereo
+>
+> In the first case, the music plays, and in the second, it doesn't.
+>
 
-The H/W block is controlled by the DSP firmware. So, we don't want
-to use the Linux kernel driver (thus the H/W block device tree node).
+Hi Pavel,
 
-The only thing that we cannot control from the DSP firmware are the clocks
-hence we handle them in the DSP node.
+When you say the music plays do you mean to say it plays through HDMI or
+does it play through the speakers?
 
-We moved the DAI clocks under the DSP node as I think you suggested here:
+$ aplay -l / $ pasuspender -- aplay -l
+> **** List of PLAYBACK Hardware Devices ****
+> card 0: PCH [HDA Intel PCH], device 0: ALC256 Analog [ALC256 Analog]
+>   Subdevices: 1/1
+>   Subdevice #0: subdevice #0
+> card 0: PCH [HDA Intel PCH], device 3: HDMI 0 [HDMI 0]
+>   Subdevices: 1/1
+>   Subdevice #0: subdevice #0
+> card 0: PCH [HDA Intel PCH], device 7: HDMI 1 [HDMI 1]
+>   Subdevices: 1/1
+>   Subdevice #0: subdevice #0
+> card 0: PCH [HDA Intel PCH], device 8: HDMI 2 [HDMI 2]
+>   Subdevices: 1/1
+>   Subdevice #0: subdevice #0
+> card 0: PCH [HDA Intel PCH], device 9: HDMI 3 [HDMI 3]
+>   Subdevices: 1/1
+>   Subdevice #0: subdevice #0
+> card 0: PCH [HDA Intel PCH], device 10: HDMI 4 [HDMI 4]
+>   Subdevices: 1/1
+>   Subdevice #0: subdevice #0
+>
+> In dmesg, I did not find anything interesting, except for this. Should
+> there be front headphone and speakers or just front headphone?
+>
+> $ sudo dmesg | rg HDA
+> [    3.190288] input: HDA Intel PCH Front Headphone as
+> /devices/pci0000:00/0000:00:1f.3/sound/card0/input18
+> [    3.190322] input: HDA Intel PCH HDMI/DP,pcm=3D3 as
+> /devices/pci0000:00/0000:00:1f.3/sound/card0/input19
+> [    3.190355] input: HDA Intel PCH HDMI/DP,pcm=3D7 as
+> /devices/pci0000:00/0000:00:1f.3/sound/card0/input20
+> [    3.190413] input: HDA Intel PCH HDMI/DP,pcm=3D8 as
+> /devices/pci0000:00/0000:00:1f.3/sound/card0/input21
+> [    3.190472] input: HDA Intel PCH HDMI/DP,pcm=3D9 as
+> /devices/pci0000:00/0000:00:1f.3/sound/card0/input22
+> [    3.190501] input: HDA Intel PCH HDMI/DP,pcm=3D10 as
+> /devices/pci0000:00/0000:00:1f.3/sound/card0/input23
+>
+>
+>
 
-https://www.lkml.org/lkml/2020/3/12/969
+I have an Intel laptop with integrated ALC233 for example. Im my dmesg I
+see the following log:
+
+[19.955428] snd_hda_codec_realtek hdaudioC0D0: speaker_outs=3D0
+(0x0/0x0/0x0/0x0/0x0)
+
+I believe you should see something similar. Please check dmesg of both good
+working kernel and bad non-working kernel.
+
+Thanks,
+Geraldo Nascimento
+
+02.09.2021, 23:06, "Geraldo Nascimento" <geraldogabriel@gmail.com>:
+>
+> Hi, Pavel,
+>
+> Standard advice is to try aplay ALSA command while suspending
+> PulseAudio/PipeWire.
+>
+> Also please check your dmesg log for anything strange.
+>
+> Thank you,
+> Geraldo Nascimento
+>
+> Em Qui, 2 de set de 2021 12:23, =D0=A1=D1=83=D1=80=D0=BA=D0=BE=D0=B2 =D0=
+=9F=D0=B0=D0=B2=D0=B5=D0=BB <surpaul@yandex.ru> escreveu:
+>
+>    Hello!
+>
+>    =C3=82
+>
+>    I lost sound from laptop speakers after updating the kernel. Sound via
+>    HDMI, AUX or Bluetooth works. Details on the links:
+>    [1]https://bbs.archlinux.org/viewtopic.php?id=3D269301
+>    [2]https://ask.fedoraproject.org/t/no-sound-after-kernel-5-8-15-301/16=
+4
+>    41
+>    =C3=82
+>    Help me please.
+>
+>    --=C3=82
+>
+>    Pavel Surkov
+>
+>    =C3=82
+>
+> References
+>
+>    1. https://bbs.archlinux.org/viewtopic.php?id=3D269301
+>    2.
+> https://ask.fedoraproject.org/t/no-sound-after-kernel-5-8-15-301/16441
+>
+>
+>
+> --
+> Pavel Surkov
+>
+>

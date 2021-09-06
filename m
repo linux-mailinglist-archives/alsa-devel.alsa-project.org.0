@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB2804016E4
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Sep 2021 09:18:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 384104016E5
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Sep 2021 09:18:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 412BF178D;
-	Mon,  6 Sep 2021 09:17:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 412BF178D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9742917A0;
+	Mon,  6 Sep 2021 09:17:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9742917A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630912704;
-	bh=Q06ncvJq5bfgG58Wk4h8g0wWqfyLBl+2YLS2W7ulKLI=;
+	s=default; t=1630912728;
+	bh=jpxqU03f1f/mYqalyHtv6vV8Bfp/6CH4Unts8Dyq3hg=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uZr2fYz+jsqMrXdbnw10Dg91uOM+pv1bPNdQCPUXZK5LcMGpT5G30IblTalttUYD4
-	 QiwOxcdRXbQDvuSBwm3aYz+KMVdONIWsuwNpyP+xKg6p8sqBFyqtx17l/7nL0C83ZX
-	 BWjrIzAUGFVH8EdztslmsioZ4VSPd7k3LS6HFsfw=
+	b=SRQPgC1ehKx/4g8YmM1hP4Hx0NKjuNnaaTRgZ0NmEKM6kn4smO6QIA1T+CiD3H0ZH
+	 6olp2zWYDLA+yZeW4tfAEOYttIlk2uyOJnDHn1l29K96E+YULuiIAKiaaE5bI53UeO
+	 7txHtnSxnGVHjzLFof7rUzTsjn0kclVIdGOsR5L8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0892F800B5;
-	Mon,  6 Sep 2021 09:17:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 516EFF800C7;
+	Mon,  6 Sep 2021 09:17:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3FD92F802E7; Mon,  6 Sep 2021 09:17:06 +0200 (CEST)
+ id 2E15DF804B2; Mon,  6 Sep 2021 09:17:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id C31FFF800C7
- for <alsa-devel@alsa-project.org>; Mon,  6 Sep 2021 09:17:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C31FFF800C7
+ by alsa1.perex.cz (Postfix) with ESMTP id 827F0F804A9
+ for <alsa-devel@alsa-project.org>; Mon,  6 Sep 2021 09:17:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 827F0F804A9
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1630912623498121023-webhooks-bot@alsa-project.org>
-References: <1630912623498121023-webhooks-bot@alsa-project.org>
+In-Reply-To: <1630912631652252913-webhooks-bot@alsa-project.org>
+References: <1630912631652252913-webhooks-bot@alsa-project.org>
 Subject: hdajackretask doesn't check for script's exit code
-Message-Id: <20210906071706.3FD92F802E7@alsa1.perex.cz>
-Date: Mon,  6 Sep 2021 09:17:06 +0200 (CEST)
+Message-Id: <20210906071715.2E15DF804B2@alsa1.perex.cz>
+Date: Mon,  6 Sep 2021 09:17:15 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,7 +63,7 @@ alsa-project/alsa-tools issue #8 was edited from kroq-gar78:
 
 `hdajackretask` creates a script in `/tmp` before executing it. When `/tmp` is mounted with `noexec`, running that script will fail, but the GUI gives no indication that it failed.
 
-I'm on Ubuntu 18.04.5 with `alsa-tools-gui` package version `1.1.3-1`.
+I'm on Ubuntu 18.04.5, with `alsa-tools-gui` package version `1.1.3-1`.
 
 The GUI should check for the exit code of the script, and notify the user appropriately if the script failed to execute.
 

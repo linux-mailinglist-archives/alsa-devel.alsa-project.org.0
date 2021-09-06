@@ -2,72 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81017401AC2
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Sep 2021 13:49:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C317401C4B
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Sep 2021 15:29:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0202176D;
-	Mon,  6 Sep 2021 13:48:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0202176D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9C21D174F;
+	Mon,  6 Sep 2021 15:28:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C21D174F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630928943;
-	bh=6aDKCqu7JUaygznso9JGDgn2RHl3/CuxBKHsT/8A0lk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JOcz8Dw/s9flSx068lptw6hAdy3GSZBaqCRXHrPan39xOJrznflywG76S/Ef+OiYG
-	 1VMhZanCYntsvWgWIHUaAtUGs2bNAUdBsLrltTDbFjHAS/qJzqcfwbpj/WHN6KiHyB
-	 yTSF5Ig4GooKColNpy8rCr0IUDYIdDxWIWxKnAMg=
+	s=default; t=1630934966;
+	bh=e4RpBLG1hy3livTcAHOOKxodWkreg9cfuReCbTDPQiY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=oxdGdmxMknRJ+S+IPeYsyQWUE3Yj8YTh25v6z9TgRDhPCRXee/nhU4y/JRnyuY+80
+	 ovxJugNoUOtWVAQ4917NRU+GrfTPCV69a4vsSlOIWKWI1nE2aY6/0c58Mjsj072FXm
+	 B37qtXzoHokCSgUXScd2XGgzw2CvR0m5DW6ZhLbg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23427F800B5;
-	Mon,  6 Sep 2021 13:47:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DDFF4F804A9;
+	Mon,  6 Sep 2021 15:28:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 575BFF802E7; Mon,  6 Sep 2021 13:47:45 +0200 (CEST)
+ id 787FEF802E7; Mon,  6 Sep 2021 15:28:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EA59BF8014D
- for <alsa-devel@alsa-project.org>; Mon,  6 Sep 2021 13:47:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA59BF8014D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78FB8F8014D
+ for <alsa-devel@alsa-project.org>; Mon,  6 Sep 2021 15:27:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78FB8F8014D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GCIGLnFO"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C39FC60F14;
- Mon,  6 Sep 2021 11:47:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1630928856;
- bh=6aDKCqu7JUaygznso9JGDgn2RHl3/CuxBKHsT/8A0lk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=GCIGLnFO443t/wH9KJX7gxqLZ/AsJXnCQeOdnOvRaq7CiFd7g0bIgyW+MbtaUM3Wr
- +sxyua/eKGw5Sfq4WoOKHmmesRwMGddAp3FjvdsSwSzQ05eF0aS2l6Q/l5C/7vNG+5
- OYWPmzJbTspXA5CBPo4BY42TShaJN/bN1FyZfl2i/qCiqxXNMkuHMGPDJNrVINtYpU
- WMGk4ssNYLLwZriGXW9Fn8nxoxJc+XpcHR06q8YTYE+SBWdDATYCV/TujPKtm++atD
- GoxWhlRTdZ1RDI+I7yV/AUllx0E4hIU0oKXJaFwYDAp7CD0NnxJLCc08haFk7Pu/XL
- C3f3MXG+u8tPQ==
-Date: Mon, 6 Sep 2021 12:47:01 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [PATCH for-5.15 0/5] ASoC: fsl: register platform component
- before registering cpu dai
-Message-ID: <20210906114701.GC4309@sirena.org.uk>
-References: <1630665006-31437-1-git-send-email-shengjiu.wang@nxp.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="vOmOzSkFvhd7u8Ms"
-Content-Disposition: inline
-In-Reply-To: <1630665006-31437-1-git-send-email-shengjiu.wang@nxp.com>
-X-Cookie: I smell a RANCID CORN DOG!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- linuxppc-dev@lists.ozlabs.org, tiwai@suse.com, nicoleotsuka@gmail.com,
- festevam@gmail.com, linux-kernel@vger.kernel.org
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="MA7+u9tc"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1630934877; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=gbdk/z9NV8rR1PUFsj2YfEYQF1fJd5KmOvl99jbC3Lg=;
+ b=MA7+u9tc+rsaAarBMV8uBfMP82S3n9mBFBwyQRHpjJDvL0OsTxeKsebe+AhBKvGc0xL7pKI0
+ Pv6aZvlvA4kLDxkvK/gW1CavWEvIdE3Pt4XqMJZjoDLMnS2xzdW7W0bWEDDaxJ57UEk+23oX
+ 37crPPYNHMjFLk7aQrjO5aIHiek=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
+ 6136175b89cdb62061fbe587 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 06 Sep 2021 13:27:55
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id CA33AC43460; Mon,  6 Sep 2021 13:27:54 +0000 (UTC)
+Received: from hu-srivasam-hyd.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 34764C4338F;
+ Mon,  6 Sep 2021 13:27:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 34764C4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
+ bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ swboyd@chromium.org, judyhsiao@chromium.org
+Subject: [PATCH] ASoC: dt-bindings: lpass: add binding headers for digital
+ codecs
+Date: Mon,  6 Sep 2021 18:57:34 +0530
+Message-Id: <1630934854-14086-1-git-send-email-srivasam@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Cc: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,37 +94,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Add header defining for lpass internal digital codecs rx,tx and va
+dai node id's.
 
---vOmOzSkFvhd7u8Ms
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+---
+ include/dt-bindings/sound/qcom,lpass.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-On Fri, Sep 03, 2021 at 06:30:01PM +0800, Shengjiu Wang wrote:
+diff --git a/include/dt-bindings/sound/qcom,lpass.h b/include/dt-bindings/sound/qcom,lpass.h
+index 7b0b80b..187af45 100644
+--- a/include/dt-bindings/sound/qcom,lpass.h
++++ b/include/dt-bindings/sound/qcom,lpass.h
+@@ -10,6 +10,11 @@
+ 
+ #define LPASS_DP_RX	5
+ 
++#define LPASS_CDC_DMA_RX0 6
++#define LPASS_CDC_DMA_TX3 7
++#define LPASS_CDC_DMA_VA0 8
++#define LPASS_MAX_PORTS 9
++
+ #define LPASS_MCLK0	0
+ 
+ #endif /* __DT_QCOM_LPASS_H */
+-- 
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
 
-> There is no defer probe when adding platform component to
-> snd_soc_pcm_runtime(rtd), the code is in snd_soc_add_pcm_runtime()
-
-...
-
-> So if the platform component is not ready at that time, then the
-> sound card still registered successfully, but platform component
-> is empty, the sound card can't be used.
-
-This sounds like a bug which should be fixed there?
-
---vOmOzSkFvhd7u8Ms
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmE1/7QACgkQJNaLcl1U
-h9A2PQf+MXqqe36AsD9bn8IpQ83/IyczIGKq7d94luUncaivHbSF3i18scHq2SrW
-d1wUCYn+J0TbavlsquPzmuuFzGVQ8B0I0mWvqfLvcCOboaEce6os/pgXqxJKctqd
-XimllKcJFViLzssrsJG1q2XHCwXw1mj9clwKXZ6iOjQxtTN5GqFEBdQd14hy+Zod
-wKhPoCb87qO/ngT6iSwVqGoET5xip9q4WkeeO5QCTCcTyW1Mc4YbuV9dnqV2DjQ0
-9rW4xZ0xA1ZbLekeaYzqChqmYyWxn0RGdVa/wiyDXPS0I/FaYJAJ6xkD0VvyYF6E
-ObuvLN4+E7wgeufVxAeSwXbORT6/uA==
-=PvOc
------END PGP SIGNATURE-----
-
---vOmOzSkFvhd7u8Ms--

@@ -2,80 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC00B4019FA
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Sep 2021 12:41:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81017401AC2
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Sep 2021 13:49:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F0FA51772;
-	Mon,  6 Sep 2021 12:40:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0FA51772
+	by alsa0.perex.cz (Postfix) with ESMTPS id C0202176D;
+	Mon,  6 Sep 2021 13:48:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0202176D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1630924908;
-	bh=DDPfs7HWdQxUNn6g1tSkQLKbmCHfs6sAw/+UHBIdi/M=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1630928943;
+	bh=6aDKCqu7JUaygznso9JGDgn2RHl3/CuxBKHsT/8A0lk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QvxigXRqaSPVY6AcuVd7yG5Y8g6qK69VDDYKExZNuQYkY9d20JR5Kqww/NnnCyKpo
-	 UivDrqz+LBrpVpVnM0mW7GV5pKsApY3uywefhZ6mfmJ7UtcHaPgt/8vvBXH7dj2ttS
-	 /PwO9bUlyNQ0xj6lWdpT/Hknp7E5X3gZxDnUEQwU=
+	b=JOcz8Dw/s9flSx068lptw6hAdy3GSZBaqCRXHrPan39xOJrznflywG76S/Ef+OiYG
+	 1VMhZanCYntsvWgWIHUaAtUGs2bNAUdBsLrltTDbFjHAS/qJzqcfwbpj/WHN6KiHyB
+	 yTSF5Ig4GooKColNpy8rCr0IUDYIdDxWIWxKnAMg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F3D7F800C7;
-	Mon,  6 Sep 2021 12:40:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23427F800B5;
+	Mon,  6 Sep 2021 13:47:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2FDF1F802E7; Mon,  6 Sep 2021 12:40:28 +0200 (CEST)
+ id 575BFF802E7; Mon,  6 Sep 2021 13:47:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5D374F800B5
- for <alsa-devel@alsa-project.org>; Mon,  6 Sep 2021 12:40:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D374F800B5
+ by alsa1.perex.cz (Postfix) with ESMTPS id EA59BF8014D
+ for <alsa-devel@alsa-project.org>; Mon,  6 Sep 2021 13:47:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA59BF8014D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Th9BCpYB"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1920B60EBA;
- Mon,  6 Sep 2021 10:40:13 +0000 (UTC)
+ header.b="GCIGLnFO"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C39FC60F14;
+ Mon,  6 Sep 2021 11:47:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1630924818;
- bh=DDPfs7HWdQxUNn6g1tSkQLKbmCHfs6sAw/+UHBIdi/M=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Th9BCpYBnVmKPtw+yozEi03DflXbpHZnsOAy4Jc0WTQbi+twSgb1XrzHHguyEtFuD
- unLwYfRWOgpMIlwzUdVta6PvLtBhb/hhKQ5qEENKV7U9Q2LFFvwWeMqWPPk6Ap99ke
- t2pEWUD6KxAncNF8dArN3EdFE4wFqS1pAblmOOdgP+5BvHtbm3NKW50g544B2Y1M7A
- 0XwU7gfX6Z1zYK/ZPcefKlnE2u5JqlMtdYXMpq/QSt/s/+ZJTfO/4ugaIfwejhWnlB
- f5vXatWtRfzOn3a/PJ5ZMIbaUJ+VquKa0OnNdFXWmQbxRvwTPgstQShQxiAmi1QiQD
- A+2M66YfjlnIQ==
-Date: Mon, 6 Sep 2021 12:40:11 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH] dt-bindings: Use 'enum' instead of 'oneOf' plus 'const'
- entries
-Message-ID: <20210906124011.66b8e9f3@coco.lan>
-In-Reply-To: <20210824202014.978922-1-robh@kernel.org>
-References: <20210824202014.978922-1-robh@kernel.org>
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.30; x86_64-redhat-linux-gnu)
+ s=k20201202; t=1630928856;
+ bh=6aDKCqu7JUaygznso9JGDgn2RHl3/CuxBKHsT/8A0lk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=GCIGLnFO443t/wH9KJX7gxqLZ/AsJXnCQeOdnOvRaq7CiFd7g0bIgyW+MbtaUM3Wr
+ +sxyua/eKGw5Sfq4WoOKHmmesRwMGddAp3FjvdsSwSzQ05eF0aS2l6Q/l5C/7vNG+5
+ OYWPmzJbTspXA5CBPo4BY42TShaJN/bN1FyZfl2i/qCiqxXNMkuHMGPDJNrVINtYpU
+ WMGk4ssNYLLwZriGXW9Fn8nxoxJc+XpcHR06q8YTYE+SBWdDATYCV/TujPKtm++atD
+ GoxWhlRTdZ1RDI+I7yV/AUllx0E4hIU0oKXJaFwYDAp7CD0NnxJLCc08haFk7Pu/XL
+ C3f3MXG+u8tPQ==
+Date: Mon, 6 Sep 2021 12:47:01 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [PATCH for-5.15 0/5] ASoC: fsl: register platform component
+ before registering cpu dai
+Message-ID: <20210906114701.GC4309@sirena.org.uk>
+References: <1630665006-31437-1-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Vignesh R <vigneshr@ti.com>,
- linux-pci@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-phy@lists.infradead.org, Lee Jones <lee.jones@linaro.org>,
- Marc Zyngier <maz@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>,
- Kishon Vijay Abraham I <kishon@ti.com>, linux-serial@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- Mark Brown <broonie@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, netdev@vger.kernel.org,
- dmaengine@vger.kernel.org, "David S. Miller" <davem@davemloft.net>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="vOmOzSkFvhd7u8Ms"
+Content-Disposition: inline
+In-Reply-To: <1630665006-31437-1-git-send-email-shengjiu.wang@nxp.com>
+X-Cookie: I smell a RANCID CORN DOG!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
+ linuxppc-dev@lists.ozlabs.org, tiwai@suse.com, nicoleotsuka@gmail.com,
+ festevam@gmail.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,51 +83,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Em Tue, 24 Aug 2021 15:20:14 -0500
-Rob Herring <robh@kernel.org> escreveu:
 
-> 'enum' is equivalent to 'oneOf' with a list of 'const' entries, but 'enum'
-> is more concise and yields better error messages.
-> 
-> Cc: Vinod Koul <vkoul@kernel.org>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Vignesh R <vigneshr@ti.com>
-> Cc: Marc Zyngier <maz@kernel.org>
-> Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
-> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-> Cc: Lee Jones <lee.jones@linaro.org>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Kishon Vijay Abraham I <kishon@ti.com>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Daniel Lezcano <daniel.lezcano@linaro.org>
-> Cc: dmaengine@vger.kernel.org
-> Cc: linux-i2c@vger.kernel.org
-> Cc: linux-media@vger.kernel.org
-> Cc: netdev@vger.kernel.org
-> Cc: linux-pci@vger.kernel.org
-> Cc: linux-phy@lists.infradead.org
-> Cc: linux-serial@vger.kernel.org
-> Cc: alsa-devel@alsa-project.org
-> Cc: linux-spi@vger.kernel.org
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
->  .../bindings/display/msm/dsi-phy-10nm.yaml           |  6 +++---
->  .../bindings/display/msm/dsi-phy-14nm.yaml           |  6 +++---
->  .../bindings/display/msm/dsi-phy-28nm.yaml           |  8 ++++----
->  .../bindings/dma/allwinner,sun6i-a31-dma.yaml        | 12 ++++++------
->  .../devicetree/bindings/firmware/arm,scpi.yaml       |  6 +++---
->  .../devicetree/bindings/i2c/ti,omap4-i2c.yaml        | 10 +++++-----
->  .../interrupt-controller/loongson,liointc.yaml       |  8 ++++----
+--vOmOzSkFvhd7u8Ms
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Fri, Sep 03, 2021 at 06:30:01PM +0800, Shengjiu Wang wrote:
 
->  .../devicetree/bindings/media/i2c/mipi-ccs.yaml      |  8 ++++----
+> There is no defer probe when adding platform component to
+> snd_soc_pcm_runtime(rtd), the code is in snd_soc_add_pcm_runtime()
 
-For media:
+...
 
-Acked-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+> So if the platform component is not ready at that time, then the
+> sound card still registered successfully, but platform component
+> is empty, the sound card can't be used.
 
-Thanks,
-Mauro
+This sounds like a bug which should be fixed there?
+
+--vOmOzSkFvhd7u8Ms
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmE1/7QACgkQJNaLcl1U
+h9A2PQf+MXqqe36AsD9bn8IpQ83/IyczIGKq7d94luUncaivHbSF3i18scHq2SrW
+d1wUCYn+J0TbavlsquPzmuuFzGVQ8B0I0mWvqfLvcCOboaEce6os/pgXqxJKctqd
+XimllKcJFViLzssrsJG1q2XHCwXw1mj9clwKXZ6iOjQxtTN5GqFEBdQd14hy+Zod
+wKhPoCb87qO/ngT6iSwVqGoET5xip9q4WkeeO5QCTCcTyW1Mc4YbuV9dnqV2DjQ0
+9rW4xZ0xA1ZbLekeaYzqChqmYyWxn0RGdVa/wiyDXPS0I/FaYJAJ6xkD0VvyYF6E
+ObuvLN4+E7wgeufVxAeSwXbORT6/uA==
+=PvOc
+-----END PGP SIGNATURE-----
+
+--vOmOzSkFvhd7u8Ms--

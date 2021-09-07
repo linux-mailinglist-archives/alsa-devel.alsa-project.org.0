@@ -2,82 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EB2540313F
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Sep 2021 00:57:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4748E403147
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Sep 2021 00:59:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1B5C31733;
-	Wed,  8 Sep 2021 00:57:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B5C31733
+	by alsa0.perex.cz (Postfix) with ESMTPS id C3139172D;
+	Wed,  8 Sep 2021 00:59:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3139172D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631055477;
-	bh=thPZsCJV1uvv7DeT1SyTtP9QSzP/ZpDeDq2OXkB+Jv0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=S+FSx15wpg+US/N3yjEv9c25mzfj5lbOJRHrzWK1QGgAL3caSXJc4mFFlx++XtcMz
-	 POW+JQWrDG7kAIifrJhJ74cEOiGyNX4XZHvbD60qPwqf9K/xP9pUS5Go3vLqv0IP3I
-	 szP2WHwE9oR/336deZIMm/863/fAoXKxuJzCC+HI=
+	s=default; t=1631055590;
+	bh=fPmihyGoH95LHGrH/wGUGxTY+NfqUzSXGkEDxjl2yXk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=UXOrdR4EAAOsmLs1SimStjvX0c56jq55mi7IWdZ1Xnvb/iyY+EBwEPLMBdgPrrXr8
+	 eVvUGBrKKPEawUiNLVi4FJr7ankp9TnbrAVLOCWhuNMjm1GJrp5tL/XlqQ8WVTsj65
+	 qeaQGBPD6kczAGiey7ri7nk+a8HLe8F8Zh1v/JOo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B66BF804E5;
-	Wed,  8 Sep 2021 00:56:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A62CFF80300;
+	Wed,  8 Sep 2021 00:58:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30E2EF800BC; Wed,  8 Sep 2021 00:56:55 +0200 (CEST)
+ id 4F2C6F802DF; Wed,  8 Sep 2021 00:58:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
- [209.85.167.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E77F7F800BC
- for <alsa-devel@alsa-project.org>; Wed,  8 Sep 2021 00:56:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E77F7F800BC
-Received: by mail-oi1-f180.google.com with SMTP id p2so570579oif.1
- for <alsa-devel@alsa-project.org>; Tue, 07 Sep 2021 15:56:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=GdSJ4oPnHTzno9balxH3QixzXlfpDdLWJYh9sK35SuU=;
- b=4S8YnqMm+SOePPDmqeyUcGQrnlsDw+v8eXz1TQutshs79znQzTmEevAkjr8SSLK7kt
- dRcfSxClQlm/yxXMZVLqygba4UyW0ycn3iaaoXtu2gdl2b/BMgkTU1ZSLNW1K6PFOJfU
- /y6MXeq/+BuoPvO5IcwprFjzdGeUyhOS2Ka86sWy0jlbSf1t45jTovSfrMVGmNY4er/z
- +sfqtquBKuyRJUqjZiGy9bjXLsVfvC+J2DDme0Bs33RDqnJxNN1q1+dY6XIszWpb3QOQ
- TazPl0ycH1iA+s9imwEOFczXImGi551C6aRnFcYtUgfmYyf1MbxwzYZjkDjWeXvgvejm
- 2Tfg==
-X-Gm-Message-State: AOAM533Cjv0Vu5knjqccNSb5SVzdBrqd2A1CNk61Mq6h1vQo03fwqB/z
- q4QLaM89VQHXA0jzDkiNJ4SIgDy1Nw==
-X-Google-Smtp-Source: ABdhPJyQH5ykl7SVUA+/i9J4TXTCI/gm1rUgetil/5rlbN9PeZxdZe+YOpPGA0X0HRRsXXQOXkgllA==
-X-Received: by 2002:aca:c6ce:: with SMTP id w197mr412575oif.6.1631055405356;
- Tue, 07 Sep 2021 15:56:45 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id x198sm71734ooa.43.2021.09.07.15.56.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Sep 2021 15:56:44 -0700 (PDT)
-Received: (nullmailer pid 515097 invoked by uid 1000);
- Tue, 07 Sep 2021 22:56:43 -0000
-Date: Tue, 7 Sep 2021 17:56:43 -0500
-From: Rob Herring <robh@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v5 11/21] ASoC: dt-bindings: q6dsp: add q6apm-lpass-dai
- compatible
-Message-ID: <YTfuK6vcEf5P2aM9@robh.at.kernel.org>
-References: <20210903112032.25834-1-srinivas.kandagatla@linaro.org>
- <20210903112032.25834-12-srinivas.kandagatla@linaro.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id AAC98F800C7
+ for <alsa-devel@alsa-project.org>; Wed,  8 Sep 2021 00:58:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAC98F800C7
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="dCcGtds/"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 187MOMom011127; 
+ Tue, 7 Sep 2021 17:58:33 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=nnQSN31jtxHeO8603VLC465dKrlkvLcY+sGc3eMaxIw=;
+ b=dCcGtds/w2xBOlyCIpzKnvIAEziABOSb22BLydtxeSZHMep3UjDtJFY6SDwkFo8KbOnI
+ du4wriANU2tQj74+/ezEI3C0rYYnSxen87C1mhPqehhzwjCqtlwZm3Jn2wnoqKi2zbMQ
+ giNX68ZvHK7U4B0jGvywRtLNSjOJ0UahdU/r1+G8tjhxNXAruSR3ery1afsjiUjyBw6E
+ 9IBz8dBkIuD5c+ip9nW78X4Gyrfr0CgXmsvBsAb9BpD4ViGiiFD5UT5fEiiCwTMHdtd9
+ IM9F19GiItqwfvv9bjI0PS29Jzcs9gxvo+Xai8cr5D3fcuUSKRquN9ccrVtQbC8FgPbV Ow== 
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0a-001ae601.pphosted.com with ESMTP id 3axcp60905-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 07 Sep 2021 17:58:32 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Tue, 7 Sep
+ 2021 23:58:31 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.12 via
+ Frontend Transport; Tue, 7 Sep 2021 23:58:30 +0100
+Received: from localhost.localdomain (macC02XQ1DJJG5K.ad.cirrus.com
+ [141.131.65.38])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 8D8D62BA;
+ Tue,  7 Sep 2021 22:58:29 +0000 (UTC)
+From: David Rhodes <drhodes@opensource.cirrus.com>
+To: <broonie@kernel.org>, <robh@kernel.org>, <ckeepax@opensource.cirrus.com>, 
+ <brian.austin@cirrus.com>, <patches@opensource.cirrus.com>,
+ <alsa-devel@alsa-project.org>, <david.rhodes@cirrus.com>,
+ <pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH v7 0/2] Cirrus Logic CS35L41 Amplifier
+Date: Tue, 7 Sep 2021 17:57:17 -0500
+Message-ID: <20210907225719.2018115-1-drhodes@opensource.cirrus.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210903112032.25834-12-srinivas.kandagatla@linaro.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, tiwai@suse.de, plai@codeaurora.org,
- lgirdwood@gmail.com, bjorn.andersson@linaro.org, broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: -bk_K7S8xYwKJBiOGgvWkKDkjtHcatKx
+X-Proofpoint-GUID: -bk_K7S8xYwKJBiOGgvWkKDkjtHcatKx
+X-Proofpoint-Spam-Reason: safe
+Cc: David Rhodes <drhodes@opensource.cirrus.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,15 +98,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 03 Sep 2021 12:20:22 +0100, Srinivas Kandagatla wrote:
-> on AudioReach audio Framework access to LPASS ports is via
-> Q6APM(Audio Process Manager) service, so add a dedicated compatible
-> string for this.
-> 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->  .../sound/qcom,q6dsp-lpass-ports.yaml         | 24 +++++++++++++++++++
->  1 file changed, 24 insertions(+)
-> 
+ASoC driver and devicetree documentation for a new
+Cirrus Logic amplifier CS35L41
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+v7 changes:
+Remove property 'classh-bst-max-limit'
+
+David Rhodes (2):
+  ASoC: cs35l41: CS35L41 Boosted Smart Amplifier
+  ASoC: cs35l41: Add bindings for CS35L41
+
+ .../devicetree/bindings/sound/cs35l41.yaml    |  151 ++
+ include/sound/cs35l41.h                       |   34 +
+ sound/soc/codecs/Kconfig                      |   12 +
+ sound/soc/codecs/Makefile                     |    4 +
+ sound/soc/codecs/cs35l41-i2c.c                |  114 ++
+ sound/soc/codecs/cs35l41-spi.c                |  143 ++
+ sound/soc/codecs/cs35l41-tables.c             |  597 +++++++
+ sound/soc/codecs/cs35l41.c                    | 1545 +++++++++++++++++
+ sound/soc/codecs/cs35l41.h                    |  775 +++++++++
+ 9 files changed, 3375 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/cs35l41.yaml
+ create mode 100644 include/sound/cs35l41.h
+ create mode 100644 sound/soc/codecs/cs35l41-i2c.c
+ create mode 100644 sound/soc/codecs/cs35l41-spi.c
+ create mode 100644 sound/soc/codecs/cs35l41-tables.c
+ create mode 100644 sound/soc/codecs/cs35l41.c
+ create mode 100644 sound/soc/codecs/cs35l41.h
+
+-- 
+2.25.1
+

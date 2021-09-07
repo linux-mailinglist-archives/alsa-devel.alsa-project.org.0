@@ -2,92 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30DF0402DCC
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Sep 2021 19:40:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F955402E7D
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Sep 2021 20:44:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B842C170E;
-	Tue,  7 Sep 2021 19:39:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B842C170E
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE5BA1729;
+	Tue,  7 Sep 2021 20:44:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE5BA1729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631036408;
-	bh=+TgRjW0n0fsVeVC1J77jBVcftWB795k6d7I7Mu9WHhU=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=bTUSRRmhKlXWGOwSIXlA8m5++lyxMAcPaUOwUu0Ip/6O9gLZTysRJqjyZRWioJpH6
-	 oHT0wthkNQ6L2InBf/x4egmqIK7cvyuRHGp8ynHjJmhu2p+vf/5pDGYD3/tXlBDBzX
-	 St/iCBjk1rZGZ9TdqPKRU89hUzqhW+tbSaupsTtA=
+	s=default; t=1631040290;
+	bh=bC+bMkdJkhMa7EzOBCwmQkaBu2YZ8ZRLKlZkvkoBkUw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=WgV+8V5TOVdp2Rik2SByCViXaQleEh4+iVeAmpwXWblDXUULzL/zHc7BjxYaAKBAw
+	 hLmg+x4a9L2ono0Bwwh4sxdMLQxHv/5gUMvpabRgNk1JK45HfxwqjI5lrmrHlYq0KC
+	 DPsxMJKBikPy+EwFylt58Oon40C+JO5KR40SM7TY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E7EEF80253;
-	Tue,  7 Sep 2021 19:38:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24817F80253;
+	Tue,  7 Sep 2021 20:43:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25BCDF80224; Tue,  7 Sep 2021 19:38:50 +0200 (CEST)
+ id 29DB4F80224; Tue,  7 Sep 2021 20:43:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7CA0FF80103
- for <alsa-devel@alsa-project.org>; Tue,  7 Sep 2021 19:38:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CA0FF80103
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="U678eO8Y"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1874qJKh017115; 
- Tue, 7 Sep 2021 12:38:41 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=V9h5ArY6BsEPAXth9XnyAdsJ+HccuJZG6ERCOcyPcyE=;
- b=U678eO8Y5VdF6DjED737jbhfiz+yDo7hAdhXPRwAjANwUBbGp0VaS7jXlT1x4Kout0Q9
- x1adXEzFFQa0pc4jNWv3824kSVJT0AZp9Q+TgLDpMQsPnA5KWHtJUWzGClPyN86ekiN3
- O54eJ7BX00N1C5DdxImUrdJDIUIQIIkbTOEKfH5tcodeoQMhRfqvklvpn9R4P6rjMC0K
- Ls7r+F6AB54Uj7E4c9vjc0vHNf0cFO96UXCFDNjhDsaOsbTJrCXKVdzJDbK3V98K42IJ
- c+9u+XHIxLGDeABtto03ZaJ0B6gEkE6VgaSP5S++djCp+DTL4MDgKbQGQZcOAPBgE4fT 8w== 
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 3awurmgymu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 07 Sep 2021 12:38:41 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Tue, 7 Sep
- 2021 18:38:39 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.12 via
- Frontend Transport; Tue, 7 Sep 2021 18:38:39 +0100
-Received: from [192.168.99.238] (macC02XQ1DJJG5K.ad.cirrus.com [141.131.65.38])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 567472BA;
- Tue,  7 Sep 2021 17:38:32 +0000 (UTC)
-Subject: Re: [PATCH v6 2/2] ASoC: cs35l41: Add bindings for CS35L41
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-References: <20210903212659.2011303-1-drhodes@opensource.cirrus.com>
- <20210903212659.2011303-3-drhodes@opensource.cirrus.com>
- <20210906094322.GN9223@ediswmail.ad.cirrus.com>
-From: David Rhodes <drhodes@opensource.cirrus.com>
-Message-ID: <5b39e0aa-09e8-0bcc-2234-87d35aea109e@opensource.cirrus.com>
-Date: Tue, 7 Sep 2021 12:38:31 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 43880F800BC
+ for <alsa-devel@alsa-project.org>; Tue,  7 Sep 2021 20:43:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43880F800BC
+X-IronPort-AV: E=McAfee;i="6200,9189,10100"; a="220341351"
+X-IronPort-AV: E=Sophos;i="5.85,274,1624345200"; d="scan'208";a="220341351"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2021 11:43:19 -0700
+X-IronPort-AV: E=Sophos;i="5.85,274,1624345200"; d="scan'208";a="464977752"
+Received: from fdiasmor-mobl1.amr.corp.intel.com (HELO
+ pbossart-mobl3.intel.com) ([10.209.186.104])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2021 11:43:17 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: amd: acp: declare and add prefix to 'bt_uart_enable'
+ symbol
+Date: Tue,  7 Sep 2021 13:42:14 -0500
+Message-Id: <20210907184216.33067-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20210906094322.GN9223@ediswmail.ad.cirrus.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 71Pe65Urja5HRyasABLP9A91cta_9oLs
-X-Proofpoint-ORIG-GUID: 71Pe65Urja5HRyasABLP9A91cta_9oLs
-X-Proofpoint-Spam-Reason: safe
-Cc: robh@kernel.org, brian.austin@cirrus.com, patches@opensource.cirrus.com,
- alsa-devel@alsa-project.org, david.rhodes@cirrus.com, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com
+Content-Transfer-Encoding: 8bit
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, tiwai@suse.de,
+ open list <linux-kernel@vger.kernel.org>, Chuhong Yuan <hslester96@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, broonie@kernel.org,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Gu Shengxian <gushengxian@yulong.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,31 +76,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 9/6/21 4:43 AM, Charles Keepax wrote:
-> On Fri, Sep 03, 2021 at 04:26:59PM -0500, David Rhodes wrote:
->> +  cirrus,classh-bst-max-limit:
->> +    description:
->> +      Value set to the BST_CTL_LIM_EN field.
->> +      A value of 1 will limit the Class-H voltage to the value in the
->> +      'boost-ctl-millivolt' property.
->> +      0 = No Class-H limit (default)
->> +      1 = Class-H limited to 'boost-ctl-millivolt' value
->> +    $ref: "/schemas/types.yaml#/definitions/uint32"
->> +    minimum: 0
->> +    maximum: 1
-> 
-> There is no boost-ctl-millivolt property however. Apart from
-> tidying up that loose end I think the series looks ok to me
-> though.
-> 
-> Thanks,
-> Charles
-> 
+Sparse reports the following warning:
 
-Yes, I missed this while moving the boost properties. 
-classh-bst-max-limit should be removed since it doesn't work without 
-boost-ctl-millivolt. boost-peak-milliamp is more appropriate for 
-limiting the boost, and will remain a required property.
+sound/soc/amd/acp-pcm-dma.c:39:6: error: symbol 'bt_uart_enable' was
+not declared. Should it be static?
 
-Thanks,
-David
+It's not very good practice to export such symbols that can easily
+conflict, add the acp_ prefix and add declaration in header file.
+
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ sound/soc/amd/acp-da7219-max98357a.c | 6 +++---
+ sound/soc/amd/acp-pcm-dma.c          | 6 +++---
+ sound/soc/amd/acp.h                  | 2 ++
+ 3 files changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/sound/soc/amd/acp-da7219-max98357a.c b/sound/soc/amd/acp-da7219-max98357a.c
+index b3df98a9f9f3..b2065f3fe42c 100644
+--- a/sound/soc/amd/acp-da7219-max98357a.c
++++ b/sound/soc/amd/acp-da7219-max98357a.c
+@@ -33,7 +33,7 @@ static struct clk *da7219_dai_wclk;
+ static struct clk *da7219_dai_bclk;
+ static struct clk *rt5682_dai_wclk;
+ static struct clk *rt5682_dai_bclk;
+-extern bool bt_uart_enable;
++
+ void *acp_soc_is_rltk_max(struct device *dev);
+ 
+ static int cz_da7219_init(struct snd_soc_pcm_runtime *rtd)
+@@ -760,8 +760,8 @@ static int cz_probe(struct platform_device *pdev)
+ 				"devm_snd_soc_register_card(%s) failed\n",
+ 				card->name);
+ 	}
+-	bt_uart_enable = !device_property_read_bool(&pdev->dev,
+-						    "bt-pad-enable");
++	acp_bt_uart_enable = !device_property_read_bool(&pdev->dev,
++							"bt-pad-enable");
+ 	return 0;
+ }
+ 
+diff --git a/sound/soc/amd/acp-pcm-dma.c b/sound/soc/amd/acp-pcm-dma.c
+index 11b3c4f39eba..1f322accd9ea 100644
+--- a/sound/soc/amd/acp-pcm-dma.c
++++ b/sound/soc/amd/acp-pcm-dma.c
+@@ -36,8 +36,8 @@
+ #define ST_MIN_BUFFER ST_MAX_BUFFER
+ 
+ #define DRV_NAME "acp_audio_dma"
+-bool bt_uart_enable = true;
+-EXPORT_SYMBOL(bt_uart_enable);
++bool acp_bt_uart_enable = true;
++EXPORT_SYMBOL(acp_bt_uart_enable);
+ 
+ static const struct snd_pcm_hardware acp_pcm_hardware_playback = {
+ 	.info = SNDRV_PCM_INFO_INTERLEAVED |
+@@ -596,7 +596,7 @@ static int acp_init(void __iomem *acp_mmio, u32 asic_type)
+ 	acp_reg_write(val, acp_mmio, mmACP_SOFT_RESET);
+ 
+ 	/* For BT instance change pins from UART to BT */
+-	if (!bt_uart_enable) {
++	if (!acp_bt_uart_enable) {
+ 		val = acp_reg_read(acp_mmio, mmACP_BT_UART_PAD_SEL);
+ 		val |= ACP_BT_UART_PAD_SELECT_MASK;
+ 		acp_reg_write(val, acp_mmio, mmACP_BT_UART_PAD_SEL);
+diff --git a/sound/soc/amd/acp.h b/sound/soc/amd/acp.h
+index e5ab6c6040a6..85529ed7e5f5 100644
+--- a/sound/soc/amd/acp.h
++++ b/sound/soc/amd/acp.h
+@@ -204,4 +204,6 @@ typedef struct acp_dma_dscr_transfer {
+ 	u32 reserved;
+ } acp_dma_dscr_transfer_t;
+ 
++extern bool acp_bt_uart_enable;
++
+ #endif /*__ACP_HW_H */
+-- 
+2.25.1
+

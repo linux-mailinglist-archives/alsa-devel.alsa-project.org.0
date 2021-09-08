@@ -2,86 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DCFB403ED9
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Sep 2021 20:03:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 988CF40401F
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Sep 2021 22:16:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0EFB01688;
-	Wed,  8 Sep 2021 20:02:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EFB01688
+	by alsa0.perex.cz (Postfix) with ESMTPS id 04CF41694;
+	Wed,  8 Sep 2021 22:15:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04CF41694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631124217;
-	bh=JoYih4sqNfabjcyBCTOqLPzIg4xrvm/Y4CP/nr77+JA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1631132177;
+	bh=cRA+joGEWye/7++9Rsjay6iSObsITZkXcUAMCRL9Atg=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jK0muuFwSPx6o7TvDKV93qhKecWXINdWWqr71sr78X59e/E8t3jbb1CinO4lfSmud
-	 iDiI4dJSNw0+6PJXQImnQ1cTtmz5t6QlnkN+CuUm1nmdT4XAMkzTWrOKOxzE2wqQvv
-	 sY19OrX6msADKWsWcFczvttC56hNiQTOqXoHSliE=
+	b=ZUrq3Iv5tAMj6eOZGVPGY8lcZraPFDEWNFmOtqkEZqcbyBTLL5eTGsImivhpWc3Lw
+	 OYJapDgoYprCEeyP3vkOGUcdHiNlTaj3ZlsgtJ+NxbftE71SxDvWqCHRY3rmJ3v6vV
+	 qpT2ZcuYbQJaXfQT1juEGO9Ue5ioSKRaRXkeSh74=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F468F804E4;
-	Wed,  8 Sep 2021 20:02:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 552EAF800C7;
+	Wed,  8 Sep 2021 22:15:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B271F804E3; Wed,  8 Sep 2021 20:01:59 +0200 (CEST)
+ id 4DDDAF802E7; Wed,  8 Sep 2021 22:14:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_30,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bombadil.infradead.org (unknown [IPv6:2607:7c80:54:e::133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85DFEF804C1
- for <alsa-devel@alsa-project.org>; Wed,  8 Sep 2021 20:01:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85DFEF804C1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0CF4BF800C7
+ for <alsa-devel@alsa-project.org>; Wed,  8 Sep 2021 22:14:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CF4BF800C7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="qqrQrfeT"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1631124114; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=N+6r2hK8mTzNM1q9Yeqe/17mfjph0gZR2//tfdNAcHc=;
- b=qqrQrfeThr0xamTWLvzwpMxbekYBgKUM19bhdoXR66wTLuW2uHVXFcNnbIntJ7EAx+ik6mF8
- IFuAm9T1/1HLJvtcuTD34TRg+te2DTWUTI+WRVmx1tnAUT+tONmxCtIKFamHzqmdeLYVcKlq
- 00noFkdnBvhglth7RThBVqFGcEk=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
- 6138fa7f6fc2cf7ad99a1c03 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 08 Sep 2021 18:01:35
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 855F8C4338F; Wed,  8 Sep 2021 18:01:34 +0000 (UTC)
-Received: from hu-srivasam-hyd.qualcomm.com (unknown [202.46.22.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id A5DDAC4360C;
- Wed,  8 Sep 2021 18:01:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org A5DDAC4360C
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=codeaurora.org
-From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
- bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
- srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- swboyd@chromium.org, judyhsiao@chromium.org
-Subject: [PATCH 2/2] ASoC: qcom: SC7280: Add machine driver
-Date: Wed,  8 Sep 2021 23:30:57 +0530
-Message-Id: <1631124057-17155-3-git-send-email-srivasam@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1631124057-17155-1-git-send-email-srivasam@codeaurora.org>
-References: <1631124057-17155-1-git-send-email-srivasam@codeaurora.org>
-Cc: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="HC4AqQEG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:
+ Subject:Sender:Reply-To:Content-ID:Content-Description;
+ bh=EWemu83n5pDQ6Fv4EKaY23k23/nR2hurW+tYi5vPqII=; b=HC4AqQEGu7o+TVPDwx8Q/uiWuc
+ FgiNTH1RLcIytFDJ2hGfcfnEkrop2p46mxnbXgHkmv1BOnydpVI6D9NbfzzTjNXtf9kfbpM5rWYbt
+ 6FlPzu5WRhgjcHP7SaGczbRHEpZXrjTxEllS8/7k70qKbwz3M1HBv0mApIh8TbdczniaKRtZbEUwP
+ q2ZGHE99U0pWrAqBp82cuRU/j93YAaOhe/JvWPdQ5vy9NXP9y/3zll2YJOwjLNE/W4AuqveVsr5Mg
+ yIEkeul+jvw8A3qYTQ9Kp+ZKfPPHQ12VtQrFmDhZWW6g/R4uWho3s7A5ICkunbwV6MU1ACJpODOWr
+ 48DIqciQ==;
+Received: from [2601:1c0:6280:3f0::aa0b]
+ by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1mO3xv-007Y1C-0h; Wed, 08 Sep 2021 20:14:39 +0000
+Subject: Re: [PATCH v3] ASoC: atmel: ATMEL drivers don't need HAS_DMA
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+References: <20210707214752.3831-1-rdunlap@infradead.org>
+ <fca8f952-2be0-5c57-d60d-5c4f025abc4d@microchip.com>
+ <49495ab9-5039-f332-2895-1a79c034f58d@infradead.org>
+ <CAMuHMdU=ODKZJ0OOsuCeJnTWuM3fP5DE7coSzB=fvAbxPQWDcg@mail.gmail.com>
+ <a94c9788-0415-ffe3-9dd4-e6ed8d7ee96a@infradead.org>
+ <CAMuHMdWUcaC-xiW0UiVdTpx-R=e_i8eHSNc8JF_wqbcO6FynWw@mail.gmail.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <f5cf4155-785f-9ec7-1f59-be5c92911b0a@infradead.org>
+Date: Wed, 8 Sep 2021 13:14:37 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+MIME-Version: 1.0
+In-Reply-To: <CAMuHMdWUcaC-xiW0UiVdTpx-R=e_i8eHSNc8JF_wqbcO6FynWw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ mirq-linux@rere.qmqm.pl, Mark Brown <broonie@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@free-electrons.com>,
+ Codrin.Ciubotariu@microchip.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,414 +92,99 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add new machine driver to register sound card on sc7280 based targets and
-do the required configuration for lpass cpu dai and external codecs
-connected over MI2S and soundwire interfaces.
-Add support for audio jack detection, soundwire init and MBHC.
+On 9/6/21 12:14 AM, Geert Uytterhoeven wrote:
+> Hi Randy,
+> 
+> On Fri, Sep 3, 2021 at 9:53 PM Randy Dunlap <rdunlap@infradead.org> wrote:
+>> On 9/2/21 9:44 AM, Geert Uytterhoeven wrote:
+>>> On Thu, Jul 8, 2021 at 6:51 PM Randy Dunlap <rdunlap@infradead.org> wrote:
+>>>> On 7/8/21 1:19 AM, Codrin.Ciubotariu@microchip.com wrote:
+>>>>> On 08.07.2021 00:47, Randy Dunlap wrote:
+>>>>>> EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
+>>>>>>
+>>>>>> On a config (such as arch/sh/) which does not set HAS_DMA when MMU
+>>>>>> is not set, several ATMEL ASoC drivers select symbols that cause
+>>>>>> kconfig warnings. There is one "depends on HAS_DMA" which is no longer
+>>>>>> needed. Dropping it eliminates the kconfig warnings and still builds
+>>>>>> with no problems reported.
+>>>>>>
+>>>>>> Fix the following kconfig warnings:
+>>>>>>
+>>>>>> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_PDC
+>>>>>>      Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && HAS_DMA [=n]
+>>>>>>      Selected by [m]:
+>>>>>>      - SND_ATMEL_SOC_SSC [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m]
+>>>>>>      - SND_ATMEL_SOC_SSC_PDC [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m]
+>>>>>>
+>>>>>> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC_PDC
+>>>>>>      Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m] && HAS_DMA [=n]
+>>>>>>      Selected by [m]:
+>>>>>>      - SND_AT91_SOC_SAM9G20_WM8731 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && SND_SOC_I2C_AND_SPI [=m]
+>>>>>>
+>>>>>> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC
+>>>>>>      Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && HAS_DMA [=n]
+>>>>>>      Selected by [m]:
+>>>>>>      - SND_ATMEL_SOC_SSC_DMA [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m]
+>>>>>>
+>>>>>> WARNING: unmet direct dependencies detected for SND_ATMEL_SOC_SSC_DMA
+>>>>>>      Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && ATMEL_SSC [=m] && HAS_DMA [=n]
+>>>>>>      Selected by [m]:
+>>>>>>      - SND_ATMEL_SOC_WM8904 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && I2C [=m]
+>>>>>>      - SND_AT91_SOC_SAM9X5_WM8731 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_ATMEL_SOC [=m] && (ARCH_AT91 || COMPILE_TEST [=y]) && ATMEL_SSC [=m] && SND_SOC_I2C_AND_SPI [=m]
+>>>>>>
+>>>>>> Fixes: 3951e4aae2ce ("ASoC: atmel-pcm: dma support based on pcm dmaengine")
+>>>>>> Fixes: 18291410557f ("ASoC: atmel: enable SOC_SSC_PDC and SOC_SSC_DMA in Kconfig")
+>>>>>> Fixes: 061981ff8cc8 ("ASoC: atmel: properly select dma driver state")
+>>>>>
+>>>>> I am not sure about these fixes tags. As Alexandre mentioned, it looks
+>>>>> like the reason for HAS_DMA in the first place was the COMPILE_TEST with
+>>>>> m32r arch. I dig a bit, and, if any, I think we should use:
+>>>>> Fixes: eb17726b00b3 ("m32r: add simple dma")
+>>>>> since this commit adds dummy DMA support for m32r and seems to fix the
+>>>>> HAS_DMA dependency.
+>>>>
+>>>> Ah, I forgot to update the Fixes: tag(s).
+>>>>
+>>>> I won't disagree with your Fixes: suggestion (good digging) but
+>>>> I would probably have used 8d7d11005e930:
+>>>>     ASoC: atmel: fix build failure
+>>>> which is the commit that added "depends on HAS_DMA".
+>>>
+>>> M32r was not the only platform NO_DMA, so I guess the build would
+>>> have failed for the others, too (e.g. Sun-3).
+>>>
+>>> So the real fix was probably commit f29ab49b5388b2f8 ("dma-mapping:
+>>> Convert NO_DMA get_dma_ops() into a real dummy"), or one of the
+>>> related commits adding dummies to subsystems.
+>>
+>> Hi Geert,
+>> Does this mean that some other actions are needed here?
+>> E.g. revert + a different kind of fix?
+> 
+> While we can now compile drivers using DMA features on NO_DMA
+> platforms, thanks to the dummies, it does mean many of these drivers
+> cannot work on such platforms.  So I think it makes sense to replace
+> "depends on HAS_DMA" by "depends on HAS_DMA || COMPILE_TEST" if DMA
+> is not optional to the driver.
 
-Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Hi Geert,
+
+Is this what you had in mind?  It seems to work with my (limited)
+testing.
+
+thanks.
+
 ---
- sound/soc/qcom/Kconfig  |  12 ++
- sound/soc/qcom/Makefile |   2 +
- sound/soc/qcom/sc7280.c | 347 ++++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 361 insertions(+)
- create mode 100644 sound/soc/qcom/sc7280.c
+  sound/soc/atmel/Kconfig |    1 +
+  1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-index cc7c1de..d9ffcb7 100644
---- a/sound/soc/qcom/Kconfig
-+++ b/sound/soc/qcom/Kconfig
-@@ -152,4 +152,16 @@ config SND_SOC_SC7180
- 	  SC7180 SoC-based systems.
- 	  Say Y if you want to use audio device on this SoCs.
- 
-+config SND_SOC_SC7280
-+	tristate "SoC Machine driver for SC7280 boards"
-+	depends on I2C && SOUNDWIRE
-+	select SND_SOC_QCOM_COMMON
-+	select SND_SOC_MAX98357A
-+	select SND_SOC_LPASS_RX_MACRO
-+	select SND_SOC_LPASS_TX_MACRO
-+	help
-+	  To add support for audio on Qualcomm Technologies Inc.
-+	  SC7280 SoC-based systems.
-+	  Say Y if you want to use audio device on this SoCs.
-+
- endif #SND_SOC_QCOM
-diff --git a/sound/soc/qcom/Makefile b/sound/soc/qcom/Makefile
-index 1600ae5..625aec6 100644
---- a/sound/soc/qcom/Makefile
-+++ b/sound/soc/qcom/Makefile
-@@ -19,6 +19,7 @@ snd-soc-storm-objs := storm.o
- snd-soc-apq8016-sbc-objs := apq8016_sbc.o
- snd-soc-apq8096-objs := apq8096.o
- snd-soc-sc7180-objs := sc7180.o
-+snd-soc-sc7280-objs := sc7280.o
- snd-soc-sdm845-objs := sdm845.o
- snd-soc-sm8250-objs := sm8250.o
- snd-soc-qcom-common-objs := common.o
-@@ -27,6 +28,7 @@ obj-$(CONFIG_SND_SOC_STORM) += snd-soc-storm.o
- obj-$(CONFIG_SND_SOC_APQ8016_SBC) += snd-soc-apq8016-sbc.o
- obj-$(CONFIG_SND_SOC_MSM8996) += snd-soc-apq8096.o
- obj-$(CONFIG_SND_SOC_SC7180) += snd-soc-sc7180.o
-+obj-$(CONFIG_SND_SOC_SC7280) += snd-soc-sc7280.o
- obj-$(CONFIG_SND_SOC_SDM845) += snd-soc-sdm845.o
- obj-$(CONFIG_SND_SOC_SM8250) += snd-soc-sm8250.o
- obj-$(CONFIG_SND_SOC_QCOM_COMMON) += snd-soc-qcom-common.o
-diff --git a/sound/soc/qcom/sc7280.c b/sound/soc/qcom/sc7280.c
-new file mode 100644
-index 0000000..1ab29f6
---- /dev/null
-+++ b/sound/soc/qcom/sc7280.c
-@@ -0,0 +1,347 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+//
-+// Copyright (c) 2020-2021, The Linux Foundation. All rights reserved.
-+//
-+// sc7280.c -- ALSA SoC Machine driver for sc7280
-+
-+#include <dt-bindings/sound/sc7180-lpass.h>
-+#include <dt-bindings/sound/qcom,q6afe.h>
-+#include <linux/gpio.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/of_device.h>
-+#include <linux/platform_device.h>
-+#include <sound/core.h>
-+#include <sound/jack.h>
-+#include <sound/pcm.h>
-+#include <sound/soc.h>
-+#include <uapi/linux/input-event-codes.h>
-+
-+#include "../codecs/wcd938x.h"
-+#include "common.h"
-+#include "lpass.h"
-+
-+#define DRIVER_NAME "SC7280"
-+#define LPASS_MAX_PORTS  (LPASS_CDC_DMA_VA_TX8 + 1)
-+
-+
-+struct sc7280_snd_data {
-+	bool stream_prepared[LPASS_MAX_PORTS];
-+	struct snd_soc_card card;
-+	struct sdw_stream_runtime *sruntime[LPASS_MAX_PORTS];
-+	struct snd_soc_jack hs_jack;
-+	struct snd_soc_jack hdmi_jack;
-+	bool jack_setup;
-+};
-+
-+static void sc7280_jack_free(struct snd_jack *jack)
-+{
-+	struct snd_soc_component *component = jack->private_data;
-+
-+	snd_soc_component_set_jack(component, NULL, NULL);
-+}
-+
-+static int sc7280_headset_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_card *card = rtd->card;
-+	struct sc7280_snd_data *pdata = snd_soc_card_get_drvdata(card);
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	struct snd_soc_component *component = codec_dai->component;
-+	struct snd_jack *jack;
-+	int rval, i;
-+
-+	if (!pdata->jack_setup) {
-+		rval = snd_soc_card_jack_new(card, "Headset Jack",
-+							SND_JACK_HEADSET | SND_JACK_LINEOUT |
-+							SND_JACK_MECHANICAL |
-+							SND_JACK_BTN_0 | SND_JACK_BTN_1 |
-+							SND_JACK_BTN_2 | SND_JACK_BTN_3 |
-+							SND_JACK_BTN_4 | SND_JACK_BTN_5,
-+							&pdata->hs_jack, NULL, 0);
-+
-+		if (rval < 0) {
-+			dev_err(card->dev, "Unable to add Headset Jack\n");
-+			return rval;
-+		}
-+
-+		jack = pdata->hs_jack.jack;
-+
-+		snd_jack_set_key(jack, SND_JACK_BTN_0, KEY_MEDIA);
-+		snd_jack_set_key(jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
-+		snd_jack_set_key(jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
-+		snd_jack_set_key(jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
-+
-+		jack->private_data = component;
-+		jack->private_free = sc7280_jack_free;
-+		pdata->jack_setup = true;
-+	}
-+	switch (cpu_dai->id) {
-+	case LPASS_CDC_DMA_RX0:
-+	case LPASS_CDC_DMA_TX3:
-+		for_each_rtd_codec_dais(rtd, i, codec_dai) {
-+			rval = snd_soc_component_set_jack(component, &pdata->hs_jack, NULL);
-+			if (rval != 0 && rval != -EOPNOTSUPP) {
-+				dev_warn(card->dev, "Failed to set jack: %d\n", rval);
-+				return rval;
-+			}
-+		}
-+
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static int sc7280_hdmi_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_card *card = rtd->card;
-+	struct sc7280_snd_data *pdata = snd_soc_card_get_drvdata(card);
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_component *component = codec_dai->component;
-+	struct snd_jack *jack;
-+	int rval;
-+
-+	rval = snd_soc_card_jack_new(
-+			card, "HDMI Jack",
-+			SND_JACK_LINEOUT,
-+			&pdata->hdmi_jack, NULL, 0);
-+
-+	if (rval < 0) {
-+		dev_err(card->dev, "Unable to add HDMI Jack\n");
-+		return rval;
-+	}
-+
-+	jack = pdata->hdmi_jack.jack;
-+	jack->private_data = component;
-+	jack->private_free = sc7280_jack_free;
-+
-+	return snd_soc_component_set_jack(component, &pdata->hdmi_jack, NULL);
-+}
-+
-+static int sc7280_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+
-+	switch (cpu_dai->id) {
-+	case LPASS_CDC_DMA_TX3:
-+		return sc7280_headset_init(rtd);
-+	case LPASS_CDC_DMA_RX0:
-+	case LPASS_CDC_DMA_VA_TX0:
-+	case MI2S_SECONDARY:
-+		return 0;
-+	case LPASS_DP_RX:
-+		return sc7280_hdmi_init(rtd);
-+	default:
-+		dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__, cpu_dai->id);
-+		return -EINVAL;
-+	}
-+	return 0;
-+}
-+
-+static int sc7280_snd_startup(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+
-+	switch (cpu_dai->id) {
-+	case LPASS_CDC_DMA_RX0:
-+	case LPASS_CDC_DMA_TX3:
-+	case LPASS_CDC_DMA_VA_TX0:
-+		break;
-+	case MI2S_SECONDARY:
-+		break;
-+	case LPASS_DP_RX:
-+		break;
-+	default:
-+		dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__, cpu_dai->id);
-+		return -EINVAL;
-+	}
-+	return 0;
-+}
-+
-+static int sc7280_snd_hw_params(struct snd_pcm_substream *substream,
-+				struct snd_pcm_hw_params *params)
-+{
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_dai *codec_dai;
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	struct sc7280_snd_data *pdata = snd_soc_card_get_drvdata(rtd->card);
-+	struct sdw_stream_runtime *sruntime;
-+	int i;
-+
-+	snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_CHANNELS, 2, 2);
-+	snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_RATE, 48000, 48000);
-+
-+	switch (cpu_dai->id) {
-+	case LPASS_CDC_DMA_TX3:
-+	case LPASS_CDC_DMA_RX0:
-+		for_each_rtd_codec_dais(rtd, i, codec_dai) {
-+			sruntime = snd_soc_dai_get_sdw_stream(codec_dai, substream->stream);
-+			if (sruntime != ERR_PTR(-EOPNOTSUPP))
-+				pdata->sruntime[cpu_dai->id] = sruntime;
-+		}
-+		break;
-+	}
-+
-+	return 0;
-+
-+}
-+
-+static int sc7280_snd_swr_prepare(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	struct sc7280_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
-+	struct sdw_stream_runtime *sruntime = data->sruntime[cpu_dai->id];
-+	int ret;
-+
-+	if (!sruntime)
-+		return 0;
-+
-+	if (data->stream_prepared[cpu_dai->id]) {
-+		sdw_disable_stream(sruntime);
-+		sdw_deprepare_stream(sruntime);
-+		data->stream_prepared[cpu_dai->id] = false;
-+	}
-+
-+	ret = sdw_prepare_stream(sruntime);
-+	if (ret)
-+		return ret;
-+
-+	ret = sdw_enable_stream(sruntime);
-+	if (ret) {
-+		sdw_deprepare_stream(sruntime);
-+		return ret;
-+	}
-+	data->stream_prepared[cpu_dai->id]  = true;
-+
-+	return ret;
-+}
-+
-+
-+static int sc7280_snd_prepare(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+
-+	switch (cpu_dai->id) {
-+	case LPASS_CDC_DMA_RX0:
-+	case LPASS_CDC_DMA_TX3:
-+		return sc7280_snd_swr_prepare(substream);
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static int sc7280_snd_hw_free(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct sc7280_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	struct sdw_stream_runtime *sruntime = data->sruntime[cpu_dai->id];
-+
-+	switch (cpu_dai->id) {
-+	case LPASS_CDC_DMA_RX0:
-+	case LPASS_CDC_DMA_TX3:
-+		if (sruntime && data->stream_prepared[cpu_dai->id]) {
-+			sdw_disable_stream(sruntime);
-+			sdw_deprepare_stream(sruntime);
-+			data->stream_prepared[cpu_dai->id] = false;
-+		}
-+		break;
-+	default:
-+		break;
-+	}
-+	return 0;
-+}
-+
-+static void sc7280_snd_shutdown(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+
-+	switch (cpu_dai->id) {
-+	case LPASS_CDC_DMA_RX0:
-+	case LPASS_CDC_DMA_TX3:
-+	case LPASS_CDC_DMA_VA_TX0:
-+		break;
-+	case MI2S_SECONDARY:
-+		break;
-+	case LPASS_DP_RX:
-+		break;
-+	default:
-+		dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__, cpu_dai->id);
-+		break;
-+	}
-+}
-+
-+static const struct snd_soc_ops sc7280_ops = {
-+	.startup = sc7280_snd_startup,
-+	.shutdown = sc7280_snd_shutdown,
-+	.hw_params = sc7280_snd_hw_params,
-+	.hw_free = sc7280_snd_hw_free,
-+	.prepare = sc7280_snd_prepare,
-+};
-+
-+static const struct snd_soc_dapm_widget sc7280_snd_widgets[] = {
-+	SND_SOC_DAPM_HP("Headphone Jack", NULL),
-+	SND_SOC_DAPM_MIC("Headset Mic", NULL),
-+};
-+
-+static int sc7280_snd_platform_probe(struct platform_device *pdev)
-+{
-+	struct snd_soc_card *card;
-+	struct sc7280_snd_data *data;
-+	struct device *dev = &pdev->dev;
-+	struct snd_soc_dai_link *link;
-+	int ret, i;
-+
-+	/* Allocate the private data */
-+	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	card = &data->card;
-+	data->jack_setup = false;
-+	snd_soc_card_set_drvdata(card, data);
-+
-+	card->owner = THIS_MODULE;
-+	card->driver_name = DRIVER_NAME;
-+	card->dev = dev;
-+
-+	ret = qcom_snd_parse_of(card);
-+	if (ret)
-+		return ret;
-+
-+	for_each_card_prelinks(card, i, link) {
-+		link->init = sc7280_init;
-+		link->ops = &sc7280_ops;
-+	}
-+	ret = devm_snd_soc_register_card(dev, card);
-+	return ret;
-+}
-+
-+static const struct of_device_id sc7280_snd_device_id[]  = {
-+	{.compatible = "google,sc7280-herobrine"},
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, sc7280_snd_device_id);
-+
-+static struct platform_driver sc7280_snd_driver = {
-+	.probe = sc7280_snd_platform_probe,
-+	.driver = {
-+		.name = "msm-snd-sc7280",
-+		.of_match_table = sc7280_snd_device_id,
-+		.pm = &snd_soc_pm_ops,
-+	},
-+};
-+module_platform_driver(sc7280_snd_driver);
-+
-+MODULE_DESCRIPTION("sc7280 ASoC Machine Driver");
-+MODULE_LICENSE("GPL v2");
--- 
-Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
-is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
-
+--- linux-next-20210907.orig/sound/soc/atmel/Kconfig
++++ linux-next-20210907/sound/soc/atmel/Kconfig
+@@ -11,6 +11,7 @@ if SND_ATMEL_SOC
+  
+  config SND_ATMEL_SOC_PDC
+  	bool
++	depends on HAS_DMA || COMPILE_TEST
+  
+  config SND_ATMEL_SOC_DMA
+  	bool

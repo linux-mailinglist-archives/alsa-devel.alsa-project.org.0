@@ -2,61 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C02A403CBB
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Sep 2021 17:44:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AD16403D0A
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Sep 2021 17:56:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF7D416BE;
-	Wed,  8 Sep 2021 17:43:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF7D416BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB40C16C0;
+	Wed,  8 Sep 2021 17:55:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB40C16C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631115882;
-	bh=V2jc5OP5Ia+haBeNIWe3g7GBCyiqbHMnHXzCna/S1a8=;
+	s=default; t=1631116587;
+	bh=A6qyEsybXOllDI7uqXXKRbUqfdgYGHimBGKjnrTPaUY=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=pCsbPC9HQiJMCzIwUpcrPWv98BseKoIZQ84peAto6a+50kBpIUbW6GaJLJ1QjmRr5
-	 oLZF5n4XKv7B+Zr0893hzLo7OpzHewSgH/UjDZL22pnDO+qrejoJ86cpgvx4dYElMR
-	 5yUchbiBFIKitU7a2lejyZmTL5mgwako1gcEY7sc=
+	b=GFcWO95/LHVnx/mDJCPE8Eydk9qBBCZx9/fGuQBmedqTNzApnIQMGno38hxcoEXlt
+	 Q2no2nu5v41h+vpL3YobvvQ/wYJEDXh1d/4/N8qnZTqMWAmv6+tK5tFH2hTqWuAHQJ
+	 0zwaHqKVP8qffwyYQ6kkVXr9DI/a6CPYtEYsJP0A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B786F8049C;
-	Wed,  8 Sep 2021 17:43:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36102F804B3;
+	Wed,  8 Sep 2021 17:55:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6E2E2F802E7; Wed,  8 Sep 2021 17:43:23 +0200 (CEST)
+ id E2034F804A9; Wed,  8 Sep 2021 17:55:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CB0B3F800C7
- for <alsa-devel@alsa-project.org>; Wed,  8 Sep 2021 17:43:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB0B3F800C7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6319EF800C7
+ for <alsa-devel@alsa-project.org>; Wed,  8 Sep 2021 17:55:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6319EF800C7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="VcycVSJ0"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1A8C961132;
- Wed,  8 Sep 2021 15:43:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631115793;
- bh=V2jc5OP5Ia+haBeNIWe3g7GBCyiqbHMnHXzCna/S1a8=;
- h=From:To:Cc:Subject:Date:From;
- b=VcycVSJ04MeMXsAOk48H5IOqk+pIm0Z8BIU6iWj+B4q+irMkihIFXullq+n84Y/XH
- dqp59b9k9cGq03rdkfoqJTBvXp2pm4nBibGoV5aO5eZTwU42420GGm9Qp2Zi1PmGev
- ukUcmJOqsbIxzU6LhKLMkWfm7kOepanOvrgSxjV94SkQp+hezNgOKCbOJ6SdHKvJyB
- HIgo6Yvd4C9it1SRQPJfxfthnCrnNHvgz5aXum06CZAv3CgGrGz0ucWu+U3maPJsEO
- 248Zgeu2V5q7Oo02eGTGxdZgn5aR/OrcnpiMff9roQru+h6P/fWo3qe3hIbme/cCJ4
- 9D2ob670xlICw==
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: [GIT PULL] ASoC fixes for v5.15-rc1
-Date: Wed, 08 Sep 2021 16:42:25 +0100
-Message-Id: <20210908154313.1A8C961132@mail.kernel.org>
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>
+ dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com
+ header.b="Rocm8JSE"
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.0.43) with SMTP id 188FpQ8Y005816;
+ Wed, 8 Sep 2021 17:55:01 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=7TLj7ZXyvA+kH3uJOs8jc9e81SnMhHsdELVRMPZwfY8=;
+ b=Rocm8JSEPqLdyePXHzcUHU3azuoYxcXr/3KbWBFav05S/Kt44qmctxLmYkDVt+kzkmCH
+ cHmYtzquNmB/T8CLVoL4ucou0DpNVo1Qu5K83Mpq3pv50q8lDxPdg0w5UnxIWNCDT3Cs
+ /iKMpsaCBCg+Ldu9ZoVWGy8BGTzagDARczD3GKsBSNoN7TSbWfL14rQ2EtzKzUCWGR0s
+ bisJ7JLPmDOIme1e3Kx0b4DpGP/33DFEmwdd4HwPPi9AREBEjJMOHoNS6iaJlrpYu0hz
+ LBojazNBUZ+0l887Lp0ptpFAIiCmZjFLBsyxs2nE0dFhrP+83lf9iQpNIdvg+itXhpah kQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 3axtha2b7v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 08 Sep 2021 17:55:01 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7DF7210002A;
+ Wed,  8 Sep 2021 17:54:58 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag1node3.st.com [10.75.127.3])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D411F229A66;
+ Wed,  8 Sep 2021 17:54:58 +0200 (CEST)
+Received: from localhost (10.75.127.49) by SFHDAG1NODE3.st.com (10.75.127.3)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.18; Wed, 8 Sep 2021 17:54:58
+ +0200
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Arnaud Pouliquen
+ <arnaud.pouliquen@foss.st.com>, Fabrice Gasnier <fabrice.gasnier@st.com>,
+ Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Olivier Moysan
+ <olivier.moysan@foss.st.com>, Rob Herring <robh+dt@kernel.org>
+Subject: [PATCH 0/7] add internal channels support
+Date: Wed, 8 Sep 2021 17:54:45 +0200
+Message-ID: <20210908155452.25458-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.17.1
+MIME-Version: 1.0
+Content-Type: text/plain
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG1NODE3.st.com
+ (10.75.127.3)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-09-08_06,2021-09-07_02,2020-04-07_01
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,61 +100,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The following changes since commit 38b7673000949ca784fcb8a9feb70d2a802befa6:
+This patchset adds support of ADC2 internal channels VDDCORE, VREFINT and VBAT
+on STM32MP15x SoCs. The generic IIO channel bindings is also introduced here
+to provide this feature. The legacy channel binding is kept for backward compatibility.
 
-  Merge remote-tracking branch 'asoc/for-5.15' into asoc-linus (2021-08-30 12:30:33 +0100)
+Olivier Moysan (7):
+  dt-bindings: iio: adc: add generic channel binding
+  dt-bindings: iio: adc: add nvmem support for vrefint internal channel
+  iio: adc stm32-adc: split channel init into several routines
+  iio: adc: stm32-adc: add support of generic channels binding
+  iio: adc: stm32-adc: add support of internal channels
+  iio: adc: stm32-adc: add vrefint calibration support
+  iio: adc: stm32-adc: use generic binding for sample-time
 
-are available in the Git repository at:
+ .../bindings/iio/adc/st,stm32-adc.yaml        | 108 ++++-
+ drivers/iio/adc/stm32-adc-core.h              |   8 +
+ drivers/iio/adc/stm32-adc.c                   | 418 ++++++++++++++++--
+ 3 files changed, 482 insertions(+), 52 deletions(-)
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.15-rc1
+-- 
+2.17.1
 
-for you to fetch changes up to fcb958ee8e832e9cdf43408535207e15f14af755:
-
-  ASoC: rockchip: i2s: Fix concurrency between tx/rx (2021-09-03 16:19:01 +0100)
-
-----------------------------------------------------------------
-ASoC: Fixes for v5.15
-
-A collection of fixes that came in during the merge window, nothing too
-remarkable but a reasonably large number of fixes.
-
-----------------------------------------------------------------
-Colin Ian King (1):
-      ASoC: samsung: s3c24xx_simtec: fix spelling mistake "devicec" -> "device"
-
-Geert Uytterhoeven (1):
-      ASoC: mediatek: SND_SOC_MT8195 should depend on ARCH_MEDIATEK
-
-Kuninori Morimoto (1):
-      ASoC: audio-graph: respawn Platform Support
-
-Mark Brown (1):
-      Merge tag 'asoc-v5.15' into asoc-5.15
-
-Nathan Chancellor (1):
-      ASoC: Intel: boards: Fix CONFIG_SND_SOC_SDW_MOCKUP select
-
-Shengjiu Wang (1):
-      ASoC: dt-bindings: fsl_rpmsg: Add compatible string for i.MX8ULP
-
-Shuming Fan (1):
-      ASoC: rt5682: fix headset background noise when S3 state
-
-Sugar Zhang (1):
-      ASoC: rockchip: i2s: Fix concurrency between tx/rx
-
-Trevor Wu (3):
-      ASoC: mediatek: mt8195: add MTK_PMIC_WRAP dependency
-      ASoC: dt-bindings: mt8195: remove dependent headers in the example
-      ASoC: mt8195: correct the dts parsing logic about DPTX and HDMITX
-
- .../devicetree/bindings/sound/fsl,rpmsg.yaml       |  1 +
- .../devicetree/bindings/sound/mt8195-afe-pcm.yaml  | 40 ++++++++++------------
- sound/soc/codecs/rt5682.c                          |  3 --
- sound/soc/generic/audio-graph-card.c               |  6 ++++
- sound/soc/intel/boards/Kconfig                     |  2 +-
- sound/soc/mediatek/Kconfig                         |  3 +-
- .../mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c  | 22 ++++++------
- sound/soc/rockchip/rockchip_i2s.c                  |  7 ++++
- sound/soc/samsung/s3c24xx_simtec.c                 |  2 +-
- 9 files changed, 47 insertions(+), 39 deletions(-)

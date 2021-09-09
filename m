@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44381405A4B
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 17:41:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34241405A4A
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 17:41:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D247916B8;
-	Thu,  9 Sep 2021 17:40:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D247916B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B2D416AB;
+	Thu,  9 Sep 2021 17:40:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B2D416AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631202095;
-	bh=iLbwmwP2Lt6HapFkY338gAPIBAFOl7Xi7VTkIA83tys=;
+	s=default; t=1631202076;
+	bh=T/mw/UbjbrrOlnUVot7WIwHPaeG3mY6jLafZbnQXNto=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kPz3wtr93D4ABfVXeBCsmGVYZ60zAGuZFkWzYBGTqCKlQcWhTchIbIg29AjHWhPUe
-	 K47i8BVWMIKBt1BLicirbV0EmqREfI/8gi8iMIUjIIxfTWc/VxxInKtbYSkigpnb5j
-	 SMlUqgteE95CHqx+UD+/s6CJLiOqfzTWmPtLG2kw=
+	b=ciAd25b1yD5BOmcIUTLk3L1t+QXLg91vrhOsSlY/YMomja9FgptuX/MidhxldLVh9
+	 QMSYE9E9DH3pmqJsGua87KsBOZT9e06t4Q9hgzefNpNF31JZhqc/S42KmiYDMqcRFA
+	 OfMKUUnuun3c8AOXlQ7fY2lhIzzGiN1bSGsLBjzg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C2FA2F804B2;
+	by alsa1.perex.cz (Postfix) with ESMTP id 46D99F80224;
 	Thu,  9 Sep 2021 17:39:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EA63AF80224; Thu,  9 Sep 2021 17:39:39 +0200 (CEST)
+ id AA0A2F80224; Thu,  9 Sep 2021 17:39:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85AE1F800C7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 458F1F80224
  for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 17:39:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85AE1F800C7
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 458F1F80224
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ruTm9io9"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 949456113A;
- Thu,  9 Sep 2021 15:39:30 +0000 (UTC)
+ header.b="i8P0a3DY"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3BD1C61101;
+ Thu,  9 Sep 2021 15:39:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631201971;
- bh=iLbwmwP2Lt6HapFkY338gAPIBAFOl7Xi7VTkIA83tys=;
+ s=k20201202; t=1631201973;
+ bh=T/mw/UbjbrrOlnUVot7WIwHPaeG3mY6jLafZbnQXNto=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ruTm9io9P3MjjQwTtDIv3/nYcJGxFstt1ek5625XltNBDpZQgIdXpFy9M2rl+cp0j
- CcIU+1dwEh02XK/+xZfPKBE/kXiDBbBN2+uXp2MnKQYZuKexKMOh8XOfhZ3oDm0f/+
- 79qgav5OL3NU0CJrxw5xxgI6Q1mNRbIjraoPG24zkr7osONgHSO6Gxg5x5t4bZvjW+
- xxSfnwyehAs5IDin13Kd7JuO65px40gsFRAXmhLWv26JEUViDEKUrwEWyEMYw+Ko9f
- 1hEsPKPG79ZO17W9VQa0ZvyGbByCbyzYqdAa4k2ixNnchzsnVUG+jnpp+xaLTjvfe2
- 49NTlVVKAKHsA==
+ b=i8P0a3DYUqvolCsgpd39ALimrV04sYugsuGLc5z5sEQyVPkWyJFfAxH7cg9M1R2z5
+ R/MKKdhX6Q7jDQZ7CZI/XES508M3xPOjd2XQuoSAilrOegH5H66zULlkHCLu0SFYJG
+ DjLdUAQ8UPe5bXX2KeP3Q/qK0WC46Mb32vGS7fSBdcLt8MKvNiLCHRgEHg7CVBrlvH
+ GiwtibH8jKOviM/abCb6w4QW1kXZRdpuONi+172Esj+bnZTO6ogtN+SF/yEYr0zjl/
+ yGOvVIO5gTOh4eNh5pILwXnsMvc6/jxgChwt9ygrGCtKOrIw9u1L95SbNUDk9qtME7
+ iUj+hTgHtlBTA==
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ASoC: Intel: sof_sdw: tag SoundWire BEs as non-atomic
-Date: Thu,  9 Sep 2021 16:38:50 +0100
-Message-Id: <163120168199.50116.15367885056330333546.b4-ty@kernel.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Subject: Re: [PATCH] MAINTAINERS: fix update references to stm32 audio bindings
+Date: Thu,  9 Sep 2021 16:38:51 +0100
+Message-Id: <163120168200.50116.15964820004324884962.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210907184436.33152-1-pierre-louis.bossart@linux.intel.com>
-References: <20210907184436.33152-1-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20210909145449.24388-1-arnaud.pouliquen@foss.st.com>
+References: <20210909145449.24388-1-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Rander Wang <rander.wang@intel.com>, vkoul@kernel.org,
- Mark Brown <broonie@kernel.org>, Bard Liao <bard.liao@intel.com>
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,15 +80,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 7 Sep 2021 13:44:36 -0500, Pierre-Louis Bossart wrote:
-> The SoundWire BEs make use of 'stream' functions for .prepare and
-> .trigger. These functions will in turn force a Bank Switch, which
-> implies a wait operation.
+On Thu, 9 Sep 2021 16:54:49 +0200, Arnaud Pouliquen wrote:
+> The 00d38fd8d2524 ("MAINTAINERS: update references to stm32 audio bindings")
+> commit update the bindings reference, by
+> removing bindings/sound/st,stm32-adfsdm.txt, to set the
+> new reference to bindings/iio/adc/st,stm32-*.yaml.
 > 
-> Mark SoundWire BEs as nonatomic for consistency, but keep all other
-> types of BEs as is. The initialization of .nonatomic is done outside
-> of the create_sdw_dailink helper to avoid adding more parameters to
-> deal with a single exception to the rule that BEs are atomic.
+> This leads to "get_maintainer finds" the match for the
+> Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml,
+> but also to the IIO bindings
+> Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
 > 
 > [...]
 
@@ -99,8 +99,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: sof_sdw: tag SoundWire BEs as non-atomic
-      commit: 58eafe1ff52ee1ce255759fc15729519af180cbb
+[1/1] MAINTAINERS: fix update references to stm32 audio bindings
+      commit: 26be23af1866eead5a29f8501f9d774ac277d0bd
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

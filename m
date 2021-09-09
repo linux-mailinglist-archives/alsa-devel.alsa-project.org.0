@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3348E404AC8
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 13:48:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CC9B404AD0
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 13:48:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CC11416B8;
-	Thu,  9 Sep 2021 13:47:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC11416B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 34FD915DC;
+	Thu,  9 Sep 2021 13:47:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34FD915DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631188097;
-	bh=7znTvPL8pBcDv4O+L3rPJsoXndPJdGh5ym7doU5Uw0M=;
+	s=default; t=1631188115;
+	bh=6+MONF8EmtdpRsVvsw+V+vRmiKz8kfaaA31jO5pe8sg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aXFX3lUm7l4jwVnLzumU10F28F2ELBTQ4FC8u9+3CIp6HitMLCZ6wdfjZuZcHwy/O
-	 DbNF2rCYC3uAZqr4HH/i0GKUXwBheuQfyEBG8/tDC5Lmxp1L3qeaRfBtJXdYCp/gaf
-	 AWxMUUsLrOs+0s5B2XSAn13TOoA51XCUj+Hfv6qI=
+	b=KQAKnzHXyRrV8R56BoWnY9g/wBLx/FdcTJmteJhlg2adm+9BnjX3SDYTjmL73qSBz
+	 lRj2a6+iFoQDbwaeXze8L5jogVCIGP8Nc251u0Fuczs7wTKFJARjQJHe4VdRqCl62y
+	 9TM145seEk3eE5fF/bSAoI1y05Ovp5c+uSfhzVcw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4376DF804EB;
-	Thu,  9 Sep 2021 13:46:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 013E0F80506;
+	Thu,  9 Sep 2021 13:46:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6BAC4F80300; Thu,  9 Sep 2021 13:46:05 +0200 (CEST)
+ id 3B9B9F80506; Thu,  9 Sep 2021 13:46:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0D5FDF802A9
- for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 13:45:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D5FDF802A9
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1C59F80217
+ for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 13:46:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1C59F80217
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="nyKnLCsp"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 235FC6140F;
- Thu,  9 Sep 2021 11:45:56 +0000 (UTC)
+ header.b="ZIP8cDKa"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A3EE161414;
+ Thu,  9 Sep 2021 11:45:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631187957;
- bh=7znTvPL8pBcDv4O+L3rPJsoXndPJdGh5ym7doU5Uw0M=;
+ s=k20201202; t=1631187958;
+ bh=6+MONF8EmtdpRsVvsw+V+vRmiKz8kfaaA31jO5pe8sg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nyKnLCspqhnCXE/V62qVjnRDufs05duk7DD7LwHr8So6D3E9C5ZWL6IO0694zRTSK
- dBEvycea+41ffDpwnfrH7bT2QKZALKi13DDbjwEhWB4/JNQzuAYCnE5c2i+qvxYGI0
- 2eUETnFYxDdgFlvE+ZvlzAMQAeQqypFxGCfuoAu7wsVhI4sZT3tf3aBE8SA5k4uxk/
- T6qPTlkINWqssHGnv4JgqWnHp3W55zHV5qTEWO7BTsAXdhzi8u7wv9DPRoPE+54/1L
- sdvMIe3JDW4ItQHEnJRbVhWa5qcz5IO34pjbUya0YeGS16X30zSFAlzP54ykx/5+e3
- idUyux6/tvp/g==
+ b=ZIP8cDKai0/OWXfaO7NWGkZ3Cdza7M1jr1ZnmxXvhzWAK/ulKKwfq0XJ1JRQTQukz
+ aPPPIKj1Hm+sTwFs9v3ozlZSh07Yhi2hbkaavDHkI9ncdkokogPGbg/PArpJU0Syhg
+ KljgrBdAKu51Rj50LLgDRk21aeLSR3p25uFTaUHzWL5jL+1dMdVMmW4cdwjfaGp+Yo
+ dm5RdN7yZDP0E1Euh1zZccD0k3I7diGy6HEfuNsf5yW3fKc26LeiuPcIkArcvRKIZh
+ MciV8mSWn3D0oeHSpbcmqH8r4l5rB8RXkGlFJA0WJfottCXYvRJPh8KXO7a0PBxX5I
+ A2OjargwVY9Sg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.14 223/252] ASoC: rockchip: i2s: Fixup config for
- DAIFMT_DSP_A/B
-Date: Thu,  9 Sep 2021 07:40:37 -0400
-Message-Id: <20210909114106.141462-223-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.14 224/252] ASoC: soc-pcm: protect BE dailink state
+ changes in trigger
+Date: Thu,  9 Sep 2021 07:40:38 -0400
+Message-Id: <20210909114106.141462-224-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210909114106.141462-1-sashal@kernel.org>
 References: <20210909114106.141462-1-sashal@kernel.org>
@@ -67,9 +67,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Sugar Zhang <sugar.zhang@rock-chips.com>, linux-rockchip@lists.infradead.org,
- Xiaotan Luo <lxt@rock-chips.com>, Mark Brown <broonie@kernel.org>,
- linux-arm-kernel@lists.infradead.org
+ Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,60 +84,205 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Xiaotan Luo <lxt@rock-chips.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit 1bf56843e664eef2525bdbfae6a561e98910f676 ]
+[ Upstream commit 0c75fc7193387776c10f7c7b440d93496e3d5e21 ]
 
-- DSP_A: PCM delay 1 bit mode, L data MSB after FRM LRC
-- DSP_B: PCM no delay mode, L data MSB during FRM LRC
+When more than one FE is connected to a BE, e.g. in a mixing use case,
+the BE can be triggered multiple times when the FE are opened/started
+concurrently. This race condition is problematic in the case of
+SoundWire BE dailinks, and this is not desirable in a general
+case. The code carefully checks when the BE can be stopped or
+hw_free'ed, but the trigger code does not use any mutual exclusion.
 
-Signed-off-by: Xiaotan Luo <lxt@rock-chips.com>
-Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
-Link: https://lore.kernel.org/r/1629950562-14281-3-git-send-email-sugar.zhang@rock-chips.com
+Fix by using the same spinlock already used to check FE states, and
+set the state before the trigger. In case of errors,  the initial
+state will be restored.
+
+This patch does not change how the triggers are handled, it only makes
+sure the states are handled in critical sections.
+
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-Id: <20210817164054.250028-2-pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/rockchip/rockchip_i2s.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ sound/soc/soc-pcm.c | 103 ++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 85 insertions(+), 18 deletions(-)
 
-diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
-index 1fd47e56c77f..b65dfbc3545b 100644
---- a/sound/soc/rockchip/rockchip_i2s.c
-+++ b/sound/soc/rockchip/rockchip_i2s.c
-@@ -233,12 +233,12 @@ static int rockchip_i2s_set_fmt(struct snd_soc_dai *cpu_dai,
- 	case SND_SOC_DAIFMT_I2S:
- 		val = I2S_TXCR_IBM_NORMAL;
- 		break;
--	case SND_SOC_DAIFMT_DSP_A: /* PCM no delay mode */
--		val = I2S_TXCR_TFS_PCM;
--		break;
--	case SND_SOC_DAIFMT_DSP_B: /* PCM delay 1 mode */
-+	case SND_SOC_DAIFMT_DSP_A: /* PCM delay 1 bit mode */
- 		val = I2S_TXCR_TFS_PCM | I2S_TXCR_PBM_MODE(1);
- 		break;
-+	case SND_SOC_DAIFMT_DSP_B: /* PCM no delay mode */
-+		val = I2S_TXCR_TFS_PCM;
-+		break;
- 	default:
- 		ret = -EINVAL;
- 		goto err_pm_put;
-@@ -257,12 +257,12 @@ static int rockchip_i2s_set_fmt(struct snd_soc_dai *cpu_dai,
- 	case SND_SOC_DAIFMT_I2S:
- 		val = I2S_RXCR_IBM_NORMAL;
- 		break;
--	case SND_SOC_DAIFMT_DSP_A: /* PCM no delay mode */
--		val = I2S_RXCR_TFS_PCM;
--		break;
--	case SND_SOC_DAIFMT_DSP_B: /* PCM delay 1 mode */
-+	case SND_SOC_DAIFMT_DSP_A: /* PCM delay 1 bit mode */
- 		val = I2S_RXCR_TFS_PCM | I2S_RXCR_PBM_MODE(1);
- 		break;
-+	case SND_SOC_DAIFMT_DSP_B: /* PCM no delay mode */
-+		val = I2S_RXCR_TFS_PCM;
-+		break;
- 	default:
- 		ret = -EINVAL;
- 		goto err_pm_put;
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index d1c570ca21ea..b944f56a469a 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -2001,6 +2001,8 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+ 	struct snd_soc_pcm_runtime *be;
+ 	struct snd_soc_dpcm *dpcm;
+ 	int ret = 0;
++	unsigned long flags;
++	enum snd_soc_dpcm_state state;
+ 
+ 	for_each_dpcm_be(fe, stream, dpcm) {
+ 		struct snd_pcm_substream *be_substream;
+@@ -2017,76 +2019,141 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+ 
+ 		switch (cmd) {
+ 		case SNDRV_PCM_TRIGGER_START:
++			spin_lock_irqsave(&fe->card->dpcm_lock, flags);
+ 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PREPARE) &&
+ 			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
+-			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
++			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED)) {
++				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 				continue;
++			}
++			state = be->dpcm[stream].state;
++			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
++			spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 
+ 			ret = soc_pcm_trigger(be_substream, cmd);
+-			if (ret)
++			if (ret) {
++				spin_lock_irqsave(&fe->card->dpcm_lock, flags);
++				be->dpcm[stream].state = state;
++				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 				goto end;
++			}
+ 
+-			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
+ 			break;
+ 		case SNDRV_PCM_TRIGGER_RESUME:
+-			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_SUSPEND))
++			spin_lock_irqsave(&fe->card->dpcm_lock, flags);
++			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_SUSPEND) {
++				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 				continue;
++			}
++
++			state = be->dpcm[stream].state;
++			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
++			spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 
+ 			ret = soc_pcm_trigger(be_substream, cmd);
+-			if (ret)
++			if (ret) {
++				spin_lock_irqsave(&fe->card->dpcm_lock, flags);
++				be->dpcm[stream].state = state;
++				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 				goto end;
++			}
+ 
+-			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
+ 			break;
+ 		case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+-			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
++			spin_lock_irqsave(&fe->card->dpcm_lock, flags);
++			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED) {
++				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 				continue;
++			}
++
++			state = be->dpcm[stream].state;
++			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
++			spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 
+ 			ret = soc_pcm_trigger(be_substream, cmd);
+-			if (ret)
++			if (ret) {
++				spin_lock_irqsave(&fe->card->dpcm_lock, flags);
++				be->dpcm[stream].state = state;
++				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 				goto end;
++			}
+ 
+-			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
+ 			break;
+ 		case SNDRV_PCM_TRIGGER_STOP:
++			spin_lock_irqsave(&fe->card->dpcm_lock, flags);
+ 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_START) &&
+-			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
++			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED)) {
++				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 				continue;
++			}
++			spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 
+ 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
+ 				continue;
+ 
++			spin_lock_irqsave(&fe->card->dpcm_lock, flags);
++			state = be->dpcm[stream].state;
++			be->dpcm[stream].state = SND_SOC_DPCM_STATE_STOP;
++			spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
++
+ 			ret = soc_pcm_trigger(be_substream, cmd);
+-			if (ret)
++			if (ret) {
++				spin_lock_irqsave(&fe->card->dpcm_lock, flags);
++				be->dpcm[stream].state = state;
++				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 				goto end;
++			}
+ 
+-			be->dpcm[stream].state = SND_SOC_DPCM_STATE_STOP;
+ 			break;
+ 		case SNDRV_PCM_TRIGGER_SUSPEND:
+-			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START)
++			spin_lock_irqsave(&fe->card->dpcm_lock, flags);
++			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START) {
++				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 				continue;
++			}
++			spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 
+ 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
+ 				continue;
+ 
++			spin_lock_irqsave(&fe->card->dpcm_lock, flags);
++			state = be->dpcm[stream].state;
++			be->dpcm[stream].state = SND_SOC_DPCM_STATE_STOP;
++			spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
++
+ 			ret = soc_pcm_trigger(be_substream, cmd);
+-			if (ret)
++			if (ret) {
++				spin_lock_irqsave(&fe->card->dpcm_lock, flags);
++				be->dpcm[stream].state = state;
++				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 				goto end;
++			}
+ 
+-			be->dpcm[stream].state = SND_SOC_DPCM_STATE_SUSPEND;
+ 			break;
+ 		case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+-			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START)
++			spin_lock_irqsave(&fe->card->dpcm_lock, flags);
++			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START) {
++				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 				continue;
++			}
++			spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 
+ 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
+ 				continue;
+ 
++			spin_lock_irqsave(&fe->card->dpcm_lock, flags);
++			state = be->dpcm[stream].state;
++			be->dpcm[stream].state = SND_SOC_DPCM_STATE_PAUSED;
++			spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
++
+ 			ret = soc_pcm_trigger(be_substream, cmd);
+-			if (ret)
++			if (ret) {
++				spin_lock_irqsave(&fe->card->dpcm_lock, flags);
++				be->dpcm[stream].state = state;
++				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 				goto end;
++			}
+ 
+-			be->dpcm[stream].state = SND_SOC_DPCM_STATE_PAUSED;
+ 			break;
+ 		}
+ 	}
 -- 
 2.30.2
 

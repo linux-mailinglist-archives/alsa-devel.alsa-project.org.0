@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9957F404A43
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 13:45:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C938404A61
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 13:45:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1432C16BE;
-	Thu,  9 Sep 2021 13:44:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1432C16BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9330D16AF;
+	Thu,  9 Sep 2021 13:44:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9330D16AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631187908;
-	bh=T+pyGVuoVHBZhTxcuYfPVs9mekt2VTw41BaXw7jkxoc=;
+	s=default; t=1631187932;
+	bh=5dJO6w+5dh4dsYlnWN7LmnTtcZk0Tkos3wR4UE4Nr4g=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CiroZzfr782mcc4A1JOPT9In/jXC5INlE7qwEZ0v/7Prv4lghmbGHkzDlL2ETGDyT
-	 ucysyLEvoVNIlFQ1qOIScIk0MKFM9GMJKh4b8rhLOqbdkZO+mABrJRHvc7azeIKsFZ
-	 NMMYLzlyqwb7X3QKycOnmaq9w1manL17VW2t8v5w=
+	b=kaFggYE+SDWqQ0gt5rMNPNFxXI+fJoFYfdeMiVKTSixMo1PHQLutYxxP/L3a1YKDX
+	 Q5hIodm33vpPWUoC4qxcdBVsHBoCiuGcrDXHXkKyI9Lq7aoSayflSnk4ZnKYu7GLXS
+	 RNSQYxO+rkaOzaC3JkmxOGfI6nOvdDURY51JT8Eo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0393F80166;
-	Thu,  9 Sep 2021 13:43:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D421F804EB;
+	Thu,  9 Sep 2021 13:44:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 66168F804E4; Thu,  9 Sep 2021 13:43:28 +0200 (CEST)
+ id 11551F804EB; Thu,  9 Sep 2021 13:44:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,30 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F07D3F80166
- for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 13:43:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F07D3F80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id ABC99F804E6
+ for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 13:44:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABC99F804E6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="og0hKXgM"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D574561261;
- Thu,  9 Sep 2021 11:43:16 +0000 (UTC)
+ header.b="fkXHEmRp"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E658361355;
+ Thu,  9 Sep 2021 11:43:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631187797;
- bh=T+pyGVuoVHBZhTxcuYfPVs9mekt2VTw41BaXw7jkxoc=;
+ s=k20201202; t=1631187837;
+ bh=5dJO6w+5dh4dsYlnWN7LmnTtcZk0Tkos3wR4UE4Nr4g=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=og0hKXgMKuUEVWYbZC6D1S9+6XwVZOEf+lMj6n4a6BDnJGOy+AgTzMcQgoiIqajg8
- nN/ELCP31yWMNBtYRx+yKSdFSnv7DDrANBCx4PgE/49Li5eFLUiMIPyaen/WBogo7M
- vtv1B0iVkA35JZu00QedL0Tl1k2s3ub7BrZ6VmyTmin8maSdvM759VdZ9LCtAbVv47
- aMvh9lHcIxY5hFQ35wmtD4zxUDTEntgwU605oBkid62r4wtnOkm1bOX7d5GgT4yTi9
- oe28Lbu3TiHpQnkqesrGApCOoIOWOnxJHrdlmh3hcMvOm2dLQGKRLd/5N5/ZQNtwxF
- xUWlWGj6KMO+g==
+ b=fkXHEmRpD2RBh84Ld4yMo0KUcrQ0j/Br2dcbRR5n/l+1e3ESECBp8J1oWsUsY+M19
+ ztZyVgATFOvraWkcUZu8LVAM0ufmWFIKZA/aFzMXtK+U5HqGJ6ge7+ief/+HVv5b5u
+ IY3CLtjNHg/WNnhUfcEwYRwPnZPwfrkP0YEhbdPKSjTDAoImOKMnJnRcGLRGaZMCMt
+ KThgdCCkDxj1CEkzkRbX2e+IC6ZjZWHYOy6Hzy3yw/sj3hv82Bv2Fhx+yfbjkkO3ER
+ 4cHgMAy7Bp2HCmopmafh4cat+hkcOYwV9IkqgQkPiRDRRsso98Cqx255qa+MDlm7Nh
+ 0UXfeKXqGsuCA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.14 102/252] ASoC: Intel: update sof_pcm512x quirks
-Date: Thu,  9 Sep 2021 07:38:36 -0400
-Message-Id: <20210909114106.141462-102-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.14 132/252] ALSA: pci: cs46xx: Fix set up buffer
+ type properly
+Date: Thu,  9 Sep 2021 07:39:06 -0400
+Message-Id: <20210909114106.141462-132-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210909114106.141462-1-sashal@kernel.org>
 References: <20210909114106.141462-1-sashal@kernel.org>
@@ -65,10 +66,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>,
- Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,74 +83,98 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 22414cade8dfec25ab94df52b3a4f7aa8edb6120 ]
+[ Upstream commit 4d9e9153f1c64d91a125c6967bc0bfb0bb653ea0 ]
 
-The default SOF topology enables SSP capture and DMICs, even though
-both of these hardware capabilities are not always available in
-hardware (specific versions of HiFiberry and DMIC kit needed).
+CS46xx driver switches the buffer depending on the number of periods,
+and in some cases it switches to the own buffer without updating the
+buffer type properly.  This may cause a problem with the mmap on
+exotic architectures that require the own mmap call for the coherent
+DMA buffer.
 
-For the SSP capture, this leads to annoying "SP5-Codec: ASoC: no
-backend capture" and "streamSSP5-Codec: ASoC: no users capture at
-close - state 0" errors.
+This patch addresses the potential breakage by replacing the buffer
+setup with the proper macro.  It also simplifies the source code,
+too.
 
-Update the quirks to match what the topology needs, which also allows
-for the ability to remove SSP capture and DMIC support.
-
-BugLink: https://github.com/thesofproject/linux/issues/3061
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Link: https://lore.kernel.org/r/20210802152151.15832-4-pierre-louis.bossart@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Link: https://lore.kernel.org/r/20210809071829.22238-4-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/sof_pcm512x.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ sound/pci/cs46xx/cs46xx_lib.c | 30 ++++++++----------------------
+ 1 file changed, 8 insertions(+), 22 deletions(-)
 
-diff --git a/sound/soc/intel/boards/sof_pcm512x.c b/sound/soc/intel/boards/sof_pcm512x.c
-index 2ec9c62366e2..6815204e58d5 100644
---- a/sound/soc/intel/boards/sof_pcm512x.c
-+++ b/sound/soc/intel/boards/sof_pcm512x.c
-@@ -26,11 +26,16 @@
+diff --git a/sound/pci/cs46xx/cs46xx_lib.c b/sound/pci/cs46xx/cs46xx_lib.c
+index 1e1eb17f8e07..d43927dcd61e 100644
+--- a/sound/pci/cs46xx/cs46xx_lib.c
++++ b/sound/pci/cs46xx/cs46xx_lib.c
+@@ -1121,9 +1121,7 @@ static int snd_cs46xx_playback_hw_params(struct snd_pcm_substream *substream,
+ 	if (params_periods(hw_params) == CS46XX_FRAGS) {
+ 		if (runtime->dma_area != cpcm->hw_buf.area)
+ 			snd_pcm_lib_free_pages(substream);
+-		runtime->dma_area = cpcm->hw_buf.area;
+-		runtime->dma_addr = cpcm->hw_buf.addr;
+-		runtime->dma_bytes = cpcm->hw_buf.bytes;
++		snd_pcm_set_runtime_buffer(substream, &cpcm->hw_buf);
  
- #define SOF_PCM512X_SSP_CODEC(quirk)		((quirk) & GENMASK(3, 0))
- #define SOF_PCM512X_SSP_CODEC_MASK			(GENMASK(3, 0))
-+#define SOF_PCM512X_ENABLE_SSP_CAPTURE		BIT(4)
-+#define SOF_PCM512X_ENABLE_DMIC			BIT(5)
  
- #define IDISP_CODEC_MASK	0x4
+ #ifdef CONFIG_SND_CS46XX_NEW_DSP
+@@ -1143,11 +1141,8 @@ static int snd_cs46xx_playback_hw_params(struct snd_pcm_substream *substream,
+ #endif
  
- /* Default: SSP5 */
--static unsigned long sof_pcm512x_quirk = SOF_PCM512X_SSP_CODEC(5);
-+static unsigned long sof_pcm512x_quirk =
-+	SOF_PCM512X_SSP_CODEC(5) |
-+	SOF_PCM512X_ENABLE_SSP_CAPTURE |
-+	SOF_PCM512X_ENABLE_DMIC;
+ 	} else {
+-		if (runtime->dma_area == cpcm->hw_buf.area) {
+-			runtime->dma_area = NULL;
+-			runtime->dma_addr = 0;
+-			runtime->dma_bytes = 0;
+-		}
++		if (runtime->dma_area == cpcm->hw_buf.area)
++			snd_pcm_set_runtime_buffer(substream, NULL);
+ 		err = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
+ 		if (err < 0) {
+ #ifdef CONFIG_SND_CS46XX_NEW_DSP
+@@ -1196,9 +1191,7 @@ static int snd_cs46xx_playback_hw_free(struct snd_pcm_substream *substream)
+ 	if (runtime->dma_area != cpcm->hw_buf.area)
+ 		snd_pcm_lib_free_pages(substream);
+     
+-	runtime->dma_area = NULL;
+-	runtime->dma_addr = 0;
+-	runtime->dma_bytes = 0;
++	snd_pcm_set_runtime_buffer(substream, NULL);
  
- static bool is_legacy_cpu;
+ 	return 0;
+ }
+@@ -1287,16 +1280,11 @@ static int snd_cs46xx_capture_hw_params(struct snd_pcm_substream *substream,
+ 	if (runtime->periods == CS46XX_FRAGS) {
+ 		if (runtime->dma_area != chip->capt.hw_buf.area)
+ 			snd_pcm_lib_free_pages(substream);
+-		runtime->dma_area = chip->capt.hw_buf.area;
+-		runtime->dma_addr = chip->capt.hw_buf.addr;
+-		runtime->dma_bytes = chip->capt.hw_buf.bytes;
++		snd_pcm_set_runtime_buffer(substream, &chip->capt.hw_buf);
+ 		substream->ops = &snd_cs46xx_capture_ops;
+ 	} else {
+-		if (runtime->dma_area == chip->capt.hw_buf.area) {
+-			runtime->dma_area = NULL;
+-			runtime->dma_addr = 0;
+-			runtime->dma_bytes = 0;
+-		}
++		if (runtime->dma_area == chip->capt.hw_buf.area)
++			snd_pcm_set_runtime_buffer(substream, NULL);
+ 		err = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
+ 		if (err < 0)
+ 			return err;
+@@ -1313,9 +1301,7 @@ static int snd_cs46xx_capture_hw_free(struct snd_pcm_substream *substream)
  
-@@ -244,8 +249,9 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 	links[id].dpcm_playback = 1;
- 	/*
- 	 * capture only supported with specific versions of the Hifiberry DAC+
--	 * links[id].dpcm_capture = 1;
- 	 */
-+	if (sof_pcm512x_quirk & SOF_PCM512X_ENABLE_SSP_CAPTURE)
-+		links[id].dpcm_capture = 1;
- 	links[id].no_pcm = 1;
- 	links[id].cpus = &cpus[id];
- 	links[id].num_cpus = 1;
-@@ -380,6 +386,9 @@ static int sof_audio_probe(struct platform_device *pdev)
+ 	if (runtime->dma_area != chip->capt.hw_buf.area)
+ 		snd_pcm_lib_free_pages(substream);
+-	runtime->dma_area = NULL;
+-	runtime->dma_addr = 0;
+-	runtime->dma_bytes = 0;
++	snd_pcm_set_runtime_buffer(substream, NULL);
  
- 	ssp_codec = sof_pcm512x_quirk & SOF_PCM512X_SSP_CODEC_MASK;
- 
-+	if (!(sof_pcm512x_quirk & SOF_PCM512X_ENABLE_DMIC))
-+		dmic_be_num = 0;
-+
- 	/* compute number of dai links */
- 	sof_audio_card_pcm512x.num_links = 1 + dmic_be_num + hdmi_num;
- 
+ 	return 0;
+ }
 -- 
 2.30.2
 

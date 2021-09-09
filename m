@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A015C404DC0
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 14:08:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC43A404DC3
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 14:08:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E7621773;
-	Thu,  9 Sep 2021 14:07:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E7621773
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53A5516EA;
+	Thu,  9 Sep 2021 14:07:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53A5516EA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631189291;
-	bh=TEu9EHoSb693ydyplJW2HwvwcEsxbPRBQS/Pth5PYFQ=;
+	s=default; t=1631189316;
+	bh=1UKZQA5ojLsEoK2nvz7/QSZIXbXqie/7dBXWDD4KQ70=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vQ4u1Z+/zgsrMrIX4mn5lGb7sKn7KzhxQyZQeNnN61+/lOj/oYGv7VN5YI8njgbEm
-	 JggGlM1CwWRnG+b+4+4tM6yq31BZldL+7m8JKZLrB5MSkG1VtcMZX2VfyhrxvAhx9b
-	 wZffvzVGGR1al+NiKoY8gWFL6S8NclmlgPe2Z5hc=
+	b=LaoaOCfnkrsbEoK8P1Ob3nbYE2qyc6tekhmwUl6k2FZK6MSLvFw2T0HjDmTcyml6m
+	 X2uk984TWF0lPRb8OuXKV6paZFvuo2uu4VmFAZAIRV5XyGkfdvZjavwYZo5V1867cH
+	 zkSFO5kJyVU6YNBf6IhXuW7OcoRBZgK9uUFixPTQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CEDC9F80166;
-	Thu,  9 Sep 2021 14:06:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5027CF804EC;
+	Thu,  9 Sep 2021 14:06:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DEA23F804E4; Thu,  9 Sep 2021 14:06:40 +0200 (CEST)
+ id ED820F804EB; Thu,  9 Sep 2021 14:06:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,45 +34,45 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 065F4F804E2
- for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 14:06:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 065F4F804E2
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1D14F804E6
+ for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 14:06:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1D14F804E6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="TgUaz1yb"; 
+ header.b="B9lhNV0a"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="vHPt/qY0"
+ header.b="c96kuoau"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id B4C872237C;
- Thu,  9 Sep 2021 12:06:34 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 363D722381;
+ Thu,  9 Sep 2021 12:06:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1631189194; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1631189205; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=c/khgQTAUSoOHR1XUsK7Ur5i4C/m/GoNAYWgAXgJ+u4=;
- b=TgUaz1ybYkRPkPHRr8PyP6+V8+fOn7IAadIQikrM90zkw/kEgeOsy61vDUcI4PYa5KKcZ8
- lyi7w/y/n67LEpVdnlUqlMIICZbPYfAjZb3fuL3fWOWLV73Yfr/NH/Y/JGLBeORE11MKuh
- 9SNiZKA4bpw3aayM3I+mjLAgFR9TBME=
+ bh=uH81L4fwl4jmr12KHpjLcxXBnNTtz02BQC1RimLCA6E=;
+ b=B9lhNV0aC0sqclinWSwPiy/Oy1X6KgPj93YpFqRmqZUfYrY22b7bfnJgcvzRQheNzB753V
+ 4Xcui7bPTQZQsbLM0dYds3Diln4R5XSKHqQDG5iA8JRtbrz12YwI5C0VXEhLHH75aTBKLA
+ wH5TqwqLjzsmlZsg8bhGWb+oR08uAPA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1631189194;
+ s=susede2_ed25519; t=1631189205;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=c/khgQTAUSoOHR1XUsK7Ur5i4C/m/GoNAYWgAXgJ+u4=;
- b=vHPt/qY0ZVeb6NPC3xqoVcXPrP+n3X5lrX2LX9GZC7sr+ADDwosX3ZInRImOf1mjGfm7Ad
- yHnz/TQG7SMiKDAg==
+ bh=uH81L4fwl4jmr12KHpjLcxXBnNTtz02BQC1RimLCA6E=;
+ b=c96kuoauM403gVPQWRCOAIdGRdki47vAvkdAm/Rgz+tkDxshLQ603gwlfOSN+/wuipD3Wl
+ c88cKxhR76h2sVBg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id ADE1FA3C95;
- Thu,  9 Sep 2021 12:06:34 +0000 (UTC)
-Date: Thu, 09 Sep 2021 14:06:34 +0200
-Message-ID: <s5h1r5yq7g5.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 2FEF3A3C1F;
+ Thu,  9 Sep 2021 12:06:45 +0000 (UTC)
+Date: Thu, 09 Sep 2021 14:06:45 +0200
+Message-ID: <s5hzgsmosve.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH AUTOSEL 5.4 084/109] ASoC: intel: atom: Revert PCM buffer
+Subject: Re: [PATCH AUTOSEL 4.19 57/74] ASoC: intel: atom: Revert PCM buffer
  address setup workaround again
-In-Reply-To: <20210909115507.147917-84-sashal@kernel.org>
-References: <20210909115507.147917-1-sashal@kernel.org>
- <20210909115507.147917-84-sashal@kernel.org>
+In-Reply-To: <20210909115726.149004-57-sashal@kernel.org>
+References: <20210909115726.149004-1-sashal@kernel.org>
+ <20210909115726.149004-57-sashal@kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -95,7 +95,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 09 Sep 2021 13:54:41 +0200,
+On Thu, 09 Sep 2021 13:57:09 +0200,
 Sasha Levin wrote:
 > 
 > From: Takashi Iwai <tiwai@suse.de>

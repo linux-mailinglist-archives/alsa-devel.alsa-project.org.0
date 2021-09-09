@@ -2,88 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8165F40412B
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 00:44:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A78B04043B2
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 04:42:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC180168A;
-	Thu,  9 Sep 2021 00:43:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC180168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 36A331685;
+	Thu,  9 Sep 2021 04:41:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36A331685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631141055;
-	bh=PmXZQBvUI2TEcABlbgHNiAQAHbkEr7fFdCHsBmwVs4U=;
-	h=In-Reply-To:References:From:Date:Subject:To:List-Id:
+	s=default; t=1631155335;
+	bh=rtEalqRqknkqrxlSCEnSFhQ/SvApjoDj+yV3VKvKWMM=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sVHPFsCNN9QMJp5SRewn0/U22U8BT5OmsoSp+cVZRXgX1leyPFyb04BbPyGxp58kA
-	 xVHzeJBm06TF9kwuT+EiB4+8xYKtyUAIPpPXaP2nRR0UUV6uSCqzfdu2+7dAfndVFm
-	 U3R43A+C2EjihRMpjzpQH0H5IjGI+BRNSCkoSdio=
+	b=OUtzKZAhEo8TzSm4MNU/tggg6nvO4I/YtKJN8VIqofyaxboLRChWj5lqqAK7vxHL6
+	 qexj6wexCnoMjzCmMC3gJ5h5luJgG3seqn06y4vdaB5OLC89XpTcylmkpxlU2E1Cz6
+	 glJtV0/6sIUUmGQzsmHzExPaTQAePGqQWQYskTno=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43BAAF80166;
-	Thu,  9 Sep 2021 00:43:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9074FF80253;
+	Thu,  9 Sep 2021 04:40:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5996BF802E7; Thu,  9 Sep 2021 00:42:57 +0200 (CEST)
+ id B23F9F80224; Thu,  9 Sep 2021 04:40:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled
- version=3.4.0
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [IPv6:2607:f8b0:4864:20::22d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C460DF80166
- for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 00:42:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C460DF80166
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="Hqc3NBf8"
-Received: by mail-oi1-x22d.google.com with SMTP id bd1so16103oib.5
- for <alsa-devel@alsa-project.org>; Wed, 08 Sep 2021 15:42:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to; bh=VqW5+bekt6QQoJuxceGB6Gpgo1qlpGgrwjlTJ2fvXwI=;
- b=Hqc3NBf8JTg7GipE1wzXwn/flNwn+MY+VUUhGnKThL3LCKzu4VSfdnz2yAhquXyZbL
- fbXUWc9mnrAWY4bWGcj424gvueEJhW1/FkTORFr9yjK0zj9i86hTh3GouPwxVCoCmZPk
- +GIMaN5NsD32W27XGzxpYN1vBdSVe+jpmcrZY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to;
- bh=VqW5+bekt6QQoJuxceGB6Gpgo1qlpGgrwjlTJ2fvXwI=;
- b=C+eO3MLp+ZszOKiWgKgLIb9fijOLJBmFKSj6jT+RAW9w0BprRNGQJEtlWlRXQoWxwa
- gwLzD3MRf9burTsYCsbnvptS1Ee32cBxHR7ldhoh76Hy+rUT0n5xaiZwcu1TcETiwJKS
- XjxV73gauhTJA6lu1EAwf+lIGnhUFQQKmnC2XwtbCRNYXNeGyRXN+Ots7P1TZrq8b1/T
- Zz7jbqG8h7fu3t8oYSF3vJsLC/Gdty6GvotOZ37GrlRpRCVmeKugvQci3Gn8qh+dZNV4
- 5pmaUmpCJT8SZakOlKOFi08IqCrzt4dQFNyYHPA+cGKWXVeSkXzLYyHb9XXBCL67D3Q7
- yZBQ==
-X-Gm-Message-State: AOAM533gDGMBGA4kN5XDg/ctM5Sg+NAp5tWXspDPJxP7DSiZMhwejLcm
- v6hX0nemCcP+ilflWtuCqPcYozgzWQj+r8KbfYRpRg==
-X-Google-Smtp-Source: ABdhPJw5BZv+m1oFwBZVKDWtQ/OmALelhjo35OhxGCLqbEojB3tWU3Kr5bPVDLdWU8HMDQJCcc/Xks3EG2bdLcbXO2c=
-X-Received: by 2002:aca:2310:: with SMTP id e16mr319666oie.64.1631140970485;
- Wed, 08 Sep 2021 15:42:50 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 8 Sep 2021 15:42:50 -0700
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1CC4F80166
+ for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 04:40:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1CC4F80166
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 1892edfxF009612,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (mapi.realtek.com[172.21.6.25])
+ by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 1892edfxF009612
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 9 Sep 2021 10:40:39 +0800
+Received: from RTEXMBS05.realtek.com.tw (172.21.6.98) by
+ RTEXH36503.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.14; Thu, 9 Sep 2021 10:40:39 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS05.realtek.com.tw (172.21.6.98) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Thu, 9 Sep 2021 10:40:38 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::ddc7:f5b1:d3ae:8354]) by
+ RTEXMBS01.realtek.com.tw ([fe80::ddc7:f5b1:d3ae:8354%5]) with mapi id
+ 15.01.2106.013; Thu, 9 Sep 2021 10:40:38 +0800
+From: Jack Yu <jack.yu@realtek.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "broonie@kernel.org" <broonie@kernel.org>, "lgirdwood@gmail.com"
+ <lgirdwood@gmail.com>
+Subject: RE: [PATCH] ASoC: rt1011: add i2s reference control for rt1011
+Thread-Topic: [PATCH] ASoC: rt1011: add i2s reference control for rt1011
+Thread-Index: AQHXowertNFJ8/ODj0GUsGW05g6DBauYJBOAgAFDX0CAAFcdAIABQysg
+Date: Thu, 9 Sep 2021 02:40:38 +0000
+Message-ID: <a9d9074e52c941e8bddc34f4d364a1ae@realtek.com>
+References: <20210906101208.11585-1-jack.yu@realtek.com>
+ <3062f5e5-d2d7-8150-ef89-989af3b4b1d6@linux.intel.com>
+ <05e92a24b1c34daeb64e5b222a3ae337@realtek.com>
+ <9f76a420-44c6-ad6d-4442-275ba4459b40@linux.intel.com>
+In-Reply-To: <9f76a420-44c6-ad6d-4442-275ba4459b40@linux.intel.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.102.167]
+x-kse-serverinfo: RTEXMBS05.realtek.com.tw, 9
+x-kse-attachmentfiltering-interceptor-info: no applicable attachment filtering
+ rules found
+x-kse-antivirus-interceptor-info: scan successful
+x-kse-antivirus-info: =?utf-8?B?Q2xlYW4sIGJhc2VzOiAyMDIxLzkvOSDkuIrljYggMTI6MDI6MDA=?=
+x-kse-bulkmessagesfiltering-scan-result: protection disabled
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-In-Reply-To: <1631124057-17155-3-git-send-email-srivasam@codeaurora.org>
-References: <1631124057-17155-1-git-send-email-srivasam@codeaurora.org>
- <1631124057-17155-3-git-send-email-srivasam@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Wed, 8 Sep 2021 15:42:50 -0700
-Message-ID: <CAE-0n51EESvy0Y5WzcZJDAx+V1OpnaxM4T-BUbuReepJt7ufRA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] ASoC: qcom: SC7280: Add machine driver
-To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, agross@kernel.org,
- alsa-devel@alsa-project.org, 
- bgoswami@codeaurora.org, bjorn.andersson@linaro.org, broonie@kernel.org, 
- devicetree@vger.kernel.org, judyhsiao@chromium.org, lgirdwood@gmail.com, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, perex@perex.cz, 
- plai@codeaurora.org, robh+dt@kernel.org, rohitkr@codeaurora.org, 
- srinivas.kandagatla@linaro.org, tiwai@suse.com
-Content-Type: text/plain; charset="UTF-8"
+X-KSE-ServerInfo: RTEXH36503.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-Antivirus-Interceptor-Info: fallback
+X-KSE-AntiSpam-Interceptor-Info: fallback
+Cc: Oder Chiou <oder_chiou@realtek.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>,
+ =?utf-8?B?a2VudF9jaGVuQHJlYWx0ZWsuY29tIFvpmbPlu7rlro9d?=
+ <kent_chen@realtek.com>,
+ =?utf-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
+ =?utf-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
+ "Flove\(HsinFu\)" <flove@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,401 +109,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Quoting Srinivasa Rao Mandadapu (2021-09-08 11:00:57)
-> diff --git a/sound/soc/qcom/sc7280.c b/sound/soc/qcom/sc7280.c
-> new file mode 100644
-> index 0000000..1ab29f6
-> --- /dev/null
-> +++ b/sound/soc/qcom/sc7280.c
-> @@ -0,0 +1,347 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +//
-> +// Copyright (c) 2020-2021, The Linux Foundation. All rights reserved.
-> +//
-> +// sc7280.c -- ALSA SoC Machine driver for sc7280
-> +
-> +#include <dt-bindings/sound/sc7180-lpass.h>
-> +#include <dt-bindings/sound/qcom,q6afe.h>
-
-Can these come after the linux/sound includes?
-
-> +#include <linux/gpio.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/module.h>
-> +#include <linux/of_device.h>
-> +#include <linux/platform_device.h>
-> +#include <sound/core.h>
-> +#include <sound/jack.h>
-> +#include <sound/pcm.h>
-> +#include <sound/soc.h>
-> +#include <uapi/linux/input-event-codes.h>
-
-Is this include used?
-
-> +
-> +#include "../codecs/wcd938x.h"
-> +#include "common.h"
-> +#include "lpass.h"
-> +
-> +#define DRIVER_NAME "SC7280"
-
-Is this useful? Why not just inline it in the one place it is used so we
-don't have to jump to the define to figure out what it is?
-
-> +#define LPASS_MAX_PORTS  (LPASS_CDC_DMA_VA_TX8 + 1)
-> +
-> +
-> +struct sc7280_snd_data {
-> +       bool stream_prepared[LPASS_MAX_PORTS];
-> +       struct snd_soc_card card;
-> +       struct sdw_stream_runtime *sruntime[LPASS_MAX_PORTS];
-> +       struct snd_soc_jack hs_jack;
-> +       struct snd_soc_jack hdmi_jack;
-> +       bool jack_setup;
-> +};
-> +
-> +static void sc7280_jack_free(struct snd_jack *jack)
-> +{
-> +       struct snd_soc_component *component = jack->private_data;
-> +
-> +       snd_soc_component_set_jack(component, NULL, NULL);
-> +}
-> +
-> +static int sc7280_headset_init(struct snd_soc_pcm_runtime *rtd)
-> +{
-> +       struct snd_soc_card *card = rtd->card;
-> +       struct sc7280_snd_data *pdata = snd_soc_card_get_drvdata(card);
-> +       struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-> +       struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-> +       struct snd_soc_component *component = codec_dai->component;
-> +       struct snd_jack *jack;
-> +       int rval, i;
-> +
-> +       if (!pdata->jack_setup) {
-> +               rval = snd_soc_card_jack_new(card, "Headset Jack",
-> +                                                       SND_JACK_HEADSET | SND_JACK_LINEOUT |
-> +                                                       SND_JACK_MECHANICAL |
-> +                                                       SND_JACK_BTN_0 | SND_JACK_BTN_1 |
-> +                                                       SND_JACK_BTN_2 | SND_JACK_BTN_3 |
-> +                                                       SND_JACK_BTN_4 | SND_JACK_BTN_5,
-> +                                                       &pdata->hs_jack, NULL, 0);
-> +
-> +               if (rval < 0) {
-> +                       dev_err(card->dev, "Unable to add Headset Jack\n");
-> +                       return rval;
-> +               }
-> +
-> +               jack = pdata->hs_jack.jack;
-> +
-> +               snd_jack_set_key(jack, SND_JACK_BTN_0, KEY_MEDIA);
-> +               snd_jack_set_key(jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
-> +               snd_jack_set_key(jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
-> +               snd_jack_set_key(jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
-> +
-> +               jack->private_data = component;
-> +               jack->private_free = sc7280_jack_free;
-> +               pdata->jack_setup = true;
-> +       }
-> +       switch (cpu_dai->id) {
-> +       case LPASS_CDC_DMA_RX0:
-> +       case LPASS_CDC_DMA_TX3:
-> +               for_each_rtd_codec_dais(rtd, i, codec_dai) {
-> +                       rval = snd_soc_component_set_jack(component, &pdata->hs_jack, NULL);
-> +                       if (rval != 0 && rval != -EOPNOTSUPP) {
-> +                               dev_warn(card->dev, "Failed to set jack: %d\n", rval);
-
-Why not dev_err?
-
-> +                               return rval;
-> +                       }
-> +               }
-> +
-> +               break;
-> +       default:
-> +               break;
-> +       }
-> +
-> +       return 0;
-> +}
-> +
-> +static int sc7280_hdmi_init(struct snd_soc_pcm_runtime *rtd)
-> +{
-> +       struct snd_soc_card *card = rtd->card;
-> +       struct sc7280_snd_data *pdata = snd_soc_card_get_drvdata(card);
-> +       struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-> +       struct snd_soc_component *component = codec_dai->component;
-> +       struct snd_jack *jack;
-> +       int rval;
-> +
-> +       rval = snd_soc_card_jack_new(
-> +                       card, "HDMI Jack",
-> +                       SND_JACK_LINEOUT,
-> +                       &pdata->hdmi_jack, NULL, 0);
-> +
-> +       if (rval < 0) {
-> +               dev_err(card->dev, "Unable to add HDMI Jack\n");
-> +               return rval;
-> +       }
-> +
-> +       jack = pdata->hdmi_jack.jack;
-> +       jack->private_data = component;
-> +       jack->private_free = sc7280_jack_free;
-> +
-> +       return snd_soc_component_set_jack(component, &pdata->hdmi_jack, NULL);
-> +}
-> +
-> +static int sc7280_init(struct snd_soc_pcm_runtime *rtd)
-> +{
-> +       struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-> +
-> +       switch (cpu_dai->id) {
-> +       case LPASS_CDC_DMA_TX3:
-> +               return sc7280_headset_init(rtd);
-> +       case LPASS_CDC_DMA_RX0:
-> +       case LPASS_CDC_DMA_VA_TX0:
-> +       case MI2S_SECONDARY:
-> +               return 0;
-> +       case LPASS_DP_RX:
-> +               return sc7280_hdmi_init(rtd);
-> +       default:
-> +               dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__, cpu_dai->id);
-> +               return -EINVAL;
-> +       }
-
-Nitpick: Add newline.
-
-> +       return 0;
-
-Can we even get here? Maybe remove return from default above and make
-this a return -EINVAL.
-
-> +}
-> +
-> +static int sc7280_snd_startup(struct snd_pcm_substream *substream)
-> +{
-> +       struct snd_soc_pcm_runtime *rtd = substream->private_data;
-> +       struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-> +
-> +       switch (cpu_dai->id) {
-> +       case LPASS_CDC_DMA_RX0:
-> +       case LPASS_CDC_DMA_TX3:
-> +       case LPASS_CDC_DMA_VA_TX0:
-> +               break;
-> +       case MI2S_SECONDARY:
-> +               break;
-> +       case LPASS_DP_RX:
-> +               break;
-> +       default:
-> +               dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__, cpu_dai->id);
-> +               return -EINVAL;
-> +       }
-
-Nitpick: Add newline.
-
-> +       return 0;
-> +}
-> +
-> +static int sc7280_snd_hw_params(struct snd_pcm_substream *substream,
-> +                               struct snd_pcm_hw_params *params)
-> +{
-> +       struct snd_pcm_runtime *runtime = substream->runtime;
-> +       struct snd_soc_pcm_runtime *rtd = substream->private_data;
-> +       struct snd_soc_dai *codec_dai;
-> +       struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-
-const?
-
-> +       struct sc7280_snd_data *pdata = snd_soc_card_get_drvdata(rtd->card);
-> +       struct sdw_stream_runtime *sruntime;
-> +       int i;
-> +
-> +       snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_CHANNELS, 2, 2);
-> +       snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_RATE, 48000, 48000);
-> +
-> +       switch (cpu_dai->id) {
-> +       case LPASS_CDC_DMA_TX3:
-> +       case LPASS_CDC_DMA_RX0:
-> +               for_each_rtd_codec_dais(rtd, i, codec_dai) {
-> +                       sruntime = snd_soc_dai_get_sdw_stream(codec_dai, substream->stream);
-> +                       if (sruntime != ERR_PTR(-EOPNOTSUPP))
-> +                               pdata->sruntime[cpu_dai->id] = sruntime;
-> +               }
-> +               break;
-> +       }
-> +
-> +       return 0;
-> +
-
-Nitpick: Drop newline.
-
-> +}
-> +
-> +static int sc7280_snd_swr_prepare(struct snd_pcm_substream *substream)
-> +{
-> +       struct snd_soc_pcm_runtime *rtd = substream->private_data;
-> +       struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-
-const?
-
-> +       struct sc7280_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
-> +       struct sdw_stream_runtime *sruntime = data->sruntime[cpu_dai->id];
-> +       int ret;
-> +
-> +       if (!sruntime)
-> +               return 0;
-> +
-> +       if (data->stream_prepared[cpu_dai->id]) {
-> +               sdw_disable_stream(sruntime);
-> +               sdw_deprepare_stream(sruntime);
-> +               data->stream_prepared[cpu_dai->id] = false;
-> +       }
-> +
-> +       ret = sdw_prepare_stream(sruntime);
-> +       if (ret)
-> +               return ret;
-> +
-> +       ret = sdw_enable_stream(sruntime);
-> +       if (ret) {
-> +               sdw_deprepare_stream(sruntime);
-> +               return ret;
-> +       }
-> +       data->stream_prepared[cpu_dai->id]  = true;
-
-Why two spaces after ]?
-
-> +
-> +       return ret;
-> +}
-> +
-> +
-> +static int sc7280_snd_prepare(struct snd_pcm_substream *substream)
-> +{
-> +       struct snd_soc_pcm_runtime *rtd = substream->private_data;
-> +       struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-
-const?
-
-> +
-> +       switch (cpu_dai->id) {
-> +       case LPASS_CDC_DMA_RX0:
-> +       case LPASS_CDC_DMA_TX3:
-> +               return sc7280_snd_swr_prepare(substream);
-> +       default:
-> +               break;
-> +       }
-> +
-> +       return 0;
-> +}
-> +
-> +static int sc7280_snd_hw_free(struct snd_pcm_substream *substream)
-> +{
-> +       struct snd_soc_pcm_runtime *rtd = substream->private_data;
-> +       struct sc7280_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
-> +       struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-
-const?
-
-> +       struct sdw_stream_runtime *sruntime = data->sruntime[cpu_dai->id];
-> +
-> +       switch (cpu_dai->id) {
-> +       case LPASS_CDC_DMA_RX0:
-> +       case LPASS_CDC_DMA_TX3:
-> +               if (sruntime && data->stream_prepared[cpu_dai->id]) {
-> +                       sdw_disable_stream(sruntime);
-> +                       sdw_deprepare_stream(sruntime);
-> +                       data->stream_prepared[cpu_dai->id] = false;
-> +               }
-> +               break;
-> +       default:
-> +               break;
-> +       }
-> +       return 0;
-> +}
-> +
-> +static void sc7280_snd_shutdown(struct snd_pcm_substream *substream)
-> +{
-> +       struct snd_soc_pcm_runtime *rtd = substream->private_data;
-> +       struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-> +
-> +       switch (cpu_dai->id) {
-> +       case LPASS_CDC_DMA_RX0:
-> +       case LPASS_CDC_DMA_TX3:
-> +       case LPASS_CDC_DMA_VA_TX0:
-> +               break;
-> +       case MI2S_SECONDARY:
-> +               break;
-> +       case LPASS_DP_RX:
-> +               break;
-> +       default:
-> +               dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__, cpu_dai->id);
-
-Can use %#x to skip the 0x part.
-
-> +               break;
-> +       }
-> +}
-> +
-> +static const struct snd_soc_ops sc7280_ops = {
-> +       .startup = sc7280_snd_startup,
-> +       .shutdown = sc7280_snd_shutdown,
-> +       .hw_params = sc7280_snd_hw_params,
-> +       .hw_free = sc7280_snd_hw_free,
-> +       .prepare = sc7280_snd_prepare,
-> +};
-> +
-> +static const struct snd_soc_dapm_widget sc7280_snd_widgets[] = {
-> +       SND_SOC_DAPM_HP("Headphone Jack", NULL),
-> +       SND_SOC_DAPM_MIC("Headset Mic", NULL),
-> +};
-> +
-> +static int sc7280_snd_platform_probe(struct platform_device *pdev)
-> +{
-> +       struct snd_soc_card *card;
-> +       struct sc7280_snd_data *data;
-> +       struct device *dev = &pdev->dev;
-> +       struct snd_soc_dai_link *link;
-> +       int ret, i;
-> +
-> +       /* Allocate the private data */
-> +       data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-> +       if (!data)
-> +               return -ENOMEM;
-> +
-> +       card = &data->card;
-> +       data->jack_setup = false;
-
-Isn't that implicit via kzalloc above? This can be dropped.
-
-> +       snd_soc_card_set_drvdata(card, data);
-> +
-> +       card->owner = THIS_MODULE;
-> +       card->driver_name = DRIVER_NAME;
-> +       card->dev = dev;
-> +
-> +       ret = qcom_snd_parse_of(card);
-> +       if (ret)
-> +               return ret;
-> +
-> +       for_each_card_prelinks(card, i, link) {
-> +               link->init = sc7280_init;
-> +               link->ops = &sc7280_ops;
-> +       }
-> +       ret = devm_snd_soc_register_card(dev, card);
-> +       return ret;
-
-Nitpick:
-
-return devm_snd_soc_register_card(dev, card)
-
-> +}
-> +
-> +static const struct of_device_id sc7280_snd_device_id[]  = {
-> +       {.compatible = "google,sc7280-herobrine"},
-> +       {},
-
-Nitpick: Drop comma here so nothing can come after without causing a
-compile error.
-
-> +};
-> +MODULE_DEVICE_TABLE(of, sc7280_snd_device_id);
-> +
+DQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IFBpZXJyZS1Mb3VpcyBCb3Nz
+YXJ0IDxwaWVycmUtbG91aXMuYm9zc2FydEBsaW51eC5pbnRlbC5jb20+DQo+IFNlbnQ6IFdlZG5l
+c2RheSwgU2VwdGVtYmVyIDgsIDIwMjEgMTE6MjMgUE0NCj4gVG86IEphY2sgWXUgPGphY2sueXVA
+cmVhbHRlay5jb20+OyBicm9vbmllQGtlcm5lbC5vcmc7DQo+IGxnaXJkd29vZEBnbWFpbC5jb20N
+Cj4gQ2M6IE9kZXIgQ2hpb3UgPG9kZXJfY2hpb3VAcmVhbHRlay5jb20+OyBhbHNhLWRldmVsQGFs
+c2EtcHJvamVjdC5vcmc7DQo+IGxhcnNAbWV0YWZvby5kZTsga2VudF9jaGVuQHJlYWx0ZWsuY29t
+IFvpmbPlu7rlro9dDQo+IDxrZW50X2NoZW5AcmVhbHRlay5jb20+OyBEZXJlayBb5pa55b63576p
+XSA8ZGVyZWsuZmFuZ0ByZWFsdGVrLmNvbT47DQo+IFNodW1pbmcgW+iMg+abuOmKmF0gPHNodW1p
+bmdmQHJlYWx0ZWsuY29tPjsgRmxvdmUoSHNpbkZ1KQ0KPiA8ZmxvdmVAcmVhbHRlay5jb20+DQo+
+IFN1YmplY3Q6IFJlOiBbUEFUQ0hdIEFTb0M6IHJ0MTAxMTogYWRkIGkycyByZWZlcmVuY2UgY29u
+dHJvbCBmb3IgcnQxMDExDQo+IA0KPiBPbiA5LzcvMjEgOToxNyBQTSwgSmFjayBZdSB3cm90ZToN
+Cj4gPg0KPiA+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiA+PiBGcm9tOiBQaWVycmUt
+TG91aXMgQm9zc2FydCA8cGllcnJlLWxvdWlzLmJvc3NhcnRAbGludXguaW50ZWwuY29tPg0KPiA+
+PiBTZW50OiBUdWVzZGF5LCBTZXB0ZW1iZXIgNywgMjAyMSAxMDo1NCBQTQ0KPiA+PiBUbzogSmFj
+ayBZdSA8amFjay55dUByZWFsdGVrLmNvbT47IGJyb29uaWVAa2VybmVsLm9yZzsNCj4gPj4gbGdp
+cmR3b29kQGdtYWlsLmNvbQ0KPiA+PiBDYzogT2RlciBDaGlvdSA8b2Rlcl9jaGlvdUByZWFsdGVr
+LmNvbT47IGFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZzsNCj4gPj4gbGFyc0BtZXRhZm9vLmRl
+OyBrZW50X2NoZW5AcmVhbHRlay5jb20gW+mZs+W7uuWuj10NCj4gPj4gPGtlbnRfY2hlbkByZWFs
+dGVrLmNvbT47IERlcmVrIFvmlrnlvrfnvqldIDxkZXJlay5mYW5nQHJlYWx0ZWsuY29tPjsNCj4g
+Pj4gU2h1bWluZyBb6IyD5pu46YqYXSA8c2h1bWluZ2ZAcmVhbHRlay5jb20+OyBGbG92ZShIc2lu
+RnUpDQo+ID4+IDxmbG92ZUByZWFsdGVrLmNvbT4NCj4gPj4gU3ViamVjdDogUmU6IFtQQVRDSF0g
+QVNvQzogcnQxMDExOiBhZGQgaTJzIHJlZmVyZW5jZSBjb250cm9sIGZvcg0KPiA+PiBydDEwMTEN
+Cj4gPj4NCj4gPj4gT24gOS82LzIxIDU6MTIgQU0sIEphY2sgWXUgd3JvdGU6DQo+ID4+PiBBZGQg
+aTJzIHJlZmVyZW5jZSBjb250cm9sIGZvciBydDEwMTEgYW1wLg0KPiA+Pj4NCj4gPj4+IFNpZ25l
+ZC1vZmYtYnk6IEphY2sgWXUgPGphY2sueXVAcmVhbHRlay5jb20+DQo+ID4+DQo+ID4+PiArc3Rh
+dGljIGNvbnN0IGNoYXIgKiBjb25zdCBydDEwMTFfaTJzX3JlZltdID0gew0KPiA+Pj4gKwkiTm9u
+ZSIsICJMZWZ0IENoYW5uZWwiLCAiUmlnaHQgQ2hhbm5lbCINCj4gPj4+ICt9Ow0KPiA+Pg0KPiA+
+Pj4gK2VudW0gew0KPiA+Pj4gKwlSVDEwMTFfSTJTX1JFRl9OT05FLA0KPiA+Pj4gKwlSVDEwMTFf
+STJTX1JFRl9MRUZUX0NILA0KPiA+Pj4gKwlSVDEwMTFfSTJTX1JFRl9SSUdIVF9DSCwNCj4gPj4+
+ICt9Ow0KPiA+Pg0KPiA+PiBpcyBpdCBwb3NzaWJsZSB0byBnZXQgTGVmdC1SaWdodC1taXggKG1p
+eGVkIG9uIHJ0MTAxMSkgYW5kIExlZnQtUmlnaHQNCj4gPj4gKHR3byBjaGFubmVscywgd2l0aCB0
+aGUgYXBwbGljYXRpb24gc2VsZWN0aW5nIHdoYXQgdGhleSB3YW50KT8NCj4gPg0KPiA+IEl0J3Mg
+YSBtb25vIGFtcCwgc28gdGhlcmUncyBubyBMZWZ0LVJpZ2h0LW1peCBzZXR0aW5nLg0KPiA+IEFu
+ZCBmb3IgdGhlIGNob2ljZSBvZiBMZWZ0LVJpZ2h0IGNoYW5uZWwsIGl0J3MgYWxyZWFkeSBhdmFp
+bGFibGUgd2l0aCB0aGlzDQo+IHBhdGNoLg0KPiANCj4gU28gaXQncyBqdXN0IHRvIHBsYWNlIGEg
+bW9ubyByZWZlcmVuY2UgaW4gZWl0aGVyIGxlZnQgb3IgcmlnaHQgY2hhbm5lbCBvZiB0aGUgSTJT
+DQo+IGxpbms/IFdoeSBub3QgZHVhbC1tb25vIGFzIHdlbGwgdGhlbj8NCg0KVGhlIHBhdGNoIGlz
+IGEgc3BlY2lmaWMgY29udHJvbCBmb3IgdHdvIGFtcHMgdG8gc2VuZCBBRUMgZGF0YSBvbiBzaW5n
+bGUgSTJTIGRhdGEgaW5wdXQgcGluIGJ5IHN0YW5kYXJkIEkyUyBwcm90b2NvbC4gDQpJZiB0aGVy
+ZSBhcmUgdHdvIEkyUyBpbnB1dCBmcm9tIFNvQywgd2UgY2FuIGFkZCBkdWFsLW1vbm8gbW9kZSBm
+b3IgaXQsIGJ1dCBzbyBmYXIgdGhlcmUgaXMgbm8gcmVxdWlyZW1lbnQgcmVnYXJkaW5nIHRvIHRo
+aXMgbW9kZS4NCg0KPiAtLS0tLS1QbGVhc2UgY29uc2lkZXIgdGhlIGVudmlyb25tZW50IGJlZm9y
+ZSBwcmludGluZyB0aGlzIGUtbWFpbC4NCg==

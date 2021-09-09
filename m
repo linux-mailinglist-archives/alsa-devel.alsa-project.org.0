@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00CA4404BA3
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 13:52:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33EF8404BA7
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 13:52:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98BBE16EA;
-	Thu,  9 Sep 2021 13:51:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98BBE16EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id C42A416D4;
+	Thu,  9 Sep 2021 13:52:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C42A416D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631188352;
-	bh=7g7VFpPQn5V3ZUik6UpjDE8iJY3WAIaFuDLTsNOoHTg=;
+	s=default; t=1631188376;
+	bh=KyrPSSFkkaFfgTa331w9So5Bp9nfhgXOj9h8Ox5YpWU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WPXuyTo51HnQ6sgDP5Sr8YvwKvz2KlpDyZAngx0M5DXACgeTAbllt/iIPCjGRwMon
-	 UrETRced09F5mqbIfYU0c+kEhvMn+TtOQyAXQmQlLI/f8TlZdPMw0ffm8N2Vf3dEQq
-	 OJ98Xx+4K4M/prf1BVVsRbs6u8wWAMPblumsOpJA=
+	b=J9KLt982QOPeCRfQlCEGm98is7du+5vBHzk2LDz3RSrt9q/+u+sK6CD8lYr2GuTZT
+	 uzyvFz9CCjmJNUtyQCLZK9/YvVzcfknigl2c4wJIz433Wqw2IV+53ipAudKIQR/F9J
+	 Dy1QiRpzXgGBtExnD7CfhRsH9PYELBFERag0J+Qk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F197F804EB;
-	Thu,  9 Sep 2021 13:50:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03FE4F800FC;
+	Thu,  9 Sep 2021 13:50:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53DDCF802A9; Thu,  9 Sep 2021 13:50:32 +0200 (CEST)
+ id DED3BF804F3; Thu,  9 Sep 2021 13:50:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 005FAF802A9
- for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 13:50:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 005FAF802A9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8BE39F800FC
+ for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 13:50:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BE39F800FC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="QUz3gWMJ"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 14FD36127B;
- Thu,  9 Sep 2021 11:50:22 +0000 (UTC)
+ header.b="MCZxFB3K"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6327861AA4;
+ Thu,  9 Sep 2021 11:50:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631188223;
- bh=7g7VFpPQn5V3ZUik6UpjDE8iJY3WAIaFuDLTsNOoHTg=;
+ s=k20201202; t=1631188225;
+ bh=KyrPSSFkkaFfgTa331w9So5Bp9nfhgXOj9h8Ox5YpWU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QUz3gWMJfpGYF/0/TobKFSBSekj4/aANTEnjxe/pVpN3lIAGldxyx2K90TB/BeThc
- toUeNL513gyzVoDxlUJyfm/wqHIEgdS95aCppt34c+L1oHflDb4CBdJkxqE8d1lYq0
- 41cn5vDJ4EVijca+kfejjGUtDgajH5Ze6cw/mXcsWsE7vUZuRwR+ZRRMqB7WJbyZL7
- tdervGA65jGyJl45bZWoxhM2EuGsLHtijawjEuYdRTmD1nPu5oJe33it4dgdaCFs6V
- aNLAQs6bF42oS017leOS2xm2QDFshiOe88z7ucKHuFomEC8GndwQmX6YN5I+FYcMUh
- 9oEHaefFJcL6Q==
+ b=MCZxFB3KDyt7K+H8L3j5KIyFRIasm00QLWnxRJ0twVErgGX8h9shJIOS6T7r4RoW+
+ 0R5zAxyPzh9PZR6k57oGVixYfSjyAF64qRfDZMqrQi/FMQ4k+atVDgLe+nipJuyZqp
+ UAhSV9LtpV3YhfZrfk+C6KORKqOuhcLbIuF7AH1sfhESBUjUJU7xM1nrBZ5C/qR/zJ
+ zq2Dg+1Ov5XWwiP7tymLA6tBBKbkHTNAXjlSfvH4mkfgT/pajgSiYV06D6YQRL/gOq
+ rRGvwMrXrLA9UWo6X/tJSYFMcXSoLSH8VAwS4g9jntP2M7lrMJ2AIRsoGUUeuS2j4s
+ e0JFQNbAsdw8g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.13 177/219] soundwire: intel: fix potential race
- condition during power down
-Date: Thu,  9 Sep 2021 07:45:53 -0400
-Message-Id: <20210909114635.143983-177-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.13 178/219] ASoC: Intel: Skylake: Fix module
+ configuration for KPB and MIXER
+Date: Thu,  9 Sep 2021 07:45:54 -0400
+Message-Id: <20210909114635.143983-178-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210909114635.143983-1-sashal@kernel.org>
 References: <20210909114635.143983-1-sashal@kernel.org>
@@ -66,10 +66,9 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: Sasha Levin <sashal@kernel.org>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, Mark Brown <broonie@kernel.org>,
+ alsa-devel@alsa-project.org, Lukasz Majczak <lma@semihalf.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,78 +84,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
 
-[ Upstream commit ea6942dad4b2a7e1735aa0f10f3d0b04b847750f ]
+[ Upstream commit e4e0633bcadc950b4b4af06c7f1bb7f7e3e86321 ]
 
-The power down sequence sets the link_up flag as false outside of the
-mutex_lock. This is potentially unsafe.
+KeyPhrasebuffer, Mixin and Mixout modules configuration is described by
+firmware's basic module configuration structure. There are no extended
+parameters required. Update functions taking part in building
+INIT_INSTANCE IPC payload to reflect that.
 
-In additional the flow in that sequence can be improved by first
-testing if the link was powered, setting the link_up flag as false and
-proceeding with the power down. In case the CPA bits cannot be
-cleared, we only flag an error since we cannot deal with interrupts
-any longer.
-
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Link: https://lore.kernel.org/r/20210818024954.16873-2-yung-chuan.liao@linux.intel.com
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Tested-by: Lukasz Majczak <lma@semihalf.com>
+Link: https://lore.kernel.org/r/20210818075742.1515155-6-cezary.rojewski@intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/soundwire/intel.c | 23 +++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
+ sound/soc/intel/skylake/skl-messages.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index fd95f94630b1..c03d51ad40bf 100644
---- a/drivers/soundwire/intel.c
-+++ b/drivers/soundwire/intel.c
-@@ -537,12 +537,14 @@ static int intel_link_power_down(struct sdw_intel *sdw)
+diff --git a/sound/soc/intel/skylake/skl-messages.c b/sound/soc/intel/skylake/skl-messages.c
+index 476ef1897961..79c6cf2c14bf 100644
+--- a/sound/soc/intel/skylake/skl-messages.c
++++ b/sound/soc/intel/skylake/skl-messages.c
+@@ -802,9 +802,12 @@ static u16 skl_get_module_param_size(struct skl_dev *skl,
  
- 	mutex_lock(sdw->link_res->shim_lock);
+ 	case SKL_MODULE_TYPE_BASE_OUTFMT:
+ 	case SKL_MODULE_TYPE_MIC_SELECT:
+-	case SKL_MODULE_TYPE_KPB:
+ 		return sizeof(struct skl_base_outfmt_cfg);
  
--	intel_shim_master_ip_to_glue(sdw);
--
- 	if (!(*shim_mask & BIT(link_id)))
- 		dev_err(sdw->cdns.dev,
- 			"%s: Unbalanced power-up/down calls\n", __func__);
- 
-+	sdw->cdns.link_up = false;
++	case SKL_MODULE_TYPE_MIXER:
++	case SKL_MODULE_TYPE_KPB:
++		return sizeof(struct skl_base_cfg);
 +
-+	intel_shim_master_ip_to_glue(sdw);
+ 	default:
+ 		/*
+ 		 * return only base cfg when no specific module type is
+@@ -857,10 +860,14 @@ static int skl_set_module_format(struct skl_dev *skl,
+ 
+ 	case SKL_MODULE_TYPE_BASE_OUTFMT:
+ 	case SKL_MODULE_TYPE_MIC_SELECT:
+-	case SKL_MODULE_TYPE_KPB:
+ 		skl_set_base_outfmt_format(skl, module_config, *param_data);
+ 		break;
+ 
++	case SKL_MODULE_TYPE_MIXER:
++	case SKL_MODULE_TYPE_KPB:
++		skl_set_base_module_format(skl, module_config, *param_data);
++		break;
 +
- 	*shim_mask &= ~BIT(link_id);
- 
- 	if (!*shim_mask) {
-@@ -559,18 +561,19 @@ static int intel_link_power_down(struct sdw_intel *sdw)
- 		link_control &=  spa_mask;
- 
- 		ret = intel_clear_bit(shim, SDW_SHIM_LCTL, link_control, cpa_mask);
-+		if (ret < 0) {
-+			dev_err(sdw->cdns.dev, "%s: could not power down link\n", __func__);
-+
-+			/*
-+			 * we leave the sdw->cdns.link_up flag as false since we've disabled
-+			 * the link at this point and cannot handle interrupts any longer.
-+			 */
-+		}
- 	}
- 
- 	mutex_unlock(sdw->link_res->shim_lock);
- 
--	if (ret < 0) {
--		dev_err(sdw->cdns.dev, "%s: could not power down link\n", __func__);
--
--		return ret;
--	}
--
--	sdw->cdns.link_up = false;
--	return 0;
-+	return ret;
- }
- 
- static void intel_shim_sync_arm(struct sdw_intel *sdw)
+ 	default:
+ 		skl_set_base_module_format(skl, module_config, *param_data);
+ 		break;
 -- 
 2.30.2
 

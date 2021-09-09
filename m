@@ -2,74 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CB07404C9E
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 13:58:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36334404BC1
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 13:53:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1AE08173A;
-	Thu,  9 Sep 2021 13:57:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1AE08173A
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBC9216F6;
+	Thu,  9 Sep 2021 13:52:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBC9216F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631188694;
-	bh=U2Xdfcl5vcq/srV+eQa0soW0VkO6ChXX7XPzMXxIDQg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1631188428;
+	bh=6Iy1zqrnhojkoahrnHw3LbRGQmQbVTfhUM24rpaXxXc=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=L6j1QyK516E6xXQ05aqLpte3WH8dqPLfqf7fkmCh6E/Kyih4wN4yF7MkLBEy4GR+E
-	 ON6HgsnYJHr5TPKXiMZQ0DmpM4Cif3FTiL6r9ssHSVnRl4j/f67y94w212RpUyx7mQ
-	 1KExGGC2Xm57d/maBgdfHuBX5+6O7K2D4Nb34g+E=
+	b=aAwQoOQvglf1tKuS/borAI2P5SHGDjkwW0UOrjRe2gz+811WJZOQbGC0DJHTMdnVn
+	 REWHWgLv3j2RwvBpg5Pe1yXocHwGDHo0E1wI8qax0M9URP9LRNPfCZS4caxi3CqHFE
+	 H25DuD1nAAbnsZoyU7PHB03ijmPd9+6dR+C4fkI0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63B87F8051F;
-	Thu,  9 Sep 2021 13:54:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9F99F80166;
+	Thu,  9 Sep 2021 13:51:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6E33CF8051E; Thu,  9 Sep 2021 13:54:50 +0200 (CEST)
+ id 9D592F804CF; Thu,  9 Sep 2021 13:51:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EA5E0F8051A
- for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 13:54:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA5E0F8051A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8FD47F802A9
+ for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 13:51:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FD47F802A9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="uOnhLeCe"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C9B7561BE1;
- Thu,  9 Sep 2021 11:54:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631188481;
- bh=U2Xdfcl5vcq/srV+eQa0soW0VkO6ChXX7XPzMXxIDQg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=uOnhLeCext6TYpFU9ptx4aHzo518BxcsF39dp6Y43+PtJpE4zfC+jNrA8bVoXh4db
- hClezngyfjluScXW+eQFW1cX/sV8/NOgjbtlSOS6t3QZ2w4vWoMzv/26VD57Y3Tgz9
- GRJJAl76nBVjlUc5iphGViGt4rI2AD7UfHPb2Vb/W/lWHle1U4u2iIK50iFWB8uXXl
- k6H8fJh4t2DgkzuV+IBc/GNKlLFVwuQ/QMvPy8ME88eNeGntytbwEcdXcQ6UeaLdWA
- 8ygOxGmhFtx5kjKw7kZ+CDlthMnW6swjyyUPfBY5AWfgsAjs4myzawf9ToDsuoKTU9
- mzHLI/3WTt+lA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 157/176] ASoC: rockchip: i2s: Fixup config for
- DAIFMT_DSP_A/B
-Date: Thu,  9 Sep 2021 07:50:59 -0400
-Message-Id: <20210909115118.146181-157-sashal@kernel.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210909115118.146181-1-sashal@kernel.org>
-References: <20210909115118.146181-1-sashal@kernel.org>
-MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Sugar Zhang <sugar.zhang@rock-chips.com>, linux-rockchip@lists.infradead.org,
- Xiaotan Luo <lxt@rock-chips.com>, Mark Brown <broonie@kernel.org>,
- linux-arm-kernel@lists.infradead.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="DyKsUaUB"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="f/xJ4S/j"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 7E3221FDEB;
+ Thu,  9 Sep 2021 11:51:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1631188274; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=/zXUSp3CWYH2uEgmU10zyMNDC163pc7YpBZFGZqywqM=;
+ b=DyKsUaUBcqFGE6NHZ4M7Xhf3Q6QWhKT71Hss7m0PTpYw24FWsHtEBJOsyzBWpAoU0NFSPr
+ ZxupCY2n/4j1f2bfVqu6eH6KYjxCDEPnjDxlU0KOE//FEyNL6FjFby/wHAigINZ5VHcmNC
+ +LFXmRt2xZif2PxOP4OQsUfEzibHUTM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1631188274;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=/zXUSp3CWYH2uEgmU10zyMNDC163pc7YpBZFGZqywqM=;
+ b=f/xJ4S/jYZSLSPoD3erC1mTmF+mVluHcdt6sN7p19BS+wWY1h2/FV3GUr2nmYbICnQnSo3
+ 9SoYuSuVY0DeMpBw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 77FE5A3E13;
+ Thu,  9 Sep 2021 11:51:14 +0000 (UTC)
+Date: Thu, 09 Sep 2021 13:51:14 +0200
+Message-ID: <s5hpmti7yrx.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH AUTOSEL 5.14 198/252] ASoC: intel: atom: Revert PCM buffer
+ address setup workaround again
+In-Reply-To: <20210909114106.141462-198-sashal@kernel.org>
+References: <20210909114106.141462-1-sashal@kernel.org>
+ <20210909114106.141462-198-sashal@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,60 +95,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Xiaotan Luo <lxt@rock-chips.com>
+On Thu, 09 Sep 2021 13:40:12 +0200,
+Sasha Levin wrote:
+> 
+> From: Takashi Iwai <tiwai@suse.de>
+> 
+> [ Upstream commit e28ac04a705e946eddc5e7d2fc712dea3f20fe9e ]
+> 
+> We worked around the breakage of PCM buffer setup by the commit
+> 65ca89c2b12c ("ASoC: intel: atom: Fix breakage for PCM buffer address
+> setup"), but this isn't necessary since the CONTINUOUS buffer type
+> also sets runtime->dma_addr since commit f84ba106a018 ("ALSA:
+> memalloc: Store snd_dma_buffer.addr for continuous pages, too").
+> Let's revert the change again.
+> 
+> Link: https://lore.kernel.org/r/20210822072127.9786-1-tiwai@suse.de
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-[ Upstream commit 1bf56843e664eef2525bdbfae6a561e98910f676 ]
+Please drop this, it's not for 5.14.  The commit f84ba106a018 is new
+and present only on 5.15.
 
-- DSP_A: PCM delay 1 bit mode, L data MSB after FRM LRC
-- DSP_B: PCM no delay mode, L data MSB during FRM LRC
 
-Signed-off-by: Xiaotan Luo <lxt@rock-chips.com>
-Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
-Link: https://lore.kernel.org/r/1629950562-14281-3-git-send-email-sugar.zhang@rock-chips.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/rockchip/rockchip_i2s.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+thanks,
 
-diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
-index 43522d7701e9..fa84ec695b52 100644
---- a/sound/soc/rockchip/rockchip_i2s.c
-+++ b/sound/soc/rockchip/rockchip_i2s.c
-@@ -233,12 +233,12 @@ static int rockchip_i2s_set_fmt(struct snd_soc_dai *cpu_dai,
- 	case SND_SOC_DAIFMT_I2S:
- 		val = I2S_TXCR_IBM_NORMAL;
- 		break;
--	case SND_SOC_DAIFMT_DSP_A: /* PCM no delay mode */
--		val = I2S_TXCR_TFS_PCM;
--		break;
--	case SND_SOC_DAIFMT_DSP_B: /* PCM delay 1 mode */
-+	case SND_SOC_DAIFMT_DSP_A: /* PCM delay 1 bit mode */
- 		val = I2S_TXCR_TFS_PCM | I2S_TXCR_PBM_MODE(1);
- 		break;
-+	case SND_SOC_DAIFMT_DSP_B: /* PCM no delay mode */
-+		val = I2S_TXCR_TFS_PCM;
-+		break;
- 	default:
- 		ret = -EINVAL;
- 		goto err_pm_put;
-@@ -257,12 +257,12 @@ static int rockchip_i2s_set_fmt(struct snd_soc_dai *cpu_dai,
- 	case SND_SOC_DAIFMT_I2S:
- 		val = I2S_RXCR_IBM_NORMAL;
- 		break;
--	case SND_SOC_DAIFMT_DSP_A: /* PCM no delay mode */
--		val = I2S_RXCR_TFS_PCM;
--		break;
--	case SND_SOC_DAIFMT_DSP_B: /* PCM delay 1 mode */
-+	case SND_SOC_DAIFMT_DSP_A: /* PCM delay 1 bit mode */
- 		val = I2S_RXCR_TFS_PCM | I2S_RXCR_PBM_MODE(1);
- 		break;
-+	case SND_SOC_DAIFMT_DSP_B: /* PCM no delay mode */
-+		val = I2S_RXCR_TFS_PCM;
-+		break;
- 	default:
- 		ret = -EINVAL;
- 		goto err_pm_put;
--- 
-2.30.2
-
+Takashi

@@ -2,73 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D695B404D29
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 14:02:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42E7440586B
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 16:00:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7282916DB;
-	Thu,  9 Sep 2021 14:01:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7282916DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4FAE83A;
+	Thu,  9 Sep 2021 15:59:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4FAE83A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631188938;
-	bh=TEDtftrilDPpXxhuvXoNcnLYstHwkOz/LbsLVhnJRQM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cWsG4fAla0TcrB99I2wlsS2pVB0IanHT5/P53WaO55XAjbJnMTXs3UzMGtxetPQHt
-	 Mw7OOyPmQAQF6hxdWMGgQueJ1nXmV9vY4phyO4BcLnxYhcsZc7TNHswNxqt3QKJk6H
-	 LJLUo11abL/lSCqxKySZKDC4omXSPNnU4xPu+TQ0=
+	s=default; t=1631196041;
+	bh=YQ1c2CkZEr493T45eISSEFUXp3dFVDJWPGhmXM0MmFY=;
+	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=S3I3Z4u1A0SVCpIPwdB+bU5U+GjRTUSoFC/uytG1RHDfMZDKx686p+ZlK1x5Hjgbb
+	 D4+cd2lBfSnDJzVs2KFEGJu8jogR/eaio+2tjsA50sfFDHwO9ZZlVS9qnejpwIRujw
+	 CRs69WwJPY6XF794kBT+UkZm2fpc5SSgYBNx4dgA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3A89DF804EC;
-	Thu,  9 Sep 2021 13:59:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 295C9F80253;
+	Thu,  9 Sep 2021 15:59:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6276F804EB; Thu,  9 Sep 2021 13:59:51 +0200 (CEST)
+ id 61470F80224; Thu,  9 Sep 2021 12:22:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0C155F80253
- for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 13:59:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C155F80253
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9BE35F800FC
+ for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 12:22:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BE35F800FC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="rSH6f4HN"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AD03C63292;
- Thu,  9 Sep 2021 11:59:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631188778;
- bh=TEDtftrilDPpXxhuvXoNcnLYstHwkOz/LbsLVhnJRQM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=rSH6f4HN5IfB/LBav1KRr+0zvfdXMI3dyI9qI8UFhyONhJoHEOVkC1roCY4APxWQ6
- jgvHQ+0lFWLAN2XGyoZN8pdint5M+E5if4xviqdi0FfTNWaCqufQV0A8aU2+TElo5W
- 1VoRF9U5q0j2fJKhk+xBgRuWXI5Co7kmfb8xtSvUFAV6ny13fR42UPdRX6e2SAQ8f2
- hWHBInGIYELVbfq32Jrzt7ACpyqK9PKHTDNvoVF6IVU2qdmRlz5hlUj/DzUKucbo6T
- E7PjClU6I+WQ7vznRB4RGkQIOV57cJe8xKQcPoXmpAWcLmo1XgwMnqJbvWpQ78WRwD
- xYX1MUNEVnKdg==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.14 30/59] ASoC: Intel: bytcr_rt5640: Move "Platform
- Clock" routes to the maps for the matching in-/output
-Date: Thu,  9 Sep 2021 07:58:31 -0400
-Message-Id: <20210909115900.149795-30-sashal@kernel.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210909115900.149795-1-sashal@kernel.org>
-References: <20210909115900.149795-1-sashal@kernel.org>
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="bSvBSQ+q"
+Received: by mail-lj1-x234.google.com with SMTP id s3so2155974ljp.11
+ for <alsa-devel@alsa-project.org>; Thu, 09 Sep 2021 03:22:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=4EswICeTNdVlz0lCtTDJTKenpK87Gn1y+QiA37k6snE=;
+ b=bSvBSQ+q9aKXaPLiZBGLV6eWIVCHQJx7LvmIpv/Ab0lAxIW5zaWop6/O7XkxyazW9i
+ ugPG+8MysfoLd86WiJxXXjewZUQmiNw6kdgy5tiC5wC9VPvwYHdH6fwBl9vYo1rJWnCt
+ y4crv01rJv04Fp5aU4lkdCRcoSIPbW1y8Vdoc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=4EswICeTNdVlz0lCtTDJTKenpK87Gn1y+QiA37k6snE=;
+ b=RBItX+fGQScOn7i/BCNNcaoAZJOZUwiBfD+AEy+UOK10QEU4994Wbhqs34dkeXpwTM
+ Yf5gjuNE2Pt2vyBTDRObErHn4goMEqwJcuRJ5pSZHm+srGvED6qnLJdQmfqRe/gyZrk+
+ rm6Tlo6Thg8JdAI8FMzcNkta93LwyV3x4xSSohYSwizYU8BCXLnh/5nqRqi+UB6ODKlI
+ xFDk74Lj0gQIPTeJcx2AvXO7d/PcMATZsNOoNqQuuoeyb1USu2+4EySkPx4FWojzZa3q
+ ABeOI+ccwPDFGPHQdeiIowg7HlpLJcgq20Q/gbY9UBkDtwofFz2QvRC0349Bx2qsjSXN
+ oe4w==
+X-Gm-Message-State: AOAM5327TLQcKIYL5rPuPB5Pg0p1cOST6THjD+cMvUbwirEBMLMmxg1q
+ 2vjguKxAs4tV9up02YGQzuE6dDC8eeb0T+iu4N9ExRHTabWlrw==
+X-Google-Smtp-Source: ABdhPJzbSptDWWVUKjga4SZgpxW3jeFoo8j5fK8339DuhNQ0cAcQOD4SGG7ulwgnlGdNXJyX/2M5q+yceKM7Vz+M2BU=
+X-Received: by 2002:a2e:b5d0:: with SMTP id g16mr1575416ljn.349.1631182917473; 
+ Thu, 09 Sep 2021 03:21:57 -0700 (PDT)
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+From: En-Shuo Hsu <enshuo@chromium.org>
+Date: Thu, 9 Sep 2021 18:21:46 +0800
+Message-ID: <CADDZ45UPsbpAAqP6=ZkTT8BE-yLii4Y7xSDnjK550G2DhQsMew@mail.gmail.com>
+Subject: A portion of USB Headsets loses previous sound volume setting after a
+ suspend resume
+To: alsa-devel@alsa-project.org
+X-Mailman-Approved-At: Thu, 09 Sep 2021 15:59:24 +0200
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: tiwai@suse.de, Yu-Hsuan Hsu <yuhsuan@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,79 +89,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Hans de Goede <hdegoede@redhat.com>
+Hi
 
-[ Upstream commit dccd1dfd0770bfd494b68d1135b4547b2c602c42 ]
+We recently found that some USB headsets may fall back to their full volume
+after a suspend and resume. We think the issue is caused by the logic of
+mixer_ctl_feature_put
+<https://github.com/torvalds/linux/blob/a3fa7a101dcff93791d1b1bdb3affcad1410c8c1/sound/usb/mixer.c#L1396>
+in
+sound/usb/mixer.c:
 
-Move the "Platform Clock" routes for the "Internal Mic" and "Speaker"
-routes to the intmic_*_map[] / *_spk_map[] arrays.
+err = snd_usb_get_cur_mix_value(cval, c + 1, cnt, &oval);
+if (err < 0)
+  return filter_error(cval, err);
+  val = ucontrol->value.integer.value[cnt];
+  val = get_abs_value(cval, val);
+if (oval != val) {
+  snd_usb_set_cur_mix_value(cval, c + 1, cnt, val);
+  changed = 1;
+}
 
-This ensures that these "Platform Clock" routes do not get added when the
-BYT_RT5640_NO_INTERNAL_MIC_MAP / BYT_RT5640_NO_SPEAKERS quirks are used.
+The existing codes get the existing mixer control value and ignore the set
+if the val doesn't change. However, in the suspend and resume case, the USB
+headset's control value is actually changed.
 
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20210802142501.991985-2-hdegoede@redhat.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/intel/boards/bytcr_rt5640.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Removing the cache logic is a potential fix, but a better solution may be
+to properly handle the suspend resume scenario
+in snd_usb_get_cur_mix_value. We may need to mark the cache
+in usb_mixer_elem_info to be dirty.
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index 4a76b099a508..e389ecf06e63 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -226,9 +226,6 @@ static const struct snd_soc_dapm_widget byt_rt5640_widgets[] = {
- static const struct snd_soc_dapm_route byt_rt5640_audio_map[] = {
- 	{"Headphone", NULL, "Platform Clock"},
- 	{"Headset Mic", NULL, "Platform Clock"},
--	{"Internal Mic", NULL, "Platform Clock"},
--	{"Speaker", NULL, "Platform Clock"},
--
- 	{"Headset Mic", NULL, "MICBIAS1"},
- 	{"IN2P", NULL, "Headset Mic"},
- 	{"Headphone", NULL, "HPOL"},
-@@ -236,19 +233,23 @@ static const struct snd_soc_dapm_route byt_rt5640_audio_map[] = {
- };
- 
- static const struct snd_soc_dapm_route byt_rt5640_intmic_dmic1_map[] = {
-+	{"Internal Mic", NULL, "Platform Clock"},
- 	{"DMIC1", NULL, "Internal Mic"},
- };
- 
- static const struct snd_soc_dapm_route byt_rt5640_intmic_dmic2_map[] = {
-+	{"Internal Mic", NULL, "Platform Clock"},
- 	{"DMIC2", NULL, "Internal Mic"},
- };
- 
- static const struct snd_soc_dapm_route byt_rt5640_intmic_in1_map[] = {
-+	{"Internal Mic", NULL, "Platform Clock"},
- 	{"Internal Mic", NULL, "MICBIAS1"},
- 	{"IN1P", NULL, "Internal Mic"},
- };
- 
- static const struct snd_soc_dapm_route byt_rt5640_intmic_in3_map[] = {
-+	{"Internal Mic", NULL, "Platform Clock"},
- 	{"Internal Mic", NULL, "MICBIAS1"},
- 	{"IN3P", NULL, "Internal Mic"},
- };
-@@ -290,6 +291,7 @@ static const struct snd_soc_dapm_route byt_rt5640_ssp0_aif2_map[] = {
- };
- 
- static const struct snd_soc_dapm_route byt_rt5640_stereo_spk_map[] = {
-+	{"Speaker", NULL, "Platform Clock"},
- 	{"Speaker", NULL, "SPOLP"},
- 	{"Speaker", NULL, "SPOLN"},
- 	{"Speaker", NULL, "SPORP"},
-@@ -297,6 +299,7 @@ static const struct snd_soc_dapm_route byt_rt5640_stereo_spk_map[] = {
- };
- 
- static const struct snd_soc_dapm_route byt_rt5640_mono_spk_map[] = {
-+	{"Speaker", NULL, "Platform Clock"},
- 	{"Speaker", NULL, "SPOLP"},
- 	{"Speaker", NULL, "SPOLN"},
- };
--- 
-2.30.2
+The issue is verified to be reproduced with Dell WH3022 and Logitech USB
+Headset H340 by:
+1. Boot to OS.
+2. Plug in the headset and check sound output.
+3. Play an audio/video and keep with low volume.
+4. Suspend.
+5. Resume.
+6. When audio/video is played, the headset's sound output can't keep the
+original volume. --> issue "
 
+Would like to know your thoughts on this issue.

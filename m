@@ -2,73 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CC9B404AD0
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 13:48:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F011404AE6
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 13:49:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 34FD915DC;
-	Thu,  9 Sep 2021 13:47:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34FD915DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1E8216B3;
+	Thu,  9 Sep 2021 13:48:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1E8216B3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631188115;
-	bh=6+MONF8EmtdpRsVvsw+V+vRmiKz8kfaaA31jO5pe8sg=;
+	s=default; t=1631188141;
+	bh=3H2CGtzj5AyQYxclvlEPAno04RtxxTH9cpkPY2g9dMY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KQAKnzHXyRrV8R56BoWnY9g/wBLx/FdcTJmteJhlg2adm+9BnjX3SDYTjmL73qSBz
-	 lRj2a6+iFoQDbwaeXze8L5jogVCIGP8Nc251u0Fuczs7wTKFJARjQJHe4VdRqCl62y
-	 9TM145seEk3eE5fF/bSAoI1y05Ovp5c+uSfhzVcw=
+	b=McRajoQadlkOL1cxm9vZKrZttBr0s1wPy0bG8bZ7qU1x4wUBqKXRuX4BXj3FAh8ZS
+	 Hf38FovZD8PRCPoOGQWQ5leYnwNU/Bi09vM3p4pPzT24zgd0eoWMwVfYnyH0O9eFKh
+	 8WgYF/o6K6RLRBvDZ6RmD9/WfRMCKsecYs9xlYbM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 013E0F80506;
-	Thu,  9 Sep 2021 13:46:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91208F804F3;
+	Thu,  9 Sep 2021 13:46:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3B9B9F80506; Thu,  9 Sep 2021 13:46:09 +0200 (CEST)
+ id 2CA05F804E3; Thu,  9 Sep 2021 13:46:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E1C59F80217
- for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 13:46:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1C59F80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1E36DF804B2
+ for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 13:46:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E36DF804B2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ZIP8cDKa"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A3EE161414;
- Thu,  9 Sep 2021 11:45:57 +0000 (UTC)
+ header.b="TiUday81"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BAE176115A;
+ Thu,  9 Sep 2021 11:46:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631187958;
- bh=6+MONF8EmtdpRsVvsw+V+vRmiKz8kfaaA31jO5pe8sg=;
+ s=k20201202; t=1631188004;
+ bh=3H2CGtzj5AyQYxclvlEPAno04RtxxTH9cpkPY2g9dMY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZIP8cDKai0/OWXfaO7NWGkZ3Cdza7M1jr1ZnmxXvhzWAK/ulKKwfq0XJ1JRQTQukz
- aPPPIKj1Hm+sTwFs9v3ozlZSh07Yhi2hbkaavDHkI9ncdkokogPGbg/PArpJU0Syhg
- KljgrBdAKu51Rj50LLgDRk21aeLSR3p25uFTaUHzWL5jL+1dMdVMmW4cdwjfaGp+Yo
- dm5RdN7yZDP0E1Euh1zZccD0k3I7diGy6HEfuNsf5yW3fKc26LeiuPcIkArcvRKIZh
- MciV8mSWn3D0oeHSpbcmqH8r4l5rB8RXkGlFJA0WJfottCXYvRJPh8KXO7a0PBxX5I
- A2OjargwVY9Sg==
+ b=TiUday81l3YLWw2TudKxJpbM43/8w5wt23DXudT9W1kt0IpXrk1dNvdIw9h9Up0Pj
+ S8gcso9jZr2lPW9pyrNMwjNEePmBsmHugbOvrIAbxSXRxSrvkcMVST8Xe8tUuq5bNo
+ ZZmQ9BTIK1d6EKIDudb9mLrjOez3OYdg56LgatnSaZEz/Sfz7GHhcQi1kprt8iPi4b
+ QLmEzJq1EgMHHbzm8JtuXDwMZYQLw5HELTEE7pmmFTVCBOezTTWXD0hh7VeaLOdI6K
+ d86T0hCHCKDnmv3KO6gKCV9zllSYGuJxrXkEGKnbZTxtT1o3QtPxwlrwMiSKC4l293
+ 1Ec8kssKBFzog==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.14 224/252] ASoC: soc-pcm: protect BE dailink state
- changes in trigger
-Date: Thu,  9 Sep 2021 07:40:38 -0400
-Message-Id: <20210909114106.141462-224-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.13 006/219] ASoC: ti: davinci-mcasp: Fix DIT mode
+ support
+Date: Thu,  9 Sep 2021 07:43:02 -0400
+Message-Id: <20210909114635.143983-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210909114106.141462-1-sashal@kernel.org>
-References: <20210909114106.141462-1-sashal@kernel.org>
+In-Reply-To: <20210909114635.143983-1-sashal@kernel.org>
+References: <20210909114635.143983-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ Mark Brown <broonie@kernel.org>, Peter Ujfalusi <peter.ujfalusi@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,205 +82,282 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+From: Peter Ujfalusi <peter.ujfalusi@gmail.com>
 
-[ Upstream commit 0c75fc7193387776c10f7c7b440d93496e3d5e21 ]
+[ Upstream commit bbdd3f4dbe81e19b9123bc54e23ed54517615524 ]
 
-When more than one FE is connected to a BE, e.g. in a mixing use case,
-the BE can be triggered multiple times when the FE are opened/started
-concurrently. This race condition is problematic in the case of
-SoundWire BE dailinks, and this is not desirable in a general
-case. The code carefully checks when the BE can be stopped or
-hw_free'ed, but the trigger code does not use any mutual exclusion.
+The DIT mode support has not been tested due to lack of platform where it
+can be tested.
+To be able to use the McASP on OMAP4/5 (only supporting DIT mode) we need
+to have DIT mode working in the McASP driver on a know platform.
+After hacking around (on BBW, mcasp1.axr1 can be routed out for this) it
+appeared that DIT mode is broken.
 
-Fix by using the same spinlock already used to check FE states, and
-set the state before the trigger. In case of errors,  the initial
-state will be restored.
+This patch fixes it up and 16/24 bit audio works along with passthrough,
+but I have only tested with DTS example and test files.
 
-This patch does not change how the triggers are handled, it only makes
-sure the states are handled in critical sections.
-
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-Id: <20210817164054.250028-2-pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
+Link: https://lore.kernel.org/r/20210705194249.2385-2-peter.ujfalusi@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/soc-pcm.c | 103 ++++++++++++++++++++++++++++++++++++--------
- 1 file changed, 85 insertions(+), 18 deletions(-)
+ sound/soc/ti/davinci-mcasp.c | 150 ++++++++++++++++++++++++++++++-----
+ 1 file changed, 129 insertions(+), 21 deletions(-)
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index d1c570ca21ea..b944f56a469a 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -2001,6 +2001,8 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 	struct snd_soc_pcm_runtime *be;
- 	struct snd_soc_dpcm *dpcm;
- 	int ret = 0;
-+	unsigned long flags;
-+	enum snd_soc_dpcm_state state;
+diff --git a/sound/soc/ti/davinci-mcasp.c b/sound/soc/ti/davinci-mcasp.c
+index b94220306d1a..41d7cb132198 100644
+--- a/sound/soc/ti/davinci-mcasp.c
++++ b/sound/soc/ti/davinci-mcasp.c
+@@ -83,6 +83,8 @@ struct davinci_mcasp {
+ 	struct snd_pcm_substream *substreams[2];
+ 	unsigned int dai_fmt;
  
- 	for_each_dpcm_be(fe, stream, dpcm) {
- 		struct snd_pcm_substream *be_substream;
-@@ -2017,76 +2019,141 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 
- 		switch (cmd) {
- 		case SNDRV_PCM_TRIGGER_START:
-+			spin_lock_irqsave(&fe->card->dpcm_lock, flags);
- 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PREPARE) &&
- 			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
--			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
-+			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED)) {
-+				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 				continue;
-+			}
-+			state = be->dpcm[stream].state;
-+			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
-+			spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 
- 			ret = soc_pcm_trigger(be_substream, cmd);
--			if (ret)
-+			if (ret) {
-+				spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+				be->dpcm[stream].state = state;
-+				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 				goto end;
-+			}
- 
--			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
- 			break;
- 		case SNDRV_PCM_TRIGGER_RESUME:
--			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_SUSPEND))
-+			spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_SUSPEND) {
-+				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 				continue;
-+			}
++	u32 iec958_status;
 +
-+			state = be->dpcm[stream].state;
-+			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
-+			spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 	/* Audio can not be enabled due to missing parameter(s) */
+ 	bool	missing_audio_param;
  
- 			ret = soc_pcm_trigger(be_substream, cmd);
--			if (ret)
-+			if (ret) {
-+				spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+				be->dpcm[stream].state = state;
-+				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 				goto end;
-+			}
+@@ -757,6 +759,9 @@ static int davinci_mcasp_set_tdm_slot(struct snd_soc_dai *dai,
+ {
+ 	struct davinci_mcasp *mcasp = snd_soc_dai_get_drvdata(dai);
  
--			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
- 			break;
- 		case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
--			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
-+			spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED) {
-+				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 				continue;
-+			}
++	if (mcasp->op_mode == DAVINCI_MCASP_DIT_MODE)
++		return 0;
 +
-+			state = be->dpcm[stream].state;
-+			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
-+			spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 
- 			ret = soc_pcm_trigger(be_substream, cmd);
--			if (ret)
-+			if (ret) {
-+				spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+				be->dpcm[stream].state = state;
-+				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 				goto end;
-+			}
- 
--			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
- 			break;
- 		case SNDRV_PCM_TRIGGER_STOP:
-+			spin_lock_irqsave(&fe->card->dpcm_lock, flags);
- 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_START) &&
--			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
-+			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED)) {
-+				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 				continue;
-+			}
-+			spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 
- 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
- 				continue;
- 
-+			spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+			state = be->dpcm[stream].state;
-+			be->dpcm[stream].state = SND_SOC_DPCM_STATE_STOP;
-+			spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 	dev_dbg(mcasp->dev,
+ 		 "%s() tx_mask 0x%08x rx_mask 0x%08x slots %d width %d\n",
+ 		 __func__, tx_mask, rx_mask, slots, slot_width);
+@@ -827,6 +832,20 @@ static int davinci_config_channel_size(struct davinci_mcasp *mcasp,
+ 		mcasp_mod_bits(mcasp, DAVINCI_MCASP_RXFMT_REG, RXROT(rx_rotate),
+ 			       RXROT(7));
+ 		mcasp_set_reg(mcasp, DAVINCI_MCASP_RXMASK_REG, mask);
++	} else {
++		/*
++		 * according to the TRM it should be TXROT=0, this one works:
++		 * 16 bit to 23-8 (TXROT=6, rotate 24 bits)
++		 * 24 bit to 23-0 (TXROT=0, rotate 0 bits)
++		 *
++		 * TXROT = 0 only works with 24bit samples
++		 */
++		tx_rotate = (sample_width / 4 + 2) & 0x7;
 +
- 			ret = soc_pcm_trigger(be_substream, cmd);
--			if (ret)
-+			if (ret) {
-+				spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+				be->dpcm[stream].state = state;
-+				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 				goto end;
-+			}
- 
--			be->dpcm[stream].state = SND_SOC_DPCM_STATE_STOP;
- 			break;
- 		case SNDRV_PCM_TRIGGER_SUSPEND:
--			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START)
-+			spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START) {
-+				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 				continue;
-+			}
-+			spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 
- 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
- 				continue;
- 
-+			spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+			state = be->dpcm[stream].state;
-+			be->dpcm[stream].state = SND_SOC_DPCM_STATE_STOP;
-+			spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
-+
- 			ret = soc_pcm_trigger(be_substream, cmd);
--			if (ret)
-+			if (ret) {
-+				spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+				be->dpcm[stream].state = state;
-+				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 				goto end;
-+			}
- 
--			be->dpcm[stream].state = SND_SOC_DPCM_STATE_SUSPEND;
- 			break;
- 		case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
--			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START)
-+			spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START) {
-+				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 				continue;
-+			}
-+			spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 
- 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
- 				continue;
- 
-+			spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+			state = be->dpcm[stream].state;
-+			be->dpcm[stream].state = SND_SOC_DPCM_STATE_PAUSED;
-+			spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
-+
- 			ret = soc_pcm_trigger(be_substream, cmd);
--			if (ret)
-+			if (ret) {
-+				spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+				be->dpcm[stream].state = state;
-+				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 				goto end;
-+			}
- 
--			be->dpcm[stream].state = SND_SOC_DPCM_STATE_PAUSED;
- 			break;
- 		}
++		mcasp_mod_bits(mcasp, DAVINCI_MCASP_TXFMT_REG, TXROT(tx_rotate),
++			       TXROT(7));
++		mcasp_mod_bits(mcasp, DAVINCI_MCASP_TXFMT_REG, TXSSZ(15),
++			       TXSSZ(0x0F));
  	}
+ 
+ 	mcasp_set_reg(mcasp, DAVINCI_MCASP_TXMASK_REG, mask);
+@@ -842,10 +861,16 @@ static int mcasp_common_hw_param(struct davinci_mcasp *mcasp, int stream,
+ 	u8 tx_ser = 0;
+ 	u8 rx_ser = 0;
+ 	u8 slots = mcasp->tdm_slots;
+-	u8 max_active_serializers = (channels + slots - 1) / slots;
+-	u8 max_rx_serializers, max_tx_serializers;
++	u8 max_active_serializers, max_rx_serializers, max_tx_serializers;
+ 	int active_serializers, numevt;
+ 	u32 reg;
++
++	/* In DIT mode we only allow maximum of one serializers for now */
++	if (mcasp->op_mode == DAVINCI_MCASP_DIT_MODE)
++		max_active_serializers = 1;
++	else
++		max_active_serializers = (channels + slots - 1) / slots;
++
+ 	/* Default configuration */
+ 	if (mcasp->version < MCASP_VERSION_3)
+ 		mcasp_set_bits(mcasp, DAVINCI_MCASP_PWREMUMGT_REG, MCASP_SOFT);
+@@ -1031,16 +1056,18 @@ static int mcasp_i2s_hw_param(struct davinci_mcasp *mcasp, int stream,
+ static int mcasp_dit_hw_param(struct davinci_mcasp *mcasp,
+ 			      unsigned int rate)
+ {
+-	u32 cs_value = 0;
+-	u8 *cs_bytes = (u8*) &cs_value;
++	u8 *cs_bytes = (u8 *)&mcasp->iec958_status;
+ 
+-	/* Set the TX format : 24 bit right rotation, 32 bit slot, Pad 0
+-	   and LSB first */
+-	mcasp_set_bits(mcasp, DAVINCI_MCASP_TXFMT_REG, TXROT(6) | TXSSZ(15));
++	if (!mcasp->dat_port)
++		mcasp_set_bits(mcasp, DAVINCI_MCASP_TXFMT_REG, TXSEL);
++	else
++		mcasp_clr_bits(mcasp, DAVINCI_MCASP_TXFMT_REG, TXSEL);
+ 
+ 	/* Set TX frame synch : DIT Mode, 1 bit width, internal, rising edge */
+ 	mcasp_set_reg(mcasp, DAVINCI_MCASP_TXFMCTL_REG, AFSXE | FSXMOD(0x180));
+ 
++	mcasp_set_reg(mcasp, DAVINCI_MCASP_TXMASK_REG, 0xFFFF);
++
+ 	/* Set the TX tdm : for all the slots */
+ 	mcasp_set_reg(mcasp, DAVINCI_MCASP_TXTDM_REG, 0xFFFFFFFF);
+ 
+@@ -1049,16 +1076,8 @@ static int mcasp_dit_hw_param(struct davinci_mcasp *mcasp,
+ 
+ 	mcasp_clr_bits(mcasp, DAVINCI_MCASP_XEVTCTL_REG, TXDATADMADIS);
+ 
+-	/* Only 44100 and 48000 are valid, both have the same setting */
+-	mcasp_set_bits(mcasp, DAVINCI_MCASP_AHCLKXCTL_REG, AHCLKXDIV(3));
+-
+-	/* Enable the DIT */
+-	mcasp_set_bits(mcasp, DAVINCI_MCASP_TXDITCTL_REG, DITEN);
+-
+ 	/* Set S/PDIF channel status bits */
+-	cs_bytes[0] = IEC958_AES0_CON_NOT_COPYRIGHT;
+-	cs_bytes[1] = IEC958_AES1_CON_PCM_CODER;
+-
++	cs_bytes[3] &= ~IEC958_AES3_CON_FS;
+ 	switch (rate) {
+ 	case 22050:
+ 		cs_bytes[3] |= IEC958_AES3_CON_FS_22050;
+@@ -1088,12 +1107,15 @@ static int mcasp_dit_hw_param(struct davinci_mcasp *mcasp,
+ 		cs_bytes[3] |= IEC958_AES3_CON_FS_192000;
+ 		break;
+ 	default:
+-		printk(KERN_WARNING "unsupported sampling rate: %d\n", rate);
++		dev_err(mcasp->dev, "unsupported sampling rate: %d\n", rate);
+ 		return -EINVAL;
+ 	}
+ 
+-	mcasp_set_reg(mcasp, DAVINCI_MCASP_DITCSRA_REG, cs_value);
+-	mcasp_set_reg(mcasp, DAVINCI_MCASP_DITCSRB_REG, cs_value);
++	mcasp_set_reg(mcasp, DAVINCI_MCASP_DITCSRA_REG, mcasp->iec958_status);
++	mcasp_set_reg(mcasp, DAVINCI_MCASP_DITCSRB_REG, mcasp->iec958_status);
++
++	/* Enable the DIT */
++	mcasp_set_bits(mcasp, DAVINCI_MCASP_TXDITCTL_REG, DITEN);
+ 
+ 	return 0;
+ }
+@@ -1237,12 +1259,18 @@ static int davinci_mcasp_hw_params(struct snd_pcm_substream *substream,
+ 		int slots = mcasp->tdm_slots;
+ 		int rate = params_rate(params);
+ 		int sbits = params_width(params);
++		unsigned int bclk_target;
+ 
+ 		if (mcasp->slot_width)
+ 			sbits = mcasp->slot_width;
+ 
++		if (mcasp->op_mode == DAVINCI_MCASP_IIS_MODE)
++			bclk_target = rate * sbits * slots;
++		else
++			bclk_target = rate * 128;
++
+ 		davinci_mcasp_calc_clk_div(mcasp, mcasp->sysclk_freq,
+-					   rate * sbits * slots, true);
++					   bclk_target, true);
+ 	}
+ 
+ 	ret = mcasp_common_hw_param(mcasp, substream->stream,
+@@ -1598,6 +1626,77 @@ static const struct snd_soc_dai_ops davinci_mcasp_dai_ops = {
+ 	.set_tdm_slot	= davinci_mcasp_set_tdm_slot,
+ };
+ 
++static int davinci_mcasp_iec958_info(struct snd_kcontrol *kcontrol,
++				     struct snd_ctl_elem_info *uinfo)
++{
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_IEC958;
++	uinfo->count = 1;
++
++	return 0;
++}
++
++static int davinci_mcasp_iec958_get(struct snd_kcontrol *kcontrol,
++				    struct snd_ctl_elem_value *uctl)
++{
++	struct snd_soc_dai *cpu_dai = snd_kcontrol_chip(kcontrol);
++	struct davinci_mcasp *mcasp = snd_soc_dai_get_drvdata(cpu_dai);
++
++	memcpy(uctl->value.iec958.status, &mcasp->iec958_status,
++	       sizeof(mcasp->iec958_status));
++
++	return 0;
++}
++
++static int davinci_mcasp_iec958_put(struct snd_kcontrol *kcontrol,
++				    struct snd_ctl_elem_value *uctl)
++{
++	struct snd_soc_dai *cpu_dai = snd_kcontrol_chip(kcontrol);
++	struct davinci_mcasp *mcasp = snd_soc_dai_get_drvdata(cpu_dai);
++
++	memcpy(&mcasp->iec958_status, uctl->value.iec958.status,
++	       sizeof(mcasp->iec958_status));
++
++	return 0;
++}
++
++static int davinci_mcasp_iec958_con_mask_get(struct snd_kcontrol *kcontrol,
++					     struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_dai *cpu_dai = snd_kcontrol_chip(kcontrol);
++	struct davinci_mcasp *mcasp = snd_soc_dai_get_drvdata(cpu_dai);
++
++	memset(ucontrol->value.iec958.status, 0xff, sizeof(mcasp->iec958_status));
++	return 0;
++}
++
++static const struct snd_kcontrol_new davinci_mcasp_iec958_ctls[] = {
++	{
++		.access = (SNDRV_CTL_ELEM_ACCESS_READWRITE |
++			   SNDRV_CTL_ELEM_ACCESS_VOLATILE),
++		.iface = SNDRV_CTL_ELEM_IFACE_PCM,
++		.name = SNDRV_CTL_NAME_IEC958("", PLAYBACK, DEFAULT),
++		.info = davinci_mcasp_iec958_info,
++		.get = davinci_mcasp_iec958_get,
++		.put = davinci_mcasp_iec958_put,
++	}, {
++		.access = SNDRV_CTL_ELEM_ACCESS_READ,
++		.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++		.name = SNDRV_CTL_NAME_IEC958("", PLAYBACK, CON_MASK),
++		.info = davinci_mcasp_iec958_info,
++		.get = davinci_mcasp_iec958_con_mask_get,
++	},
++};
++
++static void davinci_mcasp_init_iec958_status(struct davinci_mcasp *mcasp)
++{
++	unsigned char *cs = (u8 *)&mcasp->iec958_status;
++
++	cs[0] = IEC958_AES0_CON_NOT_COPYRIGHT | IEC958_AES0_CON_EMPHASIS_NONE;
++	cs[1] = IEC958_AES1_CON_PCM_CODER;
++	cs[2] = IEC958_AES2_CON_SOURCE_UNSPEC | IEC958_AES2_CON_CHANNEL_UNSPEC;
++	cs[3] = IEC958_AES3_CON_CLOCK_1000PPM;
++}
++
+ static int davinci_mcasp_dai_probe(struct snd_soc_dai *dai)
+ {
+ 	struct davinci_mcasp *mcasp = snd_soc_dai_get_drvdata(dai);
+@@ -1605,6 +1704,12 @@ static int davinci_mcasp_dai_probe(struct snd_soc_dai *dai)
+ 	dai->playback_dma_data = &mcasp->dma_data[SNDRV_PCM_STREAM_PLAYBACK];
+ 	dai->capture_dma_data = &mcasp->dma_data[SNDRV_PCM_STREAM_CAPTURE];
+ 
++	if (mcasp->op_mode == DAVINCI_MCASP_DIT_MODE) {
++		davinci_mcasp_init_iec958_status(mcasp);
++		snd_soc_add_dai_controls(dai, davinci_mcasp_iec958_ctls,
++					 ARRAY_SIZE(davinci_mcasp_iec958_ctls));
++	}
++
+ 	return 0;
+ }
+ 
+@@ -1651,7 +1756,8 @@ static struct snd_soc_dai_driver davinci_mcasp_dai[] = {
+ 			.channels_min	= 1,
+ 			.channels_max	= 384,
+ 			.rates		= DAVINCI_MCASP_RATES,
+-			.formats	= DAVINCI_MCASP_PCM_FMTS,
++			.formats	= SNDRV_PCM_FMTBIT_S16_LE |
++					  SNDRV_PCM_FMTBIT_S24_LE,
+ 		},
+ 		.ops 		= &davinci_mcasp_dai_ops,
+ 	},
+@@ -1871,6 +1977,8 @@ static int davinci_mcasp_get_config(struct davinci_mcasp *mcasp,
+ 		} else {
+ 			mcasp->tdm_slots = pdata->tdm_slots;
+ 		}
++	} else {
++		mcasp->tdm_slots = 32;
+ 	}
+ 
+ 	mcasp->num_serializer = pdata->num_serializer;
 -- 
 2.30.2
 

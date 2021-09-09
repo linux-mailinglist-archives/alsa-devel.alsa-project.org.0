@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C938404A61
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 13:45:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 795A0404A71
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 13:45:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9330D16AF;
-	Thu,  9 Sep 2021 13:44:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9330D16AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 12FEC16C2;
+	Thu,  9 Sep 2021 13:45:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12FEC16C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631187932;
-	bh=5dJO6w+5dh4dsYlnWN7LmnTtcZk0Tkos3wR4UE4Nr4g=;
+	s=default; t=1631187957;
+	bh=gMzlS6eZ1f/ByV3KBZmIrkiSw6UxTcu2UVXACyjKUw4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kaFggYE+SDWqQ0gt5rMNPNFxXI+fJoFYfdeMiVKTSixMo1PHQLutYxxP/L3a1YKDX
-	 Q5hIodm33vpPWUoC4qxcdBVsHBoCiuGcrDXHXkKyI9Lq7aoSayflSnk4ZnKYu7GLXS
-	 RNSQYxO+rkaOzaC3JkmxOGfI6nOvdDURY51JT8Eo=
+	b=aWAX4WGROjkraHJjDGjJyisiRAbJgGyZRP7OVUjqTvKKxryFqyW3YSv6PRONOPUtm
+	 s5S6+j8VfyfXLIZPMvwREt0STqN7qY3GF1qxwRcLBQkQriIQ59kwdS/imfuhxZiCeR
+	 46L0r/yflxNIImCgyyxTbAjf6sjagyHEOd4knN4Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D421F804EB;
-	Thu,  9 Sep 2021 13:44:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 194AEF802A9;
+	Thu,  9 Sep 2021 13:44:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 11551F804EB; Thu,  9 Sep 2021 13:44:08 +0200 (CEST)
+ id 00FFCF80224; Thu,  9 Sep 2021 13:44:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ABC99F804E6
- for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 13:44:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABC99F804E6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4CC91F80253
+ for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 13:44:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CC91F80253
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fkXHEmRp"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E658361355;
- Thu,  9 Sep 2021 11:43:56 +0000 (UTC)
+ header.b="Wesw0w6t"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 08C846138E;
+ Thu,  9 Sep 2021 11:44:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631187837;
- bh=5dJO6w+5dh4dsYlnWN7LmnTtcZk0Tkos3wR4UE4Nr4g=;
+ s=k20201202; t=1631187883;
+ bh=gMzlS6eZ1f/ByV3KBZmIrkiSw6UxTcu2UVXACyjKUw4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fkXHEmRpD2RBh84Ld4yMo0KUcrQ0j/Br2dcbRR5n/l+1e3ESECBp8J1oWsUsY+M19
- ztZyVgATFOvraWkcUZu8LVAM0ufmWFIKZA/aFzMXtK+U5HqGJ6ge7+ief/+HVv5b5u
- IY3CLtjNHg/WNnhUfcEwYRwPnZPwfrkP0YEhbdPKSjTDAoImOKMnJnRcGLRGaZMCMt
- KThgdCCkDxj1CEkzkRbX2e+IC6ZjZWHYOy6Hzy3yw/sj3hv82Bv2Fhx+yfbjkkO3ER
- 4cHgMAy7Bp2HCmopmafh4cat+hkcOYwV9IkqgQkPiRDRRsso98Cqx255qa+MDlm7Nh
- 0UXfeKXqGsuCA==
+ b=Wesw0w6tM8cQIj/SM+2L1+lcs8ODNqvh+eWS3qsHUb79uuup9MOJ+swzm9jdXnk9m
+ cs2RFFkHI1ID4Y0hnaTea3lzymd3JZzLPopIu3PB5um6xDT6+qJDLlYxGeyULlz/lb
+ ypInvHyZFaqOsFfgZlZ4D9KyPToviAIsLVRZVqQVx9933fSux0toxaBX9uz/cQKEbV
+ vAJ25UrvIPzi8Z/+CYCnPl4dnjE8j/MAlwP0YAMbQd7QWC/GGqOysRuCDbMhUZz1/s
+ Tp7JGxPn1KiaHFIG0QH7yL/gfJH+IEPU0fgKbDK16WCQGMedjDq4g/tJcsvC5q+DBy
+ KVZkRybgyFVaA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.14 132/252] ALSA: pci: cs46xx: Fix set up buffer
- type properly
-Date: Thu,  9 Sep 2021 07:39:06 -0400
-Message-Id: <20210909114106.141462-132-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.14 166/252] ALSA: hda: Drop workaround for a hang at
+ shutdown again
+Date: Thu,  9 Sep 2021 07:39:40 -0400
+Message-Id: <20210909114106.141462-166-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210909114106.141462-1-sashal@kernel.org>
 References: <20210909114106.141462-1-sashal@kernel.org>
@@ -85,96 +85,67 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 4d9e9153f1c64d91a125c6967bc0bfb0bb653ea0 ]
+[ Upstream commit 8fc8e903156f42c66245838441d03607e9067381 ]
 
-CS46xx driver switches the buffer depending on the number of periods,
-and in some cases it switches to the own buffer without updating the
-buffer type properly.  This may cause a problem with the mmap on
-exotic architectures that require the own mmap call for the coherent
-DMA buffer.
+The commit 0165c4e19f6e ("ALSA: hda: Fix hang during shutdown due to
+link reset") modified the shutdown callback of the HD-audio controller
+for working around a hang.  Meanwhile, the actual culprit of the hang
+was identified to be the leftover active codecs that may interfere
+with the powered down controller somehow, but we took a minimal fix
+approach for 5.14, and that was the commit above.
 
-This patch addresses the potential breakage by replacing the buffer
-setup with the proper macro.  It also simplifies the source code,
-too.
+Now, since the codec drivers go runtime-suspend at shutdown for 5.15,
+we can revert the change and make sure that the full runtime-suspend
+is performed at shutdown of HD-audio controller again.  This patch
+essentially reverts the commit above to restore the behavior.
 
-Link: https://lore.kernel.org/r/20210809071829.22238-4-tiwai@suse.de
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=214045
+Link: https://lore.kernel.org/r/20210817075630.7115-1-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/cs46xx/cs46xx_lib.c | 30 ++++++++----------------------
- 1 file changed, 8 insertions(+), 22 deletions(-)
+ sound/pci/hda/hda_intel.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
-diff --git a/sound/pci/cs46xx/cs46xx_lib.c b/sound/pci/cs46xx/cs46xx_lib.c
-index 1e1eb17f8e07..d43927dcd61e 100644
---- a/sound/pci/cs46xx/cs46xx_lib.c
-+++ b/sound/pci/cs46xx/cs46xx_lib.c
-@@ -1121,9 +1121,7 @@ static int snd_cs46xx_playback_hw_params(struct snd_pcm_substream *substream,
- 	if (params_periods(hw_params) == CS46XX_FRAGS) {
- 		if (runtime->dma_area != cpcm->hw_buf.area)
- 			snd_pcm_lib_free_pages(substream);
--		runtime->dma_area = cpcm->hw_buf.area;
--		runtime->dma_addr = cpcm->hw_buf.addr;
--		runtime->dma_bytes = cpcm->hw_buf.bytes;
-+		snd_pcm_set_runtime_buffer(substream, &cpcm->hw_buf);
- 
- 
- #ifdef CONFIG_SND_CS46XX_NEW_DSP
-@@ -1143,11 +1141,8 @@ static int snd_cs46xx_playback_hw_params(struct snd_pcm_substream *substream,
- #endif
- 
- 	} else {
--		if (runtime->dma_area == cpcm->hw_buf.area) {
--			runtime->dma_area = NULL;
--			runtime->dma_addr = 0;
--			runtime->dma_bytes = 0;
--		}
-+		if (runtime->dma_area == cpcm->hw_buf.area)
-+			snd_pcm_set_runtime_buffer(substream, NULL);
- 		err = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
- 		if (err < 0) {
- #ifdef CONFIG_SND_CS46XX_NEW_DSP
-@@ -1196,9 +1191,7 @@ static int snd_cs46xx_playback_hw_free(struct snd_pcm_substream *substream)
- 	if (runtime->dma_area != cpcm->hw_buf.area)
- 		snd_pcm_lib_free_pages(substream);
-     
--	runtime->dma_area = NULL;
--	runtime->dma_addr = 0;
--	runtime->dma_bytes = 0;
-+	snd_pcm_set_runtime_buffer(substream, NULL);
- 
- 	return 0;
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index 0062c18b646a..0322b289505e 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -883,11 +883,10 @@ static unsigned int azx_get_pos_skl(struct azx *chip, struct azx_dev *azx_dev)
+ 	return azx_get_pos_posbuf(chip, azx_dev);
  }
-@@ -1287,16 +1280,11 @@ static int snd_cs46xx_capture_hw_params(struct snd_pcm_substream *substream,
- 	if (runtime->periods == CS46XX_FRAGS) {
- 		if (runtime->dma_area != chip->capt.hw_buf.area)
- 			snd_pcm_lib_free_pages(substream);
--		runtime->dma_area = chip->capt.hw_buf.area;
--		runtime->dma_addr = chip->capt.hw_buf.addr;
--		runtime->dma_bytes = chip->capt.hw_buf.bytes;
-+		snd_pcm_set_runtime_buffer(substream, &chip->capt.hw_buf);
- 		substream->ops = &snd_cs46xx_capture_ops;
- 	} else {
--		if (runtime->dma_area == chip->capt.hw_buf.area) {
--			runtime->dma_area = NULL;
--			runtime->dma_addr = 0;
--			runtime->dma_bytes = 0;
--		}
-+		if (runtime->dma_area == chip->capt.hw_buf.area)
-+			snd_pcm_set_runtime_buffer(substream, NULL);
- 		err = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
- 		if (err < 0)
- 			return err;
-@@ -1313,9 +1301,7 @@ static int snd_cs46xx_capture_hw_free(struct snd_pcm_substream *substream)
  
- 	if (runtime->dma_area != chip->capt.hw_buf.area)
- 		snd_pcm_lib_free_pages(substream);
--	runtime->dma_area = NULL;
--	runtime->dma_addr = 0;
--	runtime->dma_bytes = 0;
-+	snd_pcm_set_runtime_buffer(substream, NULL);
- 
- 	return 0;
+-static void __azx_shutdown_chip(struct azx *chip, bool skip_link_reset)
++static void azx_shutdown_chip(struct azx *chip)
+ {
+ 	azx_stop_chip(chip);
+-	if (!skip_link_reset)
+-		azx_enter_link_reset(chip);
++	azx_enter_link_reset(chip);
+ 	azx_clear_irq_pending(chip);
+ 	display_power(chip, false);
  }
+@@ -896,11 +895,6 @@ static void __azx_shutdown_chip(struct azx *chip, bool skip_link_reset)
+ static DEFINE_MUTEX(card_list_lock);
+ static LIST_HEAD(card_list);
+ 
+-static void azx_shutdown_chip(struct azx *chip)
+-{
+-	__azx_shutdown_chip(chip, false);
+-}
+-
+ static void azx_add_card_list(struct azx *chip)
+ {
+ 	struct hda_intel *hda = container_of(chip, struct hda_intel, chip);
+@@ -2391,7 +2385,7 @@ static void azx_shutdown(struct pci_dev *pci)
+ 		return;
+ 	chip = card->private_data;
+ 	if (chip && chip->running)
+-		__azx_shutdown_chip(chip, true);
++		azx_shutdown_chip(chip);
+ }
+ 
+ /* PCI IDs */
 -- 
 2.30.2
 

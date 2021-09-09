@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69835404CD4
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 14:01:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25974404CEF
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 14:01:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 134AA16D6;
-	Thu,  9 Sep 2021 14:00:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 134AA16D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE25B1779;
+	Thu,  9 Sep 2021 14:00:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE25B1779
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631188881;
-	bh=FRq+ITQ7cE3VDO3rLKqTjflgtQDvLrubnXxkMwr6glw=;
+	s=default; t=1631188898;
+	bh=AsS5IWO2I9ueUInU05sg4o6O+dRha59amT68ELM+6WQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Rll+vRGIaU6Bet5T12yD/0kZvi06q94fnwdOo2X0itFObHZYRqOmHSBJDqT7yHITg
-	 4Fvt1qWWCFj+aXvV1iCd1fdu6Sl6Qn39NvJbBzhasbG5DfrP9KfQHbayoT3RnV5+O0
-	 AI+QXoUQ7I72tKTf7ZOb09YUlO6Tl6XHV/SfE6WM=
+	b=hUHCd/fUrKUXo7cVAGAK77liFMWv0eRy+7Tui0GJV4GbXEjHfVWc5hDuqIGW+mIX2
+	 mvU6aB7iRvRZGW4gcFFFbkLL9oEplVKLdqzY3lYVJmnLnOOQBz6xJPxl8WggRb6K5h
+	 n1IsQZfsgC0OcZbpBjr6f1ocve4xjjimPZhX4OAI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12714F80515;
-	Thu,  9 Sep 2021 13:58:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68EFBF804E6;
+	Thu,  9 Sep 2021 13:59:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1866EF804E7; Thu,  9 Sep 2021 13:58:47 +0200 (CEST)
+ id 72C8BF804E6; Thu,  9 Sep 2021 13:59:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,31 +34,30 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BAE9DF804E6
- for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 13:58:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BAE9DF804E6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 116F5F802DF
+ for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 13:58:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 116F5F802DF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="D7Xt1EId"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0657863251;
- Thu,  9 Sep 2021 11:58:36 +0000 (UTC)
+ header.b="KeQO7icV"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8531C6326F;
+ Thu,  9 Sep 2021 11:58:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631188717;
- bh=FRq+ITQ7cE3VDO3rLKqTjflgtQDvLrubnXxkMwr6glw=;
+ s=k20201202; t=1631188731;
+ bh=AsS5IWO2I9ueUInU05sg4o6O+dRha59amT68ELM+6WQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=D7Xt1EIdZ5UQ6sBfjjqGC8hOz7Paz7LLsUdSkzCSdT76z/RuMmPJULcxHzynTItnY
- 5RhFhpIpijiO35YXctDG+Epk71o615PUl5cO1RfmSUMOgPHelAny2dVoHR8iyYIvcj
- fZPOx6E3ZEQ6sxb0OZGtMt+ND86mML1fKcpHeKQTmUW3G3PAPmJDD4/+FUKqmMBsan
- yhO9Qisj3RUmyINIKgrXNA/XkncoCll9M36g8sWeCF41wvDEABotPCoGx8asPHxmLa
- frTDbI883XBAxJqzMOGGVb/Vb4w/02jqhfalvG6/t5oGCy9ZuIp+aXpKwJJzMP6RIO
- L40sxeQFROxuw==
+ b=KeQO7icV1LFuTGpSYRtRQS2Bh+jWCMq3JBHjKt3vQmyRLUwOj6eSw5FppkabXli/d
+ +AkZZ7jiUJQL/nc7zRfJkBTivXZgskhAfxXYTwnasdA3n/+JcVERKgK5d5NhP2Trrc
+ sNcMEE3tdJUw+YPwQB+749dp9Hz6zBVCEhANMS5TSSbugl1HJxavWIKJvCljAma5O3
+ vaQLcU3M0UsVVyvd9HS6yQFwisEsTmApzEyHhvH61jjVEU7Oi1Ex5gHLEpyEs8ZMFD
+ k2t28m/TIrs/CjOAOZDfIXgvRwXdZyVUcEXHL5H/mNoL+jx6KywsIeupcfH1OmHeUD
+ M/DB/989f1vLQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 57/74] ASoC: intel: atom: Revert PCM buffer
- address setup workaround again
-Date: Thu,  9 Sep 2021 07:57:09 -0400
-Message-Id: <20210909115726.149004-57-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 68/74] ASoC: rockchip: i2s: Fix regmap_ops hang
+Date: Thu,  9 Sep 2021 07:57:20 -0400
+Message-Id: <20210909115726.149004-68-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210909115726.149004-1-sashal@kernel.org>
 References: <20210909115726.149004-1-sashal@kernel.org>
@@ -66,8 +65,9 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Sugar Zhang <sugar.zhang@rock-chips.com>, linux-rockchip@lists.infradead.org,
+ Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,37 +83,85 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Takashi Iwai <tiwai@suse.de>
+From: Sugar Zhang <sugar.zhang@rock-chips.com>
 
-[ Upstream commit e28ac04a705e946eddc5e7d2fc712dea3f20fe9e ]
+[ Upstream commit 53ca9b9777b95cdd689181d7c547e38dc79adad0 ]
 
-We worked around the breakage of PCM buffer setup by the commit
-65ca89c2b12c ("ASoC: intel: atom: Fix breakage for PCM buffer address
-setup"), but this isn't necessary since the CONTINUOUS buffer type
-also sets runtime->dma_addr since commit f84ba106a018 ("ALSA:
-memalloc: Store snd_dma_buffer.addr for continuous pages, too").
-Let's revert the change again.
+API 'set_fmt' maybe called when PD is off, in the situation,
+any register access will hang the system. so, enable PD
+before r/w register.
 
-Link: https://lore.kernel.org/r/20210822072127.9786-1-tiwai@suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
+Link: https://lore.kernel.org/r/1629950520-14190-4-git-send-email-sugar.zhang@rock-chips.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/atom/sst-mfld-platform-pcm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/rockchip/rockchip_i2s.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/intel/atom/sst-mfld-platform-pcm.c b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-index 682ee41ec75c..501ac836777a 100644
---- a/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-+++ b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-@@ -135,7 +135,7 @@ static void sst_fill_alloc_params(struct snd_pcm_substream *substream,
- 	snd_pcm_uframes_t period_size;
- 	ssize_t periodbytes;
- 	ssize_t buffer_bytes = snd_pcm_lib_buffer_bytes(substream);
--	u32 buffer_addr = virt_to_phys(substream->runtime->dma_area);
-+	u32 buffer_addr = substream->runtime->dma_addr;
+diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
+index b86f76c3598c..cab381c9dea1 100644
+--- a/sound/soc/rockchip/rockchip_i2s.c
++++ b/sound/soc/rockchip/rockchip_i2s.c
+@@ -189,7 +189,9 @@ static int rockchip_i2s_set_fmt(struct snd_soc_dai *cpu_dai,
+ {
+ 	struct rk_i2s_dev *i2s = to_info(cpu_dai);
+ 	unsigned int mask = 0, val = 0;
++	int ret = 0;
  
- 	channels = substream->runtime->channels;
- 	period_size = substream->runtime->period_size;
++	pm_runtime_get_sync(cpu_dai->dev);
+ 	mask = I2S_CKR_MSS_MASK;
+ 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+ 	case SND_SOC_DAIFMT_CBS_CFS:
+@@ -202,7 +204,8 @@ static int rockchip_i2s_set_fmt(struct snd_soc_dai *cpu_dai,
+ 		i2s->is_master_mode = false;
+ 		break;
+ 	default:
+-		return -EINVAL;
++		ret = -EINVAL;
++		goto err_pm_put;
+ 	}
+ 
+ 	regmap_update_bits(i2s->regmap, I2S_CKR, mask, val);
+@@ -216,7 +219,8 @@ static int rockchip_i2s_set_fmt(struct snd_soc_dai *cpu_dai,
+ 		val = I2S_CKR_CKP_POS;
+ 		break;
+ 	default:
+-		return -EINVAL;
++		ret = -EINVAL;
++		goto err_pm_put;
+ 	}
+ 
+ 	regmap_update_bits(i2s->regmap, I2S_CKR, mask, val);
+@@ -239,7 +243,8 @@ static int rockchip_i2s_set_fmt(struct snd_soc_dai *cpu_dai,
+ 		val = I2S_TXCR_TFS_PCM | I2S_TXCR_PBM_MODE(1);
+ 		break;
+ 	default:
+-		return -EINVAL;
++		ret = -EINVAL;
++		goto err_pm_put;
+ 	}
+ 
+ 	regmap_update_bits(i2s->regmap, I2S_TXCR, mask, val);
+@@ -262,12 +267,16 @@ static int rockchip_i2s_set_fmt(struct snd_soc_dai *cpu_dai,
+ 		val = I2S_RXCR_TFS_PCM | I2S_RXCR_PBM_MODE(1);
+ 		break;
+ 	default:
+-		return -EINVAL;
++		ret = -EINVAL;
++		goto err_pm_put;
+ 	}
+ 
+ 	regmap_update_bits(i2s->regmap, I2S_RXCR, mask, val);
+ 
+-	return 0;
++err_pm_put:
++	pm_runtime_put(cpu_dai->dev);
++
++	return ret;
+ }
+ 
+ static int rockchip_i2s_hw_params(struct snd_pcm_substream *substream,
 -- 
 2.30.2
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EEE7404D62
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 14:04:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4323E404D63
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 14:04:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AF593177E;
-	Thu,  9 Sep 2021 14:03:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF593177E
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC5DF1786;
+	Thu,  9 Sep 2021 14:03:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC5DF1786
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631189040;
-	bh=Rnuu5MBNNKu7ao+bz2wwpD1xyDiLkKDC8HXBpCJK0Zc=;
+	s=default; t=1631189061;
+	bh=76Fui7fuF8HRtuOBN0LKMcUQ/CbVv8jOsvJDzktitnQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=S84M7OtaDYPHNnCr5a4Mn0WX2gaqsbcrT8tXwi0gHWEL1fqGZxCygtlKlCTCOa2Tv
-	 rDDyG+nLrtiMrhS+3pfsB4P/93DbO0ZIfu52ftVDG2yaoEPiAfnnkMiztyN7G74Duv
-	 n0srG5PVFaoEK6eZ5qtYzPVzK7NxCOAs0eGS8G7k=
+	b=izMkwixsqjsDCDorVPDn2i++zoWtqM6kjJwApm3trO5fsBc9FuYUndjuGuUWq3Hdp
+	 mNrMNT5OUOMbo8tirJa/KG2dkCSnl9YQQIOywPFDQJ60IeBgRojJOGbaD6muSOJQk1
+	 UZPRgqfHrHLEFNqT11xwyxFdcsynqaVwdXV36ohA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14DD7F80511;
-	Thu,  9 Sep 2021 14:01:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A7003F804CF;
+	Thu,  9 Sep 2021 14:02:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9ADE2F8050F; Thu,  9 Sep 2021 14:01:12 +0200 (CEST)
+ id 5AE0BF804E6; Thu,  9 Sep 2021 14:02:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,34 +34,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A278F80217
- for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 14:01:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A278F80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B9A4F804E4
+ for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 14:01:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B9A4F804E4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="PbnHOQ5/"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 001FA632C6;
- Thu,  9 Sep 2021 12:01:03 +0000 (UTC)
+ header.b="RdrwGPif"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 24635632DF;
+ Thu,  9 Sep 2021 12:01:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631188864;
- bh=Rnuu5MBNNKu7ao+bz2wwpD1xyDiLkKDC8HXBpCJK0Zc=;
+ s=k20201202; t=1631188912;
+ bh=76Fui7fuF8HRtuOBN0LKMcUQ/CbVv8jOsvJDzktitnQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PbnHOQ5/1XxnJ2kCQaPPhSQCEEOsdrgcB++vi9V4UVq47dH8MNwHX4tqV4bXSOjK1
- ZGHzdAOjwlPHIOydD1BG818Kz3U9htStbsQ9+retmrCgHiEG1oc98r8UBYiWAKGcTW
- YcMLK18GEBzIy+w1mdZOzyJTvpjHqIFzCR7MjjRQK/YS0AhKWt4EioMQIG1Gj6JEjF
- Vi8vptTLEPPsHJgymNAOG/EsGRSMBKp49YkgAb3mnhuoMrLjb+eqdaEqN9DTByN4gm
- xnOI0lafklOhva8rVZt4p1OzGCH0BOKlSKBwNSgt5Ao0zvurgziyXiaK9VjPuPlcDn
- F7yeQ0GOxgjsQ==
+ b=RdrwGPifZTK8/sEeJ5yR+y2DcX348g5Jv7lDC2W9X5HxVwifi7FH7SRfbDuik6A6u
+ m9EVLW2yiXotU9RsdIFQWP1ssn3u8NijgwR9c2eaAtPOrumD8uMTVrqoSO9MzdC6A8
+ oaIabVXM/G91DL9Xj02v0FgEBYWAVGNJHv8et5K4alzKgaJRkswAAEoVeYM/IRwJQl
+ YqTMsLyLn8oGLyPPmibUgm0BDFlhuu2QZqhoc1INB/oPz/4a8pizL+t/yM2wvaOw9g
+ adpT8BAnaGfT6zRSZGIABE9n9jmSzn1dNpUwqQXlOQmSzO+a/jFwnzOYkNakwLaKor
+ A5DaOxuLbHKFg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.9 39/48] ASoC: intel: atom: Revert PCM buffer
+Subject: [PATCH AUTOSEL 4.4 29/35] ASoC: intel: atom: Revert PCM buffer
  address setup workaround again
-Date: Thu,  9 Sep 2021 08:00:06 -0400
-Message-Id: <20210909120015.150411-39-sashal@kernel.org>
+Date: Thu,  9 Sep 2021 08:01:10 -0400
+Message-Id: <20210909120116.150912-29-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210909120015.150411-1-sashal@kernel.org>
-References: <20210909120015.150411-1-sashal@kernel.org>
+In-Reply-To: <20210909120116.150912-1-sashal@kernel.org>
+References: <20210909120116.150912-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -102,10 +102,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/sound/soc/intel/atom/sst-mfld-platform-pcm.c b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-index 1b6dedfc33e3..6303b2d3982d 100644
+index d0d338533eb6..64079423b298 100644
 --- a/sound/soc/intel/atom/sst-mfld-platform-pcm.c
 +++ b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-@@ -135,7 +135,7 @@ static void sst_fill_alloc_params(struct snd_pcm_substream *substream,
+@@ -134,7 +134,7 @@ static void sst_fill_alloc_params(struct snd_pcm_substream *substream,
  	snd_pcm_uframes_t period_size;
  	ssize_t periodbytes;
  	ssize_t buffer_bytes = snd_pcm_lib_buffer_bytes(substream);

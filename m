@@ -2,81 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8649440464A
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 09:36:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAA6D4045E2
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 08:57:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F16B41685;
-	Thu,  9 Sep 2021 09:35:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F16B41685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2E277166E;
+	Thu,  9 Sep 2021 08:56:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E277166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631172983;
-	bh=o15zjnfuvdWCdQ5iAQ/0opfcAFZPbHgYaEus7Pv/zf0=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=G75sJ+J4jMx9WO1P8lQvo6bRKfdUZZTa/M3P07f8YYRDUTNWY6ZF11YwfIMWqlN71
-	 YOptyumBYitEsXkCPo+/UVJp3ctNXAm0EvxfMjPyKDpc+PmejBjyZA48EFtck64BeO
-	 RufTrll778ZfybhcVWBN3JiFb2qmuSLljzwpvBGY=
+	s=default; t=1631170634;
+	bh=MFziK2BDjVDsaVthqKbaCOCvDRQUNoGAzyOpD02CU5w=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=bwHBW1cK1UyVpzWYn8EMw/FOhqLx8lpDxK+OE4R32zIf/BT4qNYWQasxX8sQhpqRi
+	 lotJ6rsLLnLVPCDTrRrT3cLvxKsa7QesmXtnODTr6lV8Rt2tMMYvjT1vsiLDGlb+rQ
+	 B2oESqh3qQrR85MDfAi7R+yeOWUQ5YIpG60HaSwI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57160F802A9;
-	Thu,  9 Sep 2021 09:35:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D00AF80217;
+	Thu,  9 Sep 2021 08:55:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28B9BF80253; Thu,  9 Sep 2021 09:35:04 +0200 (CEST)
+ id 9921EF80224; Thu,  9 Sep 2021 08:55:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=DATE_IN_PAST_12_24, DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 682ADF800FC
- for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 09:34:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 682ADF800FC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="1covRS/w"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="TKclrpIJ"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 91313201C2;
- Thu,  9 Sep 2021 07:34:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1631172896; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Favyx7ToS2DsVl8Xx+7CoTQu3X4dfIJhRP3psiWNnbs=;
- b=1covRS/w/lyABLltAk7HgQFKOxPIrGMUZ/cyyugRYPi8qj5AM17pw/Id3a3aKwM3K5yFjy
- 4xvGn4Mc803LIF4VbcnaSbUIA7zOChtpHwQlQViBSWYleKI8hVB79Pq+FBgYhMe6tJOha1
- r/OUszxSbdxCoBUgap9LyKO0yC8mieg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1631172896;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Favyx7ToS2DsVl8Xx+7CoTQu3X4dfIJhRP3psiWNnbs=;
- b=TKclrpIJSjFenACWWgDNJRvWZ1eZzvU79prqt3KxckESBS0IlrwdvvM0HAy42jH+IVLwsR
- Ifp8gQh2W9iHQaAw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 8BE5FA3B96;
- Thu,  9 Sep 2021 07:34:56 +0000 (UTC)
-Date: Wed, 08 Sep 2021 17:55:00 +0200
-Message-ID: <s5hpmtj9i5n.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [GIT PULL] ASoC fixes for v5.15-rc1
-In-Reply-To: <20210908154313.1A8C961132@mail.kernel.org>
-References: <20210908154313.1A8C961132@mail.kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4F3DCF800FC
+ for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 08:55:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F3DCF800FC
+X-UUID: b2aad2fe9f79486eacd995cca291d26e-20210909
+X-UUID: b2aad2fe9f79486eacd995cca291d26e-20210909
+Received: from mtkcas06.mediatek.inc [(172.21.101.30)] by mailgw02.mediatek.com
+ (envelope-from <trevor.wu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1896985547; Thu, 09 Sep 2021 14:55:36 +0800
+Received: from MTKCAS06.mediatek.inc (172.21.101.30) by
+ mtkmbs05n1.mediatek.inc (172.21.101.15) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Thu, 9 Sep 2021 14:55:35 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by MTKCAS06.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
+ Frontend Transport; Thu, 9 Sep 2021 14:55:35 +0800
+From: Trevor Wu <trevor.wu@mediatek.com>
+To: <broonie@kernel.org>, <tiwai@suse.com>, <matthias.bgg@gmail.com>
+Subject: [PATCH] ASoC: mediatek: add required config dependency
+Date: Thu, 9 Sep 2021 14:55:33 +0800
+Message-ID: <20210909065533.2114-1-trevor.wu@mediatek.com>
+X-Mailer: git-send-email 2.18.0
+MIME-Version: 1.0
+Content-Type: text/plain
+X-MTK: N
+Cc: alsa-devel@alsa-project.org, bicycle.tsai@mediatek.com,
+ rdunlap@infradead.org, linux-kernel@vger.kernel.org, jiaxin.yu@mediatek.com,
+ shane.chien@mediatek.com, linux-mediatek@lists.infradead.org,
+ trevor.wu@mediatek.com, wenst@chromium.org, geert@linux-m68k.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,28 +76,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 08 Sep 2021 17:42:25 +0200,
-Mark Brown wrote:
-> 
-> The following changes since commit 38b7673000949ca784fcb8a9feb70d2a802befa6:
-> 
->   Merge remote-tracking branch 'asoc/for-5.15' into asoc-linus (2021-08-30 12:30:33 +0100)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.15-rc1
-> 
-> for you to fetch changes up to fcb958ee8e832e9cdf43408535207e15f14af755:
-> 
->   ASoC: rockchip: i2s: Fix concurrency between tx/rx (2021-09-03 16:19:01 +0100)
-> 
-> ----------------------------------------------------------------
-> ASoC: Fixes for v5.15
-> 
-> A collection of fixes that came in during the merge window, nothing too
-> remarkable but a reasonably large number of fixes.
+Because SND_SOC_MT8195 depends on COMPILE_TEST, it's possible to build
+MT8195 driver in many different config combinations.
+Add all dependent config for SND_SOC_MT8195 in case some errors happen
+when COMPILE_TEST is enabled.
 
-Thanks, pulled now.
+Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
+Reported-by: Randy Dunlap <rdunlap@infradead.org>
+---
+ sound/soc/mediatek/Kconfig | 3 +++
+ 1 file changed, 3 insertions(+)
 
+diff --git a/sound/soc/mediatek/Kconfig b/sound/soc/mediatek/Kconfig
+index 5a2f4667d50b..81ad2dcee9eb 100644
+--- a/sound/soc/mediatek/Kconfig
++++ b/sound/soc/mediatek/Kconfig
+@@ -1,6 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ config SND_SOC_MEDIATEK
+ 	tristate
++	select REGMAP_MMIO
+ 
+ config SND_SOC_MT2701
+ 	tristate "ASoC support for Mediatek MT2701 chip"
+@@ -188,7 +189,9 @@ config SND_SOC_MT8192_MT6359_RT1015_RT5682
+ config SND_SOC_MT8195
+ 	tristate "ASoC support for Mediatek MT8195 chip"
+ 	depends on ARCH_MEDIATEK || COMPILE_TEST
++	depends on COMMON_CLK
+ 	select SND_SOC_MEDIATEK
++	select MFD_SYSCON if SND_SOC_MT6359
+ 	help
+ 	  This adds ASoC platform driver support for Mediatek MT8195 chip
+ 	  that can be used with other codecs.
+-- 
+2.18.0
 
-Takashi

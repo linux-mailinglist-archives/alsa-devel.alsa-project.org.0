@@ -2,93 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6074405BD8
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Sep 2021 19:17:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED60D406510
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Sep 2021 03:22:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F5E816AD;
-	Thu,  9 Sep 2021 19:16:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F5E816AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64C431657;
+	Fri, 10 Sep 2021 03:21:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64C431657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631207845;
-	bh=6MPSHzZT+wdjZOpnQ7K70UGKNWNw78Qt+uaALoiNHzs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=gD1PJ/PMnOE1qc/sSQ4ZeJCvZDrTQtgRgZc3JKZNCa1Sw144J6E8Ls8zr4PBEXHsi
-	 f7zWRdlp+jmi2hC6byngXclyW9e/r5c0b41Xj2eS5OaxoALRyN8+TPauk21Dvjl8Bk
-	 4k3x57xUVJxwMt7Bl/knU7c9yDCM6jgH6cGtWTRo=
+	s=default; t=1631236944;
+	bh=PgoUtDUVImAh/Pxgj66N6xM59fvGjEcSt0uOljDkLjM=;
+	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=IHF3h/KWXYq5drfQYhS15eLZHVNvVeBw/F7cdPHGMAB6w4DB1cWkwYUCfD08A6vZR
+	 niDZgad7WP0n5kMaPzw9/lGfV0dgzCctKqU2GltG0/LC/CoJ2Crq6PABfo2DAZ1LMn
+	 +kyaOT89nAXWh5e9wwtQjd5uoyiZbF+YKeFXeth8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6397F80253;
-	Thu,  9 Sep 2021 19:16:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B265DF80166;
+	Fri, 10 Sep 2021 03:21:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9C669F80224; Thu,  9 Sep 2021 19:16:06 +0200 (CEST)
+ id DE597F80224; Fri, 10 Sep 2021 03:21:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 18C64F80166
- for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 19:16:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18C64F80166
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ur2rhy1G"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4283A61104
- for <alsa-devel@alsa-project.org>; Thu,  9 Sep 2021 17:15:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631207758;
- bh=6MPSHzZT+wdjZOpnQ7K70UGKNWNw78Qt+uaALoiNHzs=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=ur2rhy1GxLjo187czO/UhbKA71WUYOuDssPXJbRQzb9xWT3LfpTZ3XwCFqaKDqm21
- 4vwEfcqbHjO+0SEwiwon8XkmM12vYOYvFu/WVOwLz40QfscvgnJCyIjEyCEs7Q/g9K
- gnLnvGikDuTbyDA8V+H5Dvk9oMHLyeRTPifrwfd4xyx9Y3LRDvx9rPpCWbLyu7xPaE
- nQKp9uyAJy4hZL4ovU+mbbwvd6SYbqeJOMrwhfx5Qm7WVk9rFYhZ7xOJliTXAgYAwX
- 0GCZjXlnfeRsVxcgvNJrMULFHMCtH/UqvYqSYGaiOfYlbq2HaVZdPOKaeEwZ7yISo1
- FsT0I6dGJtk2A==
-Received: by mail-ed1-f47.google.com with SMTP id 9so3623962edx.11
- for <alsa-devel@alsa-project.org>; Thu, 09 Sep 2021 10:15:58 -0700 (PDT)
-X-Gm-Message-State: AOAM531hS+6+Gir0WN3WLAyWBoex2EmQgTDNFjSiqhI+CaSF2rAWOXJd
- 9b/qr/zcuJUGCc4RSNkgI5j/ektubDsS7NYGkQ==
-X-Google-Smtp-Source: ABdhPJyM7KZ4cekZmGbkuYORGG988NU14THUy9AbIjOQ+isB8C7xXq78QJxJ1PLPFyvKtKN/u+ZYoeTozdmbIK+obJQ=
-X-Received: by 2002:a05:6402:1703:: with SMTP id
- y3mr4266246edu.355.1631207756787; 
- Thu, 09 Sep 2021 10:15:56 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210903145340.225511-1-daniel.baluta@oss.nxp.com>
- <20210903145340.225511-3-daniel.baluta@oss.nxp.com>
- <YTJTF5VMOyG2iZb0@robh.at.kernel.org>
- <CAEnQRZC-GN9iEPk6-A_oKPHcCYj8_WeQC0TT_NpK_QntkmAqiQ@mail.gmail.com>
- <CAL_JsqK_DGqYQxKBHDS7PyviF35V-OP7__KRmmTePn9ZHhiz_w@mail.gmail.com>
- <CAEnQRZBmruc8GNfJTm99=0K7PyGrEiB1CxY3c2RSZhLFLR-nhQ@mail.gmail.com>
-In-Reply-To: <CAEnQRZBmruc8GNfJTm99=0K7PyGrEiB1CxY3c2RSZhLFLR-nhQ@mail.gmail.com>
-From: Rob Herring <robh@kernel.org>
-Date: Thu, 9 Sep 2021 12:15:45 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqJd2AvBxRjHj=VZV2DH26tSNSX=5eEpc-HoFrc=dLxEFQ@mail.gmail.com>
-Message-ID: <CAL_JsqJd2AvBxRjHj=VZV2DH26tSNSX=5eEpc-HoFrc=dLxEFQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] dt-bindings: dsp: fsl: Add DSP optional clocks
- documentation
-To: Daniel Baluta <daniel.baluta@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Daniel Baluta <daniel.baluta@nxp.com>,
- Devicetree List <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Shengjiu Wang <shengjiu.wang@nxp.com>,
- Daniel Baluta <daniel.baluta@oss.nxp.com>,
- =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, dl-linux-imx <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Suman Anna <s-anna@ti.com>,
- Shawn Guo <shawnguo@kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.4 required=5.0 tests=AC_FROM_MANY_DOTS,
+ KHOP_HELO_FCRDNS,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id E7E8CF80166
+ for <alsa-devel@alsa-project.org>; Fri, 10 Sep 2021 03:20:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7E8CF80166
+Date: 10 Sep 2021 10:20:51 +0900
+X-IronPort-AV: E=Sophos;i="5.85,282,1624287600"; d="scan'208";a="93467342"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 10 Sep 2021 10:20:51 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id AD58140178DF;
+ Fri, 10 Sep 2021 10:20:51 +0900 (JST)
+Message-ID: <87tuitusy4.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH v3 00/16] ASoC: Add Rich Graph Card support
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,38 +64,103 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Sep 9, 2021 at 6:21 AM Daniel Baluta <daniel.baluta@gmail.com> wrote:
->
-> > > The H/W block is controlled by the DSP firmware. So, we don't want
-> > > to use the Linux kernel driver (thus the H/W block device tree node).
-> >
-> > 'status' is how you disable a device to not be used by the OS.
-> >
-> > The information about that device's resources are already in DT, we
-> > don't need to duplicate that here. If you want a list of devices
-> > assigned to the DSP here, that would be okay.
->
-> Thanks! This is a very good idea. I was thinking at a totally different thing.
->
-> So having something like this:
->
-> dsp {
->
->
-> hw-block-list = <&sai1>, <&sai2>;
->
-> }
 
-Yes.
+Hi Mark
 
-> And then inside the DSP driver we can get access to sai1 clocks. Do
-> you know of any standard property name?
+We already have Audio-Graph-Card which is Of-Graph base general sound
+card driver. Basically it supports basic CPU-Codec connection, and is
+also supporting DPCM connection. Because it was forcibly expanded to
+DPCM, DT parsing is very limited and very difficult to add new features
+on it, for example Multi-CPU/Codec support, Codec2Codec support, etc.
 
-There isn't. So it needs a vendor prefix.
+This patch adds more flexible new Rich-Graph-Card driver for it.
+Audio-Graph-Card and Rich-Graph-Card are similar, but don't have
+full compatibility.
+The reason why I need Rich-Graph-Card instead of updating Audio-Graph-Card
+is that it is very difficult to keep compatibility.
 
-There's been some discussions around 'system devicetree' where all
-processors (like the DSP) view of the system get represented. Device
-assignment is one of the issues to solve with that, but it's not
-anywhere close to having something to help here.
+Rich-Graph-Card supports Normal/DPCM/Codec2Codec Connection wich
+Single/Multi DAIs. And it is possible to Customizing.
 
-Rob
+This patch-set adds Rich-Graph-Card driver and customized driver
+sample, and DT settings sample which can be used for testing.
+
+To enable testing/debuging, this patch-set also adds Test-Component
+driver. We already have Dummy Component and/or Dummy DAI on soc-utils,
+but 1) we can't use it from DT, 2) it do nothing.
+Added new Test-Component can be used from DT, and it can indicate called
+function name. We can use it to trace callback order, understanding
+ALSA SoC behavior, etc, etc...
+Sample DT settings of Rich Graph Card is using Test-Component as CPU/Codec DAI.
+
+You can easily try to use/test it if you added below line to your DT file.
+Your .config needs to have below CONFIGs to use/test it.
+It will probe sample Sound Card which has Normal/DPCM/Multi/Codec2Codec
+connections.
+
+	#include "../../../../../sound/soc/generic/rich-graph-card-sample.dtsi"
+
+	CONFIG_SND_RICH_GRAPH_CARD
+	CONFIG_SND_RICH_CUSTOM_CARD_SAMPLE
+	CONFIG_SND_TEST_COMPONENT
+
+Because Audio Graph Card2 is still under experimental stage, it will
+indicate such warning when probing, and the DT might be updated/exchanged.
+
+It can use Codec2Codec, but it will start automatically when probed,
+and can't stop it so far. It should be updated.
+
+Link: https://lore.kernel.org/r/87k0xszlep.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/871r8u4s6q.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87a6mhwyqn.wl-kuninori.morimoto.gx@renesas.com
+
+v1 -> v2
+	- don't use "port" base for_each loop
+
+v2 -> v3
+	- Rename audio-graph-card2 to rich-graph-card
+	- Rename DSP to DPCM not to confuse
+	- Normal/DPCM/Codec2Codec can use Single/Multi DAIs.
+	- use dpcm/multi/codec2codec node instead of using extra compatible
+	- Sample DTSI patch is separated to Single/Multi.
+
+Kuninori Morimoto (16):
+  ASoC: test-component: add Test Component YAML bindings
+  ASoC: test-component: add Test Component for Sound debug/test
+  ASoC: simple-card-utils: add asoc_graph_is_ports0()
+  ASoC: simple-card-utils: add codec2codec support
+  ASoC: add Rich Graph Card driver
+  ASoC: rich-graph-card: add Multi CPU/Codec support
+  ASoC: rich-graph-card: add DPCM support
+  ASoC: rich-graph-card: add Codec2Codec support
+  ASoC: add Rich Graph Card Yaml Document
+  ASoC: add Rich Graph Card Custom Sample
+  ASoC: rich-graph-card-sample.dtsi: add Sample DT for Normal (Single)
+  ASoC: rich-graph-card-sample.dtsi: add Sample DT for Normal (Nulti)
+  ASoC: rich-graph-card-sample.dtsi: add DPCM sample (Single)
+  ASoC: rich-graph-card-sample.dtsi: add DPCM sample (Multi)
+  ASoC: rich-graph-card-sample.dtsi: add Codec2Codec sample (Single)
+  ASoC: rich-graph-card-sample.dtsi: add Codec2Codec sample (Multi)
+
+ .../bindings/sound/rich-graph-card.yaml       |   57 +
+ .../bindings/sound/test-component.yaml        |   33 +
+ include/sound/graph_card.h                    |   21 +
+ include/sound/simple_card_utils.h             |    4 +
+ sound/soc/generic/Kconfig                     |   20 +
+ sound/soc/generic/Makefile                    |    6 +
+ sound/soc/generic/rich-custom-card-sample.c   |  174 +++
+ sound/soc/generic/rich-graph-card-sample.dtsi |  225 +++
+ sound/soc/generic/rich-graph-card.c           | 1277 +++++++++++++++++
+ sound/soc/generic/simple-card-utils.c         |   46 +-
+ sound/soc/generic/test-component.c            |  659 +++++++++
+ 11 files changed, 2521 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/rich-graph-card.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/test-component.yaml
+ create mode 100644 sound/soc/generic/rich-custom-card-sample.c
+ create mode 100644 sound/soc/generic/rich-graph-card-sample.dtsi
+ create mode 100644 sound/soc/generic/rich-graph-card.c
+ create mode 100644 sound/soc/generic/test-component.c
+
+-- 
+2.25.1
+

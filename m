@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F5D0406514
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Sep 2021 03:22:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F2D7406517
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Sep 2021 03:23:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD00716B3;
-	Fri, 10 Sep 2021 03:21:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD00716B3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 21F7D16B2;
+	Fri, 10 Sep 2021 03:22:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21F7D16B2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631236968;
-	bh=KZrrjKjpWMTh5+lF+xQhrxACK7Gbd/ckYdN8S79Ofwg=;
+	s=default; t=1631236988;
+	bh=Ubpx8BzZMfA3pK8OiWFdfcB0dJw+nsjPq/+wgEpNe8c=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QvIJo+B8bUUhpkIqP8szMEzffysNmphzevDbYMJeM6HudSPNi2zYkDNXk307iKon3
-	 NCQ2WvWCyQpDANthZvZAuQEco0VD2jGGII/UoaQRuUZD9GJFTnqjOHFHVA6jTytngU
-	 MKF+8eMvusjQVYOwxNen8Oj8s6DJXZrIROt4yljI=
+	b=EW4ztd1dfTEPiAuxWvjS++Y2MpEWrqq0W/qc4oTogWkhON9fmd8n/rya6hiUEMZGX
+	 wBHdcHF9Da+zpjzKWt6bnc8wVKAOwAvGSog/V920es2NPHqhvBQCih5XhSHQTpU5Iu
+	 Q+qyLIgU/axSMBTcJVrGLFUBCx0MO//gKqrTHN2k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6ABC5F804B2;
-	Fri, 10 Sep 2021 03:21:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42555F804CF;
+	Fri, 10 Sep 2021 03:21:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C5FB2F802DF; Fri, 10 Sep 2021 03:21:46 +0200 (CEST)
+ id 004BAF804E2; Fri, 10 Sep 2021 03:21:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 867CEF800C7
- for <alsa-devel@alsa-project.org>; Fri, 10 Sep 2021 03:21:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 867CEF800C7
-Date: 10 Sep 2021 10:21:37 +0900
-X-IronPort-AV: E=Sophos;i="5.85,282,1624287600"; d="scan'208";a="93467435"
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id B2BFFF800C7
+ for <alsa-devel@alsa-project.org>; Fri, 10 Sep 2021 03:21:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2BFFF800C7
+Date: 10 Sep 2021 10:21:42 +0900
+X-IronPort-AV: E=Sophos;i="5.85,282,1624287600"; d="scan'208";a="93549034"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 10 Sep 2021 10:21:37 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 10 Sep 2021 10:21:42 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 38A434158A68;
- Fri, 10 Sep 2021 10:21:37 +0900 (JST)
-Message-ID: <87sfyduswu.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id C94FE4158A73;
+ Fri, 10 Sep 2021 10:21:42 +0900 (JST)
+Message-ID: <87r1dxuswp.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v3 01/16] ASoC: test-component: add Test Component YAML
- bindings
+Subject: [PATCH v3 02/16] ASoC: test-component: add Test Component for Sound
+ debug/test
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87tuitusy4.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,54 +70,731 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-This patch adds test-component sound device YAML bindings.
-It can be used for Sound Test/Debug.
+We already have dummy-codec, dummy-platform.
+But its issues are
+	1) we don't have dummy-cpu,
+	2) we can't select it via DeviceTree
+	3) It do nothing
+
+Sometimes we want to have Dummy Sound Component for debugging,
+for testing, for learning Framework behavior, etc, etc...
+This patch adds Test-Component driver for it.
+
+User can select CPU   Component by using "test-cpu"   compatible,
+and  can select Codec Component by using "test-codec" compatible.
+
+It doesn't support Platform so far, but is easy to add.
+
+We can verbose print to know its progress if user selected
+xxx-vn or xxx-nv or xxx-vv compatible driver.
+
+for example,
+	test-cpu    : silent  Component, silent  DAI
+	test-cpu-vn : verbose Component, silent  DAI
+	test-cpu-nv : silent  Component, verbose DAI
+	test-cpu-vv : verbose Component, verbose DAI
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- .../bindings/sound/test-component.yaml        | 33 +++++++++++++++++++
- 1 file changed, 33 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/test-component.yaml
+ sound/soc/generic/Kconfig          |   6 +
+ sound/soc/generic/Makefile         |   2 +
+ sound/soc/generic/test-component.c | 659 +++++++++++++++++++++++++++++
+ 3 files changed, 667 insertions(+)
+ create mode 100644 sound/soc/generic/test-component.c
 
-diff --git a/Documentation/devicetree/bindings/sound/test-component.yaml b/Documentation/devicetree/bindings/sound/test-component.yaml
+diff --git a/sound/soc/generic/Kconfig b/sound/soc/generic/Kconfig
+index 4cafcf0e2bbf..bb734780669e 100644
+--- a/sound/soc/generic/Kconfig
++++ b/sound/soc/generic/Kconfig
+@@ -17,3 +17,9 @@ config SND_AUDIO_GRAPH_CARD
+ 	  This option enables generic simple sound card support
+ 	  with OF-graph DT bindings.
+ 	  It also support DPCM of multi CPU single Codec ststem.
++
++config SND_TEST_COMPONENT
++	tristate "ASoC Test component sound support"
++	depends on OF
++	help
++	  This option enables test component sound driver support.
+diff --git a/sound/soc/generic/Makefile b/sound/soc/generic/Makefile
+index 21c29e5e0671..988bfd45d2e2 100644
+--- a/sound/soc/generic/Makefile
++++ b/sound/soc/generic/Makefile
+@@ -2,7 +2,9 @@
+ snd-soc-simple-card-utils-objs	:= simple-card-utils.o
+ snd-soc-simple-card-objs	:= simple-card.o
+ snd-soc-audio-graph-card-objs	:= audio-graph-card.o
++snd-soc-test-component-objs	:= test-component.o
+ 
+ obj-$(CONFIG_SND_SIMPLE_CARD_UTILS)	+= snd-soc-simple-card-utils.o
+ obj-$(CONFIG_SND_SIMPLE_CARD)		+= snd-soc-simple-card.o
+ obj-$(CONFIG_SND_AUDIO_GRAPH_CARD)	+= snd-soc-audio-graph-card.o
++obj-$(CONFIG_SND_TEST_COMPONENT)	+= snd-soc-test-component.o
+diff --git a/sound/soc/generic/test-component.c b/sound/soc/generic/test-component.c
 new file mode 100644
-index 000000000000..62a6ecad0e88
+index 000000000000..de0f7f2586b4
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/test-component.yaml
-@@ -0,0 +1,33 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/test-component.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/sound/soc/generic/test-component.c
+@@ -0,0 +1,659 @@
++// SPDX-License-Identifier: GPL-2.0
++//
++// test-component.c  --  Test Audio Component driver
++//
++// Copyright (C) 2020 Renesas Electronics Corporation
++// Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 +
-+title: Test Component Device Tree Bindings
++#include <linux/slab.h>
++#include <linux/of_device.h>
++#include <linux/of_graph.h>
++#include <linux/module.h>
++#include <linux/workqueue.h>
++#include <sound/pcm.h>
++#include <sound/soc.h>
 +
-+maintainers:
-+  - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
++#define TEST_NAME_LEN 32
++struct test_dai_name {
++	char name[TEST_NAME_LEN];
++	char name_playback[TEST_NAME_LEN];
++	char name_capture[TEST_NAME_LEN];
++};
 +
-+properties:
-+  compatible:
-+    enum:
-+      - test-cpu
-+      - test-cpu-vv
-+      - test-cpu-vn
-+      - test-cpu-nv
-+      - test-codec
-+      - test-codec-vv
-+      - test-codec-vn
-+      - test-codec-nv
++struct test_priv {
++	struct device *dev;
++	struct snd_pcm_substream *substream;
++	struct delayed_work dwork;
++	struct snd_soc_component_driver *component_driver;
++	struct snd_soc_dai_driver *dai_driver;
++	struct test_dai_name *name;
++};
 +
-+required:
-+  - compatible
++struct test_adata {
++	u32 is_cpu:1;
++	u32 cmp_v:1;
++	u32 dai_v:1;
++};
 +
-+additionalProperties: true
++#define mile_stone(d)		dev_info((d)->dev, "%s() : %s", __func__, (d)->driver->name)
++#define mile_stone_x(dev)	dev_info(dev, "%s()", __func__)
 +
-+examples:
-+  - |
-+    test_cpu {
-+        compatible = "test-cpu";
-+    };
++static int test_dai_set_sysclk(struct snd_soc_dai *dai,
++			       int clk_id, unsigned int freq, int dir)
++{
++	mile_stone(dai);
++
++	return 0;
++}
++
++static int test_dai_set_pll(struct snd_soc_dai *dai, int pll_id, int source,
++			    unsigned int freq_in, unsigned int freq_out)
++{
++	mile_stone(dai);
++
++	return 0;
++}
++
++static int test_dai_set_clkdiv(struct snd_soc_dai *dai, int div_id, int div)
++{
++	mile_stone(dai);
++
++	return 0;
++}
++
++static int test_dai_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
++{
++	unsigned int format = fmt & SND_SOC_DAIFMT_FORMAT_MASK;
++	unsigned int clock  = fmt & SND_SOC_DAIFMT_CLOCK_MASK;
++	unsigned int inv    = fmt & SND_SOC_DAIFMT_INV_MASK;
++	unsigned int master = fmt & SND_SOC_DAIFMT_MASTER_MASK;
++	char *str;
++
++	dev_info(dai->dev, "name   : %s", dai->name);
++
++	str = "unknown";
++	switch (format) {
++	case SND_SOC_DAIFMT_I2S:
++		str = "i2s";
++		break;
++	case SND_SOC_DAIFMT_RIGHT_J:
++		str = "right_j";
++		break;
++	case SND_SOC_DAIFMT_LEFT_J:
++		str = "left_j";
++		break;
++	case SND_SOC_DAIFMT_DSP_A:
++		str = "dsp_a";
++		break;
++	case SND_SOC_DAIFMT_DSP_B:
++		str = "dsp_b";
++		break;
++	case SND_SOC_DAIFMT_AC97:
++		str = "ac97";
++		break;
++	case SND_SOC_DAIFMT_PDM:
++		str = "pdm";
++		break;
++	}
++	dev_info(dai->dev, "format : %s", str);
++
++	if (clock == SND_SOC_DAIFMT_CONT)
++		str = "continuous";
++	else
++		str = "gated";
++	dev_info(dai->dev, "clock  : %s", str);
++
++	str = "unknown";
++	switch (master) {
++	case SND_SOC_DAIFMT_CBP_CFP:
++		str = "clk provider, frame provider";
++		break;
++	case SND_SOC_DAIFMT_CBC_CFP:
++		str = "clk consumer, frame provider";
++		break;
++	case SND_SOC_DAIFMT_CBP_CFC:
++		str = "clk provider, frame consumer";
++		break;
++	case SND_SOC_DAIFMT_CBC_CFC:
++		str = "clk consumer, frame consumer";
++		break;
++	}
++	dev_info(dai->dev, "clock  : codec is %s", str);
++
++	str = "unknown";
++	switch (inv) {
++	case SND_SOC_DAIFMT_NB_NF:
++		str = "normal bit, normal frame";
++		break;
++	case SND_SOC_DAIFMT_NB_IF:
++		str = "normal bit, invert frame";
++		break;
++	case SND_SOC_DAIFMT_IB_NF:
++		str = "invert bit, normal frame";
++		break;
++	case SND_SOC_DAIFMT_IB_IF:
++		str = "invert bit, invert frame";
++		break;
++	}
++	dev_info(dai->dev, "signal : %s", str);
++
++	return 0;
++}
++
++static int test_dai_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
++{
++	mile_stone(dai);
++
++	return 0;
++}
++
++static int test_dai_startup(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
++{
++	mile_stone(dai);
++
++	return 0;
++}
++
++static void test_dai_shutdown(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
++{
++	mile_stone(dai);
++}
++
++static int test_dai_hw_params(struct snd_pcm_substream *substream,
++			      struct snd_pcm_hw_params *params, struct snd_soc_dai *dai)
++{
++	mile_stone(dai);
++
++	return 0;
++}
++
++static int test_dai_hw_free(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
++{
++	mile_stone(dai);
++
++	return 0;
++}
++
++static int test_dai_trigger(struct snd_pcm_substream *substream, int cmd, struct snd_soc_dai *dai)
++{
++	mile_stone(dai);
++
++	return 0;
++}
++
++static int test_dai_bespoke_trigger(struct snd_pcm_substream *substream,
++				    int cmd, struct snd_soc_dai *dai)
++{
++	mile_stone(dai);
++
++	return 0;
++}
++
++static u64 test_dai_formats =
++	/*
++	 * Select below from Sound Card, not auto
++	 *	SND_SOC_POSSIBLE_DAIFMT_CBP_CFP
++	 *	SND_SOC_POSSIBLE_DAIFMT_CBC_CFP
++	 *	SND_SOC_POSSIBLE_DAIFMT_CBP_CFC
++	 *	SND_SOC_POSSIBLE_DAIFMT_CBC_CFC
++	 */
++	SND_SOC_POSSIBLE_DAIFMT_I2S	|
++	SND_SOC_POSSIBLE_DAIFMT_RIGHT_J	|
++	SND_SOC_POSSIBLE_DAIFMT_LEFT_J	|
++	SND_SOC_POSSIBLE_DAIFMT_DSP_A	|
++	SND_SOC_POSSIBLE_DAIFMT_DSP_B	|
++	SND_SOC_POSSIBLE_DAIFMT_AC97	|
++	SND_SOC_POSSIBLE_DAIFMT_PDM	|
++	SND_SOC_POSSIBLE_DAIFMT_NB_NF	|
++	SND_SOC_POSSIBLE_DAIFMT_NB_IF	|
++	SND_SOC_POSSIBLE_DAIFMT_IB_NF	|
++	SND_SOC_POSSIBLE_DAIFMT_IB_IF;
++
++static const struct snd_soc_dai_ops test_ops = {
++	.set_fmt		= test_dai_set_fmt,
++	.startup		= test_dai_startup,
++	.shutdown		= test_dai_shutdown,
++	.auto_selectable_formats	= &test_dai_formats,
++	.num_auto_selectable_formats	= 1,
++};
++
++static const struct snd_soc_dai_ops test_verbose_ops = {
++	.set_sysclk		= test_dai_set_sysclk,
++	.set_pll		= test_dai_set_pll,
++	.set_clkdiv		= test_dai_set_clkdiv,
++	.set_fmt		= test_dai_set_fmt,
++	.mute_stream		= test_dai_mute_stream,
++	.startup		= test_dai_startup,
++	.shutdown		= test_dai_shutdown,
++	.hw_params		= test_dai_hw_params,
++	.hw_free		= test_dai_hw_free,
++	.trigger		= test_dai_trigger,
++	.bespoke_trigger	= test_dai_bespoke_trigger,
++	.auto_selectable_formats	= &test_dai_formats,
++	.num_auto_selectable_formats	= 1,
++};
++
++#define STUB_RATES	SNDRV_PCM_RATE_8000_384000
++#define STUB_FORMATS	(SNDRV_PCM_FMTBIT_S8		| \
++			 SNDRV_PCM_FMTBIT_U8		| \
++			 SNDRV_PCM_FMTBIT_S16_LE	| \
++			 SNDRV_PCM_FMTBIT_U16_LE	| \
++			 SNDRV_PCM_FMTBIT_S24_LE	| \
++			 SNDRV_PCM_FMTBIT_S24_3LE	| \
++			 SNDRV_PCM_FMTBIT_U24_LE	| \
++			 SNDRV_PCM_FMTBIT_S32_LE	| \
++			 SNDRV_PCM_FMTBIT_U32_LE)
++
++static int test_component_probe(struct snd_soc_component *component)
++{
++	mile_stone(component);
++
++	return 0;
++}
++
++static void test_component_remove(struct snd_soc_component *component)
++{
++	mile_stone(component);
++}
++
++static int test_component_suspend(struct snd_soc_component *component)
++{
++	mile_stone(component);
++
++	return 0;
++}
++
++static int test_component_resume(struct snd_soc_component *component)
++{
++	mile_stone(component);
++
++	return 0;
++}
++
++#define PREALLOC_BUFFER		(32 * 1024)
++static int test_component_pcm_construct(struct snd_soc_component *component,
++					struct snd_soc_pcm_runtime *rtd)
++{
++	mile_stone(component);
++
++	snd_pcm_set_managed_buffer_all(
++		rtd->pcm,
++		SNDRV_DMA_TYPE_DEV,
++		rtd->card->snd_card->dev,
++		PREALLOC_BUFFER, PREALLOC_BUFFER);
++
++	return 0;
++}
++
++static void test_component_pcm_destruct(struct snd_soc_component *component,
++					struct snd_pcm *pcm)
++{
++	mile_stone(component);
++}
++
++static int test_component_set_sysclk(struct snd_soc_component *component,
++				     int clk_id, int source, unsigned int freq, int dir)
++{
++	mile_stone(component);
++
++	return 0;
++}
++
++static int test_component_set_pll(struct snd_soc_component *component, int pll_id,
++				  int source, unsigned int freq_in, unsigned int freq_out)
++{
++	mile_stone(component);
++
++	return 0;
++}
++
++static int test_component_set_jack(struct snd_soc_component *component,
++				   struct snd_soc_jack *jack,  void *data)
++{
++	mile_stone(component);
++
++	return 0;
++}
++
++static void test_component_seq_notifier(struct snd_soc_component *component,
++					enum snd_soc_dapm_type type, int subseq)
++{
++	mile_stone(component);
++}
++
++static int test_component_stream_event(struct snd_soc_component *component, int event)
++{
++	mile_stone(component);
++
++	return 0;
++}
++
++static int test_component_set_bias_level(struct snd_soc_component *component,
++					 enum snd_soc_bias_level level)
++{
++	mile_stone(component);
++
++	return 0;
++}
++
++static const struct snd_pcm_hardware test_component_hardware = {
++	/* Random values to keep userspace happy when checking constraints */
++	.info			= SNDRV_PCM_INFO_INTERLEAVED	|
++				  SNDRV_PCM_INFO_MMAP		|
++				  SNDRV_PCM_INFO_MMAP_VALID,
++	.buffer_bytes_max	= 32 * 1024,
++	.period_bytes_min	= 32,
++	.period_bytes_max	= 8192,
++	.periods_min		= 1,
++	.periods_max		= 128,
++	.fifo_size		= 256,
++};
++
++static int test_component_open(struct snd_soc_component *component,
++			       struct snd_pcm_substream *substream)
++{
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
++
++	mile_stone(component);
++
++	/* BE's dont need dummy params */
++	if (!rtd->dai_link->no_pcm)
++		snd_soc_set_runtime_hwparams(substream, &test_component_hardware);
++
++	return 0;
++}
++
++static int test_component_close(struct snd_soc_component *component,
++				struct snd_pcm_substream *substream)
++{
++	mile_stone(component);
++
++	return 0;
++}
++
++static int test_component_ioctl(struct snd_soc_component *component,
++				struct snd_pcm_substream *substream,
++				unsigned int cmd, void *arg)
++{
++	mile_stone(component);
++
++	return 0;
++}
++
++static int test_component_hw_params(struct snd_soc_component *component,
++				    struct snd_pcm_substream *substream,
++				    struct snd_pcm_hw_params *params)
++{
++	mile_stone(component);
++
++	return 0;
++}
++
++static int test_component_hw_free(struct snd_soc_component *component,
++				  struct snd_pcm_substream *substream)
++{
++	mile_stone(component);
++
++	return 0;
++}
++
++static int test_component_prepare(struct snd_soc_component *component,
++				  struct snd_pcm_substream *substream)
++{
++	mile_stone(component);
++
++	return 0;
++}
++
++static void test_component_timer_stop(struct test_priv *priv)
++{
++	cancel_delayed_work(&priv->dwork);
++}
++
++static void test_component_timer_start(struct test_priv *priv)
++{
++	schedule_delayed_work(&priv->dwork, msecs_to_jiffies(10));
++}
++
++static void test_component_dwork(struct work_struct *work)
++{
++	struct test_priv *priv = container_of(work, struct test_priv, dwork.work);
++
++	if (priv->substream)
++		snd_pcm_period_elapsed(priv->substream);
++
++	test_component_timer_start(priv);
++}
++
++static int test_component_trigger(struct snd_soc_component *component,
++				  struct snd_pcm_substream *substream, int cmd)
++{
++	struct test_priv *priv = dev_get_drvdata(component->dev);
++
++	mile_stone(component);
++
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_START:
++		test_component_timer_start(priv);
++		priv->substream = substream; /* set substream later */
++		break;
++	case SNDRV_PCM_TRIGGER_STOP:
++		priv->substream = NULL;
++		test_component_timer_stop(priv);
++	}
++
++	return 0;
++}
++
++static int test_component_sync_stop(struct snd_soc_component *component,
++				    struct snd_pcm_substream *substream)
++{
++	mile_stone(component);
++
++	return 0;
++}
++
++static snd_pcm_uframes_t test_component_pointer(struct snd_soc_component *component,
++						struct snd_pcm_substream *substream)
++{
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	static int pointer;
++
++	if (!runtime)
++		return 0;
++
++	pointer += 10;
++	if (pointer > PREALLOC_BUFFER)
++		pointer = 0;
++
++	/* mile_stone(component); */
++
++	return bytes_to_frames(runtime, pointer);
++}
++
++static int test_component_get_time_info(struct snd_soc_component *component,
++					struct snd_pcm_substream *substream,
++					struct timespec64 *system_ts,
++					struct timespec64 *audio_ts,
++					struct snd_pcm_audio_tstamp_config *audio_tstamp_config,
++					struct snd_pcm_audio_tstamp_report *audio_tstamp_report)
++{
++	mile_stone(component);
++
++	return 0;
++}
++
++static int test_component_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
++					     struct snd_pcm_hw_params *params)
++{
++	mile_stone_x(rtd->dev);
++
++	return 0;
++}
++
++/* CPU */
++static const struct test_adata test_cpu		= { .is_cpu = 1, .cmp_v = 0, .dai_v = 0, };
++static const struct test_adata test_cpu_vv	= { .is_cpu = 1, .cmp_v = 1, .dai_v = 1, };
++static const struct test_adata test_cpu_nv	= { .is_cpu = 1, .cmp_v = 0, .dai_v = 1, };
++static const struct test_adata test_cpu_vn	= { .is_cpu = 1, .cmp_v = 1, .dai_v = 0, };
++/* Codec */
++static const struct test_adata test_codec	= { .is_cpu = 0, .cmp_v = 0, .dai_v = 0, };
++static const struct test_adata test_codec_vv	= { .is_cpu = 0, .cmp_v = 1, .dai_v = 1, };
++static const struct test_adata test_codec_nv	= { .is_cpu = 0, .cmp_v = 0, .dai_v = 1, };
++static const struct test_adata test_codec_vn	= { .is_cpu = 0, .cmp_v = 1, .dai_v = 0, };
++
++static const struct of_device_id test_of_match[] = {
++	{ .compatible = "test-cpu",		.data = (void *)&test_cpu,    },
++	{ .compatible = "test-cpu-vv",		.data = (void *)&test_cpu_vv, },
++	{ .compatible = "test-cpu-vn",		.data = (void *)&test_cpu_vn, },
++	{ .compatible = "test-cpu-nv",		.data = (void *)&test_cpu_nv, },
++	{ .compatible = "test-codec",		.data = (void *)&test_codec,    },
++	{ .compatible = "test-codec-vv",	.data = (void *)&test_codec_vv, },
++	{ .compatible = "test-codec-vn",	.data = (void *)&test_codec_vn, },
++	{ .compatible = "test-codec-nv",	.data = (void *)&test_codec_nv, },
++	{},
++};
++MODULE_DEVICE_TABLE(of, test_of_match);
++
++static const struct snd_soc_dapm_widget widgets[] = {
++	/*
++	 * FIXME
++	 *
++	 * Just IN/OUT is OK for now,
++	 * but need to be updated ?
++	 */
++	SND_SOC_DAPM_INPUT("IN"),
++	SND_SOC_DAPM_OUTPUT("OUT"),
++};
++
++static int test_driver_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct device_node *node = dev->of_node;
++	struct device_node *ep;
++	const struct of_device_id *of_id = of_match_device(test_of_match, &pdev->dev);
++	const struct test_adata *adata = of_id->data;
++	struct snd_soc_component_driver *cdriv;
++	struct snd_soc_dai_driver *ddriv;
++	struct test_dai_name *dname;
++	struct test_priv *priv;
++	int num, ret, i;
++
++	num = of_graph_get_endpoint_count(node);
++	if (!num) {
++		dev_err(dev, "no port exits\n");
++		return -EINVAL;
++	}
++
++	priv	= devm_kzalloc(dev, sizeof(*priv),		GFP_KERNEL);
++	cdriv	= devm_kzalloc(dev, sizeof(*cdriv),		GFP_KERNEL);
++	ddriv	= devm_kzalloc(dev, sizeof(*ddriv) * num,	GFP_KERNEL);
++	dname	= devm_kzalloc(dev, sizeof(*dname) * num,	GFP_KERNEL);
++	if (!priv || !cdriv || !ddriv || !dname)
++		return -EINVAL;
++
++	priv->dev		= dev;
++	priv->component_driver	= cdriv;
++	priv->dai_driver	= ddriv;
++	priv->name		= dname;
++
++	INIT_DELAYED_WORK(&priv->dwork, test_component_dwork);
++	dev_set_drvdata(dev, priv);
++
++	if (adata->is_cpu) {
++		cdriv->name			= "test_cpu";
++		cdriv->pcm_construct		= test_component_pcm_construct;
++		cdriv->pointer			= test_component_pointer;
++		cdriv->trigger			= test_component_trigger;
++	} else {
++		cdriv->name			= "test_codec";
++		cdriv->idle_bias_on		= 1;
++		cdriv->endianness		= 1;
++		cdriv->non_legacy_dai_naming	= 1;
++	}
++
++	cdriv->open		= test_component_open;
++	cdriv->dapm_widgets	= widgets;
++	cdriv->num_dapm_widgets	= ARRAY_SIZE(widgets);
++
++	if (adata->cmp_v) {
++		cdriv->probe			= test_component_probe;
++		cdriv->remove			= test_component_remove;
++		cdriv->suspend			= test_component_suspend;
++		cdriv->resume			= test_component_resume;
++		cdriv->set_sysclk		= test_component_set_sysclk;
++		cdriv->set_pll			= test_component_set_pll;
++		cdriv->set_jack			= test_component_set_jack;
++		cdriv->seq_notifier		= test_component_seq_notifier;
++		cdriv->stream_event		= test_component_stream_event;
++		cdriv->set_bias_level		= test_component_set_bias_level;
++		cdriv->close			= test_component_close;
++		cdriv->ioctl			= test_component_ioctl;
++		cdriv->hw_params		= test_component_hw_params;
++		cdriv->hw_free			= test_component_hw_free;
++		cdriv->prepare			= test_component_prepare;
++		cdriv->sync_stop		= test_component_sync_stop;
++		cdriv->get_time_info		= test_component_get_time_info;
++		cdriv->be_hw_params_fixup	= test_component_be_hw_params_fixup;
++
++		if (adata->is_cpu)
++			cdriv->pcm_destruct	= test_component_pcm_destruct;
++	}
++
++	i = 0;
++	for_each_endpoint_of_node(node, ep) {
++		snprintf(dname[i].name, TEST_NAME_LEN, "%s.%d", node->name, i);
++		ddriv[i].name = dname[i].name;
++
++		snprintf(dname[i].name_playback, TEST_NAME_LEN, "DAI%d Playback", i);
++		ddriv[i].playback.stream_name	= dname[i].name_playback;
++		ddriv[i].playback.channels_min	= 1;
++		ddriv[i].playback.channels_max	= 384;
++		ddriv[i].playback.rates		= STUB_RATES;
++		ddriv[i].playback.formats	= STUB_FORMATS;
++
++		snprintf(dname[i].name_capture, TEST_NAME_LEN, "DAI%d Capture", i);
++		ddriv[i].capture.stream_name	= dname[i].name_capture;
++		ddriv[i].capture.channels_min	= 1;
++		ddriv[i].capture.channels_max	= 384;
++		ddriv[i].capture.rates		= STUB_RATES;
++		ddriv[i].capture.formats	= STUB_FORMATS;
++
++		if (adata->dai_v)
++			ddriv[i].ops = &test_verbose_ops;
++		else
++			ddriv[i].ops = &test_ops;
++
++		i++;
++	}
++
++	ret = devm_snd_soc_register_component(dev, cdriv, ddriv, num);
++	if (ret < 0)
++		return ret;
++
++	mile_stone_x(dev);
++
++	return 0;
++}
++
++static int test_driver_remove(struct platform_device *pdev)
++{
++	mile_stone_x(&pdev->dev);
++
++	return 0;
++}
++
++static struct platform_driver test_driver = {
++	.driver = {
++		.name = "test-component",
++		.of_match_table = test_of_match,
++	},
++	.probe  = test_driver_probe,
++	.remove = test_driver_remove,
++};
++module_platform_driver(test_driver);
++
++MODULE_ALIAS("platform:asoc-test-component");
++MODULE_AUTHOR("Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>");
++MODULE_DESCRIPTION("ASoC Test Component");
++MODULE_LICENSE("GPL v2");
 -- 
 2.25.1
 

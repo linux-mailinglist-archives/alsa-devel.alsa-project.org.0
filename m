@@ -2,77 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD3994069F3
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Sep 2021 12:18:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C344D4069F7
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Sep 2021 12:20:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 25B561696;
-	Fri, 10 Sep 2021 12:17:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25B561696
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4F62A1698;
+	Fri, 10 Sep 2021 12:19:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F62A1698
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631269085;
-	bh=DY9aUAMbBWXj6/6sstLfJLZSxcBTc37Ktwo5jblB5ac=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1631269224;
+	bh=GgEsVrOlr6cMIs+Y14S7fXXB8w+x5yBARcupr/cuVD8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pyejMnFsAxDO2zqwVh1PfVRTVWCF8BH7sBRV9uon3zoiDo7dVxBrGzV1sCyuoxCY5
-	 e3lAAQ8/2Abs1qJPVpFEMDodo7iQRCtuKl0KRC5vmRI6NAysTvFMEMF4aQPhUGQmap
-	 PYVwbglLPVkFCh4io5wHUFhxm8E6LVskpetykf5Q=
+	b=BF/dZlF7V3jW2vvLGahjklX5WlnQ+9hVm+Ru3pwqiTFG9gYR/+kBtS8VOgUJkTAqC
+	 Htklaoya0JB+Wz4UBus3y9i4wcp2kwsedVkezJsH6DRpLF/IwRVX0kU0xO4ddNWckJ
+	 8xQWGvtf4q1DGlHrnMP6vcIBhsphZnxuymIm+FwQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75DDCF8049C;
-	Fri, 10 Sep 2021 12:16:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CCAF6F8049C;
+	Fri, 10 Sep 2021 12:19:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B3EDEF802E7; Fri, 10 Sep 2021 12:16:44 +0200 (CEST)
+ id 43539F802E7; Fri, 10 Sep 2021 12:19:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5BFB2F800FC
- for <alsa-devel@alsa-project.org>; Fri, 10 Sep 2021 12:16:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BFB2F800FC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3B1E5F80143
+ for <alsa-devel@alsa-project.org>; Fri, 10 Sep 2021 12:18:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B1E5F80143
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="c0EJ5RdG"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3A9346103D;
- Fri, 10 Sep 2021 10:16:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631268998;
- bh=DY9aUAMbBWXj6/6sstLfJLZSxcBTc37Ktwo5jblB5ac=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=c0EJ5RdGelCNfqbVedB9LASXFUKnF5Fj99u2lkKeBiKwH8aotzLwyA9jXOFCQGNXR
- mDKshJW5sAKtcRjGLg5qVttQAdQ+mrvCafQ7D8kKzu3X6EqMvnqT7ZP5rUtKHq44UQ
- AnkQe9J2va7gDW2lNSBrCd32TGIEszuj3hxEM36biyod2oa3xxN01f1Gopu6Vp9OD8
- sMpcqbaCrOrHJbX4jzqLC8ZT++/1LmxujNnA/yNFzFi6hCZPuANbNreWK8kE9ThEFO
- hZUs892f1Z5SmSIyVe3Qbu7XIbE7q9qHPFF11ll50TXaOl3SHWA4juTyyx+Mj0ccQe
- 69rlzRlA6S5zw==
-Date: Fri, 10 Sep 2021 11:16:01 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>
-Subject: Re: [PATCH for-5.15 0/5] ASoC: fsl: register platform component
- before registering cpu dai
-Message-ID: <20210910101601.GB4474@sirena.org.uk>
-References: <1630665006-31437-1-git-send-email-shengjiu.wang@nxp.com>
- <20210906114701.GC4309@sirena.org.uk>
- <CAA+D8APjyq74FECmH6ZzyVKHOz6MEV0bt+D4-Xkfc-6C5n9hZg@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="IrhDeMKUP4DT/M7F"
-Content-Disposition: inline
-In-Reply-To: <CAA+D8APjyq74FECmH6ZzyVKHOz6MEV0bt+D4-Xkfc-6C5n9hZg@mail.gmail.com>
-X-Cookie: You are standing on my toes.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Nicolin Chen <nicoleotsuka@gmail.com>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="V83DTQOJ"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="F6KajM55"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 323501FE65;
+ Fri, 10 Sep 2021 10:18:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1631269135; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=NpXzkfNPFVrg9/1eObTVz0B/1BC5PbMEmEEl9fQugRU=;
+ b=V83DTQOJRqCQIWHZ/A7b8T+sBEQLse+1jRx9HkcHriTGVk1L6ATYo84zJfCH+UqLrrjbVE
+ tan1VaKHY5bjH4J3KTh10vwNMHYNWaf8DBtbHxWVbltno90pkEkZ9cBOlGxaoroWSIh3Bu
+ KRHnkv4NWcYt0UbhOrOG/G+T7RCDA9s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1631269135;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=NpXzkfNPFVrg9/1eObTVz0B/1BC5PbMEmEEl9fQugRU=;
+ b=F6KajM55SFyJ6ydZ1ICGhuZ0MamvcHar8JgIercEQCr9n6Fwg+zkPbPE/3fLebMhvPre1L
+ 0/zwp1xRBXXyAUAg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 2AF7AA3B99;
+ Fri, 10 Sep 2021 10:18:55 +0000 (UTC)
+Date: Fri, 10 Sep 2021 12:18:55 +0200
+Message-ID: <s5htuisn374.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+Subject: Re: A portion of USB Headsets loses previous sound volume setting
+ after a suspend resume
+In-Reply-To: <CAGvk5Ppn2CK=GUgs+YoxoKLBm0zHUmSi4QrDk4ahO24_FPfqsg@mail.gmail.com>
+References: <CADDZ45UPsbpAAqP6=ZkTT8BE-yLii4Y7xSDnjK550G2DhQsMew@mail.gmail.com>
+ <s5hfsudq3jx.wl-tiwai@suse.de>
+ <CAGvk5Ppn2CK=GUgs+YoxoKLBm0zHUmSi4QrDk4ahO24_FPfqsg@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ En-Shuo Hsu <enshuo@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,33 +99,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 10 Sep 2021 11:25:37 +0200,
+Yu-Hsuan Hsu wrote:
+> 
+> Takashi Iwai <tiwai@suse.de> 於 2021年9月9日 週四 下午9:30寫道：
+> >
+> > On Thu, 09 Sep 2021 12:21:46 +0200,
+> > En-Shuo Hsu wrote:
+> > >
+> > > Hi
+> > >
+> > > We recently found that some USB headsets may fall back to their full volume
+> > > after a suspend and resume. We think the issue is caused by the logic of
+> > > mixer_ctl_feature_put in sound/usb/mixer.c:
+> > >
+> > > err = snd_usb_get_cur_mix_value(cval, c + 1, cnt, &oval);
+> > > if (err < 0)
+> > >   return filter_error(cval, err);
+> > >   val = ucontrol->value.integer.value[cnt];
+> > >   val = get_abs_value(cval, val);
+> > > if (oval != val) {
+> > >   snd_usb_set_cur_mix_value(cval, c + 1, cnt, val);
+> > >   changed = 1;
+> > > }
+> > >
+> > > The existing codes get the existing mixer control value and ignore the set if
+> > > the val doesn't change. However, in the suspend and resume case, the USB
+> > > headset's control value is actually changed.
+> > >
+> > > Removing the cache logic is a potential fix, but a better solution may be to
+> > > properly handle the suspend resume scenario in snd_usb_get_cur_mix_value. We
+> > > may need to mark the cache in usb_mixer_elem_info to be dirty.
+> > >
+> > > The issue is verified to be reproduced with Dell WH3022 and Logitech USB
+> > > Headset H340 by:
+> > > 1. Boot to OS.
+> > > 2. Plug in the headset and check sound output.
+> > > 3. Play an audio/video and keep with low volume.
+> > > 4. Suspend.
+> > > 5. Resume.
+> > > 6. When audio/video is played, the headset's sound output can't keep the
+> > > original volume. --> issue "
+> > >
+> > > Would like to know your thoughts on this issue.
+> >
+> > USB-audio driver has an assumption that the normal resume code
+> > presumes the configuration while reset_resume needs the full
+> > initialization, but this looks too naive, then.
+> >
+> > Could you check the following works?
+> >
+> >
+> > Takashi
+> >
+> > --- a/sound/usb/card.c
+> > +++ b/sound/usb/card.c
+> > @@ -1080,7 +1080,7 @@ static int __usb_audio_resume(struct usb_interface *intf, bool reset_resume)
+> >          * we just notify and restart the mixers
+> >          */
+> >         list_for_each_entry(mixer, &chip->mixer_list, list) {
+> > -               err = snd_usb_mixer_resume(mixer, reset_resume);
+> > +               err = snd_usb_mixer_resume(mixer, true /*reset_resume*/);
+> >                 if (err < 0)
+> >                         goto err_out;
+> >         }
+> 
+> Thanks! It works. Is it an appropriate fix to set the reset_resume to
+> true in usb_audio_resume?
+> If it's acceptable, we can send the patch.
 
---IrhDeMKUP4DT/M7F
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Well, if the above works, basically we can get rid of the whole
+difference of both resume procedures.  It'd be a good cleanup, too.
+I already have a patch, and will submit soon later.
 
-On Tue, Sep 07, 2021 at 10:43:26AM +0800, Shengjiu Wang wrote:
 
-> It is hard to add conditions here for defer probe.  And maybe
-> some drivers need the same components for cpu and platform.
-> Do you have any suggestions?
+thanks,
 
-I would expect that in this situation the same component would be able
-to fill both roles.
-
---IrhDeMKUP4DT/M7F
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmE7MGAACgkQJNaLcl1U
-h9BmyAf+LFLU0qRNu/j0JR6PE/8Cy8MmuyW9DYr0CDki8qhipKQWJLaE5/l9diiL
-W6V5q2giENDxPZKAyyHs08abuAq9JD0EEQu7z03P9x2UWrLxhcJ8itPNJZixH3KX
-hpfg66wdAFS6QoqdQ0qLaFYzsnXMe2Zv6x6O70ddG9hLbUT6d5OfYVPWJHvKh1+U
-xM/cI74vCSkZ0LG1PvEirEPw2qGWIyS610sqjZcWNUxLTtG8s+clPXy+hsNc/Mbm
-jiDFUf2Ixz5TgZDlgfJElBOz9x2QHypCVsatoXe2XW50T1TYLdUAGpvmRD2F4Y/d
-cvlkwzMtFFP3/6IRvYPYReyYl2Lc6w==
-=EL+Z
------END PGP SIGNATURE-----
-
---IrhDeMKUP4DT/M7F--
+Takashi

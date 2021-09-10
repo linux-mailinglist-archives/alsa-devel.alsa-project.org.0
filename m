@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B14A406523
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Sep 2021 03:24:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13654406524
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Sep 2021 03:24:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2155B16B1;
-	Fri, 10 Sep 2021 03:23:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2155B16B1
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9B8D86F;
+	Fri, 10 Sep 2021 03:23:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9B8D86F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631237055;
-	bh=YS4zPBRYqh7TJj8vh2EyXJPkHIsyHGqeArlfSbqvcno=;
+	s=default; t=1631237080;
+	bh=lc1icJ162vouWYxZX+CMYnIriIS2aewjmM4YBVjpEWU=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MwOl/IvTh6N1c7gkuZkKMep6sqF/G8T+GfrjrRMExOmJHh3M2VHrybROgtZ3dUEFY
-	 YvKTph8ZnuwTlyu6jTufwxINIoZf97LFBXRhVPLOEx9yMnx9s8CoSOjOXdlMWOfD5r
-	 EV3z9aDUsbvyb6m0+Vzloly3bRBRJWfMCo0oSOwc=
+	b=JNJqZXWwTywY10/WNtcS79kpOmREdlYprKsNaB6S0hfhTl2fIIxG/0utguoCmFFNI
+	 3FuoWwkxSycBjtW3/A4ZCDbqvrkresB82kEuKcBouN16dwfaVEvFVsurdvCj6+E2EJ
+	 +03byFOPRzMNxEJZJuS4HoJonXjQtmlDWjAEY5f0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92935F804FD;
-	Fri, 10 Sep 2021 03:22:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C03D2F80510;
+	Fri, 10 Sep 2021 03:22:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2CFE8F804FD; Fri, 10 Sep 2021 03:22:24 +0200 (CEST)
+ id BB07BF804FF; Fri, 10 Sep 2021 03:22:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 77B96F804F1
- for <alsa-devel@alsa-project.org>; Fri, 10 Sep 2021 03:22:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77B96F804F1
-Date: 10 Sep 2021 10:22:15 +0900
-X-IronPort-AV: E=Sophos;i="5.85,282,1624287600"; d="scan'208";a="93549089"
+ by alsa1.perex.cz (Postfix) with ESMTP id EEE32F804FB
+ for <alsa-devel@alsa-project.org>; Fri, 10 Sep 2021 03:22:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEE32F804FB
+Date: 10 Sep 2021 10:22:20 +0900
+X-IronPort-AV: E=Sophos;i="5.85,282,1624287600"; d="scan'208";a="93549095"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 10 Sep 2021 10:22:15 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 10 Sep 2021 10:22:20 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 0BA444009403;
- Fri, 10 Sep 2021 10:22:15 +0900 (JST)
-Message-ID: <87mtolusvs.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 866924017D77;
+ Fri, 10 Sep 2021 10:22:20 +0900 (JST)
+Message-ID: <87lf45usvn.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v3 05/16] ASoC: add Rich Graph Card driver
+Subject: [PATCH v3 06/16] ASoC: rich-graph-card: add Multi CPU/Codec support
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87tuitusy4.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,773 +70,316 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-We already have audio-graph-card which is Of-graph base of general
-sound card driver.
+This patch adds Multi CPU/Codec support to rich-graph-card.
+Multi CPU/Codec will have connection part (= X) and CPU/Codec list part (= y).
+links indicates connection part of CPU side (= A).
 
-It is supporting DPCM connection, but was forcibly expanded.
-Thus, it is very difficult to add new features on it, for example
-Multi CPU/Codec support, Codec2Codec support, etc.
+		    +-+   (A)	     +-+
+	 CPU1 --(y) | | <-(X)--(X)-> | | (y)-- Codec1
+	 CPU2 --(y) | |		     | | (y)-- Codec2
+		    +-+		     +-+
 
-This patch adds more flexible new Rich Graph Card driver for it.
-audio-graph-card and rich-graph-card are similar, but don't have
-full compatibility.
+	sound {
+		compatible = "rich-graph-card";
 
-Rich Graph Card supports very generic connection, but some users
-want to have its own settings, for example PLL settings, etc.
-For such case, it has customizing support.
-In users own driver, it can use Rich Graph Card parsing by using
-rich_graph_parse_of(), and doing its own customizing.
+(A)		links = <&mcpu>;
 
-Because Rich Graph Card is still under experimental stage,
-it will indicate such warning when probing, and the DT syntax
-might be changed.
+		multi {
+			ports@0 {
+(X) (A)			mcpu:	port@0 { mcpu0_ep: endpoint { remote-endpoint = <&mcodec0_ep>; }; };
+(y)				port@1 { mcpu1_ep: endpoint { remote-endpoint = <&cpu1_ep>; }; };
+(y)				port@1 { mcpu2_ep: endpoint { remote-endpoint = <&cpu2_ep>; }; };
+			};
+			ports@1 {
+(X)				port@0 { mcodec0_ep: endpoint { remote-endpoint = <&mcpu0_ep>; }; };
+(y)				port@0 { mcodec1_ep: endpoint { remote-endpoint = <&codec1_ep>; }; };
+(y)				port@1 { mcodec2_ep: endpoint { remote-endpoint = <&codec2_ep>; }; };
+			};
+		};
+	};
+
+	CPU {
+		ports {
+			bitclock-master;
+			frame-master;
+			port@0 { cpu1_ep: endpoint { remote-endpoint = <&mcpu1_ep>; }; };
+			port@1 { cpu2_ep: endpoint { remote-endpoint = <&mcpu2_ep>; }; };
+		};
+	};
+
+	Codec {
+		ports {
+			port@0 { codec1_ep: endpoint { remote-endpoint = <&mcodec1_ep>; }; };
+			port@1 { codec2_ep: endpoint { remote-endpoint = <&mcodec2_ep>; }; };
+		};
+	};
 
 Link: https://lore.kernel.org/r/87k0xszlep.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/20210804171748.GC26252@sirena.org.uk
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/graph_card.h          |  15 +
- sound/soc/generic/Kconfig           |   8 +
- sound/soc/generic/Makefile          |   2 +
- sound/soc/generic/rich-graph-card.c | 669 ++++++++++++++++++++++++++++
- 4 files changed, 694 insertions(+)
- create mode 100644 sound/soc/generic/rich-graph-card.c
+ sound/soc/generic/rich-graph-card.c | 196 ++++++++++++++++++++++++++--
+ 1 file changed, 186 insertions(+), 10 deletions(-)
 
-diff --git a/include/sound/graph_card.h b/include/sound/graph_card.h
-index 6f10bfb0d5ee..7a22513146c0 100644
---- a/include/sound/graph_card.h
-+++ b/include/sound/graph_card.h
-@@ -9,6 +9,21 @@
- 
- #include <sound/simple_card_utils.h>
- 
-+typedef int (*GRAPH_CUSTOM)(struct asoc_simple_priv *priv,
-+			    struct device_node *lnk,
-+			    struct link_info *li);
-+
-+struct graph_custom_hooks {
-+	int (*hook_pre)(struct asoc_simple_priv *priv);
-+	int (*hook_post)(struct asoc_simple_priv *priv);
-+	GRAPH_CUSTOM custom_normal;
-+};
-+
- int audio_graph_parse_of(struct asoc_simple_priv *priv, struct device *dev);
-+int rich_graph_parse_of(struct asoc_simple_priv *priv, struct device *dev,
-+			struct graph_custom_hooks *hooks);
-+
-+int rich_graph_link_normal(struct asoc_simple_priv *priv,
-+			   struct device_node *lnk, struct link_info *li);
- 
- #endif /* __GRAPH_CARD_H */
-diff --git a/sound/soc/generic/Kconfig b/sound/soc/generic/Kconfig
-index bb734780669e..8af35415d162 100644
---- a/sound/soc/generic/Kconfig
-+++ b/sound/soc/generic/Kconfig
-@@ -18,6 +18,14 @@ config SND_AUDIO_GRAPH_CARD
- 	  with OF-graph DT bindings.
- 	  It also support DPCM of multi CPU single Codec ststem.
- 
-+config SND_RICH_GRAPH_CARD
-+	tristate "ASoC Rich Graph Card support"
-+	depends on OF
-+	select SND_SIMPLE_CARD_UTILS
-+	help
-+	  This option enables generic rich graph card support
-+	  with OF-graph DT bindings.
-+
- config SND_TEST_COMPONENT
- 	tristate "ASoC Test component sound support"
- 	depends on OF
-diff --git a/sound/soc/generic/Makefile b/sound/soc/generic/Makefile
-index 988bfd45d2e2..60a2e90a4a6b 100644
---- a/sound/soc/generic/Makefile
-+++ b/sound/soc/generic/Makefile
-@@ -2,9 +2,11 @@
- snd-soc-simple-card-utils-objs	:= simple-card-utils.o
- snd-soc-simple-card-objs	:= simple-card.o
- snd-soc-audio-graph-card-objs	:= audio-graph-card.o
-+snd-soc-rich-graph-card-objs	:= rich-graph-card.o
- snd-soc-test-component-objs	:= test-component.o
- 
- obj-$(CONFIG_SND_SIMPLE_CARD_UTILS)	+= snd-soc-simple-card-utils.o
- obj-$(CONFIG_SND_SIMPLE_CARD)		+= snd-soc-simple-card.o
- obj-$(CONFIG_SND_AUDIO_GRAPH_CARD)	+= snd-soc-audio-graph-card.o
-+obj-$(CONFIG_SND_RICH_GRAPH_CARD)	+= snd-soc-rich-graph-card.o
- obj-$(CONFIG_SND_TEST_COMPONENT)	+= snd-soc-test-component.o
 diff --git a/sound/soc/generic/rich-graph-card.c b/sound/soc/generic/rich-graph-card.c
-new file mode 100644
-index 000000000000..a01a7c575622
---- /dev/null
+index a01a7c575622..6ce7001fab2e 100644
+--- a/sound/soc/generic/rich-graph-card.c
 +++ b/sound/soc/generic/rich-graph-card.c
-@@ -0,0 +1,669 @@
-+// SPDX-License-Identifier: GPL-2.0
-+//
-+// ASoC Rich Graph Card support
-+//
-+// Copyright (C) 2020 Renesas Electronics Corp.
-+// Copyright (C) 2020 Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-+//
-+// based on ${LINUX}/sound/soc/generic/audio-graph-card.c
-+#include <linux/clk.h>
-+#include <linux/device.h>
-+#include <linux/gpio.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_device.h>
-+#include <linux/of_gpio.h>
-+#include <linux/of_graph.h>
-+#include <linux/platform_device.h>
-+#include <linux/string.h>
-+#include <sound/graph_card.h>
-+
-+/************************************
-+	daifmt
+@@ -69,18 +69,95 @@
+ 	port {	codec_ep: endpoint { remote-endpoint = <&cpu_ep>; }; };
+  };
+ 
 + ************************************
-+	ports {
-+		format = "left_j";
-+		port@0 {
-+			bitclock-master;
-+			sample0: endpoint@0 {
-+				frame-master;
++	Multi-CPU/Codec
++ ************************************
++
++It has connection part (= X) and list part (= y).
++links indicates connection part of CPU side (= A).
++
++	    +-+   (A)	     +-+
++ CPU1 --(y) | | <-(X)--(X)-> | | (y)-- Codec1
++ CPU2 --(y) | |		     | | (y)-- Codec2
++	    +-+		     +-+
++
++	sound {
++		compatible = "rich-graph-card";
++
++(A)		links = <&mcpu>;
++
++		multi {
++			ports@0 {
++(X) (A)			mcpu:	port@0 { mcpu0_ep: endpoint { remote-endpoint = <&mcodec0_ep>; }; };
++(y)				port@1 { mcpu1_ep: endpoint { remote-endpoint = <&cpu1_ep>; }; };
++(y)				port@1 { mcpu2_ep: endpoint { remote-endpoint = <&cpu2_ep>; }; };
 +			};
-+			sample1: endpoint@1 {
-+				format = "i2s";
++			ports@1 {
++(X)				port@0 { mcodec0_ep: endpoint { remote-endpoint = <&mcpu0_ep>; }; };
++(y)				port@0 { mcodec1_ep: endpoint { remote-endpoint = <&codec1_ep>; }; };
++(y)				port@1 { mcodec2_ep: endpoint { remote-endpoint = <&codec2_ep>; }; };
 +			};
 +		};
-+		...
 +	};
 +
-+ You can set daifmt at ports/port/endpoint.
-+ It uses *latest* format, and *share* master settings.
-+ In above case,
-+	sample0: left_j, bitclock-master, frame-master
-+	sample1: i2s,    bitclock-master
-+
-+ If there was no settings, *Codec* will be
-+ bitclock/frame provider as default.
-+ see
-+	graph_parse_daifmt().
-+
-+ ************************************
-+	Normal Audio-Graph
-+ ************************************
-+
-+ CPU <---> Codec
-+
-+ sound {
-+	compatible = "rich-graph-card";
-+	links = <&cpu>;
-+ };
-+
 + CPU {
-+	cpu: port {
++	ports {
 +		bitclock-master;
 +		frame-master;
-+		cpu_ep: endpoint { remote-endpoint = <&codec_ep>; }; };
++		port@0 { cpu1_ep: endpoint { remote-endpoint = <&mcpu1_ep>; }; };
++		port@1 { cpu2_ep: endpoint { remote-endpoint = <&mcpu2_ep>; }; };
++	};
 + };
 +
 + Codec {
-+	port {	codec_ep: endpoint { remote-endpoint = <&cpu_ep>; }; };
++	ports {
++		port@0 { codec1_ep: endpoint { remote-endpoint = <&mcodec1_ep>; }; };
++		port@1 { codec2_ep: endpoint { remote-endpoint = <&mcodec2_ep>; }; };
++	};
 + };
 +
-+*/
+ */
+ 
+ enum graph_type {
+ 	GRAPH_NORMAL,
 +
-+enum graph_type {
-+	GRAPH_NORMAL,
-+};
++	GRAPH_MULTI,	/* don't use ! Use this only in __graph_get_type() */
+ };
+ 
++#define GRAPH_NODENAME_MULTI	"multi"
 +
-+#define port_to_endpoint(port) of_get_child_by_name(port, "endpoint")
-+
-+static enum graph_type graph_get_type(struct asoc_simple_priv *priv,
-+				      struct device_node *lnk)
+ #define port_to_endpoint(port) of_get_child_by_name(port, "endpoint")
+ 
++static enum graph_type __graph_get_type(struct device_node *lnk)
 +{
-+	enum graph_type type = GRAPH_NORMAL;
-+
-+#ifdef DEBUG
-+	{
-+		struct device *dev = simple_priv_to_dev(priv);
-+		const char *str = "Normal";
-+
-+		dev_dbg(dev, "%pOF (%s)", lnk, str);
-+	}
-+#endif
-+	return type;
-+}
-+
-+static const struct snd_soc_ops graph_ops = {
-+	.startup	= asoc_simple_startup,
-+	.shutdown	= asoc_simple_shutdown,
-+	.hw_params	= asoc_simple_hw_params,
-+};
-+
-+static int graph_get_dai_id(struct device_node *ep)
-+{
-+	struct device_node *node;
-+	struct device_node *endpoint;
-+	struct of_endpoint info;
-+	int i, id;
-+	const u32 *reg;
-+	int ret;
-+
-+	/* use driver specified DAI ID if exist */
-+	ret = snd_soc_get_dai_id(ep);
-+	if (ret != -ENOTSUPP)
-+		return ret;
-+
-+	/* use endpoint/port reg if exist */
-+	ret = of_graph_parse_endpoint(ep, &info);
-+	if (ret == 0) {
-+		/*
-+		 * Because it will count port/endpoint if it doesn't have "reg".
-+		 * But, we can't judge whether it has "no reg", or "reg = <0>"
-+		 * only of_graph_parse_endpoint().
-+		 * We need to check "reg" property
-+		 */
-+		if (of_get_property(ep,   "reg", NULL))
-+			return info.id;
-+
-+		node = of_get_parent(ep);
-+		reg = of_get_property(node, "reg", NULL);
-+		of_node_put(node);
-+		if (reg)
-+			return info.port;
-+	}
-+	node = of_graph_get_port_parent(ep);
++	struct device_node *np;
 +
 +	/*
-+	 * Non HDMI sound case, counting port/endpoint on its DT
-+	 * is enough. Let's count it.
++	 * target {
++	 *	ports {
++	 * =>		lnk:	port@0 { ... };
++	 *			port@1 { ... };
++	 *	};
++	 * };
 +	 */
-+	i = 0;
-+	id = -1;
-+	for_each_endpoint_of_node(node, endpoint) {
-+		if (endpoint == ep)
-+			id = i;
-+		i++;
-+	}
++	np = of_get_parent(lnk);
++	if (of_node_name_eq(np, "ports"))
++		np = of_get_parent(np);
 +
-+	of_node_put(node);
++	if (of_node_name_eq(np, GRAPH_NODENAME_MULTI))
++		return GRAPH_MULTI;
 +
-+	if (id < 0)
-+		return -ENODEV;
-+
-+	return id;
++	return GRAPH_NORMAL;
 +}
 +
-+static int asoc_simple_parse_dai(struct device_node *ep,
-+				 struct snd_soc_dai_link_component *dlc,
-+				 int *is_single_link)
+ static enum graph_type graph_get_type(struct asoc_simple_priv *priv,
+ 				      struct device_node *lnk)
+ {
+-	enum graph_type type = GRAPH_NORMAL;
++	enum graph_type type = __graph_get_type(lnk);
++
++	/* GRAPH_MULTI here means GRAPH_NORMAL */
++	if (type == GRAPH_MULTI)
++		type = GRAPH_NORMAL;
+ 
+ #ifdef DEBUG
+ 	{
+@@ -93,6 +170,49 @@ static enum graph_type graph_get_type(struct asoc_simple_priv *priv,
+ 	return type;
+ }
+ 
++static int graph_lnk_is_multi(struct device_node *lnk)
 +{
-+	struct device_node *node;
-+	struct of_phandle_args args;
-+	int ret;
++	return __graph_get_type(lnk) == GRAPH_MULTI;
++}
 +
-+	if (!ep)
-+		return 0;
-+
-+	node = of_graph_get_port_parent(ep);
-+
-+	/* Get dai->name */
-+	args.np		= node;
-+	args.args[0]	= graph_get_dai_id(ep);
-+	args.args_count	= (of_graph_get_endpoint_count(node) > 1);
++static struct device_node *graph_get_next_multi_ep(struct device_node **port)
++{
++	struct device_node *ports = of_get_parent(*port);
++	struct device_node *ep = NULL;
++	struct device_node *rep = NULL;
 +
 +	/*
-+	 * FIXME
++	 * multi {
++	 *	ports {
++	 * =>	lnk:	port@0 { ... };
++	 *		port@1 { ep { ... = rep0 } };
++	 *		port@2 { ep { ... = rep1 } };
++	 *		...
++	 *	};
++	 * };
 +	 *
-+	 * Here, dlc->dai_name is pointer to CPU/Codec DAI name.
-+	 * If user unbinded CPU or Codec driver, but not for Sound Card,
-+	 * dlc->dai_name is keeping unbinded CPU or Codec
-+	 * driver's pointer.
-+	 *
-+	 * If user re-bind CPU or Codec driver again, ALSA SoC will try
-+	 * to rebind Card via snd_soc_try_rebind_card(), but because of
-+	 * above reason, it might can't bind Sound Card.
-+	 * Because Sound Card is pointing to released dai_name pointer.
-+	 *
-+	 * To avoid this rebind Card issue,
-+	 * 1) It needs to alloc memory to keep dai_name eventhough
-+	 *    CPU or Codec driver was unbinded, or
-+	 * 2) user need to rebind Sound Card everytime
-+	 *    if he unbinded CPU or Codec.
++	 * xxx {
++	 *	port@0 { rep0 };
++	 *	port@1 { rep1 };
++	 * };
 +	 */
-+	ret = snd_soc_get_dai_name(&args, &dlc->dai_name);
-+	if (ret < 0)
-+		return ret;
++	do {
++		*port = of_get_next_child(ports, *port);
++		if (!*port)
++			break;
++	} while (!of_node_name_eq(*port, "port"));
 +
-+	dlc->of_node = node;
++	if (*port) {
++		ep  = port_to_endpoint(*port);
++		rep = of_graph_get_remote_endpoint(ep);
++	}
 +
-+	if (is_single_link)
-+		*is_single_link = of_graph_get_endpoint_count(node) == 1;
-+
-+	return 0;
-+}
-+
-+static void graph_parse_mclk_fs(struct device_node *ep,
-+				struct simple_dai_props *props)
-+{
-+	struct device_node *port	= of_get_parent(ep);
-+	struct device_node *ports	= of_get_parent(port);
-+
-+	if (of_node_name_eq(ports, "ports"))
-+		of_property_read_u32(ports, "mclk-fs", &props->mclk_fs);
-+	of_property_read_u32(port,	"mclk-fs", &props->mclk_fs);
-+	of_property_read_u32(ep,	"mclk-fs", &props->mclk_fs);
-+
-+	of_node_put(port);
++	of_node_put(ep);
 +	of_node_put(ports);
++
++	return rep;
 +}
 +
-+static int __graph_parse_node(struct asoc_simple_priv *priv,
-+			      enum graph_type gtype,
-+			      struct device_node *ep,
-+			      struct link_info *li,
-+			      int is_cpu, int idx)
-+{
-+	struct device *dev = simple_priv_to_dev(priv);
-+	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
-+	struct simple_dai_props *dai_props = simple_priv_to_props(priv, li->link);
-+	struct snd_soc_dai_link_component *dlc;
-+	struct asoc_simple_dai *dai;
-+	int ret, is_single_links = 0;
+ static const struct snd_soc_ops graph_ops = {
+ 	.startup	= asoc_simple_startup,
+ 	.shutdown	= asoc_simple_shutdown,
+@@ -258,13 +378,21 @@ static int __graph_parse_node(struct asoc_simple_priv *priv,
+ 	if (!dai_link->name) {
+ 		struct snd_soc_dai_link_component *cpus = dlc;
+ 		struct snd_soc_dai_link_component *codecs = asoc_link_to_codec(dai_link, idx);
++		char *cpu_multi   = "";
++		char *codec_multi = "";
 +
-+	if (is_cpu) {
-+		dlc = asoc_link_to_cpu(dai_link, idx);
-+		dai = simple_props_to_dai_cpu(dai_props, idx);
-+	} else {
-+		dlc = asoc_link_to_codec(dai_link, idx);
-+		dai = simple_props_to_dai_codec(dai_props, idx);
-+	}
-+
-+	graph_parse_mclk_fs(ep, dai_props);
-+
-+	ret = asoc_simple_parse_dai(ep, dlc, &is_single_links);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = asoc_simple_parse_tdm(ep, dai);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = asoc_simple_parse_clk(dev, ep, dai, dlc);
-+	if (ret < 0)
-+		return ret;
-+
-+	/*
-+	 * set DAI Name
-+	 */
-+	if (!dai_link->name) {
-+		struct snd_soc_dai_link_component *cpus = dlc;
-+		struct snd_soc_dai_link_component *codecs = asoc_link_to_codec(dai_link, idx);
-+
-+		switch (gtype) {
-+		case GRAPH_NORMAL:
-+			/* run is_cpu only. see rich_graph_link_normal() */
-+			if (is_cpu)
-+				asoc_simple_set_dailink_name(dev, dai_link, "%s-%s",
-+							     cpus->dai_name, codecs->dai_name);
-+			break;
-+		default:
-+			break;
-+		}
-+	}
-+
-+	if (is_cpu) {
-+		struct snd_soc_dai_link_component *cpus = dlc;
-+		struct snd_soc_dai_link_component *platforms = asoc_link_to_platform(dai_link, idx);
-+
-+		asoc_simple_canonicalize_cpu(cpus, is_single_links);
-+		asoc_simple_canonicalize_platform(platforms, cpus);
-+	}
-+
-+	return 0;
-+}
-+
-+static int graph_parse_node(struct asoc_simple_priv *priv,
-+			    enum graph_type gtype,
-+			    struct device_node *port,
-+			    struct link_info *li, int is_cpu)
-+{
-+	struct device_node *ep = port_to_endpoint(port);
-+
-+	/* Need Multi support later */
-+	return __graph_parse_node(priv, gtype, ep, li, is_cpu, 0);
-+}
-+
-+static void graph_parse_daifmt(struct device_node *node,
-+			       unsigned int *daifmt, unsigned int *bit_frame)
-+{
-+	unsigned int fmt;
-+
-+	/*
-+	 * see also above "daifmt" explanation
-+	 * and samples.
-+	 */
-+
-+	/*
-+	 *	ports {
-+	 * (A)
-+	 *		port {
-+	 * (B)
-+	 *			endpoint {
-+	 * (C)
-+	 *			};
-+	 *		};
-+	 *	};
-+	 * };
-+	 */
-+
-+	/*
-+	 * clock_provider:
-+	 *
-+	 * It can be judged it is provider
-+	 * if (A) or (B) or (C) has bitclock-master / frame-master flag.
-+	 *
-+	 * use "or"
-+	 */
-+	*bit_frame |= snd_soc_daifmt_parse_clock_provider_as_bitmap(node, NULL);
-+
-+#define update_daifmt(name)					\
-+	if (!(*daifmt & SND_SOC_DAIFMT_##name##_MASK) &&	\
-+		 (fmt & SND_SOC_DAIFMT_##name##_MASK))		\
-+		*daifmt |= fmt & SND_SOC_DAIFMT_##name##_MASK;
-+
-+	/*
-+	 * format
-+	 *
-+	 * This function is called by (C) -> (B) -> (A) order.
-+	 * Set if applicable part was not yet set.
-+	 */
-+	fmt = snd_soc_daifmt_parse_format(node, NULL);
-+	update_daifmt(FORMAT);
-+	update_daifmt(CLOCK);
-+	update_daifmt(INV);
-+}
-+
-+static void graph_link_init(struct asoc_simple_priv *priv,
-+			    struct device_node *port,
-+			    struct link_info *li,
-+			    int is_cpu_node)
-+{
-+	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
++		if (dai_link->num_cpus > 1)
++			cpu_multi = "_multi";
++		if (dai_link->num_codecs > 1)
++			codec_multi = "_multi";
+ 
+ 		switch (gtype) {
+ 		case GRAPH_NORMAL:
+ 			/* run is_cpu only. see rich_graph_link_normal() */
+ 			if (is_cpu)
+-				asoc_simple_set_dailink_name(dev, dai_link, "%s-%s",
+-							     cpus->dai_name, codecs->dai_name);
++				asoc_simple_set_dailink_name(dev, dai_link, "%s%s-%s%s",
++							       cpus->dai_name,   cpu_multi,
++							     codecs->dai_name, codec_multi);
+ 			break;
+ 		default:
+ 			break;
+@@ -287,10 +415,33 @@ static int graph_parse_node(struct asoc_simple_priv *priv,
+ 			    struct device_node *port,
+ 			    struct link_info *li, int is_cpu)
+ {
+-	struct device_node *ep = port_to_endpoint(port);
 +	struct device_node *ep;
-+	struct device_node *ports;
-+	unsigned int daifmt = 0, daiclk = 0;
-+	unsigned int bit_frame = 0;
++	int ret = 0;
+ 
+-	/* Need Multi support later */
+-	return __graph_parse_node(priv, gtype, ep, li, is_cpu, 0);
++	if (graph_lnk_is_multi(port)) {
++		int idx;
 +
-+	/* Need Multi support later */
-+	ep = port_to_endpoint(port);
-+	ports = of_get_parent(port);
++		of_node_get(port);
 +
++		for (idx = 0;; idx++) {
++			ep = graph_get_next_multi_ep(&port);
++			if (!ep)
++				break;
++
++			ret = __graph_parse_node(priv, gtype, ep,
++						 li, is_cpu, idx);
++			of_node_put(ep);
++			if (ret < 0)
++				break;
++		}
++	} else {
++		/* Single CPU / Codec */
++		ep = port_to_endpoint(port);
++		ret = __graph_parse_node(priv, gtype, ep, li, is_cpu, 0);
++		of_node_put(ep);
++	}
++
++	return ret;
+ }
+ 
+ static void graph_parse_daifmt(struct device_node *node,
+@@ -354,8 +505,14 @@ static void graph_link_init(struct asoc_simple_priv *priv,
+ 	unsigned int daifmt = 0, daiclk = 0;
+ 	unsigned int bit_frame = 0;
+ 
+-	/* Need Multi support later */
+-	ep = port_to_endpoint(port);
++	if (graph_lnk_is_multi(port)) {
++		of_node_get(port);
++		ep = graph_get_next_multi_ep(&port);
++		port = of_get_parent(ep);
++	} else {
++		ep = port_to_endpoint(port);
++	}
++
+ 	ports = of_get_parent(port);
+ 
+ 	/*
+@@ -462,8 +619,27 @@ static int graph_link(struct asoc_simple_priv *priv,
+ 
+ static int graph_counter(struct device_node *lnk)
+ {
+-	/* Need Multi support later */
+-	return 1;
 +	/*
++	 * Multi CPU / Codec
++	 *
++	 * multi {
 +	 *	ports {
-+	 * (A)
-+	 *		port {
-+	 * (B)
-+	 *			endpoint {
-+	 * (C)
-+	 *			};
-+	 *		};
++	 * =>		lnk:	port@0 { ... };
++	 *			port@1 { ... };
++	 *			port@2 { ... };
++	 *			...
 +	 *	};
 +	 * };
++	 *
++	 * ignore first lnk part
 +	 */
-+	graph_parse_daifmt(ep,    &daifmt, &bit_frame);		/* (C) */
-+	graph_parse_daifmt(port,  &daifmt, &bit_frame);		/* (B) */
-+	if (of_node_name_eq(ports, "ports"))
-+		graph_parse_daifmt(ports, &daifmt, &bit_frame);	/* (A) */
-+
++	if (graph_lnk_is_multi(lnk))
++		return of_graph_get_endpoint_count(of_get_parent(lnk)) - 1;
 +	/*
-+	 * convert bit_frame
-+	 * We need to flip clock_provider if it was CPU node,
-+	 * because it is Codec base.
++	 * Single CPU / Codec
 +	 */
-+	daiclk = snd_soc_daifmt_clock_provider_from_bitmap(bit_frame);
-+	if (is_cpu_node)
-+		daiclk = snd_soc_daifmt_clock_provider_fliped(daiclk);
-+
-+	dai_link->dai_fmt	= daifmt | daiclk;
-+	dai_link->init		= asoc_simple_dai_init;
-+	dai_link->ops		= &graph_ops;
-+	if (priv->ops)
-+		dai_link->ops	= priv->ops;
-+}
-+
-+int rich_graph_link_normal(struct asoc_simple_priv *priv,
-+			   struct device_node *lnk,
-+			   struct link_info *li)
-+{
-+	struct device_node *cpu_port = lnk;
-+	struct device_node *cpu_ep = port_to_endpoint(cpu_port);
-+	struct device_node *codec_port = of_graph_get_remote_port(cpu_ep);
-+	int ret;
-+
-+	/*
-+	 * call Codec first.
-+	 * see
-+	 *	__graph_parse_node() :: DAI Naming
-+	 */
-+	ret = graph_parse_node(priv, GRAPH_NORMAL, codec_port, li, 0);
-+	if (ret < 0)
-+		goto err;
-+
-+	/*
-+	 * call CPU, and set DAI Name
-+	 */
-+	ret = graph_parse_node(priv, GRAPH_NORMAL, cpu_port, li, 1);
-+	if (ret < 0)
-+		goto err;
-+
-+	graph_link_init(priv, cpu_port, li, 1);
-+err:
-+	of_node_put(codec_port);
-+	of_node_put(cpu_ep);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(rich_graph_link_normal);
-+
-+static int graph_link(struct asoc_simple_priv *priv,
-+		      struct graph_custom_hooks *hooks,
-+		      enum graph_type gtype,
-+		      struct device_node *lnk,
-+		      struct link_info *li)
-+{
-+	struct device *dev = simple_priv_to_dev(priv);
-+	GRAPH_CUSTOM func = NULL;
-+	int ret = -EINVAL;
-+
-+	switch (gtype) {
-+	case GRAPH_NORMAL:
-+		if (hooks && hooks->custom_normal)
-+			func = hooks->custom_normal;
-+		else
-+			func = rich_graph_link_normal;
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	if (!func) {
-+		dev_err(dev, "non supported gtype (%d)\n", gtype);
-+		goto err;
-+	}
-+
-+	ret = func(priv, lnk, li);
-+	if (ret < 0)
-+		goto err;
-+
-+	li->link++;
-+err:
-+	return ret;
-+}
-+
-+static int graph_counter(struct device_node *lnk)
-+{
-+	/* Need Multi support later */
-+	return 1;
-+}
-+
-+static int graph_count_normal(struct asoc_simple_priv *priv,
-+			      struct device_node *lnk,
-+			      struct link_info *li)
-+{
-+	struct device_node *cpu_port = lnk;
-+	struct device_node *cpu_ep = port_to_endpoint(cpu_port);
-+	struct device_node *codec_port = of_graph_get_remote_port(cpu_ep);
-+
-+	/*
-+	 *	CPU {
-+	 * =>		lnk: port { endpoint { .. }; };
-+	 *	};
-+	 */
-+	li->num[li->link].cpus		=
-+	li->num[li->link].platforms	= graph_counter(cpu_port);
-+	li->num[li->link].codecs	= graph_counter(codec_port);
-+
-+	of_node_put(cpu_ep);
-+	of_node_put(codec_port);
-+
-+	return 0;
-+}
-+
-+static int graph_count(struct asoc_simple_priv *priv,
-+		       struct graph_custom_hooks *hooks,
-+		       enum graph_type gtype,
-+		       struct device_node *lnk,
-+		       struct link_info *li)
-+{
-+	struct device *dev = simple_priv_to_dev(priv);
-+	GRAPH_CUSTOM func = NULL;
-+	int ret = -EINVAL;
-+
-+	if (li->link >= SNDRV_MAX_LINKS) {
-+		dev_err(dev, "too many links\n");
-+		return ret;
-+	}
-+
-+	switch (gtype) {
-+	case GRAPH_NORMAL:
-+		func = graph_count_normal;
-+		break;
-+	default:
-+	}
-+
-+	if (!func) {
-+		dev_err(dev, "non supported gtype (%d)\n", gtype);
-+		goto err;
-+	}
-+
-+	ret = func(priv, lnk, li);
-+	if (ret < 0)
-+		goto err;
-+
-+	li->link++;
-+err:
-+	return ret;
-+}
-+
-+static int graph_for_each_link(struct asoc_simple_priv *priv,
-+			       struct graph_custom_hooks *hooks,
-+			       struct link_info *li,
-+			       int (*func)(struct asoc_simple_priv *priv,
-+					   struct graph_custom_hooks *hooks,
-+					   enum graph_type gtype,
-+					   struct device_node *lnk,
-+					   struct link_info *li))
-+{
-+	struct of_phandle_iterator it;
-+	struct device *dev = simple_priv_to_dev(priv);
-+	struct device_node *node = dev->of_node;
-+	struct device_node *lnk;
-+	enum graph_type gtype;
-+	int rc, ret;
-+
-+	/* loop for all listed CPU port */
-+	of_for_each_phandle(&it, rc, node, "links", NULL, 0) {
-+		lnk = it.node;
-+
-+		gtype = graph_get_type(priv, lnk);
-+
-+		ret = func(priv, hooks, gtype, lnk, li);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+int rich_graph_parse_of(struct asoc_simple_priv *priv, struct device *dev,
-+			struct graph_custom_hooks *hooks)
-+{
-+	struct snd_soc_card *card = simple_priv_to_card(priv);
-+	struct link_info *li;
-+	int ret;
-+
-+	dev_warn(dev, "Audio Graph Card2 is still under Experimental stage\n");
-+
-+	li = devm_kzalloc(dev, sizeof(*li), GFP_KERNEL);
-+	if (!li)
-+		return -ENOMEM;
-+
-+	card->probe	= asoc_graph_card_probe;
-+	card->owner	= THIS_MODULE;
-+	card->dev	= dev;
-+
-+	if ((hooks) && (hooks)->hook_pre) {
-+		ret = (hooks)->hook_pre(priv);
-+		if (ret < 0)
-+			goto err;
-+	}
-+
-+	ret = graph_for_each_link(priv, hooks, li, graph_count);
-+	if (!li->link)
-+		ret = -EINVAL;
-+	if (ret < 0)
-+		goto err;
-+
-+	ret = asoc_simple_init_priv(priv, li);
-+	if (ret < 0)
-+		goto err;
-+
-+	priv->pa_gpio = devm_gpiod_get_optional(dev, "pa", GPIOD_OUT_LOW);
-+	if (IS_ERR(priv->pa_gpio)) {
-+		ret = PTR_ERR(priv->pa_gpio);
-+		dev_err(dev, "failed to get amplifier gpio: %d\n", ret);
-+		goto err;
-+	}
-+
-+	ret = asoc_simple_parse_widgets(card, NULL);
-+	if (ret < 0)
-+		goto err;
-+
-+	ret = asoc_simple_parse_routing(card, NULL);
-+	if (ret < 0)
-+		goto err;
-+
-+	memset(li, 0, sizeof(*li));
-+	ret = graph_for_each_link(priv, hooks, li, graph_link);
-+	if (ret < 0)
-+		goto err;
-+
-+	ret = asoc_simple_parse_card_name(card, NULL);
-+	if (ret < 0)
-+		goto err;
-+
-+	snd_soc_card_set_drvdata(card, priv);
-+
-+	if ((hooks) && (hooks)->hook_post) {
-+		ret = (hooks)->hook_post(priv);
-+		if (ret < 0)
-+			goto err;
-+	}
-+
-+	asoc_simple_debug_info(priv);
-+
-+	ret = devm_snd_soc_register_card(dev, card);
-+err:
-+	devm_kfree(dev, li);
-+
-+	if ((ret < 0) && (ret != -EPROBE_DEFER))
-+		dev_err(dev, "parse error %d\n", ret);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(rich_graph_parse_of);
-+
-+static int graph_probe(struct platform_device *pdev)
-+{
-+	struct asoc_simple_priv *priv;
-+	struct device *dev = &pdev->dev;
-+
-+	/* Allocate the private data and the DAI link array */
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	return rich_graph_parse_of(priv, dev, NULL);
-+}
-+
-+static const struct of_device_id graph_of_match[] = {
-+	{ .compatible = "rich-graph-card", },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, graph_of_match);
-+
-+static struct platform_driver graph_card = {
-+	.driver = {
-+		.name = "asoc-rich-graph-card",
-+		.pm = &snd_soc_pm_ops,
-+		.of_match_table = graph_of_match,
-+	},
-+	.probe	= graph_probe,
-+	.remove	= asoc_simple_remove,
-+};
-+module_platform_driver(graph_card);
-+
-+MODULE_ALIAS("platform:asoc-rich-graph-card");
-+MODULE_LICENSE("GPL v2");
-+MODULE_DESCRIPTION("ASoC Rich Graph Card");
-+MODULE_AUTHOR("Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>");
++	else
++		return 1;
+ }
+ 
+ static int graph_count_normal(struct asoc_simple_priv *priv,
 -- 
 2.25.1
 

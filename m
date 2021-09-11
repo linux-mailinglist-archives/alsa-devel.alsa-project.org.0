@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 920E7407975
-	for <lists+alsa-devel@lfdr.de>; Sat, 11 Sep 2021 18:06:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F71C407984
+	for <lists+alsa-devel@lfdr.de>; Sat, 11 Sep 2021 18:15:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 229D315DC;
-	Sat, 11 Sep 2021 18:05:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 229D315DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id C770B3E;
+	Sat, 11 Sep 2021 18:14:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C770B3E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631376388;
-	bh=8Oy5wfOm4wOYSTovPAQXPAKkzbeBwKK3mgI8j3u1RH4=;
+	s=default; t=1631376917;
+	bh=FpxOXolyU6XZZZHTJqLsAk5Lapxp+KEVglsqr8OEsPQ=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sJkQ6Tn0EqEOzkH7gyPEFQbSVf3PEpgoZnn0psAJDK5zwhTcq/15nesV8zVuZ2Ocf
-	 ZombQypfQBrUn67P4APja3VbxrJMQkpPmZuqg0hOIxRaxbhu06/s96DfedEfPJ/UBe
-	 jVJsHPUwvrrUTlHUbPvKVIcVSr712EU1XTKvXASw=
+	b=Hbq++VHTUGxKHjVaSh7T3XrmRCh9REh1psUPyM2B3UA5lsQwjcCyrCY5Zs6EwYnmV
+	 MLIlcH/fBml/m8LJwouL36fZVoaEEfThzNeM+dnJMjgq4yHgLsbwkTPMrvXYAvf0p0
+	 O0odsyxHQm2uHkHZPnsebnOT+NT+Y2Iqk4WO3aYw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 823C4F80253;
-	Sat, 11 Sep 2021 18:05:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0CD0CF80253;
+	Sat, 11 Sep 2021 18:14:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E44F6F80224; Sat, 11 Sep 2021 18:05:08 +0200 (CEST)
+ id E5633F80224; Sat, 11 Sep 2021 18:13:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,24 +33,23 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 83FC7F800AE
- for <alsa-devel@alsa-project.org>; Sat, 11 Sep 2021 18:04:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83FC7F800AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D6FDF800AE
+ for <alsa-devel@alsa-project.org>; Sat, 11 Sep 2021 18:13:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D6FDF800AE
 Received: from jic23-huawei (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
  [81.101.6.87])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E1A5560F9C;
- Sat, 11 Sep 2021 16:04:52 +0000 (UTC)
-Date: Sat, 11 Sep 2021 17:08:23 +0100
+ by mail.kernel.org (Postfix) with ESMTPSA id 354FB611CC;
+ Sat, 11 Sep 2021 16:13:46 +0000 (UTC)
+Date: Sat, 11 Sep 2021 17:17:17 +0100
 From: Jonathan Cameron <jic23@kernel.org>
 To: Olivier Moysan <olivier.moysan@foss.st.com>
-Subject: Re: [PATCH 4/7] iio: adc: stm32-adc: add support of generic
- channels binding
-Message-ID: <20210911170823.292aa672@jic23-huawei>
-In-Reply-To: <20210908155452.25458-5-olivier.moysan@foss.st.com>
+Subject: Re: [PATCH 5/7] iio: adc: stm32-adc: add support of internal channels
+Message-ID: <20210911171717.1de504ea@jic23-huawei>
+In-Reply-To: <20210908155452.25458-6-olivier.moysan@foss.st.com>
 References: <20210908155452.25458-1-olivier.moysan@foss.st.com>
- <20210908155452.25458-5-olivier.moysan@foss.st.com>
+ <20210908155452.25458-6-olivier.moysan@foss.st.com>
 X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.30; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -77,180 +76,304 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 8 Sep 2021 17:54:49 +0200
+On Wed, 8 Sep 2021 17:54:50 +0200
 Olivier Moysan <olivier.moysan@foss.st.com> wrote:
 
-> Add support of generic IIO channel binding:
-> ./devicetree/bindings/iio/adc/adc.yaml
-> Keep support of st,adc-channels and st,adc-diff-channels
-> for backward compatibility.
+> Add support of ADC2 internal channels VDDCORE, VREFINT and VBAT.
+> The reserved label name "vddcore", "vrefint" and "vbat" must
+> be used in Device Tree channel node, to enable the corresponding
+> internal channel.
+> 
+> Note: This patch does not provide support of internal channels
+> for F4 and H7.
 > 
 > Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+One query inline about the fact that the description is very generic (allows
+different register for each internal channel) but the code using it is not
+quite so generic.  If we can make them both very generic it will be both
+more logic to read and hopefully more extensible in the future.
 
-Hi Olivier,
-
-A few minor things inline.
-
-Thanks,
-
-Jonathan
+J
 
 > ---
->  drivers/iio/adc/stm32-adc.c | 99 +++++++++++++++++++++++++++++++++----
->  1 file changed, 90 insertions(+), 9 deletions(-)
+>  drivers/iio/adc/stm32-adc-core.h |   8 ++
+>  drivers/iio/adc/stm32-adc.c      | 123 ++++++++++++++++++++++++++++++-
+>  2 files changed, 128 insertions(+), 3 deletions(-)
 > 
+> diff --git a/drivers/iio/adc/stm32-adc-core.h b/drivers/iio/adc/stm32-adc-core.h
+> index 2322809bfd2f..7c924f463f67 100644
+> --- a/drivers/iio/adc/stm32-adc-core.h
+> +++ b/drivers/iio/adc/stm32-adc-core.h
+> @@ -102,6 +102,9 @@
+>  #define STM32H7_ADC_CALFACT		0xC4
+>  #define STM32H7_ADC_CALFACT2		0xC8
+>  
+> +/* STM32MP1 - ADC2 instance option register */
+> +#define STM32MP1_ADC2_OR		0xD0
+> +
+>  /* STM32H7 - common registers for all ADC instances */
+>  #define STM32H7_ADC_CSR			(STM32_ADCX_COMN_OFFSET + 0x00)
+>  #define STM32H7_ADC_CCR			(STM32_ADCX_COMN_OFFSET + 0x08)
+> @@ -168,11 +171,16 @@ enum stm32h7_adc_dmngt {
+>  #define STM32H7_EOC_MST			BIT(2)
+>  
+>  /* STM32H7_ADC_CCR - bit fields */
+> +#define STM32H7_VBATEN			BIT(24)
+> +#define STM32H7_VREFEN			BIT(22)
+>  #define STM32H7_PRESC_SHIFT		18
+>  #define STM32H7_PRESC_MASK		GENMASK(21, 18)
+>  #define STM32H7_CKMODE_SHIFT		16
+>  #define STM32H7_CKMODE_MASK		GENMASK(17, 16)
+>  
+> +/* STM32MP1_ADC2_OR - bit fields */
+> +#define STM32MP1_VDDCOREEN		BIT(0)
+> +
+>  /**
+>   * struct stm32_adc_common - stm32 ADC driver common data (for all instances)
+>   * @base:		control registers base cpu addr
 > diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> index 2f137d14f141..ae4a314854f7 100644
+> index ae4a314854f7..ef3d2af98025 100644
 > --- a/drivers/iio/adc/stm32-adc.c
 > +++ b/drivers/iio/adc/stm32-adc.c
-> @@ -35,7 +35,7 @@
->  #define STM32H7_BOOST_CLKRATE		20000000UL
->  
->  #define STM32_ADC_CH_MAX		20	/* max number of channels */
-> -#define STM32_ADC_CH_SZ			10	/* max channel name size */
-> +#define STM32_ADC_CH_SZ			16	/* max channel name size */
->  #define STM32_ADC_MAX_SQ		16	/* SQ1..SQ16 */
->  #define STM32_ADC_MAX_SMP		7	/* SMPx range is [0..7] */
+> @@ -41,6 +41,7 @@
 >  #define STM32_ADC_TIMEOUT_US		100000
-> @@ -1732,6 +1732,11 @@ static int stm32_adc_get_legacy_chan_count(struct iio_dev *indio_dev, struct stm
->  		num_channels += ret;
->  	}
+>  #define STM32_ADC_TIMEOUT	(msecs_to_jiffies(STM32_ADC_TIMEOUT_US / 1000))
+>  #define STM32_ADC_HW_STOP_DELAY_MS	100
+> +#define STM32_ADC_CHAN_NONE		-1
 >  
-> +	if (!num_channels) {
-> +		dev_err(indio_dev->dev.parent, "No channel found\n");
-> +		return -ENODATA;
-
-I'd return 0 and handle this at the caller.   Both because it makes this
-patch more readable and because a count of 0 isn't an error of the function
-reading how many they are, but rather at a higher level.
-
-> +	}
+>  #define STM32_DMA_BUFFER_SIZE		PAGE_SIZE
+>  
+> @@ -77,6 +78,29 @@ enum stm32_adc_extsel {
+>  	STM32_EXT20,
+>  };
+>  
+> +enum stm32_adc_int_ch {
+> +	STM32_ADC_INT_CH_VDDCORE,
+> +	STM32_ADC_INT_CH_VREFINT,
+> +	STM32_ADC_INT_CH_VBAT,
+> +	STM32_ADC_INT_CH_NB,
+> +};
 > +
->  	return num_channels;
->  }
->  
-> @@ -1792,6 +1797,73 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
->  	return scan_index;
->  }
->  
-> +static int stm32_adc_generic_chan_init(struct iio_dev *indio_dev,
-> +				       struct stm32_adc *adc,
-> +				       struct iio_chan_spec *channels)
-> +{
-> +	struct device_node *node = indio_dev->dev.of_node;
-> +	const struct stm32_adc_info *adc_info = adc->cfg->adc_info;
-> +	struct device_node *child;
+> +/**
+> + * struct stm32_adc_ic - ADC internal channels
+> + * @name:	name of the internal channel
+> + * @idx:	internal channel enum index
+> + */
+> +struct stm32_adc_ic {
 > +	const char *name;
-> +	int val, scan_index = 0, ret;
-> +	bool differential;
-> +	u32 vin[2];
+> +	u32 idx;
+> +};
 > +
-> +	for_each_available_child_of_node(node, child) {
-> +		ret = of_property_read_u32(child, "reg", &val);
-> +		if (ret) {
-> +			dev_err(&indio_dev->dev, "Missing channel index %d\n", ret);
-> +			goto err;
+> +static const struct stm32_adc_ic stm32_adc_ic[STM32_ADC_INT_CH_NB] = {
+> +	{ "vddcore", STM32_ADC_INT_CH_VDDCORE },
+> +	{ "vrefint", STM32_ADC_INT_CH_VREFINT },
+> +	{ "vbat", STM32_ADC_INT_CH_VBAT },
+> +};
+> +
+>  /**
+>   * struct stm32_adc_trig_info - ADC trigger info
+>   * @name:		name of the trigger, corresponding to its source
+> @@ -126,6 +150,9 @@ struct stm32_adc_regs {
+>   * @res:		resolution selection register & bitfield
+>   * @smpr:		smpr1 & smpr2 registers offset array
+>   * @smp_bits:		smpr1 & smpr2 index and bitfields
+> + * @or_vdd:		option register & vddcore bitfield
+> + * @ccr_vbat:		common register & vbat bitfield
+> + * @ccr_vref:		common register & vrefint bitfield
+>   */
+>  struct stm32_adc_regspec {
+>  	const u32 dr;
+> @@ -139,6 +166,9 @@ struct stm32_adc_regspec {
+>  	const struct stm32_adc_regs res;
+>  	const u32 smpr[2];
+>  	const struct stm32_adc_regs *smp_bits;
+> +	const struct stm32_adc_regs or_vdd;
+> +	const struct stm32_adc_regs ccr_vbat;
+> +	const struct stm32_adc_regs ccr_vref;
+>  };
+>  
+>  struct stm32_adc;
+> @@ -195,6 +225,7 @@ struct stm32_adc_cfg {
+>   * @cal:		optional calibration data on some devices
+>   * @chan_name:		channel name array
+>   * @num_diff:		number of differential channels
+> + * @int_ch:		internal channel indexes array
+>   */
+>  struct stm32_adc {
+>  	struct stm32_adc_common	*common;
+> @@ -219,6 +250,7 @@ struct stm32_adc {
+>  	struct stm32_adc_calib	cal;
+>  	char			chan_name[STM32_ADC_CH_MAX][STM32_ADC_CH_SZ];
+>  	u32			num_diff;
+> +	int			int_ch[STM32_ADC_INT_CH_NB];
+>  };
+>  
+>  struct stm32_adc_diff_channel {
+> @@ -451,6 +483,24 @@ static const struct stm32_adc_regspec stm32h7_adc_regspec = {
+>  	.smp_bits = stm32h7_smp_bits,
+>  };
+>  
+> +static const struct stm32_adc_regspec stm32mp1_adc_regspec = {
+> +	.dr = STM32H7_ADC_DR,
+> +	.ier_eoc = { STM32H7_ADC_IER, STM32H7_EOCIE },
+> +	.ier_ovr = { STM32H7_ADC_IER, STM32H7_OVRIE },
+> +	.isr_eoc = { STM32H7_ADC_ISR, STM32H7_EOC },
+> +	.isr_ovr = { STM32H7_ADC_ISR, STM32H7_OVR },
+> +	.sqr = stm32h7_sq,
+> +	.exten = { STM32H7_ADC_CFGR, STM32H7_EXTEN_MASK, STM32H7_EXTEN_SHIFT },
+> +	.extsel = { STM32H7_ADC_CFGR, STM32H7_EXTSEL_MASK,
+> +		    STM32H7_EXTSEL_SHIFT },
+> +	.res = { STM32H7_ADC_CFGR, STM32H7_RES_MASK, STM32H7_RES_SHIFT },
+> +	.smpr = { STM32H7_ADC_SMPR1, STM32H7_ADC_SMPR2 },
+> +	.smp_bits = stm32h7_smp_bits,
+> +	.or_vdd = { STM32MP1_ADC2_OR, STM32MP1_VDDCOREEN },
+> +	.ccr_vbat = { STM32H7_ADC_CCR, STM32H7_VBATEN },
+> +	.ccr_vref = { STM32H7_ADC_CCR, STM32H7_VREFEN },
+> +};
+> +
+>  /*
+>   * STM32 ADC registers access routines
+>   * @adc: stm32 adc instance
+> @@ -579,6 +629,61 @@ static int stm32_adc_hw_start(struct device *dev)
+>  	return ret;
+>  }
+>  
+> +static void stm32_adc_int_ch_enable(struct iio_dev *indio_dev)
+> +{
+> +	struct stm32_adc *adc = iio_priv(indio_dev);
+> +	u32 i, val, bits = 0, offset = 0;
+> +
+> +	for (i = 0; i < STM32_ADC_INT_CH_NB; i++) {
+> +		if (adc->int_ch[i] == STM32_ADC_CHAN_NONE)
+> +			continue;
+> +
+> +		switch (i) {
+> +		case STM32_ADC_INT_CH_VDDCORE:
+> +			dev_dbg(&indio_dev->dev, "Enable VDDCore\n");
+> +			stm32_adc_set_bits(adc, adc->cfg->regs->or_vdd.reg,
+> +					   adc->cfg->regs->or_vdd.mask);
+> +			break;
+> +		case STM32_ADC_INT_CH_VREFINT:
+> +			dev_dbg(&indio_dev->dev, "Enable VREFInt\n");
+> +			offset = adc->cfg->regs->ccr_vref.reg;
+> +			bits |= adc->cfg->regs->ccr_vref.mask;
+> +			break;
+> +		case STM32_ADC_INT_CH_VBAT:
+> +			dev_dbg(&indio_dev->dev, "Enable VBAT\n");
+> +			offset = adc->cfg->regs->ccr_vbat.reg;
+> +			bits |= adc->cfg->regs->ccr_vbat.mask;
+> +			break;
 > +		}
-> +
-> +		ret = of_property_read_string(child, "label", &name);
-> +		/* label is optional */
-> +		if (!ret) {
-> +			if (strlen(name) >= STM32_ADC_CH_SZ) {
-> +				dev_err(&indio_dev->dev, "Label %s exceeds %d characters\n",
-> +					name, STM32_ADC_CH_SZ);
-> +				return -EINVAL;
-> +			}
-> +			strncpy(adc->chan_name[val], name, STM32_ADC_CH_SZ);
-> +		} else if (ret != -EINVAL) {
-> +			dev_err(&indio_dev->dev, "Invalid label %d\n", ret);
-> +			goto err;
-> +		}
-> +
-> +		if (val >= adc_info->max_channels) {
-> +			dev_err(&indio_dev->dev, "Invalid channel %d\n", val);
-> +			ret = -EINVAL;
-> +			goto err;
-> +		}
-> +
-> +		differential = false;
-> +		ret = of_property_read_u32_array(child, "diff-channels", vin, 2);
-> +		/* diff-channels is optional */
-> +		if (!ret) {
-> +			differential = true;
-> +			if (vin[0] != val || vin[1] >= adc_info->max_channels) {
-> +				dev_err(&indio_dev->dev, "Invalid channel in%d-in%d\n",
-> +					vin[0], vin[1]);
-> +				goto err;
-> +			}
-> +		} else if (ret != -EINVAL) {
-> +			dev_err(&indio_dev->dev, "Invalid diff-channels property %d\n", ret);
-> +			goto err;
-> +		}
-> +
-> +		stm32_adc_chan_init_one(indio_dev, &channels[scan_index], val,
-> +					vin[1], scan_index, differential);
-> +		scan_index++;
 > +	}
 > +
-> +	return scan_index;
-> +
-> +err:
-> +	of_node_put(child);
-> +
-> +	return ret;
+> +	if (bits) {
+> +		val = readl_relaxed(adc->common->base + offset);
+> +		val |= bits;
+> +		writel_relaxed(val, adc->common->base + offset);
+> +	}
 > +}
 > +
->  static int stm32_adc_chan_of_init(struct iio_dev *indio_dev, bool timestamping)
->  {
->  	struct device_node *node = indio_dev->dev.of_node;
-> @@ -1800,15 +1872,21 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev, bool timestamping)
->  	struct iio_chan_spec *channels;
->  	int scan_index = 0, num_channels = 0, ret, i;
->  	u32 smp = 0;
-> +	bool legacy = false;
->  
-> -	ret = stm32_adc_get_legacy_chan_count(indio_dev, adc);
-> -	if (ret < 0)
-> -		return ret;
-> -	num_channels = ret;
-> -
-> +	num_channels = of_get_available_child_count(node);
-> +	/*
-> +	 * If no channels have been found, fallback to channels legacy properties.
-> +	 * Legacy channel properties will be ignored, if some channels are
-
-drop the ,
-
-Legacy channel properties will be ignored if some channels...
-
-
-> +	 * already defined using the standard binding.
-> +	 */
->  	if (!num_channels) {
-> -		dev_err(&indio_dev->dev, "No channels configured\n");
-> -		return -ENODATA;
-> +		ret = stm32_adc_get_legacy_chan_count(indio_dev, adc);
-> +		if (ret < 0)
-> +			return ret;
+> +static void stm32_adc_int_ch_disable(struct stm32_adc *adc)
+> +{
+> +	u32 val, bits, offset, i;
 > +
-> +		legacy = true;
+> +	stm32_adc_clr_bits(adc, adc->cfg->regs->or_vdd.reg,
+> +			   adc->cfg->regs->or_vdd.mask);
+> +
+> +	for (i = 0; i < STM32_ADC_INT_CH_NB; i++) {
+> +		if (adc->int_ch[i] != STM32_ADC_CHAN_NONE) {
 
-Trivial but I would set legacy at top of this if block so it is nearer the comment.
+If this is true then I think no need to do the or_vdd clear either?
 
-> +		num_channels = ret;
->  	}
+This code doesn't feel particularly generic given we are listing ccr_vbat
+and ccr_vref separately.
+
+How painful would it be to handle the two parts independently?
+stm32_adc_clr_bits(adc, adc->cfg->regs->ccr_vbat.reg,
+		  adc->cfg_regs->ccr_vbat.mask);
+stm32_adc_clr_bits(adc, adc->cfg->regs->ccr_vref.reg,
+		   adc->cfg_regs-ccr_vref.mask);
+
+
+> +			offset = adc->cfg->regs->ccr_vref.reg;
+> +			bits = adc->cfg->regs->ccr_vref.mask |
+> +				adc->cfg->regs->ccr_vbat.mask;
+> +			val = readl_relaxed(adc->common->base + offset);
+> +			val &= ~bits;
+> +			writel_relaxed(bits, adc->common->base + offset);
+> +			break;
+> +		}
+> +	}
+> +}
+> +
+>  /**
+>   * stm32f4_adc_start_conv() - Start conversions for regular channels.
+>   * @indio_dev: IIO device instance
+> @@ -947,11 +1052,13 @@ static int stm32h7_adc_prepare(struct iio_dev *indio_dev)
+>  		goto pwr_dwn;
+>  	calib = ret;
 >  
->  	if (num_channels > adc_info->max_channels) {
-> @@ -1832,7 +1910,10 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev, bool timestamping)
->  	if (!channels)
->  		return -ENOMEM;
+> +	stm32_adc_int_ch_enable(indio_dev);
+> +
+>  	stm32_adc_writel(adc, STM32H7_ADC_DIFSEL, adc->difsel);
 >  
-> -	ret = stm32_adc_legacy_chan_init(indio_dev, adc, channels);
-> +	if (legacy)
-> +		ret = stm32_adc_legacy_chan_init(indio_dev, adc, channels);
-> +	else
-> +		ret = stm32_adc_generic_chan_init(indio_dev, adc, channels);
->  	if (ret < 0)
->  		return ret;
->  	scan_index = ret;
+>  	ret = stm32h7_adc_enable(indio_dev);
+>  	if (ret)
+> -		goto pwr_dwn;
+> +		goto ch_disable;
+>  
+>  	/* Either restore or read calibration result for future reference */
+>  	if (calib)
+> @@ -967,6 +1074,8 @@ static int stm32h7_adc_prepare(struct iio_dev *indio_dev)
+>  
+>  disable:
+>  	stm32h7_adc_disable(indio_dev);
+> +ch_disable:
+> +	stm32_adc_int_ch_disable(adc);
+>  pwr_dwn:
+>  	stm32h7_adc_enter_pwr_down(adc);
+>  
+> @@ -978,6 +1087,7 @@ static void stm32h7_adc_unprepare(struct iio_dev *indio_dev)
+>  	struct stm32_adc *adc = iio_priv(indio_dev);
+>  
+>  	stm32h7_adc_disable(indio_dev);
+> +	stm32_adc_int_ch_disable(adc);
+>  	stm32h7_adc_enter_pwr_down(adc);
+>  }
+>  
+> @@ -1805,10 +1915,13 @@ static int stm32_adc_generic_chan_init(struct iio_dev *indio_dev,
+>  	const struct stm32_adc_info *adc_info = adc->cfg->adc_info;
+>  	struct device_node *child;
+>  	const char *name;
+> -	int val, scan_index = 0, ret;
+> +	int val, scan_index = 0, ret, i;
+>  	bool differential;
+>  	u32 vin[2];
+>  
+> +	for (i = 0; i < STM32_ADC_INT_CH_NB; i++)
+> +		adc->int_ch[i] = STM32_ADC_CHAN_NONE;
+> +
+>  	for_each_available_child_of_node(node, child) {
+>  		ret = of_property_read_u32(child, "reg", &val);
+>  		if (ret) {
+> @@ -1825,6 +1938,10 @@ static int stm32_adc_generic_chan_init(struct iio_dev *indio_dev,
+>  				return -EINVAL;
+>  			}
+>  			strncpy(adc->chan_name[val], name, STM32_ADC_CH_SZ);
+> +			for (i = 0; i < STM32_ADC_INT_CH_NB; i++) {
+> +				if (!strncmp(stm32_adc_ic[i].name, name, STM32_ADC_CH_SZ))
+> +					adc->int_ch[i] = val;
+> +			}
+>  		} else if (ret != -EINVAL) {
+>  			dev_err(&indio_dev->dev, "Invalid label %d\n", ret);
+>  			goto err;
+> @@ -2223,7 +2340,7 @@ static const struct stm32_adc_cfg stm32h7_adc_cfg = {
+>  };
+>  
+>  static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
+> -	.regs = &stm32h7_adc_regspec,
+> +	.regs = &stm32mp1_adc_regspec,
+>  	.adc_info = &stm32h7_adc_info,
+>  	.trigs = stm32h7_adc_trigs,
+>  	.has_vregready = true,
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C69C44089B6
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 12:59:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77FA74089A5
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 12:59:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 72A0A165E;
-	Mon, 13 Sep 2021 12:59:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72A0A165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0144F166B;
+	Mon, 13 Sep 2021 12:58:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0144F166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631530797;
-	bh=adzHkMe7QmqPw8mLlHRzTAcZPu5KFFN4TF0NE5fBBzI=;
+	s=default; t=1631530761;
+	bh=urr39NOGuja/lGKt2SGPTT+gIVGhKMI6/EA0sZmCwDU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MQS7+96EHao8LtlaBnRchhr5wuMoUBTmWKY1lR8cfF6hSMrASv8/3l7BtVBfd1QWi
-	 a2mNv7EYzAXr85bEPBKlikco1Y/DHhBnFvQfJkHISfx77T2MI2yLgFBXmn0WCBIbM4
-	 eXLQAuEFuDKnBJuix0vurtDpFdwIViMSLejHjV0g=
+	b=OhqCKO62V6DktC0iIRNJIemjPu0ttPTZWoynF2EPgsO/4VbAj1fffrJfs4kkWJJdR
+	 i3XL1clsHEvGnniamCKjGw/BcoOxXInFjuQ1DuHECPVzvYPZyS1VhvZDHAWIoCpwU4
+	 rxF3sMDe9BycKJeLoRboTbjg19RIcWzxOKs5Wc9U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5E45F80537;
-	Mon, 13 Sep 2021 12:55:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2802DF80525;
+	Mon, 13 Sep 2021 12:55:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9B2AF80511; Mon, 13 Sep 2021 12:55:13 +0200 (CEST)
+ id C1CAAF80517; Mon, 13 Sep 2021 12:55:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,42 +33,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 77049F80510
- for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 12:55:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77049F80510
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0B40AF80511
+ for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 12:55:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B40AF80511
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="j8Ntwz91"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0E90861004;
- Mon, 13 Sep 2021 10:55:03 +0000 (UTC)
+ header.b="AJfJr76P"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 98ADF60F12;
+ Mon, 13 Sep 2021 10:55:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631530504;
- bh=adzHkMe7QmqPw8mLlHRzTAcZPu5KFFN4TF0NE5fBBzI=;
+ s=k20201202; t=1631530507;
+ bh=urr39NOGuja/lGKt2SGPTT+gIVGhKMI6/EA0sZmCwDU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=j8Ntwz91WlimLio4nImgaFi/iKuvbcXXcsfwl/+3mdXBR6WtISZlRBF9WYxKnj0PI
- iqihBxsZWawgUnhmJp8KLd9knRR7kL3jJy06N8qwYplhfmPn+EbVqdJhCg3E8Ye58L
- aTRTMIXtz6so53Of6/XP/YQdO1lAcn17qHE3GvS7MSzqb9L2wvrMdIZixEcUU+nmdF
- MAM+tKWA644giBPOl2YJa+QTVyndPvljFoHMIlBNeswnlDF76gUz1XoFZGUVIMRSrH
- Yyn8Z6VMncU42MfgtJ0tLf8j51eul68NtespESTVcRVltD3yrBIqHKCqmflY4KxxwK
- K3AWl5v1bW4Gw==
+ b=AJfJr76POGgvpM5rCUsq+i2wYlQgi5jAlIBZU+b//YVvDtLhmziQWAfMVyxQ8fvgD
+ v0B25QhGiO2PBZYWPM1NmGG0OLxxUhh0rxVnKxf5HDUnOPknRIBq0RDvqo4HBEd0u2
+ XubiicoX6qQvLA4ciQssPr/JjemugSu65hjA+1xCCQSHotfUzrBZCiQ9bqRsKoWpki
+ XdHTIXZflo9yc5QHN96hXVzjfK7Lr5TVAPgaXb/FKhvxcmbEVjbDGppx2yo7J9Y4nT
+ zREmLQrhM7wqeZ0tyniIOkmTfBKPB6M8xma9kaWpejNYx0KxmMr1t9hWnaTCjEveXV
+ j4WI4k6zbdkBg==
 From: Mark Brown <broonie@kernel.org>
-To: Matthias Brugger <matthias.bgg@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, linux-arm-kernel@lists.infradead.org,
- Colin King <colin.king@canonical.com>, Liam Girdwood <lgirdwood@gmail.com>,
- alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH] ASoC: mediatek: mt8195: Fix unused initialization of
- pointer etdm_data
-Date: Mon, 13 Sep 2021 11:53:24 +0100
-Message-Id: <163152996585.45703.6144242874194833843.b4-ty@kernel.org>
+To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	lgirdwood@gmail.com
+Subject: Re: [PATCH v2] ASoC: SOF: Handle control change notification from
+ firmware
+Date: Mon, 13 Sep 2021 11:53:25 +0100
+Message-Id: <163152996584.45703.5186420214553492923.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210903114928.11743-1-colin.king@canonical.com>
-References: <20210903114928.11743-1-colin.king@canonical.com>
+In-Reply-To: <20210903114018.2962-1-peter.ujfalusi@linux.intel.com>
+References: <20210903114018.2962-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Cc: guennadi.liakhovetski@linux.intel.com, alsa-devel@alsa-project.org,
+ kai.vehmanen@linux.intel.com, seppo.ingalsuo@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,13 +82,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 3 Sep 2021 12:49:28 +0100, Colin King wrote:
-> From: Colin Ian King <colin.king@canonical.com>
+On Fri, 3 Sep 2021 14:40:18 +0300, Peter Ujfalusi wrote:
+> If the value/data associated with a control changes in SOF it will send a
+> notification (SOF_IPC_GLB_COMP_MSG with SOF_IPC_COMP_GET_VALUE/DATA).
 > 
-> The pointer etdm_data is being inintialized with a value that is never
-> read, it is later being re-assigned a new value. Remove the redundant
-> initialization.
-> 
+> We have support for binary volatile control type, but we might have
+> features where enum/switch/volume changes. Re-implementing everything as
+> volatile as well would be not much of a gain for several reasons:
+> - volatile controls would do an IPC all the time, regardless if there is a
+>   need or not.
+> - We still don't have notification which forces userspace to continuously
+>   poll.
 > 
 > [...]
 
@@ -100,8 +102,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: mediatek: mt8195: Fix unused initialization of pointer etdm_data
-      commit: d67bbdda25c4156da079312a3594a41770123abd
+[1/1] ASoC: SOF: Handle control change notification from firmware
+      commit: 756bbe4205bc63a84ab032a1b76970afe55e2d9d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

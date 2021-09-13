@@ -2,72 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FEB64089A1
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 12:58:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A25B840899F
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 12:58:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 320951664;
-	Mon, 13 Sep 2021 12:57:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 320951664
+	by alsa0.perex.cz (Postfix) with ESMTPS id 46B2C1677;
+	Mon, 13 Sep 2021 12:57:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46B2C1677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631530724;
-	bh=UdQXCUvlP9kmh6cZoF3H+UPMoLB+M2pKfYVaFGQVTVk=;
+	s=default; t=1631530694;
+	bh=oRmb9RFSDD9BpTeblLtC7yBA1uU7R97XAGDSNw6NsME=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ps0BqI+X2s5W4jtyzsTAhGiYeK6HECU+q3qGfktdk2UiGFER/ggyslP1CdF7v51dW
-	 arT6nKcanj/8r2Sr72DohcPxUgqhnT/nCe1wnoxlc3i8Ipvmt6nv/WqKxPJoWPDOh5
-	 ANNS5hBkzlHhAxYT0LrpD33YGTdmN+ukNb3DsCsE=
+	b=eb/mru4h9ysmJgteHHp1slOzwTx3m/A0X+6AEF93bjdzRxsiJK/Cm2coTxuVbJAfo
+	 x0uTjc4lpZ8m+pWgUZn4dYez+INRr5aywVJuv9JGLUNwtyhthFmHPqc4nyNJszC2V7
+	 Y23j7NRstoWuPAHichQqanR8BYKqSzhhLRSZNOnc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA24FF8051A;
-	Mon, 13 Sep 2021 12:55:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3B8FF804FB;
+	Mon, 13 Sep 2021 12:55:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1E6FF8050F; Mon, 13 Sep 2021 12:55:06 +0200 (CEST)
+ id 14F46F804FF; Mon, 13 Sep 2021 12:55:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8BACFF804FC
- for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 12:54:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BACFF804FC
+ by alsa1.perex.cz (Postfix) with ESMTPS id C42B5F804FB
+ for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 12:55:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C42B5F804FB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RACa48Jl"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5F111610A5;
- Mon, 13 Sep 2021 10:54:56 +0000 (UTC)
+ header.b="Fp4DepS+"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E35EF610A6;
+ Mon, 13 Sep 2021 10:54:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631530496;
- bh=UdQXCUvlP9kmh6cZoF3H+UPMoLB+M2pKfYVaFGQVTVk=;
+ s=k20201202; t=1631530499;
+ bh=oRmb9RFSDD9BpTeblLtC7yBA1uU7R97XAGDSNw6NsME=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=RACa48JlP1Jiqyy4/X0Bm22FKa46dh3byOWOiV9Ab/pA6LxJqbf8zU4jbfsxhBD63
- JYiiipmFluDKkMkdeR/c/iB0qivgQrJVmRXzYdikvbhCWJYsqT6u/Rtt3UB7DX3XEG
- ppjbJFBFezLVSMKflROVd563MCfuzh80yFrnCZhNgPRFMiIh+fHWNntfuuBR0YLIZL
- MPk5Jlv9r9XPHMQzpqHLH05ekFuXLEFQdXdOyYRKz7TOAjV4z09246nkjHjnwZ8ugI
- YRdM+FHdHkIytQQ2TgwUVZe7hgzoKvz7xC/LxqI1paFl3YPDx8BfPiQePe1G80YJEG
- htAtZUeM2Hs6A==
+ b=Fp4DepS+BORdOAJho0LvkruiFnEiCugLdI/LYht8Y+gr/8fyunbRswMMhfsuDTNul
+ uXFi/uY4ue8nBKZUHpfPDpIQXBbj5e1FhdsZJYBa5ldTHPT5QIYAKbPcqAg1NVeGri
+ rpWgm0SxiTGVNGwRpX7m2Gf7f7Lc1bP9g9nJ0+7KQYmwXw7Vk1Jqjo0840wLGK/slg
+ 2lLHxJDeqXQwcRFya7pUV7OZfEfk5eIuAePaiMUzwasYnfY9kw5p1v+mVd8ZS6wRuI
+ knlfaYiZWNgT8vC17H/h+QDEFQ36zjOptAT9BLdDNDm32MKMO2ZYEas65ekyvMwPGV
+ 7Ih8Dq/BKII3Q==
 From: Mark Brown <broonie@kernel.org>
-To: derek.fang@realtek.com,
-	lgirdwood@gmail.com
-Subject: Re: [PATCH RESEND v2 1/2] ASoC: rt5682s: Add driver for ALC5682I-VS
- codec
-Date: Mon, 13 Sep 2021 11:53:21 +0100
-Message-Id: <163152996586.45703.2829239783433815634.b4-ty@kernel.org>
+To: perex@perex.cz, nicoleotsuka@gmail.com, festevam@gmail.com,
+ alsa-devel@alsa-project.org, Xiubo.Lee@gmail.com,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, tiwai@suse.com, timur@kernel.org
+Subject: Re: [PATCH v2] ASoC: fsl_rpmsg: add soc specific data structure
+Date: Mon, 13 Sep 2021 11:53:22 +0100
+Message-Id: <163152996584.45703.10310868616819481458.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210907120557.1593-1-derek.fang@realtek.com>
-References: <20210907120557.1593-1-derek.fang@realtek.com>
+In-Reply-To: <1630044038-19036-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1630044038-19036-1-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, albertchen@realtek.com, Mark Brown <broonie@kernel.org>,
- shumingf@realtek.com, albertwang@realtek.com, flove@realtek.com
+Cc: Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,10 +81,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 7 Sep 2021 20:05:56 +0800, derek.fang@realtek.com wrote:
-> From: Derek Fang <derek.fang@realtek.com>
-> 
-> This is an initial codec driver for Realtek ALC5682I-VS codec.
+On Fri, 27 Aug 2021 14:00:38 +0800, Shengjiu Wang wrote:
+> Each platform has different supported rates and
+> formats, so add soc specific data for each platform.
+> This soc specific data is attached with compatible string.
 > 
 > 
 
@@ -96,10 +94,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: rt5682s: Add driver for ALC5682I-VS codec
-      commit: bdd229ab26be9aa3306d01787e1467db92df6603
-[2/2] ASoC: dt-bindings: rt5682s: add bindings for rt5682s
-      commit: 50159fdb144b73984873bf2eeb9ff45d10a67f3a
+[1/1] ASoC: fsl_rpmsg: add soc specific data structure
+      commit: b7bbbf01362720a8066e3f6d880cae6d63fc92f6
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

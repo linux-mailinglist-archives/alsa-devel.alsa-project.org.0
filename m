@@ -2,72 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3AB5408ABA
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 14:07:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0912408AEF
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 14:20:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 567221657;
-	Mon, 13 Sep 2021 14:06:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 567221657
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E02710E;
+	Mon, 13 Sep 2021 14:19:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E02710E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631534837;
-	bh=fNDdJgJ+ybHk7noJioigj3k0JJgcA+wR6btR+q83qZo=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1631535621;
+	bh=CXeL7IDgLiiA7dnIKx2ygcaY8eVXB2ULIV2sBR8cxrw=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lnkv/rdS50QZycfs3ocHt6MBg2jY8Qryr/Xzyb8YQNRAKRYbfrRsGTRdFDbiiWQYT
-	 JBxiqj++RiLoHdinUop8vFQmXetgcP7SqT+FRbSusACeqKYHrKRIhCQ06aJ9ml733Y
-	 Kggw9ptr8gqpY6ICVszsoibaMnBuzvROZ+Lq0CJY=
+	b=WPD9X3UYDqtyQwaIBjivmdtObL1oyqJg84I2h7dMk9k+qRsJhTIaFFSpj/BhKbz56
+	 dfIhquMDabtF5PETGWAEYn0D4uQwX8NE0wM0jdJBUZX4c7MbCSdcOydrdgD+QssA5d
+	 hX6ez7DSnQhYMTEUYFx3F9tpFPvwgvs1sOCeb9L0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CBBD7F802E8;
-	Mon, 13 Sep 2021 14:06:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D67FF80128;
+	Mon, 13 Sep 2021 14:19:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C7829F8027C; Mon, 13 Sep 2021 14:05:58 +0200 (CEST)
+ id 926D1F8027C; Mon, 13 Sep 2021 14:19:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from neo-zeon.de (neo-zeon.de [70.229.12.130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com
+ [209.85.161.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 204E2F80128
- for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 14:05:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 204E2F80128
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=neo-zeon.de header.i=@neo-zeon.de
- header.b="ZawltRyz"
-Received: from neo-zeon.de (localhost [127.0.0.1])
- by neo-zeon.de (OpenSMTPD) with ESMTP id d2676c6d;
- Mon, 13 Sep 2021 04:59:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=neo-zeon.de; h=subject:to
- :references:from:message-id:date:mime-version:in-reply-to
- :content-type:content-transfer-encoding; s=1; bh=uXDuXWJRJEndqd5
- 7zvLrTphIeJQ=; b=ZawltRyzGiCK0OkC9CRyUngycsWRcWwcTtw+KyWp2qSJhjl
- 2/YP4Lk69bbGIDLkYb7LCmyJsbgmT0VpLMZay0/OuZiIlPcA8G/ripRaRYQ1rtAh
- VL48F+2yJ0FZZxsHP0lMGjAO/BGzI4lZcqEpIDBPKwGb5xHSdlXDz5i8K7wM=
-Received: by neo-zeon.de (OpenSMTPD) with ESMTPSA id e709305f
- (TLSv1.3:AEAD-AES256-GCM-SHA384:256:NO); 
- Mon, 13 Sep 2021 04:59:08 -0700 (PDT)
-Subject: Re: [PATCH] ALSA: hda/realtek: Quirks to enable speaker output for
- Lenovo Legion 7i 15IMHG05, Yoga 7i 14ITL5/15ITL5, and 13s Gen2 laptops.
-To: Takashi Iwai <tiwai@suse.de>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-References: <20210912230715.156221-1-cam@neo-zeon.de>
- <s5hy281jb7l.wl-tiwai@suse.de>
-From: Cameron Berkenpas <cam@neo-zeon.de>
-Message-ID: <e1c633dc-570f-d06a-51cb-bdfd0c1a2549@neo-zeon.de>
-Date: Mon, 13 Sep 2021 04:59:08 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <s5hy281jb7l.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+ by alsa1.perex.cz (Postfix) with ESMTPS id 765A8F80132
+ for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 14:18:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 765A8F80132
+Received: by mail-oo1-f47.google.com with SMTP id
+ q26-20020a4adc5a000000b002918a69c8eeso3311583oov.13
+ for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 05:18:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=bugLB47+bgjh8v8+QK5frTd0NffoWq49bJO7kM44vYc=;
+ b=a9LNqgoHXQvx5FMm9UDPE98xZrbb+2fSSOXxK91RMPPe5WhBNwS8omOC5/6UWycM9/
+ gZ3EnY4u75cHVZjQCK4LKnfIBS2C3XIpbCVnaq33On9NwqADuQtnTVxU07LmFjZXz1HM
+ gmR93Jim+eopFpgZbx5Fr7XNQBMdeXF8ifWKbuL5UBTYRiUuUANrYuRTjCyzTI8qTpQE
+ lEokFQTqXg2XQfBxHBj1/ArI6NTHnNJbrMnikUkHjNkKjNPd7bfvxd8GRAZeuBQ8Kzcm
+ lF6VZszlNboAU3EfjK1As0xBlmsn2JKonQEdr/79KVb/B3H9AvaMqsuUaWAMb5zCLzbf
+ /a9g==
+X-Gm-Message-State: AOAM532MlAFtHwghNoL5vDjmQ1Luo6lvMcDrrfvtny/ilQLI72voe0BC
+ XCKJsBCM78V2R9wJZOkWwA==
+X-Google-Smtp-Source: ABdhPJwt0IFdigIJfxeCTtwNeM7X3ErMU+2u8b0W1BgO/3uSEqQH3pWXKI6bH07SKMAfznY2eaixBg==
+X-Received: by 2002:a4a:1506:: with SMTP id 6mr8762820oon.93.1631535529229;
+ Mon, 13 Sep 2021 05:18:49 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id q26sm1806775otf.39.2021.09.13.05.18.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 Sep 2021 05:18:48 -0700 (PDT)
+Received: (nullmailer pid 444717 invoked by uid 1000);
+ Mon, 13 Sep 2021 12:18:43 -0000
+From: Rob Herring <robh@kernel.org>
+To: David Rhodes <drhodes@opensource.cirrus.com>
+In-Reply-To: <20210911004546.2139657-3-drhodes@opensource.cirrus.com>
+References: <20210911004546.2139657-1-drhodes@opensource.cirrus.com>
+ <20210911004546.2139657-3-drhodes@opensource.cirrus.com>
+Subject: Re: [PATCH v7 2/2] ASoC: cs35l41: Add bindings for CS35L41
+Date: Mon, 13 Sep 2021 07:18:43 -0500
+Message-Id: <1631535523.185638.444716.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, brian.austin@cirrus.com,
+ ckeepax@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, pierre-louis.bossart@linux.intel.com,
+ david.rhodes@cirrus.com, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,46 +91,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 10 Sep 2021 19:45:46 -0500, David Rhodes wrote:
+> Devicetree binding documentation for CS35L41 driver
+> 
+> CS35L41 is a 11-V Boosted Mono Class D Amplifier with
+> DSP Speaker Protection and Equalization
+> 
+> Signed-off-by: David Rhodes <drhodes@opensource.cirrus.com>
+> ---
+>  .../devicetree/bindings/sound/cs35l41.yaml    | 151 ++++++++++++++++++
+>  1 file changed, 151 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/cs35l41.yaml
+> 
 
-I'll test this  and re-submit today or tomorrow. Should I re-submit the 
-patch entirely? Ie, a new email thread with a [PATCH v2] subject?
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-Thanks for the fast response! It actually made it to my inbox this time.
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/sound/cs35l41.yaml:151:9: [error] no new line character at the end of file (new-line-at-end-of-file)
 
--Cameron
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/cs35l41.yaml: 'additionalProperties' is a required property
+	hint: A schema without a "$ref" to another schema must define all properties and use "additionalProperties"
+	from schema $id: http://devicetree.org/meta-schemas/base.yaml#
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/cs35l41.yaml: ignoring, error in schema: 
+warning: no schema found in file: ./Documentation/devicetree/bindings/sound/cs35l41.yaml
+Documentation/devicetree/bindings/sound/cs35l41.example.dts:21.11-21: Warning (reg_format): /example-0/cs35l41@2:reg: property has invalid length (4 bytes) (#address-cells == 1, #size-cells == 1)
+Documentation/devicetree/bindings/sound/cs35l41.example.dt.yaml: Warning (pci_device_reg): Failed prerequisite 'reg_format'
+Documentation/devicetree/bindings/sound/cs35l41.example.dt.yaml: Warning (pci_device_bus_num): Failed prerequisite 'reg_format'
+Documentation/devicetree/bindings/sound/cs35l41.example.dt.yaml: Warning (simple_bus_reg): Failed prerequisite 'reg_format'
+Documentation/devicetree/bindings/sound/cs35l41.example.dt.yaml: Warning (i2c_bus_reg): Failed prerequisite 'reg_format'
+Documentation/devicetree/bindings/sound/cs35l41.example.dt.yaml: Warning (spi_bus_reg): Failed prerequisite 'reg_format'
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/cs35l41.example.dt.yaml: example-0: cs35l41@2:reg:0: [2] is too short
+	From schema: /usr/local/lib/python3.8/dist-packages/dtschema/schemas/reg.yaml
+Documentation/devicetree/bindings/sound/cs35l41.example.dt.yaml:0:0: /example-0/cs35l41@2: failed to match any schema with compatible: ['cirrus,cs35l41']
 
-On 9/12/21 10:28 PM, Takashi Iwai wrote:
-> On Mon, 13 Sep 2021 01:07:16 +0200,
-> Cameron Berkenpas wrote:
->> This patch initializes and enables speaker output on the Lenovo Legion 7i
->> 15IMHG05, Yoga 7i 14ITL5/15ITL5, and 13s Gen2 series of laptops using the
->> HDA verb sequence specific to each model.
->>
->> Speaker automute is disabled for the Lenovo Legion 7i 15IMHG05 to avoid
->> breaking speaker output on resume and when devices are unplugged from its
->> headphone jack.
->>
->> BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=208555
->> Signed-off-by: Cameron Berkenpas <cam@neo-zeon.de>
-> Thanks for the patch.  This version looks almost good, but just one
-> thing:
->
->> +/* Fixup for Lenovo Legion 15IMHg05 speaker output on headset removal. */
->> +static void alc287_fixup_legion_15imhg05_speakers(struct hda_codec *codec,
->> +						  const struct hda_fixup *fix,
->> +						  int action)
->> +{
->> +	struct alc_spec *spec = codec->spec;
->> +
->> +	switch (action) {
->> +	case HDA_FIXUP_ACT_INIT:
->> +		spec->gen.automute_speaker = 0;
-> This flag is effective only until "Auto-Mute Mode" mixer control is
-> changed, so it's not persistent.  If you'd need to disable the
-> auto-mute feature, set spec->gen.suppress_auto_mute=1 instead.
->
->
-> thanks,
->
-> Takashi
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/patch/1526664
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
 

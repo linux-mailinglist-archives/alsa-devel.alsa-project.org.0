@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 460564083CE
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 07:30:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A0624083D8
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 07:35:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B74CA1612;
-	Mon, 13 Sep 2021 07:29:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B74CA1612
+	by alsa0.perex.cz (Postfix) with ESMTPS id B4509165E;
+	Mon, 13 Sep 2021 07:34:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4509165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631511031;
-	bh=nGBUGThTsVR3tCGk8aVKLBHIdHk8S2uADGSQqwh8c4E=;
+	s=default; t=1631511343;
+	bh=3eD2Wtt5NoV2ykO3HqQ1Xp17MAyrqwaBXrGaIpkmWw0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lfRniLxNQM0M3ilFViXHdBcjyUCfXjBt4TeEQfTUs+JXSqkmtel0pQkP3KNf9z9c3
-	 vePoFu+Mo/PYXZ/j2hSADy+0qerN5Kp0xnAjO06Vx+V3dg6IMteWxGvxFn2tn37SZ3
-	 8O6KOy/RkPOMufPKxTLqN86+0VaTZOC2BkDFIITk=
+	b=PzAsAD7bXNqVO76b4YYM36xBgt7eKGz0t6zNauLLZn8qBoGJq7gnMVP/8SsDRM6Jn
+	 yrpCFbKlEVWiF/Q9XiAYoCojWgNkS/31rKSxaCTFaYrhYqfpzTOpDCcRnrHHFJnhq0
+	 q+850iQrG/P9X0i1MJAHSjMpkSzRUkdHkYyQlnBw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43051F802E8;
-	Mon, 13 Sep 2021 07:29:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 044A5F802E8;
+	Mon, 13 Sep 2021 07:34:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 93D91F8027C; Mon, 13 Sep 2021 07:28:44 +0200 (CEST)
+ id 943F8F8027C; Mon, 13 Sep 2021 07:34:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 86E0DF80128
- for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 07:28:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86E0DF80128
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7FEC7F80169
+ for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 07:34:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FEC7F80169
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="wISFwU1k"; 
+ header.b="Tzz6Lt95"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="iVZ2xij/"
+ header.b="//hzK2/+"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 520CC1FD66;
- Mon, 13 Sep 2021 05:28:30 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 1FB6021BF2;
+ Mon, 13 Sep 2021 05:34:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1631510910; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1631511257; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=6WruqCw4QXbhCJsJxVYo4blNJxQkr1uKwEQjg/qzjfo=;
- b=wISFwU1kjIGidbttMWo0zUfc+MA/avH4HOB6IGz/vRnJb6IlD5ITKM9qyxBKu4+0gW9C3Q
- 9zfkfui5CR9PVHivYwIKZIczwEb72ZghKPyeHLH3rkvTAtf4Lx5fp0fOHyAKKSnF+yGnQJ
- Z144DUt0goVYB4AYue2ojEa9jJc4y+g=
+ bh=FPRBstX68eqjf4e+KZ+2K5a4UQG8F3RZrT0Jo8BroT0=;
+ b=Tzz6Lt95z9+zYIbNi4o4rEup6DItpnLWaoPgcFHMRTundXQeq9DKJamZ2Tw6RPYFbzlZ7p
+ NmWCMbVA5IYsy2upHeTOukSwyIZiABZkxWmn+T48nlbm9Qjxz+8Q+EznC1TUnuarQU5TJl
+ l7dqERE8wBhun47ON7VInVq4ZknUZdU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1631510910;
+ s=susede2_ed25519; t=1631511257;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=6WruqCw4QXbhCJsJxVYo4blNJxQkr1uKwEQjg/qzjfo=;
- b=iVZ2xij/QaOy3o11tGqSfIqdRivAAubQeyPUyrOtvmZ62oFEuXylZIh1UJceOD7E9PlwdJ
- YDZvY9m4tX6dXkDA==
+ bh=FPRBstX68eqjf4e+KZ+2K5a4UQG8F3RZrT0Jo8BroT0=;
+ b=//hzK2/+tfb14AM6E5Z1sf5cDPRplhQ53q+nCoqjeEcxkE5SA21oDX3VAgpZDz/6qhu/k6
+ 9kWHra75M7EMUaDg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 42EE0A3B81;
- Mon, 13 Sep 2021 05:28:30 +0000 (UTC)
-Date: Mon, 13 Sep 2021 07:28:30 +0200
-Message-ID: <s5hy281jb7l.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 09396A3B89;
+ Mon, 13 Sep 2021 05:34:16 +0000 (UTC)
+Date: Mon, 13 Sep 2021 07:34:16 +0200
+Message-ID: <s5hwnnljaxz.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Cameron Berkenpas <cam@neo-zeon.de>
-Subject: Re: [PATCH] ALSA: hda/realtek: Quirks to enable speaker output for
- Lenovo Legion 7i 15IMHG05, Yoga 7i 14ITL5/15ITL5, and 13s Gen2 laptops.
-In-Reply-To: <20210912230715.156221-1-cam@neo-zeon.de>
-References: <20210912230715.156221-1-cam@neo-zeon.de>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH] ALSA: oxfw: fix transmission method for Loud models based
+ on OXFW971
+In-Reply-To: <20210913021042.10085-1-o-takashi@sakamocchi.jp>
+References: <20210913021042.10085-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,39 +93,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 13 Sep 2021 01:07:16 +0200,
-Cameron Berkenpas wrote:
+On Mon, 13 Sep 2021 04:10:42 +0200,
+Takashi Sakamoto wrote:
 > 
-> This patch initializes and enables speaker output on the Lenovo Legion 7i
-> 15IMHG05, Yoga 7i 14ITL5/15ITL5, and 13s Gen2 series of laptops using the
-> HDA verb sequence specific to each model.
+> Loud Technologies Mackie Onyx 1640i (former model) is identified as
+> the model which uses OXFW971. The analysis of packet dump shows that
+> it transfers events in blocking method of IEC 61883-6, however the
+> default behaviour of ALSA oxfw driver is for non-blocking method.
 > 
-> Speaker automute is disabled for the Lenovo Legion 7i 15IMHG05 to avoid
-> breaking speaker output on resume and when devices are unplugged from its
-> headphone jack.
+> This commit adds code to detect it assuming that all of loud models
+> based on OXFW971 have such quirk. It brings no functional change
+> except for alignment rule of PCM buffer.
 > 
-> BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=208555
-> Signed-off-by: Cameron Berkenpas <cam@neo-zeon.de>
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-Thanks for the patch.  This version looks almost good, but just one
-thing:
+Thanks, applied now.
 
-> +/* Fixup for Lenovo Legion 15IMHg05 speaker output on headset removal. */
-> +static void alc287_fixup_legion_15imhg05_speakers(struct hda_codec *codec,
-> +						  const struct hda_fixup *fix,
-> +						  int action)
-> +{
-> +	struct alc_spec *spec = codec->spec;
-> +
-> +	switch (action) {
-> +	case HDA_FIXUP_ACT_INIT:
-> +		spec->gen.automute_speaker = 0;
-
-This flag is effective only until "Auto-Mute Mode" mixer control is
-changed, so it's not persistent.  If you'd need to disable the
-auto-mute feature, set spec->gen.suppress_auto_mute=1 instead.
-
-
-thanks,
 
 Takashi

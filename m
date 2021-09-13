@@ -2,98 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3F9B4082C2
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 04:12:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38AA84082E0
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 04:38:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B9FE1658;
-	Mon, 13 Sep 2021 04:11:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B9FE1658
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA9D61658;
+	Mon, 13 Sep 2021 04:37:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA9D61658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631499147;
-	bh=MIwpFqCdt+TJY8/YEL+u1sUpQDA4MMD7H+d+ZgSgen0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=HrJMDnwxRiLCql9U8sz0XJsKbpl2hgXdoYGIe9b/HpX7nbBTSjXlbqgg2QXjDNHF5
-	 Bhzp6jN6zP1TfrvM6221pRsuent/X1cR516bDxnZ+HsSckDcVE2KHNR6u0ibP0pCXa
-	 9c6yvP4j6Dd6e3iah3zrMxSN9qQ9aMjzlz141uZI=
+	s=default; t=1631500680;
+	bh=n77Pjwm/zDjtmqTIHFFXnVEuRifbsKjJF+2HGulDMZs=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=j95CApXWiEJAtivSpmyGZbelJpdghPjxY6pdkNvdSVVo2TUvMV8/naWcryP5YRalB
+	 hbCsT6lFMttzYfGllpdrK8IboYS6aCZ+ajOVjhI78gZ/LqPX+F8iqcfkKZX/46PT5E
+	 APYhkL+fydD7vJi3aap98irK6xG5X6ZbQ3t8kGxo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6639F80132;
-	Mon, 13 Sep 2021 04:11:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34088F802E8;
+	Mon, 13 Sep 2021 04:36:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E5BFCF8027C; Mon, 13 Sep 2021 04:11:07 +0200 (CEST)
+ id 085BAF8027C; Mon, 13 Sep 2021 04:36:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
+ [IPv6:2607:f8b0:4864:20::d2f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6A2FFF80132
- for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 04:10:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A2FFF80132
+ by alsa1.perex.cz (Postfix) with ESMTPS id 74DF3F80132
+ for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 04:36:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74DF3F80132
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="k2LjFXWf"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="k4KMuzIf"
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 508625C00E0;
- Sun, 12 Sep 2021 22:10:48 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Sun, 12 Sep 2021 22:10:48 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm2; bh=AJ+ZuWAoL+cpgeBUsySm2RM0//
- lGaEV1A8DrAgj7olA=; b=k2LjFXWfJ53ysStcjpCSIeLf9FIc5spEeWrCg+ojNB
- TbjBPMdGZzBrFvLqNnEe96LalZYGTUkef0VnYKAAj+16+zEyMdAtu/1sGq9ncMDa
- 8UFTP2odQTpQaPeJa372KrCmnfpp1DBsul6LDijVIBfGoIZy3gHrxtWGOrrzR5vn
- 8KmvzT+IvB8RCycs722FMBNx3CGBYsTtiPTrrboe5+TlvI8sTtMbdevXPdPS8Zt4
- qWyQyegzdsUcnngnvbIlaCMy5bKO0tIsLrhJ/Np57zhBidK1xTkX9SI1hash4pOy
- 6QJDCoTpx4ytsWAMz2uov9sFq9dpMVL+PZk3mzSzJpcg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=AJ+ZuWAoL+cpgeBUs
- ySm2RM0//lGaEV1A8DrAgj7olA=; b=k4KMuzIfMId6IDqTHP5WyxrnaZrS6NrO+
- 0Fm+4oEnBmUghGV0Xuhw0JaVxqPJq74TIRL2JziYdROLU4U81X+mxIIQrxiUqYco
- utNArm3BbqLhKb6TeiNGNDJgKMppLVlANToSl9qvBMOahy7nKlifdScSO76y1L9u
- +73dOfXP0cAWOXk+gEcgy+48nx3LW8HsfOrTU9mXFaC0v3LbT/D0uCzJrJicnRFV
- TQz9Jvl2LS2I1jEFMQafQjGdZ5x9OGZ2i+9TgNehUXEXWmgejb8KNZoQNj4fN+DY
- ttVFO3qaagH7qJ3akoYVTtE/MXSOIWL6MujG92w8h162soQD05UNQ==
-X-ME-Sender: <xms:J7M-YRF9PnRQoWBJziJPMsQKy6a-Wcdxt9N7W4kcJf-E62e_psR90A>
- <xme:J7M-YWWimvRX7UrWNore4_GD7eYHydMKW_F-C9LS3Q4rxb4nnN9EAaNXnv3nN0PpR
- 75iJjiRhb2bOhYynUs>
-X-ME-Received: <xmr:J7M-YTI7OlZ-99kZcIfUaAapvzWEtDPAUFJ-HXxCdlgPTk10kMO03oHyYE9a_gGjT09pfHXDq4ezYZx5g0uqN1b0WYXjQB0uc5i1Uf--SHh5hr6pmcAx>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudegiedgheeiucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
- dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
- ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepudejteelhfdttd
- ekgfdtueeilefhgfetjeejheekgeevuddvveegieehueeukeejnecuvehluhhsthgvrhfu
- ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkh
- grmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:J7M-YXGM9TpLUESim4BFkOLFnDHnwbLgd6oyev4cA0yK2dGggyKvAg>
- <xmx:J7M-YXUWKmkZwsP-3wnkmMR7Q8mhGA6c4Ny3jY7dxrErLktKx9z_qA>
- <xmx:J7M-YSNK20HC9rA-3NS2O8Zs0V62I4y3Fy9zyjoZJE_5ZFQn1A_0pA>
- <xmx:KLM-YedUjbKqZeqPhOOONF-qRrGnDMAv_BO74ETp1qk49VtXqScTWA>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 12 Sep 2021 22:10:46 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH] ALSA: oxfw: fix transmission method for Loud models based on
- OXFW971
-Date: Mon, 13 Sep 2021 11:10:42 +0900
-Message-Id: <20210913021042.10085-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.30.2
+ dkim=pass (2048-bit key) header.d=kernel-dk.20150623.gappssmtp.com
+ header.i=@kernel-dk.20150623.gappssmtp.com header.b="Xvlg1zw5"
+Received: by mail-io1-xd2f.google.com with SMTP id f6so10216026iox.0
+ for <alsa-devel@alsa-project.org>; Sun, 12 Sep 2021 19:36:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=kernel-dk.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-language:content-transfer-encoding;
+ bh=LOKzdG7FJ6Wiqi/NapOelxZqi44s+sbtLyGjvCvSg3M=;
+ b=Xvlg1zw5ji16ATQhcjvU1AINQhjQV1EYCrP45e5DrYUluuPLJ/r3C3HtU2Q4B0/fIf
+ t1spJ5Xct2fFwvdIuEdVTKSX3npHxJpgYcKlHyxZMP1ROkUtOu29+7E7o0ZacVVmgrcX
+ bdincoEPdIfhViV+K7Jxm+sLcgyuuV+G8u53GLEFbV/tAev7eJONALoy97UpSoRfmzR2
+ Oj5QV9bdRBKEbwkk481g4e+P3xz87stDYQ9CNCIS36uYJXriZgv0Sb6AiITlhdeWl4FM
+ CGoExzIolQkJ4v8xSkFTudeeddZGbQ1hcIVFrBNCkDBKm729zmt1QO5BsbVrHBFeNN1S
+ gl2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=LOKzdG7FJ6Wiqi/NapOelxZqi44s+sbtLyGjvCvSg3M=;
+ b=K+zWOQ8mAQf/VU4JPeCS74yMMUEzVoN43N2i8SWuU+DQwd5NqvjvpsCENDujXJkIoE
+ jPGP1OMmLOwLtjfA/Sw/9akXslBbciDt8ykp4K1uy2misEi2XHE+lYlgFLJYNGGfXbiS
+ Oh5ocMLerFKg9jJ9wGBF0XnT5INwlT64scR/lOYfaqIYDQ24/VD+S8zDZz/6jQ3m3EsU
+ HhQ2cL8Mw7q12mH76O55t9qtVk5obqliqnyjs/vNE427b0RVzfvyRG71oIo4aiFFKEQB
+ iXkLZ2mJaEyOXEQOlvsvESH/VR1kwOzjinbleTiDWAAunA8vfKj6mUy8JFBXHcm2f8wj
+ 69VA==
+X-Gm-Message-State: AOAM531x43VOMxtlNSpDGkjLxNHjZ0UuxJ6ibPUQSK5Kfj0ZzNPESsMj
+ U7XXpsbAAZ8BicDeG4O2/+MryCDbAz+ozA==
+X-Google-Smtp-Source: ABdhPJxg4awaPoMg7hqLMOy9LHpw44wFZinJ3RPSuPUeiQzmaSArjn992SV27NDMXX9kzFFFkkZyQg==
+X-Received: by 2002:a5e:8349:: with SMTP id y9mr6916870iom.34.1631500592640;
+ Sun, 12 Sep 2021 19:36:32 -0700 (PDT)
+Received: from [192.168.1.116] ([66.219.217.159])
+ by smtp.gmail.com with ESMTPSA id z6sm3924942ill.61.2021.09.12.19.36.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 12 Sep 2021 19:36:32 -0700 (PDT)
+Subject: Re: [PATCH] ALSA: hda: Reduce udelay() at SKL+ position reporting
+To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+References: <20210910141002.32749-1-tiwai@suse.de>
+From: Jens Axboe <axboe@kernel.dk>
+Message-ID: <a6a45e09-6044-3e67-e493-98ba7775a709@kernel.dk>
+Date: Sun, 12 Sep 2021 20:36:30 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+In-Reply-To: <20210910141002.32749-1-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,46 +102,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Loud Technologies Mackie Onyx 1640i (former model) is identified as
-the model which uses OXFW971. The analysis of packet dump shows that
-it transfers events in blocking method of IEC 61883-6, however the
-default behaviour of ALSA oxfw driver is for non-blocking method.
+On 9/10/21 8:10 AM, Takashi Iwai wrote:
+> The position reporting on Intel Skylake and later chips via
+> azx_get_pos_skl() contains a udelay(20) call for the capture streams.
+> A call for this alone doesn't sound too harmful.  However, as the
+> pointer PCM ops is one of the hottest path in the PCM operations --
+> especially for the timer-scheduled operations like PulseAudio -- such
+> a delay hogs CPU usage significantly in the total performance.
+> 
+> The function there was taken from the original code in ASoC SST
+> Skylake driver blindly.  The udelay() is a workaround for the case
+> where the reported position is behind the period boundary at the
+> timing triggered from interrupts; applications often expect that the
+> full data is available for the whole period when returned (and also
+> that's the definition of the ALSA PCM period).
+> 
+> OTOH, HD-audio (legacy) driver has already some workarounds for the
+> delayed position reporting due to its relatively large FIFO, such as
+> the BDL position adjustment and the delayed period-elapsed call in the
+> work.  That said, the udelay() is almost superfluous for HD-audio
+> driver unlike SST, and we can drop the udelay().
+> 
+> Though, the current code doesn't guarantee the full period readiness
+> as mentioned in the above, but rather it checks the wallclock and
+> detects the unexpected jump.  That's one missing piece, and the drop
+> of udelay() needs a bit more sanity checks for the delayed handling.
+> 
+> This patch implements those: the drop of udelay() call in
+> azx_get_pos_skl() and the more proper check of hwptr in
+> azx_position_ok().  The latter change is applied only for the case
+> where the stream is running in the normal mode without
+> no_period_wakeup flag.  When no_period_wakeup is set, it essentially
+> ignores the period handling and rather concentrates only on the
+> current position; which implies that we don't need to care about the
+> period boundary at all.
 
-This commit adds code to detect it assuming that all of loud models
-based on OXFW971 have such quirk. It brings no functional change
-except for alignment rule of PCM buffer.
+I tested this on top of 5.15-rc1, and it seems like a massive
+improvement. No longer have stalled or slowed down nestopia, seems
+smooth all the time. I'll report back in a few days, just in case.
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/firewire/oxfw/oxfw.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
-
-diff --git a/sound/firewire/oxfw/oxfw.c b/sound/firewire/oxfw/oxfw.c
-index cb5b5e3a481b..daf731364695 100644
---- a/sound/firewire/oxfw/oxfw.c
-+++ b/sound/firewire/oxfw/oxfw.c
-@@ -184,13 +184,16 @@ static int detect_quirks(struct snd_oxfw *oxfw, const struct ieee1394_device_id
- 			model = val;
- 	}
- 
--	/*
--	 * Mackie Onyx Satellite with base station has a quirk to report a wrong
--	 * value in 'dbs' field of CIP header against its format information.
--	 */
--	if (vendor == VENDOR_LOUD && model == MODEL_SATELLITE)
-+	if (vendor == VENDOR_LOUD) {
-+		// Mackie Onyx Satellite with base station has a quirk to report a wrong
-+		// value in 'dbs' field of CIP header against its format information.
- 		oxfw->quirks |= SND_OXFW_QUIRK_WRONG_DBS;
- 
-+		// OXFW971-based models may transfer events by blocking method.
-+		if (!(oxfw->quirks & SND_OXFW_QUIRK_JUMBO_PAYLOAD))
-+			oxfw->quirks |= SND_OXFW_QUIRK_BLOCKING_TRANSMISSION;
-+	}
-+
- 	return 0;
- }
- 
 -- 
-2.30.2
+Jens Axboe
 

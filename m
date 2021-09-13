@@ -2,74 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB5E8408998
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 12:56:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E51340899B
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 12:57:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 594511657;
-	Mon, 13 Sep 2021 12:55:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 594511657
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A3A1167C;
+	Mon, 13 Sep 2021 12:56:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A3A1167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631530599;
-	bh=Q5absrfI8fHZmSEfHakac+PXQAsMu32YZoq5qrmLeys=;
+	s=default; t=1631530633;
+	bh=kUrQ92vP9h8EK13GVMQFGAIqVlRq6W60sm75uv3M5D8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bipi3Tqh7GW3De1zPA3bjWT/HzKo4KzMqFoMVdNUW8BmlH54fOV6TU9hAPDia+yMF
-	 oZ/IFMStfxoKZzIu/nbGRR/8+xUZIqteEnJvtLxfiknOwpPD3vlTI7jr/j67j4NfOr
-	 R3jY9FIuZQHasxf0ziThNv2yobZDHegb+yikLabI=
+	b=Rbt4YkZ7L2cgEFrmPVT1b+gzlGJPb4b8fFA6UoaCYvq9PCRnmt7nvNMf0ug1q3PET
+	 0+49XDefAeZGnNVPjZG0bf3TB2bTWEhyCa5NAoQBB0md2WIiFKwrkocbq6Xe8PZyiI
+	 uvJMboTEd2myfCrdglz8lZfngogLlJnXTQx/VtN0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08D6FF80227;
-	Mon, 13 Sep 2021 12:54:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E8ADF804F2;
+	Mon, 13 Sep 2021 12:54:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3EE8CF804E3; Mon, 13 Sep 2021 12:54:43 +0200 (CEST)
+ id 8E372F804E6; Mon, 13 Sep 2021 12:54:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E59E6F80227
- for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 12:54:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E59E6F80227
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1ABF3F804AB
+ for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 12:54:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1ABF3F804AB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="UDOepgP+"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 43B4661029;
- Mon, 13 Sep 2021 10:54:36 +0000 (UTC)
+ header.b="mxIkQczK"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E014561004;
+ Mon, 13 Sep 2021 10:54:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631530476;
- bh=Q5absrfI8fHZmSEfHakac+PXQAsMu32YZoq5qrmLeys=;
+ s=k20201202; t=1631530479;
+ bh=kUrQ92vP9h8EK13GVMQFGAIqVlRq6W60sm75uv3M5D8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=UDOepgP+ODy7eZvGNENXCoQwDdGg6kheBSQPfhONr0B0b7QTw5Qz4Ocft1Ar4LYa4
- ROySD8uvn36VtEpTpVBh6gH26ysvWys/SpMQNAPfEOiS2xvd2QCX9hwjunkr1kPZEw
- HG0mS9A1jMwvwHhpQJGSptOLIL4hwAFGc6P4NA6el5Wr3no488LG+EQvM/597F9sV+
- LoL5zpNAaYzBlxPJJCWcVP6l0OPGyYbC9AAGDdCEw5wakWFjf5NUSXhLx9DuofLLh5
- UrfmBvTkepN0EO5YuQ90Fd+Zo5mfE0Jx1BE2CSNADe4QLlmSYNzeStZjnJfCzOPdfK
- GKUlC/DkInPwg==
+ b=mxIkQczKp6wVjKtmuikBd6RWa0brAeO50bXYgqyRaQe8jjF5M6tKl5HeVT0ebBR2d
+ cSplQI2glhjjESJ63HDCvxmaHfGUD43bmVCJ9CWl3UQ0gsnh5Tzykkb8Q8QpKCVCf+
+ 32CUrPVeqpfZdwXqoh3dD7TK7gWs6O5ewr/nkRkFoBT4jw01EHZmjY/AckD2U4UoNa
+ Iwb28NV4dWLRUhkJ7WEi3LqPZOLzoWMuiFb0hvU0QqOLhBCGu9DtIJP24+5xs9vpGm
+ 78sofN+fq8i/xk0a/IO/wsXcEENz1qzEWoR0izSlFzr6dwu1GRBFJhT/2oE1xmGG6h
+ IHBqyDKOfsXyQ==
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ASoC: amd: acp: declare and add prefix to
- 'bt_uart_enable' symbol
-Date: Mon, 13 Sep 2021 11:53:15 +0100
-Message-Id: <163152996585.45703.10982811041582304324.b4-ty@kernel.org>
+To: rander.wang@intel.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ lgirdwood@gmail.com
+Subject: Re: [PATCH] ASoC: SOF: control: fix a typo in put operations for
+ kcontrol
+Date: Mon, 13 Sep 2021 11:53:16 +0100
+Message-Id: <163152996583.45703.7024459155619829972.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210907184216.33067-1-pierre-louis.bossart@linux.intel.com>
-References: <20210907184216.33067-1-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20210902114744.27237-1-peter.ujfalusi@linux.intel.com>
+References: <20210902114744.27237-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, open list <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Chuhong Yuan <hslester96@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Gu Shengxian <gushengxian@yulong.com>
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ ranjani.sridharan@linux.intel.com, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,14 +82,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 7 Sep 2021 13:42:14 -0500, Pierre-Louis Bossart wrote:
-> Sparse reports the following warning:
+On Thu, 2 Sep 2021 14:47:44 +0300, Peter Ujfalusi wrote:
+> From: Rander Wang <rander.wang@intel.com>
 > 
-> sound/soc/amd/acp-pcm-dma.c:39:6: error: symbol 'bt_uart_enable' was
-> not declared. Should it be static?
-> 
-> It's not very good practice to export such symbols that can easily
-> conflict, add the acp_ prefix and add declaration in header file.
+> SOF_CTRL_TYPE_VALUE_CHAN_SET should be used for put operations
+> for consistency. The current use of _GET is obviously incorrect
+> but _GET and _SET result in the same action so there is no
+> functional change introduced by this patch.
 > 
 > [...]
 
@@ -102,8 +98,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: acp: declare and add prefix to 'bt_uart_enable' symbol
-      commit: 198433023ef962b71f3d4274ca7a4c8f04e7ace1
+[1/1] ASoC: SOF: control: fix a typo in put operations for kcontrol
+      commit: 5767271861985887e342fa21c3638c29e8fdfeaf
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

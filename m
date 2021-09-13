@@ -2,75 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DB0B4097B7
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 17:45:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC13F40983B
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 18:02:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2152F1670;
-	Mon, 13 Sep 2021 17:44:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2152F1670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5379B1672;
+	Mon, 13 Sep 2021 18:01:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5379B1672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631547901;
-	bh=iE0HFH0NNPFgkof/k+GQAAQOhVg4zb9WvqBH1HY3xJc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=eopnaWRYGTTu8erbPpWcnASxC5SFb3bIuPm3tp32ov2WE0UXUMWqsYeqFtpXAIiTO
-	 eLCg9QpEw3m0L4KmR4OAiivNQdianjgh90wdfsvToLHd+sudsBk/YelR1aHJDbKqux
-	 cnfFIpeLgEnB4f4F2qY7QeND0wpMPYiPEBHDzotI=
+	s=default; t=1631548966;
+	bh=Lx5o7B3XBxCK6Cey+krYZcdbyy9F4ULqrQ0/c7tVIY8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=P7Svvlqec9eUQvBlSzj927zGuH3mjmcRC49EWGSt2zoHIELTcruF+4m7zc1x5rt8b
+	 FYPODbOcJEal9LQY26XrIb7JIf24rn076wFGPkHxR86ZY6/SRjJAy7yQiMp21pJIuM
+	 XWCi3DMTQ6Q8JK8YZl9+7nXPC09H/XtzQMf8fBUk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9118FF802E8;
-	Mon, 13 Sep 2021 17:43:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9AC3EF804E5;
+	Mon, 13 Sep 2021 18:01:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0BD42F8027C; Mon, 13 Sep 2021 17:43:43 +0200 (CEST)
+ id BBE24F80227; Mon, 13 Sep 2021 18:01:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 97348F80128
- for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 17:43:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97348F80128
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4C9D0F80227
+ for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 18:01:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C9D0F80227
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ImLrqL0B"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id CD78B60F6F;
- Mon, 13 Sep 2021 15:43:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631547812;
- bh=iE0HFH0NNPFgkof/k+GQAAQOhVg4zb9WvqBH1HY3xJc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ImLrqL0ByWQ5ab29nSi4j7UIJ3wlAyVn5OmPplWgc2aPveBGnx6uVkQ/WAwVaQHE+
- 1bYm/d05gurtsREmPDH6Kz0M3DCDTlDzUp7oXj71jncBhhK6tQ+mGHMW2w3dDlrb0x
- sPrTFeGUEp+CzeNBFYouohZtJCJxKdxlYIL7rYdZ7SQXDctkRWk662JOzl+4NQNdzv
- LCs1enD408VCN2QqF88/6PauwkgUVo8IjmKzZVrZNy33ufBtGImfRpZHlhyp947VR/
- 8WOYlFDtyXHt90RkTaYQ2qsJgWrBtycmpWG9g1Pw+uyYM6DCgx+6gyoEI2CnkMWEdI
- AYXi3yfTm8vXQ==
-Date: Mon, 13 Sep 2021 16:42:53 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jernej =?utf-8?Q?=C5=A0krabec?= <jernej.skrabec@gmail.com>
-Subject: Re: Re: [PATCH 1/2] dt-bindings: sound: sun4i-i2s: add Allwinner R40
- I2S compatible
-Message-ID: <20210913154253.GJ4283@sirena.org.uk>
-References: <20210912072914.398419-1-jernej.skrabec@gmail.com>
- <20210912072914.398419-2-jernej.skrabec@gmail.com>
- <20210913111117.GB4283@sirena.org.uk> <22661441.uYPlIyrNLm@kista>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="LlJM/JLI"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18DAEA6M014550; 
+ Mon, 13 Sep 2021 11:01:20 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=kxwr+fQrkMMf3nLnZDBqxMSorZNZnlyvVvt6IleDk5M=;
+ b=LlJM/JLIdInDxTP5XBtCbco5xiMepz7PSSmlx0XbGMtAFjg9lVYOY5r5ged4uEkrgJDz
+ VNwjujb2t1qz5YsYLjFxDfp6nefkosY1+Mbc7nq0vUFSP0VuLpJX+IfZV5wxoFBzsXwR
+ BYDT218rWB67MmyPwIATEgzk0gVwCHX/Bt1vRcehXQ3hDZVJuBcR/PC4FkRn/uJHoezQ
+ sEs2x3Gj7Bb7DZ0M0C4kPVU+FotiT9OfZPI0ENnCHj/ZrmJu77oBnDqkJIMwV/5RZrQv
+ feYJYpu9cVTq0pXmFTLCw/WOFu3EQoMQ3sRvdiy2okNJMA5nZ4YVkScTl4OM5UUmF9Yf XA== 
+Received: from ediex02.ad.cirrus.com ([87.246.76.36])
+ by mx0a-001ae601.pphosted.com with ESMTP id 3b1n5drxkd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 13 Sep 2021 11:01:19 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 13 Sep
+ 2021 17:01:17 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.12 via
+ Frontend Transport; Mon, 13 Sep 2021 17:01:17 +0100
+Received: from simont-vb.lan?044ad.cirrus.com (unknown [198.90.238.152])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3D0482A9;
+ Mon, 13 Sep 2021 16:01:17 +0000 (UTC)
+From: Simon Trimmer <simont@opensource.cirrus.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Subject: [PATCH 00/16] add driver to support firmware loading on Cirrus Logic
+ DSPs
+Date: Mon, 13 Sep 2021 17:00:41 +0100
+Message-ID: <20210913160057.103842-1-simont@opensource.cirrus.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="pMCBjikF2xGw87uL"
-Content-Disposition: inline
-In-Reply-To: <22661441.uYPlIyrNLm@kista>
-X-Cookie: Above all else -- sky.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, mripard@kernel.org, linux-kernel@vger.kernel.org,
- wens@csie.org, robh+dt@kernel.org, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: cFiMMI10d2CKHvOl6ZcBIY-_fScsUAlG
+X-Proofpoint-ORIG-GUID: cFiMMI10d2CKHvOl6ZcBIY-_fScsUAlG
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Simon Trimmer <simont@opensource.cirrus.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,53 +96,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This series of patches gradually separates the ASoC specific wm_adsp
+code from that required to manage firmware in Cirrus Logic DSPs.
 
---pMCBjikF2xGw87uL
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The series starts with renaming, progresses to splitting the
+functionality before finally moving the independent functionality into
+drivers/firmware so that it can be used by both the existing ASoC
+wm_adsp and new non-audio parts.
 
-On Mon, Sep 13, 2021 at 05:33:22PM +0200, Jernej =C5=A0krabec wrote:
-> Dne ponedeljek, 13. september 2021 ob 13:11:17 CEST je Mark Brown napisal=
-(a):
-> > On Sun, Sep 12, 2021 at 09:29:13AM +0200, Jernej Skrabec wrote:
+Charles Keepax (3):
+  ASoC: wm_adsp: Move check for control existence
+  ASoC: wm_adsp: Switch to using wm_coeff_read_ctrl for compressed
+    buffers
+  ASoC: wm_adsp: Move sys_config_size to wm_adsp
 
-> > Please submit patches using subject lines reflecting the style for the
-> > subsystem, this makes it easier for people to identify relevant patches.
-> > Look at what existing commits in the area you're changing are doing and
-> > make sure your subject lines visually resemble what they're doing.
-> > There's no need to resubmit to fix this alone.
+Simon Trimmer (13):
+  ASoC: wm_adsp: Remove use of snd_ctl_elem_type_t
+  ASoC: wm_adsp: Cancel ongoing work when removing controls
+  ASoC: wm_adsp: Rename generic DSP support
+  ASoC: wm_adsp: Introduce cs_dsp logging macros
+  ASoC: wm_adsp: Separate some ASoC and generic functions
+  ASoC: wm_adsp: Split DSP power operations into helper functions
+  ASoC: wm_adsp: Separate generic cs_dsp_coeff_ctl handling
+  ASoC: wm_adsp: Move check of dsp->running to better place
+  ASoC: wm_adsp: Pass firmware names as parameters when starting DSP
+    core
+  ASoC: wm_adsp: move firmware loading to client
+  ASoC: wm_adsp: Split out struct cs_dsp from struct wm_adsp
+  ASoC: wm_adsp: Separate wm_adsp specifics in cs_dsp_client_ops
+  firmware: cs_dsp: add driver to support firmware loading on Cirrus
+    Logic DSPs
 
-> I did exactly that. But history is not uniform:
+ MAINTAINERS                                   |   11 +
+ drivers/firmware/Kconfig                      |    1 +
+ drivers/firmware/Makefile                     |    1 +
+ drivers/firmware/cirrus/Kconfig               |    5 +
+ drivers/firmware/cirrus/Makefile              |    3 +
+ drivers/firmware/cirrus/cs_dsp.c              | 3109 ++++++++++++++++
+ include/linux/firmware/cirrus/cs_dsp.h        |  242 ++
+ .../linux/firmware/cirrus}/wmfw.h             |    8 +-
+ sound/soc/codecs/Kconfig                      |    1 +
+ sound/soc/codecs/cs47l15.c                    |   22 +-
+ sound/soc/codecs/cs47l24.c                    |   20 +-
+ sound/soc/codecs/cs47l35.c                    |   24 +-
+ sound/soc/codecs/cs47l85.c                    |   32 +-
+ sound/soc/codecs/cs47l90.c                    |   34 +-
+ sound/soc/codecs/cs47l92.c                    |   20 +-
+ sound/soc/codecs/madera.c                     |   18 +-
+ sound/soc/codecs/wm2200.c                     |   30 +-
+ sound/soc/codecs/wm5102.c                     |   16 +-
+ sound/soc/codecs/wm5110.c                     |   24 +-
+ sound/soc/codecs/wm_adsp.c                    | 3188 ++---------------
+ sound/soc/codecs/wm_adsp.h                    |  105 +-
+ 21 files changed, 3794 insertions(+), 3120 deletions(-)
+ create mode 100644 drivers/firmware/cirrus/Kconfig
+ create mode 100644 drivers/firmware/cirrus/Makefile
+ create mode 100644 drivers/firmware/cirrus/cs_dsp.c
+ create mode 100644 include/linux/firmware/cirrus/cs_dsp.h
+ rename {sound/soc/codecs => include/linux/firmware/cirrus}/wmfw.h (91%)
 
-=2E..
+-- 
+2.33.0
 
-> Most subjects contain "dt-bindings: sound: " at the beginning. I selected=
-=20
-> variant from latest commit (ce09d1a6800d).
-
-If you look at more than just this one file the numbers look rather
-different there, I see I will have to start being super strict with the
-sunxi stuff here :( .  Other people messing up is not a good reason to
-follow them, nor is the occasional thing that's part of a larger series
-being let slide without a maintainer fixup.
-
-Nothing in this patch series had anything about ASoC in it meaning I
-very nearly deleted this unread.
-
---pMCBjikF2xGw87uL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmE/cXwACgkQJNaLcl1U
-h9B7yAf9GrjBcYYjoYmHk2ZHnH4FGIW1SIEuaNKaEJmJXHzcLzx4UAPNI2O4V+8g
-FZ9vrvXdgrL+oSe55PWGaZBsht4c2v4girmAbjzHR38nRCJLhERN/6R5wEPbVByW
-q4jCqRCp1NQ7QpRgz/2JguQEnyYkX0Yx3FJaH5T0O6Pj0XvkBVj1b1pSalwBcd64
-LJnF21d/xcGgamIxvtmTPKihdz7qn60UVNXT1NHbb7kVfpkS5WOyVQ7LX5rW5GRS
-yzMRhG0g94WnK2qpIjWTxIaTqjsC3mBnS48Y+zMVk53jmg1I/IzkTzz5ETNCD2i1
-2YIUG6UpDNc+IaUbEvVfu+VwDtTZyw==
-=5aW6
------END PGP SIGNATURE-----
-
---pMCBjikF2xGw87uL--

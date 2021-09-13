@@ -2,52 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39D094099DC
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 18:46:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C8DD4099E6
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 18:47:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B468217C1;
-	Mon, 13 Sep 2021 18:46:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B468217C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id E231317AF;
+	Mon, 13 Sep 2021 18:46:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E231317AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631551612;
-	bh=Md0cttoVeiKbh6DZPmQvaHgObRBkWDzJvwE5M+7TUoM=;
+	s=default; t=1631551660;
+	bh=2Wi0nb1l/7UvlODfdVw4qpjQ7PJI1bzd6C+dbm5O37A=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=e4qww8fvN4QSyjvuYzVsWiAxPIfKiKQkt2UK7MXr23MJI2xFFauonO3+sqEzRq8Lh
-	 kjxV9A2d3G7t2bQ5MWOlmrdbbpJe95T+vcefGdCpqx5P5kqhOig7L53UlFsaDm7C4J
-	 6UPSQMMF3K8YSK+SpYWZJBfC+9t2XM5QKBtBAD6o=
+	b=Cw6mFirknlZYmIExkTmvyoNXduzBKp4mon02XXjJf7Yi0b8ylIQ3sBfWjANF0W3Wv
+	 MgHQISoXNIKVp5+qef7/NrsSsZjWXgFU3ZpQk5De4mYpihc+N4sg97XfwAR5qjXRC/
+	 KXMkbdSiBW9CupuVQghO5JhrgzyHe7S8d1nVrhjA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19F4EF8051B;
-	Mon, 13 Sep 2021 18:43:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 472B2F8053B;
+	Mon, 13 Sep 2021 18:43:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6A3AEF80528; Mon, 13 Sep 2021 18:43:35 +0200 (CEST)
+ id B015DF80536; Mon, 13 Sep 2021 18:43:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2078.outbound.protection.outlook.com [40.107.94.78])
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2072.outbound.protection.outlook.com [40.107.212.72])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F7CFF8051B
- for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 18:43:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F7CFF8051B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 12EE2F80526
+ for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 18:43:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12EE2F80526
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
- header.b="liFL1fid"
+ header.b="bqHLx5Ss"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h+Ys4cvZeMz1JK6NMFtehFCxbL1on8LodMs1TZJdVqS6AuS3RprvxsvKdaD9Juc3EAIgtJjz9ZaVWrqoOk1x0P5wDrXLpmkrninbzhvCFFD0o16XBu0Y7VyOZUvwR/MBLApM87kw3PMj6NhynqzMsMbjzXVco61WGy76YxnEmT/mT6Pk7rXyY89GySc+gBCj8Vnuzqs4wcJC7QegW0h/NspF6+DvgN34ZqXeQ/besq0CNXzer95cchSuuSTHjleWCez9nYQu2yYCjf3tLSky9sRfjRl0Csnhf6M1gIio+PYsYDv1Pc4PH5Kby1Uueg0/azB/5VJrOfFK0kjSwczQBg==
+ b=jAXpc3oEzAJLyn/4WFRvnIn5+Z2o8BR7DwAv08glYyXyxnOp0ogodih2PEjnKyRcghewV9tB+WFuAxP7a+z7NLmiqBnGDU6xQqPh5zQbjMxhLkCt4H5jTz61wWxVSA7RB8GkZGY98id79uQ4b8k3+lvqVWVOoyTQoeMUzvPkXwlyxepOioKY4HwEdwSoGXsfusyVpoRSPnpm2ogPJtmRdfRyO5nVfUdJFMnHrAAb83v3CWkm0bSTHn8R//uo9CnG65o/qPSlCZJgIyZwhofTvAMcMiCkhxrrmsrjVyEUS90SlaoZv8xzRuIuNrD6p1p9Vi9JTwa6sOkDERWKTAuK3A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=yhEqG73f+1dYR4JzE0K2HNAJdaapnq69sTDRVGd2vnQ=;
- b=nxUCFoPh6Lg/GMeyFThFA5xLGxepCb2lNSJhy5AemRLPhC8n/HEjtZYa0JaeJ1L9TLEerqbIrepYF5PAehwu0oq1S4dJUWmHssu+aEr6Gnfy670oKAEOe9OK5+BRvr5jrSMCmtCtQjMbjkceSitXedfoSp3Nc2Z6NU2+6v5v6vVmFuA/SswIBzJ0bD/w9XNSe1AYA6fIxXWCkZSpfhcPLXpIaT2XYSN5qyM4O7fsbzEd5hkNAoIzBLF0wFlSygICBLFqjMJMrkosuFWnXkFcDCNSssh8cGelEkRGEZelnJKdJAglglvUj6L+VPG6K1HO4AE2bWDCZ22zdAT9jHJzlg==
+ bh=3csltCL5NFQ3Ljm2qR9Y1tRocNsandmpAbYk9lVnWTc=;
+ b=A6TwudbsRFB+2JxPvI29xUO7cIsX1IOV2MdgMdj1FU8PAjXKwci8b2GfLdFWnzefOMkBS7w9Wjblo6osSyOm6vy+MR3Ri28Njw7NrRtbW8Z4VkYG3e+bmxZDdaHNNceWLfpsJOtzbHzQCnhrTZ3kyBbtxUp7CJVKmpD6YX6sS7QxW1labgekj71G43Gt6Z2zKFT/DIkIQYZuE+oELjXORf8PiztlHSKnpMgmELcP07JfrM/2RNE4bizRTL42Emwcs2cIW0mTTUb/QypngIHg4MbDxytnRKQlTbdvStwxOc/2p0tC7f/6XQPV/EvRwYAw3u4RtFElwrAgUGUc8xutdA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.112.36) smtp.rcpttodomain=alsa-project.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=nvidia.com; 
@@ -55,18 +55,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yhEqG73f+1dYR4JzE0K2HNAJdaapnq69sTDRVGd2vnQ=;
- b=liFL1fidoOHPi5qzZyDmwgc46mnlj+VLN12zlIfME0Ho64cXv1tCe5tR4rVu6GV14jZCVG0rio8Ni1gnCa2iOOyO8DlV/mQWiK+srOb+eQAJkLGdW9UIALd+/VsD+f6/bor2s/h6soUBF1c73gczU350ZlthC5mQgSeWLWK7Dc32u7pbGMWBuS7sMviws8ot69rBBEodLq+6mojMGAXtTU7OaB8Hd2v7dw26ftGiDFyFIRSi7sn7PSryUXBorSUFeR3ywngmc/zg5m4xMQJ0GOylz2ihEmejOz//rpoVGUMZiSMUo5EPmsrEti2Av/Z1fJnaGKsK/deRj9x6qnlvDw==
-Received: from DM5PR22CA0020.namprd22.prod.outlook.com (2603:10b6:3:101::30)
- by BN8PR12MB4978.namprd12.prod.outlook.com (2603:10b6:408:76::21) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=3csltCL5NFQ3Ljm2qR9Y1tRocNsandmpAbYk9lVnWTc=;
+ b=bqHLx5Ss6li1pIk/N09Ay1WB3ygG+aUdeReZuo7AaEln+m2kACNt7YXorT4Yw1D9bWsx0RB1uDqOruLqOg+onVyDcYUaZ9Kn3Vw78siup6S1zMnn4z+6ngLqXb57uPjuxB4YOg0Bm9FM4CXeaANLUMSir0aE/b4BFZiffb4PsJg1msl12o9XAKDPV1q4vjkO8nfQ6EO0yZ20jv/EE0XNKrMhEE3NgvGo/aEb3qCWQ+YWLtQkH+4mX4KzNrlT7FHgvE4oHzJxTXnUUQRDcUnG3ze4fgzLkGgwn7rHGW/oJGt9Lf8q21TwGD+qwS5bHoO4/nNXGP/kl/nLWp4Vu0ACqQ==
+Received: from BN6PR14CA0046.namprd14.prod.outlook.com (2603:10b6:404:13f::32)
+ by MN2PR12MB4032.namprd12.prod.outlook.com (2603:10b6:208:16d::32)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14; Mon, 13 Sep
- 2021 16:43:20 +0000
-Received: from DM6NAM11FT031.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:101:cafe::c1) by DM5PR22CA0020.outlook.office365.com
- (2603:10b6:3:101::30) with Microsoft SMTP Server (version=TLS1_2,
+ 2021 16:43:24 +0000
+Received: from BN8NAM11FT003.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:13f:cafe::75) by BN6PR14CA0046.outlook.office365.com
+ (2603:10b6:404:13f::32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.14 via Frontend
- Transport; Mon, 13 Sep 2021 16:43:20 +0000
+ Transport; Mon, 13 Sep 2021 16:43:24 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.36)
  smtp.mailfrom=nvidia.com; alsa-project.org; dkim=none (message not signed)
  header.d=none;alsa-project.org; dmarc=pass action=none
@@ -75,23 +75,23 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
  216.228.112.36 as permitted sender) receiver=protection.outlook.com;
  client-ip=216.228.112.36; helo=mail.nvidia.com;
 Received: from mail.nvidia.com (216.228.112.36) by
- DM6NAM11FT031.mail.protection.outlook.com (10.13.172.203) with Microsoft SMTP
+ BN8NAM11FT003.mail.protection.outlook.com (10.13.177.90) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.4500.14 via Frontend Transport; Mon, 13 Sep 2021 16:43:18 +0000
+ 15.20.4500.14 via Frontend Transport; Mon, 13 Sep 2021 16:43:23 +0000
 Received: from HQMAIL107.nvidia.com (172.20.187.13) by HQMAIL101.nvidia.com
  (172.20.187.10) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Mon, 13 Sep
- 2021 16:43:18 +0000
+ 2021 16:43:22 +0000
 Received: from audio.nvidia.com (172.20.187.6) by mail.nvidia.com
  (172.20.187.13) with Microsoft SMTP Server id 15.0.1497.18 via Frontend
- Transport; Mon, 13 Sep 2021 16:43:14 +0000
+ Transport; Mon, 13 Sep 2021 16:43:18 +0000
 From: Sameer Pujar <spujar@nvidia.com>
 To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <robh+dt@kernel.org>,
  <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
  <catalin.marinas@arm.com>, <will@kernel.org>, <perex@perex.cz>,
  <tiwai@suse.com>, <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 08/13] ASoC: tegra: Add Tegra210 based AMX driver
-Date: Mon, 13 Sep 2021 22:12:16 +0530
-Message-ID: <1631551342-25469-9-git-send-email-spujar@nvidia.com>
+Subject: [PATCH v2 09/13] ASoC: tegra: Add Tegra210 based ADX driver
+Date: Mon, 13 Sep 2021 22:12:17 +0530
+Message-ID: <1631551342-25469-10-git-send-email-spujar@nvidia.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1631551342-25469-1-git-send-email-spujar@nvidia.com>
 References: <1631551342-25469-1-git-send-email-spujar@nvidia.com>
@@ -99,28 +99,28 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5eb1de20-df0a-4f15-784e-08d976d5976a
-X-MS-TrafficTypeDiagnostic: BN8PR12MB4978:
-X-Microsoft-Antispam-PRVS: <BN8PR12MB49787140E521255D75BB7999A7D99@BN8PR12MB4978.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2276;
+X-MS-Office365-Filtering-Correlation-Id: 15043eb1-3a94-4f2f-7de4-08d976d59a2a
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4032:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB403264E201D35E3D51DDAFD3A7D99@MN2PR12MB4032.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:989;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: arafPnlR8qLGzSyi4PTU2hU0xQKs8LZBX1Vm2j2fvvtGXzTQqzdz+cHQ55Wgynfy2HkzjUFlreHGcBeaXze2AYSv4lxMtLU57snmlD9Qwkd2y6JW64JuIwN9rG/5XQEApj8A4ADl7l2UGc9iUiU7SycbnJuBz2HXzBqbnLJBdiCYWqPt1PDpq8nzr6TlkEiQLhCsOqF0D45Mu5/+xBqY7mRLSBu6/B7VH8lbkPZuj4OVDHlaT6gPzR5sKzi3mS0Mz44cOzOuVb/NWKzhZdX0wIjYAxk4eSbnb58UP5hAjkpOopFUuD00G27mgMc7PNq5dweheEW+IFSRy1SrQhBDZAGgHECav87ogcziu64G2aoyGnqjlRJ6NSELH/rP4j+fjQikug1YM11V41zbGalB9W5FRJX5kvrkaUYIYBfJA8NNuXwWFWB/wbYKtGlZBp5UdNjin98pTVk62NjkQ8mjPnVpOnzXDgyuKISNXqDDkcsXFu0sv1RHBMjrJ07fIkAY97RzWFZ3tE4ka0vJTLaIKyQHlWi4+z1/sciitUSeTXSXVOQX01UkvI4Cp3cd4z/LzioKF75OyfyeI9vFZax8n4+r1u/JFpmdAApoAJ+P1kKfnkHJTSceXnVwQY3J88aVnun0SBi+ssGjFkNIe3/qgNsiY6Ew5dT90e+g4lqbV3KmHjGi83/PoZhvcV+YHR+SfUzqicSqoCazALV78eit+5zdP4sj0rYPAS9PazOoCr8=
+X-Microsoft-Antispam-Message-Info: 0PrMdIJB4LHhIIcoRHYAdqmJnSYr/fo5L4/bU1Q0gyYPcrIZDBZ1KnXAyZzHHgGzXPOONDgZhJss/WaCMKHqUJ3SFroFOW48Z2rWHPu77UgLptGxlihm2kQJQs8OUCEXk0gaDZ6WLFEldjKn+wKbr6hbyGKOaDFdnK5/AK87BdXcUa1eEiE/Bp4w7qz3Vg1+oc2AFdnA0LJ76xHuuPfeZFuv2mfHK+Az097PodgixerUIuJxK/nGm+SUhLlM2khRCm17ivt8HzLBWDqnorRAD4GoTO6uWIAxE8Me2vS6ZZ53Mj0CQOZaih8Zlb+PyelP7sFmOuxev2YAwqO068YKDkhk2K3Lok0WmECNZ4l/qeH0kIhOORgrKYRxrdyLvehhrE618c6GFyfwyyWiaO2weiHoQxSbO1hDKXrJhOBMapsEAaUxwjQsRB7EzQuMPpoFNltl/8t7c1K+WU2OvprqNbGZ4j4Q1InBXD8tALMkiQODi0LsMCc0aJqt1lMEYmBd8m33YzpKhBgRlF3aiq5wDZbCXj6HE/7xk7KxCH9//TJBOCw0Narga3jb++CuJ9fz7Ao4EvuflIS/0rgcc5vhcoVqCeSZNC87qlBjxKpVde/cqr24wrMjXBNTla21YKkINCk/0qBDQxvhO5kllRVMxPbPzYXBeo2wgcSTRnwaof14ETP/bt2q+yvKUSv6n7dkN4s/KzGf9HQIQtcDxThlDascWVAMiPfMZk+0s09beJk=
 X-Forefront-Antispam-Report: CIP:216.228.112.36; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid05.nvidia.com; CAT:NONE;
- SFS:(4636009)(136003)(396003)(346002)(376002)(39860400002)(36840700001)(46966006)(478600001)(82310400003)(5660300002)(8936002)(70586007)(47076005)(356005)(110136005)(30864003)(36860700001)(186003)(2616005)(921005)(70206006)(2906002)(54906003)(426003)(336012)(4326008)(8676002)(7696005)(107886003)(36906005)(83380400001)(82740400003)(26005)(36756003)(86362001)(316002)(7636003)(7416002);
+ SFS:(4636009)(376002)(396003)(39860400002)(136003)(346002)(36840700001)(46966006)(83380400001)(478600001)(356005)(7636003)(5660300002)(7696005)(47076005)(36906005)(26005)(30864003)(186003)(336012)(921005)(36756003)(107886003)(82740400003)(8676002)(2906002)(54906003)(36860700001)(82310400003)(316002)(110136005)(70206006)(4326008)(8936002)(70586007)(7416002)(2616005)(86362001)(426003);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2021 16:43:18.8555 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5eb1de20-df0a-4f15-784e-08d976d5976a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2021 16:43:23.3643 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 15043eb1-3a94-4f2f-7de4-08d976d59a2a
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.36];
  Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT031.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT003.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB4978
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4032
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Sameer Pujar <spujar@nvidia.com>, linux-kernel@vger.kernel.org,
  linux-tegra@vger.kernel.org, sharadg@nvidia.com,
@@ -140,78 +140,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Audio Multiplexer (AMX) block can multiplex up to four input streams
-each of which can have maximum 16 channels and generate an output stream
-with maximum 16 channels. A byte RAM helps to form an output frame by
-any combination of bytes from the input frames.
+The Audio Demultiplexer (ADX) block takes an input stream with up to
+16 channels and demultiplexes it into four output streams of up to 16
+channels each. A byte RAM helps to form output frames by any combination
+of bytes from the input frame. Its design is identical to that of byte
+RAM in the AMX except that the data flow direction is reversed.
 
-This patch registers AMX driver with ASoC framework. The component driver
+This patch registers ADX driver with ASoC framework. The component driver
 exposes DAPM widgets, routes and kcontrols for the device. The DAI driver
-exposes AMX interfaces, which can be used to connect different components
+exposes ADX interfaces, which can be used to connect different components
 in the ASoC layer. Makefile and Kconfig support is added to allow build
-the driver. It can be enabled in the DT via "nvidia,tegra210-amx" for
-Tegra210 and Tegra186. For Tegra194 and later, "nvidia,tegra194-amx" can
-be used.
+the driver. It can be enabled in the DT via "nvidia,tegra210-adx"
+compatible binding.
 
 Signed-off-by: Sameer Pujar <spujar@nvidia.com>
 ---
- sound/soc/tegra/Kconfig        |   9 +
+ sound/soc/tegra/Kconfig        |  11 +
  sound/soc/tegra/Makefile       |   2 +
- sound/soc/tegra/tegra210_amx.c | 600 +++++++++++++++++++++++++++++++++++++++++
- sound/soc/tegra/tegra210_amx.h |  93 +++++++
- 4 files changed, 704 insertions(+)
- create mode 100644 sound/soc/tegra/tegra210_amx.c
- create mode 100644 sound/soc/tegra/tegra210_amx.h
+ sound/soc/tegra/tegra210_adx.c | 531 +++++++++++++++++++++++++++++++++++++++++
+ sound/soc/tegra/tegra210_adx.h |  72 ++++++
+ 4 files changed, 616 insertions(+)
+ create mode 100644 sound/soc/tegra/tegra210_adx.c
+ create mode 100644 sound/soc/tegra/tegra210_adx.h
 
 diff --git a/sound/soc/tegra/Kconfig b/sound/soc/tegra/Kconfig
-index 102564e..54d8342 100644
+index 54d8342..fd4a8d6 100644
 --- a/sound/soc/tegra/Kconfig
 +++ b/sound/soc/tegra/Kconfig
-@@ -126,6 +126,15 @@ config SND_SOC_TEGRA210_SFC
- 	  upto 2 channels (stereo).
- 	  Say Y or M if you want to add support for Tegra210 SFC module.
+@@ -135,6 +135,17 @@ config SND_SOC_TEGRA210_AMX
+ 	  output frame by any combination of bytes from the input frames.
+ 	  Say Y or M if you want to add support for Tegra210 AMX module.
  
-+config SND_SOC_TEGRA210_AMX
-+	tristate "Tegra210 AMX module"
++config SND_SOC_TEGRA210_ADX
++	tristate "Tegra210 ADX module"
 +	help
-+	  Config to enable the Audio Multiplexer (AMX) which can multiplex
-+	  four input streams (each of up to 16 channels) and generate
-+	  output stream (of up to 16 channels). A byte RAM helps to form an
-+	  output frame by any combination of bytes from the input frames.
-+	  Say Y or M if you want to add support for Tegra210 AMX module.
++	  Config to enable the Audio Demultiplexer (ADX) which takes an
++	  input stream (up to 16 channels) and demultiplexes it into four
++	  output streams (each of up to 16 channels). A byte RAM helps to
++	  form output frames by any combination of bytes from the input
++	  frame. Its design is identical to that of byte RAM in the AMX
++	  except that the data flow direction is reversed.
++	  Say Y or M if you want to add support for Tegra210 ADX module.
 +
  config SND_SOC_TEGRA_AUDIO_GRAPH_CARD
  	tristate "Audio Graph Card based Tegra driver"
  	depends on SND_AUDIO_GRAPH_CARD
 diff --git a/sound/soc/tegra/Makefile b/sound/soc/tegra/Makefile
-index bb0cf3a..549162b 100644
+index 549162b..8eb17ad 100644
 --- a/sound/soc/tegra/Makefile
 +++ b/sound/soc/tegra/Makefile
-@@ -15,6 +15,7 @@ snd-soc-tegra186-dspk-objs := tegra186_dspk.o
- snd-soc-tegra210-admaif-objs := tegra210_admaif.o
+@@ -16,6 +16,7 @@ snd-soc-tegra210-admaif-objs := tegra210_admaif.o
  snd-soc-tegra210-mvc-objs := tegra210_mvc.o
  snd-soc-tegra210-sfc-objs := tegra210_sfc.o
-+snd-soc-tegra210-amx-objs := tegra210_amx.o
+ snd-soc-tegra210-amx-objs := tegra210_amx.o
++snd-soc-tegra210-adx-objs := tegra210_adx.o
  
  obj-$(CONFIG_SND_SOC_TEGRA) += snd-soc-tegra-pcm.o
  obj-$(CONFIG_SND_SOC_TEGRA20_AC97) += snd-soc-tegra20-ac97.o
-@@ -30,6 +31,7 @@ obj-$(CONFIG_SND_SOC_TEGRA186_DSPK) += snd-soc-tegra186-dspk.o
- obj-$(CONFIG_SND_SOC_TEGRA210_ADMAIF) += snd-soc-tegra210-admaif.o
+@@ -32,6 +33,7 @@ obj-$(CONFIG_SND_SOC_TEGRA210_ADMAIF) += snd-soc-tegra210-admaif.o
  obj-$(CONFIG_SND_SOC_TEGRA210_MVC) += snd-soc-tegra210-mvc.o
  obj-$(CONFIG_SND_SOC_TEGRA210_SFC) += snd-soc-tegra210-sfc.o
-+obj-$(CONFIG_SND_SOC_TEGRA210_AMX) += snd-soc-tegra210-amx.o
+ obj-$(CONFIG_SND_SOC_TEGRA210_AMX) += snd-soc-tegra210-amx.o
++obj-$(CONFIG_SND_SOC_TEGRA210_ADX) += snd-soc-tegra210-adx.o
  
  # Tegra machine Support
  snd-soc-tegra-wm8903-objs := tegra_wm8903.o
-diff --git a/sound/soc/tegra/tegra210_amx.c b/sound/soc/tegra/tegra210_amx.c
+diff --git a/sound/soc/tegra/tegra210_adx.c b/sound/soc/tegra/tegra210_adx.c
 new file mode 100644
-index 00000000..83176e1
+index 00000000..78d6604
 --- /dev/null
-+++ b/sound/soc/tegra/tegra210_amx.c
-@@ -0,0 +1,600 @@
++++ b/sound/soc/tegra/tegra210_adx.c
+@@ -0,0 +1,531 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +//
-+// tegra210_amx.c - Tegra210 AMX driver
++// tegra210_adx.c - Tegra210 ADX driver
 +//
 +// Copyright (c) 2021 NVIDIA CORPORATION.  All rights reserved.
 +
@@ -229,64 +231,50 @@ index 00000000..83176e1
 +#include <sound/pcm_params.h>
 +#include <sound/soc.h>
 +
-+#include "tegra210_amx.h"
++#include "tegra210_adx.h"
 +#include "tegra_cif.h"
 +
-+/*
-+ * The counter is in terms of AHUB clock cycles. If a frame is not
-+ * received within these clock cycles, the AMX input channel gets
-+ * automatically disabled. For now the counter is calculated as a
-+ * function of sample rate (8 kHz) and AHUB clock (49.152 MHz).
-+ * If later an accurate number is needed, the counter needs to be
-+ * calculated at runtime.
-+ *
-+ *     count = ahub_clk / sample_rate
-+ */
-+#define TEGRA194_MAX_FRAME_IDLE_COUNT	0x1800
-+
-+#define AMX_CH_REG(id, reg) ((reg) + ((id) * TEGRA210_AMX_AUDIOCIF_CH_STRIDE))
-+
-+static const struct reg_default tegra210_amx_reg_defaults[] = {
-+	{ TEGRA210_AMX_RX_INT_MASK, 0x0000000f},
-+	{ TEGRA210_AMX_RX1_CIF_CTRL, 0x00007000},
-+	{ TEGRA210_AMX_RX2_CIF_CTRL, 0x00007000},
-+	{ TEGRA210_AMX_RX3_CIF_CTRL, 0x00007000},
-+	{ TEGRA210_AMX_RX4_CIF_CTRL, 0x00007000},
-+	{ TEGRA210_AMX_TX_INT_MASK, 0x00000001},
-+	{ TEGRA210_AMX_TX_CIF_CTRL, 0x00007000},
-+	{ TEGRA210_AMX_CG, 0x1},
-+	{ TEGRA210_AMX_CFG_RAM_CTRL, 0x00004000},
++static const struct reg_default tegra210_adx_reg_defaults[] = {
++	{ TEGRA210_ADX_RX_INT_MASK, 0x00000001},
++	{ TEGRA210_ADX_RX_CIF_CTRL, 0x00007000},
++	{ TEGRA210_ADX_TX_INT_MASK, 0x0000000f },
++	{ TEGRA210_ADX_TX1_CIF_CTRL, 0x00007000},
++	{ TEGRA210_ADX_TX2_CIF_CTRL, 0x00007000},
++	{ TEGRA210_ADX_TX3_CIF_CTRL, 0x00007000},
++	{ TEGRA210_ADX_TX4_CIF_CTRL, 0x00007000},
++	{ TEGRA210_ADX_CG, 0x1},
++	{ TEGRA210_ADX_CFG_RAM_CTRL, 0x00004000},
 +};
 +
-+static void tegra210_amx_write_map_ram(struct tegra210_amx *amx)
++static void tegra210_adx_write_map_ram(struct tegra210_adx *adx)
 +{
 +	int i;
 +
-+	regmap_write(amx->regmap, TEGRA210_AMX_CFG_RAM_CTRL,
-+		     TEGRA210_AMX_CFG_RAM_CTRL_SEQ_ACCESS_EN |
-+		     TEGRA210_AMX_CFG_RAM_CTRL_ADDR_INIT_EN |
-+		     TEGRA210_AMX_CFG_RAM_CTRL_RW_WRITE);
++	regmap_write(adx->regmap, TEGRA210_ADX_CFG_RAM_CTRL,
++		     TEGRA210_ADX_CFG_RAM_CTRL_SEQ_ACCESS_EN |
++		     TEGRA210_ADX_CFG_RAM_CTRL_ADDR_INIT_EN |
++		     TEGRA210_ADX_CFG_RAM_CTRL_RW_WRITE);
 +
-+	for (i = 0; i < TEGRA210_AMX_RAM_DEPTH; i++)
-+		regmap_write(amx->regmap, TEGRA210_AMX_CFG_RAM_DATA,
-+			     amx->map[i]);
++	for (i = 0; i < TEGRA210_ADX_RAM_DEPTH; i++)
++		regmap_write(adx->regmap, TEGRA210_ADX_CFG_RAM_DATA,
++			     adx->map[i]);
 +
-+	regmap_write(amx->regmap, TEGRA210_AMX_OUT_BYTE_EN0, amx->byte_mask[0]);
-+	regmap_write(amx->regmap, TEGRA210_AMX_OUT_BYTE_EN1, amx->byte_mask[1]);
++	regmap_write(adx->regmap, TEGRA210_ADX_IN_BYTE_EN0, adx->byte_mask[0]);
++	regmap_write(adx->regmap, TEGRA210_ADX_IN_BYTE_EN1, adx->byte_mask[1]);
 +}
 +
-+static int tegra210_amx_startup(struct snd_pcm_substream *substream,
++static int tegra210_adx_startup(struct snd_pcm_substream *substream,
 +				struct snd_soc_dai *dai)
 +{
-+	struct tegra210_amx *amx = snd_soc_dai_get_drvdata(dai);
++	struct tegra210_adx *adx = snd_soc_dai_get_drvdata(dai);
 +	unsigned int val;
 +	int err;
 +
-+	/* Ensure if AMX is disabled */
-+	err = regmap_read_poll_timeout(amx->regmap, TEGRA210_AMX_STATUS, val,
-+				       !(val & 0x1), 10, 10000);
++	/* Ensure if ADX status is disabled */
++	err = regmap_read_poll_timeout_atomic(adx->regmap, TEGRA210_ADX_STATUS,
++					      val, !(val & 0x1), 10, 10000);
 +	if (err < 0) {
-+		dev_err(dai->dev, "failed to stop AMX, err = %d\n", err);
++		dev_err(dai->dev, "failed to stop ADX, err = %d\n", err);
 +		return err;
 +	}
 +
@@ -296,60 +284,57 @@ index 00000000..83176e1
 +	 * state register. It also brings module back to disabled
 +	 * state (without flushing the data in the pipe).
 +	 */
-+	regmap_update_bits(amx->regmap, TEGRA210_AMX_SOFT_RESET,
-+			   TEGRA210_AMX_SOFT_RESET_SOFT_RESET_MASK,
-+			   TEGRA210_AMX_SOFT_RESET_SOFT_EN);
++	regmap_update_bits(adx->regmap, TEGRA210_ADX_SOFT_RESET,
++			   TEGRA210_ADX_SOFT_RESET_SOFT_RESET_MASK,
++			   TEGRA210_ADX_SOFT_RESET_SOFT_EN);
 +
-+	err = regmap_read_poll_timeout(amx->regmap, TEGRA210_AMX_SOFT_RESET,
++	err = regmap_read_poll_timeout(adx->regmap, TEGRA210_ADX_SOFT_RESET,
 +				       val, !(val & 0x1), 10, 10000);
 +	if (err < 0) {
-+		dev_err(dai->dev, "failed to reset AMX, err = %d\n", err);
++		dev_err(dai->dev, "failed to reset ADX, err = %d\n", err);
 +		return err;
 +	}
 +
 +	return 0;
 +}
 +
-+static int __maybe_unused tegra210_amx_runtime_suspend(struct device *dev)
++static int __maybe_unused tegra210_adx_runtime_suspend(struct device *dev)
 +{
-+	struct tegra210_amx *amx = dev_get_drvdata(dev);
++	struct tegra210_adx *adx = dev_get_drvdata(dev);
 +
-+	regcache_cache_only(amx->regmap, true);
-+	regcache_mark_dirty(amx->regmap);
++	regcache_cache_only(adx->regmap, true);
++	regcache_mark_dirty(adx->regmap);
 +
 +	return 0;
 +}
 +
-+static int __maybe_unused tegra210_amx_runtime_resume(struct device *dev)
++static int __maybe_unused tegra210_adx_runtime_resume(struct device *dev)
 +{
-+	struct tegra210_amx *amx = dev_get_drvdata(dev);
++	struct tegra210_adx *adx = dev_get_drvdata(dev);
 +
-+	regcache_cache_only(amx->regmap, false);
-+	regcache_sync(amx->regmap);
++	regcache_cache_only(adx->regmap, false);
++	regcache_sync(adx->regmap);
 +
-+	regmap_update_bits(amx->regmap,
-+		TEGRA210_AMX_CTRL,
-+		TEGRA210_AMX_CTRL_RX_DEP_MASK,
-+		TEGRA210_AMX_WAIT_ON_ANY << TEGRA210_AMX_CTRL_RX_DEP_SHIFT);
-+
-+	tegra210_amx_write_map_ram(amx);
++	tegra210_adx_write_map_ram(adx);
 +
 +	return 0;
 +}
 +
-+static int tegra210_amx_set_audio_cif(struct snd_soc_dai *dai,
-+				      struct snd_pcm_hw_params *params,
++static int tegra210_adx_set_audio_cif(struct snd_soc_dai *dai,
++				      unsigned int channels,
++				      unsigned int format,
 +				      unsigned int reg)
 +{
-+	struct tegra210_amx *amx = snd_soc_dai_get_drvdata(dai);
-+	int channels, audio_bits;
++	struct tegra210_adx *adx = snd_soc_dai_get_drvdata(dai);
 +	struct tegra_cif_conf cif_conf;
++	int audio_bits;
 +
 +	memset(&cif_conf, 0, sizeof(struct tegra_cif_conf));
 +
-+	channels = params_channels(params);
++	if (channels < 1 || channels > 16)
++		return -EINVAL;
 +
-+	switch (params_format(params)) {
++	switch (format) {
 +	case SNDRV_PCM_FORMAT_S8:
 +		audio_bits = TEGRA_ACIF_BITS_8;
 +		break;
@@ -368,104 +353,86 @@ index 00000000..83176e1
 +	cif_conf.audio_bits = audio_bits;
 +	cif_conf.client_bits = audio_bits;
 +
-+	tegra_set_cif(amx->regmap, reg, &cif_conf);
++	tegra_set_cif(adx->regmap, reg, &cif_conf);
 +
 +	return 0;
 +}
 +
-+static int tegra210_amx_in_hw_params(struct snd_pcm_substream *substream,
-+				     struct snd_pcm_hw_params *params,
-+				     struct snd_soc_dai *dai)
-+{
-+	struct tegra210_amx *amx = snd_soc_dai_get_drvdata(dai);
-+
-+	if (amx->soc_data->auto_disable) {
-+		regmap_write(amx->regmap,
-+			     AMX_CH_REG(dai->id, TEGRA194_AMX_RX1_FRAME_PERIOD),
-+			     TEGRA194_MAX_FRAME_IDLE_COUNT);
-+		regmap_write(amx->regmap, TEGRA210_AMX_CYA, 1);
-+	}
-+
-+	return tegra210_amx_set_audio_cif(dai, params,
-+			AMX_CH_REG(dai->id, TEGRA210_AMX_RX1_CIF_CTRL));
-+}
-+
-+static int tegra210_amx_out_hw_params(struct snd_pcm_substream *substream,
++static int tegra210_adx_out_hw_params(struct snd_pcm_substream *substream,
 +				      struct snd_pcm_hw_params *params,
 +				      struct snd_soc_dai *dai)
 +{
-+	return tegra210_amx_set_audio_cif(dai, params,
-+					  TEGRA210_AMX_TX_CIF_CTRL);
++	return tegra210_adx_set_audio_cif(dai, params_channels(params),
++			params_format(params),
++			TEGRA210_ADX_TX1_CIF_CTRL + ((dai->id - 1) * TEGRA210_ADX_AUDIOCIF_CH_STRIDE));
 +}
 +
-+static int tegra210_amx_get_byte_map(struct snd_kcontrol *kcontrol,
++static int tegra210_adx_in_hw_params(struct snd_pcm_substream *substream,
++				     struct snd_pcm_hw_params *params,
++				     struct snd_soc_dai *dai)
++{
++	return tegra210_adx_set_audio_cif(dai, params_channels(params),
++					  params_format(params),
++					  TEGRA210_ADX_RX_CIF_CTRL);
++}
++
++static int tegra210_adx_get_byte_map(struct snd_kcontrol *kcontrol,
 +				     struct snd_ctl_elem_value *ucontrol)
 +{
 +	struct snd_soc_component *cmpnt = snd_soc_kcontrol_component(kcontrol);
-+	struct soc_mixer_control *mc =
-+		(struct soc_mixer_control *)kcontrol->private_value;
-+	struct tegra210_amx *amx = snd_soc_component_get_drvdata(cmpnt);
-+	unsigned char *bytes_map = (unsigned char *)&amx->map;
-+	int reg = mc->reg;
++	struct tegra210_adx *adx = snd_soc_component_get_drvdata(cmpnt);
++	struct soc_mixer_control *mc;
++	unsigned char *bytes_map = (unsigned char *)&adx->map;
 +	int enabled;
 +
-+	if (reg > 31)
-+		enabled = amx->byte_mask[1] & (1 << (reg - 32));
-+	else
-+		enabled = amx->byte_mask[0] & (1 << reg);
++	mc = (struct soc_mixer_control *)kcontrol->private_value;
++	enabled = adx->byte_mask[mc->reg / 32] & (1 << (mc->reg % 32));
 +
 +	if (enabled)
-+		ucontrol->value.integer.value[0] = bytes_map[reg];
++		ucontrol->value.integer.value[0] = bytes_map[mc->reg];
 +	else
 +		ucontrol->value.integer.value[0] = 0;
 +
 +	return 0;
 +}
 +
-+static int tegra210_amx_put_byte_map(struct snd_kcontrol *kcontrol,
++static int tegra210_adx_put_byte_map(struct snd_kcontrol *kcontrol,
 +				     struct snd_ctl_elem_value *ucontrol)
 +{
-+	struct soc_mixer_control *mc =
-+		(struct soc_mixer_control *)kcontrol->private_value;
 +	struct snd_soc_component *cmpnt = snd_soc_kcontrol_component(kcontrol);
-+	struct tegra210_amx *amx = snd_soc_component_get_drvdata(cmpnt);
-+	unsigned char *bytes_map = (unsigned char *)&amx->map;
-+	int reg = mc->reg;
++	struct tegra210_adx *adx = snd_soc_component_get_drvdata(cmpnt);
++	unsigned char *bytes_map = (unsigned char *)&adx->map;
 +	int value = ucontrol->value.integer.value[0];
++	struct soc_mixer_control *mc =
++		(struct soc_mixer_control *)kcontrol->private_value;;
 +
 +	if (value >= 0 && value <= 255) {
-+		/* Update byte map and enable slot */
-+		bytes_map[reg] = value;
-+		if (reg > 31)
-+			amx->byte_mask[1] |= (1 << (reg - 32));
-+		else
-+			amx->byte_mask[0] |= (1 << reg);
++		/* update byte map and enable slot */
++		bytes_map[mc->reg] = value;
++		adx->byte_mask[mc->reg / 32] |= (1 << (mc->reg % 32));
 +	} else {
-+		/* Reset byte map and disable slot */
-+		bytes_map[reg] = 0;
-+		if (reg > 31)
-+			amx->byte_mask[1] &= ~(1 << (reg - 32));
-+		else
-+			amx->byte_mask[0] &= ~(1 << reg);
++		/* reset byte map and disable slot */
++		bytes_map[mc->reg] = 0;
++		adx->byte_mask[mc->reg / 32] &= ~(1 << (mc->reg % 32));
 +	}
 +
 +	return 1;
 +}
 +
-+static struct snd_soc_dai_ops tegra210_amx_out_dai_ops = {
-+	.hw_params	= tegra210_amx_out_hw_params,
-+	.startup	= tegra210_amx_startup,
++static struct snd_soc_dai_ops tegra210_adx_in_dai_ops = {
++	.hw_params	= tegra210_adx_in_hw_params,
++	.startup	= tegra210_adx_startup,
 +};
 +
-+static struct snd_soc_dai_ops tegra210_amx_in_dai_ops = {
-+	.hw_params	= tegra210_amx_in_hw_params,
++static struct snd_soc_dai_ops tegra210_adx_out_dai_ops = {
++	.hw_params	= tegra210_adx_out_hw_params,
 +};
 +
-+#define IN_DAI(id)						\
++#define IN_DAI							\
 +	{							\
-+		.name = "AMX-RX-CIF" #id,			\
++		.name = "ADX-RX-CIF",				\
 +		.playback = {					\
-+			.stream_name = "RX" #id "-CIF-Playback",\
++			.stream_name = "RX-CIF-Playback",	\
 +			.channels_min = 1,			\
 +			.channels_max = 16,			\
 +			.rates = SNDRV_PCM_RATE_8000_192000,	\
@@ -474,7 +441,7 @@ index 00000000..83176e1
 +				   SNDRV_PCM_FMTBIT_S32_LE,	\
 +		},						\
 +		.capture = {					\
-+			.stream_name = "RX" #id "-CIF-Capture",	\
++			.stream_name = "RX-CIF-Capture",	\
 +			.channels_min = 1,			\
 +			.channels_max = 16,			\
 +			.rates = SNDRV_PCM_RATE_8000_192000,	\
@@ -482,14 +449,14 @@ index 00000000..83176e1
 +				   SNDRV_PCM_FMTBIT_S16_LE |	\
 +				   SNDRV_PCM_FMTBIT_S32_LE,	\
 +		},						\
-+		.ops = &tegra210_amx_in_dai_ops,		\
++		.ops = &tegra210_adx_in_dai_ops,		\
 +	}
 +
-+#define OUT_DAI							\
++#define OUT_DAI(id)						\
 +	{							\
-+		.name = "AMX-TX-CIF",				\
++		.name = "ADX-TX" #id "-CIF",			\
 +		.playback = {					\
-+			.stream_name = "TX-CIF-Playback",	\
++			.stream_name = "TX" #id "-CIF-Playback",\
 +			.channels_min = 1,			\
 +			.channels_max = 16,			\
 +			.rates = SNDRV_PCM_RATE_8000_192000,	\
@@ -498,7 +465,7 @@ index 00000000..83176e1
 +				   SNDRV_PCM_FMTBIT_S32_LE,	\
 +		},						\
 +		.capture = {					\
-+			.stream_name = "TX-CIF-Capture",	\
++			.stream_name = "TX" #id "-CIF-Capture",	\
 +			.channels_min = 1,			\
 +			.channels_max = 16,			\
 +			.rates = SNDRV_PCM_RATE_8000_192000,	\
@@ -506,184 +473,181 @@ index 00000000..83176e1
 +				   SNDRV_PCM_FMTBIT_S16_LE |	\
 +				   SNDRV_PCM_FMTBIT_S32_LE,	\
 +		},						\
-+		.ops = &tegra210_amx_out_dai_ops,		\
++		.ops = &tegra210_adx_out_dai_ops,		\
 +	}
 +
-+static struct snd_soc_dai_driver tegra210_amx_dais[] = {
-+	IN_DAI(1),
-+	IN_DAI(2),
-+	IN_DAI(3),
-+	IN_DAI(4),
-+	OUT_DAI,
++static struct snd_soc_dai_driver tegra210_adx_dais[] = {
++	IN_DAI,
++	OUT_DAI(1),
++	OUT_DAI(2),
++	OUT_DAI(3),
++	OUT_DAI(4),
 +};
 +
-+static const struct snd_soc_dapm_widget tegra210_amx_widgets[] = {
-+	SND_SOC_DAPM_AIF_IN("RX1", NULL, 0, TEGRA210_AMX_CTRL, 0, 0),
-+	SND_SOC_DAPM_AIF_IN("RX2", NULL, 0, TEGRA210_AMX_CTRL, 1, 0),
-+	SND_SOC_DAPM_AIF_IN("RX3", NULL, 0, TEGRA210_AMX_CTRL, 2, 0),
-+	SND_SOC_DAPM_AIF_IN("RX4", NULL, 0, TEGRA210_AMX_CTRL, 3, 0),
-+	SND_SOC_DAPM_AIF_OUT("TX", NULL, 0, TEGRA210_AMX_ENABLE,
-+			     TEGRA210_AMX_ENABLE_SHIFT, 0),
++static const struct snd_soc_dapm_widget tegra210_adx_widgets[] = {
++	SND_SOC_DAPM_AIF_IN("RX", NULL, 0, TEGRA210_ADX_ENABLE,
++			    TEGRA210_ADX_ENABLE_SHIFT, 0),
++	SND_SOC_DAPM_AIF_OUT("TX1", NULL, 0, TEGRA210_ADX_CTRL, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("TX2", NULL, 0, TEGRA210_ADX_CTRL, 1, 0),
++	SND_SOC_DAPM_AIF_OUT("TX3", NULL, 0, TEGRA210_ADX_CTRL, 2, 0),
++	SND_SOC_DAPM_AIF_OUT("TX4", NULL, 0, TEGRA210_ADX_CTRL, 3, 0),
 +};
 +
 +#define STREAM_ROUTES(id, sname)					  \
-+	{ "RX" #id " XBAR-" sname,	NULL,	"RX" #id " XBAR-TX" },	  \
-+	{ "RX" #id "-CIF-" sname,	NULL,	"RX" #id " XBAR-" sname },\
-+	{ "RX" #id,			NULL,	"RX" #id "-CIF-" sname }, \
-+	{ "TX",				NULL,	"RX" #id },		  \
-+	{ "TX-CIF-" sname,		NULL,	"TX" },			  \
-+	{ "XBAR-" sname,		NULL,	"TX-CIF-" sname },	  \
-+	{ "XBAR-RX",			NULL,	"XBAR-" sname }
++	{ "XBAR-" sname,		NULL,	"XBAR-TX" },		  \
++	{ "RX-CIF-" sname,		NULL,	"XBAR-" sname },	  \
++	{ "RX",				NULL,	"RX-CIF-" sname },	  \
++	{ "TX" #id,			NULL,	"RX" },			  \
++	{ "TX" #id "-CIF-" sname,	NULL,	"TX" #id },		  \
++	{ "TX" #id " XBAR-" sname,	NULL,	"TX" #id "-CIF-" sname }, \
++	{ "TX" #id " XBAR-RX",		NULL,	"TX" #id " XBAR-" sname }
 +
-+#define AMX_ROUTES(id)			\
++#define ADX_ROUTES(id)			\
 +	STREAM_ROUTES(id, "Playback"),	\
 +	STREAM_ROUTES(id, "Capture")
 +
-+static const struct snd_soc_dapm_route tegra210_amx_routes[] = {
-+	AMX_ROUTES(1),
-+	AMX_ROUTES(2),
-+	AMX_ROUTES(3),
-+	AMX_ROUTES(4),
++#define STREAM_ROUTES(id, sname)					  \
++	{ "XBAR-" sname,		NULL,	"XBAR-TX" },		  \
++	{ "RX-CIF-" sname,		NULL,	"XBAR-" sname },	  \
++	{ "RX",				NULL,	"RX-CIF-" sname },	  \
++	{ "TX" #id,			NULL,	"RX" },			  \
++	{ "TX" #id "-CIF-" sname,	NULL,	"TX" #id },		  \
++	{ "TX" #id " XBAR-" sname,	NULL,	"TX" #id "-CIF-" sname }, \
++	{ "TX" #id " XBAR-RX",		NULL,	"TX" #id " XBAR-" sname }
++
++#define ADX_ROUTES(id)			\
++	STREAM_ROUTES(id, "Playback"),	\
++	STREAM_ROUTES(id, "Capture")
++
++static const struct snd_soc_dapm_route tegra210_adx_routes[] = {
++	ADX_ROUTES(1),
++	ADX_ROUTES(2),
++	ADX_ROUTES(3),
++	ADX_ROUTES(4),
 +};
 +
-+#define TEGRA210_AMX_BYTE_MAP_CTRL(reg)					\
-+	SOC_SINGLE_EXT("Byte Map " #reg, reg, 0, 256, 0,		\
-+		       tegra210_amx_get_byte_map,			\
-+		       tegra210_amx_put_byte_map)
++#define TEGRA210_ADX_BYTE_MAP_CTRL(reg)			 \
++	SOC_SINGLE_EXT("Byte Map " #reg, reg, 0, 256, 0, \
++		       tegra210_adx_get_byte_map,	 \
++		       tegra210_adx_put_byte_map)
 +
-+static struct snd_kcontrol_new tegra210_amx_controls[] = {
-+	TEGRA210_AMX_BYTE_MAP_CTRL(0),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(1),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(2),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(3),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(4),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(5),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(6),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(7),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(8),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(9),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(10),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(11),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(12),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(13),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(14),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(15),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(16),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(17),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(18),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(19),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(20),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(21),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(22),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(23),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(24),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(25),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(26),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(27),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(28),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(29),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(30),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(31),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(32),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(33),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(34),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(35),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(36),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(37),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(38),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(39),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(40),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(41),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(42),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(43),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(44),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(45),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(46),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(47),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(48),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(49),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(50),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(51),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(52),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(53),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(54),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(55),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(56),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(57),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(58),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(59),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(60),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(61),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(62),
-+	TEGRA210_AMX_BYTE_MAP_CTRL(63),
++static struct snd_kcontrol_new tegra210_adx_controls[] = {
++	TEGRA210_ADX_BYTE_MAP_CTRL(0),
++	TEGRA210_ADX_BYTE_MAP_CTRL(1),
++	TEGRA210_ADX_BYTE_MAP_CTRL(2),
++	TEGRA210_ADX_BYTE_MAP_CTRL(3),
++	TEGRA210_ADX_BYTE_MAP_CTRL(4),
++	TEGRA210_ADX_BYTE_MAP_CTRL(5),
++	TEGRA210_ADX_BYTE_MAP_CTRL(6),
++	TEGRA210_ADX_BYTE_MAP_CTRL(7),
++	TEGRA210_ADX_BYTE_MAP_CTRL(8),
++	TEGRA210_ADX_BYTE_MAP_CTRL(9),
++	TEGRA210_ADX_BYTE_MAP_CTRL(10),
++	TEGRA210_ADX_BYTE_MAP_CTRL(11),
++	TEGRA210_ADX_BYTE_MAP_CTRL(12),
++	TEGRA210_ADX_BYTE_MAP_CTRL(13),
++	TEGRA210_ADX_BYTE_MAP_CTRL(14),
++	TEGRA210_ADX_BYTE_MAP_CTRL(15),
++	TEGRA210_ADX_BYTE_MAP_CTRL(16),
++	TEGRA210_ADX_BYTE_MAP_CTRL(17),
++	TEGRA210_ADX_BYTE_MAP_CTRL(18),
++	TEGRA210_ADX_BYTE_MAP_CTRL(19),
++	TEGRA210_ADX_BYTE_MAP_CTRL(20),
++	TEGRA210_ADX_BYTE_MAP_CTRL(21),
++	TEGRA210_ADX_BYTE_MAP_CTRL(22),
++	TEGRA210_ADX_BYTE_MAP_CTRL(23),
++	TEGRA210_ADX_BYTE_MAP_CTRL(24),
++	TEGRA210_ADX_BYTE_MAP_CTRL(25),
++	TEGRA210_ADX_BYTE_MAP_CTRL(26),
++	TEGRA210_ADX_BYTE_MAP_CTRL(27),
++	TEGRA210_ADX_BYTE_MAP_CTRL(28),
++	TEGRA210_ADX_BYTE_MAP_CTRL(29),
++	TEGRA210_ADX_BYTE_MAP_CTRL(30),
++	TEGRA210_ADX_BYTE_MAP_CTRL(31),
++	TEGRA210_ADX_BYTE_MAP_CTRL(32),
++	TEGRA210_ADX_BYTE_MAP_CTRL(33),
++	TEGRA210_ADX_BYTE_MAP_CTRL(34),
++	TEGRA210_ADX_BYTE_MAP_CTRL(35),
++	TEGRA210_ADX_BYTE_MAP_CTRL(36),
++	TEGRA210_ADX_BYTE_MAP_CTRL(37),
++	TEGRA210_ADX_BYTE_MAP_CTRL(38),
++	TEGRA210_ADX_BYTE_MAP_CTRL(39),
++	TEGRA210_ADX_BYTE_MAP_CTRL(40),
++	TEGRA210_ADX_BYTE_MAP_CTRL(41),
++	TEGRA210_ADX_BYTE_MAP_CTRL(42),
++	TEGRA210_ADX_BYTE_MAP_CTRL(43),
++	TEGRA210_ADX_BYTE_MAP_CTRL(44),
++	TEGRA210_ADX_BYTE_MAP_CTRL(45),
++	TEGRA210_ADX_BYTE_MAP_CTRL(46),
++	TEGRA210_ADX_BYTE_MAP_CTRL(47),
++	TEGRA210_ADX_BYTE_MAP_CTRL(48),
++	TEGRA210_ADX_BYTE_MAP_CTRL(49),
++	TEGRA210_ADX_BYTE_MAP_CTRL(50),
++	TEGRA210_ADX_BYTE_MAP_CTRL(51),
++	TEGRA210_ADX_BYTE_MAP_CTRL(52),
++	TEGRA210_ADX_BYTE_MAP_CTRL(53),
++	TEGRA210_ADX_BYTE_MAP_CTRL(54),
++	TEGRA210_ADX_BYTE_MAP_CTRL(55),
++	TEGRA210_ADX_BYTE_MAP_CTRL(56),
++	TEGRA210_ADX_BYTE_MAP_CTRL(57),
++	TEGRA210_ADX_BYTE_MAP_CTRL(58),
++	TEGRA210_ADX_BYTE_MAP_CTRL(59),
++	TEGRA210_ADX_BYTE_MAP_CTRL(60),
++	TEGRA210_ADX_BYTE_MAP_CTRL(61),
++	TEGRA210_ADX_BYTE_MAP_CTRL(62),
++	TEGRA210_ADX_BYTE_MAP_CTRL(63),
 +};
 +
-+static const struct snd_soc_component_driver tegra210_amx_cmpnt = {
-+	.dapm_widgets		= tegra210_amx_widgets,
-+	.num_dapm_widgets	= ARRAY_SIZE(tegra210_amx_widgets),
-+	.dapm_routes		= tegra210_amx_routes,
-+	.num_dapm_routes	= ARRAY_SIZE(tegra210_amx_routes),
-+	.controls		= tegra210_amx_controls,
-+	.num_controls		= ARRAY_SIZE(tegra210_amx_controls),
++static const struct snd_soc_component_driver tegra210_adx_cmpnt = {
++	.dapm_widgets		= tegra210_adx_widgets,
++	.num_dapm_widgets	= ARRAY_SIZE(tegra210_adx_widgets),
++	.dapm_routes		= tegra210_adx_routes,
++	.num_dapm_routes	= ARRAY_SIZE(tegra210_adx_routes),
++	.controls		= tegra210_adx_controls,
++	.num_controls		= ARRAY_SIZE(tegra210_adx_controls),
 +};
 +
-+static bool tegra210_amx_wr_reg(struct device *dev, unsigned int reg)
++static bool tegra210_adx_wr_reg(struct device *dev,
++				unsigned int reg)
 +{
 +	switch (reg) {
-+	case TEGRA210_AMX_RX_INT_MASK ... TEGRA210_AMX_RX4_CIF_CTRL:
-+	case TEGRA210_AMX_TX_INT_MASK ... TEGRA210_AMX_CG:
-+	case TEGRA210_AMX_CTRL ... TEGRA210_AMX_CYA:
-+	case TEGRA210_AMX_CFG_RAM_CTRL ... TEGRA210_AMX_CFG_RAM_DATA:
++	case TEGRA210_ADX_TX_INT_MASK ... TEGRA210_ADX_TX4_CIF_CTRL:
++	case TEGRA210_ADX_RX_INT_MASK ... TEGRA210_ADX_RX_CIF_CTRL:
++	case TEGRA210_ADX_ENABLE ... TEGRA210_ADX_CG:
++	case TEGRA210_ADX_CTRL ... TEGRA210_ADX_IN_BYTE_EN1:
++	case TEGRA210_ADX_CFG_RAM_CTRL ... TEGRA210_ADX_CFG_RAM_DATA:
 +		return true;
 +	default:
 +		return false;
 +	}
 +}
 +
-+static bool tegra194_amx_wr_reg(struct device *dev, unsigned int reg)
++static bool tegra210_adx_rd_reg(struct device *dev,
++				unsigned int reg)
 +{
 +	switch (reg) {
-+	case TEGRA194_AMX_RX1_FRAME_PERIOD ... TEGRA194_AMX_RX4_FRAME_PERIOD:
-+		return true;
-+	default:
-+		return tegra210_amx_wr_reg(dev, reg);
-+	}
-+}
-+
-+static bool tegra210_amx_rd_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case TEGRA210_AMX_RX_STATUS ... TEGRA210_AMX_CFG_RAM_DATA:
++	case TEGRA210_ADX_RX_STATUS ... TEGRA210_ADX_CFG_RAM_DATA:
 +		return true;
 +	default:
 +		return false;
 +	}
 +}
 +
-+static bool tegra194_amx_rd_reg(struct device *dev, unsigned int reg)
++static bool tegra210_adx_volatile_reg(struct device *dev,
++				unsigned int reg)
 +{
 +	switch (reg) {
-+	case TEGRA194_AMX_RX1_FRAME_PERIOD ... TEGRA194_AMX_RX4_FRAME_PERIOD:
-+		return true;
-+	default:
-+		return tegra210_amx_rd_reg(dev, reg);
-+	}
-+}
-+
-+static bool tegra210_amx_volatile_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case TEGRA210_AMX_RX_STATUS:
-+	case TEGRA210_AMX_RX_INT_STATUS:
-+	case TEGRA210_AMX_RX_INT_SET:
-+	case TEGRA210_AMX_TX_STATUS:
-+	case TEGRA210_AMX_TX_INT_STATUS:
-+	case TEGRA210_AMX_TX_INT_SET:
-+	case TEGRA210_AMX_SOFT_RESET:
-+	case TEGRA210_AMX_STATUS:
-+	case TEGRA210_AMX_INT_STATUS:
-+	case TEGRA210_AMX_CFG_RAM_CTRL:
-+	case TEGRA210_AMX_CFG_RAM_DATA:
++	case TEGRA210_ADX_RX_STATUS:
++	case TEGRA210_ADX_RX_INT_STATUS:
++	case TEGRA210_ADX_RX_INT_SET:
++	case TEGRA210_ADX_TX_STATUS:
++	case TEGRA210_ADX_TX_INT_STATUS:
++	case TEGRA210_ADX_TX_INT_SET:
++	case TEGRA210_ADX_SOFT_RESET:
++	case TEGRA210_ADX_STATUS:
++	case TEGRA210_ADX_INT_STATUS:
++	case TEGRA210_ADX_CFG_RAM_CTRL:
++	case TEGRA210_ADX_CFG_RAM_DATA:
 +		return true;
 +	default:
 +		break;
@@ -692,87 +656,56 @@ index 00000000..83176e1
 +	return false;
 +}
 +
-+static const struct regmap_config tegra210_amx_regmap_config = {
++static const struct regmap_config tegra210_adx_regmap_config = {
 +	.reg_bits		= 32,
 +	.reg_stride		= 4,
 +	.val_bits		= 32,
-+	.max_register		= TEGRA210_AMX_CFG_RAM_DATA,
-+	.writeable_reg		= tegra210_amx_wr_reg,
-+	.readable_reg		= tegra210_amx_rd_reg,
-+	.volatile_reg		= tegra210_amx_volatile_reg,
-+	.reg_defaults		= tegra210_amx_reg_defaults,
-+	.num_reg_defaults	= ARRAY_SIZE(tegra210_amx_reg_defaults),
++	.max_register		= TEGRA210_ADX_CFG_RAM_DATA,
++	.writeable_reg		= tegra210_adx_wr_reg,
++	.readable_reg		= tegra210_adx_rd_reg,
++	.volatile_reg		= tegra210_adx_volatile_reg,
++	.reg_defaults		= tegra210_adx_reg_defaults,
++	.num_reg_defaults	= ARRAY_SIZE(tegra210_adx_reg_defaults),
 +	.cache_type		= REGCACHE_FLAT,
 +};
 +
-+static const struct regmap_config tegra194_amx_regmap_config = {
-+	.reg_bits		= 32,
-+	.reg_stride		= 4,
-+	.val_bits		= 32,
-+	.max_register		= TEGRA194_AMX_RX4_LAST_FRAME_PERIOD,
-+	.writeable_reg		= tegra194_amx_wr_reg,
-+	.readable_reg		= tegra194_amx_rd_reg,
-+	.volatile_reg		= tegra210_amx_volatile_reg,
-+	.reg_defaults		= tegra210_amx_reg_defaults,
-+	.num_reg_defaults	= ARRAY_SIZE(tegra210_amx_reg_defaults),
-+	.cache_type		= REGCACHE_FLAT,
-+};
-+
-+static const struct tegra210_amx_soc_data soc_data_tegra210 = {
-+	.regmap_conf	= &tegra210_amx_regmap_config,
-+};
-+
-+static const struct tegra210_amx_soc_data soc_data_tegra194 = {
-+	.regmap_conf	= &tegra194_amx_regmap_config,
-+	.auto_disable	= true,
-+};
-+
-+static const struct of_device_id tegra210_amx_of_match[] = {
-+	{ .compatible = "nvidia,tegra210-amx", .data = &soc_data_tegra210 },
-+	{ .compatible = "nvidia,tegra194-amx", .data = &soc_data_tegra194 },
++static const struct of_device_id tegra210_adx_of_match[] = {
++	{ .compatible = "nvidia,tegra210-adx" },
 +	{},
 +};
-+MODULE_DEVICE_TABLE(of, tegra210_amx_of_match);
++MODULE_DEVICE_TABLE(of, tegra210_adx_of_match);
 +
-+static int tegra210_amx_platform_probe(struct platform_device *pdev)
++static int tegra210_adx_platform_probe(struct platform_device *pdev)
 +{
 +	struct device *dev = &pdev->dev;
-+	struct tegra210_amx *amx;
++	struct tegra210_adx *adx;
 +	void __iomem *regs;
 +	int err;
-+	const struct of_device_id *match;
-+	struct tegra210_amx_soc_data *soc_data;
 +
-+	match = of_match_device(tegra210_amx_of_match, dev);
-+
-+	soc_data = (struct tegra210_amx_soc_data *)match->data;
-+
-+	amx = devm_kzalloc(dev, sizeof(*amx), GFP_KERNEL);
-+	if (!amx)
++	adx = devm_kzalloc(dev, sizeof(*adx), GFP_KERNEL);
++	if (!adx)
 +		return -ENOMEM;
 +
-+	amx->soc_data = soc_data;
-+
-+	dev_set_drvdata(dev, amx);
++	dev_set_drvdata(dev, adx);
 +
 +	regs = devm_platform_ioremap_resource(pdev, 0);
 +	if (IS_ERR(regs))
 +		return PTR_ERR(regs);
 +
-+	amx->regmap = devm_regmap_init_mmio(dev, regs,
-+					    soc_data->regmap_conf);
-+	if (IS_ERR(amx->regmap)) {
++	adx->regmap = devm_regmap_init_mmio(dev, regs,
++					    &tegra210_adx_regmap_config);
++	if (IS_ERR(adx->regmap)) {
 +		dev_err(dev, "regmap init failed\n");
-+		return PTR_ERR(amx->regmap);
++		return PTR_ERR(adx->regmap);
 +	}
 +
-+	regcache_cache_only(amx->regmap, true);
++	regcache_cache_only(adx->regmap, true);
 +
-+	err = devm_snd_soc_register_component(dev, &tegra210_amx_cmpnt,
-+					      tegra210_amx_dais,
-+					      ARRAY_SIZE(tegra210_amx_dais));
++	err = devm_snd_soc_register_component(dev, &tegra210_adx_cmpnt,
++					      tegra210_adx_dais,
++					      ARRAY_SIZE(tegra210_adx_dais));
 +	if (err) {
-+		dev_err(dev, "can't register AMX component, err: %d\n", err);
++		dev_err(dev, "can't register ADX component, err: %d\n", err);
 +		return err;
 +	}
 +
@@ -781,129 +714,108 @@ index 00000000..83176e1
 +	return 0;
 +}
 +
-+static int tegra210_amx_platform_remove(struct platform_device *pdev)
++static int tegra210_adx_platform_remove(struct platform_device *pdev)
 +{
 +	pm_runtime_disable(&pdev->dev);
 +
 +	return 0;
 +}
 +
-+static const struct dev_pm_ops tegra210_amx_pm_ops = {
-+	SET_RUNTIME_PM_OPS(tegra210_amx_runtime_suspend,
-+			   tegra210_amx_runtime_resume, NULL)
++static const struct dev_pm_ops tegra210_adx_pm_ops = {
++	SET_RUNTIME_PM_OPS(tegra210_adx_runtime_suspend,
++			   tegra210_adx_runtime_resume, NULL)
 +	SET_LATE_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
 +				     pm_runtime_force_resume)
 +};
 +
-+static struct platform_driver tegra210_amx_driver = {
++static struct platform_driver tegra210_adx_driver = {
 +	.driver = {
-+		.name = "tegra210-amx",
-+		.of_match_table = tegra210_amx_of_match,
-+		.pm = &tegra210_amx_pm_ops,
++		.name = "tegra210-adx",
++		.of_match_table = tegra210_adx_of_match,
++		.pm = &tegra210_adx_pm_ops,
 +	},
-+	.probe = tegra210_amx_platform_probe,
-+	.remove = tegra210_amx_platform_remove,
++	.probe = tegra210_adx_platform_probe,
++	.remove = tegra210_adx_platform_remove,
 +};
-+module_platform_driver(tegra210_amx_driver);
++module_platform_driver(tegra210_adx_driver);
 +
-+MODULE_AUTHOR("Songhee Baek <sbaek@nvidia.com>");
-+MODULE_DESCRIPTION("Tegra210 AMX ASoC driver");
++MODULE_AUTHOR("Arun Shamanna Lakshmi <aruns@nvidia.com>");
++MODULE_DESCRIPTION("Tegra210 ADX ASoC driver");
 +MODULE_LICENSE("GPL v2");
-diff --git a/sound/soc/tegra/tegra210_amx.h b/sound/soc/tegra/tegra210_amx.h
+diff --git a/sound/soc/tegra/tegra210_adx.h b/sound/soc/tegra/tegra210_adx.h
 new file mode 100644
-index 00000000..e277741
+index 00000000..d7dcb64
 --- /dev/null
-+++ b/sound/soc/tegra/tegra210_amx.h
-@@ -0,0 +1,93 @@
++++ b/sound/soc/tegra/tegra210_adx.h
+@@ -0,0 +1,72 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
-+ * tegra210_amx.h - Definitions for Tegra210 AMX driver
++ * tegra210_adx.h - Definitions for Tegra210 ADX driver
 + *
 + * Copyright (c) 2021, NVIDIA CORPORATION.  All rights reserved.
 + *
 + */
 +
-+#ifndef __TEGRA210_AMX_H__
-+#define __TEGRA210_AMX_H__
++#ifndef __TEGRA210_ADX_H__
++#define __TEGRA210_ADX_H__
 +
-+/* Register offsets from TEGRA210_AMX*_BASE */
-+#define TEGRA210_AMX_RX_STATUS			0x0c
-+#define TEGRA210_AMX_RX_INT_STATUS		0x10
-+#define TEGRA210_AMX_RX_INT_MASK		0x14
-+#define TEGRA210_AMX_RX_INT_SET			0x18
-+#define TEGRA210_AMX_RX_INT_CLEAR		0x1c
-+#define TEGRA210_AMX_RX1_CIF_CTRL		0x20
-+#define TEGRA210_AMX_RX2_CIF_CTRL		0x24
-+#define TEGRA210_AMX_RX3_CIF_CTRL		0x28
-+#define TEGRA210_AMX_RX4_CIF_CTRL		0x2c
-+#define TEGRA210_AMX_TX_STATUS			0x4c
-+#define TEGRA210_AMX_TX_INT_STATUS		0x50
-+#define TEGRA210_AMX_TX_INT_MASK		0x54
-+#define TEGRA210_AMX_TX_INT_SET			0x58
-+#define TEGRA210_AMX_TX_INT_CLEAR		0x5c
-+#define TEGRA210_AMX_TX_CIF_CTRL		0x60
-+#define TEGRA210_AMX_ENABLE			0x80
-+#define TEGRA210_AMX_SOFT_RESET			0x84
-+#define TEGRA210_AMX_CG				0x88
-+#define TEGRA210_AMX_STATUS			0x8c
-+#define TEGRA210_AMX_INT_STATUS			0x90
-+#define TEGRA210_AMX_CTRL			0xa4
-+#define TEGRA210_AMX_OUT_BYTE_EN0		0xa8
-+#define TEGRA210_AMX_OUT_BYTE_EN1		0xac
-+#define TEGRA210_AMX_CYA			0xb0
-+#define TEGRA210_AMX_CFG_RAM_CTRL		0xb8
-+#define TEGRA210_AMX_CFG_RAM_DATA		0xbc
++/* Register offsets from TEGRA210_ADX*_BASE */
++#define TEGRA210_ADX_RX_STATUS		0x0c
++#define TEGRA210_ADX_RX_INT_STATUS	0x10
++#define TEGRA210_ADX_RX_INT_MASK	0x14
++#define TEGRA210_ADX_RX_INT_SET		0x18
++#define TEGRA210_ADX_RX_INT_CLEAR	0x1c
++#define TEGRA210_ADX_RX_CIF_CTRL	0x20
++#define TEGRA210_ADX_TX_STATUS		0x4c
++#define TEGRA210_ADX_TX_INT_STATUS	0x50
++#define TEGRA210_ADX_TX_INT_MASK	0x54
++#define TEGRA210_ADX_TX_INT_SET		0x58
++#define TEGRA210_ADX_TX_INT_CLEAR	0x5c
++#define TEGRA210_ADX_TX1_CIF_CTRL	0x60
++#define TEGRA210_ADX_TX2_CIF_CTRL	0x64
++#define TEGRA210_ADX_TX3_CIF_CTRL	0x68
++#define TEGRA210_ADX_TX4_CIF_CTRL	0x6c
++#define TEGRA210_ADX_ENABLE		0x80
++#define TEGRA210_ADX_SOFT_RESET		0x84
++#define TEGRA210_ADX_CG			0x88
++#define TEGRA210_ADX_STATUS		0x8c
++#define TEGRA210_ADX_INT_STATUS		0x90
++#define TEGRA210_ADX_CTRL		0xa4
++#define TEGRA210_ADX_IN_BYTE_EN0	0xa8
++#define TEGRA210_ADX_IN_BYTE_EN1	0xac
++#define TEGRA210_ADX_CFG_RAM_CTRL	0xb8
++#define TEGRA210_ADX_CFG_RAM_DATA	0xbc
 +
-+#define TEGRA194_AMX_RX1_FRAME_PERIOD		0xc0
-+#define TEGRA194_AMX_RX4_FRAME_PERIOD		0xcc
-+#define TEGRA194_AMX_RX4_LAST_FRAME_PERIOD	0xdc
++/* Fields in TEGRA210_ADX_ENABLE */
++#define TEGRA210_ADX_ENABLE_SHIFT			0
 +
-+/* Fields in TEGRA210_AMX_ENABLE */
-+#define TEGRA210_AMX_ENABLE_SHIFT			0
++/* Fields in TEGRA210_ADX_CFG_RAM_CTRL */
++#define TEGRA210_ADX_CFG_RAM_CTRL_RAM_ADDR_SHIFT	0
 +
-+/* Fields in TEGRA210_AMX_CTRL */
-+#define TEGRA210_AMX_CTRL_MSTR_RX_NUM_SHIFT		14
-+#define TEGRA210_AMX_CTRL_MSTR_RX_NUM_MASK		(3 << TEGRA210_AMX_CTRL_MSTR_RX_NUM_SHIFT)
++#define TEGRA210_ADX_CFG_RAM_CTRL_RW_SHIFT		14
++#define TEGRA210_ADX_CFG_RAM_CTRL_RW_WRITE		(1 << TEGRA210_ADX_CFG_RAM_CTRL_RW_SHIFT)
 +
-+#define TEGRA210_AMX_CTRL_RX_DEP_SHIFT			12
-+#define TEGRA210_AMX_CTRL_RX_DEP_MASK			(3 << TEGRA210_AMX_CTRL_RX_DEP_SHIFT)
++#define TEGRA210_ADX_CFG_RAM_CTRL_ADDR_INIT_EN_SHIFT	13
++#define TEGRA210_ADX_CFG_RAM_CTRL_ADDR_INIT_EN		(1 << TEGRA210_ADX_CFG_RAM_CTRL_ADDR_INIT_EN_SHIFT)
 +
-+/* Fields in TEGRA210_AMX_CFG_RAM_CTRL */
-+#define TEGRA210_AMX_CFG_RAM_CTRL_RW_SHIFT		14
-+#define TEGRA210_AMX_CFG_RAM_CTRL_RW_WRITE		(1 << TEGRA210_AMX_CFG_RAM_CTRL_RW_SHIFT)
++#define TEGRA210_ADX_CFG_RAM_CTRL_SEQ_ACCESS_EN_SHIFT	12
++#define TEGRA210_ADX_CFG_RAM_CTRL_SEQ_ACCESS_EN		(1 << TEGRA210_ADX_CFG_RAM_CTRL_SEQ_ACCESS_EN_SHIFT)
 +
-+#define TEGRA210_AMX_CFG_RAM_CTRL_ADDR_INIT_EN_SHIFT	13
-+#define TEGRA210_AMX_CFG_RAM_CTRL_ADDR_INIT_EN		(1 << TEGRA210_AMX_CFG_RAM_CTRL_ADDR_INIT_EN_SHIFT)
++/* Fields in TEGRA210_ADX_SOFT_RESET */
++#define TEGRA210_ADX_SOFT_RESET_SOFT_RESET_SHIFT	0
++#define TEGRA210_ADX_SOFT_RESET_SOFT_RESET_MASK		(1 << TEGRA210_ADX_SOFT_RESET_SOFT_RESET_SHIFT)
++#define TEGRA210_ADX_SOFT_RESET_SOFT_EN			(1 << TEGRA210_ADX_SOFT_RESET_SOFT_RESET_SHIFT)
++#define TEGRA210_ADX_SOFT_RESET_SOFT_DEFAULT		(0 << TEGRA210_ADX_SOFT_RESET_SOFT_RESET_SHIFT)
 +
-+#define TEGRA210_AMX_CFG_RAM_CTRL_SEQ_ACCESS_EN_SHIFT	12
-+#define TEGRA210_AMX_CFG_RAM_CTRL_SEQ_ACCESS_EN		(1 << TEGRA210_AMX_CFG_RAM_CTRL_SEQ_ACCESS_EN_SHIFT)
++#define TEGRA210_ADX_AUDIOCIF_CH_STRIDE		4
++#define TEGRA210_ADX_RAM_DEPTH			16
++#define TEGRA210_ADX_MAP_STREAM_NUMBER_SHIFT	6
++#define TEGRA210_ADX_MAP_WORD_NUMBER_SHIFT	2
++#define TEGRA210_ADX_MAP_BYTE_NUMBER_SHIFT	0
 +
-+#define TEGRA210_AMX_CFG_CTRL_RAM_ADDR_SHIFT		0
-+
-+/* Fields in TEGRA210_AMX_SOFT_RESET */
-+#define TEGRA210_AMX_SOFT_RESET_SOFT_EN			1
-+#define TEGRA210_AMX_SOFT_RESET_SOFT_RESET_MASK		TEGRA210_AMX_SOFT_RESET_SOFT_EN
-+
-+#define TEGRA210_AMX_AUDIOCIF_CH_STRIDE		4
-+#define TEGRA210_AMX_RAM_DEPTH			16
-+#define TEGRA210_AMX_MAP_STREAM_NUM_SHIFT	6
-+#define TEGRA210_AMX_MAP_WORD_NUM_SHIFT		2
-+#define TEGRA210_AMX_MAP_BYTE_NUM_SHIFT		0
-+
-+enum {
-+	TEGRA210_AMX_WAIT_ON_ALL,
-+	TEGRA210_AMX_WAIT_ON_ANY,
-+};
-+
-+struct tegra210_amx_soc_data {
-+	const struct regmap_config *regmap_conf;
-+	bool auto_disable;
-+};
-+
-+struct tegra210_amx {
-+	const struct tegra210_amx_soc_data *soc_data;
-+	unsigned int map[TEGRA210_AMX_RAM_DEPTH];
++struct tegra210_adx {
 +	struct regmap *regmap;
++	unsigned int map[TEGRA210_ADX_RAM_DEPTH];
 +	unsigned int byte_mask[2];
 +};
 +

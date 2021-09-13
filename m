@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1801340A00C
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Sep 2021 00:35:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9416F40A00F
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Sep 2021 00:35:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D24C1799;
-	Tue, 14 Sep 2021 00:34:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D24C1799
+	by alsa0.perex.cz (Postfix) with ESMTPS id C1E9517A3;
+	Tue, 14 Sep 2021 00:34:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1E9517A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631572523;
+	s=default; t=1631572547;
 	bh=ecIaMXb+m7FDhBfUMgGoGyY9OZ2Pm2kgMizHBu5cn38=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LrSGxtQN3JXPLWA6vCTdVJoZJCz1Bz88ZyvxjmkiCoYAHxNjChKNeQ80Y1HKXi0DV
-	 evCMAqW1rSDOPPWp2asO4CJc5LwqBvm1TGf1aNxIirx5nRBmYWWYqQYRJlYSSpGlls
-	 9sA32VmVrwHaABj1joS+Z4kUwl8IujMFLmAjVbtg=
+	b=q/nTxJ7g6zXonea/ptZ3kx4LxRXW0FfvtgPva2LtLjMEkDEDfZNPS3eC7tepe8vz0
+	 y3xTFT0wHObOGHW6b9qtGSHCLC9qROHJfDF96Pl0B2kd1vE70ZN1b7xVgAgj1Sx251
+	 YlynImjxNCf7WKoLG2EPaqoWe7o0W16x8JTw9lvU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E4A28F80132;
-	Tue, 14 Sep 2021 00:34:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9FCFBF804AB;
+	Tue, 14 Sep 2021 00:34:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DF11CF80227; Tue, 14 Sep 2021 00:34:03 +0200 (CEST)
+ id 89E40F8049E; Tue, 14 Sep 2021 00:34:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,33 +34,33 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8346BF80169
- for <alsa-devel@alsa-project.org>; Tue, 14 Sep 2021 00:33:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8346BF80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62B6BF80169
+ for <alsa-devel@alsa-project.org>; Tue, 14 Sep 2021 00:34:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62B6BF80169
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="c7WlSCzi"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AF0FE610CE;
- Mon, 13 Sep 2021 22:33:51 +0000 (UTC)
+ header.b="DJYUSf5f"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6E54861163;
+ Mon, 13 Sep 2021 22:34:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631572432;
+ s=k20201202; t=1631572465;
  bh=ecIaMXb+m7FDhBfUMgGoGyY9OZ2Pm2kgMizHBu5cn38=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=c7WlSCzi3xON5viWo9vgx1O1HaID2xG41b7vXpSMVcs9hYR0C/xcPYpIQTLtkFO14
- PXB/cRB0kf27tLco7XCXyUMmkEx15Sxe4wJOEDxWJaorjFst3M9MFYKA9BsrFONt3U
- x4jTjJgrKd2MBw81Oued+RU7btGoem+ELj4Xr4JcStXJXB1GDt1uUcWCcWlsCHKWM1
- 4lZc9S4yKgR3OipyaByOQynJKFXGbeVDfnfD3T1j8k3tfrZjSszGN+emWqbdF5EeD7
- I5zxD+nIMOHXvpR4TymCEM4g6d7RjDUDIBtH2JjX750GjA26EerQdFaaXvD0IMYxJj
- MlHjDubaKtmLg==
+ b=DJYUSf5f9S0bay/cp04CV77OdAYtBkiAXDqCk0gh7Cz/RWJNolHoD4sOSgPk1L8qx
+ Zz7P3QKJormmfdNi1I16ddyCvWRVrZXuJ3Y4RbEC3mh0q5ujZBvC0Hlh5QEfPOSFsC
+ fw9h2/N4HRcC5AmJjpKF9SBMkUWQTj80nSRcdcCy0vi2QRYjTbH8H7q5G8kuzQXkum
+ w5fUMQVGqUsLB8Gy2uV9BxLG/I/3i8QaEFTSK4bcWh0FddBOLKKvaVFn6SKIeNJmAC
+ PeDYxqf0xqC+/g+N2tAy4Bqk9nmsOzVFz/A4Lezz/dn3w7f5LvzjyKkR5Bvy5KnF7m
+ sOhLEReuFx6Zg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.14 09/25] ASoC: audio-graph: respawn Platform Support
-Date: Mon, 13 Sep 2021 18:33:23 -0400
-Message-Id: <20210913223339.435347-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.13 07/19] ASoC: audio-graph: respawn Platform Support
+Date: Mon, 13 Sep 2021 18:34:03 -0400
+Message-Id: <20210913223415.435654-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210913223339.435347-1-sashal@kernel.org>
-References: <20210913223339.435347-1-sashal@kernel.org>
+In-Reply-To: <20210913223415.435654-1-sashal@kernel.org>
+References: <20210913223415.435654-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore

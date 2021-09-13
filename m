@@ -2,82 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 359C140840C
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 07:49:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7F6D408443
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 07:57:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7C241655;
-	Mon, 13 Sep 2021 07:48:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7C241655
+	by alsa0.perex.cz (Postfix) with ESMTPS id 77EBC82A;
+	Mon, 13 Sep 2021 07:56:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77EBC82A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631512187;
-	bh=6FgTDJtwU14bEScKz8WIj+gIMS4cLWyibqXM+4rGpzI=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1631512634;
+	bh=wuc/aR8/2QMOnzLBtThvqfbYAspQphQz2hm/GSVeYYA=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WjVlqK5+ceachwZZ3bYdAQA4TB8XISNIEtn/Vtlid3k/b6J0KYjNwtg4jaEhS5joe
-	 cxRCNDyUwH19+gRAys3mG6q5UjLtF9hDINzMdyirBJ23kESFHEv+mxl2O1RE2tLPk+
-	 UYVsjP2V6PP8K51UZFk5x8CVdlzMyjf9mzBvwJ0U=
+	b=k190oq2jIXcykJ5sZxaMo9+icpybwO4vkyfIko38umonUFA1tKL0OS3h7XFYajqI2
+	 AkycVu+fE/SGa6boRyGKY0xtstNt0m9oqkipR8HqFHc6pP7p9yW4GeLFDlXGzhr+zJ
+	 xsGn14O0CsHuDHCQ0YbHI39KU0P3hbHn3zU1mt0U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 420FBF802E8;
-	Mon, 13 Sep 2021 07:48:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B0E49F80227;
+	Mon, 13 Sep 2021 07:55:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3624F8027C; Mon, 13 Sep 2021 07:48:28 +0200 (CEST)
+ id 65F49F8027C; Mon, 13 Sep 2021 07:55:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C41C5F80132
- for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 07:48:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C41C5F80132
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="OU4hb8QV"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="KMujOt5y"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id BC58E21F72;
- Mon, 13 Sep 2021 05:48:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1631512099; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=u35YUz6BIuA9jXvGMABsggOxs9HWq5jeb377GOxkBqg=;
- b=OU4hb8QVHJZ9FDr9fYRHZ/Mead1OVMB3oYfqaw1joJhJCt8qeA/2+EplX+aBVOkJ58D5nw
- GXHwi5XkthLlMKFzIieee315JZGUcckjAMaCBb0EbbnyMYQc9Sl/ciwi2j8mh/rX/5/ypT
- wqeaJxiH01gvLWKyizXr8JG+jlEOTck=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1631512099;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=u35YUz6BIuA9jXvGMABsggOxs9HWq5jeb377GOxkBqg=;
- b=KMujOt5yK9rrSukq/hvJDV1plm8Ui+9ZKxAmdxsZ8sq/X1lEcYKolTfmbBy5zlbr3Nyd3N
- iAeXJ0g6Q/lGTUAw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id AA87DA3B89;
- Mon, 13 Sep 2021 05:48:19 +0000 (UTC)
-Date: Mon, 13 Sep 2021 07:48:19 +0200
-Message-ID: <s5htuipjaak.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ALSA: hda: Reduce udelay() at SKL+ position reporting
-In-Reply-To: <db973c6d-3fb3-6c1b-f4cd-3e77baf8bd31@linux.intel.com>
-References: <20210910141002.32749-1-tiwai@suse.de>
- <db973c6d-3fb3-6c1b-f4cd-3e77baf8bd31@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: Jens Axboe <axboe@kernel.dk>, alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id B57B5F80132
+ for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 07:55:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B57B5F80132
+X-UUID: a04d09bb2c8a4bf0aef64581cadeaee6-20210913
+X-UUID: a04d09bb2c8a4bf0aef64581cadeaee6-20210913
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw01.mediatek.com
+ (envelope-from <trevor.wu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1343577215; Mon, 13 Sep 2021 13:55:40 +0800
+Received: from mtkcas07.mediatek.inc (172.21.101.84) by
+ mtkmbs06n2.mediatek.inc (172.21.101.130) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Mon, 13 Sep 2021 13:55:38 +0800
+Received: from mtksdccf07 (172.21.84.99) by mtkcas07.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Mon, 13 Sep 2021 13:55:38 +0800
+Message-ID: <5fa1e99f1b9097336a3e610dc383170f09036b14.camel@mediatek.com>
+Subject: Re: [PATCH v2] ASoC: mediatek: common: handle NULL case in
+ suspend/resume function
+From: Trevor Wu <trevor.wu@mediatek.com>
+To: Mark Brown <broonie@kernel.org>
+Date: Mon, 13 Sep 2021 13:55:38 +0800
+In-Reply-To: <20210910102358.GC4474@sirena.org.uk>
+References: <20210910092613.30188-1-trevor.wu@mediatek.com>
+ <20210910102358.GC4474@sirena.org.uk>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-MTK: N
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, dan.carpenter@oracle.com,
+ matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,150 +80,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 10 Sep 2021 19:04:37 +0200,
-Pierre-Louis Bossart wrote:
+On Fri, 2021-09-10 at 11:23 +0100, Mark Brown wrote:
+> On Fri, Sep 10, 2021 at 05:26:13PM +0800, Trevor Wu wrote:
 > 
+> > When memory allocation for afe->reg_back_up fails, reg_back_up
+> > can't
+> > be used.
+> > Keep the suspend/resume flow but skip register backup when
+> > afe->reg_back_up is NULL, in case illegal memory access happens.
 > 
-> 
-> On 9/10/21 9:10 AM, Takashi Iwai wrote:
-> > The position reporting on Intel Skylake and later chips via
-> > azx_get_pos_skl() contains a udelay(20) call for the capture streams.
-> > A call for this alone doesn't sound too harmful.  However, as the
-> > pointer PCM ops is one of the hottest path in the PCM operations --
-> > especially for the timer-scheduled operations like PulseAudio -- such
-> > a delay hogs CPU usage significantly in the total performance.
-> > 
-> > The function there was taken from the original code in ASoC SST
-> > Skylake driver blindly.  The udelay() is a workaround for the case
-> > where the reported position is behind the period boundary at the
-> > timing triggered from interrupts; applications often expect that the
-> > full data is available for the whole period when returned (and also
-> > that's the definition of the ALSA PCM period).
-> 
-> that initial work-around from the Intel SST driver does not seem to be
-> legit in the first place, when I checked with hardware folks recently no
-> one understands why there are delays and special cases for capture. The
-> only requirement wrt. DPIB is that the DDR update is valid across VC0
-> and VC1, while the DPIB registers are only valid with VC0. For SOF we
-> don't know of any VC1 use so will default to the DPIB vendor-specific
-> registers.
+> It seems like it'd be better to just allocate the buffer at probe
+> time
+> and fail in case we can't get it, I'd be surprised if there's many
+> platforms using this hardware that don't also end up suspending and
+> resuming.
 
-What are those VC0 and VC1 registers?  I can't find the definitions in
-the code, so I assume that none of ALSA/ASoC drivers use VC1.
+Hi Mark,
 
-> See https://github.com/thesofproject/linux/pull/3143 for my WIP fixes
-> for SOF.
-> 
-> I don't have the time to look at this specific patch today but wanted to
-> make sure you are aware of my on-going fixes.
-> 
-> Note that the use of DPIB works best if you don't use the IOC interrupt.
-> when the interrupt is thrown, there is likely a delay for the DPIB
-> information to be refreshed.
+Thanks for your suggestion.
+I agree it's better to allocate the memory at probe time.
+I think we can still keep the implementation in the suspend/resume
+function as a fallback solution if user doesn't allocate the memory in
+probe function.
 
-Thanks for the information!  The delay could be the reason of the
-udelay(), and that's superfluous as mentioned in the commit.
+In the new mediatek SOCs, regcache has been used to handle register
+backup.
+Do I need to add the buffer allocation on probe function to the
+platform in which mtk_afe_suspend and mtk_afe_resume are used?
 
-So the remaining question seems to be which method is a better
-approach for the capture stream: DPIB or posbuf.  I kept the posbuf
-just for conservatism, but judging from your comment, we may use DPIB
-for both directions safely?
+Thanks,
+Trevor
 
-In anyway, the additional mechanism to check the delayed position
-report in this patch can be kept no matter which way (DPIB or posbuf)
-is used.
-
-
-Takashi
-
-> 
-> > 
-> > OTOH, HD-audio (legacy) driver has already some workarounds for the
-> > delayed position reporting due to its relatively large FIFO, such as
-> > the BDL position adjustment and the delayed period-elapsed call in the
-> > work.  That said, the udelay() is almost superfluous for HD-audio
-> > driver unlike SST, and we can drop the udelay().
-> > 
-> > Though, the current code doesn't guarantee the full period readiness
-> > as mentioned in the above, but rather it checks the wallclock and
-> > detects the unexpected jump.  That's one missing piece, and the drop
-> > of udelay() needs a bit more sanity checks for the delayed handling.
-> > 
-> > This patch implements those: the drop of udelay() call in
-> > azx_get_pos_skl() and the more proper check of hwptr in
-> > azx_position_ok().  The latter change is applied only for the case
-> > where the stream is running in the normal mode without
-> > no_period_wakeup flag.  When no_period_wakeup is set, it essentially
-> > ignores the period handling and rather concentrates only on the
-> > current position; which implies that we don't need to care about the
-> > period boundary at all.
-> > 
-> > Fixes: f87e7f25893d ("ALSA: hda - Improved position reporting on SKL+")
-> > Reported-by: Jens Axboe <axboe@kernel.dk>
-> > Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> > ---
-> >  sound/pci/hda/hda_intel.c | 28 +++++++++++++++++++++++-----
-> >  1 file changed, 23 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-> > index 3aa432d814a2..faeeeb923d5e 100644
-> > --- a/sound/pci/hda/hda_intel.c
-> > +++ b/sound/pci/hda/hda_intel.c
-> > @@ -637,13 +637,17 @@ static int azx_position_check(struct azx *chip, struct azx_dev *azx_dev)
-> >   * the update-IRQ timing.  The IRQ is issued before actually the
-> >   * data is processed.  So, we need to process it afterwords in a
-> >   * workqueue.
-> > + *
-> > + * Returns 1 if OK to proceed, 0 for delay handling, -1 for skipping update
-> >   */
-> >  static int azx_position_ok(struct azx *chip, struct azx_dev *azx_dev)
-> >  {
-> >  	struct snd_pcm_substream *substream = azx_dev->core.substream;
-> > +	struct snd_pcm_runtime *runtime = substream->runtime;
-> >  	int stream = substream->stream;
-> >  	u32 wallclk;
-> >  	unsigned int pos;
-> > +	snd_pcm_uframes_t hwptr, target;
-> >  
-> >  	wallclk = azx_readl(chip, WALLCLK) - azx_dev->core.start_wallclk;
-> >  	if (wallclk < (azx_dev->core.period_wallclk * 2) / 3)
-> > @@ -680,6 +684,24 @@ static int azx_position_ok(struct azx *chip, struct azx_dev *azx_dev)
-> >  		/* NG - it's below the first next period boundary */
-> >  		return chip->bdl_pos_adj ? 0 : -1;
-> >  	azx_dev->core.start_wallclk += wallclk;
-> > +
-> > +	if (azx_dev->core.no_period_wakeup)
-> > +		return 1; /* OK, no need to check period boundary */
-> > +
-> > +	if (runtime->hw_ptr_base != runtime->hw_ptr_interrupt)
-> > +		return 1; /* OK, already in hwptr updating process */
-> > +
-> > +	/* check whether the period gets really elapsed */
-> > +	pos = bytes_to_frames(runtime, pos);
-> > +	hwptr = runtime->hw_ptr_base + pos;
-> > +	if (hwptr < runtime->status->hw_ptr)
-> > +		hwptr += runtime->buffer_size;
-> > +	target = runtime->hw_ptr_interrupt + runtime->period_size;
-> > +	if (hwptr < target) {
-> > +		/* too early wakeup, process it later */
-> > +		return chip->bdl_pos_adj ? 0 : -1;
-> > +	}
-> > +
-> >  	return 1; /* OK, it's fine */
-> >  }
-> >  
-> > @@ -874,11 +896,7 @@ static unsigned int azx_get_pos_skl(struct azx *chip, struct azx_dev *azx_dev)
-> >  	if (azx_dev->core.substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-> >  		return azx_skl_get_dpib_pos(chip, azx_dev);
-> >  
-> > -	/* For capture, we need to read posbuf, but it requires a delay
-> > -	 * for the possible boundary overlap; the read of DPIB fetches the
-> > -	 * actual posbuf
-> > -	 */
-> > -	udelay(20);
-> > +	/* read of DPIB fetches the actual posbuf */
-> >  	azx_skl_get_dpib_pos(chip, azx_dev);
-> >  	return azx_get_pos_posbuf(chip, azx_dev);
-> >  }
-> > 
-> 

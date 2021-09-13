@@ -2,80 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0912408AEF
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 14:20:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB012408B0A
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 14:28:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E02710E;
-	Mon, 13 Sep 2021 14:19:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E02710E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51B4082A;
+	Mon, 13 Sep 2021 14:27:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51B4082A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631535621;
-	bh=CXeL7IDgLiiA7dnIKx2ygcaY8eVXB2ULIV2sBR8cxrw=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1631536083;
+	bh=VEn3it/2B/lWuu5n7jKR9I8jGr+A1SbheYllFdgyfFc=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WPD9X3UYDqtyQwaIBjivmdtObL1oyqJg84I2h7dMk9k+qRsJhTIaFFSpj/BhKbz56
-	 dfIhquMDabtF5PETGWAEYn0D4uQwX8NE0wM0jdJBUZX4c7MbCSdcOydrdgD+QssA5d
-	 hX6ez7DSnQhYMTEUYFx3F9tpFPvwgvs1sOCeb9L0=
+	b=UgbZB7hrZNed+GZeh+1m0ra8rPZANtjBr7JJnTCOdDj9HBfZXSXynYO16E6bcrPME
+	 ydYgS7gTAmL26/86/GMR7EzQ8l+pDbY2ZAFeL/jNObOIr1bWytF7Md3MeZUygTyAYb
+	 koWTUcF0HtQJofhEsv0g4rSFAEst4avGHIAnHG1g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D67FF80128;
-	Mon, 13 Sep 2021 14:19:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05BD1F80227;
+	Mon, 13 Sep 2021 14:26:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 926D1F8027C; Mon, 13 Sep 2021 14:19:02 +0200 (CEST)
+ id A8140F8027C; Mon, 13 Sep 2021 14:26:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com
- [209.85.161.47])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 765A8F80132
- for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 14:18:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 765A8F80132
-Received: by mail-oo1-f47.google.com with SMTP id
- q26-20020a4adc5a000000b002918a69c8eeso3311583oov.13
- for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 05:18:51 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
- :message-id;
- bh=bugLB47+bgjh8v8+QK5frTd0NffoWq49bJO7kM44vYc=;
- b=a9LNqgoHXQvx5FMm9UDPE98xZrbb+2fSSOXxK91RMPPe5WhBNwS8omOC5/6UWycM9/
- gZ3EnY4u75cHVZjQCK4LKnfIBS2C3XIpbCVnaq33On9NwqADuQtnTVxU07LmFjZXz1HM
- gmR93Jim+eopFpgZbx5Fr7XNQBMdeXF8ifWKbuL5UBTYRiUuUANrYuRTjCyzTI8qTpQE
- lEokFQTqXg2XQfBxHBj1/ArI6NTHnNJbrMnikUkHjNkKjNPd7bfvxd8GRAZeuBQ8Kzcm
- lF6VZszlNboAU3EfjK1As0xBlmsn2JKonQEdr/79KVb/B3H9AvaMqsuUaWAMb5zCLzbf
- /a9g==
-X-Gm-Message-State: AOAM532MlAFtHwghNoL5vDjmQ1Luo6lvMcDrrfvtny/ilQLI72voe0BC
- XCKJsBCM78V2R9wJZOkWwA==
-X-Google-Smtp-Source: ABdhPJwt0IFdigIJfxeCTtwNeM7X3ErMU+2u8b0W1BgO/3uSEqQH3pWXKI6bH07SKMAfznY2eaixBg==
-X-Received: by 2002:a4a:1506:: with SMTP id 6mr8762820oon.93.1631535529229;
- Mon, 13 Sep 2021 05:18:49 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id q26sm1806775otf.39.2021.09.13.05.18.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Sep 2021 05:18:48 -0700 (PDT)
-Received: (nullmailer pid 444717 invoked by uid 1000);
- Mon, 13 Sep 2021 12:18:43 -0000
-From: Rob Herring <robh@kernel.org>
-To: David Rhodes <drhodes@opensource.cirrus.com>
-In-Reply-To: <20210911004546.2139657-3-drhodes@opensource.cirrus.com>
-References: <20210911004546.2139657-1-drhodes@opensource.cirrus.com>
- <20210911004546.2139657-3-drhodes@opensource.cirrus.com>
-Subject: Re: [PATCH v7 2/2] ASoC: cs35l41: Add bindings for CS35L41
-Date: Mon, 13 Sep 2021 07:18:43 -0500
-Message-Id: <1631535523.185638.444716.nullmailer@robh.at.kernel.org>
-Cc: devicetree@vger.kernel.org, brian.austin@cirrus.com,
- ckeepax@opensource.cirrus.com, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, pierre-louis.bossart@linux.intel.com,
- david.rhodes@cirrus.com, broonie@kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8F62BF80128
+ for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 14:26:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F62BF80128
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="f+Iz+vHo"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1631535998; h=Content-Type: In-Reply-To: MIME-Version: Date:
+ Message-ID: From: References: To: Subject: Sender;
+ bh=8YlV4qJDM/OviKK02LkHzOUBiriFnU5ZxnhXgSNC3IM=;
+ b=f+Iz+vHoDJYZJaRwXtxyp9p1NSloLX885mfHdrq5zaw2whfjchF8rALBj85tCDQDEJa3rTO2
+ j8wLjbYvA753av5Vkci76osQDxGgcq5pXXekN3XvNCx9FJhONT2ylODBbAKuJNFOpkBXYES2
+ ZEfftQce9x81N7sKcC3BTG8to3w=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
+ 613f4375648642cc1ccb62ea (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 13 Sep 2021 12:26:29
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 08C9AC43460; Mon, 13 Sep 2021 12:26:29 +0000 (UTC)
+Received: from [10.242.137.170] (unknown [202.46.23.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 465C1C4338F;
+ Mon, 13 Sep 2021 12:26:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 465C1C4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+Subject: Re: [PATCH 2/2] ASoC: qcom: SC7280: Add machine driver
+To: Stephen Boyd <swboyd@chromium.org>, agross@kernel.org,
+ alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
+ bjorn.andersson@linaro.org, broonie@kernel.org, devicetree@vger.kernel.org,
+ judyhsiao@chromium.org, lgirdwood@gmail.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, perex@perex.cz, plai@codeaurora.org,
+ robh+dt@kernel.org, rohitkr@codeaurora.org, srinivas.kandagatla@linaro.org,
+ tiwai@suse.com
+References: <1631124057-17155-1-git-send-email-srivasam@codeaurora.org>
+ <1631124057-17155-3-git-send-email-srivasam@codeaurora.org>
+ <CAE-0n51EESvy0Y5WzcZJDAx+V1OpnaxM4T-BUbuReepJt7ufRA@mail.gmail.com>
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Organization: Qualcomm India Private Limited.
+Message-ID: <a8fb43db-924a-33a6-78c3-1048d16b3472@codeaurora.org>
+Date: Mon, 13 Sep 2021 17:56:20 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+MIME-Version: 1.0
+In-Reply-To: <CAE-0n51EESvy0Y5WzcZJDAx+V1OpnaxM4T-BUbuReepJt7ufRA@mail.gmail.com>
+Content-Language: en-US
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,53 +106,408 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 10 Sep 2021 19:45:46 -0500, David Rhodes wrote:
-> Devicetree binding documentation for CS35L41 driver
-> 
-> CS35L41 is a 11-V Boosted Mono Class D Amplifier with
-> DSP Speaker Protection and Equalization
-> 
-> Signed-off-by: David Rhodes <drhodes@opensource.cirrus.com>
-> ---
->  .../devicetree/bindings/sound/cs35l41.yaml    | 151 ++++++++++++++++++
->  1 file changed, 151 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/cs35l41.yaml
-> 
+Thanks for Your Time Stephen!!!
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/sound/cs35l41.yaml:151:9: [error] no new line character at the end of file (new-line-at-end-of-file)
+On 9/9/2021 4:12 AM, Stephen Boyd wrote:
+> Quoting Srinivasa Rao Mandadapu (2021-09-08 11:00:57)
+>> diff --git a/sound/soc/qcom/sc7280.c b/sound/soc/qcom/sc7280.c
+>> new file mode 100644
+>> index 0000000..1ab29f6
+>> --- /dev/null
+>> +++ b/sound/soc/qcom/sc7280.c
+>> @@ -0,0 +1,347 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +//
+>> +// Copyright (c) 2020-2021, The Linux Foundation. All rights reserved.
+>> +//
+>> +// sc7280.c -- ALSA SoC Machine driver for sc7280
+>> +
+>> +#include <dt-bindings/sound/sc7180-lpass.h>
+>> +#include <dt-bindings/sound/qcom,q6afe.h>
+> Can these come after the linux/sound includes?
+yes. it can be moved to below.
+>
+>> +#include <linux/gpio.h>
+>> +#include <linux/gpio/consumer.h>
+>> +#include <linux/module.h>
+>> +#include <linux/of_device.h>
+>> +#include <linux/platform_device.h>
+>> +#include <sound/core.h>
+>> +#include <sound/jack.h>
+>> +#include <sound/pcm.h>
+>> +#include <sound/soc.h>
+>> +#include <uapi/linux/input-event-codes.h>
+> Is this include used?
+This is is required for macros KEY_MEDIA' KEY_'VOICECOMMAND' 'KEY_VOLUMEUP'.
+>
+>> +
+>> +#include "../codecs/wcd938x.h"
+>> +#include "common.h"
+>> +#include "lpass.h"
+>> +
+>> +#define DRIVER_NAME "SC7280"
+> Is this useful? Why not just inline it in the one place it is used so we
+> don't have to jump to the define to figure out what it is?
+Yes. will make it inline.
+>> +#define LPASS_MAX_PORTS  (LPASS_CDC_DMA_VA_TX8 + 1)
+>> +
+>> +
+>> +struct sc7280_snd_data {
+>> +       bool stream_prepared[LPASS_MAX_PORTS];
+>> +       struct snd_soc_card card;
+>> +       struct sdw_stream_runtime *sruntime[LPASS_MAX_PORTS];
+>> +       struct snd_soc_jack hs_jack;
+>> +       struct snd_soc_jack hdmi_jack;
+>> +       bool jack_setup;
+>> +};
+>> +
+>> +static void sc7280_jack_free(struct snd_jack *jack)
+>> +{
+>> +       struct snd_soc_component *component = jack->private_data;
+>> +
+>> +       snd_soc_component_set_jack(component, NULL, NULL);
+>> +}
+>> +
+>> +static int sc7280_headset_init(struct snd_soc_pcm_runtime *rtd)
+>> +{
+>> +       struct snd_soc_card *card = rtd->card;
+>> +       struct sc7280_snd_data *pdata = snd_soc_card_get_drvdata(card);
+>> +       struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+>> +       struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+>> +       struct snd_soc_component *component = codec_dai->component;
+>> +       struct snd_jack *jack;
+>> +       int rval, i;
+>> +
+>> +       if (!pdata->jack_setup) {
+>> +               rval = snd_soc_card_jack_new(card, "Headset Jack",
+>> +                                                       SND_JACK_HEADSET | SND_JACK_LINEOUT |
+>> +                                                       SND_JACK_MECHANICAL |
+>> +                                                       SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+>> +                                                       SND_JACK_BTN_2 | SND_JACK_BTN_3 |
+>> +                                                       SND_JACK_BTN_4 | SND_JACK_BTN_5,
+>> +                                                       &pdata->hs_jack, NULL, 0);
+>> +
+>> +               if (rval < 0) {
+>> +                       dev_err(card->dev, "Unable to add Headset Jack\n");
+>> +                       return rval;
+>> +               }
+>> +
+>> +               jack = pdata->hs_jack.jack;
+>> +
+>> +               snd_jack_set_key(jack, SND_JACK_BTN_0, KEY_MEDIA);
+>> +               snd_jack_set_key(jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
+>> +               snd_jack_set_key(jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
+>> +               snd_jack_set_key(jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
+>> +
+>> +               jack->private_data = component;
+>> +               jack->private_free = sc7280_jack_free;
+>> +               pdata->jack_setup = true;
+>> +       }
+>> +       switch (cpu_dai->id) {
+>> +       case LPASS_CDC_DMA_RX0:
+>> +       case LPASS_CDC_DMA_TX3:
+>> +               for_each_rtd_codec_dais(rtd, i, codec_dai) {
+>> +                       rval = snd_soc_component_set_jack(component, &pdata->hs_jack, NULL);
+>> +                       if (rval != 0 && rval != -EOPNOTSUPP) {
+>> +                               dev_warn(card->dev, "Failed to set jack: %d\n", rval);
+> Why not dev_err?
+Okay. will change to dev_err().
+>
+>> +                               return rval;
+>> +                       }
+>> +               }
+>> +
+>> +               break;
+>> +       default:
+>> +               break;
+>> +       }
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +static int sc7280_hdmi_init(struct snd_soc_pcm_runtime *rtd)
+>> +{
+>> +       struct snd_soc_card *card = rtd->card;
+>> +       struct sc7280_snd_data *pdata = snd_soc_card_get_drvdata(card);
+>> +       struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+>> +       struct snd_soc_component *component = codec_dai->component;
+>> +       struct snd_jack *jack;
+>> +       int rval;
+>> +
+>> +       rval = snd_soc_card_jack_new(
+>> +                       card, "HDMI Jack",
+>> +                       SND_JACK_LINEOUT,
+>> +                       &pdata->hdmi_jack, NULL, 0);
+>> +
+>> +       if (rval < 0) {
+>> +               dev_err(card->dev, "Unable to add HDMI Jack\n");
+>> +               return rval;
+>> +       }
+>> +
+>> +       jack = pdata->hdmi_jack.jack;
+>> +       jack->private_data = component;
+>> +       jack->private_free = sc7280_jack_free;
+>> +
+>> +       return snd_soc_component_set_jack(component, &pdata->hdmi_jack, NULL);
+>> +}
+>> +
+>> +static int sc7280_init(struct snd_soc_pcm_runtime *rtd)
+>> +{
+>> +       struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+>> +
+>> +       switch (cpu_dai->id) {
+>> +       case LPASS_CDC_DMA_TX3:
+>> +               return sc7280_headset_init(rtd);
+>> +       case LPASS_CDC_DMA_RX0:
+>> +       case LPASS_CDC_DMA_VA_TX0:
+>> +       case MI2S_SECONDARY:
+>> +               return 0;
+>> +       case LPASS_DP_RX:
+>> +               return sc7280_hdmi_init(rtd);
+>> +       default:
+>> +               dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__, cpu_dai->id);
+>> +               return -EINVAL;
+>> +       }
+> Nitpick: Add newline.
+Okay.
+>
+>> +       return 0;
+> Can we even get here? Maybe remove return from default above and make
+> this a return -EINVAL.
+>
+>> +}
+>> +
+>> +static int sc7280_snd_startup(struct snd_pcm_substream *substream)
+>> +{
+>> +       struct snd_soc_pcm_runtime *rtd = substream->private_data;
+>> +       struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+>> +
+>> +       switch (cpu_dai->id) {
+>> +       case LPASS_CDC_DMA_RX0:
+>> +       case LPASS_CDC_DMA_TX3:
+>> +       case LPASS_CDC_DMA_VA_TX0:
+>> +               break;
+>> +       case MI2S_SECONDARY:
+>> +               break;
+>> +       case LPASS_DP_RX:
+>> +               break;
+>> +       default:
+>> +               dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__, cpu_dai->id);
+>> +               return -EINVAL;
+>> +       }
+> Nitpick: Add newline.
+Okay.
+>
+>> +       return 0;
+>> +}
+>> +
+>> +static int sc7280_snd_hw_params(struct snd_pcm_substream *substream,
+>> +                               struct snd_pcm_hw_params *params)
+>> +{
+>> +       struct snd_pcm_runtime *runtime = substream->runtime;
+>> +       struct snd_soc_pcm_runtime *rtd = substream->private_data;
+>> +       struct snd_soc_dai *codec_dai;
+>> +       struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+> const?
+Okay.
+>
+>> +       struct sc7280_snd_data *pdata = snd_soc_card_get_drvdata(rtd->card);
+>> +       struct sdw_stream_runtime *sruntime;
+>> +       int i;
+>> +
+>> +       snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_CHANNELS, 2, 2);
+>> +       snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_RATE, 48000, 48000);
+>> +
+>> +       switch (cpu_dai->id) {
+>> +       case LPASS_CDC_DMA_TX3:
+>> +       case LPASS_CDC_DMA_RX0:
+>> +               for_each_rtd_codec_dais(rtd, i, codec_dai) {
+>> +                       sruntime = snd_soc_dai_get_sdw_stream(codec_dai, substream->stream);
+>> +                       if (sruntime != ERR_PTR(-EOPNOTSUPP))
+>> +                               pdata->sruntime[cpu_dai->id] = sruntime;
+>> +               }
+>> +               break;
+>> +       }
+>> +
+>> +       return 0;
+>> +
+> Nitpick: Drop newline.
+Okay.
+>
+>> +}
+>> +
+>> +static int sc7280_snd_swr_prepare(struct snd_pcm_substream *substream)
+>> +{
+>> +       struct snd_soc_pcm_runtime *rtd = substream->private_data;
+>> +       struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+> const?
+Okay.
+>
+>> +       struct sc7280_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
+>> +       struct sdw_stream_runtime *sruntime = data->sruntime[cpu_dai->id];
+>> +       int ret;
+>> +
+>> +       if (!sruntime)
+>> +               return 0;
+>> +
+>> +       if (data->stream_prepared[cpu_dai->id]) {
+>> +               sdw_disable_stream(sruntime);
+>> +               sdw_deprepare_stream(sruntime);
+>> +               data->stream_prepared[cpu_dai->id] = false;
+>> +       }
+>> +
+>> +       ret = sdw_prepare_stream(sruntime);
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       ret = sdw_enable_stream(sruntime);
+>> +       if (ret) {
+>> +               sdw_deprepare_stream(sruntime);
+>> +               return ret;
+>> +       }
+>> +       data->stream_prepared[cpu_dai->id]  = true;
+> Why two spaces after ]?
+Okay. Will remove it.
+>
+>> +
+>> +       return ret;
+>> +}
+>> +
+>> +
+>> +static int sc7280_snd_prepare(struct snd_pcm_substream *substream)
+>> +{
+>> +       struct snd_soc_pcm_runtime *rtd = substream->private_data;
+>> +       struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+> const?
+Okay.
+>
+>> +
+>> +       switch (cpu_dai->id) {
+>> +       case LPASS_CDC_DMA_RX0:
+>> +       case LPASS_CDC_DMA_TX3:
+>> +               return sc7280_snd_swr_prepare(substream);
+>> +       default:
+>> +               break;
+>> +       }
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +static int sc7280_snd_hw_free(struct snd_pcm_substream *substream)
+>> +{
+>> +       struct snd_soc_pcm_runtime *rtd = substream->private_data;
+>> +       struct sc7280_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
+>> +       struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+> const?
+Okay.
+>
+>> +       struct sdw_stream_runtime *sruntime = data->sruntime[cpu_dai->id];
+>> +
+>> +       switch (cpu_dai->id) {
+>> +       case LPASS_CDC_DMA_RX0:
+>> +       case LPASS_CDC_DMA_TX3:
+>> +               if (sruntime && data->stream_prepared[cpu_dai->id]) {
+>> +                       sdw_disable_stream(sruntime);
+>> +                       sdw_deprepare_stream(sruntime);
+>> +                       data->stream_prepared[cpu_dai->id] = false;
+>> +               }
+>> +               break;
+>> +       default:
+>> +               break;
+>> +       }
+>> +       return 0;
+>> +}
+>> +
+>> +static void sc7280_snd_shutdown(struct snd_pcm_substream *substream)
+>> +{
+>> +       struct snd_soc_pcm_runtime *rtd = substream->private_data;
+>> +       struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+>> +
+>> +       switch (cpu_dai->id) {
+>> +       case LPASS_CDC_DMA_RX0:
+>> +       case LPASS_CDC_DMA_TX3:
+>> +       case LPASS_CDC_DMA_VA_TX0:
+>> +               break;
+>> +       case MI2S_SECONDARY:
+>> +               break;
+>> +       case LPASS_DP_RX:
+>> +               break;
+>> +       default:
+>> +               dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__, cpu_dai->id);
+> Can use %#x to skip the 0x part.
+Okay. Will Change it to %d.
+>
+>> +               break;
+>> +       }
+>> +}
+>> +
+>> +static const struct snd_soc_ops sc7280_ops = {
+>> +       .startup = sc7280_snd_startup,
+>> +       .shutdown = sc7280_snd_shutdown,
+>> +       .hw_params = sc7280_snd_hw_params,
+>> +       .hw_free = sc7280_snd_hw_free,
+>> +       .prepare = sc7280_snd_prepare,
+>> +};
+>> +
+>> +static const struct snd_soc_dapm_widget sc7280_snd_widgets[] = {
+>> +       SND_SOC_DAPM_HP("Headphone Jack", NULL),
+>> +       SND_SOC_DAPM_MIC("Headset Mic", NULL),
+>> +};
+>> +
+>> +static int sc7280_snd_platform_probe(struct platform_device *pdev)
+>> +{
+>> +       struct snd_soc_card *card;
+>> +       struct sc7280_snd_data *data;
+>> +       struct device *dev = &pdev->dev;
+>> +       struct snd_soc_dai_link *link;
+>> +       int ret, i;
+>> +
+>> +       /* Allocate the private data */
+>> +       data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+>> +       if (!data)
+>> +               return -ENOMEM;
+>> +
+>> +       card = &data->card;
+>> +       data->jack_setup = false;
+> Isn't that implicit via kzalloc above? This can be dropped.
+Yes. Will remove it.
+>
+>> +       snd_soc_card_set_drvdata(card, data);
+>> +
+>> +       card->owner = THIS_MODULE;
+>> +       card->driver_name = DRIVER_NAME;
+>> +       card->dev = dev;
+>> +
+>> +       ret = qcom_snd_parse_of(card);
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       for_each_card_prelinks(card, i, link) {
+>> +               link->init = sc7280_init;
+>> +               link->ops = &sc7280_ops;
+>> +       }
+>> +       ret = devm_snd_soc_register_card(dev, card);
+>> +       return ret;
+> Nitpick:
+>
+> return devm_snd_soc_register_card(dev, card)
+Okay. will change it.
+>
+>> +}
+>> +
+>> +static const struct of_device_id sc7280_snd_device_id[]  = {
+>> +       {.compatible = "google,sc7280-herobrine"},
+>> +       {},
+> Nitpick: Drop comma here so nothing can come after without causing a
+> compile error.
+Okay. Will remove it.
+>
+>> +};
+>> +MODULE_DEVICE_TABLE(of, sc7280_snd_device_id);
+>> +
 
-dtschema/dtc warnings/errors:
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/cs35l41.yaml: 'additionalProperties' is a required property
-	hint: A schema without a "$ref" to another schema must define all properties and use "additionalProperties"
-	from schema $id: http://devicetree.org/meta-schemas/base.yaml#
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/cs35l41.yaml: ignoring, error in schema: 
-warning: no schema found in file: ./Documentation/devicetree/bindings/sound/cs35l41.yaml
-Documentation/devicetree/bindings/sound/cs35l41.example.dts:21.11-21: Warning (reg_format): /example-0/cs35l41@2:reg: property has invalid length (4 bytes) (#address-cells == 1, #size-cells == 1)
-Documentation/devicetree/bindings/sound/cs35l41.example.dt.yaml: Warning (pci_device_reg): Failed prerequisite 'reg_format'
-Documentation/devicetree/bindings/sound/cs35l41.example.dt.yaml: Warning (pci_device_bus_num): Failed prerequisite 'reg_format'
-Documentation/devicetree/bindings/sound/cs35l41.example.dt.yaml: Warning (simple_bus_reg): Failed prerequisite 'reg_format'
-Documentation/devicetree/bindings/sound/cs35l41.example.dt.yaml: Warning (i2c_bus_reg): Failed prerequisite 'reg_format'
-Documentation/devicetree/bindings/sound/cs35l41.example.dt.yaml: Warning (spi_bus_reg): Failed prerequisite 'reg_format'
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/cs35l41.example.dt.yaml: example-0: cs35l41@2:reg:0: [2] is too short
-	From schema: /usr/local/lib/python3.8/dist-packages/dtschema/schemas/reg.yaml
-Documentation/devicetree/bindings/sound/cs35l41.example.dt.yaml:0:0: /example-0/cs35l41@2: failed to match any schema with compatible: ['cirrus,cs35l41']
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/patch/1526664
-
-This check can fail if there are any dependencies. The base for a patch
-series is generally the most recent rc1.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit.
+-- 
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
 

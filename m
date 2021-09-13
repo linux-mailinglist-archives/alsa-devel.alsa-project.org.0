@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D94D4089BE
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 13:00:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1BE24089C1
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 13:01:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2ED182A;
-	Mon, 13 Sep 2021 13:00:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2ED182A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 370601670;
+	Mon, 13 Sep 2021 13:00:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 370601670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631530859;
-	bh=AkP0jovDemSFw2EtzAagzgwX6j/fQza8GDVZEvdK4KU=;
+	s=default; t=1631530884;
+	bh=hluTCl1b8CAVLGm6NCHHq+/3ObLLuNlVTaShznsi9Fg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vSAqowW51e0ojj483nQOHAUCtZanNT33DXKJSfeeGNiEOFsCILmXFyeYd7TPxAjfT
-	 uhi+6QLgeqpY4B/amRjFHAZtn5cpX7R0RZtntgWq5i9aWlNw9KBMBx7MGyVxXgyhRT
-	 45a0Hcw60hkDOTvDlVUKaWYyDDZzwD4um4rY0Ic4=
+	b=L19iuT28BX2+6lPXAX2uG8Zrgo4timsn0i/IzTGf7UHu14qcpMtMqR8RwXFqePiIK
+	 UPqib6tS4Jzs9eSYoyRLxAuQNx/LGEaieIpMvkdq6PznQp6k5q8I80FhuUkXZQUSSz
+	 cQSmeupWnMLzb52DnxXlRKlcY+Js8Nsw1IlXwt4A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68985F80549;
-	Mon, 13 Sep 2021 12:55:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F1C4F80557;
+	Mon, 13 Sep 2021 12:55:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1ED2F80539; Mon, 13 Sep 2021 12:55:21 +0200 (CEST)
+ id CC01CF80538; Mon, 13 Sep 2021 12:55:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 327B7F80536
- for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 12:55:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 327B7F80536
+ by alsa1.perex.cz (Postfix) with ESMTPS id F4188F80527
+ for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 12:55:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F4188F80527
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="kwiRISb7"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 99AEF6103B;
- Mon, 13 Sep 2021 10:55:16 +0000 (UTC)
+ header.b="pW2HnEZk"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 268EF61029;
+ Mon, 13 Sep 2021 10:55:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631530517;
- bh=AkP0jovDemSFw2EtzAagzgwX6j/fQza8GDVZEvdK4KU=;
+ s=k20201202; t=1631530519;
+ bh=hluTCl1b8CAVLGm6NCHHq+/3ObLLuNlVTaShznsi9Fg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kwiRISb7qm2rF6Qf3xhnl9h2vkzcF22YRJ6DEgqXM0Jmprw1wEy0RiF2IySCSWFB8
- 4feuhLfIajRQqgCnpkBoKP9VVOFLZwWfHZG+Wn6RanhDKoydLprdoKv4us5v31N6ut
- IUO+YOGpXQDts3AqW7EgXrpLy+Bw4Dntp1RVtZsn9rRf0o5hufCTbivpRQrab/RP1r
- 03gjbq6TaakJulvNVbl7V+hyOn+4i7Jcjlypzu/TQd/i1Le8e922lkexi8WJLQIGNk
- bv5ku+5uD7r4D1qFAFuDaDW9UI8wIXqBFAszISN3utlBIRToRYpB5+MnWzE6CpW6gA
- k7zuQrxsr8o+w==
+ b=pW2HnEZkdamvTL2mPZSL4H0L6xqAUZZBDL8Ly+QLGSVEEnh0FqOCkNOeNYgL5WuD2
+ PPzwKRrn827kiDwe3AwjNnIHPwLNljHim2PSUYCXJY3kzJcYnIQ71Yw3iF+Fg4raZF
+ b6B5X+SOHi7/C8UbJ7SpHkoiV7h2NytraM8SfHJ5d3/DUGPhhj6xueQnLZsp3umbwT
+ COnCrM5BFiE7mj/cs+aqyyUg0cRoGXpw0VFxA4XDDUvjwTGE8+vdjk+QxJI6zQ/fH0
+ BH+XAWn9ZEVc8xDpoCtiWYcUSqhtWQAyi/QkHNJCBJLPH3rkwzPHICPwrfISkDYVin
+ Fs2ibXkTXrMdQ==
 From: Mark Brown <broonie@kernel.org>
-To: matthias.bgg@gmail.com, tiwai@suse.com, Trevor Wu <trevor.wu@mediatek.com>
-Subject: Re: [PATCH] ASoC: mt8195: remove unnecessary CONFIG_PM
-Date: Mon, 13 Sep 2021 11:53:29 +0100
-Message-Id: <163152996583.45703.15399781135133859191.b4-ty@kernel.org>
+To: david.rhodes@cirrus.com, robh@kernel.org,
+ David Rhodes <drhodes@opensource.cirrus.com>, alsa-devel@alsa-project.org,
+ pierre-louis.bossart@linux.intel.com, brian.austin@cirrus.com,
+ patches@opensource.cirrus.com, ckeepax@opensource.cirrus.com
+Subject: Re: [PATCH v7 0/2] Cirrus Logic CS35L41 Amplifier
+Date: Mon, 13 Sep 2021 11:53:30 +0100
+Message-Id: <163152996585.45703.5868330232661304894.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210902071440.6087-1-trevor.wu@mediatek.com>
-References: <20210902071440.6087-1-trevor.wu@mediatek.com>
+In-Reply-To: <20210907225719.2018115-1-drhodes@opensource.cirrus.com>
+References: <20210907225719.2018115-1-drhodes@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
+Cc: Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,14 +81,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2 Sep 2021 15:14:40 +0800, Trevor Wu wrote:
-> The unnecessary conditional inclusion caused the following warning.
+On Tue, 7 Sep 2021 17:57:17 -0500, David Rhodes wrote:
+> ASoC driver and devicetree documentation for a new
+> Cirrus Logic amplifier CS35L41
 > 
-> >> sound/soc/mediatek/mt8195/mt8195-afe-pcm.c:3260:32: warning: unused
-> >> variable 'mt8195_afe_pm_ops' [-Wunused-const-variable]
->    static const struct dev_pm_ops mt8195_afe_pm_ops = {
->                                   ^
->    1 warning generated.
+> v7 changes:
+> Remove property 'classh-bst-max-limit'
+> 
+> David Rhodes (2):
+>   ASoC: cs35l41: CS35L41 Boosted Smart Amplifier
+>   ASoC: cs35l41: Add bindings for CS35L41
 > 
 > [...]
 
@@ -97,8 +100,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: mt8195: remove unnecessary CONFIG_PM
-      commit: 2b9b42c847b83823527a497c323e74d2efced721
+[1/2] ASoC: cs35l41: CS35L41 Boosted Smart Amplifier
+      commit: 6450ef55905688602175fae4ed1bfbfef6a14dde
+[2/2] ASoC: cs35l41: Add bindings for CS35L41
+      commit: 8d7ab8800184cc75000dd2e784fe121934482878
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 367774089A2
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 12:59:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C69C44089B6
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 12:59:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB08D1616;
-	Mon, 13 Sep 2021 12:58:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB08D1616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72A0A165E;
+	Mon, 13 Sep 2021 12:59:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72A0A165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631530739;
-	bh=qVDEd4KPGzwlXD7REl4gi3XNnBFXMku8Vz1o29jsDWo=;
+	s=default; t=1631530797;
+	bh=adzHkMe7QmqPw8mLlHRzTAcZPu5KFFN4TF0NE5fBBzI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fs778i0Vu6UtL3hBOh0g0pbDLtpgprH7HrIhRJEodeTeDtAs4KKEfEHBLn5WHoZd2
-	 iwnMPY8Rj7khf90xHn5vbAAwd//mwqC39Gvzygpo0kWMukah67r+5w0Mi6lG3Jg/6D
-	 4rGLTv+xCBMf/PStJh20oE1CX65Wh933snh54k1U=
+	b=MQS7+96EHao8LtlaBnRchhr5wuMoUBTmWKY1lR8cfF6hSMrASv8/3l7BtVBfd1QWi
+	 a2mNv7EYzAXr85bEPBKlikco1Y/DHhBnFvQfJkHISfx77T2MI2yLgFBXmn0WCBIbM4
+	 eXLQAuEFuDKnBJuix0vurtDpFdwIViMSLejHjV0g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 636C8F8051E;
-	Mon, 13 Sep 2021 12:55:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5E45F80537;
+	Mon, 13 Sep 2021 12:55:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76F07F80510; Mon, 13 Sep 2021 12:55:07 +0200 (CEST)
+ id C9B2AF80511; Mon, 13 Sep 2021 12:55:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AFE85F804FB
- for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 12:55:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFE85F804FB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 77049F80510
+ for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 12:55:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77049F80510
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Kn0pYiZ/"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 759906103B;
- Mon, 13 Sep 2021 10:55:01 +0000 (UTC)
+ header.b="j8Ntwz91"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0E90861004;
+ Mon, 13 Sep 2021 10:55:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631530502;
- bh=qVDEd4KPGzwlXD7REl4gi3XNnBFXMku8Vz1o29jsDWo=;
+ s=k20201202; t=1631530504;
+ bh=adzHkMe7QmqPw8mLlHRzTAcZPu5KFFN4TF0NE5fBBzI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Kn0pYiZ/IyDNur0YZLsxyjXh+Ej6lL1Bg+fVYqkCh5e9kkHMXFDzm4C3ZsHvsOYeJ
- +rbpcUPsDLtJYwYYJo9xukdBBq/3pkn18zo8SnHY0g/c5yjHhZrCJPVYmlAohMuayz
- Z2zP4hn8k9dMysdbEG4JT20NvPSG+dFFMntoVh9Jd3dw3d+N2iUOio6jhZ02nC71zT
- WCC4MYRZP8CT9bRuHofdoEF7zP/jwDVw7ffDvz9as6MrpEs/W+L/CH8Duk+ZJFZAYw
- WBQ5v/XpEay2L25mKi9krzGUM5sUyLkzLGtR0faaZx9Uj+pyp6Ym+2X5ZG8tUn9AvM
- i2wy/e0j+jZSw==
+ b=j8Ntwz91WlimLio4nImgaFi/iKuvbcXXcsfwl/+3mdXBR6WtISZlRBF9WYxKnj0PI
+ iqihBxsZWawgUnhmJp8KLd9knRR7kL3jJy06N8qwYplhfmPn+EbVqdJhCg3E8Ye58L
+ aTRTMIXtz6so53Of6/XP/YQdO1lAcn17qHE3GvS7MSzqb9L2wvrMdIZixEcUU+nmdF
+ MAM+tKWA644giBPOl2YJa+QTVyndPvljFoHMIlBNeswnlDF76gUz1XoFZGUVIMRSrH
+ Yyn8Z6VMncU42MfgtJ0tLf8j51eul68NtespESTVcRVltD3yrBIqHKCqmflY4KxxwK
+ K3AWl5v1bW4Gw==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+To: Matthias Brugger <matthias.bgg@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, linux-arm-kernel@lists.infradead.org,
+ Colin King <colin.king@canonical.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
  linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH] ASoC: mediatek: mt8195: Remove unsued irqs_lock.
-Date: Mon, 13 Sep 2021 11:53:23 +0100
-Message-Id: <163152996586.45703.9396342816792427705.b4-ty@kernel.org>
+Subject: Re: [PATCH] ASoC: mediatek: mt8195: Fix unused initialization of
+ pointer etdm_data
+Date: Mon, 13 Sep 2021 11:53:24 +0100
+Message-Id: <163152996585.45703.6144242874194833843.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210910094847.3430413-1-bigeasy@linutronix.de>
-References: <20210910094847.3430413-1-bigeasy@linutronix.de>
+In-Reply-To: <20210903114928.11743-1-colin.king@canonical.com>
+References: <20210903114928.11743-1-colin.king@canonical.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Matthias Brugger <matthias.bgg@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,12 +84,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 10 Sep 2021 11:48:47 +0200, Sebastian Andrzej Siewior wrote:
-> irqs_lock is not used, never was.
+On Fri, 3 Sep 2021 12:49:28 +0100, Colin King wrote:
+> From: Colin Ian King <colin.king@canonical.com>
 > 
-> Remove irqs_lock.
+> The pointer etdm_data is being inintialized with a value that is never
+> read, it is later being re-assigned a new value. Remove the redundant
+> initialization.
 > 
 > 
+> [...]
 
 Applied to
 
@@ -95,8 +100,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: mediatek: mt8195: Remove unsued irqs_lock.
-      commit: c3815f8bc777370999ced0b6b6f846094b33d583
+[1/1] ASoC: mediatek: mt8195: Fix unused initialization of pointer etdm_data
+      commit: d67bbdda25c4156da079312a3594a41770123abd
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

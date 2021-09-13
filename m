@@ -2,95 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8482409A66
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 19:12:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32E01409C8B
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 20:52:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 443B517AB;
-	Mon, 13 Sep 2021 19:11:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 443B517AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB4EC1790;
+	Mon, 13 Sep 2021 20:52:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB4EC1790
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631553140;
-	bh=WFuNdmjN/xebRgOOrLkjnnPmQu0wMlJMC3L/Ndx808s=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=R7kNjKX4V697gCqq9+g4xDSymcgplwEkazh1oveFy8pW+/ZpnCtshPpzWqMHC2UhP
-	 Cdb2I0bAh6czh4nbXEE6GozLlGJspor7SiCfr6bbGbFja6qBHCqfDZ/yMDKRWT6bht
-	 zJorSemLKf+lghHVWjTtBDZiPkUQd70rXuLmTx08=
+	s=default; t=1631559172;
+	bh=Utsoz/baYgDIEtwJZHNZtk91W//cpdR8B4DrxXJBctk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=G5mLLrpCgcBIdEmcF7t6A7ZqPOifG5gy3x2v/96++cjcFeCdeBze00P4iyvRyUZFo
+	 0N0K8uSYb0UsZZZGjg1SzGKBTG9+a59ode87oPr54xNFKeCx60e5oH+95Pq7wHOCCE
+	 1++SWFzneuM9Jelvx4hx96Lw/mDZNsWj7moTFuf4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55CCBF802E8;
-	Mon, 13 Sep 2021 19:11:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 32CDCF80132;
+	Mon, 13 Sep 2021 20:51:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 52290F8027C; Mon, 13 Sep 2021 19:11:01 +0200 (CEST)
+ id 921F6F80132; Mon, 13 Sep 2021 20:51:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE autolearn=disabled version=3.4.0
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from neo-zeon.de (neo-zeon.de [70.229.12.130])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2F6D9F80132
- for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 19:10:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F6D9F80132
+ by alsa1.perex.cz (Postfix) with ESMTPS id BFC2AF80132
+ for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 20:51:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFC2AF80132
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=noisetron.com header.i=@noisetron.com
- header.b="HzlZ99Ek"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="lNSUm0N9"
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 711D95C00B1
- for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 13:10:52 -0400 (EDT)
-Received: from imap45 ([10.202.2.95])
- by compute3.internal (MEProxy); Mon, 13 Sep 2021 13:10:52 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=noisetron.com;
- h=mime-version:message-id:date:from:to:subject:content-type; s=
- fm1; bh=SwXPbmXO3MzDKGsEkn8AGQx2MZw9WFwQSh9oM54pB5E=; b=HzlZ99Ek
- Eqdh8VbKO6G02D9qT9JKu5DwFC9ELBYFE/Y45LX1xXoctNyYGcjgW2sinuUiVlUX
- tSaiJb3ndUOk8v505GK0lnRN1iZxDraOAuVgrEokTG1cFdK8a64Q2eJzfG/1yczS
- HRFxuRmBrFzPGHtZKPWMguphEZc1yyfMywJo2TvD/D2Qv6ACLFX+iAkX71r+GPCH
- zH1ax2qSBCMxnhofFryMXRdTNxcaum3Q3Rf7y9cyut8YWfqyxKTF91LGtMLdylAz
- DE5JX6PaY79osGyS1VeIWoi1/WaiDDj6V3BERNaxrVBFYKQfx2Oz/i19y4B29qiC
- YMq6X6c2NY0+WA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:message-id
- :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; bh=SwXPbmXO3MzDKGsEkn8AGQx2MZw9W
- FwQSh9oM54pB5E=; b=lNSUm0N9mtr5kg+IMj5CiyZZN0CE3s1GVF5iqzNq4PUpp
- rFxaOqLkXA1rphFdkoe/9tQmmseiFcM/1fatzSSoYMjAjdl0RTyRSSdfIfTJvVaK
- k6bYu6dm/69bbSK/PhGl+su76RBpoKuhMtMFj0ccp9Do1PhZrvVmRatT5Gfygz59
- Qe4QaagXf1BMCLF8ZigIjdIRzjdwZedfjFg28SmqRwegMviLZkYc9klnHx6XmotW
- 6LoKoIbvRHmhZC+8xltsMkAIy/0sMdqhwDyOrApRqBlHJvW7zgIVx7t0oapsETwU
- 49OkBMdOAr8/7aNbIZ6/70YaMqTtHPdRmSCgDoU9Q==
-X-ME-Sender: <xms:G4Y_Yb-aUzhbTqrNoJg-aaiDD8sGMxDHihCL1kvDA9wAK7UqQlnmJQ>
- <xme:G4Y_YXuZqqrg9yYtVJagCeRN1hVNgtSx74LkG3HZVvbGBNlGXxaWL0t2RYhpZeSds
- iJ2yLEKVdkTMSfc>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudegjedguddtjecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecunecujfgurhepofgfggfkfffhvffutgesthdtre
- dtreertdenucfhrhhomhepfdeuvghrthcuufgthhhivghtthgvtggrthhtvgdfuceosggv
- rhhtsehnohhishgvthhrohhnrdgtohhmqeenucggtffrrghtthgvrhhnpeekffevkeduff
- elleduhefhhfelleektdehudefleejhefhleeigeevgeeifeegffenucevlhhushhtvghr
- ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegsvghrthesnhhoihhsvghtrh
- honhdrtghomh
-X-ME-Proxy: <xmx:G4Y_YZAzTA9k5LYG2jVU3D7x21nThFg23uhe6wfAXJfV747LpCUOkg>
- <xmx:G4Y_YXfAaKeQdSz2-B8cDAm3WLRP-WleiFCLh19QXQmcszNhZsoBZQ>
- <xmx:G4Y_YQOhfECLvVTcQdDKEuV-N885IVwxFYQjBIkKRP2AMI91jao6Kg>
- <xmx:HIY_YWb-zro_wQ8TSlhrQsb0Y5WuUVsEu9D3iwExskxDBbwcNmcqiA>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id BD61124A0064; Mon, 13 Sep 2021 13:10:51 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.5.0-alpha0-1229-g7ca81dfce5-fm-20210908.005-g7ca81dfc
-Mime-Version: 1.0
-Message-Id: <2f007482-8a35-4923-8ddf-5b0d16c0acd9@www.fastmail.com>
-Date: Mon, 13 Sep 2021 10:10:31 -0700
-From: "Bert Schiettecatte" <bert@noisetron.com>
-To: alsa-devel@alsa-project.org
-Subject: kernel threads preventing wakeup of thread using snd_pcm_readi?
-Content-Type: text/plain
+ dkim=pass (1024-bit key) header.d=neo-zeon.de header.i=@neo-zeon.de
+ header.b="fAsnMcY7"
+Received: from neo-zeon.de (localhost [127.0.0.1])
+ by neo-zeon.de (OpenSMTPD) with ESMTP id 553bbde3;
+ Mon, 13 Sep 2021 11:51:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=neo-zeon.de; h=subject:to
+ :cc:references:from:message-id:date:mime-version:in-reply-to
+ :content-type:content-transfer-encoding; s=1; bh=EHBh3Xzua5iqPz4
+ 9NnjE1R24WyY=; b=fAsnMcY7Mn0cwgCN3RAMm1entis9CGUF0ApcPqSirG2PPs/
+ zghnPPV5eMvdhOtk+fZF0HUbCEtu18Fqr/Vv+dDlJDXcN5pwrx3++Dbvel3VAArz
+ niVUQheL7azwqUO0B5wyB/9FfGL6gpb6EYXOAettro4zLH3A88FrDwXQXZAI=
+Received: by neo-zeon.de (OpenSMTPD) with ESMTPSA id 479b7281
+ (TLSv1.3:AEAD-AES256-GCM-SHA384:256:NO); 
+ Mon, 13 Sep 2021 11:51:24 -0700 (PDT)
+Subject: Re: [PATCH] ALSA: hda/realtek: Quirks to enable speaker output for
+ Lenovo Legion 7i 15IMHG05, Yoga 7i 14ITL5/15ITL5, and 13s Gen2 laptops.
+To: Takashi Iwai <tiwai@suse.de>
+References: <20210912230715.156221-1-cam@neo-zeon.de>
+ <s5hy281jb7l.wl-tiwai@suse.de>
+ <e1c633dc-570f-d06a-51cb-bdfd0c1a2549@neo-zeon.de>
+ <s5hzgsgirt2.wl-tiwai@suse.de>
+From: Cameron Berkenpas <cam@neo-zeon.de>
+Message-ID: <3aefa356-668b-b33f-86fd-10ef9ad09111@neo-zeon.de>
+Date: Mon, 13 Sep 2021 11:51:24 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+MIME-Version: 1.0
+In-Reply-To: <s5hzgsgirt2.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,18 +85,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi all
+Alas,
 
-I am working on a realtime audio application on the rk3288 platform. I am using stable kernel 5.13.13. I'm using the open source tracy profiler to profile my application. My development PC receives trace data via ethernet from my platform. I have custom alsa drivers on my platform for my DACs and ADCs. 
+Changing to:
+spec->gen.suppress_auto_mute 0 =1
 
-My application has a thread in which I use snd_pcm_readi which blocks until it can read enough samples.
-I have another thread in which I write the samples to disk (sandisk extreme SD card). I use a ring-buffer so the code is lock-free. 
+Results in audio output from the speakers after removal of the headset. Any ideas why or what we might do?
 
-I've noticed that over a timespan of a few minutes I get a few clicks, which seem to come from the thread blocking on snd_pcm_readi not waking up in time. I am observing this in the traces I collect via tracy. 
+I'll changing the "Auto-Mute Mode" to confirm what happens when using:
+spec->gen.automute_speaker = 0;
 
-Right before this happens, I can see kworker/kblockd being scheduled on one of the cores many times and rapidly, or ocasionally ksoftirqd, mmc_complete, or events_highpri. From the trace I collect, i have the impression nothing is being scheduled on the other cores, so I do not see a reason why my thread should not be woken up and scheduled. 
+Thanks!
 
-Why is the thread blocking on snd_pcm_readi not waking up in time, and is it possible that the kworker threads are preventing this, and why? Any suggestions on how to debug this further are greatly appreciated. 
 
-Thanks
-Bert
+
+On 9/13/21 5:27 AM, Takashi Iwai wrote:
+> This flag is effective only until "Auto-Mute Mode" mixer control is
+> changed, so it's not persistent.  If you'd need to disable the
+> auto-mute feature, set spec->gen.suppress_auto_mute=1 instead.
+

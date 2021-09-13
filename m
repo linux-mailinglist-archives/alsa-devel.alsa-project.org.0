@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E79714089BA
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 13:00:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 868514089BD
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Sep 2021 13:00:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D9D3166B;
-	Mon, 13 Sep 2021 12:59:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D9D3166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13C541673;
+	Mon, 13 Sep 2021 12:59:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13C541673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631530819;
-	bh=/acizGQpjVbb5W1sMXX4iA7exId4RJz4UuLDmCHSWzo=;
+	s=default; t=1631530837;
+	bh=zKLNgw/N4ItjnA37Dj4lWg1ihUlvavhEp8ANwqjfJvw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bOh5WGqTYFBELcttEe3Zgb90OFugnAOu+IUJQAwsua92laeatTogyj2/4oYXuVsuq
-	 syp0CA3zMybG67spFTEIx5hLRRFGoKoQoNFhsZMmI8GkZTsUCE9Q6axb/9WjWXpj6M
-	 Ag0pHYXevC45tFizfAwG6ha9L7mKQjqZYWH6k/BY=
+	b=BZGuPFPTTN4bzOIoVTqJqhWblwClaceAm01+F0bnE1JsAKw6FaEI95k+tSJbhJuQ0
+	 S1Bk1X6cY7o8pE+kRagZrttH48xd0LP2T0PNJT2YYw7G02KAiIXmbX6NqQlfVcZMpy
+	 vRSVHJbytWHZKUDsNLcUHxeYFx4nBnTT1CkrDC6A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72868F80539;
-	Mon, 13 Sep 2021 12:55:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66C81F8053D;
+	Mon, 13 Sep 2021 12:55:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3C92F8051D; Mon, 13 Sep 2021 12:55:16 +0200 (CEST)
+ id D559CF80539; Mon, 13 Sep 2021 12:55:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +33,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2BFF2F80511
- for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 12:55:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2BFF2F80511
+ by alsa1.perex.cz (Postfix) with ESMTPS id F2969F80527
+ for <alsa-devel@alsa-project.org>; Mon, 13 Sep 2021 12:55:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2969F80527
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="F6TvK4B4"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 81DE161056;
- Mon, 13 Sep 2021 10:55:11 +0000 (UTC)
+ header.b="KGPQxch5"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1878961029;
+ Mon, 13 Sep 2021 10:55:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631530512;
- bh=/acizGQpjVbb5W1sMXX4iA7exId4RJz4UuLDmCHSWzo=;
+ s=k20201202; t=1631530514;
+ bh=zKLNgw/N4ItjnA37Dj4lWg1ihUlvavhEp8ANwqjfJvw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=F6TvK4B4I+8fhHkwCXw2nwKMzALK/t98a7hcdi3nBHhqo2rAU+fopM70wRIFncoEz
- EDb6uxC2Ln6u7zoDo5bMmvBiSyEsV/krsHSylK1WrC3QlvZ/EOJ5IKtYCnNp0m+ybC
- vwZBkFBItqnRxsBeICBVHsVDpmetRPSm7JqUZLwCYZMeMpVE85iAKVQo7pmS1mN5o0
- bwe+0WWOqbV8A7CIwbNvzhPt3ciCXn4W+K95uxO2fMLNLy+EX5t2lDbLZ+T1mmPa4e
- wujxw70KU/CXuIZpF2L1gBcDUAY5bVDucCcEryAhZBwNxeL/9DjYkMLx/pq5sbeS+X
- aeXqlBbq77g8g==
+ b=KGPQxch5+yPc4VcVRwpqf2VL3nRO/bkDV2re8vxL1YIatShnClBCFFeCifLfTrmdZ
+ yPV2Z7fYnUAwAlyt75G7RTm/ehoKVGgdoIo4/i47Gyyky+ma+VuGxhxEEpllOvHP/p
+ vZvuN3YIi6f88jRp1xVBup39aZbD0ibbC90bJoZqOURTMpGHEzI48VdTp3Cu9ErCPo
+ KtLcsajpz6plwfZXfxy2MPoUm5vaX3i4wlk2st4x76/6ETtVdi/aGaIG3HL9nTxWq8
+ /qIVDHJxk4vCb/CrDbUnQ+rwfR/HYcffifxW6yrboqQ/BaHGz5mf2uQEw0TdiOGrkr
+ 6rej39/4c4U2w==
 From: Mark Brown <broonie@kernel.org>
-To: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Masahiro Yamada <masahiroy@kernel.org>
-Subject: Re: [PATCH] ASoC: ti: rename CONFIG_SND_SOC_DM365_VOICE_CODEC_MODULE
-Date: Mon, 13 Sep 2021 11:53:27 +0100
-Message-Id: <163152996582.45703.13424902578308324245.b4-ty@kernel.org>
+To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	lgirdwood@gmail.com
+Subject: Re: [PATCH] ASoC: SOF: Handle control change notification from
+ firmware
+Date: Mon, 13 Sep 2021 11:53:28 +0100
+Message-Id: <163152996583.45703.2526487392915647281.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210901164009.1546967-1-masahiroy@kernel.org>
-References: <20210901164009.1546967-1-masahiroy@kernel.org>
+In-Reply-To: <20210902115328.28478-1-peter.ujfalusi@linux.intel.com>
+References: <20210902115328.28478-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>,
- =?UTF-8?q?P=EF=BF=BD=EF=BF=BD=EF=BF=BDter=20Ujfalusi?=
- <peter.ujfalusi@gmail.com>
+Cc: guennadi.liakhovetski@linux.intel.com, alsa-devel@alsa-project.org,
+ kai.vehmanen@linux.intel.com, seppo.ingalsuo@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,13 +82,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2 Sep 2021 01:40:09 +0900, Masahiro Yamada wrote:
-> Kconfig generates include/generated/autoconf.h to make CONFIG options
-> available to the pre-processor. Symbols with the value 'm' are suffixed
-> with '_MODULE'
+On Thu, 2 Sep 2021 14:53:28 +0300, Peter Ujfalusi wrote:
+> If the value/data associated with a control changes in SOF it will send a
+> notification (SOF_IPC_GLB_COMP_MSG with SOF_IPC_COMP_GET_VALUE/DATA).
 > 
-> Here is a conflict; CONFIG_FOO=m results in '#define CONFIG_FOO_MODULE 1',
-> but CONFIG_FOO_MODULE=y also results in the same define.
+> We have support for binary volatile control type, but we might have
+> features where enum/switch/volume changes. Re-implementing everything as
+> volatile as well would be not much of a gain for several reasons:
+> - volatile controls would do an IPC all the time, regardless if there is a
+>   need or not.
+> - We still don't have notification which forces userspace to continuously
+>   poll.
 > 
 > [...]
 
@@ -99,8 +102,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: ti: rename CONFIG_SND_SOC_DM365_VOICE_CODEC_MODULE
-      commit: 0f3dd4e09addc00d5b87761793b08927e7903181
+[1/1] ASoC: SOF: Handle control change notification from firmware
+      commit: 756bbe4205bc63a84ab032a1b76970afe55e2d9d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

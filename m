@@ -2,69 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 414CE40A5ED
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Sep 2021 07:28:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9053240A975
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Sep 2021 10:41:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BCAB8175C;
-	Tue, 14 Sep 2021 07:27:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCAB8175C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 063971777;
+	Tue, 14 Sep 2021 10:40:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 063971777
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631597327;
-	bh=w0v+IVVgOvro+PFtp1qXd6RxcU2pnELYjm7+V6UxRPc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1631608877;
+	bh=YKUxp5qm6IQXUEyLGJzCs6Twdh4shi84iKjeQ6qv8jk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BmH5bgF9uym80YlsIYUe9kg92q3a8TrOG8q4Ccds+6K4tDz3Y1WuZxG6gqaRHDdqv
-	 AKXJ2jC+cdemW0mxz30rcBuxdnXpl6Cco8cU4TvJzsUc6AL5m6mttlNouson5NyDb1
-	 XL6gO0fInf/EWxmMJNEayzrU/0+HP6GqHcCNYaNI=
+	b=Ohr4iGAQv7rSVA9xhOsJA4H3hF73oCvLrb5lkhHjPjZulf3+tJkUJvpzw0+zpwF99
+	 RNqj6fYuFErhASX6ZehdFNMzybIYbkBA4lCGsT7yGtmn/fYIHnKivQmC9KOVwlM9I8
+	 AtNcx5bxzXpGessJ6ZlgigHokWdDp5QzG8XQQoDI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C14EF80169;
-	Tue, 14 Sep 2021 07:27:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C18AF80117;
+	Tue, 14 Sep 2021 10:39:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BA0E4F8025E; Tue, 14 Sep 2021 07:27:26 +0200 (CEST)
+ id D6D03F8025E; Tue, 14 Sep 2021 10:39:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1730EF80117
- for <alsa-devel@alsa-project.org>; Tue, 14 Sep 2021 07:27:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1730EF80117
+ by alsa1.perex.cz (Postfix) with ESMTPS id 15E01F80132
+ for <alsa-devel@alsa-project.org>; Tue, 14 Sep 2021 10:39:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15E01F80132
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RxsEhv9D"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id DB602610A2;
- Tue, 14 Sep 2021 05:27:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631597237;
- bh=w0v+IVVgOvro+PFtp1qXd6RxcU2pnELYjm7+V6UxRPc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RxsEhv9DRy+r0xeoVp+IxRkz4n9BCA77mWl7Q6fsHrA2ZdAKNrz3ImFKaQS+50BiK
- PzeoQ3SyMkgwcHRv+Yp3ecv1E7S61Y8tYs2RrZd0x1JZpWub/hBwqW1v8OgomMbkiz
- RQ8d2w3bHgAgkfDQmKyPBQt/3YQvRt3Y4Pla173ObzriHKSeN88n2U6vngW5ctziAi
- e8ReglQUn+//ERxzEVlJbwJI3dLQkTvKv9eEp8Hb8YHLvMqEsxOk/j8vxYIqehC2I8
- Zp9vsuI7S2bOHvgtq09M+2+T/B35o5i37eft62QPHQmGoKkYJKOvG4FczG8dm4LLfr
- C6iMC7Yu3nChQ==
-Date: Tue, 14 Sep 2021 10:57:13 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Simon Trimmer <simont@opensource.cirrus.com>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="d58Ngo4L"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18E6cAtL023919; 
+ Tue, 14 Sep 2021 03:39:44 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=scVxlpPEA1WC9z6aW9UT6WML+2SekswVj4XAtrt2yk4=;
+ b=d58Ngo4LIqJYAIGBcWy4KEuBvR95m88LWyxYXs8BFykGBoPZpHPU18cMhTRlHm8lXQnZ
+ JF4ZB7CaCpC2fahVjYvk2+Yk7OR0VWyk5JlkuqeNM1jerxgwZ9mq+JuxAtPJKhJg7anA
+ s59mJKlQi89M2j6WNMyFOUtL6yzsXWDwJv8dx08nUp+60gqYRdhfc8yjyn7vQV3hb2ur
+ B2uGq7DxNhVIP6uwzF1sIlebDnteCr2UB/eZFb5Dfw6lwWnlbk+eDQukerBh04e9bSzT
+ IEuv64Jqe1XOX9ivrrOQEEtY+AcqTQUAQ2Qtp3jx6XmLFEV7gU9QudYXToSDMRj45Hqx Qg== 
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0b-001ae601.pphosted.com with ESMTP id 3b29n3rsc4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 14 Sep 2021 03:39:44 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Tue, 14 Sep
+ 2021 09:39:42 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.12 via
+ Frontend Transport; Tue, 14 Sep 2021 09:39:42 +0100
+Received: from [10.0.2.15] (AUSNPC0LSNW1.ad.cirrus.com [198.61.64.155])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 7415C2A9;
+ Tue, 14 Sep 2021 08:39:42 +0000 (UTC)
 Subject: Re: [PATCH] soundwire: export sdw_nwrite_no_pm and sdw_nread_no_pm
  functions
-Message-ID: <YUAysY0zEspRQ2Sa@matsya>
+To: Vinod Koul <vkoul@kernel.org>, Simon Trimmer <simont@opensource.cirrus.com>
 References: <20210913143122.101428-1-simont@opensource.cirrus.com>
+ <YUAysY0zEspRQ2Sa@matsya>
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+Message-ID: <cf27c999-5a7a-a03f-fc05-63cfceac556b@opensource.cirrus.com>
+Date: Tue, 14 Sep 2021 09:39:43 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210913143122.101428-1-simont@opensource.cirrus.com>
-Cc: sanyog.r.kale@intel.com, alsa-devel@alsa-project.org,
- yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- patches@opensource.cirrus.com
+In-Reply-To: <YUAysY0zEspRQ2Sa@matsya>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: jKOVzn4ILpiQ-CndwfKMbCBbPxdk8Nkc
+X-Proofpoint-ORIG-GUID: jKOVzn4ILpiQ-CndwfKMbCBbPxdk8Nkc
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, sanyog.r.kale@intel.com,
+ yung-chuan.liao@linux.intel.com, alsa-devel@alsa-project.org,
+ pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,12 +103,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 13-09-21, 15:31, Simon Trimmer wrote:
-> The patch "soundwire: export sdw_write/read_no_pm functions" exposed the
-> single byte no_pm versions of the IO functions that can be used without
-> touching PM, export the multi byte no_pm versions for the same reason.
+> On 13-09-21, 15:31, Simon Trimmer wrote:
+>> The patch "soundwire: export sdw_write/read_no_pm functions" exposed the
+>> single byte no_pm versions of the IO functions that can be used without
+>> touching PM, export the multi byte no_pm versions for the same reason.
+> 
+> That sounds okay to me, but how about the users for this API..?
+> 
 
-That sounds okay to me, but how about the users for this API..?
-
--- 
-~Vinod
+In development.

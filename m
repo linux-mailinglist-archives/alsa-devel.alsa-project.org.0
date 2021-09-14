@@ -2,74 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D47540AB99
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Sep 2021 12:22:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2475140AC3B
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Sep 2021 13:10:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2955F17B3;
-	Tue, 14 Sep 2021 12:21:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2955F17B3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9395E178D;
+	Tue, 14 Sep 2021 13:09:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9395E178D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631614933;
-	bh=NvrfdzMr/yEZlmoqArX1mpxA+weozkLqW0A7uDd/vrY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=GBc+bZNwKxkbBbd3b2U2yz0s1J90pbRQMgh+a0ZAmNR2WdAkw2XQgm6VaNrlZsDsl
-	 gS5SfhhBdU7VmT0OBRzbScH1X4pYytiskkhVq6lfV/7VNTHHpdS6aXlTUEzzbDpySl
-	 5dWBkZtJttRCKwlSkUfm64FqHjA9TrDsMAclRp3A=
+	s=default; t=1631617813;
+	bh=3y90Ii6/0rKNvYQVTGRMsBA0g6JHYMGWHr9qvqX6SHI=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=gJCAXg8Ld0AkNVN9dVy5yi2a6mRjZBh7wIu5RTCGfbsE8A9Sf8SxJfgL+uWsnJzwl
+	 wRA805aq/AAUUy9vbd7h5rNcnDQv7P1KZe3ghWToPiou9am27yyLfj2OGx5VSMdpoL
+	 FSp+NtDCj8Swhj9qtDyvCcZF4gNk0On5hj8OKb8o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 620BDF804F1;
-	Tue, 14 Sep 2021 12:19:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09E54F80271;
+	Tue, 14 Sep 2021 13:08:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1D9A0F804ED; Tue, 14 Sep 2021 12:19:56 +0200 (CEST)
+ id 54507F8025E; Tue, 14 Sep 2021 13:08:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 49708F804E5
- for <alsa-devel@alsa-project.org>; Tue, 14 Sep 2021 12:19:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49708F804E5
-X-IronPort-AV: E=McAfee;i="6200,9189,10106"; a="221989282"
-X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="221989282"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2021 03:19:42 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="543895909"
-Received: from brentlu-brix.itwn.intel.com ([10.5.253.10])
- by FMSMGA003.fm.intel.com with ESMTP; 14 Sep 2021 03:19:39 -0700
-From: Brent Lu <brent.lu@intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 4/4] ASoC: intel: sof_rt5682: support jsl_rt5682s_mx98360a
- board
-Date: Tue, 14 Sep 2021 18:18:47 +0800
-Message-Id: <20210914101847.778688-5-brent.lu@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210914101847.778688-1-brent.lu@intel.com>
-References: <20210914101847.778688-1-brent.lu@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D358EF80169
+ for <alsa-devel@alsa-project.org>; Tue, 14 Sep 2021 13:08:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D358EF80169
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="a7zytFvy"
+Received: by mail-ej1-x629.google.com with SMTP id qq21so22105248ejb.10
+ for <alsa-devel@alsa-project.org>; Tue, 14 Sep 2021 04:08:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:mime-version:content-disposition;
+ bh=3aP8/NSGA13GglmYH3br7YEMqiCNqexuws33nLMuqlQ=;
+ b=a7zytFvyTmVlXWm+vz6mNN6DOVexJtmZTQSZlkpfDCJbANURijLJsreLQTu+5yabZZ
+ yNtr/8DSaFJY+RHv4FJNvnjSDw5jGGwi1cWesRvtPk74dps4egoGNLCgdWt/0JBn1KFF
+ 8+ztvHY1xPOPtMM2SOg8Dihedk2TqgMdvopomeGKLwsVXPVRqO6GbIvycU0NZ8q7XUGm
+ Je+Tq7OLlthROgBKytQwmRFw5gk8dYL4x9lVRHuIPqLbdvxjMITbEhTI5WGnOQxi0XWT
+ Ym4Xd3F6PQebLlMeG0d5nl9WXUIeQKuXH08nm+opw60AlP5XGKDUu4mecOm8tID3nfYl
+ YbBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition;
+ bh=3aP8/NSGA13GglmYH3br7YEMqiCNqexuws33nLMuqlQ=;
+ b=u7+Lu2tm+UprAHtr9DhYsHPLuLH/OfegwHRKklymaIm611BkCXd0OK+TM+bs9u542q
+ eTKkcj5tD/9z5yBmMByT/wseV23BDzmLmdibNXIc1Br/FClV5K4Ss7U5DMOuhqviR6gd
+ dU3YJFqd1rvivUfCAoxMeiOng1xl3JI0X4rbnGM1UGL1eHuzIEVqYZZxLlgybB2BQzrK
+ 7ojb5iuMFo96zozwQQ9ar6VISrjh7DI+VN8iRZ0sSNpMWm3SyoxXhWjn4AWRy+Im+fA4
+ YmhEtieR8oGL5p1uMojradVtBiEXV5gFePbRpLo7pazIabmiYe/Jyi7g1Ln2psQ9/HrU
+ YZgA==
+X-Gm-Message-State: AOAM531tna/vuO+38/nnjOXPzhGtwG34bHK1uN08+eaZ5YyJmraQwCW3
+ McrTjZEgbyDinKDg51hzveMIJgyqcA==
+X-Google-Smtp-Source: ABdhPJyn2/OvNrI4Dnn0d2Q6VIPy4QPZDExR9kxxZaXH8Cjn2hvwLvS8EI01fbNVwj2ZCEwJLtYk3A==
+X-Received: by 2002:a17:906:ae9b:: with SMTP id
+ md27mr16870075ejb.380.1631617729338; 
+ Tue, 14 Sep 2021 04:08:49 -0700 (PDT)
+Received: from localhost.localdomain ([46.53.249.181])
+ by smtp.gmail.com with ESMTPSA id t24sm5085274edr.84.2021.09.14.04.08.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Sep 2021 04:08:48 -0700 (PDT)
+Date: Tue, 14 Sep 2021 14:08:47 +0300
+From: Alexey Dobriyan <adobriyan@gmail.com>
+To: tiwai@suse.de
+Subject: [PATCH] pcxhr: "fix" PCXHR_REG_TO_PORT definition
+Message-ID: <YUCCv47sm4zf9OVO@localhost.localdomain>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Nathan Chancellor <nathan@kernel.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Tzung-Bi Shih <tzungbi@google.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Mark Brown <broonie@kernel.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Paul Olaru <paul.olaru@oss.nxp.com>,
- Rander Wang <rander.wang@intel.com>, Brent Lu <brent.lu@intel.com>,
- Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>,
- Yong Zhi <yong.zhi@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,58 +96,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch adds driver data for two MAX98360A speaker amplifiers on SSP1
-and one ALC5682I-VS headphone codec on SSP0 for JSL platform.
+The following preprocessor directive is non-compliant:
 
-Topology is leveraged from jsl_rt5682_mx98360a since the capability of
-two ALC5682 variants is the same.
+	#undef PCXHR_REG_TO_PORT(x)
 
-Signed-off-by: Brent Lu <brent.lu@intel.com>
+gcc warns about extra tokens but nobody sees them as they are under if
+branch which is never parsed.
+
+Make it an #error, it is not clear to me what the author meant.
+
+Signed-off-by: Alexey Dobriyan <adobriyan@gmail.com>
 ---
- sound/soc/intel/boards/sof_rt5682.c               | 10 ++++++++++
- sound/soc/intel/common/soc-acpi-intel-jsl-match.c |  8 ++++++++
- 2 files changed, 18 insertions(+)
 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 31722a44f7af..3f6f19d9b19e 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -1066,6 +1066,16 @@ static const struct platform_device_id board_ids[] = {
- 					SOF_RT1015P_SPEAKER_AMP_PRESENT |
- 					SOF_RT5682_SSP_AMP(1)),
- 	},
-+	{
-+		.name = "jsl_rt5682s_mx98360a",
-+		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
-+					SOF_RT5682_MCLK_24MHZ |
-+					SOF_RT5682_SSP_CODEC(0) |
-+					SOF_RT5682S_HEADPHONE_CODEC_PRESENT |
-+					SOF_SPEAKER_AMP_PRESENT |
-+					SOF_MAX98360A_SPEAKER_AMP_PRESENT |
-+					SOF_RT5682_SSP_AMP(1)),
-+	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(platform, board_ids);
-diff --git a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-index 3e06b00e2e6f..cfd6bf756215 100644
---- a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-@@ -97,6 +97,14 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
- 		.quirk_data = &rt1015p_spk,
- 		.sof_tplg_filename = "sof-jsl-rt5682-rt1015.tplg",
- 	},
-+	{
-+		.id = "RTL5682",
-+		.drv_name = "jsl_rt5682s_mx98360a",
-+		.sof_fw_filename = "sof-jsl.ri",
-+		.machine_quirk = snd_soc_acpi_codec_list,
-+		.quirk_data = &mx98360a_spk,
-+		.sof_tplg_filename = "sof-jsl-rt5682-mx98360a.tplg",
-+	},
- 	{},
- };
- EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_jsl_machines);
--- 
-2.25.1
+ sound/pci/pcxhr/pcxhr_core.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+--- a/sound/pci/pcxhr/pcxhr_core.c
++++ b/sound/pci/pcxhr/pcxhr_core.c
+@@ -52,7 +52,7 @@
+ #define PCXHR_DSP 2
+ 
+ #if (PCXHR_DSP_OFFSET_MAX > PCXHR_PLX_OFFSET_MIN)
+-#undef  PCXHR_REG_TO_PORT(x)
++#error  PCXHR_REG_TO_PORT(x)
+ #else
+ #define PCXHR_REG_TO_PORT(x)	((x)>PCXHR_DSP_OFFSET_MAX ? PCXHR_PLX : PCXHR_DSP)
+ #endif

@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90A8C40B597
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Sep 2021 19:07:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3160140B835
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Sep 2021 21:36:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D157C1856;
-	Tue, 14 Sep 2021 19:06:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D157C1856
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE0B91853;
+	Tue, 14 Sep 2021 21:35:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE0B91853
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631639243;
-	bh=cK9jtjS6sGndb/tYO2Wm17SC/1VsCkyUP+bEtwppFPQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1631648201;
+	bh=wfeKGu8NqlrZztBe5AK0WC8JshhFLxKZHMH3eBTuf+w=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KnPWQPztb+hJzwmCr0IkyJtaCqICkBKbW9Hf54Dv9Thsyz4/4ir82peCrIZ3seo63
-	 WeJkQ/QyKFPok2wfLArGowYekoSUH/+jZchIK9A+sSvmlGRWyoCGRNtBIDiPXfbvAq
-	 oKvLRagvtsdU4gdCgeYpIyt68I03h+Mp4/rhEuOg=
+	b=RhBmJy4LVweU/5MEfWPLRbvMp0NyJc+whIuKij+AYgGh8J14/e4S0/REV7P40Q+u0
+	 7R3I3fENpVPLchSZumOKAwZOeZy/3Ev5CmQrzswykU+WyU+SV6u2GYZX23t1kwdIsu
+	 xfz0UWQUI8EQX5bwxn+rm6kvm9Ll3/POo7Yv5fnQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24214F80271;
-	Tue, 14 Sep 2021 19:06:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0F82AF80132;
+	Tue, 14 Sep 2021 21:35:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28790F8025E; Tue, 14 Sep 2021 19:06:05 +0200 (CEST)
+ id 3E5F7F8025E; Tue, 14 Sep 2021 21:35:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_03_06,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D48D2F80117
- for <alsa-devel@alsa-project.org>; Tue, 14 Sep 2021 19:05:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D48D2F80117
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="QCHy3K7h"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 871E9610E6;
- Tue, 14 Sep 2021 17:05:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631639156;
- bh=cK9jtjS6sGndb/tYO2Wm17SC/1VsCkyUP+bEtwppFPQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=QCHy3K7hqUJRnHjHLDdAeKJDSDxQPS5Ivqc9cIXglOKIydm1jTbhb0TbwksK+XgEu
- TTBulmwC2NWmQ5rOVIT9weq8dtMXKYysBPb/usCVRFFY7V4Ic8+EUqje/hYrDtYBzA
- 9xwqx8Miv+S3C5CYqlIOQ3Epjenhbfx7mSbQ61V4hNiRarwpvowTZ3zTQZKTM46tK4
- vnPSHVQkeR7lDWM4qgb5ZkRWKNGtpTnH/dij1prUq2ksh89duZ+wNIGepnnL/ZFvSw
- 4u0GFE6r9TVHa3rpDZcsy0s+vkvnU6goOuJE/Z56BiWyaIgCC5OEZkq2QHcUYYQY+l
- rf9smhGKaEm8A==
-Date: Tue, 14 Sep 2021 18:05:16 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Subject: Re: [PATCH 1/2] ASoC: cs42l42: Minor fix all errors reported by
- checkpatch.pl script
-Message-ID: <20210914170516.GG4434@sirena.org.uk>
-References: <20210914165220.752498-1-vitalyr@opensource.cirrus.com>
- <20210914165220.752498-2-vitalyr@opensource.cirrus.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id DDD66F80169
+ for <alsa-devel@alsa-project.org>; Tue, 14 Sep 2021 21:35:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDD66F80169
+X-IronPort-AV: E=McAfee;i="6200,9189,10107"; a="285800483"
+X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="285800483"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2021 12:35:00 -0700
+X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="544252949"
+Received: from tjohn2x-mobl.amr.corp.intel.com (HELO [10.209.157.105])
+ ([10.209.157.105])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2021 12:34:59 -0700
+Subject: Re: [PATCH 0/4] Support ALC5682I-VS codec
+To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
+References: <20210914101847.778688-1-brent.lu@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <fccf7093-07fe-c8bc-96f8-39670fa56de0@linux.intel.com>
+Date: Tue, 14 Sep 2021 11:07:13 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="GdbWtwDHkcXqP16f"
-Content-Disposition: inline
-In-Reply-To: <20210914165220.752498-2-vitalyr@opensource.cirrus.com>
-X-Cookie: This space intentionally left blank.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>, linux-kernel@vger.kernel.org
+In-Reply-To: <20210914101847.778688-1-brent.lu@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Nathan Chancellor <nathan@kernel.org>,
+ Tzung-Bi Shih <tzungbi@google.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>,
+ Paul Olaru <paul.olaru@oss.nxp.com>, Rander Wang <rander.wang@intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>, Yong Zhi <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,32 +87,23 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---GdbWtwDHkcXqP16f
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Tue, Sep 14, 2021 at 05:52:19PM +0100, Vitaly Rodionov wrote:
-> Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-> ---
->  sound/soc/codecs/cs42l42.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
+On 9/14/21 5:18 AM, Brent Lu wrote:
+> Support the ALC5682I-VS codec in Intel's rt5682 machine driver with
+> three board configurations.
+> 
+> Brent Lu (4):
+>   ASoC: Intel: sof_rt5682: support ALC5682I-VS codec
+>   ASoC: intel: sof_rt5682: support jsl_rt5682s_rt1015p board
+>   ASoC: intel: sof_rt5682: support jsl_rt5682s_rt1015 board
+>   ASoC: intel: sof_rt5682: support jsl_rt5682s_mx98360a board
+> 
+>  sound/soc/intel/boards/Kconfig                |   1 +
+>  sound/soc/intel/boards/sof_rt5682.c           | 105 +++++++++++++++---
+>  .../intel/common/soc-acpi-intel-jsl-match.c   |  24 ++++
+>  3 files changed, 112 insertions(+), 18 deletions(-)
 
-This sort of minor cleanup should go after any fixes so that there's no
-dependency created needlessly.
+Looks good to me, the number of permutations is starting to be hard to
+track but at least it's in the same machine driver...
 
---GdbWtwDHkcXqP16f
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFA1ksACgkQJNaLcl1U
-h9CgbQf+OuIKym2dMtISggsJRRA2ZOkGY410Vm+jkhqXhNSBIRtiJY2B4hSlx3Yf
-qJfA0NLH0p6T9Z5TDptaqRDit7nENLTUxl/sqrioYt9YQAsYUhVTL3y9qG2U8Xxx
-sNcqEdK2AbsxmEYE94QMpjsewYD9BwRZJRF2wa4siL4kmIRWLlg72S7eoubDg/ET
-gOqKzEVH95AjCFCSB7IMIERJE2LeE0QAyyZi7W4LqCAIe8XokfFIGOrXB05AwIqN
-4/CMqir3xjM7MSx6i732GAxGxKcV1qQRT3RfLMADDOxb75Ua/9KVXElZm35s9N9z
-zudNb7dDBRQVNiFZ3QTL5ASF6vz2Gw==
-=UiJW
------END PGP SIGNATURE-----
-
---GdbWtwDHkcXqP16f--
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>

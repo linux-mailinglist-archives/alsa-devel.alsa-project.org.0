@@ -2,61 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22F7140AE50
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Sep 2021 14:55:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2894540AE88
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Sep 2021 15:04:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 572C41793;
-	Tue, 14 Sep 2021 14:54:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 572C41793
+	by alsa0.perex.cz (Postfix) with ESMTPS id B980E1788;
+	Tue, 14 Sep 2021 15:04:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B980E1788
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631624131;
-	bh=/cQmHAUlHecKZ1hQLdRumSH7NyKJ91VxZmq/bck1pNY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=EQmQ6KQH7YYOANu7tF3S8MugvgOZ2bKlQmD/6adbEBnP6wpeb+tumXbDG6r1usp+3
-	 ik7FBdWNtt2d1I2bJK7ZNuDf/jcppfUpNTzvgUqTYfpPOqPefXe5GGwgMHkcqybB35
-	 UPGakY7PjGJ6KCPi3t3CNYu3HvLYaYHKh9/2BOI8=
+	s=default; t=1631624691;
+	bh=fBKmNKEb5yLlVQqU1TtHAJ371L7T1/kFEqZoFHh2tlY=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=hBjc4ezPirDl5LKhSFM9Ji8q4TODftsKYP8yLyFdGse7WLH7XNSTr2/MBQe3O3d4i
+	 2iabpVXHsKTDi0Lpmo0dzEeHTzBMh1Ny3ZxH8S6YfdBouFTBgOxd+EYybeusDBsl9r
+	 f9zgi8H736O5tbvEgw54YfDf5jaDN9mcOwScjxg0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BCD83F804AE;
-	Tue, 14 Sep 2021 14:54:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D89BF80271;
+	Tue, 14 Sep 2021 15:03:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5413BF8032B; Tue, 14 Sep 2021 14:54:12 +0200 (CEST)
+ id 173D8F8025E; Tue, 14 Sep 2021 15:03:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com
+ [209.85.210.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7B42EF80117
- for <alsa-devel@alsa-project.org>; Tue, 14 Sep 2021 14:54:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B42EF80117
-X-IronPort-AV: E=McAfee;i="6200,9189,10106"; a="209077083"
-X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="209077083"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2021 05:54:00 -0700
-X-IronPort-AV: E=Sophos;i="5.85,292,1624345200"; d="scan'208";a="544058170"
-Received: from unknown (HELO pujfalus-desk.ger.corp.intel.com)
- ([10.251.215.199])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2021 05:53:58 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Subject: [PATCH] ASoC: SOF: loader: load_firmware callback is mandatory,
- treat it like that
-Date: Tue, 14 Sep 2021 15:53:56 +0300
-Message-Id: <20210914125356.19828-1-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.33.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: guennadi.liakhovetski@linux.intel.com, alsa-devel@alsa-project.org,
- pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id DACBCF80132
+ for <alsa-devel@alsa-project.org>; Tue, 14 Sep 2021 15:03:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DACBCF80132
+Received: by mail-ot1-f53.google.com with SMTP id
+ c42-20020a05683034aa00b0051f4b99c40cso18293490otu.0
+ for <alsa-devel@alsa-project.org>; Tue, 14 Sep 2021 06:03:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=Pk8zZoiVs5GhCcDVjL5q1Yy6EnpN4Rc7X2p/zks6FFE=;
+ b=Dvxu3EyqpwgzExtSpyJDqbUc4r6RPBSjSRmmrNseInefuBYmwZA/yOZhyYKlq2K6oJ
+ DVwJDRPdZTS5rxlbK+Xk06IhJcPFE1lmhhnbt7Fwjw1blWPz4ym1HMs0Ma+K7UCTf6d6
+ vMBhm50NTeSpueDPnvRPdIjkvMeCxM2sWHEY4XJ+OumDqPV9BJUhOMtcpBp1bb1RyZtf
+ kIqVCZwC51PNcIWar1ko5Iuc/zyR6Rv8R9aV+mv+p0cvZgVle3Lq9R5v7OfeI8yZJ0ne
+ 9Sel6bHtfNmKpW4EvwEGY4nxvuMRkHjBSLbSl7wmhXGAzFkDjbxOJEAzLayO2eyEOhKw
+ Piww==
+X-Gm-Message-State: AOAM530fIeF8bswikfgEjo961xTfm4EJ4L250on9GuCwfkMWVuKp67TL
+ AzsZvOC5J4vkj+zh+02RVg==
+X-Google-Smtp-Source: ABdhPJxj4YGFwyTkKruktE3IxyMYlAAtjid+DcwTtzHegIJqvlBcEZixiGAx+ZJhiSnrYOeQI2TVBw==
+X-Received: by 2002:a9d:7258:: with SMTP id a24mr14972621otk.190.1631624600949; 
+ Tue, 14 Sep 2021 06:03:20 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id w23sm2463246oih.4.2021.09.14.06.03.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Sep 2021 06:03:18 -0700 (PDT)
+Received: (nullmailer pid 3002731 invoked by uid 1000);
+ Tue, 14 Sep 2021 13:03:14 -0000
+From: Rob Herring <robh@kernel.org>
+To: Tzung-Bi Shih <tzungbi@google.com>
+In-Reply-To: <20210914091204.2204278-1-tzungbi@google.com>
+References: <20210914091204.2204278-1-tzungbi@google.com>
+Subject: Re: [PATCH v3] ASoC: dt-bindings: mediatek: mt8192: re-add audio afe
+ document
+Date: Tue, 14 Sep 2021 08:03:14 -0500
+Message-Id: <1631624594.154331.3002730.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, robh+dt@kernel.org,
+ broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,74 +89,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Since the load_firmware callback in snd_sof_dsp_ops is mandatory and it
-is tested during probe.
+On Tue, 14 Sep 2021 17:12:04 +0800, Tzung-Bi Shih wrote:
+> The document was merged as commit 1afc60e00de3 ("dt-bindings:
+> mediatek: mt8192: add audio afe document").
+> 
+> However, [1] revealed that the commit 1afc60e00de3 breaks
+> dt_binding_check due to dt-bindings/clock/mt8192-clk.h doesn't
+> exist.
+> 
+> As a temporary fix, commit 7d94ca3c8acd ("ASoC: mt8192: revert
+> add audio afe document") reverted commit 1afc60e00de3.
+> 
+> dt-bindings/clock/mt8192-clk.h is in mainline per commit
+> f35f1a23e0e1 ("clk: mediatek: Add dt-bindings of MT8192 clocks").
+> Re-adds the document back.
+> 
+> [1]: https://mailman.alsa-project.org/pipermail/alsa-devel/2020-November/176873.html
+> 
+> Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
+> ---
+> Changes from v2 (https://mailman.alsa-project.org/pipermail/alsa-devel/2021-August/189058.html):
+> - Simplify the commit message.
+> 
+> Changes from v1 (https://mailman.alsa-project.org/pipermail/alsa-devel/2021-August/189048.html):
+> - Add more context to the commit message.
+> 
+>  .../bindings/sound/mt8192-afe-pcm.yaml        | 100 ++++++++++++++++++
+>  1 file changed, 100 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
+> 
 
-Move the snd_sof_load_firmware() wrapper to ops.h as inline and drop the
-check of sof_ops(sdev)->load_firmware
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- sound/soc/sof/loader.c   | 10 ----------
- sound/soc/sof/ops.h      |  8 ++++++++
- sound/soc/sof/sof-priv.h |  1 -
- 3 files changed, 8 insertions(+), 11 deletions(-)
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml:10:4: [warning] wrong indentation: expected 2 but found 3 (indentation)
+./Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml:15:7: [warning] wrong indentation: expected 4 but found 6 (indentation)
 
-diff --git a/sound/soc/sof/loader.c b/sound/soc/sof/loader.c
-index 2b38a77cd594..5308c32e26fa 100644
---- a/sound/soc/sof/loader.c
-+++ b/sound/soc/sof/loader.c
-@@ -800,16 +800,6 @@ int snd_sof_load_firmware_memcpy(struct snd_sof_dev *sdev)
- }
- EXPORT_SYMBOL(snd_sof_load_firmware_memcpy);
- 
--int snd_sof_load_firmware(struct snd_sof_dev *sdev)
--{
--	dev_dbg(sdev->dev, "loading firmware\n");
--
--	if (sof_ops(sdev)->load_firmware)
--		return sof_ops(sdev)->load_firmware(sdev);
--	return 0;
--}
--EXPORT_SYMBOL(snd_sof_load_firmware);
--
- int snd_sof_run_firmware(struct snd_sof_dev *sdev)
- {
- 	int ret;
-diff --git a/sound/soc/sof/ops.h b/sound/soc/sof/ops.h
-index 4a5d6e497f05..731b8157aaea 100644
---- a/sound/soc/sof/ops.h
-+++ b/sound/soc/sof/ops.h
-@@ -400,6 +400,14 @@ snd_sof_pcm_platform_trigger(struct snd_sof_dev *sdev,
- 	return 0;
- }
- 
-+/* Firmware loading */
-+static inline int snd_sof_load_firmware(struct snd_sof_dev *sdev)
-+{
-+	dev_dbg(sdev->dev, "loading firmware\n");
-+
-+	return sof_ops(sdev)->load_firmware(sdev);
-+}
-+
- /* host DSP message data */
- static inline void snd_sof_ipc_msg_data(struct snd_sof_dev *sdev,
- 					struct snd_pcm_substream *substream,
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index fd8423172d8f..1adbcda0b364 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -485,7 +485,6 @@ int snd_sof_create_page_table(struct device *dev,
- /*
-  * Firmware loading.
-  */
--int snd_sof_load_firmware(struct snd_sof_dev *sdev);
- int snd_sof_load_firmware_raw(struct snd_sof_dev *sdev);
- int snd_sof_load_firmware_memcpy(struct snd_sof_dev *sdev);
- int snd_sof_run_firmware(struct snd_sof_dev *sdev);
--- 
-2.33.0
+dtschema/dtc warnings/errors:
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/patch/1527802
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
 

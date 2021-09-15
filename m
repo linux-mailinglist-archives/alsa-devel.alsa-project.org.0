@@ -2,73 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89E8440C72D
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Sep 2021 16:14:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18A6C40C83F
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Sep 2021 17:24:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 275DB1836;
-	Wed, 15 Sep 2021 16:13:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 275DB1836
+	by alsa0.perex.cz (Postfix) with ESMTPS id AEFF51833;
+	Wed, 15 Sep 2021 17:23:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEFF51833
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631715272;
-	bh=3VliXwA8hFR5zM12Xw58dE/ygC/s5PPHveglLCGMbSc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1631719485;
+	bh=XWxiO2KlemLDS/JBHi+KKV0/3h/x2DPr6xTOQUt2t9k=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=s3+mj1rN8kXWSoZjP5JGEq462RIo1CmjgUJ5Z4d+CCpfTVuOYW6qqOpvRk+iMfM/y
-	 oNod6uOp3dfOmrGtusIHPIt/JBEE+tqXVpXnKqKBANSrgi6TUM3WnxRQSzsmRvw4Pk
-	 kO/hV18wBXSdhkhPCuZX7E2gWKj/gAmtmKO5g6kw=
+	b=FidCL7LbxG2KvbEhEJYVrA47m0D9j23DjO3qh94uxEttrqyJWK4ScSc1u7htX3JdV
+	 7hQmo54OK8/hUY20o8un86Ve1HV2O0E+Y2/EoQG3HmeDZlJ+avFQGWHLsY2Krbjqnu
+	 /LL6eaBESf7ge0GYX5umxb8jyj7CWEUoz+lrZipI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B7DCF802E8;
-	Wed, 15 Sep 2021 16:13:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 488AEF804E3;
+	Wed, 15 Sep 2021 17:22:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C4F64F8027C; Wed, 15 Sep 2021 16:13:13 +0200 (CEST)
+ id CE3CEF800EF; Wed, 15 Sep 2021 17:22:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A2778F80117
- for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 16:13:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2778F80117
+ by alsa1.perex.cz (Postfix) with ESMTPS id 87157F800EF
+ for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 17:22:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87157F800EF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="PS78lEAR"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1DF0A610E9;
- Wed, 15 Sep 2021 14:13:07 +0000 (UTC)
+ header.b="BCNXa/hJ"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BCACE61186;
+ Wed, 15 Sep 2021 15:22:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631715188;
- bh=3VliXwA8hFR5zM12Xw58dE/ygC/s5PPHveglLCGMbSc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=PS78lEARdU0wIKnld6n9NNWJ1mO9jd5q8hzpG6/n6ktqhPn2qraMg7zytVGWxuPgy
- uVmKlcwND4cfAlP6sZmxExrSSNzvdzZ8jrfX2gQgQqtBoFT6iN43MEWUC/OPz0jUnS
- 1WU2kademhOEO1hNplPxskA8IUPJVMqD6i3snzE2scNpB5H8lxsR1AxwnXd9zkXOT3
- /BnFpEOTPo74R4EMz50aMl/flyo1oSF2+xnjVnbui+QS3Cub2xTcGYDG+1rhTHAEwK
- BvOBW3SR9VZ7IaZZK5BnSsk5Ld/5PavxG4P3Pck1VBGr1CSPzO/VF/dhwJL+E1QeGW
- 2oL6+nrM+7+Fg==
-Date: Wed, 15 Sep 2021 15:12:27 +0100
+ s=k20201202; t=1631719354;
+ bh=XWxiO2KlemLDS/JBHi+KKV0/3h/x2DPr6xTOQUt2t9k=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=BCNXa/hJkU0FXK1LD1GDQxtjT4tgxlIflXNOMzETmmGzxhheyf8Sy/fnsssTXE8uv
+ mNXv9kmG8MSFmdm6PCil6NaTQAXaXpPzmUEYX3AwN1xNjvXe55laEqkC/4AVw4L3Wz
+ wMi2NYwd/BGHyEluR9+4lehkZ+MgxdrCg2jo+6/jkgsbUEWpaYtha22f8ssozZN88I
+ ThOKRpX0VsrhVKsEsXU29EQ1siiy/DzSMWG4dmFJF+L9ovaVJ2Fx/WBN6Q6/6nt5hf
+ bjWS3XbFiWXerLHqfkusx1rfD8J3CijiziLILbgj6QLAyZ4pugpWJ2EgT2JlYZWOo7
+ l3Gg88QYASSUg==
 From: Mark Brown <broonie@kernel.org>
-To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
-Subject: Re: [PATCH v4 1/4] ASoC: rockchip: add support for i2s-tdm controller
-Message-ID: <20210915141227.GD12513@sirena.org.uk>
-References: <20210903231536.225540-1-frattaroli.nicolas@gmail.com>
- <20210903231536.225540-2-frattaroli.nicolas@gmail.com>
+To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com
+Subject: Re: [PATCH] ASoC: SOF: Fix DSP oops stack dump output contents
+Date: Wed, 15 Sep 2021 16:21:42 +0100
+Message-Id: <163171901943.9674.14447227045564759721.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210915063230.29711-1-peter.ujfalusi@linux.intel.com>
+References: <20210915063230.29711-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="W5WqUoFLvi1M7tJE"
-Content-Disposition: inline
-In-Reply-To: <20210903231536.225540-2-frattaroli.nicolas@gmail.com>
-X-Cookie: The more the merrier.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, linux-rockchip@lists.infradead.org,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, daniel.baluta@gmail.com,
+ Mark Brown <broonie@kernel.org>, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,39 +82,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 15 Sep 2021 09:32:30 +0300, Peter Ujfalusi wrote:
+> From: Yong Zhi <yong.zhi@intel.com>
+> 
+> Fix @buf arg given to hex_dump_to_buffer() and stack address used
+> in dump error output.
+> 
+> 
 
---W5WqUoFLvi1M7tJE
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-On Sat, Sep 04, 2021 at 01:15:33AM +0200, Nicolas Frattaroli wrote:
-> This commit adds support for the rockchip i2s-tdm controller,
-> which enables audio output on the following rockchip=20
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Please for future submissions include information on what's going on
-with dependencies when sending partial serieses to some maintainers -
-the usual thing is to include everyone on the cover letter.
+Thanks!
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-(for the bindings)
+[1/1] ASoC: SOF: Fix DSP oops stack dump output contents
+      commit: ac4dfccb96571ca03af7cac64b7a0b2952c97f3a
 
---W5WqUoFLvi1M7tJE
-Content-Type: application/pgp-signature; name="signature.asc"
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
------BEGIN PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFB/0sACgkQJNaLcl1U
-h9A4Zwf/QB3O2kBDkYXbIH/HOolQ1QepbZfvybO+g3uaV9wzSVDEm/p0cTYOKmaB
-uXFMNkXLL64UsvgTw/ECheXMAzmRgW0uQhhOngfsOw2opR6QaemuYaALuqI6C2Fx
-aWlRrDY7nYq9nGxwwRFYh013qTxMSPOmyUoTeTopHvwYprdt20mNhm5lwLhBKaOu
-5SjkcoeJoaQih5aX5Xtm3RWYL2DNy9Wf/bLUB+FZSoGSOG2ZtKWxT5rCuZLMOXQT
-3iN69D9F1JtRe+BwAiqhwazUXmfr4Zd0sDnUsWVis2Nc9V7T8J7JH/+9hekw5iPW
-Y+hRZc5APTVu0HPo/3WRinjld5481Q==
-=eohL
------END PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---W5WqUoFLvi1M7tJE--
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

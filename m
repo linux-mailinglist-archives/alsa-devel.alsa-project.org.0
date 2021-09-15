@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2377A40CBC9
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Sep 2021 19:39:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 364F240CBE4
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Sep 2021 19:46:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B334D1811;
-	Wed, 15 Sep 2021 19:38:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B334D1811
+	by alsa0.perex.cz (Postfix) with ESMTPS id 925E21811;
+	Wed, 15 Sep 2021 19:45:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 925E21811
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631727543;
-	bh=Z/0ioOFwU+R3dNfdss7i2Y6pHjJpITUFT97xW+al4GY=;
+	s=default; t=1631727994;
+	bh=1wPa5TIsmY1uCaO0si5vA/sDnCwcOImFHdwd/HgicJM=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=K+4nRoF105xydCGzD+YcpNRDIsEPsXoIdLVz1BeLKAaQNEkQFOQKr9HET3HjURAn/
-	 wy4m7V92RClEUdH1f/CBPv7SWSRhlJjlBAAvtzw6qLOGAC7RpCr0LTjXTz+Hr3w8b/
-	 crMfLZb/flbHDUuIzotMM4gwEQ0WcczkAuFhSKCc=
+	b=uwcjqzn+GcWJzYsejLBvJ7JvKbd8Lmx4Lr7ibqGyOzahp3pR+AdHJ0ZOc8pa/v1KO
+	 kwWjAqlHepEqsINX1Zr9coRgCiAMe2OAfY3UNxL4SZqMQzC8JxTYwrBjn8zFDYMu9d
+	 /DjJ7OWhv/A4Y+tGQkDRm1/k+Yt6Ba46ONheY2Ck=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 178EDF802E8;
-	Wed, 15 Sep 2021 19:37:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6CF7F802E8;
+	Wed, 15 Sep 2021 19:45:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B1EC2F8027C; Wed, 15 Sep 2021 19:37:44 +0200 (CEST)
+ id 52358F8027C; Wed, 15 Sep 2021 19:45:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -32,45 +32,48 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C7908F80132
- for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 19:37:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7908F80132
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7211BF800EF
+ for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 19:45:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7211BF800EF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="L+WjILJb"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E7DCF61101;
- Wed, 15 Sep 2021 17:37:34 +0000 (UTC)
+ header.b="s7mdIO+L"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C7F5561101;
+ Wed, 15 Sep 2021 17:45:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631727455;
- bh=Z/0ioOFwU+R3dNfdss7i2Y6pHjJpITUFT97xW+al4GY=;
+ s=k20201202; t=1631727910;
+ bh=1wPa5TIsmY1uCaO0si5vA/sDnCwcOImFHdwd/HgicJM=;
  h=From:To:Cc:Subject:Date:From;
- b=L+WjILJbj0ZKuamWW2qWuBNdC3mSFXbKQbNiDcbu73HjdRY3CQdzJn9iOZ1p6wXIi
- 2dTY606jIxM45/a5IJ9tPrqmm2Z9ranFQJab62PcIQA+lmv30N7wW5TC/JMTNop0mT
- 66sxsD6G8ZN5drFxSXaDOSqhjal+5vIgzancI37sr3Kq6PRHs+ZxVqQ0hsn7Dp7hy3
- 26aSAEUpu0fY+lXkBOpa5OKcFOMQTckmMqj476S1FidzDuW4tUSzK79Ufc6u26SEyU
- H7GkZemHAwMW51I0+4xP+DHAEAf5Wk6+WELhFIIo7TopDWKzL5iM4oaIIILUv9JXXW
- Lj/v+d6Gc5Chw==
+ b=s7mdIO+LUSq1tQBmWnj4/z0lHi7/3zcVatimHUET1jfN0E/G6gtT+YR9iCJDqQ2CJ
+ sUodIDvoKwI65LEpSLUxxrgDv0dnobeUsL8G2eP9Wy1PWOc0Uf8wdYVjhXeIy26YXX
+ Dt/YR3vTY+R3QczIqSC097Cz6Bo6KRxqOf7jVdZM2QQ6wk7QgglXiYtrlnpb8FOYOz
+ Aoq9RmDzUj/Hc920GDXMnbKc7cbnw1gaBoV31w8wEsUsaG45eLyuenBS2dIQtU3B5S
+ HtkLzj6rQYwRCUcu9xNfc3Bq92dahuwTrTwVX9itZaTxhSTaibWt/o+hHYLWrK8fZE
+ Xr9j0Nt45/pJg==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Subject: [PATCH] ASoC: amd: Convert to new style DAI format definitions
-Date: Wed, 15 Sep 2021 18:35:35 +0100
-Message-Id: <20210915173535.37794-1-broonie@kernel.org>
+To: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Peter Rosin <peda@axentia.se>
+Subject: [PATCH] ASoC: atmel: Convert to new style DAI format definitions
+Date: Wed, 15 Sep 2021 18:42:44 +0100
+Message-Id: <20210915174244.38062-1-broonie@kernel.org>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6100; h=from:subject;
- bh=Z/0ioOFwU+R3dNfdss7i2Y6pHjJpITUFT97xW+al4GY=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBhQi3zqsZKjv8IDVSV6+Qxg/6YZMCPdxYh7KOL1cU+
- roEe+SaJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYUIt8wAKCRAk1otyXVSH0KAQB/
- 4igAWUU31zRQIC9DogDJuDh6A8zK0F4rw6Gvh2yvQdIZ7QG0HF3KwkfMti+2cyW79adVDZXci2ZUuA
- ktilYMFz5aRDilJ13vgMx8WR6smJStwhYXmvQ2ZGz+ak4pd0teJhQg1A3de8q7kTiN4L/WiICpuw8y
- tjgRKnz51GyXo2wWbZgM4CtHwcUI/PSrcTuts0+Ppg8et6l5DXNYpoACkOvfyW5t68d6AENaMPN3CD
- BkJreU+0tjN6sP85nDX0Adoev5OV6dW4LT1xxLhpBpjeGOljFYRuwXyBGpdhzVhpopYLN3PsexIYv/
- Yu1u7WDKN+GkzTXo74Eaw+mzJLK5QE
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6231; h=from:subject;
+ bh=1wPa5TIsmY1uCaO0si5vA/sDnCwcOImFHdwd/HgicJM=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBhQi/bIRlRMATJHiKyFGC5KISjSbELMePEntW4ViwG
+ mS43CDmJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYUIv2wAKCRAk1otyXVSH0DvlB/
+ 4jfODoGiq0Su+Dhqacd04/q2AbhsrYyr5ZqgxWxo8gq+jiKTXfb9CPOT4hKAwR9It6vdTtlfotYqVf
+ bzm2eG9woC97YSB0IOg6a0UGx6wsRV36Uc+sZPi/Cx5BFxY4DhuLuHchbf8QiEh9r0DOm+XFOfHAiN
+ eDGKBPaYgrFwNExbK5eaP0+I86KFF3rSF6murZbPAtpwMx9wK2jzQ+MWX4umP6l+xbHDy4xByLCmfy
+ 6Esy8RqQqMPxXJReCEW63dHmwqmC7X+rTtmg48ta+ef4AyAwSZN0bOfFa+cfVMIb7Mn6ROPKJhw7Du
+ 3CyP0gu5bDxT2pjd4rlBVhHkZkJzGo
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Mark Brown <broonie@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,163 +89,175 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Convert the AMD machine drivers to use the new style defines for clocking
-in DAI formats.
+Convert the Atmel drivers to use the new style defines for clocking in DAI
+formats.
 
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/amd/acp-da7219-max98357a.c | 20 ++++++++++----------
- sound/soc/amd/acp-rt5645.c           |  4 ++--
- sound/soc/amd/acp3x-rt5682-max9836.c |  6 +++---
- 3 files changed, 15 insertions(+), 15 deletions(-)
+ sound/soc/atmel/atmel-i2s.c      |  4 ++--
+ sound/soc/atmel/atmel_ssc_dai.c  | 10 +++++-----
+ sound/soc/atmel/atmel_wm8904.c   |  2 +-
+ sound/soc/atmel/mchp-i2s-mcc.c   |  8 ++++----
+ sound/soc/atmel/mikroe-proto.c   |  4 ++--
+ sound/soc/atmel/sam9g20_wm8731.c |  2 +-
+ sound/soc/atmel/tse850-pcm5142.c |  2 +-
+ 7 files changed, 16 insertions(+), 16 deletions(-)
 
-diff --git a/sound/soc/amd/acp-da7219-max98357a.c b/sound/soc/amd/acp-da7219-max98357a.c
-index b2065f3fe42c..3bf86c2424ae 100644
---- a/sound/soc/amd/acp-da7219-max98357a.c
-+++ b/sound/soc/amd/acp-da7219-max98357a.c
-@@ -522,7 +522,7 @@ static struct snd_soc_dai_link cz_dai_7219_98357[] = {
- 		.name = "amd-da7219-play",
- 		.stream_name = "Playback",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
--				| SND_SOC_DAIFMT_CBM_CFM,
-+				| SND_SOC_DAIFMT_CBP_CFP,
- 		.init = cz_da7219_init,
- 		.dpcm_playback = 1,
- 		.stop_dma_first = 1,
-@@ -533,7 +533,7 @@ static struct snd_soc_dai_link cz_dai_7219_98357[] = {
- 		.name = "amd-da7219-cap",
- 		.stream_name = "Capture",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
--				| SND_SOC_DAIFMT_CBM_CFM,
-+				| SND_SOC_DAIFMT_CBP_CFP,
- 		.dpcm_capture = 1,
- 		.stop_dma_first = 1,
- 		.ops = &cz_da7219_cap_ops,
-@@ -543,7 +543,7 @@ static struct snd_soc_dai_link cz_dai_7219_98357[] = {
- 		.name = "amd-max98357-play",
- 		.stream_name = "HiFi Playback",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
--				| SND_SOC_DAIFMT_CBM_CFM,
-+				| SND_SOC_DAIFMT_CBP_CFP,
- 		.dpcm_playback = 1,
- 		.stop_dma_first = 1,
- 		.ops = &cz_max_play_ops,
-@@ -554,7 +554,7 @@ static struct snd_soc_dai_link cz_dai_7219_98357[] = {
- 		.name = "dmic0",
- 		.stream_name = "DMIC0 Capture",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
--				| SND_SOC_DAIFMT_CBM_CFM,
-+				| SND_SOC_DAIFMT_CBP_CFP,
- 		.dpcm_capture = 1,
- 		.stop_dma_first = 1,
- 		.ops = &cz_dmic0_cap_ops,
-@@ -565,7 +565,7 @@ static struct snd_soc_dai_link cz_dai_7219_98357[] = {
- 		.name = "dmic1",
- 		.stream_name = "DMIC1 Capture",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
--				| SND_SOC_DAIFMT_CBM_CFM,
-+				| SND_SOC_DAIFMT_CBP_CFP,
- 		.dpcm_capture = 1,
- 		.stop_dma_first = 1,
- 		.ops = &cz_dmic1_cap_ops,
-@@ -578,7 +578,7 @@ static struct snd_soc_dai_link cz_dai_5682_98357[] = {
- 		.name = "amd-rt5682-play",
- 		.stream_name = "Playback",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
--				| SND_SOC_DAIFMT_CBM_CFM,
-+				| SND_SOC_DAIFMT_CBP_CFP,
- 		.init = cz_rt5682_init,
- 		.dpcm_playback = 1,
- 		.stop_dma_first = 1,
-@@ -589,7 +589,7 @@ static struct snd_soc_dai_link cz_dai_5682_98357[] = {
- 		.name = "amd-rt5682-cap",
- 		.stream_name = "Capture",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
--				| SND_SOC_DAIFMT_CBM_CFM,
-+				| SND_SOC_DAIFMT_CBP_CFP,
- 		.dpcm_capture = 1,
- 		.stop_dma_first = 1,
- 		.ops = &cz_rt5682_cap_ops,
-@@ -599,7 +599,7 @@ static struct snd_soc_dai_link cz_dai_5682_98357[] = {
- 		.name = "amd-max98357-play",
- 		.stream_name = "HiFi Playback",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
--				| SND_SOC_DAIFMT_CBM_CFM,
-+				| SND_SOC_DAIFMT_CBP_CFP,
- 		.dpcm_playback = 1,
- 		.stop_dma_first = 1,
- 		.ops = &cz_rt5682_max_play_ops,
-@@ -610,7 +610,7 @@ static struct snd_soc_dai_link cz_dai_5682_98357[] = {
- 		.name = "dmic0",
- 		.stream_name = "DMIC0 Capture",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
--				| SND_SOC_DAIFMT_CBM_CFM,
-+				| SND_SOC_DAIFMT_CBP_CFP,
- 		.dpcm_capture = 1,
- 		.stop_dma_first = 1,
- 		.ops = &cz_rt5682_dmic0_cap_ops,
-@@ -621,7 +621,7 @@ static struct snd_soc_dai_link cz_dai_5682_98357[] = {
- 		.name = "dmic1",
- 		.stream_name = "DMIC1 Capture",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
--				| SND_SOC_DAIFMT_CBM_CFM,
-+				| SND_SOC_DAIFMT_CBP_CFP,
- 		.dpcm_capture = 1,
- 		.stop_dma_first = 1,
- 		.ops = &cz_rt5682_dmic1_cap_ops,
-diff --git a/sound/soc/amd/acp-rt5645.c b/sound/soc/amd/acp-rt5645.c
-index d6ba94677ac2..58b75cf399fc 100644
---- a/sound/soc/amd/acp-rt5645.c
-+++ b/sound/soc/amd/acp-rt5645.c
-@@ -111,7 +111,7 @@ static struct snd_soc_dai_link cz_dai_rt5650[] = {
- 		.name = "amd-rt5645-play",
- 		.stream_name = "RT5645_AIF1",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
--				| SND_SOC_DAIFMT_CBM_CFM,
-+				| SND_SOC_DAIFMT_CBP_CFP,
- 		.init = cz_init,
- 		.ops = &cz_aif1_ops,
- 		SND_SOC_DAILINK_REG(designware1, codec, platform),
-@@ -120,7 +120,7 @@ static struct snd_soc_dai_link cz_dai_rt5650[] = {
- 		.name = "amd-rt5645-cap",
- 		.stream_name = "RT5645_AIF1",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
--				| SND_SOC_DAIFMT_CBM_CFM,
-+				| SND_SOC_DAIFMT_CBP_CFP,
- 		.ops = &cz_aif1_ops,
- 		SND_SOC_DAILINK_REG(designware2, codec, platform),
- 	},
-diff --git a/sound/soc/amd/acp3x-rt5682-max9836.c b/sound/soc/amd/acp3x-rt5682-max9836.c
-index e561464f7d60..7af2bfdbf6d7 100644
---- a/sound/soc/amd/acp3x-rt5682-max9836.c
-+++ b/sound/soc/amd/acp3x-rt5682-max9836.c
-@@ -51,7 +51,7 @@ static int acp3x_5682_init(struct snd_soc_pcm_runtime *rtd)
- 	/* set rt5682 dai fmt */
- 	ret =  snd_soc_dai_set_fmt(codec_dai, SND_SOC_DAIFMT_I2S
- 			| SND_SOC_DAIFMT_NB_NF
--			| SND_SOC_DAIFMT_CBM_CFM);
-+			| SND_SOC_DAIFMT_CBP_CFP);
- 	if (ret < 0) {
- 		dev_err(rtd->card->dev,
- 				"Failed to set rt5682 dai fmt: %d\n", ret);
-@@ -302,7 +302,7 @@ static struct snd_soc_dai_link acp3x_dai[] = {
- 		.name = "acp3x-5682-play",
- 		.stream_name = "Playback",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
--				| SND_SOC_DAIFMT_CBM_CFM,
-+				| SND_SOC_DAIFMT_CBP_CFP,
- 		.init = acp3x_5682_init,
- 		.dpcm_playback = 1,
- 		.dpcm_capture = 1,
-@@ -313,7 +313,7 @@ static struct snd_soc_dai_link acp3x_dai[] = {
- 		.name = "acp3x-max98357-play",
- 		.stream_name = "HiFi Playback",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
--				| SND_SOC_DAIFMT_CBS_CFS,
-+				| SND_SOC_DAIFMT_CBC_CFC,
- 		.dpcm_playback = 1,
- 		.ops = &acp3x_max_play_ops,
- 		.cpus = acp3x_bt,
+diff --git a/sound/soc/atmel/atmel-i2s.c b/sound/soc/atmel/atmel-i2s.c
+index 6b3d9c05eaf2..e119abbca099 100644
+--- a/sound/soc/atmel/atmel-i2s.c
++++ b/sound/soc/atmel/atmel-i2s.c
+@@ -343,7 +343,7 @@ static int atmel_i2s_hw_params(struct snd_pcm_substream *substream,
+ 	}
+ 
+ 	switch (dev->fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+-	case SND_SOC_DAIFMT_CBS_CFS:
++	case SND_SOC_DAIFMT_CBC_CFC:
+ 		/* codec is slave, so cpu is master */
+ 		mr |= ATMEL_I2SC_MR_MODE_MASTER;
+ 		ret = atmel_i2s_get_gck_param(dev, params_rate(params));
+@@ -351,7 +351,7 @@ static int atmel_i2s_hw_params(struct snd_pcm_substream *substream,
+ 			return ret;
+ 		break;
+ 
+-	case SND_SOC_DAIFMT_CBM_CFM:
++	case SND_SOC_DAIFMT_CBP_CFP:
+ 		/* codec is master, so cpu is slave */
+ 		mr |= ATMEL_I2SC_MR_MODE_SLAVE;
+ 		dev->gck_param = NULL;
+diff --git a/sound/soc/atmel/atmel_ssc_dai.c b/sound/soc/atmel/atmel_ssc_dai.c
+index 6a63e8797a0b..4846a8958337 100644
+--- a/sound/soc/atmel/atmel_ssc_dai.c
++++ b/sound/soc/atmel/atmel_ssc_dai.c
+@@ -210,7 +210,7 @@ static int atmel_ssc_hw_rule_rate(struct snd_pcm_hw_params *params,
+ 		return frame_size;
+ 
+ 	switch (ssc_p->daifmt & SND_SOC_DAIFMT_MASTER_MASK) {
+-	case SND_SOC_DAIFMT_CBM_CFS:
++	case SND_SOC_DAIFMT_CBP_CFC:
+ 		if ((ssc_p->dir_mask & SSC_DIR_MASK_CAPTURE)
+ 		    && ssc->clk_from_rk_pin)
+ 			/* Receiver Frame Synchro (i.e. capture)
+@@ -220,7 +220,7 @@ static int atmel_ssc_hw_rule_rate(struct snd_pcm_hw_params *params,
+ 			mck_div = 3;
+ 		break;
+ 
+-	case SND_SOC_DAIFMT_CBM_CFM:
++	case SND_SOC_DAIFMT_CBP_CFP:
+ 		if ((ssc_p->dir_mask & SSC_DIR_MASK_PLAYBACK)
+ 		    && !ssc->clk_from_rk_pin)
+ 			/* Transmit Frame Synchro (i.e. playback)
+@@ -233,7 +233,7 @@ static int atmel_ssc_hw_rule_rate(struct snd_pcm_hw_params *params,
+ 	}
+ 
+ 	switch (ssc_p->daifmt & SND_SOC_DAIFMT_MASTER_MASK) {
+-	case SND_SOC_DAIFMT_CBS_CFS:
++	case SND_SOC_DAIFMT_CBC_CFC:
+ 		r.num = ssc_p->mck_rate / mck_div / frame_size;
+ 
+ 		ret = snd_interval_ratnum(i, 1, &r, &num, &den);
+@@ -243,8 +243,8 @@ static int atmel_ssc_hw_rule_rate(struct snd_pcm_hw_params *params,
+ 		}
+ 		break;
+ 
+-	case SND_SOC_DAIFMT_CBM_CFS:
+-	case SND_SOC_DAIFMT_CBM_CFM:
++	case SND_SOC_DAIFMT_CBP_CFC:
++	case SND_SOC_DAIFMT_CBP_CFP:
+ 		t.min = 8000;
+ 		t.max = ssc_p->mck_rate / mck_div / frame_size;
+ 		t.openmin = t.openmax = 0;
+diff --git a/sound/soc/atmel/atmel_wm8904.c b/sound/soc/atmel/atmel_wm8904.c
+index 9e237580afa9..9c974c4e187d 100644
+--- a/sound/soc/atmel/atmel_wm8904.c
++++ b/sound/soc/atmel/atmel_wm8904.c
+@@ -66,7 +66,7 @@ static struct snd_soc_dai_link atmel_asoc_wm8904_dailink = {
+ 	.stream_name = "WM8904 PCM",
+ 	.dai_fmt = SND_SOC_DAIFMT_I2S
+ 		| SND_SOC_DAIFMT_NB_NF
+-		| SND_SOC_DAIFMT_CBM_CFM,
++		| SND_SOC_DAIFMT_CBP_CFP,
+ 	.ops = &atmel_asoc_wm8904_ops,
+ 	SND_SOC_DAILINK_REG(pcm),
+ };
+diff --git a/sound/soc/atmel/mchp-i2s-mcc.c b/sound/soc/atmel/mchp-i2s-mcc.c
+index 8988f024a732..67550e3d9ee3 100644
+--- a/sound/soc/atmel/mchp-i2s-mcc.c
++++ b/sound/soc/atmel/mchp-i2s-mcc.c
+@@ -350,7 +350,7 @@ static int mchp_i2s_mcc_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 		return -EINVAL;
+ 
+ 	/* We can't generate only FSYNC */
+-	if ((fmt & SND_SOC_DAIFMT_MASTER_MASK) == SND_SOC_DAIFMT_CBM_CFS)
++	if ((fmt & SND_SOC_DAIFMT_MASTER_MASK) == SND_SOC_DAIFMT_CBP_CFC)
+ 		return -EINVAL;
+ 
+ 	/* We can only reconfigure the IP when it's stopped */
+@@ -547,19 +547,19 @@ static int mchp_i2s_mcc_hw_params(struct snd_pcm_substream *substream,
+ 	}
+ 
+ 	switch (dev->fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+-	case SND_SOC_DAIFMT_CBS_CFS:
++	case SND_SOC_DAIFMT_CBC_CFC:
+ 		/* cpu is BCLK and LRC master */
+ 		mra |= MCHP_I2SMCC_MRA_MODE_MASTER;
+ 		if (dev->sysclk)
+ 			mra |= MCHP_I2SMCC_MRA_IMCKMODE_GEN;
+ 		set_divs = 1;
+ 		break;
+-	case SND_SOC_DAIFMT_CBS_CFM:
++	case SND_SOC_DAIFMT_CBC_CFP:
+ 		/* cpu is BCLK master */
+ 		mrb |= MCHP_I2SMCC_MRB_CLKSEL_INT;
+ 		set_divs = 1;
+ 		fallthrough;
+-	case SND_SOC_DAIFMT_CBM_CFM:
++	case SND_SOC_DAIFMT_CBP_CFP:
+ 		/* cpu is slave */
+ 		mra |= MCHP_I2SMCC_MRA_MODE_SLAVE;
+ 		if (dev->sysclk)
+diff --git a/sound/soc/atmel/mikroe-proto.c b/sound/soc/atmel/mikroe-proto.c
+index 0be7b4221c14..f9331f7e80fe 100644
+--- a/sound/soc/atmel/mikroe-proto.c
++++ b/sound/soc/atmel/mikroe-proto.c
+@@ -129,9 +129,9 @@ static int snd_proto_probe(struct platform_device *pdev)
+ 	}
+ 	if (bitclkmaster) {
+ 		if (codec_np == bitclkmaster)
+-			dai_fmt |= SND_SOC_DAIFMT_CBM_CFM;
++			dai_fmt |= SND_SOC_DAIFMT_CBP_CFP;
+ 		else
+-			dai_fmt |= SND_SOC_DAIFMT_CBS_CFS;
++			dai_fmt |= SND_SOC_DAIFMT_CBC_CFC;
+ 	} else {
+ 		dai_fmt |= snd_soc_daifmt_parse_clock_provider_as_flag(np, NULL);
+ 	}
+diff --git a/sound/soc/atmel/sam9g20_wm8731.c b/sound/soc/atmel/sam9g20_wm8731.c
+index ed1f69b57024..915da92e1ec8 100644
+--- a/sound/soc/atmel/sam9g20_wm8731.c
++++ b/sound/soc/atmel/sam9g20_wm8731.c
+@@ -126,7 +126,7 @@ static struct snd_soc_dai_link at91sam9g20ek_dai = {
+ 	.stream_name = "WM8731 PCM",
+ 	.init = at91sam9g20ek_wm8731_init,
+ 	.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
+-		   SND_SOC_DAIFMT_CBM_CFM,
++		   SND_SOC_DAIFMT_CBP_CFP,
+ 	SND_SOC_DAILINK_REG(pcm),
+ };
+ 
+diff --git a/sound/soc/atmel/tse850-pcm5142.c b/sound/soc/atmel/tse850-pcm5142.c
+index 50c3dc6936f9..1b3a31296c9b 100644
+--- a/sound/soc/atmel/tse850-pcm5142.c
++++ b/sound/soc/atmel/tse850-pcm5142.c
+@@ -304,7 +304,7 @@ static struct snd_soc_dai_link tse850_dailink = {
+ 	.stream_name = "TSE-850-PCM",
+ 	.dai_fmt = SND_SOC_DAIFMT_I2S
+ 		 | SND_SOC_DAIFMT_NB_NF
+-		 | SND_SOC_DAIFMT_CBM_CFS,
++		 | SND_SOC_DAIFMT_CBP_CFC,
+ 	SND_SOC_DAILINK_REG(pcm),
+ };
+ 
 -- 
 2.20.1
 

@@ -2,65 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52D6940C509
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Sep 2021 14:18:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA02E40C522
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Sep 2021 14:22:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D34701838;
-	Wed, 15 Sep 2021 14:17:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D34701838
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4F56A1843;
+	Wed, 15 Sep 2021 14:21:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F56A1843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631708304;
-	bh=y30/xraOfow/hiwD8zaCw8ar78Nh6IqAeCuRMc0Mzcg=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=OCQiX9IWpynrfMKduHhHq+LeNIbqY/5ysv6h0CaitplUd142BoRZ0DQGbrXgqtA6U
-	 j/dQMJfyo74o49Oi7Ei+GVZMMgXMpou9Ej7J/q3ECi6iDMlNN/6Rq577NXqEr+U9UU
-	 aaKQsVajEiyC8MYJGQwxGni1fA2OxTdW4NiQWPsg=
+	s=default; t=1631708569;
+	bh=6lvfXuUcUTTHiqN+H0JPa3IxrR2B/ivVnk16UtddFW0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=eAFaDGmeNzXPIWGbKz4usNh2GES2yseytsQR5j26/KvHrAPQAF8NP3w9thyUJo1zx
+	 F+xBWUmp+bdkosH3xM/O0kNSuBfhWUuJSzmuVZJE3UB76LSLXA+EhO0DF00QDbFx9+
+	 e0h+B0QAL6IaOjpezHZsmW/3vtyVuAQAPsaF4Vxk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43565F80227;
-	Wed, 15 Sep 2021 14:17:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0C5BF804AB;
+	Wed, 15 Sep 2021 14:21:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E8D9F8027C; Wed, 15 Sep 2021 14:17:05 +0200 (CEST)
+ id 8FE77F80132; Wed, 15 Sep 2021 14:21:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=PRX_BODY_135,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from michel.telenet-ops.be (michel.telenet-ops.be
- [IPv6:2a02:1800:110:4::f00:18])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C77ABF800EF
- for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 14:16:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C77ABF800EF
-Received: from ramsan.of.borg ([84.195.186.194])
- by michel.telenet-ops.be with bizsmtp
- id uCGq2500E4C55Sk06CGqVE; Wed, 15 Sep 2021 14:16:54 +0200
-Received: from geert (helo=localhost)
- by ramsan.of.borg with local-esmtp (Exim 4.93)
- (envelope-from <geert@linux-m68k.org>)
- id 1mQTm8-004dtW-F5; Wed, 15 Sep 2021 14:12:28 +0200
-Date: Wed, 15 Sep 2021 14:12:28 +0200 (CEST)
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-X-X-Sender: geert@ramsan.of.borg
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v2 1/2] ASoC: rt5682s: Add driver for ALC5682I-VS codec
-In-Reply-To: <163152996584.45703.10295940257693172145.b4-ty@kernel.org>
-Message-ID: <alpine.DEB.2.22.394.2109151408390.1106350@ramsan.of.borg>
-References: <20210831130258.19286-1-derek.fang@realtek.com>
- <163152996584.45703.10295940257693172145.b4-ty@kernel.org>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4DDE1F80132
+ for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 14:21:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DDE1F80132
+X-IronPort-AV: E=McAfee;i="6200,9189,10107"; a="219117481"
+X-IronPort-AV: E=Sophos;i="5.85,295,1624345200"; d="scan'208";a="219117481"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2021 05:21:20 -0700
+X-IronPort-AV: E=Sophos;i="5.85,295,1624345200"; d="scan'208";a="544901564"
+Received: from msavu-mobl1.ti.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.251.216.36])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2021 05:21:18 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com, broonie@kernel.org,
+ pierre-louis.bossart@linux.intel.com
+Subject: [PATCH 00/12] ASoC: SOF: Abstract away the 'bar' usage (mostly)
+Date: Wed, 15 Sep 2021 15:21:04 +0300
+Message-Id: <20210915122116.18317-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, devicetree@vger.kernel.org, lgirdwood@gmail.com,
- albertchen@realtek.com, Rob Herring <robh+dt@kernel.org>,
- derek.fang@realtek.com, shumingf@realtek.com, albertwang@realtek.com,
- flove@realtek.com
+Content-Transfer-Encoding: 8bit
+Cc: guennadi.liakhovetski@linux.intel.com, alsa-devel@alsa-project.org,
+ daniel.baluta@gmail.com, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,108 +72,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-CC devicetree
+Hi,
 
-On Mon, 13 Sep 2021, Mark Brown wrote:
-> On Tue, 31 Aug 2021 21:02:57 +0800, derek.fang@realtek.com wrote:
->> From: Derek Fang <derek.fang@realtek.com>
->>
->> This is an initial codec driver for Realtek ALC5682I-VS codec.
->>
->>
->
-> Applied to
->
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
->
-> Thanks!
->
-> [1/2] ASoC: rt5682s: Add driver for ALC5682I-VS codec
->      commit: bdd229ab26be9aa3306d01787e1467db92df6603
-> [2/2] ASoC: dt-bindings: rt5682s: add bindings for rt5682s
->      commit: 50159fdb144b73984873bf2eeb9ff45d10a67f3a
+The direct use of 'bar' as address regions in SOF can limit portability and
+makes assumption that all platforms are using memory mapped regions or BARs
+to communicate with the DSP.
 
-This is now commit 50159fdb144b7398 ("ASoC: dt-bindings: rt5682s: add
-bindings for rt5682s") in broonie/sound#for-next, breaking "make
-dt_binding_check":
+The core API should not use 'bar' in it's parameter lists or make assumption
+that the platform needs to comply with this system integration.
 
-Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml: 'example' is not one of ['$id', '$schema', 'title', 'description', 'examples', 'required', 'allOf', 'anyOf', 'oneOf', 'definitions', '$defs', 'additionalProperties', 'dependencies', 'patternProperties', 'properties', 'if', 'then', 'else', 'unevaluatedProperties', 'deprecated', 'maintainers', 'select']
-         from schema $id: http://devicetree.org/meta-schemas/base.yaml#
-Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml: properties:clock-names:items: {'const': 'mclk'} is not of type 'array'
-         from schema $id: http://devicetree.org/meta-schemas/string-array.yaml#
-Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml: properties:clock-output-names:items: 'oneOf' conditional failed, one must be fixed:
-         [{'description': 'Name given for DAI word clock output.'}, {'description': 'Name given for DAI bit clock output.'}] is not of type 'object'
-         Additional properties are not allowed ('description' was unexpected)
-         from schema $id: http://devicetree.org/meta-schemas/string-array.yaml#
-Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml: properties:realtek,dmic1-data-pin: 'description' is a required property
-         hint: Vendor specific properties must have a type and description unless they have a defined, common suffix.
-         from schema $id: http://devicetree.org/meta-schemas/vendor-props.yaml#
-Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml: properties:realtek,dmic1-data-pin: 'oneOf' conditional failed, one must be fixed:
-         'type' is a required property
-                 hint: A vendor boolean property can use "type: boolean"
-         Additional properties are not allowed ('enum' was unexpected)
-                 hint: A vendor boolean property can use "type: boolean"
-         Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml: properties:realtek,dmic1-data-pin: 'oneOf' conditional failed, one must be fixed:
-                 '$ref' is a required property
-                 'allOf' is a required property
-                 hint: A vendor property needs a $ref to types.yaml
-                 from schema $id: http://devicetree.org/meta-schemas/vendor-props.yaml#
-         0 is not of type 'string'
-                 hint: A vendor string property with exact values has an implicit type
-         1 is not of type 'string'
-                 hint: A vendor string property with exact values has an implicit type
-         2 is not of type 'string'
-                 hint: A vendor string property with exact values has an implicit type
-         hint: Vendor specific properties must have a type and description unless they have a defined, common suffix.
-         from schema $id: http://devicetree.org/meta-schemas/vendor-props.yaml#
-Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml: properties:realtek,dmic1-clk-pin: 'description' is a required property
-         hint: Vendor specific properties must have a type and description unless they have a defined, common suffix.
-         from schema $id: http://devicetree.org/meta-schemas/vendor-props.yaml#
-Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml: properties:realtek,dmic1-clk-pin: 'oneOf' conditional failed, one must be fixed:
-         'type' is a required property
-                 hint: A vendor boolean property can use "type: boolean"
-         Additional properties are not allowed ('enum' was unexpected)
-                 hint: A vendor boolean property can use "type: boolean"
-         Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml: properties:realtek,dmic1-clk-pin: 'oneOf' conditional failed, one must be fixed:
-                 '$ref' is a required property
-                 'allOf' is a required property
-                 hint: A vendor property needs a $ref to types.yaml
-                 from schema $id: http://devicetree.org/meta-schemas/vendor-props.yaml#
-         0 is not of type 'string'
-                 hint: A vendor string property with exact values has an implicit type
-         1 is not of type 'string'
-                 hint: A vendor string property with exact values has an implicit type
-         2 is not of type 'string'
-                 hint: A vendor string property with exact values has an implicit type
-         hint: Vendor specific properties must have a type and description unless they have a defined, common suffix.
-         from schema $id: http://devicetree.org/meta-schemas/vendor-props.yaml#
-Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml: properties:realtek,jd-src: 'description' is a required property
-         hint: Vendor specific properties must have a type and description unless they have a defined, common suffix.
-         from schema $id: http://devicetree.org/meta-schemas/vendor-props.yaml#
-Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml: properties:realtek,jd-src: 'oneOf' conditional failed, one must be fixed:
-         'type' is a required property
-                 hint: A vendor boolean property can use "type: boolean"
-         Additional properties are not allowed ('enum' was unexpected)
-                 hint: A vendor boolean property can use "type: boolean"
-         Documentation/devicetree/bindings/sound/realtek,rt5682s.yaml: properties:realtek,jd-src: 'oneOf' conditional failed, one must be fixed:
-                 '$ref' is a required property
-                 'allOf' is a required property
-                 hint: A vendor property needs a $ref to types.yaml
-                 from schema $id: http://devicetree.org/meta-schemas/vendor-props.yaml#
-         0 is not of type 'string'
-                 hint: A vendor string property with exact values has an implicit type
-         1 is not of type 'string'
-                 hint: A vendor string property with exact values has an implicit type
-         hint: Vendor specific properties must have a type and description unless they have a defined, common suffix.
-         from schema $id: http://devicetree.org/meta-schemas/vendor-props.yaml#
+Use the region type as an ID in core and translate that in platform dependent
+code to a way to access registers, mailbox or DSP memory.
 
-Gr{oetje,eeting}s,
+Regards,
+Peter
+---
+Peter Ujfalusi (12):
+  ASoC: SOF: Intel: bdw: Set the mailbox offset directly in bdw_probe
+  ASoC: SOF: ipc: Remove snd_sof_dsp_mailbox_init()
+  ASoC: SOF: imx: Do not initialize the snd_sof_dsp_ops.read64
+  ASoC: SOF: imx: imx8: Bar index is only valid for IRAM and SRAM types
+  ASoC: SOF: imx: imx8m: Bar index is only valid for IRAM and SRAM types
+  ASoC: SOF: loader: No need to export snd_sof_fw_parse_ext_data()
+  ASoC: SOF: core: Do not use 'bar' as parameter for block_read/write
+  ASoC: SOF: debug: Add generic API and ops for DSP regions
+  ASoC: SOF: imx: Provide debugfs_add_region_item ops for core
+  ASoC: SOF: Intel: Provide debugfs_add_region_item ops for core
+  ASoC: SOF: loader: Use the generic ops for region debugfs handling
+  ASoC: SOF: debug: No need to export the snd_sof_debugfs_io_item()
 
- 						Geert
+ sound/soc/sof/debug.c         |  24 ++++--
+ sound/soc/sof/imx/imx8.c      |  17 +++--
+ sound/soc/sof/imx/imx8m.c     |  13 +++-
+ sound/soc/sof/intel/apl.c     |   1 +
+ sound/soc/sof/intel/bdw.c     |   5 +-
+ sound/soc/sof/intel/byt.c     |   2 +
+ sound/soc/sof/intel/cnl.c     |   1 +
+ sound/soc/sof/intel/icl.c     |   1 +
+ sound/soc/sof/intel/pci-tng.c |   1 +
+ sound/soc/sof/intel/tgl.c     |   1 +
+ sound/soc/sof/ipc.c           |  34 +++------
+ sound/soc/sof/loader.c        | 137 +++++++++++++++-------------------
+ sound/soc/sof/ops.h           |  25 +++++--
+ sound/soc/sof/sof-priv.h      |  55 +++++++-------
+ sound/soc/sof/utils.c         |  28 +++++--
+ 15 files changed, 187 insertions(+), 158 deletions(-)
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+-- 
+2.33.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
- 							    -- Linus Torvalds

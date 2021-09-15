@@ -2,67 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A3AB40CC68
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Sep 2021 20:12:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A169740CD11
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Sep 2021 21:17:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A10171845;
-	Wed, 15 Sep 2021 20:11:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A10171845
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F79217E7;
+	Wed, 15 Sep 2021 21:16:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F79217E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631729550;
-	bh=WfFgzCld6IRG7OXwcQ6+o3ox4fFUVatqXkI3jZC3ID0=;
+	s=default; t=1631733457;
+	bh=DWXqcj82HXi2h1qtK8ain7gHBcw7sYnLqoAKSG2uIcI=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=LBd3g6x9IzPZMxzAfMo1DnabV02jmOIBhnR6nu1U9lysNQc938EozIBss/EY9O2//
-	 zU3skqcwiInWeAU/M8QOnb4Tyhmh3aPjr1TjVQoBxptGaPZfQRPty2nGMHO60Yd/Gb
-	 FOITjFovye1bozROltj5kua4vLE5ikekBkdphzl0=
+	b=ESIYkLF1H+J4EpEMWvAj5ObkT2jCsrneR8AReMxdN2EH0vLICpwySA2tYZmWRRztw
+	 tmwYIIIB95AR0s52tQ5EvMOzmxvnboDDqscfO4kY0sjpRcSVLTkUyxsbzfoc1H9zJg
+	 ao6zbaSq+/Mp9jeuF733WpSM5Gca7b5EfGshU70c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B055AF8032C;
-	Wed, 15 Sep 2021 20:11:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D153F80117;
+	Wed, 15 Sep 2021 21:16:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7F39EF804E2; Wed, 15 Sep 2021 20:11:36 +0200 (CEST)
+ id 6BB06F8027C; Wed, 15 Sep 2021 21:16:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 98BE9F80117
- for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 20:11:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98BE9F80117
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6000DF80132
+ for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 21:16:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6000DF80132
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OKYL9/Ph"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2C559611C4;
- Wed, 15 Sep 2021 18:11:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631729489;
- bh=WfFgzCld6IRG7OXwcQ6+o3ox4fFUVatqXkI3jZC3ID0=;
- h=From:To:Cc:Subject:Date:From;
- b=OKYL9/PhhGhoG7zdJ1SjdXUx/Z4gwj7602KuslNV2NCu/bjkgrwdhW/tBMf+fcAit
- uwl3tuf2iunpMpTToF6cUICcU3/qprx3T2dFsKyvCztLWBoTHtjDTtS+Dgw/4BGliY
- AVle6QnM94NNPbcjokez83e3gqeC2LUgmgdgYMq2NAg3nGlfCZI5Ku2+xqJEMky066
- 0GzNarFemqSt8h0QKEDqr6BeV1TAW9BdC5IT+NN7N5qz3F5eBBUTY7bLIO9Dooilcc
- +0Bi4xrMmIAWUsbunhwcPcFzI0ldLnw3kotzzM0wIQ1p4kjgksupo9N6TzBTHrtpKW
- yU0ju/sVnzS5A==
-From: Mark Brown <broonie@kernel.org>
-To: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Peter Rosin <peda@axentia.se>
-Subject: [PATCH v2] ASoC: atmel: Convert to new style DAI format definitions
-Date: Wed, 15 Sep 2021 19:10:48 +0100
-Message-Id: <20210915181048.40070-1-broonie@kernel.org>
-X-Mailer: git-send-email 2.20.1
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="daLNMkQ9"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18F5eGcZ026124; 
+ Wed, 15 Sep 2021 14:16:08 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=Z8ib6lB8KbLTkwjVRcR7h5XbX7gB8drrTq0rGeKBV64=;
+ b=daLNMkQ9/xFoKHHF8t7xKuzTVozAjOdkaMcGIFxwYl6+ZCGfOy1ZfyoFhv/2/uf3FWKF
+ rRuJvc3OQdL2lphAjH9K5G1LssdcRi69PhNACNon6yQ8KBYQANegGiWO/HzyTb+q/Vgh
+ dflKuT107sCqitrw4hAMjQW6zXwVmDLiNYyQds9gOfUO3T06U9OUc63BpFfjTWTzoIrH
+ d6uqnd8ANVP3oWAPY6tAaT9JeNZtGhvbZqaV4FMrxoRBi+YZea5LukS42JxkGB3Ary6E
+ GYOFjHPhRIIi7YgdEjZaoLeSwa/JtJQhsNIK4Zij2CkKBlLfmfgzIUUrGZDC7adFPTJi 3g== 
+Received: from ediex02.ad.cirrus.com ([87.246.76.36])
+ by mx0b-001ae601.pphosted.com with ESMTP id 3b3287h8qw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 15 Sep 2021 14:16:06 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Wed, 15 Sep
+ 2021 20:14:45 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.12 via
+ Frontend Transport; Wed, 15 Sep 2021 20:14:45 +0100
+Received: from david-ubuntu20.crystal.cirrus.com
+ (macC02XQ1DJJG5K.ad.cirrus.com [141.131.65.58])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 19AADB2F;
+ Wed, 15 Sep 2021 19:14:31 +0000 (UTC)
+From: David Rhodes <drhodes@opensource.cirrus.com>
+To: <broonie@kernel.org>, <robh@kernel.org>, <ckeepax@opensource.cirrus.com>, 
+ <patches@opensource.cirrus.com>, <alsa-devel@alsa-project.org>,
+ <david.rhodes@cirrus.com>, <devicetree@vger.kernel.org>
+Subject: [PATCH] ASoC: cs35l41: Binding fixes
+Date: Wed, 15 Sep 2021 14:14:22 -0500
+Message-ID: <20210915191422.2371623-1-drhodes@opensource.cirrus.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Mark Brown <broonie@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>
+Content-Type: text/plain
+X-Proofpoint-GUID: CIhnUgtVIHg3DyDhhuJTP042U3bvzEXE
+X-Proofpoint-ORIG-GUID: CIhnUgtVIHg3DyDhhuJTP042U3bvzEXE
+X-Proofpoint-Spam-Reason: safe
+Cc: David Rhodes <drhodes@opensource.cirrus.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,211 +97,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Convert the Atmel drivers to use the new style defines for clocking in DAI
-formats.
+Fix warnings and errors in DT bindings
 
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Add newline at end of file
+Replace 'unevaluatedProperties' with 'additionalProperties'
+Add spi context to DT example
+Add #sound-dai-cells to DT example
+Rename to 'cirrus,cs35l41.yaml'
+
+Signed-off-by: David Rhodes <drhodes@opensource.cirrus.com>
 ---
- sound/soc/atmel/atmel-i2s.c      |  4 ++--
- sound/soc/atmel/atmel_ssc_dai.c  | 18 +++++++++---------
- sound/soc/atmel/atmel_wm8904.c   |  2 +-
- sound/soc/atmel/mchp-i2s-mcc.c   |  8 ++++----
- sound/soc/atmel/mikroe-proto.c   |  4 ++--
- sound/soc/atmel/sam9g20_wm8731.c |  2 +-
- sound/soc/atmel/sam9x5_wm8731.c  |  2 +-
- sound/soc/atmel/tse850-pcm5142.c |  2 +-
- 8 files changed, 21 insertions(+), 21 deletions(-)
+ .../{cs35l41.yaml => cirrus,cs35l41.yaml}     | 30 +++++++++++--------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
+ rename Documentation/devicetree/bindings/sound/{cs35l41.yaml => cirrus,cs35l41.yaml} (87%)
 
-diff --git a/sound/soc/atmel/atmel-i2s.c b/sound/soc/atmel/atmel-i2s.c
-index 6b3d9c05eaf2..e119abbca099 100644
---- a/sound/soc/atmel/atmel-i2s.c
-+++ b/sound/soc/atmel/atmel-i2s.c
-@@ -343,7 +343,7 @@ static int atmel_i2s_hw_params(struct snd_pcm_substream *substream,
- 	}
+diff --git a/Documentation/devicetree/bindings/sound/cs35l41.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs35l41.yaml
+similarity index 87%
+rename from Documentation/devicetree/bindings/sound/cs35l41.yaml
+rename to Documentation/devicetree/bindings/sound/cirrus,cs35l41.yaml
+index fde78c850286..3235702ce402 100644
+--- a/Documentation/devicetree/bindings/sound/cs35l41.yaml
++++ b/Documentation/devicetree/bindings/sound/cirrus,cs35l41.yaml
+@@ -1,7 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+ %YAML 1.2
+ ---
+-$id: http://devicetree.org/schemas/sound/cs35l41.yaml#
++$id: http://devicetree.org/schemas/sound/cirrus,cs35l41.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
  
- 	switch (dev->fmt & SND_SOC_DAIFMT_MASTER_MASK) {
--	case SND_SOC_DAIFMT_CBS_CFS:
-+	case SND_SOC_DAIFMT_CBC_CFC:
- 		/* codec is slave, so cpu is master */
- 		mr |= ATMEL_I2SC_MR_MODE_MASTER;
- 		ret = atmel_i2s_get_gck_param(dev, params_rate(params));
-@@ -351,7 +351,7 @@ static int atmel_i2s_hw_params(struct snd_pcm_substream *substream,
- 			return ret;
- 		break;
+ title: Cirrus Logic CS35L41 Speaker Amplifier
+@@ -135,17 +135,23 @@ required:
+   - cirrus,boost-ind-nanohenry
+   - cirrus,boost-cap-microfarad
  
--	case SND_SOC_DAIFMT_CBM_CFM:
-+	case SND_SOC_DAIFMT_CBP_CFP:
- 		/* codec is master, so cpu is slave */
- 		mr |= ATMEL_I2SC_MR_MODE_SLAVE;
- 		dev->gck_param = NULL;
-diff --git a/sound/soc/atmel/atmel_ssc_dai.c b/sound/soc/atmel/atmel_ssc_dai.c
-index 6a63e8797a0b..b34e995c59e4 100644
---- a/sound/soc/atmel/atmel_ssc_dai.c
-+++ b/sound/soc/atmel/atmel_ssc_dai.c
-@@ -210,7 +210,7 @@ static int atmel_ssc_hw_rule_rate(struct snd_pcm_hw_params *params,
- 		return frame_size;
+-unevaluatedProperties: false
++additionalProperties: false
  
- 	switch (ssc_p->daifmt & SND_SOC_DAIFMT_MASTER_MASK) {
--	case SND_SOC_DAIFMT_CBM_CFS:
-+	case SND_SOC_DAIFMT_CBP_CFC:
- 		if ((ssc_p->dir_mask & SSC_DIR_MASK_CAPTURE)
- 		    && ssc->clk_from_rk_pin)
- 			/* Receiver Frame Synchro (i.e. capture)
-@@ -220,7 +220,7 @@ static int atmel_ssc_hw_rule_rate(struct snd_pcm_hw_params *params,
- 			mck_div = 3;
- 		break;
- 
--	case SND_SOC_DAIFMT_CBM_CFM:
-+	case SND_SOC_DAIFMT_CBP_CFP:
- 		if ((ssc_p->dir_mask & SSC_DIR_MASK_PLAYBACK)
- 		    && !ssc->clk_from_rk_pin)
- 			/* Transmit Frame Synchro (i.e. playback)
-@@ -233,7 +233,7 @@ static int atmel_ssc_hw_rule_rate(struct snd_pcm_hw_params *params,
- 	}
- 
- 	switch (ssc_p->daifmt & SND_SOC_DAIFMT_MASTER_MASK) {
--	case SND_SOC_DAIFMT_CBS_CFS:
-+	case SND_SOC_DAIFMT_CBC_CFC:
- 		r.num = ssc_p->mck_rate / mck_div / frame_size;
- 
- 		ret = snd_interval_ratnum(i, 1, &r, &num, &den);
-@@ -243,8 +243,8 @@ static int atmel_ssc_hw_rule_rate(struct snd_pcm_hw_params *params,
- 		}
- 		break;
- 
--	case SND_SOC_DAIFMT_CBM_CFS:
--	case SND_SOC_DAIFMT_CBM_CFM:
-+	case SND_SOC_DAIFMT_CBP_CFC:
-+	case SND_SOC_DAIFMT_CBP_CFP:
- 		t.min = 8000;
- 		t.max = ssc_p->mck_rate / mck_div / frame_size;
- 		t.openmin = t.openmax = 0;
-@@ -430,8 +430,8 @@ static int atmel_ssc_set_dai_clkdiv(struct snd_soc_dai *cpu_dai,
- static int atmel_ssc_cfs(struct atmel_ssc_info *ssc_p)
- {
- 	switch (ssc_p->daifmt & SND_SOC_DAIFMT_MASTER_MASK) {
--	case SND_SOC_DAIFMT_CBM_CFS:
--	case SND_SOC_DAIFMT_CBS_CFS:
-+	case SND_SOC_DAIFMT_CBP_CFC:
-+	case SND_SOC_DAIFMT_CBC_CFC:
- 		return 1;
- 	}
- 	return 0;
-@@ -441,8 +441,8 @@ static int atmel_ssc_cfs(struct atmel_ssc_info *ssc_p)
- static int atmel_ssc_cbs(struct atmel_ssc_info *ssc_p)
- {
- 	switch (ssc_p->daifmt & SND_SOC_DAIFMT_MASTER_MASK) {
--	case SND_SOC_DAIFMT_CBS_CFM:
--	case SND_SOC_DAIFMT_CBS_CFS:
-+	case SND_SOC_DAIFMT_CBC_CFP:
-+	case SND_SOC_DAIFMT_CBC_CFC:
- 		return 1;
- 	}
- 	return 0;
-diff --git a/sound/soc/atmel/atmel_wm8904.c b/sound/soc/atmel/atmel_wm8904.c
-index 9e237580afa9..9c974c4e187d 100644
---- a/sound/soc/atmel/atmel_wm8904.c
-+++ b/sound/soc/atmel/atmel_wm8904.c
-@@ -66,7 +66,7 @@ static struct snd_soc_dai_link atmel_asoc_wm8904_dailink = {
- 	.stream_name = "WM8904 PCM",
- 	.dai_fmt = SND_SOC_DAIFMT_I2S
- 		| SND_SOC_DAIFMT_NB_NF
--		| SND_SOC_DAIFMT_CBM_CFM,
-+		| SND_SOC_DAIFMT_CBP_CFP,
- 	.ops = &atmel_asoc_wm8904_ops,
- 	SND_SOC_DAILINK_REG(pcm),
- };
-diff --git a/sound/soc/atmel/mchp-i2s-mcc.c b/sound/soc/atmel/mchp-i2s-mcc.c
-index 8988f024a732..67550e3d9ee3 100644
---- a/sound/soc/atmel/mchp-i2s-mcc.c
-+++ b/sound/soc/atmel/mchp-i2s-mcc.c
-@@ -350,7 +350,7 @@ static int mchp_i2s_mcc_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 		return -EINVAL;
- 
- 	/* We can't generate only FSYNC */
--	if ((fmt & SND_SOC_DAIFMT_MASTER_MASK) == SND_SOC_DAIFMT_CBM_CFS)
-+	if ((fmt & SND_SOC_DAIFMT_MASTER_MASK) == SND_SOC_DAIFMT_CBP_CFC)
- 		return -EINVAL;
- 
- 	/* We can only reconfigure the IP when it's stopped */
-@@ -547,19 +547,19 @@ static int mchp_i2s_mcc_hw_params(struct snd_pcm_substream *substream,
- 	}
- 
- 	switch (dev->fmt & SND_SOC_DAIFMT_MASTER_MASK) {
--	case SND_SOC_DAIFMT_CBS_CFS:
-+	case SND_SOC_DAIFMT_CBC_CFC:
- 		/* cpu is BCLK and LRC master */
- 		mra |= MCHP_I2SMCC_MRA_MODE_MASTER;
- 		if (dev->sysclk)
- 			mra |= MCHP_I2SMCC_MRA_IMCKMODE_GEN;
- 		set_divs = 1;
- 		break;
--	case SND_SOC_DAIFMT_CBS_CFM:
-+	case SND_SOC_DAIFMT_CBC_CFP:
- 		/* cpu is BCLK master */
- 		mrb |= MCHP_I2SMCC_MRB_CLKSEL_INT;
- 		set_divs = 1;
- 		fallthrough;
--	case SND_SOC_DAIFMT_CBM_CFM:
-+	case SND_SOC_DAIFMT_CBP_CFP:
- 		/* cpu is slave */
- 		mra |= MCHP_I2SMCC_MRA_MODE_SLAVE;
- 		if (dev->sysclk)
-diff --git a/sound/soc/atmel/mikroe-proto.c b/sound/soc/atmel/mikroe-proto.c
-index 0be7b4221c14..f9331f7e80fe 100644
---- a/sound/soc/atmel/mikroe-proto.c
-+++ b/sound/soc/atmel/mikroe-proto.c
-@@ -129,9 +129,9 @@ static int snd_proto_probe(struct platform_device *pdev)
- 	}
- 	if (bitclkmaster) {
- 		if (codec_np == bitclkmaster)
--			dai_fmt |= SND_SOC_DAIFMT_CBM_CFM;
-+			dai_fmt |= SND_SOC_DAIFMT_CBP_CFP;
- 		else
--			dai_fmt |= SND_SOC_DAIFMT_CBS_CFS;
-+			dai_fmt |= SND_SOC_DAIFMT_CBC_CFC;
- 	} else {
- 		dai_fmt |= snd_soc_daifmt_parse_clock_provider_as_flag(np, NULL);
- 	}
-diff --git a/sound/soc/atmel/sam9g20_wm8731.c b/sound/soc/atmel/sam9g20_wm8731.c
-index ed1f69b57024..915da92e1ec8 100644
---- a/sound/soc/atmel/sam9g20_wm8731.c
-+++ b/sound/soc/atmel/sam9g20_wm8731.c
-@@ -126,7 +126,7 @@ static struct snd_soc_dai_link at91sam9g20ek_dai = {
- 	.stream_name = "WM8731 PCM",
- 	.init = at91sam9g20ek_wm8731_init,
- 	.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
--		   SND_SOC_DAIFMT_CBM_CFM,
-+		   SND_SOC_DAIFMT_CBP_CFP,
- 	SND_SOC_DAILINK_REG(pcm),
- };
- 
-diff --git a/sound/soc/atmel/sam9x5_wm8731.c b/sound/soc/atmel/sam9x5_wm8731.c
-index 7745250fd743..7c45dc4f8c1b 100644
---- a/sound/soc/atmel/sam9x5_wm8731.c
-+++ b/sound/soc/atmel/sam9x5_wm8731.c
-@@ -115,7 +115,7 @@ static int sam9x5_wm8731_driver_probe(struct platform_device *pdev)
- 	dai->codecs->dai_name = "wm8731-hifi";
- 	dai->init = sam9x5_wm8731_init;
- 	dai->dai_fmt = SND_SOC_DAIFMT_DSP_A | SND_SOC_DAIFMT_NB_NF
--		| SND_SOC_DAIFMT_CBM_CFM;
-+		| SND_SOC_DAIFMT_CBP_CFP;
- 
- 	ret = snd_soc_of_parse_card_name(card, "atmel,model");
- 	if (ret) {
-diff --git a/sound/soc/atmel/tse850-pcm5142.c b/sound/soc/atmel/tse850-pcm5142.c
-index 50c3dc6936f9..1b3a31296c9b 100644
---- a/sound/soc/atmel/tse850-pcm5142.c
-+++ b/sound/soc/atmel/tse850-pcm5142.c
-@@ -304,7 +304,7 @@ static struct snd_soc_dai_link tse850_dailink = {
- 	.stream_name = "TSE-850-PCM",
- 	.dai_fmt = SND_SOC_DAIFMT_I2S
- 		 | SND_SOC_DAIFMT_NB_NF
--		 | SND_SOC_DAIFMT_CBM_CFS,
-+		 | SND_SOC_DAIFMT_CBP_CFC,
- 	SND_SOC_DAILINK_REG(pcm),
- };
- 
+ examples:
+   - |
+-      cs35l41: cs35l41@2 {
+-        compatible = "cirrus,cs35l41";
+-        reg = <2>;
+-        VA-supply = <&dummy_vreg>;
+-        VP-supply = <&dummy_vreg>;
+-        reset-gpios = <&gpio 110 0>;
+-        cirrus,boost-peak-milliamp = <4500>;
+-        cirrus,boost-ind-nanohenry = <1000>;
+-        cirrus,boost-cap-microfarad = <15>;
+-      };
+\ No newline at end of file
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        cs35l41: cs35l41@2 {
++          #sound-dai-cells = <1>;
++          compatible = "cirrus,cs35l41";
++          reg = <2>;
++          VA-supply = <&dummy_vreg>;
++          VP-supply = <&dummy_vreg>;
++          reset-gpios = <&gpio 110 0>;
++          cirrus,boost-peak-milliamp = <4500>;
++          cirrus,boost-ind-nanohenry = <1000>;
++          cirrus,boost-cap-microfarad = <15>;
++        };
++    };
 -- 
-2.20.1
+2.25.1
 

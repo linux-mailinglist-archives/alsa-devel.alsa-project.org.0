@@ -2,93 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5F6540CB65
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Sep 2021 19:07:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BE8A40CBA7
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Sep 2021 19:25:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 751C917D1;
-	Wed, 15 Sep 2021 19:06:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 751C917D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id E111417C5;
+	Wed, 15 Sep 2021 19:24:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E111417C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631725666;
-	bh=xXr3Gg2C550QfPXaWolBRz1dNdFYDA9+mjoAqVpyk2Q=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=YLQ79XvbksN9nMuGCT/cPp+A09lYgof+AyVGPevPWtOFfWREUaTIybbHnicX3oRDr
-	 679hQv0Qbw/dTQtvTjHg/fIXlCx4UQI6/y8grA9lzFtnkS868Ct4NwY8azsSwQGKh2
-	 PylropTtI4Ncc6TyWEyE8HPR2SB87p6GTAEt2BHg=
+	s=default; t=1631726718;
+	bh=11IfLlG7/d+bq2n5fIVzsKIoKm0HuIFUadH/5zMFKqg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=CAq1daw4biL6lbeCgE4sD9hcL2FP+inlqC82UfGp2n4JzTu6cgO5tyzFIsyOVH2Mb
+	 Jf63zzloIVs7CLvEdWivuCrjw2Vm8pvMH4729CDyzzS8PYgj0bJ2GI+zQeVs6uhO5j
+	 4scH1K9UgyTI+1F0CBwWlMMsAXj+NrcnHKs4O2iY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5D34F802E8;
-	Wed, 15 Sep 2021 19:06:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 583CBF80132;
+	Wed, 15 Sep 2021 19:24:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D7B12F8027C; Wed, 15 Sep 2021 19:06:27 +0200 (CEST)
+ id 4BE86F8027C; Wed, 15 Sep 2021 19:23:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [IPv6:2a00:1450:4864:20::432])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71705F80132
- for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 19:06:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71705F80132
+ by alsa1.perex.cz (Postfix) with ESMTPS id A08EBF800EF
+ for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 19:23:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A08EBF800EF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="U3vEqEgC"
-Received: by mail-wr1-x432.google.com with SMTP id w29so4976421wra.8
- for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 10:06:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=GTVsTGVHzHHxdcEJg4/8YrzvHZvRek9+ki75XlfwV6w=;
- b=U3vEqEgCOGl+c9PEE+3pQVWcmVpFPwH4Vk1y0emiMUsRJL7SIuEuiz2GuNdcFHZe6C
- DWyPP5WtNcPjHwquO2rXLaXgsGo3XAGuWZ/2vdt6PjOkXhVU0Zv8NWVXNHUIPRtpE+z/
- FXyehLwcE/nMqnUUb3yzosCLAtt/aIngZPEhgJTitK23lRkJgXzZGXOPtFiTkZvbDOPt
- 0II9VJR54WTHU5mo/35kAwtjkE7+Wys5Cvyfl0u2ADdMIumGYIZm1cYtFNAB8Ri712Ly
- wWD3sbj3tK0mwP2PVHMe5hVmFLItWdqcuXTdD+RmRJVK0qlVKQjv95qT1DwMA96qtRiU
- RdpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=GTVsTGVHzHHxdcEJg4/8YrzvHZvRek9+ki75XlfwV6w=;
- b=2GxuTcgWwH3JJxjG9dH3etcHbdXgXJ75OGql5tvlma1ardPramhgMUbbgLcQHre7XC
- 3Df64Z+QSK6anIHQIlYqzYS7i2klC1c0aI2+wRCLO1VJ9MpZEuM0JYH1LXw1Bm46nmYf
- XEWYK4b3f+Lf5bcPsNp7KA6OZKUW6bNmGmYXsd1ouNteJphW75Jtw3R5RvdkCpcjNrYx
- MItt1zs/BgVOiPi39wTy7oJcsBO7a0orK9Jn4CnhuFeg/xiMUIq60jDK6lWUdsnnM68T
- fiBAm+opMk6g5yxGsZ5KWWrZz5d92RHu2YIJmyhHGQSuEiq4sD+nL9Zxiy31NUwjLEJp
- 93dQ==
-X-Gm-Message-State: AOAM533vciXRJfPC8q7HW2CVV0xcRCOUnpY1T/KIREw6/6X8XJ8dGNsV
- zelG7utAUdSE/GlJqnxvdyCiQ8Jykfs=
-X-Google-Smtp-Source: ABdhPJwJpOmUK49E3LeTsgzkI8+y91tIlB46nQfOTD778QVq5gZRib5LmUCXTPjYG103hZ2OLszbrQ==
-X-Received: by 2002:adf:ce0c:: with SMTP id p12mr1204705wrn.194.1631725576068; 
- Wed, 15 Sep 2021 10:06:16 -0700 (PDT)
-Received: from archbook.localnet ([185.213.155.232])
- by smtp.gmail.com with ESMTPSA id f1sm509887wri.43.2021.09.15.10.06.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Sep 2021 10:06:15 -0700 (PDT)
-From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v4 2/4] dt-bindings: sound: add rockchip i2s-tdm binding
-Date: Wed, 15 Sep 2021 19:06:14 +0200
-Message-ID: <42974939.Tn3hggVSkZ@archbook>
-In-Reply-To: <20210915141012.GC12513@sirena.org.uk>
-References: <20210903231536.225540-1-frattaroli.nicolas@gmail.com>
- <20210903231536.225540-3-frattaroli.nicolas@gmail.com>
- <20210915141012.GC12513@sirena.org.uk>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="GOnsMkjN"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E4EB161101;
+ Wed, 15 Sep 2021 17:23:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1631726632;
+ bh=11IfLlG7/d+bq2n5fIVzsKIoKm0HuIFUadH/5zMFKqg=;
+ h=From:To:Cc:Subject:Date:From;
+ b=GOnsMkjN9qIEJYYTbAkDJ9vUFJxn+HiP70EmuerwRH1OA7GOCi9t15huEyHdh4tMj
+ QaGtbIf2Nrb5WeP2TQXtTSyZ+r5Aa4PK+L5603gUFAOClILSHtdpAG8N6W6D/ikzyb
+ PN97z9trBAGp1sHcCb63SzdGniBkJ3C9Y6XqOayephFmYjRG1xNNgypfREEMJJMjtr
+ PBlIjVnngQq6sVF7jBwjg36K3zBqzggA/PESNyFGReB1lOzz04pxOt3IG48gplkb6u
+ to/gzg4Fzmr/FLallLNYPkM1GkBJ461nOhWfhWjJUFyD3pXKoj1ZwRIjImmP2u7M+R
+ wr2C/pLzyEl7g==
+From: Mark Brown <broonie@kernel.org>
+To: Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>
+Subject: [PATCH] sh: Use modern ASoC DAI format terminology
+Date: Wed, 15 Sep 2021 18:23:02 +0100
+Message-Id: <20210915172302.36677-1-broonie@kernel.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1487; h=from:subject;
+ bh=11IfLlG7/d+bq2n5fIVzsKIoKm0HuIFUadH/5zMFKqg=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBhQiuXiTtFN7sR9hC2A9+mw8lS+S1V4ZnUOkdg225s
+ /FUf64SJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYUIrlwAKCRAk1otyXVSH0IcKB/
+ 9fuMZQxMg6bWtUAO2pQqJ3TuHZAvt6Rsc2ZfV2RcL82q19i8UfXTbNp6KHul/89ynMxfSt7zgCubih
+ ksMF+6Ts8W80LlsI5v0PR0x82lhaJIHE3IaHTwkZlr2chVi9ES9a1XJsdTTFgxVUV0swPT4o8rOQr5
+ zB/C4mvZCumEcXsJLJbcX3tdWw9aKoxh3RjtCxYipQ1LCTfIcm4DHqB2kqmHdVDvhh4Gb8jaucjU1g
+ HTRpk1IEYOI0KJUbtxp8sqrAlGS6/vrXCo027EPJftRf8xmQPPwLGMsD3B0Ex2JV/3o0RFUfePmDn/
+ JpvSoUzeCpM35VvDLtt4q5r+aKNYu4
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ linux-sh@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,56 +86,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mittwoch, 15. September 2021 16:10:12 CEST Mark Brown wrote:
-> On Sat, Sep 04, 2021 at 01:15:34AM +0200, Nicolas Frattaroli wrote:
-> > +  rockchip,tdm-fsync-half-frame:
-> > +    description: Whether to use half frame fsync.
-> > +    type: boolean
-> > +
-> 
-> Why is this not part of the normal bus format configuration?  I don't
-> know what this is but it sounds a lot like I2S mode...
+The SH machine drivers have some ASoC DAI format specifications that use
+older defines based on outdated terminology which we're trying to retire,
+update to the new bindings.
 
-This affects all TDM I2S modes, i.e. TDM Normal, TDM Left Justified and TDM 
-Right Justified.
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ arch/sh/boards/mach-ecovec24/setup.c | 2 +-
+ arch/sh/boards/mach-se/7724/setup.c  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Without tdm-fsync-half-frame, we purportedly get the following output in TDM 
-Normal Mode (I2S Format):
-(ch0l = channel 0 left, ch0r = channel 0 right)
-
-fsync: 	_____________________________
-                     	            \____________________________
-sdi/sdo: ch0l, ch0r, ..., ch3l, ch3r,  ch0l, ch0r, ...
-
-With tdm-fsync-half-frame, we purportedly get the following:
-
-fsync: 	_____________________________
-                     	            \____________________________
-sdi/sdo: ch0l,  ch1l,  ch2l,  ch3l,   ch0r,  ch1r,  ch2r,  ch3r
-
-At least, according to the TRM. I do not have an oscilloscope to verify this 
-myself, and in the following paragraphs, I will elaborate why this seems 
-confusing to me.
-
-The comment block "DAI hardware signal polarity" in soc-dai.h seems to imply 
-that what the TRM says the tdm-fsync-half-frame mode is (if one inverts fsync 
-polarity of those waveforms), is what is expected:
-
-> * FSYNC "normal" polarity depends on the frame format:
-> * - I2S: frame consists of left then right channel data. Left channel starts
-> *      with falling FSYNC edge, right channel starts with rising FSYNC edge.
-> * - Left/Right Justified: frame consists of left then right channel data.
-> *      Left channel starts with rising FSYNC edge, right channel starts with
-> *      falling FSYNC edge.
-
-I don't know if this is only applicable to non-TDM I2S, and whether it's 
-normal to have the channels interleaved like that in TDM.
-
-I don't see any DAIFMT that does what this does in any case.
-
-So to answer the question, it's not part of the bus format because it applies 
-to three bus formats, and I'm completely out of my depth here and wouldn't 
-define three separate bus formats based on my own speculation of how this 
-works.
-
+diff --git a/arch/sh/boards/mach-ecovec24/setup.c b/arch/sh/boards/mach-ecovec24/setup.c
+index bab91a99124e..97c5703b1818 100644
+--- a/arch/sh/boards/mach-ecovec24/setup.c
++++ b/arch/sh/boards/mach-ecovec24/setup.c
+@@ -886,7 +886,7 @@ static struct asoc_simple_card_info fsi_da7210_info = {
+ 	.card		= "FSIB-DA7210",
+ 	.codec		= "da7210.0-001a",
+ 	.platform	= "sh_fsi.0",
+-	.daifmt		= SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_CBM_CFM,
++	.daifmt		= SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_CBP_CFP,
+ 	.cpu_dai = {
+ 		.name	= "fsib-dai",
+ 	},
+diff --git a/arch/sh/boards/mach-se/7724/setup.c b/arch/sh/boards/mach-se/7724/setup.c
+index 8d6541ba0186..d9b31d4560c0 100644
+--- a/arch/sh/boards/mach-se/7724/setup.c
++++ b/arch/sh/boards/mach-se/7724/setup.c
+@@ -305,7 +305,7 @@ static struct asoc_simple_card_info fsi_ak4642_info = {
+ 	.card		= "FSIA-AK4642",
+ 	.codec		= "ak4642-codec.0-0012",
+ 	.platform	= "sh_fsi.0",
+-	.daifmt		= SND_SOC_DAIFMT_LEFT_J | SND_SOC_DAIFMT_CBM_CFM,
++	.daifmt		= SND_SOC_DAIFMT_LEFT_J | SND_SOC_DAIFMT_CBP_CFP,
+ 	.cpu_dai = {
+ 		.name	= "fsia-dai",
+ 	},
+-- 
+2.20.1
 

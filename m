@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 364F240CBE4
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Sep 2021 19:46:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 350AC40CBF7
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Sep 2021 19:53:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 925E21811;
-	Wed, 15 Sep 2021 19:45:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 925E21811
+	by alsa0.perex.cz (Postfix) with ESMTPS id D4FCA1817;
+	Wed, 15 Sep 2021 19:52:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4FCA1817
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631727994;
-	bh=1wPa5TIsmY1uCaO0si5vA/sDnCwcOImFHdwd/HgicJM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=uwcjqzn+GcWJzYsejLBvJ7JvKbd8Lmx4Lr7ibqGyOzahp3pR+AdHJ0ZOc8pa/v1KO
-	 kwWjAqlHepEqsINX1Zr9coRgCiAMe2OAfY3UNxL4SZqMQzC8JxTYwrBjn8zFDYMu9d
-	 /DjJ7OWhv/A4Y+tGQkDRm1/k+Yt6Ba46ONheY2Ck=
+	s=default; t=1631728400;
+	bh=pXP1fjveJS/FXQBwzAO790XqBMxtFxbpynde6ei+XQ8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=e1BVM4BCYTFJH7WfS6ZKj6QaSIQ9KS8vyIpk3V0PR6Eoy095V2A9sHmE4AVASxw5s
+	 gb71ZGot5KPa9GkILfNfdVR6Az/0QnYjqUb0/+6BJOdQSk9X03C8yqjIQseXirYTqA
+	 jwXH6t8X4X9x0PN76wUWKWXsjp3DwkhafmRcNdJk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6CF7F802E8;
-	Wed, 15 Sep 2021 19:45:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 556CEF802E8;
+	Wed, 15 Sep 2021 19:52:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 52358F8027C; Wed, 15 Sep 2021 19:45:16 +0200 (CEST)
+ id 9186BF8027C; Wed, 15 Sep 2021 19:52:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -32,48 +33,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7211BF800EF
- for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 19:45:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7211BF800EF
+ by alsa1.perex.cz (Postfix) with ESMTPS id B2F42F800EF
+ for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 19:51:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2F42F800EF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="s7mdIO+L"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C7F5561101;
- Wed, 15 Sep 2021 17:45:09 +0000 (UTC)
+ header.b="GOXOhqNE"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B9ADF60E8B;
+ Wed, 15 Sep 2021 17:51:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631727910;
- bh=1wPa5TIsmY1uCaO0si5vA/sDnCwcOImFHdwd/HgicJM=;
- h=From:To:Cc:Subject:Date:From;
- b=s7mdIO+LUSq1tQBmWnj4/z0lHi7/3zcVatimHUET1jfN0E/G6gtT+YR9iCJDqQ2CJ
- sUodIDvoKwI65LEpSLUxxrgDv0dnobeUsL8G2eP9Wy1PWOc0Uf8wdYVjhXeIy26YXX
- Dt/YR3vTY+R3QczIqSC097Cz6Bo6KRxqOf7jVdZM2QQ6wk7QgglXiYtrlnpb8FOYOz
- Aoq9RmDzUj/Hc920GDXMnbKc7cbnw1gaBoV31w8wEsUsaG45eLyuenBS2dIQtU3B5S
- HtkLzj6rQYwRCUcu9xNfc3Bq92dahuwTrTwVX9itZaTxhSTaibWt/o+hHYLWrK8fZE
- Xr9j0Nt45/pJg==
+ s=k20201202; t=1631728310;
+ bh=pXP1fjveJS/FXQBwzAO790XqBMxtFxbpynde6ei+XQ8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=GOXOhqNEZYiIF0ZlEKGHxZUoQiBazvqiEBfQ6husdFKxtFunHGCBRFoHKwGyIoNo2
+ 1Rq4D2ey3KtKm/BjqiRJ7SP42Lhda3wl5IIuHPxUhgCl7NzFO52Q48865vmLnA6j6P
+ dC3paaw6wKyxEt2kUz5XFAoyRAn9YM5sIdFog6fjIA4m2noD5RxbKtbXvNu4/AxwgM
+ 2ox6E1lok44F5ZRB1Op8Z3koHVWUH7AD6qkCPCOWmvQ90YLY9EdnC42EQTMQCtSLSu
+ BU00JH99QHpO0VW1cR0rHEdH51dLF9IC8SDORxUSgQbg202z2t9wuICb56KqEdLFgS
+ wUBfW88gtNfWw==
+Date: Wed, 15 Sep 2021 18:51:08 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Peter Rosin <peda@axentia.se>
-Subject: [PATCH] ASoC: atmel: Convert to new style DAI format definitions
-Date: Wed, 15 Sep 2021 18:42:44 +0100
-Message-Id: <20210915174244.38062-1-broonie@kernel.org>
-X-Mailer: git-send-email 2.20.1
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Subject: Re: [PATCH] ASoC: amd: Convert to new style DAI format definitions
+Message-ID: <20210915175108.GE12513@sirena.org.uk>
+References: <20210915173535.37794-1-broonie@kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6231; h=from:subject;
- bh=1wPa5TIsmY1uCaO0si5vA/sDnCwcOImFHdwd/HgicJM=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBhQi/bIRlRMATJHiKyFGC5KISjSbELMePEntW4ViwG
- mS43CDmJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYUIv2wAKCRAk1otyXVSH0DvlB/
- 4jfODoGiq0Su+Dhqacd04/q2AbhsrYyr5ZqgxWxo8gq+jiKTXfb9CPOT4hKAwR9It6vdTtlfotYqVf
- bzm2eG9woC97YSB0IOg6a0UGx6wsRV36Uc+sZPi/Cx5BFxY4DhuLuHchbf8QiEh9r0DOm+XFOfHAiN
- eDGKBPaYgrFwNExbK5eaP0+I86KFF3rSF6murZbPAtpwMx9wK2jzQ+MWX4umP6l+xbHDy4xByLCmfy
- 6Esy8RqQqMPxXJReCEW63dHmwqmC7X+rTtmg48ta+ef4AyAwSZN0bOfFa+cfVMIb7Mn6ROPKJhw7Du
- 3CyP0gu5bDxT2pjd4rlBVhHkZkJzGo
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Mark Brown <broonie@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="lkTb+7nhmha7W+c3"
+Content-Disposition: inline
+In-Reply-To: <20210915173535.37794-1-broonie@kernel.org>
+X-Cookie: The more the merrier.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,175 +81,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Convert the Atmel drivers to use the new style defines for clocking in DAI
-formats.
 
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/atmel/atmel-i2s.c      |  4 ++--
- sound/soc/atmel/atmel_ssc_dai.c  | 10 +++++-----
- sound/soc/atmel/atmel_wm8904.c   |  2 +-
- sound/soc/atmel/mchp-i2s-mcc.c   |  8 ++++----
- sound/soc/atmel/mikroe-proto.c   |  4 ++--
- sound/soc/atmel/sam9g20_wm8731.c |  2 +-
- sound/soc/atmel/tse850-pcm5142.c |  2 +-
- 7 files changed, 16 insertions(+), 16 deletions(-)
+--lkTb+7nhmha7W+c3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/sound/soc/atmel/atmel-i2s.c b/sound/soc/atmel/atmel-i2s.c
-index 6b3d9c05eaf2..e119abbca099 100644
---- a/sound/soc/atmel/atmel-i2s.c
-+++ b/sound/soc/atmel/atmel-i2s.c
-@@ -343,7 +343,7 @@ static int atmel_i2s_hw_params(struct snd_pcm_substream *substream,
- 	}
- 
- 	switch (dev->fmt & SND_SOC_DAIFMT_MASTER_MASK) {
--	case SND_SOC_DAIFMT_CBS_CFS:
-+	case SND_SOC_DAIFMT_CBC_CFC:
- 		/* codec is slave, so cpu is master */
- 		mr |= ATMEL_I2SC_MR_MODE_MASTER;
- 		ret = atmel_i2s_get_gck_param(dev, params_rate(params));
-@@ -351,7 +351,7 @@ static int atmel_i2s_hw_params(struct snd_pcm_substream *substream,
- 			return ret;
- 		break;
- 
--	case SND_SOC_DAIFMT_CBM_CFM:
-+	case SND_SOC_DAIFMT_CBP_CFP:
- 		/* codec is master, so cpu is slave */
- 		mr |= ATMEL_I2SC_MR_MODE_SLAVE;
- 		dev->gck_param = NULL;
-diff --git a/sound/soc/atmel/atmel_ssc_dai.c b/sound/soc/atmel/atmel_ssc_dai.c
-index 6a63e8797a0b..4846a8958337 100644
---- a/sound/soc/atmel/atmel_ssc_dai.c
-+++ b/sound/soc/atmel/atmel_ssc_dai.c
-@@ -210,7 +210,7 @@ static int atmel_ssc_hw_rule_rate(struct snd_pcm_hw_params *params,
- 		return frame_size;
- 
- 	switch (ssc_p->daifmt & SND_SOC_DAIFMT_MASTER_MASK) {
--	case SND_SOC_DAIFMT_CBM_CFS:
-+	case SND_SOC_DAIFMT_CBP_CFC:
- 		if ((ssc_p->dir_mask & SSC_DIR_MASK_CAPTURE)
- 		    && ssc->clk_from_rk_pin)
- 			/* Receiver Frame Synchro (i.e. capture)
-@@ -220,7 +220,7 @@ static int atmel_ssc_hw_rule_rate(struct snd_pcm_hw_params *params,
- 			mck_div = 3;
- 		break;
- 
--	case SND_SOC_DAIFMT_CBM_CFM:
-+	case SND_SOC_DAIFMT_CBP_CFP:
- 		if ((ssc_p->dir_mask & SSC_DIR_MASK_PLAYBACK)
- 		    && !ssc->clk_from_rk_pin)
- 			/* Transmit Frame Synchro (i.e. playback)
-@@ -233,7 +233,7 @@ static int atmel_ssc_hw_rule_rate(struct snd_pcm_hw_params *params,
- 	}
- 
- 	switch (ssc_p->daifmt & SND_SOC_DAIFMT_MASTER_MASK) {
--	case SND_SOC_DAIFMT_CBS_CFS:
-+	case SND_SOC_DAIFMT_CBC_CFC:
- 		r.num = ssc_p->mck_rate / mck_div / frame_size;
- 
- 		ret = snd_interval_ratnum(i, 1, &r, &num, &den);
-@@ -243,8 +243,8 @@ static int atmel_ssc_hw_rule_rate(struct snd_pcm_hw_params *params,
- 		}
- 		break;
- 
--	case SND_SOC_DAIFMT_CBM_CFS:
--	case SND_SOC_DAIFMT_CBM_CFM:
-+	case SND_SOC_DAIFMT_CBP_CFC:
-+	case SND_SOC_DAIFMT_CBP_CFP:
- 		t.min = 8000;
- 		t.max = ssc_p->mck_rate / mck_div / frame_size;
- 		t.openmin = t.openmax = 0;
-diff --git a/sound/soc/atmel/atmel_wm8904.c b/sound/soc/atmel/atmel_wm8904.c
-index 9e237580afa9..9c974c4e187d 100644
---- a/sound/soc/atmel/atmel_wm8904.c
-+++ b/sound/soc/atmel/atmel_wm8904.c
-@@ -66,7 +66,7 @@ static struct snd_soc_dai_link atmel_asoc_wm8904_dailink = {
- 	.stream_name = "WM8904 PCM",
- 	.dai_fmt = SND_SOC_DAIFMT_I2S
- 		| SND_SOC_DAIFMT_NB_NF
--		| SND_SOC_DAIFMT_CBM_CFM,
-+		| SND_SOC_DAIFMT_CBP_CFP,
- 	.ops = &atmel_asoc_wm8904_ops,
- 	SND_SOC_DAILINK_REG(pcm),
- };
-diff --git a/sound/soc/atmel/mchp-i2s-mcc.c b/sound/soc/atmel/mchp-i2s-mcc.c
-index 8988f024a732..67550e3d9ee3 100644
---- a/sound/soc/atmel/mchp-i2s-mcc.c
-+++ b/sound/soc/atmel/mchp-i2s-mcc.c
-@@ -350,7 +350,7 @@ static int mchp_i2s_mcc_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 		return -EINVAL;
- 
- 	/* We can't generate only FSYNC */
--	if ((fmt & SND_SOC_DAIFMT_MASTER_MASK) == SND_SOC_DAIFMT_CBM_CFS)
-+	if ((fmt & SND_SOC_DAIFMT_MASTER_MASK) == SND_SOC_DAIFMT_CBP_CFC)
- 		return -EINVAL;
- 
- 	/* We can only reconfigure the IP when it's stopped */
-@@ -547,19 +547,19 @@ static int mchp_i2s_mcc_hw_params(struct snd_pcm_substream *substream,
- 	}
- 
- 	switch (dev->fmt & SND_SOC_DAIFMT_MASTER_MASK) {
--	case SND_SOC_DAIFMT_CBS_CFS:
-+	case SND_SOC_DAIFMT_CBC_CFC:
- 		/* cpu is BCLK and LRC master */
- 		mra |= MCHP_I2SMCC_MRA_MODE_MASTER;
- 		if (dev->sysclk)
- 			mra |= MCHP_I2SMCC_MRA_IMCKMODE_GEN;
- 		set_divs = 1;
- 		break;
--	case SND_SOC_DAIFMT_CBS_CFM:
-+	case SND_SOC_DAIFMT_CBC_CFP:
- 		/* cpu is BCLK master */
- 		mrb |= MCHP_I2SMCC_MRB_CLKSEL_INT;
- 		set_divs = 1;
- 		fallthrough;
--	case SND_SOC_DAIFMT_CBM_CFM:
-+	case SND_SOC_DAIFMT_CBP_CFP:
- 		/* cpu is slave */
- 		mra |= MCHP_I2SMCC_MRA_MODE_SLAVE;
- 		if (dev->sysclk)
-diff --git a/sound/soc/atmel/mikroe-proto.c b/sound/soc/atmel/mikroe-proto.c
-index 0be7b4221c14..f9331f7e80fe 100644
---- a/sound/soc/atmel/mikroe-proto.c
-+++ b/sound/soc/atmel/mikroe-proto.c
-@@ -129,9 +129,9 @@ static int snd_proto_probe(struct platform_device *pdev)
- 	}
- 	if (bitclkmaster) {
- 		if (codec_np == bitclkmaster)
--			dai_fmt |= SND_SOC_DAIFMT_CBM_CFM;
-+			dai_fmt |= SND_SOC_DAIFMT_CBP_CFP;
- 		else
--			dai_fmt |= SND_SOC_DAIFMT_CBS_CFS;
-+			dai_fmt |= SND_SOC_DAIFMT_CBC_CFC;
- 	} else {
- 		dai_fmt |= snd_soc_daifmt_parse_clock_provider_as_flag(np, NULL);
- 	}
-diff --git a/sound/soc/atmel/sam9g20_wm8731.c b/sound/soc/atmel/sam9g20_wm8731.c
-index ed1f69b57024..915da92e1ec8 100644
---- a/sound/soc/atmel/sam9g20_wm8731.c
-+++ b/sound/soc/atmel/sam9g20_wm8731.c
-@@ -126,7 +126,7 @@ static struct snd_soc_dai_link at91sam9g20ek_dai = {
- 	.stream_name = "WM8731 PCM",
- 	.init = at91sam9g20ek_wm8731_init,
- 	.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
--		   SND_SOC_DAIFMT_CBM_CFM,
-+		   SND_SOC_DAIFMT_CBP_CFP,
- 	SND_SOC_DAILINK_REG(pcm),
- };
- 
-diff --git a/sound/soc/atmel/tse850-pcm5142.c b/sound/soc/atmel/tse850-pcm5142.c
-index 50c3dc6936f9..1b3a31296c9b 100644
---- a/sound/soc/atmel/tse850-pcm5142.c
-+++ b/sound/soc/atmel/tse850-pcm5142.c
-@@ -304,7 +304,7 @@ static struct snd_soc_dai_link tse850_dailink = {
- 	.stream_name = "TSE-850-PCM",
- 	.dai_fmt = SND_SOC_DAIFMT_I2S
- 		 | SND_SOC_DAIFMT_NB_NF
--		 | SND_SOC_DAIFMT_CBM_CFS,
-+		 | SND_SOC_DAIFMT_CBP_CFC,
- 	SND_SOC_DAILINK_REG(pcm),
- };
- 
--- 
-2.20.1
+On Wed, Sep 15, 2021 at 06:35:35PM +0100, Mark Brown wrote:
+> Convert the AMD machine drivers to use the new style defines for clocking
+> in DAI formats.
 
+Sigh, missed putting one conversion in this commit - rebased properly
+locally.
+
+--lkTb+7nhmha7W+c3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFCMosACgkQJNaLcl1U
+h9DhMAf8Cz98/IIIxkfpB4/a8EQFQU5uoC4Df55/y0JHEWl1gnDs8XGfG5AgVWj5
+iaaL1yN72YYmgAVomWjYj51UrMu9MJoqe+UfHMKTIeveffZKQaMCuDgRFj+KY9YE
+GpMmwtAEr3MYdhGzDvFsxd6/iv92hcILD7phVyDPfW/saCVzUgXRijpgRUn0HJwd
+9PIQm/Ai53cl5Wg5abbkyb4c5TV1gkB7McWj8gPI6W1Zys2nITlqdZW0pfgvKcpJ
+lHLJ2BVJlv+ABZT3a6gBHD3AKpG9yP5XB0dv4XoibflAzv8FS1KS5S3OPg7Nf7yN
+Soox6z1qVm8qVher/GAG5x1CFG6B0g==
+=fU0V
+-----END PGP SIGNATURE-----
+
+--lkTb+7nhmha7W+c3--

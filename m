@@ -2,84 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2117E40BE07
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Sep 2021 05:11:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 210B640BE50
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Sep 2021 05:36:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9D5F21811;
-	Wed, 15 Sep 2021 05:10:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D5F21811
+	by alsa0.perex.cz (Postfix) with ESMTPS id A3BD91811;
+	Wed, 15 Sep 2021 05:35:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3BD91811
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631675490;
-	bh=UGFFnblOSiUxV+B17WRncLUONz3vaVIOioSYcebqxlg=;
-	h=Date:Subject:From:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=pbI3R0LkO1NB9oEcDquTSMF+k3mro8025qd1jyYsrTTBhHpOvJnDOYTYg9M0QZvP7
-	 g2QfCHTfqACE2X5DS5E/PEIltXwwTbhRcCi1x+2IAmVJE9XuQWSRa3ju0oDuJRaqq2
-	 0p/ePJ6/PlD5o82u58rHwVagimsyDt63Ges4kfUY=
+	s=default; t=1631676984;
+	bh=CzJ/v+9etUUXfg3T+1F3/HaeuWrebdQB9MDD9PUkEWE=;
+	h=From:Subject:To:References:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=HHC8K9lVe5NOaV20ZXxEDyGZOtVGNehlegrm/Pm+oXyiHykvbHFtcKLXEhatK+Tsw
+	 k1YGCwvg4dtNb7A6mn6iPtb2yXbwFbYvswzoCUNWDnnGAvTwayqa8MuUSjhWTd5NGv
+	 bV/zXvGOHm1+GfSBw6Bwuvqhq/ZJRVSgDDFemYnM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DB3BF80132;
-	Wed, 15 Sep 2021 05:10:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22C14F802E8;
+	Wed, 15 Sep 2021 05:35:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9E4BF80132; Wed, 15 Sep 2021 05:10:11 +0200 (CEST)
+ id 95D45F8027C; Wed, 15 Sep 2021 05:35:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL
- autolearn=disabled version=3.4.0
-Received: from mail-qt1-x84a.google.com (mail-qt1-x84a.google.com
- [IPv6:2607:f8b0:4864:20::84a])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com
+ [IPv6:2607:f8b0:4864:20::52f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 76A76F80132
- for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 05:10:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76A76F80132
+ by alsa1.perex.cz (Postfix) with ESMTPS id 340B7F80117
+ for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 05:35:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 340B7F80117
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="QZzeguFK"
-Received: by mail-qt1-x84a.google.com with SMTP id
- p21-20020ac846150000b02902982d999bfbso1211177qtn.7
- for <alsa-devel@alsa-project.org>; Tue, 14 Sep 2021 20:10:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=jAy5ZO2AeP18Q1PLRPQevhEuoLi1BItbrfO3lZX0e/4=;
- b=QZzeguFKy9TLKw8z5mSOBfy/TDIRHtnS5H7qN/jShAO+2D7Xwv/vkvplU7REnkXTM7
- UHLW7OjxC11f1ZCxwnk5sjza3pC0w4wlMcqBgOANM7uvvMn0IMdfzhveJnY3W9HFo0B+
- YZM6HApRAA7U3+/D9cvWT80cf5XsmvMKe9S5y4/kEFCJ/CszhEH+3cjagUztSUeTtWgE
- Z0h24Otr0friyTLJWCp3RdyLij9zrBjKRS3o/JxeaQrM20U9mNZH413fuRpjwoYtb6aP
- 9tboUQFCgfftuFArIU4eewPGBuMrCWFAjrk5LtLw+U2uiF7CFsjTVjmLYwYkaYmdj7ZK
- s42Q==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="GGucDHZ4"
+Received: by mail-pg1-x52f.google.com with SMTP id u18so1397190pgf.0
+ for <alsa-devel@alsa-project.org>; Tue, 14 Sep 2021 20:35:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:subject:to:cc:references:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=SNmqqjwjYr/bv+VJJgk77zXO+/78/7HcjDcv83BXrhA=;
+ b=GGucDHZ4iPXWL4iZKFyNfRZsXau3VZ4kj9btNHeuyosfyxHYHzoNOpj/vn64cRMHMl
+ hhbe56oGRwDPmmEX1P2kNzkSwR/641qg7/mREaHDTauNn0jMDRAusFSAYXAbAHocb2f6
+ BE9t52IGeHL/Zrs7johWHGpAH72T3aXr+1Vs2p2GYR6i5GO+zTNifUjkER6Q8CYpeq5n
+ dW1fbSXAbZ8TwEutjH9SWU1tj/rJ24hOLPA97BlTEnSUfgnW6E2IAXK2Kq7UhAb0mPrc
+ Px+yRtRKIGzp+X+Ciiu6KdV/yQGxwXIUYP0A8fBRz2wWeZb2tG7lmqgldMvHBlLwQiG4
+ KWew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=jAy5ZO2AeP18Q1PLRPQevhEuoLi1BItbrfO3lZX0e/4=;
- b=W+3zHDA16X7icbD3S0fuicgsienIoTinQEvWYaAWe5RRCgn/DjJ5LCRdCUf67DO/Gy
- dqNlOUajG/uHSsxpNWSuCDqZmnMbv7EebmFAlM1GNWModlv0M1HLVzezGanEYC01+td1
- iK/8HkSbdKiPLafvdPsBZ5cRszgYnyUcQe3U//D/XPDDL4+/6MhZrRgHDgPizd1EDlW9
- NEjFZIPiSa2iH7lDAOtBO20Kt1FTLG3dFQhJ7+uZqhmI/P5+oDuxEtCRYhxtfRldwjJB
- +wg8SiSr8Smgz8nfKUhu29wvrM54wCgcNiWYwxEMmZ/8ajwXluOCMs1YIxVMVPxwBnsO
- /P+g==
-X-Gm-Message-State: AOAM533JECg6BVPjCrW28DwDtbNHVIyVGz1eB+dkerXBDFZ3ImTiaLdt
- ZWuyzUCxUBZw/z3yvEW+6JPDaGk8GU1s
-X-Google-Smtp-Source: ABdhPJwvqKiGSSV6Z7HG2VYx+JKVRocjK1EXbL1IOtUvsjZjxJPnw/pSxdUioCC3EZSjArZHuu9B8+exbi1K
-X-Received: from tzungbi-z840.tpe.corp.google.com
- ([2401:fa00:1:10:1d24:4827:7125:1e19])
- (user=tzungbi job=sendgmr) by 2002:a0c:9146:: with SMTP id
- q64mr8784899qvq.38.1631675400230; Tue, 14 Sep 2021 20:10:00 -0700 (PDT)
-Date: Wed, 15 Sep 2021 11:09:53 +0800
-Message-Id: <20210915030953.2347176-1-tzungbi@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.33.0.309.g3052b89438-goog
-Subject: [PATCH v4] ASoC: dt-bindings: mediatek: mt8192: re-add audio afe
- document
-From: Tzung-Bi Shih <tzungbi@google.com>
-To: broonie@kernel.org, robh+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Cc: tzungbi@google.com, alsa-devel@alsa-project.org,
- Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org
+ h=x-gm-message-state:from:subject:to:cc:references:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=SNmqqjwjYr/bv+VJJgk77zXO+/78/7HcjDcv83BXrhA=;
+ b=l8bm1vXTeoVSz66DFHM36CIkf8ntLSZzhjA9nswufC12e2idsFKLSW8r9PlHH5QFXA
+ j15JMbvDnde9F1iQWM230Nd+ChcZKojVb7iAvMaaylCibD7muycKCERfWn1NqTsGwP2E
+ eDiI4umEe84g8zyP2EaxkItFJfiBmm3Kx7y6sHvVah5NffdHQVacwGiP8Y8QxP9O6DI2
+ HI37vRoc3zzPGmbgPVMeui0wEWCYTLVNgcjHA3qlkfMCYZs6ivCjA9scqLAoQmoCEWNZ
+ wnggIPMlKHOqsxDU/7TJCEen9n3peswOW3omhODm6lXw0IGtl2CdwpBXvPyxzkqgUAMb
+ Bfyg==
+X-Gm-Message-State: AOAM530ritVHL1EKRGt16DaUD00S9Hiq8Z+zK6s/e0SIn19xPXzTZjrQ
+ TYoa6jouTQRC1+WR3ugaz2c=
+X-Google-Smtp-Source: ABdhPJwjVWizvbQ1TPIAQQuzWtVyzmksDdxgNcV+CqYJukGvVEfquwDBWR5LVuI0B3AYnb//lhmZYQ==
+X-Received: by 2002:a63:ef57:: with SMTP id c23mr18220738pgk.60.1631676898412; 
+ Tue, 14 Sep 2021 20:34:58 -0700 (PDT)
+Received: from ?IPv6:2001:b400:e3df:8666:4004:ab45:e89d:a0d9?
+ (2001-b400-e3df-8666-4004-ab45-e89d-a0d9.emome-ip6.hinet.net.
+ [2001:b400:e3df:8666:4004:ab45:e89d:a0d9])
+ by smtp.gmail.com with ESMTPSA id h7sm11640053pfe.125.2021.09.14.20.34.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 Sep 2021 20:34:57 -0700 (PDT)
+From: Seven Lee <scott6986@gmail.com>
+Subject: Re: [PATCH] ASoC: nau8821: Add driver for Nuvoton codec NAU88L21
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Seven Lee <wtli@nuvoton.com>, broonie@kernel.org
+References: <20210824041647.1732378-1-wtli@nuvoton.com>
+ <1651f0ee-5667-c7ef-9cb0-a648e2ad7d02@linux.intel.com>
+Message-ID: <fbdf0797-e256-5c7a-ca73-91e239843660@gmail.com>
+Date: Wed, 15 Sep 2021 11:34:53 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+MIME-Version: 1.0
+In-Reply-To: <1651f0ee-5667-c7ef-9cb0-a648e2ad7d02@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, KCHSU0@nuvoton.com, lgirdwood@gmail.com,
+ YHCHuang@nuvoton.com, CTLIN0@nuvoton.com, dardar923@gmail.com,
+ supercraig0719@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,144 +109,454 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The document was merged as commit 1afc60e00de3 ("dt-bindings:
-mediatek: mt8192: add audio afe document").
 
-However, [1] revealed that the commit 1afc60e00de3 breaks
-dt_binding_check due to dt-bindings/clock/mt8192-clk.h doesn't
-exist.
+On 2021/8/25 上午 12:02, Pierre-Louis Bossart wrote:
+> couple of nit-picks/typos/indentations, see below.
+>
+> On 8/23/21 11:16 PM, Seven Lee wrote:
+>> The driver is for codec NAU88L21 of Nuvoton Technology Corporation.
+>> The NAU88L21 is an ultra-low power high performance audio codec that
+>> supportsboth analog and digital audio functions.
+> supports both 
 
-As a temporary fix, commit 7d94ca3c8acd ("ASoC: mt8192: revert
-add audio afe document") reverted commit 1afc60e00de3.
+Okay, I will fix it.
 
-dt-bindings/clock/mt8192-clk.h is in mainline per commit
-f35f1a23e0e1 ("clk: mediatek: Add dt-bindings of MT8192 clocks").
-Re-adds the document back.
+>> diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+>> index 82ee233a269d..11bcf17b5f91 100644
+>> --- a/sound/soc/codecs/Kconfig
+>> +++ b/sound/soc/codecs/Kconfig
+>> @@ -136,6 +136,7 @@ config SND_SOC_ALL_CODECS
+>>   	imply SND_SOC_NAU8315
+>>   	imply SND_SOC_NAU8540
+>>   	imply SND_SOC_NAU8810
+>> +        imply SND_SOC_NAU8821
+> indent looks off?
 
-[1]: https://mailman.alsa-project.org/pipermail/alsa-devel/2020-November/176873.html
+Okay, I will fix it.
 
-Reviewed-by: Rob Herring <robh@kernel.org>
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
----
-Changes from v3 (https://mailman.alsa-project.org/pipermail/alsa-devel/2021-September/189705.html):
-- Fix the indent errors.
+>>   	imply SND_SOC_NAU8822
+>>   	imply SND_SOC_NAU8824
+>>   	imply SND_SOC_NAU8825
+>> @@ -1904,6 +1905,10 @@ config SND_SOC_NAU8810
+>>   	tristate "Nuvoton Technology Corporation NAU88C10 CODEC"
+>>   	depends on I2C
+>>   
+>> +config SND_SOC_NAU8821
+>> +        tristate "Nuvoton Technology Corporation NAU88L21 CODEC"
+>> +        depends on I2C
+>> +
+> and here indent is off as well?
 
-Changes from v2 (https://mailman.alsa-project.org/pipermail/alsa-devel/2021-August/189058.html):
-- Simplify the commit message.
+Okay, I will fix it.
 
-Changes from v1 (https://mailman.alsa-project.org/pipermail/alsa-devel/2021-August/189048.html):
-- Add more context to the commit message.
+>> +#include <linux/module.h>
+>> +#include <linux/delay.h>
+>> +#include <linux/init.h>
+>> +#include <linux/i2c.h>
+>> +#include <linux/regmap.h>
+>> +#include <linux/slab.h>
+>> +#include <linux/clk.h>
+>> +#include <linux/acpi.h>
+>> +#include <linux/math64.h>
+>> +#include <linux/semaphore.h>
+>> +#include <sound/initval.h>
+>> +#include <sound/tlv.h>
+>> +#include <sound/core.h>
+>> +#include <sound/pcm.h>
+>> +#include <sound/pcm_params.h>
+>> +#include <sound/soc.h>
+>> +#include <sound/jack.h>
+> alphabetical order?
 
- .../bindings/sound/mt8192-afe-pcm.yaml        | 100 ++++++++++++++++++
- 1 file changed, 100 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
+Okay, I will modify it for alphabetical order.
 
-diff --git a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-new file mode 100644
-index 000000000000..5e9fe067f440
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-@@ -0,0 +1,100 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/mt8192-afe-pcm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Mediatek AFE PCM controller for mt8192
-+
-+maintainers:
-+  - Jiaxin Yu <jiaxin.yu@mediatek.com>
-+  - Shane Chien <shane.chien@mediatek.com>
-+
-+properties:
-+  compatible:
-+    const: mediatek,mt8192-audio
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  reset-names:
-+    const: audiosys
-+
-+  mediatek,apmixedsys:
-+    $ref: "/schemas/types.yaml#/definitions/phandle"
-+    description: The phandle of the mediatek apmixedsys controller
-+
-+  mediatek,infracfg:
-+    $ref: "/schemas/types.yaml#/definitions/phandle"
-+    description: The phandle of the mediatek infracfg controller
-+
-+  mediatek,topckgen:
-+    $ref: "/schemas/types.yaml#/definitions/phandle"
-+    description: The phandle of the mediatek topckgen controller
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: AFE clock
-+      - description: ADDA DAC clock
-+      - description: ADDA DAC pre-distortion clock
-+      - description: audio infra sys clock
-+      - description: audio infra 26M clock
-+
-+  clock-names:
-+    items:
-+      - const: aud_afe_clk
-+      - const: aud_dac_clk
-+      - const: aud_dac_predis_clk
-+      - const: aud_infra_clk
-+      - const: aud_infra_26m_clk
-+
-+required:
-+  - compatible
-+  - interrupts
-+  - resets
-+  - reset-names
-+  - mediatek,apmixedsys
-+  - mediatek,infracfg
-+  - mediatek,topckgen
-+  - power-domains
-+  - clocks
-+  - clock-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/mt8192-clk.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/power/mt8192-power.h>
-+    #include <dt-bindings/reset-controller/mt8192-resets.h>
-+
-+    afe: mt8192-afe-pcm {
-+        compatible = "mediatek,mt8192-audio";
-+        interrupts = <GIC_SPI 202 IRQ_TYPE_LEVEL_HIGH>;
-+        resets = <&watchdog MT8192_TOPRGU_AUDIO_SW_RST>;
-+        reset-names = "audiosys";
-+        mediatek,apmixedsys = <&apmixedsys>;
-+        mediatek,infracfg = <&infracfg>;
-+        mediatek,topckgen = <&topckgen>;
-+        power-domains = <&scpsys MT8192_POWER_DOMAIN_AUDIO>;
-+        clocks = <&audsys CLK_AUD_AFE>,
-+                 <&audsys CLK_AUD_DAC>,
-+                 <&audsys CLK_AUD_DAC_PREDIS>,
-+                 <&infracfg CLK_INFRA_AUDIO>,
-+                 <&infracfg CLK_INFRA_AUDIO_26M_B>;
-+        clock-names = "aud_afe_clk",
-+                      "aud_dac_clk",
-+                      "aud_dac_predis_clk",
-+                      "aud_infra_clk",
-+                      "aud_infra_26m_clk";
-+    };
-+
-+...
--- 
-2.33.0.309.g3052b89438-goog
+>> +/**
+>> + * nau8821_sema_acquire - acquire the semaphore of nau8821
+>> + * @nau8821:  component to register the codec private data with
+>> + * @timeout: how long in jiffies to wait before failure or zero to wait
+>> + * until release
+>> + *
+>> + * Attempts to acquire the semaphore with number of jiffies. If no more
+>> + * tasks are allowed to acquire the semaphore, calling this function will
+>> + * put the task to sleep. If the semaphore is not released within the
+>> + * specified number of jiffies, this function returns.
+>> + * If the semaphore is not released within the specified number of jiffies,
+>> + * this function returns -ETIME. If the sleep is interrupted by a signal,
+>> + * this function will return -EINTR. It returns 0 if the semaphore was
+>> + * acquired successfully.
+>> + *
+>> + * Acquires the semaphore without jiffies. Try to acquire the semaphore
+>> + * atomically. Returns 0 if the semaphore has been acquired successfully
+>> + * or 1 if it cannot be acquired.
+>> + */
+>> +static int nau8821_sema_acquire(struct nau8821 *nau8821, long timeout)
+>> +{
+>> +	int ret;
+>> +
+>> +	if (!nau8821->irq)
+>> +		return 1;
+>> +
+>> +	if (timeout) {
+>> +		ret = down_timeout(&nau8821->jd_sem, timeout);
+>> +		if (ret < 0)
+>> +			dev_dbg(nau8821->dev, "Acquire semaphore timeout\n");
+>> +	} else {
+>> +		ret = down_trylock(&nau8821->jd_sem);
+>> +		if (ret)
+>> +			dev_dbg(nau8821->dev, "Acquire semaphore fail\n");
+>> +	}
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +/**
+>> + * nau8821_sema_release - release the semaphore of nau8821
+>> + * @nau8821:  component to register the codec private data with
+>> + *
+>> + * Release the semaphore which may be called from any context and
+>> + * even by tasks which have never called down().
+>> + */
+>> +static inline void nau8821_sema_release(struct nau8821 *nau8821)
+>> +{
+>> +	if (!nau8821->irq)
+>> +		return;
+>> +	up(&nau8821->jd_sem);
+>> +}
+> is there any specific reason why Nuvoton codec drivers use a 
+> semaphore? isn't a mutex good enough?
+
+The goal is not to be affected by playback during jack detection. I'm 
+worried that
+the jack detection time is too long. At this time, an interrupt occurs 
+and jack
+detection hasn't finished yet. But we estimate that the operation time 
+of jack
+detection is less than 100ms so that the risk is much smaller. Therefore, we
+remove the semaphore.
+
+>> +
+>> +/**
+>> + * nau8821_sema_reset - reset the semaphore for nau8821
+>> + * @nau8821:  component to register the codec private data with
+>> + *
+>> + * Reset the counter of the semaphore. Call this function to restart
+>> + * a new round task management.
+>> + */
+>> +static inline void nau8821_sema_reset(struct nau8821 *nau8821)
+>> +{
+>> +	nau8821->jd_sem.count = 1;
+>> +}
+>> +static int nau8821_left_adc_event(struct snd_soc_dapm_widget *w,
+>> +	struct snd_kcontrol *kcontrol, int event)
+>> +{
+>> +	struct snd_soc_component *component =
+>> +		snd_soc_dapm_to_component(w->dapm);
+>> +	struct nau8821 *nau8821 = snd_soc_component_get_drvdata(component);
+>> +
+>> +	switch (event) {
+>> +	case SND_SOC_DAPM_POST_PMU:
+>> +		msleep(125);
+> use a define to keep track of sleep times in a header file?
+
+I agree with Mark description, it's an extra barrier to figuring out the 
+actual sequence
+of operations and unless there's multiple users of the same underlying 
+delay it
+doesn't really by anything.
+
+>> +		regmap_update_bits(nau8821->regmap, NAU8821_R01_ENA_CTRL,
+>> +			NAU8821_EN_ADCL, NAU8821_EN_ADCL);
+>> +		break;
+>> +	case SND_SOC_DAPM_POST_PMD:
+>> +		regmap_update_bits(nau8821->regmap,
+>> +			NAU8821_R01_ENA_CTRL, NAU8821_EN_ADCL, 0);
+>> +		break;
+>> +	default:
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static int nau8821_right_adc_event(struct snd_soc_dapm_widget *w,
+>> +	struct snd_kcontrol *kcontrol, int event)
+>> +{
+>> +	struct snd_soc_component *component =
+>> +		snd_soc_dapm_to_component(w->dapm);
+>> +	struct nau8821 *nau8821 = snd_soc_component_get_drvdata(component);
+>> +
+>> +	switch (event) {
+>> +	case SND_SOC_DAPM_POST_PMU:
+>> +		msleep(125);
+> #define?
+
+Same as above.
+
+>> +		regmap_update_bits(nau8821->regmap, NAU8821_R01_ENA_CTRL,
+>> +			NAU8821_EN_ADCR, NAU8821_EN_ADCR);
+>> +		break;
+>> +	case SND_SOC_DAPM_POST_PMD:
+>> +		regmap_update_bits(nau8821->regmap,
+>> +			NAU8821_R01_ENA_CTRL, NAU8821_EN_ADCR, 0);
+>> +		break;
+>> +	default:
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static int nau8821_pump_event(struct snd_soc_dapm_widget *w,
+>> +	struct snd_kcontrol *kcontrol, int event)
+>> +{
+>> +	struct snd_soc_component *component =
+>> +		snd_soc_dapm_to_component(w->dapm);
+>> +	struct nau8821 *nau8821 =
+>> +		snd_soc_component_get_drvdata(component);
+>> +
+>> +	switch (event) {
+>> +	case SND_SOC_DAPM_POST_PMU:
+>> +		/* Prevent startup click by letting charge pump to ramp up */
+>> +		msleep(20);
+> #define? 
+
+Same as above.
+
+>> +		regmap_update_bits(nau8821->regmap, NAU8821_R80_CHARGE_PUMP,
+>> +			NAU8821_JAMNODCLOW, NAU8821_JAMNODCLOW);
+>> +		break;
+>> +	case SND_SOC_DAPM_PRE_PMD:
+>> +		regmap_update_bits(nau8821->regmap, NAU8821_R80_CHARGE_PUMP,
+>> +			NAU8821_JAMNODCLOW, 0);
+>> +		break;
+>> +	default:
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static int nau8821_output_dac_event(struct snd_soc_dapm_widget *w,
+>> +	struct snd_kcontrol *kcontrol, int event)
+>> +{
+>> +	struct snd_soc_component *component =
+>> +		snd_soc_dapm_to_component(w->dapm);
+>> +	struct nau8821 *nau8821 = snd_soc_component_get_drvdata(component);
+>> +
+>> +	switch (event) {
+>> +	case SND_SOC_DAPM_PRE_PMU:
+>> +		/* Disables the TESTDAC to let DAC signal pass through. */
+>> +		regmap_update_bits(nau8821->regmap, NAU8821_R66_BIAS_ADJ,
+>> +			NAU8821_BIAS_TESTDAC_EN, 0);
+>> +		break;
+>> +	case SND_SOC_DAPM_POST_PMD:
+>> +		regmap_update_bits(nau8821->regmap, NAU8821_R66_BIAS_ADJ,
+>> +			NAU8821_BIAS_TESTDAC_EN, NAU8821_BIAS_TESTDAC_EN);
+>> +		break;
+>> +	default:
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +static int nau8821_clock_check(struct nau8821 *nau8821,
+>> +	int stream, int rate, int osr)
+>> +{
+>> +	int osrate = 0;
+>> +
+>> +	if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
+>> +		if (osr >= ARRAY_SIZE(osr_dac_sel))
+>> +			return -EINVAL;
+>> +		osrate = osr_dac_sel[osr].osr;
+>> +	} else {
+>> +		if (osr >= ARRAY_SIZE(osr_adc_sel))
+>> +			return -EINVAL;
+>> +		osrate = osr_adc_sel[osr].osr;
+>> +	}
+>> +
+>> +	if (!osrate || rate * osrate > CLK_DA_AD_MAX) {
+>> +		dev_err(nau8821->dev,
+>> +		"exceed the maximum frequency of CLK_ADC or CLK_DAC\n");
+> odd indentation
+
+Okay, I will fix it.
+
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +static int nau8821_set_dai_fmt(struct snd_soc_dai *codec_dai, unsigned int fmt)
+>> +{
+>> +	struct snd_soc_component *component = codec_dai->component;
+>> +	struct nau8821 *nau8821 = snd_soc_component_get_drvdata(component);
+>> +	unsigned int ctrl1_val = 0, ctrl2_val = 0;
+>> +
+>> +	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+>> +	case SND_SOC_DAIFMT_CBM_CFM:
+>
+> use CDP_CFP
+
+Okay, I will fix it.
+
+>
+>> +		ctrl2_val |= NAU8821_I2S_MS_MASTER;
+>> +		break;
+>> +	case SND_SOC_DAIFMT_CBS_CFS:
+>
+> use CBC_CFC
+
+Okay, I will fix it.
+
+>
+>> +		break;
+>> +	default:
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
+>> +	case SND_SOC_DAIFMT_NB_NF:
+>> +		break;
+>> +	case SND_SOC_DAIFMT_IB_NF:
+>> +		ctrl1_val |= NAU8821_I2S_BP_INV;
+>> +		break;
+>> +	default:
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
+>> +	case SND_SOC_DAIFMT_I2S:
+>> +		ctrl1_val |= NAU8821_I2S_DF_I2S;
+>> +		break;
+>> +	case SND_SOC_DAIFMT_LEFT_J:
+>> +		ctrl1_val |= NAU8821_I2S_DF_LEFT;
+>> +		break;
+>> +	case SND_SOC_DAIFMT_RIGHT_J:
+>> +		ctrl1_val |= NAU8821_I2S_DF_RIGTH;
+>> +		break;
+>> +	case SND_SOC_DAIFMT_DSP_A:
+>> +		ctrl1_val |= NAU8821_I2S_DF_PCM_AB;
+>> +		break;
+>> +	case SND_SOC_DAIFMT_DSP_B:
+>> +		ctrl1_val |= NAU8821_I2S_DF_PCM_AB;
+>> +		ctrl1_val |= NAU8821_I2S_PCMB_EN;
+>> +		break;
+>> +	default:
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	nau8821_sema_acquire(nau8821, HZ);
+>> +
+>> +	regmap_update_bits(nau8821->regmap, NAU8821_R1C_I2S_PCM_CTRL1,
+>> +		NAU8821_I2S_DL_MASK | NAU8821_I2S_DF_MASK |
+>> +		NAU8821_I2S_BP_MASK | NAU8821_I2S_PCMB_MASK, ctrl1_val);
+>> +	regmap_update_bits(nau8821->regmap, NAU8821_R1D_I2S_PCM_CTRL2,
+>> +		NAU8821_I2S_MS_MASK, ctrl2_val);
+>> +
+>> +	nau8821_sema_release(nau8821);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static int nau8821_digital_mute(struct snd_soc_dai *dai, int mute,
+>> +	int direction)
+>
+> indentation?
+
+Okay, I will indent in this line.
+
+>
+>> +{
+>> +	struct snd_soc_component *component = dai->component;
+>> +	struct nau8821 *nau8821 = snd_soc_component_get_drvdata(component);
+>> +	unsigned int val = 0;
+>> +
+>> +	if (mute)
+>> +		val = NAU8821_DAC_SOFT_MUTE;
+>> +
+>> +	return regmap_update_bits(nau8821->regmap,
+>> +		NAU8821_R31_MUTE_CTRL, NAU8821_DAC_SOFT_MUTE, val);
+>> +}
+>> +
+>> +static int nau8821_set_bias_level(struct snd_soc_component *component,
+>> +		enum snd_soc_bias_level level)
+>> +{
+>> +	struct nau8821 *nau8821 = snd_soc_component_get_drvdata(component);
+>> +	struct regmap *regmap = nau8821->regmap;
+>> +
+>> +	switch (level) {
+>> +	case SND_SOC_BIAS_ON:
+>> +		break;
+>> +
+>> +	case SND_SOC_BIAS_PREPARE:
+>> +		break;
+>> +
+>> +	case SND_SOC_BIAS_STANDBY:
+>> +		/* Setup codec configuration after resume */
+>> +		if (snd_soc_component_get_bias_level(component) ==
+>> +			SND_SOC_BIAS_OFF)
+>> +			nau8821_resume_setup(nau8821);
+>> +		break;
+>> +
+>> +	case SND_SOC_BIAS_OFF:
+>> +		/* HPL/HPR short to ground */
+>> +		regmap_update_bits(regmap, NAU8821_R0D_JACK_DET_CTRL,
+>> +			NAU8821_SPKR_DWN1R | NAU8821_SPKR_DWN1L, 0);
+>> +		if (nau8821->irq) {
+>> +			/* Reset semaphore */
+>> +			nau8821_sema_reset(nau8821);
+>> +			/* Reset the configuration of jack type for detection.
+>> +			 * Detach 2kOhm Resistors from MICBIAS to MICGND1/2.
+>> +			 */
+>> +			regmap_update_bits(regmap, NAU8821_R74_MIC_BIAS,
+>> +				NAU8821_MICBIAS_JKR2, 0);
+>> +			/* Turn off all interruptions before system shutdown.
+>> +			 * Keep theinterruption quiet before resume
+>> +			 * setup completes.
+>> +			 */
+>> +			regmap_write(regmap,
+>> +				NAU8821_R12_INTERRUPT_DIS_CTRL, 0xffff);
+>> +			regmap_update_bits(regmap, NAU8821_R0F_INTERRUPT_MASK,
+>> +				NAU8821_IRQ_EJECT_EN | NAU8821_IRQ_INSERT_EN,
+>> +				NAU8821_IRQ_EJECT_EN | NAU8821_IRQ_INSERT_EN);
+>> +		}
+>> +		break;
+>
+> default case?
+
+Okay, I will add default case.
+
+>
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static int __maybe_unused nau8821_suspend(struct snd_soc_component *component)
+>> +{
+>> +	struct nau8821 *nau8821 = snd_soc_component_get_drvdata(component);
+>> +
+>> +	if (nau8821->irq)
+>> +		disable_irq(nau8821->irq);
+>> +	snd_soc_component_force_bias_level(component, SND_SOC_BIAS_OFF);
+>> +	/* Power down codec power; don't suppoet button wakeup */
+>
+> support?
+
+Okay, I will fix this word.
+
+>
+>> +	snd_soc_dapm_disable_pin(nau8821->dapm, "MICBIAS");
+>> +	snd_soc_dapm_sync(nau8821->dapm);
+>> +	regcache_cache_only(nau8821->regmap, true);
+>> +	regcache_mark_dirty(nau8821->regmap);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +MODULE_LICENSE("GPL v2");
+>
+> MODULE_LICENSE("GPL"); the license version is provided by the SPDX line
+
+Okay, I will fix it.
 

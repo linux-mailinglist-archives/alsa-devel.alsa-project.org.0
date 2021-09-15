@@ -2,71 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E4D940C84B
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Sep 2021 17:26:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3971940CA66
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Sep 2021 18:36:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD1881849;
-	Wed, 15 Sep 2021 17:26:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD1881849
+	by alsa0.perex.cz (Postfix) with ESMTPS id B5C3217DE;
+	Wed, 15 Sep 2021 18:35:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5C3217DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631719610;
-	bh=CFcne7+7qHsHstFKZ8q27i5a1vH58yXKDRbZpKDT3Og=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1631723762;
+	bh=4tBdPjNynHZjQu437ZPOuYTNuhVhXAXf+grdMbuPqUE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bMf7wgGHD4x1v/7fAc6vDY/OWj6vsjAz1iIbDisVb/s7Yrr8zH7S/jVrvd5+xqO/f
-	 MfG9Zh/l2wa7LyzzQAjae0rdKDdYeJJ3iiAMwlviSjQj0hiKaI0I/X+kmJlKPzDnKR
-	 aSIkO5Ay5Vktlxk+v6OYmObZh3YUDhWQlOKHdL5E=
+	b=CL9i2qGRaem9/yJ2MF4EZiedrrRkDq/QdtQkTJR/LZndcKsK8wOoRlnkLe18IcgHA
+	 xk4MdYJw7PGQwVRz2HQ4llgsQ71+WqQ7KAfJ3BEBhccsuqQkad+ictFnAWXJjA960w
+	 sYalqVfTu59/U4WrCI8mYQk3bT3uA44Io8ZOqupM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD744F8051C;
-	Wed, 15 Sep 2021 17:23:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3DA82F804E2;
+	Wed, 15 Sep 2021 18:34:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1D0BFF8051B; Wed, 15 Sep 2021 17:23:05 +0200 (CEST)
+ id E7CDAF802E8; Wed, 15 Sep 2021 18:34:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ADE20F80516
- for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 17:22:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADE20F80516
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Fh5j1qiG"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7458B60F5B;
- Wed, 15 Sep 2021 15:22:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631719375;
- bh=CFcne7+7qHsHstFKZ8q27i5a1vH58yXKDRbZpKDT3Og=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Fh5j1qiGe4lhnNE63fc22HRgRVHmcrVUV4F+dgUD/xmJIWo+wee3Z1YvAqYdPMn+O
- 43DpfimIewbGTUOWTGWZSBdm/u1LQhzknpmgvLwr7BQWCORbN7Ll7fISiK1VFpdjkR
- khYfusxqh9SbOWWhu8mpPt98br62xOkNTF3zjBqxa6m5z41AI/akCFqAmb070LSX6J
- YAVlE+rVhG6ERzVGGZ9UlqAbwEsFbJirULhQNeHxRt0g5io7jT55Y4GINmWrIumZIW
- OYZoUNq+4ywDdjQzF1TarRoSX4uzA1PZ2QJHZd+5nS+8AxkhozNfRXUwdQCsP3/GSU
- +qAeubGItaN3Q==
-From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.com, Trevor Wu <trevor.wu@mediatek.com>, matthias.bgg@gmail.com
-Subject: Re: [PATCH] ASoC: mediatek: mt6359: Fix unexpected error in
- bind/unbind flow
-Date: Wed, 15 Sep 2021 16:21:50 +0100
-Message-Id: <163171901944.9674.15745923942801327979.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210915034659.25044-1-trevor.wu@mediatek.com>
-References: <20210915034659.25044-1-trevor.wu@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8C1E3F80132
+ for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 18:34:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C1E3F80132
+X-IronPort-AV: E=McAfee;i="6200,9189,10108"; a="286060875"
+X-IronPort-AV: E=Sophos;i="5.85,295,1624345200"; d="scan'208";a="286060875"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2021 09:34:31 -0700
+X-IronPort-AV: E=Sophos;i="5.85,295,1624345200"; d="scan'208";a="583352167"
+Received: from mvetrive-mobl3.amr.corp.intel.com (HELO [10.212.69.198])
+ ([10.212.69.198])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2021 09:34:30 -0700
+Subject: Re: [PATCH v6 05/22] soc: qcom: apr: Add GPR support
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ bjorn.andersson@linaro.org, broonie@kernel.org, robh@kernel.org
+References: <20210915131333.19047-1-srinivas.kandagatla@linaro.org>
+ <20210915131333.19047-6-srinivas.kandagatla@linaro.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <83c503aa-7cb2-e6fa-e22a-b359a9cb9059@linux.intel.com>
+Date: Wed, 15 Sep 2021 10:47:10 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, chipeng.chang@mediatek.com,
- shane.chien@mediatek.com, linux-kernel@vger.kernel.org, jiaxin.yu@mediatek.com,
- tzungbi@google.com, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20210915131333.19047-6-srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, tiwai@suse.de, plai@codeaurora.org,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,40 +79,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 15 Sep 2021 11:46:59 +0800, Trevor Wu wrote:
-> mt6359-sound is a MFD driver. Because its regmap is retrieved from its
-> parent, it shouldn't be freed in mt6359-sound driver.
-> 
-> snd_soc_component_exit_regmap() will do regmap_exit(), this results in
-> unexpected results if sound card unregister flow is invoked when users
-> try to bind/unbind audio codec.
-> 
-> [...]
 
-Applied to
+> +gpr_port_t *gpr_alloc_port(struct apr_device *gdev, struct device *dev,
+> +				gpr_port_cb cb,	void *priv)
+> +{
+> +	struct packet_router *pr = dev_get_drvdata(gdev->dev.parent);
+> +	gpr_port_t *port;
+> +	struct pkt_router_svc *svc;
+> +	int id;
+> +
+> +	port = kzalloc(sizeof(*port), GFP_KERNEL);
+> +	if (!port)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	svc = port;
+> +	svc->callback = cb;
+> +	svc->pr = pr;
+> +	svc->priv = priv;
+> +	svc->dev = dev;
+> +	spin_lock_init(&svc->lock);
+> +
+> +	spin_lock(&pr->svcs_lock);
+> +	id = idr_alloc_cyclic(&pr->svcs_idr, svc, GPR_DYNAMIC_PORT_START,
+> +			      GPR_DYNAMIC_PORT_END, GFP_ATOMIC);
+> +	if (id < 0) {
+> +		dev_err(dev, "Unable to allocate dynamic GPR src port\n");
+> +		kfree(port);
+> +		spin_unlock(&pr->svcs_lock);
+> +		return ERR_PTR(-ENOMEM);
+> +	}
+> +
+> +	svc->id = id;
+> +	spin_unlock(&pr->svcs_lock);
+> +
+> +	dev_info(dev, "Adding GPR src port (%x)\n", svc->id);
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+nit-pick: isn't this a bit verbose?
 
-Thanks!
+> +
+> +	return port;
+> +}
+> +EXPORT_SYMBOL_GPL(gpr_alloc_port);
 
-[1/1] ASoC: mediatek: mt6359: Fix unexpected error in bind/unbind flow
-      commit: 6d66c5ccf5cb8af866fe2bb014098a3dd7bfa3cc
+> +struct gpr_pkt {
+> +	struct gpr_hdr hdr;
+> +	uint32_t payload[0];
+> +};
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+looks like a zero-length array?
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+should this be
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+struct gpr_pkt {
+    struct gpr_hdr hdr;
+    uint32_t payload[];
+};
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+?
 
-Thanks,
-Mark

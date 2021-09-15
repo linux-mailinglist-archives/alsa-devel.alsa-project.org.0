@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5393240C840
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Sep 2021 17:25:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C1DC40C844
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Sep 2021 17:25:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DE6D21843;
-	Wed, 15 Sep 2021 17:24:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE6D21843
+	by alsa0.perex.cz (Postfix) with ESMTPS id D8C95183B;
+	Wed, 15 Sep 2021 17:24:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8C95183B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631719516;
-	bh=hYM/NKbgpLHVOai31dObwTbz9HfkGYUYeERzVv/RnrA=;
+	s=default; t=1631719531;
+	bh=RZMWp46HzGUA8UW/blcNKPqDUhpcyxQH6zpAklpYtDo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ngjskuNxYC785mEX1qMjTepJ1IvTQXnyj82yFvXqxzYCldjKpZTmcxSq6ewv78ikP
-	 ZzrSfZq+ZVYUz4WvekBzq842/Baq4TV0zdgf4Fg7ZcA/3dfT/DLoa3KLJ/519y20b/
-	 bMOeH4IqgCH11xw/m+xkagdsZRbt5/DxGvN0bsyY=
+	b=Y4AFh20NbCMWtPBbj5+8Akms9obXq98duDs6lublLjIbQWKgO4hatjsZmymrrM+ua
+	 2seXyNRruxjjqhk1r6Zc6AC5AITEkry0yPrhbFiTpV4lR49Ybu9VBlgFnFRWp9Nm96
+	 gKAL2fCtwi2KtMX3j7qFENiWNTmlPjdnlGZy2P28=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8D78CF804F3;
-	Wed, 15 Sep 2021 17:22:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43CA3F804FE;
+	Wed, 15 Sep 2021 17:22:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E703DF804E5; Wed, 15 Sep 2021 17:22:46 +0200 (CEST)
+ id A0C63F804F2; Wed, 15 Sep 2021 17:22:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1BDE0F80227
- for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 17:22:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BDE0F80227
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F44FF804E7
+ for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 17:22:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F44FF804E7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="K6CooD4t"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9234D60F5B;
- Wed, 15 Sep 2021 15:22:41 +0000 (UTC)
+ header.b="uV/IXOeT"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4DDFE60FC0;
+ Wed, 15 Sep 2021 15:22:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631719362;
- bh=hYM/NKbgpLHVOai31dObwTbz9HfkGYUYeERzVv/RnrA=;
+ s=k20201202; t=1631719364;
+ bh=RZMWp46HzGUA8UW/blcNKPqDUhpcyxQH6zpAklpYtDo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=K6CooD4txBJwdU3E/Wzw1Mmq7WPyCs8iF109tipPbSLj5CDdw3TaoVoeSsFlGxWEa
- H9OKKLlARcH6qpeDGc64txIPrdEBFqfB4L1tHmkkLnnFGc54P7FwZ0DQXG6lUw6VBL
- 5l9zvbJo26C3eKoYBo5DtfYi1bY/Dfk9JJnTIagL/xjHSHf86uKn3oBf+W5I3RtXtO
- cmeeCssJ5yDWgbsfRAXyTNyRChXLMIRKQ6N5okeoyim7ZOl7oWwD3HE1O/XgbTMqEY
- mlyyLolTW7Yt9GF6npU/VPOlTaYB4FWXn0z04GNG52v5W7yo2H0xBOYclLIhbs2b6r
- 1dpwiPAbq4KFA==
+ b=uV/IXOeT4W9EVJaFvrYdEG9S6g2zdfnQEHGyF/+DJXhdFAjVRZk2IN2xz1pKfnlOS
+ kuJHn0TErG4jGI1O4xADPskgoQF76/oneT/a7tZr3ST8InqY+QmhzRtQz7bxMQmf1p
+ WUUu37Kf0BtDcuTWsyPeoRTsVdW3/PUW5FiFT7j/3ZJMTR9FGphGPm2YC/K67VJhcL
+ EKyxaXFU0LHeaeuh+JYuNbfhWqTdvoylMXyPFYRvbvq3Xn+QVvw59ii2LZyr96DGsG
+ hr7Dt9Q8bGMVK11mglIyxuFBiF8/KvQ2hNgrrNiBr6H6g4PVDAyarlInaa+GYyHkRo
+ ccck4v9CsczXg==
 From: Mark Brown <broonie@kernel.org>
-To: pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH 0/2] ASoC: SOF: Remove unused members from struct
- sof_dev_desc
-Date: Wed, 15 Sep 2021 16:21:45 +0100
-Message-Id: <163171901944.9674.10459698385534328374.b4-ty@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH 1/6] ASoC: cs35l41: Fix use of an uninitialised variable
+Date: Wed, 15 Sep 2021 16:21:46 +0100
+Message-Id: <163171901943.9674.2959464194056507984.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210915065541.1178-1-peter.ujfalusi@linux.intel.com>
-References: <20210915065541.1178-1-peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20210914141349.30218-1-ckeepax@opensource.cirrus.com>
+References: <20210914141349.30218-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: guennadi.liakhovetski@linux.intel.com, alsa-devel@alsa-project.org,
- kai.vehmanen@linux.intel.com, ranjani.sridharan@linux.intel.com,
- Mark Brown <broonie@kernel.org>, daniel.baluta@nxp.com
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ lgirdwood@gmail.com, james.schulman@cirrus.com,
+ Mark Brown <broonie@kernel.org>, david.rhodes@cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,14 +80,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 15 Sep 2021 09:55:39 +0300, Peter Ujfalusi wrote:
-> dma_engine, dma_size and resindex_dma_base is unused from sof_dev_desc, drop
-> them.
+On Tue, 14 Sep 2021 15:13:44 +0100, Charles Keepax wrote:
+> The loop checking PDN_DONE doesn't check the return value from
+> regmap_read, nor does it initialise val. This means if regmap_read fails
+> val will be checked for the PDN_DONE bit whilst being uninitialised.
 > 
-> resindex_dma_base is initialized to -1 for Intel platforms, but it is not used.
-> 
-> Regards,
-> Peter
+> Fix this up by switching to regmap_read_poll_timeout which tidies up the
+> code and avoids the uninitialised variable.
 > 
 > [...]
 
@@ -99,10 +96,18 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: SOF: intel: Do no initialize resindex_dma_base
-      commit: 7e7d5ffa37e34ec2a6e8aa2e1fd846fb296fc8a1
-[2/2] ASoC: SOF: Drop resindex_dma_base, dma_engine, dma_size from sof_dev_desc
-      commit: 2395fea7ae7f0cf6dfd37a8bb3cd9dbcf2d0e492
+[1/6] ASoC: cs35l41: Fix use of an uninitialised variable
+      commit: c2f14cc2bcdd532f8a18450407ffc27bbbff2319
+[2/6] ASoC: cs35l41: Use regmap_read_poll_timeout to wait for OTP boot
+      commit: 3a2eb0b4b02060340af10a1db3c452472471be2f
+[3/6] ASoC: cs35l41: Combine adjacent register writes
+      commit: fe1024d50477becf35128f3ef03bf3525a2cd140
+[4/6] ASoC: cs35l41: Don't overwrite returned error code
+      commit: e371eadf2a93a653211331b66beaac3b1bcbc931
+[5/6] ASoC: cs35l41: Fixup the error messages
+      commit: 3e60abeb5cb51bccc8bcc6808eef2037ab412334
+[6/6] ASoC: cs35l41: Fix a bunch of trivial code formating/style issues
+      commit: 4295c8cc17481e0d7d4c3a404eaf87dc8dfc26be
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

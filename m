@@ -2,81 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA25D40D853
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 13:19:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FCD940D864
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 13:20:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5112818B4;
-	Thu, 16 Sep 2021 13:18:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5112818B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id B154018C2;
+	Thu, 16 Sep 2021 13:20:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B154018C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631791186;
-	bh=YDcAco6+2z3hSzMZ03vb/m3o/bODu4kFdsSeOoMyVVo=;
+	s=default; t=1631791253;
+	bh=p0eQnZFTrLARXBAjbtsO+KJY25qNLRMvLKylKhIhSoE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cqf3Ql77gMXa71J5P8PlD3c9EC8lLUuuloce72jSVsoaHMXCxULTOnChLf3OLtxb/
-	 wo8i7r1fgvKWyo0DdlIfkQYGj243EReOiK7r9JYJLic/AsrZ+h3Q/+gSmJu4cmCphD
-	 f+q5bjmFAbG4O73Vx/27xSh0fJ8HLfb5lM3OQ57Y=
+	b=oiwFDMMFVFGu/Ge5rye5CFrq+DSuVONOp4kENdsi3AZh4mRLa13Oa/M55U4q58OG2
+	 VaT1VyLixIl231yYAEkq4cBK34crEusy6sFTHRm7PHrD23mRf8WD+pY84CZRQtURH+
+	 kua5hue/FRRWFIYslbDIvm9VusTvG7kZpVLwtEoc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D577FF804AE;
-	Thu, 16 Sep 2021 13:17:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52640F8051A;
+	Thu, 16 Sep 2021 13:17:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19C4CF80507; Thu, 16 Sep 2021 13:17:27 +0200 (CEST)
+ id 2B34EF80510; Thu, 16 Sep 2021 13:17:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  MSGID_FROM_MTA_HEADER, SPF_HELO_NONE, SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from EUR03-VE1-obe.outbound.protection.outlook.com
- (mail-eopbgr50058.outbound.protection.outlook.com [40.107.5.58])
+ (mail-eopbgr50050.outbound.protection.outlook.com [40.107.5.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3202EF804B0
+ by alsa1.perex.cz (Postfix) with ESMTPS id D05ECF804CA
  for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 13:17:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3202EF804B0
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D05ECF804CA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=NXP1.onmicrosoft.com
- header.i=@NXP1.onmicrosoft.com header.b="X6HgEE+W"
+ header.i=@NXP1.onmicrosoft.com header.b="lfM6eHzn"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aEiZiu8/asj++LQxSnS8gGGnhgDFy/N1UAkeiUPQyiqxKznIv7NRJeQ13R3s/P6yVkwHtpyex9LOTuykkukjs9/6BtHgrUO+rjKHc8uah0WEwFAHKuGjP19Er6i/i+B1cHNL5JIjvDXjiaOrfhUDoJySFX8wce696YGesSqE01jhzvL9MTOd7IEdivxLX5zgHNvu/9ASlH1oP1ZxkIqbee6FxdlLGKCLz/94Z1fAAHI1PcRp0y8E5+3rOVwcu6nHeTTj+U35g/8mGHbzy1i6P5f2TYS0Ora31WSHDu5H82Y+Bqy8ihra+X3sUNoGCExr3vVfuLUiDMX+1gn00Na8VQ==
+ b=Tf3ANdliIJGoHmoNpuhD2tQ0eyAGbPEPNT8nbB/zv2v5ZQKK5+V3y6YHz7YsOSzzd4lYmbf/9S/r5+H39D41U+M/98l4rDFki2/N3iw5C6qQKptNY3rAFISeJUQZeJhHn79QivnNJMWF8T5N1Y0vwqATfYDvP/IT7XAK0z4mpP+Ewfipt7H+1G8bOj3NxvSrx030JzZox0kF1+cMiMxELmRmEY1Oee0gOdfWcYUxUClZltgmzw4/T75SW3CAvKxbCeUcDYW4pJ8fJmUVY/tccDEkQuB2u4t9xlPCIdPX+7GyiDxTxVjmuQ6Wi8WaYGpZO4qJ07Q4CP5gg0u4/pqm3g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=9F6N7Pj6vo69zc/ttEoJKiruQrqXNdVgT/jVWK7imMo=;
- b=OolH5jumsXW8RlBwtjABDXzQv8QKHkVCLnRixwqx1PERQ+l8LoCPVWbBtaPhvXBY+lhaVXkKGj8Y+Q7HrF4FFttiyTyyjW5l9XTLt8p8xllX1SqO4Zw/uG/wK0QOmMI6jCOqmn1oTNrrs/DbVaOnVzSItISHGyVfDlT2X2l+u7Ie0/LjXc+JdGgSqBexGenppPW8XhRbmAF2Cu4wo0AFg8l3+NxeDT6m6ZPGTdRXJtlsl0Dpz7A0NzjNTJCE2qUmF9yZ/XiTfeTkknaMQWmPXHMxxRY34AYiz5zYa4J/sxqjqT3ibxDiN3iz0Dsx78zxxhrf9Cd+Wmv1xPxyuFl7EQ==
+ bh=qtCBUgXbw0Jm/D+hAyrYpV07ZReay7t/+4NPNz5XDgA=;
+ b=Oj2VDHXgxTIsbU1ElWGZ4z+z/EXOqOaI6TMaCHBbzbs0jK209UV46l8IITPZ3iiLiFVLyAk1LnOgxLPUozs+tAJoBtPDYbDQnr8ATebwoT4Ij91cmHyBB8yASrFoohabjeJ+tXmYJWP3mb4rLZhUJUd5v1VPjlIxky5pRKr15Px6iZzHad65a0vgOe15UYVUgU1vkkZdE3SS31DRmRPSVMExar52GKzsU4QpirlIrk8yIHy75zQHTb5onwXZEfR3ag0yKxfN8tiliMHAttiEWhYRKS1JIRFStNglsNI5mI7xi8QRD4BuZHuO14Z5wiDrqY6zvopcWUPkeHGDGmSH3g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
  s=selector2-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9F6N7Pj6vo69zc/ttEoJKiruQrqXNdVgT/jVWK7imMo=;
- b=X6HgEE+Wp9nFAnlFP6UFc2PRjLPpH+JYuSlH8VgHy8q4NURnQzgrFsufKgqbMfttAi8Wpkbt9xUsC6SkuhNuWsLjJlhEH0o3R99llKBsCwBMoy36LHFqAsPnR5JAWzpio9FI1U6iCwZ7Ibb/l1PIh+J7EjUvGVhjBsvkBFIJd3U=
+ bh=qtCBUgXbw0Jm/D+hAyrYpV07ZReay7t/+4NPNz5XDgA=;
+ b=lfM6eHznp2F2Y/jKlQFe86Aeh4ZTggjKe6O2XrE1bgTZw5/NoAkEMhgJ/5WEFyH4+9cZJVnEgv8s6+i3k0Wqz/wt5T+DY90Vh2w3E71JUEyHLm2vCLS94laD+tYc3t3gotK5Oo90b2j1FYNMSjVIu3W2h435e2uSmgl/N0J3K8k=
 Authentication-Results: kernel.org; dkim=none (message not signed)
  header.d=none;kernel.org; dmarc=none action=none header.from=oss.nxp.com;
 Received: from VI1PR04MB5151.eurprd04.prod.outlook.com (2603:10a6:803:61::28)
  by VI1PR04MB4926.eurprd04.prod.outlook.com (2603:10a6:803:51::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.18; Thu, 16 Sep
- 2021 11:17:12 +0000
+ 2021 11:17:14 +0000
 Received: from VI1PR04MB5151.eurprd04.prod.outlook.com
  ([fe80::499b:ba92:db2e:3f28]) by VI1PR04MB5151.eurprd04.prod.outlook.com
  ([fe80::499b:ba92:db2e:3f28%7]) with mapi id 15.20.4500.020; Thu, 16 Sep 2021
- 11:17:12 +0000
+ 11:17:14 +0000
 From: Daniel Baluta <daniel.baluta@oss.nxp.com>
 To: broonie@kernel.org
-Subject: [PATCH 06/12] ASoC: SOF: Add new fields to snd_sof_route
-Date: Thu, 16 Sep 2021 14:16:40 +0300
-Message-Id: <20210916111646.367133-7-daniel.baluta@oss.nxp.com>
+Subject: [PATCH 07/12] ASoC: SOF: restore kcontrols for widget during set up
+Date: Thu, 16 Sep 2021 14:16:41 +0300
+Message-Id: <20210916111646.367133-8-daniel.baluta@oss.nxp.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210916111646.367133-1-daniel.baluta@oss.nxp.com>
 References: <20210916111646.367133-1-daniel.baluta@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-ClientProxiedBy: AM0PR04CA0037.eurprd04.prod.outlook.com
  (2603:10a6:208:1::14) To VI1PR04MB5151.eurprd04.prod.outlook.com
  (2603:10a6:803:61::28)
@@ -86,60 +86,70 @@ Received: from localhost.localdomain (2a02:2f08:5708:8600:b29c:ccfa:a961:8ebd)
  by AM0PR04CA0037.eurprd04.prod.outlook.com (2603:10a6:208:1::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14 via Frontend
- Transport; Thu, 16 Sep 2021 11:17:11 +0000
+ Transport; Thu, 16 Sep 2021 11:17:12 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 27493ac8-0ed2-4ffc-25ee-08d9790387fc
+X-MS-Office365-Filtering-Correlation-Id: 64e140bc-1185-45da-a63e-08d9790388d1
 X-MS-TrafficTypeDiagnostic: VI1PR04MB4926:
 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <VI1PR04MB4926E4E70B59968D4B167E4DB8DC9@VI1PR04MB4926.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-Microsoft-Antispam-PRVS: <VI1PR04MB49264A2AD62809C5DC72AAB6B8DC9@VI1PR04MB4926.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:669;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: P9lennv0wCYFwZq4cZwRRPOgZR6WE6BUupHGfiAk9n2uCiNE/f3QS7iPxGL5inLPPHAYIycAtnHbgXaDdzmHKXvRtpSUmAG9mZQWoJw6EK9kxoL8dt0gndBXvFdWXXxwu3avAcqjRxwcecD0Dt5+jPIytayLSnQ9VUau6Pit1mCS5/Yg37lUmUGknwggQuwu6HYwnuLdlw1VEIFXb787uYMuRWbPJWaqlto9CYEdDzcSasyyPCQJIsefgKPKIm4WGqmn6az2bb4D2xQjWrQfk4FbNuJVI4ekTL+vQYMXsFUHXCMzdA8W9FIu0fru64iuCGsqrnOSQxCZb5H9SifHqzKtPSpQBDa945mHc6PZAy5YxSrrkzKKtjqREqLGsNaYF7AipVfkEq34PoM+rklFlQDEMUei0dq1C5OwGtrj889uyH+wZI1j5K2/n6k2IAb0aEcN4C4OGiDr2uKVa6jsJ65yAtcAcTWpvIZVYq13VwAPe2gL3B5Fr1gUC7ffDGT1BQclGY81bESFtncFQgMiu+Ksv4ibK8J7iRERxrtHNf+Py4VqEuF7qJm3AVmUfL3pDaLI1FWwhRCvytDclAUsY31400wMOSu8s2vVQHNMxZ74OFx2sEY7MkkUKfNhT67aIJk3M0LVqL+clmtOz7k84w==
+X-Microsoft-Antispam-Message-Info: 1a8uFkoRfN6aiPGn5ArN6x3TBtYQnVfb7HhlqZfz+XvOVf/+CedljUUF/Ivr1Ya5pksoXXpdO8cMVOJOkT+/sYp8lcFsH4qPyFitMNHq+kUeEy1d64fO0thGf7ITHMEZqiyX+76yaofXCTmW84t4LDNh6iyKhoEbhVFKoMDziSITodEBIO+7i1LzmnIqbpYmbvCBD/CjBZ7k7H+sKRpOjUTz0D2d0OUW/ERyeNzPe7nPDycIMvTWHxsgVK/fbxkRXDyLuj5F5tQQrsbBmjRxkjMI+MwYnYVOA+o8HtOckBvfqS8uFgedRAMaaEYs5TC6qUeG7DDT3qM4j4kJRnObajUu72GvQibtB+473ep9u6+1vjdL5KCxQqfG1ET/vWzOuWnE7QJdQuzEIrYpg6EG3Ytvgd1ABIEZnZGPl4T7rQBijwwGz8+h+sSZYtEKxh0oU2DT1zr6vgcWyvMNtRZ4v47x4l+yXfQCKKjAibc1ksCnGoL+DjP56vwrcSLhbwvQ3C/YuMXqX5zI6IzkP+UCP6IwKaiAJqHIo30+TcjxiFkwPVYfmYBmf2eNwAJvBYrRy9yT81DWjgzDzpZYAW3xkq5K9D2JjzzK8/9UgEsWaxZwlIIs5pTqje02Ij9ON7B3/Q7qtyanchnbmvcJXGEemQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:VI1PR04MB5151.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(366004)(136003)(376002)(346002)(396003)(4326008)(8936002)(6486002)(186003)(83380400001)(6916009)(2616005)(5660300002)(66946007)(52116002)(478600001)(8676002)(6512007)(6506007)(86362001)(2906002)(44832011)(66476007)(66556008)(316002)(1076003)(38100700002)(6666004);
+ SFS:(4636009)(39860400002)(366004)(136003)(376002)(346002)(396003)(4326008)(8936002)(7416002)(6486002)(186003)(83380400001)(6916009)(2616005)(5660300002)(66946007)(52116002)(478600001)(8676002)(6512007)(6506007)(54906003)(86362001)(2906002)(66574015)(44832011)(66476007)(66556008)(316002)(1076003)(38100700002)(6666004);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?9wMxM702sl2V+sj6V7xguZlPfOe4QnIaB8fNWE3o1+xm/2zQo2uZJ+mzWIYZ?=
- =?us-ascii?Q?dpmChmDfniH8QG8gxOzCMsNa4qnO7hP12ZrKAZAmDxj+J4o2pk8RHoZY3Qos?=
- =?us-ascii?Q?vJh+g9fruO9PlZtpG0yZAAY51N33Qhy11l55zm/LrgRTYgBERk2OsoFKRbzB?=
- =?us-ascii?Q?P+VTTPb0emKWzAaEbx+xHDjbeFlXfdpqyX4aisanTaR5qySeGHFxgyt60YbS?=
- =?us-ascii?Q?D/FxEGdSGN7Z8ZjrfWSI8h9BWSH2M27MIShjJReFbUsF1bB//I1j/EjDcnGE?=
- =?us-ascii?Q?L6i4OOGOSyHh5GJ8+t+dt9BDqVAyVrP2FWGWHLPod9MFzCslw8JgNzlEH1pk?=
- =?us-ascii?Q?X4thWoCkMi5Lrc3gkWR5HOjKkwigkG/2SCAkYi7eULmXAC01S0dZxnxX+GkX?=
- =?us-ascii?Q?Bbxm9szzHXHJrIGJFeiR7YNa5dnNJDC6GlGKawcweLhlWWRxKQ5iyzdgO8PP?=
- =?us-ascii?Q?0rsgo1snAOMUpFc2lLJ4yVD9j98T0aUqa5DvVmt0OZY5BUT7a2mwQFrVkkWT?=
- =?us-ascii?Q?b8J77LGwSF8lKNlHwe8Ff+DOrpQpASqA9S/uiA+z6vLCwTlUwMYeI3GSmXmY?=
- =?us-ascii?Q?z2F0ZGMrBW05mNh+aizFZZrG4aXqz3xx7gG7RlmKGCbiMza3+MLhvjLJgPRR?=
- =?us-ascii?Q?cZvjdXqo+l8urXkjni+lgqK1uwZjk5UH4kVuARqlf9XaN4tDFZm4ndE1rCpx?=
- =?us-ascii?Q?k7lDs8m/eEA5tWNYSqRaQXUnvpzqg+gpuTS3LR+dB/jJ1o2ko8/wYzAntCfV?=
- =?us-ascii?Q?Xg1/+zhRF48cUeFs9vU0bncSfui5PPSB4JQzIUXoSaVATwKxD4UjX3c6kwPn?=
- =?us-ascii?Q?G8V3GdzFA4TLqfoSBQI9I5NOTP1JtzfuX7X1EwgI98W4qq4Z/9vGeHcqQ+XI?=
- =?us-ascii?Q?aSPDeGTzN8Tj6YSyuBgHutms3OMb7E5hv4+WvGoItyyIAiwdG/Ly0KgUNEBw?=
- =?us-ascii?Q?KeIVTGhpc1oEsr+mHwI1HIpRVX0SXCMsObPtc6ScKBO8Z+kedS2qPEEB8GqX?=
- =?us-ascii?Q?fwkofTSLnMmLgDjNaWWvWQIKrRatZeJxYMO/h1u14Yf27peOcn8AKTWasL7K?=
- =?us-ascii?Q?FLatnEXKhkhGcd6lRTk2rsgousGlyrN4s+egU1VoveVX6f+hXNhjeD3iTnY0?=
- =?us-ascii?Q?d475rKfCJWxpDHgZgs8bJe/nx9dZLgy9Jxl33C7yI2Fo6G4DiuNvaTh1ioH8?=
- =?us-ascii?Q?ognkmnGaDKIsalBjdKGbHX5oUdINBTSh7+bE7nsBOvyGJYPz0HTuT7sSCHsc?=
- =?us-ascii?Q?8UrJQ/EXlZ+cE0dohdGilNDxSoBXjUNJG6gB/wI4RfeEeb1UbJ81oSl85MtM?=
- =?us-ascii?Q?L8pIrCf0VEnFM30DEXbEkybLCmk97bHuTgghr7AmQb29XxzXB0hn7D8xBPoa?=
- =?us-ascii?Q?pXdQu78IOoS+gxiG9VLtJ9exGietv90D0KL9UPXwG7VWLb2WpA=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NUl4R2JrMTVZTFQvKzNDazNVSDRSUmlvUndNeEFuRTBtaS9HYVR4WnhlbWdM?=
+ =?utf-8?B?T1BIdTM4bHpUYlhSVGgyUlpBc2F3WmxRdUJYQUd0eXM4R0krYmx0b0xZVzdn?=
+ =?utf-8?B?dEFzVVZhYm51eHJaTWtlYWlQajVMWnJvSGRkMzNWYmNDb3JvK2lOTHo1QVQ5?=
+ =?utf-8?B?WVBscGgyb0R2MEdBb1ZiYnZnckxQS29SMUZtOUMxbVBLZE81MjRTV2g2dG9S?=
+ =?utf-8?B?OWd1UkNOZDVBQWNLQVp5cklBemxhZUJlMWQ2RytlSitobFJkbjNBblQyS01j?=
+ =?utf-8?B?cStjSHRPZTc0RVBGWlJJYUpGaUtGV1JxMWlXcFpiZjVwNzhiL3RSL0E4dnh1?=
+ =?utf-8?B?azFCNHhacjAvVmhLcmFlSW5kZHEwYjVVcURBbXArbDZpM20yQmlQbS93UmxK?=
+ =?utf-8?B?WmJjOXBmUmtvRlhYMzJKZDJva0NWZ0RqUnhFUUpUTSt6ejZzNHlVempUbkNt?=
+ =?utf-8?B?enNXMG5BbCs4QS9xY0tYczlQcFZEOXBMcForVkZBc1FaSmtiQkZPNlhyZURx?=
+ =?utf-8?B?RXZtTm5PMGphaDJlcS9ERE5FWWpsUjN1N2tnSnN4cC8rYXc5MTlLd1A3aVp4?=
+ =?utf-8?B?bjlCWTNDNkljbzAxcUdSdHM5cUpCQkVRVkNoM1NqZGJDZFZFbjlDNjB5QjFp?=
+ =?utf-8?B?SXY5b1R3bUFRTEU3SWJoZyt1NFdrVlVHQUhPQ0FrRFM3cUthbTdrVnJrUjVG?=
+ =?utf-8?B?L3Bmb21zN3F3TUR2bGsrMXNQN3k5WENwRVFyZnduY0hHVVhYRnpsZGN4LzMz?=
+ =?utf-8?B?N2FtOU1lTlBXNnZTQU5rdmQ5dXJNUnM1OFNuUTlQUGdIVTJjQ0hDelkrdHNH?=
+ =?utf-8?B?Vjl3S3pSYmNoTlo4dGk2MldTdFcrajlCTUdGcmhJY0dzOWMybURldXB5SU5m?=
+ =?utf-8?B?Z1h6MjVQOU1YRk5LODhIYko3OW1QMWd2RDR5L1ltU2hoQVliMVgzZzlrb1dC?=
+ =?utf-8?B?cGxRVzB0d3VWT1FCR3c4Y2ovdlgzUUtRYXJUa21iU1JISnJrNmhWVmR4anZW?=
+ =?utf-8?B?NmVscWhnRHhMdENVVDlPeUd2MHF0azhCaHlEZHo4d2ZJTk8vTDdLNTRFSWJE?=
+ =?utf-8?B?MHVjNXkxL283MXRoby84ckRKMTE1eU5YN3RWZGxjMVpockhXaDJYR3Frc21R?=
+ =?utf-8?B?NzN1QXRUTXprOUt1MFgvUklDeDVWWk1Mb2xoZ0NjZ3Vqa1dMRW94MWhrODdM?=
+ =?utf-8?B?bk5RdWhwZFYxdUFTNWtvN0JjZEY4by9pNlRDS2szNit3Ui9SZHphNHV5UGlW?=
+ =?utf-8?B?b0pmcnYxdVBpRmcxRS8zM3FrbTdBUS9YTkFFR0VyK2pqclR3YzZxSDJ4QTRN?=
+ =?utf-8?B?OTF2YytyTkJVeFcxZW1iV0oyNFRBM3ZPelpqcURlWlBKWUJWanJkMVhibktO?=
+ =?utf-8?B?NkNRRFBDU2VhZnRGS1FLWlozWkpueGpZendOOEcvSTE2QXF1amhlK29Gd3ZO?=
+ =?utf-8?B?cHBmQnN5NEdJb2lURnFwd2JzcWF1L0E4cEJNVCtDU1RYcU1SNHFDWkNSQzcx?=
+ =?utf-8?B?Z21pb3Fqak9keTd3MERDQXc5WDU2M2pzbXRSMEdodGxYZnRpdDRwbGJzSWNo?=
+ =?utf-8?B?dWlSQi9sTkx2aGh0d2FKK3RTN29hVHd6YUlXN3ZUWXFINTcreXltWGFIWUl6?=
+ =?utf-8?B?WHRWMGNIVFJYdVhOc3NISFlIeXpVVVRUcUZTdk9Tamk5c2pvTmsyV0tCZ1ho?=
+ =?utf-8?B?eDJJdXJnUXEwdm5JSTNiRk4va241T2RqWCsvbGpkVG1tUmdyQ0pnaVJ0S1FD?=
+ =?utf-8?B?bjZUaHBZcVp4ZExPV0ZzMkJ1NnBSV2Y2UitZc05HY0JESVcwWm4rcnB3eTIy?=
+ =?utf-8?B?cDMxcWloVUR5KzM4VXlPRjBKa1BzR2dhOTZXVnZkbjAzNmlYZmtRS2RHcXhl?=
+ =?utf-8?B?U0NCc3laNXloVGRxRnkyNGRYZkx0Vkt6TWxxdmlCR0pkUWc9PQ==?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27493ac8-0ed2-4ffc-25ee-08d9790387fc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 64e140bc-1185-45da-a63e-08d9790388d1
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5151.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2021 11:17:12.4656 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2021 11:17:13.9907 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XTK5hAVukmZL1hl9cdSdGkm2WGW2QhTQICxNiJk1xVd8tIbYAb3iKYOWT+rO1LZyt36W4fVocxiqCeFu5DM7gg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: KN4m427d8OCaSOgH9mmaiFlFh/LEYYMV2CbxA9Eh/xJy2O72sHSQkHjVvv6HVZocOlXJGbvhHdR4ctzCVHe3OA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4926
 Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- kai.vehmanen@linux.intel.com, lgirdwood@gmail.com, daniel.baluta@nxp.com,
- linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
+ Seppo Ingalsuo <seppo.ingalsuo@intel.com>, kai.vehmanen@linux.intel.com,
+ lgirdwood@gmail.com, daniel.baluta@nxp.com, linux-kernel@vger.kernel.org,
+ =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@intel.com>,
+ ranjani.sridharan@linux.intel.com,
  Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
  peter.ujfalusi@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
@@ -159,109 +169,111 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-Add two new fields to save the source widget and sink widget
-pointers in struct snd_sof_route to make it easier to look up
-routes by source/sink widget. Also, add a flag to indicate
-if the route has been set up in the DSP. These will be used
-when the dynamic pipeline feature is implemented and routes
-will have to be set up at run time.
-
-Also, add a new sof_tear_down_pipelines() callback, that will
-used to reset the set up status for all routes during suspend.
+Restore kcontrols for each widget after it has been set up
+successfully.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@intel.com>
+Reviewed-by: Seppo Ingalsuo <seppo.ingalsuo@intel.com>
 ---
- sound/soc/sof/pm.c        |  2 ++
- sound/soc/sof/sof-audio.c | 15 +++++++++++++++
- sound/soc/sof/sof-audio.h |  4 ++++
- sound/soc/sof/topology.c  |  3 +++
- 4 files changed, 24 insertions(+)
+ sound/soc/sof/sof-audio.c | 59 ++++++++++++++++++++++-----------------
+ 1 file changed, 33 insertions(+), 26 deletions(-)
 
-diff --git a/sound/soc/sof/pm.c b/sound/soc/sof/pm.c
-index c83fb6255961..ce922227c4c6 100644
---- a/sound/soc/sof/pm.c
-+++ b/sound/soc/sof/pm.c
-@@ -208,6 +208,8 @@ static int sof_suspend(struct device *dev, bool runtime_suspend)
- 	if (target_state == SOF_DSP_PM_D0)
- 		goto suspend;
- 
-+	sof_tear_down_pipelines(dev);
-+
- 	/* release trace */
- 	snd_sof_release_trace(sdev);
- 
 diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
-index a4b9bb99bced..b52a453ae9d7 100644
+index b52a453ae9d7..b27760208a4b 100644
 --- a/sound/soc/sof/sof-audio.c
 +++ b/sound/soc/sof/sof-audio.c
-@@ -276,6 +276,7 @@ int sof_restore_pipelines(struct device *dev)
- 
- 			return ret;
- 		}
-+		sroute->setup = true;
- 	}
- 
- 	/* restore dai links */
-@@ -317,6 +318,20 @@ int sof_restore_pipelines(struct device *dev)
+@@ -64,6 +64,25 @@ static int sof_dai_config_setup(struct snd_sof_dev *sdev, struct snd_sof_dai *da
  	return ret;
  }
  
-+/* This function doesn't free widgets. It only resets the set up status for all routes */
-+void sof_tear_down_pipelines(struct device *dev)
++static int sof_widget_kcontrol_setup(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget)
 +{
-+	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
-+	struct snd_sof_route *sroute;
++	struct snd_sof_control *scontrol;
++	int ret;
 +
-+	/*
-+	 * No need to protect sroute->setup as this function is called only during the suspend
-+	 * callback and all streams should be suspended by then
-+	 */
-+	list_for_each_entry(sroute, &sdev->route_list, list)
-+		sroute->setup = false;
++	/* set up all controls for the widget */
++	list_for_each_entry(scontrol, &sdev->kcontrol_list, list)
++		if (scontrol->comp_id == swidget->comp_id) {
++			ret = sof_kcontrol_setup(sdev, scontrol);
++			if (ret < 0) {
++				dev_err(sdev->dev, "error: fail to set up kcontrols for widget %s\n",
++					swidget->widget->name);
++				return ret;
++			}
++		}
++
++	return 0;
 +}
 +
- /*
-  * Generic object lookup APIs.
-  */
-diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
-index 4a1c38c5618d..fe997a80a847 100644
---- a/sound/soc/sof/sof-audio.h
-+++ b/sound/soc/sof/sof-audio.h
-@@ -118,6 +118,9 @@ struct snd_sof_route {
+ static int sof_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget)
+ {
+ 	struct sof_ipc_pipe_new *pipeline;
+@@ -113,10 +132,20 @@ static int sof_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget *swi
+ 					 &r, sizeof(r));
+ 		break;
+ 	}
+-	if (ret < 0)
++	if (ret < 0) {
+ 		dev_err(sdev->dev, "error: failed to load widget %s\n", swidget->widget->name);
+-	else
+-		dev_dbg(sdev->dev, "widget %s setup complete\n", swidget->widget->name);
++		return ret;
++	}
++
++	/* restore kcontrols for widget */
++	ret = sof_widget_kcontrol_setup(sdev, swidget);
++	if (ret < 0) {
++		dev_err(sdev->dev, "error: failed to restore kcontrols for widget %s\n",
++			swidget->widget->name);
++		return ret;
++	}
++
++	dev_dbg(sdev->dev, "widget %s setup complete\n", swidget->widget->name);
  
- 	struct snd_soc_dapm_route *route;
- 	struct list_head list;	/* list in sdev route list */
-+	struct snd_sof_widget *src_widget;
-+	struct snd_sof_widget *sink_widget;
-+	bool setup;
+ 	return ret;
+ }
+@@ -203,22 +232,6 @@ int sof_set_hw_params_upon_resume(struct device *dev)
+ 	return snd_sof_dsp_hw_params_upon_resume(sdev);
+ }
  
- 	void *private;
- };
-@@ -240,6 +243,7 @@ int sof_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd, struct snd_pcm_hw_pa
+-static int sof_restore_kcontrols(struct device *dev)
+-{
+-	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
+-	struct snd_sof_control *scontrol;
+-	int ret = 0;
+-
+-	/* restore kcontrol values */
+-	list_for_each_entry(scontrol, &sdev->kcontrol_list, list) {
+-		ret = sof_kcontrol_setup(sdev, scontrol);
+-		if (ret < 0)
+-			return ret;
+-	}
+-
+-	return 0;
+-}
+-
+ const struct sof_ipc_pipe_new *snd_sof_pipeline_find(struct snd_sof_dev *sdev,
+ 						     int pipeline_id)
+ {
+@@ -309,13 +322,7 @@ int sof_restore_pipelines(struct device *dev)
+ 		}
+ 	}
  
- /* PM */
- int sof_restore_pipelines(struct device *dev);
-+void sof_tear_down_pipelines(struct device *dev);
- int sof_set_hw_params_upon_resume(struct device *dev);
- bool snd_sof_stream_suspend_ignored(struct snd_sof_dev *sdev);
- bool snd_sof_dsp_only_d0i3_compatible_stream_active(struct snd_sof_dev *sdev);
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 60d1db6a9193..58f966ab2e81 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -3501,6 +3501,9 @@ static int sof_route_load(struct snd_soc_component *scomp, int index,
- 		sroute->route = route;
- 		dobj->private = sroute;
- 		sroute->private = connect;
-+		sroute->src_widget = source_swidget;
-+		sroute->sink_widget = sink_swidget;
-+		sroute->setup = true;
+-	/* restore pipeline kcontrols */
+-	ret = sof_restore_kcontrols(dev);
+-	if (ret < 0)
+-		dev_err(dev,
+-			"error: restoring kcontrols after resume\n");
+-
+-	return ret;
++	return 0;
+ }
  
- 		/* add route to route list */
- 		list_add(&sroute->list, &sdev->route_list);
+ /* This function doesn't free widgets. It only resets the set up status for all routes */
 -- 
 2.27.0
 

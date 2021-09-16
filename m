@@ -2,98 +2,143 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E08E140D311
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 08:14:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF9B940D3F3
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 09:39:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 27B2E179E;
-	Thu, 16 Sep 2021 08:13:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27B2E179E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0FE9517A3;
+	Thu, 16 Sep 2021 09:38:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FE9517A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631772882;
-	bh=3mKQb79BAjNpga43BqLBfgqsTx/o0Vwr+DxK85XHOVQ=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=AOjZKo+eml24QVw2XKGMcfmsLdKuuIHnWPLGQ5yXpyaxejXX8OyDdESaAZcvz2F+r
-	 2+yQvITIlCWJb0jK4ti/EVjg0zFwa0+E0UoBmHw0Bbi1QRBaQczO6kS9BdVrG/JAIr
-	 c92RFYU+VvdF0Y0PA/CfDgoVs/LFLlqkvcozvWkc=
+	s=default; t=1631777954;
+	bh=xH9KlMOGL3Z0J03t21xk+esxjyGX5GusOGRJxXMKVm0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=X+d1uS5gdCvWFxldPhdbQFaVE8amIclLk15xlxQtzS9Gb9n5BTvRp9RuWS0em49L2
+	 V8LmYKet7syBOP6yo2DG/lQSgU3iXiIWmCAED0b7WnPV+GsM+olIH0n1O1sp4dyggF
+	 mH741RYA+V5xKIe4V/oicXDm7oGcPJGkumTOR9Is=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71349F800D3;
-	Thu, 16 Sep 2021 08:13:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E256F80271;
+	Thu, 16 Sep 2021 09:37:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94AF4F8025E; Thu, 16 Sep 2021 08:13:23 +0200 (CEST)
+ id 74CE1F8025E; Thu, 16 Sep 2021 09:37:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
- [IPv6:2607:f8b0:4864:20::1031])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ MSGID_FROM_MTA_HEADER, SPF_HELO_NONE, SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr140040.outbound.protection.outlook.com [40.107.14.40])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 263AFF80117
- for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 08:13:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 263AFF80117
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5B0DFF80113
+ for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 09:37:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B0DFF80113
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="UM+SG2I4"
-Received: by mail-pj1-x1031.google.com with SMTP id t20so3785730pju.5
- for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 23:13:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=HZNMA7tSuMA5GuIgtUt30cR/nYDH9U6KmyMDsA2yVKk=;
- b=UM+SG2I4ApMT5a6jYksOAFCRUkdA6ptwCn5cf6uCQsIOslU2CZmXj9eYvcIIzQFfvI
- dFYYHy8DmJD1AIF9aAAOHCHNDNmbmoBV+ZkLZza8YQB4WJ5I0D40udc7knOPt3g8XVsu
- 07KuLd5K43HtPWrbNGYvnbLtoctmvFvJ7H6YwXz8ueTChZ2akgbLMw4vVJM17FA59cse
- TBcd3nxQ96/LrZiYgpQHpaahXwg2jmyn6AFD5sIGtbiw/S4njHzP5lwu5ddzO/kVEbdS
- +iyfWKBObyM/Cgv+WNTFQhLJmTP8IAgig3RYtgaDcdbKZ7PZS/aYd7Q+jZZc0Q8eyBFz
- xipQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=HZNMA7tSuMA5GuIgtUt30cR/nYDH9U6KmyMDsA2yVKk=;
- b=ns5Tk1RVKDlxaYTG65PN5rv2goZd93h8gSLndQXRh9wAoYLgFl4Yb+7GrYY3reirEf
- JBEdK120JEy/5J8tQp3Qb2wzwltmgb59nBJ5b3xddtAiudJWp3OK/OcMna2Ls5Pj71iV
- tuF4u0f9p52GwgslrCjHvB5GX/o2CkSJ/7B9OYP5Y+NSu0JvLMq+gQbZvS1ThHkeGRDE
- 07PnRTeQvws+ZkVrhSWjvwGQRyAwVZ9WZ+P4fyAexVi9bQucstwozEL1nAr/Nm/JRRcT
- VGxFaVW9ug56tXdUnEO6qXaaRIzwwjkDfUVl9OEYp/wqYQsrT393t9YWLu2LYkVDKiPt
- 175w==
-X-Gm-Message-State: AOAM530o/tRl/PjJkOiDk6xcNoI4AZu3OCoYLVFIfE2z6uifvjbGDhXc
- 9vPeBeguNzjmkA42Xan3gsg=
-X-Google-Smtp-Source: ABdhPJxniqEzHW0Hj/qTNRFp/EmbLDkt0LRt8Z9manXvEI1SfEFwKhvvcsI94UXRUp25JRTIHlB+ew==
-X-Received: by 2002:a17:90b:4b0f:: with SMTP id
- lx15mr4123499pjb.126.1631772796058; 
- Wed, 15 Sep 2021 23:13:16 -0700 (PDT)
-Received: from ?IPv6:2001:b400:e3df:8666:8c4:83c8:7e76:8fe1?
- (2001-b400-e3df-8666-08c4-83c8-7e76-8fe1.emome-ip6.hinet.net.
- [2001:b400:e3df:8666:8c4:83c8:7e76:8fe1])
- by smtp.gmail.com with ESMTPSA id k127sm1771943pfd.1.2021.09.15.23.13.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Sep 2021 23:13:15 -0700 (PDT)
-Subject: Re: [PATCH] ASoC: nau8821: Add driver for Nuvoton codec NAU88L21
-To: Mark Brown <broonie@kernel.org>, Seven Lee <wtli@nuvoton.com>
-References: <20210824041647.1732378-1-wtli@nuvoton.com>
- <YSfMWOwwV30vdMy5@sirena.org.uk>
-From: Seven Lee <scott6986@gmail.com>
-Message-ID: <55b88b67-5585-16ac-0837-e22d56fc75f0@gmail.com>
-Date: Thu, 16 Sep 2021 14:13:11 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-MIME-Version: 1.0
-In-Reply-To: <YSfMWOwwV30vdMy5@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ dkim=pass (1024-bit key) header.d=NXP1.onmicrosoft.com
+ header.i=@NXP1.onmicrosoft.com header.b="lHdnC6zF"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=E13SGsKYid0PJa7/nYzx2FpeoS+aYBj/LpQ0AIJ7WQ7CIOlLx30Erzy0JwSifNQ1CquJoeXWXjBiB5a1btkjn9npuGYChSVisygmPoGbTN6pQJxNG0uOAB3+IrbnYtj0tw3GMsOf224b62rxezqey83b085bWjVUelt1EmBP2DdDT44DvdKIFsqyo8mvg+bbwDKKZ5JsMTPu8CYVIxeubi9//hm9eYRSeG21mbcju2Erb49/kxL6it+XCpmkaDKeSk/5BetYaeWq0pjPt44Zv+QjYUV6olpcum/WhmGaM9lI3c5TmtTdfn8SIrHrkpFHEDJFcK+ywMMke4QOxEfO1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=aqCx/CQplLdxK9NZIp3faYRxPhfy4lPnJvblxwalcuM=;
+ b=cK6nuA8AWhTJHXKLng2U7i2I1gpTML92fI0aM7tEwdnNKQsapx4rizOza8XD2BhtQND4t8yRrQeHxmXYF7AP/hJ0uGdkx93feWeEAz/w0GoM9Al07T4sHZg3B3z8lyfPraE9m7ojwNmoESkrXCwt/YefLdo0+O4xtz3N8WfiuwQ/e6BZKsGT2wtGyx1K2fNroWUPDChIF0Ztyo8JiAFP1RHD0Wf9bzgX+FmeHFb5iH6Um1XvCD3rLtmVicB5y/cETZUbawqr7g9foEStRHojd2CECXjO2A/dQSAIKl642vn7q785fM9Xm79/g7N+iTgv90R1N4yK1qNtIwDuHjHEoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector2-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aqCx/CQplLdxK9NZIp3faYRxPhfy4lPnJvblxwalcuM=;
+ b=lHdnC6zFzv8gqtrU/kr4EPZggIHzUwSx7WqQrvmbSCr2mXNttasti7aVi/zzPtGpZNJ4CAO0mqpZfkMdd+7O6DJl4o0mSxtyKy4gDqFbL5Xt+5tZFICSHyZa2kgApKcnRfo6FNxRCrN/5A3i7iXBwObBnEwZFehD95CtBCpnfRM=
+Authentication-Results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=oss.nxp.com;
+Received: from VI1PR04MB5151.eurprd04.prod.outlook.com (2603:10a6:803:61::28)
+ by VI1PR04MB6877.eurprd04.prod.outlook.com (2603:10a6:803:131::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14; Thu, 16 Sep
+ 2021 07:37:44 +0000
+Received: from VI1PR04MB5151.eurprd04.prod.outlook.com
+ ([fe80::499b:ba92:db2e:3f28]) by VI1PR04MB5151.eurprd04.prod.outlook.com
+ ([fe80::499b:ba92:db2e:3f28%7]) with mapi id 15.20.4500.020; Thu, 16 Sep 2021
+ 07:37:44 +0000
+From: Daniel Baluta <daniel.baluta@oss.nxp.com>
+To: broonie@kernel.org
+Subject: [PATCH] ASoC: SOF: imx8m: add SAI1 info
+Date: Thu, 16 Sep 2021 10:37:25 +0300
+Message-Id: <20210916073725.359561-1-daniel.baluta@oss.nxp.com>
+X-Mailer: git-send-email 2.27.0
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, KCHSU0@nuvoton.com, lgirdwood@gmail.com,
- YHCHuang@nuvoton.com, CTLIN0@nuvoton.com, dardar923@gmail.com,
- supercraig0719@gmail.com
+Content-Type: text/plain
+X-ClientProxiedBy: AM0PR08CA0003.eurprd08.prod.outlook.com
+ (2603:10a6:208:d2::16) To VI1PR04MB5151.eurprd04.prod.outlook.com
+ (2603:10a6:803:61::28)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain (2a02:2f08:5708:8600:b29c:ccfa:a961:8ebd)
+ by AM0PR08CA0003.eurprd08.prod.outlook.com (2603:10a6:208:d2::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.14 via Frontend
+ Transport; Thu, 16 Sep 2021 07:37:43 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 1027b513-d443-4613-9f8d-08d978e4df2b
+X-MS-TrafficTypeDiagnostic: VI1PR04MB6877:
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <VI1PR04MB687730C93459E2FA8EF9C5F9B8DC9@VI1PR04MB6877.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:361;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 3eIDva90g+WHceQ5XDsAeyHzLIXKFh514HhN+LYlk5nbiK3/kbR1htBZDLR+4kRzpxE2JpIZtgNMKk4uOWFCW+bOAqfrRRSGkwc2JQuyfYbRBp6amlz9iSEnS6M4uPKlKsDDxdZy51/BNbgk8Wixsq2TErEK38ONnrFSD7Gqkk6lNcZghtmoHpAH/K8h91Szc/7uzLvL9qcSfJr0iGtXw2hxyJVjpcyZDseNylARBg+qHu8JS7peamWQpnxS+v9nmQFejKW2qjGKp2Mw5Lj3qImeewNolPobdeWoxEUkd4NFKpdATwhZSZGcxbGkO9s82ys3qLILE0NJbqJEs+fBUGTZTQ10DWRnvsuF4Vdf3OiOy8Q9ZNLg26H6Ibcdolz63grRb9YdjcyH9TxEQMvdcvTtnN3PXhHM/y0xaRopMbeAzECtbfiLHhycyv7+AYoShHj4Aa0eX8kMA+XBwEUcZj0oMmJqBZj9F6skuwk4VKpYMX/N9ED7eR8P0A+IsRITLoCrmNBs0gZsG21KR1z/ya4bRiNDJSF6KWtPE/KIscn+b0h7N0lM86YExbM0ELtvSWiCmVh8dgB0ndenfdJiS7Pc1nZLIx5wxeVl7Py5dS48hZW+53myNcESFuX+YeVcPjXXU4d86J5bJhn211mYUwetwQ+l3bu1XInXRRYvWJShtuLupsTGrw1XDtOSpVQnvAaJw2QOxilVqDnGNPHrOQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR04MB5151.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(376002)(346002)(366004)(136003)(396003)(478600001)(4744005)(6916009)(4326008)(2906002)(1076003)(316002)(54906003)(6506007)(44832011)(2616005)(66556008)(186003)(6486002)(66476007)(38100700002)(66946007)(86362001)(6512007)(6666004)(5660300002)(8936002)(8676002)(52116002)(32563001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?UtR5ygJfM6qfAFGl3VPV7LqAGpPA6GMR47sLP54lbxrpg6EvrPZxnhknld6Y?=
+ =?us-ascii?Q?eqZU4BTfiWnUqme5HEiSjdZdRYRdUuS7ISe1BPfO54l2zQEq1EX85tpr+o0K?=
+ =?us-ascii?Q?QTDbHR1gab/6aPjvUnMqWwf4rizXHJGXlipb1w86MEnz4iepm2KASKpp69ib?=
+ =?us-ascii?Q?pCrStxvOpBDPMOONhmAOq0/QF3eKOYVRr+bp3a7CXrYveygDV7tVafbr9Gnh?=
+ =?us-ascii?Q?d2lHEVplzqL+jZAhvBnXxJGg1Us8N2UujkE4egHAFl3hP0rz4n9dMZ867Jhf?=
+ =?us-ascii?Q?k/55+byLzzgSkedKZawzoHWoacrum5V942RD6eKr3HnKLLHM02aHDVIXLpZc?=
+ =?us-ascii?Q?l9is8FqoVgHSEjbxCTTSKe1rUCkWpjRIsmi8TZFgfhWbgF9G5vg+JBb3Dxov?=
+ =?us-ascii?Q?qXTsLM8u2Yqk0ww2gsVS2PK7mGLmBe8knVaOF6JgX36TwXJraU8nHZWItbpO?=
+ =?us-ascii?Q?tOVqrjrMgXcatc0Yr2PMkAEukgGr/q033BjSJWZP4KMz731j2W6gWce23jzk?=
+ =?us-ascii?Q?0Zh2L0o2yPQAvC9CuVnAVTGSTstvf8JrhUHzDhkpUMCH7NPmB0KFk5HggV41?=
+ =?us-ascii?Q?yaoakj6man+SaApqNeu/qA/QpKcvIKUAWPtIeL0XZY3aYyQwzdAecDGEIUS7?=
+ =?us-ascii?Q?i6EEqZE3Wx775MCtiyoIctrzRv8uICedI4bzlqPqVvQGXbb4UHbLCz37szWv?=
+ =?us-ascii?Q?7VAGTev2ztRMtZ58jRYQv2tRJFBeJJ6/voN8q9CLjM+CwJUMQajFA0W8ny8L?=
+ =?us-ascii?Q?3oSGMfdrWTzhLniEkOwYaQmwgDp85deqeL0uCucLx+rVGeuKEeBJjGjqN0RL?=
+ =?us-ascii?Q?G9KSEfBbvNx0TyesQ/hEDbF706QVhdzTO2nWx4SQYMkz6vMwjsdxCi3QzP/0?=
+ =?us-ascii?Q?cMD4DxMbIXHlodbBO8CGIngR3GRNbjJMcJu+zkEOl96Pkv0aYzs2aNIiV+TP?=
+ =?us-ascii?Q?WCNb9A0TJD3xysH2smczrt3/OZnuT3zBM+AwgaqB7EZ8GOc/eYrLkrlGnEEm?=
+ =?us-ascii?Q?cdGAQy72d2jxpdKE3KjX9T2n+3YT7r0yYMxBGuF4KL0vuuTYVmIBlE57+IwE?=
+ =?us-ascii?Q?wgkIalvU7ox0dZEk9zu0k43rTD5u77ftxbDobywT4ByKJg4v80iHjjZB7fHD?=
+ =?us-ascii?Q?SajZJnncz4opX+ZexOR8/VFsxVUQQ39GiTAgg9ezqfIYxMPaTzoAioi2lNtY?=
+ =?us-ascii?Q?QwKLDO1r3HbgKaIysfUMyywlDtFlr+ndHCsOevB41Jx1hMkxeGjz0ZvCjFRg?=
+ =?us-ascii?Q?/ESR91wR+gHUJTfBDBzn5+vH800s4hk8XhOXR/aVqNTcj56neuBQlEL8Bu5q?=
+ =?us-ascii?Q?GrebFXcoATAPt/2/I0tuOVPd8VixupTzdDzgTRH3q+NIPaTDWfgDZ5ozARPM?=
+ =?us-ascii?Q?/LnmtsqaWdpvU9Wh+6a+HzaORdGF?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1027b513-d443-4613-9f8d-08d978e4df2b
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5151.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2021 07:37:44.3839 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ah2fsRCVc2o0h4aukimCvPObwjsNPNuGDbiMhNzaxZiHXmexDgsj3hrL6DLRzpQN4nUwFH0K1+BBfcjeBU3EhA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6877
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ kai.vehmanen@linux.intel.com, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
+ Viorel Suman <viorel.suman@nxp.com>, Paul Olaru <paul.olaru@oss.nxp.com>,
+ daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,62 +154,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Viorel Suman <viorel.suman@nxp.com>
 
-On 2021/8/27 上午 01:16, Mark Brown wrote:
-> On Tue, Aug 24, 2021 at 12:16:47PM +0800, Seven Lee wrote:
->
->> @@ -0,0 +1,1804 @@
->> +// SPDX-License-Identifier: GPL-2.0-only
->> +/*
->> + * nau8821.c -- Nuvoton NAU88L21 audio codec driver
->> + *
-> Please make the entire comment a C++ one so things look more
-> intentional.
+Add SAI1 instance to imx8m_dai array.
 
-Okay, I will fix this comment for look more international.
+Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
+Reviewed-by: Paul Olaru <paul.olaru@oss.nxp.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+---
+ sound/soc/sof/imx/imx8m.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
->
->> +/**
->> + * nau8821_sema_acquire - acquire the semaphore of nau8821
->> + * @nau8821:  component to register the codec private data with
->> + * @timeout: how long in jiffies to wait before failure or zero to wait
->> + * until release
->> + *
->> + * Attempts to acquire the semaphore with number of jiffies. If no more
->> + * tasks are allowed to acquire the semaphore, calling this function will
->> + * put the task to sleep. If the semaphore is not released within the
->> + * specified number of jiffies, this function returns.
->> + * If the semaphore is not released within the specified number of jiffies,
->> + * this function returns -ETIME. If the sleep is interrupted by a signal,
->> + * this function will return -EINTR. It returns 0 if the semaphore was
->> + * acquired successfully.
->> + *
->> + * Acquires the semaphore without jiffies. Try to acquire the semaphore
->> + * atomically. Returns 0 if the semaphore has been acquired successfully
->> + * or 1 if it cannot be acquired.
->> + */
-> As I said in reply to Pierre's mail and as I have said on
-> previous verisons of this patch can you please explain what is
-> going on with the semaphore - why it's being used, how it's
-> supposed to work and so on.  The above comment just documents
-> what a semaphore is which isn't the compliated or unusual part
-> here, what's complicated and unusual is the fact that there's a
-> semaphore in use at all.
->
-> As I have also suggested in reply to previous versions of this
-> patch I strongly recommend splitting the semaphore related
-> functionality out into separate patches so that it doesn't block
-> the rest of the driver.
->
-> Please don't ignore review comments, people are generally making them
-> for a reason and are likely to have the same concerns if issues remain
-> unaddressed.  Having to repeat the same comments can get repetitive and
-> make people question the value of time spent reviewing.  If you disagree
-> with the review comments that's fine but you need to reply and discuss
-> your concerns so that the reviewer can understand your decisions.
-
-we have deleted the semaphore and actual measurement. We plan to
-remove the semaphore after estimation and discussion. We estimate that the
-operation time of jack detection is less 100ms so that the risk is much 
-smaller.
+diff --git a/sound/soc/sof/imx/imx8m.c b/sound/soc/sof/imx/imx8m.c
+index b9f8a9e8cc3a..6dad87ed0bc8 100644
+--- a/sound/soc/sof/imx/imx8m.c
++++ b/sound/soc/sof/imx/imx8m.c
+@@ -253,6 +253,17 @@ static int imx8m_ipc_pcm_params(struct snd_sof_dev *sdev,
+ }
+ 
+ static struct snd_soc_dai_driver imx8m_dai[] = {
++{
++	.name = "sai1",
++	.playback = {
++		.channels_min = 1,
++		.channels_max = 32,
++	},
++	.capture = {
++		.channels_min = 1,
++		.channels_max = 32,
++	},
++},
+ {
+ 	.name = "sai3",
+ 	.playback = {
+-- 
+2.27.0
 

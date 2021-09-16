@@ -2,91 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23C7340CD35
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Sep 2021 21:28:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E08E140D311
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 08:14:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B9FFA17EE;
-	Wed, 15 Sep 2021 21:27:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9FFA17EE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 27B2E179E;
+	Thu, 16 Sep 2021 08:13:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27B2E179E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631734101;
-	bh=/hh/qBOXXmlcSuUzBq1gnMEj7F7DXuAqTXQJyZuXbKo=;
-	h=In-Reply-To:References:From:Date:Subject:To:List-Id:
+	s=default; t=1631772882;
+	bh=3mKQb79BAjNpga43BqLBfgqsTx/o0Vwr+DxK85XHOVQ=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=e5D2nmdGftt6ejdrwedWH9q7q9c+enP4m7cnGl+OrIuat5sGtxO0AGylKCjamLhfp
-	 15bFh0iJj4JqBt9NW8Dgy5hAYbSNsydHx4WsQCoAg5F07XzNCCoIyKUIvJlC0+KBAg
-	 LYPYpURvFujxuN+B8B7EgH4MCE1CmOKysTmiqTVg=
+	b=AOjZKo+eml24QVw2XKGMcfmsLdKuuIHnWPLGQ5yXpyaxejXX8OyDdESaAZcvz2F+r
+	 2+yQvITIlCWJb0jK4ti/EVjg0zFwa0+E0UoBmHw0Bbi1QRBaQczO6kS9BdVrG/JAIr
+	 c92RFYU+VvdF0Y0PA/CfDgoVs/LFLlqkvcozvWkc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 326F6F80117;
-	Wed, 15 Sep 2021 21:27:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71349F800D3;
+	Thu, 16 Sep 2021 08:13:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 325ADF80132; Wed, 15 Sep 2021 21:27:03 +0200 (CEST)
+ id 94AF4F8025E; Thu, 16 Sep 2021 08:13:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled
- version=3.4.0
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [IPv6:2607:f8b0:4864:20::235])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
+ [IPv6:2607:f8b0:4864:20::1031])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 84E07F80132
- for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 21:26:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84E07F80132
+ by alsa1.perex.cz (Postfix) with ESMTPS id 263AFF80117
+ for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 08:13:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 263AFF80117
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="AvsLqD+I"
-Received: by mail-oi1-x235.google.com with SMTP id p2so5676088oif.1
- for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 12:26:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to; bh=o/xLkGlhrSnpCqv+HEwTNRKoItyS4LasgozuRU4ni1o=;
- b=AvsLqD+ImZ3uG21Z85q9lNII8aPV/FqVgO1IUBdXtaed29+o/L4jPx8h2xxrNvZPNZ
- /AqAaoUsRfDPKhJegTmB5uaHM+phiDSUEtA9+4ewEGnBJfLTz6+DfPPN7KFy0S+kZvTH
- xt6LBjfee3cPZwN1+ScwgNDTcJbEx0PfLPLi4=
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="UM+SG2I4"
+Received: by mail-pj1-x1031.google.com with SMTP id t20so3785730pju.5
+ for <alsa-devel@alsa-project.org>; Wed, 15 Sep 2021 23:13:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=HZNMA7tSuMA5GuIgtUt30cR/nYDH9U6KmyMDsA2yVKk=;
+ b=UM+SG2I4ApMT5a6jYksOAFCRUkdA6ptwCn5cf6uCQsIOslU2CZmXj9eYvcIIzQFfvI
+ dFYYHy8DmJD1AIF9aAAOHCHNDNmbmoBV+ZkLZza8YQB4WJ5I0D40udc7knOPt3g8XVsu
+ 07KuLd5K43HtPWrbNGYvnbLtoctmvFvJ7H6YwXz8ueTChZ2akgbLMw4vVJM17FA59cse
+ TBcd3nxQ96/LrZiYgpQHpaahXwg2jmyn6AFD5sIGtbiw/S4njHzP5lwu5ddzO/kVEbdS
+ +iyfWKBObyM/Cgv+WNTFQhLJmTP8IAgig3RYtgaDcdbKZ7PZS/aYd7Q+jZZc0Q8eyBFz
+ xipQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to;
- bh=o/xLkGlhrSnpCqv+HEwTNRKoItyS4LasgozuRU4ni1o=;
- b=bPFa2ZaXisr4RmhcaMKusx9nrbPmfKxHlThFGKnKM2N++Usf+avJ/+zDV5ZfeRWMoe
- md5+illomVo66IsV4kvw3xOuRW7J0532mqHtH9sALT35+Ox9JPYw64oleuK9SgSlv90d
- MJCejptLjlfb/3K3EPQgIrFCqiR9X2u+EG8zK7bE6QxFb5q3uLdysKVMiuiod/8v9m6v
- iurZ1+XmYfEF9K8iiBL514OPRudkvnvR2/0mPdlmDN9XOERA/ZU8QwqIFrlpLBQDmm0K
- 8rf7CyHOIA+HQX11dFd72GtRqPAu6/OmWHlIclcEP4TNudvqbKaW4TT0yCE/D+zgLSND
- qazw==
-X-Gm-Message-State: AOAM53030TzvVBsXvhsOx35sADvvKu3m4l7qa0MJOM2zRrBmQfjbnZzW
- HeI4HPVlknLpz4doSpB+dqJM0dGYxO1WKt/aoJj/3Q==
-X-Google-Smtp-Source: ABdhPJwFkrl8F6Ej21HTUvXwucYyETWWwd0o6RXQlIIKy4y8Ocqoi0zQx97NR+cpDDHoED2PMDRevSzOS/rZyXj3qnQ=
-X-Received: by 2002:aca:2310:: with SMTP id e16mr1006542oie.64.1631734016098; 
- Wed, 15 Sep 2021 12:26:56 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 15 Sep 2021 12:26:55 -0700
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=HZNMA7tSuMA5GuIgtUt30cR/nYDH9U6KmyMDsA2yVKk=;
+ b=ns5Tk1RVKDlxaYTG65PN5rv2goZd93h8gSLndQXRh9wAoYLgFl4Yb+7GrYY3reirEf
+ JBEdK120JEy/5J8tQp3Qb2wzwltmgb59nBJ5b3xddtAiudJWp3OK/OcMna2Ls5Pj71iV
+ tuF4u0f9p52GwgslrCjHvB5GX/o2CkSJ/7B9OYP5Y+NSu0JvLMq+gQbZvS1ThHkeGRDE
+ 07PnRTeQvws+ZkVrhSWjvwGQRyAwVZ9WZ+P4fyAexVi9bQucstwozEL1nAr/Nm/JRRcT
+ VGxFaVW9ug56tXdUnEO6qXaaRIzwwjkDfUVl9OEYp/wqYQsrT393t9YWLu2LYkVDKiPt
+ 175w==
+X-Gm-Message-State: AOAM530o/tRl/PjJkOiDk6xcNoI4AZu3OCoYLVFIfE2z6uifvjbGDhXc
+ 9vPeBeguNzjmkA42Xan3gsg=
+X-Google-Smtp-Source: ABdhPJxniqEzHW0Hj/qTNRFp/EmbLDkt0LRt8Z9manXvEI1SfEFwKhvvcsI94UXRUp25JRTIHlB+ew==
+X-Received: by 2002:a17:90b:4b0f:: with SMTP id
+ lx15mr4123499pjb.126.1631772796058; 
+ Wed, 15 Sep 2021 23:13:16 -0700 (PDT)
+Received: from ?IPv6:2001:b400:e3df:8666:8c4:83c8:7e76:8fe1?
+ (2001-b400-e3df-8666-08c4-83c8-7e76-8fe1.emome-ip6.hinet.net.
+ [2001:b400:e3df:8666:8c4:83c8:7e76:8fe1])
+ by smtp.gmail.com with ESMTPSA id k127sm1771943pfd.1.2021.09.15.23.13.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Sep 2021 23:13:15 -0700 (PDT)
+Subject: Re: [PATCH] ASoC: nau8821: Add driver for Nuvoton codec NAU88L21
+To: Mark Brown <broonie@kernel.org>, Seven Lee <wtli@nuvoton.com>
+References: <20210824041647.1732378-1-wtli@nuvoton.com>
+ <YSfMWOwwV30vdMy5@sirena.org.uk>
+From: Seven Lee <scott6986@gmail.com>
+Message-ID: <55b88b67-5585-16ac-0837-e22d56fc75f0@gmail.com>
+Date: Thu, 16 Sep 2021 14:13:11 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <e1e84488-2af5-2272-010a-474788a498a3@codeaurora.org>
-References: <1631539062-28577-1-git-send-email-srivasam@codeaurora.org>
- <1631539062-28577-2-git-send-email-srivasam@codeaurora.org>
- <CAE-0n50=ABP+fs1U3JjiqMSKphfxFsZBqQQYwVH2o_iOE1Wu_g@mail.gmail.com>
- <e1e84488-2af5-2272-010a-474788a498a3@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Wed, 15 Sep 2021 12:26:55 -0700
-Message-ID: <CAE-0n50wVDvL+f19abt9o9d0GvuAD+AanCwHozoyGfEFWKWz_g@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] ASoC: google: dt-bindings: Add sc7280-herobrine
- machine bindings
-To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, agross@kernel.org,
- alsa-devel@alsa-project.org, 
- bgoswami@codeaurora.org, bjorn.andersson@linaro.org, broonie@kernel.org, 
- devicetree@vger.kernel.org, judyhsiao@chromium.org, lgirdwood@gmail.com, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, perex@perex.cz, 
- plai@codeaurora.org, robh+dt@kernel.org, rohitkr@codeaurora.org, 
- srinivas.kandagatla@linaro.org, tiwai@suse.com
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <YSfMWOwwV30vdMy5@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, KCHSU0@nuvoton.com, lgirdwood@gmail.com,
+ YHCHuang@nuvoton.com, CTLIN0@nuvoton.com, dardar923@gmail.com,
+ supercraig0719@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,44 +109,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Quoting Srinivasa Rao Mandadapu (2021-09-15 04:15:43)
->
-> On 9/14/2021 1:21 AM, Stephen Boyd wrote:
-> > Quoting Srinivasa Rao Mandadapu (2021-09-13 06:17:41)
-> >> diff --git a/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml b/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
-> >> new file mode 100644
-> >> index 0000000..e0d705f
-> >> --- /dev/null
-> >> +++ b/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
-> >> +patternProperties:
-> >> +  "^dai-link@[0-9a-f]$":
-> >> +    description:
-> >> +      Each subnode represents a dai link. Subnodes of each dai links would be
-> >> +      cpu/codec dais.
-> >> +
-> >> +    type: object
-> >> +
-> >> +    properties:
-> >> +      link-name:
-> >> +        description: Indicates dai-link name and PCM stream name.
-> >> +        $ref: /schemas/types.yaml#/definitions/string
-> >> +        maxItems: 1
-> >> +
-> >> +      reg:
-> >> +        maxItems: 1
-> >> +        description: dai link address.
-> >> +
-> >> +      cpu:
-> >> +        description: Holds subnode which indicates cpu dai.
-> >> +        type: object
-> >> +        properties:
-> >> +          sound-dai: true
-> > Shouldn't sound-dai be required?
-> Sorry. I didn't get your Query. You mean in below "required:" properties
-> need to add sound-dai also?
 
-I'd expect there to be a required: list for the 'cpu' and 'codec'
-objects that says sound-dai, unless that is implicit somehow. I'm
-definitely not an expert in the DT yaml, but I suspect two more
-'required:' sections are needed so that 'sound-dai' isn't an optional
-property.
+On 2021/8/27 上午 01:16, Mark Brown wrote:
+> On Tue, Aug 24, 2021 at 12:16:47PM +0800, Seven Lee wrote:
+>
+>> @@ -0,0 +1,1804 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +/*
+>> + * nau8821.c -- Nuvoton NAU88L21 audio codec driver
+>> + *
+> Please make the entire comment a C++ one so things look more
+> intentional.
+
+Okay, I will fix this comment for look more international.
+
+>
+>> +/**
+>> + * nau8821_sema_acquire - acquire the semaphore of nau8821
+>> + * @nau8821:  component to register the codec private data with
+>> + * @timeout: how long in jiffies to wait before failure or zero to wait
+>> + * until release
+>> + *
+>> + * Attempts to acquire the semaphore with number of jiffies. If no more
+>> + * tasks are allowed to acquire the semaphore, calling this function will
+>> + * put the task to sleep. If the semaphore is not released within the
+>> + * specified number of jiffies, this function returns.
+>> + * If the semaphore is not released within the specified number of jiffies,
+>> + * this function returns -ETIME. If the sleep is interrupted by a signal,
+>> + * this function will return -EINTR. It returns 0 if the semaphore was
+>> + * acquired successfully.
+>> + *
+>> + * Acquires the semaphore without jiffies. Try to acquire the semaphore
+>> + * atomically. Returns 0 if the semaphore has been acquired successfully
+>> + * or 1 if it cannot be acquired.
+>> + */
+> As I said in reply to Pierre's mail and as I have said on
+> previous verisons of this patch can you please explain what is
+> going on with the semaphore - why it's being used, how it's
+> supposed to work and so on.  The above comment just documents
+> what a semaphore is which isn't the compliated or unusual part
+> here, what's complicated and unusual is the fact that there's a
+> semaphore in use at all.
+>
+> As I have also suggested in reply to previous versions of this
+> patch I strongly recommend splitting the semaphore related
+> functionality out into separate patches so that it doesn't block
+> the rest of the driver.
+>
+> Please don't ignore review comments, people are generally making them
+> for a reason and are likely to have the same concerns if issues remain
+> unaddressed.  Having to repeat the same comments can get repetitive and
+> make people question the value of time spent reviewing.  If you disagree
+> with the review comments that's fine but you need to reply and discuss
+> your concerns so that the reviewer can understand your decisions.
+
+we have deleted the semaphore and actual measurement. We plan to
+remove the semaphore after estimation and discussion. We estimate that the
+operation time of jack detection is less 100ms so that the risk is much 
+smaller.
+

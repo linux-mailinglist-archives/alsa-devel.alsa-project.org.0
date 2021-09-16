@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD14B40DDCD
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 17:18:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A9D940DDC8
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 17:17:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9645518B4;
-	Thu, 16 Sep 2021 17:17:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9645518B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 96DEF1890;
+	Thu, 16 Sep 2021 17:17:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96DEF1890
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631805487;
-	bh=4QLwaC785TfYOOli3D95AGvqg+miqEkr3Vod9miFKCg=;
+	s=default; t=1631805477;
+	bh=J+t7al1PC9YD0NGDY9k6SXHphn/KGCEQ2mYwq/v1CZ4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cBz+N2QlvzWiZAtkuUjPr/ZUC7AGNi8+PkKxsXAs1uK1JTeaDv02FWyEeo4etWv8k
-	 QpVLXu+3nJINK/cNOaES38QAA+fp6tqwPJEEqhkGgGBqqlCKt4BepjuhaMmZjxAakT
-	 QjltMRs09wVvCQCLlBzbx1uI9Dbrv/hpdWrxyUyY=
+	b=pgSjS+or9t33fmn3YKLfnZE8oXMc8arB+tEY/ouzJcQMPRvBtZnfVuKneCPnrD9Fm
+	 kHZKJ8PC+/1BHaz4/oaFWQH41uB9f2FcKeUkIY5Hlthx8NFoJZMcRZBMMJHOcQN16f
+	 4wZ1Aiw7lqkESK4l/K4VmIUK/UkXSIaLGfqd933I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43C61F804EB;
-	Thu, 16 Sep 2021 17:15:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 751C2F804E5;
+	Thu, 16 Sep 2021 17:15:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5E333F804E6; Thu, 16 Sep 2021 17:15:37 +0200 (CEST)
+ id 49EBAF804E3; Thu, 16 Sep 2021 17:15:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A18DFF804B0
- for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 17:15:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A18DFF804B0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4E9C4F8032B
+ for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 17:15:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E9C4F8032B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="R2I6djcB"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0166261248;
- Thu, 16 Sep 2021 15:15:27 +0000 (UTC)
+ header.b="NuiHnnpt"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8DB466112E;
+ Thu, 16 Sep 2021 15:15:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631805328;
- bh=4QLwaC785TfYOOli3D95AGvqg+miqEkr3Vod9miFKCg=;
+ s=k20201202; t=1631805331;
+ bh=J+t7al1PC9YD0NGDY9k6SXHphn/KGCEQ2mYwq/v1CZ4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=R2I6djcBlWxTjQGzUV6lQX/5Xa9OefD1WHbvn/RXeYIZD6rt9CbM37Fj4z7BB7or1
- Lp9cWSB/Of4VRxAd4+btG9w9krGqIHxw6jV1ohYbg6DkVp98hAGIBadGCWT/5H9NRI
- 4u4u7d/dZF9uKY4kcbGHt/4L9gaMHWc3hQ5wQKBoVz2kVawL6teMTfX0JDa2XIUSSi
- SadXQV4I0Uh4Tf4N7FDpI0NcIhHnxyaCaw6PV2KCVNlAmCSOiU96P549zJ3OUMmtD/
- BhX61WyQUHgb8RGlyAux8Hkgf09rkYICxpBpHI6Nr0BD9kw4lDWbpMiwxz5pvseHZa
- dAQfUi40rTTGA==
+ b=NuiHnnptIL2hlOfDg4Np0aDW8q3FdOjlvWuPRYcOMc3MTuS1Q39w8JXtyKxB8LKai
+ xKXEba/9RLv7KEkhmjYukCNcmObot3qgg++sNBlOjV0/pJUTG6Z6UooZfQmruGpnGa
+ uH9KA+c3kyZiZ/G5NQmrVGzkmWKty2MPnqjClF5sSJoA4rGCmRRESdYbgJOIgyY6Pz
+ 0LJyWNFJdkkV6wb0jXxsQqDkHa00lCVcPaFomv9OZlO2BZfj/Cn7s8AbzgiwSE7x/B
+ Qy/+Mvn06p16cVokpZGFqCQcweH/bR7AOa1C8iv4ywG1N6vNRXQZVfqOQLL0+olC16
+ srxglsgcu7TUw==
 From: Mark Brown <broonie@kernel.org>
-To: pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: loader: Re-phrase the missing firmware error
- to avoid duplication
-Date: Thu, 16 Sep 2021 16:14:32 +0100
-Message-Id: <163180495856.19842.10376911229287728676.b4-ty@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH] misc: cs35l41: Remove unused pdn variable
+Date: Thu, 16 Sep 2021 16:14:33 +0100
+Message-Id: <163180495857.19842.15191192255466556936.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210916085342.29993-1-peter.ujfalusi@linux.intel.com>
-References: <20210916085342.29993-1-peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20210916082346.12001-1-ckeepax@opensource.cirrus.com>
+References: <20210916082346.12001-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- daniel.baluta@nxp.com, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ lgirdwood@gmail.com, james.schulman@cirrus.com,
+ Mark Brown <broonie@kernel.org>, david.rhodes@cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,17 +80,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 16 Sep 2021 11:53:42 +0300, Peter Ujfalusi wrote:
-> In case the firmware is missing we will have the following in the kernel
-> log:
+On Thu, 16 Sep 2021 09:23:46 +0100, Charles Keepax wrote:
+> Remove pdn variable that was made redundant in an earlier patch.
 > 
-> 1 | Direct firmware load for intel/sof/sof-tgl-h.ri failed with error -2
-> 2 | error: request firmware intel/sof/sof-tgl-h.ri failed err: -2
-> 3 | you may need to download the firmware from https://github.com/thesofproject/sof-bin/
-> 4 | error: failed to load DSP firmware -2
-> 5 | error: sof_probe_work failed err: -2
 > 
-> [...]
 
 Applied to
 
@@ -100,8 +91,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: loader: Re-phrase the missing firmware error to avoid duplication
-      commit: 25766ee44ff8db4cdf8471b587dffb28b7b9d17f
+[1/1] misc: cs35l41: Remove unused pdn variable
+      commit: c6d1fa6c8f663bd49bfe7a20eccb0dc7e43db63a
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

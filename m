@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B715040DCED
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 16:36:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B067440DD05
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 16:40:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 356A11893;
-	Thu, 16 Sep 2021 16:35:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 356A11893
+	by alsa0.perex.cz (Postfix) with ESMTPS id 42CFB1890;
+	Thu, 16 Sep 2021 16:39:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42CFB1890
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631802997;
-	bh=ZLFNblNZGUk3xAUdXx0zvs4DcAzoMhDmOg/8iz8daj8=;
+	s=default; t=1631803245;
+	bh=0X3kpnizMEqpdAGwiy3i6bfLojY5A0w5gROUO13B+RE=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=F7y7EPaNzO7DklpQlEPTfgLipGq/LyV/N793q4Qdhg0gIYm767rRpVVnxoJsYoObC
-	 C11LgTMJLFRFbFg5eUWnZsn8cVcyR8SP+vbWaYQHRoXNR/K6rYiX37WQPDIM6Tqxh8
-	 EpDTD6Dd7H69aezeHTyqWh9dbDY6HToEHYrhNFtE=
+	b=FhDcHRGyfmpWLzk47/JsyY1HIY/8SxgNXy1hx15q5yTfQW0spN8GvoIVsz/xhr7ae
+	 2FybUTQLwWBJ5sPdnQbyLCZGWILiCJlhrobUGmLDfiOthu3/ZmWU/akT8+J0TzTROs
+	 c8lHGbYHpNNzGuviADH4CEQH5djNYuHFkMkfQSjU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9AC8AF80113;
-	Thu, 16 Sep 2021 16:35:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7C68F80271;
+	Thu, 16 Sep 2021 16:39:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 87F47F8025E; Thu, 16 Sep 2021 16:35:18 +0200 (CEST)
+ id 2AF54F8025E; Thu, 16 Sep 2021 16:39:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -32,48 +32,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0B73F80113
- for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 16:35:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0B73F80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D54CF80117
+ for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 16:39:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D54CF80117
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="tYnD1+TZ"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D548C6120C;
- Thu, 16 Sep 2021 14:35:07 +0000 (UTC)
+ header.b="tdwJu+qw"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BFB53611F2;
+ Thu, 16 Sep 2021 14:39:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631802908;
- bh=ZLFNblNZGUk3xAUdXx0zvs4DcAzoMhDmOg/8iz8daj8=;
+ s=k20201202; t=1631803161;
+ bh=0X3kpnizMEqpdAGwiy3i6bfLojY5A0w5gROUO13B+RE=;
  h=From:To:Cc:Subject:Date:From;
- b=tYnD1+TZo8+X0SqDU+ARGGKkk0g78LFcjqOBnjMhOuM8ntgr0zUOt/zVH1qi7S5E/
- SI++eLwiNsO3l9FWvLyyAgXJoIFUYvoSmZTrRWk+vPUEsII513JTI8mVRK0gWUjPAB
- QalZXLbq79+IDY5F1hjgBko5f6SuY/2xjfsM7koFq+cMmx23bV7LooWPx4GZOvV7ke
- jpIHOjQgIgtQ18A07DO/S9E5XCktnssdAa4Oq3kmn13lRdDBitPthnVeRXXKd9h7xq
- DhMsGAECTGS2IcW9cgLRRLVzOTVO4ZVqwcyY+Oq2I2pwaW/rcWJ93kZd4NOoZRFjbZ
- TDtKSrw/5gLFQ==
+ b=tdwJu+qwpNAAK3yUECc88nkXXaLqLKDKzPIFBc1xI1fRCe+iVP3fdDiuX5tlCuFQJ
+ nFebeMao9C2ANYT/U9U1SkiyUGoy+5GbXoAZfoR8RiKe9g7MEc8OBVaT0WP7v7iTCT
+ EdtUMUSS8bHqxATWpvbdMZTgNtDzVkBuNXf9cETtoqULhjgLr02NxZRPO9b8uZCLXI
+ CISazn+Z+eqrg7OnVrKm/dQtteq6LJ88sR7/d0Xeu1DyZmqGr1t5dNrmmypWNbUMH6
+ g/0DTKQ8MTe+xAf25rxQ6matPPfvPVuGWLqWkveLOdoXywgoR3zWEIr0bLLwnXvcFU
+ qBpbTnKxQxSYg==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
- Florian Fainelli <f.fainelli@gmail.com>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>,
- Nicolas Saenz Julienne <nsaenz@kernel.org>
-Subject: [PATCH] ASoC: bcm: Convert to modern clocking terminology
-Date: Thu, 16 Sep 2021 15:34:23 +0100
-Message-Id: <20210916143423.24025-1-broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: ep93xx: Convert to modern clocking terminology
+Date: Thu, 16 Sep 2021 15:38:28 +0100
+Message-Id: <20210916143828.36215-1-broonie@kernel.org>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5019; h=from:subject;
- bh=ZLFNblNZGUk3xAUdXx0zvs4DcAzoMhDmOg/8iz8daj8=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBhQ1VR7f/CnAZyrrH1GGrUWHHCEyS82ye41J40E//t
- H0pwJ8yJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYUNVUQAKCRAk1otyXVSH0MHvB/
- wPYTuujkNia+d3qMwz+ZCaBCynJmHkXaMlgr/j34GbjxqFoz7L8rthXSgNJbg9B8tNpUTjdeJtUSsQ
- p381UAogHIwT4W05Ks96rVet7ApaJj2MvFQ+rlwASVSdgXcRW/huzshJIoOlRliYPsBi+OTdTyhqlv
- 4ynjDacNv4KPgwhHbjhC6uTfLVT7ZD0jwGTR6Z0jG7CXt6Z8N54Imw/kQ08P7U2ehT4Z/GX2D/84w+
- ulid9IYzVwDfze74mbDmQm1Z4zCFb6qMkxGi1QDv8seWCpDLJZrGW4Ie+Y97snRlF3moeYhNR6DgZg
- HWHfiANhH/Fc9YTIjkSh3seSKKZsLL
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2116; h=from:subject;
+ bh=0X3kpnizMEqpdAGwiy3i6bfLojY5A0w5gROUO13B+RE=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBhQ1YcMvWuIRFFbL5ZA7ccCvndS0uAnDejwNEqFxv6
+ HXPDE/mJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYUNWHAAKCRAk1otyXVSH0BKkB/
+ 45E3Zf3godjmyaVcRHABUbBMVYeYaqiupUEenZFFGNZOfekqjSVkPNwpdTGHIvmdNP0hut3e7vWk6R
+ j3w6jdwmohRSdkN7+Ld6HxX46K6QflQ0LxRHVJ+nunuFThNH1aE1tL1c+EXWNwl1D9+6uHgG90NSb/
+ GNJiaAPxlhmXgx13TcFCDmADlJBe/K6IoNy6ukTx+fNQXc4rYZBA2Ut/Zeboiy7AjhP+3LYMEzAK+k
+ M/5XNdZjsz7D1oWZoh7k0ET6+0cNzO8TBs8TrVsP6b/hu0L6W25ugrWgnx4aOcZZ3+b6GqpNvD/5FS
+ 1FQETfNbs4Uy79M1lIsYq0u6lZmiN+
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- linux-rpi-kernel@lists.infradead.org
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,151 +86,65 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 As part of the effort to remove our old APIs based on outdated terminology
-update the Broadcom drivers to use modern terminology.
+update the EP93xx drivers to use modern terminology.
 
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/bcm/bcm2835-i2s.c | 56 ++++++++++++++++++-------------------
- sound/soc/bcm/cygnus-ssp.c  |  6 ++--
- 2 files changed, 31 insertions(+), 31 deletions(-)
+ sound/soc/cirrus/edb93xx.c     |  2 +-
+ sound/soc/cirrus/ep93xx-i2s.c  | 10 +++++-----
+ sound/soc/cirrus/snappercl15.c |  2 +-
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/bcm/bcm2835-i2s.c b/sound/soc/bcm/bcm2835-i2s.c
-index 3d668f449bc1..e3fc4bee8cfd 100644
---- a/sound/soc/bcm/bcm2835-i2s.c
-+++ b/sound/soc/bcm/bcm2835-i2s.c
-@@ -127,14 +127,14 @@ struct bcm2835_i2s_dev {
- 
- static void bcm2835_i2s_start_clock(struct bcm2835_i2s_dev *dev)
- {
--	unsigned int master = dev->fmt & SND_SOC_DAIFMT_MASTER_MASK;
-+	unsigned int provider = dev->fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK;
- 
- 	if (dev->clk_prepared)
- 		return;
- 
--	switch (master) {
--	case SND_SOC_DAIFMT_CBS_CFS:
--	case SND_SOC_DAIFMT_CBS_CFM:
-+	switch (provider) {
-+	case SND_SOC_DAIFMT_CBC_CFC:
-+	case SND_SOC_DAIFMT_CBC_CFP:
- 		clk_prepare_enable(dev->clk);
- 		dev->clk_prepared = true;
- 		break;
-@@ -337,8 +337,8 @@ static int bcm2835_i2s_hw_params(struct snd_pcm_substream *substream,
- 	unsigned int rx_mask, tx_mask;
- 	unsigned int rx_ch1_pos, rx_ch2_pos, tx_ch1_pos, tx_ch2_pos;
- 	unsigned int mode, format;
--	bool bit_clock_master = false;
--	bool frame_sync_master = false;
-+	bool bit_clock_provider = false;
-+	bool frame_sync_provider = false;
- 	bool frame_start_falling_edge = false;
- 	uint32_t csreg;
- 	int ret = 0;
-@@ -383,36 +383,36 @@ static int bcm2835_i2s_hw_params(struct snd_pcm_substream *substream,
- 	if (data_length > slot_width)
- 		return -EINVAL;
- 
--	/* Check if CPU is bit clock master */
--	switch (dev->fmt & SND_SOC_DAIFMT_MASTER_MASK) {
--	case SND_SOC_DAIFMT_CBS_CFS:
--	case SND_SOC_DAIFMT_CBS_CFM:
--		bit_clock_master = true;
-+	/* Check if CPU is bit clock provider */
-+	switch (dev->fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
-+	case SND_SOC_DAIFMT_CBC_CFC:
-+	case SND_SOC_DAIFMT_CBC_CFP:
-+		bit_clock_provider = true;
- 		break;
--	case SND_SOC_DAIFMT_CBM_CFS:
--	case SND_SOC_DAIFMT_CBM_CFM:
--		bit_clock_master = false;
-+	case SND_SOC_DAIFMT_CBP_CFC:
-+	case SND_SOC_DAIFMT_CBP_CFP:
-+		bit_clock_provider = false;
- 		break;
- 	default:
+diff --git a/sound/soc/cirrus/edb93xx.c b/sound/soc/cirrus/edb93xx.c
+index 7b6cdc9c8a23..385290202912 100644
+--- a/sound/soc/cirrus/edb93xx.c
++++ b/sound/soc/cirrus/edb93xx.c
+@@ -60,7 +60,7 @@ static struct snd_soc_dai_link edb93xx_dai = {
+ 	.name		= "CS4271",
+ 	.stream_name	= "CS4271 HiFi",
+ 	.dai_fmt	= SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
+-			  SND_SOC_DAIFMT_CBS_CFS,
++			  SND_SOC_DAIFMT_CBC_CFC,
+ 	.ops		= &edb93xx_ops,
+ 	SND_SOC_DAILINK_REG(hifi),
+ };
+diff --git a/sound/soc/cirrus/ep93xx-i2s.c b/sound/soc/cirrus/ep93xx-i2s.c
+index 0d26550d0df8..06c315a4d20a 100644
+--- a/sound/soc/cirrus/ep93xx-i2s.c
++++ b/sound/soc/cirrus/ep93xx-i2s.c
+@@ -245,14 +245,14 @@ static int ep93xx_i2s_set_dai_fmt(struct snd_soc_dai *cpu_dai,
  		return -EINVAL;
  	}
- 
--	/* Check if CPU is frame sync master */
--	switch (dev->fmt & SND_SOC_DAIFMT_MASTER_MASK) {
--	case SND_SOC_DAIFMT_CBS_CFS:
--	case SND_SOC_DAIFMT_CBM_CFS:
--		frame_sync_master = true;
-+	/* Check if CPU is frame sync provider */
-+	switch (dev->fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
-+	case SND_SOC_DAIFMT_CBC_CFC:
-+	case SND_SOC_DAIFMT_CBP_CFC:
-+		frame_sync_provider = true;
- 		break;
--	case SND_SOC_DAIFMT_CBS_CFM:
--	case SND_SOC_DAIFMT_CBM_CFM:
--		frame_sync_master = false;
-+	case SND_SOC_DAIFMT_CBC_CFP:
-+	case SND_SOC_DAIFMT_CBP_CFP:
-+		frame_sync_provider = false;
- 		break;
- 	default:
- 		return -EINVAL;
- 	}
- 
- 	/* Clock should only be set up here if CPU is clock master */
--	if (bit_clock_master &&
-+	if (bit_clock_provider &&
- 	    (!dev->clk_prepared || dev->clk_rate != bclk_rate)) {
- 		if (dev->clk_prepared)
- 			bcm2835_i2s_stop_clock(dev);
-@@ -501,11 +501,11 @@ static int bcm2835_i2s_hw_params(struct snd_pcm_substream *substream,
- 	/*
- 	 * Transmitting data immediately after frame start, eg
- 	 * in left-justified or DSP mode A, only works stable
--	 * if bcm2835 is the frame clock master.
-+	 * if bcm2835 is the frame clock provider.
- 	 */
--	if ((!rx_ch1_pos || !tx_ch1_pos) && !frame_sync_master)
-+	if ((!rx_ch1_pos || !tx_ch1_pos) && !frame_sync_provider)
- 		dev_warn(dev->dev,
--			"Unstable slave config detected, L/R may be swapped");
-+			"Unstable consumer config detected, L/R may be swapped");
- 
- 	/*
- 	 * Set format for both streams.
-@@ -538,11 +538,11 @@ static int bcm2835_i2s_hw_params(struct snd_pcm_substream *substream,
- 	mode |= BCM2835_I2S_FSLEN(framesync_length);
- 
- 	/* CLKM selects bcm2835 clock slave mode */
--	if (!bit_clock_master)
-+	if (!bit_clock_provider)
- 		mode |= BCM2835_I2S_CLKM;
- 
- 	/* FSM selects bcm2835 frame sync slave mode */
--	if (!frame_sync_master)
-+	if (!frame_sync_provider)
- 		mode |= BCM2835_I2S_FSM;
- 
- 	/* CLKI selects normal clocking mode, sampling on rising edge */
-diff --git a/sound/soc/bcm/cygnus-ssp.c b/sound/soc/bcm/cygnus-ssp.c
-index fca5a3f2eec5..9698f4531c90 100644
---- a/sound/soc/bcm/cygnus-ssp.c
-+++ b/sound/soc/bcm/cygnus-ssp.c
-@@ -848,12 +848,12 @@ static int cygnus_ssp_set_fmt(struct snd_soc_dai *cpu_dai, unsigned int fmt)
- 
- 	ssp_newcfg = 0;
  
 -	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
--	case SND_SOC_DAIFMT_CBM_CFM:
-+	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
-+	case SND_SOC_DAIFMT_CBP_CFP:
- 		ssp_newcfg |= BIT(I2S_OUT_CFGX_SLAVE_MODE);
- 		aio->is_slave = 1;
- 		break;
 -	case SND_SOC_DAIFMT_CBS_CFS:
+-		/* CPU is master */
++	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
 +	case SND_SOC_DAIFMT_CBC_CFC:
- 		ssp_newcfg &= ~BIT(I2S_OUT_CFGX_SLAVE_MODE);
- 		aio->is_slave = 0;
++		/* CPU is provider */
+ 		clk_cfg |= EP93XX_I2S_CLKCFG_MASTER;
  		break;
+ 
+-	case SND_SOC_DAIFMT_CBM_CFM:
+-		/* Codec is master */
++	case SND_SOC_DAIFMT_CBP_CFP:
++		/* Codec is provider */
+ 		clk_cfg &= ~EP93XX_I2S_CLKCFG_MASTER;
+ 		break;
+ 
+diff --git a/sound/soc/cirrus/snappercl15.c b/sound/soc/cirrus/snappercl15.c
+index c4b112921661..a286f5beeaeb 100644
+--- a/sound/soc/cirrus/snappercl15.c
++++ b/sound/soc/cirrus/snappercl15.c
+@@ -70,7 +70,7 @@ static struct snd_soc_dai_link snappercl15_dai = {
+ 	.name		= "tlv320aic23",
+ 	.stream_name	= "AIC23",
+ 	.dai_fmt	= SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
+-			  SND_SOC_DAIFMT_CBS_CFS,
++			  SND_SOC_DAIFMT_CBC_CFC,
+ 	.ops		= &snappercl15_ops,
+ 	SND_SOC_DAILINK_REG(aic23),
+ };
 -- 
 2.20.1
 

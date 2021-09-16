@@ -2,70 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBF1F40E1BF
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 19:05:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 948F340EB47
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 22:04:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 278471890;
-	Thu, 16 Sep 2021 19:05:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 278471890
+	by alsa0.perex.cz (Postfix) with ESMTPS id F0A921865;
+	Thu, 16 Sep 2021 22:03:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0A921865
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631811952;
-	bh=YIG/iG9MkIcWfaAHIxIBIHrgDm8uFDbnYR+cFYqbfsE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1631822686;
+	bh=hcAYqnVKA5c1zAiqzJi7fcfE+fS5njoM2nTNMBxDP4k=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oapGGkA0CKmrcrryjZ3Eb4tRyhK/6KMFjaos50sfZCOg6UkQomlpOIcev3akQAWx9
-	 3jQkQcNJkpWF54Rf1PQL11kh58YoaRqE6xgTB2htZe2FknV//1VAzL0lnoPkfZqCs9
-	 0foP31utR206yNhPlDyZwDr3iCK+xwnViRfO+vlw=
+	b=dy1CMmOz5wfVpJX0ry3cyLAtVcFRyRpT8rIYxYKHk8+LXCkTEu32A4ixTGDrj9gFw
+	 k7PDjzYGaJqIdOFpq6+2zpR6yxB4G2jYcjpBSSMlc6wKCa/BCKeHNnIf1TLEuc/WnE
+	 FwlarvSnCRljqujw9TaCnwdJnKUDuIfzYHsNQEc8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 151B8F804E5;
-	Thu, 16 Sep 2021 19:04:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4BA8EF800D3;
+	Thu, 16 Sep 2021 22:03:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95817F804E4; Thu, 16 Sep 2021 19:04:13 +0200 (CEST)
+ id EF7F1F8025E; Thu, 16 Sep 2021 22:03:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com
+ [209.85.167.181])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3BB13F8025A
- for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 19:04:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BB13F8025A
-X-IronPort-AV: E=McAfee;i="6200,9189,10109"; a="222666964"
-X-IronPort-AV: E=Sophos;i="5.85,299,1624345200"; d="scan'208";a="222666964"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2021 10:03:58 -0700
-X-IronPort-AV: E=Sophos;i="5.85,299,1624345200"; d="scan'208";a="554167924"
-Received: from xuanguan-mobl.amr.corp.intel.com (HELO [10.213.180.84])
- ([10.213.180.84])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2021 10:03:57 -0700
-Subject: Re: [PATCH v6 18/22] ASoC: qdsp6: audioreach: add topology support
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- bjorn.andersson@linaro.org, broonie@kernel.org, robh@kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5A6C8F800D3
+ for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 22:03:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A6C8F800D3
+Received: by mail-oi1-f181.google.com with SMTP id w19so10658830oik.10
+ for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 13:03:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=F9aqKzvhNX0EX8ftMf6SpEqFqIZooGHY07obCdZTdhc=;
+ b=AypNKwhlXkEAi8jHnBxHwj6YXcthpJF/lIQi8Si+iCRI1l4GU9exPWdLIIPuimtzbp
+ lUf+wvBbIc3uadVZd6d5rtpbsknsoRmc/HhSzGd0COZBSzwMe6uxCaRjt/ZzqUmVeWbR
+ 9o1WCVjrfPV8sgKrD9JzGcujyrNeyuhqHzyOgtlnNdm105PLQUrHCZIsw6//bjsa7p84
+ 8njygTPlDUgXGdJ2ofD2VGIPJuAdH3IWVjsCIQLU1BwwnZoXZo5p74ETAOXKFKIF61Xt
+ QEi7NM4Yqa/dV6/iqcQvCaq7p+xKK5wq2uCXo+t33N6adKE5vc1HyR+nKwPu4N6CpG9h
+ cJlA==
+X-Gm-Message-State: AOAM531bnKFDj4Ad4Kab+FXqY33QjGYWERzE9lyXowp8SbLhbb3cfsUW
+ WhpDOSWIChWx8ClmGqr7Lg==
+X-Google-Smtp-Source: ABdhPJwawxpuhoBPkHwwpYdA3wu77B3bH5gmA+8u4zAyLVaIU7keKA6j0hp+Ag7fD1WIhZux6lM+4w==
+X-Received: by 2002:a05:6808:1151:: with SMTP id
+ u17mr1234811oiu.175.1631822599419; 
+ Thu, 16 Sep 2021 13:03:19 -0700 (PDT)
+Received: from robh.at.kernel.org
+ (107-211-252-53.lightspeed.cicril.sbcglobal.net. [107.211.252.53])
+ by smtp.gmail.com with ESMTPSA id 33sm915066otx.19.2021.09.16.13.03.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 Sep 2021 13:03:17 -0700 (PDT)
+Received: (nullmailer pid 1401613 invoked by uid 1000);
+ Thu, 16 Sep 2021 20:03:15 -0000
+Date: Thu, 16 Sep 2021 15:03:15 -0500
+From: Rob Herring <robh@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH v6 04/22] soc: dt-bindings: qcom: add gpr bindings
+Message-ID: <YUOjA9b/njqs6Kgp@robh.at.kernel.org>
 References: <20210915131333.19047-1-srinivas.kandagatla@linaro.org>
- <20210915131333.19047-19-srinivas.kandagatla@linaro.org>
- <bc93c17e-b65d-5885-f151-243d259f40ff@linux.intel.com>
- <3c5f75f9-8ee2-6da2-b7ec-7854759e2647@linaro.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <9d02f47c-0fe5-b8b9-6b55-17678ac05c22@linux.intel.com>
-Date: Thu, 16 Sep 2021 11:28:05 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.13.0
+ <20210915131333.19047-5-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <3c5f75f9-8ee2-6da2-b7ec-7854759e2647@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210915131333.19047-5-srinivas.kandagatla@linaro.org>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  bgoswami@codeaurora.org, tiwai@suse.de, plai@codeaurora.org,
- lgirdwood@gmail.com
+ lgirdwood@gmail.com, broonie@kernel.org, bjorn.andersson@linaro.org,
+ pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,93 +94,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-
->>> +int audioreach_tplg_init(struct snd_soc_component *component)
->>> +{
->>> +    struct device *dev = component->dev;
->>> +    const struct firmware *fw;
->>> +    int ret;
->>> +
->>> +    ret = request_firmware(&fw, "audioreach.bin", dev);
->>> +    if (ret < 0) {
->>> +        dev_err(dev, "tplg fw audioreach.bin load failed with %d\n",
->>> ret);
->>> +        return ret;
->>> +    }
->>
->> How does this work if you want to change the topology, which will happen
->> rather frequently if you have a framework precisely to change the DSP
->> graph? You need to override a file in userspace?
->>
->> Shouldn't you have a means to identify what topology file you want on a
->> platform-basis?
->>
->> Or at the very least a means to change the file name with a kernel
->> parameter or something.
+On Wed, 15 Sep 2021 14:13:15 +0100, Srinivas Kandagatla wrote:
+> Qualcomm Generic Packet router aka GPR is the IPC mechanism found
+> in AudioReach next generation signal processing framework to perform
+> command and response messages between various processors.
 > 
-> I totally agree, I was planning to do that as a next step. But now that
-> you pointed it out, I can take a look at SOF for some ideas and add it
-> in next version.
+> GPR has concepts of static and dynamic port, all static services like
+> APM (Audio Processing Manager), PRM (Proxy resource manager) have
+> fixed port numbers where as dynamic services like graphs have dynamic
+> port numbers which are allocated at runtime. All GPR packet messages
+> will have source and destination domain and port along with opcode
+> and payload.
+> 
+> This support is added using existing APR driver to reuse most of
+> the code.
+> 
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+>  .../bindings/soc/qcom/qcom,apr.yaml           | 41 +++++++++++++++----
+>  include/dt-bindings/soc/qcom,gpr.h            | 19 +++++++++
+>  2 files changed, 53 insertions(+), 7 deletions(-)
+>  create mode 100644 include/dt-bindings/soc/qcom,gpr.h
+> 
 
-Good that we are on the same wavelength.
-
-In initial uses on the Intel side, the kernel could retrieve an
-identifier from platform firmware (NHLT tables), and then fetch the
-topology.
-
-	snprintf(skl->tplg_name, sizeof(skl->tplg_name), "%x-%.6s-%.8s-%d%s",
-		skl->pci_id, nhlt->header.oem_id, nhlt->header.oem_table_id,
-		nhlt->header.oem_revision, "-tplg.bin");
-
-As a fallback the topology was named "dfw_sst.bin", similar to your
-"audioreach.bin"
-
-This was fine when the distribution controlled a limited number of
-builds but was impractical for generic distros which have to figure out
-what to add in /lib/firmware/
-
-Later on a more generic topology name was added
-
-snprintf(alt_tplg_name, sizeof(alt_tplg_name), "%s-tplg.bin",
-			 skl->mach->drv_name);
-
-That's also problematic if the same machine driver can deal with
-multiple platforms, as we do now.
-
-In SOF we took a different route, we added a topology name in the same
-tables used to identify a machine driver. Chrome recently added a more
-specific match when that approach failed to describe the platform, e.g.
-with the same they now use now have specific DMI matches for e.g.
-DMI_MATCH(DMI_OEM_STRING, "AUDIO-MAX98373_ALC5682I_I2S_UP4")
-
-It's really hard to find a good solution that provides the means to
-describe a specific configuration while still bounding the number of
-topology files that need to be maintained. It's a constant battle in SOF
-development to try to limit changes or enforce consistency, ironically
-the additional flexibility that the topology provides is offset by the
-configuration management.
-
-For DeviceTree platforms, you may be in the same case as the initial
-Intel approach, it's really easy to have a proliferation of topology
-file names, which becomes a nightmare to maintain for generic
-distributions.
-
-BTW if you put information in DeviceTree blobs, it'll be interesting to
-determine where this information should be: the topology is used by the
-DSP driver, but it also contains information related to dailinks, which
-are defined in the machine driver. It's one of the issues I have with
-the ASoC topology framework: it blurs the layers between DSP and
-platform support. We're really missing a 'compatibility layer' between
-the hardware description, that should come from platform firmware, and
-the DSP topology that can be modified at will. The topology is
-essentially too flexible and ignores the hardware definition. 90% of our
-recent topology changes are just to swap interfaces and adjust to
-hardware changes, it's really painful to maintain, and mistakes are
-common with the topology referring to dailinks that don't exist.
-
-Hope this helps!
--Pierre
-
-
+Reviewed-by: Rob Herring <robh@kernel.org>

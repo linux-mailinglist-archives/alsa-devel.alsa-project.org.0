@@ -2,82 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F4F840D470
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 10:25:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43EA740D511
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 10:51:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C052917AE;
-	Thu, 16 Sep 2021 10:24:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C052917AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id B0B8717AA;
+	Thu, 16 Sep 2021 10:50:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0B8717AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631780718;
-	bh=yAmEkDPYC+PlxqWrMz7Eli7JbV5g5YmC6HpHBOnxGgs=;
+	s=default; t=1631782299;
+	bh=pcxPujUf3ajGuTpzf24mbS6pfHMpnv1XKCRjOCFIPz8=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=BRqUPDpKKZ11VONJyfG1dUv8gw1z63nO7s+k8yMl2hpRWNcfkGkUeQGag/fpbrFuT
-	 OMpeyTm7MBexo8x+JApLDMzA7jJ/Ej8l6W/cpZslfiai87Yg2ukoFdNXqLmAgHTLA3
-	 ysIBK2V57UCA8jCirXStQvW1p1+C1URyP4t6i/Io=
+	b=XcWqDyzAW/w2qvlLo7oBkelpcZUHK6v5IIWXAmLu6bvCZuBEOGYrb8xLybP0ph3oS
+	 SdF53aAk1yvqAEbb8cAr2OTb5KsDiK7BXWHKjiflkJamVUPlkfPYoptwMaL6T7Ddf4
+	 ZYqW6/xMoWnX6mQMsgIH3aB8MknbaJpIck8vruv4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6373F80271;
-	Thu, 16 Sep 2021 10:24:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 198D7F80117;
+	Thu, 16 Sep 2021 10:50:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DA5DEF8025E; Thu, 16 Sep 2021 10:24:00 +0200 (CEST)
+ id 79B71F8025E; Thu, 16 Sep 2021 10:50:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9AFADF800D3
- for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 10:23:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AFADF800D3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="VL45JlNi"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18G8Mppe022857; 
- Thu, 16 Sep 2021 03:23:48 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type;
- s=PODMain02222019; bh=tsERORqlHJhhB3X5/4HJwIJ9mtKSa5B/mmxj2Xn40RE=;
- b=VL45JlNi5twFOuB80foeLa5qHEIJYB5SW+VMEp0xy4AjLFQPKHzvKirq6tGOpZ2/a8vd
- NAApi4KLdscT4uZPSjhDFX0kCoXObdH8MyxIfGsmHyHVGQ9fcf/UQngzxCcgpQcuBFIv
- i/cL+xT7y9zdGrxuAS98n2XXDMXIxEcF5L5obq4HsVcryF2rMyjVK2+DwzKLtHHgDJfR
- 4k6nMWmAWoj08yT99YXB1E3G75qRFr1WBUrZJcUeUoKLkojMHtcAOyl6XDexYmlLaeEL
- z26SmUvnV4CwCa+XwcxymNOkBuvosG5VN0vngKWjE4kzGjVApM/UwlEQPb8G60JCiUEh SA== 
-Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 3b42c3g013-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 16 Sep 2021 03:23:48 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 16 Sep
- 2021 09:23:46 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.12 via
- Frontend Transport; Thu, 16 Sep 2021 09:23:46 +0100
-Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 474B8B15;
- Thu, 16 Sep 2021 08:23:46 +0000 (UTC)
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: <broonie@kernel.org>
-Subject: [PATCH] misc: cs35l41: Remove unused pdn variable
-Date: Thu, 16 Sep 2021 09:23:46 +0100
-Message-ID: <20210916082346.12001-1-ckeepax@opensource.cirrus.com>
-X-Mailer: git-send-email 2.11.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2809FF80113
+ for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 10:50:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2809FF80113
+X-IronPort-AV: E=McAfee;i="6200,9189,10108"; a="202676174"
+X-IronPort-AV: E=Sophos;i="5.85,297,1624345200"; d="scan'208";a="202676174"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2021 01:50:12 -0700
+X-IronPort-AV: E=Sophos;i="5.85,297,1624345200"; d="scan'208";a="545443502"
+Received: from gkapusti-mobl.ccr.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.249.35.152])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2021 01:50:09 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com, broonie@kernel.org,
+ pierre-louis.bossart@linux.intel.com, marc.herbert@intel.com
+Subject: [PATCH] ASoC: SOF: loader: release_firmware() on load failure to
+ avoid batching
+Date: Thu, 16 Sep 2021 11:50:08 +0300
+Message-Id: <20210916085008.28929-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Proofpoint-GUID: -mSYlCiGO3vpFm_CLwneOkAckjetwqZ3
-X-Proofpoint-ORIG-GUID: -mSYlCiGO3vpFm_CLwneOkAckjetwqZ3
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- james.schulman@cirrus.com, lgirdwood@gmail.com, david.rhodes@cirrus.com
+Content-Transfer-Encoding: 8bit
+Cc: guennadi.liakhovetski@linux.intel.com, alsa-devel@alsa-project.org,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,34 +72,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Remove pdn variable that was made redundant in an earlier patch.
+From: Marc Herbert <marc.herbert@intel.com>
 
-Fixes: c2f14cc2bcdd ("ASoC: cs35l41: Fix use of an uninitialised variable")
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Invoke release_firmware() when the firmware fails to boot in
+sof_probe_continue().
+
+The request_firmware() framework must be informed of failures in
+sof_probe_continue() otherwise its internal "batching"
+feature (different from caching) cached the firmware image
+forever. Attempts to correct the file in /lib/firmware/ were then
+silently and confusingly ignored until the next reboot. Unloading the
+drivers did not help because from their disconnected perspective the
+firmware had failed so there was nothing to release.
+
+Also leverage the new snd_sof_fw_unload() function to simplify the
+snd_sof_device_remove() function.
+
+Signed-off-by: Marc Herbert <marc.herbert@intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/codecs/cs35l41.c | 2 --
- 1 file changed, 2 deletions(-)
+ sound/soc/sof/core.c   | 4 +---
+ sound/soc/sof/loader.c | 2 ++
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/codecs/cs35l41.c b/sound/soc/codecs/cs35l41.c
-index ad86c030d9cb5..b16eb6610c0e9 100644
---- a/sound/soc/codecs/cs35l41.c
-+++ b/sound/soc/codecs/cs35l41.c
-@@ -564,7 +564,6 @@ static int cs35l41_main_amp_event(struct snd_soc_dapm_widget *w,
- 	struct cs35l41_private *cs35l41 = snd_soc_component_get_drvdata(component);
- 	unsigned int val;
- 	int ret = 0;
--	bool pdn;
+diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
+index 6be4f159ee35..20082c0f2f39 100644
+--- a/sound/soc/sof/core.c
++++ b/sound/soc/sof/core.c
+@@ -370,7 +370,6 @@ int snd_sof_device_remove(struct device *dev)
+ 			dev_warn(dev, "error: %d failed to prepare DSP for device removal",
+ 				 ret);
  
- 	switch (event) {
- 	case SND_SOC_DAPM_POST_PMU:
-@@ -582,7 +581,6 @@ static int cs35l41_main_amp_event(struct snd_soc_dapm_widget *w,
- 		regmap_update_bits(cs35l41->regmap, CS35L41_PWR_CTRL1,
- 				   CS35L41_GLOBAL_EN_MASK, 0);
+-		snd_sof_fw_unload(sdev);
+ 		snd_sof_ipc_free(sdev);
+ 		snd_sof_free_debug(sdev);
+ 		snd_sof_free_trace(sdev);
+@@ -393,8 +392,7 @@ int snd_sof_device_remove(struct device *dev)
+ 		snd_sof_remove(sdev);
  
--		pdn = false;
- 		ret = regmap_read_poll_timeout(cs35l41->regmap, CS35L41_IRQ1_STATUS1,
- 					       val, val &  CS35L41_PDN_DONE_MASK,
- 					       1000, 100000);
+ 	/* release firmware */
+-	release_firmware(pdata->fw);
+-	pdata->fw = NULL;
++	snd_sof_fw_unload(sdev);
+ 
+ 	return 0;
+ }
+diff --git a/sound/soc/sof/loader.c b/sound/soc/sof/loader.c
+index 2b38a77cd594..9c3f251a0dd0 100644
+--- a/sound/soc/sof/loader.c
++++ b/sound/soc/sof/loader.c
+@@ -880,5 +880,7 @@ EXPORT_SYMBOL(snd_sof_run_firmware);
+ void snd_sof_fw_unload(struct snd_sof_dev *sdev)
+ {
+ 	/* TODO: support module unloading at runtime */
++	release_firmware(sdev->pdata->fw);
++	sdev->pdata->fw = NULL;
+ }
+ EXPORT_SYMBOL(snd_sof_fw_unload);
 -- 
-2.11.0
+2.33.0
 

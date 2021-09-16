@@ -2,69 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DD9B40DDC0
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 17:16:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07E9240DDC4
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 17:17:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3AAEB18A1;
-	Thu, 16 Sep 2021 17:16:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AAEB18A1
+	by alsa0.perex.cz (Postfix) with ESMTPS id A1C5A189D;
+	Thu, 16 Sep 2021 17:16:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1C5A189D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631805410;
-	bh=nisdCjxx8h3smoc19yNYbMFQO1k/T8CrbliHaeUAbaI=;
+	s=default; t=1631805453;
+	bh=mIZBLtgTVepC4euvVy0u2XkqTe2j3KMWlM2rpeK+new=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LXx6B0JXHFgitdCYgel4Ub9nn6Q2CtbNQ+lfujce/a/9viADNnvUbCsMIsOxl8wFJ
-	 Xfei9/8PUSyMgE9MN1WoMRLZFQpS8IU/Sdjmek3p451mP7vMLKirNBnpFb7KxZKYpu
-	 OnCj9PErfHS5h1xgSwBuTBjIoW8/u9S4I4dsScCc=
+	b=uD80skVRW0giVHbJM0MuZ1UOir5QA332bpMMiKPxgT2HoEGgLtu2O9bW5KePtc3TL
+	 WxaPlQ2XIlShsowE5w2gC2ra5lnjpup3I63tc6IOCRDkZ+ybwow6xnieON5pox6Bcq
+	 b2PJ1uDxTLtBY25ep6T670z+582rdGbDsw7PF9pg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8DD0F80113;
-	Thu, 16 Sep 2021 17:15:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF2F4F804B0;
+	Thu, 16 Sep 2021 17:15:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04340F8027B; Thu, 16 Sep 2021 17:15:31 +0200 (CEST)
+ id 1DD5EF804CA; Thu, 16 Sep 2021 17:15:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 60C7FF80113
- for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 17:15:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60C7FF80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 64003F8025A
+ for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 17:15:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64003F8025A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="tyeGe50n"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1F10D6112E;
- Thu, 16 Sep 2021 15:15:19 +0000 (UTC)
+ header.b="DroIQkDw"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C7D2F6124B;
+ Thu, 16 Sep 2021 15:15:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631805320;
- bh=nisdCjxx8h3smoc19yNYbMFQO1k/T8CrbliHaeUAbaI=;
+ s=k20201202; t=1631805323;
+ bh=mIZBLtgTVepC4euvVy0u2XkqTe2j3KMWlM2rpeK+new=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=tyeGe50nEUbpewuTBOCJP4oosBn1Bq+QL6hGL6dKJrG2DaQc6OKL8DS70HAMAuKYt
- J2vvuJIljOjNLus2Tz4SAfww92Ymufy6rTajcER1movniMZ1xkC1sB2INffZmi4AsQ
- PPrMxBNgD4Nz7eijkg9qpmlw9+tt8rvOWpfHzCnNuFaNo69Yn6bOxk+umbNVQCqHJw
- AApVp6l0xJyoqcV13FnV01CjoriHMSGFMF1CAPLOT8h20sLzP1buOlZHqX+ZCt9y9B
- GytohIK0it7RnWkP/YCmAankyp0neJlJPhl+HW2+79qsLvWIPePtUaCNkW7zqLKzk5
- STuPM4+cGZQTg==
+ b=DroIQkDwsFILs63vTg/OR5CTakw1WQO2KktSTfrOPv8FOchaqtplhyyEyxyxo6r8T
+ 72NKQqbidW3OP4wZIrph0SpEihc2/pvDLzAT1ojo5safgJl+aQSQ1duS89Y7GksasO
+ ea6iaDwmbT4arBDOhDxcelqyPev+w7OEhTVsBQLX/RXCt+DX/4mW/lz1busF0QqiJo
+ IEfZmh8keeuFJGD/b49ALJcTS+jRNVibZzLrFzujE8wu4mhmoLqBKtetCVnOJuhg1X
+ HtQhXi2kUSJWs5i5sBrJvqcewkVZFOZHQ9cwgaVZTI2sAn7ETbpExgMN9fDpxkdAWU
+ rasCjRR5sHaIQ==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, David Rhodes <drhodes@opensource.cirrus.com>,
- patches@opensource.cirrus.com, david.rhodes@cirrus.com,
- devicetree@vger.kernel.org, robh@kernel.org, ckeepax@opensource.cirrus.com
-Subject: Re: [PATCH] ASoC: cs35l41: Binding fixes
-Date: Thu, 16 Sep 2021 16:14:29 +0100
-Message-Id: <163180495857.19842.15753133396233565359.b4-ty@kernel.org>
+To: James Schulman <james.schulman@cirrus.com>,
+ Vitaly Rodionov <vitalyr@opensource.cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ David Rhodes <david.rhodes@cirrus.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Subject: Re: [PATCH] ASoC: cs42l42: Minor fix all errors reported by
+ checkpatch.pl script
+Date: Thu, 16 Sep 2021 16:14:30 +0100
+Message-Id: <163180495858.19842.11561225019667500130.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210915191422.2371623-1-drhodes@opensource.cirrus.com>
-References: <20210915191422.2371623-1-drhodes@opensource.cirrus.com>
+In-Reply-To: <20210916110932.10293-1-vitalyr@opensource.cirrus.com>
+References: <20210916110932.10293-1-vitalyr@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,16 +85,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 15 Sep 2021 14:14:22 -0500, David Rhodes wrote:
-> Fix warnings and errors in DT bindings
+On Thu, 16 Sep 2021 12:09:32 +0100, Vitaly Rodionov wrote:
 > 
-> Add newline at end of file
-> Replace 'unevaluatedProperties' with 'additionalProperties'
-> Add spi context to DT example
-> Add #sound-dai-cells to DT example
-> Rename to 'cirrus,cs35l41.yaml'
-> 
-> [...]
+
 
 Applied to
 
@@ -97,8 +95,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: cs35l41: Binding fixes
-      commit: 6116df7fafabbd9b2b09bfd8d568cd5fad656125
+[1/1] ASoC: cs42l42: Minor fix all errors reported by checkpatch.pl script
+      commit: 7a20dec45d0701671abca965b0dd3e4cda2af3d3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

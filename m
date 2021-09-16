@@ -2,93 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ACE540D9D0
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 14:22:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 824A840D9EB
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 14:27:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BF89F1845;
-	Thu, 16 Sep 2021 14:21:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF89F1845
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B78E186C;
+	Thu, 16 Sep 2021 14:27:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B78E186C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631794935;
-	bh=vIjWb5X7+ynEk63cZ/U+web46xBpGSHHyqCim2Zhmm4=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1631795275;
+	bh=mfX29/di/xilhJPTUe/47Dt9l+sLXh8n1/Bzm8nigXo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gsGGxgR7z4lx3EFNPQS2Qd1QwyRUjEFewiSYgoUD87ss6pBcvZTNXj1dOCzNLBu5i
-	 hrwtmfO6kWzBs8RR5mgpv+t2Oq86brxrk57eC+WT3gb9H0FYYaReS4lPjPJf70TEWc
-	 iwLsrViGyOaWaQIQETA4SqarQ/QOx6Tb1LNKylWY=
+	b=sxlOQllWVZ+sKxkgiM10ytYiUpwv0IExk9B+xXRTRcAkDVWTqv5LTU/j53W41qS0l
+	 KP3lN2HNlufG5dpUaXnQmGIcgX8IVbCc4YQvxd7dFU2WuhoD5IiDca9C6FlhgtNvw2
+	 wGsBZA0zngdvux150oIkSLrDNmo/CQCOiXtuKB8Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12C37F80113;
-	Thu, 16 Sep 2021 14:20:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97F57F800D3;
+	Thu, 16 Sep 2021 14:26:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 021DDF8025E; Thu, 16 Sep 2021 14:20:57 +0200 (CEST)
+ id 48B43F8025E; Thu, 16 Sep 2021 14:26:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02BCFF800D3
- for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 14:20:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02BCFF800D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D335F800D3
+ for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 14:26:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D335F800D3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="J0NsI7VF"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18G8MpNh022854; 
- Thu, 16 Sep 2021 07:20:48 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=q6dExioO+J19BjFinwum6GtiF8XvkmD9lJV/6rlFdGQ=;
- b=J0NsI7VF+iRuVXfyDEbT5od2Qnq8dayRZoeVGJroEu8USY4/JH8M3PP0vUgW7C50Mf4N
- hWW2y7hM1oc/xZ2jUpfCkfWt7xmwoELmLrLn0S9kEvUxErhDhfowadkRZuYYieoQURBo
- MoPRdlcclF3vno5y6zVwBE2DLsKHCR3YNlrABrp97VG10IehNukHvMSYSHH/AbTvuzMM
- Z8rlnR8TD9EpEsdIxZkzKiQwtvPiKkF8I3VpzGgg76cIEEkdh7lUmNMt+zkPpc5ywrxa
- RfywH/9sk1ogI0o9VDOV97/WC3ojSCLwPm6OnhpiaHEvXKTgCvz/CzOkHfpyQQAwRCG9 QQ== 
-Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 3b42c3g7e0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 16 Sep 2021 07:20:47 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Thu, 16 Sep
- 2021 13:20:45 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.12 via
- Frontend Transport; Thu, 16 Sep 2021 13:20:45 +0100
-Received: from [198.90.238.230] (unknown [198.90.238.230])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 61870B2F;
- Thu, 16 Sep 2021 12:20:45 +0000 (UTC)
-Subject: Re: [PATCH v1 0/1] ASoC: cs42l42: Implement Manual Type detection as
- fallback
-To: Mark Brown <broonie@kernel.org>
-References: <20210916102750.9212-1-vitalyr@opensource.cirrus.com>
- <20210916111916.GA5048@sirena.org.uk>
-From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Message-ID: <cb5662fd-ce43-99cb-410d-9ceefff731d2@opensource.cirrus.com>
-Date: Thu, 16 Sep 2021 13:20:31 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="dot7UTFG"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 26EA360F25;
+ Thu, 16 Sep 2021 12:26:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1631795190;
+ bh=mfX29/di/xilhJPTUe/47Dt9l+sLXh8n1/Bzm8nigXo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=dot7UTFG9z5RDoKt9YwghU4gkD4y/1MEbPdmOHoSGOeFeQji17JwBeN4q3v3btsll
+ KjYI9NO8L81+jJYoA3/jm81mU0MgfS6GoThC/wrSXbfjXVWKnyEt3ACq6ylbFiw+Oa
+ 2dd/mbMaYaFyYpP0cwWTNRGJcZnoZY+YOrDEybg5aEKgEflxSVHSycN1NW3s98A17/
+ QEb7g5+IoM+MrG/lX8TzMEELRy7gCn6wvNQMN6MComagWtYo/VixmF8TN+o00lA0I5
+ dG9SGeD13axlKcBfB7jyvb68L8mgCHFwQLw2oqTuBOB+6rZnOUbJdwNj1qistYfVzG
+ 0gwbWdMYlARow==
+Date: Thu, 16 Sep 2021 13:25:49 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+Subject: Re: [PATCH v4 2/4] dt-bindings: sound: add rockchip i2s-tdm binding
+Message-ID: <20210916122549.GF5048@sirena.org.uk>
+References: <20210903231536.225540-1-frattaroli.nicolas@gmail.com>
+ <20210903231536.225540-3-frattaroli.nicolas@gmail.com>
+ <20210915141012.GC12513@sirena.org.uk>
+ <42974939.Tn3hggVSkZ@archbook>
 MIME-Version: 1.0
-In-Reply-To: <20210916111916.GA5048@sirena.org.uk>
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-Proofpoint-GUID: b-5XEZ05MugAmExJ1dfSv-B4zTmzWgAI
-X-Proofpoint-ORIG-GUID: b-5XEZ05MugAmExJ1dfSv-B4zTmzWgAI
-X-Proofpoint-Spam-Reason: safe
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>, James
- Schulman <james.schulman@cirrus.com>, David Rhodes <david.rhodes@cirrus.com>,
- linux-kernel@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="hUH5gZbnpyIv7Mn4"
+Content-Disposition: inline
+In-Reply-To: <42974939.Tn3hggVSkZ@archbook>
+X-Cookie: We've upped our standards, so up yours!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,20 +86,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 16/09/2021 12:19 pm, Mark Brown wrote:
-> On Thu, Sep 16, 2021 at 11:27:49AM +0100, Vitaly Rodionov wrote:
->> For some headsets CS42L42 autodetect mode is not working correctly.
->> They will be detected as unknown types or as headphones. According
->> to the CS42L42 datasheet, if the headset autodetect failed,
->> then the driver should switch to manual mode and perform a manual steps sequence.
-> Please don't send cover letters for single patches, if there is anything
-> that needs saying put it in the changelog of the patch or after the ---
-> if it's administrative stuff.  This reduces mail volume and ensures that
-> any important information is recorded in the changelog rather than being
-> lost.
 
-Hi Mark,
+--hUH5gZbnpyIv7Mn4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Got it.  Thanks
+On Wed, Sep 15, 2021 at 07:06:14PM +0200, Nicolas Frattaroli wrote:
+> On Mittwoch, 15. September 2021 16:10:12 CEST Mark Brown wrote:
 
+> > Why is this not part of the normal bus format configuration?  I don't
+> > know what this is but it sounds a lot like I2S mode...
 
+> This affects all TDM I2S modes, i.e. TDM Normal, TDM Left Justified and T=
+DM=20
+> Right Justified.
+
+> Without tdm-fsync-half-frame, we purportedly get the following output in =
+TDM=20
+> Normal Mode (I2S Format):
+> (ch0l =3D channel 0 left, ch0r =3D channel 0 right)
+
+> fsync: 	_____________________________
+>                      	            \____________________________
+> sdi/sdo: ch0l, ch0r, ..., ch3l, ch3r,  ch0l, ch0r, ...
+>=20
+> With tdm-fsync-half-frame, we purportedly get the following:
+>=20
+> fsync: 	_____________________________
+>                      	            \____________________________
+> sdi/sdo: ch0l,  ch1l,  ch2l,  ch3l,   ch0r,  ch1r,  ch2r,  ch3r
+
+> At least, according to the TRM. I do not have an oscilloscope to verify t=
+his=20
+> myself, and in the following paragraphs, I will elaborate why this seems=
+=20
+> confusing to me.
+
+fsync-half-frame is just normal TDM for I2S, the default mode is how DSP
+mode normally operates.  I don't know that there's any pressing need to
+support mix'n'match here, you could but it should be through the TDM
+configuration API.
+
+> So to answer the question, it's not part of the bus format because it app=
+lies=20
+> to three bus formats, and I'm completely out of my depth here and wouldn'=
+t=20
+> define three separate bus formats based on my own speculation of how this=
+=20
+> works.
+
+It is part of the bus format really.  I suspect the hardware is the kind
+that only really implements DSP mode and can just fake up a LRCLK for
+I2S in order to interoperate.
+
+--hUH5gZbnpyIv7Mn4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFDN8wACgkQJNaLcl1U
+h9AhiAf/ZlfcZ9ejEekSn1zn4A88+/ZgbySK7f6ieclZDuSJ0PyYj0x6VN5f+p8U
+UrfT02ie6+dpCTcQHVQtFcJx5+BN5N8WoBidKDS0gAN3W8R2i9LvWGw8z9wT6tKS
+KCnSoIL4Gr0ZQ/556y5vIocYG7waZMOckP6/ZuIjBewEH+j0iV34b7uT54kDbfXA
+JLi2Y6LDveRJbnVsJ4EK4cLgmxHDfjmirUiAjvrWvTcVUXXZDQ1qXalGDFX/ZEFq
+RzP18+TUX33qEgF1UApmZEIOqSCHst3po+sy1xkpZlOvTzcQAQLaZXMm9PulSx41
+Aq2b/PrIEwOcL8Kc4GfCeW9YoGOm3w==
+=u+Qx
+-----END PGP SIGNATURE-----
+
+--hUH5gZbnpyIv7Mn4--

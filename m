@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9468C40DDD5
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 17:19:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BA5340DDD7
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 17:20:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3642116D8;
-	Thu, 16 Sep 2021 17:18:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3642116D8
+	by alsa0.perex.cz (Postfix) with ESMTPS id C733218A4;
+	Thu, 16 Sep 2021 17:19:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C733218A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631805575;
-	bh=VEVfjolQS4SaknyqXaEyww4smoa3TbcX0NOXn6mQXc4=;
+	s=default; t=1631805601;
+	bh=h94j78FfQrKAiWUi8TyfanTMjWao/oP0AM/7HIqmosw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PMSEswkruquW+mLqAwXMVN3b4Nz02nN1QRMmLXS6odRWGYf4Qhs+2kkAzGWD1IXZF
-	 uWSAM/GKtUwB85e7iHoINpMcezfgcxMsoIo5W8Q9EmdUOw8TA5kTRgtMQHRcOEhZ8B
-	 iPYXccW4wLoH1I6tuupGVa+yIeMWpV6sw7moqWVs=
+	b=HcZYgmoOBQHvM4PhO5RRz3XUoKZF7H+gMMicl+yzJyUapDr/82L8KTftKNBPAEiG+
+	 Q+Dfy5Q2YZWjU3bgkf0Gc2W+UNqBnGu91aEqGCloxVUi0gJu4LVChar7ksLrj2YWuz
+	 X7bH3PIk3lUeuwnSk6VnjZ6XTR2IyHUz6CqWpbM8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E0ABF8051A;
-	Thu, 16 Sep 2021 17:15:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5DD1EF80524;
+	Thu, 16 Sep 2021 17:15:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E580EF8050F; Thu, 16 Sep 2021 17:15:44 +0200 (CEST)
+ id A079BF80520; Thu, 16 Sep 2021 17:15:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,42 +33,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CB922F800D3
- for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 17:15:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB922F800D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 17A31F80518
+ for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 17:15:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17A31F80518
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="DPPxbNt1"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E91236124E;
- Thu, 16 Sep 2021 15:15:40 +0000 (UTC)
+ header.b="aO0zqVd7"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 87E3260296;
+ Thu, 16 Sep 2021 15:15:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631805341;
- bh=VEVfjolQS4SaknyqXaEyww4smoa3TbcX0NOXn6mQXc4=;
+ s=k20201202; t=1631805344;
+ bh=h94j78FfQrKAiWUi8TyfanTMjWao/oP0AM/7HIqmosw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DPPxbNt1ZGquzUQZKqLerZz2NQwhIQ7grTrYLQm5ZWzpqxt33Z+XFxjpfquToFtk8
- wVpF2FLr7vJNiuGzCMaXhOPJC/alKvZECFaATyrWOcOxBJ+ceyNpzs2TdQ4fryZJSi
- d3bfwWLJr3gdApclHNQzyHrMFhuCaB9pB7KF76nWn1HPWExVoUqi4Q5G2W4TsO0ppR
- p9tZUTp1YpeexbNEJAj9pB8iZgV9k/fMQ9ykleJ9NkkeNswUgXfQmuu5GsSH7557do
- m/JCxfaMxeeNJjLwSAMKB1bZeri1z2meKnrCN0udJXO6YvMA5rWetl2eSbWcXcTFmI
- MFLl/3FYArDbw==
+ b=aO0zqVd77Z2ASfduBri+Na2rD6TXhSAfeEwvCL/rBBC6XrilYo/gsyu8Sl+N38sCT
+ ntwsW5ESer//gQ6AYBnoOsPh6CpPakfb9U3hZUnkDXTNOtc7BBV1oVRH1rnZmkQ1Ke
+ mFY3+OzKyQP1p8i/kqPWkk+YnCbkuxwlHxUadYuFIGNkdPz6D/Pj9EKr2mpaYjU+hp
+ lSQI0WO7wca09Txn/jiugTPDedCdvd51hKy6QJN6JrCZyo60YijjLIDTTC6ML9W9eg
+ pMnHR8D3kXr2reQOe1e3qJGXZCtIzEBpOHOMnYG4Y1OQ3DTANpulXmhfilq/ug9cXu
+ +vHfFdDX0BxuA==
 From: Mark Brown <broonie@kernel.org>
-To: Peter Rosin <peda@axentia.se>,
- Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v2] ASoC: atmel: Convert to new style DAI format
- definitions
-Date: Thu, 16 Sep 2021 16:14:37 +0100
-Message-Id: <163180495859.19842.13793794460073791883.b4-ty@kernel.org>
+To: pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: core: Move probe work related code under a
+ single if () branch
+Date: Thu, 16 Sep 2021 16:14:38 +0100
+Message-Id: <163180495858.19842.9660160489318100704.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210915181048.40070-1-broonie@kernel.org>
-References: <20210915181048.40070-1-broonie@kernel.org>
+In-Reply-To: <20210916124902.24248-1-peter.ujfalusi@linux.intel.com>
+References: <20210916124902.24248-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ daniel.baluta@nxp.com, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,9 +82,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 15 Sep 2021 19:10:48 +0100, Mark Brown wrote:
-> Convert the Atmel drivers to use the new style defines for clocking in DAI
-> formats.
+On Thu, 16 Sep 2021 15:49:02 +0300, Peter Ujfalusi wrote:
+> Relocate the INIT_WORK() at the same place where we schedule the work to
+> make the code simpler and easier to follow.
 > 
 > 
 
@@ -96,8 +94,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: atmel: Convert to new style DAI format definitions
-      commit: 4a8cf938d5b6ee22c5a0bec84efb4b8068410ff4
+[1/1] ASoC: SOF: core: Move probe work related code under a single if () branch
+      commit: 3b4a673fa409b687add77f5bbf0a568b5b4ecee9
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

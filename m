@@ -2,92 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0701940DD82
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 17:03:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F86140DD83
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Sep 2021 17:03:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 92B0B1893;
-	Thu, 16 Sep 2021 17:02:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92B0B1893
+	by alsa0.perex.cz (Postfix) with ESMTPS id E70F1189E;
+	Thu, 16 Sep 2021 17:03:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E70F1189E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631804611;
-	bh=4oakNQtciC9ApNawPDuJs2rgf9ryqlbEczwtIupyVzw=;
+	s=default; t=1631804636;
+	bh=aUo7lQcT0Cwg28oblpbQoaX701e9yT6AM1LeDKkriWM=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DnfKZPdrwcw7vMdf47xbjBCFfmEhcIFShtnbritXbhH/ylKrlvXEXKWna+i4xTnjN
-	 zFXv+89sWkqXYKakWp7j2RmjxJfHfjyCVaXqMfCrpvpt2nmTrXDEjFh9uRqUCDu8Iv
-	 t7/FJQPDe6i0y4s+q+5tNUeTJhJTKTWlRmzbS4jI=
+	b=XFeLRh4Lp8iHW75HG7VsBP6PLeGUbb/0r6zSybxRkQQxpoLI76AL4TCKRPsdrsE6C
+	 LE0fSs9bc8CyRnLuJPFuWFn8eSFa2fspP7JRE/Ghs5Vekp7MlCik4w8ZrRzRRMwFr1
+	 13p1qjSh6gLAR0NLI/YbCuQAjxveDmiVmmSsH3LU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0CD94F80113;
-	Thu, 16 Sep 2021 17:02:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7807F804AE;
+	Thu, 16 Sep 2021 17:02:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B1A1F8025E; Thu, 16 Sep 2021 17:02:13 +0200 (CEST)
+ id D319FF804AE; Thu, 16 Sep 2021 17:02:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B9716F80113
- for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 17:02:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9716F80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6EB71F80271
+ for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 17:02:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EB71F80271
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="LYPGj0po"
-Received: by mail-wr1-x42a.google.com with SMTP id q11so9993713wrr.9
- for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 08:02:10 -0700 (PDT)
+ header.b="Z664gqGs"
+Received: by mail-wm1-x333.google.com with SMTP id
+ j17-20020a05600c1c1100b002e754875260so4720263wms.4
+ for <alsa-devel@alsa-project.org>; Thu, 16 Sep 2021 08:02:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=csQ1MWc5sV0qhfV6R4T1gxw/hYapqEzRXs9dv7ZLsGQ=;
- b=LYPGj0poWIctsfOuBHXwVqe8+7faAzwKMZkHv8w/oBHTuxFYsuDi/WTO1vYXzcLhMB
- K6Wdiaswd88e0undEeQLqPzp1lzE/JaRg2Dk6JJWOxbi6ZJg5XlVREThmdUzuFes9DIk
- PbjY+q8R2GBTg8YswrbFJvLEiLyw+mTGj+Q6n78/jowXZeMNRgG6V7KsDr7lt8uN2NL8
- z/zl6nJiqeqmKLMC/4Iwd4X85As5F/FBKTFf5fI+OCNnRXDLANYVOAqr8JI3VpTajms6
- V2MOUpNUFLBT1yMBZCTK84tT3aYhJVQ9Th5k3fyKVshAR25CWEdVkpDe2bJnea3JXE4Y
- urEw==
+ bh=4st4d0n/c6mOCznyfG1WKwjyR2c2WbGE6A+uf+Jpfts=;
+ b=Z664gqGshV6QS/uZt8KAROXekXdyXiPwjqcEHXCgCcXK/U2baJVNkI+UlrvCSE88te
+ 2Tj9siVf8KKPpbIDzDPBk5XmlVg5TQo23PJ4RCr7LnAE9it21FyHrL/LwoIe1zyt4scJ
+ k3yqMFXWLNiOVfc8QXZft82bWvrvsqBQEDXzSh/ujMwUrSL8l37uOEGv5cyEcYkwtN8t
+ Tr2EhK8wrCmQ7EPyAy5mep10E6K0Z0cFUQJH31GqjJ/l+O1dCUN7ucKhWkrRjskM02r+
+ m8Y94PihWPZBcACFBw7sDc/PN2TZeWnzJMFDmZsptqQmWCURFG+dDRNcpmbHvjWuKIc7
+ brVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=csQ1MWc5sV0qhfV6R4T1gxw/hYapqEzRXs9dv7ZLsGQ=;
- b=k4awc24UhDbmlZUsdRN3MZlYvnkV1HjLwDj1IstIJLIgOkL0zjPN0z5R2jddl6EfEv
- qKi72GzAPBwQfZpsXjF2KZ2PS9fedWh7GV3V6FCfIyzoRG7uWOl1jOwci+cptIAyGdoS
- oVQYps1rOuIubwqW3j9ZZFcvSf9ppcEWiaGg35Es2zXT/3XLFKOzBte7LCwXuEmphsax
- IyWbdt/W+XulKa7UGRDVOD/R8S0RCXEfL34m2al9saDZ+XXAFJ5qwDOUHYEN1bPNZ2DN
- zpQnXS2ItDGySAsvAKU4ZMJuGJxcuXh7ejvdAie1+8vz8XET1zZTRSJxcLVQvmN/3t62
- XVVg==
-X-Gm-Message-State: AOAM5329kYD/XO5s7xjqO2clPB+Ier5Q1R/Korhbt4TQrzp0sJcitUBM
- TVg5UTPik5aUS/Y/EcsWO9JlCA==
-X-Google-Smtp-Source: ABdhPJyytYPgs97uBMV0kIWC2G4lKa6lnjW2JayT2BL8liWzxGpiTeW5ACLrmyPYxEeCjzEC2i+Bmw==
-X-Received: by 2002:a5d:5541:: with SMTP id g1mr6792001wrw.402.1631804529677; 
- Thu, 16 Sep 2021 08:02:09 -0700 (PDT)
+ bh=4st4d0n/c6mOCznyfG1WKwjyR2c2WbGE6A+uf+Jpfts=;
+ b=DbaBKU+Neglt5Q3G0HxPZnKNfihWMtAskbMBQ8BGpimQN4qdmkk11QTCJFuniHTpiO
+ fifm3RA8sA6tNifp1KLP8wYNXtnsSBjSGhVQbX6VawaXgoR0+tIFMogcyzjUkPiR2xL9
+ YVuX0pV8RWyGVvIEHxQ+VS6HMM+JK/FvUy58djhM6ceMNoUqjN8JTIz/7Ehxpbtokoww
+ L52bkkBwaUN3Y5QZs8O5doI2aHrKLkT7qjnRFHNI8XSm1T+/TLDMLmWNGcL0AWJqnyLJ
+ MCqSFPfpfS6QPnRk3a5zJ1jtMl9urfZA2Z35P3LQxPeUgznMEpvwgk5Bxar5Au1lf2KC
+ yvZQ==
+X-Gm-Message-State: AOAM533LsRpe8UQkr3EVdImX70dCxrZuu7kKE8LM6qhKLa/8HBUJ90iq
+ xmdeXX2WyP0qW3pEIetL+bHnKA==
+X-Google-Smtp-Source: ABdhPJxuGMPwZqNTuMGal9SnScfBsFWd/A9g+0vbtND8vr1Ldf8Z2LsCupcin5UZzRzQJfSn0eTeFA==
+X-Received: by 2002:a05:600c:2057:: with SMTP id
+ p23mr10498262wmg.25.1631804535434; 
+ Thu, 16 Sep 2021 08:02:15 -0700 (PDT)
 Received: from [192.168.86.34]
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id d7sm3771387wrf.3.2021.09.16.08.02.08
+ by smtp.googlemail.com with ESMTPSA id o2sm4264200wrh.13.2021.09.16.08.02.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Sep 2021 08:02:09 -0700 (PDT)
-Subject: Re: [PATCH v6 05/22] soc: qcom: apr: Add GPR support
+ Thu, 16 Sep 2021 08:02:14 -0700 (PDT)
+Subject: Re: [PATCH v6 14/22] ASoC: qdsp6: audioreach: add basic pkt alloc
+ support
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  bjorn.andersson@linaro.org, broonie@kernel.org, robh@kernel.org
 References: <20210915131333.19047-1-srinivas.kandagatla@linaro.org>
- <20210915131333.19047-6-srinivas.kandagatla@linaro.org>
- <83c503aa-7cb2-e6fa-e22a-b359a9cb9059@linux.intel.com>
+ <20210915131333.19047-15-srinivas.kandagatla@linaro.org>
+ <c6082189-5788-0973-2fba-699f1cc7e4ae@linux.intel.com>
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <4f71f5c7-42c4-6419-5f79-26ed83695793@linaro.org>
-Date: Thu, 16 Sep 2021 16:02:08 +0100
+Message-ID: <7132182e-32d3-5d60-6c56-a779f24a5c19@linaro.org>
+Date: Thu, 16 Sep 2021 16:02:14 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <83c503aa-7cb2-e6fa-e22a-b359a9cb9059@linux.intel.com>
+In-Reply-To: <c6082189-5788-0973-2fba-699f1cc7e4ae@linux.intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -111,68 +114,24 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Thanks Pierre,
 
-On 15/09/2021 16:47, Pierre-Louis Bossart wrote:
+On 15/09/2021 16:54, Pierre-Louis Bossart wrote:
 > 
->> +gpr_port_t *gpr_alloc_port(struct apr_device *gdev, struct device *dev,
->> +				gpr_port_cb cb,	void *priv)
->> +{
->> +	struct packet_router *pr = dev_get_drvdata(gdev->dev.parent);
->> +	gpr_port_t *port;
->> +	struct pkt_router_svc *svc;
->> +	int id;
->> +
->> +	port = kzalloc(sizeof(*port), GFP_KERNEL);
->> +	if (!port)
->> +		return ERR_PTR(-ENOMEM);
->> +
->> +	svc = port;
->> +	svc->callback = cb;
->> +	svc->pr = pr;
->> +	svc->priv = priv;
->> +	svc->dev = dev;
->> +	spin_lock_init(&svc->lock);
->> +
->> +	spin_lock(&pr->svcs_lock);
->> +	id = idr_alloc_cyclic(&pr->svcs_idr, svc, GPR_DYNAMIC_PORT_START,
->> +			      GPR_DYNAMIC_PORT_END, GFP_ATOMIC);
->> +	if (id < 0) {
->> +		dev_err(dev, "Unable to allocate dynamic GPR src port\n");
->> +		kfree(port);
->> +		spin_unlock(&pr->svcs_lock);
->> +		return ERR_PTR(-ENOMEM);
->> +	}
->> +
->> +	svc->id = id;
->> +	spin_unlock(&pr->svcs_lock);
->> +
->> +	dev_info(dev, "Adding GPR src port (%x)\n", svc->id);
 > 
-> nit-pick: isn't this a bit verbose?
-
-Yes, Its now removed.
-
-> 
+>> +#define APM_SHMEM_FMT_CFG_PSIZE(n) ALIGN( \
+>> +				sizeof(struct apm_sh_module_media_fmt_cmd) + \
+>> +				n * sizeof(uint8_t), 8)
 >> +
->> +	return port;
->> +}
->> +EXPORT_SYMBOL_GPL(gpr_alloc_port);
+>> +/* num of channels as argument */
+>> +#define APM_PCM_MODULE_FMT_CMD_PSIZE(n) ALIGN( \
+>> +				sizeof(struct apm_pcm_module_media_fmt_cmd) + \
+>> +				n * sizeof(uint8_t), 8)
+>> +
+>> +#define APM_PCM_OUT_FMT_CFG_PSIZE(n) ALIGN((sizeof( \
+>> +				struct payload_pcm_output_format_cfg) + \
+>> +				n * sizeof(uint8_t)), 4)
 > 
->> +struct gpr_pkt {
->> +	struct gpr_hdr hdr;
->> +	uint32_t payload[0];
->> +};
+> nit-pick: sizeof on the same line for consistency/readability?
 > 
-> looks like a zero-length array?
-> 
-looks like I missed this one, its fixed now.
+Its fixed in next version.
 
 --srini
-> should this be
-> 
-> struct gpr_pkt {
->      struct gpr_hdr hdr;
->      uint32_t payload[];
-> };
-> 
-> ?
-> 

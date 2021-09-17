@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 879E940F9EE
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Sep 2021 16:06:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5043B40F9F3
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Sep 2021 16:07:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C38F517AA;
-	Fri, 17 Sep 2021 16:05:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C38F517AA
+	by alsa0.perex.cz (Postfix) with ESMTPS id D784C17C9;
+	Fri, 17 Sep 2021 16:06:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D784C17C9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631887590;
-	bh=APz1wpNVHY4WtKghQkEC9694tQNhAk28L5fSi57hg9I=;
+	s=default; t=1631887644;
+	bh=bQqiugnvn36bhgNyzY9DndQI1XZDPEvtmfjE+gBo+no=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=joT0EK5T9fFSnrnOibPrfIHdVAI/Dms/Kxz9Qabb9Ar2nJ9XUI9iUyXqv4m0NWXtJ
-	 oTxs+hPa3qrOJIGw/7+g5NUwlRaugwsThlMWmWa7Jd5GuKFad2u546eRuH2YuwhEmj
-	 XKiS1eA22TK8CHyDVQKanqe023swsKtau3bqmBbs=
+	b=NWxiiVythDrX3vqarLC0vi+/zr2abwb/qgWJ6gnOG9aAdfQe0ZDe1lbhkxDxD1W11
+	 +NHyLmlc2cBPlGKHzHJZ9KfFRs6moQ5j8sPYPDp1G+9Zqjt9JIp2e/H1nqHsNnYorS
+	 v/oLaMDUf7TffOSZC8/OLf5D3vvGwyoVrPM6hezw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 764B3F804AB;
-	Fri, 17 Sep 2021 16:04:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3F749F804F1;
+	Fri, 17 Sep 2021 16:05:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50747F8032C; Fri, 17 Sep 2021 16:04:48 +0200 (CEST)
+ id 0478BF804AB; Fri, 17 Sep 2021 16:04:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,37 +33,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CE2BFF80227
- for <alsa-devel@alsa-project.org>; Fri, 17 Sep 2021 16:04:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE2BFF80227
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7F315F80152
+ for <alsa-devel@alsa-project.org>; Fri, 17 Sep 2021 16:04:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F315F80152
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GtQclOsn"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 997C761248;
- Fri, 17 Sep 2021 14:04:40 +0000 (UTC)
+ header.b="hAR5JyL1"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 24DA160E08;
+ Fri, 17 Sep 2021 14:04:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631887481;
- bh=APz1wpNVHY4WtKghQkEC9694tQNhAk28L5fSi57hg9I=;
+ s=k20201202; t=1631887483;
+ bh=bQqiugnvn36bhgNyzY9DndQI1XZDPEvtmfjE+gBo+no=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=GtQclOsn9OBt9TvB8f0PlRFvVn3Ret7Zi1O83Eqf8miMkknLzX0Sz+/7xeYrSp6mf
- FH4kKqi87Y1nasD3mtws9qij9LarPvS8dPAKHxoD6giNnp2ltlojGw1LW7ozaOIPqs
- HQF0D1i/VmbeXJP1sCVm45ax/NAHU/vPBXUYqolqyLLzLrQYdq8oj/R0z//9UMs+97
- i/cuOpLiEWkM2hR5kKZd5PL2pdKCjwkUIN45dg5i74xQhIjqAtJB13TyvxmiQbpiNB
- wMYK+JJDOiScphkX3O0SXf6krWBuEYgs3nDtX4YVU2Dgwz6sA+8nouspMohygmjNrL
- dGsus3W1mVDQQ==
+ b=hAR5JyL1dC+Jc8PECyZqpXnExbAFCwNkrY4MhL2PjWu51TUJCJ3DAYtcMCyVT36I+
+ J0OsjFmU0DigFl7zPak/4Ir1d9r5aJRuDSOjGMCMcAMwxBkbNnZpvXsv0FMBP8zyz1
+ dzwr8WJwOMA3jf4y5ktXmGVnx/793Emw1ifxVddL9NPpkQsof/XqY/JPiwQOBoYudr
+ DVOi/arBHGbrziCb9lqT2mw/Z7t5kVdMINLD/ByUwF3S/Nt6Fj9/YnkHcWHpArh97l
+ +QQ9L2Z43dBUUueEa+frcjQCuejMTof29m2nb1ctLJeg4ZzS0pma9Cbq3htkqWFJvp
+ s95Nf1ePqxZnw==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: 88pm860x: Update to modern clocking terminology
-Date: Fri, 17 Sep 2021 15:03:45 +0100
-Message-Id: <163188719815.50326.10832883066129480676.b4-ty@kernel.org>
+To: lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: ipc: Remove redundant error check from
+ sof_ipc_tx_message_unlocked
+Date: Fri, 17 Sep 2021 15:03:46 +0100
+Message-Id: <163188719814.50326.122105528091641243.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210916140847.50900-1-broonie@kernel.org>
-References: <20210916140847.50900-1-broonie@kernel.org>
+In-Reply-To: <20210916125725.25934-1-peter.ujfalusi@linux.intel.com>
+References: <20210916125725.25934-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ daniel.baluta@nxp.com, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,11 +82,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 16 Sep 2021 15:08:47 +0100, Mark Brown wrote:
-> As part of moving to remove the old style defines for the bus clocks update
-> the 88pm860x driver to use more modern terminology for clocking.
+On Thu, 16 Sep 2021 15:57:25 +0300, Peter Ujfalusi wrote:
+> If the snd_sof_dsp_send_msg() failed then we have already returned from
+> sof_ipc_tx_message_unlocked() with the error message.
 > 
+> There is no need to check if ret is really 0 after this and we can return
+> directly the return value from tx_wait_done()
 > 
+> At the same time make the remaining checks for error (ret) to match.
+> 
+> [...]
 
 Applied to
 
@@ -91,8 +99,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: 88pm860x: Update to modern clocking terminology
-      commit: 703ac1f2a5e5c3b9e8de41a8ad0b202532c0a453
+[1/1] ASoC: SOF: ipc: Remove redundant error check from sof_ipc_tx_message_unlocked
+      commit: f6b0c731a01fc581fcc4fb227e2d3ad9e0cb31d6
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

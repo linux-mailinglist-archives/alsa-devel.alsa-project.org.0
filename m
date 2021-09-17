@@ -2,64 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E6F340F423
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Sep 2021 10:29:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EB2640F46F
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Sep 2021 10:52:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA5EE17BD;
-	Fri, 17 Sep 2021 10:29:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA5EE17BD
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF97E17BD;
+	Fri, 17 Sep 2021 10:51:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF97E17BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1631867393;
-	bh=CxNXO+K7TJhkfxtLJmRvqrFplB+0Rludjgf2OQITzQ4=;
+	s=default; t=1631868763;
+	bh=pMYNJWW/793s8pR+9ORsUAWmuedSxhz/C/mp6mAqTcg=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=W3gNhp8utIsoB4R67+XUsUMCEfORXQxbknZ6fzPIJ29DFd4u73d3gtodTdjEP8r6l
-	 RO57FKzTbIJ0sOumPgvbNwnwQ9ZYrgPJ+oWaBcpSnbzeABBfg3QDFylUT/kpBGHSCB
-	 84gs+/7/gLnNrWZfKM27OVJKXd+5k8BSPgJqNyiw=
+	b=Ind6myVvjV/LT9Dqo4NQ/+yMa3IrPwXCl/bgMpxs8Y87tWeXgDKKxcVozJKXBcLgx
+	 34QdmLQaRy3F8XRKK7I/HJjRpj3Rb5lSmiipvQkF5XIdEFxSm6W4LiHl4R/sbnG9mE
+	 2z1XkpgxxZy0FaWVS+4RC97UzLXYnTwnmJkrX4B4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66D85F80227;
-	Fri, 17 Sep 2021 10:28:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49D94F802E8;
+	Fri, 17 Sep 2021 10:51:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B159AF8027C; Fri, 17 Sep 2021 10:28:28 +0200 (CEST)
+ id 0A719F8027C; Fri, 17 Sep 2021 10:51:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C712AF800E3
- for <alsa-devel@alsa-project.org>; Fri, 17 Sep 2021 10:28:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C712AF800E3
-X-UUID: cc715626f5e348429c5db1cec25839aa-20210917
-X-UUID: cc715626f5e348429c5db1cec25839aa-20210917
-Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw01.mediatek.com
- (envelope-from <trevor.wu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1344244907; Fri, 17 Sep 2021 16:28:08 +0800
-Received: from mtkcas07.mediatek.inc (172.21.101.84) by
- mtkmbs05n2.mediatek.inc (172.21.101.140) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Fri, 17 Sep 2021 16:28:07 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas07.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
- Frontend Transport; Fri, 17 Sep 2021 16:28:07 +0800
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: <broonie@kernel.org>, <tiwai@suse.com>, <matthias.bgg@gmail.com>
-Subject: [PATCH] ASoC: mediatek: mt8195: remove wrong fixup assignment on
- HDMITX
-Date: Fri, 17 Sep 2021 16:28:05 +0800
-Message-ID: <20210917082805.30898-1-trevor.wu@mediatek.com>
-X-Mailer: git-send-email 2.18.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5A355F800E3
+ for <alsa-devel@alsa-project.org>; Fri, 17 Sep 2021 10:51:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A355F800E3
+X-IronPort-AV: E=McAfee;i="6200,9189,10109"; a="245147255"
+X-IronPort-AV: E=Sophos;i="5.85,300,1624345200"; d="scan'208";a="245147255"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2021 01:51:11 -0700
+X-IronPort-AV: E=Sophos;i="5.85,300,1624345200"; d="scan'208";a="546255559"
+Received: from akostadi-mobl2.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.251.216.45])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2021 01:51:09 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com, broonie@kernel.org,
+ pierre-louis.bossart@linux.intel.com
+Subject: [PATCH] ASoC: SOF: trace: Omit error print when waking up trace
+ sleepers
+Date: Fri, 17 Sep 2021 11:51:08 +0300
+Message-Id: <20210917085108.25532-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-Cc: alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
- trevor.wu@mediatek.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, daniel.baluta@nxp.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,47 +72,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-S24_LE params fixup is only required for DPTX.
-Remove fixup ops assignment for HDMITX.
+Do not print error message from snd_sof_trace_notify_for_error() when
+possible sleeping trace work is woken up to flush the remaining debug
+information.
 
-Fixes: 40d605df0a7b ("ASoC: mediatek: mt8195: add machine driver with mt6359, rt1019 and rt5682")
-Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
+This action by itself is not an error, it is just an action we take when
+an error occurs to make sure that all information have been fed to the
+userspace (if we have trace in use).
+
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ sound/soc/sof/trace.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
-index 8cd8450409e8..a3fa8efc8f81 100644
---- a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
-+++ b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
-@@ -424,8 +424,8 @@ static int mt8195_hdmi_codec_init(struct snd_soc_pcm_runtime *rtd)
- 	return snd_soc_component_set_jack(cmpnt_codec, &priv->hdmi_jack, NULL);
- }
+diff --git a/sound/soc/sof/trace.c b/sound/soc/sof/trace.c
+index f72a6e83e6af..58f6ca5cf491 100644
+--- a/sound/soc/sof/trace.c
++++ b/sound/soc/sof/trace.c
+@@ -530,7 +530,6 @@ void snd_sof_trace_notify_for_error(struct snd_sof_dev *sdev)
+ 		return;
  
--static int mt8195_hdmitx_dptx_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
--					      struct snd_pcm_hw_params *params)
-+static int mt8195_dptx_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
-+				       struct snd_pcm_hw_params *params)
- 
- {
- 	/* fix BE i2s format to 32bit, clean param mask first */
-@@ -902,7 +902,7 @@ static struct snd_soc_dai_link mt8195_mt6359_rt1019_rt5682_dai_links[] = {
- 		.no_pcm = 1,
- 		.dpcm_playback = 1,
- 		.ops = &mt8195_dptx_ops,
--		.be_hw_params_fixup = mt8195_hdmitx_dptx_hw_params_fixup,
-+		.be_hw_params_fixup = mt8195_dptx_hw_params_fixup,
- 		SND_SOC_DAILINK_REG(DPTX_BE),
- 	},
- 	[DAI_LINK_ETDM1_IN_BE] = {
-@@ -953,7 +953,6 @@ static struct snd_soc_dai_link mt8195_mt6359_rt1019_rt5682_dai_links[] = {
- 			SND_SOC_DAIFMT_NB_NF |
- 			SND_SOC_DAIFMT_CBS_CFS,
- 		.dpcm_playback = 1,
--		.be_hw_params_fixup = mt8195_hdmitx_dptx_hw_params_fixup,
- 		SND_SOC_DAILINK_REG(ETDM3_OUT_BE),
- 	},
- 	[DAI_LINK_PCM1_BE] = {
+ 	if (sdev->dtrace_is_enabled) {
+-		dev_err(sdev->dev, "error: waking up any trace sleepers\n");
+ 		sdev->dtrace_error = true;
+ 		wake_up(&sdev->trace_sleep);
+ 	}
 -- 
-2.18.0
+2.33.0
 

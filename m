@@ -2,70 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA0FB4108BB
-	for <lists+alsa-devel@lfdr.de>; Sat, 18 Sep 2021 23:37:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B35C410B44
+	for <lists+alsa-devel@lfdr.de>; Sun, 19 Sep 2021 13:23:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F82C847;
-	Sat, 18 Sep 2021 23:36:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F82C847
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79A78169C;
+	Sun, 19 Sep 2021 13:22:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79A78169C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632001053;
-	bh=Kwpp0Fj2x26Eg78Ja7Z4hycUKbPpkJLdheziTeB1Zi8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1632050579;
+	bh=bCNasuMSqT7MQIOX2zCglLS0pL4F0TwxgdlVNMpj3Tg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cX4eNwVEIJMhU/OZSLIjLCjUd9+kLYWlQYSTM5fHSTAhPAjldxtDOvERfuUmdI+Ww
-	 6539VKBM/BlcMYfx8UO2CkvnNHlRo/D6f3une8HVYGTm43mQmHVnhNEEzMaIGWv7Ve
-	 FPuuUgbshJucs5235dWOsRypAVhTR6NWSdyEB9g8=
+	b=rkUQz7pQkkRcDf8B1Hz0avZ1m0O8YOumsEELyV//JpIoqa3Gg3bBs/wsoL0XmWDwU
+	 e9i2S7KBDMbwfyER7n0rRM+D+CvI34QVS/7jiln6jBLCnQFpaiPI+KSG2/vMjGk/CZ
+	 /6uGwdRtceBPZGJ9qLrm8XDNQhgZLVy1wRQ9+KHs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB8ABF80137;
-	Sat, 18 Sep 2021 23:36:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD813F8026A;
+	Sun, 19 Sep 2021 13:21:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED13AF8025E; Sat, 18 Sep 2021 23:36:11 +0200 (CEST)
+ id 5EBC0F80268; Sun, 19 Sep 2021 13:21:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.zeus03.de (www.zeus03.de [194.117.254.33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com
+ [209.85.217.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1D1D1F80137
- for <alsa-devel@alsa-project.org>; Sat, 18 Sep 2021 23:36:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D1D1F80137
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sang-engineering.com
- header.i=@sang-engineering.com header.b="y+DWnL+r"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple; d=sang-engineering.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=k1; bh=Kwpp0Fj2x26Eg7
- 8Ja7Z4hycUKbPpkJLdheziTeB1Zi8=; b=y+DWnL+rlbKwj54YmFiewuQaS11s/E
- +D/GrBAn071zxivs29KhJvwpb+29pXGJ3EIGZZL0KWXmTNVZ2JYXXzt3gGpVBrA2
- /GHF77p+5u4/ZDMJ11BdMS1+bHcTKifbbr6nRBb2c10eqvYmXSLZ7PymDcoUygwk
- Riu67C9lfpUnE=
-Received: (qmail 1967036 invoked from network); 18 Sep 2021 23:36:03 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
- authenticated); 18 Sep 2021 23:36:03 +0200
-X-UD-Smtp-Session: l3s3148p1@BrCw1UvM0JMgAwDPXyF2AO3QmsoMF7XN
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] ASoC: codecs: max98390: simplify getting the adapter of a
- client
-Date: Sat, 18 Sep 2021 23:35:52 +0200
-Message-Id: <20210918213553.14514-2-wsa+renesas@sang-engineering.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210918213553.14514-1-wsa+renesas@sang-engineering.com>
-References: <20210918213553.14514-1-wsa+renesas@sang-engineering.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 28E9AF80152
+ for <alsa-devel@alsa-project.org>; Sun, 19 Sep 2021 13:21:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28E9AF80152
+Received: by mail-vs1-f53.google.com with SMTP id q66so8356065vsa.4
+ for <alsa-devel@alsa-project.org>; Sun, 19 Sep 2021 04:21:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=K/ORHhnIy4nRW8aqt0HSfTMaa02QlmIV//+XG+bOnCU=;
+ b=KNX4lCv/FWX9oo925a1VTDg2jgkCybMmK/hJRBGNkIqbDNuT2vaC10UyeUhOAx81mR
+ cG8pKzS0vvNUCsr6gGT27NE/CQyNyMgbzlvT6cC9ONdNJc6uUwIPC+CjdkgwueQqQXHe
+ JH/ot4n4AVr3AF5D/WU3QjaQbss1BKTMG0FNr+hW2HTaI48L1tnmJ96+J3gzOBBl2dza
+ dZRZopxTTDkFOTTVIVMdwQ9EX+xDfUBQvln7A2EntTmFVCZfvbI6uI6ZyF+c/e0UxLX2
+ 7NbrhGmMoYlAtD3xDchdlK6+U3gJC/+xlbIkiB25/DLQCcC6sOm1EZbQSGQcLHSJI6TJ
+ ceZw==
+X-Gm-Message-State: AOAM531KuSBH3jXpuTn63SnNn+DHqrWyCwi0TUW9piMoFeArT4OHCOFP
+ wd/SM/Q3q5a9kevndmxYFZG1VUEG0HwwsRqQAeQ=
+X-Google-Smtp-Source: ABdhPJwsB+qX90+yBYMN6r5ozVeZNqsRYThb/1LSzyrHRlpuxm7MGRTllo/zneEm4++pxAdqeW8raOaQ69xnLE9sMcM=
+X-Received: by 2002:a67:cc1c:: with SMTP id q28mr12982410vsl.37.1632050484249; 
+ Sun, 19 Sep 2021 04:21:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Mark Brown <broonie@kernel.org>
+References: <20210918051632.1297025-1-liu.yun@linux.dev>
+In-Reply-To: <20210918051632.1297025-1-liu.yun@linux.dev>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Sun, 19 Sep 2021 13:21:13 +0200
+Message-ID: <CAMuHMdX2Wk6T9JAZT4Nqoiay5H+00xaUsn_pAGgspodpQuJcJQ@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: mediatek: SND_SOC_MT8195 remove depends on
+ COMPILE_TEST
+To: Jackie Liu <liu.yun@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,30 +84,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We have a dedicated pointer for that, so use it. Much easier to read and
-less computation involved.
+Hi Jackie,
 
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
----
+On Sat, Sep 18, 2021 at 7:17 AM Jackie Liu <liu.yun@linux.dev> wrote:
+> From: Jackie Liu <liuyun01@kylinos.cn>
+>
+> After compiling with COMPILE_TEST, we are most likely to compile on a
+> different architecture, such as x86. At this time, it is possible that
+> the HAVE_CLK macro is not selected, resulting in compilation failure.
+>
+> Avoid fail like:
+>
+>   Kernel: arch/x86/boot/bzImage is ready  (#17)
+>   ERROR: modpost: "clkdev_add" [sound/soc/mediatek/mt8195/snd-soc-mt8195-afe.ko] undefined!
+>   ERROR: modpost: "clkdev_drop" [sound/soc/mediatek/mt8195/snd-soc-mt8195-afe.ko] undefined!
+>   ERROR: modpost: "clk_unregister_gate" [sound/soc/mediatek/mt8195/snd-soc-mt8195-afe.ko] undefined!
+>   ERROR: modpost: "clk_register_gate" [sound/soc/mediatek/mt8195/snd-soc-mt8195-afe.ko] undefined!
+>   make[1]: *** [scripts/Makefile.modpost:134: modules-only.symvers] Error 1
+>   make[1]: *** Deleting file 'modules-only.symvers'
+>   make: *** [Makefile:1783: modules] Error 2
+>
+> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> Fixes: 940ffa194547 ("ASoC: mediatek: SND_SOC_MT8195 should depend on ARCH_MEDIATEK")
+> Signed-off-by: Jackie Liu <liuyun01@kylinos.cn>
 
-Please apply to your subsystem tree.
+Thanks for your patch!
 
- sound/soc/codecs/max98390.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> --- a/sound/soc/mediatek/Kconfig
+> +++ b/sound/soc/mediatek/Kconfig
+> @@ -187,7 +187,7 @@ config SND_SOC_MT8192_MT6359_RT1015_RT5682
+>
+>  config SND_SOC_MT8195
+>         tristate "ASoC support for Mediatek MT8195 chip"
+> -       depends on ARCH_MEDIATEK || COMPILE_TEST
+> +       depends on ARCH_MEDIATEK
 
-diff --git a/sound/soc/codecs/max98390.c b/sound/soc/codecs/max98390.c
-index b392567c2b3e..d1882cbc9381 100644
---- a/sound/soc/codecs/max98390.c
-+++ b/sound/soc/codecs/max98390.c
-@@ -1021,7 +1021,7 @@ static int max98390_i2c_probe(struct i2c_client *i2c,
- 	int reg = 0;
- 
- 	struct max98390_priv *max98390 = NULL;
--	struct i2c_adapter *adapter = to_i2c_adapter(i2c->dev.parent);
-+	struct i2c_adapter *adapter = i2c->adapter;
- 
- 	ret = i2c_check_functionality(adapter,
- 		I2C_FUNC_SMBUS_BYTE
+Instead of dropping support for compile-testing, wouldn't it be better
+to add the missing real dependencies?
+
+    HAVE_CLK (clkdev_add, clkdev_drop)
+    COMMON_CLK (clk_unregister_gate, clk_register_gate)
+
+As the latter selects the former, adding the line
+
+    depends on COMMON_CLK
+
+Also, the Fixes line is wrong as the link failure happened before.
+Fixes: 6746cc858259985a ("ASoC: mediatek: mt8195: add platform driver")
+
+>         select SND_SOC_MEDIATEK
+>         help
+>           This adds ASoC platform driver support for Mediatek MT8195 chip
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
 -- 
-2.30.2
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04A9B411B45
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Sep 2021 18:55:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E461E411C5F
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Sep 2021 19:07:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6FDC916D3;
-	Mon, 20 Sep 2021 18:54:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FDC916D3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5100D16C8;
+	Mon, 20 Sep 2021 19:06:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5100D16C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632156939;
-	bh=ZSbsqtm50QTeE32VXtGGhUOpXaVxWKEcuEdRBzgcF9s=;
+	s=default; t=1632157643;
+	bh=ea1vH0c1ywhVgw8kmnXuQG9RDFKi5XQmU9T+PZNTVbM=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=OLqzCqvT/1fEe2lGGrSqcIqBOCn2qLgZRxe5Ub/hY+ahEI57DZoSXOJ9BwAsqz0Yk
-	 jHhpn58La3dM8JSjv9zz+1qJU6RIRBZnNdgTh18x95aXNnXILEOyaC8iKqUVVhFsca
-	 s/VrKXU/Sv+Xf+0SptMnRa0TkED8n+2T7/ZjT9F0=
+	b=PdU48zsRE+YfqLLN7NBehDZGBeZaIbGtRjPay2wYTX53U51pZglrjiw+iD3pPJsrV
+	 C5V7ywCkwYDDYT8bO8R9fu5U1Vw+e/6dmhGgLh8C1IKENKstwakNo3wfPOiSXrJ1mq
+	 dxoP51ABUs+6TA0iF/MBHUEuaNvz+if4+64cV4Q8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D63F5F80152;
-	Mon, 20 Sep 2021 18:54:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4682F80129;
+	Mon, 20 Sep 2021 19:06:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 48365F8025D; Mon, 20 Sep 2021 18:54:21 +0200 (CEST)
+ id AC328F8025D; Mon, 20 Sep 2021 19:06:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -32,40 +32,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6D175F80129
- for <alsa-devel@alsa-project.org>; Mon, 20 Sep 2021 18:54:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D175F80129
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7D619F80129
+ for <alsa-devel@alsa-project.org>; Mon, 20 Sep 2021 19:05:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D619F80129
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="uMhEgFN3"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E115261505;
- Mon, 20 Sep 2021 16:54:06 +0000 (UTC)
+ header.b="PQHPrFbA"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1773661B1E;
+ Mon, 20 Sep 2021 17:05:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1632156847;
- bh=ZSbsqtm50QTeE32VXtGGhUOpXaVxWKEcuEdRBzgcF9s=;
+ s=k20201202; t=1632157552;
+ bh=ea1vH0c1ywhVgw8kmnXuQG9RDFKi5XQmU9T+PZNTVbM=;
  h=From:To:Cc:Subject:Date:From;
- b=uMhEgFN3nmxxckKfJLDXVomNaFBwwVs66Gcbdut5vDhmY4jJtUwO9wpg5+wwkeegC
- fjUbjMT07zpwaYsfydQ02F1+kKHWQpRZDRayp9AllqeY2cVLlXabxzBJjgJn8J1e3p
- ML2ze2FfR5tmoe8uGqV3GWvR809816JxgdYmzvY+IfGwEtgF9pQPNCoJKNHmoJ9k2K
- v0nZjQ5/KTOSDiTV0y/xRF3ak5byBEfXmv6hAZs1r85/LwysmEzMpIRxzYSWMTolOG
- Bv9wyDCxPZXdl4z66f39kSttEQaL1sWxzuf7n6GgZ2kMMTlooHsI+zvw0wD41PdCeF
- fZLcFsCcd7dFg==
+ b=PQHPrFbAYlNNj6PxXbURW5V8xqEjP+QRZda8w63ZblYiieevCUYmiv+Ak8R005tjI
+ /MhrqwfXmODeC+1oENU+CH7U9e185d/8jyg3QuQiUFg+9GSXL8JjjIs4HJ6VpEStPb
+ 9bGZ6In+pEB9rq/YqygEF5tQxeIpxgGQe00ek0UcvRDB9Iu+pforeRXFgQSMEzlc/q
+ FHsNybM8NrwWZvu3HUUAtmy7mvL1e/PxV+leO3zn2nAROx7SisaBl7ffhR2HIVtoXK
+ Vp/K2hzpIdY/NDjfd4ct4UyrecuW9/SjfBUbiaBjzN4YmG0SFJZFX0YfxIQgBg0vBb
+ PxZYtbIyc2yLQ==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH] ASoC: cpcap: Use modern ASoC DAI format terminology
-Date: Mon, 20 Sep 2021 17:53:23 +0100
-Message-Id: <20210920165323.17338-1-broonie@kernel.org>
+To: Cheng-Yi Chiang <cychiang@chromium.org>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Guenter Roeck <groeck@chromium.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Benson Leung <bleung@chromium.org>
+Subject: [PATCH] ASoC: cros_ec_codec: Use modern ASoC DAI format terminology
+Date: Mon, 20 Sep 2021 18:04:14 +0100
+Message-Id: <20210920170414.17903-1-broonie@kernel.org>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1164; h=from:subject;
- bh=ZSbsqtm50QTeE32VXtGGhUOpXaVxWKEcuEdRBzgcF9s=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBhSLxnE4vjLYX3Vn5PcRRxrZGE1uAaVPtwvQUiYO/x
- OedQmCSJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYUi8ZwAKCRAk1otyXVSH0A+oCA
- CGtUVfW0cdfvrU7cY1dyi0HuydzY7REKMfAFqo+etbNC4IAGkr9r6QaF3Rtc8m5L+wUGJc4FAg7mou
- cLTHbyjy74YFXa3tHeiOU4MqHZCq6pvXvx4JZQxlt4wMB8qkApyYpXmR091m7p7m4siqGSeC5QIpFA
- k9IKbXo0aspVTEzBjARslBifMwWtNc+3ZxH8qKy/A6ZlHBjFkYZ0KunGBqFGYPhlbxSy6P8S4jexIf
- nD3SPByRK5Is3EGiiT2jPz4R3XFwWyJ0lMMPcM2geuiy/T6XgHHMgIEcDCEpMx+4VUd0vswRSTZ97P
- OAvSkcXgsWrN4bpihUuD+v5QYsVnc/
+X-Developer-Signature: v=1; a=openpgp-sha256; l=894; h=from:subject;
+ bh=ea1vH0c1ywhVgw8kmnXuQG9RDFKi5XQmU9T+PZNTVbM=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBhSL7dDRzPPOw2DlnhQ2NH5tVBvN2Mwgp2tCbyT0hK
+ GtEfdGyJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYUi+3QAKCRAk1otyXVSH0GtJB/
+ 4rtfCzQ8pZEWBz+Um3mTh24xJBTiPWJTY3NMbNhDCUpWdz6LxXHml2mbMKE9BOvsezllEJb1RDAsgc
+ XW7cbYkkYd3Wxi8WnyxJlX9sv0zTruz6K5byVyJ6XAC6KCHO2MLk/9L84reDiRCk4YngxDcOyKJz5m
+ MKXIiaGF+ES5AVgZg5J22NxD7avAKJRT+Hyz5SkZK1x4HhNGVdtZ6ty3QTFahc4U+yEUciOo8ssR4O
+ q/T0EvdGj6Bvzy03O1SPKj8wSnc0DjIXVpdWKPhwSogZKgda+rD39FQ1XhtAdXYd2xkOVxe7dBbvyL
+ LmT+KlXXTgrhOFslC8imoIDpDTWbNa
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 Content-Transfer-Encoding: 8bit
@@ -86,37 +89,28 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 As part of moving to remove the old style defines for the bus clocks update
-the cpcap driver to use more modern terminology for clocking.
+the cros_ec_codec driver to use more modern terminology for clocking.
 
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/cpcap.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/codecs/cros_ec_codec.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/cpcap.c b/sound/soc/codecs/cpcap.c
-index 05bbacd0d174..9a932d088fb5 100644
---- a/sound/soc/codecs/cpcap.c
-+++ b/sound/soc/codecs/cpcap.c
-@@ -1168,15 +1168,15 @@ static int cpcap_hifi_set_dai_fmt(struct snd_soc_dai *codec_dai,
+diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
+index a201d652aca2..9b92e1a0d1a3 100644
+--- a/sound/soc/codecs/cros_ec_codec.c
++++ b/sound/soc/codecs/cros_ec_codec.c
+@@ -283,8 +283,8 @@ static int i2s_rx_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 	struct ec_param_ec_codec_i2s_rx p;
+ 	enum ec_codec_i2s_rx_daifmt daifmt;
  
- 	/*
- 	 * "HiFi Playback" should always be configured as
--	 * SND_SOC_DAIFMT_CBM_CFM - codec clk & frm master
-+	 * SND_SOC_DAIFMT_CBP_CFP - codec clk & frm provider
- 	 * SND_SOC_DAIFMT_I2S - I2S mode
- 	 */
 -	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
--	case SND_SOC_DAIFMT_CBM_CFM:
+-	case SND_SOC_DAIFMT_CBS_CFS:
 +	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
-+	case SND_SOC_DAIFMT_CBP_CFP:
- 		val &= ~BIT(CPCAP_BIT_SMB_ST_DAC);
++	case SND_SOC_DAIFMT_CBC_CFC:
  		break;
  	default:
--		dev_err(dev, "HiFi dai fmt failed: CPCAP should be master");
-+		dev_err(dev, "HiFi dai fmt failed: CPCAP should be provider");
  		return -EINVAL;
- 	}
- 
 -- 
 2.20.1
 

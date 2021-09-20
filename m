@@ -2,64 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2266411116
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Sep 2021 10:37:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75A3F411286
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Sep 2021 12:03:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 402AF1692;
-	Mon, 20 Sep 2021 10:36:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 402AF1692
+	by alsa0.perex.cz (Postfix) with ESMTPS id EBD7B1662;
+	Mon, 20 Sep 2021 12:02:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBD7B1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632127038;
-	bh=o8WLB8aF6/0Rw3+6O0rXwDavRja1GXoKvyrFndLgQtU=;
+	s=default; t=1632132222;
+	bh=z0yF78RdBg7hKlSTk5BKsjKH8v+YlV3IKCN8scl8+PA=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Z1m9cy8P0DjwR1uPh4WQ7xXRJiWX+EMwpje8Cy/cgB3oX8zggLO85xrs5IaCBbfsH
-	 qcciZC/IZ+k2j8Ws0/Gu9XaqcfNI/CGyRLWhkq4jbN9yyVc8DOJ4N7Zm+6o5vLdgbV
-	 VYIL/1A9SpDtos4oZOkY0whvJof+hat8aFj2fx1Y=
+	b=GgYW67tVotmkwbBy9MM/mocX7Dabv2dMtgcLBpeWacsl86kFmTbQU9xPuoPRSyTiE
+	 ZGvkM7pkQ45XgJF6cjt/G9LRgR2hNo/uNIQiglipv+j1Z1a5/bI9WnIi8k5/hDlROM
+	 NSSmsgHMaQLx6XpHsbfJmtHbhtmxn3BDjFacKePo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0AFFF80279;
-	Mon, 20 Sep 2021 10:36:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0FB2BF80246;
+	Mon, 20 Sep 2021 12:02:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5F708F8025D; Mon, 20 Sep 2021 10:35:59 +0200 (CEST)
+ id E074EF8025D; Mon, 20 Sep 2021 12:02:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00224F80124
- for <alsa-devel@alsa-project.org>; Mon, 20 Sep 2021 10:35:50 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id EFA8BA003F;
- Mon, 20 Sep 2021 10:35:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz EFA8BA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1632126949; bh=GMOkvvfrA00rCUBwQxBX0FQ8k7LayGLCnRvI2AllNG8=;
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8EEE1F80124
+ for <alsa-devel@alsa-project.org>; Mon, 20 Sep 2021 12:02:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EEE1F80124
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="It7WL4Jo"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 65C8C60240;
+ Mon, 20 Sep 2021 10:02:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1632132130;
+ bh=z0yF78RdBg7hKlSTk5BKsjKH8v+YlV3IKCN8scl8+PA=;
  h=From:To:Cc:Subject:Date:From;
- b=FiKSO8B32F3aUsR149uI1KMYOs5tdUyd6QlFae6FHiQe//aVmscHcIYya4WKxJzYX
- zwX4BCPWke9EDaJG+l8xWfqtdEVKJIV3qlF1ilS4DpwoAhSw6F/KwtGCNvNtxYw8DP
- 8szrAUAq0ZhE6q7i8a9bnuQ4aWtMwgaqNGzKXk3Q=
-Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon, 20 Sep 2021 10:35:43 +0200 (CEST)
-From: Jaroslav Kysela <perex@perex.cz>
-To: ALSA development <alsa-devel@alsa-project.org>
-Subject: [PATCH] ALSA: rawmidi: introduce SNDRV_RAWMIDI_IOCTL_USER_PVERSION
-Date: Mon, 20 Sep 2021 10:35:38 +0200
-Message-Id: <20210920083538.128008-1-perex@perex.cz>
-X-Mailer: git-send-email 2.31.1
+ b=It7WL4JobI3VYNZiMpQb3/orFfG9CEejphtd8OJuPHG2srcIB+ZJSwoIw/xnznw09
+ Bm0bk1XPN8soXvom2a8nhGwUtGCFQRiXwyxAjh5j5znRvGzInCXjI2E4b48LU7h0pt
+ m/V3Ex929pBT4rqU2LjvrccEi+vu8H3vCKf/7hMD2r76Q5fFUZFOa+BZxmjyz78S/3
+ XpCan3VqcvbftRlNYSm+Uu1eN7YKqY55ba6y+802zo2BoQrKw/dqpoH2tUBFuvabv7
+ umiTId0YNGfsHxcxYA2fQNL6BNtJvmpfvzJSW3GAHP60H0k+uZWKRRWaV34kF1FtWB
+ 344zktGw3md5Q==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Trevor Wu <trevor.wu@mediatek.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>
+Subject: [PATCH] ASoC: mediatek: mt8195: force COMMON_CLK dependency
+Date: Mon, 20 Sep 2021 12:01:58 +0200
+Message-Id: <20210920100206.1418649-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, David Henningsson <coding@diwic.se>,
- stable@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
+ linux-kernel@vger.kernel.org, Jiaxin Yu <jiaxin.yu@mediatek.com>,
+ Tzung-Bi Shih <tzungbi@google.com>, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,73 +82,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The new framing mode causes the user space regression, because
-the alsa-lib code does not initialize the reserved space in
-the params structure when the device is opened.
+From: Arnd Bergmann <arnd@arndb.de>
 
-This change adds SNDRV_RAWMIDI_IOCTL_USER_PVERSION like we
-do for the PCM interface for the protocol acknowledgment.
+Without CONFIG_COMMON_CLK, this driver fails to link:
 
-Cc: David Henningsson <coding@diwic.se>
-Cc: <stable@vger.kernel.org>
-Fixes: 08fdced60ca0 ("ALSA: rawmidi: Add framing mode")
-BugLink: https://github.com/alsa-project/alsa-lib/issues/178
-Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+ERROR: modpost: "clk_unregister_gate" [sound/soc/mediatek/mt8195/snd-soc-mt8195-afe.ko] undefined!
+ERROR: modpost: "clk_register_gate" [sound/soc/mediatek/mt8195/snd-soc-mt8195-afe.ko] undefined!
+
+Add the proper Kconfig dependency for compile testing.
+
+Fixes: 6746cc858259 ("ASoC: mediatek: mt8195: add platform driver")
+Fixes: 940ffa194547 ("ASoC: mediatek: SND_SOC_MT8195 should depend on ARCH_MEDIATEK")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- include/sound/rawmidi.h     | 1 +
- include/uapi/sound/asound.h | 1 +
- sound/core/rawmidi.c        | 9 +++++++++
- 3 files changed, 11 insertions(+)
+ sound/soc/mediatek/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/sound/rawmidi.h b/include/sound/rawmidi.h
-index 989e1517332d..7a08ed2acd60 100644
---- a/include/sound/rawmidi.h
-+++ b/include/sound/rawmidi.h
-@@ -98,6 +98,7 @@ struct snd_rawmidi_file {
- 	struct snd_rawmidi *rmidi;
- 	struct snd_rawmidi_substream *input;
- 	struct snd_rawmidi_substream *output;
-+	unsigned int user_pversion;	/* supported protocol version */
- };
+diff --git a/sound/soc/mediatek/Kconfig b/sound/soc/mediatek/Kconfig
+index 5a2f4667d50b..268c1f74aa3e 100644
+--- a/sound/soc/mediatek/Kconfig
++++ b/sound/soc/mediatek/Kconfig
+@@ -187,7 +187,7 @@ config SND_SOC_MT8192_MT6359_RT1015_RT5682
  
- struct snd_rawmidi_str {
-diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
-index 1d84ec9db93b..f906e50a7919 100644
---- a/include/uapi/sound/asound.h
-+++ b/include/uapi/sound/asound.h
-@@ -784,6 +784,7 @@ struct snd_rawmidi_status {
- 
- #define SNDRV_RAWMIDI_IOCTL_PVERSION	_IOR('W', 0x00, int)
- #define SNDRV_RAWMIDI_IOCTL_INFO	_IOR('W', 0x01, struct snd_rawmidi_info)
-+#define SNDRV_RAWMIDI_IOCTL_USER_PVERSION _IOW('A', 0x02, int)
- #define SNDRV_RAWMIDI_IOCTL_PARAMS	_IOWR('W', 0x10, struct snd_rawmidi_params)
- #define SNDRV_RAWMIDI_IOCTL_STATUS	_IOWR('W', 0x20, struct snd_rawmidi_status)
- #define SNDRV_RAWMIDI_IOCTL_DROP	_IOW('W', 0x30, int)
-diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
-index 6c0a4a67ad2e..6f30231bdb88 100644
---- a/sound/core/rawmidi.c
-+++ b/sound/core/rawmidi.c
-@@ -873,12 +873,21 @@ static long snd_rawmidi_ioctl(struct file *file, unsigned int cmd, unsigned long
- 			return -EINVAL;
- 		}
- 	}
-+	case SNDRV_RAWMIDI_IOCTL_USER_PVERSION:
-+		if (get_user(rfile->user_pversion, (unsigned int __user *)arg))
-+			return -EFAULT;
-+		return 0;
-+
- 	case SNDRV_RAWMIDI_IOCTL_PARAMS:
- 	{
- 		struct snd_rawmidi_params params;
- 
- 		if (copy_from_user(&params, argp, sizeof(struct snd_rawmidi_params)))
- 			return -EFAULT;
-+		if (rfile->user_pversion < SNDRV_PROTOCOL_VERSION(2, 0, 2)) {
-+			params.mode = 0;
-+			memset(params.reserved, 0, sizeof(params.reserved));
-+		}
- 		switch (params.stream) {
- 		case SNDRV_RAWMIDI_STREAM_OUTPUT:
- 			if (rfile->output == NULL)
+ config SND_SOC_MT8195
+ 	tristate "ASoC support for Mediatek MT8195 chip"
+-	depends on ARCH_MEDIATEK || COMPILE_TEST
++	depends on ARCH_MEDIATEK || (COMPILE_TEST && COMMON_CLK)
+ 	select SND_SOC_MEDIATEK
+ 	help
+ 	  This adds ASoC platform driver support for Mediatek MT8195 chip
 -- 
-2.31.1
+2.29.2
+

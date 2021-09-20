@@ -2,77 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43536411293
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Sep 2021 12:06:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CC5141135A
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Sep 2021 13:09:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C7C7E169C;
-	Mon, 20 Sep 2021 12:06:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7C7E169C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D77A21696;
+	Mon, 20 Sep 2021 13:08:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D77A21696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632132412;
-	bh=/rKN0TRlG4jUjiQFuZBWWVXi57C3cYujtbWL5c76c6w=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=FfSNPdhzpKdVmBhVmQHDw6TnUqZEBE0eAbmNE+uNT85Y8hb1mfSRaw2RaFEPmfj/v
-	 DHs9ZCsJjOq9dYthaU6kgMw1eXcD8ZFV9gPbTRBLWqTvR806rhTvpQnoBZr+qhYb4V
-	 ZKUKBjIhxQVEdnorfYll/PJZb2B2B7ftB0Hj/PWA=
+	s=default; t=1632136150;
+	bh=PgUGc1SWyn7yYZ6Jp8nV2BbeuCrYklqp4q6fwnROAHw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=SNAzzaGkDKthchaQ8zAfp6jNKB0gkulXn056X7SkDFwWS6NEcJslITbr2462NHxBf
+	 i/lttxCAA+3+NiUQWCh3uxmlo3eFEom0bK/+jzukNk+m8Sr8P1S6CC7t+ueSbRtylR
+	 QyhedW1D1MBjOt6C77FlSCOOWqur9I5thzIvHSfM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54196F80124;
-	Mon, 20 Sep 2021 12:05:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25A9AF80279;
+	Mon, 20 Sep 2021 13:07:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC2F8F8025D; Mon, 20 Sep 2021 12:05:33 +0200 (CEST)
+ id CF585F8025D; Mon, 20 Sep 2021 13:07:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com
- [209.85.221.173])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A1F4FF80129
- for <alsa-devel@alsa-project.org>; Mon, 20 Sep 2021 12:05:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1F4FF80129
-Received: by mail-vk1-f173.google.com with SMTP id d10so6356272vke.10
- for <alsa-devel@alsa-project.org>; Mon, 20 Sep 2021 03:05:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=CJlXbAv3u12lESrV/6ZqM6UNLLxRX/MyMpJQH7eW+7g=;
- b=aTHD6Lq698YXQTschRkMjBUawfNtdUu7PLI0hFAIpM1/SRjAcoHt+EU02Pe571mvVp
- 3HJoGR8UtH7pcU0NHrfHNPJUsKwu3guKfySmkoWSYbV+L/0BVbBabtnD405f1YhsnhOR
- gVwEvSOgfuCBsgHSB7F48dN/ItfDcvNxb4/qxZbCfpFLVHB7CGXGsjF7sEcwgZhRhTD8
- b+6xW7pmDHnZQ0mukczwxryY+HokCzWI86pbW87a+s2b7ek0oqM/mSSVcCXUA+5nM6IT
- ctkbBpZkDGjXvDQJdtxLQpPkdOw4StYSD0mAIBN+30qc01uVN5PCfqNMRScP5faqtHF/
- eB4w==
-X-Gm-Message-State: AOAM532YWxFUxnQVnm16gTa0hKVWD3w/3ywkceP1yzHAE8/C2YGqu5ut
- vTkgs4rWeN8ioK96XOIq635/5V6j4NzBlJOcyiw=
-X-Google-Smtp-Source: ABdhPJw21KYJ6+E01J7XKEBzRND+bYGJxtvpgL/KCdlzvGuzKjTv1Xd3XS/lrKcKi3oLR3yuOCRgqcDqibrEOieac7U=
-X-Received: by 2002:a1f:230c:: with SMTP id j12mr13427328vkj.11.1632132324735; 
- Mon, 20 Sep 2021 03:05:24 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 41A45F80129
+ for <alsa-devel@alsa-project.org>; Mon, 20 Sep 2021 13:07:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41A45F80129
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="giIS6sDg"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="NFpRM1F1"
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 076615C0048;
+ Mon, 20 Sep 2021 07:07:40 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Mon, 20 Sep 2021 07:07:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm2; bh=1MCndy9cLnlMIcCifBnqzwJc/+
+ Zfm3QLxX/qfshnxIM=; b=giIS6sDgRzSwSn+8t9vSyp8FA8blvOcarGEp41GDea
+ XOLUI3hsP0s6mIRKJDlqB0f1Tt04RjEZ7UcHnQcT8p1HMTlzPKwnxUZCucXTZqj2
+ ILAt+LOBBUrD1xTngkTnmClXReSKinylePKK9GXOC0kFDqOWkkW097bMcY9XzBIo
+ XgvGqLzivMFGlZR860eDWb9r0AouLgeKKwCrPC/0uh6vbRKNW7aMwmjwW9Bx8Nbg
+ k3XfB6ndPAlqaXvEEPI4wjSEKZoP8B+YLvE9sicfreSmunDdyAQCGibos6YR1Onj
+ WvTAUbxpOxNP/+hd0QGwToIX63OzPmD5LMagxSBC9zWA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=1MCndy9cLnlMIcCif
+ BnqzwJc/+Zfm3QLxX/qfshnxIM=; b=NFpRM1F1ztT+Hv6+pKC4XEP2TEkhPdpqN
+ vBusmnHVP+qj2l9bb3cRZFspHcKxSeJRXDXnsPQM3BDKgyzCdedeVGpmZ0El0JGu
+ CXiVQG+5qkPN86wZ6SCOY8x4tyCPwWwEGNaIxXNe50vjltgAFrGLH3yFgZjqD6j/
+ nfxUSneRqfAhoHJyXXk1pV4QrRBOFRe/rLi1Sqalu3mqAbuuV3n8EkdhN1Tk2mcO
+ ItU1n29AwV9KVJP/aOYycHvx94nOXfCwFnZnUeUZzpec5lM6tmcg9S5M9NH+jAFv
+ HIt5chMAbQopMwLwoRfZdFk4OBC/6waP5cCDWM0FcT9fbSEnfJXAA==
+X-ME-Sender: <xms:e2tIYVvDmFINcuJiFK2d_MRyk0XC2Lx8iuxgSyfl7ZZ4A1iXch1CUw>
+ <xme:e2tIYecLabQswtpiWAoEUeRLX5qEy5QLRl2rTuJnNBqNl35czPzl-7-fkfnLGZ-0E
+ xZGXP6cf_e2wwcBj70>
+X-ME-Received: <xmr:e2tIYYzzv3OwSkch2C1p7gC-0CAUD2to6WsgJQI2fvVx37UdWwN2Fkx8j6CFPdxFbJrNtzGPxnHERfTyslyRG_wKRgFhZo5m09c-H0yrlw6InYwtcJ55>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudeivddgfeeiucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
+ dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
+ ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepudejteelhfdttd
+ ekgfdtueeilefhgfetjeejheekgeevuddvveegieehueeukeejnecuvehluhhsthgvrhfu
+ ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkh
+ grmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:e2tIYcPmfe_Bww4c149BsVcW6oDPm6Mb1MZnP8VUBFgAnpAZE5W-Nw>
+ <xmx:e2tIYV839ie9qBygWjakTWzEUgu90N9k40C65cFW1TNFbkny788zDg>
+ <xmx:e2tIYcWJDyi_YJAFMo2ccN5TQZjjjXqietw9jgw9aqG5tGJxj4TpYA>
+ <xmx:fGtIYXIxp9H9wO4Ldz6JEAjqXRTVDA5_7DDyCbsSLC0zHOJEgskEnA>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 20 Sep 2021 07:07:37 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: tiwai@suse.de
+Subject: [PATCH] ALSA: firewire-motu: fix truncated bytes in message
+ tracepoints
+Date: Mon, 20 Sep 2021 20:07:34 +0900
+Message-Id: <20210920110734.27161-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <20210920100206.1418649-1-arnd@kernel.org>
-In-Reply-To: <20210920100206.1418649-1-arnd@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 20 Sep 2021 12:05:13 +0200
-Message-ID: <CAMuHMdUvb=nCZ=qfeUyUHQJ7TRjMjs4OVtd2q3yQT5SPk6Dx_g@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: mediatek: mt8195: force COMMON_CLK dependency
-To: Arnd Bergmann <arnd@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Arnd Bergmann <arnd@arndb.de>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Jiaxin Yu <jiaxin.yu@mediatek.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Tzung-Bi Shih <tzungbi@google.com>,
- Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
- Trevor Wu <trevor.wu@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,59 +109,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Arnd,
+In MOTU protocol v2/v3, first two data chunks across 2nd and 3rd data
+channels includes message bytes from device. The total size of message
+is 48 bits per data block.
 
-Thanks for your patch!
+The 'data_block_message' tracepoints event produced by ALSA firewire-motu
+driver exposes the sequence of messages to userspace in 64 bit storage,
+however lower 32 bits are actually available since current implementation
+truncates 16 bits in upper of the message as a result of bit shift
+operation within 32 bit storage.
 
-On Mon, Sep 20, 2021 at 12:02 PM Arnd Bergmann <arnd@kernel.org> wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> Without CONFIG_COMMON_CLK, this driver fails to link:
->
-> ERROR: modpost: "clk_unregister_gate" [sound/soc/mediatek/mt8195/snd-soc-mt8195-afe.ko] undefined!
-> ERROR: modpost: "clk_register_gate" [sound/soc/mediatek/mt8195/snd-soc-mt8195-afe.ko] undefined!
->
-> Add the proper Kconfig dependency for compile testing.
->
-> Fixes: 6746cc858259 ("ASoC: mediatek: mt8195: add platform driver")
-> Fixes: 940ffa194547 ("ASoC: mediatek: SND_SOC_MT8195 should depend on ARCH_MEDIATEK")
+This commit fixes the bug by perform the bit shift in 64 bit storage.
 
-I don't think the second Fixes tag is appropriate, as that commit did not
-relax the dependencies.
+Fixes: c6b0b9e65f09 ("ALSA: firewire-motu: add tracepoints for messages for unique protocol")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ sound/firewire/motu/amdtp-motu.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  sound/soc/mediatek/Kconfig | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/sound/soc/mediatek/Kconfig b/sound/soc/mediatek/Kconfig
-> index 5a2f4667d50b..268c1f74aa3e 100644
-> --- a/sound/soc/mediatek/Kconfig
-> +++ b/sound/soc/mediatek/Kconfig
-> @@ -187,7 +187,7 @@ config SND_SOC_MT8192_MT6359_RT1015_RT5682
->
->  config SND_SOC_MT8195
->         tristate "ASoC support for Mediatek MT8195 chip"
-> -       depends on ARCH_MEDIATEK || COMPILE_TEST
-> +       depends on ARCH_MEDIATEK || (COMPILE_TEST && COMMON_CLK)
-
-Why not add a second line
-
-    depends on COMMON_CLK
-
-to make a clear distinction between hard and soft dependencies?
-
->         select SND_SOC_MEDIATEK
->         help
->           This adds ASoC platform driver support for Mediatek MT8195 chip
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
+diff --git a/sound/firewire/motu/amdtp-motu.c b/sound/firewire/motu/amdtp-motu.c
+index 5388b85fb60e..a18c2c033e83 100644
+--- a/sound/firewire/motu/amdtp-motu.c
++++ b/sound/firewire/motu/amdtp-motu.c
+@@ -276,10 +276,11 @@ static void __maybe_unused copy_message(u64 *frames, __be32 *buffer,
+ 
+ 	/* This is just for v2/v3 protocol. */
+ 	for (i = 0; i < data_blocks; ++i) {
+-		*frames = (be32_to_cpu(buffer[1]) << 16) |
+-			  (be32_to_cpu(buffer[2]) >> 16);
++		*frames = be32_to_cpu(buffer[1]);
++		*frames <<= 16;
++		*frames |= be32_to_cpu(buffer[2]) >> 16;
++		++frames;
+ 		buffer += data_block_quadlets;
+-		frames++;
+ 	}
+ }
+ 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.30.2
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds

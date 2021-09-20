@@ -2,78 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B909411A06
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Sep 2021 18:43:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D74AC411ABA
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Sep 2021 18:50:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9CD6B16CC;
-	Mon, 20 Sep 2021 18:42:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CD6B16CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 367DA16CF;
+	Mon, 20 Sep 2021 18:49:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 367DA16CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632156218;
-	bh=XO4M4LS4xS69mz1TuBLg17lHJcaxAT6HtWlaKFkHvqY=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UshW79bcruNjZGZ/Yu2sXR3L/+22xOtO6pdPDjXv24AjUnW6ayseB1xLQDY+HPFCf
-	 PzHK04ZptX/eLqMC3C2WQTDm5h6ArYoMo5otwFtNXf2ED+VwGeu7ns56joRU0qNduH
-	 FO5aJb2pT+1Z2iCQskNZQMVR2LelYayzxXKruUPM=
+	s=default; t=1632156620;
+	bh=iOQZ+EkcLyMgSe78sfBADbvkr2P5sRfxc0rlYKQvG3A=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=l3nvoeb/NxoPm5QghjDOWdv161WL4YKyE0W7ltuJX258TEfCUXeY3y2ngCimWW47D
+	 4f3P2FZHDS2vBzKqSI9edWFpEUF7LJ2w0sH0jlWDVO5G26dcuGc/ofLcXIP+OzJvJG
+	 xlD6Ep7Mwysxf8NquN6GnYVBA2gLeDNEP/WE0sd0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 388B5F802A0;
-	Mon, 20 Sep 2021 18:42:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A7EFF80246;
+	Mon, 20 Sep 2021 18:49:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B3850F8025D; Mon, 20 Sep 2021 18:42:45 +0200 (CEST)
+ id ADF18F8025D; Mon, 20 Sep 2021 18:49:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from ns4.inleed.net (mailout4.inleed.net
- [IPv6:2a0b:dc80:cafe:104::1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+ SPF_HELO_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9EC35F80152
- for <alsa-devel@alsa-project.org>; Mon, 20 Sep 2021 18:42:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EC35F80152
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0FE75F80152
+ for <alsa-devel@alsa-project.org>; Mon, 20 Sep 2021 18:48:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FE75F80152
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=diwic.se header.i=@diwic.se
- header.b="R54V3cke"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=diwic.se;
- s=x; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:MIME-Version:Date:
- Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=yEv9NWBu3uZpQsNDkbdOJOgm0v68XHpSZXS3lb+TOUs=; b=R54V3ckeJXd61eLuED5tqhSloZ
- yYSqr1i1x+37xVvJw459/m2nDfZtzwJXyf/B8v6HTnBXaRr41H9SbV69W9YUpNm8t3l/tWRGBDrB5
- yZlAHfMuTWlqunJXhPeYKciThNuan7hGyU5jVg5792B/2ZWPTigN6MNM3uL6gkbQl06urwkzNey+j
- rMf3Tcreb3RAHbiepLGkKB1HlNHxFgQxuEM3zPWXZgCRoz3ZtMhxvu/wmWJYrhnXuuPI1TfFM4L/g
- 9QAX0wrqxQ4A6tf91bA/tYyn25Bzt+008nFIpQ7GQI6rcOuvDrKT3wHtrqjbOcMAfkDWZvaE0tAFd
- WsY4FEjQ==;
-Received: from c83-254-143-147.bredband.tele2.se ([83.254.143.147]
- helo=[192.168.5.6]) by ns4.inleed.net with esmtpsa (TLS1.2) tls
- TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
- (envelope-from <coding@diwic.se>)
- id 1mSMND-00DanS-QZ; Mon, 20 Sep 2021 18:42:31 +0200
-Subject: Re: [PATCH] ALSA: rawmidi: introduce SNDRV_RAWMIDI_IOCTL_USER_PVERSION
-To: Jaroslav Kysela <perex@perex.cz>,
- ALSA development <alsa-devel@alsa-project.org>
-References: <20210920083538.128008-1-perex@perex.cz>
-From: David Henningsson <coding@diwic.se>
-Message-ID: <5f2b66ef-01f2-f371-e8af-afa236f10cc5@diwic.se>
-Date: Mon, 20 Sep 2021 18:42:14 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="py68BEt+"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 20F506127B;
+ Mon, 20 Sep 2021 16:48:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1632156518;
+ bh=iOQZ+EkcLyMgSe78sfBADbvkr2P5sRfxc0rlYKQvG3A=;
+ h=From:To:Cc:Subject:Date:From;
+ b=py68BEt+d6hS4iFQSIR88pfIsfmco2BWzaHgZAGHCFtIQxHTy1CgcYyhcsmswzWEA
+ JvHwxT+yutyXAsphwz3wDbzO7PqHah37gN01wXmpKrgNHoUa1qqMFhDqYn3+/uh0LL
+ 2q4WtnJDklUC8/vY4f8iZbzFzRSxxI3sWQDLT9bNO+rI1y8PaaGLUYHug9ZH6mfhip
+ 438VCyBStvCekIybb1lZhOK7AlYYT3eqqje0vBhaLMCR/kyzXKrlhtUjZlNSFGfARp
+ JHr3RnMkKcxf2O7TUGDl7ks8GggM8lwpmlPeTgcqchsoPkJ+3/n9UCMBJHxWy6zJZ4
+ zwlbCRjiZcvhQ==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: ak5558: Use modern ASoC DAI format terminology
+Date: Mon, 20 Sep 2021 17:47:53 +0100
+Message-Id: <20210920164753.17030-1-broonie@kernel.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <20210920083538.128008-1-perex@perex.cz>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Authenticated-Id: coding@diwic.se
-Cc: Takashi Iwai <tiwai@suse.de>, stable@vger.kernel.org
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1111; h=from:subject;
+ bh=iOQZ+EkcLyMgSe78sfBADbvkr2P5sRfxc0rlYKQvG3A=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBhSLq53tJPUWI26Zoq1GSczVk/Lu2cTvV+jFT/zndZ
+ +jh4VK6JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYUi6uQAKCRAk1otyXVSH0FhAB/
+ 4u35YGXC0fsm8gc5kwZ9FUH7itLRnrXysKpiR4L74z5bwEdRLAm+vuX0zsciAXNjLwpSAH5DRcqae5
+ +vCzlCZ3r6X33paX3l1M8HuncHED5DD6zZ7htxo9GW4HcY/SKVxYydxon/tYOrQIUPJ55XzmjvtpTu
+ Wnm0RH1zaLk4qnMxR3Y8ZbHKUk3rb7FUZdaMtwAHs9ebiTEGX9/70x9gs77GjhcXrTzBiSnwJ+IOtk
+ Itq4RKYn0nvetgRXUKmKzp8fUYJ7xgfkOyLXVYN3WnJKMhjTPQoPcEsyUUOh8+hKMVMH/nj2U8Jdl+
+ 6K2e6NmZFD8rCegFLfDJlJEgkTA5A+
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,54 +85,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+As part of moving to remove the old style defines for the bus clocks update
+the ak5558 driver to use more modern terminology for clocking.
 
-On 2021-09-20 10:35, Jaroslav Kysela wrote:
-> The new framing mode causes the user space regression, because
-> the alsa-lib code does not initialize the reserved space in
-> the params structure when the device is opened.
->
-> This change adds SNDRV_RAWMIDI_IOCTL_USER_PVERSION like we
-> do for the PCM interface for the protocol acknowledgment.
->
-> Cc: David Henningsson <coding@diwic.se>
-> Cc: <stable@vger.kernel.org>
-> Fixes: 08fdced60ca0 ("ALSA: rawmidi: Add framing mode")
-> BugLink: https://github.com/alsa-project/alsa-lib/issues/178
-> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
-> ---
->   include/sound/rawmidi.h     | 1 +
->   include/uapi/sound/asound.h | 1 +
->   sound/core/rawmidi.c        | 9 +++++++++
->   3 files changed, 11 insertions(+)
->
-> diff --git a/include/sound/rawmidi.h b/include/sound/rawmidi.h
-> index 989e1517332d..7a08ed2acd60 100644
-> --- a/include/sound/rawmidi.h
-> +++ b/include/sound/rawmidi.h
-> @@ -98,6 +98,7 @@ struct snd_rawmidi_file {
->   	struct snd_rawmidi *rmidi;
->   	struct snd_rawmidi_substream *input;
->   	struct snd_rawmidi_substream *output;
-> +	unsigned int user_pversion;	/* supported protocol version */
->   };
->   
->   struct snd_rawmidi_str {
-> diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
-> index 1d84ec9db93b..f906e50a7919 100644
-> --- a/include/uapi/sound/asound.h
-> +++ b/include/uapi/sound/asound.h
-> @@ -784,6 +784,7 @@ struct snd_rawmidi_status {
->   
->   #define SNDRV_RAWMIDI_IOCTL_PVERSION	_IOR('W', 0x00, int)
->   #define SNDRV_RAWMIDI_IOCTL_INFO	_IOR('W', 0x01, struct snd_rawmidi_info)
-> +#define SNDRV_RAWMIDI_IOCTL_USER_PVERSION _IOW('A', 0x02, int)
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/codecs/ak5558.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-How come it's not 'W' here but 'A' instead?
-
-Looks good otherwise, given a quick glance. It'll need a corresponding 
-alsa-lib patch to actually call SNDRV_RAWMIDI_IOCTL_USER_PVERSION.
-
-Thanks for helping to sort this out.
-
-// David
+diff --git a/sound/soc/codecs/ak5558.c b/sound/soc/codecs/ak5558.c
+index 37d4600b6f2c..c94cfde3e4a8 100644
+--- a/sound/soc/codecs/ak5558.c
++++ b/sound/soc/codecs/ak5558.c
+@@ -198,13 +198,13 @@ static int ak5558_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 	struct snd_soc_component *component = dai->component;
+ 	u8 format;
+ 
+-	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+-	case SND_SOC_DAIFMT_CBS_CFS:
++	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
++	case SND_SOC_DAIFMT_CBC_CFC:
+ 		break;
+-	case SND_SOC_DAIFMT_CBM_CFM:
++	case SND_SOC_DAIFMT_CBP_CFP:
+ 		break;
+-	case SND_SOC_DAIFMT_CBS_CFM:
+-	case SND_SOC_DAIFMT_CBM_CFS:
++	case SND_SOC_DAIFMT_CBC_CFP:
++	case SND_SOC_DAIFMT_CBP_CFC:
+ 	default:
+ 		dev_err(dai->dev, "Clock mode unsupported");
+ 		return -EINVAL;
+-- 
+2.20.1
 

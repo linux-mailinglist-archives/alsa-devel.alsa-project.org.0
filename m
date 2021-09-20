@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30D9A4115AE
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Sep 2021 15:26:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2D974115B1
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Sep 2021 15:27:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A266316BB;
-	Mon, 20 Sep 2021 15:26:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A266316BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 18C7816A4;
+	Mon, 20 Sep 2021 15:26:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18C7816A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632144412;
-	bh=Pmmtt1wB4DpMbBeT3za21g8eG5VUMj4Kvh479+RCnTE=;
+	s=default; t=1632144438;
+	bh=UG50o8Y63o45nDb1Fi3/Tgj5EmHlqJ8LYPGotAZRnxo=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Juj4HwbZcc0/I0+vEs5RqKb8eFwkXFNI16uXZqjiSpmvFFZXzA/1J3sE3aA2M85DT
-	 GEtnJbCiUD0HyeYJ3KENri9WbpAiOxLw13ofKl2IWH4PeVAM3d1L72dVWReqR48Rqd
-	 yAeXQBQO5cJz4BON3xNHaNa7QTJv7ugsXCf3xdvg=
+	b=ocyrHqwCmWzcrzQLZ0k4GEfdh9PWhtoyV+0HWe5I7oA+l/2H4Z8SG7W5XoPhdGeIO
+	 nSzk4VT0oQFdtbeStZ5Jt7vhkrcmm2CJG423fFHIB03Jsv78v/Gv2WTwI1ISH3C/Du
+	 qcwKwoB3ZzwlUnUj3USzoRxBmLVYlr9j+kbYWv0Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A4CBF804E5;
-	Mon, 20 Sep 2021 15:25:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9D910F804EC;
+	Mon, 20 Sep 2021 15:25:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DEEB2F804E4; Mon, 20 Sep 2021 15:25:14 +0200 (CEST)
+ id 87982F804EB; Mon, 20 Sep 2021 15:25:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AF4E3F80152
- for <alsa-devel@alsa-project.org>; Mon, 20 Sep 2021 15:25:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF4E3F80152
+ by alsa1.perex.cz (Postfix) with ESMTPS id 640D4F804E6
+ for <alsa-devel@alsa-project.org>; Mon, 20 Sep 2021 15:25:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 640D4F804E6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="WpaAQKMb"
-Received: by mail-ed1-x532.google.com with SMTP id c22so61331477edn.12
- for <alsa-devel@alsa-project.org>; Mon, 20 Sep 2021 06:25:04 -0700 (PDT)
+ header.b="PnuSR2v6"
+Received: by mail-ed1-x52e.google.com with SMTP id eg28so38606005edb.1
+ for <alsa-devel@alsa-project.org>; Mon, 20 Sep 2021 06:25:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=5Z/peYbs19scCEIFsnkY9ZT+Ng56kA6OzfkT1Vupsss=;
- b=WpaAQKMbLMi8KUDY8D4vzykEZLpjiSzI1V9dR9E4Q6JgPva+/tb9cGXkDyncA8qetG
- /mYUMpknYMbJ8/mj/wRyDOpDx8mrLsRM0WCZdxuH93MczwgYvHV4ia1HyMveZXxHRJIi
- kIdYFXJFxdF4/n/VUmFwzkYDn4UVoaal8k7kJOITgxnGYleYhutubEcBzfrP5w2kowx5
- +OW54W0unAVmY3jRlABJ/I6g/wZs4CsyniBO5CHJ5vhX+wGqR5VGF7ZeQ6o8He43bIlO
- 0ncTQQaNV7PdodS5VRqXZad+9j7UZEXAptZKVWC/MIKpcITILj1hbdpoWtO1QPQvDp8O
- 7gLQ==
+ bh=fnQFPyNQnVgzXIVUEHXtp70eiyNNUDqOkLiOuvUzb64=;
+ b=PnuSR2v6OiCOGSzVEEKQpKpgIhXG5EoZ+Ev0QbiebTaL2dbwvVb3deWYVcwZM04o9S
+ fnriGnHJfqDSMvPQY8msyWKDE7s2Tal6Yd9DsyEurT/dPU5e/wceL2vMwXyMJ8zEdpmL
+ uAoFR28OgyGd9B7hbDUxKJms5KjQ4iswwzV044IUbEZ6HCIAKv7i7/Ml+fWaLMsoaTo+
+ 0/TA3XArpGwBy7Scn/n2dQsVSbkXSMwcNxgpNuJJF2XH2Vcxr+6i5DIF5O7LGjlTENdq
+ TANahzgWrIu0T9dEIo/SvTufHoeMmqnnTzZ0s0r4ezSSsi6LVs/dw4CwEGAaMh2LS0Hs
+ R4WA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=5Z/peYbs19scCEIFsnkY9ZT+Ng56kA6OzfkT1Vupsss=;
- b=ayEHgbPYUVAhKRTp/sYuD3hFkxafIR/3eDj7v2pu++EWj2WhVQP8Cg2dxjo0c+SmLL
- 0tgX8ItdUG3uLd/hixOjAGloapIegTeRUkh3fZ58AgFBopo6LEay9PmUXHJ7bvB4hs46
- PQWTPEVa3k3sKXZ5KhrPk7+kdgktmaxCdXuRyXnx+0r92JuU9QNh8tbJhxuaqxJO0cBC
- IBhuJz7rEn5DSBLNBt0yMcjb50g6fbWmXgAMUimA4/KNIhHr44TOyfjM3MEVOih51tDK
- 0hX25wP+i0ezFwkvWazxec9+CIv+elfRPLce8O2JoLNaK7iZ9JYyYY1pXJ4KvG+OqvOD
- Wj/A==
-X-Gm-Message-State: AOAM5302vVAzofPkxDhS0W7xIBMvF8akexmrqWW1GNfQ7Szis6hwJrKw
- rvAWuRgmn6rKjITfsi74aAG5PA==
-X-Google-Smtp-Source: ABdhPJzgF59K4i1R043ONbfVpeUA1ioxtRrNGTbbHkteOOznyAHryJjFhJRy7tPrvrsZ0DhF/JIFxg==
-X-Received: by 2002:a17:906:520b:: with SMTP id
- g11mr28539621ejm.502.1632144298580; 
- Mon, 20 Sep 2021 06:24:58 -0700 (PDT)
+ bh=fnQFPyNQnVgzXIVUEHXtp70eiyNNUDqOkLiOuvUzb64=;
+ b=r+H7zrvNyZ/wTDhgUIOTaOBBkSP+1/hHTcZHRsIWyOcimdYo+fVHOtivv4be8xC+7a
+ 2kUqYiIeRLCh2RMOjAx4epSIA4VXffe7Dy2ThQ7ABb1rWKavaiHvQGak69CdojCwO87M
+ cImsVFN2ahBnwGy3BkXZmu7FJy8/xWki9CAPTkjpemVCKntshOYmbv7C77cZH6tNSIT9
+ sfbxlacei8Hscav80FC+9DZ5T8RWungi2j4xxeO84f7x9h1f4dl7GEoQuMNk6N+pWH85
+ XKyCSrWNYozsRo537W0kG6z4TCdUCDKoqxmUCZsY+OMXTOGxxuoMI0mlUDokJQcsIwRC
+ XzLw==
+X-Gm-Message-State: AOAM530SEp1T19ZNjCWhXZ4Md695LVEX/KyjPOSUecw23k+shHk+GpAU
+ 0PCqvB5l7MzxqyvL5W7nsqaz/Q==
+X-Google-Smtp-Source: ABdhPJwFRm04TtqLKziX/WoySMiRVV/jdimq1erlSAB7wjzNz7QWT/dYAeSUIh6enE0Nz39x24l/qA==
+X-Received: by 2002:a05:6402:c8b:: with SMTP id
+ cm11mr28988017edb.368.1632144313857; 
+ Mon, 20 Sep 2021 06:25:13 -0700 (PDT)
 Received: from [192.168.86.34]
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id o7sm6960081edt.68.2021.09.20.06.24.57
+ by smtp.googlemail.com with ESMTPSA id dn28sm7045619edb.76.2021.09.20.06.25.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Sep 2021 06:24:58 -0700 (PDT)
-Subject: Re: [PATCH 3/7] ASoC: codecs: tx-macro: Change mic control registers
- to volatile
+ Mon, 20 Sep 2021 06:25:13 -0700 (PDT)
+Subject: Re: [PATCH 4/7] ASoC: codecs: lpass-va-macro: Change bulk voting to
+ individual clock voting
 To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, agross@kernel.org,
  bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
  robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
@@ -86,14 +86,14 @@ To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, agross@kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  swboyd@chromium.org, judyhsiao@chromium.org
 References: <1632123331-2425-1-git-send-email-srivasam@codeaurora.org>
- <1632123331-2425-4-git-send-email-srivasam@codeaurora.org>
+ <1632123331-2425-5-git-send-email-srivasam@codeaurora.org>
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <c1c7b1e8-98f5-99a3-1374-11d1d61535b4@linaro.org>
-Date: Mon, 20 Sep 2021 14:24:56 +0100
+Message-ID: <5f915592-0ca6-2839-43fc-6d9aef1484b7@linaro.org>
+Date: Mon, 20 Sep 2021 14:25:12 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <1632123331-2425-4-git-send-email-srivasam@codeaurora.org>
+In-Reply-To: <1632123331-2425-5-git-send-email-srivasam@codeaurora.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -116,52 +116,120 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 On 20/09/2021 08:35, Srinivasa Rao Mandadapu wrote:
-> Update amic and dmic related tx macro control registers to volatile
+> Change bulk clock frequency voting to individual voting.
 > 
-> Fixes: c39667ddcfc5 (ASoC: codecs: lpass-tx-macro: add support for lpass tx macro)
+Can you please explain why do we need to move out using clk bulk apis?
+
+Am not seeing any thing obvious behavior changing as part of this patch, 
+more details please..
+> Fixes: 908e6b1df26e (ASoC: codecs: lpass-va-macro: Add support to VA Macro)
+
+Why this has Fixes tag? Are we fixing any bug with this patch?
+
 > 
 > Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
 > Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
 > ---
->   sound/soc/codecs/lpass-tx-macro.c | 13 +++++++++++++
->   1 file changed, 13 insertions(+)
+>   sound/soc/codecs/lpass-va-macro.c | 46 ++++++++++++++++++++++++---------------
+>   1 file changed, 28 insertions(+), 18 deletions(-)
 > 
-> diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
-> index 9273724..e65b592 100644
-> --- a/sound/soc/codecs/lpass-tx-macro.c
-> +++ b/sound/soc/codecs/lpass-tx-macro.c
-> @@ -423,6 +423,13 @@ static bool tx_is_volatile_register(struct device *dev, unsigned int reg)
->   	case CDC_TX_TOP_CSR_SWR_DMIC1_CTL:
->   	case CDC_TX_TOP_CSR_SWR_DMIC2_CTL:
->   	case CDC_TX_TOP_CSR_SWR_DMIC3_CTL:
-> +	case CDC_TX_TOP_CSR_SWR_AMIC0_CTL:
-> +	case CDC_TX_TOP_CSR_SWR_AMIC1_CTL:
-> +	case CDC_TX_CLK_RST_CTRL_MCLK_CONTROL:
-> +	case CDC_TX_CLK_RST_CTRL_FS_CNT_CONTROL:
-> +	case CDC_TX_CLK_RST_CTRL_SWR_CONTROL:
-> +	case CDC_TX_TOP_CSR_SWR_CTRL:
-> +	case CDC_TX0_TX_PATH_SEC7:
+> diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
+> index d312a14..0ea39ae 100644
+> --- a/sound/soc/codecs/lpass-va-macro.c
+> +++ b/sound/soc/codecs/lpass-va-macro.c
+> @@ -193,7 +193,10 @@ struct va_macro {
+>   
+>   	int dec_mode[VA_MACRO_NUM_DECIMATORS];
+>   	struct regmap *regmap;
+> -	struct clk_bulk_data clks[VA_NUM_CLKS_MAX];
+> +	struct clk *mclk;
+> +	struct clk *macro;
+> +	struct clk *dcodec;
+> +
+>   	struct clk_hw hw;
+>   
+>   	s32 dmic_0_1_clk_cnt;
+> @@ -1321,7 +1324,7 @@ static const struct clk_ops fsgen_gate_ops = {
+>   
+>   static int va_macro_register_fsgen_output(struct va_macro *va)
+>   {
+> -	struct clk *parent = va->clks[2].clk;
+> +	struct clk *parent = va->mclk;
+>   	struct device *dev = va->dev;
+>   	struct device_node *np = dev->of_node;
+>   	const char *parent_clk_name;
+> @@ -1404,15 +1407,18 @@ static int va_macro_probe(struct platform_device *pdev)
+>   		return -ENOMEM;
+>   
+>   	va->dev = dev;
+> -	va->clks[0].id = "macro";
+> -	va->clks[1].id = "dcodec";
+> -	va->clks[2].id = "mclk";
+>   
+> -	ret = devm_clk_bulk_get(dev, VA_NUM_CLKS_MAX, va->clks);
+> -	if (ret) {
+> -		dev_err(dev, "Error getting VA Clocks (%d)\n", ret);
+> -		return ret;
+> -	}
+> +	va->macro = devm_clk_get_optional(dev, "macro");
+> +	if (IS_ERR(va->macro))
+> +		return PTR_ERR(va->macro);
+> +
+> +	va->dcodec = devm_clk_get_optional(dev, "dcodec");
+> +	if (IS_ERR(va->dcodec))
+> +		return PTR_ERR(va->dcodec);
+> +
+> +	va->mclk = devm_clk_get(dev, "mclk");
+> +	if (IS_ERR(va->mclk))
+> +		return PTR_ERR(va->mclk);
+>   
+>   	ret = of_property_read_u32(dev->of_node, "qcom,dmic-sample-rate",
+>   				   &sample_rate);
+> @@ -1426,10 +1432,11 @@ static int va_macro_probe(struct platform_device *pdev)
+>   	}
+>   
+>   	/* mclk rate */
+> -	clk_set_rate(va->clks[1].clk, VA_MACRO_MCLK_FREQ);
+> -	ret = clk_bulk_prepare_enable(VA_NUM_CLKS_MAX, va->clks);
+> -	if (ret)
+> -		return ret;
+> +	clk_set_rate(va->mclk, VA_MACRO_MCLK_FREQ);
+> +
+> +	clk_prepare_enable(va->mclk);
+> +	clk_prepare_enable(va->macro);
+> +	clk_prepare_enable(va->dcodec);
+>   
+>   	base = devm_platform_ioremap_resource(pdev, 0);
+>   	if (IS_ERR(base)) {
+> @@ -1457,8 +1464,9 @@ static int va_macro_probe(struct platform_device *pdev)
+>   	return ret;
+>   
+>   err:
+> -	clk_bulk_disable_unprepare(VA_NUM_CLKS_MAX, va->clks);
+> -
+> +	clk_disable_unprepare(va->mclk);
+> +	clk_disable_unprepare(va->macro);
+> +	clk_disable_unprepare(va->dcodec);
+>   	return ret;
+>   }
+>   
+> @@ -1466,8 +1474,10 @@ static int va_macro_remove(struct platform_device *pdev)
+>   {
+>   	struct va_macro *va = dev_get_drvdata(&pdev->dev);
+>   
+> -	clk_bulk_disable_unprepare(VA_NUM_CLKS_MAX, va->clks);
+> -
+> +	of_clk_del_provider(pdev->dev.of_node);
 
-Why are these marked as Volatile?
-Can you provide some details on the issue that you are seeing?
+fsgen clk is registered using devm_* variant of clk apis, so why do we 
+need this here?
+
 
 --srini
-
-
->   		return true;
->   	}
->   	return false;
-> @@ -1674,6 +1681,12 @@ static int tx_macro_component_probe(struct snd_soc_component *comp)
->   
->   	snd_soc_component_update_bits(comp, CDC_TX0_TX_PATH_SEC7, 0x3F,
->   				      0x0A);
-> +	snd_soc_component_update_bits(comp, CDC_TX_TOP_CSR_SWR_AMIC0_CTL, 0xFF, 0x00);
-> +	snd_soc_component_update_bits(comp, CDC_TX_TOP_CSR_SWR_AMIC1_CTL, 0xFF, 0x00);
-> +	snd_soc_component_update_bits(comp, CDC_TX_TOP_CSR_SWR_DMIC0_CTL, 0xFF, 0x00);
-> +	snd_soc_component_update_bits(comp, CDC_TX_TOP_CSR_SWR_DMIC1_CTL, 0xFF, 0x00);
-> +	snd_soc_component_update_bits(comp, CDC_TX_TOP_CSR_SWR_DMIC2_CTL, 0xFF, 0x00);
-> +	snd_soc_component_update_bits(comp, CDC_TX_TOP_CSR_SWR_DMIC3_CTL, 0xFF, 0x00);
->   
+> +	clk_disable_unprepare(va->mclk);
+> +	clk_disable_unprepare(va->macro);
+> +	clk_disable_unprepare(va->dcodec);
 >   	return 0;
 >   }
+>   
 > 

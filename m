@@ -2,67 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1794441104B
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Sep 2021 09:38:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37C6341104C
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Sep 2021 09:38:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 978461687;
-	Mon, 20 Sep 2021 09:37:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 978461687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 76F50168F;
+	Mon, 20 Sep 2021 09:37:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76F50168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632123516;
-	bh=hy5nt/xObB/fxgz8i7So5bbMmXLkCjzAxfGckOPUHnA=;
+	s=default; t=1632123527;
+	bh=CAJSV2AJy98Rqqq2ZNwzk3M5HBJRpJOr2Nieh11Uu8A=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iGiBjvaJY88AZPUiFwEx2Yj5qZbrCa1CwOzSRfrzjiMVh49G7ZFwXdunNtPHvqWHn
-	 R/iXIIR1oSnQ0O4GdvAKr4BmA0Q5XGwb+7c3tOR4WsJ+zMIZbVT4OVDXjOer4GgMM3
-	 nMzUZ2gxx7uR0QqGRi3Ij4DMlhbIlcAV1On4Hjuw=
+	b=VRsptxASzQVxyTQhrrM+R80zY/icSfmC3xGVXhBnW8znlM2aFuESdyG/gHtn7LgwC
+	 M0khszAeqUyQaLftVRgORUsl/L7bd9Sa8/7EaMORNIYD60FOif2/tJN3Xq5kD7+Hrs
+	 MVEzAlBIGB57DEGPJrcEOcY433Ah0rDIkJlI6wUs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D67BF804E6;
-	Mon, 20 Sep 2021 09:36:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4254F804F1;
+	Mon, 20 Sep 2021 09:36:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6E2CAF804BB; Mon, 20 Sep 2021 09:36:30 +0200 (CEST)
+ id 85151F804F1; Mon, 20 Sep 2021 09:36:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D3A5FF80152
- for <alsa-devel@alsa-project.org>; Mon, 20 Sep 2021 09:36:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3A5FF80152
+ by alsa1.perex.cz (Postfix) with ESMTPS id 55469F802A0
+ for <alsa-devel@alsa-project.org>; Mon, 20 Sep 2021 09:36:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55469F802A0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="oe5uf92b"
+ header.i=@mg.codeaurora.org header.b="RKZHeZ9R"
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1632123385; h=References: In-Reply-To: Message-Id: Date:
+ s=smtp; t=1632123391; h=References: In-Reply-To: Message-Id: Date:
  Subject: Cc: To: From: Sender;
- bh=ffcyisodcBdF9BO8GbzfssdNwyEkzbdhdwQtAO1wPYg=;
- b=oe5uf92bj2Km0QCNrqTQS9kv/OuxvQpdwMNdmbTIaNhEEJD7Y7FAYuvIHwbmcqkLtrbu9+f2
- uxT392qFV784WqC0NC/Yl2H+YPg5Vzwgy2ebgjzMpJuYBg8j+goF78/JBZGMZi2k52zQ2TyL
- APzmC+lNII8BQ0N+aLTwjAskjMQ=
-X-Mailgun-Sending-Ip: 198.61.254.9
+ bh=c9ljN+xjp5wOZeBRStwSabSjXyaHPIpDlX/URlVoR3U=;
+ b=RKZHeZ9RoBl9yhi7/nxAp7BXdyaYP7LsYzORT4db4TrppSUXMrJ6olepk1bCKOvxSC4RAsii
+ pnumwc8Cdlwo2W2WEhCfkwQnpi7tCFjAS+7tEGq/JNsgE+k3IUnRTOLfSGy5R9bgrYPd7WPw
+ /6flJnbfFNurgaQYmE7dccylSY4=
+X-Mailgun-Sending-Ip: 69.72.43.7
 X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n07.prod.us-west-2.postgun.com with SMTP id
- 614839f0648642cc1c3356ea (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 20 Sep 2021 07:36:16
+ smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
+ 614839fabd6681d8ed794062 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 20 Sep 2021 07:36:26
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 816C1C43616; Mon, 20 Sep 2021 07:36:16 +0000 (UTC)
+ id 56809C43639; Mon, 20 Sep 2021 07:36:24 +0000 (UTC)
 Received: from hu-srivasam-hyd.qualcomm.com (unknown [202.46.22.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id F3A7AC4338F;
- Mon, 20 Sep 2021 07:36:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org F3A7AC4338F
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 85155C43618;
+ Mon, 20 Sep 2021 07:36:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 85155C43618
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
@@ -75,10 +75,10 @@ To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
  linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  swboyd@chromium.org, judyhsiao@chromium.org
-Subject: [PATCH 4/7] ASoC: codecs: lpass-va-macro: Change bulk voting to
+Subject: [PATCH 5/7] ASoC: codecs: lpass-rx-macro: Change bulk voting to
  individual clock voting
-Date: Mon, 20 Sep 2021 13:05:28 +0530
-Message-Id: <1632123331-2425-5-git-send-email-srivasam@codeaurora.org>
+Date: Mon, 20 Sep 2021 13:05:29 +0530
+Message-Id: <1632123331-2425-6-git-send-email-srivasam@codeaurora.org>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1632123331-2425-1-git-send-email-srivasam@codeaurora.org>
 References: <1632123331-2425-1-git-send-email-srivasam@codeaurora.org>
@@ -101,104 +101,141 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Change bulk clock frequency voting to individual voting.
 
-Fixes: 908e6b1df26e (ASoC: codecs: lpass-va-macro: Add support to VA Macro)
+Fixes: af3d54b99764 (ASoC: codecs: lpass-rx-macro: add support for lpass rx macro)
 
 Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
 Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
 ---
- sound/soc/codecs/lpass-va-macro.c | 46 ++++++++++++++++++++++++---------------
- 1 file changed, 28 insertions(+), 18 deletions(-)
+ sound/soc/codecs/lpass-rx-macro.c | 68 +++++++++++++++++++++++++++------------
+ 1 file changed, 48 insertions(+), 20 deletions(-)
 
-diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
-index d312a14..0ea39ae 100644
---- a/sound/soc/codecs/lpass-va-macro.c
-+++ b/sound/soc/codecs/lpass-va-macro.c
-@@ -193,7 +193,10 @@ struct va_macro {
+diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
+index 520c760..349d879 100644
+--- a/sound/soc/codecs/lpass-rx-macro.c
++++ b/sound/soc/codecs/lpass-rx-macro.c
+@@ -608,7 +608,11 @@ struct rx_macro {
+ 	int softclip_clk_users;
  
- 	int dec_mode[VA_MACRO_NUM_DECIMATORS];
  	struct regmap *regmap;
--	struct clk_bulk_data clks[VA_NUM_CLKS_MAX];
+-	struct clk_bulk_data clks[RX_NUM_CLKS_MAX];
 +	struct clk *mclk;
++	struct clk *npl;
 +	struct clk *macro;
 +	struct clk *dcodec;
-+
++	struct clk *fsgen;
  	struct clk_hw hw;
- 
- 	s32 dmic_0_1_clk_cnt;
-@@ -1321,7 +1324,7 @@ static const struct clk_ops fsgen_gate_ops = {
- 
- static int va_macro_register_fsgen_output(struct va_macro *va)
+ };
+ #define to_rx_macro(_hw) container_of(_hw, struct rx_macro, hw)
+@@ -3423,6 +3427,8 @@ static int swclk_gate_enable(struct clk_hw *hw)
  {
--	struct clk *parent = va->clks[2].clk;
-+	struct clk *parent = va->mclk;
- 	struct device *dev = va->dev;
- 	struct device_node *np = dev->of_node;
- 	const char *parent_clk_name;
-@@ -1404,15 +1407,18 @@ static int va_macro_probe(struct platform_device *pdev)
+ 	struct rx_macro *rx = to_rx_macro(hw);
+ 
++	clk_set_rate(rx->npl, MCLK_FREQ);
++	clk_prepare_enable(rx->npl);
+ 	rx_macro_mclk_enable(rx, true);
+ 	if (rx->reset_swr)
+ 		regmap_update_bits(rx->regmap, CDC_RX_CLK_RST_CTRL_SWR_CONTROL,
+@@ -3448,6 +3454,7 @@ static void swclk_gate_disable(struct clk_hw *hw)
+ 			   CDC_RX_SWR_CLK_EN_MASK, 0);
+ 
+ 	rx_macro_mclk_enable(rx, false);
++	clk_disable_unprepare(rx->npl);
+ }
+ 
+ static int swclk_gate_is_enabled(struct clk_hw *hw)
+@@ -3485,7 +3492,7 @@ static struct clk *rx_macro_register_mclk_output(struct rx_macro *rx)
+ 	struct clk_init_data init;
+ 	int ret;
+ 
+-	parent_clk_name = __clk_get_name(rx->clks[2].clk);
++	parent_clk_name = __clk_get_name(rx->mclk);
+ 
+ 	init.name = clk_name;
+ 	init.ops = &swclk_gate_ops;
+@@ -3525,17 +3532,25 @@ static int rx_macro_probe(struct platform_device *pdev)
+ 	if (!rx)
  		return -ENOMEM;
  
- 	va->dev = dev;
--	va->clks[0].id = "macro";
--	va->clks[1].id = "dcodec";
--	va->clks[2].id = "mclk";
+-	rx->clks[0].id = "macro";
+-	rx->clks[1].id = "dcodec";
+-	rx->clks[2].id = "mclk";
+-	rx->clks[3].id = "npl";
+-	rx->clks[4].id = "fsgen";
++	rx->mclk = devm_clk_get(dev, "mclk");
++	if (IS_ERR(rx->mclk))
++		return PTR_ERR(rx->mclk);
++	rx->npl = devm_clk_get(dev, "npl");
++	if (IS_ERR(rx->npl))
++		return PTR_ERR(rx->npl);
  
--	ret = devm_clk_bulk_get(dev, VA_NUM_CLKS_MAX, va->clks);
+-	ret = devm_clk_bulk_get(dev, RX_NUM_CLKS_MAX, rx->clks);
 -	if (ret) {
--		dev_err(dev, "Error getting VA Clocks (%d)\n", ret);
+-		dev_err(dev, "Error getting RX Clocks (%d)\n", ret);
 -		return ret;
 -	}
-+	va->macro = devm_clk_get_optional(dev, "macro");
-+	if (IS_ERR(va->macro))
-+		return PTR_ERR(va->macro);
 +
-+	va->dcodec = devm_clk_get_optional(dev, "dcodec");
-+	if (IS_ERR(va->dcodec))
-+		return PTR_ERR(va->dcodec);
++	rx->macro = devm_clk_get_optional(dev, "macro");
++	if (IS_ERR(rx->macro))
++		return PTR_ERR(rx->macro);
 +
-+	va->mclk = devm_clk_get(dev, "mclk");
-+	if (IS_ERR(va->mclk))
-+		return PTR_ERR(va->mclk);
- 
- 	ret = of_property_read_u32(dev->of_node, "qcom,dmic-sample-rate",
- 				   &sample_rate);
-@@ -1426,10 +1432,11 @@ static int va_macro_probe(struct platform_device *pdev)
- 	}
- 
- 	/* mclk rate */
--	clk_set_rate(va->clks[1].clk, VA_MACRO_MCLK_FREQ);
--	ret = clk_bulk_prepare_enable(VA_NUM_CLKS_MAX, va->clks);
--	if (ret)
--		return ret;
-+	clk_set_rate(va->mclk, VA_MACRO_MCLK_FREQ);
++	rx->dcodec = devm_clk_get_optional(dev, "dcodec");
++	if (IS_ERR(rx->dcodec))
++		return PTR_ERR(rx->dcodec);
 +
-+	clk_prepare_enable(va->mclk);
-+	clk_prepare_enable(va->macro);
-+	clk_prepare_enable(va->dcodec);
++	rx->fsgen = devm_clk_get(dev, "fsgen");
++	if (IS_ERR(rx->fsgen))
++		return PTR_ERR(rx->fsgen);
  
  	base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(base)) {
-@@ -1457,8 +1464,9 @@ static int va_macro_probe(struct platform_device *pdev)
- 	return ret;
+ 	if (IS_ERR(base))
+@@ -3549,21 +3564,28 @@ static int rx_macro_probe(struct platform_device *pdev)
+ 	rx->dev = dev;
  
- err:
--	clk_bulk_disable_unprepare(VA_NUM_CLKS_MAX, va->clks);
--
-+	clk_disable_unprepare(va->mclk);
-+	clk_disable_unprepare(va->macro);
-+	clk_disable_unprepare(va->dcodec);
+ 	/* set MCLK and NPL rates */
+-	clk_set_rate(rx->clks[2].clk, MCLK_FREQ);
+-	clk_set_rate(rx->clks[3].clk, 2 * MCLK_FREQ);
++	clk_set_rate(rx->mclk, MCLK_FREQ);
++	clk_set_rate(rx->npl, 2 * MCLK_FREQ);
+ 
+-	ret = clk_bulk_prepare_enable(RX_NUM_CLKS_MAX, rx->clks);
+-	if (ret)
+-		return ret;
++	clk_prepare_enable(rx->macro);
++	clk_prepare_enable(rx->dcodec);
++	clk_prepare_enable(rx->mclk);
++	clk_prepare_enable(rx->npl);
++	clk_prepare_enable(rx->fsgen);
+ 
+ 	rx_macro_register_mclk_output(rx);
+ 
+ 	ret = devm_snd_soc_register_component(dev, &rx_macro_component_drv,
+ 					      rx_macro_dai,
+ 					      ARRAY_SIZE(rx_macro_dai));
+-	if (ret)
+-		clk_bulk_disable_unprepare(RX_NUM_CLKS_MAX, rx->clks);
++	if (ret) {
++		clk_disable_unprepare(rx->mclk);
++		clk_disable_unprepare(rx->npl);
++		clk_disable_unprepare(rx->macro);
++		clk_disable_unprepare(rx->dcodec);
++		clk_disable_unprepare(rx->fsgen);
+ 
++	}
  	return ret;
  }
  
-@@ -1466,8 +1474,10 @@ static int va_macro_remove(struct platform_device *pdev)
- {
- 	struct va_macro *va = dev_get_drvdata(&pdev->dev);
+@@ -3572,7 +3594,13 @@ static int rx_macro_remove(struct platform_device *pdev)
+ 	struct rx_macro *rx = dev_get_drvdata(&pdev->dev);
  
--	clk_bulk_disable_unprepare(VA_NUM_CLKS_MAX, va->clks);
--
-+	of_clk_del_provider(pdev->dev.of_node);
-+	clk_disable_unprepare(va->mclk);
-+	clk_disable_unprepare(va->macro);
-+	clk_disable_unprepare(va->dcodec);
+ 	of_clk_del_provider(pdev->dev.of_node);
+-	clk_bulk_disable_unprepare(RX_NUM_CLKS_MAX, rx->clks);
++
++	clk_disable_unprepare(rx->mclk);
++	clk_disable_unprepare(rx->npl);
++	clk_disable_unprepare(rx->macro);
++	clk_disable_unprepare(rx->dcodec);
++	clk_disable_unprepare(rx->fsgen);
++
  	return 0;
  }
  

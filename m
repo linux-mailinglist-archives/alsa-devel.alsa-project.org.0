@@ -2,155 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 166D9413431
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Sep 2021 15:32:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5876341347E
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Sep 2021 15:39:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9EBA482E;
-	Tue, 21 Sep 2021 15:31:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EBA482E
+	by alsa0.perex.cz (Postfix) with ESMTPS id E094511C;
+	Tue, 21 Sep 2021 15:39:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E094511C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632231137;
-	bh=EByeWfexctlvhK15c56edQkiGfD76nVwEuUjEWrrDyw=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Bh4CFxWv0jrtjtTWH5qfgcRriUtE+hQ+A+qXhCcLrxvs4ANNAtrJinacMbdeuKrgh
-	 jFN7NpeP8E4D8geQdmoSP97REdF1KpkYsDXaOI03kSTC//ZsG3xVe3NWe8WgbA1xR/
-	 jilri+yFtx1ZY8HSkx1ssWhU9v7mMdi5nUyQGOuQ=
-Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 264FDF80124;
-	Tue, 21 Sep 2021 15:31:01 +0200 (CEST)
+	s=default; t=1632231598;
+	bh=OboQ8U14n/Lm6N3M1uJymg9hSfqebxLO8gBBdeZpuyA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=XXHtU+1bBa5eaC10UnZvrPzfhcnIM2pfKBMn3N3N6a3wEiI+5wE0cUjS/FIOMVuQ/
+	 5YK5mGuFyGqIDX0Pb2CXHZ5lcDxbtJiCZEyfF8ratQIHVC5GbEhvZT0gipmpf1E6ks
+	 TLaiXx3BnsbYhMbriQE3byBHaoEkx/J3HCAoU0oE=
+Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 77CAAF804BD;
+	Tue, 21 Sep 2021 15:38:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E020BF80268; Tue, 21 Sep 2021 15:30:52 +0200 (CEST)
+ id 1D971F80268; Tue, 21 Sep 2021 15:38:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
- MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on2117.outbound.protection.outlook.com [40.107.21.117])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE1C2F80124
- for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 15:30:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE1C2F80124
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9161FF8016E
+ for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 15:38:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9161FF8016E
 Authentication-Results: alsa1.perex.cz;
- dkim=fail reason="signature verification failed" (1024-bit key)
- header.d=axentia.se header.i=@axentia.se header.b="P++r4AoT"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=A0trx4Ipp9tLQR7LtXfTYyS9arlKf38AFhtlPp6mdo6oZ3VFjomT2xQ5BGUFgIotYYOb8QP6yvx5k6+nK7v100pW5Df3bP2/hNf/2VysC1RHc+6nYaCEcSnz/+A8DN/0zhY3vuwuuxf5IpRnKKCFUpVJoVMMteyBA/wyc9CKVo1CX4NRbRO7KcZgXeO4nAThj/xqa3A63ZOzAmLd/Su6lgg8MSafkltF77iQnUvG5GoZxLGatxZn90XvRbpXxJmtl+cI5PMa69GjWpgtdyeAShkxLTAIXsD3etKL1iS575O/+deNDKvw6JSv6mmRpm6oergYgcxYHUTfcJ43bwQm3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=7AbaU5KyMJCj8kjda7mS7RfosvTUaTpAFJc8YAqCQQc=;
- b=n0I/3qsrwO8fgOMxjHF9u4z4LVjGafnaog1MdQXHVE67fF7EGqvK2d/nroNZ4+FN7QsMNDf2OhnrecufGEAV1trrhXKlUFtOQNXUxMEXH2uqcZB7mhSB4ESQsssv93VPaQ7NaKIf9FI3hbrwQoDSsWos1o8dBleSj/KBTt8cnvt6XXNVe6Sg8yHiN43WdYfoX4QIlBPsGMmV09AYnNRQLUzyYqJfb6RvVm6NW1oOuIGEzEx5YFZXR3Il6qjGsy6YaMpNt0zbfhz82W+zCnODiSCZSeCrSPKm3rn3HitxE8Av9N4+8couqPkIlsChvg51FN04cJHbfK5sDmfhhIx9Sw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axentia.se; dmarc=pass action=none header.from=axentia.se;
- dkim=pass header.d=axentia.se; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axentia.se;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7AbaU5KyMJCj8kjda7mS7RfosvTUaTpAFJc8YAqCQQc=;
- b=P++r4AoTq01P8BJUteoZwO4hdP9lF4sfRtA4vfcQ5o66ZZGbjNA1niKhtpyieHIQC2+ElMFkZ6AKDmX5yBQ6G1ue4KZJCD3nWlkW13lfMaMcoiGnw2AEiNkmvOu1I9iFtBU2v02gA9eDQ8XqzaoG3tHXFV6l6YCUfmUmv02ah00=
-Authentication-Results: birdec.com; dkim=none (message not signed)
- header.d=none;birdec.com; dmarc=none action=none header.from=axentia.se;
-Received: from DB8PR02MB5482.eurprd02.prod.outlook.com (2603:10a6:10:eb::29)
- by DB8PR02MB5962.eurprd02.prod.outlook.com (2603:10a6:10:f8::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Tue, 21 Sep
- 2021 13:30:33 +0000
-Received: from DB8PR02MB5482.eurprd02.prod.outlook.com
- ([fe80::35c9:1008:f5af:55a]) by DB8PR02MB5482.eurprd02.prod.outlook.com
- ([fe80::35c9:1008:f5af:55a%4]) with mapi id 15.20.4523.018; Tue, 21 Sep 2021
- 13:30:33 +0000
-Subject: Re: [PATCH] ASoC: pcm512x: Mend accesses to the I2S_1 and I2S_2
- registers
-To: Mark Brown <broonie@kernel.org>
-References: <2d221984-7a2e-7006-0f8a-ffb5f64ee885@axentia.se>
- <ae4b25f1-2b2c-d937-e23d-0f7d23bdf0c4@gmail.com>
- <815cbba4-60d6-8d97-c483-146c2f7c3912@axentia.se>
- <7537b141-0ef1-fb44-7e02-27b4dd1e772b@gmail.com>
- <d9850534-df41-a6b3-48e2-34823f5866e9@axentia.se>
- <27f903d9-a74e-182e-b715-4124cf666f45@axentia.se>
- <8b96eb7b-8829-443f-481c-ab1772ece098@axentia.se>
- <20210921120113.GA9990@sirena.org.uk>
-From: Peter Rosin <peda@axentia.se>
-Organization: Axentia Technologies AB
-Message-ID: <cc8d7cfb-a9ad-7881-6962-77a00118c85d@axentia.se>
-Date: Tue, 21 Sep 2021 15:30:31 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-In-Reply-To: <20210921120113.GA9990@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AS8PR04CA0101.eurprd04.prod.outlook.com
- (2603:10a6:20b:31e::16) To DB8PR02MB5482.eurprd02.prod.outlook.com
- (2603:10a6:10:eb::29)
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="q97ogezO"
+Received: by mail-ed1-x530.google.com with SMTP id ee50so657099edb.13
+ for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 06:38:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=3D26/rwZ7NhUoZNYjxoPX0Ph5Tk4MxA4k2abzEntyX0=;
+ b=q97ogezOMesdP9ftL8vhzyflNxx3ssbhV9a772BoqtN11/Cish25ILh3oUgmhRZKhO
+ N9EGzrSJz3aFLEqd3UK9jE6bjQrTDjRuK9enUB9vyHyXQBBOaX2Xi1SoE79iG4O00nuP
+ sHBCGmO3N+wJ/04flaMFOsBcvkf4IuC8Rfbmhs+CJJSU2lBOZoEhGm53Av+h5ZU8cNeh
+ Q9CCBUwSh3WU+dM+n+XzrFBxql/F864/h9sm4PeG1y6ZRtYzr5m9zr1ZhnvcBymPHx78
+ 0M2fIIhnTQEngz6pCawc50awRuyz+K1TjYSjPZZaKo3I4P9ywgA/7YbzVSS/oF3ROSHK
+ hzFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=3D26/rwZ7NhUoZNYjxoPX0Ph5Tk4MxA4k2abzEntyX0=;
+ b=1pRz5WMDMIXnGFQz6OroPCbo0uKv2oXqOhVXhBbMfOwzsM6rZSWuJbRl/0u+Mh6ZQK
+ tKc+A8hVkAvCv2jXs/iIw/DONeClqKzIogsitdc6MsWIPGRLvqm+atFw3O6xObWYztHk
+ 4fdtNWK3rezGh0AFA1PAnP4GVHq2Ba2C1/N+LDT+dpuA8PkXyTX4qW9zh9vNpaZ15gc5
+ KW1mzGHoEmzKE7EWLQF8tYydJWqNbpP6viuf0okF8N73V9sFWLjbMuGw5eGNNlHgU3Iu
+ mQtjd21hSioF8deXP/X9ts33uEAXaXnnu69ypzSXW5et2KwzWJ84ObTHdGtZC38HHbI9
+ KIGQ==
+X-Gm-Message-State: AOAM532RfDpFqj6u3YaBxQXkgVBkVe4L+i5gnUI1mVNMoGqyFZgK5mdt
+ fQuqRCTbDLmYtWhS+otRj+SUZg==
+X-Google-Smtp-Source: ABdhPJwhck0iCJAEKDCe68GrQyvWKsh8MvVkfPzFXRTB9yT617hyj2lhBGfxNBCMRRyyxg9mMP9ukw==
+X-Received: by 2002:a17:906:a18b:: with SMTP id
+ s11mr35275066ejy.8.1632231442509; 
+ Tue, 21 Sep 2021 06:37:22 -0700 (PDT)
+Received: from srini-hackbox.lan
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.gmail.com with ESMTPSA id b3sm7915799edx.55.2021.09.21.06.37.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Sep 2021 06:37:21 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: bjorn.andersson@linaro.org,
+	broonie@kernel.org,
+	robh@kernel.org
+Subject: [PATCH v7 00/22] ASoC: qcom: Add AudioReach support
+Date: Tue, 21 Sep 2021 14:36:47 +0100
+Message-Id: <20210921133709.4973-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.13.3] (185.178.140.238) by
- AS8PR04CA0101.eurprd04.prod.outlook.com (2603:10a6:20b:31e::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.16 via Frontend
- Transport; Tue, 21 Sep 2021 13:30:33 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 654b5bce-975c-40c6-c15b-08d97d03fd28
-X-MS-TrafficTypeDiagnostic: DB8PR02MB5962:
-X-Microsoft-Antispam-PRVS: <DB8PR02MB5962D5D45F7B9D489230906CBCA19@DB8PR02MB5962.eurprd02.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nojvZ+uIBGDNE3XGz+FBFrg6fFMcq1V/UZQRgl2osDedcBHqbM26g1twDlPZlekRNfr1ZSoxOnrqyBZE47Yw51oPeXtxWPrC/tcF+dneODZiEK0sEGrZ2IcZZSbLK06EMtkCilmis23IgmrAXaZg5f3tdvjqUvjBuMLD+oBVKinjfeXy2sT2X2aOTNG+ujXcgAuGkceFLiVRTWSo/oG8JytarothWHc0/lWPO4rT5b5h8J13Met17+zgd5yOBmPgUG71pktfS99pd0XwV9ZnzsTNE/LhKVznINCGXx/E5/jtDrXTcNbExe7k5IchB1Dca2lGNl/7csqQSBotEwqgIWuqowaBz2WjekZ9v/0Fpe49Nlb8gZzQ7OCiDmV0RZ7hSUSoTMKzehW/P+vVyPn7wLCB9BY20hbB16rhocb6RP4FCp/N4f750cIKgajXYW6DjT63Nv8CRcYz/ibY/RSTuuA8KG0poStIv69i1xHMpfra2swt9te6L6jH6moM/wvzCT6a66GQwGXPMIES3j6ORVCNxun0rUgX5dXhd8pjVdqPiYAHMYRlduMD6HCpER4CXeaotXkzTsrrA0dJYsPY+JqDjtifmra+DcZs3XHYfNdPbveWv/j/7Z8XnX3D43BT2CZzeaQTVqZ/dpDoOJqq3t4biWFKkhGvZScAmYBjoiLltlK1GY2n0jvdP119nHIjWCeCOWud5I3VbeRe2fpgzkZHrWIlB0FSOJzeeU03HCY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DB8PR02MB5482.eurprd02.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(39840400004)(346002)(396003)(136003)(376002)(366004)(53546011)(508600001)(26005)(316002)(2616005)(8676002)(8936002)(66476007)(66556008)(4326008)(4744005)(186003)(54906003)(83380400001)(5660300002)(31686004)(36756003)(66574015)(38100700002)(86362001)(6916009)(2906002)(16576012)(956004)(6486002)(36916002)(31696002)(66946007)(43740500002)(45980500001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?Windows-1252?Q?Hn2jlQMyr8w4PK+1bYmT1tZUPeLQp8pIEeJZ2f3CsBMoDHaSSgUdnzE6?=
- =?Windows-1252?Q?ocbaXG5NkEotaUe8TUJGX8A8FTCCWmlGzS3rnr/DN0AIPZb3GK5dy/N+?=
- =?Windows-1252?Q?qEiGXgKlfXNfF+uEipyTzIt1b/ZrpaZjmEsH46ykj0q6VZN1oJDzunpZ?=
- =?Windows-1252?Q?xSDDL2eu9XjUL7koDCRxzSJzrHtIiQk4l8uSEJLG+rBy2ZsZusLpkL70?=
- =?Windows-1252?Q?m4eOijPYEMyK7EJ/1tICa+I6oXbsZk1nsSw+J+IT0b6A9M11A50juM7Q?=
- =?Windows-1252?Q?BDWJph1Fh1nmmRBEQ2iyKNv8zcHlgyj1fAM+1rrM07y4Pzu8274s0fDn?=
- =?Windows-1252?Q?tQMrY6oKcwOhEyZbhDiYK3o5TxG/16aSt6FyoTWR3LYl9ILZr/8AE5Oe?=
- =?Windows-1252?Q?GbXWFihVrsVQCXZ5lxBeJpnzRLX0wSxvk1sXtJUWnfaL1+tO5T+PYOw1?=
- =?Windows-1252?Q?91piRRdUdYztf+Kr7J7nP7F5X7RYiImRD35SAHvm2843TiUVIPQ/biWI?=
- =?Windows-1252?Q?WX3ZJN5gCWL9yG1grIjkSOIu6wKVqV0yXEOtsqY0kFA1Q+xAzT/m8Wuo?=
- =?Windows-1252?Q?HpbeKC7T7zCyIvcWrsDlnW+A65l5Qbf+LAZzV8Ddi33PbU3FqutIeXLT?=
- =?Windows-1252?Q?CRBpLfbK92SGPYbK/cEw+uUByxzOl1dzxTRC8fUTL9I4isQLQzc9rY/e?=
- =?Windows-1252?Q?xwqXElhdqfpbXCzdEWEGSNrhfMvG7ROXE80HsvNTUIk2WtAsrIge5dq6?=
- =?Windows-1252?Q?h9xdNLYJS5viwB0P8/DrqX92FgqrO3hZ4UhUQOUsnXxtdQB6XVuVv7QA?=
- =?Windows-1252?Q?5c9MQ+xNIRJsNz9WVgl0qmdAo27bSHwmfc62fY/2c2k8aEVCoYA2ogY9?=
- =?Windows-1252?Q?H4y7BzabVwJDN+3wPglyfIx9lEOHU08EaqvE1+aU78mBejcd/00Dn2sW?=
- =?Windows-1252?Q?Uo2AmV8dPU+iQXaWrn+IObcpmUKuCFSK1IB+KrqPqf6XHbX4kKZH7GUT?=
- =?Windows-1252?Q?QnBCP822m4GgfIhKhZjTFQ29EtB+zzOG1F6fc0sRMyw7Tb8EgW9XXrnk?=
- =?Windows-1252?Q?LVNsxb9MmnJ1hAq6aVPeF9Fe7MUALIJ7sCFcTlgkU7F/PMaSm96EQ4BS?=
- =?Windows-1252?Q?aKZfkc94XVyL/wwbJwYR4iJFZZbPzAeJNvIOF2GUsiqj49uVdpOvcDsq?=
- =?Windows-1252?Q?h1Dq8CMGBnwWirPxam7/bpUzg64wgoGhjHkcp3ibEgFhE3Elxs/BpXK2?=
- =?Windows-1252?Q?IX7weB2PW0joDwv9o/YEIpbB0630zxhO+bwe/GJfJWpVXqfGh/4/qL+8?=
- =?Windows-1252?Q?6IdJrjTRlyzORaBQ+N7KtELGmB5RyhObhe3flCnXZ+FcGctAD9JsCJ7h?=
- =?Windows-1252?Q?rFKaZ8+OGdZwvykMw0sc+r3er67/8nRsvqzM1Lnft0slPisGVmZFE2gr?=
-X-OriginatorOrg: axentia.se
-X-MS-Exchange-CrossTenant-Network-Message-Id: 654b5bce-975c-40c6-c15b-08d97d03fd28
-X-MS-Exchange-CrossTenant-AuthSource: DB8PR02MB5482.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2021 13:30:33.6725 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4ee68585-03e1-4785-942a-df9c1871a234
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3jFV+TGZsAGeKWeoxhHrtqgnBL7IXQ9V4b8egaRYpR4iLIRps0xzkrZEla8maq1I
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR02MB5962
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Kirill Marinushkin <kmarinushkin@birdec.com>,
- =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, lgirdwood@gmail.com, tiwai@suse.de,
+ plai@codeaurora.org, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -166,32 +101,212 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2021-09-21 14:01, Mark Brown wrote:
-> On Tue, Sep 21, 2021 at 10:48:01AM +0200, Peter Rosin wrote:
->> On 2021-09-21 10:10, Peter Rosin wrote:
-> 
->> Ok, so the attached works for me as well. But I don't know if it's
->> appropriate to resume/suspend like that?
-> 
->> is:
->>
->> pcm512x 0-004c: Failed to set data format: -16
->>
->> The root cause is that the chip is in Powerdown mode when
->> pcm512x_set_fmt runs. So, bring the chip out of suspend for
->> the update of the format.
-> 
-> How would this work if the device looses power while in suspend (eg, due
-> to the regulators being software controllable)?  If the data isn't being
-> stored in the cache then it'll need to be stored somewhere else and
-> restored on resume.
+Many thanks for reviewing v6 This version addresses all the comments
+raised as part of v7 review.
 
-Right. Scratch v2. I'd go with the original patch. We have verified
-that the original content of the I2S_1 register is the expected 0x02
-(at least on one pcm5142) and besides, the four RSV bits are probably
-don't care anyway.
+This patchset adds ASoC driver support to configure signal processing
+framework ("AudioReach") which is integral part of Qualcomm next
+generation audio SDK and will be deployed on upcoming Qualcomm chipsets.
+It makes use of ASoC Topology to load graphs on to the DSP which is then
+managed by APM (Audio Processing Manager) service to prepare/start/stop.
 
-Péter might have a different opinion?
+Here is simplified high-level block diagram of AudioReach:
 
-Cheers,
-Peter
+ ___________________________________________________________
+|                 CPU (Application Processor)               |
+|  +---------+          +---------+         +----------+    |
+|  |  q6apm  |          |  q6apm  |         |  q6apm   |    |
+|  |   dais  | <------> |         | <-----> |lpass-dais|    |
+|  +---------+          +---------+         +----------+    |
+|                            ^  ^                           |
+|                            |  |           +---------+     |
+|  +---------+               v  +---------->|topology |     |
+|  | q6prm   |          +---------+         |         |     |
+|  |         |<-------->|   GPR   |         +---------+     |
+|  +---------+          +---------+                         |
+|       ^                    ^                              |
+|       |                    |                              |
+|  +----------+              |                              |
+|  |   q6prm  |              |                              |
+|  |lpass-clks|              |                              |
+|  +----------+              |                              |
+|____________________________|______________________________|
+                             |  
+                             | RPMSG (IPC over GLINK)              
+ ____________________________|______________________________
+|                            |                              |
+|    +-----------------------+                              |
+|    |                       |                              |
+|    v                       v              q6 (Audio DSP)  |
+|+-----+    +----------------------------------+            |
+|| PRM |    | APM (Audio Processing Manager)   |            |
+|+-----+    |  . Graph Management              |            |  
+|           |  . Command Handing               |            |  
+|           |  . Event Management              |            |  
+|           |  ...                             |            |  
+|           +----------------------------------+            |  
+|                            ^                              |
+|____________________________|______________________________|
+                             |  
+                             |   LPASS AIF
+ ____________________________|______________________________
+|                            |            Audio I/O         |
+|                            v                              |
+|   +--------------------------------------------------+    |
+|    |                Audio devices                     |   |
+|    | CODEC | HDMI-TX | PCM  | SLIMBUS | I2S |MI2S |...|   |
+|    |                                                  |   |
+|    +--------------------------------------------------+   |
+|___________________________________________________________|
+
+AudioReach has constructs of sub-graph, container and modules.
+Each sub-graph can have N containers and each Container can have N Modules
+and connections between them can be linear or non-linear.
+An audio function can be realized with one or many connected
+sub-graphs. There are also control/event paths between modules that can
+be wired up while building graph to achieve various control mechanism
+between modules. These concepts of Sub-Graph, Containers and Modules
+are represented in ASoC topology.
+
+Here is simple I2S graph with a Write Shared Memory and a
+Volume control module within a single Subgraph (1) with one Container (1)
+and 5 modules.
+
+  ____________________________________________________________
+ |                        Sub-Graph [1]                       |
+ |  _______________________________________________________   |
+ | |                       Container [1]                   |  |
+ | | [WR_SH] -> [PCM DEC] -> [PCM CONV] -> [VOL]-> [I2S-EP]|  |
+ | |_______________________________________________________|  |
+ |____________________________________________________________|
+
+For now this graph is split into two subgraphs to achieve dpcm like below:
+ ________________________________________________    _________________
+|                Sub-Graph [1]                   |  |  Sub-Graph [2]  |
+|  ____________________________________________  |  |  _____________  |
+| |              Container [1]                 | |  | |Container [2]| |
+| | [WR_SH] -> [PCM DEC] -> [PCM CONV] -> [VOL]| |  | |   [I2S-EP]  | |
+| |____________________________________________| |  | |_____________| |
+|________________________________________________|  |_________________|
+
+                                                      _________________
+                                                    |  Sub-Graph [3]  |
+                                                    |  _____________  |
+                                                    | |Container [3]| |
+                                                    | |  [DMA-EP]   | |
+                                                    | |_____________| |
+                                                    |_________________|
+
+
+This patchset adds very minimal support for AudioReach which includes
+supporting sub-graphs containing CODEC DMA ports and simple PCM
+Decoder/Encoder and Logger Modules. Additional capabilities will
+be built over time to expose features offered by AudioReach. 
+
+This patchset is Tested on SM8250 SoC based Qualcomm Robotics Platform RB5
+and SM9250 MTP with WSA881X Smart Speaker Amplifiers, DMICs connected via
+VA Macro and WCD938x Codec connected via TX and RX Macro and HDMI audio
+via I2S.
+
+First 10 Patches are mostly reorganization existing Old QDSP Audio
+Framework code and bindings so that we could reuse them on AudioReach.
+
+ASoC topology graphs for DragonBoard RB5 and SM8250 MTP are available at 
+https://git.linaro.org/people/srinivas.kandagatla/audioreach-topology.git/
+and Qualcomm AudioReach DSP headers are available at:
+https://source.codeaurora.org/quic/la/platform/vendor/opensource/arspf-headers
+
+Note: There is one false positive warning in this patchset:
+audioreach.c:80:45: warning: array of flexible structures
+
+Thanks,
+srini
+
+Changes since v6:
+- fixed last usage of flexible array in apr
+- removed leftover comments
+- added support to derive topology firmware name from soundcard to
+ support different variants, as suggested by Pierre.
+
+Srinivas Kandagatla (22):
+  soc: dt-bindings: qcom: apr: convert to yaml
+  soc: dt-bindings: qcom: apr: deprecate qcom,apr-domain property
+  soc: qcom: apr: make code more reuseable
+  soc: dt-bindings: qcom: add gpr bindings
+  soc: qcom: apr: Add GPR support
+  ASoC: dt-bindings: move LPASS dai related bindings out of q6afe
+  ASoC: dt-bindings: move LPASS clocks related bindings out of q6afe
+  ASoC: dt-bindings: rename q6afe.h to q6dsp-lpass-ports.h
+  ASoC: qdsp6: q6afe-dai: move lpass audio ports to common file
+  ASoC: qdsp6: q6afe-clocks: move audio-clocks to common file
+  ASoC: dt-bindings: q6dsp: add q6apm-lpass-dai compatible
+  ASoC: dt-bindings: lpass-clocks: add q6prm clocks compatible
+  ASoC: dt-bindings: add q6apm digital audio stream bindings
+  ASoC: qdsp6: audioreach: add basic pkt alloc support
+  ASoC: qdsp6: audioreach: add q6apm support
+  ASoC: qdsp6: audioreach: add module configuration command helpers
+  ASoC: qdsp6: audioreach: add Kconfig and Makefile
+  ASoC: qdsp6: audioreach: add topology support
+  ASoC: qdsp6: audioreach: add q6apm-dai support
+  ASoC: qdsp6: audioreach: add q6apm lpass dai support
+  ASoC: qdsp6: audioreach: add q6prm support
+  ASoC: qdsp6: audioreach: add support for q6prm-clocks
+
+ .../devicetree/bindings/soc/qcom/qcom,apr.txt |  134 --
+ .../bindings/soc/qcom/qcom,apr.yaml           |  177 +++
+ .../devicetree/bindings/sound/qcom,q6afe.txt  |  181 ---
+ .../bindings/sound/qcom,q6apm-dai.yaml        |   53 +
+ .../sound/qcom,q6dsp-lpass-clocks.yaml        |   77 ++
+ .../sound/qcom,q6dsp-lpass-ports.yaml         |  205 +++
+ drivers/soc/qcom/Kconfig                      |    2 +-
+ drivers/soc/qcom/apr.c                        |  287 ++++-
+ include/dt-bindings/soc/qcom,gpr.h            |   19 +
+ include/dt-bindings/sound/qcom,q6afe.h        |  203 +--
+ .../sound/qcom,q6dsp-lpass-ports.h            |  208 +++
+ include/linux/soc/qcom/apr.h                  |   70 +-
+ include/uapi/sound/snd_ar_tokens.h            |  208 +++
+ sound/soc/qcom/Kconfig                        |   22 +
+ sound/soc/qcom/qdsp6/Makefile                 |   11 +-
+ sound/soc/qcom/qdsp6/audioreach.c             | 1135 +++++++++++++++++
+ sound/soc/qcom/qdsp6/audioreach.h             |  726 +++++++++++
+ sound/soc/qcom/qdsp6/q6afe-clocks.c           |  187 +--
+ sound/soc/qcom/qdsp6/q6afe-dai.c              |  687 +---------
+ sound/soc/qcom/qdsp6/q6apm-dai.c              |  415 ++++++
+ sound/soc/qcom/qdsp6/q6apm-lpass-dais.c       |  260 ++++
+ sound/soc/qcom/qdsp6/q6apm.c                  |  836 ++++++++++++
+ sound/soc/qcom/qdsp6/q6apm.h                  |  152 +++
+ sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c     |  186 +++
+ sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.h     |   30 +
+ sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c      |  627 +++++++++
+ sound/soc/qcom/qdsp6/q6dsp-lpass-ports.h      |   22 +
+ sound/soc/qcom/qdsp6/q6prm-clocks.c           |   85 ++
+ sound/soc/qcom/qdsp6/q6prm.c                  |  202 +++
+ sound/soc/qcom/qdsp6/q6prm.h                  |   78 ++
+ sound/soc/qcom/qdsp6/topology.c               | 1133 ++++++++++++++++
+ 31 files changed, 7203 insertions(+), 1415 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/soc/qcom/qcom,apr.txt
+ create mode 100644 Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-clocks.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml
+ create mode 100644 include/dt-bindings/soc/qcom,gpr.h
+ create mode 100644 include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+ create mode 100644 include/uapi/sound/snd_ar_tokens.h
+ create mode 100644 sound/soc/qcom/qdsp6/audioreach.c
+ create mode 100644 sound/soc/qcom/qdsp6/audioreach.h
+ create mode 100644 sound/soc/qcom/qdsp6/q6apm-dai.c
+ create mode 100644 sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
+ create mode 100644 sound/soc/qcom/qdsp6/q6apm.c
+ create mode 100644 sound/soc/qcom/qdsp6/q6apm.h
+ create mode 100644 sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
+ create mode 100644 sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.h
+ create mode 100644 sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c
+ create mode 100644 sound/soc/qcom/qdsp6/q6dsp-lpass-ports.h
+ create mode 100644 sound/soc/qcom/qdsp6/q6prm-clocks.c
+ create mode 100644 sound/soc/qcom/qdsp6/q6prm.c
+ create mode 100644 sound/soc/qcom/qdsp6/q6prm.h
+ create mode 100644 sound/soc/qcom/qdsp6/topology.c
+
+-- 
+2.21.0
+

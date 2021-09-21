@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A1664134C3
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Sep 2021 15:47:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3185413486
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Sep 2021 15:40:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C3F2C169D;
-	Tue, 21 Sep 2021 15:46:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3F2C169D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7037D847;
+	Tue, 21 Sep 2021 15:39:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7037D847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632232047;
-	bh=FTNshx8mgD/4dsjBE7iHgoCsCH/9Xhlk/9MW2GTlrRw=;
+	s=default; t=1632231642;
+	bh=RrS/YC9yrka5UPSznR9amblm2X0hN9a4tClp4dX1oN4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G+GlIeBke5pw79n0Vg7ZVHi/mJ7wkcz6HHvXOY7H8hPyJsu0xF2ZOWS/D8euY366D
-	 VFzcCSwp91f/ic1zIXT1wdazClMdt0CBbcexkp4kKGoW4LdKavLzxxVnZGvpdDO0rn
-	 RSaWbQktaTbYnZBdKYKZWi0humzgve+ohVf2DNGw=
+	b=HZm74POiXPc22T9wjQnxZO6OkWlwFtbA6qXMvxPB1cE97CtKJetLDXg9lrAPsVj0j
+	 jvpdlhBzZsTwLs1mTpImODH/Q4r58/y8TdpHBji1Nw/Hk9bK1YD1sYjhiDwLFZy20A
+	 IETZamBeBCir/z3a6g6rjicqOzskNwh0niNiMLuA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24294F805C3;
-	Tue, 21 Sep 2021 15:40:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A846F804F2;
+	Tue, 21 Sep 2021 15:38:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9ED5EF805A8; Tue, 21 Sep 2021 15:39:53 +0200 (CEST)
+ id 9D567F804ED; Tue, 21 Sep 2021 15:38:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [IPv6:2a00:1450:4864:20::52d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B3A3FF8057C
- for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 15:39:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3A3FF8057C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02952F80124
+ for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 15:38:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02952F80124
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="asG8G0Cy"
-Received: by mail-ed1-x535.google.com with SMTP id c21so73130646edj.0
- for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 06:39:45 -0700 (PDT)
+ header.b="SDEr3Bi9"
+Received: by mail-ed1-x52d.google.com with SMTP id bx4so30040355edb.4
+ for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 06:38:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=0TebeQ0TXJpETl5yyZtrFs6HbXMx9cchKOW5rtUhE/g=;
- b=asG8G0Cy7N6oDlz+uZjY3tkYV7m6YfYA4UitzcWyLH0oFiUbnRybNZ0jfkY9zjDbTc
- 2GwV1NM+OoeZHhCbS1A+rCxSV5iFrbyV5HKQ6dL+rPIQLdz/hnlp1wHJuDiglSj++5be
- nKHIagQSJgr85q9oYHhBlazj5QOtIDR0N+cRhk88JsraatQD9UQwipHlpPVErx08o6xL
- XartguHfkooEy0tYpL0DNYMU7t0e84ac7Pa5+1XEKllDjccC7V3ahQDyMpBbLAgKVPc6
- xHtrDCENsORxikIyK+5RXmudKn7B130vZEYJZi0SJ3pTrpA0oAHgrWO3wvcrlD+8Ym8F
- Zq1w==
+ bh=2dEl9+MXeU9ILc1heZjgbaev2CRPnvoQ4/YvbAvAmQM=;
+ b=SDEr3Bi9dVZx9skbxdTqk0uD2XtPonJtAcv4IiO8crFBs26M4k9/T+cr87ziHrIpv/
+ uDAqCXuQBSvqMOxTJ0Fv5CeB5Ywzg804K9omERfJjMVVU+MZYLYOjYMA6UyGkm6BUWaB
+ cZAk+IqKkv4aTODD33lz2dp9hshuU8zWQWDJLyFuddS15ql+EZPtH2pouSLvwHJByDvC
+ saD1L77XRBMWrVP1lDJXrDmbHZlp6uerqh+X9kk8ZBnrrxL6YrphmhROFA69ud4NHQRl
+ 6P0IWdlmfhBL5x25cl+eeW/Hlw05sCBdnAFRciNaLEIE50Jb+ptPBgF0Fyay54W2HHB6
+ WjTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=0TebeQ0TXJpETl5yyZtrFs6HbXMx9cchKOW5rtUhE/g=;
- b=A2kEtsKoKI/efI79PKZ8AXTHiClrdDfFv7MSwyrST41XNMu9AHfY7wWG643vtfzGkA
- /5L8gt2KPSy8EJ+UOq3oy0/TMMEVB8HjAPCFMaQ+9SulEyMcq+xvV/LvzTuZfu8LihPK
- F1gbD6/Xp8yJEdde2Qt1508+H/FNXuLXrs92jN2ZygdWgQoKdEOIx5kn+1ZBDE2WkfKR
- zj2nFeVrByPjT8n2Y39eTmYL3CWdHsQU84Zo/TkbQodUti7pyTSG7vlaSRiQ/jn1cA+9
- 60xoVdACvivgNm+1pDl7zM6NICb1XqQLnAR2zmUkBV/xLZHc7dLAi3lIaghqEBYZMHIR
- mGpA==
-X-Gm-Message-State: AOAM531BNbAHV4RJr2gS/FLRFPjJ98s9hnSiCTUSHedrkAdio0x1gQns
- e3y9RBpfp+1kfdf45Oib3EybzQ==
-X-Google-Smtp-Source: ABdhPJyJIhR6Fkv0gjSorfwETvJDf9crA2rKm6C//0VTBuSQJckctgW428NOy4bAUwO347jqWwcVVQ==
-X-Received: by 2002:a50:da0a:: with SMTP id z10mr7383569edj.298.1632231460397; 
- Tue, 21 Sep 2021 06:37:40 -0700 (PDT)
+ bh=2dEl9+MXeU9ILc1heZjgbaev2CRPnvoQ4/YvbAvAmQM=;
+ b=JWZTVtQQTVG2mPChejkor+VcN/JTxaXRH6LNTHL0ZZiyu9DTaBi6/6UBO09IzDauvu
+ 7zw79RKUPqu7jOETFgtg9+Cdrbg5UZKXEsF3M+v/KEkpZFb4GmTWYMfV42/mw185lXDn
+ 1m1HcfV6OByHwCLI07VXAr80ksQTCk/MhbrUFLwJ0qWdnSmYIifhqmM7kjJA+mMJq9zf
+ 5WfUgV52aGpX/c+xAsF1NZ1lSo7v9uMIY9v/0riBeReYIO08GmpRl1Jwx4/rDXIXLEBs
+ 18HGSMl6vYI/UsnpkqJJ5wjOQ8wjHwigrVMNGA7MrzRJuTMG12PleqhN390ypXBEzkx6
+ VWdA==
+X-Gm-Message-State: AOAM5326/IVikH0Yp8SFw36ot3hCp9oFZS4XShz1tdBgXDAgJJC92uZx
+ Lj4k6oPofZMeKLM0jc076ninXg==
+X-Google-Smtp-Source: ABdhPJy8QERP2z05nE5jCT86ONGDjLl8u++2AlMH+ZVUj5DZAZp03r9yrJt5OUlGt74opVkc/mJZcg==
+X-Received: by 2002:a50:d80f:: with SMTP id o15mr35291392edj.52.1632231462075; 
+ Tue, 21 Sep 2021 06:37:42 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id b3sm7915799edx.55.2021.09.21.06.37.38
+ by smtp.gmail.com with ESMTPSA id b3sm7915799edx.55.2021.09.21.06.37.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Sep 2021 06:37:39 -0700 (PDT)
+ Tue, 21 Sep 2021 06:37:41 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: bjorn.andersson@linaro.org,
 	broonie@kernel.org,
 	robh@kernel.org
-Subject: [PATCH v7 11/22] ASoC: dt-bindings: q6dsp: add q6apm-lpass-dai
+Subject: [PATCH v7 12/22] ASoC: dt-bindings: lpass-clocks: add q6prm clocks
  compatible
-Date: Tue, 21 Sep 2021 14:36:58 +0100
-Message-Id: <20210921133709.4973-12-srinivas.kandagatla@linaro.org>
+Date: Tue, 21 Sep 2021 14:36:59 +0100
+Message-Id: <20210921133709.4973-13-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20210921133709.4973-1-srinivas.kandagatla@linaro.org>
 References: <20210921133709.4973-1-srinivas.kandagatla@linaro.org>
@@ -105,61 +105,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-on AudioReach audio Framework access to LPASS ports is via
-Q6APM(Audio Process Manager) service, so add a dedicated compatible
+On AudioReach audio Framework access to LPASS ports is via Q6PRM
+(Proxy Resource Manager) service, so add a dedicated lpass-clock compatible
 string for this.
 
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 Reviewed-by: Rob Herring <robh@kernel.org>
 ---
- .../sound/qcom,q6dsp-lpass-ports.yaml         | 27 +++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ .../sound/qcom,q6dsp-lpass-clocks.yaml        | 21 +++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml b/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml
-index e6148c17419b..dc7fba7b92d5 100644
---- a/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml
+diff --git a/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-clocks.yaml b/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-clocks.yaml
+index c686164732aa..f83f00737a2f 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-clocks.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-clocks.yaml
 @@ -16,6 +16,7 @@ properties:
    compatible:
      enum:
-       - qcom,q6afe-dais
-+      - qcom,q6apm-lpass-dais
+       - qcom,q6afe-clocks
++      - qcom,q6prm-lpass-clocks
  
    reg:
      maxItems: 1
-@@ -169,6 +170,32 @@ examples:
-               #size-cells = <0>;
-               #sound-dai-cells = <1>;
- 
-+              dai@22 {
-+                reg = <QUATERNARY_MI2S_RX>;
-+                qcom,sd-lines = <0 1 2 3>;
-+              };
-+            };
-+        };
-+      };
+@@ -54,3 +55,23 @@ examples:
+             };
+         };
+       };
++
 +  - |
 +    #include <dt-bindings/soc/qcom,gpr.h>
 +    gpr {
 +        compatible = "qcom,gpr";
++        qcom,domain = <GPR_DOMAIN_ID_ADSP>;
 +        #address-cells = <1>;
 +        #size-cells = <0>;
-+        qcom,domain = <GPR_DOMAIN_ID_ADSP>;
-+        service@1 {
-+            compatible = "qcom,q6apm";
-+            reg = <GPR_APM_MODULE_IID>;
++        service@2 {
++            reg = <GPR_PRM_MODULE_IID>;
++            compatible = "qcom,q6prm";
 +            #address-cells = <1>;
 +            #size-cells = <0>;
-+            q6apmdai@1 {
-+              compatible = "qcom,q6apm-lpass-dais";
-+              reg = <1>;
-+              #address-cells = <1>;
-+              #size-cells = <0>;
-+              #sound-dai-cells = <1>;
-+
-               dai@22 {
-                 reg = <QUATERNARY_MI2S_RX>;
-                 qcom,sd-lines = <0 1 2 3>;
++            clock-controller@2 {
++              compatible = "qcom,q6prm-lpass-clocks";
++              reg = <2>;
++              #clock-cells = <2>;
++            };
++        };
++      };
 -- 
 2.21.0
 

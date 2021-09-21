@@ -2,150 +2,155 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3508D412EB0
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Sep 2021 08:39:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6093A412ED9
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Sep 2021 08:53:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B70F51669;
-	Tue, 21 Sep 2021 08:38:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B70F51669
+	by alsa0.perex.cz (Postfix) with ESMTPS id D18231669;
+	Tue, 21 Sep 2021 08:53:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D18231669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632206343;
-	bh=0IoYNxUxM/D+ePFUkrP7XgpiRHF1UgJPnvEgR1G9hlc=;
+	s=default; t=1632207230;
+	bh=DHdtEi9Ipdn5I0TG9XJRjR5PIpRfP37YpMTCd9F0kvE=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mjy4WoEWaMMOw4odIxJjz6GaAFXy+jhNKnw1CXfeoF26l4dvSSyJHuF2PcG8eINAq
-	 Va+2/bSxHCe7ISBxcGqu1mo8E23RJvZ0ExHJZDzOK9fHTwaHeLvZIJC0jnfSfGYcNN
-	 0HlJZYapjQ/RUAVg0UYfbdVNOwi5ltrc3YU0rXoA=
+	b=KF5fN9JNgZxN0x3CMTEufpdbpZmpoAvmzYEYfnhQYNKug4c5wvlLNUloJLeqfZaPI
+	 r0wuQC7lTNLLvrZgUFqqzYBE+BIZXepZOxx6+LACtd7tCpcw7vyDGe/lBuM31GDY72
+	 x/Th34iqw/Mu3ag9vfYC6yDTqqpOV0o14pjiKy+8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23D18F80124;
-	Tue, 21 Sep 2021 08:37:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19091F8026A;
+	Tue, 21 Sep 2021 08:52:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7BB9BF80268; Tue, 21 Sep 2021 08:37:44 +0200 (CEST)
+ id C1D33F80268; Tue, 21 Sep 2021 08:52:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from EUR03-DB5-obe.outbound.protection.outlook.com
- (mail-eopbgr40137.outbound.protection.outlook.com [40.107.4.137])
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2116.outbound.protection.outlook.com [40.107.20.116])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3BB88F80124
- for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 08:37:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BB88F80124
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7822BF80124
+ for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 08:52:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7822BF80124
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=axentia.se header.i=@axentia.se
- header.b="V/Xlz0PS"
+ header.b="gvoi3TXW"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AFvS1bbkE+j40Y0OnGjclhpanWODXm2qBlGJqOyFXhKre+dAXoROx9nSdSzhyHYv/cpAvZy4Dmo+Gl8z9vPy4B6nV2k/nt36fakNs6aCdGuC4QvIknuXEkpke+733NQFDOEroCur2O17t9d8id5MGkwjVc0UDMPiTgUfXSfYuDdjw44f+ZpfdEEcecWdm16b/gVIqsxwFkOpcHWM21JRWINDISNvGJqV+P2MAdgXNakyFIL9kmR6KW8iVxb6TLPceXBctTDNDOP84dzY51o4QLchzLY/QQbzPDkk0v1yBUISTmfSFdqfQjNvQWW7L0dQiJVYL31p5s9ri34ovcw5Lw==
+ b=GM7TH5yEjYuxw2/7yFmI5NYtIczzfdYKpDha6Moi4aw6h6f6pn7ATMMRQpyFnYnoWIshPsgDKGqbjmWHtCTT4vw49xH7Ee4utL0LwImFCJZD4bevMD5NP5i5smAE1kpc4eE5jWt6aynLzk3efyaNwgazX6rLSQ9Kq+duc0Ul2EZedhxVfTBqngPwiHVjhUJZHS8AjCPrU7mVPONKpczofQ5lzGk2hlNhcld1eDRpVJ/BgtOYZu3oe0DseZdTDcJZGKpCvj0wQCGKZxSItm9ztLXClrJpvhTqCqI+mCBbefNy7UjpbXAgkl8XqK11dLowYd/OC3gRyyWo7w0wsyArdQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=KlC6Ynt+PEaATBwFS9LUNt1G0ANEwRWBWxWOcCCxZsM=;
- b=UmZzxG+Xg8MdFHOw1T/AQ5WNgqS/OfEk7t42/cYifxwtKH/yzdsf8b6ogJpXi+IrAHLGMxKYW8E7aVoYSh4LDqaps+NRJAS+1OzcBgXewHqQWgpLkYGDwKDik5KfVk2o0o33elZYh8oiiw4nFWAAh3f7TjLCQJGHUMZXu5sz02mEbtkWNgKaQiVMcwE5fewqGhe2ySPzWbTl0O09ZJlixX+r51CeDTiNvycMCsJtQ6gunRArZ8lvq9fOVAL3j6wRdHSMYdifSBgaqPNkJptqbCP9/NCNuFqlo+llWhNZlhaKAxn0XNJpPpHZgs8dxobTWKcSMs1GmTvHhMt7uKYrVw==
+ bh=AXTbUE59RHa3qDahE1753Tp5Cy657XGfd6aH/riPjTs=;
+ b=PJwYicR3AVPUASr8+uRVxjIy8f5PM68tl+a3RxFTM3O1GhMCAnNRazvVD6XmV24sUt3rfZX+sFiAkQnbh23vUckyEa+yqpBTWC2ei0OVEx2smey45pOVdqBbqlJXlpQyj3adbdRa7wwosh8JuwqTIe8brMcSFqbblAX+dSlEkqSxZ5Z2s75RWNM5IGYeVnf04HWizm17d0+5wdvLEiZbTvcHuSAVYwgYKNcqW3n1n6tbSL12oppx1pxj6TFXKEnnKXUhLLQRnmOkD7mJfs+A1zUtWMsCXzLhN1r3sQhXUS6lciZ5hLwsipCOiS11IszHVSr4jSmAwzU+HrqpEXYBFA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=axentia.se; dmarc=pass action=none header.from=axentia.se;
  dkim=pass header.d=axentia.se; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axentia.se;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KlC6Ynt+PEaATBwFS9LUNt1G0ANEwRWBWxWOcCCxZsM=;
- b=V/Xlz0PSSXiz9IzMw++29BDMdzqmg7wXW7opQJJ2taiq4Crb5//9ZdEPtilDg34K/6cokZ+odiV5mHTmNn829ZyaP0LLS6DXPZuNRhuTmPqp/uzO63u1GPrz+RgJZhUGowR2F+M0zLtKt/yPhyOwcK9J2kfYEWDNzKbmhBLvdjc=
-Authentication-Results: birdec.com; dkim=none (message not signed)
- header.d=none;birdec.com; dmarc=none action=none header.from=axentia.se;
+ bh=AXTbUE59RHa3qDahE1753Tp5Cy657XGfd6aH/riPjTs=;
+ b=gvoi3TXWHd8bASZY9wkriYdpBLRCiKXMBSnwukd13iDFoLiGdpzajigyIvb2h6Swj+s+DfbX1CyI6agCTvoE2LFM51RTqIPTYXUntusaIj8w6rE/L482bDcrzxZmJMfWM4Fi2Zow9a3dO4NCtclVCyseaOT7APWVqXq+DXp96pE=
+Authentication-Results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=axentia.se;
 Received: from DB8PR02MB5482.eurprd02.prod.outlook.com (2603:10a6:10:eb::29)
- by DB6PR0202MB2726.eurprd02.prod.outlook.com (2603:10a6:4:a8::8) with
+ by DB9PR02MB6890.eurprd02.prod.outlook.com (2603:10a6:10:21b::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.18; Tue, 21 Sep
- 2021 06:37:33 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.13; Tue, 21 Sep
+ 2021 06:52:25 +0000
 Received: from DB8PR02MB5482.eurprd02.prod.outlook.com
  ([fe80::35c9:1008:f5af:55a]) by DB8PR02MB5482.eurprd02.prod.outlook.com
  ([fe80::35c9:1008:f5af:55a%4]) with mapi id 15.20.4523.018; Tue, 21 Sep 2021
- 06:37:33 +0000
+ 06:52:25 +0000
 Subject: Re: [PATCH] ASoC: pcm512x: Mend accesses to the I2S_1 and I2S_2
  registers
-To: Mark Brown <broonie@kernel.org>
+To: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
 References: <2d221984-7a2e-7006-0f8a-ffb5f64ee885@axentia.se>
  <ae4b25f1-2b2c-d937-e23d-0f7d23bdf0c4@gmail.com>
  <815cbba4-60d6-8d97-c483-146c2f7c3912@axentia.se>
- <YUj9LqNTH6A4CQcj@sirena.org.uk>
+ <7537b141-0ef1-fb44-7e02-27b4dd1e772b@gmail.com>
 From: Peter Rosin <peda@axentia.se>
 Organization: Axentia Technologies AB
-Message-ID: <8ee31fd2-3fbe-f5da-a030-c6b677c7f398@axentia.se>
-Date: Tue, 21 Sep 2021 08:37:28 +0200
+Message-ID: <d9850534-df41-a6b3-48e2-34823f5866e9@axentia.se>
+Date: Tue, 21 Sep 2021 08:52:23 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
-In-Reply-To: <YUj9LqNTH6A4CQcj@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: HE1PR05CA0363.eurprd05.prod.outlook.com
- (2603:10a6:7:94::22) To DB8PR02MB5482.eurprd02.prod.outlook.com
+In-Reply-To: <7537b141-0ef1-fb44-7e02-27b4dd1e772b@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: sv-SE
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AM6PR04CA0055.eurprd04.prod.outlook.com
+ (2603:10a6:20b:f0::32) To DB8PR02MB5482.eurprd02.prod.outlook.com
  (2603:10a6:10:eb::29)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from [192.168.13.3] (185.178.140.238) by
- HE1PR05CA0363.eurprd05.prod.outlook.com (2603:10a6:7:94::22) with Microsoft
+ AM6PR04CA0055.eurprd04.prod.outlook.com (2603:10a6:20b:f0::32) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4523.14 via Frontend Transport; Tue, 21 Sep 2021 06:37:30 +0000
+ 15.20.4523.16 via Frontend Transport; Tue, 21 Sep 2021 06:52:24 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ac9499da-2256-4434-d817-08d97cca4ada
-X-MS-TrafficTypeDiagnostic: DB6PR0202MB2726:
-X-Microsoft-Antispam-PRVS: <DB6PR0202MB2726EF80100EC00D7D724B58BCA19@DB6PR0202MB2726.eurprd02.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Office365-Filtering-Correlation-Id: ca4e3a96-b855-4f07-7437-08d97ccc5e76
+X-MS-TrafficTypeDiagnostic: DB9PR02MB6890:
+X-Microsoft-Antispam-PRVS: <DB9PR02MB6890C5057777F72AEEC44A59BCA19@DB9PR02MB6890.eurprd02.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /5MN//5W9ypsa9bmlb222JxP/MHx3V1V+Jt9gIjLj4FvILsR01XvVjrAWTqnw845XkhrbGNAh8I4Z/Rd08HKN2NlkBaryGkq6gqSJmOtLvk8a5kHbc1PMgxkRn0uPumejWgMiTVRmvQgYxYEKVZ7XZ3qQc4F+Xguhn85EZEfnww7L6bUuMwfRmSDfWceG94mervuDWPSbkn89B3zmE3WpqmP7uqvvrCdsXlovrPdPzuNMWgeWYTZiBGjRjTe2yQLwZRMi1593dGSZdBkOipv79RcWJ/LbdWKmFAgZ6rplJvMvawglz1yNyEPge4yaR2NWs6z7Wp5VjVubfkmLPBxivSapNQx0R0gDXPzHNzZEQsqoyErgH1sXmbMLyFrWQSMg8D72PnNYS7TtENUPRxMy5By9P6jBMV9Z0UdDz6IJ8gGUdZRp9nwK0CD/ocT3T0gBQklkb1JWLBXFMlz9aeLJBOA/kVGBkiZ4X6D03kKoyPv7kId4itc/ETvmdSQWO+NXbiXm/s+u5dc4e2RamK8AyWmRBTANNWeHEzwk6YPYawi/vbFzKS2gE5UgzvqNFWaWdkCsd840EBrzLWd5c2LE1esDp0uiBiuUPcmp1MEFhfnMkArNT7dQ/XpgJf/94HA4meqCNqPKhXO1u4mJmxk7iWVm2dMeqwPT5vG4+jRZLiSYWPZLuWoUJGbZ0GRLbJ33kfnp7xcyInM+RPtnpW67kQXtALGzvsBa5FbMKH0yCA=
+X-Microsoft-Antispam-Message-Info: Bmb/5XtWt9iX7J3JUeNSuWgCobI/6yY85BjB/2jLrQ29Hl8OVhuPVdQZNHyWN/Uw1N7ybzWDZ1wl/RNkJxbdwc++t97HPZYLgDzgONcxYXLp6w0U1YGZaKLNItTkxqfPMkrXi2+VAwNmSbMvm4X7dfKQX7ruGG1BMtkidCqt74kKATKyQ6xqQNCq3/ebc9r62LY93gyM1L0SZXjiQHzpEPHCWKlaRIgpMNfSGHGooksw2ZBy7zlvtPVtPyWGuC+zkms6Gu4vig4y4/PO8a0IVIANXNz7neymVjzIBYmS34scWqEsnFhrfl2SI8/Ttab7wquzOWs5tuqUTpVk6W6byO2MKNEe9OkwPhrRKU9ijtGrjdpgrtppPbBlpaafNaPZV2FBIaHbwam3795HoJLptOoL84dUaDYKY8bWimCE5LUMsceSRxtZtdihtXS1YHGtfarQB4umSaam4nAs0+NXoo+HHjMcC/upJlbTVgRauV+PlQzFGitLBnas1xV1oIzPr1wQobEzHtCpdBBrRKXV+qc5kTNtloRKRLrNuEP4AxJ6PuYF7AOcGJJM/tbZzOVxapREDT+hXwLOTAKoRVwWRz+LCvGHhlM1VkuvxP2Uk1TFdHlJm1aKA9CVmt1Tr2fsyDgMpB4cAh0bhMcfNjVhCQ8+XMK9ngdnC7qxMv+vgCOyrCBsYJ5qOKjMd/UdK64iifvSbl2nGkMbLwRlHq880YKv8VQQSjFN3VIJ4N4M3nM=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DB8PR02MB5482.eurprd02.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(396003)(376002)(346002)(366004)(136003)(39830400003)(16576012)(31696002)(316002)(5660300002)(186003)(31686004)(26005)(83380400001)(8936002)(4326008)(6486002)(54906003)(2906002)(38100700002)(36756003)(8676002)(2616005)(956004)(53546011)(66476007)(66556008)(86362001)(66946007)(6916009)(508600001)(36916002)(43740500002)(45980500001);
+ SFS:(366004)(396003)(376002)(39830400003)(346002)(136003)(86362001)(66946007)(66556008)(66476007)(36916002)(110136005)(8676002)(6486002)(4326008)(83380400001)(31696002)(186003)(26005)(38100700002)(66574015)(53546011)(54906003)(36756003)(2616005)(956004)(2906002)(31686004)(8936002)(5660300002)(508600001)(16576012)(316002)(45980500001)(43740500002);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?Windows-1252?Q?SdMjJOJSOFjiDvUMGKfa3bo+KVVgjGXh2L1FAVImNxH4bg166wcHUfnk?=
- =?Windows-1252?Q?cfqGQRlWt1QhAsfCM3a2VGs50udoq9eUznp6dRKI9LjJD8RyuDjcNob9?=
- =?Windows-1252?Q?Do+mzjuaqGN+25ucq5buHFS7M6y/E3h+mXZacA2aOChIRosaEMv5PVx5?=
- =?Windows-1252?Q?GElZTAKTdLzYTw7x5OmxrFDH77F3AlboqMg2oWiIWTsiZnaS1crqfH3/?=
- =?Windows-1252?Q?c8E1cnhKA3oWhbDCh1ugmWJS/T2v+AUSTFbTIVLqXCicI4j/VCrFAndO?=
- =?Windows-1252?Q?TK51RkszRb65b4HNT9XLHWwUnbLLgDjE0IjnZXhq+BpN9jvWo9V0a6ol?=
- =?Windows-1252?Q?t3bQPDdNR5+0PEBA2pB/v2csyNt3t3VXk8/hW1jz/FLY/i/l9DTEpcSY?=
- =?Windows-1252?Q?IFOLorPam8ua3IPrPxlcddl/jKl+e+tQa1e05F5Ouu4NTgznmkytH8Zk?=
- =?Windows-1252?Q?uNRUziIy937WBk+vw+qxaWTpKmnYTWiCE3p+p7PnxaV6X9xPo7zuwjXL?=
- =?Windows-1252?Q?d++2GaXAK9A3vK+rZnmpLonnPLdo2SXybtYaXL6f4NaNEdvXoSGyGoXi?=
- =?Windows-1252?Q?LuXTBVBdjLC41bmFl8bNBi10VsoUFuPzIL2gw4sux/XPT6qk7hUVg6BI?=
- =?Windows-1252?Q?BVoSH+yJbWwPCBxklhpW6WB++oITzpIb84paBX935FGUM9O6IFtoWqNT?=
- =?Windows-1252?Q?Vu8K8Io9fhYj/Arn7SXiFuupLyzS6GgIGnTY606I7qcNUUABQbgYWM+Y?=
- =?Windows-1252?Q?xIvfbst9XXZ10EfK2m0LMo39Dvr0khvXy2wILRpXaUYBtOMKkwmtaLFE?=
- =?Windows-1252?Q?znjhlx9f+mi/nylxs7HqaMb5i4RsNrlrhtV+X4N9dgHmVZaXWHqSe4jO?=
- =?Windows-1252?Q?VBBTqT3R8MoUmen0qAx3wzO7eNL/DZEz1bOMz0NBTvCPKBHpDv4BLjmH?=
- =?Windows-1252?Q?SujhhMgEHZIlO0Dpjm0XgzVC3gBcXd0QVTChVwGHfz7+V19wQnT2lFBo?=
- =?Windows-1252?Q?l6C5yqeBlZYrRN5m3htOEp+iDy1lgRLcRJ4j3WLqQlRnlhOTFz2wrbq1?=
- =?Windows-1252?Q?TSFBHk/FL2QjtVenjnT51vhXakOiYNmSHBHkcTVl8iWrCRMx/Z95wQtv?=
- =?Windows-1252?Q?HW92BXi+YdyZPFPSV/OXL7/kmoN+XJTsIVWwjBXiHdOu1rq4o6NPP65J?=
- =?Windows-1252?Q?mb9d/wPT5Gq9jP97twDqXZcPtFxPbs8dEU+UCaDhb5MHbYxS0GzxVgIq?=
- =?Windows-1252?Q?bdsldUKyZvQXZhGcDl8X2j5BIZj+9Z8Ca0I5YbOCPtlggiZuy5ZHX5GV?=
- =?Windows-1252?Q?WBC2kwPlgyg08GFyJQPs5MervzDQgmjSDvtpwb2jh4YjvCFg2QrgQ1Yf?=
- =?Windows-1252?Q?qBhWMs5FhifzDd5eAIEoQ/hzBcZ+Xe10jJMCk1I+7IbHsW8MPVRf3GZF?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q3IyZGIyZXJIZGNiSDBzY1ZkQVVrSjdDY0pyMnJ0VnlRTFBFZXBYbURFbExx?=
+ =?utf-8?B?RVVHSncxWVdSeG9hVlRka0dMcmI0U3NjdHZ0ZGJvYkxxb20yaDY2dWtGUk9p?=
+ =?utf-8?B?cmpvYm1HSzhzQ3RLYkxWb1hOM0EwdEloUXFVcEpSdk0ycDh0OFlQczVKV1oz?=
+ =?utf-8?B?Vk9xbHlJM1BpQXJxeVNtaWdHWXFEdEpNaHJrZC95a1NKY1RLSTBuVHRpRXNo?=
+ =?utf-8?B?MUYvMXova0ZjK0h4Z1JmaENNR2d2a05nWmNhS0JNTGdoZE00WGVpa0I2UEt6?=
+ =?utf-8?B?M2JUZnNHa0s2Z0o4OHB1K1ZqR3Y1Vlp2Rk9LTnhiQzc1NkJhdjdVei9EeTdW?=
+ =?utf-8?B?YnQ0SmFEVTVwNjdWbU81elBuQWNxa0lWNW5iVVU5U09FWkhsZ1I4R3B1b0Rq?=
+ =?utf-8?B?ODFpandROVFON05VUzRHb0kxSDZqUE9TdmJyL0NRUWhIbysxWDE3a3VZU1I0?=
+ =?utf-8?B?anZNalVjWUcrU0tQTWRsU2tIQ3Mzb3BhcVdkTEpyWUhmWTdMMFpQQWtFd2FZ?=
+ =?utf-8?B?VkVlRkZ5WExteUFxS21ITHBrRU9lZEZOSVZiT2NxRFFYSEhMZHdpV1UyUEdV?=
+ =?utf-8?B?NmdyUEtDbFZRTy8wbEx1Y0tmdWdBRGtiZEdrcVNJV25CSVAyL0lrVmpPV25K?=
+ =?utf-8?B?TjZRaFVTZHpQY0JHNDlWUVNoUGRQb3A0TmJGUHZjK1BMYlk4UEJVYzh5UFZl?=
+ =?utf-8?B?ZU5reDdSZkhpVFUzVnQ3NW53UzAxSktJc2l3WElwSFN4Y3MzbXorS1FVZFRn?=
+ =?utf-8?B?VDVYMlk3R1hCUWRWVVJFY1F4d1htQ2Z4YldYOFluQjBxK1NYTFp0VDFGQTgv?=
+ =?utf-8?B?bVVGc0lYbDI1Vkp2SnhIRmJaaGhQdUtrL0pHSjVBdk1xMWM1NGREUytySGJZ?=
+ =?utf-8?B?VVY5RGlKQTQ5cHBHN3NHTHhad1BDY0d5OGIwT3RyNlhpUmZBZFJwV25aTFNk?=
+ =?utf-8?B?dUVCNDRSNDVxSGM4alZPck1WWmh5NlZna0lqRFFHaEt0ZHJJZWdBemlid0hM?=
+ =?utf-8?B?c2plVWFWd2MxSUl6SFBsSldhMEpEOXpUMitvTy9pYnczajhKZDVDQnJXanNn?=
+ =?utf-8?B?QjhRVGlnOEhhQWF4RGJjL0p2NU95Si9RS0VWNVhYb2dNNWZYSXFkTEdhWnRB?=
+ =?utf-8?B?L1pHby9pVmdjMTZXRVdvRG84UjFJUUNJRllsK05LM2R5NHRWMU1GMFRlUmpC?=
+ =?utf-8?B?TnRwckpZdW10bGkrbHVKWDVoV2phWVBsVHBvR2pTckpUa3BvTWRqaHBON1lU?=
+ =?utf-8?B?NEdwQXV3MzN4dTdvRWZ4Q2o0WmJXYnVGLzNTcVV2ZFFrNzZOYXNJUjJzQ3dr?=
+ =?utf-8?B?d2Nwc3JtWDhHcVg1U3N0bmF6dzFJYnp2ck9zQmpER1VuQ1JCcEhjVi9VMm1i?=
+ =?utf-8?B?Qk1JQUE4T01DWXNoTW9nc0M3L0p4eWJhL3dmOW5zN2dwRS9WVDI0SUdlTXdS?=
+ =?utf-8?B?bFVpRFA1K3VIeXY2MEJmbkgzdWRmUVNJQ3dHOHVjQjBXVndkempUZzdrb0sv?=
+ =?utf-8?B?THM5YVk0YnpvS0xybmEydCtxS2hyV2Y1RW5Yc2pmdzV3M3dWVnJqbTlmMnVp?=
+ =?utf-8?B?b05hUStKaFRzYkJCVmJBc0N6K2RWMlkreFV4UWd2M3YvbDNMK1R5bkMwNDNC?=
+ =?utf-8?B?MVZRMVRJbnR4QlFRc2JVZjZYNVJOVEs3L3h4MXRHVnUwUGI1cWJZbXBBWThn?=
+ =?utf-8?B?SDRQMkNZOWlaVE0rQ1VqRGtqT1orR3YvNEJNbU4wMXNjWXJZN0MwcFBaNGUy?=
+ =?utf-8?Q?SVk7wWDftubs4+t41LwQHt73u/fHnYyXbgzwAG7?=
 X-OriginatorOrg: axentia.se
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac9499da-2256-4434-d817-08d97cca4ada
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca4e3a96-b855-4f07-7437-08d97ccc5e76
 X-MS-Exchange-CrossTenant-AuthSource: DB8PR02MB5482.eurprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2021 06:37:33.2558 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2021 06:52:25.0789 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 4ee68585-03e1-4785-942a-df9c1871a234
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9Yp470DJQhIOXYBMb/tJafJ+2RpSIT+QlmYfrFwXap1auxcM6gth9r1NYSSTYl3S
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0202MB2726
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1ZNu4tFMI1u+Hj2pcWlNMO3U9m2KAzWz9M+cKhyClPQuj4U7ycVVp4NBy0tdwcsz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR02MB6890
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Kirill Marinushkin <kmarinushkin@birdec.com>,
- =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>
+ Kirill Marinushkin <kmarinushkin@birdec.com>, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -161,35 +166,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2021-09-20 23:29, Mark Brown wrote:
-> On Mon, Sep 20, 2021 at 09:37:37PM +0200, Peter Rosin wrote:
+On 2021-09-21 06:20, Péter Ujfalusi wrote:
+> Hi Peter.
 > 
+> On 20/09/2021 22:37, Peter Rosin wrote:
+> 
+>> Nope, MODE1/2 are wired for I2C -> FMT is just the last I2C address
+>> bit. So, nothing to do with I2S. And I can't see how that would explain
+>> the same problem with the I2S_2 register?
+> 
+> true, but worth the question ;)
+
+Right :-)
+
+>>>> This fix is not 100% correct. The datasheet of at least the pcm5142
+>>>> states that four bits (0xcc) in the I2S_1 register are "RSV"
+>>>> ("Reserved. Do not access.") and no hint is given as to what theHi
+>>>> initial values are supposed to be. So, specifying defaults for
+>>>> these bits is wrong. But perhaps better than a broken driver?
+>>>
+>>> The default of 0x02 (AFMT = 00b - I2S, ALEN = 10b - 24bits) is correct
+>>> for I2S_1 and the 0 is the default of I2S_2.
+>>>
+>>> The failure happens when updating the AFMT (bit4-5) and when regmap is
+>>> doing a i2c read since the default is not specified.
+>>>
+>>> It would be interesting to see what it is reading... Out of interest:
+>>> can you mar the I2S_1 and I2S_2 as volatile and read / print the value
+>>> just before the afmt and alen update?
+>>
+>> My first attempt was to mark the register volatile, and then read and
 >> compare if the update was needed at all. But marking volatile wasn't
->> enough. I also tried to set both a default and mark as volatile,
+>> enough.
+> 
+> If the value is not provided in the defaults then the first read is reading out to the chip anyways.
+
+Yeah, but why is accessing I2S_1/2 returning -EBUSY when accessing e.g.
+the PCM512x_MASTER_MODE register is not?
+
+>> I also tried to set both a default and mark as volatile,
+> 
+> Volatile always skips the cache, default would be ignored.
+> 
 >> but it seems every read fails with -16 (EBUSY). I don't get why, to me
 >> it almost feels like a regmap issue of some sort (probably the regmap
 >> config is bad in some way), but I'm not fluent in regmap...
 > 
-> Having a default for a volatile register isn't really a sensible
-> configuration since the whole point with volatile registers is
-> that they change underneath us, I'd not be surprised if we had
-> some error checking code in there that was trying to tell you
-> there was a problem though it does seem like it should at least
-> be more verbose about it since returning -EBUSY isn't exactly
-> helpful by itself.
+> Or most likely the chip is not powered at pcm512x_set_fmt() time?
 
-I totally agree that it's not a sensible config to set up a register
-with a default when it's marked as volatile. That was just a wild
-attempt.
+The chip is always powered, at least externally. Are you hinting that
+relevant parts of the chip may be powered down internally when
+pcm512x_set_fmt() executes and that this is the -EBUSY cause? Why does
+that only happen to me in that case?
 
-I expected it to just work to mark the register as readable and do
-without the default value (i.e. the way it was before my patch). What
-I don't understand is why regmap returns -EBUSY in that case. That
-doesn't make sense to me. Perhaps that -EBUSY is propagated from the
-I2C layer, but in that case, why is it then ok to do a write to
-another register at the same spot in the code? So, why -EBUSY?
+>> So, since I can't read, I can't get to the initial values of the four
+>> reserved bits. So, I winged them as zero.
+> 
+> The value of the reserved bits are don't care.
+> 
+> Can you try the attached patch w/o without the defaults for i2s_1/2?
+> Not even compile tested...
 
-Something is going on that is not understood. At least not by me.
+[added a couple of underscores]
+
+I get this early during boot/probe
+[    1.506291] pcm512x 0-004c: pcm512x_set_fmt: failed to read I2S_1: -16
+[    1.512905] pcm512x 0-004c: pcm512x_set_fmt: failed to read PLL_EN: -16
+[    1.519517] pcm512x 0-004c: Failed to set data format: -16
+[    1.525045] pcm512x 0-004c: Failed to set data offset: -16
+
+and then this later, triggered from userspace when an app opens
+the device
+[   14.620344] pcm512x 0-004c: pcm512x_hw_params: I2S_1: 0x2
+
+So, reading *can* work.
 
 Cheers,
 Peter

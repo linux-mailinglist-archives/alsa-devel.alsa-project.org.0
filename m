@@ -2,84 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72A354137BB
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Sep 2021 18:42:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E0FE4137C6
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Sep 2021 18:45:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EEED7847;
-	Tue, 21 Sep 2021 18:42:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEED7847
+	by alsa0.perex.cz (Postfix) with ESMTPS id 11EF7823;
+	Tue, 21 Sep 2021 18:45:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11EF7823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632242579;
-	bh=SMD7o3YoZ0QvzEmdUDlzEfYP232zrjmEzJw5V04GheQ=;
+	s=default; t=1632242754;
+	bh=jniIcfRa3QPDaNVOQ/xGTFEaR8xG7x3wcYdotok2Nls=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bVAeI6Ui36OrO0BNvAgViJMfosnDS3ORY9AlGzAnBQkxNrF8JpwcXc6C47Io+i5EM
-	 RaHkHEkcQBZL4azI4K3ZyokQUQO4bTMxKW+dQoahuBR+736DMl1hVt3nESaH70HeUt
-	 SCluY6Dr1Iw01DBSTJ5vefRpAY3xY4Lr3fpeHIY8=
+	b=ASQ2jF4IRJQtYbxNl+iyMToLUul/5K5W0DTEQX5fvq2BTtjbLRWK+8gn8lJiI8CDj
+	 CQBS65BHQGWDkJbBaurraCOekCWKj9EpX7bHMYD4aNA7hBn7Ku6KqkEcd2IS9lvDxW
+	 E78dqZDIGYOShWh9rqaOvRTAjuPmZZrrrMr5l8ps=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E03DF8026A;
-	Tue, 21 Sep 2021 18:41:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7CAADF80124;
+	Tue, 21 Sep 2021 18:44:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B6622F80268; Tue, 21 Sep 2021 18:41:33 +0200 (CEST)
+ id 26579F80268; Tue, 21 Sep 2021 18:44:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BF1B0F80124
- for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 18:41:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF1B0F80124
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4B82F8016E
+ for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 18:44:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4B82F8016E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="IRaI7Sop"; 
+ header.b="wgwdqq7D"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="KNCm8Paf"
+ header.b="sfyYe734"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 12CFF2217A;
- Tue, 21 Sep 2021 16:41:25 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id DA3EB2217E;
+ Tue, 21 Sep 2021 16:44:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1632242485; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1632242670; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=y9/p8UT6XMNyd/8OKyW671IeFdUR2a1ME2bzSTT0Uaw=;
- b=IRaI7Sop8R0IUfhVkJtQBCHmbLiGjy36ZuVEP5ygv1Xm9I9+SpYjd27VylKbwrZRZae0at
- uz8Que0alKaogm0WE7kgUOzTD4ONQdDaYBbBbBCmzJCnHwqgns3V3eIS+Eq3heOWRupRab
- Bz3NmaukG9Nh3aYxLKybPxFHZ8mtnsw=
+ bh=CvlsYm4S2K8yQ6F5nqbB7LQaAKGyDcQ957f9Ds4JVwc=;
+ b=wgwdqq7D1DgFS/wjNyzIptRvW1Sj+NPQqzTziqr6uOE5AVVYOob97V71xN2loom0rNjncf
+ hQyqyMFaXBUS8PJFm4WmzOAl7l/QGwdtKpp4igklWC6nco9xRMoJO8X1rFaCV9ya/f55u1
+ GX2J7FbG/sy1SLZvBg9QyHUil362HFQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1632242485;
+ s=susede2_ed25519; t=1632242670;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=y9/p8UT6XMNyd/8OKyW671IeFdUR2a1ME2bzSTT0Uaw=;
- b=KNCm8PafKIQyPfmcUJjMb2zIrWnMk2D7TbKpOxfAQK4ZbbBuN2vX9qPmZghVZYvoUWxsQF
- oNC7WZXgwnfgauAg==
+ bh=CvlsYm4S2K8yQ6F5nqbB7LQaAKGyDcQ957f9Ds4JVwc=;
+ b=sfyYe734fInK+/DxhkfHmC4rWTJoJQdCeO5U0exUP2ZZ2sQjyWcSwtmC1ajTj/FkKliewW
+ +Dl6WLYC/gLHVgBg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id B2223A3B90;
- Tue, 21 Sep 2021 16:41:24 +0000 (UTC)
-Date: Tue, 21 Sep 2021 18:41:24 +0200
-Message-ID: <s5h35px98zv.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id D24B0A3BFA;
+ Tue, 21 Sep 2021 16:44:30 +0000 (UTC)
+Date: Tue, 21 Sep 2021 18:44:30 +0200
+Message-ID: <s5h1r5h98up.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Len Baker <len.baker@gmx.com>
-Subject: Re: [PATCH] ALSA: usx2y: Prefer struct_size over open coded arithmetic
-In-Reply-To: <20210919133727.44694-1-len.baker@gmx.com>
-References: <20210919133727.44694-1-len.baker@gmx.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [GIT PULL] ASoC fixes for v5.15-rc2
+In-Reply-To: <20210920121917.A6F8560EB2@mail.kernel.org>
+References: <20210920121917.A6F8560EB2@mail.kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Kees Cook <keescook@chromium.org>,
- linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, linux-hardening@vger.kernel.org,
- gushengxian <gushengxian@yulong.com>
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,33 +91,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 19 Sep 2021 15:37:27 +0200,
-Len Baker wrote:
+On Mon, 20 Sep 2021 14:18:19 +0200,
+Mark Brown wrote:
 > 
-> As noted in the "Deprecated Interfaces, Language Features, Attributes,
-> and Conventions" documentation [1], size calculations (especially
-> multiplication) should not be performed in memory allocator (or similar)
-> function arguments due to the risk of them overflowing. This could lead
-> to values wrapping around and a smaller allocation being made than the
-> caller was expecting. Using those allocations could lead to linear
-> overflows of heap memory and other misbehaviors.
+> The following changes since commit fcb958ee8e832e9cdf43408535207e15f14af755:
 > 
-> In this case this is not actually dynamic size: all the operands
-> involved in the calculation are constant values. However it is better to
-> refactor this anyway, just to keep the open-coded math idiom out of
-> code.
+>   ASoC: rockchip: i2s: Fix concurrency between tx/rx (2021-09-03 16:19:01 +0100)
 > 
-> So, use the struct_size() helper to do the arithmetic instead of the
-> argument "size + size * count" in the kzalloc() function.
+> are available in the Git repository at:
 > 
-> Also, take the opportunity to refactor the declaration variables to make
-> it more easy to read.
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.15-rc2
 > 
-> [1] https://www.kernel.org/doc/html/latest/process/deprecated.html#open-coded-arithmetic-in-allocator-arguments
+> for you to fetch changes up to cfacfefd382af3b42905108b54f02820dca225c4:
 > 
-> Signed-off-by: Len Baker <len.baker@gmx.com>
+>   ASoC: SOF: trace: Omit error print when waking up trace sleepers (2021-09-17 13:16:36 +0100)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v5.15
+> 
+> A crop of mostly device specific fixes that have been applied since
+> the merge window, nothing particularly standout here.
 
-Thanks, applied.
+Pulled now, thanks.
+
+Note that, as I'm currently traveling, the PR to Linus will be delayed
+in the next week.
 
 
 Takashi

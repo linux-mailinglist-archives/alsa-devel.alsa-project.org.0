@@ -2,80 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A5FA413319
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Sep 2021 14:03:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CE84413355
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Sep 2021 14:27:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D18ED1616;
-	Tue, 21 Sep 2021 14:02:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D18ED1616
+	by alsa0.perex.cz (Postfix) with ESMTPS id D4AE71654;
+	Tue, 21 Sep 2021 14:26:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4AE71654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632225803;
-	bh=okJ5Wv071gm/kqPX80JwwLPKBFkmOu1Wfy85JkuFJxE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1632227264;
+	bh=XbW4s9jqdTkgtvIeQgHEFIh+2ceuAIpIvdDFtzlsRgA=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YRlHheZwX03lPi6wlBNlz6IpjEvYsAT5d3Grv3KA/QFPXut3iCC/8rD1Ymwg0VhvK
-	 Tl3dw4KrivFBMUrWVkMeX4aNDMT1QVg5WBZBBnsqqtGW4bnaCsPVGzOAB/nhzJAQqf
-	 gMW+Asn9qGKaMgfMnrvzKT4YwLABRxrmbULx941c=
+	b=p1HLZ/p41T5WuKgBm0jHrIcWYhkFQINs1wwCua7Nn5DKBwEEqXTXPxYFwjpmXgB6J
+	 /lvd/ddagvRlkAYkZuIm0OTI//x2PvmFEpk6y2uSkixgFa+VPRf7sTVdMmA6bKrVFp
+	 QVdDyyNEQu4XplC974I/g5hn9grJZ41J+pjRc1Ak=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A16CF80124;
-	Tue, 21 Sep 2021 14:02:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4866AF8016E;
+	Tue, 21 Sep 2021 14:26:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AEDCCF80268; Tue, 21 Sep 2021 14:02:04 +0200 (CEST)
+ id 31DBCF80268; Tue, 21 Sep 2021 14:26:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0B55BF80124
- for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 14:02:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B55BF80124
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3102F8011F
+ for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 14:26:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3102F8011F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="KiHMVTOb"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4AEDC60F56;
- Tue, 21 Sep 2021 12:01:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1632225717;
- bh=okJ5Wv071gm/kqPX80JwwLPKBFkmOu1Wfy85JkuFJxE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KiHMVTOb17nzr8fZcDhOLmICRm3Ht+Fg4Pt0UNJ+Qg2jcUREcDV1HVSwWlaQatRPT
- yzPgyjZ3nE3t9avSqUysWS61wLkk6jOcHWPjDFsFH+4g17aF0ObV/l7sKF5TWfuTqt
- v8Q3Ufk6LmZLmZDE0SeMTyJGoroYaWrtlPS+sVhUmBYz/lSmLw5DsL9jHqg3A2z8T/
- oOjJzctrYT071xId9PLdaKsuKrnusLLDP8ZQCd1K/zUi+H8/CtHjXjZV9lui0otPyP
- 5cmjTLEDr1bRWZgzoj+vh8p0GXmHtohmtR0RE8yvhCSRsLVwBzOsoq6ArNXg9Z2Ccf
- 93wgIUImozJTQ==
-Date: Tue, 21 Sep 2021 13:01:13 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Peter Rosin <peda@axentia.se>
-Subject: Re: [PATCH] ASoC: pcm512x: Mend accesses to the I2S_1 and I2S_2
- registers
-Message-ID: <20210921120113.GA9990@sirena.org.uk>
-References: <2d221984-7a2e-7006-0f8a-ffb5f64ee885@axentia.se>
- <ae4b25f1-2b2c-d937-e23d-0f7d23bdf0c4@gmail.com>
- <815cbba4-60d6-8d97-c483-146c2f7c3912@axentia.se>
- <7537b141-0ef1-fb44-7e02-27b4dd1e772b@gmail.com>
- <d9850534-df41-a6b3-48e2-34823f5866e9@axentia.se>
- <27f903d9-a74e-182e-b715-4124cf666f45@axentia.se>
- <8b96eb7b-8829-443f-481c-ab1772ece098@axentia.se>
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="P+qdi4o8"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1632227181; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=QQnp2gt83t8CyCzKB1ItXy9MO51UgrMq0pX7KEZfIt4=;
+ b=P+qdi4o83PySqHsArtmDGwUem6pHmDmtAJ/ul/WXEUECtJav2rL0PEsonf1cAGMIS75Hs+MX
+ MRLmqcejIXugtKqpXnHglQb51gAjeZvD5ITbapqpvffMgeyWMScxwicFwagNLwSWzFwvrpKC
+ NzYC3lHw1tYgppYtLv1NaBVB25I=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
+ 6149cf59ec62f57c9aeaf7de (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 21 Sep 2021 12:26:01
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 75233C43460; Tue, 21 Sep 2021 12:26:00 +0000 (UTC)
+Received: from [192.168.1.105] (unknown [157.48.153.228])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 860C9C4338F;
+ Tue, 21 Sep 2021 12:25:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 860C9C4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+Subject: Re: [PATCH 4/7] ASoC: codecs: lpass-va-macro: Change bulk voting to
+ individual clock voting
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, agross@kernel.org,
+ bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
+ robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
+ perex@perex.cz, tiwai@suse.com, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ swboyd@chromium.org, judyhsiao@chromium.org
+References: <1632123331-2425-1-git-send-email-srivasam@codeaurora.org>
+ <1632123331-2425-5-git-send-email-srivasam@codeaurora.org>
+ <5f915592-0ca6-2839-43fc-6d9aef1484b7@linaro.org>
+ <2378b5b1-fe45-171d-f8f9-373f8cece37f@codeaurora.org>
+ <a29cfafc-5a29-0760-2578-f1c52cdb1e42@linaro.org>
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Organization: Qualcomm India Private Limited.
+Message-ID: <460bdea5-d6f9-5c37-1e19-555bc5ce0074@codeaurora.org>
+Date: Tue, 21 Sep 2021 17:55:50 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="/04w6evG8XlLl3ft"
-Content-Disposition: inline
-In-Reply-To: <8b96eb7b-8829-443f-481c-ab1772ece098@axentia.se>
-X-Cookie: Will it improve my CASH FLOW?
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Kirill Marinushkin <kmarinushkin@birdec.com>,
- =?iso-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@gmail.com>
+In-Reply-To: <a29cfafc-5a29-0760-2578-f1c52cdb1e42@linaro.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+Cc: Venkata Prasad Potturu <potturu@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,43 +110,146 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---/04w6evG8XlLl3ft
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 9/21/2021 2:20 PM, Srinivas Kandagatla wrote:
+>
+>
+> On 21/09/2021 09:14, Srinivasa Rao Mandadapu wrote:
+>>
+>> On 9/20/2021 6:55 PM, Srinivas Kandagatla wrote:
+>>>
+>>>
+>> Thanks for Your time Srini!!!
+>>> On 20/09/2021 08:35, Srinivasa Rao Mandadapu wrote:
+>>>> Change bulk clock frequency voting to individual voting.
+>>>>
+>>> Can you please explain why do we need to move out using clk bulk apis?
+>>>
+>>> Am not seeing any thing obvious behavior changing as part of this 
+>>> patch, more details please..
+>>
+>> In ADSP bypass use case, few clocks like macro and decode, are 
+>> optional. So is the main reason for move out.
+>
+>
+> Have you tried using clk_bulk_get_optional()
+Tried with above API. It's working fine. Do you suggest to use this 
+optional API?
+>
+> --srini
+>>
+>> And sometimes we are seeing bulk voting failed in Kodiak setup.
+>>
+>>>> Fixes: 908e6b1df26e (ASoC: codecs: lpass-va-macro: Add support to 
+>>>> VA Macro)
+>>>
+>>> Why this has Fixes tag? Are we fixing any bug with this patch?
+>> Okay. As such we are not fixing any bug. Will remove this fixes tag 
+>> on your suggestion.
+>>>
+>>>>
+>>>> Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
+>>>> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+>>>> ---
+>>>>   sound/soc/codecs/lpass-va-macro.c | 46 
+>>>> ++++++++++++++++++++++++---------------
+>>>>   1 file changed, 28 insertions(+), 18 deletions(-)
+>>>>
+>>>> diff --git a/sound/soc/codecs/lpass-va-macro.c 
+>>>> b/sound/soc/codecs/lpass-va-macro.c
+>>>> index d312a14..0ea39ae 100644
+>>>> --- a/sound/soc/codecs/lpass-va-macro.c
+>>>> +++ b/sound/soc/codecs/lpass-va-macro.c
+>>>> @@ -193,7 +193,10 @@ struct va_macro {
+>>>>         int dec_mode[VA_MACRO_NUM_DECIMATORS];
+>>>>       struct regmap *regmap;
+>>>> -    struct clk_bulk_data clks[VA_NUM_CLKS_MAX];
+>>>> +    struct clk *mclk;
+>>>> +    struct clk *macro;
+>>>> +    struct clk *dcodec;
+>>>> +
+>>>>       struct clk_hw hw;
+>>>>         s32 dmic_0_1_clk_cnt;
+>>>> @@ -1321,7 +1324,7 @@ static const struct clk_ops fsgen_gate_ops = {
+>>>>     static int va_macro_register_fsgen_output(struct va_macro *va)
+>>>>   {
+>>>> -    struct clk *parent = va->clks[2].clk;
+>>>> +    struct clk *parent = va->mclk;
+>>>>       struct device *dev = va->dev;
+>>>>       struct device_node *np = dev->of_node;
+>>>>       const char *parent_clk_name;
+>>>> @@ -1404,15 +1407,18 @@ static int va_macro_probe(struct 
+>>>> platform_device *pdev)
+>>>>           return -ENOMEM;
+>>>>         va->dev = dev;
+>>>> -    va->clks[0].id = "macro";
+>>>> -    va->clks[1].id = "dcodec";
+>>>> -    va->clks[2].id = "mclk";
+>>>>   -    ret = devm_clk_bulk_get(dev, VA_NUM_CLKS_MAX, va->clks);
+>>>> -    if (ret) {
+>>>> -        dev_err(dev, "Error getting VA Clocks (%d)\n", ret);
+>>>> -        return ret;
+>>>> -    }
+>>>> +    va->macro = devm_clk_get_optional(dev, "macro");
+>>>> +    if (IS_ERR(va->macro))
+>>>> +        return PTR_ERR(va->macro);
+>>>> +
+>>>> +    va->dcodec = devm_clk_get_optional(dev, "dcodec");
+>>>> +    if (IS_ERR(va->dcodec))
+>>>> +        return PTR_ERR(va->dcodec);
+>>>> +
+>>>> +    va->mclk = devm_clk_get(dev, "mclk");
+>>>> +    if (IS_ERR(va->mclk))
+>>>> +        return PTR_ERR(va->mclk);
+>>>>         ret = of_property_read_u32(dev->of_node, 
+>>>> "qcom,dmic-sample-rate",
+>>>>                      &sample_rate);
+>>>> @@ -1426,10 +1432,11 @@ static int va_macro_probe(struct 
+>>>> platform_device *pdev)
+>>>>       }
+>>>>         /* mclk rate */
+>>>> -    clk_set_rate(va->clks[1].clk, VA_MACRO_MCLK_FREQ);
+>>>> -    ret = clk_bulk_prepare_enable(VA_NUM_CLKS_MAX, va->clks);
+>>>> -    if (ret)
+>>>> -        return ret;
+>>>> +    clk_set_rate(va->mclk, VA_MACRO_MCLK_FREQ);
+>>>> +
+>>>> +    clk_prepare_enable(va->mclk);
+>>>> +    clk_prepare_enable(va->macro);
+>>>> +    clk_prepare_enable(va->dcodec);
+>>>>         base = devm_platform_ioremap_resource(pdev, 0);
+>>>>       if (IS_ERR(base)) {
+>>>> @@ -1457,8 +1464,9 @@ static int va_macro_probe(struct 
+>>>> platform_device *pdev)
+>>>>       return ret;
+>>>>     err:
+>>>> -    clk_bulk_disable_unprepare(VA_NUM_CLKS_MAX, va->clks);
+>>>> -
+>>>> +    clk_disable_unprepare(va->mclk);
+>>>> +    clk_disable_unprepare(va->macro);
+>>>> +    clk_disable_unprepare(va->dcodec);
+>>>>       return ret;
+>>>>   }
+>>>>   @@ -1466,8 +1474,10 @@ static int va_macro_remove(struct 
+>>>> platform_device *pdev)
+>>>>   {
+>>>>       struct va_macro *va = dev_get_drvdata(&pdev->dev);
+>>>>   -    clk_bulk_disable_unprepare(VA_NUM_CLKS_MAX, va->clks);
+>>>> -
+>>>> +    of_clk_del_provider(pdev->dev.of_node);
+>>>
+>>> fsgen clk is registered using devm_* variant of clk apis, so why do 
+>>> we need this here?
+>>>
+>> Okay. Will remove it and post new patch.
+>>>
+>>> --srini
+>>>> + clk_disable_unprepare(va->mclk);
+>>>> +    clk_disable_unprepare(va->macro);
+>>>> +    clk_disable_unprepare(va->dcodec);
+>>>>       return 0;
+>>>>   }
+>>>>
+-- 
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
 
-On Tue, Sep 21, 2021 at 10:48:01AM +0200, Peter Rosin wrote:
-> On 2021-09-21 10:10, Peter Rosin wrote:
-
-> Ok, so the attached works for me as well. But I don't know if it's
-> appropriate to resume/suspend like that?
-
-> is:
->=20
-> pcm512x 0-004c: Failed to set data format: -16
->=20
-> The root cause is that the chip is in Powerdown mode when
-> pcm512x_set_fmt runs. So, bring the chip out of suspend for
-> the update of the format.
-
-How would this work if the device looses power while in suspend (eg, due
-to the regulators being software controllable)?  If the data isn't being
-stored in the cache then it'll need to be stored somewhere else and
-restored on resume.
-
---/04w6evG8XlLl3ft
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFJyYkACgkQJNaLcl1U
-h9AcOwf5AbVSBdEhOQkB4TQMM2DFgVXIoGbmpI2PtDL+he2gx06CBr8GyNLXelfF
-Kq3B/YaaA0YEX0xOlJwbZqYJBtjqCj2K0RqsTvZE/H7hQrNcpwSX5EHb4lv3E8W7
-mmJRUKqVGK4mn/fhOe9+XQJkqyyt/xz8tkfu1hm8QdzBOQqtNa3bNsOOBHoR3VUK
-35zbG0qaxVoTZmOqRDh8bOfv/7RroMkkEb/TEwe41DsoB8RaTgPFcXmiSayPdJrO
-EHMUQ78SgY/VeWrDmXIVkbAClbNb2uUlhswfd6h0WN5utTl1WheCS2iUrtZQqiM/
-Ip7mX9Rb9eu6dj/7WtnVE69TOvm9Bw==
-=EZ2J
------END PGP SIGNATURE-----
-
---/04w6evG8XlLl3ft--

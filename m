@@ -2,83 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2ABE7413817
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Sep 2021 19:10:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED97F413824
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Sep 2021 19:11:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC42082E;
-	Tue, 21 Sep 2021 19:09:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC42082E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8F2FF15E2;
+	Tue, 21 Sep 2021 19:10:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F2FF15E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632244208;
-	bh=lModSVCjMMGuQK2vwdgo9ei5Tj2cnGcEIQFtw4CM8YY=;
+	s=default; t=1632244307;
+	bh=VcGKhT2BmGcFIV/hqhfMYjGJ5bIMEZu7OrzwKNG+zwY=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZUAULNupilJFwSL9YM583YiDRt9df0k1UbrHeT3OsR/FH+pWRRMYfASRlGiVUw3sn
-	 XNvMMi5IYxfslIQlxSd0d02a/Q7CXpQHESt81EEZfZjKuAIdod8TR8CACu2Y6rfodm
-	 ApI2bWl7xNAkIzIWtqZdgLNQL6PQZoD6cmoMqZwU=
+	b=qWz/gPy0fr44vTQX2UJZAFeFRbkf48NQjlExU+5lLGR8rVwZmUvLR0iojAcFy6Qb6
+	 PX76mOAgfMzf9p7f2BDgqGljqYKbpO3lj8KNKc2Y47TzzIlnurYzQAln0pOWa5kuSZ
+	 P++oWnX+ksYd3f95hrBrm1UTTah6tH/qgeGR3uJM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D373F8011F;
-	Tue, 21 Sep 2021 19:08:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 134CFF8026A;
+	Tue, 21 Sep 2021 19:10:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25822F80268; Tue, 21 Sep 2021 19:08:50 +0200 (CEST)
+ id 5B89DF80268; Tue, 21 Sep 2021 19:10:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
- [209.85.210.50])
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com
+ [209.85.161.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EC8B2F8016E
- for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 19:08:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC8B2F8016E
-Received: by mail-ot1-f50.google.com with SMTP id
- c6-20020a9d2786000000b005471981d559so7783601otb.5
- for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 10:08:37 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 08F31F8011F
+ for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 19:10:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08F31F8011F
+Received: by mail-oo1-f53.google.com with SMTP id
+ p22-20020a4a8156000000b002a8c9ea1858so3344907oog.11
+ for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 10:10:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=O9JEWZDMt2jcZLyP/IIVUSlCL8PUIazRPHBsmaclHCw=;
- b=KuXG77vm4RQV2sz828MyaF6velo3grGNba6lf0cuOMJ7aQ5u5fyakSSS5TQj8JFdwW
- BScoQhyonHavS+GigfkZW15Jmn0qZr7Qks2D/DzcxgzTnHjileCDAxUZVOzB+CP+BTYV
- lHvZCFqV5jiWaPr948l0O6DVzSLsU6ExMGwy8YTX5KHr5y/5dc1kuDqRp2+OM7HK7XDm
- T0b68rhibCoHZrN0UHgl2854Liiu7Bd9QQZwWBuL2ck5nkg1rP9+k3ZCnYfmL0rEyaSC
- olSLjJ0B6jmsY9g7Eup56kmvr0xwNhouN3OZHFlTAU1BTt2m+z1pD4CB4zpIG4CVzP6N
- TJ4w==
-X-Gm-Message-State: AOAM530JhjhUSQ2gQJXcDd7UP3afM+NwcHgbSpxb9KfhEr0nJ0w+kAaG
- q/JDVbHdAaYMDx4cF8tyYw==
-X-Google-Smtp-Source: ABdhPJyAoYtMFkASDt0IJc86gZEcglM6twQLZXsVUyPadtNltehV5spM1KvUGzi/ZewiYeR0LXPzOA==
-X-Received: by 2002:a9d:5a89:: with SMTP id w9mr26610982oth.91.1632244116250; 
- Tue, 21 Sep 2021 10:08:36 -0700 (PDT)
+ bh=S4rWK627e6yBDbCEhLg6VsNoB81RgebdS3Ln+6wAGas=;
+ b=JJRP9Nh18+UemuOR73GNeBQ/0WMM7/kSMUlGZ/VNkJOYrzIBdjC9oM0zK1e9AeWeq9
+ Rz/MvXs/pP2R6d6gtXKDFx/sXWq2H2D9DVPIWGteN0n2pSqxA5wHHnQSD8o/ttkN0Mlg
+ n4TDRQeFYPc1dULaRqSAtsqqlFUWve1d9nijPybokeVqmPQLxQXsKE7AnYjAkrwTn7fk
+ KRYsePBSS61PedQTPOV/niXSqihGOoNkZ7v4P9ez3jswYh81twuQGYIaTGcImg9Dri1+
+ zsY7mYd5oF3X2ZYc1t80o71Hm5Wc0q2ttr8A4k8c9ingIJYungi4DVdiwE5qIG5BXqTe
+ pkjw==
+X-Gm-Message-State: AOAM533FYO9+8eWphsJdfu553+eTk44IW3kCqDGmCL9g2Mz879Z8PYoS
+ RZEeiINo9UXc8zirxJ/xKw==
+X-Google-Smtp-Source: ABdhPJws4TdO+DPNS83SxM7XXfOVzOeooClPFMk6APULxosklf1aAoTwygi1il30jNMUX7PawpRkzg==
+X-Received: by 2002:a4a:52c4:: with SMTP id d187mr10680196oob.53.1632244221024; 
+ Tue, 21 Sep 2021 10:10:21 -0700 (PDT)
 Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
  [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id f17sm3024717ook.9.2021.09.21.10.08.33
+ by smtp.gmail.com with ESMTPSA id h15sm372163ots.2.2021.09.21.10.10.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Sep 2021 10:08:34 -0700 (PDT)
-Received: (nullmailer pid 2964447 invoked by uid 1000);
- Tue, 21 Sep 2021 17:08:33 -0000
-Date: Tue, 21 Sep 2021 12:08:33 -0500
+ Tue, 21 Sep 2021 10:10:19 -0700 (PDT)
+Received: (nullmailer pid 2967390 invoked by uid 1000);
+ Tue, 21 Sep 2021 17:10:17 -0000
+Date: Tue, 21 Sep 2021 12:10:17 -0500
 From: Rob Herring <robh@kernel.org>
 To: Olivier Moysan <olivier.moysan@foss.st.com>
-Subject: Re: [PATCH 1/7] dt-bindings: iio: adc: add generic channel binding
-Message-ID: <YUoRkepuJXRghzih@robh.at.kernel.org>
+Subject: Re: [PATCH 2/7] dt-bindings: iio: adc: add nvmem support for vrefint
+ internal channel
+Message-ID: <YUoR+Z5HEE56odzj@robh.at.kernel.org>
 References: <20210908155452.25458-1-olivier.moysan@foss.st.com>
- <20210908155452.25458-2-olivier.moysan@foss.st.com>
+ <20210908155452.25458-3-olivier.moysan@foss.st.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210908155452.25458-2-olivier.moysan@foss.st.com>
+In-Reply-To: <20210908155452.25458-3-olivier.moysan@foss.st.com>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
+ Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
  Fabrice Gasnier <fabrice.gasnier@st.com>,
@@ -98,202 +99,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Sep 08, 2021 at 05:54:46PM +0200, Olivier Moysan wrote:
-> Add ADC generic channel binding. This binding should
-> be used as an alternate to legacy channel properties
-> whenever possible.
-> ADC generic channel binding allows to identify supported
-> internal channels through the following reserved label names:
-> "vddcore", "vrefint" and "vbat".
-> This binding also allows to set a different sampling time
-> for each channel.
+On Wed, 08 Sep 2021 17:54:47 +0200, Olivier Moysan wrote:
+> Add support of nvmem. This allows to retrieve calibration data from OTP
+> for vrefint internal channel.
 > 
 > Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
 > ---
-> Note: The schema here is too permissive as either legacy or generic
-> channels properties are required. These properties are mutually
-> exclusive, however all attempts to describe this constraint are
-> failing. In particular the following schemas and their variants have
-> shown unsucessful.
+>  .../devicetree/bindings/iio/adc/st,stm32-adc.yaml         | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 > 
-> oneOf:
->   - anyOf:
-> 	- required:
-> 		- st,adc-channels
-> 	- required:
-> 		- st,adc-diff-channels
->   - anyOf:
-> 	- required:
-> 		- $nodename
-> 
-> - if:
->   patternProperties:
->     "^channel@([0-9]|1[0-9])$":
->       type: object
 
-This is considered true when you don't match this property. You would 
-need 'required', but that doesn't work for patterns. That's a 
-json-schema limitation that's on their radar to address.
-
-My advice is just mark the legacy nodes 'deprecated'. That doesn't do 
-anything yet, but I plan to add a 'disallow deprecated properties/nodes'
-mode.
-
-> then:
->   properties:
->     st,adc-channels: false
->     st,adc-diff-channels: false
-> else:
->   - anyOf:
->       - required:
->           - st,adc-channels
->       - required:
->           - st,adc-diff-channels
-> ---
->  .../bindings/iio/adc/st,stm32-adc.yaml        | 100 ++++++++++++++++--
->  1 file changed, 93 insertions(+), 7 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
-> index a58334c3bb76..a1f6cbe144ba 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
-> @@ -222,6 +222,12 @@ patternProperties:
->        '#io-channel-cells':
->          const: 1
->  
-> +      '#address-cells':
-> +        const: 1
-> +
-> +      '#size-cells':
-> +        const: 0
-> +
->        interrupts:
->          description: |
->            IRQ Line for the ADC instance. Valid values are:
-> @@ -265,7 +271,9 @@ patternProperties:
->            <vinp vinn>, <vinp vinn>,... vinp and vinn are numbered from 0 to 19.
->  
->            Note: At least one of "st,adc-channels" or "st,adc-diff-channels" is
-> -          required. Both properties can be used together. Some channels can be
-> +          required if no adc generic channel is defined. These legacy channel
-> +          properties are exclusive with adc generic channel bindings.
-> +          Both properties can be used together. Some channels can be
->            used as single-ended and some other ones as differential (mixed). But
->            channels can't be configured both as single-ended and differential.
->          $ref: /schemas/types.yaml#/definitions/uint32-matrix
-> @@ -290,6 +298,44 @@ patternProperties:
->            each channel.
->          $ref: /schemas/types.yaml#/definitions/uint32-array
->  
-> +    patternProperties:
-> +      "^channel@([0-9]|1[0-9])$":
-> +        type: object
-> +        $ref: "adc.yaml"
-> +        description: |
-> +          Represents the external channels which are connected to the ADC.
-> +
-> +        properties:
-> +          reg:
-> +            items:
-> +              minimum: 0
-> +              maximum: 19
-> +
-> +          label:
-> +            description: |
-> +              Unique name to identify which channel this is.
-> +              Reserved label names "vddcore", "vrefint" and "vbat"
-> +              are used to identify internal channels with matching names.
-> +
-> +          diff-channels:
-> +            $ref: /schemas/types.yaml#/definitions/uint32-array
-> +            items:
-> +              minimum: 0
-> +              maximum: 19
-> +
-> +          st,min-sample-time-nsecs:
-> +            $ref: /schemas/types.yaml#/definitions/uint32
-> +            description: |
-> +              Minimum sampling time in nanoseconds. Depending on hardware (board)
-> +              e.g. high/low analog input source impedance, fine tune of ADC
-> +              sampling time may be recommended.
-> +
-> +        required:
-> +          - reg
-> +
-> +    dependencies:
-> +      $nodename: [ '#address-cells', '#size-cells' ]
-
-Drop this. $nodename is not a real property.
-
-> +
->      allOf:
->        - if:
->            properties:
-> @@ -369,12 +415,6 @@ patternProperties:
->  
->      additionalProperties: false
->  
-> -    anyOf:
-> -      - required:
-> -          - st,adc-channels
-> -      - required:
-> -          - st,adc-diff-channels
-> -
->      required:
->        - compatible
->        - reg
-> @@ -451,4 +491,50 @@ examples:
->          // other adc child node follow...
->        };
->  
-> +  - |
-> +    // Example 3: with stm32mp157c to setup ADC2 with:
-> +    // - internal channels 13, 14, 15.
-> +      #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +      #include <dt-bindings/clock/stm32mp1-clks.h>
-> +      adc122: adc@48003000 {
-> +        compatible = "st,stm32mp1-adc-core";
-> +        reg = <0x48003000 0x400>;
-> +        interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SPI 90 IRQ_TYPE_LEVEL_HIGH>;
-> +        clocks = <&rcc ADC12>, <&rcc ADC12_K>;
-> +        clock-names = "bus", "adc";
-> +        booster-supply = <&booster>;
-> +        vdd-supply = <&vdd>;
-> +        vdda-supply = <&vdda>;
-> +        vref-supply = <&vref>;
-> +        st,syscfg = <&syscfg>;
-> +        interrupt-controller;
-> +        #interrupt-cells = <1>;
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +        adc@100 {
-> +          compatible = "st,stm32mp1-adc";
-> +          #io-channel-cells = <1>;
-> +          reg = <0x100>;
-> +          interrupts = <1>;
-> +          #address-cells = <1>;
-> +          #size-cells = <0>;
-> +          channel@13 {
-> +            reg = <13>;
-> +            label = "vrefint";
-> +            st,min-sample-time-nsecs = <9000>;
-> +          };
-> +          channel@14 {
-> +            reg = <14>;
-> +            label = "vddcore";
-> +            st,min-sample-time-nsecs = <9000>;
-> +          };
-> +          channel@15 {
-> +            reg = <15>;
-> +            label = "vbat";
-> +            st,min-sample-time-nsecs = <9000>;
-> +          };
-> +        };
-> +      };
-> +
->  ...
-> -- 
-> 2.17.1
-> 
-> 
+Acked-by: Rob Herring <robh@kernel.org>

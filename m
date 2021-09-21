@@ -2,73 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D529413638
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Sep 2021 17:28:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DB12413630
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Sep 2021 17:27:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B4CE5167A;
-	Tue, 21 Sep 2021 17:27:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4CE5167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 965111616;
+	Tue, 21 Sep 2021 17:26:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 965111616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632238120;
-	bh=kC2meo6Fvlk2b3uZGSxQXxf1+PcarHHiV4qO9lBt04Y=;
+	s=default; t=1632238067;
+	bh=jDRQXGf7gbvv7glyWY+HfhW+JY8gbICqnGlh6IrImGk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=f5Unsmq8ZKmQwitS0H+Xb/cqthUjhsrLC7vmFP6t2NL9dlSa8z/W6KZfJk/7dUX9k
-	 bR2HTHs4DbuS8sdrKMTXsQdMvhQYjm93CxpDTGVvl9FiDudB8c7YVYAJ/4Dp0Ayqk3
-	 ifgNj0QatckmS5YUH6fQ9vrc6sl44lIBSFmnxqH4=
+	b=tVNxEQ5IHBm6yUZl/qfYM7hDe4vwibKH3vz1SMr7q4Mv8I7fzf7+EAi6vAYazFHF7
+	 Mk0+C2AcqGpvATm88t2DJAuWePSUzbKeQaknXtgX/8xqgTTx2oKp+YJ3HQvMT6+PVq
+	 tkprrS9WflLqZo7r9MGDaJlJQCN3ay8+4+jlneHg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42707F804F1;
-	Tue, 21 Sep 2021 17:26:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C37B0F804BD;
+	Tue, 21 Sep 2021 17:26:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D44AF804E2; Tue, 21 Sep 2021 17:26:16 +0200 (CEST)
+ id 2CCFAF804C1; Tue, 21 Sep 2021 17:26:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D10CBF8026A
- for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 17:26:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D10CBF8026A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 951F4F8025F
+ for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 17:26:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 951F4F8025F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="n3thaoIj"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9A64F61178;
- Tue, 21 Sep 2021 15:26:03 +0000 (UTC)
+ header.b="CBumJ/Lm"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4739061186;
+ Tue, 21 Sep 2021 15:26:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1632237964;
- bh=kC2meo6Fvlk2b3uZGSxQXxf1+PcarHHiV4qO9lBt04Y=;
+ s=k20201202; t=1632237966;
+ bh=jDRQXGf7gbvv7glyWY+HfhW+JY8gbICqnGlh6IrImGk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=n3thaoIjIv0L09oIwvxTwjsDNb2wN0uyjH7zdzAYBohmfDCJ5vOsgD3BPQsOrIMjk
- ysYO8m5cpD2MokPtN3IWfqcAmRfHnXSZAjgBYPC6xzv6fT8QG7HuaNoTemsovPA8Td
- 2CeFHvHh+rrCaz8SyJs4km5D8KTrevbyrfPMXLb274JRQ9lCmW2zcJ3+9od1ZWijYg
- 2+w54f1VMEP22hS13mG1zxcADMRrdAka3e1qPPUfvt8rYqG3AIZe5xVOIruvectJOg
- iapVJtEXwQiy49Mum50GyFRVQC6PWV7caoissk3k1CtFhKTd6F88uzhcfE49AY7L0Z
- F5uGM6fGbiP1A==
+ b=CBumJ/LmMXYS/Jzmek/MV0s4+Xwfg0CJ8SyfnLbcsNpGDlsevkr0K99DhGs3Z69dp
+ MZrtXjdv4Iij9RLyIvguQObHDWPXZ8XVgr3kTdfYagbQbM+AulWv8mazC/fsN5+//q
+ FgzL1cDEPBFRn859E4MboMinZNwQBCuPZ3D1VMhcPL8aylsIlcEfGn2y7UqU34B2f9
+ 2rJ6AIsAZR5/TW3ZCZMPq0hSLm7OKFaOehrDmUQm7fTHbkSC8A9ptvL4QEFMHeJi+J
+ tRfBXErO17G3sP7evr6LTSEMWWvnJHPfEMuF1eSIAlbPAHeBd59Tk6Pmam2mDNHM7b
+ d19KCuXHe8UJQ==
 From: Mark Brown <broonie@kernel.org>
-To: Colin King <colin.king@canonical.com>, Takashi Iwai <tiwai@suse.com>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- alsa-devel@alsa-project.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH] ASoC: qdsp6: q6afe-dai: Fix spelling mistake "Fronend" ->
- "Frontend"
-Date: Tue, 21 Sep 2021 16:25:10 +0100
-Message-Id: <163223651319.32236.12537335411732111582.b4-ty@kernel.org>
+To: Xiubo.Lee@gmail.com, festevam@gmail.com, tiwai@suse.com, perex@perex.cz,
+ alsa-devel@alsa-project.org, timur@kernel.org, nicoleotsuka@gmail.com,
+ Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: fsl_xcvr: Fix channel swap issue with ARC
+Date: Tue, 21 Sep 2021 16:25:11 +0100
+Message-Id: <163223651319.32236.15669372544555545964.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210920184152.18109-1-colin.king@canonical.com>
-References: <20210920184152.18109-1-colin.king@canonical.com>
+In-Reply-To: <1631265510-27384-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1631265510-27384-1-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>, kernel-janitors@vger.kernel.org,
+Cc: Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org,
  linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -85,12 +81,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 20 Sep 2021 19:41:52 +0100, Colin King wrote:
-> From: Colin Ian King <colin.king@canonical.com>
+On Fri, 10 Sep 2021 17:18:30 +0800, Shengjiu Wang wrote:
+> With pause and resume test for ARC, there is occasionally
+> channel swap issue. The reason is that currently driver set
+> the DPATH out of reset first, then start the DMA, the first
+> data got from FIFO may not be the Left channel.
 > 
-> There is a spelling mistake in the module description. Fix it.
+> Moving DPATH out of reset operation after the dma enablement
+> to fix this issue.
 > 
-> 
+> [...]
 
 Applied to
 
@@ -98,8 +98,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: qdsp6: q6afe-dai: Fix spelling mistake "Fronend" -> "Frontend"
-      commit: b5377a76782797fec63c4461ef961d8d4abe9cbe
+[1/1] ASoC: fsl_xcvr: Fix channel swap issue with ARC
+      commit: 74b7ee0e7b61838a0a161a84d105aeff0d042646
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

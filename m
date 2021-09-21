@@ -2,61 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F07941327D
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Sep 2021 13:27:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A5FA413319
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Sep 2021 14:03:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D77A8847;
-	Tue, 21 Sep 2021 13:27:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D77A8847
+	by alsa0.perex.cz (Postfix) with ESMTPS id D18ED1616;
+	Tue, 21 Sep 2021 14:02:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D18ED1616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632223671;
-	bh=swyY2nk0e86n9Yuu+CYQc5pq/gOwwWYJQvqQ++ltVAc=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=AHQOOI6aCBS1SRs20ADUZwOTl0Tzysm1HbgNNBNjuj3KMgKP5aHLtKyh41GCj+NHC
-	 FnErUVVanXNWP203Abgf994LpQX3LgGlJwofdvgQ5faKp+YE6fIVwhylBWRvjGpxKu
-	 VVBOSp8bHkf+odxLFVbBg2COYxqUUvzB7UI3MZgY=
+	s=default; t=1632225803;
+	bh=okJ5Wv071gm/kqPX80JwwLPKBFkmOu1Wfy85JkuFJxE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=YRlHheZwX03lPi6wlBNlz6IpjEvYsAT5d3Grv3KA/QFPXut3iCC/8rD1Ymwg0VhvK
+	 Tl3dw4KrivFBMUrWVkMeX4aNDMT1QVg5WBZBBnsqqtGW4bnaCsPVGzOAB/nhzJAQqf
+	 gMW+Asn9qGKaMgfMnrvzKT4YwLABRxrmbULx941c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43A81F8026A;
-	Tue, 21 Sep 2021 13:26:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A16CF80124;
+	Tue, 21 Sep 2021 14:02:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BBD43F80268; Tue, 21 Sep 2021 13:26:32 +0200 (CEST)
+ id AEDCCF80268; Tue, 21 Sep 2021 14:02:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 10531F8016E
- for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 13:26:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10531F8016E
-X-IronPort-AV: E=McAfee;i="6200,9189,10113"; a="221446362"
-X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="221446362"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2021 04:26:17 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,311,1624345200"; d="scan'208";a="484148610"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga008.jf.intel.com with ESMTP; 21 Sep 2021 04:26:14 -0700
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org, tiwai@suse.de, jani.nikula@intel.com,
- Imre Deak <imre.deak@intel.com>, dri-devel@lists.freedesktop.org,
- Russell King <rmk+kernel@arm.linux.org.uk>, gregkh@linuxfoundation.org
-Subject: [RFC PATCH] component: do not leave master devres group open after
- bind
-Date: Tue, 21 Sep 2021 14:18:10 +0300
-Message-Id: <20210921111810.2766726-1-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.32.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0B55BF80124
+ for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 14:02:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B55BF80124
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="KiHMVTOb"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4AEDC60F56;
+ Tue, 21 Sep 2021 12:01:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1632225717;
+ bh=okJ5Wv071gm/kqPX80JwwLPKBFkmOu1Wfy85JkuFJxE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=KiHMVTOb17nzr8fZcDhOLmICRm3Ht+Fg4Pt0UNJ+Qg2jcUREcDV1HVSwWlaQatRPT
+ yzPgyjZ3nE3t9avSqUysWS61wLkk6jOcHWPjDFsFH+4g17aF0ObV/l7sKF5TWfuTqt
+ v8Q3Ufk6LmZLmZDE0SeMTyJGoroYaWrtlPS+sVhUmBYz/lSmLw5DsL9jHqg3A2z8T/
+ oOjJzctrYT071xId9PLdaKsuKrnusLLDP8ZQCd1K/zUi+H8/CtHjXjZV9lui0otPyP
+ 5cmjTLEDr1bRWZgzoj+vh8p0GXmHtohmtR0RE8yvhCSRsLVwBzOsoq6ArNXg9Z2Ccf
+ 93wgIUImozJTQ==
+Date: Tue, 21 Sep 2021 13:01:13 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Peter Rosin <peda@axentia.se>
+Subject: Re: [PATCH] ASoC: pcm512x: Mend accesses to the I2S_1 and I2S_2
+ registers
+Message-ID: <20210921120113.GA9990@sirena.org.uk>
+References: <2d221984-7a2e-7006-0f8a-ffb5f64ee885@axentia.se>
+ <ae4b25f1-2b2c-d937-e23d-0f7d23bdf0c4@gmail.com>
+ <815cbba4-60d6-8d97-c483-146c2f7c3912@axentia.se>
+ <7537b141-0ef1-fb44-7e02-27b4dd1e772b@gmail.com>
+ <d9850534-df41-a6b3-48e2-34823f5866e9@axentia.se>
+ <27f903d9-a74e-182e-b715-4124cf666f45@axentia.se>
+ <8b96eb7b-8829-443f-481c-ab1772ece098@axentia.se>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: intel-gfx@lists.freedesktop.org, kai.vehmanen@linux.intel.com,
- "Rafael J . Wysocki" <rafael@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="/04w6evG8XlLl3ft"
+Content-Disposition: inline
+In-Reply-To: <8b96eb7b-8829-443f-481c-ab1772ece098@axentia.se>
+X-Cookie: Will it improve my CASH FLOW?
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Kirill Marinushkin <kmarinushkin@birdec.com>,
+ =?iso-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,111 +91,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In current code, the devres group for aggregate master is left open
-after call to component_master_add_*(). This leads to problems when the
-master does further managed allocations on its own. When any
-participating driver calls component_del(), this leads to immediate
-release of resources.
 
-This came up when investigating a page fault occurring with i915 DRM
-driver unbind with 5.15-rc1 kernel. The following sequence occurs:
+--/04w6evG8XlLl3ft
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
- i915_pci_remove()
-   -> intel_display_driver_unregister()
-     -> i915_audio_component_cleanup()
-       -> component_del()
-         -> component.c:take_down_master()
-           -> hdac_component_master_unbind() [via master->ops->unbind()]
-           -> devres_release_group(master->parent, NULL)
+On Tue, Sep 21, 2021 at 10:48:01AM +0200, Peter Rosin wrote:
+> On 2021-09-21 10:10, Peter Rosin wrote:
 
-With older kernels this has not caused issues, but with audio driver
-moving to use managed interfaces for more of its allocations, this no
-longer works. Devres log shows following to occur:
+> Ok, so the attached works for me as well. But I don't know if it's
+> appropriate to resume/suspend like that?
 
-component_master_add_with_match()
-[  126.886032] snd_hda_intel 0000:00:1f.3: DEVRES ADD 00000000323ccdc5 devm_component_match_release (24 bytes)
-[  126.886045] snd_hda_intel 0000:00:1f.3: DEVRES ADD 00000000865cdb29 grp< (0 bytes)
-[  126.886049] snd_hda_intel 0000:00:1f.3: DEVRES ADD 000000001b480725 grp< (0 bytes)
+> is:
+>=20
+> pcm512x 0-004c: Failed to set data format: -16
+>=20
+> The root cause is that the chip is in Powerdown mode when
+> pcm512x_set_fmt runs. So, bring the chip out of suspend for
+> the update of the format.
 
-audio driver completes its PCI probe()
-[  126.892238] snd_hda_intel 0000:00:1f.3: DEVRES ADD 000000001b480725 pcim_iomap_release (48 bytes)
+How would this work if the device looses power while in suspend (eg, due
+to the regulators being software controllable)?  If the data isn't being
+stored in the cache then it'll need to be stored somewhere else and
+restored on resume.
 
-component_del() called() at DRM/i915 unbind()
-[  137.579422] i915 0000:00:02.0: DEVRES REL 00000000ef44c293 grp< (0 bytes)
-[  137.579445] snd_hda_intel 0000:00:1f.3: DEVRES REL 00000000865cdb29 grp< (0 bytes)
-[  137.579458] snd_hda_intel 0000:00:1f.3: DEVRES REL 000000001b480725 pcim_iomap_release (48 bytes)
+--/04w6evG8XlLl3ft
+Content-Type: application/pgp-signature; name="signature.asc"
 
-So the "devres_release_group(master->parent, NULL)" ends up freeing the
-pcim_iomap allocation. Upon next runtime resume, the audio driver will
-cause a page fault as the iomap alloc was released without the driver
-knowing about it.
+-----BEGIN PGP SIGNATURE-----
 
-Fix this issue by using the "struct master" pointer as identifier for
-the devres group, and by closing the devres group after the master->ops->bind()
-call is done. This allows devres allocations done by the driver acting as
-master to be isolated from the binding state of the aggregate driver. This
-modifies the logic originally introduced in commit 9e1ccb4a7700
-("drivers/base: fix devres handling for master device").
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFJyYkACgkQJNaLcl1U
+h9AcOwf5AbVSBdEhOQkB4TQMM2DFgVXIoGbmpI2PtDL+he2gx06CBr8GyNLXelfF
+Kq3B/YaaA0YEX0xOlJwbZqYJBtjqCj2K0RqsTvZE/H7hQrNcpwSX5EHb4lv3E8W7
+mmJRUKqVGK4mn/fhOe9+XQJkqyyt/xz8tkfu1hm8QdzBOQqtNa3bNsOOBHoR3VUK
+35zbG0qaxVoTZmOqRDh8bOfv/7RroMkkEb/TEwe41DsoB8RaTgPFcXmiSayPdJrO
+EHMUQ78SgY/VeWrDmXIVkbAClbNb2uUlhswfd6h0WN5utTl1WheCS2iUrtZQqiM/
+Ip7mX9Rb9eu6dj/7WtnVE69TOvm9Bw==
+=EZ2J
+-----END PGP SIGNATURE-----
 
-BugLink: https://gitlab.freedesktop.org/drm/intel/-/issues/4136
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- drivers/base/component.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-Hi,
-I'm sending this as RFC as I'm not sure of the implications of
-not leaving the devres group open might have to other users
-of the component framework.
-
-For audio, the current behaviour seems very problematic. The display
-codec is usually just one of many audio codecs attached to the controller,
-and unbind of the display codec (and the aggregate driver created with
-DRM), should not bring down the whole audio card.
-
-However, now all allocations audio driver does after call to
-component_master_add_with_match(), will be freed when display
-driver calls component_del().
-
-Closing the devres group at end of component_master_add_*() would
-seem the cleanest option. Looking for feedback whether this approach
-is feasible. One alternative would be for the audio driver to
-close the "last opened" group after its call to component_master_add(),
-but this seems messy (audio would make assumptions on component.c
-internals).
-
-diff --git a/drivers/base/component.c b/drivers/base/component.c
-index 5e79299f6c3f..870485cbbb87 100644
---- a/drivers/base/component.c
-+++ b/drivers/base/component.c
-@@ -246,7 +246,7 @@ static int try_to_bring_up_master(struct master *master,
- 		return 0;
- 	}
- 
--	if (!devres_open_group(master->parent, NULL, GFP_KERNEL))
-+	if (!devres_open_group(master->parent, master, GFP_KERNEL))
- 		return -ENOMEM;
- 
- 	/* Found all components */
-@@ -258,6 +258,7 @@ static int try_to_bring_up_master(struct master *master,
- 		return ret;
- 	}
- 
-+	devres_close_group(master->parent, NULL);
- 	master->bound = true;
- 	return 1;
- }
-@@ -282,7 +283,7 @@ static void take_down_master(struct master *master)
- {
- 	if (master->bound) {
- 		master->ops->unbind(master->parent);
--		devres_release_group(master->parent, NULL);
-+		devres_release_group(master->parent, master);
- 		master->bound = false;
- 	}
- }
-
-base-commit: 930e99a51fcc8b1254e0a45fbe0cd5a5b8a704a5
--- 
-2.32.0
-
+--/04w6evG8XlLl3ft--

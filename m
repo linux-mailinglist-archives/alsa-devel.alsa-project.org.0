@@ -2,88 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED97F413824
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Sep 2021 19:11:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0A6A41383D
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Sep 2021 19:23:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F2FF15E2;
-	Tue, 21 Sep 2021 19:10:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F2FF15E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 343D715E2;
+	Tue, 21 Sep 2021 19:23:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 343D715E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632244307;
-	bh=VcGKhT2BmGcFIV/hqhfMYjGJ5bIMEZu7OrzwKNG+zwY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1632245031;
+	bh=+ie2y2zYefC53OAh0IUj16Ld6gPorVeEa+jGwcR1Lvo=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qWz/gPy0fr44vTQX2UJZAFeFRbkf48NQjlExU+5lLGR8rVwZmUvLR0iojAcFy6Qb6
-	 PX76mOAgfMzf9p7f2BDgqGljqYKbpO3lj8KNKc2Y47TzzIlnurYzQAln0pOWa5kuSZ
-	 P++oWnX+ksYd3f95hrBrm1UTTah6tH/qgeGR3uJM=
+	b=LTxSLo4WlEU8nWiBPs2cgvsWXYZKbfBARTYKmu9TUe3eYGfR8uGZ/BTC90gbfWM+I
+	 4PXSGEMDtxpmtFMr1M06pK4TgDkRWgos4eg71KQGDQDtM1ewkR8sAqDgkNlDmvvTLA
+	 Sq4++YhgwcBsQVthK1CtCcYvIWKZT1J9xhzEVqGI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 134CFF8026A;
-	Tue, 21 Sep 2021 19:10:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A22FF8026A;
+	Tue, 21 Sep 2021 19:22:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5B89DF80268; Tue, 21 Sep 2021 19:10:29 +0200 (CEST)
+ id EAF03F80268; Tue, 21 Sep 2021 19:22:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com
- [209.85.161.53])
+X-Spam-Status: No, score=0.7 required=5.0 tests=CTE_8BIT_MISMATCH, DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 08F31F8011F
- for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 19:10:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08F31F8011F
-Received: by mail-oo1-f53.google.com with SMTP id
- p22-20020a4a8156000000b002a8c9ea1858so3344907oog.11
- for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 10:10:22 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D0A8F8016E
+ for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 19:22:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D0A8F8016E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="LseMvNnA"
+Received: by mail-lf1-x12f.google.com with SMTP id e15so325522lfr.10
+ for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 10:22:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=abVBEHhP6Go4xO+SAuzlpZ2XfhQjbo4KJut33mj6ehc=;
+ b=LseMvNnAKIS0DE4HVVrAP2uNuO9bLJfbhBJLbVkBfEjyH0C5g3chiU64QrSt5ALabY
+ vlmUGNFbEBc9UCcp/CW3o8ZWdZqhqYJ1fSvddoMV47NWzRnyRYlvm7a19Syv3pCuoyhu
+ p5rAqwZ/n2GCnj84vRZufrQl1jRp+m164bz70M4nKcBPnk6M2ltMtt1C2aPKm5j5XaRx
+ U2ttYvjFmG8CmDs0hpLL/UB+CGwUoiMIe4M332rWW97JmS6J4lQvCCV26VwH+Ani0NGy
+ 1S6V5tFFMlG+WKypa59mvWZ1KRUHUCSAiuDHuXn3JxjeL6++gvKjuFmrJrP0XF32TkM9
+ piRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=S4rWK627e6yBDbCEhLg6VsNoB81RgebdS3Ln+6wAGas=;
- b=JJRP9Nh18+UemuOR73GNeBQ/0WMM7/kSMUlGZ/VNkJOYrzIBdjC9oM0zK1e9AeWeq9
- Rz/MvXs/pP2R6d6gtXKDFx/sXWq2H2D9DVPIWGteN0n2pSqxA5wHHnQSD8o/ttkN0Mlg
- n4TDRQeFYPc1dULaRqSAtsqqlFUWve1d9nijPybokeVqmPQLxQXsKE7AnYjAkrwTn7fk
- KRYsePBSS61PedQTPOV/niXSqihGOoNkZ7v4P9ez3jswYh81twuQGYIaTGcImg9Dri1+
- zsY7mYd5oF3X2ZYc1t80o71Hm5Wc0q2ttr8A4k8c9ingIJYungi4DVdiwE5qIG5BXqTe
- pkjw==
-X-Gm-Message-State: AOAM533FYO9+8eWphsJdfu553+eTk44IW3kCqDGmCL9g2Mz879Z8PYoS
- RZEeiINo9UXc8zirxJ/xKw==
-X-Google-Smtp-Source: ABdhPJws4TdO+DPNS83SxM7XXfOVzOeooClPFMk6APULxosklf1aAoTwygi1il30jNMUX7PawpRkzg==
-X-Received: by 2002:a4a:52c4:: with SMTP id d187mr10680196oob.53.1632244221024; 
- Tue, 21 Sep 2021 10:10:21 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id h15sm372163ots.2.2021.09.21.10.10.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Sep 2021 10:10:19 -0700 (PDT)
-Received: (nullmailer pid 2967390 invoked by uid 1000);
- Tue, 21 Sep 2021 17:10:17 -0000
-Date: Tue, 21 Sep 2021 12:10:17 -0500
-From: Rob Herring <robh@kernel.org>
-To: Olivier Moysan <olivier.moysan@foss.st.com>
-Subject: Re: [PATCH 2/7] dt-bindings: iio: adc: add nvmem support for vrefint
- internal channel
-Message-ID: <YUoR+Z5HEE56odzj@robh.at.kernel.org>
-References: <20210908155452.25458-1-olivier.moysan@foss.st.com>
- <20210908155452.25458-3-olivier.moysan@foss.st.com>
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=abVBEHhP6Go4xO+SAuzlpZ2XfhQjbo4KJut33mj6ehc=;
+ b=izMTJcwI6iTUL3FDh0hmg9tDSew97pHGTjfdRq/oLnlwt0uixzTU/XEusS0iDhDpY4
+ vs14/Y1IKid7cxecBq5oRqPoPd1rImsRhHBhB2mFxk770zvtZoudXYKCRSJJDt8Qd1UB
+ NyNERPEppCrIcUcgR4Uo/F/oQTmYmWubIXnTdnKz52FEPDPcdwZVBSJrtdY8AIUrLt3w
+ iCjg6LoDPEV9idrUHMfu2TiRzUGXvov9WHvYx7+JhaOViD8wjLoLB5jWs5eqmpT7wpX2
+ EcNzC/5zdxMKwrfgStQvQ6KeiAdWqebjUQ5ROoDD5ctXo0yJqZ0OtI1/9E+LTpACgckv
+ EN8w==
+X-Gm-Message-State: AOAM532Ofmib4wgxKOEvQhXAy0whQeNU4N1mJgP9W6g4+abCF9N4XFI3
+ FOhn5DQGSM9Sa9twzqzkIgU=
+X-Google-Smtp-Source: ABdhPJzUn+DO5ulrKIZ6kGD9jrZeBxL5vtrUdRtnSfNzSzu7HZD2BQ9IYewBa/oPIonDSrKEPs5hlQ==
+X-Received: by 2002:a19:550c:: with SMTP id n12mr23875660lfe.511.1632244946960; 
+ Tue, 21 Sep 2021 10:22:26 -0700 (PDT)
+Received: from [10.0.0.115] (91-155-111-71.elisa-laajakaista.fi.
+ [91.155.111.71])
+ by smtp.gmail.com with ESMTPSA id m17sm2180144ljp.80.2021.09.21.10.22.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 Sep 2021 10:22:26 -0700 (PDT)
+Message-ID: <bf0e8f5e-1952-e505-fefa-4b09f6a7c726@gmail.com>
+Date: Tue, 21 Sep 2021 20:22:45 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210908155452.25458-3-olivier.moysan@foss.st.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.1.1
+Subject: Re: [PATCH] ASoC: pcm512x: Mend accesses to the I2S_1 and I2S_2
+ registers
+Content-Language: en-US
+To: Peter Rosin <peda@axentia.se>, Mark Brown <broonie@kernel.org>
+References: <2d221984-7a2e-7006-0f8a-ffb5f64ee885@axentia.se>
+ <ae4b25f1-2b2c-d937-e23d-0f7d23bdf0c4@gmail.com>
+ <815cbba4-60d6-8d97-c483-146c2f7c3912@axentia.se>
+ <7537b141-0ef1-fb44-7e02-27b4dd1e772b@gmail.com>
+ <d9850534-df41-a6b3-48e2-34823f5866e9@axentia.se>
+ <27f903d9-a74e-182e-b715-4124cf666f45@axentia.se>
+ <8b96eb7b-8829-443f-481c-ab1772ece098@axentia.se>
+ <20210921120113.GA9990@sirena.org.uk>
+ <cc8d7cfb-a9ad-7881-6962-77a00118c85d@axentia.se>
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>
+In-Reply-To: <cc8d7cfb-a9ad-7881-6962-77a00118c85d@axentia.se>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Kirill Marinushkin <kmarinushkin@birdec.com>, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,14 +116,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 08 Sep 2021 17:54:47 +0200, Olivier Moysan wrote:
-> Add support of nvmem. This allows to retrieve calibration data from OTP
-> for vrefint internal channel.
-> 
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-> ---
->  .../devicetree/bindings/iio/adc/st,stm32-adc.yaml         | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
 
-Acked-by: Rob Herring <robh@kernel.org>
+
+On 21/09/2021 16:30, Peter Rosin wrote:
+> On 2021-09-21 14:01, Mark Brown wrote:
+>> On Tue, Sep 21, 2021 at 10:48:01AM +0200, Peter Rosin wrote:
+>>> On 2021-09-21 10:10, Peter Rosin wrote:
+>>
+>>> Ok, so the attached works for me as well. But I don't know if it's
+>>> appropriate to resume/suspend like that?
+>>
+>>> is:
+>>>
+>>> pcm512x 0-004c: Failed to set data format: -16
+>>>
+>>> The root cause is that the chip is in Powerdown mode when
+>>> pcm512x_set_fmt runs. So, bring the chip out of suspend for
+>>> the update of the format.
+>>
+>> How would this work if the device looses power while in suspend (eg, due
+>> to the regulators being software controllable)?  If the data isn't being
+>> stored in the cache then it'll need to be stored somewhere else and
+>> restored on resume.
+> 
+> Right. Scratch v2. I'd go with the original patch. We have verified
+> that the original content of the I2S_1 register is the expected 0x02
+> (at least on one pcm5142) and besides, the four RSV bits are probably
+> don't care anyway.
+> 
+> Péter might have a different opinion?
+
+The original patch is correct, the defaults are those exactly (by TRM
+and by your register read).
+
+This at some point needs to be addressed when someone comes along with
+wanting something else than I2S as default format.
+
+Thanks for the debugging!
+
+-- 
+Péter

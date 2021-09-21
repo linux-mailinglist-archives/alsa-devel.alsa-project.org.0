@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BE8B413CB8
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Sep 2021 23:41:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72029413CBE
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Sep 2021 23:41:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E8F91688;
-	Tue, 21 Sep 2021 23:40:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E8F91688
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F6F816BC;
+	Tue, 21 Sep 2021 23:40:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F6F816BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632260476;
-	bh=NW3bpE8J3VKBnOZtBpB10bBc+DHax4UYEF50tjdaBmQ=;
+	s=default; t=1632260498;
+	bh=ZYj9NVMXeaIG3c9cdYAHfhF0zFKiS0Xyjbv1Scqzlvo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=l3M4JNWNjM/8gati2Qz6cxg3upDGEeqlvdsUPrKSkyC2o6rpYBayyTUy8dN3+lbA5
-	 VyQE1ib+PiyOuGQujUhItlZYF9L2+hIpz3zJtxgwj5Ebu5YYeYj3Et2XIzezxjJPiS
-	 LDEJtKcVlSyToA44vJZYJ6RL0QEsQznTiRVv0WAM=
+	b=SEK8hbsHFBYEPZGHGSoIKBGLuXwTYN8zmehMwW/hlzmWsgAl0XDGOTNQtzrTJT5kr
+	 7mpchepFBnPbr3yarCJaHg6FaAO2cWxQwNQdWr2U6yFLFL5zRnPADoS6kRXueeZM1t
+	 d4dmu2rIxI+0Xv7OcqEeUE/FRa09QhO5njUXD8N8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B7A5F8051F;
-	Tue, 21 Sep 2021 23:37:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9EC32F80535;
+	Tue, 21 Sep 2021 23:37:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7E1DF8051F; Tue, 21 Sep 2021 23:37:14 +0200 (CEST)
+ id 9FC0CF80533; Tue, 21 Sep 2021 23:37:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,45 +33,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7ADF2F8051C
- for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 23:37:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7ADF2F8051C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 11717F8051C
+ for <alsa-devel@alsa-project.org>; Tue, 21 Sep 2021 23:37:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11717F8051C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="uD29ZCcE"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D285F61166;
- Tue, 21 Sep 2021 21:37:09 +0000 (UTC)
+ header.b="lUL1fePJ"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D21CB61019;
+ Tue, 21 Sep 2021 21:37:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1632260230;
- bh=NW3bpE8J3VKBnOZtBpB10bBc+DHax4UYEF50tjdaBmQ=;
+ s=k20201202; t=1632260233;
+ bh=ZYj9NVMXeaIG3c9cdYAHfhF0zFKiS0Xyjbv1Scqzlvo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=uD29ZCcEG51Y4IHXtR7X8qbkvC3ON9oM3WfgcP95ksV9Mdza87pjZpZz8KfGs4MqM
- QZ4TzXkFbMb048UvrDVmgLalmg2oDECWj0GO8fONJJKyqJI0XVqvJ54qZKIloDmSZD
- bmvLIj4BXSmbrHVTdOztHpSVXyeRdusoHsBzrOrZ0Q+0or/et6cigSzmqsyVdnOc3w
- 7BC7H15wY0I8Zg4nXhgDpXh/+7X/Tokot1DjX7K5pLwc4pMdhBM9gXc99JBFSqkzHD
- jAy6/kFaKnI2yrHt/DkVi9clf1kDQbdN2cIUXKZc8ejMpw5BHCMZnjYsPOaMu8n+7F
- 6PWKI7acBSrNA==
+ b=lUL1fePJJ+l08vQDTaLC1nDCkhxxrcg8XCtJj5sVOVslxJah25CFI6aMuUaBFC43P
+ Ldxgim6k/nh6ltEAs46dd8bG4lkrhqT67vjlTz7vGNYS70lJqqzD2AJ7h4PcFPYp1e
+ WSdobh33AuDg/r6GCBCzPUrRLSzwVULmj9P4FtovVTkXiDIawyQ6J6TbEe0XYbmJ/b
+ a7bkJeN7SwwrNlfqw0JbHfN7QMGOemdgXV8tTWCvU/a+jxUHWZWna+QJyiROseKGcx
+ UQ22iaNFQCqw7R0wiv7lfTBBaLnv+jpL4F8rOSQWIJbn9rOrkLGoEtp/CQn+Rk3T3I
+ TUI2t8gooOrbA==
 From: Mark Brown <broonie@kernel.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
  Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
  Shengjiu Wang <shengjiu.wang@gmail.com>
-Subject: [PATCH v2 10/16] ASoC: imx-es8328: Update to modern clocking
- terminology
-Date: Tue, 21 Sep 2021 22:35:36 +0100
-Message-Id: <20210921213542.31688-10-broonie@kernel.org>
+Subject: [PATCH v2 11/16] ASoC: imx-hdmi: Update to modern clocking terminology
+Date: Tue, 21 Sep 2021 22:35:37 +0100
+Message-Id: <20210921213542.31688-11-broonie@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210921213542.31688-1-broonie@kernel.org>
 References: <20210921213542.31688-1-broonie@kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=856; h=from:subject;
- bh=NW3bpE8J3VKBnOZtBpB10bBc+DHax4UYEF50tjdaBmQ=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBhSk8ai/HuhL2+C59n6SMrEtArdewZFCYqAk0/3TuH
- hSAfRLiJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYUpPGgAKCRAk1otyXVSH0LGlB/
- 9H0CeulkUvRZuZc4vy3WrTNRmoNab/2J/cAZE+Mr7BTsnfIRn3OfMj09E6X9vVo2tNjZoDQ8eJHMkx
- 6VNu9h7QyFhQpIh9tdpFYAyxpX9Q5VtLW9WTCYXHpZSYmbdsGPZ3TiO3eheLjLDgrrFOmrakau8w3/
- TvA464kZ8TK/ObDqPCZk4DCwld8HJ+GTCDQdku4U56Wo9Ss8Z2BKr4B+XeZuqE3AMT3t/peiHlLkFb
- aQqlH3gKvrpCHvDrzSa1JkDlWh42x9wltX8VKxgxLGm3vdOQU80znrC1/+O/U2/XvfasqmBUG2A03C
- awr6gN7Pos3BruoMxzrLdjsUDayuOF
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1089; h=from:subject;
+ bh=ZYj9NVMXeaIG3c9cdYAHfhF0zFKiS0Xyjbv1Scqzlvo=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBhSk8btcMsmrJyiDMZhALEfCUW3kcme+k7rrv2Ads1
+ L4E5sfqJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYUpPGwAKCRAk1otyXVSH0K3rCA
+ CF0PPF9QARqyJn6B3T39jzKQ7AUYqRw/DFiEP/ns5fMFYsLGfr9ntuS2r1qJt3MxXF5oGGGM1s6u3Q
+ lkd19J2wZwZEPEsCbMTaHEnC2rykOsvX1YcqUQd3Wu2hD9OtEvNjm4KoEHeaS8fVvuas9sRzTBVaQv
+ IUWhj9HCgSU+oxO4lZeI4CdzgFDSiS3p44UbNMA1WIxrhkNTadelvdnK9l8vdylp7o0gXDvz8IroYv
+ BGX7lr7GoHMWCGc6qsjWW8RGaup3XP5JscbR5b/9BlKAyNCNM21T0IOg1LzSeGUrABKHT6E4mmzk88
+ Qby6ZGCcCRGQQg6/lRhF3BxmBNjs5T
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 Content-Transfer-Encoding: 8bit
@@ -93,26 +92,35 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 As part of moving to remove the old style defines for the bus clocks update
-the imx-es8328 driver to use more modern terminology for clocking.
+the imx-hdmi driver to use more modern terminology for clocking.
 
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/fsl/imx-es8328.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/fsl/imx-hdmi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/fsl/imx-es8328.c b/sound/soc/fsl/imx-es8328.c
-index 1981dcd7e930..09c674ee79f1 100644
---- a/sound/soc/fsl/imx-es8328.c
-+++ b/sound/soc/fsl/imx-es8328.c
-@@ -174,7 +174,7 @@ static int imx_es8328_probe(struct platform_device *pdev)
- 	data->dai.platforms->of_node = ssi_np;
- 	data->dai.init = &imx_es8328_dai_init;
- 	data->dai.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
--			    SND_SOC_DAIFMT_CBM_CFM;
-+			    SND_SOC_DAIFMT_CBP_CFP;
+diff --git a/sound/soc/fsl/imx-hdmi.c b/sound/soc/fsl/imx-hdmi.c
+index 34a0dceae621..c15e930fa2a6 100644
+--- a/sound/soc/fsl/imx-hdmi.c
++++ b/sound/soc/fsl/imx-hdmi.c
+@@ -171,7 +171,7 @@ static int imx_hdmi_probe(struct platform_device *pdev)
+ 		data->dai.codecs->name = "hdmi-audio-codec.1";
+ 		data->dai.dai_fmt = data->dai_fmt |
+ 				    SND_SOC_DAIFMT_NB_NF |
+-				    SND_SOC_DAIFMT_CBS_CFS;
++				    SND_SOC_DAIFMT_CBC_CFC;
+ 	}
  
- 	data->card.dev = dev;
- 	data->card.dapm_widgets = imx_es8328_dapm_widgets;
+ 	if (hdmi_in) {
+@@ -181,7 +181,7 @@ static int imx_hdmi_probe(struct platform_device *pdev)
+ 		data->dai.codecs->name = "hdmi-audio-codec.2";
+ 		data->dai.dai_fmt = data->dai_fmt |
+ 				    SND_SOC_DAIFMT_NB_NF |
+-				    SND_SOC_DAIFMT_CBM_CFM;
++				    SND_SOC_DAIFMT_CBP_CFP;
+ 	}
+ 
+ 	data->card.dapm_widgets = imx_hdmi_widgets;
 -- 
 2.20.1
 

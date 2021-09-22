@@ -2,95 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48B7B414902
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Sep 2021 14:35:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 153B3414997
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Sep 2021 14:48:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6C5215F9;
-	Wed, 22 Sep 2021 14:34:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6C5215F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68DA182E;
+	Wed, 22 Sep 2021 14:47:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68DA182E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632314102;
-	bh=Sr/koOMnyhlHmMJRgOdo+K63zC9w7YX6FmKaoLaTiY0=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Sca33Kgns1+82n1nb/oPnpVcdWvVJVB/Z6lHz1B6/wr4KYEDQRhrHTisWcxFdv3uj
-	 zh52rURjiCiquve4QLpd8EfB8KXfnJis6X9XpvIPV9tVCgUTarYsva74B6xfmIQ4NZ
-	 Ch4UauDqWXEywdzXgdcS07D+RRdwEmWXgRDX9Yig=
+	s=default; t=1632314903;
+	bh=rFGozPr+54uyJZJqRRbM2Rf9/Cs4yd4PpAh1PsYjm4Y=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=DeNL91mjCbnVSl3uk87D6tD5e2kNuBcvdF3jn7KzyuhgtAasqi60NaXvxyZVcpI/f
+	 mXkBcqQVqybHyLiWlKOnOumJCLVt6e/8JXou7Z7lyvkSgmp0asJvIPTs4xMi2tTBjK
+	 znsd00TWlF60oJMy9GuPF55gCcqXydLXcpusMBfk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 159CAF80246;
-	Wed, 22 Sep 2021 14:32:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D773CF80279;
+	Wed, 22 Sep 2021 14:47:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 852FEF8025D; Wed, 22 Sep 2021 14:32:54 +0200 (CEST)
+ id D9E40F8025D; Wed, 22 Sep 2021 14:47:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3EBD9F804FB
- for <alsa-devel@alsa-project.org>; Wed, 22 Sep 2021 14:32:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EBD9F804FB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="TWwkePwo"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1632313969; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=ONfhviwd9VOib+IHTwvjYtTVT1j7IHHl6KkzeCNnwFM=;
- b=TWwkePwohaQpNO3MwcjVqmmPjxs+2P4KAD0rMr8tr2MCE83fbCdz3CwbZ2ZA13PF0LJDBh0g
- p/b3V0zCInxmegGGmtBv0OwGJvrxGMDp0ncaOvNxH7FjmE+0nT9hmfNIKHuLeVZv5E4t6X8V
- HCI33HJ4vXG0YZqXS4AJl1a8An4=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n06.prod.us-east-1.postgun.com with SMTP id
- 614b22526c4c0e0dc336d2ce (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 22 Sep 2021 12:32:18
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 846FFC43638; Wed, 22 Sep 2021 12:32:15 +0000 (UTC)
-Received: from hu-srivasam-hyd.qualcomm.com (unknown [202.46.22.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 7F8A4C43638;
- Wed, 22 Sep 2021 12:32:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 7F8A4C43638
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=codeaurora.org
-From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
- bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
- srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- swboyd@chromium.org, judyhsiao@chromium.org
-Subject: [PATCH v2 5/5] ASoC: codecs: Change bulk clock voting to optional
- voting in digital codecs
-Date: Wed, 22 Sep 2021 18:01:18 +0530
-Message-Id: <1632313878-12089-6-git-send-email-srivasam@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1632313878-12089-1-git-send-email-srivasam@codeaurora.org>
-References: <agross@kernel.org; bjorn.andersson@linaro.org; lgirdwood@gmail.com;
- broonie@kernel.org; robh+dt@kernel.org; plai@codeaurora.org;
- bgoswami@codeaurora.org; perex@perex.cz; tiwai@suse.com;
- srinivas.kandagatla@linaro.org; rohitkr@codeaurora.org;
- linux-arm-msm@vger.kernel.org; alsa-devel@alsa-project.org;
- devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; swboyd@chromium.org;
- judyhsiao@chromium.org; >
- <1632313878-12089-1-git-send-email-srivasam@codeaurora.org>
-Cc: Venkata Prasad Potturu <potturu@codeaurora.org>,
- Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E98CF8014E
+ for <alsa-devel@alsa-project.org>; Wed, 22 Sep 2021 14:47:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E98CF8014E
+X-IronPort-AV: E=McAfee;i="6200,9189,10114"; a="203738024"
+X-IronPort-AV: E=Sophos;i="5.85,314,1624345200"; d="scan'208";a="203738024"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2021 05:46:58 -0700
+X-IronPort-AV: E=Sophos;i="5.85,314,1624345200"; d="scan'208";a="550232696"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2021 05:46:56 -0700
+Date: Wed, 22 Sep 2021 15:40:19 +0300 (EEST)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@eliteleevi.tm.intel.com
+To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org, 
+ Chris Wilson <chris@chris-wilson.co.uk>, 
+ Daniel Vetter <daniel.vetter@ffwll.ch>, 
+ Jani Nikula <jani.nikula@linux.intel.com>
+Subject: hda: how to implement component master_unbind?
+Message-ID: <alpine.DEB.2.22.394.2109221456080.3554566@eliteleevi.tm.intel.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+MIME-Version: 1.0
+Content-ID: <alpine.DEB.2.22.394.2109221526520.3554566@eliteleevi.tm.intel.com>
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: 8BIT
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,57 +75,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Change bulk clock frequency voting to optional bulk voting in va, rx and tx macros
-to accommodate both ADSP and ADSP bypass based lpass architectures.
+Hi Takashi et al,
 
-Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
-Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
----
- sound/soc/codecs/lpass-rx-macro.c | 2 +-
- sound/soc/codecs/lpass-tx-macro.c | 2 +-
- sound/soc/codecs/lpass-va-macro.c | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+I've been having multiple discussions with our i915 team w.r.t. audio 
+driver behaviour when the aggregate component is unbound, triggered by 
+i915 unbind. This came up again in the recent regression with devres 
+allocations and I now dug into the topic again.
 
-diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
-index c2b9333..2bed5cf 100644
---- a/sound/soc/codecs/lpass-rx-macro.c
-+++ b/sound/soc/codecs/lpass-rx-macro.c
-@@ -3531,7 +3531,7 @@ static int rx_macro_probe(struct platform_device *pdev)
- 	rx->clks[3].id = "npl";
- 	rx->clks[4].id = "fsgen";
- 
--	ret = devm_clk_bulk_get(dev, RX_NUM_CLKS_MAX, rx->clks);
-+	ret = devm_clk_bulk_get_optional(dev, RX_NUM_CLKS_MAX, rx->clks);
- 	if (ret) {
- 		dev_err(dev, "Error getting RX Clocks (%d)\n", ret);
- 		return ret;
-diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
-index 66c39fb..c288471 100644
---- a/sound/soc/codecs/lpass-tx-macro.c
-+++ b/sound/soc/codecs/lpass-tx-macro.c
-@@ -1794,7 +1794,7 @@ static int tx_macro_probe(struct platform_device *pdev)
- 	tx->clks[3].id = "npl";
- 	tx->clks[4].id = "fsgen";
- 
--	ret = devm_clk_bulk_get(dev, TX_NUM_CLKS_MAX, tx->clks);
-+	ret = devm_clk_bulk_get_optional(dev, TX_NUM_CLKS_MAX, tx->clks);
- 	if (ret) {
- 		dev_err(dev, "Error getting RX Clocks (%d)\n", ret);
- 		return ret;
-diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
-index 70f09b4..11147e3 100644
---- a/sound/soc/codecs/lpass-va-macro.c
-+++ b/sound/soc/codecs/lpass-va-macro.c
-@@ -1408,7 +1408,7 @@ static int va_macro_probe(struct platform_device *pdev)
- 	va->clks[1].id = "dcodec";
- 	va->clks[2].id = "mclk";
- 
--	ret = devm_clk_bulk_get(dev, VA_NUM_CLKS_MAX, va->clks);
-+	ret = devm_clk_bulk_get_optional(dev, VA_NUM_CLKS_MAX, va->clks);
- 	if (ret) {
- 		dev_err(dev, "Error getting VA Clocks (%d)\n", ret);
- 		return ret;
--- 
-Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
-is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+In short, I'm puzzled how to really implement this. ALSA (or ASoC) don't 
+really have support for individual components of a card disappearing in a 
+hotplug fashion. At card level, we do have such support (USB, firewire and 
+recent work for PCI hotplug). But not individual components of a card 
+getting unplugged.
 
+In current code we have this:
+static void hdac_component_master_unbind(struct device *dev)
+{
+»       struct drm_audio_component *acomp = hdac_get_acomp(dev);
+
+»       if (acomp->audio_ops && acomp->audio_ops->master_unbind)
+»       »       acomp->audio_ops->master_unbind(dev, acomp);
+»       module_put(acomp->ops->owner);   
+»       component_unbind_all(dev, acomp);
+»       WARN_ON(acomp->ops || acomp->dev);
+}
+
+... when e.g. i915 driver is unbound (but could be any driver using the 
+component framework, not jus Intel hw), i915 calls component_del() and HDA
+gets call to the above. After this, acomp ops are null are audio no longer
+has ability to talk to i915 driver (which makes sense given it's unbound).
+
+If audio was runtime suspended, this kind of works (but relies on some 
+good luck). Upon HDA controller resume, we note acomp ops are NULL and 
+HDMI/DP operations (like snd_hdac_display_power()) silently become no-ops.
+PCM streaming will go to /dev/null, but this is ok'ish since no monitor
+can be connected anyways.
+
+If audio was active, we start to get warnings or worse. Audio expects hw 
+display codec to be powered and programmed, but suddenly it mey lose 
+state. If the audio controller is actually part of the display hardware 
+(e.g. discrete GPUs), then controller registers can stop functioning (they
+should be still available, but given the main diplay driver is unbound,
+odds of suprising behaviour are high).
+
+So this is less than ideal. I've been looking at options:
+
+1) prevent/block the unbind if audio device is busy
+
+The component framework does not allow individual components to return 
+-EBUSY, so there's no way to let others know that unbind is not possible 
+now.
+
+This would force anyone testing DRM driver unbind to first unbind
+the audio driver and stop any active audio use-cases if needed.
+
+2) unbind the ALSA card
+
+I've experimented doing a device_unregister() from the above callback, but 
+this has not really worked (onion peeling exercise of new probelms). The 
+code is shared by multiple controllers, so getting a handle to an snd_card 
+object is not straighforward (drvdata is differnet for SOF and 
+snd-hda-intel for instance). But with some new work, maybe we could call
+snd_card_disconnect() to detach the card and inform user-space.
+
+3) continue as-is and try to fix bugs
+
+If audio is active, maybe we could force a acomp->put_power() to ensure
+a clean unregister of the display part. But this leaves a big chunk of 
+issues especially with HDA controllers that require the display to
+be powered on, to function.
+
+..
+
+Any ideas, and/or has there been prior work? It seems Takashi it's been 
+mostly you who has been active working on the acomp integration recently. 
+I also included Chris, Daniel and Jani who've had patches to 
+hdac_component.c.
+
+Br, Kai

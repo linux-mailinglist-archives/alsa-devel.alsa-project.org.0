@@ -2,70 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 899D1414E01
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Sep 2021 18:20:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7475E41521E
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Sep 2021 22:56:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11059847;
-	Wed, 22 Sep 2021 18:19:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11059847
+	by alsa0.perex.cz (Postfix) with ESMTPS id EEFC615E2;
+	Wed, 22 Sep 2021 22:55:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEFC615E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632327634;
-	bh=d6aSW+kkPBhaoHaKbW76Ye/2mDCR+dvfeHXFZQ5YVRA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=txnfNqvItFX8hraQiH5K2Sr1X65Nw67dXTjdbopxu8DUcIygSv+U0QWzJW8J1dw1T
-	 WC350uav6W5qbHYzun90VctCiyXtKojpjQiYZl90bybR4ZLGcdSaGWr7H/ZnsDP7TU
-	 wDDN4aPS/vWG1sUo+bAYfTbHhJOgMMyD3GRetbHc=
+	s=default; t=1632344168;
+	bh=1bXxnY/baEqP4CfaheIKzhrj2ixHw7ZvVIUbDxXjXy4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vIALelmEGpGh96QKTk1TasVgHh05Le/9NHt2DWlior+htIjkEBIHoVcOayvEPhYNL
+	 mBSJ58NVlkJYDKpddv+ri3ZmoLa/B5JbfEcoz9Q6Gos598nc0t9yaPz66upRB5yKn5
+	 5ERixOFY1H0A9psFhL17txWaPcSLowdCs96OsHVc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A33EF80279;
-	Wed, 22 Sep 2021 18:19:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D027F8014E;
+	Wed, 22 Sep 2021 22:54:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 879D1F8025D; Wed, 22 Sep 2021 18:19:13 +0200 (CEST)
+ id 67434F8025D; Wed, 22 Sep 2021 22:54:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 232C6F8014E
- for <alsa-devel@alsa-project.org>; Wed, 22 Sep 2021 18:19:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 232C6F8014E
-X-IronPort-AV: E=McAfee;i="6200,9189,10115"; a="203788303"
-X-IronPort-AV: E=Sophos;i="5.85,314,1624345200"; d="scan'208";a="203788303"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2021 09:18:05 -0700
-X-IronPort-AV: E=Sophos;i="5.85,314,1624345200"; d="scan'208";a="702313896"
-Received: from kjgomez-mobl1.amr.corp.intel.com (HELO [10.209.164.106])
- ([10.209.164.106])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2021 09:18:03 -0700
-Subject: Re: [PATCH v7 18/22] ASoC: qdsp6: audioreach: add topology support
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- bjorn.andersson@linaro.org, broonie@kernel.org, robh@kernel.org
-References: <20210921133709.4973-1-srinivas.kandagatla@linaro.org>
- <20210921133709.4973-19-srinivas.kandagatla@linaro.org>
- <7021cdec-382b-faa9-cf6c-ee06edbf19a7@linux.intel.com>
- <9ea759db-f2ae-8b26-eff9-8557267803d2@linaro.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <c03cedad-971d-2eee-a1a5-7f2d6c105682@linux.intel.com>
-Date: Wed, 22 Sep 2021 10:40:16 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.13.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8613F8011F
+ for <alsa-devel@alsa-project.org>; Wed, 22 Sep 2021 22:54:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8613F8011F
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="VOX/1XqO"
+Received: by mail-lf1-x12f.google.com with SMTP id u18so16605044lfd.12
+ for <alsa-devel@alsa-project.org>; Wed, 22 Sep 2021 13:54:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=3cZeXwR2k4hTcaH9mMdu8oiulnnc0/J5L3qGGtoXYkE=;
+ b=VOX/1XqOVC0VuQxpTcgYxzURn2nBP/v5n9cHk5GMCHvurDdQ01yW8/eJiRqLD6Ywh5
+ NMcyrqu9AmxXvcZ+ldCDbJGl1P0N+yk7IAUujRdexxJgXOd3giyPU4OQX3eACta8/ATD
+ qcDMjQ1TZ/X6hpfLApbH/XjoZif4Whl7GSo90xHM7t4V1fRyyLWrV1/hj7/fJ/iIgCV3
+ Ij4IkB/jdGyI+fZ84GPTFKNeKZLre3M/Nc8xBwSF9h5mJLKLrpoV6EI8nQy7miD4Tze4
+ PitFWhftCmSCpylPet2EtuX/ebuUxdS/cUm37Y+AT6Es7N5RjRhwMwRoKUTxsWPxyDGh
+ qMCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=3cZeXwR2k4hTcaH9mMdu8oiulnnc0/J5L3qGGtoXYkE=;
+ b=wLcxKB8LvWLS6ox0esv5B12uG9nkI9uTg1x/Ra42qWc2M6pdBlpTXWp/ec9DBT2KJy
+ EWoU2pnLRRn1N4G5ZRGe5SgrCya8ZLjWOJa7stWgeMbTX7rt1lhcRKzsCeBZRVnYMm2F
+ oxCQy+o5jH1B6tcrDrHkEYz9Ke/I8bafg0IaHoUxgZMtMIkhOol6YNqVYPyTuav/TGSv
+ p31Xk/3N05s/JR2aFabMRt8wEoytCvFkFWbuduri5+Tyah1ULWm7I2TlxYwPGqEXFD+v
+ yZ9dpRzCpr/0qqTiBb8C7+eqLnZeW8QiWdGwJZX/dtwLfCOt8TipCvFKHLKSkfP56djC
+ c0HQ==
+X-Gm-Message-State: AOAM530Km9Xdjb0IpduwqbKuAiwJAvwt1sdaR4sl9XLZmKEUSTA0LAKS
+ CCcKr3qcE9s75Mvk/mpXmgo=
+X-Google-Smtp-Source: ABdhPJzFVQnTTYL1T8QNgYqC6+HYZ4LqvglqVxbOzzAWLXdF28v4QpsMsXlM+ycKlVC2jQYjif6Y0A==
+X-Received: by 2002:a2e:5443:: with SMTP id y3mr1401240ljd.482.1632344084132; 
+ Wed, 22 Sep 2021 13:54:44 -0700 (PDT)
+Received: from localhost.localdomain (h-98-128-228-193.NA.cust.bahnhof.se.
+ [98.128.228.193])
+ by smtp.gmail.com with ESMTPSA id e24sm261883lfs.212.2021.09.22.13.54.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Sep 2021 13:54:43 -0700 (PDT)
+From: Rikard Falkeborn <rikard.falkeborn@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Sameer Pujar <spujar@nvidia.com>
+Subject: [PATCH] ASoC: tegra: Constify static snd_soc_dai_ops structs
+Date: Wed, 22 Sep 2021 22:54:38 +0200
+Message-Id: <20210922205438.34519-1-rikard.falkeborn@gmail.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-In-Reply-To: <9ea759db-f2ae-8b26-eff9-8557267803d2@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, tiwai@suse.de, plai@codeaurora.org,
- lgirdwood@gmail.com
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Rikard Falkeborn <rikard.falkeborn@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Thierry Reding <thierry.reding@gmail.com>, linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,76 +101,107 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The only usage of these is to assign their address to the ops field in
+the snd_soc_dai_driver struct, which is a pointer to const. Make them
+const to allow the compiler to put them in read-only memory.
 
+Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
+---
+ sound/soc/tegra/tegra210_adx.c   | 4 ++--
+ sound/soc/tegra/tegra210_amx.c   | 4 ++--
+ sound/soc/tegra/tegra210_mixer.c | 4 ++--
+ sound/soc/tegra/tegra210_mvc.c   | 2 +-
+ sound/soc/tegra/tegra210_sfc.c   | 4 ++--
+ 5 files changed, 9 insertions(+), 9 deletions(-)
 
->>> +    /* Inline with Qualcomm UCM configs and linux-firmware path */
->>> +    snprintf(tplg_fw_name, sizeof(tplg_fw_name),
->>> "qcom/%s/%s-tplg.bin", card->driver_name,
->>> +         card->name);
->>
->> use kasprintf instead of fixed 128-char array?
-> I moved this to kasprintf in next version.
-> 
->>
->> Also you should use a qcom/audioreach/ prefix to possible interference
->> with other parts of qcom...
->>
-> 
-> So Qualcomm linux-firmwares are arranged something like
-> 
-> qcom/sdm845/*
-> qcom/sm8250/*
-> qcom/sm8150/*
-> 
-> and UCM something like
-> this:Qualcomm/sm8250/Qualcomm-RB5-WSA8815-Speakers-DMIC0.conf
-> 
-> Qualcomm/sm8250/Qualcomm-RB5-WSA8815-Speakers-DMIC0.conf
-> 
-> 
-> Atleast in Qualcomm soundcard case we have driver name set to SoC name
-> and we tend to reuse this driver across multiple platforms.
-> 
-> second part card name actually is from model device tree property, in
-> this case which is "Qualcomm-RB5-WSA8815-Speakers-DMIC0"
-> 
-> so we will endup looking for
-> /lib/firmare/qcom/sm8250/Qualcomm-RB5-WSA8815-Speakers-DMIC0-tplg.bin
-> 
-> AFAIU, it should not interface with any other qcom parts.
-> 
-> for Other qcom parts this model will change so the topology file name.
+diff --git a/sound/soc/tegra/tegra210_adx.c b/sound/soc/tegra/tegra210_adx.c
+index 78d660447bb1..d7c7849c2f92 100644
+--- a/sound/soc/tegra/tegra210_adx.c
++++ b/sound/soc/tegra/tegra210_adx.c
+@@ -206,12 +206,12 @@ static int tegra210_adx_put_byte_map(struct snd_kcontrol *kcontrol,
+ 	return 1;
+ }
+ 
+-static struct snd_soc_dai_ops tegra210_adx_in_dai_ops = {
++static const struct snd_soc_dai_ops tegra210_adx_in_dai_ops = {
+ 	.hw_params	= tegra210_adx_in_hw_params,
+ 	.startup	= tegra210_adx_startup,
+ };
+ 
+-static struct snd_soc_dai_ops tegra210_adx_out_dai_ops = {
++static const struct snd_soc_dai_ops tegra210_adx_out_dai_ops = {
+ 	.hw_params	= tegra210_adx_out_hw_params,
+ };
+ 
+diff --git a/sound/soc/tegra/tegra210_amx.c b/sound/soc/tegra/tegra210_amx.c
+index 83176e1663ab..af9bddfc3120 100644
+--- a/sound/soc/tegra/tegra210_amx.c
++++ b/sound/soc/tegra/tegra210_amx.c
+@@ -241,12 +241,12 @@ static int tegra210_amx_put_byte_map(struct snd_kcontrol *kcontrol,
+ 	return 1;
+ }
+ 
+-static struct snd_soc_dai_ops tegra210_amx_out_dai_ops = {
++static const struct snd_soc_dai_ops tegra210_amx_out_dai_ops = {
+ 	.hw_params	= tegra210_amx_out_hw_params,
+ 	.startup	= tegra210_amx_startup,
+ };
+ 
+-static struct snd_soc_dai_ops tegra210_amx_in_dai_ops = {
++static const struct snd_soc_dai_ops tegra210_amx_in_dai_ops = {
+ 	.hw_params	= tegra210_amx_in_hw_params,
+ };
+ 
+diff --git a/sound/soc/tegra/tegra210_mixer.c b/sound/soc/tegra/tegra210_mixer.c
+index 53fcd8f6605a..55e61776c565 100644
+--- a/sound/soc/tegra/tegra210_mixer.c
++++ b/sound/soc/tegra/tegra210_mixer.c
+@@ -283,11 +283,11 @@ static int tegra210_mixer_out_hw_params(struct snd_pcm_substream *substream,
+ 					    dai->id - TEGRA210_MIXER_RX_MAX);
+ }
+ 
+-static struct snd_soc_dai_ops tegra210_mixer_out_dai_ops = {
++static const struct snd_soc_dai_ops tegra210_mixer_out_dai_ops = {
+ 	.hw_params	= tegra210_mixer_out_hw_params,
+ };
+ 
+-static struct snd_soc_dai_ops tegra210_mixer_in_dai_ops = {
++static const struct snd_soc_dai_ops tegra210_mixer_in_dai_ops = {
+ 	.hw_params	= tegra210_mixer_in_hw_params,
+ };
+ 
+diff --git a/sound/soc/tegra/tegra210_mvc.c b/sound/soc/tegra/tegra210_mvc.c
+index 3646ce9b0fd1..7b9c7006e419 100644
+--- a/sound/soc/tegra/tegra210_mvc.c
++++ b/sound/soc/tegra/tegra210_mvc.c
+@@ -387,7 +387,7 @@ static int tegra210_mvc_hw_params(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
+ 
+-static struct snd_soc_dai_ops tegra210_mvc_dai_ops = {
++static const struct snd_soc_dai_ops tegra210_mvc_dai_ops = {
+ 	.hw_params	= tegra210_mvc_hw_params,
+ };
+ 
+diff --git a/sound/soc/tegra/tegra210_sfc.c b/sound/soc/tegra/tegra210_sfc.c
+index 260dca6f6d25..dc477ee1b82c 100644
+--- a/sound/soc/tegra/tegra210_sfc.c
++++ b/sound/soc/tegra/tegra210_sfc.c
+@@ -3287,12 +3287,12 @@ static int tegra210_sfc_put_control(struct snd_kcontrol *kcontrol,
+ 	return 1;
+ }
+ 
+-static struct snd_soc_dai_ops tegra210_sfc_in_dai_ops = {
++static const struct snd_soc_dai_ops tegra210_sfc_in_dai_ops = {
+ 	.hw_params	= tegra210_sfc_in_hw_params,
+ 	.startup	= tegra210_sfc_startup,
+ };
+ 
+-static struct snd_soc_dai_ops tegra210_sfc_out_dai_ops = {
++static const struct snd_soc_dai_ops tegra210_sfc_out_dai_ops = {
+ 	.hw_params	= tegra210_sfc_out_hw_params,
+ };
+ 
+-- 
+2.33.0
 
-that should be fine.
-
->>> +
->>> +    ret = request_firmware(&fw, tplg_fw_name, dev);
->>> +    if (ret < 0) {
->>> +        dev_info(dev, "loading %s failed %d, falling back to
->>> dfw-audioreach-tplg.bin\n",
->>> +             tplg_fw_name, ret);
->>> +        /* default firmware */
->>> +        ret = request_firmware(&fw, "dfw-audioreach-tplg.bin", dev);
->>> +        if (ret < 0) {
->>> +            dev_err(dev, "tplg fw dfw-audioreach-tplg.bin load
->>> failed with %d\n", ret);
->>
->> the dfw prefix isn't very helpful...Intel's example of "dfw_sst.bin" is
->> a historical reference, not something you should reuse.
-> 
-> Rethinking on this once again, Am not sure if it even makes sense to
-> support this default setup. It will be very hard to get a working
-> defalut tplg on every platform. So am planning to remove this in next
-> version.
-> 
-> Do you see any issues?
-
-No, I don't think it's practical to use this default name either. We
-don't have it for SOF.
-
-Even for developers who modify a default, it's better to place a new
-topology with the same name in /lib/firmware/updates/qcom and let
-request_firmware() find the updated file with the existing paths [1]
-
-[1]
-https://www.kernel.org/doc/html/latest/driver-api/firmware/fw_search_path.html

@@ -2,60 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16B68414469
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Sep 2021 11:02:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CFF14145C4
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Sep 2021 12:08:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6FB4B15DC;
-	Wed, 22 Sep 2021 11:02:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FB4B15DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id C1BB5847;
+	Wed, 22 Sep 2021 12:07:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1BB5847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632301373;
-	bh=8lfMMhi1/5hW90j0FRcal16Fmk+6SzIONyNgG5qkwC0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=sNQBec32aC0v8jXekP7uVMNLGMA//PrbNnzWphrYf8EQYUD+R4bGq5FUrsO38zoam
-	 0oJXYRfAlRkGO/4A9pisESCNtux9BXC9iMa/3lhWwsnbt74AAFyJXNWBh2IQyoUDhg
-	 hWIB/XE6cChnybtnvtBtkEhNblcMwnH7rR6tTBZ8=
+	s=default; t=1632305326;
+	bh=k8TNVw1Z0Au0HtmPHWqLFtOFmWpeH4xBXlXhGEs8nk4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=huVTWioW7mxzjixYU4NBWeYHAyYR5BXRpQze0Ek0AIlUZKmhqn3marvECfLZi3HLm
+	 V4NVqCN3+4Zsoyhdo+ytGkohzaKJ2jljC3F3x9ldo97P1Paq8lT+EnOxL5a/LyGFAB
+	 Xzo+gLFDM6yoPEY8Dnmop6J+HSNKEmjwL0KH9F7Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F136F8025D;
-	Wed, 22 Sep 2021 11:01:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28CFDF80279;
+	Wed, 22 Sep 2021 12:07:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2514CF8025D; Wed, 22 Sep 2021 11:01:34 +0200 (CEST)
+ id 0D0EFF8025D; Wed, 22 Sep 2021 12:07:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 56849F8014E
- for <alsa-devel@alsa-project.org>; Wed, 22 Sep 2021 11:01:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56849F8014E
-X-IronPort-AV: E=McAfee;i="6200,9189,10114"; a="220354125"
-X-IronPort-AV: E=Sophos;i="5.85,313,1624345200"; d="scan'208";a="220354125"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2021 02:01:19 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,313,1624345200"; d="scan'208";a="436166242"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga003.jf.intel.com with ESMTP; 22 Sep 2021 02:01:17 -0700
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org, tiwai@suse.de
-Subject: [PATCH v2] component: do not leave master devres group open after bind
-Date: Wed, 22 Sep 2021 11:54:32 +0300
-Message-Id: <20210922085432.2776886-1-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.32.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8FACF8013F
+ for <alsa-devel@alsa-project.org>; Wed, 22 Sep 2021 12:07:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8FACF8013F
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: eballetbo) with ESMTPSA id 8E5C91F437C3
+Subject: Re: [PATCH] ASoC: cros_ec_codec: Use modern ASoC DAI format
+ terminology
+To: Mark Brown <broonie@kernel.org>, Cheng-Yi Chiang <cychiang@chromium.org>, 
+ Guenter Roeck <groeck@chromium.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Benson Leung <bleung@chromium.org>
+References: <20210920170414.17903-1-broonie@kernel.org>
+From: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+Message-ID: <24f7ba24-3ff8-cdb1-0f69-ac601bb64540@collabora.com>
+Date: Wed, 22 Sep 2021 12:07:10 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
- "Rafael J . Wysocki" <rafael@kernel.org>, jani.nikula@intel.com,
- Imre Deak <imre.deak@intel.com>, Russell King <rmk+kernel@armlinux.org.uk>,
- Russell King <rmk+kernel@arm.linux.org.uk>, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20210920170414.17903-1-broonie@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,99 +71,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In current code, the devres group for aggregate master is left open
-after call to component_master_add_*(). This leads to problems when the
-master does further managed allocations on its own. When any
-participating driver calls component_del(), this leads to immediate
-release of resources.
+Hi Mark,
 
-This came up when investigating a page fault occurring with i915 DRM
-driver unbind with 5.15-rc1 kernel. The following sequence occurs:
+On 20/9/21 19:04, Mark Brown wrote:
+> As part of moving to remove the old style defines for the bus clocks update
+> the cros_ec_codec driver to use more modern terminology for clocking.
+> 
+> Signed-off-by: Mark Brown <broonie@kernel.org>
 
- i915_pci_remove()
-   -> intel_display_driver_unregister()
-     -> i915_audio_component_cleanup()
-       -> component_del()
-         -> component.c:take_down_master()
-           -> hdac_component_master_unbind() [via master->ops->unbind()]
-           -> devres_release_group(master->parent, NULL)
+Looked at other patches that do the same thing and comparing with those, the
+change looks good to me. Also, doesn't seem to affect the device that uses this
+codec so.
 
-With older kernels this has not caused issues, but with audio driver
-moving to use managed interfaces for more of its allocations, this no
-longer works. Devres log shows following to occur:
+Reviewed-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
 
-component_master_add_with_match()
-[  126.886032] snd_hda_intel 0000:00:1f.3: DEVRES ADD 00000000323ccdc5 devm_component_match_release (24 bytes)
-[  126.886045] snd_hda_intel 0000:00:1f.3: DEVRES ADD 00000000865cdb29 grp< (0 bytes)
-[  126.886049] snd_hda_intel 0000:00:1f.3: DEVRES ADD 000000001b480725 grp< (0 bytes)
-
-audio driver completes its PCI probe()
-[  126.892238] snd_hda_intel 0000:00:1f.3: DEVRES ADD 000000001b480725 pcim_iomap_release (48 bytes)
-
-component_del() called() at DRM/i915 unbind()
-[  137.579422] i915 0000:00:02.0: DEVRES REL 00000000ef44c293 grp< (0 bytes)
-[  137.579445] snd_hda_intel 0000:00:1f.3: DEVRES REL 00000000865cdb29 grp< (0 bytes)
-[  137.579458] snd_hda_intel 0000:00:1f.3: DEVRES REL 000000001b480725 pcim_iomap_release (48 bytes)
-
-So the "devres_release_group(master->parent, NULL)" ends up freeing the
-pcim_iomap allocation. Upon next runtime resume, the audio driver will
-cause a page fault as the iomap alloc was released without the driver
-knowing about it.
-
-Fix this issue by using the "struct master" pointer as identifier for
-the devres group, and by closing the devres group after
-the master->ops->bind() call is done. This allows devres allocations
-done by the driver acting as master to be isolated from the binding state
-of the aggregate driver. This modifies the logic originally introduced in
-commit 9e1ccb4a7700 ("drivers/base: fix devres handling for master device")
-
-BugLink: https://gitlab.freedesktop.org/drm/intel/-/issues/4136
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Acked-by: Imre Deak <imre.deak@intel.com>
-Acked-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- drivers/base/component.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-V2 changes:
- - after review form Imre and Russell, removing RFC tag
- - rebased on top of 5.15-rc2 (V1 was on drm-tip)
- - CI test results for V1 show that this patch fixes multiple
-   failures in i915 unbind and module reload tests:
-   https://patchwork.freedesktop.org/series/94889/
-
-diff --git a/drivers/base/component.c b/drivers/base/component.c
-index 5e79299f6c3f..870485cbbb87 100644
---- a/drivers/base/component.c
-+++ b/drivers/base/component.c
-@@ -246,7 +246,7 @@ static int try_to_bring_up_master(struct master *master,
- 		return 0;
- 	}
- 
--	if (!devres_open_group(master->parent, NULL, GFP_KERNEL))
-+	if (!devres_open_group(master->parent, master, GFP_KERNEL))
- 		return -ENOMEM;
- 
- 	/* Found all components */
-@@ -258,6 +258,7 @@ static int try_to_bring_up_master(struct master *master,
- 		return ret;
- 	}
- 
-+	devres_close_group(master->parent, NULL);
- 	master->bound = true;
- 	return 1;
- }
-@@ -282,7 +283,7 @@ static void take_down_master(struct master *master)
- {
- 	if (master->bound) {
- 		master->ops->unbind(master->parent);
--		devres_release_group(master->parent, NULL);
-+		devres_release_group(master->parent, master);
- 		master->bound = false;
- 	}
- }
-
-base-commit: e4e737bb5c170df6135a127739a9e6148ee3da82
--- 
-2.32.0
-
+> ---
+>  sound/soc/codecs/cros_ec_codec.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
+> index a201d652aca2..9b92e1a0d1a3 100644
+> --- a/sound/soc/codecs/cros_ec_codec.c
+> +++ b/sound/soc/codecs/cros_ec_codec.c
+> @@ -283,8 +283,8 @@ static int i2s_rx_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+>  	struct ec_param_ec_codec_i2s_rx p;
+>  	enum ec_codec_i2s_rx_daifmt daifmt;
+>  
+> -	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+> -	case SND_SOC_DAIFMT_CBS_CFS:
+> +	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
+> +	case SND_SOC_DAIFMT_CBC_CFC:
+>  		break;
+>  	default:
+>  		return -EINVAL;
+> 

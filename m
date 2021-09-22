@@ -2,48 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D52941479A
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Sep 2021 13:16:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28D144148FC
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Sep 2021 14:34:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9BEA15DC;
-	Wed, 22 Sep 2021 13:15:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9BEA15DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD5E8820;
+	Wed, 22 Sep 2021 14:33:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD5E8820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632309365;
-	bh=I6uamnZeAQ283vbEwxuwCo93UVjqaEP9cbo9tHnpFC0=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1632314063;
+	bh=DZWxysnme2g/bxy25R1RNyTxs8TVIWS51ngER8TqdP4=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YBcORkL5qZPX2y/l71TqPga6ocfqSOXSym/eo5eYjnG6BJV4FZjvGNiMxaAQIgn39
-	 bshrzknocb7vYHwAXexHVzbEp3ec8xmqODygaWv15M2YgTa4Nc7uAMuFu7JXO+ndeH
-	 UH1hN+nNu9vuj3rw4lyBX3HJ00LA5has/K20tTeY=
+	b=HVU1ysd8GejU39td46Pm+9FQW9UEp1pyL+6RT5KYEGEj/jW0gAbf9X6M3y3b5zEp3
+	 IvHQ4QrcNobZMIZrv7v69xWXLn9FUY1KIoSDvH5fxq30Bkuzl7ly8pumEEZ8WhL12a
+	 ol5vCdDa/nmirTCctgvmWzsIqX/8pFNleUiEao28=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69673F80279;
-	Wed, 22 Sep 2021 13:14:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94B4FF804EB;
+	Wed, 22 Sep 2021 14:32:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9B86F8025D; Wed, 22 Sep 2021 13:14:46 +0200 (CEST)
+ id 4278CF804E2; Wed, 22 Sep 2021 14:32:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id D73ABF8014E
- for <alsa-devel@alsa-project.org>; Wed, 22 Sep 2021 13:14:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D73ABF8014E
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1632309281569562912-webhooks-bot@alsa-project.org>
-References: <1632309281569562912-webhooks-bot@alsa-project.org>
-Subject: Redesign the rawmidi midi read with timestamping API
-Message-Id: <20210922111446.A9B86F8025D@alsa1.perex.cz>
-Date: Wed, 22 Sep 2021 13:14:46 +0200 (CEST)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B3287F804BB
+ for <alsa-devel@alsa-project.org>; Wed, 22 Sep 2021 14:32:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3287F804BB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="tDsflMUF"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1632313930; h=References: In-Reply-To: Message-Id: Date:
+ Subject: Cc: To: From: Sender;
+ bh=wnjSjUzhn9Vc43/imQhWwvve2fhb7MUsRdjHreJ8z0s=;
+ b=tDsflMUFUP5KCzBva3bhtoa6ifKuaA+kNkcKt4Qtxc2RRCIhTyDU96zyCO46Fasmm/QQPFdR
+ sOu3k3feX9eAsJtpUFxHogup8W7pjJF0piovHzt4nGGvqWWfjAT89He/fnW6Mxt6gUa4IOr/
+ KIh7Ygfu/2TJe9Z9wXjJ3csyv1M=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n03.prod.us-west-2.postgun.com with SMTP id
+ 614b222fb585cc7d24150ec8 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 22 Sep 2021 12:31:43
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id AC638C43618; Wed, 22 Sep 2021 12:31:43 +0000 (UTC)
+Received: from hu-srivasam-hyd.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 96A24C4338F;
+ Wed, 22 Sep 2021 12:31:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 96A24C4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
+ bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ swboyd@chromium.org, judyhsiao@chromium.org
+Subject: [PATCH v2 0/5] Update Lpass digital codec macro drivers
+Date: Wed, 22 Sep 2021 18:01:13 +0530
+Message-Id: <1632313878-12089-1-git-send-email-srivasam@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <agross@kernel.org; bjorn.andersson@linaro.org;
+ lgirdwood@gmail.com; broonie@kernel.org; robh+dt@kernel.org;
+ plai@codeaurora.org; bgoswami@codeaurora.org; perex@perex.cz; tiwai@suse.com;
+ srinivas.kandagatla@linaro.org; rohitkr@codeaurora.org;
+ linux-arm-msm@vger.kernel.org; alsa-devel@alsa-project.org;
+ devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; swboyd@chromium.org;
+ judyhsiao@chromium.org; >
+References: <agross@kernel.org; bjorn.andersson@linaro.org; lgirdwood@gmail.com;
+ broonie@kernel.org; robh+dt@kernel.org; plai@codeaurora.org;
+ bgoswami@codeaurora.org; perex@perex.cz; tiwai@suse.com;
+ srinivas.kandagatla@linaro.org; rohitkr@codeaurora.org;
+ linux-arm-msm@vger.kernel.org; alsa-devel@alsa-project.org;
+ devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; swboyd@chromium.org;
+ judyhsiao@chromium.org; >
+Cc: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,16 +109,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib pull request #179 was opened from perexg:
+This patch set is to add support for lpass sc7280 based targets.
+Upadate compatible name and change of bulk clock voting to optional
+clock voting in digital codecs va, rx, tx macro drivers.
+Chnages Since V1:
+    -- Removed individual clock voting and used bulk clock optional.
+	-- Removed volatile changes and fixed default values.
+	-- Typo errors.
 
-It's follow-up for https://github.com/alsa-project/alsa-lib/pull/173 and https://github.com/alsa-project/alsa-lib/issues/172 . 
+Srinivasa Rao Mandadapu (5):
+  ASoC: qcom: Add compatible names in va,wsa,rx,tx codec drivers for
+    sc7280
+  ASoC: qcom: dt-bindings: Add compatible names for lpass sc7280 digital
+    codecs
+  ASoC: codecs: tx-macro: Enable tx top soundwire mic clock
+  ASoC: codecs: tx-macro: Update tx default values
+  ASoC: codecs: Change bulk clock voting to optional voting in digital
+    codecs
 
-I am confident, that the direct framing mechanism for the transfer of the midi stream with the timestamping should be hidden and abstracted in the alsa-lib's API. This version uses a new read function (`snd_rawmidi_tread()`) which decodes and merges the data from the kernel frames. The framing mechanism is very specific to the kernel API and the cost of added data copy is negligible in this case (the kernel code basically does similar thing).
+ .../devicetree/bindings/sound/qcom,lpass-rx-macro.yaml        |  4 +++-
+ .../devicetree/bindings/sound/qcom,lpass-tx-macro.yaml        |  4 +++-
+ .../devicetree/bindings/sound/qcom,lpass-va-macro.yaml        |  4 +++-
+ .../devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml       |  4 +++-
+ sound/soc/codecs/lpass-rx-macro.c                             |  3 ++-
+ sound/soc/codecs/lpass-tx-macro.c                             | 11 +++++++----
+ sound/soc/codecs/lpass-va-macro.c                             |  3 ++-
+ sound/soc/codecs/lpass-wsa-macro.c                            |  1 +
+ 8 files changed, 24 insertions(+), 10 deletions(-)
 
-I kept the `snd_rawmidi_read()` functionality to read raw frames), but the structure for the parsing must be defined on it's own. This mechanism is unsupported.
+-- 
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
 
-This version seems more abstract and easy to use for apps than the separate decoder function for `snd_rawmidi_read()`.
-
-Request URL   : https://github.com/alsa-project/alsa-lib/pull/179
-Patch URL     : https://github.com/alsa-project/alsa-lib/pull/179.patch
-Repository URL: https://github.com/alsa-project/alsa-lib

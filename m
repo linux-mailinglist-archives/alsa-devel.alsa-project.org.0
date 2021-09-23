@@ -2,83 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3D64415902
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Sep 2021 09:28:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40EE6415C4E
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Sep 2021 12:52:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 445CC4E;
-	Thu, 23 Sep 2021 09:27:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 445CC4E
+	by alsa0.perex.cz (Postfix) with ESMTPS id ADA531612;
+	Thu, 23 Sep 2021 12:51:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADA531612
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632382113;
-	bh=IdtHu5v7pNlaTyNDvynQ4AWOJKPYM2lVFO6cI3WHiaM=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=WJqydJmpu+uypxZWubt8PdGJ4B1fSEpG+g1LG8CFfEI0tqZ9MwzAaFs/KpaN/MOKb
-	 rMq4ejvdyGWKZuQ7817m6flqkQBAhCyBUVQz1Wif4F5usizCdYWRgMiJI4FO/8pf4j
-	 IY0OSzR5bObG1FKqI12/cMsGUjXsruQBhDB8OE24=
+	s=default; t=1632394346;
+	bh=BZKnuJfXEDDbwEwLGooGskdT4wJHWThvQYDV3BgcA70=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=k4hH/U7N3uOwfj1rokexhGpoI1et8vFeRr/SheQX+a2ZJHKK4VO8jGgjlLXF9lqEc
+	 cjXQhegcJwde7U/UeQ2EyZ1+zqfXoNNvr4/7tgEQ8MbLwOM2RCE4eQ/gx9U28Qoi+6
+	 w0/DtWHX8ZexbHCqDgUBxXMRIFwqF6vx0RDkEvGY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84E1EF8026A;
-	Thu, 23 Sep 2021 09:27:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB7E8F8011F;
+	Thu, 23 Sep 2021 12:51:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AC82EF80268; Thu, 23 Sep 2021 09:27:14 +0200 (CEST)
+ id 6FECFF80268; Thu, 23 Sep 2021 12:51:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from lucky1.263xmail.com (lucky1.263xmail.com [211.157.147.130])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C750CF8013F
- for <alsa-devel@alsa-project.org>; Thu, 23 Sep 2021 09:27:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C750CF8013F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="seY/YwG9"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="VHXU5DnN"
-Received: from relay1.suse.de (relay1.suse.de [149.44.160.133])
- by smtp-out1.suse.de (Postfix) with ESMTP id 53E9D22346;
- Thu, 23 Sep 2021 07:27:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1632382027; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=8OFluR1PISRTVNoud8PinaVK8ZeYFnVW4GGvXGuLEVs=;
- b=seY/YwG9JlnGQpXZtInfEs+UZNNy3hpygRuzgMIfCATMAjUi/lXl2neiu32MGxei3vJq06
- iijHIp5Uz+IXyufkevgN9BIos561sq+ond8vLWpiWir0DujNrlCVRGgQIlf7XvR6mEtN7K
- UradiDJB9bmVbehaR9u0DNDi527cizA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1632382027;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=8OFluR1PISRTVNoud8PinaVK8ZeYFnVW4GGvXGuLEVs=;
- b=VHXU5DnNxQOJUoEXsm01ZOXEDgkrX5fL1XdYF7viF3XJAAF+FqDoKASsVH3WYD2gtnZdEA
- rlXFvaSnn/eGv6Cg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay1.suse.de (Postfix) with ESMTP id 290F825D3A;
- Thu, 23 Sep 2021 07:27:07 +0000 (UTC)
-Date: Thu, 23 Sep 2021 09:27:07 +0200
-Message-ID: <s5htuib7nw4.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH v2] ALSA: rawmidi: introduce
- SNDRV_RAWMIDI_IOCTL_USER_PVERSION
-In-Reply-To: <20210920171850.154186-1-perex@perex.cz>
-References: <20210920171850.154186-1-perex@perex.cz>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- David Henningsson <coding@diwic.se>, stable@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0DFF2F8013F
+ for <alsa-devel@alsa-project.org>; Thu, 23 Sep 2021 12:50:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DFF2F8013F
+Received: from localhost (unknown [192.168.167.16])
+ by lucky1.263xmail.com (Postfix) with ESMTP id D2885D8002;
+ Thu, 23 Sep 2021 18:50:53 +0800 (CST)
+X-MAIL-GRAY: 0
+X-MAIL-DELIVERY: 1
+X-ADDR-CHECKED4: 1
+X-SKE-CHECKED: 1
+X-ANTISPAM-LEVEL: 2
+Received: from localhost.localdomain (unknown [58.22.7.114])
+ by smtp.263.net (postfix) whith ESMTP id
+ P30982T140487228909312S1632394252895090_; 
+ Thu, 23 Sep 2021 18:50:54 +0800 (CST)
+X-IP-DOMAINF: 1
+X-RL-SENDER: sugar.zhang@rock-chips.com
+X-SENDER: zxg@rock-chips.com
+X-LOGIN-NAME: sugar.zhang@rock-chips.com
+X-FST-TO: broonie@kernel.org
+X-RCPT-COUNT: 12
+X-LOCAL-RCPT-COUNT: 1
+X-SENDER-IP: 58.22.7.114
+X-ATTACHMENT-NUM: 0
+X-UNIQUE-TAG: <0073ee5634e02cce322910e426978038>
+X-System-Flag: 0
+From: Sugar Zhang <sugar.zhang@rock-chips.com>
+To: broonie@kernel.org,
+	heiko@sntech.de
+Subject: [PATCH] ASoC: dmaengine: Introduce module option
+ prealloc_buffer_size_kbytes
+Date: Thu, 23 Sep 2021 18:50:46 +0800
+Message-Id: <1632394246-59341-1-git-send-email-sugar.zhang@rock-chips.com>
+X-Mailer: git-send-email 2.7.4
+Cc: alsa-devel@alsa-project.org, Lars-Peter Clausen <lars@metafoo.de>,
+ Jonathan Corbet <corbet@lwn.net>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-doc@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Sugar Zhang <sugar.zhang@rock-chips.com>, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,23 +86,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 20 Sep 2021 19:18:50 +0200,
-Jaroslav Kysela wrote:
-> 
-> The new framing mode causes the user space regression, because
-> the alsa-lib code does not initialize the reserved space in
-> the params structure when the device is opened.
-> 
-> This change adds SNDRV_RAWMIDI_IOCTL_USER_PVERSION like we
-> do for the PCM interface for the protocol acknowledgment.
-> 
-> Cc: David Henningsson <coding@diwic.se>
-> Cc: <stable@vger.kernel.org>
-> Fixes: 08fdced60ca0 ("ALSA: rawmidi: Add framing mode")
-> BugLink: https://github.com/alsa-project/alsa-lib/issues/178
-> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+Currently, The fixed 512KB prealloc buffer size is too larger for
+tiny memory kernel (such as 16MB memory). This patch adds the module
+option "prealloc_buffer_size_kbytes" to specify prealloc buffer size.
 
-Applied, thanks.
+It's suitable for cards which use the generic dmaengine pcm driver
+with no config.
+
+Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
+---
+
+ Documentation/sound/alsa-configuration.rst | 9 +++++++++
+ sound/soc/soc-generic-dmaengine-pcm.c      | 6 +++++-
+ 2 files changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/sound/alsa-configuration.rst b/Documentation/sound/alsa-configuration.rst
+index 65f6169..34888d4 100644
+--- a/Documentation/sound/alsa-configuration.rst
++++ b/Documentation/sound/alsa-configuration.rst
+@@ -100,6 +100,15 @@ amidi_map
+     MIDI device number maps assigned to the 2st OSS device;
+     Default: 1
+ 
++Module snd-soc-core
++-------------------
++
++The soc core module. It is used by all ALSA card drivers.
++It takes the following options which have global effects.
++
++prealloc_buffer_size_kbytes
++    Specify prealloc buffer size in kbytes (default: 512).
++
+ Common parameters for top sound card modules
+ --------------------------------------------
+ 
+diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
+index 4aa48c7..c54c8ca 100644
+--- a/sound/soc/soc-generic-dmaengine-pcm.c
++++ b/sound/soc/soc-generic-dmaengine-pcm.c
+@@ -15,6 +15,10 @@
+ 
+ #include <sound/dmaengine_pcm.h>
+ 
++static unsigned int prealloc_buffer_size_kbytes = 512;
++module_param(prealloc_buffer_size_kbytes, uint, 0444);
++MODULE_PARM_DESC(prealloc_buffer_size_kbytes, "Preallocate DMA buffer size (KB).");
++
+ /*
+  * The platforms dmaengine driver does not support reporting the amount of
+  * bytes that are still left to transfer.
+@@ -237,7 +241,7 @@ static int dmaengine_pcm_new(struct snd_soc_component *component,
+ 		prealloc_buffer_size = config->prealloc_buffer_size;
+ 		max_buffer_size = config->pcm_hardware->buffer_bytes_max;
+ 	} else {
+-		prealloc_buffer_size = 512 * 1024;
++		prealloc_buffer_size = prealloc_buffer_size_kbytes * 1024;
+ 		max_buffer_size = SIZE_MAX;
+ 	}
+ 
+-- 
+2.7.4
 
 
-Takashi
+

@@ -2,90 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA619417A2F
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Sep 2021 19:54:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB5B7417BC9
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Sep 2021 21:26:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 53DA01654;
-	Fri, 24 Sep 2021 19:53:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53DA01654
+	by alsa0.perex.cz (Postfix) with ESMTPS id 214771658;
+	Fri, 24 Sep 2021 21:25:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 214771658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632506089;
-	bh=OCrSKaoxn7+h/YEX2SAkAPa0QvVM30uVoaGnA/5yw9w=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=QkqOcsVCvGEnOVejLzBRuM21P10fmsQEu16PauE8/WVFSUopI55FIOnVCda3GWlJq
-	 It07OlD15ndy7skVIqfzKgmIG4jWxChLr9aNYSbFQo9JPgDUs/2GGyZkTAmSiyT26H
-	 1m5M404jefddqe5GCtYUgbWz2jPGwtYpUBJ/tgMY=
+	s=default; t=1632511566;
+	bh=cuQCPWSKlipuSL0UnujDeAGVJCMYHyZX4mngLYbv6nE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=K64X2jd0cevrdHKWFs2lCpSeok84Zo83N4uj81AGHl83++uposT5cuZwAAgEx7KtI
+	 ZjCmqTDy8NXXzp+asPT+qZDnieI/oGBeIMX5CwxVjgjrHOILeLDhZmT1IpztZBuVuV
+	 Wd+383fSGTBCwR3hgLW24jgmatn5xf4y8YDPLjvk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C2C0FF8025D;
-	Fri, 24 Sep 2021 19:53:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75F6AF804CA;
+	Fri, 24 Sep 2021 21:24:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5255FF802A0; Fri, 24 Sep 2021 19:53:30 +0200 (CEST)
+ id BF8D6F802A0; Fri, 24 Sep 2021 21:24:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 01D57F800BC
- for <alsa-devel@alsa-project.org>; Fri, 24 Sep 2021 19:53:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01D57F800BC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="LJGp1JRR"
-Received: by mail-lf1-x136.google.com with SMTP id x27so43583767lfu.5
- for <alsa-devel@alsa-project.org>; Fri, 24 Sep 2021 10:53:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=OCrSKaoxn7+h/YEX2SAkAPa0QvVM30uVoaGnA/5yw9w=;
- b=LJGp1JRRJd52sfAnzqEzskxZcBvzNQYvMCTPzBH6rzc7yDcfMeai6i4zusAOasK4g1
- CwrCa3wRHN25B/02Y5j0keNrRZPEyYp1kQHpNRzlu7dB4o2EMA6UpMwQJ2/zAbwKpL8P
- MqhTfH8IFp5a45+i3DAUv9k69NEO4RV0s0fsC+huzwyzkPZgwEtO8tqsWRIcOIEJ5l/l
- j2n1pOMb0ta239n9FdOy5bSpYYqK7OiDXOQAOS3au48dXAIkrUFYqON/TgukiEvTd0jY
- DlNwLkTVAz2E02ZT1b1kogwXhwHSV70EOqH4VVpoRgZUEzier3sbgPgq2nva5Lfjkr/Y
- 6oPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=OCrSKaoxn7+h/YEX2SAkAPa0QvVM30uVoaGnA/5yw9w=;
- b=kJhHHYGdiuTWMOYlXd/0ir8ot+HVQX7lDYGRsxeMA2JneFl/NzCp0rvvpxHm4w2P9O
- pN166myNWhnZFk5xXrv/8ZE/mG5MWJbPm4L5WbXlrMSSFlL2IlULcbINGpjQMWt/P2vu
- jZjz+Ul31nKPym0tezqQIahE/AN02Du1sacMLK2L8SUVtesQ6lP2152sDBAA2i99voYg
- 8Y3H2mtkMN7u/v60gkgKUA8RLs2MOVTUIXWyQKKLD7HLmnXPl9DPbBTS5wkX1Mf+7oL+
- rDEGVpFPPlkJMtpZ5EjLDceKYGj8U57KMF7qyHeGqjpZg/fQeDXeNTZoV+Ffsx+pE7Sf
- 1x1A==
-X-Gm-Message-State: AOAM530gB1or+b9U9ymEJ/ADhLAYB183oPNLLVk/Pw1N/bKiA5Emln4b
- UQbqh4oixKPotWeutHRo+6mgxaeWPm7Byg/QMLc=
-X-Google-Smtp-Source: ABdhPJz4EcLzFgdQs0vIsPdTg8bdcV5AppV8KyZEhA33YwhLyUzuMeF+yKZ0ty+JxxfX8Aityt3JWnndd1ss8e265wo=
-X-Received: by 2002:a05:651c:54d:: with SMTP id
- q13mr12454423ljp.526.1632505996857; 
- Fri, 24 Sep 2021 10:53:16 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id CFA9DF8013F
+ for <alsa-devel@alsa-project.org>; Fri, 24 Sep 2021 21:24:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFA9DF8013F
+X-IronPort-AV: E=McAfee;i="6200,9189,10117"; a="203643399"
+X-IronPort-AV: E=Sophos;i="5.85,320,1624345200"; d="scan'208";a="203643399"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2021 12:24:37 -0700
+X-IronPort-AV: E=Sophos;i="5.85,320,1624345200"; d="scan'208";a="551922484"
+Received: from bordone-mobl1.amr.corp.intel.com (HELO
+ pbossart-mobl3.intel.com) ([10.209.164.235])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2021 12:24:36 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [RFC PATCH 0/4] ALSA: hda: potential hdac_stream locking issues?
+Date: Fri, 24 Sep 2021 14:24:13 -0500
+Message-Id: <20210924192417.169243-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <CAHhAz+i=3NDuxK2rZZY6N18=OTbkna3VMVpx4nNgF0vyq3JmQA@mail.gmail.com>
- <324112.1632501120@turing-police>
- <CAHhAz+jNCd=cw-bohcoiAA2UhNZYSFLX07qEV-T2p+KAsVHhAQ@mail.gmail.com>
- <CAJfuBxxAEXnPxY-nx4JEe+fzH7J+nLYzD9zLCSzgjViBHsQbPA@mail.gmail.com>
-In-Reply-To: <CAJfuBxxAEXnPxY-nx4JEe+fzH7J+nLYzD9zLCSzgjViBHsQbPA@mail.gmail.com>
-From: Muni Sekhar <munisekharrms@gmail.com>
-Date: Fri, 24 Sep 2021 23:23:05 +0530
-Message-ID: <CAHhAz+i48QEecqQ16u2s_Y_iw6V6dJzTDzEJO+w-eTYs6rYB7Q@mail.gmail.com>
-Subject: Re: ALSA kernel projects - for academic purposes
-To: jim.cromie@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: alsa-devel <alsa-devel@alsa-project.org>,
- =?UTF-8?Q?Valdis_Kl=C4=93tnieks?= <valdis.kletnieks@vt.edu>,
- linux-sound@vger.kernel.org, kernelnewbies <kernelnewbies@kernelnewbies.org>
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, vkoul@kernel.org, broonie@kernel.org,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,53 +71,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Sep 24, 2021 at 10:46 PM <jim.cromie@gmail.com> wrote:
->
-> On Fri, Sep 24, 2021 at 10:58 AM Muni Sekhar <munisekharrms@gmail.com> wr=
-ote:
-> >
-> > On Fri, Sep 24, 2021 at 10:02 PM Valdis Kl=C4=93tnieks
-> > <valdis.kletnieks@vt.edu> wrote:
-> > >
-> > > On Fri, 24 Sep 2021 19:34:59 +0530, Muni Sekhar said:
-> > > > What small projects would you suggest to a novice with the ALSA
-> > > > kernel. The aim is to develop a familiarity with the ALSA kernel
-> > > > source code, and also to submit it for academic purposes.
-> > >
-> > > A good place to start is getting a good handle on what the phrase "th=
-e ALSA
-> > > kernel" even means.
-> > Basically looking for kernel space audio subsystem projects rather
-> > than its user-space library(alsa-lib) and utilities(alsa-utils).
->
-> why ?
-> if your interest is better sound, then improving user-space is going
-> to be more productive.
->
-> also, theres now pipewire, which is new, and all the buzz.
-> its apparently the future of linux audio
-Sounds interesting. Could you please give few more pointers on how to
-start on pipewire project.
->
->
-> > >
-> > > There's the Linux kernel, a small corner of which is the ALSA subsyst=
-em for
-> > > sound.
-> > >
-> >
-> >
-> > --
-> > Thanks,
-> > Sekhar
-> >
-> > _______________________________________________
-> > Kernelnewbies mailing list
-> > Kernelnewbies@kernelnewbies.org
-> > https://lists.kernelnewbies.org/mailman/listinfo/kernelnewbies
+While reviewing the HDAudio DMA handling, I found a number of
+inconsistencies in how spin_locks are used. It's not clear what the
+HDaudio bus->reg_lock is supposed to protect. In most cases only the
+writes to specific boolean status flags are protected, and there are
+multiple cases of taking the lock after testing a status flag.
 
+This patchset suggests a more consistent locking pattern, but it's
+entirely possible that the bus->reg_lock is only intented to protect
+register read/write access on the HDaudio bus, and not the status
+flags, and that this entire piece of code is completely
+over-engineered.
 
+On the Intel side no one knows why this spinlock was used, the reasons
+are lost to history. I set the 'RFC' status on purpose in the hope
+that Takashi might recall what this lock is supposed to protect. The
+diff format makes this patchset difficult to review, it's recommended
+to apply the patches and look at entire functions with changes to get
+a better idea of the suggested changes.
 
---=20
-Thanks,
-Sekhar
+Pierre-Louis Bossart (4):
+  ALSA: hda: hdac_stream: fix potential locking issue in
+    snd_hdac_stream_assign()
+  ALSA: hda: hdac_stream: reset assigned_key in stream_release()
+  ALSA: hda: hdac_ext_stream: fix potential locking issues
+  ASoC: SOF: Intel: hda-dai: fix potential locking issue
+
+ include/sound/hdaudio_ext.h     |  2 ++
+ sound/hda/ext/hdac_ext_stream.c | 46 ++++++++++++++++++++-------------
+ sound/hda/hdac_stream.c         |  5 ++--
+ sound/soc/sof/intel/hda-dai.c   |  7 ++---
+ 4 files changed, 37 insertions(+), 23 deletions(-)
+
+-- 
+2.25.1
+

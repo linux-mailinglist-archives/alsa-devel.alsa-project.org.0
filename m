@@ -2,81 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B37A41AAC1
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 10:40:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F249441AAC2
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 10:41:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 000D816A2;
-	Tue, 28 Sep 2021 10:39:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 000D816A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4564716B0;
+	Tue, 28 Sep 2021 10:40:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4564716B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632818445;
-	bh=4vgPHoLHR5J37aB8fN3PEmi+MFUiyS2Zs84VroVwYpY=;
+	s=default; t=1632818469;
+	bh=rP/Y1z2irmSce/dicr31bRCJsf8MJDI/Knwjdmpjxbc=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=im3HexSpQzksriTBjFJYw0IjfnQar7wMO7C0Tv9HQBIYnMMmyZAqXb6FRlQQ34fsx
-	 KWfSa/OWku5J8W1JMe4TS8N/DTbKp/oQKMrU00j1HKI0m14cjijBzNTlTA8LWtwZWl
-	 xNJ1XtEExBi0I7KAjTO3pqIAl5qf7zcvXHdMbzAc=
+	b=qI1oaHUOKyqUpUe0UjQ2UT0W2c7WPGpLyhsKf/fKK2N4O9fNm/1zYsijNlrhbfHxB
+	 DO66C3gRlDFpROuYCXqFLYqEj6qCSYChfngo5HxLVfBT86Bc7XGZloiCdcAFHZtK/U
+	 MakPi3XJFHD7/z6o45E9UIi7Qy2iKETEwKZp17GE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B630F804BC;
+	by alsa1.perex.cz (Postfix) with ESMTP id F40F3F804DA;
 	Tue, 28 Sep 2021 10:39:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 302BCF802A0; Fri, 24 Sep 2021 19:16:10 +0200 (CEST)
+ id 7CEE8F802A0; Fri, 24 Sep 2021 20:23:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-vk1-xa32.google.com (mail-vk1-xa32.google.com
- [IPv6:2607:f8b0:4864:20::a32])
+Received: from mail-vs1-xe30.google.com (mail-vs1-xe30.google.com
+ [IPv6:2607:f8b0:4864:20::e30])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DEA62F80246
- for <alsa-devel@alsa-project.org>; Fri, 24 Sep 2021 19:16:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEA62F80246
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7223FF800BC
+ for <alsa-devel@alsa-project.org>; Fri, 24 Sep 2021 20:23:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7223FF800BC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="IoKp49xY"
-Received: by mail-vk1-xa32.google.com with SMTP id h132so4219336vke.8
- for <alsa-devel@alsa-project.org>; Fri, 24 Sep 2021 10:16:03 -0700 (PDT)
+ header.b="VVtY2/s5"
+Received: by mail-vs1-xe30.google.com with SMTP id y141so10982106vsy.5
+ for <alsa-devel@alsa-project.org>; Fri, 24 Sep 2021 11:23:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=4vgPHoLHR5J37aB8fN3PEmi+MFUiyS2Zs84VroVwYpY=;
- b=IoKp49xYcO4/EuZ6e+bWpkjtqdsq1u1517lGUS1Ew229StFsXk+mSJAO4UEwL3DvC6
- KHY7bvmYxHVEFDRyA7v1LpyxOX0LgioEaMVBMpKrDZjaDFPkoCCpj4N61g/MHAFFpUFZ
- ir75v4cbVjvrz68RqZv2VndWHOSP1C5F2ou3jbl+uU0Jg1tDoP0k0Its9A47eOunTtdO
- LkvtVlCxfSl5jwJ9QCxAEtnpUkOS1jmojoLIe+At9Qu/RLaVj9UGRF6jagDRdlWBBeVA
- UAd/5Ya63QdVJMaW3hp89CB9TwnN294pRmnwjiCrEltFNJuQ/yaz0o6apDqC0HhwKIJv
- 0aoQ==
+ bh=rP/Y1z2irmSce/dicr31bRCJsf8MJDI/Knwjdmpjxbc=;
+ b=VVtY2/s5q5l1ZUxUs6qBojymcLmo74fTmuLnqtN/9y76NRvIqi5oYw9HXg+zbsEJLo
+ P3jlg5uoRrU+3hC/zWNsOTTiARVqZCwekzr3PJ4EWMgDC9Cq2Rpi4MEanCnDbWKzUJ+z
+ Lqx8li9Z2hXG5kMcgDXk8pt+UyqXHZgc3thXHdtXfiaFlnaNn/UTIsUeHyS0fGiwfHnV
+ bCYSuxvVLVJDBIoIrLp9ZQGZoCQ00h5+LIm9binVV+PDGdTr69sIPqfPKh0/MD3B41wG
+ FQW/Wsz6hhQFedS3WyRqLhfDYf14jBqGMtx/GO9aGqAh1gLSGnAwUU87NyiHkQwWs1i7
+ /Lfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=4vgPHoLHR5J37aB8fN3PEmi+MFUiyS2Zs84VroVwYpY=;
- b=mZKS7RDSuleq//GD9ByL31B35RQzqVUa08NMr+v0iHkuSGgUX/LPwBQWHdLYGEBmbk
- d/OwJLRnBZPkPI7/c+vHGg88PZVszVXqlrjBarFu6N5mxWhINRl70x2NmBReyC1v1Y73
- RfPZ/566bSprbwKlLAEPs2yTkuUS3SvuQpnkN8og8gJBgwvVHS5Th5jyAxugSo+gGpMR
- 0np9Ejf1CHbM+PdPf6dxX8nhfKXTUNcaOiuiwVLfhwUK5Y1d9dkPPT4mK0eBHdkBTbJy
- G+7d5FFYtlCWGHAPvXdlQSJiY3OeNkL74dxw3/rANCqU6PPpsCz6j1pg9v8Nu2ZW+GAu
- 8fgw==
-X-Gm-Message-State: AOAM532L57DED8C9LPql628991ObI3BPm3Rl7IKMPTnfEA467BPp2K0j
- JpqvTKULaKjwUfy4hxWWyZDKnwGGGZohGvPST08=
-X-Google-Smtp-Source: ABdhPJyEOKkE+EZT+y+of+PkcwSf0fYp6EMqhRuv+NoPy8EO/0ay7VM8BXMSo/MXmdWEWXzA1M1B8SWi6pNS9wUU3Kc=
-X-Received: by 2002:a1f:2e57:: with SMTP id u84mr9299393vku.16.1632503761741; 
- Fri, 24 Sep 2021 10:16:01 -0700 (PDT)
+ bh=rP/Y1z2irmSce/dicr31bRCJsf8MJDI/Knwjdmpjxbc=;
+ b=gfDFYdJx00dmcsn5HxALzIEFqjmr48/x8z592X3xpVGEVhBwXDqOHISvv2yBk9MqUK
+ 8TKwM4hmFHWG4slvcxlTCXGBOvbf2eqoITiekdUN4pB4yDhb/g7OfTJUze+xiV+PM78o
+ xOeX0jJZJ9HIsChEfhvlcTA2hIM0f80goZQiMdMLRBJshymqk963DTi+WWAJeInQ+hW1
+ qQXjTAJ3B5uiCaRC0XX+VUTN1RNTFgPfG6xciA8Rq9l5/Awz8Sa4q0maMFHrM+ZVIa1P
+ wRLZRZAWjq/twGBov16eiTgKsholpKQduDryGrg7an5Id9R01ToQCkwn5cYJLveQGc1L
+ ynjA==
+X-Gm-Message-State: AOAM530LUU5DllXfE1cUb3gU9r1Nnh5fVaRIAd9G7wvgIiHZy01nwYAZ
+ v1QCkvuNYDfvAbnC3/GJuex0ZXnFk/g5AxbB2Ak=
+X-Google-Smtp-Source: ABdhPJxzwhF5cghqM/e3cTcvDi6asH3cNebClqpB8azMEdcWpsnL9mu8BaHN+7yZfuhR/QGZKYSNv+cGds/fwqLTcrk=
+X-Received: by 2002:a67:d00d:: with SMTP id r13mr11409872vsi.23.1632507810833; 
+ Fri, 24 Sep 2021 11:23:30 -0700 (PDT)
 MIME-Version: 1.0
 References: <CAHhAz+i=3NDuxK2rZZY6N18=OTbkna3VMVpx4nNgF0vyq3JmQA@mail.gmail.com>
  <324112.1632501120@turing-police>
  <CAHhAz+jNCd=cw-bohcoiAA2UhNZYSFLX07qEV-T2p+KAsVHhAQ@mail.gmail.com>
-In-Reply-To: <CAHhAz+jNCd=cw-bohcoiAA2UhNZYSFLX07qEV-T2p+KAsVHhAQ@mail.gmail.com>
+ <CAJfuBxxAEXnPxY-nx4JEe+fzH7J+nLYzD9zLCSzgjViBHsQbPA@mail.gmail.com>
+ <CAHhAz+i48QEecqQ16u2s_Y_iw6V6dJzTDzEJO+w-eTYs6rYB7Q@mail.gmail.com>
+In-Reply-To: <CAHhAz+i48QEecqQ16u2s_Y_iw6V6dJzTDzEJO+w-eTYs6rYB7Q@mail.gmail.com>
 From: jim.cromie@gmail.com
-Date: Fri, 24 Sep 2021 11:15:35 -0600
-Message-ID: <CAJfuBxxAEXnPxY-nx4JEe+fzH7J+nLYzD9zLCSzgjViBHsQbPA@mail.gmail.com>
+Date: Fri, 24 Sep 2021 12:23:04 -0600
+Message-ID: <CAJfuBxxVrbo6LyErMea8JWL0joZBrLa4Kg5r9qzwgW4JUVQvYQ@mail.gmail.com>
 Subject: Re: ALSA kernel projects - for academic purposes
 To: Muni Sekhar <munisekharrms@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
@@ -100,43 +102,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Sep 24, 2021 at 10:58 AM Muni Sekhar <munisekharrms@gmail.com> wrot=
+On Fri, Sep 24, 2021 at 11:53 AM Muni Sekhar <munisekharrms@gmail.com> wrot=
 e:
 >
-> On Fri, Sep 24, 2021 at 10:02 PM Valdis Kl=C4=93tnieks
-> <valdis.kletnieks@vt.edu> wrote:
+> On Fri, Sep 24, 2021 at 10:46 PM <jim.cromie@gmail.com> wrote:
 > >
-> > On Fri, 24 Sep 2021 19:34:59 +0530, Muni Sekhar said:
-> > > What small projects would you suggest to a novice with the ALSA
-> > > kernel. The aim is to develop a familiarity with the ALSA kernel
-> > > source code, and also to submit it for academic purposes.
+> > On Fri, Sep 24, 2021 at 10:58 AM Muni Sekhar <munisekharrms@gmail.com> =
+wrote:
+> > >
+> > > On Fri, Sep 24, 2021 at 10:02 PM Valdis Kl=C4=93tnieks
+> > > <valdis.kletnieks@vt.edu> wrote:
+> > > >
+> > > > On Fri, 24 Sep 2021 19:34:59 +0530, Muni Sekhar said:
+> > > > > What small projects would you suggest to a novice with the ALSA
+> > > > > kernel. The aim is to develop a familiarity with the ALSA kernel
+> > > > > source code, and also to submit it for academic purposes.
+> > > >
+> > > > A good place to start is getting a good handle on what the phrase "=
+the ALSA
+> > > > kernel" even means.
+> > > Basically looking for kernel space audio subsystem projects rather
+> > > than its user-space library(alsa-lib) and utilities(alsa-utils).
 > >
-> > A good place to start is getting a good handle on what the phrase "the =
-ALSA
-> > kernel" even means.
-> Basically looking for kernel space audio subsystem projects rather
-> than its user-space library(alsa-lib) and utilities(alsa-utils).
-
-why ?
-if your interest is better sound, then improving user-space is going
-to be more productive.
-
-also, theres now pipewire, which is new, and all the buzz.
-its apparently the future of linux audio
-
-
+> > why ?
+> > if your interest is better sound, then improving user-space is going
+> > to be more productive.
 > >
-> > There's the Linux kernel, a small corner of which is the ALSA subsystem=
- for
-> > sound.
+> > also, theres now pipewire, which is new, and all the buzz.
+> > its apparently the future of linux audio
+> Sounds interesting. Could you please give few more pointers on how to
+> start on pipewire project.
 > >
->
->
-> --
-> Thanks,
-> Sekhar
->
-> _______________________________________________
-> Kernelnewbies mailing list
-> Kernelnewbies@kernelnewbies.org
-> https://lists.kernelnewbies.org/mailman/listinfo/kernelnewbies
+
+https://pipewire.org/
+
+you know everything I do now

@@ -2,94 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 543C8417DC0
-	for <lists+alsa-devel@lfdr.de>; Sat, 25 Sep 2021 00:27:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D501417E0F
+	for <lists+alsa-devel@lfdr.de>; Sat, 25 Sep 2021 01:11:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DFF3A1612;
-	Sat, 25 Sep 2021 00:26:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFF3A1612
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32502165D;
+	Sat, 25 Sep 2021 01:10:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32502165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632522460;
-	bh=xO/aSWAI4RuRWt1PTCg0oErUGoCXDpb1uFwdLxaM6Vk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Yz6fPdvvMh5WqvV2sITMyy2YLPH7IaivkelzSTPfslIVKN+mz1RfaBJyEXe/icE8t
-	 /GjVu6M0L4cNIM4cw06SC9nDOlnDGpEa5/weS0FtKz5+XxASJcsnlZwlzF4QQaNYbI
-	 F6CuInz8E723LylhPwWEoR0n1TkiFTu2P7BC3ZJ0=
+	s=default; t=1632525095;
+	bh=ngBGvRM08zKzgUxi84SfSAHxhmUdrLRqA1/9tSyBy4g=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=a4uiKoaqWtsl8kUE7MXslKuemMYE1gTjwW6bqd3TPMzD7cyqHyKhkeo/0gZjYBknH
+	 jzgqa4OYbkANcxhVixxeWmJ0B14CXRweVap6kbRc2Gxh/PBvZfWqDbGyselaOFa1r1
+	 ZW7DSAGVtUgDkpM897MQYMWaDPtQ6PiqNPlznz9c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A91BF804BB;
-	Sat, 25 Sep 2021 00:26:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 936E1F8013F;
+	Sat, 25 Sep 2021 01:10:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B53F9F802A0; Sat, 25 Sep 2021 00:26:20 +0200 (CEST)
+ id 425D8F802A0; Sat, 25 Sep 2021 01:10:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-qv1-xf2c.google.com (mail-qv1-xf2c.google.com
- [IPv6:2607:f8b0:4864:20::f2c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-relay-canonical-1.canonical.com
+ (smtp-relay-canonical-1.canonical.com [185.125.188.121])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 456C5F800BC
- for <alsa-devel@alsa-project.org>; Sat, 25 Sep 2021 00:26:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 456C5F800BC
+ by alsa1.perex.cz (Postfix) with ESMTPS id E4802F8013F
+ for <alsa-devel@alsa-project.org>; Sat, 25 Sep 2021 01:10:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4802F8013F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="f/j5P6LI"
-Received: by mail-qv1-xf2c.google.com with SMTP id cv2so1177357qvb.5
- for <alsa-devel@alsa-project.org>; Fri, 24 Sep 2021 15:26:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=9hIoTctW0zXrE7Lw1N+2JJP8RvvOBLGUdaTyz2AkDAY=;
- b=f/j5P6LI1ZrKVcOhKef2nc2k/kiUuXvnnaMLmD7Wkk0ZUuLp803oEGYgvFl0SnFNY9
- TPfKAQDYnBD2+ZpuLF7cY4nOUAhOPvGUiMnPJ3yZ8UEhG22my578l3VphVnsGh3LDk+5
- MIoCX/8g88eFZS4TrQD8NCTaU99LXAxwO9eFJ2Y9eq6Pu9nVWJq//GcWIkLYt1+PLVcg
- mvtQo6El0xUnS0EirWL32REO/JZqwT00FuEKBGjHQNUSm/LqrQyocKzemjzoFbsSUDij
- kN0l3FMUf1hz284yc5+RyxtGWDPWD2Ejxdk7gwstI30wMZaKklc/n1qyNzMT1ZR6s3l+
- hL8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=9hIoTctW0zXrE7Lw1N+2JJP8RvvOBLGUdaTyz2AkDAY=;
- b=jyNuLbUEyuUuIJ+kA3yCjDFRvK+KqYPAdPFgpLvp1b1g/irVYRlLcQrTIEw2e+2sRZ
- PKRJ05SSmYGeXvdEFmDFwl4g0fe9lJx6DYqPI0GYt0rayjh59uP/M7MgtByIUG367K6O
- 0P8blYKeNPqLuCGfevF/s2uWBFe/FZeQF91VfME3Tg9g4DJ0ZChpPPjy/v2MAwcvk4kC
- GfXX3TvSm2dFOfZ46xUu3qi90UndX7uboo1UB5WG05ptdmpLR9SVnUyrJnBKbz0ca1Mq
- eP6i6THBfDqQMU5LS1dnrHN0LY3Kc2UrD0neG+vP9FUamX8zF2WVTLSTz3PCuBG4WFYO
- zRAw==
-X-Gm-Message-State: AOAM532JSd/dcOxXKhAU1MCAIpBH3PxLmqazO2PiNdVzGVWcF2k0tIcP
- KGUmkj845HETfk4O0kso4E0=
-X-Google-Smtp-Source: ABdhPJyLssKu+xZLY0wgGZsMLCDQ6Plj6jcqmhEOp6M6/YmKIfcH1AGreVpOj3hHg/qGE2VLulrG+g==
-X-Received: by 2002:a0c:aac2:: with SMTP id g2mr12729730qvb.41.1632522369910; 
- Fri, 24 Sep 2021 15:26:09 -0700 (PDT)
-Received: from geday ([2804:7f2:8280:7522:2e0:4cff:fe36:3314])
- by smtp.gmail.com with ESMTPSA id o202sm7556639qke.51.2021.09.24.15.26.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Sep 2021 15:26:09 -0700 (PDT)
-Date: Fri, 24 Sep 2021 19:26:08 -0300
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
-To: Muni Sekhar <munisekharrms@gmail.com>
-Subject: Re: ALSA kernel projects - for academic purposes
-Message-ID: <YU5QgPwYDB2XnaVP@geday>
-References: <CAHhAz+i=3NDuxK2rZZY6N18=OTbkna3VMVpx4nNgF0vyq3JmQA@mail.gmail.com>
- <324112.1632501120@turing-police>
- <CAHhAz+jNCd=cw-bohcoiAA2UhNZYSFLX07qEV-T2p+KAsVHhAQ@mail.gmail.com>
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="l/oBghUc"
+Received: from localhost (1.general.cking.uk.vpn [10.172.193.212])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id B44B640189; 
+ Fri, 24 Sep 2021 23:10:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1632525003;
+ bh=MMj9XYGRAUjX3duA0tNbIp1LXgRy3RovsJqNaSyyQsQ=;
+ h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type;
+ b=l/oBghUcWofCXKBBLGS+d1d1Wsqr08VyP5+xGKT2Qt5ZwjNLAui/2iu+q7M0cSYeZ
+ 3+gY9hQOg71JQFBSQfAV7MaLs7d/tODV2zct8dqLd8ZQGZhxJL7GIOQ6iyODJhQbqW
+ LQas497Wi0cRtWGcVmbq8vc/tVHPCCE1qKPVf5zOohptAlJfXLbY/1NAQA9oVeBMae
+ hh8krdC/NXQRR/yKN98PA5Pgv42lsZpXbuxuXMrhxcZcXvr+2IJ3FFl0W0haHAnIEy
+ 20iQRbZLz/NGQT2K6Q+7FL9wwW4+z4MmEkcx24jRMSYF+IfvCeU3d0OYNnnJt+bTAH
+ 35fy8XI/A8Daw==
+From: Colin King <colin.king@canonical.com>
+To: Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: codecs: Fix spelling mistake "Unsupport" ->
+ "Unsupported"
+Date: Sat, 25 Sep 2021 00:10:03 +0100
+Message-Id: <20210924231003.144502-1-colin.king@canonical.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHhAz+jNCd=cw-bohcoiAA2UhNZYSFLX07qEV-T2p+KAsVHhAQ@mail.gmail.com>
-Cc: alsa-devel <alsa-devel@alsa-project.org>,
- Valdis =?utf-8?Q?Kl=C4=93tnieks?= <valdis.kletnieks@vt.edu>,
- linux-sound@vger.kernel.org, kernelnewbies <kernelnewbies@kernelnewbies.org>
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,47 +84,284 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Sep 24, 2021 at 10:28:01PM +0530, Muni Sekhar wrote:
-> On Fri, Sep 24, 2021 at 10:02 PM Valdis Klētnieks
-> <valdis.kletnieks@vt.edu> wrote:
-> >
-> > On Fri, 24 Sep 2021 19:34:59 +0530, Muni Sekhar said:
-> > > What small projects would you suggest to a novice with the ALSA
-> > > kernel. The aim is to develop a familiarity with the ALSA kernel
-> > > source code, and also to submit it for academic purposes.
-> >
-> > A good place to start is getting a good handle on what the phrase "the ALSA
-> > kernel" even means.
-> Basically looking for kernel space audio subsystem projects rather
-> than its user-space library(alsa-lib) and utilities(alsa-utils).
-> >
+From: Colin Ian King <colin.king@canonical.com>
 
-Hi Muni Sekhar,
+There are spelling mistakes in dev_err error messages. Fix them.
 
-I'm not an academicist by far but if you want your patches to be academic,
-I think it's more of a question of scientific rigour and scientific
-method, such that when the patch(set) is finally accepted by the Linux
-community and Linus Torvalds ultimately, you can write a paper about
-it.
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ sound/soc/codecs/rt1015.c | 2 +-
+ sound/soc/codecs/rt1016.c | 2 +-
+ sound/soc/codecs/rt1019.c | 2 +-
+ sound/soc/codecs/rt1305.c | 2 +-
+ sound/soc/codecs/rt1308.c | 2 +-
+ sound/soc/codecs/rt5514.c | 2 +-
+ sound/soc/codecs/rt5616.c | 2 +-
+ sound/soc/codecs/rt5640.c | 2 +-
+ sound/soc/codecs/rt5645.c | 2 +-
+ sound/soc/codecs/rt5651.c | 2 +-
+ sound/soc/codecs/rt5659.c | 2 +-
+ sound/soc/codecs/rt5660.c | 2 +-
+ sound/soc/codecs/rt5663.c | 2 +-
+ sound/soc/codecs/rt5665.c | 2 +-
+ sound/soc/codecs/rt5668.c | 2 +-
+ sound/soc/codecs/rt5670.c | 2 +-
+ sound/soc/codecs/rt5677.c | 2 +-
+ sound/soc/codecs/rt5682.c | 6 +++---
+ 18 files changed, 20 insertions(+), 20 deletions(-)
 
-Obviously there are a lot of things an academicist could bring from his
-background to improve the Linux kernel, from the standpoint of security,
-code correctness, speed (efficacy), etc.
+diff --git a/sound/soc/codecs/rt1015.c b/sound/soc/codecs/rt1015.c
+index c0c5952cdff7..6a27dfacd81c 100644
+--- a/sound/soc/codecs/rt1015.c
++++ b/sound/soc/codecs/rt1015.c
+@@ -864,7 +864,7 @@ static int rt1015_set_component_pll(struct snd_soc_component *component,
+ 
+ 	ret = rl6231_pll_calc(freq_in, freq_out, &pll_code);
+ 	if (ret < 0) {
+-		dev_err(component->dev, "Unsupport input clock %d\n", freq_in);
++		dev_err(component->dev, "Unsupported input clock %d\n", freq_in);
+ 		return ret;
+ 	}
+ 
+diff --git a/sound/soc/codecs/rt1016.c b/sound/soc/codecs/rt1016.c
+index 7561d202274c..9845cdddcb4c 100644
+--- a/sound/soc/codecs/rt1016.c
++++ b/sound/soc/codecs/rt1016.c
+@@ -490,7 +490,7 @@ static int rt1016_set_component_pll(struct snd_soc_component *component,
+ 
+ 	ret = rl6231_pll_calc(freq_in, freq_out * 4, &pll_code);
+ 	if (ret < 0) {
+-		dev_err(component->dev, "Unsupport input clock %d\n", freq_in);
++		dev_err(component->dev, "Unsupported input clock %d\n", freq_in);
+ 		return ret;
+ 	}
+ 
+diff --git a/sound/soc/codecs/rt1019.c b/sound/soc/codecs/rt1019.c
+index 8c0b00242bb8..80b7ca0e4e1e 100644
+--- a/sound/soc/codecs/rt1019.c
++++ b/sound/soc/codecs/rt1019.c
+@@ -359,7 +359,7 @@ static int rt1019_set_dai_pll(struct snd_soc_dai *dai, int pll_id, int source,
+ 
+ 	ret = rl6231_pll_calc(freq_in, freq_out, &pll_code);
+ 	if (ret < 0) {
+-		dev_err(component->dev, "Unsupport input clock %d\n", freq_in);
++		dev_err(component->dev, "Unsupported input clock %d\n", freq_in);
+ 		return ret;
+ 	}
+ 
+diff --git a/sound/soc/codecs/rt1305.c b/sound/soc/codecs/rt1305.c
+index 7a0094578e46..a9c473537a91 100644
+--- a/sound/soc/codecs/rt1305.c
++++ b/sound/soc/codecs/rt1305.c
+@@ -841,7 +841,7 @@ static int rt1305_set_component_pll(struct snd_soc_component *component,
+ 
+ 	ret = rl6231_pll_calc(freq_in, freq_out, &pll_code);
+ 	if (ret < 0) {
+-		dev_err(component->dev, "Unsupport input clock %d\n", freq_in);
++		dev_err(component->dev, "Unsupported input clock %d\n", freq_in);
+ 		return ret;
+ 	}
+ 
+diff --git a/sound/soc/codecs/rt1308.c b/sound/soc/codecs/rt1308.c
+index b4e5546e2e21..c555b77b3c5c 100644
+--- a/sound/soc/codecs/rt1308.c
++++ b/sound/soc/codecs/rt1308.c
+@@ -664,7 +664,7 @@ static int rt1308_set_component_pll(struct snd_soc_component *component,
+ 
+ 	ret = rl6231_pll_calc(freq_in, freq_out, &pll_code);
+ 	if (ret < 0) {
+-		dev_err(component->dev, "Unsupport input clock %d\n", freq_in);
++		dev_err(component->dev, "Unsupported input clock %d\n", freq_in);
+ 		return ret;
+ 	}
+ 
+diff --git a/sound/soc/codecs/rt5514.c b/sound/soc/codecs/rt5514.c
+index 4b1ad5054e8d..577680df7052 100644
+--- a/sound/soc/codecs/rt5514.c
++++ b/sound/soc/codecs/rt5514.c
+@@ -936,7 +936,7 @@ static int rt5514_set_dai_pll(struct snd_soc_dai *dai, int pll_id, int source,
+ 
+ 	ret = rl6231_pll_calc(freq_in, freq_out, &pll_code);
+ 	if (ret < 0) {
+-		dev_err(component->dev, "Unsupport input clock %d\n", freq_in);
++		dev_err(component->dev, "Unsupported input clock %d\n", freq_in);
+ 		return ret;
+ 	}
+ 
+diff --git a/sound/soc/codecs/rt5616.c b/sound/soc/codecs/rt5616.c
+index fd0d3a08e9dd..8e6414468a87 100644
+--- a/sound/soc/codecs/rt5616.c
++++ b/sound/soc/codecs/rt5616.c
+@@ -1133,7 +1133,7 @@ static int rt5616_set_dai_pll(struct snd_soc_dai *dai, int pll_id, int source,
+ 
+ 	ret = rl6231_pll_calc(freq_in, freq_out, &pll_code);
+ 	if (ret < 0) {
+-		dev_err(component->dev, "Unsupport input clock %d\n", freq_in);
++		dev_err(component->dev, "Unsupported input clock %d\n", freq_in);
+ 		return ret;
+ 	}
+ 
+diff --git a/sound/soc/codecs/rt5640.c b/sound/soc/codecs/rt5640.c
+index cd1db5caabad..d01fe73ab9c8 100644
+--- a/sound/soc/codecs/rt5640.c
++++ b/sound/soc/codecs/rt5640.c
+@@ -1909,7 +1909,7 @@ static int rt5640_set_dai_pll(struct snd_soc_dai *dai, int pll_id, int source,
+ 
+ 	ret = rl6231_pll_calc(freq_in, freq_out, &pll_code);
+ 	if (ret < 0) {
+-		dev_err(component->dev, "Unsupport input clock %d\n", freq_in);
++		dev_err(component->dev, "Unsupported input clock %d\n", freq_in);
+ 		return ret;
+ 	}
+ 
+diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
+index 9408ee63cb26..197c56047947 100644
+--- a/sound/soc/codecs/rt5645.c
++++ b/sound/soc/codecs/rt5645.c
+@@ -2969,7 +2969,7 @@ static int rt5645_set_dai_pll(struct snd_soc_dai *dai, int pll_id, int source,
+ 
+ 	ret = rl6231_pll_calc(freq_in, freq_out, &pll_code);
+ 	if (ret < 0) {
+-		dev_err(component->dev, "Unsupport input clock %d\n", freq_in);
++		dev_err(component->dev, "Unsupported input clock %d\n", freq_in);
+ 		return ret;
+ 	}
+ 
+diff --git a/sound/soc/codecs/rt5651.c b/sound/soc/codecs/rt5651.c
+index fc0c83b73f09..e78ea101bc8d 100644
+--- a/sound/soc/codecs/rt5651.c
++++ b/sound/soc/codecs/rt5651.c
+@@ -1487,7 +1487,7 @@ static int rt5651_set_dai_pll(struct snd_soc_dai *dai, int pll_id, int source,
+ 
+ 	ret = rl6231_pll_calc(freq_in, freq_out, &pll_code);
+ 	if (ret < 0) {
+-		dev_err(component->dev, "Unsupport input clock %d\n", freq_in);
++		dev_err(component->dev, "Unsupported input clock %d\n", freq_in);
+ 		return ret;
+ 	}
+ 
+diff --git a/sound/soc/codecs/rt5659.c b/sound/soc/codecs/rt5659.c
+index 4a50b169fe03..e1503c2eee81 100644
+--- a/sound/soc/codecs/rt5659.c
++++ b/sound/soc/codecs/rt5659.c
+@@ -3509,7 +3509,7 @@ static int rt5659_set_component_pll(struct snd_soc_component *component, int pll
+ 
+ 	ret = rl6231_pll_calc(freq_in, freq_out, &pll_code);
+ 	if (ret < 0) {
+-		dev_err(component->dev, "Unsupport input clock %d\n", freq_in);
++		dev_err(component->dev, "Unsupported input clock %d\n", freq_in);
+ 		return ret;
+ 	}
+ 
+diff --git a/sound/soc/codecs/rt5660.c b/sound/soc/codecs/rt5660.c
+index 33ff9156358b..3b50fb29864e 100644
+--- a/sound/soc/codecs/rt5660.c
++++ b/sound/soc/codecs/rt5660.c
+@@ -1046,7 +1046,7 @@ static int rt5660_set_dai_pll(struct snd_soc_dai *dai, int pll_id, int source,
+ 
+ 	ret = rl6231_pll_calc(freq_in, freq_out, &pll_code);
+ 	if (ret < 0) {
+-		dev_err(component->dev, "Unsupport input clock %d\n", freq_in);
++		dev_err(component->dev, "Unsupported input clock %d\n", freq_in);
+ 		return ret;
+ 	}
+ 
+diff --git a/sound/soc/codecs/rt5663.c b/sound/soc/codecs/rt5663.c
+index be9fc58ff681..0389b2bb360e 100644
+--- a/sound/soc/codecs/rt5663.c
++++ b/sound/soc/codecs/rt5663.c
+@@ -2941,7 +2941,7 @@ static int rt5663_set_dai_pll(struct snd_soc_dai *dai, int pll_id, int source,
+ 
+ 	ret = rl6231_pll_calc(freq_in, freq_out, &pll_code);
+ 	if (ret < 0) {
+-		dev_err(component->dev, "Unsupport input clock %d\n", freq_in);
++		dev_err(component->dev, "Unsupported input clock %d\n", freq_in);
+ 		return ret;
+ 	}
+ 
+diff --git a/sound/soc/codecs/rt5665.c b/sound/soc/codecs/rt5665.c
+index e59323fd5bf2..33e889802ff8 100644
+--- a/sound/soc/codecs/rt5665.c
++++ b/sound/soc/codecs/rt5665.c
+@@ -4374,7 +4374,7 @@ static int rt5665_set_component_pll(struct snd_soc_component *component, int pll
+ 
+ 	ret = rl6231_pll_calc(freq_in, freq_out, &pll_code);
+ 	if (ret < 0) {
+-		dev_err(component->dev, "Unsupport input clock %d\n", freq_in);
++		dev_err(component->dev, "Unsupported input clock %d\n", freq_in);
+ 		return ret;
+ 	}
+ 
+diff --git a/sound/soc/codecs/rt5668.c b/sound/soc/codecs/rt5668.c
+index 6ab1a8bc3735..fb09715bf932 100644
+--- a/sound/soc/codecs/rt5668.c
++++ b/sound/soc/codecs/rt5668.c
+@@ -2171,7 +2171,7 @@ static int rt5668_set_component_pll(struct snd_soc_component *component,
+ 
+ 	ret = rl6231_pll_calc(freq_in, freq_out, &pll_code);
+ 	if (ret < 0) {
+-		dev_err(component->dev, "Unsupport input clock %d\n", freq_in);
++		dev_err(component->dev, "Unsupported input clock %d\n", freq_in);
+ 		return ret;
+ 	}
+ 
+diff --git a/sound/soc/codecs/rt5670.c b/sound/soc/codecs/rt5670.c
+index ecbaf129a6e3..ce7684752bb0 100644
+--- a/sound/soc/codecs/rt5670.c
++++ b/sound/soc/codecs/rt5670.c
+@@ -2577,7 +2577,7 @@ static int rt5670_set_dai_pll(struct snd_soc_dai *dai, int pll_id, int source,
+ 
+ 	ret = rl6231_pll_calc(freq_in, freq_out, &pll_code);
+ 	if (ret < 0) {
+-		dev_err(component->dev, "Unsupport input clock %d\n", freq_in);
++		dev_err(component->dev, "Unsupported input clock %d\n", freq_in);
+ 		return ret;
+ 	}
+ 
+diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
+index f655228c8c4b..4a8c267d4fbc 100644
+--- a/sound/soc/codecs/rt5677.c
++++ b/sound/soc/codecs/rt5677.c
+@@ -4557,7 +4557,7 @@ static int rt5677_set_dai_pll(struct snd_soc_dai *dai, int pll_id, int source,
+ 
+ 	ret = rt5677_pll_calc(freq_in, freq_out, &pll_code);
+ 	if (ret < 0) {
+-		dev_err(component->dev, "Unsupport input clock %d\n", freq_in);
++		dev_err(component->dev, "Unsupported input clock %d\n", freq_in);
+ 		return ret;
+ 	}
+ 
+diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
+index 4a64cab99c55..12113c2dcae2 100644
+--- a/sound/soc/codecs/rt5682.c
++++ b/sound/soc/codecs/rt5682.c
+@@ -2327,7 +2327,7 @@ static int rt5682_set_component_pll(struct snd_soc_component *component,
+ 		pll2_fout1 = 3840000;
+ 		ret = rl6231_pll_calc(freq_in, pll2_fout1, &pll2f_code);
+ 		if (ret < 0) {
+-			dev_err(component->dev, "Unsupport input clock %d\n",
++			dev_err(component->dev, "Unsupported input clock %d\n",
+ 				freq_in);
+ 			return ret;
+ 		}
+@@ -2339,7 +2339,7 @@ static int rt5682_set_component_pll(struct snd_soc_component *component,
+ 
+ 		ret = rl6231_pll_calc(pll2_fout1, freq_out, &pll2b_code);
+ 		if (ret < 0) {
+-			dev_err(component->dev, "Unsupport input clock %d\n",
++			dev_err(component->dev, "Unsupported input clock %d\n",
+ 				pll2_fout1);
+ 			return ret;
+ 		}
+@@ -2390,7 +2390,7 @@ static int rt5682_set_component_pll(struct snd_soc_component *component,
+ 
+ 		ret = rl6231_pll_calc(freq_in, freq_out, &pll_code);
+ 		if (ret < 0) {
+-			dev_err(component->dev, "Unsupport input clock %d\n",
++			dev_err(component->dev, "Unsupported input clock %d\n",
+ 				freq_in);
+ 			return ret;
+ 		}
+-- 
+2.32.0
 
-My suggestion is to ask Takashi Iwai if he has in mind any fun project a
-novice academicist could try to do with ALSA. He's the maintainer of
-ALSA kernel-side and has a background in academia. He could very well be
-the person most able to give the advice you ask for.
-
-Thanks,
-Geraldo Nascimento
-
-
-> > There's the Linux kernel, a small corner of which is the ALSA subsystem for
-> > sound.
-> >
-> 
-> 
-> -- 
-> Thanks,
-> Sekhar

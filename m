@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2B97419DA9
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Sep 2021 19:56:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9551B419DAA
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Sep 2021 19:56:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5FC4416ED;
-	Mon, 27 Sep 2021 19:55:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FC4416ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1AA216E5;
+	Mon, 27 Sep 2021 19:56:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1AA216E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632765387;
-	bh=GJmf5tv8okvhUb2Nj2NBVWg3C+fz6pux9fl8uwlxm2I=;
+	s=default; t=1632765414;
+	bh=qNtI6u1oaPUxSEX1LWZuJEskpXnJO/H93H1clSrhl3g=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CKJjc4azkYkay3SaDD6eC6He0KgDVbmvo20ekowEPz/q5KrLH1HtjbXjvPVdiyQ1X
-	 R8XdbXaVlGXLasIZg+h0iM78CiM/rYxz4be5TlSNUpyq5C99dwBFTIocTThAdbbz1L
-	 sUNpTJuVqh7PvLVtBvFn3Py+KmE1GCsjvYTbkx/Q=
+	b=PWn7lgEATXuP4cgkNbafAkKeTqAqHsVgKRls1+YDoxigBxuMyORfy+jhXQHFiHU/N
+	 O/DYuk5wVFKtTsDHCFuzdRPAAkE+qYtM/Lt8ndaj8OxHN4nB50lMRPVvoA8quQdskR
+	 h2/wgJjg04SeQT4xYCYoHLUpPFUfRJx+s0otMZoU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EEA81F805AE;
-	Mon, 27 Sep 2021 19:48:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 438A5F805BA;
+	Mon, 27 Sep 2021 19:48:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D2831F80587; Mon, 27 Sep 2021 19:48:13 +0200 (CEST)
+ id E18C8F805BA; Mon, 27 Sep 2021 19:48:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,37 +33,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D6109F8057C
- for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 19:48:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6109F8057C
+ by alsa1.perex.cz (Postfix) with ESMTPS id CBAAFF805AD
+ for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 19:48:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBAAFF805AD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="hvmyTcNq"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 729CB60F92;
- Mon, 27 Sep 2021 17:48:08 +0000 (UTC)
+ header.b="CdvhoOlw"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3B49D6101A;
+ Mon, 27 Sep 2021 17:48:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1632764889;
- bh=GJmf5tv8okvhUb2Nj2NBVWg3C+fz6pux9fl8uwlxm2I=;
+ s=k20201202; t=1632764891;
+ bh=qNtI6u1oaPUxSEX1LWZuJEskpXnJO/H93H1clSrhl3g=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hvmyTcNq2/Z7rGRCG4F9GsSRzqI80PgMP94ZpJJlIA3nVF3x+c/QfhMHwFondttB9
- 0DvkJY+OnEPVQQW4wdNJhZM/E699Xkj1qXCUjgDj5KOq3Bj/UsxJ5VphloAO9POJsk
- luiUIUKHy4FL33MGPzPgHDH6TK6pGaG9FraTTo3jS0j1AomS97EiHwAXHbP5rDX5tW
- AoInMMt+Qfnb1cczVEsjNZSe3zVEBuev5ogjD5dcoVsRJKoCVWSe7XiOTR7iWThWCk
- f3sSavlsq8QfJ5Msi20d7XNzVG4x8Ms+ihCRl7CzEgxglyWdjPdGIyi99xjNzx8bb7
- SfrDK6ul2wBGA==
+ b=CdvhoOlwGIliU/l2Tvifg0nlQ80Khm/nUQ02TQ0Apk/bMHksfxi2zJCoZvN46d3CA
+ QODFeoxFY2/jIOjdO91WrKh1AzHYI297nD3KJtyYDUJnLP/n2KDFOgfvmRElXd6GR7
+ 3GGtjgjvEiTGmniw4FAfUX4u2ZeV+pn7GKwpivnAILXL+JLPdfHt4eYwOLp5+bn9S+
+ bFouOk2V1ueSUaMHFcT7pUjMxE1GNlb6+iWqj4tIsqN3jWfpXW/IKuBoC6FhXhKZZO
+ BFkzdSb5kWIx6o4pIpGkquWVj1WX7udK4uZidJrVcdk/9KNAnIRbTQQWcG5qVxJ5BU
+ bqnU4YtXsh3Ig==
 From: Mark Brown <broonie@kernel.org>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Subject: Re: [PATCH] ASoC: ak4104: Update to modern clocking terminology
-Date: Mon, 27 Sep 2021 18:45:48 +0100
-Message-Id: <163276442021.18200.13376871216481647630.b4-ty@kernel.org>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Liam Girdwood <lgirdwood@gmail.com>
+Subject: Re: [PATCH] ASoC: dt-bindings: wlf, wm8978: Fix I2C address in example
+Date: Mon, 27 Sep 2021 18:45:49 +0100
+Message-Id: <163276442023.18200.17825655146761674998.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210916150922.20183-1-broonie@kernel.org>
-References: <20210916150922.20183-1-broonie@kernel.org>
+In-Reply-To: <0409470fbe6bba69ec74a3f30681b5fe93a372ba.1632470464.git.geert+renesas@glider.be>
+References: <0409470fbe6bba69ec74a3f30681b5fe93a372ba.1632470464.git.geert+renesas@glider.be>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, patches@opensource.cirrus.com,
+ Mark Brown <broonie@kernel.org>, Maxime Ripard <maxime@cerno.tech>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,9 +81,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 16 Sep 2021 16:09:22 +0100, Mark Brown wrote:
-> As part of moving to remove the old style defines for the bus clocks update
-> the ak4104 driver to use more modern terminology for clocking.
+On Fri, 24 Sep 2021 10:02:50 +0200, Geert Uytterhoeven wrote:
+> According to the WM8978 datasheet, the address of the device is fixed as
+> 0011010 in 2-wire mode.
 > 
 > 
 
@@ -91,8 +93,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: ak4104: Update to modern clocking terminology
-      commit: 8515f828c5659337d6dd4e1d5beb2e6708bb9c28
+[1/1] ASoC: dt-bindings: wlf,wm8978: Fix I2C address in example
+      commit: 9208d3ca8cb65748e436c224ed63dbba4a60a3d5
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

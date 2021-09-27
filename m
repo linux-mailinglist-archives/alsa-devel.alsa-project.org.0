@@ -2,81 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B609741988A
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Sep 2021 18:08:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAA4341996E
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Sep 2021 18:43:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D13E16AD;
-	Mon, 27 Sep 2021 18:07:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D13E16AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 25FAB16AB;
+	Mon, 27 Sep 2021 18:42:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25FAB16AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632758919;
-	bh=NmY4iLNblD48EfXVuBOk1k1y1Qzj+Md2ets+P1dvEok=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1632761027;
+	bh=AqQSZ0LWnk6eKBwb5y1OdnvdQzHTckf+fsxfVhKVduI=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OP92+uRjrWO5YBRu7VgaICmQdqMnEYmygw/2fn79O3pmdUvhlStVZjy2UZY2ot6b0
-	 b2Esci102zTIHbWBk2bvbqtY7gBeg9pqXqLBfSYO12CV8XrcrpS7Gzrn2Mq4ZR9qcg
-	 s15ywGLED580JlvgHYh5nQUeRSJWllE7RjqlFZNc=
+	b=GuVMj9FkDaz7aY6J+k73v92GpD6Dm/lS5YuoXSKCL7d9Sgj1tCryVDNVLJxhRbXb9
+	 fNoK8YzxGAi8BtsPb9/I+RBgWGe0QzNU6udvRaRvBH4ZkfLnV7P8xwvcMGh8e8c8rY
+	 E1yjwcBppYC2wn3ItX1uK9x8D1N2BbWrQFezJc/8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71335F8026D;
-	Mon, 27 Sep 2021 18:07:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A279F801F7;
+	Mon, 27 Sep 2021 18:42:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2CB8DF80227; Mon, 27 Sep 2021 18:07:20 +0200 (CEST)
+ id EAED2F80227; Mon, 27 Sep 2021 18:42:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1E64EF80147
- for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 18:07:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E64EF80147
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7F0A7F80147
+ for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 18:42:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F0A7F80147
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="AImongPC"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5E6E760D42;
- Mon, 27 Sep 2021 16:07:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1632758830;
- bh=NmY4iLNblD48EfXVuBOk1k1y1Qzj+Md2ets+P1dvEok=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=AImongPCxDdB9rtE5RHS2TDHbWWnS7ISlbCeL8vzS5LvxeIiUhJdkLx1Knbpg0wVx
- ZSqwTxgvhn0GM+DjuD5nKG6xugu1JAunUf10QwfyaOOIT243gHqKYh+w7i6CDFkyVw
- LTDyIfJeSHS7vX8uC3zRFQeVZHPOKDwBVmBsU9GG66x/9FKJIYY19AAa9rwCpWy0XT
- 7oOZm8YLFtbJWZcUdJH8lymjVAvqM7YPPvY9WDUxt4WGi7TbnBzyJLXcdDlXEJZrX+
- +euGvY7J5b1+ilfN5KajUH7toIS78c7Ws/Ox+Lofx72wsjzS2Wqj0n4/as2LpEpSVB
- htDaB53owQoMg==
-Date: Mon, 27 Sep 2021 17:06:22 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Ryan Lee <RyanS.Lee@maximintegrated.com>
-Subject: Re: [EXTERNAL] Re: [PATCH] ASoC: max98373: Mark cache dirty before
- entering sleep
-Message-ID: <20210927160622.GE4199@sirena.org.uk>
-References: <20210924221305.17886-1-ryans.lee@maximintegrated.com>
- <1b21bbf1-12c7-726d-bff8-76ec88ff8635@linux.intel.com>
- <SJ0PR11MB566107A6AB3D18ABDEDCF245E7A79@SJ0PR11MB5661.namprd11.prod.outlook.com>
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="gC8PsfcZ"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1632760937; h=Content-Type: In-Reply-To: MIME-Version: Date:
+ Message-ID: From: References: Cc: To: Subject: Sender;
+ bh=tNXLBU/PZ17WCoUaf0/R4Nx4u4bAHUYx6txpaYBqN2E=;
+ b=gC8PsfcZCrKo1yK5IOuoLBCy+xJFxljAPDkmo1ZWaHEN50/1mh1yG8mdLFzfr09+kqAXIpfc
+ AZZYRuugQdLhdHm+j9KTq0QmlmrrUJb+HHG0k63guEmsmKz38hSpUpGphMN/XYlSUU+yPyZa
+ znI5wnNZE36t8reDjU3IGOW6vaw=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
+ 6151f466a5a9bab6e89a46c8 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 27 Sep 2021 16:42:14
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 497E0C43616; Mon, 27 Sep 2021 16:42:14 +0000 (UTC)
+Received: from [192.168.239.90] (unknown [157.47.14.236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id B18B4C4338F;
+ Mon, 27 Sep 2021 16:42:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org B18B4C4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+Subject: Re: [PATCH v2 4/5] ASoC: codecs: tx-macro: Update tx default values
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, agross@kernel.org,
+ bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
+ robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
+ perex@perex.cz, tiwai@suse.com, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ swboyd@chromium.org, judyhsiao@chromium.org
+References: <agross@kernel.org; bjorn.andersson@linaro.org;
+ lgirdwood@gmail.com; broonie@kernel.org;robh+dt@kernel.org;
+ plai@codeaurora.org; bgoswami@codeaurora.org; perex@perex.cz;
+ tiwai@suse.com;srinivas.kandagatla@linaro.org; rohitkr@codeaurora.org;
+ linux-arm-msm@vger.kernel.org; alsa-devel@alsa-project.org;
+ devicetree@vger.kernel.org; linux-kernel@vger.kernel.org;
+ swboyd@chromium.org; judyhsiao@chromium.org;>
+ <1632313878-12089-1-git-send-email-srivasam@codeaurora.org>
+ <1632313878-12089-5-git-send-email-srivasam@codeaurora.org>
+ <e65c77f4-766c-a5ce-9cbd-f1697c1be28c@linaro.org>
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Organization: Qualcomm India Private Limited.
+Message-ID: <20ddc4ea-e99c-5492-1931-be1999655563@codeaurora.org>
+Date: Mon, 27 Sep 2021 22:12:03 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="so9zsI5B81VjUb/o"
-Content-Disposition: inline
-In-Reply-To: <SJ0PR11MB566107A6AB3D18ABDEDCF245E7A79@SJ0PR11MB5661.namprd11.prod.outlook.com>
-X-Cookie: 98% lean.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "guennadi.liakhovetski@linux.intel.com"
- <guennadi.liakhovetski@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "ryan.lee.maxim@gmail.com" <ryan.lee.maxim@gmail.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "tiwai@suse.com" <tiwai@suse.com>,
- "sathya.prakash.m.r@intel.com" <sathya.prakash.m.r@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>
+In-Reply-To: <e65c77f4-766c-a5ce-9cbd-f1697c1be28c@linaro.org>
+Content-Language: en-US
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Venkata Prasad Potturu <potturu@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,57 +115,73 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---so9zsI5B81VjUb/o
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 9/27/2021 4:12 PM, Srinivas Kandagatla wrote:
+Thanks for your time Srini!!
+>
+> On 22/09/2021 13:31, Srinivasa Rao Mandadapu wrote:
+>> Update mic control register default values to hardware reset values
+>>
+>> Fixes: c39667ddcfc5 (ASoC: codecs: lpass-tx-macro: add support for 
+>> lpass tx macro)
+>>
+>> Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
+>> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+>> ---
+>>   sound/soc/codecs/lpass-tx-macro.c | 6 +++---
+>>   1 file changed, 3 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/sound/soc/codecs/lpass-tx-macro.c 
+>> b/sound/soc/codecs/lpass-tx-macro.c
+>> index e980b2e..66c39fb 100644
+>> --- a/sound/soc/codecs/lpass-tx-macro.c
+>> +++ b/sound/soc/codecs/lpass-tx-macro.c
+>> @@ -279,7 +279,7 @@ static const struct reg_default tx_defaults[] = {
+>>       { CDC_TX_CLK_RST_CTRL_SWR_CONTROL, 0x00},
+>>       { CDC_TX_TOP_CSR_TOP_CFG0, 0x00},
+>>       { CDC_TX_TOP_CSR_ANC_CFG, 0x00},
+>> -    { CDC_TX_TOP_CSR_SWR_CTRL, 0x00},
+>> +    { CDC_TX_TOP_CSR_SWR_CTRL, 0x60},
+>
+> This does not make sense as this register only has one bit to control.
+> Why do we even need to change this, can you please explain what 
+> happens if we do not change this?
 
-On Mon, Sep 27, 2021 at 04:01:25PM +0000, Ryan Lee wrote:
+This register change is not making any impact. But when verified , reset 
+state of this register is 0x60. so is the reason for change.
 
-> > >       regcache_cache_only(max98373->regmap, true);
-> > > +     regcache_mark_dirty(max98373->regmap);
+Will revert it and post again.
 
-> > We already do the following sequence in max98373_io_init() when the
-> > amplifier re-attaches:
+>
+>>       { CDC_TX_TOP_CSR_FREQ_MCLK, 0x00},
+>>       { CDC_TX_TOP_CSR_DEBUG_BUS, 0x00},
+>>       { CDC_TX_TOP_CSR_DEBUG_EN, 0x00},
+>> @@ -290,8 +290,8 @@ static const struct reg_default tx_defaults[] = {
+>>       { CDC_TX_TOP_CSR_SWR_DMIC1_CTL, 0x00},
+>>       { CDC_TX_TOP_CSR_SWR_DMIC2_CTL, 0x00},
+>>       { CDC_TX_TOP_CSR_SWR_DMIC3_CTL, 0x00},
+>> -    { CDC_TX_TOP_CSR_SWR_AMIC0_CTL, 0x00},
+>> -    { CDC_TX_TOP_CSR_SWR_AMIC1_CTL, 0x00},
+>> +    { CDC_TX_TOP_CSR_SWR_AMIC0_CTL, 0x0E},
+>> +    { CDC_TX_TOP_CSR_SWR_AMIC1_CTL, 0x0E},
+>
+> These two registers should have default value of 0x06 as this has only 
+> one clk selection field with bits 2:1.
 
-> >         if (max98373->first_hw_init) {
-> >                 regcache_cache_bypass(max98373->regmap, false);
-> >                 regcache_mark_dirty(max98373->regmap);
-> >         }
+In Kodiak document reset state 0x0E and clk selection field is with bits 3:1
 
-> > I don't see what marking the cache as dirty on suspend might do, we wil=
-l do a
-> > sync only in the resume step.
+*LPASS_TX_TX_TOP_CSR_SWR_MIC1_CTL*|0x32200D4
+Offset: 	0x54 	Reset State: 	0x0000000E 
+<https://ipcatalog.qualcomm.com/swi/chip/379/version/9247/module/11382675#>
 
-> > IIRC this is a patch that we've seen before and removed since it wasn't
-> > aligned with any other codec driver.
+>
+> -srini
+>
+>
+>>       { CDC_TX_INP_MUX_ADC_MUX0_CFG0, 0x00},
+>>       { CDC_TX_INP_MUX_ADC_MUX0_CFG1, 0x00},
+>>       { CDC_TX_INP_MUX_ADC_MUX1_CFG0, 0x00},
+>>
+-- 
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
 
-> Yes, it does. There was an mute problem report due to amp register reset
-> during suspend/resume. and we confirmed that the modification=20
-> is effective. (https://partnerissuetracker.corp.google.com/issues/1944723=
-31)
-> The added code helps to re-write valid values in cache to the amp hardware
-> when audio resume. Same code was there on i2c driver, but not on Soundwire
-> driver.
-
-More specifically what it does is make the invalidation of the register
-cache unconditional.  It doesn't really matter if the invalidation is
-done on suspend or resume, so long as it happens before we attempt to
-resync - this could also be done by deleting the first_hw_init check.
-
---so9zsI5B81VjUb/o
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFR6/0ACgkQJNaLcl1U
-h9AlVwf+IFJDbNWUe4RoO59zrin1rMYzfMBrOCqZ4s3F5LddOm6lSsgx+egvR3G1
-6zSrQ1Ze7Wlui5zSmWWag3gH5pMASA2VIt47B9jkVteXt5DMAnTxtriHEAW7ra0T
-Sv7oyYOcAhn8PO1Iu4es+og0VAxrkGnftmfTAvfMYMe6FKFSZZHC7+5wc2qEWve3
-/TdY2tettc5/aXnOlW5RBMn1iw488FN3nrMH/WZTxLyQShx77+UxSnAwSDSPo3fs
-/gY8WNN/OUnP+XQ40zfOKymHDzsTv4lsl3hIAeuTEbiLbaN+U/iYVqETfBjNPAS5
-lU/dYbfgOuYgmjZNyr3xG8SCKxTFTQ==
-=VaTn
------END PGP SIGNATURE-----
-
---so9zsI5B81VjUb/o--

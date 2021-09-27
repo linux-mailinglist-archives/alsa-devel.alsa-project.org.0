@@ -2,97 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 108754192B1
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Sep 2021 13:02:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 945E74192EA
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Sep 2021 13:14:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8122F168B;
-	Mon, 27 Sep 2021 13:01:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8122F168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2480A1680;
+	Mon, 27 Sep 2021 13:13:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2480A1680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632740536;
-	bh=Iaf/IR4SFyg/tk/cm26SEoC9bidGQcxlRdgMQcEyO44=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=kG11xkId43QhNNsFplMqhfv9W6MOZnAbZkpRITGi9fZfKP+TiDmijSJ5GAPyHtX5e
-	 ZV0goJOI1L9N4KKnMuoVMrqUDxJl3XRj0kR66bFE35sq0Fc6XDNzSofAPCjeFUOYvq
-	 /4cP6or4vQ0SNI8czOGeqTPKbNlePDvf4iPzFPYo=
+	s=default; t=1632741285;
+	bh=Obou69J0ZHHFKAfckzzyYjXZKHhhNkP2Tyc8VKo294g=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=mq1ygs6WFyKmqwmBLxgQUsIQ9LHizBicQ0QvUKENzWYm7SSxc7oJy1tR1KXGTT9I0
+	 4HmqOwW6COEwbdMUlhTieIsGGMk8uqWLEM5gjKG7OVLl3UbbavLxJYvIyVjFmTVYHX
+	 dghWbNQrIW5LbuN5O4fd2rwfNfo2MMyEG4DdLbpU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD579F8026D;
-	Mon, 27 Sep 2021 13:00:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E11EF8026D;
+	Mon, 27 Sep 2021 13:13:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 720EAF80227; Mon, 27 Sep 2021 13:00:56 +0200 (CEST)
+ id 1D985F80227; Mon, 27 Sep 2021 13:13:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 28345F801EC
- for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 13:00:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28345F801EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 535ABF80161
+ for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 13:13:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 535ABF80161
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="NhQBnKK7"
-Received: by mail-wm1-x331.google.com with SMTP id v127so113124wme.5
- for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 04:00:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=XRPjobKyc5ikQATTaoAB7Ef8aUh+iksQjqZVpv1jq0M=;
- b=NhQBnKK7mtJZsLT0zSi+otuLrck7DozDRVmMoSvgzMD93dzVcJOKzGYhZxIjH4Me/7
- 0Du+8TL/5Zv7xbbGINbEKEr3BlW2T1WtrKDtIxtHwrCWrT1kTf2fvkY0Lkw5Ix/m7wLD
- qgi7LDb45wt2PtYD7GCfsz2zurrBUaZRZnv7e74kb/1JkfaST+mzzlaFg9qNniw/NEg3
- uo3VJkpdIImegi8yjsYhVZbQ+dlKIUEH0N1PclJgtSxmKM3IS3DjqGmB8gHutPGAPfoP
- n+mmVrXB5N6PXNTlSz1wjhNfKwdx/7GK1+CvLRehLUY0ETXlI16Ufwcl5Rs+GX+f1b7F
- FtJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=XRPjobKyc5ikQATTaoAB7Ef8aUh+iksQjqZVpv1jq0M=;
- b=J7S/pRJky7dIP8ukb4PXdhV6HdqmgvVR/lac+F+/cyRKQBCggoWL3uvBURX4dP2Zqc
- LhxPsEVhkJJArPJC8I34fQ9yIV2Bj2vCeL7DGUV/WB12xJz0OHByWceKxjUvBxj7zUdG
- sgZFLMH/ghOg78eGCMIeNUXhLz2tX1o5UL6XxsMP1DsQT6DE0Gn2W8p0B6fo2kkW7cS5
- 5Nz/yyNzqZfkEnuFjaQTr/Fj6WPsH+RpoPM/uALkWSiIsSpDUYRkGi88gjD0ZBo1D7bN
- fai1LmiKqkw96adX9WjkRJI/XNSavg/hNfX7pjI9LQlQb491DiV/PmcSfPKLnZiVb1oQ
- IOdg==
-X-Gm-Message-State: AOAM531R+sWdL8xB00TTy+OH5A1zke8qHaKc8vjzO048ehsMgpKxnVpm
- 0duhDxmiRZYRBWhMpNZOfv5YEA==
-X-Google-Smtp-Source: ABdhPJxdLf3oTwzJd3Le+/Za8FBBJicKwqsOBTFqoxg/0i9px3fsuAJIV0kgo6XJ5xIUB6tdqPE/4A==
-X-Received: by 2002:a05:600c:aca:: with SMTP id
- c10mr15023179wmr.174.1632740447259; 
- Mon, 27 Sep 2021 04:00:47 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id j14sm16114810wrp.21.2021.09.27.04.00.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Sep 2021 04:00:46 -0700 (PDT)
-Subject: Re: [PATCH] ASoC: wcd9335: Use correct version to initialize Class H
-To: Yassine Oudjana <y.oudjana@protonmail.com>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-References: <20210925022339.786296-1-y.oudjana@protonmail.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <43d70ca3-bd14-c83a-12df-8cd64056256a@linaro.org>
-Date: Mon, 27 Sep 2021 12:00:45 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="m3/7vRc3"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18R5p08O014446; 
+ Mon, 27 Sep 2021 06:13:12 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=y7FDb5tsXHdq5KfvuRAGv3XZydF32Fn7d9iLWYmZ9mE=;
+ b=m3/7vRc3skf+138yjIZ4WLt8aDL5rOLq/QZUiBoz6owUA7FakoaX+xRLGF2pAUgVhDPK
+ gDfBBbkJWHe/tth7b0UQ/CwL7ZoemPMJxfEJymuqXtcnFST8bqB8Tn3aGb1yQKIMzn+9
+ oEPX+J8rf8cdc4E9OR0OI0DqcRIHoWsuvE0MhFuExo9UQQdL2DX43+RzN0qeWnePWO9f
+ x/MfdKzIK6YXY/L8KfjrZK1qR/YWs4NGKBv5coYiCbDhhBUpLtFIkmR/VX8h+iwwkdFq
+ 47pyHhgFIrkL9pJ/AjXbCCuppD/w9Cddg/SHC78cdszz3qaI8T5u4jymNl/TGfGfQUhN +Q== 
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0a-001ae601.pphosted.com with ESMTP id 3batd20sdu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 27 Sep 2021 06:13:12 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 27 Sep
+ 2021 12:13:10 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.12 via
+ Frontend Transport; Mon, 27 Sep 2021 12:13:10 +0100
+Received: from vitaly-Inspiron-5415.ad.cirrus.com (unknown [198.90.238.205])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 5D46FB12;
+ Mon, 27 Sep 2021 11:13:07 +0000 (UTC)
+From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+To: James Schulman <james.schulman@cirrus.com>, David Rhodes
+ <david.rhodes@cirrus.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+ <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+ <tiwai@suse.com>
+Subject: [PATCH] ASoC: cs42l42: Add HP Volume Scale control
+Date: Mon, 27 Sep 2021 12:12:44 +0100
+Message-ID: <20210927111244.17906-1-vitalyr@opensource.cirrus.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20210925022339.786296-1-y.oudjana@protonmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: vwx83s-uSV4hpjsv5PhIO0FCcYcH7zgm
+X-Proofpoint-GUID: vwx83s-uSV4hpjsv5PhIO0FCcYcH7zgm
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,41 +98,82 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
 
+cs42l42 has a configurable scaling of the maximum volume. Add an
+ALSA control for this. Note that the datasheet name is "full scale
+volume" but this conflicts with ALSA naming convention so the control
+is named "HP Volume Scale".
 
-On 25/09/2021 03:24, Yassine Oudjana wrote:
-> The versioning scheme was changed in an earlier patch, which caused the version
-> being used to initialize WCD9335 to be interpreted as if it was WCD937X, which
-> changed code paths causing broken headphones output. Pass WCD9335 instead of
-> WCD9335_VERSION_2_0 to wcd_clsh_ctrl_alloc to fix it.
-> 
-> Fixes: 19c5d1f6a0c3 ("ASoC: codecs: wcd-clsh: add new version support")
-> Signed-off-by: Yassine Oudjana <y.oudjana@protonmail.com>
-> ---
+Before this change the FULL_SCALE_VOLUME was set based on the value in
+RLA_STAT, but as there isn't any load detection result this always set
+the scaling to -6dB instead of the default 0dB.
 
-Thanks for the fix,
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+---
+ sound/soc/codecs/cs42l42.c | 25 ++++++++++++-------------
+ 1 file changed, 12 insertions(+), 13 deletions(-)
 
-LGTM,
+diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
+index d5e1e5228b5f..78f8c89410b6 100644
+--- a/sound/soc/codecs/cs42l42.c
++++ b/sound/soc/codecs/cs42l42.c
+@@ -425,6 +425,14 @@ static SOC_ENUM_SINGLE_DECL(cs42l42_wnf3_freq_enum, CS42L42_ADC_WNF_HPF_CTL,
+ 			    CS42L42_ADC_WNF_CF_SHIFT,
+ 			    cs42l42_wnf3_freq_text);
+ 
++static const char * const cs42l42_full_scale_vol_text[] = {
++	"0dB", "-6dB"
++};
++
++static SOC_ENUM_SINGLE_DECL(cs42l42_full_scale_vol_enum, CS42L42_HP_CTL,
++			    CS42L42_HP_FULL_SCALE_VOL_SHIFT,
++			    cs42l42_full_scale_vol_text);
++
+ static const struct snd_kcontrol_new cs42l42_snd_controls[] = {
+ 	/* ADC Volume and Filter Controls */
+ 	SOC_SINGLE("ADC Notch Switch", CS42L42_ADC_CTL,
+@@ -450,6 +458,7 @@ static const struct snd_kcontrol_new cs42l42_snd_controls[] = {
+ 				CS42L42_DACB_INV_SHIFT, true, false),
+ 	SOC_SINGLE("DAC HPF Switch", CS42L42_DAC_CTL2,
+ 				CS42L42_DAC_HPF_EN_SHIFT, true, false),
++	SOC_ENUM("HP Volume Scale", cs42l42_full_scale_vol_enum),
+ 	SOC_DOUBLE_R_TLV("Mixer Volume", CS42L42_MIXER_CHA_VOL,
+ 			 CS42L42_MIXER_CHB_VOL, CS42L42_MIXER_CH_VOL_SHIFT,
+ 				0x3f, 1, mixer_tlv)
+@@ -922,7 +931,6 @@ static int cs42l42_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
+ 	struct snd_soc_component *component = dai->component;
+ 	struct cs42l42_private *cs42l42 = snd_soc_component_get_drvdata(component);
+ 	unsigned int regval;
+-	u8 fullScaleVol;
+ 	int ret;
+ 
+ 	if (mute) {
+@@ -993,20 +1001,11 @@ static int cs42l42_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
+ 		cs42l42->stream_use |= 1 << stream;
+ 
+ 		if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
+-			/* Read the headphone load */
+-			regval = snd_soc_component_read(component, CS42L42_LOAD_DET_RCSTAT);
+-			if (((regval & CS42L42_RLA_STAT_MASK) >> CS42L42_RLA_STAT_SHIFT) ==
+-			    CS42L42_RLA_STAT_15_OHM) {
+-				fullScaleVol = CS42L42_HP_FULL_SCALE_VOL_MASK;
+-			} else {
+-				fullScaleVol = 0;
+-			}
+-
+-			/* Un-mute the headphone, set the full scale volume flag */
++			/* Un-mute the headphone */
+ 			snd_soc_component_update_bits(component, CS42L42_HP_CTL,
+ 						      CS42L42_HP_ANA_AMUTE_MASK |
+-						      CS42L42_HP_ANA_BMUTE_MASK |
+-						      CS42L42_HP_FULL_SCALE_VOL_MASK, fullScaleVol);
++						      CS42L42_HP_ANA_BMUTE_MASK,
++						      0);
+ 		}
+ 	}
+ 
+-- 
+2.25.1
 
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-
---srini
-
-
->   sound/soc/codecs/wcd9335.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
-> index d885ced34f60..bc5d68c53e5a 100644
-> --- a/sound/soc/codecs/wcd9335.c
-> +++ b/sound/soc/codecs/wcd9335.c
-> @@ -4859,7 +4859,7 @@ static int wcd9335_codec_probe(struct snd_soc_component *component)
->   
->   	snd_soc_component_init_regmap(component, wcd->regmap);
->   	/* Class-H Init*/
-> -	wcd->clsh_ctrl = wcd_clsh_ctrl_alloc(component, wcd->version);
-> +	wcd->clsh_ctrl = wcd_clsh_ctrl_alloc(component, WCD9335);
->   	if (IS_ERR(wcd->clsh_ctrl))
->   		return PTR_ERR(wcd->clsh_ctrl);
->   
-> 

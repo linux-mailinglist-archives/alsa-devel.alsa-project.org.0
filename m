@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FFE74193DE
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Sep 2021 14:09:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 326A84193DF
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Sep 2021 14:10:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 20CC916BC;
-	Mon, 27 Sep 2021 14:09:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20CC916BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8B5B16BB;
+	Mon, 27 Sep 2021 14:09:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8B5B16BB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632744595;
-	bh=MForHqtdzc3pJ2jnD4m8KC4qcTW2Kpk2E2jY7XdMwTo=;
+	s=default; t=1632744629;
+	bh=z6j/JAKde6kLhJVL/ntG4qZ7ONtDJA06S5nthDCMCwc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PTjng5Rlps7ADi5N6osedn+Kpi4yom52IGkz/us2J3B+OS1DGaW1xiBUpTT5S8uma
-	 2moaOTgxVoP5ewM/EPggyKJLspqcycgprKc8Sm75FfIwBSp86BmIxB+/O1+Zn6Lyma
-	 TJxIl1PZ7L4yzRftXGtAJH0hkU2Y/DRM4H6+qvVI=
+	b=qwTNHB5Kit8D9c3zV39aIc1yZcIWlifxAG8QRYomwI9/orC5ia+oH1+wSa6gqW+6V
+	 vmkP2K5l8nGaCmeAGk8j6aU59d3cLUDMdeeBdYGqVRvW6mZsLyX8RQ/QbvOYUKsIrq
+	 ybKbuhWhKZojxGQwAD/9X6d27hzrzpaWoinBLB+o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50ACCF80520;
-	Mon, 27 Sep 2021 14:06:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9F6BF80539;
+	Mon, 27 Sep 2021 14:06:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 12C4DF8051B; Mon, 27 Sep 2021 14:05:58 +0200 (CEST)
+ id 3F922F80529; Mon, 27 Sep 2021 14:06:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,25 +33,26 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 873E1F80508
- for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 14:05:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 873E1F80508
-X-IronPort-AV: E=McAfee;i="6200,9189,10119"; a="221260527"
-X-IronPort-AV: E=Sophos;i="5.85,326,1624345200"; d="scan'208";a="221260527"
+ by alsa1.perex.cz (Postfix) with ESMTPS id D2C50F8050F
+ for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 14:05:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2C50F8050F
+X-IronPort-AV: E=McAfee;i="6200,9189,10119"; a="221260532"
+X-IronPort-AV: E=Sophos;i="5.85,326,1624345200"; d="scan'208";a="221260532"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2021 05:05:47 -0700
-X-IronPort-AV: E=Sophos;i="5.85,326,1624345200"; d="scan'208";a="553164477"
+ 27 Sep 2021 05:05:50 -0700
+X-IronPort-AV: E=Sophos;i="5.85,326,1624345200"; d="scan'208";a="553164487"
 Received: from unknown (HELO pujfalus-desk.ger.corp.intel.com)
  ([10.251.220.221])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2021 05:05:45 -0700
+ 27 Sep 2021 05:05:47 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com, broonie@kernel.org,
  pierre-louis.bossart@linux.intel.com, daniel.baluta@nxp.com
-Subject: [PATCH v3 11/12] ASoC: SOF: Add support for dynamic pipelines
-Date: Mon, 27 Sep 2021 15:05:16 +0300
-Message-Id: <20210927120517.20505-12-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH v3 12/12] ASoC: SOF: topology: Add kernel parameter for
+ topology verification
+Date: Mon, 27 Sep 2021 15:05:17 +0300
+Message-Id: <20210927120517.20505-13-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210927120517.20505-1-peter.ujfalusi@linux.intel.com>
 References: <20210927120517.20505-1-peter.ujfalusi@linux.intel.com>
@@ -77,23 +78,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-Add support for dynamic pipelines by modifying the PCM
-hw_params ioctl implementation to determine the widgets
-required for a PCM stream by querying the list of
-connected DAPM widgets. This list is saved as part of
-snd_sof_pcm_stream struct and will be used to setup the widgets.
-
-The sof_widget_list_setup/free routines setup and free connected
-DAPM widgets when a PCM is opened/closed. These routines accept
-a list of connected DAPM widgets as input and determine the SOF
-widgets, their corresponding pipeline widgets and connections
-between them that need to be setup before the PCM is triggered.
-
-Please note that the dynamic pipeline feature will only be enabled
-for those pipelines whose dynamic_pipeline_widget flag is set in
-topologies. Add a new token called SOF_TKN_SCHED_DYNAMIC_PIPELINE
-that when set in topology will be applied to the
-dynamic_pipeline_widget flag of the pipeline widget.
+Add a kernel debug flag to enable a one-shot topology
+verification for all pipelines including the dynamic
+ones. If the debug flag is set, all the topology
+component loading will be verified during the complete
+callback.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
@@ -102,613 +91,178 @@ Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/sof/intel/hda.c |  22 +--
- sound/soc/sof/pcm.c       |  58 +++++-
- sound/soc/sof/sof-audio.c | 358 +++++++++++++++++++++++++++++++++-----
- sound/soc/sof/sof-audio.h |   6 +
- 4 files changed, 390 insertions(+), 54 deletions(-)
+ sound/soc/sof/pm.c        |  4 ++--
+ sound/soc/sof/sof-audio.c | 37 +++++++++++++++++++++++++------------
+ sound/soc/sof/sof-audio.h |  4 ++--
+ sound/soc/sof/sof-priv.h  |  1 +
+ sound/soc/sof/topology.c  | 17 ++++++++++++++++-
+ 5 files changed, 46 insertions(+), 17 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 8e2613a7ea9d..066e90506ae6 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -41,17 +41,6 @@
- #define EXCEPT_MAX_HDR_SIZE	0x400
- #define HDA_EXT_ROM_STATUS_SIZE 8
- 
--static const struct sof_intel_dsp_desc
--	*get_chip_info(struct snd_sof_pdata *pdata)
--{
--	const struct sof_dev_desc *desc = pdata->desc;
--	const struct sof_intel_dsp_desc *chip_info;
--
--	chip_info = desc->chip_info;
--
--	return chip_info;
--}
--
- int hda_ctrl_dai_widget_setup(struct snd_soc_dapm_widget *w)
- {
- 	struct snd_sof_widget *swidget = w->dobj.private;
-@@ -132,6 +121,17 @@ int hda_ctrl_dai_widget_free(struct snd_soc_dapm_widget *w)
- 	return sof_widget_free(sdev, swidget);
- }
- 
-+static const struct sof_intel_dsp_desc
-+	*get_chip_info(struct snd_sof_pdata *pdata)
-+{
-+	const struct sof_dev_desc *desc = pdata->desc;
-+	const struct sof_intel_dsp_desc *chip_info;
-+
-+	chip_info = desc->chip_info;
-+
-+	return chip_info;
-+}
-+
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE)
- 
- /*
-diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
-index b4280459e5db..374df2dfa816 100644
---- a/sound/soc/sof/pcm.c
-+++ b/sound/soc/sof/pcm.c
-@@ -116,6 +116,40 @@ static int sof_pcm_dsp_pcm_free(struct snd_pcm_substream *substream,
- 	return ret;
- }
- 
-+static int sof_pcm_setup_connected_widgets(struct snd_sof_dev *sdev,
-+					   struct snd_soc_pcm_runtime *rtd,
-+					   struct snd_sof_pcm *spcm, int dir)
-+{
-+	struct snd_soc_dai *dai;
-+	int ret, j;
-+
-+	/* query DAPM for list of connected widgets and set them up */
-+	for_each_rtd_cpu_dais(rtd, j, dai) {
-+		struct snd_soc_dapm_widget_list *list;
-+
-+		ret = snd_soc_dapm_dai_get_connected_widgets(dai, dir, &list,
-+							     dpcm_end_walk_at_be);
-+		if (ret < 0) {
-+			dev_err(sdev->dev, "error: dai %s has no valid %s path\n", dai->name,
-+				dir == SNDRV_PCM_STREAM_PLAYBACK ? "playback" : "capture");
-+			return ret;
-+		}
-+
-+		spcm->stream[dir].list = list;
-+
-+		ret = sof_widget_list_setup(sdev, spcm, dir);
-+		if (ret < 0) {
-+			dev_err(sdev->dev, "error: failed widget list set up for pcm %d dir %d\n",
-+				spcm->pcm.pcm_id, dir);
-+			spcm->stream[dir].list = NULL;
-+			snd_soc_dapm_dai_free_widgets(&list);
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- static int sof_pcm_hw_params(struct snd_soc_component *component,
- 			     struct snd_pcm_substream *substream,
- 			     struct snd_pcm_hw_params *params)
-@@ -213,7 +247,14 @@ static int sof_pcm_hw_params(struct snd_soc_component *component,
- 
- 	dev_dbg(component->dev, "stream_tag %d", pcm.params.stream_tag);
- 
--	/* send IPC to the DSP */
-+	/* if this is a repeated hw_params without hw_free, skip setting up widgets */
-+	if (!spcm->stream[substream->stream].list) {
-+		ret = sof_pcm_setup_connected_widgets(sdev, rtd, spcm, substream->stream);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	/* send hw_params IPC to the DSP */
- 	ret = sof_ipc_tx_message(sdev->ipc, pcm.hdr.cmd, &pcm, sizeof(pcm),
- 				 &ipc_params_reply, sizeof(ipc_params_reply));
- 	if (ret < 0) {
-@@ -259,6 +300,10 @@ static int sof_pcm_hw_free(struct snd_soc_component *component,
- 			err = ret;
+diff --git a/sound/soc/sof/pm.c b/sound/soc/sof/pm.c
+index ea27567d2fe4..9ec091130323 100644
+--- a/sound/soc/sof/pm.c
++++ b/sound/soc/sof/pm.c
+@@ -157,7 +157,7 @@ static int sof_resume(struct device *dev, bool runtime_resume)
  	}
  
-+	ret = sof_widget_list_free(sdev, spcm, substream->stream);
-+	if (ret < 0)
-+		err = ret;
-+
- 	cancel_work_sync(&spcm->stream[substream->stream].period_elapsed_work);
+ 	/* restore pipelines */
+-	ret = sof_set_up_pipelines(sdev->dev);
++	ret = sof_set_up_pipelines(sdev->dev, false);
+ 	if (ret < 0) {
+ 		dev_err(sdev->dev,
+ 			"error: failed to restore pipeline after resume %d\n",
+@@ -208,7 +208,7 @@ static int sof_suspend(struct device *dev, bool runtime_suspend)
+ 	if (target_state == SOF_DSP_PM_D0)
+ 		goto suspend;
  
- 	ret = snd_sof_pcm_platform_hw_free(sdev, substream);
-@@ -316,6 +361,7 @@ static int sof_pcm_trigger(struct snd_soc_component *component,
- 	struct sof_ipc_stream stream;
- 	struct sof_ipc_reply reply;
- 	bool reset_hw_params = false;
-+	bool free_widget_list = false;
- 	bool ipc_first = false;
- 	int ret;
+-	sof_tear_down_pipelines(dev);
++	sof_tear_down_pipelines(dev, false);
  
-@@ -386,6 +432,7 @@ static int sof_pcm_trigger(struct snd_soc_component *component,
- 			spcm->stream[substream->stream].suspend_ignored = true;
- 			return 0;
- 		}
-+		free_widget_list = true;
- 		fallthrough;
- 	case SNDRV_PCM_TRIGGER_STOP:
- 		stream.hdr.cmd |= SOF_IPC_STREAM_TRIG_STOP;
-@@ -414,8 +461,15 @@ static int sof_pcm_trigger(struct snd_soc_component *component,
- 		snd_sof_pcm_platform_trigger(sdev, substream, cmd);
- 
- 	/* free PCM if reset_hw_params is set and the STOP IPC is successful */
--	if (!ret && reset_hw_params)
-+	if (!ret && reset_hw_params) {
- 		ret = sof_pcm_dsp_pcm_free(substream, sdev, spcm);
-+		if (ret < 0)
-+			return ret;
-+
-+		/* free widget list only for SUSPEND trigger */
-+		if (free_widget_list)
-+			ret = sof_widget_list_free(sdev, spcm, substream->stream);
-+	}
- 
- 	return ret;
- }
+ 	/* release trace */
+ 	snd_sof_release_trace(sdev);
 diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
-index bf5e7c7019a5..7b4dd64576fa 100644
+index 7b4dd64576fa..c4cabe26b157 100644
 --- a/sound/soc/sof/sof-audio.c
 +++ b/sound/soc/sof/sof-audio.c
-@@ -83,6 +83,15 @@ static int sof_widget_kcontrol_setup(struct snd_sof_dev *sdev, struct snd_sof_wi
- 	return 0;
+@@ -589,7 +589,7 @@ const struct sof_ipc_pipe_new *snd_sof_pipeline_find(struct snd_sof_dev *sdev,
+ 	return NULL;
  }
  
-+static void sof_reset_route_setup_status(struct snd_sof_dev *sdev, struct snd_sof_widget *widget)
-+{
-+	struct snd_sof_route *sroute;
-+
-+	list_for_each_entry(sroute, &sdev->route_list, list)
-+		if (sroute->src_widget == widget || sroute->sink_widget == widget)
-+			sroute->setup = false;
-+}
-+
- int sof_widget_free(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget)
+-int sof_set_up_pipelines(struct device *dev)
++int sof_set_up_pipelines(struct device *dev, bool verify)
  {
- 	struct sof_ipc_free ipc_free = {
-@@ -122,6 +131,8 @@ int sof_widget_free(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget)
- 		return ret;
- 	}
+ 	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
+ 	struct snd_sof_widget *swidget;
+@@ -599,7 +599,7 @@ int sof_set_up_pipelines(struct device *dev)
+ 	/* restore pipeline components */
+ 	list_for_each_entry_reverse(swidget, &sdev->widget_list, list) {
+ 		/* only set up the widgets belonging to static pipelines */
+-		if (swidget->dynamic_pipeline_widget)
++		if (!verify && swidget->dynamic_pipeline_widget)
+ 			continue;
  
-+	/* reset route setup status for all routes that contain this widget */
-+	sof_reset_route_setup_status(sdev, swidget);
- 	swidget->complete = 0;
- 	dev_dbg(sdev->dev, "widget %s freed\n", swidget->widget->name);
+ 		/* update DAI config. The IPC will be sent in sof_widget_setup() */
+@@ -630,8 +630,8 @@ int sof_set_up_pipelines(struct device *dev)
+ 	list_for_each_entry(sroute, &sdev->route_list, list) {
  
-@@ -172,6 +183,19 @@ int sof_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget)
+ 		/* only set up routes belonging to static pipelines */
+-		if (sroute->src_widget->dynamic_pipeline_widget ||
+-		    sroute->sink_widget->dynamic_pipeline_widget)
++		if (!verify && (sroute->src_widget->dynamic_pipeline_widget ||
++				sroute->sink_widget->dynamic_pipeline_widget))
+ 			continue;
  
- 		ret = sof_ipc_tx_message(sdev->ipc, comp->hdr.cmd, comp, ipc_size, &r, sizeof(r));
- 		kfree(comp);
-+		if (ret < 0) {
-+			dev_err(sdev->dev, "error: failed to load widget %s\n",
-+				swidget->widget->name);
-+			goto use_count_dec;
-+		}
-+
-+		ret = sof_dai_config_setup(sdev, dai);
-+		if (ret < 0) {
-+			dev_err(sdev->dev, "error: failed to load dai config for DAI %s\n",
-+				swidget->widget->name);
-+			sof_widget_free(sdev, swidget);
-+			return ret;
-+		}
- 		break;
- 	case snd_soc_dapm_scheduler:
- 		pipeline = swidget->private;
-@@ -193,6 +217,7 @@ int sof_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget)
- 	if (ret < 0) {
- 		dev_err(sdev->dev, "error: failed to restore kcontrols for widget %s\n",
- 			swidget->widget->name);
-+		sof_widget_free(sdev, swidget);
- 		return ret;
- 	}
+ 		ret = sof_route_setup_ipc(sdev, sroute);
+@@ -646,7 +646,7 @@ int sof_set_up_pipelines(struct device *dev)
+ 		switch (swidget->id) {
+ 		case snd_soc_dapm_scheduler:
+ 			/* only complete static pipelines */
+-			if (swidget->dynamic_pipeline_widget)
++			if (!verify && swidget->dynamic_pipeline_widget)
+ 				continue;
  
-@@ -206,6 +231,266 @@ int sof_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget)
+ 			swidget->complete =
+@@ -661,24 +661,37 @@ int sof_set_up_pipelines(struct device *dev)
  }
- EXPORT_SYMBOL(sof_widget_setup);
  
-+static int sof_route_setup_ipc(struct snd_sof_dev *sdev, struct snd_sof_route *sroute)
-+{
-+	struct sof_ipc_pipe_comp_connect *connect;
-+	struct sof_ipc_reply reply;
-+	int ret;
-+
-+	/* skip if there's no private data */
-+	if (!sroute->private)
-+		return 0;
-+
-+	/* nothing to do if route is already set up */
-+	if (sroute->setup)
-+		return 0;
-+
-+	connect = sroute->private;
-+
-+	dev_dbg(sdev->dev, "setting up route %s -> %s\n",
-+		sroute->src_widget->widget->name,
-+		sroute->sink_widget->widget->name);
-+
-+	/* send ipc */
-+	ret = sof_ipc_tx_message(sdev->ipc,
-+				 connect->hdr.cmd,
-+				 connect, sizeof(*connect),
-+				 &reply, sizeof(reply));
-+	if (ret < 0) {
-+		dev_err(sdev->dev, "%s: route setup failed %d\n", __func__, ret);
-+		return ret;
-+	}
-+
-+	sroute->setup = true;
-+
-+	return 0;
-+}
-+
-+static int sof_route_setup(struct snd_sof_dev *sdev, struct snd_soc_dapm_widget *wsource,
-+			   struct snd_soc_dapm_widget *wsink)
-+{
-+	struct snd_sof_widget *src_widget = wsource->dobj.private;
-+	struct snd_sof_widget *sink_widget = wsink->dobj.private;
-+	struct snd_sof_route *sroute;
-+	bool route_found = false;
-+
-+	/* ignore routes involving virtual widgets in topology */
-+	switch (src_widget->id) {
-+	case snd_soc_dapm_out_drv:
-+	case snd_soc_dapm_output:
-+	case snd_soc_dapm_input:
-+		return 0;
-+	default:
-+		break;
-+	}
-+
-+	switch (sink_widget->id) {
-+	case snd_soc_dapm_out_drv:
-+	case snd_soc_dapm_output:
-+	case snd_soc_dapm_input:
-+		return 0;
-+	default:
-+		break;
-+	}
-+
-+	/* find route matching source and sink widgets */
-+	list_for_each_entry(sroute, &sdev->route_list, list)
-+		if (sroute->src_widget == src_widget && sroute->sink_widget == sink_widget) {
-+			route_found = true;
-+			break;
-+		}
-+
-+	if (!route_found) {
-+		dev_err(sdev->dev, "error: cannot find SOF route for source %s -> %s sink\n",
-+			wsource->name, wsink->name);
-+		return -EINVAL;
-+	}
-+
-+	return sof_route_setup_ipc(sdev, sroute);
-+}
-+
-+static int sof_setup_pipeline_connections(struct snd_sof_dev *sdev,
-+					  struct snd_soc_dapm_widget_list *list, int dir)
-+{
-+	struct snd_soc_dapm_widget *widget;
-+	struct snd_soc_dapm_path *p;
-+	int ret;
-+	int i;
-+
-+	/*
-+	 * Set up connections between widgets in the sink/source paths based on direction.
-+	 * Some non-SOF widgets exist in topology either for compatibility or for the
-+	 * purpose of connecting a pipeline from a host to a DAI in order to receive the DAPM
-+	 * events. But they are not handled by the firmware. So ignore them.
-+	 */
-+	if (dir == SNDRV_PCM_STREAM_PLAYBACK) {
-+		for_each_dapm_widgets(list, i, widget) {
-+			if (!widget->dobj.private)
-+				continue;
-+
-+			snd_soc_dapm_widget_for_each_sink_path(widget, p)
-+				if (p->sink->dobj.private) {
-+					ret = sof_route_setup(sdev, widget, p->sink);
-+					if (ret < 0)
-+						return ret;
-+				}
-+		}
-+	} else {
-+		for_each_dapm_widgets(list, i, widget) {
-+			if (!widget->dobj.private)
-+				continue;
-+
-+			snd_soc_dapm_widget_for_each_source_path(widget, p)
-+				if (p->source->dobj.private) {
-+					ret = sof_route_setup(sdev, p->source, widget);
-+					if (ret < 0)
-+						return ret;
-+				}
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+int sof_widget_list_setup(struct snd_sof_dev *sdev, struct snd_sof_pcm *spcm, int dir)
-+{
-+	struct snd_soc_dapm_widget_list *list = spcm->stream[dir].list;
-+	struct snd_soc_dapm_widget *widget;
-+	int i, ret, num_widgets;
-+
-+	/* nothing to set up */
-+	if (!list)
-+		return 0;
-+
-+	/* set up widgets in the list */
-+	for_each_dapm_widgets(list, num_widgets, widget) {
-+		struct snd_sof_widget *swidget = widget->dobj.private;
-+		struct snd_sof_widget *pipe_widget;
-+
-+		if (!swidget)
-+			continue;
-+
-+		/*
-+		 * The scheduler widget for a pipeline is not part of the connected DAPM
-+		 * widget list and it needs to be set up before the widgets in the pipeline
-+		 * are set up. The use_count for the scheduler widget is incremented for every
-+		 * widget in a given pipeline to ensure that it is freed only after the last
-+		 * widget in the pipeline is freed.
-+		 */
-+		pipe_widget = swidget->pipe_widget;
-+		if (!pipe_widget) {
-+			dev_err(sdev->dev, "error: no pipeline widget found for %s\n",
-+				swidget->widget->name);
-+			ret = -EINVAL;
-+			goto widget_free;
-+		}
-+
-+		ret = sof_widget_setup(sdev, pipe_widget);
-+		if (ret < 0)
-+			goto widget_free;
-+
-+		/* set up the widget */
-+		ret = sof_widget_setup(sdev, swidget);
-+		if (ret < 0) {
-+			sof_widget_free(sdev, pipe_widget);
-+			goto widget_free;
-+		}
-+	}
-+
-+	/*
-+	 * error in setting pipeline connections will result in route status being reset for
-+	 * routes that were successfully set up when the widgets are freed.
-+	 */
-+	ret = sof_setup_pipeline_connections(sdev, list, dir);
-+	if (ret < 0)
-+		goto widget_free;
-+
-+	/* complete pipelines */
-+	for_each_dapm_widgets(list, i, widget) {
-+		struct snd_sof_widget *swidget = widget->dobj.private;
-+		struct snd_sof_widget *pipe_widget;
-+
-+		if (!swidget)
-+			continue;
-+
-+		pipe_widget = swidget->pipe_widget;
-+		if (!pipe_widget) {
-+			dev_err(sdev->dev, "error: no pipeline widget found for %s\n",
-+				swidget->widget->name);
-+			ret = -EINVAL;
-+			goto widget_free;
-+		}
-+
-+		if (pipe_widget->complete)
-+			continue;
-+
-+		pipe_widget->complete = snd_sof_complete_pipeline(sdev->dev, pipe_widget);
-+		if (pipe_widget->complete < 0) {
-+			ret = pipe_widget->complete;
-+			goto widget_free;
-+		}
-+	}
-+
-+	return 0;
-+
-+widget_free:
-+	/* free all widgets that have been set up successfully */
-+	for_each_dapm_widgets(list, i, widget) {
-+		struct snd_sof_widget *swidget = widget->dobj.private;
-+
-+		if (!swidget)
-+			continue;
-+
-+		if (!num_widgets--)
-+			break;
-+
-+		sof_widget_free(sdev, swidget);
-+		sof_widget_free(sdev, swidget->pipe_widget);
-+	}
-+
-+	return ret;
-+}
-+
-+int sof_widget_list_free(struct snd_sof_dev *sdev, struct snd_sof_pcm *spcm, int dir)
-+{
-+	struct snd_soc_dapm_widget_list *list = spcm->stream[dir].list;
-+	struct snd_soc_dapm_widget *widget;
-+	int i, ret;
-+	int ret1 = 0;
-+
-+	/* nothing to free */
-+	if (!list)
-+		return 0;
-+
-+	/*
-+	 * Free widgets in the list. This can fail but continue freeing other widgets to keep
-+	 * use_counts balanced.
-+	 */
-+	for_each_dapm_widgets(list, i, widget) {
-+		struct snd_sof_widget *swidget = widget->dobj.private;
-+
-+		if (!swidget)
-+			continue;
-+
-+		/*
-+		 * free widget and its pipe_widget. Either of these can fail, but free as many as
-+		 * possible before freeing the list and returning the error.
-+		 */
-+		ret = sof_widget_free(sdev, swidget);
-+		if (ret < 0)
-+			ret1 = ret;
-+
-+		ret = sof_widget_free(sdev, swidget->pipe_widget);
-+		if (ret < 0)
-+			ret1 = ret;
-+	}
-+
-+	snd_soc_dapm_dai_free_widgets(&list);
-+	spcm->stream[dir].list = NULL;
-+
-+	return ret1;
-+}
-+
  /*
-  * helper to determine if there are only D0i3 compatible
-  * streams active
-@@ -309,13 +594,32 @@ int sof_set_up_pipelines(struct device *dev)
+- * This function doesn't free widgets. It only resets the set up status for all routes and
+- * use_count for all widgets.
++ * This function doesn't free widgets during suspend. It only resets the set up status for all
++ * routes and use_count for all widgets.
+  */
+-void sof_tear_down_pipelines(struct device *dev)
++int sof_tear_down_pipelines(struct device *dev, bool verify)
+ {
  	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
  	struct snd_sof_widget *swidget;
  	struct snd_sof_route *sroute;
--	struct snd_sof_dai *dai;
- 	int ret;
++	int ret;
  
- 	/* restore pipeline components */
- 	list_for_each_entry_reverse(swidget, &sdev->widget_list, list) {
--		/* reset widget use_count after resuming */
+ 	/*
+-	 * No need to protect swidget->use_count and sroute->setup as this function is called only
+-	 * during the suspend callback and all streams should be suspended by then
++	 * This function is called during suspend and for one-time topology verification during
++	 * first boot. In both cases, there is no need to protect swidget->use_count and
++	 * sroute->setup because during suspend all streams are suspended and during topology
++	 * loading the sound card unavailable to open PCMs.
+ 	 */
+-	list_for_each_entry(swidget, &sdev->widget_list, list)
 -		swidget->use_count = 0;
-+		/* only set up the widgets belonging to static pipelines */
-+		if (swidget->dynamic_pipeline_widget)
++	list_for_each_entry_reverse(swidget, &sdev->widget_list, list) {
++		if (!verify) {
++			swidget->use_count = 0;
 +			continue;
-+
-+		/* update DAI config. The IPC will be sent in sof_widget_setup() */
-+		if (WIDGET_IS_DAI(swidget->id)) {
-+			struct snd_sof_dai *dai = swidget->private;
-+			struct sof_ipc_dai_config *config;
-+
-+			if (!dai || !dai->dai_config)
-+				continue;
-+
-+			config = dai->dai_config;
-+			/*
-+			 * The link DMA channel would be invalidated for running
-+			 * streams but not for streams that were in the PAUSED
-+			 * state during suspend. So invalidate it here before setting
-+			 * the dai config in the DSP.
-+			 */
-+			if (config->type == SOF_DAI_INTEL_HDA)
-+				config->hda.link_dma_ch = DMA_CHAN_INVALID;
 +		}
- 
- 		ret = sof_widget_setup(sdev, swidget);
- 		if (ret < 0)
-@@ -323,56 +627,28 @@ int sof_set_up_pipelines(struct device *dev)
- 	}
- 
- 	/* restore pipeline connections */
--	list_for_each_entry_reverse(sroute, &sdev->route_list, list) {
--		struct sof_ipc_pipe_comp_connect *connect;
--		struct sof_ipc_reply reply;
-+	list_for_each_entry(sroute, &sdev->route_list, list) {
- 
--		/* skip if there's no private data */
--		if (!sroute->private)
-+		/* only set up routes belonging to static pipelines */
-+		if (sroute->src_widget->dynamic_pipeline_widget ||
-+		    sroute->sink_widget->dynamic_pipeline_widget)
- 			continue;
- 
--		connect = sroute->private;
--
--		/* send ipc */
--		ret = sof_ipc_tx_message(sdev->ipc,
--					 connect->hdr.cmd,
--					 connect, sizeof(*connect),
--					 &reply, sizeof(reply));
-+		ret = sof_route_setup_ipc(sdev, sroute);
- 		if (ret < 0) {
--			dev_err(dev,
--				"error: failed to load route sink %s control %s source %s\n",
--				sroute->route->sink,
--				sroute->route->control ? sroute->route->control
--					: "none",
--				sroute->route->source);
--
-+			dev_err(sdev->dev, "%s: restore pipeline connections failed\n", __func__);
- 			return ret;
- 		}
--		sroute->setup = true;
--	}
--
--	/* restore dai links */
--	list_for_each_entry_reverse(dai, &sdev->dai_list, list) {
--		struct sof_ipc_dai_config *config = &dai->dai_config[dai->current_config];
--
--		/*
--		 * The link DMA channel would be invalidated for running
--		 * streams but not for streams that were in the PAUSED
--		 * state during suspend. So invalidate it here before setting
--		 * the dai config in the DSP.
--		 */
--		if (config->type == SOF_DAI_INTEL_HDA)
--			config->hda.link_dma_ch = DMA_CHAN_INVALID;
--
--		ret = sof_dai_config_setup(sdev, dai);
--		if (ret < 0)
--			return ret;
- 	}
- 
- 	/* complete pipeline */
- 	list_for_each_entry(swidget, &sdev->widget_list, list) {
- 		switch (swidget->id) {
- 		case snd_soc_dapm_scheduler:
-+			/* only complete static pipelines */
-+			if (swidget->dynamic_pipeline_widget)
-+				continue;
 +
- 			swidget->complete =
- 				snd_sof_complete_pipeline(dev, swidget);
- 			break;
++		ret = sof_widget_free(sdev, swidget);
++		if (ret < 0)
++			return ret;
++	}
+ 
+ 	list_for_each_entry(sroute, &sdev->route_list, list)
+ 		sroute->setup = false;
++
++	return 0;
+ }
+ 
+ /*
 diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
-index d358d455da1e..8d1fc6a8d7d0 100644
+index 8d1fc6a8d7d0..149b3dbcddd1 100644
 --- a/sound/soc/sof/sof-audio.h
 +++ b/sound/soc/sof/sof-audio.h
-@@ -28,6 +28,8 @@
+@@ -246,8 +246,8 @@ int snd_sof_ipc_set_get_comp_data(struct snd_sof_control *scontrol,
+ int sof_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd, struct snd_pcm_hw_params *params);
  
- #define DMA_CHAN_INVALID	0xFFFFFFFF
+ /* PM */
+-int sof_set_up_pipelines(struct device *dev);
+-void sof_tear_down_pipelines(struct device *dev);
++int sof_set_up_pipelines(struct device *dev, bool verify);
++int sof_tear_down_pipelines(struct device *dev, bool verify);
+ int sof_set_hw_params_upon_resume(struct device *dev);
+ bool snd_sof_stream_suspend_ignored(struct snd_sof_dev *sdev);
+ bool snd_sof_dsp_only_d0i3_compatible_stream_active(struct snd_sof_dev *sdev);
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index 6b1dbae3344c..e5a4426414b3 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -23,6 +23,7 @@
+ /* debug flags */
+ #define SOF_DBG_ENABLE_TRACE	BIT(0)
+ #define SOF_DBG_RETAIN_CTX	BIT(1)	/* prevent DSP D3 on FW exception */
++#define SOF_DBG_VERIFY_TPLG	BIT(2) /* verify topology during load */
  
-+#define WIDGET_IS_DAI(id) ((id) == snd_soc_dapm_dai_in || (id) == snd_soc_dapm_dai_out)
+ #define SOF_DBG_DUMP_REGS		BIT(0)
+ #define SOF_DBG_DUMP_MBOX		BIT(1)
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index d8eb238e5229..44d60081bc26 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -3452,8 +3452,23 @@ static int sof_complete(struct snd_soc_component *scomp)
+ 		}
+ 	}
+ 
++	/* verify topology components loading including dynamic pipelines */
++	if (sof_core_debug & SOF_DBG_VERIFY_TPLG) {
++		ret = sof_set_up_pipelines(scomp->dev, true);
++		if (ret < 0) {
++			dev_err(sdev->dev, "error: topology verification failed %d\n", ret);
++			return ret;
++		}
 +
- /* PCM stream, mapped to FW component  */
- struct snd_sof_pcm_stream {
- 	u32 comp_id;
-@@ -35,6 +37,7 @@ struct snd_sof_pcm_stream {
- 	struct sof_ipc_stream_posn posn;
- 	struct snd_pcm_substream *substream;
- 	struct work_struct period_elapsed_work;
-+	struct snd_soc_dapm_widget_list *list; /* list of connected DAPM widgets */
- 	bool d0i3_compatible; /* DSP can be in D0I3 when this pcm is opened */
- 	/*
- 	 * flag to indicate that the DSP pipelines should be kept
-@@ -256,4 +259,7 @@ void sof_machine_unregister(struct snd_sof_dev *sdev, void *pdata);
- int sof_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget);
- int sof_widget_free(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget);
++		ret = sof_tear_down_pipelines(scomp->dev, true);
++		if (ret < 0) {
++			dev_err(sdev->dev, "error: topology tear down pipelines failed %d\n", ret);
++			return ret;
++		}
++	}
++
+ 	/* set up static pipelines */
+-	return sof_set_up_pipelines(scomp->dev);
++	return sof_set_up_pipelines(scomp->dev, false);
+ }
  
-+/* PCM */
-+int sof_widget_list_setup(struct snd_sof_dev *sdev, struct snd_sof_pcm *spcm, int dir);
-+int sof_widget_list_free(struct snd_sof_dev *sdev, struct snd_sof_pcm *spcm, int dir);
- #endif
+ /* manifest - optional to inform component of manifest */
 -- 
 2.33.0
 

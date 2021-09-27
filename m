@@ -2,73 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1096F4193A4
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Sep 2021 13:52:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 945424193D2
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Sep 2021 14:07:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51F6216AF;
-	Mon, 27 Sep 2021 13:51:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51F6216AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 058CA16BF;
+	Mon, 27 Sep 2021 14:06:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 058CA16BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632743529;
-	bh=+6STobOuOlzOXWTxDK/LtFOOOoG8G2+aHSnbuBCAJho=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=NTZHjQQ1PgtZGJfU8s1NhFLSACRhMcPBpOFv1CasBh1thl6VT9Jen6bRtU/OufD7H
-	 nVDVTOBSlJHx/SmTcfoMhkZbawpnbNVJ//W9uW+KeuX6SAjUoBhdyqSN21rnfAsOcc
-	 4pIBvaIRsvaXfLyA/O9+hB+o8Ph1ufvzl4FNqPtI=
+	s=default; t=1632744442;
+	bh=gQfyz+7aLIPTPbIx4RxywgJelJUMZrXpc6XN6IWwHLU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=QSRo+LpVvffkVmwR+6fFYyQeRm/ZuZGInUSc1UhPlGO9vXOH2RjRox8v2FITLD7m1
+	 UvAVjvFjOSrKsx7n8AAEQ35hwOg+BJn6wIEUZc5FnvSdO3I+j2/LbGKJw6i7OVscrN
+	 k43QNNiqRkpVCb2RVTy+6gGlZ24PLmQW77H/XApM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A3FAEF8026D;
-	Mon, 27 Sep 2021 13:50:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A808F804E5;
+	Mon, 27 Sep 2021 14:05:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0273F80227; Mon, 27 Sep 2021 13:50:45 +0200 (CEST)
+ id A4412F80301; Mon, 27 Sep 2021 14:05:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 25627F80147
- for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 13:50:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25627F80147
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="L5kgPclR"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0008260F6D;
- Mon, 27 Sep 2021 11:50:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1632743430;
- bh=+6STobOuOlzOXWTxDK/LtFOOOoG8G2+aHSnbuBCAJho=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=L5kgPclRUtZE9bpW9xN3xybcRvXEmbvbUAmGAMvdgoF9VFvVYaaRswEKGEuhlf/ns
- N8d3HyPVxp9QgAJBk67VgjLOz7I9a3Hhydet3ZKctnRrVgPhnpfuqxRpRy0FENtv0I
- AFfssP2NovJslPPq8RFHnIukWyN2sbsJRQZZ2iyd/X0CopRnPsM7vFv1+iXtCBicaK
- cOFenmlJsr2bbuMz+JVAh94sb6rm1aG2d6nZK4LB+69Toqf+X8CMa7APpMMfbBLwJC
- BwEmT24eo+SJi3SOmWfTMhUST/1KOnCOVkSQC2/GEO1/obr35tNXFMNvIxWP1j1yap
- m9wARgw1tkyCw==
-Date: Mon, 27 Sep 2021 12:49:42 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: cs42l42: Add HP Volume Scale control
-Message-ID: <20210927114942.GC4199@sirena.org.uk>
-References: <20210927111244.17906-1-vitalyr@opensource.cirrus.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3AD61F801F7
+ for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 14:05:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3AD61F801F7
+X-IronPort-AV: E=McAfee;i="6200,9189,10119"; a="221260445"
+X-IronPort-AV: E=Sophos;i="5.85,326,1624345200"; d="scan'208";a="221260445"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Sep 2021 05:05:19 -0700
+X-IronPort-AV: E=Sophos;i="5.85,326,1624345200"; d="scan'208";a="553164349"
+Received: from unknown (HELO pujfalus-desk.ger.corp.intel.com)
+ ([10.251.220.221])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Sep 2021 05:05:14 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com, broonie@kernel.org,
+ pierre-louis.bossart@linux.intel.com, daniel.baluta@nxp.com
+Subject: [PATCH v3 00/12] Add support for on demand pipeline setup/destroy
+Date: Mon, 27 Sep 2021 15:05:05 +0300
+Message-Id: <20210927120517.20505-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="da4uJneut+ArUgXk"
-Content-Disposition: inline
-In-Reply-To: <20210927111244.17906-1-vitalyr@opensource.cirrus.com>
-X-Cookie: 98% lean.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>, linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Cc: guennadi.liakhovetski@linux.intel.com, alsa-devel@alsa-project.org,
+ seppo.ingalsuo@intel.com, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,37 +72,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
---da4uJneut+ArUgXk
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The previous, v2 of this series was sent by Daniel Baluta:
+https://lore.kernel.org/alsa-devel/20210917143659.401102-1-daniel.baluta@oss.nxp.com/
 
-On Mon, Sep 27, 2021 at 12:12:44PM +0100, Vitaly Rodionov wrote:
+We have agreed that it might be better that someone from Intel is going to take it
+from here as we already have the infrastructure up to test and verify the
+dynamic pipelines support.
 
-> +static const char * const cs42l42_full_scale_vol_text[] = {
-> +	"0dB", "-6dB"
-> +};
-> +
-> +static SOC_ENUM_SINGLE_DECL(cs42l42_full_scale_vol_enum, CS42L42_HP_CTL,
-> +			    CS42L42_HP_FULL_SCALE_VOL_SHIFT,
-> +			    cs42l42_full_scale_vol_text);
+Changes since v2 (sent by Daniel Baluta):
+- patch 10: Fix NULL point dereference in hda_dai_update_config()
+- I have kept Daniel's SoB for the series.
 
-This looks like it's just a regular volume control that adds/removes an
-extra 6dB so I'd expect it to be a normal Volume with TLV info.
+Changes since v1:
+- Signed-off-by tag added by Daniel
 
---da4uJneut+ArUgXk
-Content-Type: application/pgp-signature; name="signature.asc"
+This series implements initial support for dynamic pipelines to setup/teardown
+pipeline as needed when a PCM is open/closed.
 
------BEGIN PGP SIGNATURE-----
+Initially dynamic pipelines are only supported with single core setup which will
+be expanded with a follow-up series.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFRr9UACgkQJNaLcl1U
-h9CZOgf/f3f0pV80Z4P705daQFFWTtqcIqeFI3iyFeVm6ZdU+3nOGW4QGICifIEd
-OZDcitqkMNsdjJ0nY8eAlWwsLIvN+BRddOhWNC5Olb4eDRm8akI8I+9JApOU3QC7
-5hyUMRleFuTCH4Nwfyt1p56xVC8/lrDfX9Fy1mEMMyHdhbe/KvQ2Ae8oPe4tD2+6
-BxCLruymgeuVMo2GeQUvmSLIvApHyXEgm98lH6DGoRjIwsb3yO4kafedXufsK/sW
-2GQcI2SW+AICehFbhkxeN0ixZQVR+FJ6bkyE1JUib+EWWiN7xCOmpdgW/M3hQdMq
-TUbrujHVtMXt3NTvKix1s6myspABCw==
-=yWuI
------END PGP SIGNATURE-----
+Review with SOF community at
+https://github.com/thesofproject/linux/pull/2794
 
---da4uJneut+ArUgXk--
+The feature has been merged on 1st of April to sof-dev, all issues found since
+has been fixed and squashed to this upstream series.
+
+Regards,
+Peter
+---
+Ranjani Sridharan (12):
+  ASoC: topology: change the complete op in snd_soc_tplg_ops to return
+    int
+  ASoC: SOF: control: Add access field in struct snd_sof_control
+  ASoC: SOF: topology: Add new token for dynamic pipeline
+  ASoC: SOF: sof-audio: add helpers for widgets, kcontrols and dai
+    config set up
+  AsoC: dapm: export a couple of functions
+  ASoC: SOF: Add new fields to snd_sof_route
+  ASoC: SOF: restore kcontrols for widget during set up
+  ASoC: SOF: Don't set up widgets during topology parsing
+  ASoC: SOF: Introduce widget use_count
+  ASoC: SOF: Intel: hda: make sure DAI widget is set up before IPC
+  ASoC: SOF: Add support for dynamic pipelines
+  ASoC: SOF: topology: Add kernel parameter for topology verification
+
+ include/sound/soc-dpcm.h               |   1 +
+ include/sound/soc-topology.h           |   2 +-
+ include/uapi/sound/sof/tokens.h        |   1 +
+ sound/soc/intel/skylake/skl-topology.c |   6 +-
+ sound/soc/soc-dapm.c                   |   2 +
+ sound/soc/soc-pcm.c                    |   4 +-
+ sound/soc/soc-topology.c               |  10 +-
+ sound/soc/sof/intel/hda-dai.c          | 174 +++---
+ sound/soc/sof/intel/hda.c              | 177 ++++--
+ sound/soc/sof/intel/hda.h              |   5 +
+ sound/soc/sof/ipc.c                    |  22 +
+ sound/soc/sof/pcm.c                    |  58 +-
+ sound/soc/sof/pm.c                     |   4 +-
+ sound/soc/sof/sof-audio.c              | 709 +++++++++++++++++++------
+ sound/soc/sof/sof-audio.h              |  32 +-
+ sound/soc/sof/sof-priv.h               |   1 +
+ sound/soc/sof/topology.c               | 362 +++++--------
+ 17 files changed, 1032 insertions(+), 538 deletions(-)
+
+-- 
+2.33.0
+

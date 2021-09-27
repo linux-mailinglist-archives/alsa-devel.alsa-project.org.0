@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F3DA4195BE
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Sep 2021 16:00:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0C664195C3
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Sep 2021 16:00:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C930516DA;
-	Mon, 27 Sep 2021 15:59:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C930516DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8CCDA16DB;
+	Mon, 27 Sep 2021 16:00:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CCDA16DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632751232;
-	bh=4B1wsaYpvP9Q0nIMHRpLABqAQTF7xIuuvJzQbVvfdN4=;
+	s=default; t=1632751251;
+	bh=PhMmRBOBOqp7HzocTxFzPmzf5Ny7wXS/yql8jprpm2M=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pBPUmBVmBAn+k96ly5Qu1mUY7P+u3OfuG4oNwIRQlhMN7mgOIBTJQU3D1RlgakHew
-	 y/ps0mRMiKFfIfqCSHUFmDRKUefeHiLFpCweMmFsKLGT0xv6FWLv8hzzASaw1UldyO
-	 a/Zu/GgLras27LUpV63f8zCWYOVdgL3HTiDM8riQ=
+	b=A1iifCHm6wvPjJ8URNHLqfPMKq3GOYyEr7adEG1M9sMwPkt2chLOJ/l4NJuOAuA7d
+	 JBHqtZ1eH8trEgQh0gH3cE1dq+2f98Nuv5wseudQM0r/4xdd6qyegjcB3DBvlxwp3r
+	 yjjixJG1rxNQKwi8dop/R5SKmWPB92K9YjNQOoeQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0D1DF80524;
-	Mon, 27 Sep 2021 15:56:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 86A18F80533;
+	Mon, 27 Sep 2021 15:56:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81A71F80517; Mon, 27 Sep 2021 15:56:46 +0200 (CEST)
+ id 49FEBF8051C; Mon, 27 Sep 2021 15:56:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,UPPERCASE_50_75,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
  [IPv6:2a00:1450:4864:20::429])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 93DDFF804E2
- for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 15:56:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93DDFF804E2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 21BB1F804EB
+ for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 15:56:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21BB1F804EB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="ywW7b/ex"
-Received: by mail-wr1-x429.google.com with SMTP id u18so52175641wrg.5
- for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 06:56:34 -0700 (PDT)
+ header.b="HM4lD++D"
+Received: by mail-wr1-x429.google.com with SMTP id d6so51970833wrc.11
+ for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 06:56:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=1SYNXa9BSEU6BVfGZ3maNgsEM4Zr64CRywqKjDQaPHg=;
- b=ywW7b/exOxqanTRbkPAkimu8AQd6mQwdka62Bly6yg46I/a9/loUcQaTrNES3Sv51D
- 7hveXf3ENKqzhQda6yZtKv8jqLZ7yRcJwR/ap1LfhL8DwZ5ZTQYIr5/L+v5im87YCzP/
- +yjMaZrS09UrE1iowe66jYEMLTRF0OHvpvEIc+CeoI2DoyEwuJMIE3BB3B62H3//gciI
- HzHi9xzpVBnsET3tR6S8txiHvHcEpm+pVmx2K9p2fmZbXKwZYCZ3Zbyk7zZS3jYfEc3x
- NynPwUoF9eKLZqxAm5SrOBB4eqXpOLlCXUm+SrobwY9xHAh3f8grt1CoX8a+JEFLDQp3
- QC9A==
+ bh=9YgQAwfsHYGw3pkeh45zX4H7BHeA95W/JO4mlxHpR+Y=;
+ b=HM4lD++DERLPUcT0LYswDzq749m+tez+jvO3uq7JmFn0uRtuk4CA9K/g8ssUv9He1v
+ XoL2dPwBz4g77cde1ef2pl/u5Nch9Y1U6YkHT9gqLeaKe7qcBOS5dVNvJaH5HhuDDB7a
+ h9Q66CNkiQx+iKX7JLTfyqWXQA5Xat++WL2KWVFe0K0ZInQBa3Bwhvyrl7gjSwyzrWY9
+ xppHiDCWNc6scK6zsZu5yKz/53elqgXF2mAfSf4xGuGSgxXTVoljz4HZo2fSqwJPoc/v
+ ZXfq6SLA57NiC75nhtssaPPGQLkq8XGCKKcz9ftb5BbbauOEngsHC6HUlLUR0x8zOO/p
+ vMyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=1SYNXa9BSEU6BVfGZ3maNgsEM4Zr64CRywqKjDQaPHg=;
- b=P9TYaoOxUYotTfMzqU2zwiu5kEwJs6DoHpl/iMdwpI3HDdujA7J85ivvKQBE4Oinh7
- OUubVuDOp7D6dhhwuPHUGspWnn3iQziYRPTtkXmhfCjVLu7AnUx6lwe/5hTMIX5ER5vj
- H9EpSWL2ZcsTvL/pXzqgy81neBefpC+R/y7iNp7tpRrhPDne/hsyaQyQjvN1WYtuw4wm
- EhVjZIvQPuUy9LjPdMZDQPytII3n0W9KzqSeE3sgDXsf6YlLw7RAbtopwfrXPrAKlAuM
- ZBhhiylg3yJ5zgH9uZjw9be+nrcPwdddXqnDok+JiOCmA9hcH9AxPsfpy6lYQ3VNIJ1F
- tsGQ==
-X-Gm-Message-State: AOAM531iLFxsJ73sQZ8RMBgjWMAJI2XPM3H9qE5fnUYgu0/9jsYWCqd5
- ijvEBSVDataLzst+zZazB9/Y9A==
-X-Google-Smtp-Source: ABdhPJz8JHBKo9GHf1liWAxcNrRt9KAiRZVmMQUvbn6dSfIjvqsyydnrXq/8aDyAF0HZ8QUKhGhY4w==
-X-Received: by 2002:adf:f648:: with SMTP id x8mr10477300wrp.119.1632750992441; 
- Mon, 27 Sep 2021 06:56:32 -0700 (PDT)
+ bh=9YgQAwfsHYGw3pkeh45zX4H7BHeA95W/JO4mlxHpR+Y=;
+ b=unU3q5OweK5/ihkajXQnCGhM+FcX0RIFhRNYuzfijUsVuZab9h6LCJ3404L+Ylle3H
+ EYe9z0fk1cn/kdvapF4UWckPQmDwA0j6EV3wwNl/lv09O4KlAeQ90oZTEiZogtQQXMrH
+ thdaDewYs60eUZuY6PH4WmVamG3pTF2qf94CxUuPmdTHkc8GH5E9gKNxhE6DbzaAtSKA
+ zZZebWhM7jHLiQTvoXddFLR+reI7sYOqFtdUVBJ7f0GrYcbTqsc94wlWzORlQgo1p8Ut
+ U2qTnfwgZkrZPWsOtyFe59WovIpdVJbfQip5cPm/AFiC75CCohHBJtrhBVXC+UQI6UG3
+ Dxuw==
+X-Gm-Message-State: AOAM531ZrBzDH2GLnolD1beuUCKubxGNjQaU6hs6OcA7urAcBgcoAIC2
+ eF/Ffux1L7ybek+iuL8BMZXFpg==
+X-Google-Smtp-Source: ABdhPJzb2E6/DGwY0O869DIZZNKiLIc6f3bL34U5OfuM3kD+YXovkb4Tqdi3btfCmtBrpMNrBCx/YA==
+X-Received: by 2002:adf:e583:: with SMTP id l3mr12036294wrm.390.1632750995586; 
+ Mon, 27 Sep 2021 06:56:35 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id b7sm20485606wrm.9.2021.09.27.06.56.31
+ by smtp.gmail.com with ESMTPSA id b7sm20485606wrm.9.2021.09.27.06.56.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Sep 2021 06:56:31 -0700 (PDT)
+ Mon, 27 Sep 2021 06:56:34 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: bjorn.andersson@linaro.org,
 	broonie@kernel.org,
 	robh@kernel.org
-Subject: [PATCH v8 08/22] ASoC: dt-bindings: rename q6afe.h to
- q6dsp-lpass-ports.h
-Date: Mon, 27 Sep 2021 14:55:45 +0100
-Message-Id: <20210927135559.738-9-srinivas.kandagatla@linaro.org>
+Subject: [PATCH v8 10/22] ASoC: qdsp6: q6afe-clocks: move audio-clocks to
+ common file
+Date: Mon, 27 Sep 2021 14:55:47 +0100
+Message-Id: <20210927135559.738-11-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20210927135559.738-1-srinivas.kandagatla@linaro.org>
 References: <20210927135559.738-1-srinivas.kandagatla@linaro.org>
@@ -105,449 +105,492 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-move all LPASS audio ports defines from q6afe.h to q6dsp-lpass-ports.h
-as these belong to LPASS IP.
-Also this move helps in reusing this header across multiple audio
-frameworks on Qualcomm Audio DSP.
+Move common parts of  q6afe-clocks to q6dsp-lpass-clocks so that we could
+reuse most of the driver for new Q6DSP audio frameworks.
 
-This patch is split out of the dt-bindings patch to enable easy review.
+This is to make the code reuseable for new Q6DSP AudioReach framework.
 
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Acked-by: Rob Herring <robh@kernel.org>
 ---
- include/dt-bindings/sound/qcom,q6afe.h        | 203 +----------------
- .../sound/qcom,q6dsp-lpass-ports.h            | 208 ++++++++++++++++++
- 2 files changed, 210 insertions(+), 201 deletions(-)
- create mode 100644 include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+ sound/soc/qcom/qdsp6/Makefile             |   2 +-
+ sound/soc/qcom/qdsp6/q6afe-clocks.c       | 187 ++--------------------
+ sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c | 186 +++++++++++++++++++++
+ sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.h |  30 ++++
+ 4 files changed, 232 insertions(+), 173 deletions(-)
+ create mode 100644 sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
+ create mode 100644 sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.h
 
-diff --git a/include/dt-bindings/sound/qcom,q6afe.h b/include/dt-bindings/sound/qcom,q6afe.h
-index 66c21ab03eef..9d5d89cfabcf 100644
---- a/include/dt-bindings/sound/qcom,q6afe.h
-+++ b/include/dt-bindings/sound/qcom,q6afe.h
-@@ -2,207 +2,8 @@
- #ifndef __DT_BINDINGS_Q6_AFE_H__
- #define __DT_BINDINGS_Q6_AFE_H__
+diff --git a/sound/soc/qcom/qdsp6/Makefile b/sound/soc/qcom/qdsp6/Makefile
+index 11e8705bbc5c..a4191d395557 100644
+--- a/sound/soc/qcom/qdsp6/Makefile
++++ b/sound/soc/qcom/qdsp6/Makefile
+@@ -1,5 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+-snd-q6dsp-common-objs := q6dsp-common.o q6dsp-lpass-ports.o
++snd-q6dsp-common-objs := q6dsp-common.o q6dsp-lpass-ports.o q6dsp-lpass-clocks.o
  
--/* Audio Front End (AFE) virtual ports IDs */
--#define HDMI_RX		1
--#define SLIMBUS_0_RX    2
--#define SLIMBUS_0_TX    3
--#define SLIMBUS_1_RX    4
--#define SLIMBUS_1_TX    5
--#define SLIMBUS_2_RX    6
--#define SLIMBUS_2_TX    7
--#define SLIMBUS_3_RX    8
--#define SLIMBUS_3_TX    9
--#define SLIMBUS_4_RX    10
--#define SLIMBUS_4_TX    11
--#define SLIMBUS_5_RX    12
--#define SLIMBUS_5_TX    13
--#define SLIMBUS_6_RX    14
--#define SLIMBUS_6_TX    15
--#define PRIMARY_MI2S_RX		16
--#define PRIMARY_MI2S_TX		17
--#define SECONDARY_MI2S_RX	18
--#define SECONDARY_MI2S_TX	19
--#define TERTIARY_MI2S_RX	20
--#define TERTIARY_MI2S_TX	21
--#define QUATERNARY_MI2S_RX	22
--#define QUATERNARY_MI2S_TX	23
--#define PRIMARY_TDM_RX_0	24
--#define PRIMARY_TDM_TX_0	25
--#define PRIMARY_TDM_RX_1	26
--#define PRIMARY_TDM_TX_1	27
--#define PRIMARY_TDM_RX_2	28
--#define PRIMARY_TDM_TX_2	29
--#define PRIMARY_TDM_RX_3	30
--#define PRIMARY_TDM_TX_3	31
--#define PRIMARY_TDM_RX_4	32
--#define PRIMARY_TDM_TX_4	33
--#define PRIMARY_TDM_RX_5	34
--#define PRIMARY_TDM_TX_5	35
--#define PRIMARY_TDM_RX_6	36
--#define PRIMARY_TDM_TX_6	37
--#define PRIMARY_TDM_RX_7	38
--#define PRIMARY_TDM_TX_7	39
--#define SECONDARY_TDM_RX_0	40
--#define SECONDARY_TDM_TX_0	41
--#define SECONDARY_TDM_RX_1	42
--#define SECONDARY_TDM_TX_1	43
--#define SECONDARY_TDM_RX_2	44
--#define SECONDARY_TDM_TX_2	45
--#define SECONDARY_TDM_RX_3	46
--#define SECONDARY_TDM_TX_3	47
--#define SECONDARY_TDM_RX_4	48
--#define SECONDARY_TDM_TX_4	49
--#define SECONDARY_TDM_RX_5	50
--#define SECONDARY_TDM_TX_5	51
--#define SECONDARY_TDM_RX_6	52
--#define SECONDARY_TDM_TX_6	53
--#define SECONDARY_TDM_RX_7	54
--#define SECONDARY_TDM_TX_7	55
--#define TERTIARY_TDM_RX_0	56
--#define TERTIARY_TDM_TX_0	57
--#define TERTIARY_TDM_RX_1	58
--#define TERTIARY_TDM_TX_1	59
--#define TERTIARY_TDM_RX_2	60
--#define TERTIARY_TDM_TX_2	61
--#define TERTIARY_TDM_RX_3	62
--#define TERTIARY_TDM_TX_3	63
--#define TERTIARY_TDM_RX_4	64
--#define TERTIARY_TDM_TX_4	65
--#define TERTIARY_TDM_RX_5	66
--#define TERTIARY_TDM_TX_5	67
--#define TERTIARY_TDM_RX_6	68
--#define TERTIARY_TDM_TX_6	69
--#define TERTIARY_TDM_RX_7	70
--#define TERTIARY_TDM_TX_7	71
--#define QUATERNARY_TDM_RX_0	72
--#define QUATERNARY_TDM_TX_0	73
--#define QUATERNARY_TDM_RX_1	74
--#define QUATERNARY_TDM_TX_1	75
--#define QUATERNARY_TDM_RX_2	76
--#define QUATERNARY_TDM_TX_2	77
--#define QUATERNARY_TDM_RX_3	78
--#define QUATERNARY_TDM_TX_3	79
--#define QUATERNARY_TDM_RX_4	80
--#define QUATERNARY_TDM_TX_4	81
--#define QUATERNARY_TDM_RX_5	82
--#define QUATERNARY_TDM_TX_5	83
--#define QUATERNARY_TDM_RX_6	84
--#define QUATERNARY_TDM_TX_6	85
--#define QUATERNARY_TDM_RX_7	86
--#define QUATERNARY_TDM_TX_7	87
--#define QUINARY_TDM_RX_0	88
--#define QUINARY_TDM_TX_0	89
--#define QUINARY_TDM_RX_1	90
--#define QUINARY_TDM_TX_1	91
--#define QUINARY_TDM_RX_2	92
--#define QUINARY_TDM_TX_2	93
--#define QUINARY_TDM_RX_3	94
--#define QUINARY_TDM_TX_3	95
--#define QUINARY_TDM_RX_4	96
--#define QUINARY_TDM_TX_4	97
--#define QUINARY_TDM_RX_5	98
--#define QUINARY_TDM_TX_5	99
--#define QUINARY_TDM_RX_6	100
--#define QUINARY_TDM_TX_6	101
--#define QUINARY_TDM_RX_7	102
--#define QUINARY_TDM_TX_7	103
--#define DISPLAY_PORT_RX		104
--#define WSA_CODEC_DMA_RX_0	105
--#define WSA_CODEC_DMA_TX_0	106
--#define WSA_CODEC_DMA_RX_1	107
--#define WSA_CODEC_DMA_TX_1	108
--#define WSA_CODEC_DMA_TX_2	109
--#define VA_CODEC_DMA_TX_0	110
--#define VA_CODEC_DMA_TX_1	111
--#define VA_CODEC_DMA_TX_2	112
--#define RX_CODEC_DMA_RX_0	113
--#define TX_CODEC_DMA_TX_0	114
--#define RX_CODEC_DMA_RX_1	115
--#define TX_CODEC_DMA_TX_1	116
--#define RX_CODEC_DMA_RX_2	117
--#define TX_CODEC_DMA_TX_2	118
--#define RX_CODEC_DMA_RX_3	119
--#define TX_CODEC_DMA_TX_3	120
--#define RX_CODEC_DMA_RX_4	121
--#define TX_CODEC_DMA_TX_4	122
--#define RX_CODEC_DMA_RX_5	123
--#define TX_CODEC_DMA_TX_5	124
--#define RX_CODEC_DMA_RX_6	125
--#define RX_CODEC_DMA_RX_7	126
--#define QUINARY_MI2S_RX		127
--#define QUINARY_MI2S_TX		128
-+/* This file exists due to backward compatibility reasons, Please do not DELETE! */
+ obj-$(CONFIG_SND_SOC_QDSP6_COMMON) += snd-q6dsp-common.o
+ obj-$(CONFIG_SND_SOC_QDSP6_CORE) += q6core.o
+diff --git a/sound/soc/qcom/qdsp6/q6afe-clocks.c b/sound/soc/qcom/qdsp6/q6afe-clocks.c
+index 9431656283cd..1ccab64ff00b 100644
+--- a/sound/soc/qcom/qdsp6/q6afe-clocks.c
++++ b/sound/soc/qcom/qdsp6/q6afe-clocks.c
+@@ -7,115 +7,18 @@
+ #include <linux/module.h>
+ #include <linux/device.h>
+ #include <linux/platform_device.h>
+-#include <linux/of.h>
+-#include <linux/slab.h>
++#include "q6dsp-lpass-clocks.h"
+ #include "q6afe.h"
  
--#define LPASS_CLK_ID_PRI_MI2S_IBIT	1
--#define LPASS_CLK_ID_PRI_MI2S_EBIT	2
--#define LPASS_CLK_ID_SEC_MI2S_IBIT	3
--#define LPASS_CLK_ID_SEC_MI2S_EBIT	4
--#define LPASS_CLK_ID_TER_MI2S_IBIT	5
--#define LPASS_CLK_ID_TER_MI2S_EBIT	6
--#define LPASS_CLK_ID_QUAD_MI2S_IBIT	7
--#define LPASS_CLK_ID_QUAD_MI2S_EBIT	8
--#define LPASS_CLK_ID_SPEAKER_I2S_IBIT	9
--#define LPASS_CLK_ID_SPEAKER_I2S_EBIT	10
--#define LPASS_CLK_ID_SPEAKER_I2S_OSR	11
--#define LPASS_CLK_ID_QUI_MI2S_IBIT	12
--#define LPASS_CLK_ID_QUI_MI2S_EBIT	13
--#define LPASS_CLK_ID_SEN_MI2S_IBIT	14
--#define LPASS_CLK_ID_SEN_MI2S_EBIT	15
--#define LPASS_CLK_ID_INT0_MI2S_IBIT	16
--#define LPASS_CLK_ID_INT1_MI2S_IBIT	17
--#define LPASS_CLK_ID_INT2_MI2S_IBIT	18
--#define LPASS_CLK_ID_INT3_MI2S_IBIT	19
--#define LPASS_CLK_ID_INT4_MI2S_IBIT	20
--#define LPASS_CLK_ID_INT5_MI2S_IBIT	21
--#define LPASS_CLK_ID_INT6_MI2S_IBIT	22
--#define LPASS_CLK_ID_QUI_MI2S_OSR	23
--#define LPASS_CLK_ID_PRI_PCM_IBIT	24
--#define LPASS_CLK_ID_PRI_PCM_EBIT	25
--#define LPASS_CLK_ID_SEC_PCM_IBIT	26
--#define LPASS_CLK_ID_SEC_PCM_EBIT	27
--#define LPASS_CLK_ID_TER_PCM_IBIT	28
--#define LPASS_CLK_ID_TER_PCM_EBIT	29
--#define LPASS_CLK_ID_QUAD_PCM_IBIT	30
--#define LPASS_CLK_ID_QUAD_PCM_EBIT	31
--#define LPASS_CLK_ID_QUIN_PCM_IBIT	32
--#define LPASS_CLK_ID_QUIN_PCM_EBIT	33
--#define LPASS_CLK_ID_QUI_PCM_OSR	34
--#define LPASS_CLK_ID_PRI_TDM_IBIT	35
--#define LPASS_CLK_ID_PRI_TDM_EBIT	36
--#define LPASS_CLK_ID_SEC_TDM_IBIT	37
--#define LPASS_CLK_ID_SEC_TDM_EBIT	38
--#define LPASS_CLK_ID_TER_TDM_IBIT	39
--#define LPASS_CLK_ID_TER_TDM_EBIT	40
--#define LPASS_CLK_ID_QUAD_TDM_IBIT	41
--#define LPASS_CLK_ID_QUAD_TDM_EBIT	42
--#define LPASS_CLK_ID_QUIN_TDM_IBIT	43
--#define LPASS_CLK_ID_QUIN_TDM_EBIT	44
--#define LPASS_CLK_ID_QUIN_TDM_OSR	45
--#define LPASS_CLK_ID_MCLK_1		46
--#define LPASS_CLK_ID_MCLK_2		47
--#define LPASS_CLK_ID_MCLK_3		48
--#define LPASS_CLK_ID_MCLK_4		49
--#define LPASS_CLK_ID_INTERNAL_DIGITAL_CODEC_CORE	50
--#define LPASS_CLK_ID_INT_MCLK_0		51
--#define LPASS_CLK_ID_INT_MCLK_1		52
--#define LPASS_CLK_ID_MCLK_5		53
--#define LPASS_CLK_ID_WSA_CORE_MCLK	54
--#define LPASS_CLK_ID_WSA_CORE_NPL_MCLK	55
--#define LPASS_CLK_ID_VA_CORE_MCLK	56
--#define LPASS_CLK_ID_TX_CORE_MCLK	57
--#define LPASS_CLK_ID_TX_CORE_NPL_MCLK	58
--#define LPASS_CLK_ID_RX_CORE_MCLK	59
--#define LPASS_CLK_ID_RX_CORE_NPL_MCLK	60
--#define LPASS_CLK_ID_VA_CORE_2X_MCLK	61
--
--#define LPASS_HW_AVTIMER_VOTE		101
--#define LPASS_HW_MACRO_VOTE		102
--#define LPASS_HW_DCODEC_VOTE		103
--
--#define Q6AFE_MAX_CLK_ID			104
--
--#define LPASS_CLK_ATTRIBUTE_INVALID		0x0
--#define LPASS_CLK_ATTRIBUTE_COUPLE_NO		0x1
--#define LPASS_CLK_ATTRIBUTE_COUPLE_DIVIDEND	0x2
--#define LPASS_CLK_ATTRIBUTE_COUPLE_DIVISOR	0x3
-+#include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
+ #define Q6AFE_CLK(id) {					\
+ 		.clk_id	= id,				\
+-		.afe_clk_id	= Q6AFE_##id,		\
++		.q6dsp_clk_id	= Q6AFE_##id,		\
+ 		.name = #id,				\
+ 		.rate = 19200000,			\
+ 	}
  
- #endif /* __DT_BINDINGS_Q6_AFE_H__ */
-diff --git a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+-#define Q6AFE_VOTE_CLK(id, blkid, n) {			\
+-		.clk_id	= id,				\
+-		.afe_clk_id = blkid,			\
+-		.name = n,				\
+-	}
+-
+-struct q6afe_clk_init {
+-	int clk_id;
+-	int afe_clk_id;
+-	char *name;
+-	int rate;
+-};
+-
+-struct q6afe_clk {
+-	struct device *dev;
+-	int afe_clk_id;
+-	int attributes;
+-	int rate;
+-	uint32_t handle;
+-	struct clk_hw hw;
+-};
+-
+-#define to_q6afe_clk(_hw) container_of(_hw, struct q6afe_clk, hw)
+-
+-struct q6afe_cc {
+-	struct device *dev;
+-	struct q6afe_clk *clks[Q6AFE_MAX_CLK_ID];
+-};
+-
+-static int clk_q6afe_prepare(struct clk_hw *hw)
+-{
+-	struct q6afe_clk *clk = to_q6afe_clk(hw);
+-
+-	return q6afe_set_lpass_clock(clk->dev, clk->afe_clk_id, clk->attributes,
+-				     Q6AFE_LPASS_CLK_ROOT_DEFAULT, clk->rate);
+-}
+-
+-static void clk_q6afe_unprepare(struct clk_hw *hw)
+-{
+-	struct q6afe_clk *clk = to_q6afe_clk(hw);
+-
+-	q6afe_set_lpass_clock(clk->dev, clk->afe_clk_id, clk->attributes,
+-			      Q6AFE_LPASS_CLK_ROOT_DEFAULT, 0);
+-}
+-
+-static int clk_q6afe_set_rate(struct clk_hw *hw, unsigned long rate,
+-			      unsigned long parent_rate)
+-{
+-	struct q6afe_clk *clk = to_q6afe_clk(hw);
+-
+-	clk->rate = rate;
+-
+-	return 0;
+-}
+-
+-static unsigned long clk_q6afe_recalc_rate(struct clk_hw *hw,
+-					   unsigned long parent_rate)
+-{
+-	struct q6afe_clk *clk = to_q6afe_clk(hw);
+-
+-	return clk->rate;
+-}
+-
+-static long clk_q6afe_round_rate(struct clk_hw *hw, unsigned long rate,
+-				 unsigned long *parent_rate)
+-{
+-	return rate;
+-}
+-
+-static const struct clk_ops clk_q6afe_ops = {
+-	.prepare	= clk_q6afe_prepare,
+-	.unprepare	= clk_q6afe_unprepare,
+-	.set_rate	= clk_q6afe_set_rate,
+-	.round_rate	= clk_q6afe_round_rate,
+-	.recalc_rate	= clk_q6afe_recalc_rate,
+-};
+-
+-static int clk_vote_q6afe_block(struct clk_hw *hw)
+-{
+-	struct q6afe_clk *clk = to_q6afe_clk(hw);
+-
+-	return q6afe_vote_lpass_core_hw(clk->dev, clk->afe_clk_id,
+-					clk_hw_get_name(&clk->hw), &clk->handle);
+-}
+ 
+-static void clk_unvote_q6afe_block(struct clk_hw *hw)
+-{
+-	struct q6afe_clk *clk = to_q6afe_clk(hw);
+-
+-	q6afe_unvote_lpass_core_hw(clk->dev, clk->afe_clk_id, clk->handle);
+-}
+-
+-static const struct clk_ops clk_vote_q6afe_ops = {
+-	.prepare	= clk_vote_q6afe_block,
+-	.unprepare	= clk_unvote_q6afe_block,
+-};
+-
+-static const struct q6afe_clk_init q6afe_clks[] = {
++static const struct q6dsp_clk_init q6afe_clks[] = {
+ 	Q6AFE_CLK(LPASS_CLK_ID_PRI_MI2S_IBIT),
+ 	Q6AFE_CLK(LPASS_CLK_ID_PRI_MI2S_EBIT),
+ 	Q6AFE_CLK(LPASS_CLK_ID_SEC_MI2S_IBIT),
+@@ -176,88 +79,28 @@ static const struct q6afe_clk_init q6afe_clks[] = {
+ 	Q6AFE_CLK(LPASS_CLK_ID_RX_CORE_MCLK),
+ 	Q6AFE_CLK(LPASS_CLK_ID_RX_CORE_NPL_MCLK),
+ 	Q6AFE_CLK(LPASS_CLK_ID_VA_CORE_2X_MCLK),
+-	Q6AFE_VOTE_CLK(LPASS_HW_AVTIMER_VOTE,
++	Q6DSP_VOTE_CLK(LPASS_HW_AVTIMER_VOTE,
+ 		       Q6AFE_LPASS_CORE_AVTIMER_BLOCK,
+ 		       "LPASS_AVTIMER_MACRO"),
+-	Q6AFE_VOTE_CLK(LPASS_HW_MACRO_VOTE,
++	Q6DSP_VOTE_CLK(LPASS_HW_MACRO_VOTE,
+ 		       Q6AFE_LPASS_CORE_HW_MACRO_BLOCK,
+ 		       "LPASS_HW_MACRO"),
+-	Q6AFE_VOTE_CLK(LPASS_HW_DCODEC_VOTE,
++	Q6DSP_VOTE_CLK(LPASS_HW_DCODEC_VOTE,
+ 		       Q6AFE_LPASS_CORE_HW_DCODEC_BLOCK,
+ 		       "LPASS_HW_DCODEC"),
+ };
+ 
+-static struct clk_hw *q6afe_of_clk_hw_get(struct of_phandle_args *clkspec,
+-					  void *data)
+-{
+-	struct q6afe_cc *cc = data;
+-	unsigned int idx = clkspec->args[0];
+-	unsigned int attr = clkspec->args[1];
+-
+-	if (idx >= Q6AFE_MAX_CLK_ID || attr > LPASS_CLK_ATTRIBUTE_COUPLE_DIVISOR) {
+-		dev_err(cc->dev, "Invalid clk specifier (%d, %d)\n", idx, attr);
+-		return ERR_PTR(-EINVAL);
+-	}
+-
+-	if (cc->clks[idx]) {
+-		cc->clks[idx]->attributes = attr;
+-		return &cc->clks[idx]->hw;
+-	}
+-
+-	return ERR_PTR(-ENOENT);
+-}
+-
+-static int q6afe_clock_dev_probe(struct platform_device *pdev)
+-{
+-	struct q6afe_cc *cc;
+-	struct device *dev = &pdev->dev;
+-	int i, ret;
+-
+-	cc = devm_kzalloc(dev, sizeof(*cc), GFP_KERNEL);
+-	if (!cc)
+-		return -ENOMEM;
+-
+-	cc->dev = dev;
+-	for (i = 0; i < ARRAY_SIZE(q6afe_clks); i++) {
+-		unsigned int id = q6afe_clks[i].clk_id;
+-		struct clk_init_data init = {
+-			.name =  q6afe_clks[i].name,
+-		};
+-		struct q6afe_clk *clk;
+-
+-		clk = devm_kzalloc(dev, sizeof(*clk), GFP_KERNEL);
+-		if (!clk)
+-			return -ENOMEM;
+-
+-		clk->dev = dev;
+-		clk->afe_clk_id = q6afe_clks[i].afe_clk_id;
+-		clk->rate = q6afe_clks[i].rate;
+-		clk->hw.init = &init;
+-
+-		if (clk->rate)
+-			init.ops = &clk_q6afe_ops;
+-		else
+-			init.ops = &clk_vote_q6afe_ops;
+-
+-		cc->clks[id] = clk;
+-
+-		ret = devm_clk_hw_register(dev, &clk->hw);
+-		if (ret)
+-			return ret;
+-	}
+-
+-	ret = devm_of_clk_add_hw_provider(dev, q6afe_of_clk_hw_get, cc);
+-	if (ret)
+-		return ret;
+-
+-	dev_set_drvdata(dev, cc);
+-
+-	return 0;
+-}
++static const struct q6dsp_clk_desc q6dsp_clk_q6afe __maybe_unused = {
++	.clks = q6afe_clks,
++	.num_clks = ARRAY_SIZE(q6afe_clks),
++	.lpass_set_clk = q6afe_set_lpass_clock,
++	.lpass_vote_clk = q6afe_vote_lpass_core_hw,
++	.lpass_unvote_clk = q6afe_unvote_lpass_core_hw,
++};
+ 
+ #ifdef CONFIG_OF
+ static const struct of_device_id q6afe_clock_device_id[] = {
+-	{ .compatible = "qcom,q6afe-clocks" },
++	{ .compatible = "qcom,q6afe-clocks", .data = &q6dsp_clk_q6afe },
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(of, q6afe_clock_device_id);
+@@ -268,7 +111,7 @@ static struct platform_driver q6afe_clock_platform_driver = {
+ 		.name = "q6afe-clock",
+ 		.of_match_table = of_match_ptr(q6afe_clock_device_id),
+ 	},
+-	.probe = q6afe_clock_dev_probe,
++	.probe = q6dsp_clock_dev_probe,
+ };
+ module_platform_driver(q6afe_clock_platform_driver);
+ 
+diff --git a/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c b/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
 new file mode 100644
-index 000000000000..0d3276c8fc11
+index 000000000000..4613867d1133
 --- /dev/null
-+++ b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
-@@ -0,0 +1,208 @@
++++ b/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
+@@ -0,0 +1,186 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2020, Linaro Limited
++
++#include <linux/err.h>
++#include <linux/init.h>
++#include <linux/clk-provider.h>
++#include <linux/module.h>
++#include <linux/device.h>
++#include <linux/platform_device.h>
++#include <linux/of.h>
++#include <linux/of_device.h>
++#include <linux/slab.h>
++#include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
++#include "q6dsp-lpass-clocks.h"
++
++#define Q6DSP_MAX_CLK_ID			104
++#define Q6DSP_LPASS_CLK_ROOT_DEFAULT		0
++
++
++struct q6dsp_clk {
++	struct device *dev;
++	int q6dsp_clk_id;
++	int attributes;
++	int rate;
++	uint32_t handle;
++	struct clk_hw hw;
++};
++
++#define to_q6dsp_clk(_hw) container_of(_hw, struct q6dsp_clk, hw)
++
++struct q6dsp_cc {
++	struct device *dev;
++	struct q6dsp_clk *clks[Q6DSP_MAX_CLK_ID];
++	const struct q6dsp_clk_desc *desc;
++};
++
++static int clk_q6dsp_prepare(struct clk_hw *hw)
++{
++	struct q6dsp_clk *clk = to_q6dsp_clk(hw);
++	struct q6dsp_cc *cc = dev_get_drvdata(clk->dev);
++
++	return cc->desc->lpass_set_clk(clk->dev, clk->q6dsp_clk_id, clk->attributes,
++				     Q6DSP_LPASS_CLK_ROOT_DEFAULT, clk->rate);
++}
++
++static void clk_q6dsp_unprepare(struct clk_hw *hw)
++{
++	struct q6dsp_clk *clk = to_q6dsp_clk(hw);
++	struct q6dsp_cc *cc = dev_get_drvdata(clk->dev);
++
++	cc->desc->lpass_set_clk(clk->dev, clk->q6dsp_clk_id, clk->attributes,
++			      Q6DSP_LPASS_CLK_ROOT_DEFAULT, 0);
++}
++
++static int clk_q6dsp_set_rate(struct clk_hw *hw, unsigned long rate,
++			      unsigned long parent_rate)
++{
++	struct q6dsp_clk *clk = to_q6dsp_clk(hw);
++
++	clk->rate = rate;
++
++	return 0;
++}
++
++static unsigned long clk_q6dsp_recalc_rate(struct clk_hw *hw,
++					   unsigned long parent_rate)
++{
++	struct q6dsp_clk *clk = to_q6dsp_clk(hw);
++
++	return clk->rate;
++}
++
++static long clk_q6dsp_round_rate(struct clk_hw *hw, unsigned long rate,
++				 unsigned long *parent_rate)
++{
++	return rate;
++}
++
++static const struct clk_ops clk_q6dsp_ops = {
++	.prepare	= clk_q6dsp_prepare,
++	.unprepare	= clk_q6dsp_unprepare,
++	.set_rate	= clk_q6dsp_set_rate,
++	.round_rate	= clk_q6dsp_round_rate,
++	.recalc_rate	= clk_q6dsp_recalc_rate,
++};
++
++static int clk_vote_q6dsp_block(struct clk_hw *hw)
++{
++	struct q6dsp_clk *clk = to_q6dsp_clk(hw);
++	struct q6dsp_cc *cc = dev_get_drvdata(clk->dev);
++
++	return cc->desc->lpass_vote_clk(clk->dev, clk->q6dsp_clk_id,
++				  clk_hw_get_name(&clk->hw), &clk->handle);
++}
++
++static void clk_unvote_q6dsp_block(struct clk_hw *hw)
++{
++	struct q6dsp_clk *clk = to_q6dsp_clk(hw);
++	struct q6dsp_cc *cc = dev_get_drvdata(clk->dev);
++
++	cc->desc->lpass_unvote_clk(clk->dev, clk->q6dsp_clk_id, clk->handle);
++}
++
++static const struct clk_ops clk_vote_q6dsp_ops = {
++	.prepare	= clk_vote_q6dsp_block,
++	.unprepare	= clk_unvote_q6dsp_block,
++};
++
++
++static struct clk_hw *q6dsp_of_clk_hw_get(struct of_phandle_args *clkspec,
++					  void *data)
++{
++	struct q6dsp_cc *cc = data;
++	unsigned int idx = clkspec->args[0];
++	unsigned int attr = clkspec->args[1];
++
++	if (idx >= Q6DSP_MAX_CLK_ID || attr > LPASS_CLK_ATTRIBUTE_COUPLE_DIVISOR) {
++		dev_err(cc->dev, "Invalid clk specifier (%d, %d)\n", idx, attr);
++		return ERR_PTR(-EINVAL);
++	}
++
++	if (cc->clks[idx]) {
++		cc->clks[idx]->attributes = attr;
++		return &cc->clks[idx]->hw;
++	}
++
++	return ERR_PTR(-ENOENT);
++}
++
++int q6dsp_clock_dev_probe(struct platform_device *pdev)
++{
++	struct q6dsp_cc *cc;
++	struct device *dev = &pdev->dev;
++	const struct q6dsp_clk_init *q6dsp_clks;
++	const struct q6dsp_clk_desc *desc;
++	int i, ret;
++
++	cc = devm_kzalloc(dev, sizeof(*cc), GFP_KERNEL);
++	if (!cc)
++		return -ENOMEM;
++
++	desc = of_device_get_match_data(&pdev->dev);
++	if (!desc)
++		return -EINVAL;
++
++	cc->desc = desc;
++	cc->dev = dev;
++	q6dsp_clks = desc->clks;
++
++	for (i = 0; i < desc->num_clks; i++) {
++		unsigned int id = q6dsp_clks[i].clk_id;
++		struct clk_init_data init = {
++			.name =  q6dsp_clks[i].name,
++		};
++		struct q6dsp_clk *clk;
++
++		clk = devm_kzalloc(dev, sizeof(*clk), GFP_KERNEL);
++		if (!clk)
++			return -ENOMEM;
++
++		clk->dev = dev;
++		clk->q6dsp_clk_id = q6dsp_clks[i].q6dsp_clk_id;
++		clk->rate = q6dsp_clks[i].rate;
++		clk->hw.init = &init;
++
++		if (clk->rate)
++			init.ops = &clk_q6dsp_ops;
++		else
++			init.ops = &clk_vote_q6dsp_ops;
++
++		cc->clks[id] = clk;
++
++		ret = devm_clk_hw_register(dev, &clk->hw);
++		if (ret)
++			return ret;
++	}
++
++	ret = devm_of_clk_add_hw_provider(dev, q6dsp_of_clk_hw_get, cc);
++	if (ret)
++		return ret;
++
++	dev_set_drvdata(dev, cc);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(q6dsp_clock_dev_probe);
+diff --git a/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.h b/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.h
+new file mode 100644
+index 000000000000..3770d81f2bd6
+--- /dev/null
++++ b/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.h
+@@ -0,0 +1,30 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef __DT_BINDINGS_Q6_AUDIO_PORTS_H__
-+#define __DT_BINDINGS_Q6_AUDIO_PORTS_H__
 +
-+/* LPASS Audio virtual ports IDs */
-+#define HDMI_RX		1
-+#define SLIMBUS_0_RX    2
-+#define SLIMBUS_0_TX    3
-+#define SLIMBUS_1_RX    4
-+#define SLIMBUS_1_TX    5
-+#define SLIMBUS_2_RX    6
-+#define SLIMBUS_2_TX    7
-+#define SLIMBUS_3_RX    8
-+#define SLIMBUS_3_TX    9
-+#define SLIMBUS_4_RX    10
-+#define SLIMBUS_4_TX    11
-+#define SLIMBUS_5_RX    12
-+#define SLIMBUS_5_TX    13
-+#define SLIMBUS_6_RX    14
-+#define SLIMBUS_6_TX    15
-+#define PRIMARY_MI2S_RX		16
-+#define PRIMARY_MI2S_TX		17
-+#define SECONDARY_MI2S_RX	18
-+#define SECONDARY_MI2S_TX	19
-+#define TERTIARY_MI2S_RX	20
-+#define TERTIARY_MI2S_TX	21
-+#define QUATERNARY_MI2S_RX	22
-+#define QUATERNARY_MI2S_TX	23
-+#define PRIMARY_TDM_RX_0	24
-+#define PRIMARY_TDM_TX_0	25
-+#define PRIMARY_TDM_RX_1	26
-+#define PRIMARY_TDM_TX_1	27
-+#define PRIMARY_TDM_RX_2	28
-+#define PRIMARY_TDM_TX_2	29
-+#define PRIMARY_TDM_RX_3	30
-+#define PRIMARY_TDM_TX_3	31
-+#define PRIMARY_TDM_RX_4	32
-+#define PRIMARY_TDM_TX_4	33
-+#define PRIMARY_TDM_RX_5	34
-+#define PRIMARY_TDM_TX_5	35
-+#define PRIMARY_TDM_RX_6	36
-+#define PRIMARY_TDM_TX_6	37
-+#define PRIMARY_TDM_RX_7	38
-+#define PRIMARY_TDM_TX_7	39
-+#define SECONDARY_TDM_RX_0	40
-+#define SECONDARY_TDM_TX_0	41
-+#define SECONDARY_TDM_RX_1	42
-+#define SECONDARY_TDM_TX_1	43
-+#define SECONDARY_TDM_RX_2	44
-+#define SECONDARY_TDM_TX_2	45
-+#define SECONDARY_TDM_RX_3	46
-+#define SECONDARY_TDM_TX_3	47
-+#define SECONDARY_TDM_RX_4	48
-+#define SECONDARY_TDM_TX_4	49
-+#define SECONDARY_TDM_RX_5	50
-+#define SECONDARY_TDM_TX_5	51
-+#define SECONDARY_TDM_RX_6	52
-+#define SECONDARY_TDM_TX_6	53
-+#define SECONDARY_TDM_RX_7	54
-+#define SECONDARY_TDM_TX_7	55
-+#define TERTIARY_TDM_RX_0	56
-+#define TERTIARY_TDM_TX_0	57
-+#define TERTIARY_TDM_RX_1	58
-+#define TERTIARY_TDM_TX_1	59
-+#define TERTIARY_TDM_RX_2	60
-+#define TERTIARY_TDM_TX_2	61
-+#define TERTIARY_TDM_RX_3	62
-+#define TERTIARY_TDM_TX_3	63
-+#define TERTIARY_TDM_RX_4	64
-+#define TERTIARY_TDM_TX_4	65
-+#define TERTIARY_TDM_RX_5	66
-+#define TERTIARY_TDM_TX_5	67
-+#define TERTIARY_TDM_RX_6	68
-+#define TERTIARY_TDM_TX_6	69
-+#define TERTIARY_TDM_RX_7	70
-+#define TERTIARY_TDM_TX_7	71
-+#define QUATERNARY_TDM_RX_0	72
-+#define QUATERNARY_TDM_TX_0	73
-+#define QUATERNARY_TDM_RX_1	74
-+#define QUATERNARY_TDM_TX_1	75
-+#define QUATERNARY_TDM_RX_2	76
-+#define QUATERNARY_TDM_TX_2	77
-+#define QUATERNARY_TDM_RX_3	78
-+#define QUATERNARY_TDM_TX_3	79
-+#define QUATERNARY_TDM_RX_4	80
-+#define QUATERNARY_TDM_TX_4	81
-+#define QUATERNARY_TDM_RX_5	82
-+#define QUATERNARY_TDM_TX_5	83
-+#define QUATERNARY_TDM_RX_6	84
-+#define QUATERNARY_TDM_TX_6	85
-+#define QUATERNARY_TDM_RX_7	86
-+#define QUATERNARY_TDM_TX_7	87
-+#define QUINARY_TDM_RX_0	88
-+#define QUINARY_TDM_TX_0	89
-+#define QUINARY_TDM_RX_1	90
-+#define QUINARY_TDM_TX_1	91
-+#define QUINARY_TDM_RX_2	92
-+#define QUINARY_TDM_TX_2	93
-+#define QUINARY_TDM_RX_3	94
-+#define QUINARY_TDM_TX_3	95
-+#define QUINARY_TDM_RX_4	96
-+#define QUINARY_TDM_TX_4	97
-+#define QUINARY_TDM_RX_5	98
-+#define QUINARY_TDM_TX_5	99
-+#define QUINARY_TDM_RX_6	100
-+#define QUINARY_TDM_TX_6	101
-+#define QUINARY_TDM_RX_7	102
-+#define QUINARY_TDM_TX_7	103
-+#define DISPLAY_PORT_RX		104
-+#define WSA_CODEC_DMA_RX_0	105
-+#define WSA_CODEC_DMA_TX_0	106
-+#define WSA_CODEC_DMA_RX_1	107
-+#define WSA_CODEC_DMA_TX_1	108
-+#define WSA_CODEC_DMA_TX_2	109
-+#define VA_CODEC_DMA_TX_0	110
-+#define VA_CODEC_DMA_TX_1	111
-+#define VA_CODEC_DMA_TX_2	112
-+#define RX_CODEC_DMA_RX_0	113
-+#define TX_CODEC_DMA_TX_0	114
-+#define RX_CODEC_DMA_RX_1	115
-+#define TX_CODEC_DMA_TX_1	116
-+#define RX_CODEC_DMA_RX_2	117
-+#define TX_CODEC_DMA_TX_2	118
-+#define RX_CODEC_DMA_RX_3	119
-+#define TX_CODEC_DMA_TX_3	120
-+#define RX_CODEC_DMA_RX_4	121
-+#define TX_CODEC_DMA_TX_4	122
-+#define RX_CODEC_DMA_RX_5	123
-+#define TX_CODEC_DMA_TX_5	124
-+#define RX_CODEC_DMA_RX_6	125
-+#define RX_CODEC_DMA_RX_7	126
-+#define QUINARY_MI2S_RX		127
-+#define QUINARY_MI2S_TX		128
++#ifndef __Q6DSP_AUDIO_CLOCKS_H__
++#define __Q6DSP_AUDIO_CLOCKS_H__
 +
-+#define LPASS_CLK_ID_PRI_MI2S_IBIT	1
-+#define LPASS_CLK_ID_PRI_MI2S_EBIT	2
-+#define LPASS_CLK_ID_SEC_MI2S_IBIT	3
-+#define LPASS_CLK_ID_SEC_MI2S_EBIT	4
-+#define LPASS_CLK_ID_TER_MI2S_IBIT	5
-+#define LPASS_CLK_ID_TER_MI2S_EBIT	6
-+#define LPASS_CLK_ID_QUAD_MI2S_IBIT	7
-+#define LPASS_CLK_ID_QUAD_MI2S_EBIT	8
-+#define LPASS_CLK_ID_SPEAKER_I2S_IBIT	9
-+#define LPASS_CLK_ID_SPEAKER_I2S_EBIT	10
-+#define LPASS_CLK_ID_SPEAKER_I2S_OSR	11
-+#define LPASS_CLK_ID_QUI_MI2S_IBIT	12
-+#define LPASS_CLK_ID_QUI_MI2S_EBIT	13
-+#define LPASS_CLK_ID_SEN_MI2S_IBIT	14
-+#define LPASS_CLK_ID_SEN_MI2S_EBIT	15
-+#define LPASS_CLK_ID_INT0_MI2S_IBIT	16
-+#define LPASS_CLK_ID_INT1_MI2S_IBIT	17
-+#define LPASS_CLK_ID_INT2_MI2S_IBIT	18
-+#define LPASS_CLK_ID_INT3_MI2S_IBIT	19
-+#define LPASS_CLK_ID_INT4_MI2S_IBIT	20
-+#define LPASS_CLK_ID_INT5_MI2S_IBIT	21
-+#define LPASS_CLK_ID_INT6_MI2S_IBIT	22
-+#define LPASS_CLK_ID_QUI_MI2S_OSR	23
-+#define LPASS_CLK_ID_PRI_PCM_IBIT	24
-+#define LPASS_CLK_ID_PRI_PCM_EBIT	25
-+#define LPASS_CLK_ID_SEC_PCM_IBIT	26
-+#define LPASS_CLK_ID_SEC_PCM_EBIT	27
-+#define LPASS_CLK_ID_TER_PCM_IBIT	28
-+#define LPASS_CLK_ID_TER_PCM_EBIT	29
-+#define LPASS_CLK_ID_QUAD_PCM_IBIT	30
-+#define LPASS_CLK_ID_QUAD_PCM_EBIT	31
-+#define LPASS_CLK_ID_QUIN_PCM_IBIT	32
-+#define LPASS_CLK_ID_QUIN_PCM_EBIT	33
-+#define LPASS_CLK_ID_QUI_PCM_OSR	34
-+#define LPASS_CLK_ID_PRI_TDM_IBIT	35
-+#define LPASS_CLK_ID_PRI_TDM_EBIT	36
-+#define LPASS_CLK_ID_SEC_TDM_IBIT	37
-+#define LPASS_CLK_ID_SEC_TDM_EBIT	38
-+#define LPASS_CLK_ID_TER_TDM_IBIT	39
-+#define LPASS_CLK_ID_TER_TDM_EBIT	40
-+#define LPASS_CLK_ID_QUAD_TDM_IBIT	41
-+#define LPASS_CLK_ID_QUAD_TDM_EBIT	42
-+#define LPASS_CLK_ID_QUIN_TDM_IBIT	43
-+#define LPASS_CLK_ID_QUIN_TDM_EBIT	44
-+#define LPASS_CLK_ID_QUIN_TDM_OSR	45
-+#define LPASS_CLK_ID_MCLK_1		46
-+#define LPASS_CLK_ID_MCLK_2		47
-+#define LPASS_CLK_ID_MCLK_3		48
-+#define LPASS_CLK_ID_MCLK_4		49
-+#define LPASS_CLK_ID_INTERNAL_DIGITAL_CODEC_CORE	50
-+#define LPASS_CLK_ID_INT_MCLK_0		51
-+#define LPASS_CLK_ID_INT_MCLK_1		52
-+#define LPASS_CLK_ID_MCLK_5		53
-+#define LPASS_CLK_ID_WSA_CORE_MCLK	54
-+#define LPASS_CLK_ID_WSA_CORE_NPL_MCLK	55
-+#define LPASS_CLK_ID_VA_CORE_MCLK	56
-+#define LPASS_CLK_ID_TX_CORE_MCLK	57
-+#define LPASS_CLK_ID_TX_CORE_NPL_MCLK	58
-+#define LPASS_CLK_ID_RX_CORE_MCLK	59
-+#define LPASS_CLK_ID_RX_CORE_NPL_MCLK	60
-+#define LPASS_CLK_ID_VA_CORE_2X_MCLK	61
++struct q6dsp_clk_init {
++	int clk_id;
++	int q6dsp_clk_id;
++	char *name;
++	int rate;
++};
 +
-+#define LPASS_HW_AVTIMER_VOTE		101
-+#define LPASS_HW_MACRO_VOTE		102
-+#define LPASS_HW_DCODEC_VOTE		103
++#define Q6DSP_VOTE_CLK(id, blkid, n) {			\
++		.clk_id	= id,				\
++		.q6dsp_clk_id = blkid,			\
++		.name = n,				\
++	}
 +
-+#define Q6AFE_MAX_CLK_ID			104
++struct q6dsp_clk_desc {
++	const struct q6dsp_clk_init *clks;
++	size_t num_clks;
++	int (*lpass_set_clk)(struct device *dev, int clk_id, int attr,
++			      int root_clk, unsigned int freq);
++	int (*lpass_vote_clk)(struct device *dev, uint32_t hid, const char *n, uint32_t *h);
++	int (*lpass_unvote_clk)(struct device *dev, uint32_t hid, uint32_t h);
++};
 +
-+#define LPASS_CLK_ATTRIBUTE_INVALID		0x0
-+#define LPASS_CLK_ATTRIBUTE_COUPLE_NO		0x1
-+#define LPASS_CLK_ATTRIBUTE_COUPLE_DIVIDEND	0x2
-+#define LPASS_CLK_ATTRIBUTE_COUPLE_DIVISOR	0x3
++int q6dsp_clock_dev_probe(struct platform_device *pdev);
 +
-+#endif /* __DT_BINDINGS_Q6_AUDIO_PORTS_H__ */
++#endif  /* __Q6DSP_AUDIO_CLOCKS_H__ */
 -- 
 2.21.0
 

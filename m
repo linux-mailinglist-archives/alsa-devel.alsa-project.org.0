@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E427B4193D5
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Sep 2021 14:08:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA7774193D6
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Sep 2021 14:08:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 762C116AE;
-	Mon, 27 Sep 2021 14:07:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 762C116AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C7C116B0;
+	Mon, 27 Sep 2021 14:07:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C7C116B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632744507;
-	bh=9aF7RI4Kh+mDDmRNAcSfgnYtiDWznWcquqV8UOm5oec=;
+	s=default; t=1632744528;
+	bh=dv0U7TdOUHSf4G/Kak3zD4V58d0Q5m5ktXfAG0SyEvg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UjQqYwnJYsUhsv4Dhh/FY7zI8HjPxBjzQaqVH/domqTbmCWQCn/mTsgI5LwHFwu+V
-	 uk5EwCRNnf4ZZMlr7j+NERgutACFyjrQ84LaQOIc4ovoVoPD7TvAiQmoOx+AtcdSh0
-	 PP5WbQjPlLgiKqec8v7qX1+sK4KnHBr89wk4toQE=
+	b=vAeL+OQ0L7KOYX/pcOnIu+iYAuclG/+ORZTmDU4zzB6pDLSGmsyHdqQ+tmWENS8zT
+	 Bg5O+4bT8h5wnhHHd2O81QZYQ5w9oxoo9JiiofNXjwaomqqWHf+bU3sgU2u2CuWFnY
+	 1bswmb+yrqOW4rTin3fgktEPcmgtyCDdvy7fKHdQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9695F80507;
-	Mon, 27 Sep 2021 14:05:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 485EFF80515;
+	Mon, 27 Sep 2021 14:05:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED0B3F804F1; Mon, 27 Sep 2021 14:05:46 +0200 (CEST)
+ id D8711F80508; Mon, 27 Sep 2021 14:05:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,25 +33,26 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 39C9AF80147
- for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 14:05:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39C9AF80147
-X-IronPort-AV: E=McAfee;i="6200,9189,10119"; a="221260493"
-X-IronPort-AV: E=Sophos;i="5.85,326,1624345200"; d="scan'208";a="221260493"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 592D7F802C4
+ for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 14:05:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 592D7F802C4
+X-IronPort-AV: E=McAfee;i="6200,9189,10119"; a="221260500"
+X-IronPort-AV: E=Sophos;i="5.85,326,1624345200"; d="scan'208";a="221260500"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2021 05:05:36 -0700
-X-IronPort-AV: E=Sophos;i="5.85,326,1624345200"; d="scan'208";a="553164432"
+ 27 Sep 2021 05:05:39 -0700
+X-IronPort-AV: E=Sophos;i="5.85,326,1624345200"; d="scan'208";a="553164437"
 Received: from unknown (HELO pujfalus-desk.ger.corp.intel.com)
  ([10.251.220.221])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2021 05:05:34 -0700
+ 27 Sep 2021 05:05:36 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com, broonie@kernel.org,
  pierre-louis.bossart@linux.intel.com, daniel.baluta@nxp.com
-Subject: [PATCH v3 07/12] ASoC: SOF: restore kcontrols for widget during set up
-Date: Mon, 27 Sep 2021 15:05:12 +0300
-Message-Id: <20210927120517.20505-8-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH v3 08/12] ASoC: SOF: Don't set up widgets during topology
+ parsing
+Date: Mon, 27 Sep 2021 15:05:13 +0300
+Message-Id: <20210927120517.20505-9-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210927120517.20505-1-peter.ujfalusi@linux.intel.com>
 References: <20210927120517.20505-1-peter.ujfalusi@linux.intel.com>
@@ -77,112 +78,657 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-Restore kcontrols for each widget after it has been set up
-successfully.
+In preparation for supporting dynamic pipelines, move the
+widget setup, DAI config IPCs to the complete callback
+during topology loading. For current topology where all
+the pipelines are static, all the pipelines will be set up
+during complete. For topologies with dynamic and static pipelines,
+this will enable setting up only the static ones  during
+topology loading. Reuse the sof_restore_pipelines() function for
+this purpose and rename it to sof_set_up_pipelines().
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Seppo Ingalsuo <seppo.ingalsuo@intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/sof/sof-audio.c | 59 ++++++++++++++++++++++-----------------
- 1 file changed, 33 insertions(+), 26 deletions(-)
+ sound/soc/sof/pm.c        |   2 +-
+ sound/soc/sof/sof-audio.c |   2 +-
+ sound/soc/sof/sof-audio.h |   2 +-
+ sound/soc/sof/topology.c  | 282 ++++++--------------------------------
+ 4 files changed, 43 insertions(+), 245 deletions(-)
 
+diff --git a/sound/soc/sof/pm.c b/sound/soc/sof/pm.c
+index ce922227c4c6..ea27567d2fe4 100644
+--- a/sound/soc/sof/pm.c
++++ b/sound/soc/sof/pm.c
+@@ -157,7 +157,7 @@ static int sof_resume(struct device *dev, bool runtime_resume)
+ 	}
+ 
+ 	/* restore pipelines */
+-	ret = sof_restore_pipelines(sdev->dev);
++	ret = sof_set_up_pipelines(sdev->dev);
+ 	if (ret < 0) {
+ 		dev_err(sdev->dev,
+ 			"error: failed to restore pipeline after resume %d\n",
 diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
-index b52a453ae9d7..b27760208a4b 100644
+index b27760208a4b..4bed50847f1d 100644
 --- a/sound/soc/sof/sof-audio.c
 +++ b/sound/soc/sof/sof-audio.c
-@@ -64,6 +64,25 @@ static int sof_dai_config_setup(struct snd_sof_dev *sdev, struct snd_sof_dai *da
- 	return ret;
+@@ -248,7 +248,7 @@ const struct sof_ipc_pipe_new *snd_sof_pipeline_find(struct snd_sof_dev *sdev,
+ 	return NULL;
  }
  
-+static int sof_widget_kcontrol_setup(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget)
-+{
-+	struct snd_sof_control *scontrol;
-+	int ret;
-+
-+	/* set up all controls for the widget */
-+	list_for_each_entry(scontrol, &sdev->kcontrol_list, list)
-+		if (scontrol->comp_id == swidget->comp_id) {
-+			ret = sof_kcontrol_setup(sdev, scontrol);
-+			if (ret < 0) {
-+				dev_err(sdev->dev, "error: fail to set up kcontrols for widget %s\n",
-+					swidget->widget->name);
-+				return ret;
-+			}
-+		}
-+
-+	return 0;
-+}
-+
- static int sof_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget)
+-int sof_restore_pipelines(struct device *dev)
++int sof_set_up_pipelines(struct device *dev)
  {
- 	struct sof_ipc_pipe_new *pipeline;
-@@ -113,10 +132,20 @@ static int sof_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget *swi
- 					 &r, sizeof(r));
- 		break;
- 	}
--	if (ret < 0)
-+	if (ret < 0) {
- 		dev_err(sdev->dev, "error: failed to load widget %s\n", swidget->widget->name);
--	else
--		dev_dbg(sdev->dev, "widget %s setup complete\n", swidget->widget->name);
-+		return ret;
-+	}
-+
-+	/* restore kcontrols for widget */
-+	ret = sof_widget_kcontrol_setup(sdev, swidget);
-+	if (ret < 0) {
-+		dev_err(sdev->dev, "error: failed to restore kcontrols for widget %s\n",
-+			swidget->widget->name);
-+		return ret;
-+	}
-+
-+	dev_dbg(sdev->dev, "widget %s setup complete\n", swidget->widget->name);
+ 	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
+ 	struct snd_sof_widget *swidget;
+diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
+index fe997a80a847..f1f630028c21 100644
+--- a/sound/soc/sof/sof-audio.h
++++ b/sound/soc/sof/sof-audio.h
+@@ -242,7 +242,7 @@ int snd_sof_ipc_set_get_comp_data(struct snd_sof_control *scontrol,
+ int sof_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd, struct snd_pcm_hw_params *params);
  
- 	return ret;
- }
-@@ -203,22 +232,6 @@ int sof_set_hw_params_upon_resume(struct device *dev)
- 	return snd_sof_dsp_hw_params_upon_resume(sdev);
- }
+ /* PM */
+-int sof_restore_pipelines(struct device *dev);
++int sof_set_up_pipelines(struct device *dev);
+ void sof_tear_down_pipelines(struct device *dev);
+ int sof_set_hw_params_upon_resume(struct device *dev);
+ bool snd_sof_stream_suspend_ignored(struct snd_sof_dev *sdev);
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index 58f966ab2e81..b996b89f2920 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -1519,10 +1519,8 @@ static struct sof_ipc_comp *sof_comp_alloc(struct snd_sof_widget *swidget,
+ static int sof_widget_load_dai(struct snd_soc_component *scomp, int index,
+ 			       struct snd_sof_widget *swidget,
+ 			       struct snd_soc_tplg_dapm_widget *tw,
+-			       struct sof_ipc_comp_reply *r,
+ 			       struct snd_sof_dai *dai)
+ {
+-	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	struct snd_soc_tplg_private *private = &tw->priv;
+ 	struct sof_ipc_comp_dai *comp_dai;
+ 	size_t ipc_size = sizeof(*comp_dai);
+@@ -1559,10 +1557,7 @@ static int sof_widget_load_dai(struct snd_soc_component *scomp, int index,
+ 		swidget->widget->name, comp_dai->type, comp_dai->dai_index);
+ 	sof_dbg_comp_config(scomp, &comp_dai->config);
  
--static int sof_restore_kcontrols(struct device *dev)
--{
--	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
--	struct snd_sof_control *scontrol;
--	int ret = 0;
+-	ret = sof_ipc_tx_message(sdev->ipc, comp_dai->comp.hdr.cmd,
+-				 comp_dai, ipc_size, r, sizeof(*r));
 -
--	/* restore kcontrol values */
--	list_for_each_entry(scontrol, &sdev->kcontrol_list, list) {
--		ret = sof_kcontrol_setup(sdev, scontrol);
--		if (ret < 0)
--			return ret;
+-	if (ret == 0 && dai) {
++	if (dai) {
+ 		dai->scomp = scomp;
+ 
+ 		/*
+@@ -1584,10 +1579,8 @@ static int sof_widget_load_dai(struct snd_soc_component *scomp, int index,
+ 
+ static int sof_widget_load_buffer(struct snd_soc_component *scomp, int index,
+ 				  struct snd_sof_widget *swidget,
+-				  struct snd_soc_tplg_dapm_widget *tw,
+-				  struct sof_ipc_comp_reply *r)
++				  struct snd_soc_tplg_dapm_widget *tw)
+ {
+-	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	struct snd_soc_tplg_private *private = &tw->priv;
+ 	struct sof_ipc_buffer *buffer;
+ 	int ret;
+@@ -1619,15 +1612,7 @@ static int sof_widget_load_buffer(struct snd_soc_component *scomp, int index,
+ 
+ 	swidget->private = buffer;
+ 
+-	ret = sof_ipc_tx_message(sdev->ipc, buffer->comp.hdr.cmd, buffer,
+-				 sizeof(*buffer), r, sizeof(*r));
+-	if (ret < 0) {
+-		dev_err(scomp->dev, "error: buffer %s load failed\n",
+-			swidget->widget->name);
+-		kfree(buffer);
 -	}
--
--	return 0;
--}
--
- const struct sof_ipc_pipe_new *snd_sof_pipeline_find(struct snd_sof_dev *sdev,
- 						     int pipeline_id)
- {
-@@ -309,13 +322,7 @@ int sof_restore_pipelines(struct device *dev)
- 		}
- 	}
- 
--	/* restore pipeline kcontrols */
--	ret = sof_restore_kcontrols(dev);
--	if (ret < 0)
--		dev_err(dev,
--			"error: restoring kcontrols after resume\n");
 -
 -	return ret;
 +	return 0;
  }
  
- /* This function doesn't free widgets. It only resets the set up status for all routes */
+ /* bind PCM ID to host component ID */
+@@ -1656,10 +1641,8 @@ static int spcm_bind(struct snd_soc_component *scomp, struct snd_sof_pcm *spcm,
+ static int sof_widget_load_pcm(struct snd_soc_component *scomp, int index,
+ 			       struct snd_sof_widget *swidget,
+ 			       enum sof_ipc_stream_direction dir,
+-			       struct snd_soc_tplg_dapm_widget *tw,
+-			       struct sof_ipc_comp_reply *r)
++			       struct snd_soc_tplg_dapm_widget *tw)
+ {
+-	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	struct snd_soc_tplg_private *private = &tw->priv;
+ 	struct sof_ipc_comp_host *host;
+ 	size_t ipc_size = sizeof(*host);
+@@ -1698,10 +1681,7 @@ static int sof_widget_load_pcm(struct snd_soc_component *scomp, int index,
+ 
+ 	swidget->private = host;
+ 
+-	ret = sof_ipc_tx_message(sdev->ipc, host->comp.hdr.cmd, host,
+-				 ipc_size, r, sizeof(*r));
+-	if (ret >= 0)
+-		return ret;
++	return 0;
+ err:
+ 	kfree(host);
+ 	return ret;
+@@ -1730,8 +1710,7 @@ int sof_load_pipeline_ipc(struct device *dev,
+ 
+ static int sof_widget_load_pipeline(struct snd_soc_component *scomp, int index,
+ 				    struct snd_sof_widget *swidget,
+-				    struct snd_soc_tplg_dapm_widget *tw,
+-				    struct sof_ipc_comp_reply *r)
++				    struct snd_soc_tplg_dapm_widget *tw)
+ {
+ 	struct snd_soc_tplg_private *private = &tw->priv;
+ 	struct sof_ipc_pipe_new *pipeline;
+@@ -1786,10 +1765,7 @@ static int sof_widget_load_pipeline(struct snd_soc_component *scomp, int index,
+ 
+ 	swidget->private = pipeline;
+ 
+-	/* send ipc's to create pipeline comp and power up schedule core */
+-	ret = sof_load_pipeline_ipc(scomp->dev, pipeline, r);
+-	if (ret >= 0)
+-		return ret;
++	return 0;
+ err:
+ 	kfree(pipeline);
+ 	return ret;
+@@ -1801,10 +1777,8 @@ static int sof_widget_load_pipeline(struct snd_soc_component *scomp, int index,
+ 
+ static int sof_widget_load_mixer(struct snd_soc_component *scomp, int index,
+ 				 struct snd_sof_widget *swidget,
+-				 struct snd_soc_tplg_dapm_widget *tw,
+-				 struct sof_ipc_comp_reply *r)
++				 struct snd_soc_tplg_dapm_widget *tw)
+ {
+-	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	struct snd_soc_tplg_private *private = &tw->priv;
+ 	struct sof_ipc_comp_mixer *mixer;
+ 	size_t ipc_size = sizeof(*mixer);
+@@ -1833,12 +1807,7 @@ static int sof_widget_load_mixer(struct snd_soc_component *scomp, int index,
+ 
+ 	swidget->private = mixer;
+ 
+-	ret = sof_ipc_tx_message(sdev->ipc, mixer->comp.hdr.cmd, mixer,
+-				 ipc_size, r, sizeof(*r));
+-	if (ret < 0)
+-		kfree(mixer);
+-
+-	return ret;
++	return 0;
+ }
+ 
+ /*
+@@ -1846,10 +1815,8 @@ static int sof_widget_load_mixer(struct snd_soc_component *scomp, int index,
+  */
+ static int sof_widget_load_mux(struct snd_soc_component *scomp, int index,
+ 			       struct snd_sof_widget *swidget,
+-			       struct snd_soc_tplg_dapm_widget *tw,
+-			       struct sof_ipc_comp_reply *r)
++			       struct snd_soc_tplg_dapm_widget *tw)
+ {
+-	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	struct snd_soc_tplg_private *private = &tw->priv;
+ 	struct sof_ipc_comp_mux *mux;
+ 	size_t ipc_size = sizeof(*mux);
+@@ -1878,12 +1845,7 @@ static int sof_widget_load_mux(struct snd_soc_component *scomp, int index,
+ 
+ 	swidget->private = mux;
+ 
+-	ret = sof_ipc_tx_message(sdev->ipc, mux->comp.hdr.cmd, mux,
+-				 ipc_size, r, sizeof(*r));
+-	if (ret < 0)
+-		kfree(mux);
+-
+-	return ret;
++	return 0;
+ }
+ 
+ /*
+@@ -1892,8 +1854,7 @@ static int sof_widget_load_mux(struct snd_soc_component *scomp, int index,
+ 
+ static int sof_widget_load_pga(struct snd_soc_component *scomp, int index,
+ 			       struct snd_sof_widget *swidget,
+-			       struct snd_soc_tplg_dapm_widget *tw,
+-			       struct sof_ipc_comp_reply *r)
++			       struct snd_soc_tplg_dapm_widget *tw)
+ {
+ 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	struct snd_soc_tplg_private *private = &tw->priv;
+@@ -1953,10 +1914,7 @@ static int sof_widget_load_pga(struct snd_soc_component *scomp, int index,
+ 		}
+ 	}
+ 
+-	ret = sof_ipc_tx_message(sdev->ipc, volume->comp.hdr.cmd, volume,
+-				 ipc_size, r, sizeof(*r));
+-	if (ret >= 0)
+-		return ret;
++	return 0;
+ err:
+ 	kfree(volume);
+ 	return ret;
+@@ -1968,10 +1926,8 @@ static int sof_widget_load_pga(struct snd_soc_component *scomp, int index,
+ 
+ static int sof_widget_load_src(struct snd_soc_component *scomp, int index,
+ 			       struct snd_sof_widget *swidget,
+-			       struct snd_soc_tplg_dapm_widget *tw,
+-			       struct sof_ipc_comp_reply *r)
++			       struct snd_soc_tplg_dapm_widget *tw)
+ {
+-	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	struct snd_soc_tplg_private *private = &tw->priv;
+ 	struct sof_ipc_comp_src *src;
+ 	size_t ipc_size = sizeof(*src);
+@@ -2010,10 +1966,7 @@ static int sof_widget_load_src(struct snd_soc_component *scomp, int index,
+ 
+ 	swidget->private = src;
+ 
+-	ret = sof_ipc_tx_message(sdev->ipc, src->comp.hdr.cmd, src,
+-				 ipc_size, r, sizeof(*r));
+-	if (ret >= 0)
+-		return ret;
++	return 0;
+ err:
+ 	kfree(src);
+ 	return ret;
+@@ -2025,10 +1978,8 @@ static int sof_widget_load_src(struct snd_soc_component *scomp, int index,
+ 
+ static int sof_widget_load_asrc(struct snd_soc_component *scomp, int index,
+ 				struct snd_sof_widget *swidget,
+-				struct snd_soc_tplg_dapm_widget *tw,
+-				struct sof_ipc_comp_reply *r)
++				struct snd_soc_tplg_dapm_widget *tw)
+ {
+-	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	struct snd_soc_tplg_private *private = &tw->priv;
+ 	struct sof_ipc_comp_asrc *asrc;
+ 	size_t ipc_size = sizeof(*asrc);
+@@ -2069,10 +2020,7 @@ static int sof_widget_load_asrc(struct snd_soc_component *scomp, int index,
+ 
+ 	swidget->private = asrc;
+ 
+-	ret = sof_ipc_tx_message(sdev->ipc, asrc->comp.hdr.cmd, asrc,
+-				 ipc_size, r, sizeof(*r));
+-	if (ret >= 0)
+-		return ret;
++	return 0;
+ err:
+ 	kfree(asrc);
+ 	return ret;
+@@ -2084,10 +2032,8 @@ static int sof_widget_load_asrc(struct snd_soc_component *scomp, int index,
+ 
+ static int sof_widget_load_siggen(struct snd_soc_component *scomp, int index,
+ 				  struct snd_sof_widget *swidget,
+-				  struct snd_soc_tplg_dapm_widget *tw,
+-				  struct sof_ipc_comp_reply *r)
++				  struct snd_soc_tplg_dapm_widget *tw)
+ {
+-	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	struct snd_soc_tplg_private *private = &tw->priv;
+ 	struct sof_ipc_comp_tone *tone;
+ 	size_t ipc_size = sizeof(*tone);
+@@ -2126,10 +2072,7 @@ static int sof_widget_load_siggen(struct snd_soc_component *scomp, int index,
+ 
+ 	swidget->private = tone;
+ 
+-	ret = sof_ipc_tx_message(sdev->ipc, tone->comp.hdr.cmd, tone,
+-				 ipc_size, r, sizeof(*r));
+-	if (ret >= 0)
+-		return ret;
++	return 0;
+ err:
+ 	kfree(tone);
+ 	return ret;
+@@ -2211,10 +2154,8 @@ static int sof_get_control_data(struct snd_soc_component *scomp,
+ static int sof_process_load(struct snd_soc_component *scomp, int index,
+ 			    struct snd_sof_widget *swidget,
+ 			    struct snd_soc_tplg_dapm_widget *tw,
+-			    struct sof_ipc_comp_reply *r,
+ 			    int type)
+ {
+-	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	struct snd_soc_dapm_widget *widget = swidget->widget;
+ 	struct snd_soc_tplg_private *private = &tw->priv;
+ 	struct sof_ipc_comp_process *process;
+@@ -2288,33 +2229,6 @@ static int sof_process_load(struct snd_soc_component *scomp, int index,
+ 
+ 	process->size = ipc_data_size;
+ 	swidget->private = process;
+-
+-	ret = sof_ipc_tx_message(sdev->ipc, process->comp.hdr.cmd, process,
+-				 ipc_size, r, sizeof(*r));
+-
+-	if (ret < 0) {
+-		dev_err(scomp->dev, "error: create process failed\n");
+-		goto err;
+-	}
+-
+-	/* we sent the data in single message so return */
+-	if (ipc_data_size)
+-		goto out;
+-
+-	/* send control data with large message supported method */
+-	for (i = 0; i < widget->num_kcontrols; i++) {
+-		wdata[i].control->readback_offset = 0;
+-		ret = snd_sof_ipc_set_get_comp_data(wdata[i].control,
+-						    wdata[i].ipc_cmd,
+-						    wdata[i].ctrl_type,
+-						    wdata[i].control->cmd,
+-						    true);
+-		if (ret != 0) {
+-			dev_err(scomp->dev, "error: send control failed\n");
+-			break;
+-		}
+-	}
+-
+ err:
+ 	if (ret < 0)
+ 		kfree(process);
+@@ -2330,8 +2244,7 @@ static int sof_process_load(struct snd_soc_component *scomp, int index,
+ 
+ static int sof_widget_load_process(struct snd_soc_component *scomp, int index,
+ 				   struct snd_sof_widget *swidget,
+-				   struct snd_soc_tplg_dapm_widget *tw,
+-				   struct sof_ipc_comp_reply *r)
++				   struct snd_soc_tplg_dapm_widget *tw)
+ {
+ 	struct snd_soc_tplg_private *private = &tw->priv;
+ 	struct sof_ipc_comp_process config;
+@@ -2357,8 +2270,7 @@ static int sof_widget_load_process(struct snd_soc_component *scomp, int index,
+ 	}
+ 
+ 	/* now load process specific data and send IPC */
+-	ret = sof_process_load(scomp, index, swidget, tw, r,
+-			       find_process_comp_type(config.type));
++	ret = sof_process_load(scomp, index, swidget, tw, find_process_comp_type(config.type));
+ 	if (ret < 0) {
+ 		dev_err(scomp->dev, "error: process loading failed\n");
+ 		return ret;
+@@ -2407,8 +2319,6 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
+ 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	struct snd_sof_widget *swidget;
+ 	struct snd_sof_dai *dai;
+-	struct sof_ipc_comp_reply reply;
+-	struct snd_sof_control *scontrol;
+ 	struct sof_ipc_comp comp = {
+ 		.core = SOF_DSP_PRIMARY_CORE,
+ 	};
+@@ -2425,7 +2335,6 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
+ 	swidget->id = w->id;
+ 	swidget->pipeline_id = index;
+ 	swidget->private = NULL;
+-	memset(&reply, 0, sizeof(reply));
+ 
+ 	dev_dbg(scomp->dev, "tplg: ready widget id %d pipe %d type %d name : %s stream %s\n",
+ 		swidget->comp_id, index, swidget->id, tw->name,
+@@ -2444,14 +2353,6 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
+ 
+ 	swidget->core = comp.core;
+ 
+-	/* default is primary core, safe to call for already enabled cores */
+-	ret = sof_core_enable(sdev, comp.core);
+-	if (ret < 0) {
+-		dev_err(scomp->dev, "error: enable core: %d\n", ret);
+-		kfree(swidget);
+-		return ret;
+-	}
+-
+ 	ret = sof_parse_tokens(scomp, &swidget->comp_ext, comp_ext_tokens,
+ 			       ARRAY_SIZE(comp_ext_tokens), tw->priv.array,
+ 			       le32_to_cpu(tw->priv.size));
+@@ -2472,7 +2373,7 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
+ 			return -ENOMEM;
+ 		}
+ 
+-		ret = sof_widget_load_dai(scomp, index, swidget, tw, &reply, dai);
++		ret = sof_widget_load_dai(scomp, index, swidget, tw, dai);
+ 		if (ret == 0) {
+ 			sof_connect_dai_widget(scomp, w, tw, dai);
+ 			list_add(&dai->list, &sdev->dai_list);
+@@ -2482,47 +2383,40 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
+ 		}
+ 		break;
+ 	case snd_soc_dapm_mixer:
+-		ret = sof_widget_load_mixer(scomp, index, swidget, tw, &reply);
++		ret = sof_widget_load_mixer(scomp, index, swidget, tw);
+ 		break;
+ 	case snd_soc_dapm_pga:
+-		ret = sof_widget_load_pga(scomp, index, swidget, tw, &reply);
+-		/* Find scontrol for this pga and set readback offset*/
+-		list_for_each_entry(scontrol, &sdev->kcontrol_list, list) {
+-			if (scontrol->comp_id == swidget->comp_id) {
+-				scontrol->readback_offset = reply.offset;
+-				break;
+-			}
+-		}
++		ret = sof_widget_load_pga(scomp, index, swidget, tw);
+ 		break;
+ 	case snd_soc_dapm_buffer:
+-		ret = sof_widget_load_buffer(scomp, index, swidget, tw, &reply);
++		ret = sof_widget_load_buffer(scomp, index, swidget, tw);
+ 		break;
+ 	case snd_soc_dapm_scheduler:
+-		ret = sof_widget_load_pipeline(scomp, index, swidget, tw, &reply);
++		ret = sof_widget_load_pipeline(scomp, index, swidget, tw);
+ 		break;
+ 	case snd_soc_dapm_aif_out:
+ 		ret = sof_widget_load_pcm(scomp, index, swidget,
+-					  SOF_IPC_STREAM_CAPTURE, tw, &reply);
++					  SOF_IPC_STREAM_CAPTURE, tw);
+ 		break;
+ 	case snd_soc_dapm_aif_in:
+ 		ret = sof_widget_load_pcm(scomp, index, swidget,
+-					  SOF_IPC_STREAM_PLAYBACK, tw, &reply);
++					  SOF_IPC_STREAM_PLAYBACK, tw);
+ 		break;
+ 	case snd_soc_dapm_src:
+-		ret = sof_widget_load_src(scomp, index, swidget, tw, &reply);
++		ret = sof_widget_load_src(scomp, index, swidget, tw);
+ 		break;
+ 	case snd_soc_dapm_asrc:
+-		ret = sof_widget_load_asrc(scomp, index, swidget, tw, &reply);
++		ret = sof_widget_load_asrc(scomp, index, swidget, tw);
+ 		break;
+ 	case snd_soc_dapm_siggen:
+-		ret = sof_widget_load_siggen(scomp, index, swidget, tw, &reply);
++		ret = sof_widget_load_siggen(scomp, index, swidget, tw);
+ 		break;
+ 	case snd_soc_dapm_effect:
+-		ret = sof_widget_load_process(scomp, index, swidget, tw, &reply);
++		ret = sof_widget_load_process(scomp, index, swidget, tw);
+ 		break;
+ 	case snd_soc_dapm_mux:
+ 	case snd_soc_dapm_demux:
+-		ret = sof_widget_load_mux(scomp, index, swidget, tw, &reply);
++		ret = sof_widget_load_mux(scomp, index, swidget, tw);
+ 		break;
+ 	case snd_soc_dapm_switch:
+ 	case snd_soc_dapm_dai_link:
+@@ -2533,12 +2427,12 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
+ 	}
+ 
+ 	/* check IPC reply */
+-	if (ret < 0 || reply.rhdr.error < 0) {
++	if (ret < 0) {
+ 		dev_err(scomp->dev,
+-			"error: DSP failed to add widget id %d type %d name : %s stream %s reply %d\n",
++			"error: failed to add widget id %d type %d name : %s stream %s\n",
+ 			tw->shift, swidget->id, tw->name,
+ 			strnlen(tw->sname, SNDRV_CTL_ELEM_ID_NAME_MAXLEN) > 0
+-				? tw->sname : "none", reply.rhdr.error);
++				? tw->sname : "none");
+ 		kfree(swidget);
+ 		return ret;
+ 	}
+@@ -2844,9 +2738,6 @@ static int sof_set_dai_config_multi(struct snd_sof_dev *sdev, u32 size,
+ 			continue;
+ 
+ 		if (strcmp(link->name, dai->name) == 0) {
+-			struct sof_ipc_reply reply;
+-			int ret;
+-
+ 			/*
+ 			 * the same dai config will be applied to all DAIs in
+ 			 * the same dai link. We have to ensure that the ipc
+@@ -2858,18 +2749,6 @@ static int sof_set_dai_config_multi(struct snd_sof_dev *sdev, u32 size,
+ 
+ 			dev_dbg(sdev->dev, "set DAI config for %s index %d\n",
+ 				dai->name, config[curr_conf].dai_index);
+-			/* send message to DSP */
+-			ret = sof_ipc_tx_message(sdev->ipc,
+-						 config[curr_conf].hdr.cmd,
+-						 &config[curr_conf], size,
+-						 &reply, sizeof(reply));
+-
+-			if (ret < 0) {
+-				dev_err(sdev->dev,
+-					"error: failed to set DAI config for %s index %d\n",
+-					dai->name, config[curr_conf].dai_index);
+-				return ret;
+-			}
+ 
+ 			dai->number_configs = num_conf;
+ 			dai->current_config = curr_conf;
+@@ -3399,7 +3278,6 @@ static int sof_route_load(struct snd_soc_component *scomp, int index,
+ 	struct snd_sof_widget *source_swidget, *sink_swidget;
+ 	struct snd_soc_dobj *dobj = &route->dobj;
+ 	struct snd_sof_route *sroute;
+-	struct sof_ipc_reply reply;
+ 	int ret = 0;
+ 
+ 	/* allocate memory for sroute and connect */
+@@ -3474,36 +3352,11 @@ static int sof_route_load(struct snd_soc_component *scomp, int index,
+ 			route->source, route->sink);
+ 		goto err;
+ 	} else {
+-		ret = sof_ipc_tx_message(sdev->ipc,
+-					 connect->hdr.cmd,
+-					 connect, sizeof(*connect),
+-					 &reply, sizeof(reply));
+-
+-		/* check IPC return value */
+-		if (ret < 0) {
+-			dev_err(scomp->dev, "error: failed to add route sink %s control %s source %s\n",
+-				route->sink,
+-				route->control ? route->control : "none",
+-				route->source);
+-			goto err;
+-		}
+-
+-		/* check IPC reply */
+-		if (reply.error < 0) {
+-			dev_err(scomp->dev, "error: DSP failed to add route sink %s control %s source %s result %d\n",
+-				route->sink,
+-				route->control ? route->control : "none",
+-				route->source, reply.error);
+-			ret = reply.error;
+-			goto err;
+-		}
+-
+ 		sroute->route = route;
+ 		dobj->private = sroute;
+ 		sroute->private = connect;
+ 		sroute->src_widget = source_swidget;
+ 		sroute->sink_widget = sink_swidget;
+-		sroute->setup = true;
+ 
+ 		/* add route to route list */
+ 		list_add(&sroute->list, &sdev->route_list);
+@@ -3517,50 +3370,6 @@ static int sof_route_load(struct snd_soc_component *scomp, int index,
+ 	return ret;
+ }
+ 
+-/* Function to set the initial value of SOF kcontrols.
+- * The value will be stored in scontrol->control_data
+- */
+-static int snd_sof_cache_kcontrol_val(struct snd_soc_component *scomp)
+-{
+-	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+-	struct snd_sof_control *scontrol = NULL;
+-	int ipc_cmd, ctrl_type;
+-	int ret = 0;
+-
+-	list_for_each_entry(scontrol, &sdev->kcontrol_list, list) {
+-
+-		/* notify DSP of kcontrol values */
+-		switch (scontrol->cmd) {
+-		case SOF_CTRL_CMD_VOLUME:
+-		case SOF_CTRL_CMD_ENUM:
+-		case SOF_CTRL_CMD_SWITCH:
+-			ipc_cmd = SOF_IPC_COMP_GET_VALUE;
+-			ctrl_type = SOF_CTRL_TYPE_VALUE_CHAN_GET;
+-			break;
+-		case SOF_CTRL_CMD_BINARY:
+-			ipc_cmd = SOF_IPC_COMP_GET_DATA;
+-			ctrl_type = SOF_CTRL_TYPE_DATA_GET;
+-			break;
+-		default:
+-			dev_err(scomp->dev,
+-				"error: Invalid scontrol->cmd: %d\n",
+-				scontrol->cmd);
+-			return -EINVAL;
+-		}
+-		ret = snd_sof_ipc_set_get_comp_data(scontrol,
+-						    ipc_cmd, ctrl_type,
+-						    scontrol->cmd,
+-						    false);
+-		if (ret < 0) {
+-			dev_warn(scomp->dev,
+-				 "error: kcontrol value get for widget: %d\n",
+-				 scontrol->comp_id);
+-		}
+-	}
+-
+-	return ret;
+-}
+-
+ int snd_sof_complete_pipeline(struct device *dev,
+ 			      struct snd_sof_widget *swidget)
+ {
+@@ -3626,19 +3435,10 @@ static int sof_complete(struct snd_soc_component *scomp)
+ 	struct snd_sof_widget *swidget, *comp_swidget;
+ 	int ret;
+ 
+-	/* some widget types require completion notificattion */
++	/* set the pipe_widget and apply the dynamic_pipeline_widget_flag */
+ 	list_for_each_entry(swidget, &sdev->widget_list, list) {
+-		if (swidget->complete)
+-			continue;
+-
+ 		switch (swidget->id) {
+ 		case snd_soc_dapm_scheduler:
+-			ret = snd_sof_complete_pipeline(scomp->dev, swidget);
+-			if (ret < 0)
+-				return ret;
+-
+-			swidget->complete = ret;
+-
+ 			/*
+ 			 * Apply the dynamic_pipeline_widget flag and set the pipe_widget field
+ 			 * for all widgets that have the same pipeline ID as the scheduler widget
+@@ -3654,11 +3454,9 @@ static int sof_complete(struct snd_soc_component *scomp)
+ 			break;
+ 		}
+ 	}
+-	/*
+-	 * cache initial values of SOF kcontrols by reading DSP value over
+-	 * IPC. It may be overwritten by alsa-mixer after booting up
+-	 */
+-	return snd_sof_cache_kcontrol_val(scomp);
++
++	/* set up static pipelines */
++	return sof_set_up_pipelines(scomp->dev);
+ }
+ 
+ /* manifest - optional to inform component of manifest */
 -- 
 2.33.0
 

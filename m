@@ -2,62 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 930B3418D09
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Sep 2021 01:23:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B29AB419156
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Sep 2021 11:10:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F422E165E;
-	Mon, 27 Sep 2021 01:22:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F422E165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 26FCB165D;
+	Mon, 27 Sep 2021 11:10:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26FCB165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632698580;
-	bh=X6ERYPgTJjMShIXL4jCKmGVIRV02j9gNk3mpKnEKnzw=;
-	h=Date:To:From:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1632733850;
+	bh=Yt/lvnbtpxKZSxFy8Ez9wJhmVr8GlhuRbCNhF1pg8rg=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Reply-To:From;
-	b=NZn7WNiVFOLrVyCAL8cVub0KcIt06+u7/53d2NbckM16qwJFOgCtOSva9eaGE0LdQ
-	 jldpCFM/djRgKOYPLD1cz3y9Eqz6ZLZKhAv1Gny4VjK2A78+iLeOafL5igYnmt/fqk
-	 XNyV4hQQ3xuPOODdyCwSO8ufQH8tA0/e2oSIBrj8=
+	 From;
+	b=N1yVIl1OIIWZ8iT1kQ7WxrjW9KxKc2zCnuNtvpn5h4oW2X4ahCcNvuTfStDdWjBT3
+	 fHOcT6MgZbg/rwWdKntBXFIrJdeWMvQu8GWiaKgrY9ISsrBFQA+PcH7VCuYK2PJ314
+	 I+hWvdD53jh14zsmvketjMOZz7kGLGEAAD0KEK+g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48254F804AD;
-	Mon, 27 Sep 2021 01:21:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6CE34F8026D;
+	Mon, 27 Sep 2021 11:09:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 27A4FF804AD; Mon, 27 Sep 2021 01:21:41 +0200 (CEST)
+ id 0D774F80227; Mon, 27 Sep 2021 11:09:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, SPF_HELO_NONE, SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail4.protonmail.ch (mail4.protonmail.ch [185.70.40.27])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D944F80246
- for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 01:21:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D944F80246
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=protonmail.com header.i=@protonmail.com
- header.b="MSxob8mO"
-Date: Sun, 26 Sep 2021 23:21:28 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail; t=1632698490;
- bh=FO4CyyDiDoIqcst24P2c0wJN4wJ5Ym5cJicFYcaxJmU=;
- h=Date:To:From:Reply-To:Subject:In-Reply-To:References:From;
- b=MSxob8mODlz5Lf8TtMIQeX3HdcpThBrYjoBnZe4Cy58ZXYEzlmK1i2Bgp+ZTLBMJT
- MOjaYH+S/IXwduBJ5cVBk3cYYS5zIhX3QUeCivrajeUSeHGvLGcyyzQv9HMEo9+49n
- ACFQF5wl/PimqXzJroNIULRblhDtkLkMkb/a1EBM=
-To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-From: Ryan McClue <re.mcclue@protonmail.com>
-Subject: Re: Broken Pipe with SNDRV_PCM_IOCTL_WRITEI_FRAMES
-Message-ID: <_PhylB5sSzE44xsNHmeiM9rZHJxEiTmQ2UUuR6UgmpgyLolZQDzgQlPWNvRezAViAVXF-qKegbkLhhMVMMGD1mKQSs-FqjrF1uhMQ5SliVE=@protonmail.com>
-In-Reply-To: <aMjqrUVYYlPC6M_ZW7GlV0WUwUzJimDuTXi2mWq62PH9GbMUmTMK0ECdR837FlWMPQd8sP57TNh3Coq19l0gm75NBOh7oqPGpl7ARwjF-u0=@protonmail.com>
-References: <aMjqrUVYYlPC6M_ZW7GlV0WUwUzJimDuTXi2mWq62PH9GbMUmTMK0ECdR837FlWMPQd8sP57TNh3Coq19l0gm75NBOh7oqPGpl7ARwjF-u0=@protonmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5B98BF80161
+ for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 11:09:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B98BF80161
+X-IronPort-AV: E=McAfee;i="6200,9189,10119"; a="288102269"
+X-IronPort-AV: E=Sophos;i="5.85,326,1624345200"; d="scan'208";a="288102269"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Sep 2021 02:09:20 -0700
+X-IronPort-AV: E=Sophos;i="5.85,326,1624345200"; d="scan'208";a="518490283"
+Received: from unknown (HELO [10.251.220.221]) ([10.251.220.221])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Sep 2021 02:09:17 -0700
+Message-ID: <1ab40375-57fd-a3c6-68d7-9db78a20ed6e@linux.intel.com>
+Date: Mon, 27 Sep 2021 12:09:20 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: base64
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.1.1
+Subject: Re: [PATCH v2 10/12] ASoC: SOF: Intel: hda: make sure DAI widget is
+ set up before IPC
+Content-Language: en-US
+To: Daniel Baluta <daniel.baluta@gmail.com>
+References: <20210917143659.401102-1-daniel.baluta@oss.nxp.com>
+ <20210917143659.401102-11-daniel.baluta@oss.nxp.com>
+ <203bf6cd-6407-f01d-52c3-e399d06cb3f6@linux.intel.com>
+ <b90eff84-b56c-7764-a5bb-f1e07db57cc3@linux.intel.com>
+ <ab4ea50f-9149-3468-ce2b-7cd421095b40@linux.intel.com>
+ <CAEnQRZDmubE9aLG+7YtTeRTB2euqGpRh8FWqtgV5+h3H3M8JGA@mail.gmail.com>
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <CAEnQRZDmubE9aLG+7YtTeRTB2euqGpRh8FWqtgV5+h3H3M8JGA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Daniel Baluta <daniel.baluta@oss.nxp.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,40 +85,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Reply-To: Ryan McClue <re.mcclue@protonmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SSd2ZSB1cGRhdGUgbXkgbG9vcCB0bzoKCnN0cnVjdAoKc25kX3hmZXJpCgp0cmFuc2ZlcgoKPQoK
-e307CiAgdHJhbnNmZXIuYnVmID0gKHU4ICopYnVmZmVyOwogIHRyYW5zZmVyLmZyYW1lcyA9IG51
-bV9iYXNlX3NhbXBsZXM7CgppbnQKCnJlcyA9IGlvY3RsKGZkLCBTTkRSVl9QQ01fSU9DVExfV1JJ
-VEVJX0ZSQU1FUywgJnRyYW5zZmVyKTsKCmlmCgoocmVzID09IC1FUElQRSkgewogICAgaW9jdGwo
-ZmQsIFNORFJWX1BDTV9JT0NUTF9QUkVQQVJFKTsKClRoaXMgcmVtb3ZlcyB0aGUgQnJva2VuIFBp
-cGUsIGhvd2V2ZXIgbm8gc291bmQgaXMgaGVhcmQuCi0tClJ5YW4gTWNDbHVlLCBTeWRuZXkKCuKA
-kOKAkOKAkOKAkOKAkOKAkOKAkCBPcmlnaW5hbCBNZXNzYWdlIOKAkOKAkOKAkOKAkOKAkOKAkOKA
-kApPbiBTdW5kYXksIFNlcHRlbWJlciAyNnRoLCAyMDIxIGF0IDc6MDEgUE0sIFJ5YW4gTWNDbHVl
-IDxyZS5tY2NsdWVAcHJvdG9ubWFpbC5jb20+IHdyb3RlOgoKPiBIZWxsbyBhZ2Fpbi4KPiBJJ20g
-dXNpbmcgYWxzYS1rZXJuZWwuCj4gTXkgY29uZmlndXJhdGlvbjoKPiBTTkRSVl9QQ01fSFdfUEFS
-QU1fQUNDRVNTID0gU05EUlZfUENNX0FDQ0VTU19SV19JTlRFUkxFQVZFRAo+IFNORFJWX1BDTV9I
-V19QQVJBTV9GT1JNQVQgPSBTTkRSVl9QQ01fRk9STUFUX1MxNl9MRQo+IFNORFJWX1BDTV9IV19Q
-QVJBTV9TVUJGT1JNQVQgPSBTTkRSVl9QQ01fU1VCRk9STUFUX1NURAo+IFNORFJWX1BDTV9IV19Q
-QVJBTV9DSEFOTkVMUyA9IDIKPiBTTkRSVl9QQ01fSFdfUEFSQU1fUkFURSA9IDQ4MDAwCj4KPiBJ
-IGhhdmUgYSB2c3luY2VkIGdhbWUgbG9vcCB0aGF0IGlzIHJ1bm5pbmcgYXQgNjBmcHM6Cj4KPj4g
-aW50IG51bV9iYXNlX3NhbXBsZXMgPSA0ODAwMCAqICgxIC8gNjApOwo+PiBpbnQgbnVtX3NhbXBs
-ZXMgPSAgbnVtX2Jhc2Vfc2FtcGxlcyAqIDI7Cj4+IGludDE2X3QgYnVmZmVyW251bV9zYW1wbGVz
-XSA9IHt9Owo+Pgo+PiB3aGlsZSAodHJ1ZSkgewo+PiAgIGludDE2X3QgKnNhbXBsZXMgPSBidWZm
-ZXI7Cj4+ICAgZm9yIChpbnQgc2FtcGxlX2kgPSAwOyBzYW1wbGVfaSA8IG51bV9iYXNlX3NhbXBs
-ZXM7IHNhbXBsZV9pKyspIHsKPj4gICAgICpzYW1wbGVzKysgPSAweDMzOwo+PiAgICAgKnNhbXBs
-ZXMrKyA9IDB4MzM7Cj4+ICAgfQo+Pgo+PiAgIHN0cnVjdCBzbmRfeGZlcmkgdHJhbnNmZXIgPSB7
-fTsKPj4gICB0cmFuc2Zlci5idWYgPSBidWZmZXI7Cj4+ICAgdHJhbnNmZXIuZnJhbWVzID0gbnVt
-X2Jhc2Vfc2FtcGxlczsKPj4gICBpb2N0bChmZCwgU05EUlZfUENNX0lPQ1RMX1dSSVRFSV9GUkFN
-RVMsICZ0cmFuc2Zlcik7Cj4+Cj4+ICAgLy8gaW9jdGwoZmQsIFNORFJWX1BDTV9JT0NUTF9EUkFJ
-Tik7ICAtLT4gTkVDRVNTQVJZPz8/Cj4+ICAgLy8gaW9jdGwoZmQsIFNORFJWX1BDTV9JT0NUTF9Q
-UkVQQVJFKTsgIC0tPiBORUNFU1NBUlk/Pz8KPj4gfQo+Cj4gT24gdGhlIGZpcnN0IGl0ZXJhdGlv
-biBvZiBTTkRSVl9QQ01fSU9DVExfV1JJVEVJX0ZSQU1FUyBJIGdldCBubyBlcnJvci4KPiBBbGwg
-c3Vic2VxdWVudCBpdGVyYXRpb25zLCBJIGdldCBCcm9rZW4gUGlwZSBlcnJvci4KPiBTbywgdG8g
-Y291bnRlcmFjdCB0aGlzIGF0IHRoZSBlbmQgb2YgZWFjaCBmcmFtZSBJIGNhbGwgU05EUlZfUENN
-X0lPQ1RMX0RSQUlOIGFuZCBTTkRSVl9QQ01fSU9DVExfUFJFUEFSRS4KPiBUaGlzIHJlbW92ZXMg
-dGhlIEJyb2tlbiBQaXBlIGVycm9yIGhvd2V2ZXIgc2xvd3MgdGhlIHByb2dyYW0gZG93biBieSBo
-YWxmIGFuZCBubyBzb3VuZCBpcyBoZWFyZC4KPiBIb3cgYmVzdCB0byBzb2x2ZSB0aGlzIGlzc3Vl
-Pwo+Cj4gVGhhbmtzIGFnYWluCj4gLS0KPiBSeWFuIE1jQ2x1ZSwgU3lkbmV5
+Hi Daniel,
+
+On 24/09/2021 10:42, Daniel Baluta wrote:
+> On Thu, Sep 23, 2021 at 4:04 PM Péter Ujfalusi
+> <peter.ujfalusi@linux.intel.com> wrote:
+>>
+>>
+>>
+>> On 23/09/2021 15:58, Pierre-Louis Bossart wrote:
+>>>
+>>>>> +static struct sof_ipc_dai_config *hda_dai_update_config(struct snd_soc_dapm_widget *w,
+>>>>> +                                                   int channel)
+>>>>>  {
+>>>>> +   struct snd_sof_widget *swidget = w->dobj.private;
+>>>>>     struct sof_ipc_dai_config *config;
+>>>>>     struct snd_sof_dai *sof_dai;
+>>>>> -   struct sof_ipc_reply reply;
+>>>>> -   int ret = 0;
+>>>>>
+>>>>> -   list_for_each_entry(sof_dai, &hda_stream->sdev->dai_list, list) {
+>>>>> -           if (!sof_dai->cpu_dai_name)
+>>>>> -                   continue;
+>>>>> +   if (!swidget) {
+>>>>> +           dev_err(swidget->scomp->dev, "error: No private data for widget %s\n", w->name);
+>>>>
+>>>> NULL pointer dereference, just return NULL without the print. The caller
+>>>> is printing anyways.
+>>>
+>>> yes good catch, we need a v3 with the fixes suggested by Peter in
+>>> https://github.com/thesofproject/linux/pull/3171/ applied.
+>>
+>> Only the second patch in the PR is applicable for upstream, but it
+>> should be squashed in for v3.
+> 
+> Thanks Peter, will squash this in and send v3.
+
+As we discussed, I'll send the v3 with the fix.
+
+Thanks for sending the initial versions upstream!
+
+-- 
+Péter

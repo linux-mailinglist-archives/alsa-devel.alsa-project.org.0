@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C486241959E
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Sep 2021 15:59:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3D77419599
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Sep 2021 15:59:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 55CC016AF;
-	Mon, 27 Sep 2021 15:59:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55CC016AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 69CA116CE;
+	Mon, 27 Sep 2021 15:58:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69CA116CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632751198;
-	bh=SlXlzk69IQpBie/NzsHKru3Rz6dB5u2ZrQXWqPLDPqI=;
+	s=default; t=1632751149;
+	bh=IgZwZ1eS04lFXZZ28Tmag0IUOrzAuofrvddmbZU346Q=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QP3Lv57+vNsyMMQbMl4dwoFUpiIVUW88j/Lu9P23x/+A+jJdweyqOWLm+XYEAq06D
-	 bfuZQLIspEP+LzJq/HOW2RsGUlZIy4vd00aUfSkX/6lCRvopGtgRVsT256R6e4Kgza
-	 sPICnl+VC6gRxA53QiL1UdkLXcel/gQTX4ka+vfI=
+	b=rX5FHK+EKLw9qzia/6ikYUS0eM7u8UdXqT+jK8uS4eRF9NYDkfGTs0Kz/S4OqVLfd
+	 vsdRMWjan3Z6ffs/dk/RO90NQFDgF06N5H3HvlQMvOjv0hSd70agq3FFYn8l92C1EN
+	 D75LGH6X/IoRX3EzpI4ZvHH8ZKcnBUiXpEIz4kV0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 025DEF804EB;
-	Mon, 27 Sep 2021 15:56:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E5434F804FE;
+	Mon, 27 Sep 2021 15:56:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C90C2F80507; Mon, 27 Sep 2021 15:56:42 +0200 (CEST)
+ id 8F248F804F3; Mon, 27 Sep 2021 15:56:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,53 +35,53 @@ Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
  [IPv6:2a00:1450:4864:20::329])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C344FF804B0
- for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 15:56:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C344FF804B0
+ by alsa1.perex.cz (Postfix) with ESMTPS id B16ABF80272
+ for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 15:56:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B16ABF80272
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="tZXURVze"
-Received: by mail-wm1-x329.google.com with SMTP id v127so595855wme.5
- for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 06:56:30 -0700 (PDT)
+ header.b="Ljd9cUkx"
+Received: by mail-wm1-x329.google.com with SMTP id b192so593821wmb.2
+ for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 06:56:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=3Z5Vb1RSBflZ+7ZLNkpjt6NBAFfXXldbHtQ/st8v0lA=;
- b=tZXURVze3Gecje/XiDOBrZzfyd9AbrarsPdu8eqBx6bLju1fsqtddu1WkNKH9+9NJM
- JPwUfM1EzDOwYfugZtwzjqURbuUhetY5ejvbuNNd6+md9GRrmsu5+iUXCaW0qn/P4B4d
- z3Bj8/dQrCCVJrxZfgFM/HemEDi0wjut5DJRZ5iyK6OHXI8fwGSCNwfhIpcroEal+oGi
- b1Z15qfvIepYO5a19FkyhNP4xomtT7YAtvN1oaS+I9X9PnnQc4KOEDPJLfkYHgET5J0F
- zvIi2SvZN9r/b6kTraNtGi7ygl3zj7q9M+0FyQ34TbZAG8b7Te9l/aQjOnfE/xkDKXmH
- V2Kw==
+ bh=imP3Ut5HB4n6q2DrZyy9qRcidcMnxdcc3SMVUqr3MKw=;
+ b=Ljd9cUkxbAdpy/GJP8qxESHf9YjYyB94bxdw9x9va7KIGB4D57keslk10gjc2QpZbn
+ fF7gScqVTgcKfpV4cErKl8riPOZcFDSHxyQlOCX6W1yN+Nq6fyFm82Tw1PbNkqIo1yJ6
+ 10OCCrJBBliv4xf+9DY2jqUcEBhsuy9n82DVZOBVgSwvhmqQGlSmErsXhMZRj8aHD931
+ U47aYmEepawVngCBVZNGanrwU8CVM92h1i31LzlOSfHBXF7RZlPu7yjiETu8gvDcTvlF
+ dPgbAUw8jXz4RIfLOw8kO4UXK5H1Ia1QQe5oar6kG/gGGXjDHv3rjIsbgg2LQ2Ndz3kS
+ qj7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=3Z5Vb1RSBflZ+7ZLNkpjt6NBAFfXXldbHtQ/st8v0lA=;
- b=5poifr5F05IuvYDiwXSvHtSFfvrU+YuPQyFJURQQcF9Dj0Drv+nqdUnHxc7J+BxzVH
- c5r1X0dnrNBLuEWgyy9U0DIaivR1A/C+y2n4fFRgqIF6GDaFMGUyIUkTN6I0QaF02fuM
- CSbsbjnoquwVbHvZWoGyqyI7QcgND+cNdOf8Qfbuqqgc4wLxF0zckPxcn61W6ShvEprq
- gaiYn+F/hIZYPA9UmdFjDpb/bDiqKbGCqXZbKOH3QtAozj17SpTuWWsEyERbGVOOMoxD
- rliJOXlTJiqAU6308yUBMSuj3nCSEazb9bK3EIWpAJiIUaXUne3gFa+ZRzLUib+5jfK9
- pDOg==
-X-Gm-Message-State: AOAM533z5ajznFFNBg0dzsXZ8uws31dT7lOFz09zOnr3Zgamh9kh7cgv
- QrqYcfrY73lWUriPPX/mSX0I9dDK4Smwbg==
-X-Google-Smtp-Source: ABdhPJwx8520vWaLNSUxL8ZMhtweWpmmKZ/nnjWHftoDhFi2w7dGkDsNqznuig9tIqk8JThxzgcX6A==
-X-Received: by 2002:a1c:9a07:: with SMTP id c7mr6544086wme.106.1632750989999; 
- Mon, 27 Sep 2021 06:56:29 -0700 (PDT)
+ bh=imP3Ut5HB4n6q2DrZyy9qRcidcMnxdcc3SMVUqr3MKw=;
+ b=Xu5J4nWw6GHdOPwEJeeRI76BrFLpmrX6ozVa4+U3PYUZ+4Q1bdShBOTJ+b1PCckDkJ
+ GQxAW6xDQSIwiz99ryjsq2WlThd1vFovFs6hSiJIqg1snxL/Cmz2xnpnfVQZhd92fkjw
+ NinDLja3lSsE8FzZ9MIkDxYSPGdEv8CV7gASN+q7Ckn9jY3poPnHNUozGaSwPmK3sosQ
+ +3QqA7F0AkKwogU6B2u9PJpUAjtPPYe20XkG2q24MYta99LSYvqfQkAW3pyN/4xNOe3C
+ zwcgskJFm5mOehL5irsWblXHm7Tt3wkaVfKFlx472i7YAfL5j/wQuZ3PJKNCCqOapTHJ
+ irGQ==
+X-Gm-Message-State: AOAM532++j8MpqYArBfKnNNPcf+wxA8fNIbafmoWC1S6+Tnfe1ijaOFt
+ X6RNxrPfvI1vMQ3SzIlSkf9QtQ==
+X-Google-Smtp-Source: ABdhPJxOw77N4FuPtT8C80DNhoTF26nsWI58NzTYuQt7bvh3xBT5/xkEvczQTJAHohB161DZMnbE+w==
+X-Received: by 2002:a7b:c5c7:: with SMTP id n7mr58796wmk.5.1632750991180;
+ Mon, 27 Sep 2021 06:56:31 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id b7sm20485606wrm.9.2021.09.27.06.56.28
+ by smtp.gmail.com with ESMTPSA id b7sm20485606wrm.9.2021.09.27.06.56.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Sep 2021 06:56:29 -0700 (PDT)
+ Mon, 27 Sep 2021 06:56:30 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: bjorn.andersson@linaro.org,
 	broonie@kernel.org,
 	robh@kernel.org
-Subject: [PATCH v8 06/22] ASoC: dt-bindings: move LPASS dai related bindings
- out of q6afe
-Date: Mon, 27 Sep 2021 14:55:43 +0100
-Message-Id: <20210927135559.738-7-srinivas.kandagatla@linaro.org>
+Subject: [PATCH v8 07/22] ASoC: dt-bindings: move LPASS clocks related
+ bindings out of q6afe
+Date: Mon, 27 Sep 2021 14:55:44 +0100
+Message-Id: <20210927135559.738-8-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20210927135559.738-1-srinivas.kandagatla@linaro.org>
 References: <20210927135559.738-1-srinivas.kandagatla@linaro.org>
@@ -112,351 +112,97 @@ In order to allow  multiple DSP frameworks to use these bindings
 its best to move it out from the dsp specific bindings.
 
 For compatibility reasons and not breaking which is already working
-we still maintain same compatible string "qcom,q6afe-dais"
+we still maintain same compatible string "qcom,q6afe-clocks"
 
-Also as part of this change convert these LPASS dai related bindings
+Also as part of this change convert these LPASS clocks related bindings
 into yaml format.
 
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 Reviewed-by: Rob Herring <robh@kernel.org>
 ---
- .../devicetree/bindings/sound/qcom,q6afe.txt  | 158 ----------------
- .../sound/qcom,q6dsp-lpass-ports.yaml         | 178 ++++++++++++++++++
- 2 files changed, 178 insertions(+), 158 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml
+ .../devicetree/bindings/sound/qcom,q6afe.txt  | 23 --------
+ .../sound/qcom,q6dsp-lpass-clocks.yaml        | 56 +++++++++++++++++++
+ 2 files changed, 56 insertions(+), 23 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-clocks.yaml
 
 diff --git a/Documentation/devicetree/bindings/sound/qcom,q6afe.txt b/Documentation/devicetree/bindings/sound/qcom,q6afe.txt
-index 2d6fb2ea75a0..fcf81058504c 100644
+index fcf81058504c..bc6b5f1fe4f1 100644
 --- a/Documentation/devicetree/bindings/sound/qcom,q6afe.txt
 +++ b/Documentation/devicetree/bindings/sound/qcom,q6afe.txt
-@@ -12,92 +12,6 @@ used by all apr services. Must contain the following properties.
+@@ -12,32 +12,9 @@ used by all apr services. Must contain the following properties.
  		  from DSP.
  		  example "qcom,q6afe"
  
--= AFE DAIs (Digial Audio Interface)
--"dais" subnode of the AFE node. It represents afe dais, each afe dai is a
--subnode of "dais" representing board specific dai setup.
--"dais" node should have following properties followed by dai children.
--
+-= AFE CLOCKSS
+-"clocks" subnode of the AFE node. It represents q6afe clocks
+-"clocks" node should have following properties.
 -- compatible:
 -	Usage: required
 -	Value type: <stringlist>
--	Definition: must be "qcom,q6afe-dais"
+-	Definition: must be "qcom,q6afe-clocks"
 -
--- #sound-dai-cells
+-- #clock-cells:
 -	Usage: required
 -	Value type: <u32>
--	Definition: Must be 1
+-	Definition: Must be 2. Clock Id followed by
+-		below valid clock coupling attributes.
+-		1 - for no coupled clock
+-		2 - for dividend of the coupled clock
+-		3 - for divisor of the coupled clock
+-		4 - for inverted and no couple clock
 -
--- #address-cells
--	Usage: required
--	Value type: <u32>
--	Definition: Must be 1
--
--- #size-cells
--	Usage: required
--	Value type: <u32>
--	Definition: Must be 0
--
--== AFE DAI is subnode of "dais" and represent a dai, it includes board specific
--configuration of each dai. Must contain the following properties.
--
--- reg
--	Usage: required
--	Value type: <u32>
--	Definition: Must be dai id
--
--- qcom,sd-lines
--	Usage: required for mi2s interface
--	Value type: <prop-encoded-array>
--	Definition: Must be list of serial data lines used by this dai.
--	should be one or more of the 0-3 sd lines.
--
-- - qcom,tdm-sync-mode:
--	Usage: required for tdm interface
--	Value type: <prop-encoded-array>
--	Definition: Synchronization mode.
--		0 - Short sync bit mode
--		1 - Long sync mode
--		2 - Short sync slot mode
--
-- - qcom,tdm-sync-src:
--	Usage: required for tdm interface
--	Value type: <prop-encoded-array>
--	Definition: Synchronization source.
--		0 - External source
--		1 - Internal source
--
-- - qcom,tdm-data-out:
--	Usage: required for tdm interface
--	Value type: <prop-encoded-array>
--	Definition: Data out signal to drive with other masters.
--		0 - Disable
--		1 - Enable
--
-- - qcom,tdm-invert-sync:
--	Usage: required for tdm interface
--	Value type: <prop-encoded-array>
--	Definition: Invert the sync.
--		0 - Normal
--		1 - Invert
--
-- - qcom,tdm-data-delay:
--	Usage: required for tdm interface
--	Value type: <prop-encoded-array>
--	Definition: Number of bit clock to delay data
--		with respect to sync edge.
--		0 - 0 bit clock cycle
--		1 - 1 bit clock cycle
--		2 - 2 bit clock cycle
--
-- - qcom,tdm-data-align:
--	Usage: required for tdm interface
--	Value type: <prop-encoded-array>
--	Definition: Indicate how data is packed
--		within the slot. For example, 32 slot width in case of
--		sample bit width is 24.
--		0 - MSB
--		1 - LSB
--
- = AFE CLOCKSS
- "clocks" subnode of the AFE node. It represents q6afe clocks
- "clocks" node should have following properties.
-@@ -122,78 +36,6 @@ apr-service@4 {
+ = EXAMPLE
+ 
+ apr-service@4 {
  	compatible = "qcom,q6afe";
  	reg = <APR_SVC_AFE>;
- 
--	dais {
--		compatible = "qcom,q6afe-dais";
--		#sound-dai-cells = <1>;
--		#address-cells = <1>;
--		#size-cells = <0>;
 -
--		dai@1 {
--			reg = <HDMI_RX>;
--		};
--
--		dai@24 {
--			reg = <PRIMARY_TDM_RX_0>;
--			qcom,tdm-sync-mode = <1>:
--			qcom,tdm-sync-src = <1>;
--			qcom,tdm-data-out = <0>;
--			qcom,tdm-invert-sync = <1>;
--			qcom,tdm-data-delay = <1>;
--			qcom,tdm-data-align = <0>;
--
--		};
--
--		dai@25 {
--			reg = <PRIMARY_TDM_TX_0>;
--			qcom,tdm-sync-mode = <1>:
--			qcom,tdm-sync-src = <1>;
--			qcom,tdm-data-out = <0>;
--			qcom,tdm-invert-sync = <1>;
--			qcom,tdm-data-delay <1>:
--			qcom,tdm-data-align = <0>;
--		};
--
--		dai@16 {
--			reg = <PRIMARY_MI2S_RX>;
--			qcom,sd-lines = <0 2>;
--		};
--
--		dai@17 {
--			reg = <PRIMARY_MI2S_TX>;
--			qcom,sd-lines = <1>;
--		};
--
--		dai@18 {
--			reg = <SECONDARY_MI2S_RX>;
--			qcom,sd-lines = <0 3>;
--		};
--
--		dai@19 {
--			reg = <SECONDARY_MI2S_TX>;
--			qcom,sd-lines = <1>;
--		};
--
--		dai@20 {
--			reg = <TERTIARY_MI2S_RX>;
--			qcom,sd-lines = <1 3>;
--		};
--
--		dai@21 {
--			reg = <TERTIARY_MI2S_TX>;
--			qcom,sd-lines = <0>;
--		};
--
--		dai@22 {
--			reg = <QUATERNARY_MI2S_RX>;
--			qcom,sd-lines = <0>;
--		};
--
--		dai@23 {
--			reg = <QUATERNARY_MI2S_TX>;
--			qcom,sd-lines = <1>;
--		};
+-	clocks {
+-		compatible = "qcom,q6afe-clocks";
+-		#clock-cells = <2>;
 -	};
--
- 	clocks {
- 		compatible = "qcom,q6afe-clocks";
- 		#clock-cells = <2>;
-diff --git a/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml b/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml
+ };
+diff --git a/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-clocks.yaml b/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-clocks.yaml
 new file mode 100644
-index 000000000000..e6148c17419b
+index 000000000000..c686164732aa
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml
-@@ -0,0 +1,178 @@
++++ b/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-clocks.yaml
+@@ -0,0 +1,56 @@
 +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: "http://devicetree.org/schemas/sound/qcom,q6dsp-lpass-ports.yaml#"
++$id: "http://devicetree.org/schemas/sound/qcom,q6dsp-lpass-clocks.yaml#"
 +$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 +
-+title: Qualcomm DSP LPASS(Low Power Audio SubSystem) Audio Ports binding
++title: Qualcomm DSP LPASS Clock Controller binding
 +
 +maintainers:
 +  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 +
 +description: |
-+  This binding describes the Qualcomm DSP LPASS Audio ports
++  This binding describes the Qualcomm DSP Clock Controller
 +
 +properties:
 +  compatible:
 +    enum:
-+      - qcom,q6afe-dais
++      - qcom,q6afe-clocks
 +
 +  reg:
 +    maxItems: 1
 +
-+  '#sound-dai-cells':
-+    const: 1
-+
-+  '#address-cells':
-+    const: 1
-+
-+  '#size-cells':
-+    const: 0
-+
-+#Digital Audio Interfaces
-+patternProperties:
-+  '^dai@[0-9]+$':
-+    type: object
++  '#clock-cells':
++    const: 2
 +    description:
-+      Q6DSP Digital Audio Interfaces.
-+
-+    properties:
-+      reg:
-+        description:
-+          Digital Audio Interface ID
-+
-+      qcom,sd-lines:
-+        $ref: /schemas/types.yaml#/definitions/uint32-array
-+        description:
-+          List of serial data lines used by this dai.should be one or more of the 0-3 sd lines.
-+        minItems: 1
-+        maxItems: 4
-+        uniqueItems: true
-+        items:
-+          minimum: 0
-+          maximum: 3
-+
-+      qcom,tdm-sync-mode:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        enum: [0, 1, 2]
-+        description:
-+          TDM Synchronization mode
-+            0 = Short sync bit mode
-+            1 = Long sync mode
-+            2 = Short sync slot mode
-+
-+      qcom,tdm-sync-src:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        enum: [0, 1]
-+        description:
-+          TDM Synchronization source
-+            0 = External source
-+            1 = Internal source
-+
-+      qcom,tdm-data-out:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        enum: [0, 1]
-+        description:
-+          TDM Data out signal to drive with other masters
-+            0 = Disable
-+            1 = Enable
-+
-+      qcom,tdm-invert-sync:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        enum: [0, 1]
-+        description:
-+          TDM Invert the sync
-+            0 = Normal
-+            1 = Invert
-+
-+      qcom,tdm-data-delay:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        enum: [0, 1, 2]
-+        description:
-+          TDM Number of bit clock to delay data
-+            0 = 0 bit clock cycle
-+            1 = 1 bit clock cycle
-+            2 = 2 bit clock cycle
-+
-+      qcom,tdm-data-align:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        enum: [0, 1]
-+        description:
-+          Indicate how data is packed within the slot. For example, 32 slot
-+          width in case of sample bit width is 24TDM Invert the sync.
-+            0 = MSB
-+            1 = LSB
-+
-+    required:
-+      - reg
-+
-+    allOf:
-+      - if:
-+          properties:
-+            reg:
-+              contains:
-+                # TDM DAI ID range from PRIMARY_TDM_RX_0 - QUINARY_TDM_TX_7
-+                items:
-+                  minimum: 24
-+                  maximum: 103
-+        then:
-+          required:
-+            - qcom,tdm-sync-mode
-+            - qcom,tdm-sync-src
-+            - qcom,tdm-data-out
-+            - qcom,tdm-invert-sync
-+            - qcom,tdm-data-delay
-+            - qcom,tdm-data-align
-+
-+      - if:
-+          properties:
-+            reg:
-+              contains:
-+                # MI2S DAI ID range PRIMARY_MI2S_RX - QUATERNARY_MI2S_TX and
-+                # QUINARY_MI2S_RX - QUINARY_MI2S_TX
-+                items:
-+                  oneOf:
-+                    - minimum: 16
-+                      maximum: 23
-+                    - minimum: 127
-+                      maximum: 128
-+        then:
-+          required:
-+            - qcom,sd-lines
-+
-+    additionalProperties: false
++      Clock Id is followed by clock coupling attributes.
++        1 = for no coupled clock
++        2 = for dividend of the coupled clock
++        3 = for divisor of the coupled clock
++        4 = for inverted and no couple clock
 +
 +required:
 +  - compatible
 +  - reg
-+  - "#sound-dai-cells"
-+  - "#address-cells"
-+  - "#size-cells"
++  - "#clock-cells"
 +
 +additionalProperties: false
 +
@@ -471,17 +217,10 @@ index 000000000000..e6148c17419b
 +            reg = <APR_SVC_AFE>;
 +            #address-cells = <1>;
 +            #size-cells = <0>;
-+            q6afedai@1 {
-+              compatible = "qcom,q6afe-dais";
-+              reg = <1>;
-+              #address-cells = <1>;
-+              #size-cells = <0>;
-+              #sound-dai-cells = <1>;
-+
-+              dai@22 {
-+                reg = <QUATERNARY_MI2S_RX>;
-+                qcom,sd-lines = <0 1 2 3>;
-+              };
++            clock-controller@2 {
++              compatible = "qcom,q6afe-clocks";
++              reg = <2>;
++              #clock-cells = <2>;
 +            };
 +        };
 +      };

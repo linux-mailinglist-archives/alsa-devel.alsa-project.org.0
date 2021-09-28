@@ -2,84 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C311541A5EC
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 05:12:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9757641A605
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 05:20:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4CF7016AA;
-	Tue, 28 Sep 2021 05:12:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CF7016AA
+	by alsa0.perex.cz (Postfix) with ESMTPS id CDB2116A6;
+	Tue, 28 Sep 2021 05:20:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDB2116A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632798772;
-	bh=XuGbdg+gsHbV7O5CNejxioP978DSZm31BG3mqStkBKU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1632799255;
+	bh=2GQYD0Se81crx/6pf3v8GB06gIzCuqscmP/pjPDkTrg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RfIu93Rn9P8LC/BEjIiRAbdVP0fz9CJJxrP1vUGXe6Ab3ViWcLHdjdndX5Zj8U7cS
-	 z3jlVZxjhCsJz5KZ7myRpBkd/1Yxp7CizASHEZO8plIpAwfg/kxITH3tX5UcNPhMEI
-	 Moa3I5TEoKdvDlurP5BLRfq8/son5ySJETeEndUM=
+	b=Sqm0cPZKHs6lYFjvSh9JhxKWnFW1HqUrZITe+HDqfVyWQKfgmVELipWTqOI8/f3uN
+	 vYzVZQcUhF1yLq0gN6EanY0A1ztxMCY/q3wur3M3fF9HRoMze1zuhlWGxUpibL6+DO
+	 kXYcE18Emni2FpV5h8Yv92humLKLYumDTcYdeRRk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF0D0F804BC;
-	Tue, 28 Sep 2021 05:11:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50A20F804AD;
+	Tue, 28 Sep 2021 05:19:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3C0FF804AD; Tue, 28 Sep 2021 05:11:32 +0200 (CEST)
+ id 2B5DBF804AD; Tue, 28 Sep 2021 05:19:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL
- autolearn=disabled version=3.4.0
-Received: from mail-io1-xd2b.google.com (mail-io1-xd2b.google.com
- [IPv6:2607:f8b0:4864:20::d2b])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6975DF80161
- for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 05:11:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6975DF80161
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3844EF800DE
+ for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 05:19:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3844EF800DE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="glOYWIb+"
-Received: by mail-io1-xd2b.google.com with SMTP id b78so20190327iof.2
- for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 20:11:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=XuGbdg+gsHbV7O5CNejxioP978DSZm31BG3mqStkBKU=;
- b=glOYWIb+kPr6poS9nJDxJ7OEs9a4B1m9r04FTq3frBJawoX6sMYOh7YdAuu4iAho7g
- 1i0q+oux8Jrim5JKr2do1o97ehP8ojORYNlGzcyYthV7MfigkiDkpBqAZOZf0LAUUq8A
- DOkGdMBN/NSh8iPG8aJEDAxn4ile5uC0nyIM2faWYt3msvOyMl3FmhboSn0JQb6dnpay
- saDeij1VcMV9h7GAdti16G/gVSdSdQdJ8DvihatsO++TuksP+W5E06Qe43uBR5XPaJL6
- mIvo5R6M1/URbD8eTGIhVIHBwp1IEdlIY8/qZVk4X7WnJhvCNYxsItR8dLjqGR476suf
- 9tlA==
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="BoV7/r/5"
+Received: by mail-oi1-x22d.google.com with SMTP id a3so28321682oid.6
+ for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 20:19:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=onA5gitzbhND4lKJZ/81nF5bPiG9NjZqAmNBCuE2l2A=;
+ b=BoV7/r/5pjnRACCDFHqcmeD3ZZJsdegN3esgBhOrbaFfVQ4ElfWsoo9Y8MJyhFdbwK
+ iAEcmA2L7trGtGiaKwapfSE7qMU9toSYwaGsE1fAZcrYEQXRCRsNONqGBlry2ZrHoi2N
+ kUlxMlgb6XJ4LwGB65lOKico9CyDaPxWAv+8h/chyfbK3hLCK2wxhzxVhtpEuQA0AMkE
+ /ZT6VRovv1LQW/uaKaa5feIp4CPg9kQVOjn0tpMkWrp8AwoHwQP1BWsxGrllGeeuruWZ
+ tGZelOVcEuGWBOiI8Ovp580Chl/8ryHva3gyIo6oItmj+xY5T7q2rHe14g1pLLgf16l4
+ mHzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=XuGbdg+gsHbV7O5CNejxioP978DSZm31BG3mqStkBKU=;
- b=uAlM7N7ekcPDoEStl4lMskI/OLuhdSA3Gs5zHhPVdJ+jQsBhYJJ8rGoOMlBCCmqmU6
- e9y6dFlE4hQdk3sqfWlxeJnCkvK5+pSkSfGBVEIrHoPv4FToNcDxG/EEArT+5mTUR4Cq
- IqHUg5KXtVuJlIvsptKCsGXJVsSjA7XywPmiwI2/A4xM/V8cLrNzRdK2R/V0ZO4b/YXV
- wIIdb9/m+2mLFZ1Xi1seW9g/vkc1b55lMDJ890O39bDEVunaVkRYHNRXgvO5u/J9+z6c
- rxst7RN+N8y1sFmfxTxFuPaCkWNKxOa4uYE4MFA2hCEcaLhtzltAMDPwtZdUIyojWGqx
- 4W6w==
-X-Gm-Message-State: AOAM533xnS/8wzdy+YyZWNkNY6SqVaMYKHiRCVSb1LXe1MeLnb31/e4y
- oPLP7tKrguPmDgrwNDxIPXskMVXfVLKz4Cg7Rcaoog==
-X-Google-Smtp-Source: ABdhPJztbIdBK74nPlWGOLzoJIo0XlHNyUzjluIXtP+os7Nwv4kU+yxTO9uusIiA6j0jpGe4WJXNmRIoz8RFa4X6Y3M=
-X-Received: by 2002:a5e:c74c:: with SMTP id g12mr2283939iop.41.1632798683207; 
- Mon, 27 Sep 2021 20:11:23 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=onA5gitzbhND4lKJZ/81nF5bPiG9NjZqAmNBCuE2l2A=;
+ b=Hkpujp/BJfUaItT4ePCpgxyrmMMeppIHLHIW/AiBfbXD4Ul2X64eNM6ocyA7pNsWlQ
+ 4pCfJBxkwzqj+4SN+LU3uMPjVWGLXS6L5JLFfqHVUYO+Uw4FR+aP4xDNQzZJyD0bZlV8
+ BdQ9KzsPySpFhSuczOdWKsw3qtjMqIuADx7Lzb2y9F/fttAq/W+Kj8sBsUYaptO54PEV
+ /hXhWZ60OjlSCo1BK5+TjxpSUmKcWVcZPGtipBugCmwCVKD6FmO/3/wo9PS0Wqul4G2F
+ Voee8JccxwW+sEYvI3Frn7/LWKiNgJXB3DoIoa1TSsf6HbK8ac85c9MepXhzvQpiecd9
+ 6jvg==
+X-Gm-Message-State: AOAM533fokwajTb8CndS9VksoA+mhXjqWsewE8pHETr8eCHQf7Cb1Kte
+ dE2T7OrY7qskZJOyX5etXAn9Tg==
+X-Google-Smtp-Source: ABdhPJzD2pIquIHT4rCoKN3ZqPDhiYOCZ9J1OQLWBtRH2r+M0Hl4qv3X8fbbURpYDjfh7T1wshZicA==
+X-Received: by 2002:a05:6808:1912:: with SMTP id
+ bf18mr1910365oib.118.1632799167177; 
+ Mon, 27 Sep 2021 20:19:27 -0700 (PDT)
+Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186])
+ by smtp.gmail.com with ESMTPSA id h17sm555962oog.17.2021.09.27.20.19.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Sep 2021 20:19:26 -0700 (PDT)
+Date: Mon, 27 Sep 2021 22:19:25 -0500
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH v8 00/22] ASoC: qcom: Add AudioReach support
+Message-ID: <YVKJvUMW5RWVzTT2@builder.lan>
+References: <20210927135559.738-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
-References: <20210928030343.2200141-1-tzungbi@google.com>
-In-Reply-To: <20210928030343.2200141-1-tzungbi@google.com>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Tue, 28 Sep 2021 11:11:12 +0800
-Message-ID: <CA+Px+wUgG5im=Ds=rb64EFUYPWy0hfSWUiELk_1j_wFyCVk=-w@mail.gmail.com>
-Subject: Re: [RESEND PATCH v4] ASoC: dt-bindings: mediatek: mt8192: re-add
- audio afe document
-To: broonie@kernel.org, robh+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Rob Herring <robh@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210927135559.738-1-srinivas.kandagatla@linaro.org>
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
+ devicetree@vger.kernel.org, tiwai@suse.de, lgirdwood@gmail.com,
+ plai@codeaurora.org, pierre-louis.bossart@linux.intel.com, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,39 +102,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Sep 28, 2021 at 11:03 AM Tzung-Bi Shih <tzungbi@google.com> wrote:
->
-> The document was merged as commit 1afc60e00de3 ("dt-bindings:
-> mediatek: mt8192: add audio afe document").
->
-> However, [1] revealed that the commit 1afc60e00de3 breaks
-> dt_binding_check due to dt-bindings/clock/mt8192-clk.h doesn't
-> exist.
->
-> As a temporary fix, commit 7d94ca3c8acd ("ASoC: mt8192: revert
-> add audio afe document") reverted commit 1afc60e00de3.
->
-> dt-bindings/clock/mt8192-clk.h is in mainline per commit
-> f35f1a23e0e1 ("clk: mediatek: Add dt-bindings of MT8192 clocks").
-> Re-adds the document back.
->
-> [1]: https://mailman.alsa-project.org/pipermail/alsa-devel/2020-November/176873.html
->
-> Reviewed-by: Rob Herring <robh@kernel.org>
-> Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
+On Mon 27 Sep 08:55 CDT 2021, Srinivas Kandagatla wrote:
+[..]
+> Srinivas Kandagatla (22):
+>   soc: dt-bindings: qcom: apr: convert to yaml
+>   soc: dt-bindings: qcom: apr: deprecate qcom,apr-domain property
+>   soc: qcom: apr: make code more reuseable
+>   soc: dt-bindings: qcom: add gpr bindings
+>   soc: qcom: apr: Add GPR support
 
-Oops, forgot to include the changelogs to the patch.
+These patches has been merged into the Qualcomm drivers-for-5.16 tree
+and an immutable tag is available at:
 
-Here are the changelogs:
+https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git tags/20210927135559.738-6-srinivas.kandagatla@linaro.org
 
-Changes from v3
-(https://mailman.alsa-project.org/pipermail/alsa-devel/2021-September/189705.html):
-- Fix the indent errors.
-
-Changes from v2
-(https://mailman.alsa-project.org/pipermail/alsa-devel/2021-August/189058.html):
-- Simplify the commit message.
-
-Changes from v1
-(https://mailman.alsa-project.org/pipermail/alsa-devel/2021-August/189048.html):
-- Add more context to the commit message.
+Regards,
+Bjorn

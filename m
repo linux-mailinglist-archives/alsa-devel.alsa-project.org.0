@@ -2,74 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6E6F41AAC3
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 10:41:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B760841AA3F
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 10:02:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 832FB16A5;
-	Tue, 28 Sep 2021 10:40:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 832FB16A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4892216A5;
+	Tue, 28 Sep 2021 10:01:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4892216A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632818487;
-	bh=9tis6MQOFRbgB/nS92n2z6w2gu6QaHWy3NEI3OndlKU=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=XUmv28L580TYxv2A6HJ5KbSV9k6JFi86irIw9q1AL25FhE8V+b6dCPEugLTgOVTZ9
-	 VB6ufskESEuUWqSGoUStR0aAf3/HiJoyKUc8M78Pqm1IcVDnVxR9DRtBe8jp4RgGEJ
-	 kxPlSqFRtVRBOWPgPvMmuEG5jPWeoZs9ZaIESJy8=
+	s=default; t=1632816159;
+	bh=v4iVU6hFAwDjG8t4+dIu4EQc+Ydy9ENklo/LHbd0iAA=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Pd7miARF7Om7PvW2jkHW+Y0RxRLwIkXXSqaO1NlYfAppU/7oUuUCtu3TuPwuHWfTI
+	 jN7jAsI6iGh+6gEnS5KCTy3+L6fc+n8I1RPfKNeX8zBjZQpKsv1rMg2ZB+hwOZ9l3H
+	 e5fPt1TjA59rW55lVUm2rrq8Akj12b+wqYd6rDY4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9310AF804E1;
-	Tue, 28 Sep 2021 10:39:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A90E3F80105;
+	Tue, 28 Sep 2021 10:01:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45EF7F80268; Sat, 25 Sep 2021 21:49:18 +0200 (CEST)
+ id 7EBDBF804AD; Tue, 28 Sep 2021 10:01:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.baldo.me (mail.baldo.me [51.15.71.247])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=NICE_REPLY_A,PRX_BODY_30,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A1147F8013D
- for <alsa-devel@alsa-project.org>; Sat, 25 Sep 2021 21:49:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1147F8013D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baldo.me header.i=@baldo.me
- header.b="X2zZE0SC"
-Received: from mail.baldo.me (localhost [127.0.0.1])
- by mail.baldo.me (Postfix) with ESMTPS id 7DEB7425C0;
- Sat, 25 Sep 2021 19:49:11 +0000 (UTC)
-Received: from mail.baldo.me (localhost [127.0.0.1])
- by mail.baldo.me (Postfix) with ESMTPS id 652EC425D8;
- Sat, 25 Sep 2021 19:49:11 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.baldo.me 652EC425D8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baldo.me;
- s=BA429582-84BB-11EA-85D5-B6667C1AB266; t=1632599351;
- bh=zDL2/RA2SuZbFjeltpf+skeRppd8krxlhI+77dRTBRY=;
- h=From:To:Date:Message-Id:MIME-Version;
- b=X2zZE0SCHicO9Vl+5WAUDB69IQmSd/8H0BkAByItJKflclCgOOMjRohVcdAxw2zP7
- 248KwdAlA6a/RvOsPhtt59eYj6qDBVMV9g3lQKKx+TTGY3q8v4eByUJQLMW2zow6ac
- Nkw+hv0xHEHEqDZTaXb11qieqA+WYvlQhfGVmxTHu8fYeGO4luszpsjEKx7zaO8qSG
- 98tko8+Rqo/YHKEQPkrFPSmHRQblGcb4VcI2B9haHDR3LrtqfmSE7IS5OwYCqL/AwN
- 5lZgEmCZfJiYwgTopWdKAvIRm8g1vHrwuVfR1CR1jiEZ1IfQo1cD/Yd4cXERBQqw8i
- 4cZQKnRo1q44A==
-Received: from localhost.localdomain (to-18-83-216.service.infuturo.it
- [151.18.83.216])
- by mail.baldo.me (Postfix) with ESMTPSA id 09985425C0;
- Sat, 25 Sep 2021 19:49:10 +0000 (UTC)
-From: Davide Baldo <davide@baldo.me>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] Fixes HP Spectre x360 15-eb1xxx speakers
-Date: Sat, 25 Sep 2021 21:44:26 +0200
-Message-Id: <20210925194425.9028-1-davide@baldo.me>
-X-Mailer: git-send-email 2.32.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id ABBF7F80161
+ for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 10:01:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABBF7F80161
+X-IronPort-AV: E=McAfee;i="6200,9189,10120"; a="288303949"
+X-IronPort-AV: E=Sophos;i="5.85,328,1624345200"; d="scan'208";a="288303949"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2021 01:01:10 -0700
+X-IronPort-AV: E=Sophos;i="5.85,328,1624345200"; d="scan'208";a="561949036"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.237.12.65])
+ ([10.237.12.65])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2021 01:01:07 -0700
+Subject: Re: [PATCH v8 14/22] ASoC: qdsp6: audioreach: add basic pkt alloc
+ support
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ bjorn.andersson@linaro.org, broonie@kernel.org, robh@kernel.org
+References: <20210927135559.738-1-srinivas.kandagatla@linaro.org>
+ <20210927135559.738-15-srinivas.kandagatla@linaro.org>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Message-ID: <d1f69cbc-37f6-dc47-258c-f53450dd558c@linux.intel.com>
+Date: Tue, 28 Sep 2021 10:00:46 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 28 Sep 2021 10:39:26 +0200
-Cc: Davide Baldo <davide@baldo.me>
+In-Reply-To: <20210927135559.738-15-srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, tiwai@suse.de, plai@codeaurora.org,
+ lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,120 +81,275 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 9/27/2021 3:55 PM, Srinivas Kandagatla wrote:
+> Add basic helper functions for AudioReach.
+> 
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+>   sound/soc/qcom/qdsp6/audioreach.c | 265 ++++++++++++
+>   sound/soc/qcom/qdsp6/audioreach.h | 668 ++++++++++++++++++++++++++++++
+>   2 files changed, 933 insertions(+)
+>   create mode 100644 sound/soc/qcom/qdsp6/audioreach.c
+>   create mode 100644 sound/soc/qcom/qdsp6/audioreach.h
+> 
+> diff --git a/sound/soc/qcom/qdsp6/audioreach.c b/sound/soc/qcom/qdsp6/audioreach.c
+> new file mode 100644
+> index 000000000000..34ec4c0d0175
+> --- /dev/null
+> +++ b/sound/soc/qcom/qdsp6/audioreach.c
+> @@ -0,0 +1,265 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Copyright (c) 2020, Linaro Limited
+> +
+> +#include <linux/kernel.h>
+> +#include <linux/slab.h>
+> +#include <linux/soc/qcom/apr.h>
+> +#include <dt-bindings/soc/qcom,gpr.h>
+> +#include "audioreach.h"
+> +
+> +/* SubGraph Config */
+> +struct apm_sub_graph_data {
+> +	struct apm_sub_graph_cfg sub_graph_cfg;
+> +	struct apm_prop_data perf_data;
+> +	struct apm_sg_prop_id_perf_mode perf;
+> +	struct apm_prop_data dir_data;
+> +	struct apm_sg_prop_id_direction dir;
+> +	struct apm_prop_data sid_data;
+> +	struct apm_sg_prop_id_scenario_id sid;
+> +
+> +} __packed;
+> +
+> +#define APM_SUB_GRAPH_CFG_NPROP	3
+> +
+> +struct apm_sub_graph_params  {
+> +	struct apm_module_param_data param_data;
+> +	uint32_t num_sub_graphs;
+> +	struct apm_sub_graph_data sg_cfg[];
+> +} __packed;
+> +
+> +#define APM_SUB_GRAPH_PSIZE(n) ALIGN(sizeof(struct apm_sub_graph_params) + \
+> +				n * sizeof(struct apm_sub_graph_data), 8)
 
-First kernel contribution, I only tested this patch myself on a 5.14.7.
-There is probably some way to fix the remaining issues, but I need
-some guidance on how I could test the different pinouts since
-hdajackretask hangs the audio card and I can't test out combinations.
-In the meantime this commit fix the most serius problem: silent
-speakers.
+This looks, like you could use struct_size helper, something like:
+#define APM_SUB_GRAPH_PSIZE(n) ALIGN(struct_size(apm_sub_graph_params, 
+apm_sub_graph_data, n), 8)
 
-In laptop 'HP Spectre x360 Convertible 15-eb1xxx/8811' both front and
-rear speakers are silent, this patch fixes that by overriding the pin
-layout and by initializing the amplifier which needs a GPIO pin to be
-set to 1 then 0, similar to the existing HP Spectre x360 14 model.
+> +/* container config */
+> +struct apm_container_obj  {
+> +	struct apm_container_cfg container_cfg;
+> +	/* Capability ID list */
+> +	struct apm_prop_data cap_data;
+> +	uint32_t num_capability_id;
+> +	uint32_t capability_id;
+> +
+> +	/* Container graph Position */
+> +	struct apm_prop_data pos_data;
+> +	struct apm_cont_prop_id_graph_pos pos;
+> +
+> +	/* Container Stack size */
+> +	struct apm_prop_data stack_data;
+> +	struct apm_cont_prop_id_stack_size stack;
+> +
+> +	/* Container proc domain id */
+> +	struct apm_prop_data domain_data;
+> +	struct apm_cont_prop_id_domain domain;
+> +} __packed;
+> +
+> +struct apm_container_params  {
+> +	struct apm_module_param_data param_data;
+> +	uint32_t num_containers;
+> +	struct apm_container_obj cont_obj[];
+> +} __packed;
+> +
+> +#define APM_CONTAINER_PSIZE(n) ALIGN(sizeof(struct apm_container_params) + \
+> +				n * sizeof(struct apm_container_obj), 8)
+> +
 
-This patch also correctly map the mute LED but since there is no
-microphone on/off switch exposed by the alsa subsystem it never turns
-on by itself.
+Same here, use struct_size, and same applies for other defines in this 
+file, I won't add comment to all of them ;)
 
-There are still known audio issues in this laptop: headset microphone
-doesn't work, the button to mute/unmute microphone is not yet mapped,
-the LED of the mute/unmute speakers doesn't seems to be exposed via
-GPIO and never turns on.
+> +/* Module List config */
+> +struct apm_mod_list_obj {
+> +	/* Modules list cfg */
+> +	uint32_t sub_graph_id;
+> +	uint32_t container_id;
+> +	uint32_t num_modules;
+> +	struct apm_module_obj mod_cfg[];
+> +} __packed;
+> +
+> +struct apm_module_list_params {
+> +	struct apm_module_param_data param_data;
+> +	uint32_t num_modules_list;
+> +	/* Module list config array */
+> +	struct apm_mod_list_obj mod_list_obj[];
+> +} __packed;
+> +
 
-Signed-off-by: Davide Baldo <davide@baldo.me>
----
- sound/pci/hda/patch_realtek.c | 41 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 40 insertions(+), 1 deletion(-)
+(...)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 70516527ebce..90f845976793 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -6414,6 +6414,38 @@ static void alc_fixup_no_int_mic(struct hda_codec *codec,
- 	}
- }
- 
-+/* GPIO1 = amplifier on/off
-+ * GPIO3 = mic mute LED
-+ */
-+static void alc285_fixup_hp_spectre_x360_eb1(struct hda_codec *codec,
-+					  const struct hda_fixup *fix, int action)
-+{
-+	struct alc_spec *spec = codec->spec;
-+	static const struct hda_pintbl pincfgs[] = {
-+		{ 0x14, 0x90170110 },  /* front speakers */
-+		{ }
-+	};
-+
-+	//enable micmute led
-+	alc_fixup_hp_gpio_led(codec, action, 0x00, 0x04);
-+	spec->micmute_led_polarity = 1;
-+
-+	switch (action) {
-+	case HDA_FIXUP_ACT_PRE_PROBE:
-+		/* needed for amp of back speakers */
-+		spec->gpio_mask |= 0x01;
-+		spec->gpio_dir |= 0x01;
-+		snd_hda_apply_pincfgs(codec, pincfgs);
-+		break;
-+	case HDA_FIXUP_ACT_INIT:
-+		/* need to toggle GPIO to enable the amp of back speakers */
-+		alc_update_gpio_data(codec, 0x01, true);
-+		msleep(100);
-+		alc_update_gpio_data(codec, 0x01, false);
-+		break;
-+	}
-+}
-+
- static void alc285_fixup_hp_spectre_x360(struct hda_codec *codec,
- 					  const struct hda_fixup *fix, int action)
- {
-@@ -6534,6 +6566,7 @@ enum {
- 	ALC269_FIXUP_HP_DOCK_GPIO_MIC1_LED,
- 	ALC280_FIXUP_HP_9480M,
- 	ALC245_FIXUP_HP_X360_AMP,
-+	ALC285_FIXUP_HP_SPECTRE_X360_EB1,
- 	ALC288_FIXUP_DELL_HEADSET_MODE,
- 	ALC288_FIXUP_DELL1_MIC_NO_PRESENCE,
- 	ALC288_FIXUP_DELL_XPS_13,
-@@ -6658,7 +6691,7 @@ enum {
- 	ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP,
- 	ALC623_FIXUP_LENOVO_THINKSTATION_P340,
- 	ALC255_FIXUP_ACER_HEADPHONE_AND_MIC,
--	ALC236_FIXUP_HP_LIMIT_INT_MIC_BOOST,
-+	ALC236_FIXUP_HP_LIMIT_INT_MIC_BOOST
- };
- 
- static const struct hda_fixup alc269_fixups[] = {
-@@ -8222,6 +8255,10 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc285_fixup_hp_spectre_x360,
- 	},
-+	[ALC285_FIXUP_HP_SPECTRE_X360_EB1] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc285_fixup_hp_spectre_x360_eb1
-+	},
- 	[ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc285_fixup_ideapad_s740_coef,
-@@ -8415,6 +8452,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x84da, "HP OMEN dc0019-ur", ALC295_FIXUP_HP_OMEN),
- 	SND_PCI_QUIRK(0x103c, 0x84e7, "HP Pavilion 15", ALC269_FIXUP_HP_MUTE_LED_MIC3),
- 	SND_PCI_QUIRK(0x103c, 0x8519, "HP Spectre x360 15-df0xxx", ALC285_FIXUP_HP_SPECTRE_X360),
-+	SND_PCI_QUIRK(0x103c, 0x8811, "HP Spectre x360 15-eb1xxx", ALC285_FIXUP_HP_SPECTRE_X360_EB1),
- 	SND_PCI_QUIRK(0x103c, 0x861f, "HP Elite Dragonfly G1", ALC285_FIXUP_HP_GPIO_AMP_INIT),
- 	SND_PCI_QUIRK(0x103c, 0x869d, "HP", ALC236_FIXUP_HP_MUTE_LED),
- 	SND_PCI_QUIRK(0x103c, 0x86c7, "HP Envy AiO 32", ALC274_FIXUP_HP_ENVY_GPIO),
-@@ -8858,6 +8896,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
- 	{.id = ALC245_FIXUP_HP_X360_AMP, .name = "alc245-hp-x360-amp"},
- 	{.id = ALC295_FIXUP_HP_OMEN, .name = "alc295-hp-omen"},
- 	{.id = ALC285_FIXUP_HP_SPECTRE_X360, .name = "alc285-hp-spectre-x360"},
-+	{.id = ALC285_FIXUP_HP_SPECTRE_X360_EB1, .name = "alc285-hp-spectre-x360-eb1"},
- 	{.id = ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP, .name = "alc287-ideapad-bass-spk-amp"},
- 	{.id = ALC623_FIXUP_LENOVO_THINKSTATION_P340, .name = "alc623-lenovo-thinkstation-p340"},
- 	{.id = ALC255_FIXUP_ACER_HEADPHONE_AND_MIC, .name = "alc255-acer-headphone-and-mic"},
--- 
-2.32.0
+> diff --git a/sound/soc/qcom/qdsp6/audioreach.h b/sound/soc/qcom/qdsp6/audioreach.h
+> new file mode 100644
+> index 000000000000..556443155416
+> --- /dev/null
+> +++ b/sound/soc/qcom/qdsp6/audioreach.h
+> @@ -0,0 +1,668 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +
+> +#ifndef __AUDIOREACH_H__
+> +#define __AUDIOREACH_H__
+> +#include <linux/types.h>
+> +#include <linux/soc/qcom/apr.h>
+> +#include <sound/soc.h>
+> +
+> +/* Module IDs */
+> +#define MODULE_ID_WR_SHARED_MEM_EP	0x07001000
+> +#define MODULE_ID_RD_SHARED_MEM_EP	0x07001001
+> +#define MODULE_ID_GAIN			0x07001002
+> +#define MODULE_ID_PCM_CNV		0x07001003
+> +#define MODULE_ID_PCM_ENC		0x07001004
+> +#define MODULE_ID_PCM_DEC		0x07001005
+> +#define MODULE_ID_CODEC_DMA_SINK	0x07001023
+> +#define MODULE_ID_CODEC_DMA_SOURCE	0x07001024
+> +#define MODULE_ID_I2S_SINK		0x0700100A
+> +#define MODULE_ID_I2S_SOURCE		0x0700100b
 
+Small 'b' in hex value, use 'B' for consistency
+
+> +#define MODULE_ID_DATA_LOGGING		0x0700101A
+> +
+> +#define APM_CMD_GET_SPF_STATE		0x01001021
+> +#define APM_CMD_RSP_GET_SPF_STATE	0x02001007
+> +
+> +#define APM_MODULE_INSTANCE_ID		0x00000001
+> +#define PRM_MODULE_INSTANCE_ID		0x00000002
+> +#define AMDB_MODULE_INSTANCE_ID		0x00000003
+> +#define VCPM_MODULE_INSTANCE_ID		0x00000004
+> +#define AR_MODULE_INSTANCE_ID_START	0x00006000
+> +#define AR_MODULE_INSTANCE_ID_END	0x00007000
+> +#define AR_MODULE_DYNAMIC_INSTANCE_ID_START	0x00007000
+> +#define AR_MODULE_DYNAMIC_INSTANCE_ID_END	0x00008000
+> +#define AR_CONT_INSTANCE_ID_START	0x00005000
+> +#define AR_CONT_INSTANCE_ID_END		0x00006000
+> +#define AR_SG_INSTANCE_ID_START		0x00004000
+> +
+> +#define APM_CMD_GRAPH_OPEN			0x01001000
+> +#define APM_CMD_GRAPH_PREPARE			0x01001001
+> +#define APM_CMD_GRAPH_START			0x01001002
+> +#define APM_CMD_GRAPH_STOP			0x01001003
+> +#define APM_CMD_GRAPH_CLOSE			0x01001004
+> +#define APM_CMD_GRAPH_FLUSH			0x01001005
+> +#define APM_CMD_SET_CFG				0x01001006
+> +#define APM_CMD_GET_CFG				0x01001007
+> +#define APM_CMD_SHARED_MEM_MAP_REGIONS		0x0100100c
+
+Small 'c' here, use 'C'
+
+> +#define APM_CMD_SHARED_MEM_UNMAP_REGIONS	0x0100100d
+
+and 'D' insted of 'd' here.
+
+> +#define APM_CMD_RSP_SHARED_MEM_MAP_REGIONS	0x02001001
+> +#define APM_CMD_RSP_GET_CFG			0x02001000
+> +#define APM_CMD_CLOSE_ALL			0x01001013
+> +#define APM_CMD_REGISTER_SHARED_CFG		0x0100100A
+> +
+> +#define APM_MEMORY_MAP_SHMEM8_4K_POOL		3
+> +
+> +struct apm_cmd_shared_mem_map_regions {
+> +	uint16_t mem_pool_id;
+> +	uint16_t num_regions;
+> +	uint32_t property_flag;
+> +} __packed;
+> +
+> +struct apm_shared_map_region_payload {
+> +	uint32_t shm_addr_lsw;
+> +	uint32_t shm_addr_msw;
+> +	uint32_t mem_size_bytes;
+> +} __packed;
+> +
+> +struct apm_cmd_shared_mem_unmap_regions {
+> +	uint32_t mem_map_handle;
+> +} __packed;
+> +
+> +struct apm_cmd_rsp_shared_mem_map_regions {
+> +	uint32_t mem_map_handle;
+> +} __packed;
+> +
+
+(...)
+
+
+> +#define DATA_CMD_RD_SH_MEM_EP_DATA_BUFFER		0x04001003
+> +
+> +struct data_cmd_rd_sh_mem_ep_data_buffer {
+> +	uint32_t buf_addr_lsw;
+> +	uint32_t buf_addr_msw;
+> +	uint32_t mem_map_handle;
+> +	uint32_t buf_size;
+> +};
+> +
+> +#define DATA_CMD_RSP_RD_SH_MEM_EP_DATA_BUFFER		0x05001002
+> +
+> +struct data_cmd_rsp_rd_sh_mem_ep_data_buffer_done {
+> +	uint32_t status;
+> +	uint32_t buf_addr_lsw;
+> +	uint32_t buf_addr_msw;
+> +	uint32_t mem_map_handle;
+> +	uint32_t data_size;
+> +	uint32_t offset;
+> +	uint32_t timestamp_lsw;
+> +	uint32_t timestamp_msw;
+> +	uint32_t flags;
+> +	uint32_t num_frames;
+> +};
+
+Rest of structs is marked with __packed and it seems like it describes 
+communication protocol, so it seems like you missed it here.
+
+> +
+> +#define DATA_CMD_RD_SH_MEM_EP_DATA_BUFFER_V2		0x0400100B
+> +
+> +struct data_cmd_rd_sh_mem_ep_data_buffer_v2 {
+> +	uint32_t buf_addr_lsw;
+> +	uint32_t buf_addr_msw;
+> +	uint32_t mem_map_handle;
+> +	uint32_t buf_size;
+> +	uint32_t md_buf_addr_lsw;
+> +	uint32_t md_buf_addr_msw;
+> +	uint32_t md_mem_map_handle;
+> +	uint32_t md_buf_size;
+> +};
+
+Same comment as above.
+
+> +
+> +#define DATA_CMD_RSP_RD_SH_MEM_EP_DATA_BUFFER_V2	0x05001005
+> +
+> +struct data_cmd_rsp_rd_sh_mem_ep_data_buffer_done_v2 {
+> +	uint32_t status;
+> +	uint32_t buf_addr_lsw;
+> +	uint32_t buf_addr_msw;
+> +	uint32_t mem_map_handle;
+> +	uint32_t data_size;
+> +	uint32_t offset;
+> +	uint32_t timestamp_lsw;
+> +	uint32_t timestamp_msw;
+> +	uint32_t flags;
+> +	uint32_t num_frames;
+> +	uint32_t md_status;
+> +	uint32_t md_buf_addr_lsw;
+> +	uint32_t md_buf_addr_msw;
+> +	uint32_t md_mem_map_handle;
+> +	uint32_t md_size;
+> +} __packed;
+> +
+> +#define PARAM_ID_RD_SH_MEM_CFG				0x08001007
+> +
+> +struct param_id_rd_sh_mem_cfg {
+> +	uint32_t num_frames_per_buffer;
+> +	uint32_t metadata_control_flags;
+> +
+> +} __packed;
+> +
+
+(...)

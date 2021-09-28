@@ -2,82 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1FB941AD20
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 12:38:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BADDC41AD53
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 12:53:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 28FEE16A2;
-	Tue, 28 Sep 2021 12:37:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28FEE16A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4FA7116A4;
+	Tue, 28 Sep 2021 12:52:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FA7116A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632825514;
-	bh=vmVZ0pLztkICM6dRN6k+MH0QPtnhI8I5GFAuXzedjVs=;
+	s=default; t=1632826398;
+	bh=HZbgNmG5mS9B2rHGCpqdYry7NQXuvOs1oIKgA0SbbUU=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=n8gAAla2aF1tOQf6/7PQC56nRe0B7brAQ4n3vbBc5iUcIPyasVH73A+3we7ViBkud
-	 vutB0y0WjDtJiv65r57Ptx7Ac/l4QxQ3BGngsx5kkcTKln2QWmp5VqkrMHtPyZZriy
-	 1panVfCsSjnZrSqulHVHQdzMYFSHdYJnaxRqrULo=
+	b=PBXQhLjL2zE8FLVK6qLRVIi5KqqDWaUQw9F3htEHSy38ufLZmb4ggzGL044/4xH22
+	 /AIlZL8vnTIrKEaQeXbc52VryNmxKwNsBHF7ai+Y9mOlBYiU8IuLN38LV7oKXSuf61
+	 T3VllQcsGdHDpYARFheY8YAQd8pqNmNWB0pdLFCU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AE05EF804D2;
-	Tue, 28 Sep 2021 12:37:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BEBC8F800DE;
+	Tue, 28 Sep 2021 12:52:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 15E01F804BC; Tue, 28 Sep 2021 12:37:16 +0200 (CEST)
+ id 504DEF804AD; Tue, 28 Sep 2021 12:52:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E141FF800DE
- for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 12:37:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E141FF800DE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Vm3pRoxi"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="QWPDnx+1"
-Received: from relay1.suse.de (relay1.suse.de [149.44.160.133])
- by smtp-out2.suse.de (Postfix) with ESMTP id 9B6B11FF9A;
- Tue, 28 Sep 2021 10:37:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1632825427; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=JUwqD6Qq6pNGKb8/9Om8rNtSq6sFo0+ZhBzBJQ7WPHM=;
- b=Vm3pRoxiBi2x+OKy5RsxriCn4slBW3A5Id/KYQaaHsWnnomxpKsndN4K/6j2Kwq1Gb7v2X
- R75/lorZHFQZbzS2EV9BjUxuKDQo0OW9o/+VYongdCas4Su1dwuaSsnvOwpseb/088tekR
- dOV7yLpqME5vwFxIQ7NDdETG+TPaf2s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1632825427;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=JUwqD6Qq6pNGKb8/9Om8rNtSq6sFo0+ZhBzBJQ7WPHM=;
- b=QWPDnx+1Dbj3MZQzkmeRfjc2KM3xNycLTdjI8JvJI95k8uR+CbLhGdTKDHxA4f4CkwwRsj
- /8HtJ0+k0R55SEAg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay1.suse.de (Postfix) with ESMTP id 95E8225D4A;
- Tue, 28 Sep 2021 10:37:07 +0000 (UTC)
-Date: Tue, 28 Sep 2021 12:37:07 +0200
-Message-ID: <s5hee99nfzg.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Davide Baldo <davide@baldo.me>
-Subject: Re: [PATCH] Fixes HP Spectre x360 15-eb1xxx speakers
-In-Reply-To: <s5hfstpng16.wl-tiwai@suse.de>
-References: <20210925194425.9028-1-davide@baldo.me>
- <s5hfstpng16.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id F11EEF80105
+ for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 12:51:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F11EEF80105
+X-IronPort-AV: E=McAfee;i="6200,9189,10120"; a="204160515"
+X-IronPort-AV: E=Sophos;i="5.85,329,1624345200"; d="scan'208";a="204160515"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2021 03:51:46 -0700
+X-IronPort-AV: E=Sophos;i="5.85,329,1624345200"; d="scan'208";a="553942040"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2021 03:51:44 -0700
+Date: Tue, 28 Sep 2021 13:45:01 +0300 (EEST)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@eliteleevi.tm.intel.com
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH v2] component: do not leave master devres group open
+ after bind
+In-Reply-To: <s5hh7e5ngnq.wl-tiwai@suse.de>
+Message-ID: <alpine.DEB.2.22.394.2109281335522.3554566@eliteleevi.tm.intel.com>
+References: <20210922085432.2776886-1-kai.vehmanen@linux.intel.com>
+ <s5hh7e5ngnq.wl-tiwai@suse.de>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+MIME-Version: 1.0
+Content-ID: <alpine.DEB.2.22.394.2109281342020.3554566@eliteleevi.tm.intel.com>
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: 8BIT
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, jani.nikula@intel.com,
+ gregkh@linuxfoundation.org, Imre Deak <imre.deak@intel.com>,
+ dri-devel@lists.freedesktop.org, Russell King <rmk+kernel@armlinux.org.uk>,
+ Russell King <rmk+kernel@arm.linux.org.uk>, intel-gfx@lists.freedesktop.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,139 +82,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 28 Sep 2021 12:36:05 +0200,
-Takashi Iwai wrote:
-> 
-> On Sat, 25 Sep 2021 21:44:26 +0200,
-> Davide Baldo wrote:
-> > 
-> > 
-> > First kernel contribution, I only tested this patch myself on a 5.14.7.
-> > There is probably some way to fix the remaining issues, but I need
-> > some guidance on how I could test the different pinouts since
-> > hdajackretask hangs the audio card and I can't test out combinations.
-> > In the meantime this commit fix the most serius problem: silent
-> > speakers.
-> > 
-> > In laptop 'HP Spectre x360 Convertible 15-eb1xxx/8811' both front and
-> > rear speakers are silent, this patch fixes that by overriding the pin
-> > layout and by initializing the amplifier which needs a GPIO pin to be
-> > set to 1 then 0, similar to the existing HP Spectre x360 14 model.
-> > 
-> > This patch also correctly map the mute LED but since there is no
-> > microphone on/off switch exposed by the alsa subsystem it never turns
-> > on by itself.
-> 
-> Note that the recent kernel binds the mute and mic-mute LED with the
-> leds subsystem, which can be controlled via sysfs, /sys/class/leds/*.
-> 
-> > There are still known audio issues in this laptop: headset microphone
-> > doesn't work, the button to mute/unmute microphone is not yet mapped,
-> > the LED of the mute/unmute speakers doesn't seems to be exposed via
-> > GPIO and never turns on.
-> > 
-> > Signed-off-by: Davide Baldo <davide@baldo.me>
-> 
-> The changes look almost good, but could you fix the following and
-> resubmit?
-> 
-> > ---
-> >  sound/pci/hda/patch_realtek.c | 41 ++++++++++++++++++++++++++++++++++-
-> >  1 file changed, 40 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-> > index 70516527ebce..90f845976793 100644
-> > --- a/sound/pci/hda/patch_realtek.c
-> > +++ b/sound/pci/hda/patch_realtek.c
-> > @@ -6414,6 +6414,38 @@ static void alc_fixup_no_int_mic(struct hda_codec *codec,
+Hey,
+
+On Tue, 28 Sep 2021, Takashi Iwai wrote:
+
+> On Wed, 22 Sep 2021 10:54:32 +0200, Kai Vehmanen wrote:
+> > --- a/drivers/base/component.c
+> > +++ b/drivers/base/component.c
+> > @@ -246,7 +246,7 @@ static int try_to_bring_up_master(struct master *master,
+> >  		return 0;
 > >  	}
-> >  }
 > >  
-> > +/* GPIO1 = amplifier on/off
-> > + * GPIO3 = mic mute LED
-> > + */
-> > +static void alc285_fixup_hp_spectre_x360_eb1(struct hda_codec *codec,
-> > +					  const struct hda_fixup *fix, int action)
-> > +{
-> > +	struct alc_spec *spec = codec->spec;
-> > +	static const struct hda_pintbl pincfgs[] = {
-> > +		{ 0x14, 0x90170110 },  /* front speakers */
-> > +		{ }
-> > +	};
-> > +
-> > +	//enable micmute led
-> > +	alc_fixup_hp_gpio_led(codec, action, 0x00, 0x04);
-> > +	spec->micmute_led_polarity = 1;
-> 
-> This line should be moved under HDA_FIXUP_ACT_PRE_PROBE.  It needs to
-> be set only once at the beginning.
-> 
-> > +
-> > +	switch (action) {
-> > +	case HDA_FIXUP_ACT_PRE_PROBE:
-> > +		/* needed for amp of back speakers */
-> > +		spec->gpio_mask |= 0x01;
-> > +		spec->gpio_dir |= 0x01;
-> > +		snd_hda_apply_pincfgs(codec, pincfgs);
-> > +		break;
-> > +	case HDA_FIXUP_ACT_INIT:
-> > +		/* need to toggle GPIO to enable the amp of back speakers */
-> > +		alc_update_gpio_data(codec, 0x01, true);
-> > +		msleep(100);
-> > +		alc_update_gpio_data(codec, 0x01, false);
-> > +		break;
-> > +	}
-> > +}
-> > +
-> >  static void alc285_fixup_hp_spectre_x360(struct hda_codec *codec,
-> >  					  const struct hda_fixup *fix, int action)
-> >  {
-> > @@ -6534,6 +6566,7 @@ enum {
-> >  	ALC269_FIXUP_HP_DOCK_GPIO_MIC1_LED,
-> >  	ALC280_FIXUP_HP_9480M,
-> >  	ALC245_FIXUP_HP_X360_AMP,
-> > +	ALC285_FIXUP_HP_SPECTRE_X360_EB1,
-> >  	ALC288_FIXUP_DELL_HEADSET_MODE,
-> >  	ALC288_FIXUP_DELL1_MIC_NO_PRESENCE,
-> >  	ALC288_FIXUP_DELL_XPS_13,
-> > @@ -6658,7 +6691,7 @@ enum {
-> >  	ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP,
-> >  	ALC623_FIXUP_LENOVO_THINKSTATION_P340,
-> >  	ALC255_FIXUP_ACER_HEADPHONE_AND_MIC,
-> > -	ALC236_FIXUP_HP_LIMIT_INT_MIC_BOOST,
-> > +	ALC236_FIXUP_HP_LIMIT_INT_MIC_BOOST
-> 
-> This is unnecessary change.  It's fine to keep the comma of the last
-> enum entry in Linux kernel coding style.
-> 
-> 
-> >  };
+> > -	if (!devres_open_group(master->parent, NULL, GFP_KERNEL))
+> > +	if (!devres_open_group(master->parent, master, GFP_KERNEL))
+> >  		return -ENOMEM;
 > >  
-> >  static const struct hda_fixup alc269_fixups[] = {
-> > @@ -8222,6 +8255,10 @@ static const struct hda_fixup alc269_fixups[] = {
-> >  		.type = HDA_FIXUP_FUNC,
-> >  		.v.func = alc285_fixup_hp_spectre_x360,
-> >  	},
-> > +	[ALC285_FIXUP_HP_SPECTRE_X360_EB1] = {
-> > +		.type = HDA_FIXUP_FUNC,
-> > +		.v.func = alc285_fixup_hp_spectre_x360_eb1
-> > +	},
-> >  	[ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP] = {
-> >  		.type = HDA_FIXUP_FUNC,
-> >  		.v.func = alc285_fixup_ideapad_s740_coef,
-> > @@ -8415,6 +8452,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
-> >  	SND_PCI_QUIRK(0x103c, 0x84da, "HP OMEN dc0019-ur", ALC295_FIXUP_HP_OMEN),
-> >  	SND_PCI_QUIRK(0x103c, 0x84e7, "HP Pavilion 15", ALC269_FIXUP_HP_MUTE_LED_MIC3),
-> >  	SND_PCI_QUIRK(0x103c, 0x8519, "HP Spectre x360 15-df0xxx", ALC285_FIXUP_HP_SPECTRE_X360),
-> > +	SND_PCI_QUIRK(0x103c, 0x8811, "HP Spectre x360 15-eb1xxx", ALC285_FIXUP_HP_SPECTRE_X360_EB1),
-> >  	SND_PCI_QUIRK(0x103c, 0x861f, "HP Elite Dragonfly G1", ALC285_FIXUP_HP_GPIO_AMP_INIT),
-> >  	SND_PCI_QUIRK(0x103c, 0x869d, "HP", ALC236_FIXUP_HP_MUTE_LED),
-> >  	SND_PCI_QUIRK(0x103c, 0x86c7, "HP Envy AiO 32", ALC274_FIXUP_HP_ENVY_GPIO),
+> >  	/* Found all components */
+> > @@ -258,6 +258,7 @@ static int try_to_bring_up_master(struct master *master,
+> >  		return ret;
+> >  	}
+> >  
+> > +	devres_close_group(master->parent, NULL);
 > 
-> Please insert the entry in PCI SSID order.
+> Just wondering whether we should pass master here instead of NULL,
+> too?
 
-Last but not least, at the next resubmission, please put maintainers
-(e.g. me) to Cc.  This will avoid overlooking your post.
+I wondered about this as well. Functionally it should be equivalent as 
+passing NULL will apply the operation to the latest added group. I noted 
+the practise of passing NULL has been followed in the existing code when 
+referring to groups created within the same function. E.g.
 
+»       if (!devres_open_group(component->dev, component, GFP_KERNEL)) {
+[...]
+»       ret = component->ops->bind(component->dev, master->parent, data);
+»       if (!ret) {
+»       »       component->bound = true;
 
-Takashi
+»       »       /*                                                                                                                                                          
+»       »        * Close the component device's group so that resources                                                                                                     
+»       »        * allocated in the binding are encapsulated for removal                                                                                                    
+»       »        * at unbind.  Remove the group on the DRM device as we                                                                                                     
+»       »        * can clean those resources up independently.                                                                                                              
+»       »        */
+»       »       devres_close_group(component->dev, NULL);
+
+... so I followed this existing practise. I can change and send a V3 if 
+the explicit parameter is preferred.
+
+Br, Kai

@@ -2,84 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D02B141AB62
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 11:03:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BAF041ABF5
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 11:32:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 72C1416A6;
-	Tue, 28 Sep 2021 11:02:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72C1416A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E3BF16A9;
+	Tue, 28 Sep 2021 11:32:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E3BF16A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632819794;
-	bh=w2HZrXvKjJUDNFOErcMw2fbRFCmTdGzfN+P2LAxM9oQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1632821578;
+	bh=qj+DLbI4+AAKys8rqxaoRlzyaFmuZfBesYRPtGvS3ZQ=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=B4uDE16al9UAwY6+Kwd04RXd6EY/s0jEIZbcLRjYKJA2+dgg2mBiYU2blahueEWIX
-	 XW0KevGmWioMCbY8u3zV+P4DRXAN/SRxrAKbUvoP3z+9P07WFTDlI9g1itgzmjNZJr
-	 I/vua+BIovmkI9mFmPhdV8nIqpCm8sb0CisfpQMg=
+	b=OSdNNNw+ChObq+J4ripR4rzmDSwmymLqEMjcegvtfvTgYPRhNIpn/GSmqlMfMB5x/
+	 yv4vj9xXpt6CIqh8s+dABDLWnXiqnoZYuyI/0BdlIzyJvDX71POwRtq4ynu3aQ+ZFT
+	 gLhjgXbmRJcqK4p7/J0R/JcO90H/AIpAeA6H5GYc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D7AE8F804BC;
-	Tue, 28 Sep 2021 11:01:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD08BF80105;
+	Tue, 28 Sep 2021 11:31:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 276F3F8032C; Tue, 28 Sep 2021 11:01:56 +0200 (CEST)
+ id E651CF804AD; Tue, 28 Sep 2021 11:31:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E2E8EF800DE
- for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 11:01:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2E8EF800DE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0A437F80105
+ for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 11:31:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A437F80105
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="k4F5qK43"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="83JFSd6z"
-Received: from relay1.suse.de (relay1.suse.de [149.44.160.133])
- by smtp-out1.suse.de (Postfix) with ESMTP id 9663921BC2;
- Tue, 28 Sep 2021 09:01:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1632819709; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=0GcRBnfVgApRQD1+FrvogZFXZ6Oeng0ivev5cJoAL6A=;
- b=k4F5qK4391MEb6x+fm6BcNorvi9JIiBJ2VaO+BSLLz6SzAbOWSWOM/i2TmxuB3KmUO8my4
- ve6mZPFVur4ICam3U7YzCLaGhtOB7lS/XFEfAsHZfzCafn+BZ3UJhtU3AZgZsfW48fNI1I
- Cu+gOISMOGBDS+6XXSWFslx+mkjFNRM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1632819709;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=0GcRBnfVgApRQD1+FrvogZFXZ6Oeng0ivev5cJoAL6A=;
- b=83JFSd6zDVlMgxwr+YG4OHK+oSP4ysDLklAFMHIWp7j25dFQUJWWuKdFE9ib0u+KMsdcrU
- nEskNk+V0xLG5GDg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay1.suse.de (Postfix) with ESMTP id 90B5525D44;
- Tue, 28 Sep 2021 09:01:49 +0000 (UTC)
-Date: Tue, 28 Sep 2021 11:01:49 +0200
-Message-ID: <s5hmtnxnkea.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ALSA: hda: Reduce udelay() at SKL+ position reporting
-In-Reply-To: <203381d5-b3ce-c5ab-b96e-bd38d27cf813@linux.intel.com>
-References: <20210910141002.32749-1-tiwai@suse.de>
- <db973c6d-3fb3-6c1b-f4cd-3e77baf8bd31@linux.intel.com>
- <s5htuipjaak.wl-tiwai@suse.de>
- <203381d5-b3ce-c5ab-b96e-bd38d27cf813@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: Jens Axboe <axboe@kernel.dk>, alsa-devel@alsa-project.org
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="ifesNPLC"
+Received: by mail-wr1-x42c.google.com with SMTP id g16so56860695wrb.3
+ for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 02:31:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=i1b5GK3S6Cy17pdW184aJcDhxHw/MUMkcwtoLp4djwQ=;
+ b=ifesNPLCfq7E8NnEnIqeFYMymnvqeQsChFDK69uTlU+yC1JmHHl32Q29WWzHxD6KFD
+ FR5p4JuO0/1RwaE1GU8qBJ9RwVqeySUYRYWPtIQhsz9eA9IarPyRo54wifXBTCHdjyk4
+ Z1zBLA0Aj0rIt9N8TRIl75TJpygq3Ab0msl/f5I6ASbKaptmieRsG+Y/Va65Zh1Y86hn
+ QLIIublU5vii3SKOXt+gQK5445Fvil/U10v6Y0DTmwsEvnPlS9z5U0qOuktUluS9qUe5
+ FWfaNvgQJVdSMXqA/FbeOyFVDeURcIuCcUDYMjCtmmSfA3IZgySbCfDtgTu/wnf7T98G
+ hjHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=i1b5GK3S6Cy17pdW184aJcDhxHw/MUMkcwtoLp4djwQ=;
+ b=TDj+rKyR9jqew7dKswqpei/CO6cw+HJ9/CM+aj7Gdf+i0CJPNy1BR5hNDPZGiwRbzW
+ cuZke6e6MSpcDWEHFFHbi8Rxb4N74K1hDPtQzBq58iH1WBHZWHLn+ga7YIoYFg/wCagj
+ IP0fXR0/UUz3oIGdKGhHq49IdEMjOmbXZ5OPM56V7hVqeAR/KIPeYe03jitZEgDaxbPI
+ YvEWVRuxXVhK3kYwRKq5AM/GkzOATAVXcv8CjgxIn7YwhPCjxeOviLF01D6WwOYJ6W7Z
+ SIoQJGFF5PIq1bKFoMWF0/re0cvh+utcJEZ8pt1o6Ijt9dl9JnXpwpxH/5Vvwl+DOFLh
+ EbUA==
+X-Gm-Message-State: AOAM532Ucgj+/A2BRueU/RkJP93YCkqf+IgMDl0blGwdQSRBBODyB4Cu
+ oh2wQw5S0fyimHOlvK60gfccqQ==
+X-Google-Smtp-Source: ABdhPJznh+LcevV0YqWd+oDdKpGGNtycFlgDF0bk1nRZltqjseJAws7467lDcmyMYeMz+RhlH+89HA==
+X-Received: by 2002:adf:e94d:: with SMTP id m13mr5384716wrn.28.1632821489011; 
+ Tue, 28 Sep 2021 02:31:29 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.googlemail.com with ESMTPSA id y7sm16635351wrs.95.2021.09.28.02.31.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 Sep 2021 02:31:28 -0700 (PDT)
+Subject: Re: [PATCH v8 14/22] ASoC: qdsp6: audioreach: add basic pkt alloc
+ support
+To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, bjorn.andersson@linaro.org,
+ broonie@kernel.org, robh@kernel.org
+References: <20210927135559.738-1-srinivas.kandagatla@linaro.org>
+ <20210927135559.738-15-srinivas.kandagatla@linaro.org>
+ <d1f69cbc-37f6-dc47-258c-f53450dd558c@linux.intel.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <452d176b-98dc-43ca-7d1a-c233b6a683da@linaro.org>
+Date: Tue, 28 Sep 2021 10:31:27 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+MIME-Version: 1.0
+In-Reply-To: <d1f69cbc-37f6-dc47-258c-f53450dd558c@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, tiwai@suse.de, plai@codeaurora.org,
+ lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,186 +111,303 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 22 Sep 2021 00:18:14 +0200,
-Pierre-Louis Bossart wrote:
-> 
-> Sorry Takashi for the delay, I missed your reply.
-> 
-> >>> The position reporting on Intel Skylake and later chips via
-> >>> azx_get_pos_skl() contains a udelay(20) call for the capture streams.
-> >>> A call for this alone doesn't sound too harmful.  However, as the
-> >>> pointer PCM ops is one of the hottest path in the PCM operations --
-> >>> especially for the timer-scheduled operations like PulseAudio -- such
-> >>> a delay hogs CPU usage significantly in the total performance.
-> >>>
-> >>> The function there was taken from the original code in ASoC SST
-> >>> Skylake driver blindly.  The udelay() is a workaround for the case
-> >>> where the reported position is behind the period boundary at the
-> >>> timing triggered from interrupts; applications often expect that the
-> >>> full data is available for the whole period when returned (and also
-> >>> that's the definition of the ALSA PCM period).
-> >>
-> >> that initial work-around from the Intel SST driver does not seem to be
-> >> legit in the first place, when I checked with hardware folks recently no
-> >> one understands why there are delays and special cases for capture. The
-> >> only requirement wrt. DPIB is that the DDR update is valid across VC0
-> >> and VC1, while the DPIB registers are only valid with VC0. For SOF we
-> >> don't know of any VC1 use so will default to the DPIB vendor-specific
-> >> registers.
-> > 
-> > What are those VC0 and VC1 registers?  I can't find the definitions in
-> > the code, so I assume that none of ALSA/ASoC drivers use VC1.
-> 
-> These are PCI concepts/capabilities. VC stands for "Virtual Channel",
-> which are mapped to Traffic Class (TC). These registers are typically
-> set by the BIOS AFAIK. The point is that if VC1 is enabled only the DPIB
-> updates are valid, the vendor-specific will report information can be
-> misleading.
-> 
-> The recommendation from hardware folks is to use DPIB updates in DDR,
-> which are known to work across both VC0 and VC1.
-> 
-> For SOF, we do know VC1 is never used so we'll use the vendor-specific
-> registers.
+Thanks Amadeusz for reviewing,
 
-OK, thanks for clarification.
-
-> >> See https://github.com/thesofproject/linux/pull/3143 for my WIP fixes
-> >> for SOF.
-> >>
-> >> I don't have the time to look at this specific patch today but wanted to
-> >> make sure you are aware of my on-going fixes.
-> >>
-> >> Note that the use of DPIB works best if you don't use the IOC interrupt.
-> >> when the interrupt is thrown, there is likely a delay for the DPIB
-> >> information to be refreshed.
-> > 
-> > Thanks for the information!  The delay could be the reason of the
-> > udelay(), and that's superfluous as mentioned in the commit.
-> > 
-> > So the remaining question seems to be which method is a better
-> > approach for the capture stream: DPIB or posbuf.  I kept the posbuf
-> > just for conservatism, but judging from your comment, we may use DPIB
-> > for both directions safely?
+On 28/09/2021 09:00, Amadeusz Sławiński wrote:
+> On 9/27/2021 3:55 PM, Srinivas Kandagatla wrote:
+>> Add basic helper functions for AudioReach.
+>>
+>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+>> ---
+>>   sound/soc/qcom/qdsp6/audioreach.c | 265 ++++++++++++
+>>   sound/soc/qcom/qdsp6/audioreach.h | 668 ++++++++++++++++++++++++++++++
+>>   2 files changed, 933 insertions(+)
+>>   create mode 100644 sound/soc/qcom/qdsp6/audioreach.c
+>>   create mode 100644 sound/soc/qcom/qdsp6/audioreach.h
+>>
+>> diff --git a/sound/soc/qcom/qdsp6/audioreach.c 
+>> b/sound/soc/qcom/qdsp6/audioreach.c
+>> new file mode 100644
+>> index 000000000000..34ec4c0d0175
+>> --- /dev/null
+>> +++ b/sound/soc/qcom/qdsp6/audioreach.c
+>> @@ -0,0 +1,265 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +// Copyright (c) 2020, Linaro Limited
+>> +
+>> +#include <linux/kernel.h>
+>> +#include <linux/slab.h>
+>> +#include <linux/soc/qcom/apr.h>
+>> +#include <dt-bindings/soc/qcom,gpr.h>
+>> +#include "audioreach.h"
+>> +
+>> +/* SubGraph Config */
+>> +struct apm_sub_graph_data {
+>> +    struct apm_sub_graph_cfg sub_graph_cfg;
+>> +    struct apm_prop_data perf_data;
+>> +    struct apm_sg_prop_id_perf_mode perf;
+>> +    struct apm_prop_data dir_data;
+>> +    struct apm_sg_prop_id_direction dir;
+>> +    struct apm_prop_data sid_data;
+>> +    struct apm_sg_prop_id_scenario_id sid;
+>> +
+>> +} __packed;
+>> +
+>> +#define APM_SUB_GRAPH_CFG_NPROP    3
+>> +
+>> +struct apm_sub_graph_params  {
+>> +    struct apm_module_param_data param_data;
+>> +    uint32_t num_sub_graphs;
+>> +    struct apm_sub_graph_data sg_cfg[];
+>> +} __packed;
+>> +
+>> +#define APM_SUB_GRAPH_PSIZE(n) ALIGN(sizeof(struct 
+>> apm_sub_graph_params) + \
+>> +                n * sizeof(struct apm_sub_graph_data), 8)
 > 
-> sorry you lost me. Isn't DPIB updates in DDR precisely what posbuf reports?
+> This looks, like you could use struct_size helper, something like:
+> #define APM_SUB_GRAPH_PSIZE(n) ALIGN(struct_size(apm_sub_graph_params, 
+> apm_sub_graph_data, n), 8)
 > 
-> I think what you need to use is use azx_get_pos_posbuf(chip, azx_dev);
-> unconditionally, both for capture and playback, and remove the use of
-> the skylake specific stuff and the delay.
 
-When I measured, I saw a slight difference between values in DPIB and
-posbuf, so I wonder which is actually more accurate.  The latter is
-sometimes a bit behind the former.
+struct_size() macro first argument is structure pointer, so above will 
+not work as it is.
 
-If the posbuf is more correct in the sense for the PCM pointer, we can
-simply move back to the posbuf like other platforms.
+I agree that we could use struct_size() in some cases, but in this 
+particular case we will endup with more local pointer variables that are 
+just declared to keep struct_size() macro happy.
 
+IMO, Which will not make code any better than what it is now.
 
-thanks,
+I will revist these and see if it makes sense to use it in other places.
 
-Takashi
-
-
-> > In anyway, the additional mechanism to check the delayed position
-> > report in this patch can be kept no matter which way (DPIB or posbuf)
-> > is used.
+>> +/* container config */
+>> +struct apm_container_obj  {
+>> +    struct apm_container_cfg container_cfg;
+>> +    /* Capability ID list */
+>> +    struct apm_prop_data cap_data;
+>> +    uint32_t num_capability_id;
+>> +    uint32_t capability_id;
+>> +
+>> +    /* Container graph Position */
+>> +    struct apm_prop_data pos_data;
+>> +    struct apm_cont_prop_id_graph_pos pos;
+>> +
+>> +    /* Container Stack size */
+>> +    struct apm_prop_data stack_data;
+>> +    struct apm_cont_prop_id_stack_size stack;
+>> +
+>> +    /* Container proc domain id */
+>> +    struct apm_prop_data domain_data;
+>> +    struct apm_cont_prop_id_domain domain;
+>> +} __packed;
+>> +
+>> +struct apm_container_params  {
+>> +    struct apm_module_param_data param_data;
+>> +    uint32_t num_containers;
+>> +    struct apm_container_obj cont_obj[];
+>> +} __packed;
+>> +
+>> +#define APM_CONTAINER_PSIZE(n) ALIGN(sizeof(struct 
+>> apm_container_params) + \
+>> +                n * sizeof(struct apm_container_obj), 8)
+>> +
 > 
-> Agree!
+> Same here, use struct_size, and same applies for other defines in this 
+> file, I won't add comment to all of them ;)
 > 
-> > 
-> > 
-> > Takashi
-> > 
-> >>
-> >>>
-> >>> OTOH, HD-audio (legacy) driver has already some workarounds for the
-> >>> delayed position reporting due to its relatively large FIFO, such as
-> >>> the BDL position adjustment and the delayed period-elapsed call in the
-> >>> work.  That said, the udelay() is almost superfluous for HD-audio
-> >>> driver unlike SST, and we can drop the udelay().
-> >>>
-> >>> Though, the current code doesn't guarantee the full period readiness
-> >>> as mentioned in the above, but rather it checks the wallclock and
-> >>> detects the unexpected jump.  That's one missing piece, and the drop
-> >>> of udelay() needs a bit more sanity checks for the delayed handling.
-> >>>
-> >>> This patch implements those: the drop of udelay() call in
-> >>> azx_get_pos_skl() and the more proper check of hwptr in
-> >>> azx_position_ok().  The latter change is applied only for the case
-> >>> where the stream is running in the normal mode without
-> >>> no_period_wakeup flag.  When no_period_wakeup is set, it essentially
-> >>> ignores the period handling and rather concentrates only on the
-> >>> current position; which implies that we don't need to care about the
-> >>> period boundary at all.
-> >>>
-> >>> Fixes: f87e7f25893d ("ALSA: hda - Improved position reporting on SKL+")
-> >>> Reported-by: Jens Axboe <axboe@kernel.dk>
-> >>> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> >>> ---
-> >>>  sound/pci/hda/hda_intel.c | 28 +++++++++++++++++++++++-----
-> >>>  1 file changed, 23 insertions(+), 5 deletions(-)
-> >>>
-> >>> diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-> >>> index 3aa432d814a2..faeeeb923d5e 100644
-> >>> --- a/sound/pci/hda/hda_intel.c
-> >>> +++ b/sound/pci/hda/hda_intel.c
-> >>> @@ -637,13 +637,17 @@ static int azx_position_check(struct azx *chip, struct azx_dev *azx_dev)
-> >>>   * the update-IRQ timing.  The IRQ is issued before actually the
-> >>>   * data is processed.  So, we need to process it afterwords in a
-> >>>   * workqueue.
-> >>> + *
-> >>> + * Returns 1 if OK to proceed, 0 for delay handling, -1 for skipping update
-> >>>   */
-> >>>  static int azx_position_ok(struct azx *chip, struct azx_dev *azx_dev)
-> >>>  {
-> >>>  	struct snd_pcm_substream *substream = azx_dev->core.substream;
-> >>> +	struct snd_pcm_runtime *runtime = substream->runtime;
-> >>>  	int stream = substream->stream;
-> >>>  	u32 wallclk;
-> >>>  	unsigned int pos;
-> >>> +	snd_pcm_uframes_t hwptr, target;
-> >>>  
-> >>>  	wallclk = azx_readl(chip, WALLCLK) - azx_dev->core.start_wallclk;
-> >>>  	if (wallclk < (azx_dev->core.period_wallclk * 2) / 3)
-> >>> @@ -680,6 +684,24 @@ static int azx_position_ok(struct azx *chip, struct azx_dev *azx_dev)
-> >>>  		/* NG - it's below the first next period boundary */
-> >>>  		return chip->bdl_pos_adj ? 0 : -1;
-> >>>  	azx_dev->core.start_wallclk += wallclk;
-> >>> +
-> >>> +	if (azx_dev->core.no_period_wakeup)
-> >>> +		return 1; /* OK, no need to check period boundary */
-> >>> +
-> >>> +	if (runtime->hw_ptr_base != runtime->hw_ptr_interrupt)
-> >>> +		return 1; /* OK, already in hwptr updating process */
-> >>> +
-> >>> +	/* check whether the period gets really elapsed */
-> >>> +	pos = bytes_to_frames(runtime, pos);
-> >>> +	hwptr = runtime->hw_ptr_base + pos;
-> >>> +	if (hwptr < runtime->status->hw_ptr)
-> >>> +		hwptr += runtime->buffer_size;
-> >>> +	target = runtime->hw_ptr_interrupt + runtime->period_size;
-> >>> +	if (hwptr < target) {
-> >>> +		/* too early wakeup, process it later */
-> >>> +		return chip->bdl_pos_adj ? 0 : -1;
-> >>> +	}
-> >>> +
-> >>>  	return 1; /* OK, it's fine */
-> >>>  }
-> >>>  
-> >>> @@ -874,11 +896,7 @@ static unsigned int azx_get_pos_skl(struct azx *chip, struct azx_dev *azx_dev)
-> >>>  	if (azx_dev->core.substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-> >>>  		return azx_skl_get_dpib_pos(chip, azx_dev);
-> >>>  
-> >>> -	/* For capture, we need to read posbuf, but it requires a delay
-> >>> -	 * for the possible boundary overlap; the read of DPIB fetches the
-> >>> -	 * actual posbuf
-> >>> -	 */
-> >>> -	udelay(20);
-> >>> +	/* read of DPIB fetches the actual posbuf */
-> >>>  	azx_skl_get_dpib_pos(chip, azx_dev);
-> >>>  	return azx_get_pos_posbuf(chip, azx_dev);
-> >>>  }
-> >>>
-> >>
+>> +/* Module List config */
+>> +struct apm_mod_list_obj {
+>> +    /* Modules list cfg */
+>> +    uint32_t sub_graph_id;
+>> +    uint32_t container_id;
+>> +    uint32_t num_modules;
+>> +    struct apm_module_obj mod_cfg[];
+>> +} __packed;
+>> +
+>> +struct apm_module_list_params {
+>> +    struct apm_module_param_data param_data;
+>> +    uint32_t num_modules_list;
+>> +    /* Module list config array */
+>> +    struct apm_mod_list_obj mod_list_obj[];
+>> +} __packed;
+>> +
 > 
+> (...)
+> 
+>> diff --git a/sound/soc/qcom/qdsp6/audioreach.h 
+>> b/sound/soc/qcom/qdsp6/audioreach.h
+>> new file mode 100644
+>> index 000000000000..556443155416
+>> --- /dev/null
+>> +++ b/sound/soc/qcom/qdsp6/audioreach.h
+>> @@ -0,0 +1,668 @@
+>> +/* SPDX-License-Identifier: GPL-2.0 */
+>> +
+>> +#ifndef __AUDIOREACH_H__
+>> +#define __AUDIOREACH_H__
+>> +#include <linux/types.h>
+>> +#include <linux/soc/qcom/apr.h>
+>> +#include <sound/soc.h>
+>> +
+>> +/* Module IDs */
+>> +#define MODULE_ID_WR_SHARED_MEM_EP    0x07001000
+>> +#define MODULE_ID_RD_SHARED_MEM_EP    0x07001001
+>> +#define MODULE_ID_GAIN            0x07001002
+>> +#define MODULE_ID_PCM_CNV        0x07001003
+>> +#define MODULE_ID_PCM_ENC        0x07001004
+>> +#define MODULE_ID_PCM_DEC        0x07001005
+>> +#define MODULE_ID_CODEC_DMA_SINK    0x07001023
+>> +#define MODULE_ID_CODEC_DMA_SOURCE    0x07001024
+>> +#define MODULE_ID_I2S_SINK        0x0700100A
+>> +#define MODULE_ID_I2S_SOURCE        0x0700100b
+> 
+> Small 'b' in hex value, use 'B' for consistency
+
+I agree, will try find such instances and fix them before I send out 
+next version.
+
+> 
+>> +#define MODULE_ID_DATA_LOGGING        0x0700101A
+>> +
+>> +#define APM_CMD_GET_SPF_STATE        0x01001021
+>> +#define APM_CMD_RSP_GET_SPF_STATE    0x02001007
+>> +
+>> +#define APM_MODULE_INSTANCE_ID        0x00000001
+>> +#define PRM_MODULE_INSTANCE_ID        0x00000002
+>> +#define AMDB_MODULE_INSTANCE_ID        0x00000003
+>> +#define VCPM_MODULE_INSTANCE_ID        0x00000004
+>> +#define AR_MODULE_INSTANCE_ID_START    0x00006000
+>> +#define AR_MODULE_INSTANCE_ID_END    0x00007000
+>> +#define AR_MODULE_DYNAMIC_INSTANCE_ID_START    0x00007000
+>> +#define AR_MODULE_DYNAMIC_INSTANCE_ID_END    0x00008000
+>> +#define AR_CONT_INSTANCE_ID_START    0x00005000
+>> +#define AR_CONT_INSTANCE_ID_END        0x00006000
+>> +#define AR_SG_INSTANCE_ID_START        0x00004000
+>> +
+>> +#define APM_CMD_GRAPH_OPEN            0x01001000
+>> +#define APM_CMD_GRAPH_PREPARE            0x01001001
+>> +#define APM_CMD_GRAPH_START            0x01001002
+>> +#define APM_CMD_GRAPH_STOP            0x01001003
+>> +#define APM_CMD_GRAPH_CLOSE            0x01001004
+>> +#define APM_CMD_GRAPH_FLUSH            0x01001005
+>> +#define APM_CMD_SET_CFG                0x01001006
+>> +#define APM_CMD_GET_CFG                0x01001007
+>> +#define APM_CMD_SHARED_MEM_MAP_REGIONS        0x0100100c
+> 
+> Small 'c' here, use 'C'
+> 
+>> +#define APM_CMD_SHARED_MEM_UNMAP_REGIONS    0x0100100d
+> 
+> and 'D' insted of 'd' here.
+> 
+>> +#define APM_CMD_RSP_SHARED_MEM_MAP_REGIONS    0x02001001
+>> +#define APM_CMD_RSP_GET_CFG            0x02001000
+>> +#define APM_CMD_CLOSE_ALL            0x01001013
+>> +#define APM_CMD_REGISTER_SHARED_CFG        0x0100100A
+>> +
+>> +#define APM_MEMORY_MAP_SHMEM8_4K_POOL        3
+>> +
+>> +struct apm_cmd_shared_mem_map_regions {
+>> +    uint16_t mem_pool_id;
+>> +    uint16_t num_regions;
+>> +    uint32_t property_flag;
+>> +} __packed;
+>> +
+>> +struct apm_shared_map_region_payload {
+>> +    uint32_t shm_addr_lsw;
+>> +    uint32_t shm_addr_msw;
+>> +    uint32_t mem_size_bytes;
+>> +} __packed;
+>> +
+>> +struct apm_cmd_shared_mem_unmap_regions {
+>> +    uint32_t mem_map_handle;
+>> +} __packed;
+>> +
+>> +struct apm_cmd_rsp_shared_mem_map_regions {
+>> +    uint32_t mem_map_handle;
+>> +} __packed;
+>> +
+> 
+> (...)
+> 
+> 
+>> +#define DATA_CMD_RD_SH_MEM_EP_DATA_BUFFER        0x04001003
+>> +
+>> +struct data_cmd_rd_sh_mem_ep_data_buffer {
+>> +    uint32_t buf_addr_lsw;
+>> +    uint32_t buf_addr_msw;
+>> +    uint32_t mem_map_handle;
+>> +    uint32_t buf_size;
+>> +};
+>> +
+>> +#define DATA_CMD_RSP_RD_SH_MEM_EP_DATA_BUFFER        0x05001002
+>> +
+>> +struct data_cmd_rsp_rd_sh_mem_ep_data_buffer_done {
+>> +    uint32_t status;
+>> +    uint32_t buf_addr_lsw;
+>> +    uint32_t buf_addr_msw;
+>> +    uint32_t mem_map_handle;
+>> +    uint32_t data_size;
+>> +    uint32_t offset;
+>> +    uint32_t timestamp_lsw;
+>> +    uint32_t timestamp_msw;
+>> +    uint32_t flags;
+>> +    uint32_t num_frames;
+>> +};
+> 
+> Rest of structs is marked with __packed and it seems like it describes 
+> communication protocol, so it seems like you missed it here.
+> 
+These are mostly u32 it did work without packed, but I agree with you on 
+missing __packed. Will fix such instances.
+
+--srini
+
+>> +
+>> +#define DATA_CMD_RD_SH_MEM_EP_DATA_BUFFER_V2        0x0400100B
+>> +
+>> +struct data_cmd_rd_sh_mem_ep_data_buffer_v2 {
+>> +    uint32_t buf_addr_lsw;
+>> +    uint32_t buf_addr_msw;
+>> +    uint32_t mem_map_handle;
+>> +    uint32_t buf_size;
+>> +    uint32_t md_buf_addr_lsw;
+>> +    uint32_t md_buf_addr_msw;
+>> +    uint32_t md_mem_map_handle;
+>> +    uint32_t md_buf_size;
+>> +};
+> 
+> Same comment as above.
+> 
+>> +
+>> +#define DATA_CMD_RSP_RD_SH_MEM_EP_DATA_BUFFER_V2    0x05001005
+>> +
+>> +struct data_cmd_rsp_rd_sh_mem_ep_data_buffer_done_v2 {
+>> +    uint32_t status;
+>> +    uint32_t buf_addr_lsw;
+>> +    uint32_t buf_addr_msw;
+>> +    uint32_t mem_map_handle;
+>> +    uint32_t data_size;
+>> +    uint32_t offset;
+>> +    uint32_t timestamp_lsw;
+>> +    uint32_t timestamp_msw;
+>> +    uint32_t flags;
+>> +    uint32_t num_frames;
+>> +    uint32_t md_status;
+>> +    uint32_t md_buf_addr_lsw;
+>> +    uint32_t md_buf_addr_msw;
+>> +    uint32_t md_mem_map_handle;
+>> +    uint32_t md_size;
+>> +} __packed;
+>> +
+>> +#define PARAM_ID_RD_SH_MEM_CFG                0x08001007
+>> +
+>> +struct param_id_rd_sh_mem_cfg {
+>> +    uint32_t num_frames_per_buffer;
+>> +    uint32_t metadata_control_flags;
+>> +
+>> +} __packed;
+>> +
+> 
+> (...)

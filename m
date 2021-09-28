@@ -2,81 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D1FC41AAEB
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 10:46:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DB9441AAF2
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 10:48:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D54F16A6;
-	Tue, 28 Sep 2021 10:45:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D54F16A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id CEC15168E;
+	Tue, 28 Sep 2021 10:47:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEC15168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632818805;
-	bh=LT7ZXw5OARsWf8IaTUps5Ddg/zY5rROx7rQyttiZBqA=;
+	s=default; t=1632818884;
+	bh=76ZfrtcTH6ypZWPTuMzmHrAUFtOW3N49JRGiX5iCnnI=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ku3laqtcrIhj7DQdtximoyKuJftYempvNR9fZaNTO8iloifFP4RtiSsf83IuCnS+5
-	 VBqfJAn0LRtSeqBScFS7k/O3KP+fffmQuZrjD131q6rsPnCpOsyMT6li+drCnhPA0h
-	 GgvY9FdHBK4cDzr413NaN9ykQzQZg+sWcteI9brA=
+	b=O8QjZ1piSS+BVNp33rdHQjmUCmWC1nH1X5UThD5cG/3hTzGX6TcblpxoxAB7xFPEe
+	 xdOr25TAEyFsK3NIfj9zPZDR79ZBVBnjdykhf5OrLfDwmF4NGEk1m6c7E3ySM3guNR
+	 elJWcMC7GvUj0vVLLisLBEOhwbXfHqtYnJmt4Vqs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73102F800DE;
-	Tue, 28 Sep 2021 10:45:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 33EABF804BC;
+	Tue, 28 Sep 2021 10:46:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49EB3F8032C; Tue, 28 Sep 2021 10:45:26 +0200 (CEST)
+ id 159A9F8032C; Tue, 28 Sep 2021 10:46:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C8E1EF800DE
- for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 10:45:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8E1EF800DE
+ by alsa1.perex.cz (Postfix) with ESMTPS id CDFF1F800DE
+ for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 10:46:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDFF1F800DE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="GWfdqHGA"; 
+ header.b="OvnA4RUH"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="91lOfqHu"
+ header.b="KYry9/b3"
 Received: from relay1.suse.de (relay1.suse.de [149.44.160.133])
- by smtp-out2.suse.de (Postfix) with ESMTP id 064051FF95;
- Tue, 28 Sep 2021 08:45:23 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 4453522298;
+ Tue, 28 Sep 2021 08:46:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1632818723; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1632818804; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=JFJwiJzx8wvKhHxFwrO3DEeo971dP6dRX07GIDnytjg=;
- b=GWfdqHGACWGreq9tEt65caTONQu8S5Ak3xSWFb6MmBuDhcyaINFXTq6p1DGe55ecf7jWCM
- UxtHd37ZQfAIb6Q1UEGuimOXpTrKktk+yGfvzVBMjFxCv0Nm8ARgPIrC78H2vH9Df83AOh
- CPZHqNC6bmZfrmV6+J73HdW/kkkNib8=
+ bh=9PGm1+n/a+TUORhKRbnrhUGyke8jgsVkPECJGit0RhU=;
+ b=OvnA4RUHNvwgVxwv9l8MdSaC6/ABwi4bmhsyBnAHyKE4V2tgsmQqBQ+P7dj0SiSLTQs8+O
+ Nxhzt7tQ3xTW+Tc8SOukIpuLLFdJQB5Ytd9T9n1j/3dzIGBNE/ff4PHWvV7eV4GU/cbeC0
+ x08uf6oCTgImHqTcuARIKedmGQzUu0o=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1632818723;
+ s=susede2_ed25519; t=1632818804;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=JFJwiJzx8wvKhHxFwrO3DEeo971dP6dRX07GIDnytjg=;
- b=91lOfqHusPzRS64pK9WhdiqJIoak7pZuBgtWzzswKuhOBEfJ+Oln+hwey/B53wGw0IKeDx
- FoZrIesPikB4tOAg==
+ bh=9PGm1+n/a+TUORhKRbnrhUGyke8jgsVkPECJGit0RhU=;
+ b=KYry9/b3vap0ztNcbZUfecEpLss2DPa2LWZqiwFiLTiXfWqp3n3h/5SQYlDvNEONabrqpE
+ ld1N1alkrc+ThpCg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay1.suse.de (Postfix) with ESMTP id EBE9425D55;
- Tue, 28 Sep 2021 08:45:22 +0000 (UTC)
-Date: Tue, 28 Sep 2021 10:45:22 +0200
-Message-ID: <s5hsfxpnl5p.wl-tiwai@suse.de>
+ by relay1.suse.de (Postfix) with ESMTP id 3FB4125D4A;
+ Tue, 28 Sep 2021 08:46:44 +0000 (UTC)
+Date: Tue, 28 Sep 2021 10:46:44 +0200
+Message-ID: <s5hr1d9nl3f.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [RFC PATCH 0/4] ALSA: hda: potential hdac_stream locking issues?
-In-Reply-To: <20210924192417.169243-1-pierre-louis.bossart@linux.intel.com>
-References: <20210924192417.169243-1-pierre-louis.bossart@linux.intel.com>
+To: Geraldo Nascimento <geraldogabriel@gmail.com>
+Subject: Re: [PATCH] snd-usb-audio: fix comment reference in
+ __uac_clock_find_source
+In-Reply-To: <YU6Kj05oOqRmhJDf@geday>
+References: <YU6Kj05oOqRmhJDf@geday>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- broonie@kernel.org, vkoul@kernel.org
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,37 +92,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 24 Sep 2021 21:24:13 +0200,
-Pierre-Louis Bossart wrote:
+On Sat, 25 Sep 2021 04:33:51 +0200,
+Geraldo Nascimento wrote:
 > 
-> While reviewing the HDAudio DMA handling, I found a number of
-> inconsistencies in how spin_locks are used. It's not clear what the
-> HDaudio bus->reg_lock is supposed to protect. In most cases only the
-> writes to specific boolean status flags are protected, and there are
-> multiple cases of taking the lock after testing a status flag.
+> snd_usb_find_clock_source and snd_usb_find_clock_selector are helper macros that
+> look at an entity id and validate that this entity id is in fact a clock source
+> or a clock selector. The present comments inside __uac_clock_find_source give
+> the reader the impression we're looking for an entity id.
 > 
-> This patchset suggests a more consistent locking pattern, but it's
-> entirely possible that the bus->reg_lock is only intented to protect
-> register read/write access on the HDaudio bus, and not the status
-> flags, and that this entire piece of code is completely
-> over-engineered.
+> We're looking for an entity id indeed, the clock source, but since
+> __uac_clock_find_source is recursive, we're also looking *at* the entity ids,
+> in the search for the one clock source.
 > 
-> On the Intel side no one knows why this spinlock was used, the reasons
-> are lost to history. I set the 'RFC' status on purpose in the hope
-> that Takashi might recall what this lock is supposed to protect. The
-> diff format makes this patchset difficult to review, it's recommended
-> to apply the patches and look at entire functions with changes to get
-> a better idea of the suggested changes.
+> Fix the comment so we don't give readers a wrong idea.
+> 
+> Signed-off-by: Geraldo Nascimento <geraldogabriel@gmail.com>
 
-Oh well, the missing piece was the lock inside the loop in
-*_stream_assign().  It was lost while factoring out and converting to
-the HD-audio core code.  (The lock wasn't taken on the whole loop at
-that time because the list itself was supposed to be static.)
+The patch couldn't be applied cleanly likely because your MUA
+malformed the spaces.  As the change itself is pretty trivial, I
+applied manually now.  But, please fix your MUA setup at the next
+submission.
 
-In anyway, I applied all patches except for patch#2, as the fixes for
-spinlock look correct.
+Thanks!
 
-
-thanks,
 
 Takashi

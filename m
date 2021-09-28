@@ -2,74 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9982D41A4C0
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 03:37:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EA8F41A5DA
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 05:05:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EACE616A3;
-	Tue, 28 Sep 2021 03:36:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EACE616A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id CAF9E16A6;
+	Tue, 28 Sep 2021 05:04:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAF9E16A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632793065;
-	bh=qBZyUkep2XOKCiQqvkSqwL1GWV67BBTeGPY03yeUjQ0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1632798317;
+	bh=XUZA8Gfys6RXijUhb5Q0VCCKOVuJdIwSxNrAQz0fMKM=;
+	h=Date:Subject:From:To:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=LUN38IzHNwsW3a6wp3uHxIDkNrfKiHboi9iL3h/kqZSo+T84Tn4bgNKkdPLkY/Bi2
-	 RWpmTH1gF/vsKD4PwYJ7GmPHI1tPNcz8LN+7fWWTf2wbbiTkEGqW1Lg1lKF80MCvZf
-	 m8uj94OqrxJeWkd+afNaEXM+Sk6FJXNix1p+eptw=
+	b=WF3JLB3iBbfkM7PdnXQUlxgjHbCvBMrMNwZ4zejjAGHvK7/lxevjq1cPNGtSwJAtr
+	 NjzSI6GArp7Tk9lNq0o6+laheWZK0Up8pXJBuLQUVL0WdoAbMi07xJ0OfVNbGoZh6m
+	 PLU5fMxmWXeE5EkIc4i+GgFU+XrNdChSYZI1OtFw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3374BF804BC;
-	Tue, 28 Sep 2021 03:36:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47BCEF804BC;
+	Tue, 28 Sep 2021 05:04:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67A3DF804AD; Tue, 28 Sep 2021 03:36:24 +0200 (CEST)
+ id 5B3E3F804AD; Tue, 28 Sep 2021 05:03:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL
  autolearn=disabled version=3.4.0
-Received: from lucky1.263xmail.com (lucky1.263xmail.com [211.157.147.132])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
+ [IPv6:2607:f8b0:4864:20::b49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A8D40F80105
- for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 03:36:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8D40F80105
-Received: from localhost (unknown [192.168.167.16])
- by lucky1.263xmail.com (Postfix) with ESMTP id 617E7FB618;
- Tue, 28 Sep 2021 09:36:08 +0800 (CST)
-X-MAIL-GRAY: 0
-X-MAIL-DELIVERY: 1
-X-ADDR-CHECKED4: 1
-X-SKE-CHECKED: 1
-X-ANTISPAM-LEVEL: 2
-Received: from localhost.localdomain (unknown [58.22.7.114])
- by smtp.263.net (postfix) whith ESMTP id
- P13671T140479825954560S1632792967296273_; 
- Tue, 28 Sep 2021 09:36:08 +0800 (CST)
-X-IP-DOMAINF: 1
-X-RL-SENDER: sugar.zhang@rock-chips.com
-X-SENDER: zxg@rock-chips.com
-X-LOGIN-NAME: sugar.zhang@rock-chips.com
-X-FST-TO: broonie@kernel.org
-X-RCPT-COUNT: 10
-X-LOCAL-RCPT-COUNT: 1
-X-SENDER-IP: 58.22.7.114
-X-ATTACHMENT-NUM: 0
-X-UNIQUE-TAG: <449a6737cf21524e2fbe3c53d057ed92>
-X-System-Flag: 0
-From: Sugar Zhang <sugar.zhang@rock-chips.com>
-To: broonie@kernel.org,
-	heiko@sntech.de
-Subject: [PATCH] Revert "ASoC: rockchip: add config for rockchip dmaengine pcm
- register"
-Date: Tue, 28 Sep 2021 09:35:57 +0800
-Message-Id: <1632792957-80428-1-git-send-email-sugar.zhang@rock-chips.com>
-X-Mailer: git-send-email 2.7.4
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Sugar Zhang <sugar.zhang@rock-chips.com>, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1F81CF80161
+ for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 05:03:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F81CF80161
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="dL+4nAoZ"
+Received: by mail-yb1-xb49.google.com with SMTP id
+ q8-20020a056902150800b005b640f67812so14598367ybu.8
+ for <alsa-devel@alsa-project.org>; Mon, 27 Sep 2021 20:03:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=date:message-id:mime-version:subject:from:to:cc;
+ bh=KsTiqLz5nah56eaJPdLQpIjEU/EofkShSKUy8lI2hyQ=;
+ b=dL+4nAoZuGm4aNP5itgjzvN4wG8K9bftsbuyMiru+AJT59d5ORquQONcCClLp3l1ac
+ 0OpUJXuFJS+qEZzWO05pnDGFkXMk6Jcj/By1Gy+FgCQOVg5jtTv5fpsq52zdMjrE4GXu
+ LdURoXk+nmB34mtCrsUc9Pd8mOqDSCuQaxmaAdZuMzBwy+lgz5dK4afD53nYDZVfWklw
+ 1ggxt0aAZf657UFXJJSl5gW3u8tvJCZaFA0raJfloxhiFhL05E32qeKBsUmMPKm+6BIs
+ /YyN6mxHjg8JrXAAZg5CqjawkbffO6TqjIA9C2tUemKwZtcr+/lxatC+3enbnwSqivoh
+ dBIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
+ bh=KsTiqLz5nah56eaJPdLQpIjEU/EofkShSKUy8lI2hyQ=;
+ b=BDy/hoWgI2fNF0m6BOC0FkJ5lHNnkIFhWMVBLBFFrc/fmAxFJezGkAGkv8LGe5g99+
+ EIYy7qxsKIxA4UqPH9y9gAjm2nA2JNpLENi14mb13CqDt45AhkbIQGnwIqrG4mgZfUDH
+ N3V2U8brwZt6ycqIOXxthh+olp83JT4IZsAuwcGEGyLOpIFCXJRDmmnC8iwybXD9Zsus
+ uZfEmIx+4z4u1Rb/8Id0oUUn9tHqrNSZaYuHXu4VdCY8cUUFoB74TLjWP1Nu1B3YSeqI
+ MVjuw1J3Sj3XaaPhlYIk2fuaqSHRfDkJuqet4IDzukspRhVaseKKcRB80VW2e0g9AmgM
+ OIXg==
+X-Gm-Message-State: AOAM530E3tVpmk7PXHS1jLe58tqFlJFp5zjGhB3KIJmb8MXtk5X97hFE
+ wQsMefaJaNcCL/5cdNlEqL2ROX3QUign
+X-Google-Smtp-Source: ABdhPJz1nsrfytd99INIpMBDoXfiMBv7DoMihoInZPu47ZUCSKn6IO7K5b9oPkuXlLp7wdU6Hbc3u49FKYrh
+X-Received: from tzungbi-z840.tpe.corp.google.com
+ ([2401:fa00:1:10:17f:bc7f:958e:ac0b])
+ (user=tzungbi job=sendgmr) by 2002:a25:b7d0:: with SMTP id
+ u16mr3859570ybj.342.1632798229290; Mon, 27 Sep 2021 20:03:49 -0700 (PDT)
+Date: Tue, 28 Sep 2021 11:03:43 +0800
+Message-Id: <20210928030343.2200141-1-tzungbi@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.33.0.685.g46640cef36-goog
+Subject: [RESEND PATCH v4] ASoC: dt-bindings: mediatek: mt8192: re-add audio
+ afe document
+From: Tzung-Bi Shih <tzungbi@google.com>
+To: broonie@kernel.org, robh+dt@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Cc: tzungbi@google.com, alsa-devel@alsa-project.org,
+ Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,156 +95,135 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This reverts commit 75b31192fe6ad20b42276b20ee3bdf1493216d63.
+The document was merged as commit 1afc60e00de3 ("dt-bindings:
+mediatek: mt8192: add audio afe document").
 
-The original purpose of customized pcm was to config prealloc buffer size
-flexibly. but, we can do the same thing by soc-generic-dmaengine-pcm.
+However, [1] revealed that the commit 1afc60e00de3 breaks
+dt_binding_check due to dt-bindings/clock/mt8192-clk.h doesn't
+exist.
 
-And the generic one can generated the better config by querying DMA
-capabilities from dmaengine driver rather than the Hard-Coded one.
+As a temporary fix, commit 7d94ca3c8acd ("ASoC: mt8192: revert
+add audio afe document") reverted commit 1afc60e00de3.
 
-e.g.
+dt-bindings/clock/mt8192-clk.h is in mainline per commit
+f35f1a23e0e1 ("clk: mediatek: Add dt-bindings of MT8192 clocks").
+Re-adds the document back.
 
-the customized one:
+[1]: https://mailman.alsa-project.org/pipermail/alsa-devel/2020-November/176873.html
 
-  static const struct snd_pcm_hardware snd_rockchip_hardware = {
-         .info                   = SNDRV_PCM_INFO_MMAP |
-                                   SNDRV_PCM_INFO_MMAP_VALID |
-                                   SNDRV_PCM_INFO_PAUSE |
-                                   SNDRV_PCM_INFO_RESUME |
-                                   SNDRV_PCM_INFO_INTERLEAVED,
-  ...
-
-the generic one:
-
-  ret = dma_get_slave_caps(chan, &dma_caps);
-  if (ret == 0) {
-          if (dma_caps.cmd_pause && dma_caps.cmd_resume)
-                  hw.info |= SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME;
-          if (dma_caps.residue_granularity <= DMA_RESIDUE_GRANULARITY_SEGMENT)
-                  hw.info |= SNDRV_PCM_INFO_BATCH;
-  ...
-
-So, let's revert back to use the generic dmaengine pcm.
-
-Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
 ---
+ .../bindings/sound/mt8192-afe-pcm.yaml        | 100 ++++++++++++++++++
+ 1 file changed, 100 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
 
- sound/soc/rockchip/Makefile       |  3 +--
- sound/soc/rockchip/rockchip_i2s.c |  3 +--
- sound/soc/rockchip/rockchip_pcm.c | 44 ---------------------------------------
- sound/soc/rockchip/rockchip_pcm.h | 11 ----------
- 4 files changed, 2 insertions(+), 59 deletions(-)
- delete mode 100644 sound/soc/rockchip/rockchip_pcm.c
- delete mode 100644 sound/soc/rockchip/rockchip_pcm.h
-
-diff --git a/sound/soc/rockchip/Makefile b/sound/soc/rockchip/Makefile
-index 65e814d..05b078e 100644
---- a/sound/soc/rockchip/Makefile
-+++ b/sound/soc/rockchip/Makefile
-@@ -1,11 +1,10 @@
- # SPDX-License-Identifier: GPL-2.0
- # ROCKCHIP Platform Support
- snd-soc-rockchip-i2s-objs := rockchip_i2s.o
--snd-soc-rockchip-pcm-objs := rockchip_pcm.o
- snd-soc-rockchip-pdm-objs := rockchip_pdm.o
- snd-soc-rockchip-spdif-objs := rockchip_spdif.o
- 
--obj-$(CONFIG_SND_SOC_ROCKCHIP_I2S) += snd-soc-rockchip-i2s.o snd-soc-rockchip-pcm.o
-+obj-$(CONFIG_SND_SOC_ROCKCHIP_I2S) += snd-soc-rockchip-i2s.o
- obj-$(CONFIG_SND_SOC_ROCKCHIP_PDM) += snd-soc-rockchip-pdm.o
- obj-$(CONFIG_SND_SOC_ROCKCHIP_SPDIF) += snd-soc-rockchip-spdif.o
- 
-diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
-index 7e89f5b..a6d7656 100644
---- a/sound/soc/rockchip/rockchip_i2s.c
-+++ b/sound/soc/rockchip/rockchip_i2s.c
-@@ -20,7 +20,6 @@
- #include <sound/dmaengine_pcm.h>
- 
- #include "rockchip_i2s.h"
--#include "rockchip_pcm.h"
- 
- #define DRV_NAME "rockchip-i2s"
- 
-@@ -756,7 +755,7 @@ static int rockchip_i2s_probe(struct platform_device *pdev)
- 		goto err_suspend;
- 	}
- 
--	ret = rockchip_pcm_platform_register(&pdev->dev);
-+	ret = devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
- 	if (ret) {
- 		dev_err(&pdev->dev, "Could not register PCM\n");
- 		goto err_suspend;
-diff --git a/sound/soc/rockchip/rockchip_pcm.c b/sound/soc/rockchip/rockchip_pcm.c
-deleted file mode 100644
-index 02254e4..0000000
---- a/sound/soc/rockchip/rockchip_pcm.c
-+++ /dev/null
-@@ -1,44 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- * Copyright (c) 2018 Rockchip Electronics Co. Ltd.
-- */
--
--#include <linux/device.h>
--#include <linux/init.h>
--#include <linux/module.h>
--
--#include <sound/core.h>
--#include <sound/pcm.h>
--#include <sound/soc.h>
--#include <sound/dmaengine_pcm.h>
--
--#include "rockchip_pcm.h"
--
--static const struct snd_pcm_hardware snd_rockchip_hardware = {
--	.info			= SNDRV_PCM_INFO_MMAP |
--				  SNDRV_PCM_INFO_MMAP_VALID |
--				  SNDRV_PCM_INFO_PAUSE |
--				  SNDRV_PCM_INFO_RESUME |
--				  SNDRV_PCM_INFO_INTERLEAVED,
--	.period_bytes_min	= 32,
--	.period_bytes_max	= 8192,
--	.periods_min		= 1,
--	.periods_max		= 52,
--	.buffer_bytes_max	= 64 * 1024,
--	.fifo_size		= 32,
--};
--
--static const struct snd_dmaengine_pcm_config rk_dmaengine_pcm_config = {
--	.pcm_hardware = &snd_rockchip_hardware,
--	.prepare_slave_config = snd_dmaengine_pcm_prepare_slave_config,
--	.prealloc_buffer_size = 32 * 1024,
--};
--
--int rockchip_pcm_platform_register(struct device *dev)
--{
--	return devm_snd_dmaengine_pcm_register(dev, &rk_dmaengine_pcm_config,
--		SND_DMAENGINE_PCM_FLAG_COMPAT);
--}
--EXPORT_SYMBOL_GPL(rockchip_pcm_platform_register);
--
--MODULE_LICENSE("GPL v2");
-diff --git a/sound/soc/rockchip/rockchip_pcm.h b/sound/soc/rockchip/rockchip_pcm.h
-deleted file mode 100644
-index 7f00e2c..0000000
---- a/sound/soc/rockchip/rockchip_pcm.h
-+++ /dev/null
-@@ -1,11 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--/*
-- * Copyright (c) 2018 Rockchip Electronics Co. Ltd.
-- */
--
--#ifndef _ROCKCHIP_PCM_H
--#define _ROCKCHIP_PCM_H
--
--int rockchip_pcm_platform_register(struct device *dev);
--
--#endif
+diff --git a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
+new file mode 100644
+index 000000000000..5e9fe067f440
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
+@@ -0,0 +1,100 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/mt8192-afe-pcm.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Mediatek AFE PCM controller for mt8192
++
++maintainers:
++  - Jiaxin Yu <jiaxin.yu@mediatek.com>
++  - Shane Chien <shane.chien@mediatek.com>
++
++properties:
++  compatible:
++    const: mediatek,mt8192-audio
++
++  interrupts:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  reset-names:
++    const: audiosys
++
++  mediatek,apmixedsys:
++    $ref: "/schemas/types.yaml#/definitions/phandle"
++    description: The phandle of the mediatek apmixedsys controller
++
++  mediatek,infracfg:
++    $ref: "/schemas/types.yaml#/definitions/phandle"
++    description: The phandle of the mediatek infracfg controller
++
++  mediatek,topckgen:
++    $ref: "/schemas/types.yaml#/definitions/phandle"
++    description: The phandle of the mediatek topckgen controller
++
++  power-domains:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: AFE clock
++      - description: ADDA DAC clock
++      - description: ADDA DAC pre-distortion clock
++      - description: audio infra sys clock
++      - description: audio infra 26M clock
++
++  clock-names:
++    items:
++      - const: aud_afe_clk
++      - const: aud_dac_clk
++      - const: aud_dac_predis_clk
++      - const: aud_infra_clk
++      - const: aud_infra_26m_clk
++
++required:
++  - compatible
++  - interrupts
++  - resets
++  - reset-names
++  - mediatek,apmixedsys
++  - mediatek,infracfg
++  - mediatek,topckgen
++  - power-domains
++  - clocks
++  - clock-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/mt8192-clk.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/power/mt8192-power.h>
++    #include <dt-bindings/reset-controller/mt8192-resets.h>
++
++    afe: mt8192-afe-pcm {
++        compatible = "mediatek,mt8192-audio";
++        interrupts = <GIC_SPI 202 IRQ_TYPE_LEVEL_HIGH>;
++        resets = <&watchdog MT8192_TOPRGU_AUDIO_SW_RST>;
++        reset-names = "audiosys";
++        mediatek,apmixedsys = <&apmixedsys>;
++        mediatek,infracfg = <&infracfg>;
++        mediatek,topckgen = <&topckgen>;
++        power-domains = <&scpsys MT8192_POWER_DOMAIN_AUDIO>;
++        clocks = <&audsys CLK_AUD_AFE>,
++                 <&audsys CLK_AUD_DAC>,
++                 <&audsys CLK_AUD_DAC_PREDIS>,
++                 <&infracfg CLK_INFRA_AUDIO>,
++                 <&infracfg CLK_INFRA_AUDIO_26M_B>;
++        clock-names = "aud_afe_clk",
++                      "aud_dac_clk",
++                      "aud_dac_predis_clk",
++                      "aud_infra_clk",
++                      "aud_infra_26m_clk";
++    };
++
++...
 -- 
-2.7.4
-
-
+2.33.0.685.g46640cef36-goog
 

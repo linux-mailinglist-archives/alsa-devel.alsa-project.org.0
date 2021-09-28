@@ -2,60 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0804B41AA80
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 10:19:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F10C641AA8B
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 10:24:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8DED51686;
-	Tue, 28 Sep 2021 10:18:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DED51686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9129216A4;
+	Tue, 28 Sep 2021 10:23:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9129216A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632817169;
-	bh=UH9DS11nMspK2pPcWBbgv/JlfYy2IUog0kmLefZXfvw=;
+	s=default; t=1632817456;
+	bh=TAOQ3n02LnLMD/d0Jv29nNh170QG4kBmyCdfSmqXsqo=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=pHRuymY6KQPiwu1w4+deoDq2IScvDaAinrYs/3ugdWxEytiBetnAlqeekJoIlo0O7
-	 IwfLR2/hFaDnmSwb3/uHN5ur/+a4kry8CB+cVH5kRxVu/7WYVBK0iX9233PcyvKXRJ
-	 EwB9vxgwSbkaGrHsT4BEXvIcIrhqsl9w1c+okwZU=
+	b=j5Rlmx8M7B2lghTmaNsSyxCBfxTflnXe4Mtsbn5HdI8ymYee4G8s1/lB9knPDb+O3
+	 XW1jzBaDPpM/c6NAAUvjIuqB9eMhEPVjB4WYfsiGFDF3eZh7wInhUh9ZdeULkhOkDq
+	 kkwilZCFeK7MoZ6A9Kb3N8BoAnKG6XYzhQAgxWuI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2C4AF804BC;
-	Tue, 28 Sep 2021 10:18:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07EE7F804BC;
+	Tue, 28 Sep 2021 10:23:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 75615F8032C; Tue, 28 Sep 2021 10:17:55 +0200 (CEST)
+ id 4CFDDF8032C; Tue, 28 Sep 2021 10:22:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 65313F800DE
- for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 10:17:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65313F800DE
-X-IronPort-AV: E=McAfee;i="6200,9189,10120"; a="222753909"
-X-IronPort-AV: E=Sophos;i="5.85,329,1624345200"; d="scan'208";a="222753909"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2021 01:17:41 -0700
-X-IronPort-AV: E=Sophos;i="5.85,329,1624345200"; d="scan'208";a="553894699"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 86FDFF800DE
+ for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 10:22:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86FDFF800DE
+X-IronPort-AV: E=McAfee;i="6200,9189,10120"; a="224714606"
+X-IronPort-AV: E=Sophos;i="5.85,329,1624345200"; d="scan'208";a="224714606"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2021 01:22:46 -0700
+X-IronPort-AV: E=Sophos;i="5.85,329,1624345200"; d="scan'208";a="561973697"
 Received: from elisabal-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.251.220.25])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2021 01:17:40 -0700
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2021 01:22:44 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com, broonie@kernel.org,
  pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com
-Subject: [PATCH] ASoC: SOF: Intel: hda-stream: Print stream name on
- STREAM_SD_OFFSET timeout
-Date: Tue, 28 Sep 2021 11:17:44 +0300
-Message-Id: <20210928081744.4785-1-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH] ASoC: SOF: Intel: hda-stream: limit PROCEN workaround
+Date: Tue, 28 Sep 2021 11:22:48 +0300
+Message-Id: <20210928082248.6081-1-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ rander.wang@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,157 +71,112 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In order to provide more information in case of timeout observed while
-reading STREAM_SD_OFFSET, print out the stream name or in case there is
-no audio stream associated (like dma-trace), print "--"
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+The work-around enabled in hda-stream.c is only required on earlier
+versions of SOCs/PCH (Skylake, KabyLake, ApolloLake,
+GeminiLake). Before setting the format on the host DMA, it is required
+to couple the host and link DMA - which as a consequence shall use the
+same format.
+
+This patch introduces a quirk field in the platform descriptor and
+makes the work-around conditional. Newer platforms have
+no limitations on the use of host and link DMA, which can use
+different formats.
+
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-stream.c | 85 ++++++++++++++++++++++----------
- 1 file changed, 59 insertions(+), 26 deletions(-)
+ sound/soc/sof/intel/apl.c        |  1 +
+ sound/soc/sof/intel/hda-stream.c | 18 ++++++++++++------
+ sound/soc/sof/intel/shim.h       |  4 ++++
+ 3 files changed, 17 insertions(+), 6 deletions(-)
 
+diff --git a/sound/soc/sof/intel/apl.c b/sound/soc/sof/intel/apl.c
+index e6a1f6532547..16b7d8b1adff 100644
+--- a/sound/soc/sof/intel/apl.c
++++ b/sound/soc/sof/intel/apl.c
+@@ -143,5 +143,6 @@ const struct sof_intel_dsp_desc apl_chip_info = {
+ 	.rom_init_timeout	= 150,
+ 	.ssp_count = APL_SSP_COUNT,
+ 	.ssp_base_offset = APL_SSP_BASE_OFFSET,
++	.quirks = SOF_INTEL_PROCEN_FMT_QUIRK,
+ };
+ EXPORT_SYMBOL_NS(apl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
 diff --git a/sound/soc/sof/intel/hda-stream.c b/sound/soc/sof/intel/hda-stream.c
-index 63c367478f1c..db028b83c5f2 100644
+index 63c367478f1c..47a465b06da5 100644
 --- a/sound/soc/sof/intel/hda-stream.c
 +++ b/sound/soc/sof/intel/hda-stream.c
-@@ -25,6 +25,33 @@
- 
- #define HDA_LTRP_GB_VALUE_US	95
- 
-+static inline const char *hda_hstream_direction_str(struct hdac_stream *hstream)
-+{
-+	if (hstream->direction == SNDRV_PCM_STREAM_PLAYBACK)
-+		return "Playback";
-+	else
-+		return "Capture";
-+}
-+
-+static char *hda_hstream_dbg_get_stream_info_str(struct hdac_stream *hstream)
-+{
-+	struct snd_soc_pcm_runtime *rtd;
-+
-+	if (hstream->substream)
-+		rtd = asoc_substream_to_rtd(hstream->substream);
-+	else if (hstream->cstream)
-+		rtd = hstream->cstream->private_data;
-+	else
-+		/* Non audio DMA user, like dma-trace */
-+		return kasprintf(GFP_KERNEL, "-- (%s, stream_tag: %u)",
-+				 hda_hstream_direction_str(hstream),
-+				 hstream->stream_tag);
-+
-+	return kasprintf(GFP_KERNEL, "dai_link \"%s\" (%s, stream_tag: %u)",
-+			 rtd->dai_link->name, hda_hstream_direction_str(hstream),
-+			 hstream->stream_tag);
-+}
-+
- /*
-  * set up one of BDL entries for a stream
-  */
-@@ -257,7 +284,7 @@ int hda_dsp_stream_trigger(struct snd_sof_dev *sdev,
+@@ -405,6 +405,7 @@ int hda_dsp_stream_hw_params(struct snd_sof_dev *sdev,
+ 			     struct snd_dma_buffer *dmab,
+ 			     struct snd_pcm_hw_params *params)
+ {
++	const struct sof_intel_dsp_desc *chip = get_chip_info(sdev->pdata);
+ 	struct hdac_bus *bus = sof_to_bus(sdev);
  	struct hdac_stream *hstream = &stream->hstream;
  	int sd_offset = SOF_STREAM_SD_OFFSET(hstream);
- 	u32 dma_start = SOF_HDA_SD_CTL_DMA_START;
--	int ret;
-+	int ret = 0;
- 	u32 run;
+@@ -538,6 +539,7 @@ int hda_dsp_stream_hw_params(struct snd_sof_dev *sdev,
  
- 	/* cmd must be for audio stream */
-@@ -283,14 +310,9 @@ int hda_dsp_stream_trigger(struct snd_sof_dev *sdev,
- 					HDA_DSP_REG_POLL_INTERVAL_US,
- 					HDA_DSP_STREAM_RUN_TIMEOUT);
+ 	/*
+ 	 * Recommended hardware programming sequence for HDAudio DMA format
++	 * on earlier platforms - this is not needed on newer platforms
+ 	 *
+ 	 * 1. Put DMA into coupled mode by clearing PPCTL.PROCEN bit
+ 	 *    for corresponding stream index before the time of writing
+@@ -547,9 +549,11 @@ int hda_dsp_stream_hw_params(struct snd_sof_dev *sdev,
+ 	 *    enable decoupled mode
+ 	 */
  
--		if (ret < 0) {
--			dev_err(sdev->dev,
--				"error: %s: cmd %d: timeout on STREAM_SD_OFFSET read\n",
--				__func__, cmd);
--			return ret;
--		}
-+		if (ret >= 0)
-+			hstream->running = true;
- 
--		hstream->running = true;
- 		break;
- 	case SNDRV_PCM_TRIGGER_SUSPEND:
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-@@ -306,27 +328,32 @@ int hda_dsp_stream_trigger(struct snd_sof_dev *sdev,
- 						HDA_DSP_REG_POLL_INTERVAL_US,
- 						HDA_DSP_STREAM_RUN_TIMEOUT);
- 
--		if (ret < 0) {
--			dev_err(sdev->dev,
--				"error: %s: cmd %d: timeout on STREAM_SD_OFFSET read\n",
--				__func__, cmd);
--			return ret;
--		}
-+		if (ret >= 0) {
-+			snd_sof_dsp_write(sdev, HDA_DSP_HDA_BAR,
-+					  sd_offset + SOF_HDA_ADSP_REG_CL_SD_STS,
-+					  SOF_HDA_CL_DMA_SD_INT_MASK);
- 
--		snd_sof_dsp_write(sdev, HDA_DSP_HDA_BAR, sd_offset +
--				  SOF_HDA_ADSP_REG_CL_SD_STS,
--				  SOF_HDA_CL_DMA_SD_INT_MASK);
--
--		hstream->running = false;
--		snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR, SOF_HDA_INTCTL,
--					1 << hstream->index, 0x0);
-+			hstream->running = false;
-+			snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR,
-+						SOF_HDA_INTCTL,
-+						1 << hstream->index, 0x0);
-+		}
- 		break;
- 	default:
- 		dev_err(sdev->dev, "error: unknown command: %d\n", cmd);
- 		return -EINVAL;
- 	}
- 
--	return 0;
-+	if (ret < 0) {
-+		char *stream_name = hda_hstream_dbg_get_stream_info_str(hstream);
-+
-+		dev_err(sdev->dev,
-+			"%s: cmd %d on %s: timeout on STREAM_SD_OFFSET read\n",
-+			__func__, cmd, stream_name ? stream_name : "unknown stream");
-+		kfree(stream_name);
+-	/* couple host and link DMA, disable DSP features */
+-	snd_sof_dsp_update_bits(sdev, HDA_DSP_PP_BAR, SOF_HDA_REG_PP_PPCTL,
+-				mask, 0);
++	if (chip->quirks & SOF_INTEL_PROCEN_FMT_QUIRK) {
++		/* couple host and link DMA, disable DSP features */
++		snd_sof_dsp_update_bits(sdev, HDA_DSP_PP_BAR, SOF_HDA_REG_PP_PPCTL,
++					mask, 0);
 +	}
+ 
+ 	/* program stream format */
+ 	snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR,
+@@ -557,9 +561,11 @@ int hda_dsp_stream_hw_params(struct snd_sof_dev *sdev,
+ 				SOF_HDA_ADSP_REG_CL_SD_FORMAT,
+ 				0xffff, hstream->format_val);
+ 
+-	/* decouple host and link DMA, enable DSP features */
+-	snd_sof_dsp_update_bits(sdev, HDA_DSP_PP_BAR, SOF_HDA_REG_PP_PPCTL,
+-				mask, mask);
++	if (chip->quirks & SOF_INTEL_PROCEN_FMT_QUIRK) {
++		/* decouple host and link DMA, enable DSP features */
++		snd_sof_dsp_update_bits(sdev, HDA_DSP_PP_BAR, SOF_HDA_REG_PP_PPCTL,
++					mask, mask);
++	}
+ 
+ 	/* program last valid index */
+ 	snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR,
+diff --git a/sound/soc/sof/intel/shim.h b/sound/soc/sof/intel/shim.h
+index e9f7d4d7fcce..8e2a0f4c0f66 100644
+--- a/sound/soc/sof/intel/shim.h
++++ b/sound/soc/sof/intel/shim.h
+@@ -151,6 +151,9 @@
+ #define PCI_PMCS		0x84
+ #define PCI_PMCS_PS_MASK	0x3
+ 
++/* Intel quirks */
++#define SOF_INTEL_PROCEN_FMT_QUIRK BIT(0)
 +
-+	return ret;
- }
- 
- /* minimal recommended programming for ICCMAX stream */
-@@ -440,9 +467,12 @@ int hda_dsp_stream_hw_params(struct snd_sof_dev *sdev,
- 					    HDA_DSP_STREAM_RUN_TIMEOUT);
- 
- 	if (ret < 0) {
-+		char *stream_name = hda_hstream_dbg_get_stream_info_str(hstream);
-+
- 		dev_err(sdev->dev,
--			"error: %s: timeout on STREAM_SD_OFFSET read1\n",
--			__func__);
-+			"%s: on %s: timeout on STREAM_SD_OFFSET read1\n",
-+			__func__, stream_name ? stream_name : "unknown stream");
-+		kfree(stream_name);
- 		return ret;
- 	}
- 
-@@ -506,9 +536,12 @@ int hda_dsp_stream_hw_params(struct snd_sof_dev *sdev,
- 					    HDA_DSP_STREAM_RUN_TIMEOUT);
- 
- 	if (ret < 0) {
-+		char *stream_name = hda_hstream_dbg_get_stream_info_str(hstream);
-+
- 		dev_err(sdev->dev,
--			"error: %s: timeout on STREAM_SD_OFFSET read2\n",
--			__func__);
-+			"%s: on %s: timeout on STREAM_SD_OFFSET read1\n",
-+			__func__, stream_name ? stream_name : "unknown stream");
-+		kfree(stream_name);
- 		return ret;
- 	}
+ /* DSP hardware descriptor */
+ struct sof_intel_dsp_desc {
+ 	int cores_num;
+@@ -166,6 +169,7 @@ struct sof_intel_dsp_desc {
+ 	int ssp_base_offset;		/* base address of the SSPs */
+ 	u32 sdw_shim_base;
+ 	u32 sdw_alh_base;
++	u32 quirks;
+ 	bool (*check_sdw_irq)(struct snd_sof_dev *sdev);
+ };
  
 -- 
 2.33.0

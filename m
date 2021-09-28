@@ -2,61 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFAD141AD1D
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 12:36:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1352E41AD1E
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 12:37:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 664C21683;
-	Tue, 28 Sep 2021 12:35:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 664C21683
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0FB916BE;
+	Tue, 28 Sep 2021 12:36:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0FB916BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632825404;
-	bh=i030mvZ7uBRpL9yojPG7QEicgEFWKVgNf5rXR9fJHOo=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=kYpoOpCugPmW8hfghqbTzvpQrseLGiG5RDMwbNbBUVbDsIw11NHP+k0GWXWKeBs23
-	 KorMRSdEcp5sEy/8n0ncPYGufSUx+uklFDclC1TijToLDvdn/QW5yRxrE1DiaSd3AH
-	 04m2U73hlnhAXEVY0xpgE4GpGexT7HS51I7J6Y/c=
+	s=default; t=1632825428;
+	bh=Jps0bfSwxiqKScTl21g57Cd6e2qZqmVFPBV1W/T6vmM=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=YWUlxHw1+raOuloJrhDTVcSoxLvIILltX2XfyJ4DQ6FFodkSohglQ4fA6Iz07SZ1/
+	 rlPkNv/68/+9Pn7w2Vi2AG6A3N86nG5ftbxaLND16FpheEb9smdza9cAV4nwWF8DT+
+	 F8yNPow21bzikCVkOYfxl34o7UeVd0CRR5dRFyPk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB9F7F80105;
-	Tue, 28 Sep 2021 12:35:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6005F804D1;
+	Tue, 28 Sep 2021 12:36:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7B80DF804AD; Tue, 28 Sep 2021 12:35:25 +0200 (CEST)
+ id B8485F804D2; Tue, 28 Sep 2021 12:36:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A754BF800DE
- for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 12:35:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A754BF800DE
-X-IronPort-AV: E=McAfee;i="6200,9189,10120"; a="310217403"
-X-IronPort-AV: E=Sophos;i="5.85,329,1624345200"; d="scan'208";a="310217403"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2021 03:35:15 -0700
-X-IronPort-AV: E=Sophos;i="5.85,329,1624345200"; d="scan'208";a="476241959"
-Received: from elisabal-mobl.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.251.220.25])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2021 03:35:12 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com,
- guennadi.liakhovetski@linux.intel.com, daniel.baluta@nxp.com
-Subject: [PATCH] ASoC: SOF: add error handling to snd_sof_ipc_msg_data()
-Date: Tue, 28 Sep 2021 13:35:16 +0300
-Message-Id: <20210928103516.8066-1-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.33.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D142F804D6
+ for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 12:36:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D142F804D6
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="YyRa45Cw"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="O+1hkGU6"
+Received: from relay1.suse.de (relay1.suse.de [149.44.160.133])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 05BDC223D8;
+ Tue, 28 Sep 2021 10:36:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1632825366; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=a6aMM5Qg0WuIYHVsxbkReJMMt4CBZTpC0gtc5cKEZek=;
+ b=YyRa45CwLIUdBZijJsbJNezCsnVqMxNHLtlhjV0zJ0cSscbH2bFdILVJvSrNAoqfcfvXxg
+ Hrn5btkakIizHy145KJsCwfKiMMZGfvG3n0j86cJeQ05B8wDWZHyNi2HDm+sg43YgfY0Rt
+ T14sJGl+LAXzVXi6AB9F928KSW5vDFg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1632825366;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=a6aMM5Qg0WuIYHVsxbkReJMMt4CBZTpC0gtc5cKEZek=;
+ b=O+1hkGU68qk94lC4ZiKL4/HYJKY+J3duJJlHiUc5AUA8BZKbz6qShAH8W6zK2XJIoxoilS
+ XkceXbQkpDXJBaAg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay1.suse.de (Postfix) with ESMTP id F344B25D63;
+ Tue, 28 Sep 2021 10:36:05 +0000 (UTC)
+Date: Tue, 28 Sep 2021 12:36:05 +0200
+Message-ID: <s5hfstpng16.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Davide Baldo <davide@baldo.me>
+Subject: Re: [PATCH] Fixes HP Spectre x360 15-eb1xxx speakers
+In-Reply-To: <20210925194425.9028-1-davide@baldo.me>
+References: <20210925194425.9028-1-davide@baldo.me>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,317 +92,135 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+On Sat, 25 Sep 2021 21:44:26 +0200,
+Davide Baldo wrote:
+> 
+> 
+> First kernel contribution, I only tested this patch myself on a 5.14.7.
+> There is probably some way to fix the remaining issues, but I need
+> some guidance on how I could test the different pinouts since
+> hdajackretask hangs the audio card and I can't test out combinations.
+> In the meantime this commit fix the most serius problem: silent
+> speakers.
+> 
+> In laptop 'HP Spectre x360 Convertible 15-eb1xxx/8811' both front and
+> rear speakers are silent, this patch fixes that by overriding the pin
+> layout and by initializing the amplifier which needs a GPIO pin to be
+> set to 1 then 0, similar to the existing HP Spectre x360 14 model.
+> 
+> This patch also correctly map the mute LED but since there is no
+> microphone on/off switch exposed by the alsa subsystem it never turns
+> on by itself.
 
-If an invalid stream is passed to snd_sof_ipc_msg_data() it won't
-fill the provided object with data. The caller has to be able to
-recognise such cases to avoid handling invalid data. Make the
-function return an error when failing.
+Note that the recent kernel binds the mute and mic-mute LED with the
+leds subsystem, which can be controlled via sysfs, /sys/class/leds/*.
 
-Signed-off-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Reviewed-by: Peter Ujfalusi <peter.ujfalusi@intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
- sound/soc/sof/imx/imx8.c        |  7 +++---
- sound/soc/sof/imx/imx8m.c       |  7 +++---
- sound/soc/sof/intel/hda-ipc.c   | 15 +++++++-----
- sound/soc/sof/intel/hda.h       |  6 ++---
- sound/soc/sof/intel/intel-ipc.c | 14 +++++++----
- sound/soc/sof/ipc.c             | 41 +++++++++++++++++++++++++--------
- sound/soc/sof/ops.h             |  8 +++----
- sound/soc/sof/sof-priv.h        | 12 +++++-----
- 8 files changed, 71 insertions(+), 39 deletions(-)
+> There are still known audio issues in this laptop: headset microphone
+> doesn't work, the button to mute/unmute microphone is not yet mapped,
+> the LED of the mute/unmute speakers doesn't seems to be exposed via
+> GPIO and never turns on.
+> 
+> Signed-off-by: Davide Baldo <davide@baldo.me>
 
-diff --git a/sound/soc/sof/imx/imx8.c b/sound/soc/sof/imx/imx8.c
-index 82ca920a69ab..e6eed53f8644 100644
---- a/sound/soc/sof/imx/imx8.c
-+++ b/sound/soc/sof/imx/imx8.c
-@@ -375,11 +375,12 @@ static int imx8_get_bar_index(struct snd_sof_dev *sdev, u32 type)
- 	}
- }
- 
--static void imx8_ipc_msg_data(struct snd_sof_dev *sdev,
--			      struct snd_pcm_substream *substream,
--			      void *p, size_t sz)
-+static int imx8_ipc_msg_data(struct snd_sof_dev *sdev,
-+			     struct snd_pcm_substream *substream,
-+			     void *p, size_t sz)
- {
- 	sof_mailbox_read(sdev, sdev->dsp_box.offset, p, sz);
-+	return 0;
- }
- 
- static int imx8_ipc_pcm_params(struct snd_sof_dev *sdev,
-diff --git a/sound/soc/sof/imx/imx8m.c b/sound/soc/sof/imx/imx8m.c
-index 76f4ffd9d540..5579cbef4a93 100644
---- a/sound/soc/sof/imx/imx8m.c
-+++ b/sound/soc/sof/imx/imx8m.c
-@@ -238,11 +238,12 @@ static int imx8m_get_bar_index(struct snd_sof_dev *sdev, u32 type)
- 	}
- }
- 
--static void imx8m_ipc_msg_data(struct snd_sof_dev *sdev,
--			       struct snd_pcm_substream *substream,
--			       void *p, size_t sz)
-+static int imx8m_ipc_msg_data(struct snd_sof_dev *sdev,
-+			      struct snd_pcm_substream *substream,
-+			      void *p, size_t sz)
- {
- 	sof_mailbox_read(sdev, sdev->dsp_box.offset, p, sz);
-+	return 0;
- }
- 
- static int imx8m_ipc_pcm_params(struct snd_sof_dev *sdev,
-diff --git a/sound/soc/sof/intel/hda-ipc.c b/sound/soc/sof/intel/hda-ipc.c
-index acfeca42604c..11f20a5a62df 100644
---- a/sound/soc/sof/intel/hda-ipc.c
-+++ b/sound/soc/sof/intel/hda-ipc.c
-@@ -253,9 +253,9 @@ int hda_dsp_ipc_get_window_offset(struct snd_sof_dev *sdev, u32 id)
- 	return SRAM_WINDOW_OFFSET(id);
- }
- 
--void hda_ipc_msg_data(struct snd_sof_dev *sdev,
--		      struct snd_pcm_substream *substream,
--		      void *p, size_t sz)
-+int hda_ipc_msg_data(struct snd_sof_dev *sdev,
-+		     struct snd_pcm_substream *substream,
-+		     void *p, size_t sz)
- {
- 	if (!substream || !sdev->stream_box.size) {
- 		sof_mailbox_read(sdev, sdev->dsp_box.offset, p, sz);
-@@ -268,10 +268,13 @@ void hda_ipc_msg_data(struct snd_sof_dev *sdev,
- 					  hda_stream.hstream);
- 
- 		/* The stream might already be closed */
--		if (hstream)
--			sof_mailbox_read(sdev, hda_stream->stream.posn_offset,
--					 p, sz);
-+		if (!hstream)
-+			return -ESTRPIPE;
-+
-+		sof_mailbox_read(sdev, hda_stream->stream.posn_offset, p, sz);
- 	}
-+
-+	return 0;
- }
- 
- int hda_ipc_pcm_params(struct snd_sof_dev *sdev,
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index 087fa06d5210..cb5a1b17f153 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -563,9 +563,9 @@ int hda_dsp_stream_spib_config(struct snd_sof_dev *sdev,
- 			       struct hdac_ext_stream *stream,
- 			       int enable, u32 size);
- 
--void hda_ipc_msg_data(struct snd_sof_dev *sdev,
--		      struct snd_pcm_substream *substream,
--		      void *p, size_t sz);
-+int hda_ipc_msg_data(struct snd_sof_dev *sdev,
-+		     struct snd_pcm_substream *substream,
-+		     void *p, size_t sz);
- int hda_ipc_pcm_params(struct snd_sof_dev *sdev,
- 		       struct snd_pcm_substream *substream,
- 		       const struct sof_ipc_pcm_params_reply *reply);
-diff --git a/sound/soc/sof/intel/intel-ipc.c b/sound/soc/sof/intel/intel-ipc.c
-index de66f8a82a07..df37187c8427 100644
---- a/sound/soc/sof/intel/intel-ipc.c
-+++ b/sound/soc/sof/intel/intel-ipc.c
-@@ -25,9 +25,9 @@ struct intel_stream {
- };
- 
- /* Mailbox-based Intel IPC implementation */
--void intel_ipc_msg_data(struct snd_sof_dev *sdev,
--			struct snd_pcm_substream *substream,
--			void *p, size_t sz)
-+int intel_ipc_msg_data(struct snd_sof_dev *sdev,
-+		       struct snd_pcm_substream *substream,
-+		       void *p, size_t sz)
- {
- 	if (!substream || !sdev->stream_box.size) {
- 		sof_mailbox_read(sdev, sdev->dsp_box.offset, p, sz);
-@@ -35,9 +35,13 @@ void intel_ipc_msg_data(struct snd_sof_dev *sdev,
- 		struct intel_stream *stream = substream->runtime->private_data;
- 
- 		/* The stream might already be closed */
--		if (stream)
--			sof_mailbox_read(sdev, stream->posn_offset, p, sz);
-+		if (!stream)
-+			return -ESTRPIPE;
-+
-+		sof_mailbox_read(sdev, stream->posn_offset, p, sz);
- 	}
-+
-+	return 0;
- }
- EXPORT_SYMBOL_NS(intel_ipc_msg_data, SND_SOC_SOF_INTEL_HIFI_EP_IPC);
- 
-diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
-index 5d41924f37a6..152d36a6253d 100644
---- a/sound/soc/sof/ipc.c
-+++ b/sound/soc/sof/ipc.c
-@@ -394,6 +394,7 @@ static void ipc_comp_notification(struct snd_sof_dev *sdev,
- {
- 	u32 msg_type = hdr->cmd & SOF_CMD_TYPE_MASK;
- 	struct sof_ipc_ctrl_data *cdata;
-+	int ret;
- 
- 	switch (msg_type) {
- 	case SOF_IPC_COMP_GET_VALUE:
-@@ -403,7 +404,12 @@ static void ipc_comp_notification(struct snd_sof_dev *sdev,
- 			return;
- 
- 		/* read back full message */
--		snd_sof_ipc_msg_data(sdev, NULL, cdata, hdr->size);
-+		ret = snd_sof_ipc_msg_data(sdev, NULL, cdata, hdr->size);
-+		if (ret < 0) {
-+			dev_err(sdev->dev,
-+				"error: failed to read component event: %d\n", ret);
-+			goto err;
-+		}
- 		break;
- 	default:
- 		dev_err(sdev->dev, "error: unhandled component message %#x\n", msg_type);
-@@ -412,6 +418,7 @@ static void ipc_comp_notification(struct snd_sof_dev *sdev,
- 
- 	snd_sof_control_notify(sdev, cdata);
- 
-+err:
- 	kfree(cdata);
- }
- 
-@@ -420,10 +427,14 @@ void snd_sof_ipc_msgs_rx(struct snd_sof_dev *sdev)
- {
- 	struct sof_ipc_cmd_hdr hdr;
- 	u32 cmd, type;
--	int err = 0;
-+	int err;
- 
- 	/* read back header */
--	snd_sof_ipc_msg_data(sdev, NULL, &hdr, sizeof(hdr));
-+	err = snd_sof_ipc_msg_data(sdev, NULL, &hdr, sizeof(hdr));
-+	if (err < 0) {
-+		dev_warn(sdev->dev, "failed to read IPC header: %d\n", err);
-+		return;
-+	}
- 	ipc_log_header(sdev->dev, "ipc rx", hdr.cmd);
- 
- 	cmd = hdr.cmd & SOF_GLB_TYPE_MASK;
-@@ -477,12 +488,16 @@ EXPORT_SYMBOL(snd_sof_ipc_msgs_rx);
- static void ipc_trace_message(struct snd_sof_dev *sdev, u32 msg_type)
- {
- 	struct sof_ipc_dma_trace_posn posn;
-+	int ret;
- 
- 	switch (msg_type) {
- 	case SOF_IPC_TRACE_DMA_POSITION:
- 		/* read back full message */
--		snd_sof_ipc_msg_data(sdev, NULL, &posn, sizeof(posn));
--		snd_sof_trace_update_pos(sdev, &posn);
-+		ret = snd_sof_ipc_msg_data(sdev, NULL, &posn, sizeof(posn));
-+		if (ret < 0)
-+			dev_warn(sdev->dev, "failed to read trace position: %d\n", ret);
-+		else
-+			snd_sof_trace_update_pos(sdev, &posn);
- 		break;
- 	default:
- 		dev_err(sdev->dev, "error: unhandled trace message %#x\n", msg_type);
-@@ -500,7 +515,7 @@ static void ipc_period_elapsed(struct snd_sof_dev *sdev, u32 msg_id)
- 	struct snd_sof_pcm_stream *stream;
- 	struct sof_ipc_stream_posn posn;
- 	struct snd_sof_pcm *spcm;
--	int direction;
-+	int direction, ret;
- 
- 	spcm = snd_sof_find_spcm_comp(scomp, msg_id, &direction);
- 	if (!spcm) {
-@@ -511,7 +526,11 @@ static void ipc_period_elapsed(struct snd_sof_dev *sdev, u32 msg_id)
- 	}
- 
- 	stream = &spcm->stream[direction];
--	snd_sof_ipc_msg_data(sdev, stream->substream, &posn, sizeof(posn));
-+	ret = snd_sof_ipc_msg_data(sdev, stream->substream, &posn, sizeof(posn));
-+	if (ret < 0) {
-+		dev_warn(sdev->dev, "failed to read stream position: %d\n", ret);
-+		return;
-+	}
- 
- 	dev_vdbg(sdev->dev, "posn : host 0x%llx dai 0x%llx wall 0x%llx\n",
- 		 posn.host_posn, posn.dai_posn, posn.wallclock);
-@@ -530,7 +549,7 @@ static void ipc_xrun(struct snd_sof_dev *sdev, u32 msg_id)
- 	struct snd_sof_pcm_stream *stream;
- 	struct sof_ipc_stream_posn posn;
- 	struct snd_sof_pcm *spcm;
--	int direction;
-+	int direction, ret;
- 
- 	spcm = snd_sof_find_spcm_comp(scomp, msg_id, &direction);
- 	if (!spcm) {
-@@ -540,7 +559,11 @@ static void ipc_xrun(struct snd_sof_dev *sdev, u32 msg_id)
- 	}
- 
- 	stream = &spcm->stream[direction];
--	snd_sof_ipc_msg_data(sdev, stream->substream, &posn, sizeof(posn));
-+	ret = snd_sof_ipc_msg_data(sdev, stream->substream, &posn, sizeof(posn));
-+	if (ret < 0) {
-+		dev_warn(sdev->dev, "failed to read overrun position: %d\n", ret);
-+		return;
-+	}
- 
- 	dev_dbg(sdev->dev,  "posn XRUN: host %llx comp %d size %d\n",
- 		posn.host_posn, posn.xrun_comp_id, posn.xrun_size);
-diff --git a/sound/soc/sof/ops.h b/sound/soc/sof/ops.h
-index d40ce2581d94..a93aa5b943b2 100644
---- a/sound/soc/sof/ops.h
-+++ b/sound/soc/sof/ops.h
-@@ -422,11 +422,11 @@ static inline int snd_sof_load_firmware(struct snd_sof_dev *sdev)
- }
- 
- /* host DSP message data */
--static inline void snd_sof_ipc_msg_data(struct snd_sof_dev *sdev,
--					struct snd_pcm_substream *substream,
--					void *p, size_t sz)
-+static inline int snd_sof_ipc_msg_data(struct snd_sof_dev *sdev,
-+				       struct snd_pcm_substream *substream,
-+				       void *p, size_t sz)
- {
--	sof_ops(sdev)->ipc_msg_data(sdev, substream, p, sz);
-+	return sof_ops(sdev)->ipc_msg_data(sdev, substream, p, sz);
- }
- 
- /* host configure DSP HW parameters */
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index 6b1dbae3344c..a6ded5bd0674 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -210,9 +210,9 @@ struct snd_sof_dsp_ops {
- #endif
- 
- 	/* host read DSP stream data */
--	void (*ipc_msg_data)(struct snd_sof_dev *sdev,
--			     struct snd_pcm_substream *substream,
--			     void *p, size_t sz); /* mandatory */
-+	int (*ipc_msg_data)(struct snd_sof_dev *sdev,
-+			    struct snd_pcm_substream *substream,
-+			    void *p, size_t sz); /* mandatory */
- 
- 	/* host configure DSP HW parameters */
- 	int (*ipc_pcm_params)(struct snd_sof_dev *sdev,
-@@ -567,9 +567,9 @@ int sof_block_read(struct snd_sof_dev *sdev, enum snd_sof_fw_blk_type blk_type,
- 
- int sof_fw_ready(struct snd_sof_dev *sdev, u32 msg_id);
- 
--void intel_ipc_msg_data(struct snd_sof_dev *sdev,
--			struct snd_pcm_substream *substream,
--			void *p, size_t sz);
-+int intel_ipc_msg_data(struct snd_sof_dev *sdev,
-+		       struct snd_pcm_substream *substream,
-+		       void *p, size_t sz);
- int intel_ipc_pcm_params(struct snd_sof_dev *sdev,
- 			 struct snd_pcm_substream *substream,
- 			 const struct sof_ipc_pcm_params_reply *reply);
--- 
-2.33.0
+The changes look almost good, but could you fix the following and
+resubmit?
 
+> ---
+>  sound/pci/hda/patch_realtek.c | 41 ++++++++++++++++++++++++++++++++++-
+>  1 file changed, 40 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index 70516527ebce..90f845976793 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -6414,6 +6414,38 @@ static void alc_fixup_no_int_mic(struct hda_codec *codec,
+>  	}
+>  }
+>  
+> +/* GPIO1 = amplifier on/off
+> + * GPIO3 = mic mute LED
+> + */
+> +static void alc285_fixup_hp_spectre_x360_eb1(struct hda_codec *codec,
+> +					  const struct hda_fixup *fix, int action)
+> +{
+> +	struct alc_spec *spec = codec->spec;
+> +	static const struct hda_pintbl pincfgs[] = {
+> +		{ 0x14, 0x90170110 },  /* front speakers */
+> +		{ }
+> +	};
+> +
+> +	//enable micmute led
+> +	alc_fixup_hp_gpio_led(codec, action, 0x00, 0x04);
+> +	spec->micmute_led_polarity = 1;
+
+This line should be moved under HDA_FIXUP_ACT_PRE_PROBE.  It needs to
+be set only once at the beginning.
+
+> +
+> +	switch (action) {
+> +	case HDA_FIXUP_ACT_PRE_PROBE:
+> +		/* needed for amp of back speakers */
+> +		spec->gpio_mask |= 0x01;
+> +		spec->gpio_dir |= 0x01;
+> +		snd_hda_apply_pincfgs(codec, pincfgs);
+> +		break;
+> +	case HDA_FIXUP_ACT_INIT:
+> +		/* need to toggle GPIO to enable the amp of back speakers */
+> +		alc_update_gpio_data(codec, 0x01, true);
+> +		msleep(100);
+> +		alc_update_gpio_data(codec, 0x01, false);
+> +		break;
+> +	}
+> +}
+> +
+>  static void alc285_fixup_hp_spectre_x360(struct hda_codec *codec,
+>  					  const struct hda_fixup *fix, int action)
+>  {
+> @@ -6534,6 +6566,7 @@ enum {
+>  	ALC269_FIXUP_HP_DOCK_GPIO_MIC1_LED,
+>  	ALC280_FIXUP_HP_9480M,
+>  	ALC245_FIXUP_HP_X360_AMP,
+> +	ALC285_FIXUP_HP_SPECTRE_X360_EB1,
+>  	ALC288_FIXUP_DELL_HEADSET_MODE,
+>  	ALC288_FIXUP_DELL1_MIC_NO_PRESENCE,
+>  	ALC288_FIXUP_DELL_XPS_13,
+> @@ -6658,7 +6691,7 @@ enum {
+>  	ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP,
+>  	ALC623_FIXUP_LENOVO_THINKSTATION_P340,
+>  	ALC255_FIXUP_ACER_HEADPHONE_AND_MIC,
+> -	ALC236_FIXUP_HP_LIMIT_INT_MIC_BOOST,
+> +	ALC236_FIXUP_HP_LIMIT_INT_MIC_BOOST
+
+This is unnecessary change.  It's fine to keep the comma of the last
+enum entry in Linux kernel coding style.
+
+
+>  };
+>  
+>  static const struct hda_fixup alc269_fixups[] = {
+> @@ -8222,6 +8255,10 @@ static const struct hda_fixup alc269_fixups[] = {
+>  		.type = HDA_FIXUP_FUNC,
+>  		.v.func = alc285_fixup_hp_spectre_x360,
+>  	},
+> +	[ALC285_FIXUP_HP_SPECTRE_X360_EB1] = {
+> +		.type = HDA_FIXUP_FUNC,
+> +		.v.func = alc285_fixup_hp_spectre_x360_eb1
+> +	},
+>  	[ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP] = {
+>  		.type = HDA_FIXUP_FUNC,
+>  		.v.func = alc285_fixup_ideapad_s740_coef,
+> @@ -8415,6 +8452,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+>  	SND_PCI_QUIRK(0x103c, 0x84da, "HP OMEN dc0019-ur", ALC295_FIXUP_HP_OMEN),
+>  	SND_PCI_QUIRK(0x103c, 0x84e7, "HP Pavilion 15", ALC269_FIXUP_HP_MUTE_LED_MIC3),
+>  	SND_PCI_QUIRK(0x103c, 0x8519, "HP Spectre x360 15-df0xxx", ALC285_FIXUP_HP_SPECTRE_X360),
+> +	SND_PCI_QUIRK(0x103c, 0x8811, "HP Spectre x360 15-eb1xxx", ALC285_FIXUP_HP_SPECTRE_X360_EB1),
+>  	SND_PCI_QUIRK(0x103c, 0x861f, "HP Elite Dragonfly G1", ALC285_FIXUP_HP_GPIO_AMP_INIT),
+>  	SND_PCI_QUIRK(0x103c, 0x869d, "HP", ALC236_FIXUP_HP_MUTE_LED),
+>  	SND_PCI_QUIRK(0x103c, 0x86c7, "HP Envy AiO 32", ALC274_FIXUP_HP_ENVY_GPIO),
+
+Please insert the entry in PCI SSID order.
+
+
+thanks,
+
+Takashi

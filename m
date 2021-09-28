@@ -2,84 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 218B041A8B1
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 08:12:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2980541A905
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 08:37:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A63E16A2;
-	Tue, 28 Sep 2021 08:11:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A63E16A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9ED2F16A4;
+	Tue, 28 Sep 2021 08:36:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9ED2F16A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632809547;
-	bh=Pvoue6xFOvC3MfaXnDqLdDzy9t4DWnb+GUh9TRndNqc=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ZYPQv0YT9jGmc2fyS2FrdJPkgAM9QSzuG/gBOBSx/FqDq7/xy8iWCztXjNmp6fpzT
-	 j75nbRYrxrEqSaV1/Dz2lE34epZJvbdqZy3mNJelYLYGVUnK5f7Edv4odc9K+Iuctg
-	 QoSlRaq9uJk64PBrvmCAEI3pCESILStreQDw+EBg=
+	s=default; t=1632811020;
+	bh=WKHYA2PmwBeaez5ZiD1t6dG17l/42p/41j52OyHmM0I=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jK/ELLRiLgQNpXLEkfUCMxzCp7syP39bRXZ46m89fPskII8J4f9aOGsYgY1pc7OE4
+	 e3B9m6pYrPAtG3avKj7fhpBkmTIOT05bmaXAgODGKKVlS1pTxpb9M+opAjShN4DCsI
+	 H5In3+ngqnv26Qi6FA0ROp4wpK04AkPeAWxDZtGU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D8A8F800DE;
-	Tue, 28 Sep 2021 08:11:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1904BF800DE;
+	Tue, 28 Sep 2021 08:35:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A62DDF804AD; Tue, 28 Sep 2021 08:11:08 +0200 (CEST)
+ id E3F5DF800DE; Tue, 28 Sep 2021 08:35:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A55CCF800DE
- for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 08:11:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A55CCF800DE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="1Hx2fsst"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="vgBO3rzI"
-Received: from relay1.suse.de (relay1.suse.de [149.44.160.133])
- by smtp-out1.suse.de (Postfix) with ESMTP id BC7BB22212;
- Tue, 28 Sep 2021 06:10:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1632809459; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=1VxJULCAkXo/zkFHIm4mcuZhVch/z+Y2yH1ju/bkrMs=;
- b=1Hx2fsstp0UBPI8gO+tQzdKPyF144CV72UEHYqKD3uHVi7QW7d/IsUT7PDm2NT0nRMAPOb
- +Vk7GwAQ6evJVtdSQQLcKNXs/7c8sKZ+yEr8Xd2rs8ZUuip45B8Hkw6ExsYPGUI2h4IuEp
- g8/sQtyy1mkKqtD5kwlZ+rjKCWtgL28=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1632809459;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=1VxJULCAkXo/zkFHIm4mcuZhVch/z+Y2yH1ju/bkrMs=;
- b=vgBO3rzIsVcU8i/fZVy9wmm4hWc/PWt9eW6UblbtWcm9jzqGD/noJTIpkJl9WPN6yMXLzV
- PnQO7zNmlPXU00BQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay1.suse.de (Postfix) with ESMTP id B56AA25D93;
- Tue, 28 Sep 2021 06:10:59 +0000 (UTC)
-Date: Tue, 28 Sep 2021 08:10:59 +0200
-Message-ID: <s5hpmst6xho.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [RFC PATCH 2/4] ALSA: hda: hdac_stream: reset assigned_key in
- stream_release()
-In-Reply-To: <20210924192417.169243-3-pierre-louis.bossart@linux.intel.com>
-References: <20210924192417.169243-1-pierre-louis.bossart@linux.intel.com>
- <20210924192417.169243-3-pierre-louis.bossart@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- broonie@kernel.org, vkoul@kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 65B75F800DE
+ for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 08:35:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65B75F800DE
+X-UUID: 3e7385b025ac48c2bcc2c3cc11792b34-20210928
+X-UUID: 3e7385b025ac48c2bcc2c3cc11792b34-20210928
+Received: from mtkcas07.mediatek.inc [(172.21.101.84)] by mailgw02.mediatek.com
+ (envelope-from <trevor.wu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 407077680; Tue, 28 Sep 2021 14:35:22 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Tue, 28 Sep 2021 14:35:21 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
+ Frontend Transport; Tue, 28 Sep 2021 14:35:21 +0800
+From: Trevor Wu <trevor.wu@mediatek.com>
+To: <broonie@kernel.org>, <tiwai@suse.com>, <matthias.bgg@gmail.com>
+Subject: [PATCH] ASoC: mediatek: mt8195: add missing of_node_put in probe
+Date: Tue, 28 Sep 2021 14:35:20 +0800
+Message-ID: <20210928063520.23927-1-trevor.wu@mediatek.com>
+X-Mailer: git-send-email 2.18.0
+MIME-Version: 1.0
+Content-Type: text/plain
+X-MTK: N
+Cc: alsa-devel@alsa-project.org, bicycle.tsai@mediatek.com,
+ linux-kernel@vger.kernel.org, cuibixuan@huawei.com, trevor.wu@mediatek.com,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,38 +75,82 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 24 Sep 2021 21:24:15 +0200,
-Pierre-Louis Bossart wrote:
-> 
-> The 'assigned_key' field is set in assign() and never reset. For
-> symmetry set to zero in release().
+dp node and hdmi node are retrieved from of_parse_phandle(), so using
+of_node_put() on them before return.
 
-This is intentional behavior.  We want to assign to the same stream
-persistently unless it has to be reassigned to another.
+Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
+---
+ .../mt8195/mt8195-mt6359-rt1019-rt5682.c      | 25 +++++++++++--------
+ 1 file changed, 15 insertions(+), 10 deletions(-)
 
+diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
+index a3fa8efc8f81..cb15467e5fc5 100644
+--- a/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
++++ b/sound/soc/mediatek/mt8195/mt8195-mt6359-rt1019-rt5682.c
+@@ -995,6 +995,8 @@ static int mt8195_mt6359_rt1019_rt5682_dev_probe(struct platform_device *pdev)
+ {
+ 	struct snd_soc_card *card = &mt8195_mt6359_rt1019_rt5682_soc_card;
+ 	struct device_node *platform_node;
++	struct device_node *dp_node;
++	struct device_node *hdmi_node;
+ 	struct snd_soc_dai_link *dai_link;
+ 	struct mt8195_mt6359_rt1019_rt5682_priv *priv = NULL;
+ 	int ret, i;
+@@ -1013,12 +1015,12 @@ static int mt8195_mt6359_rt1019_rt5682_dev_probe(struct platform_device *pdev)
+ 			dai_link->platforms->of_node = platform_node;
+ 
+ 		if (strcmp(dai_link->name, "DPTX_BE") == 0) {
+-			dai_link->codecs->of_node =
+-				of_parse_phandle(pdev->dev.of_node,
+-						 "mediatek,dptx-codec", 0);
+-			if (!dai_link->codecs->of_node) {
++			dp_node = of_parse_phandle(pdev->dev.of_node,
++						   "mediatek,dptx-codec", 0);
++			if (!dp_node) {
+ 				dev_dbg(&pdev->dev, "No property 'dptx-codec'\n");
+ 			} else {
++				dai_link->codecs->of_node = dp_node;
+ 				dai_link->codecs->name = NULL;
+ 				dai_link->codecs->dai_name = "i2s-hifi";
+ 				dai_link->init = mt8195_dptx_codec_init;
+@@ -1026,12 +1028,12 @@ static int mt8195_mt6359_rt1019_rt5682_dev_probe(struct platform_device *pdev)
+ 		}
+ 
+ 		if (strcmp(dai_link->name, "ETDM3_OUT_BE") == 0) {
+-			dai_link->codecs->of_node =
+-				of_parse_phandle(pdev->dev.of_node,
+-						 "mediatek,hdmi-codec", 0);
+-			if (!dai_link->codecs->of_node) {
++			hdmi_node = of_parse_phandle(pdev->dev.of_node,
++						     "mediatek,hdmi-codec", 0);
++			if (!hdmi_node) {
+ 				dev_dbg(&pdev->dev, "No property 'hdmi-codec'\n");
+ 			} else {
++				dai_link->codecs->of_node = hdmi_node;
+ 				dai_link->codecs->name = NULL;
+ 				dai_link->codecs->dai_name = "i2s-hifi";
+ 				dai_link->init = mt8195_hdmi_codec_init;
+@@ -1041,8 +1043,8 @@ static int mt8195_mt6359_rt1019_rt5682_dev_probe(struct platform_device *pdev)
+ 
+ 	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+ 	if (!priv) {
+-		of_node_put(platform_node);
+-		return -ENOMEM;
++		ret = -ENOMEM;
++		goto out;
+ 	}
+ 
+ 	snd_soc_card_set_drvdata(card, priv);
+@@ -1052,6 +1054,9 @@ static int mt8195_mt6359_rt1019_rt5682_dev_probe(struct platform_device *pdev)
+ 		dev_err(&pdev->dev, "%s snd_soc_register_card fail %d\n",
+ 			__func__, ret);
+ 
++out:
++	of_node_put(hdmi_node);
++	of_node_put(dp_node);
+ 	of_node_put(platform_node);
+ 	return ret;
+ }
+-- 
+2.18.0
 
-thanks,
-
-Takashi
-
-> 
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> ---
->  sound/hda/hdac_stream.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/sound/hda/hdac_stream.c b/sound/hda/hdac_stream.c
-> index 9867555883c3..3ae23c50d505 100644
-> --- a/sound/hda/hdac_stream.c
-> +++ b/sound/hda/hdac_stream.c
-> @@ -333,6 +333,7 @@ void snd_hdac_stream_release(struct hdac_stream *azx_dev)
->  	spin_lock_irq(&bus->reg_lock);
->  	azx_dev->opened = 0;
->  	azx_dev->running = 0;
-> +	azx_dev->assigned_key = 0;
->  	azx_dev->substream = NULL;
->  	spin_unlock_irq(&bus->reg_lock);
->  }
-> -- 
-> 2.25.1
-> 

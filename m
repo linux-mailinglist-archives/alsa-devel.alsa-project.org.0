@@ -2,71 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BADDC41AD53
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 12:53:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBD6E41AD98
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 13:08:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4FA7116A4;
-	Tue, 28 Sep 2021 12:52:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FA7116A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 71EAA16A3;
+	Tue, 28 Sep 2021 13:08:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71EAA16A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632826398;
-	bh=HZbgNmG5mS9B2rHGCpqdYry7NQXuvOs1oIKgA0SbbUU=;
+	s=default; t=1632827339;
+	bh=/yzii8Z9eN49rYqvSzAg756cyB+/4h91PPZ9l1FaSi8=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PBXQhLjL2zE8FLVK6qLRVIi5KqqDWaUQw9F3htEHSy38ufLZmb4ggzGL044/4xH22
-	 /AIlZL8vnTIrKEaQeXbc52VryNmxKwNsBHF7ai+Y9mOlBYiU8IuLN38LV7oKXSuf61
-	 T3VllQcsGdHDpYARFheY8YAQd8pqNmNWB0pdLFCU=
+	b=KVZXfNzrYC2r3Bm9C0nHY7hmfVl2Y8Tan+DH1Ibi2XERsFAsSziaXH165Qhdy/wfU
+	 JoXcvBLD6MqDwEcLn1eYt9JVI8Ellc4qPhEy++4P+NPl4bCCUuuBR6avYM5FhxXruH
+	 iLuqunmvKm710re0aOmftWoHlbQYqxcUqQkTwhBM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BEBC8F800DE;
-	Tue, 28 Sep 2021 12:52:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CEF38F800DE;
+	Tue, 28 Sep 2021 13:07:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 504DEF804AD; Tue, 28 Sep 2021 12:52:00 +0200 (CEST)
+ id 67376F804AD; Tue, 28 Sep 2021 13:07:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F11EEF80105
- for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 12:51:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F11EEF80105
-X-IronPort-AV: E=McAfee;i="6200,9189,10120"; a="204160515"
-X-IronPort-AV: E=Sophos;i="5.85,329,1624345200"; d="scan'208";a="204160515"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2021 03:51:46 -0700
-X-IronPort-AV: E=Sophos;i="5.85,329,1624345200"; d="scan'208";a="553942040"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2021 03:51:44 -0700
-Date: Tue, 28 Sep 2021 13:45:01 +0300 (EEST)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH v2] component: do not leave master devres group open
- after bind
-In-Reply-To: <s5hh7e5ngnq.wl-tiwai@suse.de>
-Message-ID: <alpine.DEB.2.22.394.2109281335522.3554566@eliteleevi.tm.intel.com>
-References: <20210922085432.2776886-1-kai.vehmanen@linux.intel.com>
- <s5hh7e5ngnq.wl-tiwai@suse.de>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
-MIME-Version: 1.0
-Content-ID: <alpine.DEB.2.22.394.2109281342020.3554566@eliteleevi.tm.intel.com>
-Content-Type: text/plain; CHARSET=ISO-8859-15
-Content-Transfer-Encoding: 8BIT
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>, jani.nikula@intel.com,
- gregkh@linuxfoundation.org, Imre Deak <imre.deak@intel.com>,
- dri-devel@lists.freedesktop.org, Russell King <rmk+kernel@armlinux.org.uk>,
- Russell King <rmk+kernel@arm.linux.org.uk>, intel-gfx@lists.freedesktop.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id C563EF800DE
+ for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 13:07:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C563EF800DE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="q25vnfMq"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="LueHzJS2"
+Received: from relay1.suse.de (relay1.suse.de [149.44.160.133])
+ by smtp-out1.suse.de (Postfix) with ESMTP id F2C4A22281;
+ Tue, 28 Sep 2021 11:07:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1632827255; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=lDTuJ+QMnNsTzqZNRODrOw2VL5ehhKL0p0RAl/uZ36Y=;
+ b=q25vnfMq89IZ4TvZnWyy4wSWNfV422nmi/FoZ2FhSy2hZGhnm2rQjOtjTG2LYHbA3XYWT7
+ xhV9xwV3esbrfpYBTvYtc1LZ1loBa7UJN4z8dZ42wiiBpZP7RvtSsjVaZJrocJU+exn2PO
+ NPQf2WfWT8/cVqC/UrSL2WOxZGXj4GU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1632827255;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=lDTuJ+QMnNsTzqZNRODrOw2VL5ehhKL0p0RAl/uZ36Y=;
+ b=LueHzJS2Hmqj4r0mn/JPg5zfSa5u4cGMrfKOtcKktkF1ze14F71OrfvYTQC33TlY3xKzVC
+ eHThSFhwDz3fIzAQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay1.suse.de (Postfix) with ESMTP id BE52C25D44;
+ Tue, 28 Sep 2021 11:07:34 +0000 (UTC)
+Date: Tue, 28 Sep 2021 13:07:34 +0200
+Message-ID: <s5ha6jxnekp.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: hda: how to implement component master_unbind?
+In-Reply-To: <alpine.DEB.2.22.394.2109221456080.3554566@eliteleevi.tm.intel.com>
+References: <alpine.DEB.2.22.394.2109221456080.3554566@eliteleevi.tm.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, alsa-devel@alsa-project.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,51 +96,95 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hey,
-
-On Tue, 28 Sep 2021, Takashi Iwai wrote:
-
-> On Wed, 22 Sep 2021 10:54:32 +0200, Kai Vehmanen wrote:
-> > --- a/drivers/base/component.c
-> > +++ b/drivers/base/component.c
-> > @@ -246,7 +246,7 @@ static int try_to_bring_up_master(struct master *master,
-> >  		return 0;
-> >  	}
-> >  
-> > -	if (!devres_open_group(master->parent, NULL, GFP_KERNEL))
-> > +	if (!devres_open_group(master->parent, master, GFP_KERNEL))
-> >  		return -ENOMEM;
-> >  
-> >  	/* Found all components */
-> > @@ -258,6 +258,7 @@ static int try_to_bring_up_master(struct master *master,
-> >  		return ret;
-> >  	}
-> >  
-> > +	devres_close_group(master->parent, NULL);
+On Wed, 22 Sep 2021 14:40:19 +0200,
+Kai Vehmanen wrote:
 > 
-> Just wondering whether we should pass master here instead of NULL,
-> too?
+> Hi Takashi et al,
+> 
+> I've been having multiple discussions with our i915 team w.r.t. audio 
+> driver behaviour when the aggregate component is unbound, triggered by 
+> i915 unbind. This came up again in the recent regression with devres 
+> allocations and I now dug into the topic again.
+> 
+> In short, I'm puzzled how to really implement this. ALSA (or ASoC) don't 
+> really have support for individual components of a card disappearing in a 
+> hotplug fashion. At card level, we do have such support (USB, firewire and 
+> recent work for PCI hotplug). But not individual components of a card 
+> getting unplugged.
+> 
+> In current code we have this:
+> static void hdac_component_master_unbind(struct device *dev)
+> {
+> Â»       struct drm_audio_component *acomp = hdac_get_acomp(dev);
+> 
+> Â»       if (acomp->audio_ops && acomp->audio_ops->master_unbind)
+> Â»       Â»       acomp->audio_ops->master_unbind(dev, acomp);
+> Â»       module_put(acomp->ops->owner);   
+> Â»       component_unbind_all(dev, acomp);
+> Â»       WARN_ON(acomp->ops || acomp->dev);
+> }
+> 
+> ... when e.g. i915 driver is unbound (but could be any driver using the 
+> component framework, not jus Intel hw), i915 calls component_del() and HDA
+> gets call to the above. After this, acomp ops are null are audio no longer
+> has ability to talk to i915 driver (which makes sense given it's unbound).
+> 
+> If audio was runtime suspended, this kind of works (but relies on some 
+> good luck). Upon HDA controller resume, we note acomp ops are NULL and 
+> HDMI/DP operations (like snd_hdac_display_power()) silently become no-ops.
+> PCM streaming will go to /dev/null, but this is ok'ish since no monitor
+> can be connected anyways.
+> 
+> If audio was active, we start to get warnings or worse. Audio expects hw 
+> display codec to be powered and programmed, but suddenly it mey lose 
+> state. If the audio controller is actually part of the display hardware 
+> (e.g. discrete GPUs), then controller registers can stop functioning (they
+> should be still available, but given the main diplay driver is unbound,
+> odds of suprising behaviour are high).
+> 
+> So this is less than ideal. I've been looking at options:
+> 
+> 1) prevent/block the unbind if audio device is busy
+> 
+> The component framework does not allow individual components to return 
+> -EBUSY, so there's no way to let others know that unbind is not possible 
+> now.
+> 
+> This would force anyone testing DRM driver unbind to first unbind
+> the audio driver and stop any active audio use-cases if needed.
+> 
+> 2) unbind the ALSA card
+> 
+> I've experimented doing a device_unregister() from the above callback, but 
+> this has not really worked (onion peeling exercise of new probelms). The 
+> code is shared by multiple controllers, so getting a handle to an snd_card 
+> object is not straighforward (drvdata is differnet for SOF and 
+> snd-hda-intel for instance). But with some new work, maybe we could call
+> snd_card_disconnect() to detach the card and inform user-space.
+> 
+> 3) continue as-is and try to fix bugs
+> 
+> If audio is active, maybe we could force a acomp->put_power() to ensure
+> a clean unregister of the display part. But this leaves a big chunk of 
+> issues especially with HDA controllers that require the display to
+> be powered on, to function.
+> 
+> ..
+> 
+> Any ideas, and/or has there been prior work? It seems Takashi it's been 
+> mostly you who has been active working on the acomp integration recently. 
+> I also included Chris, Daniel and Jani who've had patches to 
+> hdac_component.c.
 
-I wondered about this as well. Functionally it should be equivalent as 
-passing NULL will apply the operation to the latest added group. I noted 
-the practise of passing NULL has been followed in the existing code when 
-referring to groups created within the same function. E.g.
+Removing a component from the card is a PITA for now, indeed,
+especially when its influence is over different APIs (PCM, control,
+whatever)...
 
-»       if (!devres_open_group(component->dev, component, GFP_KERNEL)) {
-[...]
-»       ret = component->ops->bind(component->dev, master->parent, data);
-»       if (!ret) {
-»       »       component->bound = true;
+One thing I can think of is to perform like the vga_switcheroo
+handling in hda_intel.c; it's essentially a forced runtime suspend,
+and disable the whole card.  But in the case of audio-component
+unbind, we need to think about re-binding -- or completely ignore
+re-binding until the whole driver gets unloaded. 
 
-»       »       /*                                                                                                                                                          
-»       »        * Close the component device's group so that resources                                                                                                     
-»       »        * allocated in the binding are encapsulated for removal                                                                                                    
-»       »        * at unbind.  Remove the group on the DRM device as we                                                                                                     
-»       »        * can clean those resources up independently.                                                                                                              
-»       »        */
-»       »       devres_close_group(component->dev, NULL);
 
-... so I followed this existing practise. I can change and send a V3 if 
-the explicit parameter is preferred.
-
-Br, Kai
+Takashi

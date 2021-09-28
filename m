@@ -2,85 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBD6E41AD98
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 13:08:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99E5741B2AF
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 17:12:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 71EAA16A3;
-	Tue, 28 Sep 2021 13:08:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71EAA16A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2164E16AC;
+	Tue, 28 Sep 2021 17:12:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2164E16AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632827339;
-	bh=/yzii8Z9eN49rYqvSzAg756cyB+/4h91PPZ9l1FaSi8=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1632841975;
+	bh=CnlKBndL1d+fl/hFiaBex7m2s76m6BDVgC15VxSbedE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KVZXfNzrYC2r3Bm9C0nHY7hmfVl2Y8Tan+DH1Ibi2XERsFAsSziaXH165Qhdy/wfU
-	 JoXcvBLD6MqDwEcLn1eYt9JVI8Ellc4qPhEy++4P+NPl4bCCUuuBR6avYM5FhxXruH
-	 iLuqunmvKm710re0aOmftWoHlbQYqxcUqQkTwhBM=
+	b=jC7Dx4CJlQDIvBRZvJ/Lu1saVhkmrbA+Ol8Pw0qUkOnwA54uSyHZwmjBN1ZUsv7HP
+	 8X5xaPMuOF8XUzYKb7ZEq1zkP+dWj/f6+yAqCiON8RIAMDCEldoIwwV8eaRVGSor06
+	 ZvFCxmmbjbnXW6yOyMUtay5pbBBccBwo195WYlRs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CEF38F800DE;
-	Tue, 28 Sep 2021 13:07:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03512F804D6;
+	Tue, 28 Sep 2021 17:11:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67376F804AD; Tue, 28 Sep 2021 13:07:41 +0200 (CEST)
+ id 30209F804D2; Tue, 28 Sep 2021 17:11:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C563EF800DE
- for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 13:07:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C563EF800DE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="q25vnfMq"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="LueHzJS2"
-Received: from relay1.suse.de (relay1.suse.de [149.44.160.133])
- by smtp-out1.suse.de (Postfix) with ESMTP id F2C4A22281;
- Tue, 28 Sep 2021 11:07:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1632827255; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=lDTuJ+QMnNsTzqZNRODrOw2VL5ehhKL0p0RAl/uZ36Y=;
- b=q25vnfMq89IZ4TvZnWyy4wSWNfV422nmi/FoZ2FhSy2hZGhnm2rQjOtjTG2LYHbA3XYWT7
- xhV9xwV3esbrfpYBTvYtc1LZ1loBa7UJN4z8dZ42wiiBpZP7RvtSsjVaZJrocJU+exn2PO
- NPQf2WfWT8/cVqC/UrSL2WOxZGXj4GU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1632827255;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=lDTuJ+QMnNsTzqZNRODrOw2VL5ehhKL0p0RAl/uZ36Y=;
- b=LueHzJS2Hmqj4r0mn/JPg5zfSa5u4cGMrfKOtcKktkF1ze14F71OrfvYTQC33TlY3xKzVC
- eHThSFhwDz3fIzAQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay1.suse.de (Postfix) with ESMTP id BE52C25D44;
- Tue, 28 Sep 2021 11:07:34 +0000 (UTC)
-Date: Tue, 28 Sep 2021 13:07:34 +0200
-Message-ID: <s5ha6jxnekp.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: hda: how to implement component master_unbind?
-In-Reply-To: <alpine.DEB.2.22.394.2109221456080.3554566@eliteleevi.tm.intel.com>
-References: <alpine.DEB.2.22.394.2109221456080.3554566@eliteleevi.tm.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, alsa-devel@alsa-project.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 42476F8032C
+ for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 17:11:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42476F8032C
+X-IronPort-AV: E=McAfee;i="6200,9189,10120"; a="222832453"
+X-IronPort-AV: E=Sophos;i="5.85,329,1624345200"; d="scan'208";a="222832453"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2021 08:00:35 -0700
+X-IronPort-AV: E=Sophos;i="5.85,329,1624345200"; d="scan'208";a="438102624"
+Received: from ppahwa-mobl1.amr.corp.intel.com (HELO [10.212.48.236])
+ ([10.212.48.236])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2021 08:00:34 -0700
+Subject: Re: [PATCH] ALSA: hda: Reduce udelay() at SKL+ position reporting
+To: Takashi Iwai <tiwai@suse.de>
+References: <20210910141002.32749-1-tiwai@suse.de>
+ <db973c6d-3fb3-6c1b-f4cd-3e77baf8bd31@linux.intel.com>
+ <s5htuipjaak.wl-tiwai@suse.de>
+ <203381d5-b3ce-c5ab-b96e-bd38d27cf813@linux.intel.com>
+ <s5hmtnxnkea.wl-tiwai@suse.de>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <a5fa93e1-189f-df83-c1b4-deed4d3f29be@linux.intel.com>
+Date: Tue, 28 Sep 2021 10:00:32 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.13.0
+MIME-Version: 1.0
+In-Reply-To: <s5hmtnxnkea.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Jens Axboe <axboe@kernel.dk>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,95 +79,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 22 Sep 2021 14:40:19 +0200,
-Kai Vehmanen wrote:
-> 
-> Hi Takashi et al,
-> 
-> I've been having multiple discussions with our i915 team w.r.t. audio 
-> driver behaviour when the aggregate component is unbound, triggered by 
-> i915 unbind. This came up again in the recent regression with devres 
-> allocations and I now dug into the topic again.
-> 
-> In short, I'm puzzled how to really implement this. ALSA (or ASoC) don't 
-> really have support for individual components of a card disappearing in a 
-> hotplug fashion. At card level, we do have such support (USB, firewire and 
-> recent work for PCI hotplug). But not individual components of a card 
-> getting unplugged.
-> 
-> In current code we have this:
-> static void hdac_component_master_unbind(struct device *dev)
-> {
-> »       struct drm_audio_component *acomp = hdac_get_acomp(dev);
-> 
-> »       if (acomp->audio_ops && acomp->audio_ops->master_unbind)
-> »       »       acomp->audio_ops->master_unbind(dev, acomp);
-> »       module_put(acomp->ops->owner);   
-> »       component_unbind_all(dev, acomp);
-> »       WARN_ON(acomp->ops || acomp->dev);
-> }
-> 
-> ... when e.g. i915 driver is unbound (but could be any driver using the 
-> component framework, not jus Intel hw), i915 calls component_del() and HDA
-> gets call to the above. After this, acomp ops are null are audio no longer
-> has ability to talk to i915 driver (which makes sense given it's unbound).
-> 
-> If audio was runtime suspended, this kind of works (but relies on some 
-> good luck). Upon HDA controller resume, we note acomp ops are NULL and 
-> HDMI/DP operations (like snd_hdac_display_power()) silently become no-ops.
-> PCM streaming will go to /dev/null, but this is ok'ish since no monitor
-> can be connected anyways.
-> 
-> If audio was active, we start to get warnings or worse. Audio expects hw 
-> display codec to be powered and programmed, but suddenly it mey lose 
-> state. If the audio controller is actually part of the display hardware 
-> (e.g. discrete GPUs), then controller registers can stop functioning (they
-> should be still available, but given the main diplay driver is unbound,
-> odds of suprising behaviour are high).
-> 
-> So this is less than ideal. I've been looking at options:
-> 
-> 1) prevent/block the unbind if audio device is busy
-> 
-> The component framework does not allow individual components to return 
-> -EBUSY, so there's no way to let others know that unbind is not possible 
-> now.
-> 
-> This would force anyone testing DRM driver unbind to first unbind
-> the audio driver and stop any active audio use-cases if needed.
-> 
-> 2) unbind the ALSA card
-> 
-> I've experimented doing a device_unregister() from the above callback, but 
-> this has not really worked (onion peeling exercise of new probelms). The 
-> code is shared by multiple controllers, so getting a handle to an snd_card 
-> object is not straighforward (drvdata is differnet for SOF and 
-> snd-hda-intel for instance). But with some new work, maybe we could call
-> snd_card_disconnect() to detach the card and inform user-space.
-> 
-> 3) continue as-is and try to fix bugs
-> 
-> If audio is active, maybe we could force a acomp->put_power() to ensure
-> a clean unregister of the display part. But this leaves a big chunk of 
-> issues especially with HDA controllers that require the display to
-> be powered on, to function.
-> 
-> ..
-> 
-> Any ideas, and/or has there been prior work? It seems Takashi it's been 
-> mostly you who has been active working on the acomp integration recently. 
-> I also included Chris, Daniel and Jani who've had patches to 
-> hdac_component.c.
 
-Removing a component from the card is a PITA for now, indeed,
-especially when its influence is over different APIs (PCM, control,
-whatever)...
+>> I think what you need to use is use azx_get_pos_posbuf(chip, azx_dev);
+>> unconditionally, both for capture and playback, and remove the use of
+>> the skylake specific stuff and the delay.
+> 
+> When I measured, I saw a slight difference between values in DPIB and
+> posbuf, so I wonder which is actually more accurate.  The latter is
+> sometimes a bit behind the former.
+> 
+> If the posbuf is more correct in the sense for the PCM pointer, we can
+> simply move back to the posbuf like other platforms.
 
-One thing I can think of is to perform like the vga_switcheroo
-handling in hda_intel.c; it's essentially a forced runtime suspend,
-and disable the whole card.  But in the case of audio-component
-unbind, we need to think about re-binding -- or completely ignore
-re-binding until the whole driver gets unloaded. 
-
-
-Takashi
+DPIB registers are known to be updated 'too early' in the case of VC1
+traffic, the recommendation is to use posbuf as a 'safer' alternative.
+And it's certainly 'more correct' that the current work-arounds which
+apply different solutions on capture and playback for no apparent reason.

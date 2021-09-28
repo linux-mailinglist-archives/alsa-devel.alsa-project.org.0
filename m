@@ -2,93 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 330C341ACAE
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 12:12:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80A3C41ACE2
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 12:23:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A910416A4;
-	Tue, 28 Sep 2021 12:11:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A910416A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 17E0916A4;
+	Tue, 28 Sep 2021 12:22:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17E0916A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632823919;
-	bh=5sUK/BSx+0lOxSP7nkVpy7HxvS50rq/hp1dlDO8WcAU=;
+	s=default; t=1632824585;
+	bh=S0iyvhIl0aE0fQ2y7OAZlcwzKZRNcx9P0yQFbH+nTMs=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=o+7jCwdnaHuLlQL2zZUcEJGoW858WTNgyuzRUNAGZ+PHBRgNyOSuc35tLvhPBheWO
-	 GqSuJQVuLXs1XSD9Lbxi74l6d3WAINJyAWr7riHsAEJo2FLtkQRNf9tP/Nb1Gi06Xj
-	 wWcw0gtQWeQg52Glw+ga8reZqcvF0gQiugUcBxHo=
+	b=hGnzwh3y3irtwYRyW3rk+0S81hVQbG+67QrB3zlpmDvlcOm3AWRf3pbKFdwBBouQh
+	 ftokUVlelTWvJStsPGaFuBrX7/18r7tWX5bDG+xRUlnfa5Ilj8xWv7UKFXELLa9DK8
+	 +dGMxGmExwQhpOwDMD67pybN6C+ovDEC8dhVB2ds=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E0F49F804BC;
-	Tue, 28 Sep 2021 12:10:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59793F804BC;
+	Tue, 28 Sep 2021 12:21:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 436C4F804AD; Tue, 28 Sep 2021 12:10:41 +0200 (CEST)
+ id E62DDF804AD; Tue, 28 Sep 2021 12:21:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8707BF80105
- for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 12:10:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8707BF80105
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6C825F800DE
+ for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 12:21:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C825F800DE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="CY+3n/Oo"
-Received: by mail-wr1-x42a.google.com with SMTP id s21so17006251wra.7
- for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 03:10:36 -0700 (PDT)
+ header.b="n8hiDNLG"
+Received: by mail-wm1-x32e.google.com with SMTP id v127so3027751wme.5
+ for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 03:21:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=VRYyjAJqzt+oGd/XIZ5uVDcZC/sKLm2kGO/Eia5PR48=;
- b=CY+3n/OoUgJ33VHpMXzl38AWXNiKoEOa6EbAeHPbPKGTdKHJ6sz9MajJRffs3mAHV+
- jFJv79HSJrF1BR4M78ECqWsT/h98n9SxGGQbdxSts7ENFy1MUVXa84jPbYW4ju6hcgfg
- IkCJHNH+Iz3TXVzIxlobhrNy16mRxiYgiKDtex1rPkWZyNd1SF0pyV2sBa33auOsgLfk
- DuAP+Ie0DR7qthOh1WmdNU/DSQl0f3/zd1CBhpupRPYj5cYfy1XqUOFwPLjBHXe0qzrR
- 36NgS/xo3vGI5bnx3xIxnsxqUrZ50PeS3JVnSf+koXbu61JWFeLEtqgYOsnD9iYgjr+0
- ms0g==
+ bh=P4rbKj3d/woidokjvbpPUbGWRF5RvEv/2Gj/Zmur/bI=;
+ b=n8hiDNLG/+TGnrfWgbNWtgHz01Rbv76vsUlLnhJq6MfpUUVO2xl8+OjARxPRVfx3EW
+ ArzChCTRAU6+jgzESeqD22n4Gobb2Inx4MufrvCbIWJTLEZOh5GFmEIBjJ3fuk3ow+h3
+ 28693JHfhTZViJVJodzoKPYsmz//SMZ+5yRigBpuPThM1Py/O9tzDcMpeGpMz3pd2T76
+ Mq3yV/XSC26N0DOgX0ITm35PhtfTapegNfMbAchIbCxDUVgg7h/iBehQ6mAXNxkEurTu
+ HnGn297T89s8mpNwXxgcO+lskslQzr987fkC5HMqD8K0rzS/8jKq4QHBtfDQRv2ufWXd
+ USMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=VRYyjAJqzt+oGd/XIZ5uVDcZC/sKLm2kGO/Eia5PR48=;
- b=eTsp7DfdtINAV2LQO8yMrsv2n99yIWHyfZygFRvwFm3Y6J9qpkxBZpprLNi1Oaz+YI
- 64Pn/TK1taxQvfb/ZEjMXhSve4vizw2bzFd9GewmYbe4Vi7/bAXoi2ipCqJ02t8lES89
- zUlkUjnaUBcF3jbqk2moXekahJyxcSTRl4OZqwOs7m1JSYy+1XbsSFy5HD4hjzFusYvL
- RZ4ijbwg6sGLpxGqi/F3QlihKU5QY+PFpOT4xdCeroNKh3CrhYO/OtXLGxynwhr4Tl1V
- hwT/meVveWZc4uvRempUX1i8uUerRPQ+8RmA/qyebdcJwUllFdhkORnymomQJCNlyghs
- yFVQ==
-X-Gm-Message-State: AOAM533J0Pp/L6BFLUzbgxr6Ye47TUV7us6RGOF6RU3KSyPg5FsKLoGk
- p8/jo13EQDqHIuBx4/skhnQSrg==
-X-Google-Smtp-Source: ABdhPJz/u8z6imIBMwGvamngpy6HMxJyniXUvL/1f3PWBZNUlRmeNIQhJH5pU11SAugxMcVvjzTpxA==
-X-Received: by 2002:adf:ee4d:: with SMTP id w13mr5088754wro.223.1632823834677; 
- Tue, 28 Sep 2021 03:10:34 -0700 (PDT)
+ bh=P4rbKj3d/woidokjvbpPUbGWRF5RvEv/2Gj/Zmur/bI=;
+ b=Y3QeP50Aah2FJXgITSwJl5FzeUat71Er9K4Ax/1XBQoclhriyjiNiBXucm499EPljc
+ ha3X+f9O4/m/Hcr8HlvO9YnfSHjF9Et7OFzJ4txB+lJeVzuDh98H43hlM1LyLaqAuapR
+ VbczpPXeBJBclwXn9VVjpQXO+J+6XhkuaTrEnU2pTejIVN4iN4NiwyY2VBOZCLaW/Lo6
+ irlng7zs6DjFOrVceebZzqcjThzMt8VnsOo4432ljgURe6QK8LhzDsodgonmCEG6t71/
+ sQmgl8T6etpAYsValX53P6QnIJsHbMXXXlcvQjUriv+bXZAzMxjqZowtWMOuK+CPJl0Z
+ Y1eg==
+X-Gm-Message-State: AOAM531rL/4kznwnAMITuWiQCB3eQTjbAFJM7EtTGwoiuePFAlIza7HM
+ UJztzsjWFMXYDsgeS1oynadTew==
+X-Google-Smtp-Source: ABdhPJy+BvIKjHPLakTXuFs6462RKnaNRkKp7fL0GUlBTuSHpti2s5PKjkQNBn5GNz56rEL68WSkNg==
+X-Received: by 2002:a05:600c:247:: with SMTP id 7mr1908531wmj.4.1632824499076; 
+ Tue, 28 Sep 2021 03:21:39 -0700 (PDT)
 Received: from [192.168.86.34]
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id o5sm7932803wrf.85.2021.09.28.03.10.33
+ by smtp.googlemail.com with ESMTPSA id a3sm6597588wrn.16.2021.09.28.03.21.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Sep 2021 03:10:34 -0700 (PDT)
-Subject: Re: [PATCH v8 14/22] ASoC: qdsp6: audioreach: add basic pkt alloc
- support
+ Tue, 28 Sep 2021 03:21:38 -0700 (PDT)
+Subject: Re: [PATCH v8 16/22] ASoC: qdsp6: audioreach: add module
+ configuration command helpers
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  bjorn.andersson@linaro.org, broonie@kernel.org, robh@kernel.org
 References: <20210927135559.738-1-srinivas.kandagatla@linaro.org>
- <20210927135559.738-15-srinivas.kandagatla@linaro.org>
- <ebfe1e31-778d-852a-20bf-ac8fe860dcc2@linux.intel.com>
+ <20210927135559.738-17-srinivas.kandagatla@linaro.org>
+ <2be40835-e98a-ff3f-71b1-ab2dd80086c3@linux.intel.com>
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <d96a7337-c594-c64a-46f9-73d7d6ad77b7@linaro.org>
-Date: Tue, 28 Sep 2021 11:10:33 +0100
+Message-ID: <42986413-57a5-30cb-5256-84b5f4e5e004@linaro.org>
+Date: Tue, 28 Sep 2021 11:21:37 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <ebfe1e31-778d-852a-20bf-ac8fe860dcc2@linux.intel.com>
+In-Reply-To: <2be40835-e98a-ff3f-71b1-ab2dd80086c3@linux.intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -112,109 +112,82 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 27/09/2021 17:08, Pierre-Louis Bossart wrote:
+On 27/09/2021 17:16, Pierre-Louis Bossart wrote:
 > 
+>> +static int audioreach_shmem_set_media_format(struct q6apm_graph *graph,
+>> +					     struct audioreach_module *module,
+>> +					     struct audioreach_module_config *mcfg)
+>> +{
+>> +	uint32_t num_channels = mcfg->num_channels;
+>> +	struct apm_module_param_data *param_data;
+>> +	struct payload_media_fmt_pcm *cfg;
+>> +	struct media_format *header;
+>> +	int rc, payload_size;
+>> +	struct gpr_pkt *pkt;
+>> +	void *p;
+>> +
+>> +	if (num_channels > 2) {
+>> +		dev_err(graph->dev, "Error: Invalid channels (%d)!\n", num_channels);
+>> +		return -EINVAL;
+>> +	}
 > 
->> +struct apm_sub_graph_params  {
->> +	struct apm_module_param_data param_data;
->> +	uint32_t num_sub_graphs;
->> +	struct apm_sub_graph_data sg_cfg[];
->> +} __packed;
+> so here mcfg->num_channels > 2 is flagged as an error, but ...
 > 
-> The style you use is num_foobar and later foobar[]
+>> +
+>> +	payload_size = APM_SHMEM_FMT_CFG_PSIZE(num_channels) + APM_MODULE_PARAM_DATA_SIZE;
+>> +
+>> +	pkt = audioreach_alloc_cmd_pkt(payload_size, APM_CMD_SET_CFG, 0,
+>> +				     graph->port->id, module->instance_id);
+>> +	if (IS_ERR(pkt))
+>> +		return PTR_ERR(pkt);
+>> +
+>> +	p = (void *)pkt + GPR_HDR_SIZE + APM_CMD_HDR_SIZE;
+>> +
+>> +	param_data = p;
+>> +	param_data->module_instance_id = module->instance_id;
+>> +	param_data->error_code = 0;
+>> +	param_data->param_id = PARAM_ID_MEDIA_FORMAT;
+>> +	param_data->param_size = payload_size - APM_MODULE_PARAM_DATA_SIZE;
+>> +	p = p + APM_MODULE_PARAM_DATA_SIZE;
+>> +
+>> +	header = p;
+>> +	header->data_format = DATA_FORMAT_FIXED_POINT;
+>> +	header->fmt_id = MEDIA_FMT_ID_PCM;
+>> +	header->payload_size = payload_size - sizeof(*header);
+>> +
+>> +	p = p + sizeof(*header);
+>> +	cfg = p;
+>> +	cfg->sample_rate = mcfg->sample_rate;
+>> +	cfg->bit_width = mcfg->bit_width;
+>> +	cfg->alignment = PCM_LSB_ALIGNED;
+>> +	cfg->bits_per_sample = mcfg->bit_width;
+>> +	cfg->q_factor = mcfg->bit_width - 1;
+>> +	cfg->endianness = PCM_LITTLE_ENDIAN;
+>> +	cfg->num_channels = mcfg->num_channels;
+>> +
+>> +	if (mcfg->num_channels == 1) {
+>> +		cfg->channel_mapping[0] =  PCM_CHANNEL_L;
+>> +	} else if (num_channels == 2) {
+>> +		cfg->channel_mapping[0] =  PCM_CHANNEL_L;
+>> +		cfg->channel_mapping[1] =  PCM_CHANNEL_R;
+>> +	} else {
+>> +		dev_err(graph->dev, "Error: Invalid channels (%d)!\n", num_channels);
+>> +		rc = -EINVAL;
+>> +		goto err;
 > 
->> +/* container config */
->> +struct apm_container_obj  {
->> +	struct apm_container_cfg container_cfg;
->> +	/* Capability ID list */
->> +	struct apm_prop_data cap_data;
->> +	uint32_t num_capability_id;
->> +	uint32_t capability_id;
-> 
-> but here you have both a num_capability_id and capability_id
-> 
-> It's not very clear what they mean, or if there is a dependency?
+> ... this is again the case where mcfg->num_channels > 2 so this block is
+> never executed.
 
-DSP supports multiple capabilities for a container, however for now this 
-version of patches only support 1 capability for a container.
-
-I will add multiple capabilities once am in a position to test it.
-
-> 
->> +	/* Container graph Position */
->> +	struct apm_prop_data pos_data;
->> +	struct apm_cont_prop_id_graph_pos pos;
->> +
->> +	/* Container Stack size */
->> +	struct apm_prop_data stack_data;
->> +	struct apm_cont_prop_id_stack_size stack;
->> +
->> +	/* Container proc domain id */
->> +	struct apm_prop_data domain_data;
->> +	struct apm_cont_prop_id_domain domain;
->> +} __packed;
-> 
->> +/* Module IDs */
->> +#define MODULE_ID_WR_SHARED_MEM_EP	0x07001000
->> +#define MODULE_ID_RD_SHARED_MEM_EP	0x07001001
->> +#define MODULE_ID_GAIN			0x07001002
->> +#define MODULE_ID_PCM_CNV		0x07001003
->> +#define MODULE_ID_PCM_ENC		0x07001004
->> +#define MODULE_ID_PCM_DEC		0x07001005
->> +#define MODULE_ID_CODEC_DMA_SINK	0x07001023
->> +#define MODULE_ID_CODEC_DMA_SOURCE	0x07001024
->> +#define MODULE_ID_I2S_SINK		0x0700100A
->> +#define MODULE_ID_I2S_SOURCE		0x0700100b
->> +#define MODULE_ID_DATA_LOGGING		0x0700101A
->> +
->> +#define APM_CMD_GET_SPF_STATE		0x01001021
->> +#define APM_CMD_RSP_GET_SPF_STATE	0x02001007
->> +
->> +#define APM_MODULE_INSTANCE_ID		0x00000001
->> +#define PRM_MODULE_INSTANCE_ID		0x00000002
->> +#define AMDB_MODULE_INSTANCE_ID		0x00000003
->> +#define VCPM_MODULE_INSTANCE_ID		0x00000004
->> +#define AR_MODULE_INSTANCE_ID_START	0x00006000
->> +#define AR_MODULE_INSTANCE_ID_END	0x00007000
->> +#define AR_MODULE_DYNAMIC_INSTANCE_ID_START	0x00007000
->> +#define AR_MODULE_DYNAMIC_INSTANCE_ID_END	0x00008000
->> +#define AR_CONT_INSTANCE_ID_START	0x00005000
->> +#define AR_CONT_INSTANCE_ID_END		0x00006000
->> +#define AR_SG_INSTANCE_ID_START		0x00004000
->> +
->> +#define APM_CMD_GRAPH_OPEN			0x01001000
->> +#define APM_CMD_GRAPH_PREPARE			0x01001001
->> +#define APM_CMD_GRAPH_START			0x01001002
->> +#define APM_CMD_GRAPH_STOP			0x01001003
->> +#define APM_CMD_GRAPH_CLOSE			0x01001004
->> +#define APM_CMD_GRAPH_FLUSH			0x01001005
->> +#define APM_CMD_SET_CFG				0x01001006
->> +#define APM_CMD_GET_CFG				0x01001007
->> +#define APM_CMD_SHARED_MEM_MAP_REGIONS		0x0100100c
->> +#define APM_CMD_SHARED_MEM_UNMAP_REGIONS	0x0100100d
->> +#define APM_CMD_RSP_SHARED_MEM_MAP_REGIONS	0x02001001
->> +#define APM_CMD_RSP_GET_CFG			0x02001000
->> +#define APM_CMD_CLOSE_ALL			0x01001013
->> +#define APM_CMD_REGISTER_SHARED_CFG		0x0100100A
-> 
->> +/* APM module */
->> +#define APM_PARAM_ID_SUB_GRAPH_LIST		0x08001005
->> +
->> +#define APM_PARAM_ID_MODULE_LIST		0x08001002
-> 
->> +#define APM_PARAM_ID_MODULE_PROP		0x08001003
-> 
-> It seems like those definition follow a pattern, e.g. bits 28..32 a type
-> and bits 0..15 a token?
-Yes, it does have a pattern, each Opcode is divided in to 3 fields.
-
-GUID OWNER 31:28
-GUID Type 27:24
-MAIN GUID 23:0
+I agree this else is dead code, will remove this.
 
 --srini
-
-
 > 
-> 
->>
+>> +	}
+>> +
+>> +	rc = audioreach_graph_send_cmd_sync(graph, pkt, 0);
+>> +err:
+>> +	kfree(pkt);
+>> +
+>> +	return rc;
+>> +}
+>> +

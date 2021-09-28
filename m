@@ -2,82 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 984C641B3D2
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 18:26:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78EFB41B3DC
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Sep 2021 18:27:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2547D1695;
-	Tue, 28 Sep 2021 18:25:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2547D1695
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF02E16BC;
+	Tue, 28 Sep 2021 18:26:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF02E16BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632846403;
-	bh=NARFtHeqyRbAbSEFSnqZt8yx8JZc2xoc5EO9W5fLgL4=;
+	s=default; t=1632846452;
+	bh=Dv6JNmmq+3WUHs5+Yfa1MT9gM+K8WmH1ZhAcFQAuHrs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QQRZdwg46JhJlP850EPyjyOC095hXv4ZGmUIK1Oo+PCQUpgOzZxYe3hlDlzNUDaL9
-	 9gn7JL2322SAr8mLKAi3gS2aGOMAfoNt20z7kzxbOht4dbJ3bRt/lZ7/65gOXoPeRu
-	 la1N3VeTWyWTsREo7QPQQ+a65wevptT/D/efBojU=
+	b=GaldrxFKt8B1/nN68vMq/rYXOLnD9RfPIa3539WT6GUOHwLp/GN1REqZ734mbG09q
+	 vPPCZxhclWDUUvsCIp6MwMirSkYagWG2JOVuCvjq7yb5S6JUvj3WGno5g43MfsoJh1
+	 Y7SevHytmIGI3sP/NCWaxIhSzPG5A67mW/fbUETg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA585F804F3;
-	Tue, 28 Sep 2021 18:24:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9262DF80508;
+	Tue, 28 Sep 2021 18:24:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 80829F804E4; Tue, 28 Sep 2021 18:24:14 +0200 (CEST)
+ id 62388F804FB; Tue, 28 Sep 2021 18:24:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C528FF804E2
- for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 18:24:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C528FF804E2
+ by alsa1.perex.cz (Postfix) with ESMTPS id B38DAF804EB
+ for <alsa-devel@alsa-project.org>; Tue, 28 Sep 2021 18:24:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B38DAF804EB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="E7wIT0DY"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E250D60F5B;
- Tue, 28 Sep 2021 16:24:09 +0000 (UTC)
+ header.b="uO3l7y21"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8BFC361206;
+ Tue, 28 Sep 2021 16:24:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1632846250;
- bh=NARFtHeqyRbAbSEFSnqZt8yx8JZc2xoc5EO9W5fLgL4=;
+ s=k20201202; t=1632846253;
+ bh=Dv6JNmmq+3WUHs5+Yfa1MT9gM+K8WmH1ZhAcFQAuHrs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=E7wIT0DYG1goVQMsotXBiZEpTm0YD1dAGPTcw8EF/g2zSddmskJDlB4/fLkwJXYCY
- apWIW10YC0SVQvIp0/zoncJRGWK4YK9AZ/7WAlW8kc7bbwsbQZBicXcYb6lOpcbD/O
- vkfrxEAQqH2d2oKUr1xdDdXLtCuDiK8peF2s6vieVHBwq/l23Ukpj601wLCzWdUdWS
- mVfK8SeeuJTvXaFTjeeTh40t3LOnFWwzOIQHKhnIpsSHjVxd7H8aiWSbTtoR3b4fhQ
- 3AohWufsbDa1w+DM+OouZS40gsjLRYTYTtaaKftmOg8TDdrLLaa1GBCwzEL4GgVQC0
- pFfEHYuIOFWnA==
+ b=uO3l7y21rXVgdFTlPA1vTk4zKjKfxpJFcBQogo8EkEUDD/8sGSLvPqlMiHBsoLvGg
+ R85x1Xhsw06V9WR40Z1cTl1hkyFAwAbr2xsix37qSoUYRf3zCGdjHCpExhW2IBcehV
+ 4Gp9lL7/Mvo4DdmnM1GxS7ViJlD7wivnZOwdt1b8Cjd/BOXf6ky8mmEdUQBXW7P75v
+ hF4Q+Glgh1/ArCKkMy4hlh7hMfW+76cDNMR8nVpEfrNi4qJENYQuKrD8SrGMJpI0FH
+ BkoyewQLPKup2A6VuQjQ8TjmsmZGNLuOsaS6sw1TYQRkbbSD63j1mFA4qVjOjcfwJZ
+ b4eFEB88jQpDQ==
 From: Mark Brown <broonie@kernel.org>
-To: Brent Lu <brent.lu@intel.com>,
-	alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ASoC: intel: sof_rt5682: update platform device name for
- Maxim amplifier
-Date: Tue, 28 Sep 2021 17:23:04 +0100
-Message-Id: <163284573551.17390.4087071777524402599.b4-ty@kernel.org>
+To: marc.herbert@intel.com, pierre-louis.bossart@linux.intel.com,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, lgirdwood@gmail.com
+Subject: Re: [PATCH] ASoC: SOF: prefix some terse and cryptic dev_dbg() with
+ __func__
+Date: Tue, 28 Sep 2021 17:23:05 +0100
+Message-Id: <163284573552.17390.10291650137925590468.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210927143249.439129-1-brent.lu@intel.com>
-References: <20210927143249.439129-1-brent.lu@intel.com>
+In-Reply-To: <20210928102635.26227-1-peter.ujfalusi@linux.intel.com>
+References: <20210928102635.26227-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Libin Yang <libin.yang@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, linux-kernel@vger.kernel.org,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- Gongjun Song <gongjun.song@intel.com>, Jie Yang <yang.jie@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Rander Wang <rander.wang@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Tzung-Bi Shih <tzungbi@google.com>, Mark Brown <broonie@kernel.org>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>,
- Paul Olaru <paul.olaru@oss.nxp.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <bard.liao@intel.com>, Yong Zhi <yong.zhi@intel.com>
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,10 +82,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 27 Sep 2021 22:32:49 +0800, Brent Lu wrote:
-> To follow 20-character length limitation of platform device name, we
-> have only 7 character space for amplifier. Therefore, the last
-> character of mx98357a and mx98360a is removed to save space.
+On Tue, 28 Sep 2021 13:26:35 +0300, Peter Ujfalusi wrote:
+> From: Marc Herbert <marc.herbert@intel.com>
+> 
+> These helped troubleshoot some DMA issue in SOF.
 > 
 > 
 
@@ -106,8 +95,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: intel: sof_rt5682: update platform device name for Maxim amplifier
-      commit: 3c561a090c7920624b83005a279a66cc8a7bed2b
+[1/1] ASoC: SOF: prefix some terse and cryptic dev_dbg() with __func__
+      commit: 18845128f5f88cc0a034ac5eb711eee83d8321a5
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,81 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 634A141C05A
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Sep 2021 10:12:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8AA141C14E
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Sep 2021 11:09:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC8ED16A9;
-	Wed, 29 Sep 2021 10:11:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC8ED16A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BE9C1698;
+	Wed, 29 Sep 2021 11:08:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BE9C1698
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632903142;
-	bh=sa6+IAMH2IQ4y1e77VedA4piUsiMt3thEE+QaCSS+hA=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1632906546;
+	bh=br9/vVUqMQCdjM12t2zntuidrHjVV5LVKelG/DxYifQ=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qe8BteQ5BDtUytpI0O8ZifqZCljt5oBoqSNtJgv72Nd038GBVfeRk7+fzTUD2lHL5
-	 tMsBqD/FWjP2d3pIa+L07GFyAMeSB8m1EiGz2CMaQV5BoqVpDFQMeTDf3OBva5iEgj
-	 5Tp/4KXuSj6aHLCgDFsnckq3ZYbo6d6OWf/LO07Y=
+	b=qv6D2X93SFGlsreTd4Sz12sWJFOxkJZmwgwhKjCKEsFCm0Cy3W+LnyCIxXjDId/s3
+	 eoK69AkTXpNFsJdP+DcEJ+VjybQz17iVA69z42Sj2ZHFqP8PTLIGDGIANUtxUQRS6l
+	 ZP4rp+WfksS2F/7iDvDQi+pJLl9afQ1xx2oFTIS4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10F8EF80517;
-	Wed, 29 Sep 2021 10:09:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DAEA4F8026D;
+	Wed, 29 Sep 2021 11:07:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E1C41F804FA; Wed, 29 Sep 2021 10:09:11 +0200 (CEST)
+ id 0E6CEF80227; Wed, 29 Sep 2021 11:07:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7F40CF80161
- for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 10:08:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F40CF80161
+ by alsa1.perex.cz (Postfix) with ESMTPS id 087F0F80105
+ for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 11:07:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 087F0F80105
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="H+/W2KY/"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="rH0x4OOI"
-Received: from relay1.suse.de (relay1.suse.de [149.44.160.133])
- by smtp-out1.suse.de (Postfix) with ESMTP id 1A9D622533
- for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 08:08:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1632902929; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="LFZC9Uo5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1632906461;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=OVMKSpnQqZuBPveHYDm6qGTNYPO6pzyFKD7aS5uAnEM=;
- b=H+/W2KY/6xO1mfdo2g0/tGYyiwtZFfeQP2hGBMTurx8UFTIeHPwgRjzbbZiDRnQVhMZ16u
- 6XW9jtDtw5Gz2vnMTbt3CEKmIj7g9CcbVe+5MeQPlco8A5+5MR+jchePbrUeKC3FOi3Vzc
- OHdp5ykny7wYq58BgieiSuxqTet3ldQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1632902929;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=OVMKSpnQqZuBPveHYDm6qGTNYPO6pzyFKD7aS5uAnEM=;
- b=rH0x4OOIwuvceKJkJfUU8WIajzz01q5Rjo33Yb58xEUNMBJRqr6Ks/qQz1EeCJg1l4R1Ha
- qt34h6FHrF3J5HBw==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay1.suse.de (Postfix) with ESMTP id 0AA4025D63;
- Wed, 29 Sep 2021 08:08:49 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 9/9] ALSA: usb-audio: Avoid killing in-flight URBs during
- draining
-Date: Wed, 29 Sep 2021 10:08:44 +0200
-Message-Id: <20210929080844.11583-10-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210929080844.11583-1-tiwai@suse.de>
-References: <20210929080844.11583-1-tiwai@suse.de>
+ bh=n++xCjf25lsydxl4FEJyLD2EoHAbGbCE0fDyv+KGuUk=;
+ b=LFZC9Uo5eI+Rc/WKe7XsJSqcHYuY0RuGQqVqBjF7Nc1NLpVekaFPcovoaR8Su5kBbSwrsD
+ //eZU+IE7maNkjodSUsgHfDb5KwPr67cbDpnqpQexqRZ72b5gz+4v93Y8Pq4vrMd7Pdnvj
+ iVzISSQ/dQs1uSuxtkiIpTvfUQNNTlc=
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
+ [209.85.208.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-159-3ZyuaMquOa636P97dcXxhg-1; Wed, 29 Sep 2021 05:07:40 -0400
+X-MC-Unique: 3ZyuaMquOa636P97dcXxhg-1
+Received: by mail-ed1-f70.google.com with SMTP id
+ a7-20020a509e87000000b003da71d1b065so1733174edf.4
+ for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 02:07:40 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=n++xCjf25lsydxl4FEJyLD2EoHAbGbCE0fDyv+KGuUk=;
+ b=61YIGmeIaRAOZlACbQOqhYfsXjt73v4vzbBgKKtyE0yf73vOGkFEJiTW+y9dHS6kM7
+ +xCc+wsSxGF/UZElw9i/CAsje/NAtvhGQmcg9WZueuoCmrSZDd+6au0TINZIiF54/ZR/
+ eJFxzyIDtQVN6djy30bJv+6xz79BCJHATeeXPxXKbnxcTXZWbVi3XLUMpUp1H3WQpOe1
+ wROLjeZgEhEt3gWqIWa/tq3xUV72vncTtPyiS+rra2HuBuYpnR9pAEBDLCajHatGdd3n
+ 2x8/zvYYAp8Jn7n+vNTMC+s60zgmwWiyiinbkh6bpVFcTW4XCnihQecLssYwp3UbVlS6
+ VFXg==
+X-Gm-Message-State: AOAM5335BqncxCVxc44Qf1BHkJNt5SwY46KzRHn8JzlHWiTp1fsk6Ij8
+ I9BOKpLwyW7v7T/GR4lQBqdR+PEqSRn5M0mWsLQ+hJXl2CXpX8S+mr+zWvb/VvK3kT3ZQPpAbEm
+ dDgHxeESUCI+5GQEU+cODK8pUFc46pUbXlrBvTYcBzbebDi35DwACEqvKXU+XPsN6zyQhZegoS+
+ M=
+X-Received: by 2002:a05:6402:705:: with SMTP id
+ w5mr13713824edx.366.1632906459022; 
+ Wed, 29 Sep 2021 02:07:39 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzxoP/EAbjTGcIzIAQAsJBHhLVTH71K/mvfdFNBIIFcSdXE9gzwJAPRbWAQu1F62y2fSO9t+g==
+X-Received: by 2002:a05:6402:705:: with SMTP id
+ w5mr13713796edx.366.1632906458768; 
+ Wed, 29 Sep 2021 02:07:38 -0700 (PDT)
+Received: from x1.localdomain
+ (2001-1c00-0c1e-bf00-1054-9d19-e0f0-8214.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:1054:9d19:e0f0:8214])
+ by smtp.gmail.com with ESMTPSA id l10sm1090717edr.14.2021.09.29.02.07.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 29 Sep 2021 02:07:38 -0700 (PDT)
+Subject: Re: [PATCH alsa-ucm-conf 1/2] bytcr-rt5640: Fix 'Headphone Switch' /
+ 'Headset Mic Switch' no longer getting set
+To: Dmitry Osipenko <digetx@gmail.com>, Jaroslav Kysela <perex@perex.cz>
+References: <20210718175750.12353-1-hdegoede@redhat.com>
+ <1dfbddfb-e93d-112f-d787-aa27c88a3b80@gmail.com>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <e092ab94-6b30-5285-bd7f-dbabe4c7f83f@redhat.com>
+Date: Wed, 29 Sep 2021 11:07:37 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
+In-Reply-To: <1dfbddfb-e93d-112f-d787-aa27c88a3b80@gmail.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,176 +124,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-While draining a stream, ALSA PCM core stops the stream by issuing
-snd_pcm_stop() after all data has been sent out.  And, at PCM trigger
-stop, currently USB-audio driver kills the in-flight URBs explicitly,
-then at sync-stop ops, sync with the finish of all remaining URBs.
-This might result in a drop of the drained samples as most of
-USB-audio devices / hosts allow relatively long in-flight samples (as
-a sort of FIFO).
+Hi,
 
-For avoiding the trimming, this patch changes the stream-stop behavior
-during PCM draining state.  Under that condition, the pending URBs
-won't be killed.  The leftover in-flight URBs are caught by the
-sync-stop operation that shall be performed after the trigger-stop
-operation.
+On 9/28/21 10:15 PM, Dmitry Osipenko wrote:
+> 18.07.2021 20:57, Hans de Goede пишет:
+>> Commit 446d0a71b47f ("codecs/rt5640: Move out BayTrail-specific pin switches")
+>> moved the setting of the 'Headphone Switch' / 'Headset Mic Switch' into
+>> "If.hp" resp "If.hsmic" blocks. But instead of making them part of the
+>> True {} block inside that If, the statements where added add the top-level
+>> of the If {} block where they are no-ops.
+>>
+>> Move them to inside the True blocks so that these Switches again get
+>> properly turned on/off. This fixes the Headphones and Headset-mic no longer
+>> working on bytcr-rt5640 devices.
+>>
+>> Cc: Dmitry Osipenko <digetx@gmail.com>
+>> Fixes: 446d0a71b47f ("codecs/rt5640: Move out BayTrail-specific pin switches")
+>> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+>> ---
+>>  ucm2/bytcr-rt5640/HiFi.conf | 36 ++++++++++++++++++++----------------
+>>  1 file changed, 20 insertions(+), 16 deletions(-)
+> 
+> Hi,
+> 
+> I don't see this patch in upstream alsa-ucm, is it still actual?
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/endpoint.c | 14 +++++++++-----
- sound/usb/endpoint.h |  2 +-
- sound/usb/pcm.c      | 16 ++++++++--------
- 3 files changed, 18 insertions(+), 14 deletions(-)
+Yes this patch series is still actual. I also have 3 other patches
+pending where I was waiting for the mathcing kernel parts to land
+first. Those have landed now, so I'll send out those now too,
+including a resend of these 2.
 
-diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
-index 0b336876e36d..42c0d2db8ba8 100644
---- a/sound/usb/endpoint.c
-+++ b/sound/usb/endpoint.c
-@@ -955,7 +955,7 @@ void snd_usb_endpoint_sync_pending_stop(struct snd_usb_endpoint *ep)
-  *
-  * This function moves the EP to STOPPING state if it's being RUNNING.
-  */
--static int stop_urbs(struct snd_usb_endpoint *ep, bool force)
-+static int stop_urbs(struct snd_usb_endpoint *ep, bool force, bool keep_pending)
- {
- 	unsigned int i;
- 	unsigned long flags;
-@@ -972,6 +972,9 @@ static int stop_urbs(struct snd_usb_endpoint *ep, bool force)
- 	ep->next_packet_queued = 0;
- 	spin_unlock_irqrestore(&ep->lock, flags);
- 
-+	if (keep_pending)
-+		return 0;
-+
- 	for (i = 0; i < ep->nurbs; i++) {
- 		if (test_bit(i, &ep->active_mask)) {
- 			if (!test_and_set_bit(i, &ep->unlink_mask)) {
-@@ -995,7 +998,7 @@ static int release_urbs(struct snd_usb_endpoint *ep, bool force)
- 	snd_usb_endpoint_set_callback(ep, NULL, NULL, NULL);
- 
- 	/* stop and unlink urbs */
--	err = stop_urbs(ep, force);
-+	err = stop_urbs(ep, force, false);
- 	if (err)
- 		return err;
- 
-@@ -1527,7 +1530,7 @@ int snd_usb_endpoint_start(struct snd_usb_endpoint *ep)
- 	return 0;
- 
- __error:
--	snd_usb_endpoint_stop(ep);
-+	snd_usb_endpoint_stop(ep, false);
- 	return -EPIPE;
- }
- 
-@@ -1535,6 +1538,7 @@ int snd_usb_endpoint_start(struct snd_usb_endpoint *ep)
-  * snd_usb_endpoint_stop: stop an snd_usb_endpoint
-  *
-  * @ep: the endpoint to stop (may be NULL)
-+ * @keep_pending: keep in-flight URBs
-  *
-  * A call to this function will decrement the running count of the endpoint.
-  * In case the last user has requested the endpoint stop, the URBs will
-@@ -1545,7 +1549,7 @@ int snd_usb_endpoint_start(struct snd_usb_endpoint *ep)
-  * The caller needs to synchronize the pending stop operation via
-  * snd_usb_endpoint_sync_pending_stop().
-  */
--void snd_usb_endpoint_stop(struct snd_usb_endpoint *ep)
-+void snd_usb_endpoint_stop(struct snd_usb_endpoint *ep, bool keep_pending)
- {
- 	if (!ep)
- 		return;
-@@ -1560,7 +1564,7 @@ void snd_usb_endpoint_stop(struct snd_usb_endpoint *ep)
- 	if (!atomic_dec_return(&ep->running)) {
- 		if (ep->sync_source)
- 			WRITE_ONCE(ep->sync_source->sync_sink, NULL);
--		stop_urbs(ep, false);
-+		stop_urbs(ep, false, keep_pending);
- 	}
- }
- 
-diff --git a/sound/usb/endpoint.h b/sound/usb/endpoint.h
-index 6895d50d14d1..6a9af04cf175 100644
---- a/sound/usb/endpoint.h
-+++ b/sound/usb/endpoint.h
-@@ -38,7 +38,7 @@ void snd_usb_endpoint_set_callback(struct snd_usb_endpoint *ep,
- 				   struct snd_usb_substream *data_subs);
- 
- int snd_usb_endpoint_start(struct snd_usb_endpoint *ep);
--void snd_usb_endpoint_stop(struct snd_usb_endpoint *ep);
-+void snd_usb_endpoint_stop(struct snd_usb_endpoint *ep, bool keep_pending);
- void snd_usb_endpoint_sync_pending_stop(struct snd_usb_endpoint *ep);
- void snd_usb_endpoint_suspend(struct snd_usb_endpoint *ep);
- int  snd_usb_endpoint_activate(struct snd_usb_endpoint *ep);
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index d5a14e5b9ad3..f09c7380a923 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -219,16 +219,16 @@ int snd_usb_init_pitch(struct snd_usb_audio *chip,
- 	return 0;
- }
- 
--static bool stop_endpoints(struct snd_usb_substream *subs)
-+static bool stop_endpoints(struct snd_usb_substream *subs, bool keep_pending)
- {
- 	bool stopped = 0;
- 
- 	if (test_and_clear_bit(SUBSTREAM_FLAG_SYNC_EP_STARTED, &subs->flags)) {
--		snd_usb_endpoint_stop(subs->sync_endpoint);
-+		snd_usb_endpoint_stop(subs->sync_endpoint, keep_pending);
- 		stopped = true;
- 	}
- 	if (test_and_clear_bit(SUBSTREAM_FLAG_DATA_EP_STARTED, &subs->flags)) {
--		snd_usb_endpoint_stop(subs->data_endpoint);
-+		snd_usb_endpoint_stop(subs->data_endpoint, keep_pending);
- 		stopped = true;
- 	}
- 	return stopped;
-@@ -261,7 +261,7 @@ static int start_endpoints(struct snd_usb_substream *subs)
- 	return 0;
- 
-  error:
--	stop_endpoints(subs);
-+	stop_endpoints(subs, false);
- 	return err;
- }
- 
-@@ -437,7 +437,7 @@ static int configure_endpoints(struct snd_usb_audio *chip,
- 
- 	if (subs->data_endpoint->need_setup) {
- 		/* stop any running stream beforehand */
--		if (stop_endpoints(subs))
-+		if (stop_endpoints(subs, false))
- 			sync_pending_stops(subs);
- 		err = snd_usb_endpoint_configure(chip, subs->data_endpoint);
- 		if (err < 0)
-@@ -572,7 +572,7 @@ static int snd_usb_hw_free(struct snd_pcm_substream *substream)
- 	subs->cur_audiofmt = NULL;
- 	mutex_unlock(&chip->mutex);
- 	if (!snd_usb_lock_shutdown(chip)) {
--		if (stop_endpoints(subs))
-+		if (stop_endpoints(subs, false))
- 			sync_pending_stops(subs);
- 		close_endpoints(chip, subs);
- 		snd_usb_unlock_shutdown(chip);
-@@ -1559,7 +1559,7 @@ static int snd_usb_substream_playback_trigger(struct snd_pcm_substream *substrea
- 		return 0;
- 	case SNDRV_PCM_TRIGGER_SUSPEND:
- 	case SNDRV_PCM_TRIGGER_STOP:
--		stop_endpoints(subs);
-+		stop_endpoints(subs, substream->runtime->status->state == SNDRV_PCM_STATE_DRAINING);
- 		snd_usb_endpoint_set_callback(subs->data_endpoint,
- 					      NULL, NULL, NULL);
- 		subs->running = 0;
-@@ -1607,7 +1607,7 @@ static int snd_usb_substream_capture_trigger(struct snd_pcm_substream *substream
- 		return 0;
- 	case SNDRV_PCM_TRIGGER_SUSPEND:
- 	case SNDRV_PCM_TRIGGER_STOP:
--		stop_endpoints(subs);
-+		stop_endpoints(subs, false);
- 		fallthrough;
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
- 		snd_usb_endpoint_set_callback(subs->data_endpoint,
--- 
-2.26.2
+Regards,
+
+Hans
 

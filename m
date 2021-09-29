@@ -2,76 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF7FD41C05D
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Sep 2021 10:12:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5ED6741C056
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Sep 2021 10:12:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 57A7B1678;
-	Wed, 29 Sep 2021 10:11:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57A7B1678
+	by alsa0.perex.cz (Postfix) with ESMTPS id F037316A0;
+	Wed, 29 Sep 2021 10:11:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F037316A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632903167;
-	bh=tv37uYTPyao/uCseyn7tKd5AWnwa+D5aaRNSKQrfMkk=;
+	s=default; t=1632903126;
+	bh=Fkm0CcHls22WyBGnw4lS0st9TKBVOmACthgcQwdNM5E=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MXV/d5sAppT2mgBOqGz5O9nbPpdmsBOdJ7sPNg5Dq07DMpdnsNPGnEPHnWb2/+sJY
-	 6D91D1OvsANhygLVZKH2u7SiNN4gyaw/+nltN+o1ZhOsiDp3SNBSol4uG6YfjMOA8C
-	 U/pCNTx6dThOB6PIn85zaQvL17WWow/ZQoxuyV8o=
+	b=QimM9/eqhNavbyn6HgovRmGLWHRdFc0xO4RLfRSgVeq3nAzf7tksdRDwk07FNV73S
+	 95lm1iafiPqqdmi7+JtgpPayotRijFwGVC2B8I/WxLG4Ata7Ed/5sqQtZXDvHzi5C+
+	 Dv4zikk635rJqTv5moopUMDpiQYcx586Ar6B8+xA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63442F802C4;
-	Wed, 29 Sep 2021 10:10:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F310F80507;
+	Wed, 29 Sep 2021 10:09:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC70DF804B0; Wed, 29 Sep 2021 10:10:04 +0200 (CEST)
+ id D0608F804F1; Wed, 29 Sep 2021 10:09:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 80F27F801F7
- for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 10:08:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80F27F801F7
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3400F80301
+ for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 10:08:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3400F80301
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="miWgVMzi"; 
+ header.b="0Eq1879n"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="fjEroNJ9"
+ header.b="6JbzT9qJ"
 Received: from relay1.suse.de (relay1.suse.de [149.44.160.133])
- by smtp-out1.suse.de (Postfix) with ESMTP id B1DD42252F
+ by smtp-out2.suse.de (Postfix) with ESMTP id C05B0202F7
  for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 08:08:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1632902928; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=QyfSjydg6Q65CJx7lb/hj/bcvlvtH0F2Qir8Lvjm7z4=;
- b=miWgVMziRbecqjfgtbrTE5eBheq4j23eNPqc2moA7lJxk5nhdmpPvG3lysp5yjivGjiCY4
- wrqKUPABS5rLyPqNlTrvE20rC4yV+XopC7Q4QnaPcMgLJGcG9g7b8fbahpaqBMAGA+dUWW
- Fz1h1aMxqTp1gaYLz8EGy3cHlrv9qDo=
+ bh=Zk++28ud6DZ4PZ5Vl6zKc3iF9c1skEicitVtfEO4ZhI=;
+ b=0Eq1879nxeLK+0Z5J4KqsnOz2bAWeL5w7QEYsNQHHGv6RNonLjehTbyARuU8CkW+Rs6vod
+ 5FDZz08JKj7OV8aRh1B2MN17U14THffRTWbap3DlWYCth/u6luT05bRA3LZpx2GmKMBi6U
+ p4HRuS+1MS4xJYQGdU4GAn5A39fdROU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1632902928;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=QyfSjydg6Q65CJx7lb/hj/bcvlvtH0F2Qir8Lvjm7z4=;
- b=fjEroNJ9y/v5SoFEqQqInphU2nfsotR9WDzvTUxK4M5EsdiCvjR6cuQcBpWwTdnUj83C/C
- I4z2Pc7zyfBrCoCQ==
+ bh=Zk++28ud6DZ4PZ5Vl6zKc3iF9c1skEicitVtfEO4ZhI=;
+ b=6JbzT9qJ7eayhTyFJ3l+PtpTbQYxLX1OEkd0OgWIN/YeNMLByjBzv+4ZV7bOCfXG2kse8V
+ QciidgPSxBPT25BA==
 Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay1.suse.de (Postfix) with ESMTP id A1DBC25D65;
+ by relay1.suse.de (Postfix) with ESMTP id AFE7525D6E;
  Wed, 29 Sep 2021 08:08:48 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/9] ALSA: usb-audio: Fix possible race at sync of urb
- completions
-Date: Wed, 29 Sep 2021 10:08:37 +0200
-Message-Id: <20210929080844.11583-3-tiwai@suse.de>
+Subject: [PATCH 3/9] ALSA: usb-audio: Rename early_playback_start flag with
+ lowlatency_playback
+Date: Wed, 29 Sep 2021 10:08:38 +0200
+Message-Id: <20210929080844.11583-4-tiwai@suse.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210929080844.11583-1-tiwai@suse.de>
 References: <20210929080844.11583-1-tiwai@suse.de>
@@ -92,93 +92,123 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-USB-audio driver tries to sync with the clear of all pending URBs in
-wait_clear_urbs(), and it waits for all bits in active_mask getting
-cleared.  This works fine for the normal operations, but when a stream
-is managed in the implicit feedback mode, there is still a very thin
-race window: namely, in snd_complete_usb(), the active_mask bit for
-the current URB is once cleared before re-submitted in
-queue_pending_output_urbs().  If wait_clear_urbs() is called during
-that period, it may pass the test and go forward even though there may
-be a still pending URB.
+This is a preparation patch for the upcoming low-latency improvement
+changes.
 
-For covering it, this patch adds a new counter to each endpoint to
-keep the number of in-flight URBs, and changes wait_clear_urbs()
-checking this number instead.  The counter is decremented at the end
-of URB complete, hence the reference is kept as long as the URB
-complete is in process.
+Rename early_playback_start flag with lowlatency_playback as it's more
+intuitive.  The new flag is basically a reverse meaning.
+
+Along with the rename, factor out the code to set the flag to a
+function.  This makes the complex condition checks simpler.
+
+Also, the same flag is introduced to snd_usb_endpoint, too, that is
+carried from the snd_usb_substream flag.  Currently the endpoint flag
+isn't still referred, but will be used in later patches.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/usb/card.h     | 1 +
- sound/usb/endpoint.c | 7 ++++++-
- 2 files changed, 7 insertions(+), 1 deletion(-)
+ sound/usb/card.h     |  3 ++-
+ sound/usb/endpoint.c |  4 ++++
+ sound/usb/pcm.c      | 29 ++++++++++++++++++++---------
+ 3 files changed, 26 insertions(+), 10 deletions(-)
 
 diff --git a/sound/usb/card.h b/sound/usb/card.h
-index 3329ce710cb9..746a765b2437 100644
+index 746a765b2437..a00caa1db37e 100644
 --- a/sound/usb/card.h
 +++ b/sound/usb/card.h
-@@ -97,6 +97,7 @@ struct snd_usb_endpoint {
- 	unsigned int nominal_queue_size; /* total buffer sizes in URBs */
- 	unsigned long active_mask;	/* bitmask of active urbs */
- 	unsigned long unlink_mask;	/* bitmask of unlinked urbs */
-+	atomic_t submitted_urbs;	/* currently submitted urbs */
- 	char *syncbuf;			/* sync buffer for all sync URBs */
- 	dma_addr_t sync_dma;		/* DMA address of syncbuf */
+@@ -126,6 +126,7 @@ struct snd_usb_endpoint {
+ 	int skip_packets;		/* quirks for devices to ignore the first n packets
+ 					   in a stream */
+ 	bool implicit_fb_sync;		/* syncs with implicit feedback */
++	bool lowlatency_playback;	/* low-latency playback mode */
+ 	bool need_setup;		/* (re-)need for configure? */
+ 
+ 	/* for hw constraints */
+@@ -190,7 +191,7 @@ struct snd_usb_substream {
+ 	} dsd_dop;
+ 
+ 	bool trigger_tstamp_pending_update; /* trigger timestamp being updated from initial estimate */
+-	bool early_playback_start;	/* early start needed for playback? */
++	bool lowlatency_playback;	/* low-latency playback mode */
+ 	struct media_ctl *media_ctl;
+ };
  
 diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
-index 29c4865966f5..06241568abf7 100644
+index 06241568abf7..8e164d71d9ac 100644
 --- a/sound/usb/endpoint.c
 +++ b/sound/usb/endpoint.c
-@@ -451,6 +451,7 @@ static void queue_pending_output_urbs(struct snd_usb_endpoint *ep)
- 		}
- 
- 		set_bit(ctx->index, &ep->active_mask);
-+		atomic_inc(&ep->submitted_urbs);
- 	}
+@@ -794,6 +794,10 @@ void snd_usb_endpoint_set_callback(struct snd_usb_endpoint *ep,
+ {
+ 	ep->prepare_data_urb = prepare;
+ 	ep->retire_data_urb = retire;
++	if (data_subs)
++		ep->lowlatency_playback = data_subs->lowlatency_playback;
++	else
++		ep->lowlatency_playback = false;
+ 	WRITE_ONCE(ep->data_subs, data_subs);
  }
  
-@@ -488,6 +489,7 @@ static void snd_complete_urb(struct urb *urb)
- 			clear_bit(ctx->index, &ep->active_mask);
- 			spin_unlock_irqrestore(&ep->lock, flags);
- 			queue_pending_output_urbs(ep);
-+			atomic_dec(&ep->submitted_urbs); /* decrement at last */
- 			return;
- 		}
- 
-@@ -513,6 +515,7 @@ static void snd_complete_urb(struct urb *urb)
- 
- exit_clear:
- 	clear_bit(ctx->index, &ep->active_mask);
-+	atomic_dec(&ep->submitted_urbs);
+diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+index 19392117de9e..4dd7f1c9e2af 100644
+--- a/sound/usb/pcm.c
++++ b/sound/usb/pcm.c
+@@ -581,6 +581,22 @@ static int snd_usb_hw_free(struct snd_pcm_substream *substream)
+ 	return 0;
  }
  
++/* check whether early start is needed for playback stream */
++static int lowlatency_playback_available(struct snd_usb_substream *subs)
++{
++	struct snd_usb_audio *chip = subs->stream->chip;
++
++	if (subs->direction == SNDRV_PCM_STREAM_CAPTURE)
++		return false;
++	/* disabled via module option? */
++	if (!chip->lowlatency)
++		return false;
++	/* too short periods? */
++	if (subs->data_endpoint->nominal_queue_size >= subs->buffer_bytes)
++		return false;
++	return true;
++}
++
  /*
-@@ -596,6 +599,7 @@ int snd_usb_add_endpoint(struct snd_usb_audio *chip, int ep_num, int type)
- 	ep->type = type;
- 	ep->ep_num = ep_num;
- 	INIT_LIST_HEAD(&ep->ready_playback_urbs);
-+	atomic_set(&ep->submitted_urbs, 0);
+  * prepare callback
+  *
+@@ -614,13 +630,8 @@ static int snd_usb_pcm_prepare(struct snd_pcm_substream *substream)
+ 	subs->period_elapsed_pending = 0;
+ 	runtime->delay = 0;
  
- 	is_playback = ((ep_num & USB_ENDPOINT_DIR_MASK) == USB_DIR_OUT);
- 	ep_num &= USB_ENDPOINT_NUMBER_MASK;
-@@ -861,7 +865,7 @@ static int wait_clear_urbs(struct snd_usb_endpoint *ep)
- 		return 0;
+-	/* check whether early start is needed for playback stream */
+-	subs->early_playback_start =
+-		subs->direction == SNDRV_PCM_STREAM_PLAYBACK &&
+-		(!chip->lowlatency ||
+-		 (subs->data_endpoint->nominal_queue_size >= subs->buffer_bytes));
+-
+-	if (subs->early_playback_start)
++	subs->lowlatency_playback = lowlatency_playback_available(subs);
++	if (!subs->lowlatency_playback)
+ 		ret = start_endpoints(subs);
  
- 	do {
--		alive = bitmap_weight(&ep->active_mask, ep->nurbs);
-+		alive = atomic_read(&ep->submitted_urbs);
- 		if (!alive)
- 			break;
- 
-@@ -1441,6 +1445,7 @@ int snd_usb_endpoint_start(struct snd_usb_endpoint *ep)
- 			goto __error;
- 		}
- 		set_bit(i, &ep->active_mask);
-+		atomic_inc(&ep->submitted_urbs);
+  unlock:
+@@ -1412,7 +1423,7 @@ static void prepare_playback_urb(struct snd_usb_substream *subs,
+ 		subs->trigger_tstamp_pending_update = false;
  	}
  
- 	usb_audio_dbg(ep->chip, "%d URBs submitted for EP 0x%x\n",
+-	if (period_elapsed && !subs->running && !subs->early_playback_start) {
++	if (period_elapsed && !subs->running && subs->lowlatency_playback) {
+ 		subs->period_elapsed_pending = 1;
+ 		period_elapsed = 0;
+ 	}
+@@ -1466,7 +1477,7 @@ static int snd_usb_substream_playback_trigger(struct snd_pcm_substream *substrea
+ 					      prepare_playback_urb,
+ 					      retire_playback_urb,
+ 					      subs);
+-		if (!subs->early_playback_start &&
++		if (subs->lowlatency_playback &&
+ 		    cmd == SNDRV_PCM_TRIGGER_START) {
+ 			err = start_endpoints(subs);
+ 			if (err < 0) {
 -- 
 2.26.2
 

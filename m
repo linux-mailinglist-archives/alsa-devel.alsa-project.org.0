@@ -2,75 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 385E841CAC9
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Sep 2021 18:58:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B45F841CC10
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Sep 2021 20:44:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B4C7116E7;
-	Wed, 29 Sep 2021 18:57:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4C7116E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 069D716EB;
+	Wed, 29 Sep 2021 20:43:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 069D716EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632934682;
-	bh=khRc8t29JpaApOGVCM52z56kbLRj7uDWN7B5djXr+8c=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1632941059;
+	bh=anTxZhbBOLr8F0GAF+FtiNEv4VhiwsqSrowrzmJaxKM=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=H8ALGvkpGgNZADRO8gnCO+IZgXzJSsnDJVt+VCFu9IZCqu8z5wLRj3AbWUDdM6u40
-	 ntj2jK/pLsT59tSWnDSKRBXgIIH5rkeAgGnba13C6zYisiw4E+7PuDTU1nTk5XEzM9
-	 wY441C0sj7Ae9im4NFkXJwCBu3ooljbiC7hllQFg=
+	b=rP1kjb7lAxxaAAgrxDCGYv4cU4MDX4I3e5lCFBQNt89q306WlBexWvOK7SePmC3pR
+	 mpqp9v1b9w1WFax62Mm4OpcjGkiFovHHX1QiQyqGDcz7MTyTEUlB6UvzwVYKpLq1YG
+	 da7Ad0zqnzjV927Wof5KSd/svOejr7CkibIsmfdc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A918F8026D;
-	Wed, 29 Sep 2021 18:56:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6253CF8026D;
+	Wed, 29 Sep 2021 20:43:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 11504F80227; Wed, 29 Sep 2021 18:56:44 +0200 (CEST)
+ id 4A716F80227; Wed, 29 Sep 2021 20:42:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_76,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from metanate.com (unknown [IPv6:2001:8b0:1628:5005::111])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-xe2c.google.com (mail-vs1-xe2c.google.com
+ [IPv6:2607:f8b0:4864:20::e2c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7B057F80105
- for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 18:56:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B057F80105
+ by alsa1.perex.cz (Postfix) with ESMTPS id 50DA3F80113
+ for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 20:42:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50DA3F80113
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=metanate.com header.i=@metanate.com
- header.b="cAt/13l1"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=metanate.com; s=stronger; h=Content-Transfer-Encoding:Content-Type:
- References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-ID
- :Content-Description; bh=ysDSBYfH+9lnSZYNya7VTHwC5qwPkWB2y4lW2wuez0U=; b=cAt/
- 13l1UFAw8RgU6FSzt4+Cz85KwL81LYREyzxwZImjp+4LKn6cd9RKlhgP7dHY8btPe1OvMZ2U4rPlV
- IAdgZ5N4BqTDFA5PgmJ3DRvLPmDlkapvVrUzsIGgMejzGLXDDCw89CapH0tghCM5i4gSVZSd4Hoo8
- m88hzHtZBTviFSMA5TfVQxgzycF7LcKuDxDlQKxlqyFma8UUbb+0c/jNAhKoXKi4GhdRJBckGwZeR
- Z6uwk0hceUleiobObKqmog/J2IwNk1h4R4Yxjwsfv+H+639BjID8Hz4F1V7IkEWw7IR3Z06MGyn0I
- tTXpUOiPPL4N5G4Ws+drad9vtZof8Q==;
-Received: from [81.174.171.191] (helo=donbot)
- by email.metanate.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.93) (envelope-from <john@metanate.com>)
- id 1mVcsi-000733-P6; Wed, 29 Sep 2021 17:56:32 +0100
-Date: Wed, 29 Sep 2021 17:56:32 +0100
-From: John Keeping <john@metanate.com>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH] ALSA: rawmidi: Fix potential UAF from sequencer
- destruction
-Message-ID: <20210929175632.50b78be8.john@metanate.com>
-In-Reply-To: <s5hv92jl7t2.wl-tiwai@suse.de>
-References: <20210929113620.2194847-1-john@metanate.com>
- <s5hzgrvl9j0.wl-tiwai@suse.de>
- <20210929161758.49ce947f.john@metanate.com>
- <s5hv92jl7t2.wl-tiwai@suse.de>
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.30; x86_64-pc-linux-gnu)
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="MlAD5cPS"
+Received: by mail-vs1-xe2c.google.com with SMTP id f18so4229674vsp.2
+ for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 11:42:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=21IXWzaKvhy7DYpO/VQCERD9WWYgc4mpzGPcHFrC2M0=;
+ b=MlAD5cPSegzXT55tBZQBIBZMhyEIevHpGwrtkfyV0vfeT0axIPOqpXzsKs/F0ZQC60
+ 7eTfILu795wdSjoLwKASKbu64CA+K6vTUG91El/Mz3WlHdXQ4/Bo3EcncF1cHbVmibX4
+ uxcbKRCgpBy0I223FyZ2MLyoZSsZGNAUvxSjomlkJLa68hYEWk4X0fb/1FTrH5qV0zcu
+ RGTOw7n7CFjdprj4CvT8MnjqGGHSKJTr8jFPLqfk2d+VsNXy0fda8Os1xeERhakzxMH2
+ Bx+ltjvpJ8AlUAaSAjXpaTHytB0e1WABncPAJwrqcgdfVEDqnrO+g+lHeNC89Y/cNJcW
+ mQwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=21IXWzaKvhy7DYpO/VQCERD9WWYgc4mpzGPcHFrC2M0=;
+ b=eUFhX5j0BYxKWt9IZoPaAILzLmLA6vZC3gtB6HQhmxzIIM/YNFziqGapPdRSXGuiAf
+ gPAi6Us6YfDOUkeEFUnQACI49fmKlRrGA8VLpa2Unf+OdnZWNsKVyF0yEsSm+Jyi5bg3
+ r7JFuthbGRiVAtajpVDkj1yjiNgGj824iZomkG7fn1mbxayV2+iu9d5wfl8UEDKyGggl
+ UV+KD8pP+aWw9jS2y76tkohng06ErT6+eqcQkAOIVAe3uY3tX0NjwL6R/p/iPjdkvTN9
+ adx9lkDV8Ws/dzzzRiobkbtrKRGKnVotOhQa0QDffsgYF+cZj/nxZ6V/QnKLslXSQYYR
+ jW+A==
+X-Gm-Message-State: AOAM533F8fvTPnKOKfn+EQ7JHwAu/p1ED+MN33cHDza88gvWpv8UBJNS
+ PH2iZl7eiua0ovuLMXD5GoA=
+X-Google-Smtp-Source: ABdhPJwCMejqhYTZ8XRFyj7AiIQmOgFD1X49X4ZHrHo8GJLTVEZjd55qbDaXbGsQ5BRTgnhBXrCdLQ==
+X-Received: by 2002:a05:6102:317a:: with SMTP id
+ l26mr1674572vsm.6.1632940970914; 
+ Wed, 29 Sep 2021 11:42:50 -0700 (PDT)
+Received: from geday ([2804:7f2:8280:7522:98f0:31ff:fe93:2dc7])
+ by smtp.gmail.com with ESMTPSA id w131sm343822vsw.14.2021.09.29.11.42.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 29 Sep 2021 11:42:50 -0700 (PDT)
+Date: Wed, 29 Sep 2021 15:42:49 -0300
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+To: Ruben Safir <ruben@mrbrklyn.com>
+Subject: Re: ALSA kernel projects - for academic purposes
+Message-ID: <YVSzqfgqWEoju4Xw@geday>
+References: <CAHhAz+i=3NDuxK2rZZY6N18=OTbkna3VMVpx4nNgF0vyq3JmQA@mail.gmail.com>
+ <324112.1632501120@turing-police>
+ <CAHhAz+jNCd=cw-bohcoiAA2UhNZYSFLX07qEV-T2p+KAsVHhAQ@mail.gmail.com>
+ <YU5QgPwYDB2XnaVP@geday> <20210929150715.GC15841@www2.mrbrklyn.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Authenticated: YES
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210929150715.GC15841@www2.mrbrklyn.com>
+Cc: Muni Sekhar <munisekharrms@gmail.com>,
+ alsa-devel <alsa-devel@alsa-project.org>,
+ Valdis =?utf-8?Q?Kl=C4=93tnieks?= <valdis.kletnieks@vt.edu>,
+ linux-sound@vger.kernel.org, kernelnewbies <kernelnewbies@kernelnewbies.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,100 +108,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 29 Sep 2021 17:28:57 +0200
-Takashi Iwai <tiwai@suse.de> wrote:
-
-> On Wed, 29 Sep 2021 17:17:58 +0200,
-> John Keeping wrote:
+On Wed, Sep 29, 2021 at 11:07:15AM -0400, Ruben Safir wrote:
+> On Fri, Sep 24, 2021 at 07:26:08PM -0300, Geraldo Nascimento wrote:
+> > On Fri, Sep 24, 2021 at 10:28:01PM +0530, Muni Sekhar wrote:
+> > > On Fri, Sep 24, 2021 at 10:02 PM Valdis Klētnieks
+> > > <valdis.kletnieks@vt.edu> wrote:
+> > > >
+> > > > On Fri, 24 Sep 2021 19:34:59 +0530, Muni Sekhar said:
+> > > > > What small projects would you suggest to a novice with the ALSA
+> > > > > kernel. The aim is to develop a familiarity with the ALSA kernel
+> > > > > source code, and also to submit it for academic purposes.
 > > 
-> > On Wed, 29 Sep 2021 16:51:47 +0200
-> > Takashi Iwai <tiwai@suse.de> wrote:
-> >   
-> > > On Wed, 29 Sep 2021 13:36:20 +0200,
-> > > John Keeping wrote:  
-> > > > 
-> > > > If the sequencer device outlives the rawmidi device, then
-> > > > snd_rawmidi_dev_seq_free() will run after release_rawmidi_device() has
-> > > > freed the snd_rawmidi structure.
-> > > > 
-> > > > This can easily be reproduced with CONFIG_DEBUG_KOBJECT_RELEASE.
-> > > > 
-> > > > Keep a reference to the rawmidi device until the sequencer has been
-> > > > destroyed in order to avoid this.
-> > > > 
-> > > > Signed-off-by: John Keeping <john@metanate.com>    
-> > > 
-> > > Thanks for the patch.  I wonder, though, how this could be triggered.
-> > > Is this the case where the connected sequencer device is being used
-> > > while the sound card gets released?  Or is it something else?  
-> > 
-> > I'm not sure if it's possible to trigger via the ALSA API; I haven't
-> > found a route that can trigger it, but that doesn't mean there isn't
-> > one :-)
-> > 
-> > Mostly this is useful to make CONFIG_DEBUG_KOBJECT_RELEASE cleaner.  
+> > I'm not an academicist by far but if you want your patches to be academic,
+> > I think it's more of a question of scientific rigour and scientific
+> > method, 
 > 
-> Hm, then could you check whether the patch below papers over it
-> instead?
+> 
+> No - it is an issue of education.  They are trying to learn something
+> that they don't already know.  The contribution is they become educated.
+>
+> > such that when the patch(set) is finally accepted by the Linux
+> > community and Linus Torvalds ultimately, you can write a paper about
+> > it.
+> >
+> 
+> 
+> They are not writing a paper for Linus.  They are writing it for their
+> dean or mentor.
+>
 
-No, this patch doesn't solve it.  The issue is that the effect of the
-final device_put() is delayed from the time it is called and there is no
-way to guarantee the ordering without ensuring the sequencer has been
-destroyed before the final reference to the rawmidi device is put.
+Hello Ruben,
 
-Both of the functions involved are called from the core
-device::release() hook.
+I don't see your point here. I mentioned not being in academia myself
+but last time I was, the academics, from the most junior to the most
+seasoned scholar, are writing for journals. They are writing to get
+published and cited hopefully.
 
-I'm using the patch below to easily check that the sequencer has been
-freed before the rawmidi data.  This can easily be triggered by
-unplugging a USB MIDI device (it's not 100% since the kobject release
-delays are random).
+If they were writing for their dean or mentor to grade them, that would
+be called homework. While that's arguably part of education, higher
+or otherwise, Muni Sekhar certainly did not ask for help with his
+homework.
 
--- >8 --
---- a/sound/core/rawmidi.c
-+++ b/sound/core/rawmidi.c
-@@ -1571,7 +1571,10 @@ static int snd_rawmidi_alloc_substreams(struct snd_rawmidi *rmidi,
- 
- static void release_rawmidi_device(struct device *dev)
- {
--       kfree(container_of(dev, struct snd_rawmidi, dev));
-+       struct snd_rawmidi *rmidi = container_of(dev, struct snd_rawmidi, dev);
-+
-+       WARN_ON(rmidi->seq_dev);
-+       kfree(rmidi);
- }
- 
- /**
--- 8< --
+> 
+> > Obviously there are a lot of things an academicist could bring from his
+> > background to improve the Linux kernel, 
+> 
+> Yeah - but that is not what they are trying to do.  And if that was the
+> case, this would likely not be the list for it, since this is a newbies
+> list.
+> 
+> 
+> > My suggestion is to ask Takashi Iwai if he has in mind 
+> 
+> BOINK - the doesn't need a new student dragging on his tail and if he
+> did then he would chose an intern to help with his code.
+> 
+> You are failing to understand how higher education works.
 
-> --- a/sound/core/seq/seq_ports.c
-> +++ b/sound/core/seq/seq_ports.c
-> @@ -415,11 +415,16 @@ static int subscribe_port(struct snd_seq_client *client,
->  			grp->count--;
->  		}
->  	}
-> -	if (err >= 0 && send_ack && client->type == USER_CLIENT)
-> +	if (err < 0)
-> +		return err;
-> +
-> +	if (send_ack && client->type == USER_CLIENT)
->  		snd_seq_client_notify_subscription(port->addr.client, port->addr.port,
->  						   info, SNDRV_SEQ_EVENT_PORT_SUBSCRIBED);
-> +	else if (client->type == KERNEL_CLIENT)
-> +		get_device(&client->data.kernel.card->card_dev);
->  
-> -	return err;
-> +	return 0;
->  }
->  
->  static int unsubscribe_port(struct snd_seq_client *client,
-> @@ -439,6 +444,8 @@ static int unsubscribe_port(struct snd_seq_client *client,
->  		snd_seq_client_notify_subscription(port->addr.client, port->addr.port,
->  						   info, SNDRV_SEQ_EVENT_PORT_UNSUBSCRIBED);
->  	module_put(port->owner);
-> +	if (client->type == KERNEL_CLIENT)
-> +		snd_card_unref(client->data.kernel.card);
->  	return err;
->  }
->  
+I do have my gripes with higher education and I never suggested I
+understood it.
 
+As to contacting the maintainer precisely of the part of the kernel you
+want to contribute (ALSA kernel-side for Muni Sekhar in this case)
+before actually contributing any code, this sounds, at least to me,
+like sensible advice.
+
+Thank you,
+Geraldo Nascimento
+
+> 
+> > _______________________________________________
+> > Kernelnewbies mailing list
+> > Kernelnewbies@kernelnewbies.org
+> > https://lists.kernelnewbies.org/mailman/listinfo/kernelnewbies
+> 
+> 
+> -- 
+> So many immigrant groups have swept through our town
+> that Brooklyn, like Atlantis, reaches mythological
+> proportions in the mind of the world - RI Safir 1998
+> http://www.mrbrklyn.com 
+> 
+> DRM is THEFT - We are the STAKEHOLDERS - RI Safir 2002
+> http://www.nylxs.com - Leadership Development in Free Software
+> http://www2.mrbrklyn.com/resources - Unpublished Archive 
+> http://www.coinhangout.com - coins!
+> http://www.brooklyn-living.com 
+> 
+> Being so tracked is for FARM ANIMALS and extermination camps, 
+> but incompatible with living as a free human being. -RI Safir 2013
+> 

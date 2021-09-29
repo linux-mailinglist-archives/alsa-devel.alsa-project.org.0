@@ -2,73 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1C4A41C830
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Sep 2021 17:19:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68C1241C85D
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Sep 2021 17:28:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4322616DA;
-	Wed, 29 Sep 2021 17:18:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4322616DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1BD016DD;
+	Wed, 29 Sep 2021 17:27:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1BD016DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632928767;
-	bh=GgdbX8sEkWXl2ViyjTSR27aoOhV2yDDQzCADyCQZi3I=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1632929327;
+	bh=lufwfwvERELgO9NEGU6Lgf7W4wEUPOq32o36cIe4gcY=;
+	h=From:To:References:In-Reply-To:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uHsGvtJ1S/wz7BN/WGeKeb8gL1s8VIQMPA5DoRKTvtunNsNtV/Sp4T/xUJoppJkoN
-	 o4q/Ipl67JF7WntFTEGLZsdmQkwyQe1X0uFY8YtVOv2YS3gA1IYDaI95Gq7WUYeBM5
-	 /a8eJxP9/QJRiW69zuzxXrmNDHUAI2vQGOXNifOg=
+	b=QpTH3OboKXNZTcYvPT+gy6FmQCbY23vxHP0mxBjmCu4sLMKeGw2Eu/S+fNoD5FE1V
+	 Reki2qRYJboTukIa31Rs6s9yEbFwdwmYrhEmSenerFQlw5RtH1MGRl+eGrtESNHMxG
+	 zk5hZDssmpxhsYitGSUHpIQw5NXJiQSbFF3A3ins=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A94F3F8026D;
-	Wed, 29 Sep 2021 17:18:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5FBF9F8026D;
+	Wed, 29 Sep 2021 17:27:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D44CDF80227; Wed, 29 Sep 2021 17:18:08 +0200 (CEST)
+ id 164A7F80227; Wed, 29 Sep 2021 17:27:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from metanate.com (unknown [IPv6:2001:8b0:1628:5005::111])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96933F80105
- for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 17:18:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96933F80105
+ by alsa1.perex.cz (Postfix) with ESMTPS id 49FEDF80161
+ for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 17:27:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49FEDF80161
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=metanate.com header.i=@metanate.com
- header.b="3CENo1UU"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=metanate.com; s=stronger; h=Content-Transfer-Encoding:Content-Type:
- References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-ID
- :Content-Description; bh=rjLdat9yjq8HJiW+J7pr/WIptZGdEDDoclvqwXbUkQY=; b=3CEN
- o1UUUnLZKR38/86YRTizDTxRbVFFPrXI8QuzlwgwFG60+HuKuUzGMEWzwqmRiLPAfHlVxVpIs/28F
- OcFPYiZqfv+3WYXY/yR26RjOyrhOMtrf8Co+ZSgn9XdCjMtotAwuMfccE0M/5hzvJ3Lya5hdRXnqK
- Xz7787w1WfNKf0k9kH54dBk8ME6xdqsPTc/aEkOCUnbbeAGd4YAJkZD61ZMNxIFAVrQhrfTemHlj+
- ufFUDyDV7kdbBxIpj10AG0SgxJoT2NW/mJCkyjpufd8rutsVfoJ3xYM4G8Uf/+tbsPziLWIDw2jUa
- agETGjBFi+l6mtv7OhdH4Z8oBO1vkw==;
-Received: from [81.174.171.191] (helo=donbot)
- by email.metanate.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.93) (envelope-from <john@metanate.com>)
- id 1mVbLL-0005pI-2d; Wed, 29 Sep 2021 16:17:59 +0100
-Date: Wed, 29 Sep 2021 16:17:58 +0100
-From: John Keeping <john@metanate.com>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH] ALSA: rawmidi: Fix potential UAF from sequencer
- destruction
-Message-ID: <20210929161758.49ce947f.john@metanate.com>
-In-Reply-To: <s5hzgrvl9j0.wl-tiwai@suse.de>
-References: <20210929113620.2194847-1-john@metanate.com>
- <s5hzgrvl9j0.wl-tiwai@suse.de>
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.30; x86_64-pc-linux-gnu)
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="UmMVhMfK"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18T5AOjm028432; 
+ Wed, 29 Sep 2021 10:27:22 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ references : in-reply-to : subject : date : message-id : mime-version :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=lufwfwvERELgO9NEGU6Lgf7W4wEUPOq32o36cIe4gcY=;
+ b=UmMVhMfK+s+JPZQeYlgZAta/LvCs66h/oQDiYP/LmEDlEDWwhw+1Byw2Klmiy5vlfWRJ
+ Q1drE8P+KZzS+mu8s994jCztAZ+7tjW1m98uW36i1rVYOUfP9KZVAkfLmemr0qwa8cZv
+ DSroPcJ6QGuhOXa/2Ft64IaTRsCYDeLKCaSF1KvH8kh2RgURVqOVWebqODNGd7X7ETuQ
+ nJ8HfVbSeMWot4EzFLpdFHQbIBWIk/RR4m0am905PY1Es+gUxxQtPan7V6n49aPnaAjw
+ N3H52kx0JjmfokUBTaBTE3qWHFde3SsOFklGtOZK2r14FoE0/nuTJX0+TuuqCvOrVDz7 rw== 
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0b-001ae601.pphosted.com with ESMTP id 3bc62dhg40-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 29 Sep 2021 10:27:22 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Wed, 29 Sep
+ 2021 16:27:20 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.12 via
+ Frontend Transport; Wed, 29 Sep 2021 16:27:20 +0100
+Received: from LONN13613Z2 (unknown [198.90.238.180])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id BA7C3B13;
+ Wed, 29 Sep 2021 15:27:19 +0000 (UTC)
+From: Simon Trimmer <simont@opensource.cirrus.com>
+To: 'Mark Brown' <broonie@kernel.org>
+References: <20210929145040.793252-1-simont@opensource.cirrus.com>
+ <20210929145222.GR4199@sirena.org.uk>
+In-Reply-To: <20210929145222.GR4199@sirena.org.uk>
+Subject: RE: [PATCH] ASoC: wm_adsp: Fix compilation when debugfs is disabled
+Date: Wed, 29 Sep 2021 16:27:19 +0100
+Message-ID: <003301d7b546$7e33c860$7a9b5920$@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Authenticated: YES
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQGXccUOEHhpH88acPEvIClxpmzepAEhxdJIrDKTD1A=
+Content-Language: en-us
+X-Proofpoint-GUID: 8gEi_8JgVpX4abUr5fYqsVxHug7M5HkR
+X-Proofpoint-ORIG-GUID: 8gEi_8JgVpX4abUr5fYqsVxHug7M5HkR
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ 'kernel test robot' <lkp@intel.com>, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,64 +102,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 29 Sep 2021 16:51:47 +0200
-Takashi Iwai <tiwai@suse.de> wrote:
+> On Wednesday, September 29, 2021 3:52 PM, Mark Brown wrote:
+> The more common pattern is to declare a static inline stub function
+> instead of the prototype if debugfs is disabled.
 
-> On Wed, 29 Sep 2021 13:36:20 +0200,
-> John Keeping wrote:
-> > 
-> > If the sequencer device outlives the rawmidi device, then
-> > snd_rawmidi_dev_seq_free() will run after release_rawmidi_device() has
-> > freed the snd_rawmidi structure.
-> > 
-> > This can easily be reproduced with CONFIG_DEBUG_KOBJECT_RELEASE.
-> > 
-> > Keep a reference to the rawmidi device until the sequencer has been
-> > destroyed in order to avoid this.
-> > 
-> > Signed-off-by: John Keeping <john@metanate.com>  
-> 
-> Thanks for the patch.  I wonder, though, how this could be triggered.
-> Is this the case where the connected sequencer device is being used
-> while the sound card gets released?  Or is it something else?
+Hi Mark,
+Yes there is one for the cs_dsp_init_debugfs function though the compilation
+failure the bot
+detected is with the parameter dereferencing the disappearing
+snd_soc_component member.
 
-I'm not sure if it's possible to trigger via the ALSA API; I haven't
-found a route that can trigger it, but that doesn't mean there isn't
-one :-)
+I could make a utility inline for use in this function that would do the
+dereference or return NULL
+based on the state of the config option if you think that would be neater?
+(For the expense of a
+new function it would separate the call of the stub from the conditional
+access of the member
+based on IS_ENABLED)
 
-Mostly this is useful to make CONFIG_DEBUG_KOBJECT_RELEASE cleaner.
-
-
-Regards,
-John
-
-> > ---
-> >  sound/core/rawmidi.c | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> > 
-> > diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
-> > index 6f30231bdb88..b015f5f69175 100644
-> > --- a/sound/core/rawmidi.c
-> > +++ b/sound/core/rawmidi.c
-> > @@ -1860,6 +1860,7 @@ static void snd_rawmidi_dev_seq_free(struct snd_seq_device *device)
-> >  	struct snd_rawmidi *rmidi = device->private_data;
-> >  
-> >  	rmidi->seq_dev = NULL;
-> > +	put_device(&rmidi->dev);
-> >  }
-> >  #endif
-> >  
-> > @@ -1936,6 +1937,9 @@ static int snd_rawmidi_dev_register(struct snd_device *device)
-> >  #if IS_ENABLED(CONFIG_SND_SEQUENCER)
-> >  	if (!rmidi->ops || !rmidi->ops->dev_register) { /* own registration mechanism */
-> >  		if (snd_seq_device_new(rmidi->card, rmidi->device, SNDRV_SEQ_DEV_ID_MIDISYNTH, 0, &rmidi->seq_dev) >= 0) {
-> > +			/* Ensure we outlive the sequencer (see snd_rawmidi_dev_seq_free). */
-> > +			get_device(&rmidi->dev);
-> > +
-> >  			rmidi->seq_dev->private_data = rmidi;
-> >  			rmidi->seq_dev->private_free = snd_rawmidi_dev_seq_free;
-> >  			sprintf(rmidi->seq_dev->name, "MIDI %d-%d", rmidi->card->number, rmidi->device);
-> > -- 
-> > 2.33.0
-> >   
+Thanks,
+Simon
 

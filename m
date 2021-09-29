@@ -2,70 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B15841C56F
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Sep 2021 15:19:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CB9B41C876
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Sep 2021 17:31:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3585916BE;
-	Wed, 29 Sep 2021 15:18:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3585916BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id A64B016FE;
+	Wed, 29 Sep 2021 17:30:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A64B016FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632921567;
-	bh=xtLbCRh5xCE2yUqi9k04cLpvo/QHop+ckgKyYeoYq+M=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1632929471;
+	bh=t3MtYp2LBJvyxGBbxSvlODKPa3A5zidD7nPJNix+GAo=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=APPgQ/eB9BEm4IeOBzIxwjEJ+rpYbCfT0XZ7UrddMHahVjMN8a8Ob40EdSUxJDTH7
-	 jY0QrFSW2pDwYB1NLjyYHAoEvx1PJeywqdBn9I6H6IHBUo5+MfrBhn/gujuQ6Hh4LO
-	 awebZaEZaO7ZNCS1OPkUi/OLlkFYi3bzz+ZePTns=
+	b=rdFijVkdQ1jkFab/trP/zsH0B9b/H6wNv8BDzdLrGiDDQKG1NP5y/HJ3USH2sjPBD
+	 NJzyYU+rJwPduBnLDilmIzcjoTWrlcSAIpr53WLuu7AUTHqQvV0L3a0QZB7m1ykY9Q
+	 CkvImQrrNLoZ/MBVod18Pb2/IlW1xqn/HnxIJYVM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F820F80161;
-	Wed, 29 Sep 2021 15:17:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D8F8F8026D;
+	Wed, 29 Sep 2021 17:30:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F147EF804E4; Wed, 29 Sep 2021 15:17:46 +0200 (CEST)
+ id D4F0AF80301; Wed, 29 Sep 2021 17:30:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4C189F8026D
- for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 15:17:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C189F8026D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Eob3QP+u"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 07DFC613A7;
- Wed, 29 Sep 2021 13:17:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1632921458;
- bh=xtLbCRh5xCE2yUqi9k04cLpvo/QHop+ckgKyYeoYq+M=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Eob3QP+uHfk3A+Jw8yHyVsOYzF+aKRaJg1nmwZoY4CUmfe9/LVP/XcTYxqqkBVGzJ
- SZ+NYhmsl3Ok2VHV93g4Cz1SNsHrogp4XGZH39DjhAIvBK7B4Jmdm/JKWZWX6fS35b
- B9qM/MDxH2hUFsRUqwCPLB1IzhVnlMtDmHU7k99T4cFiE0Z3q7XMCSg7MEXHb/Rbn8
- RcIB2AWuWcAlYUdy+J5T6XCvtJOo+LSfYGpKDbuHvYtTVotNn+VRa+HUJxIfoJYV7l
- +wTnsrm+8Xq0NFfYL/BX9BCeDUoJgerBMyEWB51Huezm9+r1G3V62A6s3kqRQZdwqr
- WkVM7y1fylMUw==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
- Rikard Falkeborn <rikard.falkeborn@gmail.com>
-Subject: Re: [PATCH] ASoC: ux500: mop500: Constify static snd_soc_ops
-Date: Wed, 29 Sep 2021 14:16:45 +0100
-Message-Id: <163292102842.46827.6744851030638549550.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210929094401.28086-1-rikard.falkeborn@gmail.com>
-References: <20210929094401.28086-1-rikard.falkeborn@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id AE2DCF801F7
+ for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 17:30:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE2DCF801F7
+X-IronPort-AV: E=McAfee;i="6200,9189,10122"; a="225036975"
+X-IronPort-AV: E=Sophos;i="5.85,332,1624345200"; d="scan'208";a="225036975"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2021 08:30:07 -0700
+X-IronPort-AV: E=Sophos;i="5.85,332,1624345200"; d="scan'208";a="588091570"
+Received: from ibarchen-mobl.amr.corp.intel.com (HELO [10.209.150.234])
+ ([10.209.150.234])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2021 08:30:06 -0700
+Subject: Re: [PATCH] ASoC: dpcm: fix race condition to dpcm links in
+ dpcm_be_dai_trigger
+To: Gyeongtaek Lee <gt82.lee@samsung.com>, 'Takashi Iwai' <tiwai@suse.de>
+References: <CGME20210929054921epcas2p2fbe35a6262405e064aac3bd92b22b1aa@epcas2p2.samsung.com>
+ <002f01d7b4f5$c030f4a0$4092dde0$@samsung.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <27786697-1309-8336-6f53-abff32e0b6c2@linux.intel.com>
+Date: Wed, 29 Sep 2021 09:11:35 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
+In-Reply-To: <002f01d7b4f5$c030f4a0$4092dde0$@samsung.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, kimty@samsung.com, lgirdwood@gmail.com,
+ senius.park@samsung.com, donggyun.ko@samsung.com, hmseo@samsung.com,
+ seungbin.lee@samsung.com, s47.kang@samsung.com, pilsun.jang@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,37 +79,131 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 29 Sep 2021 11:44:01 +0200, Rikard Falkeborn wrote:
-> The struct mop500_ab8500_ops is only assigned to the ops field in the
-> snd_soc_dai_link struct which is a pointer to const struct snd_soc_ops.
-> Make it const to allow the compiler to put it in read-only memory.
+
+
+On 9/29/21 12:49 AM, Gyeongtaek Lee wrote:
+> If routing change and underrun stop is run at the same time,
+> data abort can be occurred by the following sequence.
 > 
+> CPU0: Processing underrun 	CPU1: Processing routing change
+> dpcm_be_dai_trigger():		dpcm_be_disconnect():
 > 
+> for_each_dpcm_be(fe, stream, dpcm) {
+> 
+> 				spin_lock_irqsave(&fe->card->dpcm_lock, flags);
+> 				list_del(&dpcm->list_be);
+> 				list_del(&dpcm->list_fe);
+> 				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+> 				kfree(dpcm);
+> 
+> struct snd_soc_pcm_runtime *be = dpcm->be; <-- Accessing freed memory
+> 
+> To prevent this situation, dpcm_lock is needed during accessing
+> the lists for dpcm links.
 
-Applied to
+Isn't there still a possible inconsistency here introduced by the
+duplication of the BE list?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+You protect the list creation, but before you use it in
+dpcm_be_dai_trigger(), there's a time window where the function could be
+pre-empted and a disconnect event might have happened. As a result you
+could trigger a BE that's no longer connected.
 
-Thanks!
+What you identified as a race is likely valid, but how to fix it isn't
+clear to me - the DPCM code isn't self-explanatory at all with its use
+in various places of the dpcm_lock spinlock, the pcm mutex, the card mutex.
 
-[1/1] ASoC: ux500: mop500: Constify static snd_soc_ops
-      commit: 2831b71917264d7000855657acb1953003d3fd2d
+Ideally we would need to find a way to prevent changes in connections
+while we are doing the triggers, but triggers can take a bit of time if
+they involve any sort of communication over a bus. I really wonder if
+this dpcm_lock should be a mutex and if the model for DPCM really
+involves interrupt contexts as the irqsave/irqrestore mentions hint at.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+> Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
+> Cc: stable@vger.kernel.org
+> ---
+>  sound/soc/soc-pcm.c | 53 ++++++++++++++++++++++++++++++++++++++++++---
+>  1 file changed, 50 insertions(+), 3 deletions(-)
+> 
+> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+> index 48f71bb81a2f..df2cd4c0dabe 100644
+> --- a/sound/soc/soc-pcm.c
+> +++ b/sound/soc/soc-pcm.c
+> @@ -1993,17 +1993,63 @@ static int dpcm_fe_dai_hw_params(struct snd_pcm_substream *substream,
+>  	return ret;
+>  }
+>  
+> +struct dpcm_be_list {
+> +	unsigned int num;
+> +	struct snd_soc_pcm_runtime *be[];
+> +};
+> +
+> +static int dpcm_create_be_list(struct snd_soc_pcm_runtime *fe, int stream,
+> +		struct dpcm_be_list **be_list)
+> +{
+> +	struct snd_soc_dpcm *dpcm;
+> +	struct dpcm_be_list *be;
+> +	int size = 0;
+> +	int ret = 0;
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&fe->card->dpcm_lock, flags);
+> +
+> +	for_each_dpcm_be(fe, stream, dpcm)
+> +		size++;
+> +
+> +	be = kzalloc(struct_size(be, be, size), GFP_ATOMIC);
+> +	if (!be) {
+> +		ret = -ENOMEM;
+> +	} else {
+> +		unsigned int i = 0;
+> +
+> +		for_each_dpcm_be(fe, stream, dpcm)
+> +			be->be[i++] = dpcm->be;
+> +
+> +		*be_list = be;
+> +	}
+> +
+> +	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+> +
+> +	return ret;
+> +}
+> +
+> +static void dpcm_free_be_list(struct dpcm_be_list *be_list)
+> +{
+> +	kfree(be_list);
+> +}
+> +
+>  int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+>  			       int cmd)
+>  {
+>  	struct snd_soc_pcm_runtime *be;
+> -	struct snd_soc_dpcm *dpcm;
+> +	struct dpcm_be_list *be_list;
+>  	int ret = 0;
+> +	int i;
+>  
+> -	for_each_dpcm_be(fe, stream, dpcm) {
+> +	ret = dpcm_create_be_list(fe, stream, &be_list);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	for(i = 0; i < be_list->num; i++) {
+>  		struct snd_pcm_substream *be_substream;
+>  
+> -		be = dpcm->be;
+> +		be = be_list->be[i];
+>  		be_substream = snd_soc_dpcm_get_substream(be, stream);
+>  
+>  		/* is this op for this BE ? */
+> @@ -2092,6 +2138,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+>  	if (ret < 0)
+>  		dev_err(fe->dev, "ASoC: %s() failed at %s (%d)\n",
+>  			__func__, be->dai_link->name, ret);
+> +	dpcm_free_be_list(be_list);
+>  	return ret;
+>  }
+>  EXPORT_SYMBOL_GPL(dpcm_be_dai_trigger);
+> 
+> base-commit: 4ac6d90867a4de2e12117e755dbd76e08d88697f
+> 

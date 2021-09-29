@@ -2,67 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 155B141C38D
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Sep 2021 13:37:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A484F41C3FA
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Sep 2021 13:58:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6FA6616A3;
-	Wed, 29 Sep 2021 13:37:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FA6616A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC2D116A1;
+	Wed, 29 Sep 2021 13:57:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC2D116A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632915477;
-	bh=9nHaDdzjWIQydUpc7SF/WDg3GDN6suAJytrlycN4zxA=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=nLy9MzXoKtgjNi5SZAKNLoregRBYIWFiRNV0WBUF4A/5p0+6NNnVAXTScuhesk06Y
-	 WNVXIUd5aRxfBfzBmV+IVYlZJIdt6zR4viutDdwnPeVtY6AAXePzmVeuqt6Y+QHKSg
-	 umW/Z3yfYWE1ap82P8dajO6GlFmv12aMveLEMn5s=
+	s=default; t=1632916693;
+	bh=FRvG2ftF8rsmCtEwqD9minryJ1CMBouw6+vWnxIyz00=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=PLpgxi+J/Ncxux+RdBVcu9+POHacILaViWIylAta7I40SZg9OABQ5UevFxUPfmgVI
+	 2Ra4ScQ/iY/erepzOOuBwHVgBuZxW38kPQjOQgV9KbURK4JsOFNfd+baf/DFnkgiXW
+	 MjlsN2fFRxVTIqmFwztEzr26LDkOLmh+YqZi6jJc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0831F80105;
-	Wed, 29 Sep 2021 13:36:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2AEC7F801F7;
+	Wed, 29 Sep 2021 13:56:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5ADE9F80227; Wed, 29 Sep 2021 13:36:38 +0200 (CEST)
+ id 42153F80227; Wed, 29 Sep 2021 13:56:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from metanate.com (unknown [IPv6:2001:8b0:1628:5005::111])
+X-Spam-Status: No, score=0.8 required=5.0 tests=CTE_8BIT_MISMATCH, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7C241F80105
- for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 13:36:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C241F80105
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=metanate.com header.i=@metanate.com
- header.b="x5Y2PoyL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=metanate.com; s=stronger; h=Content-Transfer-Encoding:Message-Id:Date:
- Subject:Cc:To:From:Content-Type:Reply-To:Content-ID:Content-Description:
- In-Reply-To:References; bh=NG/dLqRkfXHdlB4dmK0BgcBIdTMjxPfvn7MfDjTG9OQ=; b=x5
- Y2PoyLwwRVwoZa3v8CwgEkb82mzZvjytFBMCSP08brAFyuNtbc2pdxdKG+Kp8xuFY6BtT1WpMfqD3
- UhJ1x1zfRfYJeGep9A2+apYkxhQIOjrSjZJxzjRxCqqTQDVZ++NN2OC1vzxkkmHwk3ug7h32o/Kc3
- FDFPmfmgaNW0ptDg/rOWUeUU7knZ04JJY9Byl5kfqBDjq68NYZsDmh3/F33ZsTc5eUQQA8HXlakDu
- HfzFTp1bQPrxeuIQKCNqiCgfHbTc1XjXl2PSbi37jIvcWsF0A32Um6Knp/BHclXOgdn7whW8c4pl2
- KpwAyuIbaWnVLf6Rz1ypQrIqdzDyb8qw==;
-Received: from [81.174.171.191] (helo=donbot.metanate.com)
- by email.metanate.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.93) (envelope-from <john@metanate.com>)
- id 1mVXsx-00032A-OM; Wed, 29 Sep 2021 12:36:27 +0100
-From: John Keeping <john@metanate.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: rawmidi: Fix potential UAF from sequencer destruction
-Date: Wed, 29 Sep 2021 12:36:20 +0100
-Message-Id: <20210929113620.2194847-1-john@metanate.com>
-X-Mailer: git-send-email 2.33.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id A9A17F80105
+ for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 13:56:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9A17F80105
+X-IronPort-AV: E=McAfee;i="6200,9189,10121"; a="285937597"
+X-IronPort-AV: E=Sophos;i="5.85,332,1624345200"; d="scan'208";a="285937597"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2021 04:56:46 -0700
+X-IronPort-AV: E=Sophos;i="5.85,332,1624345200"; d="scan'208";a="476617195"
+Received: from heid-mobl.ger.corp.intel.com (HELO [10.249.37.205])
+ ([10.249.37.205])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2021 04:56:41 -0700
+Message-ID: <2f96f1aa-74f2-8ea8-3f43-e4da97400fde@linux.intel.com>
+Date: Wed, 29 Sep 2021 14:56:46 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authenticated: YES
-Cc: linux-kernel@vger.kernel.org, John Keeping <john@metanate.com>,
- Takashi Iwai <tiwai@suse.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.1.1
+Subject: Re: [PATCH 01/13] ASoC: soc-pcm: Don't reconnect an already active BE
+Content-Language: en-US
+To: Sameer Pujar <spujar@nvidia.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ broonie@kernel.org, lgirdwood@gmail.com, robh+dt@kernel.org,
+ thierry.reding@gmail.com, jonathanh@nvidia.com, catalin.marinas@arm.com,
+ will@kernel.org, perex@perex.cz, tiwai@suse.com,
+ kuninori.morimoto.gx@renesas.com
+References: <1630056839-6562-1-git-send-email-spujar@nvidia.com>
+ <1630056839-6562-2-git-send-email-spujar@nvidia.com>
+ <be6290d1-0682-3d93-98a6-ad0be3ca42c1@linux.intel.com>
+ <70422e52-89d2-d926-b3f9-be59780d464e@nvidia.com>
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <70422e52-89d2-d926-b3f9-be59780d464e@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org, sharadg@nvidia.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,42 +85,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If the sequencer device outlives the rawmidi device, then
-snd_rawmidi_dev_seq_free() will run after release_rawmidi_device() has
-freed the snd_rawmidi structure.
 
-This can easily be reproduced with CONFIG_DEBUG_KOBJECT_RELEASE.
 
-Keep a reference to the rawmidi device until the sequencer has been
-destroyed in order to avoid this.
+On 29/09/2021 10:43, Sameer Pujar wrote:
+> 
+> 
+> On 9/29/2021 2:55 AM, Pierre-Louis Bossart wrote:
+>> On 8/27/21 4:33 AM, Sameer Pujar wrote:
+> 
+> [...]
+> 
+>> But in addition we'd need to agree on what an 'active BE' is. Why can't
+>> we connect a second stream while the first one is already in HW_PARAMS
+>> or PAUSED or STOP? It's perfectly legal in ALSA/ASoC to have multiple
+>> HW_PARAMS calls, and when we reach STOP we have to do a prepare again.
+>>
+>> And more fundamentally, the ability to add a second FE on a 'active' BE
+>> in START state is a basic requirement for a mixer, e.g. to play a
+>> notification on one FE while listening to music on another. What needs
+>> to happen is only to make sure that the FE and BE are compatible in
+>> terms of HW_PARAMS and not sending a second TRIGGER_STOP, only checking
+>> the BE NEW or CLOSE state is way too restrictive.
+> 
+> Sorry for the trouble to your system.
+> 
+> Idea was to avoid reconfiguration of the same BE DAI again, but not to
+> stop the provision to add a subsequent FE. In fact I had tested mixing
+> of streams coming from 10 different FEs.
+> 
+> In your case, because of this patch, looks like the subsequent FE is not
+> finding a BE DAI since it is already active due to a prior FE. The
+> reason it works at my end is because the mixer input and output DAIs are
+> separated. Any new FE would just configure the mixer input DAI to which
+> it is attached and skip already running/configured output DAI. 
 
-Signed-off-by: John Keeping <john@metanate.com>
----
- sound/core/rawmidi.c | 4 ++++
- 1 file changed, 4 insertions(+)
+The problem as I see is that with this patch one can not connect a new
+FE to a BE which is _not_ in NEW or CLOSE state.
 
-diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
-index 6f30231bdb88..b015f5f69175 100644
---- a/sound/core/rawmidi.c
-+++ b/sound/core/rawmidi.c
-@@ -1860,6 +1860,7 @@ static void snd_rawmidi_dev_seq_free(struct snd_seq_device *device)
- 	struct snd_rawmidi *rmidi = device->private_data;
- 
- 	rmidi->seq_dev = NULL;
-+	put_device(&rmidi->dev);
- }
- #endif
- 
-@@ -1936,6 +1937,9 @@ static int snd_rawmidi_dev_register(struct snd_device *device)
- #if IS_ENABLED(CONFIG_SND_SEQUENCER)
- 	if (!rmidi->ops || !rmidi->ops->dev_register) { /* own registration mechanism */
- 		if (snd_seq_device_new(rmidi->card, rmidi->device, SNDRV_SEQ_DEV_ID_MIDISYNTH, 0, &rmidi->seq_dev) >= 0) {
-+			/* Ensure we outlive the sequencer (see snd_rawmidi_dev_seq_free). */
-+			get_device(&rmidi->dev);
-+
- 			rmidi->seq_dev->private_data = rmidi;
- 			rmidi->seq_dev->private_free = snd_rawmidi_dev_seq_free;
- 			sprintf(rmidi->seq_dev->name, "MIDI %d-%d", rmidi->card->number, rmidi->device);
+The FE and BE needs to be connected to have DPCM working and this patch
+makes the code to skip the dpcm_be_connect().
+
+Consider this simple setup:
+
+FE1 -->|
+       | --> BE -->
+FE2- ->|
+
+First we start FE1, dpcm_be_connect(FE1, BE, stream) is made.
+
+Later FE2 is started but dpcm_be_connect(FE2, BE, stream) would be not
+made because BE is no longer in NEW/CLOSE state.
+
+> I am just
+> curious to know, if originally you were reconfiguring the BE DAI again
+> with same parameters (for a second FE) or some additional configuration
+> is done?
+> 
+> 
+>> I can send a revert with the explanations in the commit message if there
+>> is a consensus that this patch needs to be revisited.
+> 
+> May be this can be revisited since it appears to be a critical problem
+> for your system. But I hope this discussion can be alive on following
+> points for a better fix.
+> 
+> 1. The original issue at my end was not just a configuration redundancy.
+> I realize now that with more stream addition following error print is seen.
+>    "ASoC: too many users playback at open 4"
+> 
+>    This is because the max DPCM users is capped at 8. Increasing this
+> may help (need to see what number is better), but does not address the
+> redundancy problem.
+> 
+> 2. If reconfiguration of the same BE is not necessary for a subsequent
+> FE run, shouldn't we avoid the reconfig itself and somehow avoid FE
+> failure?
+
+I'm not sure, but it might be possible to just skip the
+dpcm_set_be_update_state(be, stream, SND_SOC_DPCM_UPDATE_BE);
+call at the end of the loop, but the question is under which condition?
+Can a BE asked to be reconfigured when STOP/OPEN/HW_PARAMS?
+
+Skipping the connect does not sound right for a new FE-BE connection.
+
 -- 
-2.33.0
-
+Péter

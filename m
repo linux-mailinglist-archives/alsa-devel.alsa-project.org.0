@@ -2,91 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68C1241C85D
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Sep 2021 17:28:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FB3041C875
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Sep 2021 17:30:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F1BD016DD;
-	Wed, 29 Sep 2021 17:27:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1BD016DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0AABF16F1;
+	Wed, 29 Sep 2021 17:29:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AABF16F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632929327;
-	bh=lufwfwvERELgO9NEGU6Lgf7W4wEUPOq32o36cIe4gcY=;
-	h=From:To:References:In-Reply-To:Subject:Date:Cc:List-Id:
+	s=default; t=1632929433;
+	bh=Jku+X9f22GBNyj5rYbQlfxXOngLY6MMJ4G9e9c0PUoY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QpTH3OboKXNZTcYvPT+gy6FmQCbY23vxHP0mxBjmCu4sLMKeGw2Eu/S+fNoD5FE1V
-	 Reki2qRYJboTukIa31Rs6s9yEbFwdwmYrhEmSenerFQlw5RtH1MGRl+eGrtESNHMxG
-	 zk5hZDssmpxhsYitGSUHpIQw5NXJiQSbFF3A3ins=
+	b=Lq3pHIMAXEqCx50qBHOic+D6P5RUZRz2GOiILNfXf0CTos96kgeEB8GA7BeEb73Pv
+	 FTar534LQJK1NKFU5bNFSrWyiwmrJfb0ZqFhxKzJDDLuRwnKHjc/yGwqAv5qmlS9+S
+	 1Ys0ueero2IE24rMtTyojjPoZAs3tTP4PEygSiTI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5FBF9F8026D;
-	Wed, 29 Sep 2021 17:27:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7FBD4F80113;
+	Wed, 29 Sep 2021 17:29:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 164A7F80227; Wed, 29 Sep 2021 17:27:28 +0200 (CEST)
+ id 1BA97F80227; Wed, 29 Sep 2021 17:29:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 49FEDF80161
- for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 17:27:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49FEDF80161
+ by alsa1.perex.cz (Postfix) with ESMTPS id A1513F80113
+ for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 17:29:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1513F80113
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="UmMVhMfK"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18T5AOjm028432; 
- Wed, 29 Sep 2021 10:27:22 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- references : in-reply-to : subject : date : message-id : mime-version :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=lufwfwvERELgO9NEGU6Lgf7W4wEUPOq32o36cIe4gcY=;
- b=UmMVhMfK+s+JPZQeYlgZAta/LvCs66h/oQDiYP/LmEDlEDWwhw+1Byw2Klmiy5vlfWRJ
- Q1drE8P+KZzS+mu8s994jCztAZ+7tjW1m98uW36i1rVYOUfP9KZVAkfLmemr0qwa8cZv
- DSroPcJ6QGuhOXa/2Ft64IaTRsCYDeLKCaSF1KvH8kh2RgURVqOVWebqODNGd7X7ETuQ
- nJ8HfVbSeMWot4EzFLpdFHQbIBWIk/RR4m0am905PY1Es+gUxxQtPan7V6n49aPnaAjw
- N3H52kx0JjmfokUBTaBTE3qWHFde3SsOFklGtOZK2r14FoE0/nuTJX0+TuuqCvOrVDz7 rw== 
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com with ESMTP id 3bc62dhg40-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 29 Sep 2021 10:27:22 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Wed, 29 Sep
- 2021 16:27:20 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2242.12 via
- Frontend Transport; Wed, 29 Sep 2021 16:27:20 +0100
-Received: from LONN13613Z2 (unknown [198.90.238.180])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id BA7C3B13;
- Wed, 29 Sep 2021 15:27:19 +0000 (UTC)
-From: Simon Trimmer <simont@opensource.cirrus.com>
-To: 'Mark Brown' <broonie@kernel.org>
-References: <20210929145040.793252-1-simont@opensource.cirrus.com>
- <20210929145222.GR4199@sirena.org.uk>
-In-Reply-To: <20210929145222.GR4199@sirena.org.uk>
-Subject: RE: [PATCH] ASoC: wm_adsp: Fix compilation when debugfs is disabled
-Date: Wed, 29 Sep 2021 16:27:19 +0100
-Message-ID: <003301d7b546$7e33c860$7a9b5920$@opensource.cirrus.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQGXccUOEHhpH88acPEvIClxpmzepAEhxdJIrDKTD1A=
-Content-Language: en-us
-X-Proofpoint-GUID: 8gEi_8JgVpX4abUr5fYqsVxHug7M5HkR
-X-Proofpoint-ORIG-GUID: 8gEi_8JgVpX4abUr5fYqsVxHug7M5HkR
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- 'kernel test robot' <lkp@intel.com>, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="BSllR3wC"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="PyIdI0Xt"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id E7D581FDF4;
+ Wed, 29 Sep 2021 15:28:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1632929337; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=EXTYgpyqyk4d2YOzgdP/ZmF0Ij1b/ctK3pK3FhvdG+Y=;
+ b=BSllR3wC6rJCS7sjMYq7TIxQ0yvSBF7X7gCgGyGRYjfrXJhsx7+CO/Yvb4na6jIHXlkIbJ
+ Eb9JBMm38H4VPq9mXFAXKs+zwM/DkpCYWRZOd1V+V2AJMZl07PYSpVBUPC65G5gFGmaOra
+ 04r8qDDXF8dqNOKWjIfjUuwOBUCPQ28=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1632929337;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=EXTYgpyqyk4d2YOzgdP/ZmF0Ij1b/ctK3pK3FhvdG+Y=;
+ b=PyIdI0XtL4wImN5DJikdYRBF6WJYq2Kf1SP0wQ9x5yY78kIk9resfCE9iwAG2hVZ1IcSXL
+ jsIbZ4nw1sGOcZAg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id DF0FBA3CE3;
+ Wed, 29 Sep 2021 15:28:57 +0000 (UTC)
+Date: Wed, 29 Sep 2021 17:28:57 +0200
+Message-ID: <s5hv92jl7t2.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: John Keeping <john@metanate.com>
+Subject: Re: [PATCH] ALSA: rawmidi: Fix potential UAF from sequencer
+ destruction
+In-Reply-To: <20210929161758.49ce947f.john@metanate.com>
+References: <20210929113620.2194847-1-john@metanate.com>
+ <s5hzgrvl9j0.wl-tiwai@suse.de>
+ <20210929161758.49ce947f.john@metanate.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,24 +96,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> On Wednesday, September 29, 2021 3:52 PM, Mark Brown wrote:
-> The more common pattern is to declare a static inline stub function
-> instead of the prototype if debugfs is disabled.
+On Wed, 29 Sep 2021 17:17:58 +0200,
+John Keeping wrote:
+> 
+> On Wed, 29 Sep 2021 16:51:47 +0200
+> Takashi Iwai <tiwai@suse.de> wrote:
+> 
+> > On Wed, 29 Sep 2021 13:36:20 +0200,
+> > John Keeping wrote:
+> > > 
+> > > If the sequencer device outlives the rawmidi device, then
+> > > snd_rawmidi_dev_seq_free() will run after release_rawmidi_device() has
+> > > freed the snd_rawmidi structure.
+> > > 
+> > > This can easily be reproduced with CONFIG_DEBUG_KOBJECT_RELEASE.
+> > > 
+> > > Keep a reference to the rawmidi device until the sequencer has been
+> > > destroyed in order to avoid this.
+> > > 
+> > > Signed-off-by: John Keeping <john@metanate.com>  
+> > 
+> > Thanks for the patch.  I wonder, though, how this could be triggered.
+> > Is this the case where the connected sequencer device is being used
+> > while the sound card gets released?  Or is it something else?
+> 
+> I'm not sure if it's possible to trigger via the ALSA API; I haven't
+> found a route that can trigger it, but that doesn't mean there isn't
+> one :-)
+> 
+> Mostly this is useful to make CONFIG_DEBUG_KOBJECT_RELEASE cleaner.
 
-Hi Mark,
-Yes there is one for the cs_dsp_init_debugfs function though the compilation
-failure the bot
-detected is with the parameter dereferencing the disappearing
-snd_soc_component member.
+Hm, then could you check whether the patch below papers over it
+instead?
 
-I could make a utility inline for use in this function that would do the
-dereference or return NULL
-based on the state of the config option if you think that would be neater?
-(For the expense of a
-new function it would separate the call of the stub from the conditional
-access of the member
-based on IS_ENABLED)
 
-Thanks,
-Simon
+thanks,
 
+Takashi
+
+--- a/sound/core/seq/seq_ports.c
++++ b/sound/core/seq/seq_ports.c
+@@ -415,11 +415,16 @@ static int subscribe_port(struct snd_seq_client *client,
+ 			grp->count--;
+ 		}
+ 	}
+-	if (err >= 0 && send_ack && client->type == USER_CLIENT)
++	if (err < 0)
++		return err;
++
++	if (send_ack && client->type == USER_CLIENT)
+ 		snd_seq_client_notify_subscription(port->addr.client, port->addr.port,
+ 						   info, SNDRV_SEQ_EVENT_PORT_SUBSCRIBED);
++	else if (client->type == KERNEL_CLIENT)
++		get_device(&client->data.kernel.card->card_dev);
+ 
+-	return err;
++	return 0;
+ }
+ 
+ static int unsubscribe_port(struct snd_seq_client *client,
+@@ -439,6 +444,8 @@ static int unsubscribe_port(struct snd_seq_client *client,
+ 		snd_seq_client_notify_subscription(port->addr.client, port->addr.port,
+ 						   info, SNDRV_SEQ_EVENT_PORT_UNSUBSCRIBED);
+ 	module_put(port->owner);
++	if (client->type == KERNEL_CLIENT)
++		snd_card_unref(client->data.kernel.card);
+ 	return err;
+ }
+ 

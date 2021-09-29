@@ -2,84 +2,139 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DF6B41BECF
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Sep 2021 07:45:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90D8041BEDD
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Sep 2021 07:51:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E18B91694;
-	Wed, 29 Sep 2021 07:44:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E18B91694
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3394C169F;
+	Wed, 29 Sep 2021 07:50:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3394C169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632894338;
-	bh=1eGr50Cu7h1l3Z7H3dCduCpL0Bc4thATJBEd3fGpCUQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=balSg+nJ0Xbj+71yznnnrVGYDi/yLNJk314h0CUp8kvNp+/6wZPxoHKjrL+3G8BFJ
-	 ah1q+i/e75hOGyEqndTb8HoBi2vNky2uAjR05RfBe9eYee6XNSuQRz9d25eJLxZBy1
-	 eZAI1bWub5sVsKO62rC5DFFmRPC10ommWpK+9MpA=
+	s=default; t=1632894665;
+	bh=v9OKzkiV9I9SfVzRsaoqPA49bUFJBUP6XSdkoZ4u08Q=;
+	h=From:To:In-Reply-To:Subject:Date:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=fJfz0dYiy4Irg5nYBfOASLA5nxj7PQU/dXtDS1fzC4H/cM4fMA9AajqZO+i9p+UP1
+	 QUIuybWa6Ln9XZVuzxNbp4efAnV3vVttH6HZq7dEB1HIke+wmNZcu48Bo+wF7zeaAB
+	 H7TsG3eibn4g8CxKmJ47sEPLH06r60Ui3kRIX+N0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23B4DF80105;
-	Wed, 29 Sep 2021 07:44:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A67E7F8026D;
+	Wed, 29 Sep 2021 07:49:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DFAC7F80227; Wed, 29 Sep 2021 07:44:17 +0200 (CEST)
+ id 5C84BF80227; Wed, 29 Sep 2021 07:49:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2B346F80113
- for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 07:44:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B346F80113
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 18T5hqtrF025663,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36503.realtek.com.tw[172.21.6.25])
- by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 18T5hqtrF025663
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 29 Sep 2021 13:43:52 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXH36503.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.14; Wed, 29 Sep 2021 13:43:51 +0800
-Received: from localhost.localdomain (172.22.102.1) by
- RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Wed, 29 Sep 2021 13:43:51 +0800
-From: Jack Yu <jack.yu@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH] ASoC: rt5682: move clk related code to rt5682_i2c_probe
-Date: Wed, 29 Sep 2021 13:43:44 +0800
-Message-ID: <20210929054344.12112-1-jack.yu@realtek.com>
-X-Mailer: git-send-email 2.33.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id E2BA4F80105
+ for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 07:49:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2BA4F80105
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="YMFeGzLa"
+Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
+ by mailout3.samsung.com (KnoxPortal) with ESMTP id
+ 20210929054932epoutp0332f4a0f697ccadcd08d6a1fb27b3ca9e~pNPZxWaSW0891008910epoutp033
+ for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 05:49:32 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com
+ 20210929054932epoutp0332f4a0f697ccadcd08d6a1fb27b3ca9e~pNPZxWaSW0891008910epoutp033
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1632894573;
+ bh=ebXDZjnjfx5PMA0E9dVI+5JrhVFNjHxLzCeUiOcb7Zk=;
+ h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+ b=YMFeGzLalWHDIEwvNh+w6UvT3qITOdfCmsuvP/clf4r6juPXR67JwzFWmtjSIYU79
+ Bxzf+KhChCZyBaReF8HZStzNqEdKyoQx7mKqyi7atB1qnbAqoMWk7pbsPiXHjJrxRW
+ VPF7lBnDArMyh/PIf92pkbxc9qqI6SkMwDXhorZI=
+Received: from epsnrtp3.localdomain (unknown [182.195.42.164]) by
+ epcas2p4.samsung.com (KnoxPortal) with ESMTP id
+ 20210929054932epcas2p4a530f13c6c88e72b30bfbf83062fa3fc~pNPZHG65s1157711577epcas2p4y;
+ Wed, 29 Sep 2021 05:49:32 +0000 (GMT)
+Received: from epsmges2p2.samsung.com (unknown [182.195.36.92]) by
+ epsnrtp3.localdomain (Postfix) with ESMTP id 4HK56Z6S1Yz4x9Q2; Wed, 29 Sep
+ 2021 05:49:26 +0000 (GMT)
+Received: from epcas2p4.samsung.com ( [182.195.41.56]) by
+ epsmges2p2.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 81.92.09816.26EF3516; Wed, 29 Sep 2021 14:49:22 +0900 (KST)
+Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
+ epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20210929054921epcas2p2fbe35a6262405e064aac3bd92b22b1aa~pNPPPbRzT1077810778epcas2p2F;
+ Wed, 29 Sep 2021 05:49:21 +0000 (GMT)
+Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
+ epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20210929054921epsmtrp10c3a24954d2f325ae2a0a2e775846b9d~pNPPOrZZ62592725927epsmtrp1J;
+ Wed, 29 Sep 2021 05:49:21 +0000 (GMT)
+X-AuditID: b6c32a46-63bff70000002658-0d-6153fe62ad32
+Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
+ epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ BF.C2.09091.16EF3516; Wed, 29 Sep 2021 14:49:21 +0900 (KST)
+Received: from KORDO025540 (unknown [12.36.182.130]) by epsmtip2.samsung.com
+ (KnoxPortal) with ESMTPA id
+ 20210929054921epsmtip2c0003f42b8b1260ba035ce21e2f4e0a9~pNPPEHFqU2307723077epsmtip2d;
+ Wed, 29 Sep 2021 05:49:21 +0000 (GMT)
+From: "Gyeongtaek Lee" <gt82.lee@samsung.com>
+To: "'Takashi Iwai'" <tiwai@suse.de>
+In-Reply-To: 
+Subject: [PATCH] ASoC: dpcm: fix race condition to dpcm links in
+ dpcm_be_dai_trigger
+Date: Wed, 29 Sep 2021 14:49:21 +0900
+Message-ID: <002f01d7b4f5$c030f4a0$4092dde0$@samsung.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.22.102.1]
-X-ClientProxiedBy: RTEXH36503.realtek.com.tw (172.21.6.25) To
- RTEXMBS01.realtek.com.tw (172.21.6.94)
-X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: trusted connection
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Deterministic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 09/29/2021 05:26:00
-X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
- rules found
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIxLzkvMjkgpFekyCAwMjowODowMA==?=
-X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
-X-KSE-ServerInfo: RTEXH36503.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-Antivirus-Interceptor-Info: fallback
-X-KSE-AntiSpam-Interceptor-Info: fallback
-Cc: oder_chiou@realtek.com, Jack Yu <jack.yu@realtek.com>,
- alsa-devel@alsa-project.org, lars@metafoo.de, wenst@google.com,
- derek.fang@realtek.com, shumingf@realtek.com, flove@realtek.com
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AdejEkgFBjUqDm9PTG2YZO2ZhzLijAR4yNWQ
+Content-Language: ko
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrAJsWRmVeSWpSXmKPExsWy7bCmhW7Sv+BEg7/zOSyuXDzEZHH3h7nF
+ jG3dLBarr25hsvh2pYPJ4ujFxUwWDXeb2S26V51mtZh49zW7xcvNb5gcuDw2fG5i89g56y67
+ R9+WVYwem09XB7BEZdtkpCampBYppOYl56dk5qXbKnkHxzvHm5oZGOoaWlqYKynkJeam2iq5
+ +AToumXmAN2jpFCWmFMKFApILC5W0rezKcovLUlVyMgvLrFVSi1IySkwL9ArTswtLs1L18tL
+ LbEyNDAwMgUqTMjOmHBrHlPBEbGKB9sb2RoYFwt1MXJySAiYSKz78oO5i5GLQ0hgB6PEjq4b
+ bBDOJ0aJxbensEI43xgl5rTOYINpud+3hwkisZdR4v7Xl1DOS0aJf11nWEGq2AR0Jb7cu8MM
+ YosIqEg87V0HVsQs8JZRon/qfZYuRg4OTgFeiQn/rEFqhAXCJPrW/mABsVkEVCV2Xt4PNodX
+ wFKi+fw5dghbUOLkzCdgNcwC8hLb385hhrhIQeLn02WsELuMJNrP72OCqBGRmN3ZBvachMBS
+ Don1x65BNbhINC/ZwQhhC0u8Or6FHcKWknjZ38YO0dDMKPHu7B+oxBRGic5uaJAZS2yZe4oJ
+ 5AFmAU2J9bv0QUwJAWWJI7egbuOT6Dj8lx0izCvR0QbVqCSx8dQ/JoiwhMS8DewTGJVmIXls
+ FpLHZiF5YBbCqgWMLKsYxVILinPTU4uNCozgkZ2cn7uJEZxUtdx2ME55+0HvECMTB+MhRgkO
+ ZiUR3h/iwYlCvCmJlVWpRfnxRaU5qcWHGE2BQT2RWUo0OR+Y1vNK4g1NLA1MzMwMzY1MDcyV
+ xHnn/nNKFBJITyxJzU5NLUgtgulj4uCUamCytYyObdbnyRZkSav3EcpNkIj+r2S6T9VmwyF5
+ 2VUT5hy6EyB8yUaNa1fz/sC7h3s/ZO8LFP2TuYXDYgW3e4T3yxMWQbaXZZ8ddlsUx7zmdf13
+ HyfG6+tyWS/VssYaxhsp9Jx3rPf68nFp19Q9CSf2mu9Kf230bdH5l3nX+cwt6s51fi2U3Pon
+ ca3cn0V97GWNx5N/M2xWztv4zqondGfd4fPno4/syT5/iovrafPp+77ZoqX5Mzm3O3+IWGip
+ tO+r8oupOhYFllkPp86otJCcc3E/t3nYSZH9YnyHw366q7yYNFvm/gO19zs2b32TwGu/llnr
+ b3DWj2P/3iZMWh9waqml+pxMZl/+3ydd3n5WYinOSDTUYi4qTgQACwHjiTMEAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFupgkeLIzCtJLcpLzFFi42LZdlhJXjfxX3CiwfkjyhZXLh5isrj7w9xi
+ xrZuFovVV7cwWXy70sFkcfTiYiaLhrvN7Bbdq06zWky8+5rd4uXmN0wOXB4bPjexeeycdZfd
+ o2/LKkaPzaerA1iiuGxSUnMyy1KL9O0SuDIm3JrHVHBErOLB9ka2BsbFQl2MnBwSAiYS9/v2
+ MHUxcnEICexmlHh56z8TREJC4sP8M+wQtrDE/ZYjrCC2kMBzRolJl/lAbDYBXYkv9+4wg9gi
+ AioST3vXgQ1iFvjOKLHoz0+oBh6JVxv2M3YxcnBwCvBKTPhnDWIKC4RITHnKAlLBIqAqsfPy
+ frBqXgFLiebz59ghbEGJkzOfsICUMwvoSbRtZAQJMwvIS2x/O4cZ4jIFiZ9Pl7FCXGAk0X5+
+ HxNEjYjE7M425gmMwrOQTJqFMGkWkkmzkHQsYGRZxSiZWlCcm55bbFhgmJdarlecmFtcmpeu
+ l5yfu4kRHFlamjsYt6/6oHeIkYmD8RCjBAezkgjvD/HgRCHelMTKqtSi/Pii0pzU4kOM0hws
+ SuK8F7pOxgsJpCeWpGanphakFsFkmTg4pRqYBDZnv9b1655aVveYab3086Vpbi52AWoJq14m
+ Lpc9wm+efa19+0eB1O1Fosviil46NRWxLt1w7RvfasYj2zQtTaR6I64smTP3kVGj+exqiWNG
+ qwXS9r0UyQ70CZn7cM9llpcBvoffLSqvyw8uVHt/+dxcn9JTCUll9/5IxLxcI6W5UU1Qr7bn
+ Vr5ChaBcf92VNV9PVJzXWs5QY+85qXxmsYa5u9Ka4OMn5B5/Xsp/6VJUPcf5v/pvSzgO3Ak4
+ KM/ZysyZE7aOk1Ml01t7q2rAYgEe1W6+a5dXnZ+7KPniGf2ldV5ZadJ2z7k2Xz3x9tQlNT17
+ /aTNPqr333QzXj3lEffvreR51sNbT7x+6DRTiaU4I9FQi7moOBEA19l9ohsDAAA=
+X-CMS-MailID: 20210929054921epcas2p2fbe35a6262405e064aac3bd92b22b1aa
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20210929054921epcas2p2fbe35a6262405e064aac3bd92b22b1aa
+References: <CGME20210929054921epcas2p2fbe35a6262405e064aac3bd92b22b1aa@epcas2p2.samsung.com>
+Cc: alsa-devel@alsa-project.org, kimty@samsung.com, lgirdwood@gmail.com,
+ senius.park@samsung.com, donggyun.ko@samsung.com, hmseo@samsung.com,
+ seungbin.lee@samsung.com, s47.kang@samsung.com, pilsun.jang@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,292 +150,113 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The DAI clock is only used in I2S mode, to make it clear
-and to fix clock resource release issue, we move CCF clock
-related code to rt5682_i2c_probe to fix clock
-register/unregister issue.
+If routing change and underrun stop is run at the same time,
+data abort can be occurred by the following sequence.
 
-Signed-off-by: Jack Yu <jack.yu@realtek.com>
+CPU0: Processing underrun 	CPU1: Processing routing change
+dpcm_be_dai_trigger():		dpcm_be_disconnect():
+
+for_each_dpcm_be(fe, stream, dpcm) {
+
+				spin_lock_irqsave(&fe->card->dpcm_lock, flags);
+				list_del(&dpcm->list_be);
+				list_del(&dpcm->list_fe);
+				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+				kfree(dpcm);
+
+struct snd_soc_pcm_runtime *be = dpcm->be; <-- Accessing freed memory
+
+To prevent this situation, dpcm_lock is needed during accessing
+the lists for dpcm links.
+
+Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
+Cc: stable@vger.kernel.org
 ---
- sound/soc/codecs/rt5682-i2c.c | 22 +++++++++++
- sound/soc/codecs/rt5682.c     | 70 +++++++++++++----------------------
- sound/soc/codecs/rt5682.h     |  3 ++
- 3 files changed, 51 insertions(+), 44 deletions(-)
+ sound/soc/soc-pcm.c | 53 ++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 50 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/codecs/rt5682-i2c.c b/sound/soc/codecs/rt5682-i2c.c
-index b9d5d7a0975b..a30e42932cf7 100644
---- a/sound/soc/codecs/rt5682-i2c.c
-+++ b/sound/soc/codecs/rt5682-i2c.c
-@@ -139,6 +139,8 @@ static int rt5682_i2c_probe(struct i2c_client *i2c,
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 48f71bb81a2f..df2cd4c0dabe 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -1993,17 +1993,63 @@ static int dpcm_fe_dai_hw_params(struct snd_pcm_substream *substream,
+ 	return ret;
+ }
  
- 	i2c_set_clientdata(i2c, rt5682);
- 
-+	rt5682->i2c_dev = &i2c->dev;
++struct dpcm_be_list {
++	unsigned int num;
++	struct snd_soc_pcm_runtime *be[];
++};
 +
- 	rt5682->pdata = i2s_default_platform_data;
- 
- 	if (pdata)
-@@ -276,6 +278,26 @@ static int rt5682_i2c_probe(struct i2c_client *i2c,
- 			dev_err(&i2c->dev, "Failed to reguest IRQ: %d\n", ret);
- 	}
- 
-+#ifdef CONFIG_COMMON_CLK
-+	/* Check if MCLK provided */
-+	rt5682->mclk = devm_clk_get(&i2c->dev, "mclk");
-+	if (IS_ERR(rt5682->mclk)) {
-+		if (PTR_ERR(rt5682->mclk) != -ENOENT) {
-+			ret = PTR_ERR(rt5682->mclk);
-+			return ret;
-+		}
-+		rt5682->mclk = NULL;
++static int dpcm_create_be_list(struct snd_soc_pcm_runtime *fe, int stream,
++		struct dpcm_be_list **be_list)
++{
++	struct snd_soc_dpcm *dpcm;
++	struct dpcm_be_list *be;
++	int size = 0;
++	int ret = 0;
++	unsigned long flags;
++
++	spin_lock_irqsave(&fe->card->dpcm_lock, flags);
++
++	for_each_dpcm_be(fe, stream, dpcm)
++		size++;
++
++	be = kzalloc(struct_size(be, be, size), GFP_ATOMIC);
++	if (!be) {
++		ret = -ENOMEM;
++	} else {
++		unsigned int i = 0;
++
++		for_each_dpcm_be(fe, stream, dpcm)
++			be->be[i++] = dpcm->be;
++
++		*be_list = be;
 +	}
 +
-+	/* Register CCF DAI clock control */
-+	ret = rt5682_register_dai_clks(rt5682);
-+	if (ret)
++	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
++
++	return ret;
++}
++
++static void dpcm_free_be_list(struct dpcm_be_list *be_list)
++{
++	kfree(be_list);
++}
++
+ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+ 			       int cmd)
+ {
+ 	struct snd_soc_pcm_runtime *be;
+-	struct snd_soc_dpcm *dpcm;
++	struct dpcm_be_list *be_list;
+ 	int ret = 0;
++	int i;
+ 
+-	for_each_dpcm_be(fe, stream, dpcm) {
++	ret = dpcm_create_be_list(fe, stream, &be_list);
++	if (ret < 0)
 +		return ret;
 +
-+	/* Initial setup for CCF */
-+	rt5682->lrck[RT5682_AIF1] = 48000;
-+#endif
-+
- 	return devm_snd_soc_register_component(&i2c->dev,
- 					       &rt5682_soc_component_dev,
- 					       rt5682_dai, ARRAY_SIZE(rt5682_dai));
-diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-index 12113c2dcae2..914fe7debc05 100644
---- a/sound/soc/codecs/rt5682.c
-+++ b/sound/soc/codecs/rt5682.c
-@@ -2510,7 +2510,7 @@ static int rt5682_set_bias_level(struct snd_soc_component *component,
- static bool rt5682_clk_check(struct rt5682_priv *rt5682)
- {
- 	if (!rt5682->master[RT5682_AIF1]) {
--		dev_dbg(rt5682->component->dev, "sysclk/dai not set correctly\n");
-+		dev_dbg(rt5682->i2c_dev, "sysclk/dai not set correctly\n");
- 		return false;
- 	}
- 	return true;
-@@ -2521,13 +2521,15 @@ static int rt5682_wclk_prepare(struct clk_hw *hw)
- 	struct rt5682_priv *rt5682 =
- 		container_of(hw, struct rt5682_priv,
- 			     dai_clks_hw[RT5682_DAI_WCLK_IDX]);
--	struct snd_soc_component *component = rt5682->component;
--	struct snd_soc_dapm_context *dapm =
--			snd_soc_component_get_dapm(component);
-+	struct snd_soc_component *component;
-+	struct snd_soc_dapm_context *dapm;
++	for(i = 0; i < be_list->num; i++) {
+ 		struct snd_pcm_substream *be_substream;
  
- 	if (!rt5682_clk_check(rt5682))
- 		return -EINVAL;
+-		be = dpcm->be;
++		be = be_list->be[i];
+ 		be_substream = snd_soc_dpcm_get_substream(be, stream);
  
-+	component = rt5682->component;
-+	dapm = snd_soc_component_get_dapm(component);
-+
- 	snd_soc_dapm_mutex_lock(dapm);
- 
- 	snd_soc_dapm_force_enable_pin_unlocked(dapm, "MICBIAS");
-@@ -2557,13 +2559,15 @@ static void rt5682_wclk_unprepare(struct clk_hw *hw)
- 	struct rt5682_priv *rt5682 =
- 		container_of(hw, struct rt5682_priv,
- 			     dai_clks_hw[RT5682_DAI_WCLK_IDX]);
--	struct snd_soc_component *component = rt5682->component;
--	struct snd_soc_dapm_context *dapm =
--			snd_soc_component_get_dapm(component);
-+	struct snd_soc_component *component;
-+	struct snd_soc_dapm_context *dapm;
- 
- 	if (!rt5682_clk_check(rt5682))
- 		return;
- 
-+	component = rt5682->component;
-+	dapm = snd_soc_component_get_dapm(component);
-+
- 	snd_soc_dapm_mutex_lock(dapm);
- 
- 	snd_soc_dapm_disable_pin_unlocked(dapm, "MICBIAS");
-@@ -2587,7 +2591,6 @@ static unsigned long rt5682_wclk_recalc_rate(struct clk_hw *hw,
- 	struct rt5682_priv *rt5682 =
- 		container_of(hw, struct rt5682_priv,
- 			     dai_clks_hw[RT5682_DAI_WCLK_IDX]);
--	struct snd_soc_component *component = rt5682->component;
- 	const char * const clk_name = clk_hw_get_name(hw);
- 
- 	if (!rt5682_clk_check(rt5682))
-@@ -2597,7 +2600,7 @@ static unsigned long rt5682_wclk_recalc_rate(struct clk_hw *hw,
- 	 */
- 	if (rt5682->lrck[RT5682_AIF1] != CLK_48 &&
- 	    rt5682->lrck[RT5682_AIF1] != CLK_44) {
--		dev_warn(component->dev, "%s: clk %s only support %d or %d Hz output\n",
-+		dev_warn(rt5682->i2c_dev, "%s: clk %s only support %d or %d Hz output\n",
- 			__func__, clk_name, CLK_44, CLK_48);
- 		return 0;
- 	}
-@@ -2611,7 +2614,6 @@ static long rt5682_wclk_round_rate(struct clk_hw *hw, unsigned long rate,
- 	struct rt5682_priv *rt5682 =
- 		container_of(hw, struct rt5682_priv,
- 			     dai_clks_hw[RT5682_DAI_WCLK_IDX]);
--	struct snd_soc_component *component = rt5682->component;
- 	const char * const clk_name = clk_hw_get_name(hw);
- 
- 	if (!rt5682_clk_check(rt5682))
-@@ -2621,7 +2623,7 @@ static long rt5682_wclk_round_rate(struct clk_hw *hw, unsigned long rate,
- 	 * It will force to 48kHz if not both.
- 	 */
- 	if (rate != CLK_48 && rate != CLK_44) {
--		dev_warn(component->dev, "%s: clk %s only support %d or %d Hz output\n",
-+		dev_warn(rt5682->i2c_dev, "%s: clk %s only support %d or %d Hz output\n",
- 			__func__, clk_name, CLK_44, CLK_48);
- 		rate = CLK_48;
- 	}
-@@ -2635,7 +2637,7 @@ static int rt5682_wclk_set_rate(struct clk_hw *hw, unsigned long rate,
- 	struct rt5682_priv *rt5682 =
- 		container_of(hw, struct rt5682_priv,
- 			     dai_clks_hw[RT5682_DAI_WCLK_IDX]);
--	struct snd_soc_component *component = rt5682->component;
-+	struct snd_soc_component *component;
- 	struct clk_hw *parent_hw;
- 	const char * const clk_name = clk_hw_get_name(hw);
- 	int pre_div;
-@@ -2644,6 +2646,8 @@ static int rt5682_wclk_set_rate(struct clk_hw *hw, unsigned long rate,
- 	if (!rt5682_clk_check(rt5682))
- 		return -EINVAL;
- 
-+	component = rt5682->component;
-+
- 	/*
- 	 * Whether the wclk's parent clk (mclk) exists or not, please ensure
- 	 * it is fixed or set to 48MHz before setting wclk rate. It's a
-@@ -2653,12 +2657,12 @@ static int rt5682_wclk_set_rate(struct clk_hw *hw, unsigned long rate,
- 	 */
- 	parent_hw = clk_hw_get_parent(hw);
- 	if (!parent_hw)
--		dev_warn(component->dev,
-+		dev_warn(rt5682->i2c_dev,
- 			"Parent mclk of wclk not acquired in driver. Please ensure mclk was provided as %d Hz.\n",
- 			CLK_PLL2_FIN);
- 
- 	if (parent_rate != CLK_PLL2_FIN)
--		dev_warn(component->dev, "clk %s only support %d Hz input\n",
-+		dev_warn(rt5682->i2c_dev, "clk %s only support %d Hz input\n",
- 			clk_name, CLK_PLL2_FIN);
- 
- 	/*
-@@ -2690,10 +2694,9 @@ static unsigned long rt5682_bclk_recalc_rate(struct clk_hw *hw,
- 	struct rt5682_priv *rt5682 =
- 		container_of(hw, struct rt5682_priv,
- 			     dai_clks_hw[RT5682_DAI_BCLK_IDX]);
--	struct snd_soc_component *component = rt5682->component;
- 	unsigned int bclks_per_wclk;
- 
--	bclks_per_wclk = snd_soc_component_read(component, RT5682_TDM_TCON_CTRL);
-+	regmap_read(rt5682->regmap, RT5682_TDM_TCON_CTRL, &bclks_per_wclk);
- 
- 	switch (bclks_per_wclk & RT5682_TDM_BCLK_MS1_MASK) {
- 	case RT5682_TDM_BCLK_MS1_256:
-@@ -2754,20 +2757,22 @@ static int rt5682_bclk_set_rate(struct clk_hw *hw, unsigned long rate,
- 	struct rt5682_priv *rt5682 =
- 		container_of(hw, struct rt5682_priv,
- 			     dai_clks_hw[RT5682_DAI_BCLK_IDX]);
--	struct snd_soc_component *component = rt5682->component;
-+	struct snd_soc_component *component;
- 	struct snd_soc_dai *dai;
- 	unsigned long factor;
- 
- 	if (!rt5682_clk_check(rt5682))
- 		return -EINVAL;
- 
-+	component = rt5682->component;
-+
- 	factor = rt5682_bclk_get_factor(rate, parent_rate);
- 
- 	for_each_component_dais(component, dai)
- 		if (dai->id == RT5682_AIF1)
- 			break;
- 	if (!dai) {
--		dev_err(component->dev, "dai %d not found in component\n",
-+		dev_err(rt5682->i2c_dev, "dai %d not found in component\n",
- 			RT5682_AIF1);
- 		return -ENODEV;
- 	}
-@@ -2790,10 +2795,9 @@ static const struct clk_ops rt5682_dai_clk_ops[RT5682_DAI_NUM_CLKS] = {
- 	},
- };
- 
--static int rt5682_register_dai_clks(struct snd_soc_component *component)
-+int rt5682_register_dai_clks(struct rt5682_priv *rt5682)
- {
--	struct device *dev = component->dev;
--	struct rt5682_priv *rt5682 = snd_soc_component_get_drvdata(component);
-+	struct device *dev = rt5682->i2c_dev;
- 	struct rt5682_platform_data *pdata = &rt5682->pdata;
- 	struct clk_hw *dai_clk_hw;
- 	int i, ret;
-@@ -2851,6 +2855,7 @@ static int rt5682_register_dai_clks(struct snd_soc_component *component)
- 
- 	return 0;
+ 		/* is this op for this BE ? */
+@@ -2092,6 +2138,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+ 	if (ret < 0)
+ 		dev_err(fe->dev, "ASoC: %s() failed at %s (%d)\n",
+ 			__func__, be->dai_link->name, ret);
++	dpcm_free_be_list(be_list);
+ 	return ret;
  }
-+EXPORT_SYMBOL_GPL(rt5682_register_dai_clks);
- #endif /* CONFIG_COMMON_CLK */
- 
- static int rt5682_probe(struct snd_soc_component *component)
-@@ -2860,9 +2865,6 @@ static int rt5682_probe(struct snd_soc_component *component)
- 	unsigned long time;
- 	struct snd_soc_dapm_context *dapm = &component->dapm;
- 
--#ifdef CONFIG_COMMON_CLK
--	int ret;
--#endif
- 	rt5682->component = component;
- 
- 	if (rt5682->is_sdw) {
-@@ -2874,26 +2876,6 @@ static int rt5682_probe(struct snd_soc_component *component)
- 			dev_err(&slave->dev, "Initialization not complete, timed out\n");
- 			return -ETIMEDOUT;
- 		}
--	} else {
--#ifdef CONFIG_COMMON_CLK
--		/* Check if MCLK provided */
--		rt5682->mclk = devm_clk_get(component->dev, "mclk");
--		if (IS_ERR(rt5682->mclk)) {
--			if (PTR_ERR(rt5682->mclk) != -ENOENT) {
--				ret = PTR_ERR(rt5682->mclk);
--				return ret;
--			}
--			rt5682->mclk = NULL;
--		}
--
--		/* Register CCF DAI clock control */
--		ret = rt5682_register_dai_clks(component);
--		if (ret)
--			return ret;
--
--		/* Initial setup for CCF */
--		rt5682->lrck[RT5682_AIF1] = CLK_48;
--#endif
- 	}
- 
- 	snd_soc_dapm_disable_pin(dapm, "MICBIAS");
-diff --git a/sound/soc/codecs/rt5682.h b/sound/soc/codecs/rt5682.h
-index b59221048ebf..262512babc50 100644
---- a/sound/soc/codecs/rt5682.h
-+++ b/sound/soc/codecs/rt5682.h
-@@ -1408,6 +1408,7 @@ enum {
- 
- struct rt5682_priv {
- 	struct snd_soc_component *component;
-+	struct device *i2c_dev;
- 	struct rt5682_platform_data pdata;
- 	struct regmap *regmap;
- 	struct regmap *sdw_regmap;
-@@ -1462,6 +1463,8 @@ void rt5682_calibrate(struct rt5682_priv *rt5682);
- void rt5682_reset(struct rt5682_priv *rt5682);
- int rt5682_parse_dt(struct rt5682_priv *rt5682, struct device *dev);
- 
-+int rt5682_register_dai_clks(struct rt5682_priv *rt5682);
-+
- #define RT5682_REG_NUM 318
- extern const struct reg_default rt5682_reg[RT5682_REG_NUM];
- 
+ EXPORT_SYMBOL_GPL(dpcm_be_dai_trigger);
+
+base-commit: 4ac6d90867a4de2e12117e755dbd76e08d88697f
 -- 
-2.33.0
+2.21.0
+
 

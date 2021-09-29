@@ -2,89 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B535E41CD9E
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Sep 2021 22:51:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA9A541CDB3
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Sep 2021 23:02:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 54BD816EA;
-	Wed, 29 Sep 2021 22:50:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54BD816EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3CA2A16EA;
+	Wed, 29 Sep 2021 23:01:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CA2A16EA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632948699;
-	bh=jW9R70ZVmK5zlTh406exRfLL5lu6zYY3DqUm8Mz9lnE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1632949363;
+	bh=aIlXGBfZUMD/bJOG19MSE1cLo0NQ0nKHb8fLJJgsIEQ=;
+	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qFFvHi/wrNT/SDvhEkgwu+hSNt8mdfCxYgCxxAx3pkpI7qfiJt10N9XqzRAV+miRJ
-	 bXoz9PVE+6glwIoTQqpmQJ5jTggRXre9bXgusfiL8iBzjJMx3C89ZtVcsVJFxPaDHx
-	 BJueOzmmny3Aakc44GQPorMu8Ch2j+2jxhtsvEd8=
+	b=Iw/j7/Uk7bJVO/nBZkkyrwsxS8reBeICmvQ9mX6UB2gSJoopp4h5Tlv628zRJVEB4
+	 T5h+DmlYjwTJ5C6bVqlLyLfXVnVsKbmgPwZq2Err2400EgPwOdA0h8tDcngMnyIqR5
+	 4huin65nF4AanFvwdc4I2oyKK8+474/4zNWGI+Nk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CEBC1F80113;
-	Wed, 29 Sep 2021 22:50:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A18D1F80105;
+	Wed, 29 Sep 2021 23:01:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 10D26F80227; Wed, 29 Sep 2021 22:50:21 +0200 (CEST)
+ id 21D08F80105; Wed, 29 Sep 2021 23:01:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
- [IPv6:2607:f8b0:4864:20::82c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99A1AF80161
- for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 22:50:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99A1AF80161
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="N8F09wL8"
-Received: by mail-qt1-x82c.google.com with SMTP id c20so3641060qtb.2
- for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 13:50:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=8RYDBUsKZf8FoLqZ3UaxSfm5AEZBMAmMutrsRTlRdV0=;
- b=N8F09wL8FZO9HMqXXVkzEkBTKEiFiCYQbtCbOpBL8GTfwYPSJC/REzvE75MQN4u49f
- MqKd1oCmUz4nBFbVdczhG2RAKHBUFicn6RmrTdTpDfTuXQToG66af0SXgf57owq+Xe2k
- 4ueTCCuh6XV1XMeaa7psR8fTDvaV04IgM7j7FBwZYYzNCicnAYeow7/Cs4gXHFn1TIx2
- w4jG+lvuMPtyQEQZobZR3ET9bxvs6tORklGvii87HNNy5aakpBQWei0jzC8L5USaAoK7
- GECPuzLOwsVx56+lzL5w40GnXqKaTYEuEGVp0+beq3f/8qQrmahoJFCKUi1bIxiV6oTu
- ikmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=8RYDBUsKZf8FoLqZ3UaxSfm5AEZBMAmMutrsRTlRdV0=;
- b=6HEX7Mt7wEsrQFMFsN7YWRrW+TiQZ+QGywLMKvsmrWGB0QmZ7pbVW8SmsLOPyC+iNY
- s1I0+tw8ZVhxjnezEBCNpL5qnGpz7XrkW04Ki1/0CcN2PGe5SRZZxFA80tVHvMcqDiUW
- jXvqP4LowMEXSspcurOI8hXemXnW9IMVgmsggkOIeX/XnQhRmdWjLPhS9B2kfbyKozkX
- R92X8WhDKy6KlaVfcwdY403wxHsGx780wMldE7C9ikBat4HLDFy+Q062ETFJyToWqfZ9
- gN5aSpfUJNjFvo4s/ZkmBgUWCmXwNtsOOSw89wHEgj9Kn1pSfuCMSrWwkQyvorNzGfNw
- xQjA==
-X-Gm-Message-State: AOAM532xvQcGmM2pXQbstyrgkaKTcuN0jZ/fNsRW7R+avP2GGgYRAPyT
- kVKfwOZRSXXMDjyh0LJU3N8=
-X-Google-Smtp-Source: ABdhPJz+bsH7NNp0kMuKhaA571wpUUEaO0PBkmtbcdimm6UD/4LMfBXe2sCKjqOWc/4Yz1QWyS93Pg==
-X-Received: by 2002:ac8:71d4:: with SMTP id i20mr2354145qtp.248.1632948611267; 
- Wed, 29 Sep 2021 13:50:11 -0700 (PDT)
-Received: from geday ([2804:7f2:8280:7522:98f0:31ff:fe93:2dc7])
- by smtp.gmail.com with ESMTPSA id p201sm516267qke.27.2021.09.29.13.50.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Sep 2021 13:50:10 -0700 (PDT)
-Date: Wed, 29 Sep 2021 17:50:11 -0300
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
-To: Davide Baldo <davide@baldo.me>
-Subject: Re: [PATCH] Fixes HP Spectre x360 15-eb1xxx speakers
-Message-ID: <YVTRg3gyoI0CpEjD@geday>
-References: <s5hee99nfzg.wl-tiwai@suse.de>
- <20210929204236.4571-1-davide@baldo.me>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E502F80113
+ for <alsa-devel@alsa-project.org>; Wed, 29 Sep 2021 23:01:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E502F80113
+X-IronPort-AV: E=McAfee;i="6200,9189,10122"; a="225081590"
+X-IronPort-AV: E=Sophos;i="5.85,334,1624345200"; d="scan'208";a="225081590"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2021 14:01:16 -0700
+X-IronPort-AV: E=Sophos;i="5.85,334,1624345200"; d="scan'208";a="588232164"
+Received: from ibarchen-mobl.amr.corp.intel.com (HELO [10.209.150.234])
+ ([10.209.150.234])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2021 14:01:15 -0700
+Subject: Re: [PATCH] ASoC: dpcm: fix race condition to dpcm links in
+ dpcm_be_dai_trigger
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: Gyeongtaek Lee <gt82.lee@samsung.com>, 'Takashi Iwai' <tiwai@suse.de>
+References: <CGME20210929054921epcas2p2fbe35a6262405e064aac3bd92b22b1aa@epcas2p2.samsung.com>
+ <002f01d7b4f5$c030f4a0$4092dde0$@samsung.com>
+ <27786697-1309-8336-6f53-abff32e0b6c2@linux.intel.com>
+Message-ID: <d9e09d88-d3f8-2eab-ebe1-1ac8e64e5093@linux.intel.com>
+Date: Wed, 29 Sep 2021 16:01:12 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210929204236.4571-1-davide@baldo.me>
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+In-Reply-To: <27786697-1309-8336-6f53-abff32e0b6c2@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, kimty@samsung.com, lgirdwood@gmail.com,
+ senius.park@samsung.com, donggyun.ko@samsung.com, hmseo@samsung.com,
+ seungbin.lee@samsung.com, s47.kang@samsung.com, pilsun.jang@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,36 +80,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Sep 29, 2021 at 10:42:37PM +0200, Davide Baldo wrote:
-> Thank your for your review Takashi, the entry is now correctly
-> ordered.
-> I've received some feedback from a user from bugzilla
-> https://bugzilla.kernel.org/show_bug.cgi?id=213953
-> To address his issues I've added a variant of the laptop and forced
-> DAC1 for both speakers.
-> 
-> In laptop 'HP Spectre x360 Convertible 15-eb1xxx/8811' both front and
-> rear speakers are silent, this patch fixes that by overriding the pin
-> layout and by initializing the amplifier which needs a GPIO pin to be
-> set to 1 then 0, similar to the existing HP Spectre x360 14 model.
-> 
-> In order to have volume control, both front and rear speakers were
-> forced to use the DAC1.
-> 
-> This patch also correctly map the mute LED but since there is no
-> microphone on/off switch exposed by the alsa subsystem it never turns
-> on by itself.
-> 
-> There are still known audio issues in this laptop: headset microphone
-> doesn't work, the button to mute/unmute microphone is not yet mapped,
-> the LED of the mute/unmute speakers doesn't seems to be exposed via
-> GPIO and never turns on.
-> 
-> Signed-off-by: Davide Baldo <davide@baldo.me>
 
-Hi Davide,
+>> If routing change and underrun stop is run at the same time,
+>> data abort can be occurred by the following sequence.
+>>
+>> CPU0: Processing underrun 	CPU1: Processing routing change
+>> dpcm_be_dai_trigger():		dpcm_be_disconnect():
+>>
+>> for_each_dpcm_be(fe, stream, dpcm) {
+>>
+>> 				spin_lock_irqsave(&fe->card->dpcm_lock, flags);
+>> 				list_del(&dpcm->list_be);
+>> 				list_del(&dpcm->list_fe);
+>> 				spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+>> 				kfree(dpcm);
+>>
+>> struct snd_soc_pcm_runtime *be = dpcm->be; <-- Accessing freed memory
+>>
+>> To prevent this situation, dpcm_lock is needed during accessing
+>> the lists for dpcm links.
+> 
+> Isn't there still a possible inconsistency here introduced by the
+> duplication of the BE list?
+> 
+> You protect the list creation, but before you use it in
+> dpcm_be_dai_trigger(), there's a time window where the function could be
+> pre-empted and a disconnect event might have happened. As a result you
+> could trigger a BE that's no longer connected.
+> 
+> What you identified as a race is likely valid, but how to fix it isn't
+> clear to me - the DPCM code isn't self-explanatory at all with its use
+> in various places of the dpcm_lock spinlock, the pcm mutex, the card mutex.
+> 
+> Ideally we would need to find a way to prevent changes in connections
+> while we are doing the triggers, but triggers can take a bit of time if
+> they involve any sort of communication over a bus. I really wonder if
+> this dpcm_lock should be a mutex and if the model for DPCM really
+> involves interrupt contexts as the irqsave/irqrestore mentions hint at.
 
-I think you forgot to add a v2 to the [PATCH] headline as in [PATCH v2].
+To follow-up on this, I started experimenting with a replacement of the
+'dpcm_lock' spinlock with a 'dpcm_mutex', see
+https://github.com/thesofproject/linux/pull/3186
 
-Thanks!
-Geraldo Nascimento
+If we combine both of our results, the 'right' solution might be to take
+this mutex before every use of for_each_dpcm_be(), and unlock it at the
+end of the loop, which additional changes to avoid re-taking the same
+mutex in helper functions.
+
+there's still a part in DPCM that I can't figure out, there is an
+elaborate trick with an explicit comment
+
+	/* if FE's runtime_update is already set, we're in race;
+	 * process this trigger later at exit
+	 */
+
+Which looks like a missing mutex somewhere, or an overkill solution that
+might never be needed.

@@ -2,70 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DE0E41DD27
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Sep 2021 17:16:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AF5841DD29
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Sep 2021 17:17:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3873216F0;
-	Thu, 30 Sep 2021 17:16:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3873216F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDAE016F5;
+	Thu, 30 Sep 2021 17:16:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDAE016F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633015014;
-	bh=cZCye2tQ89qrn7x5MJOXevt3SkDtXNwwGsDoFGsEQh4=;
+	s=default; t=1633015030;
+	bh=JNFl1rrmW8VkbrosU7DjirbsUBlzSHBLfNF5D3Evwcw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ESKecB0Y/SDHr2ZVZWeUU/OTROwiiWG5+pMN9mYU/kEeQFhcjWzYPTOBaxec9V365
-	 yCLtMaWkcUyrWIRnd0+Z8z/wJ31FNiS6xzQgqXiDoF0atYjjYoGLJbhRiIKmhFfTTX
-	 Wyk/azUELdHhTUBIDvrdbesf+/exMu2zV0pbLuB8=
+	b=t1bMENX/bH3gUOywBLG3NBwkvv3ZgSNZRmYv6Svg4LHHykIqVp38rG9AVgE8t96Pl
+	 rSoZImp+O3Sz016f4IaQ7Wz5EsSiC05BwDiTeIJcDmBEp5c/eQzbEp3RXagmQ6PpU0
+	 3d9TBsYbqTyd7O684oj08jZTIDsSjmwyj8QheHbU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E1FEF80538;
-	Thu, 30 Sep 2021 17:11:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED2A9F8053A;
+	Thu, 30 Sep 2021 17:11:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04108F80218; Thu, 30 Sep 2021 15:27:57 +0200 (CEST)
+ id E78C3F804AD; Thu, 30 Sep 2021 15:28:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2081.outbound.protection.outlook.com [40.107.220.81])
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2075.outbound.protection.outlook.com [40.107.212.75])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8B459F804AD
- for <alsa-devel@alsa-project.org>; Thu, 30 Sep 2021 15:27:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B459F804AD
+ by alsa1.perex.cz (Postfix) with ESMTPS id E3F6BF80218
+ for <alsa-devel@alsa-project.org>; Thu, 30 Sep 2021 15:28:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3F6BF80218
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="VZkyxJKR"
+ header.b="hMZShMl2"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O2odFR/jfcKDeG//C5tInQ9704B/Tcv77Bgw/0lVLfHVeen7VoCXk8VGHYBTd8T+MlVTsTkw17oJ1/Fb7kzrroQtUPWmi09X20RICarEYQmCd7SN8fKKPGg8VfZcgxxFU0A/+1cI05PECjFERQdC67L/0wYTuLt3P+5Q1vjgFFebRa2DpjqfA/imuBewGs4PomeGg/FOzcr5XHBqLxyo/+Wu5NDLLLEtvqUw2cihfwmWq1XB53LTsQiDCkHlD1kzn9EOgkmti64ZWDcAhKkm3MM4mD6dvnXOZyn9tLBkDhfCytqIhTsFShdFCIPZK+CylYBno8tsoC0IvtJ+2tDO/A==
+ b=gWXBYxbw4c69D5PUbL3bQF41suF/xNaYRtqd/TnGCZeqbNCZvfs1/9ey6GMITYQonTqCarsdNa1VIXJlRqf8x0RcxIpxtJdJNjVR4pHN30122KYNIBo2cZKdRegsmFP7J252J1l/420s+h1QGHoy7hFYlPlSb+O3zodW/Wx+/+LOuXCgxQ+NBk/9EXFhci4PbHti3j4hGQbjyxZ3hV3RbnHbehFqUsv5IjLMOQHiRUBeojOQxRlK3Su1uE8gt+SR+Xjb43/iHubVSCvNmDkKG/hURssrhwPtbN10Vl1WvI4gm8Zv34AcOlqcuNDB/UItwb8AgXIOE0ItwxdvMi1RZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=ZSoK8bRWbL4+AMQ2UOgh37WazNqqAe3asPcE/VDcf8I=;
- b=ksDjrplj8Mbw+u9T+csmU7Qx6+04uvBtNDo6rEHRhhOXyrI1UFNNhKyEGQKpna3UbPlRUcdQ+rJfOfKNqK7hbjj6eeE5z7GOGSExFG3bPgO+Kc2m3H22uFg+RkaETZNJyRPo8p4oVwJQhHUhkE2FAlL66t2m903qRqQN+9Tle/F0UNhpD0JeEXHRwfz86fMGBKrhczr2AbONCw/fh1JPJ8BYDP27LPJJvu2tWREp0IX+N2f0VAz+mNeQKXM4xk5Um4hp8MRoUzIXkjCX6dcezpy6rW2ZqiJYslotd6Uf6/Bt3KFjEKLEt6xrnpGwKHxjC0VZ4pFrb2ecFTVmdI0Q6Q==
+ bh=q1HCDkNERSbSY9nu3mO6h0iyX7gg3D9ookWe3s+HogI=;
+ b=CalERg/gJa+MHSRLO+j5IMN5ZoryaJPhHwpCd884W6yUr13pXKDYHg8eYUzUGR8UjLrw/kzx2QdwimH3WMSYPEiG3QxB+05ss5wBOcjQqHxM8oC36ha1rUjkqBNimkVkEwf7X4mSPUaFhxqR3kr0lKkKKDopbg4gZztT7CL9YmTWcy3V3H/WyxCsL74h0QV3fteBra+TnEJYcIQnATPIidmYUZPOe6aGsQgxE9twEiFkWYg2tOjUflRQ1OzZclESWuQA/gfHGJxmakBqwLuPW3mohcMnAlj1w34zsVfqIjkqI3xj8Md9LtyQKtKks5lPlvy0e/tGrOltU2bc3bOYag==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZSoK8bRWbL4+AMQ2UOgh37WazNqqAe3asPcE/VDcf8I=;
- b=VZkyxJKRVs8m5RD0OTtgjgCsRxyji31pRwuiTGS2fD1li4gVqLlWg97AjbaXB3yUc8GywOI75l3nRdSFgYwTi8RUDsky0vfnEZH3WpPn7JLpDuOkl3CyReme/Ivfs78Rdtn9hKJo+7cXqgBm+EGuxA5HIC30uitcsTNap24UsPg=
-Received: from MW2PR2101CA0009.namprd21.prod.outlook.com (2603:10b6:302:1::22)
- by MWHPR1201MB0014.namprd12.prod.outlook.com (2603:10b6:300:e7::21)
+ bh=q1HCDkNERSbSY9nu3mO6h0iyX7gg3D9ookWe3s+HogI=;
+ b=hMZShMl2euSWpkr4QYTWwvgQZMr1OSjgI5DDkemEwg0lDSpK110q/SZ9NUzNUkhKgLMLvxVc6PTku5a6QRZoh6b8gN5W3WVxyrpYISUUki7MZdT3d9Soy7WxuTWTJTE0ykcqflQQgZjugeDuwCao5XRe9hq3mbUebHR+Eo9EkMU=
+Received: from MW4PR04CA0203.namprd04.prod.outlook.com (2603:10b6:303:86::28)
+ by MN2PR12MB3901.namprd12.prod.outlook.com (2603:10b6:208:16c::27)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4544.18; Thu, 30 Sep
- 2021 13:27:46 +0000
-Received: from CO1NAM11FT030.eop-nam11.prod.protection.outlook.com
- (2603:10b6:302:1:cafe::60) by MW2PR2101CA0009.outlook.office365.com
- (2603:10b6:302:1::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.2 via Frontend
- Transport; Thu, 30 Sep 2021 13:27:46 +0000
+ 2021 13:28:16 +0000
+Received: from CO1NAM11FT011.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:86:cafe::35) by MW4PR04CA0203.outlook.office365.com
+ (2603:10b6:303:86::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.15 via Frontend
+ Transport; Thu, 30 Sep 2021 13:28:14 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; kernel.org; dkim=none (message not signed)
  header.d=none;kernel.org; dmarc=pass action=none header.from=amd.com;
@@ -73,26 +73,25 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT030.mail.protection.outlook.com (10.13.174.125) with Microsoft SMTP
+ CO1NAM11FT011.mail.protection.outlook.com (10.13.175.186) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4566.14 via Frontend Transport; Thu, 30 Sep 2021 13:27:45 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ 15.20.4566.14 via Frontend Transport; Thu, 30 Sep 2021 13:28:13 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Thu, 30 Sep
- 2021 08:27:44 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ 2021 08:28:12 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Thu, 30 Sep
- 2021 06:27:43 -0700
+ 2021 08:28:12 -0500
 Received: from chrome.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2308.8 via Frontend
- Transport; Thu, 30 Sep 2021 08:27:39 -0500
+ Transport; Thu, 30 Sep 2021 08:28:08 -0500
 From: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
 To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH 6/8] ASoC: amd: acp: Add SOF sound card support on Guybrush
- board
-Date: Thu, 30 Sep 2021 18:54:16 +0530
-Message-ID: <20210930132418.14077-7-AjitKumar.Pandey@amd.com>
+Subject: [PATCH 7/8] ASoC: amd: acp: Add support for Maxim amplifier codec
+Date: Thu, 30 Sep 2021 18:54:17 +0530
+Message-ID: <20210930132418.14077-8-AjitKumar.Pandey@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210930132418.14077-1-AjitKumar.Pandey@amd.com>
 References: <20210930132418.14077-1-AjitKumar.Pandey@amd.com>
@@ -101,28 +100,28 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 80bf047c-b7a2-4ac9-2002-08d9841616da
-X-MS-TrafficTypeDiagnostic: MWHPR1201MB0014:
-X-Microsoft-Antispam-PRVS: <MWHPR1201MB0014870A9229F8ABBBEC1A3782AA9@MWHPR1201MB0014.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3276;
+X-MS-Office365-Filtering-Correlation-Id: c12b7799-c551-4f50-3879-08d9841627a8
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3901:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3901613C9FCFC626A2FAE59882AA9@MN2PR12MB3901.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1388;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HvOB0bEQJp4T3fXMEakSazgldEF/g8klVlxGYkPXQmlOHQOUGNsAvdaRY82HMSFFUH0Xk+6NRUG/b2kw4hD4U0YTXvXkc6AIwADmUpvxwUgX/zgnpsJrLt37Ii98p04DX74b0vfDbNlvNJUZ5v6NJcSYM2hiVnlkuawZmX0k9jmth/KQntCgHrBHcgnJ6xvksJAIADFlVlUM8s/jvqum+LYRPQUoY+XKe1vDfPIMSPZWu5P2wje4bg/I5r0QngTHNVvVYlwe79vMvtWbmymxltaYKxDTUQzF8u0vBrcExL3XMYxDKx9whxpC0rYAy1Nkpj8KH/WO39/hV3YQxkukymKNqdzEt3uNCWZMTiNICjOEUXgILxT3c2YCDkrJD2398hk4Vxeh/A7idtRtc/XPLz7rOiAOKspG6PKqbdjd6XJnZIUpJ/H0Ib+zHnvUgZwBRDh1MiL+m+X6fNVs9KF1/yGYehfr1Ab1dUe5iUJ6Zf2JJBYL3kGcC2Lihvgy1qyjX1Uuc2bB00LPGkRiCY0HbQ7NT5z0ZHa5RizASqQhvsqNHxcVEYTI6Pb3MhhSscZCkkGEiRn35in+d5invJGMNUDrUYgUwC3addoEz/AX2e0l6w8Kyw2/8IiBpxad7ueRCk+pyfNwwPs3WXv5q4PUuDUnWscwGyQ2CwKGLbbBwEWJCwKHDmOkMx/XDuC92SQiG2qs0aL19+uyjf5ovAdgb5g0UQVqMZLyX+YALSsTlxc=
+X-Microsoft-Antispam-Message-Info: upUhhFLx4a8tkSvX62V4tLjzYjQdM0Keacx2WiAl8yZlkOB+cozAT+RqGneygMJcY8hzQI1k1QMDJhK6zGgI6Vyj366WZTBWodEuy9gEm9ZpONxQrP6Cypq5BLWMbdIOji5OCagVSzXjmT4sS++tGDdORNLkFcFctuCIZFwyp0rS3Huyvz85jkCqpCNNmLCcmmL0wPNGHCDj/HXlUPnTHL+uBOlrkz3IXhTNFAxQ1TDMTgkTdN8kgbPwl0UmnlOPSXkqnCVXmcGVpobV3oqusYCcghV0ZmqilNlhZdOaCo7RfuBwCKSOCCq+41IB+/VYR3FhK3QaoWrVZDpnyf095BE+B+dxIvX8gTVQvNBo4st45xTRVHhYj2mBFdxZ82JH10DIhkRuEYiOo6xQaep09S27i06jYpwiiNmlxxsjrD/p+bppMOCJRXEhx4ggQRFMfNBlIhq3PfvIyJnjylXtWYgI3TpSAaadI4ymGegqOJrYu3f1ftsgbXYXuWpcmZBJI3aRwInl2ObP/MO4S/nsKJbWg76UAKVFNUh0uvSurH5c8jXgmrgMwJvvoLB3VsrfOLGGYxoDy5gBLpzm9PEqgLC/op7iVLHvn71Drslbc6RUcGcxf2AMWVW63vMnaTree3EzOroRFKaaKQxDt9r2Axn9E/3uEOikr9sqSrnfsKUrcSuqTPOi2X7gx55eJz5dmNzN5SilXdMuQ3x/ycFyIwMfstEWpOJjdfcD5SspFbQ=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(70206006)(8676002)(83380400001)(70586007)(186003)(81166007)(47076005)(7696005)(508600001)(86362001)(36860700001)(82310400003)(2906002)(356005)(26005)(426003)(316002)(336012)(2616005)(6666004)(8936002)(54906003)(5660300002)(36756003)(1076003)(110136005)(4326008)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(2906002)(86362001)(54906003)(70206006)(110136005)(7696005)(36756003)(316002)(8936002)(186003)(6666004)(508600001)(26005)(8676002)(5660300002)(336012)(47076005)(426003)(81166007)(1076003)(82310400003)(70586007)(36860700001)(2616005)(4326008)(356005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2021 13:27:45.5627 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80bf047c-b7a2-4ac9-2002-08d9841616da
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2021 13:28:13.7496 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c12b7799-c551-4f50-3879-08d9841627a8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT030.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT011.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0014
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3901
 X-Mailman-Approved-At: Thu, 30 Sep 2021 17:11:01 +0200
 Cc: Sunil-kumar.Dommati@amd.com, Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
  open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
@@ -143,161 +142,100 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Guybrush board has RT5682 codec and RT1019 amp connected to I2S SP
-controller on ACP hw. Also it support DMIC capture endpoints with
-inbuilt pdm controller on ACP hw block. Add driver module to create
-backend dai links for sof dsp core. We pass driver data with audio
-end points configuration to register sound cards and create device
-nodes for all audio endpoints.
+Add a new codec id for MAX98360A amplifier in codec list and define
+maxim components and audio route in common machine driver code.
 
 Signed-off-by: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
 ---
- sound/soc/amd/acp/Kconfig        |   6 ++
- sound/soc/amd/acp/Makefile       |   2 +
- sound/soc/amd/acp/acp-sof-mach.c | 103 +++++++++++++++++++++++++++++++
- 3 files changed, 111 insertions(+)
- create mode 100644 sound/soc/amd/acp/acp-sof-mach.c
+ sound/soc/amd/acp/Kconfig           |  1 +
+ sound/soc/amd/acp/acp-mach-common.c | 21 +++++++++++++++++++++
+ sound/soc/amd/acp/acp-mach.h        |  1 +
+ 3 files changed, 23 insertions(+)
 
 diff --git a/sound/soc/amd/acp/Kconfig b/sound/soc/amd/acp/Kconfig
-index aea8766d20a0..55dda516a0d0 100644
+index 55dda516a0d0..8257b8e1e7cc 100644
 --- a/sound/soc/amd/acp/Kconfig
 +++ b/sound/soc/amd/acp/Kconfig
-@@ -39,3 +39,9 @@ config SND_SOC_AMD_LEGACY_MACH
- 	select SND_SOC_AMD_MACH_COMMON
+@@ -30,6 +30,7 @@ config SND_SOC_AMD_MACH_COMMON
+ 	select SND_SOC_RT5682_I2C
+ 	select SND_SOC_DMIC
+ 	select SND_SOC_RT1019
++	select SND_SOC_MAX98357A
+ 	depends on X86 && PCI && I2C
  	help
- 	 This option enables legacy sound card support for ACP audio
-+
-+config SND_SOC_AMD_SOF_MACH
-+	tristate "AMD SOF Machine Driver Support"
-+	select SND_SOC_AMD_MACH_COMMON
-+	help
-+	 This option enables SOF sound card support for ACP audio
-diff --git a/sound/soc/amd/acp/Makefile b/sound/soc/amd/acp/Makefile
-index aef6f981c770..16c144c2965c 100644
---- a/sound/soc/amd/acp/Makefile
-+++ b/sound/soc/amd/acp/Makefile
-@@ -14,6 +14,7 @@ snd-acp-renoir-objs     := acp-renoir.o
- #machine specific driver
- snd-acp-mach-objs     := acp-mach-common.o
- snd-acp-legacy-mach-objs     := acp-legacy-mach.o
-+snd-acp-sof-mach-objs     := acp-sof-mach.o
+ 	 This option enables common Machine driver module for ACP
+diff --git a/sound/soc/amd/acp/acp-mach-common.c b/sound/soc/amd/acp/acp-mach-common.c
+index cc507c520317..80c6cd220674 100644
+--- a/sound/soc/amd/acp/acp-mach-common.c
++++ b/sound/soc/amd/acp/acp-mach-common.c
+@@ -91,6 +91,14 @@ static struct snd_soc_codec_conf rt1019_conf[] = {
+ 	},
+ };
  
- obj-$(CONFIG_SND_SOC_AMD_ACP_PCM) += snd-acp-pcm.o
- obj-$(CONFIG_SND_SOC_AMD_ACP_I2S) += snd-acp-i2s.o
-@@ -22,3 +23,4 @@ obj-$(CONFIG_SND_AMD_ASOC_RENOIR) += snd-acp-renoir.o
++/* Declare Maxim codec components */
++SND_SOC_DAILINK_DEF(max98360a,
++	DAILINK_COMP_ARRAY(COMP_CODEC("MX98360A:00", "HiFi")));
++
++static const struct snd_soc_dapm_route max98360a_map[] = {
++	{"Spk", NULL, "Speaker"},
++};
++
+ /* Declare DMIC codec components */
+ SND_SOC_DAILINK_DEF(dmic_codec,
+ 		DAILINK_COMP_ARRAY(COMP_CODEC("dmic-codec", "dmic-hifi")));
+@@ -248,6 +256,9 @@ static int acp_asoc_amp_init(struct snd_soc_pcm_runtime *rtd)
+ 	case RT1019:
+ 		return snd_soc_dapm_add_routes(&rtd->card->dapm, rt1019_map_lr,
+ 					       ARRAY_SIZE(rt1019_map_lr));
++	case MAX98360A:
++		return snd_soc_dapm_add_routes(&rtd->card->dapm, max98360a_map,
++					       ARRAY_SIZE(max98360a_map));
+ 	default:
+ 		dev_err(card->dev, "Invalid AMP id: %d\n", drvdata->amp_codec_id);
+ 		return -EINVAL;
+@@ -286,6 +297,8 @@ static int acp_card_amp_hw_params(struct snd_pcm_substream *substream,
+ 				return ret;
+ 			}
+ 		break;
++	case MAX98360A:
++		break;
+ 	default:
+ 		dev_err(card->dev, "Invalid AMP id: %d\n", drvdata->amp_codec_id);
+ 		return -EINVAL;
+@@ -414,6 +427,10 @@ int acp_sofdsp_dai_links_create(struct snd_soc_card *card)
+ 			card->codec_conf = rt1019_conf;
+ 			card->num_configs = ARRAY_SIZE(rt1019_conf);
+ 		}
++		if (drv_data->amp_codec_id == MAX98360A) {
++			links[i].codecs = max98360a;
++			links[i].num_codecs = ARRAY_SIZE(max98360a);
++		}
+ 		i++;
+ 	}
  
- obj-$(CONFIG_SND_SOC_AMD_MACH_COMMON) += snd-acp-mach.o
- obj-$(CONFIG_SND_SOC_AMD_LEGACY_MACH) += snd-acp-legacy-mach.o
-+obj-$(CONFIG_SND_SOC_AMD_SOF_MACH) += snd-acp-sof-mach.o
-diff --git a/sound/soc/amd/acp/acp-sof-mach.c b/sound/soc/amd/acp/acp-sof-mach.c
-new file mode 100644
-index 000000000000..9da70550ea25
---- /dev/null
-+++ b/sound/soc/amd/acp/acp-sof-mach.c
-@@ -0,0 +1,103 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
-+//
-+// This file is provided under a dual BSD/GPLv2 license. When using or
-+// redistributing this file, you may do so under either license.
-+//
-+// Copyright(c) 2021 Advanced Micro Devices, Inc.
-+//
-+// Authors: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
-+//
-+
-+/*
-+ * SOF Machine Driver Support for ACP HW block
-+ */
-+
-+#include <sound/core.h>
-+#include <sound/pcm_params.h>
-+#include <sound/soc-acpi.h>
-+#include <sound/soc-dapm.h>
-+#include <linux/module.h>
-+
-+#include "acp-mach.h"
-+
-+static struct acp_card_drvdata guybrush_sof_data = {
-+	.hs_cpu_id = I2S_SP,
-+	.amp_cpu_id = I2S_SP,
-+	.dmic_cpu_id = DMIC,
-+	.hs_codec_id = RT5682,
-+	.amp_codec_id = RT1019,
-+	.dmic_codec_id = DMIC,
-+};
-+
-+static const struct snd_kcontrol_new acp_controls[] = {
-+	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
-+	SOC_DAPM_PIN_SWITCH("Headset Mic"),
-+	SOC_DAPM_PIN_SWITCH("Spk"),
-+	SOC_DAPM_PIN_SWITCH("Left Spk"),
-+	SOC_DAPM_PIN_SWITCH("Right Spk"),
-+};
-+
-+static const struct snd_soc_dapm_widget acp_widgets[] = {
-+	SND_SOC_DAPM_HP("Headphone Jack", NULL),
-+	SND_SOC_DAPM_MIC("Headset Mic", NULL),
-+	SND_SOC_DAPM_SPK("Spk", NULL),
-+	SND_SOC_DAPM_SPK("Left Spk", NULL),
-+	SND_SOC_DAPM_SPK("Right Spk", NULL),
-+};
-+
-+static int acp_sof_probe(struct platform_device *pdev)
-+{
-+	struct snd_soc_card *card = NULL;
-+	struct device *dev = &pdev->dev;
-+	int ret;
-+
-+	if (!pdev->id_entry)
-+		return -EINVAL;
-+
-+	card = devm_kzalloc(dev, sizeof(*card), GFP_KERNEL);
-+	if (!card)
-+		return -ENOMEM;
-+
-+	card->dev = dev;
-+	card->owner = THIS_MODULE;
-+	card->name = pdev->id_entry->name;
-+	card->dapm_widgets = acp_widgets;
-+	card->num_dapm_widgets = ARRAY_SIZE(acp_widgets);
-+	card->controls = acp_controls;
-+	card->num_controls = ARRAY_SIZE(acp_controls);
-+	card->drvdata = (struct acp_card_drvdata *)pdev->id_entry->driver_data;
-+
-+	acp_sofdsp_dai_links_create(card);
-+
-+	ret = devm_snd_soc_register_card(&pdev->dev, card);
-+	if (ret) {
-+		dev_err(&pdev->dev,
-+				"devm_snd_soc_register_card(%s) failed: %d\n",
-+				card->name, ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct platform_device_id board_ids[] = {
-+	{
-+		.name = "rn-sof-rt5682-rt1019",
-+		.driver_data = (kernel_ulong_t)&guybrush_sof_data
-+	},
-+	{ }
-+};
-+static struct platform_driver acp_asoc_audio = {
-+	.driver = {
-+		.name = "sof_mach",
-+	},
-+	.probe = acp_sof_probe,
-+	.id_table = board_ids,
-+};
-+
-+module_platform_driver(acp_asoc_audio);
-+
-+MODULE_IMPORT_NS(SND_SOC_AMD_MACH);
-+MODULE_DESCRIPTION("ACP chrome SOF audio support");
-+MODULE_ALIAS("platform:rn-sof-rt5682-rt1019");
-+MODULE_LICENSE("GPL v2");
+@@ -499,6 +516,10 @@ int acp_legacy_dai_links_create(struct snd_soc_card *card)
+ 			card->codec_conf = rt1019_conf;
+ 			card->num_configs = ARRAY_SIZE(rt1019_conf);
+ 		}
++		if (drv_data->amp_codec_id == MAX98360A) {
++			links[i].codecs = max98360a;
++			links[i].num_codecs = ARRAY_SIZE(max98360a);
++		}
+ 	}
+ 
+ 	card->dai_link = links;
+diff --git a/sound/soc/amd/acp/acp-mach.h b/sound/soc/amd/acp/acp-mach.h
+index 464fb7eb802d..b6a43d1b9ad4 100644
+--- a/sound/soc/amd/acp/acp-mach.h
++++ b/sound/soc/amd/acp/acp-mach.h
+@@ -35,6 +35,7 @@ enum codec_endpoints {
+ 	DUMMY = 0,
+ 	RT5682,
+ 	RT1019,
++	MAX98360A,
+ };
+ 
+ struct acp_card_drvdata {
 -- 
 2.25.1
 

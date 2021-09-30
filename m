@@ -2,70 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95B5041DCEB
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Sep 2021 17:02:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA4CA41DCEC
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Sep 2021 17:02:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3CAC716C9;
-	Thu, 30 Sep 2021 17:01:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CAC716C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70DC016EB;
+	Thu, 30 Sep 2021 17:01:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70DC016EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633014153;
-	bh=u4R0VNMPtThjldunJRGnob4gVVYXBhwzUwcsqnQGS40=;
+	s=default; t=1633014164;
+	bh=yWOZTx2GVCXqbJG7AYf+w0iFnRMBRhlqbinERr6BKqY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GwjtuQ+ELzhI93ahISNWBc7RIIzmIHm6GAm6uTc5VxRqpTcZrhFBfnZJmBr8Zjxn8
-	 H5mIo4z4Niar1JVB0t3LeRWvyMZzwySuNg+R3KQqcWk4VF4tHzeAFHSc04rWbygZML
-	 i5yWyFwh3/fL8MaQ2KAweHsjvbdzmM7JLl61h4/M=
+	b=bx6bmrYcT37hotwfgwPe1/0QOTTNrtFSmCIEdDi4zk1RtAVkm/8bq8A94aPyBqUZc
+	 x8MiLwbp3DidR4tlxvDgZeOkYqwjNIoxFGDTG8WN/263B4yQMelTwi8hTQNRVbBuJh
+	 FOBHNTv3SxwIfzAfXgO7tBolgn4FLPrjdsrzAnTs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9EAEF804E7;
-	Thu, 30 Sep 2021 17:00:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C7DBFF804F1;
+	Thu, 30 Sep 2021 17:00:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35D65F804DA; Thu, 30 Sep 2021 17:00:16 +0200 (CEST)
+ id 6379DF804DA; Thu, 30 Sep 2021 17:00:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 346ADF804D1
- for <alsa-devel@alsa-project.org>; Thu, 30 Sep 2021 17:00:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 346ADF804D1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0D04AF800F3
+ for <alsa-devel@alsa-project.org>; Thu, 30 Sep 2021 17:00:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D04AF800F3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="q68LBmRS"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4A8FC61994;
- Thu, 30 Sep 2021 15:00:05 +0000 (UTC)
+ header.b="XpIGnAKm"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id CC77861A2A;
+ Thu, 30 Sep 2021 15:00:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633014005;
- bh=u4R0VNMPtThjldunJRGnob4gVVYXBhwzUwcsqnQGS40=;
+ s=k20201202; t=1633014008;
+ bh=yWOZTx2GVCXqbJG7AYf+w0iFnRMBRhlqbinERr6BKqY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=q68LBmRSuzne4IMhpBTlC0ye11yFgoSxVKAi4lAdgVmS7/CPG3y78XuUNLmvMkaAw
- VufmJ2gxcc+k6yiCTINdxbQJd3CXqjCEKePN4EAp7AAqQFHEWb+At1LUeYTKU90nl7
- j5cDKrgmoSb/gIlC0KvOtnmSNTRRn73JP7qlRON2O4IO4H1eBoNmWnKVgbxIsY3q+c
- P3y5SGJSyIC1HHqW96CspaDV1lxCcTWA19AvsQYBS/s3rZtNj1/EeYyZrlHfrcKTu1
- v6vbJXadTdSvcIgjE34ODpTu6UyirsFD4u1/l+bcW0/QwwQvvcXhQBHnH8yJHxYTh5
- 0CbiidSpSf6JA==
+ b=XpIGnAKmRFNaLc2RnTLc2ZIAXcKb4mqCN95K54x456tpfpsM9ZeWzKzQyD0m+GzSC
+ SkB5THevHWHddPCoP33iugoEEjOYDOfoVu9DRBlAwiErUViA5KlVavLG8yECWHIPdo
+ 4slzeSsrbikqLKb/4UdxcX6up9o4MQ9eIo/1CfWalLCOKgRbeAqSywPO0RpcazlcA8
+ AQb2oPMPaZHQuLpiu9z3viq8rBeYLFDRaIQIZoA+vYk0/bCLMvRQJMJX//Yur7gm8D
+ evs6EJZR7bLjDf3pAf4LtiLQx4exlfX3wTu9MvxJV1j3va9gt7oZMEw1GGzRjC9MMF
+ 1k5dGgZatR5og==
 From: Mark Brown <broonie@kernel.org>
-To: Jack Yu <jack.yu@realtek.com>,
+To: derek.fang@realtek.com,
 	lgirdwood@gmail.com
-Subject: Re: [PATCH] ASoC: rt5682: move clk related code to rt5682_i2c_probe
-Date: Thu, 30 Sep 2021 15:58:55 +0100
-Message-Id: <163301248177.43045.18325807154751324693.b4-ty@kernel.org>
+Subject: Re: [PATCH 1/3] ASoC: rt5682s: Remove the volatile SW reset register
+ from reg_default
+Date: Thu, 30 Sep 2021 15:58:56 +0100
+Message-Id: <163301248178.43045.15588263327224745864.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210929054344.12112-1-jack.yu@realtek.com>
-References: <20210929054344.12112-1-jack.yu@realtek.com>
+In-Reply-To: <20210930102928.28628-1-derek.fang@realtek.com>
+References: <20210930102928.28628-1-derek.fang@realtek.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
- wenst@google.com, Mark Brown <broonie@kernel.org>, derek.fang@realtek.com,
- shumingf@realtek.com, flove@realtek.com
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, Mark Brown <broonie@kernel.org>, shumingf@realtek.com,
+ flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,11 +83,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 29 Sep 2021 13:43:44 +0800, Jack Yu wrote:
-> The DAI clock is only used in I2S mode, to make it clear
-> and to fix clock resource release issue, we move CCF clock
-> related code to rt5682_i2c_probe to fix clock
-> register/unregister issue.
+On Thu, 30 Sep 2021 18:29:26 +0800, derek.fang@realtek.com wrote:
+> From: Derek Fang <derek.fang@realtek.com>
+> 
+> This reg is for SW reset.
+> It shouldn't have default value, so remove.
 > 
 > 
 
@@ -95,8 +97,12 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: rt5682: move clk related code to rt5682_i2c_probe
-      commit: 57589f82762e40bdaa975d840fa2bc5157b5be95
+[1/3] ASoC: rt5682s: Remove the volatile SW reset register from reg_default
+      commit: 67e068ec4596dbaac5f45669ce8373dfe61a2411
+[2/3] ASoC: rt5682s: Use dev_dbg instead of pr_debug
+      commit: 087330c642a968be8b1b9f2df6fb87b217f17372
+[3/3] ASoC: rt5682s: Revise the macro RT5682S_PLLB_SRC_MASK
+      commit: 853cb0be0eb2dba3e016b4f1d9fdae91065930c6
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

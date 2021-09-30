@@ -2,88 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A30341D3A8
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Sep 2021 08:57:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90F6A41D3E4
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Sep 2021 09:06:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 17E6C16DF;
-	Thu, 30 Sep 2021 08:56:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17E6C16DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2CC1E16DF;
+	Thu, 30 Sep 2021 09:05:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CC1E16DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632985044;
-	bh=93/achl53ar3eJMBONwokNwz/oGczfYPhpD6hGxFC3Y=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=IVMhXKcNwsm+ELB/5+xXqShyy0l+xNfb1xbClYiZBBZ5F0KRakcWnTv/R01GXbCAX
-	 305XdczDsXeF7iwli6TTJt2Dr8JT2x/iZHP4laD1/uYqGgNfZ1+BYgdjYCPHpxcQqN
-	 vuaCxbAWF6X8ljq+DavyU9zcCWPB1g2J0SJBO2pM=
+	s=default; t=1632985575;
+	bh=ZA9Cvui8oH+KPegvwe+DjgBose27l6F2nYUnZpznoig=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=TcYwlvALJ1AaygsTWqENaCp4mp3kXhiN1zs2+phJoeEOohji8D6Wky8P7W1xQg+87
+	 Fx4p9d6w4yJmoAKZESJEsi8N8zvaFwgr+po6+74R6g/D8azD1v3r1z6Syqe0MLNSB5
+	 qx1FTdCta6r3LJ8MxginSDhNtOo0cg8kd//UQBB0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 792CAF804BC;
-	Thu, 30 Sep 2021 08:56:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4D95F800F3;
+	Thu, 30 Sep 2021 09:04:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35758F804AD; Thu, 30 Sep 2021 08:56:04 +0200 (CEST)
+ id F1F4BF804AD; Thu, 30 Sep 2021 09:04:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61BD6F800F3
- for <alsa-devel@alsa-project.org>; Thu, 30 Sep 2021 08:55:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61BD6F800F3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="YYmV059y"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="nIeRErmv"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 150B81FE38;
- Thu, 30 Sep 2021 06:55:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1632984953; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=vBYVE+FuPoCe63k5/yqqS9Hxvmo7X180WS6qdmXKozo=;
- b=YYmV059ysXKqgj5pwukBY2iSxfrh8admY2H+PJ+rjC0Lt5WoU0cX+rs4Q07/EOD4MZPGXF
- 6BfUwC/OH3ZKn0JHK/MYMnkPlFBjYWM0Jc2K/Wm7cBF+4Ysh7nIgjVuFZZYekZcdLRf2l7
- 2yVPnunZvfhp/p50xuUamyTP3eXubko=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1632984953;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=vBYVE+FuPoCe63k5/yqqS9Hxvmo7X180WS6qdmXKozo=;
- b=nIeRErmvcdaet6Dj+9RjGNHn6JbEF31wPkNbvFt2v8ZgH/CGgELW+s80hS5C3gmtHZffv7
- uPlPt6vB4xmPF3Aw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id EECAAA3B81;
- Thu, 30 Sep 2021 06:55:52 +0000 (UTC)
-Date: Thu, 30 Sep 2021 08:55:52 +0200
-Message-ID: <s5hczoqlfgn.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: John Keeping <john@metanate.com>
-Subject: Re: [PATCH] ALSA: rawmidi: Fix potential UAF from sequencer
- destruction
-In-Reply-To: <s5hfstmlgkj.wl-tiwai@suse.de>
-References: <20210929113620.2194847-1-john@metanate.com>
- <s5hzgrvl9j0.wl-tiwai@suse.de>
- <20210929161758.49ce947f.john@metanate.com>
- <s5hv92jl7t2.wl-tiwai@suse.de>
- <20210929175632.50b78be8.john@metanate.com>
- <s5hfstmlgkj.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id CACF5F800F3
+ for <alsa-devel@alsa-project.org>; Thu, 30 Sep 2021 09:04:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CACF5F800F3
+X-IronPort-AV: E=McAfee;i="6200,9189,10122"; a="225191230"
+X-IronPort-AV: E=Sophos;i="5.85,335,1624345200"; d="scan'208";a="225191230"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2021 00:04:40 -0700
+X-IronPort-AV: E=Sophos;i="5.85,335,1624345200"; d="scan'208";a="555542129"
+Received: from kacharya-mobl.gar.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.249.39.33])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2021 00:04:33 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com, broonie@kernel.org,
+ pierre-louis.bossart@linux.intel.com, daniel.baluta@nxp.com
+Subject: [PATCH] ASoC: SOF: Change SND_SOC_SOF_TOPLEVEL from config to
+ menuconfig
+Date: Thu, 30 Sep 2021 10:04:38 +0300
+Message-Id: <20210930070438.16846-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.33.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: guennadi.liakhovetski@linux.intel.com, alsa-devel@alsa-project.org,
+ bard.liao@intel.com, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,117 +73,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 30 Sep 2021 08:31:56 +0200,
-Takashi Iwai wrote:
-> 
-> On Wed, 29 Sep 2021 18:56:32 +0200,
-> John Keeping wrote:
-> > 
-> > On Wed, 29 Sep 2021 17:28:57 +0200
-> > Takashi Iwai <tiwai@suse.de> wrote:
-> > 
-> > > On Wed, 29 Sep 2021 17:17:58 +0200,
-> > > John Keeping wrote:
-> > > > 
-> > > > On Wed, 29 Sep 2021 16:51:47 +0200
-> > > > Takashi Iwai <tiwai@suse.de> wrote:
-> > > >   
-> > > > > On Wed, 29 Sep 2021 13:36:20 +0200,
-> > > > > John Keeping wrote:  
-> > > > > > 
-> > > > > > If the sequencer device outlives the rawmidi device, then
-> > > > > > snd_rawmidi_dev_seq_free() will run after release_rawmidi_device() has
-> > > > > > freed the snd_rawmidi structure.
-> > > > > > 
-> > > > > > This can easily be reproduced with CONFIG_DEBUG_KOBJECT_RELEASE.
-> > > > > > 
-> > > > > > Keep a reference to the rawmidi device until the sequencer has been
-> > > > > > destroyed in order to avoid this.
-> > > > > > 
-> > > > > > Signed-off-by: John Keeping <john@metanate.com>    
-> > > > > 
-> > > > > Thanks for the patch.  I wonder, though, how this could be triggered.
-> > > > > Is this the case where the connected sequencer device is being used
-> > > > > while the sound card gets released?  Or is it something else?  
-> > > > 
-> > > > I'm not sure if it's possible to trigger via the ALSA API; I haven't
-> > > > found a route that can trigger it, but that doesn't mean there isn't
-> > > > one :-)
-> > > > 
-> > > > Mostly this is useful to make CONFIG_DEBUG_KOBJECT_RELEASE cleaner.  
-> > > 
-> > > Hm, then could you check whether the patch below papers over it
-> > > instead?
-> > 
-> > No, this patch doesn't solve it.  The issue is that the effect of the
-> > final device_put() is delayed from the time it is called and there is no
-> > way to guarantee the ordering without ensuring the sequencer has been
-> > destroyed before the final reference to the rawmidi device is put.
-> > 
-> > Both of the functions involved are called from the core
-> > device::release() hook.
-> > 
-> > I'm using the patch below to easily check that the sequencer has been
-> > freed before the rawmidi data.  This can easily be triggered by
-> > unplugging a USB MIDI device (it's not 100% since the kobject release
-> > delays are random).
-> 
-> Hm, it's strange.  I suppose you're *not* using the MIDI device,
-> right?
-> 
-> The release path for the USB-audio driver is:
->   usb_audio_disconnect() ->
->     snd_card_free_when_closed() ->
->       release_card_device() (via put_device(&card->card_dev)) ->
->         snd_card_do_free()
-> 
-> And here in snd_card_do_free(), the snd_device free-callback chains
-> are called at the beginning (snd_device_free_all()).
-> As it's executed in a reverse loop, snd_rawmidi_dev_seq_free() shall
-> be called before snd_rawmidi_dev_free().  Since the final put_device()
-> for the rawmidi device is called in the latter function, the device
-> release must not happen before snd_rawmidi_dev_seq_free()...
+We have growing number of options under SND_SOC_SOF_TOPLEVEL as SOF
+adaptation is growing (Intel, NXP, AMD and Mediatek) and new features are
+added.
+It will make the menuconfig user experience much cleaner if we move the
+SOF options under a separate page.
 
-Correction: now I finally understood what I misunderstood.
-Although the snd_device call chain mentioned above itself is correct,
-the snd_rawmidi_dev_seq_free() function isn't called directly from the
-snd_device chain, but it's rater the own private_free of
-snd_seq_device object.  That is, the call of snd_seq_device
-private_free is done in a wrong place; it should be called in the
-snd_device call chain instead of the device release.
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Bard Liao <bard.liao@intel.com>
+Reviewed-by: Daniel Baluta <daniel.baluta@gmail.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+---
+Hi,
 
-A fix patch is something like below.  Could you check whether this
-fixes the problem?
+screen shots of before and after of menuconfig is attached to the PR for
+sof-dev:
+https://github.com/thesofproject/linux/pull/3148
 
+Regards,
+Peter
 
-thanks,
+ sound/soc/sof/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Takashi
-
---- a/sound/core/seq_device.c
-+++ b/sound/core/seq_device.c
-@@ -156,6 +156,8 @@ static int snd_seq_device_dev_free(struct snd_device *device)
- 	struct snd_seq_device *dev = device->device_data;
- 
- 	cancel_autoload_drivers();
-+	if (dev->private_free)
-+		dev->private_free(dev);
- 	put_device(&dev->dev);
- 	return 0;
- }
-@@ -183,11 +185,7 @@ static int snd_seq_device_dev_disconnect(struct snd_device *device)
- 
- static void snd_seq_dev_release(struct device *dev)
- {
--	struct snd_seq_device *sdev = to_seq_dev(dev);
--
--	if (sdev->private_free)
--		sdev->private_free(sdev);
--	kfree(sdev);
-+	kfree(to_seq_dev(dev));
- }
- 
- /*
-
-
+diff --git a/sound/soc/sof/Kconfig b/sound/soc/sof/Kconfig
+index cd659493b5df..94d1a859fedc 100644
+--- a/sound/soc/sof/Kconfig
++++ b/sound/soc/sof/Kconfig
+@@ -1,5 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+-config SND_SOC_SOF_TOPLEVEL
++menuconfig SND_SOC_SOF_TOPLEVEL
+ 	bool "Sound Open Firmware Support"
+ 	help
+ 	  This adds support for Sound Open Firmware (SOF). SOF is free and
+-- 
+2.33.0
 

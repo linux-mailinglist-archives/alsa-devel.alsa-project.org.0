@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D20AB41D372
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Sep 2021 08:33:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A30341D3A8
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Sep 2021 08:57:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B75716DF;
-	Thu, 30 Sep 2021 08:32:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B75716DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 17E6C16DF;
+	Thu, 30 Sep 2021 08:56:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17E6C16DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1632983605;
-	bh=0REyY6yRfW7qejexsQtIynq2UXdC4vBvd/l8N0wGTJQ=;
+	s=default; t=1632985044;
+	bh=93/achl53ar3eJMBONwokNwz/oGczfYPhpD6hGxFC3Y=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jAaKYOZK4NU2gZJIEb2BsElTXWPjla5YnjUPA+JlL8dGZJeNlrB/oeOHAlXbtx+P9
-	 CgJ+HzgJuaS0zxaG5ugx9wjV5W6fkpift8hrsQS8J2gi9U8A6A2aKWkP63PYpwx/bj
-	 STU0QPbRzYTmTFYHHSHEKadw7dPTaki+UPbQDHY0=
+	b=IVMhXKcNwsm+ELB/5+xXqShyy0l+xNfb1xbClYiZBBZ5F0KRakcWnTv/R01GXbCAX
+	 305XdczDsXeF7iwli6TTJt2Dr8JT2x/iZHP4laD1/uYqGgNfZ1+BYgdjYCPHpxcQqN
+	 vuaCxbAWF6X8ljq+DavyU9zcCWPB1g2J0SJBO2pM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B381EF804BC;
-	Thu, 30 Sep 2021 08:32:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 792CAF804BC;
+	Thu, 30 Sep 2021 08:56:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DC91FF804AD; Thu, 30 Sep 2021 08:32:05 +0200 (CEST)
+ id 35758F804AD; Thu, 30 Sep 2021 08:56:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,48 +34,49 @@ X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5CB12F80113
- for <alsa-devel@alsa-project.org>; Thu, 30 Sep 2021 08:31:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CB12F80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61BD6F800F3
+ for <alsa-devel@alsa-project.org>; Thu, 30 Sep 2021 08:55:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61BD6F800F3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="i5B5yvE/"; 
+ header.b="YYmV059y"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="63yWmBTr"
+ header.b="nIeRErmv"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 4857D1FE36;
- Thu, 30 Sep 2021 06:31:56 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 150B81FE38;
+ Thu, 30 Sep 2021 06:55:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1632983516; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1632984953; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=EepkJrRlZwTddSfo/jzuw2ng8ax6xsdoU2dAI/qRSGQ=;
- b=i5B5yvE/Cuou9CJYmGdL8qf43x/Rg/kxHh6JzNh75UJS5hIX0Zk3QkaIKZZj+QWWo1vPQQ
- n94e5chAourdcQEOqcnQqRehjrEVMdZoKGtQwCro5sX3xCi99uHDbaRg8fjEMCCdqkSjds
- Y8Ahmh8CQSRHkqUfuB7TxhlKtB3PKpQ=
+ bh=vBYVE+FuPoCe63k5/yqqS9Hxvmo7X180WS6qdmXKozo=;
+ b=YYmV059ysXKqgj5pwukBY2iSxfrh8admY2H+PJ+rjC0Lt5WoU0cX+rs4Q07/EOD4MZPGXF
+ 6BfUwC/OH3ZKn0JHK/MYMnkPlFBjYWM0Jc2K/Wm7cBF+4Ysh7nIgjVuFZZYekZcdLRf2l7
+ 2yVPnunZvfhp/p50xuUamyTP3eXubko=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1632983516;
+ s=susede2_ed25519; t=1632984953;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=EepkJrRlZwTddSfo/jzuw2ng8ax6xsdoU2dAI/qRSGQ=;
- b=63yWmBTrBx4e15+WeuiMcCTWcAiXuSwPdrrwZVCqdDlVEWaqQoAebBplE+TxXcHUnglsPF
- Chadz94BcELp+lCg==
+ bh=vBYVE+FuPoCe63k5/yqqS9Hxvmo7X180WS6qdmXKozo=;
+ b=nIeRErmvcdaet6Dj+9RjGNHn6JbEF31wPkNbvFt2v8ZgH/CGgELW+s80hS5C3gmtHZffv7
+ uPlPt6vB4xmPF3Aw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 3FEE4A3B89;
- Thu, 30 Sep 2021 06:31:56 +0000 (UTC)
-Date: Thu, 30 Sep 2021 08:31:56 +0200
-Message-ID: <s5hfstmlgkj.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id EECAAA3B81;
+ Thu, 30 Sep 2021 06:55:52 +0000 (UTC)
+Date: Thu, 30 Sep 2021 08:55:52 +0200
+Message-ID: <s5hczoqlfgn.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: John Keeping <john@metanate.com>
 Subject: Re: [PATCH] ALSA: rawmidi: Fix potential UAF from sequencer
  destruction
-In-Reply-To: <20210929175632.50b78be8.john@metanate.com>
+In-Reply-To: <s5hfstmlgkj.wl-tiwai@suse.de>
 References: <20210929113620.2194847-1-john@metanate.com>
  <s5hzgrvl9j0.wl-tiwai@suse.de>
  <20210929161758.49ce947f.john@metanate.com>
  <s5hv92jl7t2.wl-tiwai@suse.de>
  <20210929175632.50b78be8.john@metanate.com>
+ <s5hfstmlgkj.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -98,130 +99,117 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 29 Sep 2021 18:56:32 +0200,
-John Keeping wrote:
+On Thu, 30 Sep 2021 08:31:56 +0200,
+Takashi Iwai wrote:
 > 
-> On Wed, 29 Sep 2021 17:28:57 +0200
-> Takashi Iwai <tiwai@suse.de> wrote:
-> 
-> > On Wed, 29 Sep 2021 17:17:58 +0200,
-> > John Keeping wrote:
-> > > 
-> > > On Wed, 29 Sep 2021 16:51:47 +0200
-> > > Takashi Iwai <tiwai@suse.de> wrote:
-> > >   
-> > > > On Wed, 29 Sep 2021 13:36:20 +0200,
-> > > > John Keeping wrote:  
-> > > > > 
-> > > > > If the sequencer device outlives the rawmidi device, then
-> > > > > snd_rawmidi_dev_seq_free() will run after release_rawmidi_device() has
-> > > > > freed the snd_rawmidi structure.
-> > > > > 
-> > > > > This can easily be reproduced with CONFIG_DEBUG_KOBJECT_RELEASE.
-> > > > > 
-> > > > > Keep a reference to the rawmidi device until the sequencer has been
-> > > > > destroyed in order to avoid this.
-> > > > > 
-> > > > > Signed-off-by: John Keeping <john@metanate.com>    
-> > > > 
-> > > > Thanks for the patch.  I wonder, though, how this could be triggered.
-> > > > Is this the case where the connected sequencer device is being used
-> > > > while the sound card gets released?  Or is it something else?  
-> > > 
-> > > I'm not sure if it's possible to trigger via the ALSA API; I haven't
-> > > found a route that can trigger it, but that doesn't mean there isn't
-> > > one :-)
-> > > 
-> > > Mostly this is useful to make CONFIG_DEBUG_KOBJECT_RELEASE cleaner.  
+> On Wed, 29 Sep 2021 18:56:32 +0200,
+> John Keeping wrote:
 > > 
-> > Hm, then could you check whether the patch below papers over it
-> > instead?
+> > On Wed, 29 Sep 2021 17:28:57 +0200
+> > Takashi Iwai <tiwai@suse.de> wrote:
+> > 
+> > > On Wed, 29 Sep 2021 17:17:58 +0200,
+> > > John Keeping wrote:
+> > > > 
+> > > > On Wed, 29 Sep 2021 16:51:47 +0200
+> > > > Takashi Iwai <tiwai@suse.de> wrote:
+> > > >   
+> > > > > On Wed, 29 Sep 2021 13:36:20 +0200,
+> > > > > John Keeping wrote:  
+> > > > > > 
+> > > > > > If the sequencer device outlives the rawmidi device, then
+> > > > > > snd_rawmidi_dev_seq_free() will run after release_rawmidi_device() has
+> > > > > > freed the snd_rawmidi structure.
+> > > > > > 
+> > > > > > This can easily be reproduced with CONFIG_DEBUG_KOBJECT_RELEASE.
+> > > > > > 
+> > > > > > Keep a reference to the rawmidi device until the sequencer has been
+> > > > > > destroyed in order to avoid this.
+> > > > > > 
+> > > > > > Signed-off-by: John Keeping <john@metanate.com>    
+> > > > > 
+> > > > > Thanks for the patch.  I wonder, though, how this could be triggered.
+> > > > > Is this the case where the connected sequencer device is being used
+> > > > > while the sound card gets released?  Or is it something else?  
+> > > > 
+> > > > I'm not sure if it's possible to trigger via the ALSA API; I haven't
+> > > > found a route that can trigger it, but that doesn't mean there isn't
+> > > > one :-)
+> > > > 
+> > > > Mostly this is useful to make CONFIG_DEBUG_KOBJECT_RELEASE cleaner.  
+> > > 
+> > > Hm, then could you check whether the patch below papers over it
+> > > instead?
+> > 
+> > No, this patch doesn't solve it.  The issue is that the effect of the
+> > final device_put() is delayed from the time it is called and there is no
+> > way to guarantee the ordering without ensuring the sequencer has been
+> > destroyed before the final reference to the rawmidi device is put.
+> > 
+> > Both of the functions involved are called from the core
+> > device::release() hook.
+> > 
+> > I'm using the patch below to easily check that the sequencer has been
+> > freed before the rawmidi data.  This can easily be triggered by
+> > unplugging a USB MIDI device (it's not 100% since the kobject release
+> > delays are random).
 > 
-> No, this patch doesn't solve it.  The issue is that the effect of the
-> final device_put() is delayed from the time it is called and there is no
-> way to guarantee the ordering without ensuring the sequencer has been
-> destroyed before the final reference to the rawmidi device is put.
+> Hm, it's strange.  I suppose you're *not* using the MIDI device,
+> right?
 > 
-> Both of the functions involved are called from the core
-> device::release() hook.
+> The release path for the USB-audio driver is:
+>   usb_audio_disconnect() ->
+>     snd_card_free_when_closed() ->
+>       release_card_device() (via put_device(&card->card_dev)) ->
+>         snd_card_do_free()
 > 
-> I'm using the patch below to easily check that the sequencer has been
-> freed before the rawmidi data.  This can easily be triggered by
-> unplugging a USB MIDI device (it's not 100% since the kobject release
-> delays are random).
+> And here in snd_card_do_free(), the snd_device free-callback chains
+> are called at the beginning (snd_device_free_all()).
+> As it's executed in a reverse loop, snd_rawmidi_dev_seq_free() shall
+> be called before snd_rawmidi_dev_free().  Since the final put_device()
+> for the rawmidi device is called in the latter function, the device
+> release must not happen before snd_rawmidi_dev_seq_free()...
 
-Hm, it's strange.  I suppose you're *not* using the MIDI device,
-right?
+Correction: now I finally understood what I misunderstood.
+Although the snd_device call chain mentioned above itself is correct,
+the snd_rawmidi_dev_seq_free() function isn't called directly from the
+snd_device chain, but it's rater the own private_free of
+snd_seq_device object.  That is, the call of snd_seq_device
+private_free is done in a wrong place; it should be called in the
+snd_device call chain instead of the device release.
 
-The release path for the USB-audio driver is:
-  usb_audio_disconnect() ->
-    snd_card_free_when_closed() ->
-      release_card_device() (via put_device(&card->card_dev)) ->
-        snd_card_do_free()
-
-And here in snd_card_do_free(), the snd_device free-callback chains
-are called at the beginning (snd_device_free_all()).
-As it's executed in a reverse loop, snd_rawmidi_dev_seq_free() shall
-be called before snd_rawmidi_dev_free().  Since the final put_device()
-for the rawmidi device is called in the latter function, the device
-release must not happen before snd_rawmidi_dev_seq_free()...
-
-So I still wonder how the problem could be triggered at all.  Even if
-the device object release itself is delayed, it shouldn't matter in
-the scenario above (as the snd_device-free-chains are already called
-beforehand).
+A fix patch is something like below.  Could you check whether this
+fixes the problem?
 
 
 thanks,
 
 Takashi
 
-> 
-> -- >8 --
-> --- a/sound/core/rawmidi.c
-> +++ b/sound/core/rawmidi.c
-> @@ -1571,7 +1571,10 @@ static int snd_rawmidi_alloc_substreams(struct snd_rawmidi *rmidi,
->  
->  static void release_rawmidi_device(struct device *dev)
->  {
-> -       kfree(container_of(dev, struct snd_rawmidi, dev));
-> +       struct snd_rawmidi *rmidi = container_of(dev, struct snd_rawmidi, dev);
-> +
-> +       WARN_ON(rmidi->seq_dev);
-> +       kfree(rmidi);
->  }
->  
->  /**
-> -- 8< --
-> 
-> > --- a/sound/core/seq/seq_ports.c
-> > +++ b/sound/core/seq/seq_ports.c
-> > @@ -415,11 +415,16 @@ static int subscribe_port(struct snd_seq_client *client,
-> >  			grp->count--;
-> >  		}
-> >  	}
-> > -	if (err >= 0 && send_ack && client->type == USER_CLIENT)
-> > +	if (err < 0)
-> > +		return err;
-> > +
-> > +	if (send_ack && client->type == USER_CLIENT)
-> >  		snd_seq_client_notify_subscription(port->addr.client, port->addr.port,
-> >  						   info, SNDRV_SEQ_EVENT_PORT_SUBSCRIBED);
-> > +	else if (client->type == KERNEL_CLIENT)
-> > +		get_device(&client->data.kernel.card->card_dev);
-> >  
-> > -	return err;
-> > +	return 0;
-> >  }
-> >  
-> >  static int unsubscribe_port(struct snd_seq_client *client,
-> > @@ -439,6 +444,8 @@ static int unsubscribe_port(struct snd_seq_client *client,
-> >  		snd_seq_client_notify_subscription(port->addr.client, port->addr.port,
-> >  						   info, SNDRV_SEQ_EVENT_PORT_UNSUBSCRIBED);
-> >  	module_put(port->owner);
-> > +	if (client->type == KERNEL_CLIENT)
-> > +		snd_card_unref(client->data.kernel.card);
-> >  	return err;
-> >  }
-> >  
-> 
+--- a/sound/core/seq_device.c
++++ b/sound/core/seq_device.c
+@@ -156,6 +156,8 @@ static int snd_seq_device_dev_free(struct snd_device *device)
+ 	struct snd_seq_device *dev = device->device_data;
+ 
+ 	cancel_autoload_drivers();
++	if (dev->private_free)
++		dev->private_free(dev);
+ 	put_device(&dev->dev);
+ 	return 0;
+ }
+@@ -183,11 +185,7 @@ static int snd_seq_device_dev_disconnect(struct snd_device *device)
+ 
+ static void snd_seq_dev_release(struct device *dev)
+ {
+-	struct snd_seq_device *sdev = to_seq_dev(dev);
+-
+-	if (sdev->private_free)
+-		sdev->private_free(sdev);
+-	kfree(sdev);
++	kfree(to_seq_dev(dev));
+ }
+ 
+ /*
+
+
+

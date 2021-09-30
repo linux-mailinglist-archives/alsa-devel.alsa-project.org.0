@@ -2,89 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C41C841D900
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Sep 2021 13:42:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FD6041D903
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Sep 2021 13:42:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 54C3F16A4;
-	Thu, 30 Sep 2021 13:41:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54C3F16A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC25116B1;
+	Thu, 30 Sep 2021 13:41:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC25116B1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633002129;
-	bh=O9T2jPpzM2l/NdKPv2qjNIB9lZsYC0EovUTA78xSKUw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=giRE53D4l5fkc51lx/49dTzhBMa01wucLjS4Pp55YLp13JGNysSkRt5rTlFC7D25a
-	 lLsikFaUScwCGcaWeSkHq4JgVYwjRy32DH4cdvLpDpQZfPxVJgDq8vkK92f4I7BevS
-	 fAjWV8qzI7JgWCUanG5F2b47NeHZCz0PfDd9zXpI=
+	s=default; t=1633002153;
+	bh=UVnyjZtUseiqk/d7avs5zWGjhPiLiI16FCZH1NQDxrg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=GaZsYkLJQ1DC9EestXQ3YgZjCSfXvI+XrmzaAuk3W4teJZI7wYtCUUXNxB8g6f2Je
+	 ZkG7Ulz6VWa74PiLAmZCQFE8pd5ZnlPRFttMuJdva+bb486/Js54e3e+jfLdimIs+y
+	 YqgqhjcBzHADSIRB5yxNK/L6ife4ZGluJ5k/8hlg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CFBF9F8032C;
-	Thu, 30 Sep 2021 13:40:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6DDABF804D6;
+	Thu, 30 Sep 2021 13:41:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 780E3F804AD; Thu, 30 Sep 2021 13:40:50 +0200 (CEST)
+ id C02DCF80218; Thu, 30 Sep 2021 13:41:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E7516F800F3
- for <alsa-devel@alsa-project.org>; Thu, 30 Sep 2021 13:40:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7516F800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6270EF80218
+ for <alsa-devel@alsa-project.org>; Thu, 30 Sep 2021 13:41:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6270EF80218
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="NHIdLWq1"; 
+ header.b="e98NkaJL"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="way9GvNv"
+ header.b="4z7ER4ds"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id E9B5F21D91;
- Thu, 30 Sep 2021 11:40:35 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id B238E20018;
+ Thu, 30 Sep 2021 11:41:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1633002035; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=bw/BZPrppPZ0tpkoU0dPMVMi9G/hLMWqA9GjNFb/BHM=;
- b=NHIdLWq1UwEqqCNx/gQWqOo3X7FZZCP0db2FY4ok+CP/MDAXltJiEvY3g5a1rqaj1ujzRU
- v5k7QeK+xo2kZ/QviopmC4zECezZZyrBR6Xzg6dbQJ6+0n4Z1Hc/bhsKacXFESlxbwgey3
- lR4XhbXdb2+r/KlEOHiVEW+eSmPqvjI=
+ t=1633002079; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=mjCb0/R5/rCQLP3XwxAwEARpZnRYMd9pA2ThPMJGQxQ=;
+ b=e98NkaJLhMYUDYHwuWi2ppzPIJo8cF3i0r0vvSWW/Oni/EyitFBJ4ruUI9V74LFW2Dvz66
+ k30oGYPZIKFl6cjkOZJcvSvg5xvDyiKI75wHjy/uYyf/Y5s8TFVn1uxYkI+8jgDh5D19W7
+ VQLusGkxsjbjIXNgdcoEO7LyEa50m78=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1633002035;
+ s=susede2_ed25519; t=1633002079;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=bw/BZPrppPZ0tpkoU0dPMVMi9G/hLMWqA9GjNFb/BHM=;
- b=way9GvNv59CgFgaXbF4o2Lh7B5m5tNEujJriBXcxktkBXigWR2O07RpLyrmBc6rr4uIR+8
- E7vjM2HHkK+S1fAA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 24177A3B81;
- Thu, 30 Sep 2021 11:40:35 +0000 (UTC)
-Date: Thu, 30 Sep 2021 13:40:35 +0200
-Message-ID: <s5hy27ejnpo.wl-tiwai@suse.de>
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=mjCb0/R5/rCQLP3XwxAwEARpZnRYMd9pA2ThPMJGQxQ=;
+ b=4z7ER4dsL0LV2HuOhET69Sx8CuIML38sxfTdNKxfNbRebRwa5HkOcP+U/kAfim2mQ/1+0n
+ LNU1OkNZHvytYbCQ==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id AEFF1A3B83;
+ Thu, 30 Sep 2021 11:41:19 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
-To: John Keeping <john@metanate.com>
-Subject: Re: [PATCH] ALSA: rawmidi: Fix potential UAF from sequencer
- destruction
-In-Reply-To: <20210930112753.40e1efa6.john@metanate.com>
-References: <20210929113620.2194847-1-john@metanate.com>
- <s5hzgrvl9j0.wl-tiwai@suse.de>
- <20210929161758.49ce947f.john@metanate.com>
- <s5hv92jl7t2.wl-tiwai@suse.de>
- <20210929175632.50b78be8.john@metanate.com>
- <s5hfstmlgkj.wl-tiwai@suse.de> <s5hczoqlfgn.wl-tiwai@suse.de>
- <20210930112753.40e1efa6.john@metanate.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: seq: Fix a potential UAF by wrong private_free call
+ order
+Date: Thu, 30 Sep 2021 13:41:14 +0200
+Message-Id: <20210930114114.8645-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: John Keeping <john@metanate.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,99 +86,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 30 Sep 2021 12:27:53 +0200,
-John Keeping wrote:
-> 
-> On Thu, 30 Sep 2021 08:55:52 +0200
-> Takashi Iwai <tiwai@suse.de> wrote:
-> 
-> > On Thu, 30 Sep 2021 08:31:56 +0200,
-> > Takashi Iwai wrote:
-> > > 
-> > > On Wed, 29 Sep 2021 18:56:32 +0200,
-> > > John Keeping wrote:
-> > > > 
-> > > > On Wed, 29 Sep 2021 17:28:57 +0200
-> > > > Takashi Iwai <tiwai@suse.de> wrote:
-> > > > 
-> > > > > On Wed, 29 Sep 2021 17:17:58 +0200,
-> > > > > John Keeping wrote:
-> > > > > > 
-> > > > > > On Wed, 29 Sep 2021 16:51:47 +0200
-> > > > > > Takashi Iwai <tiwai@suse.de> wrote:
-> > > > > >   
-> > > > > > > On Wed, 29 Sep 2021 13:36:20 +0200,
-> > > > > > > John Keeping wrote:  
-> > > > > > > > 
-> > > > > > > > If the sequencer device outlives the rawmidi device, then
-> > > > > > > > snd_rawmidi_dev_seq_free() will run after release_rawmidi_device() has
-> > > > > > > > freed the snd_rawmidi structure.
-> > > > > > > > 
-> > > > > > > > This can easily be reproduced with CONFIG_DEBUG_KOBJECT_RELEASE.
-> > > > > > > > 
-> > > > > > > > Keep a reference to the rawmidi device until the sequencer has been
-> > > > > > > > destroyed in order to avoid this.
-> > > > > > > > 
-> > > > > > > > Signed-off-by: John Keeping <john@metanate.com>    
-> > > > > > > 
-> > > > > > > Thanks for the patch.  I wonder, though, how this could be triggered.
-> > > > > > > Is this the case where the connected sequencer device is being used
-> > > > > > > while the sound card gets released?  Or is it something else?  
-> > > > > > 
-> > > > > > I'm not sure if it's possible to trigger via the ALSA API; I haven't
-> > > > > > found a route that can trigger it, but that doesn't mean there isn't
-> > > > > > one :-)
-> > > > > > 
-> > > > > > Mostly this is useful to make CONFIG_DEBUG_KOBJECT_RELEASE cleaner.  
-> > > > > 
-> > > > > Hm, then could you check whether the patch below papers over it
-> > > > > instead?
-> > > > 
-> > > > No, this patch doesn't solve it.  The issue is that the effect of the
-> > > > final device_put() is delayed from the time it is called and there is no
-> > > > way to guarantee the ordering without ensuring the sequencer has been
-> > > > destroyed before the final reference to the rawmidi device is put.
-> > > > 
-> > > > Both of the functions involved are called from the core
-> > > > device::release() hook.
-> > > > 
-> > > > I'm using the patch below to easily check that the sequencer has been
-> > > > freed before the rawmidi data.  This can easily be triggered by
-> > > > unplugging a USB MIDI device (it's not 100% since the kobject release
-> > > > delays are random).
-> > > 
-> > > Hm, it's strange.  I suppose you're *not* using the MIDI device,
-> > > right?
-> > > 
-> > > The release path for the USB-audio driver is:
-> > >   usb_audio_disconnect() ->
-> > >     snd_card_free_when_closed() ->
-> > >       release_card_device() (via put_device(&card->card_dev)) ->
-> > >         snd_card_do_free()
-> > > 
-> > > And here in snd_card_do_free(), the snd_device free-callback chains
-> > > are called at the beginning (snd_device_free_all()).
-> > > As it's executed in a reverse loop, snd_rawmidi_dev_seq_free() shall
-> > > be called before snd_rawmidi_dev_free().  Since the final put_device()
-> > > for the rawmidi device is called in the latter function, the device
-> > > release must not happen before snd_rawmidi_dev_seq_free()...
-> > 
-> > Correction: now I finally understood what I misunderstood.
-> > Although the snd_device call chain mentioned above itself is correct,
-> > the snd_rawmidi_dev_seq_free() function isn't called directly from the
-> > snd_device chain, but it's rater the own private_free of
-> > snd_seq_device object.  That is, the call of snd_seq_device
-> > private_free is done in a wrong place; it should be called in the
-> > snd_device call chain instead of the device release.
-> > 
-> > A fix patch is something like below.  Could you check whether this
-> > fixes the problem?
-> 
-> Yes, this fixes it!
+John Keeping reported and posted a patch for a potential UAF in
+rawmidi sequencer destruction: the snd_rawmidi_dev_seq_free() may be
+called after the associated rawmidi object got already freed.
+After a deeper look, it turned out that the bug is rather the
+incorrect private_free call order for a snd_seq_device.  The
+snd_seq_device private_free gets called at the release callback of the
+sequencer device object, while this was rather expected to be executed
+at the snd_device call chains that runs at the beginning of the whole
+card-free procedure.  It's been broken since the rewrite of
+sequencer-device binding (although it hasn't surfaced because the
+sequencer device release happens usually right along with the card
+device release).
 
-Great, I'll submit a proper patch.
+This patch corrects the private_free call to be done in the right
+place, at snd_seq_device_dev_free().
 
-Thanks!
+Fixes: 7c37ae5c625a ("ALSA: seq: Rewrite sequencer device binding with standard bus")
+Reported-and-tested-by: John Keeping <john@metanate.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/seq_device.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
+diff --git a/sound/core/seq_device.c b/sound/core/seq_device.c
+index 382275c5b193..7f3fd8eb016f 100644
+--- a/sound/core/seq_device.c
++++ b/sound/core/seq_device.c
+@@ -156,6 +156,8 @@ static int snd_seq_device_dev_free(struct snd_device *device)
+ 	struct snd_seq_device *dev = device->device_data;
+ 
+ 	cancel_autoload_drivers();
++	if (dev->private_free)
++		dev->private_free(dev);
+ 	put_device(&dev->dev);
+ 	return 0;
+ }
+@@ -183,11 +185,7 @@ static int snd_seq_device_dev_disconnect(struct snd_device *device)
+ 
+ static void snd_seq_dev_release(struct device *dev)
+ {
+-	struct snd_seq_device *sdev = to_seq_dev(dev);
+-
+-	if (sdev->private_free)
+-		sdev->private_free(sdev);
+-	kfree(sdev);
++	kfree(to_seq_dev(dev));
+ }
+ 
+ /*
+-- 
+2.26.2
 
-Takashi

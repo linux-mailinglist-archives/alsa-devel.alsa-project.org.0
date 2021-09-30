@@ -2,70 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC59D41DCEA
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Sep 2021 17:02:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 763B541DCEF
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Sep 2021 17:03:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 527B316DF;
-	Thu, 30 Sep 2021 17:01:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 527B316DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2207216EC;
+	Thu, 30 Sep 2021 17:02:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2207216EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633014129;
-	bh=Myi37bbes7ETlK+tTGsWiTVP6FIl//3fgtuWHuTBhDw=;
+	s=default; t=1633014213;
+	bh=VB9orFxsY14fyJtvup9liDeJdnBFjZM5Us2Lmk4xzYI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rFLNsUVm0vTw7lrtTiA7AawI6bfq7/ig3s757hVoT15BLz39SNMgVXYC9yAleJCRb
-	 fZ0l44PAHj9goyO1jJSZYt+z2c+b4QRTcfOkKRlv/t/HK7ecEJerwBY3FG8FqE8I12
-	 ZLv/T3O1eR43uJckceXanBwTCZ/TadRuXZcO+jaY=
+	b=en5m/JdUyWqW6AWmi/19QZe0zeJ8/07YEOEFr/daZE9KomcGLY2yZvR08wIfXzI/o
+	 neyAGGZUUX/KamR6nVDwjRUdrOi/yKI3qpSHSeLZIxc6YX4Zk+gZYiNd+xrpc9Wgv5
+	 YloYUGYMXMqfjDzQRl3WNkh2o1M3ZG4ujutKEOMU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C1E0DF804DA;
-	Thu, 30 Sep 2021 17:00:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75905F80510;
+	Thu, 30 Sep 2021 17:00:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1462F804D2; Thu, 30 Sep 2021 17:00:09 +0200 (CEST)
+ id 7F66CF804E4; Thu, 30 Sep 2021 17:00:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7C16DF80113
- for <alsa-devel@alsa-project.org>; Thu, 30 Sep 2021 17:00:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C16DF80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C7ABF80113
+ for <alsa-devel@alsa-project.org>; Thu, 30 Sep 2021 17:00:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C7ABF80113
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OFFtJpMc"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0067F619E2;
- Thu, 30 Sep 2021 14:59:59 +0000 (UTC)
+ header.b="M4+8pW4m"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8782B6128E;
+ Thu, 30 Sep 2021 15:00:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633014000;
- bh=Myi37bbes7ETlK+tTGsWiTVP6FIl//3fgtuWHuTBhDw=;
+ s=k20201202; t=1633014003;
+ bh=VB9orFxsY14fyJtvup9liDeJdnBFjZM5Us2Lmk4xzYI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OFFtJpMcjNsnftt04Ivbz2T2tRgic6D9Un4vw/o86TzAuw9aJ/aVTnxLUIiw6q8S1
- 5N1Wli7R4d/+eV/aLakuxtvB58TpqKU5Ksx7n0Oe+fzVohhFpe9gQLq0wHbjcixAMy
- S64RJCx92qqJyp8NDpP7rivlmJXDq/lVgkeFUoUs/+W30FXMngGBLg8U0nE6sAELcK
- RSeIEBODMRHyFDhb/X5LHRZyWM/seesrrLlaA9/PAT6ozZUZ4nuLbUAjIhxBNn5xCN
- q5zBnzFViNN+x2qr7L+ibzDa6BiJIybpr5EqAzNeEFB9uNFugRxEJ6G2QQeAA8GExu
- lY+F4mWsgq/wg==
+ b=M4+8pW4m1jx70gKS7pi6oS+KPNG4A5y62nZfj3Ny1xE032tj8VKISK1Sr9Cn7I3Wy
+ VKZ5sDaqCj2sGcSy9xNMb42hh1o7N1LAFn3b9Yjou4eNHz/rvdtu3hVYeTw7CVC93W
+ urXhq7vOnG6FpBLTW0eIq1RWVjdDjbN7tsxo+YYzoT4+Wyw8uAApGKD4j3fWCrnUGY
+ r4dk498bxjJJASiUbsfsf8kgEwv/aASN2qNGlkyJ7sc+Vx7P7D6Q84AjF1x/B5lXs2
+ PyPKC+JEWIqaW1yhkqc8ZmqHQJaM2j/Ump4SxV7ITcMM57T62RkzOZYM4594anuW2Q
+ QlcX3PbLgJySg==
 From: Mark Brown <broonie@kernel.org>
-To: Xiubo.Lee@gmail.com, tiwai@suse.com, alsa-devel@alsa-project.org,
- festevam@gmail.com, Shengjiu Wang <shengjiu.wang@nxp.com>,
- nicoleotsuka@gmail.com, perex@perex.cz, lgirdwood@gmail.com
-Subject: Re: [PATCH] ASoC: fsl_rpmsg: Add rpmsg audio support for i.MX8ULP
-Date: Thu, 30 Sep 2021 15:58:53 +0100
-Message-Id: <163301248179.43045.2909499493214533743.b4-ty@kernel.org>
+To: derek.fang@realtek.com,
+	lgirdwood@gmail.com
+Subject: Re: [PATCH] ASoC: dt-bindings: rt5682s: fix the device-tree schema
+ errors
+Date: Thu, 30 Sep 2021 15:58:54 +0100
+Message-Id: <163301248178.43045.15903836903409128227.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1632972413-22130-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1632972413-22130-1-git-send-email-shengjiu.wang@nxp.com>
+In-Reply-To: <20210929130406.24325-1-derek.fang@realtek.com>
+References: <20210929130406.24325-1-derek.fang@realtek.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
+Cc: oder_chiou@realtek.com, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, lars@metafoo.de, jack.yu@realtek.com,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ Mark Brown <broonie@kernel.org>, shumingf@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,15 +84,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 30 Sep 2021 11:26:53 +0800, Shengjiu Wang wrote:
-> On i.MX8ULP the audio interface and codec are controlled
-> by Cortex-M domain, Cortex-M core provides audio service
-> over rpmsg.
+On Wed, 29 Sep 2021 21:04:06 +0800, derek.fang@realtek.com wrote:
+> From: Derek Fang <derek.fang@realtek.com>
 > 
-> The rpmsg audio function is almost same as i.MX7ULP
-> platform, so share same configuration.
+> Fix the device-tree schema errors that be reported by using 'make
+> dt_binding_check'.
 > 
-> [...]
+> 
 
 Applied to
 
@@ -97,8 +98,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl_rpmsg: Add rpmsg audio support for i.MX8ULP
-      commit: 2cbf90a6d52d52fc017f3caf36f7b516f689150e
+[1/1] ASoC: dt-bindings: rt5682s: fix the device-tree schema errors
+      commit: 91cf45595021bd6f6279748aa472de7fc7864084
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

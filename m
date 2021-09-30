@@ -2,88 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 765A541D917
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Sep 2021 13:49:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C58A41D91E
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Sep 2021 13:52:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 18F051699;
-	Thu, 30 Sep 2021 13:48:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18F051699
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE40F16A1;
+	Thu, 30 Sep 2021 13:51:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE40F16A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633002584;
-	bh=GYD0ulTbt/g3qX2pqLkxMLDSXqI6bFg1iOCPLKmBXhU=;
+	s=default; t=1633002721;
+	bh=rF64Y7ztdX48+tBEavwQb9R1oVhdrQCC6o1C15oTvWM=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vVfDIgi3/iS1c1wQgc/DyZr5YGJn8w5wK0YtrHpIrZxnq9znsiOaJc/A8kEyhsVgO
-	 9I06FlFGT85aIUhUcHhXYA8V5rg2lwgUZg64wBmBXnQYDHIE9bwn/qUQBbZfFvulag
-	 1zxc3KAfU8qIsoCMAWJ8LXzS40+uvB9UVz5OIKpk=
+	b=t088hSTqlKtkoXlaB/gz5uyL65FcJb2E8YHC9QkKCcN/0AT/FWzij5x0AYUq1c+Y6
+	 j7hDWdpE0OQgTpp3qkUp9WK9Absj2oOaDJ5oINmlNA8WiEVhZMwzvZzhd8PXJkaofM
+	 Eqjjs0iiAssKfy3vzvaijwpVAYQDdd8xS/+qdgts=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B5C5F804D1;
-	Thu, 30 Sep 2021 13:48:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59CE0F804BC;
+	Thu, 30 Sep 2021 13:50:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0E7E0F804BC; Thu, 30 Sep 2021 13:48:25 +0200 (CEST)
+ id B319BF804AD; Thu, 30 Sep 2021 13:50:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 025B7F8032C
- for <alsa-devel@alsa-project.org>; Thu, 30 Sep 2021 13:48:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 025B7F8032C
+ by alsa1.perex.cz (Postfix) with ESMTPS id B1038F80218
+ for <alsa-devel@alsa-project.org>; Thu, 30 Sep 2021 13:50:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1038F80218
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Q5XUM5/8"; 
+ header.b="WV25gftv"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="HJC7FgSz"
+ header.b="+Rzn8sMr"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id F2C7A2247F;
- Thu, 30 Sep 2021 11:48:15 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id DABD21FE47;
+ Thu, 30 Sep 2021 11:50:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1633002496; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1633002636; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ODCAoKormRMtsWMKmm9fOWai9zDZSbllUaXvae+Mu9A=;
- b=Q5XUM5/8K8nVicS+NqiAuTRhwfflSUGx82yCKJOFw3KAB8txn61CdplSvuiNUhbsEHjenK
- X0ZVOqLAdK5H/Hiv87KmPH7r5Qf91pHjM+M80TabVHhjuV/Hdus6XvUUMXMQt/Fza3vIUI
- laz22shLmoeHBy50vnbXrzgs1nh74Z4=
+ bh=IgRn7aKSErDo6kMO2beqj7Emk0zRUsaDfbu8H3OvkKc=;
+ b=WV25gftvHjj2f+nxzH51ybaKVbe038gMMayUwC9OcD2pUXkz7/oNo2OQXY1L8xL2YW69c3
+ WKm0G7fXdOgsvi0+nAQMEwgFzAP5paE+iBvLw8SYzyPM9dob1lb++zdfvNQ369MD8sJbf8
+ 65+LhhWDT1sb122vZbFqRJpHpPScXb8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1633002496;
+ s=susede2_ed25519; t=1633002636;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ODCAoKormRMtsWMKmm9fOWai9zDZSbllUaXvae+Mu9A=;
- b=HJC7FgSzY9LlldTNKeChZ0JmUqI1pfI3d4ZSSGpzRuA1aRBC55Mrr8CLDNs5eGKwciAc2L
- 7/C7CtHnLrhDY2AQ==
+ bh=IgRn7aKSErDo6kMO2beqj7Emk0zRUsaDfbu8H3OvkKc=;
+ b=+Rzn8sMrWrwouHmTeyby9P9eELWirKajUZQdC8/s3Ep+N/EEgI3Lv4JI2vizYmRedKdgD3
+ k3sMoGh5bxMSBBDQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id E9FDBA3B93;
- Thu, 30 Sep 2021 11:48:15 +0000 (UTC)
-Date: Thu, 30 Sep 2021 13:48:15 +0200
-Message-ID: <s5hsfxmjncw.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id D33F3A3B88;
+ Thu, 30 Sep 2021 11:50:36 +0000 (UTC)
+Date: Thu, 30 Sep 2021 13:50:36 +0200
+Message-ID: <s5hr1d6jn8z.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH][next] ALSA: virtio: Replace zero-length array with
- flexible-array member
-In-Reply-To: <20210929191504.GA337268@embeddedor>
-References: <20210929191504.GA337268@embeddedor>
+To: alsa-devel@alsa-project.org
+Subject: Re: [PATCH v2 0/2] ALSA: hda: Reduce CPU hog with SKL+ position
+ reporting
+In-Reply-To: <20210929072934.6809-1-tiwai@suse.de>
+References: <20210929072934.6809-1-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, "Michael S. Tsirkin" <mst@redhat.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Anton Yakovlev <anton.yakovlev@opensynergy.com>,
- virtualization@lists.linux-foundation.org, linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset=US-ASCII
+Cc: Jens Axboe <axboe@kernel.dk>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,24 +93,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 29 Sep 2021 21:15:04 +0200,
-Gustavo A. R. Silva wrote:
+On Wed, 29 Sep 2021 09:29:32 +0200,
+Takashi Iwai wrote:
 > 
-> There is a regular need in the kernel to provide a way to declare
-> having a dynamically sized set of trailing elements in a structure.
-> Kernel code should always use “flexible array members”[1] for these
-> cases. The older style of one-element or zero-length arrays should
-> no longer be used[2].
+> Hi,
 > 
-> Also, make use of the struct_size() helper in kzalloc().
+> this is a v2 patch set for reducing the CPU hog with the HD-audio PCM
+> position reporting.  The first patch is almost same, while the second
+> patch is added to take back to the position buffer as suggested by
+> Pierre.
 > 
-> [1] https://en.wikipedia.org/wiki/Flexible_array_member
-> [2] https://www.kernel.org/doc/html/v5.10/process/deprecated.html#zero-length-and-one-element-arrays
 > 
-> Link: https://github.com/KSPP/linux/issues/78
-> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+> Takashi
+> 
+> v1: https://lore.kernel.org/r/20210910141002.32749-1-tiwai@suse.de
+> 
+> ===
+> 
+> Takashi Iwai (2):
+>   ALSA: hda: Reduce udelay() at SKL+ position reporting
+>   ALSA: hda: Use position buffer for SKL+ again
 
-Thanks, applied.
+Now applied both patches to for-next branch.
 
 
 Takashi

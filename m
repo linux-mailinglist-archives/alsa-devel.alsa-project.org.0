@@ -2,102 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7C5341E79E
-	for <lists+alsa-devel@lfdr.de>; Fri,  1 Oct 2021 08:31:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE83D41E7C4
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 Oct 2021 08:49:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B82416DF;
-	Fri,  1 Oct 2021 08:30:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B82416DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F5AE16D6;
+	Fri,  1 Oct 2021 08:49:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F5AE16D6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633069869;
-	bh=nH+tEkilGiLJv2Ss5YXgDvbajzwUVJD8mujIa08z6Ec=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=KFlI5lmtInEKhmkBEi5qyyRJJ+j88BF6LrVZpdTS0uluBHSp6ZjaEz59eI1LTG8Ns
-	 TOluxJfYiWs8efl74KmtPMEw2WeeYPP+rI8yxm4ltyNoC8yqVUyZ0srsqoPIPJOdqs
-	 bOFk8ydCA7zSQ2AuKsNcwzeKC6tXHAdJNKwU55MI=
+	s=default; t=1633070997;
+	bh=0NPOueqlyqMUIqL0DKwXRxkFYkcsamhYE+ipkUIihPI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=DKfxLQkvakgr6qrwWayCSwG9g0mbGJi6vtks2diSWDXqFn0tkCgriY/l61cgOKnBR
+	 eOylKIxF93Lyl9Aq9a6pl3JMupnCPlqElPdEMZ/sJfd3Rtlc7gCZ8B3Et4ebEPMR5w
+	 zgvfE0EH1tOC2iUt1/ftJ98ULpJ8v/U7BhPjz80o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8133F801F7;
-	Fri,  1 Oct 2021 08:29:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29A22F8026D;
+	Fri,  1 Oct 2021 08:48:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21288F80245; Fri,  1 Oct 2021 08:29:23 +0200 (CEST)
+ id 55876F80245; Fri,  1 Oct 2021 08:48:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 21995F800F3
- for <alsa-devel@alsa-project.org>; Fri,  1 Oct 2021 08:29:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21995F800F3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="XRkENSfu"
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 68F3A402D3
- for <alsa-devel@alsa-project.org>; Fri,  1 Oct 2021 06:29:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1633069744;
- bh=YyJ0fdVjmCzXOoJiRjIyyp/ZqjWN0zD1fovbCCHJr+U=;
- h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
- b=XRkENSfuFYXI5sMhFl8teFJIdWys63K9lBgfQ207w2t04Rtjxnw4+P4zyA76UDBbP
- vniveY3Dfe4smfDeyDl+j42+CiFtilTL0KMZKjkPCA8v/QgOTnzBY3srw1FOczKlr0
- 4MzyhHpJmTLFFUZ+cRw1elXDCgdND7NCS9nIU8P9QxS8xrx/GRgkUP7CRR1tcFAuuK
- s3HJIcMqgeGcwAjeJlG1b3sGc1GMUjwVzmi0aUZxBzdA25t4gmlPNLy674KUptzbzn
- D8+i6GJcOh5oqGy8ae7k3D2Dxje+OsCWeKvkDyA9GMepKjl88gFw+Rxe4jVgdvs4UE
- rDfOzy7kl09Og==
-Received: by mail-pl1-f199.google.com with SMTP id
- z17-20020a170903019100b0013e6a46dc3bso2846796plg.0
- for <alsa-devel@alsa-project.org>; Thu, 30 Sep 2021 23:29:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=YyJ0fdVjmCzXOoJiRjIyyp/ZqjWN0zD1fovbCCHJr+U=;
- b=RL1/dPPZQSXnM5D5w78AxFKPTljZEJI3q1lufnsd/uXWl/QMj0s1i+J4tGtuwweS+5
- 470W1BK/9yJFWtSJG1IqAx2pGnHbFQPbn3WEfSilDYhT83QCj6v3hdn48fy+RLHwX7Y5
- /CtH9W21qjxWz/lUq8Zoe88LfaqxbRIQRfJHBT1YfDGxBo170ZzJT3VqtRtmZnM5M0pH
- gMfqhBjum7Hb3VK6pYe1a5/+mgykmmPeDgCQB2Nqzb4GsEGwdR+1f3Izt+Rm30MStx/B
- ObxRyluvrQj1pGHdChjKFM56uLlq9YF0WVUjAeIgekGowr/l0acAjWHt1YslWM+5i4Ij
- C3xA==
-X-Gm-Message-State: AOAM533wvEsJWvQLmNv3qnPYTJAI1TByDLoaqeZxbD93CWrlxU0YQt0e
- Os0hnIfrCiw1MjJRrYNN84nNds1K+51F/w2iAcFhc0osKIIfJ0/lEMs50ZZNpZy12MA404Ccmq2
- YfljbvmERYVeFCSfHSh8r17KlJSvE1TO3A76TfwQf
-X-Received: by 2002:a17:90b:1909:: with SMTP id
- mp9mr4617157pjb.55.1633069742660; 
- Thu, 30 Sep 2021 23:29:02 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJw22K5pK3MVs8uNXMcL4NftP/1Hm0OOcm0nnlcZc5uStWijE4TWaDDvLPPzDw9g93zW0yrxNw==
-X-Received: by 2002:a17:90b:1909:: with SMTP id
- mp9mr4617134pjb.55.1633069742351; 
- Thu, 30 Sep 2021 23:29:02 -0700 (PDT)
-Received: from localhost.localdomain (111-240-125-184.dynamic-ip.hinet.net.
- [111.240.125.184])
- by smtp.gmail.com with ESMTPSA id t3sm1461124pfb.100.2021.09.30.23.29.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Sep 2021 23:29:02 -0700 (PDT)
-From: Chris Chiu <chris.chiu@canonical.com>
-To: tiwai@suse.com, kailang@realtek.com, hui.wang@canonical.com,
- jhp@endlessos.org
-Subject: [PATCH] ALSA: hda - Enable headphone mic on Dell Latitude laptops
- with ALC3254
-Date: Fri,  1 Oct 2021 14:28:56 +0800
-Message-Id: <20211001062856.1037901-1-chris.chiu@canonical.com>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Chris Chiu <chris.chiu@canonical.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 8FB89F800F3
+ for <alsa-devel@alsa-project.org>; Fri,  1 Oct 2021 08:48:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FB89F800F3
+Date: 01 Oct 2021 15:48:26 +0900
+X-IronPort-AV: E=Sophos;i="5.85,337,1624287600"; d="scan'208";a="95626374"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 01 Oct 2021 15:48:26 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 99F804228ED5;
+ Fri,  1 Oct 2021 15:48:26 +0900 (JST)
+Message-ID: <87a6jt9r5x.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH v3 00/16] ASoC: Add Rich Graph Card support
+In-Reply-To: <b0dfcb22-f805-b751-3c04-ffc435df5f4e@linux.intel.com>
+References: <87tuitusy4.wl-kuninori.morimoto.gx@renesas.com>
+ <b0dfcb22-f805-b751-3c04-ffc435df5f4e@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,34 +69,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The headphone mic is not working on Dell Latitude laptops with ALC3254.
-The codec vendor id is 0x10ec0295 and share the same pincfg as defined
-in ALC295_STANDARD_PINS. So the ALC269_FIXUP_DELL1_MIC_NO_PRESENCE will
-be applied per alc269_pin_fixup_tbl[] but actually the headphone mic is
-using NID 0x1b instead of 0x1a. The ALC269_FIXUP_DELL4_MIC_NO_PRESENCE
-need to be applied instead.
 
-Use ALC269_FIXUP_DELL4_MIC_NO_PRESENCE for particular models before
-a generic fixup comes out.
+Hi Peter, Mark
 
-Signed-off-by: Chris Chiu <chris.chiu@canonical.com>
+Thank you for your feedback
+
+> I understand is that naming is difficult, but a rich-graph-card sounds a
+> bit awkward?
+> Will we see a wealthy-graph-card if the rich is not resourceful enough? ;)
+> 
+> The current generation of graph based generic audio card is
+> audio-graph-card
+> 
+> This is going to be an (incompatible) evolution, the Next/New
+> Generation. Would it sound better if it is named
+> audio-graph-card-ng / ng-audio-graph-card
+> 
+> The 'rich' sound really out of place (if not rich then poor?).
+> 
+> Next Generation, New Generation, Extended, etc
+> or just drop the graph and
+> generic-audio-card
+
+To be honest, I don't think this version will be final version of
+Generic audio card driver.
+We will want to have more advanced generic audio card if framework was updated,
+and/or new feature was added, and/or want to use more complex connection,
+etc, etc, etc...
+
+In such case, because of Device-Tree, it is very difficult to update driver
+with keeping compatibility.
+This means, we need to keep old version generic audio card as-is,
+and add new generic audio card, like this version.
+
+New / Next / Extended / Rich are not best naming IMO.
+For example, we will confuse if we add new generic audio card at
+10 years later (It should be more new/next/extended/rich than this version).
+
+And yes, people should not feel bad from driver naming.
+
+Thus, my honest opinion is that using v2, v3, ... is easy to understand,
+especially for audio-graph-card. (audio-graph-card2, audio-graph-card3, ...)
+
+But, any naming is very welcome for me if Mark and/or all people are accepted.
+
+Thank you for your help !!
+
+Best regards
 ---
- sound/pci/hda/patch_realtek.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 4407f7da57c4..70778aa137cf 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -8452,6 +8452,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1028, 0x0a30, "Dell", ALC236_FIXUP_DELL_AIO_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1028, 0x0a58, "Dell", ALC255_FIXUP_DELL_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1028, 0x0a61, "Dell XPS 15 9510", ALC289_FIXUP_DUAL_SPK),
-+	SND_PCI_QUIRK(0x1028, 0x0a9d, "Dell Latitude 5430", ALC269_FIXUP_DELL4_MIC_NO_PRESENCE),
-+	SND_PCI_QUIRK(0x1028, 0x0a9e, "Dell Latitude 5430", ALC269_FIXUP_DELL4_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1028, 0x164a, "Dell", ALC293_FIXUP_DELL1_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1028, 0x164b, "Dell", ALC293_FIXUP_DELL1_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x103c, 0x1586, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC2),
--- 
-2.20.1
-
+Kuninori Morimoto

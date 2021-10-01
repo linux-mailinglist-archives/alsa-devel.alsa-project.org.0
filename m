@@ -2,63 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78DB341EEA6
-	for <lists+alsa-devel@lfdr.de>; Fri,  1 Oct 2021 15:33:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E6FA41F09C
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 Oct 2021 17:09:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04FB716E6;
-	Fri,  1 Oct 2021 15:32:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04FB716E6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 00BC616D6;
+	Fri,  1 Oct 2021 17:08:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00BC616D6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633095203;
-	bh=0oOJ6TrKloeS4Irf67HTbDu7pdiD0ko7DwuHOwnz5no=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=AoA2fvlvArLfeXtAQmeE2Ht4Uwyqt76zoqCFuLlfishUmKyol8lpP7P55i7fImRmR
-	 76s9aQ3VsMDLAfnhBtIEAlLWD4+FNq5E+RP0xbUxX6x0EQutCyXKU8KbKUygUoOhYa
-	 G8CrRgq6LKki+flxOkOTWEJ+Tqa1DLKdTGGJF/r0=
+	s=default; t=1633100947;
+	bh=1ej1rlZzgqBreKZatKB3D9dEApCf7mu4qAhoF9U3nyo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=EIUFc1c6nefEapRZxpsEUphJVYkoZ+vXhvNtqPzDbYX/uHHBtYVKV92ogO7sPdrJk
+	 /OL+5LmVpSAuZzur6AkLhduIHkTx8ywD/WJCo+8A/jA+91ioTTRoEhTDGqnxZy/5Yc
+	 gjQSYERG6QO0d5eDDsmsc8GS0gTua31rU2CUWqx4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 759B2F80272;
-	Fri,  1 Oct 2021 15:31:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 628D8F80227;
+	Fri,  1 Oct 2021 17:07:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45FC5F80272; Fri,  1 Oct 2021 15:31:38 +0200 (CEST)
+ id A7F36F80245; Fri,  1 Oct 2021 17:07:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A308DF800F3
- for <alsa-devel@alsa-project.org>; Fri,  1 Oct 2021 15:31:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A308DF800F3
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id 672B8C800C7;
- Fri,  1 Oct 2021 15:31:29 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
-Received: from srv6.fidu.org ([127.0.0.1])
- by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id bjizmq9Y1oSW; Fri,  1 Oct 2021 15:31:29 +0200 (CEST)
-Received: from wsembach-tuxedo.fritz.box
- (host-212-18-30-247.customer.m-online.net [212.18.30.247])
- (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPA id 0674AC800C9;
- Fri,  1 Oct 2021 15:31:28 +0200 (CEST)
-From: Werner Sembach <wse@tuxedocomputers.com>
-To: perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] ALSA: hda/realtek: Add quirk for Clevo X170KM-G
-Date: Fri,  1 Oct 2021 15:31:11 +0200
-Message-Id: <20211001133111.428249-3-wse@tuxedocomputers.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 08FD2F801F7
+ for <alsa-devel@alsa-project.org>; Fri,  1 Oct 2021 17:07:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08FD2F801F7
+X-IronPort-AV: E=McAfee;i="6200,9189,10124"; a="248022813"
+X-IronPort-AV: E=Sophos;i="5.85,339,1624345200"; d="scan'208";a="248022813"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2021 08:04:43 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,339,1624345200"; d="scan'208";a="619197543"
+Received: from brentlu-brix.itwn.intel.com ([10.5.253.56])
+ by fmsmga001.fm.intel.com with ESMTP; 01 Oct 2021 08:04:39 -0700
+From: Brent Lu <brent.lu@intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: Intel: sof_rt5682: Add support for max98360a speaker amp
+Date: Fri,  1 Oct 2021 23:03:16 +0800
+Message-Id: <20211001150316.414141-1-brent.lu@intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211001133111.428249-1-wse@tuxedocomputers.com>
-References: <20211001133111.428249-1-wse@tuxedocomputers.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Cc: Libin Yang <libin.yang@intel.com>,
+ Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Malik_Hsu <malik_hsu@wistron.corp-partner.google.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Tzung-Bi Shih <tzungbi@google.com>, Mark Brown <broonie@kernel.org>,
+ Bard Liao <bard.liao@intel.com>, Rander Wang <rander.wang@intel.com>,
+ Brent Lu <brent.lu@intel.com>,
+ Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>,
+ Yong Zhi <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,27 +80,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This applies a SND_PCI_QUIRK(...) to the Clevo X170KM-G barebone. This
-fixes the issue of the devices internal Speaker not working.
+From: Malik_Hsu <malik_hsu@wistron.corp-partner.google.com>
 
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-Cc: <stable@vger.kernel.org>
+Add a board config adl_mx98360a_rt5682 to support alc5682 headset
+codec and max98360a speaker amplifier. Follow Intel BT offload design
+by connecting alc5682 to SSP0 and max98360a to SSP1.
+
+Signed-off-by: Malik_Hsu <malik_hsu@wistron.corp-partner.google.com>
+Signed-off-by: Brent Lu <brent.lu@intel.com>
 ---
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/intel/boards/sof_rt5682.c               | 11 +++++++++++
+ sound/soc/intel/common/soc-acpi-intel-adl-match.c | 13 +++++++++++++
+ 2 files changed, 24 insertions(+)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 706acbcff472..6cb542905dc6 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -2538,6 +2538,7 @@ static const struct snd_pci_quirk alc882_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1558, 0x67e5, "Clevo PC70D[PRS](?:-D|-G)?", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
- 	SND_PCI_QUIRK(0x1558, 0x70d1, "Clevo PC70[ER][CDF]", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
- 	SND_PCI_QUIRK(0x1558, 0x7714, "Clevo X170SM", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
-+	SND_PCI_QUIRK(0x1558, 0x7715, "Clevo X170KM-G", ALC1220_FIXUP_CLEVO_PB51ED),
- 	SND_PCI_QUIRK(0x1558, 0x9501, "Clevo P950HR", ALC1220_FIXUP_CLEVO_P950),
- 	SND_PCI_QUIRK(0x1558, 0x9506, "Clevo P955HQ", ALC1220_FIXUP_CLEVO_P950),
- 	SND_PCI_QUIRK(0x1558, 0x950a, "Clevo P955H[PR]", ALC1220_FIXUP_CLEVO_P950),
+diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+index ad42d4c7ade5..613662eedd0d 100644
+--- a/sound/soc/intel/boards/sof_rt5682.c
++++ b/sound/soc/intel/boards/sof_rt5682.c
+@@ -1076,6 +1076,17 @@ static const struct platform_device_id board_ids[] = {
+ 					SOF_MAX98360A_SPEAKER_AMP_PRESENT |
+ 					SOF_RT5682_SSP_AMP(1)),
+ 	},
++	{
++		.name = "adl_mx98360_rt5682",
++		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
++					SOF_RT5682_SSP_CODEC(0) |
++					SOF_SPEAKER_AMP_PRESENT |
++					SOF_MAX98360A_SPEAKER_AMP_PRESENT |
++					SOF_RT5682_SSP_AMP(1) |
++					SOF_RT5682_NUM_HDMIDEV(4) |
++					SOF_BT_OFFLOAD_SSP(2) |
++					SOF_SSP_BT_OFFLOAD_PRESENT),
++	},
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(platform, board_ids);
+diff --git a/sound/soc/intel/common/soc-acpi-intel-adl-match.c b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
+index e4ff280eac23..f5b21a95d222 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-adl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
+@@ -280,6 +280,11 @@ static const struct snd_soc_acpi_codecs adl_max98357a_amp = {
+ 	.codecs = {"MX98357A"}
+ };
+ 
++static const struct snd_soc_acpi_codecs adl_max98360a_amp = {
++	.num_codecs = 1,
++	.codecs = {"MX98360A"}
++};
++
+ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
+ 	{
+ 		.id = "10EC5682",
+@@ -297,6 +302,14 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
+ 		.sof_fw_filename = "sof-adl.ri",
+ 		.sof_tplg_filename = "sof-adl-max98357a-rt5682.tplg",
+ 	},
++	{
++		.id = "10EC5682",
++		.drv_name = "adl_mx98360_rt5682",
++		.machine_quirk = snd_soc_acpi_codec_list,
++		.quirk_data = &adl_max98360a_amp,
++		.sof_fw_filename = "sof-adl.ri",
++		.sof_tplg_filename = "sof-adl-max98360a-rt5682.tplg",
++	},
+ 	{},
+ };
+ EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_adl_machines);
 -- 
 2.25.1
 

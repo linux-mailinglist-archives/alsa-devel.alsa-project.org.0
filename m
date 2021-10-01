@@ -2,68 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5636841E75A
-	for <lists+alsa-devel@lfdr.de>; Fri,  1 Oct 2021 07:59:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7C5341E79E
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 Oct 2021 08:31:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F285616DF;
-	Fri,  1 Oct 2021 07:59:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F285616DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B82416DF;
+	Fri,  1 Oct 2021 08:30:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B82416DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633067995;
-	bh=LfresbpxngvZM6ZTxLfqwt01AtTg/WDC7/ObCL3WLMw=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=aK/VRAC1l3TI2jIlRC4T7EuC6CUlku6Dc8LAW40mBeHCcAkd3jPatzFtCvnZTCvhJ
-	 53Exv0xLnsEM77fCpEzgYyAfJrFtJA/ab1pQtVQI4bCR8s+VpCV5jK4beg1ap+TKU+
-	 jIEeHLUqh/e59XwXjxImS4ovwW/7GPNByACa+V5k=
+	s=default; t=1633069869;
+	bh=nH+tEkilGiLJv2Ss5YXgDvbajzwUVJD8mujIa08z6Ec=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KFlI5lmtInEKhmkBEi5qyyRJJ+j88BF6LrVZpdTS0uluBHSp6ZjaEz59eI1LTG8Ns
+	 TOluxJfYiWs8efl74KmtPMEw2WeeYPP+rI8yxm4ltyNoC8yqVUyZ0srsqoPIPJOdqs
+	 bOFk8ydCA7zSQ2AuKsNcwzeKC6tXHAdJNKwU55MI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D2ADF8026D;
-	Fri,  1 Oct 2021 07:58:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8133F801F7;
+	Fri,  1 Oct 2021 08:29:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72F80F80245; Fri,  1 Oct 2021 07:58:35 +0200 (CEST)
+ id 21288F80245; Fri,  1 Oct 2021 08:29:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=CTE_8BIT_MISMATCH, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1579CF801F7
- for <alsa-devel@alsa-project.org>; Fri,  1 Oct 2021 07:58:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1579CF801F7
-X-IronPort-AV: E=McAfee;i="6200,9189,10123"; a="289008433"
-X-IronPort-AV: E=Sophos;i="5.85,337,1624345200"; d="scan'208";a="289008433"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2021 22:58:24 -0700
-X-IronPort-AV: E=Sophos;i="5.85,337,1624345200"; d="scan'208";a="477233863"
-Received: from kdrangex-mobl.ger.corp.intel.com (HELO [10.251.220.94])
- ([10.251.220.94])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2021 22:58:22 -0700
-Message-ID: <f28fb37c-a4ed-446c-90ba-d6124caa89b1@linux.intel.com>
-Date: Fri, 1 Oct 2021 08:58:28 +0300
+ by alsa1.perex.cz (Postfix) with ESMTPS id 21995F800F3
+ for <alsa-devel@alsa-project.org>; Fri,  1 Oct 2021 08:29:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21995F800F3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
+ header.b="XRkENSfu"
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 68F3A402D3
+ for <alsa-devel@alsa-project.org>; Fri,  1 Oct 2021 06:29:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1633069744;
+ bh=YyJ0fdVjmCzXOoJiRjIyyp/ZqjWN0zD1fovbCCHJr+U=;
+ h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
+ b=XRkENSfuFYXI5sMhFl8teFJIdWys63K9lBgfQ207w2t04Rtjxnw4+P4zyA76UDBbP
+ vniveY3Dfe4smfDeyDl+j42+CiFtilTL0KMZKjkPCA8v/QgOTnzBY3srw1FOczKlr0
+ 4MzyhHpJmTLFFUZ+cRw1elXDCgdND7NCS9nIU8P9QxS8xrx/GRgkUP7CRR1tcFAuuK
+ s3HJIcMqgeGcwAjeJlG1b3sGc1GMUjwVzmi0aUZxBzdA25t4gmlPNLy674KUptzbzn
+ D8+i6GJcOh5oqGy8ae7k3D2Dxje+OsCWeKvkDyA9GMepKjl88gFw+Rxe4jVgdvs4UE
+ rDfOzy7kl09Og==
+Received: by mail-pl1-f199.google.com with SMTP id
+ z17-20020a170903019100b0013e6a46dc3bso2846796plg.0
+ for <alsa-devel@alsa-project.org>; Thu, 30 Sep 2021 23:29:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=YyJ0fdVjmCzXOoJiRjIyyp/ZqjWN0zD1fovbCCHJr+U=;
+ b=RL1/dPPZQSXnM5D5w78AxFKPTljZEJI3q1lufnsd/uXWl/QMj0s1i+J4tGtuwweS+5
+ 470W1BK/9yJFWtSJG1IqAx2pGnHbFQPbn3WEfSilDYhT83QCj6v3hdn48fy+RLHwX7Y5
+ /CtH9W21qjxWz/lUq8Zoe88LfaqxbRIQRfJHBT1YfDGxBo170ZzJT3VqtRtmZnM5M0pH
+ gMfqhBjum7Hb3VK6pYe1a5/+mgykmmPeDgCQB2Nqzb4GsEGwdR+1f3Izt+Rm30MStx/B
+ ObxRyluvrQj1pGHdChjKFM56uLlq9YF0WVUjAeIgekGowr/l0acAjWHt1YslWM+5i4Ij
+ C3xA==
+X-Gm-Message-State: AOAM533wvEsJWvQLmNv3qnPYTJAI1TByDLoaqeZxbD93CWrlxU0YQt0e
+ Os0hnIfrCiw1MjJRrYNN84nNds1K+51F/w2iAcFhc0osKIIfJ0/lEMs50ZZNpZy12MA404Ccmq2
+ YfljbvmERYVeFCSfHSh8r17KlJSvE1TO3A76TfwQf
+X-Received: by 2002:a17:90b:1909:: with SMTP id
+ mp9mr4617157pjb.55.1633069742660; 
+ Thu, 30 Sep 2021 23:29:02 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJw22K5pK3MVs8uNXMcL4NftP/1Hm0OOcm0nnlcZc5uStWijE4TWaDDvLPPzDw9g93zW0yrxNw==
+X-Received: by 2002:a17:90b:1909:: with SMTP id
+ mp9mr4617134pjb.55.1633069742351; 
+ Thu, 30 Sep 2021 23:29:02 -0700 (PDT)
+Received: from localhost.localdomain (111-240-125-184.dynamic-ip.hinet.net.
+ [111.240.125.184])
+ by smtp.gmail.com with ESMTPSA id t3sm1461124pfb.100.2021.09.30.23.29.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Sep 2021 23:29:02 -0700 (PDT)
+From: Chris Chiu <chris.chiu@canonical.com>
+To: tiwai@suse.com, kailang@realtek.com, hui.wang@canonical.com,
+ jhp@endlessos.org
+Subject: [PATCH] ALSA: hda - Enable headphone mic on Dell Latitude laptops
+ with ALC3254
+Date: Fri,  1 Oct 2021 14:28:56 +0800
+Message-Id: <20211001062856.1037901-1-chris.chiu@canonical.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.1.1
-Subject: Re: [PATCH] ASoC: SOF: Intel: hda-stream: limit PROCEN workaround
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-References: <20210928082248.6081-1-peter.ujfalusi@linux.intel.com>
- <20210928151012.GA25932@sirena.org.uk>
- <795a1c96-c4b5-a364-e192-58358c90d5de@linux.intel.com>
-From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <795a1c96-c4b5-a364-e192-58358c90d5de@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, rander.wang@intel.com, lgirdwood@gmail.com,
- kai.vehmanen@linux.intel.com, ranjani.sridharan@linux.intel.com
+Content-Transfer-Encoding: 8bit
+Cc: Chris Chiu <chris.chiu@canonical.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,62 +113,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark, Pierre,
+The headphone mic is not working on Dell Latitude laptops with ALC3254.
+The codec vendor id is 0x10ec0295 and share the same pincfg as defined
+in ALC295_STANDARD_PINS. So the ALC269_FIXUP_DELL1_MIC_NO_PRESENCE will
+be applied per alc269_pin_fixup_tbl[] but actually the headphone mic is
+using NID 0x1b instead of 0x1a. The ALC269_FIXUP_DELL4_MIC_NO_PRESENCE
+need to be applied instead.
 
-On 30/09/2021 23:24, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 9/28/21 10:10 AM, Mark Brown wrote:
->> On Tue, Sep 28, 2021 at 11:22:48AM +0300, Peter Ujfalusi wrote:
->>> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
->>>
->>> The work-around enabled in hda-stream.c is only required on earlier
->>> versions of SOCs/PCH (Skylake, KabyLake, ApolloLake,
->>> GeminiLake). Before setting the format on the host DMA, it is required
->>> to couple the host and link DMA - which as a consequence shall use the
->>> same format.
->>
->> This breaks the build for me:
->>
->> /mnt/kernel/sound/soc/sof/intel/hda-stream.c: In function 'hda_dsp_stream_hw_params':
->> /mnt/kernel/sound/soc/sof/intel/hda-stream.c:436:42: error: implicit declaration of function 'get_chip_info'; did you mean 'get_group_info'? [-Werror=implicit-function-declaration]
+Use ALC269_FIXUP_DELL4_MIC_NO_PRESENCE for particular models before
+a generic fixup comes out.
 
-Sorry about that.
+Signed-off-by: Chris Chiu <chris.chiu@canonical.com>
+---
+ sound/pci/hda/patch_realtek.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-I'm going to script this from now.
-
-It was sort of therapeutic meditation type of flow:
-
-one slip of coffee
-find a patch / feature series
-git checkout -b to_upstream/<topic> <current_upstream_base>
-git cherry-pick <hash from sof-dev-rebase>
-if (fail) goto drop_patch;
-scripts/checkpatch.pl --strict -g HEAD
-if (fail) correct it();
-compile (x64/aarch64, sparse for both) - this I have scripted
-if (fail) goto drop_patch;
-boot test
-if (fail) goto drop_patch;
-format-patch && send
-
-fail:
-drop patch or series and try to find another one.
-
-I must have skipped the compile phase.
-
-> Ack, we're missing a dependency.
-> 
-> Peter, this function was moved to shim.h with Ranjani's patch
-> "ASoC: SOF: Intel: hda: expose get_chip_info()"
->
-> That patch was added in the SOF multi-core series.
-
-Yes, it is and it does not apply without the dynamic pipelines and
-possibly have dependency on other patches from the muticore support for
-the dynamic-pipelines.
-
-Sorry for the trouble, I'll start with a coffee then the script.
-
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 4407f7da57c4..70778aa137cf 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -8452,6 +8452,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1028, 0x0a30, "Dell", ALC236_FIXUP_DELL_AIO_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1028, 0x0a58, "Dell", ALC255_FIXUP_DELL_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1028, 0x0a61, "Dell XPS 15 9510", ALC289_FIXUP_DUAL_SPK),
++	SND_PCI_QUIRK(0x1028, 0x0a9d, "Dell Latitude 5430", ALC269_FIXUP_DELL4_MIC_NO_PRESENCE),
++	SND_PCI_QUIRK(0x1028, 0x0a9e, "Dell Latitude 5430", ALC269_FIXUP_DELL4_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1028, 0x164a, "Dell", ALC293_FIXUP_DELL1_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1028, 0x164b, "Dell", ALC293_FIXUP_DELL1_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x103c, 0x1586, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC2),
 -- 
-Péter
+2.20.1
+

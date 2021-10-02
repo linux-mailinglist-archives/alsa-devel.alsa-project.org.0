@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC77D41F8A8
-	for <lists+alsa-devel@lfdr.de>; Sat,  2 Oct 2021 02:18:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65E1441F8AF
+	for <lists+alsa-devel@lfdr.de>; Sat,  2 Oct 2021 02:19:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7A90716E7;
-	Sat,  2 Oct 2021 02:17:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A90716E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08C5C16FA;
+	Sat,  2 Oct 2021 02:18:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08C5C16FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633133900;
-	bh=nsc2fpMzsGtZeukbSHUUyuCKpxx+JA+JABw8eC1Wmg8=;
+	s=default; t=1633133946;
+	bh=N5hEszx5y0b/1BTKlULPRntIWovz5UNiVzuxIKHXINs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LZMcvV95Byx9Y6GJyRwFOpvZMxL86TuILrc1DUFbS7ydF1nfOOS2wav04ly0l7z0M
-	 TrjCOSLKequ2BsqqHGcaIUYlMicR9xc2BXRUMSbok71HfP5NHrTXm8QIUqebLQMH5A
-	 qVDMkC6jHcZER0tdxae59vtKR4ggZQ3fpjUJMV1M=
+	b=GRIhSLETX48licgm2a13pNj33BLJ7JEOlxrypvU2OQN6eyVzQ9ddKYkEQ7FJRm6CA
+	 pNoP3zs6g9WW9UG3+x+D/cxqtzXjXZZ7k8pSu1QS7yTlaO93Z573zKabvxDR2qSYa+
+	 qNc3Oqdg+flO0bo+a1STC1tyqGCblU1gEYL0lO5A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B38CF802C4;
-	Sat,  2 Oct 2021 02:17:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C9454F804E7;
+	Sat,  2 Oct 2021 02:17:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CC967F8026D; Sat,  2 Oct 2021 02:17:02 +0200 (CEST)
+ id 8FAD9F80165; Sat,  2 Oct 2021 02:17:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 65877F80165
- for <alsa-devel@alsa-project.org>; Sat,  2 Oct 2021 02:16:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65877F80165
+ by alsa1.perex.cz (Postfix) with ESMTPS id 67A4DF80165
+ for <alsa-devel@alsa-project.org>; Sat,  2 Oct 2021 02:17:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67A4DF80165
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="nFt15lP3"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id DE26061A02;
- Sat,  2 Oct 2021 00:16:54 +0000 (UTC)
+ header.b="X4z4SNnw"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 722AF610EA;
+ Sat,  2 Oct 2021 00:16:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633133815;
- bh=nsc2fpMzsGtZeukbSHUUyuCKpxx+JA+JABw8eC1Wmg8=;
+ s=k20201202; t=1633133818;
+ bh=N5hEszx5y0b/1BTKlULPRntIWovz5UNiVzuxIKHXINs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nFt15lP34RVnJFmjDkn7gD/T3yx7WhE/u9AZT6sYCeAoZKAu929L7+Oe1NeNNO5/m
- wGmuZFWRJKFDoHSe6CQR2F2U8xyhhyN7cDDK8RfPO6W+MlMkSV5JxISZYRRmm5K/B/
- jy9+hTweIqEeWHnWxoaJs8+x1GBQc5qg2csRsn179YK2RWhH+CHbblsphE76dStjXf
- 0Ky6H0V9gBpMJJVi6G2SmwFxn+BHaehoLSvheZz9KjezeaC/AaLtmtWQdCXbrllG1W
- UoiRjlyXZumCBsZQMUrnwHWYLnI2S7ao6YPE2jQ2KwRK1ac4buZXjz6kLBXtJ27n8Q
- 7Ty48dyEqdW9Q==
+ b=X4z4SNnwQs+hqF45oz3NrOfh2gixpvNc392kv3QAsWb1RUoMlrGwCaP/vBhysbFsq
+ rS7KiS2dJXqi1OigNefP7im8Ts4eItOW7CzFrX8EEVS2hNU5X/0WsPEaQIuEUrZebM
+ QjM7P7YCpdeCIxcssErbLZZn/a8J7FeYEUf2ZTHonJFYWRGiSVmRXjvfGEnxMEPx1e
+ EIpRCSc9kduI7ZrLqBXSQUXyIOZB7LB/u56bhXAk4/jB8McUuovpjIitJU2/V+bNe9
+ KVbzqr9DdeZOgaroNWzohecn3aDpMsZPYdOCfJCCngu/omo6+WInUj5SpFE8DqSTD9
+ E41lXxoRVn1iw==
 From: Mark Brown <broonie@kernel.org>
 To: Rikard Falkeborn <rikard.falkeborn@gmail.com>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH] ASoC: qcom: apq8096: Constify static snd_soc_ops
-Date: Sat,  2 Oct 2021 01:16:28 +0100
-Message-Id: <163313339131.45396.15118766100261477417.b4-ty@kernel.org>
+ Liam Girdwood <lgirdwood@gmail.com>
+Subject: Re: [PATCH] ASoC: tegra: Constify static snd_soc_ops
+Date: Sat,  2 Oct 2021 01:16:29 +0100
+Message-Id: <163313339131.45396.6427425261003311553.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20211001115030.10402-1-rikard.falkeborn@gmail.com>
-References: <20211001115030.10402-1-rikard.falkeborn@gmail.com>
+In-Reply-To: <20211001114517.6752-1-rikard.falkeborn@gmail.com>
+References: <20211001114517.6752-1-rikard.falkeborn@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, Svyatoslav Ryhel <clamor95@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>, Ion Agorria <ion@agorria.com>,
+ linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,8 +83,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 1 Oct 2021 13:50:30 +0200, Rikard Falkeborn wrote:
-> The struct iapq8096_ops is only assigned to the ops field in the
+On Fri, 1 Oct 2021 13:45:17 +0200, Rikard Falkeborn wrote:
+> The struct tegra_machine_snd_ops is only assigned to the ops field in the
 > snd_soc_dai_link struct which is a pointer to const struct snd_soc_ops.
 > Make it const to allow the compiler to put it in read-only memory.
 > 
@@ -95,8 +96,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: qcom: apq8096: Constify static snd_soc_ops
-      commit: cd96663bc27e1c94210b5b737de4d7cf233d90f8
+[1/1] ASoC: tegra: Constify static snd_soc_ops
+      commit: 620868b2a0bd56ae814bdde2598d7d7b20538e6d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

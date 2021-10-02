@@ -2,71 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B507C41F8B4
-	for <lists+alsa-devel@lfdr.de>; Sat,  2 Oct 2021 02:20:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6780C41F8ED
+	for <lists+alsa-devel@lfdr.de>; Sat,  2 Oct 2021 03:03:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E441170F;
-	Sat,  2 Oct 2021 02:19:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E441170F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E38EE16FA;
+	Sat,  2 Oct 2021 03:02:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E38EE16FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633134048;
-	bh=kcJKuC0wkvfILqJ9qCwz2Ct/sDna6hfeZwqpy5GIkao=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1633136585;
+	bh=mRbPVtp/UH+CpMXfNzctpOJJ5LxSRGdKywrN34Copo4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aH64TYSoLeckAB/mYXGARpXiywOLZqXMF0ATDpcPDxoLvGtn54pniFYEhMs9I/alh
-	 ljm2jofNwblfsv7beaM2ebE90XKcgoQU9PfdI6a9hyh5pKU0dDY508gLYqXAueXSiE
-	 XczvqGhziH7CFJqAacUOf0qzQ9r07iepagaFJfKo=
+	b=OiS3IQTD547glpN/iYtJTsDbJ4ymg6aUkwLyQdpfT66UJBWmoifEJ1/YuqwMQDzu2
+	 E2xS6Di6kwPbo+Hgu9aFSnxqWTKc4SeAR39pxNQyTDnP2fH943eEPYYFnjzu8Ut1JP
+	 xn0mrlVsbUKo1U+5ofc72T08eKCk/NLb3Nwc9Nfk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7CD8DF8051A;
-	Sat,  2 Oct 2021 02:17:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF165F8026D;
+	Sat,  2 Oct 2021 03:01:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7134F80518; Sat,  2 Oct 2021 02:17:20 +0200 (CEST)
+ id D2B8CF80245; Sat,  2 Oct 2021 03:01:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
+ [IPv6:2607:f8b0:4864:20::82c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8621DF804FD
- for <alsa-devel@alsa-project.org>; Sat,  2 Oct 2021 02:17:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8621DF804FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 20581F80165
+ for <alsa-devel@alsa-project.org>; Sat,  2 Oct 2021 03:01:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20581F80165
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="hIYJ7rVW"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 57C8561A50;
- Sat,  2 Oct 2021 00:17:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633133831;
- bh=kcJKuC0wkvfILqJ9qCwz2Ct/sDna6hfeZwqpy5GIkao=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hIYJ7rVWkNABVcCbGiHIsO+b18+sNtUvD/mG8R7uv9KMIdo9ntAw+DW5vJlNBaIBZ
- KZtCyzdd4AQBG9Sa/OHPAnPdZ/wycdqi+XNwgBdvBn4wQG7Bwt9exO5qs52pJd45D1
- 1pPYvbmzR6b9R0Y3WAOGq76kFQnIp57D3JZZLEfNcUiEGZSLBxLai3+oCAfWT82OOY
- d5uDt+NQv/SGN2hwSDtzzLMtNJLhhnacxNmGkCh0CkbM74TZ8NDIWNzXtckzE86zSS
- IP7HNe2E7Ox07Sf/MYQbUPKI6LKvaydplKZvRaUhnZX7AVjdCs6BznzLdFqAMaOuAW
- UAY0Chk4DRLTg==
-From: Mark Brown <broonie@kernel.org>
-To: festevam@gmail.com, tiwai@suse.com, alsa-devel@alsa-project.org,
- perex@perex.cz, timur@kernel.org, Xiubo.Lee@gmail.com,
- Shengjiu Wang <shengjiu.wang@nxp.com>, nicoleotsuka@gmail.com
-Subject: Re: [PATCH] ASoC: fsl_spdif: implement bypass mode from in to out
-Date: Sat,  2 Oct 2021 01:16:34 +0100
-Message-Id: <163313339132.45396.13488907784155100500.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <1632649760-1651-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1632649760-1651-1-git-send-email-shengjiu.wang@nxp.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="qzdMIcTB"
+Received: by mail-qt1-x82c.google.com with SMTP id d8so489772qtd.5
+ for <alsa-devel@alsa-project.org>; Fri, 01 Oct 2021 18:01:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=bZq8+bdlI5UzSp5wHhjcmlVOFZxaZYynNZOcMzOwkA0=;
+ b=qzdMIcTBampQX/pRMOV3ZXzfK+KQep69vMmqH8kbCjsSsZrIxS8veMBCbIy/+JfwZN
+ rZbvJTufPXFBrf+NvvxC5MY7TtTZhbcuFSAa5bh/5UeY5P5cRshcSvtVweoLBJoL4AUV
+ 52UcxROlVcB7aK9RFJm1T0lp6s0iJPkN1YgULia7tncGRNL80EojDx4a0uHf5Z+gzeSf
+ sPHX+MJfaNen3tp6NN2ljtF/wE8fkA5scOP0AbbgGDR4PjxEMlVqRqpUSjtipkmGjq7K
+ sQsbY/wlf6nYPTXXKvOqvReoBI6J9YgW871ZJkCmZml3gkjR2yfPsvMhpCl5OfNqhAMY
+ qCDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=bZq8+bdlI5UzSp5wHhjcmlVOFZxaZYynNZOcMzOwkA0=;
+ b=dg0W/am+v6h79Gy+K0Sh9gy0S/DcFeNwx3LOmYk5ne30PdZ0zK3iYq1uGDOCrwrjx0
+ U9+61UqiezRQ/FUaKvXCN4+Kr0eusVuYlj7hu31zKaeAWFp2rjEnG+x6EVd3EOmuB5ZZ
+ 3aeIh013TMOqF/Ml80i3syNla50LE2/bw6Q4T/QWIp2uEqJSoTW8bKe2XLUJt13091Df
+ PmWHn2Dkw8D0KWN0I+pNUPSHAaF8wzWbU6TQ067YWQGeJRfr3O6KrVEMQzCrbFn2Qa+K
+ 4DeiIej15J5XebM1frV6V30jF7b58HgDZRIsASuMJxjtoh8/6FSco9SpFlWaMODAAtzV
+ yl3g==
+X-Gm-Message-State: AOAM532a4PLPnlyH8/ezRm5l2EdkCDj4IDUUVpCfKSANKaMeJvZLrGZl
+ FskN3z4AS2en3yw+J0nPTKQ=
+X-Google-Smtp-Source: ABdhPJzG/2nxUUO3GSfpu88FZPTaxAmWzZjbMSC6SD5gNlYkC8VbSnH8qCpJQTOkoh7Roc6uLYDEUw==
+X-Received: by 2002:ac8:4088:: with SMTP id p8mr1063124qtl.279.1633136493232; 
+ Fri, 01 Oct 2021 18:01:33 -0700 (PDT)
+Received: from geday ([2804:7f2:8280:6c81:98f0:31ff:fe93:2dc7])
+ by smtp.gmail.com with ESMTPSA id m11sm3817504qkm.88.2021.10.01.18.01.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 01 Oct 2021 18:01:32 -0700 (PDT)
+Date: Fri, 1 Oct 2021 22:01:30 -0300
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+To: Zhang Boyang <zhangboyang.id@gmail.com>
+Subject: Re: [BUG?] Setting (start_threshold > stop_threshold) makes
+ snd_pcm_writei(a_small_buffer) XRUN immediately
+Message-ID: <YVevasDJYHjIxwjg@geday>
+References: <0b00ad37-41a3-f078-6600-d3580ad903a1@gmail.com>
+ <YVeawIksIf1wKa2s@geday>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <YVeawIksIf1wKa2s@geday>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,57 +101,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 26 Sep 2021 17:49:20 +0800, Shengjiu Wang wrote:
-> From: Viorel Suman <viorel.suman@nxp.com>
+On Fri, Oct 01, 2021 at 08:33:23PM -0300, Geraldo Nascimento wrote:
+> On Sat, Oct 02, 2021 at 01:31:12AM +0800, Zhang Boyang wrote:
+> > Hello,
 > 
-> Implement SPDIF bypass mode. It implies internal SoC
-> routing of SPDIF input signal to SPDIF output signal. The
-> test bed requires two boards: B1 configured in bypass mode,
-> and B2 to feed B1 SPDIF RX port and read B1 SPDIF TX port:
->    B2 TX -> B1 RX,
->    B2 RX <- B1 TX.
-> The test procedure:
->  a) Boot both boards
->  b) B2: start "arecord <spdifcard> -r 48kHz | aplay <local DAC>"
->  c) B2: start "aplay <spdifcard> -r 48kHz <2ch 48kHz audio file>"
->  d) B1: enable bypass mode:
-> 	amixer -cimxspdif cset numid=8,iface=PCM,name='Bypass Mode' on
->  e) B2: check DAC audio, make sure the same sample rate is used at
-> 	steps b) and c), in example above the rate is 48kHz.
->  f) B1: try to run "aplay" or "arecord" on imxspdif card while in
-> 	bypass mode - both must fail until bypass mode is disabled
->  g) B1: disable bypass mode:
-> 	amixer -cimxspdif cset numid=8,iface=PCM,name='Bypass Mode' off
->  h) B1: check the usual playback and capture on imxspdif card.
-> 	During this test try to set bypass mode - must not be allowed
-> 	while playback or capture is running.
+> Hello, Zhang!
 > 
-> [...]
+> > 
+> >    I'm using ALSA to develop an audio-streaming application. I try to 
+> > use start_threshold and stop_threshold in combination with small 
+> > buffers. However, I think I probably found a bug about this.
+> >    I'm setting start_threshold=100 and stop_threshold=50. I'm also using 
+> > a buffer of 44 frames. When I call 
+> > snd_pcm_writei(the_small_44_frames_buffer), pcm state came to XRUN from 
+> > PREPARED directly. I think this is a bug because the stream hasn't 
+> > started. It's hard to say a xrun occurred while stream not started.
+> >    I'm wondering if this is a ALSA-bug or a misuse of ALSA. A simple bug 
+> > test program is attached.
+> 
+> No, I don't think it's a bug. You're bound to run into problems with a
+> period size of only 44 frames.
+> 
+> Moreover, working with the code you provided, I was able to get a RUNNING
+> state without XRUNs with a period size of 4410 frames (100 milliseconds of
+> audio) but I had to comment out snd_pcm_sw_params_set_stop_threshold() for
+> it to work or I'd have those instant XRUNs.
+> 
+> That's how snd_pcm_sw_params_set_stop_threshold() is supposed to work by
+> the way. It creates a XRUN once the threshold is hit.
 
-Applied to
+Oh, and snd_pcm_sw_params_set_stop_threshold() is a little
+counter-intuitive. The threshold you give the function is compared to
+the available free space in the ring buffer, not the filled space.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: fsl_spdif: implement bypass mode from in to out
-      commit: 83bea088f976a289bc2efe4e404af47ab79d6639
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+That's why lowering the stop threshold makes XRUNs more likely...
 
 Thanks,
-Mark
+Geraldo Nascimento

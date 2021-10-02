@@ -2,89 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1227841F83F
-	for <lists+alsa-devel@lfdr.de>; Sat,  2 Oct 2021 01:34:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9C7A41F8AE
+	for <lists+alsa-devel@lfdr.de>; Sat,  2 Oct 2021 02:18:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 461FE16DF;
-	Sat,  2 Oct 2021 01:33:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 461FE16DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 33A3516ED;
+	Sat,  2 Oct 2021 02:17:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33A3516ED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633131288;
-	bh=5pEDyMIfetgnWBcRM+8nPbVQWwiy1VJWa3OoNpcnepo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1633133926;
+	bh=SqkMJsnkHZDT+eZzsrisFKTL2JeLsdSMMioQ/miBr24=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KfzQow8Tjby1rZuG4IxfKKUzrkcdj9tEYv6gLrY6zLi3j74nbI96lpbMgHIcjRvYR
-	 HWV8Q3ufz8Q+WBEZCu1a+AlhJhHykvqD2jNeHTxQuI9oVtgm5y3y+IsC8Sb5Xsc0z5
-	 Nwu0B36kaAvdkZndK01iZXd1Ka7IznP1jk0zuWco=
+	b=Qf2oCyHu1cBC6c7saEidEUNTzD8Tl62n24UPSVKAKW6BcdJ5kh500HrBlv8QQ9zXD
+	 jzWlPWRUnMYID39NmawVglMTCcZewF9zx0ohNJUlLjJT2wcwoTx3bV+P9JfMdmFUdl
+	 jZBHDTMOKdv1/DsphwxeIWvgMZl87z3Cmc9KNRzo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DBC13F8026D;
-	Sat,  2 Oct 2021 01:33:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8432FF80165;
+	Sat,  2 Oct 2021 02:17:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 79F2EF80245; Sat,  2 Oct 2021 01:33:28 +0200 (CEST)
+ id 57424F80301; Sat,  2 Oct 2021 02:17:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-ua1-x933.google.com (mail-ua1-x933.google.com
- [IPv6:2607:f8b0:4864:20::933])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0A5D5F801F7
- for <alsa-devel@alsa-project.org>; Sat,  2 Oct 2021 01:33:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A5D5F801F7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5AE1DF80227
+ for <alsa-devel@alsa-project.org>; Sat,  2 Oct 2021 02:16:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5AE1DF80227
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="M21Spffx"
-Received: by mail-ua1-x933.google.com with SMTP id 64so7783153uab.12
- for <alsa-devel@alsa-project.org>; Fri, 01 Oct 2021 16:33:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=Az2ZwLEgAe0ltkXib0Rl0Z43gR7D/6GVhGgAnp8gRjQ=;
- b=M21SpffxV7j8xsLxu4LJA4ckJ6JZH4GDJDiKl/YZNfGmAt3cxOAe2nz/v0uZLYwBt5
- YYsi1fZC9Q593imWRcj0uCjPCPZa8MXXJIcjI254O5l3o7yodaROlHqSx1jaVCCIN8JK
- /Tm8w8YOEAYgItU51BgUMC9mYBvTijx5e+IvtYUv5Ng5lSZaSeDWP843bA17FjdlqJeG
- l6ivitpbfhHocfrO1yJ9jjAMMhTmBNEHF6me3CNIqJ4YZi2sDvT+wRuAfCMWAlpVo5eo
- TIocOwjtKE9Tu6TOm+ZRLl2oQmsJiJu/BokEFgboRbZO5uigSUituc9xS1Qt87zeoQEQ
- +UXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=Az2ZwLEgAe0ltkXib0Rl0Z43gR7D/6GVhGgAnp8gRjQ=;
- b=mqsk3HyJamUHjOUhN6o9vRwaQUI2vVDG2Uq+OdMXTNElApDeGm7WIiVzmCGZvqbX4j
- ZtS0UbEBWs9IPhKDdY5IT6XB6thFGuDl2EiMXWGXKpdqvfdtxoEZI40RDcH3YAHtEDjQ
- Vz29bHwfZtY9W9vNQEZbGCwA8V/a+P35poPqQL6Oh2Fnd0pDrNWifrVq/mDX+8nTxGi/
- Yqh1gutri3Awe5/Zh+ADq3576t3skd0kxGgYM1/iscp/3DxwNoZWIo8NDYBcqO8pl2c6
- 3x7CvLYFInh8wOetC/1U5ZRF9eVYc9oo4RXqzg/L0Zk4ngpi8ODdFMbFtTfHivYvTZSl
- s1Ow==
-X-Gm-Message-State: AOAM532RdZq1hd2OGKGfKkO9V7kwgH0sTozJMTIahpsW7H1rP/djtlsb
- 4IyCJEWiILMPVDKxpTzrTbw=
-X-Google-Smtp-Source: ABdhPJzvRP+AZs2DIqeY9owx/R4OCS6m0XDYjxYxnmgzdYfHIc08qqttPxDvi0KGOyvSOxFtWBoELg==
-X-Received: by 2002:ab0:3d99:: with SMTP id l25mr545585uac.83.1633131202665;
- Fri, 01 Oct 2021 16:33:22 -0700 (PDT)
-Received: from geday ([2804:7f2:8280:6c81:98f0:31ff:fe93:2dc7])
- by smtp.gmail.com with ESMTPSA id r21sm3903379vso.22.2021.10.01.16.33.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Oct 2021 16:33:22 -0700 (PDT)
-Date: Fri, 1 Oct 2021 20:33:20 -0300
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
-To: Zhang Boyang <zhangboyang.id@gmail.com>
-Subject: Re: [BUG?] Setting (start_threshold > stop_threshold) makes
- snd_pcm_writei(a_small_buffer) XRUN immediately
-Message-ID: <YVeawIksIf1wKa2s@geday>
-References: <0b00ad37-41a3-f078-6600-d3580ad903a1@gmail.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="V+GLco18"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E6CEE61ACE;
+ Sat,  2 Oct 2021 00:16:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1633133812;
+ bh=SqkMJsnkHZDT+eZzsrisFKTL2JeLsdSMMioQ/miBr24=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=V+GLco18UbSCDYlixqfJ9E5tda0Fa/sW5GEE6hFZwJnfxEfOUVMC9i5tm3nE8tW5d
+ de6aoIagpe8OLsXHUlTfV1lYmvS1rvszVC8BP6oHp7XDwF4T+XMEOQPOI79Y/lpf//
+ 2+EFtyujN+k52GqtZ03Vd4uo4KfWYJKf8++qJeiaMvrfQ5attEOXoocz3R9BcEGYRw
+ k2pWIh7XAvSVUPO3qbywCECoobcJGiSSZBz4Lzy6WhruFBjFg/guTQb/Fj5b14tJ6X
+ C5XpJzVz/WsO7HF8nUIXbQYNWa0MvSPqiC+Ha+1PYliM/ox9LCx4hoyZXiJ6J6/vOW
+ Zdt+3LfuHF89Q==
+From: Mark Brown <broonie@kernel.org>
+To: tiwai@suse.com, Trevor Wu <trevor.wu@mediatek.com>, matthias.bgg@gmail.com
+Subject: Re: [PATCH] ASoC: mediatek: mt8195: move of_node_put to remove
+ function
+Date: Sat,  2 Oct 2021 01:16:27 +0100
+Message-Id: <163313339131.45396.13424331817826400710.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20211001031601.3953-1-trevor.wu@mediatek.com>
+References: <20211001031601.3953-1-trevor.wu@mediatek.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0b00ad37-41a3-f078-6600-d3580ad903a1@gmail.com>
-Cc: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, bicycle.tsai@mediatek.com,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,42 +81,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Oct 02, 2021 at 01:31:12AM +0800, Zhang Boyang wrote:
-> Hello,
-
-Hello, Zhang!
-
+On Fri, 1 Oct 2021 11:16:01 +0800, Trevor Wu wrote:
+> platforms->of_node and codes->of_node are assigned in probe function,
+> and of_node_put is called at the end of probe function, because of_node
+> seems to be not used after probe functon
 > 
->    I'm using ALSA to develop an audio-streaming application. I try to 
-> use start_threshold and stop_threshold in combination with small 
-> buffers. However, I think I probably found a bug about this.
->    I'm setting start_threshold=100 and stop_threshold=50. I'm also using 
-> a buffer of 44 frames. When I call 
-> snd_pcm_writei(the_small_44_frames_buffer), pcm state came to XRUN from 
-> PREPARED directly. I think this is a bug because the stream hasn't 
-> started. It's hard to say a xrun occurred while stream not started.
->    I'm wondering if this is a ALSA-bug or a misuse of ALSA. A simple bug 
-> test program is attached.
+> In this patch, of_node_put is moved to platform remove function in case
+> of_node is used at any occasions after probe function in the future.
+> 
+> [...]
 
-No, I don't think it's a bug. You're bound to run into problems with a
-period size of only 44 frames.
+Applied to
 
-Moreover, working with the code you provided, I was able to get a RUNNING
-state without XRUNs with a period size of 4410 frames (100 milliseconds of
-audio) but I had to comment out snd_pcm_sw_params_set_stop_threshold() for
-it to work or I'd have those instant XRUNs.
-
-That's how snd_pcm_sw_params_set_stop_threshold() is supposed to work by
-the way. It creates a XRUN once the threshold is hit.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
 Thanks!
-Geraldo Nascimento
 
->    Thank you very much!
-> 
-> Zhang Boyang
-> 
-> p.s.
->    I dug into kernel code. After writting hardware buffer, 
-> __snd_pcm_lib_xfer() called snd_pcm_update_state(), which set the XRUN 
-> state.
+[1/1] ASoC: mediatek: mt8195: move of_node_put to remove function
+      commit: bd8bec1408ab2336939bd69d93897bf19d0325ed
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

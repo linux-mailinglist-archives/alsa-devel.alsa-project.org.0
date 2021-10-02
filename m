@@ -2,91 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D482541F9E1
-	for <lists+alsa-devel@lfdr.de>; Sat,  2 Oct 2021 06:47:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C0DB41FE38
+	for <lists+alsa-devel@lfdr.de>; Sat,  2 Oct 2021 23:16:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D3A31700;
-	Sat,  2 Oct 2021 06:46:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D3A31700
+	by alsa0.perex.cz (Postfix) with ESMTPS id D3BEA168A;
+	Sat,  2 Oct 2021 23:15:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3BEA168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633150029;
-	bh=DexafnZ7ZpFrcb/ESfoCtV4x03KnXSAQxval/wsexEA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UB5lgRa9yCzXp19iwxIdVEPhLlQVXBM09XTIYCyL7sILyF8eCBREbYCR3m0vGwrcU
-	 D9hKmcDldLksQDtk96efvWRKHWYNPXz6KH/U7IGEwA2JlQutWwqPXiANiBA7dltrDE
-	 8oOY328WnQncJlb0oCNqkq0CeSRG/mIB8sI3tk04=
+	s=default; t=1633209393;
+	bh=dWy9kz+zpssawsp+27m2RbsKM7MUC6yclwrtJkkfNy8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=CIdBnsBSSvIwAmnyXz/82/nsuhxL70G/2OUSJOVzIAreM0Vwx8NXkvTih7jZ8bOkM
+	 K3LSXxU97zPQ52pUkMw9rjIOz/PpJ4l48f/uNyrrw7iwzR/FuZBEx1kkc9GIqat06j
+	 ZT2G1OcrxqjadzQN8gvYYSpvFyAnk8znl4p7GMRw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 98574F800D8;
-	Sat,  2 Oct 2021 06:45:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74C3CF800D8;
+	Sat,  2 Oct 2021 23:15:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38AB5F80227; Sat,  2 Oct 2021 06:45:49 +0200 (CEST)
+ id 08315F804BC; Sat,  2 Oct 2021 23:15:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-vs1-xe2f.google.com (mail-vs1-xe2f.google.com
- [IPv6:2607:f8b0:4864:20::e2f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61710F800EF
- for <alsa-devel@alsa-project.org>; Sat,  2 Oct 2021 06:45:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61710F800EF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 03D5CF800D8
+ for <alsa-devel@alsa-project.org>; Sat,  2 Oct 2021 23:15:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03D5CF800D8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="VYLBkE0h"
-Received: by mail-vs1-xe2f.google.com with SMTP id f2so12789872vsj.4
- for <alsa-devel@alsa-project.org>; Fri, 01 Oct 2021 21:45:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=QzS5xZx3tfg52Jlpte5KPpXOVhOT9SlIpZwbLAtuRME=;
- b=VYLBkE0hTlvBsdnJEclSi5uECDaikeWKiQLV4q3YhEPwqsDQLBJBTe8i4xhDxex2jo
- 3K0aoWs6gWBSoevJm/Bt1ksvzUysKEnoqZVV5pWTvcoafWRYOXLR/udwXybC6Gk5vxJ1
- 8tPbknuQbKV8xZWbDNA/P8gT2zzdR9lAGexRXwoFVt4rDb6P2OA944PKbU6MPZPJ7un5
- cwLAR6yR3Jbrzomx/LFw+8Oi6VSHc9FH2SP7sBGQrMYWUk9la9LnWG3AoB7l75mlwe9V
- 8mv9vQmYxL6+K3LeEsZgS6VbfNRjxX88/mTp4t3tKXrF9+TQ2tZl5pc0bsaLsXEHt+wl
- WLHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=QzS5xZx3tfg52Jlpte5KPpXOVhOT9SlIpZwbLAtuRME=;
- b=Sjb65GXrfg7tQvd/NzgAHLiJjzkqohyqoQY3cBKs3HKG9LbSjXEF8awcwzerb0v5aY
- pbUqlIjJX/Td/Tz/qbl1VzzGZ3a5Rm2CauO1oE/63WqzORl6r6WROZ9vH46QepvgZii9
- urPscvXt4tdyJpqUQPoKsukW0aKatLkaULdj2CEVz3qlpBNzpcRJPFfdb38XrO24UEY/
- C0mIchZTmoPf/EY07vyEhYNOSYYHa6MQ7ReEKVnnLXi7J3LxtiuowPMwmWjHXM+sZda0
- EFfkAJrbCaJ/rTj+xL0Wd0udFDwF2DVuaFSQ02d1jYq/EorQpZpiV4QcGEMIGX0YQdi1
- R9XQ==
-X-Gm-Message-State: AOAM532Z9l+fakFxnSgfwkgu49kUQMxv7T65mZ/rwS15WJJBhK5cnDcE
- VAZTNzJSL+VFyM5OXlzdsnM=
-X-Google-Smtp-Source: ABdhPJzHKXWzgV0zhV+crRebC+sXSjNEheG7/4Z2l0Yt0HUnkZvX9pC8vNNwC+J4+yfD7VdeBZpl7g==
-X-Received: by 2002:a05:6102:22d6:: with SMTP id
- a22mr7147809vsh.16.1633149936222; 
- Fri, 01 Oct 2021 21:45:36 -0700 (PDT)
-Received: from geday ([2804:7f2:8280:6c81:98f0:31ff:fe93:2dc7])
- by smtp.gmail.com with ESMTPSA id n4sm4231355vsq.32.2021.10.01.21.45.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Oct 2021 21:45:35 -0700 (PDT)
-Date: Sat, 2 Oct 2021 01:45:33 -0300
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
-To: Zhang Boyang <zhangboyang.id@gmail.com>
-Subject: Re: [BUG?] Setting (start_threshold > stop_threshold) makes
- snd_pcm_writei(a_small_buffer) XRUN immediately
-Message-ID: <YVfj7SA4uhYKWTH6@geday>
-References: <0b00ad37-41a3-f078-6600-d3580ad903a1@gmail.com>
- <YVeawIksIf1wKa2s@geday> <YVevasDJYHjIxwjg@geday>
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="e2fuCl2a"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1633209306;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=XWWVhLhA6ufXVCMx8Wc6ZsJlOeUN/hutt2bi6gLAjIQ=;
+ b=e2fuCl2aFGx2cRSVVZKMneZGAI/uzywM8N5Z+WjyP0ApaaaY2G7IANIoifkb/Y8M1TFI/w
+ qlGCIzLmyvRQx2AH32Jga6400EnzZQ0CsMc1ASKiDDtxng/PnbrbtePCuMKtO6wWtGb3w8
+ F6LWGdPjYzImw7Mvt0hjzivHJjnNcJI=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-47-N7vMoBJfMR2xo0oRIA_xCQ-1; Sat, 02 Oct 2021 17:15:05 -0400
+X-MC-Unique: N7vMoBJfMR2xo0oRIA_xCQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+ [10.5.11.16])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 36801180830B;
+ Sat,  2 Oct 2021 21:15:04 +0000 (UTC)
+Received: from x1.localdomain (unknown [10.39.192.31])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 4CF115C1CF;
+ Sat,  2 Oct 2021 21:15:00 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: [PATCH 1/4] ASoC: nau8824: Fix NAU8824_JACK_LOGIC define
+Date: Sat,  2 Oct 2021 23:14:56 +0200
+Message-Id: <20211002211459.110124-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YVevasDJYHjIxwjg@geday>
-Cc: alsa-devel@alsa-project.org
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,60 +93,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Oct 01, 2021 at 10:01:34PM -0300, Geraldo Nascimento wrote:
-> On Fri, Oct 01, 2021 at 08:33:23PM -0300, Geraldo Nascimento wrote:
-> > On Sat, Oct 02, 2021 at 01:31:12AM +0800, Zhang Boyang wrote:
-> > > Hello,
-> > 
-> > Hello, Zhang!
-> > 
-> > > 
-> > >    I'm using ALSA to develop an audio-streaming application. I try to 
-> > > use start_threshold and stop_threshold in combination with small 
-> > > buffers. However, I think I probably found a bug about this.
-> > >    I'm setting start_threshold=100 and stop_threshold=50. I'm also using 
-> > > a buffer of 44 frames. When I call 
-> > > snd_pcm_writei(the_small_44_frames_buffer), pcm state came to XRUN from 
-> > > PREPARED directly. I think this is a bug because the stream hasn't 
-> > > started. It's hard to say a xrun occurred while stream not started.
-> > >    I'm wondering if this is a ALSA-bug or a misuse of ALSA. A simple bug 
-> > > test program is attached.
-> > 
-> > No, I don't think it's a bug. You're bound to run into problems with a
-> > period size of only 44 frames.
-> > 
-> > Moreover, working with the code you provided, I was able to get a RUNNING
-> > state without XRUNs with a period size of 4410 frames (100 milliseconds of
-> > audio) but I had to comment out snd_pcm_sw_params_set_stop_threshold() for
-> > it to work or I'd have those instant XRUNs.
-> > 
-> > That's how snd_pcm_sw_params_set_stop_threshold() is supposed to work by
-> > the way. It creates a XRUN once the threshold is hit.
-> 
-> Oh, and snd_pcm_sw_params_set_stop_threshold() is a little
-> counter-intuitive. The threshold you give the function is compared to
-> the available free space in the ring buffer, not the filled space.
-> 
-> That's why lowering the stop threshold makes XRUNs more likely...
-> 
-> Thanks,
-> Geraldo Nascimento
+The NAU8824_JACK_LOGIC define was wrong, for active high jack-detect
+to work bit 1 needs to be set, rather then bit 0.
 
-Zhang,
+The correct bit was found in the Android kernel source dump for
+a Cyberbook T116 tablet; and this was also tested on that same tablet.
 
-I was able to make your code work in the end, even with 44 frames
-writes, which is unadvisable since it eats too much CPU specially if
-they are low-end like the ARM64 box I'm writing you from.
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ sound/soc/codecs/nau8824.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The trick was to use high values such as 500000. Lower values such as
-250000 were enough to trigger XRUNs in my machine. Of course you can set
-it to -1 and it will ignore XRUNs but that's a bit like setting it to
-16777216 or 4096 * 4096 which is a hardcoded limit in alsa-lib, I
-believe.
-
-And plainly ignoring XRUNs may sound bad under load, believe me.
-
-Thank you,
-Geraldo Nascimento
-
+diff --git a/sound/soc/codecs/nau8824.h b/sound/soc/codecs/nau8824.h
+index 1d7bdd8e0523..6e61405f623b 100644
+--- a/sound/soc/codecs/nau8824.h
++++ b/sound/soc/codecs/nau8824.h
+@@ -197,7 +197,7 @@
+ /* JACK_DET_CTRL (0x0D) */
+ #define NAU8824_JACK_EJECT_DT_SFT	2
+ #define NAU8824_JACK_EJECT_DT_MASK (0x3 << NAU8824_JACK_EJECT_DT_SFT)
+-#define NAU8824_JACK_LOGIC		0x1
++#define NAU8824_JACK_LOGIC		(0x1 << 1)
+ 
+ 
+ /* INTERRUPT_SETTING_1 (0x0F) */
+-- 
+2.31.1
 

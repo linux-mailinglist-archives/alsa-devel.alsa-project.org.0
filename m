@@ -2,84 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3667D4205F2
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Oct 2021 08:44:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29E0642067F
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Oct 2021 09:16:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A252D168F;
-	Mon,  4 Oct 2021 08:44:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A252D168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 989831690;
+	Mon,  4 Oct 2021 09:15:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 989831690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633329891;
-	bh=xAy8hyOqg6gy31ht1dGWfYzEttEhQaNKcQ7vkcQr9h4=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1633331768;
+	bh=XGd9AcsBIpF/hzuOi8u69V35VLyreD/MQD9cGSIhAbE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ep14T0M41qxvjPNgBh0us9yZCpWziPjPAi3MqLC4nuNL1hrQTaTqav48h4uVB8ARk
-	 DH4oxHuAZn6BYwuu/6M45FMwx6xtgxynOS1ydETuAoccGuO4hZ3sN1/QfgH/FYiH8T
-	 OqAJwFzvE6Ty3keykkH4alWQ2Wt88RZnl6/scnpM=
+	b=H2xTlGsbOS17BbLHZmP5TfSzBTCPGdV4ONtQ7XW1WSY2WBxRObz2XxyVMj71OcMll
+	 gOOPbudZOwUPgOC8JOXdmlmP0Pf21pxg/JV64E2Sb+GtcJnPQglCi6WGJOJLrD0XL9
+	 p3KnGkdFbeHPq+5HaEdX001O1Yd8uAWqgmEoehhQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F9D9F80229;
-	Mon,  4 Oct 2021 08:43:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 088E6F80229;
+	Mon,  4 Oct 2021 09:14:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9F185F80240; Mon,  4 Oct 2021 08:43:30 +0200 (CEST)
+ id 3ECDAF80240; Mon,  4 Oct 2021 09:14:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com
+ [209.85.217.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C0EDF8010B
- for <alsa-devel@alsa-project.org>; Mon,  4 Oct 2021 08:43:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C0EDF8010B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="uuR2ltT7"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="e7hutZCQ"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 90C172218A;
- Mon,  4 Oct 2021 06:43:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1633329798; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=fUyV+BMLGRRvw+mx8t2FV2t80P2CLpVqtdnj7oHsces=;
- b=uuR2ltT745cV8GDRH6Hw2rjrM9cxOdod9FdQYLCFTvVF4ypiphYthzsGxqWkMZxa8e+6uP
- Xoh+mhEzp66cqHRkuewRm7eNWsz4L3E8qUiwZ9ZEmYGCJEirYIud91JZreaFHX/aypoe4g
- a+0LHEOig7NkJahr77nHJVYuO9gen+4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1633329798;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=fUyV+BMLGRRvw+mx8t2FV2t80P2CLpVqtdnj7oHsces=;
- b=e7hutZCQiCVE3woZsPae6uooQn/Nu/LSo6CiktbhtdHUTdE/E9n+Mu3KT3GzLKmKld17Jl
- 4wUdQSltnMwL9XDA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 6660BA3B81;
- Mon,  4 Oct 2021 06:43:18 +0000 (UTC)
-Date: Mon, 04 Oct 2021 08:43:18 +0200
-Message-ID: <s5hsfxhguih.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: DAPM PIN switches do not update in alsamixer when changed through
- UCM profile
-In-Reply-To: <8e0a6491-bc87-0f9a-099f-3baff1fc0e0d@redhat.com>
-References: <b8cf9bb0-bad1-26a0-0806-0a7c66b228d0@redhat.com>
- <s5hv92ego8y.wl-tiwai@suse.de>
- <8e0a6491-bc87-0f9a-099f-3baff1fc0e0d@redhat.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C02DFF800BA
+ for <alsa-devel@alsa-project.org>; Mon,  4 Oct 2021 09:14:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C02DFF800BA
+Received: by mail-vs1-f46.google.com with SMTP id l19so18360992vst.7
+ for <alsa-devel@alsa-project.org>; Mon, 04 Oct 2021 00:14:45 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=A9EwFX43l/2r99tmwRun5vT5zyRd1lmM0divCgfmoFw=;
+ b=JCBwN6k5BZ28bsrYkuyU6WXevulSYBKKyn826exz9C1IoTCx8W9fqQxra3J+HdJrbu
+ GSaImrNaiHqK7Zz4dA3Tpf+a2VrbW4Pm2O3vc0r7PU+fwQWMKcWjUxK3fgbl2e3gK/D2
+ HEriG4Bf0915ffNu2H454eoPI65fGUn49PwY6hACEgofI6jtEcmZ88qmgVyxAMX2lUmV
+ DfGje0mfn5QzHcxei9AogiVI39J82kDcLW6yOjB7KwKAS9vVvVkjc40BOc1Xvq+lhVgm
+ WMa28Fcs35B/qHaiZUn+hVUSfymzGgwQVgGQo8QffpGjtmIRXWbUqoEH/yxweNb3Vdxx
+ misQ==
+X-Gm-Message-State: AOAM533lzzoVC+21RReSWDHhDrHh2/0nSaJx+J9urGfW3JCJ6OB/KeRU
+ Z/8Pl8BHtApf6IEfHyFT7nuw1jAO/jq1qSqbE8s=
+X-Google-Smtp-Source: ABdhPJwPUrVlAy5tkRXrLHhIaBrswRZA2a5X0zmaS24RWUwiCQqZa669QAw1LVnhiyUQwtk7S3TTLkOlHsvMsWcFEsQ=
+X-Received: by 2002:a67:f147:: with SMTP id t7mr11286284vsm.41.1633331683781; 
+ Mon, 04 Oct 2021 00:14:43 -0700 (PDT)
+MIME-Version: 1.0
+References: <20211003030357.32456-1-rdunlap@infradead.org>
+In-Reply-To: <20211003030357.32456-1-rdunlap@infradead.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 4 Oct 2021 09:14:32 +0200
+Message-ID: <CAMuHMdVuObZvVCkQbXfmruB_RnprkghAv6b14Pz5nC+7M4YtzQ@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: atmel: add COMPILE_TEST for SND_ATMEL_SOC_PDC
+To: Randy Dunlap <rdunlap@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,117 +83,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 03 Oct 2021 18:32:13 +0200,
-Hans de Goede wrote:
-> 
-> Hi Takashi,
-> 
-> On 10/3/21 4:46 PM, Takashi Iwai wrote:
-> > On Sun, 03 Oct 2021 15:12:57 +0200,
-> > Hans de Goede wrote:
-> >>
-> >> Hi All,
-> >>
-> >> I notice that DAPM PIN switches, such as e.g. the "Headphone"
-> >> SOC_DAPM_PIN_SWITCH defined in:
-> >> sound/soc/intel/boards/cht_bsw_nau8824.c:
-> >>
-> >> static const struct snd_kcontrol_new cht_mc_controls[] = {
-> >>         SOC_DAPM_PIN_SWITCH("Headphone"),
-> >>         SOC_DAPM_PIN_SWITCH("Headset Mic"),
-> >>         SOC_DAPM_PIN_SWITCH("Int Mic"),
-> >>         SOC_DAPM_PIN_SWITCH("Ext Spk"),
-> >> };
-> >>
-> >> Do not get updated to reflect state-changes when the output
-> >> is switched between e.g. Headphone / "Ext Spk" by
-> >> pulseaudio/pipewire through the UCM profile mechanism.
-> >>
-> >> If I exit alsa-mixer after changing the output and
-> >> start it again then the control does show the expect
-> >> value. So it seems that we are failing to send a change
-> >> event about this somewhere?
-> > 
-> > Does the patch below work?
-> 
-> Thank you for the quick response.
-> 
-> This works for the "Speaker" DAPM PIN switch on a rt5640
-> board:
-> 
-> 
-> static const struct snd_kcontrol_new byt_rt5640_controls[] = {
->         SOC_DAPM_PIN_SWITCH("Headphone"),
->         SOC_DAPM_PIN_SWITCH("Headset Mic"),
->         SOC_DAPM_PIN_SWITCH("Headset Mic 2"),
->         SOC_DAPM_PIN_SWITCH("Internal Mic"),
->         SOC_DAPM_PIN_SWITCH("Speaker"),
->         SOC_DAPM_PIN_SWITCH("Line Out"),
-> };
-> 
-> But it does not work for the "Headphone" and "Line Out" switches,
-> these are actually hooked up to jack-detect, so I guess that the
-> jack-detection is already flipping them and then when the UCM
-> profile changes them it is a no-op causing the UCM setting of
-> the control to not cause an event because it is not a change.
-> 
-> Relevant jack-detect bits from sound/soc/intel/boards/bytcr_rt5640.c:
-> 
-> 
-> static struct snd_soc_jack_pin rt5640_pins[] = {
->         {
->                 .pin    = "Headphone",
->                 .mask   = SND_JACK_HEADPHONE,
->         },
->         {
->                 .pin    = "Headset Mic",
->                 .mask   = SND_JACK_MICROPHONE,
->         },
-> };
-> 
-> static struct snd_soc_jack_pin rt5640_pins2[] = {
->         {
->                 /* The 2nd headset jack uses lineout with an external HP-amp */
->                 .pin    = "Line Out",
->                 .mask   = SND_JACK_HEADPHONE,
->         },
->         {
->                 .pin    = "Headset Mic 2",
->                 .mask   = SND_JACK_MICROPHONE,
->         },
-> };
-> 
-> 
->                 ret = snd_soc_card_jack_new(card, "Headset",
->                                             SND_JACK_HEADSET | SND_JACK_BTN_0,
->                                             &priv->jack, rt5640_pins,
->                                             ARRAY_SIZE(rt5640_pins));
-> 
->                 ret = snd_soc_card_jack_new(card, "Headset 2",
->                                             SND_JACK_HEADSET,
->                                             &priv->jack2, rt5640_pins2,
->                                             ARRAY_SIZE(rt5640_pins2));
+Hi Randy,
 
-Those controls are the pin jacks, and they give the jack plug states,
-hence the values must be irrelevant from what UCM profile is being
-used, per se, but reflecting only about the jack plug state.
+On Sun, Oct 3, 2021 at 5:04 AM Randy Dunlap <rdunlap@infradead.org> wrote:
+> Geert pointed out that since sound/soc has the soc_dummy_driver for
+> NO_DMA platforms, it is possible (desirable) to have drivers that
+> depend on HAS_DMA to alternately depend on COMPILE_TEST.
 
-Or do you mean that a value isn't updated even when a jack is plugged?
+Actually I had never heard about the soc_dummy_driver before ;-)
+I did know about the dummies in include/linux/dma-mapping.h.
 
-> I tried both jacks a HP Elitepad 1000G2 with dock (one on the tablet
-> and one on the dock).
-> 
-> With your patch the SOC_DAPM_PIN_SWITCH("Speaker") control correctly
-> updates (which it did not do before). But the "Line Out" (used for
-> the second headset jack) and the "Headphone" controls do not update.
-> 
-> (exiting alsa-mixer and starting it again does show the "Line Out"
-> and "Headphone" controls have changed.
+> This means that SND_ATMEL_SOC_PDC can depend on HAS_DMA || COMPIE_TEST.
 
-You can run "alsactl monitor" to see which controls get notified.
-Please check whether the corresponding control is notified or not.
+COMPILE_TEST
 
+> Fixes: 6c5c659dfe3f ("ASoC: atmel: ATMEL drivers don't need HAS_DMA")
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
+> Cc: Liam Girdwood <lgirdwood@gmail.com>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: alsa-devel@alsa-project.org
+> Cc: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+> ---
+>  sound/soc/atmel/Kconfig |    1 +
+>  1 file changed, 1 insertion(+)
+>
+> --- linux-next-20211001.orig/sound/soc/atmel/Kconfig
+> +++ linux-next-20211001/sound/soc/atmel/Kconfig
+> @@ -11,6 +11,7 @@ if SND_ATMEL_SOC
+>
+>  config SND_ATMEL_SOC_PDC
+>         bool
+> +       depends on HAS_DMA || COMPILE_TEST
+>
+>  config SND_ATMEL_SOC_DMA
+>         bool
 
-thanks,
+The actual change LGTM, so
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Takashi
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

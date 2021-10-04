@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 375A942195E
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Oct 2021 23:37:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B37842195A
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Oct 2021 23:37:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6BDE8168A;
-	Mon,  4 Oct 2021 23:36:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BDE8168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C285D1688;
+	Mon,  4 Oct 2021 23:36:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C285D1688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633383462;
-	bh=yNGYbZfF0Tsa04SbRIdiQf1HgKBeVdL+8egYLk+5fDg=;
+	s=default; t=1633383441;
+	bh=nOaUhKqNxkFG7F33Pw0/clBODSqOfcz65AT1wQkQ1WY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=a8QOWtUxo30BBTPX8tchiMvTPKSZUBD87PR6nf5TvFcgcdu1uLq7E02/xw1sQ4ErV
-	 +DrYTYv1nK6DQprgPi1XJ3T13cDjdMD1pWJ49wu9MJ4f/0CVhlH4YhAJNF9QWx3HQf
-	 Ms9rgCAADZZlQ+AVcgATrsgyRA715ebN8go2uCdA=
+	b=PfOycxzwcmeBysVE2OIaooLgBlaMuYwzVywLjorwPLEVKSTEDauKC0oeOlf51Bd8m
+	 h4QTTL0BTWeXnHdhPoK1tX7Bcq8NDsTr6sSyIzEUNUUPy1yTAuphlaKiYXaizA217g
+	 y5JcaulT911C2uI5Cwmg9uLlHzdyH8Q3t2LKZWss=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C3C2F804EB;
-	Mon,  4 Oct 2021 23:35:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC076F804AC;
+	Mon,  4 Oct 2021 23:35:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7FDDEF804E5; Mon,  4 Oct 2021 23:35:46 +0200 (CEST)
+ id F2DE2F804E2; Mon,  4 Oct 2021 23:35:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,25 +33,25 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 032A2F80240
+ by alsa1.perex.cz (Postfix) with ESMTPS id 72963F800BA
  for <alsa-devel@alsa-project.org>; Mon,  4 Oct 2021 23:35:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 032A2F80240
-X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="223012792"
-X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="223012792"
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72963F800BA
+X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="223012799"
+X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="223012799"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 14:35:33 -0700
-X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="521588498"
+ 04 Oct 2021 14:35:34 -0700
+X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="521588506"
 Received: from ksgonzal-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.209.181.38])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 14:35:32 -0700
+ 04 Oct 2021 14:35:33 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 1/5] ASoC: Intel: soc-acpi: apl/glk/tgl: add entry for devices
+Subject: [PATCH 2/5] ALSA: intel-dsp-config: add quirk for APL/GLK/TGL devices
  based on ES8336 codec
-Date: Mon,  4 Oct 2021 16:35:08 -0500
-Message-Id: <20211004213512.220836-2-pierre-louis.bossart@linux.intel.com>
+Date: Mon,  4 Oct 2021 16:35:09 -0500
+Message-Id: <20211004213512.220836-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211004213512.220836-1-pierre-louis.bossart@linux.intel.com>
 References: <20211004213512.220836-1-pierre-louis.bossart@linux.intel.com>
@@ -75,73 +75,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-A number of devices, such as the "Chuwi HI10x" and "UNIQCELL Q15.6",
-are based on APL/GLK with an I2C/I2S ES8336 codec.
-
-Add table to find topology and firmware files.
+These devices are based on an I2C/I2S device, we need to force the use
+of the SOF driver otherwise the legacy HDaudio driver will be loaded -
+only HDMI will be supported.
 
 Co-developed-by: Huajun Li <huajun.li@intel.com>
 Signed-off-by: Huajun Li <huajun.li@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- sound/soc/intel/common/soc-acpi-intel-bxt-match.c | 6 ++++++
- sound/soc/intel/common/soc-acpi-intel-glk-match.c | 7 ++++++-
- sound/soc/intel/common/soc-acpi-intel-tgl-match.c | 6 ++++++
- 3 files changed, 18 insertions(+), 1 deletion(-)
+ sound/hda/intel-dsp-config.c | 22 ++++++++++++++++++++--
+ 1 file changed, 20 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-bxt-match.c b/sound/soc/intel/common/soc-acpi-intel-bxt-match.c
-index 576407b5daf2..78cfdc48ad45 100644
---- a/sound/soc/intel/common/soc-acpi-intel-bxt-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-bxt-match.c
-@@ -82,6 +82,12 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_bxt_machines[] = {
- 		.sof_fw_filename = "sof-apl.ri",
- 		.sof_tplg_filename = "sof-apl-tdf8532.tplg",
+diff --git a/sound/hda/intel-dsp-config.c b/sound/hda/intel-dsp-config.c
+index c9d0ba353463..b9ac9e9e45a4 100644
+--- a/sound/hda/intel-dsp-config.c
++++ b/sound/hda/intel-dsp-config.c
+@@ -31,6 +31,7 @@ struct config_entry {
+ 	u16 device;
+ 	u8 acpi_hid[ACPI_ID_LEN];
+ 	const struct dmi_system_id *dmi_table;
++	u8 codec_hid[ACPI_ID_LEN];
+ };
+ 
+ /*
+@@ -56,7 +57,7 @@ static const struct config_entry config_table[] = {
+ /*
+  * Apollolake (Broxton-P)
+  * the legacy HDAudio driver is used except on Up Squared (SOF) and
+- * Chromebooks (SST)
++ * Chromebooks (SST), as well as devices based on the ES8336 codec
+  */
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_APOLLOLAKE)
+ 	{
+@@ -73,6 +74,11 @@ static const struct config_entry config_table[] = {
+ 			{}
+ 		}
  	},
 +	{
-+		.id = "ESSX8336",
-+		.drv_name = "sof-essx8336",
-+		.sof_fw_filename = "sof-apl.ri",
-+		.sof_tplg_filename = "sof-apl-es8336.tplg",
++		.flags = FLAG_SOF,
++		.device = 0x5a98,
++		.codec_hid = "ESSX8336",
 +	},
- 	{},
- };
- EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_bxt_machines);
-diff --git a/sound/soc/intel/common/soc-acpi-intel-glk-match.c b/sound/soc/intel/common/soc-acpi-intel-glk-match.c
-index da1e151190b4..32fff9389eb3 100644
---- a/sound/soc/intel/common/soc-acpi-intel-glk-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-glk-match.c
-@@ -49,7 +49,12 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_glk_machines[] = {
- 		.sof_fw_filename = "sof-glk.ri",
- 		.sof_tplg_filename = "sof-glk-cs42l42.tplg",
- 	},
--
-+	{
-+		.id = "ESSX8336",
-+		.drv_name = "sof-essx8336",
-+		.sof_fw_filename = "sof-glk.ri",
-+		.sof_tplg_filename = "sof-glk-es8336.tplg",
-+	},
- 	{},
- };
- EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_glk_machines);
-diff --git a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-index 91ef71c2535d..5332f96eb938 100644
---- a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-@@ -355,6 +355,12 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_tgl_machines[] = {
- 		.sof_fw_filename = "sof-tgl.ri",
- 		.sof_tplg_filename = "sof-tgl-rt1011-rt5682.tplg",
+ #endif
+ #if IS_ENABLED(CONFIG_SND_SOC_INTEL_APL)
+ 	{
+@@ -137,7 +143,7 @@ static const struct config_entry config_table[] = {
+ 
+ /*
+  * Geminilake uses legacy HDAudio driver except for Google
+- * Chromebooks
++ * Chromebooks and devices based on the ES8336 codec
+  */
+ /* Geminilake */
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_GEMINILAKE)
+@@ -154,6 +160,11 @@ static const struct config_entry config_table[] = {
+ 			{}
+ 		}
  	},
 +	{
-+		.id = "ESSX8336",
-+		.drv_name = "sof-essx8336",
-+		.sof_fw_filename = "sof-tgl.ri",
-+		.sof_tplg_filename = "sof-tgl-es8336.tplg",
++		.flags = FLAG_SOF,
++		.device = 0x3198,
++		.codec_hid = "ESSX8336",
 +	},
- 	{},
- };
- EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_tgl_machines);
+ #endif
+ 
+ /*
+@@ -311,6 +322,11 @@ static const struct config_entry config_table[] = {
+ 		.flags = FLAG_SOF | FLAG_SOF_ONLY_IF_DMIC_OR_SOUNDWIRE,
+ 		.device = 0x43c8,
+ 	},
++	{
++		.flags = FLAG_SOF,
++		.device = 0xa0c8,
++		.codec_hid = "ESSX8336",
++	},
+ #endif
+ 
+ /* Elkhart Lake */
+@@ -354,6 +370,8 @@ static const struct config_entry *snd_intel_dsp_find_config
+ 			continue;
+ 		if (table->dmi_table && !dmi_check_system(table->dmi_table))
+ 			continue;
++		if (table->codec_hid[0] && !acpi_dev_present(table->codec_hid, NULL, -1))
++			continue;
+ 		return table;
+ 	}
+ 	return NULL;
 -- 
 2.25.1
 

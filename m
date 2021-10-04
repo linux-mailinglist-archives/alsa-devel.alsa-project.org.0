@@ -2,67 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 999314215C4
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Oct 2021 19:57:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B06FE421453
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Oct 2021 18:44:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 119B81675;
-	Mon,  4 Oct 2021 19:57:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 119B81675
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20B971674;
+	Mon,  4 Oct 2021 18:43:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20B971674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633370277;
-	bh=Iahlw+n7PjkjOMG0rsOm0cBfHQi5c4bk7kkP3x+DcQ0=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1633365844;
+	bh=565tHhBmRCysZjzSxOrrWmyYpky5MCNVPd5AEIAVT5M=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mciD7+7yNESaesiEWrHOcLd6bpYS+UNa9KCf3BfUZwxxnls03+29PIIIMylLa0OAd
-	 ANH3U+QX3Atx09rCQpl6abEWOB9bkGJWMUOXIOsXVmrOiScF/opdc4X7563vL2mJUW
-	 j9m7D+9Sw/VXVGufOaD1OeHXQJcOyCze+OOLBMkU=
+	b=Eesp1QpNClc4wNwKMlbHEbTyrk0EjiVhG9U/YUHqzVszfOVLIq8pXr8xJl1E8wMk4
+	 CWKXNtc62QNBY/Vtu/3LOWAl67jU/Yfnz8wikz8JOqDNNpSkRrM1u5dbaKJhPe21rh
+	 q3We3Tr5YsnV9LKVyi/N48302fswOUvh7i04yNa0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10AA0F804E6;
-	Mon,  4 Oct 2021 19:56:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61BC0F8010B;
+	Mon,  4 Oct 2021 18:42:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 805C2F804E5; Mon,  4 Oct 2021 19:55:58 +0200 (CEST)
+ id 02793F80240; Mon,  4 Oct 2021 18:42:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_65,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1460EF80171
- for <alsa-devel@alsa-project.org>; Mon,  4 Oct 2021 19:55:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1460EF80171
-X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="206334106"
-X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="206334106"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 09:24:41 -0700
-X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="558594239"
-Received: from mbrescia-mobl1.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.212.77.4])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 09:24:40 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 3/3] ASoC: SOF: Intel: add .ack support for HDaudio
- platforms
-Date: Mon,  4 Oct 2021 11:24:23 -0500
-Message-Id: <20211004162423.85323-4-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211004162423.85323-1-pierre-louis.bossart@linux.intel.com>
-References: <20211004162423.85323-1-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54BF3F800BA
+ for <alsa-devel@alsa-project.org>; Mon,  4 Oct 2021 18:42:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54BF3F800BA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="S/NM7V4Z"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 322DD61213;
+ Mon,  4 Oct 2021 16:42:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1633365755;
+ bh=565tHhBmRCysZjzSxOrrWmyYpky5MCNVPd5AEIAVT5M=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=S/NM7V4Zuu7OGEuBCi0YRpBF0xawsQ/LLX5uPlrSMHv3i8+d9Y9TorfYpYNwOJkXm
+ OJ+nrO5bGWHfW8ePe2PbXHD8Q0nAqzKX7i7cE5caXqqf7H5ow2fEu9Y9gUmbBSeZfy
+ QVgdUFP6jUbbN+ZjEXbNBi+4qGLkXscEVyWYCKGVTHbXE2Aap2BEHzBUY1G05WtztA
+ zSTmQG1ef9VkfNmH1fPtICOYt0gKnz9Ry1A4rinuiQ7RPvnUNgh/zaLLxd38oHtC5z
+ eXBGIFdtC5X2x+5UBo+dOGYi8t32m6oihaSduFwXFuRNwI2Z25Y1sV+Iu/q654mfL8
+ 6McKvijRxgrfA==
+Date: Mon, 4 Oct 2021 17:42:33 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Ricard Wanderlof <ricardw@axis.com>
+Subject: Re: [PATCH 2/2] ASoC: codec: tlv320adc3xxx: New codec driver
+Message-ID: <YVsu+QMjOQz8pAzY@sirena.org.uk>
+References: <alpine.DEB.2.21.2110041117540.14472@lnxricardw1.se.axis.com>
+ <YVsETxqzhZI8Fb6D@sirena.org.uk>
+ <alpine.DEB.2.21.2110041716190.14472@lnxricardw1.se.axis.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>, tiwai@suse.de,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org,
- =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="s4rg/Bs7+Dxer0A5"
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.21.2110041716190.14472@lnxricardw1.se.axis.com>
+X-Cookie: If it heals good, say it.
+Cc: alsa-devel <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,177 +83,109 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-When we disable rewinds, then the .ack can be used to program SPIB
-with the application pointer, which allows the HDaudio DMA to save
-power by opportunistically bursting data transfers when the path to
-memory is enabled (and conversely to shut it down when there are no
-transfer requests).
+--s4rg/Bs7+Dxer0A5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The SPIB register can only be programmed with incremental values with
-wrap-around after the DMA RUN bits are set. For simplicity, we set the
-INFO_NO_REWINDS flag in the .open callback when we already need to
-program the SNDRV_PCM_INFO_EXPLICIT_SYNC flag.
+On Mon, Oct 04, 2021 at 06:21:10PM +0200, Ricard Wanderlof wrote:
+> On Mon, 4 Oct 2021, Mark Brown wrote:
+> > On Mon, Oct 04, 2021 at 11:19:21AM +0200, Ricard Wanderlof wrote:
 
-Rewinds are not used by many applications. One notable application
-using rewinds is PulseAudio. Practical experiments with
-Ubuntu/PulseAudio default settings did not show any audible issues,
-but the user may hear volume changes and notification with a delay,
-depending on the size of the ring buffer and latency constraints.
+> > > +++ b/sound/soc/codecs/tlv320adc3xxx.c
+> > > @@ -0,0 +1,1239 @@
+> > > +// SPDX-License-Identifier: GPL-2.0
+> > > +/*
+> > > + * Based on sound/soc/codecs/tlv320aic3x.c by  Vladimir Barinov
 
-The choice of disabling rewinds is exposed as a kernel parameter and
-not a Kconfig option to avoid any undesirable side-effects.
+> > Please make the entire comment a C++ one so things look more
+> > intentional.
 
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Co-developed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
----
- sound/soc/sof/intel/apl.c        |  1 +
- sound/soc/sof/intel/cnl.c        |  1 +
- sound/soc/sof/intel/hda-pcm.c    | 41 ++++++++++++++++++++++++++++++--
- sound/soc/sof/intel/hda-stream.c |  2 ++
- sound/soc/sof/intel/hda.h        |  1 +
- sound/soc/sof/intel/tgl.c        |  1 +
- 6 files changed, 45 insertions(+), 2 deletions(-)
+> Ok, I'll change this. I was trying to follow the style of existing=20
+> drivers, as the majority seem to have C style header comments even though=
+=20
+> the SPDX line uses C++. I'm now guessing this is for legacy reasons=20
+> (minimizing changes in existing drivers when the SPDX line was added)?
 
-diff --git a/sound/soc/sof/intel/apl.c b/sound/soc/sof/intel/apl.c
-index e6a1f6532547..cb457f46fca5 100644
---- a/sound/soc/sof/intel/apl.c
-+++ b/sound/soc/sof/intel/apl.c
-@@ -74,6 +74,7 @@ const struct snd_sof_dsp_ops sof_apl_ops = {
- 	.pcm_hw_free	= hda_dsp_stream_hw_free,
- 	.pcm_trigger	= hda_dsp_pcm_trigger,
- 	.pcm_pointer	= hda_dsp_pcm_pointer,
-+	.pcm_ack	= hda_dsp_pcm_ack,
- 
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_PROBES)
- 	/* probe callbacks */
-diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index 430a268e6b26..1c619f3241ac 100644
---- a/sound/soc/sof/intel/cnl.c
-+++ b/sound/soc/sof/intel/cnl.c
-@@ -279,6 +279,7 @@ const struct snd_sof_dsp_ops sof_cnl_ops = {
- 	.pcm_hw_free	= hda_dsp_stream_hw_free,
- 	.pcm_trigger	= hda_dsp_pcm_trigger,
- 	.pcm_pointer	= hda_dsp_pcm_pointer,
-+	.pcm_ack	= hda_dsp_pcm_ack,
- 
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_PROBES)
- 	/* probe callbacks */
-diff --git a/sound/soc/sof/intel/hda-pcm.c b/sound/soc/sof/intel/hda-pcm.c
-index cc8ddef37f37..875350283eac 100644
---- a/sound/soc/sof/intel/hda-pcm.c
-+++ b/sound/soc/sof/intel/hda-pcm.c
-@@ -32,6 +32,10 @@ static bool hda_always_enable_dmi_l1;
- module_param_named(always_enable_dmi_l1, hda_always_enable_dmi_l1, bool, 0444);
- MODULE_PARM_DESC(always_enable_dmi_l1, "SOF HDA always enable DMI l1");
- 
-+static bool hda_disable_rewinds = IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_DISABLE_REWINDS);
-+module_param_named(disable_rewinds, hda_disable_rewinds, bool, 0444);
-+MODULE_PARM_DESC(disable_rewinds, "SOF HDA disable rewinds");
-+
- u32 hda_dsp_get_mult_div(struct snd_sof_dev *sdev, int rate)
- {
- 	switch (rate) {
-@@ -120,8 +124,11 @@ int hda_dsp_pcm_hw_params(struct snd_sof_dev *sdev,
- 		return ret;
- 	}
- 
--	/* disable SPIB, to enable buffer wrap for stream */
--	hda_dsp_stream_spib_config(sdev, stream, HDA_DSP_SPIB_DISABLE, 0);
-+	/* enable SPIB when rewinds are disabled */
-+	if (hda_disable_rewinds)
-+		hda_dsp_stream_spib_config(sdev, stream, HDA_DSP_SPIB_ENABLE, 0);
-+	else
-+		hda_dsp_stream_spib_config(sdev, stream, HDA_DSP_SPIB_DISABLE, 0);
- 
- 	/* update no_stream_position flag for ipc params */
- 	if (hda && hda->no_ipc_position) {
-@@ -140,6 +147,29 @@ int hda_dsp_pcm_hw_params(struct snd_sof_dev *sdev,
- 	return 0;
- }
- 
-+/* update SPIB register with appl position */
-+int hda_dsp_pcm_ack(struct snd_sof_dev *sdev, struct snd_pcm_substream *substream)
-+{
-+	struct hdac_stream *hstream = substream->runtime->private_data;
-+	struct hdac_ext_stream *stream = stream_to_hdac_ext_stream(hstream);
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	ssize_t appl_pos, buf_size;
-+	u32 spib;
-+
-+	appl_pos = frames_to_bytes(runtime, runtime->control->appl_ptr);
-+	buf_size = frames_to_bytes(runtime, runtime->buffer_size);
-+
-+	spib = appl_pos % buf_size;
-+
-+	/* Allowable value for SPIB is 1 byte to max buffer size */
-+	if (!spib)
-+		spib = buf_size;
-+
-+	sof_io_write(sdev, stream->spib_addr, spib);
-+
-+	return 0;
-+}
-+
- int hda_dsp_pcm_trigger(struct snd_sof_dev *sdev,
- 			struct snd_pcm_substream *substream, int cmd)
- {
-@@ -234,6 +264,13 @@ int hda_dsp_pcm_open(struct snd_sof_dev *sdev,
- 		return -EINVAL;
- 	}
- 
-+	/*
-+	 * if we want the .ack to work, we need to prevent the status and
-+	 * control from being mapped
-+	 */
-+	if (hda_disable_rewinds)
-+		runtime->hw.info |= SNDRV_PCM_INFO_NO_REWINDS | SNDRV_PCM_INFO_EXPLICIT_SYNC;
-+
- 	/*
- 	 * All playback streams are DMI L1 capable, capture streams need
- 	 * pause push/release to be disabled
-diff --git a/sound/soc/sof/intel/hda-stream.c b/sound/soc/sof/intel/hda-stream.c
-index 1d845c2cbc33..b6f037815344 100644
---- a/sound/soc/sof/intel/hda-stream.c
-+++ b/sound/soc/sof/intel/hda-stream.c
-@@ -655,6 +655,8 @@ int hda_dsp_stream_hw_free(struct snd_sof_dev *sdev,
- 					SOF_HDA_REG_PP_PPCTL, mask, 0);
- 	spin_unlock_irq(&bus->reg_lock);
- 
-+	hda_dsp_stream_spib_config(sdev, link_dev, HDA_DSP_SPIB_DISABLE, 0);
-+
- 	stream->substream = NULL;
- 
- 	return 0;
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index 1195018a1f4f..6829d36fbfe9 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -533,6 +533,7 @@ int hda_dsp_pcm_trigger(struct snd_sof_dev *sdev,
- 			struct snd_pcm_substream *substream, int cmd);
- snd_pcm_uframes_t hda_dsp_pcm_pointer(struct snd_sof_dev *sdev,
- 				      struct snd_pcm_substream *substream);
-+int hda_dsp_pcm_ack(struct snd_sof_dev *sdev, struct snd_pcm_substream *substream);
- 
- /*
-  * DSP Stream Operations.
-diff --git a/sound/soc/sof/intel/tgl.c b/sound/soc/sof/intel/tgl.c
-index 664a11aaada2..88491b97fde7 100644
---- a/sound/soc/sof/intel/tgl.c
-+++ b/sound/soc/sof/intel/tgl.c
-@@ -69,6 +69,7 @@ const struct snd_sof_dsp_ops sof_tgl_ops = {
- 	.pcm_hw_free	= hda_dsp_stream_hw_free,
- 	.pcm_trigger	= hda_dsp_pcm_trigger,
- 	.pcm_pointer	= hda_dsp_pcm_pointer,
-+	.pcm_ack	= hda_dsp_pcm_ack,
- 
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_PROBES)
- 	/* probe callbacks */
--- 
-2.25.1
+A lot of SPDX stuff was done mechanically.
 
+> > > +static bool adc3xxx_volatile_reg(struct device *dev, unsigned int re=
+g)
+> > > +{
+> > > +	switch (reg) {
+> > > +	case PAGE_SELECT: /* required by regmap implementation */
+
+> > This is not required by regmap.
+
+> Ok, I'll remove it. The regmap code was taken from tlv320aic3x.c which ha=
+s=20
+> a similar paging structure, but I see now that other drivers don't have=
+=20
+> this, so I guess it's not necessary for tlv320aic3x.c either and is there=
+=20
+> either erroneously or because it once was necessary?
+
+It's probably an error in either the description of the pages or just
+the driver.
+
+> > > +static const char * const micbias_voltage[] =3D { "off", "2V", "2.5V=
+",=20
+> > > "AVDD" };
+
+> > This should be configured in the DT, it's going to be a property of the
+> > electrical design of the system.
+
+> I can very well imagine that this something that should be runtime=20
+> userspace configurable. In fact where I work we have had products where=
+=20
+> the bias voltage (for an externally connected microphone) could be=20
+> configured by the end user, (although not for this specific driver quite=
+=20
+> honestly, we have had the need for hardware engineers to change it runtim=
+e=20
+> during circuit verification though).
+
+> Would it be ok to have this configurable both in the DT as well as using =
+a=20
+> control? Or should it be implemented in another way, such as a number of=
+=20
+> pre set voltages that are selected between using a control?
+
+It seems like a lot less work to just not have the runtime control and
+let someone who needs it figure out how to represent it to userspace.
+Something that's basically a backdoor for validation doesn't seem
+persuasive, validation often wants to do things we actively wish to
+prevent at runtime.
+
+> > > +static const struct snd_kcontrol_new adc3xxx_snd_controls[] =3D {
+> > > +	SOC_DOUBLE_R_TLV("PGA Gain Volume", LEFT_APGA_CTRL, RIGHT_APGA_CTRL,
+> > > +			 0, 80, 0, pga_tlv),
+
+> > s/Gain //
+
+> But this would mean that the resulting control will be exposed as=20
+> "PGA" when viewed in amixer as an scontrol which seems less than intutive=
+,=20
+> but perhaps there's nothing that can be done about that (other than=20
+> perhaps expanding PGA to Programmable Gain Amplifier perhaps)?
+
+The TLV information should mean that UIs can figure out to represent it
+as a volume control which should be clear enough.
+
+--s4rg/Bs7+Dxer0A5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFbLvgACgkQJNaLcl1U
+h9AhCwf+K1M38yE4nawL6LzxNY8S0PX8zIVyA4KXhpFQieGSfk2J3XcYvqQrIew/
+9f+6JJFDuUr+aXLsU/Tydbk+VPOIzLg7VpSbEdR9S2+9fEpijzH/pfEOJuY55jhb
+iz7T3YsTGZGouJQEbeoze6qQGr/7W/nLn7xlMhyQJngt/OCZVy4XscVR2BNllHWb
+ehbhoKrmB7aU6BnKia/kI124i+DF5v/IydJ8W8YsEK6UNtCGf/KytvUlTJrRuPoH
+NVZJLO1h+SE7ccQp003NXHQZHp7nJVsLJKlVO14fv/SWNFU/m4Ya9k6piVvatOWx
+Iv85Yef9ArVizYiaakC51CyDveiJjA==
+=isUJ
+-----END PGP SIGNATURE-----
+
+--s4rg/Bs7+Dxer0A5--

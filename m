@@ -2,69 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D1EB4214BF
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Oct 2021 19:04:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5E3D4216DC
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Oct 2021 20:56:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 97179166A;
-	Mon,  4 Oct 2021 19:03:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97179166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4F76E1670;
+	Mon,  4 Oct 2021 20:55:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F76E1670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633367075;
-	bh=TCDmtxJg9+bbw+GPtAIBnLLG8h58Y+aBEyzOPC1Abp8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=say02c82k7cWMKkHyM3DlssG3X0w0g3Dg+QVUZRmGy4UBsty5nvxo23ekgXN8YXhM
-	 xF1GtiLHWb1ePTh8V6FIIusQjoljm1RkHO3oW2Os49mmR3Ht7ihubLNFyZ9XtZWjEI
-	 OUZCtZ/TkQ8L8Ir7ZfX6/cmH5FarlbaVES4JjMcM=
+	s=default; t=1633373788;
+	bh=Xro8EZRsPJWkfAFHgppjCan6lTeo00G/IC90EP7t+0c=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=DdE5JckJ2HirZRBkPR18iuFxu8ymHtNd9B3CvFdDeNo+J1L2gtsTstctfYlrqPooJ
+	 ruY7aFtWL3tGHPW6gBBw4c122HhIK2Pjd+u4VFgecUCgaB8d/EqCnB+Gt9kvZyIA3m
+	 /GHhvKjVHe63QcuhErUpdbTzsQquWQgtAS4Mrzfk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A162F804ED;
-	Mon,  4 Oct 2021 19:02:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9585CF8010B;
+	Mon,  4 Oct 2021 20:55:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3D3FF804ED; Mon,  4 Oct 2021 19:02:57 +0200 (CEST)
+ id B86E6F80249; Mon,  4 Oct 2021 20:55:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DB9F4F804E5
- for <alsa-devel@alsa-project.org>; Mon,  4 Oct 2021 19:02:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB9F4F804E5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="KM1m3J8g"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2EAF761458;
- Mon,  4 Oct 2021 17:02:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633366970;
- bh=TCDmtxJg9+bbw+GPtAIBnLLG8h58Y+aBEyzOPC1Abp8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KM1m3J8g56jO2O4acNC9ne8DrtrS36Gk9MPC/AYcwKlOmhJTJBEIUT/cSwz3IlOmI
- xl4BYgxC17SHjtqhxGlLIid3q6ql+g0ywBFIauqWJ+kPXgMAoJCbVbBhCYQu6qmRCH
- 3GMOhPTXX+Jwj5WdEureXbhI7VSfZHBAgdMLZ4A7Qez4B1OAQ+Gc94Tv9tqCaid4NR
- F2OVuwZGzHILVVw+krk3L3ZQZ99P/cM/zohakxwQUCJFiUVSnSULmpT8zOXIISYk1J
- ij7BurRHzjKjc8O0BOh6b888QwWIelDOx4DyacE+0fCR+ocZYaGiFod3NQm87bjtGm
- heQ6tiP0VpxBQ==
-From: Mark Brown <broonie@kernel.org>
-To: Hans de Goede <hdegoede@redhat.com>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Subject: Re: [PATCH 1/2] ASoC: es8316: Use IRQF_NO_AUTOEN when requesting the
- IRQ
-Date: Mon,  4 Oct 2021 18:02:34 +0100
-Message-Id: <163336659969.3340210.8499979221603399585.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20211003132255.31743-1-hdegoede@redhat.com>
-References: <20211003132255.31743-1-hdegoede@redhat.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1EFC7F8010B
+ for <alsa-devel@alsa-project.org>; Mon,  4 Oct 2021 20:54:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EFC7F8010B
+X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="206360920"
+X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="206360920"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2021 10:14:41 -0700
+X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="523435324"
+Received: from mbrescia-mobl1.amr.corp.intel.com (HELO
+ pbossart-mobl3.intel.com) ([10.212.77.4])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2021 10:14:38 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 0/5] ASoC: SOF: Intel: add flags to turn on SSP clocks early
+Date: Mon,  4 Oct 2021 12:14:25 -0500
+Message-Id: <20211004171430.103674-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Cc: tiwai@suse.de, broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,42 +71,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 3 Oct 2021 15:22:54 +0200, Hans de Goede wrote:
-> Use the new IRQF_NO_AUTOEN flag when requesting the IRQ, rather then
-> disabling it immediately after requesting it.
-> 
-> This fixes a possible race where the IRQ might trigger between requesting
-> and disabling it; and this also leads to a small code cleanup.
-> 
-> 
-> [...]
+With the chip shortage, some GeminiLake Intel-based designs were
+respun and now rely on codecs that need the SSP bit clock turned on in
+the hw_params stage, not the trigger stage. This patchset mirrors the
+flags added in the SOF DAI_CONFIG IPC, and sets the flags when this
+capability is indicated as necessary in the topology files where the
+SSP configuration is stored.
 
-Applied to
+We initially considered a more generic solution with an on-demand SSP
+clock activation using the common clock framework. This would be a
+more elegant solution indeed, but it would have required more
+intrusive changes that would conflict with the SOF multi-client
+support (in-development), and more backport hassles on product
+branches. The on-demand activation of clocks is still a desired
+feature that will be enabled at a later point.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Bard Liao (1):
+  ASoC: SOF: dai-intel: add SOF_DAI_INTEL_SSP_CLKCTRL_MCLK/BCLK_ES bits
 
-Thanks!
+Pierre-Louis Bossart (4):
+  ASoC: SOF: dai: mirror group_id definition added in firmware
+  ASoC: SOF: dai: include new flags for DAI_CONFIG
+  ASoC: SOF: Intel: hda: add new flags for DAI_CONFIG
+  ASoC: SOF: Intel: hda-dai: improve SSP DAI handling for dynamic
+    pipelines
 
-[1/2] ASoC: es8316: Use IRQF_NO_AUTOEN when requesting the IRQ
-      commit: 1cf2aa665901054b140eb71748661ceae99b6b5a
-[2/2] ASoC: rt5651: Use IRQF_NO_AUTOEN when requesting the IRQ
-      commit: 6e037b72cf4ea6c28a131ea021d63ee4e7e6fa64
+ include/sound/sof/dai-intel.h |  4 ++
+ include/sound/sof/dai.h       | 10 ++++-
+ sound/soc/sof/intel/hda-dai.c | 82 ++++++++++++++++++++++++++++++++++-
+ sound/soc/sof/intel/hda.c     |  6 +++
+ sound/soc/sof/sof-audio.c     |  4 ++
+ 5 files changed, 103 insertions(+), 3 deletions(-)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-- 
+2.25.1
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

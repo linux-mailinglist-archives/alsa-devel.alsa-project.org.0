@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2AD24215C2
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Oct 2021 19:57:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C8A14215C5
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Oct 2021 19:58:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 230311687;
-	Mon,  4 Oct 2021 19:56:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 230311687
+	by alsa0.perex.cz (Postfix) with ESMTPS id A38B81689;
+	Mon,  4 Oct 2021 19:57:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A38B81689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633370256;
-	bh=5Mm19lEvmsiT9dl2Mb200ew3o5RgXoydZPSlqd0Kmek=;
+	s=default; t=1633370306;
+	bh=e39sbj6rnkRUpxzFwm7Zye7xRq0U3BDUqDxMEeyb8JU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=o22uPO9YU8Z3lOKn4Lmp0AJAFMnKVT6YXiZFwoWqFmgWzteBsx7Rh5UbIRFsUeTJG
-	 km4vd3xU5M+OuoHTMBNHTfDPlquKeccKOKCzktJyBe2PeF1w0fpXr8uVIBr1sGyyr/
-	 vGAUkUbZ/SwhuNPYeLzuohU4uCUtP8GPtEXfuWag=
+	b=A5n+dVZ2dk0aW2atRTUZKzaUD8iwNIffAev8Fk7shcLJ5cSGeP9XtVdoqbcWaGGcq
+	 7LJlSXCM7LwuM7lHYvRKFMYawimQHi6EK+ZRnW+z6bPtPpexs14dJ1AZZuS9AByrSH
+	 HjTpP5wZ289KTxXhVyl+SBh6T/1buq2bNsNKMJ9U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3FFF1F804AC;
-	Mon,  4 Oct 2021 19:55:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6AC69F80249;
+	Mon,  4 Oct 2021 19:56:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5844FF80424; Mon,  4 Oct 2021 19:55:56 +0200 (CEST)
+ id 13487F804FA; Mon,  4 Oct 2021 19:56:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,24 +33,24 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F2564F80229
- for <alsa-devel@alsa-project.org>; Mon,  4 Oct 2021 19:55:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2564F80229
-X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="206334045"
-X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="206334045"
+ by alsa1.perex.cz (Postfix) with ESMTPS id E2EE6F80249
+ for <alsa-devel@alsa-project.org>; Mon,  4 Oct 2021 19:55:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2EE6F80249
+X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="206334080"
+X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="206334080"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 09:24:38 -0700
-X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="558594216"
+ 04 Oct 2021 09:24:40 -0700
+X-IronPort-AV: E=Sophos;i="5.85,346,1624345200"; d="scan'208";a="558594223"
 Received: from mbrescia-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.77.4])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2021 09:24:37 -0700
+ 04 Oct 2021 09:24:38 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 1/3] ALSA: pcm: introduce INFO_NO_REWINDS flag
-Date: Mon,  4 Oct 2021 11:24:21 -0500
-Message-Id: <20211004162423.85323-2-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH v2 2/3] ASOC: SOF: pcm: add .ack callback support
+Date: Mon,  4 Oct 2021 11:24:22 -0500
+Message-Id: <20211004162423.85323-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211004162423.85323-1-pierre-louis.bossart@linux.intel.com>
 References: <20211004162423.85323-1-pierre-louis.bossart@linux.intel.com>
@@ -58,8 +58,9 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>, tiwai@suse.de,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
+ broonie@kernel.org,
  =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -76,46 +77,86 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When the hardware can only deal with a monotonically increasing
-appl_ptr, this flag can be set. In case the application requests a
-rewind, snd_pcm_rewind() will not return an error code but signal that
-the appl_ptr was not modified.
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+
+Add the indirections required at the core level for platform-specific
+operations on ack.
+
+Note that on errors in the .ack the ALSA core will restore the
+previous appl_ptr.
 
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- include/uapi/sound/asound.h | 2 +-
- sound/core/pcm_native.c     | 2 ++
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/sof/ops.h      | 10 ++++++++++
+ sound/soc/sof/pcm.c      |  9 +++++++++
+ sound/soc/sof/sof-priv.h |  3 +++
+ 3 files changed, 22 insertions(+)
 
-diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
-index 1d84ec9db93b..bdb6f3c9db6c 100644
---- a/include/uapi/sound/asound.h
-+++ b/include/uapi/sound/asound.h
-@@ -300,7 +300,7 @@ typedef int __bitwise snd_pcm_subformat_t;
- #define SNDRV_PCM_INFO_HAS_LINK_ESTIMATED_ATIME    0x04000000  /* report estimated link audio time */
- #define SNDRV_PCM_INFO_HAS_LINK_SYNCHRONIZED_ATIME 0x08000000  /* report synchronized audio/system time */
- #define SNDRV_PCM_INFO_EXPLICIT_SYNC	0x10000000	/* needs explicit sync of pointers and data */
--
-+#define SNDRV_PCM_INFO_NO_REWINDS	0x20000000	/* hardware can only support monotonic changes of appl_ptr */
- #define SNDRV_PCM_INFO_DRAIN_TRIGGER	0x40000000		/* internal kernel flag - trigger in drain */
- #define SNDRV_PCM_INFO_FIFO_IN_FRAMES	0x80000000	/* internal kernel flag - FIFO size is in frames */
+diff --git a/sound/soc/sof/ops.h b/sound/soc/sof/ops.h
+index a93aa5b943b2..ca63efce493b 100644
+--- a/sound/soc/sof/ops.h
++++ b/sound/soc/sof/ops.h
+@@ -449,6 +449,16 @@ snd_sof_pcm_platform_pointer(struct snd_sof_dev *sdev,
+ 	return 0;
+ }
  
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index d233cb3b41d8..e3da2cc31a34 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -2905,6 +2905,8 @@ static snd_pcm_sframes_t snd_pcm_rewind(struct snd_pcm_substream *substream,
++/* pcm ack */
++static inline int snd_sof_pcm_platform_ack(struct snd_sof_dev *sdev,
++					   struct snd_pcm_substream *substream)
++{
++	if (sof_ops(sdev) && sof_ops(sdev)->pcm_ack)
++		return sof_ops(sdev)->pcm_ack(sdev, substream);
++
++	return 0;
++}
++
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_PROBES)
+ static inline int
+ snd_sof_probe_compr_assign(struct snd_sof_dev *sdev,
+diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
+index 374df2dfa816..172a2737eaac 100644
+--- a/sound/soc/sof/pcm.c
++++ b/sound/soc/sof/pcm.c
+@@ -864,6 +864,14 @@ static void sof_pcm_remove(struct snd_soc_component *component)
+ 	snd_soc_tplg_component_remove(component);
+ }
  
- 	if (frames == 0)
- 		return 0;
-+	if (substream->runtime->info & SNDRV_PCM_INFO_NO_REWINDS)
-+		return 0;
++static int sof_pcm_ack(struct snd_soc_component *component,
++		       struct snd_pcm_substream *substream)
++{
++	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(component);
++
++	return snd_sof_pcm_platform_ack(sdev, substream);
++}
++
+ void snd_sof_new_platform_drv(struct snd_sof_dev *sdev)
+ {
+ 	struct snd_soc_component_driver *pd = &sdev->plat_drv;
+@@ -882,6 +890,7 @@ void snd_sof_new_platform_drv(struct snd_sof_dev *sdev)
+ 	pd->hw_free = sof_pcm_hw_free;
+ 	pd->trigger = sof_pcm_trigger;
+ 	pd->pointer = sof_pcm_pointer;
++	pd->ack = sof_pcm_ack;
  
- 	snd_pcm_stream_lock_irq(substream);
- 	ret = do_pcm_hwsync(substream);
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_PROBES)
+ 	pd->compress_ops = &sof_probe_compressed_ops;
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index 1289e2efeb62..753b6ef27f40 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -189,6 +189,9 @@ struct snd_sof_dsp_ops {
+ 	snd_pcm_uframes_t (*pcm_pointer)(struct snd_sof_dev *sdev,
+ 					 struct snd_pcm_substream *substream); /* optional */
+ 
++	/* pcm ack */
++	int (*pcm_ack)(struct snd_sof_dev *sdev, struct snd_pcm_substream *substream); /* optional */
++
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_PROBES)
+ 	/* Except for probe_pointer, all probe ops are mandatory */
+ 	int (*probe_assign)(struct snd_sof_dev *sdev,
 -- 
 2.25.1
 

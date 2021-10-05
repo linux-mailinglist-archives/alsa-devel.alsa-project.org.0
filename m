@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBDEB422CB3
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Oct 2021 17:39:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5255F422CBD
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Oct 2021 17:40:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 709661670;
-	Tue,  5 Oct 2021 17:38:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 709661670
+	by alsa0.perex.cz (Postfix) with ESMTPS id D9984846;
+	Tue,  5 Oct 2021 17:39:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9984846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633448362;
-	bh=wxM1HrBUbOxR+oaxUvV3jC2PlWYDCKxsf6JVk9cGtEs=;
+	s=default; t=1633448406;
+	bh=w6wTKQ+ZYOU5+PQXui4JmahGQ+oKzGwVmgNXUICcScM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fJCyGZgNSH/HMkP19i767lowFdLqBRjdC+GQDZJTmk/WOQWyV0vMjx1MFhKpTbyR2
-	 qyeAb5yPhxUc5w0zirCWlkTxtYSiYGhGAEm4WE3L4THyapIbhPO726T5rRzsPO0AkW
-	 P9EU5+dW+TBRMWKpzxncjoEYHT74PjFGqSwOtehs=
+	b=tHjgcZL6EUD5STc4bAtyJSPMJLMvOpiQCFRwJ36IW5lrgczzK4lNRWIibUjzjf/xK
+	 cG307cdzDijxS57Ok9++FDji6Rys2F35nBVk9pHky7A3gWs9pjIuY2DnoBgXWH9Odv
+	 BDoIkaL39NP5jxVXu/4MfeyhOPCSthuOhreMa/TY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5317F8010B;
-	Tue,  5 Oct 2021 17:38:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6466F804E5;
+	Tue,  5 Oct 2021 17:38:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 75BE1F80259; Tue,  5 Oct 2021 17:38:03 +0200 (CEST)
+ id 106B5F804CF; Tue,  5 Oct 2021 17:38:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,33 +33,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 87579F80259
- for <alsa-devel@alsa-project.org>; Tue,  5 Oct 2021 17:38:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87579F80259
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E91FF8020D
+ for <alsa-devel@alsa-project.org>; Tue,  5 Oct 2021 17:38:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E91FF8020D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="t6Imz5ry"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 53A3961159;
- Tue,  5 Oct 2021 15:37:58 +0000 (UTC)
+ header.b="tw/h4Qy+"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0149561165;
+ Tue,  5 Oct 2021 15:38:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633448278;
- bh=wxM1HrBUbOxR+oaxUvV3jC2PlWYDCKxsf6JVk9cGtEs=;
+ s=k20201202; t=1633448281;
+ bh=w6wTKQ+ZYOU5+PQXui4JmahGQ+oKzGwVmgNXUICcScM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=t6Imz5ryJAmygEWOKxwmRxasiIqJhrdnM0FEj9SajcEHSL7BGF+7CXKhADp1CEtEs
- fNW7x9Jox7i0o8sB8r4PhcjAkjXpKkN+J3uLOixWiUKQHgMUQIddOisML8oOf8h6BK
- nYi8Ehl7aj19GijisB9L4qfbqfa9XaAeDjr0pzsScAMh0WCC3GEyjWI8ifquyYHc6o
- uyh2AX+YsnS38lwXxJ1FNXMRo3YhMhtCWtsd53m6HcgR140ZGg/y8Eoqd4y8NpL0PW
- QBgiv/cuTgYGMfTt9/HaBPg3Q5bDutDfO/g8/5nbmuhjz3FXUR1VOJLAi3QWBzbUV1
- o8QhtmasmIGDQ==
+ b=tw/h4Qy+dkw4Y4D9C/2j9vU4VEviPN5r6+gF7a5gHTaj499vPCnzElUfZrfi0N5fn
+ 3c5E7ZK1l+aIICfX/WFrNjNYx9kf/OowyIPUnQuRtDZHEzUNrAAiM9MvrCoa46dgd/
+ xwoVqjsBDtPjgD27hitYMgyOQkGRI2oyIjXlb83ddmOiUCfXPOYYKd9lBudSeykphz
+ JA+oJ4KEo8uGA+kOwY6mqPtkz7LJMe/Qie0yqwM43IRx9BJtuDYo5Pt3os2DtGXLuu
+ /L0nyUfC/avM+Z6GSyWC7rO5CInc8mVni/c6O4bmtAHNmjpZ+m4dThl8Bf9FNqvX8L
+ PTNaEWVEE5psQ==
 From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  alsa-devel@alsa-project.org
-Subject: Re: [PATCH 0/5] ASoC: Intel: machine driver updates for 5.16
-Date: Tue,  5 Oct 2021 16:37:43 +0100
-Message-Id: <163344779742.1075058.1024866148378739407.b4-ty@kernel.org>
+Subject: Re: [PATCH 0/5] ASoC: SOF: Intel: add flags to turn on SSP clocks
+ early
+Date: Tue,  5 Oct 2021 16:37:44 +0100
+Message-Id: <163344779739.1075058.6330760789502624929.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20211004213512.220836-1-pierre-louis.bossart@linux.intel.com>
-References: <20211004213512.220836-1-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20211004171430.103674-1-pierre-louis.bossart@linux.intel.com>
+References: <20211004171430.103674-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -79,19 +80,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 4 Oct 2021 16:35:07 -0500, Pierre-Louis Bossart wrote:
-> One quirk for a Dell TigerLake/SoundWire device, and initial support
-> for platforms based on the ES8336 codec (aka ES8316). For full
-> functionality, an update of the codec driver will be needed.
-> 
-> Pierre-Louis Bossart (5):
->   ASoC: Intel: soc-acpi: apl/glk/tgl: add entry for devices based on
->     ES8336 codec
->   ALSA: intel-dsp-config: add quirk for APL/GLK/TGL devices based on
->     ES8336 codec
->   ASoC: Intel: add machine driver for SOF+ES8336
->   ASoC: Intel: soc-acpi: add missing quirk for TGL SDCA single amp
->   ASoC: Intel: sof_sdw: add missing quirk for Dell SKU 0A45
+On Mon, 4 Oct 2021 12:14:25 -0500, Pierre-Louis Bossart wrote:
+> With the chip shortage, some GeminiLake Intel-based designs were
+> respun and now rely on codecs that need the SSP bit clock turned on in
+> the hw_params stage, not the trigger stage. This patchset mirrors the
+> flags added in the SOF DAI_CONFIG IPC, and sets the flags when this
+> capability is indicated as necessary in the topology files where the
+> SSP configuration is stored.
 > 
 > [...]
 
@@ -101,16 +96,16 @@ Applied to
 
 Thanks!
 
-[1/5] ASoC: Intel: soc-acpi: apl/glk/tgl: add entry for devices based on ES8336 codec
-      commit: 790049fb6623af8bc25d63b1c5103bbd51f95d89
-[2/5] ALSA: intel-dsp-config: add quirk for APL/GLK/TGL devices based on ES8336 codec
-      commit: 9d36ceab94151f07cf3fcb067213ac87937adf12
-[3/5] ASoC: Intel: add machine driver for SOF+ES8336
-      commit: a164137ce91a95a1a5e2f2ca381741aa5ba14b63
-[4/5] ASoC: Intel: soc-acpi: add missing quirk for TGL SDCA single amp
-      commit: f2470679b070a77ea22f8b791fae7084c2340c7d
-[5/5] ASoC: Intel: sof_sdw: add missing quirk for Dell SKU 0A45
-      commit: 64ba6d2ce72ffde70dc5a1794917bf1573203716
+[1/5] ASoC: SOF: dai: mirror group_id definition added in firmware
+      commit: 663742307fd7b695f34597e28a846afbc9d5f3e8
+[2/5] ASoC: SOF: dai: include new flags for DAI_CONFIG
+      commit: 21c51692fcdf9ceb36eeda48849e0ac155ff84f8
+[3/5] ASoC: SOF: Intel: hda: add new flags for DAI_CONFIG
+      commit: b30b60a26a2369d6cbb63d63245f3b13f0403449
+[4/5] ASoC: SOF: dai-intel: add SOF_DAI_INTEL_SSP_CLKCTRL_MCLK/BCLK_ES bits
+      commit: 68776b2fb06e7e438a2c4ebca5ca7f216e31d678
+[5/5] ASoC: SOF: Intel: hda-dai: improve SSP DAI handling for dynamic pipelines
+      commit: 84e3cfd16a72c7b7d569b72661093cdd16346d29
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

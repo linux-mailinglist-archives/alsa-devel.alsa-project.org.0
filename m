@@ -2,88 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A47F4229A9
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Oct 2021 15:58:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9873E422AA1
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Oct 2021 16:14:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 139CD1699;
-	Tue,  5 Oct 2021 15:57:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 139CD1699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2D8891673;
+	Tue,  5 Oct 2021 16:14:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D8891673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633442288;
-	bh=3fkCdsKvBVUzO56Rsno+OPVjZ41jjpuar1vZ7R05iHQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1633443290;
+	bh=EtOaV9Xx8Br3GCplNJrEyX3w4w05S0az1HWLmSz0tO4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ot+FuFXLNuyqqwNRbzPbMp6VzypcTWNYmagY+Kb+4pcTcDmJVLIOrN8beP8PZbL4M
-	 GrGvppbmVlsyPpnPduur8DXtVcC1CLElTI14f8wNdD5VCvItnwimy5O9y7ugJTUqmX
-	 bik7Q4DmT+6f214OYVsdDMpX5VtBavA1CVX4w9p8=
+	b=N48G+l+qnQ5Xd1B6K+0GYBY1uVmOnD4ylyQpd00EpCr7Q2aH/RrFGMhthpAMIf5jA
+	 CFUCylY4KiPE21nQej6bEaFlbl6XWkMZlRwb6MwGJ0l7I5qsJ1UxoB+R9X03nJC/Cd
+	 AXRbMSe7G7gvEJxpi+e9Wm5nHgHGsrJQUjpS0Nos=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69F3AF80533;
-	Tue,  5 Oct 2021 15:54:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E8F5F8027D;
+	Tue,  5 Oct 2021 16:13:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C649BF80534; Tue,  5 Oct 2021 15:54:36 +0200 (CEST)
+ id B4244F80259; Tue,  5 Oct 2021 16:13:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4C526F8052D
- for <alsa-devel@alsa-project.org>; Tue,  5 Oct 2021 15:54:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C526F8052D
+ by alsa1.perex.cz (Postfix) with ESMTPS id E624FF8010B
+ for <alsa-devel@alsa-project.org>; Tue,  5 Oct 2021 16:13:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E624FF8010B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="qCr/LgO1"
+ header.i=@mg.codeaurora.org header.b="ir12NHxx"
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1633442071; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=ff2yVrfStV5eTd4rqXjo/9I9snoO+ajVI7UxEWq5IU0=;
- b=qCr/LgO17LfScwylZSLNHm47fvpyQfFJ0IMYjX6HyRaUB0Srw+cHXJyPhzRnwhpdEdx8azWz
- Z4TJvTptcKU9OHE1TOaAn+UoQ3Bjn/0aWdz55EL4EHHpVWI1mpGA6uN6krVk5IbTUd09mtyu
- dclbmAUQD5ARGrqxejP7MCRF39Q=
+ s=smtp; t=1633443207; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=Ca8ObLfwkUCcFB5ku5eG9KfNriIp5DWh1htHY0friCw=;
+ b=ir12NHxx5hEhfT1ZrNqvgdCFucbL8l34aXWtcohdUfJYEYA8ZUZHuCDKBN3tvRMZQc8WZJiz
+ 3DXCrQlLwn2PDiPQ5umjhl04g/zW9Zg6Pzeclrv96bXIwXV03CAHsVnFhmlU/c1FcnQRNY8D
+ nIievGa3qcKG9Cz9t0wuGM5e5mc=
 X-Mailgun-Sending-Ip: 69.72.43.7
 X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
  smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
- 615c59055f16bce6689c5013 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 05 Oct 2021 13:54:13
+ 615c5d829ebaf35aaa207894 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 05 Oct 2021 14:13:22
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 59410C14888; Tue,  5 Oct 2021 13:54:12 +0000 (UTC)
-Received: from hu-srivasam-hyd.qualcomm.com (unknown [202.46.22.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ id 9A4DEC4338F; Tue,  5 Oct 2021 14:13:21 +0000 (UTC)
+Received: from [192.168.1.102] (unknown [157.48.255.211])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id BEE8EC41635;
- Tue,  5 Oct 2021 13:54:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org BEE8EC41635
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 17E52C004E7;
+ Tue,  5 Oct 2021 14:13:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 17E52C004E7
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=fail smtp.mailfrom=codeaurora.org
-From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+Subject: Re: [PATCH] ASoC: qcom: soundwire: Enable soundwire bus clock for
+ version 1.6
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
  broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
  bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
  srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
  linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  swboyd@chromium.org, judyhsiao@chromium.org
-Subject: [PATCH v2 9/9] ASoC: qcom: SC7280: Update config for building codec
- dma drivers
-Date: Tue,  5 Oct 2021 19:22:54 +0530
-Message-Id: <1633441974-15353-10-git-send-email-srivasam@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1633441974-15353-1-git-send-email-srivasam@codeaurora.org>
-References: <1633441974-15353-1-git-send-email-srivasam@codeaurora.org>
-Cc: Venkata Prasad Potturu <potturu@codeaurora.org>,
- Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+References: <1633105471-30928-1-git-send-email-srivasam@codeaurora.org>
+ <a2b6a9c7-2191-4bc9-b03b-3b22b495a4be@linux.intel.com>
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Organization: Qualcomm India Private Limited.
+Message-ID: <2c18ff0c-cd24-356c-0104-086837ed7ff0@codeaurora.org>
+Date: Tue, 5 Oct 2021 19:43:06 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+MIME-Version: 1.0
+In-Reply-To: <a2b6a9c7-2191-4bc9-b03b-3b22b495a4be@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Cc: Venkata Prasad Potturu <potturu@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,81 +106,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add configuration for building SC7280 audio codec dma drivers.
 
-Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
-Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
----
- sound/soc/qcom/Kconfig  | 13 +++++++++++++
- sound/soc/qcom/Makefile |  4 ++++
- 2 files changed, 17 insertions(+)
-
-diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-index d9ffcb7..2b98ad9 100644
---- a/sound/soc/qcom/Kconfig
-+++ b/sound/soc/qcom/Kconfig
-@@ -20,6 +20,10 @@ config SND_SOC_LPASS_PLATFORM
- 	tristate
- 	select REGMAP_MMIO
- 
-+config SND_SOC_LPASS_CDC_DMA
-+	tristate
-+	select REGMAP_MMIO
-+
- config SND_SOC_LPASS_IPQ806X
- 	tristate
- 	select SND_SOC_LPASS_CPU
-@@ -36,6 +40,13 @@ config SND_SOC_LPASS_SC7180
- 	select SND_SOC_LPASS_PLATFORM
- 	select SND_SOC_LPASS_HDMI
- 
-+config SND_SOC_LPASS_SC7280
-+	tristate
-+	select SND_SOC_LPASS_CPU
-+	select SND_SOC_LPASS_PLATFORM
-+	select SND_SOC_LPASS_HDMI
-+	select SND_SOC_LPASS_CDC_DMA
-+
- config SND_SOC_STORM
- 	tristate "ASoC I2S support for Storm boards"
- 	select SND_SOC_LPASS_IPQ806X
-@@ -156,7 +167,9 @@ config SND_SOC_SC7280
- 	tristate "SoC Machine driver for SC7280 boards"
- 	depends on I2C && SOUNDWIRE
- 	select SND_SOC_QCOM_COMMON
-+	select SND_SOC_LPASS_SC7280
- 	select SND_SOC_MAX98357A
-+	select SND_SOC_WCD938X
- 	select SND_SOC_LPASS_RX_MACRO
- 	select SND_SOC_LPASS_TX_MACRO
- 	help
-diff --git a/sound/soc/qcom/Makefile b/sound/soc/qcom/Makefile
-index 625aec6..8b7b876 100644
---- a/sound/soc/qcom/Makefile
-+++ b/sound/soc/qcom/Makefile
-@@ -1,18 +1,22 @@
- # SPDX-License-Identifier: GPL-2.0
- # Platform
- snd-soc-lpass-cpu-objs := lpass-cpu.o
-+snd-soc-lpass-cdc-dma-objs := lpass-cdc-dma.o
- snd-soc-lpass-hdmi-objs := lpass-hdmi.o
- snd-soc-lpass-platform-objs := lpass-platform.o
- snd-soc-lpass-ipq806x-objs := lpass-ipq806x.o
- snd-soc-lpass-apq8016-objs := lpass-apq8016.o
- snd-soc-lpass-sc7180-objs := lpass-sc7180.o
-+snd-soc-lpass-sc7280-objs := lpass-sc7280.o
- 
- obj-$(CONFIG_SND_SOC_LPASS_CPU) += snd-soc-lpass-cpu.o
-+obj-$(CONFIG_SND_SOC_LPASS_CDC_DMA) += snd-soc-lpass-cdc-dma.o
- obj-$(CONFIG_SND_SOC_LPASS_HDMI) += snd-soc-lpass-hdmi.o
- obj-$(CONFIG_SND_SOC_LPASS_PLATFORM) += snd-soc-lpass-platform.o
- obj-$(CONFIG_SND_SOC_LPASS_IPQ806X) += snd-soc-lpass-ipq806x.o
- obj-$(CONFIG_SND_SOC_LPASS_APQ8016) += snd-soc-lpass-apq8016.o
- obj-$(CONFIG_SND_SOC_LPASS_SC7180) += snd-soc-lpass-sc7180.o
-+obj-$(CONFIG_SND_SOC_LPASS_SC7280) += snd-soc-lpass-sc7280.o
- 
- # Machine
- snd-soc-storm-objs := storm.o
+On 10/1/2021 11:27 PM, Pierre-Louis Bossart wrote:
+Thanks for Your time Bossart!!!
+>> @@ -610,6 +611,12 @@ static int qcom_swrm_init(struct qcom_swrm_ctrl *ctrl)
+>>   	val = FIELD_PREP(SWRM_MCP_FRAME_CTRL_BANK_ROW_CTRL_BMSK, ctrl->rows_index);
+>>   	val |= FIELD_PREP(SWRM_MCP_FRAME_CTRL_BANK_COL_CTRL_BMSK, ctrl->cols_index);
+>>   
+>> +	if (ctrl->swrm_hctl_reg) {
+>> +		val = ioread32(ctrl->swrm_hctl_reg);
+>> +		val &= 0xFFFFFFFD;
+> magic value, use a #define MASK_SOMETHING?
+Okay. will update it.
+>
+>> +		iowrite32(val, ctrl->swrm_hctl_reg);
+>> +	}
+>> +
+>>   	ctrl->reg_write(ctrl, SWRM_MCP_FRAME_CTRL_BANK_ADDR(0), val);
+>>   
+>>   	/* Enable Auto enumeration */
+>> @@ -1200,7 +1207,7 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+>>   	struct qcom_swrm_ctrl *ctrl;
+>>   	const struct qcom_swrm_data *data;
+>>   	int ret;
+>> -	u32 val;
+>> +	int val, swrm_hctl_reg = 0;
+>>   
+>>   	ctrl = devm_kzalloc(dev, sizeof(*ctrl), GFP_KERNEL);
+>>   	if (!ctrl)
+>> @@ -1251,6 +1258,9 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+>>   	ctrl->bus.port_ops = &qcom_swrm_port_ops;
+>>   	ctrl->bus.compute_params = &qcom_swrm_compute_params;
+>>   
+>> +	if (!of_property_read_u32(dev->of_node, "qcom,swrm-hctl-reg", &swrm_hctl_reg))
+>> +		ctrl->swrm_hctl_reg = devm_ioremap(&pdev->dev, swrm_hctl_reg, 0x4);
+> if (!ctrl->swrm_hctl_reg)
+>      return -ENODEV;
+>
+> ?
+I think here error check is not required, as this change is required 
+only for soundwire version 1.6 and above.
+>> +
+>>   	ret = qcom_swrm_get_port_config(ctrl);
+>>   	if (ret)
+>>   		goto err_clk;
+>>
 -- 
 Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
 is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.

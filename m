@@ -2,72 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BADAA4225CB
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Oct 2021 13:56:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35870422780
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Oct 2021 15:12:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 93F03167E;
-	Tue,  5 Oct 2021 13:55:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93F03167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C62C31679;
+	Tue,  5 Oct 2021 15:11:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C62C31679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633435003;
-	bh=mQqnmuQSyf8niJjlZoCYMQofmwAr4tO5WYz2lCvfp70=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1633439534;
+	bh=VdbWKqkSi8C76mefS5o/H0dvAw+MefDXh5ZnCzEh50U=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MppBfznavN9OqpawTpsXNnpZ1bFlTgmvvCdNUJ/T6j5IYoHTqwuxfVQyAevgy/caU
-	 K78tUIu7Fq3umtg1qA5yzk/Sah9r3e5rbEjvy9UL15000OjVebSN9h2GT33d2n+YQD
-	 xXO988L3a0GwTGyMp46aDbnPHDDf8kOCdDOGcs6U=
+	b=IIahmNAfMG4sRq4EQcyIgWbpHjqvrkdh52l7BxdsU6t14jSIrzUGx1dss8Pmz+u+v
+	 i9cpQl/KeHNQO2rrlSW8u9yp9LgK5TZCqVM2vEgcaG+SfPDar8JvTD0PcL8yD0y5H1
+	 UOBGGy3c2s6pMQpobU7Jcl1fnFOacah6kUoUeiDI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2464BF80259;
-	Tue,  5 Oct 2021 13:55:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44348F8028B;
+	Tue,  5 Oct 2021 15:10:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7CBB7F802A0; Tue,  5 Oct 2021 13:55:51 +0200 (CEST)
+ id A01C3F8027D; Tue,  5 Oct 2021 15:10:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=NICE_REPLY_A,PRX_BODY_30,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4E00EF8027D
- for <alsa-devel@alsa-project.org>; Tue,  5 Oct 2021 13:55:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E00EF8027D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="WniXSwBd"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id EC2A561401;
- Tue,  5 Oct 2021 11:55:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633434942;
- bh=mQqnmuQSyf8niJjlZoCYMQofmwAr4tO5WYz2lCvfp70=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=WniXSwBd/nuLj1LLI5zbipu2OaTk9UFxdYY+G5FAZk1CA1D2vGkbr6193t7XxFM/R
- eC4zj2iB4lnaEiFKLA9t3wks058AQwm1XtfnTps+x8wIOPypSQrGO3T7sz/bNw3KRc
- b+tAzgc75D80Ef24Dwq9D0MAtdD+6ach59/DvZ0ao948ScG0LhVyS/yXm8JbYCKTrl
- t4cbkZWHTiGXP/QnxXVXwFbBaU1TwcG3CFbAV6pknal6buaTm+4pKYt35wXXbxdvnE
- Ael5SO+HsKxp9yxEL2QffiIt3x10BVy6lJmV0xmSWYeGOniNQ74XWh6J5j9Mt/9cCu
- lcCtuLgMgMc/Q==
-Date: Tue, 5 Oct 2021 12:55:40 +0100
-From: Mark Brown <broonie@kernel.org>
-To: cy_huang <u0084500@gmail.com>
-Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: rt9120: Add initial bindings
-Message-ID: <YVw9PKpyC8h/FRaG@sirena.org.uk>
-References: <1633398092-19953-1-git-send-email-u0084500@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A197BF8010B
+ for <alsa-devel@alsa-project.org>; Tue,  5 Oct 2021 15:10:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A197BF8010B
+X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="289239044"
+X-IronPort-AV: E=Sophos;i="5.85,348,1624345200"; d="scan'208";a="289239044"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Oct 2021 06:10:43 -0700
+X-IronPort-AV: E=Sophos;i="5.85,348,1624345200"; d="scan'208";a="523764251"
+Received: from emccutch-mobl.amr.corp.intel.com (HELO [10.212.34.81])
+ ([10.212.34.81])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Oct 2021 06:10:42 -0700
+Subject: Re: [PATCH v2 1/3] ALSA: pcm: introduce INFO_NO_REWINDS flag
+To: Takashi Iwai <tiwai@suse.de>
+References: <20211004162423.85323-1-pierre-louis.bossart@linux.intel.com>
+ <20211004162423.85323-2-pierre-louis.bossart@linux.intel.com>
+ <s5h8rz8ez3s.wl-tiwai@suse.de>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <c62b3749-c5ea-7b1e-2831-272c8a14d3ac@linux.intel.com>
+Date: Tue, 5 Oct 2021 08:10:40 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="nPNcSppYshgchqQ2"
-Content-Disposition: inline
-In-Reply-To: <1633398092-19953-1-git-send-email-u0084500@gmail.com>
-X-Cookie: A is for Apple.
-Cc: oder_chiou@realtek.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
- tiwai@suse.com, cy_huang@richtek.com, robh+dt@kernel.org,
- allen_lin@richtek.com
+In-Reply-To: <s5h8rz8ez3s.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,32 +81,29 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---nPNcSppYshgchqQ2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Tue, Oct 05, 2021 at 09:41:31AM +0800, cy_huang wrote:
+On 10/5/21 1:59 AM, Takashi Iwai wrote:
+> On Mon, 04 Oct 2021 18:24:21 +0200,
+> Pierre-Louis Bossart wrote:
+>>
+>> When the hardware can only deal with a monotonically increasing
+>> appl_ptr, this flag can be set. In case the application requests a
+>> rewind, snd_pcm_rewind() will not return an error code but signal that
+>> the appl_ptr was not modified.
+> 
+> This modification itself is fine, but I guess that application may
+> still move the appl_ptr directly via SNDRV_PCM_IOCTL_SYNC_PTR ioctl.
+> We need to verify the backward move there, I suppose?
 
-> Very appoligized. I forget to migrate this line from my test 5.10 kernel.
-> Without this line will cause sound card codec link fail.
-> Please use the patch v2 to review the bindings and source code.
+Sorry Takashi, I wasn't able to fully follow your question.
 
-Sorry, saw v1 before I saw this but I guess the issues still apply - a
-quick check seems like it.
+In the previous version, I had an explicit check to see if the appl_ptr
+was modified by a rewind, but you mentioned this would be broken for
+32-bit devices due to the use of the 'boundary'. I really have no idea
+how we can detect a rewind in this configuration, so  if you are asking
+to detect when the appl_ptr is modified through some other means (which
+I didn't get) we will have the same problem, won't we?
 
---nPNcSppYshgchqQ2
-Content-Type: application/pgp-signature; name="signature.asc"
+see the initial thread here:
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFcPTsACgkQJNaLcl1U
-h9DRxAgAgJlACpiNaOHNgYf+86uBmvoGsBHO/ZqK7aZ+QGzzVpgWiLTwZSxpPEGg
-6muweRc/slScEbZ7u23O3jBS7+TjC725G+E+KrvcivKUl/GEIMfzfOK/hxSfLjxp
-g3vtlVTo4REqoJLHFM/Yc+oYj81ByU+yg8WOP4/bbB0bcx4EitrJzAvesyV9kTFi
-C0Ya0ORNjISZJvUhSBTKEMJnuNm2OTkR3hbTUQWeKlNFNJft3G3neZkm3UjuyDWE
-JjbAkTFxGAyLFq7eJJ5JyXT9k2EVtdinLv4xpgs9ayHT6ahv91Ru4PIUc9H5zgYh
-tDJlCNZo2EPW/fDwJ3XLxoMjstlmqA==
-=7Jak
------END PGP SIGNATURE-----
-
---nPNcSppYshgchqQ2--
+https://lore.kernel.org/alsa-devel/de5e91c6-5f0e-9866-a1c2-0943b4342359@linux.intel.com/

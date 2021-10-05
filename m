@@ -2,68 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED5474227A4
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Oct 2021 15:19:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66E5A42280A
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Oct 2021 15:36:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 93A68167D;
-	Tue,  5 Oct 2021 15:18:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93A68167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4C04166B;
+	Tue,  5 Oct 2021 15:35:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4C04166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633439959;
-	bh=xHot8P2EAysF6jPI4ItnwpbcnqHU6rh3Hrf2FOmvXfI=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1633440994;
+	bh=egzFzYSCXKvZOjdcNUEBjprfhOY6JazxCp+lcAq19qc=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NMQ2yZvcWEuYe5asDaB0KyfXFNly/43qDoc3rfDAe1z8JdNN8RvNri+NAyvSslJqp
-	 s/EYoxWC5PLlLHZKcBy2gmtw+2GhQsnAprk3Ahqb82CQRLaaixI1LQfpgYWGquYzJ/
-	 1P6Rsf+VUjq7mGDY52YPoK5VMfEZDhvPnIinfZV0=
+	b=VVzCBUNJ/XfyvIDfkGil21p6SqSPJoED/NnJaif+68iKzeA77g9IJxEqAHiE19woj
+	 Z0YoP17D2MX/GtbGKVBSROeCxtf6PUza16Wc2L7ozstHOfBPX2516NL+VLOzTDwe7I
+	 Roy9gaDgqMLRPUiDx0eAk4cPDiVW8q0zGOW0SfYA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53333F8010B;
-	Tue,  5 Oct 2021 15:18:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E613F80154;
+	Tue,  5 Oct 2021 15:35:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E577F8027D; Tue,  5 Oct 2021 15:18:00 +0200 (CEST)
+ id 1D6FEF80259; Tue,  5 Oct 2021 15:35:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A618AF8010B
- for <alsa-devel@alsa-project.org>; Tue,  5 Oct 2021 15:17:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A618AF8010B
-X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="248994036"
-X-IronPort-AV: E=Sophos;i="5.85,348,1624345200"; d="scan'208";a="248994036"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Oct 2021 06:17:45 -0700
-X-IronPort-AV: E=Sophos;i="5.85,348,1624345200"; d="scan'208";a="523766323"
-Received: from emccutch-mobl.amr.corp.intel.com (HELO [10.212.34.81])
- ([10.212.34.81])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Oct 2021 06:17:44 -0700
-Subject: Re: [RFC PATCH v2 0/5] ASoC: soc-pcm: fix trigger race conditions
- with shared BE
-To: Sameer Pujar <spujar@nvidia.com>, alsa-devel@alsa-project.org
-References: <20211004225441.233375-1-pierre-louis.bossart@linux.intel.com>
- <cce82420-d744-ee43-d514-b77ac4905ffa@nvidia.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <1efa1c31-7342-05f8-5f73-95e2462d4179@linux.intel.com>
-Date: Tue, 5 Oct 2021 08:17:42 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <cce82420-d744-ee43-d514-b77ac4905ffa@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, tiwai@suse.de,
- vkoul@kernel.org, broonie@kernel.org, Gyeongtaek Lee <gt82.lee@samsung.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54699F80154
+ for <alsa-devel@alsa-project.org>; Tue,  5 Oct 2021 15:35:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54699F80154
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="NKHqzxCz"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Uyo2SQmT"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 844031FD39;
+ Tue,  5 Oct 2021 13:35:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1633440903; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=cYCDzn5ecQGpB8Zs/2ox722aJU3CjiB2nmkD7K/Y7f4=;
+ b=NKHqzxCzcO5jG3F+q9CxclZgAaHXBs5/rLTNh8xOEIRAWB6qKZsP0msvXW1neNQo/tQHgR
+ BrizbCi2/ZTKATZL9wYleat2qYYHp9Luhzo0i05HbNgNWFkDeerjkOICGoHAYKcaGi/yU2
+ kK87PLrwiXfzuwR7CMomT/gNSBrspKY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1633440903;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=cYCDzn5ecQGpB8Zs/2ox722aJU3CjiB2nmkD7K/Y7f4=;
+ b=Uyo2SQmT17jRuzMQpqOJX1O9oONOmPifyAw2hRQY5dN2MCPyya+h/7pmjCTGRa/hxVRtvR
+ SU6lpiHN4OQu5uBg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 71585A3B8A;
+ Tue,  5 Oct 2021 13:35:03 +0000 (UTC)
+Date: Tue, 05 Oct 2021 15:35:03 +0200
+Message-ID: <s5hbl43egs8.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v2 1/3] ALSA: pcm: introduce INFO_NO_REWINDS flag
+In-Reply-To: <c62b3749-c5ea-7b1e-2831-272c8a14d3ac@linux.intel.com>
+References: <20211004162423.85323-1-pierre-louis.bossart@linux.intel.com>
+ <20211004162423.85323-2-pierre-louis.bossart@linux.intel.com>
+ <s5h8rz8ez3s.wl-tiwai@suse.de>
+ <c62b3749-c5ea-7b1e-2831-272c8a14d3ac@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ P9ter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,59 +98,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-> I did a quick test of your patches on my Tegra board and seeing issues
-> with multiple streams. For instance, I ran it for a 2x1 mixer
-> configuration and hitting below:
-> 
-> [  277.661886] BUG: scheduling while atomic: aplay/1306/0x00000100
-> [  287.713193] BUG: spinlock cpu recursion on CPU#0, aplay/1307
-> [  287.719138]  lock: 0xffff00008cc820f0, .magic: dead4ead, .owner:
-> aplay/1306, .owner_cpu: 0
-> [  287.727319] CPU: 0 PID: 1307 Comm: aplay Tainted: G W        
-> 5.15.0-rc3-next-20210927-00026-gffdabce987b1 #12
-> [  287.737783] Hardware name: NVIDIA Jetson AGX Xavier Developer Kit (DT)
-> [  287.744228] Call trace:
-> [  287.746656]  dump_backtrace+0x0/0x1c0
-> [  287.750300]  show_stack+0x18/0x28
-> [  287.753604]  dump_stack_lvl+0x7c/0xa8
-> [  287.757236]  dump_stack+0x18/0x34
-> [  287.760536]  spin_dump+0x70/0x90
-> [  287.763732]  do_raw_spin_lock+0xd8/0x120
-> [  287.767615]  _raw_spin_lock_irq+0x60/0x80
-> [  287.771581]  snd_pcm_stream_lock_irq+0x20/0x48 [snd_pcm]
-> [  287.776853]  snd_pcm_drain+0x1ec/0x348 [snd_pcm]
-> [  287.781421]  snd_pcm_common_ioctl+0xacc/0x1938 [snd_pcm]
-> [  287.786685]  snd_pcm_ioctl+0x2c/0x48 [snd_pcm]
-> [  287.791101]  __arm64_sys_ioctl+0xb0/0xf0
-> [  287.794982]  invoke_syscall+0x44/0x108
-> [  287.798683]  el0_svc_common.constprop.3+0x74/0x100
-> [  287.803416]  do_el0_svc+0x24/0x90
-> [  287.806687]  el0_svc+0x20/0x60
-> [  287.809705]  el0t_64_sync_handler+0x94/0xb8
-> [  287.813839]  el0t_64_sync+0x180/0x184
+On Tue, 05 Oct 2021 15:10:40 +0200,
+Pierre-Louis Bossart wrote:
 > 
 > 
-> And in some case just below:
 > 
-> [ 1074.212276] BUG: scheduling while atomic: aplay/12327/0x00000100
-> [ 1095.227509] rcu: INFO: rcu_sched detected stalls on CPUs/tasks:
-> [ 1095.233443] rcu:     0-...0: (1 GPs behind)
-> idle=4af/1/0x4000000000000004 softirq=19902/19902 fqs=2626
-> [ 1095.242528] rcu:     2-...0: (1 GPs behind)
-> idle=9d5/1/0x4000000000000000 softirq=22707/22707 fqs=262
+> On 10/5/21 1:59 AM, Takashi Iwai wrote:
+> > On Mon, 04 Oct 2021 18:24:21 +0200,
+> > Pierre-Louis Bossart wrote:
+> >>
+> >> When the hardware can only deal with a monotonically increasing
+> >> appl_ptr, this flag can be set. In case the application requests a
+> >> rewind, snd_pcm_rewind() will not return an error code but signal that
+> >> the appl_ptr was not modified.
+> > 
+> > This modification itself is fine, but I guess that application may
+> > still move the appl_ptr directly via SNDRV_PCM_IOCTL_SYNC_PTR ioctl.
+> > We need to verify the backward move there, I suppose?
+> 
+> Sorry Takashi, I wasn't able to fully follow your question.
+> 
+> In the previous version, I had an explicit check to see if the appl_ptr
+> was modified by a rewind, but you mentioned this would be broken for
+> 32-bit devices due to the use of the 'boundary'. I really have no idea
+> how we can detect a rewind in this configuration, so  if you are asking
+> to detect when the appl_ptr is modified through some other means (which
+> I didn't get) we will have the same problem, won't we?
 
-Thanks Sameer for the overnight tests, much appreciated.
+Which same problem are you referring to?
 
-My patches don't change anything related to a spinlock or pcm stream
-management, so not sure what could cause this rather spectacular
-failure. That hints at a fundamental configuration difference, possibly
-caused by your component chaining?
+What I suggested here is that there is still a way to modify the
+appl_ptr from user-space even if you plug the way by disabling the
+status/control mmap and disabling the rewind ioctl.  You have to cover
+the sync_ptr ioctl call path as well, and it'd need a backward check.
 
-Since in your case you have a 1:1 mapping between FE and BE, would you
-mind testing by backtracking, one patch at a time to see which one of
-the three last patches could cause a problem on your board?
+> see the initial thread here:
+> 
+> https://lore.kernel.org/alsa-devel/de5e91c6-5f0e-9866-a1c2-0943b4342359@linux.intel.com/
+ 
+And, what I meant in the previous thread was that the check in the
+given patch wasn't "enough", i.e. it needs more careful checks
+considering the boundary crossing.  That is, you can't simply compare
+appl_ptr vs old_appl_ptr as a single condition for the backward move.
 
-Thanks again for your time!
--Pierre
+For example, check snd_pcm_playback_avail() and co.  That contains a
+couple of more condition checks and corrections due to the possible
+boundary crossing.  (Here, runtime->boundary may differ depending on
+32 or 64bit context.)
 
+The actual implementation of the backward move check would be slightly
+different from those, but I hope you get my idea.
+
+
+Takashi

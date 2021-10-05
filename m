@@ -2,87 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66E5A42280A
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Oct 2021 15:36:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BF394228AC
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Oct 2021 15:51:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4C04166B;
-	Tue,  5 Oct 2021 15:35:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4C04166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C80B1684;
+	Tue,  5 Oct 2021 15:51:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C80B1684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633440994;
-	bh=egzFzYSCXKvZOjdcNUEBjprfhOY6JazxCp+lcAq19qc=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1633441918;
+	bh=6okTawUyTOxI3B3Z4YalRMWEYkJW/0Z3oG7uqjvHnbw=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VVzCBUNJ/XfyvIDfkGil21p6SqSPJoED/NnJaif+68iKzeA77g9IJxEqAHiE19woj
-	 Z0YoP17D2MX/GtbGKVBSROeCxtf6PUza16Wc2L7ozstHOfBPX2516NL+VLOzTDwe7I
-	 Roy9gaDgqMLRPUiDx0eAk4cPDiVW8q0zGOW0SfYA=
+	b=XXMimEZFwttdMguSXFh4MRMW/gPACAZNvx5T+sNxj33O4v8wNdFzc5+8Bf1xKNH+c
+	 baGmhoLpNmU3Qp24uFbxwuJboR7WBbyIvgtdVuc9XgOPrDuSMen40sYmP8YIly8F+Z
+	 4lmGSkNBusGjZbv3JbVR7Flhgc/mYueh245aFHVk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E613F80154;
-	Tue,  5 Oct 2021 15:35:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0E07F8010B;
+	Tue,  5 Oct 2021 15:50:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1D6FEF80259; Tue,  5 Oct 2021 15:35:13 +0200 (CEST)
+ id B6EE3F8027D; Tue,  5 Oct 2021 15:50:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54699F80154
- for <alsa-devel@alsa-project.org>; Tue,  5 Oct 2021 15:35:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54699F80154
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54159F80154
+ for <alsa-devel@alsa-project.org>; Tue,  5 Oct 2021 15:50:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54159F80154
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="NKHqzxCz"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Uyo2SQmT"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 844031FD39;
- Tue,  5 Oct 2021 13:35:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1633440903; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=cYCDzn5ecQGpB8Zs/2ox722aJU3CjiB2nmkD7K/Y7f4=;
- b=NKHqzxCzcO5jG3F+q9CxclZgAaHXBs5/rLTNh8xOEIRAWB6qKZsP0msvXW1neNQo/tQHgR
- BrizbCi2/ZTKATZL9wYleat2qYYHp9Luhzo0i05HbNgNWFkDeerjkOICGoHAYKcaGi/yU2
- kK87PLrwiXfzuwR7CMomT/gNSBrspKY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1633440903;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=cYCDzn5ecQGpB8Zs/2ox722aJU3CjiB2nmkD7K/Y7f4=;
- b=Uyo2SQmT17jRuzMQpqOJX1O9oONOmPifyAw2hRQY5dN2MCPyya+h/7pmjCTGRa/hxVRtvR
- SU6lpiHN4OQu5uBg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 71585A3B8A;
- Tue,  5 Oct 2021 13:35:03 +0000 (UTC)
-Date: Tue, 05 Oct 2021 15:35:03 +0200
-Message-ID: <s5hbl43egs8.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v2 1/3] ALSA: pcm: introduce INFO_NO_REWINDS flag
-In-Reply-To: <c62b3749-c5ea-7b1e-2831-272c8a14d3ac@linux.intel.com>
-References: <20211004162423.85323-1-pierre-louis.bossart@linux.intel.com>
- <20211004162423.85323-2-pierre-louis.bossart@linux.intel.com>
- <s5h8rz8ez3s.wl-tiwai@suse.de>
- <c62b3749-c5ea-7b1e-2831-272c8a14d3ac@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
- P9ter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="IMxO7PnE"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 05654613D5;
+ Tue,  5 Oct 2021 13:50:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1633441827;
+ bh=6okTawUyTOxI3B3Z4YalRMWEYkJW/0Z3oG7uqjvHnbw=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=IMxO7PnEjk5kvkUFYWQtpvk4pt0KNjT/ywawHG/OTf+DPZw39z+8fiHwJVg+r2sX1
+ UQYXWsO7XRM2NvdG0FdXmiMV37fwWK8ea1CacmUeqpEj1Q/MQW7EdRvdCSBMZle85W
+ eY5C2wsPT+N4KA/+1RFs07xshgkEK8qPcNICryWNcVAoVO2FzJScZnxkI40Em20uvE
+ xo14Dc1ZuzdOY3klY12rp7epxNPZhShaUxIvbxBctGmmRY4hnG5JBTIdzlWBz8g411
+ 3PxjYZExYAKkYwcu+1Lo9bgpkkQch06YIwfbfaf9J3Ruf8crzZaLCSOq4SEsdTIK7u
+ ob8nd48kus4zQ==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.14 03/40] ASoC: Intel: sof_sdw: tag SoundWire BEs as
+ non-atomic
+Date: Tue,  5 Oct 2021 09:49:42 -0400
+Message-Id: <20211005135020.214291-3-sashal@kernel.org>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20211005135020.214291-1-sashal@kernel.org>
+References: <20211005135020.214291-1-sashal@kernel.org>
+MIME-Version: 1.0
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
+Cc: Sasha Levin <sashal@kernel.org>, libin.yang@intel.com,
+ cezary.rojewski@intel.com, kai.vehmanen@linux.intel.com,
+ Takashi Iwai <tiwai@suse.de>, tiwai@suse.com, yang.jie@linux.intel.com,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ liam.r.girdwood@linux.intel.com, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, vamshi.krishna.gopal@intel.com,
+ Rander Wang <rander.wang@intel.com>, yung-chuan.liao@linux.intel.com,
+ Bard Liao <bard.liao@intel.com>, yong.zhi@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,56 +90,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 05 Oct 2021 15:10:40 +0200,
-Pierre-Louis Bossart wrote:
-> 
-> 
-> 
-> On 10/5/21 1:59 AM, Takashi Iwai wrote:
-> > On Mon, 04 Oct 2021 18:24:21 +0200,
-> > Pierre-Louis Bossart wrote:
-> >>
-> >> When the hardware can only deal with a monotonically increasing
-> >> appl_ptr, this flag can be set. In case the application requests a
-> >> rewind, snd_pcm_rewind() will not return an error code but signal that
-> >> the appl_ptr was not modified.
-> > 
-> > This modification itself is fine, but I guess that application may
-> > still move the appl_ptr directly via SNDRV_PCM_IOCTL_SYNC_PTR ioctl.
-> > We need to verify the backward move there, I suppose?
-> 
-> Sorry Takashi, I wasn't able to fully follow your question.
-> 
-> In the previous version, I had an explicit check to see if the appl_ptr
-> was modified by a rewind, but you mentioned this would be broken for
-> 32-bit devices due to the use of the 'boundary'. I really have no idea
-> how we can detect a rewind in this configuration, so  if you are asking
-> to detect when the appl_ptr is modified through some other means (which
-> I didn't get) we will have the same problem, won't we?
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Which same problem are you referring to?
+[ Upstream commit 58eafe1ff52ee1ce255759fc15729519af180cbb ]
 
-What I suggested here is that there is still a way to modify the
-appl_ptr from user-space even if you plug the way by disabling the
-status/control mmap and disabling the rewind ioctl.  You have to cover
-the sync_ptr ioctl call path as well, and it'd need a backward check.
+The SoundWire BEs make use of 'stream' functions for .prepare and
+.trigger. These functions will in turn force a Bank Switch, which
+implies a wait operation.
 
-> see the initial thread here:
-> 
-> https://lore.kernel.org/alsa-devel/de5e91c6-5f0e-9866-a1c2-0943b4342359@linux.intel.com/
+Mark SoundWire BEs as nonatomic for consistency, but keep all other
+types of BEs as is. The initialization of .nonatomic is done outside
+of the create_sdw_dailink helper to avoid adding more parameters to
+deal with a single exception to the rule that BEs are atomic.
+
+Suggested-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Bard Liao <bard.liao@intel.com>
+Link: https://lore.kernel.org/r/20210907184436.33152-1-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/intel/boards/sof_sdw.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
+index 1a867c73a48e..cb3afc4519cf 100644
+--- a/sound/soc/intel/boards/sof_sdw.c
++++ b/sound/soc/intel/boards/sof_sdw.c
+@@ -860,6 +860,11 @@ static int create_sdw_dailink(struct device *dev, int *be_index,
+ 			      cpus + *cpu_id, cpu_dai_num,
+ 			      codecs, codec_num,
+ 			      NULL, &sdw_ops);
++		/*
++		 * SoundWire DAILINKs use 'stream' functions and Bank Switch operations
++		 * based on wait_for_completion(), tag them as 'nonatomic'.
++		 */
++		dai_links[*be_index].nonatomic = true;
  
-And, what I meant in the previous thread was that the check in the
-given patch wasn't "enough", i.e. it needs more careful checks
-considering the boundary crossing.  That is, you can't simply compare
-appl_ptr vs old_appl_ptr as a single condition for the backward move.
+ 		ret = set_codec_init_func(link, dai_links + (*be_index)++,
+ 					  playback, group_id);
+-- 
+2.33.0
 
-For example, check snd_pcm_playback_avail() and co.  That contains a
-couple of more condition checks and corrections due to the possible
-boundary crossing.  (Here, runtime->boundary may differ depending on
-32 or 64bit context.)
-
-The actual implementation of the backward move check would be slightly
-different from those, but I hope you get my idea.
-
-
-Takashi

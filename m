@@ -2,79 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67824424283
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 18:21:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24AFC424295
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 18:26:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C5EE31669;
-	Wed,  6 Oct 2021 18:21:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5EE31669
+	by alsa0.perex.cz (Postfix) with ESMTPS id A1008836;
+	Wed,  6 Oct 2021 18:25:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1008836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633537313;
-	bh=pGzTV3esiIv298q9BXKhGUzD+f9XRjx1SUiQN9dwFBY=;
+	s=default; t=1633537581;
+	bh=08GV4lmQXqOCYu5eyzDM5qsul+20vKMpVFJi0X14+/I=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PDRBsf9sW/59ud3TffvC8wrYZIvdHsNaLyH1inUZ1i64m9lAEgThVjz108BSFMPx/
-	 AWX6N7CSgRQl6JCY03IhMt7ruBrDAE13qMj/h8IA1zRkTeENeVmdvi8sircvC8K4cV
-	 Ecyuy2YQAgCpBlC/y7dTzrZ7raT5wEzQJWibkwTc=
+	b=kJWlXH56HzCaDRll9Lo4KwLDRncwwLomkVUvnsa7aigjXP+sKx2P8vE4i1nznuk8B
+	 zwzYI7cgaQSQj56KFz0JZCD6xxRWjw5YtAAsPr4by2jYpm+9IigJDTIT80E+Pr2Bz5
+	 B6RSMWBdtYjz0eq6sLZdsgN9jQLcBhJ4tPIZ0xUc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AEECFF800FE;
-	Wed,  6 Oct 2021 18:20:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4BC1F8032D;
+	Wed,  6 Oct 2021 18:25:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A1661F80302; Wed,  6 Oct 2021 18:20:13 +0200 (CEST)
+ id EBBFAF8032D; Wed,  6 Oct 2021 18:25:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 594DAF8010B
- for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 18:20:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 594DAF8010B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="aFzjtpdX"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0A7DA610EA;
- Wed,  6 Oct 2021 16:20:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633537206;
- bh=pGzTV3esiIv298q9BXKhGUzD+f9XRjx1SUiQN9dwFBY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=aFzjtpdXCVTqawava5IljBa+/tcy/RpCd62RroTXoFADFrgIN7a7nbqhZR3FNa+5u
- n6vpDB4cL8O0y8JrseDB0TyqzlXdR+W1B7Ofy3p9ULIh4hajefc6MQFJbx6A9fOlKE
- TQXcV2juY27R2xwpm0OHNrAh/RN6Y76ND4wztZIPFRjNY/noEbWVI/l7pcTK4mAYo2
- ZZeqnuk6nWtAJi1bNQxBAxpwNXfMMsYqe0qkO9ps/VXfUM3LFHYHqJ9Fs94tShKJd9
- YArdRonQoxF6gYglcqx/Qj21TcntUkX8vqLTq7BJtHWvP0qWJqp3Pb6bZcUnaIngwf
- OuOpforfcU63w==
-Date: Wed, 6 Oct 2021 17:20:04 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v1 2/4] ASoC: Intel: bytcr_rt5640: Use temporary variable
- for struct device
-Message-ID: <YV3MtOrpziyKqkxA@sirena.org.uk>
-References: <20211006150442.16503-1-andriy.shevchenko@linux.intel.com>
- <20211006150442.16503-2-andriy.shevchenko@linux.intel.com>
- <4b81a10dca78e286a9f806464b97111b5a15a91e.camel@perches.com>
- <YV3ER4uIL4aRWBjz@smile.fi.intel.com>
- <YV3FaZ+afuZZSIth@sirena.org.uk>
- <YV3JWzNgGInZ1Bt5@smile.fi.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D4C82F800FE
+ for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 18:25:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4C82F800FE
+X-IronPort-AV: E=McAfee;i="6200,9189,10129"; a="249317593"
+X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="249317593"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2021 09:23:08 -0700
+X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="439175129"
+Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2021 09:23:05 -0700
+Received: from andy by smile with local (Exim 4.95)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1mY9h8-009FoT-9J; Wed, 06 Oct 2021 19:23:02 +0300
+Date: Wed, 6 Oct 2021 19:23:02 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v1 3/4] ASoC: Intel: bytcr_rt5651: use
+ devm_clk_get_optional() for mclk
+Message-ID: <YV3NZnb6mg43nUC1@smile.fi.intel.com>
+References: <20211006150451.16561-1-andriy.shevchenko@linux.intel.com>
+ <20211006150451.16561-3-andriy.shevchenko@linux.intel.com>
+ <2d190513-7ac4-731c-7c9a-1f60a98f6345@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="pvNYqT1s2XmLNWBp"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <YV3JWzNgGInZ1Bt5@smile.fi.intel.com>
-X-Cookie: A is for Apple.
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>, Joe Perches <joe@perches.com>
+In-Reply-To: <2d190513-7ac4-731c-7c9a-1f60a98f6345@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Jie Yang <yang.jie@linux.intel.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,47 +81,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, Oct 06, 2021 at 10:51:52AM -0500, Pierre-Louis Bossart wrote:
+> On 10/6/21 10:04 AM, Andy Shevchenko wrote:
+> > The devm_clk_get_optional() helper returns NULL when devm_clk_get()
+> > returns -ENOENT. This makes things slightly cleaner. The added benefit
+> > is mostly cosmetic.
 
---pvNYqT1s2XmLNWBp
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+...
 
-On Wed, Oct 06, 2021 at 07:05:47PM +0300, Andy Shevchenko wrote:
-> On Wed, Oct 06, 2021 at 04:48:57PM +0100, Mark Brown wrote:
-> > On Wed, Oct 06, 2021 at 06:44:07PM +0300, Andy Shevchenko wrote:
-> > > On Wed, Oct 06, 2021 at 08:21:01AM -0700, Joe Perches wrote:
+> >  	if (SND_SOC_DAPM_EVENT_ON(event)) {
+> > -		if (byt_rt5651_quirk & BYT_RT5651_MCLK_EN) {
+> > -			ret = clk_prepare_enable(priv->mclk);
+> > -			if (ret < 0) {
+> > -				dev_err(card->dev,
+> > -					"could not configure MCLK state");
+> > -				return ret;
+> > -			}
+> > +		ret = clk_prepare_enable(priv->mclk);
+> > +		if (ret < 0) {
+> > +			dev_err(card->dev, "could not configure MCLK state");
+> > +			return ret;
+> >  		}
+> 
+> I don't get why you removed the test on the BYT_RT5651_MCLK_EN quirk,
+> see below it was designed as a fall-back mode. We don't want to return
+> an error when we know the clock is not present/desired.
 
-> > > > Some will complain about a lack of commit message.
+Why should we do a unneeded test? When we switch to the optional, there
+will be no error from these CCF APIs. Besides that it drops indentation
+level and makes code neat.
 
-> > > Yeah, sorry for that, it wasn't deliberate. I forgot to run `git msg-filter`
-> > > on these three patches to add it.
+...
 
-> > > Mark, do you want me resend entire bunch(es) or just starting from these
-> > > patches? Or...?
+> same here, why was the quirk removed?
 
-> > If you're adding a commit message with automation it's probably not
-> > adding any value.
+Same answer.
 
-> What do you mean? I add it exceptionally for the same (by nature) patches.
-> What do you expect to be altered in these three, if the idea behind the change
-> is very well the same?
+...
 
-I really don't care if there's a separate changelog for trivial patches
-like this, it adds nothing of value.
+> that part in the probe looks fine, but the changes above are controversial.
 
---pvNYqT1s2XmLNWBp
-Content-Type: application/pgp-signature; name="signature.asc"
+I didn't get. How controversial? Why? The whole point of _optional is to get
+rid of unneeded checks (since they are _anyway_ be called).
 
------BEGIN PGP SIGNATURE-----
+-- 
+With Best Regards,
+Andy Shevchenko
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFdzLMACgkQJNaLcl1U
-h9AeiAf/WqCqXROZjxlY7thdJTvoxPef03P18FKvWx2PcZs8ydd2++38FMk9Kt1E
-8SY7llTHx97Sy/7MohSU/I5RyxMb/16nBfc6G75elHUzZPpYMscrgNHvDsruNM50
-dDl5jgXeah4PA/zkdYnyKdB5PsgDHfUH6fqlen5DdvZkBD8bgcsDmGNm5Au30XPL
-fytYGo8lKxq6mbHouLyqw+Cp01n75TVaz/V1v5tCSpYrLX2j5fEIMd58rPy52/hV
-mGrt+61/oqOJ6y0vwCH9aw1TRuHUgOX6iUfBV4d5AHpwpqqiNfA79+leR5VjUn0j
-7Ax5qxo33fPbRqZQCvBqQDgktUY2Gg==
-=I4Dh
------END PGP SIGNATURE-----
 
---pvNYqT1s2XmLNWBp--

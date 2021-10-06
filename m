@@ -2,101 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1934E424352
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 18:48:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8808424385
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 18:58:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD232844;
-	Wed,  6 Oct 2021 18:48:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD232844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7653983D;
+	Wed,  6 Oct 2021 18:57:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7653983D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633538933;
-	bh=1+vev+FZgo4N9iRP5cVkmE18KVafKcBNUS5QAB2HHsU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1633539489;
+	bh=kviJjdPslXksPN9BfPY8XCmCdjg5SPeAndDnUpa3t6U=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ocElF1+zdA1MKC3BLH46K9BhjuiZTJ5BcJh3rXZ2IOWrioLKFaMIQfTHZhrxXEZnR
-	 cAULfDAPB75di0aQ4rBHCg/An+5sgtaRI12CF8RVIYBPl40hV+IR4EeK6uA+CuaG6m
-	 YrNt0XEhUlQF775eapSfiWm1hvyWy0Fu5RLOCCTE=
+	b=C0vbw0aLK9S4Gbg824uvKQXUm9GlpUOw6yOUSQhQiu7xEMwFV+GDZQPtZj1ux1LTo
+	 LgAUBWifEyE8nQRbfD5DXSxzWCl54DAIcHjBVaRK2KtbLHr1fmjW8yTk2SxBxq1H7v
+	 jYrn1aC94z9PZDpAb5jEYaU/0zUJqnsupsVhWH5A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D8E4F80249;
-	Wed,  6 Oct 2021 18:47:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3C7C8F804EB;
+	Wed,  6 Oct 2021 18:56:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47CA7F80240; Wed,  6 Oct 2021 18:47:35 +0200 (CEST)
+ id 44F34F80424; Wed,  6 Oct 2021 18:56:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B3CC4F800FE
- for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 18:47:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3CC4F800FE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="p3qZXdpk"
-Received: by mail-ed1-x52f.google.com with SMTP id g10so11874511edj.1
- for <alsa-devel@alsa-project.org>; Wed, 06 Oct 2021 09:47:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=cokz5/aCsU+6IISL087/xdQjeJJNdXltlIJFHh9WDIY=;
- b=p3qZXdpk4WQccufsvK4m6KyFOU8memXMUyYFo+6dgqN/7w5vd1mJOPqpQd5hVoAmJW
- mo3UEMujCeB28FTLtFjvOsRV3CwDnd84QaN9X+KYYIYzJC7HZHmwcdhrs0XVFyZ4I889
- RjDpF+2JfBMiVQcRDfhBkL9b8ephHuCo5Pt2BuCpF0qqNhEXJkn1tjE+wnyRuhAcFAAc
- cb8UinmC2gFZyS5PxVQnHqeK96xv00CP8qjrqswmeTd8Sxr/Qsszw1irQnGHhqXwCOOg
- uVvDcatwfhkeolZvGnzylYwqvBiU5iEIYMtxg+es717pKCmcniqQfzSLxAokJ+Sa+iDz
- gx8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=cokz5/aCsU+6IISL087/xdQjeJJNdXltlIJFHh9WDIY=;
- b=0J9yaaxqXrPh5wJbvONqyGzhWjDOea768RAOhthVNalMAGYtkgRs+pkGGnrHz6uwez
- niVLfzETWoiNOuQ6oOcY6EfS07mwSljkwOE802FgFhsgo5OoRJWoMmG4bu1GvC+3tz4H
- u8F2+ByZ/dy0RB4GkYNpnjxEsQUtDHWL5mnaeDIP/rstlACY3iVTok4OBktchP9n5OxT
- khp1IiqU1hLVAri0XyLpy5JvogqbOjWijyVFxNc+39N5yLmnmfHF5WmhiBsKxS8DWgoi
- ovJn7ue+FwVo8xaDBNMRva3pWKONo59qNQx+7xdvWZIl0WKzxJhXZNE4Twhzus8FbY3J
- 8zSw==
-X-Gm-Message-State: AOAM530cBlD7uPThrDg56pSEcV9g0nrPHHyZzMcjPJDY958OqeXy2qPr
- aNV1YWRd5QzreF+M8NZfMfO/+P62DQdR1nAKgoE=
-X-Google-Smtp-Source: ABdhPJw29j4D9bZHuEI9lrPKZesgz4NvAhcdBJSs1TuAV5KtEWAPPnDmALdoHcnOBJ5iVVZTlIoFdWNWh6/0/YAL2lo=
-X-Received: by 2002:a17:906:2887:: with SMTP id
- o7mr32800370ejd.425.1633538843226; 
- Wed, 06 Oct 2021 09:47:23 -0700 (PDT)
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 53A7FF8010B
+ for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 18:56:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53A7FF8010B
+X-IronPort-AV: E=McAfee;i="6200,9189,10129"; a="226357118"
+X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="226357118"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2021 09:52:58 -0700
+X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="439186776"
+Received: from nbasa-mobl2.amr.corp.intel.com (HELO [10.213.170.135])
+ ([10.213.170.135])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2021 09:52:54 -0700
+Subject: Re: [PATCH 0/3] Multiple headphone codec driver support
+To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
 References: <20211006161805.938950-1-brent.lu@intel.com>
- <20211006161805.938950-4-brent.lu@intel.com>
-In-Reply-To: <20211006161805.938950-4-brent.lu@intel.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Wed, 6 Oct 2021 19:46:47 +0300
-Message-ID: <CAHp75Vd7A4yjA+BN_4PwCNNSyy=JbGTDh7U6FdacRYLYPJaYCQ@mail.gmail.com>
-Subject: Re: [PATCH 3/3] ASoC: Intel: sof_rt5682: use id_alt to enumerate
- rt5682s
-To: Brent Lu <brent.lu@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <33538866-03a3-4866-2edc-f5fb5928b08f@linux.intel.com>
+Date: Wed, 6 Oct 2021 11:50:08 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.13.0
+MIME-Version: 1.0
+In-Reply-To: <20211006161805.938950-1-brent.lu@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Libin Yang <libin.yang@intel.com>,
+ Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
  Cezary Rojewski <cezary.rojewski@intel.com>,
- Jie Yang <yang.jie@linux.intel.com>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Rander Wang <rander.wang@intel.com>, Mac Chiang <mac.chiang@intel.com>,
- Gongjun Song <gongjun.song@intel.com>, Bard Liao <bard.liao@intel.com>,
- Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>,
- Yong Zhi <yong.zhi@intel.com>, Charles Keepax <ckeepax@opensource.cirrus.com>,
- Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
- Paul Olaru <paul.olaru@oss.nxp.com>, Libin Yang <libin.yang@intel.com>,
  Malik_Hsu <malik_hsu@wistron.corp-partner.google.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
  Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Curtis Malainey <cujomalainey@chromium.org>
+ Rander Wang <rander.wang@intel.com>, linux-kernel@vger.kernel.org,
+ Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Hans de Goede <hdegoede@redhat.com>,
+ Mac Chiang <mac.chiang@intel.com>, Mark Brown <broonie@kernel.org>,
+ Bard Liao <bard.liao@intel.com>, Paul Olaru <paul.olaru@oss.nxp.com>,
+ Curtis Malainey <cujomalainey@chromium.org>,
+ Gongjun Song <gongjun.song@intel.com>,
+ Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>,
+ Yong Zhi <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,64 +89,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Oct 6, 2021 at 7:23 PM Brent Lu <brent.lu@intel.com> wrote:
->
-> Use the id_alt field to enumerate rt5682s headphone codec and remove
-> redundant entries in tables.
 
-...
 
-> +static struct snd_soc_acpi_codecs adl_rt5682s_hp = {
-> +       .num_codecs = 1,
-> +       .codecs = {"RTL5682"}
+On 10/6/21 11:18 AM, Brent Lu wrote:
+> Support multiple headphone drivers in same machine driver. In this
+> case, both rt5682 and rt5682s are supported and enumerated by different
+> ACPI HID "10EC5682" and "RTL5682".
 
-Keeping commas in non-terminator entries is always good to avoid churn
-in the future.
+Ah, now I get what you're trying to do. I like this a lot!
 
-> +};
+This is really a 'compatible_id' that the machine driver is capable of
+handling.
 
-...
+It would be quite useful indeed to prune some of the tables we have, e.g.
 
-> +static struct snd_soc_acpi_codecs rt5682s_hp = {
-> +       .num_codecs = 1,
-> +       .codecs = {"RTL5682"}
+"10EC5640" "10EC5642", "INTCCFFD"
+"10EC5645" "10EC5648", etc
 
-Ditto.
+In your case you pushed the logic a bit further in that the codec driver
+might be different, but the machine driver can deal with it with
+run-time autodetection.
 
-> +};
+Would you mind going through the tables and suggest additional
+simplifications with more patches when relevant?
 
-...
-
-> +static struct snd_soc_acpi_codecs rt5682s_hp = {
-> +       .num_codecs = 1,
-> +       .codecs = {"RTL5682"}
-
-Ditto.
-
-> +};
-
-...
-
-> +static struct snd_soc_acpi_codecs rt5682s_hp = {
-> +       .num_codecs = 1,
-> +       .codecs = {"RTL5682"}
-
-Ditto.
-
-> +};
-
-...
-
-> +static struct snd_soc_acpi_codecs rt5682s_hp = {
-> +       .num_codecs = 1,
-> +       .codecs = {"RTL5682"}
-
-Ditto.
-
-> +};
-
-...and so on.
-
--- 
-With Best Regards,
-Andy Shevchenko
+> Brent Lu (3):
+>   ASoC: soc-acpi: add alternative id field for machine driver matching
+>   ASoC: Intel: sof_rt5682: detect codec variant in probe function
+>   ASoC: Intel: sof_rt5682: use id_alt to enumerate rt5682s
+> 
+>  include/sound/soc-acpi.h                      |  2 ++
+>  sound/soc/intel/boards/sof_rt5682.c           | 34 +++----------------
+>  .../intel/common/soc-acpi-intel-adl-match.c   |  8 +++++
+>  .../intel/common/soc-acpi-intel-byt-match.c   |  6 ++++
+>  .../intel/common/soc-acpi-intel-cht-match.c   |  6 ++++
+>  .../intel/common/soc-acpi-intel-cml-match.c   |  8 +++++
+>  .../intel/common/soc-acpi-intel-icl-match.c   |  6 ++++
+>  .../intel/common/soc-acpi-intel-jsl-match.c   | 32 +++++------------
+>  .../intel/common/soc-acpi-intel-tgl-match.c   |  8 +++++
+>  sound/soc/soc-acpi.c                          | 21 +++++++++++-
+>  10 files changed, 76 insertions(+), 55 deletions(-)
+> 

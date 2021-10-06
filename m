@@ -2,82 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7424F42463B
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 20:44:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F554424684
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 21:09:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0CD6A844;
-	Wed,  6 Oct 2021 20:43:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0CD6A844
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC978822;
+	Wed,  6 Oct 2021 21:09:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC978822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633545885;
-	bh=jt1eRYGo/4gFu7bZzryd5xsiWjB3LjYkkzH526juWDk=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1633547391;
+	bh=5vtrxa2ZSZI/xltxgb+4xsUMcvv8Ge9zP/BPBICVw6o=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RRGEr7ABxDiShK7P4uq30wYxyA6b3VcKwLBEyk/LB2/8ly+zR/Oaj+fyppu68I4T3
-	 sZ7sKiVr2mHNdqj+IQ4nkF1HyXEovxCH5q0w6xTZYaBUNFO71ljZuv5HvKDt9oON4Q
-	 Id6ehTC/jSXnCqUXKTfCSMMrQ8mi+K7qK/jDUNwA=
+	b=DjCY8Lyx1t6ObL7cVRb9TsRx5NS7mZRBWG86oq1f0Y3ot9wQ/g+UttJH5EONew3x+
+	 K7YSDUshiSAC/4U39rTjdqG+tPz38ngQID+E579Eefyzp/mtOFscQfRESn1Hvb5upF
+	 +SNwAU6FZwaYFCzkEkOEhKuQkor9wPezq1H8v3ew=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89A57F8010B;
-	Wed,  6 Oct 2021 20:43:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65D81F8020D;
+	Wed,  6 Oct 2021 21:08:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB1D2F80240; Wed,  6 Oct 2021 20:43:26 +0200 (CEST)
+ id 5EACDF80240; Wed,  6 Oct 2021 21:08:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com
+ [209.85.210.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B67F6F8010B
- for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 20:43:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B67F6F8010B
-X-IronPort-AV: E=McAfee;i="6200,9189,10129"; a="312284088"
-X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="312284088"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2021 11:43:13 -0700
-X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="439225258"
-Received: from nbasa-mobl2.amr.corp.intel.com (HELO [10.213.170.135])
- ([10.213.170.135])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2021 11:43:10 -0700
-Subject: Re: [PATCH 3/3] ASoC: Intel: sof_rt5682: use id_alt to enumerate
- rt5682s
-To: Curtis Malainey <cujomalainey@google.com>, Brent Lu <brent.lu@intel.com>
-References: <20211006161805.938950-1-brent.lu@intel.com>
- <20211006161805.938950-4-brent.lu@intel.com>
- <CAOReqxjGX6fwqNjX0i31JiQJ+vRCMNTTFBhn7L=iPzYvVMk9mQ@mail.gmail.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <0482534d-46c4-5cee-25bd-8739e80a00f0@linux.intel.com>
-Date: Wed, 6 Oct 2021 13:43:07 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <CAOReqxjGX6fwqNjX0i31JiQJ+vRCMNTTFBhn7L=iPzYvVMk9mQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Jie Yang <yang.jie@linux.intel.com>,
- ALSA development <alsa-devel@alsa-project.org>,
- Rander Wang <rander.wang@intel.com>, Mac Chiang <mac.chiang@intel.com>,
- Gongjun Song <gongjun.song@intel.com>, Bard Liao <bard.liao@intel.com>,
- Takashi Iwai <tiwai@suse.com>,
- Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>,
- Yong Zhi <yong.zhi@intel.com>, Charles Keepax <ckeepax@opensource.cirrus.com>,
- Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
- Paul Olaru <paul.olaru@oss.nxp.com>, Libin Yang <libin.yang@intel.com>,
- Malik_Hsu <malik_hsu@wistron.corp-partner.google.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Curtis Malainey <cujomalainey@chromium.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id CE222F8010B
+ for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 21:08:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE222F8010B
+Received: by mail-ot1-f53.google.com with SMTP id
+ 5-20020a9d0685000000b0054706d7b8e5so4425119otx.3
+ for <alsa-devel@alsa-project.org>; Wed, 06 Oct 2021 12:08:19 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=UtwrzsrYrexw7egYl4wU8hBbEuUQZK7E7w2jgOhW2FY=;
+ b=ZYhwymEZOTou3K11t/PzPcoo3Ln7vFjcka6R3HGCxT/PEFJilyxhmx72nVpccbA9sy
+ aYCFetxmJqZ2kswueyOmYvyj/oVMTebW4oLzRCVZNjFl7v608UVkr893BVQl22KvEpgu
+ NctXXaYqXX8CQ4erw0GlQaG0fO3WLduBuwRqeO5V42KXW3YKlw5BF68yR1YHHiRhhk3v
+ DPUZHpDdYNdzSZGPQ7fPyVhtkOhb+YXf+5G9hUaT8rO5J+c79oHQReGvGFWpq+VpJ8/v
+ lXxaz1kiJ18561CK9bwKCZiY62BaNrfYkxuxnANn0i5KhdA37gIHEYju97dwlzdW4XdX
+ cD6g==
+X-Gm-Message-State: AOAM531Fx0/JXhYPzBb+qoOauj2QX3LbYIfXe+S+vShyztoa37pZCHiw
+ JdLjzUOn/vdws7N7SfG1Hg==
+X-Google-Smtp-Source: ABdhPJzCcOPOOJdCjqSevCGuw5AOGRSNXRgCFkbO/1DpFLBrPrHrCVeoHRNZya0eH6wzs4sJ3fSSQw==
+X-Received: by 2002:a9d:4702:: with SMTP id a2mr347403otf.271.1633547297462;
+ Wed, 06 Oct 2021 12:08:17 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id q39sm268643oiw.47.2021.10.06.12.08.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 Oct 2021 12:08:16 -0700 (PDT)
+Received: (nullmailer pid 2218064 invoked by uid 1000);
+ Wed, 06 Oct 2021 19:08:13 -0000
+From: Rob Herring <robh@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20211006113950.10782-9-srinivas.kandagatla@linaro.org>
+References: <20211006113950.10782-1-srinivas.kandagatla@linaro.org>
+ <20211006113950.10782-9-srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH v9 08/17] ASoC: dt-bindings: add q6apm digital audio
+ stream bindings
+Date: Wed, 06 Oct 2021 14:08:13 -0500
+Message-Id: <1633547293.527218.2218062.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, tiwai@suse.de, plai@codeaurora.org,
+ lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com, broonie@kernel.org,
+ bjorn.andersson@linaro.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,50 +92,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 10/6/21 1:34 PM, Curtis Malainey wrote:
->>  };
->>
->> +static struct snd_soc_acpi_codecs adl_rt5682s_hp = {
->> +       .num_codecs = 1,
->> +       .codecs = {"RTL5682"}
->> +};
->> +
->>  struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
->>         {
->>                 .id = "10EC5682",
->> +               .id_alt = &adl_rt5682s_hp,
->>                 .drv_name = "adl_mx98373_rt5682",
->>                 .machine_quirk = snd_soc_acpi_codec_list,
->>                 .quirk_data = &adl_max98373_amp,
->> @@ -296,6 +302,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
->>         },
->>         {
->>                 .id = "10EC5682",
->> +               .id_alt = &adl_rt5682s_hp,
->>                 .drv_name = "adl_mx98357_rt5682",
->>                 .machine_quirk = snd_soc_acpi_codec_list,
->>                 .quirk_data = &adl_max98357a_amp,
->> @@ -304,6 +311,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
->>         },
->>         {
->>                 .id = "10EC5682",
->> +               .id_alt = &adl_rt5682s_hp,
->>                 .drv_name = "adl_mx98360_rt5682",
->>                 .machine_quirk = snd_soc_acpi_codec_list,
->>                 .quirk_data = &adl_max98360a_amp,
+On Wed, 06 Oct 2021 12:39:41 +0100, Srinivas Kandagatla wrote:
+> On AudioReach audio Framework, Audio Streams (PCM/Compressed) are managed by
+> Q6APM(Audio Process Manager) service. This patch adds bindings for this DAIs
+> exposed by the DSP.
 > 
-> Is there any way we can collapse this and the primary id into a single
-> list to avoid having 2 locations to track for the IDs?
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> Reviewed-by: Rob Herring <robh@kernel.org>
+> ---
+>  .../bindings/sound/qcom,q6apm-dai.yaml        | 53 +++++++++++++++++++
+>  1 file changed, 53 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
+> 
 
-I was thinking about that too, but in that case we would want to have a
-list of strings, rather than the address of a structure which adds one
-layer of indirection.
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-Something like
+yamllint warnings/errors:
 
-.id = { "10EC5682", "RTL5682" }
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/sound/qcom,q6apm-dai.example.dts:19:18: fatal error: dt-bindings/soc/qcom,gpr.h: No such file or directory
+   19 |         #include <dt-bindings/soc/qcom,gpr.h>
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make[1]: *** [scripts/Makefile.lib:385: Documentation/devicetree/bindings/sound/qcom,q6apm-dai.example.dt.yaml] Error 1
+make[1]: *** Waiting for unfinished jobs....
+make: *** [Makefile:1441: dt_binding_check] Error 2
 
-and the .num_codecs removed and some termination added.
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/patch/1537089
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
 

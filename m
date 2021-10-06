@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32B7C423C63
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 13:14:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C42E6423C66
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 13:14:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ADAE383B;
-	Wed,  6 Oct 2021 13:13:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADAE383B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68C97167D;
+	Wed,  6 Oct 2021 13:13:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68C97167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633518840;
-	bh=FM4PBTv8tuKwY8ZtGtLNmkfsX9MFbI0V2MEZ+DkZ7bQ=;
+	s=default; t=1633518880;
+	bh=WAk0DumgVVhaJ9hBAfv+BRiT/aJFarWub12D9sjjYbM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NXC+/N/PSEY9Eotioa0DwhgwTCM5I5Ac9ekDSbJOwgKep6izeXzYNs62iCXGwkCW3
-	 CN0mfi9LskOoj7nrdGkB0Nu068f7WRgC4kWIdkm4P0LLI+mAjpzwxYJ5At4b5n56o/
-	 QKjW1ZLERG/HwfhRvlUjYZM/ThqJ7u7GfwUeGsEg=
+	b=JpQhoRTp4oXkPbKuph7flC7C8KB3DKx9E+CyYF6A2bGMhAQmM2b/pd6PPerB5TxRX
+	 6QZCkW7wiJKZgMXJkrnSMyVJvkhNerySr0Tfyzbc+rXHxFbrpIK2CJV10PL/xzrwMx
+	 eRpLPpZogGvVAxCCmlkH6s18CjE+o//awE+DIDPM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3794F8056F;
-	Wed,  6 Oct 2021 13:07:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AAC63F802D2;
+	Wed,  6 Oct 2021 13:07:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C5DBEF80564; Wed,  6 Oct 2021 13:07:37 +0200 (CEST)
+ id BC252F80570; Wed,  6 Oct 2021 13:07:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,26 +33,26 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A7C1FF80533
- for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 13:07:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7C1FF80533
-X-IronPort-AV: E=McAfee;i="6200,9189,10128"; a="223366504"
-X-IronPort-AV: E=Sophos;i="5.85,350,1624345200"; d="scan'208";a="223366504"
+ by alsa1.perex.cz (Postfix) with ESMTPS id E3D4FF80539
+ for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 13:07:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3D4FF80539
+X-IronPort-AV: E=McAfee;i="6200,9189,10128"; a="223366510"
+X-IronPort-AV: E=Sophos;i="5.85,350,1624345200"; d="scan'208";a="223366510"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2021 04:07:23 -0700
-X-IronPort-AV: E=Sophos;i="5.85,350,1624345200"; d="scan'208";a="439081229"
+ 06 Oct 2021 04:07:26 -0700
+X-IronPort-AV: E=Sophos;i="5.85,350,1624345200"; d="scan'208";a="439081233"
 Received: from byurovit-mobl1.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.249.39.239])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2021 04:07:20 -0700
+ 06 Oct 2021 04:07:23 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com, broonie@kernel.org,
  pierre-louis.bossart@linux.intel.com
-Subject: [PATCH 17/19] ASoC: SOF: loader: Drop SOF_DBG_DUMP_REGS flag when
- firmware start fails
-Date: Wed,  6 Oct 2021 14:06:43 +0300
-Message-Id: <20211006110645.26679-18-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 18/19] ASoC: SOF: Intel: hda-loader: Drop SOF_DBG_DUMP_REGS
+ flag from dbg_dump calls
+Date: Wed,  6 Oct 2021 14:06:44 +0300
+Message-Id: <20211006110645.26679-19-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211006110645.26679-1-peter.ujfalusi@linux.intel.com>
 References: <20211006110645.26679-1-peter.ujfalusi@linux.intel.com>
@@ -75,29 +75,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-snd_sof_dsp_run() failure indicates that the DSP did not even booted up,
-thus asking for dumping registers at this point is not valid.
+In cl_dsp_init() we are powering up the DSP, register dump is not valid.
+In hda_dsp_cl_boot_firmware() we are downloading the firmware to DSP, again
+the register dump is not a valid concept.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- sound/soc/sof/loader.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/sof/intel/hda-loader.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/sof/loader.c b/sound/soc/sof/loader.c
-index de7082f3226c..54aa7764d2b3 100644
---- a/sound/soc/sof/loader.c
-+++ b/sound/soc/sof/loader.c
-@@ -820,8 +820,7 @@ int snd_sof_run_firmware(struct snd_sof_dev *sdev)
- 	ret = snd_sof_dsp_run(sdev);
- 	if (ret < 0) {
- 		dev_err(sdev->dev, "error: failed to start DSP\n");
--		snd_sof_dsp_dbg_dump(sdev, SOF_DBG_DUMP_REGS | SOF_DBG_DUMP_MBOX |
--				     SOF_DBG_DUMP_PCI);
-+		snd_sof_dsp_dbg_dump(sdev, SOF_DBG_DUMP_MBOX | SOF_DBG_DUMP_PCI);
- 		return ret;
+diff --git a/sound/soc/sof/intel/hda-loader.c b/sound/soc/sof/intel/hda-loader.c
+index 10b37e8ad30b..abad6d0ceb83 100644
+--- a/sound/soc/sof/intel/hda-loader.c
++++ b/sound/soc/sof/intel/hda-loader.c
+@@ -177,8 +177,7 @@ static int cl_dsp_init(struct snd_sof_dev *sdev, int stream_tag)
+ 			__func__);
+ 
+ err:
+-	flags = SOF_DBG_DUMP_REGS | SOF_DBG_DUMP_PCI | SOF_DBG_DUMP_MBOX |
+-		SOF_DBG_DUMP_OPTIONAL;
++	flags = SOF_DBG_DUMP_PCI | SOF_DBG_DUMP_MBOX | SOF_DBG_DUMP_OPTIONAL;
+ 
+ 	/* after max boot attempts make sure that the dump is printed */
+ 	if (hda->boot_iteration == HDA_FW_BOOT_ATTEMPTS)
+@@ -415,8 +414,7 @@ int hda_dsp_cl_boot_firmware(struct snd_sof_dev *sdev)
+ 	if (!ret) {
+ 		dev_dbg(sdev->dev, "Firmware download successful, booting...\n");
+ 	} else {
+-		snd_sof_dsp_dbg_dump(sdev, SOF_DBG_DUMP_REGS | SOF_DBG_DUMP_PCI |
+-				     SOF_DBG_DUMP_MBOX);
++		snd_sof_dsp_dbg_dump(sdev, SOF_DBG_DUMP_PCI | SOF_DBG_DUMP_MBOX);
+ 		dev_err(sdev->dev, "error: load fw failed ret: %d\n", ret);
  	}
  
 -- 

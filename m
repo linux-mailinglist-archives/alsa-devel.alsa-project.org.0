@@ -2,68 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F4ED424374
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 18:55:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0448B4243B0
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 19:07:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 39336846;
-	Wed,  6 Oct 2021 18:54:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39336846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94732844;
+	Wed,  6 Oct 2021 19:07:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94732844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633539331;
-	bh=AruGNKN3/ogLVj/qf1UyWp5Do98EAyA+4RPqkBmNBxA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1633540071;
+	bh=PZnbaxq69kHYjc3aakilyUEfdbtdfSaOIp4kp8liWU8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=u3d+iGegxJjQVlDCSHvjQFQIeX1YG6e1jGwn6/+zM7IvFwzlBHKHGA3g8OZSGrZeG
-	 RkR3ULal8ChpDSg4vOz9Vp1tEqY5Gfm7xDrwLLLC3Bacw13FHTCM2BhyyDLIdytSSO
-	 jwb2Nk9CoHNf6kKPvIWZX+0O00uHTUTLj/oHjzcY=
+	b=DFSFB6wThuiako/ExDGKhMJkGia2ru6IBeM90D6s+bMAmrbtbRH2OtB7EUfmQWYje
+	 VaH9T450GO1LhhYK7bIzdR7Ah3ERT4mzoK3boHL9j/WFWCDUG4FLYxQO0gaIscbepC
+	 4yfaIX4tUrFzxb1Vl8DSEls3mhqIpeVHdUafPf8Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20336F8025C;
-	Wed,  6 Oct 2021 18:54:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04565F8010B;
+	Wed,  6 Oct 2021 19:06:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5D131F8020D; Wed,  6 Oct 2021 18:54:12 +0200 (CEST)
+ id 2E10AF80240; Wed,  6 Oct 2021 19:06:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_65,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CCDBCF8020D
- for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 18:54:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCDBCF8020D
-X-IronPort-AV: E=McAfee;i="6200,9189,10129"; a="213168963"
-X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="213168963"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2021 09:52:28 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="713011705"
-Received: from black.fi.intel.com ([10.237.72.28])
- by fmsmga006.fm.intel.com with ESMTP; 06 Oct 2021 09:52:23 -0700
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 6E15D299; Wed,  6 Oct 2021 19:52:30 +0300 (EEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2 4/4] ASoC: Intel: bytcht_es8316: Utilize dev_err_probe() to
- avoid log saturation
-Date: Wed,  6 Oct 2021 19:52:28 +0300
-Message-Id: <20211006165228.1692-5-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211006165228.1692-1-andriy.shevchenko@linux.intel.com>
-References: <20211006165228.1692-1-andriy.shevchenko@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0AF1F8010B
+ for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 19:06:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0AF1F8010B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="hUVfD0R+"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 22F22610E5;
+ Wed,  6 Oct 2021 17:06:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1633539986;
+ bh=PZnbaxq69kHYjc3aakilyUEfdbtdfSaOIp4kp8liWU8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=hUVfD0R+rR3WdH6ywZh4W0FObPq9rS6YuqePu1Zd1KGQKfQUbpWj/djDPOwXEEhQ7
+ WghL5YkDaNdOazPK6j06bljx2IoC4KUF95/6CWROLWwnDRBiqsJIqZDpFYHkmDbKcO
+ Xo0pfLSpCDgLjXYOdcvIQLjFHjciy6PsepjyvKuA4Ochxd8UgHm435d5n7QpeXfbsV
+ hxwwRBogz3Y5UuofrQWJ9rRDPcZoGl0bJOj9zvX5l66KM/VT4xHl5x/oUZhsFKucrA
+ DAN2zz05sK8Qci3ell1sWNpHBCqiZibL1xnpW/RaGxxh+bjwBSn6yc6bUisjqEuz38
+ +XjlhgeKsounA==
+Date: Wed, 6 Oct 2021 18:06:24 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: Re: [PATCH v1 3/4] ASoC: Intel: bytcr_rt5651: use
+ devm_clk_get_optional() for mclk
+Message-ID: <YV3XkLzs5VBv3Sic@sirena.org.uk>
+References: <20211006150451.16561-1-andriy.shevchenko@linux.intel.com>
+ <20211006150451.16561-3-andriy.shevchenko@linux.intel.com>
+ <2d190513-7ac4-731c-7c9a-1f60a98f6345@linux.intel.com>
+ <YV3NZnb6mg43nUC1@smile.fi.intel.com>
+ <015e084e-70ed-7b5c-b103-8426ef0842d4@linux.intel.com>
+ <YV3T5evF+hghuwge@smile.fi.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="P5y5CYfh4SMnZ2u/"
+Content-Disposition: inline
+In-Reply-To: <YV3T5evF+hghuwge@smile.fi.intel.com>
+X-Cookie: A is for Apple.
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Hans de Goede <hdegoede@redhat.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,51 +91,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-dev_err_probe() avoids printing into log when the deferred probe is invoked.
-This is possible when clock provider is pending to appear.
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Pierre-Louis Bossart <pierre-louis.bossart@linux.com>
----
- sound/soc/intel/boards/bytcht_es8316.c | 18 +++++-------------
- 1 file changed, 5 insertions(+), 13 deletions(-)
+--P5y5CYfh4SMnZ2u/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/sound/soc/intel/boards/bytcht_es8316.c b/sound/soc/intel/boards/bytcht_es8316.c
-index d8dcf63825a6..9d86fea51a7d 100644
---- a/sound/soc/intel/boards/bytcht_es8316.c
-+++ b/sound/soc/intel/boards/bytcht_es8316.c
-@@ -532,11 +532,8 @@ static int snd_byt_cht_es8316_mc_probe(struct platform_device *pdev)
- 
- 	/* get the clock */
- 	priv->mclk = devm_clk_get(dev, "pmc_plt_clk_3");
--	if (IS_ERR(priv->mclk)) {
--		ret = PTR_ERR(priv->mclk);
--		dev_err(dev, "clk_get pmc_plt_clk_3 failed: %d\n", ret);
--		return ret;
--	}
-+	if (IS_ERR(priv->mclk))
-+		return dev_err_probe(dev, PTR_ERR(priv->mclk), "clk_get pmc_plt_clk_3 failed\n");
- 
- 	/* get speaker enable GPIO */
- 	codec_dev = acpi_get_first_physical_node(adev);
-@@ -570,14 +567,9 @@ static int snd_byt_cht_es8316_mc_probe(struct platform_device *pdev)
- 				   /* see comment in byt_cht_es8316_resume() */
- 				   GPIOD_OUT_LOW | GPIOD_FLAGS_BIT_NONEXCLUSIVE);
- 	if (IS_ERR(priv->speaker_en_gpio)) {
--		ret = PTR_ERR(priv->speaker_en_gpio);
--		switch (ret) {
--		default:
--			dev_err(dev, "get speaker GPIO failed: %d\n", ret);
--			fallthrough;
--		case -EPROBE_DEFER:
--			goto err_put_codec;
--		}
-+		ret = dev_err_probe(dev, PTR_ERR(priv->speaker_en_gpio),
-+				    "get speaker GPIO failed\n");
-+		goto err_put_codec;
- 	}
- 
- 	snprintf(components_string, sizeof(components_string),
--- 
-2.33.0
+On Wed, Oct 06, 2021 at 07:50:45PM +0300, Andy Shevchenko wrote:
+> On Wed, Oct 06, 2021 at 11:37:24AM -0500, Pierre-Louis Bossart wrote:
 
+> > By looking at this code only one cannot really visualize that it's a
+> > no-op. I personally prefer to see explicit intent rather than have to
+> > dig hundreds of lines below what this clock is optional.
+
+> > I am also not even sure that in real products this clock is actually
+> > optional,
+
+> The code tells that it's optional. If it's not the case, the code has
+> to be fixed accordingly.
+
+AIUI with the clock API the idiomatic thing is that any optionality is
+handled at the point where the clock is acquired - if the clock is
+optional you end up with NULL which in the clock API is a dummy clock
+and ignored.  The rest of the code then doesn't need to worry about any
+of this stuff and the handling can only be in one place.
+
+--P5y5CYfh4SMnZ2u/
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFd148ACgkQJNaLcl1U
+h9BJPgf/WyCnwaI1cBrz1bAWU3LhKG7Fpeirk9LCyIGjBxKx3hLF/6ZpYdgj7ZE+
+IKXTNDfc3bA7UKhQ32Rck6Yi4rDJDa4MdAqwgeGf2jUrLYnZcjOechs3ckABPovb
+QVu25PIwHU38QJO70K00wUhOOnleqPbFcpPbamwzIrXPIZepxtnB3uvXmrv8vG80
+S1pTTSf7Rcz076AG++FbYIR+ppSPUBopUS2Y4/eiFfDpWQjIPwvsLWmB5PZ97hvm
+YqyTTOWPJ0k6mG2p4qtJs7VLEbExZkHb91NvUZNtGNwnJXjSiEclJtodBCxU6xZa
+kfnNG6XvDZctYdE5r1NHPX5J80XLmg==
+=5awA
+-----END PGP SIGNATURE-----
+
+--P5y5CYfh4SMnZ2u/--

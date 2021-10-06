@@ -2,57 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD38342437C
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 18:56:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6965C424371
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 18:55:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F040820;
-	Wed,  6 Oct 2021 18:55:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F040820
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1F36844;
+	Wed,  6 Oct 2021 18:54:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1F36844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633539381;
-	bh=krtTLzNgfUILUxjWSD7lsPkRD/vqS/lMQ3jvzQDkSsw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=NJplUD6vcSSMW2iCXOqB7IWl7o8iDaE0lBKnffhG3Khy5YlVSX/5KsychxpoOAMq6
-	 tHo3yshrk58n+ZzJB/8RSY7Rpc9a4D7kZh4zKjSx119B3Qg/+dRVmJtPElJ7XjJPAj
-	 OHUA+L7H51RJ2lP+x6DFUdeJIDewvGqEOUk77E0Q=
+	s=default; t=1633539307;
+	bh=CAVXqrzcKv0Y4Y4v7Ce6sdLnH7ZXTVh7NaXqrDTc/uk=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=tc0C2Ve4CVCn9CCWw1qLbH4KqUmmfSBvO8JR9t5N6HayaoSt7AnWgikM7UWkECyDL
+	 jsdZB0PbUpA4Vwg4LQr0q/MGjCBIhRy/+xDy7BMquek/w7aW0bufaDCCBatkHD5DUy
+	 ySWGwQsPREMlCYUGlpe0UIrkIPWLv9IHFtIiX/mM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 131B7F80240;
-	Wed,  6 Oct 2021 18:55:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56EECF80229;
+	Wed,  6 Oct 2021 18:53:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EFBEFF80302; Wed,  6 Oct 2021 18:54:57 +0200 (CEST)
+ id C0B64F80240; Wed,  6 Oct 2021 18:53:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3A075F8020D
- for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 18:54:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A075F8020D
-X-IronPort-AV: E=McAfee;i="6200,9189,10129"; a="206165531"
-X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="206165531"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57DCDF8010B
+ for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 18:53:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57DCDF8010B
+X-IronPort-AV: E=McAfee;i="6200,9189,10129"; a="289547226"
+X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="289547226"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  06 Oct 2021 09:52:27 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="568238980"
+X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="439186557"
 Received: from black.fi.intel.com ([10.237.72.28])
- by fmsmga002.fm.intel.com with ESMTP; 06 Oct 2021 09:52:23 -0700
+ by orsmga006.jf.intel.com with ESMTP; 06 Oct 2021 09:52:24 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 40AAA159; Wed,  6 Oct 2021 19:52:30 +0300 (EEST)
+ id 4BA3756; Wed,  6 Oct 2021 19:52:30 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/4] ASoC: Intel: bytcht_es8316: few cleanups
-Date: Wed,  6 Oct 2021 19:52:24 +0300
-Message-Id: <20211006165228.1692-1-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v2 1/4] ASoC: Intel: bytcht_es8316: Get platform data via
+ dev_get_platdata()
+Date: Wed,  6 Oct 2021 19:52:25 +0300
+Message-Id: <20211006165228.1692-2-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20211006165228.1692-1-andriy.shevchenko@linux.intel.com>
+References: <20211006165228.1692-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
@@ -75,22 +79,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The small set of cleanups against bytcht_es8316 board file.
+Access to platform data via dev_get_platdata() getter to make code cleaner.
 
-In v2:
-- added tag (Pierre)
-- added commit message to the patch 2 (Joe)
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Pierre-Louis Bossart <pierre-louis.bossart@linux.com>
+---
+ sound/soc/intel/boards/bytcht_es8316.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-Andy Shevchenko (4):
-  ASoC: Intel: bytcht_es8316: Get platform data via dev_get_platdata()
-  ASoC: Intel: bytcht_es8316: Use temporary variable for struct device
-  ASoC: Intel: bytcht_es8316: Switch to use gpiod_get_optional()
-  ASoC: Intel: bytcht_es8316: Utilize dev_err_probe() to avoid log
-    saturation
-
- sound/soc/intel/boards/bytcht_es8316.c | 37 +++++++++-----------------
- 1 file changed, 12 insertions(+), 25 deletions(-)
-
+diff --git a/sound/soc/intel/boards/bytcht_es8316.c b/sound/soc/intel/boards/bytcht_es8316.c
+index 1bb9b8e7bcc7..4360519fbb0c 100644
+--- a/sound/soc/intel/boards/bytcht_es8316.c
++++ b/sound/soc/intel/boards/bytcht_es8316.c
+@@ -456,12 +456,12 @@ static const struct dmi_system_id byt_cht_es8316_quirk_table[] = {
+ 
+ static int snd_byt_cht_es8316_mc_probe(struct platform_device *pdev)
+ {
++	struct device *dev = &pdev->dev;
+ 	static const char * const mic_name[] = { "in1", "in2" };
++	struct snd_soc_acpi_mach *mach = dev_get_platdata(dev);
+ 	struct property_entry props[MAX_NO_PROPS] = {};
+ 	struct byt_cht_es8316_private *priv;
+ 	const struct dmi_system_id *dmi_id;
+-	struct device *dev = &pdev->dev;
+-	struct snd_soc_acpi_mach *mach;
+ 	struct fwnode_handle *fwnode;
+ 	const char *platform_name;
+ 	struct acpi_device *adev;
+@@ -476,7 +476,6 @@ static int snd_byt_cht_es8316_mc_probe(struct platform_device *pdev)
+ 	if (!priv)
+ 		return -ENOMEM;
+ 
+-	mach = dev->platform_data;
+ 	/* fix index of codec dai */
+ 	for (i = 0; i < ARRAY_SIZE(byt_cht_es8316_dais); i++) {
+ 		if (!strcmp(byt_cht_es8316_dais[i].codecs->name,
 -- 
 2.33.0
 

@@ -2,81 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D60A423FE3
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 16:11:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67A48423FEA
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 16:18:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9DE8D844;
-	Wed,  6 Oct 2021 16:11:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DE8D844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 079F4844;
+	Wed,  6 Oct 2021 16:17:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 079F4844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633529517;
-	bh=Hpl4Z2eJT/iRdMGxVEKKNGzAf07rOixtILUvlkNykjU=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=gsZeDkB635bSoFE7V6mm5xBMxeCB8YmTxLYfp38JrD1LN33mh2oimR4298APUILMp
-	 ON1XG+NFHbtIuHsDzu6iOQ84hy6kZfVlTA9wGPjLrNxqmVBast3GFHhL5RAwdi1gId
-	 rBBXAfgD+u407vY6se1S/2FPGufAc+QrRE/Tk9XM=
+	s=default; t=1633529928;
+	bh=l7GGW3iLzR7LPoUeuM1dvSJBvtLinqYtf1VtXdDIf+E=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=cwW5uxiKyYrz+G2j+oQjwfCjuOtOVdI5VlX+YiMCPFWuk7g9v9bbL1uTEpXwUzDHu
+	 TYx/rhs0nbulsH2iKjaKxoFznbb8mej6l6nJZK/e3/gIX3OQOdPvcrhvX+hvHnvT7h
+	 CvOtFjPBx1ISl6wMem3ps0TLJJE9cuiPGsBlglyE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1C4CCF80249;
-	Wed,  6 Oct 2021 16:10:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6EAFBF8010B;
+	Wed,  6 Oct 2021 16:17:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9F9F3F80240; Wed,  6 Oct 2021 16:10:38 +0200 (CEST)
+ id 9A9B5F80240; Wed,  6 Oct 2021 16:17:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 11BE3F800FE
- for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 16:10:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11BE3F800FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id EF418F800FE
+ for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 16:17:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF418F800FE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ix3IJ31t"; 
+ header.b="ZufR0IpI"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="v/1oEEUz"
+ header.b="VhzBF41H"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id ADD952037E;
- Wed,  6 Oct 2021 14:10:30 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id D337F22457;
+ Wed,  6 Oct 2021 14:17:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1633529430; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=coGjkfb3iyTH8wao1yG4Ye8VKWEPHzhsHR6KfGG9pOU=;
- b=ix3IJ31tTdId0Yfc1p+I+42HXUF5i3yk8rAMEi4fgmBDs9MNdE9+HNFlLxgmipyUIxsrSX
- uWjt8c3dY3laMx7/GJvgBT2UCnffkqadl95J9tJSCsrTXfzTa/jkkkmBlpsjKy4HNqLIYq
- 6+2RN/4cHHK6/ZZoFue+JUFj+abuGNQ=
+ t=1633529839; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=65N9x4deL2hWmwGA0Y5ITV+4Bu+XGLDjMJZEnztugwA=;
+ b=ZufR0IpI4mF7CTgXNtcgVUCSBmXSoYit5Q5RhfTBisXOKQxvu18qMHy2tVli29K1j1AYGQ
+ VZ3BOl1zZCDq+fxrOruLcr3uLYkKLLvNKwoP2EgbDFWz/Hz3jKVIKj/OcyAhCmaq6opKIg
+ hWIqP46imZkvT4yk6QiabUL56tMp1bg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1633529430;
+ s=susede2_ed25519; t=1633529839;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=coGjkfb3iyTH8wao1yG4Ye8VKWEPHzhsHR6KfGG9pOU=;
- b=v/1oEEUzhcMii7ePQACt/6qtvVlCJDo4cdV/NO9Vntm7sxp1NkHPTDsyH6rurgMrtGgSkB
- Mk6bEbhcfvYmAsCQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id A0BE3A4293;
- Wed,  6 Oct 2021 14:10:30 +0000 (UTC)
-Date: Wed, 06 Oct 2021 16:10:30 +0200
-Message-ID: <s5hpmsib5wp.wl-tiwai@suse.de>
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=65N9x4deL2hWmwGA0Y5ITV+4Bu+XGLDjMJZEnztugwA=;
+ b=VhzBF41HjBTcffkG6rt1K1Z2JMe7PsU4cCXOV8RyxsuAy1z+KwlUu/pzqk0hxE8wSdefno
+ hPJ4owA0Mg3KZjAw==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id C1BD7A3BC7;
+ Wed,  6 Oct 2021 14:17:19 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
-To: Werner Sembach <wse@tuxedocomputers.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for TongFang PHxTxX1
-In-Reply-To: <20211006130415.538243-1-wse@tuxedocomputers.com>
-References: <20211006130415.538243-1-wse@tuxedocomputers.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH] ASoC: DAPM: Fix missing kctl change notifications
+Date: Wed,  6 Oct 2021 16:17:12 +0200
+Message-Id: <20211006141712.2439-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,25 +85,77 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 06 Oct 2021 15:04:15 +0200,
-Werner Sembach wrote:
-> 
-> This applies a SND_PCI_QUIRK(...) to the TongFang PHxTxX1 barebone. This
-> fixes the issue of the internal Microphone not working after booting
-> another OS.
-> 
-> When booting a certain another OS this barebone keeps some coeff settings
-> even after a cold shutdown. These coeffs prevent the microphone detection
-> from working in Linux, making the Laptop think that there is always an
-> external microphone plugged-in and therefore preventing the use of the
-> internal one.
-> 
-> The relevant indexes and values where gathered by naively diff-ing and
-> reading a working and a non-working coeff dump.
-> 
-> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+The put callback of a kcontrol is supposed to return 1 when the value
+is changed, and this will be notified to user-space.  However, some
+DAPM kcontrols always return 0 (except for errors), hence the
+user-space misses the update of a control value.
 
-Thanks, applied.
+This patch corrects the behavior by properly returning 1 when the
+value gets updated.
 
+Reported-and-tested-by: Hans de Goede <hdegoede@redhat.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/soc/soc-dapm.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-Takashi
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index 7b67f1e19ae9..59d07648a7e7 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -2561,6 +2561,7 @@ static int snd_soc_dapm_set_pin(struct snd_soc_dapm_context *dapm,
+ 				const char *pin, int status)
+ {
+ 	struct snd_soc_dapm_widget *w = dapm_find_widget(dapm, pin, true);
++	int ret = 0;
+ 
+ 	dapm_assert_locked(dapm);
+ 
+@@ -2573,13 +2574,14 @@ static int snd_soc_dapm_set_pin(struct snd_soc_dapm_context *dapm,
+ 		dapm_mark_dirty(w, "pin configuration");
+ 		dapm_widget_invalidate_input_paths(w);
+ 		dapm_widget_invalidate_output_paths(w);
++		ret = 1;
+ 	}
+ 
+ 	w->connected = status;
+ 	if (status == 0)
+ 		w->force = 0;
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ /**
+@@ -3583,14 +3585,15 @@ int snd_soc_dapm_put_pin_switch(struct snd_kcontrol *kcontrol,
+ {
+ 	struct snd_soc_card *card = snd_kcontrol_chip(kcontrol);
+ 	const char *pin = (const char *)kcontrol->private_value;
++	int ret;
+ 
+ 	if (ucontrol->value.integer.value[0])
+-		snd_soc_dapm_enable_pin(&card->dapm, pin);
++		ret = snd_soc_dapm_enable_pin(&card->dapm, pin);
+ 	else
+-		snd_soc_dapm_disable_pin(&card->dapm, pin);
++		ret = snd_soc_dapm_disable_pin(&card->dapm, pin);
+ 
+ 	snd_soc_dapm_sync(&card->dapm);
+-	return 0;
++	return ret;
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_dapm_put_pin_switch);
+ 
+@@ -4023,7 +4026,7 @@ static int snd_soc_dapm_dai_link_put(struct snd_kcontrol *kcontrol,
+ 
+ 	rtd->params_select = ucontrol->value.enumerated.item[0];
+ 
+-	return 0;
++	return 1;
+ }
+ 
+ static void
+-- 
+2.26.2
+

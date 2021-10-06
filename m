@@ -2,60 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B1B74239F4
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 10:47:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B51DA423A51
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 11:16:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78781839;
-	Wed,  6 Oct 2021 10:46:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78781839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44E1F827;
+	Wed,  6 Oct 2021 11:15:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44E1F827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633510024;
-	bh=M9pBZ2i3661yZ6JJHEIP+KXk6XRYietBl0/XSFsupFw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ageNgOS2365TCFm7/q4MXe4/R6eL+S8Y97qlw2J1RekJdyp2njqvs0VBRnZvhMK5X
-	 FYpwfsauDbImbfybpHKEvjpcalggn/21oTxfK5LcUnCP1xR6pn51LdGXW0CApsg47X
-	 pApKgSXDGnin3IvIS98bwtRGfptVouYtHb7oOC8M=
+	s=default; t=1633511783;
+	bh=brXvvI/oVxKMxcx8IvM/RD32RGRQy+0k+glQYv31JGo=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=AastR9x/L+YPzU8vQ/5FD+0xw6PgyorQxniHxtHSJ8bDkpCCuNR8kIheqnIBwSEjo
+	 kepSexN+rgrPB84CT/zRg0oK8GplKycvShXJ5qL1138cQbRKBIVxzytGPY21O/Zz/Y
+	 89CY7HW7OibRyfp25Of3zDeaz0yv7rTToJGKFYAA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CFEABF80249;
-	Wed,  6 Oct 2021 10:45:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB0DFF800FE;
+	Wed,  6 Oct 2021 11:15:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 744C9F80240; Wed,  6 Oct 2021 10:45:45 +0200 (CEST)
+ id E3E26F80240; Wed,  6 Oct 2021 11:15:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B7907F8020D
- for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 10:45:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7907F8020D
-X-IronPort-AV: E=McAfee;i="6200,9189,10128"; a="225838575"
-X-IronPort-AV: E=Sophos;i="5.85,350,1624345200"; d="scan'208";a="225838575"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2021 01:45:29 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,350,1624345200"; d="scan'208";a="568070709"
-Received: from brentlu-brix.itwn.intel.com ([10.5.253.56])
- by fmsmga002.fm.intel.com with ESMTP; 06 Oct 2021 01:45:27 -0700
-From: Brent Lu <brent.lu@intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: soc-acpi: add alternative id field for machine driver
- matching
-Date: Wed,  6 Oct 2021 16:43:51 +0800
-Message-Id: <20211006084351.438510-1-brent.lu@intel.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id EA035F8020D
+ for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 11:14:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA035F8020D
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 1969Ef172006217,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36503.realtek.com.tw[172.21.6.25])
+ by rtits2.realtek.com.tw (8.15.2/2.71/5.88) with ESMTPS id 1969Ef172006217
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 6 Oct 2021 17:14:41 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXH36503.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.14; Wed, 6 Oct 2021 17:14:41 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Wed, 6 Oct 2021 17:14:41 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::ddc7:f5b1:d3ae:8354]) by
+ RTEXMBS01.realtek.com.tw ([fe80::ddc7:f5b1:d3ae:8354%5]) with mapi id
+ 15.01.2106.013; Wed, 6 Oct 2021 17:14:41 +0800
+From: Kailang <kailang@realtek.com>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: RE: ALC236 recording issue
+Thread-Topic: ALC236 recording issue
+Thread-Index: Ade5tYSZhOipxzjxS1u2xzQL3Lg4bf//kBKA//3W73A=
+Date: Wed, 6 Oct 2021 09:14:40 +0000
+Message-ID: <f2a9615a855b49029678f9d54b3ee13c@realtek.com>
+References: <ccb0cdd5bbd7486eabbd8d987d384cb0@realtek.com>
+ <s5h1r4zgabu.wl-tiwai@suse.de>
+In-Reply-To: <s5h1r4zgabu.wl-tiwai@suse.de>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.102.97]
+x-kse-serverinfo: RTEXMBS01.realtek.com.tw, 9
+x-kse-attachmentfiltering-interceptor-info: no applicable attachment filtering
+ rules found
+x-kse-antivirus-interceptor-info: scan successful
+x-kse-antivirus-info: =?us-ascii?Q?Clean,_bases:_2021/10/6_=3F=3F_06:00:00?=
+x-kse-bulkmessagesfiltering-scan-result: protection disabled
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- Brent Lu <brent.lu@intel.com>
+X-KSE-ServerInfo: RTEXH36503.realtek.com.tw, 9
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
+X-KSE-AntiSpam-Outbound-Interceptor-Info: scan successful
+X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 10/06/2021 08:59:22
+X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
+X-KSE-AntiSpam-Method: none
+X-KSE-AntiSpam-Rate: 0
+X-KSE-AntiSpam-Info: Lua profiles 166539 [Oct 06 2021]
+X-KSE-AntiSpam-Info: Version: 5.9.20.0
+X-KSE-AntiSpam-Info: Envelope from: kailang@realtek.com
+X-KSE-AntiSpam-Info: LuaCore: 463 463 5854868460de3f0d8e8c0a4df98aeb05fb764a09
+X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
+X-KSE-AntiSpam-Info: realtek.com:7.1.1;
+ d41d8cd98f00b204e9800998ecf8427e.com:7.1.1; 127.0.0.199:7.1.2
+X-KSE-AntiSpam-Info: Rate: 0
+X-KSE-AntiSpam-Info: Status: not_detected
+X-KSE-AntiSpam-Info: Method: none
+X-KSE-AntiSpam-Info: Auth:dkim=none
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Heuristic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 10/06/2021 09:02:00
+Cc: " \(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,78 +118,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Current design to support second headphone driver in the same machine
-driver is to duplicate the entries in snd_soc_acpi_mach array and
-board configs in machine driver. We can avoid this by adding an id_alt
-field in snd_soc_acpi_mach structure to specify alternative ACPI HIDs
-for machine driver enumeration and leave the codec type detection to
-machine driver if necessary.
+Hi Takashi,
 
-Signed-off-by: Brent Lu <brent.lu@intel.com>
----
- include/sound/soc-acpi.h |  2 ++
- sound/soc/soc-acpi.c     | 21 ++++++++++++++++++++-
- 2 files changed, 22 insertions(+), 1 deletion(-)
+I couldn't find this apply record on git.kernel.org.
+HP guy want me to provide the patch URL.
 
-diff --git a/include/sound/soc-acpi.h b/include/sound/soc-acpi.h
-index 2f3fa385c092..fcf6bae9f9d7 100644
---- a/include/sound/soc-acpi.h
-+++ b/include/sound/soc-acpi.h
-@@ -129,6 +129,7 @@ struct snd_soc_acpi_link_adr {
-  * all firmware/topology related fields.
-  *
-  * @id: ACPI ID (usually the codec's) used to find a matching machine driver.
-+ * @id_alt: array of ACPI IDs used as an alternative of id field.
-  * @link_mask: describes required board layout, e.g. for SoundWire.
-  * @links: array of link _ADR descriptors, null terminated.
-  * @drv_name: machine driver name
-@@ -146,6 +147,7 @@ struct snd_soc_acpi_link_adr {
- /* Descriptor for SST ASoC machine driver */
- struct snd_soc_acpi_mach {
- 	const u8 id[ACPI_ID_LEN];
-+	struct snd_soc_acpi_codecs *id_alt;
- 	const u32 link_mask;
- 	const struct snd_soc_acpi_link_adr *links;
- 	const char *drv_name;
-diff --git a/sound/soc/soc-acpi.c b/sound/soc/soc-acpi.c
-index 395229bf5c51..ab67d640c20f 100644
---- a/sound/soc/soc-acpi.c
-+++ b/sound/soc/soc-acpi.c
-@@ -8,6 +8,25 @@
- #include <linux/module.h>
- #include <sound/soc-acpi.h>
- 
-+static bool snd_soc_acpi_id_present(struct snd_soc_acpi_mach *machine)
-+{
-+	struct snd_soc_acpi_codecs *id_alt = machine->id_alt;
-+	int i;
-+
-+	if (acpi_dev_present(machine->id, NULL, -1))
-+		return true;
-+
-+	if (id_alt == NULL)
-+		return false;
-+
-+	for (i = 0; i < id_alt->num_codecs; i++) {
-+		if (acpi_dev_present(id_alt->codecs[i], NULL, -1))
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- struct snd_soc_acpi_mach *
- snd_soc_acpi_find_machine(struct snd_soc_acpi_mach *machines)
- {
-@@ -15,7 +34,7 @@ snd_soc_acpi_find_machine(struct snd_soc_acpi_mach *machines)
- 	struct snd_soc_acpi_mach *mach_alt;
- 
- 	for (mach = machines; mach->id[0]; mach++) {
--		if (acpi_dev_present(mach->id, NULL, -1)) {
-+		if (snd_soc_acpi_id_present(mach) != false) {
- 			if (mach->machine_quirk) {
- 				mach_alt = mach->machine_quirk(mach);
- 				if (!mach_alt)
--- 
-2.25.1
+BR,
+Kailang
 
+> -----Original Message-----
+> From: Takashi Iwai <tiwai@suse.de>
+> Sent: Tuesday, October 5, 2021 4:12 PM
+> To: Kailang <kailang@realtek.com>
+> Cc: (alsa-devel@alsa-project.org) <alsa-devel@alsa-project.org>
+> Subject: Re: ALC236 recording issue
+>=20
+> On Tue, 05 Oct 2021 08:55:14 +0200,
+> Kailang wrote:
+> >
+> > Hi Takashi,
+> >
+> > Attach patch will solve alc236 recording issue for HP platform.
+> >
+> > Many Thanks.
+> >
+> > BR,
+> > Kailang
+>=20
+> Applied now.  Thanks.
+>=20
+>=20
+> Takashi
+> ------Please consider the environment before printing this e-mail.

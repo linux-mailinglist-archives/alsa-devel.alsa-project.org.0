@@ -2,90 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E2F4424430
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 19:29:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D362A42446D
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 19:37:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF2691669;
-	Wed,  6 Oct 2021 19:28:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF2691669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A8C1820;
+	Wed,  6 Oct 2021 19:36:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A8C1820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633541382;
-	bh=CNfpsRXLK9TPE4J3pEErlimUeipeP2CmDKHuRUyoc6k=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=tf1PeJpOZt3gaNVh6brG4VPkLMmJn5GpeualLPLbHD2Rz7QPs0HCEsN0POEYCOTjH
-	 tHkSu9x6eDlWJ/ZYpNPvW5E1om97DQmzLfVWfWmr4K+QJdKj/yg5OEfC/3APZjh1A2
-	 MAVHehx+TbqiwnXrIwRpOd16WlNctXbl3TK2yRdk=
+	s=default; t=1633541869;
+	bh=k8uuRDhLdxhfUN7qEbd8brg4j25efIDYcodk0R4Ln54=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=dnASVo8ESPVc4ROH0e+ADV7UimS2ycTN8OGsW7JEdzfkIlr85+g25E8dUvNbwFnXQ
+	 9GFjuPWQVnMFIhdmNRd6bAiHgoIjtNL7/EBX2lltT77SwfpVWT8qA83F1L8PoPEtx0
+	 SNfnJKiSz+SyYJjtKbh++Fz6CQ2eCu8d8vjOu9O0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 188B3F8010B;
-	Wed,  6 Oct 2021 19:28:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5913DF804EC;
+	Wed,  6 Oct 2021 19:35:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 93D04F8010B; Wed,  6 Oct 2021 19:28:05 +0200 (CEST)
+ id E49D8F804EC; Wed,  6 Oct 2021 19:35:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3B502F80229
- for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 19:27:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B502F80229
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="pXchB/eJ"
-Received: by mail-wr1-x42d.google.com with SMTP id j8so11056070wro.7
- for <alsa-devel@alsa-project.org>; Wed, 06 Oct 2021 10:27:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=uxwyR1SSXYQBt6jgS0PCiuFdMHEtTjrNhaid3BJiZuI=;
- b=pXchB/eJd7RBAP0ZXlMZ6hZ/P8D6UHC17BiBmhNFrCAGEUd32MGMA7I/tmcjc+A8By
- 0Gqvng6bC8GsB2asW9AW2OI2OHH/vyzkIev1eg+Pd1Ha7BinTVyY81ZPdmosHyw43Tog
- R0fZGOyZIssQKM7s2EVuOv3vsoqZ/YRUxA/BukU6w6gBsj7W79S9I7Kgvl3ys7ZIQcZH
- sz1lJvbtJx8XPy2BgZjRKTozVV+L+fQLMYhTBK0hpPYttp1tVN+9yKVC5LVZ7Lg1fpW2
- /eofFOolBpPzQEXMrLu22sNMysatwELRekS5nSFVi61sXTFpDhx3r5arQKIsXpoR/kT3
- 3Wxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=uxwyR1SSXYQBt6jgS0PCiuFdMHEtTjrNhaid3BJiZuI=;
- b=lVH0rcfLEr5JMfHr3JxveyVniFJdjclbBqAkYh3gLRukpAaP2X64vikChCsObvKevp
- K9IMS9sHR+yCM3THxPyHEAhSDBCWgq7bNs7FhqdI2R0DH9/BEQL+3nI18aqLss1gPY7r
- ceaQN7IKWn9W82m5qhKO4otYTv0x5bgFLmgkU/nepK9twfxBWaUK1ZQSMmdXZmNi5J4s
- uK/ZLGFMqyQiznSEVd10OzwWv8Z8CxzgailpZJBgLsCY3VlGtE5Hz6+cEcVbkez2K4cT
- bBYkrgkVBL8oVoW9+dNaA56FHYnZx4x7YnYIS8gVvzAK23uLQWjU004lM2WLmFoIat8u
- HZRg==
-X-Gm-Message-State: AOAM530lXBnIInT9qtZL7oXMJ+tq7KqTNQOnkMfwAJxcxTSaCl2whAs2
- lQqEStoMRVwH9Gcr0J4JvSsR2Q==
-X-Google-Smtp-Source: ABdhPJx6URigulL9jxR4AWSH9dXjdVcRlIpD5s7kjpJfSYAqV17Eb4bKuI7JV+VOrllGgFem0Qsehw==
-X-Received: by 2002:a1c:2b02:: with SMTP id r2mr11384374wmr.55.1633541275300; 
- Wed, 06 Oct 2021 10:27:55 -0700 (PDT)
-Received: from srini-hackbox.lan
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id q204sm3976475wme.10.2021.10.06.10.27.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Oct 2021 10:27:54 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Subject: [PATCH 2/2] ASoC: qcom: sm8250: Add Jack support
-Date: Wed,  6 Oct 2021 18:27:45 +0100
-Message-Id: <20211006172745.22103-3-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20211006172745.22103-1-srinivas.kandagatla@linaro.org>
-References: <20211006172745.22103-1-srinivas.kandagatla@linaro.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0C60F804E7
+ for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 19:35:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0C60F804E7
+X-IronPort-AV: E=McAfee;i="6200,9189,10129"; a="312264549"
+X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="312264549"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2021 10:35:11 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="524337490"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by fmsmga008.fm.intel.com with ESMTP; 06 Oct 2021 10:35:08 -0700
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+ id 9B10A159; Wed,  6 Oct 2021 20:35:15 +0300 (EEST)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/4] ASoC: Intel: bytcht_es8316: few cleanups
+Date: Wed,  6 Oct 2021 20:33:45 +0300
+Message-Id: <20211006173349.84684-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, bgoswami@codeaurora.org, tiwai@suse.de,
- plai@codeaurora.org, lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,102 +75,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-WCD938X on SM8250 MTP is connected via TX macro which has MBHC support,
-So add this jack support in the soundcard driver too.
+The small set of cleanups against bytcht_es8316 board file.
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- sound/soc/qcom/sm8250.c | 61 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 61 insertions(+)
+In v3:
+- actually added a Pierre's tag (Mark)
 
-diff --git a/sound/soc/qcom/sm8250.c b/sound/soc/qcom/sm8250.c
-index 9f2f0598a222..b2ca2579810b 100644
---- a/sound/soc/qcom/sm8250.c
-+++ b/sound/soc/qcom/sm8250.c
-@@ -8,6 +8,8 @@
- #include <sound/soc-dapm.h>
- #include <sound/pcm.h>
- #include <linux/soundwire/sdw.h>
-+#include <sound/jack.h>
-+#include <linux/input-event-codes.h>
- #include "qdsp6/q6afe.h"
- #include "common.h"
- 
-@@ -18,8 +20,66 @@ struct sm8250_snd_data {
- 	bool stream_prepared[AFE_PORT_MAX];
- 	struct snd_soc_card *card;
- 	struct sdw_stream_runtime *sruntime[AFE_PORT_MAX];
-+	struct snd_soc_jack jack;
-+	bool jack_setup;
- };
- 
-+static int sm8250_snd_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct sm8250_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_card *card = rtd->card;
-+	int rval, i;
-+
-+	if (!data->jack_setup) {
-+		struct snd_jack *jack;
-+
-+		rval = snd_soc_card_jack_new(card, "Headset Jack",
-+					     SND_JACK_HEADSET | SND_JACK_LINEOUT |
-+					     SND_JACK_MECHANICAL |
-+					     SND_JACK_BTN_0 | SND_JACK_BTN_1 |
-+					     SND_JACK_BTN_2 | SND_JACK_BTN_3 |
-+					     SND_JACK_BTN_4 | SND_JACK_BTN_5,
-+					     &data->jack, NULL, 0);
-+
-+		if (rval < 0) {
-+			dev_err(card->dev, "Unable to add Headphone Jack\n");
-+			return rval;
-+		}
-+
-+		jack = data->jack.jack;
-+
-+		snd_jack_set_key(jack, SND_JACK_BTN_0, KEY_MEDIA);
-+		snd_jack_set_key(jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
-+		snd_jack_set_key(jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
-+		snd_jack_set_key(jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
-+		data->jack_setup = true;
-+	}
-+
-+	switch (cpu_dai->id) {
-+	case TX_CODEC_DMA_TX_0:
-+	case TX_CODEC_DMA_TX_1:
-+	case TX_CODEC_DMA_TX_2:
-+	case TX_CODEC_DMA_TX_3:
-+		for_each_rtd_codec_dais(rtd, i, codec_dai) {
-+			rval = snd_soc_component_set_jack(codec_dai->component,
-+							  &data->jack, NULL);
-+			if (rval != 0 && rval != -ENOTSUPP) {
-+				dev_warn(card->dev, "Failed to set jack: %d\n", rval);
-+				return rval;
-+			}
-+		}
-+
-+		break;
-+	default:
-+		break;
-+	}
-+
-+
-+	return 0;
-+}
-+
- static int sm8250_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
- 				     struct snd_pcm_hw_params *params)
- {
-@@ -192,6 +252,7 @@ static void sm8250_add_be_ops(struct snd_soc_card *card)
- 
- 	for_each_card_prelinks(card, i, link) {
- 		if (link->no_pcm == 1) {
-+			link->init = sm8250_snd_init;
- 			link->be_hw_params_fixup = sm8250_be_hw_params_fixup;
- 			link->ops = &sm8250_be_ops;
- 		}
+In v2:
+- added tag (Pierre)
+- added commit message to the patch 2 (Joe)
+
+Andy Shevchenko (4):
+  ASoC: Intel: bytcht_es8316: Get platform data via dev_get_platdata()
+  ASoC: Intel: bytcht_es8316: Use temporary variable for struct device
+  ASoC: Intel: bytcht_es8316: Switch to use gpiod_get_optional()
+  ASoC: Intel: bytcht_es8316: Utilize dev_err_probe() to avoid log
+    saturation
+
+ sound/soc/intel/boards/bytcht_es8316.c | 37 +++++++++-----------------
+ 1 file changed, 12 insertions(+), 25 deletions(-)
+
 -- 
-2.21.0
+2.33.0
 

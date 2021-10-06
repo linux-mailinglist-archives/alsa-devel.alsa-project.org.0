@@ -2,60 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05CFE423C6F
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 13:15:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEC30423C74
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 13:16:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A620F1675;
-	Wed,  6 Oct 2021 13:14:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A620F1675
+	by alsa0.perex.cz (Postfix) with ESMTPS id 80C5216A6;
+	Wed,  6 Oct 2021 13:15:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80C5216A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633518946;
-	bh=nP9Gz40YheGjmXGenK6aSQJa95wN7Jthsqmc5DCDn7Q=;
+	s=default; t=1633518982;
+	bh=14utBTnVu/9mbipzCGXIpaBWLjpPIZQ3PDlawEedbKE=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=IEX1VCUvqDP+2N8+CCj2K2rTB51f0nDATPkBmur9TdO8AcGqU0baW/BCQtgPJNV0l
-	 j84V5LbxFIVKp1oOwux6PAMHtmelUcu0yGmM2PAgyuKeGb3AiYGohTWMo9JzruG4Vk
-	 0OFIWN617dMM4O4SkZzfFKaVwOVYCWIQbifT/rGo=
+	b=AqEbrau4/uByi5igcImcpvJHmroSU+eVOJC8fgnibN9mnvE5pi1VxKUy9tAReO+vr
+	 VFW20wPFcG8EqmMsHDmvRz/BGijTLXwNfNf/fe8Aq28OKi68lTVQFnAdd8FyAGVDzR
+	 7CUcTb7jWjrcVWEzAyY94a5WaGLQ9jygHkXZ/wzc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74EB8F804EC;
-	Wed,  6 Oct 2021 13:13:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B70B6F804FE;
+	Wed,  6 Oct 2021 13:13:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9A41F804ED; Wed,  6 Oct 2021 13:13:16 +0200 (CEST)
+ id E71C5F804FA; Wed,  6 Oct 2021 13:13:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 74973F804E7
- for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 13:13:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74973F804E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8F4AEF804EB
+ for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 13:13:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F4AEF804EB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="sz7Q0Bab"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 29D6861130;
- Wed,  6 Oct 2021 11:13:07 +0000 (UTC)
+ header.b="SKktJo6/"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E4ABD611B0;
+ Wed,  6 Oct 2021 11:13:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633518788;
- bh=nP9Gz40YheGjmXGenK6aSQJa95wN7Jthsqmc5DCDn7Q=;
+ s=k20201202; t=1633518791;
+ bh=14utBTnVu/9mbipzCGXIpaBWLjpPIZQ3PDlawEedbKE=;
  h=From:To:Cc:Subject:Date:From;
- b=sz7Q0BabO+4w05VRaGNPGC5sq0M70A08S7RwtkZl4HEvshCUsPsTCtGW+OCjj0P/V
- 3WyKgQC5phmKjTDhFkDCMCMgOY72ymdjQc9Ea+rF5fswwEERJ2+ipw1nd52PGf7DvV
- 0lrfGruAQleLdZ98n3fO2tha4uXJKhCg9FiIE3Tqdpz/5EzYQI/xw1fUsRiwyAjNvu
- IBqspT3YzH3TRm3/2Em8AFcCGrIEjNgz7USnTPVEGxjRzKKs23p50dzd2e+v5dlZoW
- noNNnxvUtBZcFYW6Gf7a+HOAjTb4PBWNslOwkMV6FBYrVrs5hC5r1O5Li8Z1ax8Aiz
- MrXyKRwgeUVkg==
+ b=SKktJo6/H7SIgQevFoDdBLbcxWecVdu0yUXfPqwSNJ7w9Lx28KloE0rw+gB7SKC4L
+ fcTiuYLIzNYnSUdoKl5tvE8WOOig+rcWn67ZrR7Hu5nipeUTVK6Cbu/VZ7uMDsE95m
+ oRWkgN1w1571tWJuXln5d26Kgc5aWYPZfI1SvmCtlBXMpWJBhp7gI2GvVKGlsG1iHf
+ yKO3FzlR4qQ8bWoud1tvKWkz793F/N9kl4a94f9edtClBlLRvDAZ9OQl8XaincSg43
+ 0NeK+zzxKGBIbkeIuDwrL4L24aML4wJ7qQZ5/W1e20NF8N0sxxulCjCT5+u4UAbX+3
+ iFhCf8jpjADYg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH MANUALSEL 4.14] ALSA: pcsp: Make hrtimer forwarding more robust
-Date: Wed,  6 Oct 2021 07:13:04 -0400
-Message-Id: <20211006111305.264465-1-sashal@kernel.org>
+Subject: [PATCH MANUALSEL 4.9] ALSA: pcsp: Make hrtimer forwarding more robust
+Date: Wed,  6 Oct 2021 07:13:08 -0400
+Message-Id: <20211006111309.264510-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
 X-stable: review
@@ -113,10 +114,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/sound/drivers/pcsp/pcsp_lib.c b/sound/drivers/pcsp/pcsp_lib.c
-index 8f0f05bbc081..23a15d892e50 100644
+index 3689f5f6be64..3766624c018f 100644
 --- a/sound/drivers/pcsp/pcsp_lib.c
 +++ b/sound/drivers/pcsp/pcsp_lib.c
-@@ -145,7 +145,7 @@ enum hrtimer_restart pcsp_do_timer(struct hrtimer *handle)
+@@ -144,7 +144,7 @@ enum hrtimer_restart pcsp_do_timer(struct hrtimer *handle)
  	if (pointer_update)
  		pcsp_pointer_update(chip);
  

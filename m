@@ -2,87 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00E65425189
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 12:54:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DC524251B9
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 13:07:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8FBD41661;
-	Thu,  7 Oct 2021 12:53:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FBD41661
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE8EE1657;
+	Thu,  7 Oct 2021 13:06:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE8EE1657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633604063;
-	bh=29h1oeZusIIvVcNa1mdT3BamRJuYV6vNC4v0+Rth06o=;
+	s=default; t=1633604845;
+	bh=FLHFkFt/LchJzHWbJmsEdhdwTTFNHzc42jBvXe9s4vk=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ExouDHWg9fP8alHFz/ptkYUDMcjsezB60A3qJqe4tHROVpkkPhIP32bck2jvQDW93
-	 geRvNov2hO+sf/Pc2eahGFaseVYUklw7+rq3TegxXUqoYx7PRwkLgs7gjPNqYKGJ6h
-	 AAe0uIUvb1XZIZSIYnjONbqi1zjdwAts24eS5aNQ=
+	b=urNrcqcVDs/wKemG1JZdf9v7RO+pq2q+Rp7vFo52x3mAzj6nL7S8LIHtANBv5AKEl
+	 OUrPwZOzrg7i6/5KUznUPEjQCdw298VOEMM42kWO1qe66sHCwULFg59HyxYllUwSb9
+	 iP4WD60MvvjPgAUe8hNnVKbaH9cM1h26P2TR89Fg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3976CF800F0;
-	Thu,  7 Oct 2021 12:53:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 200EBF8028B;
+	Thu,  7 Oct 2021 13:06:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC945F8027D; Thu,  7 Oct 2021 12:53:05 +0200 (CEST)
+ id 1912DF8027D; Thu,  7 Oct 2021 13:06:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 49F70F800FE
- for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 12:52:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49F70F800FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62181F800F0
+ for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 13:06:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62181F800F0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="aKZuTA6O"; 
+ header.b="03e0Z4SA"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="R/Bga+Dz"
+ header.b="BbedoUj2"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 91D07200A1;
- Thu,  7 Oct 2021 10:52:58 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 82F2F200AE;
+ Thu,  7 Oct 2021 11:06:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1633603978; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1633604761; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=95Ei1GYUt3m+NNbZBRpOdlFr8IKmHkvEIqfWMGbGD3k=;
- b=aKZuTA6OE6k8DIL6+Ctv7s26oLOW+4hk5kiVeN8x4DFtPPt+nPluDEYrt8dpBnwWlvMRuv
- 0A1FslcfNpPfYNRP/tnU0KQxWOt1LqLkOLozaf8FbHu4MaAfVKssAk8WTWE+jcz5Xm4hak
- Im3vzkbV+kF6vk4iFXhsgNteZFdPAWg=
+ bh=DC7M24z3kzIicKbftJzgsTED3+lWDTTJ8dBbTSCkPGo=;
+ b=03e0Z4SAoGqqF9ilhvOyOb+eJe75QMBWv/NeNnuY3uRmyvcDFR5sqTTelRzJlo4NOHRyZv
+ 4FXzX7zndOVPtRnMMJKrDp8Chf7pRlkitQMYx25lGTCqiEIlEGHGsv3eGqDrdKJZ+nnnDM
+ bFbU+BcmKm/VidIgOEVbh/3prfQFcT0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1633603978;
+ s=susede2_ed25519; t=1633604761;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=95Ei1GYUt3m+NNbZBRpOdlFr8IKmHkvEIqfWMGbGD3k=;
- b=R/Bga+DzKrTGMSJ7EJfCXNR2z8djLrJQo0N27eq3ATqZ3haIzBoaK4NQVVyJLZUw5YTXo2
- 3II93E02dHBkJ4BQ==
+ bh=DC7M24z3kzIicKbftJzgsTED3+lWDTTJ8dBbTSCkPGo=;
+ b=BbedoUj2bR2VOKJn/OJpgaGJ0hni38yNI6vR6vpgY0EFfHIV0jYlLW+VqYRKxDmQUen7qC
+ S/ysFCYs57mdbjAw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 7DDC9A3B84;
- Thu,  7 Oct 2021 10:52:58 +0000 (UTC)
-Date: Thu, 07 Oct 2021 12:52:58 +0200
-Message-ID: <s5hpmsh9kdx.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id E4009A3B8A;
+ Thu,  7 Oct 2021 11:06:00 +0000 (UTC)
+Date: Thu, 07 Oct 2021 13:06:00 +0200
+Message-ID: <s5hk0ip9js7.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Michael Forney <mforney@mforney.org>
-Subject: Re: [alsa-devel] [PATCH v7 8/9] ALSA: add new 32-bit layout for
- snd_pcm_mmap_status/control
-In-Reply-To: <29QBMJU8DE71E.2YZSH8IHT5HMH@mforney.org>
-References: <20191211212025.1981822-1-arnd@arndb.de>
- <20191211212025.1981822-9-arnd@arndb.de>
- <29QBMJU8DE71E.2YZSH8IHT5HMH@mforney.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [RFC PATCH v2 0/5] ASoC: soc-pcm: fix trigger race conditions
+ with shared BE
+In-Reply-To: <11257d77-9975-3b00-94da-5dc1b5c95fc6@linux.intel.com>
+References: <20211004225441.233375-1-pierre-louis.bossart@linux.intel.com>
+ <cce82420-d744-ee43-d514-b77ac4905ffa@nvidia.com>
+ <1efa1c31-7342-05f8-5f73-95e2462d4179@linux.intel.com>
+ <3683cf39-632b-50df-c65d-63779c464850@nvidia.com>
+ <11257d77-9975-3b00-94da-5dc1b5c95fc6@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
- Baolin Wang <baolin.wang@linaro.org>, y2038@lists.linaro.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>, Baolin Wang <baolin.wang7@gmail.com>
+Cc: alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Sameer Pujar <spujar@nvidia.com>, vkoul@kernel.org, broonie@kernel.org,
+ Gyeongtaek Lee <gt82.lee@samsung.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,51 +100,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 06 Oct 2021 19:49:17 +0200,
-Michael Forney wrote:
+On Wed, 06 Oct 2021 21:47:33 +0200,
+Pierre-Louis Bossart wrote:
 > 
-> Arnd Bergmann <arnd@arndb.de> wrote:
-> > +#if defined(__BYTE_ORDER) ? __BYTE_ORDER == __BIG_ENDIAN : defined(__BIG_ENDIAN)
-> > +typedef char __pad_before_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
-> > +typedef char __pad_after_uframe[0];
-> > +#endif
-> > +
-> > +#if defined(__BYTE_ORDER) ? __BYTE_ORDER == __LITTLE_ENDIAN : defined(__LITTLE_ENDIAN)
-> > +typedef char __pad_before_uframe[0];
-> > +typedef char __pad_after_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
-> > +#endif
-> > +
-> > +struct __snd_pcm_mmap_status64 {
-> > +	__s32 state;			/* RO: state - SNDRV_PCM_STATE_XXXX */
-> > +	__u32 pad1;			/* Needed for 64 bit alignment */
-> > +	__pad_before_uframe __pad1;
-> > +	snd_pcm_uframes_t hw_ptr;	/* RO: hw ptr (0...boundary-1) */
-> > +	__pad_after_uframe __pad2;
-> > +	struct __snd_timespec64 tstamp;	/* Timestamp */
-> > +	__s32 suspended_state;		/* RO: suspended stream state */
-> > +	__u32 pad3;			/* Needed for 64 bit alignment */
-> > +	struct __snd_timespec64 audio_tstamp; /* sample counter or wall clock */
-> > +};
-> > +
-> > +struct __snd_pcm_mmap_control64 {
-> > +	__pad_before_uframe __pad1;
-> > +	snd_pcm_uframes_t appl_ptr;	 /* RW: appl ptr (0...boundary-1) */
-> > +	__pad_before_uframe __pad2;
 > 
-> I was looking through this header and happened to notice that this
-> padding is wrong. I believe it should be __pad_after_uframe here.
+> > I tested this further. It appears that things work fine till 'patch 3/5'
+> > of yours. After I take 'patch 4/5', the print "BUG: scheduling while
+> > atomic: aplay" started showing up and I see a hang. This failure was
+> > seen for 2x1 mixer test itself.
+> > 
+> > The 'patch 4/5' introduces mutex_lock/unlock() in dpcm_be_dai_trigger().
+> > This seems to be the problem, since trigger() runs in atomic context
+> > depending on the PCM 'nonatomic' flag. I am not sure if your design sets
+> > 'nonatomic' flag by default and that is why the issue is not seen at
+> > your end?
+> > 
+> > With below (just for testing purpose), tests ran well. I was able to run
+> > 2x1, 3x1 ... 10x1 mixer tests.
 > 
-> I'm not sure of the implications of this typo, but I suspect it
-> breaks something on 32-bit systems with 64-bit time (regardless of
-> the endianness, since it changes the offset of avail_min).
+> This is useful information, thanks a lot Sameer for your time.
+> 
+> Unfortunately removing the lines below will not work, that's
+> precisely what's needed to prevent multiple triggers from being sent to
+> the same shared BE.
+> 
+> I don't have a clear idea why we see different results, and now I have
+> even less understanding of the ALSA/ASoC/DPCM locking model. We use
+> card->mutex, card->pcm_mutex, card->dpcm_lock,
+> substream->self_group.mutex or lock, client_mutex, dapm_mutex....
+> 
+> I don't think any of the DPCM code is ever called from an interrupt
+> context, so the errors you reported seem more like a card configuration,
+> specifically the interaction with 'aplay'/userspace will happen for FEs.
+> BEs are mostly hidden to userspace.
+> 
+> One possible difference is that all our DPCM solutions are based on
+> non-atomic FEs (since they all involve an IPC with a DSP), so we would
+> always use the top banch of these tests:
+> 
+> 	if (nonatomic) \
+> 		mutex_ ## mutex_action(&group->mutex); \
+> 	else \
+> 		spin_ ## action(&group->lock);
+> 
+> I don't see this nonatomic flag set anywhere in the sound/soc/tegra
+> code, so it's possible that in your case the spin_lock/spin_lock_irq is
+> used before triggering the FE, and using a mutex before the BE trigger
+> throws errors? I think Takashi mentioned that the BEs inherit the
+> properties of the FE to some extent.
+> 
+> Looking at the code, I see that only Intel legacy, SOF and Qualcomm
+> drivers set nonatomic=1, so maybe we can assume that that FEs for a card
+> are either all atomic or all non-atomic, maybe we could then use a
+> spinlock or a mutex. But if the FEs can be different then I am not sure
+> what locking model might work, we can't have a BE protected by a
+> spinlock or a mutex depending on the property of the FE. We need one
+> method only to guarantee a mutual exclusion.
+> 
+> Takashi, Mark, do you think that an all/none assumption on FE nonatomic
+> properties would make sense?
 
-Right, that's the expected breakage.  It seems that the 64bit time on
-32bit arch is still rare, so we haven't heard a regression by that, so
-far...
+As long as BE's are updated from FE's PCM callback, BE has to follow
+the atomicity of its FE, so we can't assume all or none globally.
 
-In anyway, care to send a formal fix patch?
+How is the expected lock granularity and the protection context?  Do
+we need a card global lock/mutex, or is it specific to each BE
+substream?
 
-Thanks for catching this!
 
+thanks,
 
 Takashi

@@ -2,89 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DC524251B9
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 13:07:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D71F425245
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 13:50:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE8EE1657;
-	Thu,  7 Oct 2021 13:06:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE8EE1657
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2EE901657;
+	Thu,  7 Oct 2021 13:49:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EE901657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633604845;
-	bh=FLHFkFt/LchJzHWbJmsEdhdwTTFNHzc42jBvXe9s4vk=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1633607428;
+	bh=yzWPrAUyStofkzAwGJ+4VZNn9Z7qEouLTwfWOeGYXtA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=urNrcqcVDs/wKemG1JZdf9v7RO+pq2q+Rp7vFo52x3mAzj6nL7S8LIHtANBv5AKEl
-	 OUrPwZOzrg7i6/5KUznUPEjQCdw298VOEMM42kWO1qe66sHCwULFg59HyxYllUwSb9
-	 iP4WD60MvvjPgAUe8hNnVKbaH9cM1h26P2TR89Fg=
+	b=vskrRJHTTKjiKhd5XPMMBM+U6JSmohOU/kqGzdT0OnZlNFjn/QHv3GhH910JMUZuy
+	 4v93dkA+Jr/M3AEe5J7yA3jhaP12JxlfaR+BT5N+DbNhEfDjhrzGa3olxiDM7LxJns
+	 syNR0CL3MAJ+8JodJOpV3l4pyTRmnNaz0HMkrUa8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 200EBF8028B;
-	Thu,  7 Oct 2021 13:06:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84FE9F8028B;
+	Thu,  7 Oct 2021 13:49:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1912DF8027D; Thu,  7 Oct 2021 13:06:07 +0200 (CEST)
+ id DE592F8027D; Thu,  7 Oct 2021 13:49:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62181F800F0
- for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 13:06:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62181F800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="03e0Z4SA"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="BbedoUj2"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 82F2F200AE;
- Thu,  7 Oct 2021 11:06:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1633604761; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=DC7M24z3kzIicKbftJzgsTED3+lWDTTJ8dBbTSCkPGo=;
- b=03e0Z4SAoGqqF9ilhvOyOb+eJe75QMBWv/NeNnuY3uRmyvcDFR5sqTTelRzJlo4NOHRyZv
- 4FXzX7zndOVPtRnMMJKrDp8Chf7pRlkitQMYx25lGTCqiEIlEGHGsv3eGqDrdKJZ+nnnDM
- bFbU+BcmKm/VidIgOEVbh/3prfQFcT0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1633604761;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=DC7M24z3kzIicKbftJzgsTED3+lWDTTJ8dBbTSCkPGo=;
- b=BbedoUj2bR2VOKJn/OJpgaGJ0hni38yNI6vR6vpgY0EFfHIV0jYlLW+VqYRKxDmQUen7qC
- S/ysFCYs57mdbjAw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id E4009A3B8A;
- Thu,  7 Oct 2021 11:06:00 +0000 (UTC)
-Date: Thu, 07 Oct 2021 13:06:00 +0200
-Message-ID: <s5hk0ip9js7.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [RFC PATCH v2 0/5] ASoC: soc-pcm: fix trigger race conditions
- with shared BE
-In-Reply-To: <11257d77-9975-3b00-94da-5dc1b5c95fc6@linux.intel.com>
-References: <20211004225441.233375-1-pierre-louis.bossart@linux.intel.com>
- <cce82420-d744-ee43-d514-b77ac4905ffa@nvidia.com>
- <1efa1c31-7342-05f8-5f73-95e2462d4179@linux.intel.com>
- <3683cf39-632b-50df-c65d-63779c464850@nvidia.com>
- <11257d77-9975-3b00-94da-5dc1b5c95fc6@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Sameer Pujar <spujar@nvidia.com>, vkoul@kernel.org, broonie@kernel.org,
- Gyeongtaek Lee <gt82.lee@samsung.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31621F80130
+ for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 13:49:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31621F80130
+Received: from mail-wr1-f54.google.com ([209.85.221.54]) by
+ mrelayeu.kundenserver.de (mreue012 [213.165.67.97]) with ESMTPSA (Nemesis) id
+ 1MRVy9-1mBXKN2RrZ-00NUat for <alsa-devel@alsa-project.org>; Thu, 07 Oct 2021
+ 13:49:02 +0200
+Received: by mail-wr1-f54.google.com with SMTP id r7so18162042wrc.10
+ for <alsa-devel@alsa-project.org>; Thu, 07 Oct 2021 04:49:02 -0700 (PDT)
+X-Gm-Message-State: AOAM532KTmydtxxkybE4jIcHj8tArn5QwLdeBFNBCR465t5hGSaDl5He
+ f6tqAoqkZSAp++IcEDUjFHWC/PMKwn/twVwUY5c=
+X-Google-Smtp-Source: ABdhPJwBqe32vcpMnUIo0FX0+1s94CEa3VaWPex61C+7oJ6HCqGwk1cCqJIBbEf/G+UjX5v7CY40bq/ji3zFDNEaLaM=
+X-Received: by 2002:a1c:2358:: with SMTP id j85mr15888675wmj.1.1633607340709; 
+ Thu, 07 Oct 2021 04:49:00 -0700 (PDT)
+MIME-Version: 1.0
+References: <20191211212025.1981822-1-arnd@arndb.de>
+ <20191211212025.1981822-9-arnd@arndb.de>
+ <29QBMJU8DE71E.2YZSH8IHT5HMH@mforney.org> <s5hpmsh9kdx.wl-tiwai@suse.de>
+In-Reply-To: <s5hpmsh9kdx.wl-tiwai@suse.de>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Thu, 7 Oct 2021 13:48:44 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a0K3XtjiszC3XWgG0L8+AgO+xUGr_KEAnb9a5GmyecoUQ@mail.gmail.com>
+Message-ID: <CAK8P3a0K3XtjiszC3XWgG0L8+AgO+xUGr_KEAnb9a5GmyecoUQ@mail.gmail.com>
+Subject: Re: [alsa-devel] [PATCH v7 8/9] ALSA: add new 32-bit layout for
+ snd_pcm_mmap_status/control
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+X-Provags-ID: V03:K1:m/xQRbfKirZEJs1ki8YTSD+vkf93UCaOwRKmp121yZH6vcEmjKt
+ oTduMZvm3Gm3/Oxp7GUtxSLNaq8wnQWO4rYaDMANVZyiOOxuxuydt8jGL4yNEVAGfisycMS
+ F/ufmRAldCMDf4FXbmhiNmrBpKJd133+kRiCbifrg5y715piz1zQBRNuyDcmRKdtNuvAFZi
+ dQVuqfnBSDu9viKJHJbkw==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:bm8dRng4m6o=:y0WU/ZIgpt5Aa7P8Hsy9pf
+ d+RQvtGfCsS55zqyPj9HO7eIJuPqPwu6tObW53pL8pvBOyTmKpSTZ0KshvwY3Asr9nXJ2zJIg
+ XvkRUWkUG7rzU0u+VnqwZ2CD7oozSNdr7krxOHnH6//ywSwSHU7wOkj9nHXWdov1regdv2mTY
+ 633C7TBY+yPQMz++FGsJKHJRyMkuXZR1iKyDq/mtfubdftnUngcZDl6jo6N6X2/a9+1gogE6a
+ 1H7Ut+JHKLHNHghYQ8/pN9vD2LScXwqJmaFBe5KQovv+QXLrmUnSWnaHPZNYwA473yHgTEBVg
+ 3NrgLzjr7BIAjzqxvo65tKCurUR5rWyXXh0hCoGxUKFgtCoNzqdW/SQF8vQC2K1InOO0Lyg4I
+ cfQyynOhoZ/BoYrse1/7OuXztAgZctfsSfY9R81NzCAmS4srL4U0MfRyLCy7l3iNxiG4I9QFh
+ U+/LtoHdAZ1o4tVCkPkX4km2P9fcuqTyBLOwhTFDMidIaUaqfzF3xM7E7+Mr9ZPAnEFnyX7bw
+ SpOhJVresoKhhzlLJYB0pJ9hNe1Em5z6A768lXatvFxKKCXFSQ0OcUc0LMDQTYQBynNsPfabu
+ xa7W6itQNBJVpv488BVV4T9n1BjaZQ76ytYP6bhOxPvpq9KhbBg9ci88M5G3hrOBAegkW1u7h
+ H3nkyMidfxgiWjrbDVppxIu0smX36HeD/w0WK2poNJBMLFc+T4FLaoH429cHOVB2P57s3hwj0
+ uKLykW+bw3rkVFjFVlDKKJUqm7UlWLGiZU5VahM9/J1CgXNK66JO7Ax74+XOdFGnnHAGA/C4F
+ hjYLmgft01WcoBYNIbek24+hFNBmzGl3ZtFWW+84K3B2u2plkGm3CeHstzgnbI8EfAZWG1NSk
+ Ucjh5WC1YvqVCVPgvstw==
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Arnd Bergmann <arnd@arndb.de>, Baolin Wang <baolin.wang@linaro.org>,
+ y2038 Mailman List <y2038@lists.linaro.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Michael Forney <mforney@mforney.org>,
+ Mark Brown <broonie@kernel.org>, Baolin Wang <baolin.wang7@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,74 +99,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 06 Oct 2021 21:47:33 +0200,
-Pierre-Louis Bossart wrote:
-> 
-> 
-> > I tested this further. It appears that things work fine till 'patch 3/5'
-> > of yours. After I take 'patch 4/5', the print "BUG: scheduling while
-> > atomic: aplay" started showing up and I see a hang. This failure was
-> > seen for 2x1 mixer test itself.
-> > 
-> > The 'patch 4/5' introduces mutex_lock/unlock() in dpcm_be_dai_trigger().
-> > This seems to be the problem, since trigger() runs in atomic context
-> > depending on the PCM 'nonatomic' flag. I am not sure if your design sets
-> > 'nonatomic' flag by default and that is why the issue is not seen at
-> > your end?
-> > 
-> > With below (just for testing purpose), tests ran well. I was able to run
-> > 2x1, 3x1 ... 10x1 mixer tests.
-> 
-> This is useful information, thanks a lot Sameer for your time.
-> 
-> Unfortunately removing the lines below will not work, that's
-> precisely what's needed to prevent multiple triggers from being sent to
-> the same shared BE.
-> 
-> I don't have a clear idea why we see different results, and now I have
-> even less understanding of the ALSA/ASoC/DPCM locking model. We use
-> card->mutex, card->pcm_mutex, card->dpcm_lock,
-> substream->self_group.mutex or lock, client_mutex, dapm_mutex....
-> 
-> I don't think any of the DPCM code is ever called from an interrupt
-> context, so the errors you reported seem more like a card configuration,
-> specifically the interaction with 'aplay'/userspace will happen for FEs.
-> BEs are mostly hidden to userspace.
-> 
-> One possible difference is that all our DPCM solutions are based on
-> non-atomic FEs (since they all involve an IPC with a DSP), so we would
-> always use the top banch of these tests:
-> 
-> 	if (nonatomic) \
-> 		mutex_ ## mutex_action(&group->mutex); \
-> 	else \
-> 		spin_ ## action(&group->lock);
-> 
-> I don't see this nonatomic flag set anywhere in the sound/soc/tegra
-> code, so it's possible that in your case the spin_lock/spin_lock_irq is
-> used before triggering the FE, and using a mutex before the BE trigger
-> throws errors? I think Takashi mentioned that the BEs inherit the
-> properties of the FE to some extent.
-> 
-> Looking at the code, I see that only Intel legacy, SOF and Qualcomm
-> drivers set nonatomic=1, so maybe we can assume that that FEs for a card
-> are either all atomic or all non-atomic, maybe we could then use a
-> spinlock or a mutex. But if the FEs can be different then I am not sure
-> what locking model might work, we can't have a BE protected by a
-> spinlock or a mutex depending on the property of the FE. We need one
-> method only to guarantee a mutual exclusion.
-> 
-> Takashi, Mark, do you think that an all/none assumption on FE nonatomic
-> properties would make sense?
+On Thu, Oct 7, 2021 at 12:53 PM Takashi Iwai <tiwai@suse.de> wrote:
+> On Wed, 06 Oct 2021 19:49:17 +0200, Michael Forney wrote:
+> >
+> > Arnd Bergmann <arnd@arndb.de> wrote:
+> > > +#if defined(__BYTE_ORDER) ? __BYTE_ORDER == __BIG_ENDIAN : defined(__BIG_ENDIAN)
+> > > +typedef char __pad_before_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
+> > > +typedef char __pad_after_uframe[0];
+> > > +#endif
+> > > +
+> > > +#if defined(__BYTE_ORDER) ? __BYTE_ORDER == __LITTLE_ENDIAN : defined(__LITTLE_ENDIAN)
+> > > +typedef char __pad_before_uframe[0];
+> > > +typedef char __pad_after_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
+> > > +#endif
+> > > +
+> > > +struct __snd_pcm_mmap_status64 {
+> > > +   __s32 state;                    /* RO: state - SNDRV_PCM_STATE_XXXX */
+> > > +   __u32 pad1;                     /* Needed for 64 bit alignment */
+> > > +   __pad_before_uframe __pad1;
+> > > +   snd_pcm_uframes_t hw_ptr;       /* RO: hw ptr (0...boundary-1) */
+> > > +   __pad_after_uframe __pad2;
+> > > +   struct __snd_timespec64 tstamp; /* Timestamp */
+> > > +   __s32 suspended_state;          /* RO: suspended stream state */
+> > > +   __u32 pad3;                     /* Needed for 64 bit alignment */
+> > > +   struct __snd_timespec64 audio_tstamp; /* sample counter or wall clock */
+> > > +};
+> > > +
+> > > +struct __snd_pcm_mmap_control64 {
+> > > +   __pad_before_uframe __pad1;
+> > > +   snd_pcm_uframes_t appl_ptr;      /* RW: appl ptr (0...boundary-1) */
+> > > +   __pad_before_uframe __pad2;
+> >
+> > I was looking through this header and happened to notice that this
+> > padding is wrong. I believe it should be __pad_after_uframe here.
+> >
+> > I'm not sure of the implications of this typo, but I suspect it
+> > breaks something on 32-bit systems with 64-bit time (regardless of
+> > the endianness, since it changes the offset of avail_min).
 
-As long as BE's are updated from FE's PCM callback, BE has to follow
-the atomicity of its FE, so we can't assume all or none globally.
+Thanks a lot for the report! Yes, this is definitely broken in some ways.
 
-How is the expected lock granularity and the protection context?  Do
-we need a card global lock/mutex, or is it specific to each BE
-substream?
+> Right, that's the expected breakage.  It seems that the 64bit time on
+> 32bit arch is still rare, so we haven't heard a regression by that, so
+> far...
 
+It might actually be worse: on a native 32-bit kernel, both user space
+and kernel see the same broken definition with a 64-bit time_t, which
+would end up actually making it work as expected. However, in
+compat mode, the layout seen on the 32-bit user space is now
+different from what the 64-bit kernel has, which would in turn not
+work, in both the SNDRV_PCM_IOCTL_SYNC_PTR ioctl and in
+the mmap() interface.
 
-thanks,
+Fixing the layout to look like the way we had intended would make
+newly compiled applications work in compat mode, but would break
+applications built against the old header on new kernels and also
+newly built applications on old kernels.
 
-Takashi
+I still hope I missed something and it's not quite that bad, but I
+fear the best we can do in this case make the broken interface
+the normative one and fixing compat mode to write
+mmap_control64->avail_min in the wrong location for
+SNDRV_PCM_IOCTL_SYNC_PTR, as well as disabling
+the mmap() interface again for compat tasks.
+
+As far as I can tell, the broken interface will always result in
+user space seeing a zero value for "avail_min". Can you
+make a prediction what that would mean for actual
+applications? Will they have no audio output, run into
+a crash, or be able to use recover and appear to work normally
+here?
+
+       Arnd

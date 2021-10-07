@@ -2,74 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CE6B425E72
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 23:12:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5944B425EF0
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 23:30:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D4BD1661;
-	Thu,  7 Oct 2021 23:11:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D4BD1661
+	by alsa0.perex.cz (Postfix) with ESMTPS id E94681661;
+	Thu,  7 Oct 2021 23:29:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E94681661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633641159;
-	bh=M5zPV+91Wk/6jMsV4APxOFtOqEwGlHz4qyOPcaZKVOA=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1633642202;
+	bh=nADd+8VjgRvgc2K1CFcJutlphkqZoZvUwMYKntdnnbg=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Hi56A4iD/yEgLiPbt2hHOHolRTwHD1eDKb72b3Ar+r8YzLlF7fbmGIpbtj3fND05Q
-	 fZEKUO9VIzpVHb9X1ce8i2RJrs3H6cjXjT38RmWhgZKr075mek3G0esGAKONXawYo8
-	 sR3xHZkGRtGcnIcFmyk5CmZtNeF9/iPkeDuUv6Vk=
+	b=Nb6v2418qN0tyXMST+M/viJFcPDBjjx3xvxmuJBHUE3jtHAqsMfVPy7BuZudteGdu
+	 ImkLEQh/Cto70S/n5LM//5cK/T5rPhdDOJHiY0v1Ezec5Naoi6iv4j8/VE5pftH4XP
+	 XhXwm5xq2R1dcGSk40YXM7VCUnZ8SL5xxLXwpiRs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C43D6F8028B;
-	Thu,  7 Oct 2021 23:11:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C341BF80130;
+	Thu,  7 Oct 2021 23:28:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 962DDF8027D; Thu,  7 Oct 2021 23:11:20 +0200 (CEST)
+ id 5C09CF8027D; Thu,  7 Oct 2021 23:28:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A63B0F80130
- for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 23:11:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A63B0F80130
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Cll4rAET"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="s7QTu1Wh"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 1B6652247E;
- Thu,  7 Oct 2021 21:11:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1633641074; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=bXOPYt3G8YUG3zmBhPf65oqqiqVLYIsAgMKgwkM+QJ4=;
- b=Cll4rAETN9EOU+m3ixMCWL9rAxPDmWIMhzoVRRZB3RSTdexScj/rlNGqEjhMUTqCRE3P1n
- dFjvZlovxEx9f0LbgcwxGHATxw/FfynkaxmWM17m1P5DLCrsK7qjmDvNy0u2lgCIVhB4e4
- CrN3g3fsGqnymGaX4it6A6HkCcl0WrY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1633641074;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=bXOPYt3G8YUG3zmBhPf65oqqiqVLYIsAgMKgwkM+QJ4=;
- b=s7QTu1Wh4tb8ZLQmcw0dddCqD8kkhaxAAYHgPT3FOzYMAYUXErQapFA7kbXCwr2SGoLIt5
- gvY4dIY/RsKUOHBg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 41BF8A3B83;
- Thu,  7 Oct 2021 21:11:13 +0000 (UTC)
-Date: Thu, 07 Oct 2021 23:11:13 +0200
-Message-ID: <s5hily88rri.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1A52FF80130
+ for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 23:28:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A52FF80130
+X-IronPort-AV: E=McAfee;i="6200,9189,10130"; a="223769799"
+X-IronPort-AV: E=Sophos;i="5.85,355,1624345200"; d="scan'208";a="223769799"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2021 14:27:54 -0700
+X-IronPort-AV: E=Sophos;i="5.85,355,1624345200"; d="scan'208";a="439684440"
+Received: from klmutolo-mobl.amr.corp.intel.com (HELO [10.212.1.203])
+ ([10.212.1.203])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2021 14:27:53 -0700
 Subject: Re: [RFC PATCH v2 0/5] ASoC: soc-pcm: fix trigger race conditions
  with shared BE
-In-Reply-To: <60c6a90b-290d-368c-ce61-4d86e70eaa78@linux.intel.com>
+To: Takashi Iwai <tiwai@suse.de>
 References: <20211004225441.233375-1-pierre-louis.bossart@linux.intel.com>
  <cce82420-d744-ee43-d514-b77ac4905ffa@nvidia.com>
  <1efa1c31-7342-05f8-5f73-95e2462d4179@linux.intel.com>
@@ -81,11 +60,17 @@ References: <20211004225441.233375-1-pierre-louis.bossart@linux.intel.com>
  <80882fe6-ea30-43f6-8d83-8995dd28c748@linux.intel.com>
  <s5hwnmo96vh.wl-tiwai@suse.de>
  <60c6a90b-290d-368c-ce61-4d86e70eaa78@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
+ <s5hily88rri.wl-tiwai@suse.de>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <75894aba-ca1a-51d6-df7d-ad53fcd89f79@linux.intel.com>
+Date: Thu, 7 Oct 2021 16:27:50 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.13.0
+MIME-Version: 1.0
+In-Reply-To: <s5hily88rri.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Cc: alsa-devel@alsa-project.org,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
  Sameer Pujar <spujar@nvidia.com>, vkoul@kernel.org, broonie@kernel.org,
@@ -106,270 +91,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 07 Oct 2021 20:13:22 +0200,
-Pierre-Louis Bossart wrote:
-> 
-> 
-> >> Using snd_pcm_stream_lock_irqsave(be_substream, flags); will prevent
-> >> multiple triggers indeed, but the state management is handled by
-> >> dpcm_lock, so I think we have to use dpcm_lock/mutex in all BE transitions.
-> >>
-> >> if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PREPARE) &&
-> >>     (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
-> >>  			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
-> >>
-> >> if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PREPARE) &&
-> >>     (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
-> >>  			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
-> > 
-> > The stream lock can be put around those appropriate places, I suppose?
-> 
-> I doubled checked the code a bit more, and all functions using
-> be->dpcm[stream].state and be->dpcm[stream].users are protected by the
-> card->mutex.
-> 
-> The exceptions are dpcm_be_dai_trigger() and dpcm_show_state() so we
-> probably don't need to worry too much about these fields.
-> 
-> I am more nervous about that the dpcm_lock was supposed to protect. It
-> was added in "ASoC: dpcm: prevent snd_soc_dpcm use after free" to solve
-> a race condition, according to the commit log between
-> 
-> void dpcm_be_disconnect(
->     	...
->     	list_del(&dpcm->list_be);
->     	list_del(&dpcm->list_fe);
->     	kfree(dpcm);
->     	...
-> 
-> and
->     	for_each_dpcm_fe()
->     	for_each_dpcm_be*()
-> 
-> That would suggest that every one of those loops should be protected,
-> but that's not the case at all. In some cases the spinlock is taken
-> *inside* of the loops.
-> 
-> I think this is what explains the problem reported by Gyeongtaek Lee in
-> 
-> https://lore.kernel.org/alsa-devel/002f01d7b4f5$c030f4a0$4092dde0$@samsung.com/
-> 
-> the for_each_dpcm_be() loop in dpcm_be_dai_trigger() is NOT protected.
-> 
-> But if we add a spin-lock in there, the atomicity remains a problem.
-> 
-> I think the only solution is to follow the example of the PCM case,
-> where the type of lock depends on the FE types, with the assumption that
-> there are no mixed atomic/non-atomic FE configurations.
-
-Yes, and I guess we can simply replace those all card->dpcm_lock with
-FE's stream lock.  It'll solve the atomicity problem, too, and the FE
-stream lock can be applied outside the loop of dpcm_be_disconnect()
-gracefully.
-
-And, this should solve the race with dpcm_be_dai_trigger() as well,
-because it's called from dpcm_fe_dai_trigger() that is called already
-inside the FE's stream lock held by PCM core.  A PoC is something like
-below.  (I replaced the superfluous *_irqsave with *_irq there)
-
-The scenario above (using the FE stream lock) is one missing piece,
-though: the compress API seems using the DPCM, and this might not
-work.  It needs more verification.
 
 
-BTW, looking through the current code, I wonder how the
-snd_pcm_stream_lock_irq() call in dpcm_set_fe_update_state() doesn't
-deadlock when nonatomic=true.  The function may be called from
-dpcm_fe_dai_prepare(), which is a PCM prepare callback for FE.  And, a
-PCM prepare callback is called always inside the stream mutex, which
-is *the* stream lock in the case of nonatomic mode.
-Maybe I might overlook something obvious...
+>> I think the only solution is to follow the example of the PCM case,
+>> where the type of lock depends on the FE types, with the assumption that
+>> there are no mixed atomic/non-atomic FE configurations.
+> 
+> Yes, and I guess we can simply replace those all card->dpcm_lock with
+> FE's stream lock.  It'll solve the atomicity problem, too, and the FE
+> stream lock can be applied outside the loop of dpcm_be_disconnect()
+> gracefully.
+> 
+> And, this should solve the race with dpcm_be_dai_trigger() as well,
+> because it's called from dpcm_fe_dai_trigger() that is called already
+> inside the FE's stream lock held by PCM core.  A PoC is something like
+> below.  (I replaced the superfluous *_irqsave with *_irq there)
 
+No I don't think so. The code starts from an FE and loops for all the
+BEs connected to that FE, but we want to serialize at the BE level! we
+really need a dpcm lock at the card level, not the FE/stream level.
 
-thanks,
-
-Takashi
-
----
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index 8e6dd8a257c5..5872a8864f3b 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -893,8 +893,6 @@ struct snd_soc_card {
- 	struct mutex pcm_mutex;
- 	enum snd_soc_pcm_subclass pcm_subclass;
- 
--	spinlock_t dpcm_lock;
--
- 	int (*probe)(struct snd_soc_card *card);
- 	int (*late_probe)(struct snd_soc_card *card);
- 	int (*remove)(struct snd_soc_card *card);
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index c830e96afba2..51ef9917ca98 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -2339,7 +2339,6 @@ int snd_soc_register_card(struct snd_soc_card *card)
- 	mutex_init(&card->mutex);
- 	mutex_init(&card->dapm_mutex);
- 	mutex_init(&card->pcm_mutex);
--	spin_lock_init(&card->dpcm_lock);
- 
- 	return snd_soc_bind_card(card);
- }
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 48f71bb81a2f..c171e5f431b9 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -38,6 +38,15 @@ static inline const char *soc_codec_dai_name(struct snd_soc_pcm_runtime *rtd)
- 	return (rtd)->num_codecs == 1 ? asoc_rtd_to_codec(rtd, 0)->name : "multicodec";
- }
- 
-+#define dpcm_fe_stream_lock_irq(fe, stream) \
-+	snd_pcm_stream_lock_irq(snd_soc_dpcm_get_substream(fe, stream))
-+#define dpcm_fe_stream_unlock_irq(fe, stream) \
-+	snd_pcm_stream_unlock_irq(snd_soc_dpcm_get_substream(fe, stream))
-+#define dpcm_fe_stream_lock_irqsave(fe, stream, flags)			\
-+	snd_pcm_stream_lock_irq(snd_soc_dpcm_get_substream(fe, stream), flags)
-+#define dpcm_fe_stream_unlock_irqrestore(fe, stream, flags)		\
-+	snd_pcm_stream_unlock_irq(snd_soc_dpcm_get_substream(fe, stream), flags)
-+
- #ifdef CONFIG_DEBUG_FS
- static const char *dpcm_state_string(enum snd_soc_dpcm_state state)
- {
-@@ -73,7 +82,6 @@ static ssize_t dpcm_show_state(struct snd_soc_pcm_runtime *fe,
- 	struct snd_pcm_hw_params *params = &fe->dpcm[stream].hw_params;
- 	struct snd_soc_dpcm *dpcm;
- 	ssize_t offset = 0;
--	unsigned long flags;
- 
- 	/* FE state */
- 	offset += scnprintf(buf + offset, size - offset,
-@@ -101,7 +109,7 @@ static ssize_t dpcm_show_state(struct snd_soc_pcm_runtime *fe,
- 		goto out;
- 	}
- 
--	spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+	dpcm_fe_stream_lock_irq(fe, stream);
- 	for_each_dpcm_be(fe, stream, dpcm) {
- 		struct snd_soc_pcm_runtime *be = dpcm->be;
- 		params = &dpcm->hw_params;
-@@ -122,7 +130,7 @@ static ssize_t dpcm_show_state(struct snd_soc_pcm_runtime *fe,
- 					   params_channels(params),
- 					   params_rate(params));
- 	}
--	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
-+	dpcm_fe_stream_unlock_irq(fe, stream);
- out:
- 	return offset;
- }
-@@ -1129,7 +1137,6 @@ static int dpcm_be_connect(struct snd_soc_pcm_runtime *fe,
- 		struct snd_soc_pcm_runtime *be, int stream)
- {
- 	struct snd_soc_dpcm *dpcm;
--	unsigned long flags;
- 
- 	/* only add new dpcms */
- 	for_each_dpcm_be(fe, stream, dpcm) {
-@@ -1141,14 +1148,14 @@ static int dpcm_be_connect(struct snd_soc_pcm_runtime *fe,
- 	if (!dpcm)
- 		return -ENOMEM;
- 
-+	dpcm_fe_stream_lock_irq(fe, stream);
- 	dpcm->be = be;
- 	dpcm->fe = fe;
- 	be->dpcm[stream].runtime = fe->dpcm[stream].runtime;
- 	dpcm->state = SND_SOC_DPCM_LINK_STATE_NEW;
--	spin_lock_irqsave(&fe->card->dpcm_lock, flags);
- 	list_add(&dpcm->list_be, &fe->dpcm[stream].be_clients);
- 	list_add(&dpcm->list_fe, &be->dpcm[stream].fe_clients);
--	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
-+	dpcm_fe_stream_unlock_irq(fe, stream);
- 
- 	dev_dbg(fe->dev, "connected new DPCM %s path %s %s %s\n",
- 			stream ? "capture" : "playback",  fe->dai_link->name,
-@@ -1191,8 +1198,8 @@ static void dpcm_be_reparent(struct snd_soc_pcm_runtime *fe,
- void dpcm_be_disconnect(struct snd_soc_pcm_runtime *fe, int stream)
- {
- 	struct snd_soc_dpcm *dpcm, *d;
--	unsigned long flags;
- 
-+	dpcm_fe_stream_lock_irq(fe, stream);
- 	for_each_dpcm_be_safe(fe, stream, dpcm, d) {
- 		dev_dbg(fe->dev, "ASoC: BE %s disconnect check for %s\n",
- 				stream ? "capture" : "playback",
-@@ -1210,12 +1217,11 @@ void dpcm_be_disconnect(struct snd_soc_pcm_runtime *fe, int stream)
- 
- 		dpcm_remove_debugfs_state(dpcm);
- 
--		spin_lock_irqsave(&fe->card->dpcm_lock, flags);
- 		list_del(&dpcm->list_be);
- 		list_del(&dpcm->list_fe);
--		spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 		kfree(dpcm);
- 	}
-+	dpcm_fe_stream_unlock_irq(fe, stream);
- }
- 
- /* get BE for DAI widget and stream */
-@@ -1429,12 +1435,11 @@ int dpcm_process_paths(struct snd_soc_pcm_runtime *fe,
- void dpcm_clear_pending_state(struct snd_soc_pcm_runtime *fe, int stream)
- {
- 	struct snd_soc_dpcm *dpcm;
--	unsigned long flags;
- 
--	spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+	dpcm_fe_stream_lock_irq(fe, stream);
- 	for_each_dpcm_be(fe, stream, dpcm)
- 		dpcm_set_be_update_state(dpcm->be, stream, SND_SOC_DPCM_UPDATE_NO);
--	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
-+	dpcm_fe_stream_unlock_irq(fe, stream);
- }
- 
- void dpcm_be_dai_stop(struct snd_soc_pcm_runtime *fe, int stream,
-@@ -2352,7 +2357,6 @@ static int dpcm_run_update_startup(struct snd_soc_pcm_runtime *fe, int stream)
- 	struct snd_soc_dpcm *dpcm;
- 	enum snd_soc_dpcm_trigger trigger = fe->dai_link->trigger[stream];
- 	int ret = 0;
--	unsigned long flags;
- 
- 	dev_dbg(fe->dev, "ASoC: runtime %s open on FE %s\n",
- 			stream ? "capture" : "playback", fe->dai_link->name);
-@@ -2421,7 +2425,7 @@ static int dpcm_run_update_startup(struct snd_soc_pcm_runtime *fe, int stream)
- 	dpcm_be_dai_shutdown(fe, stream);
- disconnect:
- 	/* disconnect any pending BEs */
--	spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+	dpcm_fe_stream_lock_irq(fe, stream);
- 	for_each_dpcm_be(fe, stream, dpcm) {
- 		struct snd_soc_pcm_runtime *be = dpcm->be;
- 
-@@ -2433,7 +2437,7 @@ static int dpcm_run_update_startup(struct snd_soc_pcm_runtime *fe, int stream)
- 			be->dpcm[stream].state == SND_SOC_DPCM_STATE_NEW)
- 				dpcm->state = SND_SOC_DPCM_LINK_STATE_FREE;
- 	}
--	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
-+	dpcm_fe_stream_unlock_irq(fe, stream);
- 
- 	if (ret < 0)
- 		dev_err(fe->dev, "ASoC: %s() failed (%d)\n", __func__, ret);
-@@ -2843,10 +2847,9 @@ static int snd_soc_dpcm_check_state(struct snd_soc_pcm_runtime *fe,
- 	struct snd_soc_dpcm *dpcm;
- 	int state;
- 	int ret = 1;
--	unsigned long flags;
- 	int i;
- 
--	spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+	dpcm_fe_stream_lock_irq(fe, stream);
- 	for_each_dpcm_fe(be, stream, dpcm) {
- 
- 		if (dpcm->fe == fe)
-@@ -2860,7 +2863,7 @@ static int snd_soc_dpcm_check_state(struct snd_soc_pcm_runtime *fe,
- 			}
- 		}
- 	}
--	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
-+	dpcm_fe_stream_unlock_irq(fe, stream);
- 
- 	/* it's safe to do this BE DAI */
- 	return ret;
+I am testing a quick set of changes at
+https://github.com/thesofproject/linux/pull/3201,  where I also replaced
+irqsave by irq btw.

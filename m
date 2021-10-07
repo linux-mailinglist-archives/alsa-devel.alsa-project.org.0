@@ -2,79 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4734425499
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 15:47:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AADC4254BC
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 15:51:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 28A6A165E;
-	Thu,  7 Oct 2021 15:46:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28A6A165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id EABD915F2;
+	Thu,  7 Oct 2021 15:50:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EABD915F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633614433;
-	bh=CzLXUpNEPe+Fc8D4lYwwX2ixsJtBDWtyruzWFlfomeE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ugO4IqLqQK8F5oKw7j1aLhRcMZtRzziCUdRpaame03O9yNMHakCq+kMp7gNZup4dE
-	 yvvxAV/x06nlvmICCtD3OcwF+Xj23VwYvCAPoWYpjtKloykHzThhPDiDbhdUmFZ4/o
-	 4D2fJdQbpPfjU6Ds/DSnN7W0eiSFqe/uF96K5nFU=
+	s=default; t=1633614679;
+	bh=0q7EwwLDKjrG2MMOe+70eIPwcM82Qptfds+tO+1SItg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=qF7tePlH343AidOy7N5lQPGN7ozmrr/0mthb4ETYjdGJrM75HVYAQU9mBLmmCf2V7
+	 fWvny9s5q5UNr8TOdwFpSWhPyz48Yv0Y2NfljdQaVHqCo1Xa5xjuvmSbS1ebvHyuqe
+	 49AAAVaQCW6v5yA6D49QtjsYHT8l8dJqPai/GzhQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91A35F8028B;
-	Thu,  7 Oct 2021 15:45:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5765F804EC;
+	Thu,  7 Oct 2021 15:49:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47F59F8027D; Thu,  7 Oct 2021 15:45:54 +0200 (CEST)
+ id 67F65F80259; Thu,  7 Oct 2021 15:49:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 04C01F800F0
- for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 15:45:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04C01F800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8FAE0F800F0
+ for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 15:49:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FAE0F800F0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Cp/yQ+YY"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E466460F6F;
- Thu,  7 Oct 2021 13:45:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633614346;
- bh=CzLXUpNEPe+Fc8D4lYwwX2ixsJtBDWtyruzWFlfomeE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Cp/yQ+YYegFh4JOVWZf2urVOANhRMdw83gJczirTSVqDvtLVaLXlg0ddDdNjuCR3V
- Hvc0MheowvxrzO36pEkvUNMBuupIyKILRvKHvCHm/f7jfFwltuLyNakC8gschlV58F
- RCh4SU28B2udGU5Wu/j0/+ayhvdDNKf1eG8t2LrDCzZUxl82xAQuta2A/HCYRmD227
- 66xOEzpmSQoZycpSc00TpIaL0ATmTkXBh2xrJ7PxoEXzLiEDjjG26x+e1uohwtzto4
- Bv3Obpy2isyDcHITI8gfS1BKVMYLatzy1+u5dzQq4O2buus1y1zQh9c1DnUy74jMKh
- pSyKCw/EjIp4Q==
-Date: Thu, 7 Oct 2021 14:45:43 +0100
-From: Mark Brown <broonie@kernel.org>
-To: ChiYuan Huang <u0084500@gmail.com>
-Subject: Re: [PATCH 1/2] ASoC: dt-bindings: rt9120: Add initial bindings
-Message-ID: <YV76ByQWKvKNOvF0@sirena.org.uk>
-References: <1633396615-14043-1-git-send-email-u0084500@gmail.com>
- <YVw7vbpu4TS+7Su8@sirena.org.uk>
- <CADiBU39dvKS_a5FDgw9yMVFe8Uycn6bfjGwBWq+7MN_DdxkL1g@mail.gmail.com>
- <YVxFMaPhZdAFniMa@sirena.org.uk>
- <CADiBU3_TuHKiVG-r1TG-8WK_tW2GXi4VuqkidPwTyebOgE60OA@mail.gmail.com>
- <CADiBU3-4F-FdJxaa4Qp4xmUD3vsA=6u5_ojwDSr8zrDuW8JbXg@mail.gmail.com>
- <CADiBU38zCZk_P-q8BtbPfdeSacUF7LOvQYUFgvidbWZwcLY=wA@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="KwxzcL8DXmUlXdOr"
-Content-Disposition: inline
-In-Reply-To: <CADiBU38zCZk_P-q8BtbPfdeSacUF7LOvQYUFgvidbWZwcLY=wA@mail.gmail.com>
-X-Cookie: Colors may fade.
-Cc: oder_chiou@realtek.com,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, alsa-devel@alsa-project.org,
- lkml <linux-kernel@vger.kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- tiwai@suse.com, cy_huang <cy_huang@richtek.com>,
- Rob Herring <robh+dt@kernel.org>, allen lin <allen_lin@richtek.com>
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="U6q33p27"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1633614552; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=LJlIsAmhsWWtNJvtDA2z8gf+SVO6RTgCLs6jKSGxJaU=;
+ b=U6q33p276LcYY98kJHfol3O08tljbS3ZlwfypJsgsWxn788gQVisyyhx8WS+AFNenDe+x6Z9
+ aRB616oTaFyYh6FmRGpIXMA5I4QM8XxhAQfqYfDf7dFxgBYMFhrx+UhyzOW9jfJEa7LCR2so
+ GIdkTj/4IL9dxAxj1f3fe7Zie/U=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
+ 615efacbf922f9e7726f51a2 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 07 Oct 2021 13:48:59
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 6AA2FC43616; Thu,  7 Oct 2021 13:48:58 +0000 (UTC)
+Received: from hu-srivasam-hyd.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id C796FC4338F;
+ Thu,  7 Oct 2021 13:48:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org C796FC4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
+ bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ swboyd@chromium.org, judyhsiao@chromium.org
+Subject: [PATCH 0/3] Add pin control support for lpass sc7280
+Date: Thu,  7 Oct 2021 19:18:36 +0530
+Message-Id: <1633614519-26680-1-git-send-email-srivasam@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Cc: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,62 +93,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This patch series is to make lpass variant independent pin control
+functions common and to add lpass sc7280 pincontrol support.
+It also includes dt-bindings for lpass sc7280 lpi compatible. 
 
---KwxzcL8DXmUlXdOr
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Srinivasa Rao Mandadapu (3):
+  pinctrl: qcom: Update lpass variant independent functions as generic
+  dt-bindings: pinctrl: qcom: Add sc7280 lpass lpi pinctrl compatible
+  pinctrl: qcom: Add SC7280 lpass pin configuration
 
-On Thu, Oct 07, 2021 at 10:44:49AM +0800, ChiYuan Huang wrote:
-> ChiYuan Huang <u0084500@gmail.com> =E6=96=BC 2021=E5=B9=B410=E6=9C=886=E6=
-=97=A5 =E9=80=B1=E4=B8=89 =E4=B8=8B=E5=8D=884:47=E5=AF=AB=E9=81=93=EF=BC=9A
-> > ChiYuan Huang <u0084500@gmail.com> =E6=96=BC 2021=E5=B9=B410=E6=9C=885=
-=E6=97=A5 =E9=80=B1=E4=BA=8C =E4=B8=8B=E5=8D=888:39=E5=AF=AB=E9=81=93=EF=BC=
-=9A
-> > > Mark Brown <broonie@kernel.org> =E6=96=BC 2021=E5=B9=B410=E6=9C=885=
-=E6=97=A5 =E9=80=B1=E4=BA=8C =E4=B8=8B=E5=8D=888:29=E5=AF=AB=E9=81=93=EF=BC=
-=9A
+ .../bindings/pinctrl/qcom,lpass-lpi-pinctrl.yaml   |  4 +-
+ drivers/pinctrl/qcom/pinctrl-lpass-lpi.c           | 57 +++++++++++++++++++---
+ 2 files changed, 52 insertions(+), 9 deletions(-)
 
-> > > > > > I would expect this to be done through the regulator bindings, =
-they
-> > > > > > would allow the driver to query the supply voltage.
+-- 
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
 
-> > > > Please don't take things off-list unless there is a really strong r=
-eason
-> > > > to do so.  Sending things to the list ensures that everyone gets a
-> > > > chance to read and comment on things.
-
-> > After contacting our HW RD, to support DVDD 1.8V not just SW config,
-> > also HW connections.
-> > To get only DVDD supply voltage is not enough to meet the HW design.
-> > The property seems indeed and need to be used by user's HW connection.
-
-> > Can this property to be kept?
-
-> After thinking, This property name may be improper.
-> I think this change depends on HW external circuit for lowv application.
-> Currently, I'm modifying the V3 change, this property name also affect
-> the property parsing code change.
-> May I directly change the name to 'richtek,dvdd-lowv-application' and
-> submit the patch v3?
-
-I still don't understand why you wouldn't describe this through the
-regulator bindings, those exist to describe the physical supplies ont he
-board and their constraints.
-
---KwxzcL8DXmUlXdOr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFe+gcACgkQJNaLcl1U
-h9CxxQf/XLbUqCBWX7z5jeyDmyDvwzHIRGbjEWm8prqmKXOYerIrsa1wQAASMVIq
-CUtmTRz779PvbCbSxbrV/3PWBvAU8f+ViQdCdma3TEn5TuCjhNczdySN+g1psMto
-34MvNT+bJSyiaL6dXErgyXSEbbNAbbcKTVGe0he258QVMYefv3KfWoN98AG67cKM
-pzKdjihlrgvzG8lXnxwOEcaKTJSsbsrSe9F+sUbUe9A9TWPP7KAouF6LGczYmdHE
-0HyOYoqjFNg6fhVqJSHSRUv5qsBFUZdblgOv4W83CTzKARal9+K2aLuchHn50yla
-03nh+5FcXTlNEvuuegJZGkhjwMQs/w==
-=wb/1
------END PGP SIGNATURE-----
-
---KwxzcL8DXmUlXdOr--

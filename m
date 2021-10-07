@@ -2,76 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC3434254FE
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 16:05:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BCAB4255F1
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 17:01:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 690BE1685;
-	Thu,  7 Oct 2021 16:04:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 690BE1685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 62E2E1661;
+	Thu,  7 Oct 2021 17:00:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62E2E1661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633615523;
-	bh=FxCAFLlGgK49/2COjsXgG1rVtjEcAsgaFojdvABsXqo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1633618898;
+	bh=EKPw2+Q8p/dmJTotY+GUcGwzooOFsFxKIzZXNi7xPIw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HJEMfQkPrfR/EshP0Oa471RZkLzShB7mWf/kOrDDk4/wRIyx2Wjx+/ADLk6H13iV6
-	 nZIbtk5Q+rf5UDla+NlTsPVOeOebpjyWPTW3j4siLmQxVdEi08Gpzs/4nENr2KZF1B
-	 Vv7Hhi1CushF3IGr2JD6esMI0078EW68CXYUoHY8=
+	b=F8OU5BKie/snWHHkjcLJp1Ewh6O5/18wGNMTTzMdzhHU1ELO3UrZ76nsrX4DSN3yf
+	 iFTyWoPquNkwWWqnCcm9a5vVMJItfBqmu4viujbNKwat40eiZQAvh7pS/tPlL6oU0Q
+	 aJ6hByXX74tIDLo2G70IDyv9Fp7OxGC8iHLRwcMM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB134F8028B;
-	Thu,  7 Oct 2021 16:04:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BBA2AF800FE;
+	Thu,  7 Oct 2021 17:00:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C46F1F8027D; Thu,  7 Oct 2021 16:04:04 +0200 (CEST)
+ id 131C7F8027D; Thu,  7 Oct 2021 17:00:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_RED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5D4B3F800F0
- for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 16:03:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D4B3F800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id CC3BDF800FE
+ for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 17:00:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC3BDF800FE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="CvUZI27J"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 60D0161040;
- Thu,  7 Oct 2021 14:03:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633615435;
- bh=FxCAFLlGgK49/2COjsXgG1rVtjEcAsgaFojdvABsXqo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CvUZI27JoscBZGdZ9A6RfsjyOv7+5yiC9bYrhS1AQRCBO591YKc8EM+uKvl2wnBHm
- sGtXsUs8Dvb/gSQbVcLjLyKOG82Xkis8mSpmlz6ZvQ8w/yWRLcmht/4duU4PpSNi8T
- YH+OldYxh6AF6hTEtWHyDBJTPzsxQMfZwomxEbBUjM5+HpV7p3pkDWrX22K6nqMWVJ
- n6jCaedFT//3P7hUkfHRm1BTTF+Dp2SoRYpSnj8le6f96QykH6Cnufzufs41ij+/mO
- qEEWoTTnq4CRCMSlkwWyvofuwg8cKJ+HTW3QbHMksGyAXOXwvVnktUSotjrr9rP0vB
- +6qOIaczWzP+w==
-Date: Thu, 7 Oct 2021 15:03:53 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Alejandro Tafalla <atafalla@dnyon.com>
-Subject: Re: [PATCH v4 2/2] dt-bindings: sound: max98927: Add reset-gpios
- optional property
-Message-ID: <YV7+STMCR9VwVwzH@sirena.org.uk>
-References: <cover.1633572679.git.atafalla@dnyon.com>
- <5004d52da527bf1dd9e5b17e20b2ce50a0b57b5a.1633572679.git.atafalla@dnyon.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="NUQMgpiVZHupYbGL"
-Content-Disposition: inline
-In-Reply-To: <5004d52da527bf1dd9e5b17e20b2ce50a0b57b5a.1633572679.git.atafalla@dnyon.com>
-X-Cookie: Colors may fade.
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- ~postmarketos/upstreaming@lists.sr.ht,
- =?iso-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="NupRC1ma"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="7ULUvI3W"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id EEA9D224EE;
+ Thu,  7 Oct 2021 14:59:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1633618798; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=In7Jg+0s7uAlU4Nky6HWQvAivfZLVLAuCYADx2vHHlA=;
+ b=NupRC1mado0OdVr62uRJeYWMSiB+5XspTQJ5cNJ/xpbvDUC5g250pcCwbAh6iIKHWOp4Yp
+ OXttSfCIluJdhTeOxA2Akl53Dhh93JOo65EEsEBdZee4AbBliqGuHLiLaye7Vj7M/wXhjd
+ tqA5h/n0r5sd+jm/i251jJ5bsfGlVGk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1633618798;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=In7Jg+0s7uAlU4Nky6HWQvAivfZLVLAuCYADx2vHHlA=;
+ b=7ULUvI3WJRrOTBKUn1ynHa2xd2ZhTYkMvtFonFC6xKosSGHTSbaGcn/79Ov4mtuy2nVunh
+ T0Xc3qQvI1I91RBA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 5E215A3B81;
+ Thu,  7 Oct 2021 14:59:58 +0000 (UTC)
+Date: Thu, 07 Oct 2021 16:59:58 +0200
+Message-ID: <s5hzgrk98y9.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [RFC PATCH v2 0/5] ASoC: soc-pcm: fix trigger race conditions
+ with shared BE
+In-Reply-To: <ff43fede-aa66-3cb7-6365-e1f279cd135f@linux.intel.com>
+References: <20211004225441.233375-1-pierre-louis.bossart@linux.intel.com>
+ <cce82420-d744-ee43-d514-b77ac4905ffa@nvidia.com>
+ <1efa1c31-7342-05f8-5f73-95e2462d4179@linux.intel.com>
+ <3683cf39-632b-50df-c65d-63779c464850@nvidia.com>
+ <11257d77-9975-3b00-94da-5dc1b5c95fc6@linux.intel.com>
+ <s5hk0ip9js7.wl-tiwai@suse.de>
+ <ff43fede-aa66-3cb7-6365-e1f279cd135f@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Sameer Pujar <spujar@nvidia.com>, vkoul@kernel.org, broonie@kernel.org,
+ Gyeongtaek Lee <gt82.lee@samsung.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,33 +102,184 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, 07 Oct 2021 15:31:49 +0200,
+Pierre-Louis Bossart wrote:
+> 
+> 
+> >> Takashi, Mark, do you think that an all/none assumption on FE nonatomic
+> >> properties would make sense?
+> > 
+> > As long as BE's are updated from FE's PCM callback, BE has to follow
+> > the atomicity of its FE, so we can't assume all or none globally.
+> 
+> A BE may have more than one FEs. That's precisely the point of
+> mixers/demux, and if the BE has FEs with different 'atomicity' then I
+> don't see how locking can work: the BE operations are run in the context
+> of each of its FE, typically using the following loop:
+> 
+> for_each_dpcm_be(fe, stream, dpcm) {
+>    do_something();
+> }
 
---NUQMgpiVZHupYbGL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Do we really have the cases where FEs have different atomicity?
+I don't think it's a valid configuration, and we should catch it via
+WARN_ON() or such.
 
-On Thu, Oct 07, 2021 at 04:38:58AM +0200, Alejandro Tafalla wrote:
-> Signed-off-by: Alejandro Tafalla <atafalla@dnyon.com>
+> Applications will view multiple FEs as completely independent. They may
+> be opened/prepared/started/stopped/paused as needed. When the BE is
+> shared, then there is a need for consistency, such as starting the BE
+> when the first FE becomes active and stopping it when the last FE stops.
+> 
+> > How is the expected lock granularity and the protection context?  Do
+> > we need a card global lock/mutex, or is it specific to each BE
+> > substream?
+> 
+> We already have a dpcm_lock at the card level, which protects the
+> addition of BEs and BE states. That spin_lock is fine for most cases.
+> 
+> The only real problem is the trigger, which is currently completely
+> unprotected: we have to serialize the BE triggers, otherwise you could
+> STOP before you START due to scheduling, or other problems that I saw in
+> my SoundWire tests with two START triggers, or the STOP never sent.
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
+So it's about calling triggers to the same BE stream concurrently?
+If that's the case, can't we simply protect the trigger handling of
+each BE like below?
 
---NUQMgpiVZHupYbGL
-Content-Type: application/pgp-signature; name="signature.asc"
+> But how to do this serialization is unclear...
+> 
+> A lateral thinking approach would be to decouple the BEs entirely, and
+> have the FEs 'signal' their change of state. The BE 'thread' run in the
+> BE context would then serialize the requests and perform all the BE
+> operations, and the same approach could be chained. I am afraid that
+> would be a complete rewrite of DPCM, but maybe we have to do so anyways
+> if we can't support a basic case of a mixer with 2 streams :-)
 
------BEGIN PGP SIGNATURE-----
+Well, let's see whether we can get some improvements by a simple
+change at first.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFe/kgACgkQJNaLcl1U
-h9CPCQf/c8ztQc827+7duxObGTk551NtNF0ANN+oi7Jj8i4cc12kZNRdnATusEp4
-87+//IPw49XR2ecA1z/7vRO6nLWN82hYJg8+maq4mYyC6Iz2jzuyA/Z1EutvNuC3
-jerDjqtvT6UPH5B6p46l9gwdsJQJ9JotNz8jo/YeQBTeTevsa8KG23UqE2dpv3vc
-yz1wpRMo5+IygDns+PbkwaZnTtCSA6y0Fb/wF0YyAn8yt2I/EnRV6FSyO2nxA3Cf
-4loSR5+Lqf5v6TrnZy2wOJ3PyNH0eYqg59Pj7ZQEqEc+91Af1xFm236cuHTajczr
-sevuM75gVsXBmFbhoYu/QBc1eJQHTQ==
-=Ulyj
------END PGP SIGNATURE-----
 
---NUQMgpiVZHupYbGL--
+Takashi
+
+
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -1998,6 +1998,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+ {
+ 	struct snd_soc_pcm_runtime *be;
+ 	struct snd_soc_dpcm *dpcm;
++	unsigned long flags;
+ 	int ret = 0;
+ 
+ 	for_each_dpcm_be(fe, stream, dpcm) {
+@@ -2006,9 +2007,11 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+ 		be = dpcm->be;
+ 		be_substream = snd_soc_dpcm_get_substream(be, stream);
+ 
++		snd_pcm_stream_lock_irqsave(be_substream, flags);
++
+ 		/* is this op for this BE ? */
+ 		if (!snd_soc_dpcm_be_can_update(fe, be, stream))
+-			continue;
++			goto unlock;
+ 
+ 		dev_dbg(be->dev, "ASoC: trigger BE %s cmd %d\n",
+ 			be->dai_link->name, cmd);
+@@ -2018,77 +2021,81 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+ 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PREPARE) &&
+ 			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
+ 			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
+-				continue;
++				goto unlock;
+ 
+ 			ret = soc_pcm_trigger(be_substream, cmd);
+ 			if (ret)
+-				goto end;
++				goto unlock;
+ 
+ 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
+ 			break;
+ 		case SNDRV_PCM_TRIGGER_RESUME:
+ 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_SUSPEND))
+-				continue;
++				goto unlock;
+ 
+ 			ret = soc_pcm_trigger(be_substream, cmd);
+ 			if (ret)
+-				goto end;
++				goto unlock;
+ 
+ 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
+ 			break;
+ 		case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+ 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
+-				continue;
++				goto unlock;
+ 
+ 			ret = soc_pcm_trigger(be_substream, cmd);
+ 			if (ret)
+-				goto end;
++				goto unlock;
+ 
+ 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
+ 			break;
+ 		case SNDRV_PCM_TRIGGER_STOP:
+ 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_START) &&
+ 			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
+-				continue;
++				goto unlock;
+ 
+ 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
+-				continue;
++				goto unlock;
+ 
+ 			ret = soc_pcm_trigger(be_substream, cmd);
+ 			if (ret)
+-				goto end;
++				goto unlock;
+ 
+ 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_STOP;
+ 			break;
+ 		case SNDRV_PCM_TRIGGER_SUSPEND:
+ 			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START)
+-				continue;
++				goto unlock;
+ 
+ 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
+-				continue;
++				goto unlock;
+ 
+ 			ret = soc_pcm_trigger(be_substream, cmd);
+ 			if (ret)
+-				goto end;
++				goto unlock;
+ 
+ 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_SUSPEND;
+ 			break;
+ 		case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+ 			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START)
+-				continue;
++				goto unlock;
+ 
+ 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
+-				continue;
++				goto unlock;
+ 
+ 			ret = soc_pcm_trigger(be_substream, cmd);
+ 			if (ret)
+-				goto end;
++				goto unlock;
+ 
+ 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_PAUSED;
+ 			break;
+ 		}
++	unlock:
++		snd_pcm_stream_unlock_irqrestore(be_substream, flags);
++		if (ret < 0)
++			break;
+ 	}
+-end:
++
+ 	if (ret < 0)
+ 		dev_err(fe->dev, "ASoC: %s() failed at %s (%d)\n",
+ 			__func__, be->dai_link->name, ret);

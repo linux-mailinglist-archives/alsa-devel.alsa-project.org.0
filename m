@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1797425F4E
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 23:40:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F245A425F4A
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 23:39:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 81D27829;
-	Thu,  7 Oct 2021 23:39:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81D27829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E99F166D;
+	Thu,  7 Oct 2021 23:39:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E99F166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633642815;
-	bh=RUK0kPmHAOwiyfYYe+mPAhOc9DXX1luwgMqnlpuewis=;
+	s=default; t=1633642791;
+	bh=M0JScwCK6dY7QbVsEnkNN+IZlnMsuYMilyBSTNOFTCA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LYXDcShPt0/9rqw9O34KDo4NEesz9fyJru2hMoaUd9ZdWN65hRwClTNqcFGv02r11
-	 tVjmKNOpuCwyK8SYM1sNFFcJcK9cSyN+S3Ta/W+sEgVHkPH+KmW1uPMmYOs48gNECQ
-	 uDXiUL1s67QXhqA9sl9f2zcK9/mqwGTZ1j/IGUDk=
+	b=q7hbopQLeTUav0lFKHAIi/fmvWubFTguUiZQban9zsUQh7exNKE44CDBX6jtsZ2/p
+	 d6GsfIa20ogkSZAXshG9isfM0MbRMWkvx4kEb1yCppIaCGn72odfIk+40O4llOM/ov
+	 A79pOYymCWs0TAeTY1twArzsakwvNp8hJJwdXv8w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9375F804E0;
-	Thu,  7 Oct 2021 23:38:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B40DF804E7;
+	Thu,  7 Oct 2021 23:37:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 141D9F804ED; Thu,  7 Oct 2021 23:37:59 +0200 (CEST)
+ id D8853F804E6; Thu,  7 Oct 2021 23:37:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +33,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3599AF8027D
- for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 23:37:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3599AF8027D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 837B4F804BD
+ for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 23:37:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 837B4F804BD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="bky+hSk1"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id DF2FF61152;
- Thu,  7 Oct 2021 21:37:46 +0000 (UTC)
+ header.b="lsV5RMPu"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8CADB6120D;
+ Thu,  7 Oct 2021 21:37:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633642667;
- bh=RUK0kPmHAOwiyfYYe+mPAhOc9DXX1luwgMqnlpuewis=;
+ s=k20201202; t=1633642670;
+ bh=M0JScwCK6dY7QbVsEnkNN+IZlnMsuYMilyBSTNOFTCA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=bky+hSk1pXSFDlknPO5K1ZVCm7ONjtvUy1WUgxq2PlDMFy33iR4Cesoss4nyTIcud
- Y64940WlXiX7C80VtmeuC+mO9CX7vmUzuwncx5TbOqfp6jmWQ7OYupIshAeG2zeAPg
- Mo8BaRQUauvNr8Ie12ot72Wh30Cxzig8SbcrGP9DkncCbhb6bxSuBaBQOBl42P14mF
- 02AoHWxV3suPP18Dz/Ejz1TTiwmRjZuO6UOtzDQve3NBBvPx03g2WBlleIJmngUOwd
- kSN6BQaUO4MJLi4MsQxf+WLAR6QbMCKoaNBEd1bEBu2HNnDhcFZeqtvPdn80msSiyj
- cN2nuO7gTkIUw==
+ b=lsV5RMPuJp5pZ9++YPV+7cBgmTN/2UYfsuJlrQSpTeIV2URfpnMo6jL0XkXvmBJSR
+ TvJPHujqPw0VldZV57Ux7dIjEcdYY0k3NqipoSPHZs1vN1d+OftGRl3z+tTG1iiR+Z
+ gGTj+OJlRgoH3orvmBa7RtgYy0e7lQKVPAwyygO5T3kQyR+OsRKUHY3v/06eyHECHc
+ EjeVQ2FjvvaoAXmMknEuZwM8iZ3CqyTzIA9L0mys5pycYIHVPh70ujNOPVJQ1y1snY
+ KTIOTRZ+OABxXtiamqJ0H2rN7GEkakYczESmrefKJCxjzPZUK1ZugPufvrTOwfURGD
+ oAvAM1FKlip1g==
 From: Mark Brown <broonie@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
-Subject: Re: [PATCH v1 1/4] ASoC: Intel: bytcht_es8316: Get platform data via
- dev_get_platdata()
-Date: Thu,  7 Oct 2021 22:37:25 +0100
-Message-Id: <163364264608.649699.14383378670565096509.b4-ty@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH] ASoC: DAPM: Fix missing kctl change notifications
+Date: Thu,  7 Oct 2021 22:37:26 +0100
+Message-Id: <163364264607.649699.9456169458169532979.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20211006150428.16434-1-andriy.shevchenko@linux.intel.com>
-References: <20211006150428.16434-1-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20211006141712.2439-1-tiwai@suse.de>
+References: <20211006141712.2439-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
  Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -84,10 +79,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 6 Oct 2021 18:04:25 +0300, Andy Shevchenko wrote:
-> Access to platform data via dev_get_platdata() getter to make code cleaner.
+On Wed, 6 Oct 2021 16:17:12 +0200, Takashi Iwai wrote:
+> The put callback of a kcontrol is supposed to return 1 when the value
+> is changed, and this will be notified to user-space.  However, some
+> DAPM kcontrols always return 0 (except for errors), hence the
+> user-space misses the update of a control value.
 > 
+> This patch corrects the behavior by properly returning 1 when the
+> value gets updated.
 > 
+> [...]
 
 Applied to
 
@@ -95,14 +96,8 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: Intel: bytcht_es8316: Get platform data via dev_get_platdata()
-      commit: 2577b868a48ef3601116908738efbe570451e605
-[2/4] ASoC: Intel: bytcht_es8316: Use temporary variable for struct device
-      commit: 6f32c521061b704c0198be3ba9834f5a64ea5605
-[3/4] ASoC: Intel: bytcht_es8316: Switch to use gpiod_get_optional()
-      commit: 10f4a96543b744c8cc7ef8b0799af21d911dd37d
-[4/4] ASoC: Intel: bytcht_es8316: Utilize dev_err_probe() to avoid log saturation
-      commit: c25d4546ca452b2e8c03bc735e4c65bc6dd751dd
+[1/1] ASoC: DAPM: Fix missing kctl change notifications
+      commit: 5af82c81b2c49cfb1cad84d9eb6eab0e3d1c4842
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

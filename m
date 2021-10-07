@@ -2,73 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD9EE4254F0
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 16:01:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BF7F42539F
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 15:03:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 702DF1685;
-	Thu,  7 Oct 2021 16:00:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 702DF1685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 190D19F6;
+	Thu,  7 Oct 2021 15:03:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 190D19F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633615272;
-	bh=//2L6fZhSmLYXeEj56NJ/3LVWAKfB8n2vC/pu0njWKM=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1633611832;
+	bh=dmsPiGtKVEdK54EBKq7qibL7o254uHaD+RC33eGtcvM=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qB1nlROw+YoEwpjeR74dkzVERQ3Um/HPe/WT4MpN6GIzMb7usxw4JqrAyTFc0i1JF
-	 lpYVVxN9U/Eu0zyAcGVWrmWln/7eUwKqHlfZt+IQQCddoY+RAG91aVGu8RXCb+lytu
-	 +VfffzFmUJxVV+5oR3yr7OCNo4pkoSRnF7w5y/Dc=
+	b=d43lCOaeF/atVMTR8uSv0Qz/lwuI9rjcCEymrL4lv2ythv0f6EWqQcZSRchfGGJmK
+	 6vsXQgajO6yPcUC5P63uXxfBTd+hGnDs90SeMgxIeG3oA0NjGG1BQ9NIdVBy/K1gg2
+	 1o1PNy45lXgCM5r0/7iC95euqP9CB8iGTHQaXPQc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C42DBF804BB;
-	Thu,  7 Oct 2021 15:59:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56A02F8028B;
+	Thu,  7 Oct 2021 15:02:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6CCC2F800F0; Thu,  7 Oct 2021 15:59:54 +0200 (CEST)
+ id DC35FF8027D; Thu,  7 Oct 2021 15:02:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BC0A5F800F0
- for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 15:59:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC0A5F800F0
-X-IronPort-AV: E=McAfee;i="6200,9189,10130"; a="225027000"
-X-IronPort-AV: E=Sophos;i="5.85,354,1624345200"; d="scan'208";a="225027000"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2021 06:59:38 -0700
-X-IronPort-AV: E=Sophos;i="5.85,354,1624345200"; d="scan'208";a="440273795"
-Received: from klmutolo-mobl.amr.corp.intel.com (HELO [10.212.1.203])
- ([10.212.1.203])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2021 06:59:37 -0700
-Subject: Re: [PATCH v1 1/4] ASoC: Intel: bytcht_es8316: Get platform data via
- dev_get_platdata()
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-References: <20211006150428.16434-1-andriy.shevchenko@linux.intel.com>
- <c8b85524-6b9f-8fd3-3978-1d26b92660fd@linux.intel.com>
- <CAHp75VdiY98mO2Sj_Urv6m3GgpoUrSyDiPttGxTQeCv_z_1DzQ@mail.gmail.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <16f652da-2473-35bb-acde-9b9cfd23a31a@linux.intel.com>
-Date: Thu, 7 Oct 2021 07:59:10 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <CAHp75VdiY98mO2Sj_Urv6m3GgpoUrSyDiPttGxTQeCv_z_1DzQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ by alsa1.perex.cz (Postfix) with ESMTPS id B36EBF80130
+ for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 15:02:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B36EBF80130
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="CfLavqdl"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="LZwr8xF7"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 0B97822510;
+ Thu,  7 Oct 2021 13:02:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1633611736; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=3qtYRZP6Gs9I/CN0IeGf6RDo/F9wSztCW31mmQWWKjI=;
+ b=CfLavqdlsdLywmVQ/YxXaEbcM8h1+wM5c/bGPX1PYAiVH1LQs0YVrwB39UbWs/WjBl9SMd
+ kwnLnxV1v5QODaTp9DZmMyZxGdBljyj964bYQUV71n7CyBnJA9u29XJbhPXsDIN9t+M7k/
+ 8h1YSmvi4Hq6o0fZC0m8HGipSnkksIY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1633611736;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=3qtYRZP6Gs9I/CN0IeGf6RDo/F9wSztCW31mmQWWKjI=;
+ b=LZwr8xF70VeBmItpycHoEk42drWtrZHnNfXkWHG01hEzgNHlMfrP7AOXM/rrBCLRAAJrRk
+ BuZy6EwLYbN5tLAA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id EF1C7A3B85;
+ Thu,  7 Oct 2021 13:02:15 +0000 (UTC)
+Date: Thu, 07 Oct 2021 15:02:15 +0200
+Message-ID: <s5ha6jl9eeg.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [alsa-devel] [PATCH v7 8/9] ALSA: add new 32-bit layout for
+ snd_pcm_mmap_status/control
+In-Reply-To: <s5hee8x9f92.wl-tiwai@suse.de>
+References: <20191211212025.1981822-1-arnd@arndb.de>
+ <20191211212025.1981822-9-arnd@arndb.de>
+ <29QBMJU8DE71E.2YZSH8IHT5HMH@mforney.org>
+ <s5hpmsh9kdx.wl-tiwai@suse.de>
+ <CAK8P3a0K3XtjiszC3XWgG0L8+AgO+xUGr_KEAnb9a5GmyecoUQ@mail.gmail.com>
+ <s5hee8x9f92.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Baolin Wang <baolin.wang@linaro.org>,
+ y2038 Mailman List <y2038@lists.linaro.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
+ Baolin Wang <baolin.wang7@gmail.com>, Michael Forney <mforney@mforney.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,23 +103,113 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 10/7/21 2:08 AM, Andy Shevchenko wrote:
-> On Wed, Oct 6, 2021 at 7:14 PM Pierre-Louis Bossart
-> <pierre-louis.bossart@linux.intel.com> wrote:
->> On 10/6/21 10:04 AM, Andy Shevchenko wrote:
->>> Access to platform data via dev_get_platdata() getter to make code cleaner.
->>>
->>> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
->>
->> For the series
->>
->> Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.com>
+On Thu, 07 Oct 2021 14:43:53 +0200,
+Takashi Iwai wrote:
 > 
-> Are you sure you gave the correct email here?
+> On Thu, 07 Oct 2021 13:48:44 +0200,
+> Arnd Bergmann wrote:
+> > 
+> > On Thu, Oct 7, 2021 at 12:53 PM Takashi Iwai <tiwai@suse.de> wrote:
+> > > On Wed, 06 Oct 2021 19:49:17 +0200, Michael Forney wrote:
+> > > >
+> > > > Arnd Bergmann <arnd@arndb.de> wrote:
+> > > > > +#if defined(__BYTE_ORDER) ? __BYTE_ORDER == __BIG_ENDIAN : defined(__BIG_ENDIAN)
+> > > > > +typedef char __pad_before_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
+> > > > > +typedef char __pad_after_uframe[0];
+> > > > > +#endif
+> > > > > +
+> > > > > +#if defined(__BYTE_ORDER) ? __BYTE_ORDER == __LITTLE_ENDIAN : defined(__LITTLE_ENDIAN)
+> > > > > +typedef char __pad_before_uframe[0];
+> > > > > +typedef char __pad_after_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
+> > > > > +#endif
+> > > > > +
+> > > > > +struct __snd_pcm_mmap_status64 {
+> > > > > +   __s32 state;                    /* RO: state - SNDRV_PCM_STATE_XXXX */
+> > > > > +   __u32 pad1;                     /* Needed for 64 bit alignment */
+> > > > > +   __pad_before_uframe __pad1;
+> > > > > +   snd_pcm_uframes_t hw_ptr;       /* RO: hw ptr (0...boundary-1) */
+> > > > > +   __pad_after_uframe __pad2;
+> > > > > +   struct __snd_timespec64 tstamp; /* Timestamp */
+> > > > > +   __s32 suspended_state;          /* RO: suspended stream state */
+> > > > > +   __u32 pad3;                     /* Needed for 64 bit alignment */
+> > > > > +   struct __snd_timespec64 audio_tstamp; /* sample counter or wall clock */
+> > > > > +};
+> > > > > +
+> > > > > +struct __snd_pcm_mmap_control64 {
+> > > > > +   __pad_before_uframe __pad1;
+> > > > > +   snd_pcm_uframes_t appl_ptr;      /* RW: appl ptr (0...boundary-1) */
+> > > > > +   __pad_before_uframe __pad2;
+> > > >
+> > > > I was looking through this header and happened to notice that this
+> > > > padding is wrong. I believe it should be __pad_after_uframe here.
+> > > >
+> > > > I'm not sure of the implications of this typo, but I suspect it
+> > > > breaks something on 32-bit systems with 64-bit time (regardless of
+> > > > the endianness, since it changes the offset of avail_min).
+> > 
+> > Thanks a lot for the report! Yes, this is definitely broken in some ways.
+> > 
+> > > Right, that's the expected breakage.  It seems that the 64bit time on
+> > > 32bit arch is still rare, so we haven't heard a regression by that, so
+> > > far...
+> > 
+> > It might actually be worse: on a native 32-bit kernel, both user space
+> > and kernel see the same broken definition with a 64-bit time_t, which
+> > would end up actually making it work as expected. However, in
+> > compat mode, the layout seen on the 32-bit user space is now
+> > different from what the 64-bit kernel has, which would in turn not
+> > work, in both the SNDRV_PCM_IOCTL_SYNC_PTR ioctl and in
+> > the mmap() interface.
+> > 
+> > Fixing the layout to look like the way we had intended would make
+> > newly compiled applications work in compat mode, but would break
+> > applications built against the old header on new kernels and also
+> > newly built applications on old kernels.
+> > 
+> > I still hope I missed something and it's not quite that bad, but I
+> > fear the best we can do in this case make the broken interface
+> > the normative one and fixing compat mode to write
+> > mmap_control64->avail_min in the wrong location for
+> > SNDRV_PCM_IOCTL_SYNC_PTR, as well as disabling
+> > the mmap() interface again for compat tasks.
+> >
+> > As far as I can tell, the broken interface will always result in
+> > user space seeing a zero value for "avail_min". Can you
+> > make a prediction what that would mean for actual
+> > applications? Will they have no audio output, run into
+> > a crash, or be able to use recover and appear to work normally
+> > here?
+> 
+> No, fortunately it's only about control->avail_min, and fiddling this
+> value can't break severely (otherwise it'd be a security problem ;)
+> 
+> In the buggy condition, it's always zero, and the kernel treated as if
+> 1, i.e. wake up as soon as data is available, which is OK-ish for most
+> applications.   Apps usually don't care about the wake-up condition so
+> much.  There are subtle difference and may influence on the stability
+> of stream processing, but the stability usually depends more strongly
+> on the hardware and software configurations.
+> 
+> That being said, the impact by this bug (from the application behavior
+> POV) is likely quite small, but the contamination is large; as you
+> pointed out, it's much larger than I thought.
+> 
+> The definition in uapi/sound/asound.h is a bit cryptic, but IIUC,
+> __snd_pcm_mmap_control64 is used for 64bit archs, right?  If so, the
+> problem rather hits more widely on 64bit archs silently.  Then, the
+> influence by this bug must be almost negligible, as we've had no bug
+> report about the behavior change.
 
-Thanks for catching this, I need a break obviously.
+Erm, scratch this part: on 64bit arch, both __pad_before_uframe and
+__pad_after_uframe is 0-size, so the bug doesn't hit.  It's only about
+32bit arch.
 
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> We may just fix it in kernel and for new library with hoping that no
+> one sees the actual problem.  Or, we may provide a complete new set of
+> mmap offsets and ioctl to cover both broken and fixed interfaces...
+> The decision depends on how perfectly we'd like to address the bug.
+> As of now, I'm inclined to go for the former, but I'm open for more
+> opinions.
 
+
+Takashi

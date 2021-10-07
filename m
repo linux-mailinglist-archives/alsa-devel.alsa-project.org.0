@@ -2,93 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48AEE4256F7
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 17:46:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C4C54257BD
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 18:20:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D8B341661;
-	Thu,  7 Oct 2021 17:45:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8B341661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 17CA31661;
+	Thu,  7 Oct 2021 18:19:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17CA31661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633621574;
-	bh=KiDE74ZN7fP0dSmsu7aBtGR/fyG1/hiDnn7kbQTkluY=;
+	s=default; t=1633623620;
+	bh=mK8bej4AD5+OvaStMVo/xtYO0x9zeT5M4U8MGQ5hepA=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZQDGLqYue7OZVSeAY/68UB6UHPCAJx8oyG3zB3SJv569J0dKQL95X5/yI/BJi6PN+
-	 qb7lBU8v9rSNyJitMJ8gISrhAzM7lqAbCFAWBYRQp+JcvaGOZZxYuCuqNh+5cuUzvY
-	 Vl9tQ8yfbetJ1JwfJFZh9NE9zKoFCFCFLBnzD5sg=
+	b=aOdITRp5SLVV6m9u2xL4FhBwUagAJ3j3iBJtQTqgZb6rUTjhokkE3/9gwIQFtptgM
+	 WhDWyVUjuYO87nZSO5wGzVGPyTULmtTA4OoUDYF/t4Tldy077r6hhqz/2nRhwP7doC
+	 OuRkY2fcfPcph4i8Ww4dCPyti4DTRF4PE/CMn6TI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55F57F800F0;
-	Thu,  7 Oct 2021 17:44:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6FD3AF8028B;
+	Thu,  7 Oct 2021 18:19:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 08B9DF800F0; Thu,  7 Oct 2021 17:44:56 +0200 (CEST)
+ id D8A90F8027D; Thu,  7 Oct 2021 18:19:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BFDCAF800F0
- for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 17:44:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFDCAF800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 14E88F80130
+ for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 18:18:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14E88F80130
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="mySzRsWH"; 
+ header.b="U7IeIYYD"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="3JGuP1As"
+ header.b="cSMfnsJ3"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 59D641FE71;
- Thu,  7 Oct 2021 15:44:51 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 8679B200EF;
+ Thu,  7 Oct 2021 16:18:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1633621491; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1633623532; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Nqn8vlZv+WFSkVj7eePT5bHk0A1MxSeE+xp3BxC/O2Y=;
- b=mySzRsWHFdTAb4ylvhCgiSe5AYIzQ/j31jDN+gszve5BPte2i9s8O0W21OdJeyzZ8K1odF
- ArexAjT/fTqIbtXilJ93ybqV/Awx/hGBOZQMMQ9swkKxycSdLG49dEPydrwYDzUV2XQ451
- Q8Nt72Y5VFkeUmQHoAS7tZp2y6dN9Rk=
+ bh=PaMfz9PVFXMpWIUMO3f5QL4IvLizLUlBUd3gCzvZPZ4=;
+ b=U7IeIYYDGURaXsCtsckS55wtldHDAEL0dl42zMYtZtP/bSVyDN0XLxuTnw+U/TT+30i8fx
+ 5hNftnDOXpVez1vHWxOYlqQ/G+a09fUlefzI1nYxAbv7it+bbXCD/x2mxFIpw6WaQd1Fyr
+ 5cUfhHLF2wXETBdKyO/Kib/Fm6gu1Xk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1633621491;
+ s=susede2_ed25519; t=1633623532;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Nqn8vlZv+WFSkVj7eePT5bHk0A1MxSeE+xp3BxC/O2Y=;
- b=3JGuP1AsxxhmGAjghZFRSxEWw+sWOX0TO3v9vRsUYYJOI9RTt7v8ZV7NmoPymtFa455iJr
- h/Xa1WnvSbAGvNAQ==
+ bh=PaMfz9PVFXMpWIUMO3f5QL4IvLizLUlBUd3gCzvZPZ4=;
+ b=cSMfnsJ3A01EebhgUDnVwpgkxhFWN0NUnhWqRdzWAfebWdcZ5X6NA/rz+ROV0xJm6u8ha7
+ aY7kDSjasZanjyAw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id AD2DAA3B81;
- Thu,  7 Oct 2021 15:44:50 +0000 (UTC)
-Date: Thu, 07 Oct 2021 17:44:50 +0200
-Message-ID: <s5hwnmo96vh.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 6A658A3DF0;
+ Thu,  7 Oct 2021 16:18:52 +0000 (UTC)
+Date: Thu, 07 Oct 2021 18:18:52 +0200
+Message-ID: <s5hr1cw95ar.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [RFC PATCH v2 0/5] ASoC: soc-pcm: fix trigger race conditions
- with shared BE
-In-Reply-To: <80882fe6-ea30-43f6-8d83-8995dd28c748@linux.intel.com>
-References: <20211004225441.233375-1-pierre-louis.bossart@linux.intel.com>
- <cce82420-d744-ee43-d514-b77ac4905ffa@nvidia.com>
- <1efa1c31-7342-05f8-5f73-95e2462d4179@linux.intel.com>
- <3683cf39-632b-50df-c65d-63779c464850@nvidia.com>
- <11257d77-9975-3b00-94da-5dc1b5c95fc6@linux.intel.com>
- <s5hk0ip9js7.wl-tiwai@suse.de>
- <ff43fede-aa66-3cb7-6365-e1f279cd135f@linux.intel.com>
- <s5hzgrk98y9.wl-tiwai@suse.de>
- <80882fe6-ea30-43f6-8d83-8995dd28c748@linux.intel.com>
+To: Rich Felker <dalias@libc.org>
+Subject: Re: [musl] Re: [alsa-devel] [PATCH v7 8/9] ALSA: add new 32-bit
+ layout for snd_pcm_mmap_status/control
+In-Reply-To: <20211007160634.GB7074@brightrain.aerifal.cx>
+References: <20191211212025.1981822-1-arnd@arndb.de>
+ <20191211212025.1981822-9-arnd@arndb.de>
+ <29QBMJU8DE71E.2YZSH8IHT5HMH@mforney.org>
+ <s5hpmsh9kdx.wl-tiwai@suse.de>
+ <CAK8P3a0K3XtjiszC3XWgG0L8+AgO+xUGr_KEAnb9a5GmyecoUQ@mail.gmail.com>
+ <s5hee8x9f92.wl-tiwai@suse.de>
+ <CAK8P3a0pSZxqfk-bn+idrDYDwANSfiP9L6U1O5jLQvK+3vwyVQ@mail.gmail.com>
+ <s5hy27497eo.wl-tiwai@suse.de>
+ <20211007160634.GB7074@brightrain.aerifal.cx>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Sameer Pujar <spujar@nvidia.com>, vkoul@kernel.org, broonie@kernel.org,
- Gyeongtaek Lee <gt82.lee@samsung.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Arnd Bergmann <arnd@arndb.de>, Baolin Wang <baolin.wang@linaro.org>,
+ y2038 Mailman List <y2038@lists.linaro.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ musl@lists.openwall.com, Takashi Iwai <tiwai@suse.com>,
+ Michael Forney <mforney@mforney.org>, Mark Brown <broonie@kernel.org>,
+ Baolin Wang <baolin.wang7@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,85 +107,137 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 07 Oct 2021 17:24:45 +0200,
-Pierre-Louis Bossart wrote:
+On Thu, 07 Oct 2021 18:06:36 +0200,
+Rich Felker wrote:
 > 
-> 
-> 
-> >>>> Takashi, Mark, do you think that an all/none assumption on FE nonatomic
-> >>>> properties would make sense?
-> >>>
-> >>> As long as BE's are updated from FE's PCM callback, BE has to follow
-> >>> the atomicity of its FE, so we can't assume all or none globally.
-> >>
-> >> A BE may have more than one FEs. That's precisely the point of
-> >> mixers/demux, and if the BE has FEs with different 'atomicity' then I
-> >> don't see how locking can work: the BE operations are run in the context
-> >> of each of its FE, typically using the following loop:
-> >>
-> >> for_each_dpcm_be(fe, stream, dpcm) {
-> >>    do_something();
-> >> }
+> On Thu, Oct 07, 2021 at 05:33:19PM +0200, Takashi Iwai wrote:
+> > On Thu, 07 Oct 2021 15:11:00 +0200,
+> > Arnd Bergmann wrote:
+> > > 
+> > >  On Thu, Oct 7, 2021 at 2:43 PM Takashi Iwai <tiwai@suse.de> wrote:
+> > > > On Thu, 07 Oct 2021 13:48:44 +0200, Arnd Bergmann wrote:
+> > > > > On Thu, Oct 7, 2021 at 12:53 PM Takashi Iwai <tiwai@suse.de> wrote:
+> > > > > > On Wed, 06 Oct 2021 19:49:17 +0200, Michael Forney wrote:
+> > > > >
+> > > > > As far as I can tell, the broken interface will always result in
+> > > > > user space seeing a zero value for "avail_min". Can you
+> > > > > make a prediction what that would mean for actual
+> > > > > applications? Will they have no audio output, run into
+> > > > > a crash, or be able to use recover and appear to work normally
+> > > > > here?
+> > > >
+> > > > No, fortunately it's only about control->avail_min, and fiddling this
+> > > > value can't break severely (otherwise it'd be a security problem ;)
+> > > >
+> > > > In the buggy condition, it's always zero, and the kernel treated as if
+> > > > 1, i.e. wake up as soon as data is available, which is OK-ish for most
+> > > > applications.   Apps usually don't care about the wake-up condition so
+> > > > much.  There are subtle difference and may influence on the stability
+> > > > of stream processing, but the stability usually depends more strongly
+> > > > on the hardware and software configurations.
+> > > >
+> > > > That being said, the impact by this bug (from the application behavior
+> > > > POV) is likely quite small, but the contamination is large; as you
+> > > > pointed out, it's much larger than I thought.
+> > > 
+> > > Ok, got it.
+> > > 
+> > > > The definition in uapi/sound/asound.h is a bit cryptic, but IIUC,
+> > > > __snd_pcm_mmap_control64 is used for 64bit archs, right?  If so, the
+> > > > problem rather hits more widely on 64bit archs silently.  Then, the
+> > > > influence by this bug must be almost negligible, as we've had no bug
+> > > > report about the behavior change.
+> > > 
+> > > While __snd_pcm_mmap_control64 is only used on 32-bit
+> > > architectures when 64-bit time_t is used. At the moment, this
+> > > means all users of musl-1.2.x libc, but not glibc.
+> > > 
+> > > On 64-bit architectures, __snd_pcm_mmap_control and
+> > > __snd_pcm_mmap_control64 are meant to be identical,
+> > > and this is actually true regardless of the bug, since
+> > > __pad_before_uframe and __pad_after_uframe both
+> > > end up as zero-length arrays here.
+> > > 
+> > > > We may just fix it in kernel and for new library with hoping that no
+> > > > one sees the actual problem.  Or, we may provide a complete new set of
+> > > > mmap offsets and ioctl to cover both broken and fixed interfaces...
+> > > > The decision depends on how perfectly we'd like to address the bug.
+> > > > As of now, I'm inclined to go for the former, but I'm open for more
+> > > > opinions.
+> > > 
+> > > Adding the musl list to Cc for additional testers, anyone interested
+> > > please see [1] for the original report.
+> > > 
+> > > It would be good to hear from musl users that are already using
+> > > audio support with 32-bit applications on 64-bit kernels, which
+> > > is the case that has the problem today. Have you noticed any
+> > > problems with audio support here? If not, we can probably
+> > > "fix" the kernel here and make the existing binaries behave
+> > > the same way on 32-bit kernels. If there are applications that
+> > > don't work in that environment today, I think we need to instead
+> > > change the kernel to accept the currently broken format on
+> > > both 32-bit and 64-bit kernels, possibly introducing yet another
+> > > format that works as originally intended but requires a newly
+> > > built kernel.
 > > 
-> > Do we really have the cases where FEs have different atomicity?
-> > I don't think it's a valid configuration, and we should catch it via
-> > WARN_ON() or such.
-> 
-> I don't think we have this configuration today, that's why I suggested
-> making the assumption it's an unsupported configuration.
-> 
-> That would allow us to use the relevant locking mechanism, as done for
-> PCM streams.
-> 
-> >> Applications will view multiple FEs as completely independent. They may
-> >> be opened/prepared/started/stopped/paused as needed. When the BE is
-> >> shared, then there is a need for consistency, such as starting the BE
-> >> when the first FE becomes active and stopping it when the last FE stops.
-> >>
-> >>> How is the expected lock granularity and the protection context?  Do
-> >>> we need a card global lock/mutex, or is it specific to each BE
-> >>> substream?
-> >>
-> >> We already have a dpcm_lock at the card level, which protects the
-> >> addition of BEs and BE states. That spin_lock is fine for most cases.
-> >>
-> >> The only real problem is the trigger, which is currently completely
-> >> unprotected: we have to serialize the BE triggers, otherwise you could
-> >> STOP before you START due to scheduling, or other problems that I saw in
-> >> my SoundWire tests with two START triggers, or the STOP never sent.
+> > Thanks!
 > > 
-> > So it's about calling triggers to the same BE stream concurrently?
-> > If that's the case, can't we simply protect the trigger handling of
-> > each BE like below?
+> > And now, looking more deeply, I feel more desperate.
+> > 
+> > This bug makes the expected padding gone on little-endian.
+> > On LE 32bit, the buggy definition is:
+> > 
+> > 	char __pad1[0];
+> > 	u32 appl_ptr;
+> > 	char __pad2[0]; // this should have been [4]
+> > 	char __pad3[0];
+> > 	u32 avail_min;
+> > 	char __pad4[4];
+> > 	
+> > When an application issues SYNC_PTR64 ioctl to submit appl_ptr and
+> > avail_min updates, 64bit kernel (in compat mode) reads directly as:
+> > 
+> > 	u64 appl_ptr;
+> > 	u64 avail_min;
+> > 
+> > Hence a bogus appl_ptr would be passed if avail_min != 0.
+> > And usually application sets non-zero avail_min.
+> > That is, the bug must hit more severely if the new API were really
+> > used.  It wouldn't crash, but some weird streaming behavior can
+> > happen like noise, jumping or underruns.
+> > 
+> > (Reading back avail_min=0 to user-space is rather harmless.  Ditto for
+> >  the case of BE, then at least there is no appl_ptr corruption.)
+> > 
+> > This made me wonder which way to go:
+> > it's certainly possible to fix the new kernel to treat both buggy and
+> > sane formats (disabling compat mmap and re-define ioctls, having the
+> > code for old APIs).  The problem is, however, in the case where the
+> > application needs to run on the older kernel that expects the buggy
+> > format.  Then apps would still have to send in the old buggy format --
+> > or maybe better in the older 32bit format that won't hit the bug
+> > above.  It makes situation more complicated.
 > 
-> Using snd_pcm_stream_lock_irqsave(be_substream, flags); will prevent
-> multiple triggers indeed, but the state management is handled by
-> dpcm_lock, so I think we have to use dpcm_lock/mutex in all BE transitions.
+> Can't an ioctl number just be redefined so that, on old kernels with
+> the buggy one, newly built applications get told that mmap is not
+> available and use the unaffected non-mmap fallback?
+
+The problem is that the SYNC_PTR64 ioctl itself for non-mmap fallback
+is equally buggy due to this bug, too.  So disabling mmap doesn't help
+alone.
+
+And, yes, we can redefine ioctl numbers.  But, then, application would
+have to be bilingual, as well as the kernel; it'll have to switch back
+to old API when running on older kernel, while the same binary would
+need to run in a new API for a newer kernel.
+
+Maybe we can implement it in alsa-lib, if it really worth for it.
+
+> > Do we know how widely the __USE_TIME_BITS64 is deployed nowadays?
 > 
-> if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PREPARE) &&
->     (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
->  			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
-> 
-> if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PREPARE) &&
->     (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
->  			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
+> Anyone using musl on 32-bit archs who's not >=2 years behind current.
 
-The stream lock can be put around those appropriate places, I suppose?
-
-
-> The position of the lock also matters, we may have to take the lock
-> before walking through the list, since that list can be modified. that's
-> what Gyeongtaek Lee reported with a separate patch, I was hoping that we
-> can fix all BE state handling in a consistent manner.
-
-The list belongs to FE, so possibly we can take FE's stream lock while
-manipulating the list for protecting from the racy trigger access.
-
-But beware that the stream lock would be needed only if nonatomic is
-false.  In the nonatomic PCM, the stream lock is a mutex and it's used
-for all PCM ops.  OTOH, in normal PCM mode, the spinlock is used for
-trigger and a few others while mutex is used for prepare and co, hence
-an extra stream lock is needed there.
+OK.
 
 
 Takashi

@@ -2,74 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BCAB4255F1
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 17:01:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 261914256B0
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 17:35:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62E2E1661;
-	Thu,  7 Oct 2021 17:00:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62E2E1661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A50A166B;
+	Thu,  7 Oct 2021 17:34:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A50A166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633618898;
-	bh=EKPw2+Q8p/dmJTotY+GUcGwzooOFsFxKIzZXNi7xPIw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1633620913;
+	bh=RZtC9SckuBYLR6n3989lXcUoUAjlvqR2cIuhENugt/k=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=F8OU5BKie/snWHHkjcLJp1Ewh6O5/18wGNMTTzMdzhHU1ELO3UrZ76nsrX4DSN3yf
-	 iFTyWoPquNkwWWqnCcm9a5vVMJItfBqmu4viujbNKwat40eiZQAvh7pS/tPlL6oU0Q
-	 aJ6hByXX74tIDLo2G70IDyv9Fp7OxGC8iHLRwcMM=
+	b=nofaHTjGXypYDVbLCJ6QlPJp2raLgPihz72HjP6dvfstJnJBA7EUoG1UHGguL29Lx
+	 o9WP/htFZXW08ZwjiPUwmL3e2RB4KR8W6HBEIjHholxSTQJUIHs+gvLy7iEt+FK9Zu
+	 7PRasThXG3BBJD8umSsJJaUxQNTO4fxLuFi61MDQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BBA2AF800FE;
-	Thu,  7 Oct 2021 17:00:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4D873F804BD;
+	Thu,  7 Oct 2021 17:33:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 131C7F8027D; Thu,  7 Oct 2021 17:00:19 +0200 (CEST)
+ id 117BAF804BB; Thu,  7 Oct 2021 17:33:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CC3BDF800FE
- for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 17:00:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC3BDF800FE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="NupRC1ma"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="7ULUvI3W"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id EEA9D224EE;
- Thu,  7 Oct 2021 14:59:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1633618798; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=In7Jg+0s7uAlU4Nky6HWQvAivfZLVLAuCYADx2vHHlA=;
- b=NupRC1mado0OdVr62uRJeYWMSiB+5XspTQJ5cNJ/xpbvDUC5g250pcCwbAh6iIKHWOp4Yp
- OXttSfCIluJdhTeOxA2Akl53Dhh93JOo65EEsEBdZee4AbBliqGuHLiLaye7Vj7M/wXhjd
- tqA5h/n0r5sd+jm/i251jJ5bsfGlVGk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1633618798;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=In7Jg+0s7uAlU4Nky6HWQvAivfZLVLAuCYADx2vHHlA=;
- b=7ULUvI3WJRrOTBKUn1ynHa2xd2ZhTYkMvtFonFC6xKosSGHTSbaGcn/79Ov4mtuy2nVunh
- T0Xc3qQvI1I91RBA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 5E215A3B81;
- Thu,  7 Oct 2021 14:59:58 +0000 (UTC)
-Date: Thu, 07 Oct 2021 16:59:58 +0200
-Message-ID: <s5hzgrk98y9.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6ACA5F80259
+ for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 17:33:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6ACA5F80259
+X-IronPort-AV: E=McAfee;i="6200,9189,10130"; a="226590145"
+X-IronPort-AV: E=Sophos;i="5.85,355,1624345200"; d="scan'208";a="226590145"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2021 08:24:50 -0700
+X-IronPort-AV: E=Sophos;i="5.85,355,1624345200"; d="scan'208";a="440301474"
+Received: from klmutolo-mobl.amr.corp.intel.com (HELO [10.212.1.203])
+ ([10.212.1.203])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2021 08:24:48 -0700
 Subject: Re: [RFC PATCH v2 0/5] ASoC: soc-pcm: fix trigger race conditions
  with shared BE
-In-Reply-To: <ff43fede-aa66-3cb7-6365-e1f279cd135f@linux.intel.com>
+To: Takashi Iwai <tiwai@suse.de>
 References: <20211004225441.233375-1-pierre-louis.bossart@linux.intel.com>
  <cce82420-d744-ee43-d514-b77ac4905ffa@nvidia.com>
  <1efa1c31-7342-05f8-5f73-95e2462d4179@linux.intel.com>
@@ -77,11 +56,17 @@ References: <20211004225441.233375-1-pierre-louis.bossart@linux.intel.com>
  <11257d77-9975-3b00-94da-5dc1b5c95fc6@linux.intel.com>
  <s5hk0ip9js7.wl-tiwai@suse.de>
  <ff43fede-aa66-3cb7-6365-e1f279cd135f@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
+ <s5hzgrk98y9.wl-tiwai@suse.de>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <80882fe6-ea30-43f6-8d83-8995dd28c748@linux.intel.com>
+Date: Thu, 7 Oct 2021 10:24:45 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.13.0
+MIME-Version: 1.0
+In-Reply-To: <s5hzgrk98y9.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Cc: alsa-devel@alsa-project.org,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
  Sameer Pujar <spujar@nvidia.com>, vkoul@kernel.org, broonie@kernel.org,
@@ -102,184 +87,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 07 Oct 2021 15:31:49 +0200,
-Pierre-Louis Bossart wrote:
+
+
+>>>> Takashi, Mark, do you think that an all/none assumption on FE nonatomic
+>>>> properties would make sense?
+>>>
+>>> As long as BE's are updated from FE's PCM callback, BE has to follow
+>>> the atomicity of its FE, so we can't assume all or none globally.
+>>
+>> A BE may have more than one FEs. That's precisely the point of
+>> mixers/demux, and if the BE has FEs with different 'atomicity' then I
+>> don't see how locking can work: the BE operations are run in the context
+>> of each of its FE, typically using the following loop:
+>>
+>> for_each_dpcm_be(fe, stream, dpcm) {
+>>    do_something();
+>> }
 > 
+> Do we really have the cases where FEs have different atomicity?
+> I don't think it's a valid configuration, and we should catch it via
+> WARN_ON() or such.
+
+I don't think we have this configuration today, that's why I suggested
+making the assumption it's an unsupported configuration.
+
+That would allow us to use the relevant locking mechanism, as done for
+PCM streams.
+
+>> Applications will view multiple FEs as completely independent. They may
+>> be opened/prepared/started/stopped/paused as needed. When the BE is
+>> shared, then there is a need for consistency, such as starting the BE
+>> when the first FE becomes active and stopping it when the last FE stops.
+>>
+>>> How is the expected lock granularity and the protection context?  Do
+>>> we need a card global lock/mutex, or is it specific to each BE
+>>> substream?
+>>
+>> We already have a dpcm_lock at the card level, which protects the
+>> addition of BEs and BE states. That spin_lock is fine for most cases.
+>>
+>> The only real problem is the trigger, which is currently completely
+>> unprotected: we have to serialize the BE triggers, otherwise you could
+>> STOP before you START due to scheduling, or other problems that I saw in
+>> my SoundWire tests with two START triggers, or the STOP never sent.
 > 
-> >> Takashi, Mark, do you think that an all/none assumption on FE nonatomic
-> >> properties would make sense?
-> > 
-> > As long as BE's are updated from FE's PCM callback, BE has to follow
-> > the atomicity of its FE, so we can't assume all or none globally.
-> 
-> A BE may have more than one FEs. That's precisely the point of
-> mixers/demux, and if the BE has FEs with different 'atomicity' then I
-> don't see how locking can work: the BE operations are run in the context
-> of each of its FE, typically using the following loop:
-> 
-> for_each_dpcm_be(fe, stream, dpcm) {
->    do_something();
-> }
+> So it's about calling triggers to the same BE stream concurrently?
+> If that's the case, can't we simply protect the trigger handling of
+> each BE like below?
 
-Do we really have the cases where FEs have different atomicity?
-I don't think it's a valid configuration, and we should catch it via
-WARN_ON() or such.
+Using snd_pcm_stream_lock_irqsave(be_substream, flags); will prevent
+multiple triggers indeed, but the state management is handled by
+dpcm_lock, so I think we have to use dpcm_lock/mutex in all BE transitions.
 
-> Applications will view multiple FEs as completely independent. They may
-> be opened/prepared/started/stopped/paused as needed. When the BE is
-> shared, then there is a need for consistency, such as starting the BE
-> when the first FE becomes active and stopping it when the last FE stops.
-> 
-> > How is the expected lock granularity and the protection context?  Do
-> > we need a card global lock/mutex, or is it specific to each BE
-> > substream?
-> 
-> We already have a dpcm_lock at the card level, which protects the
-> addition of BEs and BE states. That spin_lock is fine for most cases.
-> 
-> The only real problem is the trigger, which is currently completely
-> unprotected: we have to serialize the BE triggers, otherwise you could
-> STOP before you START due to scheduling, or other problems that I saw in
-> my SoundWire tests with two START triggers, or the STOP never sent.
-
-So it's about calling triggers to the same BE stream concurrently?
-If that's the case, can't we simply protect the trigger handling of
-each BE like below?
-
-> But how to do this serialization is unclear...
-> 
-> A lateral thinking approach would be to decouple the BEs entirely, and
-> have the FEs 'signal' their change of state. The BE 'thread' run in the
-> BE context would then serialize the requests and perform all the BE
-> operations, and the same approach could be chained. I am afraid that
-> would be a complete rewrite of DPCM, but maybe we have to do so anyways
-> if we can't support a basic case of a mixer with 2 streams :-)
-
-Well, let's see whether we can get some improvements by a simple
-change at first.
-
-
-Takashi
-
-
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -1998,6 +1998,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- {
- 	struct snd_soc_pcm_runtime *be;
- 	struct snd_soc_dpcm *dpcm;
-+	unsigned long flags;
- 	int ret = 0;
- 
- 	for_each_dpcm_be(fe, stream, dpcm) {
-@@ -2006,9 +2007,11 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 		be = dpcm->be;
- 		be_substream = snd_soc_dpcm_get_substream(be, stream);
- 
-+		snd_pcm_stream_lock_irqsave(be_substream, flags);
-+
- 		/* is this op for this BE ? */
- 		if (!snd_soc_dpcm_be_can_update(fe, be, stream))
--			continue;
-+			goto unlock;
- 
- 		dev_dbg(be->dev, "ASoC: trigger BE %s cmd %d\n",
- 			be->dai_link->name, cmd);
-@@ -2018,77 +2021,81 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PREPARE) &&
- 			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
+if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PREPARE) &&
+    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
  			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
--				continue;
-+				goto unlock;
- 
- 			ret = soc_pcm_trigger(be_substream, cmd);
- 			if (ret)
--				goto end;
-+				goto unlock;
- 
- 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
- 			break;
- 		case SNDRV_PCM_TRIGGER_RESUME:
- 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_SUSPEND))
--				continue;
-+				goto unlock;
- 
- 			ret = soc_pcm_trigger(be_substream, cmd);
- 			if (ret)
--				goto end;
-+				goto unlock;
- 
- 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
- 			break;
- 		case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
- 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
--				continue;
-+				goto unlock;
- 
- 			ret = soc_pcm_trigger(be_substream, cmd);
- 			if (ret)
--				goto end;
-+				goto unlock;
- 
- 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
- 			break;
- 		case SNDRV_PCM_TRIGGER_STOP:
- 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_START) &&
+
+if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PREPARE) &&
+    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
  			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
--				continue;
-+				goto unlock;
- 
- 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
--				continue;
-+				goto unlock;
- 
- 			ret = soc_pcm_trigger(be_substream, cmd);
- 			if (ret)
--				goto end;
-+				goto unlock;
- 
- 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_STOP;
- 			break;
- 		case SNDRV_PCM_TRIGGER_SUSPEND:
- 			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START)
--				continue;
-+				goto unlock;
- 
- 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
--				continue;
-+				goto unlock;
- 
- 			ret = soc_pcm_trigger(be_substream, cmd);
- 			if (ret)
--				goto end;
-+				goto unlock;
- 
- 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_SUSPEND;
- 			break;
- 		case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
- 			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START)
--				continue;
-+				goto unlock;
- 
- 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
--				continue;
-+				goto unlock;
- 
- 			ret = soc_pcm_trigger(be_substream, cmd);
- 			if (ret)
--				goto end;
-+				goto unlock;
- 
- 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_PAUSED;
- 			break;
- 		}
-+	unlock:
-+		snd_pcm_stream_unlock_irqrestore(be_substream, flags);
-+		if (ret < 0)
-+			break;
- 	}
--end:
-+
- 	if (ret < 0)
- 		dev_err(fe->dev, "ASoC: %s() failed at %s (%d)\n",
- 			__func__, be->dai_link->name, ret);
+
+The position of the lock also matters, we may have to take the lock
+before walking through the list, since that list can be modified. that's
+what Gyeongtaek Lee reported with a separate patch, I was hoping that we
+can fix all BE state handling in a consistent manner.

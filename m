@@ -2,74 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 706884254F1
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 16:01:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3E32425444
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 15:38:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C630B168F;
-	Thu,  7 Oct 2021 16:00:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C630B168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 69D761657;
+	Thu,  7 Oct 2021 15:37:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69D761657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633615296;
-	bh=f5krMqhwgdsJH9xADZJs2I7/67Gk4ODwT4AU2idUMC4=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Of0N2UYRDfIs4kM8fDZIfV6sJDOVmLQKwey3lvZlr1QO3ObQ8MdyKL48KltVytY7X
-	 EEWLxc082Pn0WpNKqalTr4aMy1ZWFYL44sVP1WBpE8NJHEZoAC1Rk02py0S9Tcxagp
-	 6U+Qzm3rgM4RQ8QjZjYMehFrvjRkYmhysKHu7HVs=
+	s=default; t=1633613902;
+	bh=pFPevzGA8Ise8GAC6CToeekYtZMZ9FsxRKIAjlqaggI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Oo80VPn7rFbgk2H0vvRBE0HuGXeUC0nSWg12/SLbj+Fxnf96FoBkB0X4/2Dfk8rl4
+	 kr5RduGY5miIngIDZ0EVwU6OBfDbFpzlPXXalCNI8cKvfhpkRIEwt713Aa5uSgDkgc
+	 rE3fhcOc15QMro16uuyPRArydXR/JAgCAYgJD2cw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E630F804CF;
-	Thu,  7 Oct 2021 15:59:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56180F802A0;
+	Thu,  7 Oct 2021 15:37:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C269F8028B; Thu,  7 Oct 2021 15:59:57 +0200 (CEST)
+ id E8BE6F8028B; Thu,  7 Oct 2021 15:37:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9015F80130
- for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 15:59:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9015F80130
-X-IronPort-AV: E=McAfee;i="6200,9189,10130"; a="225027006"
-X-IronPort-AV: E=Sophos;i="5.85,354,1624345200"; d="scan'208";a="225027006"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2021 06:59:41 -0700
-X-IronPort-AV: E=Sophos;i="5.85,354,1624345200"; d="scan'208";a="440273797"
-Received: from klmutolo-mobl.amr.corp.intel.com (HELO [10.212.1.203])
- ([10.212.1.203])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2021 06:59:40 -0700
-Subject: Re: [RFC PATCH v2 0/5] ASoC: soc-pcm: fix trigger race conditions
- with shared BE
-To: Takashi Iwai <tiwai@suse.de>
-References: <20211004225441.233375-1-pierre-louis.bossart@linux.intel.com>
- <cce82420-d744-ee43-d514-b77ac4905ffa@nvidia.com>
- <1efa1c31-7342-05f8-5f73-95e2462d4179@linux.intel.com>
- <3683cf39-632b-50df-c65d-63779c464850@nvidia.com>
- <11257d77-9975-3b00-94da-5dc1b5c95fc6@linux.intel.com>
- <s5hk0ip9js7.wl-tiwai@suse.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <ff43fede-aa66-3cb7-6365-e1f279cd135f@linux.intel.com>
-Date: Thu, 7 Oct 2021 08:31:49 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.13.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8DC16F800F0
+ for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 15:37:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DC16F800F0
+X-IronPort-AV: E=McAfee;i="6200,9189,10129"; a="249567741"
+X-IronPort-AV: E=Sophos;i="5.85,354,1624345200"; d="scan'208";a="249567741"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2021 06:36:57 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,354,1624345200"; d="scan'208";a="484523082"
+Received: from brentlu-brix.itwn.intel.com ([10.5.253.56])
+ by fmsmga007.fm.intel.com with ESMTP; 07 Oct 2021 06:36:50 -0700
+From: Brent Lu <brent.lu@intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2 0/3] Multiple headphone codec driver support
+Date: Thu,  7 Oct 2021 21:35:13 +0800
+Message-Id: <20211007133516.1464655-1-brent.lu@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <s5hk0ip9js7.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Sameer Pujar <spujar@nvidia.com>, vkoul@kernel.org, broonie@kernel.org,
- Gyeongtaek Lee <gt82.lee@samsung.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Content-Transfer-Encoding: 8bit
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Rander Wang <rander.wang@intel.com>,
+ Mac Chiang <mac.chiang@intel.com>, Gongjun Song <gongjun.song@intel.com>,
+ Bard Liao <bard.liao@intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>,
+ Yong Zhi <yong.zhi@intel.com>, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
+ Paul Olaru <paul.olaru@oss.nxp.com>, Brent Lu <brent.lu@intel.com>,
+ Libin Yang <libin.yang@intel.com>,
+ Malik_Hsu <malik_hsu@wistron.corp-partner.google.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Curtis Malainey <cujomalainey@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,45 +82,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Support multiple headphone drivers in same machine driver. In this
+case, both rt5682 and rt5682s are supported and enumerated by different
+ACPI HID "10EC5682" and "RTL5682".
 
->> Takashi, Mark, do you think that an all/none assumption on FE nonatomic
->> properties would make sense?
-> 
-> As long as BE's are updated from FE's PCM callback, BE has to follow
-> the atomicity of its FE, so we can't assume all or none globally.
+V2 Changes:
+- remove useless 'NULL', 'false' in if-condition
+- can use 'comp_ids' field alone to enumerate driver
+- add comma to the end of entry in structure initialization
+- keep the table of byt/cht/cml/icl untouched
 
-A BE may have more than one FEs. That's precisely the point of
-mixers/demux, and if the BE has FEs with different 'atomicity' then I
-don't see how locking can work: the BE operations are run in the context
-of each of its FE, typically using the following loop:
+Brent Lu (3):
+  ASoC: soc-acpi: add comp_ids field for machine driver matching
+  ASoC: Intel: sof_rt5682: detect codec variant in probe function
+  ASoC: Intel: sof_rt5682: use comp_ids to enumerate rt5682s
 
-for_each_dpcm_be(fe, stream, dpcm) {
-   do_something();
-}
+ include/sound/soc-acpi.h                      |  2 ++
+ sound/soc/intel/boards/sof_rt5682.c           | 34 +++---------------
+ .../intel/common/soc-acpi-intel-adl-match.c   | 11 ++++--
+ .../intel/common/soc-acpi-intel-jsl-match.c   | 35 +++++--------------
+ .../intel/common/soc-acpi-intel-tgl-match.c   | 11 ++++--
+ sound/soc/soc-acpi.c                          | 24 +++++++++++--
+ 6 files changed, 52 insertions(+), 65 deletions(-)
 
-Applications will view multiple FEs as completely independent. They may
-be opened/prepared/started/stopped/paused as needed. When the BE is
-shared, then there is a need for consistency, such as starting the BE
-when the first FE becomes active and stopping it when the last FE stops.
-
-> How is the expected lock granularity and the protection context?  Do
-> we need a card global lock/mutex, or is it specific to each BE
-> substream?
-
-We already have a dpcm_lock at the card level, which protects the
-addition of BEs and BE states. That spin_lock is fine for most cases.
-
-The only real problem is the trigger, which is currently completely
-unprotected: we have to serialize the BE triggers, otherwise you could
-STOP before you START due to scheduling, or other problems that I saw in
-my SoundWire tests with two START triggers, or the STOP never sent.
-
-But how to do this serialization is unclear...
-
-A lateral thinking approach would be to decouple the BEs entirely, and
-have the FEs 'signal' their change of state. The BE 'thread' run in the
-BE context would then serialize the requests and perform all the BE
-operations, and the same approach could be chained. I am afraid that
-would be a complete rewrite of DPCM, but maybe we have to do so anyways
-if we can't support a basic case of a mixer with 2 streams :-)
+-- 
+2.25.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9434C425F54
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 23:41:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06BD1425F5A
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 23:41:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3311E1686;
-	Thu,  7 Oct 2021 23:40:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3311E1686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8FE7A1664;
+	Thu,  7 Oct 2021 23:41:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FE7A1664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633642885;
-	bh=lQjNj4ltrifXgYG4t2VTgCzZ88xFZSrmWilbC9hfXHg=;
+	s=default; t=1633642916;
+	bh=m4HJANNOPPFV57mqo5iLQB7fhTk2U2/wpkQ5dIfb3Ww=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ihu/WKN33oau+Xa7MfA+Io0ZEKzJm5Ym5c89qWmmG9qIhTso7GKRa31T71fQFH5cN
-	 9Av9J2sB+ZzHL9e2JxsR0wgPp3eAMGiQGhIpC+3mn+tnGae2Aw0V4fj6WI6jZ+9+k5
-	 JlgFEcGqdRfQQeifVBnbqX3auFhtUxr1dm4F+sO4=
+	b=dC7H9sBFyZtNt8XFuaiS8oa4w6S/ub84V7TzMP5jgUj4HYxoJrQ78afTE4YAEHoV1
+	 jdbZmqQdASERgW+LZSq3O4GTGK6RD4H+G/JTphKlPGEEsTgBubI3BhypvEQgFzJbaf
+	 GApJ0Ep3iSGhnXzBalHcDbBYEylj5JZ5bya+FafE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A776F80515;
-	Thu,  7 Oct 2021 23:38:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22DB7F80524;
+	Thu,  7 Oct 2021 23:38:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 96203F804FC; Thu,  7 Oct 2021 23:38:06 +0200 (CEST)
+ id 4D37EF80510; Thu,  7 Oct 2021 23:38:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E7E48F804F1
- for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 23:38:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7E48F804F1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62FFAF804FE
+ for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 23:38:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62FFAF804FE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="M0/CQKeA"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0FAA26120D;
- Thu,  7 Oct 2021 21:37:59 +0000 (UTC)
+ header.b="eB+mq8je"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9CF81610C8;
+ Thu,  7 Oct 2021 21:38:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633642680;
- bh=lQjNj4ltrifXgYG4t2VTgCzZ88xFZSrmWilbC9hfXHg=;
+ s=k20201202; t=1633642683;
+ bh=m4HJANNOPPFV57mqo5iLQB7fhTk2U2/wpkQ5dIfb3Ww=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=M0/CQKeA3+hqPyaU89yAZN9tSXL5ZCeanj6kDrxkcI18yEMl0gWpFnckHjycqL3aK
- E+T4N0jr0aGtzHe5cOQyAVyEnEWENeHdjB2YXqiORiqt52jagqWqviMtJ0C7GTqntb
- oneu6k+OJ6SVnQF77djVwBaQjrYQHW1IN5x+m3LPBgf48AAaOpnpZUlqfzDv75Nqjw
- V/rwQlkttjg2ZPX3kJaNgW6QXxEsysivTlFu+dwno562uv8GQrUk54akLohAT/eKwK
- WiQeXm1f4xUW4ppnhKWOHlNrmZlfBkwzVAVpcprfzG0C9XX51vMMFa4xTpNr3vX2Ez
- 6gqbWkDGkQC4w==
+ b=eB+mq8je9u+SYMX7yuDyZRztJ1+TEQHdhGPN+qrZWD+uCtA4BBZw1ndVfDo5reiGw
+ ihje9A2hvtw0CFRlF+uuNO/yr9Kw7FPthacZASuLW/5ZFPtD7YrUZ0eXT99XBLojie
+ GZ6XjCHzrPc9ovJPMeb9bNkSCO13fZIoYxFH9m1VyCRcBw8BIi+mW+4OxYce997O75
+ R76c7ED/WcP02i3fm8rzNjbFWDsMWT+DYYO1KGLtgZ7cx2KBP0weNWmksNUGFhkWET
+ AoYsQQSEWd4RaIoCvSdwQZmFHyz+DGOErTFq2zIohPvr01w0t9q7NiQJuMuT6BzQel
+ ifWG83F3NhB9A==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- pierre-louis.bossart@linux.intel.com
-Subject: Re: [PATCH 00/19] ASoC: SOF: Improvements for debugging
-Date: Thu,  7 Oct 2021 22:37:30 +0100
-Message-Id: <163364264606.649699.6310777207318503716.b4-ty@kernel.org>
+To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+Subject: Re: (subset) [PATCH v5 0/4] Rockchip I2S/TDM controller
+Date: Thu,  7 Oct 2021 22:37:31 +0100
+Message-Id: <163364264608.649699.437992626098307061.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20211006110645.26679-1-peter.ujfalusi@linux.intel.com>
-References: <20211006110645.26679-1-peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20211001171531.178775-1-frattaroli.nicolas@gmail.com>
+References: <20211001171531.178775-1-frattaroli.nicolas@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: guennadi.liakhovetski@linux.intel.com, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, linux-rockchip@lists.infradead.org,
+ Mark Brown <broonie@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,13 +83,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 6 Oct 2021 14:06:26 +0300, Peter Ujfalusi wrote:
-> The aim of this series is to clean up, make it easier to interpret and less
-> 'chatty' prints aimed for debugging errors.
+On Fri, 1 Oct 2021 19:15:27 +0200, Nicolas Frattaroli wrote:
+> this is version 5 of the I2S/TDM driver patchset. A big thanks
+> to everyone who has provided their valuable feedback so far.
 > 
-> For example currently the DSP/IPC dump is printed every time we have an IPC
-> timeout and it is posible to lost the first and more indicative dump to find the
-> rootcause.
+> Changes in v5:
+>  driver:
+>  - change comment style of the first comment to C++ style
+>  - make refcount non-atomic, as it's only ever used inside
+>    a spinlock
+>  - use newer SND_SOC_DAIFMT_CB* defines
+>  - change ternary statements to if/else conditions
+>  - make _clk_compensation_put return 1 if clock changed
+>  - implement set_bclk_ratio callback
+>  - always set half frame sync mode in TDM mode
+>  - automatically enable mclk-calibrate mode when the clocks for
+>    it are specified in the device tree
+>  bindings:
+>  - add Reviewed-by: Rob Herring
+>  - drop rockchip,frame-width property (done by set_bclk_ratio)
+>  - drop rockchip,fsync-half-frame property
+>  - drop rockchip,mclk-calibrate property
+>  dts:
+>  - drop empty codec block from Quartz64 device tree
 > 
 > [...]
 
@@ -97,44 +115,10 @@ Applied to
 
 Thanks!
 
-[01/19] ASoC: SOF: core: debug: force all processing on primary core
-        commit: 1539c8c5fcca217e3de063e7fbec97f83c7938a7
-[02/19] ASoC: SOF: debug: Swap the dsp_dump and ipc_dump sequence for fw_exception
-        commit: e85c26eca639f3cf0ad989756f0eac2045391bb6
-[03/19] ASoC: SOF: ipc and dsp dump: Add markers for better visibility
-        commit: 3f7561f74169e199f9d6f4f0cdb9eb681052381a
-[04/19] ASoC: SOF: Print the dbg_dump and ipc_dump once to reduce kernel log noise
-        commit: 9ff90859b95f6c85ce2d671ecd1e95e91dbe7f15
-[05/19] ASoC: SOF: loader: Print the DSP dump if boot fails
-        commit: 247ac640739dda167a127a2ecb158595695ffd7d
-[06/19] ASoC: SOF: intel: atom: No need to do a DSP dump in atom_run()
-        commit: e131bc58868a529c1c97567fc6d0d8855bdb3ffd
-[07/19] ASoC: SOF: debug/ops: Move the IPC and DSP dump functions out from the header
-        commit: 360fa3234e9205306b7730d9afa64c8c3f909160
-[08/19] ASoC: SOF: debug: Add SOF_DBG_DUMP_OPTIONAL flag for DSP dumping
-        commit: 34346a383de96e9fcecb1906d711fc1b09d9b90a
-[09/19] ASoC: SOF: intel: hda-loader: Use snd_sof_dsp_dbg_dump() for DSP dump
-        commit: 0ecaa2fff2debf46d6cc978cd6e48d923e3d339d
-[10/19] ASoC: SOF: Drop SOF_DBG_DUMP_FORCE_ERR_LEVEL and sof_dev_dbg_or_err
-        commit: 23013335bc3c906e304cda507d80b8006381a4f7
-[11/19] ASoC: SOF: debug: Print out the fw_state along with the DSP dump
-        commit: c05ec07143998d8505a054378f8d5b287648c9bf
-[12/19] ASoC: SOF: ipc: Re-enable dumps after successful IPC tx
-        commit: e6ff3db9efe96a9c3cd8b0c33744f259c1928a42
-[13/19] ASoC: SOF: ops: Force DSP panic dumps to be printed
-        commit: 705f4539c4c834de9a7885512585b3a27fedf216
-[14/19] ASoC: SOF: Introduce macro to set the firmware state
-        commit: 58a5c9a4aa993fe2059c1b8dbcff9bf468d722b8
-[15/19] ASoC: SOF: intel: hda: Drop 'error' prefix from error dump functions
-        commit: 4fade25dfbe121f8ef61458b4655966f133b1907
-[16/19] ASoC: SOF: core: Clean up snd_sof_get_status() prints
-        commit: e51838909b69a8c941629a6f86804f8e189103e2
-[17/19] ASoC: SOF: loader: Drop SOF_DBG_DUMP_REGS flag when firmware start fails
-        commit: f8c3ec4368df1e5051030beaeb961fd7f625d2d1
-[18/19] ASoC: SOF: Intel: hda-loader: Drop SOF_DBG_DUMP_REGS flag from dbg_dump calls
-        commit: 7511b0edf1b8d9a1321ac19cb076fcdfe534439a
-[19/19] ASoC: SOF: Intel: hda: Dump registers and stack when SOF_DBG_DUMP_REGS is set
-        commit: 3ad7b8f4817fcfd68a101ec9986c435f17cc74a1
+[1/4] ASoC: rockchip: add support for i2s-tdm controller
+      commit: 081068fd641403994f0505e6b91e021d3925f348
+[2/4] ASoC: dt-bindings: rockchip: add i2s-tdm bindings
+      commit: 510f1c133aedcf69847786c14681e7f7bf4db778
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

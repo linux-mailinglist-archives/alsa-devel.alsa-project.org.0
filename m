@@ -2,99 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB1074254E4
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 15:58:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC3434254FE
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 16:05:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7A43615E0;
-	Thu,  7 Oct 2021 15:57:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A43615E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 690BE1685;
+	Thu,  7 Oct 2021 16:04:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 690BE1685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633615111;
-	bh=eomZvTUJ8GaozJDXvWx0AL7Kf1/QV3su5vcsts3PKNQ=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1633615523;
+	bh=FxCAFLlGgK49/2COjsXgG1rVtjEcAsgaFojdvABsXqo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HK1Tw9nh9Tgd37Xb0VW1kj681dBRFwi6H+o1YT2l2dQiB2IPx3BuWodrAw7Hy8G2C
-	 RcM1IU9sPZI6s/nCiXYk9prx7U0UM5mphLBn+zXJ03YgLJl0qgM0BgdAKnWxPemhvc
-	 WorwnX+kI174M5ijkn0p7AK9G9OjEJhw0o//6WHY=
+	b=HJEMfQkPrfR/EshP0Oa471RZkLzShB7mWf/kOrDDk4/wRIyx2Wjx+/ADLk6H13iV6
+	 nZIbtk5Q+rf5UDla+NlTsPVOeOebpjyWPTW3j4siLmQxVdEi08Gpzs/4nENr2KZF1B
+	 Vv7Hhi1CushF3IGr2JD6esMI0078EW68CXYUoHY8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 071D9F8028B;
-	Thu,  7 Oct 2021 15:57:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB134F8028B;
+	Thu,  7 Oct 2021 16:04:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 80B36F8027D; Thu,  7 Oct 2021 15:57:12 +0200 (CEST)
+ id C46F1F8027D; Thu,  7 Oct 2021 16:04:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_RED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 322B1F800F0
- for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 15:57:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 322B1F800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5D4B3F800F0
+ for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 16:03:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D4B3F800F0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="HWsW/9Oc"
-Received: by mail-wr1-x42b.google.com with SMTP id m22so19505908wrb.0
- for <alsa-devel@alsa-project.org>; Thu, 07 Oct 2021 06:57:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=kQq0xCGqotFLmmvs4jPCrD6mVz7A9gMb8nAtNV0dxeM=;
- b=HWsW/9OcJDxgqkkiBU5+qjxZoCSIB1shHRB+Sb9HVtqJ4XUIq8IHStPoon98fq5AlA
- tQL18prYExD5HuJ/q51xDAIxa73iSTqP+caEJgVhotTekYDxw3GzzTrUzl3xD1kbIbte
- GSGrDPY7amQU1ZtLPxS+v7aoyzRwH1/x6XGBgrCsOa3k7ygT5YXUoMCJwPORlfJD/VBe
- RPd70qF/boWR6xWNPKzUrZgvA8SpqW6YnEjut8ZWGpwDtiNsIFb6eyEGdv9/BkgESm1W
- X1+I/n7PQewysIaWhfp3QoAzDTOdUG/O0FGplrFvZS0GnO5/VSvVehqEaWvq5eBLjzj9
- o6hQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=kQq0xCGqotFLmmvs4jPCrD6mVz7A9gMb8nAtNV0dxeM=;
- b=dPeADSCDpz092JsR6rYvQtJvmqMzc1Ao7BLt0tWNvsMAdMoG+EPYKWU+KJYoK2E6os
- p3ytWnaF3ARj8WRRf75k7hLK9AL29TdwipToJ/NnfX3y+DnDOYHUth4uCdBPDm7e+jvI
- u3cCTE2hW2ngfozIeKLDPYpj5l5hw6g5P2tCvEBruPiS0aGKigUEw5YeYMr1ehulUBSk
- 4hjfq8eFO4zF1eOgGz4EUDARtclDYKDEMe2dRTE7NP6P+ddry9wjUMMgqLF5v8C3b6+F
- gc9lv8/eFG+H64YnSq2KB/83SwVkBHptbeNa+p3FXxrpBO7230P2czfpntobFTt7TKGt
- kkTA==
-X-Gm-Message-State: AOAM532+jXEoVtbznAqh6vphkgMEyq/c8k6HM0feMQ+La8jfGKC6XAg+
- qZKq+yOEMQHp/f8TxRqnicRY0A==
-X-Google-Smtp-Source: ABdhPJxHCzaN93g3HhmQUt/+mxJ7EZDf5b2xG9w94uqi//2O64Y6WdJ6bv5skd3oTFllx0TjKqLm7A==
-X-Received: by 2002:adf:c70b:: with SMTP id k11mr5478970wrg.154.1633615020393; 
- Thu, 07 Oct 2021 06:57:00 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id q18sm8800003wmc.7.2021.10.07.06.56.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Oct 2021 06:56:59 -0700 (PDT)
-Subject: Re: [PATCH] ASoC: codec: wcd938x: Add irq config support
-To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, agross@kernel.org,
- bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
- robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
- perex@perex.cz, tiwai@suse.com, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- swboyd@chromium.org, judyhsiao@chromium.org
-References: <1633614675-27122-1-git-send-email-srivasam@codeaurora.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <217797a8-b37d-9084-f2de-b9162e21718f@linaro.org>
-Date: Thu, 7 Oct 2021 14:56:58 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="CvUZI27J"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 60D0161040;
+ Thu,  7 Oct 2021 14:03:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1633615435;
+ bh=FxCAFLlGgK49/2COjsXgG1rVtjEcAsgaFojdvABsXqo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=CvUZI27JoscBZGdZ9A6RfsjyOv7+5yiC9bYrhS1AQRCBO591YKc8EM+uKvl2wnBHm
+ sGtXsUs8Dvb/gSQbVcLjLyKOG82Xkis8mSpmlz6ZvQ8w/yWRLcmht/4duU4PpSNi8T
+ YH+OldYxh6AF6hTEtWHyDBJTPzsxQMfZwomxEbBUjM5+HpV7p3pkDWrX22K6nqMWVJ
+ n6jCaedFT//3P7hUkfHRm1BTTF+Dp2SoRYpSnj8le6f96QykH6Cnufzufs41ij+/mO
+ qEEWoTTnq4CRCMSlkwWyvofuwg8cKJ+HTW3QbHMksGyAXOXwvVnktUSotjrr9rP0vB
+ +6qOIaczWzP+w==
+Date: Thu, 7 Oct 2021 15:03:53 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Alejandro Tafalla <atafalla@dnyon.com>
+Subject: Re: [PATCH v4 2/2] dt-bindings: sound: max98927: Add reset-gpios
+ optional property
+Message-ID: <YV7+STMCR9VwVwzH@sirena.org.uk>
+References: <cover.1633572679.git.atafalla@dnyon.com>
+ <5004d52da527bf1dd9e5b17e20b2ce50a0b57b5a.1633572679.git.atafalla@dnyon.com>
 MIME-Version: 1.0
-In-Reply-To: <1633614675-27122-1-git-send-email-srivasam@codeaurora.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Venkata Prasad Potturu <potturu@codeaurora.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="NUQMgpiVZHupYbGL"
+Content-Disposition: inline
+In-Reply-To: <5004d52da527bf1dd9e5b17e20b2ce50a0b57b5a.1633572679.git.atafalla@dnyon.com>
+X-Cookie: Colors may fade.
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ ~postmarketos/upstreaming@lists.sr.ht,
+ =?iso-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,34 +88,32 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--NUQMgpiVZHupYbGL
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 07/10/2021 14:51, Srinivasa Rao Mandadapu wrote:
-> This patch fixes compilation error in wcd98x codec driver.
-> 
-> Fixes: 045442228868 ("ASoC: codecs: wcd938x: add audio routing and Kconfig")
-> 
-> Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
-> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+On Thu, Oct 07, 2021 at 04:38:58AM +0200, Alejandro Tafalla wrote:
+> Signed-off-by: Alejandro Tafalla <atafalla@dnyon.com>
 
-LGTM,
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+--NUQMgpiVZHupYbGL
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
-> ---
->   sound/soc/codecs/Kconfig | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-> index 82ee233..216cea0 100644
-> --- a/sound/soc/codecs/Kconfig
-> +++ b/sound/soc/codecs/Kconfig
-> @@ -1583,6 +1583,7 @@ config SND_SOC_WCD938X_SDW
->   	tristate "WCD9380/WCD9385 Codec - SDW"
->   	select SND_SOC_WCD938X
->   	select SND_SOC_WCD_MBHC
-> +	select REGMAP_IRQ
->   	depends on SOUNDWIRE
->   	select REGMAP_SOUNDWIRE
->   	help
-> 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFe/kgACgkQJNaLcl1U
+h9CPCQf/c8ztQc827+7duxObGTk551NtNF0ANN+oi7Jj8i4cc12kZNRdnATusEp4
+87+//IPw49XR2ecA1z/7vRO6nLWN82hYJg8+maq4mYyC6Iz2jzuyA/Z1EutvNuC3
+jerDjqtvT6UPH5B6p46l9gwdsJQJ9JotNz8jo/YeQBTeTevsa8KG23UqE2dpv3vc
+yz1wpRMo5+IygDns+PbkwaZnTtCSA6y0Fb/wF0YyAn8yt2I/EnRV6FSyO2nxA3Cf
+4loSR5+Lqf5v6TrnZy2wOJ3PyNH0eYqg59Pj7ZQEqEc+91Af1xFm236cuHTajczr
+sevuM75gVsXBmFbhoYu/QBc1eJQHTQ==
+=Ulyj
+-----END PGP SIGNATURE-----
+
+--NUQMgpiVZHupYbGL--

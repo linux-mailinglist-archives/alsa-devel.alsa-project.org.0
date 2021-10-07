@@ -2,81 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63D4D425A14
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 19:55:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B944C425A25
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 19:58:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F0A72165E;
-	Thu,  7 Oct 2021 19:54:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0A72165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51334165E;
+	Thu,  7 Oct 2021 19:58:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51334165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633629343;
-	bh=kXmYIZPxrUBan0oMYvtTsYmEyCTNwrfttzKXM4PxWHo=;
+	s=default; t=1633629531;
+	bh=rq0HaF9YsHWiqAPMEPl6ABfwa71LLgo4rS1WaOiKk7g=;
 	h=In-Reply-To:References:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tZbom7ld3MZ96Vu11OM3ZVIURkqzAxTHr/SscgljO7imPJMeMPLQADARCpUpBHhk+
-	 ZTVCywIjvGIKg+WgUnDmy/4GmsUJBWhS9pxcrqPCeOm0QnVdm0U/sq51UhHnVGKurw
-	 JFi7H3t8y4Hoclwptn8GnZ+rxwODGiy4JhRyZA8Y=
+	b=Ud3gYduzkOnG8qomT6zyflC5oOKYqR3BU+YqvQUmUxyDhmYmpMPZyypky4370NWSp
+	 r3N0y4UCwclhvKAzl3j2dGfBq129qf02FANf84MF7AuWb4XjvwFwXXmTPujheaLfFW
+	 kEudg5LXd/NRfcW5Xd2DSicDXv/pmA7Ed0A2zWgc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 810C7F800F0;
-	Thu,  7 Oct 2021 19:54:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD6CAF8028B;
+	Thu,  7 Oct 2021 19:57:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C395EF8027D; Thu,  7 Oct 2021 19:54:24 +0200 (CEST)
+ id 24F01F8027D; Thu,  7 Oct 2021 19:57:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled
  version=3.4.0
-Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
- [IPv6:2607:f8b0:4864:20::22f])
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66E80F80130
- for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 19:54:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66E80F80130
+ by alsa1.perex.cz (Postfix) with ESMTPS id 64B38F800F0
+ for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 19:57:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64B38F800F0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="fibgMhQW"
-Received: by mail-oi1-x22f.google.com with SMTP id s24so10083865oij.8
- for <alsa-devel@alsa-project.org>; Thu, 07 Oct 2021 10:54:17 -0700 (PDT)
+ header.b="b+B3rRcr"
+Received: by mail-ot1-x32f.google.com with SMTP id
+ c26-20020a056830349a00b0054d96d25c1eso8449569otu.9
+ for <alsa-devel@alsa-project.org>; Thu, 07 Oct 2021 10:57:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=ZApifAfSd7xSshpr/sUxHr3xYp1pLLomLCFKliEgdTo=;
- b=fibgMhQWg4plwc/oDBxVmsaY1sPz+UMaaOhVHoXLGf2ho/fjdq1nvo3RWq++NfQXnv
- Y7zbCLFEcxnAzjx7+vkDxaBpF03k/95kwakILe3IgsLoKfuVCue756wC5YYPLMe37cOk
- jinpdxwYMDiRFh7Vn7zu/1/mqfU8Ck5J770UE=
+ bh=tNffkl0Q4XYFcl/VueyyIpHh5QtOfORzbwnyFe2lGUk=;
+ b=b+B3rRcrnNNlpsNamNM5v+Dg5DxzaCynl+SWNFYgRP4C1AnU07jrfTNLTW3dVfQRNr
+ m16M6gVxXz3tLCf9fGZXHnleEiyRdUWguUWmryHmIQ82olFUq30yn7iNGN3fm3PbT7gq
+ iuVijXL/lXLB2gsZHyuvZ/TeV4YTcLK+kzvu8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=ZApifAfSd7xSshpr/sUxHr3xYp1pLLomLCFKliEgdTo=;
- b=sMtNaeF6XpZ8P4kls5MPCj2v2l/bKkER/BJCbkIj5MqZfSWFffXEtguD2otqnYZ3lY
- zxFcdlkrN6FiiKndFxog8v5AvA7yfWlINz3eGgDxG2i/MygHPogOx+cdtPx9R2t9KlDl
- EZkwBi6+6iEClRA5yquTUCNN9+u4iKnYa2u93Wgu7J+7juAjEeSe8+Z/ONHlqHXYqYQ/
- Wy+LmzD2ALjAtPd6lu2i/wMpPFh3sewgrwCFXgFI5hXohaV58z08vaV9MUr6N1LskTpf
- 7HjhoSrAMNIZs3k5pqGz5P48jIUVr/qj4i6ENTdD5KWfW7LTqhLG9cdGveZl6Qt9ssLv
- QWaw==
-X-Gm-Message-State: AOAM531OAvq4leTNifuZIQBSzk/BeKkyM2YSuLH08FRKHoj6mGGva/yY
- iATmLFLNQ8CF2dwSZKVzKzZZGF48yN4+q+HWAnQTxw==
-X-Google-Smtp-Source: ABdhPJzer7jLB28aIBeMpuO+LH9S7TJN5mH1yWD95x/J+s29nDUp/kNabPWn+JQVCK2eQyOyGVJML/1np5GW9StH6v4=
-X-Received: by 2002:aca:f02:: with SMTP id 2mr4323517oip.64.1633629255319;
- Thu, 07 Oct 2021 10:54:15 -0700 (PDT)
+ bh=tNffkl0Q4XYFcl/VueyyIpHh5QtOfORzbwnyFe2lGUk=;
+ b=PZsrMTPRs4ExJ7/BKb8E1zc7rRJfBu0L1FtCLSrzVA8oqQwi11pdiupHJzUhBGYvcY
+ T5IDuVsXJTEDAyzFh8n0Puhb+KhibxxLvD4J+nS8Sn0dLfMlwp2917Kwn2Sq7XdJ6Fcm
+ 9ycqOieL89/TWdpQ7TuDh2r1SNPGaz5M4kHINEroFuMWfkHu/FlPRwCYH9eF6g4uliVY
+ W+BuJ+exIOZR7fs9ZLpuJCjQZoX4mcW6WXEvAhwy1IOODXMAl8+CQL+1Eux+4eFtYl6s
+ ts4Z9VUcCralGqsElPIkWwRtjPpczDkJaFaUjhZ0/SEcXmAnEJkY4KaMc6tzkxM8Fxuj
+ hUnQ==
+X-Gm-Message-State: AOAM5301EUN771yjJa9PpM4GyapkgKb9FCayDv9kE6eCCkgqLkMjSwT8
+ P4+fzyydCMUD4zo8E96wb/tj8ip8S4nyOrFHGUxRHQ==
+X-Google-Smtp-Source: ABdhPJwAvWX1ls2QReA8P64elG2Woqp0Lk3ZSmYVtjCSdDEAjMULvzOhTxb4cSKxDFAzNCrZ2d6cimg76yLQk+aAvUE=
+X-Received: by 2002:a9d:12f4:: with SMTP id g107mr908111otg.77.1633629447464; 
+ Thu, 07 Oct 2021 10:57:27 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 7 Oct 2021 13:54:14 -0400
+ HTTPREST; Thu, 7 Oct 2021 13:57:27 -0400
 MIME-Version: 1.0
-In-Reply-To: <1633614519-26680-4-git-send-email-srivasam@codeaurora.org>
+In-Reply-To: <1633614519-26680-2-git-send-email-srivasam@codeaurora.org>
 References: <1633614519-26680-1-git-send-email-srivasam@codeaurora.org>
- <1633614519-26680-4-git-send-email-srivasam@codeaurora.org>
+ <1633614519-26680-2-git-send-email-srivasam@codeaurora.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Thu, 7 Oct 2021 13:54:14 -0400
-Message-ID: <CAE-0n53SqOHKDpMQicrFNmZ1YxAPesTAk4j6kJVi3xMV8re4-w@mail.gmail.com>
-Subject: Re: [PATCH 3/3] pinctrl: qcom: Add SC7280 lpass pin configuration
+Date: Thu, 7 Oct 2021 13:57:27 -0400
+Message-ID: <CAE-0n52Ge_XZr914Ksmq5Myk3FRp7+Sc5P-9jj8wuspKkjXnYw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] pinctrl: qcom: Update lpass variant independent
+ functions as generic
 To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, agross@kernel.org,
  alsa-devel@alsa-project.org, 
  bgoswami@codeaurora.org, bjorn.andersson@linaro.org, broonie@kernel.org, 
@@ -101,27 +103,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Quoting Srinivasa Rao Mandadapu (2021-10-07 06:48:39)
+Quoting Srinivasa Rao Mandadapu (2021-10-07 06:48:37)
 > diff --git a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
-> index c0117c5..0b68065 100644
+> index 2f19ab4..c0117c5 100644
 > --- a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
 > +++ b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
-> @@ -237,6 +264,15 @@ static struct lpi_pinctrl_variant_data sm8250_lpi_data = {
->         .nfunctions = ARRAY_SIZE(lpass_functions),
+> @@ -124,7 +124,8 @@ static const struct pinctrl_pin_desc sm8250_lpi_pins[] = {
+>         PINCTRL_PIN(13, "gpio13"),
 >  };
 >
-> +static struct lpi_pinctrl_variant_data sc7280_lpi_data = {
-
-Can this variant data be const?
-
-> +       .pins = lpass_lpi_pins,
-> +       .npins = ARRAY_SIZE(lpass_lpi_pins),
-> +       .groups = sc7280_groups,
-> +       .ngroups = ARRAY_SIZE(sc7280_groups),
-> +       .functions = lpass_functions,
-> +       .nfunctions = ARRAY_SIZE(lpass_functions),
-> +};
+> -enum sm8250_lpi_functions {
 > +
->  static int lpi_gpio_read(struct lpi_pinctrl *state, unsigned int pin,
->                          unsigned int addr)
->  {
+
+Please drop this extra newline so the diff makes sense.
+
+> +enum lpass_lpi_functions {
+>         LPI_MUX_dmic1_clk,
+>         LPI_MUX_dmic1_data,
+>         LPI_MUX_dmic2_clk,
+> @@ -203,7 +204,7 @@ static const struct lpi_pingroup sm8250_groups[] = {
+>         LPI_PINGROUP(13, NO_SLEW, dmic3_data, i2s2_data, _, _),
+>  };
+>
+> -static const struct lpi_function sm8250_functions[] = {
+> +static const struct lpi_function lpass_functions[] = {
+
+Why not follow the approach of other qcom pinctrl drivers and make a
+core driver that each SoC uses as a library?
+
+>         LPI_FUNCTION(dmic1_clk),
+>         LPI_FUNCTION(dmic1_data),
+>         LPI_FUNCTION(dmic2_clk),
+> @@ -615,7 +616,7 @@ static int lpi_pinctrl_probe(struct platform_device *pdev)
+>                 return dev_err_probe(dev, PTR_ERR(pctrl->slew_base),
+>                                      "Slew resource not provided\n");
+>
+> -       ret = devm_clk_bulk_get(dev, MAX_LPI_NUM_CLKS, pctrl->clks);
+> +       ret = devm_clk_bulk_get_optional(dev, MAX_LPI_NUM_CLKS, pctrl->clks);
+
+Please mention in the commit text why this is now optional.
+
+>         if (ret)
+>                 return dev_err_probe(dev, ret, "Can't get clocks\n");
+>

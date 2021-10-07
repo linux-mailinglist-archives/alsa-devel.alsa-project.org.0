@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06BD1425F5A
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 23:41:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78DE4425F5B
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 23:42:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8FE7A1664;
-	Thu,  7 Oct 2021 23:41:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FE7A1664
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0DBAD1607;
+	Thu,  7 Oct 2021 23:41:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DBAD1607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633642916;
-	bh=m4HJANNOPPFV57mqo5iLQB7fhTk2U2/wpkQ5dIfb3Ww=;
+	s=default; t=1633642933;
+	bh=oWE2f8ls0ajej5nrdJ4zjanC04qhrFStHJlubcM5wZw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dC7H9sBFyZtNt8XFuaiS8oa4w6S/ub84V7TzMP5jgUj4HYxoJrQ78afTE4YAEHoV1
-	 jdbZmqQdASERgW+LZSq3O4GTGK6RD4H+G/JTphKlPGEEsTgBubI3BhypvEQgFzJbaf
-	 GApJ0Ep3iSGhnXzBalHcDbBYEylj5JZ5bya+FafE=
+	b=G+vhX4T7hSLlI7/0geuzLNGRMk0D/HVu7zk0ZBF/ZZDVNTIaleowV1UTfNaGP3QLe
+	 GFiKzaIeXgrWZSwXaHAh8jF9uBrSJx+ofakMw09cRKeV4zyCMcfc9yO+LAmavQdOpl
+	 hdwft0BTIAnRXAgnWFCFILjYJt7tE61ix03R6BYU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22DB7F80524;
-	Thu,  7 Oct 2021 23:38:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 147E7F80526;
+	Thu,  7 Oct 2021 23:38:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D37EF80510; Thu,  7 Oct 2021 23:38:09 +0200 (CEST)
+ id 2FD49F80526; Thu,  7 Oct 2021 23:38:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62FFAF804FE
- for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 23:38:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62FFAF804FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 50334F804FE
+ for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 23:38:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50334F804FE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="eB+mq8je"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9CF81610C8;
- Thu,  7 Oct 2021 21:38:02 +0000 (UTC)
+ header.b="bYnbdrbE"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 35D3B6121F;
+ Thu,  7 Oct 2021 21:38:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633642683;
- bh=m4HJANNOPPFV57mqo5iLQB7fhTk2U2/wpkQ5dIfb3Ww=;
+ s=k20201202; t=1633642685;
+ bh=oWE2f8ls0ajej5nrdJ4zjanC04qhrFStHJlubcM5wZw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=eB+mq8je9u+SYMX7yuDyZRztJ1+TEQHdhGPN+qrZWD+uCtA4BBZw1ndVfDo5reiGw
- ihje9A2hvtw0CFRlF+uuNO/yr9Kw7FPthacZASuLW/5ZFPtD7YrUZ0eXT99XBLojie
- GZ6XjCHzrPc9ovJPMeb9bNkSCO13fZIoYxFH9m1VyCRcBw8BIi+mW+4OxYce997O75
- R76c7ED/WcP02i3fm8rzNjbFWDsMWT+DYYO1KGLtgZ7cx2KBP0weNWmksNUGFhkWET
- AoYsQQSEWd4RaIoCvSdwQZmFHyz+DGOErTFq2zIohPvr01w0t9q7NiQJuMuT6BzQel
- ifWG83F3NhB9A==
+ b=bYnbdrbEFdTLTM9Z0Dey5TFDp8DWXM0i/2IBx4IEw8rse3bcMKsgQfmeyy4mmaJPv
+ vVKpyQk6MSzWxytZ0eTmB+bWmjbQtNEuz73807HQAUr0qa0E980GndtzLb1fIZHzs+
+ A5z/BpdPdo1Lr0O60bCdiTGCudTroRp8FlZJYEKK3DC1WvCYqW2iaFQFuBgp7lxypw
+ UPJeA+PwsC1xjUR1AXTvLai/bzSDv4M7wuoQMFa6tFQ4SRxYioy1oUT08WUD9xx88K
+ 3RpVEbqyGFa4DixTVu3PUPna8/o4yG/yEDWludQI88lwlYfwxffEYdaVUi37BMCHNX
+ Jc4EXJZPRiaEg==
 From: Mark Brown <broonie@kernel.org>
-To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
-Subject: Re: (subset) [PATCH v5 0/4] Rockchip I2S/TDM controller
-Date: Thu,  7 Oct 2021 22:37:31 +0100
-Message-Id: <163364264608.649699.437992626098307061.b4-ty@kernel.org>
+To: derek.fang@realtek.com,
+	lgirdwood@gmail.com
+Subject: Re: [PATCH] ASoC: rt5682s: Fix hp pop produced immediately after
+ resuming
+Date: Thu,  7 Oct 2021 22:37:32 +0100
+Message-Id: <163364264608.649699.17296255198206672474.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20211001171531.178775-1-frattaroli.nicolas@gmail.com>
-References: <20211001171531.178775-1-frattaroli.nicolas@gmail.com>
+In-Reply-To: <20211007085519.12543-1-derek.fang@realtek.com>
+References: <20211007085519.12543-1-derek.fang@realtek.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, linux-rockchip@lists.infradead.org,
- Mark Brown <broonie@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, albertchen@realtek.com, Mark Brown <broonie@kernel.org>,
+ kevin_chen_ym@realtek.com, shumingf@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,29 +83,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 1 Oct 2021 19:15:27 +0200, Nicolas Frattaroli wrote:
-> this is version 5 of the I2S/TDM driver patchset. A big thanks
-> to everyone who has provided their valuable feedback so far.
+On Thu, 7 Oct 2021 16:55:19 +0800, derek.fang@realtek.com wrote:
+> From: Derek Fang <derek.fang@realtek.com>
 > 
-> Changes in v5:
->  driver:
->  - change comment style of the first comment to C++ style
->  - make refcount non-atomic, as it's only ever used inside
->    a spinlock
->  - use newer SND_SOC_DAIFMT_CB* defines
->  - change ternary statements to if/else conditions
->  - make _clk_compensation_put return 1 if clock changed
->  - implement set_bclk_ratio callback
->  - always set half frame sync mode in TDM mode
->  - automatically enable mclk-calibrate mode when the clocks for
->    it are specified in the device tree
->  bindings:
->  - add Reviewed-by: Rob Herring
->  - drop rockchip,frame-width property (done by set_bclk_ratio)
->  - drop rockchip,fsync-half-frame property
->  - drop rockchip,mclk-calibrate property
->  dts:
->  - drop empty codec block from Quartz64 device tree
+> When the system plays a sound immediately after resuming from S3,
+> it could hear a little pop from headphones.
+> It is due to the HP was unmuted before the completion of
+> jack re-detection finished in parallel.
 > 
 > [...]
 
@@ -115,10 +99,8 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: rockchip: add support for i2s-tdm controller
-      commit: 081068fd641403994f0505e6b91e021d3925f348
-[2/4] ASoC: dt-bindings: rockchip: add i2s-tdm bindings
-      commit: 510f1c133aedcf69847786c14681e7f7bf4db778
+[1/1] ASoC: rt5682s: Fix hp pop produced immediately after resuming
+      commit: 06096537b778c5cfe7618908fe9e55e817083d92
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

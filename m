@@ -2,67 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BF74424D68
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 08:47:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA9C9424DB7
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 09:08:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0747A1674;
-	Thu,  7 Oct 2021 08:46:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0747A1674
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E597166A;
+	Thu,  7 Oct 2021 09:07:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E597166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633589269;
-	bh=Z1Yie3AM+SuOGzYUg7+03UlTNlADVDNF2m4Vx4ukv5M=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	s=default; t=1633590529;
+	bh=+8HtTa/XW2jm2lOpHEo8noJAF6j1LkfZQbiw92FUKmg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Emxq4tkfoCG+NUDc8GzdlDtwmA5x5QlI1ZTT9WMNsFAD7HZW0Lx+/TCEGGn7C3H2W
-	 IMIKf6WzEV9xjfTS6P74Se7Q5d9RtdRHeJA684Jw8G30YTY332AeoCPVkhapqJF+Eu
-	 73Wanxom/jucTJvyohT2C0ixzRWHRdtH2j7eJ5pM=
+	b=tJfkvVasW+3N4f/OOqNRmPxGgrHjtwysecWm2YLBdGAC4D3qt5q/ItVda0N9CpnL5
+	 S5TiOeT5+Hr0bKGXMsfxhJ0zGP05oOp1faV98Wc2mEItnx8NL7iB4RZERCVUAc659v
+	 Gtb4iV4kMe/lowCai7xwtRWo2ud3RVs04KX5CXxM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53578F8028B;
-	Thu,  7 Oct 2021 08:46:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB1D3F800F0;
+	Thu,  7 Oct 2021 09:07:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B79DEF8027D; Thu,  7 Oct 2021 08:46:29 +0200 (CEST)
+ id A49D8F8027D; Thu,  7 Oct 2021 09:07:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [IPv6:2a00:1450:4864:20::52d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 909F2F800FE
- for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 08:46:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 909F2F800FE
-X-IronPort-AV: E=McAfee;i="6200,9189,10129"; a="226129473"
-X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="226129473"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2021 23:46:17 -0700
-X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; d="scan'208";a="624142092"
-Received: from wetzigsa-mobl1.ger.corp.intel.com (HELO [10.249.41.59])
- ([10.249.41.59])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2021 23:46:15 -0700
-Message-ID: <473a911b-2cdd-9cec-541b-aa392f9fb21a@linux.intel.com>
-Date: Thu, 7 Oct 2021 09:46:24 +0300
+ by alsa1.perex.cz (Postfix) with ESMTPS id 475C1F800F0
+ for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 09:07:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 475C1F800F0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="kkEwdCfb"
+Received: by mail-ed1-x52d.google.com with SMTP id l7so19470779edq.3
+ for <alsa-devel@alsa-project.org>; Thu, 07 Oct 2021 00:07:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=lpotU76vDdSm2eyI0wHhAXO0FhpuVMiLp6edMsQuB/8=;
+ b=kkEwdCfbTMghfRCVfLPPLp6Ro4F1GGM3fceeohiUVlRN4EvoS4bUU9ZEXdgNEcYSPQ
+ GqAsnu/9pLxoqx9/4XrtPZGMjLaG1cTG8SI+wqFhLWPUg6ltkKAg9Egsk/1tu02ev+bT
+ vB6yL1wCtirUM6SrADyGQJjRQwGgvaD8saIxAOpJFTm4GwRmOnBdRjCgGkI0jbVT/LYA
+ DUEdSsEUFz7oc2mT9zolDrRgEKm6+j9Ja6Q+6sGMF9C2+4cAf7FTDWoPhM0nQGcFplDi
+ 362TcgNl4Uqr7APsGnhAdmCoDYqiagqQkjVOg0ajKvBiitYSGIHuQi8kOx9/LsUGVRer
+ REdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=lpotU76vDdSm2eyI0wHhAXO0FhpuVMiLp6edMsQuB/8=;
+ b=8KdwQAJsj4lnY5XtrbUrIGRFC3T6/wEWb6AqJFXT3sPypwmbvfLWW0meJbLEp/N0RK
+ I97T6ytSFZdP1qQpvOoi8PSHuW5W/xQ6K7hrsk/y2n9lI60NaCfsUvSWL3qtaOKZW+Zj
+ FOLyuRRZumVpaDQZqur5Wo7JqtFMsU47VMgETU5nUndFnmC27+AyJuZlAvBlFI4w9U7A
+ V8/OOqVpf4tGrHj5ccRkxb5i8EUp+xyqypq7Wfu3BpCIxZ/b3ivwP6gT0prKiohdGNU9
+ biegKUwPufElbohng/DJ4co2+VLW1gOHCCwy8ppRZCMGCL7fGTTTycLFMu8mETDfn60k
+ NSVQ==
+X-Gm-Message-State: AOAM5303Wf23RsqpfarOHuxTmTuNbn9O8bAolRqj6weMbifHtdccx6hV
+ fO+see1Xc95sJiAIzrg91z5TRiBZFTSLtVBAdQ4=
+X-Google-Smtp-Source: ABdhPJzPiN2EYEiuKmeFZCvmZzjTLeaum6RWXkWNbQ1qvZhfFyAItuboJf5DUkY/AeLRN5wZXWuWQUVdU1fvcd/tiwk=
+X-Received: by 2002:a17:906:5a47:: with SMTP id
+ my7mr3576173ejc.128.1633590442300; 
+ Thu, 07 Oct 2021 00:07:22 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.1.2
-Subject: Re: [PATCH 00/19] ASoC: SOF: Improvements for debugging
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <20211006110645.26679-1-peter.ujfalusi@linux.intel.com>
- <YV2HIkZv9dmSmvts@sirena.org.uk>
-From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <YV2HIkZv9dmSmvts@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: guennadi.liakhovetski@linux.intel.com, alsa-devel@alsa-project.org,
- kai.vehmanen@linux.intel.com, lgirdwood@gmail.com,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com
+References: <cover.1633572679.git.atafalla@dnyon.com>
+ <5004d52da527bf1dd9e5b17e20b2ce50a0b57b5a.1633572679.git.atafalla@dnyon.com>
+ <4682758.31r3eYUQgx@alexpc>
+In-Reply-To: <4682758.31r3eYUQgx@alexpc>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Thu, 7 Oct 2021 10:06:46 +0300
+Message-ID: <CAHp75VdbZmGeCq8A1E3AJU4T39xPUhomzrQqZNaDj8Zi0x9WrA@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] dt-bindings: sound: max98927: Add reset-gpios
+ optional property
+To: Alejandro Tafalla <atafalla@dnyon.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: devicetree <devicetree@vger.kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Takashi Iwai <tiwai@suse.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS
+ <devicetree@vger.kernel.org>, Hans de Goede <hdegoede@redhat.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>,
+ " <~postmarketos/upstreaming@lists.sr.ht>,
+ =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,40 +107,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark,
+On Thu, Oct 7, 2021 at 5:45 AM Alejandro Tafalla <atafalla@dnyon.com> wrote:
+> On 7/10/21 4:38 Alejandro Tafalla wrote:
+> > Signed-off-by: Alejandro Tafalla <atafalla@dnyon.com>
+> > ---
+> >  Documentation/devicetree/bindings/sound/max9892x.txt | 3 +++
+> >  1 file changed, 3 insertions(+)
+>
+> Sorry, I forgot to add:  Acked-by: Rob Herring <robh@kernel.org>
 
-my mail client dropped everyone except the list, resending with correct
-TO/CC
-
-On 06/10/2021 14:23, Mark Brown wrote:
-> On Wed, Oct 06, 2021 at 02:06:26PM +0300, Peter Ujfalusi wrote:
->> Hi,
->>
->> The aim of this series is to clean up, make it easier to interpret and less
->> 'chatty' prints aimed for debugging errors.
->>
->> For example currently the DSP/IPC dump is printed every time we have an IPC
->> timeout and it is posible to lost the first and more indicative dump to find the
->> rootcause.
-> 
-> You might want to look at tracepoints and/or trace_printk, apart from
-> anything else they're very useful for flight recorder style applications
-> since they're very low overhead and have comparitively speeaking lots of
-> storage available.
-
-The trace infra is indeed a direction which would help on new hardware,
-architecture bringup.
-
-I should have used different subject for the cover letter as the end
-result is to have better quality bug reports from users in the unlikely
-event that something goes wrong (mostly on the firmware side).
-
-To speed up the turnaround to get it fixed as the first report should
-contain enough details to hint us where to look.
-
-At the end the series will actually reduce the noise from dev_err() in
-case of a failure by printing only needed information without repetition.
+And commit messages?
 
 
 -- 
-Péter
+With Best Regards,
+Andy Shevchenko

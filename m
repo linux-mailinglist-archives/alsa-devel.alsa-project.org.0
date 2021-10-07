@@ -2,96 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C4C54257BD
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 18:20:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BF0742585A
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 18:48:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 17CA31661;
-	Thu,  7 Oct 2021 18:19:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17CA31661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 113D8166E;
+	Thu,  7 Oct 2021 18:47:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 113D8166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633623620;
-	bh=mK8bej4AD5+OvaStMVo/xtYO0x9zeT5M4U8MGQ5hepA=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=aOdITRp5SLVV6m9u2xL4FhBwUagAJ3j3iBJtQTqgZb6rUTjhokkE3/9gwIQFtptgM
-	 WhDWyVUjuYO87nZSO5wGzVGPyTULmtTA4OoUDYF/t4Tldy077r6hhqz/2nRhwP7doC
-	 OuRkY2fcfPcph4i8Ww4dCPyti4DTRF4PE/CMn6TI=
+	s=default; t=1633625325;
+	bh=veqtLgFSwTPk0VpO0TpcfUCapHEbt3tWeteptcWF3Gk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=hguvtM/7lSBgO+5NNtoR7iui5mbJIFqKSqRRk0W9zcV6ZqbyPzWD01IXkiRJmdfGw
+	 A/TQ02U+cfixJseymW0KbzhGgVrl3TlhYldd0BYawcD9yocZ6+MUaxyL0Zj4MHIekt
+	 SJew9BEroMH52q8bAwW0Ot1anZxn00VDPTkW7VS0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6FD3AF8028B;
-	Thu,  7 Oct 2021 18:19:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 265C1F800F0;
+	Thu,  7 Oct 2021 18:47:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D8A90F8027D; Thu,  7 Oct 2021 18:19:00 +0200 (CEST)
+ id BC273F804BB; Thu,  7 Oct 2021 18:47:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 14E88F80130
- for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 18:18:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14E88F80130
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="U7IeIYYD"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="cSMfnsJ3"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 8679B200EF;
- Thu,  7 Oct 2021 16:18:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1633623532; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=PaMfz9PVFXMpWIUMO3f5QL4IvLizLUlBUd3gCzvZPZ4=;
- b=U7IeIYYDGURaXsCtsckS55wtldHDAEL0dl42zMYtZtP/bSVyDN0XLxuTnw+U/TT+30i8fx
- 5hNftnDOXpVez1vHWxOYlqQ/G+a09fUlefzI1nYxAbv7it+bbXCD/x2mxFIpw6WaQd1Fyr
- 5cUfhHLF2wXETBdKyO/Kib/Fm6gu1Xk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1633623532;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=PaMfz9PVFXMpWIUMO3f5QL4IvLizLUlBUd3gCzvZPZ4=;
- b=cSMfnsJ3A01EebhgUDnVwpgkxhFWN0NUnhWqRdzWAfebWdcZ5X6NA/rz+ROV0xJm6u8ha7
- aY7kDSjasZanjyAw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 6A658A3DF0;
- Thu,  7 Oct 2021 16:18:52 +0000 (UTC)
-Date: Thu, 07 Oct 2021 18:18:52 +0200
-Message-ID: <s5hr1cw95ar.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Rich Felker <dalias@libc.org>
-Subject: Re: [musl] Re: [alsa-devel] [PATCH v7 8/9] ALSA: add new 32-bit
- layout for snd_pcm_mmap_status/control
-In-Reply-To: <20211007160634.GB7074@brightrain.aerifal.cx>
-References: <20191211212025.1981822-1-arnd@arndb.de>
- <20191211212025.1981822-9-arnd@arndb.de>
- <29QBMJU8DE71E.2YZSH8IHT5HMH@mforney.org>
- <s5hpmsh9kdx.wl-tiwai@suse.de>
- <CAK8P3a0K3XtjiszC3XWgG0L8+AgO+xUGr_KEAnb9a5GmyecoUQ@mail.gmail.com>
- <s5hee8x9f92.wl-tiwai@suse.de>
- <CAK8P3a0pSZxqfk-bn+idrDYDwANSfiP9L6U1O5jLQvK+3vwyVQ@mail.gmail.com>
- <s5hy27497eo.wl-tiwai@suse.de>
- <20211007160634.GB7074@brightrain.aerifal.cx>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Arnd Bergmann <arnd@arndb.de>, Baolin Wang <baolin.wang@linaro.org>,
- y2038 Mailman List <y2038@lists.linaro.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- musl@lists.openwall.com, Takashi Iwai <tiwai@suse.com>,
- Michael Forney <mforney@mforney.org>, Mark Brown <broonie@kernel.org>,
- Baolin Wang <baolin.wang7@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5497BF80259
+ for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 18:47:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5497BF80259
+X-IronPort-AV: E=McAfee;i="6200,9189,10130"; a="213254553"
+X-IronPort-AV: E=Sophos;i="5.85,355,1624345200"; d="scan'208";a="213254553"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2021 09:45:26 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,355,1624345200"; d="scan'208";a="524733189"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by fmsmga008.fm.intel.com with ESMTP; 07 Oct 2021 09:45:22 -0700
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+ id 98BFB159; Thu,  7 Oct 2021 19:45:29 +0300 (EEST)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/4] ASoC: Intel: bytcht_es8316: few cleanups
+Date: Thu,  7 Oct 2021 19:45:19 +0300
+Message-Id: <20211007164523.27094-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.33.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Hans de Goede <hdegoede@redhat.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,137 +76,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 07 Oct 2021 18:06:36 +0200,
-Rich Felker wrote:
-> 
-> On Thu, Oct 07, 2021 at 05:33:19PM +0200, Takashi Iwai wrote:
-> > On Thu, 07 Oct 2021 15:11:00 +0200,
-> > Arnd Bergmann wrote:
-> > > 
-> > >  On Thu, Oct 7, 2021 at 2:43 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > > > On Thu, 07 Oct 2021 13:48:44 +0200, Arnd Bergmann wrote:
-> > > > > On Thu, Oct 7, 2021 at 12:53 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > > > > > On Wed, 06 Oct 2021 19:49:17 +0200, Michael Forney wrote:
-> > > > >
-> > > > > As far as I can tell, the broken interface will always result in
-> > > > > user space seeing a zero value for "avail_min". Can you
-> > > > > make a prediction what that would mean for actual
-> > > > > applications? Will they have no audio output, run into
-> > > > > a crash, or be able to use recover and appear to work normally
-> > > > > here?
-> > > >
-> > > > No, fortunately it's only about control->avail_min, and fiddling this
-> > > > value can't break severely (otherwise it'd be a security problem ;)
-> > > >
-> > > > In the buggy condition, it's always zero, and the kernel treated as if
-> > > > 1, i.e. wake up as soon as data is available, which is OK-ish for most
-> > > > applications.   Apps usually don't care about the wake-up condition so
-> > > > much.  There are subtle difference and may influence on the stability
-> > > > of stream processing, but the stability usually depends more strongly
-> > > > on the hardware and software configurations.
-> > > >
-> > > > That being said, the impact by this bug (from the application behavior
-> > > > POV) is likely quite small, but the contamination is large; as you
-> > > > pointed out, it's much larger than I thought.
-> > > 
-> > > Ok, got it.
-> > > 
-> > > > The definition in uapi/sound/asound.h is a bit cryptic, but IIUC,
-> > > > __snd_pcm_mmap_control64 is used for 64bit archs, right?  If so, the
-> > > > problem rather hits more widely on 64bit archs silently.  Then, the
-> > > > influence by this bug must be almost negligible, as we've had no bug
-> > > > report about the behavior change.
-> > > 
-> > > While __snd_pcm_mmap_control64 is only used on 32-bit
-> > > architectures when 64-bit time_t is used. At the moment, this
-> > > means all users of musl-1.2.x libc, but not glibc.
-> > > 
-> > > On 64-bit architectures, __snd_pcm_mmap_control and
-> > > __snd_pcm_mmap_control64 are meant to be identical,
-> > > and this is actually true regardless of the bug, since
-> > > __pad_before_uframe and __pad_after_uframe both
-> > > end up as zero-length arrays here.
-> > > 
-> > > > We may just fix it in kernel and for new library with hoping that no
-> > > > one sees the actual problem.  Or, we may provide a complete new set of
-> > > > mmap offsets and ioctl to cover both broken and fixed interfaces...
-> > > > The decision depends on how perfectly we'd like to address the bug.
-> > > > As of now, I'm inclined to go for the former, but I'm open for more
-> > > > opinions.
-> > > 
-> > > Adding the musl list to Cc for additional testers, anyone interested
-> > > please see [1] for the original report.
-> > > 
-> > > It would be good to hear from musl users that are already using
-> > > audio support with 32-bit applications on 64-bit kernels, which
-> > > is the case that has the problem today. Have you noticed any
-> > > problems with audio support here? If not, we can probably
-> > > "fix" the kernel here and make the existing binaries behave
-> > > the same way on 32-bit kernels. If there are applications that
-> > > don't work in that environment today, I think we need to instead
-> > > change the kernel to accept the currently broken format on
-> > > both 32-bit and 64-bit kernels, possibly introducing yet another
-> > > format that works as originally intended but requires a newly
-> > > built kernel.
-> > 
-> > Thanks!
-> > 
-> > And now, looking more deeply, I feel more desperate.
-> > 
-> > This bug makes the expected padding gone on little-endian.
-> > On LE 32bit, the buggy definition is:
-> > 
-> > 	char __pad1[0];
-> > 	u32 appl_ptr;
-> > 	char __pad2[0]; // this should have been [4]
-> > 	char __pad3[0];
-> > 	u32 avail_min;
-> > 	char __pad4[4];
-> > 	
-> > When an application issues SYNC_PTR64 ioctl to submit appl_ptr and
-> > avail_min updates, 64bit kernel (in compat mode) reads directly as:
-> > 
-> > 	u64 appl_ptr;
-> > 	u64 avail_min;
-> > 
-> > Hence a bogus appl_ptr would be passed if avail_min != 0.
-> > And usually application sets non-zero avail_min.
-> > That is, the bug must hit more severely if the new API were really
-> > used.  It wouldn't crash, but some weird streaming behavior can
-> > happen like noise, jumping or underruns.
-> > 
-> > (Reading back avail_min=0 to user-space is rather harmless.  Ditto for
-> >  the case of BE, then at least there is no appl_ptr corruption.)
-> > 
-> > This made me wonder which way to go:
-> > it's certainly possible to fix the new kernel to treat both buggy and
-> > sane formats (disabling compat mmap and re-define ioctls, having the
-> > code for old APIs).  The problem is, however, in the case where the
-> > application needs to run on the older kernel that expects the buggy
-> > format.  Then apps would still have to send in the old buggy format --
-> > or maybe better in the older 32bit format that won't hit the bug
-> > above.  It makes situation more complicated.
-> 
-> Can't an ioctl number just be redefined so that, on old kernels with
-> the buggy one, newly built applications get told that mmap is not
-> available and use the unaffected non-mmap fallback?
+The small set of cleanups against bytcht_es8316 board file.
 
-The problem is that the SYNC_PTR64 ioctl itself for non-mmap fallback
-is equally buggy due to this bug, too.  So disabling mmap doesn't help
-alone.
+In v4:
+- fixed Pierre's email (Pierre)
+- added Hans to the Cc list
 
-And, yes, we can redefine ioctl numbers.  But, then, application would
-have to be bilingual, as well as the kernel; it'll have to switch back
-to old API when running on older kernel, while the same binary would
-need to run in a new API for a newer kernel.
+In v3:
+- actually added a Pierre's tag (Mark)
 
-Maybe we can implement it in alsa-lib, if it really worth for it.
+In v2:
+- added tag (Pierre)
+- added commit message to the patch 2 (Joe)
 
-> > Do we know how widely the __USE_TIME_BITS64 is deployed nowadays?
-> 
-> Anyone using musl on 32-bit archs who's not >=2 years behind current.
+Andy Shevchenko (4):
+  ASoC: Intel: bytcht_es8316: Get platform data via dev_get_platdata()
+  ASoC: Intel: bytcht_es8316: Use temporary variable for struct device
+  ASoC: Intel: bytcht_es8316: Switch to use gpiod_get_optional()
+  ASoC: Intel: bytcht_es8316: Utilize dev_err_probe() to avoid log
+    saturation
 
-OK.
+ sound/soc/intel/boards/bytcht_es8316.c | 37 +++++++++-----------------
+ 1 file changed, 12 insertions(+), 25 deletions(-)
 
+-- 
+2.33.0
 
-Takashi

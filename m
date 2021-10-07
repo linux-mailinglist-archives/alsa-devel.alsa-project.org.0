@@ -2,103 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 990104247BC
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Oct 2021 22:09:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48E01424BD7
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Oct 2021 04:41:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1326F844;
-	Wed,  6 Oct 2021 22:08:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1326F844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8847315F2;
+	Thu,  7 Oct 2021 04:40:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8847315F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633550948;
-	bh=GwJKa3HWq8WLg2BfuYMmFEt7zedPU3kH6RLDEzBHmlE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ORkAkBvbEBxtGbsKX/4AdDydHub4T1/76kHM+KcpAlltt01TSOV2ygVLALGE9EHLE
-	 e8+2SSpBkoBU+6heTwvpmyidIKzhA5JUUO/e90k+oiX1RRYZSmZr/LkQrCfvH4hbxv
-	 7J4XZEsT+kCT8tr33w1EWOqKobUpbR17Dy19f2ws=
+	s=default; t=1633574504;
+	bh=InGqucc62ZYMr1WtkutA5FBp7KXBlrC8+tssE6HbyFA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=m3UeI6CtHV+IZ5OFri4/oa9CGOh3JfBPnruS1UnyxqBW8jmA9d65Ks9W5Ci9gXWdi
+	 14vhMzqHKN9tEWcocymVrvS3ftqHjN0q0MbsFy1BCRwDBreTQ0nsSqYskf/UI9E1X2
+	 KXCYbwRubf3XnSjnPNmuZB6vbUmWvpAO19GEnVaw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FEE6F80249;
-	Wed,  6 Oct 2021 22:07:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A7F3DF80130;
+	Thu,  7 Oct 2021 04:40:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 705F7F80240; Wed,  6 Oct 2021 22:07:49 +0200 (CEST)
+ id 8B56AF8027D; Thu,  7 Oct 2021 04:40:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL
- autolearn=disabled version=3.4.0
-Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
- [IPv6:2607:f8b0:4864:20::730])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from dnyon.com (unknown [IPv6:2001:ba0:1800:12f::1])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 77E72F8010B
- for <alsa-devel@alsa-project.org>; Wed,  6 Oct 2021 22:07:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77E72F8010B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C563F80130
+ for <alsa-devel@alsa-project.org>; Thu,  7 Oct 2021 04:40:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C563F80130
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="Yic4R7P/"
-Received: by mail-qk1-x730.google.com with SMTP id b65so3771579qkc.13
- for <alsa-devel@alsa-project.org>; Wed, 06 Oct 2021 13:07:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=KdJ09V/pcQE6r3HiadtvxvIguyjALgPrkh/XKOwV7Jk=;
- b=Yic4R7P/hfuCQhHrbkUgWVJS89QccJE249K19g3fzSPI4hTMrWOZ2lxkWwE5NY7hQ/
- t5kl2K2VTy5LkXfREvMJTBt6lkxVIKEnRwzUsM4mz28ZyOPo60Fc6gtYV+ya0ZZ2LBdE
- FIcfsrvB/70ElBECtyZ/FXg7iDQVsFcamXc3fdZv7XhaTLlX9uu4/5/MRHqNY9EIJIMZ
- XnuPxNR1tYCKrUTY2TRDOQf4pYa6mmiD0SdvgyqR53AghrTii4QY6V2sX3lvlwJyrEN+
- KZG8Jik+Vzx++AtwcQC2PuiP4Ybzub3x3Fw2y+o78dAhpRDYqLJB0Pa1bhb6+zD+UQZ9
- UWqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=KdJ09V/pcQE6r3HiadtvxvIguyjALgPrkh/XKOwV7Jk=;
- b=NrJfogpgqPSUhzAKfepbyDCf8NF6O4T4AcZ+rH/pOsIyqYHYOmHT1KsqKO4SranUYQ
- zEOLO1xtZ/r+9qRv8Va7wQIS7XDn8aySxwdSgasPG5PEQiPoaT4GdiLCg2hiLJemUZJl
- Qn/q3Ajgs6ThLr82snI/QUzmySj43kAcQ/dGHBcI7X7TpiQaq2v+xB21qnOhxeQFoq9W
- GGZAkA+kuSjkE7pz6sH/nQ0p6+sKj8dxKCilQKFgSwkecGOccTCMP8yceSHDpbN1e3Ph
- dsE6gP5km2lX4CGK1yAbuJ9Vigzxi1i0S0P0HfdHT1aKs7H/cISbsnzXmoImLaAeEWZ2
- Xm+A==
-X-Gm-Message-State: AOAM531VIGHFSlO6UOjvBCRoeo09FBiI2it1SpbE3RNV7cmqN1NzIJGK
- BlgT6EvQB3NHmXSiIqgVDR4UtlBMiqJx+duN5OJfKg==
-X-Google-Smtp-Source: ABdhPJwXdoCb5tl7ZEp7CnIq1HAWDaj0IstOTAg0lznv3mEsLUPCwmAmCxkokdL/lnD30jYUW8BSJPEYZFLPEHJuhTY=
-X-Received: by 2002:a05:620a:638:: with SMTP id 24mr73965qkv.333.1633550856863; 
- Wed, 06 Oct 2021 13:07:36 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=dnyon.com header.i=@dnyon.com
+ header.b="zhwnJWAw"
+Received: from dnyon.com (55.red-81-39-194.dynamicip.rima-tde.net
+ [81.39.194.55])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by dnyon.com (Postfix) with ESMTPSA id B059B3FD71;
+ Thu,  7 Oct 2021 02:39:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=dnyon.com; s=mail;
+ t=1633574393; bh=InGqucc62ZYMr1WtkutA5FBp7KXBlrC8+tssE6HbyFA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=zhwnJWAw0ou5BaKphNIfrtWm2WGiX8PSehems8NJwg0IeHNblYaTZIuBw99YUwjrW
+ loA2+uLXLeC7qyFWxfOscZlgw57HWHZslp4iGKXHFMggm+pBzmk+7XZNpRqjp1lf+g
+ ZY5TkYAg/z+6fPQDh0fFFe0RznPa44QAIzA7XMyNcUQCqfAZXiOpvVUcs9d12yc6zC
+ 2XK8qiTOg0mKz5sQrdumOriaSgEV1eDdvnNSp375FoW/c8H7AdayKqAY/4g2Uc5QXo
+ qSVX0L31txEF7u9+UIqdWqgbGHe4lpAkZChuPT0xC+m5E4BS8C+1ZDelfgajVbeQFh
+ vWEyLDd5WLkvg==
+From: Alejandro Tafalla <atafalla@dnyon.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>,
+ =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+ ~postmarketos/upstreaming@lists.sr.ht, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/2] Add reset-gpios handling for max98927
+Date: Thu,  7 Oct 2021 04:38:54 +0200
+Message-Id: <cover.1633572679.git.atafalla@dnyon.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-References: <20211006161805.938950-1-brent.lu@intel.com>
- <20211006161805.938950-4-brent.lu@intel.com>
- <CAOReqxjGX6fwqNjX0i31JiQJ+vRCMNTTFBhn7L=iPzYvVMk9mQ@mail.gmail.com>
- <0482534d-46c4-5cee-25bd-8739e80a00f0@linux.intel.com>
- <CAOReqxisH_9TuP_v77JzdQ+v+duPvvyHNHBxXzGJZ3dMoyMczQ@mail.gmail.com>
- <dfd23e78-b7c8-fa77-035e-19c9af595719@linux.intel.com>
-In-Reply-To: <dfd23e78-b7c8-fa77-035e-19c9af595719@linux.intel.com>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Wed, 6 Oct 2021 13:07:25 -0700
-Message-ID: <CAOReqxjAO0DpOvfpUwXH4ad+7Bx22TBxQUopBJKAwO8DpGJ20Q@mail.gmail.com>
-Subject: Re: [PATCH 3/3] ASoC: Intel: sof_rt5682: use id_alt to enumerate
- rt5682s
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- ALSA development <alsa-devel@alsa-project.org>,
- Rander Wang <rander.wang@intel.com>, Jie Yang <yang.jie@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Mac Chiang <mac.chiang@intel.com>, Gongjun Song <gongjun.song@intel.com>,
- Bard Liao <bard.liao@intel.com>, Takashi Iwai <tiwai@suse.com>,
- Vamshi Krishna Gopal <vamshi.krishna.gopal@intel.com>,
- Yong Zhi <yong.zhi@intel.com>, Charles Keepax <ckeepax@opensource.cirrus.com>,
- Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
- Paul Olaru <paul.olaru@oss.nxp.com>, Brent Lu <brent.lu@intel.com>,
- Libin Yang <libin.yang@intel.com>,
- Malik_Hsu <malik_hsu@wistron.corp-partner.google.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Curtis Malainey <cujomalainey@chromium.org>
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Alejandro Tafalla <atafalla@dnyon.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,46 +84,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Oct 6, 2021 at 12:58 PM Pierre-Louis Bossart
-<pierre-louis.bossart@linux.intel.com> wrote:
->
->
-> > I don't see an issue with still using a struct since we are using the
-> > same list across multiple machines, but this makes me wonder if maybe
-> > we should refactor this into another layer, having the ids at a top
-> > structure and then the speaker matches a layer down. E.g.
-> >
-> >  struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
-> >         {
-> >                 .drv_name = "adl_mx98373_rt5682",
-> >                 .machine_quirk = snd_soc_acpi_codec_list,
-> >                 .quirk_data = &adl_max98373_amp,
-> >         },
-> >         {
-> >                 .drv_name = "adl_mx98357_rt5682",
-> >                 .machine_quirk = snd_soc_acpi_codec_list,
-> >                 .quirk_data = &adl_max98357a_amp,
-> >         },
-> >         {
-> >                 .drv_name = "adl_mx98360_rt5682",
-> >                 .machine_quirk = snd_soc_acpi_codec_list,
-> >                 .quirk_data = &adl_max98360a_amp,
-> >         }
-> > }
-> >
-> > struct machine_driver adl_rt5682_driver_match {
-> >   .id = { "10EC5682", "RTL5682" }
-> >   .instances = &adl_rt5682_machines
-> > }
->
-> We probably need to experiment various options, on one hand the proposal
-> removes duplication but in a lot of cases outside of Chromebooks/rt5640
-> there is none, so that table rework adds an indirection with no real
-> benefit.
+The max98927 codec on some devices (i.e. Xiaomi Mi A2 Lite phone) requires
+hardware-resetting the codec by driving a reset-gpio. This series adds
+support for it through an optional reset-gpios property.
 
-Fair point, given the current situation this would benefit RTK boards
-only. I have no idea if we will end up in the same boat with any other
-boards, but given the current supply chain status I would expect this
-(multi-sourcing) to be a way of the future. So maybe an idea we pocket
-for now and deploy when we end up in this situation  with more
-drivers.
+v4:
+* Correctly assert/deassert the GPIO states
+* Wait for the i2c port to be ready after reset
+* Reset device when removed
+
+v3:
+* Fix indentation on the dev_err_probe line
+
+v2:
+* Use dev_err_probe instead of dev_err
+
+Alejandro Tafalla (2):
+  ASoC: max98927: Handle reset gpio when probing i2c
+  dt-bindings: sound: max98927: Add reset-gpios optional property
+
+ .../devicetree/bindings/sound/max9892x.txt    |  3 +++
+ sound/soc/codecs/max98927.c                   | 25 +++++++++++++++++++
+ sound/soc/codecs/max98927.h                   |  1 +
+ 3 files changed, 29 insertions(+)
+
+-- 
+2.33.0
+

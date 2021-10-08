@@ -2,53 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99844426CE3
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Oct 2021 16:43:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3272426D10
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Oct 2021 16:52:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED04C168C;
-	Fri,  8 Oct 2021 16:42:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED04C168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 16BAD168A;
+	Fri,  8 Oct 2021 16:52:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16BAD168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633704211;
-	bh=plZ+VocAF3cHD0Ye1bGK+4p32y9RfPlSXoiEZvvYOA4=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1633704770;
+	bh=q+uYn46oKu0+g2FBVUzprQZF2tT9ACUn/Q+MFHy32p8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YGN9ejkAfgD2DZg5Ot6gHl9c9r3cyr0M8G0L91V7ja5kcQ9p914ezQbqfm/hKzpkz
-	 cuqiwJEQdbAnhjC/9rz1Z+yWc3kPL3sWqU+HhGMQLqsKS3VlJN5q6nUoFFr3qOp6oL
-	 xzbjXvdCSqeQgFXh/ttkTy1fFgIjTMLNXjN68BS4=
+	b=PQyhCDUKdMdqRashbzVCFUmCP44TfDklyT3FNd5YwH0YfctxCy3+kzM0ikz28EB70
+	 DkR7yWF38MBnpKG26yFPgwRSICFO/iSRc2GgtqfeIHh9Uc3KyQDCiF6FNssuWdUGuj
+	 41EyGnnzSD8Z2msSqgky8dBA9DQq+0Lj3jSVnxCs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 763FDF80240;
-	Fri,  8 Oct 2021 16:42:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D345F80249;
+	Fri,  8 Oct 2021 16:51:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8AD9CF80246; Fri,  8 Oct 2021 16:42:11 +0200 (CEST)
+ id 95B9BF80246; Fri,  8 Oct 2021 16:51:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_78,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 12849F80229
- for <alsa-devel@alsa-project.org>; Fri,  8 Oct 2021 16:42:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12849F80229
-X-IronPort-AV: E=McAfee;i="6200,9189,10130"; a="213466703"
-X-IronPort-AV: E=Sophos;i="5.85,357,1624345200"; d="scan'208";a="213466703"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Oct 2021 07:42:03 -0700
-X-IronPort-AV: E=Sophos;i="5.85,357,1624345200"; d="scan'208";a="440664428"
-Received: from vgopala1-mobl.amr.corp.intel.com (HELO [10.212.34.202])
- ([10.212.34.202])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Oct 2021 07:42:02 -0700
+ by alsa1.perex.cz (Postfix) with ESMTPS id E3A42F80229
+ for <alsa-devel@alsa-project.org>; Fri,  8 Oct 2021 16:51:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3A42F80229
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Uf+2BA7a"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="0OTzA8e+"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id B8A961FF47;
+ Fri,  8 Oct 2021 14:51:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1633704678; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=OkOCy/4Xaw8Ir/P3EFHrwnlYBBPMrH+frCsht24I4jc=;
+ b=Uf+2BA7a5u9MQ9AwTIaDxuQXFkPo2kkanLAbKsK5vVaHh3pcxkorEvLZ1QjFvUKBzSIOem
+ jcPN1W4W7TlgZDOuBaOvGVtToEVNe+CtU/y7bngoe46OAPRbSOhSo3uR4ivJVCO3BK2QRs
+ sRPznk3Vy2ftXABUYMrpTZL6DIIGhp8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1633704678;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=OkOCy/4Xaw8Ir/P3EFHrwnlYBBPMrH+frCsht24I4jc=;
+ b=0OTzA8e+LLwyjMsax0yOt8xPhizZ4rq5vmn56CMKBBtOV8c6bSk3OwQx5DkVCNaURVpLSE
+ 41D80stTm3OJApDA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id DADC4A3B84;
+ Fri,  8 Oct 2021 14:51:17 +0000 (UTC)
+Date: Fri, 08 Oct 2021 16:51:17 +0200
+Message-ID: <s5hczof7eoq.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Subject: Re: [RFC PATCH v2 0/5] ASoC: soc-pcm: fix trigger race conditions
  with shared BE
-To: Takashi Iwai <tiwai@suse.de>
+In-Reply-To: <e9340874-320a-8fc6-f3a4-9cf77f85db25@linux.intel.com>
 References: <20211004225441.233375-1-pierre-louis.bossart@linux.intel.com>
  <cce82420-d744-ee43-d514-b77ac4905ffa@nvidia.com>
  <1efa1c31-7342-05f8-5f73-95e2462d4179@linux.intel.com>
@@ -63,16 +85,12 @@ References: <20211004225441.233375-1-pierre-louis.bossart@linux.intel.com>
  <s5hily88rri.wl-tiwai@suse.de>
  <75894aba-ca1a-51d6-df7d-ad53fcd89f79@linux.intel.com>
  <s5hee8w82ng.wl-tiwai@suse.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <e9340874-320a-8fc6-f3a4-9cf77f85db25@linux.intel.com>
-Date: Fri, 8 Oct 2021 09:41:59 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <s5hee8w82ng.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ <e9340874-320a-8fc6-f3a4-9cf77f85db25@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
 Cc: alsa-devel@alsa-project.org,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
  Sameer Pujar <spujar@nvidia.com>, vkoul@kernel.org, broonie@kernel.org,
@@ -93,44 +111,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
->>>> I think the only solution is to follow the example of the PCM case,
->>>> where the type of lock depends on the FE types, with the assumption that
->>>> there are no mixed atomic/non-atomic FE configurations.
->>>
->>> Yes, and I guess we can simply replace those all card->dpcm_lock with
->>> FE's stream lock.  It'll solve the atomicity problem, too, and the FE
->>> stream lock can be applied outside the loop of dpcm_be_disconnect()
->>> gracefully.
->>>
->>> And, this should solve the race with dpcm_be_dai_trigger() as well,
->>> because it's called from dpcm_fe_dai_trigger() that is called already
->>> inside the FE's stream lock held by PCM core.  A PoC is something like
->>> below.  (I replaced the superfluous *_irqsave with *_irq there)
->>
->> No I don't think so. The code starts from an FE and loops for all the
->> BEs connected to that FE, but we want to serialize at the BE level! we
->> really need a dpcm lock at the card level, not the FE/stream level.
+On Fri, 08 Oct 2021 16:41:59 +0200,
+Pierre-Louis Bossart wrote:
 > 
-> The FE lock prevents the race between dpcm_be_dai_trigger() and
-> dpcm_be_disconnect(), i.e. the problem Gyeongtaek showed.
 > 
-> The race among concurrent dpcm_be_dai_trigger() calls itself can be
-> addressed by BE stream locks as suggested earlier.
+> 
+> >>>> I think the only solution is to follow the example of the PCM case,
+> >>>> where the type of lock depends on the FE types, with the assumption that
+> >>>> there are no mixed atomic/non-atomic FE configurations.
+> >>>
+> >>> Yes, and I guess we can simply replace those all card->dpcm_lock with
+> >>> FE's stream lock.  It'll solve the atomicity problem, too, and the FE
+> >>> stream lock can be applied outside the loop of dpcm_be_disconnect()
+> >>> gracefully.
+> >>>
+> >>> And, this should solve the race with dpcm_be_dai_trigger() as well,
+> >>> because it's called from dpcm_fe_dai_trigger() that is called already
+> >>> inside the FE's stream lock held by PCM core.  A PoC is something like
+> >>> below.  (I replaced the superfluous *_irqsave with *_irq there)
+> >>
+> >> No I don't think so. The code starts from an FE and loops for all the
+> >> BEs connected to that FE, but we want to serialize at the BE level! we
+> >> really need a dpcm lock at the card level, not the FE/stream level.
+> > 
+> > The FE lock prevents the race between dpcm_be_dai_trigger() and
+> > dpcm_be_disconnect(), i.e. the problem Gyeongtaek showed.
+> > 
+> > The race among concurrent dpcm_be_dai_trigger() calls itself can be
+> > addressed by BE stream locks as suggested earlier.
+> 
+> I am not following your line of thought Takashi.
+> 
+> dpcm_be_disconnect already uses a spin_lock around
+> 
+> list_del(&dpcm->list_be);
+> list_del(&dpcm->list_fe);
+> 
+> and in some other places, are you suggesting we change those to the FE lock?
 
-I am not following your line of thought Takashi.
+Basically yes.
 
-dpcm_be_disconnect already uses a spin_lock around
+> Otherwise, I understood your proposal as using three locks (existing
+> spinlock, FE lock, BE lock) to deal with DPCM. If the existing spinlock
+> and FE lock are combined, we'd still have two locks.
 
-list_del(&dpcm->list_be);
-list_del(&dpcm->list_fe);
+Stream locks are more fine-grained, hence more efficient :)
+The card-level spinlock is superfluous and it can go away.
 
-and in some other places, are you suggesting we change those to the FE lock?
+> I was suggesting we use only one ;-)
 
-Otherwise, I understood your proposal as using three locks (existing
-spinlock, FE lock, BE lock) to deal with DPCM. If the existing spinlock
-and FE lock are combined, we'd still have two locks.
+Basically we need to protect two things:
+- The BE links
+- The concurrent accesses to BEs
+The former belongs to each FE that holds the links, and the FE stream
+lock would cover.  The latter is rather a per-BE business.
 
-I was suggesting we use only one ;-)
+An oft-seen risk of multiple locks is deadlocking, but in this case,
+as long as we keep the lock order FE->BE, nothing wrong can happen.
 
+
+Takashi

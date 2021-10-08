@@ -2,94 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D45DC426B07
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Oct 2021 14:38:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F319426B4F
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Oct 2021 14:52:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6FC031689;
-	Fri,  8 Oct 2021 14:38:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FC031689
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8388168B;
+	Fri,  8 Oct 2021 14:52:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8388168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633696737;
-	bh=tr57BcsLvQff1UJOz2xcwwSVeDkxcz5E9TvAladVYsM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1633697575;
+	bh=yN6jNyqY0tdmECHxR1wtroW8A8lILV+Zejp7DTxpLgA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gHI4nQPu81o084J+b6ymFA5rkRxY2W0Ue2kNoSu0RFiovxuxIMAnPlMyoZ9iQqwjG
-	 NBAl0ClQK82yMztAbhygEVUoQrsqZla20p1uYTs7dByrBkcAt0sl9/gF95knIptjx4
-	 1+9kGXC+kvKdS4pR8PJl0kKV++BD1NECTDDNypMo=
+	b=LFGPSTUUv3FzQ5V57E1vI8WJg9lBB3rmMYIGqdKKYKVXJlBRKT/EhWmn6rDE/W5yM
+	 NgB7Wlwp6JYHgbnpTpXaKL6MooZwIpVrZGfQj1ANiN9IIsLxZqWrHbRIgMoTDWRfwP
+	 G/TaW7fpcb86SxMVIuqhoMdHrTOm4k+WRB1wJQDA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B260CF80249;
-	Fri,  8 Oct 2021 14:37:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15D9CF80124;
+	Fri,  8 Oct 2021 14:51:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C3C1BF80246; Fri,  8 Oct 2021 14:37:38 +0200 (CEST)
+ id E8480F80246; Fri,  8 Oct 2021 14:51:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2C0ABF80229
- for <alsa-devel@alsa-project.org>; Fri,  8 Oct 2021 14:37:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C0ABF80229
-Received: from mail-wr1-f46.google.com ([209.85.221.46]) by
- mrelayeu.kundenserver.de (mreue009 [213.165.67.97]) with ESMTPSA (Nemesis) id
- 1MHG4W-1mUNA129TM-00DCR8 for <alsa-devel@alsa-project.org>; Fri, 08 Oct 2021
- 14:37:29 +0200
-Received: by mail-wr1-f46.google.com with SMTP id t2so29384626wrb.8
- for <alsa-devel@alsa-project.org>; Fri, 08 Oct 2021 05:37:29 -0700 (PDT)
-X-Gm-Message-State: AOAM530K2fKv2rD+BHgkkc2q35O87vmg5K/mrKAa4tOE22fBe3B4D2U2
- deRU8swXe528R+/NMjk/vdfr1WKDShI1Owp9BGg=
-X-Google-Smtp-Source: ABdhPJz+OsHH9TxIx5K6iJ9DpkOYbAe4pbkJ+fTL9DRFiVKeKmwkbM0kl6Mrn8Ssl6rKFyFAWgZsHKiq0l0TwmsxawQ=
-X-Received: by 2002:a7b:c8d1:: with SMTP id f17mr3224956wml.35.1633696648763; 
- Fri, 08 Oct 2021 05:37:28 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5E21F80229
+ for <alsa-devel@alsa-project.org>; Fri,  8 Oct 2021 14:51:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5E21F80229
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="o/1sMv63"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E190C60FC2;
+ Fri,  8 Oct 2021 12:51:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1633697487;
+ bh=yN6jNyqY0tdmECHxR1wtroW8A8lILV+Zejp7DTxpLgA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=o/1sMv63+8hQRt+O4kGRixzo+6wh7EcvWsWC/P+Su88x09542URplEQbblqIKy14H
+ ohLwCXe19nsPPwS08M9VoPUYcOhxvyiBAt/mbgq7HnWVGrYB/v/HB33Punj8Re+n4z
+ 40Nukq94SbgsBfxJeUb2MJF34Dm6pVrm4+qM3Gp//b+68yS7qBoIDDXvk33wSh8Jht
+ KS+mE6GpTp8VWblR4fM3OVa0VyOEe50JzGey99xCzcLxCabgvo2SCNHFoR1rDTa0Wi
+ Yr2kT46+UtEHbu84uiAwghJ2v6B3O6DV/kXmmIFccUauFbo+vgGhLkhCsoOYyVn3H1
+ WCj4T62ZErGcA==
+Date: Fri, 8 Oct 2021 13:51:22 +0100
+From: Mark Brown <broonie@kernel.org>
+To: cy_huang <u0084500@gmail.com>
+Subject: Re: [PATCH v3 2/2] ASoC: rt9120: Add rt9210 audio amplifier support
+Message-ID: <YWA+ykStTEyzRbEy@sirena.org.uk>
+References: <1633668612-25524-1-git-send-email-u0084500@gmail.com>
+ <1633668612-25524-3-git-send-email-u0084500@gmail.com>
 MIME-Version: 1.0
-References: <s5hpmsh9kdx.wl-tiwai@suse.de>
- <CAK8P3a0K3XtjiszC3XWgG0L8+AgO+xUGr_KEAnb9a5GmyecoUQ@mail.gmail.com>
- <s5hee8x9f92.wl-tiwai@suse.de>
- <CAK8P3a0pSZxqfk-bn+idrDYDwANSfiP9L6U1O5jLQvK+3vwyVQ@mail.gmail.com>
- <s5hy27497eo.wl-tiwai@suse.de> <20211007160634.GB7074@brightrain.aerifal.cx>
- <s5hr1cw95ar.wl-tiwai@suse.de> <20211007165158.GC7074@brightrain.aerifal.cx>
- <s5h5yu79aab.wl-tiwai@suse.de>
- <CAK8P3a0qxNLv3_RcR5COcRGPcTnYMcfbOjdWKiT2hKdcof9WUg@mail.gmail.com>
- <20211008120609.GE7074@brightrain.aerifal.cx>
-In-Reply-To: <20211008120609.GE7074@brightrain.aerifal.cx>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Fri, 8 Oct 2021 14:37:12 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a2=X5tPppmcV4x9=pyodiPfoq=tA5jVKuMwA1nKJe=_bA@mail.gmail.com>
-Message-ID: <CAK8P3a2=X5tPppmcV4x9=pyodiPfoq=tA5jVKuMwA1nKJe=_bA@mail.gmail.com>
-Subject: Re: [musl] Re: [alsa-devel] [PATCH v7 8/9] ALSA: add new 32-bit
- layout for snd_pcm_mmap_status/control
-To: musl@lists.openwall.com
-Content-Type: text/plain; charset="UTF-8"
-X-Provags-ID: V03:K1:rAqYyXCoUAcykQiu35tt6ud+7tbe9xrqaMAM+IMbgVFHJNcJc6D
- qzpWoNT8YU9kjSyBe5DJ2mPfIQxNpdwAkQTem1o6SIWjpiKv2sCr9sCseD/JSyaRn0p0VOk
- 4RidWeV/uJ2FL6ykjn17/c114flrqJdNnD2PZPbmfCEfjcyTZrikvg0yUNQ7JALrXmYK19U
- iy51VFKamwi8NqH15AfzQ==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:D0zfJpGORWk=:OH24F8CEuPBkGHU3sakcpL
- 6GTTUo2q7mpFC05WCljGCpueTlQALeFY2FmtGZ2Ge+XJIkJrZSFLP6i4yGSd5Eo28AyEmEe25
- nd41aVU+Q8/ys1nYkJMILR2wP3XKX2TaGkHQ1hUFO8TR2kk15zeBp9Foj20ddUmztwDLsKfpw
- Z4UOovfT2rHL9tTnbn5nDz8Dlwu7ejseesqSgenn4WiiTjymEkF/05ArRjDYEIvQ8suEX92Wd
- /X8dw5jluBAyHWSrsg5J+aMTAX+pHx6LUay/zDrEkgz9XokJOYyjMP95GW83G8IXg5DlBhaPw
- G+1D7puPsVPbftw8JNQQBpxIf6yIcXIk7xV9BthsqYEuW8yNgYecF9V0b/lv8hyPgeHMZ2NVF
- IgJeBsZQ3y+8h73c8IPiRpS+kROQK1CAaOyED3wQ7TO/mNuL0dtS22eh1WLC2NHbj4x9RJScT
- MfP+/AW9V7iYxQaDkf+UdWLpg6qzSkCNvFQFrTBx1z2+4sK7Ue60AJoysjPazfUap9lhE9VgQ
- GI+eq8P/PA9C5i9W+zqRxjPZgaePd+F01MineRgkzZVoA2+fchs9AtI5N7rJvAONeDtgTyEd3
- XDSROQq12Wg27RAf8Tv1ursxzRQbWpB/vnS4WgaILZ7ue4y5knwvQ3BW119nlZvqexBJxvBgR
- mYmuQgycH6Jg+afdjczbvPaKwhfjEaed1kaggzx1N9tbLQzqMFtH2ittOy/CUyYayoxQ/jvox
- LYUwZEFfD3bi8A2qyL6Ne337K+mhtXL9MzmOGp1Xm6vDB+AUfp47TRWQO9/efhrf5vomudG9x
- dqnEru0N1RSz9bqHSoszxuyqSMbcCuVIb9kySCDn4j/AWH7ujBvd9WMpwdMZdp2UCq9U1ZOAb
- hTQEx0GtOoSO1RXzfHRg==
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Arnd Bergmann <arnd@arndb.de>, Baolin Wang <baolin.wang@linaro.org>,
- y2038 Mailman List <y2038@lists.linaro.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Michael Forney <mforney@mforney.org>,
- Mark Brown <broonie@kernel.org>, Baolin Wang <baolin.wang7@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="msEr/jdBSU575gqS"
+Content-Disposition: inline
+In-Reply-To: <1633668612-25524-3-git-send-email-u0084500@gmail.com>
+X-Cookie: When your memory goes, forget it!
+Cc: oder_chiou@realtek.com, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
+ tiwai@suse.com, cy_huang@richtek.com, robh+dt@kernel.org,
+ allen_lin@richtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,22 +83,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Oct 8, 2021 at 2:06 PM Rich Felker <dalias@libc.org> wrote:
-> On Fri, Oct 08, 2021 at 11:24:39AM +0200, Arnd Bergmann wrote:
-> >
-> > I've tried to understand this part of musl's convert_ioctl_struct(), but I just
-> > can't figure out whether it does the conversion based the on the layout that
-> > is currently used in the kernel, or based on the layout we should have been
-> > using, and would use with the above fix. Rich, can you help me here?
->
-> If the attempted 64-bit ioctl is missing (ENOTTY), it does the
-> conversion to the legacy 32-bit one and retries with that, then
-> converts the results back to the 64-bit form.
 
-I understand that it tries to do that.
+--msEr/jdBSU575gqS
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-The part that I'm not sure about is which of the two possible
-64-bit forms it's using -- the broken one we have defined in the
-kernel headers, or the one we were trying to define but failed.
+On Fri, Oct 08, 2021 at 12:50:12PM +0800, cy_huang wrote:
 
-      Arnd
+> +static const struct snd_kcontrol_new rt9120_snd_controls[] = {
+> +	SOC_SINGLE_TLV("MS Volume", RT9120_REG_MSVOL, 0, 2047, 1, digital_gain),
+> +	SOC_SINGLE("SPK Gain", RT9120_REG_SPKGAIN, 0, 7, 0),
+
+Volume controls should end in Volume even if they don't have TLV
+information so applications know how to render them.  I'll fix
+this up as I apply.
+
+--msEr/jdBSU575gqS
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFgPskACgkQJNaLcl1U
+h9DbbAf/ViOSI75UvPC1A+pp7ykPb2CF0lo+AsflYDs6bPHdCBnzsKecBpQB3A8K
+gLHD6jFdEEKhAwhvLpzQqLU5ytwDkPrY81ebrgwOrIzCHR0jk9dq1ZYEyim8k0UZ
+TBmFmIgQ+PEQ/JjkQKCPu20jzZBVFI5sEZ/Q6Ar1mWVO/GnVuxWF3Kw9fCxbxh2Y
+Dan9EeLRo0PHBT6DXjh3fV1kexTV30npTLgff3XGcAoXKjgLHLfZTEgPQuxqfDLX
+NlRK0djS7ZwXEEGFwcWE+w7UBfZC/I/wxeeGS1VsCVTwMHTPIVYe+Ip4Dj+8hbBL
+xfDreeXlMm4P8GvDPbY4dFVNylrM5w==
+=+qxg
+-----END PGP SIGNATURE-----
+
+--msEr/jdBSU575gqS--

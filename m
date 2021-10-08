@@ -2,67 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F38A8426506
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Oct 2021 09:06:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CC17426628
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Oct 2021 10:44:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8C99B166D;
-	Fri,  8 Oct 2021 09:05:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C99B166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A8F81670;
+	Fri,  8 Oct 2021 10:44:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A8F81670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633676768;
-	bh=RpJ9aoccYB5gAnftZqhfvxc5UlJWv6qq0g3ZUI6jU3Y=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=AzwhxvEIoGQnlRPI5OMZbDXbENX9fKDFhjfQ5/wdhJSubNkQXOwTaFEWe8QcX26D2
-	 374qhIuAAW9J7UqAVOgYFzSbdpsgpUG5huahIRqTtg2kEM4BNnCdf2ZKyNXKkcEK/O
-	 bwRxE6Ig9NsN/LLRpLxenqJ18WjKE6eqGiUq1lnU=
+	s=default; t=1633682692;
+	bh=8mTZ7p8VhTojHBbhZeigTvzZeDwkfy2y3g0idyboIZ0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=vamVK+gERrZ0lqjpQLEBhL5TwR2n2XQs93E90AshGA5mtj8qM8FZae2fe4BmYC2Ut
+	 6tuK32svcUlxoriEOpcDmv8VwJ+Ij8eRSY5VN2JJJcO5mKmxki+mKvUZyAg0PTNUi+
+	 svEUKH3QsFGwnP39pmUZni+XJXipZANtKqGVTOlk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1CE02F80240;
-	Fri,  8 Oct 2021 09:04:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7684CF800F0;
+	Fri,  8 Oct 2021 10:43:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 11445F80246; Fri,  8 Oct 2021 09:04:49 +0200 (CEST)
+ id 688E5F80246; Fri,  8 Oct 2021 10:43:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 526B8F80229
- for <alsa-devel@alsa-project.org>; Fri,  8 Oct 2021 09:04:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 526B8F80229
-X-UUID: 35e8212a111746229f88443a7cd511f9-20211008
-X-UUID: 35e8212a111746229f88443a7cd511f9-20211008
-Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
- mailgw01.mediatek.com (envelope-from <trevor.wu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 471568908; Fri, 08 Oct 2021 15:04:27 +0800
-Received: from mtkexhb02.mediatek.inc (172.21.101.103) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Fri, 8 Oct 2021 15:04:26 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by mtkexhb02.mediatek.inc
- (172.21.101.103) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Fri, 8 Oct 2021 15:04:26 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
- Frontend Transport; Fri, 8 Oct 2021 15:04:26 +0800
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: <broonie@kernel.org>, <tiwai@suse.com>, <matthias.bgg@gmail.com>
-Subject: [PATCH] ASoC: mediatek: mt8195: update audsys clock parent name
-Date: Fri, 8 Oct 2021 15:04:24 +0800
-Message-ID: <20211008070424.14347-1-trevor.wu@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-Cc: alsa-devel@alsa-project.org, chun-jie.chen@mediatek.com,
- linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
- trevor.wu@mediatek.com, linux-arm-kernel@lists.infradead.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 366FCF800F0
+ for <alsa-devel@alsa-project.org>; Fri,  8 Oct 2021 10:43:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 366FCF800F0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="MjXkGM9H"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="jnO3UZRf"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 96AC42010D;
+ Fri,  8 Oct 2021 08:43:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1633682604; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=GUpMK+PXWGG3eAd6hBIMDQIDwM9jYeIZnWLc4xSt+NM=;
+ b=MjXkGM9H8qKlQZM2WlltN0vAOcRcW4WbjmOTpDP+A1hpKiyh9KyvvVC3WlP9Iq0uiEa9Ze
+ 0oD++uIXIykB9ECsAnVSnkwzE0C5zuYNHTPibyMC1GC/IWdB1yqhSWZI8kKSLMdT019swX
+ BOEdNsBX3epEM5GyI9ZFgpuJscDOViY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1633682604;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=GUpMK+PXWGG3eAd6hBIMDQIDwM9jYeIZnWLc4xSt+NM=;
+ b=jnO3UZRfpOOx+ZRoUHYdn5YkbBTpM4bQ8NeD/Qgm9s7dSXdYtMWrx7N3FACupqWxM4nhvt
+ VUq0Mqoh0sDUZ7Dw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 68A00A3B83;
+ Fri,  8 Oct 2021 08:43:24 +0000 (UTC)
+Date: Fri, 08 Oct 2021 10:43:24 +0200
+Message-ID: <s5h5yu79aab.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Rich Felker <dalias@libc.org>
+Subject: Re: [musl] Re: [alsa-devel] [PATCH v7 8/9] ALSA: add new 32-bit
+ layout for snd_pcm_mmap_status/control
+In-Reply-To: <20211007165158.GC7074@brightrain.aerifal.cx>
+References: <20191211212025.1981822-1-arnd@arndb.de>
+ <20191211212025.1981822-9-arnd@arndb.de>
+ <29QBMJU8DE71E.2YZSH8IHT5HMH@mforney.org>
+ <s5hpmsh9kdx.wl-tiwai@suse.de>
+ <CAK8P3a0K3XtjiszC3XWgG0L8+AgO+xUGr_KEAnb9a5GmyecoUQ@mail.gmail.com>
+ <s5hee8x9f92.wl-tiwai@suse.de>
+ <CAK8P3a0pSZxqfk-bn+idrDYDwANSfiP9L6U1O5jLQvK+3vwyVQ@mail.gmail.com>
+ <s5hy27497eo.wl-tiwai@suse.de>
+ <20211007160634.GB7074@brightrain.aerifal.cx>
+ <s5hr1cw95ar.wl-tiwai@suse.de>
+ <20211007165158.GC7074@brightrain.aerifal.cx>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Arnd Bergmann <arnd@arndb.de>, Baolin Wang <baolin.wang@linaro.org>,
+ y2038 Mailman List <y2038@lists.linaro.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ musl@lists.openwall.com, Takashi Iwai <tiwai@suse.com>,
+ Michael Forney <mforney@mforney.org>, Mark Brown <broonie@kernel.org>,
+ Baolin Wang <baolin.wang7@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,193 +109,327 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Because clock names are modified in mediatek CCF driver, sync the updated
-clock names to audsys driver.
+On Thu, 07 Oct 2021 18:51:58 +0200,
+Rich Felker wrote:
+> 
+> On Thu, Oct 07, 2021 at 06:18:52PM +0200, Takashi Iwai wrote:
+> > On Thu, 07 Oct 2021 18:06:36 +0200,
+> > Rich Felker wrote:
+> > > 
+> > > On Thu, Oct 07, 2021 at 05:33:19PM +0200, Takashi Iwai wrote:
+> > > > On Thu, 07 Oct 2021 15:11:00 +0200,
+> > > > Arnd Bergmann wrote:
+> > > > > 
+> > > > >  On Thu, Oct 7, 2021 at 2:43 PM Takashi Iwai <tiwai@suse.de> wrote:
+> > > > > > On Thu, 07 Oct 2021 13:48:44 +0200, Arnd Bergmann wrote:
+> > > > > > > On Thu, Oct 7, 2021 at 12:53 PM Takashi Iwai <tiwai@suse.de> wrote:
+> > > > > > > > On Wed, 06 Oct 2021 19:49:17 +0200, Michael Forney wrote:
+> > > > > > >
+> > > > > > > As far as I can tell, the broken interface will always result in
+> > > > > > > user space seeing a zero value for "avail_min". Can you
+> > > > > > > make a prediction what that would mean for actual
+> > > > > > > applications? Will they have no audio output, run into
+> > > > > > > a crash, or be able to use recover and appear to work normally
+> > > > > > > here?
+> > > > > >
+> > > > > > No, fortunately it's only about control->avail_min, and fiddling this
+> > > > > > value can't break severely (otherwise it'd be a security problem ;)
+> > > > > >
+> > > > > > In the buggy condition, it's always zero, and the kernel treated as if
+> > > > > > 1, i.e. wake up as soon as data is available, which is OK-ish for most
+> > > > > > applications.   Apps usually don't care about the wake-up condition so
+> > > > > > much.  There are subtle difference and may influence on the stability
+> > > > > > of stream processing, but the stability usually depends more strongly
+> > > > > > on the hardware and software configurations.
+> > > > > >
+> > > > > > That being said, the impact by this bug (from the application behavior
+> > > > > > POV) is likely quite small, but the contamination is large; as you
+> > > > > > pointed out, it's much larger than I thought.
+> > > > > 
+> > > > > Ok, got it.
+> > > > > 
+> > > > > > The definition in uapi/sound/asound.h is a bit cryptic, but IIUC,
+> > > > > > __snd_pcm_mmap_control64 is used for 64bit archs, right?  If so, the
+> > > > > > problem rather hits more widely on 64bit archs silently.  Then, the
+> > > > > > influence by this bug must be almost negligible, as we've had no bug
+> > > > > > report about the behavior change.
+> > > > > 
+> > > > > While __snd_pcm_mmap_control64 is only used on 32-bit
+> > > > > architectures when 64-bit time_t is used. At the moment, this
+> > > > > means all users of musl-1.2.x libc, but not glibc.
+> > > > > 
+> > > > > On 64-bit architectures, __snd_pcm_mmap_control and
+> > > > > __snd_pcm_mmap_control64 are meant to be identical,
+> > > > > and this is actually true regardless of the bug, since
+> > > > > __pad_before_uframe and __pad_after_uframe both
+> > > > > end up as zero-length arrays here.
+> > > > > 
+> > > > > > We may just fix it in kernel and for new library with hoping that no
+> > > > > > one sees the actual problem.  Or, we may provide a complete new set of
+> > > > > > mmap offsets and ioctl to cover both broken and fixed interfaces...
+> > > > > > The decision depends on how perfectly we'd like to address the bug.
+> > > > > > As of now, I'm inclined to go for the former, but I'm open for more
+> > > > > > opinions.
+> > > > > 
+> > > > > Adding the musl list to Cc for additional testers, anyone interested
+> > > > > please see [1] for the original report.
+> > > > > 
+> > > > > It would be good to hear from musl users that are already using
+> > > > > audio support with 32-bit applications on 64-bit kernels, which
+> > > > > is the case that has the problem today. Have you noticed any
+> > > > > problems with audio support here? If not, we can probably
+> > > > > "fix" the kernel here and make the existing binaries behave
+> > > > > the same way on 32-bit kernels. If there are applications that
+> > > > > don't work in that environment today, I think we need to instead
+> > > > > change the kernel to accept the currently broken format on
+> > > > > both 32-bit and 64-bit kernels, possibly introducing yet another
+> > > > > format that works as originally intended but requires a newly
+> > > > > built kernel.
+> > > > 
+> > > > Thanks!
+> > > > 
+> > > > And now, looking more deeply, I feel more desperate.
+> > > > 
+> > > > This bug makes the expected padding gone on little-endian.
+> > > > On LE 32bit, the buggy definition is:
+> > > > 
+> > > > 	char __pad1[0];
+> > > > 	u32 appl_ptr;
+> > > > 	char __pad2[0]; // this should have been [4]
+> > > > 	char __pad3[0];
+> > > > 	u32 avail_min;
+> > > > 	char __pad4[4];
+> > > > 	
+> > > > When an application issues SYNC_PTR64 ioctl to submit appl_ptr and
+> > > > avail_min updates, 64bit kernel (in compat mode) reads directly as:
+> > > > 
+> > > > 	u64 appl_ptr;
+> > > > 	u64 avail_min;
+> > > > 
+> > > > Hence a bogus appl_ptr would be passed if avail_min != 0.
+> > > > And usually application sets non-zero avail_min.
+> > > > That is, the bug must hit more severely if the new API were really
+> > > > used.  It wouldn't crash, but some weird streaming behavior can
+> > > > happen like noise, jumping or underruns.
+> > > > 
+> > > > (Reading back avail_min=0 to user-space is rather harmless.  Ditto for
+> > > >  the case of BE, then at least there is no appl_ptr corruption.)
+> > > > 
+> > > > This made me wonder which way to go:
+> > > > it's certainly possible to fix the new kernel to treat both buggy and
+> > > > sane formats (disabling compat mmap and re-define ioctls, having the
+> > > > code for old APIs).  The problem is, however, in the case where the
+> > > > application needs to run on the older kernel that expects the buggy
+> > > > format.  Then apps would still have to send in the old buggy format --
+> > > > or maybe better in the older 32bit format that won't hit the bug
+> > > > above.  It makes situation more complicated.
+> > > 
+> > > Can't an ioctl number just be redefined so that, on old kernels with
+> > > the buggy one, newly built applications get told that mmap is not
+> > > available and use the unaffected non-mmap fallback?
+> > 
+> > The problem is that the SYNC_PTR64 ioctl itself for non-mmap fallback
+> > is equally buggy due to this bug, too.  So disabling mmap doesn't help
+> > alone.
+> > 
+> > And, yes, we can redefine ioctl numbers.  But, then, application would
+> > have to be bilingual, as well as the kernel; it'll have to switch back
+> > to old API when running on older kernel, while the same binary would
+> > need to run in a new API for a newer kernel.
+> > 
+> > Maybe we can implement it in alsa-lib, if it really worth for it.
+> 
+> In musl we already have ioctl struct conversion for running on
+> time32-only kernels. So it may be practical to convert this too if
+> needed.
 
-Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
+I guess we can work around without ioctl renumbering.  The PCM API has
+a protocol version handshaking, and user-space is supposed to tell its
+API version to kernel.  So the kernel can know in what version
+user-space is talking with.
+
+Below is the PoC fix in the kernel side (totally untested).
+The fix for alsa-lib will follow.
+
+
+thanks,
+
+Takashi
+
 ---
-The clock patch is accepted in clk-next branch.
-
-clk: mediatek: Add MT8195 topckgen clock support
-https://patchwork.kernel.org/project/linux-mediatek/patch/20210914021633.26377-8-chun-jie.chen@mediatek.com/
----
- sound/soc/mediatek/mt8195/mt8195-audsys-clk.c | 152 +++++++++---------
- 1 file changed, 76 insertions(+), 76 deletions(-)
-
-diff --git a/sound/soc/mediatek/mt8195/mt8195-audsys-clk.c b/sound/soc/mediatek/mt8195/mt8195-audsys-clk.c
-index 740aa6ddda0e..e0670e0dbd5b 100644
---- a/sound/soc/mediatek/mt8195/mt8195-audsys-clk.c
-+++ b/sound/soc/mediatek/mt8195/mt8195-audsys-clk.c
-@@ -59,93 +59,93 @@ struct afe_gate {
+diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
+index 5859ca0a1439..dbdbf0c794d8 100644
+--- a/include/uapi/sound/asound.h
++++ b/include/uapi/sound/asound.h
+@@ -156,7 +156,7 @@ struct snd_hwdep_dsp_image {
+  *                                                                           *
+  *****************************************************************************/
  
- static const struct afe_gate aud_clks[CLK_AUD_NR_CLK] = {
- 	/* AUD0 */
--	GATE_AUD0(CLK_AUD_AFE, "aud_afe", "a1sys_hp_sel", 2),
--	GATE_AUD0(CLK_AUD_LRCK_CNT, "aud_lrck_cnt", "a1sys_hp_sel", 4),
--	GATE_AUD0(CLK_AUD_SPDIFIN_TUNER_APLL, "aud_spdifin_tuner_apll", "apll4_sel", 10),
--	GATE_AUD0(CLK_AUD_SPDIFIN_TUNER_DBG, "aud_spdifin_tuner_dbg", "apll4_sel", 11),
--	GATE_AUD0(CLK_AUD_UL_TML, "aud_ul_tml", "a1sys_hp_sel", 18),
--	GATE_AUD0(CLK_AUD_APLL1_TUNER, "aud_apll1_tuner", "apll1_sel", 19),
--	GATE_AUD0(CLK_AUD_APLL2_TUNER, "aud_apll2_tuner", "apll2_sel", 20),
--	GATE_AUD0(CLK_AUD_TOP0_SPDF, "aud_top0_spdf", "aud_iec_sel", 21),
--	GATE_AUD0(CLK_AUD_APLL, "aud_apll", "apll1_sel", 23),
--	GATE_AUD0(CLK_AUD_APLL2, "aud_apll2", "apll2_sel", 24),
--	GATE_AUD0(CLK_AUD_DAC, "aud_dac", "a1sys_hp_sel", 25),
--	GATE_AUD0(CLK_AUD_DAC_PREDIS, "aud_dac_predis", "a1sys_hp_sel", 26),
--	GATE_AUD0(CLK_AUD_TML, "aud_tml", "a1sys_hp_sel", 27),
--	GATE_AUD0(CLK_AUD_ADC, "aud_adc", "a1sys_hp_sel", 28),
--	GATE_AUD0(CLK_AUD_DAC_HIRES, "aud_dac_hires", "audio_h_sel", 31),
-+	GATE_AUD0(CLK_AUD_AFE, "aud_afe", "top_a1sys_hp", 2),
-+	GATE_AUD0(CLK_AUD_LRCK_CNT, "aud_lrck_cnt", "top_a1sys_hp", 4),
-+	GATE_AUD0(CLK_AUD_SPDIFIN_TUNER_APLL, "aud_spdifin_tuner_apll", "top_apll4", 10),
-+	GATE_AUD0(CLK_AUD_SPDIFIN_TUNER_DBG, "aud_spdifin_tuner_dbg", "top_apll4", 11),
-+	GATE_AUD0(CLK_AUD_UL_TML, "aud_ul_tml", "top_a1sys_hp", 18),
-+	GATE_AUD0(CLK_AUD_APLL1_TUNER, "aud_apll1_tuner", "top_apll1", 19),
-+	GATE_AUD0(CLK_AUD_APLL2_TUNER, "aud_apll2_tuner", "top_apll2", 20),
-+	GATE_AUD0(CLK_AUD_TOP0_SPDF, "aud_top0_spdf", "top_aud_iec_clk", 21),
-+	GATE_AUD0(CLK_AUD_APLL, "aud_apll", "top_apll1", 23),
-+	GATE_AUD0(CLK_AUD_APLL2, "aud_apll2", "top_apll2", 24),
-+	GATE_AUD0(CLK_AUD_DAC, "aud_dac", "top_a1sys_hp", 25),
-+	GATE_AUD0(CLK_AUD_DAC_PREDIS, "aud_dac_predis", "top_a1sys_hp", 26),
-+	GATE_AUD0(CLK_AUD_TML, "aud_tml", "top_a1sys_hp", 27),
-+	GATE_AUD0(CLK_AUD_ADC, "aud_adc", "top_a1sys_hp", 28),
-+	GATE_AUD0(CLK_AUD_DAC_HIRES, "aud_dac_hires", "top_audio_h", 31),
+-#define SNDRV_PCM_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 15)
++#define SNDRV_PCM_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 16)
  
- 	/* AUD1 */
--	GATE_AUD1(CLK_AUD_A1SYS_HP, "aud_a1sys_hp", "a1sys_hp_sel", 2),
--	GATE_AUD1(CLK_AUD_AFE_DMIC1, "aud_afe_dmic1", "a1sys_hp_sel", 10),
--	GATE_AUD1(CLK_AUD_AFE_DMIC2, "aud_afe_dmic2", "a1sys_hp_sel", 11),
--	GATE_AUD1(CLK_AUD_AFE_DMIC3, "aud_afe_dmic3", "a1sys_hp_sel", 12),
--	GATE_AUD1(CLK_AUD_AFE_DMIC4, "aud_afe_dmic4", "a1sys_hp_sel", 13),
--	GATE_AUD1(CLK_AUD_AFE_26M_DMIC_TM, "aud_afe_26m_dmic_tm", "a1sys_hp_sel", 14),
--	GATE_AUD1(CLK_AUD_UL_TML_HIRES, "aud_ul_tml_hires", "audio_h_sel", 16),
--	GATE_AUD1(CLK_AUD_ADC_HIRES, "aud_adc_hires", "audio_h_sel", 17),
--	GATE_AUD1(CLK_AUD_ADDA6_ADC, "aud_adda6_adc", "a1sys_hp_sel", 18),
--	GATE_AUD1(CLK_AUD_ADDA6_ADC_HIRES, "aud_adda6_adc_hires", "audio_h_sel", 19),
-+	GATE_AUD1(CLK_AUD_A1SYS_HP, "aud_a1sys_hp", "top_a1sys_hp", 2),
-+	GATE_AUD1(CLK_AUD_AFE_DMIC1, "aud_afe_dmic1", "top_a1sys_hp", 10),
-+	GATE_AUD1(CLK_AUD_AFE_DMIC2, "aud_afe_dmic2", "top_a1sys_hp", 11),
-+	GATE_AUD1(CLK_AUD_AFE_DMIC3, "aud_afe_dmic3", "top_a1sys_hp", 12),
-+	GATE_AUD1(CLK_AUD_AFE_DMIC4, "aud_afe_dmic4", "top_a1sys_hp", 13),
-+	GATE_AUD1(CLK_AUD_AFE_26M_DMIC_TM, "aud_afe_26m_dmic_tm", "top_a1sys_hp", 14),
-+	GATE_AUD1(CLK_AUD_UL_TML_HIRES, "aud_ul_tml_hires", "top_audio_h", 16),
-+	GATE_AUD1(CLK_AUD_ADC_HIRES, "aud_adc_hires", "top_audio_h", 17),
-+	GATE_AUD1(CLK_AUD_ADDA6_ADC, "aud_adda6_adc", "top_a1sys_hp", 18),
-+	GATE_AUD1(CLK_AUD_ADDA6_ADC_HIRES, "aud_adda6_adc_hires", "top_audio_h", 19),
+ typedef unsigned long snd_pcm_uframes_t;
+ typedef signed long snd_pcm_sframes_t;
+@@ -550,6 +550,7 @@ struct __snd_pcm_sync_ptr {
+ 	} s;
+ 	union {
+ 		struct __snd_pcm_mmap_control control;
++		struct __snd_pcm_mmap_control control_api_2_0_15; /* no bug in 32bit mode */
+ 		unsigned char reserved[64];
+ 	} c;
+ };
+@@ -557,11 +558,15 @@ struct __snd_pcm_sync_ptr {
+ #if defined(__BYTE_ORDER) ? __BYTE_ORDER == __BIG_ENDIAN : defined(__BIG_ENDIAN)
+ typedef char __pad_before_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
+ typedef char __pad_after_uframe[0];
++typedef char __pad_before_u32[4];
++typedef char __pad_after_u32[0];
+ #endif
  
- 	/* AUD3 */
--	GATE_AUD3(CLK_AUD_LINEIN_TUNER, "aud_linein_tuner", "apll5_sel", 5),
--	GATE_AUD3(CLK_AUD_EARC_TUNER, "aud_earc_tuner", "apll3_sel", 7),
-+	GATE_AUD3(CLK_AUD_LINEIN_TUNER, "aud_linein_tuner", "top_apll5", 5),
-+	GATE_AUD3(CLK_AUD_EARC_TUNER, "aud_earc_tuner", "top_apll3", 7),
+ #if defined(__BYTE_ORDER) ? __BYTE_ORDER == __LITTLE_ENDIAN : defined(__LITTLE_ENDIAN)
+ typedef char __pad_before_uframe[0];
+ typedef char __pad_after_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
++typedef char __pad_before_u32[0];
++typedef char __pad_after_u32[4];
+ #endif
  
- 	/* AUD4 */
--	GATE_AUD4(CLK_AUD_I2SIN, "aud_i2sin", "a1sys_hp_sel", 0),
--	GATE_AUD4(CLK_AUD_TDM_IN, "aud_tdm_in", "a1sys_hp_sel", 1),
--	GATE_AUD4(CLK_AUD_I2S_OUT, "aud_i2s_out", "a1sys_hp_sel", 6),
--	GATE_AUD4(CLK_AUD_TDM_OUT, "aud_tdm_out", "a1sys_hp_sel", 7),
--	GATE_AUD4(CLK_AUD_HDMI_OUT, "aud_hdmi_out", "a1sys_hp_sel", 8),
--	GATE_AUD4(CLK_AUD_ASRC11, "aud_asrc11", "a1sys_hp_sel", 16),
--	GATE_AUD4(CLK_AUD_ASRC12, "aud_asrc12", "a1sys_hp_sel", 17),
-+	GATE_AUD4(CLK_AUD_I2SIN, "aud_i2sin", "top_a1sys_hp", 0),
-+	GATE_AUD4(CLK_AUD_TDM_IN, "aud_tdm_in", "top_a1sys_hp", 1),
-+	GATE_AUD4(CLK_AUD_I2S_OUT, "aud_i2s_out", "top_a1sys_hp", 6),
-+	GATE_AUD4(CLK_AUD_TDM_OUT, "aud_tdm_out", "top_a1sys_hp", 7),
-+	GATE_AUD4(CLK_AUD_HDMI_OUT, "aud_hdmi_out", "top_a1sys_hp", 8),
-+	GATE_AUD4(CLK_AUD_ASRC11, "aud_asrc11", "top_a1sys_hp", 16),
-+	GATE_AUD4(CLK_AUD_ASRC12, "aud_asrc12", "top_a1sys_hp", 17),
- 	GATE_AUD4(CLK_AUD_MULTI_IN, "aud_multi_in", "mphone_slave_b", 19),
--	GATE_AUD4(CLK_AUD_INTDIR, "aud_intdir", "intdir_sel", 20),
--	GATE_AUD4(CLK_AUD_A1SYS, "aud_a1sys", "a1sys_hp_sel", 21),
--	GATE_AUD4(CLK_AUD_A2SYS, "aud_a2sys", "a2sys_sel", 22),
--	GATE_AUD4(CLK_AUD_PCMIF, "aud_pcmif", "a1sys_hp_sel", 24),
--	GATE_AUD4(CLK_AUD_A3SYS, "aud_a3sys", "a3sys_sel", 30),
--	GATE_AUD4(CLK_AUD_A4SYS, "aud_a4sys", "a4sys_sel", 31),
-+	GATE_AUD4(CLK_AUD_INTDIR, "aud_intdir", "top_intdir", 20),
-+	GATE_AUD4(CLK_AUD_A1SYS, "aud_a1sys", "top_a1sys_hp", 21),
-+	GATE_AUD4(CLK_AUD_A2SYS, "aud_a2sys", "top_a2sys_hf", 22),
-+	GATE_AUD4(CLK_AUD_PCMIF, "aud_pcmif", "top_a1sys_hp", 24),
-+	GATE_AUD4(CLK_AUD_A3SYS, "aud_a3sys", "top_a3sys_hf", 30),
-+	GATE_AUD4(CLK_AUD_A4SYS, "aud_a4sys", "top_a4sys_hf", 31),
+ struct __snd_pcm_mmap_status64 {
+@@ -579,13 +584,23 @@ struct __snd_pcm_mmap_status64 {
+ struct __snd_pcm_mmap_control64 {
+ 	__pad_before_uframe __pad1;
+ 	snd_pcm_uframes_t appl_ptr;	 /* RW: appl ptr (0...boundary-1) */
+-	__pad_before_uframe __pad2;
++	__pad_after_uframe __pad2;
  
- 	/* AUD5 */
--	GATE_AUD5(CLK_AUD_MEMIF_UL1, "aud_memif_ul1", "a1sys_hp_sel", 0),
--	GATE_AUD5(CLK_AUD_MEMIF_UL2, "aud_memif_ul2", "a1sys_hp_sel", 1),
--	GATE_AUD5(CLK_AUD_MEMIF_UL3, "aud_memif_ul3", "a1sys_hp_sel", 2),
--	GATE_AUD5(CLK_AUD_MEMIF_UL4, "aud_memif_ul4", "a1sys_hp_sel", 3),
--	GATE_AUD5(CLK_AUD_MEMIF_UL5, "aud_memif_ul5", "a1sys_hp_sel", 4),
--	GATE_AUD5(CLK_AUD_MEMIF_UL6, "aud_memif_ul6", "a1sys_hp_sel", 5),
--	GATE_AUD5(CLK_AUD_MEMIF_UL8, "aud_memif_ul8", "a1sys_hp_sel", 7),
--	GATE_AUD5(CLK_AUD_MEMIF_UL9, "aud_memif_ul9", "a1sys_hp_sel", 8),
--	GATE_AUD5(CLK_AUD_MEMIF_UL10, "aud_memif_ul10", "a1sys_hp_sel", 9),
--	GATE_AUD5(CLK_AUD_MEMIF_DL2, "aud_memif_dl2", "a1sys_hp_sel", 18),
--	GATE_AUD5(CLK_AUD_MEMIF_DL3, "aud_memif_dl3", "a1sys_hp_sel", 19),
--	GATE_AUD5(CLK_AUD_MEMIF_DL6, "aud_memif_dl6", "a1sys_hp_sel", 22),
--	GATE_AUD5(CLK_AUD_MEMIF_DL7, "aud_memif_dl7", "a1sys_hp_sel", 23),
--	GATE_AUD5(CLK_AUD_MEMIF_DL8, "aud_memif_dl8", "a1sys_hp_sel", 24),
--	GATE_AUD5(CLK_AUD_MEMIF_DL10, "aud_memif_dl10", "a1sys_hp_sel", 26),
--	GATE_AUD5(CLK_AUD_MEMIF_DL11, "aud_memif_dl11", "a1sys_hp_sel", 27),
-+	GATE_AUD5(CLK_AUD_MEMIF_UL1, "aud_memif_ul1", "top_a1sys_hp", 0),
-+	GATE_AUD5(CLK_AUD_MEMIF_UL2, "aud_memif_ul2", "top_a1sys_hp", 1),
-+	GATE_AUD5(CLK_AUD_MEMIF_UL3, "aud_memif_ul3", "top_a1sys_hp", 2),
-+	GATE_AUD5(CLK_AUD_MEMIF_UL4, "aud_memif_ul4", "top_a1sys_hp", 3),
-+	GATE_AUD5(CLK_AUD_MEMIF_UL5, "aud_memif_ul5", "top_a1sys_hp", 4),
-+	GATE_AUD5(CLK_AUD_MEMIF_UL6, "aud_memif_ul6", "top_a1sys_hp", 5),
-+	GATE_AUD5(CLK_AUD_MEMIF_UL8, "aud_memif_ul8", "top_a1sys_hp", 7),
-+	GATE_AUD5(CLK_AUD_MEMIF_UL9, "aud_memif_ul9", "top_a1sys_hp", 8),
-+	GATE_AUD5(CLK_AUD_MEMIF_UL10, "aud_memif_ul10", "top_a1sys_hp", 9),
-+	GATE_AUD5(CLK_AUD_MEMIF_DL2, "aud_memif_dl2", "top_a1sys_hp", 18),
-+	GATE_AUD5(CLK_AUD_MEMIF_DL3, "aud_memif_dl3", "top_a1sys_hp", 19),
-+	GATE_AUD5(CLK_AUD_MEMIF_DL6, "aud_memif_dl6", "top_a1sys_hp", 22),
-+	GATE_AUD5(CLK_AUD_MEMIF_DL7, "aud_memif_dl7", "top_a1sys_hp", 23),
-+	GATE_AUD5(CLK_AUD_MEMIF_DL8, "aud_memif_dl8", "top_a1sys_hp", 24),
-+	GATE_AUD5(CLK_AUD_MEMIF_DL10, "aud_memif_dl10", "top_a1sys_hp", 26),
-+	GATE_AUD5(CLK_AUD_MEMIF_DL11, "aud_memif_dl11", "top_a1sys_hp", 27),
- 
- 	/* AUD6 */
--	GATE_AUD6(CLK_AUD_GASRC0, "aud_gasrc0", "asm_h_sel", 0),
--	GATE_AUD6(CLK_AUD_GASRC1, "aud_gasrc1", "asm_h_sel", 1),
--	GATE_AUD6(CLK_AUD_GASRC2, "aud_gasrc2", "asm_h_sel", 2),
--	GATE_AUD6(CLK_AUD_GASRC3, "aud_gasrc3", "asm_h_sel", 3),
--	GATE_AUD6(CLK_AUD_GASRC4, "aud_gasrc4", "asm_h_sel", 4),
--	GATE_AUD6(CLK_AUD_GASRC5, "aud_gasrc5", "asm_h_sel", 5),
--	GATE_AUD6(CLK_AUD_GASRC6, "aud_gasrc6", "asm_h_sel", 6),
--	GATE_AUD6(CLK_AUD_GASRC7, "aud_gasrc7", "asm_h_sel", 7),
--	GATE_AUD6(CLK_AUD_GASRC8, "aud_gasrc8", "asm_h_sel", 8),
--	GATE_AUD6(CLK_AUD_GASRC9, "aud_gasrc9", "asm_h_sel", 9),
--	GATE_AUD6(CLK_AUD_GASRC10, "aud_gasrc10", "asm_h_sel", 10),
--	GATE_AUD6(CLK_AUD_GASRC11, "aud_gasrc11", "asm_h_sel", 11),
--	GATE_AUD6(CLK_AUD_GASRC12, "aud_gasrc12", "asm_h_sel", 12),
--	GATE_AUD6(CLK_AUD_GASRC13, "aud_gasrc13", "asm_h_sel", 13),
--	GATE_AUD6(CLK_AUD_GASRC14, "aud_gasrc14", "asm_h_sel", 14),
--	GATE_AUD6(CLK_AUD_GASRC15, "aud_gasrc15", "asm_h_sel", 15),
--	GATE_AUD6(CLK_AUD_GASRC16, "aud_gasrc16", "asm_h_sel", 16),
--	GATE_AUD6(CLK_AUD_GASRC17, "aud_gasrc17", "asm_h_sel", 17),
--	GATE_AUD6(CLK_AUD_GASRC18, "aud_gasrc18", "asm_h_sel", 18),
--	GATE_AUD6(CLK_AUD_GASRC19, "aud_gasrc19", "asm_h_sel", 19),
-+	GATE_AUD6(CLK_AUD_GASRC0, "aud_gasrc0", "top_asm_h", 0),
-+	GATE_AUD6(CLK_AUD_GASRC1, "aud_gasrc1", "top_asm_h", 1),
-+	GATE_AUD6(CLK_AUD_GASRC2, "aud_gasrc2", "top_asm_h", 2),
-+	GATE_AUD6(CLK_AUD_GASRC3, "aud_gasrc3", "top_asm_h", 3),
-+	GATE_AUD6(CLK_AUD_GASRC4, "aud_gasrc4", "top_asm_h", 4),
-+	GATE_AUD6(CLK_AUD_GASRC5, "aud_gasrc5", "top_asm_h", 5),
-+	GATE_AUD6(CLK_AUD_GASRC6, "aud_gasrc6", "top_asm_h", 6),
-+	GATE_AUD6(CLK_AUD_GASRC7, "aud_gasrc7", "top_asm_h", 7),
-+	GATE_AUD6(CLK_AUD_GASRC8, "aud_gasrc8", "top_asm_h", 8),
-+	GATE_AUD6(CLK_AUD_GASRC9, "aud_gasrc9", "top_asm_h", 9),
-+	GATE_AUD6(CLK_AUD_GASRC10, "aud_gasrc10", "top_asm_h", 10),
-+	GATE_AUD6(CLK_AUD_GASRC11, "aud_gasrc11", "top_asm_h", 11),
-+	GATE_AUD6(CLK_AUD_GASRC12, "aud_gasrc12", "top_asm_h", 12),
-+	GATE_AUD6(CLK_AUD_GASRC13, "aud_gasrc13", "top_asm_h", 13),
-+	GATE_AUD6(CLK_AUD_GASRC14, "aud_gasrc14", "top_asm_h", 14),
-+	GATE_AUD6(CLK_AUD_GASRC15, "aud_gasrc15", "top_asm_h", 15),
-+	GATE_AUD6(CLK_AUD_GASRC16, "aud_gasrc16", "top_asm_h", 16),
-+	GATE_AUD6(CLK_AUD_GASRC17, "aud_gasrc17", "top_asm_h", 17),
-+	GATE_AUD6(CLK_AUD_GASRC18, "aud_gasrc18", "top_asm_h", 18),
-+	GATE_AUD6(CLK_AUD_GASRC19, "aud_gasrc19", "top_asm_h", 19),
+ 	__pad_before_uframe __pad3;
+ 	snd_pcm_uframes_t  avail_min;	 /* RW: min available frames for wakeup */
+ 	__pad_after_uframe __pad4;
  };
  
- int mt8195_audsys_clk_register(struct mtk_base_afe *afe)
--- 
-2.18.0
-
++/* buggy mmap control definition for 2.0.15 PCM API on 32bit mode */
++struct __snd_pcm_mmap_control64_api_2_0_15 {
++	__pad_before_u32 __pad1;
++	__u32 appl_ptr;
++	__pad_before_u32 __pad2;	/* SiC! here is the bug */
++	__pad_before_u32 __pad3;
++	__u32 avail_min;
++	__pad_after_uframe __pad4;
++};
++
+ struct __snd_pcm_sync_ptr64 {
+ 	__u32 flags;
+ 	__u32 pad1;
+@@ -595,6 +610,7 @@ struct __snd_pcm_sync_ptr64 {
+ 	} s;
+ 	union {
+ 		struct __snd_pcm_mmap_control64 control;
++		struct __snd_pcm_mmap_control64_api_2_0_15 control_api_2_0_15;
+ 		unsigned char reserved[64];
+ 	} c;
+ };
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 46c643db18eb..1f26dd2a2525 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -2958,8 +2958,19 @@ static int snd_pcm_delay(struct snd_pcm_substream *substream,
+ 	return err;
+ }
+ 		
++/* PCM 2.0.15 API definition had a bug in mmap control; it puts the avail_min
++ * at the wrong offset due to a typo in padding type.
++ * The bug hits only on 32bit, either on 32bit arch or in 32bit compat mode.
++ */
++static bool is_buggy_control(struct snd_pcm_file *pcm_file)
++{
++	return pcm_file->user_pversion == SNDRV_PROTOCOL_VERSION(2, 0, 15) &&
++		(in_compat_syscall() || !IS_ENABLED(CONFIG_64BIT));
++}
++
+ static int snd_pcm_sync_ptr(struct snd_pcm_substream *substream,
+-			    struct snd_pcm_sync_ptr __user *_sync_ptr)
++			    struct snd_pcm_sync_ptr __user *_sync_ptr,
++			    bool buggy_control)
+ {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct snd_pcm_sync_ptr sync_ptr;
+@@ -2970,8 +2981,17 @@ static int snd_pcm_sync_ptr(struct snd_pcm_substream *substream,
+ 	memset(&sync_ptr, 0, sizeof(sync_ptr));
+ 	if (get_user(sync_ptr.flags, (unsigned __user *)&(_sync_ptr->flags)))
+ 		return -EFAULT;
+-	if (copy_from_user(&sync_ptr.c.control, &(_sync_ptr->c.control), sizeof(struct snd_pcm_mmap_control)))
+-		return -EFAULT;	
++	if (buggy_control) {
++		if (copy_from_user(&sync_ptr.c.control_api_2_0_15,
++				   &(_sync_ptr->c.control_api_2_0_15),
++				   sizeof(sync_ptr.c.control_api_2_0_15)))
++			return -EFAULT;
++	} else {
++		if (copy_from_user(&sync_ptr.c.control,
++				   &(_sync_ptr->c.control),
++				   sizeof(sync_ptr.c.control)))
++			return -EFAULT;
++	}
+ 	status = runtime->status;
+ 	control = runtime->control;
+ 	if (sync_ptr.flags & SNDRV_PCM_SYNC_PTR_HWSYNC) {
+@@ -2981,19 +3001,34 @@ static int snd_pcm_sync_ptr(struct snd_pcm_substream *substream,
+ 	}
+ 	snd_pcm_stream_lock_irq(substream);
+ 	if (!(sync_ptr.flags & SNDRV_PCM_SYNC_PTR_APPL)) {
+-		err = pcm_lib_apply_appl_ptr(substream,
+-					     sync_ptr.c.control.appl_ptr);
++		if (buggy_control) {
++			err = pcm_lib_apply_appl_ptr(substream,
++						     sync_ptr.c.control_api_2_0_15.appl_ptr);
++		} else {
++			err = pcm_lib_apply_appl_ptr(substream,
++						     sync_ptr.c.control.appl_ptr);
++		}
+ 		if (err < 0) {
+ 			snd_pcm_stream_unlock_irq(substream);
+ 			return err;
+ 		}
+ 	} else {
+-		sync_ptr.c.control.appl_ptr = control->appl_ptr;
++		if (buggy_control)
++			sync_ptr.c.control_api_2_0_15.appl_ptr = control->appl_ptr;
++		else
++			sync_ptr.c.control.appl_ptr = control->appl_ptr;
++	}
++	if (!(sync_ptr.flags & SNDRV_PCM_SYNC_PTR_AVAIL_MIN)) {
++		if (buggy_control)
++			control->avail_min = sync_ptr.c.control_api_2_0_15.avail_min;
++		else
++			control->avail_min = sync_ptr.c.control.avail_min;
++	} else {
++		if (buggy_control)
++			sync_ptr.c.control_api_2_0_15.avail_min = control->avail_min;
++		else
++			sync_ptr.c.control.avail_min = control->avail_min;
+ 	}
+-	if (!(sync_ptr.flags & SNDRV_PCM_SYNC_PTR_AVAIL_MIN))
+-		control->avail_min = sync_ptr.c.control.avail_min;
+-	else
+-		sync_ptr.c.control.avail_min = control->avail_min;
+ 	sync_ptr.s.status.state = status->state;
+ 	sync_ptr.s.status.hw_ptr = status->hw_ptr;
+ 	sync_ptr.s.status.tstamp = status->tstamp;
+@@ -3289,7 +3324,8 @@ static int snd_pcm_common_ioctl(struct file *file,
+ 	case __SNDRV_PCM_IOCTL_SYNC_PTR32:
+ 		return snd_pcm_ioctl_sync_ptr_compat(substream, arg);
+ 	case __SNDRV_PCM_IOCTL_SYNC_PTR64:
+-		return snd_pcm_sync_ptr(substream, arg);
++		return snd_pcm_sync_ptr(substream, arg,
++					is_buggy_control(pcm_file));
+ #ifdef CONFIG_SND_SUPPORT_OLD_API
+ 	case SNDRV_PCM_IOCTL_HW_REFINE_OLD:
+ 		return snd_pcm_hw_refine_old_user(substream, arg);
+@@ -3851,6 +3887,8 @@ static int snd_pcm_mmap(struct file *file, struct vm_area_struct *area)
+ 			return -ENXIO;
+ 		fallthrough;
+ 	case SNDRV_PCM_MMAP_OFFSET_CONTROL_NEW:
++		if (is_buggy_control(pcm_file))
++			return -ENXIO;
+ 		if (!pcm_control_mmap_allowed(pcm_file))
+ 			return -ENXIO;
+ 		return snd_pcm_mmap_control(substream, file, area);

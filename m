@@ -2,98 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABEF8426854
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Oct 2021 12:55:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25953426883
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Oct 2021 13:13:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 404081670;
-	Fri,  8 Oct 2021 12:54:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 404081670
+	by alsa0.perex.cz (Postfix) with ESMTPS id A18221670;
+	Fri,  8 Oct 2021 13:12:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A18221670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633690527;
-	bh=JedjvJ9iBFROmAWhwnVftiHC1u17kAO1y6roosCoyJ8=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1633691580;
+	bh=K69UDP8s6GeutQ4CjF/1z/Js06UOh3yCxtYPGzR3+eg=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jHJL5bmdV/a2DO8AC7oz39mFdDQP6xGXDkkh5SIydGEBXf9cLTb9pDkOSYmi/hdCL
-	 +Scirqybmli5AAgi0Rf5GEmPfFpSWHkBskibWYci6vmVfdDOel56yEhcY5PPE619X5
-	 Armnx5QD0L5hP2Qu5ktYrks7RXBX5Z1bisTQs4F8=
+	b=Y4zFBg9JWci9dhW9UrV9UQHlFhvZ0FDfs3DEIAN/aEz25ZycT1LFgSt/uRT3eBzMJ
+	 PXxkWj9FPYTL6LFwE8n2uVokZ5q3XWduYN8F2JQhsO2yAWr4gHNH7DGt9pu17fWNtL
+	 nEtsW8EmzFkdm156I7yiBOvoEeQ+7wOFhdRxjmv4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ADD39F80229;
-	Fri,  8 Oct 2021 12:54:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47EA2F800F0;
+	Fri,  8 Oct 2021 13:11:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C7CBDF80240; Fri,  8 Oct 2021 12:54:07 +0200 (CEST)
+ id 4564DF80246; Fri,  8 Oct 2021 13:11:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 287BFF800F0
- for <alsa-devel@alsa-project.org>; Fri,  8 Oct 2021 12:54:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 287BFF800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7F99DF80229
+ for <alsa-devel@alsa-project.org>; Fri,  8 Oct 2021 13:11:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F99DF80229
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="t7qHQgIs"
-Received: by mail-wr1-x42f.google.com with SMTP id r18so28555317wrg.6
- for <alsa-devel@alsa-project.org>; Fri, 08 Oct 2021 03:54:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=kKtYYGgZiFJvuei0yiQ5fmR24Nxd9GVQH20PjQB9cTo=;
- b=t7qHQgIs/f4qDsFUFAY2SVTHbN3Jd4tJFH2VDtmjdG3KA3kr8p2qO4hG+1VNmtXfMw
- NtLFsqTkv0iw2P+vrnBPW1eJXfC1ei9j6glHWVDpEdyg6CQGIWTQil3Vf+I2sjJ6ejYA
- FTp/kqf+yhsbMpvcvNMjHGORPLLuq65hPzx3GScVywgpQxkz4dDYXs81pENbRzsj2xPm
- mtE5VKKZ43dpDDytoq/lMYLop6kL5+mln76Bg0O+IwrApDZoyBbUYGYdfEZtgTakUrDl
- P6ej8zjuLFV0aIEt3zfThdrXbtNWWjfAdg5GpleYxmRRbbHkY6jfW+YRYM7azdVfuqr5
- JgQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=kKtYYGgZiFJvuei0yiQ5fmR24Nxd9GVQH20PjQB9cTo=;
- b=095QEDW/rB0M9dtxdF/Ctd26cSWR/JiRp2+dYx/mFDZDyW4kE7lKw+aEQtDzITUzvL
- 0vYTi2uG36wSmztOFMWGiSxkOBwEvv7NSM9reu8UHXCSjiS+vCcGiPxR2aBEadsJesDL
- VT2/wkwmcvQ8n53kidHlZ6hSbp5f3W0M+tDNhGo21EjEq2EtPpz8LNhwR/t0Z4vZZDor
- AC75nedGvsKes707ENIOoulyMmU1nq80RoI1rvYGVENppdEBRzI9Yg/zVjBVORXg7wWO
- YlG2keFeW3n4Uk6pRIAOLzBLMeXCLjEb6W1qdLMCRdUFB46Ytf7CrgVm6m1UAV8yLKZQ
- EEUA==
-X-Gm-Message-State: AOAM5304oXVX5xt/hlljTIL4rqsmzxjo+GQlt0OwKT85vU7vfqR351sM
- +Yf5meStWlwZw4SqaE9dyYHZZg==
-X-Google-Smtp-Source: ABdhPJzQIZ9XolMu8iQFcvt4FDGHlxb50OFJdQH6HP9nn83ou4f2CIx/s2ewtnDc9wNXJe1sBPnNPQ==
-X-Received: by 2002:a05:600c:4eca:: with SMTP id
- g10mr2662284wmq.16.1633690443692; 
- Fri, 08 Oct 2021 03:54:03 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id l2sm1855394wrw.42.2021.10.08.03.54.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 08 Oct 2021 03:54:02 -0700 (PDT)
-Subject: Re: [PATCH] soundwire: qcom: add debugfs entry for soundwire register
- dump
-To: Vinod Koul <vkoul@kernel.org>
-References: <20210907105636.3171-1-srinivas.kandagatla@linaro.org>
- <YVaMlSbmFnrQyb0u@matsya>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <465c7753-4b39-c309-f535-a7a1809ae6ff@linaro.org>
-Date: Fri, 8 Oct 2021 11:54:01 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <YVaMlSbmFnrQyb0u@matsya>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="vEIc5DFA"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="w0jP95IY"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id B00671FD50;
+ Fri,  8 Oct 2021 11:11:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1633691494; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=6AllT7vFzlj3+aDBdf/yiqJk0GTLCdskUqPHL1yGT/g=;
+ b=vEIc5DFA38wtbN7RozvqpEexugI9p6NT8gX45nodD1zlOEm2nah1q4fTt75x9ohzFd8BTc
+ iGOgVtXrgiWLwuCWT9ZKYPo7EIKtL1HoFqMleMPg0rf/suzslUONEJGDbsNczxrNV028aD
+ kR/9skwLpcX9MOvVlmmnzJV96SqS2ec=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1633691494;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=6AllT7vFzlj3+aDBdf/yiqJk0GTLCdskUqPHL1yGT/g=;
+ b=w0jP95IYdM7DQbzexQf4CdbSapatKzu8wUv1BoDYWnA5XPM9BiRo5NaqhXuCFkqUzl/vSx
+ Sfmsln3YowgqvDDg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 7EF49A3B83;
+ Fri,  8 Oct 2021 11:11:34 +0000 (UTC)
+Date: Fri, 08 Oct 2021 13:11:34 +0200
+Message-ID: <s5hv9277oux.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [musl] Re: [alsa-devel] [PATCH v7 8/9] ALSA: add new 32-bit
+ layout for snd_pcm_mmap_status/control
+In-Reply-To: <CAK8P3a0qxNLv3_RcR5COcRGPcTnYMcfbOjdWKiT2hKdcof9WUg@mail.gmail.com>
+References: <20191211212025.1981822-1-arnd@arndb.de>
+ <20191211212025.1981822-9-arnd@arndb.de>
+ <29QBMJU8DE71E.2YZSH8IHT5HMH@mforney.org>
+ <s5hpmsh9kdx.wl-tiwai@suse.de>
+ <CAK8P3a0K3XtjiszC3XWgG0L8+AgO+xUGr_KEAnb9a5GmyecoUQ@mail.gmail.com>
+ <s5hee8x9f92.wl-tiwai@suse.de>
+ <CAK8P3a0pSZxqfk-bn+idrDYDwANSfiP9L6U1O5jLQvK+3vwyVQ@mail.gmail.com>
+ <s5hy27497eo.wl-tiwai@suse.de>
+ <20211007160634.GB7074@brightrain.aerifal.cx>
+ <s5hr1cw95ar.wl-tiwai@suse.de>
+ <20211007165158.GC7074@brightrain.aerifal.cx>
+ <s5h5yu79aab.wl-tiwai@suse.de>
+ <CAK8P3a0qxNLv3_RcR5COcRGPcTnYMcfbOjdWKiT2hKdcof9WUg@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Rich Felker <dalias@libc.org>, Baolin Wang <baolin.wang@linaro.org>,
+ y2038 Mailman List <y2038@lists.linaro.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ musl@lists.openwall.com, Takashi Iwai <tiwai@suse.com>,
+ Michael Forney <mforney@mforney.org>, Mark Brown <broonie@kernel.org>,
+ Baolin Wang <baolin.wang7@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,36 +110,168 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 01/10/2021 05:20, Vinod Koul wrote:
-> HI Srini,
+On Fri, 08 Oct 2021 11:24:39 +0200,
+Arnd Bergmann wrote:
 > 
-> On 07-09-21, 11:56, Srinivas Kandagatla wrote:
->> +#ifdef CONFIG_DEBUG_FS
->> +static int swrm_reg_show(struct seq_file *s_file, void *data)
->> +{
->> +	struct qcom_swrm_ctrl *swrm = s_file->private;
->> +	int reg, reg_val;
->> +
->> +	for (reg = 0; reg <= SWR_MSTR_MAX_REG_ADDR; reg += 4) {
->> +		swrm->reg_read(swrm, reg, &reg_val);
+> On Fri, Oct 8, 2021 at 10:43 AM Takashi Iwai <tiwai@suse.de> wrote:
+> > On Thu, 07 Oct 2021 18:51:58 +0200, Rich Felker wrote:
+> > > On Thu, Oct 07, 2021 at 06:18:52PM +0200, Takashi Iwai wrote:
+> >
+> > @@ -557,11 +558,15 @@ struct __snd_pcm_sync_ptr {
+> >  #if defined(__BYTE_ORDER) ? __BYTE_ORDER == __BIG_ENDIAN : defined(__BIG_ENDIAN)
+> >  typedef char __pad_before_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
+> >  typedef char __pad_after_uframe[0];
+> > +typedef char __pad_before_u32[4];
+> > +typedef char __pad_after_u32[0];
+> >  #endif
+> >
+> >  #if defined(__BYTE_ORDER) ? __BYTE_ORDER == __LITTLE_ENDIAN : defined(__LITTLE_ENDIAN)
+> >  typedef char __pad_before_uframe[0];
+> >  typedef char __pad_after_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
+> > +typedef char __pad_before_u32[0];
+> > +typedef char __pad_after_u32[4];
+> >  #endif
 > 
-> Why not use regmap_read here, that would avoid reading from the bus when
-> we already have the values...
+> I think these should remain unchanged, the complex expression was intentionally
+> done so the structures are laid out the same way on 64-bit
+> architectures, so that
+> the kernel can use the __SND_STRUCT_TIME64 path internally on both 32-bit
+> and 64-bit architectures.
 
-Sorry for such late reply.
-But these are controller registers which are not exposed as regmaps in 
-mmio cases.
+That was explicitly defined, but OK, this isn't necessarily defined
+here.
 
-
+> > @@ -2970,8 +2981,17 @@ static int snd_pcm_sync_ptr(struct snd_pcm_substream *substream,
+> >         memset(&sync_ptr, 0, sizeof(sync_ptr));
+> >         if (get_user(sync_ptr.flags, (unsigned __user *)&(_sync_ptr->flags)))
+> >                 return -EFAULT;
+> > -       if (copy_from_user(&sync_ptr.c.control, &(_sync_ptr->c.control), sizeof(struct snd_pcm_mmap_control)))
+> > -               return -EFAULT;
+> > +       if (buggy_control) {
+> > +               if (copy_from_user(&sync_ptr.c.control_api_2_0_15,
+> > +                                  &(_sync_ptr->c.control_api_2_0_15),
+> > +                                  sizeof(sync_ptr.c.control_api_2_0_15)))
+> > +                       return -EFAULT;
+> > +       } else {
+> > +               if (copy_from_user(&sync_ptr.c.control,
+> > +                                  &(_sync_ptr->c.control),
+> > +                                  sizeof(sync_ptr.c.control)))
+> > +                       return -EFAULT;
+> > +       }
 > 
-> Second make sure later when pm_runtime support is added, this take a
-> reference ..
+> The problem I see with this is that it might break musl's ability to
+> emulate the new
+> interface on top of the old (time32) one for linux-4.x and older
+> kernels, as the conversion
+> function is no longer stateless but has to know the negotiated
+> interface version.
 > 
-Yes, Am currently working on runtime pm support, I will make sure that 
-this is take care.
+> It's probably fine as long as we can be sure that the 2.0.16+ API
+> version only gets
+> negotiated if both the kernel and user sides support it, and musl only emulates
+> the 2.0.15 API version from the current kernels.
+> 
+> I've tried to understand this part of musl's convert_ioctl_struct(), but I just
+> can't figure out whether it does the conversion based the on the layout that
+> is currently used in the kernel, or based on the layout we should have been
+> using, and would use with the above fix. Rich, can you help me here?
 
---srini
-> Thanks
-> 
+So, at this moment, I'm not sure whether we should correct the struct
+at all.  This will lead to yet more breakage, and basically the struct
+itself *works* -- the only bug is in 32bit compat handling in the
+kernel (again).
+
+The below is a revised kernel patch (again untested), just correcting
+the behavior of 32bit compat mode.  32bit apps on 32bit kernel work
+fine as is, as well as 64bit apps on 64bit kernel.
+
+
+Takashi
+
+--- a/sound/core/pcm_compat.c
++++ b/sound/core/pcm_compat.c
+@@ -468,6 +468,75 @@ static int snd_pcm_ioctl_sync_ptr_x32(struct snd_pcm_substream *substream,
+ }
+ #endif /* CONFIG_X86_X32 */
+ 
++#ifdef __BIG_ENDIAN
++typedef char __pad_before_u32[4];
++typedef char __pad_after_u32[0];
++#else
++typedef char __pad_before_u32[0];
++typedef char __pad_after_u32[4];
++#endif
++
++/* PCM 2.0.15 API definition had a bug in mmap control; it puts the avail_min
++ * at the wrong offset due to a typo in padding type, hitting only on 32bit.
++ * Workaround for incorrect read/write is needed only in 32bit compat mode.
++ */
++struct __snd_pcm_mmap_control64_buggy {
++	__pad_before_u32 __pad1;
++	__u32 appl_ptr;
++	__pad_before_u32 __pad2;	/* SiC! here is the bug */
++	__pad_before_u32 __pad3;
++	__u32 avail_min;
++	__pad_after_uframe __pad4;
++};
++
++static int snd_pcm_ioctl_sync_ptr_buggy(struct snd_pcm_substream *substream,
++					struct snd_pcm_sync_ptr __user *_sync_ptr)
++{
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct snd_pcm_sync_ptr sync_ptr;
++	struct __snd_pcm_mmap_control64_buggy *sync_cp;
++	volatile struct snd_pcm_mmap_status *status;
++	volatile struct snd_pcm_mmap_control *control;
++	int err;
++
++	memset(&sync_ptr, 0, sizeof(sync_ptr));
++	sync_cp = (struct __snd_pcm_mmap_control64_buggy *)&sync_ptr.c.control;
++	if (get_user(sync_ptr.flags, (unsigned __user *)&(_sync_ptr->flags)))
++		return -EFAULT;
++	if (copy_from_user(sync_cp, &(_sync_ptr->c.control), sizeof(*sync_cp)))
++		return -EFAULT;
++	status = runtime->status;
++	control = runtime->control;
++	if (sync_ptr.flags & SNDRV_PCM_SYNC_PTR_HWSYNC) {
++		err = snd_pcm_hwsync(substream);
++		if (err < 0)
++			return err;
++	}
++	snd_pcm_stream_lock_irq(substream);
++	if (!(sync_ptr.flags & SNDRV_PCM_SYNC_PTR_APPL)) {
++		err = pcm_lib_apply_appl_ptr(substream, sync_cp->appl_ptr);
++		if (err < 0) {
++			snd_pcm_stream_unlock_irq(substream);
++			return err;
++		}
++	} else {
++		sync_cp->appl_ptr = control->appl_ptr;
++	}
++	if (!(sync_ptr.flags & SNDRV_PCM_SYNC_PTR_AVAIL_MIN))
++		control->avail_min = sync_cp->avail_min;
++	else
++		sync_cp->avail_min = control->avail_min;
++	sync_ptr.s.status.state = status->state;
++	sync_ptr.s.status.hw_ptr = status->hw_ptr;
++	sync_ptr.s.status.tstamp = status->tstamp;
++	sync_ptr.s.status.suspended_state = status->suspended_state;
++	sync_ptr.s.status.audio_tstamp = status->audio_tstamp;
++	snd_pcm_stream_unlock_irq(substream);
++	if (copy_to_user(_sync_ptr, &sync_ptr, sizeof(sync_ptr)))
++		return -EFAULT;
++	return 0;
++}
++
+ /*
+  */
+ enum {
+@@ -537,7 +606,7 @@ static long snd_pcm_ioctl_compat(struct file *file, unsigned int cmd, unsigned l
+ 		if (in_x32_syscall())
+ 			return snd_pcm_ioctl_sync_ptr_x32(substream, argp);
+ #endif /* CONFIG_X86_X32 */
+-		return snd_pcm_common_ioctl(file, substream, cmd, argp);
++		return snd_pcm_ioctl_sync_ptr_buggy(substream, argp);
+ 	case SNDRV_PCM_IOCTL_HW_REFINE32:
+ 		return snd_pcm_ioctl_hw_params_compat(substream, 1, argp);
+ 	case SNDRV_PCM_IOCTL_HW_PARAMS32:

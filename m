@@ -2,102 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF226426C6E
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Oct 2021 16:09:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E3B7426C79
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Oct 2021 16:10:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0CDDD1695;
-	Fri,  8 Oct 2021 16:08:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0CDDD1695
+	by alsa0.perex.cz (Postfix) with ESMTPS id 61C761689;
+	Fri,  8 Oct 2021 16:09:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61C761689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633702176;
-	bh=XwS9pwwn5hRzMa/1e+NgI8lb6ORNxQ9k49FBh9hcOBE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=MBUR1c5e31FLKzkHLmr/Mgtd3SCGLkYqen8Q3JUU8y4iVCADRlUnYCZ6sR9EfwqGB
-	 1kPbISoUcxpeCw1RJE1r3Cz7ppdIL2NDa5GIk+ChoFrsMOvpTvIxUD/FK9GkrVdypp
-	 zE4rEmX8rybYdiOw5P8pJ8ikpAVsydMTgx91iCeI=
+	s=default; t=1633702218;
+	bh=kw7XPXjoWAiEaAl1F86yuzaumDI/UHXEAHWnAzSfAj8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=exFH2DiI9S2DNdWFbSPHNPiALntZr2L4rOfWV/zj5WE6ScT4UIJ6R/WPONTipGycw
+	 WFqfWKDP7v6QwFjn+z8rxsVCEzj4obAZAZ7xUBgRBHraPRfNLjp9tYP6EEu8ZSCcRh
+	 XQG3mg2zhQnjf+iM5JAucBuJ/jZMtJJXFckbuwOI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B977F80302;
-	Fri,  8 Oct 2021 16:08:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DDFA1F80240;
+	Fri,  8 Oct 2021 16:09:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0D62F802D2; Fri,  8 Oct 2021 16:08:29 +0200 (CEST)
+ id ED03FF80249; Fri,  8 Oct 2021 16:09:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6A9E6F80229
- for <alsa-devel@alsa-project.org>; Fri,  8 Oct 2021 16:08:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A9E6F80229
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B08AF80240
+ for <alsa-devel@alsa-project.org>; Fri,  8 Oct 2021 16:09:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B08AF80240
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="jhX9S99j"
+ header.i=@mg.codeaurora.org header.b="JNp+Qlha"
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1633702101; h=Content-Transfer-Encoding: Content-Type:
- In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
- Subject: Sender; bh=equpnyXxO6M8Wb6SpXs+6Qvj0ruPUeEgbV+8v4YWSc4=;
- b=jhX9S99jCicS9tUhfQrWofn0VWc0srWhAnx1LA4k5lOp6/yAHpWffYIe4qgwxbx6b7Ip5VeP
- 1RgTTKEsUhE1XfIvw7X2/2Ottn/yZ8gbsQx5EcYvqAFnwBjDUTmBRfp7OCd38Y7mKi7huZDE
- 3Cqj5u53bBM6DCeqCR5pLcVT0aM=
-X-Mailgun-Sending-Ip: 69.72.43.7
+ s=smtp; t=1633702163; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=ofR11yMDOlkHDVdmdh43pIntKPcc0GstUuYkCrBEDho=;
+ b=JNp+QlhaYtKtGlMDHUQRUNPkdK93cG+dbKJIq6eTobW+/yZLFJPFCRO8t1PjY4ofDqx9WW+y
+ H+CtK2rEoqsXGwetxFuRH7oGWnF8IKaGrY8wFbijOfo9qBHP9/1ORmE2qjdMuOLRMYZZo4IC
+ aA/19IS0ZqPpf8vyWS5biqHAiEk=
+X-Mailgun-Sending-Ip: 198.61.254.9
 X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
  smtp-out-n07.prod.us-west-2.postgun.com with SMTP id
- 616050d2ff0285fb0a468371 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 08 Oct 2021 14:08:18
+ 61605112ff0285fb0a481990 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 08 Oct 2021 14:09:22
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 7E5B4C43635; Fri,  8 Oct 2021 14:08:18 +0000 (UTC)
-Received: from [192.168.1.100] (unknown [157.48.163.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ id B61DCC4338F; Fri,  8 Oct 2021 14:09:22 +0000 (UTC)
+Received: from hu-srivasam-hyd.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id E927FC4338F;
- Fri,  8 Oct 2021 14:08:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org E927FC4338F
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 96A27C4360C;
+ Fri,  8 Oct 2021 14:09:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 96A27C4360C
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=fail smtp.mailfrom=codeaurora.org
-Subject: Re: [PATCH v2 3/5] ASoC: codecs: tx-macro: Enable tx top soundwire
- mic clock
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, agross@kernel.org,
- bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
- robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
- perex@perex.cz, tiwai@suse.com, rohitkr@codeaurora.org,
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
+ bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
  linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  swboyd@chromium.org, judyhsiao@chromium.org
-References: <agross@kernel.org; bjorn.andersson@linaro.org;
- lgirdwood@gmail.com; broonie@kernel.org;robh+dt@kernel.org;
- plai@codeaurora.org; bgoswami@codeaurora.org; perex@perex.cz;
- tiwai@suse.com;srinivas.kandagatla@linaro.org; rohitkr@codeaurora.org;
- linux-arm-msm@vger.kernel.org; alsa-devel@alsa-project.org;
- devicetree@vger.kernel.org; linux-kernel@vger.kernel.org;
- swboyd@chromium.org; judyhsiao@chromium.org;>
- <1632313878-12089-1-git-send-email-srivasam@codeaurora.org>
- <1632313878-12089-4-git-send-email-srivasam@codeaurora.org>
- <1e176dd1-fc8b-09dc-eb73-35b7d268e89a@linaro.org>
-From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-Organization: Qualcomm India Private Limited.
-Message-ID: <61ac21e5-da1b-58d2-7c9c-403277e7dd30@codeaurora.org>
-Date: Fri, 8 Oct 2021 19:38:07 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-MIME-Version: 1.0
-In-Reply-To: <1e176dd1-fc8b-09dc-eb73-35b7d268e89a@linaro.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-Cc: Venkata Prasad Potturu <potturu@codeaurora.org>
+Subject: [PATCH v3 0/5] Update Lpass digital codec macro drivers
+Date: Fri,  8 Oct 2021 19:38:59 +0530
+Message-Id: <1633702144-19017-1-git-send-email-srivasam@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Cc: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,40 +93,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This patch set is to add support for lpass sc7280 based targets.
+Upadate compatible name and change of bulk clock voting to optional
+clock voting in digital codecs va, rx, tx macro drivers.
+Changes Since V2:
+    -- Add Tx macro deafults for lpass sc7280
+Changes Since V1:
+    -- Removed individual clock voting and used bulk clock optional.
+    -- Removed volatile changes and fixed default values.
+    -- Typo errors.
+Srinivasa Rao Mandadapu (5):
+  ASoC: qcom: Add compatible names in va,wsa,rx,tx codec drivers for
+    sc7280
+  ASoC: qcom: dt-bindings: Add compatible names for lpass sc7280 digital
+    codecs
+  ASoC: codecs: tx-macro: Enable tx top soundwire mic clock
+  ASoC: codecs: tx-macro: Update tx default values
+  ASoC: codecs: Change bulk clock voting to optional voting in digital
+    codecs
 
-On 9/27/2021 5:51 PM, Srinivas Kandagatla wrote:
->
->
-> On 22/09/2021 13:31, Srinivasa Rao Mandadapu wrote:
->> Enable tx path soundwire mic0 and mic1 clock.
->>
->> Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
->> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
->> ---
->>   sound/soc/codecs/lpass-tx-macro.c | 2 ++
->>   1 file changed, 2 insertions(+)
->>
->> diff --git a/sound/soc/codecs/lpass-tx-macro.c 
->> b/sound/soc/codecs/lpass-tx-macro.c
->> index 5dcae73..e980b2e 100644
->> --- a/sound/soc/codecs/lpass-tx-macro.c
->> +++ b/sound/soc/codecs/lpass-tx-macro.c
->> @@ -1674,6 +1674,8 @@ static int tx_macro_component_probe(struct 
->> snd_soc_component *comp)
->>         snd_soc_component_update_bits(comp, CDC_TX0_TX_PATH_SEC7, 0x3F,
->>                         0x0A);
->> +    snd_soc_component_update_bits(comp, 
->> CDC_TX_TOP_CSR_SWR_AMIC0_CTL, 0xFF, 0x00);
->> +    snd_soc_component_update_bits(comp, 
->> CDC_TX_TOP_CSR_SWR_AMIC1_CTL, 0xFF, 0x00);
->
-> This needs a comment for more clarity to readers.
-Okay. will add comment.
->
-> --srini
->>         return 0;
->>   }
->>
+ .../bindings/sound/qcom,lpass-rx-macro.yaml        |  4 +++-
+ .../bindings/sound/qcom,lpass-tx-macro.yaml        |  4 +++-
+ .../bindings/sound/qcom,lpass-va-macro.yaml        |  4 +++-
+ .../bindings/sound/qcom,lpass-wsa-macro.yaml       |  4 +++-
+ sound/soc/codecs/lpass-rx-macro.c                  |  3 ++-
+ sound/soc/codecs/lpass-tx-macro.c                  | 25 +++++++++++++++++++---
+ sound/soc/codecs/lpass-va-macro.c                  |  3 ++-
+ sound/soc/codecs/lpass-wsa-macro.c                 |  1 +
+ 8 files changed, 39 insertions(+), 9 deletions(-)
+
 -- 
 Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
 is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.

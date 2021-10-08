@@ -2,84 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A13F1426DC9
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Oct 2021 17:43:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CABC426E18
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Oct 2021 17:50:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3DF1B1690;
-	Fri,  8 Oct 2021 17:42:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DF1B1690
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E7551664;
+	Fri,  8 Oct 2021 17:49:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E7551664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633707787;
-	bh=GcQ7HFBYxIxzKkM+TAEzYmdP//8hEzY+IwiM1otm21M=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1633708237;
+	bh=/BWvwFJBk02IyYT4262J5SuP0J4qDObIlYIfzXpw7wg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aDhqABMGRS3i1c7IJ5fW32hA8ltf+ITBcfHPmUD9h4521DY1wzAHJ/83QlcqUFEVp
-	 BvYzeY1+UBc7PiRNxy/TIRoLejds+Z9brxA03z7AeNbv9O9NX8FP0S/ZPITY7d0ne7
-	 vFE8+0AQL5E8ORN5dtCeEG9jsVjAeMWIAzkjnyN4=
+	b=uLdKoz0zyDQykoCt2rbekEPu58oF3pT/q53/zBypRZzNh896b2Ge8XKF6DEXNjBAw
+	 zbK4lzC0lVrBcbpoxjZhaCM1AbI09Je2iuarujxThsJoPOzrRYDJS3XyLZCJzGu74D
+	 m26CQ8/w2oer8GJfQFe3HagySQCJX9LRecFqBJRE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 98AEDF80124;
-	Fri,  8 Oct 2021 17:41:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09D1FF80124;
+	Fri,  8 Oct 2021 17:49:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41F12F80124; Fri,  8 Oct 2021 17:41:48 +0200 (CEST)
+ id 7C87AF80246; Fri,  8 Oct 2021 17:49:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=NICE_REPLY_A,PRX_BODY_78,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9BA10F800F0
- for <alsa-devel@alsa-project.org>; Fri,  8 Oct 2021 17:41:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BA10F800F0
-X-IronPort-AV: E=McAfee;i="6200,9189,10131"; a="287413296"
-X-IronPort-AV: E=Sophos;i="5.85,358,1624345200"; d="scan'208";a="287413296"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Oct 2021 08:41:41 -0700
-X-IronPort-AV: E=Sophos;i="5.85,358,1624345200"; d="scan'208";a="440680849"
-Received: from vgopala1-mobl.amr.corp.intel.com (HELO [10.212.34.202])
- ([10.212.34.202])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Oct 2021 08:41:40 -0700
-Subject: Re: [RFC PATCH v2 0/5] ASoC: soc-pcm: fix trigger race conditions
- with shared BE
-To: Takashi Iwai <tiwai@suse.de>
-References: <20211004225441.233375-1-pierre-louis.bossart@linux.intel.com>
- <cce82420-d744-ee43-d514-b77ac4905ffa@nvidia.com>
- <1efa1c31-7342-05f8-5f73-95e2462d4179@linux.intel.com>
- <3683cf39-632b-50df-c65d-63779c464850@nvidia.com>
- <11257d77-9975-3b00-94da-5dc1b5c95fc6@linux.intel.com>
- <s5hk0ip9js7.wl-tiwai@suse.de>
- <ff43fede-aa66-3cb7-6365-e1f279cd135f@linux.intel.com>
- <s5hzgrk98y9.wl-tiwai@suse.de>
- <80882fe6-ea30-43f6-8d83-8995dd28c748@linux.intel.com>
- <s5hwnmo96vh.wl-tiwai@suse.de>
- <60c6a90b-290d-368c-ce61-4d86e70eaa78@linux.intel.com>
- <s5hily88rri.wl-tiwai@suse.de>
- <75894aba-ca1a-51d6-df7d-ad53fcd89f79@linux.intel.com>
- <s5hee8w82ng.wl-tiwai@suse.de>
- <e9340874-320a-8fc6-f3a4-9cf77f85db25@linux.intel.com>
- <s5hczof7eoq.wl-tiwai@suse.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <dcdb8f74-51db-86a1-959f-909dfac22b26@linux.intel.com>
-Date: Fri, 8 Oct 2021 10:41:37 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.13.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id D4EBDF80124
+ for <alsa-devel@alsa-project.org>; Fri,  8 Oct 2021 17:49:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4EBDF80124
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Y2rf9snc"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id DCE7760FD7;
+ Fri,  8 Oct 2021 15:49:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1633708150;
+ bh=/BWvwFJBk02IyYT4262J5SuP0J4qDObIlYIfzXpw7wg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Y2rf9sncPPkWVFgqI0XksyVPXiOpu1Cvv/mtxkYfXKDSxuCP6X/mVinFwoir5dzhj
+ 6EBoD2ERe6yn2O0A7wMwWxRfme26f02xbHjeqg/BFOCCJHUTkxxfnoIYjNQU+xOruT
+ +u+kUE7A4HwQSbRT0qsKZleSqv7/Y4q7uPwkn4OqtlNospI4TTqa6+C0bw38i76Mvx
+ QxImAtBSi/7EawGLC3Xhd3KGDTW5k++8gifRFKf1yGSpQV0c1rxYTFyXaaXBiFxp2+
+ z+RZzAWCSo2g8VOeJKLeosJTwB/if2LXf0rZwM8lJ1EXFHvhCBfL/mvDustGk4iA4D
+ 7o2HmKRXnvBYg==
+Date: Fri, 8 Oct 2021 16:49:07 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
+Subject: Re: [PATCH 4/8] ASoC: amd: acp: Add generic machine driver support
+ for ACP cards
+Message-ID: <YWBoc4LJPUS733ee@sirena.org.uk>
+References: <20210930132418.14077-1-AjitKumar.Pandey@amd.com>
+ <20210930132418.14077-5-AjitKumar.Pandey@amd.com>
 MIME-Version: 1.0
-In-Reply-To: <s5hczof7eoq.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Sameer Pujar <spujar@nvidia.com>, vkoul@kernel.org, broonie@kernel.org,
- Gyeongtaek Lee <gt82.lee@samsung.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="4nUCpXPQrhPMEzCJ"
+Content-Disposition: inline
+In-Reply-To: <20210930132418.14077-5-AjitKumar.Pandey@amd.com>
+X-Cookie: When your memory goes, forget it!
+Cc: alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
+ open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Vijendar.Mukunda@amd.com, Alexander.Deucher@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,38 +85,71 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
->> dpcm_be_disconnect already uses a spin_lock around
->>
->> list_del(&dpcm->list_be);
->> list_del(&dpcm->list_fe);
->>
->> and in some other places, are you suggesting we change those to the FE lock?
-> 
-> Basically yes.
-> 
->> Otherwise, I understood your proposal as using three locks (existing
->> spinlock, FE lock, BE lock) to deal with DPCM. If the existing spinlock
->> and FE lock are combined, we'd still have two locks.
-> 
-> Stream locks are more fine-grained, hence more efficient :)
-> The card-level spinlock is superfluous and it can go away.
-> 
->> I was suggesting we use only one ;-)
-> 
-> Basically we need to protect two things:
-> - The BE links
-> - The concurrent accesses to BEs
-> The former belongs to each FE that holds the links, and the FE stream
-> lock would cover.  The latter is rather a per-BE business.
-> 
-> An oft-seen risk of multiple locks is deadlocking, but in this case,
-> as long as we keep the lock order FE->BE, nothing wrong can happen.
+--4nUCpXPQrhPMEzCJ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-famous last words  "nothing wrong can happen." :-)
+On Thu, Sep 30, 2021 at 06:54:14PM +0530, Ajit Kumar Pandey wrote:
 
-I already added a helper to do this FE lock, I can easily replace the
-implementation to remove the spin_lock and use the FE PCM lock.
-we might even add the lock in the definition of for_each_dpcm_be() to
-avoid misses.
+A couple of things here, most of these are probably fine for now
+other than the EXPORT_SYMBOL but I think you're likely to run
+into issues going forward and need to refactor.
 
-Let me try this out today, thanks for the suggestions.
+> +	switch (drvdata->hs_codec_id) {
+> +	case RT5682:
+> +		pll_id = RT5682_PLL2;
+> +		pll_src = RT5682_PLL2_S_MCLK;
+> +		freq_in = PCO_PLAT_CLK;
+> +		freq_out = RT5682_PLL_FREQ;
+> +		clk_id = RT5682_SCLK_S_PLL2;
+> +		clk_freq = RT5682_PLL_FREQ;
+> +		wclk_name = "rt5682-dai-wclk";
+> +		bclk_name = "rt5682-dai-bclk";
+> +		drvdata->dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
+> +				   | SND_SOC_DAIFMT_CBP_CFP;
+> +		snd_soc_dapm_add_routes(&rtd->card->dapm, rt5682_map, ARRAY_SIZE(rt5682_map));
+> +		break;
+
+It feels like this is going to run into scaling issues going
+forward and you're likely to need separate operations for
+different CODECs rather than just different IDs.  Similar issues
+apply for the amps, it feels like you want to be passing separate
+ops in rather than having these switch statements.
+
+> +	/* Do nothing for dummy codec */
+> +	if (!drvdata->hs_codec_id && drvdata->amp_codec_id)
+> +		return;
+
+Wha the test seems to say is do nothing if there's no CODEC but
+there is an amp...
+
+> +
+> +	clk_disable_unprepare(drvdata->wclk);
+> +}
+
+...though I'd expect that given that the clock API accepts NULL
+clocks you could just remove these checks and unconditionally use
+the clocks.
+
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_NS(acp_legacy_dai_links_create, SND_SOC_AMD_MACH);
+
+EXPORT_SYMBOL_GPL_NS() - ASoC is all EXPORT_SYMBOL_GPL.
+
+--4nUCpXPQrhPMEzCJ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFgaHIACgkQJNaLcl1U
+h9DvhQf+IOm3hXd04jlzfQK2KY/bL8yi9esENe/eVjl0zZg4Re4CVTsYhPByNqOs
+qQbYRy8TyP5bMkWAQqWC0nKu5tGvL09xMR+BqL84sDILqbbw8tBCu4s7Zmzh2uiw
+09tsecfH3hFdh7yM+pJ0RkUasiOI1bZff3itFq3dge6/vGqd9ouywOpgkkNdgERl
+WXBxAQrnBV57V8NZkS4s7kDhfGvML4+Sl2JbSMfgSFXp3XbZ5DwXqAOGxxcXS4UJ
+VcrFq73m/QR/Qz1oKgOWu5x3Sx0jcTD87QGxXfiKYNyUEaX8FNOin+Z1c2pqf9BG
+dJsvXR0OTldnefxpDBLOZkjXSnKXXA==
+=4/jO
+-----END PGP SIGNATURE-----
+
+--4nUCpXPQrhPMEzCJ--

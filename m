@@ -2,100 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3272426D10
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Oct 2021 16:52:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C30B426D87
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Oct 2021 17:32:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16BAD168A;
-	Fri,  8 Oct 2021 16:52:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16BAD168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 862AA168B;
+	Fri,  8 Oct 2021 17:31:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 862AA168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633704770;
-	bh=q+uYn46oKu0+g2FBVUzprQZF2tT9ACUn/Q+MFHy32p8=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1633707132;
+	bh=8+7ImSJ4m3PvpXuUfyLFMGEhzENQrTkj1pOv+1Kg52I=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PQyhCDUKdMdqRashbzVCFUmCP44TfDklyT3FNd5YwH0YfctxCy3+kzM0ikz28EB70
-	 DkR7yWF38MBnpKG26yFPgwRSICFO/iSRc2GgtqfeIHh9Uc3KyQDCiF6FNssuWdUGuj
-	 41EyGnnzSD8Z2msSqgky8dBA9DQq+0Lj3jSVnxCs=
+	b=lYD8MroASRSrINWje8RvgTdvjmh6OJ7MGCXsuzRm51KTblSpBWWWpZgNcGWtCl3aJ
+	 kIN5cR9OY2Cg2eDpNW/bgy8oGzE5t44PA169BhCrjgrHDqSL6ve5PV4ZwQgyUnaR4R
+	 NB+Y/pHeYOQt8O/+aUY4dxcBZjzVBBZpCAPwDpWY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D345F80249;
-	Fri,  8 Oct 2021 16:51:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BA62DF80249;
+	Fri,  8 Oct 2021 17:30:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95B9BF80246; Fri,  8 Oct 2021 16:51:30 +0200 (CEST)
+ id 2CC94F80246; Fri,  8 Oct 2021 17:30:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_78,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E3A42F80229
- for <alsa-devel@alsa-project.org>; Fri,  8 Oct 2021 16:51:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3A42F80229
+ by alsa1.perex.cz (Postfix) with ESMTPS id 32FBFF80124
+ for <alsa-devel@alsa-project.org>; Fri,  8 Oct 2021 17:30:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32FBFF80124
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Uf+2BA7a"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="0OTzA8e+"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id B8A961FF47;
- Fri,  8 Oct 2021 14:51:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1633704678; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=OkOCy/4Xaw8Ir/P3EFHrwnlYBBPMrH+frCsht24I4jc=;
- b=Uf+2BA7a5u9MQ9AwTIaDxuQXFkPo2kkanLAbKsK5vVaHh3pcxkorEvLZ1QjFvUKBzSIOem
- jcPN1W4W7TlgZDOuBaOvGVtToEVNe+CtU/y7bngoe46OAPRbSOhSo3uR4ivJVCO3BK2QRs
- sRPznk3Vy2ftXABUYMrpTZL6DIIGhp8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1633704678;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=OkOCy/4Xaw8Ir/P3EFHrwnlYBBPMrH+frCsht24I4jc=;
- b=0OTzA8e+LLwyjMsax0yOt8xPhizZ4rq5vmn56CMKBBtOV8c6bSk3OwQx5DkVCNaURVpLSE
- 41D80stTm3OJApDA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id DADC4A3B84;
- Fri,  8 Oct 2021 14:51:17 +0000 (UTC)
-Date: Fri, 08 Oct 2021 16:51:17 +0200
-Message-ID: <s5hczof7eoq.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [RFC PATCH v2 0/5] ASoC: soc-pcm: fix trigger race conditions
- with shared BE
-In-Reply-To: <e9340874-320a-8fc6-f3a4-9cf77f85db25@linux.intel.com>
-References: <20211004225441.233375-1-pierre-louis.bossart@linux.intel.com>
- <cce82420-d744-ee43-d514-b77ac4905ffa@nvidia.com>
- <1efa1c31-7342-05f8-5f73-95e2462d4179@linux.intel.com>
- <3683cf39-632b-50df-c65d-63779c464850@nvidia.com>
- <11257d77-9975-3b00-94da-5dc1b5c95fc6@linux.intel.com>
- <s5hk0ip9js7.wl-tiwai@suse.de>
- <ff43fede-aa66-3cb7-6365-e1f279cd135f@linux.intel.com>
- <s5hzgrk98y9.wl-tiwai@suse.de>
- <80882fe6-ea30-43f6-8d83-8995dd28c748@linux.intel.com>
- <s5hwnmo96vh.wl-tiwai@suse.de>
- <60c6a90b-290d-368c-ce61-4d86e70eaa78@linux.intel.com>
- <s5hily88rri.wl-tiwai@suse.de>
- <75894aba-ca1a-51d6-df7d-ad53fcd89f79@linux.intel.com>
- <s5hee8w82ng.wl-tiwai@suse.de>
- <e9340874-320a-8fc6-f3a4-9cf77f85db25@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Sameer Pujar <spujar@nvidia.com>, vkoul@kernel.org, broonie@kernel.org,
- Gyeongtaek Lee <gt82.lee@samsung.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="dyxiipKl"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 99BB860FD7;
+ Fri,  8 Oct 2021 15:30:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1633707038;
+ bh=8+7ImSJ4m3PvpXuUfyLFMGEhzENQrTkj1pOv+1Kg52I=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=dyxiipKlHhyZPn5jRpNP9wWXumvxzgjOzQMfGY3mYHIMn7r8cca3a8Ra/wYUMXJuR
+ 4jzbjtWhVz9I+evoy6pDRsjLBpHbq3n/CuCI0AjMCuId56uJZnuNqBGqzgPqRKKiuJ
+ Azl7WFQgrvdT4yoNnZ4JDbQujjUbnW+T9CmUtoNtVTY8QDv4BE7cww4xNgT1wvdv52
+ 8ng+XHoxOXPSq548p697OdRdEEKOBB4xSnAqob/AuWJzJ3JtV9I6GuN+LOYDUx22co
+ eXAiuvrfFtj4Z8Hi82eIZssIyiNs7hLKDyapT644nOB4s6jGCcBZHnwyPwFlxyj/C0
+ LXRrBsBtbWs6A==
+Date: Fri, 8 Oct 2021 16:30:35 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Subject: Re: [PATCH v2 4/5] ASoC: codecs: tx-macro: Update tx default values
+Message-ID: <YWBkGzwiOeiIdr9F@sirena.org.uk>
+References: <agross@kernel.org; bjorn.andersson@linaro.org; lgirdwood@gmail.com;
+ broonie@kernel.org; robh+dt@kernel.org; plai@codeaurora.org;
+ bgoswami@codeaurora.org; perex@perex.cz; tiwai@suse.com;
+ srinivas.kandagatla@linaro.org; rohitkr@codeaurora.org;
+ linux-arm-msm@vger.kernel.org; alsa-devel@alsa-project.org;
+ devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; swboyd@chromium.org;
+ judyhsiao@chromium.org; >
+ <1632313878-12089-1-git-send-email-srivasam@codeaurora.org>
+ <1632313878-12089-5-git-send-email-srivasam@codeaurora.org>
+ <e65c77f4-766c-a5ce-9cbd-f1697c1be28c@linaro.org>
+ <20ddc4ea-e99c-5492-1931-be1999655563@codeaurora.org>
+ <da23bfce-23cd-0869-d752-b0713136072a@linaro.org>
+ <5748236d-7db2-9d19-a113-6e66b3dee81f@codeaurora.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="eXI7rXJOJnv0Yxnj"
+Content-Disposition: inline
+In-Reply-To: <5748236d-7db2-9d19-a113-6e66b3dee81f@codeaurora.org>
+X-Cookie: When your memory goes, forget it!
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, Venkata Prasad Potturu <potturu@codeaurora.org>,
+ linux-arm-msm@vger.kernel.org, plai@codeaurora.org, tiwai@suse.com,
+ lgirdwood@gmail.com, robh+dt@kernel.org, bjorn.andersson@linaro.org,
+ agross@kernel.org, rohitkr@codeaurora.org, swboyd@chromium.org,
+ judyhsiao@chromium.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,63 +96,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 08 Oct 2021 16:41:59 +0200,
-Pierre-Louis Bossart wrote:
-> 
-> 
-> 
-> >>>> I think the only solution is to follow the example of the PCM case,
-> >>>> where the type of lock depends on the FE types, with the assumption that
-> >>>> there are no mixed atomic/non-atomic FE configurations.
-> >>>
-> >>> Yes, and I guess we can simply replace those all card->dpcm_lock with
-> >>> FE's stream lock.  It'll solve the atomicity problem, too, and the FE
-> >>> stream lock can be applied outside the loop of dpcm_be_disconnect()
-> >>> gracefully.
-> >>>
-> >>> And, this should solve the race with dpcm_be_dai_trigger() as well,
-> >>> because it's called from dpcm_fe_dai_trigger() that is called already
-> >>> inside the FE's stream lock held by PCM core.  A PoC is something like
-> >>> below.  (I replaced the superfluous *_irqsave with *_irq there)
-> >>
-> >> No I don't think so. The code starts from an FE and loops for all the
-> >> BEs connected to that FE, but we want to serialize at the BE level! we
-> >> really need a dpcm lock at the card level, not the FE/stream level.
-> > 
-> > The FE lock prevents the race between dpcm_be_dai_trigger() and
-> > dpcm_be_disconnect(), i.e. the problem Gyeongtaek showed.
-> > 
-> > The race among concurrent dpcm_be_dai_trigger() calls itself can be
-> > addressed by BE stream locks as suggested earlier.
-> 
-> I am not following your line of thought Takashi.
-> 
-> dpcm_be_disconnect already uses a spin_lock around
-> 
-> list_del(&dpcm->list_be);
-> list_del(&dpcm->list_fe);
-> 
-> and in some other places, are you suggesting we change those to the FE lock?
 
-Basically yes.
+--eXI7rXJOJnv0Yxnj
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> Otherwise, I understood your proposal as using three locks (existing
-> spinlock, FE lock, BE lock) to deal with DPCM. If the existing spinlock
-> and FE lock are combined, we'd still have two locks.
+On Fri, Oct 08, 2021 at 07:37:12PM +0530, Srinivasa Rao Mandadapu wrote:
+> On 9/28/2021 2:01 PM, Srinivas Kandagatla wrote:
 
-Stream locks are more fine-grained, hence more efficient :)
-The card-level spinlock is superfluous and it can go away.
+> > In that case you should probably consider using regmap_register_patch()
+> > for corrections to the default registers in sm8250 case.
 
-> I was suggesting we use only one ;-)
+> As regmap_register_patch() not working in this use case, updating defaults
+> in probe for sc7280 specific differences.
 
-Basically we need to protect two things:
-- The BE links
-- The concurrent accesses to BEs
-The former belongs to each FE that holds the links, and the FE stream
-lock would cover.  The latter is rather a per-BE business.
+In what way is regmap_register_patch() not working?
 
-An oft-seen risk of multiple locks is deadlocking, but in this case,
-as long as we keep the lock order FE->BE, nothing wrong can happen.
+--eXI7rXJOJnv0Yxnj
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
-Takashi
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFgZBoACgkQJNaLcl1U
+h9C7eAf/XNE/8gWTD1il/H3m6CvBtA6i9ZKiAEK7auQN6RRstOai7B6solohK+n7
++cAuDDJXZhZicTfYD7kb4fxPLPB/qV4c/sdNw1JEBGdbqDDamSwh9ZCfIvzMF24U
+pyvxSMqKqhC+sopzP4Nkd2eJ7Wfs5nmoQQmg4USw18bqPXCyYG/0EnFgsUEUGpC1
++9U5zWuOUaN44RZhRsLK5Zc3jkit7XlSON1K4cnFPxadBXaF+uWF3Xo9JayG4Xfy
+AQQdTel0p0ed3zbsYkoU7knG6EZXMAC8Td5Dfds//hd7hbf+cD6geeVbmO4LLHUT
+MuanBlwPHQ2n6rbj+o4nWyL4jo5+KA==
+=do89
+-----END PGP SIGNATURE-----
+
+--eXI7rXJOJnv0Yxnj--

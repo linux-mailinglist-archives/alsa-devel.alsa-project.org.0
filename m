@@ -2,94 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3E77426CD0
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Oct 2021 16:35:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99844426CE3
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Oct 2021 16:43:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 496C61664;
-	Fri,  8 Oct 2021 16:34:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 496C61664
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED04C168C;
+	Fri,  8 Oct 2021 16:42:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED04C168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633703705;
-	bh=Wy+/FH+we7NnmRMurV31Q1EfHYzdpATnvpnwTsW2sTs=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1633704211;
+	bh=plZ+VocAF3cHD0Ye1bGK+4p32y9RfPlSXoiEZvvYOA4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h3+SMfyl1KX72C/BZN+zh/RRnlAVlXi75S70TxZbt5B2z9O8jk/6V1xEWVd11r+an
-	 yqRxu/euVhx2J79gLHqOycE+FaLKIXyihiyB8N1s5cxoVmRkE2wr0RxVnmSAie1cfo
-	 xfR+Xw+q22aO+qGK3zR7e/cdkt2msXcjquEOARzY=
+	b=YGN9ejkAfgD2DZg5Ot6gHl9c9r3cyr0M8G0L91V7ja5kcQ9p914ezQbqfm/hKzpkz
+	 cuqiwJEQdbAnhjC/9rz1Z+yWc3kPL3sWqU+HhGMQLqsKS3VlJN5q6nUoFFr3qOp6oL
+	 xzbjXvdCSqeQgFXh/ttkTy1fFgIjTMLNXjN68BS4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE533F80240;
-	Fri,  8 Oct 2021 16:33:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 763FDF80240;
+	Fri,  8 Oct 2021 16:42:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53A7BF80246; Fri,  8 Oct 2021 16:33:46 +0200 (CEST)
+ id 8AD9CF80246; Fri,  8 Oct 2021 16:42:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41706F80229
- for <alsa-devel@alsa-project.org>; Fri,  8 Oct 2021 16:33:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41706F80229
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="kZZWfT+P"
-Received: by mail-oi1-x22a.google.com with SMTP id y207so10848146oia.11
- for <alsa-devel@alsa-project.org>; Fri, 08 Oct 2021 07:33:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=QgfxwBmF1+monDAdjg0g2KuWwbKnod/mIT9QO6h2iro=;
- b=kZZWfT+PowKkZ01WdnR/B1jT/bbJbNn/nk3qm9dOEkSnkXGMSnwCE5oj5OyGVzAKlD
- 8g7BU3Wbwxtygo0NG7m8z1G1h91Zn2H8Uzr6zZItNJ+ctbiNn8SP2V+Uei79rv/VMoD6
- ntkssCThEGK9QfAG36PGku21bWbycBVhaBd+4krVLC28qKTTxXCMLIp6Q6SLREmWI5YP
- poopFO0ZBSFYuieiYcNJh9uxZr4n3JzdYH53+9son7vCgu+hw17EoMk6xX/GYczF28lB
- NvWQ/hyqS4KHgD/S6OdDWD81XkhNT9Q0SJewpDCE1gE/AYAeqc74WsjlHK9Oj/CEj1Sk
- MeqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=QgfxwBmF1+monDAdjg0g2KuWwbKnod/mIT9QO6h2iro=;
- b=zGeU4WAqczmbhzB2XzEQPEc5Y6V0FW+ZUuntqFVQUzKMbx3OIbOGeNCDCp3yZ5aAF1
- f+3rJMrFG/2uSe4yF1EATUpotXD/0hunBz9ouwArmT/12gN31KXfFnOZEsYd+QfgZVl6
- Ajms0D+C/QsjMxdG1YLOHk5KEMP7ENWVeLWLlv0pEfO4vC2ToakyGOmF9ygQORuZIwCi
- gnhNjetGceA5qtaEkwSiaxnNmW6rlp32UVB3QwzC9NyzFicCmJPl8Qeqngy57IQeOSpE
- l46kB1lCqreYcxxYag7hD5iKfYmvGXIGqviKYuFmXEE0XS99yn0zVBk7wds5E4ppSAOA
- dJIA==
-X-Gm-Message-State: AOAM530rteV+Pve1g29Mft6bqH2VpcSHpw3ydURhE/qKp/gOcX1sUvrv
- Qyo1LONpc6RwZhHHyHqVkSUlkQ==
-X-Google-Smtp-Source: ABdhPJztPy3B1mNAjhJ8cMLMpGBuT+PpLTVRAsaup4KklmIJNTxLcde2Bhdop0OObqSvkVfXvO+m7Q==
-X-Received: by 2002:aca:3656:: with SMTP id d83mr16497564oia.176.1633703614214; 
- Fri, 08 Oct 2021 07:33:34 -0700 (PDT)
-Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
- by smtp.gmail.com with ESMTPSA id u9sm720809oiu.19.2021.10.08.07.33.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Oct 2021 07:33:33 -0700 (PDT)
-Date: Fri, 8 Oct 2021 07:35:12 -0700
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-Subject: Re: [PATCH v3] ASoC: qcom: soundwire: Enable soundwire bus clock for
- version 1.6
-Message-ID: <YWBXIIjPP7Qunyvf@ripper>
-References: <1633671232-30310-1-git-send-email-srivasam@codeaurora.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 12849F80229
+ for <alsa-devel@alsa-project.org>; Fri,  8 Oct 2021 16:42:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12849F80229
+X-IronPort-AV: E=McAfee;i="6200,9189,10130"; a="213466703"
+X-IronPort-AV: E=Sophos;i="5.85,357,1624345200"; d="scan'208";a="213466703"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Oct 2021 07:42:03 -0700
+X-IronPort-AV: E=Sophos;i="5.85,357,1624345200"; d="scan'208";a="440664428"
+Received: from vgopala1-mobl.amr.corp.intel.com (HELO [10.212.34.202])
+ ([10.212.34.202])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Oct 2021 07:42:02 -0700
+Subject: Re: [RFC PATCH v2 0/5] ASoC: soc-pcm: fix trigger race conditions
+ with shared BE
+To: Takashi Iwai <tiwai@suse.de>
+References: <20211004225441.233375-1-pierre-louis.bossart@linux.intel.com>
+ <cce82420-d744-ee43-d514-b77ac4905ffa@nvidia.com>
+ <1efa1c31-7342-05f8-5f73-95e2462d4179@linux.intel.com>
+ <3683cf39-632b-50df-c65d-63779c464850@nvidia.com>
+ <11257d77-9975-3b00-94da-5dc1b5c95fc6@linux.intel.com>
+ <s5hk0ip9js7.wl-tiwai@suse.de>
+ <ff43fede-aa66-3cb7-6365-e1f279cd135f@linux.intel.com>
+ <s5hzgrk98y9.wl-tiwai@suse.de>
+ <80882fe6-ea30-43f6-8d83-8995dd28c748@linux.intel.com>
+ <s5hwnmo96vh.wl-tiwai@suse.de>
+ <60c6a90b-290d-368c-ce61-4d86e70eaa78@linux.intel.com>
+ <s5hily88rri.wl-tiwai@suse.de>
+ <75894aba-ca1a-51d6-df7d-ad53fcd89f79@linux.intel.com>
+ <s5hee8w82ng.wl-tiwai@suse.de>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <e9340874-320a-8fc6-f3a4-9cf77f85db25@linux.intel.com>
+Date: Fri, 8 Oct 2021 09:41:59 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1633671232-30310-1-git-send-email-srivasam@codeaurora.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, Venkata Prasad Potturu <potturu@codeaurora.org>,
- linux-arm-msm@vger.kernel.org, plai@codeaurora.org, tiwai@suse.com,
- agross@kernel.org, robh+dt@kernel.org, lgirdwood@gmail.com, broonie@kernel.org,
- rohitkr@codeaurora.org, swboyd@chromium.org, judyhsiao@chromium.org,
- linux-kernel@vger.kernel.org
+In-Reply-To: <s5hee8w82ng.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Sameer Pujar <spujar@nvidia.com>, vkoul@kernel.org, broonie@kernel.org,
+ Gyeongtaek Lee <gt82.lee@samsung.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,126 +93,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu 07 Oct 22:33 PDT 2021, Srinivasa Rao Mandadapu wrote:
 
-> Add support for soundwire 1.6 version to gate RX/TX bus clock.
+
+>>>> I think the only solution is to follow the example of the PCM case,
+>>>> where the type of lock depends on the FE types, with the assumption that
+>>>> there are no mixed atomic/non-atomic FE configurations.
+>>>
+>>> Yes, and I guess we can simply replace those all card->dpcm_lock with
+>>> FE's stream lock.  It'll solve the atomicity problem, too, and the FE
+>>> stream lock can be applied outside the loop of dpcm_be_disconnect()
+>>> gracefully.
+>>>
+>>> And, this should solve the race with dpcm_be_dai_trigger() as well,
+>>> because it's called from dpcm_fe_dai_trigger() that is called already
+>>> inside the FE's stream lock held by PCM core.  A PoC is something like
+>>> below.  (I replaced the superfluous *_irqsave with *_irq there)
+>>
+>> No I don't think so. The code starts from an FE and loops for all the
+>> BEs connected to that FE, but we want to serialize at the BE level! we
+>> really need a dpcm lock at the card level, not the FE/stream level.
 > 
-
-Are you really adding soundwire 1.6 support in order to gate RX/TX bus
-clock?
-
-Could it be that you're ungating the bus clock so that soundwire 1.6
-starts working? The commit message should properly describe why you're
-doing your change.
-
-> Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
-> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-
-Venkata is the first who certified the origin of this patch, yet you're
-the author. Either this should be From Venkata (i.e. git commit
---author) or perhaps you need a Co-developed-by here to say that you
-collaborated on this and both certify its origin.
-
-> ---
-> Changes since v2:
->     -- Update error check after ioremap.
-
-What about the other things I noted in v2?
-
-> Changes since v1:
->     -- Add const name to mask value.
+> The FE lock prevents the race between dpcm_be_dai_trigger() and
+> dpcm_be_disconnect(), i.e. the problem Gyeongtaek showed.
 > 
->  drivers/soundwire/qcom.c | 15 ++++++++++++++-
->  1 file changed, 14 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-> index 0ef79d6..bd6fabd 100644
-> --- a/drivers/soundwire/qcom.c
-> +++ b/drivers/soundwire/qcom.c
-> @@ -109,6 +109,7 @@
->  #define SWR_MAX_CMD_ID	14
->  #define MAX_FIFO_RD_RETRY 3
->  #define SWR_OVERFLOW_RETRY_COUNT 30
-> +#define SWRM_HCTL_REG_MASK ~BIT(1)
->  
->  struct qcom_swrm_port_config {
->  	u8 si;
-> @@ -127,6 +128,7 @@ struct qcom_swrm_ctrl {
->  	struct device *dev;
->  	struct regmap *regmap;
->  	void __iomem *mmio;
-> +	char __iomem *swrm_hctl_reg;
->  	struct completion broadcast;
->  	struct completion enumeration;
->  	struct work_struct slave_work;
-> @@ -610,6 +612,12 @@ static int qcom_swrm_init(struct qcom_swrm_ctrl *ctrl)
->  	val = FIELD_PREP(SWRM_MCP_FRAME_CTRL_BANK_ROW_CTRL_BMSK, ctrl->rows_index);
->  	val |= FIELD_PREP(SWRM_MCP_FRAME_CTRL_BANK_COL_CTRL_BMSK, ctrl->cols_index);
->  
-> +	if (ctrl->swrm_hctl_reg) {
-> +		val = ioread32(ctrl->swrm_hctl_reg);
-> +		val &= SWRM_HCTL_REG_MASK;
+> The race among concurrent dpcm_be_dai_trigger() calls itself can be
+> addressed by BE stream locks as suggested earlier.
 
-Make a define with a name that clarifies what BIT(1) is and use that
-here, hiding a magic number in an empty define isn't making this more
-maintainable.
+I am not following your line of thought Takashi.
 
-Essentially put the name of the bit in the register description in a
-define and use that here.
+dpcm_be_disconnect already uses a spin_lock around
 
-> +		iowrite32(val, ctrl->swrm_hctl_reg);
-> +	}
-> +
->  	ctrl->reg_write(ctrl, SWRM_MCP_FRAME_CTRL_BANK_ADDR(0), val);
->  
->  	/* Enable Auto enumeration */
-> @@ -1200,7 +1208,7 @@ static int qcom_swrm_probe(struct platform_device *pdev)
->  	struct qcom_swrm_ctrl *ctrl;
->  	const struct qcom_swrm_data *data;
->  	int ret;
-> -	u32 val;
-> +	int val, swrm_hctl_reg = 0;
+list_del(&dpcm->list_be);
+list_del(&dpcm->list_fe);
 
-Don't you get a warning from passing val as an int to a function that
-takes a u32 pointer?
+and in some other places, are you suggesting we change those to the FE lock?
 
-Also there's no reason to zero-initialize swrm_hctl_reg.
+Otherwise, I understood your proposal as using three locks (existing
+spinlock, FE lock, BE lock) to deal with DPCM. If the existing spinlock
+and FE lock are combined, we'd still have two locks.
 
->  
->  	ctrl = devm_kzalloc(dev, sizeof(*ctrl), GFP_KERNEL);
->  	if (!ctrl)
-> @@ -1251,6 +1259,11 @@ static int qcom_swrm_probe(struct platform_device *pdev)
->  	ctrl->bus.port_ops = &qcom_swrm_port_ops;
->  	ctrl->bus.compute_params = &qcom_swrm_compute_params;
->  
-> +	if (!of_property_read_u32(dev->of_node, "qcom,swrm-hctl-reg", &swrm_hctl_reg)) {
+I was suggesting we use only one ;-)
 
-As I said in my feedback of v2, this property is not documented in the
-DT binding.
-
-
-But more important, upstream we do not approve of the downstream
-methodology of having properties pointing to single registers in some
-memory block somewhere.
-
-Describe the hardware block that you reference fully in devicetree and
-make a proper reference to it.
-
-Unfortunately your patch lacks details necessary to know where this
-register lives, so it's not possible for me to recommend a proper
-design.
-
-Regards,
-Bjorn
-
-> +		ctrl->swrm_hctl_reg = devm_ioremap(&pdev->dev, swrm_hctl_reg, 0x4);
-> +		if (!ctrl->swrm_hctl_reg)
-> +			return -ENODEV;
-> +	}
->  	ret = qcom_swrm_get_port_config(ctrl);
->  	if (ret)
->  		goto err_clk;
-> -- 
-> Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
-> is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
-> 

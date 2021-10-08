@@ -2,99 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFACE42662E
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Oct 2021 10:45:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97A6F4266BF
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Oct 2021 11:26:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD27D1684;
-	Fri,  8 Oct 2021 10:44:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD27D1684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E5D11670;
+	Fri,  8 Oct 2021 11:25:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E5D11670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633682745;
-	bh=T1jN3nh4CqBqmb+sSOzg4fOuAbzzr6qXqTXxSv/TEZg=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1633685183;
+	bh=pXGZyjE+Y2XHiI3juPFFExq7L948okVr2jspOO7PJZ0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JVK11vHX5PAYnnpsnIF/NOFkBFbflAJTnRnMnlKGenmpYsSM/vhIKVEMMG2ioBOWK
-	 SMs+8QO40m5c2VIuTNQ1GqCM9n2crzQT0LfZYfkaEb4g2UgxWmXR4Lfe5ZmVaGyIZs
-	 VITZcm0awMIIVZtzp83gDIIA/cdwXgSoS8CWXGZQ=
+	b=vhrKZ/gTq5BFQohvgGm5bnxqdNABkenVV3yaQxdc6qsrsFqQ06XIhHWUDoEpYGcC2
+	 q7nFpZ8ihEiSrrjr1sBXwbqS0lxDXfl3MHVvZfPoVJYPRxNYXagwSYczuLyoaYmv4x
+	 CgS2dIAiWARIuu4EGmHdj3w8FCdwIOlfIcFnCqRk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41B8DF80246;
-	Fri,  8 Oct 2021 10:44:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52774F80124;
+	Fri,  8 Oct 2021 11:25:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53E50F8025C; Fri,  8 Oct 2021 10:44:53 +0200 (CEST)
+ id 46E08F80246; Fri,  8 Oct 2021 11:25:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8BF92F80240
- for <alsa-devel@alsa-project.org>; Fri,  8 Oct 2021 10:44:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BF92F80240
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ovSQNKmy"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="Q1qVKV6+"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id E18812010F;
- Fri,  8 Oct 2021 08:44:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1633682683; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=BZ6AGGxjk04NDFBaEtSBhMjq93zoGDZ1xmcccKhlmIE=;
- b=ovSQNKmyOGIMOjX4cDmgNFvYkqGmnPBmiWUSBHnNOF09ytO8Qs8F/F6M86x1Wkhl8jw16J
- CUYQvtXd1NfNkGpdoHPw+kuEuMel1cFXS36vjxtW8W4Mx095p69Jpgk1/xgxG2JE/93UqA
- 5GCihxbzmZhRfCFw9MCfVpkVtalO+8w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1633682683;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=BZ6AGGxjk04NDFBaEtSBhMjq93zoGDZ1xmcccKhlmIE=;
- b=Q1qVKV6+dfTYSv+6pTfYN6LZYuPCkUFWpiw6SkpYSkx8A+JkZIpZXYnzImmhrsvabfOv5r
- e74Cb9C//mVaA0Bg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id C8FB8A3B81;
- Fri,  8 Oct 2021 08:44:43 +0000 (UTC)
-Date: Fri, 08 Oct 2021 10:44:43 +0200
-Message-ID: <s5h4k9r9a84.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Rich Felker <dalias@libc.org>
-Subject: Re: [musl] Re: [alsa-devel] [PATCH v7 8/9] ALSA: add new 32-bit
- layout for snd_pcm_mmap_status/control
-In-Reply-To: <s5h5yu79aab.wl-tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B523BF80229
+ for <alsa-devel@alsa-project.org>; Fri,  8 Oct 2021 11:24:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B523BF80229
+Received: from mail-wr1-f45.google.com ([209.85.221.45]) by
+ mrelayeu.kundenserver.de (mreue108 [213.165.67.113]) with ESMTPSA (Nemesis)
+ id 1MQeDw-1mNIz829Ha-00NgKy for <alsa-devel@alsa-project.org>; Fri, 08 Oct
+ 2021 11:24:56 +0200
+Received: by mail-wr1-f45.google.com with SMTP id v25so27659569wra.2
+ for <alsa-devel@alsa-project.org>; Fri, 08 Oct 2021 02:24:56 -0700 (PDT)
+X-Gm-Message-State: AOAM532CTL3CGjFcGM+wk+tMZ+rYATFQyln7frUo58eEEEvGJY63F/7R
+ fPIhKFHigV7UqXrPCyCSGe4/AYA2VKa+Wp23VyY=
+X-Google-Smtp-Source: ABdhPJxbI9FlI5wrrkveY0OcRvKfdHT6ALl6Zio9wUi7opJy24FK9gPvC5um/n8zfpgrtkT+TFtW3m/pBAMoS+zbbfg=
+X-Received: by 2002:adf:a3da:: with SMTP id m26mr2544913wrb.336.1633685096034; 
+ Fri, 08 Oct 2021 02:24:56 -0700 (PDT)
+MIME-Version: 1.0
 References: <20191211212025.1981822-1-arnd@arndb.de>
  <20191211212025.1981822-9-arnd@arndb.de>
- <29QBMJU8DE71E.2YZSH8IHT5HMH@mforney.org>
- <s5hpmsh9kdx.wl-tiwai@suse.de>
+ <29QBMJU8DE71E.2YZSH8IHT5HMH@mforney.org> <s5hpmsh9kdx.wl-tiwai@suse.de>
  <CAK8P3a0K3XtjiszC3XWgG0L8+AgO+xUGr_KEAnb9a5GmyecoUQ@mail.gmail.com>
  <s5hee8x9f92.wl-tiwai@suse.de>
  <CAK8P3a0pSZxqfk-bn+idrDYDwANSfiP9L6U1O5jLQvK+3vwyVQ@mail.gmail.com>
- <s5hy27497eo.wl-tiwai@suse.de>
- <20211007160634.GB7074@brightrain.aerifal.cx>
- <s5hr1cw95ar.wl-tiwai@suse.de>
- <20211007165158.GC7074@brightrain.aerifal.cx>
+ <s5hy27497eo.wl-tiwai@suse.de> <20211007160634.GB7074@brightrain.aerifal.cx>
+ <s5hr1cw95ar.wl-tiwai@suse.de> <20211007165158.GC7074@brightrain.aerifal.cx>
  <s5h5yu79aab.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <s5h5yu79aab.wl-tiwai@suse.de>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Fri, 8 Oct 2021 11:24:39 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a0qxNLv3_RcR5COcRGPcTnYMcfbOjdWKiT2hKdcof9WUg@mail.gmail.com>
+Message-ID: <CAK8P3a0qxNLv3_RcR5COcRGPcTnYMcfbOjdWKiT2hKdcof9WUg@mail.gmail.com>
+Subject: Re: [musl] Re: [alsa-devel] [PATCH v7 8/9] ALSA: add new 32-bit
+ layout for snd_pcm_mmap_status/control
+To: musl@lists.openwall.com
+Content-Type: text/plain; charset="UTF-8"
+X-Provags-ID: V03:K1:kzKCuRIGGrpLBNdrR0rveDR0+PLeC29Os1qQ1pP2WbVZU2AHQc7
+ dMFt8WB0C4pOYvajMes/EeChoY3BKq75+LvNpReJIAIvdG8tj+7E1mwVslBLgxIb8vKmwei
+ gB6Qi6QkvaPLlQpzfLBtCwXTrDmVgzPFROXGuuWgKVC+K7PqCbdI7bmfDjREZPveXhR5ohN
+ gLOh2q7jwvX8SzvS6Lxbw==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:OE9rzsDMyho=:1jJy5p2n9CBLktzC1aciOG
+ l2PSYVyXvqzgwANPWU/s9yBHfprf3gTzmhPBWLJvuKQOCCGCg3xJlhyOZkNg1VPcz4iin1UuV
+ XgNwPuE8hQUjyZPxypkMgU1Wobc1bZq4tJY3GNAMRP+m+GZ69+GQ4I6R9uklxHiB+p8nIGzp+
+ BjudsoIeKqSdcA8VTr5S9Igkyt9xEl+wS0auRFji6B35JuJDwTT+FF8PCTZuZWCLjBltTO6w4
+ fapmxvkOV/5ypXINyyOg1l3VrjmbtNtHNXdvfNFjODb8AzjZIgzNlwm1pv4/adaY94fUMR0sZ
+ yPinXDDKQNNVyaH6uVLByU+D7UlM7tQG9HNrmUwSdIDFWrnDc2oJe3qN+lSh6oatw0oWNJMgl
+ uGgqzSBaViaxdqlFVMGUr93NuLBdZEw2gopzPVJyvYxVDr0p3LgGhSNQ4UPvmDJMLLDvb1tuT
+ OLh/tvtd6rXVj1D19dquaR7Sz8olY5w/0vgC/u35ze2aBPXZNoxw+ETi7yrn1GSeNZwQh35HM
+ tFWEP20pWup9UCpPgrT/yrUGXLR3ASArw3su5eQDLBEcts38o9nMuJJf5TqYtW1572NTbD6aj
+ TZbK5ht8CQT5zyKaNSKJfdOuP65uooBgXr/Jr5mpgqt3KgEi6mcn364jWl9Yf7F+0Y89AgMK4
+ 2HDyVMRs+1MIo9WxKemW8WDCsAGo6zPfmiYapyn0vNcb9UenkmfSSJ6kvyUHDA29dbPIZiiPH
+ fZ+lpDG87r5NTqo798aWKGoz3uBsLqff73plBCf9z8rTEDqv1x2Dd2PBm1kawWtreTgenukCU
+ pYrevkrlD2eP/3mRDUogc7XqG3MexkxMyzygEBHGwwD2jpzLz9ErhA2Yw/bMAK+dS8TXysKHS
+ ANp8lCpv+gUvumu9gIAg==
 Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Arnd Bergmann <arnd@arndb.de>, Baolin Wang <baolin.wang@linaro.org>,
+ Rich Felker <dalias@libc.org>, Arnd Bergmann <arnd@arndb.de>,
+ Baolin Wang <baolin.wang@linaro.org>,
  y2038 Mailman List <y2038@lists.linaro.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- musl@lists.openwall.com, Takashi Iwai <tiwai@suse.com>,
- Michael Forney <mforney@mforney.org>, Mark Brown <broonie@kernel.org>,
- Baolin Wang <baolin.wang7@gmail.com>
+ Takashi Iwai <tiwai@suse.com>, Michael Forney <mforney@mforney.org>,
+ Mark Brown <broonie@kernel.org>, Baolin Wang <baolin.wang7@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,278 +106,64 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 08 Oct 2021 10:43:24 +0200,
-Takashi Iwai wrote:
-> 
-> On Thu, 07 Oct 2021 18:51:58 +0200,
-> Rich Felker wrote:
-> > 
+On Fri, Oct 8, 2021 at 10:43 AM Takashi Iwai <tiwai@suse.de> wrote:
+> On Thu, 07 Oct 2021 18:51:58 +0200, Rich Felker wrote:
 > > On Thu, Oct 07, 2021 at 06:18:52PM +0200, Takashi Iwai wrote:
-> > > On Thu, 07 Oct 2021 18:06:36 +0200,
-> > > Rich Felker wrote:
-> > > > 
-> > > > On Thu, Oct 07, 2021 at 05:33:19PM +0200, Takashi Iwai wrote:
-> > > > > On Thu, 07 Oct 2021 15:11:00 +0200,
-> > > > > Arnd Bergmann wrote:
-> > > > > > 
-> > > > > >  On Thu, Oct 7, 2021 at 2:43 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > > > > > > On Thu, 07 Oct 2021 13:48:44 +0200, Arnd Bergmann wrote:
-> > > > > > > > On Thu, Oct 7, 2021 at 12:53 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > > > > > > > > On Wed, 06 Oct 2021 19:49:17 +0200, Michael Forney wrote:
-> > > > > > > >
-> > > > > > > > As far as I can tell, the broken interface will always result in
-> > > > > > > > user space seeing a zero value for "avail_min". Can you
-> > > > > > > > make a prediction what that would mean for actual
-> > > > > > > > applications? Will they have no audio output, run into
-> > > > > > > > a crash, or be able to use recover and appear to work normally
-> > > > > > > > here?
-> > > > > > >
-> > > > > > > No, fortunately it's only about control->avail_min, and fiddling this
-> > > > > > > value can't break severely (otherwise it'd be a security problem ;)
-> > > > > > >
-> > > > > > > In the buggy condition, it's always zero, and the kernel treated as if
-> > > > > > > 1, i.e. wake up as soon as data is available, which is OK-ish for most
-> > > > > > > applications.   Apps usually don't care about the wake-up condition so
-> > > > > > > much.  There are subtle difference and may influence on the stability
-> > > > > > > of stream processing, but the stability usually depends more strongly
-> > > > > > > on the hardware and software configurations.
-> > > > > > >
-> > > > > > > That being said, the impact by this bug (from the application behavior
-> > > > > > > POV) is likely quite small, but the contamination is large; as you
-> > > > > > > pointed out, it's much larger than I thought.
-> > > > > > 
-> > > > > > Ok, got it.
-> > > > > > 
-> > > > > > > The definition in uapi/sound/asound.h is a bit cryptic, but IIUC,
-> > > > > > > __snd_pcm_mmap_control64 is used for 64bit archs, right?  If so, the
-> > > > > > > problem rather hits more widely on 64bit archs silently.  Then, the
-> > > > > > > influence by this bug must be almost negligible, as we've had no bug
-> > > > > > > report about the behavior change.
-> > > > > > 
-> > > > > > While __snd_pcm_mmap_control64 is only used on 32-bit
-> > > > > > architectures when 64-bit time_t is used. At the moment, this
-> > > > > > means all users of musl-1.2.x libc, but not glibc.
-> > > > > > 
-> > > > > > On 64-bit architectures, __snd_pcm_mmap_control and
-> > > > > > __snd_pcm_mmap_control64 are meant to be identical,
-> > > > > > and this is actually true regardless of the bug, since
-> > > > > > __pad_before_uframe and __pad_after_uframe both
-> > > > > > end up as zero-length arrays here.
-> > > > > > 
-> > > > > > > We may just fix it in kernel and for new library with hoping that no
-> > > > > > > one sees the actual problem.  Or, we may provide a complete new set of
-> > > > > > > mmap offsets and ioctl to cover both broken and fixed interfaces...
-> > > > > > > The decision depends on how perfectly we'd like to address the bug.
-> > > > > > > As of now, I'm inclined to go for the former, but I'm open for more
-> > > > > > > opinions.
-> > > > > > 
-> > > > > > Adding the musl list to Cc for additional testers, anyone interested
-> > > > > > please see [1] for the original report.
-> > > > > > 
-> > > > > > It would be good to hear from musl users that are already using
-> > > > > > audio support with 32-bit applications on 64-bit kernels, which
-> > > > > > is the case that has the problem today. Have you noticed any
-> > > > > > problems with audio support here? If not, we can probably
-> > > > > > "fix" the kernel here and make the existing binaries behave
-> > > > > > the same way on 32-bit kernels. If there are applications that
-> > > > > > don't work in that environment today, I think we need to instead
-> > > > > > change the kernel to accept the currently broken format on
-> > > > > > both 32-bit and 64-bit kernels, possibly introducing yet another
-> > > > > > format that works as originally intended but requires a newly
-> > > > > > built kernel.
-> > > > > 
-> > > > > Thanks!
-> > > > > 
-> > > > > And now, looking more deeply, I feel more desperate.
-> > > > > 
-> > > > > This bug makes the expected padding gone on little-endian.
-> > > > > On LE 32bit, the buggy definition is:
-> > > > > 
-> > > > > 	char __pad1[0];
-> > > > > 	u32 appl_ptr;
-> > > > > 	char __pad2[0]; // this should have been [4]
-> > > > > 	char __pad3[0];
-> > > > > 	u32 avail_min;
-> > > > > 	char __pad4[4];
-> > > > > 	
-> > > > > When an application issues SYNC_PTR64 ioctl to submit appl_ptr and
-> > > > > avail_min updates, 64bit kernel (in compat mode) reads directly as:
-> > > > > 
-> > > > > 	u64 appl_ptr;
-> > > > > 	u64 avail_min;
-> > > > > 
-> > > > > Hence a bogus appl_ptr would be passed if avail_min != 0.
-> > > > > And usually application sets non-zero avail_min.
-> > > > > That is, the bug must hit more severely if the new API were really
-> > > > > used.  It wouldn't crash, but some weird streaming behavior can
-> > > > > happen like noise, jumping or underruns.
-> > > > > 
-> > > > > (Reading back avail_min=0 to user-space is rather harmless.  Ditto for
-> > > > >  the case of BE, then at least there is no appl_ptr corruption.)
-> > > > > 
-> > > > > This made me wonder which way to go:
-> > > > > it's certainly possible to fix the new kernel to treat both buggy and
-> > > > > sane formats (disabling compat mmap and re-define ioctls, having the
-> > > > > code for old APIs).  The problem is, however, in the case where the
-> > > > > application needs to run on the older kernel that expects the buggy
-> > > > > format.  Then apps would still have to send in the old buggy format --
-> > > > > or maybe better in the older 32bit format that won't hit the bug
-> > > > > above.  It makes situation more complicated.
-> > > > 
-> > > > Can't an ioctl number just be redefined so that, on old kernels with
-> > > > the buggy one, newly built applications get told that mmap is not
-> > > > available and use the unaffected non-mmap fallback?
-> > > 
-> > > The problem is that the SYNC_PTR64 ioctl itself for non-mmap fallback
-> > > is equally buggy due to this bug, too.  So disabling mmap doesn't help
-> > > alone.
-> > > 
-> > > And, yes, we can redefine ioctl numbers.  But, then, application would
-> > > have to be bilingual, as well as the kernel; it'll have to switch back
-> > > to old API when running on older kernel, while the same binary would
-> > > need to run in a new API for a newer kernel.
-> > > 
-> > > Maybe we can implement it in alsa-lib, if it really worth for it.
-> > 
-> > In musl we already have ioctl struct conversion for running on
-> > time32-only kernels. So it may be practical to convert this too if
-> > needed.
-> 
-> I guess we can work around without ioctl renumbering.  The PCM API has
-> a protocol version handshaking, and user-space is supposed to tell its
-> API version to kernel.  So the kernel can know in what version
-> user-space is talking with.
-> 
-> Below is the PoC fix in the kernel side (totally untested).
-> The fix for alsa-lib will follow.
+>
+> @@ -557,11 +558,15 @@ struct __snd_pcm_sync_ptr {
+>  #if defined(__BYTE_ORDER) ? __BYTE_ORDER == __BIG_ENDIAN : defined(__BIG_ENDIAN)
+>  typedef char __pad_before_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
+>  typedef char __pad_after_uframe[0];
+> +typedef char __pad_before_u32[4];
+> +typedef char __pad_after_u32[0];
+>  #endif
+>
+>  #if defined(__BYTE_ORDER) ? __BYTE_ORDER == __LITTLE_ENDIAN : defined(__LITTLE_ENDIAN)
+>  typedef char __pad_before_uframe[0];
+>  typedef char __pad_after_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
+> +typedef char __pad_before_u32[0];
+> +typedef char __pad_after_u32[4];
+>  #endif
 
-And below is the PoC fix for alsa-lib.
+I think these should remain unchanged, the complex expression was intentionally
+done so the structures are laid out the same way on 64-bit
+architectures, so that
+the kernel can use the __SND_STRUCT_TIME64 path internally on both 32-bit
+and 64-bit architectures.
 
+> @@ -2970,8 +2981,17 @@ static int snd_pcm_sync_ptr(struct snd_pcm_substream *substream,
+>         memset(&sync_ptr, 0, sizeof(sync_ptr));
+>         if (get_user(sync_ptr.flags, (unsigned __user *)&(_sync_ptr->flags)))
+>                 return -EFAULT;
+> -       if (copy_from_user(&sync_ptr.c.control, &(_sync_ptr->c.control), sizeof(struct snd_pcm_mmap_control)))
+> -               return -EFAULT;
+> +       if (buggy_control) {
+> +               if (copy_from_user(&sync_ptr.c.control_api_2_0_15,
+> +                                  &(_sync_ptr->c.control_api_2_0_15),
+> +                                  sizeof(sync_ptr.c.control_api_2_0_15)))
+> +                       return -EFAULT;
+> +       } else {
+> +               if (copy_from_user(&sync_ptr.c.control,
+> +                                  &(_sync_ptr->c.control),
+> +                                  sizeof(sync_ptr.c.control)))
+> +                       return -EFAULT;
+> +       }
 
-Takashi
+The problem I see with this is that it might break musl's ability to
+emulate the new
+interface on top of the old (time32) one for linux-4.x and older
+kernels, as the conversion
+function is no longer stateless but has to know the negotiated
+interface version.
 
----
-diff --git a/include/sound/uapi/asound.h b/include/sound/uapi/asound.h
-index 9fe3943f5fbb..ee91fe1f881f 100644
---- a/include/sound/uapi/asound.h
-+++ b/include/sound/uapi/asound.h
-@@ -154,7 +154,7 @@ struct snd_hwdep_dsp_image {
-  *                                                                           *
-  *****************************************************************************/
- 
--#define SNDRV_PCM_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 15)
-+#define SNDRV_PCM_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 16)
- 
- typedef unsigned long snd_pcm_uframes_t;
- typedef signed long snd_pcm_sframes_t;
-@@ -541,6 +541,7 @@ struct __snd_pcm_sync_ptr {
- 	} s;
- 	union {
- 		struct __snd_pcm_mmap_control control;
-+		struct __snd_pcm_mmap_control control_api_2_0_15; /* no bug in 32bit mode */
- 		unsigned char reserved[64];
- 	} c;
- };
-@@ -548,11 +549,15 @@ struct __snd_pcm_sync_ptr {
- #if defined(__BYTE_ORDER) ? __BYTE_ORDER == __BIG_ENDIAN : defined(__BIG_ENDIAN)
- typedef char __pad_before_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
- typedef char __pad_after_uframe[0];
-+typedef char __pad_before_u32[4];
-+typedef char __pad_after_u32[0];
- #endif
- 
- #if defined(__BYTE_ORDER) ? __BYTE_ORDER == __LITTLE_ENDIAN : defined(__LITTLE_ENDIAN)
- typedef char __pad_before_uframe[0];
- typedef char __pad_after_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
-+typedef char __pad_before_u32[0];
-+typedef char __pad_after_u32[4];
- #endif
- 
- struct __snd_pcm_mmap_status64 {
-@@ -570,13 +575,23 @@ struct __snd_pcm_mmap_status64 {
- struct __snd_pcm_mmap_control64 {
- 	__pad_before_uframe __pad1;
- 	snd_pcm_uframes_t appl_ptr;	 /* RW: appl ptr (0...boundary-1) */
--	__pad_before_uframe __pad2;
-+	__pad_after_uframe __pad2;
- 
- 	__pad_before_uframe __pad3;
- 	snd_pcm_uframes_t  avail_min;	 /* RW: min available frames for wakeup */
- 	__pad_after_uframe __pad4;
- };
- 
-+/* buggy mmap control definition for 2.0.15 PCM API on 32bit mode */
-+struct __snd_pcm_mmap_control64_api_2_0_15 {
-+	__pad_before_u32 __pad1;
-+	__u32 appl_ptr;
-+	__pad_before_u32 __pad2;	/* SiC! here is the bug */
-+	__pad_before_u32 __pad3;
-+	__u32 avail_min;
-+	__pad_after_uframe __pad4;
-+};
-+
- struct __snd_pcm_sync_ptr64 {
- 	__u32 flags;
- 	__u32 pad1;
-@@ -586,6 +601,7 @@ struct __snd_pcm_sync_ptr64 {
- 	} s;
- 	union {
- 		struct __snd_pcm_mmap_control64 control;
-+		struct __snd_pcm_mmap_control64_api_2_0_15 control_api_2_0_15;
- 		unsigned char reserved[64];
- 	} c;
- };
-diff --git a/src/pcm/pcm_hw.c b/src/pcm/pcm_hw.c
-index b3f9d1579d29..bb97b7ecf5ca 100644
---- a/src/pcm/pcm_hw.c
-+++ b/src/pcm/pcm_hw.c
-@@ -94,6 +94,7 @@ typedef struct {
- 
- 	volatile struct snd_pcm_mmap_status * mmap_status;
- 	struct snd_pcm_mmap_control *mmap_control;
-+	snd_pcm_uframes_t *avail_min_p;
- 	bool mmap_status_fallbacked;
- 	bool mmap_control_fallbacked;
- 	struct snd_pcm_sync_ptr *sync_ptr;
-@@ -507,7 +508,7 @@ static int snd_pcm_hw_sw_params(snd_pcm_t *pcm, snd_pcm_sw_params_t * params)
- 	    params->silence_threshold == pcm->silence_threshold &&
- 	    params->silence_size == pcm->silence_size &&
- 	    old_period_event == hw->period_event) {
--		hw->mmap_control->avail_min = params->avail_min;
-+		*hw->avail_min_p = params->avail_min;
- 		err = issue_avail_min(hw);
- 		goto out;
- 	}
-@@ -540,7 +541,7 @@ static int snd_pcm_hw_sw_params(snd_pcm_t *pcm, snd_pcm_sw_params_t * params)
- 		}
- 		pcm->tstamp_type = params->tstamp_type;
- 	}
--	hw->mmap_control->avail_min = params->avail_min;
-+	*hw->avail_min_p = params->avail_min;
- 	if (hw->period_event != old_period_event) {
- 		err = snd_pcm_hw_change_timer(pcm, old_period_event);
- 		if (err < 0)
-@@ -980,6 +981,14 @@ static bool map_control_data(snd_pcm_hw_t *hw,
- 	}
- 
- 	hw->mmap_control = mmap_control;
-+	hw->avail_min_p = &mmap_control->avail_min;
-+#ifdef __SND_STRUCT_TIME64
-+	if (hw->version == SNDRV_PROTOCOL_VERSION(2, 0, 15)) {
-+		struct __snd_pcm_mmap_control64_api_2_0_15 *buggy_control =
-+			(struct __snd_pcm_mmap_control64_api_2_0_15 *)mmap_control;
-+		hw->avail_min_p = &buggy_control->avail_min;
-+	}
-+#endif
- 
- 	return fallbacked;
- }
-@@ -1015,7 +1024,7 @@ static int map_status_and_control_data(snd_pcm_t *pcm, bool force_fallback)
- 	if (!(pcm->mode & SND_PCM_APPEND)) {
- 		/* Initialize the data. */
- 		hw->mmap_control->appl_ptr = 0;
--		hw->mmap_control->avail_min = 1;
-+		*hw->avail_min_p = 1;
- 	}
- 	snd_pcm_set_hw_ptr(pcm, &hw->mmap_status->hw_ptr, hw->fd,
- 			   SNDRV_PCM_MMAP_OFFSET_STATUS +
+It's probably fine as long as we can be sure that the 2.0.16+ API
+version only gets
+negotiated if both the kernel and user sides support it, and musl only emulates
+the 2.0.15 API version from the current kernels.
+
+I've tried to understand this part of musl's convert_ioctl_struct(), but I just
+can't figure out whether it does the conversion based the on the layout that
+is currently used in the kernel, or based on the layout we should have been
+using, and would use with the above fix. Rich, can you help me here?
+
+       Arnd

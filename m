@@ -2,95 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97A6F4266BF
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Oct 2021 11:26:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4036426706
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Oct 2021 11:39:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1E5D11670;
-	Fri,  8 Oct 2021 11:25:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E5D11670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4F0591670;
+	Fri,  8 Oct 2021 11:39:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F0591670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633685183;
-	bh=pXGZyjE+Y2XHiI3juPFFExq7L948okVr2jspOO7PJZ0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=vhrKZ/gTq5BFQohvgGm5bnxqdNABkenVV3yaQxdc6qsrsFqQ06XIhHWUDoEpYGcC2
-	 q7nFpZ8ihEiSrrjr1sBXwbqS0lxDXfl3MHVvZfPoVJYPRxNYXagwSYczuLyoaYmv4x
-	 CgS2dIAiWARIuu4EGmHdj3w8FCdwIOlfIcFnCqRk=
+	s=default; t=1633685999;
+	bh=gjg2XJ00c+FgV0sHos7j5fUIPgUlJM2E5myixI2cJWA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=cX6XJsUzBbI7l/14ukPcm66Xt2cjK1tj2cHMHcZchdOv1klKQneqjqYjPB7JOBo6X
+	 3Xe5DnoINzbPQgmviZTnyhkNwzKgExMYb+PEUBThni5Bdo1bfDBv3/s9d8MKuVanBH
+	 nYHeiY1oMNIfteA6R/P7lFItKB+grjW3VXrE1bFE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52774F80124;
-	Fri,  8 Oct 2021 11:25:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91B71F80229;
+	Fri,  8 Oct 2021 11:38:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 46E08F80246; Fri,  8 Oct 2021 11:25:04 +0200 (CEST)
+ id AE9D4F80229; Fri,  8 Oct 2021 11:38:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.13])
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B523BF80229
- for <alsa-devel@alsa-project.org>; Fri,  8 Oct 2021 11:24:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B523BF80229
-Received: from mail-wr1-f45.google.com ([209.85.221.45]) by
- mrelayeu.kundenserver.de (mreue108 [213.165.67.113]) with ESMTPSA (Nemesis)
- id 1MQeDw-1mNIz829Ha-00NgKy for <alsa-devel@alsa-project.org>; Fri, 08 Oct
- 2021 11:24:56 +0200
-Received: by mail-wr1-f45.google.com with SMTP id v25so27659569wra.2
- for <alsa-devel@alsa-project.org>; Fri, 08 Oct 2021 02:24:56 -0700 (PDT)
-X-Gm-Message-State: AOAM532CTL3CGjFcGM+wk+tMZ+rYATFQyln7frUo58eEEEvGJY63F/7R
- fPIhKFHigV7UqXrPCyCSGe4/AYA2VKa+Wp23VyY=
-X-Google-Smtp-Source: ABdhPJxbI9FlI5wrrkveY0OcRvKfdHT6ALl6Zio9wUi7opJy24FK9gPvC5um/n8zfpgrtkT+TFtW3m/pBAMoS+zbbfg=
-X-Received: by 2002:adf:a3da:: with SMTP id m26mr2544913wrb.336.1633685096034; 
- Fri, 08 Oct 2021 02:24:56 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0E95F80229
+ for <alsa-devel@alsa-project.org>; Fri,  8 Oct 2021 11:38:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0E95F80229
+X-IronPort-AV: E=McAfee;i="6200,9189,10130"; a="312671024"
+X-IronPort-AV: E=Sophos;i="5.85,357,1624345200"; d="scan'208";a="312671024"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Oct 2021 02:38:30 -0700
+X-IronPort-AV: E=Sophos;i="5.85,357,1624345200"; d="scan'208";a="478916599"
+Received: from dhruvkum-mobl.gar.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.251.208.187])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Oct 2021 02:38:28 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com, broonie@kernel.org,
+ pierre-louis.bossart@linux.intel.com, rander.wang@intel.com
+Subject: [PATCH] ASoC: SOF: prepare code to allocate IPC messages in fw_ready
+Date: Fri,  8 Oct 2021 12:38:36 +0300
+Message-Id: <20211008093836.28210-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-References: <20191211212025.1981822-1-arnd@arndb.de>
- <20191211212025.1981822-9-arnd@arndb.de>
- <29QBMJU8DE71E.2YZSH8IHT5HMH@mforney.org> <s5hpmsh9kdx.wl-tiwai@suse.de>
- <CAK8P3a0K3XtjiszC3XWgG0L8+AgO+xUGr_KEAnb9a5GmyecoUQ@mail.gmail.com>
- <s5hee8x9f92.wl-tiwai@suse.de>
- <CAK8P3a0pSZxqfk-bn+idrDYDwANSfiP9L6U1O5jLQvK+3vwyVQ@mail.gmail.com>
- <s5hy27497eo.wl-tiwai@suse.de> <20211007160634.GB7074@brightrain.aerifal.cx>
- <s5hr1cw95ar.wl-tiwai@suse.de> <20211007165158.GC7074@brightrain.aerifal.cx>
- <s5h5yu79aab.wl-tiwai@suse.de>
-In-Reply-To: <s5h5yu79aab.wl-tiwai@suse.de>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Fri, 8 Oct 2021 11:24:39 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a0qxNLv3_RcR5COcRGPcTnYMcfbOjdWKiT2hKdcof9WUg@mail.gmail.com>
-Message-ID: <CAK8P3a0qxNLv3_RcR5COcRGPcTnYMcfbOjdWKiT2hKdcof9WUg@mail.gmail.com>
-Subject: Re: [musl] Re: [alsa-devel] [PATCH v7 8/9] ALSA: add new 32-bit
- layout for snd_pcm_mmap_status/control
-To: musl@lists.openwall.com
-Content-Type: text/plain; charset="UTF-8"
-X-Provags-ID: V03:K1:kzKCuRIGGrpLBNdrR0rveDR0+PLeC29Os1qQ1pP2WbVZU2AHQc7
- dMFt8WB0C4pOYvajMes/EeChoY3BKq75+LvNpReJIAIvdG8tj+7E1mwVslBLgxIb8vKmwei
- gB6Qi6QkvaPLlQpzfLBtCwXTrDmVgzPFROXGuuWgKVC+K7PqCbdI7bmfDjREZPveXhR5ohN
- gLOh2q7jwvX8SzvS6Lxbw==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:OE9rzsDMyho=:1jJy5p2n9CBLktzC1aciOG
- l2PSYVyXvqzgwANPWU/s9yBHfprf3gTzmhPBWLJvuKQOCCGCg3xJlhyOZkNg1VPcz4iin1UuV
- XgNwPuE8hQUjyZPxypkMgU1Wobc1bZq4tJY3GNAMRP+m+GZ69+GQ4I6R9uklxHiB+p8nIGzp+
- BjudsoIeKqSdcA8VTr5S9Igkyt9xEl+wS0auRFji6B35JuJDwTT+FF8PCTZuZWCLjBltTO6w4
- fapmxvkOV/5ypXINyyOg1l3VrjmbtNtHNXdvfNFjODb8AzjZIgzNlwm1pv4/adaY94fUMR0sZ
- yPinXDDKQNNVyaH6uVLByU+D7UlM7tQG9HNrmUwSdIDFWrnDc2oJe3qN+lSh6oatw0oWNJMgl
- uGgqzSBaViaxdqlFVMGUr93NuLBdZEw2gopzPVJyvYxVDr0p3LgGhSNQ4UPvmDJMLLDvb1tuT
- OLh/tvtd6rXVj1D19dquaR7Sz8olY5w/0vgC/u35ze2aBPXZNoxw+ETi7yrn1GSeNZwQh35HM
- tFWEP20pWup9UCpPgrT/yrUGXLR3ASArw3su5eQDLBEcts38o9nMuJJf5TqYtW1572NTbD6aj
- TZbK5ht8CQT5zyKaNSKJfdOuP65uooBgXr/Jr5mpgqt3KgEi6mcn364jWl9Yf7F+0Y89AgMK4
- 2HDyVMRs+1MIo9WxKemW8WDCsAGo6zPfmiYapyn0vNcb9UenkmfSSJ6kvyUHDA29dbPIZiiPH
- fZ+lpDG87r5NTqo798aWKGoz3uBsLqff73plBCf9z8rTEDqv1x2Dd2PBm1kawWtreTgenukCU
- pYrevkrlD2eP/3mRDUogc7XqG3MexkxMyzygEBHGwwD2jpzLz9ErhA2Yw/bMAK+dS8TXysKHS
- ANp8lCpv+gUvumu9gIAg==
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Rich Felker <dalias@libc.org>, Arnd Bergmann <arnd@arndb.de>,
- Baolin Wang <baolin.wang@linaro.org>,
- y2038 Mailman List <y2038@lists.linaro.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Michael Forney <mforney@mforney.org>,
- Mark Brown <broonie@kernel.org>, Baolin Wang <baolin.wang7@gmail.com>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,64 +71,112 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Oct 8, 2021 at 10:43 AM Takashi Iwai <tiwai@suse.de> wrote:
-> On Thu, 07 Oct 2021 18:51:58 +0200, Rich Felker wrote:
-> > On Thu, Oct 07, 2021 at 06:18:52PM +0200, Takashi Iwai wrote:
->
-> @@ -557,11 +558,15 @@ struct __snd_pcm_sync_ptr {
->  #if defined(__BYTE_ORDER) ? __BYTE_ORDER == __BIG_ENDIAN : defined(__BIG_ENDIAN)
->  typedef char __pad_before_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
->  typedef char __pad_after_uframe[0];
-> +typedef char __pad_before_u32[4];
-> +typedef char __pad_after_u32[0];
->  #endif
->
->  #if defined(__BYTE_ORDER) ? __BYTE_ORDER == __LITTLE_ENDIAN : defined(__LITTLE_ENDIAN)
->  typedef char __pad_before_uframe[0];
->  typedef char __pad_after_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
-> +typedef char __pad_before_u32[0];
-> +typedef char __pad_after_u32[4];
->  #endif
+From: Rander Wang <rander.wang@intel.com>
 
-I think these should remain unchanged, the complex expression was intentionally
-done so the structures are laid out the same way on 64-bit
-architectures, so that
-the kernel can use the __SND_STRUCT_TIME64 path internally on both 32-bit
-and 64-bit architectures.
+The fixed maximum size of IPC message does not allow for large
+transfers, e.g. for filter data. Currently such messages will
+be divided into smaller pieces and sent to firmware in multiple
+chunks. For future IPC, this strategy is not suitable.
 
-> @@ -2970,8 +2981,17 @@ static int snd_pcm_sync_ptr(struct snd_pcm_substream *substream,
->         memset(&sync_ptr, 0, sizeof(sync_ptr));
->         if (get_user(sync_ptr.flags, (unsigned __user *)&(_sync_ptr->flags)))
->                 return -EFAULT;
-> -       if (copy_from_user(&sync_ptr.c.control, &(_sync_ptr->c.control), sizeof(struct snd_pcm_mmap_control)))
-> -               return -EFAULT;
-> +       if (buggy_control) {
-> +               if (copy_from_user(&sync_ptr.c.control_api_2_0_15,
-> +                                  &(_sync_ptr->c.control_api_2_0_15),
-> +                                  sizeof(sync_ptr.c.control_api_2_0_15)))
-> +                       return -EFAULT;
-> +       } else {
-> +               if (copy_from_user(&sync_ptr.c.control,
-> +                                  &(_sync_ptr->c.control),
-> +                                  sizeof(sync_ptr.c.control)))
-> +                       return -EFAULT;
-> +       }
+The maximum IPC message size is limited by host box size which
+can be known when firmware is ready, so the fw_ready callback
+can allocate IPC messages with platform-specific sizes instead
+of the current fixed-size.
 
-The problem I see with this is that it might break musl's ability to
-emulate the new
-interface on top of the old (time32) one for linux-4.x and older
-kernels, as the conversion
-function is no longer stateless but has to know the negotiated
-interface version.
+To be compatible with released firmware, current platforms will
+still use SOF_IPC_MSG_MAX_SIZE. For future platforms, there will
+be a new fw_ready function and the platform-specific allocation
+will take place there.
 
-It's probably fine as long as we can be sure that the 2.0.16+ API
-version only gets
-negotiated if both the kernel and user sides support it, and musl only emulates
-the 2.0.15 API version from the current kernels.
+Signed-off-by: Rander Wang <rander.wang@intel.com>
+Reviewed-by: Bard Liao <bard.liao@intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+---
+ sound/soc/sof/ipc.c      | 27 ++++++++++++++++-----------
+ sound/soc/sof/loader.c   |  3 ++-
+ sound/soc/sof/sof-priv.h |  1 +
+ 3 files changed, 19 insertions(+), 12 deletions(-)
 
-I've tried to understand this part of musl's convert_ioctl_struct(), but I just
-can't figure out whether it does the conversion based the on the layout that
-is currently used in the kernel, or based on the layout we should have been
-using, and would use with the above fix. Rich, can you help me here?
+diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
+index b2e556b64994..e6c53c6c470e 100644
+--- a/sound/soc/sof/ipc.c
++++ b/sound/soc/sof/ipc.c
+@@ -919,6 +919,22 @@ int snd_sof_ipc_valid(struct snd_sof_dev *sdev)
+ }
+ EXPORT_SYMBOL(snd_sof_ipc_valid);
+ 
++int sof_ipc_init_msg_memory(struct snd_sof_dev *sdev)
++{
++	struct snd_sof_ipc_msg *msg;
++
++	msg = &sdev->ipc->msg;
++	msg->msg_data = devm_kzalloc(sdev->dev, SOF_IPC_MSG_MAX_SIZE, GFP_KERNEL);
++	if (!msg->msg_data)
++		return -ENOMEM;
++
++	msg->reply_data = devm_kzalloc(sdev->dev, SOF_IPC_MSG_MAX_SIZE, GFP_KERNEL);
++	if (!msg->reply_data)
++		return -ENOMEM;
++
++	return 0;
++}
++
+ struct snd_sof_ipc *snd_sof_ipc_init(struct snd_sof_dev *sdev)
+ {
+ 	struct snd_sof_ipc *ipc;
+@@ -935,17 +951,6 @@ struct snd_sof_ipc *snd_sof_ipc_init(struct snd_sof_dev *sdev)
+ 	/* indicate that we aren't sending a message ATM */
+ 	msg->ipc_complete = true;
+ 
+-	/* pre-allocate message data */
+-	msg->msg_data = devm_kzalloc(sdev->dev, SOF_IPC_MSG_MAX_SIZE,
+-				     GFP_KERNEL);
+-	if (!msg->msg_data)
+-		return NULL;
+-
+-	msg->reply_data = devm_kzalloc(sdev->dev, SOF_IPC_MSG_MAX_SIZE,
+-				       GFP_KERNEL);
+-	if (!msg->reply_data)
+-		return NULL;
+-
+ 	init_waitqueue_head(&msg->waitq);
+ 
+ 	return ipc;
+diff --git a/sound/soc/sof/loader.c b/sound/soc/sof/loader.c
+index 54aa7764d2b3..c04646647637 100644
+--- a/sound/soc/sof/loader.c
++++ b/sound/soc/sof/loader.c
+@@ -13,6 +13,7 @@
+ #include <linux/firmware.h>
+ #include <sound/sof.h>
+ #include <sound/sof/ext_manifest.h>
++#include "sof-priv.h"
+ #include "ops.h"
+ 
+ static int get_ext_windows(struct snd_sof_dev *sdev,
+@@ -517,7 +518,7 @@ int sof_fw_ready(struct snd_sof_dev *sdev, u32 msg_id)
+ 
+ 	sof_get_windows(sdev);
+ 
+-	return 0;
++	return sof_ipc_init_msg_memory(sdev);
+ }
+ EXPORT_SYMBOL(sof_fw_ready);
+ 
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index efaec2989a27..ba341b1bda0c 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -526,6 +526,7 @@ int sof_ipc_tx_message(struct snd_sof_ipc *ipc, u32 header,
+ int sof_ipc_tx_message_no_pm(struct snd_sof_ipc *ipc, u32 header,
+ 			     void *msg_data, size_t msg_bytes,
+ 			     void *reply_data, size_t reply_bytes);
++int sof_ipc_init_msg_memory(struct snd_sof_dev *sdev);
+ 
+ /*
+  * Trace/debug
+-- 
+2.33.0
 
-       Arnd

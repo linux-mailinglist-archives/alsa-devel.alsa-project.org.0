@@ -2,88 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB3E44283EE
-	for <lists+alsa-devel@lfdr.de>; Sun, 10 Oct 2021 23:57:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D656428421
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Oct 2021 01:02:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B88D167D;
-	Sun, 10 Oct 2021 23:57:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B88D167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF10D1686;
+	Mon, 11 Oct 2021 01:01:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF10D1686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633903077;
-	bh=e8RTZXD5QTUofNkZ4RNO8R1URtpbDdtF+YCVLaP/siI=;
+	s=default; t=1633906962;
+	bh=chr65zOAdK/IIXSdakASPWEGmHnYox9KnKOM7txVQpM=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=qyfQAQLfen0JL7jzdim/6HlBQ/Lk1dNNVxs3HMXplW9IquM+pu6LKeFbjILn228M5
-	 St0byLVvxEmiiegJrQMC5tZ6kygbzel7QE/OsvBGmW6C+Vx6P0/5YFJjqOSCS+h83d
-	 lX5od6jpF9NnyPOcq+pvXjXitIE1WbKntnIy7i7Y=
+	b=Afa/2wnBjug2gzyuFKt9t+pHo7WpQxfJJ7r0GDoKJfSVcYbYjPdsDJNvc1sEVBTQ0
+	 k0SREqZZQKegcbB840vsU8UAp0YBZTXR5whKkubrCSOg0Brbzu9aWGir/w2G9IK4lp
+	 cCKbnS64sz9Kszoh59aupnfMd375KImIRucG6PKk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0E42F80212;
-	Sun, 10 Oct 2021 23:56:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 410A9F80059;
+	Mon, 11 Oct 2021 01:01:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 63982F801F7; Sun, 10 Oct 2021 23:56:39 +0200 (CEST)
+ id 802FCF801F7; Mon, 11 Oct 2021 01:01:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
- [IPv6:2607:f8b0:4864:20::831])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from neo-zeon.de (neo-zeon.de [70.229.12.130])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48C53F8016D
- for <alsa-devel@alsa-project.org>; Sun, 10 Oct 2021 23:56:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48C53F8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54AE5F8016D
+ for <alsa-devel@alsa-project.org>; Mon, 11 Oct 2021 01:01:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54AE5F8016D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="VtRSwv+T"
-Received: by mail-qt1-x831.google.com with SMTP id r17so9454927qtx.10
- for <alsa-devel@alsa-project.org>; Sun, 10 Oct 2021 14:56:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=sender:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=jJbVzM7l1D7JuwqpAtI5nI7LnVZbvtzYKA+zk7EWtHU=;
- b=VtRSwv+TAjnM/7UgaXIXwuA4sdNX3Yyrgv0NaB8ScyZrroWaYPWsvfZfwY2yLQN7pE
- E0SJCYR5fOR5SulTnrIb417GrpSYo0DcyPvvLMCLdkdEJ7y6DT4w+0Acl4q+e21gW1t6
- AIh/YSakbWaNy+is/VTAFywLZHqjLupRNA4RKD3fN2vim+PARDioldLQHZiaqZDNSVK1
- UoivOuewKg9BcZjWmcOje5CLAjrY7fTEVSSABQ1z4H28S7nkx1ul+I3nS3+5BUR422MH
- 8lXFbYCpJGjtPHsb8tvI+kYFdWqRLy81G3r0vQX9ATQhiSGa6ALOo3TniCpPP7GdyORq
- 4Nmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :mime-version:content-transfer-encoding;
- bh=jJbVzM7l1D7JuwqpAtI5nI7LnVZbvtzYKA+zk7EWtHU=;
- b=X/0/On/IqIfO9TE8lFGqWXVWJcBNz2fZbrNcH5UEqA83M9TRo5/1Gvf5ci1IjX/Ghy
- PlabYpxcb56jLJDaB1NBWtS8D5x6YqASjiq0sgjvXYwFvyuxfSOzdkpXCYjUEaLiPfx4
- XYdoiAcOYrhrw1JoXkIKE4iXlI23or80/6aXKOAePuDyyT8oFgLFfeMq8H/XGexxbs4d
- tk+pEI08uPKpGHOPYdAfrBaR2bkIvFqMMDnYlj1S/0njoifj4pWmyLOKEpyFJqHk7AV3
- HI9QFqfnUiql+Nj9PhteFIP1ajF8HwHMG4Ck62LF9vLj1uTWF1ta6dNWqfqSvBpeOlER
- DkoA==
-X-Gm-Message-State: AOAM532VmAg46Ib65DkjidoBTJPkX6YY74+SYjfEB7aO3Xi4Sei2w38m
- 7idw5F9ns9Wi1UowuW9rzFA=
-X-Google-Smtp-Source: ABdhPJy2Uxes532xgkBffYFXTLfI44OGqyQwMouf2EzqAGyGgrgAVWINChSTbrTrXuZd2/8FBsc9FA==
-X-Received: by 2002:a05:622a:11c9:: with SMTP id
- n9mr11536236qtk.295.1633902993496; 
- Sun, 10 Oct 2021 14:56:33 -0700 (PDT)
-Received: from localhost.localdomain ([67.8.38.84])
- by smtp.gmail.com with ESMTPSA id t11sm1851951qkm.92.2021.10.10.14.56.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 10 Oct 2021 14:56:33 -0700 (PDT)
-From: Julian Braha <julianbraha@gmail.com>
-To: linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: fix unmet dependency on GPIOLIB
-Date: Sun, 10 Oct 2021 17:56:27 -0400
-Message-Id: <20211010215627.17869-1-julianbraha@gmail.com>
+ dkim=pass (1024-bit key) header.d=neo-zeon.de header.i=@neo-zeon.de
+ header.b="e/TmDxBl"
+Received: from neo-zeon.de (localhost [127.0.0.1])
+ by neo-zeon.de (OpenSMTPD) with ESMTP id d07635dd;
+ Sun, 10 Oct 2021 15:54:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=neo-zeon.de; h=from:to:cc
+ :subject:date:message-id:mime-version:content-transfer-encoding;
+ s=1; bh=xPuRpsibpV2sdddVzlfHIymtpfg=; b=e/TmDxBlqxRGzEYoR5wXr1D
+ oYsFm5cxXCnSm3Tv5KxQ8nUvNuJ0mjYYfdOy01uDZdXI0E/g5DpI0cd118iMSms9
+ jZzZPyaDix544DD6UBgW1WhsgDkUX4H2dq2R6OTA0jh4VBoOCGgvDs3K00JitrgD
+ ddVx9zt5z0pYJ+MKeSHI=
+Received: by neo-zeon.de (OpenSMTPD) with ESMTPSA id 65f17820
+ (TLSv1.3:AEAD-AES256-GCM-SHA384:256:NO); 
+ Sun, 10 Oct 2021 15:54:31 -0700 (PDT)
+From: Cameron Berkenpas <cam@neo-zeon.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda/realtek: Fix for quirk to enable speaker output on
+ the Lenovo 13s Gen2.
+Date: Sun, 10 Oct 2021 15:54:11 -0700
+Message-Id: <20211010225410.23423-1-cam@neo-zeon.de>
 X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: bgoswami@codeaurora.org, tiwai@suse.com, lgirdwood@gmail.com,
- broonie@kernel.org, ajitp@codeaurora.org
+Cc: tiwai@suse.de, Cameron Berkenpas <cam@neo-zeon.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,52 +76,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When SND_SOC_SC7180 or SND_SOC_STORM is selected,
-and GPIOLIB is not selected, Kbuild gives the following
-warning:
+The previous patch's HDA verb initialization for the Lenovo 13s sequence was
+slightly off. This updated verb sequence has been tested and confirmed working.
 
-WARNING: unmet direct dependencies detected for SND_SOC_MAX98357A
-  Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && GPIOLIB [=n]
-  Selected by [y]:
-  - SND_SOC_STORM [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_QCOM [=y]
-  - SND_SOC_SC7180 [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_QCOM [=y] && I2C [=y]
-
-This is because SND_SOC_MAX98357A is selected
-by SND_SOC_STORM and SND_SOC_SC7180, but
-these config options do not select or depend on
-GPIOLIB, despite SND_SOC_MAX98357A depending on
-GPIOLIB.
-
-These unmet dependency bugs were detected by Kismet,
-a static analysis tool for Kconfig. Please advise if this
-is not the appropriate solution.
-
-Signed-off-by: Julian Braha <julianbraha@gmail.com>
+Fixes: ad7cc2d41b7a ("ALSA: hda/realtek: Quirks to enable speaker output for Lenovo Legion 7i 15IMHG05, Yoga 7i 14ITL5/15ITL5, and 13s Gen2 laptops.")
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=208555
+Cc: <stable@vger.kernel.org>
+Cc: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Cameron Berkenpas <cam@neo-zeon.de>
 ---
- sound/soc/qcom/Kconfig | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/pci/hda/patch_realtek.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-index cc7c1de2f1d9..8c5c1ed54bc7 100644
---- a/sound/soc/qcom/Kconfig
-+++ b/sound/soc/qcom/Kconfig
-@@ -38,6 +38,7 @@ config SND_SOC_LPASS_SC7180
- 
- config SND_SOC_STORM
- 	tristate "ASoC I2S support for Storm boards"
-+	depends on GPIOLIB
- 	select SND_SOC_LPASS_IPQ806X
- 	select SND_SOC_MAX98357A
- 	help
-@@ -141,7 +142,7 @@ config SND_SOC_SM8250
- 
- config SND_SOC_SC7180
- 	tristate "SoC Machine driver for SC7180 boards"
--	depends on I2C
-+	depends on I2C && GPIOLIB
- 	select SND_SOC_QCOM_COMMON
- 	select SND_SOC_LPASS_SC7180
- 	select SND_SOC_MAX98357A
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 4407f7da57c4..84d3e062a335 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -8344,7 +8344,7 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.v.verbs = (const struct hda_verb[]) {
+ 			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x24 },
+ 			{ 0x20, AC_VERB_SET_PROC_COEF, 0x41 },
+-			{ 0x20, AC_VERB_SET_PROC_COEF, 0xb020 },
++			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x26 },
+ 			{ 0x20, AC_VERB_SET_PROC_COEF, 0x2 },
+ 			{ 0x20, AC_VERB_SET_PROC_COEF, 0x0 },
+ 			{ 0x20, AC_VERB_SET_PROC_COEF, 0x0 },
 -- 
-2.25.1
+2.30.2
 

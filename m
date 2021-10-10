@@ -2,63 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27CE3427FF0
-	for <lists+alsa-devel@lfdr.de>; Sun, 10 Oct 2021 09:54:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12246427FF1
+	for <lists+alsa-devel@lfdr.de>; Sun, 10 Oct 2021 09:55:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1AF7169C;
-	Sun, 10 Oct 2021 09:53:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1AF7169C
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8B4F16A1;
+	Sun, 10 Oct 2021 09:54:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8B4F16A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633852486;
-	bh=HX5WY3mhIf7k5elYOoF7yRyy+o2XvlMWPpRKE7xr7PA=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1633852527;
+	bh=sG87dEhoiCpNBWwFHF3i/kOcse42UvzmKnwsZx52SDU=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=J31pt6CrJuIfXsi/LiNH4HXZA8NwyT8bB1zKsXcNIWl7G+VdY2NdSXZrWwxeKv/8A
-	 Whqx6bmoK+HxeIY5kUF6/mL7qsD8u3kkTnpAV0Wag3wVulJVBsZghYNURVNEpAO5AU
-	 qECb0eZt+1qmVPQIjVBK4zCC+2tV6yks1AXLCi3A=
+	b=lwP4EBVurGG5lXlTq7rZEDHMGhT3L38gD8iL5g8K0rKk+uEVfc/dfINSYjL+dNvxW
+	 tSFImmo3U5jNPtKWJzvPZ7lZP5YqpGjTugQwQcF9iRWakv3UNnzQ5kLhosfFOjt0bM
+	 nOdPxpkkW14IiK5DHi82d5pRTM+3YQEcZDqQDVkg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F116F80528;
-	Sun, 10 Oct 2021 09:49:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B4D5F80212;
+	Sun, 10 Oct 2021 09:53:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CC9FBF801F7; Sun, 10 Oct 2021 09:47:32 +0200 (CEST)
+ id 6E621F801F7; Sun, 10 Oct 2021 09:53:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
- [217.70.183.195])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 416B2F800F0
- for <alsa-devel@alsa-project.org>; Sun, 10 Oct 2021 09:47:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 416B2F800F0
-Received: from bagend.localnet (86-126-20-31.ftth.glasoperator.nl
- [31.20.126.86]) (Authenticated sender: didi.debian@cknow.org)
- by relay3-d.mail.gandi.net (Postfix) with ESMTPSA id 47F8D60006;
- Sun, 10 Oct 2021 07:47:22 +0000 (UTC)
-From: Diederik de Haas <didi.debian@cknow.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Thierry Reding <treding@nvidia.com>, Jon Hunter <jonathanh@nvidia.com>,
- Stephan Gerhold <stephan@gerhold.net>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
- Guido =?ISO-8859-1?Q?G=FCnther?= <agx@sigxcpu.org>
-Subject: Re: [PATCH] ASoC: simple-card: Fill in driver name
-Date: Sun, 10 Oct 2021 09:47:12 +0200
-Message-ID: <4974503.Y8KB3sNASq@bagend>
-Organization: Connecting Knowledge
-In-Reply-To: <YNGe3akAntQi8qJD@qwark.sigxcpu.org>
-References: <YNGe3akAntQi8qJD@qwark.sigxcpu.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart5876364.1uclEOo45F";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
-X-Mailman-Approved-At: Sun, 10 Oct 2021 09:49:30 +0200
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2430BF800F0
+ for <alsa-devel@alsa-project.org>; Sun, 10 Oct 2021 09:53:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2430BF800F0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="b9CV9B7W"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="kyfRbDll"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 62F2B22121;
+ Sun, 10 Oct 2021 07:53:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1633852418; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=80quR0dJqWEg6rK0iTRkfXVyG+mUHo9ipi86LTLwPGs=;
+ b=b9CV9B7WUOsMH8ThstCdR6ELpd3S/ue/SHpHCK0J4aijqgQ+qtbpRzFPNOfxk/pmTsQt+d
+ h9j0avBOaDr06jL62qSXKS5/rkxEM3GIU0cUJMfbvBzvHVOwlPrSdFOwgc5qw3OhnbxJfD
+ y48sAr6AP1DPxMJX1KdasZSUL66TiS0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1633852418;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=80quR0dJqWEg6rK0iTRkfXVyG+mUHo9ipi86LTLwPGs=;
+ b=kyfRbDllImYT2dBXKL3lRDd9R/HWc45wRjHQHzM3Pe0j2qPhyIruGPIL1u8cmruSxb4a/Z
+ 3HNlv4fy/NsgvBAA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 3310EA3B83;
+ Sun, 10 Oct 2021 07:53:38 +0000 (UTC)
+Date: Sun, 10 Oct 2021 09:53:38 +0200
+Message-ID: <s5hsfx95n99.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Rich Felker <dalias@libc.org>
+Subject: Re: [musl] Re: [alsa-devel] [PATCH v7 8/9] ALSA: add new 32-bit
+ layout for snd_pcm_mmap_status/control
+In-Reply-To: <20211008120736.GF7074@brightrain.aerifal.cx>
+References: <CAK8P3a0K3XtjiszC3XWgG0L8+AgO+xUGr_KEAnb9a5GmyecoUQ@mail.gmail.com>
+ <s5hee8x9f92.wl-tiwai@suse.de>
+ <CAK8P3a0pSZxqfk-bn+idrDYDwANSfiP9L6U1O5jLQvK+3vwyVQ@mail.gmail.com>
+ <s5hy27497eo.wl-tiwai@suse.de>
+ <20211007160634.GB7074@brightrain.aerifal.cx>
+ <s5hr1cw95ar.wl-tiwai@suse.de>
+ <20211007165158.GC7074@brightrain.aerifal.cx>
+ <s5h5yu79aab.wl-tiwai@suse.de>
+ <CAK8P3a0qxNLv3_RcR5COcRGPcTnYMcfbOjdWKiT2hKdcof9WUg@mail.gmail.com>
+ <s5hv9277oux.wl-tiwai@suse.de>
+ <20211008120736.GF7074@brightrain.aerifal.cx>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Arnd Bergmann <arnd@arndb.de>, Baolin Wang <baolin.wang@linaro.org>,
+ y2038 Mailman List <y2038@lists.linaro.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ musl@lists.openwall.com, Takashi Iwai <tiwai@suse.com>,
+ Michael Forney <mforney@mforney.org>, Mark Brown <broonie@kernel.org>,
+ Baolin Wang <baolin.wang7@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,105 +109,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---nextPart5876364.1uclEOo45F
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"; protected-headers="v1"
-From: Diederik de Haas <didi.debian@cknow.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Thierry Reding <treding@nvidia.com>, Jon Hunter <jonathanh@nvidia.com>, Stephan Gerhold <stephan@gerhold.net>, alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, Guido =?ISO-8859-1?Q?G=FCnther?= <agx@sigxcpu.org>
-Subject: Re: [PATCH] ASoC: simple-card: Fill in driver name
-Date: Sun, 10 Oct 2021 09:47:12 +0200
-Message-ID: <4974503.Y8KB3sNASq@bagend>
-Organization: Connecting Knowledge
-In-Reply-To: <YNGe3akAntQi8qJD@qwark.sigxcpu.org>
-References: <YNGe3akAntQi8qJD@qwark.sigxcpu.org>
+On Fri, 08 Oct 2021 14:07:39 +0200,
+Rich Felker wrote:
+> 
+> On Fri, Oct 08, 2021 at 01:11:34PM +0200, Takashi Iwai wrote:
+> > On Fri, 08 Oct 2021 11:24:39 +0200,
+> > Arnd Bergmann wrote:
+> > > 
+> > > On Fri, Oct 8, 2021 at 10:43 AM Takashi Iwai <tiwai@suse.de> wrote:
+> > > > On Thu, 07 Oct 2021 18:51:58 +0200, Rich Felker wrote:
+> > > > > On Thu, Oct 07, 2021 at 06:18:52PM +0200, Takashi Iwai wrote:
+> > > >
+> > > > @@ -557,11 +558,15 @@ struct __snd_pcm_sync_ptr {
+> > > >  #if defined(__BYTE_ORDER) ? __BYTE_ORDER == __BIG_ENDIAN : defined(__BIG_ENDIAN)
+> > > >  typedef char __pad_before_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
+> > > >  typedef char __pad_after_uframe[0];
+> > > > +typedef char __pad_before_u32[4];
+> > > > +typedef char __pad_after_u32[0];
+> > > >  #endif
+> > > >
+> > > >  #if defined(__BYTE_ORDER) ? __BYTE_ORDER == __LITTLE_ENDIAN : defined(__LITTLE_ENDIAN)
+> > > >  typedef char __pad_before_uframe[0];
+> > > >  typedef char __pad_after_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
+> > > > +typedef char __pad_before_u32[0];
+> > > > +typedef char __pad_after_u32[4];
+> > > >  #endif
+> > > 
+> > > I think these should remain unchanged, the complex expression was intentionally
+> > > done so the structures are laid out the same way on 64-bit
+> > > architectures, so that
+> > > the kernel can use the __SND_STRUCT_TIME64 path internally on both 32-bit
+> > > and 64-bit architectures.
+> > 
+> > That was explicitly defined, but OK, this isn't necessarily defined
+> > here.
+> > 
+> > > > @@ -2970,8 +2981,17 @@ static int snd_pcm_sync_ptr(struct snd_pcm_substream *substream,
+> > > >         memset(&sync_ptr, 0, sizeof(sync_ptr));
+> > > >         if (get_user(sync_ptr.flags, (unsigned __user *)&(_sync_ptr->flags)))
+> > > >                 return -EFAULT;
+> > > > -       if (copy_from_user(&sync_ptr.c.control, &(_sync_ptr->c.control), sizeof(struct snd_pcm_mmap_control)))
+> > > > -               return -EFAULT;
+> > > > +       if (buggy_control) {
+> > > > +               if (copy_from_user(&sync_ptr.c.control_api_2_0_15,
+> > > > +                                  &(_sync_ptr->c.control_api_2_0_15),
+> > > > +                                  sizeof(sync_ptr.c.control_api_2_0_15)))
+> > > > +                       return -EFAULT;
+> > > > +       } else {
+> > > > +               if (copy_from_user(&sync_ptr.c.control,
+> > > > +                                  &(_sync_ptr->c.control),
+> > > > +                                  sizeof(sync_ptr.c.control)))
+> > > > +                       return -EFAULT;
+> > > > +       }
+> > > 
+> > > The problem I see with this is that it might break musl's ability to
+> > > emulate the new
+> > > interface on top of the old (time32) one for linux-4.x and older
+> > > kernels, as the conversion
+> > > function is no longer stateless but has to know the negotiated
+> > > interface version.
+> > > 
+> > > It's probably fine as long as we can be sure that the 2.0.16+ API
+> > > version only gets
+> > > negotiated if both the kernel and user sides support it, and musl only emulates
+> > > the 2.0.15 API version from the current kernels.
+> > > 
+> > > I've tried to understand this part of musl's convert_ioctl_struct(), but I just
+> > > can't figure out whether it does the conversion based the on the layout that
+> > > is currently used in the kernel, or based on the layout we should have been
+> > > using, and would use with the above fix. Rich, can you help me here?
+> > 
+> > So, at this moment, I'm not sure whether we should correct the struct
+> > at all.  This will lead to yet more breakage, and basically the struct
+> > itself *works* -- the only bug is in 32bit compat handling in the
+> > kernel (again).
+> > 
+> > The below is a revised kernel patch (again untested), just correcting
+> > the behavior of 32bit compat mode.  32bit apps on 32bit kernel work
+> > fine as is, as well as 64bit apps on 64bit kernel.
+> 
+> I'm perfectly okay with this if Arnd is! It's probably the least
+> invasive and has the least long-term maintenance cost and fallout on
+> other projects.
 
-On Tuesday, 22 June 2021 10:27:09 CEST Guido G=FCnther wrote:
-> alsa-ucm groups by driver name so fill that in as well. Otherwise the
-> presented information is redundant and doesn't reflect the used
-> driver. We can't just use 'asoc-simple-card' since the driver name is
-> restricted to 15 characters.
->=20
-> Before:
->=20
->  # cat /proc/asound/cards
->  0 [Devkit         ]: Librem_5_Devkit - Librem 5 Devkit
->                       Librem 5 Devkit
-> After:
->=20
->  0 [Devkit         ]: simple-card - Librem 5 Devkit
->                       Librem 5 Devkit
->=20
-> Signed-off-by: Guido G=C3=BCnther <agx@sigxcpu.org>
-> ---
-> This came out of a discussion about adding alsa-ucm profiles for the
-> Librem 5 Devkit at https://github.com/alsa-project/alsa-ucm-conf/pull/102
->=20
->  sound/soc/generic/simple-card.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/sound/soc/generic/simple-card.c
-> b/sound/soc/generic/simple-card.c index 0015f534d42d..a3a7990b5cb6 100644
-> --- a/sound/soc/generic/simple-card.c
-> +++ b/sound/soc/generic/simple-card.c
-> @@ -621,6 +621,7 @@ static int asoc_simple_probe(struct platform_device
-> *pdev) card->owner		=3D THIS_MODULE;
->  	card->dev		=3D dev;
->  	card->probe		=3D simple_soc_probe;
-> +	card->driver_name       =3D "simple-card";
->=20
->  	li =3D devm_kzalloc(dev, sizeof(*li), GFP_KERNEL);
->  	if (!li)
-
-Unfortunately this change broke multichannel audio on my Rock64 device runn=
-ing=20
-Debian. My Rock64 is connected to my AVR (Pioneer SC-1224) via a HDMI cable.
-
-Before/without this change, pulseaudio correctly identifies my AVR and give=
-s me=20
-hdmi-stereo/hdmi-surround/hdmi-surround71 output profiles via the HDMI card=
- and=20
-iec958-stereo/iec958-ac3-surround-51 on my SPDIF card.
-After/with this change, I only have a stereo-fallback output profile on bot=
-h=20
-HDMI and SPDIF card.
-I reported this to Debian at https://bugs.debian.org/995923
-I have verified that reverting this commit on a self-built 5.14.10 brought =
-back=20
-multichannel audio.
-
-On LibreELEC's current nightly builds (version 11) with kernel 5.14 on=20
-a(nother) Rock64 device (also connected via HDMI cable), I hear no sound at=
-=20
-all. Previous nightly builds (version 11) with I _assume_ kernel < 5.14,=20
-worked fine. As I didn't keep previous nightly builds, I can't verify that.
-I reported that at https://github.com/LibreELEC/LibreELEC.tv/issues/5734
-I have NOT verified whether reverting this commit would also restore audio =
-with=20
-LibreELEC as I'm not familiar with their build system.
-
-This is the first time I'm reporting an issue to the upstream Linux kernel,=
- so=20
-I hope I did it correctly (DL-ed mbox file and did Reply-to-All). If not,=20
-apologies and I hope you'll point me to the correct place/way.
-(I don't know if others need to be notified too as it is part of 5.14 relea=
-ses)
-
-Cheers,
-  Diederik
---nextPart5876364.1uclEOo45F
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQT1sUPBYsyGmi4usy/XblvOeH7bbgUCYWKagAAKCRDXblvOeH7b
-btKJAP94HDQVbxFH7oeZReoLAa9c33hWAkhsXvRR0RgKBsCXlAD/eNwTTabMI5Cy
-U1Wsg+p38twgt/m85qPOO2Vwgkfwqgk=
-=aGUG
------END PGP SIGNATURE-----
-
---nextPart5876364.1uclEOo45F--
+OK, I'll submit a proper patch now, to be included in the next PR for
+5.15-rc.  For further fixes, let's think carefully.
 
 
+thanks,
 
+Takashi

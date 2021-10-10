@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43F3F428380
-	for <lists+alsa-devel@lfdr.de>; Sun, 10 Oct 2021 22:26:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 250CF428381
+	for <lists+alsa-devel@lfdr.de>; Sun, 10 Oct 2021 22:27:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD34B1687;
-	Sun, 10 Oct 2021 22:25:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD34B1687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 960ED168F;
+	Sun, 10 Oct 2021 22:26:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 960ED168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633897596;
-	bh=lUXHLM9MzqxMyYU9q2vZJKH+yZYI2yJKrvrnXZiZWBg=;
+	s=default; t=1633897630;
+	bh=CSm3UdQ339152SHO3LA/+fRoRqzHeWUMosfJYsrXDZE=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dz+G0KediyGUoeDwNikvG96S9sVTsBC5xG9YYv0SPu7EBNVTUO/fWMXHpOMNsFVly
-	 Jq630YOluhT/PIPUes+e7GPg3NbQOV3+Jxcn0U7AIzhBnmEUvx80gFhw3AD8PJJN0Q
-	 4V0RzVDLjc2WwRV41qYlfvFZDZ6mGtDA//NsMvnI=
+	b=F2puxLSaTVNQCplx0m+AyowEMVon0cerL+ECvchCeqvdCTi5LYqbDeeNr0gRmhnHX
+	 k8PF+R1LL87Ne6+DlmDNdRH/PDX4kyHgsym9Ske+QZg/bKAZDrpjY3DB7DQg907SaA
+	 RWH6R+BeNYvelpvxFzhEBptJtd7PSv7qhhccNN70=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 365B4F801D5;
-	Sun, 10 Oct 2021 22:25:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4161AF80245;
+	Sun, 10 Oct 2021 22:26:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B06AF801F7; Sun, 10 Oct 2021 22:25:18 +0200 (CEST)
+ id 797D1F80212; Sun, 10 Oct 2021 22:26:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C1AECF8016D
- for <alsa-devel@alsa-project.org>; Sun, 10 Oct 2021 22:25:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1AECF8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 70C80F80059
+ for <alsa-devel@alsa-project.org>; Sun, 10 Oct 2021 22:26:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70C80F80059
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="u/T4QtmO"; 
+ header.b="dbPegV7w"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="eipG8Dou"
+ header.b="skwvTvWd"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 1A18421FE1;
- Sun, 10 Oct 2021 20:25:10 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id B87091FD4C;
+ Sun, 10 Oct 2021 20:26:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1633897510; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1633897570; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=GEQcDzhZ8Ka5CSVQvfxwlWYWOhU/3/GhrODN3V13RPI=;
- b=u/T4QtmO4zjpWP4G6PpsJYj8evddBVP5dABrjZMZ8CqJbfZUoqzHgHzZlDxk080ekTJTOR
- FnVqbL2/kEtp1nAvWgB3vmPw6WtaIe54m+Xj94yu8dxg9fQjsG1yUPxVx+R5+HaCXwLwz2
- YMIg25qOhHH+4FFj6i8tkiQ55eRU83k=
+ bh=SJC2KoQ+Qb7tBG8ADatZhzgv/vS/Dwb4Q2ZnO1dzMqg=;
+ b=dbPegV7wEdCs3VwDXGXDvZkAfofxhV9oDx0RcUaczlbwvWFIWhWH7cAARlkt4h2zblvSAN
+ uHFBFqVAsLGktgM1Z9rXX7BPCXlyWMRbBNZYnvb3E+BiHgLNQC8etC+vEDZKF1M8ClEoPa
+ fGKKpMPifP5ovJCTt0LIfCC89ikMsWA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1633897510;
+ s=susede2_ed25519; t=1633897570;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=GEQcDzhZ8Ka5CSVQvfxwlWYWOhU/3/GhrODN3V13RPI=;
- b=eipG8Doua46nR7vEC1XNGKPBUEGveXX7uStsTSmBb2NhhNFJd9GuLwtCB/FluGSb1yeZgu
- XcZpQvh5ZrswNlAg==
+ bh=SJC2KoQ+Qb7tBG8ADatZhzgv/vS/Dwb4Q2ZnO1dzMqg=;
+ b=skwvTvWdsz3TTSIl4EKsR3eEmz3Rht4Yp4Hl2IEeM1Y/9qFwOorweabOiO9c1ZIVtDkvn2
+ ysKUGVXOTkJ/l7DQ==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id F3877A3B83;
- Sun, 10 Oct 2021 20:25:09 +0000 (UTC)
-Date: Sun, 10 Oct 2021 22:25:09 +0200
-Message-ID: <s5hily46316.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id A4EE0A3B83;
+ Sun, 10 Oct 2021 20:26:10 +0000 (UTC)
+Date: Sun, 10 Oct 2021 22:26:10 +0200
+Message-ID: <s5hh7do62zh.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH] ALSA: usb-audio: allow -EPIPE errors for some v2 messages
-In-Reply-To: <YWLbEdHUE3k/i0fe@kroah.com>
-References: <YWLbEdHUE3k/i0fe@kroah.com>
+To: Jonas Hahnfeld <hahnjo@hahnjo.de>
+Subject: Re: [PATCH] ALSA: usb-audio: Add quirk for VF0770
+In-Reply-To: <20211010111947.5796-1-hahnjo@hahnjo.de>
+References: <20211010111947.5796-1-hahnjo@hahnjo.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
 Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-usb@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,52 +93,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 10 Oct 2021 14:22:41 +0200,
-Greg Kroah-Hartman wrote:
+On Sun, 10 Oct 2021 13:19:47 +0200,
+Jonas Hahnfeld wrote:
 > 
-> The Schiit Hel device does not like to respond to all get_ctl_value_v2()
-> requests for some reason.  This used to work in older kernels, but now
-> with more strict checking, this failure causes the device to fail to
-> work.
+> The device advertises 8 formats, but only a rate of 48kHz is honored
+> by the hardware and 24 bits give chopped audio, so only report the
+> one working combination. This fixes out-of-the-box audio experience
+> with PipeWire which otherwise attempts to choose S24_3LE (while
+> PulseAudio defaulted to S16_LE).
 > 
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
-> 
-> This fixes the Shiit Hel device that I have.  It used to work on older
-> kernels (a year ago?), but stopped working for some reason and I didn't
-> take the time to track it down.  This change fixes the issue for me, but
-> feels wrong for some reason.  At least now I can use the device as a
-> headphone driver, much better than the built-in one for my current
-> machine...
-> 
-> If needed, I can take the time to do bisection to track down the real
-> issue here, it might be due to stricter endpoint checking in the USB
-> core, but that feels wrong somehow.
-> 
-> Here's the debugfs USB output for this device, showing the endpoints:
-> 
-> T:  Bus=07 Lev=02 Prnt=02 Port=01 Cnt=01 Dev#=  5 Spd=480 MxCh= 0
-> D:  Ver= 2.00 Cls=ef(misc ) Sub=02 Prot=01 MxPS=64 #Cfgs=  1
-> P:  Vendor=30be ProdID=0101 Rev=01.02
-> S:  Manufacturer=Schiit Audio
-> S:  Product=Schiit Hel
-> C:  #Ifs= 4 Cfg#= 1 Atr=c0 MxPwr=0mA
-> I:  If#= 0 Alt= 0 #EPs= 1 Cls=01(audio) Sub=01 Prot=20 Driver=snd-usb-audio
-> E:  Ad=8f(I) Atr=03(Int.) MxPS=   6 Ivl=1ms
-> I:  If#= 1 Alt= 1 #EPs= 2 Cls=01(audio) Sub=02 Prot=20 Driver=snd-usb-audio
-> E:  Ad=05(O) Atr=05(Isoc) MxPS= 104 Ivl=125us
-> E:  Ad=85(I) Atr=11(Isoc) MxPS=   4 Ivl=1ms
-> I:  If#= 2 Alt= 1 #EPs= 1 Cls=01(audio) Sub=02 Prot=20 Driver=snd-usb-audio
-> E:  Ad=88(I) Atr=05(Isoc) MxPS= 156 Ivl=125us
-> I:  If#= 3 Alt= 0 #EPs= 1 Cls=03(HID  ) Sub=00 Prot=00 Driver=usbhid
-> E:  Ad=84(I) Atr=03(Int.) MxPS=  16 Ivl=1ms
-> 
-> Any other suggestions to fix this are welcome.
+> Signed-off-by: Jonas Hahnfeld <hahnjo@hahnjo.de>
 
-Could you show the exact error messages and lsusb -v output?
-We may paper over only the problematic node instead.
+Could you give alsa-info.sh output with and without patch, just for
+comparison?  Run the script with --no-upload option and attach the
+outputs.
 
 
 thanks,

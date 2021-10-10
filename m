@@ -2,75 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34C9A428014
-	for <lists+alsa-devel@lfdr.de>; Sun, 10 Oct 2021 10:41:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3A8E428064
+	for <lists+alsa-devel@lfdr.de>; Sun, 10 Oct 2021 12:12:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1CB8166E;
-	Sun, 10 Oct 2021 10:40:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1CB8166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E754168A;
+	Sun, 10 Oct 2021 12:11:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E754168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633855308;
-	bh=BKqy/VnTufo2IS6ZwXrmZ/XgzwlIULyPAJL5Jw+AMPU=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1633860756;
+	bh=lO1f+rkh/ZItx+ywxGwtMYQzLXAJn/DDBB3aLyk6AfE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Bh9rBxN5IwPm5IU7W/4+veE6xP+whIVN9NBhfjQx91XZFn5lEwg5QHP/fKKNHFgHY
-	 u75/NLtykR3pfIlyBfF4CW3j+zj+pQAanT3IgtZ/CaFc5phAJyKG1d53HeuqZZ0u9g
-	 DDjWNcyY6fCmoBCLMGImXuXvunP7H7Feai6vJ6U4=
+	b=TrF/Cq+Vrp+ZV3Mje9PTuUJ7MNAcwpe/y+dsBt14a1zM56yYn2jhpQRT9qvqkaIFP
+	 Y/m6ZJfncykLgSpuzclacjkxuUYcBnfuluCvaioi9fx6Fh5juH9NlVmbg7kGFnol9n
+	 DfYrhS7lL29+462sX04PnGj51oe+cfcgGRntRgHw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 292E9F80212;
-	Sun, 10 Oct 2021 10:40:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2A3AF801D5;
+	Sun, 10 Oct 2021 12:11:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4A4CEF801F7; Sun, 10 Oct 2021 10:40:29 +0200 (CEST)
+ id 14D50F801F7; Sun, 10 Oct 2021 12:11:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48340F800F0
- for <alsa-devel@alsa-project.org>; Sun, 10 Oct 2021 10:40:22 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 6BE4AA003F;
- Sun, 10 Oct 2021 10:40:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 6BE4AA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1633855221; bh=jEddCVVyEM6hfDJAIIp/JF0rfCtaB9zR3MuC9Qro148=;
- h=Date:Subject:To:References:From:In-Reply-To:From;
- b=wKG6TDVhlblRcRd0f6VGjJyJlnjhQAmYlYNXqC/D15yntOn9n+tTwxJ2bioo55qGe
- jzz2CGbAPmQokinVBhrSwy3VjSGDJKkwrDIbIeH+PmRov5Rk2QO31XxKIp9uqp7MRV
- vLs+n2Oj0tfHRT/CZDNNgBNwd8huSrXKxg3dQJRc=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Sun, 10 Oct 2021 10:40:10 +0200 (CEST)
-Message-ID: <61a82214-0de8-816f-ff63-3979b86343bf@perex.cz>
-Date: Sun, 10 Oct 2021 10:40:09 +0200
+ by alsa1.perex.cz (Postfix) with ESMTPS id 479BEF800F0
+ for <alsa-devel@alsa-project.org>; Sun, 10 Oct 2021 12:11:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 479BEF800F0
+Received: from mail-wr1-f54.google.com ([209.85.221.54]) by
+ mrelayeu.kundenserver.de (mreue106 [213.165.67.113]) with ESMTPSA (Nemesis)
+ id 1MGhds-1mUVqB2em2-00DnI7 for <alsa-devel@alsa-project.org>; Sun, 10 Oct
+ 2021 12:11:09 +0200
+Received: by mail-wr1-f54.google.com with SMTP id r10so45333165wra.12
+ for <alsa-devel@alsa-project.org>; Sun, 10 Oct 2021 03:11:09 -0700 (PDT)
+X-Gm-Message-State: AOAM533U+IjCvJdOifi8XZPNhlu7JxMdjBRP2ODHY8ukHcak2KkoYq9v
+ IRkOFn5iXyGhzJ8GlWYFbmwMVCFL09hBc6ENCgU=
+X-Google-Smtp-Source: ABdhPJx5SZgl2XRk9qsI/11XgfpHQ7R5Y1XDXpXgmJBrrMs9kOGy3pF6kUMXlskqNxfYAcPFTWEX/fWf7HqUx8gJwlg=
+X-Received: by 2002:a1c:4b08:: with SMTP id y8mr4066005wma.98.1633860669268;
+ Sun, 10 Oct 2021 03:11:09 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.1.0
-Subject: Re: [PATCH] ASoC: simple-card: Fill in driver name
-Content-Language: en-US
-To: Diederik de Haas <didi.debian@cknow.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Thierry Reding <treding@nvidia.com>, Jon Hunter <jonathanh@nvidia.com>,
- Stephan Gerhold <stephan@gerhold.net>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, =?UTF-8?Q?Guido_G=c3=bcnther?=
- <agx@sigxcpu.org>
-References: <YNGe3akAntQi8qJD@qwark.sigxcpu.org> <4974503.Y8KB3sNASq@bagend>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <4974503.Y8KB3sNASq@bagend>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20211010075546.23220-1-tiwai@suse.de>
+In-Reply-To: <20211010075546.23220-1-tiwai@suse.de>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Sun, 10 Oct 2021 12:10:53 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a0HYw_pO=EdsYBxPRXk8mv3gxUoch5ba_o2Q58wBrm4iA@mail.gmail.com>
+Message-ID: <CAK8P3a0HYw_pO=EdsYBxPRXk8mv3gxUoch5ba_o2Q58wBrm4iA@mail.gmail.com>
+Subject: Re: [PATCH] ALSA: pcm: Workaround for a wrong offset in SYNC_PTR
+ compat ioctl
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+X-Provags-ID: V03:K1:plM6AY+/PleJESIzHhR6+GN389dCsfRZ96Lt70QYj4Bxl5Ao6oE
+ clRQrcNt6FCMWG5bA3bju9BZzHjT6CUoeSz6tXxE6A3u4Eumg4uL6wbOGCLzN20W1LvrIoq
+ SLgYz6IEU7cZX6yEkruRd15exemVZbZbkZX3iGQPv3tgHB19xcgFHFZRAW4eJjBL6DW+3XI
+ FswUWde9hu9ak/pvB1cJg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:Q+mHrTKy3oE=:SIMr0Z/hvUqaA5pPZq96pv
+ jfIukuz7EPTAvpa3GniZ94aU06/zwSKszyGPKAnpIsvazWyZXk+h1iQbOaVh97V3UlZmUIZtG
+ 39HwcGNB9bYQ5Clka913o2m1GBuSwnG84CUwrXHv7e3LBZZssfNKYy3sxzAxrT3V7/l1xE/RG
+ SKnx33dxYEuy92B6lS6+o/3wuWC8XC37a3Er2xved9NN3wD53QvpQr/EIChXJ4Qbiw+lEE0VY
+ xFRemCOx0netRANzmz1fzRdNSrM4GP1eXBBUo1YoHsR7AhBU+FW9GJ0gshaCzWbX9bve3ARu0
+ iHRCPyEfIYLSuLeMNnv0/1L+lldu7I3V2P4acHi9kzfNh7CBT9IrybEJU3lreOhyyF1QQkFIp
+ PwMLvZ5W2io8cYZvhjKTvERb+yLdGwKd6kQ10Vk417RXqonUvzBfji69cvPHgYXc3Yx8Q2Ln7
+ yCo3eTJhe16GBZVgj8NYCeEBKUjqJCj9k1TqZVTc6xNtczvCA11aQ2PotmDOHu4kBf0ytvxCk
+ BDaCYfxwJbBkCnubxC6OqbwTADycckPe5QNYjQTFoE/bx/23CsvYzOH/kotokrI9v4a/efO3M
+ BslVY2z7sZTneAa15glbKjhDha8Ypx3i6GUxK0+B4r/DlETJ32+vD6tVWYpEubNimN3beyHcL
+ fuxToqkWRbybuHTlAO+h9a7L+U/zXoA2bffH5HMDnfXgi1TAXf2ylYvSeJXW24ghOtMiS+e3a
+ Lp6R9RiCOKcTQYYRzCt7pmuF7TlI69V4QGdyUQ==
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Rich Felker <dalias@libc.org>, Arnd Bergmann <arnd@arndb.de>,
+ Michael Forney <mforney@mforney.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,52 +92,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 10. 10. 21 9:47, Diederik de Haas wrote:
-> On Tuesday, 22 June 2021 10:27:09 CEST Guido Günther wrote:
->> alsa-ucm groups by driver name so fill that in as well. Otherwise the
->> presented information is redundant and doesn't reflect the used
->> driver. We can't just use 'asoc-simple-card' since the driver name is
->> restricted to 15 characters.
->>
->> Before:
->>
->>   # cat /proc/asound/cards
->>   0 [Devkit         ]: Librem_5_Devkit - Librem 5 Devkit
->>                        Librem 5 Devkit
->> After:
->>
->>   0 [Devkit         ]: simple-card - Librem 5 Devkit
->>                        Librem 5 Devkit
->>
->> Signed-off-by: Guido GÃ¼nther <agx@sigxcpu.org>
->> ---
->> This came out of a discussion about adding alsa-ucm profiles for the
->> Librem 5 Devkit at https://github.com/alsa-project/alsa-ucm-conf/pull/102
->>
->>   sound/soc/generic/simple-card.c | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/sound/soc/generic/simple-card.c
->> b/sound/soc/generic/simple-card.c index 0015f534d42d..a3a7990b5cb6 100644
->> --- a/sound/soc/generic/simple-card.c
->> +++ b/sound/soc/generic/simple-card.c
->> @@ -621,6 +621,7 @@ static int asoc_simple_probe(struct platform_device
->> *pdev) card->owner		= THIS_MODULE;
->>   	card->dev		= dev;
->>   	card->probe		= simple_soc_probe;
->> +	card->driver_name       = "simple-card";
->>
->>   	li = devm_kzalloc(dev, sizeof(*li), GFP_KERNEL);
->>   	if (!li)
-> 
-> Unfortunately this change broke multichannel audio on my Rock64 device running
-> Debian. My Rock64 is connected to my AVR (Pioneer SC-1224) via a HDMI cable.
+On Sun, Oct 10, 2021 at 9:55 AM Takashi Iwai <tiwai@suse.de> wrote:
+>
+> Michael Forney reported an incorrect padding type that was defined in
+> the commit 80fe7430c708 ("ALSA: add new 32-bit layout for
+> snd_pcm_mmap_status/control") for PCM control mmap data.
+> His analysis is correct, and this caused the misplacements of PCM
+> control data on 32bit arch and 32bit compat mode.
+>
+> The bug is that the __pad2 definition in __snd_pcm_mmap_control64
+> struct was wrongly with __pad_before_uframe, which should have been
+> __pad_after_uframe instead.  This struct is used in SYNC_PTR ioctl and
+> control mmap.  Basically this bug leads to two problems:
+>
+> - The offset of avail_min field becomes wrong, it's placed right after
+>   appl_ptr without padding on little-endian
+>
+> - When appl_ptr and avail_min are read as 64bit values in kernel side,
+>   the values become either zero or corrupted (mixed up)
+>
+> One good news is that, because both user-space and kernel
+> misunderstand the wrong offset, at least, 32bit application running on
+> 32bit kernel works as is.  Also, 64bit applications are unaffected
+> because the padding size is zero.  The remaining problem is the 32bit
+> compat mode; as mentioned in the above, avail_min is placed right
+> after appl_ptr on little-endian archs, 64bit kernel reads bogus values
+> for appl_ptr updates, which may lead to streaming bugs like jumping,
+> XRUN or whatever unexpected.
+> (However, we haven't heard any serious bug reports due to this over
+> years, so practically seen, it's fairly safe to assume that the impact
+> by this bug is limited.)
+>
+> Ideally speaking, we should correct the wrong mmap status control
+> definition.  But this would cause again incompatibility with the
+> existing binaries, and fixing it (e.g. by renumbering ioctls) would be
+> really messy.
+>
+> So, as of this patch, we only correct the behavior of 32bit compat
+> mode and keep the rest as is.  Namely, the SYNC_PTR ioctl is now
+> handled differently in compat mode to read/write the 32bit values at
+> the right offsets.  The control mmap of 32bit apps on 64bit kernels
+> has been already disabled (which is likely rather an overlook, but
+> this worked fine at this time :), so covering SYNC_PTR ioctl should
+> suffice as a fallback.
+>
+> Fixes: 80fe7430c708 ("ALSA: add new 32-bit layout for snd_pcm_mmap_status/control")
+> Reported-by: Michael Forney <mforney@mforney.org>
+> Cc: <stable@vger.kernel.org>
+> Cc: Arnd Bergmann <arnd@arndb.de>
+> Cc: Rich Felker <dalias@libc.org>
+> Link: https://lore.kernel.org/r/29QBMJU8DE71E.2YZSH8IHT5HMH@mforney.org
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
 
-This looks like an user space configuration problem. You should check, if a PA 
-profile or an UCM configuration is used (in the PA debug log).
+Reviewed-by: Arnd Bergmann <arnd@arndb.de>
 
-						Jaroslav
+This does look like it's the best way we can get out of the mess we're
+in for the kernel interface.
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Do you have any ideas for how to test this properly to ensure that
+there are no further problems in these ioctls? Is there a testsuite
+for ALSA that can be run on a musl-enabled distro in both native
+and compat mode to exercise the ioctl and mmap interfaces?
+
+       Arnd

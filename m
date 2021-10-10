@@ -2,64 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5A074282DD
-	for <lists+alsa-devel@lfdr.de>; Sun, 10 Oct 2021 20:04:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43F3F428380
+	for <lists+alsa-devel@lfdr.de>; Sun, 10 Oct 2021 22:26:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E7941688;
-	Sun, 10 Oct 2021 20:03:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E7941688
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD34B1687;
+	Sun, 10 Oct 2021 22:25:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD34B1687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633889055;
-	bh=Z98Crp4ebpOzZdDFAsoZa7MCVX97BDnsCRN6zNWZoUs=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=D6ouA5z4LxxMZ37Vw+k8iKnGBEQq7iSUr8Sx6hAtWh2ogBjOqrDaHdIGiiFdajFX+
-	 VrMcDReapmQwsifVAL8j+Cp++Cz813xZRycqya72++h25KKgMoHauzUnOzCXR8LxrC
-	 BBLuBek30BtWGV/9vdow8wWtxCHrR2Sq1vRX42Js=
+	s=default; t=1633897596;
+	bh=lUXHLM9MzqxMyYU9q2vZJKH+yZYI2yJKrvrnXZiZWBg=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=dz+G0KediyGUoeDwNikvG96S9sVTsBC5xG9YYv0SPu7EBNVTUO/fWMXHpOMNsFVly
+	 Jq630YOluhT/PIPUes+e7GPg3NbQOV3+Jxcn0U7AIzhBnmEUvx80gFhw3AD8PJJN0Q
+	 4V0RzVDLjc2WwRV41qYlfvFZDZ6mGtDA//NsMvnI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6A9DF80212;
-	Sun, 10 Oct 2021 20:02:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 365B4F801D5;
+	Sun, 10 Oct 2021 22:25:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E06BF801F7; Sun, 10 Oct 2021 20:02:57 +0200 (CEST)
+ id 2B06AF801F7; Sun, 10 Oct 2021 22:25:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from neo-zeon.de (neo-zeon.de [70.229.12.130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 65E5FF800F0
- for <alsa-devel@alsa-project.org>; Sun, 10 Oct 2021 20:02:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65E5FF800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id C1AECF8016D
+ for <alsa-devel@alsa-project.org>; Sun, 10 Oct 2021 22:25:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1AECF8016D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=neo-zeon.de header.i=@neo-zeon.de
- header.b="opLXQG3C"
-Received: from neo-zeon.de (localhost [127.0.0.1])
- by neo-zeon.de (OpenSMTPD) with ESMTP id d0676e10;
- Sun, 10 Oct 2021 11:02:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=neo-zeon.de; h=from:to:cc
- :subject:date:message-id:mime-version:content-transfer-encoding;
- s=1; bh=xKWhW4S40JlrX2vAJ5KrWgtVI7A=; b=opLXQG3CIg1blmGVSS/Be09
- ntcabItcjNmzKn4h9jzMctfYQmnrD29GJydiE0u2VxXsziOqCZoq9ib6Bp2lD437
- 5KlQs+jHrSfjmrIQJIXRmQfR6w3V17sf3/Ptrdu++6EgpfrFPh4T++Nc0W6LyhqL
- GP19e4JmUXYQmKO7WIIk=
-Received: by neo-zeon.de (OpenSMTPD) with ESMTPSA id 1bf4f699
- (TLSv1.3:AEAD-AES256-GCM-SHA384:256:NO); 
- Sun, 10 Oct 2021 11:02:44 -0700 (PDT)
-From: Cameron Berkenpas <cam@neo-zeon.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: hda/realtek: Fix for quirk to enable speaker output on
- the Lenovo 13s Gen2.
-Date: Sun, 10 Oct 2021 11:02:30 -0700
-Message-Id: <20211010180228.16137-1-cam@neo-zeon.de>
-X-Mailer: git-send-email 2.30.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Cameron Berkenpas <cam@neo-zeon.de>
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="u/T4QtmO"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="eipG8Dou"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 1A18421FE1;
+ Sun, 10 Oct 2021 20:25:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1633897510; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=GEQcDzhZ8Ka5CSVQvfxwlWYWOhU/3/GhrODN3V13RPI=;
+ b=u/T4QtmO4zjpWP4G6PpsJYj8evddBVP5dABrjZMZ8CqJbfZUoqzHgHzZlDxk080ekTJTOR
+ FnVqbL2/kEtp1nAvWgB3vmPw6WtaIe54m+Xj94yu8dxg9fQjsG1yUPxVx+R5+HaCXwLwz2
+ YMIg25qOhHH+4FFj6i8tkiQ55eRU83k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1633897510;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=GEQcDzhZ8Ka5CSVQvfxwlWYWOhU/3/GhrODN3V13RPI=;
+ b=eipG8Doua46nR7vEC1XNGKPBUEGveXX7uStsTSmBb2NhhNFJd9GuLwtCB/FluGSb1yeZgu
+ XcZpQvh5ZrswNlAg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id F3877A3B83;
+ Sun, 10 Oct 2021 20:25:09 +0000 (UTC)
+Date: Sun, 10 Oct 2021 22:25:09 +0200
+Message-ID: <s5hily46316.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH] ALSA: usb-audio: allow -EPIPE errors for some v2 messages
+In-Reply-To: <YWLbEdHUE3k/i0fe@kroah.com>
+References: <YWLbEdHUE3k/i0fe@kroah.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-usb@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,25 +93,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The previous patch's HDA verb initialization for the Lenovo 13s sequence was
-slightly off. This updated verb sequence has been tested and confirmed working.
----
- sound/pci/hda/patch_realtek.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Sun, 10 Oct 2021 14:22:41 +0200,
+Greg Kroah-Hartman wrote:
+> 
+> The Schiit Hel device does not like to respond to all get_ctl_value_v2()
+> requests for some reason.  This used to work in older kernels, but now
+> with more strict checking, this failure causes the device to fail to
+> work.
+> 
+> Cc: Jaroslav Kysela <perex@perex.cz>
+> Cc: Takashi Iwai <tiwai@suse.com>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+> 
+> This fixes the Shiit Hel device that I have.  It used to work on older
+> kernels (a year ago?), but stopped working for some reason and I didn't
+> take the time to track it down.  This change fixes the issue for me, but
+> feels wrong for some reason.  At least now I can use the device as a
+> headphone driver, much better than the built-in one for my current
+> machine...
+> 
+> If needed, I can take the time to do bisection to track down the real
+> issue here, it might be due to stricter endpoint checking in the USB
+> core, but that feels wrong somehow.
+> 
+> Here's the debugfs USB output for this device, showing the endpoints:
+> 
+> T:  Bus=07 Lev=02 Prnt=02 Port=01 Cnt=01 Dev#=  5 Spd=480 MxCh= 0
+> D:  Ver= 2.00 Cls=ef(misc ) Sub=02 Prot=01 MxPS=64 #Cfgs=  1
+> P:  Vendor=30be ProdID=0101 Rev=01.02
+> S:  Manufacturer=Schiit Audio
+> S:  Product=Schiit Hel
+> C:  #Ifs= 4 Cfg#= 1 Atr=c0 MxPwr=0mA
+> I:  If#= 0 Alt= 0 #EPs= 1 Cls=01(audio) Sub=01 Prot=20 Driver=snd-usb-audio
+> E:  Ad=8f(I) Atr=03(Int.) MxPS=   6 Ivl=1ms
+> I:  If#= 1 Alt= 1 #EPs= 2 Cls=01(audio) Sub=02 Prot=20 Driver=snd-usb-audio
+> E:  Ad=05(O) Atr=05(Isoc) MxPS= 104 Ivl=125us
+> E:  Ad=85(I) Atr=11(Isoc) MxPS=   4 Ivl=1ms
+> I:  If#= 2 Alt= 1 #EPs= 1 Cls=01(audio) Sub=02 Prot=20 Driver=snd-usb-audio
+> E:  Ad=88(I) Atr=05(Isoc) MxPS= 156 Ivl=125us
+> I:  If#= 3 Alt= 0 #EPs= 1 Cls=03(HID  ) Sub=00 Prot=00 Driver=usbhid
+> E:  Ad=84(I) Atr=03(Int.) MxPS=  16 Ivl=1ms
+> 
+> Any other suggestions to fix this are welcome.
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 4407f7da57c4..84d3e062a335 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -8344,7 +8344,7 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.v.verbs = (const struct hda_verb[]) {
- 			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x24 },
- 			{ 0x20, AC_VERB_SET_PROC_COEF, 0x41 },
--			{ 0x20, AC_VERB_SET_PROC_COEF, 0xb020 },
-+			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x26 },
- 			{ 0x20, AC_VERB_SET_PROC_COEF, 0x2 },
- 			{ 0x20, AC_VERB_SET_PROC_COEF, 0x0 },
- 			{ 0x20, AC_VERB_SET_PROC_COEF, 0x0 },
--- 
-2.30.2
+Could you show the exact error messages and lsusb -v output?
+We may paper over only the problematic node instead.
 
+
+thanks,
+
+Takashi

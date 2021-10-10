@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01A46427D82
-	for <lists+alsa-devel@lfdr.de>; Sat,  9 Oct 2021 23:07:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E240427EA4
+	for <lists+alsa-devel@lfdr.de>; Sun, 10 Oct 2021 05:59:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8CF731684;
-	Sat,  9 Oct 2021 23:06:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CF731684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86CF9168A;
+	Sun, 10 Oct 2021 05:58:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86CF9168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633813653;
-	bh=2nk35H08mPZU8n9sOGujBsULCVwCkK4psbzXzNcY0kQ=;
+	s=default; t=1633838377;
+	bh=pbqHWILJIHXH0cBeXxGPuLY/UxvLt3PJBFMNKqITWnE=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VlYHE1TV5wChN+Hr5niDIJbkk21fkNoDNpYnxVUdFOjIlUP8noPW1UVV+PPIFl6V+
-	 Cf2F4bnCBigdjUbzwWCbS5WtSBhbUeH5CkzFvEbV73CjDGD2tH5Uay+cO5S6g1ptuy
-	 bdukMdRMSeV5Cf46kmRvnrt8ZEznyAB51OUuOJak=
+	b=X7+T/1X7XNLD8Cv/NvxKYv8lfQH+MNHP37yE1bJXYUyaU/6zUgWlEQEGlQja4Uewx
+	 qkai+51QDqcbRil41qKsCibZJ05OM19tQCN6JwwVEuHHkqgbQNHysfJ4hpoBy0MXBK
+	 Wbc6YNKhknU4lTT8bCKtUwbHqafaAV+Ur0WPMRWY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4843F80124;
-	Sat,  9 Oct 2021 23:06:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CDC70F80059;
+	Sun, 10 Oct 2021 05:58:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 83C94F8027D; Sat,  9 Oct 2021 23:06:14 +0200 (CEST)
+ id 2550BF801F7; Sun, 10 Oct 2021 05:58:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 87E03F800EB
- for <alsa-devel@alsa-project.org>; Sat,  9 Oct 2021 23:06:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87E03F800EB
+ by alsa1.perex.cz (Postfix) with ESMTP id 71D12F80059
+ for <alsa-devel@alsa-project.org>; Sun, 10 Oct 2021 05:58:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71D12F80059
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1633813564135840893-webhooks-bot@alsa-project.org>
-References: <1633813564135840893-webhooks-bot@alsa-project.org>
+In-Reply-To: <1633838290217240095-webhooks-bot@alsa-project.org>
+References: <1633838290217240095-webhooks-bot@alsa-project.org>
 Subject: Tenacity throws error when running "build/bin/Debug/tenacity" to run
  it
-Message-Id: <20211009210614.83C94F8027D@alsa1.perex.cz>
-Date: Sat,  9 Oct 2021 23:06:14 +0200 (CEST)
+Message-Id: <20211010035817.2550BF801F7@alsa1.perex.cz>
+Date: Sun, 10 Oct 2021 05:58:17 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,8 +66,24 @@ context: https://github.com/tenacityteam/tenacity/issues/649
 
 `cat /proc/asound/version` output: Advanced Linux Sound Architecture Driver Version k5.10.0-kali9-amd64
 
+backtrace, which is only produced in a popup once I comment out the lines "pcm.rear #cards.pcm.rear 
+pcm.center_lfe #cards.pcm.center_lfe
+pcm.side #cards.pcm.side", which produce the following backtrace in a popup labeled "../src/AudioIOBase.cpp(501): assert "false" failed in getRecordDevIndex():":
 
+ASSERT INFO:
+../src/AudioIOBase.cpp(501): assert "false" failed in getRecordDevIndex().
 
+BACKTRACE:
+[1] AudioIOBase::getRecordDevIndex(wxString const&)
+[2] AudioIO::Init()
+[3] AudacityApp::InitPart2()
+[4] AudacityApp::OnInit()
+[5] wxAppConsoleBase::CallOnInit()
+[6] wxEntry(int&, wchar_t**)
+[7] wxEntry(int&, char**)
+[8] main
+[9] __libc_start_main
+[10] _sta
 
 When going through the steps in https://github.com/tenacityteam/tenacity/blob/master/BUILDING.md, I eventually get to a point where I run the command in the issue title which brings up the tenacity logo on screen and then provides the following errors in the terminal:
 

@@ -2,84 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04680428242
-	for <lists+alsa-devel@lfdr.de>; Sun, 10 Oct 2021 17:19:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5A074282DD
+	for <lists+alsa-devel@lfdr.de>; Sun, 10 Oct 2021 20:04:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 593F51688;
-	Sun, 10 Oct 2021 17:18:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 593F51688
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E7941688;
+	Sun, 10 Oct 2021 20:03:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E7941688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633879151;
-	bh=S/gC/DokagQOPSSvjbwE2TUJ45znjj8qmAKjOD9ts60=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=fF1MuTIpyiJAgobOix2fOAdsRiMGhcpriXv35MuD5uU3dZHG7ekX/TShUdGSJDrKF
-	 kEPQMy22rcE4YevpAJnLrhUf4KoUvhqivO/KE2LJ3PMkQjdJT0zENyOGRQtwE3z0xq
-	 KHJiRyYAjilLKVlxrDcpNubjX814WrNok8e56KyI=
+	s=default; t=1633889055;
+	bh=Z98Crp4ebpOzZdDFAsoZa7MCVX97BDnsCRN6zNWZoUs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=D6ouA5z4LxxMZ37Vw+k8iKnGBEQq7iSUr8Sx6hAtWh2ogBjOqrDaHdIGiiFdajFX+
+	 VrMcDReapmQwsifVAL8j+Cp++Cz813xZRycqya72++h25KKgMoHauzUnOzCXR8LxrC
+	 BBLuBek30BtWGV/9vdow8wWtxCHrR2Sq1vRX42Js=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ACD6CF80059;
-	Sun, 10 Oct 2021 17:17:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6A9DF80212;
+	Sun, 10 Oct 2021 20:02:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A897AF801F7; Sun, 10 Oct 2021 17:17:52 +0200 (CEST)
+ id 2E06BF801F7; Sun, 10 Oct 2021 20:02:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from neo-zeon.de (neo-zeon.de [70.229.12.130])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D2FC3F800F0
- for <alsa-devel@alsa-project.org>; Sun, 10 Oct 2021 17:17:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2FC3F800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 65E5FF800F0
+ for <alsa-devel@alsa-project.org>; Sun, 10 Oct 2021 20:02:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65E5FF800F0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="NU4nsiub"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="+d+kcLHp"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id D5C7921EF4;
- Sun, 10 Oct 2021 15:17:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1633879059; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=MQ/E2z8sQbYOhwnJ0Q3n0n0vwGNg1GKGwURyzAnc16Y=;
- b=NU4nsiubEepERxZIFjH/WFh1vJa8fRg57vCFYeig7FMkz+nP6VBqBa97mJqFd6Ge91qoT9
- z88TRFP8xcuvutDb4JlsmN9a3FrJvYchJKCKm7QGL9Tq2gHMVyzolP4B5IEw16ZJFzH1qo
- ZFW+hUKZY6Lpr9j1tQ3Te/QFW+eAFqI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1633879059;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=MQ/E2z8sQbYOhwnJ0Q3n0n0vwGNg1GKGwURyzAnc16Y=;
- b=+d+kcLHpAwjKxR3OwwnpnEK/3CJ2/ncCoSApixuPY8zSc6SocRbj1aT+d4eNRZiOqufHEd
- QGHUFMckYBiGjeAQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 9FBDEA3B81;
- Sun, 10 Oct 2021 15:17:39 +0000 (UTC)
-Date: Sun, 10 Oct 2021 17:17:39 +0200
-Message-ID: <s5hlf306h9o.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [PATCH] ALSA: pcm: Workaround for a wrong offset in SYNC_PTR
- compat ioctl
-In-Reply-To: <CAK8P3a0HYw_pO=EdsYBxPRXk8mv3gxUoch5ba_o2Q58wBrm4iA@mail.gmail.com>
-References: <20211010075546.23220-1-tiwai@suse.de>
- <CAK8P3a0HYw_pO=EdsYBxPRXk8mv3gxUoch5ba_o2Q58wBrm4iA@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Rich Felker <dalias@libc.org>, Michael Forney <mforney@mforney.org>
+ dkim=pass (1024-bit key) header.d=neo-zeon.de header.i=@neo-zeon.de
+ header.b="opLXQG3C"
+Received: from neo-zeon.de (localhost [127.0.0.1])
+ by neo-zeon.de (OpenSMTPD) with ESMTP id d0676e10;
+ Sun, 10 Oct 2021 11:02:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=neo-zeon.de; h=from:to:cc
+ :subject:date:message-id:mime-version:content-transfer-encoding;
+ s=1; bh=xKWhW4S40JlrX2vAJ5KrWgtVI7A=; b=opLXQG3CIg1blmGVSS/Be09
+ ntcabItcjNmzKn4h9jzMctfYQmnrD29GJydiE0u2VxXsziOqCZoq9ib6Bp2lD437
+ 5KlQs+jHrSfjmrIQJIXRmQfR6w3V17sf3/Ptrdu++6EgpfrFPh4T++Nc0W6LyhqL
+ GP19e4JmUXYQmKO7WIIk=
+Received: by neo-zeon.de (OpenSMTPD) with ESMTPSA id 1bf4f699
+ (TLSv1.3:AEAD-AES256-GCM-SHA384:256:NO); 
+ Sun, 10 Oct 2021 11:02:44 -0700 (PDT)
+From: Cameron Berkenpas <cam@neo-zeon.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda/realtek: Fix for quirk to enable speaker output on
+ the Lenovo 13s Gen2.
+Date: Sun, 10 Oct 2021 11:02:30 -0700
+Message-Id: <20211010180228.16137-1-cam@neo-zeon.de>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Cameron Berkenpas <cam@neo-zeon.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,75 +75,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 10 Oct 2021 12:10:53 +0200,
-Arnd Bergmann wrote:
-> 
-> On Sun, Oct 10, 2021 at 9:55 AM Takashi Iwai <tiwai@suse.de> wrote:
-> >
-> > Michael Forney reported an incorrect padding type that was defined in
-> > the commit 80fe7430c708 ("ALSA: add new 32-bit layout for
-> > snd_pcm_mmap_status/control") for PCM control mmap data.
-> > His analysis is correct, and this caused the misplacements of PCM
-> > control data on 32bit arch and 32bit compat mode.
-> >
-> > The bug is that the __pad2 definition in __snd_pcm_mmap_control64
-> > struct was wrongly with __pad_before_uframe, which should have been
-> > __pad_after_uframe instead.  This struct is used in SYNC_PTR ioctl and
-> > control mmap.  Basically this bug leads to two problems:
-> >
-> > - The offset of avail_min field becomes wrong, it's placed right after
-> >   appl_ptr without padding on little-endian
-> >
-> > - When appl_ptr and avail_min are read as 64bit values in kernel side,
-> >   the values become either zero or corrupted (mixed up)
-> >
-> > One good news is that, because both user-space and kernel
-> > misunderstand the wrong offset, at least, 32bit application running on
-> > 32bit kernel works as is.  Also, 64bit applications are unaffected
-> > because the padding size is zero.  The remaining problem is the 32bit
-> > compat mode; as mentioned in the above, avail_min is placed right
-> > after appl_ptr on little-endian archs, 64bit kernel reads bogus values
-> > for appl_ptr updates, which may lead to streaming bugs like jumping,
-> > XRUN or whatever unexpected.
-> > (However, we haven't heard any serious bug reports due to this over
-> > years, so practically seen, it's fairly safe to assume that the impact
-> > by this bug is limited.)
-> >
-> > Ideally speaking, we should correct the wrong mmap status control
-> > definition.  But this would cause again incompatibility with the
-> > existing binaries, and fixing it (e.g. by renumbering ioctls) would be
-> > really messy.
-> >
-> > So, as of this patch, we only correct the behavior of 32bit compat
-> > mode and keep the rest as is.  Namely, the SYNC_PTR ioctl is now
-> > handled differently in compat mode to read/write the 32bit values at
-> > the right offsets.  The control mmap of 32bit apps on 64bit kernels
-> > has been already disabled (which is likely rather an overlook, but
-> > this worked fine at this time :), so covering SYNC_PTR ioctl should
-> > suffice as a fallback.
-> >
-> > Fixes: 80fe7430c708 ("ALSA: add new 32-bit layout for snd_pcm_mmap_status/control")
-> > Reported-by: Michael Forney <mforney@mforney.org>
-> > Cc: <stable@vger.kernel.org>
-> > Cc: Arnd Bergmann <arnd@arndb.de>
-> > Cc: Rich Felker <dalias@libc.org>
-> > Link: https://lore.kernel.org/r/29QBMJU8DE71E.2YZSH8IHT5HMH@mforney.org
-> > Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> 
-> Reviewed-by: Arnd Bergmann <arnd@arndb.de>
-> 
-> This does look like it's the best way we can get out of the mess we're
-> in for the kernel interface.
-> 
-> Do you have any ideas for how to test this properly to ensure that
-> there are no further problems in these ioctls? Is there a testsuite
-> for ALSA that can be run on a musl-enabled distro in both native
-> and compat mode to exercise the ioctl and mmap interfaces?
+The previous patch's HDA verb initialization for the Lenovo 13s sequence was
+slightly off. This updated verb sequence has been tested and confirmed working.
+---
+ sound/pci/hda/patch_realtek.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-There is no known test program, and it's what I planned to check in
-the next week before merging :)
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 4407f7da57c4..84d3e062a335 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -8344,7 +8344,7 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.v.verbs = (const struct hda_verb[]) {
+ 			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x24 },
+ 			{ 0x20, AC_VERB_SET_PROC_COEF, 0x41 },
+-			{ 0x20, AC_VERB_SET_PROC_COEF, 0xb020 },
++			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x26 },
+ 			{ 0x20, AC_VERB_SET_PROC_COEF, 0x2 },
+ 			{ 0x20, AC_VERB_SET_PROC_COEF, 0x0 },
+ 			{ 0x20, AC_VERB_SET_PROC_COEF, 0x0 },
+-- 
+2.30.2
 
-
-thanks,
-
-Takashi

@@ -2,98 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12246427FF1
-	for <lists+alsa-devel@lfdr.de>; Sun, 10 Oct 2021 09:55:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62F2A427FF3
+	for <lists+alsa-devel@lfdr.de>; Sun, 10 Oct 2021 09:57:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8B4F16A1;
-	Sun, 10 Oct 2021 09:54:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8B4F16A1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 016691686;
+	Sun, 10 Oct 2021 09:56:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 016691686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633852527;
-	bh=sG87dEhoiCpNBWwFHF3i/kOcse42UvzmKnwsZx52SDU=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=lwP4EBVurGG5lXlTq7rZEDHMGhT3L38gD8iL5g8K0rKk+uEVfc/dfINSYjL+dNvxW
-	 tSFImmo3U5jNPtKWJzvPZ7lZP5YqpGjTugQwQcF9iRWakv3UNnzQ5kLhosfFOjt0bM
-	 nOdPxpkkW14IiK5DHi82d5pRTM+3YQEcZDqQDVkg=
+	s=default; t=1633852642;
+	bh=x7M0TKs3wwyyWqKz0yjijD/j/sWENCjmuNrUVTZVHBQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RNRZLhPXPO6nP3IDFlM7AyjfzjKTeBW76WunaBu2OcY9ZfLluW68/gtNIOq/YklO9
+	 vBtW3XzF/+JoSrLvsNoIfyZ6TY+rbrt0E6wUzxLQCezePRdhxMZcKUB597SpHKnIoJ
+	 UJvwcM6Sn5r8StPNE88OvoZpEkwt6yhVlxCP9YBM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B4D5F80212;
-	Sun, 10 Oct 2021 09:53:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1C22F801D5;
+	Sun, 10 Oct 2021 09:56:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6E621F801F7; Sun, 10 Oct 2021 09:53:48 +0200 (CEST)
+ id D1259F801F7; Sun, 10 Oct 2021 09:56:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2430BF800F0
- for <alsa-devel@alsa-project.org>; Sun, 10 Oct 2021 09:53:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2430BF800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id EF715F800F0
+ for <alsa-devel@alsa-project.org>; Sun, 10 Oct 2021 09:55:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF715F800F0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="b9CV9B7W"; 
+ header.b="JyB7Pgmj"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="kyfRbDll"
+ header.b="z+PCN7nz"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 62F2B22121;
- Sun, 10 Oct 2021 07:53:38 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 4246A2212E;
+ Sun, 10 Oct 2021 07:55:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1633852418; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=80quR0dJqWEg6rK0iTRkfXVyG+mUHo9ipi86LTLwPGs=;
- b=b9CV9B7WUOsMH8ThstCdR6ELpd3S/ue/SHpHCK0J4aijqgQ+qtbpRzFPNOfxk/pmTsQt+d
- h9j0avBOaDr06jL62qSXKS5/rkxEM3GIU0cUJMfbvBzvHVOwlPrSdFOwgc5qw3OhnbxJfD
- y48sAr6AP1DPxMJX1KdasZSUL66TiS0=
+ t=1633852554; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=OQw+Dwb9/pfNJCX0UtDJFPm7zLhA63H8WYxL6HzLL+4=;
+ b=JyB7PgmjlQXq1Lhf/PGzKdfBpAMil9VCwAjakdiNMgYiBF00GG25QO5TH87ijHYN+JKoZz
+ vYOldfel0tTaPCFJ8fWid7M7wWNQlviPOno1EL4AXgrJZty9HSssXf48r3m5pyngdaSGc6
+ 7hwzgJ3mrRLwIlhbe9uRYiygol+DkIs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1633852418;
+ s=susede2_ed25519; t=1633852554;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=80quR0dJqWEg6rK0iTRkfXVyG+mUHo9ipi86LTLwPGs=;
- b=kyfRbDllImYT2dBXKL3lRDd9R/HWc45wRjHQHzM3Pe0j2qPhyIruGPIL1u8cmruSxb4a/Z
- 3HNlv4fy/NsgvBAA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 3310EA3B83;
- Sun, 10 Oct 2021 07:53:38 +0000 (UTC)
-Date: Sun, 10 Oct 2021 09:53:38 +0200
-Message-ID: <s5hsfx95n99.wl-tiwai@suse.de>
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=OQw+Dwb9/pfNJCX0UtDJFPm7zLhA63H8WYxL6HzLL+4=;
+ b=z+PCN7nzbpeaCwvI/eLXOfnDqayH/BWPqsN/KrPwMxGuuPGFnBnmiZa9vlfoQdmD5rBRVO
+ 0FwpnqR4xR9Wl5DA==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 1FDEAA3B81;
+ Sun, 10 Oct 2021 07:55:54 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
-To: Rich Felker <dalias@libc.org>
-Subject: Re: [musl] Re: [alsa-devel] [PATCH v7 8/9] ALSA: add new 32-bit
- layout for snd_pcm_mmap_status/control
-In-Reply-To: <20211008120736.GF7074@brightrain.aerifal.cx>
-References: <CAK8P3a0K3XtjiszC3XWgG0L8+AgO+xUGr_KEAnb9a5GmyecoUQ@mail.gmail.com>
- <s5hee8x9f92.wl-tiwai@suse.de>
- <CAK8P3a0pSZxqfk-bn+idrDYDwANSfiP9L6U1O5jLQvK+3vwyVQ@mail.gmail.com>
- <s5hy27497eo.wl-tiwai@suse.de>
- <20211007160634.GB7074@brightrain.aerifal.cx>
- <s5hr1cw95ar.wl-tiwai@suse.de>
- <20211007165158.GC7074@brightrain.aerifal.cx>
- <s5h5yu79aab.wl-tiwai@suse.de>
- <CAK8P3a0qxNLv3_RcR5COcRGPcTnYMcfbOjdWKiT2hKdcof9WUg@mail.gmail.com>
- <s5hv9277oux.wl-tiwai@suse.de>
- <20211008120736.GF7074@brightrain.aerifal.cx>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Arnd Bergmann <arnd@arndb.de>, Baolin Wang <baolin.wang@linaro.org>,
- y2038 Mailman List <y2038@lists.linaro.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- musl@lists.openwall.com, Takashi Iwai <tiwai@suse.com>,
- Michael Forney <mforney@mforney.org>, Mark Brown <broonie@kernel.org>,
- Baolin Wang <baolin.wang7@gmail.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: pcm: Workaround for a wrong offset in SYNC_PTR compat
+ ioctl
+Date: Sun, 10 Oct 2021 09:55:46 +0200
+Message-Id: <20211010075546.23220-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Rich Felker <dalias@libc.org>, Arnd Bergmann <arnd@arndb.de>,
+ Michael Forney <mforney@mforney.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,93 +87,149 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 08 Oct 2021 14:07:39 +0200,
-Rich Felker wrote:
-> 
-> On Fri, Oct 08, 2021 at 01:11:34PM +0200, Takashi Iwai wrote:
-> > On Fri, 08 Oct 2021 11:24:39 +0200,
-> > Arnd Bergmann wrote:
-> > > 
-> > > On Fri, Oct 8, 2021 at 10:43 AM Takashi Iwai <tiwai@suse.de> wrote:
-> > > > On Thu, 07 Oct 2021 18:51:58 +0200, Rich Felker wrote:
-> > > > > On Thu, Oct 07, 2021 at 06:18:52PM +0200, Takashi Iwai wrote:
-> > > >
-> > > > @@ -557,11 +558,15 @@ struct __snd_pcm_sync_ptr {
-> > > >  #if defined(__BYTE_ORDER) ? __BYTE_ORDER == __BIG_ENDIAN : defined(__BIG_ENDIAN)
-> > > >  typedef char __pad_before_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
-> > > >  typedef char __pad_after_uframe[0];
-> > > > +typedef char __pad_before_u32[4];
-> > > > +typedef char __pad_after_u32[0];
-> > > >  #endif
-> > > >
-> > > >  #if defined(__BYTE_ORDER) ? __BYTE_ORDER == __LITTLE_ENDIAN : defined(__LITTLE_ENDIAN)
-> > > >  typedef char __pad_before_uframe[0];
-> > > >  typedef char __pad_after_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
-> > > > +typedef char __pad_before_u32[0];
-> > > > +typedef char __pad_after_u32[4];
-> > > >  #endif
-> > > 
-> > > I think these should remain unchanged, the complex expression was intentionally
-> > > done so the structures are laid out the same way on 64-bit
-> > > architectures, so that
-> > > the kernel can use the __SND_STRUCT_TIME64 path internally on both 32-bit
-> > > and 64-bit architectures.
-> > 
-> > That was explicitly defined, but OK, this isn't necessarily defined
-> > here.
-> > 
-> > > > @@ -2970,8 +2981,17 @@ static int snd_pcm_sync_ptr(struct snd_pcm_substream *substream,
-> > > >         memset(&sync_ptr, 0, sizeof(sync_ptr));
-> > > >         if (get_user(sync_ptr.flags, (unsigned __user *)&(_sync_ptr->flags)))
-> > > >                 return -EFAULT;
-> > > > -       if (copy_from_user(&sync_ptr.c.control, &(_sync_ptr->c.control), sizeof(struct snd_pcm_mmap_control)))
-> > > > -               return -EFAULT;
-> > > > +       if (buggy_control) {
-> > > > +               if (copy_from_user(&sync_ptr.c.control_api_2_0_15,
-> > > > +                                  &(_sync_ptr->c.control_api_2_0_15),
-> > > > +                                  sizeof(sync_ptr.c.control_api_2_0_15)))
-> > > > +                       return -EFAULT;
-> > > > +       } else {
-> > > > +               if (copy_from_user(&sync_ptr.c.control,
-> > > > +                                  &(_sync_ptr->c.control),
-> > > > +                                  sizeof(sync_ptr.c.control)))
-> > > > +                       return -EFAULT;
-> > > > +       }
-> > > 
-> > > The problem I see with this is that it might break musl's ability to
-> > > emulate the new
-> > > interface on top of the old (time32) one for linux-4.x and older
-> > > kernels, as the conversion
-> > > function is no longer stateless but has to know the negotiated
-> > > interface version.
-> > > 
-> > > It's probably fine as long as we can be sure that the 2.0.16+ API
-> > > version only gets
-> > > negotiated if both the kernel and user sides support it, and musl only emulates
-> > > the 2.0.15 API version from the current kernels.
-> > > 
-> > > I've tried to understand this part of musl's convert_ioctl_struct(), but I just
-> > > can't figure out whether it does the conversion based the on the layout that
-> > > is currently used in the kernel, or based on the layout we should have been
-> > > using, and would use with the above fix. Rich, can you help me here?
-> > 
-> > So, at this moment, I'm not sure whether we should correct the struct
-> > at all.  This will lead to yet more breakage, and basically the struct
-> > itself *works* -- the only bug is in 32bit compat handling in the
-> > kernel (again).
-> > 
-> > The below is a revised kernel patch (again untested), just correcting
-> > the behavior of 32bit compat mode.  32bit apps on 32bit kernel work
-> > fine as is, as well as 64bit apps on 64bit kernel.
-> 
-> I'm perfectly okay with this if Arnd is! It's probably the least
-> invasive and has the least long-term maintenance cost and fallout on
-> other projects.
+Michael Forney reported an incorrect padding type that was defined in
+the commit 80fe7430c708 ("ALSA: add new 32-bit layout for
+snd_pcm_mmap_status/control") for PCM control mmap data.
+His analysis is correct, and this caused the misplacements of PCM
+control data on 32bit arch and 32bit compat mode.
 
-OK, I'll submit a proper patch now, to be included in the next PR for
-5.15-rc.  For further fixes, let's think carefully.
+The bug is that the __pad2 definition in __snd_pcm_mmap_control64
+struct was wrongly with __pad_before_uframe, which should have been
+__pad_after_uframe instead.  This struct is used in SYNC_PTR ioctl and
+control mmap.  Basically this bug leads to two problems:
 
+- The offset of avail_min field becomes wrong, it's placed right after
+  appl_ptr without padding on little-endian
 
-thanks,
+- When appl_ptr and avail_min are read as 64bit values in kernel side,
+  the values become either zero or corrupted (mixed up)
 
-Takashi
+One good news is that, because both user-space and kernel
+misunderstand the wrong offset, at least, 32bit application running on
+32bit kernel works as is.  Also, 64bit applications are unaffected
+because the padding size is zero.  The remaining problem is the 32bit
+compat mode; as mentioned in the above, avail_min is placed right
+after appl_ptr on little-endian archs, 64bit kernel reads bogus values
+for appl_ptr updates, which may lead to streaming bugs like jumping,
+XRUN or whatever unexpected.
+(However, we haven't heard any serious bug reports due to this over
+years, so practically seen, it's fairly safe to assume that the impact
+by this bug is limited.)
+
+Ideally speaking, we should correct the wrong mmap status control
+definition.  But this would cause again incompatibility with the
+existing binaries, and fixing it (e.g. by renumbering ioctls) would be
+really messy.
+
+So, as of this patch, we only correct the behavior of 32bit compat
+mode and keep the rest as is.  Namely, the SYNC_PTR ioctl is now
+handled differently in compat mode to read/write the 32bit values at
+the right offsets.  The control mmap of 32bit apps on 64bit kernels
+has been already disabled (which is likely rather an overlook, but
+this worked fine at this time :), so covering SYNC_PTR ioctl should
+suffice as a fallback.
+
+Fixes: 80fe7430c708 ("ALSA: add new 32-bit layout for snd_pcm_mmap_status/control")
+Reported-by: Michael Forney <mforney@mforney.org>
+Cc: <stable@vger.kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: Rich Felker <dalias@libc.org>
+Link: https://lore.kernel.org/r/29QBMJU8DE71E.2YZSH8IHT5HMH@mforney.org
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/pcm_compat.c | 72 ++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 71 insertions(+), 1 deletion(-)
+
+diff --git a/sound/core/pcm_compat.c b/sound/core/pcm_compat.c
+index a59de24695ec..dfe5a64e19d2 100644
+--- a/sound/core/pcm_compat.c
++++ b/sound/core/pcm_compat.c
+@@ -468,6 +468,76 @@ static int snd_pcm_ioctl_sync_ptr_x32(struct snd_pcm_substream *substream,
+ }
+ #endif /* CONFIG_X86_X32 */
+ 
++#ifdef __BIG_ENDIAN
++typedef char __pad_before_u32[4];
++typedef char __pad_after_u32[0];
++#else
++typedef char __pad_before_u32[0];
++typedef char __pad_after_u32[4];
++#endif
++
++/* PCM 2.0.15 API definition had a bug in mmap control; it puts the avail_min
++ * at the wrong offset due to a typo in padding type.
++ * The bug hits only 32bit.
++ * A workaround for incorrect read/write is needed only in 32bit compat mode.
++ */
++struct __snd_pcm_mmap_control64_buggy {
++	__pad_before_u32 __pad1;
++	__u32 appl_ptr;
++	__pad_before_u32 __pad2;	/* SiC! here is the bug */
++	__pad_before_u32 __pad3;
++	__u32 avail_min;
++	__pad_after_uframe __pad4;
++};
++
++static int snd_pcm_ioctl_sync_ptr_buggy(struct snd_pcm_substream *substream,
++					struct snd_pcm_sync_ptr __user *_sync_ptr)
++{
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct snd_pcm_sync_ptr sync_ptr;
++	struct __snd_pcm_mmap_control64_buggy *sync_cp;
++	volatile struct snd_pcm_mmap_status *status;
++	volatile struct snd_pcm_mmap_control *control;
++	int err;
++
++	memset(&sync_ptr, 0, sizeof(sync_ptr));
++	sync_cp = (struct __snd_pcm_mmap_control64_buggy *)&sync_ptr.c.control;
++	if (get_user(sync_ptr.flags, (unsigned __user *)&(_sync_ptr->flags)))
++		return -EFAULT;
++	if (copy_from_user(sync_cp, &(_sync_ptr->c.control), sizeof(*sync_cp)))
++		return -EFAULT;
++	status = runtime->status;
++	control = runtime->control;
++	if (sync_ptr.flags & SNDRV_PCM_SYNC_PTR_HWSYNC) {
++		err = snd_pcm_hwsync(substream);
++		if (err < 0)
++			return err;
++	}
++	snd_pcm_stream_lock_irq(substream);
++	if (!(sync_ptr.flags & SNDRV_PCM_SYNC_PTR_APPL)) {
++		err = pcm_lib_apply_appl_ptr(substream, sync_cp->appl_ptr);
++		if (err < 0) {
++			snd_pcm_stream_unlock_irq(substream);
++			return err;
++		}
++	} else {
++		sync_cp->appl_ptr = control->appl_ptr;
++	}
++	if (!(sync_ptr.flags & SNDRV_PCM_SYNC_PTR_AVAIL_MIN))
++		control->avail_min = sync_cp->avail_min;
++	else
++		sync_cp->avail_min = control->avail_min;
++	sync_ptr.s.status.state = status->state;
++	sync_ptr.s.status.hw_ptr = status->hw_ptr;
++	sync_ptr.s.status.tstamp = status->tstamp;
++	sync_ptr.s.status.suspended_state = status->suspended_state;
++	sync_ptr.s.status.audio_tstamp = status->audio_tstamp;
++	snd_pcm_stream_unlock_irq(substream);
++	if (copy_to_user(_sync_ptr, &sync_ptr, sizeof(sync_ptr)))
++		return -EFAULT;
++	return 0;
++}
++
+ /*
+  */
+ enum {
+@@ -537,7 +607,7 @@ static long snd_pcm_ioctl_compat(struct file *file, unsigned int cmd, unsigned l
+ 		if (in_x32_syscall())
+ 			return snd_pcm_ioctl_sync_ptr_x32(substream, argp);
+ #endif /* CONFIG_X86_X32 */
+-		return snd_pcm_common_ioctl(file, substream, cmd, argp);
++		return snd_pcm_ioctl_sync_ptr_buggy(substream, argp);
+ 	case SNDRV_PCM_IOCTL_HW_REFINE32:
+ 		return snd_pcm_ioctl_hw_params_compat(substream, 1, argp);
+ 	case SNDRV_PCM_IOCTL_HW_PARAMS32:
+-- 
+2.31.1
+

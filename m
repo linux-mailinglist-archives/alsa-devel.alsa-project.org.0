@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 250CF428381
-	for <lists+alsa-devel@lfdr.de>; Sun, 10 Oct 2021 22:27:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76CCF428386
+	for <lists+alsa-devel@lfdr.de>; Sun, 10 Oct 2021 22:29:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 960ED168F;
-	Sun, 10 Oct 2021 22:26:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 960ED168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 12001166D;
+	Sun, 10 Oct 2021 22:28:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12001166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633897630;
-	bh=CSm3UdQ339152SHO3LA/+fRoRqzHeWUMosfJYsrXDZE=;
+	s=default; t=1633897774;
+	bh=cP268ZX8EG2Nx6WFCHunmxLol9uDnidM+PdW8GtKY04=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=F2puxLSaTVNQCplx0m+AyowEMVon0cerL+ECvchCeqvdCTi5LYqbDeeNr0gRmhnHX
-	 k8PF+R1LL87Ne6+DlmDNdRH/PDX4kyHgsym9Ske+QZg/bKAZDrpjY3DB7DQg907SaA
-	 RWH6R+BeNYvelpvxFzhEBptJtd7PSv7qhhccNN70=
+	b=MTP1PCa0wjpm0cGidQ4vygilivoU5Sixfw2It+AdcfQi2mpvqCjcZ/EtgR9M3KLVh
+	 JKy2IbjruwP+sf3c7DTW46DqDjBKt+AZxqzfJ4bHVtXmYZP3lwrvbXitAVrYY93IJ1
+	 S4ULLl55uBJa5D9xA4n5PhfT0P4LIBs01cuTjWHU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4161AF80245;
-	Sun, 10 Oct 2021 22:26:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71E0BF80059;
+	Sun, 10 Oct 2021 22:28:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 797D1F80212; Sun, 10 Oct 2021 22:26:17 +0200 (CEST)
+ id F04A8F801F7; Sun, 10 Oct 2021 22:28:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_65,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 70C80F80059
- for <alsa-devel@alsa-project.org>; Sun, 10 Oct 2021 22:26:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70C80F80059
+ by alsa1.perex.cz (Postfix) with ESMTPS id 72235F80059
+ for <alsa-devel@alsa-project.org>; Sun, 10 Oct 2021 22:28:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72235F80059
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="dbPegV7w"; 
+ header.b="qxzBBokr"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="skwvTvWd"
+ header.b="3sOt6is8"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id B87091FD4C;
- Sun, 10 Oct 2021 20:26:10 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 3525421FD6;
+ Sun, 10 Oct 2021 20:28:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1633897570; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1633897684; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=SJC2KoQ+Qb7tBG8ADatZhzgv/vS/Dwb4Q2ZnO1dzMqg=;
- b=dbPegV7wEdCs3VwDXGXDvZkAfofxhV9oDx0RcUaczlbwvWFIWhWH7cAARlkt4h2zblvSAN
- uHFBFqVAsLGktgM1Z9rXX7BPCXlyWMRbBNZYnvb3E+BiHgLNQC8etC+vEDZKF1M8ClEoPa
- fGKKpMPifP5ovJCTt0LIfCC89ikMsWA=
+ bh=Z/YyxHp0IJ8+TO9viRmFQSiStpG0d4klgBkhQNcmPHg=;
+ b=qxzBBokr5zAqpLIKIzvaDogp0nPvn53xW2KqkSf4iTi1V09pUG8IoR5LIBlNjovy4P2kjv
+ 91THK7UUA2dFdPdcbpZXwHk2hboNbjnHWYynpJzcm046tJaWxC6YOcM7meX5HZtIlx0pg1
+ QTCM/ohnPb7KaY9bSN+vdkMNsdjrojs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1633897570;
+ s=susede2_ed25519; t=1633897684;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=SJC2KoQ+Qb7tBG8ADatZhzgv/vS/Dwb4Q2ZnO1dzMqg=;
- b=skwvTvWdsz3TTSIl4EKsR3eEmz3Rht4Yp4Hl2IEeM1Y/9qFwOorweabOiO9c1ZIVtDkvn2
- ysKUGVXOTkJ/l7DQ==
+ bh=Z/YyxHp0IJ8+TO9viRmFQSiStpG0d4klgBkhQNcmPHg=;
+ b=3sOt6is8MNbDCmO7ZqJy/J50WLZ21REjZHvvzdSjgT4DdXeBtILyfV7ifsupE+CO7JilZI
+ vCKdc8QuVvWnHyBg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id A4EE0A3B83;
- Sun, 10 Oct 2021 20:26:10 +0000 (UTC)
-Date: Sun, 10 Oct 2021 22:26:10 +0200
-Message-ID: <s5hh7do62zh.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 23886A3B81;
+ Sun, 10 Oct 2021 20:28:04 +0000 (UTC)
+Date: Sun, 10 Oct 2021 22:28:04 +0200
+Message-ID: <s5hfst862wb.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jonas Hahnfeld <hahnjo@hahnjo.de>
-Subject: Re: [PATCH] ALSA: usb-audio: Add quirk for VF0770
-In-Reply-To: <20211010111947.5796-1-hahnjo@hahnjo.de>
-References: <20211010111947.5796-1-hahnjo@hahnjo.de>
+To: William Overton <willovertonuk@gmail.com>
+Subject: Re: [PATCH] Sound: Add support for the Pioneer DJM 750MK2
+ Mixer/Soundcard
+In-Reply-To: <20211010145841.11907-1-willovertonuk@gmail.com>
+References: <20211010145841.11907-1-willovertonuk@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,22 +93,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 10 Oct 2021 13:19:47 +0200,
-Jonas Hahnfeld wrote:
+On Sun, 10 Oct 2021 16:58:41 +0200,
+William Overton wrote:
 > 
-> The device advertises 8 formats, but only a rate of 48kHz is honored
-> by the hardware and 24 bits give chopped audio, so only report the
-> one working combination. This fixes out-of-the-box audio experience
-> with PipeWire which otherwise attempts to choose S24_3LE (while
-> PulseAudio defaulted to S16_LE).
+> The kernel already has support for very similar Pioneer djm products and this work is based on that.
 > 
-> Signed-off-by: Jonas Hahnfeld <hahnjo@hahnjo.de>
+> Added device to quirks-table.h and added control info to mixer_quirks.c.
+> 
+> Tested on my hardware and all working.
+> 
+> Signed-off-by: William Overton <willovertonuk@gmail.com>
 
-Could you give alsa-info.sh output with and without patch, just for
-comparison?  Run the script with --no-upload option and attach the
-outputs.
+Thanks, applied.
 
-
-thanks,
 
 Takashi

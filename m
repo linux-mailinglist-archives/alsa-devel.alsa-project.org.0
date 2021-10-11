@@ -2,85 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDB34429461
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Oct 2021 18:18:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 181EC429520
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Oct 2021 19:03:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7A1D4169E;
-	Mon, 11 Oct 2021 18:18:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A1D4169E
+	by alsa0.perex.cz (Postfix) with ESMTPS id A77AC16AC;
+	Mon, 11 Oct 2021 19:02:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A77AC16AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633969131;
-	bh=Vspx5xiygi4lPir1xtwYomSgbA7EKFqkVLTRwxKVp30=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1633971796;
+	bh=rR6CIAETTiB8Hp3alrmbSApBUZ88acp+fwGwfCq2aV0=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NOqnhbyO2imtZwqYFb3h5gQtOJpgCs5HMFyOuW1cOM0dJAB444fM3kR/C528TIspL
-	 l38ydtZRNynhK/sccL67R4coKa47pgPneGeeJ2h7lRztYetCkTvStX6a8W3hU+Xo2x
-	 MuLkX51I19U1WVIfeIok99REPxAoVXqSqAUnzf2E=
+	b=b2GHlySHiZIjuzl7XWgX7R0lW7iHplr/hz4IaenACRV4Ok2HFoN0pKFgWUs3qDbX0
+	 PZQif4RMbI9w0l3MKX4W1NSnHbl+R0g+pn8dpV8aPmiVFXhRh3zWPMUOj+iznEE2g/
+	 MSHoDO5n0a2nlC1CgLtUm31D8a/EkOTQAEZ2AqBs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E7928F80290;
-	Mon, 11 Oct 2021 18:17:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BDD78F8028D;
+	Mon, 11 Oct 2021 19:01:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BFBD6F80269; Mon, 11 Oct 2021 18:17:32 +0200 (CEST)
+ id 6C8A2F800C0; Mon, 11 Oct 2021 19:01:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_APP_ATTACH,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 732AEF80104
- for <alsa-devel@alsa-project.org>; Mon, 11 Oct 2021 18:17:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 732AEF80104
+ by alsa1.perex.cz (Postfix) with ESMTPS id B256FF800C0
+ for <alsa-devel@alsa-project.org>; Mon, 11 Oct 2021 19:01:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B256FF800C0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="mEm55Q1P"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="AE0cFOJe"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id AEBD4220BC;
- Mon, 11 Oct 2021 16:17:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1633969040; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=CQRLVASzM88HPKp0YPTtWJo/mv7OOa6xJj+N4ChnuWc=;
- b=mEm55Q1P1R969y8GFV7MsuS3Na3SbR0BeJczRW4HFHs+NLvnJwviC29Hxkq0Pa47ZdkvO5
- nqHiB8hXCCdgGJFWQ4uy+824RanWuuPFYB2z/RqacZDP+eM0iNidpwN9WYzaJSB3IB7XOt
- Wwj1FRuwBHlEeyiYGvmcOJ3icbAqYEk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1633969040;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=CQRLVASzM88HPKp0YPTtWJo/mv7OOa6xJj+N4ChnuWc=;
- b=AE0cFOJeuLBY0h4rzAkVkGK8NYk1bBpy3zYYc6BCPvkK197L9GODIFndNMf7rZHy1pFUew
- am9L+GVFli6U4+Aw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 2D605A3B84;
- Mon, 11 Oct 2021 16:17:20 +0000 (UTC)
-Date: Mon, 11 Oct 2021 18:17:20 +0200
-Message-ID: <s5h35p74ju7.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [PATCH] ALSA: pcm: Workaround for a wrong offset in SYNC_PTR
- compat ioctl
-In-Reply-To: <s5hlf306h9o.wl-tiwai@suse.de>
-References: <20211010075546.23220-1-tiwai@suse.de>
- <CAK8P3a0HYw_pO=EdsYBxPRXk8mv3gxUoch5ba_o2Q58wBrm4iA@mail.gmail.com>
- <s5hlf306h9o.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: multipart/mixed; boundary="Multipart_Mon_Oct_11_18:17:20_2021-1"
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Rich Felker <dalias@libc.org>, Michael Forney <mforney@mforney.org>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="GetKfUMk"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 48D9D60F6E;
+ Mon, 11 Oct 2021 17:01:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1633971710;
+ bh=rR6CIAETTiB8Hp3alrmbSApBUZ88acp+fwGwfCq2aV0=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=GetKfUMkkiIXaBgv6CLGF6DId08Ovq7eNrCn6zbBqtmvm5ZAXb4duhsWcRSYRGXsm
+ /oQegYd3GItZ/h/1SSn+rtlTCaYhWOY2vWkz+H9kn0LA/FwD+ZAjyJ2gIYNmulOoC7
+ nfT0NCe/hjPc+y/rsFO3ZzWroEFXj83gnEUPL92igrktkgYdU/U7K1AgKcK8qE0OH+
+ YXhTYf/s7LggSCV4PBTPwSrGeJT8ROLIl7MOLc8JkEVqe/yIWrwtn0JPd2PTziQ0t+
+ +um1SEZHMu6g6aKn96wgbJe4vBUaAAFPM9AjqwJMAwYJ1X/gdnIQ8js4J57LUTUdPL
+ bTW/xTMT61Unw==
+From: Mark Brown <broonie@kernel.org>
+To: Tzung-Bi Shih <tzungbi@google.com>,
+	robh+dt@kernel.org
+Subject: Re: [PATCH v3] ASoC: dt-bindings: mediatek: mt8192: re-add audio afe
+ document
+Date: Mon, 11 Oct 2021 18:01:39 +0100
+Message-Id: <163397094547.6567.10438692721309572798.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210914091204.2204278-1-tzungbi@google.com>
+References: <20210914091204.2204278-1-tzungbi@google.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,192 +81,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---Multipart_Mon_Oct_11_18:17:20_2021-1
-Content-Type: text/plain; charset=US-ASCII
-
-On Sun, 10 Oct 2021 17:17:39 +0200,
-Takashi Iwai wrote:
+On Tue, 14 Sep 2021 17:12:04 +0800, Tzung-Bi Shih wrote:
+> The document was merged as commit 1afc60e00de3 ("dt-bindings:
+> mediatek: mt8192: add audio afe document").
 > 
-> On Sun, 10 Oct 2021 12:10:53 +0200,
-> Arnd Bergmann wrote:
-> > 
-> > On Sun, Oct 10, 2021 at 9:55 AM Takashi Iwai <tiwai@suse.de> wrote:
-> > >
-> > > Michael Forney reported an incorrect padding type that was defined in
-> > > the commit 80fe7430c708 ("ALSA: add new 32-bit layout for
-> > > snd_pcm_mmap_status/control") for PCM control mmap data.
-> > > His analysis is correct, and this caused the misplacements of PCM
-> > > control data on 32bit arch and 32bit compat mode.
-> > >
-> > > The bug is that the __pad2 definition in __snd_pcm_mmap_control64
-> > > struct was wrongly with __pad_before_uframe, which should have been
-> > > __pad_after_uframe instead.  This struct is used in SYNC_PTR ioctl and
-> > > control mmap.  Basically this bug leads to two problems:
-> > >
-> > > - The offset of avail_min field becomes wrong, it's placed right after
-> > >   appl_ptr without padding on little-endian
-> > >
-> > > - When appl_ptr and avail_min are read as 64bit values in kernel side,
-> > >   the values become either zero or corrupted (mixed up)
-> > >
-> > > One good news is that, because both user-space and kernel
-> > > misunderstand the wrong offset, at least, 32bit application running on
-> > > 32bit kernel works as is.  Also, 64bit applications are unaffected
-> > > because the padding size is zero.  The remaining problem is the 32bit
-> > > compat mode; as mentioned in the above, avail_min is placed right
-> > > after appl_ptr on little-endian archs, 64bit kernel reads bogus values
-> > > for appl_ptr updates, which may lead to streaming bugs like jumping,
-> > > XRUN or whatever unexpected.
-> > > (However, we haven't heard any serious bug reports due to this over
-> > > years, so practically seen, it's fairly safe to assume that the impact
-> > > by this bug is limited.)
-> > >
-> > > Ideally speaking, we should correct the wrong mmap status control
-> > > definition.  But this would cause again incompatibility with the
-> > > existing binaries, and fixing it (e.g. by renumbering ioctls) would be
-> > > really messy.
-> > >
-> > > So, as of this patch, we only correct the behavior of 32bit compat
-> > > mode and keep the rest as is.  Namely, the SYNC_PTR ioctl is now
-> > > handled differently in compat mode to read/write the 32bit values at
-> > > the right offsets.  The control mmap of 32bit apps on 64bit kernels
-> > > has been already disabled (which is likely rather an overlook, but
-> > > this worked fine at this time :), so covering SYNC_PTR ioctl should
-> > > suffice as a fallback.
-> > >
-> > > Fixes: 80fe7430c708 ("ALSA: add new 32-bit layout for snd_pcm_mmap_status/control")
-> > > Reported-by: Michael Forney <mforney@mforney.org>
-> > > Cc: <stable@vger.kernel.org>
-> > > Cc: Arnd Bergmann <arnd@arndb.de>
-> > > Cc: Rich Felker <dalias@libc.org>
-> > > Link: https://lore.kernel.org/r/29QBMJU8DE71E.2YZSH8IHT5HMH@mforney.org
-> > > Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> > 
-> > Reviewed-by: Arnd Bergmann <arnd@arndb.de>
-> > 
-> > This does look like it's the best way we can get out of the mess we're
-> > in for the kernel interface.
-> > 
-> > Do you have any ideas for how to test this properly to ensure that
-> > there are no further problems in these ioctls? Is there a testsuite
-> > for ALSA that can be run on a musl-enabled distro in both native
-> > and compat mode to exercise the ioctl and mmap interfaces?
+> However, [1] revealed that the commit 1afc60e00de3 breaks
+> dt_binding_check due to dt-bindings/clock/mt8192-clk.h doesn't
+> exist.
 > 
-> There is no known test program, and it's what I planned to check in
-> the next week before merging :)
+> [...]
 
-I checked a small code to write PCM data (that was used for testing
-the low-latency I/O on USB-audio -- attached below) together with
-salsa-lib [*] (devel branch, in which I hacked to enforce 64bit
-timespec), and confirmed that 32bit compat mode indeed leading to the
-bogus appl_ptr updates in the current kernel.  And, my patch was
-confirmed to work as well.
+Applied to
 
-So the fix was queued to for-linus branch.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
+Thanks!
 
-Takashi
+[1/1] ASoC: dt-bindings: mediatek: mt8192: re-add audio afe document
+      commit: c861af7861aac72075046e9932c606c8cfe64427
 
-[*] https://github.com/tiwai/salsa-lib
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---Multipart_Mon_Oct_11_18:17:20_2021-1
-Content-Type: application/octet-stream
-Content-Disposition: attachment; filename="aiotest.c"
-Content-Transfer-Encoding: 7bit
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-#include <stdio.h>
-#include <alsa/asoundlib.h>
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-#if 0
-#define ACCESS_TYPE	SND_PCM_ACCESS_RW_INTERLEAVED
-#define do_write	snd_pcm_writei
-#else
-#define ACCESS_TYPE	SND_PCM_ACCESS_MMAP_INTERLEAVED
-#define do_write	snd_pcm_mmap_writei
-#endif
-
-int main(int argc, char **argv)
-{
-	snd_pcm_t *pcm;
-	snd_pcm_hw_params_t *hw;
-	snd_pcm_stream_t stream;
-	snd_pcm_uframes_t psize, bsize, ret;
-	char *buf;
-	struct pollfd pfd;
-
-	if (argc < 5) {
-		fprintf(stderr, "aiotest device direction period-size buffer-size\n");
-		return 1;
-	}
-	if (*argv[2] == 'p' || *argv[2] == 'P')
-		stream = SND_PCM_STREAM_PLAYBACK;
-	else
-		stream = SND_PCM_STREAM_CAPTURE;
-	psize = atoi(argv[3]);
-	bsize = atoi(argv[4]);
-
-	buf = calloc(4, bsize);
-
-	if (snd_pcm_open(&pcm, argv[1], stream, 0)) {
-		perror("open");
-		return 1;
-	}
-	
-	snd_pcm_hw_params_alloca(&hw);
-	snd_pcm_hw_params_any(pcm, hw);
-	snd_pcm_hw_params_set_access(pcm, hw, ACCESS_TYPE);
-	snd_pcm_hw_params_set_format(pcm, hw, SND_PCM_FORMAT_S16_LE);
-	snd_pcm_hw_params_set_channels(pcm, hw, 2);
-	snd_pcm_hw_params_set_rate(pcm, hw, 48000, 0);
-	snd_pcm_hw_params_set_period_size_near(pcm, hw, &psize, 0);
-	snd_pcm_hw_params_set_buffer_size_near(pcm, hw, &bsize);
-
-	if (snd_pcm_hw_params(pcm, hw)) {
-		perror("hw_params");
-		return 1;
-	}
-	
-	snd_pcm_poll_descriptors(pcm, &pfd, 1);
-
- again:
-	if ((ret = do_write(pcm, buf, psize)) < (snd_pcm_sframes_t)psize ||
-	    (ret = do_write(pcm, buf, psize)) < (snd_pcm_sframes_t)psize) {
-		perror("initial write");
-		fprintf(stderr, "psize = %ld / %ld\n", psize, ret);
-		return 1;
-	}
-
-	if (snd_pcm_state(pcm) != SND_PCM_STATE_RUNNING) {
-		if (snd_pcm_start(pcm)) {
-			perror("start");
-			return 1;
-		}
-	}
-
-	for (;;) {
-		int err = poll(&pfd, 1, -1);
-		if (err < 0) {
-			if (snd_pcm_state(pcm) == SND_PCM_STATE_XRUN) {
-				fprintf(stderr, "XRUN, recovering\n");
-				snd_pcm_recover(pcm, err, 1);
-				goto again;
-			}
-			perror("poll");
-			return 1;
-		}
-		//avail = snd_pcm_avail(pcm);
-		err = do_write(pcm, buf, psize);
-		if (err < 0) {
-			if (snd_pcm_state(pcm) == SND_PCM_STATE_XRUN) {
-				fprintf(stderr, "XRUN, recovering\n");
-				snd_pcm_recover(pcm, err, 1);
-				goto again;
-			}
-			perror("poll");
-			return 1;
-		}
-	}
-}
-
---Multipart_Mon_Oct_11_18:17:20_2021-1--
+Thanks,
+Mark

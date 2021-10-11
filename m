@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ABA0429527
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Oct 2021 19:04:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09C39429531
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Oct 2021 19:04:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FDFE16D0;
-	Mon, 11 Oct 2021 19:03:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FDFE16D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id A1A9D16AA;
+	Mon, 11 Oct 2021 19:04:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1A9D16AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633971874;
-	bh=F8/FG4wlt4xTlS+woET9GXpzyRycR0DvcYe7q5SnHFw=;
+	s=default; t=1633971898;
+	bh=XzLkYgb353iqv9hAK+ZGEMsAqi0vlTmlnZMBZRVRF7Q=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G7yPDtSNYv/bZwLCeF4M04cMvnF7tqKCCIfh5f9NLZmI0g5vxaPMWdTuPkfCTzOVg
-	 lWt4YO0//GymemR2FiheWvRO0AKSxwWhsffCfMnLcY+eu8gVzZ5cVGGAw8hPz3/iue
-	 PUHUPYmTesZwhNv7Rq4yP+pqDgdQyIQbhvyg0kwA=
+	b=MzWRqpO5ZjKillXroAx/l7gRYujhp+51Ew1lv+Gb5O0lnEruk9bUTnbC4vK3RmHhv
+	 hbncu2SxmjYRycvIKnmCwajfM5vSx/7rN0yaPR9YDoRfVm1VrX6L7kUN6E022ZhJVj
+	 kVsTNnYRhPdghIWyZ+brL1cxxdAe7PYyhBmLSFR8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 36D7AF804F3;
+	by alsa1.perex.cz (Postfix) with ESMTP id DA9EDF804FD;
 	Mon, 11 Oct 2021 19:02:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22D8BF804EC; Mon, 11 Oct 2021 19:02:08 +0200 (CEST)
+ id DEC82F804F2; Mon, 11 Oct 2021 19:02:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,42 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7290FF8016D
- for <alsa-devel@alsa-project.org>; Mon, 11 Oct 2021 19:02:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7290FF8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 81C40F804E6
+ for <alsa-devel@alsa-project.org>; Mon, 11 Oct 2021 19:02:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81C40F804E6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="BOEJGj1u"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5011F61040;
- Mon, 11 Oct 2021 17:02:01 +0000 (UTC)
+ header.b="hwIPLJIL"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0A433603E7;
+ Mon, 11 Oct 2021 17:02:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633971721;
- bh=F8/FG4wlt4xTlS+woET9GXpzyRycR0DvcYe7q5SnHFw=;
+ s=k20201202; t=1633971724;
+ bh=XzLkYgb353iqv9hAK+ZGEMsAqi0vlTmlnZMBZRVRF7Q=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=BOEJGj1u9dbGKE8w4fKpNL0m6V1DxY7jUO7YzAo5XDJSvaDy0deXoz8ZE7n/yCHoT
- QgE7GVO8DoFlM/97lzHoUaw7ZNw3lOiCqGELTDDUzaCtHbkpvXODeglAy6b/ycvH7R
- nZzArhZwMtcT9tnGgjrCXxpbY45ehs3X610CdikbqSsM+CX9Dg+MvfXI2U40ELDPvY
- 0RsfLS0GILO3TRUF5R6Ka0sQKKSskMBqqLPisT2Eqka5lHWjsOM3G7Y7xu2sUcESDS
- 2Ksst7CyqYJsqRpd7sGIJDprPoTSM4MER8NkZbZHxKfz8VOCT94n2xcUvyI1lp+wFy
- /ar+hSjkKi6Dg==
+ b=hwIPLJIL5kpqYVsrm/wIrAyPirFKYQQCKFGkJCZ+qVbyVevkyba5afceg2tbQeOP9
+ WDb9Ai+fhiN7JCPefeixY+ZV3OOBqvVWXYTZH5SVHSJpj0IzROOCeHarAXQyDyLwvs
+ 18S6JCcXtBry0nSVHE0kPF0F0cE5jiEgCWYvTtz5G1BIDwp/HRCTj5LHt0IVhu4sKi
+ cCyludQmqz6qsmh7GSv63KWjDyJEEDEdS6p6qYa6l/S6ctP7305F02htFMtoQFsNh9
+ 93o/LI0IFHI0gRM9LC9wDQ6eNlhC++S2EfUogq5e6R2l+ft7f3zpuhEs5IgHl+ovpk
+ n+/YnBtxr3lTg==
 From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Hans de Goede <hdegoede@redhat.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v2 0/4] ASoC: Intel: bytcr_rt5640: few cleanups
-Date: Mon, 11 Oct 2021 18:01:43 +0100
-Message-Id: <163397094549.6567.12509842562892439300.b4-ty@kernel.org>
+To: Yang Yingliang <yangyingliang@huawei.com>, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ASoC: soc-core: fix null-ptr-deref in
+ snd_soc_del_component_unlocked()
+Date: Mon, 11 Oct 2021 18:01:44 +0100
+Message-Id: <163397094549.6567.13611605791777369681.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20211007165715.27463-1-andriy.shevchenko@linux.intel.com>
-References: <20211007165715.27463-1-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20211009065840.3196239-1-yangyingliang@huawei.com>
+References: <20211009065840.3196239-1-yangyingliang@huawei.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, tiwai@suse.com, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,13 +80,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 7 Oct 2021 19:57:11 +0300, Andy Shevchenko wrote:
-> The small set of cleanups against bytcr_rt5640 board file.
+On Sat, 9 Oct 2021 14:58:40 +0800, Yang Yingliang wrote:
+> 'component' is allocated in snd_soc_register_component(), but component->list
+> is not initalized, this may cause snd_soc_del_component_unlocked() deref null
+> ptr in the error handing case.
 > 
-> In v2:
-> - added commit message to patch 2 (Joe, Pierre)
-> - added cover letter (Pierre)
-> - added Hans to Cc list (Hans)
+> KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+> RIP: 0010:__list_del_entry_valid+0x81/0xf0
+> Call Trace:
+>  snd_soc_del_component_unlocked+0x69/0x1b0 [snd_soc_core]
+>  snd_soc_add_component.cold+0x54/0x6c [snd_soc_core]
+>  snd_soc_register_component+0x70/0x90 [snd_soc_core]
+>  devm_snd_soc_register_component+0x5e/0xd0 [snd_soc_core]
+>  tas2552_probe+0x265/0x320 [snd_soc_tas2552]
+>  ? tas2552_component_probe+0x1e0/0x1e0 [snd_soc_tas2552]
+>  i2c_device_probe+0xa31/0xbe0
 > 
 > [...]
 
@@ -100,14 +104,8 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: Intel: bytcr_rt5640: Get platform data via dev_get_platdata()
-      commit: e86c1893d6785a0f5e5d82cd161b991564720eaa
-[2/4] ASoC: Intel: bytcr_rt5640: Use temporary variable for struct device
-      commit: 81d43ca17506ba32c6ead7fe4cf3b7f37368cc83
-[3/4] ASoC: Intel: bytcr_rt5640: use devm_clk_get_optional() for mclk
-      commit: a15ca6e3b8a21ff335a2eedbc5ba4708967be2be
-[4/4] ASoC: Intel: bytcr_rt5640: Utilize dev_err_probe() to avoid log saturation
-      commit: ee233500eea421118cd9d53c82fd5e612f6d7bd5
+[1/1] ASoC: soc-core: fix null-ptr-deref in snd_soc_del_component_unlocked()
+      commit: c448b7aa3e66042fc0f849d9a0fb90d1af82e948
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

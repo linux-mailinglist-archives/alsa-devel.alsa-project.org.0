@@ -2,69 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09C39429531
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Oct 2021 19:04:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43488429578
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Oct 2021 19:18:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A1A9D16AA;
-	Mon, 11 Oct 2021 19:04:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1A9D16AA
+	by alsa0.perex.cz (Postfix) with ESMTPS id D05C216AC;
+	Mon, 11 Oct 2021 19:17:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D05C216AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633971898;
-	bh=XzLkYgb353iqv9hAK+ZGEMsAqi0vlTmlnZMBZRVRF7Q=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1633972696;
+	bh=ueUOlhbZaj30eoCY2UOPjVHrl493ptGrFAtvDurC+TY=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MzWRqpO5ZjKillXroAx/l7gRYujhp+51Ew1lv+Gb5O0lnEruk9bUTnbC4vK3RmHhv
-	 hbncu2SxmjYRycvIKnmCwajfM5vSx/7rN0yaPR9YDoRfVm1VrX6L7kUN6E022ZhJVj
-	 kVsTNnYRhPdghIWyZ+brL1cxxdAe7PYyhBmLSFR8=
+	b=NbHhwAfUIXC3IJrVaXH6fne31NGJ+OAVxHYxF02A405P068WJKuHZNjtril3oZ/8r
+	 l34soAJeB6XMUwc+pe4wpTfPnvbRa1BgFcDNtUTOa0V0s7k36dcOFBMuBKg/JkgG/R
+	 JZV/Fuzhm3msr0T19IctVSReKZLM2Jr08P7f2qX4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA9EDF804FD;
-	Mon, 11 Oct 2021 19:02:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D889F800C0;
+	Mon, 11 Oct 2021 19:17:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DEC82F804F2; Mon, 11 Oct 2021 19:02:09 +0200 (CEST)
+ id BDACEF80269; Mon, 11 Oct 2021 19:16:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81C40F804E6
- for <alsa-devel@alsa-project.org>; Mon, 11 Oct 2021 19:02:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81C40F804E6
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="hwIPLJIL"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0A433603E7;
- Mon, 11 Oct 2021 17:02:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633971724;
- bh=XzLkYgb353iqv9hAK+ZGEMsAqi0vlTmlnZMBZRVRF7Q=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hwIPLJIL5kpqYVsrm/wIrAyPirFKYQQCKFGkJCZ+qVbyVevkyba5afceg2tbQeOP9
- WDb9Ai+fhiN7JCPefeixY+ZV3OOBqvVWXYTZH5SVHSJpj0IzROOCeHarAXQyDyLwvs
- 18S6JCcXtBry0nSVHE0kPF0F0cE5jiEgCWYvTtz5G1BIDwp/HRCTj5LHt0IVhu4sKi
- cCyludQmqz6qsmh7GSv63KWjDyJEEDEdS6p6qYa6l/S6ctP7305F02htFMtoQFsNh9
- 93o/LI0IFHI0gRM9LC9wDQ6eNlhC++S2EfUogq5e6R2l+ft7f3zpuhEs5IgHl+ovpk
- n+/YnBtxr3lTg==
-From: Mark Brown <broonie@kernel.org>
-To: Yang Yingliang <yangyingliang@huawei.com>, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ASoC: soc-core: fix null-ptr-deref in
- snd_soc_del_component_unlocked()
-Date: Mon, 11 Oct 2021 18:01:44 +0100
-Message-Id: <163397094549.6567.13611605791777369681.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20211009065840.3196239-1-yangyingliang@huawei.com>
-References: <20211009065840.3196239-1-yangyingliang@huawei.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6687DF8016D
+ for <alsa-devel@alsa-project.org>; Mon, 11 Oct 2021 19:16:50 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C4DE4A003F;
+ Mon, 11 Oct 2021 19:16:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C4DE4A003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1633972608; bh=QRB5Ou1NGnbNid6JFfjU38Lss1F7V2ixqJfm4FYhiPw=;
+ h=Date:Subject:To:References:From:In-Reply-To:From;
+ b=fug/BqNlw3eZvAAw/uX5lfGAXUi44nPGHYrG4qmeeATh2kPPfZbkaQnzADYiZJdzm
+ dN0/vLBA2laqK9wQ91k+H418whIm8nHiZDfqZZ5suqFTofU4xR5ENi9EWqQVFBfqSs
+ iTc6bj2Od87GNb6vlkXD6CCmpY1XUGXWJZwEk8vA=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Mon, 11 Oct 2021 19:16:37 +0200 (CEST)
+Message-ID: <f7efde11-067d-8822-45fa-7cdbe2d17d93@perex.cz>
+Date: Mon, 11 Oct 2021 19:16:37 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: Mark Brown <broonie@kernel.org>, tiwai@suse.com, lgirdwood@gmail.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.1.0
+Subject: Re: [PATCH] ASoC: simple-card: Fill in driver name
+Content-Language: en-US
+To: Diederik de Haas <didi.debian@cknow.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Thierry Reding <treding@nvidia.com>, Jon Hunter <jonathanh@nvidia.com>,
+ Stephan Gerhold <stephan@gerhold.net>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, =?UTF-8?Q?Guido_G=c3=bcnther?=
+ <agx@sigxcpu.org>
+References: <YNGe3akAntQi8qJD@qwark.sigxcpu.org> <4974503.Y8KB3sNASq@bagend>
+ <61a82214-0de8-816f-ff63-3979b86343bf@perex.cz> <5069869.zQgEQKRxDW@bagend>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <5069869.zQgEQKRxDW@bagend>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,48 +87,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 9 Oct 2021 14:58:40 +0800, Yang Yingliang wrote:
-> 'component' is allocated in snd_soc_register_component(), but component->list
-> is not initalized, this may cause snd_soc_del_component_unlocked() deref null
-> ptr in the error handing case.
+On 10. 10. 21 12:40, Diederik de Haas wrote:
+> On Sunday, 10 October 2021 10:40:09 CEST Jaroslav Kysela wrote:
+>>> Unfortunately this change broke multichannel audio on my Rock64 device
+>>> running Debian. My Rock64 is connected to my AVR (Pioneer SC-1224) via a
+>>> HDMI cable.
+>> This looks like an user space configuration problem.
 > 
-> KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-> RIP: 0010:__list_del_entry_valid+0x81/0xf0
-> Call Trace:
->  snd_soc_del_component_unlocked+0x69/0x1b0 [snd_soc_core]
->  snd_soc_add_component.cold+0x54/0x6c [snd_soc_core]
->  snd_soc_register_component+0x70/0x90 [snd_soc_core]
->  devm_snd_soc_register_component+0x5e/0xd0 [snd_soc_core]
->  tas2552_probe+0x265/0x320 [snd_soc_tas2552]
->  ? tas2552_component_probe+0x1e0/0x1e0 [snd_soc_tas2552]
->  i2c_device_probe+0xa31/0xbe0
-> 
-> [...]
+> I have placed ALSA card definitions (I think) from LibreELEC on my system from
+> https://github.com/LibreELEC/LibreELEC.tv/tree/master/projects/Rockchip/
+> filesystem/usr/share/alsa/cards
 
-Applied to
+Apparently, the alsa-lib configuration is used in this case.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+It seems that there are four sound cards (Analog/HDMI/I2S/SPDIF) created for 
+your hardware. The alsa-lib configuration is a bit weird - an obfuscation for 
+the simple-card driver use. The simple way to resolve this is to create a 
+proper UCM configuration.
 
-Thanks!
+If you need further assistance, create an issue for alsa-lib or alsa-ucm-conf 
+on github and with an output from the 'alsa-info.sh' script.
 
-[1/1] ASoC: soc-core: fix null-ptr-deref in snd_soc_del_component_unlocked()
-      commit: c448b7aa3e66042fc0f849d9a0fb90d1af82e948
+						Jaroslav
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

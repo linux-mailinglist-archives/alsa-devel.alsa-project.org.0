@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77412429523
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Oct 2021 19:04:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9ABA0429527
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Oct 2021 19:04:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1350016C3;
-	Mon, 11 Oct 2021 19:03:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1350016C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2FDFE16D0;
+	Mon, 11 Oct 2021 19:03:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FDFE16D0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633971840;
-	bh=sA9IPFPv1s4drjA088OPVEJGCy9qliVmy40+zSZtmG0=;
+	s=default; t=1633971874;
+	bh=F8/FG4wlt4xTlS+woET9GXpzyRycR0DvcYe7q5SnHFw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FmS84Rsu54pBDL9sVOEWZNGmx/D5t4tZjW8Hn/mmxkYek2m7GNbg3YTn1KA09bayj
-	 +VfBNCp7EI6s/9BVdjSQ6lMA6OPdctmLab0RtJk02v3przn6DYLwRM1XMwKO3fu+gz
-	 iHEcbQ9QZ6sojBqANMhXqyVHUvH+FaMxAK1Oe4QY=
+	b=G7yPDtSNYv/bZwLCeF4M04cMvnF7tqKCCIfh5f9NLZmI0g5vxaPMWdTuPkfCTzOVg
+	 lWt4YO0//GymemR2FiheWvRO0AKSxwWhsffCfMnLcY+eu8gVzZ5cVGGAw8hPz3/iue
+	 PUHUPYmTesZwhNv7Rq4yP+pqDgdQyIQbhvyg0kwA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DCC3FF804C2;
-	Mon, 11 Oct 2021 19:02:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36D7AF804F3;
+	Mon, 11 Oct 2021 19:02:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07D7BF8016D; Mon, 11 Oct 2021 19:02:04 +0200 (CEST)
+ id 22D8BF804EC; Mon, 11 Oct 2021 19:02:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +33,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 23C81F8016D
- for <alsa-devel@alsa-project.org>; Mon, 11 Oct 2021 19:02:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23C81F8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7290FF8016D
+ for <alsa-devel@alsa-project.org>; Mon, 11 Oct 2021 19:02:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7290FF8016D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="SYyYWH9m"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 95BDA60F6E;
- Mon, 11 Oct 2021 17:01:58 +0000 (UTC)
+ header.b="BOEJGj1u"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5011F61040;
+ Mon, 11 Oct 2021 17:02:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633971719;
- bh=sA9IPFPv1s4drjA088OPVEJGCy9qliVmy40+zSZtmG0=;
+ s=k20201202; t=1633971721;
+ bh=F8/FG4wlt4xTlS+woET9GXpzyRycR0DvcYe7q5SnHFw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SYyYWH9mT/iTcdd9Z0mFqZXKMTVYnCoSOPHBr/QCsUzmbNnV28TlSnR/5VR+P/FaB
- bWfaHzBfBsr6IOO9IkCYXkCqiT3amj5kcOjOa4YsVWPFJKJNwGCWtCAv1STSuvd8QC
- RGaewUOX+MyOhkQGV1f0t+lAZNbyrsyjFATIQpOOMdiq10nRqpnEcc6/5KADLVCrpG
- 7JkETWoPbRO1rb4DvFKAcSk5X09neTSbONIPiMxFBQqejgNRHPlngzQqKbLOrlc/VZ
- bgASmtGH86JPDlLWi2ExGEoPIbqQ1Py2oFWKliNT20BNgVXSjV885PKI8Z/uKCJx8O
- eOmskq8GQilyw==
+ b=BOEJGj1u9dbGKE8w4fKpNL0m6V1DxY7jUO7YzAo5XDJSvaDy0deXoz8ZE7n/yCHoT
+ QgE7GVO8DoFlM/97lzHoUaw7ZNw3lOiCqGELTDDUzaCtHbkpvXODeglAy6b/ycvH7R
+ nZzArhZwMtcT9tnGgjrCXxpbY45ehs3X610CdikbqSsM+CX9Dg+MvfXI2U40ELDPvY
+ 0RsfLS0GILO3TRUF5R6Ka0sQKKSskMBqqLPisT2Eqka5lHWjsOM3G7Y7xu2sUcESDS
+ 2Ksst7CyqYJsqRpd7sGIJDprPoTSM4MER8NkZbZHxKfz8VOCT94n2xcUvyI1lp+wFy
+ /ar+hSjkKi6Dg==
 From: Mark Brown <broonie@kernel.org>
-To: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>, alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ASoC: amd: Kconfig: Select fch clock support with machine
- driver
-Date: Mon, 11 Oct 2021 18:01:42 +0100
-Message-Id: <163397094549.6567.3180566951499093730.b4-ty@kernel.org>
+To: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Hans de Goede <hdegoede@redhat.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v2 0/4] ASoC: Intel: bytcr_rt5640: few cleanups
+Date: Mon, 11 Oct 2021 18:01:43 +0100
+Message-Id: <163397094549.6567.12509842562892439300.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20211011055354.67719-1-AjitKumar.Pandey@amd.com>
-References: <20211011055354.67719-1-AjitKumar.Pandey@amd.com>
+In-Reply-To: <20211007165715.27463-1-andriy.shevchenko@linux.intel.com>
+References: <20211007165715.27463-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Sunil-kumar.Dommati@amd.com, open list <linux-kernel@vger.kernel.org>,
- Basavaraj.Hiregoudar@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- Vijendar.Mukunda@amd.com, Alexander.Deucher@amd.com
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,12 +84,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 11 Oct 2021 11:23:53 +0530, Ajit Kumar Pandey wrote:
-> We are using fch clock controller as parent mclk source for rt5682
-> codec. Add config to enable clock framework support for 48MHz fixed
-> clock when machine driver config is selected.
+On Thu, 7 Oct 2021 19:57:11 +0300, Andy Shevchenko wrote:
+> The small set of cleanups against bytcr_rt5640 board file.
 > 
+> In v2:
+> - added commit message to patch 2 (Joe, Pierre)
+> - added cover letter (Pierre)
+> - added Hans to Cc list (Hans)
 > 
+> [...]
 
 Applied to
 
@@ -96,8 +100,14 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: Kconfig: Select fch clock support with machine driver
-      commit: 281ddf62f551321982c7d6f525a83a3b3c1d5eae
+[1/4] ASoC: Intel: bytcr_rt5640: Get platform data via dev_get_platdata()
+      commit: e86c1893d6785a0f5e5d82cd161b991564720eaa
+[2/4] ASoC: Intel: bytcr_rt5640: Use temporary variable for struct device
+      commit: 81d43ca17506ba32c6ead7fe4cf3b7f37368cc83
+[3/4] ASoC: Intel: bytcr_rt5640: use devm_clk_get_optional() for mclk
+      commit: a15ca6e3b8a21ff335a2eedbc5ba4708967be2be
+[4/4] ASoC: Intel: bytcr_rt5640: Utilize dev_err_probe() to avoid log saturation
+      commit: ee233500eea421118cd9d53c82fd5e612f6d7bd5
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,66 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1341429368
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Oct 2021 17:30:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 676FA4293B8
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Oct 2021 17:46:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3AFD71692;
-	Mon, 11 Oct 2021 17:29:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AFD71692
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC6E01693;
+	Mon, 11 Oct 2021 17:45:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC6E01693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633966234;
-	bh=xMNwMXG2SEz2UgUFdntNpLlFLoKaHh9gxc7rz2nY98o=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=i1SOmkdO7c3jV9ivuEFZc9+HZZofdV/EeSpq44C0VKg+ptxZv/E1yOL7A3uAvf+Ek
-	 AwuJkpUVWHKoQB/xsVQKSCVRzxkjkZfMBP0yveG4B/FtdVvrUVZofFrt5XNHI0No8c
-	 OEqL4cs7yy7KdYNMp1zJsWK1eFXaRvX3tsMrhpuU=
+	s=default; t=1633967188;
+	bh=XU2YOGIAEtf/8ZbPoHDQD+cd/6yoejdCi8Xc8UaTnHA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=dohX/tKTSne7V7FAHvmcvI80G5tQL9LNfR2wMtpxPRxMepfyi1OWxEM8d1GwiDUFD
+	 FwY10wTsAA4NYTurVMabpZt4Tc49mwctZiqNGS06sFed8ZS2l7fOlArjAKt9+mjEPk
+	 cMQqfulmUVx+k36UAoK0pkj9Q5qUedz2ufjBWnWQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA256F80104;
-	Mon, 11 Oct 2021 17:29:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2C2C5F8028D;
+	Mon, 11 Oct 2021 17:45:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B1756F80269; Mon, 11 Oct 2021 17:28:39 +0200 (CEST)
+ id 84C65F80269; Mon, 11 Oct 2021 17:45:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2061d.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::61d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3434CF800C0
- for <alsa-devel@alsa-project.org>; Mon, 11 Oct 2021 17:28:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3434CF800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4FC1F800C0
+ for <alsa-devel@alsa-project.org>; Mon, 11 Oct 2021 17:45:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4FC1F800C0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="voxwBqDJ"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7BDC960F4B;
- Mon, 11 Oct 2021 15:28:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1633966102;
- bh=xMNwMXG2SEz2UgUFdntNpLlFLoKaHh9gxc7rz2nY98o=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=voxwBqDJFbLBpqZjAqnZlDWYxeSkQ8O8BZxGmXeBKg7OL1lsO6njEQ4kUr1X2Nl5k
- GnfQdKswQoeAHQlkmHgjsOd6OHo/GISfL4WyWBeKyOA4C2BhJfndfVic57eeAqYFTt
- fLOBs7irX1rB9zcnT3zxlC9+9QFuFD7j81ep+hTE=
-Date: Mon, 11 Oct 2021 17:28:15 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH] ALSA: usb-audio: allow -EPIPE errors for some v2 messages
-Message-ID: <YWRYD7fphcaWKEOG@kroah.com>
-References: <YWLbEdHUE3k/i0fe@kroah.com>
- <s5hily46316.wl-tiwai@suse.de>
+ dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
+ header.b="MNNhfE2X"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ymlu7kSnA9znC8/wsRzNvXxP5MyPbuknDOwUmsREXw1wk2nxzjn543HA+gsDNhaCcJlVwJXdzWaHmw8QldT4AzuSKDBXM1R4I33q0dpJdxwwl1aewkATZxz78wumbaF/N+xGYXpLM7psjqrUbXpEG9Y9dnz+1gEdKWhJGNjEV7V6AnYCe+VDhGHkZoO19roktzpxuLZbXttGP6H+k7ubNiTQJ+vzjV2biqumHF58SQyM9I2xPa00mijqrhPIW2XKC/Jycj1351uFl24meT54zoGgBvmVGwuJAUJ2wRQ2igsPjRDJEn0M9PnI4B3ZwGiAtwF+Zf/tIdyf1ERWM5/+oA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=k8DVK1H+Uf79q941UtNVjuVfXqkj9LZTpTBWYiahKk4=;
+ b=XR+6sl4pyDcxPEquXhmgmyCqBK+G3DDlU+B16UaNs/enSrsSBV8QiOPBXc/rF3fwmYxBPbusFQUGlOUNrgTT5MSfwVyTwbtAK7jn1wW3Vf37HtvAiL7dTlmYpACeznDmaWEipvYCT3FwKMWcW0qkIOhobFRcvejtLkkqExDFknS6n47hLmVPzlqb4Ej3Lu8/VopBdXkxKIXVsJ6Dl+MzsHwbmBhqKZwYCcFYCCGXi0u8weVBjdDhMw4Oz2XWj5dsUn7efk3HBNA1g8Mt3Djp6vA95GVWlwwAzVvG+i085GE3E+6ztjFYac27xXi3uzfn438AwsN9wUIECFRNceKfhQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=k8DVK1H+Uf79q941UtNVjuVfXqkj9LZTpTBWYiahKk4=;
+ b=MNNhfE2Xq0H+VHgaSunrT7k7vwpEUBVlYsIqHOCAQ9/tfY5s4rxX66wthDzlAVJ6I64gW6Nu5mvCW+wlFjiAFpZKySy8ZkDa8GBdwjqzJGhF+ZRu3scPgCYS8f4Zsrm0A5eDpk3q+ubhJZHP2CyyVaRTF/7d60SJ8aeIuyrPDMw=
+Received: from BN6PR16CA0045.namprd16.prod.outlook.com (2603:10b6:405:14::31)
+ by BL0PR12MB2529.namprd12.prod.outlook.com (2603:10b6:207:4e::28)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.18; Mon, 11 Oct
+ 2021 15:45:01 +0000
+Received: from BN8NAM11FT043.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:405:14:cafe::79) by BN6PR16CA0045.outlook.office365.com
+ (2603:10b6:405:14::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.18 via Frontend
+ Transport; Mon, 11 Oct 2021 15:45:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT043.mail.protection.outlook.com (10.13.177.218) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4587.18 via Frontend Transport; Mon, 11 Oct 2021 15:44:59 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Mon, 11 Oct
+ 2021 10:44:58 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Mon, 11 Oct
+ 2021 10:44:58 -0500
+Received: from chrome.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2308.8 via Frontend
+ Transport; Mon, 11 Oct 2021 10:44:55 -0500
+From: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+Subject: [PATCH v2 0/8] ASoC: Add common modules support for ACP hw block 
+Date: Mon, 11 Oct 2021 21:14:44 +0530
+Message-ID: <20211011154452.76849-1-AjitKumar.Pandey@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <s5hily46316.wl-tiwai@suse.de>
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-usb@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c7e5a5f9-fb57-48eb-f9de-08d98cce1542
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2529:
+X-Microsoft-Antispam-PRVS: <BL0PR12MB2529012AA473EBA29B6FE82C82B59@BL0PR12MB2529.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4125;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: kWw94ZPY1V8YWq9k48tD4r4igfQzQ5nxkVk7zLRJSrIxr/eRfOjy5NLmn5gsPVKygWWIfmoO1o6Ni7FvjotTzfsOqrCYpzBSPw7Qj/fgUp1UlpANILVau8ZAEWdUuXcN7x/rm512D22ITZHkXTqd8tEP2gw3T+YWi9APezXiEH3mRRKiIvvgqbNQ09/ivEqwONT85HZr8F4ggitG9xN0iRY6CjouuuE1+o7k8hj2mTB7p8lwiDmZwgDqhz/RZZZGXY+VVKdHYZgY3z0D3f2NZwKn1zqdXmp5lgh7rvm9HmE6lNa3siC+hJvz8yW/neoM/3ft49AK9lLZxRWqBshFnMRWYqE4aelK7CYmFsZa+vSU0Mnygwu+9v8m4LPwqFzMdNHW1hZADrD6/HrbxS5zaAETCDzib7GIr3hNPfBoOwiead5InHSRq4x+T5UwbNAcLz8N8J6W3ipCTKp9lQiSt7F7twTKdJhDZJJM78NMGqlxjW96VveA3QN65vk/lpy2oMSlnuKFeR7KSxC5TDlH7lAKwnxKdvnleuLOoqgDICf7d52t75w7NPsfdCBHZxbTVBOl5Mg9kYqiOD5wnPhl4mOF02cakU4OdHo0cdcX3UjIBXgMNvojkgTjo9WeHNUj02Ac6dp98cVKTjNckR4hDW/wxyIj3FuTZKVWCVnyK64FbrNHa7ovkyOSsYHePveJcFYx/R/XFS/gZi0XbIpjXLJ+8RtjRhz3LpAD9S0JUgk=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(336012)(2906002)(2616005)(426003)(47076005)(83380400001)(86362001)(82310400003)(36860700001)(110136005)(5660300002)(54906003)(4326008)(356005)(81166007)(36756003)(508600001)(1076003)(186003)(26005)(8936002)(8676002)(7696005)(6666004)(316002)(4743002)(70206006)(70586007)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2021 15:44:59.6678 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7e5a5f9-fb57-48eb-f9de-08d98cce1542
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT043.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2529
+Cc: Alexander.Deucher@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ Vijendar.Mukunda@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,541 +137,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Oct 10, 2021 at 10:25:09PM +0200, Takashi Iwai wrote:
-> On Sun, 10 Oct 2021 14:22:41 +0200,
-> Greg Kroah-Hartman wrote:
-> > 
-> > The Schiit Hel device does not like to respond to all get_ctl_value_v2()
-> > requests for some reason.  This used to work in older kernels, but now
-> > with more strict checking, this failure causes the device to fail to
-> > work.
-> > 
-> > Cc: Jaroslav Kysela <perex@perex.cz>
-> > Cc: Takashi Iwai <tiwai@suse.com>
-> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > ---
-> > 
-> > This fixes the Shiit Hel device that I have.  It used to work on older
-> > kernels (a year ago?), but stopped working for some reason and I didn't
-> > take the time to track it down.  This change fixes the issue for me, but
-> > feels wrong for some reason.  At least now I can use the device as a
-> > headphone driver, much better than the built-in one for my current
-> > machine...
-> > 
-> > If needed, I can take the time to do bisection to track down the real
-> > issue here, it might be due to stricter endpoint checking in the USB
-> > core, but that feels wrong somehow.
-> > 
-> > Here's the debugfs USB output for this device, showing the endpoints:
-> > 
-> > T:  Bus=07 Lev=02 Prnt=02 Port=01 Cnt=01 Dev#=  5 Spd=480 MxCh= 0
-> > D:  Ver= 2.00 Cls=ef(misc ) Sub=02 Prot=01 MxPS=64 #Cfgs=  1
-> > P:  Vendor=30be ProdID=0101 Rev=01.02
-> > S:  Manufacturer=Schiit Audio
-> > S:  Product=Schiit Hel
-> > C:  #Ifs= 4 Cfg#= 1 Atr=c0 MxPwr=0mA
-> > I:  If#= 0 Alt= 0 #EPs= 1 Cls=01(audio) Sub=01 Prot=20 Driver=snd-usb-audio
-> > E:  Ad=8f(I) Atr=03(Int.) MxPS=   6 Ivl=1ms
-> > I:  If#= 1 Alt= 1 #EPs= 2 Cls=01(audio) Sub=02 Prot=20 Driver=snd-usb-audio
-> > E:  Ad=05(O) Atr=05(Isoc) MxPS= 104 Ivl=125us
-> > E:  Ad=85(I) Atr=11(Isoc) MxPS=   4 Ivl=1ms
-> > I:  If#= 2 Alt= 1 #EPs= 1 Cls=01(audio) Sub=02 Prot=20 Driver=snd-usb-audio
-> > E:  Ad=88(I) Atr=05(Isoc) MxPS= 156 Ivl=125us
-> > I:  If#= 3 Alt= 0 #EPs= 1 Cls=03(HID  ) Sub=00 Prot=00 Driver=usbhid
-> > E:  Ad=84(I) Atr=03(Int.) MxPS=  16 Ivl=1ms
-> > 
-> > Any other suggestions to fix this are welcome.
-> 
-> Could you show the exact error messages and lsusb -v output?
-> We may paper over only the problematic node instead.
+Changes since v1:
+- Fixes Kconfig indent as per kernel coding style guidelines.
+- Updated _GPL suffix for all exported symbol.
+- As suggested added separate machine ops for each codecs in machine driver
+- Add sound card support for newer codecs
 
-Sure, here's the dmesg output on 5.15-rc5 when it is turned on:
+Ajit Kumar Pandey (8):
+  ASoC: amd: Add common framework to support I2S on ACP SOC
+  ASoC: amd: acp: Add I2S support on Renoir platform
+  ASoC: amd: acp: Add callback for machine driver on ACP
+  ASoC: amd: acp: Add generic machine driver support for ACP cards
+  ASoC: amd: acp: Add legacy sound card support for Chrome audio
+  ASoC: amd: acp: Add SOF audio support on Chrome board
+  ASoC: amd: acp: Add support for Maxim amplifier codec
+  ASoC: amd: acp: Add support for RT5682-VS codec
 
-[Oct11 17:25] usb 7-2.2: new high-speed USB device number 9 using xhci_hcd
-[  +0.122422] usb 7-2.2: New USB device found, idVendor=30be, idProduct=0101, bcdDevice= 1.02
-[  +0.000009] usb 7-2.2: New USB device strings: Mfr=1, Product=2, SerialNumber=0
-[  +0.000002] usb 7-2.2: Product: Schiit Hel
-[  +0.000002] usb 7-2.2: Manufacturer: Schiit Audio
-[  +0.327172] input: Schiit Audio Schiit Hel as /devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:47:00.1/usb7/7-2/7-2.2/7-2.2:1.3/0003:30BE:0101.0009/input/input21
-[  +0.055134] hid-generic 0003:30BE:0101.0009: input,hidraw8: USB HID v1.00 Device [Schiit Audio Schiit Hel] on usb-0000:47:00.1-2.2/input3
-[  +0.135988] usb 7-2.2: cannot get ctl value: req = 0x81, wValue = 0x100, wIndex = 0x1100, type = 1
-[  +0.060647] usb 7-2.2: cannot get ctl value: req = 0x81, wValue = 0x100, wIndex = 0x1100, type = 1
-[  +0.065362] usb 7-2.2: cannot get ctl value: req = 0x81, wValue = 0x100, wIndex = 0x1100, type = 1
-[  +0.192121] usb 7-2.2: cannot get ctl value: req = 0x81, wValue = 0x100, wIndex = 0x1100, type = 1
+ sound/soc/amd/Kconfig                |   2 +
+ sound/soc/amd/Makefile               |   1 +
+ sound/soc/amd/acp/Kconfig            |  50 +++
+ sound/soc/amd/acp/Makefile           |  26 ++
+ sound/soc/amd/acp/acp-i2s.c          | 340 +++++++++++++++
+ sound/soc/amd/acp/acp-legacy-mach.c  | 104 +++++
+ sound/soc/amd/acp/acp-mach-common.c  | 596 +++++++++++++++++++++++++++
+ sound/soc/amd/acp/acp-mach.h         |  57 +++
+ sound/soc/amd/acp/acp-platform.c     | 315 ++++++++++++++
+ sound/soc/amd/acp/acp-renoir.c       | 144 +++++++
+ sound/soc/amd/acp/acp-sof-mach.c     | 131 ++++++
+ sound/soc/amd/acp/amd.h              | 146 +++++++
+ sound/soc/amd/acp/chip_offset_byte.h |  76 ++++
+ 13 files changed, 1988 insertions(+)
+ create mode 100644 sound/soc/amd/acp/Kconfig
+ create mode 100644 sound/soc/amd/acp/Makefile
+ create mode 100644 sound/soc/amd/acp/acp-i2s.c
+ create mode 100644 sound/soc/amd/acp/acp-legacy-mach.c
+ create mode 100644 sound/soc/amd/acp/acp-mach-common.c
+ create mode 100644 sound/soc/amd/acp/acp-mach.h
+ create mode 100644 sound/soc/amd/acp/acp-platform.c
+ create mode 100644 sound/soc/amd/acp/acp-renoir.c
+ create mode 100644 sound/soc/amd/acp/acp-sof-mach.c
+ create mode 100644 sound/soc/amd/acp/amd.h
+ create mode 100644 sound/soc/amd/acp/chip_offset_byte.h
 
+-- 
+2.25.1
 
-And here is the 'lsusb -v' output of the device.
-
-
-Bus 007 Device 009: ID 30be:0101 Schiit Audio Schiit Hel
-Device Descriptor:
-  bLength                18
-  bDescriptorType         1
-  bcdUSB               2.00
-  bDeviceClass          239 Miscellaneous Device
-  bDeviceSubClass         2 
-  bDeviceProtocol         1 Interface Association
-  bMaxPacketSize0        64
-  idVendor           0x30be 
-  idProduct          0x0101 
-  bcdDevice            1.02
-  iManufacturer           1 Schiit Audio
-  iProduct                2 Schiit Hel
-  iSerial                 0 
-  bNumConfigurations      1
-  Configuration Descriptor:
-    bLength                 9
-    bDescriptorType         2
-    wTotalLength       0x0198
-    bNumInterfaces          4
-    bConfigurationValue     1
-    iConfiguration          0 
-    bmAttributes         0xc0
-      Self Powered
-    MaxPower                0mA
-    Interface Association:
-      bLength                 8
-      bDescriptorType        11
-      bFirstInterface         0
-      bInterfaceCount         3
-      bFunctionClass          1 Audio
-      bFunctionSubClass       0 
-      bFunctionProtocol      32 
-      iFunction               0 
-    Interface Descriptor:
-      bLength                 9
-      bDescriptorType         4
-      bInterfaceNumber        0
-      bAlternateSetting       0
-      bNumEndpoints           1
-      bInterfaceClass         1 Audio
-      bInterfaceSubClass      1 Control Device
-      bInterfaceProtocol     32 
-      iInterface              0 
-      AudioControl Interface Descriptor:
-        bLength                 9
-        bDescriptorType        36
-        bDescriptorSubtype      1 (HEADER)
-        bcdADC               2.00
-        bCategory              10
-        wTotalLength       0x0100
-        bmControls           0x00
-      AudioControl Interface Descriptor:
-        bLength                17
-        bDescriptorType        36
-        bDescriptorSubtype      2 (INPUT_TERMINAL)
-        bTerminalID             1
-        wTerminalType      0x0101 USB Streaming
-        bAssocTerminal          0
-        bCSourceID             18
-        bNrChannels             0
-        bmChannelConfig    0x00000000
-        iChannelNames           0 
-        bmControls         0x0040
-          Cluster Control (read-only)
-        iTerminal               0 
-      AudioControl Interface Descriptor:
-        bLength                17
-        bDescriptorType        36
-        bDescriptorSubtype      2 (INPUT_TERMINAL)
-        bTerminalID             5
-        wTerminalType      0x0201 Microphone
-        bAssocTerminal          0
-        bCSourceID             22
-        bNrChannels             2
-        bmChannelConfig    0x00000003
-          Front Left (FL)
-          Front Right (FR)
-        iChannelNames           0 
-        bmControls         0x0044
-          Connector Control (read-only)
-          Cluster Control (read-only)
-        iTerminal               0 
-      AudioControl Interface Descriptor:
-        bLength                12
-        bDescriptorType        36
-        bDescriptorSubtype      3 (OUTPUT_TERMINAL)
-        bTerminalID             7
-        wTerminalType      0x0301 Speaker
-        bAssocTerminal          0
-        bSourceID              13
-        bCSourceID             18
-        bmControls         0x0004
-          Connector Control (read-only)
-        iTerminal               0 
-      AudioControl Interface Descriptor:
-        bLength                12
-        bDescriptorType        36
-        bDescriptorSubtype      3 (OUTPUT_TERMINAL)
-        bTerminalID            11
-        wTerminalType      0x0101 USB Streaming
-        bAssocTerminal          0
-        bSourceID              17
-        bCSourceID             22
-        bmControls         0x0000
-        iTerminal               0 
-      AudioControl Interface Descriptor:
-        bLength                18
-        bDescriptorType        36
-        bDescriptorSubtype      6 (FEATURE_UNIT)
-        bUnitID                13
-        bSourceID               1
-        bmaControls(0)     0x00000003
-          Mute Control (read/write)
-        bmaControls(1)     0x00000000
-        bmaControls(2)     0x00000000
-        iFeature                0 
-      AudioControl Interface Descriptor:
-        bLength                18
-        bDescriptorType        36
-        bDescriptorSubtype      6 (FEATURE_UNIT)
-        bUnitID                17
-        bSourceID               5
-        bmaControls(0)     0x00000003
-          Mute Control (read/write)
-        bmaControls(1)     0x00000000
-        bmaControls(2)     0x00000000
-        iFeature                0 
-      AudioControl Interface Descriptor:
-        bLength                 8
-        bDescriptorType        36
-        bDescriptorSubtype     10 (CLOCK_SOURCE)
-        bClockID               18
-        bmAttributes            3 Internal programmable clock 
-        bmControls           0x07
-          Clock Frequency Control (read/write)
-          Clock Validity Control (read-only)
-        bAssocTerminal          0
-        iClockSource            0 
-      AudioControl Interface Descriptor:
-        bLength                 8
-        bDescriptorType        36
-        bDescriptorSubtype     10 (CLOCK_SOURCE)
-        bClockID               22
-        bmAttributes            3 Internal programmable clock 
-        bmControls           0x07
-          Clock Frequency Control (read/write)
-          Clock Validity Control (read-only)
-        bAssocTerminal          0
-        iClockSource            0 
-      Endpoint Descriptor:
-        bLength                 7
-        bDescriptorType         5
-        bEndpointAddress     0x8f  EP 15 IN
-        bmAttributes            3
-          Transfer Type            Interrupt
-          Synch Type               None
-          Usage Type               Data
-        wMaxPacketSize     0x0006  1x 6 bytes
-        bInterval               4
-    Interface Descriptor:
-      bLength                 9
-      bDescriptorType         4
-      bInterfaceNumber        1
-      bAlternateSetting       0
-      bNumEndpoints           0
-      bInterfaceClass         1 Audio
-      bInterfaceSubClass      2 Streaming
-      bInterfaceProtocol     32 
-      iInterface              4 Schiit Hel
-    Interface Descriptor:
-      bLength                 9
-      bDescriptorType         4
-      bInterfaceNumber        1
-      bAlternateSetting       1
-      bNumEndpoints           2
-      bInterfaceClass         1 Audio
-      bInterfaceSubClass      2 Streaming
-      bInterfaceProtocol     32 
-      iInterface              0 
-      AudioStreaming Interface Descriptor:
-        bLength                16
-        bDescriptorType        36
-        bDescriptorSubtype      1 (AS_GENERAL)
-        bTerminalLink           1
-        bmControls           0x05
-          Active Alternate Setting Control (read-only)
-          Valid Alternate Setting Control (read-only)
-        bFormatType             1
-        bmFormats          0x00000001
-          PCM
-        bNrChannels             2
-        bmChannelConfig    0x00000003
-          Front Left (FL)
-          Front Right (FR)
-        iChannelNames           0 
-      AudioStreaming Interface Descriptor:
-        bLength                 6
-        bDescriptorType        36
-        bDescriptorSubtype      2 (FORMAT_TYPE)
-        bFormatType             1 (FORMAT_TYPE_I)
-        bSubslotSize            2
-        bBitResolution         16
-      Endpoint Descriptor:
-        bLength                 7
-        bDescriptorType         5
-        bEndpointAddress     0x05  EP 5 OUT
-        bmAttributes            5
-          Transfer Type            Isochronous
-          Synch Type               Asynchronous
-          Usage Type               Data
-        wMaxPacketSize     0x0068  1x 104 bytes
-        bInterval               1
-        AudioStreaming Endpoint Descriptor:
-          bLength                 8
-          bDescriptorType        37
-          bDescriptorSubtype      1 (EP_GENERAL)
-          bmAttributes         0x00
-          bmControls           0x00
-          bLockDelayUnits         0 Undefined
-          wLockDelay         0x0000
-      Endpoint Descriptor:
-        bLength                 7
-        bDescriptorType         5
-        bEndpointAddress     0x85  EP 5 IN
-        bmAttributes           17
-          Transfer Type            Isochronous
-          Synch Type               None
-          Usage Type               Feedback
-        wMaxPacketSize     0x0004  1x 4 bytes
-        bInterval               4
-    Interface Descriptor:
-      bLength                 9
-      bDescriptorType         4
-      bInterfaceNumber        1
-      bAlternateSetting       2
-      bNumEndpoints           2
-      bInterfaceClass         1 Audio
-      bInterfaceSubClass      2 Streaming
-      bInterfaceProtocol     32 
-      iInterface              0 
-      AudioStreaming Interface Descriptor:
-        bLength                16
-        bDescriptorType        36
-        bDescriptorSubtype      1 (AS_GENERAL)
-        bTerminalLink           1
-        bmControls           0x05
-          Active Alternate Setting Control (read-only)
-          Valid Alternate Setting Control (read-only)
-        bFormatType             1
-        bmFormats          0x00000001
-          PCM
-        bNrChannels             2
-        bmChannelConfig    0x00000003
-          Front Left (FL)
-          Front Right (FR)
-        iChannelNames           0 
-      AudioStreaming Interface Descriptor:
-        bLength                 6
-        bDescriptorType        36
-        bDescriptorSubtype      2 (FORMAT_TYPE)
-        bFormatType             1 (FORMAT_TYPE_I)
-        bSubslotSize            3
-        bBitResolution         24
-      Endpoint Descriptor:
-        bLength                 7
-        bDescriptorType         5
-        bEndpointAddress     0x05  EP 5 OUT
-        bmAttributes            5
-          Transfer Type            Isochronous
-          Synch Type               Asynchronous
-          Usage Type               Data
-        wMaxPacketSize     0x009c  1x 156 bytes
-        bInterval               1
-        AudioStreaming Endpoint Descriptor:
-          bLength                 8
-          bDescriptorType        37
-          bDescriptorSubtype      1 (EP_GENERAL)
-          bmAttributes         0x00
-          bmControls           0x00
-          bLockDelayUnits         0 Undefined
-          wLockDelay         0x0000
-      Endpoint Descriptor:
-        bLength                 7
-        bDescriptorType         5
-        bEndpointAddress     0x85  EP 5 IN
-        bmAttributes           17
-          Transfer Type            Isochronous
-          Synch Type               None
-          Usage Type               Feedback
-        wMaxPacketSize     0x0004  1x 4 bytes
-        bInterval               4
-    Interface Descriptor:
-      bLength                 9
-      bDescriptorType         4
-      bInterfaceNumber        1
-      bAlternateSetting       3
-      bNumEndpoints           2
-      bInterfaceClass         1 Audio
-      bInterfaceSubClass      2 Streaming
-      bInterfaceProtocol     32 
-      iInterface              0 
-      AudioStreaming Interface Descriptor:
-        bLength                16
-        bDescriptorType        36
-        bDescriptorSubtype      1 (AS_GENERAL)
-        bTerminalLink           1
-        bmControls           0x05
-          Active Alternate Setting Control (read-only)
-          Valid Alternate Setting Control (read-only)
-        bFormatType             1
-        bmFormats          0x00000001
-          PCM
-        bNrChannels             2
-        bmChannelConfig    0x00000003
-          Front Left (FL)
-          Front Right (FR)
-        iChannelNames           0 
-      AudioStreaming Interface Descriptor:
-        bLength                 6
-        bDescriptorType        36
-        bDescriptorSubtype      2 (FORMAT_TYPE)
-        bFormatType             1 (FORMAT_TYPE_I)
-        bSubslotSize            4
-        bBitResolution         32
-      Endpoint Descriptor:
-        bLength                 7
-        bDescriptorType         5
-        bEndpointAddress     0x05  EP 5 OUT
-        bmAttributes            5
-          Transfer Type            Isochronous
-          Synch Type               Asynchronous
-          Usage Type               Data
-        wMaxPacketSize     0x00d0  1x 208 bytes
-        bInterval               1
-        AudioStreaming Endpoint Descriptor:
-          bLength                 8
-          bDescriptorType        37
-          bDescriptorSubtype      1 (EP_GENERAL)
-          bmAttributes         0x00
-          bmControls           0x00
-          bLockDelayUnits         0 Undefined
-          wLockDelay         0x0000
-      Endpoint Descriptor:
-        bLength                 7
-        bDescriptorType         5
-        bEndpointAddress     0x85  EP 5 IN
-        bmAttributes           17
-          Transfer Type            Isochronous
-          Synch Type               None
-          Usage Type               Feedback
-        wMaxPacketSize     0x0004  1x 4 bytes
-        bInterval               4
-    Interface Descriptor:
-      bLength                 9
-      bDescriptorType         4
-      bInterfaceNumber        2
-      bAlternateSetting       0
-      bNumEndpoints           0
-      bInterfaceClass         1 Audio
-      bInterfaceSubClass      2 Streaming
-      bInterfaceProtocol     32 
-      iInterface              6 Schiit Hel
-    Interface Descriptor:
-      bLength                 9
-      bDescriptorType         4
-      bInterfaceNumber        2
-      bAlternateSetting       1
-      bNumEndpoints           1
-      bInterfaceClass         1 Audio
-      bInterfaceSubClass      2 Streaming
-      bInterfaceProtocol     32 
-      iInterface              0 
-      AudioStreaming Interface Descriptor:
-        bLength                16
-        bDescriptorType        36
-        bDescriptorSubtype      1 (AS_GENERAL)
-        bTerminalLink          11
-        bmControls           0x05
-          Active Alternate Setting Control (read-only)
-          Valid Alternate Setting Control (read-only)
-        bFormatType             1
-        bmFormats          0x00000001
-          PCM
-        bNrChannels             2
-        bmChannelConfig    0x00000003
-          Front Left (FL)
-          Front Right (FR)
-        iChannelNames           0 
-      AudioStreaming Interface Descriptor:
-        bLength                 6
-        bDescriptorType        36
-        bDescriptorSubtype      2 (FORMAT_TYPE)
-        bFormatType             1 (FORMAT_TYPE_I)
-        bSubslotSize            3
-        bBitResolution         24
-      Endpoint Descriptor:
-        bLength                 7
-        bDescriptorType         5
-        bEndpointAddress     0x88  EP 8 IN
-        bmAttributes            5
-          Transfer Type            Isochronous
-          Synch Type               Asynchronous
-          Usage Type               Data
-        wMaxPacketSize     0x009c  1x 156 bytes
-        bInterval               1
-        AudioStreaming Endpoint Descriptor:
-          bLength                 8
-          bDescriptorType        37
-          bDescriptorSubtype      1 (EP_GENERAL)
-          bmAttributes         0x00
-          bmControls           0x00
-          bLockDelayUnits         0 Undefined
-          wLockDelay         0x0000
-    Interface Association:
-      bLength                 8
-      bDescriptorType        11
-      bFirstInterface         3
-      bInterfaceCount         1
-      bFunctionClass          3 Human Interface Device
-      bFunctionSubClass       0 
-      bFunctionProtocol       0 
-      iFunction               0 
-    Interface Descriptor:
-      bLength                 9
-      bDescriptorType         4
-      bInterfaceNumber        3
-      bAlternateSetting       0
-      bNumEndpoints           1
-      bInterfaceClass         3 Human Interface Device
-      bInterfaceSubClass      0 
-      bInterfaceProtocol      0 
-      iInterface              0 
-        HID Device Descriptor:
-          bLength                 9
-          bDescriptorType        33
-          bcdHID               1.00
-          bCountryCode            0 Not supported
-          bNumDescriptors         1
-          bDescriptorType        34 Report
-          wDescriptorLength      50
-         Report Descriptors: 
-           ** UNAVAILABLE **
-      Endpoint Descriptor:
-        bLength                 7
-        bDescriptorType         5
-        bEndpointAddress     0x84  EP 4 IN
-        bmAttributes            3
-          Transfer Type            Interrupt
-          Synch Type               None
-          Usage Type               Data
-        wMaxPacketSize     0x0010  1x 16 bytes
-        bInterval               4
-Device Qualifier (for other device speed):
-  bLength                10
-  bDescriptorType         6
-  bcdUSB               2.00
-  bDeviceClass          239 Miscellaneous Device
-  bDeviceSubClass         2 
-  bDeviceProtocol         1 Interface Association
-  bMaxPacketSize0        64
-  bNumConfigurations      1
-Device Status:     0x0001
-  Self Powered
-
-
-I can easily test any proposed patches :)
-
-thanks,
-
-greg k-h

@@ -2,83 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4CF8429428
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Oct 2021 18:08:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDB34429461
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Oct 2021 18:18:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4818B16A2;
-	Mon, 11 Oct 2021 18:07:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4818B16A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A1D4169E;
+	Mon, 11 Oct 2021 18:18:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A1D4169E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633968513;
-	bh=25o6LEfMzrBIx18k79d/4QxtjmNlzjl0kShc5+1agRk=;
+	s=default; t=1633969131;
+	bh=Vspx5xiygi4lPir1xtwYomSgbA7EKFqkVLTRwxKVp30=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lEL5TCUedQOygHvf8QZ8bNu6u1Fz2pZwNPrd+9XWhFBg7u+SSxrWVUqPQof2/9cUH
-	 eLOWjwmhqcn0xsGwvg99xJz52clfv8cKtlc7TabD9zLxnceAZB6ZtaewTde9fRx4B+
-	 9ymofFCGdmOGG260kuPmplag6YtmVowP4++2DTO4=
+	b=NOqnhbyO2imtZwqYFb3h5gQtOJpgCs5HMFyOuW1cOM0dJAB444fM3kR/C528TIspL
+	 l38ydtZRNynhK/sccL67R4coKa47pgPneGeeJ2h7lRztYetCkTvStX6a8W3hU+Xo2x
+	 MuLkX51I19U1WVIfeIok99REPxAoVXqSqAUnzf2E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6974F8025B;
-	Mon, 11 Oct 2021 18:07:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7928F80290;
+	Mon, 11 Oct 2021 18:17:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C8D68F80269; Mon, 11 Oct 2021 18:07:14 +0200 (CEST)
+ id BFBD6F80269; Mon, 11 Oct 2021 18:17:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_APP_ATTACH,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1D7FEF800C0
- for <alsa-devel@alsa-project.org>; Mon, 11 Oct 2021 18:07:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D7FEF800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 732AEF80104
+ for <alsa-devel@alsa-project.org>; Mon, 11 Oct 2021 18:17:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 732AEF80104
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="l4w4XSBn"; 
+ header.b="mEm55Q1P"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="PVpe5pMS"
+ header.b="AE0cFOJe"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id ED8E422114;
- Mon, 11 Oct 2021 16:07:01 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id AEBD4220BC;
+ Mon, 11 Oct 2021 16:17:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1633968421; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1633969040; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=hUpQYqN5r29YnnBS8Aw3gLg+1IeYzv6/vancdzpN1BA=;
- b=l4w4XSBnXWVLGwXZZgFxVxd916j3iHz7DMtfPJ8X+zj+kSvx2/V1Dq7TBwy5nT5GMTn1Cn
- TC84tWjG5yqZQ0nPGmkrfNrWhScoeo3asvYkKT+er8rKSnh2TnGKf1LvC1eQPujjOED3AA
- PIgpHPQEuaiaRm0zYQXQgahVCDUFN54=
+ bh=CQRLVASzM88HPKp0YPTtWJo/mv7OOa6xJj+N4ChnuWc=;
+ b=mEm55Q1P1R969y8GFV7MsuS3Na3SbR0BeJczRW4HFHs+NLvnJwviC29Hxkq0Pa47ZdkvO5
+ nqHiB8hXCCdgGJFWQ4uy+824RanWuuPFYB2z/RqacZDP+eM0iNidpwN9WYzaJSB3IB7XOt
+ Wwj1FRuwBHlEeyiYGvmcOJ3icbAqYEk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1633968421;
+ s=susede2_ed25519; t=1633969040;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=hUpQYqN5r29YnnBS8Aw3gLg+1IeYzv6/vancdzpN1BA=;
- b=PVpe5pMSM/GwhrdNsue8j0RnxfFG8dgEePsmUenoSbYa3h1LGYJ/VzhVlRreELCdWSBG0H
- j+5FwwYh/8cPGEAw==
+ bh=CQRLVASzM88HPKp0YPTtWJo/mv7OOa6xJj+N4ChnuWc=;
+ b=AE0cFOJeuLBY0h4rzAkVkGK8NYk1bBpy3zYYc6BCPvkK197L9GODIFndNMf7rZHy1pFUew
+ am9L+GVFli6U4+Aw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id CD880A3B8C;
- Mon, 11 Oct 2021 16:07:01 +0000 (UTC)
-Date: Mon, 11 Oct 2021 18:07:01 +0200
-Message-ID: <s5h7dej4kbe.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 2D605A3B84;
+ Mon, 11 Oct 2021 16:17:20 +0000 (UTC)
+Date: Mon, 11 Oct 2021 18:17:20 +0200
+Message-ID: <s5h35p74ju7.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH] ALSA: usb-audio: allow -EPIPE errors for some v2 messages
-In-Reply-To: <YWRYD7fphcaWKEOG@kroah.com>
-References: <YWLbEdHUE3k/i0fe@kroah.com> <s5hily46316.wl-tiwai@suse.de>
- <YWRYD7fphcaWKEOG@kroah.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH] ALSA: pcm: Workaround for a wrong offset in SYNC_PTR
+ compat ioctl
+In-Reply-To: <s5hlf306h9o.wl-tiwai@suse.de>
+References: <20211010075546.23220-1-tiwai@suse.de>
+ <CAK8P3a0HYw_pO=EdsYBxPRXk8mv3gxUoch5ba_o2Q58wBrm4iA@mail.gmail.com>
+ <s5hlf306h9o.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-usb@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
+Content-Type: multipart/mixed; boundary="Multipart_Mon_Oct_11_18:17:20_2021-1"
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Rich Felker <dalias@libc.org>, Michael Forney <mforney@mforney.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,97 +96,192 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 11 Oct 2021 17:28:15 +0200,
-Greg Kroah-Hartman wrote:
+--Multipart_Mon_Oct_11_18:17:20_2021-1
+Content-Type: text/plain; charset=US-ASCII
+
+On Sun, 10 Oct 2021 17:17:39 +0200,
+Takashi Iwai wrote:
 > 
-> On Sun, Oct 10, 2021 at 10:25:09PM +0200, Takashi Iwai wrote:
-> > On Sun, 10 Oct 2021 14:22:41 +0200,
-> > Greg Kroah-Hartman wrote:
-> > > 
-> > > The Schiit Hel device does not like to respond to all get_ctl_value_v2()
-> > > requests for some reason.  This used to work in older kernels, but now
-> > > with more strict checking, this failure causes the device to fail to
-> > > work.
-> > > 
-> > > Cc: Jaroslav Kysela <perex@perex.cz>
-> > > Cc: Takashi Iwai <tiwai@suse.com>
-> > > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > > ---
-> > > 
-> > > This fixes the Shiit Hel device that I have.  It used to work on older
-> > > kernels (a year ago?), but stopped working for some reason and I didn't
-> > > take the time to track it down.  This change fixes the issue for me, but
-> > > feels wrong for some reason.  At least now I can use the device as a
-> > > headphone driver, much better than the built-in one for my current
-> > > machine...
-> > > 
-> > > If needed, I can take the time to do bisection to track down the real
-> > > issue here, it might be due to stricter endpoint checking in the USB
-> > > core, but that feels wrong somehow.
-> > > 
-> > > Here's the debugfs USB output for this device, showing the endpoints:
-> > > 
-> > > T:  Bus=07 Lev=02 Prnt=02 Port=01 Cnt=01 Dev#=  5 Spd=480 MxCh= 0
-> > > D:  Ver= 2.00 Cls=ef(misc ) Sub=02 Prot=01 MxPS=64 #Cfgs=  1
-> > > P:  Vendor=30be ProdID=0101 Rev=01.02
-> > > S:  Manufacturer=Schiit Audio
-> > > S:  Product=Schiit Hel
-> > > C:  #Ifs= 4 Cfg#= 1 Atr=c0 MxPwr=0mA
-> > > I:  If#= 0 Alt= 0 #EPs= 1 Cls=01(audio) Sub=01 Prot=20 Driver=snd-usb-audio
-> > > E:  Ad=8f(I) Atr=03(Int.) MxPS=   6 Ivl=1ms
-> > > I:  If#= 1 Alt= 1 #EPs= 2 Cls=01(audio) Sub=02 Prot=20 Driver=snd-usb-audio
-> > > E:  Ad=05(O) Atr=05(Isoc) MxPS= 104 Ivl=125us
-> > > E:  Ad=85(I) Atr=11(Isoc) MxPS=   4 Ivl=1ms
-> > > I:  If#= 2 Alt= 1 #EPs= 1 Cls=01(audio) Sub=02 Prot=20 Driver=snd-usb-audio
-> > > E:  Ad=88(I) Atr=05(Isoc) MxPS= 156 Ivl=125us
-> > > I:  If#= 3 Alt= 0 #EPs= 1 Cls=03(HID  ) Sub=00 Prot=00 Driver=usbhid
-> > > E:  Ad=84(I) Atr=03(Int.) MxPS=  16 Ivl=1ms
-> > > 
-> > > Any other suggestions to fix this are welcome.
+> On Sun, 10 Oct 2021 12:10:53 +0200,
+> Arnd Bergmann wrote:
 > > 
-> > Could you show the exact error messages and lsusb -v output?
-> > We may paper over only the problematic node instead.
+> > On Sun, Oct 10, 2021 at 9:55 AM Takashi Iwai <tiwai@suse.de> wrote:
+> > >
+> > > Michael Forney reported an incorrect padding type that was defined in
+> > > the commit 80fe7430c708 ("ALSA: add new 32-bit layout for
+> > > snd_pcm_mmap_status/control") for PCM control mmap data.
+> > > His analysis is correct, and this caused the misplacements of PCM
+> > > control data on 32bit arch and 32bit compat mode.
+> > >
+> > > The bug is that the __pad2 definition in __snd_pcm_mmap_control64
+> > > struct was wrongly with __pad_before_uframe, which should have been
+> > > __pad_after_uframe instead.  This struct is used in SYNC_PTR ioctl and
+> > > control mmap.  Basically this bug leads to two problems:
+> > >
+> > > - The offset of avail_min field becomes wrong, it's placed right after
+> > >   appl_ptr without padding on little-endian
+> > >
+> > > - When appl_ptr and avail_min are read as 64bit values in kernel side,
+> > >   the values become either zero or corrupted (mixed up)
+> > >
+> > > One good news is that, because both user-space and kernel
+> > > misunderstand the wrong offset, at least, 32bit application running on
+> > > 32bit kernel works as is.  Also, 64bit applications are unaffected
+> > > because the padding size is zero.  The remaining problem is the 32bit
+> > > compat mode; as mentioned in the above, avail_min is placed right
+> > > after appl_ptr on little-endian archs, 64bit kernel reads bogus values
+> > > for appl_ptr updates, which may lead to streaming bugs like jumping,
+> > > XRUN or whatever unexpected.
+> > > (However, we haven't heard any serious bug reports due to this over
+> > > years, so practically seen, it's fairly safe to assume that the impact
+> > > by this bug is limited.)
+> > >
+> > > Ideally speaking, we should correct the wrong mmap status control
+> > > definition.  But this would cause again incompatibility with the
+> > > existing binaries, and fixing it (e.g. by renumbering ioctls) would be
+> > > really messy.
+> > >
+> > > So, as of this patch, we only correct the behavior of 32bit compat
+> > > mode and keep the rest as is.  Namely, the SYNC_PTR ioctl is now
+> > > handled differently in compat mode to read/write the 32bit values at
+> > > the right offsets.  The control mmap of 32bit apps on 64bit kernels
+> > > has been already disabled (which is likely rather an overlook, but
+> > > this worked fine at this time :), so covering SYNC_PTR ioctl should
+> > > suffice as a fallback.
+> > >
+> > > Fixes: 80fe7430c708 ("ALSA: add new 32-bit layout for snd_pcm_mmap_status/control")
+> > > Reported-by: Michael Forney <mforney@mforney.org>
+> > > Cc: <stable@vger.kernel.org>
+> > > Cc: Arnd Bergmann <arnd@arndb.de>
+> > > Cc: Rich Felker <dalias@libc.org>
+> > > Link: https://lore.kernel.org/r/29QBMJU8DE71E.2YZSH8IHT5HMH@mforney.org
+> > > Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> > 
+> > Reviewed-by: Arnd Bergmann <arnd@arndb.de>
+> > 
+> > This does look like it's the best way we can get out of the mess we're
+> > in for the kernel interface.
+> > 
+> > Do you have any ideas for how to test this properly to ensure that
+> > there are no further problems in these ioctls? Is there a testsuite
+> > for ALSA that can be run on a musl-enabled distro in both native
+> > and compat mode to exercise the ioctl and mmap interfaces?
 > 
-> Sure, here's the dmesg output on 5.15-rc5 when it is turned on:
-> 
-> [Oct11 17:25] usb 7-2.2: new high-speed USB device number 9 using xhci_hcd
-> [  +0.122422] usb 7-2.2: New USB device found, idVendor=30be, idProduct=0101, bcdDevice= 1.02
-> [  +0.000009] usb 7-2.2: New USB device strings: Mfr=1, Product=2, SerialNumber=0
-> [  +0.000002] usb 7-2.2: Product: Schiit Hel
-> [  +0.000002] usb 7-2.2: Manufacturer: Schiit Audio
-> [  +0.327172] input: Schiit Audio Schiit Hel as /devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:47:00.1/usb7/7-2/7-2.2/7-2.2:1.3/0003:30BE:0101.0009/input/input21
-> [  +0.055134] hid-generic 0003:30BE:0101.0009: input,hidraw8: USB HID v1.00 Device [Schiit Audio Schiit Hel] on usb-0000:47:00.1-2.2/input3
-> [  +0.135988] usb 7-2.2: cannot get ctl value: req = 0x81, wValue = 0x100, wIndex = 0x1100, type = 1
-> [  +0.060647] usb 7-2.2: cannot get ctl value: req = 0x81, wValue = 0x100, wIndex = 0x1100, type = 1
-> [  +0.065362] usb 7-2.2: cannot get ctl value: req = 0x81, wValue = 0x100, wIndex = 0x1100, type = 1
-> [  +0.192121] usb 7-2.2: cannot get ctl value: req = 0x81, wValue = 0x100, wIndex = 0x1100, type = 1
+> There is no known test program, and it's what I planned to check in
+> the next week before merging :)
 
-Thanks.  So this happens at the unit 17, and ...
+I checked a small code to write PCM data (that was used for testing
+the low-latency I/O on USB-audio -- attached below) together with
+salsa-lib [*] (devel branch, in which I hacked to enforce 64bit
+timespec), and confirmed that 32bit compat mode indeed leading to the
+bogus appl_ptr updates in the current kernel.  And, my patch was
+confirmed to work as well.
 
+So the fix was queued to for-linus branch.
 
-> And here is the 'lsusb -v' output of the device.
-> 
-> 
-> Bus 007 Device 009: ID 30be:0101 Schiit Audio Schiit Hel
-(snip)
->       AudioControl Interface Descriptor:
->         bLength                18
->         bDescriptorType        36
->         bDescriptorSubtype      6 (FEATURE_UNIT)
->         bUnitID                17
->         bSourceID               5
->         bmaControls(0)     0x00000003
->           Mute Control (read/write)
->         bmaControls(1)     0x00000000
->         bmaControls(2)     0x00000000
->         iFeature                0 
-
-... this is the entry.
-
-Could you also post the contents of /proc/asound/card*/usbmixer (only
-for the corresponding device), too?
-
-
-thanks,
 
 Takashi
+
+[*] https://github.com/tiwai/salsa-lib
+
+
+--Multipart_Mon_Oct_11_18:17:20_2021-1
+Content-Type: application/octet-stream
+Content-Disposition: attachment; filename="aiotest.c"
+Content-Transfer-Encoding: 7bit
+
+#include <stdio.h>
+#include <alsa/asoundlib.h>
+
+#if 0
+#define ACCESS_TYPE	SND_PCM_ACCESS_RW_INTERLEAVED
+#define do_write	snd_pcm_writei
+#else
+#define ACCESS_TYPE	SND_PCM_ACCESS_MMAP_INTERLEAVED
+#define do_write	snd_pcm_mmap_writei
+#endif
+
+int main(int argc, char **argv)
+{
+	snd_pcm_t *pcm;
+	snd_pcm_hw_params_t *hw;
+	snd_pcm_stream_t stream;
+	snd_pcm_uframes_t psize, bsize, ret;
+	char *buf;
+	struct pollfd pfd;
+
+	if (argc < 5) {
+		fprintf(stderr, "aiotest device direction period-size buffer-size\n");
+		return 1;
+	}
+	if (*argv[2] == 'p' || *argv[2] == 'P')
+		stream = SND_PCM_STREAM_PLAYBACK;
+	else
+		stream = SND_PCM_STREAM_CAPTURE;
+	psize = atoi(argv[3]);
+	bsize = atoi(argv[4]);
+
+	buf = calloc(4, bsize);
+
+	if (snd_pcm_open(&pcm, argv[1], stream, 0)) {
+		perror("open");
+		return 1;
+	}
+	
+	snd_pcm_hw_params_alloca(&hw);
+	snd_pcm_hw_params_any(pcm, hw);
+	snd_pcm_hw_params_set_access(pcm, hw, ACCESS_TYPE);
+	snd_pcm_hw_params_set_format(pcm, hw, SND_PCM_FORMAT_S16_LE);
+	snd_pcm_hw_params_set_channels(pcm, hw, 2);
+	snd_pcm_hw_params_set_rate(pcm, hw, 48000, 0);
+	snd_pcm_hw_params_set_period_size_near(pcm, hw, &psize, 0);
+	snd_pcm_hw_params_set_buffer_size_near(pcm, hw, &bsize);
+
+	if (snd_pcm_hw_params(pcm, hw)) {
+		perror("hw_params");
+		return 1;
+	}
+	
+	snd_pcm_poll_descriptors(pcm, &pfd, 1);
+
+ again:
+	if ((ret = do_write(pcm, buf, psize)) < (snd_pcm_sframes_t)psize ||
+	    (ret = do_write(pcm, buf, psize)) < (snd_pcm_sframes_t)psize) {
+		perror("initial write");
+		fprintf(stderr, "psize = %ld / %ld\n", psize, ret);
+		return 1;
+	}
+
+	if (snd_pcm_state(pcm) != SND_PCM_STATE_RUNNING) {
+		if (snd_pcm_start(pcm)) {
+			perror("start");
+			return 1;
+		}
+	}
+
+	for (;;) {
+		int err = poll(&pfd, 1, -1);
+		if (err < 0) {
+			if (snd_pcm_state(pcm) == SND_PCM_STATE_XRUN) {
+				fprintf(stderr, "XRUN, recovering\n");
+				snd_pcm_recover(pcm, err, 1);
+				goto again;
+			}
+			perror("poll");
+			return 1;
+		}
+		//avail = snd_pcm_avail(pcm);
+		err = do_write(pcm, buf, psize);
+		if (err < 0) {
+			if (snd_pcm_state(pcm) == SND_PCM_STATE_XRUN) {
+				fprintf(stderr, "XRUN, recovering\n");
+				snd_pcm_recover(pcm, err, 1);
+				goto again;
+			}
+			perror("poll");
+			return 1;
+		}
+	}
+}
+
+--Multipart_Mon_Oct_11_18:17:20_2021-1--

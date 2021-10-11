@@ -2,70 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 120D742945E
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Oct 2021 18:17:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4CF8429428
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Oct 2021 18:08:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8257616A3;
-	Mon, 11 Oct 2021 18:16:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8257616A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4818B16A2;
+	Mon, 11 Oct 2021 18:07:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4818B16A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633969044;
-	bh=cefr71k6IFbyTv/oHQNXoZoNswOwHmEQ5cdDspoYyic=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1633968513;
+	bh=25o6LEfMzrBIx18k79d/4QxtjmNlzjl0kShc5+1agRk=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OWD8tzC9p3zs5vYwqhNVrQj2e2RclQ21l7f1gF/65f5OlhoGsl9yRi3HUfHMRHplq
-	 uQlXEIecH37/+39882iKx7ozTWpP4BexuHxVOtHsuHKHuFCEUGnVX11HMRBvkwZ7Yh
-	 5BXuKu/WAyJ+DFMI6soBn36eNn2tzL63G4Opm430=
+	b=lEL5TCUedQOygHvf8QZ8bNu6u1Fz2pZwNPrd+9XWhFBg7u+SSxrWVUqPQof2/9cUH
+	 eLOWjwmhqcn0xsGwvg99xJz52clfv8cKtlc7TabD9zLxnceAZB6ZtaewTde9fRx4B+
+	 9ymofFCGdmOGG260kuPmplag6YtmVowP4++2DTO4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2BC3FF80430;
-	Mon, 11 Oct 2021 18:15:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6974F8025B;
+	Mon, 11 Oct 2021 18:07:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ECD65F80430; Mon, 11 Oct 2021 18:15:43 +0200 (CEST)
+ id C8D68F80269; Mon, 11 Oct 2021 18:07:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE99CF80104
- for <alsa-devel@alsa-project.org>; Mon, 11 Oct 2021 18:15:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE99CF80104
-X-IronPort-AV: E=McAfee;i="6200,9189,10134"; a="287788351"
-X-IronPort-AV: E=Sophos;i="5.85,364,1624345200"; d="scan'208";a="287788351"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2021 09:14:20 -0700
-X-IronPort-AV: E=Sophos;i="5.85,364,1624345200"; d="scan'208";a="562278398"
-Received: from cpeng4-mobl.amr.corp.intel.com (HELO [10.213.182.8])
- ([10.213.182.8])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2021 09:14:19 -0700
-Subject: Re: [PATCH v2 0/4] ASoC: Intel: bytcr_rt5651: few cleanups
-To: Hans de Goede <hdegoede@redhat.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-References: <20211007170250.27997-1-andriy.shevchenko@linux.intel.com>
- <0a74d8d1-2f36-18dc-56a3-4e5033dcab85@redhat.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <d669b2ad-dbe8-f069-5f02-7ddcf2f90b78@linux.intel.com>
-Date: Mon, 11 Oct 2021 09:19:27 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <0a74d8d1-2f36-18dc-56a3-4e5033dcab85@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1D7FEF800C0
+ for <alsa-devel@alsa-project.org>; Mon, 11 Oct 2021 18:07:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D7FEF800C0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="l4w4XSBn"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="PVpe5pMS"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id ED8E422114;
+ Mon, 11 Oct 2021 16:07:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1633968421; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=hUpQYqN5r29YnnBS8Aw3gLg+1IeYzv6/vancdzpN1BA=;
+ b=l4w4XSBnXWVLGwXZZgFxVxd916j3iHz7DMtfPJ8X+zj+kSvx2/V1Dq7TBwy5nT5GMTn1Cn
+ TC84tWjG5yqZQ0nPGmkrfNrWhScoeo3asvYkKT+er8rKSnh2TnGKf1LvC1eQPujjOED3AA
+ PIgpHPQEuaiaRm0zYQXQgahVCDUFN54=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1633968421;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=hUpQYqN5r29YnnBS8Aw3gLg+1IeYzv6/vancdzpN1BA=;
+ b=PVpe5pMSM/GwhrdNsue8j0RnxfFG8dgEePsmUenoSbYa3h1LGYJ/VzhVlRreELCdWSBG0H
+ j+5FwwYh/8cPGEAw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id CD880A3B8C;
+ Mon, 11 Oct 2021 16:07:01 +0000 (UTC)
+Date: Mon, 11 Oct 2021 18:07:01 +0200
+Message-ID: <s5h7dej4kbe.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH] ALSA: usb-audio: allow -EPIPE errors for some v2 messages
+In-Reply-To: <YWRYD7fphcaWKEOG@kroah.com>
+References: <YWLbEdHUE3k/i0fe@kroah.com> <s5hily46316.wl-tiwai@suse.de>
+ <YWRYD7fphcaWKEOG@kroah.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-usb@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,19 +94,97 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, 11 Oct 2021 17:28:15 +0200,
+Greg Kroah-Hartman wrote:
+> 
+> On Sun, Oct 10, 2021 at 10:25:09PM +0200, Takashi Iwai wrote:
+> > On Sun, 10 Oct 2021 14:22:41 +0200,
+> > Greg Kroah-Hartman wrote:
+> > > 
+> > > The Schiit Hel device does not like to respond to all get_ctl_value_v2()
+> > > requests for some reason.  This used to work in older kernels, but now
+> > > with more strict checking, this failure causes the device to fail to
+> > > work.
+> > > 
+> > > Cc: Jaroslav Kysela <perex@perex.cz>
+> > > Cc: Takashi Iwai <tiwai@suse.com>
+> > > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> > > ---
+> > > 
+> > > This fixes the Shiit Hel device that I have.  It used to work on older
+> > > kernels (a year ago?), but stopped working for some reason and I didn't
+> > > take the time to track it down.  This change fixes the issue for me, but
+> > > feels wrong for some reason.  At least now I can use the device as a
+> > > headphone driver, much better than the built-in one for my current
+> > > machine...
+> > > 
+> > > If needed, I can take the time to do bisection to track down the real
+> > > issue here, it might be due to stricter endpoint checking in the USB
+> > > core, but that feels wrong somehow.
+> > > 
+> > > Here's the debugfs USB output for this device, showing the endpoints:
+> > > 
+> > > T:  Bus=07 Lev=02 Prnt=02 Port=01 Cnt=01 Dev#=  5 Spd=480 MxCh= 0
+> > > D:  Ver= 2.00 Cls=ef(misc ) Sub=02 Prot=01 MxPS=64 #Cfgs=  1
+> > > P:  Vendor=30be ProdID=0101 Rev=01.02
+> > > S:  Manufacturer=Schiit Audio
+> > > S:  Product=Schiit Hel
+> > > C:  #Ifs= 4 Cfg#= 1 Atr=c0 MxPwr=0mA
+> > > I:  If#= 0 Alt= 0 #EPs= 1 Cls=01(audio) Sub=01 Prot=20 Driver=snd-usb-audio
+> > > E:  Ad=8f(I) Atr=03(Int.) MxPS=   6 Ivl=1ms
+> > > I:  If#= 1 Alt= 1 #EPs= 2 Cls=01(audio) Sub=02 Prot=20 Driver=snd-usb-audio
+> > > E:  Ad=05(O) Atr=05(Isoc) MxPS= 104 Ivl=125us
+> > > E:  Ad=85(I) Atr=11(Isoc) MxPS=   4 Ivl=1ms
+> > > I:  If#= 2 Alt= 1 #EPs= 1 Cls=01(audio) Sub=02 Prot=20 Driver=snd-usb-audio
+> > > E:  Ad=88(I) Atr=05(Isoc) MxPS= 156 Ivl=125us
+> > > I:  If#= 3 Alt= 0 #EPs= 1 Cls=03(HID  ) Sub=00 Prot=00 Driver=usbhid
+> > > E:  Ad=84(I) Atr=03(Int.) MxPS=  16 Ivl=1ms
+> > > 
+> > > Any other suggestions to fix this are welcome.
+> > 
+> > Could you show the exact error messages and lsusb -v output?
+> > We may paper over only the problematic node instead.
+> 
+> Sure, here's the dmesg output on 5.15-rc5 when it is turned on:
+> 
+> [Oct11 17:25] usb 7-2.2: new high-speed USB device number 9 using xhci_hcd
+> [  +0.122422] usb 7-2.2: New USB device found, idVendor=30be, idProduct=0101, bcdDevice= 1.02
+> [  +0.000009] usb 7-2.2: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+> [  +0.000002] usb 7-2.2: Product: Schiit Hel
+> [  +0.000002] usb 7-2.2: Manufacturer: Schiit Audio
+> [  +0.327172] input: Schiit Audio Schiit Hel as /devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:47:00.1/usb7/7-2/7-2.2/7-2.2:1.3/0003:30BE:0101.0009/input/input21
+> [  +0.055134] hid-generic 0003:30BE:0101.0009: input,hidraw8: USB HID v1.00 Device [Schiit Audio Schiit Hel] on usb-0000:47:00.1-2.2/input3
+> [  +0.135988] usb 7-2.2: cannot get ctl value: req = 0x81, wValue = 0x100, wIndex = 0x1100, type = 1
+> [  +0.060647] usb 7-2.2: cannot get ctl value: req = 0x81, wValue = 0x100, wIndex = 0x1100, type = 1
+> [  +0.065362] usb 7-2.2: cannot get ctl value: req = 0x81, wValue = 0x100, wIndex = 0x1100, type = 1
+> [  +0.192121] usb 7-2.2: cannot get ctl value: req = 0x81, wValue = 0x100, wIndex = 0x1100, type = 1
+
+Thanks.  So this happens at the unit 17, and ...
 
 
->> Andy Shevchenko (4):
->>   ASoC: Intel: bytcr_rt5651: Get platform data via dev_get_platdata()
->>   ASoC: Intel: bytcr_rt5651: Use temporary variable for struct device
->>   ASoC: Intel: bytcr_rt5651: use devm_clk_get_optional() for mclk
->>   ASoC: Intel: bytcr_rt5651: Utilize dev_err_probe() to avoid log
->>     saturation
+> And here is the 'lsusb -v' output of the device.
 > 
-> Thanks, the entire series looks good to me:
 > 
-> Reviewed-by: Hans de Goede <hdegoede@redhat.com>
-> 
-> for the series.
+> Bus 007 Device 009: ID 30be:0101 Schiit Audio Schiit Hel
+(snip)
+>       AudioControl Interface Descriptor:
+>         bLength                18
+>         bDescriptorType        36
+>         bDescriptorSubtype      6 (FEATURE_UNIT)
+>         bUnitID                17
+>         bSourceID               5
+>         bmaControls(0)     0x00000003
+>           Mute Control (read/write)
+>         bmaControls(1)     0x00000000
+>         bmaControls(2)     0x00000000
+>         iFeature                0 
 
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+... this is the entry.
+
+Could you also post the contents of /proc/asound/card*/usbmixer (only
+for the corresponding device), too?
+
+
+thanks,
+
+Takashi

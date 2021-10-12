@@ -2,67 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55FE842A8E9
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 17:56:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F22042A913
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 18:06:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E3068168C;
-	Tue, 12 Oct 2021 17:55:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3068168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id A077874C;
+	Tue, 12 Oct 2021 18:05:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A077874C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634054203;
-	bh=HptCr8BZIgr4lhgUQkMZuzvptNOCvQLk/P1AcIlppQI=;
+	s=default; t=1634054801;
+	bh=IaXpAnVqh1YWvDMuquTUAlF3DAstG4ozNephT00rYNY=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Kl6BWSZo0jBzOp1q+isJ38lU5UwMYRaZyXFqH16cxvXi+tAhE7SC9WrxSoeGHxgov
-	 hDmTmLihvD3ZXyC03ItkaiWzeA0RfzffTH66SRha1U4j2Y9MEVEop/oFC6I+WnEbHv
-	 PyKiiRKOU3Z+Sw5mcdj/Bi8JfLm34wRgDtCQNk/o=
+	b=RorE/gEu+DrSyPdX5Tbyj/ASb+UUxvunNi4ujevaNIfEKqpb+ny+7HCpZhFfrSYJp
+	 9HU++C/5b9XHGgahmLILvmX9OM4wef9kBV9r7aymUrW42vJwDPLLzVmp6GHpSCOFcZ
+	 7YUL6SNlkQdKnSMmWhPL5JlVvTBfEZ8i6DUUN908=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3DA30F80088;
-	Tue, 12 Oct 2021 17:55:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD1C1F80088;
+	Tue, 12 Oct 2021 18:05:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2D96F80212; Tue, 12 Oct 2021 17:55:24 +0200 (CEST)
+ id 71071F80212; Tue, 12 Oct 2021 18:05:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5BDACF800CB
- for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 17:55:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BDACF800CB
-X-IronPort-AV: E=McAfee;i="6200,9189,10135"; a="288063977"
-X-IronPort-AV: E=Sophos;i="5.85,368,1624345200"; d="scan'208";a="288063977"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2021 08:55:14 -0700
-X-IronPort-AV: E=Sophos;i="5.85,368,1624345200"; d="scan'208";a="491035592"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2021 08:55:12 -0700
-Date: Tue, 12 Oct 2021 18:48:12 +0300 (EEST)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Takashi Iwai <tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1C253F80088
+ for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 18:05:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C253F80088
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="ys7gw0No"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="9mgCgLPU"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 2FDDB21DA9;
+ Tue, 12 Oct 2021 16:05:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1634054714; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=C0rUXknz2EKAtpxhjL/oyonEaKpGrAkO0gIg9Mrtg/8=;
+ b=ys7gw0NofBGW3QLMHwXsjhoB6ijzuOqENLLl2qdbn0b7AKmY6TzpqX/1t9UmLogKk6N/L8
+ 1Fd2hkBLTOkl0OzAmvHzV9PljhsR8X4vk2kjO7pfu46zUYD6EWgoN6GQbz/Q3uPR6M9yfj
+ z+BFcRKiJfdH+MwGyrahg0t3GKCufwM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1634054714;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=C0rUXknz2EKAtpxhjL/oyonEaKpGrAkO0gIg9Mrtg/8=;
+ b=9mgCgLPUwAcFook4+W/MnO/slWEs7eT9T6CNm9VAOg7nJ4tBUIlpnpFDpxP6XeSDGH/xtj
+ crd6KBC9Iggb43Dg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 25135A3B83;
+ Tue, 12 Oct 2021 16:05:14 +0000 (UTC)
+Date: Tue, 12 Oct 2021 18:05:14 +0200
+Message-ID: <s5hee8q1b5x.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Subject: Re: [PATCH] ALSA: hda: avoid write to STATESTS if controller is in
  reset
-In-Reply-To: <s5ho87u1e5o.wl-tiwai@suse.de>
-Message-ID: <alpine.DEB.2.22.394.2110121805270.3554566@eliteleevi.tm.intel.com>
+In-Reply-To: <alpine.DEB.2.22.394.2110121805270.3554566@eliteleevi.tm.intel.com>
 References: <20211012142935.3731820-1-kai.vehmanen@linux.intel.com>
  <s5ho87u1e5o.wl-tiwai@suse.de>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
-MIME-Version: 1.0
+ <alpine.DEB.2.22.394.2110121805270.3554566@eliteleevi.tm.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Danny Tholen <obiwan@mailmij.org>, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, Alex Deucher <alexander.deucher@amd.com>,
- Dmitry Osipenko <digetx@gmail.com>, Thierry Reding <treding@nvidia.com>
+Cc: alsa-devel@alsa-project.org, Danny Tholen <obiwan@mailmij.org>,
+ pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ Alex Deucher <alexander.deucher@amd.com>, Dmitry Osipenko <digetx@gmail.com>,
+ Thierry Reding <treding@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,24 +97,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+On Tue, 12 Oct 2021 17:48:12 +0200,
+Kai Vehmanen wrote:
+> 
+> Hi,
+> 
+> On Tue, 12 Oct 2021, Takashi Iwai wrote:
+> 
+> > > The snd_hdac_bus_reset_link() contains logic to clear STATESTS register
+> > > before performing controller reset. This code dates back to an old
+> > > bugfix in commit e8a7f136f5ed ("[ALSA] hda-intel - Improve HD-audio
+> > > codec probing robustness"). Originally the code was added to
+> > > azx_reset().
+> [...]
+> > Do we have a bug reference?  I guess it worth to be pushed to 5.15-rc
+> > and Cc-to-stable, if this is hitting already on the recent machines.
+> 
+> I unfortunately don't have a public bug reference to share. This will 
+> impact PCIe based Intel hardware like DG1. The DRM support is quite 
+> recent for these, so in practise this only affects 5.15-rc and newer.
+> 
+> And even on these, the functionality will be ok, it's just the warnings 
+> that fill the kernel log that are a problem.
 
-On Tue, 12 Oct 2021, Takashi Iwai wrote:
+OK, then I'll push this without Cc to stable.
 
-> > The snd_hdac_bus_reset_link() contains logic to clear STATESTS register
-> > before performing controller reset. This code dates back to an old
-> > bugfix in commit e8a7f136f5ed ("[ALSA] hda-intel - Improve HD-audio
-> > codec probing robustness"). Originally the code was added to
-> > azx_reset().
-[...]
-> Do we have a bug reference?  I guess it worth to be pushed to 5.15-rc
-> and Cc-to-stable, if this is hitting already on the recent machines.
 
-I unfortunately don't have a public bug reference to share. This will 
-impact PCIe based Intel hardware like DG1. The DRM support is quite 
-recent for these, so in practise this only affects 5.15-rc and newer.
+thanks,
 
-And even on these, the functionality will be ok, it's just the warnings 
-that fill the kernel log that are a problem.
-
-Br, Kai
+Takashi

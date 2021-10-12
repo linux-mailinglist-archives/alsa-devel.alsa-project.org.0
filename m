@@ -2,88 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB725429D87
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 08:12:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6703E429DC4
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 08:32:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4878A1687;
-	Tue, 12 Oct 2021 08:11:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4878A1687
+	by alsa0.perex.cz (Postfix) with ESMTPS id D921F168C;
+	Tue, 12 Oct 2021 08:31:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D921F168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634019166;
-	bh=EkWNANsGQ0QpIaTpdS1FZ1azcpK4GjPqbPfkfdRbcU8=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=QprXLURcK4qE9b8bHwS/CecCwvQWh5Fck5NM+sj+keuxS9iaci6qsPI0sMO1D39eI
-	 nQ4iagfbFz4tNEKekzgpKONoGWHmeoN0aZePmDTbrVsiQAake6ymcpKnwLtOMhR17c
-	 7w5/4QVrP1VX6bDdCViRsJB2/E/Z5mBWFEhrRcqw=
+	s=default; t=1634020359;
+	bh=VCSnpKbF5cdwIyaiUguF0FtDxPrxBiIOxRxLBiGivfE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ZxhafnyT1RvMW8Xx7e4CD6gCtbalqSVNm5lpYi/dLpswTHli+OiT8cJjZ75w7MVwN
+	 TFQMGW6lnhkMq59PdjTS2uHzCqDY3zooMRVWXHutK14nXFBRyUqxflnMsgmwAskPmn
+	 5fAdjpZUFn7KCnR9UTu4hidTQGVQ3G16q+VnVSJo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9A37F80245;
-	Tue, 12 Oct 2021 08:11:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA8A3F80245;
+	Tue, 12 Oct 2021 08:31:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 046C1F80212; Tue, 12 Oct 2021 08:11:28 +0200 (CEST)
+ id 11F40F80212; Tue, 12 Oct 2021 08:31:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4C470F800C0
- for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 08:11:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C470F800C0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Qgl11XrO"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="4+25rWiG"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 059FB22154;
- Tue, 12 Oct 2021 06:11:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1634019082; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=AX1xcjJpSqVGpa8bkeMFVomnfjCuSpIObz1jO/ZaWXs=;
- b=Qgl11XrOdo1XziWpBCTHjFc4yKexUR8ZZRK6RnlyG35RBTQQ8IbW4THGF6oRuQEU2qIuwm
- i07y/OZBr8naxFYXK3i3vyR7cMdRoGrNO/WU+N8/CDSvLu2fET64h3BEsv9bYfL/m/Zais
- Mxhp2QtdsCzkvhRSQaMcVYh5wHFZgaI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1634019082;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=AX1xcjJpSqVGpa8bkeMFVomnfjCuSpIObz1jO/ZaWXs=;
- b=4+25rWiGe80vYeMdQvBNdM4bCJCukwc6NRHCRChzN9giGHMCiufKeQjInwJbDaWNPNkM63
- P+PVQYyGspfmScAg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id F0703A3B81;
- Tue, 12 Oct 2021 06:11:21 +0000 (UTC)
-Date: Tue, 12 Oct 2021 08:11:21 +0200
-Message-ID: <s5hv9223h86.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v2 1/3] ALSA: pcm: introduce INFO_NO_REWINDS flag
-In-Reply-To: <1ae2012b-d6bd-77ce-0a9e-98aec4d0f868@linux.intel.com>
-References: <20211004162423.85323-1-pierre-louis.bossart@linux.intel.com>
- <20211004162423.85323-2-pierre-louis.bossart@linux.intel.com>
- <s5h8rz8ez3s.wl-tiwai@suse.de>
- <c62b3749-c5ea-7b1e-2831-272c8a14d3ac@linux.intel.com>
- <s5hbl43egs8.wl-tiwai@suse.de>
- <1ae2012b-d6bd-77ce-0a9e-98aec4d0f868@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
- P9ter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF549F800CB
+ for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 08:31:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF549F800CB
+X-IronPort-AV: E=McAfee;i="6200,9189,10134"; a="224476630"
+X-IronPort-AV: E=Sophos;i="5.85,366,1624345200"; d="scan'208";a="224476630"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2021 23:31:05 -0700
+X-IronPort-AV: E=Sophos;i="5.85,366,1624345200"; d="scan'208";a="490817049"
+Received: from anicol1x-mobl.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.249.40.213])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2021 23:31:02 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, jack.yu@realtek.com,
+ oder_chiou@realtek.com
+Subject: [PATCH] ASoC: rt1011: Fix 'I2S Reference' enum control
+Date: Tue, 12 Oct 2021 09:31:13 +0300
+Message-Id: <20211012063113.3754-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.33.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ seppo.ingalsuo@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,57 +71,145 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 12 Oct 2021 02:19:16 +0200,
-Pierre-Louis Bossart wrote:
-> 
-> > For example, check snd_pcm_playback_avail() and co.  That contains a
-> > couple of more condition checks and corrections due to the possible
-> > boundary crossing.  (Here, runtime->boundary may differ depending on
-> > 32 or 64bit context.)
-> > 
-> > The actual implementation of the backward move check would be slightly
-> > different from those, but I hope you get my idea.
-> 
-> I think I do but not sure how to precisely deal with the boundary
-> wrap-around.
-> 
-> The only suggestion I have at this point would be to compare the 'avail'
-> space before and after the appl_ptr changes in pcm_lib_apply_appl_ptr().
-> If the 'avail' space grows as a result of user-space changes, that
-> indicates a rewind (both for capture and playback), doesn't it?
+There are several things the patch adding the support for 'I2S Reference'
+got wrong:
+- "None" selection is in fact equals to last selected reference
+- The custom put overrides RX/TX len, TDM slot sizes, etc
+- the enum is useless in most part for the reference tracking
+- there is no need for EXT control as there is a single bit in
+  RT1011_TDM1_SET_1 register (bit 7) which selects the reference
+- it was using ucontrol->value.integer.value[0] in the put/get callbacks
+  which causes access to 'I2S Reference' enum with alsamixer to fail:
+$ alsamixer
+cannot load mixer controls: Invalid argument
 
-There are a few different ways, and a simple one would be to treat as
-a rewind if the change isn't 0..buffer_size.  e.g.
+cml_rt1011_rt5682 cml_rt1011_rt5682: control 2:0:0:TL I2S Reference:0: access overflow
 
-	snd_pcm_sframes_t diff = new_ptr - old_ptr;
+It should have used ucontrol->value.enumerated.item[0], but since there is
+no need for the custom code, it does not really matter.
 
-	if (diff >= 0) {
-		if (diff > buffer_size)
-			return REWIND;
-	} else {
-		if (boundary + diff > buffer_size)
-			return REWIND;
-	}
-	return OK;
+Fixes: 87f40af26c262 ("ASoC: rt1011: add i2s reference control for rt1011")
+Reported-by: Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+---
+Hi,
 
-Or, if a rewind is defined to be -buffer_size..-1, it'd be like:
+This patch is an iteration on
+https://lore.kernel.org/alsa-devel/20211011144518.2518-1-peter.ujfalusi@linux.intel.com/
 
-	snd_pcm_sframes_t diff = new_ptr - old_ptr;
+to fix 87f40af26c262 ("ASoC: rt1011: add i2s reference control for rt1011").
 
-	if (diff >= 0) {
-		if (boundary - diff <= buffer_size)
-			return REWIND;
-	} else {
-		if (-diff <= buffer_size)
-			return REWIND;
-	}
-	return OK;
+In essence it is reverting the original patch to use
+SOC_ENUM_SINGLE_DECL/SOC_ENUM to handle the bit to select the I2S reference.
 
-In either way, the new_ptr has to be validated beforehand that it's
-within 0..boundary-1.  (old_ptr is assumed to be valid.)
+Regards,
+Peter
 
-And don't miss that diff is a signed value, so it must be
-snd_pcm_sframes_t, not *_uframes_t.
+ sound/soc/codecs/rt1011.c | 56 +++++----------------------------------
+ sound/soc/codecs/rt1011.h |  7 -----
+ 2 files changed, 6 insertions(+), 57 deletions(-)
 
+diff --git a/sound/soc/codecs/rt1011.c b/sound/soc/codecs/rt1011.c
+index 508597866dff..297af7ff824c 100644
+--- a/sound/soc/codecs/rt1011.c
++++ b/sound/soc/codecs/rt1011.c
+@@ -1311,56 +1311,13 @@ static int rt1011_r0_load_info(struct snd_kcontrol *kcontrol,
+ 	.put = rt1011_r0_load_mode_put \
+ }
+ 
+-static const char * const rt1011_i2s_ref[] = {
+-	"None", "Left Channel", "Right Channel"
++static const char * const rt1011_i2s_ref_texts[] = {
++	"Left Channel", "Right Channel"
+ };
+ 
+-static SOC_ENUM_SINGLE_DECL(rt1011_i2s_ref_enum, 0, 0,
+-	rt1011_i2s_ref);
+-
+-static int rt1011_i2s_ref_put(struct snd_kcontrol *kcontrol,
+-		struct snd_ctl_elem_value *ucontrol)
+-{
+-	struct snd_soc_component *component =
+-		snd_soc_kcontrol_component(kcontrol);
+-	struct rt1011_priv *rt1011 =
+-		snd_soc_component_get_drvdata(component);
+-	int i2s_ref_ch = ucontrol->value.integer.value[0];
+-
+-	switch (i2s_ref_ch) {
+-	case RT1011_I2S_REF_LEFT_CH:
+-		regmap_write(rt1011->regmap, RT1011_TDM_TOTAL_SET, 0x0240);
+-		regmap_write(rt1011->regmap, RT1011_TDM1_SET_2, 0x8);
+-		regmap_write(rt1011->regmap, RT1011_TDM1_SET_1, 0x1022);
+-		regmap_write(rt1011->regmap, RT1011_ADCDAT_OUT_SOURCE, 0x4);
+-		break;
+-	case RT1011_I2S_REF_RIGHT_CH:
+-		regmap_write(rt1011->regmap, RT1011_TDM_TOTAL_SET, 0x0240);
+-		regmap_write(rt1011->regmap, RT1011_TDM1_SET_2, 0x8);
+-		regmap_write(rt1011->regmap, RT1011_TDM1_SET_1, 0x10a2);
+-		regmap_write(rt1011->regmap, RT1011_ADCDAT_OUT_SOURCE, 0x4);
+-		break;
+-	default:
+-		dev_info(component->dev, "I2S Reference: Do nothing\n");
+-	}
+-
+-	rt1011->i2s_ref = ucontrol->value.integer.value[0];
+-
+-	return 0;
+-}
+-
+-static int rt1011_i2s_ref_get(struct snd_kcontrol *kcontrol,
+-		struct snd_ctl_elem_value *ucontrol)
+-{
+-	struct snd_soc_component *component =
+-		snd_soc_kcontrol_component(kcontrol);
+-	struct rt1011_priv *rt1011 =
+-		snd_soc_component_get_drvdata(component);
+-
+-	ucontrol->value.integer.value[0] = rt1011->i2s_ref;
+-
+-	return 0;
+-}
++static SOC_ENUM_SINGLE_DECL(rt1011_i2s_ref_enum,
++			    RT1011_TDM1_SET_1, 7,
++			    rt1011_i2s_ref_texts);
+ 
+ static const struct snd_kcontrol_new rt1011_snd_controls[] = {
+ 	/* I2S Data In Selection */
+@@ -1401,8 +1358,7 @@ static const struct snd_kcontrol_new rt1011_snd_controls[] = {
+ 	SOC_SINGLE("R0 Temperature", RT1011_STP_INITIAL_RESISTANCE_TEMP,
+ 		2, 255, 0),
+ 	/* I2S Reference */
+-	SOC_ENUM_EXT("I2S Reference", rt1011_i2s_ref_enum,
+-		rt1011_i2s_ref_get, rt1011_i2s_ref_put),
++	SOC_ENUM("I2S Reference", rt1011_i2s_ref_enum),
+ };
+ 
+ static int rt1011_is_sys_clk_from_pll(struct snd_soc_dapm_widget *source,
+diff --git a/sound/soc/codecs/rt1011.h b/sound/soc/codecs/rt1011.h
+index afb2fad94216..68fadc15fa8c 100644
+--- a/sound/soc/codecs/rt1011.h
++++ b/sound/soc/codecs/rt1011.h
+@@ -654,12 +654,6 @@ enum {
+ 	RT1011_AIFS
+ };
+ 
+-enum {
+-	RT1011_I2S_REF_NONE,
+-	RT1011_I2S_REF_LEFT_CH,
+-	RT1011_I2S_REF_RIGHT_CH,
+-};
+-
+ /* BiQual & DRC related settings */
+ #define RT1011_BQ_DRC_NUM 128
+ struct rt1011_bq_drc_params {
+@@ -698,7 +692,6 @@ struct rt1011_priv {
+ 	unsigned int r0_reg, cali_done;
+ 	unsigned int r0_calib, temperature_calib;
+ 	int recv_spk_mode;
+-	unsigned int i2s_ref;
+ };
+ 
+ #endif		/* end of _RT1011_H_ */
+-- 
+2.33.0
 
-Takashi

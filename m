@@ -2,88 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CC9842A7B8
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 16:56:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A40DE42A764
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 16:38:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1B4D8168D;
-	Tue, 12 Oct 2021 16:55:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B4D8168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 043EA168C;
+	Tue, 12 Oct 2021 16:37:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 043EA168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634050590;
-	bh=ThdmByDjDeUDIS+TR7RAO9cKl9cDDcDUXXfVAx7aSF8=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=oVdTftpcZ5HZ2KcHCKCclFmTkrjLVrr6movTt+HbArCGI9brdIMkiU2TAdlFJOmbk
-	 sWWTbcrHGgXEYtOrFAWQtmKbZKd9ahkOiaXuxxrbdHgkrNE5SlS6WR9bIiqVFqApWR
-	 wuxqwx0ClV+A3GesWzwcOf2557KaqTixz/Up4Bmc=
+	s=default; t=1634049502;
+	bh=vvDmLIHzdmY23ENJ2klDBUYGhpTWQiXCRE4MxW7RKYY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=pEGYEp8mBv/D1yj/lBv8ZpwVTW47jACmDgqRSpTzasyqlslgah36trP6AtlNrupkv
+	 y+WILov2iOqmdYVrAJMU25DyinUTCoOKcFHRgRfH7U1Ln1pR6zdHfPNGZM8Ch61Gyt
+	 X0HiPwtZNVQ0fT1ihh/8w2KzZWzKpNhZXUrtRFBE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72C71F80302;
-	Tue, 12 Oct 2021 16:55:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6370AF800C0;
+	Tue, 12 Oct 2021 16:37:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1BA36F80245; Tue, 12 Oct 2021 16:55:11 +0200 (CEST)
+ id D581DF80212; Tue, 12 Oct 2021 16:37:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D31E5F80088
- for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 16:55:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D31E5F80088
-X-IronPort-AV: E=McAfee;i="6200,9189,10135"; a="290662537"
-X-IronPort-AV: E=Sophos;i="5.85,367,1624345200"; d="scan'208";a="290662537"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2021 07:54:55 -0700
-X-IronPort-AV: E=Sophos;i="5.85,367,1624345200"; d="scan'208";a="486417507"
-Received: from csharp1-mobl.amr.corp.intel.com (HELO [10.213.183.127])
- ([10.213.183.127])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2021 07:54:54 -0700
-Subject: Re: [RFC PATCH v2 0/5] ASoC: soc-pcm: fix trigger race conditions
- with shared BE
-To: Takashi Iwai <tiwai@suse.de>
-References: <20211004225441.233375-1-pierre-louis.bossart@linux.intel.com>
- <cce82420-d744-ee43-d514-b77ac4905ffa@nvidia.com>
- <1efa1c31-7342-05f8-5f73-95e2462d4179@linux.intel.com>
- <3683cf39-632b-50df-c65d-63779c464850@nvidia.com>
- <11257d77-9975-3b00-94da-5dc1b5c95fc6@linux.intel.com>
- <s5hk0ip9js7.wl-tiwai@suse.de>
- <ff43fede-aa66-3cb7-6365-e1f279cd135f@linux.intel.com>
- <s5hzgrk98y9.wl-tiwai@suse.de>
- <80882fe6-ea30-43f6-8d83-8995dd28c748@linux.intel.com>
- <s5hwnmo96vh.wl-tiwai@suse.de>
- <60c6a90b-290d-368c-ce61-4d86e70eaa78@linux.intel.com>
- <s5hily88rri.wl-tiwai@suse.de>
- <75894aba-ca1a-51d6-df7d-ad53fcd89f79@linux.intel.com>
- <s5hee8w82ng.wl-tiwai@suse.de>
- <e9340874-320a-8fc6-f3a4-9cf77f85db25@linux.intel.com>
- <s5hczof7eoq.wl-tiwai@suse.de>
- <dcdb8f74-51db-86a1-959f-909dfac22b26@linux.intel.com>
- <29397354-dc5b-7837-c71b-df4bde707df2@linux.intel.com>
- <8c1353f0-e897-e7b0-c7b9-5712b05ac91f@linux.intel.com>
- <s5htuhm3g68.wl-tiwai@suse.de> <s5h1r4q34ot.wl-tiwai@suse.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <9d336461-b2fe-8cd4-0096-356620622f8d@linux.intel.com>
-Date: Tue, 12 Oct 2021 08:45:41 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.13.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id F326DF80088
+ for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 16:36:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F326DF80088
+X-IronPort-AV: E=McAfee;i="6200,9189,10135"; a="313361625"
+X-IronPort-AV: E=Sophos;i="5.85,367,1624345200"; d="scan'208";a="313361625"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Oct 2021 07:36:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,367,1624345200"; d="scan'208";a="591790196"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orsmga004.jf.intel.com with ESMTP; 12 Oct 2021 07:36:29 -0700
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: alsa-devel@alsa-project.org, tiwai@suse.de,
+ Danny Tholen <obiwan@mailmij.org>, perex@suse.cz
+Subject: [PATCH] ALSA: hda: avoid write to STATESTS if controller is in reset
+Date: Tue, 12 Oct 2021 17:29:35 +0300
+Message-Id: <20211012142935.3731820-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-In-Reply-To: <s5h1r4q34ot.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Sameer Pujar <spujar@nvidia.com>, vkoul@kernel.org, broonie@kernel.org,
- Gyeongtaek Lee <gt82.lee@samsung.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Content-Transfer-Encoding: 8bit
+Cc: kai.vehmanen@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, Alex Deucher <alexander.deucher@amd.com>,
+ Dmitry Osipenko <digetx@gmail.com>, Thierry Reding <treding@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,62 +71,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The snd_hdac_bus_reset_link() contains logic to clear STATESTS register
+before performing controller reset. This code dates back to an old
+bugfix in commit e8a7f136f5ed ("[ALSA] hda-intel - Improve HD-audio
+codec probing robustness"). Originally the code was added to
+azx_reset().
 
->>> And indeed there's a deadlock!
->>>
->>> snd_pcm_period_elapsed() takes the FE pcm stream lock, and will call
->>> snd_pcm_trigger.
->>
->> Indeed, this would deadlock.
->>
->>> So if we also take the pcm stream lock in the BE
->>> trigger, there's a conceptual deadlock: we painted ourselves in a corner
->>> by using the same lock twice.
->>>
->>> Takashi, are you really sure we should protect these for_each_dpcm_be()
->>> loops with the same pcm lock?
->>
->> The call within the FE lock is done only in dpcm_dai_trigger_fe_be(),
->> and this should call dpcm_be_dai_trigger() as is.  In other places,
->> the calls are without FE lock, hence they can take the lock,
->> e.g. create a variant dpcm_dai_trigger_fe_be_lock().
-> 
-> Or rather it was the code path of snd_soc_dpcm_check_state()?
-> The function could be called from dpcm_be_dai_trigger().
-> Currently dpcm_lock seems to be added at places casually covering some
-> of the for_each_dpcm_be() or whatever...  The whole lock scheme has to
-> be revisited.
-> 
->>> it seems like asking for trouble to
->>> revisit the ALSA core just to walking through a list of BEs? Would you
->>> object to changing dpcm_lock as I suggested, but not interfering with
->>> stream handling?
->>
->> That would work, too, it's just a pity to degrade the fine-grained
->> locks that have been already taken into global locks...
-> 
-> For the performance problem, at least, you can make it rwlock and
-> rwsem types (depending on nonatomic) so that the concurrent accesses
-> would work.  The only exclusive lock is the case for adding and
-> removing the entries, which should be done with write lock / sem down,
-> while other link traversals can be executed in the read lock / sem.
+The code was moved around in commit a41d122449be ("ALSA: hda - Embed bus
+into controller object") and ended up to snd_hdac_bus_reset_link() and
+called primarily via snd_hdac_bus_init_chip().
 
-Thanks Takashi for your feedback.
+The logic to clear STATESTS is correct when snd_hdac_bus_init_chip() is
+called when controller is not in reset. In this case, STATESTS can be
+cleared. This can be useful e.g. when forcing a controller reset to retry
+codec probe. A normal non-power-on reset will not clear the bits.
 
-Let's first get the locking right. We can optimize performance later.
+However, this old logic is problematic when controller is already in
+reset. The HDA specification states that controller must be taken out of
+reset before writing to registers other than GCTL.CRST (1.0a spec,
+3.3.7). The write to STATESTS in snd_hdac_bus_reset_link() will be lost
+if the controller is already in reset per the HDA specification mentioned.
 
-I will continue with the idea of using existing fine-grained locks a bit
-more, I am with you that this dpcm_lock was not added in a consistent
-way and reusing the concept is really building on sand.
+This has been harmless on older hardware. On newer generation of Intel
+PCIe based HDA controllers, if configured to report issues, this write
+will emit an unsupported request error. If ACPI Platform Error Interface
+(APEI) is enabled in kernel, this will end up to kernel log.
 
-We can remove the lock in snd_soc_dpcm_check_state, I already did the
-change in other versions. But what I'll need to check further is if
-indeed dpcm_be_dai_trigger() is called with the FE lock taken already.
-Adding a lockdep_assert_help() or something would help I guess.
+Fix the code in snd_hdac_bus_reset_link() to only clear the STATESTS if
+the function is called when controller is not in reset. Otherwise
+clearing the bits is not possible and should be skipped.
 
-The part where I am still not clear is that snd_pcm_period_elapsed uses
-the irqsave/irqrestore version, but in the initial code you suggested
-the vanilla irq version is fine. I am not sure I get the nuance here,
-and btw in the case of SOF the snd_pcm_period_elapsed is called from a
-workqueue, not an interrupt handler, as a work-around to avoid an IPC
-deadlock, so we probably don't need the irqsave/irqrestore version anyways.
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+---
+ sound/hda/hdac_controller.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/sound/hda/hdac_controller.c b/sound/hda/hdac_controller.c
+index 062da7a7a586..f7bd6e2db085 100644
+--- a/sound/hda/hdac_controller.c
++++ b/sound/hda/hdac_controller.c
+@@ -421,8 +421,9 @@ int snd_hdac_bus_reset_link(struct hdac_bus *bus, bool full_reset)
+ 	if (!full_reset)
+ 		goto skip_reset;
+ 
+-	/* clear STATESTS */
+-	snd_hdac_chip_writew(bus, STATESTS, STATESTS_INT_MASK);
++	/* clear STATESTS if not in reset */
++	if (snd_hdac_chip_readb(bus, GCTL) & AZX_GCTL_RESET)
++		snd_hdac_chip_writew(bus, STATESTS, STATESTS_INT_MASK);
+ 
+ 	/* reset controller */
+ 	snd_hdac_bus_enter_link_reset(bus);
+
+base-commit: 0fc27129ed268b619135b99d365ce44daaf85602
+-- 
+2.33.0
+

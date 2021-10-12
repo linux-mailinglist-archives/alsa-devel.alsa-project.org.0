@@ -2,70 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A4DA42A338
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 13:26:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D226E42A396
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 13:47:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 20D54168B;
-	Tue, 12 Oct 2021 13:25:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20D54168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4F847169C;
+	Tue, 12 Oct 2021 13:46:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F847169C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634037996;
-	bh=qnqPDkW3PEuRHrH7fEFlwj1INa9JZghbCmyes7XDZtc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1634039237;
+	bh=yPmGfrIx5fsPNeovUyGC2nx0U7hr1ByxkC91ZqFvywU=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dMdG+aAnm9yWwVaw3KJIvtONMfIMMsrA9KfeVObtnaObL8LmaedVVCdxGCkskBwk3
-	 lcqnZS1Y/gLkhSUXIRk6mgJaLFHlsoehVMnlDUWIsCiJO6zED3uA74GwW7h/wBj6Fk
-	 iE2kAJ9+RkSOi1ZlzY0ecEsFrOja3rJDpsY7Hgew=
+	b=g4G6fVes7WmPcHxbHWE3d6uyebSThzFV2FKGInvr8GfJar9EASK3gRIInE5Pm830W
+	 /UI4yqvk7iMXwyN/yXYEW01zKVvrTr7FYMudAyo12nZOo9I5/dvcHsNjH/ojqgDIND
+	 1fcU8GooAhMmFVSDoERv9fXQUdNkzr6u45Av6mFQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D0F5F80088;
-	Tue, 12 Oct 2021 13:25:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EE2BEF804E7;
+	Tue, 12 Oct 2021 13:45:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94823F80212; Tue, 12 Oct 2021 13:25:17 +0200 (CEST)
+ id B5BD7F804E3; Tue, 12 Oct 2021 13:45:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 07F88F80088
- for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 13:25:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07F88F80088
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83E8AF80088
+ for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 13:45:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83E8AF80088
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Zra4gQuG"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B978C60F11;
- Tue, 12 Oct 2021 11:25:09 +0000 (UTC)
+ header.b="Kx+uAsyN"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5898060EFE;
+ Tue, 12 Oct 2021 11:45:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634037910;
- bh=qnqPDkW3PEuRHrH7fEFlwj1INa9JZghbCmyes7XDZtc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Zra4gQuG/UTWpwnl9rH1pLCnKl+1SHvoyjxNBszC96etvTcWQIgWJRIhV/y/P9uaS
- ndGwytiCrrBgq4S05SPN8ZM7EXc7cjzrsevWXuH/pLatNUmbEtwE+uq2R/bDpD7RnL
- beDQ698aGTzyvSFnE4MpbDRxnlLhfgbAudAzd6Cfhb3UltUHd2DMwrpIygoGavKCIj
- s4ESe4MP1ZP1G95uWg5ozLHN9TwgPHT9aCcvubtqsUy2EfrjZdAPU/330vuVbiahqA
- o8o+NKSFip7d6PvNALTSrPifquECuuBuk3ycixg/KpkkpcqoOmkf1EmL+MJS/YZPOr
- bR7kVXA5Qy75Q==
-Date: Tue, 12 Oct 2021 12:25:07 +0100
+ s=k20201202; t=1634039121;
+ bh=yPmGfrIx5fsPNeovUyGC2nx0U7hr1ByxkC91ZqFvywU=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Kx+uAsyNqvX2hV5qn2Ah1xUjmbfU6xwJ7DONv8uVHgnvWHtBAkCV9aEzhb5AsbEER
+ tl2VH/EC37fCYXfoDsN9M4Xi+6nDagAHm7CGCD31ZdyJJflOT63dUP8DOiCfYV0JIO
+ hZrJKklagjh/utfDpW3x+PBcvE03pu+o+av00XIk+h5c6FURuroNKuVipaDaeidpox
+ avkp/mwKY4mKT+fb9jxRmRu8mXUxmKweZ3DsjbAEIRG/hSO2odcIudcRkfJV7SddY3
+ 7BoMA0ZGoGeV2iD+PemNDskaE/gZBOMIF2UP4TRdQvVxFh9AohtxRnIIloA8PcNEgI
+ W5dl1uCrXUB0w==
 From: Mark Brown <broonie@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [RESEND PATCH] ASoC: wm8960: Fix clock configuration on slave mode
-Message-ID: <YWVwk1kqyF+gzEC0@sirena.org.uk>
-References: <1634036070-2671-1-git-send-email-shengjiu.wang@nxp.com>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: cs42l42: Ensure 0dB full scale volume is used for
+ headsets
+Date: Tue, 12 Oct 2021 12:45:18 +0100
+Message-Id: <163403898174.2091644.6707785151456646793.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20211011144903.28915-1-rf@opensource.cirrus.com>
+References: <20211011144903.28915-1-rf@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="xmS7fg8H5aUGfp6g"
-Content-Disposition: inline
-In-Reply-To: <1634036070-2671-1-git-send-email-shengjiu.wang@nxp.com>
-X-Cookie: Swim at your own risk.
-Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
- kuninori.morimoto.gx@renesas.com, patches@opensource.cirrus.com,
- tiwai@suse.com, lgirdwood@gmail.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: patches@opensource.cirrus.com,
+ Stefan Binding <sbinding@opensource.cirrus.com>,
+ Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,32 +83,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, 11 Oct 2021 15:49:03 +0100, Richard Fitzgerald wrote:
+> From: Stefan Binding <sbinding@opensource.cirrus.com>
+> 
+> Ensure the default 0dB playback path is always used.
+> 
+> The code that set FULL_SCALE_VOL based on LOAD_DET_RCSTAT was
+> spurious, and resulted in a -6dB attenuation being accidentally
+> inserted into the playback path.
+> 
+> [...]
 
---xmS7fg8H5aUGfp6g
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Tue, Oct 12, 2021 at 06:54:30PM +0800, Shengjiu Wang wrote:
-> There is a noise issue for 8kHz sample rate on slave mode.
-> Compared with master mode, the difference is the DACDIV
-> setting, after correcting the DACDIV, the noise is gone.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Charles suggested some updates to the patch to improve the error
-reporting here which you don't seem to have addressed.
+Thanks!
 
---xmS7fg8H5aUGfp6g
-Content-Type: application/pgp-signature; name="signature.asc"
+[1/1] ASoC: cs42l42: Ensure 0dB full scale volume is used for headsets
+      commit: aa18457c4af7a9dad1f2b150b11beae1d8ab57aa
 
------BEGIN PGP SIGNATURE-----
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFlcJIACgkQJNaLcl1U
-h9Bj7Af6AoUC0r7+IN4MGFP2D+GI8ETZVSb6+NtZHAxw+TaFmQLwIhjzcEcDRtjf
-hwLaEhsJNeks7PautGeGBzCpzO87FXDMcTh98x53l0nZDPX+OOYqPgicrRsPgPZ1
-g1SdtDg4dlJCyj0Iymr0l8Famw7s2HlnLhufqrGigzdAT/ZDTL/tIc+G0YJR+p1q
-Bmn2P1TVWvtIBBwVoVczqD9foLpX79Bz9l9PjFCQ3CG9HcAeceXI2mxc/xBaP00B
-Eh7CU+QDvDe73E66/+9dTnZpoffnxK7bu5TwnXvLJ2RlDlwBAnF/f0G/1A82VVnB
-2fuvTTKz2aFZG9lBtIvl0O3PhPI1MQ==
-=F7Y8
------END PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---xmS7fg8H5aUGfp6g--
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

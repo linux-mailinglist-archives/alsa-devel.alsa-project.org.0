@@ -2,60 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A40DE42A764
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 16:38:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 445E942A7C8
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 17:02:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 043EA168C;
-	Tue, 12 Oct 2021 16:37:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 043EA168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D9B05168B;
+	Tue, 12 Oct 2021 17:01:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9B05168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634049502;
-	bh=vvDmLIHzdmY23ENJ2klDBUYGhpTWQiXCRE4MxW7RKYY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=pEGYEp8mBv/D1yj/lBv8ZpwVTW47jACmDgqRSpTzasyqlslgah36trP6AtlNrupkv
-	 y+WILov2iOqmdYVrAJMU25DyinUTCoOKcFHRgRfH7U1Ln1pR6zdHfPNGZM8Ch61Gyt
-	 X0HiPwtZNVQ0fT1ihh/8w2KzZWzKpNhZXUrtRFBE=
+	s=default; t=1634050925;
+	bh=J8SxJ2IDiRWUQfFSIWkUXX1hM4+FxMKUS+bFyBEq9rc=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=MjPeBwLIxiSmYWFq6d5PvMH6rTgCDPZHRxQ2Dt0iQEQrAiJ6PlrFB/nVWyBXUArl/
+	 1Nfp1sXseG/NiBAmesW0mAHXZgUmAynLVT1qS4fHYSjASxDBy31Ru2hEYLOJ274yB+
+	 CvUOSqfmB1n3ZWTe8MoSPe6qPwp0FBc1hZvBN37A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6370AF800C0;
-	Tue, 12 Oct 2021 16:37:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 33EF4F80245;
+	Tue, 12 Oct 2021 17:00:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D581DF80212; Tue, 12 Oct 2021 16:37:02 +0200 (CEST)
+ id 67837F80212; Tue, 12 Oct 2021 17:00:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F326DF80088
- for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 16:36:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F326DF80088
-X-IronPort-AV: E=McAfee;i="6200,9189,10135"; a="313361625"
-X-IronPort-AV: E=Sophos;i="5.85,367,1624345200"; d="scan'208";a="313361625"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2021 07:36:32 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,367,1624345200"; d="scan'208";a="591790196"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga004.jf.intel.com with ESMTP; 12 Oct 2021 07:36:29 -0700
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org, tiwai@suse.de,
- Danny Tholen <obiwan@mailmij.org>, perex@suse.cz
-Subject: [PATCH] ALSA: hda: avoid write to STATESTS if controller is in reset
-Date: Tue, 12 Oct 2021 17:29:35 +0300
-Message-Id: <20211012142935.3731820-1-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.33.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: kai.vehmanen@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, Alex Deucher <alexander.deucher@amd.com>,
- Dmitry Osipenko <digetx@gmail.com>, Thierry Reding <treding@nvidia.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3D05AF80088
+ for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 17:00:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D05AF80088
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="mLJt7iFo"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="JlDl3bza"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 4C351220DA;
+ Tue, 12 Oct 2021 15:00:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1634050835; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZePrqKFR1RZclZto78JKGTIg+B+naGQR4MKau6L7rqM=;
+ b=mLJt7iFoT0U5xktfjJnIXIz6vyfnI7i2/8uUHnO8rNLEybaULwdmCV1eEsaIfbmSl/GcM4
+ Ad8C1PPWM1x4bOZEjK/McOXZ0LuxjUEIor55blxIs4pqLnoSmdSrbxGaDbk0MR5DwBiKtN
+ lR3UJKIF13o/xji4ezPLhxA9dEggKiE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1634050835;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZePrqKFR1RZclZto78JKGTIg+B+naGQR4MKau6L7rqM=;
+ b=JlDl3bzaXZDvfCHD23bw8uoEAsNVIYb0WruO5r9sbwmyU9PdLYcqR/NZ2s1ZlCgYnZSyRg
+ ezwBvJ9zSqCkVSBg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 36EF8A3B85;
+ Tue, 12 Oct 2021 15:00:35 +0000 (UTC)
+Date: Tue, 12 Oct 2021 17:00:35 +0200
+Message-ID: <s5ho87u1e5o.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda: avoid write to STATESTS if controller is in
+ reset
+In-Reply-To: <20211012142935.3731820-1-kai.vehmanen@linux.intel.com>
+References: <20211012142935.3731820-1-kai.vehmanen@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Danny Tholen <obiwan@mailmij.org>,
+ pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ Alex Deucher <alexander.deucher@amd.com>, Dmitry Osipenko <digetx@gmail.com>,
+ Thierry Reding <treding@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,59 +96,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The snd_hdac_bus_reset_link() contains logic to clear STATESTS register
-before performing controller reset. This code dates back to an old
-bugfix in commit e8a7f136f5ed ("[ALSA] hda-intel - Improve HD-audio
-codec probing robustness"). Originally the code was added to
-azx_reset().
+On Tue, 12 Oct 2021 16:29:35 +0200,
+Kai Vehmanen wrote:
+> 
+> The snd_hdac_bus_reset_link() contains logic to clear STATESTS register
+> before performing controller reset. This code dates back to an old
+> bugfix in commit e8a7f136f5ed ("[ALSA] hda-intel - Improve HD-audio
+> codec probing robustness"). Originally the code was added to
+> azx_reset().
+> 
+> The code was moved around in commit a41d122449be ("ALSA: hda - Embed bus
+> into controller object") and ended up to snd_hdac_bus_reset_link() and
+> called primarily via snd_hdac_bus_init_chip().
+> 
+> The logic to clear STATESTS is correct when snd_hdac_bus_init_chip() is
+> called when controller is not in reset. In this case, STATESTS can be
+> cleared. This can be useful e.g. when forcing a controller reset to retry
+> codec probe. A normal non-power-on reset will not clear the bits.
+> 
+> However, this old logic is problematic when controller is already in
+> reset. The HDA specification states that controller must be taken out of
+> reset before writing to registers other than GCTL.CRST (1.0a spec,
+> 3.3.7). The write to STATESTS in snd_hdac_bus_reset_link() will be lost
+> if the controller is already in reset per the HDA specification mentioned.
+> 
+> This has been harmless on older hardware. On newer generation of Intel
+> PCIe based HDA controllers, if configured to report issues, this write
+> will emit an unsupported request error. If ACPI Platform Error Interface
+> (APEI) is enabled in kernel, this will end up to kernel log.
+> 
+> Fix the code in snd_hdac_bus_reset_link() to only clear the STATESTS if
+> the function is called when controller is not in reset. Otherwise
+> clearing the bits is not possible and should be skipped.
+> 
+> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-The code was moved around in commit a41d122449be ("ALSA: hda - Embed bus
-into controller object") and ended up to snd_hdac_bus_reset_link() and
-called primarily via snd_hdac_bus_init_chip().
+Do we have a bug reference?  I guess it worth to be pushed to 5.15-rc
+and Cc-to-stable, if this is hitting already on the recent machines.
 
-The logic to clear STATESTS is correct when snd_hdac_bus_init_chip() is
-called when controller is not in reset. In this case, STATESTS can be
-cleared. This can be useful e.g. when forcing a controller reset to retry
-codec probe. A normal non-power-on reset will not clear the bits.
 
-However, this old logic is problematic when controller is already in
-reset. The HDA specification states that controller must be taken out of
-reset before writing to registers other than GCTL.CRST (1.0a spec,
-3.3.7). The write to STATESTS in snd_hdac_bus_reset_link() will be lost
-if the controller is already in reset per the HDA specification mentioned.
+thanks,
 
-This has been harmless on older hardware. On newer generation of Intel
-PCIe based HDA controllers, if configured to report issues, this write
-will emit an unsupported request error. If ACPI Platform Error Interface
-(APEI) is enabled in kernel, this will end up to kernel log.
-
-Fix the code in snd_hdac_bus_reset_link() to only clear the STATESTS if
-the function is called when controller is not in reset. Otherwise
-clearing the bits is not possible and should be skipped.
-
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- sound/hda/hdac_controller.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/sound/hda/hdac_controller.c b/sound/hda/hdac_controller.c
-index 062da7a7a586..f7bd6e2db085 100644
---- a/sound/hda/hdac_controller.c
-+++ b/sound/hda/hdac_controller.c
-@@ -421,8 +421,9 @@ int snd_hdac_bus_reset_link(struct hdac_bus *bus, bool full_reset)
- 	if (!full_reset)
- 		goto skip_reset;
- 
--	/* clear STATESTS */
--	snd_hdac_chip_writew(bus, STATESTS, STATESTS_INT_MASK);
-+	/* clear STATESTS if not in reset */
-+	if (snd_hdac_chip_readb(bus, GCTL) & AZX_GCTL_RESET)
-+		snd_hdac_chip_writew(bus, STATESTS, STATESTS_INT_MASK);
- 
- 	/* reset controller */
- 	snd_hdac_bus_enter_link_reset(bus);
-
-base-commit: 0fc27129ed268b619135b99d365ce44daaf85602
--- 
-2.33.0
-
+Takashi

@@ -2,61 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C64A9429922
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Oct 2021 23:50:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BC0A429A59
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 02:20:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 57C1916D2;
-	Mon, 11 Oct 2021 23:49:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57C1916D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id A84DA16D2;
+	Tue, 12 Oct 2021 02:19:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A84DA16D2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1633989015;
-	bh=CizBxvPT/1Om1GG7WSKVxbCBWyjL6FdlfXPomXbUFLo=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1633998047;
+	bh=4J/ixbY+YxvgAI5rmhm6jEZOpSpNe+zJOrtLhDIYzYo=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=modjEouLIf/CVn9VXOO9g1/HFCv1SxaHLuegzvesE+iftl32T36DiFpM72S5U4Ksf
-	 jsrSmQjmJPwGvZX/U6gReZ6ePTITE32CHlF+xZWQ5s03FF6TaYdSySpU/02PSdr4h4
-	 IAbPk5NbXK8Afb8isV+nkCA4eUU6E0wK1xijfeEs=
+	b=CXRsHhNRadlKOOdLaCqjMQZ/z45MTwAw9YvV2dLgRf1p+/5Pi8hJogbgWBT/1BjH+
+	 56cqzNEeekOBKPtBjqlHzHVeI1MKGW0zJHCRpkXTXKuP35KDLB4gIQ1ELCxquzHXJ0
+	 wNel3w3C/o7hpx02m41rSl9uhUY7WR67VJ2LvSSY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD8B5F800C0;
-	Mon, 11 Oct 2021 23:48:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3EE1F800C0;
+	Tue, 12 Oct 2021 02:19:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 903F8F80269; Mon, 11 Oct 2021 23:48:55 +0200 (CEST)
+ id 6C74DF80269; Tue, 12 Oct 2021 02:19:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
- [217.70.183.197])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2396BF80104
- for <alsa-devel@alsa-project.org>; Mon, 11 Oct 2021 23:48:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2396BF80104
-Received: (Authenticated sender: didi.debian@cknow.org)
- by relay5-d.mail.gandi.net (Postfix) with ESMTPA id AB6031C0002;
- Mon, 11 Oct 2021 21:48:48 +0000 (UTC)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 59D02F800C0
+ for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 02:19:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59D02F800C0
+X-IronPort-AV: E=McAfee;i="6200,9189,10134"; a="213947923"
+X-IronPort-AV: E=Sophos;i="5.85,366,1624345200"; d="scan'208";a="213947923"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2021 17:19:20 -0700
+X-IronPort-AV: E=Sophos;i="5.85,366,1624345200"; d="scan'208";a="562404792"
+Received: from cpeng4-mobl.amr.corp.intel.com (HELO [10.213.182.8])
+ ([10.213.182.8])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2021 17:19:19 -0700
+Subject: Re: [PATCH v2 1/3] ALSA: pcm: introduce INFO_NO_REWINDS flag
+To: Takashi Iwai <tiwai@suse.de>
+References: <20211004162423.85323-1-pierre-louis.bossart@linux.intel.com>
+ <20211004162423.85323-2-pierre-louis.bossart@linux.intel.com>
+ <s5h8rz8ez3s.wl-tiwai@suse.de>
+ <c62b3749-c5ea-7b1e-2831-272c8a14d3ac@linux.intel.com>
+ <s5hbl43egs8.wl-tiwai@suse.de>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <1ae2012b-d6bd-77ce-0a9e-98aec4d0f868@linux.intel.com>
+Date: Mon, 11 Oct 2021 19:19:16 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.13.0
 MIME-Version: 1.0
-Date: Mon, 11 Oct 2021 23:48:48 +0200
-From: didi.debian@cknow.org
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH] ASoC: simple-card: Fill in driver name
-In-Reply-To: <f7efde11-067d-8822-45fa-7cdbe2d17d93@perex.cz>
-References: <YNGe3akAntQi8qJD@qwark.sigxcpu.org> <4974503.Y8KB3sNASq@bagend>
- <61a82214-0de8-816f-ff63-3979b86343bf@perex.cz> <5069869.zQgEQKRxDW@bagend>
- <f7efde11-067d-8822-45fa-7cdbe2d17d93@perex.cz>
-User-Agent: Roundcube Webmail/1.4.11
-Message-ID: <97a1c38c48765fb6634de34387e3ce3c@cknow.org>
-X-Sender: didi.debian@cknow.org
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+In-Reply-To: <s5hbl43egs8.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org,
- =?UTF-8?Q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ P9ter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,41 +82,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2021-10-11 19:16, Jaroslav Kysela wrote:
-> On 10. 10. 21 12:40, Diederik de Haas wrote:
->> On Sunday, 10 October 2021 10:40:09 CEST Jaroslav Kysela wrote:
->>>> Unfortunately this change broke multichannel audio on my Rock64 
->>>> device
->>>> running Debian. My Rock64 is connected to my AVR (Pioneer SC-1224) 
->>>> via a
->>>> HDMI cable.
->>> This looks like an user space configuration problem.
->> 
->> I have placed ALSA card definitions (I think) from LibreELEC on my 
->> system from
->> https://github.com/LibreELEC/LibreELEC.tv/tree/master/projects/Rockchip/
->> filesystem/usr/share/alsa/cards
+
+> And, what I meant in the previous thread was that the check in the
+> given patch wasn't "enough", i.e. it needs more careful checks
+> considering the boundary crossing.  That is, you can't simply compare
+> appl_ptr vs old_appl_ptr as a single condition for the backward move.
+
+Indeed, that's why I tried to avoid any checks on pointers :-)
+
+> For example, check snd_pcm_playback_avail() and co.  That contains a
+> couple of more condition checks and corrections due to the possible
+> boundary crossing.  (Here, runtime->boundary may differ depending on
+> 32 or 64bit context.)
 > 
-> Apparently, the alsa-lib configuration is used in this case.
-> 
-> It seems that there are four sound cards (Analog/HDMI/I2S/SPDIF)
-> created for your hardware. The alsa-lib configuration is a bit weird -
-> an obfuscation for the simple-card driver use. The simple way to
-> resolve this is to create a proper UCM configuration.
-> 
-> If you need further assistance, create an issue for alsa-lib or
-> alsa-ucm-conf on github and with an output from the 'alsa-info.sh'
-> script.
+> The actual implementation of the backward move check would be slightly
+> different from those, but I hope you get my idea.
 
-Will do.
+I think I do but not sure how to precisely deal with the boundary
+wrap-around.
 
-FTR: It's now working again for me on a kernel with this patch included:
-https://github.com/LibreELEC/LibreELEC.tv/issues/5734#issuecomment-940088156
+The only suggestion I have at this point would be to compare the 'avail'
+space before and after the appl_ptr changes in pcm_lib_apply_appl_ptr().
+If the 'avail' space grows as a result of user-space changes, that
+indicates a rewind (both for capture and playback), doesn't it?
 
-I have no idea whether this is a proper solution or another 
-'workaround', but
-it's working for me again :)
-
-Thanks for your help.
-
-Diederik
+A tentative solution is shared here:
+https://github.com/thesofproject/linux/pull/3207

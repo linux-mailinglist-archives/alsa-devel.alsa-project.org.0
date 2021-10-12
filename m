@@ -2,126 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42C80429E8F
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 09:25:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26017429E9C
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 09:27:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6496168F;
-	Tue, 12 Oct 2021 09:24:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6496168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7058168C;
+	Tue, 12 Oct 2021 09:26:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7058168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634023505;
-	bh=zMpyOQZ/7XK4Ag/+llBsSTtrZacDyFNo3/v0azHbJEY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1634023621;
+	bh=p7SO9tdPr5qhA3vfrNuL7tNTkkuUHvMgKHhMH/B7feg=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vcO6PwIdw7jN018DA5ABrvAdIrYGSvEBNaxDgGtHthiyluwwDxvhMJcd3yyJhtG50
-	 DK65e1iG/XJX+FztXSCg4SrTtODexVh7op51RiLqU966kdoBoIsykjS9SBzLEFuAoe
-	 RPkKtTp2tbl2/DNRRlzMbYxqyHUBSmReyPDVQD8c=
+	b=nIQEA6so7vusaf2jImWQZ9X4ccJw4Be+Q7EtbPzySnku4bNH8GcVcBlV8TdRc7oPt
+	 FQimwp8mdPxD0Ab8eeqE25dZpoOpqCCTd+XzSW39DpeFOyynoncGqKDnYdcQeEnyUS
+	 nooxpAvFlDiX/Vikt0VWkAqY2yZQHDnZJ/p/fZAU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26201F804ED;
-	Tue, 12 Oct 2021 09:23:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16A22F80302;
+	Tue, 12 Oct 2021 09:25:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C75ACF804EC; Tue, 12 Oct 2021 09:23:44 +0200 (CEST)
+ id 5884CF80212; Tue, 12 Oct 2021 09:25:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2068.outbound.protection.outlook.com [40.107.94.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AFB7BF80083
- for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 09:23:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFB7BF80083
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0283F800C0
+ for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 09:25:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0283F800C0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="kG2n2Ghc"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YFXlX5XG1syRBWO0fVMNnN3c9TBuL6CcpwPiMIi3FF45abz6XP7weCxwYHUth8fvG1oQX3Ae8f/xCCFKigqLeNITFP7qs2Q+zgghwvZrwwrPj5zQf/M4wDiOydjCGP0qCiMHJ7SFPrYOBMKh+ZYTrHUHXR/VGeOpR2TuruIpIzi1q+xU8tNNH72iloe2fj/qZWn2hCrIOU8OZiKTmhIBvwTgVwxW4/T9vCPslC9OAlcThuSHLI4WuAu3stPg8RTGi6zVkFagP/JTJ8Znw8y418TtX3b0hTXmZLvyWo39S/3LSGq2SvleHThEyF3ADDyVmBAP1+WeAn3zAXIg0efMnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wWHVfB0CwTRd6x4hVQ6S96nP2UxmmVzfSebx79R39rs=;
- b=ALJ7GqJr1dkjDvVUHPIJefOjYyuF51vXoRjJ2ulhn4AgYM+BFD6+/KGnA3VEXSnKL0kv60SLC7/86GtnAAwBpz6ONg0OTLpFn+DCNtvuzlXzXtfy6njWWdwIwvWNykRmHRv35W5Skapk3I30Yj3h/QIP8Yphiko0JDiqnxi6k4kgP6MWctXQRNfwCj6wkAiaWlElwZWsKqx6VU9ByNMXOZvDsUCLxtkBw9x/w4xXnYTFuwDBn7kBnJTuVnrktyjNRkkHdBlaCcZuYhQgwQy351p4Az48mk4Gx+wQcjmhc+AeCqG3oxfjvRvwBxp404tA1LUAtVE/4zx2/LXvDIwsSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wWHVfB0CwTRd6x4hVQ6S96nP2UxmmVzfSebx79R39rs=;
- b=kG2n2GhcOso8zsxC5r9DBO2tSZvoB2Y/SPFAqRMreEl6mNhq1TFM3/5zRQer0oZI07N1uejp7HonJkPw0lYvmIn0xyO+raiIEu6TqCOsN1FT/L3RtcAUfU1NNk8+lw1uX0N1MeYpEk6p/Qfap/xTwjTuJZV95XXUqBUBXcviKoE=
-Received: from DM6PR17CA0011.namprd17.prod.outlook.com (2603:10b6:5:1b3::24)
- by CH0PR12MB5217.namprd12.prod.outlook.com (2603:10b6:610:d0::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.18; Tue, 12 Oct
- 2021 07:23:35 +0000
-Received: from DM6NAM11FT027.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:1b3:cafe::71) by DM6PR17CA0011.outlook.office365.com
- (2603:10b6:5:1b3::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.20 via Frontend
- Transport; Tue, 12 Oct 2021 07:23:35 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT027.mail.protection.outlook.com (10.13.172.205) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4587.18 via Frontend Transport; Tue, 12 Oct 2021 07:23:34 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Tue, 12 Oct
- 2021 02:23:33 -0500
-Received: from chrome.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2308.8 via Frontend
- Transport; Tue, 12 Oct 2021 02:23:29 -0500
-From: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH v3 8/8] ASoC: amd: acp: Add support for RT5682-VS codec
-Date: Tue, 12 Oct 2021 12:49:39 +0530
-Message-ID: <20211012071939.97002-9-AjitKumar.Pandey@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211012071939.97002-1-AjitKumar.Pandey@amd.com>
-References: <20211012071939.97002-1-AjitKumar.Pandey@amd.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="J4zVQsKI"
+Received: by mail-wr1-x433.google.com with SMTP id k7so63710251wrd.13
+ for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 00:25:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:subject:from:to:cc:date:in-reply-to:references
+ :user-agent:mime-version:content-transfer-encoding;
+ bh=kxug8zb/EGJmL2xGeTXvkDk7vUlZHkHARgIrRXZWVYY=;
+ b=J4zVQsKIW0Fn+dUAqKQfD6f1xldVD6mI7fPCF+GfT8rigWHeW3pZfm1uVE+zEIJ/Fl
+ kydgpXuDZnam1OfImxkpgpoIAOpM+2qCW4mU1Qhhi3DfWqjEbhFVrIwan+L+sWAdqYxf
+ HJKJzZ17edGlKeRgOdvPbcwkhK2XAYK8RhTZgvJsFdhnkn1h2/JfRFj/dcpmwMuYWh/z
+ inI4q2lq88tmFDgB0ep6caL711yJBB0rYdtrb5WfD6dV2F6RKhb/Vad+A+k+bgaDf6K8
+ yixFzptHDMHadsVnB9FjAjlAsmVoC+zGi65UMklwBgJUfrlqT+OftgbeiTxsxLednWp9
+ rfZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+ :references:user-agent:mime-version:content-transfer-encoding;
+ bh=kxug8zb/EGJmL2xGeTXvkDk7vUlZHkHARgIrRXZWVYY=;
+ b=76yBjef/hP02XOC5epUJ5sIrnx0ibELzMICG1uab6SD5z1fBxKJfC87IX+dOAGJPHf
+ b28OeBzuiLqLpqBqyZnbwamAzEC64fpabXY1c3T+pLPqYb4/he9nlf2QKHbuoctNOGbn
+ to6Eqs0JkSkbZthEghhsxxCl7WfliH4Mu5lVHjOTbZeBdvqYOJu0Z/U00xQvLFp+5AkP
+ 5UpMzkYH9qUHbxWzuq0WSLjdfwR0dpvck6xgGsPoWsmdoIYYEiXXBEIXbCh/gwZWv1eo
+ pPvik3lBYEGvrlXOnZmFMmmngp97bliksjHaf8LxalYKsbLVj/LLhdTKoIxXM+9JW7Zp
+ T5pg==
+X-Gm-Message-State: AOAM530mRoPNsVSA0chzLM/Jo/93sAxOWDTW53sIScRYHA9udrUWdV2c
+ rkSbLRCi0ygJTcSr0NmRXPQ=
+X-Google-Smtp-Source: ABdhPJyWcLdcIK2F1yvYuz94KzMR4N0FArd3m10As4uYLTdeJ+s/yHqkz9aeF94peco5a1PRmNj64Q==
+X-Received: by 2002:a1c:7d56:: with SMTP id y83mr3798000wmc.86.1634023533805; 
+ Tue, 12 Oct 2021 00:25:33 -0700 (PDT)
+Received: from [192.168.1.21] ([195.245.16.219])
+ by smtp.gmail.com with ESMTPSA id b2sm1798371wrv.67.2021.10.12.00.25.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 12 Oct 2021 00:25:33 -0700 (PDT)
+Message-ID: <7cd9ccc118c1955b5f3b48f6f8a7157a72d5213e.camel@gmail.com>
+Subject: Re: [PATCH v2 6/8] ASoC: cirrus: i2s: Prepare clock before using it
+From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+To: Mark Brown <broonie@kernel.org>, Nikita Shubin <nikita.shubin@maquefel.me>
+Date: Tue, 12 Oct 2021 09:25:15 +0200
+In-Reply-To: <e23f7de1dbb02def413d721a3bf5759100380937.camel@gmail.com>
+References: <20210726115058.23729-1-nikita.shubin@maquefel.me>
+ <20210726140001.24820-1-nikita.shubin@maquefel.me>
+ <20210726140001.24820-7-nikita.shubin@maquefel.me>
+ <20210726165124.GJ4670@sirena.org.uk>
+ <e23f7de1dbb02def413d721a3bf5759100380937.camel@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.40.4 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ead86c96-3d7b-4321-bc35-08d98d5133c0
-X-MS-TrafficTypeDiagnostic: CH0PR12MB5217:
-X-Microsoft-Antispam-PRVS: <CH0PR12MB521774E0A689238AEF412F0482B69@CH0PR12MB5217.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:200;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2/e+Ey9cd8prIgmJPnAETUxhQ2QEWFPbA7WqfvLRhGW4vkfgFu4wo2SfoAQUbRSqPo/S3qG6P51VeBqJeY+8ifKxaqABvdWW7Pc0nUseIR9q6poqzRMXg0v07wANrXBYrNkkKZFI337hKWnpAHkKL1ANRD+flUly5xGAl6iC3UpRjtGMzUBIHIPWv3RpNmMBBTE66vALB88VqfyIezm15+jd6h+nt7njRTNx3pHtFPGtJV/VcnAfa/NUPFVbLdQWp2p/wf66ccUZ5S7AKfVoDrtmFw1MSQr+tYX1JIM4ZJUREDcARznQQN/hT8CM9IWI5PjYGijkhFJ9qUX0k8Z5WS568HyvEA/5g/nWwiT/qTV3D5dXY8+PVEgx5EvzpuuPdoiqSdEnKJK1s5Lo5o/XY08tKbshCCxzpiilVIq/O49Eaa2FeZDCLX2XVFKSB5KBHqpbcUpMOvoADHQEDu/rODnLXuLICx7Xg45+p30K07fUMvJW/PkogwkkR1gJtkUizYi08tsvCmeQa1NwXfxVUJQgn4X+xaNIjPbyb2HnptJkHFYTAPOVDTKR7tfhbBhQnFGbUJMDmZB192xnDATbT8x/PeRR9f8Sr+GHVUMgCzrH7tcdfIQ6mWtqctvsphlcsgESW2jaLZGwCc9IyjXeN3OTJlyoa+Ja/cMqo9vapPnhWqRfJq5zkf02FsQeb37rkNDQhBvkT9gW2/7XfFe8ZwCzlMG0V0Po0XPHGVLHMkU=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(81166007)(36756003)(508600001)(356005)(4326008)(70206006)(6666004)(70586007)(1076003)(186003)(26005)(8936002)(8676002)(316002)(7696005)(5660300002)(110136005)(54906003)(2906002)(336012)(2616005)(82310400003)(36860700001)(426003)(47076005)(86362001)(83380400001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2021 07:23:34.9022 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ead86c96-3d7b-4321-bc35-08d98d5133c0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT027.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5217
-Cc: Sunil-kumar.Dommati@amd.com, Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Vijendar.Mukunda@amd.com, Alexander.Deucher@amd.com
+Content-Transfer-Encoding: 7bit
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Geert Uytterhoeven <geert@linux-m68k.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -137,207 +108,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In newer variants primary codec is rt5682vs. Add support for newer
-codec variants in generic machine driver module and define driver
-data to register SOF sound card.
+Hello Mark,
 
-Signed-off-by: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
----
- sound/soc/amd/acp/Kconfig           |  1 +
- sound/soc/amd/acp/acp-mach-common.c | 96 +++++++++++++++++++++++++++++
- sound/soc/amd/acp/acp-mach.h        |  1 +
- sound/soc/amd/acp/acp-sof-mach.c    | 14 +++++
- 4 files changed, 112 insertions(+)
+On Mon, 2021-09-13 at 23:43 +0200, Alexander Sverdlin wrote:
+> On Mon, 2021-07-26 at 17:51 +0100, Mark Brown wrote:
+> > On Mon, Jul 26, 2021 at 04:59:54PM +0300, Nikita Shubin wrote:
+> > > From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+> > > 
+> > > Use clk_prepare_enable()/clk_disable_unprepare() in preparation for switch
+> > > to Common Clock Framework, otherwise the following is visible:
+> > 
+> > Acked-by: Mark Brown <broonie@kernel.org>
+> 
+> would you take the patch to a tree of yours, please?
 
-diff --git a/sound/soc/amd/acp/Kconfig b/sound/soc/amd/acp/Kconfig
-index ef4208c3e7b7..98ec18791d35 100644
---- a/sound/soc/amd/acp/Kconfig
-+++ b/sound/soc/amd/acp/Kconfig
-@@ -33,6 +33,7 @@ config SND_SOC_AMD_MACH_COMMON
- 	select SND_SOC_DMIC
- 	select SND_SOC_RT1019
- 	select SND_SOC_MAX98357A
-+	select SND_SOC_RT5682S
- 	depends on X86 && PCI && I2C
- 	help
- 	  This option enables common Machine driver module for ACP.
-diff --git a/sound/soc/amd/acp/acp-mach-common.c b/sound/soc/amd/acp/acp-mach-common.c
-index b9d77d761cca..cecf7e5a44e2 100644
---- a/sound/soc/amd/acp/acp-mach-common.c
-+++ b/sound/soc/amd/acp/acp-mach-common.c
-@@ -23,6 +23,7 @@
- 
- #include "../../codecs/rt5682.h"
- #include "../../codecs/rt1019.h"
-+#include "../../codecs/rt5682s.h"
- #include "acp-mach.h"
- 
- #define PCO_PLAT_CLK 48000000
-@@ -182,6 +183,89 @@ static const struct snd_soc_ops acp_card_rt5682_ops = {
- 	.shutdown = acp_card_shutdown,
- };
- 
-+/* Define RT5682S CODEC component*/
-+SND_SOC_DAILINK_DEF(rt5682s,
-+		    DAILINK_COMP_ARRAY(COMP_CODEC("i2c-RTL5682:00", "rt5682s-aif1")));
-+
-+static const struct snd_soc_dapm_route rt5682s_map[] = {
-+	{ "Headphone Jack", NULL, "HPOL" },
-+	{ "Headphone Jack", NULL, "HPOR" },
-+	{ "IN1P", NULL, "Headset Mic" },
-+};
-+
-+static int acp_card_rt5682s_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_card *card = rtd->card;
-+	struct acp_card_drvdata *drvdata = card->drvdata;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_component *component = codec_dai->component;
-+	int ret;
-+
-+	dev_info(rtd->dev, "codec dai name = %s\n", codec_dai->name);
-+
-+	if (drvdata->hs_codec_id != RT5682S)
-+		return -EINVAL;
-+
-+	ret =  snd_soc_dai_set_fmt(codec_dai, SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
-+				   | SND_SOC_DAIFMT_CBP_CFP);
-+	if (ret < 0) {
-+		dev_err(rtd->card->dev, "Failed to set dai fmt: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = snd_soc_dai_set_pll(codec_dai, RT5682S_PLL2, RT5682S_PLL_S_MCLK,
-+				  PCO_PLAT_CLK, RT5682_PLL_FREQ);
-+	if (ret < 0) {
-+		dev_err(rtd->dev, "Failed to set codec PLL: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = snd_soc_dai_set_sysclk(codec_dai, RT5682S_SCLK_S_PLL2,
-+				     RT5682_PLL_FREQ, SND_SOC_CLOCK_IN);
-+	if (ret < 0) {
-+		dev_err(rtd->dev, "Failed to set codec SYSCLK: %d\n", ret);
-+		return ret;
-+	}
-+
-+	/* Set tdm/i2s1 master bclk ratio */
-+	ret = snd_soc_dai_set_bclk_ratio(codec_dai, 64);
-+	if (ret < 0) {
-+		dev_err(rtd->dev, "Failed to set rt5682 tdm bclk ratio: %d\n", ret);
-+		return ret;
-+	}
-+
-+	drvdata->wclk = clk_get(component->dev, "rt5682-dai-wclk");
-+	drvdata->bclk = clk_get(component->dev, "rt5682-dai-bclk");
-+
-+	ret = snd_soc_card_jack_new(card, "Headset Jack",
-+				    SND_JACK_HEADSET | SND_JACK_LINEOUT |
-+				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
-+				    SND_JACK_BTN_2 | SND_JACK_BTN_3,
-+				    &pco_jack, NULL, 0);
-+	if (ret) {
-+		dev_err(card->dev, "HP jack creation failed %d\n", ret);
-+		return ret;
-+	}
-+
-+	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
-+	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
-+	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
-+	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
-+
-+	ret = snd_soc_component_set_jack(component, &pco_jack, NULL);
-+	if (ret) {
-+		dev_err(rtd->dev, "Headset Jack call-back failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return snd_soc_dapm_add_routes(&rtd->card->dapm, rt5682s_map, ARRAY_SIZE(rt5682s_map));
-+}
-+
-+static const struct snd_soc_ops acp_card_rt5682s_ops = {
-+	.startup = acp_card_hs_startup,
-+	.shutdown = acp_card_shutdown,
-+};
-+
- /* Declare RT1019 codec components */
- SND_SOC_DAILINK_DEF(rt1019,
- 	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10EC1019:01", "rt1019-aif"),
-@@ -370,6 +454,12 @@ int acp_sofdsp_dai_links_create(struct snd_soc_card *card)
- 			links[i].init = acp_card_rt5682_init;
- 			links[i].ops = &acp_card_rt5682_ops;
- 		}
-+		if (drv_data->hs_codec_id == RT5682S) {
-+			links[i].codecs = rt5682s;
-+			links[i].num_codecs = ARRAY_SIZE(rt5682s);
-+			links[i].init = acp_card_rt5682s_init;
-+			links[i].ops = &acp_card_rt5682s_ops;
-+		}
- 		i++;
- 	}
- 
-@@ -462,6 +552,12 @@ int acp_legacy_dai_links_create(struct snd_soc_card *card)
- 			links[i].init = acp_card_rt5682_init;
- 			links[i].ops = &acp_card_rt5682_ops;
- 		}
-+		if (drv_data->hs_codec_id == RT5682S) {
-+			links[i].codecs = rt5682s;
-+			links[i].num_codecs = ARRAY_SIZE(rt5682s);
-+			links[i].init = acp_card_rt5682s_init;
-+			links[i].ops = &acp_card_rt5682s_ops;
-+		}
- 		i++;
- 	}
- 
-diff --git a/sound/soc/amd/acp/acp-mach.h b/sound/soc/amd/acp/acp-mach.h
-index b6a43d1b9ad4..5dc47cfbff10 100644
---- a/sound/soc/amd/acp/acp-mach.h
-+++ b/sound/soc/amd/acp/acp-mach.h
-@@ -36,6 +36,7 @@ enum codec_endpoints {
- 	RT5682,
- 	RT1019,
- 	MAX98360A,
-+	RT5682S,
- };
- 
- struct acp_card_drvdata {
-diff --git a/sound/soc/amd/acp/acp-sof-mach.c b/sound/soc/amd/acp/acp-sof-mach.c
-index f7103beedf32..854eb7214cea 100644
---- a/sound/soc/amd/acp/acp-sof-mach.c
-+++ b/sound/soc/amd/acp/acp-sof-mach.c
-@@ -38,6 +38,15 @@ static struct acp_card_drvdata sof_rt5682_max_data = {
- 	.dmic_codec_id = DMIC,
- };
- 
-+static struct acp_card_drvdata sof_rt5682s_max_data = {
-+	.hs_cpu_id = I2S_SP,
-+	.amp_cpu_id = I2S_SP,
-+	.dmic_cpu_id = DMIC,
-+	.hs_codec_id = RT5682S,
-+	.amp_codec_id = MAX98360A,
-+	.dmic_codec_id = DMIC,
-+};
-+
- static const struct snd_kcontrol_new acp_controls[] = {
- 	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
- 	SOC_DAPM_PIN_SWITCH("Headset Mic"),
-@@ -98,6 +107,10 @@ static const struct platform_device_id board_ids[] = {
- 		.name = "rt5682-max",
- 		.driver_data = (kernel_ulong_t)&sof_rt5682_max_data
- 	},
-+	{
-+		.name = "rt5682s-max",
-+		.driver_data = (kernel_ulong_t)&sof_rt5682s_max_data
-+	},
- 	{ }
- };
- static struct platform_driver acp_asoc_audio = {
-@@ -114,4 +127,5 @@ MODULE_IMPORT_NS(SND_SOC_AMD_MACH);
- MODULE_DESCRIPTION("ACP chrome SOF audio support");
- MODULE_ALIAS("platform:rt5682-rt1019");
- MODULE_ALIAS("platform:rt5682-max");
-+MODULE_ALIAS("platform:rt5682s-max");
- MODULE_LICENSE("GPL v2");
+I still cannot find this patch in any of your trees, but I've found this one:
+
+commit 726e6f31b1026f62206f1d32b5cbb7e9582c4d03
+Merge: b09bff2676be 7c72dc56a631
+Author: Mark Brown <broonie@kernel.org>
+Date:   Tue Aug 3 23:27:27 2021 +0100
+
+    Merge series "arm: ep93xx: CCF conversion" from Nikita Shubin <nikita.shubin@maquefel.me>:
+    
+    This series series of patches converts ep93xx to Common Clock Framework.
+    
+    It consists of preparation patches to use clk_prepare_enable where it is
+    needed, instead of clk_enable used in ep93xx drivers prior to CCF and
+    a patch converting mach-ep93xx/clock.c to CCF.
+    
+    Link: https://lore.kernel.org/patchwork/cover/1445563/
+    Link: https://lore.kernel.org/patchwork/patch/1435884/
+    
+    v1->v2:
+    - added SoB
+    
+    Alexander Sverdlin (7):
+      iio: ep93xx: Prepare clock before using it
+      spi: spi-ep93xx: Prepare clock before using it
+      Input: ep93xx_keypad: Prepare clock before using it
+      video: ep93xx: Prepare clock before using it
+      dmaengine: ep93xx: Prepare clock before using it
+      ASoC: cirrus: i2s: Prepare clock before using it
+      pwm: ep93xx: Prepare clock before using it
+    
+    Nikita Shubin (1):
+      ep93xx: clock: convert in-place to COMMON_CLK
+
+
+... which claims to merge both "ASoC: cirrus: i2s: Prepare clock before using it"
+and "ep93xx: clock: convert in-place to COMMON_CLK", but they are actually not
+merged.
+
+Could you please consider ASoC patch, while I will resubmit the final clock conversion?
+
 -- 
-2.25.1
+Alexander Sverdlin.
+
 

@@ -2,52 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A568742AB86
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 20:04:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53A9342AD94
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 22:06:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F52C168C;
-	Tue, 12 Oct 2021 20:03:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F52C168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id C29551687;
+	Tue, 12 Oct 2021 22:05:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C29551687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634061850;
-	bh=96LyfBC+P7JSHIS5B/bKSZdNPEOF7TgWiVCgP/i7MbM=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1634069177;
+	bh=xHBYp7TETIzEAl3ShZ3eup5vLFcXA8bv5m+dGCnAQSw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=s4mxpKDALBpzQRa/ExIIMcWi5izDJoIqDrCqU7UWPXRWTB44B6VlxxbYS6tT7ii4/
-	 IeLHRDYRI6hNKezOkSdtlgxTmUZjz6DgDd1cDgdr7BF4fdMQq69rpoM+Rz4L0Yye/G
-	 Ajfc8Fsbi1AUpQSDHEo6YM3473mgzrIExEpvmMcY=
+	b=ikKoSpu0/G3wQ2Xo2tbx9WIeP3dDglxW7erEoiGGakiNmH1Ae93vMNmtKerCQ3Jlj
+	 VIBEV3qKFLlXPUy0+MCYTEDdBFKdIaxICFdYq+Gj7Xed5kQMQO3II51PEqq8maUJYo
+	 2tN/1VTVqnIE5eH4B3vvLQzhMSe+X1i6fVb7vCL8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B114F80245;
-	Tue, 12 Oct 2021 20:02:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24E90F801F7;
+	Tue, 12 Oct 2021 22:05:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A379CF80212; Tue, 12 Oct 2021 20:02:50 +0200 (CEST)
+ id 0F85AF80212; Tue, 12 Oct 2021 22:04:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4D423F800CB
- for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 20:02:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D423F800CB
-X-IronPort-AV: E=McAfee;i="6200,9189,10135"; a="288101818"
-X-IronPort-AV: E=Sophos;i="5.85,368,1624345200"; d="scan'208";a="288101818"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2021 11:02:10 -0700
-X-IronPort-AV: E=Sophos;i="5.85,368,1624345200"; d="scan'208";a="486483857"
-Received: from csharp1-mobl.amr.corp.intel.com (HELO [10.213.183.127])
- ([10.213.183.127])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2021 11:02:09 -0700
+ by alsa1.perex.cz (Postfix) with ESMTPS id 20F07F800C0
+ for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 22:04:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20F07F800C0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Z8/DRDh3"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="zrJp2YgE"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 76622201AE;
+ Tue, 12 Oct 2021 20:04:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1634069087; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=h7GEJfQk4REh7xfzQ6xJDh+wJiDC0jZGyjiz9UlqWGA=;
+ b=Z8/DRDh38T5OhDV63LPfFmog7/TpTS/W4Vnge9ufwgP1SFXPWgLUxYnrJ0jnkNwCNBz8OG
+ 3Sv3+dmi4cuCzywYFNavS/5VGVdrJEm17t5WVZGkV34EQWSDmi/x2sPPVmY0LH3Wj8NfaH
+ CJYYeL502WmJq/6MMmvovRf9YwxSbw8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1634069087;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=h7GEJfQk4REh7xfzQ6xJDh+wJiDC0jZGyjiz9UlqWGA=;
+ b=zrJp2YgEuJQzeTc5AxnP24wRfqPUyd7jfyJ6BXE069rSrdPpb6QZi6pz30A9XHgNdI2vc4
+ On6rNYyLnK8hsABA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 66FAAA3B87;
+ Tue, 12 Oct 2021 20:04:47 +0000 (UTC)
+Date: Tue, 12 Oct 2021 22:04:47 +0200
+Message-ID: <s5h8ryy102o.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Subject: Re: [PATCH v2 1/3] ALSA: pcm: introduce INFO_NO_REWINDS flag
-To: Takashi Iwai <tiwai@suse.de>
+In-Reply-To: <51b47edf-cec2-6f11-17ee-3b8bca7e7c37@linux.intel.com>
 References: <20211004162423.85323-1-pierre-louis.bossart@linux.intel.com>
  <20211004162423.85323-2-pierre-louis.bossart@linux.intel.com>
  <s5h8rz8ez3s.wl-tiwai@suse.de>
@@ -59,16 +80,12 @@ References: <20211004162423.85323-1-pierre-louis.bossart@linux.intel.com>
  <s5hk0ii1cwf.wl-tiwai@suse.de>
  <e3c854ba-9abf-c9f1-1d74-1a82c9a7b6b3@linux.intel.com>
  <s5hczoa17vx.wl-tiwai@suse.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <51b47edf-cec2-6f11-17ee-3b8bca7e7c37@linux.intel.com>
-Date: Tue, 12 Oct 2021 13:02:07 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <s5hczoa17vx.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ <51b47edf-cec2-6f11-17ee-3b8bca7e7c37@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
 Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
  P9ter Ujfalusi <peter.ujfalusi@linux.intel.com>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
@@ -88,58 +105,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, 12 Oct 2021 20:02:07 +0200,
+Pierre-Louis Bossart wrote:
+> 
+> 
+> >> diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+> >> index a144a3f68e9e..e839459916ca 100644
+> >> --- a/sound/core/pcm_lib.c
+> >> +++ b/sound/core/pcm_lib.c
+> >> @@ -2127,11 +2127,30 @@ int pcm_lib_apply_appl_ptr(struct
+> >> snd_pcm_substream *substream,
+> >>  {
+> >>         struct snd_pcm_runtime *runtime = substream->runtime;
+> >>         snd_pcm_uframes_t old_appl_ptr = runtime->control->appl_ptr;
+> >> +       snd_pcm_sframes_t diff;
+> >>         int ret;
+> >>
+> >>         if (old_appl_ptr == appl_ptr)
+> >>                 return 0;
+> >>
+> >> +       /*
+> >> +        * check if a rewind is requested by the application, after
+> >> +        * verifying the new appl_ptr is in the 0..boundary range
+> >> +        */
+> >> +       if (substream->runtime->info & SNDRV_PCM_INFO_NO_REWINDS) {
+> >> +               if (appl_ptr >= runtime->boundary)
+> >> +                       appl_ptr -= runtime->boundary;
+> > 
+> > The boundary check can (or should) be done unconditionally.
+> > It was too naive to assume a sane appl_ptr passed always.
+> > And, it can rather return an error.  So,
+> > 
+> > 	if (appl_ptr >= runtime->boundary)
+> > 		return -EINVAL;
+> 
+> ok, but that would be a separate patch then since it impacts all users,
+> even without the NO_REWINDS.
 
->> diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
->> index a144a3f68e9e..e839459916ca 100644
->> --- a/sound/core/pcm_lib.c
->> +++ b/sound/core/pcm_lib.c
->> @@ -2127,11 +2127,30 @@ int pcm_lib_apply_appl_ptr(struct
->> snd_pcm_substream *substream,
->>  {
->>         struct snd_pcm_runtime *runtime = substream->runtime;
->>         snd_pcm_uframes_t old_appl_ptr = runtime->control->appl_ptr;
->> +       snd_pcm_sframes_t diff;
->>         int ret;
->>
->>         if (old_appl_ptr == appl_ptr)
->>                 return 0;
->>
->> +       /*
->> +        * check if a rewind is requested by the application, after
->> +        * verifying the new appl_ptr is in the 0..boundary range
->> +        */
->> +       if (substream->runtime->info & SNDRV_PCM_INFO_NO_REWINDS) {
->> +               if (appl_ptr >= runtime->boundary)
->> +                       appl_ptr -= runtime->boundary;
-> 
-> The boundary check can (or should) be done unconditionally.
-> It was too naive to assume a sane appl_ptr passed always.
-> And, it can rather return an error.  So,
-> 
-> 	if (appl_ptr >= runtime->boundary)
-> 		return -EINVAL;
+Makes sense.
 
-ok, but that would be a separate patch then since it impacts all users,
-even without the NO_REWINDS.
+> > 	/* check if a rewind is requested by the application */
+> > 	if (substream->runtime->info & SNDRV_PCM_INFO_NO_REWINDS) {
+> > 		diff = appl_ptr - old_appl_ptr;
+> > 		....
+> > 
+> >> +               if (diff >= 0) {
+> >> +                       if (diff > runtime->buffer_size)
+> >> +                               return 0;
+> >> +               } else {
+> >> +                       if (runtime->boundary + diff > runtime->buffer_size)
+> >> +                               return 0;
+> > 
+> > I'm not sure whether we should return 0 here.  In snd_pcm_rewind() it
+> > returns 0 due to application breakage, though.
+> 
+> We could return -EINVAL indeed, that would keep the work-around in place
+> for PulseAudio.
+> Even for other uses, it's not so bad: the selection of NO_REWINDS is an
+> opt-in, and if a rewind still occurs a big fail would help detect a
+> configuration issue.
 
-> 
-> 	/* check if a rewind is requested by the application */
-> 	if (substream->runtime->info & SNDRV_PCM_INFO_NO_REWINDS) {
-> 		diff = appl_ptr - old_appl_ptr;
-> 		....
-> 
->> +               if (diff >= 0) {
->> +                       if (diff > runtime->buffer_size)
->> +                               return 0;
->> +               } else {
->> +                       if (runtime->boundary + diff > runtime->buffer_size)
->> +                               return 0;
-> 
-> I'm not sure whether we should return 0 here.  In snd_pcm_rewind() it
-> returns 0 due to application breakage, though.
+Yeah, that was my gut feeling ,too.
 
-We could return -EINVAL indeed, that would keep the work-around in place
-for PulseAudio.
-Even for other uses, it's not so bad: the selection of NO_REWINDS is an
-opt-in, and if a rewind still occurs a big fail would help detect a
-configuration issue.
+
+Takashi

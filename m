@@ -2,105 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65D7B42A28F
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 12:43:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 048CC42A311
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 13:20:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DBC3D1661;
-	Tue, 12 Oct 2021 12:42:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBC3D1661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 876E3168B;
+	Tue, 12 Oct 2021 13:20:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 876E3168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634035416;
-	bh=YaSfAarn7+z8CApRLYVq4huoMcp6whecBWfVufdo4oc=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ZMKmsiey1BJ8hduu37yfWhJ1/LCK1bvmYpeIvUeK64FuC4pDIuU9JmHt3pDPb6pD6
-	 JFJtnuO0aT28FKET5gbkrh8mmff8awwQD1rAvdlVKshurB+dbblTajuofg6cdO1feq
-	 8kLHgYrKKOQ6CLtGU/A/YubX52Obk1Rh5oC1cw30=
+	s=default; t=1634037655;
+	bh=ufIngamheoFn5TNkjbAtJNHj2ytlL6n8vYWfJJhTPe0=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ZpSi3EkpsT8+n996XhzGWJJ70ZPb3o6Qas3e2gsaYzkDObRTnpnlNLFE4+YwcQRwr
+	 NjEDaHXbYFvC8Tl5QcuFBgXu81PHrZAdj6veD+fKXLaRvkqmw53QoRXF7X+E7fXQGM
+	 PvEkw3VIcxuAzUWDs53MIrwu+PAeDFCSdH71OFuw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5BD0AF80245;
-	Tue, 12 Oct 2021 12:42:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DAA7FF80088;
+	Tue, 12 Oct 2021 13:19:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1C438F80212; Tue, 12 Oct 2021 12:42:18 +0200 (CEST)
+ id 2CBD7F80212; Tue, 12 Oct 2021 13:19:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_78,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8376FF80088
- for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 12:42:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8376FF80088
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="RX0fqao/"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="BDQ3OdDz"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 5A2F7220E5;
- Tue, 12 Oct 2021 10:42:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1634035331; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=e5PkYv61Jzcv11apgfDdJuETazSr8+IfEH/+SEjVzaw=;
- b=RX0fqao/oHMcq6KrnTAh2IQCstEC81DkgE72aA+FO3piNhZ6PVK7sXsTjwfzMNIufW/p+m
- 3dXPgpjS/6tS9IXnw+oNqsq6ZCNVWimhswVEbUjSTGlGF2T/3B1N8WM9owrrzl62CpxFvC
- r0ZZBBU0/ujhn9XUBCB1yfp9enCB06A=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1634035331;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=e5PkYv61Jzcv11apgfDdJuETazSr8+IfEH/+SEjVzaw=;
- b=BDQ3OdDzrTzrerIeRurFcfuSBraliXpS+ZSKm3KEkc3Q6hh6MBqKMSH8rUW36Y+KEg5104
- F8pG7A2ryUsfl4BA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id BC383A3B83;
- Tue, 12 Oct 2021 10:42:10 +0000 (UTC)
-Date: Tue, 12 Oct 2021 12:42:10 +0200
-Message-ID: <s5h1r4q34ot.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [RFC PATCH v2 0/5] ASoC: soc-pcm: fix trigger race conditions
- with shared BE
-In-Reply-To: <s5htuhm3g68.wl-tiwai@suse.de>
-References: <20211004225441.233375-1-pierre-louis.bossart@linux.intel.com>
- <cce82420-d744-ee43-d514-b77ac4905ffa@nvidia.com>
- <1efa1c31-7342-05f8-5f73-95e2462d4179@linux.intel.com>
- <3683cf39-632b-50df-c65d-63779c464850@nvidia.com>
- <11257d77-9975-3b00-94da-5dc1b5c95fc6@linux.intel.com>
- <s5hk0ip9js7.wl-tiwai@suse.de>
- <ff43fede-aa66-3cb7-6365-e1f279cd135f@linux.intel.com>
- <s5hzgrk98y9.wl-tiwai@suse.de>
- <80882fe6-ea30-43f6-8d83-8995dd28c748@linux.intel.com>
- <s5hwnmo96vh.wl-tiwai@suse.de>
- <60c6a90b-290d-368c-ce61-4d86e70eaa78@linux.intel.com>
- <s5hily88rri.wl-tiwai@suse.de>
- <75894aba-ca1a-51d6-df7d-ad53fcd89f79@linux.intel.com>
- <s5hee8w82ng.wl-tiwai@suse.de>
- <e9340874-320a-8fc6-f3a4-9cf77f85db25@linux.intel.com>
- <s5hczof7eoq.wl-tiwai@suse.de>
- <dcdb8f74-51db-86a1-959f-909dfac22b26@linux.intel.com>
- <29397354-dc5b-7837-c71b-df4bde707df2@linux.intel.com>
- <8c1353f0-e897-e7b0-c7b9-5712b05ac91f@linux.intel.com>
- <s5htuhm3g68.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Sameer Pujar <spujar@nvidia.com>, vkoul@kernel.org, broonie@kernel.org,
- Gyeongtaek Lee <gt82.lee@samsung.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id EFC5DF800CB
+ for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 13:19:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFC5DF800CB
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 188AA1A1D75;
+ Tue, 12 Oct 2021 13:19:29 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id D4EFB1A1503;
+ Tue, 12 Oct 2021 13:19:28 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 785E8183AC8B;
+ Tue, 12 Oct 2021 19:19:27 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ ckeepax@opensource.cirrus.com, kuninori.morimoto.gx@renesas.com,
+ patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: [RESEND PATCH] ASoC: wm8960: Fix clock configuration on slave mode
+Date: Tue, 12 Oct 2021 18:54:30 +0800
+Message-Id: <1634036070-2671-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,87 +71,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 12 Oct 2021 08:34:07 +0200,
-Takashi Iwai wrote:
-> 
-> On Mon, 11 Oct 2021 22:06:51 +0200,
-> Pierre-Louis Bossart wrote:
-> > 
-> > 
-> > >>> Basically we need to protect two things:
-> > >>> - The BE links
-> > >>> - The concurrent accesses to BEs
-> > >>> The former belongs to each FE that holds the links, and the FE stream
-> > >>> lock would cover.  The latter is rather a per-BE business.
-> > >>>
-> > >>> An oft-seen risk of multiple locks is deadlocking, but in this case,
-> > >>> as long as we keep the lock order FE->BE, nothing wrong can happen.
-> > >>
-> > >> famous last words  "nothing wrong can happen." :-)
-> > >>
-> > >> I already added a helper to do this FE lock, I can easily replace the
-> > >> implementation to remove the spin_lock and use the FE PCM lock.
-> > >> we might even add the lock in the definition of for_each_dpcm_be() to
-> > >> avoid misses.
-> > >>
-> > >> Let me try this out today, thanks for the suggestions.
-> > > 
-> > > well, it's not successful at all...
-> > > 
-> > > When I replace the existing dpcm_lock with the FE PCM lock as you
-> > > suggested, without any additional changes, speaker-test produces valid
-> > > audio on the endpoints, but if I try a Ctrl-C or limit the number of
-> > > loops with the '-l' option, I hear an endless loop on the same buffer
-> > > and I have to power cycle my test device to stop the sound.
-> > > 
-> > > See 2 patches attached, the first patch with the introduction of the
-> > > helper works fine, the second with the use of the FE PCM lock doesn't.
-> > > In hindsight I am glad I worked on minimal patches, one after the other,
-> > > to identify problems.
-> > > 
-> > > And when I add the BE lock, then nothing happens. Device stuck and no
-> > > audio...
-> > > 
-> > > There must be something we're missing related to the locking...
-> > 
-> > And indeed there's a deadlock!
-> > 
-> > snd_pcm_period_elapsed() takes the FE pcm stream lock, and will call
-> > snd_pcm_trigger.
-> 
-> Indeed, this would deadlock.
-> 
-> > So if we also take the pcm stream lock in the BE
-> > trigger, there's a conceptual deadlock: we painted ourselves in a corner
-> > by using the same lock twice.
-> > 
-> > Takashi, are you really sure we should protect these for_each_dpcm_be()
-> > loops with the same pcm lock?
-> 
-> The call within the FE lock is done only in dpcm_dai_trigger_fe_be(),
-> and this should call dpcm_be_dai_trigger() as is.  In other places,
-> the calls are without FE lock, hence they can take the lock,
-> e.g. create a variant dpcm_dai_trigger_fe_be_lock().
+There is a noise issue for 8kHz sample rate on slave mode.
+Compared with master mode, the difference is the DACDIV
+setting, after correcting the DACDIV, the noise is gone.
 
-Or rather it was the code path of snd_soc_dpcm_check_state()?
-The function could be called from dpcm_be_dai_trigger().
-Currently dpcm_lock seems to be added at places casually covering some
-of the for_each_dpcm_be() or whatever...  The whole lock scheme has to
-be revisited.
+There is no noise issue for 48kHz sample rate, because
+the default value of DACDIV is correct for 48kHz.
 
-> > it seems like asking for trouble to
-> > revisit the ALSA core just to walking through a list of BEs? Would you
-> > object to changing dpcm_lock as I suggested, but not interfering with
-> > stream handling?
-> 
-> That would work, too, it's just a pity to degrade the fine-grained
-> locks that have been already taken into global locks...
+So wm8960_configure_clocking() should be functional for
+ADC and DAC function even if it is slave mode.
 
-For the performance problem, at least, you can make it rwlock and
-rwsem types (depending on nonatomic) so that the concurrent accesses
-would work.  The only exclusive lock is the case for adding and
-removing the entries, which should be done with write lock / sem down,
-while other link traversals can be executed in the read lock / sem.
+In order to be compatible for old use case, just add
+condition for checking that sysclk is zero with
+slave mode.
 
+Fixes: 0e50b51aa22f ("ASoC: wm8960: Let wm8960 driver configure its bit clock and frame clock")
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+ sound/soc/codecs/wm8960.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Takashi
+diff --git a/sound/soc/codecs/wm8960.c b/sound/soc/codecs/wm8960.c
+index 9e621a254392..9c6af76a60fd 100644
+--- a/sound/soc/codecs/wm8960.c
++++ b/sound/soc/codecs/wm8960.c
+@@ -742,7 +742,7 @@ static int wm8960_configure_clocking(struct snd_soc_component *component)
+ 	int i, j, k;
+ 	int ret;
+ 
+-	if (!(iface1 & (1<<6))) {
++	if (!(iface1 & (1 << 6)) && !wm8960->sysclk) {
+ 		dev_dbg(component->dev,
+ 			"Codec is slave mode, no need to configure clock\n");
+ 		return 0;
+-- 
+2.17.1
+

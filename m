@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3DC9429CD2
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 06:57:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92594429CD4
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 06:57:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 588AD169C;
-	Tue, 12 Oct 2021 06:56:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 588AD169C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2EE2F16A0;
+	Tue, 12 Oct 2021 06:56:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EE2F16A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634014630;
-	bh=zhx8E1dswpg2GngT6sOERROTxOjhBc0qtld2wUa7mvs=;
+	s=default; t=1634014654;
+	bh=LqJemn0F4RS+l7dy4iUVNfok2Fi4rChCvwOWPcRxGO0=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=F5OCm4w76GTpHygUQp6p93B1zSrW6AjbNeAFGHsm7v4nvE8z5FwA7F9Vux5IQU+lz
-	 iyjUh0ThysaqhZJCUv68svzybeHaXOaQorAmAJjtZUQqesmwLuUEtX2C4saZ/DhBJw
-	 ztt3JT8YWv6fIlDgQmZQBJdDd2j9lGUsK1+aebHY=
+	b=Pjl9oBt1fvMznINITnHWIuR8MfMAapV5mXls1u9X84mlIackRfMAyBgyrkTdHYSdO
+	 msnJIv3KugtiOYMYUUqeVZx+bqonU5g2J2MRd0FxhzIxQ31qKWemNoZZvP2nfjHlT2
+	 b0OgN67kq03qom8EE7PizRdtKIE/rGlfDHVDwhwQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40CD0F804FF;
-	Tue, 12 Oct 2021 06:55:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EFF39F804E5;
+	Tue, 12 Oct 2021 06:55:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 79094F804FF; Tue, 12 Oct 2021 06:55:20 +0200 (CEST)
+ id 4D0E5F804E6; Tue, 12 Oct 2021 06:55:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 6131FF804E3
- for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 06:55:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6131FF804E3
-Date: 12 Oct 2021 13:55:12 +0900
-X-IronPort-AV: E=Sophos;i="5.85,366,1624287600"; d="scan'208";a="96710706"
+ by alsa1.perex.cz (Postfix) with ESMTP id 26DB6F80212
+ for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 06:55:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26DB6F80212
+Date: 12 Oct 2021 13:55:33 +0900
+X-IronPort-AV: E=Sophos;i="5.85,366,1624287600"; d="scan'208";a="96710737"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 12 Oct 2021 13:55:12 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 12 Oct 2021 13:55:33 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 9159C4006CD8;
- Tue, 12 Oct 2021 13:55:12 +0900 (JST)
-Message-ID: <87zgrelu4v.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id DFD824007F58;
+ Tue, 12 Oct 2021 13:55:33 +0900 (JST)
+Message-ID: <87y26ylu4a.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v5 07/16] ASoC: audio-graph-card2: add DPCM support
+Subject: [PATCH v5 08/16] ASoC: audio-graph-card2: add Codec2Codec support
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87a6jen8su.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,65 +70,52 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-This patch adds DPCM support to audio-graph-card2.
-It uses "dpcm" node (= D), needs to have routing (= A),
-need to indicate both FE/BE at links (= B, C).
-dpcm ports@0 is for FE (= B), port@1 is for BE (= C).
-remote-endpoint can use both Single/Multi connection.
+This patch adds Codec2Codec support to audio-graph-card2.
+It can use Codec2Codec but very simple case only for now.
+It doesn't have "SWITCH" control yet, thus it start automatically
+when it was probed, and can't stop, so far.
+Thus it needs to be updated around widgets/routing handling,
+and you need to understand that it is under experimental.
 
-			DSP
-		  ************
-	PCM0 <--> * fe0  be0 * <--> DAI0: Codec Headset
-	PCM1 <--> * fe1  be1 * <--> DAI1: Codec Speakers
-	PCM2 <--> * fe2  be2 * <--> DAI2: MODEM
-	PCM3 <--> * fe3  be3 * <--> DAI3: BT
-		  *	 be4 * <--> DAI4: DMIC
-		  *	 be5 * <--> DAI5: FM
-		  ************
+Codec has SND_SOC_DAPM_INPUT() (= IN) / SND_SOC_DAPM_OUTPUT(= OUT)
+widgets in below case.
+
+It is assuming 2channel, S32_LE format for now.
+It needs to be updated, too.
+
+It needs "codec2codec" node (= B), needs to have routing (= A),
+need to indicate CPU side at links (= X).
+ports@0 is for CPU side (= X), port@1 is Codec side (= Y).
+It needs to have "rate" (= C)
+
+	+--+
+	|  |<-- Codec0 <-- IN
+	|  |--> Codec1 --> OUT
+	+--+
 
 	sound {
 		compatible = "audio-graph-card2";
 
-		// indicate routing
-(A)		routing = "xxx Playback", "xxx Playback",
-			  "xxx Playback", "xxx Playback",
-			  "xxx Playback", "xxx Playback";
+(A)		routing = "OUT" ,"DAI1 Playback",
+			  "DAI0 Capture", "IN";
 
-		// indicate all Front-End, Back-End in DPCM case
-(B)		links = <&fe0, &fe1, ...
-(C)			 &be0, &be1, ...
+(X)		links = <&c2c>;
 
-(D)		dpcm {
-			// Front-End
-			ports@0 {
-(B)				fe0: port@0 { fe0_ep: endpoint { remote-endpoint = <&pcm0_ep>; }; };
-(B)				fe1: port@1 { fe1_ep: endpoint { remote-endpoint = <&pcm1_ep>; }; };
-				...
-			};
-			// Back-End
-			ports@1 {
-(C)				be0: port@0 { be0_ep: endpoint { remote-endpoint = <&dai0_ep>; }; };
-(C)				be1: port@1 { be1_ep: endpoint { remote-endpoint = <&dai1_ep>; }; };
-				...
-			};
-		};
-	};
-
-	CPU {
-		ports {
-			bitclock-master;
-			frame-master;
-			port@0 { pcm0_ep: endpoint { remote-endpoint = <&fe0_ep>; }; };
-			port@1 { pcm1_ep: endpoint { remote-endpoint = <&fe1_ep>; }; };
-			...
+(B)		codec2codec {
+			ports {
+(C)				rate = <48000>;
+(X)			c2c:	port@0 { c2cf_ep: endpoint { remote-endpoint = <&codec0_ep>; }; };
+(Y)				port@1 { c2cb_ep: endpoint { remote-endpoint = <&codec1_ep>; }; };
 		};
 	};
 
 	Codec {
 		ports {
-			port@0 { dai0_ep: endpoint { remote-endpoint = <&be0_ep>; }; };
-			port@1 { dai1_ep: endpoint { remote-endpoint = <&be1_ep>; }; };
-			...
+			port@0 {
+				 bitclock-master;
+				 frame-master;
+				 codec0_ep: endpoint { remote-endpoint = <&c2cf_ep>; }; };
+			port@1 { codec1_ep: endpoint { remote-endpoint = <&c2cb_ep>; }; };
 		};
 	};
 
@@ -136,94 +123,69 @@ Link: https://lore.kernel.org/r/87k0xszlep.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
  include/sound/graph_card.h            |   3 +
- sound/soc/generic/audio-graph-card2.c | 254 ++++++++++++++++++++++++++
- 2 files changed, 257 insertions(+)
+ sound/soc/generic/audio-graph-card2.c | 181 ++++++++++++++++++++++++++
+ 2 files changed, 184 insertions(+)
 
 diff --git a/include/sound/graph_card.h b/include/sound/graph_card.h
-index 497d59585b2d..ece78a84391c 100644
+index ece78a84391c..4c8b94c77b8e 100644
 --- a/include/sound/graph_card.h
 +++ b/include/sound/graph_card.h
-@@ -17,6 +17,7 @@ struct graph2_custom_hooks {
- 	int (*hook_pre)(struct asoc_simple_priv *priv);
+@@ -18,6 +18,7 @@ struct graph2_custom_hooks {
  	int (*hook_post)(struct asoc_simple_priv *priv);
  	GRAPH2_CUSTOM custom_normal;
-+	GRAPH2_CUSTOM custom_dpcm;
+ 	GRAPH2_CUSTOM custom_dpcm;
++	GRAPH2_CUSTOM custom_c2c;
  };
  
  int audio_graph_parse_of(struct asoc_simple_priv *priv, struct device *dev);
-@@ -25,5 +26,7 @@ int audio_graph2_parse_of(struct asoc_simple_priv *priv, struct device *dev,
- 
- int audio_graph2_link_normal(struct asoc_simple_priv *priv,
+@@ -28,5 +29,7 @@ int audio_graph2_link_normal(struct asoc_simple_priv *priv,
  			     struct device_node *lnk, struct link_info *li);
-+int audio_graph2_link_dpcm(struct asoc_simple_priv *priv,
-+			   struct device_node *lnk, struct link_info *li);
+ int audio_graph2_link_dpcm(struct asoc_simple_priv *priv,
+ 			   struct device_node *lnk, struct link_info *li);
++int audio_graph2_link_c2c(struct asoc_simple_priv *priv,
++			  struct device_node *lnk, struct link_info *li);
  
  #endif /* __GRAPH_CARD_H */
 diff --git a/sound/soc/generic/audio-graph-card2.c b/sound/soc/generic/audio-graph-card2.c
-index a7819a05e8b2..56e9e6c3b86e 100644
+index 56e9e6c3b86e..b6049bcfb771 100644
 --- a/sound/soc/generic/audio-graph-card2.c
 +++ b/sound/soc/generic/audio-graph-card2.c
-@@ -116,15 +116,77 @@ links indicates connection part of CPU side (= A).
+@@ -176,17 +176,54 @@ links indicates connection part of CPU side (= A).
  	};
   };
  
 + ************************************
-+	DPCM
++	Codec to Codec
 + ************************************
 +
-+		DSP
-+	   ************
-+ PCM0 <--> * fe0  be0 * <--> DAI0: Codec Headset
-+ PCM1 <--> * fe1  be1 * <--> DAI1: Codec Speakers
-+ PCM2 <--> * fe2  be2 * <--> DAI2: MODEM
-+ PCM3 <--> * fe3  be3 * <--> DAI3: BT
-+	   *	  be4 * <--> DAI4: DMIC
-+	   *	  be5 * <--> DAI5: FM
-+	   ************
++ +--+
++ |  |<-- Codec0 <- IN
++ |  |--> Codec1 -> OUT
++ +--+
 +
 + sound {
 +	compatible = "audio-graph-card2";
 +
-+	// indicate routing
-+	routing = "xxx Playback", "xxx Playback",
-+		  "xxx Playback", "xxx Playback",
-+		  "xxx Playback", "xxx Playback";
++	routing = "OUT" ,"DAI1 Playback",
++		  "DAI0 Capture", "IN";
 +
-+	// indicate all Front-End, Back-End
-+	links = <&fe0, &fe1, ...,
-+		 &be0, &be1, ...>;
++	links = <&c2c>;
 +
-+	dpcm {
-+		// Front-End
-+		ports@0 {
-+			fe0: port@0 { fe0_ep: endpoint { remote-endpoint = <&pcm0_ep>; }; };
-+			fe1: port@1 { fe1_ep: endpoint { remote-endpoint = <&pcm1_ep>; }; };
-+			...
-+		};
-+		// Back-End
-+		ports@1 {
-+			be0: port@0 { be0_ep: endpoint { remote-endpoint = <&dai0_ep>; }; };
-+			be1: port@1 { be1_ep: endpoint { remote-endpoint = <&dai1_ep>; }; };
-+			...
-+		};
-+	};
-+ };
-+
-+ CPU {
-+	ports {
-+		bitclock-master;
-+		frame-master;
-+		port@0 { pcm0_ep: endpoint { remote-endpoint = <&fe0_ep>; }; };
-+		port@1 { pcm1_ep: endpoint { remote-endpoint = <&fe1_ep>; }; };
-+		...
++	codec2codec {
++		ports {
++			rate = <48000>;
++		c2c:	port@0 { c2cf_ep: endpoint { remote-endpoint = <&codec0_ep>; }; };
++			port@1 { c2cb_ep: endpoint { remote-endpoint = <&codec1_ep>; }; };
 +	};
 + };
 +
 + Codec {
 +	ports {
-+		port@0 { dai0_ep: endpoint { remote-endpoint = <&be0_ep>; }; };
-+		port@1 { dai1_ep: endpoint { remote-endpoint = <&be1_ep>; }; };
-+		...
++		port@0 {
++			bitclock-master;
++			frame-master;
++			 codec0_ep: endpoint { remote-endpoint = <&c2cf_ep>; }; };
++		port@1 { codec1_ep: endpoint { remote-endpoint = <&c2cb_ep>; }; };
 +	};
 + };
 +
@@ -231,252 +193,194 @@ index a7819a05e8b2..56e9e6c3b86e 100644
  
  enum graph_type {
  	GRAPH_NORMAL,
-+	GRAPH_DPCM,
+ 	GRAPH_DPCM,
++	GRAPH_C2C,
  
  	GRAPH_MULTI,	/* don't use ! Use this only in __graph_get_type() */
  };
  
  #define GRAPH_NODENAME_MULTI	"multi"
-+#define GRAPH_NODENAME_DPCM	"dpcm"
+ #define GRAPH_NODENAME_DPCM	"dpcm"
++#define GRAPH_NODENAME_C2C	"codec2codec"
  
  #define port_to_endpoint(port) of_get_child_by_name(port, "endpoint")
  
-@@ -147,6 +209,9 @@ static enum graph_type __graph_get_type(struct device_node *lnk)
- 	if (of_node_name_eq(np, GRAPH_NODENAME_MULTI))
- 		return GRAPH_MULTI;
+@@ -212,6 +249,9 @@ static enum graph_type __graph_get_type(struct device_node *lnk)
+ 	if (of_node_name_eq(np, GRAPH_NODENAME_DPCM))
+ 		return GRAPH_DPCM;
  
-+	if (of_node_name_eq(np, GRAPH_NODENAME_DPCM))
-+		return GRAPH_DPCM;
++	if (of_node_name_eq(np, GRAPH_NODENAME_C2C))
++		return GRAPH_C2C;
 +
  	return GRAPH_NORMAL;
  }
  
-@@ -164,6 +229,17 @@ static enum graph_type graph_get_type(struct asoc_simple_priv *priv,
- 		struct device *dev = simple_priv_to_dev(priv);
- 		const char *str = "Normal";
- 
-+		switch (type) {
-+		case GRAPH_DPCM:
-+			if (asoc_graph_is_ports0(lnk))
-+				str = "DPCM Front-End";
-+			else
-+				str = "DPCM Back-End";
-+			break;
-+		default:
-+			break;
-+		}
-+
- 		dev_dbg(dev, "%pOF (%s)", lnk, str);
- 	}
- #endif
-@@ -322,6 +398,22 @@ static int asoc_simple_parse_dai(struct device_node *ep,
- 	return 0;
- }
- 
-+static void graph_parse_convert(struct device_node *ep,
-+				struct simple_dai_props *props)
-+{
-+	struct device_node *port = of_get_parent(ep);
-+	struct device_node *ports = of_get_parent(port);
-+	struct asoc_simple_data *adata = &props->adata;
-+
-+	if (of_node_name_eq(ports, "ports"))
-+		asoc_simple_parse_convert(ports, NULL, adata);
-+	asoc_simple_parse_convert(port, NULL, adata);
-+	asoc_simple_parse_convert(ep,   NULL, adata);
-+
-+	of_node_put(port);
-+	of_node_put(ports);
-+}
-+
- static void graph_parse_mclk_fs(struct device_node *ep,
- 				struct simple_dai_props *props)
- {
-@@ -394,11 +486,37 @@ static int __graph_parse_node(struct asoc_simple_priv *priv,
- 							       cpus->dai_name,   cpu_multi,
- 							     codecs->dai_name, codec_multi);
+@@ -236,6 +276,9 @@ static enum graph_type graph_get_type(struct asoc_simple_priv *priv,
+ 			else
+ 				str = "DPCM Back-End";
  			break;
-+		case GRAPH_DPCM:
-+			if (is_cpu)
-+				asoc_simple_set_dailink_name(dev, dai_link, "fe.%pOFP.%s%s",
-+						cpus->of_node, cpus->dai_name, cpu_multi);
-+			else
-+				asoc_simple_set_dailink_name(dev, dai_link, "be.%pOFP.%s%s",
-+						codecs->of_node, codecs->dai_name, codec_multi);
++		case GRAPH_C2C:
++			str = "Codec2Codec";
 +			break;
  		default:
  			break;
  		}
- 	}
- 
-+	/*
-+	 * Check "prefix" from top node
-+	 * if DPCM-BE case
-+	 */
-+	if (!is_cpu && gtype == GRAPH_DPCM) {
-+		struct snd_soc_dai_link_component *codecs = asoc_link_to_codec(dai_link, idx);
-+		struct snd_soc_codec_conf *cconf = simple_props_to_codec_conf(dai_props, idx);
-+		struct device_node *rport  = of_get_parent(ep);
-+		struct device_node *rports = of_get_parent(rport);
-+
-+		if (of_node_name_eq(rports, "ports"))
-+			snd_soc_of_parse_node_prefix(rports, cconf, codecs->of_node, "prefix");
-+		snd_soc_of_parse_node_prefix(rport,  cconf, codecs->of_node, "prefix");
-+
-+		of_node_put(rport);
-+		of_node_put(rports);
-+	}
-+
- 	if (is_cpu) {
- 		struct snd_soc_dai_link_component *cpus = dlc;
- 		struct snd_soc_dai_link_component *platforms = asoc_link_to_platform(dai_link, idx);
-@@ -582,6 +700,98 @@ int audio_graph2_link_normal(struct asoc_simple_priv *priv,
+@@ -494,6 +537,13 @@ static int __graph_parse_node(struct asoc_simple_priv *priv,
+ 				asoc_simple_set_dailink_name(dev, dai_link, "be.%pOFP.%s%s",
+ 						codecs->of_node, codecs->dai_name, codec_multi);
+ 			break;
++		case GRAPH_C2C:
++			/* run is_cpu only. see audio_graph2_link_c2c() */
++			if (is_cpu)
++				asoc_simple_set_dailink_name(dev, dai_link, "c2c.%s%s-%s%s",
++							     cpus->dai_name,   cpu_multi,
++							     codecs->dai_name, codec_multi);
++			break;
+ 		default:
+ 			break;
+ 		}
+@@ -792,6 +842,91 @@ int audio_graph2_link_dpcm(struct asoc_simple_priv *priv,
  }
- EXPORT_SYMBOL_GPL(audio_graph2_link_normal);
+ EXPORT_SYMBOL_GPL(audio_graph2_link_dpcm);
  
-+int audio_graph2_link_dpcm(struct asoc_simple_priv *priv,
-+			   struct device_node *lnk,
-+			   struct link_info *li)
++int audio_graph2_link_c2c(struct asoc_simple_priv *priv,
++			  struct device_node *lnk,
++			  struct link_info *li)
 +{
-+	struct device_node *ep = port_to_endpoint(lnk);
-+	struct device_node *rep = of_graph_get_remote_endpoint(ep);
-+	struct device_node *rport = of_graph_get_remote_port(ep);
 +	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
 +	struct simple_dai_props *dai_props = simple_priv_to_props(priv, li->link);
-+	int is_cpu = asoc_graph_is_ports0(lnk);
-+	int ret;
++	struct snd_soc_pcm_stream *c2c_conf = dai_props->c2c_conf;
++	struct device_node *port0, *port1, *ports;
++	struct device_node *codec0_port, *codec1_port;
++	struct device_node *ep0, *ep1;
++	u32 val;
++	int ret = -EINVAL;
 +
-+	if (is_cpu) {
-+		/*
-+		 * dpcm {
-+		 *	// Front-End
-+		 *	ports@0 {
-+		 * =>		lnk: port@0 { ep: { ... = rep }; };
-+		 *		 ...
-+		 *	};
-+		 *	// Back-End
-+		 *	ports@0 {
-+		 *		 ...
-+		 *	};
-+		 * };
-+		 *
-+		 * CPU {
-+		 *	rports: ports {
-+		 *		rport: port@0 { rep: { ... = ep } };
-+		 *	}
-+		 * }
-+		 */
-+		/*
-+		 * setup CPU here, Codec is already set as dummy.
-+		 * see
-+		 *	asoc_simple_init_priv()
-+		 */
-+		dai_link->dynamic		= 1;
-+		dai_link->dpcm_merged_format	= 1;
++	/*
++	 * codec2codec {
++	 *	ports {
++	 *		rate = <48000>;
++	 * =>	lnk:	port@0 { c2c0_ep: { ... = codec0_ep; }; };
++	 *		port@1 { c2c1_ep: { ... = codec1_ep; }; };
++	 *	};
++	 * };
++	 *
++	 * Codec {
++	 *	ports {
++	 *		port@0 { codec0_ep: ... }; };
++	 *		port@1 { codec1_ep: ... }; };
++	 *	};
++	 * };
++	 */
++	of_node_get(lnk);
++	port0 = lnk;
++	ports = of_get_parent(port0);
++	port1 = of_get_next_child(ports, lnk);
 +
-+		ret = graph_parse_node(priv, GRAPH_DPCM, rport, li, 1);
-+		if (ret)
-+			goto err;
-+	} else {
-+		/*
-+		 * dpcm {
-+		 *	// Front-End
-+		 *	ports@0 {
-+		 *		 ...
-+		 *	};
-+		 *	// Back-End
-+		 *	ports@0 {
-+		 * =>		lnk: port@0 { ep: { ... = rep; }; };
-+		 *		 ...
-+		 *	};
-+		 * };
-+		 *
-+		 * Codec {
-+		 *	rports: ports {
-+		 *		rport: port@0 { rep: { ... = ep; }; };
-+		 *	}
-+		 * }
-+		 */
-+		/*
-+		 * setup Codec here, CPU is already set as dummy.
-+		 * see
-+		 *	asoc_simple_init_priv()
-+		 */
++	if (!of_get_property(ports, "rate", &val)) {
++		struct device *dev = simple_priv_to_dev(priv);
 +
-+		/* BE settings */
-+		dai_link->no_pcm		= 1;
-+		dai_link->be_hw_params_fixup	= asoc_simple_be_hw_params_fixup;
-+
-+		ret = graph_parse_node(priv, GRAPH_DPCM, rport, li, 0);
-+		if (ret < 0)
-+			goto err;
++		dev_err(dev, "Codec2Codec needs rate settings\n");
++		goto err1;
 +	}
 +
-+	graph_parse_convert(rep, dai_props);
++	c2c_conf->formats	= SNDRV_PCM_FMTBIT_S32_LE; /* update ME */
++	c2c_conf->rate_min	=
++	c2c_conf->rate_max	= val;
++	c2c_conf->channels_min	=
++	c2c_conf->channels_max	= 2; /* update ME */
++	dai_link->params	= c2c_conf;
 +
-+	snd_soc_dai_link_set_capabilities(dai_link);
++	ep0 = port_to_endpoint(port0);
++	ep1 = port_to_endpoint(port1);
 +
-+	graph_link_init(priv, rport, li, is_cpu);
-+err:
-+	of_node_put(ep);
-+	of_node_put(rep);
-+	of_node_put(rport);
++	codec0_port = of_graph_get_remote_port(ep0);
++	codec1_port = of_graph_get_remote_port(ep1);
++
++	/*
++	 * call Codec first.
++	 * see
++	 *	__graph_parse_node() :: DAI Naming
++	 */
++	ret = graph_parse_node(priv, GRAPH_C2C, codec1_port, li, 0);
++	if (ret < 0)
++		goto err2;
++
++	/*
++	 * call CPU, and set DAI Name
++	 */
++	ret = graph_parse_node(priv, GRAPH_C2C, codec0_port, li, 1);
++	if (ret < 0)
++		goto err2;
++
++	graph_link_init(priv, codec0_port, li, 1);
++err2:
++	of_node_put(ep0);
++	of_node_put(ep1);
++	of_node_put(codec0_port);
++	of_node_put(codec1_port);
++err1:
++	of_node_put(ports);
++	of_node_put(port0);
++	of_node_put(port1);
 +
 +	return ret;
 +}
-+EXPORT_SYMBOL_GPL(audio_graph2_link_dpcm);
++EXPORT_SYMBOL_GPL(audio_graph2_link_c2c);
 +
  static int graph_link(struct asoc_simple_priv *priv,
  		      struct graph2_custom_hooks *hooks,
  		      enum graph_type gtype,
-@@ -599,6 +809,12 @@ static int graph_link(struct asoc_simple_priv *priv,
+@@ -815,6 +950,12 @@ static int graph_link(struct asoc_simple_priv *priv,
  		else
- 			func = audio_graph2_link_normal;
+ 			func = audio_graph2_link_dpcm;
  		break;
-+	case GRAPH_DPCM:
-+		if (hooks && hooks->custom_dpcm)
-+			func = hooks->custom_dpcm;
++	case GRAPH_C2C:
++		if (hooks && hooks->custom_c2c)
++			func = hooks->custom_c2c;
 +		else
-+			func = audio_graph2_link_dpcm;
++			func = audio_graph2_link_c2c;
 +		break;
  	default:
  		break;
  	}
-@@ -665,6 +881,41 @@ static int graph_count_normal(struct asoc_simple_priv *priv,
+@@ -916,6 +1057,43 @@ static int graph_count_dpcm(struct asoc_simple_priv *priv,
  	return 0;
  }
  
-+static int graph_count_dpcm(struct asoc_simple_priv *priv,
-+			    struct device_node *lnk,
-+			    struct link_info *li)
++static int graph_count_c2c(struct asoc_simple_priv *priv,
++			   struct device_node *lnk,
++			   struct link_info *li)
 +{
-+	struct device_node *ep = port_to_endpoint(lnk);
-+	struct device_node *rport = of_graph_get_remote_port(ep);
++	struct device_node *ports = of_get_parent(lnk);
++	struct device_node *port0 = lnk;
++	struct device_node *port1 = of_get_next_child(ports, lnk);
++	struct device_node *ep0 = port_to_endpoint(port0);
++	struct device_node *ep1 = port_to_endpoint(port1);
++	struct device_node *codec0 = of_graph_get_remote_port(ep0);
++	struct device_node *codec1 = of_graph_get_remote_port(ep1);
++
++	of_node_get(lnk);
 +
 +	/*
-+	 * dpcm {
-+	 *	// Front-End
-+	 *	ports@0 {
-+	 * =>		lnk: port@0 { endpoint { ... }; };
-+	 *		 ...
-+	 *	};
-+	 *	// Back-End
-+	 *	ports@1 {
-+	 * =>		lnk: port@0 { endpoint { ... }; };
-+	 *		 ...
++	 * codec2codec {
++	 *	ports {
++	 * =>	lnk:	port@0 { endpoint { ... }; };
++	 *		port@1 { endpoint { ... }; };
 +	 *	};
 +	 * };
 +	 */
++	li->num[li->link].cpus		=
++	li->num[li->link].platforms	= graph_counter(codec0);
++	li->num[li->link].codecs	= graph_counter(codec1);
++	li->num[li->link].c2c		= 1;
 +
-+	if (asoc_graph_is_ports0(lnk)) {
-+		li->num[li->link].cpus		= graph_counter(rport); /* FE */
-+		li->num[li->link].platforms	= graph_counter(rport);
-+	} else {
-+		li->num[li->link].codecs	= graph_counter(rport); /* BE */
-+	}
-+
-+	of_node_put(ep);
-+	of_node_put(rport);
++	of_node_put(ports);
++	of_node_put(port1);
++	of_node_put(ep0);
++	of_node_put(ep1);
++	of_node_put(codec0);
++	of_node_put(codec1);
 +
 +	return 0;
 +}
@@ -484,12 +388,12 @@ index a7819a05e8b2..56e9e6c3b86e 100644
  static int graph_count(struct asoc_simple_priv *priv,
  		       struct graph2_custom_hooks *hooks,
  		       enum graph_type gtype,
-@@ -684,6 +935,9 @@ static int graph_count(struct asoc_simple_priv *priv,
- 	case GRAPH_NORMAL:
- 		func = graph_count_normal;
+@@ -938,6 +1116,9 @@ static int graph_count(struct asoc_simple_priv *priv,
+ 	case GRAPH_DPCM:
+ 		func = graph_count_dpcm;
  		break;
-+	case GRAPH_DPCM:
-+		func = graph_count_dpcm;
++	case GRAPH_C2C:
++		func = graph_count_c2c;
 +		break;
  	default:
  		break;

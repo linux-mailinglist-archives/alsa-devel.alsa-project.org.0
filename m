@@ -2,60 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 048CC42A311
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 13:20:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A4DA42A338
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 13:26:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 876E3168B;
-	Tue, 12 Oct 2021 13:20:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 876E3168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20D54168B;
+	Tue, 12 Oct 2021 13:25:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20D54168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634037655;
-	bh=ufIngamheoFn5TNkjbAtJNHj2ytlL6n8vYWfJJhTPe0=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ZpSi3EkpsT8+n996XhzGWJJ70ZPb3o6Qas3e2gsaYzkDObRTnpnlNLFE4+YwcQRwr
-	 NjEDaHXbYFvC8Tl5QcuFBgXu81PHrZAdj6veD+fKXLaRvkqmw53QoRXF7X+E7fXQGM
-	 PvEkw3VIcxuAzUWDs53MIrwu+PAeDFCSdH71OFuw=
+	s=default; t=1634037996;
+	bh=qnqPDkW3PEuRHrH7fEFlwj1INa9JZghbCmyes7XDZtc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=dMdG+aAnm9yWwVaw3KJIvtONMfIMMsrA9KfeVObtnaObL8LmaedVVCdxGCkskBwk3
+	 lcqnZS1Y/gLkhSUXIRk6mgJaLFHlsoehVMnlDUWIsCiJO6zED3uA74GwW7h/wBj6Fk
+	 iE2kAJ9+RkSOi1ZlzY0ecEsFrOja3rJDpsY7Hgew=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DAA7FF80088;
-	Tue, 12 Oct 2021 13:19:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D0F5F80088;
+	Tue, 12 Oct 2021 13:25:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2CBD7F80212; Tue, 12 Oct 2021 13:19:36 +0200 (CEST)
+ id 94823F80212; Tue, 12 Oct 2021 13:25:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EFC5DF800CB
- for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 13:19:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFC5DF800CB
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 188AA1A1D75;
- Tue, 12 Oct 2021 13:19:29 +0200 (CEST)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com
- (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id D4EFB1A1503;
- Tue, 12 Oct 2021 13:19:28 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 785E8183AC8B;
- Tue, 12 Oct 2021 19:19:27 +0800 (+08)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- ckeepax@opensource.cirrus.com, kuninori.morimoto.gx@renesas.com,
- patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [RESEND PATCH] ASoC: wm8960: Fix clock configuration on slave mode
-Date: Tue, 12 Oct 2021 18:54:30 +0800
-Message-Id: <1634036070-2671-1-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
+ by alsa1.perex.cz (Postfix) with ESMTPS id 07F88F80088
+ for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 13:25:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07F88F80088
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Zra4gQuG"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B978C60F11;
+ Tue, 12 Oct 2021 11:25:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1634037910;
+ bh=qnqPDkW3PEuRHrH7fEFlwj1INa9JZghbCmyes7XDZtc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Zra4gQuG/UTWpwnl9rH1pLCnKl+1SHvoyjxNBszC96etvTcWQIgWJRIhV/y/P9uaS
+ ndGwytiCrrBgq4S05SPN8ZM7EXc7cjzrsevWXuH/pLatNUmbEtwE+uq2R/bDpD7RnL
+ beDQ698aGTzyvSFnE4MpbDRxnlLhfgbAudAzd6Cfhb3UltUHd2DMwrpIygoGavKCIj
+ s4ESe4MP1ZP1G95uWg5ozLHN9TwgPHT9aCcvubtqsUy2EfrjZdAPU/330vuVbiahqA
+ o8o+NKSFip7d6PvNALTSrPifquECuuBuk3ycixg/KpkkpcqoOmkf1EmL+MJS/YZPOr
+ bR7kVXA5Qy75Q==
+Date: Tue, 12 Oct 2021 12:25:07 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [RESEND PATCH] ASoC: wm8960: Fix clock configuration on slave mode
+Message-ID: <YWVwk1kqyF+gzEC0@sirena.org.uk>
+References: <1634036070-2671-1-git-send-email-shengjiu.wang@nxp.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="xmS7fg8H5aUGfp6g"
+Content-Disposition: inline
+In-Reply-To: <1634036070-2671-1-git-send-email-shengjiu.wang@nxp.com>
+X-Cookie: Swim at your own risk.
+Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
+ kuninori.morimoto.gx@renesas.com, patches@opensource.cirrus.com,
+ tiwai@suse.com, lgirdwood@gmail.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,39 +81,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There is a noise issue for 8kHz sample rate on slave mode.
-Compared with master mode, the difference is the DACDIV
-setting, after correcting the DACDIV, the noise is gone.
 
-There is no noise issue for 48kHz sample rate, because
-the default value of DACDIV is correct for 48kHz.
+--xmS7fg8H5aUGfp6g
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-So wm8960_configure_clocking() should be functional for
-ADC and DAC function even if it is slave mode.
+On Tue, Oct 12, 2021 at 06:54:30PM +0800, Shengjiu Wang wrote:
+> There is a noise issue for 8kHz sample rate on slave mode.
+> Compared with master mode, the difference is the DACDIV
+> setting, after correcting the DACDIV, the noise is gone.
 
-In order to be compatible for old use case, just add
-condition for checking that sysclk is zero with
-slave mode.
+Charles suggested some updates to the patch to improve the error
+reporting here which you don't seem to have addressed.
 
-Fixes: 0e50b51aa22f ("ASoC: wm8960: Let wm8960 driver configure its bit clock and frame clock")
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- sound/soc/codecs/wm8960.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--xmS7fg8H5aUGfp6g
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/sound/soc/codecs/wm8960.c b/sound/soc/codecs/wm8960.c
-index 9e621a254392..9c6af76a60fd 100644
---- a/sound/soc/codecs/wm8960.c
-+++ b/sound/soc/codecs/wm8960.c
-@@ -742,7 +742,7 @@ static int wm8960_configure_clocking(struct snd_soc_component *component)
- 	int i, j, k;
- 	int ret;
- 
--	if (!(iface1 & (1<<6))) {
-+	if (!(iface1 & (1 << 6)) && !wm8960->sysclk) {
- 		dev_dbg(component->dev,
- 			"Codec is slave mode, no need to configure clock\n");
- 		return 0;
--- 
-2.17.1
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFlcJIACgkQJNaLcl1U
+h9Bj7Af6AoUC0r7+IN4MGFP2D+GI8ETZVSb6+NtZHAxw+TaFmQLwIhjzcEcDRtjf
+hwLaEhsJNeks7PautGeGBzCpzO87FXDMcTh98x53l0nZDPX+OOYqPgicrRsPgPZ1
+g1SdtDg4dlJCyj0Iymr0l8Famw7s2HlnLhufqrGigzdAT/ZDTL/tIc+G0YJR+p1q
+Bmn2P1TVWvtIBBwVoVczqD9foLpX79Bz9l9PjFCQ3CG9HcAeceXI2mxc/xBaP00B
+Eh7CU+QDvDe73E66/+9dTnZpoffnxK7bu5TwnXvLJ2RlDlwBAnF/f0G/1A82VVnB
+2fuvTTKz2aFZG9lBtIvl0O3PhPI1MQ==
+=F7Y8
+-----END PGP SIGNATURE-----
+
+--xmS7fg8H5aUGfp6g--

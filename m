@@ -2,86 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F22042A913
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 18:06:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E500542A9D0
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 18:43:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A077874C;
-	Tue, 12 Oct 2021 18:05:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A077874C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 78012168B;
+	Tue, 12 Oct 2021 18:42:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78012168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634054801;
-	bh=IaXpAnVqh1YWvDMuquTUAlF3DAstG4ozNephT00rYNY=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1634057007;
+	bh=EqMMI3/nUH/fIn8AOCwIVyjdVa2SX0ZaphPkOXPFfwE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RorE/gEu+DrSyPdX5Tbyj/ASb+UUxvunNi4ujevaNIfEKqpb+ny+7HCpZhFfrSYJp
-	 9HU++C/5b9XHGgahmLILvmX9OM4wef9kBV9r7aymUrW42vJwDPLLzVmp6GHpSCOFcZ
-	 7YUL6SNlkQdKnSMmWhPL5JlVvTBfEZ8i6DUUN908=
+	b=Ee/Xs/2LAvM6rZdJfFgPfWWh5CkD8yxcdoPDg3mc9tRbPJJeDMfGvP+0qJz/uQ+LQ
+	 kRkv1YIl+4O9/pIZloQ3PBEFR/6ggpTD4/X1SxHTsXVMrMYhjH5kQvxrttO0dmwr9w
+	 y6P3CMfclE2vHYSvBVWbVxTEBLG02aTa+xTBrJ8w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD1C1F80088;
-	Tue, 12 Oct 2021 18:05:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C91E0F80245;
+	Tue, 12 Oct 2021 18:42:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 71071F80212; Tue, 12 Oct 2021 18:05:22 +0200 (CEST)
+ id 53EE3F80212; Tue, 12 Oct 2021 18:42:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C253F80088
- for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 18:05:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C253F80088
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ys7gw0No"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="9mgCgLPU"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 2FDDB21DA9;
- Tue, 12 Oct 2021 16:05:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1634054714; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=C0rUXknz2EKAtpxhjL/oyonEaKpGrAkO0gIg9Mrtg/8=;
- b=ys7gw0NofBGW3QLMHwXsjhoB6ijzuOqENLLl2qdbn0b7AKmY6TzpqX/1t9UmLogKk6N/L8
- 1Fd2hkBLTOkl0OzAmvHzV9PljhsR8X4vk2kjO7pfu46zUYD6EWgoN6GQbz/Q3uPR6M9yfj
- z+BFcRKiJfdH+MwGyrahg0t3GKCufwM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1634054714;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=C0rUXknz2EKAtpxhjL/oyonEaKpGrAkO0gIg9Mrtg/8=;
- b=9mgCgLPUwAcFook4+W/MnO/slWEs7eT9T6CNm9VAOg7nJ4tBUIlpnpFDpxP6XeSDGH/xtj
- crd6KBC9Iggb43Dg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 25135A3B83;
- Tue, 12 Oct 2021 16:05:14 +0000 (UTC)
-Date: Tue, 12 Oct 2021 18:05:14 +0200
-Message-ID: <s5hee8q1b5x.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH] ALSA: hda: avoid write to STATESTS if controller is in
- reset
-In-Reply-To: <alpine.DEB.2.22.394.2110121805270.3554566@eliteleevi.tm.intel.com>
-References: <20211012142935.3731820-1-kai.vehmanen@linux.intel.com>
- <s5ho87u1e5o.wl-tiwai@suse.de>
- <alpine.DEB.2.22.394.2110121805270.3554566@eliteleevi.tm.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Danny Tholen <obiwan@mailmij.org>,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- Alex Deucher <alexander.deucher@amd.com>, Dmitry Osipenko <digetx@gmail.com>,
- Thierry Reding <treding@nvidia.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id BF4F2F800C0
+ for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 18:41:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF4F2F800C0
+X-IronPort-AV: E=McAfee;i="6200,9189,10135"; a="225979447"
+X-IronPort-AV: E=Sophos;i="5.85,368,1624345200"; d="scan'208";a="225979447"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Oct 2021 09:41:22 -0700
+X-IronPort-AV: E=Sophos;i="5.85,368,1624345200"; d="scan'208";a="486456106"
+Received: from csharp1-mobl.amr.corp.intel.com (HELO [10.213.183.127])
+ ([10.213.183.127])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Oct 2021 09:41:21 -0700
+Subject: Re: [PATCH v2 1/3] ALSA: pcm: introduce INFO_NO_REWINDS flag
+To: Takashi Iwai <tiwai@suse.de>
+References: <20211004162423.85323-1-pierre-louis.bossart@linux.intel.com>
+ <20211004162423.85323-2-pierre-louis.bossart@linux.intel.com>
+ <s5h8rz8ez3s.wl-tiwai@suse.de>
+ <c62b3749-c5ea-7b1e-2831-272c8a14d3ac@linux.intel.com>
+ <s5hbl43egs8.wl-tiwai@suse.de>
+ <1ae2012b-d6bd-77ce-0a9e-98aec4d0f868@linux.intel.com>
+ <s5hv9223h86.wl-tiwai@suse.de>
+ <e630eb5f-f0f2-c193-ab68-46df26083275@linux.intel.com>
+ <s5hk0ii1cwf.wl-tiwai@suse.de>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <e3c854ba-9abf-c9f1-1d74-1a82c9a7b6b3@linux.intel.com>
+Date: Tue, 12 Oct 2021 11:41:19 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.13.0
+MIME-Version: 1.0
+In-Reply-To: <s5hk0ii1cwf.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ P9ter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,32 +86,76 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 12 Oct 2021 17:48:12 +0200,
-Kai Vehmanen wrote:
-> 
-> Hi,
-> 
-> On Tue, 12 Oct 2021, Takashi Iwai wrote:
-> 
-> > > The snd_hdac_bus_reset_link() contains logic to clear STATESTS register
-> > > before performing controller reset. This code dates back to an old
-> > > bugfix in commit e8a7f136f5ed ("[ALSA] hda-intel - Improve HD-audio
-> > > codec probing robustness"). Originally the code was added to
-> > > azx_reset().
-> [...]
-> > Do we have a bug reference?  I guess it worth to be pushed to 5.15-rc
-> > and Cc-to-stable, if this is hitting already on the recent machines.
-> 
-> I unfortunately don't have a public bug reference to share. This will 
-> impact PCIe based Intel hardware like DG1. The DRM support is quite 
-> recent for these, so in practise this only affects 5.15-rc and newer.
-> 
-> And even on these, the functionality will be ok, it's just the warnings 
-> that fill the kernel log that are a problem.
-
-OK, then I'll push this without Cc to stable.
 
 
-thanks,
+On 10/12/21 10:27 AM, Takashi Iwai wrote:
+> On Tue, 12 Oct 2021 17:15:56 +0200,
+> Pierre-Louis Bossart wrote:
+>>
+>>> In either way, the new_ptr has to be validated beforehand that it's
+>>> within 0..boundary-1.  (old_ptr is assumed to be valid.)
+>>
+>> In the 3 of the calls to pcm_lib_apply_appl_ptr(), the check is done
+>> already prior to calling that function
+>> 	if (appl_ptr >= runtime->boundary)
+>> 		appl_ptr -= runtime->boundary;
+>> 	err = pcm_lib_apply_appl_ptr(substream, appl_ptr);
+>>
+>>
+>> it's rather unclear to me why the same check is not done for sync_ptr, e.g.
+>>
+>> if (!(sync_ptr.flags & SNDRV_PCM_SYNC_PTR_APPL)) {
+>> 	err = pcm_lib_apply_appl_ptr(substream,	
+>> 			     sync_ptr.c.control.appl_ptr);
+>>
+>> if (!(sflags & SNDRV_PCM_SYNC_PTR_APPL)) {
+>> 	err = pcm_lib_apply_appl_ptr(substream,
+>> 				scontrol.appl_ptr);
+>>
+>> Should I add a check there, or add a check inside of
+>> pcm_lib_apply_appl_ptr() which would be a duplicate in the majority of
+>> cases?
+> 
+> I guess adding in pcm_lib_appl_appl_ptr() would be easier and safer.
+> There is even one more place that is calling pcm_lib_apply_appl_ptr()
+> in the very latest commit (a fix for a buggy 32bit compat ioctl).
 
-Takashi
+ok, here's the code I'll start testing. Thanks a lot Takashi for your help.
+
+diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+index a144a3f68e9e..e839459916ca 100644
+--- a/sound/core/pcm_lib.c
++++ b/sound/core/pcm_lib.c
+@@ -2127,11 +2127,30 @@ int pcm_lib_apply_appl_ptr(struct
+snd_pcm_substream *substream,
+ {
+        struct snd_pcm_runtime *runtime = substream->runtime;
+        snd_pcm_uframes_t old_appl_ptr = runtime->control->appl_ptr;
++       snd_pcm_sframes_t diff;
+        int ret;
+
+        if (old_appl_ptr == appl_ptr)
+                return 0;
+
++       /*
++        * check if a rewind is requested by the application, after
++        * verifying the new appl_ptr is in the 0..boundary range
++        */
++       if (substream->runtime->info & SNDRV_PCM_INFO_NO_REWINDS) {
++               if (appl_ptr >= runtime->boundary)
++                       appl_ptr -= runtime->boundary;
++
++               diff = appl_ptr - old_appl_ptr;
++               if (diff >= 0) {
++                       if (diff > runtime->buffer_size)
++                               return 0;
++               } else {
++                       if (runtime->boundary + diff > runtime->buffer_size)
++                               return 0;
++               }
++       }
++
+        runtime->control->appl_ptr = appl_ptr;
+        if (substream->ops->ack) {
+                ret = substream->ops->ack(substream);
+

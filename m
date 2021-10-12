@@ -2,94 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53A9342AD94
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 22:06:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A294C42ADA3
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 22:11:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C29551687;
-	Tue, 12 Oct 2021 22:05:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C29551687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3FDFE1662;
+	Tue, 12 Oct 2021 22:10:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FDFE1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634069177;
-	bh=xHBYp7TETIzEAl3ShZ3eup5vLFcXA8bv5m+dGCnAQSw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1634069470;
+	bh=b8hZSY2MK2PXZiqaOmVdMaiI0ze11hyOkpJDFUIeKyE=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ikKoSpu0/G3wQ2Xo2tbx9WIeP3dDglxW7erEoiGGakiNmH1Ae93vMNmtKerCQ3Jlj
-	 VIBEV3qKFLlXPUy0+MCYTEDdBFKdIaxICFdYq+Gj7Xed5kQMQO3II51PEqq8maUJYo
-	 2tN/1VTVqnIE5eH4B3vvLQzhMSe+X1i6fVb7vCL8=
+	b=ZygR14QAJ4PRf2a/LaW4XIfp67kVCQUA2NM7E58399TR1fN+0MjU5/H0GTZeGUvYP
+	 sIxV0mqXG8VMMAwXStlqmJWuXAQnRaDTcVWLUG0oA4jL7Zeurhmc+qbGeSJwoMvwav
+	 C2LA0NwjSZs6Se7ajzmGT8RPKgp6VHS8khozH7B4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24E90F801F7;
-	Tue, 12 Oct 2021 22:05:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5304F80088;
+	Tue, 12 Oct 2021 22:09:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F85AF80212; Tue, 12 Oct 2021 22:04:59 +0200 (CEST)
+ id CE131F80212; Tue, 12 Oct 2021 22:09:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.hahnjo.de (backus.hahnjo.de [193.30.122.186])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 20F07F800C0
- for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 22:04:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20F07F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 76BA1F800C0
+ for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 22:09:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76BA1F800C0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Z8/DRDh3"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="zrJp2YgE"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 76622201AE;
- Tue, 12 Oct 2021 20:04:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1634069087; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=h7GEJfQk4REh7xfzQ6xJDh+wJiDC0jZGyjiz9UlqWGA=;
- b=Z8/DRDh38T5OhDV63LPfFmog7/TpTS/W4Vnge9ufwgP1SFXPWgLUxYnrJ0jnkNwCNBz8OG
- 3Sv3+dmi4cuCzywYFNavS/5VGVdrJEm17t5WVZGkV34EQWSDmi/x2sPPVmY0LH3Wj8NfaH
- CJYYeL502WmJq/6MMmvovRf9YwxSbw8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1634069087;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=h7GEJfQk4REh7xfzQ6xJDh+wJiDC0jZGyjiz9UlqWGA=;
- b=zrJp2YgEuJQzeTc5AxnP24wRfqPUyd7jfyJ6BXE069rSrdPpb6QZi6pz30A9XHgNdI2vc4
- On6rNYyLnK8hsABA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 66FAAA3B87;
- Tue, 12 Oct 2021 20:04:47 +0000 (UTC)
-Date: Tue, 12 Oct 2021 22:04:47 +0200
-Message-ID: <s5h8ryy102o.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v2 1/3] ALSA: pcm: introduce INFO_NO_REWINDS flag
-In-Reply-To: <51b47edf-cec2-6f11-17ee-3b8bca7e7c37@linux.intel.com>
-References: <20211004162423.85323-1-pierre-louis.bossart@linux.intel.com>
- <20211004162423.85323-2-pierre-louis.bossart@linux.intel.com>
- <s5h8rz8ez3s.wl-tiwai@suse.de>
- <c62b3749-c5ea-7b1e-2831-272c8a14d3ac@linux.intel.com>
- <s5hbl43egs8.wl-tiwai@suse.de>
- <1ae2012b-d6bd-77ce-0a9e-98aec4d0f868@linux.intel.com>
- <s5hv9223h86.wl-tiwai@suse.de>
- <e630eb5f-f0f2-c193-ab68-46df26083275@linux.intel.com>
- <s5hk0ii1cwf.wl-tiwai@suse.de>
- <e3c854ba-9abf-c9f1-1d74-1a82c9a7b6b3@linux.intel.com>
- <s5hczoa17vx.wl-tiwai@suse.de>
- <51b47edf-cec2-6f11-17ee-3b8bca7e7c37@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
- P9ter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=hahnjo.de header.i=@hahnjo.de
+ header.b="mCsIxoja"
+Received: from Jonas-Dell.home (unknown
+ [IPv6:2a01:cb15:40c:c100:cf0a:528a:fee7:c993])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mail.hahnjo.de (Postfix) with ESMTPSA id A03AB51F1F0C;
+ Tue, 12 Oct 2021 22:09:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=hahnjo.de; s=default;
+ t=1634069377; bh=b8hZSY2MK2PXZiqaOmVdMaiI0ze11hyOkpJDFUIeKyE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=mCsIxojajVnqD36LN4MxtqN3KcuyPDq5VRf3bgydFQy2WaDP/r3O7mwtYGgGhh4DU
+ BUhv9l6+uIywNmc18DOA1YZqSiFjCPBfqNI6RC8cN5raV5LmobL+/YPdrW2bRkuDWz
+ zgFcP5gD+znBA4fdBVzllsefqf/ttziCPMzR9XoazdVUBeEYtrtzFsZj73TKZjA82h
+ HDvx6/ZWLNva2k5Kydvd4ML1V52MVpP5T66tDI3f2kRe7M93L89ha1OAf8hfjlVv29
+ FEQ3D3KwkSKjVrKqloaHZtzUNqUvtXkHABdnYS4tU0lY7OIStGTzwnb7F18arMz1hg
+ L5Oj426jQBqAA==
+From: Jonas Hahnfeld <hahnjo@hahnjo.de>
+To: Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v2] ALSA: usb-audio: Add quirk for VF0770
+Date: Tue, 12 Oct 2021 22:09:07 +0200
+Message-Id: <20211012200906.3492-1-hahnjo@hahnjo.de>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <s5hk0ii397m.wl-tiwai@suse.de>
+References: <s5hk0ii397m.wl-tiwai@suse.de>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Jonas Hahnfeld <hahnjo@hahnjo.de>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,67 +83,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 12 Oct 2021 20:02:07 +0200,
-Pierre-Louis Bossart wrote:
-> 
-> 
-> >> diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
-> >> index a144a3f68e9e..e839459916ca 100644
-> >> --- a/sound/core/pcm_lib.c
-> >> +++ b/sound/core/pcm_lib.c
-> >> @@ -2127,11 +2127,30 @@ int pcm_lib_apply_appl_ptr(struct
-> >> snd_pcm_substream *substream,
-> >>  {
-> >>         struct snd_pcm_runtime *runtime = substream->runtime;
-> >>         snd_pcm_uframes_t old_appl_ptr = runtime->control->appl_ptr;
-> >> +       snd_pcm_sframes_t diff;
-> >>         int ret;
-> >>
-> >>         if (old_appl_ptr == appl_ptr)
-> >>                 return 0;
-> >>
-> >> +       /*
-> >> +        * check if a rewind is requested by the application, after
-> >> +        * verifying the new appl_ptr is in the 0..boundary range
-> >> +        */
-> >> +       if (substream->runtime->info & SNDRV_PCM_INFO_NO_REWINDS) {
-> >> +               if (appl_ptr >= runtime->boundary)
-> >> +                       appl_ptr -= runtime->boundary;
-> > 
-> > The boundary check can (or should) be done unconditionally.
-> > It was too naive to assume a sane appl_ptr passed always.
-> > And, it can rather return an error.  So,
-> > 
-> > 	if (appl_ptr >= runtime->boundary)
-> > 		return -EINVAL;
-> 
-> ok, but that would be a separate patch then since it impacts all users,
-> even without the NO_REWINDS.
+The device advertises 8 formats, but only a rate of 48kHz is honored
+by the hardware and 24 bits give chopped audio, so only report the
+one working combination. This fixes out-of-the-box audio experience
+with PipeWire which otherwise attempts to choose S24_3LE (while
+PulseAudio defaulted to S16_LE).
 
-Makes sense.
+Signed-off-by: Jonas Hahnfeld <hahnjo@hahnjo.de>
+---
+v2: added terminator entry
 
-> > 	/* check if a rewind is requested by the application */
-> > 	if (substream->runtime->info & SNDRV_PCM_INFO_NO_REWINDS) {
-> > 		diff = appl_ptr - old_appl_ptr;
-> > 		....
-> > 
-> >> +               if (diff >= 0) {
-> >> +                       if (diff > runtime->buffer_size)
-> >> +                               return 0;
-> >> +               } else {
-> >> +                       if (runtime->boundary + diff > runtime->buffer_size)
-> >> +                               return 0;
-> > 
-> > I'm not sure whether we should return 0 here.  In snd_pcm_rewind() it
-> > returns 0 due to application breakage, though.
-> 
-> We could return -EINVAL indeed, that would keep the work-around in place
-> for PulseAudio.
-> Even for other uses, it's not so bad: the selection of NO_REWINDS is an
-> opt-in, and if a rewind still occurs a big fail would help detect a
-> configuration issue.
+ sound/usb/quirks-table.h | 42 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 42 insertions(+)
 
-Yeah, that was my gut feeling ,too.
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index e03043f7dad3..de18fff69280 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -77,6 +77,48 @@
+ /* E-Mu 0204 USB */
+ { USB_DEVICE_VENDOR_SPEC(0x041e, 0x3f19) },
+ 
++/*
++ * Creative Technology, Ltd Live! Cam Sync HD [VF0770]
++ * The device advertises 8 formats, but only a rate of 48kHz is honored by the
++ * hardware and 24 bits give chopped audio, so only report the one working
++ * combination.
++ */
++{
++	USB_DEVICE(0x041e, 0x4095),
++	.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
++		.ifnum = QUIRK_ANY_INTERFACE,
++		.type = QUIRK_COMPOSITE,
++		.data = &(const struct snd_usb_audio_quirk[]) {
++			{
++				.ifnum = 2,
++				.type = QUIRK_AUDIO_STANDARD_MIXER,
++			},
++			{
++				.ifnum = 3,
++				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
++				.data = &(const struct audioformat) {
++					.formats = SNDRV_PCM_FMTBIT_S16_LE,
++					.channels = 2,
++					.fmt_bits = 16,
++					.iface = 3,
++					.altsetting = 4,
++					.altset_idx = 4,
++					.endpoint = 0x82,
++					.ep_attr = 0x05,
++					.rates = SNDRV_PCM_RATE_48000,
++					.rate_min = 48000,
++					.rate_max = 48000,
++					.nr_rates = 1,
++					.rate_table = (unsigned int[]) { 48000 },
++				},
++			},
++			{
++				.ifnum = -1
++			},
++		},
++	},
++},
++
+ /*
+  * HP Wireless Audio
+  * When not ignored, causes instability issues for some users, forcing them to
+-- 
+2.33.0
 
-
-Takashi

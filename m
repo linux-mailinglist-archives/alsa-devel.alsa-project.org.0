@@ -2,81 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FF87429D7C
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 08:10:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB725429D87
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 08:12:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C6F71689;
-	Tue, 12 Oct 2021 08:09:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C6F71689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4878A1687;
+	Tue, 12 Oct 2021 08:11:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4878A1687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634019039;
-	bh=wNf0MfgPFcnrslmejgTiSnnuCjLc4mUB0YMd9PxWJ9A=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=rdDxDiq4HSAMbEemE60QJP/41kMJs+IJ6bCqB1CpFBl4PJpvn05XWYx/dKgiZvqfE
-	 ATbVRT1LuMrg0G7lVNezvKfSZGQJQBfRKpY3aUxT4QdO7jLA5hVRjXooTH+VoAUbnT
-	 Qpio09y58nw98Em8a8wbgM+kjh9fVOwOWqbqte9I=
+	s=default; t=1634019166;
+	bh=EkWNANsGQ0QpIaTpdS1FZ1azcpK4GjPqbPfkfdRbcU8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=QprXLURcK4qE9b8bHwS/CecCwvQWh5Fck5NM+sj+keuxS9iaci6qsPI0sMO1D39eI
+	 nQ4iagfbFz4tNEKekzgpKONoGWHmeoN0aZePmDTbrVsiQAake6ymcpKnwLtOMhR17c
+	 7w5/4QVrP1VX6bDdCViRsJB2/E/Z5mBWFEhrRcqw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 629DEF80245;
-	Tue, 12 Oct 2021 08:09:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9A37F80245;
+	Tue, 12 Oct 2021 08:11:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72183F80212; Tue, 12 Oct 2021 08:09:20 +0200 (CEST)
+ id 046C1F80212; Tue, 12 Oct 2021 08:11:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D03C6F800C0
- for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 08:09:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D03C6F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4C470F800C0
+ for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 08:11:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C470F800C0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=endlessos.org header.i=@endlessos.org
- header.b="KASwleAL"
-Received: by mail-ot1-x32c.google.com with SMTP id
- p6-20020a9d7446000000b0054e6bb223f3so9831364otk.3
- for <alsa-devel@alsa-project.org>; Mon, 11 Oct 2021 23:09:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=endlessos.org; s=google;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=ts6+EOXXWo1GdwyQqMEj2J65rtYhy+2qGH3k92oIfJk=;
- b=KASwleALBBDb21Kd4lL4GqNqXGv8ZbPX32ECH9JXvfHy7+Ils/6pl1wGcctFpUKQpS
- QsxdApmntbYuhI9JSb3KoD8Thks87u267XYG3Ebz0ySGB/H3SDKOx8QVzQQg6IWvZj6U
- j8A90nsIUe5UcQiTXZaeJa3MmnTuwvlLeqcDGU16buUHMHWXEEMyE0AYpn+EZG7//HRI
- /LmAqsxRZs/ppZ6A7IexUJOOpcXnHyrMUJogQj0Xz65SUOoV44ATb9qf4TLO+BL+Dx+t
- qaLMID9gWLF4Vgc1DoFrR+Ca2NJGd5cxFQB5Jw2/2rgI7CyVHH1PmDG6TrR6zkh91THK
- IVqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=ts6+EOXXWo1GdwyQqMEj2J65rtYhy+2qGH3k92oIfJk=;
- b=7RM6zP5MPjbn3mA2s4tkgRxbNnHPPVocgb5QXxXA3jg4r2j43kKt7STUrTp+1R4Wpq
- y8bgDjGG9wSzMOpkx8ZMn8rqc96c5CqENk8c470BQoDyDCwh8datsNsgUN2aA9GFREfB
- sW12G7SU58ueCWwWpwLcBKJCr3IaxNMtBQf4Ty6INKKIDykEP8pVa77RkWlaCKgq9d2q
- 2yw8HviIK+phgdlOue7HOd6uwV8pzwn7U/4aY2153hICyDPUPyQwcM1Nd+4xo71SYVNQ
- tJF2urAi6sdi9CeeTfsKXSVOubODx1esyGIgbpD4vLhIfCMzfPCLmRcJ5ANbA1irVCQi
- J09Q==
-X-Gm-Message-State: AOAM531cxUWQ7XSkB74J6ZvaU/Xt0agHdlA0OCWNEWQ66OHFPmwwi3uE
- EelCSYHv9uNzhasqCLAR8JDUpE6OScV4s4NCJzHrNw==
-X-Google-Smtp-Source: ABdhPJx+h2pgpLCmkTeEPM57O+5djDeS975Wv6rKM2xO+UKk6y7OLiHyvX+a8dkBCzC4z3Pl+L1jaoDBZcmzebi4KsI=
-X-Received: by 2002:a9d:6483:: with SMTP id g3mr24203295otl.105.1634018948964; 
- Mon, 11 Oct 2021 23:09:08 -0700 (PDT)
-MIME-Version: 1.0
-From: Jian-Hong Pan <jhp@endlessos.org>
-Date: Tue, 12 Oct 2021 14:08:21 +0800
-Message-ID: <CAPpJ_ee4+Aer5z2qWr9xECoJOZTn80GKXxdTzzj08ADdXm5Uow@mail.gmail.com>
-Subject: Add ALSA UCM support for Pinebook Pro's audio
-To: Jaroslav Kysela <perex@perex.cz>, Dan Johansen <strit@manjaro.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org, linux@endlessos.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="Qgl11XrO"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="4+25rWiG"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 059FB22154;
+ Tue, 12 Oct 2021 06:11:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1634019082; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=AX1xcjJpSqVGpa8bkeMFVomnfjCuSpIObz1jO/ZaWXs=;
+ b=Qgl11XrOdo1XziWpBCTHjFc4yKexUR8ZZRK6RnlyG35RBTQQ8IbW4THGF6oRuQEU2qIuwm
+ i07y/OZBr8naxFYXK3i3vyR7cMdRoGrNO/WU+N8/CDSvLu2fET64h3BEsv9bYfL/m/Zais
+ Mxhp2QtdsCzkvhRSQaMcVYh5wHFZgaI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1634019082;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=AX1xcjJpSqVGpa8bkeMFVomnfjCuSpIObz1jO/ZaWXs=;
+ b=4+25rWiGe80vYeMdQvBNdM4bCJCukwc6NRHCRChzN9giGHMCiufKeQjInwJbDaWNPNkM63
+ P+PVQYyGspfmScAg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id F0703A3B81;
+ Tue, 12 Oct 2021 06:11:21 +0000 (UTC)
+Date: Tue, 12 Oct 2021 08:11:21 +0200
+Message-ID: <s5hv9223h86.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v2 1/3] ALSA: pcm: introduce INFO_NO_REWINDS flag
+In-Reply-To: <1ae2012b-d6bd-77ce-0a9e-98aec4d0f868@linux.intel.com>
+References: <20211004162423.85323-1-pierre-louis.bossart@linux.intel.com>
+ <20211004162423.85323-2-pierre-louis.bossart@linux.intel.com>
+ <s5h8rz8ez3s.wl-tiwai@suse.de>
+ <c62b3749-c5ea-7b1e-2831-272c8a14d3ac@linux.intel.com>
+ <s5hbl43egs8.wl-tiwai@suse.de>
+ <1ae2012b-d6bd-77ce-0a9e-98aec4d0f868@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ P9ter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,28 +99,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+On Tue, 12 Oct 2021 02:19:16 +0200,
+Pierre-Louis Bossart wrote:
+> 
+> > For example, check snd_pcm_playback_avail() and co.  That contains a
+> > couple of more condition checks and corrections due to the possible
+> > boundary crossing.  (Here, runtime->boundary may differ depending on
+> > 32 or 64bit context.)
+> > 
+> > The actual implementation of the backward move check would be slightly
+> > different from those, but I hope you get my idea.
+> 
+> I think I do but not sure how to precisely deal with the boundary
+> wrap-around.
+> 
+> The only suggestion I have at this point would be to compare the 'avail'
+> space before and after the appl_ptr changes in pcm_lib_apply_appl_ptr().
+> If the 'avail' space grows as a result of user-space changes, that
+> indicates a rewind (both for capture and playback), doesn't it?
 
-I prepared the pull request "ucm2: Add UCM support for rockchip_es8316 on
-Pinebook Pro" [1] to enable Pinebook Pro's audio generically.
-Also, the corresponding validator pull request "ucm-validator: Upload
-rockchip_es8316's dummy json and alsa-info" [2].
+There are a few different ways, and a simple one would be to treat as
+a rewind if the change isn't 0..buffer_size.  e.g.
 
-The original information comes from Manjaro ARM's
-pinebookpro-post-install's asound.state [3] and pinebookpro-audio's
-audio_jack_plugged_in.sh [4].
+	snd_pcm_sframes_t diff = new_ptr - old_ptr;
 
-To make it available on most distros, I transfer the asound.state and the
-shell script into ALSA UCM conf.
+	if (diff >= 0) {
+		if (diff > buffer_size)
+			return REWIND;
+	} else {
+		if (boundary + diff > buffer_size)
+			return REWIND;
+	}
+	return OK;
 
-It will be appreciated if someone can review the pull requests and give
-some feedback.
+Or, if a rewind is defined to be -buffer_size..-1, it'd be like:
 
-[1]: https://github.com/alsa-project/alsa-ucm-conf/pull/112
-[2]: https://github.com/alsa-project/alsa-tests/pull/22
-[3]:
-https://gitlab.manjaro.org/manjaro-arm/packages/community/pinebookpro-post-install/-/blob/4b4206c57b21044bf9c00848bd1f8b6f710d19eb/asound.state
-[4]:
-https://gitlab.manjaro.org/manjaro-arm/packages/community/pinebookpro-audio/-/blob/1f567db09495acc3beb5405c9ef85c3c07b86785/audio_jack_plugged_in.sh
+	snd_pcm_sframes_t diff = new_ptr - old_ptr;
 
-Jian-Hong Pan
+	if (diff >= 0) {
+		if (boundary - diff <= buffer_size)
+			return REWIND;
+	} else {
+		if (-diff <= buffer_size)
+			return REWIND;
+	}
+	return OK;
+
+In either way, the new_ptr has to be validated beforehand that it's
+within 0..boundary-1.  (old_ptr is assumed to be valid.)
+
+And don't miss that diff is a signed value, so it must be
+snd_pcm_sframes_t, not *_uframes_t.
+
+
+Takashi

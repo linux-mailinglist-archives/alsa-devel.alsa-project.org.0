@@ -2,70 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9EAF429E83
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 09:22:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C74FA429E84
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 09:23:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 618F21692;
-	Tue, 12 Oct 2021 09:22:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 618F21692
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D4F8169B;
+	Tue, 12 Oct 2021 09:22:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D4F8169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634023379;
-	bh=0Th6TUtB5xcG6ZbfuqSx7Kwzpbl/h67lQjYr/t6UZrI=;
+	s=default; t=1634023398;
+	bh=4v7kPVVpB5B854Otv5ZMoGeIsbKDZu67cJTcQVSqtIQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VHwtF+jwUD+pNdC5yRedZrcOo6T60KvBDKvXBDhx1rjt9PnHLak8PbbyxKyeVsEn2
-	 /wFDbk9WPPedKcGwzeXV6VE3HtLLnItUS1Nap0corqFh2T1qY5lNHSn9NIpAgowxdq
-	 GZ0r4ALRn35hrKFx2OQpI4b40zTXNTnLi/NKWEEs=
+	b=J2sfCjqvvhRXPwz7geptd5oK04i20pT+HCB8CyUr8QOEBCFrHc7gidOLY2MxztOZG
+	 V8hi37RCuQ8tEQBEwdV5OLdoUjpCRCzx6AcK/6cmF7nWXEtA2k5cD+etGTq8vjQwYD
+	 p0EFuho7kBwe3bNSYnmv8eI+6ZhqO1ubWuoGfaHY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 58445F80212;
-	Tue, 12 Oct 2021 09:21:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A052F804E4;
+	Tue, 12 Oct 2021 09:22:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D23A4F80245; Tue, 12 Oct 2021 09:21:38 +0200 (CEST)
+ id 18395F804AD; Tue, 12 Oct 2021 09:21:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2075.outbound.protection.outlook.com [40.107.220.75])
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20612.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eaa::612])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AB853F804AD
- for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 09:21:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB853F804AD
+ by alsa1.perex.cz (Postfix) with ESMTPS id E70A2F801F7
+ for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 09:21:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E70A2F801F7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="N9E1q0LG"
+ header.b="cgROO4Uz"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F7Rlfuasstm3I5vhdEsAozP6sxo00jSx0IZTAJxV+/TT31FIarAQUeWeDdTH3x0UTBza+uO670+6+7Kqo/lIn99zKkjPL9J9rJ2jGM/OSZIIEVjhgZ8ZN12nT1gOTzv2jPpcovdWI0a2LBD/DGntp4xStDwEVGnddK+IZ0nC2fy4QenkLpg76ZN0vtY+L0/dg43X1l+HcZYw0Gh9EFJOBzIgPaBo26rm/8+ebLYKakv4emGMdnWTu1pKC1YzKqrqKaPRW0V3bZvEtmyoocBPIxA5Pf2yG86ZYcqb+SZMhvQGp8oGUrjTXouP6MNIPPt5Xhl4ALIwRUTU+pJIR774uQ==
+ b=RMbxtR5AFja1ioX2cSbGtc9CXIkxej9RslLIghPP5b00dz8RQuKXgV6muNTfoIqkvgXl4gFRg/rCh+jTcFIs8z6AqVJnddLa21L+4TA0a8MkD2A+Hl7jyJkL4RPFO0vCSflLJGZ7wFGzhbXRBo+AJ5UB1G1LBKVfJNhRErzAx+Q+R5fA6cLVgin9CMjBUUnx7oQ23/99DBruzBIatiWoP7CslfyRNhGfJXRbKryeeQnITPaZcTM8HXzwLyjZM6/iHzT0Ehh5TQz588HzH9HceLFq2slWPTzrexDymXDTVM/zxeXGsdmE6PWkTYeFjeWmm7xr+W77AlkMqjBoA/49FA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LFU8aavBakBUntI5YQMP6Lz8EwrSf7WqzwbPBpCDsw0=;
- b=MxwOoGccS07KQgqPYqeLAUGYdjhfpOt241cOVJzKMcY98p1zQD5QpSMgbx88JA77bUdCQNu7M5NQaDO9HFkH4k2ZZE+7qcpEV4a+SJQKXbI6ur7dPnHR9z64nKIX0HINzwTRL7CsuHjdwbd/dbwmkjSsRFSiHDqnBYBGnAEOmGSPIn7XCjFrms11Nv6Cqh6zuWYCP6L45qa30ENYQojZofi3xoIg+ElwEhdOpKs1DmBwksPjtvz6iyotPIp2GdiuY9fg9xA+lYdud/MqccHV4oSWIUdPi860ax2KSJvh7K6M1W4lb6iADGyEifrQI7a1FrTSRQQJhXzTG9oKt8TuAA==
+ bh=I2aNKp2xP70Tb4j+3sSlPPtluLKfcAqPl5661JQYpwA=;
+ b=U8lp4lz7fs1XpwKcaGshmkPX+E2ZIJmtgv7e0uJ6OoYY1aO5FHmpaPuZpTkQir6tpAKTKjWDKvUKO88YUDMux92SiIqoKGAiQobvJiNdB3Y/5EG/X2nODKGnc9smzatj7F4FtbmfWvweHtRDckhrVzA78EFLNUHya4s8Em8M8XNFPFIOzmYyTrP3E64BASg+jSlwnUT7Xy3VtAekAE1Zz9g4WztqiLM5zbZLRlTHsiJxgS4XVaaS7M0Rg4mb0jiPhwsTfyZKMN0un1zBeabQHsiLwworfPqu76bnFSOZWvXx54g4LAiY9So+RNffwNczQDEWhYhz6rTmDdMyCwXhQQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LFU8aavBakBUntI5YQMP6Lz8EwrSf7WqzwbPBpCDsw0=;
- b=N9E1q0LGxkqvK6dYC4rXJa+jquzBBVxkichYKBH4SIru9Vl2Z6rIa2t+iMV70o+2x/VSw1pBF0VGyXg9QeuaQWPukTlwD4VR5IJQvLIAy8LkGYNemROpcIDoTMQmsZtK5Bv+Cz+0aAueaASa7FmZ5AX+HfjtLAFzXDPAYVNdp5M=
-Received: from DM6PR05CA0059.namprd05.prod.outlook.com (2603:10b6:5:335::28)
- by MN2PR12MB3743.namprd12.prod.outlook.com (2603:10b6:208:168::33) with
+ bh=I2aNKp2xP70Tb4j+3sSlPPtluLKfcAqPl5661JQYpwA=;
+ b=cgROO4Uz9Ih2tGRvio/vXmbJB4a7yqvnwcuYDAD+V/RM+IRvFTHXCl2IyVUB+OSFrYc7xQb/lB+baIA1b8b5TjTBRsL7hmeRN0y+Z0OuTge3mwH2PpBJo37+o5Z7TECvTuKxvkCCHi67z0UTTgtlxhh8XBZzBBdhmt2wQ9aCYyc=
+Received: from DM6PR14CA0064.namprd14.prod.outlook.com (2603:10b6:5:18f::41)
+ by BN9PR12MB5179.namprd12.prod.outlook.com (2603:10b6:408:11c::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.22; Tue, 12 Oct
- 2021 07:21:26 +0000
-Received: from DM6NAM11FT062.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:335:cafe::2a) by DM6PR05CA0059.outlook.office365.com
- (2603:10b6:5:335::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.4 via Frontend
- Transport; Tue, 12 Oct 2021 07:21:26 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.20; Tue, 12 Oct
+ 2021 07:21:44 +0000
+Received: from DM6NAM11FT030.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:18f:cafe::19) by DM6PR14CA0064.outlook.office365.com
+ (2603:10b6:5:18f::41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.18 via Frontend
+ Transport; Tue, 12 Oct 2021 07:21:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; kernel.org; dkim=none (message not signed)
  header.d=none;kernel.org; dmarc=pass action=none header.from=amd.com;
@@ -73,21 +74,25 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT062.mail.protection.outlook.com (10.13.173.40) with Microsoft SMTP
+ DM6NAM11FT030.mail.protection.outlook.com (10.13.172.146) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4587.18 via Frontend Transport; Tue, 12 Oct 2021 07:21:25 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ 15.20.4587.18 via Frontend Transport; Tue, 12 Oct 2021 07:21:43 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Tue, 12 Oct
- 2021 02:21:24 -0500
+ 2021 02:21:42 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Tue, 12 Oct
+ 2021 00:21:42 -0700
 Received: from chrome.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2308.8 via Frontend
- Transport; Tue, 12 Oct 2021 02:21:20 -0500
+ Transport; Tue, 12 Oct 2021 02:21:38 -0500
 From: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
 To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH v3 2/8] ASoC: amd: acp: Add I2S support on Renoir platform
-Date: Tue, 12 Oct 2021 12:49:33 +0530
-Message-ID: <20211012071939.97002-3-AjitKumar.Pandey@amd.com>
+Subject: [PATCH v3 3/8] ASoC: amd: acp: Add callback for machine driver on ACP
+Date: Tue, 12 Oct 2021 12:49:34 +0530
+Message-ID: <20211012071939.97002-4-AjitKumar.Pandey@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211012071939.97002-1-AjitKumar.Pandey@amd.com>
 References: <20211012071939.97002-1-AjitKumar.Pandey@amd.com>
@@ -96,28 +101,28 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b4367e92-55cf-4a00-95af-08d98d50e6ba
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3743:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3743759CD9A6F216BBE0266B82B69@MN2PR12MB3743.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1775;
+X-MS-Office365-Filtering-Correlation-Id: b3a3fd8a-c3f5-4c00-be45-08d98d50f197
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5179:
+X-Microsoft-Antispam-PRVS: <BN9PR12MB517954BE49BBF59CAE097BDF82B69@BN9PR12MB5179.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2657;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +fvXf2E6sUgfo3Ta5af/Okv53j0SXMXvP5XGCTGbMMejkR2x5zjHFn+M/l9g/SmaY7lVsHvMbaAf2MgtbWZi/ZfI8z442LQ56O+7p8f0BwtLaOik1Nf8s6usnlf6QY4NBMrSCIehGJSlt3JxaM6YeQmLYaraQ4wErDrOazTaDw0FBx9NjbyB5mfiqR+oWZ63edxqWb4orQuOfX8KEUpCzh05GJ19Yr1YeNWzbXt2Kv9xDTsadUWGd4H5z1+IpW6kEGdEcWJUBEh+ILh4aL8bk7JRTICymN3OoZUQn1eW8UbhucNgsJUILOgZhIE/Lh8YF/ibyQBYmQIUKxxtbcS1r3uJUo2AYnS865QdRpe1QavXqTy4ohkEuipZe+F+4XmBh+SuRcCSaHy3l2qHsktSuhLZZ2+QvL9MZhBui94xbjPyj10lstQzWW8iK2qfWz+l9LMIRhvZHfZL4ohzdxE96Nmws7++1f9yzl2LVy145tqG4KtIKiSwlg27Sb4Huhzbedf4xSdnbTkp77M+09jY1lc/WcZg/EbUOuvwyy2tt294/Pwm+9dm6LqB88+MOp36FIqBeRRUyhMmK2KVnocFmEvL6fNvawVR2wGPTWW2HclHKOid2AKtqlGEqfx6T4yUdzxXocZbwHA752QOzt/UCkXJ7jEFL9ylhmLfciunFHjFiQ7k/PpvDSwI+UGoac+2ueG24vldaq4BhWx/0HuEnoX1vUyleeskLQ4Jir6OMyg=
+X-Microsoft-Antispam-Message-Info: Bmz4OpB9IMHmg8D0lU7nFliBGgJg99PkUj1Al3DA9MSIgCdOKR5wURGrT9naOC90EQcFvIw/phXFeGxx3pCXXfuJi3g/caC8Ws/BpQtOjlqlFo3xY5za/KaHs4mwsxwbB66ZRrsFnPWKMmDJ5N3LlXPL/9wkRBMRVj5763YlX0aAmbt70qTEx9C6ZVoKhkaodYFTAPYVrO57l/ltBwyTQCPx3JM8f1/KvBrihDUDhl/zPVa9DZdV9PBCs4d2pjJwZ7Q5BW6bnYx7e23qFosXMobjJ+0oW24mui0d53VaQqogi02Jww+LIEXSUgeEKj2nWfzBdeZNKh09jNV/BxcOMVZCHG/4C/APy7RcUpV/6/y5BEWrfxUx5NXqTXskpEt7XfO6D6dVjqN1SwSrxg8lD93ZkRaySnh0PHuYnSlv+9snU8ZTXwBioBl/tDBEgAkOoTg2Jf4NoIDoQq3F6F6jd0gq7FQB79k4Xyg13hhYx+/LN0MQOkvG5nxwx2sDLTaC3lKpoqIboMx8K22G2pQnQMgLyrg82nsEkKyopRWtSWbz6NRcVZO/CRtyJEGMQMXtw76m8Qlr07lDk1KBi1HNIqjLJ62HSsQYeT9ap7rq1b+pATvvoIm9dBZ3U2gDRHn3A6RSpskpVfe2g96RuMV+i8FyTVa+XMbg7Cgb2UyeLWnwmbuppW9YEXltektziuUwtD246nTbmnxxTkJoLN1ySIgPwszWW5cknspB/bssJf0=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(186003)(81166007)(8676002)(36860700001)(26005)(2906002)(54906003)(36756003)(82310400003)(70586007)(70206006)(508600001)(356005)(110136005)(47076005)(4326008)(336012)(86362001)(8936002)(83380400001)(1076003)(5660300002)(316002)(6666004)(7696005)(426003)(2616005)(36900700001);
+ SFS:(4636009)(46966006)(36840700001)(86362001)(8676002)(186003)(83380400001)(82310400003)(36860700001)(4326008)(8936002)(2906002)(70586007)(70206006)(26005)(7696005)(1076003)(36756003)(5660300002)(81166007)(356005)(47076005)(6666004)(426003)(316002)(2616005)(508600001)(110136005)(54906003)(336012)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2021 07:21:25.6794 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4367e92-55cf-4a00-95af-08d98d50e6ba
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2021 07:21:43.8910 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3a3fd8a-c3f5-4c00-be45-08d98d50f197
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT062.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT030.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3743
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5179
 Cc: Sunil-kumar.Dommati@amd.com, Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
  open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
  Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
@@ -137,195 +142,95 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add I2S dai driver for Renoir platform and register with common
-acp framework to support non dsp I2S use case on Renoir.
+Add method to select and register machine driver for acp platform
+based on ACPI ID.
 
 Signed-off-by: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
 ---
- sound/soc/amd/acp/Kconfig      |   8 ++
- sound/soc/amd/acp/Makefile     |   5 ++
- sound/soc/amd/acp/acp-renoir.c | 141 +++++++++++++++++++++++++++++++++
- 3 files changed, 154 insertions(+)
- create mode 100644 sound/soc/amd/acp/acp-renoir.c
+ sound/soc/amd/acp/acp-platform.c | 23 +++++++++++++++++++++++
+ sound/soc/amd/acp/acp-renoir.c   |  3 +++
+ sound/soc/amd/acp/amd.h          |  6 ++++++
+ 3 files changed, 32 insertions(+)
 
-diff --git a/sound/soc/amd/acp/Kconfig b/sound/soc/amd/acp/Kconfig
-index 5d782d1fc654..e01822ff0694 100644
---- a/sound/soc/amd/acp/Kconfig
-+++ b/sound/soc/amd/acp/Kconfig
-@@ -17,3 +17,11 @@ config SND_SOC_AMD_ACP_I2S
+diff --git a/sound/soc/amd/acp/acp-platform.c b/sound/soc/amd/acp/acp-platform.c
+index e79c05276d5f..75003d0a41e3 100644
+--- a/sound/soc/amd/acp/acp-platform.c
++++ b/sound/soc/amd/acp/acp-platform.c
+@@ -67,6 +67,27 @@ static const struct snd_pcm_hardware acp_pcm_hardware_capture = {
+ 	.periods_max = CAPTURE_MAX_NUM_PERIODS,
+ };
  
- config SND_SOC_AMD_ACP_PCM
- 	tristate
++int acp_machine_select(struct acp_dev_data *adata)
++{
++	struct snd_soc_acpi_mach *mach;
++	int size;
 +
-+config SND_AMD_ASOC_RENOIR
-+	tristate "AMD ACP ASOC Renoir Support"
-+	select SND_SOC_AMD_ACP_PCM
-+	select SND_SOC_AMD_ACP_I2S
-+	depends on X86 && PCI
-+	help
-+	  This option enables Renoir I2S support on AMD platform.
-diff --git a/sound/soc/amd/acp/Makefile b/sound/soc/amd/acp/Makefile
-index b2e12659d97b..42bff3515f24 100644
---- a/sound/soc/amd/acp/Makefile
-+++ b/sound/soc/amd/acp/Makefile
-@@ -8,5 +8,10 @@
- snd-acp-pcm-objs     := acp-platform.o
- snd-acp-i2s-objs     := acp-i2s.o
++	size = sizeof(*adata->machines);
++	mach = snd_soc_acpi_find_machine(adata->machines);
++	if (!mach) {
++		dev_err(adata->dev, "warning: No matching ASoC machine driver found\n");
++		return -EINVAL;
++	}
++
++	adata->mach_dev = platform_device_register_data(adata->dev, mach->drv_name,
++							PLATFORM_DEVID_NONE, mach, size);
++	if (!adata->mach_dev)
++		dev_warn(adata->dev, "Unable to register Machine device\n");
++
++	return 0;
++}
++EXPORT_SYMBOL_NS_GPL(acp_machine_select, SND_SOC_ACP_COMMON);
++
+ static irqreturn_t i2s_irq_handler(int irq, void *data)
+ {
+ 	struct acp_dev_data *adata = data;
+@@ -283,6 +304,8 @@ int acp_platform_unregister(struct device *dev)
+ {
+ 	struct acp_dev_data *adata = dev_get_drvdata(dev);
  
-+#platform specific driver
-+snd-acp-renoir-objs     := acp-renoir.o
-+
- obj-$(CONFIG_SND_SOC_AMD_ACP_PCM) += snd-acp-pcm.o
- obj-$(CONFIG_SND_SOC_AMD_ACP_I2S) += snd-acp-i2s.o
-+
-+obj-$(CONFIG_SND_AMD_ASOC_RENOIR) += snd-acp-renoir.o
++	if (adata->mach_dev)
++		platform_device_unregister(adata->mach_dev);
+ 	return 0;
+ }
+ EXPORT_SYMBOL_NS_GPL(acp_platform_unregister, SND_SOC_ACP_COMMON);
 diff --git a/sound/soc/amd/acp/acp-renoir.c b/sound/soc/amd/acp/acp-renoir.c
-new file mode 100644
-index 000000000000..c7fbf71e4669
---- /dev/null
+index c7fbf71e4669..82faae1b110b 100644
+--- a/sound/soc/amd/acp/acp-renoir.c
 +++ b/sound/soc/amd/acp/acp-renoir.c
-@@ -0,0 +1,141 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
-+//
-+// This file is provided under a dual BSD/GPLv2 license. When using or
-+// redistributing this file, you may do so under either license.
-+//
-+// Copyright(c) 2021 Advanced Micro Devices, Inc.
-+//
-+// Authors: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>
-+//
+@@ -111,6 +111,9 @@ static int renoir_audio_probe(struct platform_device *pdev)
+ 	adata->dai_driver = acp_renoir_dai;
+ 	adata->num_dai = ARRAY_SIZE(acp_renoir_dai);
+ 
++	adata->machines = snd_soc_acpi_amd_acp_machines;
++	acp_machine_select(adata);
 +
-+/*
-+ * Hardware interface for Renoir ACP block
-+ */
+ 	dev_set_drvdata(dev, adata);
+ 	acp_platform_register(dev);
+ 
+diff --git a/sound/soc/amd/acp/amd.h b/sound/soc/amd/acp/amd.h
+index ecb53285526c..3532f4d3ccff 100644
+--- a/sound/soc/amd/acp/amd.h
++++ b/sound/soc/amd/acp/amd.h
+@@ -90,6 +90,9 @@ struct acp_dev_data {
+ 	int num_dai;
+ 
+ 	struct acp_stream *stream[ACP_MAX_STREAM];
 +
-+#include <linux/platform_device.h>
-+#include <linux/module.h>
-+#include <linux/err.h>
-+#include <linux/io.h>
-+#include <sound/pcm_params.h>
-+#include <sound/soc.h>
-+#include <sound/soc-dai.h>
-+#include <linux/dma-mapping.h>
++	struct snd_soc_acpi_mach *machines;
++	struct platform_device *mach_dev;
+ };
+ 
+ extern const struct snd_soc_dai_ops asoc_acp_cpu_dai_ops;
+@@ -98,6 +101,9 @@ int asoc_acp_i2s_probe(struct snd_soc_dai *dai);
+ int acp_platform_register(struct device *dev);
+ int acp_platform_unregister(struct device *dev);
+ 
++int acp_machine_select(struct acp_dev_data *adata);
++extern struct snd_soc_acpi_mach snd_soc_acpi_amd_acp_machines[];
 +
-+#include "amd.h"
-+
-+#define DRV_NAME "acp_asoc_renoir"
-+
-+static struct snd_soc_dai_driver acp_renoir_dai[] = {
-+{
-+	.name = "acp-i2s-sp",
-+	.id = I2S_SP_INSTANCE,
-+	.playback = {
-+		.stream_name = "I2S SP Playback",
-+		.rates = SNDRV_PCM_RATE_8000_96000,
-+		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S8 |
-+			   SNDRV_PCM_FMTBIT_U8 | SNDRV_PCM_FMTBIT_S32_LE,
-+		.channels_min = 2,
-+		.channels_max = 8,
-+		.rate_min = 8000,
-+		.rate_max = 96000,
-+	},
-+	.capture = {
-+		.stream_name = "I2S SP Capture",
-+		.rates = SNDRV_PCM_RATE_8000_48000,
-+		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S8 |
-+			   SNDRV_PCM_FMTBIT_U8 | SNDRV_PCM_FMTBIT_S32_LE,
-+		.channels_min = 2,
-+		.channels_max = 2,
-+		.rate_min = 8000,
-+		.rate_max = 48000,
-+	},
-+	.ops = &asoc_acp_cpu_dai_ops,
-+	.probe = &asoc_acp_i2s_probe,
-+},
-+{
-+	.name = "acp-i2s-bt",
-+	.id = I2S_BT_INSTANCE,
-+	.playback = {
-+		.stream_name = "I2S BT Playback",
-+		.rates = SNDRV_PCM_RATE_8000_96000,
-+		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S8 |
-+			   SNDRV_PCM_FMTBIT_U8 | SNDRV_PCM_FMTBIT_S32_LE,
-+		.channels_min = 2,
-+		.channels_max = 8,
-+		.rate_min = 8000,
-+		.rate_max = 96000,
-+	},
-+	.capture = {
-+		.stream_name = "I2S BT Capture",
-+		.rates = SNDRV_PCM_RATE_8000_48000,
-+		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S8 |
-+			   SNDRV_PCM_FMTBIT_U8 | SNDRV_PCM_FMTBIT_S32_LE,
-+		.channels_min = 2,
-+		.channels_max = 2,
-+		.rate_min = 8000,
-+		.rate_max = 48000,
-+	},
-+	.ops = &asoc_acp_cpu_dai_ops,
-+	.probe = &asoc_acp_i2s_probe,
-+},
-+};
-+
-+static int renoir_audio_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct acp_dev_data *adata;
-+	struct resource *res;
-+
-+	adata = devm_kzalloc(dev, sizeof(struct acp_dev_data), GFP_KERNEL);
-+	if (!adata)
-+		return -ENOMEM;
-+
-+	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "acp_mem");
-+	if (!res) {
-+		dev_err(&pdev->dev, "IORESOURCE_MEM FAILED\n");
-+		return -ENODEV;
-+	}
-+
-+	adata->acp_base = devm_ioremap(&pdev->dev, res->start, resource_size(res));
-+	if (!adata->acp_base)
-+		return -ENOMEM;
-+
-+	res = platform_get_resource_byname(pdev, IORESOURCE_IRQ, "acp_dai_irq");
-+	if (!res) {
-+		dev_err(&pdev->dev, "IORESOURCE_IRQ FAILED\n");
-+		return -ENODEV;
-+	}
-+
-+	adata->i2s_irq = res->start;
-+	adata->dev = dev;
-+	adata->dai_driver = acp_renoir_dai;
-+	adata->num_dai = ARRAY_SIZE(acp_renoir_dai);
-+
-+	dev_set_drvdata(dev, adata);
-+	acp_platform_register(dev);
-+
-+	return 0;
-+}
-+
-+static int renoir_audio_remove(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+
-+	acp_platform_unregister(dev);
-+	return 0;
-+}
-+
-+static struct platform_driver renoir_driver = {
-+	.probe = renoir_audio_probe,
-+	.remove = renoir_audio_remove,
-+	.driver = {
-+		.name = "acp_asoc_renoir",
-+	},
-+};
-+
-+module_platform_driver(renoir_driver);
-+
-+MODULE_DESCRIPTION("AMD ACP Renoir Driver");
-+MODULE_IMPORT_NS(SND_SOC_ACP_COMMON);
-+MODULE_LICENSE("Dual BSD/GPL");
-+MODULE_ALIAS("platform:" DRV_NAME);
+ static inline u64 acp_get_byte_count(struct acp_dev_data *adata, int dai_id, int direction)
+ {
+ 	u64 byte_count, low = 0, high = 0;
 -- 
 2.25.1
 

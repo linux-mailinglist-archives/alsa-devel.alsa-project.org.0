@@ -2,104 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E23E429DCF
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 08:35:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A00E8429DFE
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 08:50:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B9F14168E;
-	Tue, 12 Oct 2021 08:34:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9F14168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 34BD6168E;
+	Tue, 12 Oct 2021 08:49:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34BD6168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634020531;
-	bh=vbSCWWVl8c4wUkbo0bp6yiI/GcTC8OBE54ZfUFp96FE=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1634021400;
+	bh=a4APh837hN4Ot9mLvpm+3FQLkrJ0r2/nmsoNBmvlraA=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jJIXqzAd1BE/459vmgyZjhnNTbKPxcmJhyXZ14NPz1u9CM+Ou7TL1kjHi4q0fCKc4
-	 +LFPW126bgNLP2dKNwcO7IjWUeC/OhcMfvmwbvtz+fGcFR35pkucS8o0EmsAAWBjxE
-	 niWeQoRLmKuHvN41hkyS6v/HpykMKCrussUu5Uig=
+	b=m6chRsTyLUgS5Y0hKEBDlFGEVghqXwoZIbgAhaWU1Q6tzXnYuQoa66SrWEB+5kHhk
+	 DPkBauc+hC/lpbbhymHZVxPOeeVFmjdljdJIPbN/SrcKflQXgewJI7tPgJZbT2562L
+	 nG/YsrzPZ9/MqLAa4auG4sdJiGX1gBMr2/AliViY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45A0CF80245;
-	Tue, 12 Oct 2021 08:34:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8057EF80245;
+	Tue, 12 Oct 2021 08:48:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B059F800C0; Tue, 12 Oct 2021 08:34:13 +0200 (CEST)
+ id D5F33F80212; Tue, 12 Oct 2021 08:48:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_78,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0D6D3F800C0
- for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 08:34:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D6D3F800C0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Z4K6ZhbY"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="RpHxuzfi"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id A439421FEA;
- Tue, 12 Oct 2021 06:34:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1634020447; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4Dj85ik7+vQL7IvqeOozxPFcclfR9RIkCKTYskVeaWs=;
- b=Z4K6ZhbY+sYm0PYnRnw4GVbAqQO6bKkNxh3lorkBN/gsO5aG9kgzQn2eM5nVArI0bBAb5m
- GKweYaUGfHNfmpN/PqYRuuR1xIhWbp5VA0loYPLrbijqekrKRb5UvhpE0mSvLSH0QL6unR
- WbqzzCDuHonAg0xR2nsWUNSXc0AeELY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1634020447;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4Dj85ik7+vQL7IvqeOozxPFcclfR9RIkCKTYskVeaWs=;
- b=RpHxuzfidevCY5sl4e3CmdyYkhLJNpyHjN/tmUSz8FrptZYY1AbiiGEtGE4rMdqDI6Vyw4
- wCfd7jg2xOdMXmCQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 1FFE2A3B83;
- Tue, 12 Oct 2021 06:34:07 +0000 (UTC)
-Date: Tue, 12 Oct 2021 08:34:07 +0200
-Message-ID: <s5htuhm3g68.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [RFC PATCH v2 0/5] ASoC: soc-pcm: fix trigger race conditions
- with shared BE
-In-Reply-To: <8c1353f0-e897-e7b0-c7b9-5712b05ac91f@linux.intel.com>
-References: <20211004225441.233375-1-pierre-louis.bossart@linux.intel.com>
- <cce82420-d744-ee43-d514-b77ac4905ffa@nvidia.com>
- <1efa1c31-7342-05f8-5f73-95e2462d4179@linux.intel.com>
- <3683cf39-632b-50df-c65d-63779c464850@nvidia.com>
- <11257d77-9975-3b00-94da-5dc1b5c95fc6@linux.intel.com>
- <s5hk0ip9js7.wl-tiwai@suse.de>
- <ff43fede-aa66-3cb7-6365-e1f279cd135f@linux.intel.com>
- <s5hzgrk98y9.wl-tiwai@suse.de>
- <80882fe6-ea30-43f6-8d83-8995dd28c748@linux.intel.com>
- <s5hwnmo96vh.wl-tiwai@suse.de>
- <60c6a90b-290d-368c-ce61-4d86e70eaa78@linux.intel.com>
- <s5hily88rri.wl-tiwai@suse.de>
- <75894aba-ca1a-51d6-df7d-ad53fcd89f79@linux.intel.com>
- <s5hee8w82ng.wl-tiwai@suse.de>
- <e9340874-320a-8fc6-f3a4-9cf77f85db25@linux.intel.com>
- <s5hczof7eoq.wl-tiwai@suse.de>
- <dcdb8f74-51db-86a1-959f-909dfac22b26@linux.intel.com>
- <29397354-dc5b-7837-c71b-df4bde707df2@linux.intel.com>
- <8c1353f0-e897-e7b0-c7b9-5712b05ac91f@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Sameer Pujar <spujar@nvidia.com>, vkoul@kernel.org, broonie@kernel.org,
- Gyeongtaek Lee <gt82.lee@samsung.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2DF04F800CB
+ for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 08:48:34 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 30E79A0040;
+ Tue, 12 Oct 2021 08:48:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 30E79A0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1634021313; bh=h6ujEwwvDiYMbBnNUjuI+9u0q/jInNzd+kMadeCXa6g=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=BeTtnU91vw18RI0pj44l7C/QQRshiZ82HqsNGv9s/fxOZ8ncCNRQuPv4iiVnhmtQw
+ anhfqwDHULpA4Ik1kypBvnpbQ4Np3sOxe4zGHAId8htyciwBRz5puAurL/uPIzPaJD
+ Tyvgn806mDGE8vU/eF32zWi8LF4XFV1hrQmtBL3U=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Tue, 12 Oct 2021 08:48:29 +0200 (CEST)
+Message-ID: <b1055039-8ed7-6820-2a8d-a2fa16459110@perex.cz>
+Date: Tue, 12 Oct 2021 08:48:28 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.1.0
+Subject: Re: Add ALSA UCM support for Pinebook Pro's audio
+Content-Language: en-US
+To: Jian-Hong Pan <jhp@endlessos.org>, Dan Johansen <strit@manjaro.org>
+References: <CAPpJ_ee4+Aer5z2qWr9xECoJOZTn80GKXxdTzzj08ADdXm5Uow@mail.gmail.com>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <CAPpJ_ee4+Aer5z2qWr9xECoJOZTn80GKXxdTzzj08ADdXm5Uow@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, linux@endlessos.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,72 +80,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 11 Oct 2021 22:06:51 +0200,
-Pierre-Louis Bossart wrote:
+On 12. 10. 21 8:08, Jian-Hong Pan wrote:
+> Hi,
 > 
+> I prepared the pull request "ucm2: Add UCM support for rockchip_es8316 on 
+> Pinebook Pro" [1] to enable Pinebook Pro's audio generically.
+> Also, the corresponding validator pull request "ucm-validator: Upload 
+> rockchip_es8316's dummy json and alsa-info" [2].
 > 
-> >>> Basically we need to protect two things:
-> >>> - The BE links
-> >>> - The concurrent accesses to BEs
-> >>> The former belongs to each FE that holds the links, and the FE stream
-> >>> lock would cover.  The latter is rather a per-BE business.
-> >>>
-> >>> An oft-seen risk of multiple locks is deadlocking, but in this case,
-> >>> as long as we keep the lock order FE->BE, nothing wrong can happen.
-> >>
-> >> famous last words  "nothing wrong can happen." :-)
-> >>
-> >> I already added a helper to do this FE lock, I can easily replace the
-> >> implementation to remove the spin_lock and use the FE PCM lock.
-> >> we might even add the lock in the definition of for_each_dpcm_be() to
-> >> avoid misses.
-> >>
-> >> Let me try this out today, thanks for the suggestions.
-> > 
-> > well, it's not successful at all...
-> > 
-> > When I replace the existing dpcm_lock with the FE PCM lock as you
-> > suggested, without any additional changes, speaker-test produces valid
-> > audio on the endpoints, but if I try a Ctrl-C or limit the number of
-> > loops with the '-l' option, I hear an endless loop on the same buffer
-> > and I have to power cycle my test device to stop the sound.
-> > 
-> > See 2 patches attached, the first patch with the introduction of the
-> > helper works fine, the second with the use of the FE PCM lock doesn't.
-> > In hindsight I am glad I worked on minimal patches, one after the other,
-> > to identify problems.
-> > 
-> > And when I add the BE lock, then nothing happens. Device stuck and no
-> > audio...
-> > 
-> > There must be something we're missing related to the locking...
+> The original information comes from Manjaro ARM's pinebookpro-post-install's 
+> asound.state [3] and pinebookpro-audio's audio_jack_plugged_in.sh [4].
 > 
-> And indeed there's a deadlock!
+> To make it available on most distros, I transfer the asound.state and the 
+> shell script into ALSA UCM conf.
 > 
-> snd_pcm_period_elapsed() takes the FE pcm stream lock, and will call
-> snd_pcm_trigger.
+> It will be appreciated if someone can review the pull requests and give some 
+> feedback.
 
-Indeed, this would deadlock.
+Thank you for your ping. I made the first review.
 
-> So if we also take the pcm stream lock in the BE
-> trigger, there's a conceptual deadlock: we painted ourselves in a corner
-> by using the same lock twice.
-> 
-> Takashi, are you really sure we should protect these for_each_dpcm_be()
-> loops with the same pcm lock?
+					Jaroslav
 
-The call within the FE lock is done only in dpcm_dai_trigger_fe_be(),
-and this should call dpcm_be_dai_trigger() as is.  In other places,
-the calls are without FE lock, hence they can take the lock,
-e.g. create a variant dpcm_dai_trigger_fe_be_lock().
-
-> it seems like asking for trouble to
-> revisit the ALSA core just to walking through a list of BEs? Would you
-> object to changing dpcm_lock as I suggested, but not interfering with
-> stream handling?
-
-That would work, too, it's just a pity to degrade the fine-grained
-locks that have been already taken into global locks...
-
-
-Takashi
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

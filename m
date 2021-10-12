@@ -2,89 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30F8542A1C1
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 12:16:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F90742A27E
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Oct 2021 12:42:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9DB86168C;
-	Tue, 12 Oct 2021 12:16:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DB86168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id EBD421686;
+	Tue, 12 Oct 2021 12:41:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBD421686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634033810;
-	bh=QqLCxp4lKNPjCDCSuEqgvPyTOrxt2LTtu+rXTKFNMaA=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=NNpDhk03TnwSP0uL1nCMFL3m+kcvK/j4IVkRkvsQFoN3LP4OgZ3kaucichaAz91wz
-	 It0/EC6SAk2QPFTJYRLksEAKoVzATQhxv5gQHnsDtLWQIP3VP9tomtee+OnFhKe+u6
-	 DzoX7rXJ9JDa1jJhwzCxOt41uGRiOBD+QYXa6GT0=
+	s=default; t=1634035321;
+	bh=8Mo99hNpbVCPntx6qXcJMQQ8Zr6U+b7gnjdoRm7v9wA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ZpYoXJYqhF1sIIRLbkGjPSjQlK7LixxOdwp/MnJ5/Nu/tZlG2XnWgzb3GJafzQfzp
+	 4F1JkSLVOrTZfLA1M/wZ44LaZYJ769mAom/nVF3G0M6xyyiHtKPB02TSgOCU25fils
+	 xECzw2TLUJaoQ0dlG95PH5YPTXDC35Cu7mMKRz+c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0DBDF80245;
-	Tue, 12 Oct 2021 12:15:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 53147F80245;
+	Tue, 12 Oct 2021 12:40:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C8D8F80212; Tue, 12 Oct 2021 12:15:33 +0200 (CEST)
+ id BC418F80212; Tue, 12 Oct 2021 12:40:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 250F3F800C0
- for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 12:15:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 250F3F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 437EDF80088
+ for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 12:40:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 437EDF80088
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="I6JH1SD4"
-Received: by mail-wr1-x434.google.com with SMTP id t2so65342793wrb.8
- for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 03:15:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=6QbSN9AwgyB7YvMXjQ9wGOfwm5L9SfWX6cJ4H4aiOcw=;
- b=I6JH1SD4d+mxJgU41Ukt5Yi7cIner7iuvPmkLYnQE8EuACtOW7bFgFigqbMeJX0THw
- xP/cb89RpE7uokfUFL93RNjkwHW5voE0Gk4eg4LKGaRRonx4Q36UXqSiYUP8NMxXY7MS
- 2Ugw+A3pKYhZTrSIXOW5K1vIAjXHnjwBO96YK3wc6eG1rwb1OLs+9bzrJ48y7vHnwZQq
- poPwCunfY9338ddLwYQSwSNpemrUGQQglAkzc2v6DX4tDnshC1My8JvLnJkdi083o7J7
- u2TLx+8LpNa/XY29A28R+V+jZPlrO/crvHVaHqu0W6VqfldPunV/fst+eNjqtNk0lp5E
- NIkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=6QbSN9AwgyB7YvMXjQ9wGOfwm5L9SfWX6cJ4H4aiOcw=;
- b=HfLzyvVBcmInbdRWzXiNEy+sHkgGaoTBIQakpGaMveB10UDBwLPJ6duyCnGyyXIxy6
- FD4U5TUWdxgDds/JPEe5WfxfmRgjq54hVnBW3U2mGWufPxwavSEHEM4RIJMiAW9Zho7H
- lSZtVSmjSGQISS/qUTwUI6h2jRHFQU/calAb6/ow4TxTRpElJn6WnD2dp7I09vl2dNxt
- s3GiU+sa/2Fc9JnGb1OqFNvMZvr9kK7XFzQgeha1C8vhyIYG8uatjmoMYsSLS7YtWz1F
- GlEX4M/Ih3DV085bbwJvbJsJfm92iGtYW06RYkyAJ7OiY1Bm8oGMBNxTKuUfvoRiwFpa
- 8dEA==
-X-Gm-Message-State: AOAM532GacwnKrxMWDbiftrML8IvF0G4cv6I7eEKY+I9SbHCYfqJmQf/
- IcLsE7yQn04fRAE0Tzy3Gjtz7A==
-X-Google-Smtp-Source: ABdhPJwdxCHHOZ/oslBbeIuL0n1JOu3yAprRsBzGm4vMqJrW4NjI0W2onXTmmR87QR8VLNUzEjpS+Q==
-X-Received: by 2002:adf:b748:: with SMTP id n8mr30225878wre.133.1634033724575; 
- Tue, 12 Oct 2021 03:15:24 -0700 (PDT)
-Received: from srini-hackbox.lan
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id t21sm2026514wmi.19.2021.10.12.03.15.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Oct 2021 03:15:24 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: vkoul@kernel.org
-Subject: [PATCH] soundwire: bus: stop dereferencing invalid slave pointer
-Date: Tue, 12 Oct 2021 11:15:21 +0100
-Message-Id: <20211012101521.32087-1-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="IuY/0Ev7"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id AF1A561076;
+ Tue, 12 Oct 2021 10:40:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1634035235;
+ bh=8Mo99hNpbVCPntx6qXcJMQQ8Zr6U+b7gnjdoRm7v9wA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=IuY/0Ev7PWWGp+fKGsfoZGUoYxRammnb3CLy1qKbZ5vWTCmfWRDkQl6yG4b0f6BPc
+ M62CbOC8WSvWc2uF+xtTPJ4nyGjziTFUrBHorz+z/exgwe0L0KVM/a4bD/6pe6Mow+
+ KzeapNdc4esEnUTr4rb8pe8ybB78ZHGdHTOB2IxETMO9g59Q147K44yyZ2OlE8af+z
+ GCOG/C9iMHskpxKn3Wjs3OiCeplGvPfmJMWQL+P5iJFshfPjf1NynFaQwJAHxSzGx1
+ vPXNLQN0UQPIS24+9CG6fFz7gQN6nGMtBMi0vnkWgKg/UYFgH/mKnoTYAUAgwcbaxv
+ Fxj0/o9aWrzpw==
+Date: Tue, 12 Oct 2021 11:40:32 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+Subject: Re: [PATCH v2 6/8] ASoC: cirrus: i2s: Prepare clock before using it
+Message-ID: <YWVmIKM99Zp/eVLZ@sirena.org.uk>
+References: <20210726115058.23729-1-nikita.shubin@maquefel.me>
+ <20210726140001.24820-1-nikita.shubin@maquefel.me>
+ <20210726140001.24820-7-nikita.shubin@maquefel.me>
+ <20210726165124.GJ4670@sirena.org.uk>
+ <e23f7de1dbb02def413d721a3bf5759100380937.camel@gmail.com>
+ <7cd9ccc118c1955b5f3b48f6f8a7157a72d5213e.camel@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: guennadi.liakhovetski@linux.intel.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- rander.wang@intel.com, sanyog.r.kale@intel.com,
- yung-chuan.liao@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="+Xxb2RUjTwxQcxkX"
+Content-Disposition: inline
+In-Reply-To: <7cd9ccc118c1955b5f3b48f6f8a7157a72d5213e.camel@gmail.com>
+X-Cookie: You buttered your bread, now lie in it.
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Nikita Shubin <nikita.shubin@maquefel.me>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Geert Uytterhoeven <geert@linux-m68k.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,45 +89,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Slave pointer is invalid after end of list iteration, using this
-would result in below Memory abort.
 
-Unable to handle kernel NULL pointer dereference at virtual address 0000000000000004
-...
-Call trace:
- __dev_printk+0x34/0x7c
- _dev_warn+0x6c/0x90
- sdw_bus_exit_clk_stop+0x194/0x1d0
- swrm_runtime_resume+0x13c/0x238
- pm_generic_runtime_resume+0x2c/0x48
- __rpm_callback+0x44/0x150
- rpm_callback+0x6c/0x78
- rpm_resume+0x314/0x558
- rpm_resume+0x378/0x558
- rpm_resume+0x378/0x558
- __pm_runtime_resume+0x3c/0x88
+--+Xxb2RUjTwxQcxkX
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Use bus->dev instead to print this error message.
+On Tue, Oct 12, 2021 at 09:25:15AM +0200, Alexander Sverdlin wrote:
+> On Mon, 2021-09-13 at 23:43 +0200, Alexander Sverdlin wrote:
 
-Fixes: b50bb8ba369cd ("soundwire: bus: handle -ENODATA errors in clock stop/start sequences")
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- drivers/soundwire/bus.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> > would you take the patch to a tree of yours, please?
 
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index 1b115734a8f6..67369e941d0d 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -1110,7 +1110,7 @@ int sdw_bus_exit_clk_stop(struct sdw_bus *bus)
- 	if (!simple_clk_stop) {
- 		ret = sdw_bus_wait_for_clk_prep_deprep(bus, SDW_BROADCAST_DEV_NUM);
- 		if (ret < 0)
--			dev_warn(&slave->dev, "clock stop deprepare wait failed:%d\n", ret);
-+			dev_warn(bus->dev, "clock stop deprepare wait failed:%d\n", ret);
- 	}
- 
- 	list_for_each_entry(slave, &bus->slaves, node) {
--- 
-2.21.0
+> I still cannot find this patch in any of your trees, but I've found this =
+one:
 
+You ignored my question about dependencies:
+
+    https://lore.kernel.org/all/20210914103212.GB4434@sirena.org.uk/
+
+so I've no idea if it's safe to apply or if other people might need this
+one patch from the middle of the series.
+
+>       video: ep93xx: Prepare clock before using it
+>       dmaengine: ep93xx: Prepare clock before using it
+>       ASoC: cirrus: i2s: Prepare clock before using it
+>       pwm: ep93xx: Prepare clock before using it
+>    =20
+>     Nikita Shubin (1):
+>       ep93xx: clock: convert in-place to COMMON_CLK
+>=20
+>=20
+> ... which claims to merge both "ASoC: cirrus: i2s: Prepare clock before u=
+sing it"
+> and "ep93xx: clock: convert in-place to COMMON_CLK", but they are actuall=
+y not
+> merged.
+
+No, it doesn't - that's the cover letter from your series.
+
+> Could you please consider ASoC patch, while I will resubmit the final clo=
+ck conversion?
+
+So please answer my question then: what's the story with dependencies?
+
+--+Xxb2RUjTwxQcxkX
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFlZh8ACgkQJNaLcl1U
+h9DJkQf/YWStIGUowcgzXW+8LvZgoJQGF/Pz4DneFx9CyXhIuKBospPojXunjUn5
+/p7TXRzlC3nr7JKqqu/Yz3uQ0d5JiJ87XsRJe53YUGQbQ5AjnQ2cN6Z3s8MJEhbe
+F/cyYUXDCWnt4dTsTDmWEjrO5I37Lu62DWdEtuENbkh9tILWF8nPtBpxcuU7Bois
+n5u+A35nICssRSLyI3RYVQJyovkzjHUl06oT8L4wKiAgyJS7VoiJUv1dYP1QbsrG
+v1mDYcqerGWuRykGCL6nXzSeso0LFYy5wqEufHzlxP4WwwK0fcq3ISt0mlK7hVCo
+Mu7TVhcs9l8yG3imacbH5sL84IDU9Q==
+=XWRi
+-----END PGP SIGNATURE-----
+
+--+Xxb2RUjTwxQcxkX--

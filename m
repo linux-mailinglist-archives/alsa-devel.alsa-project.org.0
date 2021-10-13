@@ -2,85 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E83EB42D857
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Oct 2021 13:40:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06FAB42DAC3
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Oct 2021 15:48:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 702FF1664;
-	Thu, 14 Oct 2021 13:39:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 702FF1664
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EA5D1670;
+	Thu, 14 Oct 2021 15:47:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EA5D1670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634211600;
-	bh=NXoHFTjFGpmyG3+Ow1uPxaZmlPEMkJ1QeVtcbpHt8gI=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=YhTpgJVkFY3yPs1zddhkzDkgcEz1QScjmhFUODMtA/+eeEVEKm15NqPpflZ5xSApM
-	 CPWx/vmpjvYUHa5Q2GiLv6SBcs6GaSfRa6n55Zsoe2NBI6SoStdKOYxsPTMU4AZXzW
-	 q5ct7mE/0GE4emZe1sACz93y9RED/7y4M6FYRmco=
+	s=default; t=1634219305;
+	bh=2Xje8pKfkwfEzJnN5Km/T/71jC9qThKArd4i/qedYX8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=i6iP6EmtNjzoDUivWBiESDWjOJyVf5+iBaOWrCmpcO6AjsY38EkCKyIsKdSozCqbM
+	 sFc5lQ/+UXGIO5a+iuu+BLOIFL39uMtrF2ay9LiBcK6CsBq9vRvU47ABaLEsclp+uB
+	 U76cKliwUa/Jxj2iffWm3VtERaAQiS2ObHuny9YI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD8ACF80245;
-	Thu, 14 Oct 2021 13:38:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0967CF801F7;
+	Thu, 14 Oct 2021 15:47:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9AF46F80212; Thu, 14 Oct 2021 13:38:41 +0200 (CEST)
+ id F1825F80269; Wed, 13 Oct 2021 08:04:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE, URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
+ [IPv6:2607:f8b0:4864:20::431])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A74FBF801D5
- for <alsa-devel@alsa-project.org>; Thu, 14 Oct 2021 13:38:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A74FBF801D5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 96312F80088
+ for <alsa-devel@alsa-project.org>; Wed, 13 Oct 2021 08:04:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96312F80088
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="MDpVaXdS"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="N7z33a5R"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 69E6921A74;
- Thu, 14 Oct 2021 11:38:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1634211512; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tL+SOKDX3hkNa5BvmV5TRBLsoF/YWzQI6GrS/Q70rrw=;
- b=MDpVaXdSQFeihigd0+QU19BVWmxHJKcEhciHmxRs/NSwHNxj3kQJUaVY9vVZXCtw+O0FHL
- qbDHv2FxjnogajxPeaZj3bKRbuIIkGkgCrSX2hGhQvRzLB6L13aodNujGSV5Vj0IIlp0bs
- +0i6lr3xSYeq9ndRlpd6tsZ9wH7I5vg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1634211512;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tL+SOKDX3hkNa5BvmV5TRBLsoF/YWzQI6GrS/Q70rrw=;
- b=N7z33a5RoXkZAV7wfPa5HmybVVpm+w07v42Laf3Po300BCX5TUn1+BF6CNe8I+9lca8H2l
- gF4AewzZ5qavoGAQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 3BEFDA3B84;
- Thu, 14 Oct 2021 11:38:32 +0000 (UTC)
-Date: Thu, 14 Oct 2021 13:38:32 +0200
-Message-ID: <s5hr1cnx2dj.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH] ALSA: usb-audio: allow -EPIPE errors for some v2 messages
-In-Reply-To: <YWgM2jI94fZLfP09@kroah.com>
-References: <YWLbEdHUE3k/i0fe@kroah.com> <s5hily46316.wl-tiwai@suse.de>
- <YWRYD7fphcaWKEOG@kroah.com> <s5h7dej4kbe.wl-tiwai@suse.de>
- <YWRy+UoG1YHcQ7UM@kroah.com> <s5ho87u3dcb.wl-tiwai@suse.de>
- <YWWCiLE6id43uJjp@kroah.com> <s5hsfx61imj.wl-tiwai@suse.de>
- <YWgM2jI94fZLfP09@kroah.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-usb@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="jsFSQ/yE"
+Received: by mail-pf1-x431.google.com with SMTP id q19so1513361pfl.4
+ for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 23:04:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=MH9z8oRP1WEDSYSBSdmgw7YkHAb/fp8UIslbgmjVY44=;
+ b=jsFSQ/yE1vIMk0ZXSOG9PWuCn5JQscSjwdkdEmx5aOvUYwvASQnDZakuR6eciLBhCD
+ 92h6e10Hpbm8ucmaq1aPOmMgftVR0sX95ktsmJ/WiRmU9Ayk7dCoe1VSFlq8ZA2hM2HU
+ y2eKEyPSFUaDIn31Ep4clKCxYx/16sreoichvvDvxip+viqowN5qndQ4XvqcMpnEOqYT
+ cqdDNwZvuF325dM6dDUmzd+ENrmQiCGm3PriDqt57028lAcewW7aWUxCLkdFmXXj6hU2
+ AvAKXTnqjDIbL+YVRDtUrwUJNlqj38bL9KS/5aMy86pwVpw6Ox5HlXfuEsAf8lA6Cwto
+ y7lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=MH9z8oRP1WEDSYSBSdmgw7YkHAb/fp8UIslbgmjVY44=;
+ b=In/d7YGfgQY6MAD2FDz13q1DPHYxNi8eHmmIuaQlQFqZkPeFeKNfl4GtlMMCx4lM9U
+ 7i30+dTPI10xwvN3VOaxPP8Kbo1WbrAeWO5YLUHxknfikCI3TmNnpAK3LQCCRZckMDIt
+ EWtHwIx5b3FTMeHsCSmp45JyyfxtOCy7oc3qjVus5yrLfmqvpBFUVHWBQysUifWcwBep
+ 6tCbRplqnCqjhx64gUqoAfwybsbnOd6uOqe2Y+dBRT20Oce1dAmjqi3A6GLWU+a3ht1Z
+ i4gtz5BLtth2f7Aklez99pqjCaCW9CM4+31/HlAS8XkINdWIrSFy8T4qbAtP7t6HQN6U
+ xZWA==
+X-Gm-Message-State: AOAM531uuZ6RmCrJRPbi9exbHhWMvXLHEEhrENn99JbIc0zgiO4EUwH8
+ +ewoQHgdED4bsStr1L9gJyA=
+X-Google-Smtp-Source: ABdhPJyqqqSApXRNIzuuH5iQRESjESRbu7jNUNmMjLGTCrUAzRTOBbZ2z4ajKRyTDITgvwz2iFDUkg==
+X-Received: by 2002:a63:f410:: with SMTP id g16mr25875791pgi.201.1634105088816; 
+ Tue, 12 Oct 2021 23:04:48 -0700 (PDT)
+Received: from SEL-LT-028891.maxim-ic.internal ([223.62.162.93])
+ by smtp.gmail.com with ESMTPSA id w9sm5003461pjk.28.2021.10.12.23.04.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 12 Oct 2021 23:04:48 -0700 (PDT)
+From: George Song <georgesong0119@gmail.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
+ george.song@maximintegrated.com, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] ALSA SoC MAX98520 dt-bindings : Added device tree binding
+ for max98520 Signed-off-by: George Song <george.song@maximintegrated.com>
+Date: Wed, 13 Oct 2021 15:04:41 +0900
+Message-Id: <20211013060441.18177-1-georgesong0119@gmail.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 14 Oct 2021 15:47:05 +0200
+Cc: "george.song" <george.song@analog.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,111 +100,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 14 Oct 2021 12:56:26 +0200,
-Greg Kroah-Hartman wrote:
-> 
-> On Tue, Oct 12, 2021 at 03:24:04PM +0200, Takashi Iwai wrote:
-> > On Tue, 12 Oct 2021 14:41:44 +0200,
-> > Greg Kroah-Hartman wrote:
-> > > 
-> > > On Tue, Oct 12, 2021 at 09:35:16AM +0200, Takashi Iwai wrote:
-> > > > On Mon, 11 Oct 2021 19:23:05 +0200,
-> > > > Greg Kroah-Hartman wrote:
-> > > > > 
-> > > > > On Mon, Oct 11, 2021 at 06:07:01PM +0200, Takashi Iwai wrote:
-> > > > > > Could you also post the contents of /proc/asound/card*/usbmixer (only
-> > > > > > for the corresponding device), too?
-> > > > > 
-> > > > > Sure, here it is:
-> > > > > 
-> > > > > USB Mixer: usb_id=0x30be0101, ctrlif=0, ctlerr=0
-> > > > > Card: Schiit Audio Schiit Hel at usb-0000:47:00.1-2.2, high speed
-> > > > >   Unit: 5
-> > > > >     Control: name="Mic - Input Jack", index=0
-> > > > >     Info: id=5, control=2, cmask=0x0, channels=1, type="BOOLEAN"
-> > > > >     Volume: min=0, max=1, dBmin=0, dBmax=0
-> > > > >   Unit: 7
-> > > > >     Control: name="Speaker - Output Jack", index=0
-> > > > >     Info: id=7, control=2, cmask=0x0, channels=1, type="BOOLEAN"
-> > > > >     Volume: min=0, max=1, dBmin=0, dBmax=0
-> > > > >   Unit: 13
-> > > > >     Control: name="PCM Playback Switch", index=0
-> > > > >     Info: id=13, control=1, cmask=0x0, channels=1, type="INV_BOOLEAN"
-> > > > >     Volume: min=0, max=1, dBmin=0, dBmax=0
-> > > > >   Unit: 17
-> > > > >     Control: name="Mic Capture Switch", index=0
-> > > > >     Info: id=17, control=1, cmask=0x0, channels=1, type="INV_BOOLEAN"
-> > > > >     Volume: min=0, max=1, dBmin=0, dBmax=0
-> > > > >   Unit: 18
-> > > > >     Control: name="Clock Source 18 Validity", index=0
-> > > > >     Info: id=18, control=2, cmask=0x0, channels=1, type="BOOLEAN"
-> > > > >     Volume: min=0, max=1, dBmin=0, dBmax=0
-> > > > >   Unit: 22
-> > > > >     Control: name="Clock Source 22 Validity", index=0
-> > > > >     Info: id=22, control=2, cmask=0x0, channels=1, type="BOOLEAN"
-> > > > >     Volume: min=0, max=1, dBmin=0, dBmax=0
-> > > > 
-> > > > Hm, I expected more exotic control that failed, but it was Mic Capture
-> > > > Switch, which should be treated normally.
-> > > > 
-> > > > Could you try the patch below?  This will still show other warning
-> > > > messages, but it'll forcibly initialize the mixer elements at probe
-> > > > time, and the rest should work.
-> > > > 
-> > > > Once after it's confirmed to work, we may shut up the device warnings
-> > > > with a quirk.
-> > > 
-> > > Only one warning message shows up, here's the dmesg with this patch
-> > > applied:
-> > > 
-> > > 
-> > > [Oct12 14:39] usb 7-2.2: new high-speed USB device number 10 using xhci_hcd
-> > > [  +0.123157] usb 7-2.2: New USB device found, idVendor=30be, idProduct=0101, bcdDevice= 1.02
-> > > [  +0.000009] usb 7-2.2: New USB device strings: Mfr=1, Product=2, SerialNumber=0
-> > > [  +0.000003] usb 7-2.2: Product: Schiit Hel
-> > > [  +0.000002] usb 7-2.2: Manufacturer: Schiit Audio
-> > > [  +0.339785] usb 7-2.2: 17:0: failed to get current value for ch 0 (-32)
-> > > [  +0.020373] input: Schiit Audio Schiit Hel as /devices/pci0000:40/0000:40:01.1/0000:41:00.0/0000:42:08.0/0000:47:00.1/usb7/7-2/7-2.2/7-2.2:1.3/0003:30BE:0101.000B/input/input24
-> > > [  +0.056868] hid-generic 0003:30BE:0101.000B: input,hidraw6: USB HID v1.00 Device [Schiit Audio Schiit Hel] on usb-0000:47:00.1-2.2/input3
-> > 
-> > OK, then the problem is only about this unit and about the master
-> > channel.
-> > 
-> > > I don't see a "mic capture switch" on this device, but maybe it triggers
-> > > when I plug a mic into the microphone port, which is currently empty?
-> > 
-> > This should be persistent and visible; try to run "amixer -c1" (or the
-> > different card index for the device).
-> > 
-> > So far, so good.  The only remaining piece is how this -EPIPE error
-> > comes up.  Is this a protocol stall error or such?  Would it be
-> > avoided by adding the delay like done for some devices?
-> > 
-> > With the 5.15-rc kernel, you can pass quirk_flags option to
-> > snd-usb-audio module for applying known quirks.
-> > e.g. quirk_flags=0x100 will set the 1msec delay at each control
-> > message.  Please check whether it makes any difference.
-> > The option is an integer array for multiple devices, so if you have
-> > multiple USB-audio devices, put at the appropriate position in the
-> > array (e.g. quirk_flags=,,0x100 for the 3rd slot).
-> 
-> This quirk did not work.  Well, it caused the error to show up after a
-> delay, but the error is still there.
-> 
-> > The quirk bit 0x4000 will shut up the control errors.  If the above
-> > doesn't fix the warning and the device is working more or less, set
-> > this quirk to shut up the warning.  It can be set statically in the
-> > table at the end in sound/usb/quirks.c.
-> 
-> This quirk did work in that the error messages are still in the kernel
-> log, but the device seems to work properly now.
-> 
-> Let me send a patch that adds this device to the quirk table.
+From: "george.song" <george.song@analog.com>
 
-OK, thanks!  The remaining error message should be suppressed with the
-patch in my previous mail.  Or maybe we can add a patch to downgrade
-the error message to dev_dbg() at first for 5.15, then another one
-(initializing all controls at first) to 5.16.
+---
+ .../bindings/sound/maxim,max98520.yaml        | 35 +++++++++++++++++++
+ 1 file changed, 35 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/maxim,max98520.yaml
 
+diff --git a/Documentation/devicetree/bindings/sound/maxim,max98520.yaml b/Documentation/devicetree/bindings/sound/maxim,max98520.yaml
+new file mode 100644
+index 000000000000..02481428e2ed
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/maxim,max98520.yaml
+@@ -0,0 +1,35 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/maxim,max98520.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Maxim Integrated MAX98520 Speaker Amplifier Driver
++
++maintainers:
++  - Goerge Song <George.song@maximintegrated.com>
++
++properties:
++  compatible:
++    const: maxim,max98520
++
++  reg:
++    maxItems: 1
++    description: I2C address of the device.
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++      #address-cells = <1>;
++      #size-cells = <0>;
++      max98520: amplifier@38 {
++        compatible = "maxim,max98520";
++        reg = <0x38>;
++      };
++    };
+-- 
+2.25.1
 
-Takashi

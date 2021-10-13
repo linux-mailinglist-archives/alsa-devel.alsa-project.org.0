@@ -2,62 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86F4D42C34B
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Oct 2021 16:32:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5498A42C357
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Oct 2021 16:33:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E61671684;
-	Wed, 13 Oct 2021 16:31:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E61671684
+	by alsa0.perex.cz (Postfix) with ESMTPS id E1D171661;
+	Wed, 13 Oct 2021 16:32:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1D171661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634135556;
-	bh=wg2hO1AtzDTxBpWxZfnZ54dkEzVV+SjDrKjJ6ixmvK4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=HNIKBtr/MCf/JIqBPtzMrVF3wOCAJoKphVkgqOe6Hj+N6afqN8tZ8t2U21nRLGYGD
-	 hhgh+iDGoCsZ4ePuYtVhOV45cF7gCCkGx9CESCxk/lmHN3Q8+CgJ1AEUb6SztG9U4H
-	 +7e8xO0CfWxKq5V2yfyztXGd6rPcU0aNzKPVmAgI=
+	s=default; t=1634135604;
+	bh=PdnPaJEryUOFrynwAloHCKQL31x6ZlJuQ7CSkZljO8s=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=u3gHmhenVSaNEnGC2/GGbd0d/PzG7R2wvOkihhClLdR7UWpQl4Puv39LALdY4Y5yc
+	 K34ewcaRJlJ6zkJ9pAZN6ypBgWnTszp8itzFiqvl5ZVMLWcOBcmiFS4vKBqZc/BRht
+	 jLZiQId6yBSwCIL0O/HCgqOPz4SR6Z6W2aE6zoNE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D6D1F804B4;
-	Wed, 13 Oct 2021 16:31:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BBD0CF80423;
+	Wed, 13 Oct 2021 16:31:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D1F60F8028D; Wed, 13 Oct 2021 16:31:15 +0200 (CEST)
+ id 762F4F80269; Wed, 13 Oct 2021 16:31:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_14,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 91B47F800C0
- for <alsa-devel@alsa-project.org>; Wed, 13 Oct 2021 16:31:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91B47F800C0
-X-IronPort-AV: E=McAfee;i="6200,9189,10135"; a="313639486"
-X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="313639486"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4C85DF800C0
+ for <alsa-devel@alsa-project.org>; Wed, 13 Oct 2021 16:31:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C85DF800C0
+X-IronPort-AV: E=McAfee;i="6200,9189,10135"; a="313639495"
+X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="313639495"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2021 07:31:05 -0700
-X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="524649446"
+ 13 Oct 2021 07:31:06 -0700
+X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="524649465"
 Received: from ssafavib-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.209.164.198])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2021 07:31:03 -0700
+ 13 Oct 2021 07:31:05 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [RFC PATCH v3 00/13] ASoC : soc-pcm: fix trigger race conditions with
- shared BE
-Date: Wed, 13 Oct 2021 09:30:37 -0500
-Message-Id: <20211013143050.244444-1-pierre-louis.bossart@linux.intel.com>
+Subject: [RFC PATCH v3 01/13] ASoC: soc-pcm: remove
+ snd_soc_dpcm_fe_can_update()
+Date: Wed, 13 Oct 2021 09:30:38 -0500
+Message-Id: <20211013143050.244444-2-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211013143050.244444-1-pierre-louis.bossart@linux.intel.com>
+References: <20211013143050.244444-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, tiwai@suse.de,
- Sameer Pujar <spujar@nvidia.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, vkoul@kernel.org,
- broonie@kernel.org, Gyeongtaek Lee <gt82.lee@samsung.com>,
+ open list <linux-kernel@vger.kernel.org>, Sameer Pujar <spujar@nvidia.com>,
+ Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, vkoul@kernel.org, broonie@kernel.org,
+ Gyeongtaek Lee <gt82.lee@samsung.com>,
  Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -74,118 +79,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We've been adding a 'deep buffer' PCM device to several SOF topologies
-in order to reduce power consumption. The typical use-case would be
-music playback over a headset: this additional PCM device provides
-more buffering and longer latencies, leaving the rest of the system
-sleep for longer periods. Notifications and 'regular' low-latency
-audio playback would still use the 'normal' PCM device and be mixed
-with the 'deep buffer' before rendering on the headphone endpoint. The
-tentative direction would be to expose this alternate device to
-PulseAudio/PipeWire/CRAS via the UCM SectionModifier definitions.
+This function is not used anywhere, including soc-pcm.c
 
-That seemed a straightforward topology change until our automated
-validation stress tests started reporting issues on SoundWire
-platforms, when e.g. two START triggers might be send and conversely
-the STOP trigger is never sent. The SoundWire stream state management
-flagged inconsistent states when the two 'normal' and 'deep buffer'
-devices are used concurrently with rapid play/stop/pause monkey
-testing.
+Remove dead code.
 
-Looking at the soc-pcm.c code, it seems that the BE state
-management needs a lot of love.
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ include/sound/soc-dpcm.h | 3 ---
+ sound/soc/soc-pcm.c      | 9 ---------
+ 2 files changed, 12 deletions(-)
 
-a) there is no consistent protection for the BE state. In some parts
-of the code, the state updates are protected by a spinlock but in the
-trigger they are not. When we open/play/close the two PCM devices in
-stress tests, we end-up testing a state that is being modified. That
-can't be good.
-
-b) there is a conceptual deadlock: on stop we check the FE states to
-see if a shared BE can be stopped, but since we trigger the BE first
-the FE states have not been modified yet, so the TRIGGER_STOP is never
-sent.
-
-This patchset suggests the removal of the dedicated 'dpcm_lock', and
-the use of the FE PCM lock before walking through the BE list, a
-mutual exclusion between triggers using the BE PCM lock, and the use
-of a refcount to decide when to trigger the BE. With these patches I
-am able to run our entire validation suite without any issues with
-this new 'deep buffer' topology, and no regressions on existing
-solutions [1]
-
-One might ask 'how come we didn't see this earlier'? The answer is
-probably that the .trigger callbacks in most implementations seems to
-perform DAPM operations, and sending the triggers multiple times is
-not an issue. In the case of SoundWire, we do use the .trigger
-callback to reconfigure the bus using the 'bank switch' mechanism. It
-could be acceptable to tolerate a trigger multiple times, but the
-deadlock on stop cannot be fixed at the SoundWire layer alone.
-
-I chose to send this patchset as an RFCv3 to gather more feedback and
-make use others know about DPCM issues. We're going to spend more time
-on this but if others can provide feedback/test results it would be
-greatly appreciated. The change in the locking model could be
-problematic on other platforms so we do want more time to comment/test
-before even considering a merge.
-
-Opens:
-
-1) is this the right solution? The DPCM code is far from simple, has
-notions such as SND_SOC_DPCM_UPDATE_NO and 'trigger_pending' that I
-have no background on. It's not clear if these cases are still needed
-with the locking changes.
-
-2) There are other reports of kernel oopses [2] that seem related to
-the lack of protection. I'd be good to confirm if this patchset solve
-these problems as well.
-
-[1] https://github.com/thesofproject/linux/pull/3146
-[2] https://lore.kernel.org/alsa-devel/002f01d7b4f5$c030f4a0$4092dde0$@samsung.com/
-
-changes since RFCv2:
-Removal of dpcm_lock to use FE PCM locks (credits to Takashi Iwai for
-the suggestion). The FE PCM lock is now used before each use of
-for_each_dpcm_be() - with the exception of the trigger where the lock
-is already taken. This change is also applied in drivers which make
-use of this loop (compress, SH, FSL).
-Addition of BE PCM lock to deal with mutual exclusion between triggers
-for the same BE.
-Alignment of the BE atomicity on the FE on connections, this is
-required to avoid sleeping in atomic context.
-Additional cleanups (indentation, static functions)
-
-changes since RFC v1:
-Removed unused function
-Removed exported symbols only used in soc-pcm.c, used static instead
-Use a mutex instead of a spinlock
-Protect all for_each_dpcm_be() loops
-Fix bugs introduced in the refcount
-
-Pierre-Louis Bossart (13):
-  ASoC: soc-pcm: remove snd_soc_dpcm_fe_can_update()
-  ASoC: soc-pcm: don't export local functions, use static
-  ASoC: soc-pcm: use proper indentation on 'continue'
-  ASoC: soc-pcm: introduce snd_soc_dpcm_fe_lock_irq/unlock_irq()
-  ASoC: soc-pcm: align BE 'atomicity' with that of the FE
-  ASoC: soc-pcm: remove dpcm spin_lock, use PCM stream lock
-  ASoC: soc-pcm: protect for_each_dpcm_be() loops
-  ASoC: soc-compress: protect for_each_dpcm_be() loops
-  ASoC: sh: rcar: protect for_each_dpcm_be() loops
-  ASoC: fsl: asrc_dma: protect for_each_dpcm_be() loops
-  ASoC: soc-pcm: serialize BE triggers
-  ASoC: soc-pcm: test refcount before triggering
-  ASoC: soc-pcm: fix BE handling of PAUSE_RELEASE
-
- include/sound/soc-dpcm.h     |  20 +--
- include/sound/soc.h          |   2 -
- sound/soc/fsl/fsl_asrc_dma.c |   2 +
- sound/soc/sh/rcar/core.c     |   2 +
- sound/soc/soc-compress.c     |   4 +
- sound/soc/soc-core.c         |   1 -
- sound/soc/soc-pcm.c          | 253 ++++++++++++++++++++++++-----------
- 7 files changed, 187 insertions(+), 97 deletions(-)
-
+diff --git a/include/sound/soc-dpcm.h b/include/sound/soc-dpcm.h
+index bc7af90099a8..72d45ad47ee3 100644
+--- a/include/sound/soc-dpcm.h
++++ b/include/sound/soc-dpcm.h
+@@ -121,9 +121,6 @@ int snd_soc_dpcm_can_be_free_stop(struct snd_soc_pcm_runtime *fe,
+ int snd_soc_dpcm_can_be_params(struct snd_soc_pcm_runtime *fe,
+ 		struct snd_soc_pcm_runtime *be, int stream);
+ 
+-/* is the current PCM operation for this FE ? */
+-int snd_soc_dpcm_fe_can_update(struct snd_soc_pcm_runtime *fe, int stream);
+-
+ /* is the current PCM operation for this BE ? */
+ int snd_soc_dpcm_be_can_update(struct snd_soc_pcm_runtime *fe,
+ 		struct snd_soc_pcm_runtime *be, int stream);
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 0aa0ae9703d1..2790379015ca 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -2815,15 +2815,6 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ 	return ret;
+ }
+ 
+-/* is the current PCM operation for this FE ? */
+-int snd_soc_dpcm_fe_can_update(struct snd_soc_pcm_runtime *fe, int stream)
+-{
+-	if (fe->dpcm[stream].runtime_update == SND_SOC_DPCM_UPDATE_FE)
+-		return 1;
+-	return 0;
+-}
+-EXPORT_SYMBOL_GPL(snd_soc_dpcm_fe_can_update);
+-
+ /* is the current PCM operation for this BE ? */
+ int snd_soc_dpcm_be_can_update(struct snd_soc_pcm_runtime *fe,
+ 		struct snd_soc_pcm_runtime *be, int stream)
 -- 
 2.25.1
 

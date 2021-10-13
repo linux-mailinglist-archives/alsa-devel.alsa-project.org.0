@@ -2,88 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6927442B331
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Oct 2021 05:12:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D76042B5D9
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Oct 2021 07:43:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D2953168B;
-	Wed, 13 Oct 2021 05:11:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2953168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6BD4167D;
+	Wed, 13 Oct 2021 07:42:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6BD4167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634094734;
-	bh=WSy//ILf/QfOX4AsrXzNmkR13YV5pD9s3p2reh90ceQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ScDUZNDDQJ83nOu9j4yEmQ2bveqY6OJiE097OgDAsTzcXDqS0f0zbk1TZ6GbxWeVi
-	 7HWIc50P0WnOemJSEWMnGps4No7YEM1oJEmQorgdgjxMVVypcLu3CHth5LfyumAJ+P
-	 7RK34UjG/QA0n74WtngC6zJdJg0r5J+73N/Xg6yU=
+	s=default; t=1634103813;
+	bh=lb3wMIj84sxjfXMjOvNum69lHAiUaJKyvqGfPhqXJS8=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=CNSxEXHuJKrt27CWPw51aMnhb/XFyUydIpxYcQjPI4d1w8dsor5wdMMty9rUz3pLn
+	 zGbCyIW4fadwe97mdKwW0a3rp08DIG0ekOMMO0DtogF+Ia7wk5UGO47ts4Gk30lVkP
+	 SVKhN4P0cjz9BxUAt+dD5qHs5an1lRxaCGQLSPvE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D84CF8028D;
-	Wed, 13 Oct 2021 05:10:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D63FF8028D;
+	Wed, 13 Oct 2021 07:42:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 504B2F80269; Wed, 13 Oct 2021 05:10:52 +0200 (CEST)
+ id C1241F80269; Wed, 13 Oct 2021 07:42:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
- [IPv6:2607:f8b0:4864:20::f2b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1A02F800C0
- for <alsa-devel@alsa-project.org>; Wed, 13 Oct 2021 05:10:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1A02F800C0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="JOc3Vzh7"
-Received: by mail-qv1-xf2b.google.com with SMTP id z3so879783qvl.9
- for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 20:10:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=hF50jopThZcpb/r5CrV+DzJwIbUB5o6C3T/+nzD13DY=;
- b=JOc3Vzh7ZX1SboeRVjFtkEYohl4iZaI9Du8OEaD7eLsyeDWkakksUsYD2pY3gDE8rF
- vgoZQQDPYbe+acZsBZWgUDgX38DIQipV20UhBW+rvR8JWBocjTKY/WE4DI18jnLNH44D
- W4/ocbVJ//IM6nQ2H6MoRG0e/meXVS+FXfbKfgO22rTwVpbs+PbyUIuR8GoKU78T+m1H
- X9FjNCaevr/+tKl4oqJagKL2fwqJE1XHv6fI3gAKL84rEBazL8fcxS492aST5ksqY6mf
- m+y5tXGRL1EpdusgQbcWqaZN4cZ8QgHZaL02Lf1JaJ5+T0oQe7srpeW753zy4Se1/n/6
- jgWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=hF50jopThZcpb/r5CrV+DzJwIbUB5o6C3T/+nzD13DY=;
- b=hRl2R8POcJaXQB6BeWRTqHwZz5aSuBvx8fhsD4/JUbm1QWOwjVYLLc598/dnQpIe2Q
- KLQqwRxJXAFkagNMK6L++uLLfTHdSvqkCD/WTKtfuSb1hsR0aHF0CwTNboWYXESB6bUx
- mp4JL/Iipyh+OSq8D9IGj1+FwmUwnu0jsCuz8eguPstb4n1NWrfQXiVTjLtYCGS9GSdK
- eoy5PILf2zF0kUwTl2hZbbmtgXtWhl4MmcVOCpaTfV/oM6HCUJWgfyDpsPvVjJMNvgaN
- kr0Cf4CpICdR3qWFmGvHToA8dzlMCVACjWLXyYgkLT83oRel831h0LN0HOC5+LbFkuLV
- 6AbQ==
-X-Gm-Message-State: AOAM5315nb02o1t88OkFZ1bKOJGeN55YMufpODvZFwXpvWExNP5NVB5l
- INcXJMoyaaBp9xjwY44bJrRmQTEUdFh5UWrA7/I=
-X-Google-Smtp-Source: ABdhPJyUCoEYf9vU1HZOfFPQGxlq27mKUv9xPE9tH/LsYkxkMJWAFI9sABP04eFMUavpXjRLqglJC0Gvu461dJnbPlE=
-X-Received: by 2002:a05:6214:154d:: with SMTP id
- t13mr29391720qvw.40.1634094643983; 
- Tue, 12 Oct 2021 20:10:43 -0700 (PDT)
-MIME-Version: 1.0
-References: <1634036070-2671-1-git-send-email-shengjiu.wang@nxp.com>
- <YWVwk1kqyF+gzEC0@sirena.org.uk>
-In-Reply-To: <YWVwk1kqyF+gzEC0@sirena.org.uk>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Wed, 13 Oct 2021 11:10:33 +0800
-Message-ID: <CAA+D8ANNMURSAvCtmfoM6ReMQAQ+vgX5syYOy9C+C=-BXgw01Q@mail.gmail.com>
-Subject: Re: [RESEND PATCH] ASoC: wm8960: Fix clock configuration on slave mode
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- patches@opensource.cirrus.com, Shengjiu Wang <shengjiu.wang@nxp.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel <linux-kernel@vger.kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id CB98CF800C0
+ for <alsa-devel@alsa-project.org>; Wed, 13 Oct 2021 07:42:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB98CF800C0
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 63B2A201FB5;
+ Wed, 13 Oct 2021 07:42:02 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id DD68F202737;
+ Wed, 13 Oct 2021 07:42:01 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id AE35B183ACDD;
+ Wed, 13 Oct 2021 13:42:00 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ ckeepax@opensource.cirrus.com, kuninori.morimoto.gx@renesas.com,
+ patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2] ASoC: wm8960: Fix clock configuration on slave mode
+Date: Wed, 13 Oct 2021 13:17:04 +0800
+Message-Id: <1634102224-3922-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,18 +71,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Oct 12, 2021 at 7:26 PM Mark Brown <broonie@kernel.org> wrote:
->
-> On Tue, Oct 12, 2021 at 06:54:30PM +0800, Shengjiu Wang wrote:
-> > There is a noise issue for 8kHz sample rate on slave mode.
-> > Compared with master mode, the difference is the DACDIV
-> > setting, after correcting the DACDIV, the noise is gone.
->
-> Charles suggested some updates to the patch to improve the error
-> reporting here which you don't seem to have addressed.
+There is a noise issue for 8kHz sample rate on slave mode.
+Compared with master mode, the difference is the DACDIV
+setting, after correcting the DACDIV, the noise is gone.
 
-Sorry, it seems his mail is missing from gmail. I find
-it in my outlook now.  Let me check his comments.
+There is no noise issue for 48kHz sample rate, because
+the default value of DACDIV is correct for 48kHz.
 
-Best regards
-Wang Shengjiu
+So wm8960_configure_clocking() should be functional for
+ADC and DAC function even if it is slave mode.
+
+In order to be compatible for old use case, just add
+condition for checking that sysclk is zero with
+slave mode.
+
+Fixes: 0e50b51aa22f ("ASoC: wm8960: Let wm8960 driver configure its bit clock and frame clock")
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+changes in v2:
+- change error message to warning
+- add more comments
+
+ sound/soc/codecs/wm8960.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/sound/soc/codecs/wm8960.c b/sound/soc/codecs/wm8960.c
+index 9e621a254392..499604f1e178 100644
+--- a/sound/soc/codecs/wm8960.c
++++ b/sound/soc/codecs/wm8960.c
+@@ -742,9 +742,16 @@ static int wm8960_configure_clocking(struct snd_soc_component *component)
+ 	int i, j, k;
+ 	int ret;
+ 
+-	if (!(iface1 & (1<<6))) {
+-		dev_dbg(component->dev,
+-			"Codec is slave mode, no need to configure clock\n");
++	/*
++	 * For Slave mode clocking should still be configured,
++	 * so this if statement should be removed, but some platform
++	 * may not work if the sysclk is not configured, to avoid such
++	 * compatible issue, just add '!wm8960->sysclk' condition in
++	 * this if statement.
++	 */
++	if (!(iface1 & (1 << 6)) && !wm8960->sysclk) {
++		dev_warn(component->dev,
++			 "slave mode, but proceeding with no clock configuration\n");
+ 		return 0;
+ 	}
+ 
+-- 
+2.17.1
+

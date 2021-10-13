@@ -2,89 +2,141 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06FAB42DAC3
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Oct 2021 15:48:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2F9A42DAC4
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Oct 2021 15:48:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8EA5D1670;
-	Thu, 14 Oct 2021 15:47:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EA5D1670
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB85F167F;
+	Thu, 14 Oct 2021 15:47:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB85F167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634219305;
-	bh=2Xje8pKfkwfEzJnN5Km/T/71jC9qThKArd4i/qedYX8=;
+	s=default; t=1634219329;
+	bh=t15X6wsYtVZcZtSEqyVxQU1ehZpwIR8BbrOS+Z1UITI=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=i6iP6EmtNjzoDUivWBiESDWjOJyVf5+iBaOWrCmpcO6AjsY38EkCKyIsKdSozCqbM
-	 sFc5lQ/+UXGIO5a+iuu+BLOIFL39uMtrF2ay9LiBcK6CsBq9vRvU47ABaLEsclp+uB
-	 U76cKliwUa/Jxj2iffWm3VtERaAQiS2ObHuny9YI=
+	b=oBLmFm2Jmz4Be2I2YVaqTS0N8/Tok+Gcb0HVKYv+QHjpNQmBNHI3kBcdsWtYewXM9
+	 2rL3xjR2QVAiB7KjTLkWXwyz7a3rhNAhPvwmf47LnLIRnNAPrqKqTA+vHwQksgADGZ
+	 RfTqgdUeJrq+D++rBCCVmx11BqvqdFOWGBY+5Ksw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0967CF801F7;
+	by alsa1.perex.cz (Postfix) with ESMTP id CE2BBF8032D;
 	Thu, 14 Oct 2021 15:47:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F1825F80269; Wed, 13 Oct 2021 08:04:57 +0200 (CEST)
+ id E991AF80269; Wed, 13 Oct 2021 09:52:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE, URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [IPv6:2607:f8b0:4864:20::431])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ MSGID_FROM_MTA_HEADER, SPF_HELO_NONE, SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2092.outbound.protection.outlook.com [40.107.243.92])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96312F80088
- for <alsa-devel@alsa-project.org>; Wed, 13 Oct 2021 08:04:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96312F80088
+ by alsa1.perex.cz (Postfix) with ESMTPS id D4027F80088
+ for <alsa-devel@alsa-project.org>; Wed, 13 Oct 2021 09:52:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4027F80088
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="jsFSQ/yE"
-Received: by mail-pf1-x431.google.com with SMTP id q19so1513361pfl.4
- for <alsa-devel@alsa-project.org>; Tue, 12 Oct 2021 23:04:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=MH9z8oRP1WEDSYSBSdmgw7YkHAb/fp8UIslbgmjVY44=;
- b=jsFSQ/yE1vIMk0ZXSOG9PWuCn5JQscSjwdkdEmx5aOvUYwvASQnDZakuR6eciLBhCD
- 92h6e10Hpbm8ucmaq1aPOmMgftVR0sX95ktsmJ/WiRmU9Ayk7dCoe1VSFlq8ZA2hM2HU
- y2eKEyPSFUaDIn31Ep4clKCxYx/16sreoichvvDvxip+viqowN5qndQ4XvqcMpnEOqYT
- cqdDNwZvuF325dM6dDUmzd+ENrmQiCGm3PriDqt57028lAcewW7aWUxCLkdFmXXj6hU2
- AvAKXTnqjDIbL+YVRDtUrwUJNlqj38bL9KS/5aMy86pwVpw6Ox5HlXfuEsAf8lA6Cwto
- y7lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=MH9z8oRP1WEDSYSBSdmgw7YkHAb/fp8UIslbgmjVY44=;
- b=In/d7YGfgQY6MAD2FDz13q1DPHYxNi8eHmmIuaQlQFqZkPeFeKNfl4GtlMMCx4lM9U
- 7i30+dTPI10xwvN3VOaxPP8Kbo1WbrAeWO5YLUHxknfikCI3TmNnpAK3LQCCRZckMDIt
- EWtHwIx5b3FTMeHsCSmp45JyyfxtOCy7oc3qjVus5yrLfmqvpBFUVHWBQysUifWcwBep
- 6tCbRplqnCqjhx64gUqoAfwybsbnOd6uOqe2Y+dBRT20Oce1dAmjqi3A6GLWU+a3ht1Z
- i4gtz5BLtth2f7Aklez99pqjCaCW9CM4+31/HlAS8XkINdWIrSFy8T4qbAtP7t6HQN6U
- xZWA==
-X-Gm-Message-State: AOAM531uuZ6RmCrJRPbi9exbHhWMvXLHEEhrENn99JbIc0zgiO4EUwH8
- +ewoQHgdED4bsStr1L9gJyA=
-X-Google-Smtp-Source: ABdhPJyqqqSApXRNIzuuH5iQRESjESRbu7jNUNmMjLGTCrUAzRTOBbZ2z4ajKRyTDITgvwz2iFDUkg==
-X-Received: by 2002:a63:f410:: with SMTP id g16mr25875791pgi.201.1634105088816; 
- Tue, 12 Oct 2021 23:04:48 -0700 (PDT)
-Received: from SEL-LT-028891.maxim-ic.internal ([223.62.162.93])
- by smtp.gmail.com with ESMTPSA id w9sm5003461pjk.28.2021.10.12.23.04.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Oct 2021 23:04:48 -0700 (PDT)
-From: George Song <georgesong0119@gmail.com>
+ dkim=pass (1024-bit key) header.d=maximintegrated.onmicrosoft.com
+ header.i=@maximintegrated.onmicrosoft.com header.b="WPlppYF3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=oaaZu5lalvCJp8AgMuoMSphTxusSCdXqT93xgXZFCnzS71qr6k1/+2n9NwJxTJ+npZcw94evmZAb31ClOgl7Nj6M8GsKH2vBqsPCDq8AzormJNtS6VhKyu4oe9xQFlBvt/pPfGyauVQQebF8GRZVH5CdJ9Nq3G6CwcGs4eIu5yky8L1IkxYyty6b3voOjwbFQQR+1/m+am9Ts+Q5ULhAXnuFwNH0CBgQPcUwW9rRO/MgfYsPfc98PqnnvDh05vfJjXzu3IwG20O0qoNbJuOE8Azs1hvz7AoI8Ql5lLN4JFlA+75Zjv2qRKM0VCs5UBOIJE6GS8LqjlPYnCmPjnMvRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yW2zilmT2GRFLxCp/iA6t8ky1njObI9xGPBY8OAIvJk=;
+ b=bJLyJNH4eXAwXN8SCqPIPKD+TNruIDbM+iKC19B3s6iLDjNAxMPn+UTA05XOHFzz7DX2NBUcQ1myheR6O11kQs10RtEI0hlI2x73bivKZ5lDCl07G6XjZ3JBhQJ0s8L3tErJB9gHg9YfWtg7iUFnZ+MszyuSEylJ0/pUsziBVQkebRPPrsf18HgMfWkpqR47jblQT68eRWg1YCj9vYeIePaQ8L1ATJbEwcNVFhLhguSZinI74mbbFbsYwLVN1QozFK1xIPRlTdjx/GQUs+dJ9J3xk6LEDMMCq0V0W1wRqSJTOqceim7SC1vrxig6Z33kFfNBrMpUfDV+IjxdA7TAiw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=maximintegrated.com; dmarc=pass action=none
+ header.from=maximintegrated.com; dkim=pass header.d=maximintegrated.com;
+ arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=maximintegrated.onmicrosoft.com;
+ s=selector2-maximintegrated-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yW2zilmT2GRFLxCp/iA6t8ky1njObI9xGPBY8OAIvJk=;
+ b=WPlppYF3CviTrCTG6cSeIALvsQQPHzZXyQ0dyyYMA5N4sus+xxvx6LDyRQmvBR8eNQ5dik2jq7rdAvmVgqRPndVeK+DaAdAOUuHiiJjC8wdUpg1TR7eiZ77I6427p0V0Ojd6hf19MFYzy/SXkib1RegBhpCpVBFr1Y4qrJcv2Yc=
+Authentication-Results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none
+ header.from=maximintegrated.com;
+Received: from BYAPR11MB3671.namprd11.prod.outlook.com (2603:10b6:a03:b3::15)
+ by BYAPR11MB2808.namprd11.prod.outlook.com (2603:10b6:a02:c8::26)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.18; Wed, 13 Oct
+ 2021 07:51:57 +0000
+Received: from BYAPR11MB3671.namprd11.prod.outlook.com
+ ([fe80::49d4:a1dd:5b55:4c94]) by BYAPR11MB3671.namprd11.prod.outlook.com
+ ([fe80::49d4:a1dd:5b55:4c94%6]) with mapi id 15.20.4587.030; Wed, 13 Oct 2021
+ 07:51:57 +0000
+From: George Song <george.song@maximintegrated.com>
 To: lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
  george.song@maximintegrated.com, alsa-devel@alsa-project.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] ALSA SoC MAX98520 dt-bindings : Added device tree binding
- for max98520 Signed-off-by: George Song <george.song@maximintegrated.com>
-Date: Wed, 13 Oct 2021 15:04:41 +0900
-Message-Id: <20211013060441.18177-1-georgesong0119@gmail.com>
+Subject: [PATCH 1/2] ASoC: dt-bindings: max98520: Add initial bindings
+Date: Wed, 13 Oct 2021 16:51:44 +0900
+Message-Id: <20211013075144.19245-1-george.song@maximintegrated.com>
 X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SL2P216CA0076.KORP216.PROD.OUTLOOK.COM (2603:1096:101:2::9)
+ To BYAPR11MB3671.namprd11.prod.outlook.com
+ (2603:10b6:a03:b3::15)
+MIME-Version: 1.0
+Received: from SEL-LT-028891.maxim-ic.internal (223.38.27.165) by
+ SL2P216CA0076.KORP216.PROD.OUTLOOK.COM (2603:1096:101:2::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4587.25 via Frontend Transport; Wed, 13 Oct 2021 07:51:55 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9f39c126-6932-48ef-0fe8-08d98e1e54c8
+X-MS-TrafficTypeDiagnostic: BYAPR11MB2808:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BYAPR11MB2808B3C08AE2FF747051E558F4B79@BYAPR11MB2808.namprd11.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:669;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: f+xWj9dGBgwgMQ6SNF44Pxp1Zvft1exKyYCQ+1qZqg98M7ZBumQMWlWE5z33M3DC+yA2lMeLMc/tIruaM4qS4QIRL7JovSuYVNOPLQl/3vv8TEn1BvAT65Ae9HpQMEkVnA8uJveoZK8M/L4kxM0Bh7TESABfTUPM6lho/x2dd/tCQDcbrCjDewub6al3FWIhr4tJDFsdkoQZwSZhSy2VaJiIqJxwFxyQmgvj58xbwqw7IUKEE08+9phK/Y/h+iCa1qSpyRC+vgbpQndUP1STAN9jnonRHatgRaeCku//VOkysrpSAxnN8fAqQzXdi9K47hoJ9oK9Kc5ltn0w0vxXUgYG+flPy8CTwK65FXGG9F35JDsQ8w5Uujb5lvywDEqf6BFp6S+2zC+n0jUgmjzdCRNQ0JCh6DozkVEM6vJ7jYiMtekKYIJevFW4ZHg4+0lmZAsVXsMPyzkBkp0Hzmmrw1EaFruWKGxYm8hdGNtswNzsCuP4utfAPumNZO56Asm2og59G7jKSeamHY/fjrbYIpgUn7F4LhZE8jplfAmZ/UB2px/xtWnlsAVMylSDNhN4397qM09TaD5lIaf9+p/WjxGN3m1/YjPL0BRqOMy2pjWuwqGRaF9bLn78M8JWkHk41Sy8odfIk9I7JJB6r53B/t0iLVT1o8QLq63F+U4haqlqbwXyn4rYoDBQGP1bkR5aVBFvkQHwWu4fS6W6hGIjw/Ft0bb03l1ukhiTCcQ3JF/sPw9RKegsv5KbZcFX6GAv65tFpA1hotNNMFOVWZA3lmEYA/djpWnYUG4GnxS0OjM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR11MB3671.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(2906002)(6512007)(66946007)(66476007)(38350700002)(38100700002)(508600001)(1076003)(66556008)(316002)(44832011)(2616005)(26005)(86362001)(6666004)(8676002)(4326008)(52116002)(5660300002)(6486002)(186003)(956004)(8936002)(36756003)(966005)(6506007);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?83Ch9C6Kxv663QChWn98bFv7STSB0dVC0c8KtozdIVif11uGpxrSSkVDDu1m?=
+ =?us-ascii?Q?YOEMIFMmDgOd3NHMiO/FG7BcoXVERdaYglRNriW8Daz5oiORGEOZG5y4YlgH?=
+ =?us-ascii?Q?8SEU8DyAQbuAPdVWtzzrkMeIl1IEUgHyAZNCRf8wkmdJGMH3/vfFTK0o/1g2?=
+ =?us-ascii?Q?kK0DRlBmYjXmdI9UjuRcA+yXhdAmXQVksQB6mSN6tivjvPgjqA7O1xKWBCP4?=
+ =?us-ascii?Q?a665GLPs7wKN7zXK9CRhsn0qnDkFzIQ/G/ca5nDOkOiQMw71Q1b8YyDO2ur6?=
+ =?us-ascii?Q?ipSH3WsB9JoCQgdtWjvwSeAcylfKkmziYGhp+XACsZBBl/PVtYTtIcQtosMz?=
+ =?us-ascii?Q?rb+NxD6q1TyYUqwNFtGwUvRzEP/oDGW0qT3sqwiRKzVUuFnZusA6Fr8DcB89?=
+ =?us-ascii?Q?loPm21/yUfQ4OAaQZJzItf8HaPm7gfYO7GXergI/TO3v7ydULif1hPtaVts/?=
+ =?us-ascii?Q?CG0+/p5Xiwu/pVPiv+ir+Itc++uecVqf7ay3DJYr+rgXrxaCYpBt0WmtfAqC?=
+ =?us-ascii?Q?eqzjGDtch32INuo+N92K7QsGQeFti0fMYhIkmogOeAEfydUYa0BZskkJunjY?=
+ =?us-ascii?Q?xBH0BLw9WFwoY+H+jLe6O43D5aL+NirNn0JbJY6aC9FduXpkCqHkRBf7bMV6?=
+ =?us-ascii?Q?eyO3IRbk06Hd1AHjz243AFLUj6HC+d52YgHNNkK7uJex0B8YaD8f9MlTvw15?=
+ =?us-ascii?Q?xvc6/9VJ4M9PLujwdQLdY9sbWHf7IMPKauLg2te7Apn64BPYDgUxfspDpMb9?=
+ =?us-ascii?Q?i4jL88fMjnn2eU8A2R+wsqHacw+jSSTcXiK/1BTYp7bJpOzHF7MA2RQ/PVLu?=
+ =?us-ascii?Q?t1Asu3EXECmXy+FfOMXdVnCBoTdqhnkG9MKYn/hHFiKKOUG+sYHSpOnmlosw?=
+ =?us-ascii?Q?fE0RQ0aLAxbUdNYLe+j5QdoES7Ghfs5gb9NmxE5DDHLFrnLpCad3Fao6kstU?=
+ =?us-ascii?Q?/8PiGYbX1GwTRx5AP3XS8kVtYmTuziFrTg4sud+Tznd34bAwQgSV0BRxStZ5?=
+ =?us-ascii?Q?Nw5wgpcKpCIOi6vpRLDMglRvgEYMntAoc0ieqrdz+Kq7YbaZyG8rtrSzMQSJ?=
+ =?us-ascii?Q?+k5thJsxnRtQ/IpVDHLfcq00msFf2sUZ/MWrP6f6XqSsNQCSDTJ/XToF4sy8?=
+ =?us-ascii?Q?myjzemPyj2ZUhixoQnE0YE+f78aTqu0rle6tTeY+YTF6rThb39vCl+Mpgjbd?=
+ =?us-ascii?Q?kHiForJmVDk8hxemtXpg0c1pUctb5FrOwxIwe//Zf2e8vmPYvFuPJTcRh6vi?=
+ =?us-ascii?Q?JXOqWdd0WxtdGD+oV7eoFMoeoZBCMrPUbxRCgrbW8T27DVW4AeUT8AuxfBfO?=
+ =?us-ascii?Q?w5h9Q/3d1PHnzRpXqwW/gSuW?=
+X-OriginatorOrg: maximintegrated.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f39c126-6932-48ef-0fe8-08d98e1e54c8
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR11MB3671.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2021 07:51:57.5164 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd909df-ea69-4788-a554-f24b7854ad03
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eH4hTRG2fH5L3E+GbZA+puYnOZsW+0qvX6AGhqunDFo9ZPlElEeGFqFrzSCQtFMfQufUf+KhLuLy9oTxjY1d5jjlJwCnlWKxFetHBwsfATE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR11MB2808
 X-Mailman-Approved-At: Thu, 14 Oct 2021 15:47:05 +0200
-Cc: "george.song" <george.song@analog.com>
+Cc: George Song <george.song@analog.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,8 +152,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: "george.song" <george.song@analog.com>
-
+Signed-off-by: George Song <george.song@analog.com>
 ---
  .../bindings/sound/maxim,max98520.yaml        | 35 +++++++++++++++++++
  1 file changed, 35 insertions(+)
@@ -109,7 +160,7 @@ From: "george.song" <george.song@analog.com>
 
 diff --git a/Documentation/devicetree/bindings/sound/maxim,max98520.yaml b/Documentation/devicetree/bindings/sound/maxim,max98520.yaml
 new file mode 100644
-index 000000000000..02481428e2ed
+index 000000000000..d1f2b5ee775a
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/sound/maxim,max98520.yaml
 @@ -0,0 +1,35 @@
@@ -122,7 +173,7 @@ index 000000000000..02481428e2ed
 +title: Maxim Integrated MAX98520 Speaker Amplifier Driver
 +
 +maintainers:
-+  - Goerge Song <George.song@maximintegrated.com>
++  - George Song <George.song@analog.com>
 +
 +properties:
 +  compatible:

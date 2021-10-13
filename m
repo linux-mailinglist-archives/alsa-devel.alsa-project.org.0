@@ -2,71 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EEC242C110
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Oct 2021 15:11:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7585F42C1BF
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Oct 2021 15:51:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C38B41675;
-	Wed, 13 Oct 2021 15:10:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C38B41675
+	by alsa0.perex.cz (Postfix) with ESMTPS id E53B71684;
+	Wed, 13 Oct 2021 15:50:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E53B71684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634130680;
-	bh=7m7EfH/zUZP99e4EZpqOWzO8X2MkRjqzezczEyYF0zI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=HrJPE8Eqj9q3g5J3PvSBCjN9s6MM0ylqvgQDJ0hkuaYKbS6sAXTu7ijlEYp6Ss7qJ
-	 hw8oZTFnngoOfgP9+CN7R+WEiSwk+mi8UYp0G+zuOVOGD0W2Vc+T1PFtApbn0yzpQJ
-	 XbUa7KjHSFwjCI2YKYVyHx3q+fnaLQdIMl37eGG8=
+	s=default; t=1634133076;
+	bh=nRPDRhezXgbjNUwR2KKDqwjOts6DKygUWLtp48OcxEs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=qcLnLK7L1uLhP9SO3mbTgk19KgEiZ7yqqJBhPt/w6j8tRWIn9toGujgsQZgTlMKGW
+	 9LrfF3GpyfRw1FQDc4VkRIIZO1k2wzP3H6GrHQZ4NEuKtDidiW0yL/08Vmqc22DabI
+	 sfzj1BpBQZhR/AgLkVf+qf2LFUB274pOcQlg3ZbM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61FBDF8028D;
-	Wed, 13 Oct 2021 15:10:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7F201F800C0;
+	Wed, 13 Oct 2021 15:49:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 392ECF80269; Wed, 13 Oct 2021 15:10:02 +0200 (CEST)
+ id 6F254F80269; Wed, 13 Oct 2021 15:49:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from baptiste.telenet-ops.be (baptiste.telenet-ops.be
+ [IPv6:2a02:1800:120:4::f00:13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48F5CF800C0
- for <alsa-devel@alsa-project.org>; Wed, 13 Oct 2021 15:09:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48F5CF800C0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="Wx7I7ej+"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 636A1610FC;
- Wed, 13 Oct 2021 13:09:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1634130592;
- bh=7m7EfH/zUZP99e4EZpqOWzO8X2MkRjqzezczEyYF0zI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Wx7I7ej+sxeJQCf9x4/LREq2NXMV01Tq8P+tnbeia7QrIxq0cY7L8deG75Z3DXX37
- oNOecuKpLP5egwHkQcgDxvJeu8hEwRzPaWa/k4RFSCKRtiNWfjE71HkGAm9ES6Vyr2
- LJhtwm15yKqYxG/rcAoEIXiE/8bw0Ss9OmlXjktQ=
-Date: Wed, 13 Oct 2021 15:09:50 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH v2] component: do not leave master devres group open
- after bind
-Message-ID: <YWbangk7KAxZFoq3@kroah.com>
-References: <20210922085432.2776886-1-kai.vehmanen@linux.intel.com>
- <YVxiyzNrKG8S1GDb@kroah.com>
- <alpine.DEB.2.22.394.2110061613520.3554566@eliteleevi.tm.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 67EA1F800C0
+ for <alsa-devel@alsa-project.org>; Wed, 13 Oct 2021 15:49:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67EA1F800C0
+Received: from ramsan.of.borg ([IPv6:2a02:1810:ac12:ed20:9c93:91ff:d58:ecfb])
+ by baptiste.telenet-ops.be with bizsmtp
+ id 5Rpk2600J0KW32a01RpkbH; Wed, 13 Oct 2021 15:49:46 +0200
+Received: from rox.of.borg ([192.168.97.57])
+ by ramsan.of.borg with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
+ (envelope-from <geert@linux-m68k.org>)
+ id 1maedc-004bZh-7n; Wed, 13 Oct 2021 15:49:44 +0200
+Received: from geert by rox.of.borg with local (Exim 4.93)
+ (envelope-from <geert@linux-m68k.org>)
+ id 1maedb-0035bZ-Nx; Wed, 13 Oct 2021 15:49:43 +0200
+From: Geert Uytterhoeven <geert+renesas@glider.be>
+To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Subject: [PATCH] ASoC: dt-bindings: rockchip: i2s-tdm: Fix rockchip,
+ i2s-[rt]x-route
+Date: Wed, 13 Oct 2021 15:49:42 +0200
+Message-Id: <606809e10db02f92b1e7f90c491cc72dd8e16f79.1634132907.git.geert+renesas@glider.be>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2110061613520.3554566@eliteleevi.tm.intel.com>
-Cc: alsa-devel@alsa-project.org, "Rafael J . Wysocki" <rafael@kernel.org>,
- Takashi Iwai <tiwai@suse.de>, Imre Deak <imre.deak@intel.com>,
- dri-devel@lists.freedesktop.org, jani.nikula@intel.com,
- Russell King <rmk+kernel@armlinux.org.uk>,
- Russell King <rmk+kernel@arm.linux.org.uk>, intel-gfx@lists.freedesktop.org
+Content-Transfer-Encoding: 8bit
+Cc: linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,48 +77,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Oct 06, 2021 at 04:47:57PM +0300, Kai Vehmanen wrote:
-> Hi,
-> 
-> On Tue, 5 Oct 2021, Greg KH wrote:
-> 
-> > On Wed, Sep 22, 2021 at 11:54:32AM +0300, Kai Vehmanen wrote:
-> > > In current code, the devres group for aggregate master is left open
-> > > after call to component_master_add_*(). This leads to problems when the
-> > > master does further managed allocations on its own. When any
-> > > participating driver calls component_del(), this leads to immediate
-> > > release of resources.
-> [...]
-> > > the devres group, and by closing the devres group after
-> > > the master->ops->bind() call is done. This allows devres allocations
-> > > done by the driver acting as master to be isolated from the binding state
-> > > of the aggregate driver. This modifies the logic originally introduced in
-> > > commit 9e1ccb4a7700 ("drivers/base: fix devres handling for master device")
-> > > 
-> > > BugLink: https://gitlab.freedesktop.org/drm/intel/-/issues/4136
-> > > Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> > > Acked-by: Imre Deak <imre.deak@intel.com>
-> > > Acked-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> > 
-> > What commit does this "fix:"?  And does it need to go to stable
-> > kernel(s)?
-> 
-> I didn't put a "Fixes" on the original commit 9e1ccb4a7700 
-> ("drivers/base: fix devres handling for master device") as it alone
-> didn't cause problems. It did open the door for possible devres issues
-> for anybody calling component_master_add_().
-> 
-> On audio side, this surfaced with the more recent commit 3fcaf24e5dce 
-> ("ALSA: hda: Allocate resources with device-managed APIs"). In theory one 
-> could have hit issues already before, but this made it very easy to hit
-> on actual systems.
-> 
-> If I'd have to pick one, it would be 9e1ccb4a7700 ("drivers/base: fix 
-> devres handling for master device"). And yes, given comments on this 
-> thread, I'd say this needs to go to stable kernels.
+make dt_binding_check:
 
-Then please add a fixes: line and a cc: stable line and resend.
+    Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml: properties:rockchip,i2s-rx-route: {'required': ['maxItems']} is not allowed for {'$ref': '/schemas/types.yaml#/definitions/uint32-array', 'description': 'Defines the mapping of I2S RX sdis to I2S data bus lines. By default, they are mapped one-to-one. rockchip,i2s-rx-route = <3> would mean sdi3 is receiving from data0.', 'maxItems': 4, 'items': [{'enum': [0, 1, 2, 3]}]}
+	    hint: "maxItems" is not needed with an "items" list
+	    from schema $id: http://devicetree.org/meta-schemas/items.yaml#
+    Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml: properties:rockchip,i2s-tx-route: {'required': ['maxItems']} is not allowed for {'$ref': '/schemas/types.yaml#/definitions/uint32-array', 'description': 'Defines the mapping of I2S TX sdos to I2S data bus lines. By default, they are mapped one-to-one. rockchip,i2s-tx-route = <3> would mean sdo3 is sending to data0.', 'maxItems': 4, 'items': [{'enum': [0, 1, 2, 3]}]}
+	    hint: "maxItems" is not needed with an "items" list
+	    from schema $id: http://devicetree.org/meta-schemas/items.yaml#
 
-thanks,
+Drop the "-" from the enums to fix this.
 
-greg k-h
+Fixes: 510f1c133aedcf69 ("ASoC: dt-bindings: rockchip: add i2s-tdm bindings")
+Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+---
+v4/v5 differed slightly from what Rob suggested in his review of v3
+https://lore.kernel.org/all/YS6kHkeOKCJMOOIf@robh.at.kernel.org/
+---
+ Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml b/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+index dce8b4136ec6db4e..ce3e18b50230dc9b 100644
+--- a/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
++++ b/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+@@ -112,7 +112,7 @@ properties:
+       rockchip,i2s-rx-route = <3> would mean sdi3 is receiving from data0.
+     maxItems: 4
+     items:
+-      - enum: [0, 1, 2, 3]
++      enum: [0, 1, 2, 3]
+ 
+   rockchip,i2s-tx-route:
+     $ref: /schemas/types.yaml#/definitions/uint32-array
+@@ -122,7 +122,7 @@ properties:
+       rockchip,i2s-tx-route = <3> would mean sdo3 is sending to data0.
+     maxItems: 4
+     items:
+-      - enum: [0, 1, 2, 3]
++      enum: [0, 1, 2, 3]
+ 
+   rockchip,io-multiplex:
+     description:
+-- 
+2.25.1
+

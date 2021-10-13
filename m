@@ -2,91 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6B0742BC61
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Oct 2021 12:02:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF29742BCE4
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Oct 2021 12:35:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08626168F;
-	Wed, 13 Oct 2021 12:01:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08626168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FF8D1690;
+	Wed, 13 Oct 2021 12:34:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FF8D1690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634119368;
-	bh=3RMEW8Ge3qcJuoeNFuOPsDFEaugMGXxOQy9CfKKkB18=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1634121318;
+	bh=yfiUP4NcsQnVDtsKzoKUFgFLQaSTNQJYUH6gxYzBH74=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=cMCFS76KIZYAvFmDsnISuDdYNtxX3Kd5oyMvv4R+l7/SMGXsc3IWonZmCARlV0Fb+
-	 Hit/JxiTd1R4Ds6tYA7GibC8p65f6MD2rJFzgfntW/+4bbW0PWqWMugkLj71glq0FV
-	 MCo7CZZeDIaRLta2/jdwRwDcIt48tpUgie/82iSM=
+	b=uEznWWM49hLMXvyUAO+MC69P/P1Xv7HTBFCOcaqkB9yCYTvlvQRVLHiQbML+IhHdk
+	 JuW6B00uFRa9gqV8ffFmwvnxJlNehUxpU9zO4zMQRf0o7vwQR1aMYVe49oRRiD+eBU
+	 pULhxhrrUjbgkgMDtV5a3gPQOnlzsHnnhQuevQYk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5908EF8028D;
-	Wed, 13 Oct 2021 12:01:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6523F80085;
+	Wed, 13 Oct 2021 12:34:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55DCAF80269; Wed, 13 Oct 2021 12:01:29 +0200 (CEST)
+ id 330A3F80269; Wed, 13 Oct 2021 12:34:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from cable.insite.cz (cable.insite.cz [84.242.75.189])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 10B52F80088
- for <alsa-devel@alsa-project.org>; Wed, 13 Oct 2021 12:01:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10B52F80088
+ by alsa1.perex.cz (Postfix) with ESMTPS id BF23BF80088
+ for <alsa-devel@alsa-project.org>; Wed, 13 Oct 2021 12:33:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF23BF80088
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="W4+p2OYg"
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
- [209.85.167.197])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id E7CB13FFF1
- for <alsa-devel@alsa-project.org>; Wed, 13 Oct 2021 10:01:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1634119279;
- bh=72qIwnXVGNrfKxhLObQPGF0RNQPHhrmziNaYX8Pmn6k=;
- h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type;
- b=W4+p2OYgCnWCzp8aAIalzoSBu4LQMSeusJYU5/m7shf8Au032jSENO/pDUEH0vPrN
- zOzb2njlwuPQ1MdaGrmQqbxde40wkpz+IgWT5kZVurmGy6Sw2sOI0BiCludijQ1wr7
- MVS5dLAg5dzagVNWzv9wpR1mQdR+UZ+RfnMaTJiEt5EEJn6Q6YK+iOXHB9He6FshSE
- 6/3KFxt4MpdrDcYFVchDcfwEeRtsFFf19w9SItEwNbqDX888UPFtbY5vpxK5PqsmGq
- rLLBrkWeurvSRcq26GQlGyCzqusl1HytgKAXVZcPDSqV4OQ70WJ07FqhW5Ef3FVIzt
- uNpaEW2ycZzlA==
-Received: by mail-oi1-f197.google.com with SMTP id
- x17-20020a544011000000b00298d5769310so1409744oie.12
- for <alsa-devel@alsa-project.org>; Wed, 13 Oct 2021 03:01:19 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=72qIwnXVGNrfKxhLObQPGF0RNQPHhrmziNaYX8Pmn6k=;
- b=Bf4d0Cqk9ChypQoqFUo6s4HQtIaYMdsZL8E0xPv67nMth5J2XkwQsu+v7B+X/PqX/Q
- iOeClotn9levjF4H4X7I/EYJhgYYopjYLXm98yQc7pvNRAjvg2FtlyGLfQk11Ew8LieA
- t7HW/u9a16F/pSXdD+NU2bs+Ei/ULReyDc6S9ynNqrnFKkggm/N9laead1r9l/M6AqsL
- pNn7wBTi/v590r+Z1VjQOQBNfAdAbBL09MWL+TrXWs9CNmGVn58GM0e7LA7BaXalZDgm
- YhUeTws+6d4i5gl6cNfAGINzVyACrpWvEpw3PgrMXzUi4ipz4tc/U9T3vj3m0Jq+BU1u
- enRA==
-X-Gm-Message-State: AOAM531fe3/2ERLSTFPHFHia+6IQxFqx1ihskJHUM9ZJMQJDBW9JMe2Q
- dUItWQ/2Qw5ISUOf+4uHDWHcJkAlJ97qRjFuzZ5Krpa+75saXw7EnR3phnRf6IxRcDQx260rRiV
- 3L7KH09bA/v6zGL/I32R3hxskBm3qWRxkqMBvAvaRYeWz39yikUSvtIEu
-X-Received: by 2002:a9d:4586:: with SMTP id x6mr4832696ote.155.1634119278847; 
- Wed, 13 Oct 2021 03:01:18 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwRbNoT+5vjBaO6avzuE4+i7alOLMD7HAQHPzEjaJby9bEFhDVvy6NozAELmsBiJGECEiNH0ZW4yOwsGiLBpew=
-X-Received: by 2002:a9d:4586:: with SMTP id x6mr4832615ote.155.1634119278015; 
- Wed, 13 Oct 2021 03:01:18 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
+ header.b="MC2/AAQu"; 
+ dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
+ header.b="KHsJS7Xu"
+Received: from localhost (localhost [127.0.0.1])
+ by cable.insite.cz (Postfix) with ESMTP id 7555AA1A3D404;
+ Wed, 13 Oct 2021 12:33:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+ t=1634121229; bh=yfiUP4NcsQnVDtsKzoKUFgFLQaSTNQJYUH6gxYzBH74=;
+ h=From:To:Cc:Subject:Date:From;
+ b=MC2/AAQuSD/8yy0fZJLiYsgkiSLeQ4kgwNfd1BQocqgN95yjWJqmspsHa+d7cm4o8
+ oYqIOneofzfZQ49d0/AF/6mNXjsukJOKgo4abN9SCGpLj3it8Q5hbR0Oz1rP94C+La
+ afuJuEraB+tJ4BCHyJPEXEm5+jx6c63zuQKanJ7M=
+Received: from cable.insite.cz ([84.242.75.189])
+ by localhost (server.insite.cz [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id YPSFSbEYLlLT; Wed, 13 Oct 2021 12:33:43 +0200 (CEST)
+Received: from precision.doma (ip28.insite.cz [81.0.237.28])
+ (Authenticated sender: pavel)
+ by cable.insite.cz (Postfix) with ESMTPSA id B87BFA1A3D403;
+ Wed, 13 Oct 2021 12:33:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+ t=1634121223; bh=yfiUP4NcsQnVDtsKzoKUFgFLQaSTNQJYUH6gxYzBH74=;
+ h=From:To:Cc:Subject:Date:From;
+ b=KHsJS7Xum/AvDNpezYA1UzDi56Wlst1Ltu2tyn4zZiBrmrh266RCBdQdBXg3bxzi3
+ oEju8l5Cq8LEItItHXFJ68h+nuo/8Mp04rbW/sSPlxSUXgmhSrdvv6JgVrztsJhypM
+ 3601XW3hGdAz86XtifCUoSoVFQLFnHiNVyUBlRbU=
+From: Pavel Hofman <pavel.hofman@ivitera.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v3] alsaloop: added option prateshift for PLAYSHIFT ctl elem
+ used in PLAYSHIFT
+Date: Wed, 13 Oct 2021 12:33:43 +0200
+Message-Id: <20211013103343.40522-1-pavel.hofman@ivitera.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-From: Chris Chiu <chris.chiu@canonical.com>
-Date: Wed, 13 Oct 2021 18:01:07 +0800
-Message-ID: <CABTNMG2ipP4m4T084QRrHMLL_cGfyVdb_dBNf_E8pruMSDRHJQ@mail.gmail.com>
-Subject: The default jack detection type overridden by sof_sdw_quirk
-To: pierre-louis.bossart@linux.intel.com, broonie@kernel.org, 
- rander.wang@linux.intel.com, yung-chuan.liao@linux.intel.com, 
- liam.r.girdwood@linux.intel.com, yang.jie@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
-Cc: alsa-devel@alsa-project.org, Linux Kernel <linux-kernel@vger.kernel.org>
+Content-Transfer-Encoding: 8bit
+Cc: Pavel Hofman <pavel.hofman@ivitera.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,27 +88,243 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
-    I have an Intel AlderLake machine which uses the sof-soundwire
-driver for audio functions. When the headset is plugged in, it will
-incorrectly trigger the event KEY_PLAYPAUSE and never stops. To fix
-the problem, I used to apply the quirk RT711_JD2 proposed in
-sound/soc/intel/boards/sof_sdw.c and the jack detect function will
-work as expected.
-    However, when I look into the code of sound/soc/codecs/rt711.c and
-rt711-sdca.c, the default value for jd_src
-(https://github.com/torvalds/linux/blob/master/sound/soc/codecs/rt711.c#L1209)
- is already RT711_JD2, which means it is overridden by other drivers.
-After digging deeper, the jd_src value is overridden by
-rt711_add_codec_device_props() with the value RT711_JD1 comes from
-sof_sdw_quirk.
-    Is there any reason why sof_sdw_quirk is assigned with RT711_JD1
-by default? Can I simply fix it by assigning the sof_sdw_quirk to
-RT711_JD_NULL as follows?
--unsigned long sof_sdw_quirk = RT711_JD1;
-+unsigned long sof_sdw_quirk = RT711_JD_NULL;
+If snd-aloop device is on playback side, the required sync mode is
+PLAYSHIFT. That means Loopback ctl elem "PCM Rate Shift 100000" of the
+corresponding capture side of the Loopback pipe must be controlled (by
+a reciprocal).
 
-    Please let me know if there's any potential problem I didn't
-notice and suggest if there's any better solution. Thanks
+ASCII name of the playback rate shift ctl elem is specified with newly
+added option -x/--prateshift, e.g.:
+-P hw:Loopback,0 -S playshift \
+-x iface=PCM,name='PCM Rate Shift 100000',device=1
 
-Chris
+Signed-off-by: Pavel Hofman <pavel.hofman@ivitera.com>
+---
+
+Notes:
+    * using snd_ctl_elem_id_alloca instead of snd_ctl_elem_id_malloc
+    * removed corresponding snd_ctl_elem_id_free calls
+
+ alsaloop/alsaloop.1 | 11 +++++--
+ alsaloop/alsaloop.c | 11 ++++++-
+ alsaloop/alsaloop.h |  1 +
+ alsaloop/pcmjob.c   | 77 +++++++++++++++++++++++++++++++++------------
+ 4 files changed, 77 insertions(+), 23 deletions(-)
+
+diff --git a/alsaloop/alsaloop.1 b/alsaloop/alsaloop.1
+index 6bacfd5..006494d 100644
+--- a/alsaloop/alsaloop.1
++++ b/alsaloop/alsaloop.1
+@@ -57,6 +57,11 @@ Use given CTL device for playback.
+ 
+ Use given CTL device for capture.
+ 
++.TP
++\fI\-x <ctl_ascii_name>\fP | \fI\-\-prateshift=<ctl_ascii_name>\fP
++
++Specify ctl ascii name for playshift sync mode (see the Examples section).
++
+ .TP
+ \fI\-l <latency>\fP | \fI\-\-latency=<frames>\fP
+ 
+@@ -195,10 +200,12 @@ Verbose xrun profiling.
+ Set process wake timeout.
+ 
+ .SH EXAMPLES
+-
+-.TP
++.nf
+ \fBalsaloop \-C hw:0,0 \-P hw:1,0 \-t 50000\fR
+ 
++\fBalsaloop \-C hw:soundcard,0 \-P hw:Loopback,0 \-t 50000 \-S playshift \\
++\-x iface=PCM,name='PCM Rate Shift 100000',device=1\fR
++.ne
+ .SH BUGS
+ None known.
+ .SH AUTHOR
+diff --git a/alsaloop/alsaloop.c b/alsaloop/alsaloop.c
+index 06ffadf..4192712 100644
+--- a/alsaloop/alsaloop.c
++++ b/alsaloop/alsaloop.c
+@@ -175,6 +175,7 @@ void help(void)
+ "-C,--cdevice   capture device\n"
+ "-X,--pctl      playback ctl device\n"
+ "-Y,--cctl      capture ctl device\n"
++"-x,--prateshift playback 'PCM Rate Shift 100000' ascii ctl name\n"
+ "-l,--latency   requested latency in frames\n"
+ "-t,--tlatency  requested latency in usec (1/1000000sec)\n"
+ "-f,--format    sample format\n"
+@@ -362,6 +363,7 @@ static int parse_config(int argc, char *argv[], snd_output_t *output,
+ 		{"cdevice", 1, NULL, 'C'},
+ 		{"pctl", 1, NULL, 'X'},
+ 		{"cctl", 1, NULL, 'Y'},
++		{"prateshift", 1, NULL, 'x'},
+ 		{"latency", 1, NULL, 'l'},
+ 		{"tlatency", 1, NULL, 't'},
+ 		{"format", 1, NULL, 'f'},
+@@ -391,6 +393,7 @@ static int parse_config(int argc, char *argv[], snd_output_t *output,
+ 	char *arg_cdevice = NULL;
+ 	char *arg_pctl = NULL;
+ 	char *arg_cctl = NULL;
++	char *arg_prateshift = NULL;
+ 	unsigned int arg_latency_req = 0;
+ 	unsigned int arg_latency_reqtime = 10000;
+ 	snd_pcm_format_t arg_format = SND_PCM_FORMAT_S16_LE;
+@@ -420,7 +423,7 @@ static int parse_config(int argc, char *argv[], snd_output_t *output,
+ 	while (1) {
+ 		int c;
+ 		if ((c = getopt_long(argc, argv,
+-				"hdg:P:C:X:Y:l:t:F:f:c:r:s:benvA:S:a:m:T:O:w:UW:z",
++				"hdg:P:C:X:Y:x:l:t:F:f:c:r:s:benvA:S:a:m:T:O:w:UW:z",
+ 				long_option, NULL)) < 0)
+ 			break;
+ 		switch (c) {
+@@ -446,6 +449,9 @@ static int parse_config(int argc, char *argv[], snd_output_t *output,
+ 		case 'Y':
+ 			arg_cctl = strdup(optarg);
+ 			break;
++		case 'x':
++			arg_prateshift = strdup(optarg);
++			break;
+ 		case 'l':
+ 			err = atoi(optarg);
+ 			arg_latency_req = err >= 4 ? err : 4;
+@@ -627,6 +633,9 @@ static int parse_config(int argc, char *argv[], snd_output_t *output,
+ 			logit(LOG_CRIT, "Unable to add ossmixer controls.\n");
+ 			exit(EXIT_FAILURE);
+ 		}
++		if (arg_prateshift)
++			play->prateshift_name = arg_prateshift;
++
+ #ifdef USE_SAMPLERATE
+ 		loop->src_enable = arg_samplerate > 0;
+ 		if (loop->src_enable)
+diff --git a/alsaloop/alsaloop.h b/alsaloop/alsaloop.h
+index 1dbcefe..7a98ef3 100644
+--- a/alsaloop/alsaloop.h
++++ b/alsaloop/alsaloop.h
+@@ -127,6 +127,7 @@ struct loopback_handle {
+ 	snd_ctl_elem_value_t *ctl_format;
+ 	snd_ctl_elem_value_t *ctl_rate;
+ 	snd_ctl_elem_value_t *ctl_channels;
++	char *prateshift_name; /* ascii name for the playback rate shift ctl elem */
+ };
+ 
+ struct loopback {
+diff --git a/alsaloop/pcmjob.c b/alsaloop/pcmjob.c
+index 845ab82..13fa595 100644
+--- a/alsaloop/pcmjob.c
++++ b/alsaloop/pcmjob.c
+@@ -1101,7 +1101,8 @@ void update_pitch(struct loopback *loop)
+ #endif
+ 	}
+ 	else if (loop->sync == SYNC_TYPE_PLAYRATESHIFT) {
+-		set_rate_shift(loop->play, pitch);
++		// pitch is capture-based, playback side requires reciprocal
++		set_rate_shift(loop->play, 1 / pitch);
+ #ifdef USE_SAMPLERATE
+ 		if (loop->use_samplerate) {
+ 			loop->src_data.src_ratio = 
+@@ -1172,44 +1173,80 @@ static int get_channels(struct loopback_handle *lhandle)
+ 	return snd_ctl_elem_value_get_integer(lhandle->ctl_channels, 0);
+ }
+ 
+-static void openctl_elem(struct loopback_handle *lhandle,
+-			 int device, int subdevice,
+-			 const char *name,
+-			 snd_ctl_elem_value_t **elem)
++static int openctl_elem_id(struct loopback_handle *lhandle, snd_ctl_elem_id_t *id,
++		snd_ctl_elem_value_t **elem)
+ {
+ 	int err;
+ 
+ 	if (snd_ctl_elem_value_malloc(elem) < 0) {
+ 		*elem = NULL;
++ 		return -ENOMEM;
++ 	}
++	snd_ctl_elem_value_set_id(*elem, id);
++	snd_ctl_elem_value_set_interface(*elem, SND_CTL_ELEM_IFACE_PCM);
++	err = snd_ctl_elem_read(lhandle->ctl, *elem);
++	if (err < 0) {
++		snd_ctl_elem_value_free(*elem);
++		*elem = NULL;
++		return err;
+ 	} else {
+-		snd_ctl_elem_value_set_interface(*elem,
+-						 SND_CTL_ELEM_IFACE_PCM);
+-		snd_ctl_elem_value_set_device(*elem, device);
+-		snd_ctl_elem_value_set_subdevice(*elem, subdevice);
+-		snd_ctl_elem_value_set_name(*elem, name);
+-		err = snd_ctl_elem_read(lhandle->ctl, *elem);
+-		if (err < 0) {
+-			snd_ctl_elem_value_free(*elem);
+-			*elem = NULL;
+-		} else {
+-			if (verbose)
+-				snd_output_printf(lhandle->loopback->output,
+-						"Opened PCM element %s of %s, device %d, subdevice %d\n",
+-						name, snd_ctl_name(lhandle->ctl), device, subdevice);
+-		}
++		snd_output_printf(lhandle->loopback->output,
++				"Opened PCM element %s of %s, device %d, subdevice %d\n",
++				snd_ctl_elem_id_get_name(id), snd_ctl_name(lhandle->ctl),
++				snd_ctl_elem_id_get_device(id),
++				snd_ctl_elem_id_get_subdevice(id));
++		return 0;
+ 	}
+ }
+ 
++static int openctl_elem(struct loopback_handle *lhandle,
++			 int device, int subdevice,
++			 const char *name,
++			 snd_ctl_elem_value_t **elem)
++{
++	snd_ctl_elem_id_t *id;
++
++	snd_ctl_elem_id_alloca(&id);
++	snd_ctl_elem_id_set_device(id, device);
++	snd_ctl_elem_id_set_subdevice(id, subdevice);
++	snd_ctl_elem_id_set_name(id, name);
++	return openctl_elem_id(lhandle, id, elem);
++}
++
++static int openctl_elem_ascii(struct loopback_handle *lhandle, char *ascii_name,
++		snd_ctl_elem_value_t **elem)
++{
++	snd_ctl_elem_id_t *id;
++
++	snd_ctl_elem_id_alloca(&id);
++	if (snd_ctl_ascii_elem_id_parse(id, ascii_name)) {
++		fprintf(stderr, "Wrong control identifier: %s\n", ascii_name);
++		return -EINVAL;
++	}
++	return openctl_elem_id(lhandle, id, elem);
++}
++
+ static int openctl(struct loopback_handle *lhandle, int device, int subdevice)
+ {
+ 	int err;
+ 
+ 	lhandle->ctl_rate_shift = NULL;
+ 	if (lhandle->loopback->play == lhandle) {
++		// play only
++		if (lhandle->prateshift_name) {
++			err = openctl_elem_ascii(lhandle, lhandle->prateshift_name,
++					&lhandle->ctl_rate_shift);
++			if (err < 0) {
++				logit(LOG_CRIT, "Unable to open playback PCM Rate Shift elem '%s'.\n",
++						lhandle->prateshift_name);
++				exit(EXIT_FAILURE);
++			}
++		}
+ 		if (lhandle->loopback->controls)
+ 			goto __events;
+ 		return 0;
+ 	}
++	// capture only
+ 	openctl_elem(lhandle, device, subdevice, "PCM Notify",
+ 			&lhandle->ctl_notify);
+ 	openctl_elem(lhandle, device, subdevice, "PCM Rate Shift 100000",
+-- 
+2.25.1
+

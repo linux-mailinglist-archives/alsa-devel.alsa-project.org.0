@@ -2,61 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4C4442C64D
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Oct 2021 18:25:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96BA942C604
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Oct 2021 18:16:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 707C9167D;
-	Wed, 13 Oct 2021 18:24:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 707C9167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 27608829;
+	Wed, 13 Oct 2021 18:15:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27608829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634142328;
-	bh=9CcO2RVpgXQjcx5HKNok63fwsWNlo0550y0YTRvWB38=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=MsXYrCHakAglO8FGL/lHR6727gAq8XDUhX0x/zaxO9UdZkcqrwX7SeFI3vuyCQb5m
-	 hnLH19nKZrDzsDM8WQbkE3yTB2tZfKR2447+ZYcSWxp59l17ZJ8BuSGh62YVfpM44o
-	 C3iwYZj68mCit4hsLwzguBbi0k7el0TXGZctZY0Q=
+	s=default; t=1634141801;
+	bh=LGBkodM+0rmJBHoEmL/cuETw0OVMOojXkV6DKQXxmCY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=FDb5XJZIOH2Jdf4nPMJ9DhdvbVlpBgTVcrm1lP33FhcmPyj0Y02zjeaF7NDBfdKE6
+	 +vwoQc5MOkNZAGgy5Qm8BAqsCcCgd+mBnzBdTTRZXozS8GhU4gsUT5lriUbT2f+LQt
+	 GjIUCNMSe2ijDOXE9f4QQVYITChAi1zaarKjjakc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9914F8028D;
-	Wed, 13 Oct 2021 18:24:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E825F80085;
+	Wed, 13 Oct 2021 18:15:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B030CF80269; Wed, 13 Oct 2021 18:24:10 +0200 (CEST)
+ id 55A6CF80269; Wed, 13 Oct 2021 18:15:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 49A14F80085
- for <alsa-devel@alsa-project.org>; Wed, 13 Oct 2021 18:24:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49A14F80085
-X-IronPort-AV: E=McAfee;i="6200,9189,10136"; a="227429525"
-X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="227429525"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2021 09:20:47 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="659594214"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga005.jf.intel.com with ESMTP; 13 Oct 2021 09:20:44 -0700
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org, tiwai@suse.de
-Subject: [PATCH v3] component: do not leave master devres group open after bind
-Date: Wed, 13 Oct 2021 19:13:45 +0300
-Message-Id: <20211013161345.3755341-1-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.33.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
- "Rafael J . Wysocki" <rafael@kernel.org>, jani.nikula@intel.com,
- Imre Deak <imre.deak@intel.com>, stable@vger.kernel.org,
- Russell King <rmk+kernel@armlinux.org.uk>,
- Russell King <rmk+kernel@arm.linux.org.uk>, intel-gfx@lists.freedesktop.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 52BB5F800C0
+ for <alsa-devel@alsa-project.org>; Wed, 13 Oct 2021 18:15:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52BB5F800C0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="UXvj6YnW"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="s/Ny/1xh"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 7071D2014A;
+ Wed, 13 Oct 2021 16:15:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1634141717; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=rJWMwps84J6beE+MBxyqt7lDeN8ENM40jh/cD8Lj87g=;
+ b=UXvj6YnW/loICppyOFq6Md1lHhQd7X8ZTWXedyQzB2NUeVBSZ6RN9qI5L+pPuMZzs6LSLo
+ 7eXK4ugFxsUMpWqtlRmIU22Fjv5SjlVUzb5dgiXqKs/DWyXLaZlnjWq1hGhroo6RnYJ5qT
+ ZTt7Y8th+dYBV+AHWUFCSL4v6jx6dMM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1634141717;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=rJWMwps84J6beE+MBxyqt7lDeN8ENM40jh/cD8Lj87g=;
+ b=s/Ny/1xhJDDb+sAEZoeETi4KdXm+puS5eiU0w4nasVpMoy23lMQ6Xo1993q0Q1kB6liglm
+ CF3aZGO2v9MoEdAg==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 59AA6A3B83;
+ Wed, 13 Oct 2021 16:15:17 +0000 (UTC)
+Date: Wed, 13 Oct 2021 18:15:17 +0200
+Message-ID: <s5h5yu0yk8a.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Lucas Tanure <tanureal@opensource.cirrus.com>
+Subject: Re: [RFC] sound: cs35l41: Add support for Legion 7 16ACHg6 laptop
+In-Reply-To: <s5h4k9m0z9s.wl-tiwai@suse.de>
+References: <20211008111902.103473-1-tanureal@opensource.cirrus.com>
+ <s5h4k9m0z9s.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, "Rafael J . Wysocki" <rafael@kernel.org>,
+ patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, David Rhodes <david.rhodes@cirrus.com>,
+ linux-acpi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ linux-kernel@vger.kernel.org, Len Brown <lenb@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,103 +96,268 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In current code, the devres group for aggregate master is left open
-after call to component_master_add_*(). This leads to problems when the
-master does further managed allocations on its own. When any
-participating driver calls component_del(), this leads to immediate
-release of resources.
+On Tue, 12 Oct 2021 22:22:07 +0200,
+Takashi Iwai wrote:
+> 
+> On Fri, 08 Oct 2021 13:19:02 +0200,
+> Lucas Tanure wrote:
+> > 
+> > Hi,
+> > 
+> > I would like to get some guidance about this solution to
+> > support the 16ACHg6 laptop.
+> > 
+> > Hardware:
+> >  - The 16ACHg6 laptop has two CS35L41 amplifiers, connected
+> > to Realtek ALC287 by an I2S bus and by and direct I2C to the CPU.
+> >  - The ALC287 codec is connected to the CPU by an HDA bus.
+> >  - The CS35L41 has a DSP which will require firmware to be loaded.
+> > 
+> > Architecture:
+> >  - To load the firmware for CS35L41, this solution will require
+> > the wm_adsp library, which requires regmap, header definitions and
+> > register tables.
+> >  - To minimize the duplication of the code, the HDA functions will
+> > be placed inside the ASoC CS35L41 driver.
+> >  - Finally, HDA patch_realtek will access exposed functions from
+> > ASoC CS35L41 driver to initialize the amplifiers, start and stop
+> > streams and load firmware.
+> 
+> Through a very quick glance, a potential problem is that this design
+> would make the HD-audio codec driver dependent on those other ASoC
+> ones.  As the Realtek HD-audio codec driver is used by quite many
+> other people, we'd like to reduce such dependency mess.
+> 
+> Maybe a dynamic binding with component framework can be used?
+> 
+> Alternatively, we may build up a stuff on top of ASoC like what SOF
+> driver did.  It'll be another lot of work, though.
 
-This came up when investigating a page fault occurring with i915 DRM
-driver unbind with 5.15-rc1 kernel. The following sequence occurs:
+Or, yet another (and easier) alternative would be to create a new
+codec driver that is specific to vendor+subsystem pair.  We'll need to
+extend the hda_device_id and its matching mechanism, and the realtek
+codec driver needs to exclude the matching with the given SSID
+explicitly.
 
- i915_pci_remove()
-   -> intel_display_driver_unregister()
-     -> i915_audio_component_cleanup()
-       -> component_del()
-         -> component.c:take_down_master()
-           -> hdac_component_master_unbind() [via master->ops->unbind()]
-           -> devres_release_group(master->parent, NULL)
+A patch below is an example.
 
-With older kernels this has not caused issues, but with audio driver
-moving to use managed interfaces for more of its allocations, this no
-longer works. Devres log shows following to occur:
 
-component_master_add_with_match()
-[  126.886032] snd_hda_intel 0000:00:1f.3: DEVRES ADD 00000000323ccdc5 devm_component_match_release (24 bytes)
-[  126.886045] snd_hda_intel 0000:00:1f.3: DEVRES ADD 00000000865cdb29 grp< (0 bytes)
-[  126.886049] snd_hda_intel 0000:00:1f.3: DEVRES ADD 000000001b480725 grp< (0 bytes)
+Takashi
 
-audio driver completes its PCI probe()
-[  126.892238] snd_hda_intel 0000:00:1f.3: DEVRES ADD 000000001b480725 pcim_iomap_release (48 bytes)
-
-component_del() called() at DRM/i915 unbind()
-[  137.579422] i915 0000:00:02.0: DEVRES REL 00000000ef44c293 grp< (0 bytes)
-[  137.579445] snd_hda_intel 0000:00:1f.3: DEVRES REL 00000000865cdb29 grp< (0 bytes)
-[  137.579458] snd_hda_intel 0000:00:1f.3: DEVRES REL 000000001b480725 pcim_iomap_release (48 bytes)
-
-So the "devres_release_group(master->parent, NULL)" ends up freeing the
-pcim_iomap allocation. Upon next runtime resume, the audio driver will
-cause a page fault as the iomap alloc was released without the driver
-knowing about it.
-
-Fix this issue by using the "struct master" pointer as identifier for
-the devres group, and by closing the devres group after
-the master->ops->bind() call is done. This allows devres allocations
-done by the driver acting as master to be isolated from the binding state
-of the aggregate driver. This modifies the logic originally introduced in
-commit 9e1ccb4a7700 ("drivers/base: fix devres handling for master device")
-
-Cc: stable@vger.kernel.org
-BugLink: https://gitlab.freedesktop.org/drm/intel/-/issues/4136
-Fixes: 9e1ccb4a7700 ("drivers/base: fix devres handling for master device")
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Acked-by: Imre Deak <imre.deak@intel.com>
-Acked-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/base/component.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-V3 changes:
- - address feedback from Greg KH, add a Fixes tag and cc stable
-V2 changes:
- - after review form Imre and Russell, removing RFC tag                                                                                                                     
- - rebased on top of 5.15-rc2 (V1 was on drm-tip)                                                                                                                           
- - CI test results for V1 show that this patch fixes multiple                                                                                                               
-   failures in i915 unbind and module reload tests:                                                                                                                         
-   https://patchwork.freedesktop.org/series/94889/ 
-
-diff --git a/drivers/base/component.c b/drivers/base/component.c
-index 5e79299f6c3f..870485cbbb87 100644
---- a/drivers/base/component.c
-+++ b/drivers/base/component.c
-@@ -246,7 +246,7 @@ static int try_to_bring_up_master(struct master *master,
- 		return 0;
- 	}
+diff --git a/include/linux/mod_devicetable.h b/include/linux/mod_devicetable.h
+index ae2e75d15b21..5558f2ba2fcf 100644
+--- a/include/linux/mod_devicetable.h
++++ b/include/linux/mod_devicetable.h
+@@ -248,6 +248,7 @@ struct serio_device_id {
  
--	if (!devres_open_group(master->parent, NULL, GFP_KERNEL))
-+	if (!devres_open_group(master->parent, master, GFP_KERNEL))
- 		return -ENOMEM;
+ struct hda_device_id {
+ 	__u32 vendor_id;
++	__u32 subsystem_id;
+ 	__u32 rev_id;
+ 	__u8 api_version;
+ 	const char *name;
+diff --git a/include/sound/hda_codec.h b/include/sound/hda_codec.h
+index 0e45963bb767..3e316a798361 100644
+--- a/include/sound/hda_codec.h
++++ b/include/sound/hda_codec.h
+@@ -79,10 +79,12 @@ typedef int (*hda_codec_patch_t)(struct hda_codec *);
+ #define HDA_CODEC_ID_GENERIC_HDMI	0x00000101
+ #define HDA_CODEC_ID_GENERIC		0x00000201
  
- 	/* Found all components */
-@@ -258,6 +258,7 @@ static int try_to_bring_up_master(struct master *master,
- 		return ret;
- 	}
+-#define HDA_CODEC_REV_ENTRY(_vid, _rev, _name, _patch) \
+-	{ .vendor_id = (_vid), .rev_id = (_rev), .name = (_name), \
+-	  .api_version = HDA_DEV_LEGACY, \
++#define HDA_CODEC_FULL_ENTRY(_vid, _subsystem, _rev, _name, _patch) \
++	{ .vendor_id = (_vid), .subsystem_id = (_subsystem), .rev_id = (_rev), \
++	  .name = (_name), .api_version = HDA_DEV_LEGACY, \
+ 	  .driver_data = (unsigned long)(_patch) }
++#define HDA_CODEC_REV_ENTRY(_vid, _rev, _name, _patch) \
++	HDA_CODEC_FULL_ENTRY(_vid, 0, _rev, _name, _patch)
+ #define HDA_CODEC_ENTRY(_vid, _name, _patch) \
+ 	HDA_CODEC_REV_ENTRY(_vid, 0, _name, _patch)
  
-+	devres_close_group(master->parent, NULL);
- 	master->bound = true;
+diff --git a/scripts/mod/devicetable-offsets.c b/scripts/mod/devicetable-offsets.c
+index cc3625617a0e..641b4f9bb2be 100644
+--- a/scripts/mod/devicetable-offsets.c
++++ b/scripts/mod/devicetable-offsets.c
+@@ -211,6 +211,7 @@ int main(void)
+ 
+ 	DEVID(hda_device_id);
+ 	DEVID_FIELD(hda_device_id, vendor_id);
++	DEVID_FIELD(hda_device_id, subsystem_id);
+ 	DEVID_FIELD(hda_device_id, rev_id);
+ 	DEVID_FIELD(hda_device_id, api_version);
+ 
+diff --git a/scripts/mod/file2alias.c b/scripts/mod/file2alias.c
+index 49aba862073e..d8faf0065c95 100644
+--- a/scripts/mod/file2alias.c
++++ b/scripts/mod/file2alias.c
+@@ -1255,15 +1255,17 @@ static int do_ulpi_entry(const char *filename, void *symval,
  	return 1;
  }
-@@ -282,7 +283,7 @@ static void take_down_master(struct master *master)
+ 
+-/* Looks like: hdaudio:vNrNaN */
++/* Looks like: hdaudio:vNsNrNaN */
+ static int do_hda_entry(const char *filename, void *symval, char *alias)
  {
- 	if (master->bound) {
- 		master->ops->unbind(master->parent);
--		devres_release_group(master->parent, NULL);
-+		devres_release_group(master->parent, master);
- 		master->bound = false;
- 	}
+ 	DEF_FIELD(symval, hda_device_id, vendor_id);
++	DEF_FIELD(symval, hda_device_id, subsystem_id);
+ 	DEF_FIELD(symval, hda_device_id, rev_id);
+ 	DEF_FIELD(symval, hda_device_id, api_version);
+ 
+ 	strcpy(alias, "hdaudio:");
+ 	ADD(alias, "v", vendor_id != 0, vendor_id);
++	ADD(alias, "s", subsystem_id != 0, subsystem_id);
+ 	ADD(alias, "r", rev_id != 0, rev_id);
+ 	ADD(alias, "a", api_version != 0, api_version);
+ 
+diff --git a/sound/hda/hdac_device.c b/sound/hda/hdac_device.c
+index 3e9e9ac804f6..662abd40ca6a 100644
+--- a/sound/hda/hdac_device.c
++++ b/sound/hda/hdac_device.c
+@@ -206,8 +206,9 @@ EXPORT_SYMBOL_GPL(snd_hdac_device_set_chip_name);
+  */
+ int snd_hdac_codec_modalias(struct hdac_device *codec, char *buf, size_t size)
+ {
+-	return scnprintf(buf, size, "hdaudio:v%08Xr%08Xa%02X\n",
+-			codec->vendor_id, codec->revision_id, codec->type);
++	return scnprintf(buf, size, "hdaudio:v%08Xs%08Xr%08Xa%02X\n",
++			 codec->vendor_id, codec->subsystem_id,
++			 codec->revision_id, codec->type);
  }
-
-base-commit: 9e1ff307c779ce1f0f810c7ecce3d95bbae40896
+ EXPORT_SYMBOL_GPL(snd_hdac_codec_modalias);
+ 
+diff --git a/sound/pci/hda/Makefile b/sound/pci/hda/Makefile
+index b8fa682ce66a..9f559773bf99 100644
+--- a/sound/pci/hda/Makefile
++++ b/sound/pci/hda/Makefile
+@@ -15,6 +15,7 @@ CFLAGS_hda_intel.o := -I$(src)
+ 
+ snd-hda-codec-generic-objs :=	hda_generic.o
+ snd-hda-codec-realtek-objs :=	patch_realtek.o
++snd-hda-codec-test-objs :=	patch_test.o
+ snd-hda-codec-cmedia-objs :=	patch_cmedia.o
+ snd-hda-codec-analog-objs :=	patch_analog.o
+ snd-hda-codec-idt-objs :=	patch_sigmatel.o
+@@ -32,7 +33,7 @@ obj-$(CONFIG_SND_HDA) := snd-hda-codec.o
+ 
+ # codec drivers
+ obj-$(CONFIG_SND_HDA_GENERIC) += snd-hda-codec-generic.o
+-obj-$(CONFIG_SND_HDA_CODEC_REALTEK) += snd-hda-codec-realtek.o
++obj-$(CONFIG_SND_HDA_CODEC_REALTEK) += snd-hda-codec-realtek.o snd-hda-codec-test.o
+ obj-$(CONFIG_SND_HDA_CODEC_CMEDIA) += snd-hda-codec-cmedia.o
+ obj-$(CONFIG_SND_HDA_CODEC_ANALOG) += snd-hda-codec-analog.o
+ obj-$(CONFIG_SND_HDA_CODEC_SIGMATEL) += snd-hda-codec-idt.o
+diff --git a/sound/pci/hda/hda_bind.c b/sound/pci/hda/hda_bind.c
+index 1c8bffc3eec6..367f220ec91e 100644
+--- a/sound/pci/hda/hda_bind.c
++++ b/sound/pci/hda/hda_bind.c
+@@ -200,7 +200,7 @@ static inline bool codec_probed(struct hda_codec *codec)
+ static void request_codec_module(struct hda_codec *codec)
+ {
+ #ifdef MODULE
+-	char modalias[32];
++	char modalias[64];
+ 	const char *mod = NULL;
+ 
+ 	switch (codec->probe_id) {
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 22d27b12c4e7..993b49554457 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -16,6 +16,7 @@
+ #include <linux/pci.h>
+ #include <linux/dmi.h>
+ #include <linux/module.h>
++#include <linux/export.h>
+ #include <linux/input.h>
+ #include <linux/leds.h>
+ #include <sound/core.h>
+@@ -9510,7 +9511,7 @@ static void alc269_fill_coef(struct hda_codec *codec)
+ 
+ /*
+  */
+-static int patch_alc269(struct hda_codec *codec)
++int snd_hda_codec_realtek_alc269_probe(struct hda_codec *codec)
+ {
+ 	struct alc_spec *spec;
+ 	int err;
+@@ -9667,6 +9668,9 @@ static int patch_alc269(struct hda_codec *codec)
+ 
+ 	alc_pre_init(codec);
+ 
++	if (codec->fixup_id != HDA_FIXUP_ID_NOT_SET)
++		goto skip_pick_fixup;
++
+ 	snd_hda_pick_fixup(codec, alc269_fixup_models,
+ 		       alc269_fixup_tbl, alc269_fixups);
+ 	/* FIXME: both TX300 and ROG Strix G17 have the same SSID, and
+@@ -9683,6 +9687,8 @@ static int patch_alc269(struct hda_codec *codec)
+ 	snd_hda_pick_pin_fixup(codec, alc269_fallback_pin_fixup_tbl, alc269_fixups, false);
+ 	snd_hda_pick_fixup(codec, NULL,	alc269_fixup_vendor_tbl,
+ 			   alc269_fixups);
++
++ skip_pick_fixup:
+ 	snd_hda_apply_fixup(codec, HDA_FIXUP_ACT_PRE_PROBE);
+ 
+ 	alc_auto_parse_customize_define(codec);
+@@ -9709,6 +9715,18 @@ static int patch_alc269(struct hda_codec *codec)
+ 	alc_free(codec);
+ 	return err;
+ }
++EXPORT_SYMBOL(snd_hda_codec_realtek_alc269_probe);
++
++static int patch_alc269(struct hda_codec *codec)
++{
++	if (codec->core.vendor_id == 0x10ec0298 &&
++	    codec->core.subsystem_id == 0x102806e5) {
++		pr_info("XXX realtek codec driver: skipping\n");
++		return -ENODEV;
++	}
++
++	return snd_hda_codec_realtek_alc269_probe(codec);
++}
+ 
+ /*
+  * ALC861
+diff --git a/sound/pci/hda/patch_test.c b/sound/pci/hda/patch_test.c
+new file mode 100644
+index 000000000000..9070cc075af0
+--- /dev/null
++++ b/sound/pci/hda/patch_test.c
+@@ -0,0 +1,31 @@
++#include <linux/init.h>
++#include <linux/module.h>
++#include <sound/core.h>
++#include <sound/hda_codec.h>
++
++int snd_hda_codec_realtek_alc269_probe(struct hda_codec *codec);
++
++// static const struct hda_fixup test_fixup = { ... };
++
++static int test_probe(struct hda_codec *codec)
++{
++	pr_info("XXX forked driver\n");
++	// codec->fixup_id = 0;
++	// codec->fixup_list = &test_fixup;
++	return snd_hda_codec_realtek_alc269_probe(codec);
++}
++
++static const struct hda_device_id snd_hda_id_test[] = {
++	HDA_CODEC_FULL_ENTRY(0x10ec0298, 0x102806e5, 0, test_probe),
++	{} /* terminator */
++};
++MODULE_DEVICE_TABLE(hdaudio, snd_hda_id_test);
++
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("Test HD-audio codec");
++
++static struct hda_codec_driver test_driver = {
++	.id = snd_hda_id_test,
++};
++
++module_hda_codec_driver(test_driver);
 -- 
-2.33.0
+2.31.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E772542F73B
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 17:47:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A1B242F774
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 17:55:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B5151813;
-	Fri, 15 Oct 2021 17:46:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B5151813
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE21D1811;
+	Fri, 15 Oct 2021 17:54:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE21D1811
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634312830;
-	bh=loxTQtCz4SuJUwrZjzeuIAjpQNrHFU8XYxqJ/bgsZrw=;
+	s=default; t=1634313337;
+	bh=wHKl0c38xhddOdxDvOhy8pMfyO9meyoLd7ttHGuh1mQ=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DfRKNNrmRUnRwXNuGBEl0pO4tEUkfQPZJ4Y9pgd1bBq5bTyzE6krukaNfwVRZtMIo
-	 cs107nTWEvDnuolvHYuYbMWIGv8tV2NTnMFa/Du5iDFTgrVtqZvkTChvL/USrXEHzm
-	 eMAs6gzjMJ3Mc3yEM6clPskvq+75kujXXUJf+uqU=
+	b=kL2rOi89PLVofRjJIdbLQ6xTHfz+nIK+7Jlm125lMYr8Y6rf3fT3Z0mvWwhdj3Mjb
+	 EdZkaM8HVU0SOYZT20joTPBzH16kYAFbtLnCy9e6WNfMajwlAiH7GIxKfIOW4mTUdg
+	 kXM7bhQ5/b3pW0tgV2sHgFYqOFw1k9mydWfualqU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4196F8025B;
-	Fri, 15 Oct 2021 17:45:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 312B2F8028D;
+	Fri, 15 Oct 2021 17:54:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 369FEF80269; Fri, 15 Oct 2021 17:45:51 +0200 (CEST)
+ id 90093F80269; Fri, 15 Oct 2021 17:54:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,49 +33,51 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DFBC3F8012E
- for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 17:45:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFBC3F8012E
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5843F8012E
+ for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 17:54:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5843F8012E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Qk5xsVuh"; 
+ header.b="PP8wIgEK"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="FdAQpTuh"
+ header.b="TyQgHxIu"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 0E5121FD4F;
- Fri, 15 Oct 2021 15:45:46 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 65B341FD50;
+ Fri, 15 Oct 2021 15:54:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1634312746; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1634313254; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=OXjI/uG5vkBdxZuUNCi02S0tgF4XZOwuVs2jpv8V1no=;
- b=Qk5xsVuhQ1HxWteEt551OBmjCNth/YkkxWQI9mCAhvC47SvbVNd2OColshH2yhporJ6Wp4
- Hu8Zcg88v40Sl6FLO8mRifyun/i2Gb2vJ8m8bt2CSlBqTNmTLGdKge0NqGmmtQqWJ4G5Tl
- FqMp/IxAds68lnoODYN+l65cNcTOIWA=
+ bh=LbqNA8+P6OoKrNPfc0tZC1NsZMF03fcBD/4WGxA+h7E=;
+ b=PP8wIgEKaEja9rcwRDYbu81McPlW3w9yA/vTqAotq+iZCsZbDGPfz8d0pmzoukx6CfXkVB
+ K2m5B1ruxEl1AsDHvsETy7u7E0r/8ZokUH/aI4aoJt+cp0WaOKoCMpNwzosQi4AJlr6RvF
+ G76CoUS8e5cmaO7SXHT+Kl0otwg6pJg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1634312746;
+ s=susede2_ed25519; t=1634313254;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=OXjI/uG5vkBdxZuUNCi02S0tgF4XZOwuVs2jpv8V1no=;
- b=FdAQpTuhGXBkLXHAj3ehddJtiMm/0MRfXpEqwtnFSEOsSd1Rs7Jt03V2kwLQ6VJq6fLkhS
- QOBbKutdOK5G5QCg==
+ bh=LbqNA8+P6OoKrNPfc0tZC1NsZMF03fcBD/4WGxA+h7E=;
+ b=TyQgHxIuYsp/LwxPMkPQaQntGDNiANMVObFHdG42Y0P/O5NPmT0QOO0QRSxlX1JGHO1tpn
+ iRDV/eYTTbpz0iAw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 0893FA3B87;
- Fri, 15 Oct 2021 15:45:46 +0000 (UTC)
-Date: Fri, 15 Oct 2021 17:45:46 +0200
-Message-ID: <s5hy26uthp1.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id 4EBB8A3B81;
+ Fri, 15 Oct 2021 15:54:13 +0000 (UTC)
+Date: Fri, 15 Oct 2021 17:54:13 +0200
+Message-ID: <s5hv91ythay.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [GIT PULL] ASoC fixes for v5.15-rc5
-In-Reply-To: <20211015115718.5D3A160524@mail.kernel.org>
-References: <20211015115718.5D3A160524@mail.kernel.org>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH 00/11] ALSA: firewire-motu: add ioctl commands to retrieve
+ information in messages delivered by isoc packet
+In-Reply-To: <20211015080826.34847-1-o-takashi@sakamocchi.jp>
+References: <20211015080826.34847-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+Cc: ffado-devel@lists.sourceforge.net, alsa-devel@alsa-project.org,
+ clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,34 +93,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 15 Oct 2021 13:57:04 +0200,
-Mark Brown wrote:
+On Fri, 15 Oct 2021 10:08:15 +0200,
+Takashi Sakamoto wrote:
 > 
-> The following changes since commit cfacfefd382af3b42905108b54f02820dca225c4:
+> Hi,
 > 
->   ASoC: SOF: trace: Omit error print when waking up trace sleepers (2021-09-17 13:16:36 +0100)
+> The purpose of this patchset is to add message parser to ALSA
+> firewire-motu driver so that userspace applications can read information
+> in message delivered by isochronous packet as well as PCM frames.
+> The message includes information about hardware meter and user action
+> over hardware component such as knob, and MIDI message bytes.
 > 
-> are available in the Git repository at:
+> Models in MOTU FireWire series can be categorized to 4 groups in regard
+> of message mechanism:
 > 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.15-rc5
+> Group 1. 828 and 896
+>  * quadlet message to registered destination address
+> Group 2. 828mk2, 896hd, Traveler, 8 pre, Ultralite, 4 pre, and Audio Express
+>  * quadlet message to registered destination address
+>  * message delivered by isochronous packet
+> Group 3. 828mk3, 896mk3, Ultralite mk3, Traveler mk3, and Track 16
+>  * quadlet message to registered destination address
+>  * message delivered by isochronous packet
+>  * block message to registered destination address, including command
+> Group 4. V3HD/V4HD
+>  * quadlet message to registered destination address
+>  * block message to registered destination address
 > 
-> for you to fetch changes up to 6b9b546dc00797c74bef491668ce5431ff54e1e2:
+> The patchset is for message delivered by isochronous packet in group 2
+> and 3. In Group 2, the message includes information of hardware meter,
+> information of user action over hardware component. The model in Group
+> 2 is called as 'register DSP' in the patchset since parameters of DSP
+> can be configured by asynchronous transaction for register access. In
+> Group 3, the message includes information of hardware meter only. The
+> model in Group 3 is called as 'command DSP' since software and device
+> communicate with commands transferred by asynchronous transaction in
+> regard of DSP parameters. Two types of message parser is going to be
+> added so that the driver caches images for the information. The cache
+> is available for userspace application by ioctl commands newly introduced.
 > 
->   ASoC: wm8960: Fix clock configuration on slave mode (2021-10-13 16:25:33 +0100)
+> I note that no control element is added for the hardware meters and user
+> actions. It's expected for userspace application to retrieve and parse the
+> information of image then operate for user-defined control element set.
 > 
-> ----------------------------------------------------------------
-> ASoC: Fixes for v5.15
-> 
-> A colletion of smallish mostly driver specific fixes, the biggest thing
-> here is fixing some of the core code to generate change notifications
-> properly when writing to controls which will fix issues with UIs not
-> showing the correct values.
-> 
-> There's one build fix here with a slightly misleading changelog saying
-> it's adding IRQ config support, it's adding a missing select of the
-> regmap-irq code rather than adding a feature.
+> Takashi Sakamoto (11):
+>   ALSA: firewire-motu: add message parser to gather meter information in
+>     register DSP model
+>   ALSA: firewire-motu: add message parser for meter information in
+>     command DSP model
+>   ALSA: firewire-motu: add ioctl command to read cached hardware meter
+>   ALSA: firewire-motu: parse messages for mixer source parameters in
+>     register-DSP model
+>   ALSA: firewire-motu: parse messages for mixer output parameters in
+>     register DSP model
+>   ALSA: firewire-motu: parse messages for output parameters in register
+>     DSP model
+>   ALSA: firewire-motu: parse messages for line input parameters in
+>     register DSP model
+>   ALSA: firewire-motu: parse messages for input parameters in register
+>     DSP model
+>   ALSA: firewire-motu: add ioctl command to read cached DSP parameters
+>   ALSA: firewire-motu: queue event for parameter change in register DSP
+>     model
+>   ALSA: firewire-motu: notify event for parameter change in register DSP
+>     model
 
-Thanks, pulled now.
+Applied all patches now.  Thanks.
 
 
 Takashi

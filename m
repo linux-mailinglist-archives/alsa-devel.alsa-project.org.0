@@ -2,68 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99D8E42EB50
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 10:15:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 523DB42EF41
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 13:04:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 21F7C16CE;
-	Fri, 15 Oct 2021 10:14:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21F7C16CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE2D216AD;
+	Fri, 15 Oct 2021 13:03:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE2D216AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634285733;
-	bh=HLIorxZDAdMo7td1ElrvgUjqV44JVAr8Kh3xz2oCPDQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=CGAF1OGflJe0fTkHTbAcseE6qm5jZJEM0DMU8S7/nwJPjcm7EVMRXfMsZWabmD4fo
-	 ZP5aiiRpP+XR7hjdWioxhHAG1rHCD1203wp0XKFrEA/JzmLwqEqDgpLh3F9MD3M07J
-	 knexhD09Ai/bBmpxT/dLCN2tlZab41GitDsPRRHY=
+	s=default; t=1634295864;
+	bh=o5D0MLz2yC5xcirDlPinsOlUOS/NC6pb42/RQASrG6s=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Ul89hoZGk04LU3Z+y7K3U+6q3RzyOxH1eNHVdU3X+pd7ka8QqG3vV//9/zqpqT5Mf
+	 dzpsfI1CODP6KMA0OuFwzr9ygE2cpWQxx+gNWV77bc5uYJSRPi7+H2Csjx8aTXH5Sg
+	 lxeEpHgpIyPPDud7S4sR9pDNU277g+vzh28Zmeks=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 95440F8012E;
-	Fri, 15 Oct 2021 10:14:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16E7AF8028D;
+	Fri, 15 Oct 2021 13:03:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AC93BF8025B; Fri, 15 Oct 2021 10:14:14 +0200 (CEST)
+ id 17FFAF80269; Fri, 15 Oct 2021 13:03:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by alsa1.perex.cz (Postfix) with ESMTP id E17FBF8028D
- for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 10:14:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E17FBF8028D
-Received: from localhost.localdomain (unknown [124.16.138.128])
- by APP-01 (Coremail) with SMTP id qwCowAAXHAhCOGlhinkUBA--.25093S2;
- Fri, 15 Oct 2021 16:13:54 +0800 (CST)
-From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-To: vkoul@kernel.org, lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz,
- tiwai@suse.com
-Subject: [PATCH v2] ASoC: soc-compress: prevent the potentially use of null
- pointer
-Date: Fri, 15 Oct 2021 08:13:53 +0000
-Message-Id: <1634285633-529368-1-git-send-email-jiasheng@iscas.ac.cn>
-X-Mailer: git-send-email 2.7.4
-X-CM-TRANSID: qwCowAAXHAhCOGlhinkUBA--.25093S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ww4kKFW8Kr4xAFy3Jr1kZrb_yoW8KF1Upr
- s7WrZ7tFyfJr4Ivw1rA3yF9F1fGryxuF409w1aq34xAr43XFsxWr1UtrWvyFy7ArZ8t34D
- X3sFv3y7X3Z8AFJanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkS14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
- 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
- jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
- 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkIecxEwVAFwVW8ZwCF
- 04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r
- 18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vI
- r41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr
- 1lIxAIcVCF04k26cxKx2IYs7xG6rW3Jr0E3s1lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
- cVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjfUeHUDDUUUU
-X-Originating-IP: [124.16.138.128]
-X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
-Cc: alsa-devel@alsa-project.org, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
- linux-kernel@vger.kernel.org
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E2861F80167
+ for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 13:02:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2861F80167
+X-IronPort-AV: E=McAfee;i="6200,9189,10137"; a="288758971"
+X-IronPort-AV: E=Sophos;i="5.85,375,1624345200"; d="scan'208";a="288758971"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2021 04:02:55 -0700
+X-IronPort-AV: E=Sophos;i="5.85,375,1624345200"; d="scan'208";a="492447937"
+Received: from liminghu-mobl.ccr.corp.intel.com (HELO [10.212.23.213])
+ ([10.212.23.213])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2021 04:02:54 -0700
+Subject: Re: [RFC PATCH v3 07/13] ASoC: soc-pcm: protect for_each_dpcm_be()
+ loops
+To: Sameer Pujar <spujar@nvidia.com>, alsa-devel@alsa-project.org
+References: <20211013143050.244444-1-pierre-louis.bossart@linux.intel.com>
+ <20211013143050.244444-8-pierre-louis.bossart@linux.intel.com>
+ <e101dee9-42cb-60f4-529b-2a9abb7740df@nvidia.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <1492ba0c-73af-b43c-2d23-fc9e63bdc506@linux.intel.com>
+Date: Fri, 15 Oct 2021 06:02:51 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.13.0
+MIME-Version: 1.0
+In-Reply-To: <e101dee9-42cb-60f4-529b-2a9abb7740df@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, tiwai@suse.de,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ open list <linux-kernel@vger.kernel.org>, vkoul@kernel.org, broonie@kernel.org,
+ Gyeongtaek Lee <gt82.lee@samsung.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,56 +82,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There is one call trace that snd_soc_register_card()
-->snd_soc_bind_card()->soc_init_pcm_runtime()
-->snd_soc_dai_compress_new()->snd_soc_new_compress().
-In the trace the 'codec_dai' transfers from card->dai_link,
-and we can see from the snd_soc_add_pcm_runtime() in
-snd_soc_bind_card() that, if value of card->dai_link->num_codecs
-is 0, then 'codec_dai' could be null pointer caused
-by index out of bound in 'asoc_rtd_to_codec(rtd, 0)'.
-And snd_soc_register_card() is called by various platforms.
-Therefore, it is better to add the check in the case of misusing.
-And because 'cpu_dai' has already checked in soc_init_pcm_runtime(),
-there is no need to check again.
-Adding the check as follow, then if 'codec_dai' is null,
-snd_soc_new_compress() will not pass through the check 
-'if (playback + capture != 1)', avoiding the leftover use of
-'codec_dai'.
 
-Fixes: 467fece ("ASoC: soc-dai: move snd_soc_dai_stream_valid() to soc-dai.c")
-Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-Reported-by: kernel test robot <lkp@intel.com>
-Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
----
- sound/soc/soc-compress.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
-index b4f5935..67c3df1 100644
---- a/sound/soc/soc-compress.c
-+++ b/sound/soc/soc-compress.c
-@@ -535,12 +535,14 @@ int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd, int num)
- 	}
- 
- 	/* check client and interface hw capabilities */
--	if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_PLAYBACK) &&
--	    snd_soc_dai_stream_valid(cpu_dai,   SNDRV_PCM_STREAM_PLAYBACK))
--		playback = 1;
--	if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_CAPTURE) &&
--	    snd_soc_dai_stream_valid(cpu_dai,   SNDRV_PCM_STREAM_CAPTURE))
--		capture = 1;
-+	if (codec_dai) {
-+		if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_PLAYBACK) &&
-+		    snd_soc_dai_stream_valid(cpu_dai,   SNDRV_PCM_STREAM_PLAYBACK))
-+			playback = 1;
-+		if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_CAPTURE) &&
-+		    snd_soc_dai_stream_valid(cpu_dai,   SNDRV_PCM_STREAM_CAPTURE))
-+			capture = 1;
-+	}
- 
- 	/*
- 	 * Compress devices are unidirectional so only one of the directions
--- 
-2.7.4
+On 10/15/21 1:24 AM, Sameer Pujar wrote:
+> 
+> 
+> On 10/13/2021 8:00 PM, Pierre-Louis Bossart wrote:
+>> The D in DPCM stands for 'dynamic', which means that connections
+>> between FE and BE can evolve.
+>>
+>> Commit a97648697790 ("ASoC: dpcm: prevent snd_soc_dpcm use after
+>> free") started to protect some of the for_each_dpcm_be() loops, but
+>> there are still many cases that were not modified.
+>>
+>> This patch adds protection for all the remaining loops, with the
+>> notable exception of the dpcm_be_dai_trigger(), where the lock is
+>> already taken at a higher level, e.g. in snd_pcm_period_elapsed().
+>>
+>> Signed-off-by: Pierre-Louis Bossart
+>> <pierre-louis.bossart@linux.intel.com>
+>> ---
+>>   sound/soc/soc-pcm.c | 86 ++++++++++++++++++++-------------------------
+>>   1 file changed, 39 insertions(+), 47 deletions(-)
+> 
+> After this, once I load sound card there are warning prints and failure:
+> 
+> [   71.224324] WARNING: CPU: 3 PID: 574 at
+> drivers/firmware/tegra/bpmp.c:362 tegra_bpmp_transfer+0x2d0/0x328
+> [   71.238032] ---[ end trace 88d978f78a82134f ]---
+> [   71.243033] WARNING: CPU: 3 PID: 574 at
+> drivers/firmware/tegra/bpmp.c:362 tegra_bpmp_transfer+0x2d0/0x328
+> [   71.257022] ---[ end trace 88d978f78a821350 ]---
+> [   71.261965] tegra-audio-graph-card sound: Can't set plla rate for
+> 270950400, err: -22
+> ...
+> 
+> 
+> This happens because, now the atomicity is propagated to BE callbacks
+> where the clock settings are done in hw_param(). On Tegra, the clock
+> APIs are served by BPMP and warning is seen because of below.
 
+Sorry, I don't understand this part.
+
+if the FEs used on Tegra have the nonatomic property set to zero,
+nothing will be propagated really.
+
+This patch was required on the Intel side, because ALL FEs are nonatomic
+but some BEs are not, so I had issues when connecting a nonatomic FE to
+an atomic BE. See e.g.
+https://github.com/thesofproject/linux/pull/3209#issuecomment-941229502

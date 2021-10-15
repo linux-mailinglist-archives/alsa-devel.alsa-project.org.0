@@ -2,89 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B70942F402
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 15:40:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E312C42F56F
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 16:31:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C33A8176F;
-	Fri, 15 Oct 2021 15:40:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C33A8176F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6530817F1;
+	Fri, 15 Oct 2021 16:30:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6530817F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634305251;
-	bh=VJQXwoqH9b60LgaVCv4OjuZtNCh+4sZUoFuEMwIdnsw=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1634308298;
+	bh=AEtWb/xpPvXYdf5GA4X8ida+83gqErYx/NpU8kM27To=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cUSCHbxPMqYqZTWQx45aDY2zohhXIjr+RkP5FXELrKudZzDBWu5B99kOyWCGKJTOn
-	 RgR4Xbr7MZImDZAvccget3OZvSWR/bE9ON2xR88JOC510LneTR8PQTQzrt02IBZTqU
-	 NkhEKHiBpom+PNHIAXNtt688vsPU5viRJ/567/5Q=
+	b=O9SdaUf7zfow2jblAgv2EB3L2p4Ng37onKxn6m44DGcEUdyKMLLi0G+iXY7qFg6bT
+	 uxd7sK7gYiNMbn3BNrXqyCdtXq4Vanb/tcyoxRSF+iziEXIO07o5rtQz56VL3RL7UX
+	 GWn1am/RvCdn/NcC3o7DtK23zNwpehp7tGgxNg2Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29DAFF80528;
-	Fri, 15 Oct 2021 15:37:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3717F8028D;
+	Fri, 15 Oct 2021 16:30:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 228DDF80507; Fri, 15 Oct 2021 15:36:50 +0200 (CEST)
+ id 75CC8F80269; Fri, 15 Oct 2021 16:30:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BA566F804E5
- for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 15:36:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA566F804E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7125EF80167
+ for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 16:30:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7125EF80167
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="O/qRXigP"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19FCfErP009690; 
- Fri, 15 Oct 2021 08:36:27 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=Lqn+dMnPf/Auw1mZimgpK3xzRBk2TMw3cJpKbswty5w=;
- b=O/qRXigP1YoegWsNfmLajCpD79sIJ3lQ6TpVQJlH27O+BCPxRrkFci/SWCdZTHGt+9H3
- ZQHh+wUIw4Fj56FqzRP0ECCKV1xCGLtyuxE3/VmYvxWeoU0JUSRK7N76iCY0O2MezvVY
- QMFqq03yfPeivEwk8LLHmeQggCQUlVGk0gIX6NMQ1b5mKUaOsuE4MN2cVj8fuA6TZcrx
- q85wN+jShz+elVnxasT4VsGOHAHYYvpMBl9IT7Aqy0u2kvZ7Ddz1N9Z5EwHyBv1sPL1U
- ycnlTV3QANPzWcKnPMWkO8sOhS1EKttmAfI8UVev9Gwvwsyygf4gK1SyDYwDsDbA7ZAD Pw== 
-Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 3bq1gagp5w-6
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 15 Oct 2021 08:36:27 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.7; Fri, 15 Oct
- 2021 14:36:26 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.7 via Frontend
- Transport; Fri, 15 Oct 2021 14:36:26 +0100
-Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
- [198.61.65.254])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 2EBB1B2F;
- Fri, 15 Oct 2021 13:36:26 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>
-Subject: [PATCH 16/16] ASoC: cs42l42: Always enable TS_PLUG and TS_UNPLUG
- interrupts
-Date: Fri, 15 Oct 2021 14:36:19 +0100
-Message-ID: <20211015133619.4698-17-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20211015133619.4698-1-rf@opensource.cirrus.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="ueP0q1Ga"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 70DF8610E5;
+ Fri, 15 Oct 2021 14:30:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1634308211;
+ bh=AEtWb/xpPvXYdf5GA4X8ida+83gqErYx/NpU8kM27To=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ueP0q1Ga0z7mOhcyKp/GuEGLiCZThinNlPsNosw9QnHZaOMvYTqeJ4lwBMzuP68vV
+ GgEVup4n4FW2P7NGUwUyiygSyPT4lg5tl9tM4cljUmC9AYEyKRQhE2VIYqCM8315pB
+ DzyyXz9yelcP9M5njE+39pYX7w8RSLgwalaSJbCqN29U54OJStSQU10lNR7Af/ERZQ
+ W7sbJRdE1FRiULJJrxhDKIE50jsaR1IJbx533jER8wUbGTteia+vy8x1KmhZ5B1KPE
+ y3UMpKckf4vipJ68+B/aAdlmt5Ht6NSJPuiFcvc7NNkLwVE8q9NQGKamq1RQQI2dTB
+ fZYFB28Gf93aw==
+Date: Fri, 15 Oct 2021 15:30:07 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Subject: Re: [PATCH 06/16] ASoC: cs42l42: Reset GPIO is mandatory
+Message-ID: <YWmQb8oudyZr8tsz@sirena.org.uk>
 References: <20211015133619.4698-1-rf@opensource.cirrus.com>
+ <20211015133619.4698-7-rf@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: 62cBwAWc3VX-bRCcDHrjfmn43wsI0vSR
-X-Proofpoint-GUID: 62cBwAWc3VX-bRCcDHrjfmn43wsI0vSR
-X-Proofpoint-Spam-Reason: safe
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="jSS0e2uIyUoUwoHo"
+Content-Disposition: inline
+In-Reply-To: <20211015133619.4698-7-rf@opensource.cirrus.com>
+X-Cookie: I'm having an emotional outburst!!
 Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,53 +81,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The headset type detection must run to set the analogue switches
-correctly for the attached headset type. Without this only headsets
-with wiring matching the chip default will have a functioning mic.
 
-commit c26a5289e865 ("ASoC: cs42l42: Add support for set_jack calls")
-moved the interrupt unmasking to the component set_jack() callback.
-But it's not mandatory for a machine driver to register a struct
-snd_soc_jack handler. Without a registered handler the type detection
-would not have run and so the mic would not work on some types of
-headset.
+--jSS0e2uIyUoUwoHo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-This patch restores the unmasking of TS_PLUG and TS_UNPLUG interrupts
-during probe.
+On Fri, Oct 15, 2021 at 02:36:09PM +0100, Richard Fitzgerald wrote:
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
----
- sound/soc/codecs/cs42l42.c | 10 ++--------
- 1 file changed, 2 insertions(+), 8 deletions(-)
+> The hard RESET must be used to correctly power-up the cs42l42, as
+> described in the datasheet.
 
-diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
-index 8f0c58097d64..d30bb9ad4191 100644
---- a/sound/soc/codecs/cs42l42.c
-+++ b/sound/soc/codecs/cs42l42.c
-@@ -524,12 +524,6 @@ static int cs42l42_set_jack(struct snd_soc_component *component, struct snd_soc_
- 
- 	cs42l42->jack = jk;
- 
--	regmap_update_bits(cs42l42->regmap, CS42L42_TSRS_PLUG_INT_MASK,
--			   CS42L42_RS_PLUG_MASK | CS42L42_RS_UNPLUG_MASK |
--			   CS42L42_TS_PLUG_MASK | CS42L42_TS_UNPLUG_MASK,
--			   (1 << CS42L42_RS_PLUG_SHIFT) | (1 << CS42L42_RS_UNPLUG_SHIFT) |
--			   (0 << CS42L42_TS_PLUG_SHIFT) | (0 << CS42L42_TS_UNPLUG_SHIFT));
--
- 	return 0;
- }
- 
-@@ -1798,8 +1792,8 @@ static void cs42l42_set_interrupt_masks(struct cs42l42_private *cs42l42)
- 			CS42L42_TS_UNPLUG_MASK,
- 			(1 << CS42L42_RS_PLUG_SHIFT) |
- 			(1 << CS42L42_RS_UNPLUG_SHIFT) |
--			(1 << CS42L42_TS_PLUG_SHIFT) |
--			(1 << CS42L42_TS_UNPLUG_SHIFT));
-+			(0 << CS42L42_TS_PLUG_SHIFT) |
-+			(0 << CS42L42_TS_UNPLUG_SHIFT));
- }
- 
- static void cs42l42_setup_hs_type_detect(struct cs42l42_private *cs42l42)
--- 
-2.11.0
+> The code was getting the GPIO with devm_gpiod_get_optional(). Change
+> this to devm_gpiod_get().
 
+Does that power sequencing have to be done by the CPU though?  Usually
+if a GPIO is not supplied it's because the sequencing is done during the
+general power up sequence (PMICs can be programmed to assert GPIOs as
+part of the their sequencing for example).
+
+--jSS0e2uIyUoUwoHo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFpkG8ACgkQJNaLcl1U
+h9Dyqgf+LJrZXj+uSKJIZ0JT5Qh4ifQCqaIfbbYyPJ4Bdnq2KyOv9i8KNczYj8sS
+yfb2lRfd0I5iFDg9gKshaeER4HsgD/AetI9Ndz+AI4pYQHtyj7GEU0jj2rw4jQbO
+EgjqNobNWM8BkIbwZf4de/e7oL44wlgq4REspzgFUDO7nfbsfc8y5F40VOSeLbat
+B+tv99B7EKofPRlx6gFVdXdWn5LW//8SMyDcFpRqLWX/iKeYBcPGc/P9Q2NCIi1Z
++Xz9J4XOZ3VH5n2nXrA7E9GYYM7G0s1er2tJs7pXFW8k5RPAD+ONMJ/bPz9flX/f
+7eKJLWkhyRLt5F8ekZmY7nNPNJBERQ==
+=cfD/
+-----END PGP SIGNATURE-----
+
+--jSS0e2uIyUoUwoHo--

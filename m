@@ -2,73 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99A7842F8D2
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 18:53:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A544942F962
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 18:58:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C3F9186C;
-	Fri, 15 Oct 2021 18:52:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C3F9186C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 31B051866;
+	Fri, 15 Oct 2021 18:57:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31B051866
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634316779;
-	bh=+YAhqqeg31opM/FErwfeSfZchusHTV/GnvHk3C8Fg2w=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1634317096;
+	bh=9udQe4tOPD6tL6+rlN/CeS5Ak+PPbc6uY21TgRJLs3Q=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BvNhfV4pr15rjrKfmqsF7w4WIxVrUG8o6x3NCS28YC+ID5KNNe+66OohYiJei22kd
-	 0fGA9NKixWIzNKcjjSVryJpGu/sdyacnxKgW6o+HM1gKXT+KLqfZwDTf0E3WbFNr+Q
-	 rhkKO60BKwYWVHuUOzFTOqyppy8cWu8qZxkiWhRU=
+	b=P6qxkmJqXsS3VA6raECEPQbpnNavDMGxpbSxE+xbuEjJdpom/LaDTA8KEOjJrrEgc
+	 v74dwmDmItDB8qOP4Vbl72UFn/LwFS92xDa5sw1Hqh4P3xDmx95BVkLABIDEIiUH3b
+	 IVSX0t/Tr9rfX4LcekPvAS0P2RzUSd9PCrsswoP8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71244F80430;
-	Fri, 15 Oct 2021 18:51:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A27BEF8025B;
+	Fri, 15 Oct 2021 18:56:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E1834F80423; Fri, 15 Oct 2021 18:51:47 +0200 (CEST)
+ id 04780F80269; Fri, 15 Oct 2021 18:56:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42002F80269
- for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 18:51:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42002F80269
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8DA79F8016C
+ for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 18:56:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DA79F8016C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="UFAVa8q6"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AC8C5610E5;
- Fri, 15 Oct 2021 16:51:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634316699;
- bh=+YAhqqeg31opM/FErwfeSfZchusHTV/GnvHk3C8Fg2w=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=UFAVa8q6kq5NnsKviR1mANImu7ygaf7VRXTJJ7LiNVEY3z7OB4HTOUIz309aRLWvs
- IH6UU7vlhuMuGAz2CMbqTDLGf5r9g8v7t5eeN+Gyv88f7lj4ARPuaNoOHIDEIdiy6y
- NttS3hSfveC4q317TDkoQ4/7HiZk3dzolpMUYrBZkf1OHMJY9bXRnVfY2VTHu1gdP/
- ycVfmYldvUN+lzZ5d7C9CuM2fOBKrYLzuAlze5bDlHxP9cZJee7iosTQjm7ugdPDc1
- SN+o3uB6aHzkRqE+fsYRiTo2Xxmqve2BODIXiq0iL5fwg4Ykx69vG0hiMyIh4XtBNs
- rWM6CSh3utxow==
-Date: Fri, 15 Oct 2021 17:51:36 +0100
-From: Mark Brown <broonie@kernel.org>
-To: George Song <george.song@maximintegrated.com>
-Subject: Re: [v2 2/2] ASoC: max98520: modified alignment and blank
-Message-ID: <YWmxmBh7J1x2SaXi@sirena.org.uk>
-References: <20211015072709.3167-1-george.song@maximintegrated.com>
- <20211015072709.3167-2-george.song@maximintegrated.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="c6F6S5RFH6FoFZXx"
-Content-Disposition: inline
-In-Reply-To: <20211015072709.3167-2-george.song@maximintegrated.com>
-X-Cookie: 1: No code table for op: ++post
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- steves.lee@maximintegrated.com, ryans.lee@maximintegrated.com,
- george.song@analog.com, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="NSSOPO5d"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="WerHXpzN"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 356E821A6D;
+ Fri, 15 Oct 2021 16:56:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1634317008; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=dhDQfRzdWjoQAA9wLkDzmZrDRzBCVOaY+5kBnn+OZ+g=;
+ b=NSSOPO5dO3DmBJs2cFghl1oPUO8fa6oH3Cpq0EZQg+Gc8L09smGJgx7ubuCrnvChFWJ9HH
+ m8msQ1ifgDIAsHgr12GDWTmRFe8NFwR1TfeQO66yRY4qp9QBZVQ2GzYnhIKHYoE+VAQSmz
+ R8ZdT5nPEDt11oj3hUSzD9SNgkCtp7c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1634317008;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=dhDQfRzdWjoQAA9wLkDzmZrDRzBCVOaY+5kBnn+OZ+g=;
+ b=WerHXpzNkZtBKCeOCuB72DTfG8Sa4VnztHlHvr6o6NJ2f1SUvngyoqyaHaajqMg1Nc/xY8
+ GJpVf05XfRxqbDAw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 967BBA3B89;
+ Fri, 15 Oct 2021 16:56:47 +0000 (UTC)
+Date: Fri, 15 Oct 2021 18:56:47 +0200
+Message-ID: <s5hmtnateeo.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [RFC PATCH v3 05/13] ASoC: soc-pcm: align BE 'atomicity' with
+ that of the FE
+In-Reply-To: <8aa4fa07-2b55-3927-f482-c2fd2b01a22e@linux.intel.com>
+References: <20211013143050.244444-1-pierre-louis.bossart@linux.intel.com>
+ <20211013143050.244444-6-pierre-louis.bossart@linux.intel.com>
+ <2847a6d1-d97f-4161-c8b6-03672cf6645c@nvidia.com>
+ <s5hmtnavisi.wl-tiwai@suse.de>
+ <e2a79095-b8ce-9dd4-3e6d-00f8dda99f30@linux.intel.com>
+ <s5h1r4muwlj.wl-tiwai@suse.de>
+ <8aa4fa07-2b55-3927-f482-c2fd2b01a22e@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Sameer Pujar <spujar@nvidia.com>,
+ Takashi Iwai <tiwai@suse.com>, open list <linux-kernel@vger.kernel.org>,
+ vkoul@kernel.org, broonie@kernel.org, Gyeongtaek Lee <gt82.lee@samsung.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,38 +103,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 15 Oct 2021 18:22:58 +0200,
+Pierre-Louis Bossart wrote:
+> 
+> 
+> > The FE stream locks are necessary only two points: at adding and
+> > deleting the BE in the link.  We used dpcm_lock in other places, but
+> > those are superfluous or would make problem if converted to a FE
+> > stream lock.
+> 
+> I must be missing a fundamental concept here - possibly a set of concepts...
+> 
+> It is my understanding that the FE-BE connection can be updated
+> dynamically without any relationship to the usual ALSA steps, e.g. as a
+> result of a control being changed by a user.
+> 
+> So if you only protect the addition/removal, isn't there a case where
+> the for_each_dpcm_be() loop would either miss a BE or point to an
+> invalid one?
 
---c6F6S5RFH6FoFZXx
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+No, for sleepable context, pcm_mutex is *always* taken when
+adding/deleting a BE, and that's the main protection for the link.
+The BE stream lock is taken additionally over it at adding/deleting a
+BE, just for the code path via FE and BE trigger.
 
-On Fri, Oct 15, 2021 at 04:27:09PM +0900, George Song wrote:
-> fixed all CHECK and WARNING for checkpatch --strict result
-> removed MODULE_AUTHOR to make one maintainer.
->=20
-> Signed-off-by: George Song <george.song@maximintegrated.com>
-> ---
->  sound/soc/codecs/Kconfig    |   7 +++
->  sound/soc/codecs/max98520.c | 121 +++++++++++++++++-------------------
->  2 files changed, 64 insertions(+), 64 deletions(-)
+> In other words, don't we need the *same* lock to be used
+> a) before changing and
+> b) walking through the list?
 
-Looks like the same issue here - squash the fixes into your original
-patch and then resend that as your version 2.
+> I also don't get what would happen if the dpcm_lock was converted to an
+> FE stream lock. It works fine in my tests, so if there's limitation I
+> didn't see it.
 
---c6F6S5RFH6FoFZXx
-Content-Type: application/pgp-signature; name="signature.asc"
+dpcm_lock was put in the places that could be recursively taken.
+So this caused some deadlock, I suppose.
 
------BEGIN PGP SIGNATURE-----
+> >>> In addition, a lock around dpcm_show_state() might be needed to be
+> >>> replaced with card->pcm_mutex, and we may need to revisit whether all
+> >>> other paths take card->pcm_mutex.
+> >>
+> >> What happens if we show the state while a trigger happens? That's my
+> >> main concern with using two separate locks (pcm_mutex and FE stream
+> >> lock) to protect the same list, there are still windows of time where
+> >> the list is not protected.
+> > 
+> > With the proper use of mutex, the list itself is protected.
+> > If we need to protect the concurrent access to each BE in the show
+> > method, an additional BE lock is needed in that part.  But that's a
+> > subtle issue, as the link traversal itself is protected by the mutex.
+> 
+> If I look at your patch2, dpcm_be_disconnect() protects the list removal
+> with the fe stream lock, but the show state is protected by both the
+> pcm_mutex and the fe stream lock.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFpsZcACgkQJNaLcl1U
-h9BxhAf/ZP7AuNZwTFb2d6XyaWTWhMHambCrYCcXRNyDiOYGeSxvatyPzp29PjPb
-jqWT+gpcKI76X6j5Yl+viwb4nn7Udlp52Pj7bGnc2vT+pegPv4dqUAs5ulKnHmO+
-oeJQC9IK1mpLhJ+unt0WhzjZ7n6VT71yVVVeSfulyj5MB0/tflzkg6NPfxxHJYgH
-NwvgIHMOfX0mUdQrHA9Tsyu1kmkPnbVgNcaiU4kNtVoFKiOzc5fkZJgqhe5o9kkU
-q/cFRdalfv9HqYhpxNAmIU7G/Nnm23HKEsfcYsW3YEudVTbfODpsD9EYhgre/trF
-IiwgiTPGI0txoXEWtbSWr6w0tBDyqw==
-=dZtG
------END PGP SIGNATURE-----
+No, show_state() itself doesn't take any lock, but its caller
+dpcm_state_read_file() takes the pcm_mutex.  That protects the list
+addition / deletion.
 
---c6F6S5RFH6FoFZXx--
+> I have not been able to figure out when you need
+> a) the pcm_mutex only
+> b) the fe stream lock only
+> c) both pcm_mutex and fe stream lock
+
+The pcm_mutex is needed for every sleepable function that treat DPCM
+FE link, but the mutex is taken only at the upper level, i.e. the
+top-most caller like PCM ops FE itself or the DAPM calls.
+
+That said, pcm_mutex is the top-most protection of BE links in FE.
+But, there is a code path where a mutex can't be used, and that's the
+FE and BE trigger.  For protecting against this, the FE stream lock is
+taken only at the placing both adding and deleting a BE *in addition*.
+At those places, both pcm_mutex and FE stream lock are taken.
+
+BE stream lock is taken in addition below the above mutex and FE
+locks.
+
+
+Takashi

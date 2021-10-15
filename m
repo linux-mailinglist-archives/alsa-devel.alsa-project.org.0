@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD89442FC62
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 21:44:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC4FE42FC64
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 21:44:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51AF41893;
-	Fri, 15 Oct 2021 21:43:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51AF41893
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44BFC1890;
+	Fri, 15 Oct 2021 21:44:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44BFC1890
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634327060;
-	bh=nVzXQkZBYKWiFaY5dIif/rYIgKFlM3GSbal80h2WHSE=;
+	s=default; t=1634327091;
+	bh=F/qhtQq884fDhoH6bClRl635RI5UPxO4klw1oW2Avd4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WVZ8tdmaVyk6Yz5zsYdCVVVp8jxDALnVICejCTY68YJCivr/titbgkbQrKHlIMt6P
-	 YueNpxPtgEqAx3bVVBGVwS6NY0Ze4+vJSS6xXGIzraqy+eRZqzr0oULLlhEsH0bN77
-	 BjHRxlXG3ql0sD1OStyEs8Gm6fpdGT9N7J8k5RDk=
+	b=jUmU60RBaAJPLhnOiumIPZ5ahmMjr4X2yT3iIvHAZZLeFa/YZ2vpt8Ik5V/IBZsiR
+	 iW5dtyl+FD6JCSNDVOmadaNCUKK0WQhYGBoDj0DA6tzci/0GPP/hxsTey75uznE72e
+	 DXUrPFAz0HPja8CJUo57AhYxZQcsjzQpHrXRq414=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22C81F804EB;
-	Fri, 15 Oct 2021 21:42:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57826F804FB;
+	Fri, 15 Oct 2021 21:42:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1C119F80269; Fri, 15 Oct 2021 21:42:19 +0200 (CEST)
+ id F3F5DF80423; Fri, 15 Oct 2021 21:42:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,37 +33,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 39E32F8016C
- for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 21:42:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39E32F8016C
+ by alsa1.perex.cz (Postfix) with ESMTPS id E95D9F8028D
+ for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 21:42:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E95D9F8028D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="P6K/6Yrq"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 338CC604DC;
- Fri, 15 Oct 2021 19:42:13 +0000 (UTC)
+ header.b="Z1fGPf/i"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id DB25461181;
+ Fri, 15 Oct 2021 19:42:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634326933;
- bh=nVzXQkZBYKWiFaY5dIif/rYIgKFlM3GSbal80h2WHSE=;
+ s=k20201202; t=1634326936;
+ bh=F/qhtQq884fDhoH6bClRl635RI5UPxO4klw1oW2Avd4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=P6K/6YrqdDKjqnkgL84oU+t/mI1z2PxTzKqAoP/7qwy7EMj31MD7FyXGUsJ7olKS+
- h7RQFRea3OLX8SbiNf+mIQwVSwysnRnCka5QXL3wdJWRnUYLo2EYpfiK5t8CGi6HdH
- hGCcMgBS3dwRx2EJukYvGOtnGn2flLFmUeJfybcp4YoQPsdB5rMIWuI7ULNxRf9BjQ
- WRi1JZl6KZ8bc8ohKzEcAIaWS9kXNb9mRBXLAa9sV6N875Nbjr0iJEL/Jdk+5FHEDW
- mXkSggjp6mcHyZHZcCez7SSEaElQcdMwmv8cIU2kIcbVDfye4IiPlgGINgEkemO0tp
- q2ptNvY+3pPbA==
+ b=Z1fGPf/iD9Yt34acPBNN0wz3lnqB1pa1NyvXU39zOD4BWEEhxYB1F/omV0s+hiEf0
+ V8M+DMJU+I/ysApG1kqHzOS7nT6eWdTUksVKtWkwkorXcTDkUlfAOlh12gLbjG/R7V
+ TsTnDIiHV5FgLjfhQOrNY3tPGNaEoaRFNtjoZm/+b5wuHK+y63udXCe7J+tto97JQf
+ sfNNDatk5pjQ1oAE/GqJI8x2N4TflWpH8Fz+nnpxikY46ELTjICjEj14e6XgY3XPNC
+ +P0CaNaRroce6aa5k2nkAY27d1yqEc9BCg3MTsbjzFUgiImakoFAa2GYCgthNTtu6e
+ 989nFUZWMY7mw==
 From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Subject: Re: (subset) [PATCH 00/16] ASoC: cs42l42: Collection of bugfixes
-Date: Fri, 15 Oct 2021 20:42:01 +0100
-Message-Id: <163432688461.1314975.13627167617327802715.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Subject: Re: [PATCH V2 1/3] ASoc: amd: create platform device for VG machine
+ driver
+Date: Fri, 15 Oct 2021 20:42:02 +0100
+Message-Id: <163432688461.1314975.2857186739241189327.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20211015133619.4698-1-rf@opensource.cirrus.com>
-References: <20211015133619.4698-1-rf@opensource.cirrus.com>
+In-Reply-To: <20211014071714.836410-1-Vijendar.Mukunda@amd.com>
+References: <20211014071714.836410-1-Vijendar.Mukunda@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Sunil-kumar.Dommati@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
+ wtli@nuvoton.com, open list <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
+ Alexander.Deucher@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,18 +84,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 15 Oct 2021 14:36:03 +0100, Richard Fitzgerald wrote:
-> This patch set contains various bugfixes for the cs42l42 codec
-> driver.
+On Thu, 14 Oct 2021 12:47:08 +0530, Vijendar Mukunda wrote:
+> Create platform device for Vangogh machine driver.
 > 
-> Patches marked "Fixes" will apply cleanly to the patch that first
-> introduced the bug.
 > 
-> Patches NOT marked "Fixes" will not apply cleanly to the point
-> the bug was first introduced and/or the bug is not having
-> sufficient impact to risk churning older code versions.
-> 
-> [...]
 
 Applied to
 
@@ -98,30 +95,12 @@ Applied to
 
 Thanks!
 
-[01/16] ASoC: cs42l42: Don't reconfigure the PLL while it is running
-        commit: 06441c82f0cd836402ca5fa4162d28ed07cfb0ed
-[02/16] ASoC: cs42l42: Always configure both ASP TX channels
-        commit: 6e6825801ab926360f7f4f2dbcfd107d5ab8f025
-[03/16] ASoC: cs42l42: Correct some register default values
-        commit: d591d4b32aa9552af14a0c7c586a2d3fe9ecc6e0
-[04/16] ASoC: cs42l42: Don't set defaults for volatile registers
-        commit: 917d5758014b37cf97b946dd130aad9353c354dc
-[05/16] ASoC: cs42l42: Defer probe if request_threaded_irq() returns EPROBE_DEFER
-        commit: 0306988789d9d91a18ff70bd2bf165d3ae0ef1dd
-[10/16] ASoC: cs42l42: Don't claim to support 192k
-        commit: 2a031a99428bafba089437e9044b8fd5dc6e7551
-[11/16] ASoC: cs42l42: Use PLL for SCLK > 12.288MHz
-        commit: 3c211cb7db2905221f9f006aa66b8af17bfcd480
-[12/16] ASoC: cs42l42: Allow time for HP/ADC to power-up after enable
-        commit: 4ae1d8f911d6fc20baefd5eb061bf6964fa22a32
-[13/16] ASoC: cs42l42: Set correct SRC MCLK
-        commit: fdbd256175a1e11c1ba827112d56b9a3952e1219
-[14/16] ASoC: cs42l42: Mark OSC_SWITCH_STATUS register volatile
-        commit: 0c3d6c6ff75aa6b21cd4ac872dd3050b6525c75c
-[15/16] ASoC: cs42l42: Fix WARN in remove() if running without an interrupt
-        commit: 4c8d49bc476c7cf1fb7377b469ced43ced470027
-[16/16] ASoC: cs42l42: Always enable TS_PLUG and TS_UNPLUG interrupts
-        commit: 4ca239f33737198827c7f4ac68a1f6fc8a9d79ba
+[1/3] ASoc: amd: create platform device for VG machine driver
+      commit: 832a5cd2d3d9e195af2fe272999af8948383ce9b
+[2/3] ASoC: amd: add vangogh machine driver
+      commit: 34a0094b9ff7b7544591a6841f9b61747033f292
+[3/3] ASoC: amd: enable vangogh platform machine driver build
+      commit: 96792fdd77cd19fcf2368e7c19bb8b78557ae425
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,72 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2AA342F68A
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 17:05:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A84642F6AB
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 17:09:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 64A5F17F4;
-	Fri, 15 Oct 2021 17:05:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64A5F17F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id D368F1771;
+	Fri, 15 Oct 2021 17:08:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D368F1771
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634310355;
-	bh=SswMb9wzOxq0M9rtsUWefGhnQeZ9QlqXp3SndHLCDfk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1634310566;
+	bh=BQGxTeQeJN5SKV/yCyuaoBFDCTsTlegZ5xmCXEx60Mo=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LWx/xWc9tZPDfxnH7y7MtjlAd4SNnldC2aP2medKswCs8QHJX13y7Rzekky2BfdLA
-	 BZ239UZMqjUuz++Tfojjd/uPy6jIKOPg649Ky/f3HnyoaBKB9xzabhrI9Xmu3lZKtf
-	 hmHz88L3RnWX8SqHzZtzyYvuJ+9k2WI5ddIH6QwQ=
+	b=YC9gel86++OfrBs64p7Cmi0gok3SqS5VC57bPcHIysfbyv+xBV9pokEYtqO1Cs9OD
+	 wj5bK4yfEWh9WCBlhb2Jl5UjYHewrpxd9QHglQXXZuuMrd55yUh7ZHJDIJjwpgaeGR
+	 OC4QFJ70+R3pWH/uZQ02Z7tkkJhAscWshF0+GSqM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 286CDF80167;
-	Fri, 15 Oct 2021 17:04:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51200F8028D;
+	Fri, 15 Oct 2021 17:08:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0CBDAF80269; Fri, 15 Oct 2021 17:04:37 +0200 (CEST)
+ id D984BF80269; Fri, 15 Oct 2021 17:08:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7976DF80167
- for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 17:04:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7976DF80167
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qWgRNNZM"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3DFA1600D4;
- Fri, 15 Oct 2021 15:04:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634310271;
- bh=SswMb9wzOxq0M9rtsUWefGhnQeZ9QlqXp3SndHLCDfk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qWgRNNZMwOCyuTCHLO5nFRrwGacGn1A6q2dl6GcaoHCPTgBfw89/o4nDKzghlrFUh
- ajRTJ3CyqR/sjkr8sVI+pwDLrMY0ObwiM34zndB1U2/8THkLuClBmrKy9WoQoTR3Kl
- /oSYnx6ir6Ur4+4tuE0G05PncEIjSNFxrKUH9ZCPCVBh3kSkWIix9VT2SUU0prrLUX
- SXUUXZApPytQZC71Ux+/aARqWvZM7iLNm31w13jWE4/Q6Yc/zg8Ze2lTcwDUAZGkja
- bYWg53wSMoYzG6BVKqYRuN7bcY8uZScZ82PBi5Uun02/cqzyz0XKhQqVDK2+qCSVQn
- rTYG0s8s/u44A==
-Date: Fri, 15 Oct 2021 16:04:29 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Subject: Re: [PATCH 08/16] ASoC: cs42l42: Reset and power-down on driver
- remove()
-Message-ID: <YWmYfYRNqyruBltq@sirena.org.uk>
-References: <20211015133619.4698-1-rf@opensource.cirrus.com>
- <20211015133619.4698-9-rf@opensource.cirrus.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 420F4F8016C
+ for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 17:08:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 420F4F8016C
+X-IronPort-AV: E=McAfee;i="6200,9189,10138"; a="228209247"
+X-IronPort-AV: E=Sophos;i="5.85,376,1624345200"; d="scan'208";a="228209247"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2021 08:07:57 -0700
+X-IronPort-AV: E=Sophos;i="5.85,376,1624345200"; d="scan'208";a="492593233"
+Received: from liminghu-mobl.ccr.corp.intel.com (HELO [10.212.23.213])
+ ([10.212.23.213])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2021 08:07:56 -0700
+Subject: Re: [PATCH] ASoC: Intel: sof_sdw: Initialize the sof_sdw_quirk with
+ RT711_JD_NULL
+To: Chris Chiu <chris.chiu@canonical.com>, cezary.rojewski@intel.com,
+ liam.r.girdwood@linux.intel.com, yang.jie@linux.intel.com,
+ broonie@kernel.org, tiwai@suse.com
+References: <20211015133424.494463-1-chris.chiu@canonical.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <c40282f6-cb8f-22ca-4a57-26fcbc39f423@linux.intel.com>
+Date: Fri, 15 Oct 2021 10:07:53 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="YEwHEeG4QLJiJTRL"
-Content-Disposition: inline
-In-Reply-To: <20211015133619.4698-9-rf@opensource.cirrus.com>
-X-Cookie: I'm having an emotional outburst!!
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+In-Reply-To: <20211015133424.494463-1-chris.chiu@canonical.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,40 +79,39 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---YEwHEeG4QLJiJTRL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 15, 2021 at 02:36:11PM +0100, Richard Fitzgerald wrote:
-> Driver remove() should assert RESET and disable the supplies.
-> Previously this assumed that calling pm_runtime_suspend() would result
-> in a call to cs42l42_runtime_suspend() to power-down. This isn't
-> guaranteed - pm_runtime can be disabled.
+On 10/15/21 8:34 AM, Chris Chiu wrote:
+> The jd_src of RT711 which is initialized in rt711/rt711_sdca_init
+> will be overridden by rt711/rt711_sdca_add_codec_device_props when
+> the sof_sdw_quirk is not RT711_JD_NULL. It will force the JD mode
+> to RT711_JD1 and cause confusion while debugging the JD mode of
+> the boards without quirk. Initialize sof_sdw_quirk with RT711_JD_NULL
+> to honor the jd_src value in rt711/rt711_sdca init.
 
->  	pm_runtime_suspend(&i2c_client->dev);
->  	pm_runtime_disable(&i2c_client->dev);
-> =20
-> +	gpiod_set_value_cansleep(cs42l42->reset_gpio, 0);
-> +	regulator_bulk_disable(ARRAY_SIZE(cs42l42->supplies), cs42l42->supplies=
-);
+Not able to follow what the "confusion while debugging the JD mode of
+the boards without quirk" is. You need a DMI quirk or need to override
+the default quirk with the kernel module parameter.
 
-Won't this end up with an extra disable of the regulators if they're
-already disabled?
+This also has the side effect of breaking ALL existing DMI quirks
+implicitly using JD1...
 
---YEwHEeG4QLJiJTRL
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFpmHwACgkQJNaLcl1U
-h9AoPQf/VsuvOQOkub0xVouyjOI+TAb9UWlot4YRDNwT+tQavmkRxviZg2CAd3+8
-Nb6tPe49xRCMEUhN5QuKa5By58FtHXNQxTJRJu5E5FkWVgiK+HQW05pTv3rGafEF
-JybSqUBpfMqKta3RQ67dGqAANPl5falAqHhyn6nlX7QNIS0hVtAGgEKuge2FbAG9
-vyQpbEZ7C+L1fRGt4TssRiuQUJHTkOhAmHD/meT7qWeh8gHlKlM7xblbT4Pv13mc
-woUSNc0c6RP+XyleS1MGQ/+VU7042LP0uC6m/SQah4c9mXTdojEihWp4Mzve+OLQ
-T4L780EV7YYfz6D0+Kq3eKQ35rDbXw==
-=1u+2
------END PGP SIGNATURE-----
-
---YEwHEeG4QLJiJTRL--
+> Signed-off-by: Chris Chiu <chris.chiu@canonical.com>
+> ---
+>  sound/soc/intel/boards/sof_sdw.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
+> index 6b06248a9327..d05c0565e09c 100644
+> --- a/sound/soc/intel/boards/sof_sdw.c
+> +++ b/sound/soc/intel/boards/sof_sdw.c
+> @@ -15,7 +15,7 @@
+>  #include "sof_sdw_common.h"
+>  #include "../../codecs/rt711.h"
+>  
+> -unsigned long sof_sdw_quirk = RT711_JD1;
+> +unsigned long sof_sdw_quirk = RT711_JD_NULL;
+>  static int quirk_override = -1;
+>  module_param_named(quirk, quirk_override, int, 0444);
+>  MODULE_PARM_DESC(quirk, "Board-specific quirk override");
+> 

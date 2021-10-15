@@ -2,82 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A1B242F774
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 17:55:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCEBC42F7F1
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 18:17:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE21D1811;
-	Fri, 15 Oct 2021 17:54:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE21D1811
+	by alsa0.perex.cz (Postfix) with ESMTPS id 360FD181A;
+	Fri, 15 Oct 2021 18:16:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 360FD181A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634313337;
-	bh=wHKl0c38xhddOdxDvOhy8pMfyO9meyoLd7ttHGuh1mQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=kL2rOi89PLVofRjJIdbLQ6xTHfz+nIK+7Jlm125lMYr8Y6rf3fT3Z0mvWwhdj3Mjb
-	 EdZkaM8HVU0SOYZT20joTPBzH16kYAFbtLnCy9e6WNfMajwlAiH7GIxKfIOW4mTUdg
-	 kXM7bhQ5/b3pW0tgV2sHgFYqOFw1k9mydWfualqU=
+	s=default; t=1634314623;
+	bh=4BYP662aW+SCFmtokX4LjlwbXnXOwZ0M1o4liKvlQj8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=L+4FlhBNTy3du1GYcfiSAFEljq8x96A5lcRsfJZ1K8PnWhCcByaB5ZvpHw0ZhaLBi
+	 lkpqoZwnqMFLwDPZWJ2WFSnRq5VdlZi4A0Frl08mAPvgCm9ZNCxBz+VfZUtFjrBF1W
+	 2L0Yok7afHs6S7wi/oxJZjkPF6o6DkP/jVYsxuw4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 312B2F8028D;
-	Fri, 15 Oct 2021 17:54:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89239F80290;
+	Fri, 15 Oct 2021 18:15:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 90093F80269; Fri, 15 Oct 2021 17:54:18 +0200 (CEST)
+ id 0D051F8028D; Fri, 15 Oct 2021 18:15:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E5843F8012E
- for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 17:54:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5843F8012E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="PP8wIgEK"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="TyQgHxIu"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 65B341FD50;
- Fri, 15 Oct 2021 15:54:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1634313254; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=LbqNA8+P6OoKrNPfc0tZC1NsZMF03fcBD/4WGxA+h7E=;
- b=PP8wIgEKaEja9rcwRDYbu81McPlW3w9yA/vTqAotq+iZCsZbDGPfz8d0pmzoukx6CfXkVB
- K2m5B1ruxEl1AsDHvsETy7u7E0r/8ZokUH/aI4aoJt+cp0WaOKoCMpNwzosQi4AJlr6RvF
- G76CoUS8e5cmaO7SXHT+Kl0otwg6pJg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1634313254;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=LbqNA8+P6OoKrNPfc0tZC1NsZMF03fcBD/4WGxA+h7E=;
- b=TyQgHxIuYsp/LwxPMkPQaQntGDNiANMVObFHdG42Y0P/O5NPmT0QOO0QRSxlX1JGHO1tpn
- iRDV/eYTTbpz0iAw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 4EBB8A3B81;
- Fri, 15 Oct 2021 15:54:13 +0000 (UTC)
-Date: Fri, 15 Oct 2021 17:54:13 +0200
-Message-ID: <s5hv91ythay.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH 00/11] ALSA: firewire-motu: add ioctl commands to retrieve
- information in messages delivered by isoc packet
-In-Reply-To: <20211015080826.34847-1-o-takashi@sakamocchi.jp>
-References: <20211015080826.34847-1-o-takashi@sakamocchi.jp>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: ffado-devel@lists.sourceforge.net, alsa-devel@alsa-project.org,
- clemens@ladisch.de
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2D8FBF8012E
+ for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 18:15:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D8FBF8012E
+X-IronPort-AV: E=McAfee;i="6200,9189,10138"; a="225404612"
+X-IronPort-AV: E=Sophos;i="5.85,376,1624345200"; d="scan'208";a="225404612"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2021 09:11:10 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,376,1624345200"; d="scan'208";a="564375167"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by FMSMGA003.fm.intel.com with ESMTP; 15 Oct 2021 09:10:59 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 0/6] ASoC: Sanity checks and soc-topology updates
+Date: Fri, 15 Oct 2021 18:12:51 +0200
+Message-Id: <20211015161257.27052-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: pierre-louis.bossart@linux.intel.com,
+ Cezary Rojewski <cezary.rojewski@intel.com>, tiwai@suse.com,
+ hdegoede@redhat.com, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,72 +71,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 15 Oct 2021 10:08:15 +0200,
-Takashi Sakamoto wrote:
-> 
-> Hi,
-> 
-> The purpose of this patchset is to add message parser to ALSA
-> firewire-motu driver so that userspace applications can read information
-> in message delivered by isochronous packet as well as PCM frames.
-> The message includes information about hardware meter and user action
-> over hardware component such as knob, and MIDI message bytes.
-> 
-> Models in MOTU FireWire series can be categorized to 4 groups in regard
-> of message mechanism:
-> 
-> Group 1. 828 and 896
->  * quadlet message to registered destination address
-> Group 2. 828mk2, 896hd, Traveler, 8 pre, Ultralite, 4 pre, and Audio Express
->  * quadlet message to registered destination address
->  * message delivered by isochronous packet
-> Group 3. 828mk3, 896mk3, Ultralite mk3, Traveler mk3, and Track 16
->  * quadlet message to registered destination address
->  * message delivered by isochronous packet
->  * block message to registered destination address, including command
-> Group 4. V3HD/V4HD
->  * quadlet message to registered destination address
->  * block message to registered destination address
-> 
-> The patchset is for message delivered by isochronous packet in group 2
-> and 3. In Group 2, the message includes information of hardware meter,
-> information of user action over hardware component. The model in Group
-> 2 is called as 'register DSP' in the patchset since parameters of DSP
-> can be configured by asynchronous transaction for register access. In
-> Group 3, the message includes information of hardware meter only. The
-> model in Group 3 is called as 'command DSP' since software and device
-> communicate with commands transferred by asynchronous transaction in
-> regard of DSP parameters. Two types of message parser is going to be
-> added so that the driver caches images for the information. The cache
-> is available for userspace application by ioctl commands newly introduced.
-> 
-> I note that no control element is added for the hardware meters and user
-> actions. It's expected for userspace application to retrieve and parse the
-> information of image then operate for user-defined control element set.
-> 
-> Takashi Sakamoto (11):
->   ALSA: firewire-motu: add message parser to gather meter information in
->     register DSP model
->   ALSA: firewire-motu: add message parser for meter information in
->     command DSP model
->   ALSA: firewire-motu: add ioctl command to read cached hardware meter
->   ALSA: firewire-motu: parse messages for mixer source parameters in
->     register-DSP model
->   ALSA: firewire-motu: parse messages for mixer output parameters in
->     register DSP model
->   ALSA: firewire-motu: parse messages for output parameters in register
->     DSP model
->   ALSA: firewire-motu: parse messages for line input parameters in
->     register DSP model
->   ALSA: firewire-motu: parse messages for input parameters in register
->     DSP model
->   ALSA: firewire-motu: add ioctl command to read cached DSP parameters
->   ALSA: firewire-motu: queue event for parameter change in register DSP
->     model
->   ALSA: firewire-motu: notify event for parameter change in register DSP
->     model
+Couple of soc-topology related changes and a use-after-free fix. Said fix
+and two sanity checks for soc-topology lead the way. While the
+use-after-free is quite obvious, the sanity checks are here to cover for
+cases where user malformed the topology file -or- access to filesystem
+somehow got interrupted during copy operation. We shouldn't be reading
+outside the file boundary.
 
-Applied all patches now.  Thanks.
+Afterward a change to soc_tplg_add_kcontrol(): device being passed to
+soc_tplg_add_dcontrol() from comp->dev to tplg->dev which corrects
+dev_xxx() invoked later on.
+Also, device used for topology memory allocations from component->dev to
+component->card->dev so memory gets freed each time card device (usually
+platform device) is removed rather than the component device what may
+happen less frequently.
 
+Dummy component gets smarter and no longer overrides hw_params if
+there are other components accociated with related struct
+snd_soc_pcm_runtime instance.
 
-Takashi
+Amadeusz Sławiński (5):
+  ASoC: core: Remove invalid snd_soc_component_set_jack call
+  ASoC: topology: Check for dapm widget completeness
+  ASoC: topology: Use correct device for prints
+  ASoC: topology: Change topology device to card device
+  ASoC: Stop dummy from overriding hwparams
+
+Cezary Rojewski (1):
+  ASoC: topology: Add header payload_size verification
+
+ sound/soc/soc-core.c     |  3 ---
+ sound/soc/soc-topology.c | 34 ++++++++++++++++++++++++++++++----
+ sound/soc/soc-utils.c    | 13 +++++++++++++
+ 3 files changed, 43 insertions(+), 7 deletions(-)
+
+-- 
+2.25.1
+

@@ -2,91 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C3CA42F575
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 16:33:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE48542F683
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 17:04:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2ACA64E;
-	Fri, 15 Oct 2021 16:32:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2ACA64E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2BB5717F4;
+	Fri, 15 Oct 2021 17:03:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BB5717F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634308385;
-	bh=OFSvcgs2CFcBd9pWRYowcprVnQ2ud4pNxHbhxblpsT8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=aj+uJqfHvtk3fVBJkLB7K3fyaFLKTVSrkcbxhg0rNuL7RHITDN025k47R/uC9m27s
-	 DYfhXpdjFz0JVGCW9omBmTnNzKHl5y2wMygiAzvzYkDDfVO1yzF1b0UFFAi5U+tspy
-	 FpXHzFQ1LBwR+Lj+tI4M49tU6j43H3g+OJrorBH0=
+	s=default; t=1634310271;
+	bh=HUZyhXVFtyd+kL3lwYCZY+Spl4v5On1I0ObzJOAiC4Q=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=WvwwzqaMUWROu8/YCTGltdAfnhAuKYkeP/UOeqQJdz96bfA5A20iZpiQ7bRTIjcxj
+	 pfvXcu6tcA2Gimmqm4GHChGLnFzHxuYyoHfyaQ84bhgAdeOIOMIuWpr9V9GUiQHxhu
+	 o0OqwgvjcTGoNL8qo75F2KTt9vPSkcnIsIdP6Aic=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9EE67F8025B;
-	Fri, 15 Oct 2021 16:31:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A96CF8028D;
+	Fri, 15 Oct 2021 17:03:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07983F80269; Fri, 15 Oct 2021 16:31:45 +0200 (CEST)
+ id 37CFBF80269; Fri, 15 Oct 2021 17:03:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E8A8F8012E
- for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 16:31:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E8A8F8012E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 26707F80167
+ for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 17:03:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26707F80167
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="pmwrGi06"
-Received: by mail-lf1-x12a.google.com with SMTP id u21so39417266lff.8
- for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 07:31:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=BOWkhXmRLradAC/GQ4VVcC6Y/gPQpSI6S5P1Mpfnvk8=;
- b=pmwrGi0629rfj6pWJFXZmdRQx60ZnAi+RezuMqoV9xHr0Moh8bpARW9ZsUFfEyEAy+
- xJCN1guTGVbG4ldgdiJKnYfCOJtkEw/BcPhS02+uRpuAkG8+ALUSU0EgLfApGqvjoIC7
- RFOcJMVZtsvKkdmsFFW8zJiKahdSun5IF2BDzPrV7W3uvcdH+2/Cy9o99gjZ/blLOpMh
- D+XqGp/jW6uiSobidR9H2P3P7xK8yiS7MOtgDCvbDe9mQfmozxiq3CLLQle5G9e1BNQf
- jb6/qumiVxrHnvaqVm0fN9p0sLgZbT8Tecsmv4p9WcbWUuQvSMs1atN0bApMvJWpPgr/
- tVLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=BOWkhXmRLradAC/GQ4VVcC6Y/gPQpSI6S5P1Mpfnvk8=;
- b=s50chqi7geR6hgTl4ZAJAhDRvulXeLct0nm6L0zR9w7Z2q/pduVARtP8mirtpVYczk
- 9B431ML7Z6Pr8TMPRN5A/Gne71i/3zp0DLX8jwW8aLdyOSlSHoBHtN3HPcsaTT0bGmUy
- 2NyXgPmf/jKlxBuyM0VXCVtWeXPcdx9eIpkALqT7rKXgkRaDSv8F8CWoS06NC9RWkitM
- d35VsOiBvxP88HZaeigpQ9covAddsccW62O237yu9h76hTXr2fDM/Yd9qN2EGE0HJb07
- 0keNN9Q6XXL368em/IyVqRsPaUfTR+KqACK/0xAdYD80LGSgl5FyzSGmH3bqJ0R1C5cX
- yTTw==
-X-Gm-Message-State: AOAM530XslSP374WlkBERVNY34cjoMrxVeTQ2U8x4OZXj9bJ7a8ndirT
- MHct67b5b/8jrFzX3XUM0YM=
-X-Google-Smtp-Source: ABdhPJyb7Io5HBfOR1Od1nJE8cceEaoAYKaT4OvEzqEQBBRoD5cqfwoaAwdgJNzZqfJWySJA7xQiIg==
-X-Received: by 2002:a2e:7605:: with SMTP id r5mr1552093ljc.301.1634308300111; 
- Fri, 15 Oct 2021 07:31:40 -0700 (PDT)
-Received: from localhost.localdomain (84-72-105-84.dclient.hispeed.ch.
- [84.72.105.84])
- by smtp.gmail.com with ESMTPSA id b18sm616475lji.99.2021.10.15.07.31.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Oct 2021 07:31:39 -0700 (PDT)
-From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
-To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Subject: [PATCH] ASoC: dt-bindings: rockchip: i2s-tdm: fix rockchip,
- cru requirement
-Date: Fri, 15 Oct 2021 16:31:14 +0200
-Message-Id: <20211015143115.1445707-1-frattaroli.nicolas@gmail.com>
-X-Mailer: git-send-email 2.33.0
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="q/wSIGWG"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3AA1D600D4;
+ Fri, 15 Oct 2021 15:02:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1634310179;
+ bh=HUZyhXVFtyd+kL3lwYCZY+Spl4v5On1I0ObzJOAiC4Q=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=q/wSIGWGEl2/OWZr20i72XN6klWiorQtf9EIvLFZweKKKNbFSFXn5nRWkvKnX+UMZ
+ ltA+W5RJeRiqqhqwdjf9cLswODKBvnnWJQ/TIB46snpzjKbwMmpf3WjPGualypOyU3
+ k6CNNCI2Ts822EChd9rTV81avQxcmcE828glTZhIwv2yAbPTyfRn0rpACfMYF8RD0D
+ v1uALX3gbGqsMcSHeHCXGLE1k9zZdfUGJLEpKxXPP7fsVlp8u/lTObGlrPO6m8+N3c
+ tne9Kh4vZVcluhZ+s5R79D2sMEOZdfHZrj8XGbCQcqCYnKd6pPCTdvi3icoiEoOqcO
+ NrlrTFQbz42Hw==
+Date: Fri, 15 Oct 2021 16:02:57 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Subject: Re: [PATCH 07/16] ASoC: cs42l42: Correct power-up sequence to match
+ datasheet
+Message-ID: <YWmYIQGgxFStAA1x@sirena.org.uk>
+References: <20211015133619.4698-1-rf@opensource.cirrus.com>
+ <20211015133619.4698-8-rf@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Rob Herring <robh@kernel.org>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="RZ6HkpV1NsoM41ux"
+Content-Disposition: inline
+In-Reply-To: <20211015133619.4698-8-rf@opensource.cirrus.com>
+X-Cookie: I'm having an emotional outburst!!
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,45 +82,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The behaviour described in the bindings is exactly the opposite
-of what it should be, so this patch fixes the description and
-adjusts the if conditions for adding rockchip,cru to required.
 
-Fixes: 510f1c133aed ("ASoC: dt-bindings: rockchip: add i2s-tdm bindings")
-Signed-off-by: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
----
- .../devicetree/bindings/sound/rockchip,i2s-tdm.yaml   | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+--RZ6HkpV1NsoM41ux
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml b/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
-index ce3e18b50230..93f5221e9381 100644
---- a/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
-+++ b/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
-@@ -86,7 +86,7 @@ properties:
-     $ref: /schemas/types.yaml#/definitions/phandle
-     description:
-       The phandle of the cru.
--      Required if neither trcm-sync-tx-only nor trcm-sync-rx-only are specified.
-+      Required if either trcm-sync-tx-only or trcm-sync-rx-only are specified.
- 
-   rockchip,grf:
-     $ref: /schemas/types.yaml#/definitions/phandle
-@@ -147,8 +147,13 @@ required:
- allOf:
-   - if:
-       properties:
--        rockchip,trcm-sync-tx-only: false
--        rockchip,trcm-sync-rx-only: false
-+        rockchip,trcm-sync-tx-only: true
-+    then:
-+      required:
-+        - rockchip,cru
-+  - if:
-+      properties:
-+        rockchip,trcm-sync-rx-only: true
-     then:
-       required:
-         - rockchip,cru
--- 
-2.33.0
+On Fri, Oct 15, 2021 at 02:36:10PM +0100, Richard Fitzgerald wrote:
+> The power-up sequence mandated in the datasheet is:
 
+> - VP must turn on first
+> - VA, VCP, VL, in any order
+> - VD_FILT after VL
+
+>  static const char *const cs42l42_supply_names[CS42L42_NUM_SUPPLIES] = {
+> -	"VA",
+>  	"VP",
+> +	"VA",
+>  	"VCP",
+> -	"VD_FILT",
+>  	"VL",
+> +	"VD_FILT",
+>  };
+
+If you need the regulators to be turned on in sequence you shouldn't
+rely on bulk enable doing it for you - the existing regulator code will
+initiate all the enables in parallel and then wait for them all to
+complete ramping up so if for example VD_FILT were to ramp more quickly
+than the earlier regulators the hardware might notice it getting to
+whatever voltage the hardware cares about before them.  The only
+sequencing you're getting at the minute is when the enables for the
+regulators are toggled and you shouldn't even rely on that.
+
+To get the sequencing guaranteed you should pull VP and VD_FILT out of
+the bulk enable and do individual enables for them.
+
+--RZ6HkpV1NsoM41ux
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFpmCAACgkQJNaLcl1U
+h9CEHAf+KR9IRwQTLAgF/4BGe7x+ICDnwwxyPG6OAI0gYOK3VLGyJdTrAl6pyCmC
+d9/V8fKK5GbXumortiyIEqsnUOkFFyjHpFwyoXDUSA8GR0En5BYLcEAf3jo/WZcx
+fIcm5LDQkB2ahkWs2p45x0D77i24pzABdYQXp9HjEqH3Rhkmeh5Uu93hkKn6MPQN
+X5Y8aXsHrMdnz6dEAlGtd+0+jmHAu5PYPNalRB6gM0XXCoc+2SEpE1sSanCFlbH3
+0LnX2g4iT2yp3r+ABpzWseK5GV4Xvg3C+e3REgOD29pwsoPCzinwhLU/xptbeqeI
+Mf8m8gP0yqixU1d5+uz0w4VdcnDZSw==
+=Z1lk
+-----END PGP SIGNATURE-----
+
+--RZ6HkpV1NsoM41ux--

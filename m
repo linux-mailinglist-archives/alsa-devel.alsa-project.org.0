@@ -2,66 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2541642FCB9
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 22:02:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5B2142FD3B
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 23:09:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2ED0189B;
-	Fri, 15 Oct 2021 22:01:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2ED0189B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F7FC188A;
+	Fri, 15 Oct 2021 23:08:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F7FC188A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634328149;
-	bh=pzG+7BS+K54QEiWjZ2CH60uySn5F1kHHrisHseM+WBI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=NAdR3/4nyRizHaEhQHZGBwj2k6eoFeVFCizc2uELSdOgqFUJ7dHrInB6TV79+ljDK
-	 Ulnc3CK13WGDhfJRdbVas0TEQOLgQ8xtdphBUcSxGk07tqFeAbZVkXvF+lIYfVbL1h
-	 Ys2WOfO8k3cXlx3mv+F/8H/UwazJtMG1oVVAT69M=
+	s=default; t=1634332147;
+	bh=3PItBST+wRhs6VIWpKDIPxs6pcHFO4VUA/P3BYQ+Mzo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=oQWKnxveM3FspVlAvie1K4YQOu5iJUQeMXtpIvMI3V3b5fryfRuPEcfbrOVmV2gio
+	 rvQ0E+JRkRjTIp2adeCIShKyBWyQLM80RlBR9PJaZho0/pZjRDPGwdwuvDSWcva5O+
+	 dj10fCOdfHadJ09+t35hm4yP4NStt93ajww3G0Qo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD43CF804FF;
-	Fri, 15 Oct 2021 22:00:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6968F8028D;
+	Fri, 15 Oct 2021 23:07:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4639CF804FA; Fri, 15 Oct 2021 21:59:58 +0200 (CEST)
+ id 86326F80269; Fri, 15 Oct 2021 23:07:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 39A82F8028D
- for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 21:59:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39A82F8028D
-X-IronPort-AV: E=McAfee;i="6200,9189,10138"; a="228257933"
-X-IronPort-AV: E=Sophos;i="5.85,376,1624345200"; d="scan'208";a="228257933"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2021 12:59:43 -0700
-X-IronPort-AV: E=Sophos;i="5.85,376,1624345200"; d="scan'208";a="593081854"
-Received: from ssureshc-mobl1.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.209.190.93])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2021 12:59:42 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v3 3/4] ASOC: SOF: pcm: add .ack callback support
-Date: Fri, 15 Oct 2021 14:59:31 -0500
-Message-Id: <20211015195932.224925-4-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211015195932.224925-1-pierre-louis.bossart@linux.intel.com>
-References: <20211015195932.224925-1-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 14CA7F8016C
+ for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 23:07:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14CA7F8016C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="eYZpMby4"
+Received: by mail-lf1-x12c.google.com with SMTP id t9so46020160lfd.1
+ for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 14:07:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=bC5/do6YaE4lPDo0l97sBVrMnwWkBfvui2f3ar33Hc4=;
+ b=eYZpMby4iGA+yh0NGF+8l+PJgizeDoLcmjeHyV4wtpwUUMvIQ3AXzmd7sgsMKFaAEZ
+ HGwEWFsnA97BC5nK+vWjNWmsqMZ1Im1rXEY1pB+nOsZ6WjOO8J5sIu6bld0z5TfTDJp4
+ nW8LdiaYhaDDgRW3w1oYL3q+CgM6oBiybdB+JAvQLP5CDM1kzoLNiqOdZ5+q9aUqW5Fh
+ LjA+irP2bBP9CUjvT5nVex/k8Ng3w7CGm6lIea3dkjWeVYyIajfpVaz4erDghnSWB9QH
+ 1MWXfqPPPWTdbi+W92psmMlulWP2oV2+G6KaHPsRCyKzXxGhzPE7WaF0VB4CIkc9zhv7
+ 9yUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=bC5/do6YaE4lPDo0l97sBVrMnwWkBfvui2f3ar33Hc4=;
+ b=qeYzGjPiqbnvpNEIK9NriVK3oVBg2qT9sY4/QkD8eiCvUgJd1oBSHRGKeMzN0jnpN7
+ f+MVZEbqKfXvbEcJ108m4+SIro53htgCq+Kj06duemMQLJkMnWfNNk6s9fzsXTUffyYd
+ ba5Q9jRsvzyOSeq7LjHCv0JeDg5KwvSC523SEg+dzuGannANrw1Us3vsUmSaK6ZGCiEh
+ cmJ6WBJD69G8O+OGiVBN9ZlJ5EjAl5IuYT6SQ+tHczw/bHSCFqPe3mOpXka60Do19sWT
+ 8DF+JDiaZNZiljHkjcghNY4Cv+6ApCNLeGwFZApC/8awEtnFFGy5bOh3sRQ+dW0KhJXJ
+ sk0w==
+X-Gm-Message-State: AOAM530Z3tPiK5vFdG1xDkPy7U24CKV1B1rwk5wXjzFx0YNNsn0WiNjH
+ 31A48Wb5nbpUjqkMgYyb9x0=
+X-Google-Smtp-Source: ABdhPJwkecQzQcx4sJp1365mMubW5NhJvbb3QNHQkc1WY9qZz7N2viBUYDjQts57NocZZ1Q8Ya36dg==
+X-Received: by 2002:a2e:bc03:: with SMTP id b3mr15169664ljf.54.1634332063982; 
+ Fri, 15 Oct 2021 14:07:43 -0700 (PDT)
+Received: from localhost.localdomain (84-72-105-84.dclient.hispeed.ch.
+ [84.72.105.84])
+ by smtp.gmail.com with ESMTPSA id a29sm125876ljq.37.2021.10.15.14.07.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 Oct 2021 14:07:43 -0700 (PDT)
+From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Heiko Stuebner <heiko@sntech.de>
+Subject: [PATCH] ASoC: rockchip: i2s-tdm: Fix refcount test
+Date: Fri, 15 Oct 2021 23:07:29 +0200
+Message-Id: <20211015210730.308946-1-frattaroli.nicolas@gmail.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>, tiwai@suse.de,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org,
- =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+Cc: linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,86 +101,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+During development of V5 of the i2s-tdm patch series, I replaced
+the atomic refcount with a regular integer, as it was only ever
+accessed within a spinlock.
 
-Add the indirections required at the core level for platform-specific
-operations on ack.
+Foolishly, I got the semantics of atomic_dec_and_test wrong, which
+resulted in a test for 0 actually becoming a test for >0.
 
-Note that on errors in the .ack the ALSA core will restore the
-previous appl_ptr.
+The result was that setting the audio frequency broke; switching
+from 44100 Hz audio playback to 96000 Hz audio playback would
+garble the sound most unpleasantly.
 
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Fix this by checking for --refcount == 0, which is what it should
+have been all along.
+
+Fixes: 081068fd6414 ("ASoC: rockchip: add support for i2s-tdm controller")
+Signed-off-by: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
 ---
- sound/soc/sof/ops.h      | 10 ++++++++++
- sound/soc/sof/pcm.c      |  9 +++++++++
- sound/soc/sof/sof-priv.h |  3 +++
- 3 files changed, 22 insertions(+)
+ sound/soc/rockchip/rockchip_i2s_tdm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/ops.h b/sound/soc/sof/ops.h
-index 09bf38fdfb8a..8c58741176a0 100644
---- a/sound/soc/sof/ops.h
-+++ b/sound/soc/sof/ops.h
-@@ -454,6 +454,16 @@ snd_sof_pcm_platform_pointer(struct snd_sof_dev *sdev,
- 	return 0;
- }
+diff --git a/sound/soc/rockchip/rockchip_i2s_tdm.c b/sound/soc/rockchip/rockchip_i2s_tdm.c
+index 396277eaa417..5d3abbada72a 100644
+--- a/sound/soc/rockchip/rockchip_i2s_tdm.c
++++ b/sound/soc/rockchip/rockchip_i2s_tdm.c
+@@ -408,7 +408,7 @@ static void rockchip_snd_txrxctrl(struct snd_pcm_substream *substream,
+ 		else
+ 			rockchip_disable_rde(i2s_tdm->regmap);
  
-+/* pcm ack */
-+static inline int snd_sof_pcm_platform_ack(struct snd_sof_dev *sdev,
-+					   struct snd_pcm_substream *substream)
-+{
-+	if (sof_ops(sdev) && sof_ops(sdev)->pcm_ack)
-+		return sof_ops(sdev)->pcm_ack(sdev, substream);
-+
-+	return 0;
-+}
-+
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_PROBES)
- static inline int
- snd_sof_probe_compr_assign(struct snd_sof_dev *sdev,
-diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
-index fa0bfcd2474e..cde3f65c4378 100644
---- a/sound/soc/sof/pcm.c
-+++ b/sound/soc/sof/pcm.c
-@@ -869,6 +869,14 @@ static void sof_pcm_remove(struct snd_soc_component *component)
- 	snd_soc_tplg_component_remove(component);
- }
- 
-+static int sof_pcm_ack(struct snd_soc_component *component,
-+		       struct snd_pcm_substream *substream)
-+{
-+	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(component);
-+
-+	return snd_sof_pcm_platform_ack(sdev, substream);
-+}
-+
- void snd_sof_new_platform_drv(struct snd_sof_dev *sdev)
- {
- 	struct snd_soc_component_driver *pd = &sdev->plat_drv;
-@@ -887,6 +895,7 @@ void snd_sof_new_platform_drv(struct snd_sof_dev *sdev)
- 	pd->hw_free = sof_pcm_hw_free;
- 	pd->trigger = sof_pcm_trigger;
- 	pd->pointer = sof_pcm_pointer;
-+	pd->ack = sof_pcm_ack;
- 
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_PROBES)
- 	pd->compress_ops = &sof_probe_compressed_ops;
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index efaec2989a27..11f26ef6f447 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -206,6 +206,9 @@ struct snd_sof_dsp_ops {
- 	snd_pcm_uframes_t (*pcm_pointer)(struct snd_sof_dev *sdev,
- 					 struct snd_pcm_substream *substream); /* optional */
- 
-+	/* pcm ack */
-+	int (*pcm_ack)(struct snd_sof_dev *sdev, struct snd_pcm_substream *substream); /* optional */
-+
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_PROBES)
- 	/* Except for probe_pointer, all probe ops are mandatory */
- 	int (*probe_assign)(struct snd_sof_dev *sdev,
+-		if (--i2s_tdm->refcount) {
++		if (--i2s_tdm->refcount == 0) {
+ 			rockchip_snd_xfer_clear(i2s_tdm,
+ 						I2S_CLR_TXC | I2S_CLR_RXC);
+ 		}
 -- 
-2.25.1
+2.33.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D77CB42FB34
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 20:43:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A98642FC5C
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 21:43:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 54C3A186E;
-	Fri, 15 Oct 2021 20:42:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54C3A186E
+	by alsa0.perex.cz (Postfix) with ESMTPS id CCA08187D;
+	Fri, 15 Oct 2021 21:42:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCA08187D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634323393;
-	bh=aEKLubok9WP8Kvw2B/IwvLb541cDY1RnNAAwJyp/RBA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1634327015;
+	bh=NX0GHNqpx89R98YUTjMD/yK9Gvdhvc7bZbMidk8XqzU=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cnD4plKP0TrZ32BhDls3F48ye8c5yWviW5YVlJwmIsE+tGHNgeJKiy/UOBKT3hH12
-	 tYHlkzUiVouGWrD9sOOc7pBq86aqFAoLJwo+MMDVh43DG4+7eWuI+aTxjDaUkcCUo5
-	 iA0kDM8YkP4ssL/5oSqLT8gl5HTR5/cfQKv5DNt4=
+	b=VzWN7ndPinM653jhWiz0+MpIs5WOkVegdIEYdvTaGfcvr/wkdZSudBKwA27Nr/Xje
+	 PMSSEMkOQEz0R2N0DokZ8P27QmQyeVLfw92vosrtFV4uGMgoO7yB+PMFnanxMcJ0Qm
+	 g2ABrBWmcfH+fehEphaojQnLJP56mMe1T07gd5GE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF038F8028D;
-	Fri, 15 Oct 2021 20:41:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4EB42F80290;
+	Fri, 15 Oct 2021 21:42:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DE34DF80269; Fri, 15 Oct 2021 20:41:54 +0200 (CEST)
+ id D3BBDF80167; Fri, 15 Oct 2021 21:42:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,45 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C4CC4F8012E
- for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 20:41:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4CC4F8012E
+ by alsa1.perex.cz (Postfix) with ESMTPS id A1AA0F80167
+ for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 21:42:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1AA0F80167
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RyUOTcSa"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id F092C61040
- for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 18:41:45 +0000 (UTC)
+ header.b="ccbpQhws"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 66C4E604DC;
+ Fri, 15 Oct 2021 19:42:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634323306;
- bh=aEKLubok9WP8Kvw2B/IwvLb541cDY1RnNAAwJyp/RBA=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=RyUOTcSa1z3riwlF+IEmHkagSM5pIFWoMFsbjQzmfptXSmH8JDaTT/1kQDO4K+lOF
- Co4EONGKeC0PlQ1UVD31napP4HUN94f1hAYWk/P+EBB62gICEX+Q99JQwg9f0r/szK
- GAgk3aS0p+sYph8j3RA/qHKbBgLEKhD2vcUq+tFIT92uTeDuxToSPB0XKbn92qcs7N
- gl828pRwWGwsCt66gVtO1wEkVVLPA+eNmARZnPRz1iQyH/T208ZXS1gTcvs3+AdfNs
- kjuBhEvuNVIH4G2+iTl9lW1F4offNRZw9+nUJToSI11MD2leP10IzMAZygQjCDdJSV
- cdOx0v1yniL8w==
-Received: by mail-ed1-f50.google.com with SMTP id w14so41403235edv.11
- for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 11:41:45 -0700 (PDT)
-X-Gm-Message-State: AOAM533RcWlRkI1f6HLwlynsIe26KNgQ4uzAcUY2BSj1iuArZvyvaz65
- VCqr0+Gol8bNdIvEBxE/4I6MvMc34l+AZHZ1Jw==
-X-Google-Smtp-Source: ABdhPJwaqxAWAw4QXbVNEgxrT5eu76RFWee4sWI7cAEgtvrVHWO6fv6Y7OyylOlsgbi6p5tBxF+CGowe13/DkuR/NEU=
-X-Received: by 2002:a17:906:e089:: with SMTP id
- gh9mr8867117ejb.320.1634323304320; 
- Fri, 15 Oct 2021 11:41:44 -0700 (PDT)
+ s=k20201202; t=1634326927;
+ bh=NX0GHNqpx89R98YUTjMD/yK9Gvdhvc7bZbMidk8XqzU=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=ccbpQhwsCdMffps9yp/QMCKv7eaGoytpQpKBbh1ZBUEmQbhJ9kpzkaN7o9ibLXQbm
+ j3KPARXZqvQ1QQXuxZ9Yt54bEwTY5+VTdeCUay7FKjtrQVK7DO+cswYrQ6JlaSup4w
+ dw7ppS5Cw2CnhvVhckdXxOh9nvtEW09M04+3Yf5NRXxmIh7jUpJOo5Da+0NwmvPpMw
+ WZiFsg1wYCAi/dtId3bRF8Net977kkAhNam67HsnoSsSQtYGAT80tzFJOXhoGUiadq
+ 5dJQAnH3roYe8BuXjFSCTc+GBlihyPcifArvRQeMli32Z4euwUnlZL0DZG+8zDa7Mw
+ yaRKDOXV2B0/w==
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH] ASoC: soc-component: improve error reporting for register
+ access
+Date: Fri, 15 Oct 2021 20:41:59 +0100
+Message-Id: <163432688461.1314975.13635332088074397801.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20211014161330.26645-1-srinivas.kandagatla@linaro.org>
+References: <20211014161330.26645-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
-References: <20210914091204.2204278-1-tzungbi@google.com>
-In-Reply-To: <20210914091204.2204278-1-tzungbi@google.com>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Fri, 15 Oct 2021 13:41:33 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqL7QbCJrqLZtRX9eNJC39kJWwbva2ZQeD+Azb+pKHzJ=Q@mail.gmail.com>
-Message-ID: <CAL_JsqL7QbCJrqLZtRX9eNJC39kJWwbva2ZQeD+Azb+pKHzJ=Q@mail.gmail.com>
-Subject: Re: [PATCH v3] ASoC: dt-bindings: mediatek: mt8192: re-add audio afe
- document
-To: Tzung-Bi Shih <tzungbi@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,25 +80,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Sep 14, 2021 at 4:12 AM Tzung-Bi Shih <tzungbi@google.com> wrote:
->
-> The document was merged as commit 1afc60e00de3 ("dt-bindings:
-> mediatek: mt8192: add audio afe document").
->
-> However, [1] revealed that the commit 1afc60e00de3 breaks
-> dt_binding_check due to dt-bindings/clock/mt8192-clk.h doesn't
-> exist.
->
-> As a temporary fix, commit 7d94ca3c8acd ("ASoC: mt8192: revert
-> add audio afe document") reverted commit 1afc60e00de3.
->
-> dt-bindings/clock/mt8192-clk.h is in mainline per commit
-> f35f1a23e0e1 ("clk: mediatek: Add dt-bindings of MT8192 clocks").
-> Re-adds the document back.
+On Thu, 14 Oct 2021 17:13:30 +0100, Srinivas Kandagatla wrote:
+> Currently errors on register read/write/update are reported with
+> an error code and the corresponding function but does not provide
+> any details on the which register number did it actually fail.
+> 
+> register number can give better clue and it should be easy to
+> locate the code and fix.
+> 
+> [...]
 
-Sigh. What's the status of
-dt-bindings/reset-controller/mt8192-resets.h? Because now this is
-applied again and has an error in linux-next since the header is
-missing.
+Applied to
 
-Rob
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: soc-component: improve error reporting for register access
+      commit: b296997cf539976c62f81cdd367924809fdcc14e
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

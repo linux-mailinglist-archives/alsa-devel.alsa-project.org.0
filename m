@@ -2,67 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A84642F6AB
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 17:09:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF49842F716
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 17:39:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D368F1771;
-	Fri, 15 Oct 2021 17:08:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D368F1771
+	by alsa0.perex.cz (Postfix) with ESMTPS id 456EC180F;
+	Fri, 15 Oct 2021 17:39:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 456EC180F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634310566;
-	bh=BQGxTeQeJN5SKV/yCyuaoBFDCTsTlegZ5xmCXEx60Mo=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1634312398;
+	bh=xi50qSzEZz5/rxEinYMGzefdqfGjeHm33Gi9L85wcY0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YC9gel86++OfrBs64p7Cmi0gok3SqS5VC57bPcHIysfbyv+xBV9pokEYtqO1Cs9OD
-	 wj5bK4yfEWh9WCBlhb2Jl5UjYHewrpxd9QHglQXXZuuMrd55yUh7ZHJDIJjwpgaeGR
-	 OC4QFJ70+R3pWH/uZQ02Z7tkkJhAscWshF0+GSqM=
+	b=mP0XdulO8F28LLS+hsQskJEOsbHD7N93bqblD+MKS6dmJOu9KKYqX3kmEkGGwl4xt
+	 OmyhHHlKlUzKNfMqNnq8ToZx5nmdiFNtkYlpzT52mjrLz51lxquWuyq77taXRb3enJ
+	 eb4sWmhAv1EZW6oQ+kE8JfIkF5PWONhfcrr8zsUQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 51200F8028D;
-	Fri, 15 Oct 2021 17:08:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2245F8012E;
+	Fri, 15 Oct 2021 17:38:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D984BF80269; Fri, 15 Oct 2021 17:08:07 +0200 (CEST)
+ id 07350F80269; Fri, 15 Oct 2021 17:38:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: **
+X-Spam-Status: No, score=2.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_APP_ATTACH,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 420F4F8016C
- for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 17:08:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 420F4F8016C
-X-IronPort-AV: E=McAfee;i="6200,9189,10138"; a="228209247"
-X-IronPort-AV: E=Sophos;i="5.85,376,1624345200"; d="scan'208";a="228209247"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2021 08:07:57 -0700
-X-IronPort-AV: E=Sophos;i="5.85,376,1624345200"; d="scan'208";a="492593233"
-Received: from liminghu-mobl.ccr.corp.intel.com (HELO [10.212.23.213])
- ([10.212.23.213])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2021 08:07:56 -0700
-Subject: Re: [PATCH] ASoC: Intel: sof_sdw: Initialize the sof_sdw_quirk with
- RT711_JD_NULL
-To: Chris Chiu <chris.chiu@canonical.com>, cezary.rojewski@intel.com,
- liam.r.girdwood@linux.intel.com, yang.jie@linux.intel.com,
- broonie@kernel.org, tiwai@suse.com
-References: <20211015133424.494463-1-chris.chiu@canonical.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <c40282f6-cb8f-22ca-4a57-26fcbc39f423@linux.intel.com>
-Date: Fri, 15 Oct 2021 10:07:53 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <20211015133424.494463-1-chris.chiu@canonical.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0B9BF80167
+ for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 17:38:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0B9BF80167
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="THaCLE40"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="FeRYaDnj"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 4A89A1FD4F;
+ Fri, 15 Oct 2021 15:38:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1634312313; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=/9WQ8B4/o5tFyav70J3X/ZO2O4BbmhBCOqXZ2WKQzk8=;
+ b=THaCLE40y3cRdiRK/5rPqE3wPg4JLJF/BB7uD28KC/BAiluAaJ7/0ULikT/A5x+Wlndzbo
+ Zu5O/6GuWGvpTh0x/URsVJYy+RBNOR96678XTZLxV3AXeoZu04lBVEHTQFnQSi+kFAz0Nt
+ 8GeOVEEtLpRmUp5s56I/7kIqFh4IZ64=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1634312313;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=/9WQ8B4/o5tFyav70J3X/ZO2O4BbmhBCOqXZ2WKQzk8=;
+ b=FeRYaDnj40kxZKFdJsEbxRK+iEC6WtW3RzHBPqyHuBN/FplbFhdg4OInQFAGrBFdN3TgBH
+ 4ciN+Npx+Hy5J6BA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 9570BA3B88;
+ Fri, 15 Oct 2021 15:38:32 +0000 (UTC)
+Date: Fri, 15 Oct 2021 17:38:32 +0200
+Message-ID: <s5h1r4muwlj.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [RFC PATCH v3 05/13] ASoC: soc-pcm: align BE 'atomicity' with
+ that of the FE
+In-Reply-To: <e2a79095-b8ce-9dd4-3e6d-00f8dda99f30@linux.intel.com>
+References: <20211013143050.244444-1-pierre-louis.bossart@linux.intel.com>
+ <20211013143050.244444-6-pierre-louis.bossart@linux.intel.com>
+ <2847a6d1-d97f-4161-c8b6-03672cf6645c@nvidia.com>
+ <s5hmtnavisi.wl-tiwai@suse.de>
+ <e2a79095-b8ce-9dd4-3e6d-00f8dda99f30@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: multipart/mixed; boundary="Multipart_Fri_Oct_15_17:38:32_2021-1"
+Cc: alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ open list <linux-kernel@vger.kernel.org>, Sameer Pujar <spujar@nvidia.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ vkoul@kernel.org, broonie@kernel.org, Gyeongtaek Lee <gt82.lee@samsung.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,40 +102,1065 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+--Multipart_Fri_Oct_15_17:38:32_2021-1
+Content-Type: text/plain; charset=US-ASCII
 
-
-On 10/15/21 8:34 AM, Chris Chiu wrote:
-> The jd_src of RT711 which is initialized in rt711/rt711_sdca_init
-> will be overridden by rt711/rt711_sdca_add_codec_device_props when
-> the sof_sdw_quirk is not RT711_JD_NULL. It will force the JD mode
-> to RT711_JD1 and cause confusion while debugging the JD mode of
-> the boards without quirk. Initialize sof_sdw_quirk with RT711_JD_NULL
-> to honor the jd_src value in rt711/rt711_sdca init.
-
-Not able to follow what the "confusion while debugging the JD mode of
-the boards without quirk" is. You need a DMI quirk or need to override
-the default quirk with the kernel module parameter.
-
-This also has the side effect of breaking ALL existing DMI quirks
-implicitly using JD1...
-
-
-> Signed-off-by: Chris Chiu <chris.chiu@canonical.com>
-> ---
->  sound/soc/intel/boards/sof_sdw.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+On Fri, 15 Oct 2021 13:22:50 +0200,
+Pierre-Louis Bossart wrote:
 > 
-> diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-> index 6b06248a9327..d05c0565e09c 100644
-> --- a/sound/soc/intel/boards/sof_sdw.c
-> +++ b/sound/soc/intel/boards/sof_sdw.c
-> @@ -15,7 +15,7 @@
->  #include "sof_sdw_common.h"
->  #include "../../codecs/rt711.h"
->  
-> -unsigned long sof_sdw_quirk = RT711_JD1;
-> +unsigned long sof_sdw_quirk = RT711_JD_NULL;
->  static int quirk_override = -1;
->  module_param_named(quirk, quirk_override, int, 0444);
->  MODULE_PARM_DESC(quirk, "Board-specific quirk override");
+> >> At this point it does not cause serious problems, but with subsequent
+> >> patches (especially when patch 7/13 is picked) I see failures. Please
+> >> refer to patch 7/13 thread for more details.
+> >>
+> >>
+> >> I am wondering if it is possible to only use locks internally for DPCM
+> >> state management and decouple BE callbacks from this, like normal PCMs
+> >> do?
+> > 
+> > Actually the patch looks like an overkill by adding the FE stream lock
+> > at every loop, and this caused the problem, AFAIU.
+> > 
+> > Basically we need to protect the link addition / deletion while the
+> > list traversal (there is a need for protection of BE vs BE access
+> > race, but that's a different code path).  For the normal cases, it
+> > seems already protected by card->pcm_mutex, but the problem is the FE
+> > trigger case.  It was attempted by dpcm_lock, but that failed because
+> > it couldn't be applied properly there.
+> > 
+> > That said, what we'd need is only:
+> > - Drop dpcm_lock codes once
 > 
+> I am not able to follow this sentence, what did you mean here?
+
+Just remove all dpcm_lock usages one to replace with a new one.
+
+> > - Put FE stream lock around dpcm_be_connect() and dpcm_be_disconnect()
+> > 
+> > That should suffice for the race at trigger.  The FE stream lock is
+> > already taken at trigger callback, and the rest list addition /
+> > deletion are called from different code paths without stream locks, so
+> > the explicit FE stream lock is needed there.
+> 
+> I am not able to follow what you meant after "the rest". This sentence
+> mentions the FE stream lock in two places, but the second is not clear
+> to me.
+
+The FE stream locks are necessary only two points: at adding and
+deleting the BE in the link.  We used dpcm_lock in other places, but
+those are superfluous or would make problem if converted to a FE
+stream lock.
+
+> > In addition, a lock around dpcm_show_state() might be needed to be
+> > replaced with card->pcm_mutex, and we may need to revisit whether all
+> > other paths take card->pcm_mutex.
+> 
+> What happens if we show the state while a trigger happens? That's my
+> main concern with using two separate locks (pcm_mutex and FE stream
+> lock) to protect the same list, there are still windows of time where
+> the list is not protected.
+
+With the proper use of mutex, the list itself is protected.
+If we need to protect the concurrent access to each BE in the show
+method, an additional BE lock is needed in that part.  But that's a
+subtle issue, as the link traversal itself is protected by the mutex.
+
+> same with the use of for_each_dpcm_be() in soc-compress, SH and FSL
+> drivers, there's no other mutex there.
+> 
+> My approach might have been overkill in some places, but it's comprehensive.
+> 
+> 
+> > Also, BE-vs-BE race can be protected by taking a BE lock inside
+> > dpcm_be_dai_trigger().
+> 
+> that's what I did, no?
+
+Right.
+
+So what I wrote is like the patches below.  Those three should be
+applicable on top of the latest Linus tree.  It's merely a PoC, and it
+doesn't take the compress-offload usage into account at all, but this
+should illustrate my idea.
+
+
+Takashi
+
+
+--Multipart_Fri_Oct_15_17:38:32_2021-1
+Content-Type: application/octet-stream; type=patch
+Content-Disposition: attachment; filename="0001-ASoC-soc-pcm-align-BE-atomicity-with-that-of-the-FE.patch"
+Content-Transfer-Encoding: 7bit
+
+From f2c1fb7835e881650dbf24781a29844cf0c0c2b9 Mon Sep 17 00:00:00 2001
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Date: Wed, 13 Oct 2021 09:30:42 -0500
+Subject: [PATCH 1/3] ASoC: soc-pcm: align BE 'atomicity' with that of the FE
+
+Since the flow for DPCM is based on taking a lock for the FE first, we
+need to make sure during the connection between a BE and an FE that
+they both use the same 'atomicity', otherwise we may sleep in atomic
+context.
+
+If the FE is nonatomic, this patch forces the BE to be nonatomic as
+well. That should have no negative impact since the BE 'inherits' the
+FE properties.
+
+However, if the FE is atomic and the BE is not, then the configuration
+is flagged as invalid.
+
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+[ removed FE stream lock by tiwai ]
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/soc/soc-pcm.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 48f71bb81a2f..d4a711c09eb5 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -1128,6 +1128,8 @@ static snd_pcm_uframes_t soc_pcm_pointer(struct snd_pcm_substream *substream)
+ static int dpcm_be_connect(struct snd_soc_pcm_runtime *fe,
+ 		struct snd_soc_pcm_runtime *be, int stream)
+ {
++	struct snd_pcm_substream *fe_substream;
++	struct snd_pcm_substream *be_substream;
+ 	struct snd_soc_dpcm *dpcm;
+ 	unsigned long flags;
+ 
+@@ -1137,6 +1139,20 @@ static int dpcm_be_connect(struct snd_soc_pcm_runtime *fe,
+ 			return 0;
+ 	}
+ 
++	fe_substream = snd_soc_dpcm_get_substream(fe, stream);
++	be_substream = snd_soc_dpcm_get_substream(be, stream);
++
++	if (!fe_substream->pcm->nonatomic && be_substream->pcm->nonatomic) {
++		dev_err(be->dev, "%s: FE is atomic but BE is nonatomic, invalid configuration\n",
++			__func__);
++		return -EINVAL;
++	}
++	if (fe_substream->pcm->nonatomic && !be_substream->pcm->nonatomic) {
++		dev_warn(be->dev, "%s: FE is nonatomic but BE is not, forcing BE as nonatomic\n",
++			 __func__);
++		be_substream->pcm->nonatomic = 1;
++	}
++
+ 	dpcm = kzalloc(sizeof(struct snd_soc_dpcm), GFP_KERNEL);
+ 	if (!dpcm)
+ 		return -ENOMEM;
+-- 
+2.31.1
+
+
+--Multipart_Fri_Oct_15_17:38:32_2021-1
+Content-Type: application/octet-stream; type=patch
+Content-Disposition: attachment; filename="0002-ASoC-DPCM-Fix-and-cleanup-PCM-locking.patch"
+Content-Transfer-Encoding: 7bit
+
+From 1ca313d8b98a844540d97b4605cbe05917961182 Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Fri, 15 Oct 2021 17:11:10 +0200
+Subject: [PATCH 2/3] ASoC: DPCM: Fix and cleanup PCM locking
+
+Use card->pcm_mutex consistently instead of mixture of card->mutex and
+card->pcm_mutex.  This is used for protecting the BE link in each FE.
+
+Replace the half-baked dpcm_lock spinlock with the PCM stream lock of
+each FE for protecting the BE link in addition to the pcm_mutex
+above for avoiding the race in FE trigger.  The additional FE stream
+locks are taken only at adding and deleting the BE link entries.
+
+The pcm_mutex is applied always on either the top PCM callbacks or the
+external call from DAPM, not taken in the internal functions.
+
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ include/sound/soc.h  |   2 -
+ sound/soc/soc-core.c |   1 -
+ sound/soc/soc-pcm.c  | 229 ++++++++++++++++++++++++++++---------------
+ 3 files changed, 152 insertions(+), 80 deletions(-)
+
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index 8e6dd8a257c5..5872a8864f3b 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -893,8 +893,6 @@ struct snd_soc_card {
+ 	struct mutex pcm_mutex;
+ 	enum snd_soc_pcm_subclass pcm_subclass;
+ 
+-	spinlock_t dpcm_lock;
+-
+ 	int (*probe)(struct snd_soc_card *card);
+ 	int (*late_probe)(struct snd_soc_card *card);
+ 	int (*remove)(struct snd_soc_card *card);
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index c830e96afba2..51ef9917ca98 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -2339,7 +2339,6 @@ int snd_soc_register_card(struct snd_soc_card *card)
+ 	mutex_init(&card->mutex);
+ 	mutex_init(&card->dapm_mutex);
+ 	mutex_init(&card->pcm_mutex);
+-	spin_lock_init(&card->dpcm_lock);
+ 
+ 	return snd_soc_bind_card(card);
+ }
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index d4a711c09eb5..5bd4f953359a 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -27,6 +27,31 @@
+ #include <sound/soc-link.h>
+ #include <sound/initval.h>
+ 
++static inline void snd_soc_dpcm_mutex_lock(struct snd_soc_pcm_runtime *rtd)
++{
++	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
++}
++
++static inline void snd_soc_dpcm_mutex_unlock(struct snd_soc_pcm_runtime *rtd)
++{
++	mutex_unlock(&rtd->card->pcm_mutex);
++}
++
++#define snd_soc_dpcm_mutex_assert_held(rtd) \
++	lockdep_assert_held(&(rtd)->card->pcm_mutex)
++
++static inline void snd_soc_dpcm_stream_lock_irq(struct snd_soc_pcm_runtime *rtd,
++						int stream)
++{
++	snd_pcm_stream_lock_irq(snd_soc_dpcm_get_substream(rtd, stream));
++}
++
++static inline void snd_soc_dpcm_stream_unlock_irq(struct snd_soc_pcm_runtime *rtd,
++						  int stream)
++{
++	snd_pcm_stream_unlock_irq(snd_soc_dpcm_get_substream(rtd, stream));
++}
++
+ #define DPCM_MAX_BE_USERS	8
+ 
+ static inline const char *soc_cpu_dai_name(struct snd_soc_pcm_runtime *rtd)
+@@ -73,7 +98,6 @@ static ssize_t dpcm_show_state(struct snd_soc_pcm_runtime *fe,
+ 	struct snd_pcm_hw_params *params = &fe->dpcm[stream].hw_params;
+ 	struct snd_soc_dpcm *dpcm;
+ 	ssize_t offset = 0;
+-	unsigned long flags;
+ 
+ 	/* FE state */
+ 	offset += scnprintf(buf + offset, size - offset,
+@@ -101,7 +125,6 @@ static ssize_t dpcm_show_state(struct snd_soc_pcm_runtime *fe,
+ 		goto out;
+ 	}
+ 
+-	spin_lock_irqsave(&fe->card->dpcm_lock, flags);
+ 	for_each_dpcm_be(fe, stream, dpcm) {
+ 		struct snd_soc_pcm_runtime *be = dpcm->be;
+ 		params = &dpcm->hw_params;
+@@ -122,7 +145,6 @@ static ssize_t dpcm_show_state(struct snd_soc_pcm_runtime *fe,
+ 					   params_channels(params),
+ 					   params_rate(params));
+ 	}
+-	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ out:
+ 	return offset;
+ }
+@@ -145,11 +167,13 @@ static ssize_t dpcm_state_read_file(struct file *file, char __user *user_buf,
+ 	if (!buf)
+ 		return -ENOMEM;
+ 
++	snd_soc_dpcm_mutex_lock(fe);
+ 	for_each_pcm_streams(stream)
+ 		if (snd_soc_dai_stream_valid(asoc_rtd_to_cpu(fe, 0), stream))
+ 			offset += dpcm_show_state(fe, stream,
+ 						  buf + offset,
+ 						  out_count - offset);
++	snd_soc_dpcm_mutex_unlock(fe);
+ 
+ 	ret = simple_read_from_buffer(user_buf, count, ppos, buf, offset);
+ 
+@@ -221,14 +245,14 @@ static void dpcm_set_fe_update_state(struct snd_soc_pcm_runtime *fe,
+ 	struct snd_pcm_substream *substream =
+ 		snd_soc_dpcm_get_substream(fe, stream);
+ 
+-	snd_pcm_stream_lock_irq(substream);
++	snd_soc_dpcm_stream_lock_irq(fe, stream);
+ 	if (state == SND_SOC_DPCM_UPDATE_NO && fe->dpcm[stream].trigger_pending) {
+ 		dpcm_fe_dai_do_trigger(substream,
+ 				       fe->dpcm[stream].trigger_pending - 1);
+ 		fe->dpcm[stream].trigger_pending = 0;
+ 	}
+ 	fe->dpcm[stream].runtime_update = state;
+-	snd_pcm_stream_unlock_irq(substream);
++	snd_soc_dpcm_stream_unlock_irq(fe, stream);
+ }
+ 
+ static void dpcm_set_be_update_state(struct snd_soc_pcm_runtime *be,
+@@ -256,7 +280,7 @@ void snd_soc_runtime_action(struct snd_soc_pcm_runtime *rtd,
+ 	struct snd_soc_dai *dai;
+ 	int i;
+ 
+-	lockdep_assert_held(&rtd->card->pcm_mutex);
++	snd_soc_dpcm_mutex_assert_held(rtd);
+ 
+ 	for_each_rtd_dais(rtd, i, dai)
+ 		snd_soc_dai_action(dai, stream, action);
+@@ -309,6 +333,8 @@ int dpcm_dapm_stream_event(struct snd_soc_pcm_runtime *fe, int dir,
+ {
+ 	struct snd_soc_dpcm *dpcm;
+ 
++	snd_soc_dpcm_mutex_assert_held(fe);
++
+ 	for_each_dpcm_be(fe, dir, dpcm) {
+ 
+ 		struct snd_soc_pcm_runtime *be = dpcm->be;
+@@ -646,14 +672,14 @@ static int soc_pcm_components_close(struct snd_pcm_substream *substream,
+ 	return ret;
+ }
+ 
+-static int soc_pcm_clean(struct snd_pcm_substream *substream, int rollback)
++static int soc_pcm_clean(struct snd_soc_pcm_runtime *rtd,
++			 struct snd_pcm_substream *substream, int rollback)
+ {
+-	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_component *component;
+ 	struct snd_soc_dai *dai;
+ 	int i;
+ 
+-	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
++	snd_soc_dpcm_mutex_assert_held(rtd);
+ 
+ 	if (!rollback)
+ 		snd_soc_runtime_deactivate(rtd, substream->stream);
+@@ -665,9 +691,6 @@ static int soc_pcm_clean(struct snd_pcm_substream *substream, int rollback)
+ 
+ 	soc_pcm_components_close(substream, rollback);
+ 
+-
+-	mutex_unlock(&rtd->card->pcm_mutex);
+-
+ 	snd_soc_pcm_component_pm_runtime_put(rtd, substream, rollback);
+ 
+ 	for_each_rtd_components(rtd, i, component)
+@@ -682,9 +705,21 @@ static int soc_pcm_clean(struct snd_pcm_substream *substream, int rollback)
+  * freed here. The cpu DAI, codec DAI, machine and components are also
+  * shutdown.
+  */
++static int __soc_pcm_close(struct snd_soc_pcm_runtime *rtd,
++			   struct snd_pcm_substream *substream)
++{
++	return soc_pcm_clean(rtd, substream, 0);
++}
++
++/* PCM close ops for non-DPCM streams */
+ static int soc_pcm_close(struct snd_pcm_substream *substream)
+ {
+-	return soc_pcm_clean(substream, 0);
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
++
++	snd_soc_dpcm_mutex_lock(rtd);
++	soc_pcm_clean(rtd, substream, 0);
++	snd_soc_dpcm_mutex_unlock(rtd);
++	return 0;
+ }
+ 
+ static int soc_hw_sanity_check(struct snd_pcm_substream *substream)
+@@ -730,21 +765,21 @@ static int soc_hw_sanity_check(struct snd_pcm_substream *substream)
+  * then initialized and any private data can be allocated. This also calls
+  * startup for the cpu DAI, component, machine and codec DAI.
+  */
+-static int soc_pcm_open(struct snd_pcm_substream *substream)
++static int __soc_pcm_open(struct snd_soc_pcm_runtime *rtd,
++			  struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_component *component;
+ 	struct snd_soc_dai *dai;
+ 	int i, ret = 0;
+ 
++	snd_soc_dpcm_mutex_assert_held(rtd);
++
+ 	for_each_rtd_components(rtd, i, component)
+ 		pinctrl_pm_select_default_state(component->dev);
+ 
+ 	ret = snd_soc_pcm_component_pm_runtime_get(rtd, substream);
+ 	if (ret < 0)
+-		goto pm_err;
+-
+-	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
++		goto err;
+ 
+ 	ret = soc_pcm_components_open(substream);
+ 	if (ret < 0)
+@@ -791,16 +826,26 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
+ 	snd_soc_runtime_activate(rtd, substream->stream);
+ 	ret = 0;
+ err:
+-	mutex_unlock(&rtd->card->pcm_mutex);
+-pm_err:
+ 	if (ret < 0) {
+-		soc_pcm_clean(substream, 1);
++		soc_pcm_clean(rtd, substream, 1);
+ 		dev_err(rtd->dev, "%s() failed (%d)", __func__, ret);
+ 	}
+ 
+ 	return ret;
+ }
+ 
++/* PCM open ops for non-DPCM streams */
++static int soc_pcm_open(struct snd_pcm_substream *substream)
++{
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
++	int ret;
++
++	snd_soc_dpcm_mutex_lock(rtd);
++	ret = __soc_pcm_open(rtd, substream);
++	snd_soc_dpcm_mutex_unlock(rtd);
++	return ret;
++}
++
+ static void codec2codec_close_delayed_work(struct snd_soc_pcm_runtime *rtd)
+ {
+ 	/*
+@@ -816,13 +861,13 @@ static void codec2codec_close_delayed_work(struct snd_soc_pcm_runtime *rtd)
+  * rate, etc.  This function is non atomic and can be called multiple times,
+  * it can refer to the runtime info.
+  */
+-static int soc_pcm_prepare(struct snd_pcm_substream *substream)
++static int __soc_pcm_prepare(struct snd_soc_pcm_runtime *rtd,
++			     struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *dai;
+ 	int i, ret = 0;
+ 
+-	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
++	snd_soc_dpcm_mutex_assert_held(rtd);
+ 
+ 	ret = snd_soc_link_prepare(substream);
+ 	if (ret < 0)
+@@ -850,14 +895,24 @@ static int soc_pcm_prepare(struct snd_pcm_substream *substream)
+ 		snd_soc_dai_digital_mute(dai, 0, substream->stream);
+ 
+ out:
+-	mutex_unlock(&rtd->card->pcm_mutex);
+-
+ 	if (ret < 0)
+ 		dev_err(rtd->dev, "ASoC: %s() failed (%d)\n", __func__, ret);
+ 
+ 	return ret;
+ }
+ 
++/* PCM prepare ops for non-DPCM streams */
++static int soc_pcm_prepare(struct snd_pcm_substream *substream)
++{
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
++	int ret;
++
++	snd_soc_dpcm_mutex_lock(rtd);
++	ret = __soc_pcm_prepare(rtd, substream);
++	snd_soc_dpcm_mutex_unlock(rtd);
++	return ret;
++}
++
+ static void soc_pcm_codec_params_fixup(struct snd_pcm_hw_params *params,
+ 				       unsigned int mask)
+ {
+@@ -869,13 +924,13 @@ static void soc_pcm_codec_params_fixup(struct snd_pcm_hw_params *params,
+ 	interval->max = channels;
+ }
+ 
+-static int soc_pcm_hw_clean(struct snd_pcm_substream *substream, int rollback)
++static int soc_pcm_hw_clean(struct snd_soc_pcm_runtime *rtd,
++			    struct snd_pcm_substream *substream, int rollback)
+ {
+-	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *dai;
+ 	int i;
+ 
+-	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
++	snd_soc_dpcm_mutex_assert_held(rtd);
+ 
+ 	/* clear the corresponding DAIs parameters when going to be inactive */
+ 	for_each_rtd_dais(rtd, i, dai) {
+@@ -905,16 +960,28 @@ static int soc_pcm_hw_clean(struct snd_pcm_substream *substream, int rollback)
+ 		snd_soc_dai_hw_free(dai, substream, rollback);
+ 	}
+ 
+-	mutex_unlock(&rtd->card->pcm_mutex);
+ 	return 0;
+ }
+ 
+ /*
+  * Frees resources allocated by hw_params, can be called multiple times
+  */
++static int __soc_pcm_hw_free(struct snd_soc_pcm_runtime *rtd,
++			     struct snd_pcm_substream *substream)
++{
++	return soc_pcm_hw_clean(rtd, substream, 0);
++}
++
++/* hw_free PCM ops for non-DPCM streams */
+ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
+ {
+-	return soc_pcm_hw_clean(substream, 0);
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
++	int ret;
++
++	snd_soc_dpcm_mutex_lock(rtd);
++	ret = __soc_pcm_hw_free(rtd, substream);
++	snd_soc_dpcm_mutex_unlock(rtd);
++	return ret;
+ }
+ 
+ /*
+@@ -922,15 +989,15 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
+  * function can also be called multiple times and can allocate buffers
+  * (using snd_pcm_lib_* ). It's non-atomic.
+  */
+-static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
+-				struct snd_pcm_hw_params *params)
++static int __soc_pcm_hw_params(struct snd_soc_pcm_runtime *rtd,
++			       struct snd_pcm_substream *substream,
++			       struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *cpu_dai;
+ 	struct snd_soc_dai *codec_dai;
+ 	int i, ret = 0;
+ 
+-	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
++	snd_soc_dpcm_mutex_assert_held(rtd);
+ 
+ 	ret = soc_pcm_params_symmetry(substream, params);
+ 	if (ret)
+@@ -1002,16 +1069,27 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
+ 
+ 	ret = snd_soc_pcm_component_hw_params(substream, params);
+ out:
+-	mutex_unlock(&rtd->card->pcm_mutex);
+-
+ 	if (ret < 0) {
+-		soc_pcm_hw_clean(substream, 1);
++		soc_pcm_hw_clean(rtd, substream, 1);
+ 		dev_err(rtd->dev, "ASoC: %s() failed (%d)\n", __func__, ret);
+ 	}
+ 
+ 	return ret;
+ }
+ 
++/* hw_params PCM ops for non-DPCM streams */
++static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
++			     struct snd_pcm_hw_params *params)
++{
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
++	int ret;
++
++	snd_soc_dpcm_mutex_lock(rtd);
++	ret = __soc_pcm_hw_params(rtd, substream, params);
++	snd_soc_dpcm_mutex_unlock(rtd);
++	return ret;
++}
++
+ static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+@@ -1131,7 +1209,8 @@ static int dpcm_be_connect(struct snd_soc_pcm_runtime *fe,
+ 	struct snd_pcm_substream *fe_substream;
+ 	struct snd_pcm_substream *be_substream;
+ 	struct snd_soc_dpcm *dpcm;
+-	unsigned long flags;
++
++	snd_soc_dpcm_mutex_assert_held(fe);
+ 
+ 	/* only add new dpcms */
+ 	for_each_dpcm_be(fe, stream, dpcm) {
+@@ -1161,10 +1240,10 @@ static int dpcm_be_connect(struct snd_soc_pcm_runtime *fe,
+ 	dpcm->fe = fe;
+ 	be->dpcm[stream].runtime = fe->dpcm[stream].runtime;
+ 	dpcm->state = SND_SOC_DPCM_LINK_STATE_NEW;
+-	spin_lock_irqsave(&fe->card->dpcm_lock, flags);
++	snd_soc_dpcm_stream_lock_irq(fe, stream);
+ 	list_add(&dpcm->list_be, &fe->dpcm[stream].be_clients);
+ 	list_add(&dpcm->list_fe, &be->dpcm[stream].fe_clients);
+-	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
++	snd_soc_dpcm_stream_unlock_irq(fe, stream);
+ 
+ 	dev_dbg(fe->dev, "connected new DPCM %s path %s %s %s\n",
+ 			stream ? "capture" : "playback",  fe->dai_link->name,
+@@ -1207,8 +1286,10 @@ static void dpcm_be_reparent(struct snd_soc_pcm_runtime *fe,
+ void dpcm_be_disconnect(struct snd_soc_pcm_runtime *fe, int stream)
+ {
+ 	struct snd_soc_dpcm *dpcm, *d;
+-	unsigned long flags;
+ 
++	snd_soc_dpcm_mutex_assert_held(fe);
++
++	snd_soc_dpcm_stream_lock_irq(fe, stream);
+ 	for_each_dpcm_be_safe(fe, stream, dpcm, d) {
+ 		dev_dbg(fe->dev, "ASoC: BE %s disconnect check for %s\n",
+ 				stream ? "capture" : "playback",
+@@ -1226,12 +1307,11 @@ void dpcm_be_disconnect(struct snd_soc_pcm_runtime *fe, int stream)
+ 
+ 		dpcm_remove_debugfs_state(dpcm);
+ 
+-		spin_lock_irqsave(&fe->card->dpcm_lock, flags);
+ 		list_del(&dpcm->list_be);
+ 		list_del(&dpcm->list_fe);
+-		spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 		kfree(dpcm);
+ 	}
++	snd_soc_dpcm_stream_unlock_irq(fe, stream);
+ }
+ 
+ /* get BE for DAI widget and stream */
+@@ -1445,12 +1525,9 @@ int dpcm_process_paths(struct snd_soc_pcm_runtime *fe,
+ void dpcm_clear_pending_state(struct snd_soc_pcm_runtime *fe, int stream)
+ {
+ 	struct snd_soc_dpcm *dpcm;
+-	unsigned long flags;
+ 
+-	spin_lock_irqsave(&fe->card->dpcm_lock, flags);
+ 	for_each_dpcm_be(fe, stream, dpcm)
+ 		dpcm_set_be_update_state(dpcm->be, stream, SND_SOC_DPCM_UPDATE_NO);
+-	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ }
+ 
+ void dpcm_be_dai_stop(struct snd_soc_pcm_runtime *fe, int stream,
+@@ -1486,12 +1563,12 @@ void dpcm_be_dai_stop(struct snd_soc_pcm_runtime *fe, int stream,
+ 				continue;
+ 
+ 			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_HW_FREE) {
+-				soc_pcm_hw_free(be_substream);
++				__soc_pcm_hw_free(be, be_substream);
+ 				be->dpcm[stream].state = SND_SOC_DPCM_STATE_HW_FREE;
+ 			}
+ 		}
+ 
+-		soc_pcm_close(be_substream);
++		__soc_pcm_close(be, be_substream);
+ 		be_substream->runtime = NULL;
+ 		be->dpcm[stream].state = SND_SOC_DPCM_STATE_CLOSE;
+ 	}
+@@ -1539,7 +1616,7 @@ int dpcm_be_dai_startup(struct snd_soc_pcm_runtime *fe, int stream)
+ 			stream ? "capture" : "playback", be->dai_link->name);
+ 
+ 		be_substream->runtime = be->dpcm[stream].runtime;
+-		err = soc_pcm_open(be_substream);
++		err = __soc_pcm_open(be, be_substream);
+ 		if (err < 0) {
+ 			be->dpcm[stream].users--;
+ 			if (be->dpcm[stream].users < 0)
+@@ -1783,7 +1860,7 @@ static int dpcm_fe_dai_startup(struct snd_pcm_substream *fe_substream)
+ 	dev_dbg(fe->dev, "ASoC: open FE %s\n", fe->dai_link->name);
+ 
+ 	/* start the DAI frontend */
+-	ret = soc_pcm_open(fe_substream);
++	ret = __soc_pcm_open(fe, fe_substream);
+ 	if (ret < 0)
+ 		goto unwind;
+ 
+@@ -1814,6 +1891,8 @@ static int dpcm_fe_dai_shutdown(struct snd_pcm_substream *substream)
+ 	struct snd_soc_pcm_runtime *fe = asoc_substream_to_rtd(substream);
+ 	int stream = substream->stream;
+ 
++	snd_soc_dpcm_mutex_assert_held(fe);
++
+ 	dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_FE);
+ 
+ 	/* shutdown the BEs */
+@@ -1822,7 +1901,7 @@ static int dpcm_fe_dai_shutdown(struct snd_pcm_substream *substream)
+ 	dev_dbg(fe->dev, "ASoC: close FE %s\n", fe->dai_link->name);
+ 
+ 	/* now shutdown the frontend */
+-	soc_pcm_close(substream);
++	__soc_pcm_close(fe, substream);
+ 
+ 	/* run the stream stop event */
+ 	dpcm_dapm_stream_event(fe, stream, SND_SOC_DAPM_STREAM_STOP);
+@@ -1867,7 +1946,7 @@ void dpcm_be_dai_hw_free(struct snd_soc_pcm_runtime *fe, int stream)
+ 		dev_dbg(be->dev, "ASoC: hw_free BE %s\n",
+ 			be->dai_link->name);
+ 
+-		soc_pcm_hw_free(be_substream);
++		__soc_pcm_hw_free(be, be_substream);
+ 
+ 		be->dpcm[stream].state = SND_SOC_DPCM_STATE_HW_FREE;
+ 	}
+@@ -1878,13 +1957,13 @@ static int dpcm_fe_dai_hw_free(struct snd_pcm_substream *substream)
+ 	struct snd_soc_pcm_runtime *fe = asoc_substream_to_rtd(substream);
+ 	int stream = substream->stream;
+ 
+-	mutex_lock_nested(&fe->card->mutex, SND_SOC_CARD_CLASS_RUNTIME);
++	snd_soc_dpcm_mutex_lock(fe);
+ 	dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_FE);
+ 
+ 	dev_dbg(fe->dev, "ASoC: hw_free FE %s\n", fe->dai_link->name);
+ 
+ 	/* call hw_free on the frontend */
+-	soc_pcm_hw_free(substream);
++	soc_pcm_hw_clean(fe, substream, 0);
+ 
+ 	/* only hw_params backends that are either sinks or sources
+ 	 * to this frontend DAI */
+@@ -1893,7 +1972,7 @@ static int dpcm_fe_dai_hw_free(struct snd_pcm_substream *substream)
+ 	fe->dpcm[stream].state = SND_SOC_DPCM_STATE_HW_FREE;
+ 	dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_NO);
+ 
+-	mutex_unlock(&fe->card->mutex);
++	snd_soc_dpcm_mutex_unlock(fe);
+ 	return 0;
+ }
+ 
+@@ -1937,7 +2016,7 @@ int dpcm_be_dai_hw_params(struct snd_soc_pcm_runtime *fe, int stream)
+ 		dev_dbg(be->dev, "ASoC: hw_params BE %s\n",
+ 			be->dai_link->name);
+ 
+-		ret = soc_pcm_hw_params(be_substream, &dpcm->hw_params);
++		ret = __soc_pcm_hw_params(be, be_substream, &dpcm->hw_params);
+ 		if (ret < 0)
+ 			goto unwind;
+ 
+@@ -1967,7 +2046,7 @@ int dpcm_be_dai_hw_params(struct snd_soc_pcm_runtime *fe, int stream)
+ 		   (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP))
+ 			continue;
+ 
+-		soc_pcm_hw_free(be_substream);
++		__soc_pcm_hw_free(be, be_substream);
+ 	}
+ 
+ 	return ret;
+@@ -1979,7 +2058,7 @@ static int dpcm_fe_dai_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_soc_pcm_runtime *fe = asoc_substream_to_rtd(substream);
+ 	int ret, stream = substream->stream;
+ 
+-	mutex_lock_nested(&fe->card->mutex, SND_SOC_CARD_CLASS_RUNTIME);
++	snd_soc_dpcm_mutex_lock(fe);
+ 	dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_FE);
+ 
+ 	memcpy(&fe->dpcm[stream].hw_params, params,
+@@ -1993,7 +2072,7 @@ static int dpcm_fe_dai_hw_params(struct snd_pcm_substream *substream,
+ 			params_channels(params), params_format(params));
+ 
+ 	/* call hw_params on the frontend */
+-	ret = soc_pcm_hw_params(substream, params);
++	ret = __soc_pcm_hw_params(fe, substream, params);
+ 	if (ret < 0)
+ 		dpcm_be_dai_hw_free(fe, stream);
+ 	else
+@@ -2001,7 +2080,7 @@ static int dpcm_fe_dai_hw_params(struct snd_pcm_substream *substream,
+ 
+ out:
+ 	dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_NO);
+-	mutex_unlock(&fe->card->mutex);
++	snd_soc_dpcm_mutex_unlock(fe);
+ 
+ 	if (ret < 0)
+ 		dev_err(fe->dev, "ASoC: %s failed (%d)\n", __func__, ret);
+@@ -2272,7 +2351,7 @@ int dpcm_be_dai_prepare(struct snd_soc_pcm_runtime *fe, int stream)
+ 		dev_dbg(be->dev, "ASoC: prepare BE %s\n",
+ 			be->dai_link->name);
+ 
+-		ret = soc_pcm_prepare(be_substream);
++		ret = __soc_pcm_prepare(be, be_substream);
+ 		if (ret < 0)
+ 			break;
+ 
+@@ -2290,7 +2369,7 @@ static int dpcm_fe_dai_prepare(struct snd_pcm_substream *substream)
+ 	struct snd_soc_pcm_runtime *fe = asoc_substream_to_rtd(substream);
+ 	int stream = substream->stream, ret = 0;
+ 
+-	mutex_lock_nested(&fe->card->mutex, SND_SOC_CARD_CLASS_RUNTIME);
++	snd_soc_dpcm_mutex_lock(fe);
+ 
+ 	dev_dbg(fe->dev, "ASoC: prepare FE %s\n", fe->dai_link->name);
+ 
+@@ -2309,7 +2388,7 @@ static int dpcm_fe_dai_prepare(struct snd_pcm_substream *substream)
+ 		goto out;
+ 
+ 	/* call prepare on the frontend */
+-	ret = soc_pcm_prepare(substream);
++	ret = __soc_pcm_prepare(fe, substream);
+ 	if (ret < 0)
+ 		goto out;
+ 
+@@ -2317,7 +2396,7 @@ static int dpcm_fe_dai_prepare(struct snd_pcm_substream *substream)
+ 
+ out:
+ 	dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_NO);
+-	mutex_unlock(&fe->card->mutex);
++	snd_soc_dpcm_mutex_unlock(fe);
+ 
+ 	if (ret < 0)
+ 		dev_err(fe->dev, "ASoC: %s() failed (%d)\n", __func__, ret);
+@@ -2368,7 +2447,6 @@ static int dpcm_run_update_startup(struct snd_soc_pcm_runtime *fe, int stream)
+ 	struct snd_soc_dpcm *dpcm;
+ 	enum snd_soc_dpcm_trigger trigger = fe->dai_link->trigger[stream];
+ 	int ret = 0;
+-	unsigned long flags;
+ 
+ 	dev_dbg(fe->dev, "ASoC: runtime %s open on FE %s\n",
+ 			stream ? "capture" : "playback", fe->dai_link->name);
+@@ -2437,7 +2515,6 @@ static int dpcm_run_update_startup(struct snd_soc_pcm_runtime *fe, int stream)
+ 	dpcm_be_dai_shutdown(fe, stream);
+ disconnect:
+ 	/* disconnect any pending BEs */
+-	spin_lock_irqsave(&fe->card->dpcm_lock, flags);
+ 	for_each_dpcm_be(fe, stream, dpcm) {
+ 		struct snd_soc_pcm_runtime *be = dpcm->be;
+ 
+@@ -2449,7 +2526,6 @@ static int dpcm_run_update_startup(struct snd_soc_pcm_runtime *fe, int stream)
+ 			be->dpcm[stream].state == SND_SOC_DPCM_STATE_NEW)
+ 				dpcm->state = SND_SOC_DPCM_LINK_STATE_FREE;
+ 	}
+-	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 
+ 	if (ret < 0)
+ 		dev_err(fe->dev, "ASoC: %s() failed (%d)\n", __func__, ret);
+@@ -2524,7 +2600,7 @@ int snd_soc_dpcm_runtime_update(struct snd_soc_card *card)
+ 	struct snd_soc_pcm_runtime *fe;
+ 	int ret = 0;
+ 
+-	mutex_lock_nested(&card->mutex, SND_SOC_CARD_CLASS_RUNTIME);
++	mutex_lock_nested(&card->pcm_mutex, card->pcm_subclass);
+ 	/* shutdown all old paths first */
+ 	for_each_card_rtds(card, fe) {
+ 		ret = soc_dpcm_fe_runtime_update(fe, 0);
+@@ -2540,7 +2616,7 @@ int snd_soc_dpcm_runtime_update(struct snd_soc_card *card)
+ 	}
+ 
+ out:
+-	mutex_unlock(&card->mutex);
++	mutex_unlock(&card->pcm_mutex);
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_dpcm_runtime_update);
+@@ -2551,6 +2627,8 @@ static void dpcm_fe_dai_cleanup(struct snd_pcm_substream *fe_substream)
+ 	struct snd_soc_dpcm *dpcm;
+ 	int stream = fe_substream->stream;
+ 
++	snd_soc_dpcm_mutex_assert_held(fe);
++
+ 	/* mark FE's links ready to prune */
+ 	for_each_dpcm_be(fe, stream, dpcm)
+ 		dpcm->state = SND_SOC_DPCM_LINK_STATE_FREE;
+@@ -2565,12 +2643,12 @@ static int dpcm_fe_dai_close(struct snd_pcm_substream *fe_substream)
+ 	struct snd_soc_pcm_runtime *fe = asoc_substream_to_rtd(fe_substream);
+ 	int ret;
+ 
+-	mutex_lock_nested(&fe->card->mutex, SND_SOC_CARD_CLASS_RUNTIME);
++	snd_soc_dpcm_mutex_lock(fe);
+ 	ret = dpcm_fe_dai_shutdown(fe_substream);
+ 
+ 	dpcm_fe_dai_cleanup(fe_substream);
+ 
+-	mutex_unlock(&fe->card->mutex);
++	snd_soc_dpcm_mutex_unlock(fe);
+ 	return ret;
+ }
+ 
+@@ -2581,7 +2659,7 @@ static int dpcm_fe_dai_open(struct snd_pcm_substream *fe_substream)
+ 	int ret;
+ 	int stream = fe_substream->stream;
+ 
+-	mutex_lock_nested(&fe->card->mutex, SND_SOC_CARD_CLASS_RUNTIME);
++	snd_soc_dpcm_mutex_lock(fe);
+ 	fe->dpcm[stream].runtime = fe_substream->runtime;
+ 
+ 	ret = dpcm_path_get(fe, stream, &list);
+@@ -2598,7 +2676,7 @@ static int dpcm_fe_dai_open(struct snd_pcm_substream *fe_substream)
+ 	dpcm_clear_pending_state(fe, stream);
+ 	dpcm_path_put(&list);
+ open_end:
+-	mutex_unlock(&fe->card->mutex);
++	snd_soc_dpcm_mutex_unlock(fe);
+ 	return ret;
+ }
+ 
+@@ -2859,10 +2937,8 @@ static int snd_soc_dpcm_check_state(struct snd_soc_pcm_runtime *fe,
+ 	struct snd_soc_dpcm *dpcm;
+ 	int state;
+ 	int ret = 1;
+-	unsigned long flags;
+ 	int i;
+ 
+-	spin_lock_irqsave(&fe->card->dpcm_lock, flags);
+ 	for_each_dpcm_fe(be, stream, dpcm) {
+ 
+ 		if (dpcm->fe == fe)
+@@ -2876,7 +2952,6 @@ static int snd_soc_dpcm_check_state(struct snd_soc_pcm_runtime *fe,
+ 			}
+ 		}
+ 	}
+-	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+ 
+ 	/* it's safe to do this BE DAI */
+ 	return ret;
+-- 
+2.31.1
+
+
+--Multipart_Fri_Oct_15_17:38:32_2021-1
+Content-Type: application/octet-stream; type=patch
+Content-Disposition: attachment; filename="0003-ASoC-DPCM-Take-a-stream-lock-at-BE-trigger-operation.patch"
+Content-Transfer-Encoding: 7bit
+
+From 3c41e986a386fd157dd8270d0ce3e402df1bfd0e Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Fri, 15 Oct 2021 17:17:55 +0200
+Subject: [PATCH 3/3] ASoC: DPCM: Take a stream lock at BE trigger operation
+
+For avoiding the race among concurrent accesses to BEs.
+
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/soc/soc-pcm.c | 46 ++++++++++++++++++++++++++++-----------------
+ 1 file changed, 29 insertions(+), 17 deletions(-)
+
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 5bd4f953359a..edfda2e30c7f 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -46,12 +46,18 @@ static inline void snd_soc_dpcm_stream_lock_irq(struct snd_soc_pcm_runtime *rtd,
+ 	snd_pcm_stream_lock_irq(snd_soc_dpcm_get_substream(rtd, stream));
+ }
+ 
++#define snd_soc_dpcm_stream_lock_irqsave(rtd, stream, flags) \
++	snd_pcm_stream_lock_irqsave(snd_soc_dpcm_get_substream(rtd, stream), flags)
++
+ static inline void snd_soc_dpcm_stream_unlock_irq(struct snd_soc_pcm_runtime *rtd,
+ 						  int stream)
+ {
+ 	snd_pcm_stream_unlock_irq(snd_soc_dpcm_get_substream(rtd, stream));
+ }
+ 
++#define snd_soc_dpcm_stream_unlock_irqrestore(rtd, stream, flags) \
++	snd_pcm_stream_unlock_irqrestore(snd_soc_dpcm_get_substream(rtd, stream), flags)
++
+ #define DPCM_MAX_BE_USERS	8
+ 
+ static inline const char *soc_cpu_dai_name(struct snd_soc_pcm_runtime *rtd)
+@@ -2093,6 +2099,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+ {
+ 	struct snd_soc_pcm_runtime *be;
+ 	struct snd_soc_dpcm *dpcm;
++	unsigned long flags;
+ 	int ret = 0;
+ 
+ 	for_each_dpcm_be(fe, stream, dpcm) {
+@@ -2101,9 +2108,11 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+ 		be = dpcm->be;
+ 		be_substream = snd_soc_dpcm_get_substream(be, stream);
+ 
++		snd_soc_dpcm_stream_lock_irqsave(be, stream, flags);
++
+ 		/* is this op for this BE ? */
+ 		if (!snd_soc_dpcm_be_can_update(fe, be, stream))
+-			continue;
++			goto next;
+ 
+ 		dev_dbg(be->dev, "ASoC: trigger BE %s cmd %d\n",
+ 			be->dai_link->name, cmd);
+@@ -2113,77 +2122,80 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+ 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PREPARE) &&
+ 			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
+ 			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
+-				continue;
++				goto next;
+ 
+ 			ret = soc_pcm_trigger(be_substream, cmd);
+ 			if (ret)
+-				goto end;
++				goto next;
+ 
+ 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
+ 			break;
+ 		case SNDRV_PCM_TRIGGER_RESUME:
+ 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_SUSPEND))
+-				continue;
++				goto next;
+ 
+ 			ret = soc_pcm_trigger(be_substream, cmd);
+ 			if (ret)
+-				goto end;
++				goto next;
+ 
+ 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
+ 			break;
+ 		case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+ 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
+-				continue;
++				goto next;
+ 
+ 			ret = soc_pcm_trigger(be_substream, cmd);
+ 			if (ret)
+-				goto end;
++				goto next;
+ 
+ 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
+ 			break;
+ 		case SNDRV_PCM_TRIGGER_STOP:
+ 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_START) &&
+ 			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
+-				continue;
++				goto next;
+ 
+ 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
+-				continue;
++				goto next;
+ 
+ 			ret = soc_pcm_trigger(be_substream, cmd);
+ 			if (ret)
+-				goto end;
++				goto next;
+ 
+ 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_STOP;
+ 			break;
+ 		case SNDRV_PCM_TRIGGER_SUSPEND:
+ 			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START)
+-				continue;
++				goto next;
+ 
+ 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
+-				continue;
++				goto next;
+ 
+ 			ret = soc_pcm_trigger(be_substream, cmd);
+ 			if (ret)
+-				goto end;
++				goto next;
+ 
+ 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_SUSPEND;
+ 			break;
+ 		case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+ 			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START)
+-				continue;
++				goto next;
+ 
+ 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
+-				continue;
++				goto next;
+ 
+ 			ret = soc_pcm_trigger(be_substream, cmd);
+ 			if (ret)
+-				goto end;
++				goto next;
+ 
+ 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_PAUSED;
+ 			break;
+ 		}
++	next:
++		snd_soc_dpcm_stream_unlock_irqrestore(be, stream, flags);
++		if (ret)
++			break;
+ 	}
+-end:
+ 	if (ret < 0)
+ 		dev_err(fe->dev, "ASoC: %s() failed at %s (%d)\n",
+ 			__func__, be->dai_link->name, ret);
+-- 
+2.31.1
+
+
+--Multipart_Fri_Oct_15_17:38:32_2021-1--

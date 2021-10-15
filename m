@@ -2,81 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E11742E9C5
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 09:12:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 083A742E9F6
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 09:22:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E900A167F;
-	Fri, 15 Oct 2021 09:12:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E900A167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D3AF166A;
+	Fri, 15 Oct 2021 09:21:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D3AF166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634281976;
-	bh=KPhIZ3YevEEbJhN+BsV/teb4yZoR65eByc4E/AI6oe4=;
+	s=default; t=1634282567;
+	bh=FGCeaLA5A+XQboJpbH1f1DGWTgoJNtH9v5KKh957d74=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=tvwVFUGeOnwJ1yEhFaDA6XJWHFJXTKvKav2aXRIrUfeC+0aSSksnDOBTPfyynHYlL
-	 mbO527qGMQC1Oe95M3fTG5dyr4gH/pdxmq8GUvdoebqVDKV2wOA/TJ8xtOjg8IukZr
-	 LIObrgAe51VgniSIM0yGehDRxei0J36pUIG/DBJ4=
+	b=BepDToviD+n/UZdVPHOxhcrRXEbW30Q87IJd/8tBb6b3V3cd3lxiXh/XVn6pYb5DB
+	 jrJg653PTEOdkrasZVYcZoeN1ov7GWjSOAnnXnJYUkNIRxhJMtG6Py5FCQaLu8Ulss
+	 88u37Uf1wRvNWEeSfklowoap3/09cACiG1S07u9c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40719F8028D;
-	Fri, 15 Oct 2021 09:11:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A5A4F8016C;
+	Fri, 15 Oct 2021 09:21:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B447AF80269; Fri, 15 Oct 2021 09:11:35 +0200 (CEST)
+ id 1C6C6F80269; Fri, 15 Oct 2021 09:21:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.baldo.me (mail.baldo.me [51.15.71.247])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AE312F8016C
- for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 09:11:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE312F8016C
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1mbHNA-0006an-26; Fri, 15 Oct 2021 09:11:20 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1mbHN7-0000Fg-Uy; Fri, 15 Oct 2021 09:11:17 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1mbHN7-0006wZ-Tp; Fri, 15 Oct 2021 09:11:17 +0200
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH] sound: soc: tlv320aic32x4: Make aic32x4_remove() return void
-Date: Fri, 15 Oct 2021 09:11:13 +0200
-Message-Id: <20211015071113.2795767-1-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.30.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id ECC9FF8012E
+ for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 09:21:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECC9FF8012E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=baldo.me header.i=@baldo.me
+ header.b="t0o907PC"
+Received: from mail.baldo.me (localhost [127.0.0.1])
+ by mail.baldo.me (Postfix) with ESMTPS id 57C434069B;
+ Fri, 15 Oct 2021 07:21:17 +0000 (UTC)
+Received: from mail.baldo.me (localhost [127.0.0.1])
+ by mail.baldo.me (Postfix) with ESMTPS id 33DA5423CF;
+ Fri, 15 Oct 2021 07:21:17 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.baldo.me 33DA5423CF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baldo.me;
+ s=BA429582-84BB-11EA-85D5-B6667C1AB266; t=1634282477;
+ bh=9nI+5dd5tLFm2OHYLHtInz1sxb3GSLH+ysEVxjGZRLY=;
+ h=From:To:Date:Message-Id:MIME-Version;
+ b=t0o907PCds6G27Myl0IWS1kMG5L7up8hQ8L8kSQ/425Kip7bJ9qwJN//zpqW4Cj5O
+ kvbDsUcsgybrSSSRuPIXSlz96ZavWxLl2k0HKbaK1DWTT58OSIYDoQUqjLTsZFBEFg
+ DEM8wwt+mFJghEnCYatx9XrdgdnT2IW/OPAtwPxcraiPugQg1Z80BTdazuDbD0+xC5
+ XDbTQcWsG5hALk8xJjut9wi0XvGlnRDiEpVYUX/cMbI58wrW+qRXX4VsVunvt4q74s
+ u3D9B8IncYlm3Wl3QFmEF1FdW3GsIxxGjpxqxmzuSqzhB6gv/nk0tUAVg92G/79XRK
+ 0cj2RxwK1U6PQ==
+Received: from localhost.localdomain (unknown [151.46.82.74])
+ by mail.baldo.me (Postfix) with ESMTPSA id B68064069B;
+ Fri, 15 Oct 2021 07:21:16 +0000 (UTC)
+From: Davide Baldo <davide@baldo.me>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2] Fixes HP Spectre x360 15-eb1xxx speakers
+Date: Fri, 15 Oct 2021 09:21:22 +0200
+Message-Id: <20211015072121.5287-1-davide@baldo.me>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Patch-Hashes: v=1; h=sha256; i=nRNU/h5dN0hs6QQdYrn9XplF1ZR0nboidS4cpkp3qDI=;
- m=2e5HCshqMt6dybePlB07FsppmCU/zxeR26wervi3tws=;
- p=ET5WVtEOuO659Yg8+YuLjG7ttyClm3n+0otQ9SrIUgA=;
- g=9c9909311a8b559b124f8407491711be13fdf2b5
-X-Patch-Sig: m=pgp; i=u.kleine-koenig@pengutronix.de;
- s=0x0D2511F322BFAB1C1580266BE2DCDD9132669BD6;
- b=iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmFpKYgACgkQwfwUeK3K7AlALAf/RUg
- 6zfanHCHtHIXVMCCP0xByiI/Q2w5shLXJXILQQTO6MjzI1K9ILBJjpvMP0NB7sMmrjVNE7L/SoAq3
- xHHgPA2lNbxmyuJ6RgD5WY0oxXOjRXnNpYZPiRb2SiNVd2aroa4shXCm9bGnhvXXNiqUHCwcThOJ/
- XJpBGRwYkQvKo7VJT7iV9VuYNcaAoorEjIQDnnG4toBcW+CyN3j+MGHzsWQcZEPd2oKMwhZgeKAts
- iQ9itaLhW0jZQ2tCwufeoZuo12k/L3CXMQpPZrGT5U/JlwzXCgWHi1USqZlBXwX0erIZ2kesGY3Ta
- W2BdNlZkb2QDSWBiv/O2CJsHaxtKcIA==
 Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: Wolfram Sang <wsa@kernel.org>, alsa-devel@alsa-project.org,
- linux-i2c@vger.kernel.org, kernel@pengutronix.de, linux-spi@vger.kernel.org
+Cc: Takashi Iwai <tiwai@suse.de>, Davide Baldo <davide@baldo.me>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,82 +83,114 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Up to now aic32x4_remove() returns zero unconditionally. Make it return
-void instead which makes it easier to see in the callers that there is
-no error to handle.
+In laptop 'HP Spectre x360 Convertible 15-eb1xxx/8811' both front and
+rear speakers are silent, this patch fixes that by overriding the pin
+layout and by initializing the amplifier which needs a GPIO pin to be
+set to 1 then 0, similar to the existing HP Spectre x360 14 model.
 
-Also the return value of i2c and spi remove callbacks is ignored anyway.
+In order to have volume control, both front and rear speakers were
+forced to use the DAC1.
 
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+This patch also correctly map the mute LED but since there is no
+microphone on/off switch exposed by the alsa subsystem it never turns
+on by itself.
+
+There are still known audio issues in this laptop: headset microphone
+doesn't work, the button to mute/unmute microphone is not yet mapped,
+the LED of the mute/unmute speakers doesn't seems to be exposed via
+GPIO and never turns on.
+
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=213953
+Signed-off-by: Davide Baldo <davide@baldo.me>
 ---
- sound/soc/codecs/tlv320aic32x4-i2c.c | 4 +++-
- sound/soc/codecs/tlv320aic32x4-spi.c | 4 +++-
- sound/soc/codecs/tlv320aic32x4.c     | 4 +---
- sound/soc/codecs/tlv320aic32x4.h     | 2 +-
- 4 files changed, 8 insertions(+), 6 deletions(-)
+ sound/pci/hda/patch_realtek.c | 46 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 46 insertions(+)
 
-diff --git a/sound/soc/codecs/tlv320aic32x4-i2c.c b/sound/soc/codecs/tlv320aic32x4-i2c.c
-index 04ad38311360..ed70e3d9baf2 100644
---- a/sound/soc/codecs/tlv320aic32x4-i2c.c
-+++ b/sound/soc/codecs/tlv320aic32x4-i2c.c
-@@ -44,7 +44,9 @@ static int aic32x4_i2c_probe(struct i2c_client *i2c,
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 0b9230a274b0..dda979eaeb44 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -6414,6 +6414,44 @@ static void alc_fixup_no_int_mic(struct hda_codec *codec,
+ 	}
+ }
  
- static int aic32x4_i2c_remove(struct i2c_client *i2c)
- {
--	return aic32x4_remove(&i2c->dev);
-+	aic32x4_remove(&i2c->dev);
++/* GPIO1 = amplifier on/off
++ * GPIO3 = mic mute LED
++ */
++static void alc285_fixup_hp_spectre_x360_eb1(struct hda_codec *codec,
++					  const struct hda_fixup *fix, int action)
++{
++	static const hda_nid_t conn[] = { 0x02 };
 +
-+	return 0;
- }
- 
- static const struct i2c_device_id aic32x4_i2c_id[] = {
-diff --git a/sound/soc/codecs/tlv320aic32x4-spi.c b/sound/soc/codecs/tlv320aic32x4-spi.c
-index e81c72958a82..a8958cd1c692 100644
---- a/sound/soc/codecs/tlv320aic32x4-spi.c
-+++ b/sound/soc/codecs/tlv320aic32x4-spi.c
-@@ -48,7 +48,9 @@ static int aic32x4_spi_probe(struct spi_device *spi)
- 
- static int aic32x4_spi_remove(struct spi_device *spi)
- {
--	return aic32x4_remove(&spi->dev);
-+	aic32x4_remove(&spi->dev);
++	struct alc_spec *spec = codec->spec;
++	static const struct hda_pintbl pincfgs[] = {
++		{ 0x14, 0x90170110 },  /* front/high speakers */
++		{ 0x17, 0x90170130 },  /* back/bass speakers */
++		{ }
++	};
 +
-+	return 0;
- }
- 
- static const struct spi_device_id aic32x4_spi_id[] = {
-diff --git a/sound/soc/codecs/tlv320aic32x4.c b/sound/soc/codecs/tlv320aic32x4.c
-index d39c7d52ecfd..8f42fd7bc053 100644
---- a/sound/soc/codecs/tlv320aic32x4.c
-+++ b/sound/soc/codecs/tlv320aic32x4.c
-@@ -1418,13 +1418,11 @@ int aic32x4_probe(struct device *dev, struct regmap *regmap)
- }
- EXPORT_SYMBOL(aic32x4_probe);
- 
--int aic32x4_remove(struct device *dev)
-+void aic32x4_remove(struct device *dev)
++	//enable micmute led
++	alc_fixup_hp_gpio_led(codec, action, 0x00, 0x04);
++
++	switch (action) {
++	case HDA_FIXUP_ACT_PRE_PROBE:
++		spec->micmute_led_polarity = 1;
++		/* needed for amp of back speakers */
++		spec->gpio_mask |= 0x01;
++		spec->gpio_dir |= 0x01;
++		snd_hda_apply_pincfgs(codec, pincfgs);
++		/* share DAC to have unified volume control */
++		snd_hda_override_conn_list(codec, 0x14, ARRAY_SIZE(conn), conn);
++		snd_hda_override_conn_list(codec, 0x17, ARRAY_SIZE(conn), conn);
++		break;
++	case HDA_FIXUP_ACT_INIT:
++		/* need to toggle GPIO to enable the amp of back speakers */
++		alc_update_gpio_data(codec, 0x01, true);
++		msleep(100);
++		alc_update_gpio_data(codec, 0x01, false);
++		break;
++	}
++}
++
+ static void alc285_fixup_hp_spectre_x360(struct hda_codec *codec,
+ 					  const struct hda_fixup *fix, int action)
  {
- 	struct aic32x4_priv *aic32x4 = dev_get_drvdata(dev);
- 
- 	aic32x4_disable_regulators(aic32x4);
--
--	return 0;
- }
- EXPORT_SYMBOL(aic32x4_remove);
- 
-diff --git a/sound/soc/codecs/tlv320aic32x4.h b/sound/soc/codecs/tlv320aic32x4.h
-index e9fd2e55d6c3..4de5bd9e8cc5 100644
---- a/sound/soc/codecs/tlv320aic32x4.h
-+++ b/sound/soc/codecs/tlv320aic32x4.h
-@@ -18,7 +18,7 @@ enum aic32x4_type {
- 
- extern const struct regmap_config aic32x4_regmap_config;
- int aic32x4_probe(struct device *dev, struct regmap *regmap);
--int aic32x4_remove(struct device *dev);
-+void aic32x4_remove(struct device *dev);
- int aic32x4_register_clocks(struct device *dev, const char *mclk_name);
- 
- /* tlv320aic32x4 register space (in decimal to match datasheet) */
+@@ -6548,6 +6586,7 @@ enum {
+ 	ALC269_FIXUP_HP_DOCK_GPIO_MIC1_LED,
+ 	ALC280_FIXUP_HP_9480M,
+ 	ALC245_FIXUP_HP_X360_AMP,
++	ALC285_FIXUP_HP_SPECTRE_X360_EB1,
+ 	ALC288_FIXUP_DELL_HEADSET_MODE,
+ 	ALC288_FIXUP_DELL1_MIC_NO_PRESENCE,
+ 	ALC288_FIXUP_DELL_XPS_13,
+@@ -8240,6 +8279,10 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = alc285_fixup_hp_spectre_x360,
+ 	},
++	[ALC285_FIXUP_HP_SPECTRE_X360_EB1] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = alc285_fixup_hp_spectre_x360_eb1
++	},
+ 	[ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = alc285_fixup_ideapad_s740_coef,
+@@ -8567,6 +8610,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x87f7, "HP Spectre x360 14", ALC245_FIXUP_HP_X360_AMP),
+ 	SND_PCI_QUIRK(0x103c, 0x8805, "HP ProBook 650 G8 Notebook PC", ALC236_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x880d, "HP EliteBook 830 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x8811, "HP Spectre x360 15-eb1xxx", ALC285_FIXUP_HP_SPECTRE_X360_EB1),
++	SND_PCI_QUIRK(0x103c, 0x8812, "HP Spectre x360 15-eb1xxx", ALC285_FIXUP_HP_SPECTRE_X360_EB1),
+ 	SND_PCI_QUIRK(0x103c, 0x8846, "HP EliteBook 850 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8847, "HP EliteBook x360 830 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x884b, "HP EliteBook 840 Aero G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
+@@ -8987,6 +9032,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
+ 	{.id = ALC245_FIXUP_HP_X360_AMP, .name = "alc245-hp-x360-amp"},
+ 	{.id = ALC295_FIXUP_HP_OMEN, .name = "alc295-hp-omen"},
+ 	{.id = ALC285_FIXUP_HP_SPECTRE_X360, .name = "alc285-hp-spectre-x360"},
++	{.id = ALC285_FIXUP_HP_SPECTRE_X360_EB1, .name = "alc285-hp-spectre-x360-eb1"},
+ 	{.id = ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP, .name = "alc287-ideapad-bass-spk-amp"},
+ 	{.id = ALC623_FIXUP_LENOVO_THINKSTATION_P340, .name = "alc623-lenovo-thinkstation-p340"},
+ 	{.id = ALC255_FIXUP_ACER_HEADPHONE_AND_MIC, .name = "alc255-acer-headphone-and-mic"},
 -- 
-2.30.2
+2.32.0
 

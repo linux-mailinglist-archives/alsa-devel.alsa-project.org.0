@@ -2,65 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7BD942F7FC
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 18:19:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9FC342F80D
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 18:24:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7A48D181A;
-	Fri, 15 Oct 2021 18:18:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A48D181A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 604E81828;
+	Fri, 15 Oct 2021 18:23:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 604E81828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634314748;
-	bh=FlPO2I7xIXAxjEaHrt3hTXXegehNXuD43FwrCXID30k=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1634315068;
+	bh=sbKMPEHHYLj0QrlyBw7/CkxUe9vtzn/3iWuvuvNWqiQ=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BzVYkGLyqmGo2v53ughxjndf6TeKUp89fRlirT6POV6Cx8UwJULESOjc5W+bfUAGm
-	 G9WmPTmf3OicVCIku4qcNhHrmqJtqWv8RtFCd00xOKQc0yNylnHsI2tJXWw29AaPmW
-	 vdwzqlTSO8+fHfMQpEQa09Rth/j8xQ6yC0f1uI/U=
+	b=Rq2fRLLcp0w23kBbIuDM00eoW1pP10Wv+1MbKiwlVrkwJLHEtkvMJv0T2iJJ6w9Gy
+	 CrD0WhqcZxai5vNY3DB46OACy0ITnFqMPDfEryjYAtMQ/OSUjQtmNY+7Oa5+Kry/sC
+	 omLm8TVFVZB541NDDinb1LecPO//nT2r7c2IbmnI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 999D8F80507;
-	Fri, 15 Oct 2021 18:16:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E18CAF8028D;
+	Fri, 15 Oct 2021 18:23:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4902FF80269; Fri, 15 Oct 2021 18:16:00 +0200 (CEST)
+ id 1B94DF80269; Fri, 15 Oct 2021 18:23:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F650F804AC
- for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 18:15:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F650F804AC
-X-IronPort-AV: E=McAfee;i="6200,9189,10138"; a="225404694"
-X-IronPort-AV: E=Sophos;i="5.85,376,1624345200"; d="scan'208";a="225404694"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2021 09:11:23 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,376,1624345200"; d="scan'208";a="564375309"
-Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by FMSMGA003.fm.intel.com with ESMTP; 15 Oct 2021 09:11:21 -0700
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 6/6] ASoC: Stop dummy from overriding hwparams
-Date: Fri, 15 Oct 2021 18:12:57 +0200
-Message-Id: <20211015161257.27052-7-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211015161257.27052-1-cezary.rojewski@intel.com>
-References: <20211015161257.27052-1-cezary.rojewski@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8E86EF80167
+ for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 18:23:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E86EF80167
+X-IronPort-AV: E=McAfee;i="6200,9189,10138"; a="214879085"
+X-IronPort-AV: E=Sophos;i="5.85,376,1624345200"; d="scan'208";a="214879085"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2021 09:23:02 -0700
+X-IronPort-AV: E=Sophos;i="5.85,376,1624345200"; d="scan'208";a="492623169"
+Received: from liminghu-mobl.ccr.corp.intel.com (HELO [10.212.23.213])
+ ([10.212.23.213])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2021 09:23:01 -0700
+Subject: Re: [RFC PATCH v3 05/13] ASoC: soc-pcm: align BE 'atomicity' with
+ that of the FE
+To: Takashi Iwai <tiwai@suse.de>
+References: <20211013143050.244444-1-pierre-louis.bossart@linux.intel.com>
+ <20211013143050.244444-6-pierre-louis.bossart@linux.intel.com>
+ <2847a6d1-d97f-4161-c8b6-03672cf6645c@nvidia.com>
+ <s5hmtnavisi.wl-tiwai@suse.de>
+ <e2a79095-b8ce-9dd4-3e6d-00f8dda99f30@linux.intel.com>
+ <s5h1r4muwlj.wl-tiwai@suse.de>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <8aa4fa07-2b55-3927-f482-c2fd2b01a22e@linux.intel.com>
+Date: Fri, 15 Oct 2021 11:22:58 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com,
- Cezary Rojewski <cezary.rojewski@intel.com>, tiwai@suse.com,
- hdegoede@redhat.com, broonie@kernel.org,
- =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <s5h1r4muwlj.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=windows-1252
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Sameer Pujar <spujar@nvidia.com>,
+ Takashi Iwai <tiwai@suse.com>, open list <linux-kernel@vger.kernel.org>,
+ vkoul@kernel.org, broonie@kernel.org, Gyeongtaek Lee <gt82.lee@samsung.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,54 +86,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 
-In case that there are other components assigned to runtime device,
-depending on order dummy component can override their params with its
-own, which shouldn't happen. Check if there are any other components
-assigned to rtd and if so, skip setting hwparams.
+> The FE stream locks are necessary only two points: at adding and
+> deleting the BE in the link.  We used dpcm_lock in other places, but
+> those are superfluous or would make problem if converted to a FE
+> stream lock.
 
-Occurs when using topology where 'snd-soc-dummy' gets assigned by
-default as codec and platform component.
+I must be missing a fundamental concept here - possibly a set of concepts...
 
-Alternative approach would be to copy whole dummy handling and rename it
-to "snd-soc-null" or something similar. And remove hwparams assignment
-to make it really do nothing.
+It is my understanding that the FE-BE connection can be updated
+dynamically without any relationship to the usual ALSA steps, e.g. as a
+result of a control being changed by a user.
 
-Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
- sound/soc/soc-utils.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+So if you only protect the addition/removal, isn't there a case where
+the for_each_dpcm_be() loop would either miss a BE or point to an
+invalid one?
 
-diff --git a/sound/soc/soc-utils.c b/sound/soc/soc-utils.c
-index 299b5d6ebfd1..a4efe7e52a8b 100644
---- a/sound/soc/soc-utils.c
-+++ b/sound/soc/soc-utils.c
-@@ -63,10 +63,23 @@ static const struct snd_pcm_hardware dummy_dma_hardware = {
- 	.periods_max		= 128,
- };
- 
-+
-+static const struct snd_soc_component_driver dummy_platform;
-+
- static int dummy_dma_open(struct snd_soc_component *component,
- 			  struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	int i;
-+
-+	/*
-+	 * If there are other components associated with rtd, we shouldn't
-+	 * override their hwparams
-+	 */
-+	for_each_rtd_components(rtd, i, component) {
-+		if (component->driver == &dummy_platform)
-+			return 0;
-+	}
- 
- 	/* BE's dont need dummy params */
- 	if (!rtd->dai_link->no_pcm)
--- 
-2.25.1
+In other words, don't we need the *same* lock to be used
+a) before changing and
+b) walking through the list?
+
+I also don't get what would happen if the dpcm_lock was converted to an
+FE stream lock. It works fine in my tests, so if there's limitation I
+didn't see it.
+
+>>> In addition, a lock around dpcm_show_state() might be needed to be
+>>> replaced with card->pcm_mutex, and we may need to revisit whether all
+>>> other paths take card->pcm_mutex.
+>>
+>> What happens if we show the state while a trigger happens? That's my
+>> main concern with using two separate locks (pcm_mutex and FE stream
+>> lock) to protect the same list, there are still windows of time where
+>> the list is not protected.
+> 
+> With the proper use of mutex, the list itself is protected.
+> If we need to protect the concurrent access to each BE in the show
+> method, an additional BE lock is needed in that part.  But that's a
+> subtle issue, as the link traversal itself is protected by the mutex.
+
+If I look at your patch2, dpcm_be_disconnect() protects the list removal
+with the fe stream lock, but the show state is protected by both the
+pcm_mutex and the fe stream lock.
+
+I have not been able to figure out when you need
+a) the pcm_mutex only
+b) the fe stream lock only
+c) both pcm_mutex and fe stream lock
 

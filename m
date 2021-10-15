@@ -2,76 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F44942EB3F
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 10:14:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C54E742EB30
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 10:12:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94E0E16BE;
-	Fri, 15 Oct 2021 10:13:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94E0E16BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4FB8F16B0;
+	Fri, 15 Oct 2021 10:11:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FB8F16B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634285648;
-	bh=vP3hClcV6/Kk3JOiF+qvwrqyBSsG+aW7ehh14med6iE=;
+	s=default; t=1634285521;
+	bh=eELBjpqLoTj7BzCXF86l6y3l78dn7IZHFSBbwjfbnRU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nX3G9K/Iq08Fhhu1Mm6PvbUzdlJnXjN00JvFOeimL01ML+FVWH7cI/nQKusAbPpjf
-	 RtkqpAmOBRLMKEWfqzGgH+xDbp9+Fq8+2emHnD6dk8PEqRaMWDs/muo1j0tMbf5076
-	 SYO9irpHj3bW95QBPJlReYb/W2RpFOJyzFrE/YmY=
+	b=ULozEeO/rmnK3WSRULNi62s+JUm/4rxzEbWUPJt+/Eg9d66ml9uBZdXVaW8matkUg
+	 v+ndXwKQmLiB8BWK03lsbkOTvqalHqaQh/4qi6dPmO3uDYHBWeRem9+QBbas6DLzuZ
+	 4+/euFcprtft/Yl7yjVTkYg0BkH7+vh5wYXf1v3g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 284FEF80548;
-	Fri, 15 Oct 2021 10:10:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F8BDF8051C;
+	Fri, 15 Oct 2021 10:09:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1EA50F80167; Fri, 15 Oct 2021 10:09:56 +0200 (CEST)
+ id A8C98F8051C; Fri, 15 Oct 2021 10:09:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
 Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
  [64.147.123.19])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 01829F80430
- for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 10:08:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01829F80430
+ by alsa1.perex.cz (Postfix) with ESMTPS id D640BF804D8
+ for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 10:08:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D640BF804D8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="U8CeSNXv"; 
+ header.b="d0p5tWlH"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="EeG0NORM"
+ header.i=@messagingengine.com header.b="jnjIFppf"
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 898403201D11;
- Fri, 15 Oct 2021 04:08:47 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id F22933201D14;
+ Fri, 15 Oct 2021 04:08:49 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Fri, 15 Oct 2021 04:08:47 -0400
+ by compute4.internal (MEProxy); Fri, 15 Oct 2021 04:08:50 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=2hpr/MXJfcxez
- I5KLHLw0BQf4sAtUYpUA+PIEWG6zT0=; b=U8CeSNXvA6nD9ZzjuYvzRmejHxOZC
- KaTLaID2Y9r4tDzw2H1dH6twqX8xzGmq8zpEqqJvF7Ut1/N457K+Q6/g/UAugR/P
- lyx00LxwAW/0uc1Cokow1XeTHxcsmSN2oOBFXrlZqX9NrwJT3I06kBgagY3VhT/v
- W7TGFT+TQt6stDycHQejl+O5VkIhFEK89aXQ6IWpa8etvOZSS5xfKuwngF0n0ZGS
- aqEPCe7ZoLBJU/ELrubuaPhy0yXUvGd/KpY/NTmN32EtsX1zx/0jbpwZcHg5g1ed
- jTf2CeKwa6vSNO3gJepvYyQpEyBkZ6aUSfYHtCRRLmhjqA+fcn/DwxjZw==
+ :mime-version:content-transfer-encoding; s=fm2; bh=DJjnrfbN+qW8O
+ bqkZ2HiCkiLgJPRNA+gQWghdBs33bY=; b=d0p5tWlH+UxG4AXabAEj1ArToQF9K
+ DzUB0jXBJiykjhTifrns4yooyL+euuW/QZHitfR/lsaevQQpCS9V/O8RHD14c7WT
+ CpjbnQMY4xsa1SKKy2ddBcVcCkPOImrWlido7eygQ1TRop5gj966ZvQVF5gxcevA
+ GvUjNKt+HPNhrQCSYl4jkELkVrOum5s4UBdt5gJifCUHxOmlwElIyV0dBo8fyOba
+ CaKkPMFi0yMzpXSkQt8Iq+J04tJsYOLpLXKJwM3OYz3tsa3KyR8fgpdzf5h1Y0BS
+ nt18+GjPM+9GiXL+cVAtHQ/69sCoBWlgiCrnqc22l5c843Wo0Z6bRR+9A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=2hpr/MXJfcxezI5KLHLw0BQf4sAtUYpUA+PIEWG6zT0=; b=EeG0NORM
- VFsgtAsXTxkuR+r3i8tEM9K2dec4Z4CLoXn7Bve5Uy2CPjMDpRCWODdGK6EJOJGa
- zXiGA8kcB24H9rcnc8X2C38JqqeR3Hkpddxr7Z98rBtkP8OxWWpu5BP5BjfiyDrT
- c7VhF2rhZwcnyFfn8ZO9Mxw0k+fd02m75pbhd19784uXKqq6rLbBCBFTrS7tvWEp
- q99qdcVAkAPDqdQKWobt5VWHBIyV83AKV5ccAgSffc/ocel8hJAijIBQ3TJmq+sw
- KO5gQ8fUFtSl1eP9zh9KUm23tV/NJfIeHrnmBEAulXLEPmAwjEg1ssLImthTeMGK
- pslcxuuYRKShqw==
-X-ME-Sender: <xms:DzdpYWqjxSxYh25KTwkshE-hCrhmTkVn5lVI0aEUWwA_oo9WHveEeA>
- <xme:DzdpYUrspXquR_3xkzYTofThShPGd55SKPIbK5fPnyGzbOVRa3txS3GZz1z_iZyXH
- wvH1IPdeOH_V8n-KtM>
-X-ME-Received: <xmr:DzdpYbNviEJtVCUg9VJ82F7PvIrvczwRZUuuz8SACuWwQMP9TJHyds8vWF9kdgR_InmWXvscTLWiwGq24uJQVDd-fojaIm9z1UOK2QSZyvKhYgNTD48d>
+ fm1; bh=DJjnrfbN+qW8ObqkZ2HiCkiLgJPRNA+gQWghdBs33bY=; b=jnjIFppf
+ 6FL7Egt4Y/aIJFUx63FKAxDhqv5A6sZenYdpgk7XvcQne2/4jxVc+nzaUpLWn0tz
+ RCHudProiO1sC3dYxQ7WavoArkVrukr3yr7g1e4v9b6yQocBbGleKOsjN42QRoJk
+ +fJpvv/in+iKGYtdF1D4HIH432C22+pu/8GktQ8+MIWB9bONANv3q70F8SdXPrtf
+ EXVT7myXB0ZEkRI9vqj2ZTK8y5AkPuexLsfV6CWZ4qUYh+eyQr09rx+u7YrDerym
+ 491msMC3fIzIqDsosnxd66UC9gl4BfJ+3FyeHwUPxLGoFn8mEuwWHbo3SxilHwMy
+ WKCO3yRC580ZBw==
+X-ME-Sender: <xms:ETdpYVWDgOtild5UB9YWWZl63yZ_eS5BJWprJ7-12NUBaAFnsqWQNQ>
+ <xme:ETdpYVllCMwHQpTVUBpl_Llcj0Xp3cOHr1mDyf3WuGpcnWsEwn4RfapYDVBIgHcS2
+ u543rW0R13hEZjUUq0>
+X-ME-Received: <xmr:ETdpYRZ1Df4Uin5VltShT95nV8iqN1CSRh1QjGYkwFxmxYUnZBBcxDmNChvZW9MJ5nTEmMY8VgSnnl9BHeZsY_4cyHobyt2u49xMbtoXwwBZyZcnQ-9Y>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvddugecutefuodetggdotefrodftvfcurf
  hrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecuuegr
  ihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertdertd
@@ -80,18 +80,18 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvddugecutefuodetggdotefrod
  egfeelheffhfeujedtjeevtefhkeevkedtjeejvddtjefhjeenucevlhhushhtvghrufhi
  iigvpedunecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrg
  hmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:DzdpYV7NWWBC5uoENNGzgQBLWZTJMJCGbx3pgtVXoQabCWV3r3J2PA>
- <xmx:DzdpYV6pqse7yg_6FjmXk15WXIT0KSnzpjBemrWGnlUzcbaq_mLrjA>
- <xmx:DzdpYVgtY3-Vz8lLKIeANxE9IwDPHHqJxEr6cqIES_3JeIZ0lMjyVQ>
- <xmx:DzdpYVFEklW1UMqLijncZVA3OXcqIRD5b2Wh3jjrzQafo23zN2UFmg>
+X-ME-Proxy: <xmx:ETdpYYUKGIz1uJDSpCc69oyuOoHtuMVUIxSN0XbD1Ia3ME0W_G3U6w>
+ <xmx:ETdpYfm8j4TSF2xaewiBH8WzhrYXJ4ATg5Oa4nXRR84NfBbDFc1hqA>
+ <xmx:ETdpYVfIbTnYCeuHNzsesghtuBVIZeisRgISIJ4uSDKL44JL8re2LA>
+ <xmx:ETdpYUwQrhC9UO-bfJNIF4bs6TZB9niCwEx2PdE6gJdMXRirIvO9wA>
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 15 Oct 2021 04:08:45 -0400 (EDT)
+ 15 Oct 2021 04:08:48 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH 06/11] ALSA: firewire-motu: parse messages for output
+Subject: [PATCH 07/11] ALSA: firewire-motu: parse messages for line input
  parameters in register DSP model
-Date: Fri, 15 Oct 2021 17:08:21 +0900
-Message-Id: <20211015080826.34847-7-o-takashi@sakamocchi.jp>
+Date: Fri, 15 Oct 2021 17:08:22 +0900
+Message-Id: <20211015080826.34847-8-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20211015080826.34847-1-o-takashi@sakamocchi.jp>
 References: <20211015080826.34847-1-o-takashi@sakamocchi.jp>
@@ -114,68 +114,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This commit parses message and cache current parameters of output
-function, commonly available for all of register DSP model.
+This commit parses message and cache current parameters of line input
+function, available for MOTU 828 mk2 and Traveler.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- include/uapi/sound/firewire.h                         | 10 ++++++++++
- .../firewire/motu/motu-register-dsp-message-parser.c  | 11 ++++++++++-
- 2 files changed, 20 insertions(+), 1 deletion(-)
+ include/uapi/sound/firewire.h                          | 9 +++++++++
+ sound/firewire/motu/motu-register-dsp-message-parser.c | 6 ++++++
+ 2 files changed, 15 insertions(+)
 
 diff --git a/include/uapi/sound/firewire.h b/include/uapi/sound/firewire.h
-index f663a26c5205..16ca7b43568b 100644
+index 16ca7b43568b..049934e2a53c 100644
 --- a/include/uapi/sound/firewire.h
 +++ b/include/uapi/sound/firewire.h
-@@ -160,6 +160,10 @@ struct snd_firewire_motu_register_dsp_meter {
-  *			       Audio Express.
-  * @mixer.output.paired_volume: The volume of paired output from mixer.
-  * @mixer.output.paired_flag: The flag of paired output from mixer.
-+ * @output.main_paired_volume: The volume of paired main output.
-+ * @output.hp_paired_volume: The volume of paired hp output.
-+ * @output.hp_paired_assignment: The source assigned to paired hp output.
-+ * @output.reserved: Padding for 32 bit alignment for future extension.
+@@ -164,6 +164,10 @@ struct snd_firewire_motu_register_dsp_meter {
+  * @output.hp_paired_volume: The volume of paired hp output.
+  * @output.hp_paired_assignment: The source assigned to paired hp output.
+  * @output.reserved: Padding for 32 bit alignment for future extension.
++ * @line_input.boost_flag: The flags of boost for line inputs, only for 828mk2 and Traveler.
++ * @line_input.nominal_level_flag: The flags of nominal level for line inputs, only for 828mk2 and
++ *				   Traveler.
++ * @line_input.reserved: Padding for 32 bit alignment for future extension.
   *
   * The structure expresses the set of parameters for DSP controlled by register access.
   */
-@@ -177,6 +181,12 @@ struct snd_firewire_motu_register_dsp_parameter {
- 			__u8 paired_flag[SNDRV_FIREWIRE_MOTU_REGISTER_DSP_MIXER_COUNT];
- 		} output;
- 	} mixer;
+@@ -187,6 +191,11 @@ struct snd_firewire_motu_register_dsp_parameter {
+ 		__u8 hp_paired_assignment;
+ 		__u8 reserved[5];
+ 	} output;
 +	struct {
-+		__u8 main_paired_volume;
-+		__u8 hp_paired_volume;
-+		__u8 hp_paired_assignment;
-+		__u8 reserved[5];
-+	} output;
++		__u8 boost_flag;
++		__u8 nominal_level_flag;
++		__u8 reserved[6];
++	} line_input;
  };
  
  // In below MOTU models, software is allowed to control their DSP by command in frame of
 diff --git a/sound/firewire/motu/motu-register-dsp-message-parser.c b/sound/firewire/motu/motu-register-dsp-message-parser.c
-index 867cb09a3521..244f7ada851f 100644
+index 244f7ada851f..85faf7a4e8a3 100644
 --- a/sound/firewire/motu/motu-register-dsp-message-parser.c
 +++ b/sound/firewire/motu/motu-register-dsp-message-parser.c
-@@ -54,7 +54,7 @@ enum register_dsp_msg_type {
- 	MIXER_OUTPUT_PAIRED_FLAG = 0x06,
- 	MAIN_OUTPUT_PAIRED_VOLUME = 0x07,
- 	HP_OUTPUT_PAIRED_VOLUME = 0x08,
--	HP_OUTPUT_ASSIGN = 0x09,
-+	HP_OUTPUT_PAIRED_ASSIGNMENT = 0x09,
- 	// Transferred by all models but the purpose is still unknown.
- 	UNKNOWN_0 = 0x0a,
- 	// Specific to 828mk2, 896hd, Traveler.
-@@ -210,6 +210,15 @@ void snd_motu_register_dsp_message_parser_parse(struct snd_motu *motu, const str
- 				}
+@@ -219,6 +219,12 @@ void snd_motu_register_dsp_message_parser_parse(struct snd_motu *motu, const str
+ 			case HP_OUTPUT_PAIRED_ASSIGNMENT:
+ 				parser->param.output.hp_paired_assignment = val;
  				break;
- 			}
-+			case MAIN_OUTPUT_PAIRED_VOLUME:
-+				parser->param.output.main_paired_volume = val;
++			case LINE_INPUT_BOOST:
++				parser->param.line_input.boost_flag = val;
 +				break;
-+			case HP_OUTPUT_PAIRED_VOLUME:
-+				parser->param.output.hp_paired_volume = val;
-+				break;
-+			case HP_OUTPUT_PAIRED_ASSIGNMENT:
-+				parser->param.output.hp_paired_assignment = val;
++			case LINE_INPUT_NOMINAL_LEVEL:
++				parser->param.line_input.nominal_level_flag = val;
 +				break;
  			case METER:
  			{

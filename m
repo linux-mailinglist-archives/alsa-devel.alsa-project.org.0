@@ -2,104 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8B6B42F39E
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 15:36:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EE2542F400
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Oct 2021 15:40:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 465D7166F;
-	Fri, 15 Oct 2021 15:36:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 465D7166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 17524175D;
+	Fri, 15 Oct 2021 15:39:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17524175D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634305013;
-	bh=Jfdr7yQfgMhpLh9jKiKNdtlf2IOA8lkNH03elRFkYXY=;
+	s=default; t=1634305233;
+	bh=2fflw8F9ANycK8fI7cNOv94WRP4BgBBNzShE1CGtduk=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=i17Ok0XcjEWpBSdn61T3a4p2RTzEQgnpjqc70zwR49HZ51BCQp8GQInrP7mZZOO+C
-	 BL/PR/ThNGbHQ8ufC01WdAyx4iHS6eXsGUEO784p5CYXOLZRoBrUu5vKnwwANHR1v0
-	 aDpNxTg12B+RWdIvrXYJq+7BNXyQNC/sSXk1J55A=
+	b=Dx0EZ7T/60YDwaSd0EM0kkO3qEjIK0/RN0k6BI1HYODaEhAYvslIv9hBSu0epRXEN
+	 0Y5X5dUyT/gxqygOR7Y2/6/tWM6+rmkXxMi32IUfQeHYeocUkGh9hM3jBI9r6VBuP8
+	 ZLGW22A4HRlK7jdU2maFqp+L/XciK5uaPkovsCac=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 979C1F8012E;
-	Fri, 15 Oct 2021 15:35:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 26DEBF80529;
+	Fri, 15 Oct 2021 15:37:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86E37F80269; Fri, 15 Oct 2021 15:35:34 +0200 (CEST)
+ id E010FF80508; Fri, 15 Oct 2021 15:36:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-relay-internal-0.canonical.com
- (smtp-relay-internal-0.canonical.com [185.125.188.122])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B9313F80167
- for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 15:35:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9313F80167
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8E5F4F804E7
+ for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 15:36:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E5F4F804E7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=canonical.com header.i=@canonical.com
- header.b="kUfr5mjM"
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 7AD5340060
- for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 13:35:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1634304924;
- bh=Y4U/fJqXuLgg52bUOfbV+iRZ91dG+diGxyV+QIZgnxY=;
- h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
- b=kUfr5mjMpWFC5fPiFxCb6T4BMnjK/15PB3L6/VqLFx4Jcsw8pzdkje5TEy9oCjoSY
- ik63wXBH1BOXootrUfRGy7XVQfF7qgUMxZc6EqozPrKCj82Q8bXmxylmkEWUMp2KaZ
- X9SAUI69iSEbyLPBD87pa2s97+Kl/TgjdbSGyGujbD/mlkS0ld45Yfw7RK4ZA791xy
- j6TE4JljXWNsToaiE2m5udve/Vwh0EZcFEIB1K/d8n+efMcm2TsPdGqy2tit5XpheK
- MUyBWJ6SNSoZ//QEoa1qu+vZQdFesyMMei3BslhKXnsFXBHN++akZaJHhbTcnUZY4K
- GFZYNokAGAGJA==
-Received: by mail-pj1-f69.google.com with SMTP id
- my5-20020a17090b4c8500b001a0bf4025c1so5316772pjb.8
- for <alsa-devel@alsa-project.org>; Fri, 15 Oct 2021 06:35:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Y4U/fJqXuLgg52bUOfbV+iRZ91dG+diGxyV+QIZgnxY=;
- b=5fl+p4imEwQkOVTTOBu8TXgr7K0wL9ULGQmyArZV8VVHZIEkAKMzHc0oBBALbYZjCj
- 7hE65SCULrjA/Yt7W0htV4J1zaHb9jP68tbDQxqUQoBEPxVIy3Yza2r7CdNubBIL9Kyn
- sDlkI9iW6BnV+B2Reh0u2pEv3Rg9375P6qnemuJfaUQ8w1WweULwRJS3ziTqqY0Kjquq
- WkyI0iaanQAMZ/7/0n6AYL7z+LWSn78l+OYGtvAMSNe7feCaWRPOO+n6/MouEKfTRxFB
- PysLvfU4B7W5feyWFXVxfHmZqrujabTa6LKTdP5TJ94y+9JOefF33Ax7COjY1qHOjOo5
- aIvw==
-X-Gm-Message-State: AOAM531QYpJATVufADa66fQAGjRbDGM5z6GrR7VQa81DmVow8CD4GnuC
- /vfnjNJNYuQbzRF+CsbObt12fp36KpTBP5kFcBktHKfGyD6VIjrRRccvubDaGxcDN8rbPnJV6GE
- eBCMzBgMgMENtJaV/j6U3F+zkQSniZjoT2ubFc7kc
-X-Received: by 2002:a62:e90d:0:b0:44d:35a1:e5a0 with SMTP id
- j13-20020a62e90d000000b0044d35a1e5a0mr11806359pfh.54.1634304922960; 
- Fri, 15 Oct 2021 06:35:22 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJz07OGlC4jPnkxjhJx1/FXGc+HkyjOrYc/PtEHciW7RhWaLFxsvrbGwzHFbiuv9FCIULMRE8Q==
-X-Received: by 2002:a62:e90d:0:b0:44d:35a1:e5a0 with SMTP id
- j13-20020a62e90d000000b0044d35a1e5a0mr11806331pfh.54.1634304922600; 
- Fri, 15 Oct 2021 06:35:22 -0700 (PDT)
-Received: from localhost.localdomain
- (2001-b011-3814-7c46-b875-7e50-69b7-4e53.dynamic-ip6.hinet.net.
- [2001:b011:3814:7c46:b875:7e50:69b7:4e53])
- by smtp.gmail.com with ESMTPSA id y8sm5143327pfe.217.2021.10.15.06.35.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Oct 2021 06:35:22 -0700 (PDT)
-From: Chris Chiu <chris.chiu@canonical.com>
-To: cezary.rojewski@intel.com, pierre-louis.bossart@linux.intel.com,
- liam.r.girdwood@linux.intel.com, yang.jie@linux.intel.com,
- broonie@kernel.org, tiwai@suse.com
-Subject: [PATCH] ASoC: Intel: sof_sdw: Initialize the sof_sdw_quirk with
- RT711_JD_NULL
-Date: Fri, 15 Oct 2021 21:34:24 +0800
-Message-Id: <20211015133424.494463-1-chris.chiu@canonical.com>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="KT7xzPxA"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19F4c2sw023483; 
+ Fri, 15 Oct 2021 08:36:24 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=ISoBXTDGWYFFg3rMehWnfYSADfXB3Oa0F78uIjumd/w=;
+ b=KT7xzPxAe4Jsi04ao8+PJgzRJS3knFSyr1wtwUNNucppUPj7q7U1udrK10r8ExciX551
+ xmXhnvc+QPl3b6eIrvg3P6r1mK2dEFU57t7u71oZVw3R2Mg+MtF/1eYBa2VrGDWsi6kO
+ uGuiCPSOocp6le4qCm76iuFyEuCKpR5va2GxqbenKH4NkjZaZgmN5onImnjWcRdTiE9R
+ Boux6psqC1fHfWW9iTJN5ycQAZcUd0wHUGPwLhrwwAfZozzZlGqmq51rxq705Cu4DnAf
+ kHUm1kHMk/USuppYVztNjX4Jmf/RVOXIV7PDA/PzGBz8ghgAyiqjNXtw/TGkcXRkXCPl 0A== 
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0a-001ae601.pphosted.com with ESMTP id 3bq1gagp5v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Fri, 15 Oct 2021 08:36:24 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.7; Fri, 15 Oct
+ 2021 14:36:21 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.7 via Frontend
+ Transport; Fri, 15 Oct 2021 14:36:21 +0100
+Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
+ [198.61.65.254])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 31815B2F;
+ Fri, 15 Oct 2021 13:36:21 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+Subject: [PATCH 00/16] ASoC: cs42l42: Collection of bugfixes
+Date: Fri, 15 Oct 2021 14:36:03 +0100
+Message-ID: <20211015133619.4698-1-rf@opensource.cirrus.com>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Chris Chiu <chris.chiu@canonical.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: NoIEhR9KQwTbt94aPT7dbqSXP3tlq3IR
+X-Proofpoint-GUID: NoIEhR9KQwTbt94aPT7dbqSXP3tlq3IR
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,31 +96,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The jd_src of RT711 which is initialized in rt711/rt711_sdca_init
-will be overridden by rt711/rt711_sdca_add_codec_device_props when
-the sof_sdw_quirk is not RT711_JD_NULL. It will force the JD mode
-to RT711_JD1 and cause confusion while debugging the JD mode of
-the boards without quirk. Initialize sof_sdw_quirk with RT711_JD_NULL
-to honor the jd_src value in rt711/rt711_sdca init.
+This patch set contains various bugfixes for the cs42l42 codec
+driver.
 
-Signed-off-by: Chris Chiu <chris.chiu@canonical.com>
----
- sound/soc/intel/boards/sof_sdw.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Patches marked "Fixes" will apply cleanly to the patch that first
+introduced the bug.
 
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 6b06248a9327..d05c0565e09c 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -15,7 +15,7 @@
- #include "sof_sdw_common.h"
- #include "../../codecs/rt711.h"
- 
--unsigned long sof_sdw_quirk = RT711_JD1;
-+unsigned long sof_sdw_quirk = RT711_JD_NULL;
- static int quirk_override = -1;
- module_param_named(quirk, quirk_override, int, 0444);
- MODULE_PARM_DESC(quirk, "Board-specific quirk override");
+Patches NOT marked "Fixes" will not apply cleanly to the point
+the bug was first introduced and/or the bug is not having
+sufficient impact to risk churning older code versions.
+
+Richard Fitzgerald (16):
+  ASoC: cs42l42: Don't reconfigure the PLL while it is running
+  ASoC: cs42l42: Always configure both ASP TX channels
+  ASoC: cs42l42: Correct some register default values
+  ASoC: cs42l42: Don't set defaults for volatile registers
+  ASoC: cs42l42: Defer probe if request_threaded_irq() returns
+    EPROBE_DEFER
+  ASoC: cs42l42: Reset GPIO is mandatory
+  ASoC: cs42l42: Correct power-up sequence to match datasheet
+  ASoC: cs42l42: Reset and power-down on driver remove()
+  ASoC: cs42l42: Prevent NULL pointer deref in interrupt handler
+  ASoC: cs42l42: Don't claim to support 192k
+  ASoC: cs42l42: Use PLL for SCLK > 12.288MHz
+  ASoC: cs42l42: Allow time for HP/ADC to power-up after enable
+  ASoC: cs42l42: Set correct SRC MCLK
+  ASoC: cs42l42: Mark OSC_SWITCH_STATUS register volatile
+  ASoC: cs42l42: Fix WARN in remove() if running without an interrupt
+  ASoC: cs42l42: Always enable TS_PLUG and TS_UNPLUG interrupts
+
+ sound/soc/codecs/cs42l42.c | 282 +++++++++++++++++++++++++--------------------
+ sound/soc/codecs/cs42l42.h |   9 +-
+ 2 files changed, 160 insertions(+), 131 deletions(-)
+
 -- 
-2.20.1
+2.11.0
 

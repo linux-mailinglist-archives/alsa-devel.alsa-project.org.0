@@ -2,79 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 723C4430372
-	for <lists+alsa-devel@lfdr.de>; Sat, 16 Oct 2021 17:40:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F3FE430387
+	for <lists+alsa-devel@lfdr.de>; Sat, 16 Oct 2021 17:49:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB2EB17F2;
-	Sat, 16 Oct 2021 17:39:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB2EB17F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2620817B1;
+	Sat, 16 Oct 2021 17:48:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2620817B1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634398803;
-	bh=Z+zyIwx7CtTVhH1QYPNIX6+plPqCPH1jJuxGq5JuE20=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=uqxfJSdd+MYyKjqPd3zvDPuQnISPrxbfzUsV42alwDRrHXXOL0Y8GwvpfCsRDn9rJ
-	 G4y2BbMHhd8Ug/xNqBXgKUm46CcEFWLrN134hfGjk39KtmpWD2cO+/Vw2CWMTym3UX
-	 CdLL+s4w9KzeJ175RCj8ZjHPmcd3WEgRxRnGAB6I=
+	s=default; t=1634399347;
+	bh=t5sBfqjR8deuFnVBtDAlcOyaBeGvLcWiWvg7jWPJ3iE=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=fzjOSgp0uq6XtnQMbEeMFGxuT11Lm5+AlWL9AaNVRrPaSGEEvZZIvNjj87cKx3Lxe
+	 +WhXIKmq1PQzyio+DgYLUvkcmGXUN8Oprv0KNqyAHVLA96kOnacVoUmwLGJZvi4JMX
+	 dkptrtUldbMhiIE28Pz0CgdaUq9GRLcv04ZIyws4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 092ACF800E5;
-	Sat, 16 Oct 2021 17:38:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92E26F80167;
+	Sat, 16 Oct 2021 17:47:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 12E0EF80212; Sat, 16 Oct 2021 17:38:45 +0200 (CEST)
+ id 1F236F80212; Sat, 16 Oct 2021 17:47:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
- [IPv6:2607:f8b0:4864:20::433])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7CA86F800E5
- for <alsa-devel@alsa-project.org>; Sat, 16 Oct 2021 17:38:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CA86F800E5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="FwrEnBKC"
-Received: by mail-pf1-x433.google.com with SMTP id d9so3847407pfl.6
- for <alsa-devel@alsa-project.org>; Sat, 16 Oct 2021 08:38:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=mrb3i10mG/4CRPlnU6lRGOgjaoFLMgj36rIJcBGasRk=;
- b=FwrEnBKCbbbUByBI3zjYFwvsOCQ+e0c4+7z5mdwWaiT/5p1YsPFtLwR6J+xi2HbhkO
- UEsa0T26Qa4m0nRZloDhToVSzqVBydWJHnIdvvf7+B2a3Oe5UzjaFn7KfOb+WmGu5gAh
- sClTdll2+NmYFp++T/YFmQEDqVb5WatkAL5oj6KSek37wHL4XzEQDkxy26dQvgaWQBWD
- 9tD2/frwUHw3NHhe4wrgHZ8yoZpZnrFjMHPSs8CW0bCtBu9sgY/wTUW7a9+yQwsl3QQa
- lNpGo4Nu/jCj45RhXLgmPsGjGYA7AncgiPXrBQr9CkizrmxnWyWvA9Z4bcCit5OSuLS7
- B79g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=mrb3i10mG/4CRPlnU6lRGOgjaoFLMgj36rIJcBGasRk=;
- b=INOF5nkKVrlfHJ382L2GKumyajVJM8eFBcgJeNTWjHbiJ3txEaB0yjU6m90Ewe+B2p
- IO+9XMGUNWat7kBRyNi4iRKPelWenJ/iTX8nef5sG2tGlDOFFsHFllJhfwMy3rssa24l
- RMvcTLnVVMTHHZLVM+mtZK+u5ebVIpbxYMptqyXkx7sM5j9pjLHYchZRl8c2gJiMeuoH
- ZVHT1xGZarSf1FFE63O1yW5jMBKFXIutVZLpKTmAJfadc9Nv6gNBcUg7cVS7W5aJUwre
- AA+jXAKE7fZ0VZJoywKhO14/stK+SeMYs0RZhEhRP709wcgmWz8CYd6vsnvR119UG7nf
- iWbw==
-X-Gm-Message-State: AOAM533EaTrFiR2qXjsjgN+xogjuX9oiKwKJcNkkGqtwJLf5ntVsrekh
- wFgP+mrxyEy8P2CttBdn8/gpIKJ6LwfVL8bMscQ9FYKEaMo=
-X-Google-Smtp-Source: ABdhPJz6aqsPRzBFVWSIKjEOdh/OafYSXK6YA6UFctRthk3e9ibk15WoRkJeE3MN1ENLpNkawTBAXBddcOcqOlnSNpE=
-X-Received: by 2002:a63:33cb:: with SMTP id
- z194mr14529124pgz.380.1634398716031; 
- Sat, 16 Oct 2021 08:38:36 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 149D3F80167
+ for <alsa-devel@alsa-project.org>; Sat, 16 Oct 2021 17:47:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 149D3F80167
+Received: from p508fce7c.dip0.t-ipconnect.de ([80.143.206.124]
+ helo=phil.localnet)
+ by gloria.sntech.de with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <heiko@sntech.de>)
+ id 1mbluM-0007VR-HD; Sat, 16 Oct 2021 17:47:38 +0200
+From: Heiko Stuebner <heiko@sntech.de>
+To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+Subject: Re: [PATCH 2/4] ASoC: dt-bindings: rockchip: i2s-tdm: Drop rockchip,
+ cru property
+Date: Sat, 16 Oct 2021 17:47:37 +0200
+Message-ID: <2915547.VsDhchvPPW@phil>
+In-Reply-To: <20211016105354.116513-3-frattaroli.nicolas@gmail.com>
+References: <20211016105354.116513-1-frattaroli.nicolas@gmail.com>
+ <20211016105354.116513-3-frattaroli.nicolas@gmail.com>
 MIME-Version: 1.0
-From: Marco Giunta <giun7a@gmail.com>
-Date: Sat, 16 Oct 2021 17:38:25 +0200
-Message-ID: <CAE5BBpRLygys=6+W4O8eqrqDb7tP+t+RtYgUnJYOOWx6Sf_SCA@mail.gmail.com>
-Subject: [PATCH v2] sound/usb : Fix mic sound on Jieli webcam
-To: alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
-Cc: tiwai@suse.com
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,78 +74,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
-this is my second attempt
-(https://mailman.alsa-project.org/pipermail/alsa-devel/2020-December/178361.html)
-to fix mic sound on a Jieli webcam. I found that the mic works only
-when ep packet size is set to wMaxPacketSize, so I've removed the
-datainterval hack. I also fixed the problem with the volume control
-(mixer).
+Am Samstag, 16. Oktober 2021, 12:53:51 CEST schrieb Nicolas Frattaroli:
+> This property was only needed for a driver hack, which we can
+> remove. Since the bindings were not in any kernel release yet, we
+> are able to just drop the property instead of silently accepting
+> and ignoring it.
+> 
+> Signed-off-by: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
 
-Now the mic sound works (no more Minion voice) and there are no more
-errors in syslog about volume range. I arbitrarily choose a resolution
-value (16): I read in a comment that there should be no more than 255
-levels, so 4096 (max volume) / 16 = 0-255 ;-)
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 
-Could you review this patch?
-
-Thanks,
-  Marco
+Thanks for doing that change :-)
+Heiko
 
 
+> ---
+>  .../bindings/sound/rockchip,i2s-tdm.yaml         | 16 ----------------
+>  1 file changed, 16 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml b/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+> index ce3e18b50230..6a7c004bef17 100644
+> --- a/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+> +++ b/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+> @@ -82,12 +82,6 @@ properties:
+>          - tx-m
+>          - rx-m
+>  
+> -  rockchip,cru:
+> -    $ref: /schemas/types.yaml#/definitions/phandle
+> -    description:
+> -      The phandle of the cru.
+> -      Required if neither trcm-sync-tx-only nor trcm-sync-rx-only are specified.
+> -
+>    rockchip,grf:
+>      $ref: /schemas/types.yaml#/definitions/phandle
+>      description:
+> @@ -144,15 +138,6 @@ required:
+>    - rockchip,grf
+>    - "#sound-dai-cells"
+>  
+> -allOf:
+> -  - if:
+> -      properties:
+> -        rockchip,trcm-sync-tx-only: false
+> -        rockchip,trcm-sync-rx-only: false
+> -    then:
+> -      required:
+> -        - rockchip,cru
+> -
+>  additionalProperties: false
+>  
+>  examples:
+> @@ -177,7 +162,6 @@ examples:
+>              resets = <&cru SRST_M_I2S1_8CH_TX>, <&cru SRST_M_I2S1_8CH_RX>;
+>              reset-names = "tx-m", "rx-m";
+>              rockchip,trcm-sync-tx-only;
+> -            rockchip,cru = <&cru>;
+>              rockchip,grf = <&grf>;
+>              #sound-dai-cells = <0>;
+>              pinctrl-names = "default";
+> 
 
-Jieli Technology USB Webcam microphone needs some quirks to work.
 
-Signed-off-by: Marco Giunta <giun7a@gmail.com>
----
- sound/usb/mixer.c  | 7 +++++++
- sound/usb/quirks.c | 6 ++++++
- 2 files changed, 13 insertions(+)
 
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index 9b713b4a5..20ef12dd8 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -1198,6 +1198,13 @@ static void volume_control_quirks(struct
-usb_mixer_elem_info *cval,
-             cval->res = 1;
-         }
-         break;
-+    case USB_ID(0x1224, 0x2a25): /* Jieli Technology USB PHY 2.0 */
-+        if (!strcmp(kctl->id.name, "Mic Capture Volume")) {
-+            usb_audio_info(chip,
-+                "set resolution quirk: cval->res = 16\n");
-+            cval->res = 16;
-+        }
-+        break;
-     }
- }
 
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 326d1b0ea..2263e43fd 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -1534,6 +1534,7 @@ bool snd_usb_get_sample_rate_quirk(struct
-snd_usb_audio *chip)
-     case USB_ID(0x2912, 0x30c8): /* Audioengine D1 */
-     case USB_ID(0x413c, 0xa506): /* Dell AE515 sound bar */
-     case USB_ID(0x046d, 0x084c): /* Logitech ConferenceCam Connect */
-+    case USB_ID(0x1224, 0x2a25): /* Jieli Technology USB PHY 2.0 */
-         return true;
-     }
-
-@@ -1874,6 +1875,11 @@ void
-snd_usb_audioformat_attributes_quirk(struct snd_usb_audio *chip,
-          */
-         fp->attributes &= ~UAC_EP_CS_ATTR_FILL_MAX;
-         break;
-+    case USB_ID(0x1224, 0x2a25):  /* Jieli Technology USB PHY 2.0 */
-+        /* mic works only when ep packet size is set to wMaxPacketSize */
-+        fp->attributes |= UAC_EP_CS_ATTR_FILL_MAX;
-+        break;
-+
-     }
- }
-
---
-2.31.1

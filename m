@@ -2,65 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD3D842FFE3
-	for <lists+alsa-devel@lfdr.de>; Sat, 16 Oct 2021 05:24:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CEE5430062
+	for <lists+alsa-devel@lfdr.de>; Sat, 16 Oct 2021 07:11:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 30AC7184D;
-	Sat, 16 Oct 2021 05:23:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30AC7184D
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC66F1845;
+	Sat, 16 Oct 2021 07:10:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC66F1845
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634354664;
-	bh=NB9gtLY4ofOxPaylw7nRa2GVBdya6z3dL0VtPbCqUf4=;
+	s=default; t=1634361081;
+	bh=eMrqFE3NCqOV+gbQ8LbKs40UDBNNwvwaABLTqCk3y20=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BJ5WDVF36dED8yhdOySvLHTu3FUn5biZFVSa/DMfaf0IFkIh/yI0wx3cHGTmdxRFL
-	 2+nvyWUGgtBmoeT9AuwFpLbhTEWVRwz0lkBaDnFi63LT6q3TtSSpgdwEoFQ//+tEEq
-	 ZFYa5W+OC7Y0tekNSHdCqAbamLFes+KbayILKHS0=
+	b=kmoyI9axPECBVul4IpB6cd3k2YXvYl2BoWDTnW4grMQmp7VNdFcnjYPP8jCsgnBkF
+	 7Lm/MlTCjXwD4ipo29rTQ55oeuX9ie9TyNTyo5QT1xzM6CSszVZpwLmx8rybSnnpqb
+	 V/ARp5qCeUu2w4ZvnL+9bCqIiiWX2mQPSFFaLNJU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84847F80245;
-	Sat, 16 Oct 2021 05:23:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3985DF80245;
+	Sat, 16 Oct 2021 07:10:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 708AEF80212; Sat, 16 Oct 2021 05:23:02 +0200 (CEST)
+ id 924A9F80212; Sat, 16 Oct 2021 07:10:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34A46F80167
- for <alsa-devel@alsa-project.org>; Sat, 16 Oct 2021 05:22:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34A46F80167
-X-IronPort-AV: E=McAfee;i="6200,9189,10138"; a="208823771"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6922CF80167
+ for <alsa-devel@alsa-project.org>; Sat, 16 Oct 2021 07:09:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6922CF80167
+X-IronPort-AV: E=McAfee;i="6200,9189,10138"; a="215195608"
 X-IronPort-AV: E=Sophos;i="5.85,377,1624345200"; 
- d="gz'50?scan'50,208,50";a="208823771"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2021 20:22:45 -0700
+ d="gz'50?scan'50,208,50";a="215195608"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2021 22:09:46 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="5.85,377,1624345200"; 
- d="gz'50?scan'50,208,50";a="442726535"
+ d="gz'50?scan'50,208,50";a="593180656"
 Received: from lkp-server02.sh.intel.com (HELO 08b2c502c3de) ([10.239.97.151])
- by orsmga006.jf.intel.com with ESMTP; 15 Oct 2021 20:22:42 -0700
+ by orsmga004.jf.intel.com with ESMTP; 15 Oct 2021 22:09:43 -0700
 Received: from kbuild by 08b2c502c3de with local (Exim 4.92)
  (envelope-from <lkp@intel.com>)
- id 1mbaHR-0008g0-AM; Sat, 16 Oct 2021 03:22:41 +0000
-Date: Sat, 16 Oct 2021 11:21:56 +0800
+ id 1mbbx0-0008kN-MB; Sat, 16 Oct 2021 05:09:42 +0000
+Date: Sat, 16 Oct 2021 13:09:09 +0800
 From: kernel test robot <lkp@intel.com>
 To: Cezary Rojewski <cezary.rojewski@intel.com>,
 	alsa-devel@alsa-project.org
-Subject: Re: [PATCH 3/5] ALSA: hda: Fill gaps in NHLT endpoint-interface
-Message-ID: <202110161124.HrehsuEq-lkp@intel.com>
-References: <20211015164047.44492-4-cezary.rojewski@intel.com>
+Subject: Re: [PATCH 4/5] ALSA: hda: Simplify DMIC-in-NHLT check
+Message-ID: <202110161337.9axj2Teh-lkp@intel.com>
+References: <20211015164047.44492-5-cezary.rojewski@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="Q68bSM7Ycu6FN28Q"
+Content-Type: multipart/mixed; boundary="W/nzBZO5zC0uMSeA"
 Content-Disposition: inline
-In-Reply-To: <20211015164047.44492-4-cezary.rojewski@intel.com>
+In-Reply-To: <20211015164047.44492-5-cezary.rojewski@intel.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: Cezary Rojewski <cezary.rojewski@intel.com>, kbuild-all@lists.01.org,
  llvm@lists.linux.dev, pierre-louis.bossart@linux.intel.com, tiwai@suse.com,
@@ -82,16 +82,16 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---Q68bSM7Ycu6FN28Q
+--W/nzBZO5zC0uMSeA
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 Hi Cezary,
 
-Thank you for the patch! Perhaps something to improve:
+Thank you for the patch! Yet something to improve:
 
-[auto build test WARNING on broonie-sound/for-next]
-[also build test WARNING on tiwai-sound/for-next v5.15-rc5 next-20211015]
+[auto build test ERROR on broonie-sound/for-next]
+[also build test ERROR on tiwai-sound/for-next v5.15-rc5 next-20211015]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
 https://git-scm.com/docs/git-format-patch]
@@ -105,63 +105,70 @@ reproduce (this is a W=1 build):
         chmod +x ~/bin/make.cross
         # install riscv cross compiling tool for clang build
         # apt-get install binutils-riscv64-linux-gnu
-        # https://github.com/0day-ci/linux/commit/418a9f8fd0b93d717ac19a0fed367c60fe2e4352
+        # https://github.com/0day-ci/linux/commit/2d319eabf52e504c98ef5c0fdd812347b41edd00
         git remote add linux-review https://github.com/0day-ci/linux
         git fetch --no-tags linux-review Cezary-Rojewski/ALSA-hda-New-NHLT-functions-and-cleanup/20211016-004154
-        git checkout 418a9f8fd0b93d717ac19a0fed367c60fe2e4352
+        git checkout 2d319eabf52e504c98ef5c0fdd812347b41edd00
         # save the attached .config to linux build tree
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 ARCH=riscv 
+        mkdir build_dir
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=riscv SHELL=/bin/bash sound/hda/
 
 If you fix the issue, kindly add following tag as appropriate
 Reported-by: kernel test robot <lkp@intel.com>
 
-All warnings (new ones prefixed by >>):
+All errors (new ones prefixed by >>):
 
    In file included from sound/hda/intel-dsp-config.c:13:
->> include/sound/intel-nhlt.h:159:6: warning: no previous prototype for function 'intel_nhlt_has_endpoint_type' [-Wmissing-prototypes]
+   include/sound/intel-nhlt.h:159:6: warning: no previous prototype for function 'intel_nhlt_has_endpoint_type' [-Wmissing-prototypes]
    bool intel_nhlt_has_endpoint_type(struct acpi_table_nhlt *nhlt, u8 link_type)
         ^
    include/sound/intel-nhlt.h:159:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
    bool intel_nhlt_has_endpoint_type(struct acpi_table_nhlt *nhlt, u8 link_type)
    ^
    static 
->> include/sound/intel-nhlt.h:165:1: warning: no previous prototype for function 'intel_nhlt_get_endpoint_blob' [-Wmissing-prototypes]
+   include/sound/intel-nhlt.h:165:1: warning: no previous prototype for function 'intel_nhlt_get_endpoint_blob' [-Wmissing-prototypes]
    intel_nhlt_get_endpoint_blob(struct acpi_table_nhlt *nhlt,
    ^
    include/sound/intel-nhlt.h:164:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
    struct nhlt_specific_cfg *
    ^
    static 
-   2 warnings generated.
+>> sound/hda/intel-dsp-config.c:387:42: error: use of undeclared identifier 'NHLT_LINK_DMIC'
+                   if (intel_nhlt_has_endpoint_type(nhlt, NHLT_LINK_DMIC))
+                                                          ^
+>> sound/hda/intel-dsp-config.c:387:42: error: use of undeclared identifier 'NHLT_LINK_DMIC'
+>> sound/hda/intel-dsp-config.c:387:42: error: use of undeclared identifier 'NHLT_LINK_DMIC'
+   2 warnings and 3 errors generated.
 
 
-vim +/intel_nhlt_has_endpoint_type +159 include/sound/intel-nhlt.h
+vim +/NHLT_LINK_DMIC +387 sound/hda/intel-dsp-config.c
 
-   158	
- > 159	bool intel_nhlt_has_endpoint_type(struct acpi_table_nhlt *nhlt, u8 link_type)
-   160	{
-   161		return false;
-   162	}
-   163	
-   164	struct nhlt_specific_cfg *
- > 165	intel_nhlt_get_endpoint_blob(struct acpi_table_nhlt *nhlt,
-   166				     u32 bus_id, u8 link_type, u8 vbps, u8 bps,
-   167				     u8 num_ch, u32 rate, u8 dir, u8 dev_type)
-   168	{
-   169		return NULL;
-   170	}
-   171	
+   379	
+   380	static int snd_intel_dsp_check_dmic(struct pci_dev *pci)
+   381	{
+   382		struct acpi_table_nhlt *nhlt;
+   383		int ret = 0;
+   384	
+   385		nhlt = intel_nhlt_init();
+   386		if (nhlt) {
+ > 387			if (intel_nhlt_has_endpoint_type(nhlt, NHLT_LINK_DMIC))
+   388				ret = 1;
+   389			intel_nhlt_free(nhlt);
+   390		}
+   391		return ret;
+   392	}
+   393	
 
 ---
 0-DAY CI Kernel Test Service, Intel Corporation
 https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
 
---Q68bSM7Ycu6FN28Q
+--W/nzBZO5zC0uMSeA
 Content-Type: application/gzip
 Content-Disposition: attachment; filename=".config.gz"
 Content-Transfer-Encoding: base64
 
-H4sICGQ7amEAAy5jb25maWcAnDzLcuO2svvzFapkkyySSLL8ure8gEhQQkQSDABKsjcsjayZ
+H4sICMBWamEAAy5jb25maWcAnDzLcuO2svvzFapkkyySSLL8ure8gEhQQkQSDABKsjcsjayZ
 6B6P5ZLkSebvTzfAB0CCcs6dykzM7gbQQDf6BcA//uvHAXk/H75uzvvt5uXl++DL7nV33Jx3
 z4PP+5fd/w5CPki5GtCQqV+BON6/vv/923F/2n4bXP86uv51+Mtxez1Y7I6vu5dBcHj9vP/y
 Du33h9d//fivgKcRmxVBUCypkIynhaJr9fDD9mXz+mXwbXc8Ad1gNPl1+Otw8NOX/fl/fvsN
@@ -728,4 +735,4 @@ U2YlxvD1cJhxbejUoC57QhdDogcJ39m2BmmC+/DLgUw+vzHX/4BuooqKJCo9bQDfllqUHQEd
 gkiTc1ZZy7TOQaW1qxhfbRtdE9chFtA2OliMzPMItk3Ktj7MlXCH0W0S6jsCKt71oD1M2wrE
 ysXQAPCJKVMngP28hxQ7U8uFip+nTYNcFpdRhxeutOYsTwOLVIoh+rm2dYX2/3jMC0Wm8AEA
 
---Q68bSM7Ycu6FN28Q--
+--W/nzBZO5zC0uMSeA--

@@ -2,67 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53815430088
-	for <lists+alsa-devel@lfdr.de>; Sat, 16 Oct 2021 08:27:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08494430241
+	for <lists+alsa-devel@lfdr.de>; Sat, 16 Oct 2021 12:55:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4C801848;
-	Sat, 16 Oct 2021 08:26:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4C801848
+	by alsa0.perex.cz (Postfix) with ESMTPS id 798BC1840;
+	Sat, 16 Oct 2021 12:54:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 798BC1840
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634365662;
-	bh=XWdBSrhbYfGOfljl6ePZhJDLMoPJZGahIA1BnE+JEL4=;
+	s=default; t=1634381747;
+	bh=EcvCoFSHZENYN7stDu5A4FBacttmz8Yafbdh0rI48xg=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=txt4HWwsbuM6dFJkLQ3cUPz1QaWHo7Z3qeClPBHu6kiFePFSJJSaAv7REjxIO3K7i
-	 fZ65IXuvNvXtHBhGGSqe/rKCDAe+agMEci3QDt4DBfJxrB3uga0t1TlpFd41SvuVoo
-	 Zw8SjkgmUqSHHVGrsiVDFVxzhXhCe7DXiMYm6PHQ=
+	b=Sf9HaC9dLn5aNkXl423pisU+dTfhzrCqJ1wdgxiO5QID02zK9kp086S6V+Bswv00L
+	 4MSlX+JOxmIG7377P/jEFYAo93CG5T+CfBxJt+Y00gM8PmMQHZg092eg1BS+i1xSwq
+	 YLhl+VLTEcCr9PTB7LjoYW66n1QMsPte7IIvxZ8s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D80CF80245;
-	Sat, 16 Oct 2021 08:26:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC39BF800C5;
+	Sat, 16 Oct 2021 12:54:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 46E9EF80212; Sat, 16 Oct 2021 08:26:24 +0200 (CEST)
+ id 174FFF80212; Sat, 16 Oct 2021 12:54:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from bombadil.infradead.org (unknown [IPv6:2607:7c80:54:e::133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6401CF800E5
- for <alsa-devel@alsa-project.org>; Sat, 16 Oct 2021 08:26:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6401CF800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id A1794F800C5
+ for <alsa-devel@alsa-project.org>; Sat, 16 Oct 2021 12:54:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1794F800C5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="R2HFpAoV"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
- Content-ID:Content-Description:In-Reply-To:References;
- bh=BhYE3boCAjVmx4aSjOWGjKR2hEoYtcDr4JkhxOOfVO4=; b=R2HFpAoV+B6ur9uK6VrlG7o4YP
- 8CLC12444uKYaZfD39HJ+vH2CJkVAHjzrGf9ndDZOSAUcUQZUWrLNYH2YBfQkV0ii+1b67V6SERaN
- Vqm7L04x1XmobTN+e3pRbtPiFD2G1G7V5WTAu0CgK/331lp5ctq70Dv+6qFdr8pGTEBDMG+IfzEuN
- i0mXGomZ9a3B99wO84iJyCgUXqbOR1mcktsZzcksQufAqwzFd3sCHCjv+K0OKTLybmQHAZ4RKZgv7
- VFUMc4UWIhHPI+RfOIyTkGqA34qIJvj6DhS/ZeyLmdaa41JOo6tWDrK6fixNr4LYxv2x9kwB1eOMf
- C2KcMxlg==;
-Received: from [2601:1c0:6280:3f0::aa0b] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1mbd8u-009wZI-6h; Sat, 16 Oct 2021 06:26:04 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] sound: ISA: not for M68K
-Date: Fri, 15 Oct 2021 23:26:02 -0700
-Message-Id: <20211016062602.3588-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.31.1
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="l/7qp0MV"
+Received: by mail-lf1-x131.google.com with SMTP id z11so51853339lfj.4
+ for <alsa-devel@alsa-project.org>; Sat, 16 Oct 2021 03:54:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=1nXEEQOI2UyvJFPHSDiyUoFnaQvmSXlf0s7F8x76wlc=;
+ b=l/7qp0MVktj3pxcjYP9oXhD8My/pkVceyXH3oedix5GS9BxwMQjo7JAd2GUyEpLgFJ
+ 6A3jHx9ICFXkVdu49qN0hEKmZrz2ZEhlTdvdmse34ktf0ATlExTZ3OMVZu32xnbqJW2P
+ FDxZAHo9raJeXntES+2CUbL1k0Ay4WGatGyhMlmjXlTTBLjbACCTP2AdAj1spaQXMZVO
+ 5lD3PoaKhStIqLiTf/+T+GH2ACtOO/3folt0bgzpwcCp/jolrhr64pEViAd1HVdYa5lH
+ VG6/fFrRSBy+fuIPUTC8+vbdCVoec4GuTn2lbS5SElm+OCp1q+t72Rg40uIFVSVr6ps7
+ 0a6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=1nXEEQOI2UyvJFPHSDiyUoFnaQvmSXlf0s7F8x76wlc=;
+ b=CLTNxqtH7exR+Jrx0CAf8pNJS8cX7EAirEEjLpQESPAeqBsbND/DuP07bCZrDJWYXN
+ ci2fBrGMx2p9JD369osK31hE3VwocfvYohtf7v2qKEIegsbSSdqcjly5nMcZf7Xl9ZYZ
+ q+blZovANCEqW6uebIvRdiAisaIb6OWM/zn/OLql8/Un9mTLnhyFXiNaMi2m0rO0FO7/
+ QzqE4nsr0N241eXvgSlACGDS1HszL6T7RReGFYqaCfGvY2mCJBN+JiWZY4NZ8J9xjy4+
+ p7sjTQbE7aHucC2chzyFbpH9JjsxsTSse0oOFq9Xw54K3raCttABqZpqUg9jq2dq3bcq
+ L9Ww==
+X-Gm-Message-State: AOAM530tOEEKqa8YJBLaXUVDNA7EdWUBfTyrmrnZYbKKEBRWDibMIXyG
+ 7f8s/sw5Lzb1aWba/HBexk8=
+X-Google-Smtp-Source: ABdhPJy71ErVHEZBd5Yxc8l9Ddc4qLHPXpX6v/GjX9j4ndPss0lcNvuXGDEW7DzF5dJ7R5zXECcltg==
+X-Received: by 2002:a05:651c:2121:: with SMTP id
+ a33mr6782437ljq.490.1634381657633; 
+ Sat, 16 Oct 2021 03:54:17 -0700 (PDT)
+Received: from localhost.localdomain (84-72-105-84.dclient.hispeed.ch.
+ [84.72.105.84])
+ by smtp.gmail.com with ESMTPSA id r3sm814224lfc.131.2021.10.16.03.54.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 16 Oct 2021 03:54:17 -0700 (PDT)
+From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+To: 
+Subject: [PATCH 0/4] Getting rid of the reset controller in i2s-tdm
+Date: Sat, 16 Oct 2021 12:53:49 +0200
+Message-Id: <20211016105354.116513-1-frattaroli.nicolas@gmail.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Randy Dunlap <rdunlap@infradead.org>,
- Takashi Iwai <tiwai@suse.com>, linux-m68k@lists.linux-m68k.org,
- Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Heiko Stuebner <heiko@sntech.de>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+ linux-rockchip@lists.infradead.org, Mark Brown <broonie@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,70 +104,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On m68k, compiling drivers under SND_ISA causes build errors:
+Hello,
 
-../sound/core/isadma.c: In function 'snd_dma_program':
-../sound/core/isadma.c:33:17: error: implicit declaration of function 'claim_dma_lock' [-Werror=implicit-function-declaration]
-   33 |         flags = claim_dma_lock();
-      |                 ^~~~~~~~~~~~~~
-../sound/core/isadma.c:41:9: error: implicit declaration of function 'release_dma_lock' [-Werror=implicit-function-declaration]
-   41 |         release_dma_lock(flags);
-      |         ^~~~~~~~~~~~~~~~
+after some discussion with Heiko on IRC, he has admitted to me
+that the rockchip,cru property, and its corresponding half a reset
+controller in the driver, is weighing heavily on his mind.
 
-../sound/isa/sb/sb16_main.c: In function 'snd_sb16_playback_prepare':
-../sound/isa/sb/sb16_main.c:253:72: error: 'DMA_AUTOINIT' undeclared (first use in this function)
-  253 |         snd_dma_program(dma, runtime->dma_addr, size, DMA_MODE_WRITE | DMA_AUTOINIT);
-      |                                                                        ^~~~~~~~~~~~
-../sound/isa/sb/sb16_main.c:253:72: note: each undeclared identifier is reported only once for each function it appears in
-../sound/isa/sb/sb16_main.c: In function 'snd_sb16_capture_prepare':
-../sound/isa/sb/sb16_main.c:322:71: error: 'DMA_AUTOINIT' undeclared (first use in this function)
-  322 |         snd_dma_program(dma, runtime->dma_addr, size, DMA_MODE_READ | DMA_AUTOINIT);
-      |                                                                       ^~~~~~~~~~~~
+The background is that if the lrck only uses one clock for both rx
+and tx direction, then according to the downstream driver, the rx
+and tx resets should be asserted at roughly the same time to keep
+things in sync.
 
-and more...
+Since there is no existing kernel way of doing this, the driver
+would manually write to the CRU's registers to achieve this,
+violating abstractions.
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org
-Cc: linux-m68k@lists.linux-m68k.org
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>
----
- sound/core/Makefile |    2 ++
- sound/isa/Kconfig   |    2 +-
- sound/pci/Kconfig   |    1 +
- 3 files changed, 4 insertions(+), 1 deletion(-)
+We've agreed that an atomic bulk reset API would be the best way to
+achieve what it does in a clean fashion. The details of such an API
+have yet to be worked out by me, but as it turns out, this is not
+a pressing need.
 
---- linux-next-20211015.orig/sound/isa/Kconfig
-+++ linux-next-20211015/sound/isa/Kconfig
-@@ -22,7 +22,7 @@ config SND_SB16_DSP
- menuconfig SND_ISA
- 	bool "ISA sound devices"
- 	depends on ISA || COMPILE_TEST
--	depends on ISA_DMA_API
-+	depends on ISA_DMA_API && !M68K
- 	default y
- 	help
- 	  Support for sound devices connected via the ISA bus.
---- linux-next-20211015.orig/sound/pci/Kconfig
-+++ linux-next-20211015/sound/pci/Kconfig
-@@ -279,6 +279,7 @@ config SND_CS46XX_NEW_DSP
- config SND_CS5530
- 	tristate "CS5530 Audio"
- 	depends on ISA_DMA_API && (X86_32 || COMPILE_TEST)
-+	depends on !M68K
- 	select SND_SB16_DSP
- 	help
- 	  Say Y here to include support for audio on Cyrix/NatSemi CS5530 chips.
---- linux-next-20211015.orig/sound/core/Makefile
-+++ linux-next-20211015/sound/core/Makefile
-@@ -9,7 +9,9 @@ ifneq ($(CONFIG_SND_PROC_FS),)
- snd-y += info.o
- snd-$(CONFIG_SND_OSSEMUL) += info_oss.o
- endif
-+ifneq ($(CONFIG_M68K),y)
- snd-$(CONFIG_ISA_DMA_API) += isadma.o
-+endif
- snd-$(CONFIG_SND_OSSEMUL) += sound_oss.o
- snd-$(CONFIG_SND_VMASTER) += vmaster.o
- snd-$(CONFIG_SND_JACK)	  += ctljack.o jack.o
+During my investigation, I noticed that I can simply drop the
+synchronised reset for now and assert the two resets manually one
+after the other, and deassert them in the same manner.
+
+For the case I care about, which is audio playback, this seems to
+work just fine. Should someone actually find a case where this
+causes a problem, it should be fixed with an atomic bulk reset API.
+
+Patch 1 removes the direct CRU writing stuff from the i2s-tdm driver.
+
+Patch 2 drops the rockchip,cru property from the bindings; they have
+not yet been in a kernel release, so as far as I know, we can still
+change them with no regard for backwards compatibility.
+
+Patch 3 adds the rk356x i2s1 node without the rockchip,cru property.
+
+Patch 4 adds the analog audio output on Quartz64, included here for
+Heiko's convenience.
+
+Regards,
+Nicolas Frattaroli
+
+Nicolas Frattaroli (4):
+  ASoC: rockchip: i2s-tdm: Strip out direct CRU use
+  ASoC: dt-bindings: rockchip: i2s-tdm: Drop rockchip,cru property
+  arm64: dts: rockchip: Add i2s1 on rk356x
+  arm64: dts: rockchip: Add analog audio on Quartz64
+
+ .../bindings/sound/rockchip,i2s-tdm.yaml      |  16 ---
+ .../boot/dts/rockchip/rk3566-quartz64-a.dts   |  31 ++++-
+ arch/arm64/boot/dts/rockchip/rk356x.dtsi      |  25 ++++
+ sound/soc/rockchip/rockchip_i2s_tdm.c         | 126 +++---------------
+ 4 files changed, 76 insertions(+), 122 deletions(-)
+
+-- 
+2.33.1
+

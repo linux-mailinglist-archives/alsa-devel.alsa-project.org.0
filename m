@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54F054306FF
-	for <lists+alsa-devel@lfdr.de>; Sun, 17 Oct 2021 09:03:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4CEC430701
+	for <lists+alsa-devel@lfdr.de>; Sun, 17 Oct 2021 09:05:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CBB6117B7;
-	Sun, 17 Oct 2021 09:03:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBB6117B7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4EA1F17BF;
+	Sun, 17 Oct 2021 09:04:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4EA1F17BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634454232;
-	bh=lj5uIi2OBA8LlL7GDnoyulJo0ZVZ12J6C7g2YYDZ27k=;
+	s=default; t=1634454328;
+	bh=mc5NP6oGEtvCcm+C1ReH2yrMgJYNtfTXq1EqhtEC95w=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kScFOMH0KUxGyn1xRDfcZ0t7+aB85Mts8EczQt7zBjVxHgON1C8OK8mST6DUw6v48
-	 bUTQUfra+0VXoy+mChkNpAnVzk1gcbyY+C8Fvz6VcJg+sA+MXRYCZ5sITFPEuKZHZP
-	 cTvx9QWY+5z/Fvf/11BIlrC6oYdH1bn7oJGTQSIQ=
+	b=On7s8hR0rxglfoDKxzYHkVuSAM8OquCsuaEU+vt5B/R+TL/osc1/rCXzXWZer+EHe
+	 srJ5oCSrOaShPSSRFhZoEm9aWC/cmAF7yVDyh0x1WSugkwZpel8sae1qU9dh86Ii+W
+	 B40VXS6c01jcfxMA7VWAABve0kEaMp8V9jRfAQoQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12ACDF800E5;
-	Sun, 17 Oct 2021 09:02:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3EDBF8026C;
+	Sun, 17 Oct 2021 09:04:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EA62CF80256; Sun, 17 Oct 2021 09:02:34 +0200 (CEST)
+ id 651DFF80256; Sun, 17 Oct 2021 09:04:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 53D4EF800E5
- for <alsa-devel@alsa-project.org>; Sun, 17 Oct 2021 09:02:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53D4EF800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id DD577F80111
+ for <alsa-devel@alsa-project.org>; Sun, 17 Oct 2021 09:04:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD577F80111
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="kp0beI9m"; 
+ header.b="eUunTl5r"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="3fXNYj42"
+ header.b="U4eB8p/L"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id D5CD421982;
- Sun, 17 Oct 2021 07:02:30 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id DE89A1FD62;
+ Sun, 17 Oct 2021 07:03:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1634454150; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1634454236; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=fqLz6DJ80UihbJCHsPPlq33gwGROqN7RcTWXxyyD3tI=;
- b=kp0beI9mTAUEYzcqBargZ7EWAMzCLOV7dTXE7HrmtVDVTB2sDRyc83zUXT06yidC7zJ1IL
- 4vFWei9Mo/NqW+vXFgv3aYuNn5py0pYzQ9HA/mmVh8WA7/fP5qzeW6ff9PFCFAK5kLdUKm
- dlFd8qk+dWNpKrR48hOEpmnMajOJCqU=
+ bh=ho5h5lMllJBTA3fQKLCWm5utOts+ez5ldPF7Z9wA2tU=;
+ b=eUunTl5rf8kZq/7y3fNjRItmUIqKCTohqXMOlBKY7/vAyQb24Whemf9pCihBAaovQZQUKW
+ 3/Z9wPpTATJBtBrZh9IkCCFOMAy+eEVnLdHVKYFiNYn/ihVexdleiweRP9cQrijxf66tH5
+ eFhWEXD39ls043+E7bGyNJpQzqQbiPg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1634454150;
+ s=susede2_ed25519; t=1634454236;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=fqLz6DJ80UihbJCHsPPlq33gwGROqN7RcTWXxyyD3tI=;
- b=3fXNYj42PyZxhttepb2bqOdDV+kKyCwftemeM7MOlDZYHhetSPTg8FSYbB+hkKLzpyC4jW
- WFSxzDozYE1aJhDA==
+ bh=ho5h5lMllJBTA3fQKLCWm5utOts+ez5ldPF7Z9wA2tU=;
+ b=U4eB8p/LqvR8LR7KnWsZMBzsxifv6S0rxJtTFZguOnj+L82irkQ1edRLuO2nrme0fMqLeP
+ Cu8FkQtZ5KPcliBw==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id B73F0A3B81;
- Sun, 17 Oct 2021 07:02:30 +0000 (UTC)
-Date: Sun, 17 Oct 2021 09:02:30 +0200
-Message-ID: <s5hczo4t9q1.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id CFA7BA3B81;
+ Sun, 17 Oct 2021 07:03:56 +0000 (UTC)
+Date: Sun, 17 Oct 2021 09:03:56 +0200
+Message-ID: <s5hbl3ot9nn.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH 00/11] ALSA: firewire-motu: add ioctl commands to retrieve
- information in messages delivered by isoc packet
-In-Reply-To: <YWt6179lGu6xM3Gw@workstation>
-References: <20211015080826.34847-1-o-takashi@sakamocchi.jp>
- <s5hv91ythay.wl-tiwai@suse.de> <YWt6179lGu6xM3Gw@workstation>
+To: Randy Dunlap <rdunlap@infradead.org>
+Subject: Re: [RFC PATCH] sound: ISA: not for M68K
+In-Reply-To: <20211016062602.3588-1-rdunlap@infradead.org>
+References: <20211016062602.3588-1-rdunlap@infradead.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: ffado-devel@lists.sourceforge.net, alsa-devel@alsa-project.org,
- clemens@ladisch.de
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+ Geert Uytterhoeven <geert@linux-m68k.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,105 +94,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 17 Oct 2021 03:22:31 +0200,
-Takashi Sakamoto wrote:
+On Sat, 16 Oct 2021 08:26:02 +0200,
+Randy Dunlap wrote:
 > 
-> Hi,
+> On m68k, compiling drivers under SND_ISA causes build errors:
 > 
-> On Fri, Oct 15, 2021 at 05:54:13PM +0200, Takashi Iwai wrote:
-> > On Fri, 15 Oct 2021 10:08:15 +0200,
-> > Takashi Sakamoto wrote:
-> > > 
-> > > Hi,
-> > > 
-> > > The purpose of this patchset is to add message parser to ALSA
-> > > firewire-motu driver so that userspace applications can read information
-> > > in message delivered by isochronous packet as well as PCM frames.
-> > > The message includes information about hardware meter and user action
-> > > over hardware component such as knob, and MIDI message bytes.
-> > > 
-> > > Models in MOTU FireWire series can be categorized to 4 groups in regard
-> > > of message mechanism:
-> > > 
-> > > Group 1. 828 and 896
-> > >  * quadlet message to registered destination address
-> > > Group 2. 828mk2, 896hd, Traveler, 8 pre, Ultralite, 4 pre, and Audio Express
-> > >  * quadlet message to registered destination address
-> > >  * message delivered by isochronous packet
-> > > Group 3. 828mk3, 896mk3, Ultralite mk3, Traveler mk3, and Track 16
-> > >  * quadlet message to registered destination address
-> > >  * message delivered by isochronous packet
-> > >  * block message to registered destination address, including command
-> > > Group 4. V3HD/V4HD
-> > >  * quadlet message to registered destination address
-> > >  * block message to registered destination address
-> > > 
-> > > The patchset is for message delivered by isochronous packet in group 2
-> > > and 3. In Group 2, the message includes information of hardware meter,
-> > > information of user action over hardware component. The model in Group
-> > > 2 is called as 'register DSP' in the patchset since parameters of DSP
-> > > can be configured by asynchronous transaction for register access. In
-> > > Group 3, the message includes information of hardware meter only. The
-> > > model in Group 3 is called as 'command DSP' since software and device
-> > > communicate with commands transferred by asynchronous transaction in
-> > > regard of DSP parameters. Two types of message parser is going to be
-> > > added so that the driver caches images for the information. The cache
-> > > is available for userspace application by ioctl commands newly introduced.
-> > > 
-> > > I note that no control element is added for the hardware meters and user
-> > > actions. It's expected for userspace application to retrieve and parse the
-> > > information of image then operate for user-defined control element set.
-> > > 
-> > > Takashi Sakamoto (11):
-> > >   ALSA: firewire-motu: add message parser to gather meter information in
-> > >     register DSP model
-> > >   ALSA: firewire-motu: add message parser for meter information in
-> > >     command DSP model
-> > >   ALSA: firewire-motu: add ioctl command to read cached hardware meter
-> > >   ALSA: firewire-motu: parse messages for mixer source parameters in
-> > >     register-DSP model
-> > >   ALSA: firewire-motu: parse messages for mixer output parameters in
-> > >     register DSP model
-> > >   ALSA: firewire-motu: parse messages for output parameters in register
-> > >     DSP model
-> > >   ALSA: firewire-motu: parse messages for line input parameters in
-> > >     register DSP model
-> > >   ALSA: firewire-motu: parse messages for input parameters in register
-> > >     DSP model
-> > >   ALSA: firewire-motu: add ioctl command to read cached DSP parameters
-> > >   ALSA: firewire-motu: queue event for parameter change in register DSP
-> > >     model
-> > >   ALSA: firewire-motu: notify event for parameter change in register DSP
-> > >     model
-> > 
-> > Applied all patches now.  Thanks.
+> ../sound/core/isadma.c: In function 'snd_dma_program':
+> ../sound/core/isadma.c:33:17: error: implicit declaration of function 'claim_dma_lock' [-Werror=implicit-function-declaration]
+>    33 |         flags = claim_dma_lock();
+>       |                 ^~~~~~~~~~~~~~
+> ../sound/core/isadma.c:41:9: error: implicit declaration of function 'release_dma_lock' [-Werror=implicit-function-declaration]
+>    41 |         release_dma_lock(flags);
+>       |         ^~~~~~~~~~~~~~~~
 > 
-> Thanks for your applying the above patches into your tree. I have some
-> slight concerns about them. I'd like to ask your opinion.
+> ../sound/isa/sb/sb16_main.c: In function 'snd_sb16_playback_prepare':
+> ../sound/isa/sb/sb16_main.c:253:72: error: 'DMA_AUTOINIT' undeclared (first use in this function)
+>   253 |         snd_dma_program(dma, runtime->dma_addr, size, DMA_MODE_WRITE | DMA_AUTOINIT);
+>       |                                                                        ^~~~~~~~~~~~
+> ../sound/isa/sb/sb16_main.c:253:72: note: each undeclared identifier is reported only once for each function it appears in
+> ../sound/isa/sb/sb16_main.c: In function 'snd_sb16_capture_prepare':
+> ../sound/isa/sb/sb16_main.c:322:71: error: 'DMA_AUTOINIT' undeclared (first use in this function)
+>   322 |         snd_dma_program(dma, runtime->dma_addr, size, DMA_MODE_READ | DMA_AUTOINIT);
+>       |                                                                       ^~~~~~~~~~~~
 > 
-> The snd_firewire_motu_command_dsp_meter structure includes array of 32 bit
-> storage elements. As I added its documentation, the storage includes
-> IEEE 764 binary32 values between 0.0 and +1.0. In the patchset I use __u32
-> type since I can find just a few usage of float type in UAPI header. In
-> driver side, no floating point arithmetic is used since the float value
-> is just constructed by gathering messages from target device. In the case,
-> is it adequate to expose the value as float type in UAPI?
->
-> Additionally, current ALSA control interface have no support for control
-> element with float value, like SNDRV_CTL_ELEM_TYPE_IEEE764_BINARY32. As
-> long as I know, no discussion about it in the list for recent decades.
-> Have you ever seen such discussion in the list? (Here I intensionally
-> ignore that we have several binary expressions for floating point since
-> I'm just interested in the existence of discussion.)
+> and more...
+> 
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> Cc: Jaroslav Kysela <perex@perex.cz>
+> Cc: Takashi Iwai <tiwai@suse.com>
+> Cc: alsa-devel@alsa-project.org
+> Cc: linux-m68k@lists.linux-m68k.org
+> Cc: Geert Uytterhoeven <geert@linux-m68k.org>
 
-It's not been proposed, AFAIK.
+Thanks, applied.
 
-The biggest concern is that, *if* any reference or calculation of the
-float type is required, what to do.  e.g. the kernel has a validation
-code for each values (min/max check), and how could it be implemented
-for the float type?
-
-
-thanks,
 
 Takashi

@@ -2,61 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D81443087B
-	for <lists+alsa-devel@lfdr.de>; Sun, 17 Oct 2021 13:46:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29C394308C2
+	for <lists+alsa-devel@lfdr.de>; Sun, 17 Oct 2021 14:37:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6444187A;
-	Sun, 17 Oct 2021 13:45:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6444187A
+	by alsa0.perex.cz (Postfix) with ESMTPS id AAFA117CF;
+	Sun, 17 Oct 2021 14:37:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAFA117CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634471200;
-	bh=ohuMuYmmuyqyemJ4Qv+2X0qk6HWlk0oTy0Gz89ptlUo=;
+	s=default; t=1634474278;
+	bh=0+sGrJAkTEnrGBX1T4+4dak/NLC4GgNKb/xRtQFYj0k=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ETXjU7LMTj66bB4SdLaFfKPiU8CmjhDqMYa16amLkwFHjflO3H5ATb3Ye0rUrqmfM
-	 Rs3wn7PJnpzOmWrJMjjy5FNc4G0VzKlSWDTgg6xa8GsUzzgh/w8Nx8CbNG282rXXns
-	 TFbRfepvbohkuFw5PbWgYA1r4iKa5TwJ8PcbaJJs=
+	b=Y4IqM/PcmUEC8ZFFQ20uWN9G6mURAvq2dNpoSBBXZdZl9OCU0+KzLU4IP0XwtcyMw
+	 3CAXhByg/n4yR8+w17nWZyEyty7VI+h8V3S/OiVcuurbmTl7stvRnEyRRhwC7kz68H
+	 2XyBSHuFxRyAUjRsrQjs8loXL3ojBaopBMmbb1p4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19440F800E5;
-	Sun, 17 Oct 2021 13:45:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22135F8026C;
+	Sun, 17 Oct 2021 14:36:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09358F80256; Sun, 17 Oct 2021 13:45:23 +0200 (CEST)
+ id 47847F80256; Sun, 17 Oct 2021 14:36:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9CE83F800E5
- for <alsa-devel@alsa-project.org>; Sun, 17 Oct 2021 13:45:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CE83F800E5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ba2+hAgq"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 011D360FE3;
- Sun, 17 Oct 2021 11:45:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634471115;
- bh=ohuMuYmmuyqyemJ4Qv+2X0qk6HWlk0oTy0Gz89ptlUo=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ba2+hAgqogX5pyL/+cDfcC/L2/wrEGbJ9jKoi7XLGpqxScs6BytFNYjroMCWo/BVH
- V+GJtRe3JCtiIzpaITvLkS+jLIvdiSb32DsLjoQ3NldEKjX1Yr1DFm8qn725IcxcSv
- jeT3TatImQUuV2OsfLKFo+Nm+84zySMQ/ebFVXr/9mLOLZ/9UAQQRUOge9SjHjiOSr
- ZzcA9VZGfmETOOswrvr4h/N1OIO26N6D8Bkr4ffpswJF7NlbOTyIBoNsIwRP9e8+IO
- +X1ZiW59EdhB9dS+GW6CZDTQsdmututWLb5IXDOjZttz+DPhGsDYCvPpsdTHpiDOkn
- aXlduszwQTqEw==
-From: Mark Brown <broonie@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3D471F801DB
+ for <alsa-devel@alsa-project.org>; Sun, 17 Oct 2021 14:36:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D471F801DB
+Received: from p508fd4f7.dip0.t-ipconnect.de ([80.143.212.247]
+ helo=phil.fritz.box)
+ by gloria.sntech.de with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <heiko@sntech.de>)
+ id 1mc5Oy-0002zk-CQ; Sun, 17 Oct 2021 14:36:32 +0200
+From: Heiko Stuebner <heiko@sntech.de>
 To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
 Subject: Re: (subset) [PATCH 0/4] Getting rid of the reset controller in
  i2s-tdm
-Date: Sun, 17 Oct 2021 12:45:06 +0100
-Message-Id: <163447061131.1864024.8259786717418291207.b4-ty@kernel.org>
+Date: Sun, 17 Oct 2021 14:36:30 +0200
+Message-Id: <163447418314.467969.12281084994764198106.b4-ty@sntech.de>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20211016105354.116513-1-frattaroli.nicolas@gmail.com>
 References: <20211016105354.116513-1-frattaroli.nicolas@gmail.com>
@@ -65,9 +55,9 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Heiko Stuebner <heiko@sntech.de>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, linux-rockchip@lists.infradead.org,
- Mark Brown <broonie@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-rockchip@lists.infradead.org,
+ Rob Herring <robh+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
  linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -98,11 +88,11 @@ On Sat, 16 Oct 2021 12:53:49 +0200, Nicolas Frattaroli wrote:
 
 Applied, thanks!
 
-[1/4] ASoC: rockchip: i2s-tdm: Strip out direct CRU use
-      commit: d6365d0f0a03c1feb28d86dfd192972ddc647013
-[2/4] ASoC: dt-bindings: rockchip: i2s-tdm: Drop rockchip,cru property
-      commit: 4e52cb9e2c22c9d860910794c82461064baadd9f
+[3/4] arm64: dts: rockchip: Add i2s1 on rk356x
+      commit: ef5c913570040df1955dd49cea221783468faeaf
+[4/4] arm64: dts: rockchip: Add analog audio on Quartz64
+      commit: 1938b585ed19bb01969b4e923664db88c5ee8798
 
 Best regards,
 -- 
-Mark Brown <broonie@kernel.org>
+Heiko Stuebner <heiko@sntech.de>

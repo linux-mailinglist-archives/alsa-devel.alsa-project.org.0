@@ -2,81 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2372C430704
-	for <lists+alsa-devel@lfdr.de>; Sun, 17 Oct 2021 09:14:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C008843070E
+	for <lists+alsa-devel@lfdr.de>; Sun, 17 Oct 2021 09:32:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A430F17C5;
-	Sun, 17 Oct 2021 09:13:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A430F17C5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3064917CA;
+	Sun, 17 Oct 2021 09:31:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3064917CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634454840;
-	bh=7xmrwdGOwfMdL7MKFW73Diz/zhoNLJTn28BvgwXj7yM=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=OGUejK25PpQIymQo+yRZ/38XxXthO73fPda1XIJUDZ9zOfA6GyMYZUhi+Zy6tChVZ
-	 /lJwxJkYqk4BjBdVWYd2tRIHBey9bRTwuCemzQiVW2zsxhAlURFfTRA2oCwnjU11E6
-	 9TVSqPCbcrJUBkTB7PcI+VgiHk5FFsQn+TwpvIuE=
+	s=default; t=1634455960;
+	bh=3+vtlI/GKOqIJv9bO4rSR6sZpXmR+Y37RUJD83mmfvk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=PsiReVWI+vA4TxbyUEuqUWt2peQ34zBsBgNu3at4W0S7Rae30c/2wWn3deUiABKk4
+	 xwE6ij2aI5BOJyjfvK5ELj0gwdqtQgN3QWgnVAU3M4lOeNsr+jBoZVmaT+6lQjFNew
+	 iOqv35m+1rLxz5MlJxIMJ/is+bZAViLlXgoJ4PCQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 414B5F8026C;
-	Sun, 17 Oct 2021 09:12:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83F0CF8026C;
+	Sun, 17 Oct 2021 09:31:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 06AB4F80256; Sun, 17 Oct 2021 09:12:41 +0200 (CEST)
+ id BE049F80256; Sun, 17 Oct 2021 09:31:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp.smtpout.orange.fr (smtp04.smtpout.orange.fr
+ [80.12.242.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C4EBFF800E5
- for <alsa-devel@alsa-project.org>; Sun, 17 Oct 2021 09:12:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4EBFF800E5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="1SqGkEqw"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="y+Utw+R+"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 6873821984;
- Sun, 17 Oct 2021 07:12:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1634454751; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Re8eL8/iILe4Onib3URoGpCRulA/7Aj+zxIofS84JcQ=;
- b=1SqGkEqwEFG6dB2i399qHmeaKugrn7vKQetKw3/TxkYcvgfqI/BzxvXDhJxenUoD7a/fjv
- K2V1hUaw3E4QFwVsL/YLhKzbqBkEDVBJ9Q6VwffmYNdo3/aYgWgo6Jm5XOBCvRTr02H8Wf
- JZqyIzrZzGQbwlbmG66JL5YMgMDMCig=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1634454751;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Re8eL8/iILe4Onib3URoGpCRulA/7Aj+zxIofS84JcQ=;
- b=y+Utw+R+sVFETOveI8l8X0qvy3K47K8NUih7T3AxaVvUUtlF6RAhKATPHatIB0fJht4/E0
- H0LzuwuaSXVGEWCQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 5D000A3B83;
- Sun, 17 Oct 2021 07:12:31 +0000 (UTC)
-Date: Sun, 17 Oct 2021 09:12:31 +0200
-Message-ID: <s5ha6j8t99c.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Marco Giunta <giun7a@gmail.com>
-Subject: Re: [PATCH v2] sound/usb : Fix mic sound on Jieli webcam
-In-Reply-To: <CAE5BBpRLygys=6+W4O8eqrqDb7tP+t+RtYgUnJYOOWx6Sf_SCA@mail.gmail.com>
-References: <CAE5BBpRLygys=6+W4O8eqrqDb7tP+t+RtYgUnJYOOWx6Sf_SCA@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id C7ADFF801DB
+ for <alsa-devel@alsa-project.org>; Sun, 17 Oct 2021 09:31:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7ADFF801DB
+Received: from pop-os.home ([92.140.161.106]) by smtp.orange.fr with ESMTPA
+ id c0dWmm9RWWUfjc0dWm9RJT; Sun, 17 Oct 2021 09:31:18 +0200
+X-ME-Helo: pop-os.home
+X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
+X-ME-Date: Sun, 17 Oct 2021 09:31:18 +0200
+X-ME-IP: 92.140.161.106
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org, yang.lee@linux.alibaba.com
+Subject: [PATCH] ASoC: codecs: Fix WCD_MBHC_HPH_PA_EN usage
+Date: Sun, 17 Oct 2021 09:31:12 +0200
+Message-Id: <988948f7f266aa00698704687537335b7e6a67b2.1634455711.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,108 +69,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 16 Oct 2021 17:38:25 +0200,
-Marco Giunta wrote:
-> 
-> Hi,
-> this is my second attempt
-> (https://mailman.alsa-project.org/pipermail/alsa-devel/2020-December/178361.html)
-> to fix mic sound on a Jieli webcam. I found that the mic works only
-> when ep packet size is set to wMaxPacketSize, so I've removed the
-> datainterval hack. I also fixed the problem with the volume control
-> (mixer).
-> 
-> Now the mic sound works (no more Minion voice) and there are no more
-> errors in syslog about volume range. I arbitrarily choose a resolution
-> value (16): I read in a comment that there should be no more than 255
-> levels, so 4096 (max volume) / 16 = 0-255 ;-)
-> 
-> Could you review this patch?
+'hphpa_on' is known to be false, so the if block at the end of the function
+is dead code.
 
-Thanks, this version looks much better.
+Turn it into a meaningful code by having 'hphpa_on' be static. Use is as a
+flip-flop variable.
 
-But the patch couldn't be applied, firstly, because the spaces were
-malformed likely by your MUA.  Please try to fix your MUA set up
-not to replace tabs.  If it's difficult, use an attachment instead.
+Fixes: 0e5c9e7ff899 ("ASoC: codecs: wcd: add multi button Headset detection support")
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+The purpose of this patch is not to be correct (!) but to draw attention
+on several points:
+   - in 'wcd_mbhc_adc_hs_rem_irq()', the "if (hphpa_on)" path is dead code
+     because 'hphpa_on' is known to be false
+   - What is this magic number '3'?
+     All 'wcd_mbhc_read_field()' look for 0 or non-0
+   - a 'mutex_[un]lock()' in an IRQ handler looks spurious to me
 
-Also, one of the changes in quirks.c can't be applied to the latest
-code in Linus tree, as the quirk handling has been changed.
-Now it's treated in a quirk table.  Please adjust with it.
-For the stable tree, we may resubmit the modified patch
-individually later.
+Instead of this (likely broken) patch, it is likely that something is
+missing elsewhere. Maybe in 'wcd_mbhc_adc_hs_ins_irq()'.
+I also guess that 'hphpa_on' should be read for somewhere else.
+---
+ sound/soc/codecs/wcd-mbhc-v2.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-And, please fill the content of the patch description a bit more;
-you can put the information you've written in the above into the
-changelog for a better explanation how the quirk works.
+diff --git a/sound/soc/codecs/wcd-mbhc-v2.c b/sound/soc/codecs/wcd-mbhc-v2.c
+index 405128ccb4b0..783d8c35bc1b 100644
+--- a/sound/soc/codecs/wcd-mbhc-v2.c
++++ b/sound/soc/codecs/wcd-mbhc-v2.c
+@@ -1176,7 +1176,7 @@ static irqreturn_t wcd_mbhc_adc_hs_rem_irq(int irq, void *data)
+ 	struct wcd_mbhc *mbhc = data;
+ 	unsigned long timeout;
+ 	int adc_threshold, output_mv, retry = 0;
+-	bool hphpa_on = false;
++	static bool hphpa_on = false;
+ 
+ 	mutex_lock(&mbhc->lock);
+ 	timeout = jiffies + msecs_to_jiffies(WCD_FAKE_REMOVAL_MIN_PERIOD_MS);
+@@ -1212,6 +1212,9 @@ static irqreturn_t wcd_mbhc_adc_hs_rem_irq(int irq, void *data)
+ 
+ 	if (hphpa_on) {
+ 		hphpa_on = false;
++		wcd_mbhc_write_field(mbhc, WCD_MBHC_HPH_PA_EN, 0);
++	} else {
++		hphpa_on = true;
+ 		wcd_mbhc_write_field(mbhc, WCD_MBHC_HPH_PA_EN, 3);
+ 	}
+ exit:
+-- 
+2.30.2
 
-Last but not least, use the subject prefix "ALSA: usb-audio: " :)
-
-Could you resubmit with those fixes?
-
-
-thanks,
-
-Takashi
-
-> 
-> Thanks,
->   Marco
-> 
-> 
-> 
-> Jieli Technology USB Webcam microphone needs some quirks to work.
-> 
-> Signed-off-by: Marco Giunta <giun7a@gmail.com>
-> ---
->  sound/usb/mixer.c  | 7 +++++++
->  sound/usb/quirks.c | 6 ++++++
->  2 files changed, 13 insertions(+)
-> 
-> diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-> index 9b713b4a5..20ef12dd8 100644
-> --- a/sound/usb/mixer.c
-> +++ b/sound/usb/mixer.c
-> @@ -1198,6 +1198,13 @@ static void volume_control_quirks(struct
-> usb_mixer_elem_info *cval,
->              cval->res = 1;
->          }
->          break;
-> +    case USB_ID(0x1224, 0x2a25): /* Jieli Technology USB PHY 2.0 */
-> +        if (!strcmp(kctl->id.name, "Mic Capture Volume")) {
-> +            usb_audio_info(chip,
-> +                "set resolution quirk: cval->res = 16\n");
-> +            cval->res = 16;
-> +        }
-> +        break;
->      }
->  }
-> 
-> diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-> index 326d1b0ea..2263e43fd 100644
-> --- a/sound/usb/quirks.c
-> +++ b/sound/usb/quirks.c
-> @@ -1534,6 +1534,7 @@ bool snd_usb_get_sample_rate_quirk(struct
-> snd_usb_audio *chip)
->      case USB_ID(0x2912, 0x30c8): /* Audioengine D1 */
->      case USB_ID(0x413c, 0xa506): /* Dell AE515 sound bar */
->      case USB_ID(0x046d, 0x084c): /* Logitech ConferenceCam Connect */
-> +    case USB_ID(0x1224, 0x2a25): /* Jieli Technology USB PHY 2.0 */
->          return true;
->      }
-> 
-> @@ -1874,6 +1875,11 @@ void
-> snd_usb_audioformat_attributes_quirk(struct snd_usb_audio *chip,
->           */
->          fp->attributes &= ~UAC_EP_CS_ATTR_FILL_MAX;
->          break;
-> +    case USB_ID(0x1224, 0x2a25):  /* Jieli Technology USB PHY 2.0 */
-> +        /* mic works only when ep packet size is set to wMaxPacketSize */
-> +        fp->attributes |= UAC_EP_CS_ATTR_FILL_MAX;
-> +        break;
-> +
->      }
->  }
-> 
-> --
-> 2.31.1
-> 

@@ -2,88 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7D63430720
-	for <lists+alsa-devel@lfdr.de>; Sun, 17 Oct 2021 09:54:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AD3B43077B
+	for <lists+alsa-devel@lfdr.de>; Sun, 17 Oct 2021 11:27:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B7A9184E;
-	Sun, 17 Oct 2021 09:53:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B7A9184E
+	by alsa0.perex.cz (Postfix) with ESMTPS id EFDB41866;
+	Sun, 17 Oct 2021 11:26:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFDB41866
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634457252;
-	bh=T/mbvclDfH0kll2i5wFMKybdIyJfQxU8mP1lVkk1a8E=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1634462834;
+	bh=fr8j7OFSDOPMw9HovUDTYiXht6G0osnwh1XSFbIM0Yk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=C5571WdFVO1Uy3iE2h1A/Tqp+/Z4DKITmFTw7WlIeH9AKgHk8EkXQpv2+eMK1zjop
-	 86EkheGziNrm1RhUi6kOnOVVN4pbw6OP+bSRA9DXiVZUXx9UdHBgVzOAaAisnP8/W0
-	 1vFXBkm1nw0TgYHoNyg+X/C5sgGILV8W/RcP0kuU=
+	b=jmh130HAIdH6euN5Egc2XHpykp/wuvOq+ueyOHF63cMPITAeZ8cuqg1Dbmn1o9vSE
+	 CHsT3nnap3NyIpALlNLU6ofJpzdmwjmzri86Mc32+1w7mBERQ0Tsx6uLdWrAZYVey5
+	 6P2vg8mEUnLX5PRdTM90BDsIknxoclGbVpIfz9xg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6B61F80256;
-	Sun, 17 Oct 2021 09:52:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25D38F800E5;
+	Sun, 17 Oct 2021 11:25:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CAA9CF8026C; Sun, 17 Oct 2021 09:52:53 +0200 (CEST)
+ id F3237F80256; Sun, 17 Oct 2021 11:25:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
+ [64.147.123.24])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BFBDAF801DB
- for <alsa-devel@alsa-project.org>; Sun, 17 Oct 2021 09:52:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFBDAF801DB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 59EFFF80111
+ for <alsa-devel@alsa-project.org>; Sun, 17 Oct 2021 11:25:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59EFFF80111
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="XFIBnuKV"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="CYA3J+ks"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 3F42A1FD5B;
- Sun, 17 Oct 2021 07:52:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1634457161; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=RPWUEn8tzfXMF5ibISUef5EFT8Kh1CEef0EdRO/a3zQ=;
- b=XFIBnuKVkCHO39TSRQLCU5yKQsrAQFNbqKsNxofEAo4/lHSESfPLK+3z/laUuutSMl0mD+
- SbdngEPg5S0j/WLfOpUAec/Cm6c43DsMOWde8B6xBhL85XEaTV0M0BNngkdUKVa8bi+N+4
- uMX+0xmffr2e4rPa4XFpSh5QOKUn3OM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1634457161;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=RPWUEn8tzfXMF5ibISUef5EFT8Kh1CEef0EdRO/a3zQ=;
- b=CYA3J+ksVUKci/2ZH+oVE3z+s3z2xvjz0VOh7cQ/m7gBia4uBC7LSV5Mc7A0qfiAZP8vso
- cbIjax81iRnERlAA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 21799A3B83;
- Sun, 17 Oct 2021 07:52:41 +0000 (UTC)
-Date: Sun, 17 Oct 2021 09:52:41 +0200
-Message-ID: <s5hr1ck5bqu.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 1/5] ALSA: hda: Drop device-argument in NHLT functions
-In-Reply-To: <bb2b223e-6318-ed3c-bbe8-31ba4b8d02fe@linux.intel.com>
-References: <20211015164047.44492-1-cezary.rojewski@intel.com>
- <20211015164047.44492-2-cezary.rojewski@intel.com>
- <bb2b223e-6318-ed3c-bbe8-31ba4b8d02fe@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, tiwai@suse.com,
- alsa-devel@alsa-project.org, hdegoede@redhat.com, broonie@kernel.org,
- Amadeusz SX2awiX4ski <amadeuszx.slawinski@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="PAXNBdA6"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="ZY9oIy0T"
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id 82E553200929;
+ Sun, 17 Oct 2021 05:25:41 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute6.internal (MEProxy); Sun, 17 Oct 2021 05:25:41 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm2; bh=IJHe+73IUIl5CfcqD1R60UfPtfz
+ DL6hecpVuU3B4aTU=; b=PAXNBdA6brjah2eMWvzhW+0q2JLmckGf7nU3zGSJei4
+ 5iXeOwJKpC7dIycVlKIcJFCwzARC153wa2l4pv+0oY7miQrMNfRRvklV5ImWRm4a
+ 6B51bVTxiiAi+yYrupI7vWNTESiejtjp4UlasSHrmRfyJX2Vp04lC2vrf0gaqL+O
+ tbAi9Ld6AvvYZrbb5wkP9JtTivqWT0E9rAnk8ARI49yhmvpfyPv+nkTHOsEGV98S
+ RaLM9xcGeKlNVAi+a2Hb3gBsDK88Kj2C8wU6I1ADgOkCyESwSeDyRidoBLGHhWOn
+ Xs7mokVk8ysl2/YMuHmNBVWKyv0KFQgG9FF4NZw1ECw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=IJHe+7
+ 3IUIl5CfcqD1R60UfPtfzDL6hecpVuU3B4aTU=; b=ZY9oIy0TIlMda64ZVUeodh
+ zxBmw0JO3lsvD99aiMy1SEeGVXjcUMRapLkDeU+02HJFUWjqYuNJHciprF86sJ3Y
+ LBSaNZMbWjjrD5hjf/S436Euff0BfGTruij3MkhDDBW+ZAsAHeMXbOhb0OekuKIm
+ DMpkFs4ZuMRG1zWCUJlrMZJqP8unm7rFH0HdutM+G0HF1ZZ1EzwGloPdxb9dme4u
+ srwWvhnZE0Tfq2Z69XG5zMuiST/ipwtsrVYhp/xYCSuunN6svQZ10MH17ttwH2gj
+ GtzXRUl3o96NZX0gqK1Sd+dBJHe51QLO4MRra8m2r6W4qre8e3LEyxWhJ/wBKt/g
+ ==
+X-ME-Sender: <xms:FOxrYQfW0T5QzXCD3h9ZBz0zAufmeKbq2xDey4xA2hZ3ouapo2ZWTA>
+ <xme:FOxrYSOHDO7zZGjsxCGB1G3wM302n8_I6ZFAUA-q88jM-qHuQRoZRWzNTHpPgoPw9
+ d_JJIADaoVs515UFzc>
+X-ME-Received: <xmr:FOxrYRhUY4K9widreonKvgubQEUYhv4Wbv6D2hYKbQ0O_jBwY4552q_F-kAEtZXIsq9aZekbGfW8VAU22I7TW5dPyDh_Lav4NA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvddukedgudeiucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghkrghs
+ hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
+ hpqeenucggtffrrghtthgvrhhnpeelhfeugedvjefgjefgudekfedutedvtddutdeuieev
+ tddtgeetjeekvdefgeefhfenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmh
+ grihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:FOxrYV_K21wjl1Z-w28qnkIi9_2UxEcUm9yZ-ulg_cHgO2Pbcajbuw>
+ <xmx:FOxrYctIPi-GqdPyw8ayVOT2z2r5nU-jnTSnhTgcj0vFvKdx1QJFmA>
+ <xmx:FOxrYcH89bh2p2D-Kzofupii5pm7TPQrIdVx7f6ZWHDmklpTysSZmA>
+ <xmx:FexrYV6EXx1-QE6ZjmWG7zBYPov5fmzon-qLP1sXaXiWw3ihcGHyxw>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 17 Oct 2021 05:25:39 -0400 (EDT)
+Date: Sun, 17 Oct 2021 18:25:37 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH 00/11] ALSA: firewire-motu: add ioctl commands to
+ retrieve information in messages delivered by isoc packet
+Message-ID: <YWvsEY2aGYtDloou@workstation>
+Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, clemens@ladisch.de,
+ alsa-devel@alsa-project.org, ffado-devel@lists.sourceforge.net
+References: <20211015080826.34847-1-o-takashi@sakamocchi.jp>
+ <s5hv91ythay.wl-tiwai@suse.de> <YWt6179lGu6xM3Gw@workstation>
+ <s5hczo4t9q1.wl-tiwai@suse.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s5hczo4t9q1.wl-tiwai@suse.de>
+Cc: ffado-devel@lists.sourceforge.net, alsa-devel@alsa-project.org,
+ clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,227 +117,117 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 15 Oct 2021 18:42:33 +0200,
-Pierre-Louis Bossart wrote:
-> 
-> 
-> 
-> On 10/15/21 11:40 AM, Cezary Rojewski wrote:
-> > From: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+On Sun, Oct 17, 2021 at 09:02:30AM +0200, Takashi Iwai wrote:
+> On Sun, 17 Oct 2021 03:22:31 +0200,
+> Takashi Sakamoto wrote:
 > > 
-> > ACPI is device independent, so printing warnings using device functions
-> > is misleading. Replace dev_xxx() with pr_xxx() and remove now
-> > unnecessary argument.
-> 
-> the routines in sound/hda/intel-nhtl.c are called from a specific PCI
-> device, why would you remove that information?
-> 
-> This makes no sense to me.
-
-Right, otherwise this change would confuse user, too; they'll be
-clueless about who triggers it.
-
-It's OK to change to pr_*(), but then it should have more information
-that can be easily identified and understood what user should do.
-
-
-thanks,
-
-Takashi
-
-> 
+> > Hi,
 > > 
-> > Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-> > Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-> > ---
-> >  include/sound/intel-nhlt.h    |  9 ++++-----
-> >  sound/hda/intel-dsp-config.c  |  4 ++--
-> >  sound/hda/intel-nhlt.c        | 24 +++++++++++++-----------
-> >  sound/soc/intel/skylake/skl.c |  5 ++---
-> >  sound/soc/sof/intel/hda.c     |  4 ++--
-> >  5 files changed, 23 insertions(+), 23 deletions(-)
+> > On Fri, Oct 15, 2021 at 05:54:13PM +0200, Takashi Iwai wrote:
+> > > On Fri, 15 Oct 2021 10:08:15 +0200,
+> > > Takashi Sakamoto wrote:
+> > > > 
+> > > > Hi,
+> > > > 
+> > > > The purpose of this patchset is to add message parser to ALSA
+> > > > firewire-motu driver so that userspace applications can read information
+> > > > in message delivered by isochronous packet as well as PCM frames.
+> > > > The message includes information about hardware meter and user action
+> > > > over hardware component such as knob, and MIDI message bytes.
+> > > > 
+> > > > Models in MOTU FireWire series can be categorized to 4 groups in regard
+> > > > of message mechanism:
+> > > > 
+> > > > Group 1. 828 and 896
+> > > >  * quadlet message to registered destination address
+> > > > Group 2. 828mk2, 896hd, Traveler, 8 pre, Ultralite, 4 pre, and Audio Express
+> > > >  * quadlet message to registered destination address
+> > > >  * message delivered by isochronous packet
+> > > > Group 3. 828mk3, 896mk3, Ultralite mk3, Traveler mk3, and Track 16
+> > > >  * quadlet message to registered destination address
+> > > >  * message delivered by isochronous packet
+> > > >  * block message to registered destination address, including command
+> > > > Group 4. V3HD/V4HD
+> > > >  * quadlet message to registered destination address
+> > > >  * block message to registered destination address
+> > > > 
+> > > > The patchset is for message delivered by isochronous packet in group 2
+> > > > and 3. In Group 2, the message includes information of hardware meter,
+> > > > information of user action over hardware component. The model in Group
+> > > > 2 is called as 'register DSP' in the patchset since parameters of DSP
+> > > > can be configured by asynchronous transaction for register access. In
+> > > > Group 3, the message includes information of hardware meter only. The
+> > > > model in Group 3 is called as 'command DSP' since software and device
+> > > > communicate with commands transferred by asynchronous transaction in
+> > > > regard of DSP parameters. Two types of message parser is going to be
+> > > > added so that the driver caches images for the information. The cache
+> > > > is available for userspace application by ioctl commands newly introduced.
+> > > > 
+> > > > I note that no control element is added for the hardware meters and user
+> > > > actions. It's expected for userspace application to retrieve and parse the
+> > > > information of image then operate for user-defined control element set.
+> > > > 
+> > > > Takashi Sakamoto (11):
+> > > >   ALSA: firewire-motu: add message parser to gather meter information in
+> > > >     register DSP model
+> > > >   ALSA: firewire-motu: add message parser for meter information in
+> > > >     command DSP model
+> > > >   ALSA: firewire-motu: add ioctl command to read cached hardware meter
+> > > >   ALSA: firewire-motu: parse messages for mixer source parameters in
+> > > >     register-DSP model
+> > > >   ALSA: firewire-motu: parse messages for mixer output parameters in
+> > > >     register DSP model
+> > > >   ALSA: firewire-motu: parse messages for output parameters in register
+> > > >     DSP model
+> > > >   ALSA: firewire-motu: parse messages for line input parameters in
+> > > >     register DSP model
+> > > >   ALSA: firewire-motu: parse messages for input parameters in register
+> > > >     DSP model
+> > > >   ALSA: firewire-motu: add ioctl command to read cached DSP parameters
+> > > >   ALSA: firewire-motu: queue event for parameter change in register DSP
+> > > >     model
+> > > >   ALSA: firewire-motu: notify event for parameter change in register DSP
+> > > >     model
+> > > 
+> > > Applied all patches now.  Thanks.
 > > 
-> > diff --git a/include/sound/intel-nhlt.h b/include/sound/intel-nhlt.h
-> > index d0574805865f..4debab7c1996 100644
-> > --- a/include/sound/intel-nhlt.h
-> > +++ b/include/sound/intel-nhlt.h
-> > @@ -126,17 +126,17 @@ enum {
-> >  	NHLT_MIC_ARRAY_VENDOR_DEFINED = 0xf,
-> >  };
-> >  
-> > -struct nhlt_acpi_table *intel_nhlt_init(struct device *dev);
-> > +struct nhlt_acpi_table *intel_nhlt_init(void);
-> >  
-> >  void intel_nhlt_free(struct nhlt_acpi_table *addr);
-> >  
-> > -int intel_nhlt_get_dmic_geo(struct device *dev, struct nhlt_acpi_table *nhlt);
-> > +int intel_nhlt_get_dmic_geo(struct nhlt_acpi_table *nhlt);
-> >  
-> >  #else
-> >  
-> >  struct nhlt_acpi_table;
-> >  
-> > -static inline struct nhlt_acpi_table *intel_nhlt_init(struct device *dev)
-> > +static inline struct nhlt_acpi_table *intel_nhlt_init(void)
-> >  {
-> >  	return NULL;
-> >  }
-> > @@ -145,8 +145,7 @@ static inline void intel_nhlt_free(struct nhlt_acpi_table *addr)
-> >  {
-> >  }
-> >  
-> > -static inline int intel_nhlt_get_dmic_geo(struct device *dev,
-> > -					  struct nhlt_acpi_table *nhlt)
-> > +static inline int intel_nhlt_get_dmic_geo(struct nhlt_acpi_table *nhlt)
-> >  {
-> >  	return 0;
-> >  }
-> > diff --git a/sound/hda/intel-dsp-config.c b/sound/hda/intel-dsp-config.c
-> > index b9ac9e9e45a4..60cc4735c6ec 100644
-> > --- a/sound/hda/intel-dsp-config.c
-> > +++ b/sound/hda/intel-dsp-config.c
-> > @@ -382,9 +382,9 @@ static int snd_intel_dsp_check_dmic(struct pci_dev *pci)
-> >  	struct nhlt_acpi_table *nhlt;
-> >  	int ret = 0;
-> >  
-> > -	nhlt = intel_nhlt_init(&pci->dev);
-> > +	nhlt = intel_nhlt_init();
-> >  	if (nhlt) {
-> > -		if (intel_nhlt_get_dmic_geo(&pci->dev, nhlt))
-> > +		if (intel_nhlt_get_dmic_geo(nhlt))
-> >  			ret = 1;
-> >  		intel_nhlt_free(nhlt);
-> >  	}
-> > diff --git a/sound/hda/intel-nhlt.c b/sound/hda/intel-nhlt.c
-> > index e2237239d922..195d9e193a6c 100644
-> > --- a/sound/hda/intel-nhlt.c
-> > +++ b/sound/hda/intel-nhlt.c
-> > @@ -1,10 +1,12 @@
-> >  // SPDX-License-Identifier: GPL-2.0-only
-> >  // Copyright (c) 2015-2019 Intel Corporation
-> >  
-> > +#define pr_fmt(fmt)     "NHLT: " fmt
-> > +
-> >  #include <linux/acpi.h>
-> >  #include <sound/intel-nhlt.h>
-> >  
-> > -struct nhlt_acpi_table *intel_nhlt_init(struct device *dev)
-> > +struct nhlt_acpi_table *intel_nhlt_init(void)
-> >  {
-> >  	struct nhlt_acpi_table *nhlt;
-> >  	acpi_status status;
-> > @@ -12,7 +14,7 @@ struct nhlt_acpi_table *intel_nhlt_init(struct device *dev)
-> >  	status = acpi_get_table(ACPI_SIG_NHLT, 0,
-> >  				(struct acpi_table_header **)&nhlt);
-> >  	if (ACPI_FAILURE(status)) {
-> > -		dev_warn(dev, "NHLT table not found\n");
-> > +		pr_warn("NHLT table not found\n");
-> >  		return NULL;
-> >  	}
-> >  
-> > @@ -26,7 +28,7 @@ void intel_nhlt_free(struct nhlt_acpi_table *nhlt)
-> >  }
-> >  EXPORT_SYMBOL_GPL(intel_nhlt_free);
-> >  
-> > -int intel_nhlt_get_dmic_geo(struct device *dev, struct nhlt_acpi_table *nhlt)
-> > +int intel_nhlt_get_dmic_geo(struct nhlt_acpi_table *nhlt)
-> >  {
-> >  	struct nhlt_endpoint *epnt;
-> >  	struct nhlt_dmic_array_config *cfg;
-> > @@ -40,7 +42,7 @@ int intel_nhlt_get_dmic_geo(struct device *dev, struct nhlt_acpi_table *nhlt)
-> >  		return 0;
-> >  
-> >  	if (nhlt->header.length <= sizeof(struct acpi_table_header)) {
-> > -		dev_warn(dev, "Invalid DMIC description table\n");
-> > +		pr_warn("Invalid DMIC description table\n");
-> >  		return 0;
-> >  	}
-> >  
-> > @@ -55,7 +57,7 @@ int intel_nhlt_get_dmic_geo(struct device *dev, struct nhlt_acpi_table *nhlt)
-> >  
-> >  		/* find max number of channels based on format_configuration */
-> >  		if (fmt_configs->fmt_count) {
-> > -			dev_dbg(dev, "%s: found %d format definitions\n",
-> > +			pr_debug("%s: found %d format definitions\n",
-> >  				__func__, fmt_configs->fmt_count);
-> >  
-> >  			for (i = 0; i < fmt_configs->fmt_count; i++) {
-> > @@ -66,9 +68,9 @@ int intel_nhlt_get_dmic_geo(struct device *dev, struct nhlt_acpi_table *nhlt)
-> >  				if (fmt_ext->fmt.channels > max_ch)
-> >  					max_ch = fmt_ext->fmt.channels;
-> >  			}
-> > -			dev_dbg(dev, "%s: max channels found %d\n", __func__, max_ch);
-> > +			pr_debug("%s: max channels found %d\n", __func__, max_ch);
-> >  		} else {
-> > -			dev_dbg(dev, "%s: No format information found\n", __func__);
-> > +			pr_debug("%s: No format information found\n", __func__);
-> >  		}
-> >  
-> >  		if (cfg->device_config.config_type != NHLT_CONFIG_TYPE_MIC_ARRAY) {
-> > @@ -90,21 +92,21 @@ int intel_nhlt_get_dmic_geo(struct device *dev, struct nhlt_acpi_table *nhlt)
-> >  				dmic_geo = cfg_vendor->nb_mics;
-> >  				break;
-> >  			default:
-> > -				dev_warn(dev, "%s: undefined DMIC array_type 0x%0x\n",
-> > +				pr_warn("%s: undefined DMIC array_type 0x%0x\n",
-> >  					 __func__, cfg->array_type);
-> >  			}
-> >  
-> >  			if (dmic_geo > 0) {
-> > -				dev_dbg(dev, "%s: Array with %d dmics\n", __func__, dmic_geo);
-> > +				pr_debug("%s: Array with %d dmics\n", __func__, dmic_geo);
-> >  			}
-> >  			if (max_ch > dmic_geo) {
-> > -				dev_dbg(dev, "%s: max channels %d exceed dmic number %d\n",
-> > +				pr_debug("%s: max channels %d exceed dmic number %d\n",
-> >  					__func__, max_ch, dmic_geo);
-> >  			}
-> >  		}
-> >  	}
-> >  
-> > -	dev_dbg(dev, "%s: dmic number %d max_ch %d\n",
-> > +	pr_debug("%s: dmic number %d max_ch %d\n",
-> >  		__func__, dmic_geo, max_ch);
-> >  
-> >  	return dmic_geo;
-> > diff --git a/sound/soc/intel/skylake/skl.c b/sound/soc/intel/skylake/skl.c
-> > index 5b1a15e39912..4f122616b636 100644
-> > --- a/sound/soc/intel/skylake/skl.c
-> > +++ b/sound/soc/intel/skylake/skl.c
-> > @@ -517,8 +517,7 @@ static int skl_find_machine(struct skl_dev *skl, void *driver_data)
-> >  	if (pdata) {
-> >  		skl->use_tplg_pcm = pdata->use_tplg_pcm;
-> >  		mach->mach_params.dmic_num =
-> > -			intel_nhlt_get_dmic_geo(&skl->pci->dev,
-> > -						skl->nhlt);
-> > +			intel_nhlt_get_dmic_geo(skl->nhlt);
-> >  	}
-> >  
-> >  	return 0;
-> > @@ -1009,7 +1008,7 @@ static int skl_probe(struct pci_dev *pci,
-> >  
-> >  	device_disable_async_suspend(bus->dev);
-> >  
-> > -	skl->nhlt = intel_nhlt_init(bus->dev);
-> > +	skl->nhlt = intel_nhlt_init();
-> >  
-> >  	if (skl->nhlt == NULL) {
-> >  #if !IS_ENABLED(CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC)
-> > diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-> > index 883d78dd01b5..75c2ee91bf13 100644
-> > --- a/sound/soc/sof/intel/hda.c
-> > +++ b/sound/soc/sof/intel/hda.c
-> > @@ -651,9 +651,9 @@ static int check_nhlt_dmic(struct snd_sof_dev *sdev)
-> >  	struct nhlt_acpi_table *nhlt;
-> >  	int dmic_num;
-> >  
-> > -	nhlt = intel_nhlt_init(sdev->dev);
-> > +	nhlt = intel_nhlt_init();
-> >  	if (nhlt) {
-> > -		dmic_num = intel_nhlt_get_dmic_geo(sdev->dev, nhlt);
-> > +		dmic_num = intel_nhlt_get_dmic_geo(nhlt);
-> >  		intel_nhlt_free(nhlt);
-> >  		if (dmic_num >= 1 && dmic_num <= 4)
-> >  			return dmic_num;
+> > Thanks for your applying the above patches into your tree. I have some
+> > slight concerns about them. I'd like to ask your opinion.
 > > 
+> > The snd_firewire_motu_command_dsp_meter structure includes array of 32 bit
+> > storage elements. As I added its documentation, the storage includes
+> > IEEE 764 binary32 values between 0.0 and +1.0. In the patchset I use __u32
+> > type since I can find just a few usage of float type in UAPI header. In
+> > driver side, no floating point arithmetic is used since the float value
+> > is just constructed by gathering messages from target device. In the case,
+> > is it adequate to expose the value as float type in UAPI?
+> >
+> > Additionally, current ALSA control interface have no support for control
+> > element with float value, like SNDRV_CTL_ELEM_TYPE_IEEE764_BINARY32. As
+> > long as I know, no discussion about it in the list for recent decades.
+> > Have you ever seen such discussion in the list? (Here I intensionally
+> > ignore that we have several binary expressions for floating point since
+> > I'm just interested in the existence of discussion.)
 > 
+> It's not been proposed, AFAIK.
+> 
+> The biggest concern is that, *if* any reference or calculation of the
+> float type is required, what to do.  e.g. the kernel has a validation
+> code for each values (min/max check), and how could it be implemented
+> for the float type?
+
+Indeed. It's probably unavoidable to min/max check and it brings issue
+to ALSA control core. It's absolutely out of my scope and thanks for
+your indication.
+
+Would I ask you opinion about my concern about firewire UAPI header? Is
+it allowed to use float type instead of __u32 type?
+
+> thanks,
+> 
+> Takashi
+
+
+Thanks
+
+Takashi Sakamoto

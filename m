@@ -2,81 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CE66430719
-	for <lists+alsa-devel@lfdr.de>; Sun, 17 Oct 2021 09:50:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7D63430720
+	for <lists+alsa-devel@lfdr.de>; Sun, 17 Oct 2021 09:54:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2CB8C1833;
-	Sun, 17 Oct 2021 09:49:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CB8C1833
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B7A9184E;
+	Sun, 17 Oct 2021 09:53:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B7A9184E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634457033;
-	bh=vV4Y+QlMR9kbqIOcVo7UpX/s5wgD5gWnM73gAEkEWXo=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1634457252;
+	bh=T/mbvclDfH0kll2i5wFMKybdIyJfQxU8mP1lVkk1a8E=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c0Q+Jj9s9lPSxgUU9aP/tQHKcNvtAvKtOq45nsFpVgGYXbde2Ym5vpZMqJZPUrTs1
-	 PU/2kgvCtm+Y3QmkrcjFUrrjARHZOBtr1Vby0YrG/WsuLiqTSptvyGT21i1P8OojbM
-	 3LNbP5Eq7rTMqFiI9IGPtMn1hF/oTAxqa1JWPCKw=
+	b=C5571WdFVO1Uy3iE2h1A/Tqp+/Z4DKITmFTw7WlIeH9AKgHk8EkXQpv2+eMK1zjop
+	 86EkheGziNrm1RhUi6kOnOVVN4pbw6OP+bSRA9DXiVZUXx9UdHBgVzOAaAisnP8/W0
+	 1vFXBkm1nw0TgYHoNyg+X/C5sgGILV8W/RcP0kuU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C4DBF80256;
-	Sun, 17 Oct 2021 09:49:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6B61F80256;
+	Sun, 17 Oct 2021 09:52:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8283BF8026C; Sun, 17 Oct 2021 09:49:08 +0200 (CEST)
+ id CAA9CF8026C; Sun, 17 Oct 2021 09:52:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6CDBCF801DB
- for <alsa-devel@alsa-project.org>; Sun, 17 Oct 2021 09:49:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CDBCF801DB
+ by alsa1.perex.cz (Postfix) with ESMTPS id BFBDAF801DB
+ for <alsa-devel@alsa-project.org>; Sun, 17 Oct 2021 09:52:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFBDAF801DB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="LUaUKoga"; 
+ header.b="XFIBnuKV"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="SPZK2v5G"
+ header.b="CYA3J+ks"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id C143E219A2
- for <alsa-devel@alsa-project.org>; Sun, 17 Oct 2021 07:49:00 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 3F42A1FD5B;
+ Sun, 17 Oct 2021 07:52:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1634456940; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
+ t=1634457161; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PcWCAiGV9yXqtZWEmN1Cj6wawHuz2eeYptUMNNe7UXw=;
- b=LUaUKogaYld9yJVhB11wYT1pcvHfBovb632doHZJHUTZhyZi9j9H8Q7VO7u0Z1mdGWHr51
- 7fDKehW4gqv+ov60FjAeobvqrX1x27k1lRxpnvsRVHyidPYArECRUiwhK0H3S/RSCEw+hN
- lTFheFcmCDRvQIVxAIVsT3YT1SvO0i4=
+ bh=RPWUEn8tzfXMF5ibISUef5EFT8Kh1CEef0EdRO/a3zQ=;
+ b=XFIBnuKVkCHO39TSRQLCU5yKQsrAQFNbqKsNxofEAo4/lHSESfPLK+3z/laUuutSMl0mD+
+ SbdngEPg5S0j/WLfOpUAec/Cm6c43DsMOWde8B6xBhL85XEaTV0M0BNngkdUKVa8bi+N+4
+ uMX+0xmffr2e4rPa4XFpSh5QOKUn3OM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1634456940;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
+ s=susede2_ed25519; t=1634457161;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PcWCAiGV9yXqtZWEmN1Cj6wawHuz2eeYptUMNNe7UXw=;
- b=SPZK2v5Gn2Pv4yu5XE8hajDaoLc/b68GfTciy+PX0TFNQyX5tIxR6LEmN/oKpGo0Zh44FY
- I5DBrcPgI4+xviCw==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id B0055A3B83;
- Sun, 17 Oct 2021 07:49:00 +0000 (UTC)
+ bh=RPWUEn8tzfXMF5ibISUef5EFT8Kh1CEef0EdRO/a3zQ=;
+ b=CYA3J+ksVUKci/2ZH+oVE3z+s3z2xvjz0VOh7cQ/m7gBia4uBC7LSV5Mc7A0qfiAZP8vso
+ cbIjax81iRnERlAA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 21799A3B83;
+ Sun, 17 Oct 2021 07:52:41 +0000 (UTC)
+Date: Sun, 17 Oct 2021 09:52:41 +0200
+Message-ID: <s5hr1ck5bqu.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 3/3] ALSA: memalloc: Convert x86 SG-buffer handling with
- non-contiguous type
-Date: Sun, 17 Oct 2021 09:48:59 +0200
-Message-Id: <20211017074859.24112-4-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20211017074859.24112-1-tiwai@suse.de>
-References: <20211017074859.24112-1-tiwai@suse.de>
-MIME-Version: 1.0
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 1/5] ALSA: hda: Drop device-argument in NHLT functions
+In-Reply-To: <bb2b223e-6318-ed3c-bbe8-31ba4b8d02fe@linux.intel.com>
+References: <20211015164047.44492-1-cezary.rojewski@intel.com>
+ <20211015164047.44492-2-cezary.rojewski@intel.com>
+ <bb2b223e-6318-ed3c-bbe8-31ba4b8d02fe@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, tiwai@suse.com,
+ alsa-devel@alsa-project.org, hdegoede@redhat.com, broonie@kernel.org,
+ Amadeusz SX2awiX4ski <amadeuszx.slawinski@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,352 +99,227 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We've had an x86-specific SG-buffer handling code, but now it can be
-merged gracefully with the standard non-contiguous DMA pages.
+On Fri, 15 Oct 2021 18:42:33 +0200,
+Pierre-Louis Bossart wrote:
+> 
+> 
+> 
+> On 10/15/21 11:40 AM, Cezary Rojewski wrote:
+> > From: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+> > 
+> > ACPI is device independent, so printing warnings using device functions
+> > is misleading. Replace dev_xxx() with pr_xxx() and remove now
+> > unnecessary argument.
+> 
+> the routines in sound/hda/intel-nhtl.c are called from a specific PCI
+> device, why would you remove that information?
+> 
+> This makes no sense to me.
 
-After the migration, SNDRV_DMA_TYPE_DMA_SG becomes identical with
-SNDRV_DMA_TYPE_NONCONTIG on x86, while others still fall back to
-SNDRV_DMA_TYPE_DEV.
+Right, otherwise this change would confuse user, too; they'll be
+clueless about who triggers it.
 
-The remaining problem is about the SG-buffer with WC pages: the DMA
-core stuff on x86 doesn't treat it well, so we still need some special
-handling to manipulate the page attribute manually.  The mmap handler
-for SNDRV_DMA_TYPE_DEV_SG_WC still returns -ENOENT intentionally for
-the fallback to the default handler.
+It's OK to change to pr_*(), but then it should have more information
+that can be easily identified and understood what user should do.
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- include/sound/memalloc.h |  14 +--
- sound/core/Makefile      |   1 -
- sound/core/memalloc.c    |  51 +++++++++-
- sound/core/sgbuf.c       | 201 ---------------------------------------
- 4 files changed, 54 insertions(+), 213 deletions(-)
- delete mode 100644 sound/core/sgbuf.c
 
-diff --git a/include/sound/memalloc.h b/include/sound/memalloc.h
-index 0bdaa6753282..df615052dad4 100644
---- a/include/sound/memalloc.h
-+++ b/include/sound/memalloc.h
-@@ -36,13 +36,6 @@ struct snd_dma_device {
- #define SNDRV_DMA_TYPE_CONTINUOUS	1	/* continuous no-DMA memory */
- #define SNDRV_DMA_TYPE_DEV		2	/* generic device continuous */
- #define SNDRV_DMA_TYPE_DEV_WC		5	/* continuous write-combined */
--#ifdef CONFIG_SND_DMA_SGBUF
--#define SNDRV_DMA_TYPE_DEV_SG		3	/* generic device SG-buffer */
--#define SNDRV_DMA_TYPE_DEV_WC_SG	6	/* SG write-combined */
--#else
--#define SNDRV_DMA_TYPE_DEV_SG	SNDRV_DMA_TYPE_DEV /* no SG-buf support */
--#define SNDRV_DMA_TYPE_DEV_WC_SG	SNDRV_DMA_TYPE_DEV_WC
--#endif
- #ifdef CONFIG_GENERIC_ALLOCATOR
- #define SNDRV_DMA_TYPE_DEV_IRAM		4	/* generic device iram-buffer */
- #else
-@@ -51,6 +44,13 @@ struct snd_dma_device {
- #define SNDRV_DMA_TYPE_VMALLOC		7	/* vmalloc'ed buffer */
- #define SNDRV_DMA_TYPE_NONCONTIG	8	/* non-coherent SG buffer */
- #define SNDRV_DMA_TYPE_NONCOHERENT	9	/* non-coherent buffer */
-+#ifdef CONFIG_SND_DMA_SGBUF
-+#define SNDRV_DMA_TYPE_DEV_SG		SNDRV_DMA_TYPE_NONCONTIG
-+#define SNDRV_DMA_TYPE_DEV_WC_SG	6	/* SG write-combined */
-+#else
-+#define SNDRV_DMA_TYPE_DEV_SG	SNDRV_DMA_TYPE_DEV /* no SG-buf support */
-+#define SNDRV_DMA_TYPE_DEV_WC_SG	SNDRV_DMA_TYPE_DEV_WC
-+#endif
- 
- /*
-  * info for buffer allocation
-diff --git a/sound/core/Makefile b/sound/core/Makefile
-index d774792850f3..2762f03d9b7b 100644
---- a/sound/core/Makefile
-+++ b/sound/core/Makefile
-@@ -17,7 +17,6 @@ snd-$(CONFIG_SND_JACK)	  += ctljack.o jack.o
- snd-pcm-y := pcm.o pcm_native.o pcm_lib.o pcm_misc.o \
- 		pcm_memory.o memalloc.o
- snd-pcm-$(CONFIG_SND_PCM_TIMER) += pcm_timer.o
--snd-pcm-$(CONFIG_SND_DMA_SGBUF) += sgbuf.o
- snd-pcm-$(CONFIG_SND_PCM_ELD) += pcm_drm_eld.o
- snd-pcm-$(CONFIG_SND_PCM_IEC958) += pcm_iec958.o
- 
-diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
-index 99681e651223..acdebecf1a2e 100644
---- a/sound/core/memalloc.c
-+++ b/sound/core/memalloc.c
-@@ -560,6 +560,50 @@ static const struct snd_malloc_ops snd_dma_noncontig_ops = {
- 	.get_chunk_size = snd_dma_vmalloc_get_chunk_size,
- };
- 
-+/* x86-specific SG-buffer with WC pages */
-+#ifdef CONFIG_SND_DMA_SGBUF
-+#define vmalloc_to_virt(v) (unsigned long)page_to_virt(vmalloc_to_page(v))
-+
-+static void *snd_dma_sg_wc_alloc(struct snd_dma_buffer *dmab, size_t size)
-+{
-+	void *p = snd_dma_noncontig_alloc(dmab, size);
-+	size_t ofs;
-+
-+	if (!p)
-+		return NULL;
-+	for (ofs = 0; ofs < size; ofs += PAGE_SIZE)
-+		set_memory_uc(vmalloc_to_virt(p + ofs), 1);
-+	return p;
-+}
-+
-+static void snd_dma_sg_wc_free(struct snd_dma_buffer *dmab)
-+{
-+	size_t ofs;
-+
-+	for (ofs = 0; ofs < dmab->bytes; ofs += PAGE_SIZE)
-+		set_memory_wb(vmalloc_to_virt(dmab->area + ofs), 1);
-+	snd_dma_noncontig_free(dmab);
-+}
-+
-+static int snd_dma_sg_wc_mmap(struct snd_dma_buffer *dmab,
-+			      struct vm_area_struct *area)
-+{
-+	area->vm_page_prot = pgprot_writecombine(area->vm_page_prot);
-+	/* FIXME: dma_mmap_noncontiguous() works? */
-+	return -ENOENT; /* continue with the default mmap handler */
-+}
-+
-+const struct snd_malloc_ops snd_dma_sg_wc_ops = {
-+	.alloc = snd_dma_sg_wc_alloc,
-+	.free = snd_dma_sg_wc_free,
-+	.mmap = snd_dma_sg_wc_mmap,
-+	.sync = snd_dma_noncontig_sync,
-+	.get_addr = snd_dma_vmalloc_get_addr,
-+	.get_page = snd_dma_vmalloc_get_page,
-+	.get_chunk_size = snd_dma_vmalloc_get_chunk_size,
-+};
-+#endif /* CONFIG_SND_DMA_SGBUF */
-+
- /*
-  * Non-coherent pages allocator
-  */
-@@ -619,14 +663,13 @@ static const struct snd_malloc_ops *dma_ops[] = {
- 	[SNDRV_DMA_TYPE_DEV_WC] = &snd_dma_wc_ops,
- 	[SNDRV_DMA_TYPE_NONCONTIG] = &snd_dma_noncontig_ops,
- 	[SNDRV_DMA_TYPE_NONCOHERENT] = &snd_dma_noncoherent_ops,
-+#ifdef CONFIG_SND_DMA_SGBUF
-+	[SNDRV_DMA_TYPE_DEV_WC_SG] = &snd_dma_sg_wc_ops,
-+#endif
- #ifdef CONFIG_GENERIC_ALLOCATOR
- 	[SNDRV_DMA_TYPE_DEV_IRAM] = &snd_dma_iram_ops,
- #endif /* CONFIG_GENERIC_ALLOCATOR */
- #endif /* CONFIG_HAS_DMA */
--#ifdef CONFIG_SND_DMA_SGBUF
--	[SNDRV_DMA_TYPE_DEV_SG] = &snd_dma_sg_ops,
--	[SNDRV_DMA_TYPE_DEV_WC_SG] = &snd_dma_sg_ops,
--#endif
- };
- 
- static const struct snd_malloc_ops *snd_dma_get_ops(struct snd_dma_buffer *dmab)
-diff --git a/sound/core/sgbuf.c b/sound/core/sgbuf.c
-deleted file mode 100644
-index 8352a5cdb19f..000000000000
---- a/sound/core/sgbuf.c
-+++ /dev/null
-@@ -1,201 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-or-later
--/*
-- * Scatter-Gather buffer
-- *
-- *  Copyright (c) by Takashi Iwai <tiwai@suse.de>
-- */
--
--#include <linux/slab.h>
--#include <linux/mm.h>
--#include <linux/vmalloc.h>
--#include <linux/export.h>
--#include <sound/memalloc.h>
--#include "memalloc_local.h"
--
--struct snd_sg_page {
--	void *buf;
--	dma_addr_t addr;
--};
--
--struct snd_sg_buf {
--	int size;	/* allocated byte size */
--	int pages;	/* allocated pages */
--	int tblsize;	/* allocated table size */
--	struct snd_sg_page *table;	/* address table */
--	struct page **page_table;	/* page table (for vmap/vunmap) */
--	struct device *dev;
--};
--
--/* table entries are align to 32 */
--#define SGBUF_TBL_ALIGN		32
--#define sgbuf_align_table(tbl)	ALIGN((tbl), SGBUF_TBL_ALIGN)
--
--static void snd_dma_sg_free(struct snd_dma_buffer *dmab)
--{
--	struct snd_sg_buf *sgbuf = dmab->private_data;
--	struct snd_dma_buffer tmpb;
--	int i;
--
--	if (!sgbuf)
--		return;
--
--	vunmap(dmab->area);
--	dmab->area = NULL;
--
--	tmpb.dev.type = SNDRV_DMA_TYPE_DEV;
--	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG)
--		tmpb.dev.type = SNDRV_DMA_TYPE_DEV_WC;
--	tmpb.dev.dev = sgbuf->dev;
--	for (i = 0; i < sgbuf->pages; i++) {
--		if (!(sgbuf->table[i].addr & ~PAGE_MASK))
--			continue; /* continuous pages */
--		tmpb.area = sgbuf->table[i].buf;
--		tmpb.addr = sgbuf->table[i].addr & PAGE_MASK;
--		tmpb.bytes = (sgbuf->table[i].addr & ~PAGE_MASK) << PAGE_SHIFT;
--		snd_dma_free_pages(&tmpb);
--	}
--
--	kfree(sgbuf->table);
--	kfree(sgbuf->page_table);
--	kfree(sgbuf);
--	dmab->private_data = NULL;
--}
--
--#define MAX_ALLOC_PAGES		32
--
--static void *snd_dma_sg_alloc(struct snd_dma_buffer *dmab, size_t size)
--{
--	struct snd_sg_buf *sgbuf;
--	unsigned int i, pages, chunk, maxpages;
--	struct snd_dma_buffer tmpb;
--	struct snd_sg_page *table;
--	struct page **pgtable;
--	int type = SNDRV_DMA_TYPE_DEV;
--	pgprot_t prot = PAGE_KERNEL;
--	void *area;
--
--	dmab->private_data = sgbuf = kzalloc(sizeof(*sgbuf), GFP_KERNEL);
--	if (!sgbuf)
--		return NULL;
--	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG) {
--		type = SNDRV_DMA_TYPE_DEV_WC;
--#ifdef pgprot_noncached
--		prot = pgprot_noncached(PAGE_KERNEL);
--#endif
--	}
--	sgbuf->dev = dmab->dev.dev;
--	pages = snd_sgbuf_aligned_pages(size);
--	sgbuf->tblsize = sgbuf_align_table(pages);
--	table = kcalloc(sgbuf->tblsize, sizeof(*table), GFP_KERNEL);
--	if (!table)
--		goto _failed;
--	sgbuf->table = table;
--	pgtable = kcalloc(sgbuf->tblsize, sizeof(*pgtable), GFP_KERNEL);
--	if (!pgtable)
--		goto _failed;
--	sgbuf->page_table = pgtable;
--
--	/* allocate pages */
--	maxpages = MAX_ALLOC_PAGES;
--	while (pages > 0) {
--		chunk = pages;
--		/* don't be too eager to take a huge chunk */
--		if (chunk > maxpages)
--			chunk = maxpages;
--		chunk <<= PAGE_SHIFT;
--		if (snd_dma_alloc_pages_fallback(type, dmab->dev.dev,
--						 chunk, &tmpb) < 0) {
--			if (!sgbuf->pages)
--				goto _failed;
--			size = sgbuf->pages * PAGE_SIZE;
--			break;
--		}
--		chunk = tmpb.bytes >> PAGE_SHIFT;
--		for (i = 0; i < chunk; i++) {
--			table->buf = tmpb.area;
--			table->addr = tmpb.addr;
--			if (!i)
--				table->addr |= chunk; /* mark head */
--			table++;
--			*pgtable++ = virt_to_page(tmpb.area);
--			tmpb.area += PAGE_SIZE;
--			tmpb.addr += PAGE_SIZE;
--		}
--		sgbuf->pages += chunk;
--		pages -= chunk;
--		if (chunk < maxpages)
--			maxpages = chunk;
--	}
--
--	sgbuf->size = size;
--	area = vmap(sgbuf->page_table, sgbuf->pages, VM_MAP, prot);
--	if (!area)
--		goto _failed;
--	return area;
--
-- _failed:
--	snd_dma_sg_free(dmab); /* free the table */
--	return NULL;
--}
--
--static dma_addr_t snd_dma_sg_get_addr(struct snd_dma_buffer *dmab,
--				      size_t offset)
--{
--	struct snd_sg_buf *sgbuf = dmab->private_data;
--	dma_addr_t addr;
--
--	addr = sgbuf->table[offset >> PAGE_SHIFT].addr;
--	addr &= ~((dma_addr_t)PAGE_SIZE - 1);
--	return addr + offset % PAGE_SIZE;
--}
--
--static struct page *snd_dma_sg_get_page(struct snd_dma_buffer *dmab,
--					size_t offset)
--{
--	struct snd_sg_buf *sgbuf = dmab->private_data;
--	unsigned int idx = offset >> PAGE_SHIFT;
--
--	if (idx >= (unsigned int)sgbuf->pages)
--		return NULL;
--	return sgbuf->page_table[idx];
--}
--
--static unsigned int snd_dma_sg_get_chunk_size(struct snd_dma_buffer *dmab,
--					      unsigned int ofs,
--					      unsigned int size)
--{
--	struct snd_sg_buf *sg = dmab->private_data;
--	unsigned int start, end, pg;
--
--	start = ofs >> PAGE_SHIFT;
--	end = (ofs + size - 1) >> PAGE_SHIFT;
--	/* check page continuity */
--	pg = sg->table[start].addr >> PAGE_SHIFT;
--	for (;;) {
--		start++;
--		if (start > end)
--			break;
--		pg++;
--		if ((sg->table[start].addr >> PAGE_SHIFT) != pg)
--			return (start << PAGE_SHIFT) - ofs;
--	}
--	/* ok, all on continuous pages */
--	return size;
--}
--
--static int snd_dma_sg_mmap(struct snd_dma_buffer *dmab,
--			   struct vm_area_struct *area)
--{
--	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG)
--		area->vm_page_prot = pgprot_writecombine(area->vm_page_prot);
--	return -ENOENT; /* continue with the default mmap handler */
--}
--
--const struct snd_malloc_ops snd_dma_sg_ops = {
--	.alloc = snd_dma_sg_alloc,
--	.free = snd_dma_sg_free,
--	.get_addr = snd_dma_sg_get_addr,
--	.get_page = snd_dma_sg_get_page,
--	.get_chunk_size = snd_dma_sg_get_chunk_size,
--	.mmap = snd_dma_sg_mmap,
--};
--- 
-2.26.2
+thanks,
 
+Takashi
+
+> 
+> > 
+> > Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+> > Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+> > ---
+> >  include/sound/intel-nhlt.h    |  9 ++++-----
+> >  sound/hda/intel-dsp-config.c  |  4 ++--
+> >  sound/hda/intel-nhlt.c        | 24 +++++++++++++-----------
+> >  sound/soc/intel/skylake/skl.c |  5 ++---
+> >  sound/soc/sof/intel/hda.c     |  4 ++--
+> >  5 files changed, 23 insertions(+), 23 deletions(-)
+> > 
+> > diff --git a/include/sound/intel-nhlt.h b/include/sound/intel-nhlt.h
+> > index d0574805865f..4debab7c1996 100644
+> > --- a/include/sound/intel-nhlt.h
+> > +++ b/include/sound/intel-nhlt.h
+> > @@ -126,17 +126,17 @@ enum {
+> >  	NHLT_MIC_ARRAY_VENDOR_DEFINED = 0xf,
+> >  };
+> >  
+> > -struct nhlt_acpi_table *intel_nhlt_init(struct device *dev);
+> > +struct nhlt_acpi_table *intel_nhlt_init(void);
+> >  
+> >  void intel_nhlt_free(struct nhlt_acpi_table *addr);
+> >  
+> > -int intel_nhlt_get_dmic_geo(struct device *dev, struct nhlt_acpi_table *nhlt);
+> > +int intel_nhlt_get_dmic_geo(struct nhlt_acpi_table *nhlt);
+> >  
+> >  #else
+> >  
+> >  struct nhlt_acpi_table;
+> >  
+> > -static inline struct nhlt_acpi_table *intel_nhlt_init(struct device *dev)
+> > +static inline struct nhlt_acpi_table *intel_nhlt_init(void)
+> >  {
+> >  	return NULL;
+> >  }
+> > @@ -145,8 +145,7 @@ static inline void intel_nhlt_free(struct nhlt_acpi_table *addr)
+> >  {
+> >  }
+> >  
+> > -static inline int intel_nhlt_get_dmic_geo(struct device *dev,
+> > -					  struct nhlt_acpi_table *nhlt)
+> > +static inline int intel_nhlt_get_dmic_geo(struct nhlt_acpi_table *nhlt)
+> >  {
+> >  	return 0;
+> >  }
+> > diff --git a/sound/hda/intel-dsp-config.c b/sound/hda/intel-dsp-config.c
+> > index b9ac9e9e45a4..60cc4735c6ec 100644
+> > --- a/sound/hda/intel-dsp-config.c
+> > +++ b/sound/hda/intel-dsp-config.c
+> > @@ -382,9 +382,9 @@ static int snd_intel_dsp_check_dmic(struct pci_dev *pci)
+> >  	struct nhlt_acpi_table *nhlt;
+> >  	int ret = 0;
+> >  
+> > -	nhlt = intel_nhlt_init(&pci->dev);
+> > +	nhlt = intel_nhlt_init();
+> >  	if (nhlt) {
+> > -		if (intel_nhlt_get_dmic_geo(&pci->dev, nhlt))
+> > +		if (intel_nhlt_get_dmic_geo(nhlt))
+> >  			ret = 1;
+> >  		intel_nhlt_free(nhlt);
+> >  	}
+> > diff --git a/sound/hda/intel-nhlt.c b/sound/hda/intel-nhlt.c
+> > index e2237239d922..195d9e193a6c 100644
+> > --- a/sound/hda/intel-nhlt.c
+> > +++ b/sound/hda/intel-nhlt.c
+> > @@ -1,10 +1,12 @@
+> >  // SPDX-License-Identifier: GPL-2.0-only
+> >  // Copyright (c) 2015-2019 Intel Corporation
+> >  
+> > +#define pr_fmt(fmt)     "NHLT: " fmt
+> > +
+> >  #include <linux/acpi.h>
+> >  #include <sound/intel-nhlt.h>
+> >  
+> > -struct nhlt_acpi_table *intel_nhlt_init(struct device *dev)
+> > +struct nhlt_acpi_table *intel_nhlt_init(void)
+> >  {
+> >  	struct nhlt_acpi_table *nhlt;
+> >  	acpi_status status;
+> > @@ -12,7 +14,7 @@ struct nhlt_acpi_table *intel_nhlt_init(struct device *dev)
+> >  	status = acpi_get_table(ACPI_SIG_NHLT, 0,
+> >  				(struct acpi_table_header **)&nhlt);
+> >  	if (ACPI_FAILURE(status)) {
+> > -		dev_warn(dev, "NHLT table not found\n");
+> > +		pr_warn("NHLT table not found\n");
+> >  		return NULL;
+> >  	}
+> >  
+> > @@ -26,7 +28,7 @@ void intel_nhlt_free(struct nhlt_acpi_table *nhlt)
+> >  }
+> >  EXPORT_SYMBOL_GPL(intel_nhlt_free);
+> >  
+> > -int intel_nhlt_get_dmic_geo(struct device *dev, struct nhlt_acpi_table *nhlt)
+> > +int intel_nhlt_get_dmic_geo(struct nhlt_acpi_table *nhlt)
+> >  {
+> >  	struct nhlt_endpoint *epnt;
+> >  	struct nhlt_dmic_array_config *cfg;
+> > @@ -40,7 +42,7 @@ int intel_nhlt_get_dmic_geo(struct device *dev, struct nhlt_acpi_table *nhlt)
+> >  		return 0;
+> >  
+> >  	if (nhlt->header.length <= sizeof(struct acpi_table_header)) {
+> > -		dev_warn(dev, "Invalid DMIC description table\n");
+> > +		pr_warn("Invalid DMIC description table\n");
+> >  		return 0;
+> >  	}
+> >  
+> > @@ -55,7 +57,7 @@ int intel_nhlt_get_dmic_geo(struct device *dev, struct nhlt_acpi_table *nhlt)
+> >  
+> >  		/* find max number of channels based on format_configuration */
+> >  		if (fmt_configs->fmt_count) {
+> > -			dev_dbg(dev, "%s: found %d format definitions\n",
+> > +			pr_debug("%s: found %d format definitions\n",
+> >  				__func__, fmt_configs->fmt_count);
+> >  
+> >  			for (i = 0; i < fmt_configs->fmt_count; i++) {
+> > @@ -66,9 +68,9 @@ int intel_nhlt_get_dmic_geo(struct device *dev, struct nhlt_acpi_table *nhlt)
+> >  				if (fmt_ext->fmt.channels > max_ch)
+> >  					max_ch = fmt_ext->fmt.channels;
+> >  			}
+> > -			dev_dbg(dev, "%s: max channels found %d\n", __func__, max_ch);
+> > +			pr_debug("%s: max channels found %d\n", __func__, max_ch);
+> >  		} else {
+> > -			dev_dbg(dev, "%s: No format information found\n", __func__);
+> > +			pr_debug("%s: No format information found\n", __func__);
+> >  		}
+> >  
+> >  		if (cfg->device_config.config_type != NHLT_CONFIG_TYPE_MIC_ARRAY) {
+> > @@ -90,21 +92,21 @@ int intel_nhlt_get_dmic_geo(struct device *dev, struct nhlt_acpi_table *nhlt)
+> >  				dmic_geo = cfg_vendor->nb_mics;
+> >  				break;
+> >  			default:
+> > -				dev_warn(dev, "%s: undefined DMIC array_type 0x%0x\n",
+> > +				pr_warn("%s: undefined DMIC array_type 0x%0x\n",
+> >  					 __func__, cfg->array_type);
+> >  			}
+> >  
+> >  			if (dmic_geo > 0) {
+> > -				dev_dbg(dev, "%s: Array with %d dmics\n", __func__, dmic_geo);
+> > +				pr_debug("%s: Array with %d dmics\n", __func__, dmic_geo);
+> >  			}
+> >  			if (max_ch > dmic_geo) {
+> > -				dev_dbg(dev, "%s: max channels %d exceed dmic number %d\n",
+> > +				pr_debug("%s: max channels %d exceed dmic number %d\n",
+> >  					__func__, max_ch, dmic_geo);
+> >  			}
+> >  		}
+> >  	}
+> >  
+> > -	dev_dbg(dev, "%s: dmic number %d max_ch %d\n",
+> > +	pr_debug("%s: dmic number %d max_ch %d\n",
+> >  		__func__, dmic_geo, max_ch);
+> >  
+> >  	return dmic_geo;
+> > diff --git a/sound/soc/intel/skylake/skl.c b/sound/soc/intel/skylake/skl.c
+> > index 5b1a15e39912..4f122616b636 100644
+> > --- a/sound/soc/intel/skylake/skl.c
+> > +++ b/sound/soc/intel/skylake/skl.c
+> > @@ -517,8 +517,7 @@ static int skl_find_machine(struct skl_dev *skl, void *driver_data)
+> >  	if (pdata) {
+> >  		skl->use_tplg_pcm = pdata->use_tplg_pcm;
+> >  		mach->mach_params.dmic_num =
+> > -			intel_nhlt_get_dmic_geo(&skl->pci->dev,
+> > -						skl->nhlt);
+> > +			intel_nhlt_get_dmic_geo(skl->nhlt);
+> >  	}
+> >  
+> >  	return 0;
+> > @@ -1009,7 +1008,7 @@ static int skl_probe(struct pci_dev *pci,
+> >  
+> >  	device_disable_async_suspend(bus->dev);
+> >  
+> > -	skl->nhlt = intel_nhlt_init(bus->dev);
+> > +	skl->nhlt = intel_nhlt_init();
+> >  
+> >  	if (skl->nhlt == NULL) {
+> >  #if !IS_ENABLED(CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC)
+> > diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+> > index 883d78dd01b5..75c2ee91bf13 100644
+> > --- a/sound/soc/sof/intel/hda.c
+> > +++ b/sound/soc/sof/intel/hda.c
+> > @@ -651,9 +651,9 @@ static int check_nhlt_dmic(struct snd_sof_dev *sdev)
+> >  	struct nhlt_acpi_table *nhlt;
+> >  	int dmic_num;
+> >  
+> > -	nhlt = intel_nhlt_init(sdev->dev);
+> > +	nhlt = intel_nhlt_init();
+> >  	if (nhlt) {
+> > -		dmic_num = intel_nhlt_get_dmic_geo(sdev->dev, nhlt);
+> > +		dmic_num = intel_nhlt_get_dmic_geo(nhlt);
+> >  		intel_nhlt_free(nhlt);
+> >  		if (dmic_num >= 1 && dmic_num <= 4)
+> >  			return dmic_num;
+> > 
+> 

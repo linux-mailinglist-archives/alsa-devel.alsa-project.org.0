@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F27143086D
-	for <lists+alsa-devel@lfdr.de>; Sun, 17 Oct 2021 13:40:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D81443087B
+	for <lists+alsa-devel@lfdr.de>; Sun, 17 Oct 2021 13:46:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E5671877;
-	Sun, 17 Oct 2021 13:39:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E5671877
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6444187A;
+	Sun, 17 Oct 2021 13:45:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6444187A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634470845;
+	s=default; t=1634471200;
 	bh=ohuMuYmmuyqyemJ4Qv+2X0qk6HWlk0oTy0Gz89ptlUo=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=p7bW0rIRpOfY7b4QTZOESozvBtX0wo83HVkBNpeldv8avR79egq6QCybCBbD9U/2J
-	 aV7iGjJYcray/J8D3zEbsLgZ06eCaib+zhRX8q/fZlR+PCciC2qCw/WLFfWIK2iUXa
-	 nNj1UQQB7Q4zIWCvmqzvH+vkeIxuKQ78F209IWRI=
+	b=ETXjU7LMTj66bB4SdLaFfKPiU8CmjhDqMYa16amLkwFHjflO3H5ATb3Ye0rUrqmfM
+	 Rs3wn7PJnpzOmWrJMjjy5FNc4G0VzKlSWDTgg6xa8GsUzzgh/w8Nx8CbNG282rXXns
+	 TFbRfepvbohkuFw5PbWgYA1r4iKa5TwJ8PcbaJJs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BAE12F8026C;
-	Sun, 17 Oct 2021 13:39:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19440F800E5;
+	Sun, 17 Oct 2021 13:45:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5A04AF80256; Sun, 17 Oct 2021 13:39:27 +0200 (CEST)
+ id 09358F80256; Sun, 17 Oct 2021 13:45:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE1EDF800E5
- for <alsa-devel@alsa-project.org>; Sun, 17 Oct 2021 13:39:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE1EDF800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9CE83F800E5
+ for <alsa-devel@alsa-project.org>; Sun, 17 Oct 2021 13:45:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CE83F800E5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fv8qMW6b"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id BF72160F56;
- Sun, 17 Oct 2021 11:39:19 +0000 (UTC)
+ header.b="ba2+hAgq"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 011D360FE3;
+ Sun, 17 Oct 2021 11:45:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634470760;
+ s=k20201202; t=1634471115;
  bh=ohuMuYmmuyqyemJ4Qv+2X0qk6HWlk0oTy0Gz89ptlUo=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=fv8qMW6bkN0agW2c4cNgIEbetZ3JiM7DYltNzcFsbFJvRfmprlEBrODU/Ql3DOYyu
- r24ViDHOEcEdUQKjXHX9T27Pz5tFz8B/S0UhnwvQW/dJdxty4XeOHaG22aNt8BU2FY
- ba7yPcoY3u6ElSA6/JLK3vW1JnPtrCXAHn/m+nQmoswk6SzNrJBFpkX4YFYqc/dRG8
- jJ/BzR4aY9cT9aMqcuZlOdHUNJDJG0olbNfSxB2K3WjVImjJAigQdMEnXeAFTda/Vf
- h+CApieJzBHKu1aNpRdxo0krso6aVAw5UG8HFg+lx/MRymFZ86mWdNqFagWKiPI2Zh
- QCz/N1vr6jmVQ==
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=ba2+hAgqogX5pyL/+cDfcC/L2/wrEGbJ9jKoi7XLGpqxScs6BytFNYjroMCWo/BVH
+ V+GJtRe3JCtiIzpaITvLkS+jLIvdiSb32DsLjoQ3NldEKjX1Yr1DFm8qn725IcxcSv
+ jeT3TatImQUuV2OsfLKFo+Nm+84zySMQ/ebFVXr/9mLOLZ/9UAQQRUOge9SjHjiOSr
+ ZzcA9VZGfmETOOswrvr4h/N1OIO26N6D8Bkr4ffpswJF7NlbOTyIBoNsIwRP9e8+IO
+ +X1ZiW59EdhB9dS+GW6CZDTQsdmututWLb5IXDOjZttz+DPhGsDYCvPpsdTHpiDOkn
+ aXlduszwQTqEw==
 From: Mark Brown <broonie@kernel.org>
 To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
-In-Reply-To: <20211016105354.116513-1-frattaroli.nicolas@gmail.com>
-References: <20211016105354.116513-1-frattaroli.nicolas@gmail.com>
 Subject: Re: (subset) [PATCH 0/4] Getting rid of the reset controller in
  i2s-tdm
+Date: Sun, 17 Oct 2021 12:45:06 +0100
 Message-Id: <163447061131.1864024.8259786717418291207.b4-ty@kernel.org>
-Date: Sun, 17 Oct 2021 12:36:51 +0100
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20211016105354.116513-1-frattaroli.nicolas@gmail.com>
+References: <20211016105354.116513-1-frattaroli.nicolas@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Heiko Stuebner <heiko@sntech.de>, linux-kernel@vger.kernel.org,
  Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-rockchip@lists.infradead.org, Rob Herring <robh+dt@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-kernel@lists.infradead.org
+ Rob Herring <robh+dt@kernel.org>, linux-rockchip@lists.infradead.org,
+ Mark Brown <broonie@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list

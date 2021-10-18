@@ -2,98 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C648432123
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Oct 2021 16:59:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7893143213B
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Oct 2021 17:00:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D230C17AB;
-	Mon, 18 Oct 2021 16:58:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D230C17AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3AF7717C4;
+	Mon, 18 Oct 2021 16:59:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AF7717C4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634569170;
-	bh=cbFy3d59PGwkMJsN4pr+xxTx1tIqP/1FBvHkZMVLEvc=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1634569218;
+	bh=E7zzuqmhVkMmpTYSxiut22QGDprMbIMhCmwf7BVaWT4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NdiiYtdzTA+lrIUzFlCT9XnCjnuVQVrRp1FCssM+p54xDdkV0cZMMOiCCCH6Ji9yZ
-	 lA4lCGTxYUGfpdmE/07CPbupfXCwePgoWh0QKlpXHM4EhpXbhfJp/RvfU6GmrVnFnI
-	 GwiT8HqjSNsSv2ndH563pmYzf22tY52XdKkmQv7M=
+	b=dKbjZ3yH7y6BWW0gLQ2eC47d6oPAsjGmqZwzitg+8lYG/zHJZgasCrqIkhapLrUvH
+	 XcH9IbkAypms+Q6QEtidJqtdsHu1dP0rae56gcCWBfb1g9PS2DxJNYwhpb2bBt5h4J
+	 7huWT+idUVpLTbboaCjJnNQqmK4taBXoXbdT3ubg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67F2EF801DB;
-	Mon, 18 Oct 2021 16:58:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC584F80253;
+	Mon, 18 Oct 2021 16:59:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9CED3F80224; Mon, 18 Oct 2021 16:58:11 +0200 (CEST)
+ id BE226F80253; Mon, 18 Oct 2021 16:59:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62606F80111
- for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 16:58:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62606F80111
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7DB95F80111
+ for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 16:59:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7DB95F80111
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="eNltiTMg"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="gArgfIcq"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 6A16521A7A;
- Mon, 18 Oct 2021 14:58:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1634569083; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Fdl36cozsDtS8yyvRlbTRlUn0BaFR6UEoCc2BpTjRK0=;
- b=eNltiTMgnttXseUi0jZ0zeStJba7BHQCjtwhm9hSC4N7CgF2/7BooiOTJ3qUFRE7X0tLSo
- cj6wByJhUiKJnbPxtmcTcKK1IaOZA1Kr2br1CBEjnksujY7yRXQht8G3bBsQbL0pr3L7lr
- oxooz74ggNNWGfH5tiWppR3CFZPmZO8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1634569083;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Fdl36cozsDtS8yyvRlbTRlUn0BaFR6UEoCc2BpTjRK0=;
- b=gArgfIcqudVnEjDEOagd39rUEMRA+AdwNF0jVnvkoGsfJjvj5+KSwYzx+AsO7HMod02Uw0
- r1lc2Hgwtw0eQRDg==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 2D190A3BEB;
- Mon, 18 Oct 2021 14:58:03 +0000 (UTC)
-Date: Mon, 18 Oct 2021 16:58:03 +0200
-Message-ID: <s5hlf2q4byc.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Rich Felker <dalias@libc.org>
-Subject: Re: [musl] Re: [alsa-devel] [PATCH v7 8/9] ALSA: add new 32-bit
- layout for snd_pcm_mmap_status/control
-In-Reply-To: <20211018144259.GK7074@brightrain.aerifal.cx>
-References: <CAK8P3a0pSZxqfk-bn+idrDYDwANSfiP9L6U1O5jLQvK+3vwyVQ@mail.gmail.com>
- <s5hy27497eo.wl-tiwai@suse.de>
- <20211007160634.GB7074@brightrain.aerifal.cx>
- <s5hr1cw95ar.wl-tiwai@suse.de>
- <20211007165158.GC7074@brightrain.aerifal.cx>
- <s5h5yu79aab.wl-tiwai@suse.de>
- <CAK8P3a0qxNLv3_RcR5COcRGPcTnYMcfbOjdWKiT2hKdcof9WUg@mail.gmail.com>
- <s5hv9277oux.wl-tiwai@suse.de>
- <20211008120736.GF7074@brightrain.aerifal.cx>
- <s5hsfx95n99.wl-tiwai@suse.de>
- <20211018144259.GK7074@brightrain.aerifal.cx>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Arnd Bergmann <arnd@arndb.de>, Baolin Wang <baolin.wang@linaro.org>,
- y2038 Mailman List <y2038@lists.linaro.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- musl@lists.openwall.com, Takashi Iwai <tiwai@suse.com>,
- Michael Forney <mforney@mforney.org>, Mark Brown <broonie@kernel.org>,
- Baolin Wang <baolin.wang7@gmail.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="NAE1RUyw"
+Received: by mail-ed1-x536.google.com with SMTP id r18so262022edv.12
+ for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 07:59:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=WehYX/BfdiEXKhaGvq/GoMSkv9C2ieI8FUBxkA42jGQ=;
+ b=NAE1RUywfmSkyXk6xtlYeiVgQ3YmaOBs0NIxWLDU3LRdD+1AxGfVlacU9nwVREfJe5
+ nOItl2mjVJPwbBoK4En52WbyBFQZLFiswQ8xr9n/T7U5644bUi74aB0C1Yp9+Nn7EEv+
+ Q/IRUQqWZOXXr1KfU9y4ow5HG5UQCzRBJn/1MDOzQjCcvPCsR/fYklXb+WmfgKC7ZNYv
+ mB8zH2HbaU+ajMx+YNFNe6OHKby8ES7fGwDbtiJH64595uT+gCNzltI8Sm6jT1RgmKQg
+ yNIeKPt3ZOCAbgNrtK3HjuphOroi0U0opViW2k7iHmu3VJmPbbnEyldwELIHZkUCtVVf
+ RVvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=WehYX/BfdiEXKhaGvq/GoMSkv9C2ieI8FUBxkA42jGQ=;
+ b=Nzwq3cMwhlT2EPMYOh+m0PoQ6R+iTFDHtbzhru1Ba1WSR14PdHP6Rg2E7YjiMgY37I
+ LLN4Pl1YVSYj6+Sd/Pse10Qw2L48PexpVEOV5M7TPtmNH5kkjqJDBSpajPj0g8DDVSr2
+ JVASv70VuYQbNTyMILOZVuRk4lQNZX5IZUe85t3BCWyQGFcStdKgJcZ2tVcMqWroQZ0q
+ FSdaZDrEuHYHjNkn5HGCJKXqJDTjcXWguX30Jqm8TltG08wkZ92ZPuTnIoKke5fdgZw0
+ rVTvHDr3lCsJuYnMSTN9pTOaZ3a1MpHdxIf3uB5iuFEOjpxAf6vDCGgteHCHVezM/o9L
+ qUHQ==
+X-Gm-Message-State: AOAM530zXfaPgYt0uVYWw6FnvW3aiWqlDiLt+BXbG/L/MrxHOiI8qMHb
+ 0huz3Kti5jl/lQsvXeMWYtz3QuHlHlW1j7J/LX8=
+X-Google-Smtp-Source: ABdhPJw7yRU3C27ninbZ6RYvsA4b+bUz9SKwE96wmHwYQ0r+IM9z4rvD5eWXVEmmLh9ZmczfrPAjwmY8KqtNY5q05uY=
+X-Received: by 2002:a17:906:2887:: with SMTP id
+ o7mr29518989ejd.425.1634569151170; 
+ Mon, 18 Oct 2021 07:59:11 -0700 (PDT)
+MIME-Version: 1.0
+References: <20211018143324.296961-1-hdegoede@redhat.com>
+In-Reply-To: <20211018143324.296961-1-hdegoede@redhat.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Mon, 18 Oct 2021 17:58:19 +0300
+Message-ID: <CAHp75VePYGsioootWjSEC=VXu8tz3+tv510Otju-O=ugCX+h=Q@mail.gmail.com>
+Subject: Re: [PATCH 0/3] ASoC/pdx86/input: Introduce and use soc_intel_is_*()
+ helpers
+To: Hans de Goede <hdegoede@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Gross <markgross@kernel.org>,
+ Mark Brown <broonie@kernel.org>, linux-input <linux-input@vger.kernel.org>,
+ Platform Driver <platform-driver-x86@vger.kernel.org>,
+ Andy Shevchenko <andy@infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,113 +102,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 18 Oct 2021 16:43:00 +0200,
-Rich Felker wrote:
-> 
-> On Sun, Oct 10, 2021 at 09:53:38AM +0200, Takashi Iwai wrote:
-> > On Fri, 08 Oct 2021 14:07:39 +0200,
-> > Rich Felker wrote:
-> > > 
-> > > On Fri, Oct 08, 2021 at 01:11:34PM +0200, Takashi Iwai wrote:
-> > > > On Fri, 08 Oct 2021 11:24:39 +0200,
-> > > > Arnd Bergmann wrote:
-> > > > > 
-> > > > > On Fri, Oct 8, 2021 at 10:43 AM Takashi Iwai <tiwai@suse.de> wrote:
-> > > > > > On Thu, 07 Oct 2021 18:51:58 +0200, Rich Felker wrote:
-> > > > > > > On Thu, Oct 07, 2021 at 06:18:52PM +0200, Takashi Iwai wrote:
-> > > > > >
-> > > > > > @@ -557,11 +558,15 @@ struct __snd_pcm_sync_ptr {
-> > > > > >  #if defined(__BYTE_ORDER) ? __BYTE_ORDER == __BIG_ENDIAN : defined(__BIG_ENDIAN)
-> > > > > >  typedef char __pad_before_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
-> > > > > >  typedef char __pad_after_uframe[0];
-> > > > > > +typedef char __pad_before_u32[4];
-> > > > > > +typedef char __pad_after_u32[0];
-> > > > > >  #endif
-> > > > > >
-> > > > > >  #if defined(__BYTE_ORDER) ? __BYTE_ORDER == __LITTLE_ENDIAN : defined(__LITTLE_ENDIAN)
-> > > > > >  typedef char __pad_before_uframe[0];
-> > > > > >  typedef char __pad_after_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
-> > > > > > +typedef char __pad_before_u32[0];
-> > > > > > +typedef char __pad_after_u32[4];
-> > > > > >  #endif
-> > > > > 
-> > > > > I think these should remain unchanged, the complex expression was intentionally
-> > > > > done so the structures are laid out the same way on 64-bit
-> > > > > architectures, so that
-> > > > > the kernel can use the __SND_STRUCT_TIME64 path internally on both 32-bit
-> > > > > and 64-bit architectures.
-> > > > 
-> > > > That was explicitly defined, but OK, this isn't necessarily defined
-> > > > here.
-> > > > 
-> > > > > > @@ -2970,8 +2981,17 @@ static int snd_pcm_sync_ptr(struct snd_pcm_substream *substream,
-> > > > > >         memset(&sync_ptr, 0, sizeof(sync_ptr));
-> > > > > >         if (get_user(sync_ptr.flags, (unsigned __user *)&(_sync_ptr->flags)))
-> > > > > >                 return -EFAULT;
-> > > > > > -       if (copy_from_user(&sync_ptr.c.control, &(_sync_ptr->c.control), sizeof(struct snd_pcm_mmap_control)))
-> > > > > > -               return -EFAULT;
-> > > > > > +       if (buggy_control) {
-> > > > > > +               if (copy_from_user(&sync_ptr.c.control_api_2_0_15,
-> > > > > > +                                  &(_sync_ptr->c.control_api_2_0_15),
-> > > > > > +                                  sizeof(sync_ptr.c.control_api_2_0_15)))
-> > > > > > +                       return -EFAULT;
-> > > > > > +       } else {
-> > > > > > +               if (copy_from_user(&sync_ptr.c.control,
-> > > > > > +                                  &(_sync_ptr->c.control),
-> > > > > > +                                  sizeof(sync_ptr.c.control)))
-> > > > > > +                       return -EFAULT;
-> > > > > > +       }
-> > > > > 
-> > > > > The problem I see with this is that it might break musl's ability to
-> > > > > emulate the new
-> > > > > interface on top of the old (time32) one for linux-4.x and older
-> > > > > kernels, as the conversion
-> > > > > function is no longer stateless but has to know the negotiated
-> > > > > interface version.
-> > > > > 
-> > > > > It's probably fine as long as we can be sure that the 2.0.16+ API
-> > > > > version only gets
-> > > > > negotiated if both the kernel and user sides support it, and musl only emulates
-> > > > > the 2.0.15 API version from the current kernels.
-> > > > > 
-> > > > > I've tried to understand this part of musl's convert_ioctl_struct(), but I just
-> > > > > can't figure out whether it does the conversion based the on the layout that
-> > > > > is currently used in the kernel, or based on the layout we should have been
-> > > > > using, and would use with the above fix. Rich, can you help me here?
-> > > > 
-> > > > So, at this moment, I'm not sure whether we should correct the struct
-> > > > at all.  This will lead to yet more breakage, and basically the struct
-> > > > itself *works* -- the only bug is in 32bit compat handling in the
-> > > > kernel (again).
-> > > > 
-> > > > The below is a revised kernel patch (again untested), just correcting
-> > > > the behavior of 32bit compat mode.  32bit apps on 32bit kernel work
-> > > > fine as is, as well as 64bit apps on 64bit kernel.
-> > > 
-> > > I'm perfectly okay with this if Arnd is! It's probably the least
-> > > invasive and has the least long-term maintenance cost and fallout on
-> > > other projects.
-> > 
-> > OK, I'll submit a proper patch now, to be included in the next PR for
-> > 5.15-rc.  For further fixes, let's think carefully.
-> 
-> Am I correct in my understanding that the fix of keeping the "broken"
-> definition (and having the 64-bit kernel honor it for 32-bit binaries)
-> has been accepted?
+On Mon, Oct 18, 2021 at 5:33 PM Hans de Goede <hdegoede@redhat.com> wrote:
+>
+> Hi All,
+>
+> We have been open-coding x86_match_cpu() checks for enabling some
+> SoC specific behavior in various places.
+>
+> The sound/soc/intel drivers used to also open-code this but this was
+> cleaned up a while ago introducing a number of soc_intel_is_*() helpers.
+>
+> This series moves the definition of these helpers to a more public place
+> and uses it in a couple of more places outside the sound tree.
+>
+> Mark, I know we are a bit late in the cycle, but if you can pick up
+> patch 1/3 (assuming on one objects) for 5.16, then the rest can be
 
-Yes, as it was already set in stone, we accept the broken definition
-as is.
+I suppose s/on one/no-one/ :-)
 
-> Since musl's translation for pre-time64 kernels
-> seems to have been using the "non-broken" definition, I think
-> completing the fix requires a change in musl too.
+> applied after 5.16-rc1 is out.
 
-Hm, musl translator contains the own definition of ioctl?
+What I like about this series is dropping ugly ifdeffery here and
+there and consolidating it in one place.
+Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
 
-If so, we may reconsider about renumbering ioctls altogether.
-Suppose musl having a fallback to the old ioctl, the possible breakage
-by old kernels (that don't support renewed ioctls) would be minimal,
-right?
+P.S. Btw, since you are the maintainer of PDx86 it means either you or
+Mark (whoever gives an Ack to the other one) can take at least two
+patches that makes visible that the change is not just for a single
+user.
+
+> Hans de Goede (3):
+>   ASoC: Intel: Move soc_intel_is_foo() helpers to a generic header
+>   platform/x86: intel_int0002_vgpio: Use the new soc_intel_is_byt/cht
+>     helpers
+>   Input: axp20x-pek - Use new soc_intel_is_cht() helper
+>
+>  drivers/input/misc/axp20x-pek.c            | 26 ++-------
+>  drivers/platform/x86/intel/int0002_vgpio.c | 14 +----
+>  include/linux/platform_data/x86/soc.h      | 65 ++++++++++++++++++++++
+>  sound/soc/intel/common/soc-intel-quirks.h  | 51 +----------------
+>  4 files changed, 75 insertions(+), 81 deletions(-)
+>  create mode 100644 include/linux/platform_data/x86/soc.h
+>
+> --
+> 2.31.1
+>
 
 
-Takashi
+-- 
+With Best Regards,
+Andy Shevchenko

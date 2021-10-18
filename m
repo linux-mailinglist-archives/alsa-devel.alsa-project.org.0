@@ -2,92 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D454431739
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Oct 2021 13:26:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83F1443173B
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Oct 2021 13:26:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0344F193D;
-	Mon, 18 Oct 2021 13:25:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0344F193D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0BC8B1901;
+	Mon, 18 Oct 2021 13:25:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0BC8B1901
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634556378;
-	bh=KNBkgJRDR9SBfmBtJjrGuR5QWBIh0rqODHA2V3EPYKQ=;
+	s=default; t=1634556398;
+	bh=Q2Pe0JY6Esn1BY791OCpQhkx4vDG+AGlmfFxgCRh8oQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nzQW7j60zqJsE/q9WUAk3ihRYfPGILbAXT65b643gL6Wg3QFkbqzWWDM0NSlDbSGC
-	 2tgdhC17qxaJMgnaA5hr1sKPMvvqon0EczCqnk78hqCGOR8hVIXHl5mPHLzftl6faf
-	 xPPpldKZ+ve4empdlfZOSpQ98I2YbrMA56puhuEU=
+	b=uFTA2l9qBVwF6KiQ1wQjVyqPlrE+pXyqFPLEdAu9lOHiYcKhhuwI+jmXM5oz14Ep3
+	 1uuL5opbNL0+TsIAFCLlm7PNn5GGWjh43rJIgntIVSa+/glMFMHkDrhZW84ys8ZWmx
+	 S3AfaKh8phKozmDF0MByknr7xrlwkTJNPwngcMDw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D283F80535;
-	Mon, 18 Oct 2021 13:22:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4754F80537;
+	Mon, 18 Oct 2021 13:23:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7738FF80534; Mon, 18 Oct 2021 13:22:56 +0200 (CEST)
+ id C2C6AF80529; Mon, 18 Oct 2021 13:23:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2048.outbound.protection.outlook.com [40.107.236.48])
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2043.outbound.protection.outlook.com [40.107.223.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6C890F804FF
- for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 13:22:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C890F804FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1BF33F80536
+ for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 13:23:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BF33F80536
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="y+TVP+bL"
+ header.b="f7+W321q"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TM/+Yom3v52CgTHgibKwgRB576gIVo0mNMlKaUh2TCOqGscbCtd0kpCZPvqRBGnZV9X+xc+WNEZ0RxrO5MEWYQZhefE5tP7VH9eQuUbWS5IuEI1e8Cc8cqxCkNirWcQ3Bec9LPGOsc46alwSX9GKgwero3iEoT07HpB948j/gqT/98JbbFdJP9STZf4j9iToFiAHu1IdQnQ08Uji4Bf3o6lNeyO5DztwdUgJvyOyB1zQQrWGRgtql3S3O+yZA71s5Ga1NCsR8YEooA4YZ3sJSAQAXQiDcBeB59iiv/4G/9AuU4P2EfGRGFJZg8E4b2lK+LzTLMHbWNf0enet7a00ig==
+ b=PVlXxkxnQO6cKw8mFJqgaMndMdwTn2X9tNpzE7P9kwR/Vd4CcIlmL7xJ6je1B2dGPytvaoMcMIiwvcqbTa8Zj7UiMK4xfn6un7OQpZ9bGWUZpJCaOfewf/9VWfp+tJsbR26jcHThFoVfDGwpvEH3710uSN0o3NlE97S3oEsvWIeL/HFjn2n4Vila11J8Tq/iLkVCHZEm6kmsZHrD4Jou/0HteAn8+gL/n2LJJLWi5OjOdbx1J98nldmRLn1xbIIb2DcpcjCf+wnJRvm3imnSWIfR/EZS35kk3mVzvOQgymUOTd2up3I6BC6nGgmjuxUEmxeRAkdKOixTOUsPyxmT1A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IdDdV9EE8vhhsdwHG2ckpEEs/Q68mTyUnuY+Y8rJNxM=;
- b=NRKa2lUqZT/1wO4oFVrqet18QVDKLS7+d7g7x77D7h3zOwWbsvJMnNyQmGLQ8/R+3erYipchF8LTCLARs/jYvAbmqK7r6Y+KjX69toR524bumOUruxGaVFip2r05LmmGTvkWfMQZRE5xWGoFv9JqurMfhoz1SBnB6GI0cfs2OoJEly4boU4JylBfhN5K9tWdiQLeXoKAb6ZZ6xX5+8LtYanHyGPXbDTpUzjIf0d9faXf3DpWPI8ZRbWjroab8Bfc0JnUQLbJTQODoj6xV5Bfz7+jipytEpbTvrVGWiduN0invXl+P3hEx1xCGv6v+Nlzd9XeDfV25hyrGXbPmKDBFQ==
+ bh=z9KV1R0SSWrrQE6r6LK5OsRaRmBJFi9O7h3KLi5VPBc=;
+ b=hdkcB0RzNLG0mriDgcma41/B1wLGPi/g7LkARs5GhhL3/2K5p3qXDXEAtqxMihJGwlvreh7DOkb5/JcxFGbDR6hhp51scu2r78HikNBl6Qba9IoEPD8rxztvZFfRSU22XLOTL5lrE8KeByBC9XMYEb3Rv8RoVN+wFWxm9aBW8OxZvfthbCcaovAuR2rvns6WO9QY9MHaPu+OvU5BsLopY9FvWkm2D6L/6GpN3eB+GksS8fZVZOGTpgE4Y+P9tUAfzB5g/tRqjBr9uFOfBPi5lhFf/43pmBqTjZ77dFLP+n9q6ylGVlhQv1h0dNfztWCiIF+4lN2InQEXxVG5yRAiVg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IdDdV9EE8vhhsdwHG2ckpEEs/Q68mTyUnuY+Y8rJNxM=;
- b=y+TVP+bLA6Cg2BALT18+EvhPIDpfQIXGTBwb9ucJhZ8qynESKMhKr2EWYgryxSYqw0XSXutbTB5t2qiBQ3LEXeXDyJk1bQfvvLDnb4fHeKm66gPvJGSmrR2Q+8Z23dQMuOb/O9G3Sndgt27PUCHWGgzd7B7VrFyAdoAdZ5LHCss=
-Received: from DS7PR03CA0135.namprd03.prod.outlook.com (2603:10b6:5:3b4::20)
- by BN8PR12MB3572.namprd12.prod.outlook.com (2603:10b6:408:47::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.18; Mon, 18 Oct
- 2021 11:22:43 +0000
-Received: from DM6NAM11FT062.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b4:cafe::81) by DS7PR03CA0135.outlook.office365.com
- (2603:10b6:5:3b4::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16 via Frontend
- Transport; Mon, 18 Oct 2021 11:22:42 +0000
+ bh=z9KV1R0SSWrrQE6r6LK5OsRaRmBJFi9O7h3KLi5VPBc=;
+ b=f7+W321qWqXwU0QH5vgWtkek8Ao5cZDc4d4U1lc9Z09hMb8aSt9NWcr1nlvCJlwiYoGykK0cKhKOAUOHDilsKdaLWfxfizN7iVOHlncZLdHxFaYr/45GlfKsLy2Z/JnOVNZ4n31IfNhQm+bXQ9HIoKwXHZtfKZaMFhkaonozc5Q=
+Received: from DM5PR15CA0041.namprd15.prod.outlook.com (2603:10b6:4:4b::27) by
+ MN2PR12MB4605.namprd12.prod.outlook.com (2603:10b6:208:3d::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4608.16; Mon, 18 Oct 2021 11:22:53 +0000
+Received: from DM6NAM11FT036.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:4b:cafe::2f) by DM5PR15CA0041.outlook.office365.com
+ (2603:10b6:4:4b::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15 via Frontend
+ Transport; Mon, 18 Oct 2021 11:22:53 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; kernel.org; dkim=none (message not signed)
  header.d=none;kernel.org; dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT062.mail.protection.outlook.com (10.13.173.40) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT036.mail.protection.outlook.com (10.13.172.64) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4608.15 via Frontend Transport; Mon, 18 Oct 2021 11:22:42 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.4608.15 via Frontend Transport; Mon, 18 Oct 2021 11:22:53 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Mon, 18 Oct
- 2021 06:22:42 -0500
+ 2021 06:22:52 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Mon, 18 Oct
+ 2021 04:22:51 -0700
 Received: from vijendar-System-Product-Name.amd.com (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2308.15
- via Frontend Transport; Mon, 18 Oct 2021 06:22:38 -0500
+ via Frontend Transport; Mon, 18 Oct 2021 06:22:47 -0500
 From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH V2 09/13] ASoC: amd: add acp6x pdm driver pm ops
-Date: Mon, 18 Oct 2021 16:50:40 +0530
-Message-ID: <20211018112044.1705805-10-Vijendar.Mukunda@amd.com>
+Subject: [PATCH V2 10/13] ASoC: amd: enable Yellow carp acp6x drivers build
+Date: Mon, 18 Oct 2021 16:50:41 +0530
+Message-ID: <20211018112044.1705805-11-Vijendar.Mukunda@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211018112044.1705805-1-Vijendar.Mukunda@amd.com>
 References: <20211018112044.1705805-1-Vijendar.Mukunda@amd.com>
@@ -96,30 +100,32 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d61ba91c-a214-44a9-e32b-08d992299a3f
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3572:
-X-Microsoft-Antispam-PRVS: <BN8PR12MB357299C054256029F5216D3C97BC9@BN8PR12MB3572.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:510;
+X-MS-Office365-Filtering-Correlation-Id: 186e39a9-e073-4a37-28c9-08d99229a05b
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4605:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4605C880C934EC49722D3FDA97BC9@MN2PR12MB4605.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8hFAjV5Y0rKBvcswAUZJNdh7jX99b7Jr/ihy07uDj45PS/9nYMM/p+u4r9U3mEn8B2wFjouJfk/1ETysYU4PM/cCJu9/BQ7qAT1FL3mvOjKkygdPS/FxXyQHOQsoQb1omJbmb6vteyaIMmr3c8RGSD8EjEIKRKOGF5vzul5hEfaal9LRChvPlkHKVp/Wi78oSBUYlX6w6sZW3R5wy6qoAnjysBSA26lspnXwRg0ZB37RWR54WTGGqtKA9ySe7jTiV30lZyiJANShLjDlzP8GE1qxkrfTayydSUcCl6Ufi2mmX7QcYwNtwOrwbBElbC1RfHaoEFMpJZdKQqQI4NRzU2eJSY3hSpWnF7iF2esH72K8vaPrQjOskZ3sf//Kce5CVuNwU7M9UGgFfu2/hZWIIdXhOULJahpapx0SvgCL6YIqioxurphEV+Ap2p7X2LMjeHMtB9PWhQLXM2zTciw4aA+QsM/smGrwdEHd5VYKteHK7D9Ibvj/RwYjMNf86XwMWjsehywS1cVCt/KHGfNP/dVXU3d7llijhF+KZTngcrJXhCjGY7yw6rEb2La7Bo7pXCqk1PbEyJ+H4E0dP06Fr6CflBE1lxm5GPvUP3GvYU5eyEiMvbjGloshqm0GR4O7CjWOIMo5aKZN57qcsS8jpMUN/u4NvIH4xSVsnsL+QGMdGrmCsnZVsYdbZ1c4PABugSpXgegiWbCR3t35VR0NpiX7KkyfBPzMkqXQPPgLKnU+ZsKKpAPrk/FUJsdckCmVaKvOyA4UV+TLROBzXQBD/A==
+X-Microsoft-Antispam-Message-Info: K1xlyrPNYOs7iOxw60f3wVdG4NJKiL0LjMMgCEAKekFLDRwl2SstVuRfy6v0itb9v7yVrUvq/pOXTP9OfohyRCcOCZmKkAZFIjgjg9A5Yot0H1aM4cFVEtN5AFAqbXTLn4Qc9CTnqMznTS+Fi5p7QGDpAWW8zP3E8e04eyWmxGNc2Qksn6q7wi6uUUuLHx11edQEQLvmBzNHIng4OulZnpRwSBDfKj7e7dFquXkfDQGG5VeN7rQTOEEjGZ0pLdH8WvepQtsrlJoUcWqCiBPR7xab6uou47t25NQxdpS09rps4wf5qfKFk6e3r5F6Iig/xuRzxYlzUax/oN3ZoQLszkxb1DYuLqX4Npp3c0srlcteS4BlhCdjMz3wo1cqj0eazNilo48OdKuu+jfYpP77X+APjwwH0huNZPdRiRe/dHap0tQz11H/lEiXpH3ZMdjApWrkLcXD2q4vhSrXfN1uhsPw8SzmKfQ2AITYVbT7ZCkfwF44j24/wd+Za9mgpaRY57TbzTmR4O8GliZp5nxi8ZMPX31v8XGjuPlijK5utcHv1HfqEEdv11nZaaA4Htjt5m21UqR9ajOy/sdEkyOpUdGFXuPhvd5LwUWKbWag4cC9trwmcVnvBoFzWdeKp3SmhclzDIrdiT98YMpz/bkLJsJ0CLWIVcTl+53xaMdrQD9NCHmuDetJxt1I6LwHpx+FOFPgMssX8An0MgGfP0hfWLQ8euRRU3ufJfTSH/wHynhTDwZVlnMy3rxbvvVT0gD3MKlKT8B2qgB+emLh6fHQ9w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(83380400001)(36860700001)(81166007)(82310400003)(356005)(47076005)(26005)(1076003)(36756003)(2906002)(2616005)(86362001)(426003)(336012)(7696005)(8676002)(6666004)(8936002)(186003)(508600001)(5660300002)(316002)(110136005)(4326008)(70586007)(54906003)(70206006)(32563001)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(7696005)(82310400003)(316002)(8676002)(70586007)(70206006)(36756003)(356005)(2616005)(508600001)(47076005)(86362001)(426003)(8936002)(81166007)(36860700001)(54906003)(5660300002)(110136005)(4326008)(186003)(26005)(83380400001)(2906002)(1076003)(336012)(6666004)(32563001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2021 11:22:42.7968 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d61ba91c-a214-44a9-e32b-08d992299a3f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2021 11:22:53.0550 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 186e39a9-e073-4a37-28c9-08d99229a05b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT062.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT036.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3572
-Cc: Sunil-kumar.Dommati@amd.com, mlimonci@amd.com, richgong@amd.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4605
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Sunil-kumar.Dommati@amd.com, Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ mlimonci@amd.com, richgong@amd.com, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
  Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
  Basavaraj.Hiregoudar@amd.com, open list <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -137,95 +143,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add acp6x pdm driver pm ops.
+Yellow Carp ACP6x drivers can be built by selecting necessary
+kernel config option.
+The patch enables build support of the same.
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Signed-off-by: Vijendar Mukunda<Vijendar.Mukunda@amd.com>
 ---
- sound/soc/amd/yc/acp6x-pdm-dma.c | 57 ++++++++++++++++++++++++++++++++
- 1 file changed, 57 insertions(+)
+ sound/soc/amd/Kconfig     | 10 ++++++++++
+ sound/soc/amd/Makefile    |  1 +
+ sound/soc/amd/yc/Makefile |  7 +++++++
+ 3 files changed, 18 insertions(+)
+ create mode 100644 sound/soc/amd/yc/Makefile
 
-diff --git a/sound/soc/amd/yc/acp6x-pdm-dma.c b/sound/soc/amd/yc/acp6x-pdm-dma.c
-index dc7c7ea5ea1a..e604f4ea524f 100644
---- a/sound/soc/amd/yc/acp6x-pdm-dma.c
-+++ b/sound/soc/amd/yc/acp6x-pdm-dma.c
-@@ -12,6 +12,7 @@
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
- #include <sound/soc-dai.h>
-+#include <linux/pm_runtime.h>
- 
- #include "acp6x.h"
- 
-@@ -373,13 +374,69 @@ static int acp6x_pdm_audio_probe(struct platform_device *pdev)
- 
- 		return -ENODEV;
- 	}
-+	pm_runtime_set_autosuspend_delay(&pdev->dev, ACP_SUSPEND_DELAY_MS);
-+	pm_runtime_use_autosuspend(&pdev->dev);
-+	pm_runtime_enable(&pdev->dev);
-+	pm_runtime_allow(&pdev->dev);
- 	return 0;
- }
- 
-+static int acp6x_pdm_audio_remove(struct platform_device *pdev)
-+{
-+	pm_runtime_disable(&pdev->dev);
-+	return 0;
-+}
+diff --git a/sound/soc/amd/Kconfig b/sound/soc/amd/Kconfig
+index d91a9399777c..0d0ca61bd8c1 100644
+--- a/sound/soc/amd/Kconfig
++++ b/sound/soc/amd/Kconfig
+@@ -74,3 +74,13 @@ config SND_SOC_AMD_VANGOGH_MACH
+ 	  using NAU8821 and CS35L41 codecs.
+ 	  Say m if you have such a device.
+ 	  If unsure select "N".
 +
-+static int __maybe_unused acp6x_pdm_resume(struct device *dev)
-+{
-+	struct pdm_dev_data *adata;
-+	struct snd_pcm_runtime *runtime;
-+	struct pdm_stream_instance *rtd;
-+	u32 period_bytes, buffer_len;
++config SND_SOC_AMD_ACP6x
++	tristate "AMD Audio Coprocessor-v6.x Yellow Carp support"
++	depends on X86 && PCI
++	help
++	  This option enables Audio Coprocessor i.e ACP v6.x support on
++	  AMD Yellow Carp platform. By enabling this flag build will be
++	  triggered for ACP PCI driver, ACP PDM DMA driver.
++	  Say m if you have such a device.
++	  If unsure select "N".
+diff --git a/sound/soc/amd/Makefile b/sound/soc/amd/Makefile
+index 07150d26f315..c5b900d3df0b 100644
+--- a/sound/soc/amd/Makefile
++++ b/sound/soc/amd/Makefile
+@@ -11,3 +11,4 @@ obj-$(CONFIG_SND_SOC_AMD_ACP3x) += raven/
+ obj-$(CONFIG_SND_SOC_AMD_RV_RT5682_MACH) += snd-soc-acp-rt5682-mach.o
+ obj-$(CONFIG_SND_SOC_AMD_RENOIR) += renoir/
+ obj-$(CONFIG_SND_SOC_AMD_ACP5x) += vangogh/
++obj-$(CONFIG_SND_SOC_AMD_ACP6x) += yc/
+diff --git a/sound/soc/amd/yc/Makefile b/sound/soc/amd/yc/Makefile
+new file mode 100644
+index 000000000000..20f8dfe6abb4
+--- /dev/null
++++ b/sound/soc/amd/yc/Makefile
+@@ -0,0 +1,7 @@
++# SPDX-License-Identifier: GPL-2.0+
++# Yellow Carp platform Support
++snd-pci-acp6x-objs	:= pci-acp6x.o
++snd-acp6x-pdm-dma-objs	:= acp6x-pdm-dma.o
 +
-+	adata = dev_get_drvdata(dev);
-+	if (adata->capture_stream && adata->capture_stream->runtime) {
-+		runtime = adata->capture_stream->runtime;
-+		rtd = runtime->private_data;
-+		period_bytes = frames_to_bytes(runtime, runtime->period_size);
-+		buffer_len = frames_to_bytes(runtime, runtime->buffer_size);
-+		acp6x_config_dma(rtd, SNDRV_PCM_STREAM_CAPTURE);
-+		acp6x_init_pdm_ring_buffer(PDM_MEM_WINDOW_START, buffer_len,
-+					   period_bytes, adata->acp6x_base);
-+	}
-+	acp6x_enable_pdm_interrupts(adata->acp6x_base);
-+	return 0;
-+}
-+
-+static int __maybe_unused acp6x_pdm_suspend(struct device *dev)
-+{
-+	struct pdm_dev_data *adata;
-+
-+	adata = dev_get_drvdata(dev);
-+	acp6x_disable_pdm_interrupts(adata->acp6x_base);
-+	return 0;
-+}
-+
-+static int __maybe_unused acp6x_pdm_runtime_resume(struct device *dev)
-+{
-+	struct pdm_dev_data *adata;
-+
-+	adata = dev_get_drvdata(dev);
-+	acp6x_enable_pdm_interrupts(adata->acp6x_base);
-+	return 0;
-+}
-+
-+static const struct dev_pm_ops acp6x_pdm_pm_ops = {
-+	SET_RUNTIME_PM_OPS(acp6x_pdm_suspend, acp6x_pdm_runtime_resume, NULL)
-+	SET_SYSTEM_SLEEP_PM_OPS(acp6x_pdm_suspend, acp6x_pdm_resume)
-+};
-+
- static struct platform_driver acp6x_pdm_dma_driver = {
- 	.probe = acp6x_pdm_audio_probe,
-+	.remove = acp6x_pdm_audio_remove,
- 	.driver = {
- 		.name = "acp_yc_pdm_dma",
-+		.pm = &acp6x_pdm_pm_ops,
- 	},
- };
- 
++obj-$(CONFIG_SND_SOC_AMD_ACP6x) += snd-pci-acp6x.o
++obj-$(CONFIG_SND_SOC_AMD_ACP6x) += snd-acp6x-pdm-dma.o
 -- 
 2.25.1
 

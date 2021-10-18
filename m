@@ -2,88 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99BA54323D1
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Oct 2021 18:27:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62951432415
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Oct 2021 18:46:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 333D017E1;
-	Mon, 18 Oct 2021 18:26:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 333D017E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id E599617DC;
+	Mon, 18 Oct 2021 18:45:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E599617DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634574455;
-	bh=d3Xt4qVC6ibpEwuCFWwmnYfrL6qUh3OZIesWoCYhbRI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=NyWJ6QmCsAt6bXfxu29iuSSmbP0K901WldeXH/pPuj1QIKG7S68LSqsc//OCXyabC
-	 bkeaNZ3SKKnxcRi9COw7/X/j+2soZzpWbQ8XRaRoFtw0CI6BBWYHUjJNL9OVjxVlZ0
-	 FJ5By81nkDIS8TTi0NM0xKpxjualEKRkzKQgw/cc=
+	s=default; t=1634575567;
+	bh=19/RYW2/do2v4foTY4QUbdGFsIoVbvVT+C2s4/a5YZU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=UkRzpw5KBOkcdzAZZ/3zhNjo3/btdEOs9sGH+1pf2w3nPJ+mo1YnVn3uTPSPWsrTJ
+	 KFvtSBQxtemT8g3j3LNXzorfntN80WDIKgGKi4+1VQgV7EGJCHV2JwpgHch/oOxyQz
+	 fbEADPLO09FSugezviu1rdEfvV6s2oZjb4i/4K3I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62E07F80253;
-	Mon, 18 Oct 2021 18:26:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64BFEF80253;
+	Mon, 18 Oct 2021 18:44:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3DAF3F80224; Mon, 18 Oct 2021 18:26:17 +0200 (CEST)
+ id 71554F80224; Mon, 18 Oct 2021 18:44:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A5625F801DB
- for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 18:26:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5625F801DB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5B6B7F80159
+ for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 18:44:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B6B7F80159
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="J0d7sfrB"
-Received: by mail-ed1-x533.google.com with SMTP id y12so1696883eda.4
- for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 09:26:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=A+GXMnl/f+l7VoWObM6F65h/sXbJpNsxC091FmXdtq0=;
- b=J0d7sfrBMZ+YIQByNGWLiissvGwaVdxaCHIiw415+QwIgFrMfk5BmypNU8SPidhpL7
- XtCNlkPLdfW3mCMEew2jViNkvTR470L1WIvlcxmemg55iapzs4v1asmUnGiZA+/q1uy4
- TpBgFK7I4eLPH5n328dz5VaFX5pI1fVSm4mFBChv+tYLmCv9lS/lA+I3wi1YPANrUxNg
- 1bek+oHhsyEHKZREyXuzPQ2CUekHGxEmw6uFa+bkA1/fmxnNTnBIPs6CUQ0EgTL1JEkh
- 9vGrVDD7MM97fvfRZitPiSW1iBt76/AZU6BqNHHKjifVmqcFGxemBF+GIwmiz4ZEMiIh
- 47PA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=A+GXMnl/f+l7VoWObM6F65h/sXbJpNsxC091FmXdtq0=;
- b=MjlzXJMpIc8Lv0e3cvkU93a/LOVNaBmxX96nYyNVdBNeTLi+5cvK25nC8UYkygeBtA
- zXnEo9cuwipYRsKYLFtEhSsDIlQGR2lPiTCPmAZfduPFVvTIbqe4AYOD9Ls0MgvVsxPi
- 0AVIyydQtUZR2vybbqY7tjMf20qdRWHqg02p1hka6ZZgW1/18L+jO8gNmHZff+B34lTz
- 6drv3eaTVioGBUlSM6Z0Zh6swI/Gni2Q3wl+680gP9mUHLNUeNosCDB5gIcqxPFijpaD
- 4iGAp+9OeIy7zuj5p5QzTIUMbWLhxqwhlzsChQ7b+J7w1Q4/jQeHlCxdiHqiV4kuSHGH
- n7aA==
-X-Gm-Message-State: AOAM531JC5dZToYIc5ysjTeYVQppF6Fj6GKL2GWiqsb1fkPtR6Q6BaYL
- hSal6HwOYHXvkXKaXLc7ZySc6y2HcAI0qg==
-X-Google-Smtp-Source: ABdhPJzdsXtZgQGe2Xht99axsdzuNOQpSuSBmGb5tHq4nzt0QMh8API4DDN9hYRGaAqh5YIGYiH1dg==
-X-Received: by 2002:aa7:cd8b:: with SMTP id x11mr45994158edv.384.1634574362265; 
- Mon, 18 Oct 2021 09:26:02 -0700 (PDT)
-Received: from fedtop.. ([2.234.154.208])
- by smtp.gmail.com with ESMTPSA id t6sm10320498edj.27.2021.10.18.09.26.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Oct 2021 09:26:01 -0700 (PDT)
-From: Marco Giunta <giun7a@gmail.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v3] ALSA: usb-audio: Fix microphone sound on Jieli webcam.
-Date: Mon, 18 Oct 2021 18:25:52 +0200
-Message-Id: <20211018162552.12082-1-giun7a@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <s5ha6j8t99c.wl-tiwai@suse.de>
-References: <s5ha6j8t99c.wl-tiwai@suse.de>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="ZwIqPcj/"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19IDIugK002086; 
+ Mon, 18 Oct 2021 11:44:37 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=g2keZwZ3YbmiZsBBYq3iwJPeFMf1WnyhEQ2eg27YkXk=;
+ b=ZwIqPcj/8kupRSNZTybT0jB+tGOc29pZ6PeaJ0lY4QH4hV+0EA/W5Gqk9Y4zUSql14kS
+ YEfdZSfNN9pqX2RFI0GC3SyxSDxYa76OYXK0tfN2/e1tKpAHY2bqLN/2yulftl2WsHID
+ 5J5z+eCKYJaGXiTUMpcURojMa5pPehf5Vhoj1wnLRTXBSbs98AP9rG5d6XR6EL2xOh3e
+ C2UmFxghfgJ+Eew1SQV6G82OjBkajCbtuaWp7RmV7gUM1CqXxWc+E2HftcMA8zbHcK79
+ ySDslfUOnw10Es3WxDPamMd56izb/76Nt3i7tMNP0aPAzj7+5aRVEJKv5PtUXf5IxcNv Iw== 
+Received: from ediex02.ad.cirrus.com ([87.246.76.36])
+ by mx0b-001ae601.pphosted.com with ESMTP id 3bs5p88g66-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 18 Oct 2021 11:44:37 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.7; Mon, 18 Oct
+ 2021 17:44:35 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.7 via Frontend
+ Transport; Mon, 18 Oct 2021 17:44:35 +0100
+Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
+ [198.61.64.121])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id BA217B15;
+ Mon, 18 Oct 2021 16:44:34 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+Subject: [PATCH] ASoC: cs42l42: Remove unused runtime_suspend/runtime_resume
+ callbacks
+Date: Mon, 18 Oct 2021 17:44:31 +0100
+Message-ID: <20211018164431.5871-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de
+Content-Type: text/plain
+X-Proofpoint-GUID: m53f-sWNMRlKcbnHRmnRMgmsYFp6O6PB
+X-Proofpoint-ORIG-GUID: m53f-sWNMRlKcbnHRmnRMgmsYFp6O6PB
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,68 +98,99 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When a Jieli Technology USB Webcam is connected, the video part works
-well, but the mic sound is speeded up. On dmesg there are messages
-about different rates from the runtime rates, warnings about volume
-resolution and lastly, the log is filled, every 5 seconds, with
-retire_capture_urb error messages.
+The driver has runtime_suspend and runtime_resume callbacks, but
+pm_runtime is never enabled so these functions won't be called. They
+could not be used anyway because the runtime_suspend would cause jack
+detect to stop working.
 
-The mic works only when ep packet size is set to wMaxPacketSize (normal
-sound and no more retire_capture_urb error messages). Skipping reading
-sample rate, fixes the messages about different rates and forcing a volume
-resolution, fixes warnings about volume range. I have arbitrarily choosed
-the value (16): I read in a comment that there should be no more than 255
-levels, so 4096 (max volume) / 16 = 0-255.
+These functions are unused - delete them.
 
-Signed-off-by: Marco Giunta <giun7a@gmail.com>
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 ---
- sound/usb/mixer.c  | 7 +++++++
- sound/usb/quirks.c | 7 +++++++
- 2 files changed, 14 insertions(+)
+ sound/soc/codecs/cs42l42.c | 51 +---------------------------------------------
+ 1 file changed, 1 insertion(+), 50 deletions(-)
 
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index a2ce535..8e030b1 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -1198,6 +1198,13 @@ static void volume_control_quirks(struct usb_mixer_elem_info *cval,
- 			cval->res = 1;
- 		}
- 		break;
-+	case USB_ID(0x1224, 0x2a25): /* Jieli Technology USB PHY 2.0 */
-+		if (!strcmp(kctl->id.name, "Mic Capture Volume")) {
-+			usb_audio_info(chip,
-+				"set resolution quirk: cval->res = 16\n");
-+			cval->res = 16;
-+		}
-+		break;
- 	}
+diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
+index 5e4d6791756b..0dbe4e23194b 100644
+--- a/sound/soc/codecs/cs42l42.c
++++ b/sound/soc/codecs/cs42l42.c
+@@ -25,7 +25,6 @@
+ #include <linux/regulator/consumer.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/of_device.h>
+-#include <linux/pm_runtime.h>
+ #include <sound/core.h>
+ #include <sound/pcm.h>
+ #include <sound/pcm_params.h>
+@@ -2175,59 +2174,12 @@ static int cs42l42_i2c_remove(struct i2c_client *i2c_client)
+ 	if (i2c_client->irq)
+ 		devm_free_irq(&i2c_client->dev, i2c_client->irq, cs42l42);
+ 
+-	pm_runtime_suspend(&i2c_client->dev);
+-	pm_runtime_disable(&i2c_client->dev);
+-
+-	return 0;
+-}
+-
+-#ifdef CONFIG_PM
+-static int cs42l42_runtime_suspend(struct device *dev)
+-{
+-	struct cs42l42_private *cs42l42 = dev_get_drvdata(dev);
+-
+-	regcache_cache_only(cs42l42->regmap, true);
+-	regcache_mark_dirty(cs42l42->regmap);
+-
+-	/* Hold down reset */
+ 	gpiod_set_value_cansleep(cs42l42->reset_gpio, 0);
+-
+-	/* remove power */
+-	regulator_bulk_disable(ARRAY_SIZE(cs42l42->supplies),
+-				cs42l42->supplies);
++	regulator_bulk_disable(ARRAY_SIZE(cs42l42->supplies), cs42l42->supplies);
+ 
+ 	return 0;
  }
  
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 889c855..712b699 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -1719,6 +1719,11 @@ void snd_usb_audioformat_attributes_quirk(struct snd_usb_audio *chip,
- 		 */
- 		fp->attributes &= ~UAC_EP_CS_ATTR_FILL_MAX;
- 		break;
-+	case USB_ID(0x1224, 0x2a25):  /* Jieli Technology USB PHY 2.0 */
-+		/* mic works only when ep packet size is set to wMaxPacketSize */
-+		fp->attributes |= UAC_EP_CS_ATTR_FILL_MAX;
-+		break;
-+
- 	}
- }
- 
-@@ -1888,6 +1893,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
- 		   QUIRK_FLAG_GET_SAMPLE_RATE),
- 	DEVICE_FLG(0x534d, 0x2109, /* MacroSilicon MS2109 */
- 		   QUIRK_FLAG_ALIGN_TRANSFER),
-+	DEVICE_FLG(0x1224, 0x2a25, /* Jieli Technology USB PHY 2.0 */
-+		   QUIRK_FLAG_GET_SAMPLE_RATE),
- 
- 	/* Vendor matches */
- 	VENDOR_FLG(0x045e, /* MS Lifecam */
+-static int cs42l42_runtime_resume(struct device *dev)
+-{
+-	struct cs42l42_private *cs42l42 = dev_get_drvdata(dev);
+-	int ret;
+-
+-	/* Enable power */
+-	ret = regulator_bulk_enable(ARRAY_SIZE(cs42l42->supplies),
+-					cs42l42->supplies);
+-	if (ret != 0) {
+-		dev_err(dev, "Failed to enable supplies: %d\n",
+-			ret);
+-		return ret;
+-	}
+-
+-	gpiod_set_value_cansleep(cs42l42->reset_gpio, 1);
+-	usleep_range(CS42L42_BOOT_TIME_US, CS42L42_BOOT_TIME_US * 2);
+-
+-	regcache_cache_only(cs42l42->regmap, false);
+-	regcache_sync(cs42l42->regmap);
+-
+-	return 0;
+-}
+-#endif
+-
+-static const struct dev_pm_ops cs42l42_runtime_pm = {
+-	SET_RUNTIME_PM_OPS(cs42l42_runtime_suspend, cs42l42_runtime_resume,
+-			   NULL)
+-};
+-
+ #ifdef CONFIG_OF
+ static const struct of_device_id cs42l42_of_match[] = {
+ 	{ .compatible = "cirrus,cs42l42", },
+@@ -2254,7 +2206,6 @@ MODULE_DEVICE_TABLE(i2c, cs42l42_id);
+ static struct i2c_driver cs42l42_i2c_driver = {
+ 	.driver = {
+ 		.name = "cs42l42",
+-		.pm = &cs42l42_runtime_pm,
+ 		.of_match_table = of_match_ptr(cs42l42_of_match),
+ 		.acpi_match_table = ACPI_PTR(cs42l42_acpi_match),
+ 		},
 -- 
-2.31.1
+2.11.0
 

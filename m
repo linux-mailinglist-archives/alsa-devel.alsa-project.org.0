@@ -2,69 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25977431812
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Oct 2021 13:50:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C0A0431869
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Oct 2021 14:03:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B5C8C1893;
-	Mon, 18 Oct 2021 13:49:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5C8C1893
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EF561A99;
+	Mon, 18 Oct 2021 14:02:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EF561A99
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634557826;
-	bh=9oUn51PD5VpxrPabJhlqZOC2wZGCOv+MO2gXm8ng5sI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=euJk3Ki5dJbwHLH8LYksmt++xim9VGlYicomHqk9+Cew9EXagr8xyyGClP+HZu62o
-	 hy3YWpBXRQM4VgQfiiarNK6sJOOuAjajLekxDM7bUAVXESwip6veYFmSvXWpFIDBhi
-	 +IMkXjrq4LWwE2hUpTsn2OtHekrw0ycEhCDw+Z8g=
+	s=default; t=1634558611;
+	bh=razN/v68lZBX/sUmH1oc+Lf5gpcBSdEk/y7U9EjuuD0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Prywlqbw+nAUflqr0+9uLkLZN4g4DHbKE0nGfj65XdfqtB0smgKZGm982X+gA9NdM
+	 z/4b6vCnF8vXZqp6dd+huqfwIqAAVMw7n75s465AgIRgzoH+b942DrTNmqz1xcF4ew
+	 lKIxi8z99lGlW1pcnfyaky30w7NFayskZJduFubc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3040BF80111;
-	Mon, 18 Oct 2021 13:49:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D133DF80111;
+	Mon, 18 Oct 2021 14:02:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 33218F80224; Mon, 18 Oct 2021 13:49:08 +0200 (CEST)
+ id 90AA5F80224; Mon, 18 Oct 2021 14:02:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from metanate.com (unknown [IPv6:2001:8b0:1628:5005::111])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1B0B7F80111
- for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 13:49:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B0B7F80111
+ by alsa1.perex.cz (Postfix) with ESMTPS id 81ABDF801DB
+ for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 14:02:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81ABDF801DB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=metanate.com header.i=@metanate.com
- header.b="Me51qKc5"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=metanate.com; s=stronger; h=Content-Transfer-Encoding:Message-Id:Date:
- Subject:Cc:To:From:Content-Type:Reply-To:Content-ID:Content-Description:
- In-Reply-To:References; bh=qTMOt1xxazooyWbCT+RA8dOGYeZGTywpcqg5cvW8F3A=; b=Me
- 51qKc5LvClqVGh5xw13a/9DF6KF2C8XilXthp2oag5DGBkvU7uGJgAtyEAHbKTbWP7VOCql2Gx6AG
- Wq/dLlD3D5sNLnbzeOxPBcs2DBLPvhUi3tjf8zf2DKk77823QEytPGPZw2MBwsQQ0wOV7bOgwnlfJ
- qA093lIdovyNcy69qdyMZF6m1LdIBWCs29P7RSwVhelPRPVfiy3znLAhO/fe4IjCFQPt+E3CelWHw
- rF3hlrzIADicmKqRik93SEw/jxWGuAiPZXNVYDcVsYIM6nedaYOQB2Mpb66PSzJsMskq4azoF9oyr
- cTMpJlWLYVblcLkWAci8c62iPq3oUi2A==;
-Received: from [81.174.171.191] (helo=donbot.metanate.com)
- by email.metanate.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.93) (envelope-from <john@metanate.com>)
- id 1mcR8T-00081L-BK; Mon, 18 Oct 2021 12:48:57 +0100
-From: John Keeping <john@metanate.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: rockchip: use generic DMA engine configuration
-Date: Mon, 18 Oct 2021 12:48:44 +0100
-Message-Id: <20211018114844.1746351-1-john@metanate.com>
-X-Mailer: git-send-email 2.33.1
-MIME-Version: 1.0
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="iaVQh8B7"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="9je5we7I"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id E43D91FD7A;
+ Mon, 18 Oct 2021 12:01:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1634558515; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Lc44qm4Hdg+XeJj8UXxxq7+8RwoqXKup97G8bGHAyMI=;
+ b=iaVQh8B7Uic0Zh/bj27XuwBn63oyfljb/XKnnQQ8liEvGIG6ux/1v1pLlz+/0soP+JNZVW
+ YtA7psxeh8BEYOUuROqAK5GDb3ISbh/kSn14yGxfUsAZq8Mr5a3h7GABW5gXzXbm0B843J
+ x4YL22Yf2Fqulva5X1pHG3y/O+vTMCs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1634558515;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Lc44qm4Hdg+XeJj8UXxxq7+8RwoqXKup97G8bGHAyMI=;
+ b=9je5we7IdsdnlH4gWqcH+iyaSDJ4k8LoPfy5UbWjPV54WCe9Ftl4vPB6pM+Espmo979WcW
+ 41+jazibIDnrK+Aw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id CF33EA3B83;
+ Mon, 18 Oct 2021 12:01:55 +0000 (UTC)
+Date: Mon, 18 Oct 2021 14:01:55 +0200
+Message-ID: <s5h35oy5yoc.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH 1/5] ALSA: hda: Drop device-argument in NHLT functions
+In-Reply-To: <002bde61-eeea-a1d7-2392-488c5359ce97@intel.com>
+References: <20211015164047.44492-1-cezary.rojewski@intel.com>
+ <20211015164047.44492-2-cezary.rojewski@intel.com>
+ <bb2b223e-6318-ed3c-bbe8-31ba4b8d02fe@linux.intel.com>
+ <s5hr1ck5bqu.wl-tiwai@suse.de>
+ <fe697391-339d-5874-4959-8f0f436280f3@intel.com>
+ <s5hbl3m68pl.wl-tiwai@suse.de>
+ <002bde61-eeea-a1d7-2392-488c5359ce97@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Authenticated: YES
-Cc: Heiko Stuebner <heiko@sntech.de>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-rockchip@lists.infradead.org, Mark Brown <broonie@kernel.org>,
- John Keeping <john@metanate.com>, linux-arm-kernel@lists.infradead.org
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ hdegoede@redhat.com, broonie@kernel.org,
+ Amadeusz SX2awiX4ski <amadeuszx.slawinski@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,132 +104,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This effectively reverts commit 75b31192fe6a ("ASoC: rockchip: add
-config for rockchip dmaengine pcm register").
+On Mon, 18 Oct 2021 11:07:15 +0200,
+Cezary Rojewski wrote:
+> 
+> 
+> 
+> On 2021-10-18 10:25 AM, Takashi Iwai wrote:
+> > On Mon, 18 Oct 2021 10:08:30 +0200,
+> > Cezary Rojewski wrote:
+> >>
+> >> On 2021-10-17 9:52 AM, Takashi Iwai wrote:
+> >>> On Fri, 15 Oct 2021 18:42:33 +0200,
+> >>> Pierre-Louis Bossart wrote:
+> >>>> On 10/15/21 11:40 AM, Cezary Rojewski wrote:
+> >>>>> From: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+> >>>>>
+> >>>>> ACPI is device independent, so printing warnings using device functions
+> >>>>> is misleading. Replace dev_xxx() with pr_xxx() and remove now
+> >>>>> unnecessary argument.
+> >>>>
+> >>>> the routines in sound/hda/intel-nhtl.c are called from a specific PCI
+> >>>> device, why would you remove that information?
+> >>>>
+> >>>> This makes no sense to me.
+> >>>
+> >>> Right, otherwise this change would confuse user, too; they'll be
+> >>> clueless about who triggers it.
+> >>>
+> >>> It's OK to change to pr_*(), but then it should have more information
+> >>> that can be easily identified and understood what user should do.
+> >>
+> >> Isn't the answer as to 'who' used it obvious, though? NHLT is used for
+> >> I2S and DMIC endpoints only, so the question is 'limited' in the first
+> >> place. And then, you cannot have several Intel ADSP drivers running
+> >> simultaneously.
+> >
+> > Well, it's not about you or devs -- those must know which driver is
+> > relevant very well, of course.  Instead, the problem is for *all*
+> > others who read the message.
+> >
+> > IOW, which user would know and think "hey, it's a NHLT thingy that
+> > must be ASoC xxx driver that spewed" only from the text snippet "NHLT
+> > table not found"?  That's way too much expectation.  Some more
+> > guidance is needed in the error message.  The dev_*() variant gave at
+> > least the device names that can help guessing the relevant driver
+> > easily.
+> >
+> >> Also, logs found ACPI-table interface are device-less so this patch
+> >> makes NHLT interface look more ACPI-generic alike.
+> >
+> > The conversion itself is no problem, but the lost information is the
+> > problem.
+> 
+> Well, most invocations that end in error will cause stack of
+> error-logs (dev_xxx()) in the parent driver. NHLT reads:
+> Non-HDAudio-Link-Table. The name itself points reader towards
+> sound/hda already.
 
-There doesn't seem to be any rationale given for why these specific
-values are helpful.  The generic DMA engine provides sensible defaults
-here and works well with Rockchip I2S.
+But then how dropping the device information would improve things at
+all?  It rather cuts off the link between that message and the later
+one.
 
-In fact the period size here is really quite restrictive when dealing
-with 8 channels of 32-bit data as the effective period size is just 256
-frames.
+> I understand that not everyone will google "NHLT"
+> and such but then there are ton of kernel messages which won't guide
+> reader by the hand anyway.
 
-Signed-off-by: John Keeping <john@metanate.com>
----
- sound/soc/rockchip/Makefile       |  3 +--
- sound/soc/rockchip/rockchip_i2s.c |  3 +--
- sound/soc/rockchip/rockchip_pcm.c | 44 -------------------------------
- sound/soc/rockchip/rockchip_pcm.h | 11 --------
- 4 files changed, 2 insertions(+), 59 deletions(-)
- delete mode 100644 sound/soc/rockchip/rockchip_pcm.c
- delete mode 100644 sound/soc/rockchip/rockchip_pcm.h
+This can't be an excuse, we don't have to follow that anti pattern :)
 
-diff --git a/sound/soc/rockchip/Makefile b/sound/soc/rockchip/Makefile
-index b10f5e7b136d..6a3e61178152 100644
---- a/sound/soc/rockchip/Makefile
-+++ b/sound/soc/rockchip/Makefile
-@@ -2,11 +2,10 @@
- # ROCKCHIP Platform Support
- snd-soc-rockchip-i2s-objs := rockchip_i2s.o
- snd-soc-rockchip-i2s-tdm-objs := rockchip_i2s_tdm.o
--snd-soc-rockchip-pcm-objs := rockchip_pcm.o
- snd-soc-rockchip-pdm-objs := rockchip_pdm.o
- snd-soc-rockchip-spdif-objs := rockchip_spdif.o
- 
--obj-$(CONFIG_SND_SOC_ROCKCHIP_I2S) += snd-soc-rockchip-i2s.o snd-soc-rockchip-pcm.o
-+obj-$(CONFIG_SND_SOC_ROCKCHIP_I2S) += snd-soc-rockchip-i2s.o
- obj-$(CONFIG_SND_SOC_ROCKCHIP_I2S_TDM) += snd-soc-rockchip-i2s-tdm.o
- obj-$(CONFIG_SND_SOC_ROCKCHIP_PDM) += snd-soc-rockchip-pdm.o
- obj-$(CONFIG_SND_SOC_ROCKCHIP_SPDIF) += snd-soc-rockchip-spdif.o
-diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
-index 7e89f5b0c237..a6d7656c206e 100644
---- a/sound/soc/rockchip/rockchip_i2s.c
-+++ b/sound/soc/rockchip/rockchip_i2s.c
-@@ -20,7 +20,6 @@
- #include <sound/dmaengine_pcm.h>
- 
- #include "rockchip_i2s.h"
--#include "rockchip_pcm.h"
- 
- #define DRV_NAME "rockchip-i2s"
- 
-@@ -756,7 +755,7 @@ static int rockchip_i2s_probe(struct platform_device *pdev)
- 		goto err_suspend;
- 	}
- 
--	ret = rockchip_pcm_platform_register(&pdev->dev);
-+	ret = devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
- 	if (ret) {
- 		dev_err(&pdev->dev, "Could not register PCM\n");
- 		goto err_suspend;
-diff --git a/sound/soc/rockchip/rockchip_pcm.c b/sound/soc/rockchip/rockchip_pcm.c
-deleted file mode 100644
-index 02254e42135e..000000000000
---- a/sound/soc/rockchip/rockchip_pcm.c
-+++ /dev/null
-@@ -1,44 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- * Copyright (c) 2018 Rockchip Electronics Co. Ltd.
-- */
--
--#include <linux/device.h>
--#include <linux/init.h>
--#include <linux/module.h>
--
--#include <sound/core.h>
--#include <sound/pcm.h>
--#include <sound/soc.h>
--#include <sound/dmaengine_pcm.h>
--
--#include "rockchip_pcm.h"
--
--static const struct snd_pcm_hardware snd_rockchip_hardware = {
--	.info			= SNDRV_PCM_INFO_MMAP |
--				  SNDRV_PCM_INFO_MMAP_VALID |
--				  SNDRV_PCM_INFO_PAUSE |
--				  SNDRV_PCM_INFO_RESUME |
--				  SNDRV_PCM_INFO_INTERLEAVED,
--	.period_bytes_min	= 32,
--	.period_bytes_max	= 8192,
--	.periods_min		= 1,
--	.periods_max		= 52,
--	.buffer_bytes_max	= 64 * 1024,
--	.fifo_size		= 32,
--};
--
--static const struct snd_dmaengine_pcm_config rk_dmaengine_pcm_config = {
--	.pcm_hardware = &snd_rockchip_hardware,
--	.prepare_slave_config = snd_dmaengine_pcm_prepare_slave_config,
--	.prealloc_buffer_size = 32 * 1024,
--};
--
--int rockchip_pcm_platform_register(struct device *dev)
--{
--	return devm_snd_dmaengine_pcm_register(dev, &rk_dmaengine_pcm_config,
--		SND_DMAENGINE_PCM_FLAG_COMPAT);
--}
--EXPORT_SYMBOL_GPL(rockchip_pcm_platform_register);
--
--MODULE_LICENSE("GPL v2");
-diff --git a/sound/soc/rockchip/rockchip_pcm.h b/sound/soc/rockchip/rockchip_pcm.h
-deleted file mode 100644
-index 7f00e2ce3603..000000000000
---- a/sound/soc/rockchip/rockchip_pcm.h
-+++ /dev/null
-@@ -1,11 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--/*
-- * Copyright (c) 2018 Rockchip Electronics Co. Ltd.
-- */
--
--#ifndef _ROCKCHIP_PCM_H
--#define _ROCKCHIP_PCM_H
--
--int rockchip_pcm_platform_register(struct device *dev);
--
--#endif
--- 
-2.33.1
+> "NHLT table not found" is configuration problem, not a driver
+> problem. Mixing BIOS/config problems with driver ones leads to
+> incorrect conclusions what we want to avoid.
 
+The configuration itself makes sense only if it's in actual use,
+i.e. the problem is always tied with the driver.
+
+So, if any, you can put more information around the message mentioning
+that it's the configuration problem and what to do for users,
+e.g. check your BIOS, etc.  *That* would be the improvement.
+
+
+Takashi

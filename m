@@ -2,97 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9951C4315EC
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Oct 2021 12:22:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 683304315EF
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Oct 2021 12:23:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26AA818E1;
-	Mon, 18 Oct 2021 12:21:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26AA818E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8FA5718EC;
+	Mon, 18 Oct 2021 12:22:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FA5718EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634552553;
-	bh=iqLf7wMwjsV/lB2mb+b8lzbjNiSZE5hgCkn3tPYFxmw=;
-	h=References:From:To:Subject:Date:In-reply-to:Cc:List-Id:
+	s=default; t=1634552580;
+	bh=PQlyYQMPkoqgeYLbL7YIan3kXJnmkjILym6YC4NShT4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MuovNvfNCAHVVb49UGLmLSaQnYYjHFp4iUHa07+Qz/XdF9O5qJHK9OWNVdrZJ8OcA
-	 WVL0nggrM+pI9hjMKaIyN3YsNPTJ8nCOb9FlFlVeSU4T+9kVFVVfcDR8PQ6APGUJDS
-	 emSxeLE/dEPA/ErAcvjPodYdowwqsRVnJEOllLx0=
+	b=UCd60j6biFD9BSZGc+LUH/ehq+ZZFWl9jUYSzm2jCNJDfEAj2BPhOEo0ugapzgbr1
+	 r4kCwPoqCqbghdZ4dTn6X+qJuz9Rixc/FMWwUJndKcAo6/1M6rU8WUyy0i9TBk5Toa
+	 6HmGsCNg6fypNy5gheI2bWsLwNRHuebdEsGM+3LQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F207F80159;
-	Mon, 18 Oct 2021 12:21:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50BD2F80217;
+	Mon, 18 Oct 2021 12:22:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 534DFF80224; Mon, 18 Oct 2021 12:21:15 +0200 (CEST)
+ id 7D17BF802A9; Mon, 18 Oct 2021 12:22:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL
+ autolearn=disabled version=3.4.0
+Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
+ [IPv6:2607:f8b0:4864:20::102b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6DCDEF80159
- for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 12:21:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DCDEF80159
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3182CF80253
+ for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 12:22:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3182CF80253
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baylibre-com.20210112.gappssmtp.com
- header.i=@baylibre-com.20210112.gappssmtp.com header.b="OghATFW5"
-Received: by mail-wm1-x334.google.com with SMTP id
- n40-20020a05600c3ba800b0030da2439b21so9831730wms.0
- for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 03:21:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20210112.gappssmtp.com; s=20210112;
- h=references:user-agent:from:to:cc:subject:date:in-reply-to
- :message-id:mime-version;
- bh=7GC/r7oF7FaZ4vYYtjlckZsfjl97Nd102niiiNEyke0=;
- b=OghATFW5VHSslzpfS5gkkA3/wlUiyyp1eis6npEz+q00Ysaim+UMA3aq/59CpBm3sw
- xsgz5lLt1yZ90HXx0+Zb99O7Dj6PQlMsZYE7CuH0bJAL8QmybrshSuijhh9Vnzl9izgC
- xioP+eojPe9F21OJuHl8mpZfK19IRHt0psbKuq8q38MZOGSfEnwIp0/d0duLLLhWFrjC
- XlhQZwF1kEsxPUuFiEtQIa6aLHq0fc8mnMtBBwFPqL6Bh0YUrIiPT2VeL9tgAVz8Aqg6
- nE/phqoMR4WvNkv+U7wd4GP3cEApRXz3D4JcS5QYxcy+pSqUXvBEI20CCcuSkwMo/9ed
- GYow==
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="WYdQNbKe"
+Received: by mail-pj1-x102b.google.com with SMTP id oa4so11888224pjb.2
+ for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 03:22:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=/TZLehJ/hDMRtkj0rrB2dSWebDz1FDgoJGvlylziczE=;
+ b=WYdQNbKeD3mhKTaZ3XkNhbgTsqQlEsqtsHNlVi7Ro7ccexyI/SmcepJOGoe6kNcKFH
+ 6keQCwh9qlw+HeYlDTkixvjCfcGC60VNk5HFkO4vLV9J2txIX2JSs1NbSnIfUn6f2w0P
+ iv79GvV5OiLvvN7Nt3GcHY++EW+0BUZPORRMaRHHN9KkBGN5Pb4qZMNSatkGeD2Z4yet
+ LnPbAsEmyP0neXoOdfjP7N5TDLEiWut8gRgk6Z61x1fEUhAPpJIPOIQhnOejZX+zssDX
+ HRl+hABwhd/zVSR1hHTufYpicT5yj6TgjbZzGl3d9dOzmMf6zIGThY66t/Bb5GmImp1/
+ Yf+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
- :in-reply-to:message-id:mime-version;
- bh=7GC/r7oF7FaZ4vYYtjlckZsfjl97Nd102niiiNEyke0=;
- b=zaStKCru7/D2zzOsE3soBFuiI+kSrMmBnxdstWCuJxVfjz8cmsNGJLXmftKRqd1s3E
- ulXugfRhA4ST6ItMRZfpDAe3YlUQo/6/boK3ZTFUNnbFwUtdePqOYR4/zkJPxi79wHCm
- S0DUgWfsITkCmD3Z75db+zqrLJ5V7d24MVZOYCoCl84R8C7KU2PyvFrlYYQKAvdXFJRc
- c9MohSjjarToUFhgIvuGRqlvq3SEnHNRqYr2K4t0TLwWMnp9NDajHSbhhbxEDtsA6gYe
- 9IdRddTvFYrDx8yOcarA2R7baAtR19qfKxZwwtmDdQTVw9iWBKGuHwMIKMc4o7rR71ta
- egaA==
-X-Gm-Message-State: AOAM531umymH53/daVoXzlXLaLVm49VArkPYc8KUIJd/WjkJar3xzgPV
- Notpqle2otlDhj0kknzNIoaG/g==
-X-Google-Smtp-Source: ABdhPJxggso4popQo8nuVeqxw6FVBixaoIjtOeSS511+JxQ97xNYgGJ/yoNLOwTLoxJL3J3keWTBZg==
-X-Received: by 2002:a1c:4d06:: with SMTP id o6mr42793789wmh.137.1634552468356; 
- Mon, 18 Oct 2021 03:21:08 -0700 (PDT)
-Received: from localhost (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr.
- [90.63.244.31])
- by smtp.gmail.com with ESMTPSA id m15sm12311398wmq.0.2021.10.18.03.21.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Oct 2021 03:21:08 -0700 (PDT)
-References: <20211017160028.23318-1-christianshewitt@gmail.com>
-User-agent: mu4e 1.6.6; emacs 27.1
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Christian Hewitt <christianshewitt@gmail.com>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
- <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Kevin Hilman
- <khilman@baylibre.com>, Neil Armstrong <narmstrong@baylibre.com>, Martin
- Blumenstingl <martin.blumenstingl@googlemail.com>,
- alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: meson: implement driver_name for snd_soc_card in
- meson-card-utils
-Date: Mon, 18 Oct 2021 12:20:03 +0200
-In-reply-to: <20211017160028.23318-1-christianshewitt@gmail.com>
-Message-ID: <1j1r4ivdkc.fsf@starbuckisacylon.baylibre.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=/TZLehJ/hDMRtkj0rrB2dSWebDz1FDgoJGvlylziczE=;
+ b=PczwkiC3AOFvA+0cLLLbZwh09TY3uqnRsBnobhOGVQgAkc/LCCmsaS+NjForjkvrhM
+ c+PlWwn2lxtzwtQDD9965azaUr6dEClHR8iQAYuu4ZLAZGufwrPoSiAb0iDE/7CuWVrG
+ 2pBXCqC3u2tpD++SgF4SN9juFhFw4ohqe8xVK+rtudPYetRupX7C8Mk2TF9+WsWenb2U
+ 2gjLLSeYJtVb+ytIyuAdstswjMSzlXBfiNyDDKcwnJXKjHyqookbsiPP04xztTnBwOxy
+ OX8UjH6OOyNrrvY7C16/bcU9pzdVBcz3xA/Bc47hbqKcgb+wY/E1l98WZk7upHlz5yfS
+ EWeg==
+X-Gm-Message-State: AOAM532FG8jCvHHqmBerb2JNdXpn953TcynsFQAYCZK3sm/5Zs4jYdez
+ plx4E6qJNmnzgXRtT/Gq4mUqkAeJkJyMJT8qoGArpA==
+X-Google-Smtp-Source: ABdhPJxSQvcSPtF8mkOmZlSZeFJ2met+as1mLMT6yIqDnKm+G6lJAdALnr4C9K1Hb2fHbtOLJPghlRaV27YLvBptm2s=
+X-Received: by 2002:a17:90b:4f4c:: with SMTP id
+ pj12mr10698062pjb.231.1634552518107; 
+ Mon, 18 Oct 2021 03:21:58 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: Matthias Reichl <hias@horus.com>
+References: <20210914091204.2204278-1-tzungbi@google.com>
+ <CAL_JsqL7QbCJrqLZtRX9eNJC39kJWwbva2ZQeD+Azb+pKHzJ=Q@mail.gmail.com>
+In-Reply-To: <CAL_JsqL7QbCJrqLZtRX9eNJC39kJWwbva2ZQeD+Azb+pKHzJ=Q@mail.gmail.com>
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Mon, 18 Oct 2021 18:21:47 +0800
+Message-ID: <CA+Px+wV-1adVEm-iB7ow0JG5=p50X=xV1KJT5V9_7n-Ao63zBQ@mail.gmail.com>
+Subject: Re: [PATCH v3] ASoC: dt-bindings: mediatek: mt8192: re-add audio afe
+ document
+To: Rob Herring <robh+dt@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,40 +97,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Sat, Oct 16, 2021 at 8:41 PM Rob Herring <robh+dt@kernel.org> wrote:
+> Sigh. What's the status of
+> dt-bindings/reset-controller/mt8192-resets.h? Because now this is
+> applied again and has an error in linux-next since the header is
+> missing.
 
-On Sun 17 Oct 2021 at 16:00, Christian Hewitt <christianshewitt@gmail.com> wrote:
+It was moved by [1] and applied in [2].
 
-> Implement driver_name to provide an alternative to card_name for userspace
-> configuration of Amlogic audio cards.
->
-> Suggested-by: Matthias Reichl <hias@horus.com>
-> Signed-off-by: Christian Hewitt <christianshewitt@gmail.com>
-> ---
-> The meson AIU/AXG drivers currently require alsa confs based on the board
-> model name which is unique to each board. This is very flexible for audio
-> use-cases, but not very maintainable for distros with a single use-case
-> that need to support a large number of different Amlogic boards. Using a
-> driver name to match the card conf instead of card/model name reduces the
-> number of confs needed in the LibreELEC (Kodi) distro from 41 to 2.
->
->  sound/soc/meson/meson-card-utils.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/sound/soc/meson/meson-card-utils.c b/sound/soc/meson/meson-card-utils.c
-> index 415cc0046e4b..29b0174f4b5c 100644
-> --- a/sound/soc/meson/meson-card-utils.c
-> +++ b/sound/soc/meson/meson-card-utils.c
-> @@ -302,6 +302,7 @@ int meson_card_probe(struct platform_device *pdev)
->  
->  	priv->card.owner = THIS_MODULE;
->  	priv->card.dev = dev;
-> +	priv->card.driver_name = dev->driver->name;
->  	priv->match_data = data;
+[1]: https://lore.kernel.org/all/20210930103105.v4.1.I514d9aafff3a062f751b37d3fea7402f67595b86@changeid/
+[2]: https://git.kernel.org/pub/scm/linux/kernel/git/matthias.bgg/linux.git/commit/?h=for-next&id=f07c776f6d7ed5f8423863efd2445016e690aba1
 
-I was preparing something similar to help with alsa-ucm so
+Have proposed a patch[3] for fixing the issue in linux-next.  But it
+would be still broken in ASoC tree for now.
 
-Acked-by: Jerome Brunet <jbrunet@baylibre.com>
-
->  
->  	ret = snd_soc_of_parse_card_name(&priv->card, "model");
-
+[3]: https://mailman.alsa-project.org/pipermail/alsa-devel/2021-October/191317.html

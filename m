@@ -2,70 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED1BE431724
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Oct 2021 13:23:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1D9B431725
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Oct 2021 13:23:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2A31C190E;
-	Mon, 18 Oct 2021 13:22:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A31C190E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 801081911;
+	Mon, 18 Oct 2021 13:22:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 801081911
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634556200;
-	bh=H7Wx+shRBPVNn7QXQbORE40IVMu24VawE1oB3KWU7lY=;
+	s=default; t=1634556229;
+	bh=v+SEyzwsUerQcvQp0TyVJhq7vm+VF7muuybVv6SBzNM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tCoPy1OTG4nwv/7pFbvMd7+WYuQNikT8V7Vmxyu1tw0DPZMnDEyJzG/8WgCCvX5Vd
-	 owfkh9UE3YOWykmH+QwRA/STq7fZ16jY/qtd2hbUog/QRLr9woACEHw3WYcpQ36BZh
-	 kbzbthYSIzdqIIyyhWEa/8BZnwUhB5PDE6kp8EWI=
+	b=sI3lIdd5HAARDmEEmMBn7q6E6QTYZnDgOtZ8HQTeK2959g8sWcoSDIBISRLAG/rDE
+	 3vfkKDXlFvn/3UWkCONUChu5QA7FkfHDd1X6e/36Nrxq/WC0bT0ixFRQUov558bwel
+	 0FsuuYSALOcHZsro1J6dgZaTPzFvDJJoOpuOulkk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 315EAF804ED;
-	Mon, 18 Oct 2021 13:21:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C01DF804EC;
+	Mon, 18 Oct 2021 13:21:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AE00FF804F1; Mon, 18 Oct 2021 13:21:49 +0200 (CEST)
+ id 2F616F80507; Mon, 18 Oct 2021 13:21:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,UPPERCASE_50_75,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2086.outbound.protection.outlook.com [40.107.102.86])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2066.outbound.protection.outlook.com [40.107.220.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8FAD5F804EC
- for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 13:21:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FAD5F804EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1ADD5F804EC
+ for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 13:21:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1ADD5F804EC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
- header.b="jYnaFHRO"
+ header.b="gMIjGeSw"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JwRECwRRQXwNCtK41BK5gjDgQIBY30xRySb3C1VPFaL4hdGqAnzQ4F+OYopT5iiJqJP08hfxaQs0s0Lyd29wkSG2ThDLHtDVwMxEIVzbtHoeojvaBCHaw5HAkUhXbEEZRN5eqmIIuL1cFQI+poJBqUqxOO9XMUPfwlykM0s50AmNr0mJ7B999kEuYPffpYyMgL2ewdyp3VC+6aWFhpClqp1ynS5xweISkO1wfCJlgCLFq3BzNmONgR0ZiDA+C2tuFit0IP1F4ptheoE+2hstL9lpWeFDAYxA73viK57Oh+QhPtU0On/5yL6zrRr/6mdScvE8MeoQj3xt8nrfIjR76A==
+ b=J/Y64Y0OhZX6nrXNCAPRftHiDtaKrdTtPvivXMnJybt0oNGvAY4492n1WGG1cB3RLN/taDZnBIQChwf3B5l/9NNDozytJW5w0tyiFr3mNsqeXC5xVd8VRTMGkBM4XchT57aOg1ADMtsRKTr/8TpVxcA3gN6JMAdEquanfTrve5+AiXnUUXvlqeKHxCFEjHi5xDB0DOKg+JQB45y8fXfhvyRKPIjEMF4X1QXLS97625IsQAzqxs+0XakxHyPUAP0fW3JZBig0gEL7udTUIsZfs6GOjT5G0ovFIsasWqgw9ebMqK5zmX7trFGzrMgscQxyyP9AyJqlkC+bhaINcdEsZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WxQskQZeYVmvbRjWvdA0cruHSNoAafycSj+oz3vUrzM=;
- b=hWRTCUt1yESb/kFqeKJjZnLFtzexTtDrjOL377Ffkrizl4rQZa3dBw/lCwlnQKYqK9jwXlwRR1ePsvTu3mvBgWWL3SSqezl+cJfOVJT6ck/2JcIKwqPHdFOxv4lYLhKD93ZahPXX0O96qBgr4ObbhGG3ETV66WoISt/9wmtr0ChoYB7JEP6Xp/i2czPzLFbC8ARN9QOXqfunptyOPGCqHGg0AUGZIedhyquHZEDuBDLxvkh7DRdL4B3LdFZ0Se6Q23ze81mddZEYBJLu4d6CO//4/QrZC2VHKJIPTCAqqyqYkcroYzr+Rs7ZxnDgh9kfdLFZPwy8PJjsU60HLDyxDg==
+ bh=+GPO1HonHgvWB4PtjPfhVKHiBtGS8nqeLLmS0KTwUmA=;
+ b=SS6gGbolqXvpxLdZo/y9589cBul+E0IEycqdhlym1iBSNKTrbMcqBFwxQ1pTxYY6pfzoTcE5UTndg4ve7CjfSND9z6tYS9UEA5vlbEAuKBgqum58jFuZfoeh8ERc2UszcmkX9RPJZmhckMQHowq58iiPP6Tbdo4gWvHRDJglegz5EwDc6rSeow3yFBiURzfLnJtHsrmFS9wsCuk72oeNMA0Ft+9XZ3CQIx1uCjsIJr/FM/2EIKCwKuREPRAUma5F6eSK42eoxfZqspVs83BBfTyGHJ4+bbiFnDrhDQBvlQGUHXowszUIzLbvuZlFoC/PNWtEBVdX3NY+EjAV4EUNAw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WxQskQZeYVmvbRjWvdA0cruHSNoAafycSj+oz3vUrzM=;
- b=jYnaFHRO+ow1KtfMSUY0lzyeeF5qq8qpMtHZVi0gTQ9uj86l9pgtzFv8S8pL0zZBCsNVb2w1+fsY7cpUJzbfArLk6pMaYuLK3BBn4vGcBLGeBjFIxpuK0Sjk08RuChP5izbyLze2iDEKAA4KUkGPyp38gowFjuIm9dJsaXILq70=
-Received: from DM5PR13CA0036.namprd13.prod.outlook.com (2603:10b6:3:7b::22) by
- BN7PR12MB2660.namprd12.prod.outlook.com (2603:10b6:408:29::26) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4608.17; Mon, 18 Oct 2021 11:21:36 +0000
-Received: from DM6NAM11FT065.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:7b:cafe::b0) by DM5PR13CA0036.outlook.office365.com
- (2603:10b6:3:7b::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.10 via Frontend
- Transport; Mon, 18 Oct 2021 11:21:36 +0000
+ bh=+GPO1HonHgvWB4PtjPfhVKHiBtGS8nqeLLmS0KTwUmA=;
+ b=gMIjGeSwM8GlrhutEMMqifFzu5nDr2DIE6ldnGpeBcmcFx4TX3mvW4Bphf7G8ZUaPRkQ5QSNHGrBvPRKCrgZDtyoq1qYzO80dWhIxb34DHHR19xCxoXuLdVkeSYFYoezK4EWl1G+mp1jxY6w28CmfHSF1xLAbs+KeAqIJVKkfgQ=
+Received: from DM6PR07CA0079.namprd07.prod.outlook.com (2603:10b6:5:337::12)
+ by DM6PR12MB4944.namprd12.prod.outlook.com (2603:10b6:5:1ba::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.18; Mon, 18 Oct
+ 2021 11:21:44 +0000
+Received: from DM6NAM11FT008.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:337:cafe::ba) by DM6PR07CA0079.outlook.office365.com
+ (2603:10b6:5:337::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15 via Frontend
+ Transport; Mon, 18 Oct 2021 11:21:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; kernel.org; dkim=none (message not signed)
  header.d=none;kernel.org; dmarc=pass action=none header.from=amd.com;
@@ -73,21 +73,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT065.mail.protection.outlook.com (10.13.172.109) with Microsoft SMTP
+ DM6NAM11FT008.mail.protection.outlook.com (10.13.172.85) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4608.15 via Frontend Transport; Mon, 18 Oct 2021 11:21:35 +0000
+ 15.20.4608.15 via Frontend Transport; Mon, 18 Oct 2021 11:21:44 +0000
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Mon, 18 Oct
- 2021 06:21:34 -0500
+ 2021 06:21:44 -0500
 Received: from vijendar-System-Product-Name.amd.com (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2308.15
- via Frontend Transport; Mon, 18 Oct 2021 06:21:31 -0500
+ via Frontend Transport; Mon, 18 Oct 2021 06:21:40 -0500
 From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH V2 01/13] ASoC: amd: add Yellow Carp ACP6x IP register header
-Date: Mon, 18 Oct 2021 16:50:32 +0530
-Message-ID: <20211018112044.1705805-2-Vijendar.Mukunda@amd.com>
+Subject: [PATCH V2 02/13] ASoC: amd: add Yellow Carp ACP PCI driver
+Date: Mon, 18 Oct 2021 16:50:33 +0530
+Message-ID: <20211018112044.1705805-3-Vijendar.Mukunda@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211018112044.1705805-1-Vijendar.Mukunda@amd.com>
 References: <20211018112044.1705805-1-Vijendar.Mukunda@amd.com>
@@ -96,28 +96,28 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 33b521cc-4c24-452e-7567-08d992297248
-X-MS-TrafficTypeDiagnostic: BN7PR12MB2660:
-X-Microsoft-Antispam-PRVS: <BN7PR12MB26609C732C0E8BC15EB9708D97BC9@BN7PR12MB2660.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:404;
+X-MS-Office365-Filtering-Correlation-Id: d58e1e3c-3c43-4e3f-c49c-08d992297789
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4944:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB494400FED620A2C26914F68097BC9@DM6PR12MB4944.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:565;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: mwVqz0uOelgEAHkCe8xZZ/1yhXtZ7nnROUBVnoRQb1uo6f9rYq1Uk8hPTV1EsyJbS8ABQlP2JpxOCx+vSjnnz9Z6tijYI2Cv3aWnNBzEyUl/kmlWFieo+NIMnCb9fKYTg5qWUK7e56f62gDmTsjUda0Bm0vcasE/V2O70WsEMZLm7WxSqX0/XrRCMXG8I/MmX27RmGvXAuHS1+6Y8jygQ5t4EYk6OYj7DoWK96yu2/YTiPkp64LBH6qDtfUzqlXLrMP3UftaEp8iwbPzLDdK+KJ8ghRxjAv+V8XKCg7B0k1HSCRnu08e6lvq1+5yfJRerxigF3VsbVxtj1RixDsduT2e0myQsxW+tDzRXQBkYgEvJjeuzg7tRYecI1W2BaV7nu/kvdtfDDgH40nTIp5KrctsKjP7dJtBTUDro7l1Ozvy8ht5vY/ylV3F4cfry3xKR2LRkEjVYbMnVdsB8yGmm81cfNpl5Em7g8+ASLxOnPkc0ixUfVPIuR+MfC08YuWiBvLVUK1OHQcNERpaHOyGpK9YyLmUhX3GZzdmtqYdktduDGw7CpMS9//zkExFRo1u1Gdm70Aa0gzI3bdrDbraXFEHwuZVr4fH+ssc7D4/whLEZhAsGxN9yq2uQ58xLEHfv/o3a2YxOyPPjB6JO12qHkVy7Rk/PWgt/W+yGPekrHy73NwVHbMVYVf4wC0lY4Tb1WXEKY85qrmmRXqUWyophd+QeN5JWzwIxlUaZLBOAdMAbW7hATnBH2sZdserJUCV
+X-Microsoft-Antispam-Message-Info: 2YpFP8U2J1rTympKA1CEUycH7J/PBuHu8isk0WjbBbZn1h7xQkE1T9rNlQw8I1shK0lcxnVYyPj0A4JYg5+FHFRVOx/OK/fiJs4/LHnDkTeKrRsMF7G9fkUTsHBUDBEn1i0a0ts66Rq611B4loFa4iHgariUA3wUIF48r14vzO2Qpv9ywH7x/U67Hy2H1wmfpW++1IZH51O5ybyTKz04nhf7Dgzei9S34OK9frPsfRRuR/E+ne8ebOQPZUGMQaSZYt/B44Wz8TQNObTVYnX0yywT9/QOQ6VhjMw8VBzjlZK3q0p5hZOVeQX50KsJPK2eTra461clnLOpIoPtqk77lMdm8f5APJnRqScZbBUZVm552XwIfFcMsEo0wfvjhNG2DR3+R5rSIKpuDW1hDm5vBE4IvITFGYar0u7qKcAUDacGadNisjW0WHc485bJE5QRrdiJwpxkNI92tSPWH1U/v4N22V5Cq16gKHn0Wp5EvSeFQwoiD4ap9unA0Ay7PvG7IOH/KmEZdCmwP7VyApuIIr4Bl53iFcRfkdiBF71C9FVTdfZZHAJ1PlR+cX8en6Hf0q76KzUXji6y28dIbiPM2QRdt1vMOLDVEhIRYGHE1Mp+ymyeuALQJeKNu44H04W8hsgp6+OSj1M/1e2zgK/OagKSvqNc2Nx1DLJAGOJUQfsIlFDMI/E1+uaHQaj6ro1fifyDPiGutsbctjQwYItg8ypDjNyH+eCd4TsUX0DA3KU=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(508600001)(47076005)(5660300002)(54906003)(316002)(8676002)(110136005)(8936002)(2906002)(426003)(36860700001)(336012)(4326008)(86362001)(82310400003)(356005)(2616005)(186003)(26005)(30864003)(83380400001)(70206006)(1076003)(7696005)(36756003)(70586007)(81166007)(32563001)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(5660300002)(47076005)(82310400003)(26005)(7696005)(186003)(6666004)(508600001)(110136005)(316002)(4326008)(356005)(86362001)(36860700001)(83380400001)(54906003)(336012)(2616005)(426003)(36756003)(2906002)(81166007)(8676002)(70586007)(1076003)(8936002)(70206006)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2021 11:21:35.7442 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33b521cc-4c24-452e-7567-08d992297248
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2021 11:21:44.5668 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d58e1e3c-3c43-4e3f-c49c-08d992297789
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT065.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT008.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR12MB2660
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4944
 Cc: Sunil-kumar.Dommati@amd.com, mlimonci@amd.com, richgong@amd.com,
  Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
@@ -137,464 +137,141 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add register header for ACP6x IP in Yellow Carp platform.
+ACP is a PCI audio device.
+This patch adds PCI driver to bind to this device and get
+PCI resources.
 
 Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 ---
- sound/soc/amd/yc/acp6x_chip_offset_byte.h | 444 ++++++++++++++++++++++
- 1 file changed, 444 insertions(+)
- create mode 100644 sound/soc/amd/yc/acp6x_chip_offset_byte.h
+ sound/soc/amd/yc/acp6x.h     | 21 +++++++++
+ sound/soc/amd/yc/pci-acp6x.c | 90 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 111 insertions(+)
+ create mode 100644 sound/soc/amd/yc/acp6x.h
+ create mode 100644 sound/soc/amd/yc/pci-acp6x.c
 
-diff --git a/sound/soc/amd/yc/acp6x_chip_offset_byte.h b/sound/soc/amd/yc/acp6x_chip_offset_byte.h
+diff --git a/sound/soc/amd/yc/acp6x.h b/sound/soc/amd/yc/acp6x.h
 new file mode 100644
-index 000000000000..f05fb2dfb5da
+index 000000000000..62a05db5e34c
 --- /dev/null
-+++ b/sound/soc/amd/yc/acp6x_chip_offset_byte.h
-@@ -0,0 +1,444 @@
++++ b/sound/soc/amd/yc/acp6x.h
+@@ -0,0 +1,21 @@
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
-+ * AMD ACP 6.x Register Documentation
++ * AMD ALSA SoC PDM Driver
++ *
++ * Copyright (C) 2021 Advanced Micro Devices, Inc. All rights reserved.
++ */
++
++#include "acp6x_chip_offset_byte.h"
++
++#define ACP_DEVICE_ID 0x15E2
++#define ACP6x_PHY_BASE_ADDRESS 0x1240000
++
++static inline u32 acp6x_readl(void __iomem *base_addr)
++{
++	return readl(base_addr - ACP6x_PHY_BASE_ADDRESS);
++}
++
++static inline void acp6x_writel(u32 val, void __iomem *base_addr)
++{
++	writel(val, base_addr - ACP6x_PHY_BASE_ADDRESS);
++}
+diff --git a/sound/soc/amd/yc/pci-acp6x.c b/sound/soc/amd/yc/pci-acp6x.c
+new file mode 100644
+index 000000000000..5c118328ea21
+--- /dev/null
++++ b/sound/soc/amd/yc/pci-acp6x.c
+@@ -0,0 +1,90 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * AMD Yellow Carp ACP PCI Driver
 + *
 + * Copyright 2021 Advanced Micro Devices, Inc.
 + */
 +
-+#ifndef _acp6x_OFFSET_HEADER
-+#define _acp6x_OFFSET_HEADER
++#include <linux/pci.h>
++#include <linux/module.h>
++#include <linux/io.h>
 +
-+/* Registers from ACP_DMA block */
-+#define ACP_DMA_CNTL_0                                0x1240000
-+#define ACP_DMA_CNTL_1                                0x1240004
-+#define ACP_DMA_CNTL_2                                0x1240008
-+#define ACP_DMA_CNTL_3                                0x124000C
-+#define ACP_DMA_CNTL_4                                0x1240010
-+#define ACP_DMA_CNTL_5                                0x1240014
-+#define ACP_DMA_CNTL_6                                0x1240018
-+#define ACP_DMA_CNTL_7                                0x124001C
-+#define ACP_DMA_DSCR_STRT_IDX_0                       0x1240020
-+#define ACP_DMA_DSCR_STRT_IDX_1                       0x1240024
-+#define ACP_DMA_DSCR_STRT_IDX_2                       0x1240028
-+#define ACP_DMA_DSCR_STRT_IDX_3                       0x124002C
-+#define ACP_DMA_DSCR_STRT_IDX_4                       0x1240030
-+#define ACP_DMA_DSCR_STRT_IDX_5                       0x1240034
-+#define ACP_DMA_DSCR_STRT_IDX_6                       0x1240038
-+#define ACP_DMA_DSCR_STRT_IDX_7                       0x124003C
-+#define ACP_DMA_DSCR_CNT_0                            0x1240040
-+#define ACP_DMA_DSCR_CNT_1                            0x1240044
-+#define ACP_DMA_DSCR_CNT_2                            0x1240048
-+#define ACP_DMA_DSCR_CNT_3                            0x124004C
-+#define ACP_DMA_DSCR_CNT_4                            0x1240050
-+#define ACP_DMA_DSCR_CNT_5                            0x1240054
-+#define ACP_DMA_DSCR_CNT_6                            0x1240058
-+#define ACP_DMA_DSCR_CNT_7                            0x124005C
-+#define ACP_DMA_PRIO_0                                0x1240060
-+#define ACP_DMA_PRIO_1                                0x1240064
-+#define ACP_DMA_PRIO_2                                0x1240068
-+#define ACP_DMA_PRIO_3                                0x124006C
-+#define ACP_DMA_PRIO_4                                0x1240070
-+#define ACP_DMA_PRIO_5                                0x1240074
-+#define ACP_DMA_PRIO_6                                0x1240078
-+#define ACP_DMA_PRIO_7                                0x124007C
-+#define ACP_DMA_CUR_DSCR_0                            0x1240080
-+#define ACP_DMA_CUR_DSCR_1                            0x1240084
-+#define ACP_DMA_CUR_DSCR_2                            0x1240088
-+#define ACP_DMA_CUR_DSCR_3                            0x124008C
-+#define ACP_DMA_CUR_DSCR_4                            0x1240090
-+#define ACP_DMA_CUR_DSCR_5                            0x1240094
-+#define ACP_DMA_CUR_DSCR_6                            0x1240098
-+#define ACP_DMA_CUR_DSCR_7                            0x124009C
-+#define ACP_DMA_CUR_TRANS_CNT_0                       0x12400A0
-+#define ACP_DMA_CUR_TRANS_CNT_1                       0x12400A4
-+#define ACP_DMA_CUR_TRANS_CNT_2                       0x12400A8
-+#define ACP_DMA_CUR_TRANS_CNT_3                       0x12400AC
-+#define ACP_DMA_CUR_TRANS_CNT_4                       0x12400B0
-+#define ACP_DMA_CUR_TRANS_CNT_5                       0x12400B4
-+#define ACP_DMA_CUR_TRANS_CNT_6                       0x12400B8
-+#define ACP_DMA_CUR_TRANS_CNT_7                       0x12400BC
-+#define ACP_DMA_ERR_STS_0                             0x12400C0
-+#define ACP_DMA_ERR_STS_1                             0x12400C4
-+#define ACP_DMA_ERR_STS_2                             0x12400C8
-+#define ACP_DMA_ERR_STS_3                             0x12400CC
-+#define ACP_DMA_ERR_STS_4                             0x12400D0
-+#define ACP_DMA_ERR_STS_5                             0x12400D4
-+#define ACP_DMA_ERR_STS_6                             0x12400D8
-+#define ACP_DMA_ERR_STS_7                             0x12400DC
-+#define ACP_DMA_DESC_BASE_ADDR                        0x12400E0
-+#define ACP_DMA_DESC_MAX_NUM_DSCR                     0x12400E4
-+#define ACP_DMA_CH_STS                                0x12400E8
-+#define ACP_DMA_CH_GROUP                              0x12400EC
-+#define ACP_DMA_CH_RST_STS                            0x12400F0
++#include "acp6x.h"
 +
-+/* Registers from ACP_AXI2AXIATU block */
-+#define ACPAXI2AXI_ATU_PAGE_SIZE_GRP_1                0x1240C00
-+#define ACPAXI2AXI_ATU_BASE_ADDR_GRP_1                0x1240C04
-+#define ACPAXI2AXI_ATU_PAGE_SIZE_GRP_2                0x1240C08
-+#define ACPAXI2AXI_ATU_BASE_ADDR_GRP_2                0x1240C0C
-+#define ACPAXI2AXI_ATU_PAGE_SIZE_GRP_3                0x1240C10
-+#define ACPAXI2AXI_ATU_BASE_ADDR_GRP_3                0x1240C14
-+#define ACPAXI2AXI_ATU_PAGE_SIZE_GRP_4                0x1240C18
-+#define ACPAXI2AXI_ATU_BASE_ADDR_GRP_4                0x1240C1C
-+#define ACPAXI2AXI_ATU_PAGE_SIZE_GRP_5                0x1240C20
-+#define ACPAXI2AXI_ATU_BASE_ADDR_GRP_5                0x1240C24
-+#define ACPAXI2AXI_ATU_PAGE_SIZE_GRP_6                0x1240C28
-+#define ACPAXI2AXI_ATU_BASE_ADDR_GRP_6                0x1240C2C
-+#define ACPAXI2AXI_ATU_PAGE_SIZE_GRP_7                0x1240C30
-+#define ACPAXI2AXI_ATU_BASE_ADDR_GRP_7                0x1240C34
-+#define ACPAXI2AXI_ATU_PAGE_SIZE_GRP_8                0x1240C38
-+#define ACPAXI2AXI_ATU_BASE_ADDR_GRP_8                0x1240C3C
-+#define ACPAXI2AXI_ATU_CTRL                           0x1240C40
-+#define ACPAXI2AXI_ATU_PAGE_SIZE_GRP_9                0x1240C44
-+#define ACPAXI2AXI_ATU_BASE_ADDR_GRP_9                0x1240C48
-+#define ACPAXI2AXI_ATU_PAGE_SIZE_GRP_10               0x1240C4C
-+#define ACPAXI2AXI_ATU_BASE_ADDR_GRP_10               0x1240C50
-+#define ACPAXI2AXI_ATU_PAGE_SIZE_GRP_11               0x1240C54
-+#define ACPAXI2AXI_ATU_BASE_ADDR_GRP_11               0x1240C58
-+#define ACPAXI2AXI_ATU_PAGE_SIZE_GRP_12               0x1240C5C
-+#define ACPAXI2AXI_ATU_BASE_ADDR_GRP_12               0x1240C60
-+#define ACPAXI2AXI_ATU_PAGE_SIZE_GRP_13               0x1240C64
-+#define ACPAXI2AXI_ATU_BASE_ADDR_GRP_13               0x1240C68
-+#define ACPAXI2AXI_ATU_PAGE_SIZE_GRP_14               0x1240C6C
-+#define ACPAXI2AXI_ATU_BASE_ADDR_GRP_14               0x1240C70
-+#define ACPAXI2AXI_ATU_PAGE_SIZE_GRP_15               0x1240C74
-+#define ACPAXI2AXI_ATU_BASE_ADDR_GRP_15               0x1240C78
-+#define ACPAXI2AXI_ATU_PAGE_SIZE_GRP_16               0x1240C7C
-+#define ACPAXI2AXI_ATU_BASE_ADDR_GRP_16               0x1240C80
++struct acp6x_dev_data {
++	void __iomem *acp6x_base;
++};
 +
-+/* Registers from ACP_CLKRST block */
-+#define ACP_SOFT_RESET                                0x1241000
-+#define ACP_CONTROL                                   0x1241004
-+#define ACP_STATUS                                    0x1241008
-+#define ACP_DYNAMIC_CG_MASTER_CONTROL                 0x1241010
-+#define ACP_ZSC_DSP_CTRL                              0x1241014
-+#define ACP_ZSC_STS                                   0x1241018
-+#define ACP_PGFSM_CONTROL                             0x1241024
-+#define ACP_PGFSM_STATUS                              0x1241028
-+#define ACP_CLKMUX_SEL                                0x124102C
++static int snd_acp6x_probe(struct pci_dev *pci,
++			   const struct pci_device_id *pci_id)
++{
++	struct acp6x_dev_data *adata;
++	int ret;
++	u32 addr;
 +
-+/* Registers from ACP_AON block */
-+#define ACP_PME_EN                                    0x1241400
-+#define ACP_DEVICE_STATE                              0x1241404
-+#define AZ_DEVICE_STATE                               0x1241408
-+#define ACP_PIN_CONFIG                                0x1241440
-+#define ACP_PAD_PULLUP_CTRL                           0x1241444
-+#define ACP_PAD_PULLDOWN_CTRL                         0x1241448
-+#define ACP_PAD_DRIVE_STRENGTH_CTRL                   0x124144C
-+#define ACP_PAD_SCHMEN_CTRL                           0x1241450
-+#define ACP_SW_PAD_KEEPER_EN                          0x1241454
-+#define ACP_SW_WAKE_EN                                0x1241458
-+#define ACP_I2S_WAKE_EN                               0x124145C
-+#define ACP_SW1_WAKE_EN                               0x1241460
++	/* Yellow Carp device check */
++	if (pci->revision != 0x60)
++		return -ENODEV;
 +
-+/* Registers from ACP_P1_MISC block */
-+#define ACP_EXTERNAL_INTR_ENB                         0x1241A00
-+#define ACP_EXTERNAL_INTR_CNTL                        0x1241A04
-+#define ACP_EXTERNAL_INTR_CNTL1                       0x1241A08
-+#define ACP_EXTERNAL_INTR_STAT                        0x1241A0C
-+#define ACP_EXTERNAL_INTR_STAT1                       0x1241A10
-+#define ACP_ERROR_STATUS                              0x1241A4C
-+#define ACP_P1_SW_I2S_ERROR_REASON                    0x1241A50
-+#define ACP_P1_SW_POS_TRACK_I2S_TX_CTRL               0x1241A6C
-+#define ACP_P1_SW_I2S_TX_DMA_POS                      0x1241A70
-+#define ACP_P1_SW_POS_TRACK_I2S_RX_CTRL               0x1241A74
-+#define ACP_P1_SW_I2S_RX_DMA_POS                      0x1241A78
-+#define ACP_P1_DMIC_I2S_GPIO_INTR_CTRL                0x1241A7C
-+#define ACP_P1_DMIC_I2S_GPIO_INTR_STATUS              0x1241A80
-+#define ACP_SCRATCH_REG_BASE_ADDR                     0x1241A84
-+#define ACP_P1_SW_POS_TRACK_BT_TX_CTRL                0x1241A88
-+#define ACP_P1_SW_BT_TX_DMA_POS                       0x1241A8C
-+#define ACP_P1_SW_POS_TRACK_HS_TX_CTRL                0x1241A90
-+#define ACP_P1_SW_HS_TX_DMA_POS                       0x1241A94
-+#define ACP_P1_SW_POS_TRACK_BT_RX_CTRL                0x1241A98
-+#define ACP_P1_SW_BT_RX_DMA_POS                       0x1241A9C
-+#define ACP_P1_SW_POS_TRACK_HS_RX_CTRL                0x1241AA0
-+#define ACP_P1_SW_HS_RX_DMA_POS                       0x1241AA4
++	if (pci_enable_device(pci)) {
++		dev_err(&pci->dev, "pci_enable_device failed\n");
++		return -ENODEV;
++	}
 +
-+/* Registers from ACP_AUDIO_BUFFERS block */
-+#define ACP_I2S_RX_RINGBUFADDR                        0x1242000
-+#define ACP_I2S_RX_RINGBUFSIZE                        0x1242004
-+#define ACP_I2S_RX_LINKPOSITIONCNTR                   0x1242008
-+#define ACP_I2S_RX_FIFOADDR                           0x124200C
-+#define ACP_I2S_RX_FIFOSIZE                           0x1242010
-+#define ACP_I2S_RX_DMA_SIZE                           0x1242014
-+#define ACP_I2S_RX_LINEARPOSITIONCNTR_HIGH            0x1242018
-+#define ACP_I2S_RX_LINEARPOSITIONCNTR_LOW             0x124201C
-+#define ACP_I2S_RX_INTR_WATERMARK_SIZE                0x1242020
-+#define ACP_I2S_TX_RINGBUFADDR                        0x1242024
-+#define ACP_I2S_TX_RINGBUFSIZE                        0x1242028
-+#define ACP_I2S_TX_LINKPOSITIONCNTR                   0x124202C
-+#define ACP_I2S_TX_FIFOADDR                           0x1242030
-+#define ACP_I2S_TX_FIFOSIZE                           0x1242034
-+#define ACP_I2S_TX_DMA_SIZE                           0x1242038
-+#define ACP_I2S_TX_LINEARPOSITIONCNTR_HIGH            0x124203C
-+#define ACP_I2S_TX_LINEARPOSITIONCNTR_LOW             0x1242040
-+#define ACP_I2S_TX_INTR_WATERMARK_SIZE                0x1242044
-+#define ACP_BT_RX_RINGBUFADDR                         0x1242048
-+#define ACP_BT_RX_RINGBUFSIZE                         0x124204C
-+#define ACP_BT_RX_LINKPOSITIONCNTR                    0x1242050
-+#define ACP_BT_RX_FIFOADDR                            0x1242054
-+#define ACP_BT_RX_FIFOSIZE                            0x1242058
-+#define ACP_BT_RX_DMA_SIZE                            0x124205C
-+#define ACP_BT_RX_LINEARPOSITIONCNTR_HIGH             0x1242060
-+#define ACP_BT_RX_LINEARPOSITIONCNTR_LOW              0x1242064
-+#define ACP_BT_RX_INTR_WATERMARK_SIZE                 0x1242068
-+#define ACP_BT_TX_RINGBUFADDR                         0x124206C
-+#define ACP_BT_TX_RINGBUFSIZE                         0x1242070
-+#define ACP_BT_TX_LINKPOSITIONCNTR                    0x1242074
-+#define ACP_BT_TX_FIFOADDR                            0x1242078
-+#define ACP_BT_TX_FIFOSIZE                            0x124207C
-+#define ACP_BT_TX_DMA_SIZE                            0x1242080
-+#define ACP_BT_TX_LINEARPOSITIONCNTR_HIGH             0x1242084
-+#define ACP_BT_TX_LINEARPOSITIONCNTR_LOW              0x1242088
-+#define ACP_BT_TX_INTR_WATERMARK_SIZE                 0x124208C
-+#define ACP_HS_RX_RINGBUFADDR                         0x1242090
-+#define ACP_HS_RX_RINGBUFSIZE                         0x1242094
-+#define ACP_HS_RX_LINKPOSITIONCNTR                    0x1242098
-+#define ACP_HS_RX_FIFOADDR                            0x124209C
-+#define ACP_HS_RX_FIFOSIZE                            0x12420A0
-+#define ACP_HS_RX_DMA_SIZE                            0x12420A4
-+#define ACP_HS_RX_LINEARPOSITIONCNTR_HIGH             0x12420A8
-+#define ACP_HS_RX_LINEARPOSITIONCNTR_LOW              0x12420AC
-+#define ACP_HS_RX_INTR_WATERMARK_SIZE                 0x12420B0
-+#define ACP_HS_TX_RINGBUFADDR                         0x12420B4
-+#define ACP_HS_TX_RINGBUFSIZE                         0x12420B8
-+#define ACP_HS_TX_LINKPOSITIONCNTR                    0x12420BC
-+#define ACP_HS_TX_FIFOADDR                            0x12420C0
-+#define ACP_HS_TX_FIFOSIZE                            0x12420C4
-+#define ACP_HS_TX_DMA_SIZE                            0x12420C8
-+#define ACP_HS_TX_LINEARPOSITIONCNTR_HIGH             0x12420CC
-+#define ACP_HS_TX_LINEARPOSITIONCNTR_LOW              0x12420D0
-+#define ACP_HS_TX_INTR_WATERMARK_SIZE                 0x12420D4
++	ret = pci_request_regions(pci, "AMD ACP3x audio");
++	if (ret < 0) {
++		dev_err(&pci->dev, "pci_request_regions failed\n");
++		goto disable_pci;
++	}
 +
-+/* Registers from ACP_I2S_TDM block */
-+#define ACP_I2STDM_IER                                0x1242400
-+#define ACP_I2STDM_IRER                               0x1242404
-+#define ACP_I2STDM_RXFRMT                             0x1242408
-+#define ACP_I2STDM_ITER                               0x124240C
-+#define ACP_I2STDM_TXFRMT                             0x1242410
-+#define ACP_I2STDM0_MSTRCLKGEN                        0x1242414
-+#define ACP_I2STDM1_MSTRCLKGEN                        0x1242418
-+#define ACP_I2STDM2_MSTRCLKGEN                        0x124241C
-+#define ACP_I2STDM_REFCLKGEN                          0x1242420
++	adata = devm_kzalloc(&pci->dev, sizeof(struct acp6x_dev_data),
++			     GFP_KERNEL);
++	if (!adata) {
++		ret = -ENOMEM;
++		goto release_regions;
++	}
 +
-+/* Registers from ACP_BT_TDM block */
-+#define ACP_BTTDM_IER                                 0x1242800
-+#define ACP_BTTDM_IRER                                0x1242804
-+#define ACP_BTTDM_RXFRMT                              0x1242808
-+#define ACP_BTTDM_ITER                                0x124280C
-+#define ACP_BTTDM_TXFRMT                              0x1242810
-+#define ACP_HSTDM_IER                                 0x1242814
-+#define ACP_HSTDM_IRER                                0x1242818
-+#define ACP_HSTDM_RXFRMT                              0x124281C
-+#define ACP_HSTDM_ITER                                0x1242820
-+#define ACP_HSTDM_TXFRMT                              0x1242824
++	addr = pci_resource_start(pci, 0);
++	adata->acp6x_base = devm_ioremap(&pci->dev, addr,
++					 pci_resource_len(pci, 0));
++	if (!adata->acp6x_base) {
++		ret = -ENOMEM;
++		goto release_regions;
++	}
++	pci_set_master(pci);
++	pci_set_drvdata(pci, adata);
++	return 0;
++release_regions:
++	pci_release_regions(pci);
++disable_pci:
++	pci_disable_device(pci);
 +
-+/* Registers from ACP_WOV block */
-+#define ACP_WOV_PDM_ENABLE                            0x1242C04
-+#define ACP_WOV_PDM_DMA_ENABLE                        0x1242C08
-+#define ACP_WOV_RX_RINGBUFADDR                        0x1242C0C
-+#define ACP_WOV_RX_RINGBUFSIZE                        0x1242C10
-+#define ACP_WOV_RX_LINKPOSITIONCNTR                   0x1242C14
-+#define ACP_WOV_RX_LINEARPOSITIONCNTR_HIGH            0x1242C18
-+#define ACP_WOV_RX_LINEARPOSITIONCNTR_LOW             0x1242C1C
-+#define ACP_WOV_RX_INTR_WATERMARK_SIZE                0x1242C20
-+#define ACP_WOV_PDM_FIFO_FLUSH                        0x1242C24
-+#define ACP_WOV_PDM_NO_OF_CHANNELS                    0x1242C28
-+#define ACP_WOV_PDM_DECIMATION_FACTOR                 0x1242C2C
-+#define ACP_WOV_PDM_VAD_CTRL                          0x1242C30
-+#define ACP_WOV_WAKE                                  0x1242C54
-+#define ACP_WOV_BUFFER_STATUS                         0x1242C58
-+#define ACP_WOV_MISC_CTRL                             0x1242C5C
-+#define ACP_WOV_CLK_CTRL                              0x1242C60
-+#define ACP_PDM_VAD_DYNAMIC_CLK_GATING_EN             0x1242C64
-+#define ACP_WOV_ERROR_STATUS_REGISTER                 0x1242C68
-+#define ACP_PDM_CLKDIV                                0x1242C6C
++	return ret;
++}
 +
-+/* Registers from ACP_P1_AUDIO_BUFFERS block */
-+#define ACP_P1_I2S_RX_RINGBUFADDR                     0x1243A00
-+#define ACP_P1_I2S_RX_RINGBUFSIZE                     0x1243A04
-+#define ACP_P1_I2S_RX_LINKPOSITIONCNTR                0x1243A08
-+#define ACP_P1_I2S_RX_FIFOADDR                        0x1243A0C
-+#define ACP_P1_I2S_RX_FIFOSIZE                        0x1243A10
-+#define ACP_P1_I2S_RX_DMA_SIZE                        0x1243A14
-+#define ACP_P1_I2S_RX_LINEARPOSITIONCNTR_HIGH         0x1243A18
-+#define ACP_P1_I2S_RX_LINEARPOSITIONCNTR_LOW          0x1243A1C
-+#define ACP_P1_I2S_RX_INTR_WATERMARK_SIZE             0x1243A20
-+#define ACP_P1_I2S_TX_RINGBUFADDR                     0x1243A24
-+#define ACP_P1_I2S_TX_RINGBUFSIZE                     0x1243A28
-+#define ACP_P1_I2S_TX_LINKPOSITIONCNTR                0x1243A2C
-+#define ACP_P1_I2S_TX_FIFOADDR                        0x1243A30
-+#define ACP_P1_I2S_TX_FIFOSIZE                        0x1243A34
-+#define ACP_P1_I2S_TX_DMA_SIZE                        0x1243A38
-+#define ACP_P1_I2S_TX_LINEARPOSITIONCNTR_HIGH         0x1243A3C
-+#define ACP_P1_I2S_TX_LINEARPOSITIONCNTR_LOW          0x1243A40
-+#define ACP_P1_I2S_TX_INTR_WATERMARK_SIZE             0x1243A44
-+#define ACP_P1_BT_RX_RINGBUFADDR                      0x1243A48
-+#define ACP_P1_BT_RX_RINGBUFSIZE                      0x1243A4C
-+#define ACP_P1_BT_RX_LINKPOSITIONCNTR                 0x1243A50
-+#define ACP_P1_BT_RX_FIFOADDR                         0x1243A54
-+#define ACP_P1_BT_RX_FIFOSIZE                         0x1243A58
-+#define ACP_P1_BT_RX_DMA_SIZE                         0x1243A5C
-+#define ACP_P1_BT_RX_LINEARPOSITIONCNTR_HIGH          0x1243A60
-+#define ACP_P1_BT_RX_LINEARPOSITIONCNTR_LOW           0x1243A64
-+#define ACP_P1_BT_RX_INTR_WATERMARK_SIZE              0x1243A68
-+#define ACP_P1_BT_TX_RINGBUFADDR                      0x1243A6C
-+#define ACP_P1_BT_TX_RINGBUFSIZE                      0x1243A70
-+#define ACP_P1_BT_TX_LINKPOSITIONCNTR                 0x1243A74
-+#define ACP_P1_BT_TX_FIFOADDR                         0x1243A78
-+#define ACP_P1_BT_TX_FIFOSIZE                         0x1243A7C
-+#define ACP_P1_BT_TX_DMA_SIZE                         0x1243A80
-+#define ACP_P1_BT_TX_LINEARPOSITIONCNTR_HIGH          0x1243A84
-+#define ACP_P1_BT_TX_LINEARPOSITIONCNTR_LOW           0x1243A88
-+#define ACP_P1_BT_TX_INTR_WATERMARK_SIZE              0x1243A8C
-+#define ACP_P1_HS_RX_RINGBUFADDR                      0x1243A90
-+#define ACP_P1_HS_RX_RINGBUFSIZE                      0x1243A94
-+#define ACP_P1_HS_RX_LINKPOSITIONCNTR                 0x1243A98
-+#define ACP_P1_HS_RX_FIFOADDR                         0x1243A9C
-+#define ACP_P1_HS_RX_FIFOSIZE                         0x1243AA0
-+#define ACP_P1_HS_RX_DMA_SIZE                         0x1243AA4
-+#define ACP_P1_HS_RX_LINEARPOSITIONCNTR_HIGH          0x1243AA8
-+#define ACP_P1_HS_RX_LINEARPOSITIONCNTR_LOW           0x1243AAC
-+#define ACP_P1_HS_RX_INTR_WATERMARK_SIZE              0x1243AB0
-+#define ACP_P1_HS_TX_RINGBUFADDR                      0x1243AB4
-+#define ACP_P1_HS_TX_RINGBUFSIZE                      0x1243AB8
-+#define ACP_P1_HS_TX_LINKPOSITIONCNTR                 0x1243ABC
-+#define ACP_P1_HS_TX_FIFOADDR                         0x1243AC0
-+#define ACP_P1_HS_TX_FIFOSIZE                         0x1243AC4
-+#define ACP_P1_HS_TX_DMA_SIZE                         0x1243AC8
-+#define ACP_P1_HS_TX_LINEARPOSITIONCNTR_HIGH          0x1243ACC
-+#define ACP_P1_HS_TX_LINEARPOSITIONCNTR_LOW           0x1243AD0
-+#define ACP_P1_HS_TX_INTR_WATERMARK_SIZE              0x1243AD4
++static void snd_acp6x_remove(struct pci_dev *pci)
++{
++	pci_release_regions(pci);
++	pci_disable_device(pci);
++}
 +
-+/* Registers from ACP_SCRATCH block */
-+#define ACP_SCRATCH_REG_0                             0x1250000
-+#define ACP_SCRATCH_REG_1                             0x1250004
-+#define ACP_SCRATCH_REG_2                             0x1250008
-+#define ACP_SCRATCH_REG_3                             0x125000C
-+#define ACP_SCRATCH_REG_4                             0x1250010
-+#define ACP_SCRATCH_REG_5                             0x1250014
-+#define ACP_SCRATCH_REG_6                             0x1250018
-+#define ACP_SCRATCH_REG_7                             0x125001C
-+#define ACP_SCRATCH_REG_8                             0x1250020
-+#define ACP_SCRATCH_REG_9                             0x1250024
-+#define ACP_SCRATCH_REG_10                            0x1250028
-+#define ACP_SCRATCH_REG_11                            0x125002C
-+#define ACP_SCRATCH_REG_12                            0x1250030
-+#define ACP_SCRATCH_REG_13                            0x1250034
-+#define ACP_SCRATCH_REG_14                            0x1250038
-+#define ACP_SCRATCH_REG_15                            0x125003C
-+#define ACP_SCRATCH_REG_16                            0x1250040
-+#define ACP_SCRATCH_REG_17                            0x1250044
-+#define ACP_SCRATCH_REG_18                            0x1250048
-+#define ACP_SCRATCH_REG_19                            0x125004C
-+#define ACP_SCRATCH_REG_20                            0x1250050
-+#define ACP_SCRATCH_REG_21                            0x1250054
-+#define ACP_SCRATCH_REG_22                            0x1250058
-+#define ACP_SCRATCH_REG_23                            0x125005C
-+#define ACP_SCRATCH_REG_24                            0x1250060
-+#define ACP_SCRATCH_REG_25                            0x1250064
-+#define ACP_SCRATCH_REG_26                            0x1250068
-+#define ACP_SCRATCH_REG_27                            0x125006C
-+#define ACP_SCRATCH_REG_28                            0x1250070
-+#define ACP_SCRATCH_REG_29                            0x1250074
-+#define ACP_SCRATCH_REG_30                            0x1250078
-+#define ACP_SCRATCH_REG_31                            0x125007C
-+#define ACP_SCRATCH_REG_32                            0x1250080
-+#define ACP_SCRATCH_REG_33                            0x1250084
-+#define ACP_SCRATCH_REG_34                            0x1250088
-+#define ACP_SCRATCH_REG_35                            0x125008C
-+#define ACP_SCRATCH_REG_36                            0x1250090
-+#define ACP_SCRATCH_REG_37                            0x1250094
-+#define ACP_SCRATCH_REG_38                            0x1250098
-+#define ACP_SCRATCH_REG_39                            0x125009C
-+#define ACP_SCRATCH_REG_40                            0x12500A0
-+#define ACP_SCRATCH_REG_41                            0x12500A4
-+#define ACP_SCRATCH_REG_42                            0x12500A8
-+#define ACP_SCRATCH_REG_43                            0x12500AC
-+#define ACP_SCRATCH_REG_44                            0x12500B0
-+#define ACP_SCRATCH_REG_45                            0x12500B4
-+#define ACP_SCRATCH_REG_46                            0x12500B8
-+#define ACP_SCRATCH_REG_47                            0x12500BC
-+#define ACP_SCRATCH_REG_48                            0x12500C0
-+#define ACP_SCRATCH_REG_49                            0x12500C4
-+#define ACP_SCRATCH_REG_50                            0x12500C8
-+#define ACP_SCRATCH_REG_51                            0x12500CC
-+#define ACP_SCRATCH_REG_52                            0x12500D0
-+#define ACP_SCRATCH_REG_53                            0x12500D4
-+#define ACP_SCRATCH_REG_54                            0x12500D8
-+#define ACP_SCRATCH_REG_55                            0x12500DC
-+#define ACP_SCRATCH_REG_56                            0x12500E0
-+#define ACP_SCRATCH_REG_57                            0x12500E4
-+#define ACP_SCRATCH_REG_58                            0x12500E8
-+#define ACP_SCRATCH_REG_59                            0x12500EC
-+#define ACP_SCRATCH_REG_60                            0x12500F0
-+#define ACP_SCRATCH_REG_61                            0x12500F4
-+#define ACP_SCRATCH_REG_62                            0x12500F8
-+#define ACP_SCRATCH_REG_63                            0x12500FC
-+#define ACP_SCRATCH_REG_64                            0x1250100
-+#define ACP_SCRATCH_REG_65                            0x1250104
-+#define ACP_SCRATCH_REG_66                            0x1250108
-+#define ACP_SCRATCH_REG_67                            0x125010C
-+#define ACP_SCRATCH_REG_68                            0x1250110
-+#define ACP_SCRATCH_REG_69                            0x1250114
-+#define ACP_SCRATCH_REG_70                            0x1250118
-+#define ACP_SCRATCH_REG_71                            0x125011C
-+#define ACP_SCRATCH_REG_72                            0x1250120
-+#define ACP_SCRATCH_REG_73                            0x1250124
-+#define ACP_SCRATCH_REG_74                            0x1250128
-+#define ACP_SCRATCH_REG_75                            0x125012C
-+#define ACP_SCRATCH_REG_76                            0x1250130
-+#define ACP_SCRATCH_REG_77                            0x1250134
-+#define ACP_SCRATCH_REG_78                            0x1250138
-+#define ACP_SCRATCH_REG_79                            0x125013C
-+#define ACP_SCRATCH_REG_80                            0x1250140
-+#define ACP_SCRATCH_REG_81                            0x1250144
-+#define ACP_SCRATCH_REG_82                            0x1250148
-+#define ACP_SCRATCH_REG_83                            0x125014C
-+#define ACP_SCRATCH_REG_84                            0x1250150
-+#define ACP_SCRATCH_REG_85                            0x1250154
-+#define ACP_SCRATCH_REG_86                            0x1250158
-+#define ACP_SCRATCH_REG_87                            0x125015C
-+#define ACP_SCRATCH_REG_88                            0x1250160
-+#define ACP_SCRATCH_REG_89                            0x1250164
-+#define ACP_SCRATCH_REG_90                            0x1250168
-+#define ACP_SCRATCH_REG_91                            0x125016C
-+#define ACP_SCRATCH_REG_92                            0x1250170
-+#define ACP_SCRATCH_REG_93                            0x1250174
-+#define ACP_SCRATCH_REG_94                            0x1250178
-+#define ACP_SCRATCH_REG_95                            0x125017C
-+#define ACP_SCRATCH_REG_96                            0x1250180
-+#define ACP_SCRATCH_REG_97                            0x1250184
-+#define ACP_SCRATCH_REG_98                            0x1250188
-+#define ACP_SCRATCH_REG_99                            0x125018C
-+#define ACP_SCRATCH_REG_100                           0x1250190
-+#define ACP_SCRATCH_REG_101                           0x1250194
-+#define ACP_SCRATCH_REG_102                           0x1250198
-+#define ACP_SCRATCH_REG_103                           0x125019C
-+#define ACP_SCRATCH_REG_104                           0x12501A0
-+#define ACP_SCRATCH_REG_105                           0x12501A4
-+#define ACP_SCRATCH_REG_106                           0x12501A8
-+#define ACP_SCRATCH_REG_107                           0x12501AC
-+#define ACP_SCRATCH_REG_108                           0x12501B0
-+#define ACP_SCRATCH_REG_109                           0x12501B4
-+#define ACP_SCRATCH_REG_110                           0x12501B8
-+#define ACP_SCRATCH_REG_111                           0x12501BC
-+#define ACP_SCRATCH_REG_112                           0x12501C0
-+#define ACP_SCRATCH_REG_113                           0x12501C4
-+#define ACP_SCRATCH_REG_114                           0x12501C8
-+#define ACP_SCRATCH_REG_115                           0x12501CC
-+#define ACP_SCRATCH_REG_116                           0x12501D0
-+#define ACP_SCRATCH_REG_117                           0x12501D4
-+#define ACP_SCRATCH_REG_118                           0x12501D8
-+#define ACP_SCRATCH_REG_119                           0x12501DC
-+#define ACP_SCRATCH_REG_120                           0x12501E0
-+#define ACP_SCRATCH_REG_121                           0x12501E4
-+#define ACP_SCRATCH_REG_122                           0x12501E8
-+#define ACP_SCRATCH_REG_123                           0x12501EC
-+#define ACP_SCRATCH_REG_124                           0x12501F0
-+#define ACP_SCRATCH_REG_125                           0x12501F4
-+#define ACP_SCRATCH_REG_126                           0x12501F8
-+#define ACP_SCRATCH_REG_127                           0x12501FC
-+#define ACP_SCRATCH_REG_128                           0x1250200
-+#endif
++static const struct pci_device_id snd_acp6x_ids[] = {
++	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, ACP_DEVICE_ID),
++	.class = PCI_CLASS_MULTIMEDIA_OTHER << 8,
++	.class_mask = 0xffffff },
++	{ 0, },
++};
++MODULE_DEVICE_TABLE(pci, snd_acp6x_ids);
++
++static struct pci_driver yc_acp6x_driver  = {
++	.name = KBUILD_MODNAME,
++	.id_table = snd_acp6x_ids,
++	.probe = snd_acp6x_probe,
++	.remove = snd_acp6x_remove,
++};
++
++module_pci_driver(yc_acp6x_driver);
++
++MODULE_AUTHOR("Vijendar.Mukunda@amd.com");
++MODULE_DESCRIPTION("AMD ACP Yellow Carp PCI driver");
++MODULE_LICENSE("GPL v2");
 -- 
 2.25.1
 

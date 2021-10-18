@@ -2,85 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C869B431A36
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Oct 2021 14:58:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE93E431E91
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Oct 2021 16:00:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5BE7417F4;
-	Mon, 18 Oct 2021 14:58:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BE7417F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44C17174F;
+	Mon, 18 Oct 2021 15:59:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44C17174F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634561935;
-	bh=8oMP2XlNbdijqHQXMQOABJ+XZYnUAbX5ruGiEPlPN08=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=EhR4oNWZEuTG3rS3Ql5l6BpPQ2KOJgXKou3iKkrEtWNoBrXJ3C3aGkkSarYUuuyxJ
-	 gs5aHZjmQHHhUUzTxzThowYyy2EITai3AcdNBPdhy7jhMLGEJheWPfizF7sYi5ogK/
-	 S9/+3F740Yr/xETJsPczeHzoZ3Lte7CDxIRgrQFs=
+	s=default; t=1634565638;
+	bh=dQHKAO1m/LNuwICjj9WzoXKGhj6SR1qmagedc91L/wk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=gjyGjSs1I96UlutPKrnjlKK4BtwgAT9awnki6a1UCIbtE65iKKT3oZNmezeiN8I2a
+	 DLYW9o+HZLSK019vSBnzyOsBUg75gsUmpS9WEkxyP8edNJbPp/RUqrcuGqfoaUSIll
+	 Y7ZZLi1Wsk5eSzQVULsBFrXL1fX/sFLkWqrJUtuw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6377F80159;
-	Mon, 18 Oct 2021 14:57:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A27A4F802DF;
+	Mon, 18 Oct 2021 15:59:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 680EFF80224; Mon, 18 Oct 2021 14:57:36 +0200 (CEST)
+ id 05F64F801DB; Mon, 18 Oct 2021 15:59:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=0.6 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ PRX_BODY_135, SPF_HELO_NONE, SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from xavier.telenet-ops.be (xavier.telenet-ops.be
+ [IPv6:2a02:1800:120:4::f00:14])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2BA56F801DB
- for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 14:57:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2BA56F801DB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="tlgDS2Ok"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="z3z1WCb2"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 1023F1FD7A;
- Mon, 18 Oct 2021 12:57:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1634561850; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=xubHg33YGXHLYiEjA/Jw9hF1nzk+XfQNZFDO230zbWc=;
- b=tlgDS2OkozuUIVhdgwfMq2tC2hEgaSv2IgQ13xmhLUxTSTvgvl5wL0u1/1Xk/rCKg4mVno
- x7/4s0B1CePaJ8Zj3/v6lIFde+alsP4IZHpLONta/992eW7twZVIjxs5I3CfhP6JtUpiR+
- jna78fPRzObqkm9wwQECNHK5rXKYwBM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1634561850;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=xubHg33YGXHLYiEjA/Jw9hF1nzk+XfQNZFDO230zbWc=;
- b=z3z1WCb2gdh8XYaxygV0/u5K+07S1QAJzkhoe1kFg267TTZ2J9HKDOpnM5RBy9BixxCcBj
- +YubVPDkjZoa1zDA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id EDFE0A3B87;
- Mon, 18 Oct 2021 12:57:29 +0000 (UTC)
-Date: Mon, 18 Oct 2021 14:57:29 +0200
-Message-ID: <s5hzgr64hja.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH 00/11] ALSA: firewire-motu: add ioctl commands to retrieve
- information in messages delivered by isoc packet
-In-Reply-To: <YW1svlqJvG1oQGK2@workstation>
-References: <20211015080826.34847-1-o-takashi@sakamocchi.jp>
- <s5hv91ythay.wl-tiwai@suse.de> <YWt6179lGu6xM3Gw@workstation>
- <s5hczo4t9q1.wl-tiwai@suse.de> <YWvsEY2aGYtDloou@workstation>
- <s5hee8i69mb.wl-tiwai@suse.de> <YW1svlqJvG1oQGK2@workstation>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: ffado-devel@lists.sourceforge.net, alsa-devel@alsa-project.org,
- clemens@ladisch.de
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62280F801DB
+ for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 15:59:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62280F801DB
+Received: from ramsan.of.borg ([IPv6:2a02:1810:ac12:ed20:e87a:7c37:aec5:5884])
+ by xavier.telenet-ops.be with bizsmtp
+ id 7RzA2600C22VXnz01RzAJc; Mon, 18 Oct 2021 15:59:10 +0200
+Received: from rox.of.borg ([192.168.97.57])
+ by ramsan.of.borg with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
+ (envelope-from <geert@linux-m68k.org>)
+ id 1mcTAU-005uyZ-3E; Mon, 18 Oct 2021 15:59:10 +0200
+Received: from geert by rox.of.borg with local (Exim 4.93)
+ (envelope-from <geert@linux-m68k.org>)
+ id 1mcTAT-00DdiU-9g; Mon, 18 Oct 2021 15:59:09 +0200
+From: Geert Uytterhoeven <geert+renesas@glider.be>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Adam Ford <aford173@gmail.com>,
+ Shawn Guo <shawnguo@kernel.org>, patches@opensource.cirrus.com
+Subject: [PATCH 0/2] ASoC: wm8962: Conversion to json-schema and fix
+Date: Mon, 18 Oct 2021 15:59:01 +0200
+Message-Id: <cover.1634565154.git.geert+renesas@glider.be>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,29 +76,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 18 Oct 2021 14:46:54 +0200,
-Takashi Sakamoto wrote:
-> 
-> Hi,
-> 
-> On Mon, Oct 18, 2021 at 10:05:32AM +0200, Takashi Iwai wrote:
-> > On Sun, 17 Oct 2021 11:25:37 +0200,
-> > Takashi Sakamoto wrote:
-> > > 
-> > > Would I ask you opinion about my concern about firewire UAPI header? Is
-> > > it allowed to use float type instead of __u32 type?
-> > 
-> > I guess the safest way would be like include/uapi/linux/acct.h.
-> > The ifdef KERNEL will be omitted at installation, so user-space would
-> > see only float type while the kernel sees only __u32.
-> 
-> Yes. I've already found the header and it would be the safest, However,
-> conditional macro sometimes confuses userspace developers...
+	Hi all,
 
-I believe that the ifdef will be dropped automagically during
-installing the files, so that user-space will see only float.
+This patch series converts the Wolfson WM8962 Device Tree binding
+documentation to json-schema, after fixing an issue in the imx8mn-beacon
+DTS file.
 
-You can try to patch and run make headers_install.
+Thanks for your comments!
 
+Geert Uytterhoeven (2):
+  arm64: dts: imx: imx8mn-beacon: Drop undocumented clock-names
+    reference
+  ASoC: dt-bindings: wlf,wm8962: Convert to json-schema
 
-Takashi
+ .../devicetree/bindings/sound/wlf,wm8962.yaml | 118 ++++++++++++++++++
+ .../devicetree/bindings/sound/wm8962.txt      |  43 -------
+ .../freescale/imx8mn-beacon-baseboard.dtsi    |   1 -
+ 3 files changed, 118 insertions(+), 44 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/wlf,wm8962.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/wm8962.txt
+
+-- 
+2.25.1
+
+Gr{oetje,eeting}s,
+
+						Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+							    -- Linus Torvalds

@@ -2,73 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 684614329C2
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Oct 2021 00:27:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A114432A20
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Oct 2021 01:15:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E930916B9;
-	Tue, 19 Oct 2021 00:26:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E930916B9
+	by alsa0.perex.cz (Postfix) with ESMTPS id B4F4F16C2;
+	Tue, 19 Oct 2021 01:14:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4F4F16C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634596028;
-	bh=w8cgwrE/+/pObcg/QPe26ZBC4cp9Pl9uoVsPbOq4LIY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1634598909;
+	bh=XecnK4ShgY9/6TfKGOxfABJjvnpx1xj2WAFQNE5yqVE=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tABn4oCvm54HLd1zPxekN8FnEVnD+lhN1tAegKvbGbIpyg1H4/WjoUZVRfBsPyphX
-	 daB9hWENWfmsejl58cCvzhGRTP8Qnoh20UMKElKhuDInY8/VoMbzKODzcDRweT+KxI
-	 aodzNbl1p3ptJwp0yMs2BBeQPEyhkyQL7B1W76AY=
+	b=dQu/9lKY4udRDAyYE5owuGfQrErB8hPK5uYn2H59LNBWBSVTqLAYePEOR/T8bzBPr
+	 uOFJfV2ExNYdXF5W5ZqkGf0pRhRUHPBDpfpwDY7QV60XyVWXqy+M8q7DLyMoiU5FPt
+	 6eSZuElrxV1c2RSQJVRODvUgAuzSCFkDe/QycU/U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6636AF801DB;
-	Tue, 19 Oct 2021 00:25:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1CFDBF801DB;
+	Tue, 19 Oct 2021 01:13:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E8DEF80253; Tue, 19 Oct 2021 00:25:49 +0200 (CEST)
+ id 34AE8F80224; Tue, 19 Oct 2021 01:13:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8FB56F80217
- for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021 00:25:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FB56F80217
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Nu8/vp6H"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0BECC60F57;
- Mon, 18 Oct 2021 22:25:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634595936;
- bh=w8cgwrE/+/pObcg/QPe26ZBC4cp9Pl9uoVsPbOq4LIY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Nu8/vp6HLXOb+dTXQ7zxGMEIeRc88rDYkVnXvILYf2w/6AW0QNiHiNhl/jBnGPuIY
- kWTk4KRfq+1XYHJ1LNY+nvO0R9Wwr3HOk5xe1/VVjjEIVT+s01dphqh7BdbbmL2i7I
- fwVBdGfQaftP2O6QnmD5TPH5ZYVugu0wdEi4cQVgoZU+jVUNRilOKkYMJi4l8nLODh
- sdjRg2aVsPJv26Us2WDMJExq76sCS91vp0pnOFeinniRntbcjkHkAv3VYXPd17r4z/
- 6CbvlGkI9UE6wvhSwbVq9NcXjUIL93a9akn79ucOilSbtuFdQc1/iivcHPdwChjV2p
- REudjYstPIxDw==
-Date: Mon, 18 Oct 2021 23:25:33 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH v2 4/4] ASoC: Intel: Skylake: Use NHLT API to search for
- blob
-Message-ID: <YW30XcMJ4Cme9t/t@sirena.org.uk>
-References: <20211018144054.286268-1-cezary.rojewski@intel.com>
- <20211018144054.286268-5-cezary.rojewski@intel.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="jtfDDME5DK7N9+xh"
-Content-Disposition: inline
-In-Reply-To: <20211018144054.286268-5-cezary.rojewski@intel.com>
-X-Cookie: I program, therefore I am.
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 2A0B2F80111
+ for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021 01:13:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A0B2F80111
+Date: 19 Oct 2021 08:13:35 +0900
+X-IronPort-AV: E=Sophos;i="5.85,382,1624287600"; d="scan'208";a="97627693"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 19 Oct 2021 08:13:35 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 5865B400C727;
+ Tue, 19 Oct 2021 08:13:35 +0900 (JST)
+Message-ID: <875ytusz8g.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH] ASoC: rsnd: Fix an error handling path in
+ 'rsnd_node_count()'
+In-Reply-To: <4c0e893cbfa21dc76c1ede0b6f4f8cff42209299.1634586167.git.christophe.jaillet@wanadoo.fr>
+References: <4c0e893cbfa21dc76c1ede0b6f4f8cff42209299.1634586167.git.christophe.jaillet@wanadoo.fr>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
 Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- tiwai@suse.com, hdegoede@redhat.com,
- Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, broonie@kernel.org, mikhail_durnev@mentor.com,
+ joe@perches.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,33 +72,21 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---jtfDDME5DK7N9+xh
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi
 
-On Mon, Oct 18, 2021 at 04:40:54PM +0200, Cezary Rojewski wrote:
-> From: Amadeusz S=C5=82awi=C5=84ski <amadeuszx.slawinski@linux.intel.com>
->=20
-> With NHLT enriched with new search functions, remove local code in
-> favour of them. This also fixes broken behaviour: search should be based
-> on significant bits count rather than container size.
+> If we return before the end of the 'for_each_child_of_node()' iterator, the
+> reference taken on 'np' must be released.
+> 
+> Add the missing 'of_node_put()' call.
+> 
+> Fixes: c413983eb66a ("ASoC: rsnd: adjust disabled module")
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+> ---
 
-Acked-by: Mark Brown <broonie@kernel.org>
+Reviewed-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
---jtfDDME5DK7N9+xh
-Content-Type: application/pgp-signature; name="signature.asc"
+Thank you for your help !!
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFt9F0ACgkQJNaLcl1U
-h9CGbAf/dtxaBcvy60y/gLV7R7nOHSgmDGYJBQ77LXKn+DPniwIqT3Q5JiOnp9ER
-YJph1TjlXh5yUG4VORs/r5pSlq8rvD2V+gMuOjeOR4FGciZ9K/dpqV/5lrxm2jbV
-zs0fkLXqrvoSHjhCzgzhn6+hvuWSgfuY1Y3jyFtcDB+i33cH2zcFyiE/+mLybjr3
-c+Vsc47sHeKbcmwQ+qRucCmiLhtlwqaO2bxvNnai1a5NOFSs8fL0HSMHgtZWAfwp
-XiY6s/WHZi4wk7l3nFFHtrX9Wk+tkg0wuxaEhGWrP3yOzmnAp/m0OqlItNiJ4lgu
-UD/9Pd0KrCsNZ1P09Mbkmz7ta7AT6A==
-=Bprb
------END PGP SIGNATURE-----
-
---jtfDDME5DK7N9+xh--
+Best regards
+---
+Kuninori Morimoto

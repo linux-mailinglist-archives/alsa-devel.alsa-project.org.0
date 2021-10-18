@@ -2,89 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F85F43258D
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Oct 2021 19:52:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E05143277A
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Oct 2021 21:20:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 93E7A175B;
-	Mon, 18 Oct 2021 19:51:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93E7A175B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 245811740;
+	Mon, 18 Oct 2021 21:19:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 245811740
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634579534;
-	bh=siIhHn8FTveaySCwdIR4Q8qSVWOkLRL8k7ocU/vc2h0=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=tVDZoBLpih+N6UPgHEOaimfk4uOweoAMpnYaM/V208xnKaIdYQ/7Ig/7CfCZyIpyK
-	 qS7JEaHn6kMwssg6QViQx4PbIQTRX/T5ZI/MW7ybAWClFqJdEynhVH48lMLg6bs4UB
-	 IJkJ5lCrd3eiYgbzZUcUb//hlqdF/NPYIacPAUa4=
+	s=default; t=1634584846;
+	bh=DpVEPOd3rIrJ1luizM/lAz/I8y+BNBGHUGPk/Lpsd6E=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=g9KPuYm6LCmbVykD+vDBtpbbPbupyL6zoH6EQXPEPuGXb6WD4Flo7qVKmnT6gB6PJ
+	 E4+sthRJXDlVc5t7QpbxmzvwGBdvmtf+66eeKVbp9k1zkSakcDTKFoMBzLiq25r/co
+	 faJJe2hw6xQorEOffZFfSpabsTT8WLeUoClVcnN4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E2DA7F80253;
-	Mon, 18 Oct 2021 19:50:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7F894F80159;
+	Mon, 18 Oct 2021 21:19:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5895F80224; Mon, 18 Oct 2021 19:50:54 +0200 (CEST)
+ id A08BBF80224; Mon, 18 Oct 2021 21:19:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0E030F80111
- for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 19:50:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E030F80111
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ccC9P/gA"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="tFi2cmqP"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 42E7D21964;
- Mon, 18 Oct 2021 17:50:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1634579444; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=2E/jinIm3Qz+0EHSn9g9/nS8AdQbqRqJMIGUTyJPN14=;
- b=ccC9P/gAB2xA6nVeLs5bBnJZDeo80ryqdwjhGanIhn6XdjeDTbPBzhUbxuJSHjbVPbqJpY
- vszKfGQc6SZ5corIba72djx47ZCvPpe+Bk87E8v64KWtG6OQ+aq7TSjldkZS1JJYhUCegN
- /kK9UHPAv9q1EY7SrD0KZJ0vXv79oUU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1634579444;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=2E/jinIm3Qz+0EHSn9g9/nS8AdQbqRqJMIGUTyJPN14=;
- b=tFi2cmqPTIPx0rxXReuC+aPYxWHti/zyQXRBxemHoslgFw+OZ/LAyWvcgJ6p3VWVGDpJ5o
- fgClFzYgnT8zJJCw==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 318FFA3B84;
- Mon, 18 Oct 2021 17:50:44 +0000 (UTC)
-Date: Mon, 18 Oct 2021 19:50:44 +0200
-Message-ID: <s5hee8i43yj.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v3 4/4] ASoC: SOF: Intel: add .ack support for HDaudio
- platforms
-In-Reply-To: <ef4981bf-b935-77f1-00cb-9ac31a3e1fdd@linux.intel.com>
-References: <20211015195932.224925-1-pierre-louis.bossart@linux.intel.com>
- <20211015195932.224925-5-pierre-louis.bossart@linux.intel.com>
- <s5hzgr85c6v.wl-tiwai@suse.de>
- <97cd3a79-bf2a-bb1a-7da1-89bc8bac2c13@linux.intel.com>
- <s5hilxu4898.wl-tiwai@suse.de>
- <ef4981bf-b935-77f1-00cb-9ac31a3e1fdd@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
- P9ter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id AFAACF801DB
+ for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 21:19:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFAACF801DB
+X-IronPort-AV: E=McAfee;i="6200,9189,10141"; a="251809065"
+X-IronPort-AV: E=Sophos;i="5.85,382,1624345200"; d="scan'208";a="251809065"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2021 12:19:16 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,382,1624345200"; d="scan'208";a="530833152"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by fmsmga008.fm.intel.com with ESMTP; 18 Oct 2021 12:19:14 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: Intel: Unify HDAudio-ext bus initialization
+Date: Mon, 18 Oct 2021 21:21:34 +0200
+Message-Id: <20211018192134.353931-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: pierre-louis.bossart@linux.intel.com,
+ Cezary Rojewski <cezary.rojewski@intel.com>, tiwai@suse.com,
+ hdegoede@redhat.com, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,49 +70,216 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 18 Oct 2021 18:57:12 +0200,
-Pierre-Louis Bossart wrote:
-> 
-> 
-> 
-> 
-> > I mean only about the use EXPLICIT_SYNC flag.  There has been already
-> > an info flag SYNC_APPLPTR, and this should suffice for your purpose.
-> > In a nutshell:
-> > 
-> > EXPLICIT_SYNC = disable both control and status mmaps
-> > SYNC_APPLPTR = disable only control mmap
-> 
-> Humm, are you sure Takashi? it's been a long time since we discussed
-> this and your initial direction was to disable both?
-> 
-> To quote your own words from
-> https://lore.kernel.org/alsa-devel/s5hfug51g0x.wl-tiwai@suse.de/
-> 
-> "In mmap mode, we transfer data on the mmap
-> buffer, and update appl_ptr via mmap control.  Both are done without
-> notification to the driver (which is intentional for avoiding the
-> context switching).
-> 
-> So we want to disable this optimization and always notify to the
-> driver.  Disabling mmap status/control is the straight hack as it
-> falls back to ioctl and then the driver can know the change."
+HDAudio-extended bus initialization parts are scattered throughout Intel
+ADSP drivers code. Gather them up in snd_hda_ext_bus_init() to provide
+unified initialization point.
 
-The above text was correct, per se.  There was no *_SYNC_APPLPTR flag
-at that time, hence the only option was to disable both mmaps (that
-was done for 32bit PCM compat streams).
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+---
+ include/sound/hdaudio_ext.h   |  9 ++++++---
+ sound/hda/ext/hdac_ext_bus.c  | 29 ++++++++++++++++++++---------
+ sound/soc/intel/skylake/skl.c |  9 +--------
+ sound/soc/sof/intel/hda-bus.c | 16 +++++++++-------
+ sound/soc/sof/intel/hda.c     |  5 +++--
+ sound/soc/sof/intel/hda.h     |  3 ++-
+ 6 files changed, 41 insertions(+), 30 deletions(-)
 
-But now we have two ways to disable, as mentioned in the previous
-mail, that allows selectively disabling only the control mmap, which
-is required in most cases.
+diff --git a/include/sound/hdaudio_ext.h b/include/sound/hdaudio_ext.h
+index 375581634143..d1f6e9f7c057 100644
+--- a/include/sound/hdaudio_ext.h
++++ b/include/sound/hdaudio_ext.h
+@@ -2,11 +2,14 @@
+ #ifndef __SOUND_HDAUDIO_EXT_H
+ #define __SOUND_HDAUDIO_EXT_H
+ 
++#include <linux/pci.h>
+ #include <sound/hdaudio.h>
++#include <sound/hda_codec.h>
+ 
+-int snd_hdac_ext_bus_init(struct hdac_bus *bus, struct device *dev,
+-		      const struct hdac_bus_ops *ops,
+-		      const struct hdac_ext_bus_ops *ext_ops);
++int snd_hda_ext_bus_init(struct hda_bus *bus, struct pci_dev *pdev,
++			 const struct hdac_bus_ops *ops,
++			 const struct hdac_ext_bus_ops *ext_ops,
++			 const char *model);
+ 
+ void snd_hdac_ext_bus_exit(struct hdac_bus *bus);
+ int snd_hdac_ext_bus_device_init(struct hdac_bus *bus, int addr,
+diff --git a/sound/hda/ext/hdac_ext_bus.c b/sound/hda/ext/hdac_ext_bus.c
+index 765c40a6ccba..a89e2e80ea4c 100644
+--- a/sound/hda/ext/hdac_ext_bus.c
++++ b/sound/hda/ext/hdac_ext_bus.c
+@@ -10,15 +10,17 @@
+  */
+ 
+ #include <linux/module.h>
++#include <linux/pci.h>
+ #include <linux/slab.h>
+ #include <linux/io.h>
+ #include <sound/hdaudio_ext.h>
++#include <sound/hda_codec.h>
+ 
+ MODULE_DESCRIPTION("HDA extended core");
+ MODULE_LICENSE("GPL v2");
+ 
+ /**
+- * snd_hdac_ext_bus_init - initialize a HD-audio extended bus
++ * snd_hda_ext_bus_init - initialize a HD-audio extended bus
+  * @bus: the pointer to HDAC bus object
+  * @dev: device pointer
+  * @ops: bus verb operators
+@@ -26,28 +28,37 @@ MODULE_LICENSE("GPL v2");
+  *
+  * Returns 0 if successful, or a negative error code.
+  */
+-int snd_hdac_ext_bus_init(struct hdac_bus *bus, struct device *dev,
+-			const struct hdac_bus_ops *ops,
+-			const struct hdac_ext_bus_ops *ext_ops)
++int snd_hda_ext_bus_init(struct hda_bus *bus, struct pci_dev *pdev,
++			 const struct hdac_bus_ops *ops,
++			 const struct hdac_ext_bus_ops *ext_ops,
++			 const char *model)
+ {
++	struct hdac_bus *base = &bus->core;
+ 	int ret;
+ 
+-	ret = snd_hdac_bus_init(bus, dev, ops);
++	ret = snd_hdac_bus_init(base, &pdev->dev, ops);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	bus->ext_ops = ext_ops;
++	base->ext_ops = ext_ops;
+ 	/* FIXME:
+ 	 * Currently only one bus is supported, if there is device with more
+ 	 * buses, bus->idx should be greater than 0, but there needs to be a
+ 	 * reliable way to always assign same number.
+ 	 */
+-	bus->idx = 0;
+-	bus->cmd_dma_state = true;
++	base->idx = 0;
++	base->cmd_dma_state = true;
++	base->use_posbuf = 1;
++	base->bdl_pos_adj = 0;
++	base->sync_write = 1;
++	bus->pci = pdev;
++	bus->modelname = model;
++	bus->mixer_assigned = -1;
++	mutex_init(&bus->prepare_mutex);
+ 
+ 	return 0;
+ }
+-EXPORT_SYMBOL_GPL(snd_hdac_ext_bus_init);
++EXPORT_SYMBOL_GPL(snd_hda_ext_bus_init);
+ 
+ /**
+  * snd_hdac_ext_bus_exit - clean up a HD-audio extended bus
+diff --git a/sound/soc/intel/skylake/skl.c b/sound/soc/intel/skylake/skl.c
+index 5b1a15e39912..95de41d14e56 100644
+--- a/sound/soc/intel/skylake/skl.c
++++ b/sound/soc/intel/skylake/skl.c
+@@ -886,16 +886,9 @@ static int skl_create(struct pci_dev *pci,
+ #if IS_ENABLED(CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC)
+ 	ext_ops = snd_soc_hdac_hda_get_ops();
+ #endif
+-	snd_hdac_ext_bus_init(bus, &pci->dev, NULL, ext_ops);
+-	bus->use_posbuf = 1;
++	snd_hda_ext_bus_init(hbus, pci, NULL, ext_ops, "sklbus");
+ 	skl->pci = pci;
+ 	INIT_WORK(&skl->probe_work, skl_probe_work);
+-	bus->bdl_pos_adj = 0;
+-
+-	mutex_init(&hbus->prepare_mutex);
+-	hbus->pci = pci;
+-	hbus->mixer_assigned = -1;
+-	hbus->modelname = "sklbus";
+ 
+ 	*rskl = skl;
+ 
+diff --git a/sound/soc/sof/intel/hda-bus.c b/sound/soc/sof/intel/hda-bus.c
+index 30025d3c16b6..5d5081f80e88 100644
+--- a/sound/soc/sof/intel/hda-bus.c
++++ b/sound/soc/sof/intel/hda-bus.c
+@@ -8,6 +8,7 @@
+ // Authors: Keyon Jie <yang.jie@linux.intel.com>
+ 
+ #include <linux/io.h>
++#include <linux/pci.h>
+ #include <sound/hdaudio.h>
+ #include <sound/hda_i915.h>
+ #include "../sof-priv.h"
+@@ -53,24 +54,25 @@ static const struct hdac_bus_ops bus_core_ops = {
+ /*
+  * This can be used for both with/without hda link support.
+  */
+-void sof_hda_bus_init(struct hdac_bus *bus, struct device *dev)
++void sof_hda_bus_init(struct hda_bus *bus, struct pci_dev *pdev,
++		      const char *model)
+ {
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+-	snd_hdac_ext_bus_init(bus, dev, &bus_core_ops, sof_hda_ext_ops);
++	snd_hda_ext_bus_init(bus, pdev, &bus_core_ops, sof_hda_ext_ops, model);
+ #else /* CONFIG_SND_SOC_SOF_HDA */
+ 	memset(bus, 0, sizeof(*bus));
+-	bus->dev = dev;
++	bus->core.dev = &pdev->dev;
+ 
+-	INIT_LIST_HEAD(&bus->stream_list);
++	INIT_LIST_HEAD(&bus->core.stream_list);
+ 
+-	bus->irq = -1;
++	bus->core.irq = -1;
+ 
+ 	/*
+ 	 * There is only one HDA bus atm. keep the index as 0.
+ 	 * Need to fix when there are more than one HDA bus.
+ 	 */
+-	bus->idx = 0;
++	bus->core.idx = 0;
+ 
+-	spin_lock_init(&bus->reg_lock);
++	spin_lock_init(&bus->core.reg_lock);
+ #endif /* CONFIG_SND_SOC_SOF_HDA */
+ }
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index fbc2421c77f8..03a68d286c7c 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -609,8 +609,9 @@ static int hda_init(struct snd_sof_dev *sdev)
+ 	bus = sof_to_bus(sdev);
+ 
+ 	/* HDA bus init */
+-	sof_hda_bus_init(bus, &pci->dev);
++	sof_hda_bus_init(hbus, pci, hda_model);
+ 
++#if !IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+ 	bus->use_posbuf = 1;
+ 	bus->bdl_pos_adj = 0;
+ 	bus->sync_write = 1;
+@@ -619,7 +620,7 @@ static int hda_init(struct snd_sof_dev *sdev)
+ 	hbus->pci = pci;
+ 	hbus->mixer_assigned = -1;
+ 	hbus->modelname = hda_model;
+-
++#endif
+ 	/* initialise hdac bus */
+ 	bus->addr = pci_resource_start(pci, 0);
+ 	bus->remap_addr = pci_ioremap_bar(pci, 0);
+diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
+index 1195018a1f4f..a4ec88f36512 100644
+--- a/sound/soc/sof/intel/hda.h
++++ b/sound/soc/sof/intel/hda.h
+@@ -635,7 +635,8 @@ void hda_dsp_ctrl_stop_chip(struct snd_sof_dev *sdev);
+ /*
+  * HDA bus operations.
+  */
+-void sof_hda_bus_init(struct hdac_bus *bus, struct device *dev);
++void sof_hda_bus_init(struct hda_bus *bus, struct pci_dev *pdev,
++		      const char *model);
+ 
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+ /*
+-- 
+2.25.1
 
-> I really don't mind changing, I don't have enough background on this,
-> just wanted to make sure that disabling the control mmap is sufficient
-> on paper before we re-run tests. Thanks!
-
-Yes, please verify.
-
-
-thanks,
-
-Takashi

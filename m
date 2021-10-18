@@ -2,49 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AA80430DC4
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Oct 2021 04:07:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74B42430DC5
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Oct 2021 04:07:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 198801899;
-	Mon, 18 Oct 2021 04:06:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 198801899
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F639189D;
+	Mon, 18 Oct 2021 04:06:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F639189D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634522845;
-	bh=/XdWi8Ievfi6nAg5+MukDHRh/1wHB1xCitpjlOLaixM=;
+	s=default; t=1634522862;
+	bh=Zl+xOu602oE6gZBwqlntM7rSr5DV5UY2BxPaBFNpE14=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZRo9vqR4e7mWOS76p8NB6MMC6htd2a+P6aLKe7Y87aUlgWps7wH0LPlcy13V9a/uI
-	 RrnRpWxC7KxUE2ChkzfANqlsS2F6DKFCX9X8bvPMMUiS0tIRg9NyPAGIvX2GkWDLki
-	 TkAU5S5sxRyu3qN5PPy9F/xa+Wp/OulthvU1QjEY=
+	b=P8Yc1bzOdMlRdGSxmKefI8ep72hUrgZfxOkoakXQqhRjX9QkXGTcO3e4CdFltJolh
+	 JE/U4VwxCed5eU3YZQ/8ly2kaqbpqx9KPdOgcXvzhxFLZAGcJZNBM5VBgkPHym1H91
+	 tLtgnmC9fvJbhR8pofrB2BVPd1759Dd8I83z1ZJM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8925BF804FA;
-	Mon, 18 Oct 2021 04:05:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB4B7F80508;
+	Mon, 18 Oct 2021 04:05:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8C4BEF80506; Mon, 18 Oct 2021 04:05:47 +0200 (CEST)
+ id 50004F8050F; Mon, 18 Oct 2021 04:05:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 861FEF80224
- for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 04:05:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 861FEF80224
-Date: 18 Oct 2021 11:05:34 +0900
-X-IronPort-AV: E=Sophos;i="5.85,380,1624287600"; d="scan'208";a="97304929"
+ by alsa1.perex.cz (Postfix) with ESMTP id 38B17F804FE
+ for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 04:05:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38B17F804FE
+Date: 18 Oct 2021 11:05:44 +0900
+X-IronPort-AV: E=Sophos;i="5.85,380,1624287600"; d="scan'208";a="97304957"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 18 Oct 2021 11:05:34 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 18 Oct 2021 11:05:44 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 918E94188A15;
- Mon, 18 Oct 2021 11:05:34 +0900 (JST)
-Message-ID: <87fsszt7dd.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id CB9424120C8A;
+ Mon, 18 Oct 2021 11:05:44 +0900 (JST)
+Message-ID: <87ee8jt7d3.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 4/5] ASoC: soc-core: tidyup empty function
+Subject: [PATCH 5/5] ASoC: soc-core: accept zero format at
+ snd_soc_runtime_set_dai_fmt()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87lf2rt7fg.wl-kuninori.morimoto.gx@renesas.com>
@@ -67,69 +68,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-This patch makes empty function to 1 line.
+Do nothing if format was zero at snd_soc_runtime_set_dai_fmt().
+soc-core.c can be more simple code by this patch.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-core.c | 35 +++++++----------------------------
- 1 file changed, 7 insertions(+), 28 deletions(-)
+ sound/soc/meson/meson-codec-glue.c |  3 ---
+ sound/soc/soc-core.c               | 11 ++++++-----
+ 2 files changed, 6 insertions(+), 8 deletions(-)
 
+diff --git a/sound/soc/meson/meson-codec-glue.c b/sound/soc/meson/meson-codec-glue.c
+index d07270d17cee..2870cfad813a 100644
+--- a/sound/soc/meson/meson-codec-glue.c
++++ b/sound/soc/meson/meson-codec-glue.c
+@@ -113,9 +113,6 @@ int meson_codec_glue_output_startup(struct snd_pcm_substream *substream,
+ 	/* Replace link params with the input params */
+ 	rtd->dai_link->params = &in_data->params;
+ 
+-	if (!in_data->fmt)
+-		return 0;
+-
+ 	return snd_soc_runtime_set_dai_fmt(rtd, in_data->fmt);
+ }
+ EXPORT_SYMBOL_GPL(meson_codec_glue_output_startup);
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index beb3ac6e433d..6253cfea827c 100644
+index 6253cfea827c..bdbaf14dc9fc 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -229,31 +229,12 @@ static void snd_soc_debugfs_exit(void)
+@@ -1218,6 +1218,9 @@ int snd_soc_runtime_set_dai_fmt(struct snd_soc_pcm_runtime *rtd,
+ 	unsigned int i;
+ 	int ret;
  
- #else
++	if (!dai_fmt)
++		return 0;
++
+ 	for_each_rtd_codec_dais(rtd, i, codec_dai) {
+ 		ret = snd_soc_dai_set_fmt(codec_dai, dai_fmt);
+ 		if (ret != 0 && ret != -ENOTSUPP)
+@@ -1261,11 +1264,9 @@ static int soc_init_pcm_runtime(struct snd_soc_card *card,
+ 		return ret;
  
--static inline void soc_init_component_debugfs(
--	struct snd_soc_component *component)
--{
--}
--
--static inline void soc_cleanup_component_debugfs(
--	struct snd_soc_component *component)
--{
--}
--
--static inline void soc_init_card_debugfs(struct snd_soc_card *card)
--{
--}
--
--static inline void soc_cleanup_card_debugfs(struct snd_soc_card *card)
--{
--}
--
--static inline void snd_soc_debugfs_init(void)
--{
--}
--
--static inline void snd_soc_debugfs_exit(void)
--{
--}
-+static inline void soc_init_component_debugfs(struct snd_soc_component *component) { }
-+static inline void soc_cleanup_component_debugfs(struct snd_soc_component *component) { }
-+static inline void soc_init_card_debugfs(struct snd_soc_card *card) { }
-+static inline void soc_cleanup_card_debugfs(struct snd_soc_card *card) { }
-+static inline void snd_soc_debugfs_init(void) { }
-+static inline void snd_soc_debugfs_exit(void) { }
+ 	snd_soc_runtime_get_dai_fmt(rtd);
+-	if (dai_link->dai_fmt) {
+-		ret = snd_soc_runtime_set_dai_fmt(rtd, dai_link->dai_fmt);
+-		if (ret)
+-			return ret;
+-	}
++	ret = snd_soc_runtime_set_dai_fmt(rtd, dai_link->dai_fmt);
++	if (ret)
++		return ret;
  
- #endif
- 
-@@ -739,9 +720,7 @@ static void soc_resume_init(struct snd_soc_card *card)
- #else
- #define snd_soc_suspend NULL
- #define snd_soc_resume NULL
--static inline void soc_resume_init(struct snd_soc_card *card)
--{
--}
-+static inline void soc_resume_init(struct snd_soc_card *card) { }
- #endif
- 
- static struct device_node
+ 	/* add DPCM sysfs entries */
+ 	soc_dpcm_debugfs_add(rtd);
 -- 
 2.25.1
 

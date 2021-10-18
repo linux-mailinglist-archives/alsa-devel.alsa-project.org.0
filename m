@@ -2,92 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A46B6431639
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Oct 2021 12:35:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B26343171D
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Oct 2021 13:22:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 139F618F7;
-	Mon, 18 Oct 2021 12:34:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 139F618F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 965DF18FE;
+	Mon, 18 Oct 2021 13:22:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 965DF18FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634553321;
-	bh=1sWq4aAgzXQf8P3b/TDVqyUzLPWBFMg6cSJgAe2GFz4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=p7ryhqs3Ok2SUj3ZTK4OILatjJBPCDc/Vuro0AA1J3WscecG83ASR4C3ongaoDhG8
-	 29uRFAiobokPDMNiHmpOl+IjnkQHfwh8TcffrgbsiEy/EVWGvQ2AgNtyJXPpBITzMT
-	 OP1izgpthJ2XjFHCGsaZ10sanz3vlkyJ0DN8Lkw4=
+	s=default; t=1634556174;
+	bh=hPngk3jC4V90lDAsnkPMMwzUWDtCTiIUJqvEXLYN2po=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=K2ZTXkWsv4olOOaFlIhxmrUdFsU0pPRWJ1TEo8d4aopGOQuCVL4S2DUiOUhrImsQi
+	 shLVNwHn1nbN+dtoT6MdtOHL/V6bVYrKPvkGjxAemMbM6YnFr3DtgRqJI555VzMVrZ
+	 SqxiMCrllYjapsGGccFgWVJ+kkJ8JAou68Xyw4jo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF075F802A9;
-	Mon, 18 Oct 2021 12:33:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0CB5F80224;
+	Mon, 18 Oct 2021 13:21:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0FFB1F80224; Mon, 18 Oct 2021 12:33:39 +0200 (CEST)
+ id 3F880F80111; Mon, 18 Oct 2021 13:21:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2053.outbound.protection.outlook.com [40.107.243.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B8231F801DB
- for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 12:33:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8231F801DB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 570E0F80111
+ for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 13:21:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 570E0F80111
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="GxmpyZ8a"
-Received: by mail-wr1-x429.google.com with SMTP id r18so40440068wrg.6
- for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 03:33:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=cGn43/LGWV9yHPcjMkf3TCrUECrY0/XNXt2QNLZSx3Y=;
- b=GxmpyZ8aS8/cSgSoLniK7/q4OxJ45GEcM3HKfOdecelTtSYraAqBZd1BCaT5wBDswF
- 8Y9fMfDIUWaLh6fkzpv2NfyNjA1J5SnrK5NkMFpdBiy2QeEf/jl7d68d+ZXeO1fLXDYz
- 4AotQeZLj/fs4ihw36rPE3iloDRcfW9V8Py+IFWetqX6Uc3g3JgT/NKJDGBJzjXCQleP
- YyCcrvRyaGLnPGtyinYwTr2cxJdSmqUIXTc414vSuqRaggTskG3iIZjOmfhVsODPwXO3
- I/gAvBIIn1Y+c4Xnp9l5sodFMCvwn9Lkd2KYov1RANmRVCR6pKUJCmM23xwvvOu1+54U
- VXiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=cGn43/LGWV9yHPcjMkf3TCrUECrY0/XNXt2QNLZSx3Y=;
- b=OTjR1eIQ4FcetADMl2kSFhV88eHg5ZUmUZmihdZa0MUm3qwzgQnyW/C/tDO/RClbUt
- d7tZEEdv5s35m5CDHXmNUDPmb26dhCCPa0Y+f0HOoZXu0BfGXX4DP4n9UIADzelmmsaE
- 4gq65C3pdfu+QI+xjzW1ugOvdO8CZvldkfu/QonamOA97g7yYjtzO9KJz8qyE3h/osw3
- fu6nrMtkSYxop3YCwC/DyVFKonRIGwYLgIZ9cAn8mVx6/wovk4gyfvDbaElTpiPBbXZB
- 5eO/fo2AaVIwVD4qtKE11ZLNWvo44DP/FOyaNsKzjh9H2gAo7Mnb8G7wfqvwYBkZffNP
- HqBg==
-X-Gm-Message-State: AOAM530wxgDZu2pC2vzjSfeKuzkR8wmhbpOZg8O1XXZzd7xxSdda83qC
- pwpptNesR6LEAfgLpmUWGZU=
-X-Google-Smtp-Source: ABdhPJxBlzTAQpkU3yiExmcuxDUQHvrCikPJsCPEIqWTQoJ+xLeFEuRno453UyTdReHeyeOmlTGrtw==
-X-Received: by 2002:a5d:64c5:: with SMTP id f5mr33763933wri.321.1634553213568; 
- Mon, 18 Oct 2021 03:33:33 -0700 (PDT)
-Received: from localhost.localdomain ([195.245.16.219])
- by smtp.gmail.com with ESMTPSA id o8sm19062252wme.38.2021.10.18.03.33.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Oct 2021 03:33:33 -0700 (PDT)
-From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-To: soc@kernel.org
-Subject: [PATCH v3 1/2] ASoC: cirrus: i2s: Prepare clock before using it
-Date: Mon, 18 Oct 2021 12:31:04 +0200
-Message-Id: <20211018103105.146380-2-alexander.sverdlin@gmail.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211018103105.146380-1-alexander.sverdlin@gmail.com>
-References: <20211018103105.146380-1-alexander.sverdlin@gmail.com>
+ dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com
+ header.b="zh4LUSbv"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iICEkfcTJd8gffNYPSg/XBSW9Opc0BMWVcE+HLjcdSlr9bSa27itdMRL23qXp4Gr3nqwShkhHASzP9c7AC1F1vvFf4gYtG1GtcrId1iT2mtnKns9O1PqR6NNP5zFVR62LWJqaPjnBXzg4jibiaZHjR8kV2o1+4UYs7sf4BUYwnrEBOGBsqlMld3ehQjMcwTyPTkRTFssUH3YAnvdfGKALokPYQ7+CFi2ym/cQrTm6r2/DbBjhHn/AdbKy9Im5+JkNbB3abqWJX1vVYvWZZP4f668kRw1QnL//YO9qKEdoaajHqNl8++QIXXdRx3zLhN7ERaHPdBP7bQu08s39CJMlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qRn6cQKPayE8DMPdKYtrIsyK9HvyU4o63bDQ+FhxMTA=;
+ b=kZ26C51Dvk/KtkgwIUI0CUTyZOs/RhEDU9YrbzUPGgv3Wo3wfWGJHNFZLPPR4/Dw4YXdhsLImlMN36e87vFQxfbmQbra195JS4ZVGr8NLusYYgNg9WGWm3DRNdBpW9jjfq7B6W+L5ccLZlJzQJCWfaelcKy99Q9RlLVvhPAAq8SHwGZXrA0WLPjD/YQON32JxJyFNY138xSRO4HwY8OQUEAQYnxYWTS5kmiEdgeB2gfLw7eDBx9QwZ0yx/pxze+uPl9AjZ59d9m1H1WBsFOLNeN4QlZUZE3zC9TrsuebHKnNCwsRWv0zyJIN4K10K0mVzdic8RrZehH7vzjzfJnsmg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qRn6cQKPayE8DMPdKYtrIsyK9HvyU4o63bDQ+FhxMTA=;
+ b=zh4LUSbv0axBv0T5c2QJezKmo+cL4a9luKcc18uozjn8OiM9ZjlPVQ39GchjAIagyQ3bXSjtsTfDN+9g41uU5eNpzv2g7JjEXMkOhuIIQqgTevnr1TDRqTxGbu33uTJCz5X6nnASEryao81fTOGFn5R3Dnidxr8CeGBQi1QdveA=
+Received: from DM6PR13CA0001.namprd13.prod.outlook.com (2603:10b6:5:bc::14) by
+ SN6PR12MB2848.namprd12.prod.outlook.com (2603:10b6:805:77::30) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4608.16; Mon, 18 Oct 2021 11:21:25 +0000
+Received: from DM6NAM11FT030.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:bc:cafe::26) by DM6PR13CA0001.outlook.office365.com
+ (2603:10b6:5:bc::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.10 via Frontend
+ Transport; Mon, 18 Oct 2021 11:21:25 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT030.mail.protection.outlook.com (10.13.172.146) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4608.15 via Frontend Transport; Mon, 18 Oct 2021 11:21:24 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.15; Mon, 18 Oct
+ 2021 06:21:24 -0500
+Received: from vijendar-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2308.15
+ via Frontend Transport; Mon, 18 Oct 2021 06:21:21 -0500
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+Subject: [PATCH V2 00/13] Add Yellow Carp platform ASoC driver
+Date: Mon, 18 Oct 2021 16:50:31 +0530
+Message-ID: <20211018112044.1705805-1-Vijendar.Mukunda@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
- Nikita Shubin <nikita.shubin@maquefel.me>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>,
- Alexander Sverdlin <alexander.sverdlin@gmail.com>
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 97ac6d06-ee87-4a78-d2a8-08d992296bdc
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2848:
+X-Microsoft-Antispam-PRVS: <SN6PR12MB28486ED06B310DF2EB31ABE597BC9@SN6PR12MB2848.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: SDHA1PiU/Gse8KFESl+bDBcVh8c7FUG5weQHi/TIVCr+LUG/FIIjOV66JFvScSU+O2QJtkCJ4cLvZZzZByhlYPRke+xtOlXgKCkzXxOLpbYEFH4V9vsdtoNEHBusI+BHvJPKJm/wPbyFN78K15YKfRtoxHUmI2UwQhqWZ4kPBe1x5nm7sfVh2mnn05a4YyUawecGU46uKp46vwjx2xDwrZ/y6XE8W3Umd55Rt6uI8UQAWKcNckpHkTdIwL4TfkI4K2ZVojsAW3AaqzbfwcoGCKV+BZqZnuxex0ebbCGvGNZz8HYW4EOlR/cx25XumetdTUq0yPwulOfj6JE2H+U91H2iNnr+E4Srd+RWscKp6U9qmBF1R5E6I0jGdaXQwHx6Ya6hblwIOlHwckG5erWwmzFX/RPY0OSsyNLRv6wMNwqNvkEXlkorYn5RmLnNjepCy7VyBLlaPupq+VYRJ5rvB3tbUMxLNDhJlwYZwR7QRJjBsmtLK9p7mq4EYHrYKi+So0OFD+sbTAMeK2bo7Y4KcOqDniDL7Aw0aWKyX9T89EaDs4+vFzU5SZ7eSjasf0dS+0Idu6hrtuO8tSQnDYeRSAY5HDpgGKdnaLn6DpBdY1Est9UyPH/Z3Z3uDyPuEw9nhGqU4rrwcX0sh0x+LTry9EDAC4293gWGV36aq4CkFjcyKk++vLOw+mOuLkVby/ZWFwu/Fkc0BLxzejZIqq3+bpw3zO+Rai/XoQ3QnKOZR4U=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(47076005)(8676002)(8936002)(110136005)(4326008)(316002)(81166007)(26005)(7696005)(356005)(5660300002)(83380400001)(86362001)(336012)(186003)(70206006)(54906003)(508600001)(82310400003)(2616005)(1076003)(36860700001)(70586007)(2906002)(6666004)(36756003)(426003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2021 11:21:24.9744 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 97ac6d06-ee87-4a78-d2a8-08d992296bdc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT030.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2848
+Cc: Sunil-kumar.Dommati@amd.com, mlimonci@amd.com, richgong@amd.com,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
+ Basavaraj.Hiregoudar@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,59 +132,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use clk_prepare_enable()/clk_disable_unprepare() in preparation for switch
-to Common Clock Framework, otherwise the following is visible:
+Yellow Carp platform is new APU series based on acp6.x design.
+This patch set adds an ASoC driver for the ACP (Audio CoProcessor)
+block on AMD Yellow Carp APU with DMIC endpoint support.
 
-WARNING: CPU: 0 PID: 97 at drivers/clk/clk.c:1011 clk_core_enable+0x9c/0xbc
-Enabling unprepared mclk
-...
-Hardware name: Cirrus Logic EDB9302 Evaluation Board
-...
-clk_core_enable
-clk_core_enable_lock
-ep93xx_i2s_hw_params
-snd_soc_dai_hw_params
-soc_pcm_hw_params
-snd_pcm_hw_params
-snd_pcm_ioctl
-...
+changes since v1:
+  - fixed SPDX commenting style in acp6x pci driver.
+  - fixed Copyright commenting style in acp6x pci driver,
+    pdm dma driver and machine driver files.
+  - fixed local variable check logic in acp6x_power_on() function.
+  - fixed Kconfig indentation issue
+  - removed irq_flag local variable in irq handler. 
+  - add dmi info check in machine driver probe
 
-Acked-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
----
- sound/soc/cirrus/ep93xx-i2s.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+Vijendar Mukunda (13):
+  ASoC: amd: add Yellow Carp ACP6x IP register header
+  ASoC: amd: add Yellow Carp ACP PCI driver
+  ASoC: amd: add acp6x init/de-init functions
+  ASoC: amd: add platform devices for acp6x pdm driver and dmic driver
+  ASoC: amd: add acp6x pdm platform driver
+  ASoC: amd: add acp6x irq handler
+  ASoC: amd: add acp6x pdm driver dma ops
+  ASoC: amd: add acp6x pci driver pm ops
+  ASoC: amd: add acp6x pdm driver pm ops
+  ASoC: amd: enable Yellow carp acp6x drivers build
+  ASoC: amd: create platform device for acp6x machine driver
+  ASoC: amd: add YC machine driver using dmic
+  ASoC: amd: enable Yellow Carp platform machine driver build
 
-diff --git a/sound/soc/cirrus/ep93xx-i2s.c b/sound/soc/cirrus/ep93xx-i2s.c
-index 0d26550d0df8..4d3179f03202 100644
---- a/sound/soc/cirrus/ep93xx-i2s.c
-+++ b/sound/soc/cirrus/ep93xx-i2s.c
-@@ -111,9 +111,9 @@ static void ep93xx_i2s_enable(struct ep93xx_i2s_info *info, int stream)
- 	if ((ep93xx_i2s_read_reg(info, EP93XX_I2S_TX0EN) & 0x1) == 0 &&
- 	    (ep93xx_i2s_read_reg(info, EP93XX_I2S_RX0EN) & 0x1) == 0) {
- 		/* Enable clocks */
--		clk_enable(info->mclk);
--		clk_enable(info->sclk);
--		clk_enable(info->lrclk);
-+		clk_prepare_enable(info->mclk);
-+		clk_prepare_enable(info->sclk);
-+		clk_prepare_enable(info->lrclk);
- 
- 		/* Enable i2s */
- 		ep93xx_i2s_write_reg(info, EP93XX_I2S_GLCTRL, 1);
-@@ -156,9 +156,9 @@ static void ep93xx_i2s_disable(struct ep93xx_i2s_info *info, int stream)
- 		ep93xx_i2s_write_reg(info, EP93XX_I2S_GLCTRL, 0);
- 
- 		/* Disable clocks */
--		clk_disable(info->lrclk);
--		clk_disable(info->sclk);
--		clk_disable(info->mclk);
-+		clk_disable_unprepare(info->lrclk);
-+		clk_disable_unprepare(info->sclk);
-+		clk_disable_unprepare(info->mclk);
- 	}
- }
- 
+ sound/soc/amd/Kconfig                     |  21 +
+ sound/soc/amd/Makefile                    |   1 +
+ sound/soc/amd/yc/Makefile                 |   9 +
+ sound/soc/amd/yc/acp6x-mach.c             | 194 ++++++++++
+ sound/soc/amd/yc/acp6x-pdm-dma.c          | 448 ++++++++++++++++++++++
+ sound/soc/amd/yc/acp6x.h                  | 107 ++++++
+ sound/soc/amd/yc/acp6x_chip_offset_byte.h | 444 +++++++++++++++++++++
+ sound/soc/amd/yc/pci-acp6x.c              | 338 ++++++++++++++++
+ 8 files changed, 1562 insertions(+)
+ create mode 100644 sound/soc/amd/yc/Makefile
+ create mode 100644 sound/soc/amd/yc/acp6x-mach.c
+ create mode 100644 sound/soc/amd/yc/acp6x-pdm-dma.c
+ create mode 100644 sound/soc/amd/yc/acp6x.h
+ create mode 100644 sound/soc/amd/yc/acp6x_chip_offset_byte.h
+ create mode 100644 sound/soc/amd/yc/pci-acp6x.c
+
 -- 
-2.33.0
+2.25.1
 

@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96A36432DCF
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Oct 2021 08:07:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8360432DE0
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Oct 2021 08:09:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C23DF16D7;
-	Tue, 19 Oct 2021 08:06:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C23DF16D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id F2CFB16B0;
+	Tue, 19 Oct 2021 08:08:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2CFB16B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634623652;
-	bh=UXVuND83qrjIV79J8nfrjGNSrtf8NHZGFECjdvBnQB4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1634623778;
+	bh=fKCGV77Kmn+No8IJcTv3lnPNC8oGvCYcezXP9NL4RI4=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oZ2NuNtUe+sEXPnSW//f3gvMILUKsMq5SLI4tCQXCZwGCLqdxkRPbdwuYCe1QFtHD
-	 A2nLJWdVdhN2jZf2KPRN/MFD+msDmi+fHHm43ASLN5XL806vHsDsbm53N/BeG6yKj3
-	 DCke7MWqu+zGsD4duet3jA6tYBa+ryhAK3yKDEHo=
+	b=jcf2Ti33xYyS61zIOqJur428PBrxTFSSMwUCp3uLI9ckyyTtOpVy8euPrUUWQAzmG
+	 NSXF3EJC69gw7kaaYuY2Aia/S2xRyXFCFsKC/qagTZH6+pL0vacLBHPsP2HQ+Hyalv
+	 Fqcac3pvNHat/htgmokUSyGPEtI4boX6Vy9rIHqw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C88AF804EC;
-	Tue, 19 Oct 2021 08:06:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5AD42F80254;
+	Tue, 19 Oct 2021 08:08:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E7C8F804CA; Tue, 19 Oct 2021 08:05:54 +0200 (CEST)
+ id 7C0DCF80256; Tue, 19 Oct 2021 08:08:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3065BF80155
- for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021 08:05:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3065BF80155
+ by alsa1.perex.cz (Postfix) with ESMTPS id 342D4F80111
+ for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021 08:08:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 342D4F80111
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="s3RoNW5A"; 
+ header.b="G/M2HCoW"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="SKu+as1v"
+ header.b="+MGWAXVI"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 8051A21979;
- Tue, 19 Oct 2021 06:05:37 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 7E12A1FD8B;
+ Tue, 19 Oct 2021 06:08:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1634623537; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1634623695; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=apDojkGq12WgI9sTaBZ8VFrcC1v1XHRpnuxM7CTxbvY=;
- b=s3RoNW5AlFjf/h47m2xCQeZJ5hp66BFOHXaEVFAviwjtmOpXvIey6w5xO7gWjGM0caMYsw
- 1gsXFfg241ge/YXJgX4xx2WFl9U18YwJXXVIwYh089nh85iyCLlHXGLqxpg9TaaDjCg3oE
- H0CRPrpikddgRJkOpWZfuvcUgBS+cU4=
+ bh=petU9OdW3RBbchNekoI6lbFcMcmmnXTP+SSuX0voJ7s=;
+ b=G/M2HCoWLL7j6qzU6qIH8PNiGtDyq7INENIkE5X5CxEEMAFzr6nIc15QA0FMw7QQVwEpu0
+ p7oWy5dFhqFJLtw6O5Rb84u3mUMX8tm3XJvYii/U/GPeI8GqaFiBT6bdATsP23+WMWZL0S
+ rG9HJqt4IhZ56dX82nkygKRoPdrOH3I=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1634623537;
+ s=susede2_ed25519; t=1634623695;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=apDojkGq12WgI9sTaBZ8VFrcC1v1XHRpnuxM7CTxbvY=;
- b=SKu+as1v3SM52HxnFbmm2ZAk0V0XRoRbSL6Toc2r/fBm40zb/4bNOW5vjg5d7WiMs824ER
- JW/vJVMc4dNZbcBw==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 6EED3A3B85;
- Tue, 19 Oct 2021 06:05:37 +0000 (UTC)
+ bh=petU9OdW3RBbchNekoI6lbFcMcmmnXTP+SSuX0voJ7s=;
+ b=+MGWAXVIabFd5HQu/hvHU91F71IQxvtXogyu/OlfvMQDAqyjHUwJ/da8S8oCCe4fjUoOgY
+ XIsvJKePl3rJgBBA==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 6DA6FA3B85;
+ Tue, 19 Oct 2021 06:08:15 +0000 (UTC)
+Date: Tue, 19 Oct 2021 08:08:15 +0200
+Message-ID: <s5h4k9d4kds.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/2] ALSA: memalloc: Fix a typo in snd_dma_buffer_sync()
- description
-Date: Tue, 19 Oct 2021 08:05:36 +0200
-Message-Id: <20211019060536.26089-2-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20211019060536.26089-1-tiwai@suse.de>
-References: <20211019060536.26089-1-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>
+To: Marco Giunta <giun7a@gmail.com>
+Subject: Re: [PATCH v3] ALSA: usb-audio: Fix microphone sound on Jieli webcam.
+In-Reply-To: <20211018162552.12082-1-giun7a@gmail.com>
+References: <s5ha6j8t99c.wl-tiwai@suse.de>
+ <20211018162552.12082-1-giun7a@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,29 +93,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-It caused a warning for kernel-doc build.
+On Mon, 18 Oct 2021 18:25:52 +0200,
+Marco Giunta wrote:
+> 
+> When a Jieli Technology USB Webcam is connected, the video part works
+> well, but the mic sound is speeded up. On dmesg there are messages
+> about different rates from the runtime rates, warnings about volume
+> resolution and lastly, the log is filled, every 5 seconds, with
+> retire_capture_urb error messages.
+> 
+> The mic works only when ep packet size is set to wMaxPacketSize (normal
+> sound and no more retire_capture_urb error messages). Skipping reading
+> sample rate, fixes the messages about different rates and forcing a volume
+> resolution, fixes warnings about volume range. I have arbitrarily choosed
+> the value (16): I read in a comment that there should be no more than 255
+> levels, so 4096 (max volume) / 16 = 0-255.
+> 
+> Signed-off-by: Marco Giunta <giun7a@gmail.com>
 
-Fixes: a25684a95646 ("ALSA: memalloc: Support for non-contiguous page allocation")
-Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-Link: https://lore.kernel.org/r/20211019165402.4fa82c38@canb.auug.org.au
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/memalloc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks, now applied.
 
-diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
-index acdebecf1a2e..99cd0f67daa1 100644
---- a/sound/core/memalloc.c
-+++ b/sound/core/memalloc.c
-@@ -196,7 +196,7 @@ EXPORT_SYMBOL(snd_dma_buffer_mmap);
- /**
-  * snd_dma_buffer_sync - sync DMA buffer between CPU and device
-  * @dmab: buffer allocation information
-- * @mod: sync mode
-+ * @mode: sync mode
-  */
- void snd_dma_buffer_sync(struct snd_dma_buffer *dmab,
- 			 enum snd_dma_sync_mode mode)
--- 
-2.26.2
 
+Takashi

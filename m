@@ -2,66 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17FF543383A
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Oct 2021 16:17:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 811D343385E
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Oct 2021 16:25:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8CE3116AC;
-	Tue, 19 Oct 2021 16:17:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CE3116AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2602B16AC;
+	Tue, 19 Oct 2021 16:24:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2602B16AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634653074;
-	bh=kb90i4DSCROHIXovzuBPSo1dKhKqfH5rynog4lYTR4A=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1634653528;
+	bh=7PfyY+uUV/Iq/NzXsXwthKzyTThqOVK+mSufuednp4A=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=i1yTQiOFOLSWHiNtqJ65GHAh3IUnGmRIAX5fP95drmcUUnHLm6eKa1P2Sfmwj9En1
-	 O4Nu+YFN3bwCS+jJSbQSHrErmFzrYLI+alNT+MakonXOdpwRxxJyTwxvGSydtOiAC5
-	 X5OluFcz90KsA+Qy/KcuHZjmCHiI/ZVKoHEbAI0w=
+	b=A2qvUATrJ3loQ2tFJrScs5hX8M36c4wdpE0RlmvU23F247k4IdJNIW9Ya6gw0pJH3
+	 Sl+Wa6hK7hR8iXzhHCH/Ay7FZPR5tOrPnad/WyPAfA64ivFTC6TYUWmen/oPev1Gg1
+	 EA/twK86HmM/BFWO2PL12Fza6VbemX2ifvH6azgw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14A1EF80155;
-	Tue, 19 Oct 2021 16:16:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A656F80246;
+	Tue, 19 Oct 2021 16:24:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1ADDEF80111; Tue, 19 Oct 2021 16:16:36 +0200 (CEST)
+ id 1E935F80240; Tue, 19 Oct 2021 16:24:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from brightrain.aerifal.cx (brightrain.aerifal.cx [216.12.86.13])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5453EF80111
- for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021 16:16:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5453EF80111
-Date: Tue, 19 Oct 2021 10:16:24 -0400
-From: Rich Felker <dalias@libc.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [musl] Re: [alsa-devel] [PATCH v7 8/9] ALSA: add new 32-bit
- layout for snd_pcm_mmap_status/control
-Message-ID: <20211019141622.GN7074@brightrain.aerifal.cx>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E826EF80155
+ for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021 16:24:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E826EF80155
+Received: from mail-wm1-f42.google.com ([209.85.128.42]) by
+ mrelayeu.kundenserver.de (mreue009 [213.165.67.97]) with ESMTPSA (Nemesis) id
+ 1MzQbw-1myc9B37qq-00vNNc for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021
+ 16:24:01 +0200
+Received: by mail-wm1-f42.google.com with SMTP id
+ y16-20020a05600c17d000b0030db7a51ee2so2122049wmo.0
+ for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021 07:24:01 -0700 (PDT)
+X-Gm-Message-State: AOAM531fzQsPFGJDFdl7s+KrBhi9wQ8tjGkKQE/UWmRyqcE9WSHKkLiE
+ iEXjQlo5EinedxDwnPIhaP2mPO8qbCuhpkgrjKo=
+X-Google-Smtp-Source: ABdhPJwKQW7tgBaH6kTW0rrTX50ypr3eK+Ahefc5knwle6M9G57uWXIVrYYyqptMm0i3QO8nZ4vcPCD26aJqtexE85s=
+X-Received: by 2002:a1c:4b08:: with SMTP id y8mr6692599wma.98.1634653441129;
+ Tue, 19 Oct 2021 07:24:01 -0700 (PDT)
+MIME-Version: 1.0
 References: <s5h5yu79aab.wl-tiwai@suse.de>
  <CAK8P3a0qxNLv3_RcR5COcRGPcTnYMcfbOjdWKiT2hKdcof9WUg@mail.gmail.com>
- <s5hv9277oux.wl-tiwai@suse.de>
- <20211008120736.GF7074@brightrain.aerifal.cx>
- <s5hsfx95n99.wl-tiwai@suse.de>
- <20211018144259.GK7074@brightrain.aerifal.cx>
- <s5hlf2q4byc.wl-tiwai@suse.de>
- <20211018150824.GL7074@brightrain.aerifal.cx>
+ <s5hv9277oux.wl-tiwai@suse.de> <20211008120736.GF7074@brightrain.aerifal.cx>
+ <s5hsfx95n99.wl-tiwai@suse.de> <20211018144259.GK7074@brightrain.aerifal.cx>
+ <s5hlf2q4byc.wl-tiwai@suse.de> <20211018150824.GL7074@brightrain.aerifal.cx>
  <CAK8P3a1RAk5WRtMjqV6QZ1eHtFu_sxhSBJn0Uv-MhRA5WGiJqQ@mail.gmail.com>
  <20211018204203.GM7074@brightrain.aerifal.cx>
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="0ntfKIWw70PvrIHh"
-Content-Disposition: inline
-In-Reply-To: <20211018204203.GM7074@brightrain.aerifal.cx>
-User-Agent: Mutt/1.5.21 (2010-09-15)
+ <20211019141622.GN7074@brightrain.aerifal.cx>
+In-Reply-To: <20211019141622.GN7074@brightrain.aerifal.cx>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Tue, 19 Oct 2021 16:23:44 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a0Znk6FjUnnMs0KobOBw02f_fwxapeOZH9zrx-h8=Ftqg@mail.gmail.com>
+Message-ID: <CAK8P3a0Znk6FjUnnMs0KobOBw02f_fwxapeOZH9zrx-h8=Ftqg@mail.gmail.com>
+Subject: Re: [musl] Re: [alsa-devel] [PATCH v7 8/9] ALSA: add new 32-bit
+ layout for snd_pcm_mmap_status/control
+To: musl@lists.openwall.com
+Content-Type: text/plain; charset="UTF-8"
+X-Provags-ID: V03:K1:TOtWe6KZEQ1rSusfN+fBFNJ6Ldh1wsQNErotCe380D385bigU04
+ jNvxN1e0AQ9AmeBcRdJ28YOToAb2norbreEZDgdCbet7aXMWOgPEbmAv10aQ97EKssbLB8K
+ jTBh022c3QzgQY9Zz4J05crREj+PXixQYTDQpk/K1+uEgsg99K5zUC5oO8NmA6LxFLZsCI5
+ uMFKZ60gwmqSd///PaPjg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:H5+hiMfT/+M=:T4NZ//cZx3vAFwgL5ge2/Z
+ XBcZr+Lc4HwhI5dUkHaxCmL755A6UUwFygZ++sjQdwOJ+twrFAdUWQZbuubzSEQfzeLERpApk
+ TnGb5FbsKjhzGNyqvT6RtkDIiE0TG63TofgYlRTf4gP8TvVF73Sk5mDHVrW/YaoHGKV6K8BPn
+ riqXUfHAg2BgChXbxgPlYqZ/oGQ9+BkeUUrHewpa/ZyLt6KVOSqLsFNerRpJGzOaoos+ciAdg
+ dcnwo1f+5j/zODu2gn+54M0uxfvUTtEmFf2mMLt8kftlg61jTnH3YIOHDbW/h//7qvQaJBc+F
+ OPb2WguCFlWI5JN8BcrTGXLy1PlkrwElIRzYCJ9lbeCvvs+nQlT8hvZEETQ8bQXfKAdfrgmIR
+ JPRNuOq3VgGc/qcT9zddlyu7cgVBgQk9KwWvf0xIgZfAmYKEewkoQzGH/ImlFcp+fYwREjK6R
+ DPgNbO+Qxi40Hve6Mn2nJQ1lmLTD3fkDzMAhcCrWwm92yrvh+hpyIIzTVAt4UOjfoU3TAIdNq
+ GAkb2U6e8LqH9P/DEwKAtHCMD+/5MIA3/YyBWrRcmgBkmVBDuspr4RcHCK7WzHzL6OohZhiDX
+ soEYdMvKd5KVL9k42VNHI0VL5F+xBTGdaxiTGDhb7AhdnbNJQTpSFZ4SYQ5tWV7wo+Y2ahQVD
+ /xvWrlHQ0DFaAVAiejsy1jZ0WiPnbkBOtfDFx6SwMeGGyw5YbRLebA6w5fa0SOUj7lZoeedfK
+ ALjZJxhGc6Fp3A7m8ooXNMMtmSIzySkeJ5XX9MTBjTSZzyHx5t3bMg45T+gGZj1R13105qL8x
+ Dz02CDb9FmMe1c62XHS9S9zGkjuCIY+W3k7yWn8pmS2/im/k3Ml6xt4o9u+LAoo/U4rbYuNdw
+ N4CdMO2hVHQnVP81AVVg==
 Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Baolin Wang <baolin.wang@linaro.org>, Takashi Iwai <tiwai@suse.de>,
+ Arnd Bergmann <arnd@arndb.de>, Baolin Wang <baolin.wang@linaro.org>,
+ Takashi Iwai <tiwai@suse.de>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- musl@lists.openwall.com, Takashi Iwai <tiwai@suse.com>,
- Michael Forney <mforney@mforney.org>,
+ Takashi Iwai <tiwai@suse.com>, Michael Forney <mforney@mforney.org>,
  y2038 Mailman List <y2038@lists.linaro.org>, Mark Brown <broonie@kernel.org>,
  Baolin Wang <baolin.wang7@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -79,85 +106,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, Oct 19, 2021 at 4:16 PM Rich Felker <dalias@libc.org> wrote:
+> On Mon, Oct 18, 2021 at 04:42:04PM -0400, Rich Felker wrote:
+> >
+> > Well for little endian either would work (because adj is 0 :) but yes
+> > there are 3 such paddings before the second member on big endian, so
+> > it should be 3.
+>
+> How about this? It avoids open coding the logic and handles it as 2
+> 4-byte substructures with endian-specific offsets.
 
---0ntfKIWw70PvrIHh
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Looks good to me.
 
-On Mon, Oct 18, 2021 at 04:42:04PM -0400, Rich Felker wrote:
-> On Mon, Oct 18, 2021 at 05:26:35PM +0200, Arnd Bergmann wrote:
-> > On Mon, Oct 18, 2021 at 5:08 PM Rich Felker <dalias@libc.org> wrote:
-> > > On Mon, Oct 18, 2021 at 04:58:03PM +0200, Takashi Iwai wrote:
-> > > > On Mon, 18 Oct 2021 16:43:00 +0200, Rich Felker wrote:
-> > >
-> > > No, I don't think so. The musl translator is to translate between the
-> > > time64 ioctl structures and the old time32 ones for the sake of
-> > > executing on an old kernel. Up til now, it has been broken comparably
-> > > to how 32-bit binaries running in compat mode on a 64-bit kernel were
-> > > broken: the code in musl translated the time64 structure to (and back
-> > > from) the time32 one assuming the intended padding. But the
-> > > application was using the actual kernel uapi struct where the padding
-> > > was (and still is) illogical. Thus, nothing was built with the wrong
-> > > ABI; it's only the musl-internal translation logic that was wrong (and
-> > > only pre-time64 kernels are affected).
-> > >
-> > > The attached patch should fix it, I think.
-> > >
-> > > + int adj = BYTE_ORDER==BIG_ENDIAN ? 4 : 0;
-> > > + if (dir==W) {
-> > > +     memcpy(old+68, new+72+adj, 4);
-> > > +     memcpy(old+72, new+72+4+2*adj, 4);
-> > 
-> > I think that should be "new+72+4+3*adj": the "2*adj" would
-> > be what the code does already for the originally intended
-> > format.
-> 
-> Well for little endian either would work (because adj is 0 :) but yes
-> there are 3 such paddings before the second member on big endian, so
-> it should be 3.
-
-How about this? It avoids open coding the logic and handles it as 2
-4-byte substructures with endian-specific offsets.
-
-Rich
-
---0ntfKIWw70PvrIHh
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: attachment; filename="snd_pcm_mmap_control_v2.diff"
-
-diff --git a/src/misc/ioctl.c b/src/misc/ioctl.c
-index 49282811..35804f02 100644
---- a/src/misc/ioctl.c
-+++ b/src/misc/ioctl.c
-@@ -6,6 +6,7 @@
- #include <stddef.h>
- #include <stdint.h>
- #include <string.h>
-+#include <endian.h>
- #include "syscall.h"
- 
- #define alignof(t) offsetof(struct { char c; t x; }, x)
-@@ -53,7 +54,7 @@ static const struct ioctl_compat_map compat_map[] = {
- 	{ _IOWR('A', 0x23, char[136]), _IOWR('A', 0x23, char[132]), 0, WR, 1, 0 },
- 	{ 0, 0, 4, WR, 1, 0 }, /* snd_pcm_sync_ptr (flags only) */
- 	{ 0, 0, 32, WR, 1, OFFS(8,12,16,24,28) }, /* snd_pcm_mmap_status */
--	{ 0, 0, 8, WR, 1, OFFS(0,4) }, /* snd_pcm_mmap_control */
-+	{ 0, 0, 4, WR, 1, 0 }, /* snd_pcm_mmap_control (each member) */
- 
- 	/* VIDIOC_QUERYBUF, VIDIOC_QBUF, VIDIOC_DQBUF, VIDIOC_PREPARE_BUF */
- 	{ _IOWR('V',  9, new_misaligned(68)), _IOWR('V',  9, char[68]), 68, WR, 1, OFFS(20, 24) },
-@@ -90,7 +91,11 @@ static void convert_ioctl_struct(const struct ioctl_compat_map *map, char *old,
- 		 * if another exception appears this needs changing. */
- 		convert_ioctl_struct(map+1, old, new, dir);
- 		convert_ioctl_struct(map+2, old+4, new+8, dir);
--		convert_ioctl_struct(map+3, old+68, new+72, dir);
-+		/* snd_pcm_mmap_control, special-cased due to kernel
-+		 * type definition having been botched. */
-+		int adj = BYTE_ORDER==BIG_ENDIAN ? 4 : 0;
-+		convert_ioctl_struct(map+3, old+68, new+72+adj, dir);
-+		convert_ioctl_struct(map+3, old+72, new+76+3*adj, dir);
- 		return;
- 	}
- 	for (int i=0; i < map->noffs; i++) {
-
---0ntfKIWw70PvrIHh--
+      Arnd

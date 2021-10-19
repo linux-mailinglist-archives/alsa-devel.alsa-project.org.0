@@ -2,65 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AFDC433DAA
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Oct 2021 19:40:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9823F433EB2
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Oct 2021 20:44:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B146D16A3;
-	Tue, 19 Oct 2021 19:39:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B146D16A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 29E2D169F;
+	Tue, 19 Oct 2021 20:43:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29E2D169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634665228;
-	bh=NY+RPfHPczEzNtflTtZAafkCxlpZ1W4zBIkdPNrsb98=;
+	s=default; t=1634669048;
+	bh=+A0zn7pZqx0malgPgXXqeH6Id2rBOfRkxN217kQqZ/Q=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Cs7APInut2PNXj8CVZoyCJyxra8ahnoOAfNVQyQX5pULmTHAZgW5PLs0oJaI0Z43S
-	 WbQbrrk+NmDS4dERrbeTXK6i7X4h343DsuXg2ranRBf1K1GzXwxjlgMaN4Y9zHKI2d
-	 O3ThhiP42JvnrX6Hm8oMYBcY7YR/f8qbvEUk34DM=
+	b=gzLBmlkD7dijpf+d+hfuTtAXQ3BZfAc+hUfl1T6eIZolIL3ldIkxwJJ6cRiVgGUPt
+	 VJPFpSibiLrdsM6QEnHfIR2xKRC3NgEQgFGQAecxzOdaXE7uyR7lUYEXrQwvtcNVjC
+	 /E+pk8m8OUjhDP4zS7bXNSnaI9Kkejv1XVB4TYnU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 324DEF8019B;
-	Tue, 19 Oct 2021 19:39:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF018F80082;
+	Tue, 19 Oct 2021 20:42:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21CE7F80240; Tue, 19 Oct 2021 19:39:11 +0200 (CEST)
+ id 4498CF80240; Tue, 19 Oct 2021 20:42:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp.smtpout.orange.fr (smtp03.smtpout.orange.fr
- [80.12.242.125])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8F613F80111
- for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021 19:39:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F613F80111
-Received: from [192.168.1.18] ([92.140.161.106]) by smtp.orange.fr with ESMTPA
- id ct4qmJ5v2PNphct4qm4mlQ; Tue, 19 Oct 2021 19:39:06 +0200
-X-ME-Helo: [192.168.1.18]
-X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
-X-ME-Date: Tue, 19 Oct 2021 19:39:06 +0200
-X-ME-IP: 92.140.161.106
-Subject: Re: [PATCH] ASoC: codecs: Fix WCD_MBHC_HPH_PA_EN usage
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- yang.lee@linux.alibaba.com
-References: <988948f7f266aa00698704687537335b7e6a67b2.1634455711.git.christophe.jaillet@wanadoo.fr>
- <3ff34912-19e6-4d52-e9da-0e78ceb1d2ff@linaro.org>
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Message-ID: <c01b6669-d0f7-aab5-3aca-02f19be8a319@wanadoo.fr>
-Date: Tue, 19 Oct 2021 19:39:04 +0200
+ by alsa1.perex.cz (Postfix) with ESMTPS id ACCD6F80082
+ for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021 20:42:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACCD6F80082
+X-IronPort-AV: E=McAfee;i="6200,9189,10142"; a="228870662"
+X-IronPort-AV: E=Sophos;i="5.87,164,1631602800"; d="scan'208";a="228870662"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2021 11:42:33 -0700
+X-IronPort-AV: E=Sophos;i="5.87,164,1631602800"; d="scan'208";a="483358357"
+Received: from kumarr1-mobl1.amr.corp.intel.com (HELO [10.212.58.240])
+ ([10.212.58.240])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2021 11:42:32 -0700
+Subject: Re: [PATCH] ASoC: Intel: Unify HDAudio-ext bus initialization
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
+References: <20211018192134.353931-1-cezary.rojewski@intel.com>
+ <alpine.DEB.2.22.394.2110191203390.3554566@eliteleevi.tm.intel.com>
+ <4bf04607-0779-fe47-61b1-1780ab1a3d20@intel.com>
+ <25811f8f-c7bc-89c2-f616-4102293a2deb@linux.intel.com>
+ <d8b90004-6c64-8cef-266a-17b2a4a480d7@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <569f6bf6-c346-3059-fc7e-e8c46c7dc4b6@linux.intel.com>
+Date: Tue, 19 Oct 2021 13:42:29 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ Firefox/78.0 Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <3ff34912-19e6-4d52-e9da-0e78ceb1d2ff@linaro.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <d8b90004-6c64-8cef-266a-17b2a4a480d7@intel.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+Cc: hdegoede@redhat.com, alsa-devel@alsa-project.org, broonie@kernel.org,
+ tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,98 +81,87 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Le 19/10/2021 à 15:47, Srinivas Kandagatla a écrit :
-> 
-> 
-> On 17/10/2021 08:31, Christophe JAILLET wrote:
->> 'hphpa_on' is known to be false, so the if block at the end of the 
->> function
->> is dead code.
-> 
-> Yes, this is a dead code we should remove it.
 
-Ok, thanks for the clarification.
 
-> 
-> This code was part of moisture detection logic which is not enabled in 
-> upstream code yet.
-
-If 'yet' is the important word of the sentence, maybe the best is to 
-leave the code as-is.
-If you prefer it to be removed, I can send a patch if it helps.
-
-> 
-> During Moisture detection if the PA is on then we switch it off and do 
-> moisture measurements and at the end of the function we restore the 
-> state of PA.
-> 
+On 10/19/21 12:32 PM, Cezary Rojewski wrote:
+> On 2021-10-19 6:58 PM, Pierre-Louis Bossart wrote:
+>>>> hmm. It's not clear whether we should initialize the regular hdac_bus
+>>>> fields in the ext_bus_init(). For plain HDA, these are also initialized
+>>>> in the caller. E.g. in sound/pci/hda/hda_controller.c.
+>>>>
+>>>> So if we start cleaning up, should we go further put this in
+>>>> snd_hdac_bus_init()?
+>>>>
+>>>> Then another is what is the right place for settings like "sync_write =
+>>>> 1". While this settings applies to all current users of the extended
+>>>> bus, this is really hw specific setting and not really a property of
+>>>> the extended bus, so this feels a bit out-of-place.
+>>>
+>>> I'm rather in favor of bigger cleanups. We can definitely move further
+>>> in the future : )
 >>
->> Turn it into a meaningful code by having 'hphpa_on' be static. Use is 
->> as a
->> flip-flop variable.
-> 
-> No, It does not.
-> 
-> Have you even tested this patch in anyway?
-
-No, as said below the ---, the purpose of this patch was not to be 
-correct (or tested). It was only to draw attention on odd things.
-
-CJ
-
-
-
-> 
+>> I am not opposed to updates in this hdaudio-ext part, but I am in favor
+>> of less ambitious step-by-step changes.
 >>
->> Fixes: 0e5c9e7ff899 ("ASoC: codecs: wcd: add multi button Headset 
->> detection support")
->> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
->> ---
->> The purpose of this patch is not to be correct (!) but to draw attention
->> on several points:
->>     - in 'wcd_mbhc_adc_hs_rem_irq()', the "if (hphpa_on)" path is dead 
->> code
->>       because 'hphpa_on' is known to be false
->>     - What is this magic number '3'?
->>       All 'wcd_mbhc_read_field()' look for 0 or non-0
->>     - a 'mutex_[un]lock()' in an IRQ handler looks spurious to me
+>> a) This is legacy code where the initial authors have moved on, and it's
+>> very hard to figure out what the intent was. It's quite common to have
+>> discussion on feature v. bug, see e.g. the discussion we had on this in
+>> https://github.com/thesofproject/linux/pull/3175#pullrequestreview-772674119
 >>
->> Instead of this (likely broken) patch, it is likely that something is
->> missing elsewhere. Maybe in 'wcd_mbhc_adc_hs_ins_irq()'.
->> I also guess that 'hphpa_on' should be read for somewhere else.
->> ---
->>   sound/soc/codecs/wcd-mbhc-v2.c | 5 ++++-
->>   1 file changed, 4 insertions(+), 1 deletion(-)
 >>
->> diff --git a/sound/soc/codecs/wcd-mbhc-v2.c 
->> b/sound/soc/codecs/wcd-mbhc-v2.c
->> index 405128ccb4b0..783d8c35bc1b 100644
->> --- a/sound/soc/codecs/wcd-mbhc-v2.c
->> +++ b/sound/soc/codecs/wcd-mbhc-v2.c
->> @@ -1176,7 +1176,7 @@ static irqreturn_t wcd_mbhc_adc_hs_rem_irq(int 
->> irq, void *data)
->>       struct wcd_mbhc *mbhc = data;
->>       unsigned long timeout;
->>       int adc_threshold, output_mv, retry = 0;
->> -    bool hphpa_on = false;
->> +    static bool hphpa_on = false;
->>       mutex_lock(&mbhc->lock);
->>       timeout = jiffies + 
->> msecs_to_jiffies(WCD_FAKE_REMOVAL_MIN_PERIOD_MS);
->> @@ -1212,6 +1212,9 @@ static irqreturn_t wcd_mbhc_adc_hs_rem_irq(int 
->> irq, void *data)
->>       if (hphpa_on) {
->>           hphpa_on = false;
->> +        wcd_mbhc_write_field(mbhc, WCD_MBHC_HPH_PA_EN, 0);
->> +    } else {
->> +        hphpa_on = true;
->>           wcd_mbhc_write_field(mbhc, WCD_MBHC_HPH_PA_EN, 3);
-> 
-> Just remove this dead code.
-> 
-> --srini
->>       }
->>   exit:
+>> b) In addition, this code is shared between two teams with separate
+>> testing/CI capabilities and limited number of commercial/shipping
+>> devices. There is a very large risk of introducing bugs even with the
+>> best intentions.
 >>
+>> Before we do any changes in functionality, there are already basic steps
+>> that can be done, e.g. using consistent naming between variables, the
+>> existing code is just confusing as can be:
+>>
+>> struct hdac_stream *stream;
+>> struct hdac_ext_stream *stream;
+>> struct hdac_stream *hstream;
+>> struct hdac_ext_stream *hstream;
+>>
+>> I started basic cleanups here:
+>> https://github.com/thesofproject/linux/pull/3158, I haven't had time to
+>> complete this because of more important locking issues, but I intend to
+>> send those clarifications for the next cycle.
+>>
+>> Again before we do large changes let's think of smaller steps and how we
+>> are going to validate those changes.
 > 
+> Agree, step-by-step is the way to go.
+> 
+> Isn't this patch a 'step' though? This isn't remotely a refactor, just
+> gathering of common parts of ext-bus initialization. We could start with
+> this so legacy users are unaffected, then have snd_hdac_bus_init()
+> updated so snd_hdac_ext_bus_init() is devoid of 'core' fields
+> assignments as suggested by Kai.
 
+If it was just moving common parts, I would have no issue. My main
+objection is that you went one step further and started renaming stuff
+in rather confusing ways, e.g.
+
+-void sof_hda_bus_init(struct hdac_bus *bus, struct device *dev)
++void sof_hda_bus_init(struct hda_bus *bus, struct pci_dev *pdev,
+
+- * snd_hdac_ext_bus_init - initialize a HD-audio extended bus
++ * snd_hda_ext_bus_init - initialize a HD-audio extended bus
+
+hda_bus is a definition from hda_codec.h, I don't see a reason why we
+should use this structure when the vast majority of the code uses
+hdac_bus. And the purpose of hdac_ext is really to deal with
+*controller* extensions to couple/decouple DMAs. There is no dependency
+on codecs at that level.
+
+Even if there was, I also don't really see why/when we should start
+using hda_ext v. hdac_ext, the naming convention completely escapes me.
+It would seem logical to me to only use hdac_ext as an extension of
+hdac_, no?
+
+I also don't get what this means:
++	snd_hda_ext_bus_init(hbus, pci, NULL, ext_ops, "sklbus");
+
+what is 'sklbus' and what purpose are you trying to accomplish with this
+change?

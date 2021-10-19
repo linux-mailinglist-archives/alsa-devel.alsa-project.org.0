@@ -2,81 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D12C434F04
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Oct 2021 17:27:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58078435098
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Oct 2021 18:49:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7658168D;
-	Wed, 20 Oct 2021 17:26:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7658168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD5AA168A;
+	Wed, 20 Oct 2021 18:48:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD5AA168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634743658;
-	bh=xDxTA1oor2mfalZWnHW0TtY6cZc66F1bIRSh0+XZLp4=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Y7uFXg6ntfl9aq1etYYijnb7J0mR4lYkKaEztHceNjW4CNKFo03JK5TpV06dWE+DC
-	 cLfJLVVooq/cPrfHx9Ayd0O684Vp3qrgzUS/lI+tvK+8J4VQXZfnhpk9Pxy7mgtI+2
-	 1PZJxJJ2YMq6PjMIZRmCOLIFjkFs3iKiREFsgNrw=
+	s=default; t=1634748564;
+	bh=8X4CEBaMvHnZ/ykUsrBW1TzXfkP1+KQl98ZuA92lrkQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=kdfDrfnYSiXrRCBa4jHuLFsj+vGNuNh7oV3IITXNtJBnYY4XOA5elPFWSabtREfiG
+	 sXFNjd0hwX97Fr5t23tKjYsA8rI1DnYp93TKJh+xXOY05KsLaZS/cLiR7wUdwBljNo
+	 425ZirNKzKsolemd7LVVq1mvgCvHbnVZO5EZvsWI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6C52F802DF;
-	Wed, 20 Oct 2021 17:26:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24ACEF80224;
+	Wed, 20 Oct 2021 18:48:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 84F52F802DF; Wed, 20 Oct 2021 17:26:19 +0200 (CEST)
+ id 3E046F80240; Tue, 19 Oct 2021 17:03:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from forward400p.mail.yandex.net (forward400p.mail.yandex.net
+ [77.88.28.105])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61247F800ED
- for <alsa-devel@alsa-project.org>; Wed, 20 Oct 2021 17:26:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61247F800ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10E12F80111
+ for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021 17:03:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10E12F80111
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="cHJlOfUd"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="n3cvOcX7"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 58CF31FD4B
- for <alsa-devel@alsa-project.org>; Wed, 20 Oct 2021 15:26:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1634743571; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=6CVDDegU+qjLJJQnGDde/FdJOgrEhcK9CroUxiwRPh0=;
- b=cHJlOfUdGcTUOiJhxPAsaoydBR7lZTT9/yRZRbG7aYabCT8gvMCAP2RvACtbv5RCbIzwdr
- 7Wt4lPbscvuHhAPO6E3nxQIRzBfnYnL306uHDuVKeiJLsQM0ztqg3LJQ3vnNajz60DnST5
- cZ/0UsFXKn+YtnYUo4dOe/lwmYX06nE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1634743571;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=6CVDDegU+qjLJJQnGDde/FdJOgrEhcK9CroUxiwRPh0=;
- b=n3cvOcX7ZPL2zKdnIfHEgWuT0E5kqr+MnurQeuDl5HKlgx+EpaiTUQwTgM9fE1U8arN1Nm
- rYw1Hm9f4DoJchBA==
-Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 46F13A3B81;
- Wed, 20 Oct 2021 15:26:11 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH alsa-utils 2/2] alsamixer: Allow setting the default
- background color in config
-Date: Wed, 20 Oct 2021 17:26:08 +0200
-Message-Id: <20211020152608.27985-2-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20211020152608.27985-1-tiwai@suse.de>
-References: <20211020152608.27985-1-tiwai@suse.de>
+ dkim=pass (1024-bit key) header.d=nxt.ru header.i=@nxt.ru header.b="LuYqnK6k"
+Received: from sas1-35b601a382d3.qloud-c.yandex.net
+ (sas1-35b601a382d3.qloud-c.yandex.net
+ [IPv6:2a02:6b8:c08:c505:0:640:35b6:1a3])
+ by forward400p.mail.yandex.net (Yandex) with ESMTP id B3FDE642286;
+ Tue, 19 Oct 2021 18:03:09 +0300 (MSK)
+Received: from 2a02:6b8:c08:ff10:0:640:4fe1:bb3c
+ (2a02:6b8:c08:ff10:0:640:4fe1:bb3c [2a02:6b8:c08:ff10:0:640:4fe1:bb3c])
+ by sas1-35b601a382d3.qloud-c.yandex.net (mxback/Yandex) with HTTP id
+ 73eMvu1D8uQ1-38DSiAdb; Tue, 19 Oct 2021 18:03:08 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxt.ru; s=mail;
+ t=1634655788; bh=RySuvpUFF5Z2mnwc3pWWlYjRFA8psdGb79jKB96dvSo=;
+ h=Message-Id:Date:Cc:Subject:To:From;
+ b=LuYqnK6keNdYKAST6FSAFHNtkE91MS1PB7lj3MqEcXkvoNy6ClnCbKgYv1ioDICqU
+ vJECXjXXppNR75wJDFwcufKKOiUm3Od2aAUbM5z4/QApjhIPttIo8zYAUUHULa3l3i
+ PsrTqbm5gNTJLZpfRsEoLG6QpsCpvLyaA1Jlscrs=
+Authentication-Results: sas1-35b601a382d3.qloud-c.yandex.net;
+ dkim=pass header.i=@nxt.ru
+Received: by sas2-4fe1bb3c0a49.qloud-c.yandex.net with HTTP;
+ Tue, 19 Oct 2021 18:03:08 +0300
+From: sanekf@nxt.ru
+To: Takashi Iwai <tiwai@suse.com>
+Subject: WC vs UC mappings in snd_dma_sg_alloc()
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Tue, 19 Oct 2021 18:03:08 +0300
+Message-Id: <493661634654791@mail.yandex.ru>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+X-Mailman-Approved-At: Wed, 20 Oct 2021 18:48:06 +0200
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,135 +85,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The recent commit c867aa8a84a7 ("alsamixer: use background color
-instead of COLOR_BLACK") changed the behavior of alsamixer to take the
-system default background color instead of black.  This caused
-problems on the terminal setups that have bright background colors,
-e.g. yellow is very hard to read.
+Hi
 
-It could be "fixed" by setting up the color configurations in
-~/.config/alsamixer.rc, but this needs to change the all colors in
-every element, which is pretty cumbersome.  Instead, this patch
-extends the config set command to allow user to specify the default
-background color.  A user like me can create their own
-~/.config/alsamixer.rc file containing the line
+I've stumbled across this code in sound/core/sgbuf.c:
 
-  set background black
+66 static void *snd_dma_sg_alloc(struct snd_dma_buffer *dmab, size_t size)
+67 {
+< ... >
+80 	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG) {
+81 		type = SNDRV_DMA_TYPE_DEV_WC;
+82 #ifdef pgprot_noncached
+83 		prot = pgprot_noncached(PAGE_KERNEL);
+84 #endif
+85 	}
+< ... >
+131 	area = vmap(sgbuf->page_table, sgbuf->pages, VM_MAP, prot);
 
-and the old good black background is back again.
+Does not this violate x86 rules about using the same memory mapping type for all mappings? It seems that the following patch should fix it (only compile tested - my x86 PCs are either without Linux or without sound, and probably in practice this might not trigger any problems since both WC and UC-minus are incoherent types):
 
-Note that, for achieving the above, we also had to shuffle the
-function call order, to parse the config at first, then initialize
-curses.  This shouldn't matter for other behavior.
+-----------------------------
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- alsamixer/alsamixer.1    | 4 ++++
- alsamixer/cli.c          | 8 ++++----
- alsamixer/colors.c       | 9 +++++----
- alsamixer/colors.h       | 1 +
- alsamixer/configparser.c | 9 +++++++++
- 5 files changed, 23 insertions(+), 8 deletions(-)
+ALSA: memalloc: duly use pgprot_writecombine() for WC mapping
 
-diff --git a/alsamixer/alsamixer.1 b/alsamixer/alsamixer.1
-index 19171e12fdcf..670ab21c902f 100644
---- a/alsamixer/alsamixer.1
-+++ b/alsamixer/alsamixer.1
-@@ -202,6 +202,10 @@ Set the mouse wheel step to \fI<N>\fP
- 
- If enabled (\fI1\fP), mixer controls can be changed by hovering over them and scrolling the mouse wheel.
- 
-+\fBbackground\fP \fIcolor\fP
-+
-+Set the default background color
-+
- .TP
- \fBbind\fP \fIkey_definition\fP \fIcommand\fP
- 
-diff --git a/alsamixer/cli.c b/alsamixer/cli.c
-index f153f280cd9f..63c4949bab96 100644
---- a/alsamixer/cli.c
-+++ b/alsamixer/cli.c
-@@ -152,15 +152,15 @@ int main(int argc, char *argv[])
- 
- 	parse_options(argc, argv);
- 
--	create_mixer_object(&selem_regopt);
--
--	initialize_curses(use_color, use_mouse);
--
- 	if (config_file == CONFIG_DEFAULT)
- 		parse_default_config_file();
- 	else if (config_file)
- 		parse_config_file(config_file);
- 
-+	create_mixer_object(&selem_regopt);
-+
-+	initialize_curses(use_color, use_mouse);
-+
- 	create_mixer_widget();
- 
- 	mainloop();
-diff --git a/alsamixer/colors.c b/alsamixer/colors.c
-index c81ebcf089ee..f76dc26ef380 100644
---- a/alsamixer/colors.c
-+++ b/alsamixer/colors.c
-@@ -23,6 +23,7 @@
- #include "colors.h"
- 
- struct attributes attrs;
-+short background_color = -1;
- 
- int get_color_pair(short fg, short bg)
- {
-@@ -50,11 +51,11 @@ void init_colors(int use_color)
- 		start_color();
- 		use_default_colors();
- 
--		get_color_pair(COLOR_CYAN, -1); // COLOR_PAIR(1)
--		get_color_pair(COLOR_YELLOW, -1);
-+		get_color_pair(COLOR_CYAN, background_color); // COLOR_PAIR(1)
-+		get_color_pair(COLOR_YELLOW, background_color);
- 		get_color_pair(COLOR_WHITE, COLOR_GREEN);
--		get_color_pair(COLOR_RED, -1);
--		get_color_pair(COLOR_WHITE, -1);
-+		get_color_pair(COLOR_RED, background_color);
-+		get_color_pair(COLOR_WHITE, background_color);
- 		get_color_pair(COLOR_WHITE, COLOR_BLUE);
- 		get_color_pair(COLOR_RED, COLOR_BLUE);
- 		get_color_pair(COLOR_GREEN, COLOR_GREEN);
-diff --git a/alsamixer/colors.h b/alsamixer/colors.h
-index 7ca6ac58210a..1c7bff8e7d32 100644
---- a/alsamixer/colors.h
-+++ b/alsamixer/colors.h
-@@ -34,6 +34,7 @@ struct attributes {
- };
- 
- extern struct attributes attrs;
-+extern short background_color;
- 
- void init_colors(int use_color);
- int get_color_pair(short fg, short bg);
-diff --git a/alsamixer/configparser.c b/alsamixer/configparser.c
-index 7647987f84d6..4396d4ff302e 100644
---- a/alsamixer/configparser.c
-+++ b/alsamixer/configparser.c
-@@ -444,6 +444,15 @@ static int cfg_set(char **argv, unsigned int argc)
- 				return ERROR_CONFIG;
- 			}
- 		}
-+		else if (!strcmp(argv[0], "background")) {
-+			int bg_color = color_by_name(argv[1]);
-+			if (bg_color == -2) {
-+				error_message = _("unknown color");
-+				error_cause = argv[1];
-+				return ERROR_CONFIG;
-+			}
-+			background_color = bg_color;
-+		}
- 		else {
- 			error_message = _("unknown option");
- 			error_cause = argv[0];
--- 
-2.26.2
+x86 has strict rules about not having memory type aliasing (Documentation/x86/pat.rst). snd_dma_sg_alloc() violates them by mapping first as WC (with set_memory_wc()) and then as UC- (with pgprot_noncached() + vmap()). Switching to pgprot_writecombine() should fix this.
 
+Signed-off-by: Aleksandr Fedorov <halcien@gmail.com>
+diff --git a/sound/core/sgbuf.c b/sound/core/sgbuf.c
+index 8352a5cdb19f..670b30c3b6e5 100644
+--- a/sound/core/sgbuf.c
++++ b/sound/core/sgbuf.c
+@@ -79,9 +79,7 @@ static void *snd_dma_sg_alloc(struct snd_dma_buffer *dmab, size_t size)
+ 		return NULL;
+ 	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG) {
+ 		type = SNDRV_DMA_TYPE_DEV_WC;
+-#ifdef pgprot_noncached
+-		prot = pgprot_noncached(PAGE_KERNEL);
+-#endif
++		prot = pgprot_writecombine(PAGE_KERNEL);
+ 	}
+ 	sgbuf->dev = dmab->dev.dev;
+ 	pages = snd_sgbuf_aligned_pages(size);

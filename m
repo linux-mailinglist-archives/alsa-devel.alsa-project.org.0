@@ -2,55 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3605043306A
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Oct 2021 10:05:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CA0C433068
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Oct 2021 10:04:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 86C9A16BF;
-	Tue, 19 Oct 2021 10:04:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86C9A16BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1500816AD;
+	Tue, 19 Oct 2021 10:03:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1500816AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634630706;
-	bh=tvhL9AkPkzwBze5gsTF7QWDQKe+9+MeVZCHlqzBjNbo=;
+	s=default; t=1634630682;
+	bh=nCTTRdkBVQsmlfKiKMdx2GMWMTgZC+dXQp/8w2Octa8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YrY4fKey0ptIIZKKUsF2P6QIIT5t+7viD2qQ4P8vzCm/CktQfCskkXJu9KOrdsMnK
-	 htwEq79VJmBlTpt23ymTywDkQQD0wJOTX1A9Za4xYAu8huuwyo9tizgU7O0DcfTh1H
-	 l2zy4iP9hsfjs6+ZcQF4iDSZMBV6r8PZyQT5imBE=
+	b=qZORM2fA+Fb6EqOMf7HzMgPKmY20mI6yu8VQlQ0iWmnQQDBkIIgO0Iv+3iI16t8w6
+	 6XP10pTqYIc0HJ6lusNs0e8DcTQY41C/kSV8MbqyBQh+7x42jCUcF+LWf5u6nRXZES
+	 CKbNdMkMP3gwBTrSejz4TM2uXSnbNWpgMn6KRPiA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2DB2AF804E5;
-	Tue, 19 Oct 2021 10:03:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8FDB9F8026C;
+	Tue, 19 Oct 2021 10:03:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45F64F80254; Tue, 19 Oct 2021 10:03:21 +0200 (CEST)
+ id 7A880F80256; Tue, 19 Oct 2021 10:03:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C6BCF8026C
- for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021 10:03:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C6BCF8026C
-X-IronPort-AV: E=McAfee;i="6200,9189,10141"; a="215613867"
-X-IronPort-AV: E=Sophos;i="5.85,383,1624345200"; d="scan'208";a="215613867"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 867CCF80254
+ for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021 10:03:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 867CCF80254
+X-IronPort-AV: E=McAfee;i="6200,9189,10141"; a="228327404"
+X-IronPort-AV: E=Sophos;i="5.85,383,1624345200"; d="scan'208";a="228327404"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2021 01:02:56 -0700
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2021 01:03:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,383,1624345200"; d="scan'208";a="493984342"
+X-IronPort-AV: E=Sophos;i="5.85,383,1624345200"; d="scan'208";a="493984534"
 Received: from brentlu-brix.itwn.intel.com ([10.5.253.56])
- by orsmga008.jf.intel.com with ESMTP; 19 Oct 2021 01:02:47 -0700
+ by orsmga008.jf.intel.com with ESMTP; 19 Oct 2021 01:02:55 -0700
 From: Brent Lu <brent.lu@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v3 2/6] ASoC: Intel: sof_rt5682: detect codec variant in probe
- function
-Date: Tue, 19 Oct 2021 15:59:37 +0800
-Message-Id: <20211019075941.2037787-3-brent.lu@intel.com>
+Subject: [PATCH v3 3/6] ASoC: Intel: sof_rt5682: use comp_ids to enumerate
+ rt5682s
+Date: Tue, 19 Oct 2021 15:59:38 +0800
+Message-Id: <20211019075941.2037787-4-brent.lu@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211019075941.2037787-1-brent.lu@intel.com>
 References: <20211019075941.2037787-1-brent.lu@intel.com>
@@ -86,30 +86,208 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Detect whether the headphone codec is ALC5682I-VS or not in probe
-function so we don't need to duplicate all board configs for this new
-variant.
+Use comp_ids field to enumerate rt5682/rt5682s headphone codec for
+JSL/TGL/ADL devices and remove redundant entries in tables.
 
 Signed-off-by: Brent Lu <brent.lu@intel.com>
 ---
- sound/soc/intel/boards/sof_rt5682.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ sound/soc/intel/boards/sof_rt5682.c           | 30 ----------------
+ .../intel/common/soc-acpi-intel-adl-match.c   | 11 ++++--
+ .../intel/common/soc-acpi-intel-jsl-match.c   | 35 +++++--------------
+ .../intel/common/soc-acpi-intel-tgl-match.c   | 11 ++++--
+ 4 files changed, 24 insertions(+), 63 deletions(-)
 
 diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 613662eedd0d..c41c584379d9 100644
+index c41c584379d9..c41f386b4138 100644
 --- a/sound/soc/intel/boards/sof_rt5682.c
 +++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -864,6 +864,10 @@ static int sof_audio_probe(struct platform_device *pdev)
- 	if ((sof_rt5682_quirk & SOF_SPEAKER_AMP_PRESENT) && !mach->quirk_data)
- 		sof_rt5682_quirk &= ~SOF_SPEAKER_AMP_PRESENT;
+@@ -1050,36 +1050,6 @@ static const struct platform_device_id board_ids[] = {
+ 					SOF_RT5682_SSP_AMP(2) |
+ 					SOF_RT5682_NUM_HDMIDEV(4)),
+ 	},
+-	{
+-		.name = "jsl_rt5682s_rt1015",
+-		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
+-					SOF_RT5682_MCLK_24MHZ |
+-					SOF_RT5682_SSP_CODEC(0) |
+-					SOF_RT5682S_HEADPHONE_CODEC_PRESENT |
+-					SOF_SPEAKER_AMP_PRESENT |
+-					SOF_RT1015_SPEAKER_AMP_PRESENT |
+-					SOF_RT5682_SSP_AMP(1)),
+-	},
+-	{
+-		.name = "jsl_rt5682s_rt1015p",
+-		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
+-					SOF_RT5682_MCLK_24MHZ |
+-					SOF_RT5682_SSP_CODEC(0) |
+-					SOF_RT5682S_HEADPHONE_CODEC_PRESENT |
+-					SOF_SPEAKER_AMP_PRESENT |
+-					SOF_RT1015P_SPEAKER_AMP_PRESENT |
+-					SOF_RT5682_SSP_AMP(1)),
+-	},
+-	{
+-		.name = "jsl_rt5682s_mx98360",
+-		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
+-					SOF_RT5682_MCLK_24MHZ |
+-					SOF_RT5682_SSP_CODEC(0) |
+-					SOF_RT5682S_HEADPHONE_CODEC_PRESENT |
+-					SOF_SPEAKER_AMP_PRESENT |
+-					SOF_MAX98360A_SPEAKER_AMP_PRESENT |
+-					SOF_RT5682_SSP_AMP(1)),
+-	},
+ 	{
+ 		.name = "adl_mx98360_rt5682",
+ 		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
+diff --git a/sound/soc/intel/common/soc-acpi-intel-adl-match.c b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
+index f5b21a95d222..06f503452aa5 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-adl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
+@@ -285,9 +285,14 @@ static const struct snd_soc_acpi_codecs adl_max98360a_amp = {
+ 	.codecs = {"MX98360A"}
+ };
  
-+	/* Detect the headset codec variant */
-+	if (acpi_dev_present("RTL5682", NULL, -1))
-+		sof_rt5682_quirk |= SOF_RT5682S_HEADPHONE_CODEC_PRESENT;
++static const struct snd_soc_acpi_codecs adl_rt5682_rt5682s_hp = {
++	.num_codecs = 2,
++	.codecs = {"10EC5682", "RTL5682"},
++};
 +
- 	if (soc_intel_is_byt() || soc_intel_is_cht()) {
- 		is_legacy_cpu = 1;
- 		dmic_be_num = 0;
+ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
+ 	{
+-		.id = "10EC5682",
++		.comp_ids = &adl_rt5682_rt5682s_hp,
+ 		.drv_name = "adl_mx98373_rt5682",
+ 		.machine_quirk = snd_soc_acpi_codec_list,
+ 		.quirk_data = &adl_max98373_amp,
+@@ -295,7 +300,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
+ 		.sof_tplg_filename = "sof-adl-max98373-rt5682.tplg",
+ 	},
+ 	{
+-		.id = "10EC5682",
++		.comp_ids = &adl_rt5682_rt5682s_hp,
+ 		.drv_name = "adl_mx98357_rt5682",
+ 		.machine_quirk = snd_soc_acpi_codec_list,
+ 		.quirk_data = &adl_max98357a_amp,
+@@ -303,7 +308,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
+ 		.sof_tplg_filename = "sof-adl-max98357a-rt5682.tplg",
+ 	},
+ 	{
+-		.id = "10EC5682",
++		.comp_ids = &adl_rt5682_rt5682s_hp,
+ 		.drv_name = "adl_mx98360_rt5682",
+ 		.machine_quirk = snd_soc_acpi_codec_list,
+ 		.quirk_data = &adl_max98360a_amp,
+diff --git a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
+index 20fd9dcc74af..46aa96bfbf14 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
+@@ -29,6 +29,11 @@ static struct snd_soc_acpi_codecs mx98360a_spk = {
+ 	.codecs = {"MX98360A"}
+ };
+ 
++static const struct snd_soc_acpi_codecs rt5682_rt5682s_hp = {
++	.num_codecs = 2,
++	.codecs = {"10EC5682", "RTL5682"},
++};
++
+ /*
+  * When adding new entry to the snd_soc_acpi_intel_jsl_machines array,
+  * use .quirk_data member to distinguish different machine driver,
+@@ -50,7 +55,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
+ 		.sof_tplg_filename = "sof-jsl-da7219-mx98360a.tplg",
+ 	},
+ 	{
+-		.id = "10EC5682",
++		.comp_ids = &rt5682_rt5682s_hp,
+ 		.drv_name = "jsl_rt5682_rt1015",
+ 		.sof_fw_filename = "sof-jsl.ri",
+ 		.machine_quirk = snd_soc_acpi_codec_list,
+@@ -58,7 +63,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
+ 		.sof_tplg_filename = "sof-jsl-rt5682-rt1015.tplg",
+ 	},
+ 	{
+-		.id = "10EC5682",
++		.comp_ids = &rt5682_rt5682s_hp,
+ 		.drv_name = "jsl_rt5682_rt1015p",
+ 		.sof_fw_filename = "sof-jsl.ri",
+ 		.machine_quirk = snd_soc_acpi_codec_list,
+@@ -66,7 +71,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
+ 		.sof_tplg_filename = "sof-jsl-rt5682-rt1015.tplg",
+ 	},
+ 	{
+-		.id = "10EC5682",
++		.comp_ids = &rt5682_rt5682s_hp,
+ 		.drv_name = "jsl_rt5682_mx98360",
+ 		.sof_fw_filename = "sof-jsl.ri",
+ 		.machine_quirk = snd_soc_acpi_codec_list,
+@@ -81,30 +86,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
+ 		.quirk_data = &mx98360a_spk,
+ 		.sof_tplg_filename = "sof-jsl-cs42l42-mx98360a.tplg",
+ 	},
+-	{
+-		.id = "RTL5682",
+-		.drv_name = "jsl_rt5682s_rt1015",
+-		.sof_fw_filename = "sof-jsl.ri",
+-		.machine_quirk = snd_soc_acpi_codec_list,
+-		.quirk_data = &rt1015_spk,
+-		.sof_tplg_filename = "sof-jsl-rt5682-rt1015.tplg",
+-	},
+-	{
+-		.id = "RTL5682",
+-		.drv_name = "jsl_rt5682s_rt1015p",
+-		.sof_fw_filename = "sof-jsl.ri",
+-		.machine_quirk = snd_soc_acpi_codec_list,
+-		.quirk_data = &rt1015p_spk,
+-		.sof_tplg_filename = "sof-jsl-rt5682-rt1015.tplg",
+-	},
+-	{
+-		.id = "RTL5682",
+-		.drv_name = "jsl_rt5682s_mx98360",
+-		.sof_fw_filename = "sof-jsl.ri",
+-		.machine_quirk = snd_soc_acpi_codec_list,
+-		.quirk_data = &mx98360a_spk,
+-		.sof_tplg_filename = "sof-jsl-rt5682-mx98360a.tplg",
+-	},
+ 	{},
+ };
+ EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_jsl_machines);
+diff --git a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
+index 9d89f01d6b84..da31bb3cca17 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
+@@ -358,9 +358,14 @@ static const struct snd_soc_acpi_codecs tgl_rt1011_amp = {
+ 	.codecs = {"10EC1011"}
+ };
+ 
++static const struct snd_soc_acpi_codecs tgl_rt5682_rt5682s_hp = {
++	.num_codecs = 2,
++	.codecs = {"10EC5682", "RTL5682"},
++};
++
+ struct snd_soc_acpi_mach snd_soc_acpi_intel_tgl_machines[] = {
+ 	{
+-		.id = "10EC5682",
++		.comp_ids = &tgl_rt5682_rt5682s_hp,
+ 		.drv_name = "tgl_mx98357_rt5682",
+ 		.machine_quirk = snd_soc_acpi_codec_list,
+ 		.quirk_data = &tgl_codecs,
+@@ -368,7 +373,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_tgl_machines[] = {
+ 		.sof_tplg_filename = "sof-tgl-max98357a-rt5682.tplg",
+ 	},
+ 	{
+-		.id = "10EC5682",
++		.comp_ids = &tgl_rt5682_rt5682s_hp,
+ 		.drv_name = "tgl_mx98373_rt5682",
+ 		.machine_quirk = snd_soc_acpi_codec_list,
+ 		.quirk_data = &tgl_max98373_amp,
+@@ -376,7 +381,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_tgl_machines[] = {
+ 		.sof_tplg_filename = "sof-tgl-max98373-rt5682.tplg",
+ 	},
+ 	{
+-		.id = "10EC5682",
++		.comp_ids = &tgl_rt5682_rt5682s_hp,
+ 		.drv_name = "tgl_rt1011_rt5682",
+ 		.machine_quirk = snd_soc_acpi_codec_list,
+ 		.quirk_data = &tgl_rt1011_amp,
 -- 
 2.25.1
 

@@ -2,80 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 390084337BB
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Oct 2021 15:49:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17FF543383A
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Oct 2021 16:17:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 97AB116BA;
-	Tue, 19 Oct 2021 15:48:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97AB116BA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8CE3116AC;
+	Tue, 19 Oct 2021 16:17:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CE3116AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634651374;
-	bh=XMC/wPCLR3CBhhlT5pdzczydUVy9/N9xDjzMYHJpisA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1634653074;
+	bh=kb90i4DSCROHIXovzuBPSo1dKhKqfH5rynog4lYTR4A=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iZ7pQFv8O6OgZnx7aBjHqzzyq7TzhuYq2TGJlAVlVoBarln+Yx5PLOrpsYxKAmj9Q
-	 ZAnwBbWDGX9K+gATvmoE/bshk1RodSyVsIvFG6HaRfWmyNUvLOoZOKG83lXJDSfsQN
-	 FfF7VQ6+6yh4tT5A9EOlagU8HTjUbPpnb2tK1LGU=
+	b=i1yTQiOFOLSWHiNtqJ65GHAh3IUnGmRIAX5fP95drmcUUnHLm6eKa1P2Sfmwj9En1
+	 O4Nu+YFN3bwCS+jJSbQSHrErmFzrYLI+alNT+MakonXOdpwRxxJyTwxvGSydtOiAC5
+	 X5OluFcz90KsA+Qy/KcuHZjmCHiI/ZVKoHEbAI0w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6284FF80249;
-	Tue, 19 Oct 2021 15:48:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14A1EF80155;
+	Tue, 19 Oct 2021 16:16:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1DF54F80249; Tue, 19 Oct 2021 15:48:41 +0200 (CEST)
+ id 1ADDEF80111; Tue, 19 Oct 2021 16:16:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from brightrain.aerifal.cx (brightrain.aerifal.cx [216.12.86.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D007F80240
- for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021 15:48:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D007F80240
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="kMZhjuo3"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 80D8461052
- for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021 13:48:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634651312;
- bh=XMC/wPCLR3CBhhlT5pdzczydUVy9/N9xDjzMYHJpisA=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=kMZhjuo3B2Fzbnmj685kq/s1jO8GOP2QFIM4ctWuZ6RE4kZ9mVawAMG69lrcUd82b
- 0WYx/2MdPmwxxVqO2/sXP1lBSLng1S4c2iM/RXioOVpJMib+/7Ns8ElFd0t1xMweI1
- ruodbyT+qmHnjaP8HP/lbLn7mF0XBoGmMhg3uqNkAVdvu03Hv06JoUQ6BgKA1hzTgs
- ENrEIUMFWisfj1gats+3SjEdJinZqV+X661ThwWRoZ417l/Dai3B1gcKNTFoNBx5F/
- tA5T4PVjZqGpXvFgF6sQHekoy1w2EwXObSJBI2At3rWLji9q/SKrRqvtY7+j+n15dE
- ioqUMX9hRTKiw==
-Received: by mail-ed1-f50.google.com with SMTP id z20so13085081edc.13
- for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021 06:48:32 -0700 (PDT)
-X-Gm-Message-State: AOAM5320s54x8VOlq7dPffnHjIwkZs411OD/F1T5mt8Ub3bmDjNtEjDi
- PIoQ+vkgBBu1qcdJaUkOC/k3H6IzfWRa48E2dA==
-X-Google-Smtp-Source: ABdhPJyAfrYlSPnzjG28JymfwvH0BP3fn74QUTfI0oe+sTUWy23ijNdMN4gs6ujRiJQN0RszPk5QghJDBRsUY0PgyKY=
-X-Received: by 2002:a05:6402:1778:: with SMTP id
- da24mr53073940edb.318.1634651259310; 
- Tue, 19 Oct 2021 06:47:39 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5453EF80111
+ for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021 16:16:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5453EF80111
+Date: Tue, 19 Oct 2021 10:16:24 -0400
+From: Rich Felker <dalias@libc.org>
+To: Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [musl] Re: [alsa-devel] [PATCH v7 8/9] ALSA: add new 32-bit
+ layout for snd_pcm_mmap_status/control
+Message-ID: <20211019141622.GN7074@brightrain.aerifal.cx>
+References: <s5h5yu79aab.wl-tiwai@suse.de>
+ <CAK8P3a0qxNLv3_RcR5COcRGPcTnYMcfbOjdWKiT2hKdcof9WUg@mail.gmail.com>
+ <s5hv9277oux.wl-tiwai@suse.de>
+ <20211008120736.GF7074@brightrain.aerifal.cx>
+ <s5hsfx95n99.wl-tiwai@suse.de>
+ <20211018144259.GK7074@brightrain.aerifal.cx>
+ <s5hlf2q4byc.wl-tiwai@suse.de>
+ <20211018150824.GL7074@brightrain.aerifal.cx>
+ <CAK8P3a1RAk5WRtMjqV6QZ1eHtFu_sxhSBJn0Uv-MhRA5WGiJqQ@mail.gmail.com>
+ <20211018204203.GM7074@brightrain.aerifal.cx>
 MIME-Version: 1.0
-References: <20211018101608.3818840-1-tzungbi@google.com>
-In-Reply-To: <20211018101608.3818840-1-tzungbi@google.com>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Tue, 19 Oct 2021 08:47:28 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqK9UQ9K+GseF5QtiPW_sHMiupq1HAwDArN6P+H8iBwJ-Q@mail.gmail.com>
-Message-ID: <CAL_JsqK9UQ9K+GseF5QtiPW_sHMiupq1HAwDArN6P+H8iBwJ-Q@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: dt-bindings: mediatek: rename reset controller
- headers in DT example
-To: Tzung-Bi Shih <tzungbi@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- LINUX-WATCHDOG <linux-watchdog@vger.kernel.org>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Mark Brown <broonie@kernel.org>,
- "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
- Matthias Brugger <matthias.bgg@gmail.com>
+Content-Type: multipart/mixed; boundary="0ntfKIWw70PvrIHh"
+Content-Disposition: inline
+In-Reply-To: <20211018204203.GM7074@brightrain.aerifal.cx>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Baolin Wang <baolin.wang@linaro.org>, Takashi Iwai <tiwai@suse.de>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ musl@lists.openwall.com, Takashi Iwai <tiwai@suse.com>,
+ Michael Forney <mforney@mforney.org>,
+ y2038 Mailman List <y2038@lists.linaro.org>, Mark Brown <broonie@kernel.org>,
+ Baolin Wang <baolin.wang7@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,33 +79,85 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Oct 18, 2021 at 5:16 AM Tzung-Bi Shih <tzungbi@google.com> wrote:
->
-> Commit f07c776f6d7e ("arm64: dts: mediatek: Move reset controller
-> constants into common location") moves the reset controller headers.
-> However, it forgot to rename the DT example in mt8192-afe-pcm.yaml.
->
-> Renames the DT example to pass dt_binding_check.
->
-> Fixes: f07c776f6d7e ("arm64: dts: mediatek: Move reset controller constants into common location")
-> Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
-> ---
-> The patch bases on next-20211018.
->
-> In Mark's tree[1], the commit f07c776f6d7e hasn't shown up.
-> In Matthias's tree[2], mt8192-afe-pcm.yaml hasn't applied.
->
-> [1]: https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git/
-> [2]: https://git.kernel.org/pub/scm/linux/kernel/git/matthias.bgg/linux.git/
->
-> Also, I am not sure if the commit hash "f07c776f6d7e" would change
-> or not after it applies to mainline.
->
->  Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Not great as things will break again in the merge window temporarily.
-You could just not use the 1 reset define in the example and avoid all
-that, but this is fine:
+--0ntfKIWw70PvrIHh
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Acked-by: Rob Herring <robh@kernel.org>
+On Mon, Oct 18, 2021 at 04:42:04PM -0400, Rich Felker wrote:
+> On Mon, Oct 18, 2021 at 05:26:35PM +0200, Arnd Bergmann wrote:
+> > On Mon, Oct 18, 2021 at 5:08 PM Rich Felker <dalias@libc.org> wrote:
+> > > On Mon, Oct 18, 2021 at 04:58:03PM +0200, Takashi Iwai wrote:
+> > > > On Mon, 18 Oct 2021 16:43:00 +0200, Rich Felker wrote:
+> > >
+> > > No, I don't think so. The musl translator is to translate between the
+> > > time64 ioctl structures and the old time32 ones for the sake of
+> > > executing on an old kernel. Up til now, it has been broken comparably
+> > > to how 32-bit binaries running in compat mode on a 64-bit kernel were
+> > > broken: the code in musl translated the time64 structure to (and back
+> > > from) the time32 one assuming the intended padding. But the
+> > > application was using the actual kernel uapi struct where the padding
+> > > was (and still is) illogical. Thus, nothing was built with the wrong
+> > > ABI; it's only the musl-internal translation logic that was wrong (and
+> > > only pre-time64 kernels are affected).
+> > >
+> > > The attached patch should fix it, I think.
+> > >
+> > > + int adj = BYTE_ORDER==BIG_ENDIAN ? 4 : 0;
+> > > + if (dir==W) {
+> > > +     memcpy(old+68, new+72+adj, 4);
+> > > +     memcpy(old+72, new+72+4+2*adj, 4);
+> > 
+> > I think that should be "new+72+4+3*adj": the "2*adj" would
+> > be what the code does already for the originally intended
+> > format.
+> 
+> Well for little endian either would work (because adj is 0 :) but yes
+> there are 3 such paddings before the second member on big endian, so
+> it should be 3.
+
+How about this? It avoids open coding the logic and handles it as 2
+4-byte substructures with endian-specific offsets.
+
+Rich
+
+--0ntfKIWw70PvrIHh
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: attachment; filename="snd_pcm_mmap_control_v2.diff"
+
+diff --git a/src/misc/ioctl.c b/src/misc/ioctl.c
+index 49282811..35804f02 100644
+--- a/src/misc/ioctl.c
++++ b/src/misc/ioctl.c
+@@ -6,6 +6,7 @@
+ #include <stddef.h>
+ #include <stdint.h>
+ #include <string.h>
++#include <endian.h>
+ #include "syscall.h"
+ 
+ #define alignof(t) offsetof(struct { char c; t x; }, x)
+@@ -53,7 +54,7 @@ static const struct ioctl_compat_map compat_map[] = {
+ 	{ _IOWR('A', 0x23, char[136]), _IOWR('A', 0x23, char[132]), 0, WR, 1, 0 },
+ 	{ 0, 0, 4, WR, 1, 0 }, /* snd_pcm_sync_ptr (flags only) */
+ 	{ 0, 0, 32, WR, 1, OFFS(8,12,16,24,28) }, /* snd_pcm_mmap_status */
+-	{ 0, 0, 8, WR, 1, OFFS(0,4) }, /* snd_pcm_mmap_control */
++	{ 0, 0, 4, WR, 1, 0 }, /* snd_pcm_mmap_control (each member) */
+ 
+ 	/* VIDIOC_QUERYBUF, VIDIOC_QBUF, VIDIOC_DQBUF, VIDIOC_PREPARE_BUF */
+ 	{ _IOWR('V',  9, new_misaligned(68)), _IOWR('V',  9, char[68]), 68, WR, 1, OFFS(20, 24) },
+@@ -90,7 +91,11 @@ static void convert_ioctl_struct(const struct ioctl_compat_map *map, char *old,
+ 		 * if another exception appears this needs changing. */
+ 		convert_ioctl_struct(map+1, old, new, dir);
+ 		convert_ioctl_struct(map+2, old+4, new+8, dir);
+-		convert_ioctl_struct(map+3, old+68, new+72, dir);
++		/* snd_pcm_mmap_control, special-cased due to kernel
++		 * type definition having been botched. */
++		int adj = BYTE_ORDER==BIG_ENDIAN ? 4 : 0;
++		convert_ioctl_struct(map+3, old+68, new+72+adj, dir);
++		convert_ioctl_struct(map+3, old+72, new+76+3*adj, dir);
+ 		return;
+ 	}
+ 	for (int i=0; i < map->noffs; i++) {
+
+--0ntfKIWw70PvrIHh--

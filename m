@@ -2,63 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EDF843322E
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Oct 2021 11:25:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABEB24332C4
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Oct 2021 11:44:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A4FF4169E;
-	Tue, 19 Oct 2021 11:24:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4FF4169E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3EE3E16AB;
+	Tue, 19 Oct 2021 11:44:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EE3E16AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634635509;
-	bh=/xBheIoca7mUgFKdnp8f0RdvBZk8/iZpssqPW4Qq7EU=;
+	s=default; t=1634636695;
+	bh=frcCV1k9oG9oKj3dpUqdJg1PxRT2RSN/XKdLCPjaYaY=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HgveI/W7aTujr5tVsHPuVB0FpCTHfL7+7t4F/2jV8v+07J/yMSnDmSChd3UILRyp6
-	 191mKKIVrN+WDigpzeOeLjTsHZlr6S8Nf7OtflnBAEghjhkIq+nYth2cJlFiYP7k8T
-	 k+3D2QEfQlsWgc0M2SVoyd6AG3P3suBj6sQfyWks=
+	b=ZAop10VJYR1IFJHrIfVW80Efl2HwQN4IDJcU5btJ8yCWfK74tGzu6+vk9AQOARf3o
+	 OF0WOPKvrEEgV6DXZ4GVN8Q6O5r+Che3Yj0iNtt0EoNDokkU8pcRrdEXnp/Ae8Se5x
+	 Mn8qkfnEAIpWSViE2kqo/Xtf6LfOLucdl2vjDCJU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 060D9F80254;
-	Tue, 19 Oct 2021 11:23:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7DCD4F8026C;
+	Tue, 19 Oct 2021 11:43:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 58E5EF80256; Tue, 19 Oct 2021 11:23:51 +0200 (CEST)
+ id 1F1EFF80256; Tue, 19 Oct 2021 11:43:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2C1B7F80155
- for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021 11:23:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C1B7F80155
-X-IronPort-AV: E=McAfee;i="6200,9189,10141"; a="208568227"
-X-IronPort-AV: E=Sophos;i="5.85,384,1624345200"; d="scan'208";a="208568227"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2021 02:23:42 -0700
-X-IronPort-AV: E=Sophos;i="5.85,383,1624345200"; d="scan'208";a="443808685"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2021 02:23:40 -0700
-Date: Tue, 19 Oct 2021 12:16:40 +0300 (EEST)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH] ASoC: Intel: Unify HDAudio-ext bus initialization
-In-Reply-To: <20211018192134.353931-1-cezary.rojewski@intel.com>
-Message-ID: <alpine.DEB.2.22.394.2110191203390.3554566@eliteleevi.tm.intel.com>
-References: <20211018192134.353931-1-cezary.rojewski@intel.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 37627F80155
+ for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021 11:43:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37627F80155
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="qUv3z1oo"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="sUbocXVn"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 1D190219CC;
+ Tue, 19 Oct 2021 09:43:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1634636610; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+ b=qUv3z1ooUyXdmHCffygn4XXVf9BCppnyjRJlLylLaEdhj/NlnuPgDmOMgW7DVTyTL1GfHj
+ qzV6c/RzsBRxDVK4FtcMl1Yznu5zObWSQIi60MYmIULi/Ym4DBOtfcsw+3RHHaYCmw2i92
+ 4Mip3CzbtfBas5gVpQTeJcTADxdCh5k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1634636610;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+ b=sUbocXVn5KkTfDdpHw54CqMld7LXX/pIct6Dy46anwSJPDeJJUchMTI81ErtSuM3xbP1h4
+ UkInmBAvD0e6FFDQ==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id CF6B0A3B84;
+ Tue, 19 Oct 2021 09:43:29 +0000 (UTC)
+Date: Tue, 19 Oct 2021 11:43:29 +0200
+Message-ID: <s5hlf2p2vum.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Joerg Schambacher <joerg@hifiberry.com>
+Subject: Re: [PATCH] sound/soc: adds TAS5754M digital input amplifier
+ component driver
+In-Reply-To: <20211005133558.5001-1-joerg@hifiberry.com>
+References: <20211005133558.5001-1-joerg@hifiberry.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: hdegoede@redhat.com, alsa-devel@alsa-project.org, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Jack Yu <jack.yu@realtek.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Jiri Prchal <jiri.prchal@aksignal.cz>,
+ Arnd Bergmann <arnd@arndb.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Paul Cercueil <paul@crapouillou.net>,
+ Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
+ Peter Robinson <pbrobinson@gmail.com>, Shuming Fan <shumingf@realtek.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,47 +102,3 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hey,
-
-On Mon, 18 Oct 2021, Cezary Rojewski wrote:
-
-> HDAudio-extended bus initialization parts are scattered throughout Intel
-> ADSP drivers code. Gather them up in snd_hda_ext_bus_init() to provide
-> unified initialization point.
-[...]
-> --- a/sound/hda/ext/hdac_ext_bus.c
-> +++ b/sound/hda/ext/hdac_ext_bus.c
-[..]
-> -int snd_hdac_ext_bus_init(struct hdac_bus *bus, struct device *dev,
-> -			const struct hdac_bus_ops *ops,
-> -			const struct hdac_ext_bus_ops *ext_ops)
-> +int snd_hda_ext_bus_init(struct hda_bus *bus, struct pci_dev *pdev,
-> +			 const struct hdac_bus_ops *ops,
-> +			 const struct hdac_ext_bus_ops *ext_ops,
-> +			 const char *model)
-[...]
-> -	bus->idx = 0;
-> -	bus->cmd_dma_state = true;
-> +	base->idx = 0;
-> +	base->cmd_dma_state = true;
-> +	base->use_posbuf = 1;
-> +	base->bdl_pos_adj = 0;
-> +	base->sync_write = 1;
-> +	bus->pci = pdev;
-> +	bus->modelname = model;
-> +	bus->mixer_assigned = -1;
-> +	mutex_init(&bus->prepare_mutex);
-
-hmm. It's not clear whether we should initialize the regular hdac_bus 
-fields in the ext_bus_init(). For plain HDA, these are also initialized
-in the caller. E.g. in sound/pci/hda/hda_controller.c.
-
-So if we start cleaning up, should we go further put this in 
-snd_hdac_bus_init()? 
-
-Then another is what is the right place for settings like "sync_write = 
-1". While this settings applies to all current users of the extended
-bus, this is really hw specific setting and not really a property of 
-the extended bus, so this feels a bit out-of-place.
-
-Br, Kai

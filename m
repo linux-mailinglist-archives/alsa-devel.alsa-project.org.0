@@ -2,88 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2A17432DB3
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Oct 2021 08:05:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17019432DBA
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Oct 2021 08:07:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 554B016BC;
-	Tue, 19 Oct 2021 08:04:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 554B016BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id A501E16BF;
+	Tue, 19 Oct 2021 08:06:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A501E16BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634623529;
-	bh=pOHmG58tew0WYnhgqa0gJ0OJgt5Vh0PZkvH09IZHC74=;
+	s=default; t=1634623627;
+	bh=DRAbboG8I0CpcUM+lm3rJRrzAS71C+ko8RyqZsrGR+Q=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=kVwlGjSU6bP/wQlsoNvM9VNUfEbTUCYRUkmylxpbNKd6tNldsP2R+IXJ0jGPQ79m6
-	 sh79A8kMHkvfKcOfpT6P7+T8DLTbwG1Nor08l0wIE+xBBymDzTaLg2prHxPXzUuecU
-	 oxi9kPGvkRZ21mCPwvk0ciGvqQGouEp8/n+swRiM=
+	b=TxU3h4GEAqsGWeb3purGm1mXxaYi5D5nY2qgTXuAx4XiFNB2fjNe5rOQ7804N4eEs
+	 lfsHSWPpH16p5NcRQcZi+HxYmgofXTeoWPObOcWii3NG+bYqFtTMza6X5eFRi0kDhl
+	 iwg/XfBhWdX5xaoGJvFbwf/EqPBXMqNpmo2gF5oY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9FD0F80155;
-	Tue, 19 Oct 2021 08:04:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C958F80254;
+	Tue, 19 Oct 2021 08:05:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D10C9F80256; Tue, 19 Oct 2021 08:04:06 +0200 (CEST)
+ id 2F503F80155; Tue, 19 Oct 2021 08:05:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
- [IPv6:2607:f8b0:4864:20::432])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A600AF80155
- for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021 08:03:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A600AF80155
+ by alsa1.perex.cz (Postfix) with ESMTPS id 30324F80155
+ for <alsa-devel@alsa-project.org>; Tue, 19 Oct 2021 08:05:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30324F80155
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="fJFWVL8f"
-Received: by mail-pf1-x432.google.com with SMTP id q19so16697806pfl.4
- for <alsa-devel@alsa-project.org>; Mon, 18 Oct 2021 23:03:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=aAoohp3BZtxGGNheUbdSrC12LV0VSJwOP4SowcMpevU=;
- b=fJFWVL8fsRE1X7J3D7guL5McUx0WCWwk1cBFQh9RNL1+LhY0ukOqw7FQyxxDfgf2YC
- 432esjPcSxvU8PxVJ5XtPvZbJXZ/sm6rcq+TRfMCna3USWpJkBRIZ/GtB8ZcFV6V5Tg2
- W9bmuhtUCRDse8w0TMP56COmBqYDSCdQXZgMnxusKfkAt/WL0kc8kH+VgtCXWoBIMwvg
- sAinwbwGjNKmWodBQnKrn3z6Fy0Wiu+0JDR5e94O7Mnhn9tnciIYWegclHhkHWiHq2hL
- kdnGww+iTgtK8CQNjamia2ZEd6YOrPZNTlOtZrGjd8jde3FKKNdHZLr9XGFw35CdQt7o
- D9Og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=aAoohp3BZtxGGNheUbdSrC12LV0VSJwOP4SowcMpevU=;
- b=FiJpWiU5KkgRF/rDNfRrHft6zbgfjRVDsX+ts6VhpxkMTw8vLYZplxGu9xNBTPH5ba
- +7AgC49EdXdxErmFDuFx2W0TIC4P6o87tTknBgti8YsMYfRSxgiqMQWHQvw2c6WkKO/T
- 4zxU68j5daejYKc77Cb2bJ46i4Hqbzq8Q8xfIKD8phFSFvTcjc6r8c+S61rcuKnIFgRM
- wSS5E1tZIgdl5GWVhEoVY+6Eo6395RG3t7hDl5IS37I0seAwXCuVJIe0Oh6KwNiW8BVN
- H6fNPyLu1YmM6qxjlQYxCw0YuoGTgAnNZOwix3ImnVwcxutbZYWGz31q915XuKyySHx2
- CCHw==
-X-Gm-Message-State: AOAM533u+XR0Px/SQNOjI4Dlco2NlTTiXUTp+zoeVkJASiqNtQ+6r7EU
- 4Gs4WeA+celET8Nkg64XBAs=
-X-Google-Smtp-Source: ABdhPJyYUhzeBuAGb+Xtr7RXa3uesGkYSgpkmA2dmdEm1pxink0iq4MxnZgsjelI3mpoXXnl99gqmw==
-X-Received: by 2002:a63:e00b:: with SMTP id e11mr27533032pgh.190.1634623434822; 
- Mon, 18 Oct 2021 23:03:54 -0700 (PDT)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id d138sm14939496pfd.74.2021.10.18.23.03.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Oct 2021 23:03:54 -0700 (PDT)
-From: cgel.zte@gmail.com
-X-Google-Original-From: lv.ruyi@zte.com.cn
-To: lgirdwood@gmail.com
-Subject: [PATCH] ASoC: amd: remove duplicate include in acp5x-mach.c
-Date: Tue, 19 Oct 2021 06:03:49 +0000
-Message-Id: <20211019060349.975656-1-lv.ruyi@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.b="k+Tu3Bcq"; 
+ dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
+ header.b="yOJYYtnH"
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 7323521977;
+ Tue, 19 Oct 2021 06:05:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1634623537; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=nCP88yCC9Gu2Zw6p/CXMzCKS6Te0lGIZhezxMCJfV/M=;
+ b=k+Tu3BcqPTGMHAWzmuYTsCrS1MaB6tgDbTw1oJUH246ss9fvnaOJh6M+1AL6/g2DK7vcVc
+ jZXOSyCPA0kexLh0DzmCCSIimK+oSNDwvJPoYyfy+HHxBjKXf/j+1t8xrorMusA0bQvupR
+ rNRu6yIaPzG+10tjjtieDlvp7PA6tqI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1634623537;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=nCP88yCC9Gu2Zw6p/CXMzCKS6Te0lGIZhezxMCJfV/M=;
+ b=yOJYYtnHRwQNVB+AunmdlnWRj+SNDsvfNhh6ITXliby7NMRzu4OZSVzYW1C4SBu0uOlxv+
+ ADRI8wC+wtNpT3BA==
+Received: from alsa1.nue.suse.com (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 60B00A3B84;
+ Tue, 19 Oct 2021 06:05:37 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 1/2] ALSA: memalloc: Drop superfluous snd_dma_buffer_sync()
+ declaration
+Date: Tue, 19 Oct 2021 08:05:35 +0200
+Message-Id: <20211019060536.26089-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- lv.ruyi@zte.com.cn, tiwai@suse.com, broonie@kernel.org,
- Vijendar.Mukunda@amd.com, Zeal Robot <zealci@zte.com.cn>
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,39 +86,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Lv Ruyi <lv.ruyi@zte.com.cn>
+snd_dma_buffer_sync() is declared twice, and the one outside the ifdef
+CONFIG_HAS_DMA could lead to a build error when CONFIG_HAS_DMA=n.
+As it's an overlooked leftover after rebase, drop this line.
 
-'linux/io.h' and 'linux/module.h' included in 'acp5x-mach.c' is
-duplicated.Only one duplicate header file is reserved.
-
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Lv Ruyi <lv.ruyi@zte.com.cn>
+Fixes: a25684a95646 ("ALSA: memalloc: Support for non-contiguous page allocation")
+Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
+Link: https://lore.kernel.org/r/20211019165402.4fa82c38@canb.auug.org.au
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/soc/amd/vangogh/acp5x-mach.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ include/sound/memalloc.h | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/sound/soc/amd/vangogh/acp5x-mach.c b/sound/soc/amd/vangogh/acp5x-mach.c
-index 14cf325e4b23..2d9229ba9c59 100644
---- a/sound/soc/amd/vangogh/acp5x-mach.c
-+++ b/sound/soc/amd/vangogh/acp5x-mach.c
-@@ -8,16 +8,14 @@
+diff --git a/include/sound/memalloc.h b/include/sound/memalloc.h
+index df615052dad4..653dfffb3ac8 100644
+--- a/include/sound/memalloc.h
++++ b/include/sound/memalloc.h
+@@ -97,9 +97,6 @@ static inline void snd_dma_buffer_sync(struct snd_dma_buffer *dmab,
+ 				       enum snd_dma_sync_mode mode) {}
+ #endif
  
- #include <sound/soc.h>
- #include <sound/soc-dapm.h>
--#include <linux/module.h>
--#include <linux/io.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
+-void snd_dma_buffer_sync(struct snd_dma_buffer *dmab,
+-			 enum snd_dma_sync_mode mode);
 -
- #include <sound/jack.h>
-+
- #include <linux/clk.h>
- #include <linux/gpio.h>
- #include <linux/gpio/consumer.h>
- #include <linux/module.h>
- #include <linux/i2c.h>
- #include <linux/input.h>
- #include <linux/io.h>
+ dma_addr_t snd_sgbuf_get_addr(struct snd_dma_buffer *dmab, size_t offset);
+ struct page *snd_sgbuf_get_page(struct snd_dma_buffer *dmab, size_t offset);
+ unsigned int snd_sgbuf_get_chunk_size(struct snd_dma_buffer *dmab,
 -- 
-2.25.1
+2.26.2
 

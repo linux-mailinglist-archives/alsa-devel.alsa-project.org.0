@@ -2,82 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 427EC4344C2
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Oct 2021 07:42:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24D3E434569
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Oct 2021 08:48:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1AD31694;
-	Wed, 20 Oct 2021 07:41:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1AD31694
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7C91169B;
+	Wed, 20 Oct 2021 08:47:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7C91169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634708534;
-	bh=j7sxik9qd7/ZgNRvUOm2axWv4n5rUL98k6DxX6MQxLs=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1634712479;
+	bh=yZjRTV1/x7ZGWNldU2ATFuNUbOjFy9RUgiOseVOgqDw=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mRxjtcC1TKTRfXEYVIpbGPxpSua2vyAJiqIn1yp3oQWrh/P3MmAOdmI0/IqTqch20
-	 Uj1y01Pm63RE6RjxonacCk9u/dPeA88xM9ZLKwqC/Lt4ykn0bvykjPdzM2cywCuORw
-	 t7QqxEYHH3tL2cbmTGP2JffKg0XSjcmStjSA3ApA=
+	b=oNb0GO6CKhLmHCbqxqjpVZylDa7ob36GDHCr+wA2STX/D8wqXUPIqHkX164iLtSaj
+	 XGHQAbgI6HneTHd/J3li+kYHBeKQB4Ozfk2t97fh2YL0e4bP3rYTKPoikb9sv00xKU
+	 +bXKFT4iK3CJImTLG9ecWJcDb1O8iB4w45zM0XVQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 236DBF80253;
-	Wed, 20 Oct 2021 07:40:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 137D5F80082;
+	Wed, 20 Oct 2021 08:46:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0DB52F80229; Wed, 20 Oct 2021 07:40:56 +0200 (CEST)
+ id 4E286F80229; Wed, 20 Oct 2021 08:46:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from regular1.263xmail.com (regular1.263xmail.com [211.150.70.205])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4CC9EF800ED
- for <alsa-devel@alsa-project.org>; Wed, 20 Oct 2021 07:40:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CC9EF800ED
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="ZSmSk+kA"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="+XUugQmG"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 13EAE21A7F;
- Wed, 20 Oct 2021 05:40:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1634708448; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=uTikBjU/lH6hfwNd7SXAfhv6iSZLQ8kHu/v5yDzs6nU=;
- b=ZSmSk+kANpbD+QPYYOC01SEKh5b+psZuT/YWk5l/FMPKxEf3CgR8uAzqcYLZSGkBflS96c
- IwCkafqPaTVZ7TN+tI+DNsm/qXyEb8uOYJpXy7VY5KOcJwBW6S0fdfxYu/mhO9K0lzdH+B
- AgMRG3EIvipdQ82Qa1AO84oHjK9kPXk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1634708448;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=uTikBjU/lH6hfwNd7SXAfhv6iSZLQ8kHu/v5yDzs6nU=;
- b=+XUugQmGEQ1pVAaUXYaCT6RVmIPT4DfzGjuyLthnxQLOz8laWXazrKOshP0Qv5vOgTk6ix
- TF3b1o9ObF8lxjAA==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id DA215A3B81;
- Wed, 20 Oct 2021 05:40:46 +0000 (UTC)
-Date: Wed, 20 Oct 2021 07:40:46 +0200
-Message-ID: <s5hczo01cf5.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH] ALSA: firewire-motu: fix invalid memory access when
- operating hwdep character device
-In-Reply-To: <20211020042555.40866-1-o-takashi@sakamocchi.jp>
-References: <20211020042555.40866-1-o-takashi@sakamocchi.jp>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60CEDF80082
+ for <alsa-devel@alsa-project.org>; Wed, 20 Oct 2021 08:46:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60CEDF80082
+Received: from localhost (unknown [192.168.167.32])
+ by regular1.263xmail.com (Postfix) with ESMTP id B56B9842;
+ Wed, 20 Oct 2021 14:46:25 +0800 (CST)
+X-MAIL-GRAY: 0
+X-MAIL-DELIVERY: 1
+X-ADDR-CHECKED4: 1
+X-SKE-CHECKED: 1
+X-ABS-CHECKED: 1
+X-ANTISPAM-LEVEL: 2
+Received: from [172.16.12.22] (unknown [58.22.7.114])
+ by smtp.263.net (postfix) whith ESMTP id
+ P16835T140562797250304S1634712383778350_; 
+ Wed, 20 Oct 2021 14:46:24 +0800 (CST)
+X-IP-DOMAINF: 1
+X-RL-SENDER: sugar.zhang@rock-chips.com
+X-SENDER: zxg@rock-chips.com
+X-LOGIN-NAME: sugar.zhang@rock-chips.com
+X-FST-TO: jay.xu@rock-chips.com
+X-RCPT-COUNT: 11
+X-LOCAL-RCPT-COUNT: 1
+X-SENDER-IP: 58.22.7.114
+X-ATTACHMENT-NUM: 0
+X-UNIQUE-TAG: <0e98d8f1b9ab8a8b4cd160bf98629cb4>
+X-System-Flag: 0
+Subject: =?UTF-8?Q?Re=3a_=5bPATCH=5d_ASoC=3a_rockchip=3a_use_generic_DMA_eng?=
+ =?UTF-8?B?aW5lIGNvbmZpZ3VyYXRpb27jgJDor7fms6jmhI/vvIzpgq7ku7bnlLFsaW51eC1y?=
+ =?UTF-8?Q?ockchip-bounces+sugar=2ezhang=3drock-chips=2ecom=40lists=2einfrad?=
+ =?UTF-8?B?ZWFkLm9yZ+S7o+WPkeOAkQ==?=
+To: Mark Brown <broonie@kernel.org>
+References: <20211018114844.1746351-1-john@metanate.com>
+ <YW1svMVSgBJygfpV@sirena.org.uk>
+ <a5eebd60-da6f-cc56-b1fe-221dc827e097@rock-chips.com>
+ <YW63pduAGW01PUoj@sirena.org.uk>
+From: sugar zhang <sugar.zhang@rock-chips.com>
+Message-ID: <cdd530bd-9d85-8edf-2151-00502bbbb4cf@rock-chips.com>
+Date: Wed, 20 Oct 2021 14:46:24 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+MIME-Version: 1.0
+In-Reply-To: <YW63pduAGW01PUoj@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-rockchip@lists.infradead.org,
+ John Keeping <john@metanate.com>, Jianqun Xu <jay.xu@rock-chips.com>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,139 +98,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 20 Oct 2021 06:25:55 +0200,
-Takashi Sakamoto wrote:
-> 
-> ALSA firewire-motu driver recently got support for event notification via
-> ALSA HwDep interface for register DSP models. However, when polling ALSA
-> HwDep cdev, the driver can cause null pointer dereference for the other
-> models due to accessing to unallocated memory or uninitialized memory.
-> 
-> This commit fixes the bug by check the type of model before accessing to
-> the memory.
-> 
-> Fixes: 634ec0b2906e ("ALSA: firewire-motu: notify event for parameter change in register DSP model")
-> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Hi Mark,
 
-Wouldn't it be simpler to add the flag check in
-snd_motu_register_dsp_message_parser_count_event() and return 0 if
-SND_MOTU_SPEC_REGISTER_DSP isn't set there?
+On 2021/10/19 20:18, Mark Brown wrote:
+> On Tue, Oct 19, 2021 at 10:11:27AM +0800, sugar zhang wrote:
+>> Hi Mark, John,
+>>
+>> Actually, I have submit patch[1] to do the same thing a few weeks ago, and
+>> explain the original purpose.
+>>
+>> [1] https://x-lore.kernel.org/linux-rockchip/1632792957-80428-1-git-send-email-sugar.zhang@rock-chips.com/
+> Please submit patches using subject lines reflecting the style for the
+> subsystem, this makes it easier for people to identify relevant patches.
+> Look at what existing commits in the area you're changing are doing and
+> make sure your subject lines visually resemble what they're doing.
+> There's no need to resubmit to fix this alone.
+ok.
+> Please don't top post, reply in line with needed context.  This allows
+> readers to readily follow the flow of conversation and understand what
+> you are talking about and also helps ensure that everything in the
+> discussion is being addressed.
+got it, thanks.
+
+-- 
+Best Regards!
+张学广/Sugar
+瑞芯微电子股份有限公司
+Rockchip Electronics Co., Ltd.
 
 
-thanks,
 
-Takashi
-
-> ---
->  sound/firewire/motu/motu-hwdep.c | 72 ++++++++++++++++++++------------
->  1 file changed, 45 insertions(+), 27 deletions(-)
-> 
-> diff --git a/sound/firewire/motu/motu-hwdep.c b/sound/firewire/motu/motu-hwdep.c
-> index 9c2e457ce692..ae2d01ddc8d3 100644
-> --- a/sound/firewire/motu/motu-hwdep.c
-> +++ b/sound/firewire/motu/motu-hwdep.c
-> @@ -16,6 +16,47 @@
->  
->  #include "motu.h"
->  
-> +static bool has_dsp_event(struct snd_motu *motu)
-> +{
-> +	if (motu->spec->flags & SND_MOTU_SPEC_REGISTER_DSP)
-> +		return (snd_motu_register_dsp_message_parser_count_event(motu) > 0);
-> +	else
-> +		return false;
-> +}
-> +
-> +// NOTE: Take care of page fault due to accessing to userspace.
-> +static long copy_dsp_event_to_user(struct snd_motu *motu, char __user *buf, long count,
-> +				   struct snd_firewire_event_motu_register_dsp_change *event)
-> +{
-> +	if (motu->spec->flags & SND_MOTU_SPEC_REGISTER_DSP) {
-> +		size_t consumed = 0;
-> +		u32 __user *ptr;
-> +		u32 ev;
-> +
-> +		// Header is filled later.
-> +		consumed += sizeof(*event);
-> +
-> +		while (consumed < count &&
-> +		       snd_motu_register_dsp_message_parser_copy_event(motu, &ev)) {
-> +			ptr = (u32 __user *)(buf + consumed);
-> +			if (put_user(ev, ptr))
-> +				return -EFAULT;
-> +			consumed += sizeof(ev);
-> +		}
-> +
-> +		event->type = SNDRV_FIREWIRE_EVENT_MOTU_REGISTER_DSP_CHANGE;
-> +		event->count = (consumed - sizeof(*event)) / 4;
-> +		if (copy_to_user(buf, &event, sizeof(*event)))
-> +			return -EFAULT;
-> +
-> +		count = consumed;
-> +	} else {
-> +		count = 0;
-> +	}
-> +
-> +	return count;
-> +}
-> +
->  static long hwdep_read(struct snd_hwdep *hwdep, char __user *buf, long count,
->  		       loff_t *offset)
->  {
-> @@ -25,8 +66,7 @@ static long hwdep_read(struct snd_hwdep *hwdep, char __user *buf, long count,
->  
->  	spin_lock_irq(&motu->lock);
->  
-> -	while (!motu->dev_lock_changed && motu->msg == 0 &&
-> -			snd_motu_register_dsp_message_parser_count_event(motu) == 0) {
-> +	while (!motu->dev_lock_changed && motu->msg == 0 && !has_dsp_event(motu)) {
->  		prepare_to_wait(&motu->hwdep_wait, &wait, TASK_INTERRUPTIBLE);
->  		spin_unlock_irq(&motu->lock);
->  		schedule();
-> @@ -55,31 +95,10 @@ static long hwdep_read(struct snd_hwdep *hwdep, char __user *buf, long count,
->  		count = min_t(long, count, sizeof(event));
->  		if (copy_to_user(buf, &event, count))
->  			return -EFAULT;
-> -	} else if (snd_motu_register_dsp_message_parser_count_event(motu) > 0) {
-> -		size_t consumed = 0;
-> -		u32 __user *ptr;
-> -		u32 ev;
-> -
-> +	} else if (has_dsp_event(motu)) {
->  		spin_unlock_irq(&motu->lock);
->  
-> -		// Header is filled later.
-> -		consumed += sizeof(event.motu_register_dsp_change);
-> -
-> -		while (consumed < count &&
-> -		       snd_motu_register_dsp_message_parser_copy_event(motu, &ev)) {
-> -			ptr = (u32 __user *)(buf + consumed);
-> -			if (put_user(ev, ptr))
-> -				return -EFAULT;
-> -			consumed += sizeof(ev);
-> -		}
-> -
-> -		event.motu_register_dsp_change.type = SNDRV_FIREWIRE_EVENT_MOTU_REGISTER_DSP_CHANGE;
-> -		event.motu_register_dsp_change.count =
-> -			(consumed - sizeof(event.motu_register_dsp_change)) / 4;
-> -		if (copy_to_user(buf, &event, sizeof(event.motu_register_dsp_change)))
-> -			return -EFAULT;
-> -
-> -		count = consumed;
-> +		count = copy_dsp_event_to_user(motu, buf, count, &event.motu_register_dsp_change);
->  	}
->  
->  	return count;
-> @@ -94,8 +113,7 @@ static __poll_t hwdep_poll(struct snd_hwdep *hwdep, struct file *file,
->  	poll_wait(file, &motu->hwdep_wait, wait);
->  
->  	spin_lock_irq(&motu->lock);
-> -	if (motu->dev_lock_changed || motu->msg ||
-> -	    snd_motu_register_dsp_message_parser_count_event(motu) > 0)
-> +	if (motu->dev_lock_changed || motu->msg || has_dsp_event(motu))
->  		events = EPOLLIN | EPOLLRDNORM;
->  	else
->  		events = 0;
-> -- 
-> 2.30.2
-> 

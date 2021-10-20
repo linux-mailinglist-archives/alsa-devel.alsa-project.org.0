@@ -2,54 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E9B9434FAD
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Oct 2021 18:04:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 342A2434FAF
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Oct 2021 18:05:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5A421689;
-	Wed, 20 Oct 2021 18:03:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5A421689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A3FC168C;
+	Wed, 20 Oct 2021 18:04:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A3FC168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634745889;
-	bh=EqT1ej4U+NyBPiP4Vny++okHQRZRw+SseUQLXrSZUek=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=JwShMqPKzMkaNZhf0mTvk92g2s0s2leDqmahaOOAroTaiegfe3lQRLwhKf4CJiVVV
-	 ioIaaz6sw03pQkkYlDeF8c/ylXE8w1MdB4L47TrIP3Ch52YIXr33KL3c6tfUeHnLwU
-	 j0O5K/h2Th1rSlmvrUPoqlUYulxdGyXkSjVtkUQ8=
+	s=default; t=1634745914;
+	bh=BT00wpcPWcMl1sOMENTgoHr3mtdLdY7I0MPkf8EDmGc=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=gOK7gS3UQtzDrFDCJLljhxhmwqsgNbcEEVQF0Cq27Q3/rqinbyDnjWPVuLArSKNWs
+	 JvOtJxPC7oVhLMqFvtT4ymOkCB0rl+OXQJ9FLvOqYi4vG8pu/3DJkHeTPj+Sh01K2w
+	 wMUl2mMkwEtYpinSNF2WonlxV1UIG/lW9M8h2qtM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 623EAF802DF;
-	Wed, 20 Oct 2021 18:03:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80B1AF804CA;
+	Wed, 20 Oct 2021 18:03:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2BE1DF80082; Wed, 20 Oct 2021 18:03:31 +0200 (CEST)
+ id 91E73F80082; Wed, 20 Oct 2021 18:03:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E5FEF80082
- for <alsa-devel@alsa-project.org>; Wed, 20 Oct 2021 18:03:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E5FEF80082
-X-IronPort-AV: E=McAfee;i="6200,9189,10143"; a="292280157"
-X-IronPort-AV: E=Sophos;i="5.87,167,1631602800"; d="scan'208";a="292280157"
+ by alsa1.perex.cz (Postfix) with ESMTPS id CC263F800ED
+ for <alsa-devel@alsa-project.org>; Wed, 20 Oct 2021 18:03:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC263F800ED
+X-IronPort-AV: E=McAfee;i="6200,9189,10143"; a="292280181"
+X-IronPort-AV: E=Sophos;i="5.87,167,1631602800"; d="scan'208";a="292280181"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2021 08:59:12 -0700
+ 20 Oct 2021 08:59:16 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,167,1631602800"; d="scan'208";a="494685355"
+X-IronPort-AV: E=Sophos;i="5.87,167,1631602800"; d="scan'208";a="494685380"
 Received: from brentlu-brix.itwn.intel.com ([10.5.253.56])
- by orsmga008.jf.intel.com with ESMTP; 20 Oct 2021 08:59:07 -0700
+ by orsmga008.jf.intel.com with ESMTP; 20 Oct 2021 08:59:11 -0700
 From: Brent Lu <brent.lu@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v4 0/6] Multiple headphone codec driver support
-Date: Wed, 20 Oct 2021 23:57:09 +0800
-Message-Id: <20211020155715.2045947-1-brent.lu@intel.com>
+Subject: [PATCH v4 1/6] ASoC: soc-acpi: add comp_ids field for machine driver
+ matching
+Date: Wed, 20 Oct 2021 23:57:10 +0800
+Message-Id: <20211020155715.2045947-2-brent.lu@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211020155715.2045947-1-brent.lu@intel.com>
+References: <20211020155715.2045947-1-brent.lu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
@@ -83,49 +87,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Support multiple headphone drivers in same machine driver. In this
-case, both rt5682 and rt5682s are supported and enumerated by different
-ACPI HID "10EC5682" and "RTL5682".
+A machine driver needs to be enumerated by more than one ACPI HID if
+it supports second headphone driver (i.e. rt5682 and rt5682s).
+However, the id field in snd_soc_acpi_mach structure could contain
+only one HID. By adding a 'comp_ids' field which can contain several
+HIDs, we can enumerate a machine driver by multiple ACPI HIDs.
 
-V2 Changes:
-- remove useless 'NULL', 'false' in if-condition
-- can use 'comp_ids' field alone to enumerate driver
-- add comma to the end of entry in structure initialization
-- keep the table of byt/cht/cml/icl untouched
+Signed-off-by: Brent Lu <brent.lu@intel.com>
+---
+ include/sound/soc-acpi.h |  3 +++
+ sound/soc/soc-acpi.c     | 24 ++++++++++++++++++++++--
+ 2 files changed, 25 insertions(+), 2 deletions(-)
 
-V3 Changes:
-- upstreamd from SOF github, PR#3200
-- use new compatiable IDs to shrink the enumerate table of BYT and CHT
-- add 'const' to snd_soc_acpi_codecs structures
-
-V4 Changes:
-- add signoff to patch 4~6
-
-Brent Lu (3):
-  ASoC: soc-acpi: add comp_ids field for machine driver matching
-  ASoC: Intel: sof_rt5682: detect codec variant in probe function
-  ASoC: Intel: sof_rt5682: use comp_ids to enumerate rt5682s
-
-Pierre-Louis Bossart (3):
-  ASoC: Intel: soc-acpi-byt: shrink tables using compatible IDs
-  ASoC: Intel: soc-acpi-cht: shrink tables using compatible IDs
-  ASoC: Intel: soc-acpi: use const for all uses of snd_soc_acpi_codecs
-
- include/sound/soc-acpi.h                      |  3 +
- sound/soc/intel/boards/sof_rt5682.c           | 34 ++-------
- .../intel/common/soc-acpi-intel-adl-match.c   | 11 ++-
- .../intel/common/soc-acpi-intel-bxt-match.c   |  2 +-
- .../intel/common/soc-acpi-intel-byt-match.c   | 68 +++++++-----------
- .../intel/common/soc-acpi-intel-cht-match.c   | 69 +++++++------------
- .../intel/common/soc-acpi-intel-cml-match.c   |  8 +--
- .../intel/common/soc-acpi-intel-glk-match.c   |  2 +-
- .../intel/common/soc-acpi-intel-jsl-match.c   | 43 ++++--------
- .../intel/common/soc-acpi-intel-kbl-match.c   | 12 ++--
- .../intel/common/soc-acpi-intel-skl-match.c   |  2 +-
- .../intel/common/soc-acpi-intel-tgl-match.c   | 11 ++-
- sound/soc/soc-acpi.c                          | 24 ++++++-
- 13 files changed, 119 insertions(+), 170 deletions(-)
-
+diff --git a/include/sound/soc-acpi.h b/include/sound/soc-acpi.h
+index 2f3fa385c092..31f4c4f9aeea 100644
+--- a/include/sound/soc-acpi.h
++++ b/include/sound/soc-acpi.h
+@@ -129,6 +129,8 @@ struct snd_soc_acpi_link_adr {
+  * all firmware/topology related fields.
+  *
+  * @id: ACPI ID (usually the codec's) used to find a matching machine driver.
++ * @comp_ids: list of compatible audio codecs using the same machine driver,
++ * firmware and topology
+  * @link_mask: describes required board layout, e.g. for SoundWire.
+  * @links: array of link _ADR descriptors, null terminated.
+  * @drv_name: machine driver name
+@@ -146,6 +148,7 @@ struct snd_soc_acpi_link_adr {
+ /* Descriptor for SST ASoC machine driver */
+ struct snd_soc_acpi_mach {
+ 	const u8 id[ACPI_ID_LEN];
++	const struct snd_soc_acpi_codecs *comp_ids;
+ 	const u32 link_mask;
+ 	const struct snd_soc_acpi_link_adr *links;
+ 	const char *drv_name;
+diff --git a/sound/soc/soc-acpi.c b/sound/soc/soc-acpi.c
+index 395229bf5c51..2ae99b49d3f5 100644
+--- a/sound/soc/soc-acpi.c
++++ b/sound/soc/soc-acpi.c
+@@ -8,14 +8,34 @@
+ #include <linux/module.h>
+ #include <sound/soc-acpi.h>
+ 
++static bool snd_soc_acpi_id_present(struct snd_soc_acpi_mach *machine)
++{
++	const struct snd_soc_acpi_codecs *comp_ids = machine->comp_ids;
++	int i;
++
++	if (machine->id[0]) {
++		if (acpi_dev_present(machine->id, NULL, -1))
++			return true;
++	}
++
++	if (comp_ids) {
++		for (i = 0; i < comp_ids->num_codecs; i++) {
++			if (acpi_dev_present(comp_ids->codecs[i], NULL, -1))
++				return true;
++		}
++	}
++
++	return false;
++}
++
+ struct snd_soc_acpi_mach *
+ snd_soc_acpi_find_machine(struct snd_soc_acpi_mach *machines)
+ {
+ 	struct snd_soc_acpi_mach *mach;
+ 	struct snd_soc_acpi_mach *mach_alt;
+ 
+-	for (mach = machines; mach->id[0]; mach++) {
+-		if (acpi_dev_present(mach->id, NULL, -1)) {
++	for (mach = machines; mach->id[0] || mach->comp_ids; mach++) {
++		if (snd_soc_acpi_id_present(mach)) {
+ 			if (mach->machine_quirk) {
+ 				mach_alt = mach->machine_quirk(mach);
+ 				if (!mach_alt)
 -- 
 2.25.1
 

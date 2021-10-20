@@ -2,71 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32F7C4350A8
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Oct 2021 18:51:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 074504350AA
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Oct 2021 18:51:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 992351684;
-	Wed, 20 Oct 2021 18:50:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 992351684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 71F6816A4;
+	Wed, 20 Oct 2021 18:50:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71F6816A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634748690;
-	bh=tRFbvcAEHwZ3QL+fMuBWB9Fyh/lHd+LDq4nov3JpHy0=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=QrF1jcYHq8FV4l9GFrr1loqD7hDWd8jt2We6QvW0KhlMBOHeDomxtd4leTZwFDQTT
-	 z4eCmSJBsR7vhGcpvV7IR1Vb2f1a/RIPtmPqZ98yyzrxvryjPvlhfNlkLRs5Vo/iMP
-	 ERpHr1VkXlCqQhN4Z02+8bU+e8m1wRDxWIuqwEmg=
+	s=default; t=1634748701;
+	bh=z1IKlQDzitv/8g0NEKBGzfCOUMfHybg09AnspGbdOME=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=SmJDfOoPzwhoT6Q3uOezM8TAGCshAwPnWlePm3HAx7HlKFm5xy0DIP8pmb/NEBiJl
+	 It2lijXuE9BTlpbDl+J40l9394iyrcUObCfoB9PVPJEP1veFHrSyJ3IkW//JDNrLdN
+	 RZvCsBlTyJs68CAMf+n0b9ilFTZ5oN286JR/q/hQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9697F804FE;
-	Wed, 20 Oct 2021 18:48:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3D78F8050F;
+	Wed, 20 Oct 2021 18:48:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 98A62F80253; Wed, 20 Oct 2021 13:52:41 +0200 (CEST)
+ id D3F08F80229; Wed, 20 Oct 2021 15:13:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D1E9DF80082
- for <alsa-devel@alsa-project.org>; Wed, 20 Oct 2021 13:52:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1E9DF80082
-X-UUID: 820f92fea9124adc9091493e9d9315ca-20211020
-X-UUID: 820f92fea9124adc9091493e9d9315ca-20211020
-Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw01.mediatek.com
- (envelope-from <yc.hung@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 685628342; Wed, 20 Oct 2021 19:52:23 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Wed, 20 Oct 2021 19:52:22 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
- Frontend Transport; Wed, 20 Oct 2021 19:52:22 +0800
-From: YC Hung <yc.hung@mediatek.com>
-To: <broonie@kernel.org>, <tiwai@suse.com>, <robh+dt@kernel.org>,
- <matthias.bgg@gmail.com>
-Subject: [PATCH 2/2] dt-bindings: dsp: mediatek: Add mt8195 DSP binding support
-Date: Wed, 20 Oct 2021 19:51:55 +0800
-Message-ID: <20211020115155.9909-3-yc.hung@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20211020115155.9909-1-yc.hung@mediatek.com>
-References: <20211020115155.9909-1-yc.hung@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D23DCF80155
+ for <alsa-devel@alsa-project.org>; Wed, 20 Oct 2021 15:13:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D23DCF80155
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="KQugN/1b"
+Received: by mail-wm1-x32f.google.com with SMTP id
+ j129-20020a1c2387000000b00322f53b9bbfso1592838wmj.3
+ for <alsa-devel@alsa-project.org>; Wed, 20 Oct 2021 06:13:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=sender:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=jNaRc1LfQTJ5XsgrKgds8CW0+sIIrnx24JRi3PJWCsw=;
+ b=KQugN/1bB3y+s9vO4aEYeD73JSGDzHjCFPhfaAEkjZvpqh3+GPahrR3gHAK5NFsd/3
+ 2yYgvOuEbsbafzhxpBNrDOhiICNqrvUwbbsdWGsFIA4LmZ1TbS6caaaOmtj9DRakDbce
+ ISRIopI041DlI9Cvz4QHdMJSirP8eOtASMBwmmBIgniddWW81fz3rTlhR3UCGIoyze6w
+ 9XOler2fVHbqoaJQxQ15aPLx1jiGeSUaQ6hr3X/wrJSIb/eC0FmhKmgNX3SoNkQMgBsK
+ i2X8r2BO3Qj5k9PkZtuVhFTa81Jr1LSADV3X7ON+iqiW2kI36DXip9SYxrH2hHFAfoQJ
+ zWhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding;
+ bh=jNaRc1LfQTJ5XsgrKgds8CW0+sIIrnx24JRi3PJWCsw=;
+ b=t3RgOaGXZPyZVPbrIcDUV6fX/VvHjs2oUmt5XSDw6KhV3nxJHsci9k5nzGV+4x/V+6
+ nK5sWNDoxokS7yapmvcrs2JDvvxUjT3sE22aONEJYFDxxr+hPFfN8TXJVm9DdcvQhog+
+ ZugYeDcL5ZYbNYeDm0IkOHleclmKKc6r8f3n+5eKFsTXXShXL+iyYDW6H3lOGr8EEtXP
+ TZOqFLS8eiY6DmpuzID+UMXGZZV+/0wXz5rvLKSHFOnD+PhKknRu5NmiyrhNJzOdzf9T
+ pM4rhoOF0qJZT+hk8iQXe6jlJgrXTmiALrH1gxrHLVaoqOM7baptG2qQej/eu4hPXPfS
+ K5JQ==
+X-Gm-Message-State: AOAM532Y6//PX6KZi5mNW+Chyaf3pCTRxkjDvp2AjPUOJqUK1eu3Bxfl
+ klZIic5uQqGedUlKW3Rlc70=
+X-Google-Smtp-Source: ABdhPJxhf1WVsxyvu33UBwerIm+xYtq7wWb7p5NXus1pXL4gdfaucFbbN4HM6vqwHNkrekFIIdku/A==
+X-Received: by 2002:a5d:69cc:: with SMTP id s12mr4813554wrw.108.1634735595375; 
+ Wed, 20 Oct 2021 06:13:15 -0700 (PDT)
+Received: from localhost.localdomain (host-92-18-70-200.as13285.net.
+ [92.18.70.200])
+ by smtp.gmail.com with ESMTPSA id t12sm2346709wmq.44.2021.10.20.06.13.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Oct 2021 06:13:15 -0700 (PDT)
+From: Johnathon Clark <john.clark@cantab.net>
+To: 
+Subject: [PATCH] ALSA: hda/realtek: Fix mic mute LED for the HP Spectre x360 14
+Date: Wed, 20 Oct 2021 14:12:51 +0100
+Message-Id: <20211020131253.35894-1-john.clark@cantab.net>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 20 Oct 2021 18:48:06 +0200
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- allen-kh.cheng@mediatek.com, linux-kernel@vger.kernel.org,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- yc.hung@mediatek.com, daniel.baluta@nxp.com,
- linux-arm-kernel@lists.infradead.org
+Cc: Chris Chiu <chris.chiu@canonical.com>,
+ "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Kailang Yang <kailang@realtek.com>, Jeremy Szu <jeremy.szu@canonical.com>,
+ open list <linux-kernel@vger.kernel.org>, Elia Devito <eliadevito@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Werner Sembach <wse@tuxedocomputers.com>,
+ Hui Wang <hui.wang@canonical.com>, PeiSen Hou <pshou@realtek.com>,
+ Sami Loone <sami@loone.fi>, Cameron Berkenpas <cam@neo-zeon.de>,
+ john.clark@cantab.net
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,158 +107,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This describes the mt8195 DSP device tree node.
+On the 'HP Spectre x360 Convertible 14-ea0xx' the microphone mute led is
+controlled by GPIO 0x04. The speaker mute LED does not seem to be
+exposed by GPIO and is there not set.
 
-Signed-off-by: YC Hung <yc.hung@mediatek.com>
+Signed-off-by: Johnathon Clark <john.clark@cantab.net>
 ---
- .../bindings/dsp/mtk,mt8195-dsp.yaml          | 138 ++++++++++++++++++
- 1 file changed, 138 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/dsp/mtk,mt8195-dsp.yaml
+ sound/pci/hda/patch_realtek.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/dsp/mtk,mt8195-dsp.yaml b/Documentation/devicetree/bindings/dsp/mtk,mt8195-dsp.yaml
-new file mode 100644
-index 000000000000..14e1b64d4a32
---- /dev/null
-+++ b/Documentation/devicetree/bindings/dsp/mtk,mt8195-dsp.yaml
-@@ -0,0 +1,138 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/dsp/mtk,mt8195-dsp.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 965b096f416f..79c6fb39864d 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -4355,6 +4355,17 @@ static void alc287_fixup_hp_gpio_led(struct hda_codec *codec,
+ 	alc_fixup_hp_gpio_led(codec, action, 0x10, 0);
+ }
+ 
++static void alc245_fixup_hp_gpio_led(struct hda_codec *codec,
++				const struct hda_fixup *fix, int action)
++{
++	struct alc_spec *spec = codec->spec;
 +
-+title: Mediatek mt8195 DSP core
++	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
++		spec->micmute_led_polarity = 1;
++	}
++	alc_fixup_hp_gpio_led(codec, action, 0, 0x04);
++}
 +
-+maintainers:
-+  - YC Hung <yc.hung@mediatek.com>
-+
-+description: |
-+  Some boards from mt8195 contain a DSP core used for
-+  advanced pre- and post- audio processing.
-+properties:
-+  compatible:
-+    const: mediatek,mt8195-dsp
-+
-+  reg:
-+    maxItems: 2
-+
-+  reg-names:
-+    maxItems: 2
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  interrupt-names:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: mux for audio dsp clock
-+      - description: 26M clock
-+      - description: mux for audio dsp local bus
-+      - description: default audio dsp local bus clock source
-+      - description: clock gate for audio dsp clock
-+      - description: mux for audio dsp access external bus
-+
-+  clock-names:
-+    items:
-+      - const: adsp_sel
-+      - const: clk26m_ck
-+      - const: audio_local_bus
-+      - const: mainpll_d7_d2
-+      - const: scp_adsp_audiodsp
-+      - const: audio_h
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  mboxes:
-+    maxItems: 2
-+
-+  mbox-names:
-+    description:
-+      Specifies the mailboxes used to communicate with audio DSP
-+    items:
-+      - const: mbox0
-+      - const: mbox1
-+
-+  memory-region:
-+    description:
-+      phandle to a node describing reserved memory (System RAM memory)
-+      used by DSP (see bindings/reserved-memory/reserved-memory.txt)
-+    maxItems: 2
-+
-+  sound:
-+    description:
-+      Sound subnode includes ASoC platform, DPTx codec node, and
-+      HDMI codec node.
-+    maxItems: 3
-+
-+    properties:
-+      mediatek,platform:
-+        $ref: "/schemas/types.yaml#/definitions/phandle"
-+        description: The phandle of MT8195 ASoC platform.
-+
-+      mediatek,dptx-codec:
-+        $ref: "/schemas/types.yaml#/definitions/phandle"
-+        description: The phandle of MT8195 Display Port Tx codec node.
-+
-+      mediatek,hdmi-codec:
-+        $ref: "/schemas/types.yaml#/definitions/phandle"
-+        description: The phandle of MT8195 HDMI codec node.
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - interrupts
-+  - interrupt-names
-+  - clocks
-+  - clock-names
-+  - memory-region
-+  - power-domains
-+  - mbox-names
-+  - mboxes
-+  - sound
-+
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    adsp: adsp@10803000 {
-+       compatible =  "mediatek,mt8195-dsp";
-+       reg = <0x10803000  0x1000>,
-+             <0x10840000  0x40000>;
-+       reg-names = "cfg", "sram";
-+       interrupts = <GIC_SPI 694 IRQ_TYPE_LEVEL_HIGH 0>;
-+       interrupt-names = "wdt";
-+       clocks = <&topckgen 10>, //CLK_TOP_ADSP
-+                <&clk26m>,
-+                <&topckgen 107>, //CLK_TOP_AUDIO_LOCAL_BUS
-+                <&topckgen 136>, //CLK_TOP_MAINPLL_D7_D2
-+                <&scp_adsp 0>, //CLK_SCP_ADSP_AUDIODSP
-+                <&topckgen 34>; //CLK_TOP_AUDIO_H
-+       clock-names = "adsp_sel",
-+                     "clk26m_ck",
-+                     "audio_local_bus",
-+                     "mainpll_d7_d2",
-+                     "scp_adsp_audiodsp",
-+                     "audio_h";
-+       memory-region = <&adsp_dma_mem_reserved>,
-+                       <&adsp_mem_reserved>;
-+       power-domains = <&spm 6>; //MT8195_POWER_DOMAIN_ADSP
-+       mbox-names = "mbox0", "mbox1";
-+       mboxes = <&adsp_mailbox 0>, <&adsp_mailbox 1>;
-+       status = "disabled";
-+       sound {
-+              mediatek,dptx-codec = <&dp_tx>;
-+              mediatek,hdmi-codec = <&hdmi0>;
-+              mediatek,platform = <&afe>;
-+             };
-+       };
+ /* turn on/off mic-mute LED per capture hook via VREF change */
+ static int vref_micmute_led_set(struct led_classdev *led_cdev,
+ 				enum led_brightness brightness)
+@@ -6709,6 +6720,7 @@ enum {
+ 	ALC285_FIXUP_THINKPAD_NO_BASS_SPK_HEADSET_JACK,
+ 	ALC287_FIXUP_HP_GPIO_LED,
+ 	ALC256_FIXUP_HP_HEADSET_MIC,
++	ALC245_FIXUP_HP_GPIO_LED,
+ 	ALC236_FIXUP_DELL_AIO_HEADSET_MIC,
+ 	ALC282_FIXUP_ACER_DISABLE_LINEOUT,
+ 	ALC255_FIXUP_ACER_LIMIT_INT_MIC_BOOST,
+@@ -7333,6 +7345,8 @@ static const struct hda_fixup alc269_fixups[] = {
+ 	[ALC245_FIXUP_HP_X360_AMP] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = alc245_fixup_hp_x360_amp,
++		.chained = true,
++		.chain_id = ALC245_FIXUP_HP_GPIO_LED
+ 	},
+ 	[ALC288_FIXUP_DELL_HEADSET_MODE] = {
+ 		.type = HDA_FIXUP_FUNC,
+@@ -8432,6 +8446,10 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = alc256_fixup_tongfang_reset_persistent_settings,
+ 	},
++	[ALC245_FIXUP_HP_GPIO_LED] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = alc245_fixup_hp_gpio_led,
++	},
+ };
+ 
+ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
 -- 
-2.18.0
+2.33.1
 

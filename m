@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E09FA43509F
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Oct 2021 18:50:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 378934350A0
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Oct 2021 18:51:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E3B716BF;
-	Wed, 20 Oct 2021 18:49:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E3B716BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id A761E1688;
+	Wed, 20 Oct 2021 18:50:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A761E1688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634748642;
-	bh=GjKdf/e432S/4vSyeKkpEXPejsMaBTcoldeQxXvjkD0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=IMuno+GPL+vRIS6vrQKYSIyfrO6F4Jlm2/agwhSMb3Y/qfMLHo1mQRv4UPi0qbAhd
-	 twtB42HogOlbfZ6kvWkxJD+q7rrRDsS8OEu3gSHvHRigNf8poxLabxNl65u7e3wMBD
-	 41ZZfeb/T47TbKozfRa3TbP6JMYT7l8RWzX2w0ss=
+	s=default; t=1634748666;
+	bh=4QW3NNmqMEJ2KNJjaexGoE+B6udmT7GZymdLcQCO5Sk=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=i8ZaTCBEtSYIAg8TpbEJ8jJ/FIcbQPtdzqy4QY+Lf2kUd5QQe0PI5QDisnGPmTen1
+	 GExXLQUAcQRVzZGbfU5HH2wH229evRcsI3P0akUJB8wRWzm8LRAwnXDSLju/50XaBP
+	 QSSgibhU70cHafxcn5M7SrN90IDZii6W2J9/i/E8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F583F804F3;
-	Wed, 20 Oct 2021 18:48:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C948F804FD;
+	Wed, 20 Oct 2021 18:48:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F1B62F80253; Wed, 20 Oct 2021 13:52:34 +0200 (CEST)
+ id D2C35F802A9; Wed, 20 Oct 2021 13:52:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
@@ -32,29 +33,31 @@ X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
 Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CC269F80082
- for <alsa-devel@alsa-project.org>; Wed, 20 Oct 2021 13:52:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC269F80082
-X-UUID: 9f253c674058444c94556d94331d6c53-20211020
-X-UUID: 9f253c674058444c94556d94331d6c53-20211020
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
- mailgw02.mediatek.com (envelope-from <yc.hung@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1567313119; Wed, 20 Oct 2021 19:52:15 +0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id A98C8F80224
+ for <alsa-devel@alsa-project.org>; Wed, 20 Oct 2021 13:52:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A98C8F80224
+X-UUID: a96342c5d1fa4f37b7ff047222d84010-20211020
+X-UUID: a96342c5d1fa4f37b7ff047222d84010-20211020
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw02.mediatek.com
+ (envelope-from <yc.hung@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1602994043; Wed, 20 Oct 2021 19:52:20 +0800
 Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Wed, 20 Oct 2021 19:52:13 +0800
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Wed, 20 Oct 2021 19:52:19 +0800
 Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas11.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
- Frontend Transport; Wed, 20 Oct 2021 19:52:13 +0800
+ Frontend Transport; Wed, 20 Oct 2021 19:52:19 +0800
 From: YC Hung <yc.hung@mediatek.com>
 To: <broonie@kernel.org>, <tiwai@suse.com>, <robh+dt@kernel.org>,
  <matthias.bgg@gmail.com>
-Subject: [PATCH 0/2] Add code to manage DSP clocks and provide dts-binding
- document
-Date: Wed, 20 Oct 2021 19:51:53 +0800
-Message-ID: <20211020115155.9909-1-yc.hung@mediatek.com>
+Subject: [PATCH 1/2] ASoC: SOF: mediatek: Add mt8195 dsp clock support
+Date: Wed, 20 Oct 2021 19:51:54 +0800
+Message-ID: <20211020115155.9909-2-yc.hung@mediatek.com>
 X-Mailer: git-send-email 2.18.0
+In-Reply-To: <20211020115155.9909-1-yc.hung@mediatek.com>
+References: <20211020115155.9909-1-yc.hung@mediatek.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-MTK: N
@@ -79,27 +82,291 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: "yc.hung" <yc.hung@mediatek.com>
+Add adsp clock on/off support on mt8195 platform.
 
-This code is based on top of SOF topic/sof-dev branch and we want to have a review 
-with ALSA and device Tree communities the it will be merged to SOF tree and then
-merged into ALSA tree. It provides two patches, one is for mt8195 dsp clocks related.
-Another is for mt8195 dsp dts binding decription. 
-
-YC Hung (2):
-  ASoC: SOF: mediatek: Add mt8195 dsp clock support
-  dt-bindings: dsp: mediatek: Add mt8195 DSP binding support
-
- .../bindings/dsp/mtk,mt8195-dsp.yaml          | 138 +++++++++++++++
- sound/soc/sof/mediatek/mt8195/Makefile        |   2 +-
- sound/soc/sof/mediatek/mt8195/mt8195-clk.c    | 164 ++++++++++++++++++
- sound/soc/sof/mediatek/mt8195/mt8195-clk.h    |  29 ++++
- sound/soc/sof/mediatek/mt8195/mt8195.c        |  23 ++-
- 5 files changed, 353 insertions(+), 3 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/dsp/mtk,mt8195-dsp.yaml
+Signed-off-by: YC Hung <yc.hung@mediatek.com>
+---
+ sound/soc/sof/mediatek/mt8195/Makefile     |   2 +-
+ sound/soc/sof/mediatek/mt8195/mt8195-clk.c | 164 +++++++++++++++++++++
+ sound/soc/sof/mediatek/mt8195/mt8195-clk.h |  29 ++++
+ sound/soc/sof/mediatek/mt8195/mt8195.c     |  23 ++-
+ 4 files changed, 215 insertions(+), 3 deletions(-)
  create mode 100644 sound/soc/sof/mediatek/mt8195/mt8195-clk.c
  create mode 100644 sound/soc/sof/mediatek/mt8195/mt8195-clk.h
 
+diff --git a/sound/soc/sof/mediatek/mt8195/Makefile b/sound/soc/sof/mediatek/mt8195/Makefile
+index 60fca24c068a..650f4bce99b2 100644
+--- a/sound/soc/sof/mediatek/mt8195/Makefile
++++ b/sound/soc/sof/mediatek/mt8195/Makefile
+@@ -1,4 +1,4 @@
+ # SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
+-snd-sof-mt8195-objs := mt8195.o mt8195-loader.o
++snd-sof-mt8195-objs := mt8195.o mt8195-clk.o mt8195-loader.o
+ obj-$(CONFIG_SND_SOC_SOF_MT8195) += snd-sof-mt8195.o
+ 
+diff --git a/sound/soc/sof/mediatek/mt8195/mt8195-clk.c b/sound/soc/sof/mediatek/mt8195/mt8195-clk.c
+new file mode 100644
+index 000000000000..1988421f7f7b
+--- /dev/null
++++ b/sound/soc/sof/mediatek/mt8195/mt8195-clk.c
+@@ -0,0 +1,164 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
++//
++// Copyright(c) 2021 Mediatek Corporation. All rights reserved.
++//
++// Author: YC Hung <yc.hung@mediatek.com>
++//
++// Hardware interface for mt8195 DSP clock
++
++#include <linux/clk.h>
++#include <linux/pm_runtime.h>
++#include <linux/io.h>
++#include "mt8195.h"
++#include "mt8195-clk.h"
++
++struct clk *clk_handle[ADSP_CLK_NUM];
++
++int platform_parse_clock(struct device *dev)
++{
++	clk_handle[CLK_TOP_ADSP] = devm_clk_get(dev, "adsp_sel");
++	if (IS_ERR(clk_handle[CLK_TOP_ADSP])) {
++		dev_err(dev, "clk_get(\"adsp_sel\") failed\n");
++		return PTR_ERR(clk_handle[CLK_TOP_ADSP]);
++	}
++
++	clk_handle[CLK_TOP_CLK26M] = devm_clk_get(dev, "clk26m_ck");
++	if (IS_ERR(clk_handle[CLK_TOP_CLK26M])) {
++		dev_err(dev, "clk_get(\"clk26m_ck\") failed\n");
++		return PTR_ERR(clk_handle[CLK_TOP_CLK26M]);
++	}
++
++	clk_handle[CLK_TOP_AUDIO_LOCAL_BUS] = devm_clk_get(dev, "audio_local_bus");
++	if (IS_ERR(clk_handle[CLK_TOP_AUDIO_LOCAL_BUS])) {
++		dev_err(dev, "clk_get(\"audio_local_bus\") failed\n");
++		return PTR_ERR(clk_handle[CLK_TOP_AUDIO_LOCAL_BUS]);
++	}
++
++	clk_handle[CLK_TOP_MAINPLL_D7_D2] = devm_clk_get(dev, "mainpll_d7_d2");
++	if (IS_ERR(clk_handle[CLK_TOP_MAINPLL_D7_D2])) {
++		dev_err(dev, "clk_get(\"mainpll_d7_d2\") failed\n");
++		return PTR_ERR(clk_handle[CLK_TOP_MAINPLL_D7_D2]);
++	}
++
++	clk_handle[CLK_SCP_ADSP_AUDIODSP] = devm_clk_get(dev, "scp_adsp_audiodsp");
++	if (IS_ERR(clk_handle[CLK_SCP_ADSP_AUDIODSP])) {
++		dev_err(dev, "clk_get(\"scp_adsp_audiodsp\") failed\n");
++		return PTR_ERR(clk_handle[CLK_SCP_ADSP_AUDIODSP]);
++	}
++
++	clk_handle[CLK_TOP_AUDIO_H] = devm_clk_get(dev, "audio_h");
++	if (IS_ERR(clk_handle[CLK_TOP_AUDIO_H])) {
++		dev_err(dev, "clk_get(\"audio_h_sel\") failed\n");
++		return PTR_ERR(clk_handle[CLK_TOP_AUDIO_H]);
++	}
++
++	return 0;
++}
++
++int adsp_enable_clock(struct device *dev)
++{
++	int ret;
++
++	ret = clk_prepare_enable(clk_handle[CLK_TOP_MAINPLL_D7_D2]);
++	if (ret) {
++		dev_err(dev, "%s clk_prepare_enable(mainpll_d7_d2) fail %d\n",
++			__func__, ret);
++		return ret;
++	}
++
++	ret = clk_prepare_enable(clk_handle[CLK_TOP_ADSP]);
++	if (ret) {
++		dev_err(dev, "%s clk_prepare_enable(adsp_sel) fail %d\n",
++			__func__, ret);
++		goto disable_mainpll_d7_d2_clk;
++	}
++
++	ret = clk_prepare_enable(clk_handle[CLK_TOP_AUDIO_LOCAL_BUS]);
++	if (ret) {
++		dev_err(dev, "%s clk_prepare_enable(audio_local_bus) fail %d\n",
++			__func__, ret);
++		goto disable_dsp_sel_clk;
++	}
++
++	ret = clk_prepare_enable(clk_handle[CLK_SCP_ADSP_AUDIODSP]);
++	if (ret) {
++		dev_err(dev, "%s clk_prepare_enable(scp_adsp_audiodsp) fail %d\n",
++			__func__, ret);
++		goto disable_audio_local_bus_clk;
++	}
++
++	ret = clk_prepare_enable(clk_handle[CLK_TOP_AUDIO_H]);
++	if (ret) {
++		dev_err(dev, "%s clk_prepare_enable(audio_h) fail %d\n",
++			__func__, ret);
++		goto disable_scp_adsp_audiodsp_clk;
++	}
++
++	return 0;
++
++disable_scp_adsp_audiodsp_clk:
++	clk_disable_unprepare(clk_handle[CLK_SCP_ADSP_AUDIODSP]);
++disable_audio_local_bus_clk:
++	clk_disable_unprepare(clk_handle[CLK_TOP_AUDIO_LOCAL_BUS]);
++disable_dsp_sel_clk:
++	clk_disable_unprepare(clk_handle[CLK_TOP_ADSP]);
++disable_mainpll_d7_d2_clk:
++	clk_disable_unprepare(clk_handle[CLK_TOP_MAINPLL_D7_D2]);
++
++	return ret;
++}
++
++void adsp_disable_clock(struct device *dev)
++{
++	clk_disable_unprepare(clk_handle[CLK_TOP_AUDIO_H]);
++	clk_disable_unprepare(clk_handle[CLK_SCP_ADSP_AUDIODSP]);
++	clk_disable_unprepare(clk_handle[CLK_TOP_AUDIO_LOCAL_BUS]);
++	clk_disable_unprepare(clk_handle[CLK_TOP_ADSP]);
++	clk_disable_unprepare(clk_handle[CLK_TOP_MAINPLL_D7_D2]);
++}
++
++int adsp_default_clk_init(struct device *dev, int enable)
++{
++	int ret = 0;
++
++	dev_dbg(dev, "%s: %s\n", __func__, enable ? "on" : "off");
++
++	if (enable) {
++		ret = clk_set_parent(clk_handle[CLK_TOP_ADSP],
++				     clk_handle[CLK_TOP_CLK26M]);
++		if (ret) {
++			dev_err(dev, "failed to set dsp_sel to clk26m: %d\n", ret);
++			return ret;
++		}
++
++		ret = clk_set_parent(clk_handle[CLK_TOP_AUDIO_LOCAL_BUS],
++				     clk_handle[CLK_TOP_MAINPLL_D7_D2]);
++		if (ret) {
++			dev_err(dev, "set audio_local_bus failed %d\n", ret);
++			return ret;
++		}
++
++		ret = adsp_enable_clock(dev);
++		if (ret)
++			dev_err(dev, "failed to adsp_enable_clock: %d\n", ret);
++
++		return ret;
++	}
++
++	adsp_disable_clock(dev);
++
++	return ret;
++}
++
++int adsp_clock_on(struct device *dev)
++{
++	/* Open ADSP clock */
++	return adsp_default_clk_init(dev, 1);
++}
++
++int adsp_clock_off(struct device *dev)
++{
++	/* Close ADSP clock */
++	return adsp_default_clk_init(dev, 0);
++}
++
+diff --git a/sound/soc/sof/mediatek/mt8195/mt8195-clk.h b/sound/soc/sof/mediatek/mt8195/mt8195-clk.h
+new file mode 100644
+index 000000000000..f985d141552a
+--- /dev/null
++++ b/sound/soc/sof/mediatek/mt8195/mt8195-clk.h
+@@ -0,0 +1,29 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++
++/*
++ * Copyright (c) 2021 MediaTek Corporation. All rights reserved.
++ *
++ *  Header file for the mt8195 DSP clock  definition
++ */
++
++#ifndef __MT8195_CLK_H
++#define __MT8195_CLK_H
++
++/*DSP clock*/
++enum ADSP_CLK_ID {
++	CLK_TOP_ADSP,
++	CLK_TOP_CLK26M,
++	CLK_TOP_AUDIO_LOCAL_BUS,
++	CLK_TOP_MAINPLL_D7_D2,
++	CLK_SCP_ADSP_AUDIODSP,
++	CLK_TOP_AUDIO_H,
++	ADSP_CLK_NUM
++};
++
++int platform_parse_clock(struct device *dev);
++int adsp_default_clk_init(struct device *dev, int enable);
++int adsp_enable_clock(struct device *dev);
++void adsp_disable_clock(struct device *dev);
++int adsp_clock_on(struct device *dev);
++int adsp_clock_off(struct device *dev);
++#endif
+diff --git a/sound/soc/sof/mediatek/mt8195/mt8195.c b/sound/soc/sof/mediatek/mt8195/mt8195.c
+index 99075598a35a..f323da58057b 100644
+--- a/sound/soc/sof/mediatek/mt8195/mt8195.c
++++ b/sound/soc/sof/mediatek/mt8195/mt8195.c
+@@ -25,6 +25,7 @@
+ #include "../adsp_helper.h"
+ #include "../mediatek-ops.h"
+ #include "mt8195.h"
++#include "mt8195-clk.h"
+ 
+ static int platform_parse_resource(struct platform_device *pdev, void *data)
+ {
+@@ -231,10 +232,23 @@ static int mt8195_dsp_probe(struct snd_sof_dev *sdev)
+ 	if (ret)
+ 		return ret;
+ 
++	ret = platform_parse_clock(&pdev->dev);
++	if (ret) {
++		dev_err(sdev->dev, "platform_parse_clock failed\n");
++		return -EINVAL;
++	}
++
++	ret = adsp_clock_on(&pdev->dev);
++	if (ret) {
++		dev_err(sdev->dev, "adsp_clock_on fail!\n");
++		return -EINVAL;
++	}
++
+ 	ret = adsp_sram_power_on(sdev->dev, true);
+ 	if (ret) {
+ 		dev_err(sdev->dev, "adsp_sram_power_on fail!\n");
+-		return ret;
++		ret = -EINVAL;
++		goto exit_clk_disable;
+ 	}
+ 
+ 	ret = adsp_memory_remap_init(&pdev->dev, priv->adsp);
+@@ -282,6 +296,8 @@ static int mt8195_dsp_probe(struct snd_sof_dev *sdev)
+ 
+ err_adsp_sram_power_off:
+ 	adsp_sram_power_on(&pdev->dev, false);
++exit_clk_disable:
++	adsp_clock_off(&pdev->dev);
+ 
+ 	return ret;
+ }
+@@ -290,7 +306,10 @@ static int mt8195_dsp_remove(struct snd_sof_dev *sdev)
+ {
+ 	struct platform_device *pdev = container_of(sdev->dev, struct platform_device, dev);
+ 
+-	return adsp_sram_power_on(&pdev->dev, false);
++	adsp_sram_power_on(&pdev->dev, false);
++	adsp_clock_off(&pdev->dev);
++
++	return 0;
+ }
+ 
+ /* on mt8195 there is 1 to 1 match between type and BAR idx */
 -- 
 2.18.0
 

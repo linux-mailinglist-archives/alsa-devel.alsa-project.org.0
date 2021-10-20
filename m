@@ -2,87 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9986C4347C5
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Oct 2021 11:18:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC939434A13
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Oct 2021 13:31:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 37C7316EC;
-	Wed, 20 Oct 2021 11:18:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37C7316EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C3A816DD;
+	Wed, 20 Oct 2021 13:30:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C3A816DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634721533;
-	bh=M65ERvVuU3IAKLeEPia98DWS2Q2ldYd4uUFwE6kXOu4=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1634729494;
+	bh=Hc5cuk9glDaRbaSAq4FdX0qHDgJuvg1tQjkipEezNvM=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KoUMNeA+L92SN0x6KMyr76r8qQTm4XY2QbFLeE/EwHPfAZvCEQEpxZK0rcqAmaEWz
-	 lean/wKuGh0IYAkagZWrClQ/pamklqTDvUgm8XnOZ8bf4tKBdw+nWHPGVJEj+IQ1BU
-	 TFZ1gP9FUrdYN8uM9LcFzdFKi64yrmJc3xUUqJp8=
+	b=ggbbyBmFJHxT5EshQpkoEowTHqLrx/ORUt8BxnhzCdzv/uaJ0/hiAMF0tNUeTPzUT
+	 qCOhRru3KShA7vSQdWOJLUXZG7pGWCF2/+DNNTOTviwKITw18XFOcHRbSRtynLRZn/
+	 dCDHTh2sp/9gOgmEVi5Wvy+5TMUv7xnBwP4tgPQk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4C4AF80229;
-	Wed, 20 Oct 2021 11:17:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0C2BF804EC;
+	Wed, 20 Oct 2021 13:29:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0397EF80224; Wed, 20 Oct 2021 11:17:35 +0200 (CEST)
+ id 5D181F802DF; Wed, 20 Oct 2021 13:29:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9C626F80082
- for <alsa-devel@alsa-project.org>; Wed, 20 Oct 2021 11:17:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C626F80082
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7C318F80229
+ for <alsa-devel@alsa-project.org>; Wed, 20 Oct 2021 13:28:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C318F80229
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="fc1si36e"; 
- dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="pEnnCCdR"
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 2412821A95;
- Wed, 20 Oct 2021 09:17:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1634721444; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=mDhieyIXeE4V5jHwQZTe7ZXZZbr+qjBnbmqOemXSzlk=;
- b=fc1si36eMekGSQDqcS/Hn3Eorlm6YyDIm/s2QHHgKQUzjS46rECZKO3+n1oE9Nbk4ifixX
- lHutHNI6ClB8dkbZYqDyWqO4MSVM5OdXNwSw0pd/TeeNDcLAcLbQu7Al7YRxspvGYABhm/
- kEFqql32f4JdNRImBy/VF3c03nUsD6Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1634721444;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=mDhieyIXeE4V5jHwQZTe7ZXZZbr+qjBnbmqOemXSzlk=;
- b=pEnnCCdRCZrs86YOnpoamSueJv/AfbpZdfLMiHOcWnBqMS+tMPKzKMwcS74ex8rJLtlK+x
- yUV8QW7y9zvj8BBQ==
-Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 04F4FA3B83;
- Wed, 20 Oct 2021 09:17:24 +0000 (UTC)
-Date: Wed, 20 Oct 2021 11:17:24 +0200
-Message-ID: <s5hr1cgys0r.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Lucas Tanure <tanureal@opensource.cirrus.com>
-Subject: Re: [RFC PATCH v2 2/3] ALSA: hda/realtek: Add support for Legion 7
- 16ACHg6 laptop Speakers
-In-Reply-To: <20211020085944.17577-3-tanureal@opensource.cirrus.com>
-References: <20211020085944.17577-1-tanureal@opensource.cirrus.com>
- <20211020085944.17577-3-tanureal@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, "Rafael J . Wysocki" <rafael@kernel.org>,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, David Rhodes <david.rhodes@cirrus.com>,
- linux-acpi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org, Len Brown <lenb@kernel.org>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="LZF5Rfu3"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B39FA61359;
+ Wed, 20 Oct 2021 11:28:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1634729329;
+ bh=Hc5cuk9glDaRbaSAq4FdX0qHDgJuvg1tQjkipEezNvM=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=LZF5Rfu3GUprtBYrB0BU2YZ4eiM3rLK3Jig8bOQm5cQ3FghfMbGuEB0HiI3mjDEL7
+ HcI92HqOvIYR+xyeSL+cWhNkp3RjFLDOowqPlkUO3yWnehhLcwcU9KykqucYUPLXm8
+ t37If7zQ/usbfxpBS+fK1PU2bjFJ9Dju4VQX6u0DnmtyiP/kzXYER6BTYInbKQCqWI
+ Kp6FzguBtH7sH/PW9v75AiutVwbLb4GQefEqmsUQ8NMVvICf+mOSRai/GDSxoCSB4A
+ 4ixMHcXIa6D+V67GUnqNFJCeBCAooaizOZZUT6UXeokfbMx6+j6kBjbjDs7ZF6aVtT
+ pEXW/S7NDTcKw==
+From: Mark Brown <broonie@kernel.org>
+To: Christian Hewitt <christianshewitt@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Neil Armstrong <narmstrong@baylibre.com>, alsa-devel@alsa-project.org,
+ Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-amlogic@lists.infradead.org, Jerome Brunet <jbrunet@baylibre.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: meson: implement driver_name for snd_soc_card in
+ meson-card-utils
+Date: Wed, 20 Oct 2021 12:28:36 +0100
+Message-Id: <163472931364.2896549.2043578112545946668.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20211017160028.23318-1-christianshewitt@gmail.com>
+References: <20211017160028.23318-1-christianshewitt@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: Matthias Reichl <hias@horus.com>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,46 +86,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 20 Oct 2021 10:59:43 +0200,
-Lucas Tanure wrote:
+On Sun, 17 Oct 2021 16:00:28 +0000, Christian Hewitt wrote:
+> Implement driver_name to provide an alternative to card_name for userspace
+> configuration of Amlogic audio cards.
 > 
-> Find the associated Amps by dai name, and use dai ops to configure it.
-> Disable support for Amps if ASoC not built.
+> 
 
-Hrm, it's the question whether such a sneaking into DAI access in open
-code is a good idea.  If any, it could be done by some helper function
-instead.
+Applied to
 
-And some more details:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> +static int alc_add_soc_dai_list(struct alc_spec *spec, const char *dai_name)
-> +{
-> +#if IS_ENABLED(CONFIG_SND_SOC)
-> +	struct snd_soc_dai_link_component dlc;
-> +	struct alc_soc_dai_node *dai_node;
-> +	//struct snd_soc_component *comp;
-> +	struct snd_soc_dai *dai;
-> +
-> +	dlc.dai_name = dai_name;
-> +	dlc.of_node = NULL;
-> +	dlc.name = NULL;
-> +
-> +	dai = snd_soc_find_dai(&dlc);
-> +	if (!dai)
-> +		return -EPROBE_DEFER;
+Thanks!
 
-The deferred probe won't work at this stage for HD-audio codecs unlike
-many ASoC codec drivers.  And moreover, the fixup action doesn't
-handle the error at all...
+[1/1] ASoC: meson: implement driver_name for snd_soc_card in meson-card-utils
+      commit: bc387887ae22d6ed6439e83968b5be3443a8e57d
 
-Second, this way may lead to use-after-free if the ASoC stuff is
-unbound while the usage from HD-audio codec side.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Also, the dependency mess is still there.  Even if we allow the hard
-binding to ASoC core here, IS_ENABLED() wouldn't work properly.  It
-must be IS_REACHABLE().
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-thanks,
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-Takashi
+Thanks,
+Mark

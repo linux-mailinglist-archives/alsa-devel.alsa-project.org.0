@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F061E435743
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Oct 2021 02:24:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B05A3435744
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Oct 2021 02:24:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 67872168F;
-	Thu, 21 Oct 2021 02:23:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67872168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C437016BF;
+	Thu, 21 Oct 2021 02:23:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C437016BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634775853;
-	bh=0ib/fyncMVs4ScXTsWlrVN7bq7ulpIxKD7GDX5t04zY=;
+	s=default; t=1634775871;
+	bh=fGHkWFFjgamQ7uIYfc3mv+dcwTe2RZfno3L6rMpP+Jo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AuxaQJeOmyFHlIvEBf5bBLGiK13yY/NQywMQbSGVh9cqjEaGlczIFqyDDmzLl3U9Q
-	 rU5+9ScacX9ZPv4VkE+lGHgKCi3aIi3vxgGIgUBzvs5zcfggpK2aoyvv3CdI/qAY0y
-	 SeNiN11yE7LGZ7Pd+AqhzTRysbOc36itbZtKXOnM=
+	b=LWlZvcXYJUORY5MnRGPb2IWrMRu1VGJvNk1+A3pSW1Mq8iMw5XQWsdHc1T+NhhttI
+	 2+1JdPU4bg9NkLnpnDQTu8XqUwQyiIG9McEXFhQeYukNiQAJhqOC15MXtIwXkIxQbT
+	 HGw1WUBcTJQG6IiOkz8owVzgV4ptXAYGtzzzB/+g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E62AF802E0;
-	Thu, 21 Oct 2021 02:23:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6EBBF802A9;
+	Thu, 21 Oct 2021 02:23:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DE14CF80082; Thu, 21 Oct 2021 02:23:07 +0200 (CEST)
+ id 7F317F804B2; Thu, 21 Oct 2021 02:23:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,34 +34,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F109CF80082
- for <alsa-devel@alsa-project.org>; Thu, 21 Oct 2021 02:23:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F109CF80082
+ by alsa1.perex.cz (Postfix) with ESMTPS id 250F7F80253
+ for <alsa-devel@alsa-project.org>; Thu, 21 Oct 2021 02:23:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 250F7F80253
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="X5bZPD9T"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C883C6121E;
- Thu, 21 Oct 2021 00:22:56 +0000 (UTC)
+ header.b="Rt6PRDKs"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id CE99860FD8;
+ Thu, 21 Oct 2021 00:23:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634775777;
- bh=0ib/fyncMVs4ScXTsWlrVN7bq7ulpIxKD7GDX5t04zY=;
+ s=k20201202; t=1634775807;
+ bh=fGHkWFFjgamQ7uIYfc3mv+dcwTe2RZfno3L6rMpP+Jo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=X5bZPD9TWoGslJmEUBDWD+h/S/tN3eNqyyqqgJcoZKeZgds6N2iuCn4HZrCDfxZis
- svvKr4TxxyPXgSK00t205lovmPwTVU2JYRmuRvsr7NKRR8syaVbwDhZeToiP3G4pAN
- qFxrfjFfOdN0VOrrUKpegjylHP/biIIVD2qXxBxgiQa5L0htuOIsaW345fx2Itwect
- turL9Tu5iIj/wU9sd69CdcPzG1vLL0iW77noTghaNPuy6cLMjbKYHD0YsGlK0EnXdT
- cKqSqZo12PXDdqEzWPm+vUrfJlv/QZvIVByi6Ih5sMQIc6dc+5hQ36QkV3fkcyVOR0
- 4jP+g+2vn0Sbw==
+ b=Rt6PRDKs3TC1aS8lxFiBNLjyP8xRLI3zT4u8p7H1pPIAcP1j9ViGijrZyff940O8u
+ 8eNJjmZgsnRPb9t5gGY9/uj88Q6yaMbOFOI/BsOfp2rfsgIcSetiZyGIqAl/pNLjZJ
+ 7YUW5TAZe6dlbSWkj+C6pbQgwO3cTzxJ4YrSfMtaRJGBlg9vxXw8NlUBJPAKZhPHcv
+ M6cQW04kfLrSR6gJSW+ROIPRIrNY8Kbbq6nBdcVHpD8BP9PO+B0UQ8ekr1jEZ6ouzi
+ cws4OB3B2OCDjTaK/zaW6F12Ndc9NYzz3BnyCW4s//AZf1uK4SLNkjvELmWtJIi2GX
+ y4/j3562z5qOA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 09/11] ALSA: hda: avoid write to STATESTS if
+Subject: [PATCH AUTOSEL 4.19 09/10] ALSA: hda: avoid write to STATESTS if
  controller is in reset
-Date: Wed, 20 Oct 2021 20:22:35 -0400
-Message-Id: <20211021002238.1129482-9-sashal@kernel.org>
+Date: Wed, 20 Oct 2021 20:23:04 -0400
+Message-Id: <20211021002305.1129633-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211021002238.1129482-1-sashal@kernel.org>
-References: <20211021002238.1129482-1-sashal@kernel.org>
+In-Reply-To: <20211021002305.1129633-1-sashal@kernel.org>
+References: <20211021002305.1129633-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -127,10 +127,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/sound/hda/hdac_controller.c b/sound/hda/hdac_controller.c
-index 7e7be8e4dcf9..87ba66dcfd47 100644
+index 74244d8e2909..a65e8c0c630d 100644
 --- a/sound/hda/hdac_controller.c
 +++ b/sound/hda/hdac_controller.c
-@@ -395,8 +395,9 @@ int snd_hdac_bus_reset_link(struct hdac_bus *bus, bool full_reset)
+@@ -390,8 +390,9 @@ int snd_hdac_bus_reset_link(struct hdac_bus *bus, bool full_reset)
  	if (!full_reset)
  		goto skip_reset;
  

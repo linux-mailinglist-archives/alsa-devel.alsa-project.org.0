@@ -2,73 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B1B543577B
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Oct 2021 02:25:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F4CD4359A4
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Oct 2021 06:00:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6713A16BF;
-	Thu, 21 Oct 2021 02:25:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6713A16BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4DC441689;
+	Thu, 21 Oct 2021 05:59:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DC441689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634775950;
-	bh=3eublEtbAHJH2wDIYeS2U2RNXI5uX1YDYBvhIOSPYQY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=i64Wga6aw1+swZXV59mQ/2HHDmU453rrxzGzj1mmLQN/3iID3YYI7FH4bkbqKMN1S
-	 WCh93NbI8Og+8jkBGP9iHcGsN+2P2MNduBoy5VkajdRQWCgg+FeANbfU1dfm7JkGju
-	 Q4Nj065dALik6X943RYUG05gb6Ujl8bi9rGx9K2k=
+	s=default; t=1634788823;
+	bh=WYvEyVgwpBo/8rUv9z+gWEKOs3Ovhqt8tAsTktxi6vA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=EQQiY6E4MLo0B+Tw3wNCtoQnf9CH22A/Zn72zlSuDbMYJ9wlOQNLfT8wplOZC2SQL
+	 DXdSYqABAh1BIFGmOnETsLQyfZDOLZOH8rTE3pWH6Bm/oe8eDmbrAKFYj/9YBAGJGJ
+	 0CXiaH2Vonn0otzUugwnwPAnwlPBQPfkJewzcYBY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D26BF802A9;
-	Thu, 21 Oct 2021 02:24:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E532F800F2;
+	Thu, 21 Oct 2021 05:59:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 16B72F804B2; Thu, 21 Oct 2021 02:24:54 +0200 (CEST)
+ id 7000FF80249; Thu, 21 Oct 2021 05:59:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9AEBDF80224
- for <alsa-devel@alsa-project.org>; Thu, 21 Oct 2021 02:24:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AEBDF80224
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="N13BbNsP"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8465B60FD8;
- Thu, 21 Oct 2021 00:24:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634775884;
- bh=3eublEtbAHJH2wDIYeS2U2RNXI5uX1YDYBvhIOSPYQY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=N13BbNsPvzm6Bzl8BxLuWZBQJeS94EE+rGRZv2GiF5UwrMV3DCg11uWRygvxXEAmd
- fd57fTbzgHKH+tXLQZ+2TvJgsXnjonvdq/zvukTzlb6QlhHfDxnlWjvAE2UOnqh6G0
- Fo08gfKgtG4J9FAU8lNAQ+Hi1JAMBw8y3MpdqDDv8KVGCf1Tm+ap2A7L4C7snYbjWC
- NQkIcSWJHmygZsunYPmE5+FRZq6Sw2pfmicwW+kj994H3M4NOa6Gq1unthKtNBIfVj
- ue3AMbJLtggKeH4dxv/ODG17vxUZyk8ZJnEynstZKhp+K30r/OKGITIfg1fMdAdr25
- rDKGEy2sfURFw==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.4 6/7] ALSA: hda: avoid write to STATESTS if
- controller is in reset
-Date: Wed, 20 Oct 2021 20:24:25 -0400
-Message-Id: <20211021002427.1130044-6-sashal@kernel.org>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211021002427.1130044-1-sashal@kernel.org>
-References: <20211021002427.1130044-1-sashal@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 44D01F8011C
+ for <alsa-devel@alsa-project.org>; Thu, 21 Oct 2021 05:58:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44D01F8011C
+X-UUID: bac1888e3b3d40c59257dc7eb9aad423-20211021
+X-UUID: bac1888e3b3d40c59257dc7eb9aad423-20211021
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw01.mediatek.com
+ (envelope-from <yc.hung@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1747227135; Thu, 21 Oct 2021 11:58:46 +0800
+Received: from mtkexhb01.mediatek.inc (172.21.101.102) by
+ mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Thu, 21 Oct 2021 11:58:45 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by mtkexhb01.mediatek.inc
+ (172.21.101.102) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Thu, 21 Oct 2021 11:58:45 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
+ Frontend Transport; Thu, 21 Oct 2021 11:58:45 +0800
+From: YC Hung <yc.hung@mediatek.com>
+To: <broonie@kernel.org>, <tiwai@suse.com>, <robh+dt@kernel.org>,
+ <matthias.bgg@gmail.com>
+Subject: [PATCH v2 0/2] Add code to manage DSP clocks and provide dts-binding
+ document
+Date: Thu, 21 Oct 2021 11:58:39 +0800
+Message-ID: <20211021035841.2365-1-yc.hung@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.de>,
- ranjani.sridharan@linux.intel.com, tiwai@suse.com, broonie@kernel.org
+Content-Type: text/plain
+X-MTK: N
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ allen-kh.cheng@mediatek.com, linux-kernel@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
+ yc.hung@mediatek.com, daniel.baluta@nxp.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,64 +81,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+From: "yc.hung" <yc.hung@mediatek.com>
 
-[ Upstream commit b37a15188eae9d4c49c5bb035e0c8d4058e4d9b3 ]
+This code is based on top of SOF topic/sof-dev branch and we want to have a review 
+with ALSA and device Tree communities the it will be merged to SOF tree and then
+merged into ALSA tree. It provides two patches, one is for mt8195 dsp clocks related.
+Another is for mt8195 dsp dts binding decription.
 
-The snd_hdac_bus_reset_link() contains logic to clear STATESTS register
-before performing controller reset. This code dates back to an old
-bugfix in commit e8a7f136f5ed ("[ALSA] hda-intel - Improve HD-audio
-codec probing robustness"). Originally the code was added to
-azx_reset().
+YC Hung (2):
+  ASoC: SOF: mediatek: Add mt8195 dsp clock support
+  dt-bindings: dsp: mediatek: Add mt8195 DSP binding support
 
-The code was moved around in commit a41d122449be ("ALSA: hda - Embed bus
-into controller object") and ended up to snd_hdac_bus_reset_link() and
-called primarily via snd_hdac_bus_init_chip().
+ .../bindings/dsp/mtk,mt8195-dsp.yaml          | 139 +++++++++++++++
+ sound/soc/sof/mediatek/mt8195/Makefile        |   2 +-
+ sound/soc/sof/mediatek/mt8195/mt8195-clk.c    | 164 ++++++++++++++++++
+ sound/soc/sof/mediatek/mt8195/mt8195-clk.h    |  29 ++++
+ sound/soc/sof/mediatek/mt8195/mt8195.c        |  23 ++-
+ 5 files changed, 354 insertions(+), 3 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/dsp/mtk,mt8195-dsp.yaml
+ create mode 100644 sound/soc/sof/mediatek/mt8195/mt8195-clk.c
+ create mode 100644 sound/soc/sof/mediatek/mt8195/mt8195-clk.h
 
-The logic to clear STATESTS is correct when snd_hdac_bus_init_chip() is
-called when controller is not in reset. In this case, STATESTS can be
-cleared. This can be useful e.g. when forcing a controller reset to retry
-codec probe. A normal non-power-on reset will not clear the bits.
-
-However, this old logic is problematic when controller is already in
-reset. The HDA specification states that controller must be taken out of
-reset before writing to registers other than GCTL.CRST (1.0a spec,
-3.3.7). The write to STATESTS in snd_hdac_bus_reset_link() will be lost
-if the controller is already in reset per the HDA specification mentioned.
-
-This has been harmless on older hardware. On newer generation of Intel
-PCIe based HDA controllers, if configured to report issues, this write
-will emit an unsupported request error. If ACPI Platform Error Interface
-(APEI) is enabled in kernel, this will end up to kernel log.
-
-Fix the code in snd_hdac_bus_reset_link() to only clear the STATESTS if
-the function is called when controller is not in reset. Otherwise
-clearing the bits is not possible and should be skipped.
-
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Link: https://lore.kernel.org/r/20211012142935.3731820-1-kai.vehmanen@linux.intel.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/hda/hdac_controller.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/sound/hda/hdac_controller.c b/sound/hda/hdac_controller.c
-index 4727f5b80e76..4ee3458ad810 100644
---- a/sound/hda/hdac_controller.c
-+++ b/sound/hda/hdac_controller.c
-@@ -288,8 +288,9 @@ static int azx_reset(struct hdac_bus *bus, bool full_reset)
- 	if (!full_reset)
- 		goto skip_reset;
- 
--	/* clear STATESTS */
--	snd_hdac_chip_writew(bus, STATESTS, STATESTS_INT_MASK);
-+	/* clear STATESTS if not in reset */
-+	if (snd_hdac_chip_readb(bus, GCTL) & AZX_GCTL_RESET)
-+		snd_hdac_chip_writew(bus, STATESTS, STATESTS_INT_MASK);
- 
- 	/* reset controller */
- 	snd_hdac_bus_enter_link_reset(bus);
 -- 
-2.33.0
+2.18.0
 

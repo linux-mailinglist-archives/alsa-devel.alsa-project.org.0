@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15446435742
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Oct 2021 02:23:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F061E435743
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Oct 2021 02:24:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 896B61687;
-	Thu, 21 Oct 2021 02:23:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 896B61687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67872168F;
+	Thu, 21 Oct 2021 02:23:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67872168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1634775830;
-	bh=I2PjY6OdnOUedBdm83hMHSwW0WGvgKcfX0vGlUKOx3E=;
+	s=default; t=1634775853;
+	bh=0ib/fyncMVs4ScXTsWlrVN7bq7ulpIxKD7GDX5t04zY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OGgnXnBO7EJ12UAiBrK0tbOIW02t15nk+WkLVbvGkl6MTu22FJibDI0vMLkA6uLGE
-	 YPQRMj/2quKCFLHDXfg9PSmasZwUhQicHR/gxyJIfwbea2HMt6fZrVTwAv6Pw51/ma
-	 kKm/qS8pYDtp86pfFLqMLFBmsmw7PWJfZpUhD5Eg=
+	b=AuxaQJeOmyFHlIvEBf5bBLGiK13yY/NQywMQbSGVh9cqjEaGlczIFqyDDmzLl3U9Q
+	 rU5+9ScacX9ZPv4VkE+lGHgKCi3aIi3vxgGIgUBzvs5zcfggpK2aoyvv3CdI/qAY0y
+	 SeNiN11yE7LGZ7Pd+AqhzTRysbOc36itbZtKXOnM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 703F7F80229;
-	Thu, 21 Oct 2021 02:22:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E62AF802E0;
+	Thu, 21 Oct 2021 02:23:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3DA31F804C3; Thu, 21 Oct 2021 02:22:32 +0200 (CEST)
+ id DE14CF80082; Thu, 21 Oct 2021 02:23:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 39D59F80229
- for <alsa-devel@alsa-project.org>; Thu, 21 Oct 2021 02:22:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39D59F80229
+ by alsa1.perex.cz (Postfix) with ESMTPS id F109CF80082
+ for <alsa-devel@alsa-project.org>; Thu, 21 Oct 2021 02:23:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F109CF80082
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="sxcHIbjO"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2BD7261284;
- Thu, 21 Oct 2021 00:22:24 +0000 (UTC)
+ header.b="X5bZPD9T"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C883C6121E;
+ Thu, 21 Oct 2021 00:22:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634775745;
- bh=I2PjY6OdnOUedBdm83hMHSwW0WGvgKcfX0vGlUKOx3E=;
+ s=k20201202; t=1634775777;
+ bh=0ib/fyncMVs4ScXTsWlrVN7bq7ulpIxKD7GDX5t04zY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=sxcHIbjOnQhuGTcnV18mNkHI3rs3QoOON0y6Y9UfkOn+aJ5NXNgkjL2XlF6jR3iaE
- aAB87ccIhslkBgR0zMmzjC4CO7TjqUpF8+J1qecD8jBkV9k5Y3/A/gauVjSlaaMUDd
- T8FyANihSOXTc9rIY2iE3q3iZ2MdTb4hNIjjRH696aUDZYYLwnMlss6Pk4dIxKQwSd
- G/PBJBUifKuXZO7Cc56RRV1ZEQVok1g5vqwsWialR60o56lxxmmoUSiQSagef1dhHS
- 5L4jUgSwAdmMkPZCjpmiatqfqsMB8qm5cbau7KpvmDASbjWdrslRs1EGBkEowxeuqF
- TG9a2DzeXLATQ==
+ b=X5bZPD9TWoGslJmEUBDWD+h/S/tN3eNqyyqqgJcoZKeZgds6N2iuCn4HZrCDfxZis
+ svvKr4TxxyPXgSK00t205lovmPwTVU2JYRmuRvsr7NKRR8syaVbwDhZeToiP3G4pAN
+ qFxrfjFfOdN0VOrrUKpegjylHP/biIIVD2qXxBxgiQa5L0htuOIsaW345fx2Itwect
+ turL9Tu5iIj/wU9sd69CdcPzG1vLL0iW77noTghaNPuy6cLMjbKYHD0YsGlK0EnXdT
+ cKqSqZo12PXDdqEzWPm+vUrfJlv/QZvIVByi6Ih5sMQIc6dc+5hQ36QkV3fkcyVOR0
+ 4jP+g+2vn0Sbw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 10/14] ALSA: hda: avoid write to STATESTS if
+Subject: [PATCH AUTOSEL 5.4 09/11] ALSA: hda: avoid write to STATESTS if
  controller is in reset
-Date: Wed, 20 Oct 2021 20:21:51 -0400
-Message-Id: <20211021002155.1129292-10-sashal@kernel.org>
+Date: Wed, 20 Oct 2021 20:22:35 -0400
+Message-Id: <20211021002238.1129482-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211021002155.1129292-1-sashal@kernel.org>
-References: <20211021002155.1129292-1-sashal@kernel.org>
+In-Reply-To: <20211021002238.1129482-1-sashal@kernel.org>
+References: <20211021002238.1129482-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
  Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.de>,
- tiwai@suse.com, broonie@kernel.org, ranjani.sridharan@linux.intel.com
+ ranjani.sridharan@linux.intel.com, tiwai@suse.com, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -127,10 +127,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/sound/hda/hdac_controller.c b/sound/hda/hdac_controller.c
-index b98449fd92f3..522d1897659c 100644
+index 7e7be8e4dcf9..87ba66dcfd47 100644
 --- a/sound/hda/hdac_controller.c
 +++ b/sound/hda/hdac_controller.c
-@@ -421,8 +421,9 @@ int snd_hdac_bus_reset_link(struct hdac_bus *bus, bool full_reset)
+@@ -395,8 +395,9 @@ int snd_hdac_bus_reset_link(struct hdac_bus *bus, bool full_reset)
  	if (!full_reset)
  		goto skip_reset;
  

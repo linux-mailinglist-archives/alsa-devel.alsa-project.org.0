@@ -2,82 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B58F0438405
-	for <lists+alsa-devel@lfdr.de>; Sat, 23 Oct 2021 17:15:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6909443851C
+	for <lists+alsa-devel@lfdr.de>; Sat, 23 Oct 2021 21:59:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BCC1166B;
-	Sat, 23 Oct 2021 17:14:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BCC1166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6B1984C;
+	Sat, 23 Oct 2021 21:59:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6B1984C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635002135;
-	bh=7H1yqXkqsmC/9e3zmhPrWPjwjkoTWWopvjnIUR5P3w0=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1635019192;
+	bh=Zar4VCleX1rMcmf2rFJTpgwQqmt+RoQ5UJv4um4+v2w=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nlC0UFI8Jwnlg+YW0H9l9IJV4Wz9SKymfTMAXOOO1yAvprnJqmegNMOjtRD5Mwixv
-	 3EzFHcYrDOiMHDv2AnBMS29JO+jzEI8DxMQWNNjdhbTiWJqSh0+2DpgTtCUOXNcYR3
-	 nz/0oSMlZNuJi6RQY1iO0sgrPylfQUT2cbtmSnJI=
+	b=joQ5P4xWeF/i2UvppS9DkHWpM+CTdF2iQ1sEDv4zXc2QnnpxR7YIGLDRGHLWOTj+D
+	 rSuzn/qJkRFyaVmeY+40dP3Lp5whj0PTA95LTSWoO3Wf/tQOQkeCE9G5QFHh8NDcGx
+	 06KCb14ai7/pSMzy15OevTgmvxG3PF+t7fCV7dYE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 555E7F80246;
-	Sat, 23 Oct 2021 17:14:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5F0BAF80246;
+	Sat, 23 Oct 2021 21:58:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D27EAF80240; Sat, 23 Oct 2021 17:14:16 +0200 (CEST)
+ id 42292F80249; Sat, 23 Oct 2021 21:58:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com
- [209.85.167.179])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 12D53F8010B
- for <alsa-devel@alsa-project.org>; Sat, 23 Oct 2021 17:14:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12D53F8010B
-Received: by mail-oi1-f179.google.com with SMTP id z126so8904907oiz.12
- for <alsa-devel@alsa-project.org>; Sat, 23 Oct 2021 08:14:09 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
- :message-id;
- bh=Bg2HoxcvGMf9Ovj9pzcdsVijqJ6NR5PA0icgim7NWfg=;
- b=7OM/BVRaemFDrgqi22w2O6AVfCwHQRNDMyWe0wusdZY75FcET51PiYdZwaIIF+Eby7
- +bDko4HcuCBY0fz7gp7QZVt1eVDoVGGpwuTCyoNctXVqEqy6tHl72HaNHpCAyk97fXY+
- MJfITJKGMLoM2MHa/E5t4/RfBLMu4xCG/SyizuI/A99+1upc9wUH14ntk4sRNNUJhCYq
- WlRu5w9rWSbq1/TxaXKxMroO0hLDvjti5kXFDeZgK405jn1GkITSmrfvXMQ4nOhV115y
- EWvhzmzgfTTnMSe/ENc7qebuZpQSOc7r3re0cAz0ZtWlliFjPjkTXC5j42Q6febokNNV
- 3GYA==
-X-Gm-Message-State: AOAM533N1SHO9w121wDZ1j/P5JADFWeAaxxchrB/vSHNbI2ob4Ao7RdE
- ngnStE6gJn3mOLSfBu60cQ==
-X-Google-Smtp-Source: ABdhPJwQDNUGM05bn4X0T3kRMyChqK0m5VA0mJAMxX4DU1XqHz1ATJcKoGJH4PT3tIl5jnn3ivdTug==
-X-Received: by 2002:a05:6808:1392:: with SMTP id
- c18mr4610058oiw.23.1635002047669; 
- Sat, 23 Oct 2021 08:14:07 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id l7sm2001249oog.22.2021.10.23.08.14.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 23 Oct 2021 08:14:06 -0700 (PDT)
-Received: (nullmailer pid 457390 invoked by uid 1000);
- Sat, 23 Oct 2021 15:14:05 -0000
-From: Rob Herring <robh@kernel.org>
-To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-In-Reply-To: <1634982842-7477-9-git-send-email-srivasam@codeaurora.org>
-References: <1634982842-7477-1-git-send-email-srivasam@codeaurora.org>
- <1634982842-7477-9-git-send-email-srivasam@codeaurora.org>
-Subject: Re: [PATCH v3 08/10] ASoC: dt-bindings: Add SC7280 sound card bindings
-Date: Sat, 23 Oct 2021 10:14:05 -0500
-Message-Id: <1635002045.623723.457389.nullmailer@robh.at.kernel.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, lgirdwood@gmail.com,
- Venkata Prasad Potturu <potturu@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- plai@codeaurora.org, tiwai@suse.com, agross@kernel.org, robh+dt@kernel.org,
- bjorn.andersson@linaro.org, broonie@kernel.org, rohitkr@codeaurora.org,
- swboyd@chromium.org, judyhsiao@chromium.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4A871F80086
+ for <alsa-devel@alsa-project.org>; Sat, 23 Oct 2021 21:58:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A871F80086
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="PkmJ5Kd0"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5FB4060F46;
+ Sat, 23 Oct 2021 19:58:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1635019104;
+ bh=Zar4VCleX1rMcmf2rFJTpgwQqmt+RoQ5UJv4um4+v2w=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=PkmJ5Kd0AgCNbB/KsdJGhYhpm5w/9s8JvmKRJu0PzfrZkQL1HQzGrVSGn4KHghVyw
+ skRZbQD4DUmunPbqiaRTeOL4twp6z76XhJTyg8bJL4xW1I+5T9htnfMNiBFAKCGQCC
+ U+5deHyntWBYhBcybz/w63yIG+YFe3gk0+Zesg/YG5vbgW0y27+SiIiRnl4SWfn4fX
+ AnwjQ9Csnc6yxjXcwBAL2WUisxJE7RScK6fQtS8z0ZIz0/aRkuzLMf9tFuRaivgoRs
+ tK7vfPGQcA8kXhx062QtXscDDKOyHJR9E8E8MAEdW9OTwTgmwXN5RV+fkpu6mkr2iO
+ F5hKVvXxV7zXQ==
+From: Mark Brown <broonie@kernel.org>
+To: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>, alsa-devel@alsa-project.org
+Subject: Re: [PATCH v4 0/8] ASoC: Add common modules support for ACP hw block
+Date: Sat, 23 Oct 2021 20:58:06 +0100
+Message-Id: <163501902839.919045.13954897751272124558.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20211019070938.5076-1-AjitKumar.Pandey@amd.com>
+References: <20211019070938.5076-1-AjitKumar.Pandey@amd.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: Alexander.Deucher@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Mark Brown <broonie@kernel.org>, Sunil-kumar.Dommati@amd.com,
+ Vijendar.Mukunda@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,48 +80,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 23 Oct 2021 15:24:00 +0530, Srinivasa Rao Mandadapu wrote:
-> Add bindings for lpass sc7280 based soundcards which supports
-> audio over i2s based speaker, soundwire based headset, msm dmics
-> and HDMI Port.
+On Tue, 19 Oct 2021 12:39:30 +0530, Ajit Kumar Pandey wrote:
+> changes since v3:
+> - rebase and fixes merge conflict.
+> - Fixed kernel autobot warning.
 > 
-> Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-> Co-developed-by: Venkata Prasad Potturu <potturu@codeaurora.org>
-> Signed-off-by: Venkata Prasad Potturu <potturu@codeaurora.org>
-> ---
->  .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  | 69 +++++++++++++++++++---
->  1 file changed, 61 insertions(+), 8 deletions(-)
 > 
+> Ajit Kumar Pandey (8):
+>   ASoC: amd: Add common framework to support I2S on ACP SOC
+>   ASoC: amd: acp: Add I2S support on Renoir platform
+>   ASoC: amd: acp: Add callback for machine driver on ACP
+>   ASoC: amd: acp: Add generic machine driver support for ACP cards
+>   ASoC: amd: acp: Add legacy sound card support for Chrome audio
+>   ASoC: amd: acp: Add SOF audio support on Chrome board
+>   ASoC: amd: acp: Add support for Maxim amplifier codec
+>   ASoC: amd: acp: Add support for RT5682-VS codec
+> 
+> [...]
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Applied to
 
-yamllint warnings/errors:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-dtschema/dtc warnings/errors:
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.example.dt.yaml: lpass@62d80000: reg: [[0, 1658351616, 0, 425984], [0, 1659895808, 0, 167936]] is too short
-	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.example.dt.yaml: lpass@62d80000: reg-names: ['lpass-hdmiif', 'lpass-lpaif'] is too short
-	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.example.dt.yaml: lpass@62d80000: interrupts: [[0, 160, 1], [0, 268, 1]] is too short
-	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.example.dt.yaml: lpass@62d80000: interrupt-names: ['lpass-irq-lpaif', 'lpass-irq-hdmi'] is too short
-	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.example.dt.yaml: lpass@62d80000: iommus: [[4294967295, 4128, 0], [4294967295, 4146, 0]] is too short
-	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+Thanks!
 
-doc reference errors (make refcheckdocs):
+[1/8] ASoC: amd: Add common framework to support I2S on ACP SOC
+      commit: 623621a9f9e1a2f4bf1c69d066b7de3de2b12df6
+[2/8] ASoC: amd: acp: Add I2S support on Renoir platform
+      commit: 58c8c8438db45fb22b8d855645e2d4d15ca9ee72
+[3/8] ASoC: amd: acp: Add callback for machine driver on ACP
+      commit: e646b51f5dd5e92bcb159cb932aa540451ac803f
+[4/8] ASoC: amd: acp: Add generic machine driver support for ACP cards
+      commit: d4c750f2c7d44b5b39e197308bc3f510205bba4b
+[5/8] ASoC: amd: acp: Add legacy sound card support for Chrome audio
+      commit: 9d8a7be88b3365e4df6bf983b9af5399f9c81491
+[6/8] ASoC: amd: acp: Add SOF audio support on Chrome board
+      commit: 9f84940f5004e1d29f28b85294d4c3b683ff3ff4
+[7/8] ASoC: amd: acp: Add support for Maxim amplifier codec
+      commit: cabc3acec02a3fb63efaba8ac892b54e823cd111
+[8/8] ASoC: amd: acp: Add support for RT5682-VS codec
+      commit: 8b72562668481894239e145afd2f651a7f83a728
 
-See https://patchwork.ozlabs.org/patch/1545178
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-This check can fail if there are any dependencies. The base for a patch
-series is generally the most recent rc1.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-pip3 install dtschema --upgrade
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-Please check and re-submit.
-
+Thanks,
+Mark

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6909443851C
-	for <lists+alsa-devel@lfdr.de>; Sat, 23 Oct 2021 21:59:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAE8343851E
+	for <lists+alsa-devel@lfdr.de>; Sat, 23 Oct 2021 22:00:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6B1984C;
-	Sat, 23 Oct 2021 21:59:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6B1984C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B3191670;
+	Sat, 23 Oct 2021 21:59:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B3191670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635019192;
-	bh=Zar4VCleX1rMcmf2rFJTpgwQqmt+RoQ5UJv4um4+v2w=;
+	s=default; t=1635019217;
+	bh=6RYOjNhOqePoqMrCgzEd2gm+t+nWvwhsZ3euwxjtfQU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=joQ5P4xWeF/i2UvppS9DkHWpM+CTdF2iQ1sEDv4zXc2QnnpxR7YIGLDRGHLWOTj+D
-	 rSuzn/qJkRFyaVmeY+40dP3Lp5whj0PTA95LTSWoO3Wf/tQOQkeCE9G5QFHh8NDcGx
-	 06KCb14ai7/pSMzy15OevTgmvxG3PF+t7fCV7dYE=
+	b=qoG4w8gyBGusUfuRF24tc/nUUBmu2xOkMi+FqWWFs6krJwPR+/7oVFnOz/t3JESsm
+	 9xQOYVvPkmVOoq7PcI+loqRnbPabxP1szVH0WK4ToJoJiwzVb/yu19bTcfBt5Lgzpn
+	 O60YIvV1qhhDqgET6dzwVCpyAChvWgcpGD4RgjdI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F0BAF80246;
-	Sat, 23 Oct 2021 21:58:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3630EF8025C;
+	Sat, 23 Oct 2021 21:58:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 42292F80249; Sat, 23 Oct 2021 21:58:33 +0200 (CEST)
+ id 8248FF80246; Sat, 23 Oct 2021 21:58:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,32 +33,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A871F80086
- for <alsa-devel@alsa-project.org>; Sat, 23 Oct 2021 21:58:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A871F80086
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0E46CF8019B
+ for <alsa-devel@alsa-project.org>; Sat, 23 Oct 2021 21:58:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E46CF8019B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="PkmJ5Kd0"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5FB4060F46;
- Sat, 23 Oct 2021 19:58:24 +0000 (UTC)
+ header.b="nhYww2XP"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 31A4E60F4B;
+ Sat, 23 Oct 2021 19:58:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1635019104;
- bh=Zar4VCleX1rMcmf2rFJTpgwQqmt+RoQ5UJv4um4+v2w=;
+ s=k20201202; t=1635019107;
+ bh=6RYOjNhOqePoqMrCgzEd2gm+t+nWvwhsZ3euwxjtfQU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PkmJ5Kd0AgCNbB/KsdJGhYhpm5w/9s8JvmKRJu0PzfrZkQL1HQzGrVSGn4KHghVyw
- skRZbQD4DUmunPbqiaRTeOL4twp6z76XhJTyg8bJL4xW1I+5T9htnfMNiBFAKCGQCC
- U+5deHyntWBYhBcybz/w63yIG+YFe3gk0+Zesg/YG5vbgW0y27+SiIiRnl4SWfn4fX
- AnwjQ9Csnc6yxjXcwBAL2WUisxJE7RScK6fQtS8z0ZIz0/aRkuzLMf9tFuRaivgoRs
- tK7vfPGQcA8kXhx062QtXscDDKOyHJR9E8E8MAEdW9OTwTgmwXN5RV+fkpu6mkr2iO
- F5hKVvXxV7zXQ==
+ b=nhYww2XPm2pLDBSD6l3I/eOlM9DOqSkHqQEKy8dKtr6+OUSLVde8PJHwm7ucipHJ5
+ x0SHPREQMOaWppWgNZp5ILctUJAfwuEDzl/eukvMgDN9FeWPBpZ12Shu6JgJIzmKw/
+ yncDRK6Dr11Q/m23QTZc4D0ucYMlweEfVaWjR6sBzsQPE1yExKK0KNSySeK0PiMcQq
+ jc7ZNyEl2m8urfv81VhmvE8F6nG0Q/R3duVX+9sRqZX3B2vnw6TPut9hrDVVVZd7ze
+ HHATLGOGWrvXdAdIeq/JX27H/MRjRmd52ImOT07isGBo9EF5OjM+AFfyAt27AdOzYG
+ DtnxukI1nTmEg==
 From: Mark Brown <broonie@kernel.org>
 To: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>, alsa-devel@alsa-project.org
-Subject: Re: [PATCH v4 0/8] ASoC: Add common modules support for ACP hw block
-Date: Sat, 23 Oct 2021 20:58:06 +0100
-Message-Id: <163501902839.919045.13954897751272124558.b4-ty@kernel.org>
+Subject: Re: [PATCH v3 0/8] ASoC: Add common modules support for ACP hw block
+Date: Sat, 23 Oct 2021 20:58:07 +0100
+Message-Id: <163501902839.919045.6650764358822175726.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20211019070938.5076-1-AjitKumar.Pandey@amd.com>
-References: <20211019070938.5076-1-AjitKumar.Pandey@amd.com>
+In-Reply-To: <20211012071939.97002-1-AjitKumar.Pandey@amd.com>
+References: <20211012071939.97002-1-AjitKumar.Pandey@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -80,11 +80,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 19 Oct 2021 12:39:30 +0530, Ajit Kumar Pandey wrote:
-> changes since v3:
-> - rebase and fixes merge conflict.
-> - Fixed kernel autobot warning.
-> 
+On Tue, 12 Oct 2021 12:49:31 +0530, Ajit Kumar Pandey wrote:
+> changes since v2:
+> - Fixes Kconfig description and indent.
 > 
 > Ajit Kumar Pandey (8):
 >   ASoC: amd: Add common framework to support I2S on ACP SOC

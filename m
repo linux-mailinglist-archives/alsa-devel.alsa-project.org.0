@@ -2,70 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B26143851F
-	for <lists+alsa-devel@lfdr.de>; Sat, 23 Oct 2021 22:00:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DADD24387A6
+	for <lists+alsa-devel@lfdr.de>; Sun, 24 Oct 2021 10:33:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 874DF1662;
-	Sat, 23 Oct 2021 21:59:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 874DF1662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B3A0166B;
+	Sun, 24 Oct 2021 10:32:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B3A0166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635019236;
-	bh=BPW8lGPp0IBk54KARrIXcoKWEGjr/Ou+DeAMmCe3AeE=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=CCLZPZOERBpZlsHeB54jFl0mi2GZs12e3idRwQgmhblhE2yxe8Zvxp5kHmE5PAFdx
-	 V2SglsgEWQKeppMpTL1yRcAR596h8omeQbv1dH3Nf5HSuYJBfkyr8zgWeXHvxaChOq
-	 2t8+WVvo2nfwnB+rUnpmKbcelkvbWnyt0lzI+1Xg=
+	s=default; t=1635064409;
+	bh=UOB5yj5+/U2kDusxmo4YqOcuGUJHpbmQOW/oHsurAtY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ZbrXlI8NTEMDtmEEDdsCNFVB0Eg5B0j283kPZCaQYhAm/VgBuvLWvNWoCI8Q73kBJ
+	 cQky2o3dGVZyV5suioZUXkBRuYM0gt6UlMjJoUFLjqblGcJqsCfuzn4ClNXLS7zveS
+	 LN88yl7JtUXFwqJGQAv/9o2UTmpv5bsXtAgV8jsg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F425F804F1;
-	Sat, 23 Oct 2021 21:58:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 821A1F80086;
+	Sun, 24 Oct 2021 10:32:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 836BFF80240; Sat, 23 Oct 2021 21:58:35 +0200 (CEST)
+ id 9520EF802E7; Sun, 24 Oct 2021 10:32:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from cable.insite.cz (cable.insite.cz [84.242.75.189])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 27985F801DB
- for <alsa-devel@alsa-project.org>; Sat, 23 Oct 2021 21:58:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27985F801DB
+ by alsa1.perex.cz (Postfix) with ESMTPS id D1723F80166
+ for <alsa-devel@alsa-project.org>; Sun, 24 Oct 2021 10:32:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1723F80166
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="LqMj3nNx"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E2EDC60F48;
- Sat, 23 Oct 2021 19:58:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1635019110;
- bh=BPW8lGPp0IBk54KARrIXcoKWEGjr/Ou+DeAMmCe3AeE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=LqMj3nNxEq2qnVs5CG508hU2Ijc+c7g7OA/pXSEvumYuiv5s71H5ao12poGtGfceB
- jwTy9rUWet9+YOYBIL6W1IpM0QjXXUGAruaE1eFrbU8iNk+YAGpfUUFQfxVZZrs3/U
- BHW8rJLhY2EvJuP9FUIRQ3bYv9wb5H+o7KLG885+lC/UnFe/6zFwpYnbIRYGRRk9S8
- 6OyhARyYCQGVIbA+gjvFcGtY0EMrTLXnfJgLNajh/H68eF9StLg/jbnNnQzxBtzXsy
- 9WRIp2jTkhJO6uOs1qFV8OOe8ILpBhmaI3CIZoPQHCKjZigCVslwdS/bok55PVgdLq
- Ts/hYz+fdXlwA==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Subject: Re: [PATCH V2 00/13] Add Yellow Carp platform ASoC driver
-Date: Sat, 23 Oct 2021 20:58:08 +0100
-Message-Id: <163501902838.919045.3108416035531446792.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20211018112044.1705805-1-Vijendar.Mukunda@amd.com>
-References: <20211018112044.1705805-1-Vijendar.Mukunda@amd.com>
+ dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
+ header.b="EmHVtcPt"; 
+ dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
+ header.b="ndno4+GU"
+Received: from localhost (localhost [127.0.0.1])
+ by cable.insite.cz (Postfix) with ESMTP id 48127A1A3D405;
+ Sun, 24 Oct 2021 10:32:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+ t=1635064322; bh=UOB5yj5+/U2kDusxmo4YqOcuGUJHpbmQOW/oHsurAtY=;
+ h=From:To:Cc:Subject:Date:From;
+ b=EmHVtcPttCU10ovJjduS9xUQFz035VYlFtQLkMlvQfqfGaA3EBep5jfW6EThyCFH2
+ dKScOXKHcCUvkMpxifInU9roCB4qv2KFV6UGkkD9ANaLDXbDUHhFdeogXQpPVp2O8s
+ 3B1hE4SjLQ3+6AqeTnX0wxXKq/3TL+pzLLDmUQW8=
+Received: from cable.insite.cz ([84.242.75.189])
+ by localhost (server.insite.cz [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id KvguibhTrETL; Sun, 24 Oct 2021 10:31:56 +0200 (CEST)
+Received: from precision.doma (ip28.insite.cz [81.0.237.28])
+ (Authenticated sender: pavel)
+ by cable.insite.cz (Postfix) with ESMTPSA id 9D706A1A3D403;
+ Sun, 24 Oct 2021 10:31:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+ t=1635064316; bh=UOB5yj5+/U2kDusxmo4YqOcuGUJHpbmQOW/oHsurAtY=;
+ h=From:To:Cc:Subject:Date:From;
+ b=ndno4+GUrL/SZRMHHFI9GLX2oOPA4SVpT1OkXnRR0eZ3/NRws5qHoIu5CGM9QGzAh
+ NpJ6OsSB9Z6KAc6fUa6G7vK5ej6oL97w4TMDXbXwPRiWXdfCqJtyNUYamsy+D6/GsP
+ TtmS0/vRhVOXkX/orkvgetFXTdEuXRKLsN7Z++wA=
+From: Pavel Hofman <pavel.hofman@ivitera.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 1/2] alsaloop: Renamed field capt_pitch to ctl_pitch
+Date: Sun, 24 Oct 2021 10:31:54 +0200
+Message-Id: <20211024083156.4743-1-pavel.hofman@ivitera.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Sunil-kumar.Dommati@amd.com, mlimonci@amd.com, richgong@amd.com,
- Mark Brown <broonie@kernel.org>, Alexander.Deucher@amd.com,
- Basavaraj.Hiregoudar@amd.com
+Cc: Pavel Hofman <pavel.hofman@ivitera.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,70 +87,77 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 18 Oct 2021 16:50:31 +0530, Vijendar Mukunda wrote:
-> Yellow Carp platform is new APU series based on acp6.x design.
-> This patch set adds an ASoC driver for the ACP (Audio CoProcessor)
-> block on AMD Yellow Carp APU with DMIC endpoint support.
-> 
-> changes since v1:
->   - fixed SPDX commenting style in acp6x pci driver.
->   - fixed Copyright commenting style in acp6x pci driver,
->     pdm dma driver and machine driver files.
->   - fixed local variable check logic in acp6x_power_on() function.
->   - fixed Kconfig indentation issue
->   - removed irq_flag local variable in irq handler.
->   - add dmi info check in machine driver probe
-> 
-> [...]
+Renaming capt_pitch to ctl_pitch to respect the naming style of
+snd_ctl_elem_value_t fields in loopback_handle. Also making the variable
+name suitable for planned support of playback pitch.
 
-Applied to
+Signed-off-by: Pavel Hofman <pavel.hofman@ivitera.com>
+---
+ alsaloop/alsaloop.h |  2 +-
+ alsaloop/pcmjob.c   | 16 ++++++++--------
+ 2 files changed, 9 insertions(+), 9 deletions(-)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+diff --git a/alsaloop/alsaloop.h b/alsaloop/alsaloop.h
+index 7a98ef3..a5539ef 100644
+--- a/alsaloop/alsaloop.h
++++ b/alsaloop/alsaloop.h
+@@ -122,7 +122,7 @@ struct loopback_handle {
+ 	unsigned int ctl_pollfd_count;
+ 	snd_ctl_elem_value_t *ctl_notify;
+ 	snd_ctl_elem_value_t *ctl_rate_shift;
+-	snd_ctl_elem_value_t *capt_pitch;
++	snd_ctl_elem_value_t *ctl_pitch;
+ 	snd_ctl_elem_value_t *ctl_active;
+ 	snd_ctl_elem_value_t *ctl_format;
+ 	snd_ctl_elem_value_t *ctl_rate;
+diff --git a/alsaloop/pcmjob.c b/alsaloop/pcmjob.c
+index 13fa595..7b47c40 100644
+--- a/alsaloop/pcmjob.c
++++ b/alsaloop/pcmjob.c
+@@ -1063,9 +1063,9 @@ static int set_rate_shift(struct loopback_handle *lhandle, double pitch)
+ 	if (lhandle->ctl_rate_shift) {
+ 		snd_ctl_elem_value_set_integer(lhandle->ctl_rate_shift, 0, pitch * 100000);
+ 		err = snd_ctl_elem_write(lhandle->ctl, lhandle->ctl_rate_shift);
+-	} else if (lhandle->capt_pitch) {
+-		snd_ctl_elem_value_set_integer(lhandle->capt_pitch, 0, (1 / pitch) * 1000000);
+-		err = snd_ctl_elem_write(lhandle->ctl, lhandle->capt_pitch);
++	} else if (lhandle->ctl_pitch) {
++		snd_ctl_elem_value_set_integer(lhandle->ctl_pitch, 0, (1 / pitch) * 1000000);
++		err = snd_ctl_elem_write(lhandle->ctl, lhandle->ctl_pitch);
+ 	} else {
+ 		return 0;
+ 	}
+@@ -1252,7 +1252,7 @@ static int openctl(struct loopback_handle *lhandle, int device, int subdevice)
+ 	openctl_elem(lhandle, device, subdevice, "PCM Rate Shift 100000",
+ 			&lhandle->ctl_rate_shift);
+ 	openctl_elem(lhandle, device, subdevice, "Capture Pitch 1000000",
+-			&lhandle->capt_pitch);
++			&lhandle->ctl_pitch);
+ 	set_rate_shift(lhandle, 1);
+ 	openctl_elem(lhandle, device, subdevice, "PCM Slave Active",
+ 			&lhandle->ctl_active);
+@@ -1338,9 +1338,9 @@ static int closeit(struct loopback_handle *lhandle)
+ 	if (lhandle->ctl_rate_shift)
+ 		snd_ctl_elem_value_free(lhandle->ctl_rate_shift);
+ 	lhandle->ctl_rate_shift = NULL;
+-	if (lhandle->capt_pitch)
+-		snd_ctl_elem_value_free(lhandle->capt_pitch);
+-	lhandle->capt_pitch = NULL;
++	if (lhandle->ctl_pitch)
++		snd_ctl_elem_value_free(lhandle->ctl_pitch);
++	lhandle->ctl_pitch = NULL;
+ 	if (lhandle->ctl)
+ 		err = snd_ctl_close(lhandle->ctl);
+ 	lhandle->ctl = NULL;
+@@ -1386,7 +1386,7 @@ int pcmjob_init(struct loopback *loop)
+ 	snprintf(id, sizeof(id), "%s/%s", loop->play->id, loop->capt->id);
+ 	id[sizeof(id)-1] = '\0';
+ 	loop->id = strdup(id);
+-	if (loop->sync == SYNC_TYPE_AUTO && (loop->capt->ctl_rate_shift || loop->capt->capt_pitch))
++	if (loop->sync == SYNC_TYPE_AUTO && (loop->capt->ctl_rate_shift || loop->capt->ctl_pitch))
+ 		loop->sync = SYNC_TYPE_CAPTRATESHIFT;
+ 	if (loop->sync == SYNC_TYPE_AUTO && loop->play->ctl_rate_shift)
+ 		loop->sync = SYNC_TYPE_PLAYRATESHIFT;
+-- 
+2.25.1
 
-Thanks!
-
-[01/13] ASoC: amd: add Yellow Carp ACP6x IP register header
-        commit: 53880e382bb1323897f43f16f4b1b98ac5044871
-[02/13] ASoC: amd: add Yellow Carp ACP PCI driver
-        commit: c62442bd5d9f86575d74c77b891ef0df9e3cb6dd
-[03/13] ASoC: amd: add acp6x init/de-init functions
-        commit: 8c7161f2c97b2dba018ecf0af8a0553e283a5c3e
-[04/13] ASoC: amd: add platform devices for acp6x pdm driver and dmic driver
-        commit: fc329c1de49825a30d5381e18316a3fd45aac7a9
-[05/13] ASoC: amd: add acp6x pdm platform driver
-        commit: 7610174a5bfe6cf34eda8f972311e629ae6dc2d1
-[06/13] ASoC: amd: add acp6x irq handler
-        commit: cc0deaa2dc7300bb33e44e52cde0b6947a5d3a5d
-[07/13] ASoC: amd: add acp6x pdm driver dma ops
-        commit: ceb4fcc13ae58102ad31aa4071d9e57e57eea3df
-[08/13] ASoC: amd: add acp6x pci driver pm ops
-        commit: c8212df7bc0f2ed323ad1da96106792103ee94f1
-[09/13] ASoC: amd: add acp6x pdm driver pm ops
-        commit: 4c2e711af2193bc58f247f32edc30ee6a15e71f2
-[10/13] ASoC: amd: enable Yellow carp acp6x drivers build
-        commit: 89728d97db3f078aceb967ebe5ed2d0797b6a117
-[11/13] ASoC: amd: create platform device for acp6x machine driver
-        commit: 058dfdf37f25580423fd21d4b78d2daf217d0cf5
-[12/13] ASoC: amd: add YC machine driver using dmic
-        commit: fa991481b8b22a7797a828135ce62a73791bbe39
-[13/13] ASoC: amd: enable Yellow Carp platform machine driver build
-        commit: a80d7edadfa16fa1d4aca4a2253a0af921c3aaef
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

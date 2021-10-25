@@ -2,123 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C8E543947C
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Oct 2021 13:08:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AEF94394BE
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Oct 2021 13:24:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 02ADE16C1;
-	Mon, 25 Oct 2021 13:07:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02ADE16C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1CF6F16C3;
+	Mon, 25 Oct 2021 13:23:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CF6F16C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635160094;
-	bh=gSy7o+7zmDB2sokrNdmAXlNi0TTvwK4KjtPYVksVQ+8=;
+	s=default; t=1635161078;
+	bh=hDpWssN9b3p2x3lf/+t5nAs0XUDeN8a1zeAj/VtIEGU=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=YZ2HI5YmmZFK0RfcMKpbK4Q5cKayuA8W+cgeOc3wY7I7klpKfrbjvNdZb9Ty8nDfx
-	 Jz+jigqPkdWxfhef30eHfTVo7QkyxrPpXcjJ7FkW8ppt7ZbQIPCCNiSFCqO+hhR2L5
-	 /QI4nhQyDWvr3x544F9hOgVFVqIHgOKCJrUbeIow=
+	b=BTOAETzqwcwrXQu1dR3gBdS3L4v72x4L3aOxUYOtKC4Lt9tj9BBzDqQEnqJfvFJ3s
+	 uzyYFWBezd682/TDn7ELgJ3ZZoK6ieBB6l4qzxsmtN7sL0Bmy4ostgRSRUCbn2S/67
+	 E7FbhIZ8dejVR1YgFpN/MusEGWrnOrSQbdmg2KNI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A022F8025E;
-	Mon, 25 Oct 2021 13:06:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7176CF8025E;
+	Mon, 25 Oct 2021 13:23:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A535EF8025A; Mon, 25 Oct 2021 13:06:52 +0200 (CEST)
+ id E9BA6F8025A; Mon, 25 Oct 2021 13:23:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2066.outbound.protection.outlook.com [40.107.92.66])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5F637F80153
- for <alsa-devel@alsa-project.org>; Mon, 25 Oct 2021 13:06:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F637F80153
+ by alsa1.perex.cz (Postfix) with ESMTPS id 86F54F80086
+ for <alsa-devel@alsa-project.org>; Mon, 25 Oct 2021 13:23:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86F54F80086
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com
- header.b="umYtPBKk"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G+kB/dugaTQcraMu+MNJ18nfb1LKsm9RqyNeqyLrMMqnhFYp0xQoSojRGM0W/pWa0NJuba1XgYcBmFAc52OX09wrbwznLRLswI7le7DUWyzbrSNo5zFyv9XN4T9U8FWpjbpqliXhaVh361ekyMQIyzUAUUGzBlRyY4o4gV1LHwJw9DeArz4CaPWHGIqbFy/a18h7ClcpgUh/Kusb4zFpYsWnBAZ6kK5+DYbd4h8iSA2FoYifbfhIdDVSUjo7RbRUiKVfU7f9b8MSmPaMdi4RON0RZ7NMN94Rsc48NpifbDSK0f68ARB5OUwKucd/I4B4Y5K2zO6KvbBFnn36oM3oDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+Rc06ufQdIBpzQwyKPOx3ry98XFZRZHDpzcxyFx0y70=;
- b=Oo4rgn6J/FCoTmkTyEsWEujcjRFYE8/4OgtMQjFOCee9NK0Rc7nCJk/QNWSCMcG9izQb9ouC84627ITiKkV6ZDjsvDdX37zyyFWziCeJV1iiqIcmC6INeevd/Vsn1weWLgG5jxJGfYjovAq0F7EOJQNHXeEDsiG8kQn1PDcxonrQCbWLWKWMJ6seU/dn++48xPsHgFK+9vMXyfq1joaYY0iMwImukjqcNfQR1k8H0zwAf2R6mCc1FHxv1RoI8T4qZukvHPd2LtDzGGX4EacQF9r1IXUQNwMi7BRxnbwPlDVld8O0hsaK9P4YRZc/ZRIdKIXTddPlBnAcAp83W5TF8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.112.32) smtp.rcpttodomain=alsa-project.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=nvidia.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+Rc06ufQdIBpzQwyKPOx3ry98XFZRZHDpzcxyFx0y70=;
- b=umYtPBKkEeSKqxUSFJw2CAdXFQ/x5Y+lbk7Po9eX6okTMp1VvyeNetpOLlOcHLCt5O825f4G3ur8Xvto/Y1+wdg53m6YUUORXew+7jUPzq0fbazZDX0BcbIi7W8CXZBbXZ7NY8aaYPyloN9jJxoDOQRGRS1bA2wvRzk0QnKxmOzbYRS96HriEY9vzWj/UgkNu5cSLm79EY9ban/JUidyINHAn7CMk1Mxf3AlXjq4Yq6K3uTPK0gnnHVwzVP8XCQIL1O2srB/X0MOYuV1AgxywLbPgSIJ4FhOPYawZ4DU+/1HnJXxLtswUIAKAuWVQC3J2AVFhMWYNbWEXbJDckatMg==
-Received: from MW4PR03CA0139.namprd03.prod.outlook.com (2603:10b6:303:8c::24)
- by BN6PR12MB1378.namprd12.prod.outlook.com (2603:10b6:404:1e::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18; Mon, 25 Oct
- 2021 11:06:42 +0000
-Received: from CO1NAM11FT011.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8c:cafe::76) by MW4PR03CA0139.outlook.office365.com
- (2603:10b6:303:8c::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18 via Frontend
- Transport; Mon, 25 Oct 2021 11:06:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.112.32)
- smtp.mailfrom=nvidia.com; alsa-project.org; dkim=none (message not signed)
- header.d=none;alsa-project.org; dmarc=pass action=none
- header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.112.32 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.112.32; helo=mail.nvidia.com;
-Received: from mail.nvidia.com (216.228.112.32) by
- CO1NAM11FT011.mail.protection.outlook.com (10.13.175.186) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.4628.16 via Frontend Transport; Mon, 25 Oct 2021 11:06:40 +0000
-Received: from HQMAIL109.nvidia.com (172.20.187.15) by HQMAIL109.nvidia.com
- (172.20.187.15) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Mon, 25 Oct
- 2021 04:06:38 -0700
-Received: from audio.nvidia.com (172.20.187.5) by mail.nvidia.com
- (172.20.187.15) with Microsoft SMTP Server id 15.0.1497.18 via Frontend
- Transport; Mon, 25 Oct 2021 04:06:36 -0700
-From: Sameer Pujar <spujar@nvidia.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
- <tiwai@suse.com>
-Subject: [PATCH] ASoC: tegra: Add master volume/mute control support
-Date: Mon, 25 Oct 2021 16:36:16 +0530
-Message-ID: <1635159976-17355-1-git-send-email-spujar@nvidia.com>
-X-Mailer: git-send-email 2.7.4
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="oFo4CXz/"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19P5jNM9005112; 
+ Mon, 25 Oct 2021 06:23:03 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=VPcBbAqi2DbB27wZnmeP2IfVFq+8fG1M95X3zZOgA+c=;
+ b=oFo4CXz/hhrrVTRnLL1VkDhU117ES+EF4wfEBQfrpp97+q3VSrtd9fRXSRViPH1GWBBq
+ YCozk+NQbi+4K/N3FsLD5u/mprWExzIXP/OmHEgkQ59kPyN73KcJznFPkBPATHwMRMwX
+ 0o+fZCPkWlKALJnXGO8JMpbv9KbcNi545pUc2JqGOcVcWJlc3oay6EOXpRNz9EF/W7IC
+ KEjgsJXgN0obW3aUljIVdsZ3HcY6xkB9wnrEoCozZSRfi59Y5dZ5poY0xaCr3AE1TZEQ
+ ExNIVB0LIX909b73bJyIqXh1eweyHxSYW8sVsEx562m3pfzplKWRWD+U3vBe/DqRvLL/ Jw== 
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0a-001ae601.pphosted.com with ESMTP id 3bw93g0xk5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 25 Oct 2021 06:23:02 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.7; Mon, 25 Oct
+ 2021 12:23:01 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.7 via Frontend
+ Transport; Mon, 25 Oct 2021 12:23:01 +0100
+Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
+ [198.61.65.32])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 347C0B0E;
+ Mon, 25 Oct 2021 11:23:00 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+Subject: [PATCH] ASoC: cs42l42: Prevent NULL pointer deref in interrupt handler
+Date: Mon, 25 Oct 2021 12:22:58 +0100
+Message-ID: <20211025112258.9282-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 19d1ac5f-a7ac-4510-9de2-08d997a785a4
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1378:
-X-Microsoft-Antispam-PRVS: <BN6PR12MB1378E4F53C212C2450F63D94A7839@BN6PR12MB1378.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xKaCWOOYmVgdw55pPNYJpXGyirlsc3xRAAb1Ld1trMxDzOBNX2+mM4T3nLQLqsxzOBBf1zkEpl1KMRYd5oB2TyH9IIfEgjrD400ytlvG7EzaSUoQvdMDUHYw6MyTpDKnkwzuP2kvAXJaxrtFL+UwPdffY5yV1sqbfdIL/lS8tPdVEucCkxVa3FA5w7Dgnd6CgXb46L0JFAzj5hH6zF/l/v9JfuAHzf0hFInnkOYEwqgi3b9QE11Q4W8GpMPC+05OBmklz9VkwXGcFGx9XjjXxDNeQc/pcAy/qnHoyw6wYQFBCeBPIebdHpEbJ4RoXm7uL2rLU0yLhm9IZSLNdh+DhclOPGGNGBlB5RWghunO25HHkR4dGmCwo2jLJdTxnlM6Rptd4ZplRETQlhSudRofG1Ukdr/a6ymwkPDovNerPfLth+E5uib3PJLa2jrutA2/m0+NnB87UevLIhSaQbhhZZlSoYNB6L0aflP9FRJ+88BovtXRi5/NoWvDwDNXz3yjcHkmfS6GqNGa+rftuwYPOTna9OTPoBhRv9J6qxaPLq4DDIlPuY00yhoWKI6gwTrlgZ8TwPmZz0Uy4JY7bMIBYzHLcJMHi695vfkLbZIwWa9kdtIGeXfH/YlNRSnOYlWLiEQY87VJAXXJoN/AhUhCxeqK6HPPq5CI9S/cSZjOkTdadolN/db9xmUduAWsooQieoOufn33S7kgKVwLIhh7Wg==
-X-Forefront-Antispam-Report: CIP:216.228.112.32; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:schybrid01.nvidia.com; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(54906003)(110136005)(83380400001)(107886003)(2906002)(186003)(26005)(82310400003)(70586007)(5660300002)(356005)(8676002)(7636003)(2616005)(36860700001)(8936002)(70206006)(4326008)(86362001)(316002)(47076005)(36756003)(7696005)(6666004)(508600001)(426003)(336012);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2021 11:06:40.6037 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19d1ac5f-a7ac-4510-9de2-08d997a785a4
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.112.32];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT011.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1378
-Cc: alsa-devel@alsa-project.org, Sameer Pujar <spujar@nvidia.com>,
- linux-kernel@vger.kernel.org, jonathanh@nvidia.com, thierry.reding@gmail.com,
- linux-tegra@vger.kernel.org
+X-Proofpoint-GUID: -H10n29Z69bf9x30lcrcu8m6FCZai6Zx
+X-Proofpoint-ORIG-GUID: -H10n29Z69bf9x30lcrcu8m6FCZai6Zx
+X-Proofpoint-Spam-Reason: safe
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -134,174 +96,132 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The MVC module has a per channel control bit, based on which it decides
-to apply channel specific volume/mute settings. When per channel control
-bit is enabled (which is the default HW configuration), all MVC channel
-volume/mute can be independently controlled. If the control is disabled,
-channel-0 volume/mute setting is applied by HW to all remaining channels.
-Thus add support to leverage this HW feature by exposing master controls
-for volume/mute.
+The interrupt handling code was getting the struct device* from a
+struct snd_soc_component* stored in struct cs42l42_private. If the
+interrupt was asserted before ASoC calls component_probe() the
+snd_soc_component* will be NULL.
 
-With this, now there are per channel and master volume/mute controls.
-Users need to just use controls which are suitable for their applications.
-The per channel control enable/disable is mananged in driver and hidden
-from users, so that they need to just worry about respective volume/mute
-controls.
+The stored snd_soc_component* is not actually used for anything other
+than indirectly getting the struct device*. Remove it, and store the
+struct device* in struct cs42l42_private.
 
-Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 ---
- sound/soc/tegra/tegra210_mvc.c | 95 +++++++++++++++++++++++++++++++++++++-----
- sound/soc/tegra/tegra210_mvc.h |  2 +
- 2 files changed, 87 insertions(+), 10 deletions(-)
+ sound/soc/codecs/cs42l42.c | 28 +++++++++-------------------
+ sound/soc/codecs/cs42l42.h |  2 +-
+ 2 files changed, 10 insertions(+), 20 deletions(-)
 
-diff --git a/sound/soc/tegra/tegra210_mvc.c b/sound/soc/tegra/tegra210_mvc.c
-index 7b9c700..40cd21a 100644
---- a/sound/soc/tegra/tegra210_mvc.c
-+++ b/sound/soc/tegra/tegra210_mvc.c
-@@ -123,7 +123,42 @@ static int tegra210_mvc_get_mute(struct snd_kcontrol *kcontrol,
- 	mute_mask = (val >>  TEGRA210_MVC_MUTE_SHIFT) &
- 		TEGRA210_MUTE_MASK_EN;
- 
--	ucontrol->value.integer.value[0] = mute_mask;
-+	if (strstr(kcontrol->id.name, "Per Chan Mute Mask")) {
-+		/*
-+		 * If per channel control is enabled, then return
-+		 * exact mute/unmute setting of all channels.
-+		 *
-+		 * Else report setting based on CH0 bit to reflect
-+		 * the correct HW state.
-+		 */
-+		if (val & TEGRA210_MVC_PER_CHAN_CTRL_EN) {
-+			ucontrol->value.integer.value[0] = mute_mask;
-+		} else {
-+			if (mute_mask & TEGRA210_MVC_CH0_MUTE_EN)
-+				ucontrol->value.integer.value[0] =
-+					TEGRA210_MUTE_MASK_EN;
-+			else
-+				ucontrol->value.integer.value[0] = 0;
-+		}
-+	} else {
-+		/*
-+		 * If per channel control is disabled, then return
-+		 * master mute/unmute setting based on CH0 bit.
-+		 *
-+		 * Else report settings based on state of all
-+		 * channels.
-+		 */
-+		if (!(val & TEGRA210_MVC_PER_CHAN_CTRL_EN)) {
-+			ucontrol->value.integer.value[0] =
-+				mute_mask & TEGRA210_MVC_CH0_MUTE_EN;
-+		} else {
-+			if (mute_mask == TEGRA210_MUTE_MASK_EN)
-+				ucontrol->value.integer.value[0] =
-+					TEGRA210_MVC_CH0_MUTE_EN;
-+			else
-+				ucontrol->value.integer.value[0] = 0;
-+		}
-+	}
- 
+diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
+index 0dbe4e23194b..a8fff274ec63 100644
+--- a/sound/soc/codecs/cs42l42.c
++++ b/sound/soc/codecs/cs42l42.c
+@@ -526,17 +526,7 @@ static int cs42l42_set_jack(struct snd_soc_component *component, struct snd_soc_
  	return 0;
  }
-@@ -136,6 +171,7 @@ static int tegra210_mvc_put_mute(struct snd_kcontrol *kcontrol,
- 	struct snd_soc_component *cmpnt = snd_soc_kcontrol_component(kcontrol);
- 	struct tegra210_mvc *mvc = snd_soc_component_get_drvdata(cmpnt);
- 	unsigned int value;
-+	u32 reg_mask;
- 	u8 mute_mask;
- 	int err;
  
-@@ -150,11 +186,22 @@ static int tegra210_mvc_put_mute(struct snd_kcontrol *kcontrol,
+-static int cs42l42_component_probe(struct snd_soc_component *component)
+-{
+-	struct cs42l42_private *cs42l42 = snd_soc_component_get_drvdata(component);
+-
+-	cs42l42->component = component;
+-
+-	return 0;
+-}
+-
+ static const struct snd_soc_component_driver soc_component_dev_cs42l42 = {
+-	.probe			= cs42l42_component_probe,
+ 	.set_jack		= cs42l42_set_jack,
+ 	.dapm_widgets		= cs42l42_dapm_widgets,
+ 	.num_dapm_widgets	= ARRAY_SIZE(cs42l42_dapm_widgets),
+@@ -1207,7 +1197,7 @@ static void cs42l42_process_hs_type_detect(struct cs42l42_private *cs42l42)
+ 	 */
+ 	if (cs42l42->hs_type == CS42L42_PLUG_INVALID ||
+ 		cs42l42->hs_type == CS42L42_PLUG_HEADPHONE) {
+-		dev_dbg(cs42l42->component->dev, "Running Manual Detection Fallback\n");
++		dev_dbg(cs42l42->dev, "Running Manual Detection Fallback\n");
+ 		cs42l42_manual_hs_type_detect(cs42l42);
+ 	}
  
- 	mute_mask = ucontrol->value.integer.value[0];
+@@ -1506,19 +1496,19 @@ static int cs42l42_handle_button_press(struct cs42l42_private *cs42l42)
+ 	switch (bias_level) {
+ 	case 1: /* Function C button press */
+ 		bias_level = SND_JACK_BTN_2;
+-		dev_dbg(cs42l42->component->dev, "Function C button press\n");
++		dev_dbg(cs42l42->dev, "Function C button press\n");
+ 		break;
+ 	case 2: /* Function B button press */
+ 		bias_level = SND_JACK_BTN_1;
+-		dev_dbg(cs42l42->component->dev, "Function B button press\n");
++		dev_dbg(cs42l42->dev, "Function B button press\n");
+ 		break;
+ 	case 3: /* Function D button press */
+ 		bias_level = SND_JACK_BTN_3;
+-		dev_dbg(cs42l42->component->dev, "Function D button press\n");
++		dev_dbg(cs42l42->dev, "Function D button press\n");
+ 		break;
+ 	case 4: /* Function A button press */
+ 		bias_level = SND_JACK_BTN_0;
+-		dev_dbg(cs42l42->component->dev, "Function A button press\n");
++		dev_dbg(cs42l42->dev, "Function A button press\n");
+ 		break;
+ 	default:
+ 		bias_level = 0;
+@@ -1592,7 +1582,6 @@ static const struct cs42l42_irq_params irq_params_table[] = {
+ static irqreturn_t cs42l42_irq_thread(int irq, void *data)
+ {
+ 	struct cs42l42_private *cs42l42 = (struct cs42l42_private *)data;
+-	struct snd_soc_component *component = cs42l42->component;
+ 	unsigned int stickies[12];
+ 	unsigned int masks[12];
+ 	unsigned int current_plug_status;
+@@ -1639,7 +1628,7 @@ static irqreturn_t cs42l42_irq_thread(int irq, void *data)
+ 			default:
+ 				break;
+ 			}
+-			dev_dbg(component->dev, "Auto detect done (%d)\n", cs42l42->hs_type);
++			dev_dbg(cs42l42->dev, "Auto detect done (%d)\n", cs42l42->hs_type);
+ 		}
+ 	}
  
--	err = regmap_update_bits(mvc->regmap, mc->reg,
--				 TEGRA210_MVC_MUTE_MASK,
--				 mute_mask << TEGRA210_MVC_MUTE_SHIFT);
--	if (err < 0)
--		goto end;
-+	if (strstr(kcontrol->id.name, "Per Chan Mute Mask")) {
-+		regmap_update_bits(mvc->regmap, TEGRA210_MVC_CTRL,
-+				   TEGRA210_MVC_PER_CHAN_CTRL_EN_MASK,
-+				   TEGRA210_MVC_PER_CHAN_CTRL_EN);
-+
-+		reg_mask = TEGRA210_MVC_MUTE_MASK;
-+	} else {
-+		regmap_update_bits(mvc->regmap, TEGRA210_MVC_CTRL,
-+				   TEGRA210_MVC_PER_CHAN_CTRL_EN_MASK,
-+				   0);
-+
-+		reg_mask = TEGRA210_MVC_CH0_MUTE_MASK;
-+	}
-+
-+	regmap_update_bits(mvc->regmap, mc->reg, reg_mask,
-+			   mute_mask << TEGRA210_MVC_MUTE_SHIFT);
+@@ -1673,7 +1662,7 @@ static irqreturn_t cs42l42_irq_thread(int irq, void *data)
+ 						    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 						    SND_JACK_BTN_2 | SND_JACK_BTN_3);
  
- 	return 1;
+-				dev_dbg(component->dev, "Unplug event\n");
++				dev_dbg(cs42l42->dev, "Unplug event\n");
+ 			}
+ 			break;
  
-@@ -212,11 +259,31 @@ static int tegra210_mvc_put_vol(struct snd_kcontrol *kcontrol,
- 			      ucontrol->value.integer.value[0]);
+@@ -1689,7 +1678,7 @@ static irqreturn_t cs42l42_irq_thread(int irq, void *data)
+ 			CS42L42_M_HSBIAS_HIZ_MASK)) {
  
- 	/* Configure init volume same as target volume */
--	regmap_write(mvc->regmap,
--		TEGRA210_MVC_REG_OFFSET(TEGRA210_MVC_INIT_VOL, chan),
--		mvc->volume[chan]);
-+	if (strstr(kcontrol->id.name, "Channel")) {
-+		regmap_update_bits(mvc->regmap, TEGRA210_MVC_CTRL,
-+				   TEGRA210_MVC_PER_CHAN_CTRL_EN_MASK,
-+				   TEGRA210_MVC_PER_CHAN_CTRL_EN);
-+
-+		regmap_write(mvc->regmap,
-+			TEGRA210_MVC_REG_OFFSET(TEGRA210_MVC_INIT_VOL, chan),
-+			mvc->volume[chan]);
-+
-+		regmap_write(mvc->regmap, reg, mvc->volume[chan]);
-+	} else {
-+		int i;
-+
-+		regmap_update_bits(mvc->regmap, TEGRA210_MVC_CTRL,
-+				   TEGRA210_MVC_PER_CHAN_CTRL_EN_MASK,
-+				   0);
-+
-+		for (i = 1; i < TEGRA210_MVC_MAX_CHAN_COUNT; i++)
-+			mvc->volume[i] = mvc->volume[0];
+ 			if (current_button_status & CS42L42_M_DETECT_TF_MASK) {
+-				dev_dbg(component->dev, "Button released\n");
++				dev_dbg(cs42l42->dev, "Button released\n");
+ 				report = 0;
+ 			} else if (current_button_status & CS42L42_M_DETECT_FT_MASK) {
+ 				report = cs42l42_handle_button_press(cs42l42);
+@@ -2043,6 +2032,7 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client,
+ 	if (!cs42l42)
+ 		return -ENOMEM;
  
--	regmap_write(mvc->regmap, reg, mvc->volume[chan]);
-+		regmap_write(mvc->regmap, TEGRA210_MVC_INIT_VOL,
-+			     mvc->volume[0]);
-+
-+		regmap_write(mvc->regmap, reg, mvc->volume[0]);
-+	}
++	cs42l42->dev = &i2c_client->dev;
+ 	i2c_set_clientdata(i2c_client, cs42l42);
  
- 	regmap_update_bits(mvc->regmap, TEGRA210_MVC_SWITCH,
- 			   TEGRA210_MVC_VOLUME_SWITCH_MASK,
-@@ -422,6 +489,14 @@ static const struct snd_kcontrol_new tegra210_mvc_vol_ctrl[] = {
- 		       TEGRA210_MVC_CTRL, 0, TEGRA210_MUTE_MASK_EN, 0,
- 		       tegra210_mvc_get_mute, tegra210_mvc_put_mute),
+ 	cs42l42->regmap = devm_regmap_init_i2c(i2c_client, &cs42l42_regmap);
+diff --git a/sound/soc/codecs/cs42l42.h b/sound/soc/codecs/cs42l42.h
+index dd4744de9e0a..f45bcc9a3a62 100644
+--- a/sound/soc/codecs/cs42l42.h
++++ b/sound/soc/codecs/cs42l42.h
+@@ -833,7 +833,7 @@ static const char *const cs42l42_supply_names[CS42L42_NUM_SUPPLIES] = {
  
-+	/* Master volume */
-+	SOC_SINGLE_EXT("Volume", TEGRA210_MVC_TARGET_VOL, 0, 16000, 0,
-+		       tegra210_mvc_get_vol, tegra210_mvc_put_vol),
-+
-+	/* Master mute */
-+	SOC_SINGLE_EXT("Mute", TEGRA210_MVC_CTRL, 0, 1, 0,
-+		       tegra210_mvc_get_mute, tegra210_mvc_put_mute),
-+
- 	SOC_ENUM_EXT("Curve Type", tegra210_mvc_curve_type_ctrl,
- 		     tegra210_mvc_get_curve_type, tegra210_mvc_put_curve_type),
- };
-diff --git a/sound/soc/tegra/tegra210_mvc.h b/sound/soc/tegra/tegra210_mvc.h
-index def29c4..7f2567e 100644
---- a/sound/soc/tegra/tegra210_mvc.h
-+++ b/sound/soc/tegra/tegra210_mvc.h
-@@ -59,6 +59,8 @@
- #define TEGRA210_MUTE_MASK_EN			0xff
- #define TEGRA210_MVC_MUTE_MASK			(TEGRA210_MUTE_MASK_EN << TEGRA210_MVC_MUTE_SHIFT)
- #define TEGRA210_MVC_MUTE_EN			(TEGRA210_MUTE_MASK_EN << TEGRA210_MVC_MUTE_SHIFT)
-+#define TEGRA210_MVC_CH0_MUTE_EN		1
-+#define TEGRA210_MVC_CH0_MUTE_MASK		(TEGRA210_MVC_CH0_MUTE_EN << TEGRA210_MVC_MUTE_SHIFT)
- 
- #define TEGRA210_MVC_PER_CHAN_CTRL_EN_SHIFT	30
- #define TEGRA210_MVC_PER_CHAN_CTRL_EN_MASK	(1 << TEGRA210_MVC_PER_CHAN_CTRL_EN_SHIFT)
+ struct  cs42l42_private {
+ 	struct regmap *regmap;
+-	struct snd_soc_component *component;
++	struct device *dev;
+ 	struct regulator_bulk_data supplies[CS42L42_NUM_SUPPLIES];
+ 	struct gpio_desc *reset_gpio;
+ 	struct completion pdn_done;
 -- 
-2.7.4
+2.11.0
 

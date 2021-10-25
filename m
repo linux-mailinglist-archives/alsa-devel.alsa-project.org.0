@@ -2,62 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 305EA439EE9
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Oct 2021 21:02:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3AA443A19C
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Oct 2021 21:37:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98C2616E6;
-	Mon, 25 Oct 2021 21:01:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98C2616E6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5626616C6;
+	Mon, 25 Oct 2021 21:37:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5626616C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635188564;
-	bh=1nU6F8H/o+rYHhw87QiHffOGV6FZGa25y2YQgunkhLI=;
+	s=default; t=1635190676;
+	bh=sd3zvU0WPnXXuXfSlXu+WUjd1HBO5uCDKHkTws2cNuY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cWZBFG/1essI+C3F0Ax2QE3hmIF0dLxUdt9iMajUMDEomFBuNAM4tcxlY9NjpaDbn
-	 uIVTWTyycIsVbKUr2f6whI/Ep7Wf+T/NDliWfmSi2EjfDnWLrYe1LcQQSgANJ5pjvv
-	 oriAnBN/+yRGrAGtAxJb5129v4TIyvypF0EltTmY=
+	b=HbgFcSmCx8JK0864C+QSwKqQFS7uMIdBC6f8qXN+/E7l6agx3gmjkK0ABEfw8Q4E7
+	 CR3bqDGuOaHxYWBz774bmE2pw2BD3sMNDWO7apKZARTBzVSZRWuYkN3ncPjXwW0fjR
+	 soWf7cV2qtXPamwagiJscofBeFURtixaDjJ7ctCk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82D83F804F3;
-	Mon, 25 Oct 2021 21:00:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC9E0F80153;
+	Mon, 25 Oct 2021 21:36:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E34AF804E7; Mon, 25 Oct 2021 21:00:17 +0200 (CEST)
+ id 87CD8F8025A; Mon, 25 Oct 2021 21:36:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3913AF804E3
- for <alsa-devel@alsa-project.org>; Mon, 25 Oct 2021 21:00:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3913AF804E3
-X-IronPort-AV: E=McAfee;i="6200,9189,10148"; a="216908186"
-X-IronPort-AV: E=Sophos;i="5.87,181,1631602800"; d="scan'208";a="216908186"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2021 11:59:58 -0700
-X-IronPort-AV: E=Sophos;i="5.87,181,1631602800"; d="scan'208";a="554318490"
-Received: from ssubbar1-mobl.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.212.118.197])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2021 11:59:58 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 8/8] ASoC: rockchip: i2s_tdm: improve return value handling
-Date: Mon, 25 Oct 2021 13:59:33 -0500
-Message-Id: <20211025185933.144327-9-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211025185933.144327-1-pierre-louis.bossart@linux.intel.com>
-References: <20211025185933.144327-1-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id F2946F80153
+ for <alsa-devel@alsa-project.org>; Mon, 25 Oct 2021 21:36:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2946F80153
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="zK2VeW/1"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 564126115A;
+ Mon, 25 Oct 2021 19:36:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1635190585;
+ bh=sd3zvU0WPnXXuXfSlXu+WUjd1HBO5uCDKHkTws2cNuY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=zK2VeW/1txNghIsMLy9FUOfuWlpNglW6wE6W6lGx26mLM02mRleqpEmV8yu2YYFCo
+ qo9PM6+QNqU5Z941zO2pRVcaY41G1pF89ThLh33gBq6A+dfizvjvbdNvU8IrZu0s0+
+ 5Mw+RcrLKfMMfR0QX7VrUc1MKcZ00RPBpggF3sQA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH 5.14 018/169] ASoC: pcm512x: Mend accesses to the I2S_1 and
+ I2S_2 registers
+Date: Mon, 25 Oct 2021 21:13:19 +0200
+Message-Id: <20211025191019.970769595@linuxfoundation.org>
+X-Mailer: git-send-email 2.33.1
+In-Reply-To: <20211025191017.756020307@linuxfoundation.org>
+References: <20211025191017.756020307@linuxfoundation.org>
+User-Agent: quilt/0.66
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, broonie@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
+ stable@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@ti.com>,
+ Kirill Marinushkin <kmarinushkin@birdec.com>, Mark Brown <broonie@kernel.org>,
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>, Peter Rosin <peda@axentia.se>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,44 +83,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-cppcheck reports the following warning:
+From: Peter Rosin <peda@axentia.se>
 
-sound/soc/rockchip/rockchip_i2s_tdm.c:599:9: warning: Identical
-condition and return expression 'ret', return value is always 0
-[identicalConditionAfterEarlyExit]
+[ Upstream commit 3f4b57ad07d9237acf1b8cff3f8bf530cacef87a ]
 
- return ret;
-        ^
-sound/soc/rockchip/rockchip_i2s_tdm.c:594:6: note: If condition 'ret'
-is true, the function will return/exit
- if (ret)
-     ^
-sound/soc/rockchip/rockchip_i2s_tdm.c:599:9: note: Returning identical
-expression 'ret'
+Commit 25d27c4f68d2 ("ASoC: pcm512x: Add support for more data formats")
+breaks the TSE-850 device, which is using a pcm5142 in I2S and
+CBM_CFS mode (maybe not relevant). Without this fix, the result
+is:
 
- return ret;
-        ^
+pcm512x 0-004c: Failed to set data format: -16
 
-While the code is not wrong, it's clearer to return 0 directly.
+And after that, no sound.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+This fix is not 100% correct. The datasheet of at least the pcm5142
+states that four bits (0xcc) in the I2S_1 register are "RSV"
+("Reserved. Do not access.") and no hint is given as to what the
+initial values are supposed to be. So, specifying defaults for
+these bits is wrong. But perhaps better than a broken driver?
+
+Fixes: 25d27c4f68d2 ("ASoC: pcm512x: Add support for more data formats")
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: Kirill Marinushkin <kmarinushkin@birdec.com>
+Cc: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Cc: alsa-devel@alsa-project.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Peter Rosin <peda@axentia.se>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
+Reviewed-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
+Link: https://lore.kernel.org/r/2d221984-7a2e-7006-0f8a-ffb5f64ee885@axentia.se
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/rockchip/rockchip_i2s_tdm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/pcm512x.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/rockchip/rockchip_i2s_tdm.c b/sound/soc/rockchip/rockchip_i2s_tdm.c
-index e8dee1f95d85..17b9b287853a 100644
---- a/sound/soc/rockchip/rockchip_i2s_tdm.c
-+++ b/sound/soc/rockchip/rockchip_i2s_tdm.c
-@@ -596,7 +596,7 @@ static int rockchip_i2s_tdm_clk_set_rate(struct rk_i2s_tdm_dev *i2s_tdm,
+diff --git a/sound/soc/codecs/pcm512x.c b/sound/soc/codecs/pcm512x.c
+index 4dc844f3c1fc..60dee41816dc 100644
+--- a/sound/soc/codecs/pcm512x.c
++++ b/sound/soc/codecs/pcm512x.c
+@@ -116,6 +116,8 @@ static const struct reg_default pcm512x_reg_defaults[] = {
+ 	{ PCM512x_FS_SPEED_MODE,     0x00 },
+ 	{ PCM512x_IDAC_1,            0x01 },
+ 	{ PCM512x_IDAC_2,            0x00 },
++	{ PCM512x_I2S_1,             0x02 },
++	{ PCM512x_I2S_2,             0x00 },
+ };
  
- 	i2s_tdm->clk_ppm = ppm;
- 
--	return ret;
-+	return 0;
- }
- 
- static int rockchip_i2s_tdm_calibrate_mclk(struct rk_i2s_tdm_dev *i2s_tdm,
+ static bool pcm512x_readable(struct device *dev, unsigned int reg)
 -- 
-2.25.1
+2.33.0
+
+
 

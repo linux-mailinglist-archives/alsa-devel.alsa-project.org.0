@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A7CD439BF1
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Oct 2021 18:43:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C432E439BF5
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Oct 2021 18:44:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 835B916DF;
-	Mon, 25 Oct 2021 18:42:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 835B916DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id D900C16CC;
+	Mon, 25 Oct 2021 18:43:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D900C16CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635180210;
-	bh=fF5cSayVIa+Mq3//Y3/uSO0Zcvx9pJtBzmiNBJwGKIw=;
+	s=default; t=1635180248;
+	bh=K0Kpvc0OulldRog10BpW9uV+5Ap0vvFVLeAAOvO4H6Y=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aSVHyPYGomDoN1oRxw2MzGSNlUPbLc9qzv0rxjnBBAOKuxyAP3ziMhZ0BsYuMwm/Z
-	 u+ufCpLefqzUMMoiDsSjJG49bfdk8LOfaWhF2Ar43Z3sSbGMDH8wePF19E6nzkeqNc
-	 bq7/LYECc7MOunsf8CBRlKSTxkpCdD++ZATn3ii8=
+	b=C0X82BOByMp9QL7OmxNpJLcpjewuOChEH3oibH3Cea1bBIEO/M1vmFUPJfK4n6CSg
+	 RMAIA8SdNz8yTIMLHFp/NbYq6CsyAvVX47PZwV5Xhq5MSed61EyrjF6+UBOBewYgZo
+	 IO+L14lY3Wl5QfOWSbbE1cefUJFeYkkCOXcmwdI4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52EE6F80519;
-	Mon, 25 Oct 2021 18:40:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D8F3FF80525;
+	Mon, 25 Oct 2021 18:40:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94F58F8051A; Mon, 25 Oct 2021 18:40:02 +0200 (CEST)
+ id 170ACF8051D; Mon, 25 Oct 2021 18:40:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1F078F80510
- for <alsa-devel@alsa-project.org>; Mon, 25 Oct 2021 18:39:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F078F80510
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3BBB9F8051A
+ for <alsa-devel@alsa-project.org>; Mon, 25 Oct 2021 18:40:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BBB9F8051A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Q/YlcQMj"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3A6DA60F92;
- Mon, 25 Oct 2021 16:39:56 +0000 (UTC)
+ header.b="W3RmhSzV"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E596B60F6F;
+ Mon, 25 Oct 2021 16:39:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1635179996;
- bh=fF5cSayVIa+Mq3//Y3/uSO0Zcvx9pJtBzmiNBJwGKIw=;
+ s=k20201202; t=1635179999;
+ bh=K0Kpvc0OulldRog10BpW9uV+5Ap0vvFVLeAAOvO4H6Y=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Q/YlcQMjKKhERE3IWcGzFMLjvBy5e2e5bV8/oxn4AgdQDBog+RAL2W2mJkaqD9vhD
- 0ATBospMg+U38SaEZi2miHhgMwogH046tmQ3PUxHzsDmPN7gItNeH+ACN92XGB3EA9
- krCbSoAxc9LhLkqDoRRGNf8hPY+94cDv3/sU+yoPetn97oBQYslUxv8yvy4H6/4iL7
- OhueefBfTiWftsKBrTJt7a5pu5M7uj1t65JjMgG+U9IoqxLfpbe3uOKRmANHWnTHjm
- xcHVPRH414b/8vbaY/MYDyiQB8DC/8v4a/ToG15UxKKIV2Ww3z1HuzuXNcLWEOoiLJ
- vdJ0vI1qiGxFw==
+ b=W3RmhSzVFfh5RJ/cuqvdXTgiBWwrdIADre33R0XA8lX/bYr+rTg2+uE04KMImeqTC
+ oK2stpXwEsKB+egrAbxoTI4AoIUlCF/+nhMg20Z4eyryPT8Uf3bOLUpyKLEhoimC5/
+ bRbTG3oYIOzbrAjFFvO4CAOZn1J85p0IKWKaLw9nakpAQprfWr0JYltrdn51k+/rnM
+ tGSa/1kN/Wt/qqFJwzr/VjZ1DLGaf66v5AhszxT2oYgJ1ZFFJfpN5CejS67BN+hEzi
+ d9p+wsT0CUjgOyWms1JexN4NmnBYhH8bFmLOn+FlgpIw4ZxAhAFK1XTaQEioX1xVVc
+ 7r5dlw/rWjv3Q==
 From: Mark Brown <broonie@kernel.org>
-To: Thierry Reding <thierry.reding@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Jonathan Hunter <jonathanh@nvidia.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Dmitry Osipenko <digetx@gmail.com>
-Subject: Re: [PATCH v1 1/2] ASoC: tegra: Restore AC97 support
-Date: Mon, 25 Oct 2021 17:39:28 +0100
-Message-Id: <163517996155.3558038.6605154852450538832.b4-ty@kernel.org>
+To: John Keeping <john@metanate.com>,
+	alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ASoC: doc: update codec example code
+Date: Mon, 25 Oct 2021 17:39:29 +0100
+Message-Id: <163517996155.3558038.10361487855050489332.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20211024192853.21957-1-digetx@gmail.com>
-References: <20211024192853.21957-1-digetx@gmail.com>
+In-Reply-To: <20211024151731.360638-1-john@metanate.com>
+References: <20211024151731.360638-1-john@metanate.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
+Cc: Jonathan Corbet <corbet@lwn.net>, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,11 +81,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 24 Oct 2021 22:28:52 +0300, Dmitry Osipenko wrote:
-> The device-tree of AC97 codecs need to be parsed differently from I2S
-> codecs, plus codec device may need to be created. This was missed by the
-> patch that unified machine drivers into a single driver, fix it. It should
-> restore audio on Toradex Colibri board.
+On Sun, 24 Oct 2021 16:17:31 +0100, John Keeping wrote:
+> As the codec API has evolved the documentation has not kept up and still
+> uses old fields that have been removed.  Update the examples to
+> represent the current API.
 > 
 > 
 
@@ -96,10 +94,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: tegra: Restore AC97 support
-      commit: de8fc2b0a3f9930f3cbe801d40758bb1d80b0ad8
-[2/2] ASoC: tegra: Set default card name for Trimslice
-      commit: 824edd866a13db7dbb0d8e26d2142f10271b6460
+[1/1] ASoC: doc: update codec example code
+      commit: a6d968a3e8f01bdc09fc397697ce27ef75392ce7
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

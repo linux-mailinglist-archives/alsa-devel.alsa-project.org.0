@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B09B5439BCD
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Oct 2021 18:41:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 686FA439BDF
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Oct 2021 18:41:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3516716D4;
-	Mon, 25 Oct 2021 18:40:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3516716D4
+	by alsa0.perex.cz (Postfix) with ESMTPS id D3F7616CF;
+	Mon, 25 Oct 2021 18:40:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3F7616CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635180063;
-	bh=OG4xVFMz61gmA5aN/a4qTFWUoD7RB1ivYPTxQ1ppB3s=;
+	s=default; t=1635180107;
+	bh=/+1k99dardJpt43GXzNTf7jcp7+7Kejj39Ekr6ZBxmw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=boRjZse405RxKmOit38EHj9AQg98QaGcfAfhZEcv/EtDNyRoZZFran1lgfrBui2I/
-	 ru4Nnj/SCdTfy9V/ntbpuZMg0lrvJG49uLhuqnJZNH4oFELxdnQLNZ07sS/q/0ybjb
-	 M8M6F/9K1TI9YExR73/1G3/jH/r+ZfBcS8cqbQgo=
+	b=LeFawMLtBTLt5gaZX0tzaTrphBFGa+7xrFDWgLwxeev/QZGz7/Ri3plWHhyqRHEYu
+	 D9GWWm5mZUQI1rxdKQTaRgQsD2TPNC84JkPIv4O6MMWWgwtqzmvk4OkcX4CZ3VsTZW
+	 TXmLYg4F5v5Jkm/t4POc77R2Ko4pB1JbI0rlZztM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AAC38F8025A;
-	Mon, 25 Oct 2021 18:39:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 88917F8027B;
+	Mon, 25 Oct 2021 18:39:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C0C6EF80271; Mon, 25 Oct 2021 18:39:43 +0200 (CEST)
+ id 3D50CF80166; Mon, 25 Oct 2021 18:39:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +33,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 75495F80086
- for <alsa-devel@alsa-project.org>; Mon, 25 Oct 2021 18:39:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75495F80086
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5E98AF8025A
+ for <alsa-devel@alsa-project.org>; Mon, 25 Oct 2021 18:39:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E98AF8025A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="TG47zceU"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D0AD660EB9;
- Mon, 25 Oct 2021 16:39:36 +0000 (UTC)
+ header.b="c/qh8KSm"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A3A9F60F9B;
+ Mon, 25 Oct 2021 16:39:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1635179977;
- bh=OG4xVFMz61gmA5aN/a4qTFWUoD7RB1ivYPTxQ1ppB3s=;
+ s=k20201202; t=1635179980;
+ bh=/+1k99dardJpt43GXzNTf7jcp7+7Kejj39Ekr6ZBxmw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=TG47zceUXSpXIn0gbCOXte6XsKfSv5g9+wuzQBYS12EiuyIW5x/zAcoIOFPRix28b
- HzkW8VceTVE4/504/690lnfAy+pEoLnpZZXUFxIfANR7+GbKjqGVhKyuK2kqqvdTpI
- BYqObbJ7tsvUhA/7qXBf4pYkoddg9nnHvBVp67yqrtlQkpx4KZJ2S695zOBibEPCAa
- 5vmi88R54gGnUYCwzIwFUHrN3ASbg5x7+3wYCuCJ1GrU3c4NJh5MGH1H6v8vsyhGrJ
- LajLDCpw06g1qdoN3mAG+d2gNG57yVm4DMhvmexoh1EC10IlSux+V+UcnjcZzoYRUn
- ldRi+lXAS/OyA==
+ b=c/qh8KSmYDq/kS4yWOtElCF2X7RXbxQ+koGDUEJEyBax0tOOfevxflJunpTtnbzYA
+ 9vC+j9w7MMOV3tvdqEzoIO2IRPqDRBKXCyXYwF/FS3nzD1Sw2VsylXb3p/K9nbGhk2
+ sajBgRL2xLO59wpKOyyWRMkU3KF6w3bMRnQIpx48HmconRLGDmSsIWUa6YMRbLogDx
+ rPyCh3V0nzMkfoKWNzPfqOHH55FiltYPz5xJzeujzZFyXGQybtNgfYGm3irFFudyfT
+ OmRmQ9H/Ti8KM9SxTaMvnBtl47A8Cgz/xxghUfOqxp+n2tZmQV89FoQtK/Yd9qvkFZ
+ nLZpaNC7+pq6w==
 From: Mark Brown <broonie@kernel.org>
-To: patches@opensource.cirrus.com, Adam Ford <aford173@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: Re: (subset) [PATCH 0/2] ASoC: wm8962: Conversion to json-schema and
- fix
-Date: Mon, 25 Oct 2021 17:39:21 +0100
-Message-Id: <163517996156.3558038.1402289987821049770.b4-ty@kernel.org>
+To: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>, alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ASoC: amd: acp: Add acp_machine struct for renoir
+ platform.
+Date: Mon, 25 Oct 2021 17:39:22 +0100
+Message-Id: <163517996155.3558038.16782674915140335935.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1634565154.git.geert+renesas@glider.be>
-References: <cover.1634565154.git.geert+renesas@glider.be>
+In-Reply-To: <20211025074808.471333-1-AjitKumar.Pandey@amd.com>
+References: <20211025074808.471333-1-AjitKumar.Pandey@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org
+Cc: Sunil-kumar.Dommati@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
+ open list <linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>,
+ Vijendar.Mukunda@amd.com, Alexander.Deucher@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,16 +82,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 18 Oct 2021 15:59:01 +0200, Geert Uytterhoeven wrote:
-> 	Hi all,
+On Mon, 25 Oct 2021 13:18:00 +0530, Ajit Kumar Pandey wrote:
+> Add acpi_mach struct for renoir platform to select machine driver
+> based on codec and amp ACPI id.
 > 
-> This patch series converts the Wolfson WM8962 Device Tree binding
-> documentation to json-schema, after fixing an issue in the imx8mn-beacon
-> DTS file.
 > 
-> Thanks for your comments!
-> 
-> [...]
 
 Applied to
 
@@ -100,8 +94,8 @@ Applied to
 
 Thanks!
 
-[2/2] ASoC: dt-bindings: wlf,wm8962: Convert to json-schema
-      commit: cd51b942f34431a2a2c92a8385e94cdd97e15350
+[1/1] ASoC: amd: acp: Add acp_machine struct for renoir platform.
+      commit: 8a8e1b90bd2cc7db85ba544e63c8dc01fe113fa9
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

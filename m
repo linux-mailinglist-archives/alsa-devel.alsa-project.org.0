@@ -2,71 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 557884396E5
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Oct 2021 14:59:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 782D0439AD3
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Oct 2021 17:50:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C877C16CB;
-	Mon, 25 Oct 2021 14:59:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C877C16CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDA2116CE;
+	Mon, 25 Oct 2021 17:49:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDA2116CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635166795;
-	bh=kggSCSu6rdv94kVQ1AAvUlB38PLMb9JZujLErCGKwDk=;
-	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=QC6pwb+zkNDPQPAESTce97/cEWETEkFkVND6DbI1SuszxtpmeFCyraJk+j5yFU9QZ
-	 sNu8QaKMwM6I8b4F85WAZmrS6Y2G50DC16apDozf/NrBjVvdLVjXreUx+AyvpTvV40
-	 iHwnYDfEFrAtrWenGJp2eobORdxEAMyeaRx88bsI=
+	s=default; t=1635177022;
+	bh=inCvvS/AnJJKQmtZDKIVGROYfRHo1VVVmFid8jU5CB8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vaGpSsw7GI5wy7hN8zDO+67/wDK/gMrPdth+oSh5VOZJ2tdycyWzvx+ZXDnmECqbt
+	 yEFn2hh7t8diZBYJktOVpqhTOHA9aQmlRMLwYBKJVfkD7Iw+5G17tX6zBnBnxcmF94
+	 rnnZP1Qzo1l0q4K82DV4ileTuUp3sUEImLnFIZB4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3AECFF8025E;
-	Mon, 25 Oct 2021 14:58:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62F58F8025E;
+	Mon, 25 Oct 2021 17:49:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 92FF1F8025A; Mon, 25 Oct 2021 14:58:36 +0200 (CEST)
+ id E0191F8025A; Mon, 25 Oct 2021 17:49:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0EC2AF80086
- for <alsa-devel@alsa-project.org>; Mon, 25 Oct 2021 14:58:27 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 5B1D5A003F;
- Mon, 25 Oct 2021 14:58:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 5B1D5A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1635166702; bh=2eZ26/VaEzftwu3ZmYsfOCPTwZ9yZoE3hgkj1VEFB+I=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=BHt3MaR/tnH1YLlX0CxYPQLb0TApnFbI0kfh54oCDK9UYHer4A5PCYcG7fNDlI9Wl
- l/rAVmzVS+aGmJ4bJnEpVBj4S8+Ub5Xqkq1fW4Tar5TF0/zuRCsbSOMsJdgCWNlEhi
- hZMMBpuIDsoRSFlTW5nddFWLYAwb1aOChP6N3TgM=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon, 25 Oct 2021 14:58:13 +0200 (CEST)
-Message-ID: <79541c76-2c2b-fd4b-60c8-67ee6b8ea3fa@perex.cz>
-Date: Mon, 25 Oct 2021 14:58:13 +0200
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3DDF1F80153
+ for <alsa-devel@alsa-project.org>; Mon, 25 Oct 2021 17:48:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DDF1F80153
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="XUmaFOwY"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 814CF60184;
+ Mon, 25 Oct 2021 15:48:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1635176933;
+ bh=inCvvS/AnJJKQmtZDKIVGROYfRHo1VVVmFid8jU5CB8=;
+ h=From:To:Cc:Subject:Date:From;
+ b=XUmaFOwY58E8Qk82Bl/5BThYCHoDalthXPHGQJr+hS5QBMwmfdfr3Qo8r5Ioa3one
+ PPdJSssnvro+p1yaK3bA63/LyYJdFstc7V68JK/WpCqz/MSOxugwLpyLxr+aWUWN0M
+ Qj8nV6l48AoDaaDu2lFg950J5OAHpi1gMlPop8V3E3RyydIoHCL3raSoYBMAmaYNv1
+ iZIbYJmW1SoS/QLz6qyQbGwqukwNwEkL20RSB5wlp89YUdUdfM4CNdv4QO8yb7k3Ew
+ Ws2LkXCa255Ozdh3rqDThmn7UDq/HPBkFSimp7SCfdcJpXrcZwG6ZTS/LOgrPJxX9A
+ GatOcGBptnukQ==
+From: Mark Brown <broonie@kernel.org>
+To: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, Liam Girdwood <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: topology: Fix stub for snd_soc_tplg_component_remove()
+Date: Mon, 25 Oct 2021 16:48:44 +0100
+Message-Id: <20211025154844.2342120-1-broonie@kernel.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.1.0
-Subject: Re: [PATCH] ASoC: tegra: Add master volume/mute control support
-Content-Language: en-US
-To: Sameer Pujar <spujar@nvidia.com>, broonie@kernel.org,
- lgirdwood@gmail.com, tiwai@suse.com
-References: <1635159976-17355-1-git-send-email-spujar@nvidia.com>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <1635159976-17355-1-git-send-email-spujar@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- thierry.reding@gmail.com, linux-kernel@vger.kernel.org, jonathanh@nvidia.com
+X-Developer-Signature: v=1; a=openpgp-sha256; l=994; h=from:subject;
+ bh=inCvvS/AnJJKQmtZDKIVGROYfRHo1VVVmFid8jU5CB8=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBhdtGK+KLpu3/dAsso4RzENvDGwfQ9270UCtS91Z1x
+ WG90kIyJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCYXbRigAKCRAk1otyXVSH0GYjB/
+ 48wEswpAdtAXXhDKHsnajgCbri1ptnWimjQlfnFKaV4qClfd2hVRvDbNB5mx8ATha5P5oXHbtdeRom
+ DD628yBh1B6Wx5HLTfOaNUe0ezJJn7Rm5ObAQPqpWd32Qk9RXSuOjdgFbUVP+Vt/fJ6kul8iojY8vo
+ w+JbbCdmbVJcjRWfQvH4cDZ4fZ0FmFgVxW27Prw1X0mT4PpUW2aUkhW/e5PQCAxNZBbYblwzKK8jTS
+ rKJyqKtvM4yJhEtKzgCHz/qoJghb4ZiPhDwOcwn5cWmnyOAIstPjDVie53ZI0T8t3EfkAyY4mCpFGG
+ e9VMOFjhusvcHincyv/FgqYf0zQTfY
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,24 +87,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 25. 10. 21 13:06, Sameer Pujar wrote:
+When removing the index argument from snd_soc_topology_component_remove()
+commit a5b8f71c5477f (ASoC: topology: Remove multistep topology loading)
+forgot to update the stub for !SND_SOC_TOPOLOGY use, causing build failures
+for anything that tries to make use of it.
 
-> @@ -150,11 +186,22 @@ static int tegra210_mvc_put_mute(struct snd_kcontrol *kcontrol,
+Fixes: a5b8f71c5477f (ASoC: topology: Remove multistep topology loading)
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ include/sound/soc-topology.h | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-...
->   
->   	return 1;
-
-It's a bit unrelated comment to this change, but it may be worth to verify all 
-kcontrol put callbacks in the tegra code. Ensure that value 1 is returned only 
-when something was really changed in hardware.
-
-The tegra210_i2s_put_control() has opposite problem for example - returns 
-always 0 which means that the change notifications are not send to subscribed 
-applications.
-
-						Jaroslav
-
+diff --git a/include/sound/soc-topology.h b/include/sound/soc-topology.h
+index 7f33de8ffd95..b4b896f83b94 100644
+--- a/include/sound/soc-topology.h
++++ b/include/sound/soc-topology.h
+@@ -188,8 +188,7 @@ int snd_soc_tplg_widget_bind_event(struct snd_soc_dapm_widget *w,
+ 
+ #else
+ 
+-static inline int snd_soc_tplg_component_remove(struct snd_soc_component *comp,
+-						u32 index)
++static inline int snd_soc_tplg_component_remove(struct snd_soc_component *comp)
+ {
+ 	return 0;
+ }
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.30.2
+

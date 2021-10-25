@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD807439BBE
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Oct 2021 18:38:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56D31439BDA
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Oct 2021 18:41:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3193116CF;
-	Mon, 25 Oct 2021 18:38:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3193116CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id AAB7716D6;
+	Mon, 25 Oct 2021 18:40:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAB7716D6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635179935;
-	bh=ziEBjHr12sDzvOXR776wc/eAW0tq78737ORT5LIMvzE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1635180086;
+	bh=vaWH+RBSvbhciQfcCCQJMSXnEqUfw7WL3/UMmS5ZHcg=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qNxmtW2DMOofn11C4NakY5SqUyRxMtiujnQPL++Vzs/JErw5DiHvdFDvJc0CzdbZp
-	 urCvhy3bicnTshMSugE1wScekJxtt8IHAWdWLlhgH3BDMqtpsWCWjXV930GuvMr0OW
-	 GvPnELMqQC6KovHb4hSSIngfGpM0hqjBDvAIAk9c=
+	b=IwozEH6oyjndAdq0AsndtIM7NyFRmC8NZn/HGv/cpVEPTnxyrFD5zZtMK4FkbPOgx
+	 Ia6PhrkVW2cHS+NOcnO9djsRclejKmUGXjzWpwaW3vKFr+/TFFdqX/VZyjlm/HBGHS
+	 VUCmVHlWePUT2YhGl5eJJUKq4Yb7KfBmZ98qbJps=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 980CBF80086;
-	Mon, 25 Oct 2021 18:37:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A27A8F804AF;
+	Mon, 25 Oct 2021 18:39:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0A08F8025A; Mon, 25 Oct 2021 18:37:34 +0200 (CEST)
+ id 3D4B0F8025E; Mon, 25 Oct 2021 18:39:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A0697F80086
- for <alsa-devel@alsa-project.org>; Mon, 25 Oct 2021 18:37:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0697F80086
+ by alsa1.perex.cz (Postfix) with ESMTPS id E53ACF8010A
+ for <alsa-devel@alsa-project.org>; Mon, 25 Oct 2021 18:39:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E53ACF8010A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="DB4PlJoI"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id BC25560F22;
- Mon, 25 Oct 2021 16:37:24 +0000 (UTC)
+ header.b="Rrpnyecp"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0B20660F6F;
+ Mon, 25 Oct 2021 16:39:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1635179845;
- bh=ziEBjHr12sDzvOXR776wc/eAW0tq78737ORT5LIMvzE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DB4PlJoIgWHti2Yn4n7JUn8wZSdZgArq6BzzVWLKYvBBXAzfdvBpnidNa2ST/tgCt
- 4Ge0r6GErKsiZTrwz6VmTVAi4SCgxrmu4fHySYzNSewPz0ppkMWvlmZP+vVCauZcmK
- p6FX9027m6gL/HfRc0tz+aC1yBHgPCw7D7M2Z5bIDM9EBdGSNJI/Er0w7jSDaoc5z5
- oZtv6M2cBu2YPXZiGFBBxp82QXn9+9hOScgaJte74W4O/4pG3C3ayrpwxLlRrObymD
- M881b17uwn6C+t49+BvTJERMuaCjfkCs84L6g3iMY6KT3Ice48MLf7iAxkrcWto9Ph
- MhQ0nztVmjubg==
-Date: Mon, 25 Oct 2021 17:37:22 +0100
+ s=k20201202; t=1635179974;
+ bh=vaWH+RBSvbhciQfcCCQJMSXnEqUfw7WL3/UMmS5ZHcg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=RrpnyecpnakbHpJY/yI3pclCK9Kr+S+xDrPyTj64fsMcHyk5+A98PACPb3yvRxsbQ
+ eAsUMtpL/CwMIGpfmSe/8Z91Nrcqwvmp1cxjTB+YJZOOKLNbkT8qA29OoT2VSguaCw
+ tsLTb7Z/uDwEFkvWTtmnZJJANvE8aQEQfWe9Brt78IVlfk4+PFINUPV08xa9xnnxSH
+ 6BLPDCFd2L76Dg1S7sBCNwalXutXXXOCgIqvwBWGLI5UnahobtAAfAesF063FWhv3q
+ QlVDVw2W5zf/3Oe02NUx+rLZ3Vr34ZQKzzMAEr79InJ5GoZiyJt+VzmiDZvvpPF+Xi
+ khip+JawF2+qQ==
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v9 12/17] ASoC: qdsp6: audioreach: add Kconfig and Makefile
-Message-ID: <YXbdQkAkRq0ntpLk@sirena.org.uk>
-References: <20211006113950.10782-1-srinivas.kandagatla@linaro.org>
- <20211006113950.10782-13-srinivas.kandagatla@linaro.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Subject: Re: [PATCH] ASoc: wm8900: Drop empty spi_driver remove callback
+Date: Mon, 25 Oct 2021 17:39:20 +0100
+Message-Id: <163517996156.3558038.4011329573538666220.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20211020125726.22946-1-u.kleine-koenig@pengutronix.de>
+References: <20211020125726.22946-1-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="K05r9NFRM1dKDS2Y"
-Content-Disposition: inline
-In-Reply-To: <20211006113950.10782-13-srinivas.kandagatla@linaro.org>
-X-Cookie: diplomacy, n:
-Cc: robh@kernel.org, alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
- devicetree@vger.kernel.org, tiwai@suse.de, lgirdwood@gmail.com,
- plai@codeaurora.org, pierre-louis.bossart@linux.intel.com,
- bjorn.andersson@linaro.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, kernel@pengutronix.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,33 +80,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 20 Oct 2021 14:57:26 +0200, Uwe Kleine-König wrote:
+> A driver with a remove callback that just returns 0 behaves identically
+> to a driver with no remove callback at all. So simplify accordingly.
+> 
+> 
 
---K05r9NFRM1dKDS2Y
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Wed, Oct 06, 2021 at 12:39:45PM +0100, Srinivas Kandagatla wrote:
-> Now that all the code for audioreach and q6apm are in at this point to be
-> able to compile, start adding Kconfig and Makefile changes.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-With the previous issue fixed this continues to break the build for
-arm64 defconfig:
+Thanks!
 
-ERROR: modpost: "audioreach_tplg_init" [sound/soc/qcom/qdsp6/snd-q6apm.ko] undefined!
+[1/1] ASoc: wm8900: Drop empty spi_driver remove callback
+      commit: 03f0267b090ff3c2ae7899d26d4c12d925f47cf2
 
---K05r9NFRM1dKDS2Y
-Content-Type: application/pgp-signature; name="signature.asc"
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
------BEGIN PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmF23UEACgkQJNaLcl1U
-h9CnQQf+NwQLMPVU6qVyhIO/3BI+s+tvCEI2aMW692vdJ8ftmAf0hJ3OPIy8CY55
-VXH/oq2kFVC6FP8HvbmZmaLBBcFRJfVu2m69IbFX7IjYALakXVHzLslBSshjJC+k
-0z5b1vAr91XMxPhfy4xJCAsLom09J+COlOPbsAMzEV3Nu4v86Fpm58iL/yPkLato
-9O7yas3SOGO7qGh0Nh4WmYN49CslN1/5sdLdL2ke2oVQco/CRQg1NbMiu/Z0xuJv
-iTxuGKQjUKE0EvzKSXtCubyg3fJopbQAI32dugWxeqpLMAAqwaO84w8igY+Md/BL
-G81MujVNTsCf0Uy4qcxvzuHd8J0Jpw==
-=1Tju
------END PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---K05r9NFRM1dKDS2Y--
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

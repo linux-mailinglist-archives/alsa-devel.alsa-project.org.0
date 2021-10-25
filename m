@@ -2,76 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94F95439CA6
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Oct 2021 19:02:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61614439CB8
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Oct 2021 19:03:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 24F3516E8;
-	Mon, 25 Oct 2021 19:01:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24F3516E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6374016E3;
+	Mon, 25 Oct 2021 19:02:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6374016E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635181351;
-	bh=xBBTx96qCCHhlma3m+5t3TD3F+1EFY7Yy2OERqRinJQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1635181390;
+	bh=wA0i9IYcOKcu4CkBgTuLX/qFg6NZ/GJmbAF00esJM6g=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RQ0VuvqIdwUYH3rCopqHENC4VxXvmVa29bcQpCDSUvFwu/2nDavbIW8d28NBOWNwJ
-	 CDmA0lAAj8A2zLtAUAxz73+ypKFfQ0nKWOV7gAKEkr+6IV3R/+zjP/F2xhvXadVrO6
-	 7g+JgXxCrj1HAxcBU6mxheocJdPmR4zUCK7IzasY=
+	b=tqMcGDbb97o9vj/MsaZO4JszuaKUPe+rApHDlGX2xJkGqAZPifblnL/LDAt85Dp1i
+	 gQ+E64mnkXwr80ooOrZazGbeBh3LQfN+jKAKPoRAtQMTNTtO6Mtf19v3pMsI8ojXmT
+	 H6sicshWumFCoRj1ZVFrumMsUB+KRbZbAmQg9bVc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3AC8F804F2;
-	Mon, 25 Oct 2021 19:00:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A7D8CF8032B;
+	Mon, 25 Oct 2021 19:02:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 27BEFF804F3; Mon, 25 Oct 2021 19:00:40 +0200 (CEST)
+ id 02D5BF8027B; Mon, 25 Oct 2021 19:02:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6F6DDF804E7
- for <alsa-devel@alsa-project.org>; Mon, 25 Oct 2021 19:00:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F6DDF804E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C80CF80086
+ for <alsa-devel@alsa-project.org>; Mon, 25 Oct 2021 19:02:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C80CF80086
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="dvVfmaW6"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9F7D960F9B;
- Mon, 25 Oct 2021 17:00:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1635181231;
- bh=xBBTx96qCCHhlma3m+5t3TD3F+1EFY7Yy2OERqRinJQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dvVfmaW614GqLYnTcSP8sQhQjBLoGhKWxyQYrqSObYq+9N7w/GMROokcMU+h2sGGW
- WwTUb/xxKa5bPy4OIHTT7QACXdD65LdMkxVuQNwKSHeuJyZVBpAd5mTSU352AE5S/5
- IiwDvPSMKjbENHWoVgSVbSdX0Z1lBK2BLFfKzcpeqITvWfEbMrgw7lnBl1bNRP/Q2x
- lUnyoUff6m+KdZt/zBB1Xepo9IJ9anGc9pZRyAFv9ifcJ9slIdeNkaW88htX7MTvRA
- 1j4qi8YFkQBU9YqSUJjDO6MWE+bjXQ8cpzFLmvZvkP+/bOydeYNtSLxCeQsbpj0x6B
- 53jv10Fy7Bi3A==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 03/13] ALSA: hda/realtek: Fixes HP Spectre x360
- 15-eb1xxx speakers
-Date: Mon, 25 Oct 2021 13:00:12 -0400
-Message-Id: <20211025170023.1394358-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211025170023.1394358-1-sashal@kernel.org>
-References: <20211025170023.1394358-1-sashal@kernel.org>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="SHeJYP3N"
+Received: by mail-wm1-x32e.google.com with SMTP id 5so1651050wmb.1
+ for <alsa-devel@alsa-project.org>; Mon, 25 Oct 2021 10:02:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=zhWVNgXFzYIwi+xlrMpHOToyn0X2X7tNzr/emG5rE0A=;
+ b=SHeJYP3NU0yZsCRPoP4gnPGxPNuXXzc1WFJl8TcMMjD4K4seLMAZ1iyXZxazbCc9Sx
+ 75MRRaF7AaauzD4Bkk1MTKAfmQcUE5R8p0m4sPzjf7Bn05ENQccP4lBigrKOtv61NuQ1
+ zkcWYTnb5k2xyC64PBuPOsi4x9Wl/smJ2tLJzvGOTI5kXHuxhnro1PCwMorssy/yMJ6+
+ ptYYjgFMxdBMtZ8/WTTLZ5GlH+zXWBV7e99Li/ytkVcRkzH1z2rbg9BcoTkxMsRsCrA8
+ keyTKIEerp0TOaPrGFh8tH1dNYoMlASsm1p1Jt2+CsDjN47i98hawuIdnG1t7870AL0i
+ Fk6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=zhWVNgXFzYIwi+xlrMpHOToyn0X2X7tNzr/emG5rE0A=;
+ b=CT/6qXrX7zBf92H6n3V/EeEuyUJ6ekquqYxW0RB48Zp8kMR5zZ089SCE649cLpS+rH
+ 9uK/baYndvQpZBuhFHlQhWCrim1aAJYmIcCbIhsbYOBA+elcMYFuMKEwWQpep8a3TA6O
+ B9uMa2DinTA4R6cECG2PhlQgG9/R9H0S+9BbxMloD3ZGjXrXE5zO0jpugB342keOCWDg
+ G29DDMkWqxGz7TBfC0MNcgVpYvQXvN4sQIL2Vt2VzQ59IoTO74EvS8+vaO0uY0W6sTlp
+ XFFaYo2T8yRZtHxl69IWEJuEwjNJT3yTLdQP9C2jh5uRhPy/SXghcVgvfFQXB9ELh+Bs
+ oR9Q==
+X-Gm-Message-State: AOAM531y/FnU+akgQt1QqXDM8hCz52cEESKhuf0qQh+4gx3fzPLwVBof
+ QpafH9uGKdHtwHyEYVApOfBZO5mTmo1MQA==
+X-Google-Smtp-Source: ABdhPJxkIF2GK+nUNNFvKfJ/di1huy/9I9tcRlcFhc8uSkdbTpMLxBPaHKlj2gsxpqTh9dSW2+ST8w==
+X-Received: by 2002:a7b:c5cc:: with SMTP id n12mr21588846wmk.43.1635181332906; 
+ Mon, 25 Oct 2021 10:02:12 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.googlemail.com with ESMTPSA id y5sm6913973wrd.75.2021.10.25.10.01.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 25 Oct 2021 10:01:55 -0700 (PDT)
+Subject: Re: [PATCH v9 12/17] ASoC: qdsp6: audioreach: add Kconfig and Makefile
+To: Mark Brown <broonie@kernel.org>
+References: <20211006113950.10782-1-srinivas.kandagatla@linaro.org>
+ <20211006113950.10782-13-srinivas.kandagatla@linaro.org>
+ <YXbdQkAkRq0ntpLk@sirena.org.uk>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <24890938-f2a6-f1d4-871a-f8a13557f725@linaro.org>
+Date: Mon, 25 Oct 2021 18:01:52 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, chris.chiu@canonical.com,
- alsa-devel@alsa-project.org, kailang@realtek.com,
- Davide Baldo <davide@baldo.me>, jeremy.szu@canonical.com,
- Takashi Iwai <tiwai@suse.de>, eliadevito@gmail.com, tiwai@suse.com,
- wse@tuxedocomputers.com, hui.wang@canonical.com, pshou@realtek.com,
- sami@loone.fi, cam@neo-zeon.de
+In-Reply-To: <YXbdQkAkRq0ntpLk@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
+ devicetree@vger.kernel.org, tiwai@suse.de, lgirdwood@gmail.com,
+ plai@codeaurora.org, pierre-louis.bossart@linux.intel.com,
+ bjorn.andersson@linaro.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,121 +109,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Davide Baldo <davide@baldo.me>
 
-[ Upstream commit d94befbb5ae379f6dfd4fa6d460eacc09fa7b9c3 ]
 
-In laptop 'HP Spectre x360 Convertible 15-eb1xxx/8811' both front and
-rear speakers are silent, this patch fixes that by overriding the pin
-layout and by initializing the amplifier which needs a GPIO pin to be
-set to 1 then 0, similar to the existing HP Spectre x360 14 model.
+On 25/10/2021 17:37, Mark Brown wrote:
+> On Wed, Oct 06, 2021 at 12:39:45PM +0100, Srinivas Kandagatla wrote:
+>> Now that all the code for audioreach and q6apm are in at this point to be
+>> able to compile, start adding Kconfig and Makefile changes.
+> 
+> With the previous issue fixed this continues to break the build for
+> arm64 defconfig:
+> 
+> ERROR: modpost: "audioreach_tplg_init" [sound/soc/qcom/qdsp6/snd-q6apm.ko] undefined!
+> 
+Sorry Mark, This symbol is in in 13/17 Patch.
+I will resend v10 fixing this issue.
 
-In order to have volume control, both front and rear speakers were
-forced to use the DAC1.
-
-This patch also correctly map the mute LED but since there is no
-microphone on/off switch exposed by the alsa subsystem it never turns
-on by itself.
-
-There are still known audio issues in this laptop: headset microphone
-doesn't work, the button to mute/unmute microphone is not yet mapped,
-the LED of the mute/unmute speakers doesn't seems to be exposed via
-GPIO and never turns on.
-
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=213953
-Signed-off-by: Davide Baldo <davide@baldo.me>
-Link: https://lore.kernel.org/r/20211015072121.5287-1-davide@baldo.me
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/pci/hda/patch_realtek.c | 46 +++++++++++++++++++++++++++++++++++
- 1 file changed, 46 insertions(+)
-
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index c36239cea474..52f00f56291f 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -6351,6 +6351,44 @@ static void alc_fixup_no_int_mic(struct hda_codec *codec,
- 	}
- }
- 
-+/* GPIO1 = amplifier on/off
-+ * GPIO3 = mic mute LED
-+ */
-+static void alc285_fixup_hp_spectre_x360_eb1(struct hda_codec *codec,
-+					  const struct hda_fixup *fix, int action)
-+{
-+	static const hda_nid_t conn[] = { 0x02 };
-+
-+	struct alc_spec *spec = codec->spec;
-+	static const struct hda_pintbl pincfgs[] = {
-+		{ 0x14, 0x90170110 },  /* front/high speakers */
-+		{ 0x17, 0x90170130 },  /* back/bass speakers */
-+		{ }
-+	};
-+
-+	//enable micmute led
-+	alc_fixup_hp_gpio_led(codec, action, 0x00, 0x04);
-+
-+	switch (action) {
-+	case HDA_FIXUP_ACT_PRE_PROBE:
-+		spec->micmute_led_polarity = 1;
-+		/* needed for amp of back speakers */
-+		spec->gpio_mask |= 0x01;
-+		spec->gpio_dir |= 0x01;
-+		snd_hda_apply_pincfgs(codec, pincfgs);
-+		/* share DAC to have unified volume control */
-+		snd_hda_override_conn_list(codec, 0x14, ARRAY_SIZE(conn), conn);
-+		snd_hda_override_conn_list(codec, 0x17, ARRAY_SIZE(conn), conn);
-+		break;
-+	case HDA_FIXUP_ACT_INIT:
-+		/* need to toggle GPIO to enable the amp of back speakers */
-+		alc_update_gpio_data(codec, 0x01, true);
-+		msleep(100);
-+		alc_update_gpio_data(codec, 0x01, false);
-+		break;
-+	}
-+}
-+
- static void alc285_fixup_hp_spectre_x360(struct hda_codec *codec,
- 					  const struct hda_fixup *fix, int action)
- {
-@@ -6503,6 +6541,7 @@ enum {
- 	ALC269_FIXUP_HP_DOCK_GPIO_MIC1_LED,
- 	ALC280_FIXUP_HP_9480M,
- 	ALC245_FIXUP_HP_X360_AMP,
-+	ALC285_FIXUP_HP_SPECTRE_X360_EB1,
- 	ALC288_FIXUP_DELL_HEADSET_MODE,
- 	ALC288_FIXUP_DELL1_MIC_NO_PRESENCE,
- 	ALC288_FIXUP_DELL_XPS_13,
-@@ -8189,6 +8228,10 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc285_fixup_hp_spectre_x360,
- 	},
-+	[ALC285_FIXUP_HP_SPECTRE_X360_EB1] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc285_fixup_hp_spectre_x360_eb1
-+	},
- 	[ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc285_fixup_ideapad_s740_coef,
-@@ -8523,6 +8566,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x87f7, "HP Spectre x360 14", ALC245_FIXUP_HP_X360_AMP),
- 	SND_PCI_QUIRK(0x103c, 0x8805, "HP ProBook 650 G8 Notebook PC", ALC236_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x880d, "HP EliteBook 830 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
-+	SND_PCI_QUIRK(0x103c, 0x8811, "HP Spectre x360 15-eb1xxx", ALC285_FIXUP_HP_SPECTRE_X360_EB1),
-+	SND_PCI_QUIRK(0x103c, 0x8812, "HP Spectre x360 15-eb1xxx", ALC285_FIXUP_HP_SPECTRE_X360_EB1),
- 	SND_PCI_QUIRK(0x103c, 0x8846, "HP EliteBook 850 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8847, "HP EliteBook x360 830 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x884b, "HP EliteBook 840 Aero G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
-@@ -8942,6 +8987,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
- 	{.id = ALC245_FIXUP_HP_X360_AMP, .name = "alc245-hp-x360-amp"},
- 	{.id = ALC295_FIXUP_HP_OMEN, .name = "alc295-hp-omen"},
- 	{.id = ALC285_FIXUP_HP_SPECTRE_X360, .name = "alc285-hp-spectre-x360"},
-+	{.id = ALC285_FIXUP_HP_SPECTRE_X360_EB1, .name = "alc285-hp-spectre-x360-eb1"},
- 	{.id = ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP, .name = "alc287-ideapad-bass-spk-amp"},
- 	{.id = ALC623_FIXUP_LENOVO_THINKSTATION_P340, .name = "alc623-lenovo-thinkstation-p340"},
- 	{.id = ALC255_FIXUP_ACER_HEADPHONE_AND_MIC, .name = "alc255-acer-headphone-and-mic"},
--- 
-2.33.0
-
+--srini

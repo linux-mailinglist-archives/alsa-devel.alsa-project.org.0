@@ -2,89 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF11943B2CD
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Oct 2021 14:59:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EF6243B53A
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Oct 2021 17:13:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A5381723;
-	Tue, 26 Oct 2021 14:58:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A5381723
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44F74172D;
+	Tue, 26 Oct 2021 17:12:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44F74172D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635253174;
-	bh=3BOO4ZJjmE2qxOFTZvErAZ7TfBjRYqtRjWkFJdDhwyw=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=goLHq1qucAXc7dTyJxH+kZE4PXjpUMTGYZtEDmvytsk7D9n0BHM/Hhkqhu9qlPGj3
-	 BBG83SEEZPgp5jWiH9bMR+0s/tYJTqYqu8ap931q59fT2Y1qGvuBzENmeXzeW4w0M5
-	 1c6t60ofxWOoo58CQnG12GqZQ+F6My2kfltQs2to=
+	s=default; t=1635261197;
+	bh=kRBVexgMRrWWxxP/Z1FO0QSiRfH8a9QefiEDoC0fvCk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KVvNn2zEHUqtDo2IksTV7UgyZb3+PVOyx7W4Qpf+T+klr0/hcpQskknlAseXMAJze
+	 DnVfB0wHwZnv44sC7mVZUAKAHbe0p8xlgsADHjXVI7ddTN7EPWLsiLh4Viz8TRWOYM
+	 DQ+y+NoYvmhjL+SIFRsnuwK3yaXEfm83Vvak3iHg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB4B5F802E7;
-	Tue, 26 Oct 2021 14:57:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 823DAF804AF;
+	Tue, 26 Oct 2021 17:11:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7ED3EF802E7; Tue, 26 Oct 2021 14:57:45 +0200 (CEST)
+ id 40A25F80300; Tue, 26 Oct 2021 17:11:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
- SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.6 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ PRX_BODY_135, SPF_HELO_NONE, SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from xavier.telenet-ops.be (xavier.telenet-ops.be
+ [IPv6:2a02:1800:120:4::f00:14])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B0C0AF802E7
- for <alsa-devel@alsa-project.org>; Tue, 26 Oct 2021 14:57:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0C0AF802E7
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="Wgs78cGV"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19Q8sshc024219; 
- Tue, 26 Oct 2021 07:57:28 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=D/NsoehfT+y2ksi5yUQ330zicOFqX9TpEDxQN+UK6KQ=;
- b=Wgs78cGVYCcOSOtN2GVa7EOvju901nPVec8Kd58Ynt2a7xmtjiaqCGs6q/p/qVxkdT+2
- 1+RtK/2dtFbHFrMXeQHLURN48mOezFGYKQHlj8GOPWV58e/6xOQ59kTTFV+fb1nA4vpx
- swTVvnShjwde9x9qMOaylxB8BZeUy9AKRfJ5REhDqBN2PjRdNvPZ7weMKpgk/6R6E9mw
- KOPvPN5hkJz1vYooVz8QfV/tHYMqkeIGY+tW8djINv8QYyLm+7IUWJuaJOa0ANpiCKPV
- Ct5wMxJARe+/v+ibgd/OVLz/gt3LeqAuhNSyAIiCmVH/+T+PHWr+DheASQC9qJ786Ltv hQ== 
-Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com with ESMTP id 3bx4fx0rf2-3
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 26 Oct 2021 07:57:28 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.7; Tue, 26 Oct
- 2021 13:57:25 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.7 via Frontend
- Transport; Tue, 26 Oct 2021 13:57:25 +0100
-Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
- [198.61.65.32])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 71C2F11DB;
- Tue, 26 Oct 2021 12:57:25 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>
-Subject: [PATCH 2/2] ASoC: cs42l42: free_irq() before powering-down on probe()
- fail
-Date: Tue, 26 Oct 2021 13:57:22 +0100
-Message-ID: <20211026125722.10220-3-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20211026125722.10220-1-rf@opensource.cirrus.com>
-References: <20211026125722.10220-1-rf@opensource.cirrus.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0EFD5F80269
+ for <alsa-devel@alsa-project.org>; Tue, 26 Oct 2021 17:11:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0EFD5F80269
+Received: from ramsan.of.borg ([IPv6:2a02:1810:ac12:ed20:441:6c1a:bc30:46e])
+ by xavier.telenet-ops.be with bizsmtp
+ id AfBR260132hfXWm01fBRfN; Tue, 26 Oct 2021 17:11:25 +0200
+Received: from rox.of.borg ([192.168.97.57])
+ by ramsan.of.borg with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
+ (envelope-from <geert@linux-m68k.org>)
+ id 1mfO6n-0084pC-BV; Tue, 26 Oct 2021 17:11:25 +0200
+Received: from geert by rox.of.borg with local (Exim 4.93)
+ (envelope-from <geert@linux-m68k.org>)
+ id 1mfO6m-00DLmj-Ck; Tue, 26 Oct 2021 17:11:24 +0200
+From: Geert Uytterhoeven <geert+renesas@glider.be>
+To: Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH 0/3] ASoC: amd: acp: Dependency cleanup
+Date: Tue, 26 Oct 2021 17:11:20 +0200
+Message-Id: <cover.1635260849.git.geert+renesas@glider.be>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: KHOYPb8xBrFSvRJKrnF6sMjDydp0e0rA
-X-Proofpoint-ORIG-GUID: KHOYPb8xBrFSvRJKrnF6sMjDydp0e0rA
-X-Proofpoint-Spam-Reason: safe
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Geert Uytterhoeven <geert+renesas@glider.be>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,69 +75,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Relying on devm to free the irq handler on probe failure leaves a
-small window of opportunity for an interrupt to become pending and
-then the handler to run after the chip has been reset and powered
-off.
+	Hi all,
 
-For safety cs42l42_probe() should free the irq in the error path.
-As the irq is now disabled by the driver in probe() and remove()
-there is no point allocating it as a devres-managed item, so
-convert to plain non-devres.
+This patch series cleans up the dependencies of the various
+configuration symbols related to AMD Audio-Coprocessor support.
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
----
- sound/soc/codecs/cs42l42.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
+Feel free to squash into a single patch if you prefer that.
 
-diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
-index dc12842ee6e1..1029f6b3eb48 100644
---- a/sound/soc/codecs/cs42l42.c
-+++ b/sound/soc/codecs/cs42l42.c
-@@ -2078,17 +2078,16 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client,
- 
- 	/* Request IRQ if one was specified */
- 	if (i2c_client->irq) {
--		ret = devm_request_threaded_irq(&i2c_client->dev,
--						i2c_client->irq,
--						NULL, cs42l42_irq_thread,
--						IRQF_ONESHOT | IRQF_TRIGGER_LOW,
--						"cs42l42", cs42l42);
-+		ret = request_threaded_irq(i2c_client->irq,
-+					   NULL, cs42l42_irq_thread,
-+					   IRQF_ONESHOT | IRQF_TRIGGER_LOW,
-+					   "cs42l42", cs42l42);
- 		if (ret == -EPROBE_DEFER) {
--			goto err_disable;
-+			goto err_disable_noirq;
- 		} else if (ret != 0) {
- 			dev_err(&i2c_client->dev,
- 				"Failed to request IRQ: %d\n", ret);
--			goto err_disable;
-+			goto err_disable_noirq;
- 		}
- 	}
- 
-@@ -2158,6 +2157,10 @@ static int cs42l42_i2c_probe(struct i2c_client *i2c_client,
- 	regmap_write(cs42l42->regmap, CS42L42_PWR_CTL1, 0xff);
- 
- err_disable:
-+	if (i2c_client->irq)
-+		free_irq(i2c_client->irq, cs42l42);
-+
-+err_disable_noirq:
- 	gpiod_set_value_cansleep(cs42l42->reset_gpio, 0);
- err_disable_noreset:
- 	regulator_bulk_disable(ARRAY_SIZE(cs42l42->supplies),
-@@ -2170,7 +2173,7 @@ static int cs42l42_i2c_remove(struct i2c_client *i2c_client)
- 	struct cs42l42_private *cs42l42 = i2c_get_clientdata(i2c_client);
- 
- 	if (i2c_client->irq)
--		devm_free_irq(&i2c_client->dev, i2c_client->irq, cs42l42);
-+		free_irq(i2c_client->irq, cs42l42);
- 
- 	/*
- 	 * The driver might not have control of reset and power supplies,
+Thanks!
+
+Geert Uytterhoeven (3):
+  ASoC: amd: acp: Wrap AMD Audio ACP components in
+    SND_SOC_AMD_ACP_COMMON
+  ASoC: amd: acp: SND_SOC_AMD_{LEGACY_MACH,SOF_MACH} should depend on
+    X86 && PCI && I2C
+  ASoC: amd: acp: SND_SOC_AMD_ACP_COMMON should depend on X86 && PCI
+
+ sound/soc/amd/acp/Kconfig | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
 -- 
-2.11.0
+2.25.1
 
+Gr{oetje,eeting}s,
+
+						Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+							    -- Linus Torvalds

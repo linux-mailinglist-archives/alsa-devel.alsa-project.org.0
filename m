@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A11BC43AD83
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Oct 2021 09:47:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F4A643AD84
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Oct 2021 09:47:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F16916E1;
-	Tue, 26 Oct 2021 09:46:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F16916E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id E041616DA;
+	Tue, 26 Oct 2021 09:46:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E041616DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635234429;
-	bh=fz+et/FM95MVrZbmfun09txbBEd0vTIUn4sD6iTXUxk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=TX8WzjgSqClWZJposewLk9cQyNPzGUUbNc5KK8WDfvOtkWoUaszGZ0Z4OxYqoUW3g
-	 UAQcRmgG3qKQvASoBL8dn9/Vnq9Edsm8Awszw3K3vpugt11AaO0rlN74+Y7SCzLedq
-	 h8GQO5a63KwtWfpoWgJL1s5jvzo/rj0ca2LviYoo=
+	s=default; t=1635234450;
+	bh=UwjR6Uk9mBRElYyGfHni+vvwbPGPmy8AC5iWJyrOBvw=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Sh6n2I2tEhqMaXX+2m0BjETDTD5j1BrMnId8mMqTMzhIEzQA+sKuDbPi5lj4rFe4L
+	 zIm0P5cBx9HKKotWVhQiMFVcobvLsYdvUEEdJuJh5UwF3/l2xCC7zj/nNYWWYBof6T
+	 a6kfa5dLN2zeD1umn1KSr41K8PbwssUy1Gb9Qnv8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB85EF802E7;
-	Tue, 26 Oct 2021 09:45:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66E26F804AE;
+	Tue, 26 Oct 2021 09:46:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 390A1F802E7; Tue, 26 Oct 2021 09:45:56 +0200 (CEST)
+ id B05F4F802C8; Tue, 26 Oct 2021 09:45:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,19 +36,19 @@ Received: from NAM10-BN7-obe.outbound.protection.outlook.com
  [IPv6:2a01:111:f400:7e8a::721])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4B28F8014D
- for <alsa-devel@alsa-project.org>; Tue, 26 Oct 2021 09:45:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4B28F8014D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6437BF80269
+ for <alsa-devel@alsa-project.org>; Tue, 26 Oct 2021 09:45:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6437BF80269
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=maximintegrated.onmicrosoft.com
- header.i=@maximintegrated.onmicrosoft.com header.b="Rf6mXU61"
+ header.i=@maximintegrated.onmicrosoft.com header.b="R6Cq3bn7"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oQg+BkccemGtVXwkemzcgBTdRpBCjGiql/sAzQ5dcFZ1+9XvIIbh6vjF8/MYK3AHzLQ37jdZSkxcZUGzRCzJLxXrbF/qvO/p3aeUwvkxgHBbq9FTxHosAtrDwkmwfO17vxi80Ibn8fh5wdE6y5bhjkz2/fGAk2odMiFrlras6E5PMdRT2DljtGDcgpFrjIGNpEXaJPkaJDmGiriW5cfMiJ5gUWCCuXxoTA4E7SW9efcCVeQ+Q0q0wnZuYQxxgSgP3gR7mAy3t5bXXNBJRCKPR40NizDcZupqepg6p6p++N/zYcF0RKDH5yHSqxVYUuTBSG3MWFrfXT1lCOGGBQrwUw==
+ b=oJ6oNtS8ADWIxCR47NKF54E5l73BT+W67jJqI370fZwBjjJHmFDY5DhQlQNZxhP+BWmb4OOZZ4+NJMEbUUS3c2wxyX4WQfhhK+M9A8L6dM3Cnc5UswfkyajLKEapepqXT51koR/8ep4PmwEeQtMKOXK9t2QjYH1C/vT8pyeOjst1yZmx5CGwadaswCmv2p52e9kHPDG+o/w7CfGU8dOj4C4+skEzy+nn5L+xRRGUuwhBcQg9oXXWGF5YHow38Ga24Mvzj6up9CTw4B+XKhZtCAfS7VwAwnBycdZubH4eWvxnzbS6oWWPKBKOuErzu3YfaZ6BbZJMU1Tj2hR/vOVaqA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=he95tu/GCl1zPM+El5K0fCOl2Pz8Wu6EEHbySF+QOqU=;
- b=CLPKtXKzP99RHoP8s1GPt7XC7H3twaDJx5UJjrqbQQiT5m2LxuxjBDvONUIR9zgoKfgNjteeSIJd1RGIOFj+BVgiaRFdHPWbLyaQ4H/UnKQWspwPLJM+PZLD8oqENgt67u3YP87OE0356T2c9bhTX+4Xj0utIHea2uHImFCOswBHk6NaLoF0PLJTGceh95AZfiIhdASXjTaAvEtBNoq5SCaswlOt8QbuIJA6X6c7h4PRS2ewxD3vwWoVnaCDxnjqJD9xezfzm9um6zA+tx5OfWFcEMk86OLYD6ciyEXoWRu9DIlGm9PFWWN5ejFD8b4F1TKwrZjLx0bKwd9CUv2G3Q==
+ bh=IThFuKcuEGgX6KbW0F9zxHeGYFO3c+8XJEVwrLiKkr0=;
+ b=env4u1NMhwqxGKs4aaMIYtNxIynxbt8MYGyHACb3AsxRsRJ/yies+hovEFZ+QyZlpboYUgWvPYhNPVzwddtDQlMtqsS4qXPOG7M8h4uyBuf1/wmGJS2rKWrtAbq14CgLVWjjq3SvRrXG0manfDMlSv0DlPnh/chUsza5E3Nl1WaIcRU1+TCW+RTJJbfFcxq0wudJyP+gtnAr7LYxKURajKMnKoWNz7YNwd4jI+TmGiho21793tycSn9K/t6ufCm/kccnXMGpxtSrlsfP5HCQdUgsbjQb2/WcEJ5CvKbI3nxszCXLLL7oWliz4h3JReM9oEYHL3WbHZPVAPDAd3AtdQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=maximintegrated.com; dmarc=pass action=none
  header.from=maximintegrated.com; dkim=pass header.d=maximintegrated.com;
@@ -56,8 +57,8 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=maximintegrated.onmicrosoft.com;
  s=selector2-maximintegrated-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=he95tu/GCl1zPM+El5K0fCOl2Pz8Wu6EEHbySF+QOqU=;
- b=Rf6mXU61Dl5LvciogymPAhZPsltVt1ldT1lfsIBlUOFX2aZjciSLA5+DgQ7wDbQIcz/Gd8IoXXbcY85OsCciytYpaa07JUXQff9/JOqbVX9iZqj00f2Kb733BdLVOKa0RZ0+18leJLtrCkwWm7xZLxs2e1LgAB3sZaL0nq1B+M4=
+ bh=IThFuKcuEGgX6KbW0F9zxHeGYFO3c+8XJEVwrLiKkr0=;
+ b=R6Cq3bn7wKDc8ZjMc+fOF0DojLSKR9cF26xxE98P7oPSokCcrNlPRFZ5OwaokgqcUsrNgNmr1bT97+000YTIje9HRwJdt6vnW9bBrspsHMkcFxVkvzjS1HT5dGH6Z650Txd/XmMSlJ+s/UV0q9FJUJ+BCYwW/pLrHTQxj+f0iSM=
 Authentication-Results: gmail.com; dkim=none (message not signed)
  header.d=none;gmail.com; dmarc=none action=none
  header.from=maximintegrated.com;
@@ -65,19 +66,21 @@ Received: from BYAPR11MB3671.namprd11.prod.outlook.com (2603:10b6:a03:b3::15)
  by BYAPR11MB2535.namprd11.prod.outlook.com (2603:10b6:a02:be::32)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.16; Tue, 26 Oct
- 2021 07:45:37 +0000
+ 2021 07:45:41 +0000
 Received: from BYAPR11MB3671.namprd11.prod.outlook.com
  ([fe80::49d4:a1dd:5b55:4c94]) by BYAPR11MB3671.namprd11.prod.outlook.com
  ([fe80::49d4:a1dd:5b55:4c94%6]) with mapi id 15.20.4628.020; Tue, 26 Oct 2021
- 07:45:37 +0000
+ 07:45:41 +0000
 From: George Song <george.song@maximintegrated.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org,
 	robh+dt@kernel.org
-Subject: [v6 1/2] ASoC: dt-bindings: max98520: add initial bindings
-Date: Tue, 26 Oct 2021 16:45:20 +0900
-Message-Id: <20211026074521.353-1-george.song@maximintegrated.com>
+Subject: [v6 2/2] ASoC: max98520: add max98520 audio amplifier driver
+Date: Tue, 26 Oct 2021 16:45:21 +0900
+Message-Id: <20211026074521.353-2-george.song@maximintegrated.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211026074521.353-1-george.song@maximintegrated.com>
+References: <20211026074521.353-1-george.song@maximintegrated.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: SL2PR04CA0018.apcprd04.prod.outlook.com
@@ -87,64 +90,64 @@ MIME-Version: 1.0
 Received: from SEL-LT-028891.maxim-ic.internal (223.62.172.41) by
  SL2PR04CA0018.apcprd04.prod.outlook.com (2603:1096:100:2d::30) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4628.18 via Frontend Transport; Tue, 26 Oct 2021 07:45:34 +0000
+ 15.20.4628.18 via Frontend Transport; Tue, 26 Oct 2021 07:45:39 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2f36f77b-40c2-43d5-e461-08d998549996
+X-MS-Office365-Filtering-Correlation-Id: cbf4552e-51ac-47c9-a1ac-08d998549c16
 X-MS-TrafficTypeDiagnostic: BYAPR11MB2535:
-X-Microsoft-Antispam-PRVS: <BYAPR11MB2535B0F036459E6CF3C3AC85F4849@BYAPR11MB2535.namprd11.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2657;
+X-Microsoft-Antispam-PRVS: <BYAPR11MB25356AB9AD1218D3E9F93C97F4849@BYAPR11MB2535.namprd11.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: W+rdjHvk2gru61cQzb0MnfMuk4RfHpMKB4NcL0Kqmf/x1FdYkOiEABl1VhEYbEPlBhAZhTgly80UQCobAPneFNrl1RE07vRcenUwhglIqgPz2kpsKNVhtSGKli+dQKmfs//0T/ydr0AiLfTonc83/MUY0rg+RkYsc1XKn/yPYpzLuzXRdXJncncaUOFWabGuErRjXMIOZaQo9SZIY6haXbzU51p9k0iq3E3uoy2SLdvlPuIkkoCuFzra6CqJTNTx3McznnLwRvA3hgmNOsbpyctFM/umCtDqXwwKkU4EkVPbX0Fplfm2xjiIhyUUvG0LVPOUcTgUNjFPL5j9Z4J95rWNkp+dO2gwvXqLG000eN+6WLjKuZxBKC584QsK18f6AFDA/PdBGAeyryCSdd+eH9DDKcYyCtpdzlYiiLo7AKbtyDFTpjYuD7pIM72b7xu97p26Je0eqUuiwd52IAL0OemnV9ek8h8G/3jJvvNCvn6MqQqEnpzjE81RdMWJRAWQZPD5nyhEK/SQ5h3ZE1dnSyloAgFbjJYe2I/BGJpLm6abFBr+Jqra92YWIVKnSaPOm3+V3B3S/fEdXbaBYamchXJFan1VP3ve5XZs7KJpViKfPt4l5hF53dKZzL0Ebrol8ZsEytqSmumC0MNu5ysKsGdEah+U7C3J72avhVfybwL4ndOIJBvc+3vUI5JLWP+2x/XUR6iiqnm2OvvDVsI9tRMOUvK6wf0lb9jb5tu1ElJKUic9oD6H58SPuAoZ4JR8L9ZhXT6u/Pp2ZpOZYo5GPzXrB9VSaXF0x51hioOydgDxf+H4Y777DxcefbJMO47gEkh1IiMvMgZdmDfIy8MzKA==
+X-Microsoft-Antispam-Message-Info: Pb2a0zP5qdXbDP2UPt3ZmoEMOvh4Xrn2ICtM0NtPoVMV4mLaER3REmR5o9mXkmraW5HICv/wFV360a5cKP9iMYAHY1hOqT1wcMTqmeHIrYFFE5DVMnaQBkjHOVoJVcTGo8OlYK+X5Ny3FYYYR3VMdYKKOxzRj7KrtZbhdwmGIqV6RUXPm5DSZ9G7/9TRSR1YBhcjnJzOBt5vCXpdbSHadMYT7KBZW8CUgBiQtCiINEiuUWjFN92q4Zb+oaRyd2nIAUrDc1w5JAnMPc49xF94OLwHyZQpfSNAEiz+b/psywDNTdKv8FMKhz/Zup3t7w8JFCU8g4QIwowdW8v+5lydmzQwN4ROjUL6AgII18hW079+VrIJARjWovgUJ3r+oxyj4hTgPxM9i19dFXSeYM45cRe51W3xU+YdKFRWqwAbJCOaaCFMuH04GiGgLIwVJLIG3Qhfs0EQKEawZa8FVDCfdK0ORdmNEiGMOuMIk9vikfDXmWsxl3c3uKtLpUhMDkQmoKsrw+ngSnZ1tKhSaK/erknifYtOVVipxprGEbZlUHqu2/fMYjl32V005NqCjKuFPqCRwXi0TIkmSBu+kfXY/7uc2tb2KozIdFNEnvsE5cGkAEtRMdXlumQqmerj6k0yE8AUYq+wfrqKXaHDK5Janth6gj4+1a4eiA2rNbpq6EL7ajgwQeaxwY7oBaJVZFkSMdbI8PTwGHfPQYVqOT/ngA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BYAPR11MB3671.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(8676002)(2906002)(54906003)(8936002)(956004)(86362001)(2616005)(6512007)(316002)(6506007)(6666004)(66476007)(186003)(66556008)(966005)(6486002)(5660300002)(66946007)(36756003)(4326008)(38100700002)(508600001)(38350700002)(52116002)(1076003)(26005)(44832011);
+ SFS:(4636009)(366004)(107886003)(8676002)(2906002)(8936002)(30864003)(956004)(86362001)(2616005)(6512007)(316002)(6506007)(6666004)(66476007)(186003)(83380400001)(66556008)(6486002)(5660300002)(66946007)(36756003)(4326008)(38100700002)(508600001)(38350700002)(52116002)(1076003)(26005)(44832011)(559001)(579004);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?TJjbW2k7NoRPE24CF8iS8TpOGwLH1ehIpft0tlAUBp0aG84GnRZWGWPBCtSz?=
- =?us-ascii?Q?SPYfMgQcKe5LAj0FjH7k/jfjOuQfiuLwg83TKyzJ6GvYjH09GaAO1xfi/CQ3?=
- =?us-ascii?Q?K2FmbPkzx2cUv6aUiiAd7JUxzocMRqOwotwJeHeuXByCpao/eHMXbZpJuNCR?=
- =?us-ascii?Q?dJiAAppleXgRp2gkSzuP+C4H0Krsy2i1r9EeEIA5CT6Cn2NfthgKcRQP43IK?=
- =?us-ascii?Q?usRA9CaBA5N3ScEXLvuXDyKez7BjHjAS5smOFBupm+4yjRcK6jIjr/AJ/dke?=
- =?us-ascii?Q?4GgXF8w7pwTGwY1Y0kbOiuqTDHcULiEdNrJkgMY/Ia46fYZhsGfcz03y33+i?=
- =?us-ascii?Q?86DIc2jeopbhhhaX9+fyCyRNZqujWtafhZbfJbENpA46ZFAHPvayCMy6M5d2?=
- =?us-ascii?Q?FqTmV/my4N2GK/B6t/c8rIhcDeig7nC7m4YNyDMvcVShaAZMxTrMemfCl9zy?=
- =?us-ascii?Q?A7ZeuKRUn+Z82HX3tXbk4dd/caiOfGnPiSzWrUGrxAXhR/xu3doDFmfNrwZZ?=
- =?us-ascii?Q?ArQwkw1cKm3B17Wvf3dXfuY4+QHdzjCAuW6+davc46eDtjCimbLLZlYt6ltY?=
- =?us-ascii?Q?iFDnxnIN/YoGJLmTSV/RcBiyUCQtOh/YG/kXCTULaMDjR3TD4/OHkkzjgwFM?=
- =?us-ascii?Q?mFsk2iqttcZTFq3HLV2mzvcDiCOoS22ZBWGwaCmlpilwD5P/137+4KUlImgd?=
- =?us-ascii?Q?sD0nZtAuy0i1b46Rrr4+JVkcf7/TMpceaUj6P+rZWmXTsjNnsy1PQx+oNjNH?=
- =?us-ascii?Q?YDk1dv4B+mADbyXcnX2r0StZWLRQzfkbK7vddMTGg7v9cSpzuh/oE5WsVdq6?=
- =?us-ascii?Q?hERtwOCSiwgmZhW9WG+b51w/jgcl+aPnxmC5kCLtryXVU7nwDIs2OfFpJG+l?=
- =?us-ascii?Q?JR5SksINWi9dJlSd9HfD3nPvVehhV45JWQEtalSIhy1YINryVM08SawKZJah?=
- =?us-ascii?Q?UU3LweATly1Jxdi05D+IMMP1gVhwUsNlPYlSMey3ECzm+jpacuU3K4hjDlrm?=
- =?us-ascii?Q?B3SQ77VDbREhcpgmwK7rDqRXjJJxoRcrg949t0iVQohY3taakmMMhXRpMPFr?=
- =?us-ascii?Q?gdVq/hwoOuP9omGBl/6itrWTMSeRSIxVoLJmMr/yODpRaQTN4CSxN79KB9pV?=
- =?us-ascii?Q?z2icrn8Bn/jIt/KN0f2eLb0AHvF+24wMAfN0Olj5qS36h/vyNWssNsVHfWhH?=
- =?us-ascii?Q?1QQyjElHGm8NMl1gIGW2R5MGNZ9tqEoJZVnswJ+75CdjHIGBBZ3mteTAWDni?=
- =?us-ascii?Q?fPQJncD/XY51QA3ndyAsiz+/mC8XbuPwbG9W/Sio9mfQjE51UlVkeiKqOEPE?=
- =?us-ascii?Q?geHQB4mnptVXqrdYu+FjW1stqQZ9rwJCR8o0O+Uev9X9t4h8U/R6QbxyKPji?=
- =?us-ascii?Q?dpWNunVecPuba2a3vcUvEy9QTWuCM6WMNRkW4l7poUwFbvG0qoCeBm7GdAqo?=
- =?us-ascii?Q?D7t1fhgNsTbsKXwGevxAyY8O79M6BBYApmNJtvnKuCdUM0uINCxbTAXrazEE?=
- =?us-ascii?Q?zSrvuw72ErnsbfQVXIH9msnIsIwcsorXqzhk4Xhxz7i+40PLlWMaGUo2M/0Y?=
- =?us-ascii?Q?fj9h2tw355fhB0csvk8EHNlfwqiOFIYpuHxY+r2Z+6mCLu6rl9IgjjgBvQio?=
- =?us-ascii?Q?HCulRa0zEduD7xXyp9W0ciHE02Yzyb/VCk+iIE2XzK+X65vhyy9YJCgfW6oM?=
- =?us-ascii?Q?IkFHUQ=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?GyA0lVH4z/Gj1FJyZsCTo12ljEdftzbypHNiK+NjlLDnuT7lV6u2Z1TC2zET?=
+ =?us-ascii?Q?58VWezVpwy+k05VamdUm2Hyz+t4oRL/bdXWRZYPvChsNtQco0daCorgiDVbl?=
+ =?us-ascii?Q?pJ9HyI4tVVmNQW6Y61/XCp+7PgERCPkTAV3x5es1HjVhBYN9yeoJxMW/f+aJ?=
+ =?us-ascii?Q?aDVxVBVK8Piu3JrodAGqujwwQECjrDV0R6so1ZDdbYrAvux6chedeH7K3LXI?=
+ =?us-ascii?Q?T6mAU6bz1sYE3zjA7qxeG1wufIwrYU9TRK9NkMLLezC/U14svn49kX8Ux6mz?=
+ =?us-ascii?Q?tQWbgaQIFHZt192Vg6Fb5H8JEAJuhQ4H0S0/r6KBkXP3ATsk3oTpYmcSPy/g?=
+ =?us-ascii?Q?0t8OD0mgWFjnzpkow8pBFGnxZ/IKyOaXIJO49Eywmy5ic2gL9WGRv6blmPxi?=
+ =?us-ascii?Q?KSrszRWR3gu9yDYfDUKmhB/H+9vL69O0zJbNMHvy6hJIkyR3Bj7Mt/jqoCNM?=
+ =?us-ascii?Q?jbTjWHt4HDH+CUaqg+n+vdXVIYF/x8a3CCPPADwc/4m0eqa+a35Jd4ACv2tv?=
+ =?us-ascii?Q?9b4EFIVYY6Ueq60vJTRcMhLYa+jppE0tylSfS8ZQ8whbY5CMbDFq+dyy0IAu?=
+ =?us-ascii?Q?Pag+iN4zx6pnHruO6gDsgXPcUHvkQ8SVrwYapU6ZZNWmEnWdLdALFgOaQvTB?=
+ =?us-ascii?Q?jNHO7rwyBTlc1bpKUwsu2XFS7+gojn0tDYFZc6aT7isd7R3VBNWcri6vzN2K?=
+ =?us-ascii?Q?tkjl9pDVzPtjdNQBTsG1As6JLf/Oo+IwX4VFhYACGElIoSRrldRTTKoOQtWY?=
+ =?us-ascii?Q?po91Gsc3T6Mp9dFaOHyvHRuW2qdbLWM6A4Xku/JRY67kqUDWT1U4SRAwrzUy?=
+ =?us-ascii?Q?iizngKB1NORr8Q+T6CBAgppAde8vcLSLTrFlTa47CnXvijAOvZi4yCio4BTw?=
+ =?us-ascii?Q?z+TPr+EZVGxXmoAGSfu4Ljh3auVwnQOqtu+mjOHO37oZUpCkZG9mfmOnOB3K?=
+ =?us-ascii?Q?sT7/axy1L+VyYUdqMn11JqVSMuG57bMfsa7neJ2uVOBxCZNPEj1YESH/mtxz?=
+ =?us-ascii?Q?tBRSWUm6/pd6RFVkxEbqwO30njN2EUE1I+uvQdyWHIEGzNHzuQafeeHFwWfw?=
+ =?us-ascii?Q?Yspe2ArC5jUH3vwMtIan42J0HSs6IOjuN8qT2lkHjYaR4Z530gdYo+vBS/7l?=
+ =?us-ascii?Q?JPsfVhvqkvWRuq3SxvpVDkJjGTlmdnM8ceCUDnvcQGM5g9r8OaGDfpuc7xYy?=
+ =?us-ascii?Q?0FgjhNrataqPDPvcXSY6tYGK+mwFOY0aadiaWPmzxQyyxBOIwemKM5FaKOgn?=
+ =?us-ascii?Q?CKwvg/ZPpXqZbNCx9d0UQy1WRvGo6etfNgghhF/yNUjFnHTULsArSKbkO7dn?=
+ =?us-ascii?Q?UseRGjrK6CwCcMoF594Kh/IQdUKXwPEEsdyOq6UUgozuLbgNMDSyAbxaAtuI?=
+ =?us-ascii?Q?cLK8wHk75pF0EErqb5BBXlMhqQSx6LxpksAjZNONh12N3B+plcbugWsz4dwc?=
+ =?us-ascii?Q?VQt6D87CtGnVnTuE4P9Yfyg4Ll04aFYs3oLGcmUO8//0/jEx5qN6LGQF8TRi?=
+ =?us-ascii?Q?Gir3gihGDviCtM+kjhot7BcPPLesWOMT4GZNcvJ0KLp0GgEpEAmKFvfHsCqC?=
+ =?us-ascii?Q?Y9w71kW3NcdaMe2hvuw/lpMAieihNxrFMc27XO2tuu5ORA1tZmizxDWYK2hV?=
+ =?us-ascii?Q?4xevpC/T8XqsVR3cqJvZDqAW1L5gWIIGxM1vsarpn+UEXhoVYE9+LLsmavEC?=
+ =?us-ascii?Q?wo0rFg=3D=3D?=
 X-OriginatorOrg: maximintegrated.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f36f77b-40c2-43d5-e461-08d998549996
+X-MS-Exchange-CrossTenant-Network-Message-Id: cbf4552e-51ac-47c9-a1ac-08d998549c16
 X-MS-Exchange-CrossTenant-AuthSource: BYAPR11MB3671.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2021 07:45:37.2752 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2021 07:45:41.6037 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: fbd909df-ea69-4788-a554-f24b7854ad03
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LZ8RwQ5krzW0J5hMn2ZRUyISOlX0cyyQ1HW/uMHhQ9AXYXkppND5Bc7fybQY41dAQv6EiRESzlgYYkO6TsxM7SOEjzkTJuODt5ZLvMJ/2jo=
+X-MS-Exchange-CrossTenant-UserPrincipalName: k8VzniEawa3jogPQU+/8y5U9VGfpNl8Z/WuSMQM68LsOPm2T0Y6ywxRaSML7IWiK0Kcul7CxK+uGZ53vyiJkEzN1iAqNgYe/A+AyimKzlvU=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR11MB2535
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  steves.lee@maximintegrated.com, ryans.lee@maximintegrated.com,
- Rob Herring <robh@kernel.org>, george.song@analog.com,
- linux-kernel@vger.kernel.org, George Song <george.song@maximintegrated.com>
+ george.song@analog.com, linux-kernel@vger.kernel.org,
+ George Song <george.song@maximintegrated.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -160,56 +163,1831 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-add initial bindings for max98520 audio amplifier
+add max98520 audio amplifier driver
 
 Signed-off-by: George Song <george.song@maximintegrated.com>
-Reviewed-by: Rob Herring <robh@kernel.org>
 ---
- .../bindings/sound/maxim,max98520.yaml        | 36 +++++++++++++++++++
- 1 file changed, 36 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/maxim,max98520.yaml
+ sound/soc/codecs/Kconfig         |  12 +
+ sound/soc/codecs/Makefile        |   2 +
+ sound/soc/codecs/max98520.c      | 769 +++++++++++++++++++++++++++++
+ sound/soc/codecs/max98520.c.save | 816 +++++++++++++++++++++++++++++++
+ sound/soc/codecs/max98520.h      | 159 ++++++
+ 5 files changed, 1758 insertions(+)
+ create mode 100644 sound/soc/codecs/max98520.c
+ create mode 100644 sound/soc/codecs/max98520.c.save
+ create mode 100644 sound/soc/codecs/max98520.h
 
-diff --git a/Documentation/devicetree/bindings/sound/maxim,max98520.yaml b/Documentation/devicetree/bindings/sound/maxim,max98520.yaml
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index 82ee233a269d..7ad1e3850279 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -115,6 +115,7 @@ config SND_SOC_ALL_CODECS
+ 	imply SND_SOC_MAX98357A
+ 	imply SND_SOC_MAX98371
+ 	imply SND_SOC_MAX98504
++	imply SND_SOC_MAX98520
+ 	imply SND_SOC_MAX9867
+ 	imply SND_SOC_MAX98925
+ 	imply SND_SOC_MAX98926
+@@ -922,6 +923,17 @@ config SND_SOC_MAX98927
+ 	tristate "Maxim Integrated MAX98927 Speaker Amplifier"
+ 	depends on I2C
+ 
++config SND_SOC_MAX98520
++	tristate "Maxim Integrated MAX98520 Speaker Amplifier"
++	depends on I2C
++	help
++	  Enable support for Maxim Integrated MAX98520 audio
++	  amplifier, which implements a tripler charge pump
++	  based boost converter and supports sample rates of
++	  8KHz to 192KHz.
++
++	  To compile this driver as a module, choose M here.
++
+ config SND_SOC_MAX98373
+ 	tristate
+ 
+diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+index 8dcea2c4604a..daf63e31fdd0 100644
+--- a/sound/soc/codecs/Makefile
++++ b/sound/soc/codecs/Makefile
+@@ -123,6 +123,7 @@ snd-soc-max9867-objs := max9867.o
+ snd-soc-max98925-objs := max98925.o
+ snd-soc-max98926-objs := max98926.o
+ snd-soc-max98927-objs := max98927.o
++snd-soc-max98520-objs := max98520.o
+ snd-soc-max98373-objs := max98373.o
+ snd-soc-max98373-i2c-objs := max98373-i2c.o
+ snd-soc-max98373-sdw-objs := max98373-sdw.o
+@@ -450,6 +451,7 @@ obj-$(CONFIG_SND_SOC_MAX9867)	+= snd-soc-max9867.o
+ obj-$(CONFIG_SND_SOC_MAX98925)	+= snd-soc-max98925.o
+ obj-$(CONFIG_SND_SOC_MAX98926)	+= snd-soc-max98926.o
+ obj-$(CONFIG_SND_SOC_MAX98927)	+= snd-soc-max98927.o
++obj-$(CONFIG_SND_SOC_MAX98520)	+= snd-soc-max98520.o
+ obj-$(CONFIG_SND_SOC_MAX98373)	+= snd-soc-max98373.o
+ obj-$(CONFIG_SND_SOC_MAX98373_I2C)   += snd-soc-max98373-i2c.o
+ obj-$(CONFIG_SND_SOC_MAX98373_SDW)   += snd-soc-max98373-sdw.o
+diff --git a/sound/soc/codecs/max98520.c b/sound/soc/codecs/max98520.c
 new file mode 100644
-index 000000000000..b6509cb2c8e0
+index 000000000000..bb8649cd421c
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/maxim,max98520.yaml
-@@ -0,0 +1,36 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/maxim,max98520.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/sound/soc/codecs/max98520.c
+@@ -0,0 +1,769 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2021, Maxim Integrated
 +
-+title: Maxim Integrated MAX98520 Speaker Amplifier Driver
++#include <linux/acpi.h>
++#include <linux/delay.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/regmap.h>
++#include <linux/slab.h>
++#include <linux/cdev.h>
++#include <sound/pcm.h>
++#include <sound/pcm_params.h>
++#include <sound/soc.h>
++#include <linux/gpio.h>
++#include <linux/gpio/consumer.h>
++#include <linux/of.h>
++#include <linux/of_gpio.h>
++#include <sound/tlv.h>
++#include "max98520.h"
 +
-+maintainers:
-+  - George Song <george.song@maximintegrated.com>
++static struct reg_default max98520_reg[] = {
++	{MAX98520_R2000_SW_RESET, 0x00},
++	{MAX98520_R2001_STATUS_1, 0x00},
++	{MAX98520_R2002_STATUS_2, 0x00},
++	{MAX98520_R2020_THERM_WARN_THRESH, 0x46},
++	{MAX98520_R2021_THERM_SHDN_THRESH, 0x64},
++	{MAX98520_R2022_THERM_HYSTERESIS, 0x02},
++	{MAX98520_R2023_THERM_FOLDBACK_SET, 0x31},
++	{MAX98520_R2027_THERM_FOLDBACK_EN, 0x01},
++	{MAX98520_R2030_CLK_MON_CTRL, 0x00},
++	{MAX98520_R2037_ERR_MON_CTRL, 0x01},
++	{MAX98520_R2040_PCM_MODE_CFG, 0xC0},
++	{MAX98520_R2041_PCM_CLK_SETUP, 0x04},
++	{MAX98520_R2042_PCM_SR_SETUP, 0x08},
++	{MAX98520_R2043_PCM_RX_SRC1, 0x00},
++	{MAX98520_R2044_PCM_RX_SRC2, 0x00},
++	{MAX98520_R204F_PCM_RX_EN, 0x00},
++	{MAX98520_R2090_AMP_VOL_CTRL, 0x00},
++	{MAX98520_R2091_AMP_PATH_GAIN, 0x03},
++	{MAX98520_R2092_AMP_DSP_CFG, 0x02},
++	{MAX98520_R2094_SSM_CFG, 0x01},
++	{MAX98520_R2095_AMP_CFG, 0xF0},
++	{MAX98520_R209F_AMP_EN, 0x00},
++	{MAX98520_R20B0_ADC_SR, 0x00},
++	{MAX98520_R20B1_ADC_RESOLUTION, 0x00},
++	{MAX98520_R20B2_ADC_PVDD0_CFG, 0x02},
++	{MAX98520_R20B3_ADC_THERMAL_CFG, 0x02},
++	{MAX98520_R20B4_ADC_READBACK_CTRL, 0x00},
++	{MAX98520_R20B5_ADC_READBACK_UPDATE, 0x00},
++	{MAX98520_R20B6_ADC_PVDD_READBACK_MSB, 0x00},
++	{MAX98520_R20B7_ADC_PVDD_READBACK_LSB, 0x00},
++	{MAX98520_R20B8_ADC_TEMP_READBACK_MSB, 0x00},
++	{MAX98520_R20B9_ADC_TEMP_READBACK_LSB, 0x00},
++	{MAX98520_R20BA_ADC_LOW_PVDD_READBACK_MSB, 0xFF},
++	{MAX98520_R20BB_ADC_LOW_READBACK_LSB, 0x01},
++	{MAX98520_R20BC_ADC_HIGH_TEMP_READBACK_MSB, 0x00},
++	{MAX98520_R20BD_ADC_HIGH_TEMP_READBACK_LSB, 0x00},
++	{MAX98520_R20CF_MEAS_ADC_CFG, 0x00},
++	{MAX98520_R20D0_DHT_CFG1, 0x00},
++	{MAX98520_R20D1_LIMITER_CFG1, 0x08},
++	{MAX98520_R20D2_LIMITER_CFG2, 0x00},
++	{MAX98520_R20D3_DHT_CFG2, 0x14},
++	{MAX98520_R20D4_DHT_CFG3, 0x02},
++	{MAX98520_R20D5_DHT_CFG4, 0x04},
++	{MAX98520_R20D6_DHT_HYSTERESIS_CFG, 0x07},
++	{MAX98520_R20D8_DHT_EN, 0x00},
++	{MAX98520_R210E_AUTO_RESTART_BEHAVIOR, 0x00},
++	{MAX98520_R210F_GLOBAL_EN, 0x00},
++	{MAX98520_R21FF_REVISION_ID, 0x00},
++};
 +
-+properties:
-+  compatible:
-+    const: maxim,max98520
++static int max98520_dai_set_fmt(struct snd_soc_dai *codec_dai, unsigned int fmt)
++{
++	struct snd_soc_component *component = codec_dai->component;
++	struct max98520_priv *max98520 =
++		snd_soc_component_get_drvdata(component);
++	unsigned int format = 0;
++	unsigned int invert = 0;
 +
-+  reg:
-+    maxItems: 1
-+    description: I2C address of the device.
++	dev_dbg(component->dev, "%s: fmt 0x%08X\n", __func__, fmt);
 +
-+required:
-+  - compatible
-+  - reg
++	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
++	case SND_SOC_DAIFMT_NB_NF:
++		break;
++	case SND_SOC_DAIFMT_IB_NF:
++		invert = MAX98520_PCM_MODE_CFG_PCM_BCLKEDGE;
++		break;
++	default:
++		dev_err(component->dev, "DAI invert mode unsupported\n");
++		return -EINVAL;
++	}
 +
-+additionalProperties: false
++	regmap_update_bits(max98520->regmap,
++			   MAX98520_R2041_PCM_CLK_SETUP,
++			   MAX98520_PCM_MODE_CFG_PCM_BCLKEDGE,
++			   invert);
 +
-+examples:
-+  - |
-+    i2c {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+      max98520: amplifier@38 {
-+        compatible = "maxim,max98520";
-+        reg = <0x38>;
-+      };
-+    };
++	/* interface format */
++	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
++	case SND_SOC_DAIFMT_I2S:
++		format = MAX98520_PCM_FORMAT_I2S;
++		break;
++	case SND_SOC_DAIFMT_LEFT_J:
++		format = MAX98520_PCM_FORMAT_LJ;
++		break;
++	case SND_SOC_DAIFMT_DSP_A:
++		format = MAX98520_PCM_FORMAT_TDM_MODE1;
++		break;
++	case SND_SOC_DAIFMT_DSP_B:
++		format = MAX98520_PCM_FORMAT_TDM_MODE0;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	regmap_update_bits(max98520->regmap,
++			   MAX98520_R2040_PCM_MODE_CFG,
++			   MAX98520_PCM_MODE_CFG_FORMAT_MASK,
++			   format << MAX98520_PCM_MODE_CFG_FORMAT_SHIFT);
++
++	return 0;
++}
++
++/* BCLKs per LRCLK */
++static const int bclk_sel_table[] = {
++	32, 48, 64, 96, 128, 192, 256, 384, 512, 320,
++};
++
++static int max98520_get_bclk_sel(int bclk)
++{
++	int i;
++	/* match BCLKs per LRCLK */
++	for (i = 0; i < ARRAY_SIZE(bclk_sel_table); i++) {
++		if (bclk_sel_table[i] == bclk)
++			return i + 2;
++	}
++	return 0;
++}
++
++static int max98520_set_clock(struct snd_soc_component *component,
++			      struct snd_pcm_hw_params *params)
++{
++	struct max98520_priv *max98520 =
++		snd_soc_component_get_drvdata(component);
++	/* BCLK/LRCLK ratio calculation */
++	int blr_clk_ratio = params_channels(params) * max98520->ch_size;
++	int value;
++
++	if (!max98520->tdm_mode) {
++		/* BCLK configuration */
++		value = max98520_get_bclk_sel(blr_clk_ratio);
++		if (!value) {
++			dev_err(component->dev, "format unsupported %d\n",
++				params_format(params));
++			return -EINVAL;
++		}
++
++		regmap_update_bits(max98520->regmap,
++				   MAX98520_R2041_PCM_CLK_SETUP,
++				   MAX98520_PCM_CLK_SETUP_BSEL_MASK,
++				   value);
++	}
++	dev_dbg(component->dev, "%s tdm_mode:%d out\n", __func__, max98520->tdm_mode);
++	return 0;
++}
++
++static int max98520_dai_hw_params(struct snd_pcm_substream *substream,
++				  struct snd_pcm_hw_params *params,
++				  struct snd_soc_dai *dai)
++{
++	struct snd_soc_component *component = dai->component;
++	struct max98520_priv *max98520 =
++		snd_soc_component_get_drvdata(component);
++	unsigned int sampling_rate = 0;
++	unsigned int chan_sz = 0;
++
++	/* pcm mode configuration */
++	switch (snd_pcm_format_width(params_format(params))) {
++	case 16:
++		chan_sz = MAX98520_PCM_MODE_CFG_CHANSZ_16;
++		break;
++	case 24:
++		chan_sz = MAX98520_PCM_MODE_CFG_CHANSZ_24;
++		break;
++	case 32:
++		chan_sz = MAX98520_PCM_MODE_CFG_CHANSZ_32;
++		break;
++	default:
++		dev_err(component->dev, "format unsupported %d\n",
++			params_format(params));
++		goto err;
++	}
++
++	max98520->ch_size = snd_pcm_format_width(params_format(params));
++
++	regmap_update_bits(max98520->regmap,
++			   MAX98520_R2040_PCM_MODE_CFG,
++			   MAX98520_PCM_MODE_CFG_CHANSZ_MASK, chan_sz);
++
++	dev_dbg(component->dev, "format supported %d",
++		params_format(params));
++
++	/* sampling rate configuration */
++	switch (params_rate(params)) {
++	case 8000:
++		sampling_rate = MAX98520_PCM_SR_8000;
++		break;
++	case 11025:
++		sampling_rate = MAX98520_PCM_SR_11025;
++		break;
++	case 12000:
++		sampling_rate = MAX98520_PCM_SR_12000;
++		break;
++	case 16000:
++		sampling_rate = MAX98520_PCM_SR_16000;
++		break;
++	case 22050:
++		sampling_rate = MAX98520_PCM_SR_22050;
++		break;
++	case 24000:
++		sampling_rate = MAX98520_PCM_SR_24000;
++		break;
++	case 32000:
++		sampling_rate = MAX98520_PCM_SR_32000;
++		break;
++	case 44100:
++		sampling_rate = MAX98520_PCM_SR_44100;
++		break;
++	case 48000:
++		sampling_rate = MAX98520_PCM_SR_48000;
++		break;
++	case 88200:
++		sampling_rate = MAX98520_PCM_SR_88200;
++		break;
++	case 96000:
++		sampling_rate = MAX98520_PCM_SR_96000;
++		break;
++	case 176400:
++		sampling_rate = MAX98520_PCM_SR_176400;
++		break;
++	case 192000:
++		sampling_rate = MAX98520_PCM_SR_192000;
++		break;
++	default:
++		dev_err(component->dev, "rate %d not supported\n",
++			params_rate(params));
++		goto err;
++	}
++
++	dev_dbg(component->dev, " %s ch_size: %d, sampling rate : %d out\n", __func__,
++		snd_pcm_format_width(params_format(params)), params_rate(params));
++	/* set DAI_SR to correct LRCLK frequency */
++	regmap_update_bits(max98520->regmap,
++			   MAX98520_R2042_PCM_SR_SETUP,
++			   MAX98520_PCM_SR_MASK,
++			   sampling_rate);
++
++	return max98520_set_clock(component, params);
++err:
++	dev_dbg(component->dev, "%s out error", __func__);
++	return -EINVAL;
++}
++
++static int max98520_dai_tdm_slot(struct snd_soc_dai *dai,
++				 unsigned int tx_mask, unsigned int rx_mask,
++				 int slots, int slot_width)
++{
++	struct snd_soc_component *component = dai->component;
++	struct max98520_priv *max98520 =
++		snd_soc_component_get_drvdata(component);
++	int bsel;
++	unsigned int chan_sz = 0;
++
++	if (!tx_mask && !rx_mask && !slots && !slot_width)
++		max98520->tdm_mode = false;
++	else
++		max98520->tdm_mode = true;
++
++	/* BCLK configuration */
++	bsel = max98520_get_bclk_sel(slots * slot_width);
++	if (bsel == 0) {
++		dev_err(component->dev, "BCLK %d not supported\n",
++			slots * slot_width);
++		return -EINVAL;
++	}
++
++	regmap_update_bits(max98520->regmap,
++			   MAX98520_R2041_PCM_CLK_SETUP,
++			   MAX98520_PCM_CLK_SETUP_BSEL_MASK,
++			   bsel);
++
++	/* Channel size configuration */
++	switch (slot_width) {
++	case 16:
++		chan_sz = MAX98520_PCM_MODE_CFG_CHANSZ_16;
++		break;
++	case 24:
++		chan_sz = MAX98520_PCM_MODE_CFG_CHANSZ_24;
++		break;
++	case 32:
++		chan_sz = MAX98520_PCM_MODE_CFG_CHANSZ_32;
++		break;
++	default:
++		dev_err(component->dev, "format unsupported %d\n",
++			slot_width);
++		return -EINVAL;
++	}
++
++	regmap_update_bits(max98520->regmap,
++			   MAX98520_R2040_PCM_MODE_CFG,
++			   MAX98520_PCM_MODE_CFG_CHANSZ_MASK, chan_sz);
++
++	/* Rx slot configuration */
++	regmap_update_bits(max98520->regmap,
++			   MAX98520_R2044_PCM_RX_SRC2,
++			   MAX98520_PCM_DMIX_CH0_SRC_MASK,
++			   rx_mask);
++	regmap_update_bits(max98520->regmap,
++			   MAX98520_R2044_PCM_RX_SRC2,
++			   MAX98520_PCM_DMIX_CH1_SRC_MASK,
++			   rx_mask << MAX98520_PCM_DMIX_CH1_SHIFT);
++
++	return 0;
++}
++
++#define MAX98520_RATES SNDRV_PCM_RATE_8000_192000
++
++#define MAX98520_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | \
++	SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S32_LE)
++
++static const struct snd_soc_dai_ops max98520_dai_ops = {
++	.set_fmt = max98520_dai_set_fmt,
++	.hw_params = max98520_dai_hw_params,
++	.set_tdm_slot = max98520_dai_tdm_slot,
++};
++
++static int max98520_dac_event(struct snd_soc_dapm_widget *w,
++			      struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component =
++		snd_soc_dapm_to_component(w->dapm);
++	struct max98520_priv *max98520 =
++		snd_soc_component_get_drvdata(component);
++
++	switch (event) {
++	case SND_SOC_DAPM_POST_PMU:
++		dev_dbg(component->dev, " AMP ON\n");
++
++		regmap_write(max98520->regmap, MAX98520_R209F_AMP_EN, 1);
++		regmap_write(max98520->regmap, MAX98520_R210F_GLOBAL_EN, 1);
++		usleep_range(30000, 31000);
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		dev_dbg(component->dev, " AMP OFF\n");
++
++		regmap_write(max98520->regmap, MAX98520_R210F_GLOBAL_EN, 0);
++		regmap_write(max98520->regmap, MAX98520_R209F_AMP_EN, 0);
++		usleep_range(30000, 31000);
++		break;
++	default:
++		return 0;
++	}
++	return 0;
++}
++
++static const char * const max98520_switch_text[] = {
++	"Left", "Right", "LeftRight"};
++
++static const struct soc_enum dai_sel_enum =
++	SOC_ENUM_SINGLE(MAX98520_R2043_PCM_RX_SRC1,
++			0, 3, max98520_switch_text);
++
++static const struct snd_kcontrol_new max98520_dai_controls =
++	SOC_DAPM_ENUM("DAI Sel", dai_sel_enum);
++
++static const struct snd_kcontrol_new max98520_left_input_mixer_controls[] = {
++	SOC_DAPM_SINGLE("PCM_INPUT_CH0", MAX98520_R2044_PCM_RX_SRC2, 0, 0x0, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH1", MAX98520_R2044_PCM_RX_SRC2, 0, 0x1, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH2", MAX98520_R2044_PCM_RX_SRC2, 0, 0x2, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH3", MAX98520_R2044_PCM_RX_SRC2, 0, 0x3, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH4", MAX98520_R2044_PCM_RX_SRC2, 0, 0x4, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH5", MAX98520_R2044_PCM_RX_SRC2, 0, 0x5, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH6", MAX98520_R2044_PCM_RX_SRC2, 0, 0x6, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH7", MAX98520_R2044_PCM_RX_SRC2, 0, 0x7, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH8", MAX98520_R2044_PCM_RX_SRC2, 0, 0x8, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH9", MAX98520_R2044_PCM_RX_SRC2, 0, 0x9, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH10", MAX98520_R2044_PCM_RX_SRC2, 0, 0xa, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH11", MAX98520_R2044_PCM_RX_SRC2, 0, 0xb, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH12", MAX98520_R2044_PCM_RX_SRC2, 0, 0xc, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH13", MAX98520_R2044_PCM_RX_SRC2, 0, 0xd, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH14", MAX98520_R2044_PCM_RX_SRC2, 0, 0xe, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH15", MAX98520_R2044_PCM_RX_SRC2, 0, 0xf, 0),
++};
++
++static const struct snd_kcontrol_new max98520_right_input_mixer_controls[] = {
++	SOC_DAPM_SINGLE("PCM_INPUT_CH0", MAX98520_R2044_PCM_RX_SRC2, 4, 0x0, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH1", MAX98520_R2044_PCM_RX_SRC2, 4, 0x1, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH2", MAX98520_R2044_PCM_RX_SRC2, 4, 0x2, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH3", MAX98520_R2044_PCM_RX_SRC2, 4, 0x3, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH4", MAX98520_R2044_PCM_RX_SRC2, 4, 0x4, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH5", MAX98520_R2044_PCM_RX_SRC2, 4, 0x5, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH6", MAX98520_R2044_PCM_RX_SRC2, 4, 0x6, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH7", MAX98520_R2044_PCM_RX_SRC2, 4, 0x7, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH8", MAX98520_R2044_PCM_RX_SRC2, 4, 0x8, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH9", MAX98520_R2044_PCM_RX_SRC2, 4, 0x9, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH10", MAX98520_R2044_PCM_RX_SRC2, 4, 0xa, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH11", MAX98520_R2044_PCM_RX_SRC2, 4, 0xb, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH12", MAX98520_R2044_PCM_RX_SRC2, 4, 0xc, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH13", MAX98520_R2044_PCM_RX_SRC2, 4, 0xd, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH14", MAX98520_R2044_PCM_RX_SRC2, 4, 0xe, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH15", MAX98520_R2044_PCM_RX_SRC2, 4, 0xf, 0),
++};
++
++static const struct snd_soc_dapm_widget max98520_dapm_widgets[] = {
++	SND_SOC_DAPM_DAC_E("Amp Enable", "HiFi Playback",
++			   SND_SOC_NOPM, 0, 0, max98520_dac_event,
++	SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_MUX("DAI Sel Mux", SND_SOC_NOPM, 0, 0,	&max98520_dai_controls),
++	SND_SOC_DAPM_OUTPUT("BE_OUT"),
++	/* Left Input Selection */
++	SND_SOC_DAPM_MIXER("Left Input Selection", SND_SOC_NOPM, 0, 0,
++			   &max98520_left_input_mixer_controls[0],
++			   ARRAY_SIZE(max98520_left_input_mixer_controls)),
++	/* Right Input Selection */
++	SND_SOC_DAPM_MIXER("Right Input Selection", SND_SOC_NOPM, 0, 0,
++			   &max98520_right_input_mixer_controls[0],
++			   ARRAY_SIZE(max98520_right_input_mixer_controls)),
++};
++
++static const DECLARE_TLV_DB_SCALE(max98520_digital_tlv, -6300, 50, 1);
++static const DECLARE_TLV_DB_SCALE(max98520_spk_tlv, -600, 300, 0);
++
++static const DECLARE_TLV_DB_RANGE(max98520_dht_lim_thresh_tlv,
++	0, 15, TLV_DB_SCALE_ITEM(-1500, 100, 0),
++);
++
++static const DECLARE_TLV_DB_RANGE(max98520_dht_hysteresis_tlv,
++	0, 3, TLV_DB_SCALE_ITEM(100, 100, 0),
++	4, 7, TLV_DB_SCALE_ITEM(600, 200, 0),
++);
++
++static const DECLARE_TLV_DB_RANGE(max98520_dht_rotation_point_tlv,
++	0, 1, TLV_DB_SCALE_ITEM(-1500, 300, 0),
++	2, 4, TLV_DB_SCALE_ITEM(-1000, 200, 0),
++	5, 10, TLV_DB_SCALE_ITEM(-500, 100, 0),
++);
++
++static const DECLARE_TLV_DB_RANGE(max98520_dht_supply_hr_tlv,
++	0, 16, TLV_DB_SCALE_ITEM(-2000, 250, 0),
++);
++
++static const DECLARE_TLV_DB_RANGE(max98520_dht_max_atten_tlv,
++	1, 20, TLV_DB_SCALE_ITEM(-2000, 100, 0),
++);
++
++static const char * const max98520_dht_attack_rate_text[] = {
++	"20us", "40us", "80us", "160us", "320us", "640us",
++	"1.28ms", "2.56ms",	"5.12ms", "10.24ms", "20.48ms", "40.96ms",
++	"81.92ms", "163.84ms"
++};
++
++static SOC_ENUM_SINGLE_DECL(max98520_dht_attack_rate_enum,
++			    MAX98520_R20D4_DHT_CFG3, 0,
++			    max98520_dht_attack_rate_text);
++
++static const char * const max98520_dht_release_rate_text[] = {
++	"2ms", "4ms", "8ms", "16ms", "32ms", "64ms", "128ms", "256ms", "512ms",
++	"1.024s", "2.048s", "4.096s", "8.192s", "16.384s"
++};
++
++static SOC_ENUM_SINGLE_DECL(max98520_dht_release_rate_enum,
++			    MAX98520_R20D5_DHT_CFG4, 0,
++			    max98520_dht_release_rate_text);
++
++static bool max98520_readable_register(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case MAX98520_R2000_SW_RESET:
++	case MAX98520_R2027_THERM_FOLDBACK_EN:
++	case MAX98520_R2030_CLK_MON_CTRL:
++	case MAX98520_R2037_ERR_MON_CTRL:
++	case MAX98520_R204F_PCM_RX_EN:
++	case MAX98520_R209F_AMP_EN:
++	case MAX98520_R20CF_MEAS_ADC_CFG:
++	case MAX98520_R20D8_DHT_EN:
++	case MAX98520_R21FF_REVISION_ID:
++	case MAX98520_R2001_STATUS_1... MAX98520_R2002_STATUS_2:
++	case MAX98520_R2020_THERM_WARN_THRESH... MAX98520_R2023_THERM_FOLDBACK_SET:
++	case MAX98520_R2040_PCM_MODE_CFG... MAX98520_R2044_PCM_RX_SRC2:
++	case MAX98520_R2090_AMP_VOL_CTRL... MAX98520_R2092_AMP_DSP_CFG:
++	case MAX98520_R2094_SSM_CFG... MAX98520_R2095_AMP_CFG:
++	case MAX98520_R20B0_ADC_SR... MAX98520_R20BD_ADC_HIGH_TEMP_READBACK_LSB:
++	case MAX98520_R20D0_DHT_CFG1... MAX98520_R20D6_DHT_HYSTERESIS_CFG:
++	case MAX98520_R210E_AUTO_RESTART_BEHAVIOR... MAX98520_R210F_GLOBAL_EN:
++	case MAX98520_R2161_BOOST_TM1... MAX98520_R2163_BOOST_TM3:
++		return true;
++	default:
++		return false;
++	}
++};
++
++static bool max98520_volatile_reg(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case MAX98520_R210F_GLOBAL_EN:
++	case MAX98520_R21FF_REVISION_ID:
++	case MAX98520_R2000_SW_RESET:
++	case MAX98520_R2001_STATUS_1 ... MAX98520_R2002_STATUS_2:
++	case MAX98520_R20B4_ADC_READBACK_CTRL
++		... MAX98520_R20BD_ADC_HIGH_TEMP_READBACK_LSB:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static const struct snd_kcontrol_new max98520_snd_controls[] = {
++/* Volume */
++SOC_SINGLE_TLV("Digital Volume", MAX98520_R2090_AMP_VOL_CTRL,
++	       0, 0x7F, 1, max98520_digital_tlv),
++SOC_SINGLE_TLV("Speaker Volume", MAX98520_R2091_AMP_PATH_GAIN,
++	       0, 0x5, 0, max98520_spk_tlv),
++/* Volume Ramp Up/Down Enable*/
++SOC_SINGLE("Ramp Up Switch", MAX98520_R2092_AMP_DSP_CFG,
++	   MAX98520_DSP_SPK_VOL_RMPUP_SHIFT, 1, 0),
++SOC_SINGLE("Ramp Down Switch", MAX98520_R2092_AMP_DSP_CFG,
++	   MAX98520_DSP_SPK_VOL_RMPDN_SHIFT, 1, 0),
++/* Clock Monitor Enable */
++SOC_SINGLE("CLK Monitor Switch", MAX98520_R2037_ERR_MON_CTRL,
++	   MAX98520_CTRL_CMON_EN_SHIFT, 1, 0),
++/* Clock Monitor Config */
++SOC_SINGLE("CLKMON Autorestart Switch", MAX98520_R2030_CLK_MON_CTRL,
++	   MAX98520_CMON_AUTORESTART_SHIFT, 1, 0),
++/* Dither Enable */
++SOC_SINGLE("Dither Switch", MAX98520_R2092_AMP_DSP_CFG,
++	   MAX98520_DSP_SPK_DITH_EN_SHIFT, 1, 0),
++/* DC Blocker Enable */
++SOC_SINGLE("DC Blocker Switch", MAX98520_R2092_AMP_DSP_CFG,
++	   MAX98520_DSP_SPK_DCBLK_EN_SHIFT, 1, 0),
++/* Speaker Safe Mode Enable */
++SOC_SINGLE("Speaker Safemode Switch", MAX98520_R2092_AMP_DSP_CFG,
++	   MAX98520_DSP_SPK_SAFE_EN_SHIFT, 1, 0),
++/* AMP SSM Enable */
++SOC_SINGLE("CP Bypass Switch", MAX98520_R2094_SSM_CFG,
++	   MAX98520_SSM_RCVR_MODE_SHIFT, 1, 0),
++/* Dynamic Headroom Tracking */
++SOC_SINGLE("DHT Switch", MAX98520_R20D8_DHT_EN, 0, 1, 0),
++SOC_SINGLE("DHT Limiter Mode", MAX98520_R20D2_LIMITER_CFG2,
++	   MAX98520_DHT_LIMITER_MODE_SHIFT, 1, 0),
++SOC_SINGLE("DHT Hysteresis Switch", MAX98520_R20D6_DHT_HYSTERESIS_CFG,
++	   MAX98520_DHT_HYSTERESIS_SWITCH_SHIFT, 1, 0),
++SOC_SINGLE_TLV("DHT Rot Pnt", MAX98520_R20D0_DHT_CFG1,
++	       MAX98520_DHT_VROT_PNT_SHIFT, 10, 1, max98520_dht_rotation_point_tlv),
++SOC_SINGLE_TLV("DHT Supply Headroom", MAX98520_R20D1_LIMITER_CFG1,
++	       MAX98520_DHT_SUPPLY_HR_SHIFT, 16, 0, max98520_dht_supply_hr_tlv),
++SOC_SINGLE_TLV("DHT Limiter Threshold", MAX98520_R20D2_LIMITER_CFG2,
++	       MAX98520_DHT_LIMITER_THRESHOLD_SHIFT, 0xF, 1, max98520_dht_lim_thresh_tlv),
++SOC_SINGLE_TLV("DHT Max Attenuation", MAX98520_R20D3_DHT_CFG2,
++	       MAX98520_DHT_MAX_ATTEN_SHIFT, 20, 1, max98520_dht_max_atten_tlv),
++SOC_SINGLE_TLV("DHT Hysteresis", MAX98520_R20D6_DHT_HYSTERESIS_CFG,
++	       MAX98520_DHT_HYSTERESIS_SHIFT, 0x7, 0, max98520_dht_hysteresis_tlv),
++SOC_ENUM("DHT Attack Rate", max98520_dht_attack_rate_enum),
++SOC_ENUM("DHT Release Rate", max98520_dht_release_rate_enum),
++/* ADC configuration */
++SOC_SINGLE("ADC PVDD CH Switch", MAX98520_R20CF_MEAS_ADC_CFG, 0, 1, 0),
++SOC_SINGLE("ADC PVDD FLT Switch", MAX98520_R20B2_ADC_PVDD0_CFG,	MAX98520_FLT_EN_SHIFT, 1, 0),
++SOC_SINGLE("ADC TEMP FLT Switch", MAX98520_R20B3_ADC_THERMAL_CFG, MAX98520_FLT_EN_SHIFT, 1, 0),
++SOC_SINGLE("ADC PVDD MSB", MAX98520_R20B6_ADC_PVDD_READBACK_MSB, 0, 0xFF, 0),
++SOC_SINGLE("ADC PVDD LSB", MAX98520_R20B7_ADC_PVDD_READBACK_LSB, 0, 0x01, 0),
++SOC_SINGLE("ADC TEMP MSB", MAX98520_R20B8_ADC_TEMP_READBACK_MSB, 0, 0xFF, 0),
++SOC_SINGLE("ADC TEMP LSB", MAX98520_R20B9_ADC_TEMP_READBACK_LSB, 0, 0x01, 0),
++};
++
++static const struct snd_soc_dapm_route max98520_audio_map[] = {
++	/* Plabyack */
++	{"DAI Sel Mux", "Left", "Amp Enable"},
++	{"DAI Sel Mux", "Right", "Amp Enable"},
++	{"DAI Sel Mux", "LeftRight", "Amp Enable"},
++	{"BE_OUT", NULL, "DAI Sel Mux"},
++};
++
++static struct snd_soc_dai_driver max98520_dai[] = {
++	{
++		.name = "max98520-aif1",
++		.playback = {
++			.stream_name = "HiFi Playback",
++			.channels_min = 1,
++			.channels_max = 2,
++			.rates = MAX98520_RATES,
++			.formats = MAX98520_FORMATS,
++		},
++		.ops = &max98520_dai_ops,
++	}
++
++};
++
++static int max98520_probe(struct snd_soc_component *component)
++{
++	struct max98520_priv *max98520 =
++		snd_soc_component_get_drvdata(component);
++
++	/* Software Reset */
++	regmap_write(max98520->regmap, MAX98520_R2000_SW_RESET, 1);
++
++	/* L/R mono mix configuration : "DAI Sel" for 0x2043 */
++	regmap_write(max98520->regmap, MAX98520_R2043_PCM_RX_SRC1, 0x2);
++
++	/* PCM input channles configuration : "Left Input Selection" for 0x2044 */
++	/* PCM input channles configuration : "Right Input Selection" for 0x2044 */
++	regmap_write(max98520->regmap, MAX98520_R2044_PCM_RX_SRC2, 0x10);
++
++	/* Enable DC blocker */
++	regmap_update_bits(max98520->regmap, MAX98520_R2092_AMP_DSP_CFG, 1, 1);
++	/* Enable Clock Monitor Auto-restart */
++	regmap_write(max98520->regmap, MAX98520_R2030_CLK_MON_CTRL, 0x1);
++
++	/* set Rx Enable */
++	regmap_update_bits(max98520->regmap,
++			   MAX98520_R204F_PCM_RX_EN,
++			   MAX98520_PCM_RX_EN_MASK,
++			   1);
++
++	return 0;
++}
++
++static int __maybe_unused max98520_suspend(struct device *dev)
++{
++	struct max98520_priv *max98520 = dev_get_drvdata(dev);
++
++	regcache_cache_only(max98520->regmap, true);
++	regcache_mark_dirty(max98520->regmap);
++	return 0;
++}
++
++static int __maybe_unused max98520_resume(struct device *dev)
++{
++	struct max98520_priv *max98520 = dev_get_drvdata(dev);
++
++	regcache_cache_only(max98520->regmap, false);
++	regmap_write(max98520->regmap, MAX98520_R2000_SW_RESET, 1);
++	regcache_sync(max98520->regmap);
++	return 0;
++}
++
++static const struct dev_pm_ops max98520_pm = {
++	SET_SYSTEM_SLEEP_PM_OPS(max98520_suspend, max98520_resume)
++};
++
++static const struct snd_soc_component_driver soc_codec_dev_max98520 = {
++	.probe			= max98520_probe,
++	.controls		= max98520_snd_controls,
++	.num_controls		= ARRAY_SIZE(max98520_snd_controls),
++	.dapm_widgets		= max98520_dapm_widgets,
++	.num_dapm_widgets	= ARRAY_SIZE(max98520_dapm_widgets),
++	.dapm_routes		= max98520_audio_map,
++	.num_dapm_routes	= ARRAY_SIZE(max98520_audio_map),
++	.idle_bias_on		= 1,
++	.use_pmdown_time	= 1,
++	.endianness		= 1,
++	.non_legacy_dai_naming	= 1,
++};
++
++static const struct regmap_config max98520_regmap = {
++	.reg_bits = 16,
++	.val_bits = 8,
++	.max_register = MAX98520_R21FF_REVISION_ID,
++	.reg_defaults  = max98520_reg,
++	.num_reg_defaults = ARRAY_SIZE(max98520_reg),
++	.readable_reg = max98520_readable_register,
++	.volatile_reg = max98520_volatile_reg,
++	.cache_type = REGCACHE_RBTREE,
++};
++
++static void max98520_power_on(struct max98520_priv *max98520, bool poweron)
++{
++	if (max98520->reset_gpio)
++		gpiod_set_value_cansleep(max98520->reset_gpio, !poweron);
++}
++
++static int max98520_i2c_probe(struct i2c_client *i2c, const struct i2c_device_id *id)
++{
++	int ret;
++	int reg = 0;
++	struct max98520_priv *max98520;
++	struct i2c_adapter *adapter = to_i2c_adapter(i2c->dev.parent);
++
++	ret = i2c_check_functionality(adapter, I2C_FUNC_SMBUS_BYTE | I2C_FUNC_SMBUS_BYTE_DATA);
++	if (!ret) {
++		dev_err(&i2c->dev, "I2C check functionality failed\n");
++		return -ENXIO;
++	}
++
++	max98520 = devm_kzalloc(&i2c->dev, sizeof(*max98520), GFP_KERNEL);
++
++	if (!max98520)
++		return -ENOMEM;
++
++	i2c_set_clientdata(i2c, max98520);
++
++	/* regmap initialization */
++	max98520->regmap = devm_regmap_init_i2c(i2c, &max98520_regmap);
++	if (IS_ERR(max98520->regmap)) {
++		ret = PTR_ERR(max98520->regmap);
++		dev_err(&i2c->dev, "Failed to allocate regmap: %d\n", ret);
++		return ret;
++	}
++
++	/* Power on device */
++	max98520->reset_gpio = devm_gpiod_get_optional(&i2c->dev, "reset", GPIOD_OUT_HIGH);
++	if (max98520->reset_gpio) {
++		if (IS_ERR(max98520->reset_gpio)) {
++			ret = PTR_ERR(max98520->reset_gpio);
++			dev_err(&i2c->dev, "Unable to request GPIO pin: %d.\n", ret);
++			return ret;
++		}
++
++		max98520_power_on(max98520, 1);
++	}
++
++	/* Check Revision ID */
++	ret = regmap_read(max98520->regmap, MAX98520_R21FF_REVISION_ID, &reg);
++	if (ret < 0) {
++		dev_err(&i2c->dev,
++			"Failed to read: 0x%02X\n", MAX98520_R21FF_REVISION_ID);
++		return ret;
++	}
++	dev_info(&i2c->dev, "MAX98520 revisionID: 0x%02X\n", reg);
++
++	/* codec registration */
++	ret = devm_snd_soc_register_component(&i2c->dev,
++					      &soc_codec_dev_max98520,
++						  max98520_dai, ARRAY_SIZE(max98520_dai));
++	if (ret < 0)
++		dev_err(&i2c->dev, "Failed to register codec: %d\n", ret);
++
++	return ret;
++}
++
++static const struct i2c_device_id max98520_i2c_id[] = {
++	{ "max98520", 0},
++	{ },
++};
++
++MODULE_DEVICE_TABLE(i2c, max98520_i2c_id);
++
++#if defined(CONFIG_OF)
++static const struct of_device_id max98520_of_match[] = {
++	{ .compatible = "maxim,max98520", },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, max98520_of_match);
++#endif
++
++static struct i2c_driver max98520_i2c_driver = {
++	.driver = {
++		.name = "max98520",
++		.of_match_table = of_match_ptr(max98520_of_match),
++		.pm = &max98520_pm,
++	},
++	.probe = max98520_i2c_probe,
++	.id_table = max98520_i2c_id,
++};
++
++module_i2c_driver(max98520_i2c_driver)
++
++MODULE_DESCRIPTION("ALSA SoC MAX98520 driver");
++MODULE_AUTHOR("George Song <george.song@maximintegrated.com>");
++MODULE_LICENSE("GPL");
++
+diff --git a/sound/soc/codecs/max98520.c.save b/sound/soc/codecs/max98520.c.save
+new file mode 100644
+index 000000000000..02b9ca983402
+--- /dev/null
++++ b/sound/soc/codecs/max98520.c.save
+@@ -0,0 +1,816 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2021, Maxim Integrated
++
++#include <linux/acpi.h>
++#include <linux/delay.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/regmap.h>
++#include <linux/slab.h>
++#include <linux/cdev.h>
++#include <sound/pcm.h>
++#include <sound/pcm_params.h>
++#include <sound/soc.h>
++#include <linux/gpio.h>
++#include <linux/of.h>
++#include <linux/of_gpio.h>
++#include <sound/tlv.h>
++#include "max98520.h"
++
++static struct reg_default max98520_reg[] = {
++	{MAX98520_R2000_SW_RESET, 0x00},
++	{MAX98520_R2001_STATUS_1, 0x00},
++	{MAX98520_R2002_STATUS_2, 0x00},
++	{MAX98520_R2020_THERM_WARN_THRESH, 0x46},
++	{MAX98520_R2021_THERM_SHDN_THRESH, 0x64},
++	{MAX98520_R2022_THERM_HYSTERESIS, 0x02},
++	{MAX98520_R2023_THERM_FOLDBACK_SET, 0x31},
++	{MAX98520_R2027_THERM_FOLDBACK_EN, 0x01},
++	{MAX98520_R2030_CLK_MON_CTRL, 0x00},
++	{MAX98520_R2037_ERR_MON_CTRL, 0x01},
++	{MAX98520_R2040_PCM_MODE_CFG, 0xC0},
++	{MAX98520_R2041_PCM_CLK_SETUP, 0x04},
++	{MAX98520_R2042_PCM_SR_SETUP, 0x08},
++	{MAX98520_R2043_PCM_RX_SRC1, 0x00},
++	{MAX98520_R2044_PCM_RX_SRC2, 0x00},
++	{MAX98520_R204F_PCM_RX_EN, 0x00},
++	{MAX98520_R2090_AMP_VOL_CTRL, 0x00},
++	{MAX98520_R2091_AMP_PATH_GAIN, 0x03},
++	{MAX98520_R2092_AMP_DSP_CFG, 0x02},
++	{MAX98520_R2094_SSM_CFG, 0x01},
++	{MAX98520_R2095_AMP_CFG, 0xF0},
++	{MAX98520_R209F_AMP_EN, 0x00},
++	{MAX98520_R20B0_ADC_SR, 0x00},
++	{MAX98520_R20B1_ADC_RESOLUTION, 0x00},
++	{MAX98520_R20B2_ADC_PVDD0_CFG, 0x02},
++	{MAX98520_R20B3_ADC_THERMAL_CFG, 0x02},
++	{MAX98520_R20B4_ADC_READBACK_CTRL, 0x00},
++	{MAX98520_R20B5_ADC_READBACK_UPDATE, 0x00},
++	{MAX98520_R20B6_ADC_PVDD_READBACK_MSB, 0x00},
++	{MAX98520_R20B7_ADC_PVDD_READBACK_LSB, 0x00},
++	{MAX98520_R20B8_ADC_TEMP_READBACK_MSB, 0x00},
++	{MAX98520_R20B9_ADC_TEMP_READBACK_LSB, 0x00},
++	{MAX98520_R20BA_ADC_LOW_PVDD_READBACK_MSB, 0xFF},
++	{MAX98520_R20BB_ADC_LOW_READBACK_LSB, 0x01},
++	{MAX98520_R20BC_ADC_HIGH_TEMP_READBACK_MSB, 0x00},
++	{MAX98520_R20BD_ADC_HIGH_TEMP_READBACK_LSB, 0x00},
++	{MAX98520_R20CF_MEAS_ADC_CFG, 0x00},
++	{MAX98520_R20D0_DHT_CFG1, 0x00},
++	{MAX98520_R20D1_LIMITER_CFG1, 0x08},
++	{MAX98520_R20D2_LIMITER_CFG2, 0x00},
++	{MAX98520_R20D3_DHT_CFG2, 0x14},
++	{MAX98520_R20D4_DHT_CFG3, 0x02},
++	{MAX98520_R20D5_DHT_CFG4, 0x04},
++	{MAX98520_R20D6_DHT_HYSTERESIS_CFG, 0x07},
++	{MAX98520_R20D8_DHT_EN, 0x00},
++	{MAX98520_R210E_AUTO_RESTART_BEHAVIOR, 0x00},
++	{MAX98520_R210F_GLOBAL_EN, 0x00},
++	{MAX98520_R21FF_REVISION_ID, 0x00},
++};
++
++static int max98520_dai_set_fmt(struct snd_soc_dai *codec_dai, unsigned int fmt)
++{
++	struct snd_soc_component *component = codec_dai->component;
++	struct max98520_priv *max98520 =
++		snd_soc_component_get_drvdata(component);
++	unsigned int format = 0;
++	unsigned int invert = 0;
++
++	dev_dbg(component->dev, "%s: fmt 0x%08X\n", __func__, fmt);
++
++	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
++	case SND_SOC_DAIFMT_NB_NF:
++		break;
++	case SND_SOC_DAIFMT_IB_NF:
++		invert = MAX98520_PCM_MODE_CFG_PCM_BCLKEDGE;
++		break;
++	default:
++		dev_err(component->dev, "DAI invert mode unsupported\n");
++		return -EINVAL;
++	}
++
++	regmap_update_bits(max98520->regmap,
++			   MAX98520_R2041_PCM_CLK_SETUP,
++			   MAX98520_PCM_MODE_CFG_PCM_BCLKEDGE,
++			   invert);
++
++	/* interface format */
++	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
++	case SND_SOC_DAIFMT_I2S:
++		format = MAX98520_PCM_FORMAT_I2S;
++		break;
++	case SND_SOC_DAIFMT_LEFT_J:
++		format = MAX98520_PCM_FORMAT_LJ;
++		break;
++	case SND_SOC_DAIFMT_DSP_A:
++		format = MAX98520_PCM_FORMAT_TDM_MODE1;
++		break;
++	case SND_SOC_DAIFMT_DSP_B:
++		format = MAX98520_PCM_FORMAT_TDM_MODE0;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	regmap_update_bits(max98520->regmap,
++			   MAX98520_R2040_PCM_MODE_CFG,
++			   MAX98520_PCM_MODE_CFG_FORMAT_MASK,
++			   format << MAX98520_PCM_MODE_CFG_FORMAT_SHIFT);
++
++	return 0;
++}
++
++/* BCLKs per LRCLK */
++static const int bclk_sel_table[] = {
++	32, 48, 64, 96, 128, 192, 256, 384, 512, 320,
++};
++
++static int max98520_get_bclk_sel(int bclk)
++{
++	int i;
++	/* match BCLKs per LRCLK */
++	for (i = 0; i < ARRAY_SIZE(bclk_sel_table); i++) {
++		if (bclk_sel_table[i] == bclk)
++			return i + 2;
++	}
++	return 0;
++}
++
++static int max98520_set_clock(struct snd_soc_component *component,
++			      struct snd_pcm_hw_params *params)
++{
++	struct max98520_priv *max98520 =
++		snd_soc_component_get_drvdata(component);
++	/* BCLK/LRCLK ratio calculation */
++	int blr_clk_ratio = params_channels(params) * max98520->ch_size;
++	int value;
++
++	if (!max98520->tdm_mode) {
++		/* BCLK configuration */
++		value = max98520_get_bclk_sel(blr_clk_ratio);
++		if (!value) {
++			dev_err(component->dev, "format unsupported %d\n",
++				params_format(params));
++			return -EINVAL;
++		}
++
++		regmap_update_bits(max98520->regmap,
++				   MAX98520_R2041_PCM_CLK_SETUP,
++				   MAX98520_PCM_CLK_SETUP_BSEL_MASK,
++				   value);
++	}
++	dev_dbg(component->dev, "%s tdm_mode:%d out\n", __func__, max98520->tdm_mode);
++	return 0;
++}
++
++static int max98520_dai_hw_params(struct snd_pcm_substream *substream,
++				  struct snd_pcm_hw_params *params,
++				  struct snd_soc_dai *dai)
++{
++	struct snd_soc_component *component = dai->component;
++	struct max98520_priv *max98520 =
++		snd_soc_component_get_drvdata(component);
++	unsigned int sampling_rate = 0;
++	unsigned int chan_sz = 0;
++
++	/* pcm mode configuration */
++	switch (snd_pcm_format_width(params_format(params))) {
++	case 16:
++		chan_sz = MAX98520_PCM_MODE_CFG_CHANSZ_16;
++		break;
++	case 24:
++		chan_sz = MAX98520_PCM_MODE_CFG_CHANSZ_24;
++		break;
++	case 32:
++		chan_sz = MAX98520_PCM_MODE_CFG_CHANSZ_32;
++		break;
++	default:
++		dev_err(component->dev, "format unsupported %d\n",
++			params_format(params));
++		goto err;
++	}
++
++	max98520->ch_size = snd_pcm_format_width(params_format(params));
++
++	regmap_update_bits(max98520->regmap,
++			   MAX98520_R2040_PCM_MODE_CFG,
++			   MAX98520_PCM_MODE_CFG_CHANSZ_MASK, chan_sz);
++
++	dev_dbg(component->dev, "format supported %d",
++		params_format(params));
++
++	/* sampling rate configuration */
++	switch (params_rate(params)) {
++	case 8000:
++		sampling_rate = MAX98520_PCM_SR_8000;
++		break;
++	case 11025:
++		sampling_rate = MAX98520_PCM_SR_11025;
++		break;
++	case 12000:
++		sampling_rate = MAX98520_PCM_SR_12000;
++		break;
++	case 16000:
++		sampling_rate = MAX98520_PCM_SR_16000;
++		break;
++	case 22050:
++		sampling_rate = MAX98520_PCM_SR_22050;
++		break;
++	case 24000:
++		sampling_rate = MAX98520_PCM_SR_24000;
++		break;
++	case 32000:
++		sampling_rate = MAX98520_PCM_SR_32000;
++		break;
++	case 44100:
++		sampling_rate = MAX98520_PCM_SR_44100;
++		break;
++	case 48000:
++		sampling_rate = MAX98520_PCM_SR_48000;
++		break;
++	case 88200:
++		sampling_rate = MAX98520_PCM_SR_88200;
++		break;
++	case 96000:
++		sampling_rate = MAX98520_PCM_SR_96000;
++		break;
++	case 176400:
++		sampling_rate = MAX98520_PCM_SR_176400;
++		break;
++	case 192000:
++		sampling_rate = MAX98520_PCM_SR_192000;
++		break;
++	default:
++		dev_err(component->dev, "rate %d not supported\n",
++			params_rate(params));
++		goto err;
++	}
++
++	dev_dbg(component->dev, " %s ch_size: %d, sampling rate : %d out\n", __func__,
++		snd_pcm_format_width(params_format(params)), params_rate(params));
++	/* set DAI_SR to correct LRCLK frequency */
++	regmap_update_bits(max98520->regmap,
++			   MAX98520_R2042_PCM_SR_SETUP,
++			   MAX98520_PCM_SR_MASK,
++			   sampling_rate);
++
++	return max98520_set_clock(component, params);
++err:
++	dev_dbg(component->dev, "%s out error", __func__);
++	return -EINVAL;
++}
++
++static int max98520_dai_tdm_slot(struct snd_soc_dai *dai,
++				 unsigned int tx_mask, unsigned int rx_mask,
++				 int slots, int slot_width)
++{
++	struct snd_soc_component *component = dai->component;
++	struct max98520_priv *max98520 =
++		snd_soc_component_get_drvdata(component);
++	int bsel = 0;
++	unsigned int chan_sz = 0;
++
++	if (!tx_mask && !rx_mask && !slots && !slot_width)
++		max98520->tdm_mode = false;
++	else
++		max98520->tdm_mode = true;
++
++	/* BCLK configuration */
++	bsel = max98520_get_bclk_sel(slots * slot_width);
++	if (bsel == 0) {
++		dev_err(component->dev, "BCLK %d not supported\n",
++			slots * slot_width);
++		return -EINVAL;
++	}
++
++	regmap_update_bits(max98520->regmap,
++			   MAX98520_R2041_PCM_CLK_SETUP,
++			   MAX98520_PCM_CLK_SETUP_BSEL_MASK,
++			   bsel);
++
++	/* Channel size configuration */
++	switch (slot_width) {
++	case 16:
++		chan_sz = MAX98520_PCM_MODE_CFG_CHANSZ_16;
++		break;
++	case 24:
++		chan_sz = MAX98520_PCM_MODE_CFG_CHANSZ_24;
++		break;
++	case 32:
++		chan_sz = MAX98520_PCM_MODE_CFG_CHANSZ_32;
++		break;
++	default:
++		dev_err(component->dev, "format unsupported %d\n",
++			slot_width);
++		return -EINVAL;
++	}
++
++	regmap_update_bits(max98520->regmap,
++			   MAX98520_R2040_PCM_MODE_CFG,
++			   MAX98520_PCM_MODE_CFG_CHANSZ_MASK, chan_sz);
++
++	/* Rx slot configuration */
++	regmap_update_bits(max98520->regmap,
++			   MAX98520_R2044_PCM_RX_SRC2,
++			   MAX98520_PCM_DMIX_CH0_SRC_MASK,
++			   rx_mask);
++	regmap_update_bits(max98520->regmap,
++			   MAX98520_R2044_PCM_RX_SRC2,
++			   MAX98520_PCM_DMIX_CH1_SRC_MASK,
++			   rx_mask << MAX98520_PCM_DMIX_CH1_SHIFT);
++
++	return 0;
++}
++
++#define MAX98520_RATES SNDRV_PCM_RATE_8000_192000
++
++#define MAX98520_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | \
++	SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S32_LE)
++
++static const struct snd_soc_dai_ops max98520_dai_ops = {
++	.set_fmt = max98520_dai_set_fmt,
++	.hw_params = max98520_dai_hw_params,
++	.set_tdm_slot = max98520_dai_tdm_slot,
++};
++
++static int max98520_dac_event(struct snd_soc_dapm_widget *w,
++			      struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component =
++		snd_soc_dapm_to_component(w->dapm);
++	struct max98520_priv *max98520 =
++		snd_soc_component_get_drvdata(component);
++
++	switch (event) {
++	case SND_SOC_DAPM_POST_PMU:
++		dev_dbg(component->dev, " AMP ON\n");
++
++		regmap_write(max98520->regmap, MAX98520_R209F_AMP_EN, 1);
++		regmap_write(max98520->regmap, MAX98520_R210F_GLOBAL_EN, 1);
++		usleep_range(30000, 31000);
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		dev_dbg(component->dev, " AMP OFF\n");
++
++		regmap_write(max98520->regmap, MAX98520_R210F_GLOBAL_EN, 0);
++		regmap_write(max98520->regmap, MAX98520_R209F_AMP_EN, 0);
++		usleep_range(30000, 31000);
++		break;
++	default:
++		return 0;
++	}
++	return 0;
++}
++
++static const char * const max98520_switch_text[] = {
++	"Left", "Right", "LeftRight"};
++
++static const struct soc_enum dai_sel_enum =
++	SOC_ENUM_SINGLE(MAX98520_R2043_PCM_RX_SRC1,
++			0, 3, max98520_switch_text);
++
++static const struct snd_kcontrol_new max98520_dai_controls =
++	SOC_DAPM_ENUM("DAI Sel", dai_sel_enum);
++
++static const struct snd_kcontrol_new max98520_left_input_mixer_controls[] = {
++	SOC_DAPM_SINGLE("PCM_INPUT_CH0", MAX98520_R2044_PCM_RX_SRC2, 0, 0x0, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH1", MAX98520_R2044_PCM_RX_SRC2, 0, 0x1, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH2", MAX98520_R2044_PCM_RX_SRC2, 0, 0x2, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH3", MAX98520_R2044_PCM_RX_SRC2, 0, 0x3, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH4", MAX98520_R2044_PCM_RX_SRC2, 0, 0x4, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH5", MAX98520_R2044_PCM_RX_SRC2, 0, 0x5, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH6", MAX98520_R2044_PCM_RX_SRC2, 0, 0x6, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH7", MAX98520_R2044_PCM_RX_SRC2, 0, 0x7, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH8", MAX98520_R2044_PCM_RX_SRC2, 0, 0x8, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH9", MAX98520_R2044_PCM_RX_SRC2, 0, 0x9, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH10", MAX98520_R2044_PCM_RX_SRC2, 0, 0xa, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH11", MAX98520_R2044_PCM_RX_SRC2, 0, 0xb, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH12", MAX98520_R2044_PCM_RX_SRC2, 0, 0xc, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH13", MAX98520_R2044_PCM_RX_SRC2, 0, 0xd, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH14", MAX98520_R2044_PCM_RX_SRC2, 0, 0xe, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH15", MAX98520_R2044_PCM_RX_SRC2, 0, 0xf, 0),
++};
++
++static const struct snd_kcontrol_new max98520_right_input_mixer_controls[] = {
++	SOC_DAPM_SINGLE("PCM_INPUT_CH0", MAX98520_R2044_PCM_RX_SRC2, 4, 0x0, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH1", MAX98520_R2044_PCM_RX_SRC2, 4, 0x1, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH2", MAX98520_R2044_PCM_RX_SRC2, 4, 0x2, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH3", MAX98520_R2044_PCM_RX_SRC2, 4, 0x3, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH4", MAX98520_R2044_PCM_RX_SRC2, 4, 0x4, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH5", MAX98520_R2044_PCM_RX_SRC2, 4, 0x5, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH6", MAX98520_R2044_PCM_RX_SRC2, 4, 0x6, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH7", MAX98520_R2044_PCM_RX_SRC2, 4, 0x7, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH8", MAX98520_R2044_PCM_RX_SRC2, 4, 0x8, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH9", MAX98520_R2044_PCM_RX_SRC2, 4, 0x9, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH10", MAX98520_R2044_PCM_RX_SRC2, 4, 0xa, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH11", MAX98520_R2044_PCM_RX_SRC2, 4, 0xb, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH12", MAX98520_R2044_PCM_RX_SRC2, 4, 0xc, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH13", MAX98520_R2044_PCM_RX_SRC2, 4, 0xd, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH14", MAX98520_R2044_PCM_RX_SRC2, 4, 0xe, 0),
++	SOC_DAPM_SINGLE("PCM_INPUT_CH15", MAX98520_R2044_PCM_RX_SRC2, 4, 0xf, 0),
++};
++
++static const struct snd_soc_dapm_widget max98520_dapm_widgets[] = {
++	SND_SOC_DAPM_DAC_E("Amp Enable", "HiFi Playback",
++			   MAX98520_R209F_AMP_EN, 0, 0, max98520_dac_event,
++	SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_MUX("DAI Sel Mux", SND_SOC_NOPM, 0, 0,	&max98520_dai_controls),
++	SND_SOC_DAPM_OUTPUT("BE_OUT"),
++	/* Left Input Selection */
++	SND_SOC_DAPM_MIXER("Left Input Selection", SND_SOC_NOPM, 0, 0,
++					   &max98520_left_input_mixer_controls[0],
++					   ARRAY_SIZE(max98520_left_input_mixer_controls)),
++	/* Right Input Selection */
++	SND_SOC_DAPM_MIXER("Right Input Selection", SND_SOC_NOPM, 0, 0,
++					   &max98520_right_input_mixer_controls[0],
++					   ARRAY_SIZE(max98520_right_input_mixer_controls)),;
++
++static DECLARE_TLV_DB_SCALE(max98520_digital_tlv, -6300, 50, 1);
++static const DECLARE_TLV_DB_RANGE(max98520_spk_tlv,
++	0, 5, TLV_DB_SCALE_ITEM(600, 300, 0),
++);
++
++static const DECLARE_TLV_DB_RANGE(max98520_dht_lim_thresh_tlv,
++	0, 15, TLV_DB_SCALE_ITEM(-1500, 100, 0),
++);
++
++static const DECLARE_TLV_DB_RANGE(max98520_dht_hysteresis_tlv,
++	0, 3, TLV_DB_SCALE_ITEM(100, 100, 0),
++	4, 7, TLV_DB_SCALE_ITEM(600, 200, 0),
++);
++
++static const DECLARE_TLV_DB_RANGE(max98520_dht_rotation_point_tlv,
++	0, 1, TLV_DB_SCALE_ITEM(-1500, 300, 0),
++	2, 4, TLV_DB_SCALE_ITEM(-1000, 200, 0),
++	5, 10, TLV_DB_SCALE_ITEM(-500, 100, 0),
++);
++
++static const DECLARE_TLV_DB_RANGE(max98520_dht_supply_hr_tlv,
++	0, 16, TLV_DB_SCALE_ITEM(-2000, 250, 0),
++);
++
++static const DECLARE_TLV_DB_RANGE(max98520_dht_max_atten_tlv,
++	1, 20, TLV_DB_SCALE_ITEM(-2000, 100, 0),
++);
++
++static const char * const max98520_dht_attack_rate_text[] = {
++	"20us", "40us", "80us", "160us", "320us", "640us",
++	"1.28ms", "2.56ms",	"5.12ms", "10.24ms", "20.48ms", "40.96ms",
++	"81.92ms", "163.84ms"
++};
++
++static SOC_ENUM_SINGLE_DECL(max98520_dht_attack_rate_enum,
++			    MAX98520_R20D4_DHT_CFG3, 0,
++			    max98520_dht_attack_rate_text);
++
++static const char * const max98520_dht_release_rate_text[] = {
++	"2ms", "4ms", "8ms", "16ms", "32ms", "64ms", "128ms", "256ms", "512ms",
++	"1.024s", "2.048s", "4.096s", "8.192s", "16.384s"
++};
++
++static SOC_ENUM_SINGLE_DECL(max98520_dht_release_rate_enum,
++			    MAX98520_R20D5_DHT_CFG4, 0,
++			    max98520_dht_release_rate_text);
++
++static bool max98520_readable_register(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case MAX98520_R2000_SW_RESET:
++	case MAX98520_R2027_THERM_FOLDBACK_EN:
++	case MAX98520_R2030_CLK_MON_CTRL:
++	case MAX98520_R2037_ERR_MON_CTRL:
++	case MAX98520_R204F_PCM_RX_EN:
++	case MAX98520_R209F_AMP_EN:
++	case MAX98520_R20CF_MEAS_ADC_CFG:
++	case MAX98520_R20D8_DHT_EN:
++	case MAX98520_R21FF_REVISION_ID:
++	case MAX98520_R2001_STATUS_1... MAX98520_R2002_STATUS_2:
++	case MAX98520_R2020_THERM_WARN_THRESH... MAX98520_R2023_THERM_FOLDBACK_SET:
++	case MAX98520_R2040_PCM_MODE_CFG... MAX98520_R2044_PCM_RX_SRC2:
++	case MAX98520_R2090_AMP_VOL_CTRL... MAX98520_R2092_AMP_DSP_CFG:
++	case MAX98520_R2094_SSM_CFG... MAX98520_R2095_AMP_CFG:
++	case MAX98520_R20B0_ADC_SR... MAX98520_R20BD_ADC_HIGH_TEMP_READBACK_LSB:
++	case MAX98520_R20D0_DHT_CFG1... MAX98520_R20D6_DHT_HYSTERESIS_CFG:
++	case MAX98520_R210E_AUTO_RESTART_BEHAVIOR... MAX98520_R210F_GLOBAL_EN:
++	case MAX98520_R2161_BOOST_TM1... MAX98520_R2163_BOOST_TM3:
++		return true;
++	default:
++		return false;
++	}
++};
++
++static bool max98520_volatile_reg(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case MAX98520_R210F_GLOBAL_EN:
++	case MAX98520_R21FF_REVISION_ID:
++	case MAX98520_R2000_SW_RESET:
++	case MAX98520_R2001_STATUS_1 ... MAX98520_R2002_STATUS_2:
++	case MAX98520_R20B4_ADC_READBACK_CTRL
++		... MAX98520_R20BD_ADC_HIGH_TEMP_READBACK_LSB:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static const struct snd_kcontrol_new max98520_snd_controls[] = {
++/* Volume */
++SOC_SINGLE_TLV("Digital Volume", MAX98520_R2090_AMP_VOL_CTRL,
++	       0, 0x7F, 1, max98520_digital_tlv),
++SOC_SINGLE_TLV("Speaker Volume", MAX98520_R2091_AMP_PATH_GAIN,
++	       0, 0x5, 0, max98520_spk_tlv),
++/* Volume Ramp Up/Down Enable*/
++SOC_SINGLE("Ramp Up Switch", MAX98520_R2092_AMP_DSP_CFG,
++	   MAX98520_DSP_SPK_VOL_RMPUP_SHIFT, 1, 0),
++SOC_SINGLE("Ramp Down Switch", MAX98520_R2092_AMP_DSP_CFG,
++	   MAX98520_DSP_SPK_VOL_RMPDN_SHIFT, 1, 0),
++/* Clock Monitor Enable */
++SOC_SINGLE("CLK Monitor Switch", MAX98520_R2037_ERR_MON_CTRL,
++	   MAX98520_CTRL_CMON_EN_SHIFT, 1, 0),
++/* Clock Monitor Config */
++SOC_SINGLE("CLKMON Autorestart Switch", MAX98520_R2030_CLK_MON_CTRL,
++	   MAX98520_CMON_AUTORESTART_SHIFT, 1, 0),
++/* Dither Enable */
++SOC_SINGLE("Dither Switch", MAX98520_R2092_AMP_DSP_CFG,
++	   MAX98520_DSP_SPK_DITH_EN_SHIFT, 1, 0),
++/* DC Blocker Enable */
++SOC_SINGLE("DC Blocker Switch", MAX98520_R2092_AMP_DSP_CFG,
++	   MAX98520_DSP_SPK_DCBLK_EN_SHIFT, 1, 0),
++/* Speaker Safe Mode Enable */
++SOC_SINGLE("Speaker Safemode Switch", MAX98520_R2092_AMP_DSP_CFG,
++	   MAX98520_DSP_SPK_SAFE_EN_SHIFT, 1, 0),
++/* AMP SSM Enable */
++SOC_SINGLE("CP Bypass Switch", MAX98520_R2094_SSM_CFG,
++	   MAX98520_SSM_RCVR_MODE_SHIFT, 1, 0),
++/* AMP Dynamic Mode Configuration */
++SOC_SINGLE("Dynamic Mode Switch", MAX98520_R2095_AMP_CFG,
++	   MAX98520_CFG_DYN_MODE_SHIFT, 1, 1),
++/* AMP Speaker Mode Switch */
++SOC_SINGLE("Speaker Mode Switch", MAX98520_R2095_AMP_CFG,
++	   MAX98520_CFG_SPK_MODE_SHIFT, 1, 0),
++/* Dynamic Headroom Tracking */
++SOC_SINGLE("DHT Switch", MAX98520_R20D8_DHT_EN, 0, 1, 0),
++SOC_SINGLE("DHT Limiter Mode", MAX98520_R20D2_LIMITER_CFG2,
++	   MAX98520_DHT_LIMITER_MODE_SHIFT, 1, 0),
++SOC_SINGLE("DHT Hysteresis Switch", MAX98520_R20D6_DHT_HYSTERESIS_CFG,
++	   MAX98520_DHT_HYSTERESIS_SWITCH_SHIFT, 1, 0),
++SOC_SINGLE_TLV("DHT Rot Pnt", MAX98520_R20D0_DHT_CFG1,
++	       MAX98520_DHT_VROT_PNT_SHIFT, 10, 1, max98520_dht_rotation_point_tlv),
++SOC_SINGLE_TLV("DHT Supply Headroom", MAX98520_R20D1_LIMITER_CFG1,
++	       MAX98520_DHT_SUPPLY_HR_SHIFT, 16, 0, max98520_dht_supply_hr_tlv),
++SOC_SINGLE_TLV("DHT Limiter Threshold", MAX98520_R20D2_LIMITER_CFG2,
++	       MAX98520_DHT_LIMITER_THRESHOLD_SHIFT, 0xF, 1, max98520_dht_lim_thresh_tlv),
++SOC_SINGLE_TLV("DHT Max Attenuation", MAX98520_R20D3_DHT_CFG2,
++	       MAX98520_DHT_MAX_ATTEN_SHIFT, 20, 1, max98520_dht_max_atten_tlv),
++SOC_SINGLE_TLV("DHT Hysteresis", MAX98520_R20D6_DHT_HYSTERESIS_CFG,
++	       MAX98520_DHT_HYSTERESIS_SHIFT, 0x7, 0, max98520_dht_hysteresis_tlv),
++SOC_ENUM("DHT Attack Rate", max98520_dht_attack_rate_enum),
++SOC_ENUM("DHT Release Rate", max98520_dht_release_rate_enum),
++/* ADC configuration */
++SOC_SINGLE("ADC PVDD CH Switch", MAX98520_R20CF_MEAS_ADC_CFG, 0, 1, 0),
++SOC_SINGLE("ADC PVDD FLT Switch", MAX98520_R20B2_ADC_PVDD0_CFG,	MAX98520_FLT_EN_SHIFT, 1, 0),
++SOC_SINGLE("ADC TEMP FLT Switch", MAX98520_R20B3_ADC_THERMAL_CFG, MAX98520_FLT_EN_SHIFT, 1, 0),
++SOC_SINGLE("ADC PVDD MSB", MAX98520_R20B6_ADC_PVDD_READBACK_MSB, 0, 0xFF, 0),
++SOC_SINGLE("ADC PVDD LSB", MAX98520_R20B7_ADC_PVDD_READBACK_LSB, 0, 0x01, 0),
++SOC_SINGLE("ADC TEMP MSB", MAX98520_R20B8_ADC_TEMP_READBACK_MSB, 0, 0xFF, 0),
++SOC_SINGLE("ADC TEMP LSB", MAX98520_R20B9_ADC_TEMP_READBACK_LSB, 0, 0x01, 0),
++};
++
++static const struct snd_soc_dapm_route max98520_audio_map[] = {
++	/* Plabyack */
++	{"DAI Sel Mux", "Left", "Amp Enable"},
++	{"DAI Sel Mux", "Right", "Amp Enable"},
++	{"DAI Sel Mux", "LeftRight", "Amp Enable"},
++	{"BE_OUT", NULL, "DAI Sel Mux"},
++};
++
++static struct snd_soc_dai_driver max98520_dai[] = {
++	{
++		.name = "max98520-aif1",
++		.playback = {
++			.stream_name = "HiFi Playback",
++			.channels_min = 1,
++			.channels_max = 2,
++			.rates = MAX98520_RATES,
++			.formats = MAX98520_FORMATS,
++		},
++		.ops = &max98520_dai_ops,
++	}
++
++};
++
++static void max98520_reset(struct max98520_priv *max98520, struct device *dev)
++{
++	int ret, reg, count;
++
++	/* Software Reset */
++	ret = regmap_write(max98520->regmap, MAX98520_R2000_SW_RESET, 1);
++	if (ret)
++		dev_err(dev, "Reset command failed. (ret:%d)\n", ret);
++
++	count = 0;
++	while (count < 3) {
++		usleep_range(10000, 11000);
++		/* Software Reset Verification */
++		ret = regmap_read(max98520->regmap, MAX98520_R21FF_REVISION_ID, &reg);
++		if (!ret) {
++			dev_info(dev, "Reset completed (retry:%d)\n", count);
++			return;
++		}
++		count++;
++	}
++	dev_err(dev, "Reset failed. (ret:%d)\n", ret);
++}
++
++static int max98520_probe(struct snd_soc_component *component)
++{
++	struct max98520_priv *max98520 =
++		snd_soc_component_get_drvdata(component);
++
++	/* Software Reset */
++	max98520_reset(max98520, component->dev);
++	usleep_range(30000, 31000);
++
++	/* L/R mix configuration */
++	regmap_write(max98520->regmap, MAX98520_R2043_PCM_RX_SRC1, 0x2);
++
++	regmap_write(max98520->regmap, MAX98520_R2044_PCM_RX_SRC2, 0x10);
++	/* Enable DC blocker */
++	regmap_update_bits(max98520->regmap, MAX98520_R2092_AMP_DSP_CFG, 1, 1);
++	/* Disable Speaker Safe Mode */
++	regmap_update_bits(max98520->regmap,
++			   MAX98520_R2092_AMP_DSP_CFG, MAX98520_SPK_SAFE_EN_MASK, 0);
++	/* Enable Clock Monitor Auto-restart */
++	regmap_write(max98520->regmap, MAX98520_R2030_CLK_MON_CTRL, 0x1);
++
++	/* Hard coded values for the experiments */
++	regmap_write(max98520->regmap, MAX98520_R21FF_REVISION_ID, 0x54);
++	regmap_write(max98520->regmap, MAX98520_R21FF_REVISION_ID, 0x4d);
++	regmap_write(max98520->regmap, MAX98520_R2161_BOOST_TM1, 0x2);
++	regmap_write(max98520->regmap, MAX98520_R2095_AMP_CFG, 0xc8);
++
++	/* set Rx Enable */
++	regmap_update_bits(max98520->regmap,
++			   MAX98520_R204F_PCM_RX_EN,
++			   MAX98520_PCM_RX_EN_MASK,
++			   1);
++
++	return 0;
++}
++
++#ifdef CONFIG_PM_SLEEP
++static int max98520_suspend(struct device *dev)
++{
++	struct max98520_priv *max98520 = dev_get_drvdata(dev);
++
++	regcache_cache_only(max98520->regmap, true);
++	regcache_mark_dirty(max98520->regmap);
++	return 0;
++}
++
++static int max98520_resume(struct device *dev)
++{
++	struct max98520_priv *max98520 = dev_get_drvdata(dev);
++
++	regcache_cache_only(max98520->regmap, false);
++	max98520_reset(max98520, dev);
++	regcache_sync(max98520->regmap);
++	return 0;
++}
++#endif
++
++static const struct dev_pm_ops max98520_pm = {
++	SET_SYSTEM_SLEEP_PM_OPS(max98520_suspend, max98520_resume)
++};
++
++static const struct snd_soc_component_driver soc_codec_dev_max98520 = {
++	.probe			= max98520_probe,
++	.controls		= max98520_snd_controls,
++	.num_controls		= ARRAY_SIZE(max98520_snd_controls),
++	.dapm_widgets		= max98520_dapm_widgets,
++	.num_dapm_widgets	= ARRAY_SIZE(max98520_dapm_widgets),
++	.dapm_routes		= max98520_audio_map,
++	.num_dapm_routes	= ARRAY_SIZE(max98520_audio_map),
++	.idle_bias_on		= 1,
++	.use_pmdown_time	= 1,
++	.endianness		= 1,
++	.non_legacy_dai_naming	= 1,
++};
++
++static const struct regmap_config max98520_regmap = {
++	.reg_bits = 16,
++	.val_bits = 8,
++	.max_register = MAX98520_R21FF_REVISION_ID,
++	.reg_defaults  = max98520_reg,
++	.num_reg_defaults = ARRAY_SIZE(max98520_reg),
++	.readable_reg = max98520_readable_register,
++	.volatile_reg = max98520_volatile_reg,
++	.cache_type = REGCACHE_RBTREE,
++};
++
++static int max98520_i2c_probe(struct i2c_client *i2c, const struct i2c_device_id *id)
++{
++	int ret = 0;
++	int reg = 0;
++	struct max98520_priv *max98520 = NULL;
++	struct i2c_adapter *adapter = to_i2c_adapter(i2c->dev.parent);
++
++	ret = i2c_check_functionality(adapter, I2C_FUNC_SMBUS_BYTE | I2C_FUNC_SMBUS_BYTE_DATA);
++	if (!ret) {
++		dev_err(&i2c->dev, "I2C check functionality failed\n");
++		return -ENXIO;
++	}
++
++	max98520 = devm_kzalloc(&i2c->dev, sizeof(*max98520), GFP_KERNEL);
++
++	if (!max98520) {
++		ret = -ENOMEM;
++		return ret;
++	}
++	i2c_set_clientdata(i2c, max98520);
++
++	/* regmap initialization */
++	max98520->regmap =
++		devm_regmap_init_i2c(i2c, &max98520_regmap);
++	if (IS_ERR(max98520->regmap)) {
++		ret = PTR_ERR(max98520->regmap);
++		dev_err(&i2c->dev,
++			"Failed to allocate regmap: %d\n", ret);
++		return ret;
++	}
++
++	/* Power on device */
++	if (gpio_is_valid(max98520->reset_gpio)) {
++		ret = devm_gpio_request(&i2c->dev, max98520->reset_gpio,
++					"MAX98520_RESET");
++		if (ret) {
++			dev_err(&i2c->dev, "%s: Failed to request gpio %d\n",
++				__func__, max98520->reset_gpio);
++			return -EINVAL;
++		}
++		gpio_direction_output(max98520->reset_gpio, 0);
++		msleep(50);
++		gpio_direction_output(max98520->reset_gpio, 1);
++		msleep(20);
++	}
++
++	/* Check Revision ID */
++	ret = regmap_read(max98520->regmap, MAX98520_R21FF_REVISION_ID, &reg);
++	if (ret < 0) {
++		dev_err(&i2c->dev,
++			"Failed to read: 0x%02X\n", MAX98520_R21FF_REVISION_ID);
++		return ret;
++	}
++	dev_info(&i2c->dev, "MAX98520 revisionID: 0x%02X\n", reg);
++
++	/* codec registration */
++	ret = devm_snd_soc_register_component(&i2c->dev,
++					      &soc_codec_dev_max98520,
++		max98520_dai, ARRAY_SIZE(max98520_dai));
++	if (ret < 0)
++		dev_err(&i2c->dev, "Failed to register codec: %d\n", ret);
++
++	return ret;
++}
++
++static const struct i2c_device_id max98520_i2c_id[] = {
++	{ "max98520", 0},
++	{ },
++};
++
++MODULE_DEVICE_TABLE(i2c, max98520_i2c_id);
++
++#if defined(CONFIG_OF)
++static const struct of_device_id max98520_of_match[] = {
++	{ .compatible = "maxim,max98520", },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, max98520_of_match);
++#endif
++
++#ifdef CONFIG_ACPI
++static const struct acpi_device_id max98520_acpi_match[] = {
++	{ "MX98520", 0 },
++	{},
++};
++MODULE_DEVICE_TABLE(acpi, max98520_acpi_match);
++#endif
++
++static struct i2c_driver max98520_i2c_driver = {
++	.driver = {
++		.name = "max98520",
++		.of_match_table = of_match_ptr(max98520_of_match),
++		.acpi_match_table = ACPI_PTR(max98520_acpi_match),
++		.pm = &max98520_pm,
++	},
++	.probe = max98520_i2c_probe,
++	.id_table = max98520_i2c_id,
++};
++
++module_i2c_driver(max98520_i2c_driver)
++
++MODULE_DESCRIPTION("ALSA SoC MAX98520 driver");
++MODULE_AUTHOR("George Song <george.song@maximintegrated.com>");
++MODULE_LICENSE("GPL");
++
+diff --git a/sound/soc/codecs/max98520.h b/sound/soc/codecs/max98520.h
+new file mode 100644
+index 000000000000..89a95c25afcf
+--- /dev/null
++++ b/sound/soc/codecs/max98520.h
+@@ -0,0 +1,159 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright (c) 2021, Maxim Integrated.
++ */
++
++#ifndef _MAX98520_H
++#define _MAX98520_H
++
++#define MAX98520_R2000_SW_RESET 0x2000
++#define MAX98520_R2001_STATUS_1 0x2001
++#define MAX98520_R2002_STATUS_2 0x2002
++#define MAX98520_R2020_THERM_WARN_THRESH 0x2020
++#define MAX98520_R2021_THERM_SHDN_THRESH 0x2021
++#define MAX98520_R2022_THERM_HYSTERESIS 0x2022
++#define MAX98520_R2023_THERM_FOLDBACK_SET 0x2023
++#define MAX98520_R2027_THERM_FOLDBACK_EN 0x2027
++#define MAX98520_R2030_CLK_MON_CTRL 0x2030
++#define MAX98520_R2037_ERR_MON_CTRL 0x2037
++#define MAX98520_R2040_PCM_MODE_CFG	0x2040
++#define MAX98520_R2041_PCM_CLK_SETUP 0x2041
++#define MAX98520_R2042_PCM_SR_SETUP 0x2042
++#define MAX98520_R2043_PCM_RX_SRC1 0x2043
++#define MAX98520_R2044_PCM_RX_SRC2 0x2044
++#define MAX98520_R204F_PCM_RX_EN 0x204F
++#define MAX98520_R2090_AMP_VOL_CTRL 0x2090
++#define MAX98520_R2091_AMP_PATH_GAIN 0x2091
++#define MAX98520_R2092_AMP_DSP_CFG 0x2092
++#define MAX98520_R2094_SSM_CFG 0x2094
++#define MAX98520_R2095_AMP_CFG 0x2095
++#define MAX98520_R209F_AMP_EN 0x209F
++#define MAX98520_R20B0_ADC_SR 0x20B0
++#define MAX98520_R20B1_ADC_RESOLUTION 0x20B1
++#define MAX98520_R20B2_ADC_PVDD0_CFG 0x20B2
++#define MAX98520_R20B3_ADC_THERMAL_CFG 0x20B3
++#define MAX98520_R20B4_ADC_READBACK_CTRL 0x20B4
++#define MAX98520_R20B5_ADC_READBACK_UPDATE 0x20B5
++#define MAX98520_R20B6_ADC_PVDD_READBACK_MSB 0x20B6
++#define MAX98520_R20B7_ADC_PVDD_READBACK_LSB 0x20B7
++#define MAX98520_R20B8_ADC_TEMP_READBACK_MSB 0x20B8
++#define MAX98520_R20B9_ADC_TEMP_READBACK_LSB 0x20B9
++#define MAX98520_R20BA_ADC_LOW_PVDD_READBACK_MSB 0x20BA
++#define MAX98520_R20BB_ADC_LOW_READBACK_LSB 0x20BB
++#define MAX98520_R20BC_ADC_HIGH_TEMP_READBACK_MSB 0x20BC
++#define MAX98520_R20BD_ADC_HIGH_TEMP_READBACK_LSB 0x20BD
++#define MAX98520_R20CF_MEAS_ADC_CFG 0x20CF
++#define MAX98520_R20D0_DHT_CFG1 0x20D0
++#define MAX98520_R20D1_LIMITER_CFG1 0x20D1
++#define MAX98520_R20D2_LIMITER_CFG2 0x20D2
++#define MAX98520_R20D3_DHT_CFG2 0x20D3
++#define MAX98520_R20D4_DHT_CFG3 0x20D4
++#define MAX98520_R20D5_DHT_CFG4 0x20D5
++#define MAX98520_R20D6_DHT_HYSTERESIS_CFG 0x20D6
++#define MAX98520_R20D8_DHT_EN 0x20D8
++#define MAX98520_R210E_AUTO_RESTART_BEHAVIOR 0x210E
++#define MAX98520_R210F_GLOBAL_EN 0x210F
++#define MAX98520_R2161_BOOST_TM1 0x2161
++#define MAX98520_R2162_BOOST_TM2 0x2162
++#define MAX98520_R2163_BOOST_TM3 0x2163
++#define MAX98520_R21FF_REVISION_ID 0x21FF
++
++/* MAX98520_R2030_CLK_MON_CTRL */
++#define MAX98520_CMON_AUTORESTART_SHIFT (0)
++
++/* MAX98520_R2037_ERR_MON_CTRL */
++#define MAX98520_CTRL_CMON_EN_SHIFT (0)
++
++/* MAX98520_R2040_PCM_MODE_CFG */
++#define MAX98520_PCM_MODE_CFG_FORMAT_MASK (0x7 << 3)
++#define MAX98520_PCM_MODE_CFG_FORMAT_SHIFT (3)
++#define MAX98520_PCM_TX_CH_INTERLEAVE_MASK (0x1 << 2)
++#define MAX98520_PCM_FORMAT_I2S (0x0 << 3)
++#define MAX98520_PCM_FORMAT_LJ (0x1 << 3)
++#define MAX98520_PCM_FORMAT_TDM_MODE0 (0x3 << 3)
++#define MAX98520_PCM_FORMAT_TDM_MODE1 (0x4 << 3)
++#define MAX98520_PCM_FORMAT_TDM_MODE2 (0x5 << 3)
++#define MAX98520_PCM_MODE_CFG_CHANSZ_MASK (0x3 << 6)
++#define MAX98520_PCM_MODE_CFG_CHANSZ_16 (0x1 << 6)
++#define MAX98520_PCM_MODE_CFG_CHANSZ_24 (0x2 << 6)
++#define MAX98520_PCM_MODE_CFG_CHANSZ_32 (0x3 << 6)
++
++/* MAX98520_R2041_PCM_CLK_SETUP */
++#define MAX98520_PCM_MODE_CFG_PCM_BCLKEDGE (0x1 << 4)
++#define MAX98520_PCM_CLK_SETUP_BSEL_MASK (0xF << 0)
++
++/* MAX98520_R2042_PCM_SR_SETUP */
++#define MAX98520_PCM_SR_SHIFT (0)
++#define MAX98520_IVADC_SR_SHIFT (4)
++#define MAX98520_PCM_SR_MASK (0xF << MAX98520_PCM_SR_SHIFT)
++#define MAX98520_IVADC_SR_MASK (0xF << MAX98520_IVADC_SR_SHIFT)
++#define MAX98520_PCM_SR_8000 (0x0)
++#define MAX98520_PCM_SR_11025 (0x1)
++#define MAX98520_PCM_SR_12000 (0x2)
++#define MAX98520_PCM_SR_16000 (0x3)
++#define MAX98520_PCM_SR_22050 (0x4)
++#define MAX98520_PCM_SR_24000 (0x5)
++#define MAX98520_PCM_SR_32000 (0x6)
++#define MAX98520_PCM_SR_44100 (0x7)
++#define MAX98520_PCM_SR_48000 (0x8)
++#define MAX98520_PCM_SR_88200 (0x9)
++#define MAX98520_PCM_SR_96000 (0xA)
++#define MAX98520_PCM_SR_176400 (0xB)
++#define MAX98520_PCM_SR_192000 (0xC)
++
++/* MAX98520_R2044_PCM_RX_SRC2 */
++#define MAX98520_PCM_DMIX_CH1_SHIFT (0xF << 0)
++#define MAX98520_PCM_DMIX_CH0_SRC_MASK (0xF << 0)
++#define MAX98520_PCM_DMIX_CH1_SRC_MASK (0xF << MAX98520_PCM_DMIX_CH1_SHIFT)
++
++/* MAX98520_R204F_PCM_RX_EN */
++#define MAX98520_PCM_RX_EN_MASK (0x1 << 0)
++#define MAX98520_PCM_RX_BYP_EN_MASK (0x1 << 1)
++
++/* MAX98520_R2092_AMP_DSP_CFG */
++#define MAX98520_DSP_SPK_DCBLK_EN_SHIFT (0)
++#define MAX98520_DSP_SPK_DITH_EN_SHIFT (1)
++#define MAX98520_DSP_SPK_INVERT_SHIFT (2)
++#define MAX98520_DSP_SPK_VOL_RMPUP_SHIFT (3)
++#define MAX98520_DSP_SPK_VOL_RMPDN_SHIFT (4)
++#define MAX98520_DSP_SPK_SAFE_EN_SHIFT (5)
++
++#define MAX98520_SPK_SAFE_EN_MASK (0x1 << MAX98520_DSP_SPK_SAFE_EN_SHIFT)
++
++/* MAX98520_R2094_SSM_CFG */
++#define MAX98520_SSM_EN_SHIFT (0)
++#define MAX98520_SSM_MOD_SHIFT (1)
++#define MAX98520_SSM_RCVR_MODE_SHIFT (3)
++
++/* MAX98520_R2095_AMP_CFG */
++#define MAX98520_CFG_DYN_MODE_SHIFT (4)
++#define MAX98520_CFG_SPK_MODE_SHIFT (3)
++
++/* MAX98520_R20D0_DHT_CFG1 */
++#define MAX98520_DHT_VROT_PNT_SHIFT	(0)
++
++/* MAX98520_R20D1_LIMITER_CFG1 */
++#define MAX98520_DHT_SUPPLY_HR_SHIFT (0)
++
++/* MAX98520_R20D2_DHT_CFG2 */
++#define MAX98520_DHT_LIMITER_MODE_SHIFT (0)
++#define MAX98520_DHT_LIMITER_THRESHOLD_SHIFT (1)
++
++/* MAX98520_R20D3_DHT_CFG2 */
++#define MAX98520_DHT_MAX_ATTEN_SHIFT (0)
++
++/* MAX98520_R20D6_DHT_HYSTERESIS_CFG */
++#define MAX98520_DHT_HYSTERESIS_SWITCH_SHIFT (0)
++#define MAX98520_DHT_HYSTERESIS_SHIFT (1)
++
++/* MAX98520_R20B2_ADC_PVDD0_CFG, MAX98520_R20B3_ADC_THERMAL_CFG */
++#define MAX98520_FLT_EN_SHIFT (4)
++
++struct max98520_priv {
++	struct regmap *regmap;
++	struct gpio_desc *reset_gpio;
++	unsigned int ch_size;
++	bool tdm_mode;
++};
++#endif
 +
 -- 
 2.25.1

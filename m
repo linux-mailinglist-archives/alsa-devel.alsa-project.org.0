@@ -2,90 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5ACA43AC12
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Oct 2021 08:12:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A682043AC1A
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Oct 2021 08:14:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BB2216A4;
-	Tue, 26 Oct 2021 08:11:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BB2216A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4174016A4;
+	Tue, 26 Oct 2021 08:13:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4174016A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635228739;
-	bh=HOPb2G16k5I0YVA4jSpgaAEL770Wbdg8y837uYoxUEw=;
+	s=default; t=1635228840;
+	bh=/px4ezUAQflEYQyhI37EvpJnmoLMfOuR03fqgIOKTAM=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dVfA6jaSZRtxXa2c8EPMk48qnkfdmp7OLf7Ex3LaKYuPBV/8FW50OuPZlDhPXfUj3
-	 N1JuGZ4DNcRm4Q5QSXmS1BcMk1CQtTVFde4i38j5CRsnLx3lbh7b89qqVOtFGxM5N9
-	 Wp5oH9Xqh6yWcL4cNXVRyI3+Gh8hyDDkycSg2CQA=
+	b=HyAPCdpJpDhWoHxM9M0ZD2JA5t3HqJW5jGzFX2Yq7tDxvI5qCqAd7BTtbLtd4EXQ+
+	 +t7duQH0y79f1HO2zSAY/ro8uwWlVBykG/YEJTPjX13AH4Z68TN3MV96QY3Vy2hfbf
+	 RiEkk11Dg4AlsHVtWmNVki4buvaxUieHXYA0afNs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1FE51F80269;
-	Tue, 26 Oct 2021 08:11:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B676AF80269;
+	Tue, 26 Oct 2021 08:12:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CAF26F802C8; Tue, 26 Oct 2021 08:10:59 +0200 (CEST)
+ id 97632F802C8; Tue, 26 Oct 2021 08:12:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B4E64F8014D
- for <alsa-devel@alsa-project.org>; Tue, 26 Oct 2021 08:10:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4E64F8014D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 33231F80105
+ for <alsa-devel@alsa-project.org>; Tue, 26 Oct 2021 08:12:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33231F80105
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.b="Nnh83/h0"; 
+ header.b="JJXSVpms"; 
  dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de
- header.b="r8MkTxlB"
+ header.b="FVT8gPXX"
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id AEDBC21956;
- Tue, 26 Oct 2021 06:10:51 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id EF51E21956;
+ Tue, 26 Oct 2021 06:12:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1635228651; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1635228757; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=h90ltgfyz9gJ7g53ayzW06q3/x4siV5IgMDlL4cLdgY=;
- b=Nnh83/h0IOC3tiifeoGDzm5jQtGWCrvFnSFMC3ku8QrZ/H2fQOU0wW76H3qY4qJgibtMi/
- sTiH9G562tdbNHd6C9TALoPfEq/VWDxmVCPuf5vy7UQhzu+hlQtdxRJcQQFrju9ecz+Xa+
- S3yijVAXJY/pSReSKm3em1Ywis19EgM=
+ bh=k9FAe59z3J2EBSRYg2q4NuVEIoCoOcW2NfrBTQ4p9/o=;
+ b=JJXSVpmsUjGJ+x3dDJ9P/ecCTetSh1PLihTccx21wdRMLyz2yB7QcC1ZXSftqx9Jh0LZKx
+ Y74mTZIqR2oFE4SdDXaWutqcwOzS+FyFrODlAaZGW1b91WaFXPdk40BS2RTj1xTAZPsjgs
+ /prQzs6PCjNjdV1TnG4VDm8Le5X+gls=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1635228651;
+ s=susede2_ed25519; t=1635228757;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=h90ltgfyz9gJ7g53ayzW06q3/x4siV5IgMDlL4cLdgY=;
- b=r8MkTxlBz5HhltV2kgBZtzpv9R14zObtJ0mmlgsPyRF5mWNGAJH3hgvcrfCY6AaXH7w10O
- Tb/4FOjqOG+zufAA==
+ bh=k9FAe59z3J2EBSRYg2q4NuVEIoCoOcW2NfrBTQ4p9/o=;
+ b=FVT8gPXXyRfioCtTyhwztGkcH4RbICa9ubdbjG/mjskziYTDRjsLzxI/oOYUZNOmBUMgud
+ emLVptgW8LxjPIDg==
 Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
- by relay2.suse.de (Postfix) with ESMTP id 67C8EA3B81;
- Tue, 26 Oct 2021 06:10:51 +0000 (UTC)
-Date: Tue, 26 Oct 2021 08:10:51 +0200
-Message-ID: <s5hk0i0xqms.wl-tiwai@suse.de>
+ by relay2.suse.de (Postfix) with ESMTP id DCD6DA3B83;
+ Tue, 26 Oct 2021 06:12:37 +0000 (UTC)
+Date: Tue, 26 Oct 2021 08:12:37 +0200
+Message-ID: <s5hilxkxqju.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: YE Chengfeng <cyeaa@connect.ust.hk>
-Subject: Re: =?UTF-8?B?5Zue5aSNOg==?= [PATCH] sound/usb: fix null pointer
- dereference on pointer cs_desc
-In-Reply-To: <TYCP286MB1188D80DA04A5EE1B96814B28A829@TYCP286MB1188.JPNP286.PROD.OUTLOOK.COM>
-References: <20211024111736.11342-1-cyeaa@connect.ust.hk>
- <TYCP286MB1188D80DA04A5EE1B96814B28A829@TYCP286MB1188.JPNP286.PROD.OUTLOOK.COM>
+To: Johan Hovold <johan@kernel.org>
+Subject: Re: [PATCH 0/2] sound: fix USB message timeouts
+In-Reply-To: <20211025121142.6531-1-johan@kernel.org>
+References: <20211025121142.6531-1-johan@kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "damien@zamaudio.com" <damien@zamaudio.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "tiwai@suse.com" <tiwai@suse.com>,
- "chihhao.chen@mediatek.com" <chihhao.chen@mediatek.com>
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-usb@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,64 +92,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 24 Oct 2021 13:20:48 +0200,
-YE Chengfeng wrote:
+On Mon, 25 Oct 2021 14:11:40 +0200,
+Johan Hovold wrote:
 > 
-> Hi,
+> A number of drivers throughout the tree were incorrectly specifying USB
+> message timeout values in jiffies instead of milliseconds.
 > 
-> I found another potential null-ptr-dereference problem in this file, and not
-> sure whether it is true.  I send this patch to you just for reference, thinks
-> a lot if you could spare some time to look at it.
+> This series fixes the two sound drivers that got it wrong.
+> 
+> Johan
+> 
+> 
+> Johan Hovold (2):
+>   sound: 6fire: fix control and bulk message timeouts
+>   sound: line6: fix control and interrupt message timeouts
 
-The Fixes tag doesn't look correct (the code before the refactoring
-also didn't have NULL checks), so applied without it now.
+Applied both patches now.  Thanks!
 
-
-thanks,
 
 Takashi
-
-> 
-> Thanks so much,
-> Chengfeng
-> ------------------------------------------------------------------------------
-> 发件人: YE Chengfeng <cyeaa@connect.ust.hk>
-> 发送时间: 2021年10月24日 19:17
-> 收件人: perex@perex.cz <perex@perex.cz>; tiwai@suse.com <tiwai@suse.com>;
-> chihhao.chen@mediatek.com <chihhao.chen@mediatek.com>; damien@zamaudio.com
-> <damien@zamaudio.com>
-> 抄送: alsa-devel@alsa-project.org <alsa-devel@alsa-project.org>;
-> linux-kernel@vger.kernel.org <linux-kernel@vger.kernel.org>; YE Chengfeng
-> <cyeaa@connect.ust.hk>
-> 主题: [PATCH] sound/usb: fix null pointer dereference on pointer cs_desc
->  
-> The pointer cs_desc return from snd_usb_find_clock_source could
-> be null, so there is a potential null pointer dereference issue.
-> Fix this by adding a null check before dereference.
-> 
-> Fixes: 9ec73005 ("ALSA: usb-audio: Refactoring UAC2/3 clock setup code")
-> Signed-off-by: Chengfeng Ye <cyeaa@connect.ust.hk>
-> ---
->  sound/usb/clock.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/sound/usb/clock.c b/sound/usb/clock.c
-> index 81d5ce07d548..98345a695dcc 100644
-> --- a/sound/usb/clock.c
-> +++ b/sound/usb/clock.c
-> @@ -496,6 +496,10 @@ int snd_usb_set_sample_rate_v2v3(struct snd_usb_audio
-> *chip,
->          union uac23_clock_source_desc *cs_desc;
->  
->          cs_desc = snd_usb_find_clock_source(chip, clock, fmt->protocol);
-> +
-> +       if (!cs_desc)
-> +               return 0;
-> +
->          if (fmt->protocol == UAC_VERSION_3)
->                  bmControls = le32_to_cpu(cs_desc->v3.bmControls);
->          else
-> --
-> 2.17.1
-> 
-> 

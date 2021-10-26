@@ -2,75 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F30E243BA4D
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Oct 2021 21:06:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D80A343BA59
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Oct 2021 21:07:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7A1221661;
-	Tue, 26 Oct 2021 21:06:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A1221661
+	by alsa0.perex.cz (Postfix) with ESMTPS id BEF9C16FC;
+	Tue, 26 Oct 2021 21:06:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEF9C16FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635275212;
-	bh=SIe13kO3gMVGDrQdZZw4yFNPkApPQuHUDJ28Zmv+36M=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1635275261;
+	bh=IzMOKEpX1yKiMxsXmzBNslElIUcTqo4bLbncuJT+xS4=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FKJeAaHkbS/VXNaLY2ASRzz/pWVEhkwhE1zFTVuTRakYvFTc96YiDujUGmQg/DRk/
-	 OGztxiaPRbLzhbFtWF0/mIiEJ5WnBcqdyoFTEEw2nK5BezGs9AR2JGH7NhNMkcAuKx
-	 VtmZhf1eRIsPS7paN8EQ8FU70lO59QUfgqN36QIk=
+	b=gjaziIaoGSaen0fLycdsgsAIriNeFaAfDR7n1wIr70m/XNWzv+9kMAcbHbTQCvJza
+	 a2FYOr/ic3AGfS7jXuTJ4zW821/JXiXhIZ9KK3xaq04sWt/xrOz3QNg9CqNOs6J32Z
+	 TY8EPV1NKIkKqP/IQC4vsXL/gOIPnYK0HnCl2JTk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5E5BF8014D;
-	Tue, 26 Oct 2021 21:05:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CF26F80300;
+	Tue, 26 Oct 2021 21:06:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50031F802C8; Tue, 26 Oct 2021 21:05:32 +0200 (CEST)
+ id 4569CF802E7; Tue, 26 Oct 2021 21:06:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 50861F80105
- for <alsa-devel@alsa-project.org>; Tue, 26 Oct 2021 21:05:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50861F80105
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8C68AF80269
+ for <alsa-devel@alsa-project.org>; Tue, 26 Oct 2021 21:06:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C68AF80269
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="BsqJNkO6"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2ED0560EB9;
- Tue, 26 Oct 2021 19:05:18 +0000 (UTC)
+ header.b="CVOD3umH"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9D10760EB9;
+ Tue, 26 Oct 2021 19:06:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1635275120;
- bh=SIe13kO3gMVGDrQdZZw4yFNPkApPQuHUDJ28Zmv+36M=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=BsqJNkO6uDpvzBmmbqKEwDGL92YfVaJoCK98dgfnRqsM4jLZIjAkrlu+GWIOg6zUa
- EZB8rc6ynC8o4DkteMANC81aG1H2aG3XvRMnRNeMDCOsiDHAfzgqurXv36oi8SoMlL
- V6JwcXiea6fm75Nm+8VcWno+q63vKQq5La4YwsmpM34Iz5auo9TO1H0jYGi3UbPktL
- Roz4+/dmjHtirh4WxAiDS1Vm2r5o2iLM7TOpJ7WeIEk143Qrf3eueyAkEXDWzH/gR9
- sN5mIaoByMBluLv9XeuYPRpFdR84dWwmQm2cVt59KbU8YWEzWN1LrhH8/sqDOipyV3
- nud2R9alMTHlQ==
-Date: Tue, 26 Oct 2021 20:05:15 +0100
+ s=k20201202; t=1635275203;
+ bh=IzMOKEpX1yKiMxsXmzBNslElIUcTqo4bLbncuJT+xS4=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=CVOD3umHV3oDckvwcmiXIKpwqijuJTkrbg4kqjUaPne/dcrCLgp+vF0ddcB90Nt0A
+ a+ceqCcj5V249Wzr9+xTtAMvBLLkAXio8W0V07sxRAzWVwD6rrNkwVCIZ2flzyX/Rb
+ x55hNgOnmf9JcZcpnUS3YtBBURNs4VfEMHrgOVgqIHjkDY1g6PrT2iEbnqgdLFq1ko
+ OwxhPzmWOvTHMVyZgUaajTo6wQDm2Gllxt3B0LDX4hNjSikkF/bS3VcAMHnrCn2w83
+ rKstYb90QvnN3Gf84Mk2zvzTgzSJYdUjw/EZuRwQeI3W3yVYTUzKcYi4MCyOayAUK7
+ 2mo4IxPyyJpmw==
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 1/3] ASoC: nau8825: add set_jack coponment support
-Message-ID: <YXhRa5C8rRrslAkB@sirena.org.uk>
-References: <20211026093828.4188145-1-CTLIN0@nuvoton.com>
- <20211026093828.4188145-2-CTLIN0@nuvoton.com>
- <55937591-e1f1-9f1e-2355-e7680026f05d@linux.intel.com>
- <YXhBt0rEYSVP9CNR@sirena.org.uk>
- <71293267-0b7f-00bd-1c1a-10386db7132e@linux.intel.com>
+To: robh@kernel.org, bjorn.andersson@linaro.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20211006113950.10782-1-srinivas.kandagatla@linaro.org>
+References: <20211006113950.10782-1-srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH v9 00/17] ASoC: qcom: Add AudioReach support
+Message-Id: <163527520137.2033755.9597667983083305370.b4-ty@kernel.org>
+Date: Tue, 26 Oct 2021 20:06:41 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="nu7+ZYUjCrKCpskH"
-Content-Disposition: inline
-In-Reply-To: <71293267-0b7f-00bd-1c1a-10386db7132e@linux.intel.com>
-X-Cookie: Times approximate.
-Cc: alsa-devel@alsa-project.org, WTLI@nuvoton.com, SJLIN0@nuvoton.com,
- KCHSU0@nuvoton.com, lgirdwood@gmail.com, YHCHuang@nuvoton.com,
- mac.chiang@intel.com, David Lin <CTLIN0@nuvoton.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, lgirdwood@gmail.com, tiwai@suse.de,
+ plai@codeaurora.org, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,47 +80,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 6 Oct 2021 12:39:33 +0100, Srinivas Kandagatla wrote:
+> This version addresses all the comments raised as part of v8 review.
+> 
+> QCOM SoC relevant non-audio patches in this series has been merged into
+> the Qualcomm drivers-for-5.16 tree, as this series depends those patches
+> an immutable tag is available at:
+> https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git tags/20210927135559.738-6-srinivas.kandagatla@linaro.org
+> 
+> [...]
 
---nu7+ZYUjCrKCpskH
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-On Tue, Oct 26, 2021 at 01:53:56PM -0500, Pierre-Louis Bossart wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> >>> Signed-off-by: David Lin <CTLIN0@nuvoton.com>
+Thanks!
 
-> > The signoff is there AFAICT?
+[01/17] ASoC: dt-bindings: move LPASS dai related bindings out of q6afe
+        commit: e1b26ac90287d513699edbb8cae009ec89fe79b7
+[02/17] ASoC: dt-bindings: move LPASS clocks related bindings out of q6afe
+        commit: e44cfc9d82d8189ea15556052eb9d8640804f954
+[03/17] ASoC: dt-bindings: rename q6afe.h to q6dsp-lpass-ports.h
+        commit: e3008b7ccb1dedcea954505ff964a53641d2b980
+[04/17] ASoC: qdsp6: q6afe-dai: move lpass audio ports to common file
+        commit: 95b6cd57e9e8210fca315270ac05ce66fc536703
+[05/17] ASoC: qdsp6: q6afe-clocks: move audio-clocks to common file
+        commit: 9ab71ac372407acc93045931ed9da867b9415360
+[06/17] ASoC: dt-bindings: q6dsp: add q6apm-lpass-dai compatible
+        commit: accaa13167363f22835fe904c3ccee8bd624423d
+[07/17] ASoC: dt-bindings: lpass-clocks: add q6prm clocks compatible
+        commit: c04f02d63d0d9c794df889d396da14f735a270eb
+[08/17] ASoC: dt-bindings: add q6apm digital audio stream bindings
+        commit: 96d0232564c3b16e9a4286f183e1e6d317521a5a
+[09/17] ASoC: qdsp6: audioreach: add basic pkt alloc support
+        commit: 44c28dbdb6195b2a92e1fcb2946d1e987658f8b5
+[10/17] ASoC: qdsp6: audioreach: add q6apm support
+        commit: 5477518b8a0e8a45239646acd80c9bafc4401522
+[11/17] ASoC: qdsp6: audioreach: add module configuration command helpers
+        commit: 25ab80db6b133c20adb9ee39ce5cfdf347c92d5c
+[12/17] ASoC: qdsp6: audioreach: add Kconfig and Makefile
+        commit: cf989b68fcadbeeea1446e50fd8b2f24a0f1275c
+[13/17] ASoC: qdsp6: audioreach: add topology support
+        commit: 36ad9bf1d93d66b901342eab9f8ed6c1537655a6
+[14/17] ASoC: qdsp6: audioreach: add q6apm-dai support
+        commit: 9b4fe0f1cd791d540100d98a3baf94c1f9994647
+[15/17] ASoC: qdsp6: audioreach: add q6apm lpass dai support
+        commit: 30ad723b93ade607a678698e5947a55a4375c3a1
+[16/17] ASoC: qdsp6: audioreach: add q6prm support
+        commit: 9a0e5d6fb16f5a92a8e7e7626666665d0ff79474
+[17/17] ASoC: qdsp6: audioreach: add support for q6prm-clocks
+        commit: d07568686793f840b4144b19e0a52020b5c7bf94
 
-> I meant the Signed-off-by: tag of the first co-developer. The rule is:
->=20
-> "
-> Since Co-developed-by: denotes authorship, every Co-developed-by: must
-> be immediately followed by a Signed-off-by: of the associated co-author.
-> "
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-> so each patch should be tagged as follows:
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-> Co-developed-by: Mac Chiang <mac.chiang@intel.com>
-> Signed-off-by: Mac Chiang <mac.chiang@intel.com>
-> Signed-off-by: David Lin <CTLIN0@nuvoton.com>
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-Oh, that makes the whole thing seem substantially less purposeful than
-I'd though.  David, please update to reflect this.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---nu7+ZYUjCrKCpskH
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmF4UWoACgkQJNaLcl1U
-h9B9FAgAgjlqFCJevHZz2AYmq/9RLxxCps8UhjuaAKvkJ3klHJTDwfARifsUyx0h
-Cmfn4xpMPYtYzuV5Qlh8xFHKDwFnQp/+2IS1NQxMBRx/o14iJDdEdzFThR3/Sq1s
-kHjtTz1Nhly4YX0NdtN32BgOfkKkEhnuxAKd5xGkWY3y+58qCSrd9jgevMwA9NKA
-cgpO7vaCD/zXX8nOKsV5mCcuWuLpp9Pe7kPy87VsHbmU60sBtxyJc2Zqc04mi/rl
-oFZC71tmz5GGzekybRPu57K/ZEFBHVrT/hLIDt1nbMsCxNeCBw7VHnufo3xz2pm1
-ikrMcUPTtRkkNWJhFyqAO69VGzih8w==
-=8kjW
------END PGP SIGNATURE-----
-
---nu7+ZYUjCrKCpskH--
+Thanks,
+Mark

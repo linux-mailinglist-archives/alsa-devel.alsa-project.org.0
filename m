@@ -2,87 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D871343B066
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Oct 2021 12:43:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA38E43B068
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Oct 2021 12:44:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7014A1701;
-	Tue, 26 Oct 2021 12:42:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7014A1701
+	by alsa0.perex.cz (Postfix) with ESMTPS id 562D11703;
+	Tue, 26 Oct 2021 12:43:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 562D11703
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635245015;
-	bh=cqRuIrVfoBokB63LqXLQx7WlPMA4DyW0O3f8qZNrmRo=;
+	s=default; t=1635245061;
+	bh=bKRXEurxzZcn9fzuunJDUMWxulntFmMRV7Pd3V+HaiQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h5v7b5bJlmv1iB5gHsNxscs8jZWRGA3O9HycppkLBDUcc/MbepmOjtREh9kG1DbAK
-	 PvXW0KVTrlxvCXgFdy9ML0Nu9sT6o6J4q176GlcFPQ7+1KA81/h7HrehAIs+iZlMsV
-	 9WHmyrsSlsBbU4mxbdyNwuftLdVsIfiQORew6BvQ=
+	b=IxyDsnQOPw9hd4KCZB7uAEFOqS/zLe36UciTckSKD1Hcn9V9vpXm9JOhYt0srzk0B
+	 apMpdvX6vM/f9rouLZajw1CZEwW5rQkON27O6aF9Q5SLPMhr9Rxwxd4qW5u5vjk3hX
+	 Jbuo9c9vG0CmPg3DvHGb4eT9XQ++0bYexjls8qxM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8838FF80544;
-	Tue, 26 Oct 2021 12:39:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0FB5F80508;
+	Tue, 26 Oct 2021 12:39:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D8E08F8053B; Tue, 26 Oct 2021 12:39:04 +0200 (CEST)
+ id 10C82F8053B; Tue, 26 Oct 2021 12:39:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DAE03F80506
- for <alsa-devel@alsa-project.org>; Tue, 26 Oct 2021 12:38:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAE03F80506
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0D26EF804FE
+ for <alsa-devel@alsa-project.org>; Tue, 26 Oct 2021 12:38:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D26EF804FE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="pPK914SP"
-Received: by mail-wm1-x331.google.com with SMTP id
- j2-20020a1c2302000000b0032ca9b0a057so1705104wmj.3
- for <alsa-devel@alsa-project.org>; Tue, 26 Oct 2021 03:38:45 -0700 (PDT)
+ header.b="x6sgWU7Q"
+Received: by mail-wr1-x434.google.com with SMTP id u18so14963819wrg.5
+ for <alsa-devel@alsa-project.org>; Tue, 26 Oct 2021 03:38:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=t1sB5Ma0EXhAGXUnnIwhYz+ASh61pC+D9Z3KRVgozM4=;
- b=pPK914SPmJA8zgb2N/sv6hl4ASN6bdo/7Ox9IxtkUiF2H9nycQObMeMxuXRopurIqt
- cMf7pWDOIzqfqH0/ERpidfGBFESbY5yLU3Hv02EbzSQeckOWLQc/P6iQFMR2nedA1JcN
- 83sc36N8Kp6Y/ahldetQ5yT+4KACf+yaRvYVtWED7lbq/RwZW/uqae3dY1JBkcXqB33i
- bwhal3lcG/onZgbXnFzFr6EPCc3PTPmHdvzbqJjIV8+CvW+YzWrrR9Mu+4Ipn96wnN/o
- 58vjrLafNwRh7wwYOL+nDvJhq/0TfSy/q0GVlhQGAi6TY8/wZMdTY+wIvAw/KWKU8hWh
- iUww==
+ bh=uKRXYCPxcB3edtTV1OCipd65QJaTMl4rhwbSRNW+Etc=;
+ b=x6sgWU7QGFy2TQVmYrx9PAkZCmAfsAXq6Rqo2sWQrBNrucrYdk32ma4R5pI23bGTB2
+ 7Q7d4eeqy3VF3BaNKvZ6/kjCOohouyqftp/rBdQcqC5grLa2ITvxlgNrKA1kA0HNkL6s
+ otzMzzYe0EhXGBREWawtTehImmWoXEOOxs5NPxV6zSc4yMFDGiRnxUyHaJlWb27t9ExW
+ KyxFXCoXgdhUlbGzmsdFSxac1ECVEHDQC2NfoiWEDRcHf0Yb6X+hx+gfpgq9drWyVUx3
+ WgsKK5qtvpWKqZHCcYMVpNMugSJVfyS0nNtUvnhbeNHVhUK5rf/UPHmzsyeMAYgUbcfZ
+ Rhkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=t1sB5Ma0EXhAGXUnnIwhYz+ASh61pC+D9Z3KRVgozM4=;
- b=wXC6+1C/Lq7HdsaBxZPQYgH8d7hm8+oyykE18CLYjxTN8kW14ILAeI4RhVbhPn+OVQ
- K8Gyh+8Upv/zXk3XZgiJbS/4rGr2ZRiihpYT25T2XOTzWburLW2KJmH6iMNbfwpzxZ7G
- orX+llj0ZPJ2ADbzagshK/svFpQfZMps/+SeNXKBz4SYoMywZ5WujntzzFVeRQosm1sW
- WeLgEfw3BUceUfWZjEdnJZj9cry543mB9pPab+gnIIFRquTW1hHOuH7oHzAcCTBntT1Q
- Sjuzz1a3E1iNoNUVn2OQGafSErWYi7RP95tzvBFvCCEQsivYBtCBb/4cFHye5sUe6VJJ
- ssxA==
-X-Gm-Message-State: AOAM530W6LaNiu+qfrC/9ywzfqqaPKOCP8VvieiBsE9M79q0IQBoGPV1
- IsfVG63FGieP4lcSQunWTlO32g==
-X-Google-Smtp-Source: ABdhPJwJ3HITM6THgLn4LcJNc/8bbrLad9Q/6xXNoYMIZqK8+OruuLCFoux654QBoTpSEYzc7I23KA==
-X-Received: by 2002:a1c:f219:: with SMTP id s25mr55517428wmc.31.1635244719816; 
- Tue, 26 Oct 2021 03:38:39 -0700 (PDT)
+ bh=uKRXYCPxcB3edtTV1OCipd65QJaTMl4rhwbSRNW+Etc=;
+ b=oVQA3ItTxg3x2KjSjRIo1dXA2vMEMFhyZaCLsS3lcJiPDuhi63uMF0UIjZA7Xoo72g
+ 7iIYgGQt27kZcutPLWvm0mgtx5R4PAbWi/3z22NFeDoEMLjPlLxmim/zmyVdKveNfd7L
+ xBtJ9SWJvB5TbI3rxyq0/HnjUMMXZB6dSp/v8igDZqfxm8EPumvl7TTw2xXLc8/ePTdb
+ GSKHiKA6vRaTYByfV7oBkvCKr65ESufCF8ZkjTpb6k4bw3xtTXa6vW2zEsS46kPw0vpb
+ C0bDv4MMGG11SgM2cmn6esDWldWyd89tltPy86TsQ1FIcAxJuKYr583GmA9Jw61ROarT
+ db/g==
+X-Gm-Message-State: AOAM531rVlAEusSe6YrugUg12CEDLk2JTgFhR9pvEcKNrBRJy+NIntdM
+ zGE48Xth3IWHrTn/6MTec8gG3Q==
+X-Google-Smtp-Source: ABdhPJy8cqfPuADKwxB4iyRrES18ZcrpVgyWcCLZOyc0IQD6cDHgh+Ee/DZgRlkSvAgd+rtCQp1sxQ==
+X-Received: by 2002:a5d:4590:: with SMTP id p16mr339012wrq.123.1635244721052; 
+ Tue, 26 Oct 2021 03:38:41 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id x21sm221397wmc.14.2021.10.26.03.38.38
+ by smtp.gmail.com with ESMTPSA id x21sm221397wmc.14.2021.10.26.03.38.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Oct 2021 03:38:39 -0700 (PDT)
+ Tue, 26 Oct 2021 03:38:40 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org,
 	bjorn.andersson@linaro.org,
 	robh@kernel.org
-Subject: [RESEND PATCH v10 09/17] ASoC: qdsp6: audioreach: add basic pkt alloc
- support
-Date: Tue, 26 Oct 2021 11:38:07 +0100
-Message-Id: <20211026103815.19468-10-srinivas.kandagatla@linaro.org>
+Subject: [RESEND PATCH v10 10/17] ASoC: qdsp6: audioreach: add q6apm support
+Date: Tue, 26 Oct 2021 11:38:08 +0100
+Message-Id: <20211026103815.19468-11-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20211026103815.19468-1-srinivas.kandagatla@linaro.org>
 References: <20211026103815.19468-1-srinivas.kandagatla@linaro.org>
@@ -106,952 +104,1152 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add basic helper functions for AudioReach.
+Add support to q6apm (Audio Process Manager) component which is
+core Audioreach service running in the DSP.
 
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/qcom/qdsp6/audioreach.c | 255 ++++++++++++
- sound/soc/qcom/qdsp6/audioreach.h | 668 ++++++++++++++++++++++++++++++
- 2 files changed, 923 insertions(+)
- create mode 100644 sound/soc/qcom/qdsp6/audioreach.c
- create mode 100644 sound/soc/qcom/qdsp6/audioreach.h
+ sound/soc/qcom/qdsp6/audioreach.c | 305 +++++++++++++++
+ sound/soc/qcom/qdsp6/audioreach.h |  29 ++
+ sound/soc/qcom/qdsp6/q6apm.c      | 596 ++++++++++++++++++++++++++++++
+ sound/soc/qcom/qdsp6/q6apm.h      | 152 ++++++++
+ 4 files changed, 1082 insertions(+)
+ create mode 100644 sound/soc/qcom/qdsp6/q6apm.c
+ create mode 100644 sound/soc/qcom/qdsp6/q6apm.h
 
 diff --git a/sound/soc/qcom/qdsp6/audioreach.c b/sound/soc/qcom/qdsp6/audioreach.c
-new file mode 100644
-index 000000000000..198d962c81f8
---- /dev/null
+index 198d962c81f8..63a0e6c9ac14 100644
+--- a/sound/soc/qcom/qdsp6/audioreach.c
 +++ b/sound/soc/qcom/qdsp6/audioreach.c
-@@ -0,0 +1,255 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Copyright (c) 2020, Linaro Limited
+@@ -5,6 +5,7 @@
+ #include <linux/slab.h>
+ #include <linux/soc/qcom/apr.h>
+ #include <dt-bindings/soc/qcom,gpr.h>
++#include "q6apm.h"
+ #include "audioreach.h"
+ 
+ /* SubGraph Config */
+@@ -253,3 +254,307 @@ void *audioreach_alloc_apm_cmd_pkt(int pkt_size, uint32_t opcode, uint32_t token
+ 				       APM_MODULE_INSTANCE_ID, true);
+ }
+ EXPORT_SYMBOL_GPL(audioreach_alloc_apm_cmd_pkt);
 +
-+#include <linux/kernel.h>
-+#include <linux/slab.h>
-+#include <linux/soc/qcom/apr.h>
-+#include <dt-bindings/soc/qcom,gpr.h>
-+#include "audioreach.h"
-+
-+/* SubGraph Config */
-+struct apm_sub_graph_data {
-+	struct apm_sub_graph_cfg sub_graph_cfg;
-+	struct apm_prop_data perf_data;
-+	struct apm_sg_prop_id_perf_mode perf;
-+	struct apm_prop_data dir_data;
-+	struct apm_sg_prop_id_direction dir;
-+	struct apm_prop_data sid_data;
-+	struct apm_sg_prop_id_scenario_id sid;
-+
-+} __packed;
-+
-+#define APM_SUB_GRAPH_CFG_NPROP	3
-+
-+struct apm_sub_graph_params  {
-+	struct apm_module_param_data param_data;
-+	uint32_t num_sub_graphs;
-+	struct apm_sub_graph_data sg_cfg[];
-+} __packed;
-+
-+#define APM_SUB_GRAPH_PSIZE(p, n) ALIGN(struct_size(p, sg_cfg, n), 8)
-+
-+/* container config */
-+struct apm_container_obj  {
-+	struct apm_container_cfg container_cfg;
-+	/* Capability ID list */
-+	struct apm_prop_data cap_data;
-+	uint32_t num_capability_id;
-+	uint32_t capability_id;
-+
-+	/* Container graph Position */
-+	struct apm_prop_data pos_data;
-+	struct apm_cont_prop_id_graph_pos pos;
-+
-+	/* Container Stack size */
-+	struct apm_prop_data stack_data;
-+	struct apm_cont_prop_id_stack_size stack;
-+
-+	/* Container proc domain id */
-+	struct apm_prop_data domain_data;
-+	struct apm_cont_prop_id_domain domain;
-+} __packed;
-+
-+struct apm_container_params  {
-+	struct apm_module_param_data param_data;
-+	uint32_t num_containers;
-+	struct apm_container_obj cont_obj[];
-+} __packed;
-+
-+#define APM_CONTAINER_PSIZE(p, n) ALIGN(struct_size(p, cont_obj, n), 8)
-+
-+/* Module List config */
-+struct apm_mod_list_obj {
-+	/* Modules list cfg */
-+	uint32_t sub_graph_id;
-+	uint32_t container_id;
-+	uint32_t num_modules;
-+	struct apm_module_obj mod_cfg[];
-+} __packed;
-+
-+#define APM_MOD_LIST_OBJ_PSIZE(p, n) struct_size(p, mod_cfg, n)
-+
-+struct apm_module_list_params {
-+	struct apm_module_param_data param_data;
-+	uint32_t num_modules_list;
-+	/* Module list config array */
-+	struct apm_mod_list_obj mod_list_obj[];
-+} __packed;
-+
-+
-+/* Module Properties */
-+struct apm_mod_prop_obj {
-+	u32 instance_id;
-+	u32 num_props;
-+	struct apm_prop_data prop_data_1;
-+	struct apm_module_prop_id_port_info prop_id_port;
-+} __packed;
-+
-+struct apm_prop_list_params {
-+	struct apm_module_param_data param_data;
-+	u32 num_modules_prop_cfg;
-+	struct apm_mod_prop_obj mod_prop_obj[];
-+
-+} __packed;
-+
-+#define APM_MOD_PROP_PSIZE(p, n) ALIGN(struct_size(p, mod_prop_obj, n), 8)
-+
-+/* Module Connections */
-+struct apm_mod_conn_list_params {
-+	struct apm_module_param_data param_data;
-+	u32 num_connections;
-+	struct apm_module_conn_obj conn_obj[];
-+
-+} __packed;
-+
-+#define APM_MOD_CONN_PSIZE(p, n) ALIGN(struct_size(p, conn_obj, n), 8)
-+
-+struct apm_graph_open_params {
-+	struct apm_cmd_header *cmd_header;
-+	struct apm_sub_graph_params *sg_data;
-+	struct apm_container_params *cont_data;
-+	struct apm_module_list_params *mod_list_data;
-+	struct apm_prop_list_params *mod_prop_data;
-+	struct apm_mod_conn_list_params *mod_conn_list_data;
-+} __packed;
-+
-+struct apm_pcm_module_media_fmt_cmd {
-+	struct apm_module_param_data param_data;
-+	struct param_id_pcm_output_format_cfg header;
-+	struct payload_pcm_output_format_cfg media_cfg;
-+} __packed;
-+
-+struct apm_rd_shmem_module_config_cmd {
-+	struct apm_module_param_data param_data;
-+	struct param_id_rd_sh_mem_cfg cfg;
-+} __packed;
-+
-+struct apm_sh_module_media_fmt_cmd {
-+	struct media_format header;
-+	struct payload_media_fmt_pcm cfg;
-+} __packed;
-+
-+#define APM_SHMEM_FMT_CFG_PSIZE(ch) ALIGN( \
-+				sizeof(struct apm_sh_module_media_fmt_cmd) + \
-+				ch * sizeof(uint8_t), 8)
-+
-+/* num of channels as argument */
-+#define APM_PCM_MODULE_FMT_CMD_PSIZE(ch) ALIGN( \
-+				sizeof(struct apm_pcm_module_media_fmt_cmd) + \
-+				ch * sizeof(uint8_t), 8)
-+
-+#define APM_PCM_OUT_FMT_CFG_PSIZE(p, n) ALIGN(struct_size(p, channel_mapping, n), 4)
-+
-+struct apm_i2s_module_intf_cfg {
-+	struct apm_module_param_data param_data;
-+	struct param_id_i2s_intf_cfg cfg;
-+} __packed;
-+
-+#define APM_I2S_INTF_CFG_PSIZE ALIGN(sizeof(struct apm_i2s_module_intf_cfg), 8)
-+
-+struct apm_module_hw_ep_mf_cfg {
-+	struct apm_module_param_data param_data;
-+	struct param_id_hw_ep_mf mf;
-+} __packed;
-+
-+#define APM_HW_EP_CFG_PSIZE ALIGN(sizeof(struct apm_module_hw_ep_mf_cfg), 8)
-+
-+struct apm_module_frame_size_factor_cfg {
-+	struct apm_module_param_data param_data;
-+	uint32_t frame_size_factor;
-+} __packed;
-+
-+#define APM_FS_CFG_PSIZE ALIGN(sizeof(struct apm_module_frame_size_factor_cfg), 8)
-+
-+struct apm_module_hw_ep_power_mode_cfg {
-+	struct apm_module_param_data param_data;
-+	struct param_id_hw_ep_power_mode_cfg power_mode;
-+} __packed;
-+
-+#define APM_HW_EP_PMODE_CFG_PSIZE ALIGN(sizeof(struct apm_module_hw_ep_power_mode_cfg),	8)
-+
-+struct apm_module_hw_ep_dma_data_align_cfg {
-+	struct apm_module_param_data param_data;
-+	struct param_id_hw_ep_dma_data_align align;
-+} __packed;
-+
-+#define APM_HW_EP_DALIGN_CFG_PSIZE ALIGN(sizeof(struct apm_module_hw_ep_dma_data_align_cfg), 8)
-+
-+struct apm_gain_module_cfg {
-+	struct apm_module_param_data param_data;
-+	struct param_id_gain_cfg gain_cfg;
-+} __packed;
-+
-+#define APM_GAIN_CFG_PSIZE ALIGN(sizeof(struct apm_gain_module_cfg), 8)
-+
-+struct apm_codec_dma_module_intf_cfg {
-+	struct apm_module_param_data param_data;
-+	struct param_id_codec_dma_intf_cfg cfg;
-+} __packed;
-+
-+#define APM_CDMA_INTF_CFG_PSIZE ALIGN(sizeof(struct apm_codec_dma_module_intf_cfg), 8)
-+
-+static void *__audioreach_alloc_pkt(int payload_size, uint32_t opcode, uint32_t token,
-+				    uint32_t src_port, uint32_t dest_port, bool has_cmd_hdr)
++static void apm_populate_container_config(struct apm_container_obj *cfg,
++					  struct audioreach_container *cont)
 +{
++
++	/* Container Config */
++	cfg->container_cfg.container_id = cont->container_id;
++	cfg->container_cfg.num_prop = 4;
++
++	/* Capability list */
++	cfg->cap_data.prop_id = APM_CONTAINER_PROP_ID_CAPABILITY_LIST;
++	cfg->cap_data.prop_size = APM_CONTAINER_PROP_ID_CAPABILITY_SIZE;
++	cfg->num_capability_id = 1;
++	cfg->capability_id = cont->capability_id;
++
++	/* Graph Position */
++	cfg->pos_data.prop_id = APM_CONTAINER_PROP_ID_GRAPH_POS;
++	cfg->pos_data.prop_size = sizeof(struct apm_cont_prop_id_graph_pos);
++	cfg->pos.graph_pos = cont->graph_pos;
++
++	/* Stack size */
++	cfg->stack_data.prop_id = APM_CONTAINER_PROP_ID_STACK_SIZE;
++	cfg->stack_data.prop_size = sizeof(struct apm_cont_prop_id_stack_size);
++	cfg->stack.stack_size = cont->stack_size;
++
++	/* Proc domain */
++	cfg->domain_data.prop_id = APM_CONTAINER_PROP_ID_PROC_DOMAIN;
++	cfg->domain_data.prop_size = sizeof(struct apm_cont_prop_id_domain);
++	cfg->domain.proc_domain = cont->proc_domain;
++}
++
++static void apm_populate_sub_graph_config(struct apm_sub_graph_data *cfg,
++					  struct audioreach_sub_graph *sg)
++{
++	cfg->sub_graph_cfg.sub_graph_id = sg->sub_graph_id;
++	cfg->sub_graph_cfg.num_sub_graph_prop = APM_SUB_GRAPH_CFG_NPROP;
++
++	/* Perf Mode */
++	cfg->perf_data.prop_id = APM_SUB_GRAPH_PROP_ID_PERF_MODE;
++	cfg->perf_data.prop_size = APM_SG_PROP_ID_PERF_MODE_SIZE;
++	cfg->perf.perf_mode = sg->perf_mode;
++
++	/* Direction */
++	cfg->dir_data.prop_id = APM_SUB_GRAPH_PROP_ID_DIRECTION;
++	cfg->dir_data.prop_size = APM_SG_PROP_ID_DIR_SIZE;
++	cfg->dir.direction = sg->direction;
++
++	/* Scenario ID */
++	cfg->sid_data.prop_id = APM_SUB_GRAPH_PROP_ID_SCENARIO_ID;
++	cfg->sid_data.prop_size = APM_SG_PROP_ID_SID_SIZE;
++	cfg->sid.scenario_id = sg->scenario_id;
++}
++
++static void apm_populate_connection_obj(struct apm_module_conn_obj *obj,
++					struct audioreach_module *module)
++{
++	obj->src_mod_inst_id = module->src_mod_inst_id;
++	obj->src_mod_op_port_id = module->src_mod_op_port_id;
++	obj->dst_mod_inst_id = module->instance_id;
++	obj->dst_mod_ip_port_id = module->in_port;
++}
++
++static void apm_populate_module_prop_obj(struct apm_mod_prop_obj *obj,
++					 struct audioreach_module *module)
++{
++
++	obj->instance_id = module->instance_id;
++	obj->num_props = 1;
++	obj->prop_data_1.prop_id = APM_MODULE_PROP_ID_PORT_INFO;
++	obj->prop_data_1.prop_size = APM_MODULE_PROP_ID_PORT_INFO_SZ;
++	obj->prop_id_port.max_ip_port = module->max_ip_port;
++	obj->prop_id_port.max_op_port = module->max_op_port;
++}
++
++struct audioreach_module *audioreach_get_container_last_module(
++							struct audioreach_container *container)
++{
++	struct audioreach_module *module;
++
++	list_for_each_entry(module, &container->modules_list, node) {
++		if (module->dst_mod_inst_id == 0)
++			return module;
++	}
++
++	return NULL;
++}
++EXPORT_SYMBOL_GPL(audioreach_get_container_last_module);
++
++static bool is_module_in_container(struct audioreach_container *container, int module_iid)
++{
++	struct audioreach_module *module;
++
++	list_for_each_entry(module, &container->modules_list, node) {
++		if (module->instance_id == module_iid)
++			return true;
++	}
++
++	return false;
++}
++
++struct audioreach_module *audioreach_get_container_first_module(
++							struct audioreach_container *container)
++{
++	struct audioreach_module *module;
++
++	/* get the first module from both connected or un-connected containers */
++	list_for_each_entry(module, &container->modules_list, node) {
++		if (module->src_mod_inst_id == 0 ||
++		    !is_module_in_container(container, module->src_mod_inst_id))
++			return module;
++	}
++	return NULL;
++}
++EXPORT_SYMBOL_GPL(audioreach_get_container_first_module);
++
++struct audioreach_module *audioreach_get_container_next_module(
++						struct audioreach_container *container,
++						struct audioreach_module *module)
++{
++	int nmodule_iid = module->dst_mod_inst_id;
++	struct audioreach_module *nmodule;
++
++	list_for_each_entry(nmodule, &container->modules_list, node) {
++		if (nmodule->instance_id == nmodule_iid)
++			return nmodule;
++	}
++
++	return NULL;
++}
++EXPORT_SYMBOL_GPL(audioreach_get_container_next_module);
++
++static void apm_populate_module_list_obj(struct apm_mod_list_obj *obj,
++					 struct audioreach_container *container,
++					 int sub_graph_id)
++{
++	struct audioreach_module *module;
++	int i;
++
++	obj->sub_graph_id = sub_graph_id;
++	obj->container_id = container->container_id;
++	obj->num_modules = container->num_modules;
++	i = 0;
++	list_for_each_container_module(module, container) {
++		obj->mod_cfg[i].module_id = module->module_id;
++		obj->mod_cfg[i].instance_id = module->instance_id;
++		i++;
++	}
++}
++
++static void audioreach_populate_graph(struct apm_graph_open_params *open,
++				      struct list_head *sg_list,
++				      int num_sub_graphs)
++{
++	struct apm_mod_conn_list_params *mc_data = open->mod_conn_list_data;
++	struct apm_module_list_params *ml_data = open->mod_list_data;
++	struct apm_prop_list_params *mp_data = open->mod_prop_data;
++	struct apm_container_params *c_data = open->cont_data;
++	struct apm_sub_graph_params *sg_data = open->sg_data;
++	int ncontainer = 0, nmodule = 0, nconn = 0;
++	struct apm_mod_prop_obj *module_prop_obj;
++	struct audioreach_container *container;
++	struct apm_module_conn_obj *conn_obj;
++	struct audioreach_module *module;
++	struct audioreach_sub_graph *sg;
++	struct apm_container_obj *cobj;
++	struct apm_mod_list_obj *mlobj;
++	int i = 0;
++
++	mlobj = &ml_data->mod_list_obj[0];
++
++	list_for_each_entry(sg, sg_list, node) {
++		struct apm_sub_graph_data *sg_cfg = &sg_data->sg_cfg[i++];
++
++		apm_populate_sub_graph_config(sg_cfg, sg);
++
++		list_for_each_entry(container, &sg->container_list, node) {
++			cobj = &c_data->cont_obj[ncontainer];
++
++			apm_populate_container_config(cobj, container);
++			apm_populate_module_list_obj(mlobj, container, sg->sub_graph_id);
++
++			list_for_each_container_module(module, container) {
++				uint32_t src_mod_inst_id;
++
++				src_mod_inst_id = module->src_mod_inst_id;
++
++				module_prop_obj = &mp_data->mod_prop_obj[nmodule];
++				apm_populate_module_prop_obj(module_prop_obj, module);
++
++				if (src_mod_inst_id) {
++					conn_obj = &mc_data->conn_obj[nconn];
++					apm_populate_connection_obj(conn_obj, module);
++					nconn++;
++				}
++
++				nmodule++;
++			}
++			mlobj = (void *) mlobj + APM_MOD_LIST_OBJ_PSIZE(mlobj, container->num_modules);
++
++			ncontainer++;
++		}
++	}
++}
++
++void *audioreach_alloc_graph_pkt(struct q6apm *apm, struct list_head *sg_list, int graph_id)
++{
++	int payload_size, sg_sz, cont_sz, ml_sz, mp_sz, mc_sz;
++	struct apm_module_param_data  *param_data;
++	struct apm_container_params *cont_params;
++	struct audioreach_container *container;
++	struct apm_sub_graph_params *sg_params;
++	struct apm_mod_conn_list_params *mcon;
++	struct apm_graph_open_params params;
++	struct apm_prop_list_params *mprop;
++	struct audioreach_module *module;
++	struct audioreach_sub_graph *sgs;
++	struct apm_mod_list_obj *mlobj;
++	int num_modules_per_list;
++	int num_connections = 0;
++	int num_containers = 0;
++	int num_sub_graphs = 0;
++	int num_modules = 0;
++	int num_modules_list;
 +	struct gpr_pkt *pkt;
 +	void *p;
-+	int pkt_size = GPR_HDR_SIZE + payload_size;
 +
-+	if (has_cmd_hdr)
-+		pkt_size += APM_CMD_HDR_SIZE;
-+
-+	p = kzalloc(pkt_size, GFP_KERNEL);
-+	if (!p)
-+		return ERR_PTR(-ENOMEM);
-+
-+	pkt = p;
-+	pkt->hdr.version = GPR_PKT_VER;
-+	pkt->hdr.hdr_size = GPR_PKT_HEADER_WORD_SIZE;
-+	pkt->hdr.pkt_size = pkt_size;
-+	pkt->hdr.dest_port = dest_port;
-+	pkt->hdr.src_port = src_port;
-+
-+	pkt->hdr.dest_domain = GPR_DOMAIN_ID_ADSP;
-+	pkt->hdr.src_domain = GPR_DOMAIN_ID_APPS;
-+	pkt->hdr.token = token;
-+	pkt->hdr.opcode = opcode;
-+
-+	if (has_cmd_hdr) {
-+		struct apm_cmd_header *cmd_header;
-+
-+		p = p + GPR_HDR_SIZE;
-+		cmd_header = p;
-+		cmd_header->payload_size = payload_size;
++	list_for_each_entry(sgs, sg_list, node) {
++		num_sub_graphs++;
++		list_for_each_entry(container, &sgs->container_list, node) {
++			num_containers++;
++			num_modules += container->num_modules;
++			list_for_each_container_module(module, container) {
++				if (module->src_mod_inst_id)
++					num_connections++;
++			}
++		}
 +	}
++
++	num_modules_list = num_containers;
++	num_modules_per_list = num_modules/num_containers;
++	sg_sz = APM_SUB_GRAPH_PSIZE(sg_params, num_sub_graphs);
++	cont_sz = APM_CONTAINER_PSIZE(cont_params, num_containers);
++	ml_sz =	ALIGN(sizeof(struct apm_module_list_params) +
++		num_modules_list * APM_MOD_LIST_OBJ_PSIZE(mlobj,  num_modules_per_list), 8);
++	mp_sz = APM_MOD_PROP_PSIZE(mprop, num_modules);
++	mc_sz =	APM_MOD_CONN_PSIZE(mcon, num_connections);
++
++	payload_size = sg_sz + cont_sz + ml_sz + mp_sz + mc_sz;
++	pkt = audioreach_alloc_apm_cmd_pkt(payload_size, APM_CMD_GRAPH_OPEN, 0);
++	if (IS_ERR(pkt))
++		return pkt;
++
++	p = (void *)pkt + GPR_HDR_SIZE + APM_CMD_HDR_SIZE;
++
++	/* SubGraph */
++	params.sg_data = p;
++	param_data = &params.sg_data->param_data;
++	param_data->module_instance_id = APM_MODULE_INSTANCE_ID;
++	param_data->param_id = APM_PARAM_ID_SUB_GRAPH_CONFIG;
++	param_data->param_size = sg_sz - APM_MODULE_PARAM_DATA_SIZE;
++	params.sg_data->num_sub_graphs = num_sub_graphs;
++	p += sg_sz;
++
++	/* Container */
++	params.cont_data = p;
++	param_data = &params.cont_data->param_data;
++	param_data->module_instance_id = APM_MODULE_INSTANCE_ID;
++	param_data->param_id = APM_PARAM_ID_CONTAINER_CONFIG;
++	param_data->param_size = cont_sz - APM_MODULE_PARAM_DATA_SIZE;
++	params.cont_data->num_containers = num_containers;
++	p += cont_sz;
++
++	/* Module List*/
++	params.mod_list_data = p;
++	param_data = &params.mod_list_data->param_data;
++	param_data->module_instance_id = APM_MODULE_INSTANCE_ID;
++	param_data->param_id = APM_PARAM_ID_MODULE_LIST;
++	param_data->param_size = ml_sz - APM_MODULE_PARAM_DATA_SIZE;
++	params.mod_list_data->num_modules_list = num_sub_graphs;
++	p += ml_sz;
++
++	/* Module Properties */
++	params.mod_prop_data = p;
++	param_data = &params.mod_prop_data->param_data;
++	param_data->module_instance_id = APM_MODULE_INSTANCE_ID;
++	param_data->param_id = APM_PARAM_ID_MODULE_PROP;
++	param_data->param_size = mp_sz - APM_MODULE_PARAM_DATA_SIZE;
++	params.mod_prop_data->num_modules_prop_cfg = num_modules;
++	p += mp_sz;
++
++	/* Module Connections */
++	params.mod_conn_list_data = p;
++	param_data = &params.mod_conn_list_data->param_data;
++	param_data->module_instance_id = APM_MODULE_INSTANCE_ID;
++	param_data->param_id = APM_PARAM_ID_MODULE_CONN;
++	param_data->param_size = mc_sz - APM_MODULE_PARAM_DATA_SIZE;
++	params.mod_conn_list_data->num_connections = num_connections;
++	p += mc_sz;
++
++	audioreach_populate_graph(&params, sg_list, num_sub_graphs);
 +
 +	return pkt;
 +}
-+
-+void *audioreach_alloc_pkt(int payload_size, uint32_t opcode, uint32_t token,
-+			   uint32_t src_port, uint32_t dest_port)
-+{
-+	return __audioreach_alloc_pkt(payload_size, opcode, token, src_port, dest_port, false);
-+}
-+EXPORT_SYMBOL_GPL(audioreach_alloc_pkt);
-+
-+void *audioreach_alloc_apm_pkt(int pkt_size, uint32_t opcode, uint32_t token, uint32_t src_port)
-+{
-+	return __audioreach_alloc_pkt(pkt_size, opcode, token, src_port, APM_MODULE_INSTANCE_ID,
-+				      false);
-+}
-+EXPORT_SYMBOL_GPL(audioreach_alloc_apm_pkt);
-+
-+void *audioreach_alloc_cmd_pkt(int payload_size, uint32_t opcode, uint32_t token,
-+			       uint32_t src_port, uint32_t dest_port)
-+{
-+	return __audioreach_alloc_pkt(payload_size, opcode, token, src_port, dest_port, true);
-+}
-+EXPORT_SYMBOL_GPL(audioreach_alloc_cmd_pkt);
-+
-+void *audioreach_alloc_apm_cmd_pkt(int pkt_size, uint32_t opcode, uint32_t token)
-+{
-+	return __audioreach_alloc_pkt(pkt_size, opcode, token, GPR_APM_MODULE_IID,
-+				       APM_MODULE_INSTANCE_ID, true);
-+}
-+EXPORT_SYMBOL_GPL(audioreach_alloc_apm_cmd_pkt);
++EXPORT_SYMBOL_GPL(audioreach_alloc_graph_pkt);
 diff --git a/sound/soc/qcom/qdsp6/audioreach.h b/sound/soc/qcom/qdsp6/audioreach.h
-new file mode 100644
-index 000000000000..c124b7953e6e
---- /dev/null
+index c124b7953e6e..b6ce1a510e91 100644
+--- a/sound/soc/qcom/qdsp6/audioreach.h
 +++ b/sound/soc/qcom/qdsp6/audioreach.h
-@@ -0,0 +1,668 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
+@@ -5,6 +5,8 @@
+ #include <linux/types.h>
+ #include <linux/soc/qcom/apr.h>
+ #include <sound/soc.h>
++struct q6apm;
++struct q6apm_graph;
+ 
+ /* Module IDs */
+ #define MODULE_ID_WR_SHARED_MEM_EP	0x07001000
+@@ -654,6 +656,20 @@ struct audioreach_module {
+ 	struct snd_soc_dapm_widget *widget;
+ };
+ 
++struct audioreach_module_config {
++	int	direction;
++	u32	sample_rate;
++	u16	bit_width;
++	u16	bits_per_sample;
 +
-+#ifndef __AUDIOREACH_H__
-+#define __AUDIOREACH_H__
-+#include <linux/types.h>
++	u16	data_format;
++	u16	num_channels;
++	u16	active_channels_mask;
++	u32	sd_line_mask;
++	int	fmt;
++	u8 channel_map[AR_PCM_MAX_NUM_CHANNEL];
++};
++
+ /* Packet Allocation routines */
+ void *audioreach_alloc_apm_cmd_pkt(int pkt_size, uint32_t opcode, uint32_t
+ 				    token);
+@@ -665,4 +681,17 @@ void *audioreach_alloc_apm_pkt(int pkt_size, uint32_t opcode, uint32_t token,
+ void *audioreach_alloc_pkt(int payload_size, uint32_t opcode,
+ 			   uint32_t token, uint32_t src_port,
+ 			   uint32_t dest_port);
++void *audioreach_alloc_graph_pkt(struct q6apm *apm,
++				 struct list_head *sg_list,
++				  int graph_id);
++struct audioreach_module *audioreach_get_container_last_module(
++				struct audioreach_container *container);
++struct audioreach_module *audioreach_get_container_first_module(
++				struct audioreach_container *container);
++struct audioreach_module *audioreach_get_container_next_module(
++				struct audioreach_container *container,
++				struct audioreach_module *module);
++#define list_for_each_container_module(mod, cont) \
++	for (mod = audioreach_get_container_first_module(cont); mod != NULL; \
++	     mod = audioreach_get_container_next_module(cont, mod))
+ #endif /* __AUDIOREACH_H__ */
+diff --git a/sound/soc/qcom/qdsp6/q6apm.c b/sound/soc/qcom/qdsp6/q6apm.c
+new file mode 100644
+index 000000000000..b87ea6cb540e
+--- /dev/null
++++ b/sound/soc/qcom/qdsp6/q6apm.c
+@@ -0,0 +1,596 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2020, Linaro Limited
++
++#include <dt-bindings/soc/qcom,gpr.h>
++#include <linux/delay.h>
++#include <linux/jiffies.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_platform.h>
++#include <linux/sched.h>
++#include <linux/slab.h>
 +#include <linux/soc/qcom/apr.h>
++#include <linux/wait.h>
 +#include <sound/soc.h>
-+
-+/* Module IDs */
-+#define MODULE_ID_WR_SHARED_MEM_EP	0x07001000
-+#define MODULE_ID_RD_SHARED_MEM_EP	0x07001001
-+#define MODULE_ID_GAIN			0x07001002
-+#define MODULE_ID_PCM_CNV		0x07001003
-+#define MODULE_ID_PCM_ENC		0x07001004
-+#define MODULE_ID_PCM_DEC		0x07001005
-+#define MODULE_ID_CODEC_DMA_SINK	0x07001023
-+#define MODULE_ID_CODEC_DMA_SOURCE	0x07001024
-+#define MODULE_ID_I2S_SINK		0x0700100A
-+#define MODULE_ID_I2S_SOURCE		0x0700100B
-+#define MODULE_ID_DATA_LOGGING		0x0700101A
-+
-+#define APM_CMD_GET_SPF_STATE		0x01001021
-+#define APM_CMD_RSP_GET_SPF_STATE	0x02001007
-+
-+#define APM_MODULE_INSTANCE_ID		0x00000001
-+#define PRM_MODULE_INSTANCE_ID		0x00000002
-+#define AMDB_MODULE_INSTANCE_ID		0x00000003
-+#define VCPM_MODULE_INSTANCE_ID		0x00000004
-+#define AR_MODULE_INSTANCE_ID_START	0x00006000
-+#define AR_MODULE_INSTANCE_ID_END	0x00007000
-+#define AR_MODULE_DYNAMIC_INSTANCE_ID_START	0x00007000
-+#define AR_MODULE_DYNAMIC_INSTANCE_ID_END	0x00008000
-+#define AR_CONT_INSTANCE_ID_START	0x00005000
-+#define AR_CONT_INSTANCE_ID_END		0x00006000
-+#define AR_SG_INSTANCE_ID_START		0x00004000
-+
-+#define APM_CMD_GRAPH_OPEN			0x01001000
-+#define APM_CMD_GRAPH_PREPARE			0x01001001
-+#define APM_CMD_GRAPH_START			0x01001002
-+#define APM_CMD_GRAPH_STOP			0x01001003
-+#define APM_CMD_GRAPH_CLOSE			0x01001004
-+#define APM_CMD_GRAPH_FLUSH			0x01001005
-+#define APM_CMD_SET_CFG				0x01001006
-+#define APM_CMD_GET_CFG				0x01001007
-+#define APM_CMD_SHARED_MEM_MAP_REGIONS		0x0100100C
-+#define APM_CMD_SHARED_MEM_UNMAP_REGIONS	0x0100100D
-+#define APM_CMD_RSP_SHARED_MEM_MAP_REGIONS	0x02001001
-+#define APM_CMD_RSP_GET_CFG			0x02001000
-+#define APM_CMD_CLOSE_ALL			0x01001013
-+#define APM_CMD_REGISTER_SHARED_CFG		0x0100100A
-+
-+#define APM_MEMORY_MAP_SHMEM8_4K_POOL		3
-+
-+struct apm_cmd_shared_mem_map_regions {
-+	uint16_t mem_pool_id;
-+	uint16_t num_regions;
-+	uint32_t property_flag;
-+} __packed;
-+
-+struct apm_shared_map_region_payload {
-+	uint32_t shm_addr_lsw;
-+	uint32_t shm_addr_msw;
-+	uint32_t mem_size_bytes;
-+} __packed;
-+
-+struct apm_cmd_shared_mem_unmap_regions {
-+	uint32_t mem_map_handle;
-+} __packed;
-+
-+struct apm_cmd_rsp_shared_mem_map_regions {
-+	uint32_t mem_map_handle;
-+} __packed;
-+
-+/* APM module */
-+#define APM_PARAM_ID_SUB_GRAPH_LIST		0x08001005
-+
-+#define APM_PARAM_ID_MODULE_LIST		0x08001002
-+
-+struct apm_param_id_modules_list {
-+	uint32_t num_modules_list;
-+} __packed;
-+
-+#define APM_PARAM_ID_MODULE_PROP		0x08001003
-+
-+struct apm_param_id_module_prop {
-+	uint32_t num_modules_prop_cfg;
-+} __packed;
-+
-+struct apm_module_prop_cfg {
-+	uint32_t instance_id;
-+	uint32_t num_props;
-+} __packed;
-+
-+#define APM_PARAM_ID_MODULE_CONN		0x08001004
-+
-+struct apm_param_id_module_conn {
-+	uint32_t num_connections;
-+} __packed;
-+
-+struct apm_module_conn_obj {
-+	uint32_t src_mod_inst_id;
-+	uint32_t src_mod_op_port_id;
-+	uint32_t dst_mod_inst_id;
-+	uint32_t dst_mod_ip_port_id;
-+} __packed;
-+
-+#define APM_PARAM_ID_GAIN			0x08001006
-+
-+struct param_id_gain_cfg {
-+	uint16_t gain;
-+	uint16_t reserved;
-+} __packed;
-+
-+#define PARAM_ID_PCM_OUTPUT_FORMAT_CFG		0x08001008
-+
-+struct param_id_pcm_output_format_cfg {
-+	uint32_t data_format;
-+	uint32_t fmt_id;
-+	uint32_t payload_size;
-+} __packed;
-+
-+struct payload_pcm_output_format_cfg {
-+	uint16_t bit_width;
-+	uint16_t alignment;
-+	uint16_t bits_per_sample;
-+	uint16_t q_factor;
-+	uint16_t endianness;
-+	uint16_t interleaved;
-+	uint16_t reserved;
-+	uint16_t num_channels;
-+	uint8_t channel_mapping[];
-+} __packed;
-+
-+#define PARAM_ID_ENC_BITRATE			0x08001052
-+
-+struct param_id_enc_bitrate_param {
-+	uint32_t bitrate;
-+} __packed;
-+
-+#define DATA_FORMAT_FIXED_POINT		1
-+#define PCM_LSB_ALIGNED			1
-+#define PCM_MSB_ALIGNED			2
-+#define PCM_LITTLE_ENDIAN		1
-+#define PCM_BIT_ENDIAN			2
-+
-+#define MEDIA_FMT_ID_PCM	0x09001000
-+#define PCM_CHANNEL_L		1
-+#define PCM_CHANNEL_R		2
-+#define SAMPLE_RATE_48K		48000
-+#define BIT_WIDTH_16		16
-+
-+#define APM_PARAM_ID_PROP_PORT_INFO		0x08001015
-+
-+struct apm_modules_prop_info {
-+	uint32_t max_ip_port;
-+	uint32_t max_op_port;
-+} __packed;
-+
-+/* Shared memory module */
-+#define DATA_CMD_WR_SH_MEM_EP_DATA_BUFFER	0x04001000
-+#define WR_SH_MEM_EP_TIMESTAMP_VALID_FLAG	BIT(31)
-+#define WR_SH_MEM_EP_LAST_BUFFER_FLAG		BIT(30)
-+#define WR_SH_MEM_EP_TS_CONTINUE_FLAG		BIT(29)
-+#define WR_SH_MEM_EP_EOF_FLAG			BIT(4)
-+
-+struct apm_data_cmd_wr_sh_mem_ep_data_buffer {
-+	uint32_t buf_addr_lsw;
-+	uint32_t buf_addr_msw;
-+	uint32_t mem_map_handle;
-+	uint32_t buf_size;
-+	uint32_t timestamp_lsw;
-+	uint32_t timestamp_msw;
-+	uint32_t flags;
-+} __packed;
-+
-+#define DATA_CMD_WR_SH_MEM_EP_DATA_BUFFER_V2	0x0400100A
-+
-+struct apm_data_cmd_wr_sh_mem_ep_data_buffer_v2 {
-+	uint32_t buf_addr_lsw;
-+	uint32_t buf_addr_msw;
-+	uint32_t mem_map_handle;
-+	uint32_t buf_size;
-+	uint32_t timestamp_lsw;
-+	uint32_t timestamp_msw;
-+	uint32_t flags;
-+	uint32_t md_addr_lsw;
-+	uint32_t md_addr_msw;
-+	uint32_t md_map_handle;
-+	uint32_t md_buf_size;
-+} __packed;
-+
-+#define DATA_CMD_RSP_WR_SH_MEM_EP_DATA_BUFFER_DONE	0x05001000
-+
-+struct data_cmd_rsp_wr_sh_mem_ep_data_buffer_done {
-+	uint32_t buf_addr_lsw;
-+	uint32_t buf_addr_msw;
-+	uint32_t mem_map_handle;
-+	uint32_t status;
-+
-+} __packed;
-+
-+#define DATA_CMD_RSP_WR_SH_MEM_EP_DATA_BUFFER_DONE_V2	0x05001004
-+
-+struct data_cmd_rsp_wr_sh_mem_ep_data_buffer_done_v2 {
-+	uint32_t buf_addr_lsw;
-+	uint32_t buf_addr_msw;
-+	uint32_t mem_map_handle;
-+	uint32_t status;
-+	uint32_t md_buf_addr_lsw;
-+	uint32_t md_buf_addr_msw;
-+	uint32_t md_mem_map_handle;
-+	uint32_t md_status;
-+} __packed;
-+
-+#define PARAM_ID_MEDIA_FORMAT				0x0800100C
-+#define DATA_CMD_WR_SH_MEM_EP_MEDIA_FORMAT		0x04001001
-+
-+struct apm_media_format {
-+	uint32_t data_format;
-+	uint32_t fmt_id;
-+	uint32_t payload_size;
-+} __packed;
-+
-+#define DATA_CMD_WR_SH_MEM_EP_EOS			0x04001002
-+#define WR_SH_MEM_EP_EOS_POLICY_LAST	1
-+#define WR_SH_MEM_EP_EOS_POLICY_EACH	2
-+
-+struct data_cmd_wr_sh_mem_ep_eos {
-+	uint32_t policy;
-+
-+} __packed;
-+
-+#define DATA_CMD_RD_SH_MEM_EP_DATA_BUFFER		0x04001003
-+
-+struct data_cmd_rd_sh_mem_ep_data_buffer {
-+	uint32_t buf_addr_lsw;
-+	uint32_t buf_addr_msw;
-+	uint32_t mem_map_handle;
-+	uint32_t buf_size;
-+} __packed;
-+
-+#define DATA_CMD_RSP_RD_SH_MEM_EP_DATA_BUFFER		0x05001002
-+
-+struct data_cmd_rsp_rd_sh_mem_ep_data_buffer_done {
-+	uint32_t status;
-+	uint32_t buf_addr_lsw;
-+	uint32_t buf_addr_msw;
-+	uint32_t mem_map_handle;
-+	uint32_t data_size;
-+	uint32_t offset;
-+	uint32_t timestamp_lsw;
-+	uint32_t timestamp_msw;
-+	uint32_t flags;
-+	uint32_t num_frames;
-+} __packed;
-+
-+#define DATA_CMD_RD_SH_MEM_EP_DATA_BUFFER_V2		0x0400100B
-+
-+struct data_cmd_rd_sh_mem_ep_data_buffer_v2 {
-+	uint32_t buf_addr_lsw;
-+	uint32_t buf_addr_msw;
-+	uint32_t mem_map_handle;
-+	uint32_t buf_size;
-+	uint32_t md_buf_addr_lsw;
-+	uint32_t md_buf_addr_msw;
-+	uint32_t md_mem_map_handle;
-+	uint32_t md_buf_size;
-+} __packed;
-+
-+#define DATA_CMD_RSP_RD_SH_MEM_EP_DATA_BUFFER_V2	0x05001005
-+
-+struct data_cmd_rsp_rd_sh_mem_ep_data_buffer_done_v2 {
-+	uint32_t status;
-+	uint32_t buf_addr_lsw;
-+	uint32_t buf_addr_msw;
-+	uint32_t mem_map_handle;
-+	uint32_t data_size;
-+	uint32_t offset;
-+	uint32_t timestamp_lsw;
-+	uint32_t timestamp_msw;
-+	uint32_t flags;
-+	uint32_t num_frames;
-+	uint32_t md_status;
-+	uint32_t md_buf_addr_lsw;
-+	uint32_t md_buf_addr_msw;
-+	uint32_t md_mem_map_handle;
-+	uint32_t md_size;
-+} __packed;
-+
-+#define PARAM_ID_RD_SH_MEM_CFG				0x08001007
-+
-+struct param_id_rd_sh_mem_cfg {
-+	uint32_t num_frames_per_buffer;
-+	uint32_t metadata_control_flags;
-+
-+} __packed;
-+
-+#define DATA_CMD_WR_SH_MEM_EP_EOS_RENDERED		0x05001001
-+
-+struct data_cmd_wr_sh_mem_ep_eos_rendered {
-+	uint32_t module_instance_id;
-+	uint32_t render_status;
-+} __packed;
-+
-+#define MODULE_ID_WR_SHARED_MEM_EP			0x07001000
-+
-+struct apm_cmd_header {
-+	uint32_t payload_address_lsw;
-+	uint32_t payload_address_msw;
-+	uint32_t mem_map_handle;
-+	uint32_t payload_size;
-+} __packed;
-+
-+#define APM_CMD_HDR_SIZE sizeof(struct apm_cmd_header)
-+
-+struct apm_module_param_data  {
-+	uint32_t module_instance_id;
-+	uint32_t param_id;
-+	uint32_t param_size;
-+	uint32_t error_code;
-+} __packed;
-+
-+#define APM_MODULE_PARAM_DATA_SIZE	sizeof(struct apm_module_param_data)
-+
-+struct apm_module_param_shared_data  {
-+	uint32_t param_id;
-+	uint32_t param_size;
-+} __packed;
-+
-+struct apm_prop_data {
-+	uint32_t prop_id;
-+	uint32_t prop_size;
-+} __packed;
-+
-+/* Sub-Graph Properties */
-+#define APM_PARAM_ID_SUB_GRAPH_CONFIG	0x08001001
-+
-+struct apm_param_id_sub_graph_cfg {
++#include <sound/soc-dapm.h>
++#include <sound/pcm.h>
++#include "audioreach.h"
++#include "q6apm.h"
++
++/* Graph Management */
++struct apm_graph_mgmt_cmd {
++	struct apm_module_param_data param_data;
 +	uint32_t num_sub_graphs;
++	uint32_t sub_graph_id_list[];
 +} __packed;
 +
-+struct apm_sub_graph_cfg {
-+	uint32_t sub_graph_id;
-+	uint32_t num_sub_graph_prop;
-+} __packed;
++#define APM_GRAPH_MGMT_PSIZE(p, n) ALIGN(struct_size(p, sub_graph_id_list, n), 8)
 +
-+#define APM_SUB_GRAPH_PROP_ID_PERF_MODE		0x0800100E
++int q6apm_send_cmd_sync(struct q6apm *apm, struct gpr_pkt *pkt, uint32_t rsp_opcode)
++{
++	gpr_device_t *gdev = apm->gdev;
 +
-+struct apm_sg_prop_id_perf_mode {
-+	uint32_t perf_mode;
-+} __packed;
++	return audioreach_send_cmd_sync(&gdev->dev, gdev, &apm->result, &apm->lock,
++					NULL, &apm->wait, pkt, rsp_opcode);
++}
 +
-+#define APM_SG_PROP_ID_PERF_MODE_SIZE	4
-+
-+#define APM_SUB_GRAPH_PROP_ID_DIRECTION	0x0800100F
-+
-+struct apm_sg_prop_id_direction {
-+	uint32_t direction;
-+} __packed;
-+
-+#define APM_SG_PROP_ID_DIR_SIZE		4
-+
-+#define APM_SUB_GRAPH_PROP_ID_SCENARIO_ID	0x08001010
-+#define APM_SUB_GRAPH_SID_AUDIO_PLAYBACK	0x1
-+#define APM_SUB_GRAPH_SID_AUDIO_RECORD		0x2
-+#define APM_SUB_GRAPH_SID_AUDIO_VOICE_CALL	0x3
-+
-+struct apm_sg_prop_id_scenario_id {
-+	uint32_t scenario_id;
-+} __packed;
-+
-+#define APM_SG_PROP_ID_SID_SIZE			4
-+/* container api */
-+#define APM_PARAM_ID_CONTAINER_CONFIG		0x08001000
-+
-+struct apm_param_id_container_cfg {
-+	uint32_t num_containers;
-+} __packed;
-+
-+struct apm_container_cfg {
-+	uint32_t container_id;
-+	uint32_t num_prop;
-+} __packed;
-+
-+struct apm_cont_capability  {
-+	uint32_t capability_id;
-+} __packed;
-+
-+#define APM_CONTAINER_PROP_ID_CAPABILITY_LIST	0x08001011
-+#define APM_CONTAINER_PROP_ID_CAPABILITY_SIZE	8
-+
-+#define APM_PROP_ID_INVALID			0x0
-+#define APM_CONTAINER_CAP_ID_PP			0x1
-+#define APM_CONTAINER_CAP_ID_PP			0x1
-+
-+struct apm_cont_prop_id_cap_list  {
-+	uint32_t num_capability_id;
-+} __packed;
-+
-+#define APM_CONTAINER_PROP_ID_GRAPH_POS		0x08001012
-+
-+struct apm_cont_prop_id_graph_pos  {
-+	uint32_t graph_pos;
-+} __packed;
-+
-+#define APM_CONTAINER_PROP_ID_STACK_SIZE	0x08001013
-+
-+struct apm_cont_prop_id_stack_size  {
-+	uint32_t stack_size;
-+} __packed;
-+
-+#define APM_CONTAINER_PROP_ID_PROC_DOMAIN	0x08001014
-+
-+struct apm_cont_prop_id_domain  {
-+	uint32_t proc_domain;
-+} __packed;
-+
-+#define CONFIG_I2S_WS_SRC_EXTERNAL		0x0
-+#define CONFIG_I2S_WS_SRC_INTERNAL		0x1
-+
-+#define PARAM_ID_I2S_INTF_CFG			0x08001019
-+struct param_id_i2s_intf_cfg {
-+	uint32_t lpaif_type;
-+	uint32_t intf_idx;
-+	uint16_t sd_line_idx;
-+	uint16_t ws_src;
-+} __packed;
-+
-+#define I2S_INTF_TYPE_PRIMARY		0
-+#define I2S_INTF_TYPE_SECOINDARY	1
-+#define I2S_INTF_TYPE_TERTINARY		2
-+#define I2S_INTF_TYPE_QUATERNARY	3
-+#define I2S_INTF_TYPE_QUINARY		4
-+#define I2S_SD0				1
-+#define I2S_SD1				2
-+#define I2S_SD2				3
-+#define I2S_SD3				4
-+
-+#define PORT_ID_I2S_INPUT		2
-+#define PORT_ID_I2S_OUPUT		1
-+#define I2S_STACK_SIZE			2048
-+
-+#define PARAM_ID_HW_EP_MF_CFG			0x08001017
-+struct param_id_hw_ep_mf {
-+	uint32_t sample_rate;
-+	uint16_t bit_width;
-+	uint16_t num_channels;
-+	uint32_t data_format;
-+} __packed;
-+
-+#define PARAM_ID_HW_EP_FRAME_SIZE_FACTOR	0x08001018
-+
-+struct param_id_fram_size_factor {
-+	uint32_t frame_size_factor;
-+} __packed;
-+
-+#define APM_CONTAINER_PROP_ID_PARENT_CONTAINER_ID	0x080010CB
-+
-+struct apm_cont_prop_id_parent_container  {
-+	uint32_t parent_container_id;
-+} __packed;
-+
-+#define APM_CONTAINER_PROP_ID_HEAP_ID			0x08001174
-+#define APM_CONT_HEAP_DEFAULT				0x1
-+#define APM_CONT_HEAP_LOW_POWER				0x2
-+
-+struct apm_cont_prop_id_headp_id  {
-+	uint32_t heap_id;
-+} __packed;
-+
-+struct apm_modules_list {
-+	uint32_t sub_graph_id;
-+	uint32_t container_id;
-+	uint32_t num_modules;
-+} __packed;
-+
-+struct apm_module_obj {
-+	uint32_t module_id;
-+	uint32_t instance_id;
-+} __packed;
-+
-+#define APM_MODULE_PROP_ID_PORT_INFO		0x08001015
-+#define APM_MODULE_PROP_ID_PORT_INFO_SZ		8
-+struct apm_module_prop_id_port_info {
-+	uint32_t max_ip_port;
-+	uint32_t max_op_port;
-+} __packed;
-+
-+#define DATA_LOGGING_MAX_INPUT_PORTS		0x1
-+#define DATA_LOGGING_MAX_OUTPUT_PORTS		0x1
-+#define DATA_LOGGING_STACK_SIZE			2048
-+#define PARAM_ID_DATA_LOGGING_CONFIG		0x08001031
-+
-+struct data_logging_config {
-+	uint32_t log_code;
-+	uint32_t log_tap_point_id;
-+	uint32_t mode;
-+} __packed;
-+
-+#define PARAM_ID_MFC_OUTPUT_MEDIA_FORMAT	0x08001024
-+
-+struct param_id_mfc_media_format {
-+	uint32_t sample_rate;
-+	uint16_t bit_width;
-+	uint16_t num_channels;
-+	uint16_t channel_mapping[];
-+} __packed;
-+
-+struct media_format {
-+	uint32_t data_format;
-+	uint32_t fmt_id;
-+	uint32_t payload_size;
-+} __packed;
-+
-+struct payload_media_fmt_pcm {
-+	uint32_t sample_rate;
-+	uint16_t bit_width;
-+	uint16_t alignment;
-+	uint16_t bits_per_sample;
-+	uint16_t q_factor;
-+	uint16_t endianness;
-+	uint16_t num_channels;
-+	uint8_t channel_mapping[];
-+} __packed;
-+
-+#define PARAM_ID_CODEC_DMA_INTF_CFG		0x08001063
-+
-+struct param_id_codec_dma_intf_cfg {
-+	/* 1 - RXTX
-+	 * 2 - WSA
-+	 * 3 - VA
-+	 * 4 - AXI
-+	 */
-+	uint32_t lpaif_type;
-+	/*
-+	 *  RX0 | TX0 = 1
-+	 *  RX1 | TX1 = 2
-+	 *  RX2 | TX2 = 3... so on
-+	 */
-+	uint32_t intf_index;
-+	uint32_t active_channels_mask;
-+} __packed;
-+
-+struct audio_hw_clk_cfg {
-+	uint32_t clock_id;
-+	uint32_t clock_freq;
-+	uint32_t clock_attri;
-+	uint32_t clock_root;
-+} __packed;
-+
-+#define PARAM_ID_HW_EP_POWER_MODE_CFG	0x8001176
-+#define AR_HW_EP_POWER_MODE_0	0 /* default */
-+#define AR_HW_EP_POWER_MODE_1	1 /* XO Shutdown allowed */
-+#define AR_HW_EP_POWER_MODE_2	2 /* XO Shutdown not allowed */
-+
-+struct param_id_hw_ep_power_mode_cfg {
-+	uint32_t power_mode;
-+} __packed;
-+
-+#define PARAM_ID_HW_EP_DMA_DATA_ALIGN	0x08001233
-+#define AR_HW_EP_DMA_DATA_ALIGN_MSB	0
-+#define AR_HW_EP_DMA_DATA_ALIGN_LSB	1
-+#define AR_PCM_MAX_NUM_CHANNEL		8
-+
-+struct param_id_hw_ep_dma_data_align {
-+	uint32_t dma_data_align;
-+} __packed;
-+
-+/* Graph */
-+struct audioreach_connection {
-+	/* Connections */
-+	uint32_t src_mod_inst_id;
-+	uint32_t src_mod_op_port_id;
-+	uint32_t dst_mod_inst_id;
-+	uint32_t dst_mod_ip_port_id;
-+	struct list_head node;
-+};
-+
-+struct audioreach_graph_info {
-+	int id;
-+	uint32_t num_sub_graphs;
-+	struct list_head sg_list;
-+	struct list_head connection_list;
-+};
-+
-+struct audioreach_sub_graph {
-+	uint32_t sub_graph_id;
-+	uint32_t perf_mode;
-+	uint32_t direction;
-+	uint32_t scenario_id;
-+	struct list_head node;
-+
++static struct audioreach_graph *q6apm_get_audioreach_graph(struct q6apm *apm, uint32_t graph_id)
++{
 +	struct audioreach_graph_info *info;
-+	uint32_t num_containers;
-+	struct list_head container_list;
-+};
++	struct audioreach_graph *graph;
++	int id;
 +
-+struct audioreach_container {
-+	uint32_t container_id;
-+	uint32_t capability_id;
-+	uint32_t graph_pos;
-+	uint32_t stack_size;
-+	uint32_t proc_domain;
-+	struct list_head node;
++	mutex_lock(&apm->lock);
++	graph = idr_find(&apm->graph_idr, graph_id);
++	mutex_unlock(&apm->lock);
 +
-+	uint32_t num_modules;
-+	struct list_head modules_list;
-+	struct audioreach_sub_graph *sub_graph;
-+};
++	if (graph) {
++		kref_get(&graph->refcount);
++		return graph;
++	}
 +
-+struct audioreach_module {
-+	uint32_t module_id;
-+	uint32_t instance_id;
++	info = idr_find(&apm->graph_info_idr, graph_id);
 +
-+	uint32_t max_ip_port;
-+	uint32_t max_op_port;
++	if (!info)
++		return ERR_PTR(-ENODEV);
 +
-+	uint32_t in_port;
-+	uint32_t out_port;
++	graph = kzalloc(sizeof(*graph), GFP_KERNEL);
++	if (!graph)
++		return ERR_PTR(-ENOMEM);
 +
-+	/* Connections */
-+	uint32_t src_mod_inst_id;
-+	uint32_t src_mod_op_port_id;
-+	uint32_t dst_mod_inst_id;
-+	uint32_t dst_mod_ip_port_id;
++	graph->apm = apm;
++	graph->info = info;
++	graph->id = graph_id;
 +
-+	/* Format specifics */
-+	uint32_t ch_fmt;
-+	uint32_t rate;
-+	uint32_t bit_depth;
++	graph->graph = audioreach_alloc_graph_pkt(apm, &info->sg_list, graph_id);
++	if (IS_ERR(graph->graph)) {
++		void *err = graph->graph;
 +
-+	/* I2S module */
-+	uint32_t hw_interface_idx;
-+	uint32_t sd_line_idx;
-+	uint32_t ws_src;
-+	uint32_t frame_size_factor;
-+	uint32_t data_format;
-+	uint32_t hw_interface_type;
++		kfree(graph);
++		return ERR_CAST(err);
++	}
 +
-+	/* PCM module specific */
-+	uint32_t interleave_type;
++	mutex_lock(&apm->lock);
++	id = idr_alloc(&apm->graph_idr, graph, graph_id, graph_id + 1, GFP_KERNEL);
++	if (id < 0) {
++		dev_err(apm->dev, "Unable to allocate graph id (%d)\n", graph_id);
++		kfree(graph);
++		mutex_unlock(&apm->lock);
++		return ERR_PTR(id);
++	}
++	mutex_unlock(&apm->lock);
 +
-+	/* GAIN/Vol Control Module */
-+	uint16_t gain;
++	kref_init(&graph->refcount);
 +
-+	/* Logging */
-+	uint32_t log_code;
-+	uint32_t log_tap_point_id;
-+	uint32_t log_mode;
++	q6apm_send_cmd_sync(apm, graph->graph, 0);
 +
-+	/* bookkeeping */
-+	struct list_head node;
++	return graph;
++}
++
++static int audioreach_graph_mgmt_cmd(struct audioreach_graph *graph, uint32_t opcode)
++{
++	struct audioreach_graph_info *info = graph->info;
++	int num_sub_graphs = info->num_sub_graphs;
++	struct apm_module_param_data *param_data;
++	struct apm_graph_mgmt_cmd *mgmt_cmd;
++	struct audioreach_sub_graph *sg;
++	struct q6apm *apm = graph->apm;
++	int i = 0, rc, payload_size;
++	struct gpr_pkt *pkt;
++
++	payload_size = APM_GRAPH_MGMT_PSIZE(mgmt_cmd, num_sub_graphs);
++
++	pkt = audioreach_alloc_apm_cmd_pkt(payload_size, opcode, 0);
++	if (IS_ERR(pkt))
++		return PTR_ERR(pkt);
++
++	mgmt_cmd = (void *)pkt + GPR_HDR_SIZE + APM_CMD_HDR_SIZE;
++
++	mgmt_cmd->num_sub_graphs = num_sub_graphs;
++
++	param_data = &mgmt_cmd->param_data;
++	param_data->module_instance_id = APM_MODULE_INSTANCE_ID;
++	param_data->param_id = APM_PARAM_ID_SUB_GRAPH_LIST;
++	param_data->param_size = payload_size - APM_MODULE_PARAM_DATA_SIZE;
++
++	list_for_each_entry(sg, &info->sg_list, node)
++		mgmt_cmd->sub_graph_id_list[i++] = sg->sub_graph_id;
++
++	rc = q6apm_send_cmd_sync(apm, pkt, 0);
++
++	kfree(pkt);
++
++	return rc;
++}
++
++static void q6apm_put_audioreach_graph(struct kref *ref)
++{
++	struct audioreach_graph *graph;
++	struct q6apm *apm;
++
++	graph = container_of(ref, struct audioreach_graph, refcount);
++	apm = graph->apm;
++
++	audioreach_graph_mgmt_cmd(graph, APM_CMD_GRAPH_CLOSE);
++
++	mutex_lock(&apm->lock);
++	graph = idr_remove(&apm->graph_idr, graph->id);
++	mutex_unlock(&apm->lock);
++
++	kfree(graph->graph);
++	kfree(graph);
++}
++
++static int q6apm_get_apm_state(struct q6apm *apm)
++{
++	struct gpr_pkt *pkt;
++
++	pkt = audioreach_alloc_apm_cmd_pkt(0, APM_CMD_GET_SPF_STATE, 0);
++	if (IS_ERR(pkt))
++		return PTR_ERR(pkt);
++
++	q6apm_send_cmd_sync(apm, pkt, APM_CMD_RSP_GET_SPF_STATE);
++
++	kfree(pkt);
++
++	return apm->state;
++}
++
++static struct audioreach_module *__q6apm_find_module_by_mid(struct q6apm *apm,
++						    struct audioreach_graph_info *info,
++						    uint32_t mid)
++{
 +	struct audioreach_container *container;
-+	struct snd_soc_dapm_widget *widget;
++	struct audioreach_sub_graph *sgs;
++	struct audioreach_module *module;
++
++	list_for_each_entry(sgs, &info->sg_list, node) {
++		list_for_each_entry(container, &sgs->container_list, node) {
++			list_for_each_entry(module, &container->modules_list, node) {
++				if (mid == module->module_id)
++					return module;
++			}
++		}
++	}
++
++	return NULL;
++}
++
++static struct audioreach_module *q6apm_graph_get_last_module(struct q6apm *apm, u32 sgid)
++{
++	struct audioreach_container *container;
++	struct audioreach_module *module;
++	struct audioreach_sub_graph *sg;
++
++	mutex_lock(&apm->lock);
++	sg = idr_find(&apm->sub_graphs_idr, sgid);
++	mutex_unlock(&apm->lock);
++	if (!sg)
++		return NULL;
++
++	container = list_last_entry(&sg->container_list, struct audioreach_container, node);
++	module = audioreach_get_container_last_module(container);
++
++	return module;
++}
++
++static struct audioreach_module *q6apm_graph_get_first_module(struct q6apm *apm, u32 sgid)
++{
++	struct audioreach_container *container;
++	struct audioreach_module *module;
++	struct audioreach_sub_graph *sg;
++
++	mutex_lock(&apm->lock);
++	sg = idr_find(&apm->sub_graphs_idr, sgid);
++	mutex_unlock(&apm->lock);
++	if (!sg)
++		return NULL;
++
++	container = list_first_entry(&sg->container_list, struct audioreach_container, node);
++	module = audioreach_get_container_first_module(container);
++
++	return module;
++}
++
++bool q6apm_is_sub_graphs_connected(struct q6apm *apm, u32 src_sgid, u32 dst_sgid)
++{
++	struct audioreach_module *module;
++	u32 iid;
++
++	module = q6apm_graph_get_last_module(apm, src_sgid);
++	if (!module)
++		return false;
++
++	iid = module->instance_id;
++	module = q6apm_graph_get_first_module(apm, dst_sgid);
++	if (!module)
++		return false;
++
++	if (module->src_mod_inst_id == iid)
++		return true;
++
++	return false;
++}
++
++int q6apm_connect_sub_graphs(struct q6apm *apm, u32 src_sgid, u32 dst_sgid, bool connect)
++{
++	struct audioreach_module *module;
++	u32 iid;
++
++	if (connect) {
++		module = q6apm_graph_get_last_module(apm, src_sgid);
++		if (!module)
++			return -ENODEV;
++
++		iid = module->instance_id;
++	} else {
++		iid = 0;
++	}
++
++	module = q6apm_graph_get_first_module(apm, dst_sgid);
++	if (!module)
++		return -ENODEV;
++
++	/* set src module in dst subgraph first module */
++	module->src_mod_inst_id = iid;
++
++	return 0;
++}
++
++int q6apm_graph_get_rx_shmem_module_iid(struct q6apm_graph *graph)
++{
++	struct audioreach_module *module;
++
++	module = q6apm_find_module_by_mid(graph, MODULE_ID_WR_SHARED_MEM_EP);
++	if (!module)
++		return -ENODEV;
++
++	return module->instance_id;
++
++}
++EXPORT_SYMBOL_GPL(q6apm_graph_get_rx_shmem_module_iid);
++
++static int graph_callback(struct gpr_resp_pkt *data, void *priv, int op)
++{
++	struct data_cmd_rsp_rd_sh_mem_ep_data_buffer_done_v2 *rd_done;
++	struct data_cmd_rsp_wr_sh_mem_ep_data_buffer_done_v2 *done;
++	struct apm_cmd_rsp_shared_mem_map_regions *rsp;
++	struct gpr_ibasic_rsp_result_t *result;
++	struct q6apm_graph *graph = priv;
++	struct gpr_hdr *hdr = &data->hdr;
++	struct device *dev = graph->dev;
++	uint32_t client_event;
++	phys_addr_t phys;
++	int token;
++
++	result = data->payload;
++
++	switch (hdr->opcode) {
++	case DATA_CMD_RSP_WR_SH_MEM_EP_DATA_BUFFER_DONE_V2:
++		client_event = APM_CLIENT_EVENT_DATA_WRITE_DONE;
++		mutex_lock(&graph->lock);
++		token = hdr->token & APM_WRITE_TOKEN_MASK;
++
++		done = data->payload;
++		phys = graph->rx_data.buf[token].phys;
++		mutex_unlock(&graph->lock);
++
++		if (lower_32_bits(phys) == done->buf_addr_lsw &&
++		    upper_32_bits(phys) == done->buf_addr_msw) {
++			graph->result.opcode = hdr->opcode;
++			graph->result.status = done->status;
++			if (graph->cb)
++				graph->cb(client_event, hdr->token, data->payload, graph->priv);
++		} else {
++			dev_err(dev, "WR BUFF Unexpected addr %08x-%08x\n", done->buf_addr_lsw,
++				done->buf_addr_msw);
++		}
++
++		break;
++	case APM_CMD_RSP_SHARED_MEM_MAP_REGIONS:
++		graph->result.opcode = hdr->opcode;
++		graph->result.status = 0;
++		rsp = data->payload;
++
++		if (hdr->token == SNDRV_PCM_STREAM_PLAYBACK)
++			graph->rx_data.mem_map_handle = rsp->mem_map_handle;
++		else
++			graph->tx_data.mem_map_handle = rsp->mem_map_handle;
++
++		wake_up(&graph->cmd_wait);
++		break;
++	case DATA_CMD_RSP_RD_SH_MEM_EP_DATA_BUFFER_V2:
++		client_event = APM_CLIENT_EVENT_DATA_READ_DONE;
++		mutex_lock(&graph->lock);
++		rd_done = data->payload;
++		phys = graph->tx_data.buf[hdr->token].phys;
++		mutex_unlock(&graph->lock);
++
++		if (upper_32_bits(phys) == rd_done->buf_addr_msw &&
++		    lower_32_bits(phys) == rd_done->buf_addr_lsw) {
++			graph->result.opcode = hdr->opcode;
++			graph->result.status = rd_done->status;
++			if (graph->cb)
++				graph->cb(client_event, hdr->token, data->payload, graph->priv);
++		} else {
++			dev_err(dev, "RD BUFF Unexpected addr %08x-%08x\n", rd_done->buf_addr_lsw,
++				rd_done->buf_addr_msw);
++		}
++		break;
++	case DATA_CMD_WR_SH_MEM_EP_EOS_RENDERED:
++		break;
++	case GPR_BASIC_RSP_RESULT:
++		switch (result->opcode) {
++		case APM_CMD_SHARED_MEM_UNMAP_REGIONS:
++			graph->result.opcode = result->opcode;
++			graph->result.status = 0;
++			if (hdr->token == SNDRV_PCM_STREAM_PLAYBACK)
++				graph->rx_data.mem_map_handle = 0;
++			else
++				graph->tx_data.mem_map_handle = 0;
++
++			wake_up(&graph->cmd_wait);
++			break;
++		case APM_CMD_SHARED_MEM_MAP_REGIONS:
++		case DATA_CMD_WR_SH_MEM_EP_MEDIA_FORMAT:
++		case APM_CMD_SET_CFG:
++			graph->result.opcode = result->opcode;
++			graph->result.status = result->status;
++			if (result->status)
++				dev_err(dev, "Error (%d) Processing 0x%08x cmd\n",
++					result->status, result->opcode);
++			wake_up(&graph->cmd_wait);
++			break;
++		default:
++			break;
++		}
++		break;
++	default:
++		break;
++	}
++	return 0;
++}
++
++struct q6apm_graph *q6apm_graph_open(struct device *dev, q6apm_cb cb,
++				     void *priv, int graph_id)
++{
++	struct q6apm *apm = dev_get_drvdata(dev->parent);
++	struct audioreach_graph *ar_graph;
++	struct q6apm_graph *graph;
++	int ret;
++
++	ar_graph = q6apm_get_audioreach_graph(apm, graph_id);
++	if (IS_ERR(ar_graph)) {
++		dev_err(dev, "No graph found with id %d\n", graph_id);
++		return ERR_CAST(ar_graph);
++	}
++
++	graph = kzalloc(sizeof(*graph), GFP_KERNEL);
++	if (!graph) {
++		ret = -ENOMEM;
++		goto err;
++	}
++
++	graph->apm = apm;
++	graph->priv = priv;
++	graph->cb = cb;
++	graph->info = ar_graph->info;
++	graph->ar_graph = ar_graph;
++	graph->id = ar_graph->id;
++	graph->dev = dev;
++
++	mutex_init(&graph->lock);
++	init_waitqueue_head(&graph->cmd_wait);
++
++	graph->port = gpr_alloc_port(apm->gdev, dev, graph_callback, graph);
++	if (!graph->port) {
++		kfree(graph);
++		ret = -ENOMEM;
++		goto err;
++	}
++
++	return graph;
++err:
++	kref_put(&ar_graph->refcount, q6apm_put_audioreach_graph);
++	return ERR_PTR(ret);
++}
++EXPORT_SYMBOL_GPL(q6apm_graph_open);
++
++int q6apm_graph_close(struct q6apm_graph *graph)
++{
++	struct audioreach_graph *ar_graph = graph->ar_graph;
++
++	gpr_free_port(graph->port);
++	kref_put(&ar_graph->refcount, q6apm_put_audioreach_graph);
++	kfree(graph);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(q6apm_graph_close);
++
++int q6apm_graph_prepare(struct q6apm_graph *graph)
++{
++	return audioreach_graph_mgmt_cmd(graph->ar_graph, APM_CMD_GRAPH_PREPARE);
++}
++EXPORT_SYMBOL_GPL(q6apm_graph_prepare);
++
++int q6apm_graph_start(struct q6apm_graph *graph)
++{
++	struct audioreach_graph *ar_graph = graph->ar_graph;
++	int ret = 0;
++
++	if (ar_graph->start_count == 0)
++		ret = audioreach_graph_mgmt_cmd(ar_graph, APM_CMD_GRAPH_START);
++
++	ar_graph->start_count++;
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(q6apm_graph_start);
++
++int q6apm_graph_stop(struct q6apm_graph *graph)
++{
++	struct audioreach_graph *ar_graph = graph->ar_graph;
++
++	if (--ar_graph->start_count > 0)
++		return 0;
++
++	return audioreach_graph_mgmt_cmd(ar_graph, APM_CMD_GRAPH_STOP);
++}
++EXPORT_SYMBOL_GPL(q6apm_graph_stop);
++
++int q6apm_graph_flush(struct q6apm_graph *graph)
++{
++	return audioreach_graph_mgmt_cmd(graph->ar_graph, APM_CMD_GRAPH_FLUSH);
++}
++EXPORT_SYMBOL_GPL(q6apm_graph_flush);
++
++static int q6apm_audio_probe(struct snd_soc_component *component)
++{
++	return 0;
++}
++
++static void q6apm_audio_remove(struct snd_soc_component *component)
++{
++	/* remove topology */
++	snd_soc_tplg_component_remove(component);
++}
++
++#define APM_AUDIO_DRV_NAME "q6apm-audio"
++
++static const struct snd_soc_component_driver q6apm_audio_component = {
++	.name		= APM_AUDIO_DRV_NAME,
++	.probe		= q6apm_audio_probe,
++	.remove		= q6apm_audio_remove,
 +};
 +
-+/* Packet Allocation routines */
-+void *audioreach_alloc_apm_cmd_pkt(int pkt_size, uint32_t opcode, uint32_t
-+				    token);
-+void *audioreach_alloc_cmd_pkt(int payload_size, uint32_t opcode,
-+			       uint32_t token, uint32_t src_port,
-+			       uint32_t dest_port);
-+void *audioreach_alloc_apm_pkt(int pkt_size, uint32_t opcode, uint32_t token,
-+				uint32_t src_port);
-+void *audioreach_alloc_pkt(int payload_size, uint32_t opcode,
-+			   uint32_t token, uint32_t src_port,
-+			   uint32_t dest_port);
-+#endif /* __AUDIOREACH_H__ */
++static int apm_probe(gpr_device_t *gdev)
++{
++	struct device *dev = &gdev->dev;
++	struct q6apm *apm;
++	int ret;
++
++	apm = devm_kzalloc(dev, sizeof(*apm), GFP_KERNEL);
++	if (!apm)
++		return -ENOMEM;
++
++	dev_set_drvdata(dev, apm);
++
++	mutex_init(&apm->lock);
++	apm->dev = dev;
++	apm->gdev = gdev;
++	init_waitqueue_head(&apm->wait);
++
++	idr_init(&apm->graph_idr);
++	idr_init(&apm->graph_info_idr);
++	idr_init(&apm->sub_graphs_idr);
++	idr_init(&apm->containers_idr);
++
++	idr_init(&apm->modules_idr);
++
++	q6apm_get_apm_state(apm);
++
++	ret = devm_snd_soc_register_component(dev, &q6apm_audio_component, NULL, 0);
++	if (ret < 0) {
++		dev_err(dev, "failed to get register q6apm: %d\n", ret);
++		return ret;
++	}
++
++	return of_platform_populate(dev->of_node, NULL, NULL, dev);
++}
++
++struct audioreach_module *q6apm_find_module_by_mid(struct q6apm_graph *graph, uint32_t mid)
++{
++	struct audioreach_graph_info *info = graph->info;
++	struct q6apm *apm = graph->apm;
++
++	return __q6apm_find_module_by_mid(apm, info, mid);
++
++}
++
++static int apm_callback(struct gpr_resp_pkt *data, void *priv, int op)
++{
++	gpr_device_t *gdev = priv;
++	struct q6apm *apm = dev_get_drvdata(&gdev->dev);
++	struct device *dev = &gdev->dev;
++	struct gpr_ibasic_rsp_result_t *result;
++	struct gpr_hdr *hdr = &data->hdr;
++
++	result = data->payload;
++
++	switch (hdr->opcode) {
++	case APM_CMD_RSP_GET_SPF_STATE:
++		apm->result.opcode = hdr->opcode;
++		apm->result.status = 0;
++		/* First word of result it state */
++		apm->state = result->opcode;
++		wake_up(&apm->wait);
++		break;
++	case GPR_BASIC_RSP_RESULT:
++		switch (result->opcode) {
++		case APM_CMD_GRAPH_START:
++		case APM_CMD_GRAPH_OPEN:
++		case APM_CMD_GRAPH_PREPARE:
++		case APM_CMD_GRAPH_CLOSE:
++		case APM_CMD_GRAPH_FLUSH:
++		case APM_CMD_GRAPH_STOP:
++		case APM_CMD_SET_CFG:
++			apm->result.opcode = result->opcode;
++			apm->result.status = result->status;
++			if (result->status)
++				dev_err(dev, "Error (%d) Processing 0x%08x cmd\n", result->status,
++					result->opcode);
++			wake_up(&apm->wait);
++			break;
++		default:
++			break;
++		}
++		break;
++	default:
++		break;
++	}
++
++	return 0;
++}
++
++#ifdef CONFIG_OF
++static const struct of_device_id apm_device_id[]  = {
++	{ .compatible = "qcom,q6apm" },
++	{},
++};
++MODULE_DEVICE_TABLE(of, apm_device_id);
++#endif
++
++static gpr_driver_t apm_driver = {
++	.probe = apm_probe,
++	.gpr_callback = apm_callback,
++	.driver = {
++		.name = "qcom-apm",
++		.of_match_table = of_match_ptr(apm_device_id),
++	},
++};
++
++module_gpr_driver(apm_driver);
++MODULE_DESCRIPTION("Audio Process Manager");
++MODULE_LICENSE("GPL");
+diff --git a/sound/soc/qcom/qdsp6/q6apm.h b/sound/soc/qcom/qdsp6/q6apm.h
+new file mode 100644
+index 000000000000..54eadadf712c
+--- /dev/null
++++ b/sound/soc/qcom/qdsp6/q6apm.h
+@@ -0,0 +1,152 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __Q6APM_H__
++#define __Q6APM_H__
++#include <linux/types.h>
++#include <linux/slab.h>
++#include <linux/wait.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/sched.h>
++#include <linux/of.h>
++#include <linux/delay.h>
++#include <sound/soc.h>
++#include <linux/of_platform.h>
++#include <linux/jiffies.h>
++#include <linux/soc/qcom/apr.h>
++#include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
++#include "audioreach.h"
++
++#define APM_PORT_MAX		127
++#define APM_PORT_MAX_AUDIO_CHAN_CNT 8
++#define PCM_CHANNEL_NULL 0
++#define PCM_CHANNEL_FL    1	/* Front left channel. */
++#define PCM_CHANNEL_FR    2	/* Front right channel. */
++#define PCM_CHANNEL_FC    3	/* Front center channel. */
++#define PCM_CHANNEL_LS   4	/* Left surround channel. */
++#define PCM_CHANNEL_RS   5	/* Right surround channel. */
++#define PCM_CHANNEL_LFE  6	/* Low frequency effect channel. */
++#define PCM_CHANNEL_CS   7	/* Center surround channel; Rear center ch */
++#define PCM_CHANNEL_LB   8	/* Left back channel; Rear left channel. */
++#define PCM_CHANNEL_RB   9	/* Right back channel; Rear right channel. */
++#define PCM_CHANNELS   10	/* Top surround channel. */
++
++#define APM_TIMESTAMP_FLAG	0x80000000
++#define FORMAT_LINEAR_PCM	0x0000
++/* APM client callback events */
++#define APM_CMD_EOS				0x0003
++#define APM_CLIENT_EVENT_CMD_EOS_DONE		0x1003
++#define APM_CMD_CLOSE				0x0004
++#define APM_CLIENT_EVENT_CMD_CLOSE_DONE		0x1004
++#define APM_CLIENT_EVENT_CMD_RUN_DONE		0x1008
++#define APM_CLIENT_EVENT_DATA_WRITE_DONE	0x1009
++#define APM_CLIENT_EVENT_DATA_READ_DONE		0x100a
++#define APM_WRITE_TOKEN_MASK                   GENMASK(15, 0)
++#define APM_WRITE_TOKEN_LEN_MASK               GENMASK(31, 16)
++#define APM_WRITE_TOKEN_LEN_SHIFT              16
++
++#define APM_MAX_SESSIONS			8
++
++struct q6apm {
++	struct device *dev;
++	gpr_port_t *port;
++	gpr_device_t *gdev;
++	/* For Graph OPEN/START/STOP/CLOSE operations */
++	wait_queue_head_t wait;
++	struct gpr_ibasic_rsp_result_t result;
++
++	struct mutex cmd_lock;
++	struct mutex lock;
++	uint32_t state;
++
++	struct idr graph_idr;
++	struct idr graph_info_idr;
++	struct idr sub_graphs_idr;
++	struct idr containers_idr;
++	struct idr modules_idr;
++};
++
++struct audio_buffer {
++	phys_addr_t phys;
++	uint32_t size;		/* size of buffer */
++};
++
++struct audioreach_graph_data {
++	struct audio_buffer *buf;
++	uint32_t num_periods;
++	uint32_t dsp_buf;
++	uint32_t mem_map_handle;
++};
++
++struct audioreach_graph {
++	struct audioreach_graph_info *info;
++	uint32_t id;
++	int state;
++	int start_count;
++	/* Cached Graph data */
++	void *graph;
++	struct kref refcount;
++	struct q6apm *apm;
++};
++
++typedef void (*q6apm_cb) (uint32_t opcode, uint32_t token,
++			  void *payload, void *priv);
++struct q6apm_graph {
++	void *priv;
++	q6apm_cb cb;
++	uint32_t id;
++	struct device *dev;
++	struct q6apm *apm;
++	gpr_port_t *port;
++	struct audioreach_graph_data rx_data;
++	struct audioreach_graph_data tx_data;
++	struct gpr_ibasic_rsp_result_t result;
++	wait_queue_head_t cmd_wait;
++	struct mutex lock;
++	struct audioreach_graph *ar_graph;
++	struct audioreach_graph_info *info;
++};
++
++/* Graph Operations */
++struct q6apm_graph *q6apm_graph_open(struct device *dev, q6apm_cb cb,
++				     void *priv, int graph_id);
++int q6apm_graph_close(struct q6apm_graph *graph);
++int q6apm_graph_prepare(struct q6apm_graph *graph);
++int q6apm_graph_start(struct q6apm_graph *graph);
++int q6apm_graph_stop(struct q6apm_graph *graph);
++int q6apm_graph_flush(struct q6apm_graph *graph);
++
++/* Media Format */
++int q6apm_graph_media_format_pcm(struct q6apm_graph *graph,
++				 struct audioreach_module_config *cfg);
++
++int q6apm_graph_media_format_shmem(struct q6apm_graph *graph,
++				   struct audioreach_module_config *cfg);
++
++/* read/write related */
++int q6apm_send_eos_nowait(struct q6apm_graph *graph);
++int q6apm_read(struct q6apm_graph *graph);
++int q6apm_write_async(struct q6apm_graph *graph, uint32_t len, uint32_t msw_ts,
++		      uint32_t lsw_ts, uint32_t wflags);
++
++/* Memory Map related */
++int q6apm_map_memory_regions(struct q6apm_graph *graph,
++			     unsigned int dir, phys_addr_t phys,
++			     size_t period_sz, unsigned int periods);
++int q6apm_unmap_memory_regions(struct q6apm_graph *graph,
++			       unsigned int dir);
++/* Helpers */
++int q6apm_send_cmd_sync(struct q6apm *apm, struct gpr_pkt *pkt,
++			uint32_t rsp_opcode);
++
++/* Callback for graph specific */
++struct audioreach_module *q6apm_find_module_by_mid(struct q6apm_graph *graph,
++						    uint32_t mid);
++
++void q6apm_set_fe_dai_ops(struct snd_soc_dai_driver *dai_drv);
++int q6apm_connect_sub_graphs(struct q6apm *apm, u32 src_sgid, u32 dst_sgid,
++			     bool connect);
++bool q6apm_is_sub_graphs_connected(struct q6apm *apm, u32 src_sgid,
++				   u32 dst_sgid);
++int q6apm_graph_get_rx_shmem_module_iid(struct q6apm_graph *graph);
++
++#endif /* __APM_GRAPH_ */
 -- 
 2.21.0
 

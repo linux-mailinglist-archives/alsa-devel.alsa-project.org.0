@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D80A343BA59
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Oct 2021 21:07:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B69A43BA5A
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Oct 2021 21:08:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BEF9C16FC;
-	Tue, 26 Oct 2021 21:06:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEF9C16FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id D47311702;
+	Tue, 26 Oct 2021 21:07:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D47311702
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1635275261;
-	bh=IzMOKEpX1yKiMxsXmzBNslElIUcTqo4bLbncuJT+xS4=;
+	s=default; t=1635275286;
+	bh=8yKOhdKe8YhlO4BO36otqHmmQF6F/cZiYq4YijJBk70=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gjaziIaoGSaen0fLycdsgsAIriNeFaAfDR7n1wIr70m/XNWzv+9kMAcbHbTQCvJza
-	 a2FYOr/ic3AGfS7jXuTJ4zW821/JXiXhIZ9KK3xaq04sWt/xrOz3QNg9CqNOs6J32Z
-	 TY8EPV1NKIkKqP/IQC4vsXL/gOIPnYK0HnCl2JTk=
+	b=VoI98YhVGqi8hSNFr6/80A/22JkpM45YGOPV1D1L+93DNilOH5+rcWcBdqK3qUXM/
+	 wSo/pt/Ta3Qnrk6zINUZKkzSkB0R9F3ni7CuPYKLXMp0pt+msFMs53InD6+MpK1JpD
+	 m1vpfFnt0JK44TN4eQjyaS+3o5xX2Xu2xEITF2UM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5CF26F80300;
-	Tue, 26 Oct 2021 21:06:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 113E0F804AF;
+	Tue, 26 Oct 2021 21:06:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4569CF802E7; Tue, 26 Oct 2021 21:06:49 +0200 (CEST)
+ id 6835FF804AF; Tue, 26 Oct 2021 21:06:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C68AF80269
- for <alsa-devel@alsa-project.org>; Tue, 26 Oct 2021 21:06:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C68AF80269
+ by alsa1.perex.cz (Postfix) with ESMTPS id A351DF80105
+ for <alsa-devel@alsa-project.org>; Tue, 26 Oct 2021 21:06:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A351DF80105
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="CVOD3umH"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9D10760EB9;
- Tue, 26 Oct 2021 19:06:41 +0000 (UTC)
+ header.b="Lk08ump9"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3AD496103C;
+ Tue, 26 Oct 2021 19:06:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1635275203;
- bh=IzMOKEpX1yKiMxsXmzBNslElIUcTqo4bLbncuJT+xS4=;
+ s=k20201202; t=1635275206;
+ bh=8yKOhdKe8YhlO4BO36otqHmmQF6F/cZiYq4YijJBk70=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=CVOD3umHV3oDckvwcmiXIKpwqijuJTkrbg4kqjUaPne/dcrCLgp+vF0ddcB90Nt0A
- a+ceqCcj5V249Wzr9+xTtAMvBLLkAXio8W0V07sxRAzWVwD6rrNkwVCIZ2flzyX/Rb
- x55hNgOnmf9JcZcpnUS3YtBBURNs4VfEMHrgOVgqIHjkDY1g6PrT2iEbnqgdLFq1ko
- OwxhPzmWOvTHMVyZgUaajTo6wQDm2Gllxt3B0LDX4hNjSikkF/bS3VcAMHnrCn2w83
- rKstYb90QvnN3Gf84Mk2zvzTgzSJYdUjw/EZuRwQeI3W3yVYTUzKcYi4MCyOayAUK7
- 2mo4IxPyyJpmw==
+ b=Lk08ump9vonhI/303D2pHKyP67+8AOoedqMhekDplTD5TnDiNqbzTcyY4KnwzUbfY
+ JWafjMqCprBQuzpSppEUs5THvm/q/TVrB5/GZtiAsLrXyFZdcsoz/5yr0PZBmHSzUd
+ LhJgcOVkIyIxqfIwwCZwYCFIhzy/3LhvUF0XC/XlPAA1Z1izeJagtWMLnQLHu87Jms
+ Bw2rgaQZoMm7xeIA83Bmn5KA3rtaYErlqUHn5ReEQH3LCkud2RKbwPA/gnNECb9Qff
+ GwrQQHRGwJptZnKoXQc0P0OozaoWeSv3ThvUDBj7Z49EPgVSjOHdhVsCWc2+bSn7nD
+ o7S8+Me4aOTZw==
 From: Mark Brown <broonie@kernel.org>
 To: robh@kernel.org, bjorn.andersson@linaro.org,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20211006113950.10782-1-srinivas.kandagatla@linaro.org>
-References: <20211006113950.10782-1-srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v9 00/17] ASoC: qcom: Add AudioReach support
-Message-Id: <163527520137.2033755.9597667983083305370.b4-ty@kernel.org>
-Date: Tue, 26 Oct 2021 20:06:41 +0100
+In-Reply-To: <20211025171649.17730-1-srinivas.kandagatla@linaro.org>
+References: <20211025171649.17730-1-srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH v10 00/17] ASoC: qcom: Add AudioReach support
+Message-Id: <163527520397.2033755.17018333664812052592.b4-ty@kernel.org>
+Date: Tue, 26 Oct 2021 20:06:43 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, lgirdwood@gmail.com, tiwai@suse.de,
- plai@codeaurora.org, pierre-louis.bossart@linux.intel.com
+ bgoswami@codeaurora.org, tiwai@suse.de, plai@codeaurora.org,
+ lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,8 +80,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 6 Oct 2021 12:39:33 +0100, Srinivas Kandagatla wrote:
-> This version addresses all the comments raised as part of v8 review.
+On Mon, 25 Oct 2021 18:16:32 +0100, Srinivas Kandagatla wrote:
+> This version is a respin of v9 fixing a build error in 12/17 patch.
 > 
 > QCOM SoC relevant non-audio patches in this series has been merged into
 > the Qualcomm drivers-for-5.16 tree, as this series depends those patches
